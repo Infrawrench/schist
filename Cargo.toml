@@ -29,6 +29,7 @@ members = [
     "crates/mcp",
     "crates/gallery",
     "crates/ui",
+    "crates/cloud",
     "plugins/codecs-common",
     "plugins/tools-basic",
     "plugins/tools-paint",

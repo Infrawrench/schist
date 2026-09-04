@@ -228,4 +228,8 @@ check-gpu-fx:
 	$(CARGO) test -p schist-compositor-gpu --test fx_parity --test fx_wiring
 check-readme: check-text check-gpu-fx
 	$(CARGO) clippy -p schist-core -p schist-text-engine -p schist-tools-type -p schist-codec-affinity -p schist-fx -p schist-compositor-gpu --all-targets -- -D warnings
+# Native cloud client and editor integration checks.
+.PHONY: check-cloud
+check-cloud:
+	$(CARGO) test -p schist-cloud
 	$(CARGO) check -p schist-app
