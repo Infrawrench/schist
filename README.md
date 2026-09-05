@@ -301,6 +301,10 @@ version, OS and architecture, the CPU model and core count, the GPU
 adapter and driver the compositor opened, and the amount of RAM. No
 hostname, no username, no paths, nothing about what you are working on.
 
+The server (`telemetry.schist.app`) keeps one row per ID: what the last
+ping said, the country Cloudflare places the request in — the address
+itself is not stored — and when that ID was first and last heard from.
+
 Turn it off with the tick in **Preferences ▸ Diagnostics**, or — without
 launching the app — by creating an empty file named `no_telemetry` in
 the config folder (`~/.config/schist/`, or `$XDG_CONFIG_HOME/schist/`).
