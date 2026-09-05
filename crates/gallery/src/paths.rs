@@ -46,6 +46,13 @@ pub fn index_snapshot_path() -> Option<PathBuf> {
     Some(state_dir()?.join("schist/index.v1"))
 }
 
+/// Where the People sidebar's last counts live between runs, so the
+/// numbers are right from the first frame rather than creeping up as
+/// the index is read back.
+pub fn people_summary_path() -> Option<PathBuf> {
+    Some(state_dir()?.join("schist/people.json"))
+}
+
 /// The PSD sidecar an edit of `original` saves into.
 pub fn backing_psd(original: &Path) -> Option<PathBuf> {
     let dir = original.parent()?;
