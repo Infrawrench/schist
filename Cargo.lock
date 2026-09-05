@@ -6334,6 +6334,7 @@ dependencies = [
  "schist-codec-psd",
  "schist-color",
  "schist-core",
+ "schist-document",
  "serde",
  "serde_bytes",
  "serde_json",
@@ -6349,7 +6350,6 @@ dependencies = [
  "wasm-bindgen-test",
  "web-sys",
  "web-time",
- "yrs",
 ]
 
 [[package]]
@@ -6417,6 +6417,7 @@ dependencies = [
  "log",
  "moxcms",
  "schist-codec-affinity",
+ "schist-codec-psd",
  "schist-codec-raw",
  "schist-color",
  "schist-colormgmt",
@@ -6505,6 +6506,27 @@ dependencies = [
  "serde",
  "serde_json",
  "smallvec",
+]
+
+[[package]]
+name = "schist-document"
+version = "0.11.0"
+dependencies = [
+ "anyhow",
+ "image",
+ "rmp-serde",
+ "schist-codec-psd",
+ "schist-codecs-common",
+ "schist-color",
+ "schist-core",
+ "schist-plugin-api",
+ "serde",
+ "serde_bytes",
+ "serde_json",
+ "uuid",
+ "wasm-bindgen-test",
+ "web-time",
+ "yrs",
 ]
 
 [[package]]
