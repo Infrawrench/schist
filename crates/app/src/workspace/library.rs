@@ -358,6 +358,24 @@ pub struct Library {
     /// The sidebar's counts, computed once per change rather than once
     /// per frame, with the key they were computed for.
     people_summary: Option<(SummaryKey, PeopleSummary)>,
+    /// Last launch's whole-library counts, shown until the index
+    /// snapshot has been read back — otherwise the numbers creep up
+    /// batch by batch as the caches are re-read, which reads as a leak.
+    summary_seed: Option<PeopleSummary>,
+    /// What was last written to the summary file, so it is rewritten
+    /// only when the numbers moved.
+    summary_written: Option<PeopleSummary>,
+    /// The index snapshot has been read back (or found missing): the
+    /// idle indexer waits for this, so it never re-reads per-photo
+    /// caches for what the snapshot is about to hand over in one go.
+    index_restored: bool,
+    /// The indexer has gone idle since the snapshot came back: every
+    /// photo has been looked at, and the live counts are the truth.
+    /// Until then the sidebar shows last launch's numbers — a snapshot
+    /// written before the last photos were indexed (the app was quit
+    /// mid-way) would otherwise leave the tally creeping up from a
+    /// fraction as the caches are re-read.
+    index_caught_up: bool,
     /// How the grid is grouped, persisted. Date by default: a camera
     /// roll is a diary before it is a directory tree.
     pub group_by: GroupBy,
@@ -482,6 +500,22 @@ impl Library {
     /// Load the persisted folder list and recents.
     pub fn load() -> Library {
         let file = LibraryFile::load();
+        let people = file.people;
+        // Last launch's counts, lined up with this launch's people by name.
+        let summary_seed = PeopleSummaryFile::load().map(|saved| PeopleSummary {
+            photo_counts: people
+                .iter()
+                .map(|p| {
+                    saved
+                        .photo_counts
+                        .iter()
+                        .find(|(name, _)| name.eq_ignore_ascii_case(&p.name))
+                        .map(|(_, n)| *n)
+                        .unwrap_or(0)
+                })
+                .collect(),
+            unnamed_faces: saved.unnamed_faces,
+        });
         Library {
             open: false,
             folders: file.folders,
@@ -540,7 +574,7 @@ impl Library {
             taken: FxHashMap::default(),
             places: FxHashMap::default(),
             faces: FxHashMap::default(),
-            people: file.people,
+            people,
             ignored_faces: file.ignored_faces,
             denied_faces: file.denied_faces,
             person_filter: None,
@@ -552,6 +586,10 @@ impl Library {
             by_path: FxHashMap::default(),
             people_rev: 0,
             people_summary: None,
+            summary_seed,
+            summary_written: None,
+            index_restored: false,
+            index_caught_up: false,
             group_by: file
                 .group_by
                 .as_deref()
@@ -748,6 +786,11 @@ impl Library {
     /// embedding (when the model to make one is here) or an EXIF
     /// position probe. Returns whether anything queued.
     fn refill_index_queue(&mut self) -> bool {
+        // Not before the snapshot is back: it hands over in one read
+        // what this would re-derive photo by photo from the caches.
+        if !self.index_restored {
+            return false;
+        }
         let embeds = schist_neural::installed("embed-image");
         let scores = nsfw_installed();
         let detector = schist_neural::installed("face");
@@ -1922,6 +1965,16 @@ impl Library {
                 return summary.clone();
             }
         }
+        let unscoped = self.bucket_filter.is_none()
+            && self.folder_filter.is_none()
+            && self.map_filter.is_none();
+        // Until the indexer has caught up, the live count would be a
+        // fraction of the truth climbing towards it: show last time's.
+        if !self.index_caught_up && unscoped {
+            if let Some(seed) = &self.summary_seed {
+                return seed.clone();
+            }
+        }
         let scope = self.scope();
         let claimed = self.claimed_by_photo();
         let summary = PeopleSummary {
@@ -1931,7 +1984,37 @@ impl Library {
             unnamed_faces: self.unnamed_face_count_in(&scope, &claimed),
         };
         self.people_summary = Some((key, summary.clone()));
+        if unscoped && self.index_caught_up && self.summary_written.as_ref() != Some(&summary) {
+            let file = PeopleSummaryFile {
+                unnamed_faces: summary.unnamed_faces,
+                photo_counts: self
+                    .people
+                    .iter()
+                    .zip(&summary.photo_counts)
+                    .map(|(p, n)| (p.name.clone(), *n))
+                    .collect(),
+            };
+            if cfg!(test) || file.save().is_ok() {
+                self.summary_written = Some(summary.clone());
+            }
+        }
         summary
+    }
+
+    /// The snapshot has been read back (or there was none): the idle
+    /// indexer may start.
+    pub(super) fn mark_index_restored(&mut self) {
+        self.index_restored = true;
+        self.people_rev += 1;
+    }
+
+    /// The indexer went idle with the snapshot in: the live counts are
+    /// complete, and the sidebar switches to them.
+    pub(super) fn mark_index_caught_up(&mut self) {
+        if self.index_restored && !self.index_caught_up {
+            self.index_caught_up = true;
+            self.people_rev += 1;
+        }
     }
 
     /// The people a search query names, each with their photos.
@@ -2660,11 +2743,15 @@ impl Workspace {
                 .background_executor()
                 .spawn(async move { read_index_snapshot() })
                 .await;
-            let Some(rows) = rows else { return };
             this.update(cx, |ws, cx| {
-                ws.library.apply_index_rows(rows);
-                // Nothing new to learn is nothing new to write back.
-                ws.library.index_saved_gen = ws.library.index_gen;
+                if let Some(rows) = rows {
+                    ws.library.apply_index_rows(rows);
+                    // Nothing new to learn is nothing new to write back.
+                    ws.library.index_saved_gen = ws.library.index_gen;
+                }
+                ws.library.mark_index_restored();
+                // The indexer was waiting on this.
+                ws.kick_thumb_loader(cx);
                 cx.notify();
             })
             .ok();
@@ -2685,8 +2772,9 @@ impl Workspace {
     /// running. Called from the gallery render, the same way the canvas
     /// kicks tile prefetch from paint.
     pub(super) fn kick_thumb_loader(&mut self, cx: &mut Context<Self>) {
-        // The map can open before any grid cell has queued a thumbnail.
-        if self.library.map_view && !self.library.ticker && self.library.queue.is_empty() {
+        // The map can open before any grid cell has queued a thumbnail,
+        // and the snapshot can land after the loader last went idle.
+        if !self.library.ticker && self.library.queue.is_empty() {
             self.library.refill_index_queue();
         }
         if !self.library.wants_thumbs() {
@@ -2711,16 +2799,21 @@ impl Workspace {
                 if refilled {
                     continue;
                 }
-                this.update(cx, |ws, _| {
+                this.update(cx, |ws, cx| {
                     ws.library.ticker = false;
                     // The loader going idle is "indexing caught up":
-                    // the moment to persist what it learned, and to
-                    // let the face models go — a hundred megabytes
+                    // the sidebar's counts become live, the moment to
+                    // persist what it learned, and to let the face
+                    // models go — a hundred megabytes
                     // between them, reloaded in a third of a second
                     // when the next photo or named face needs them.
                     ws.library.save_index_snapshot();
                     schist_neural::release("face");
                     schist_neural::release("face-embed");
+                    if ws.library.index_restored && !ws.library.index_caught_up {
+                        ws.library.mark_index_caught_up();
+                        cx.notify();
+                    }
                 })
                 .ok();
                 return;
@@ -4191,6 +4284,9 @@ mod tests {
         lib.people.clear();
         lib.ignored_faces.clear();
         lib.denied_faces.clear();
+        lib.summary_seed = None;
+        lib.index_restored = true;
+        lib.index_caught_up = true;
         lib.set_sections(vec![Section {
             dir: PathBuf::from("/p"),
             entries: photos
@@ -4364,6 +4460,41 @@ mod tests {
         let b = lib.faces_in(Path::new("/p/b.jpg"));
         assert_eq!(b[0].person, None);
         assert_eq!(b[0].suggestion, None);
+    }
+
+    #[test]
+    fn last_launch_counts_hold_until_the_snapshot_is_back() {
+        let mut lib = library_with(&["/p/a.jpg", "/p/b.jpg"]);
+        lib.tag_face(Path::new("/p/a.jpg"), face_at(0.1), "Ann");
+        // Launch state: nothing indexed yet, last time's numbers on file.
+        lib.index_restored = false;
+        lib.index_caught_up = false;
+        lib.summary_seed = Some(PeopleSummary {
+            photo_counts: vec![4],
+            unnamed_faces: 9,
+        });
+        assert_eq!(lib.people_summary().unnamed_faces, 9);
+        assert_eq!(lib.people_summary().photo_counts, vec![4]);
+        assert!(
+            !lib.refill_index_queue(),
+            "the indexer waits for the snapshot"
+        );
+        // A scope asks a live question even before then.
+        lib.folder_filter = Some(PathBuf::from("/p"));
+        assert_eq!(lib.people_summary().photo_counts, vec![1]);
+        lib.folder_filter = None;
+        // The snapshot lands, but the indexer has not finished: still
+        // last time's numbers. Once it idles, live ones — written down.
+        lib.mark_index_restored();
+        assert!(lib.refill_index_queue(), "now it may index");
+        assert_eq!(lib.people_summary().unnamed_faces, 9);
+        lib.faces
+            .insert("/p/b.jpg".into(), vec![found(face_at(0.1), None)]);
+        lib.mark_index_caught_up();
+        let live = lib.people_summary();
+        assert_eq!(live.unnamed_faces, 1);
+        assert_eq!(live.photo_counts, vec![1]);
+        assert_eq!(lib.summary_written, Some(live));
     }
 
     #[test]

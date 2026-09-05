@@ -488,6 +488,11 @@ editor.
 
 The sidebar lists each person with an avatar, their name and photo
 count; clicking one shows their photos under a "People · Ann" header.
+The counts are right from the first frame: last launch's numbers are
+kept in the state directory (`people.json`) and shown until the index
+snapshot has been read back, and the idle indexer waits for that
+snapshot rather than re-reading per-photo caches it is about to be
+handed — so the unnamed tally no longer creeps up on load.
 With a bucket (or folder) on show the People rows work inside it: the
 counts are the person's photos in that bucket, the grid shows only
 those, and the header says so ("People · Ann · in Trip"). Clicking the

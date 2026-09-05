@@ -283,6 +283,35 @@ pub fn name_matches_query(name: &str, query: &str) -> bool {
         })
 }
 
+/// The People sidebar's whole-library numbers as last computed, kept in
+/// the state directory so a launch can show them at once. Counts are by
+/// name, so people reordered or renamed since still line up (a renamed
+/// person simply shows nothing until the live count arrives).
+#[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct PeopleSummaryFile {
+    pub unnamed_faces: usize,
+    #[serde(default)]
+    pub photo_counts: Vec<(String, usize)>,
+}
+
+impl PeopleSummaryFile {
+    pub fn load() -> Option<PeopleSummaryFile> {
+        let text = std::fs::read_to_string(crate::paths::people_summary_path()?).ok()?;
+        serde_json::from_str(&text).ok()
+    }
+
+    pub fn save(&self) -> anyhow::Result<()> {
+        let Some(path) = crate::paths::people_summary_path() else {
+            return Ok(());
+        };
+        if let Some(dir) = path.parent() {
+            std::fs::create_dir_all(dir)?;
+        }
+        std::fs::write(path, serde_json::to_string(self)?)?;
+        Ok(())
+    }
+}
+
 const FACES_MAGIC: &[u8; 8] = b"SCHFACE1";
 
 /// The detected faces as bytes: magic, a count, then per face the box
@@ -527,6 +556,23 @@ mod tests {
         assert!(!name_matches_query("Astrid Example", "astridx"));
         assert!(!name_matches_query("Astrid Example", "astrid beach"));
         assert!(!name_matches_query("", "astrid"));
+    }
+
+    #[test]
+    fn the_summary_file_round_trips_through_json() {
+        let file = PeopleSummaryFile {
+            unnamed_faces: 7,
+            photo_counts: vec![("Ann".into(), 3), ("Bob".into(), 1)],
+        };
+        let text = serde_json::to_string(&file).unwrap();
+        assert_eq!(
+            serde_json::from_str::<PeopleSummaryFile>(&text).unwrap(),
+            file
+        );
+        // An older file without counts still reads.
+        let bare: PeopleSummaryFile = serde_json::from_str(r#"{"unnamed_faces": 2}"#).unwrap();
+        assert_eq!(bare.unnamed_faces, 2);
+        assert!(bare.photo_counts.is_empty());
     }
 
     #[test]
