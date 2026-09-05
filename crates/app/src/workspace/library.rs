@@ -4283,6 +4283,7 @@ mod tests {
         let mut lib = Library::load();
         lib.people.clear();
         lib.ignored_faces.clear();
+        lib.buckets.clear();
         lib.denied_faces.clear();
         lib.summary_seed = None;
         lib.index_restored = true;
