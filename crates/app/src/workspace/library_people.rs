@@ -29,6 +29,11 @@ impl Workspace {
         // The viewer takes the grid's place; the world map would hide it.
         self.library.map_view = false;
         self.viewer_unpick();
+        let flat = self.gallery_flat_order();
+        let position = flat
+            .iter()
+            .position(|p| p == &path)
+            .map(|at| (at, flat.len()));
         self.library.viewer = Some(Viewer {
             path: path.clone(),
             image: None,
@@ -39,6 +44,7 @@ impl Workspace {
             pick: None,
             name: String::new(),
             crops: FxHashMap::default(),
+            position,
         });
         // Its faces first, if the detector has not been this way yet:
         // the person is looking at this photo now.

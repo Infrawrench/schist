@@ -66,6 +66,10 @@ pub(super) fn people_rows(
     let mut rows: Vec<gpui::AnyElement> = vec![heading("PEOPLE").into_any_element()];
     let detector = schist_neural::installed("face");
     let recogniser = schist_neural::installed("face-embed");
+    // Their photos in the bucket or folder on show, not in the world:
+    // the number beside a name answers "how many of these are hers".
+    // Counted once per change, not per frame.
+    let summary = ws.library.people_summary();
     let people: Vec<PersonRow> = ws
         .library
         .people
@@ -75,10 +79,7 @@ pub(super) fn people_rows(
             (
                 i,
                 p.name.clone(),
-                // Their photos in the bucket or folder on show, not in
-                // the world: the number beside a name answers "how many
-                // of these are hers".
-                ws.library.person_photos(i).len(),
+                summary.photo_counts.get(i).copied().unwrap_or(0),
                 p.faces.first().map(|f| (f.photo.clone(), f.rect)),
             )
         })
@@ -135,7 +136,7 @@ pub(super) fn people_rows(
                 .into_any_element(),
         );
     }
-    let unnamed = ws.library.unnamed_face_count();
+    let unnamed = summary.unnamed_faces;
     if unnamed > 0 {
         let selected = viewing == Some(PersonFilter::Unnamed);
         rows.push(
@@ -320,10 +321,9 @@ pub(super) fn viewer(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .file_name()
         .map(|n| n.to_string_lossy().into_owned())
         .unwrap_or_default();
-    let flat = ws.gallery_flat_order();
-    let at = flat.iter().position(|p| p == &path);
-    let position = at
-        .map(|i| format!("{} of {}", i + 1, flat.len()))
+    let position = v
+        .position
+        .map(|(at, of)| format!("{} of {of}", at + 1))
         .unwrap_or_default();
     let edit_path = path.clone();
     let header = div()

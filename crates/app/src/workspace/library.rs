@@ -147,6 +147,32 @@ pub enum PersonFilter {
     Unnamed,
 }
 
+/// What the sidebar has narrowed the gallery to, resolved once.
+enum Scope {
+    All,
+    Folder(PathBuf),
+    Bucket(FxHashSet<PathBuf>),
+}
+
+/// What the sidebar's people counts were computed against.
+#[derive(Clone, PartialEq)]
+struct SummaryKey {
+    index_gen: u64,
+    people_rev: u64,
+    bucket_filter: Option<usize>,
+    folder_filter: Option<PathBuf>,
+    map_filter: Option<GeoBounds>,
+    smart_synced: Option<(u64, u64)>,
+}
+
+/// The sidebar's people numbers, within the scope on show.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct PeopleSummary {
+    /// Per person, in `people` order: their photos in scope.
+    pub photo_counts: Vec<usize>,
+    pub unnamed_faces: usize,
+}
+
 /// One face as the viewer shows it: the box, who it is (if anyone),
 /// who it might be, and whether the detector or the user drew it.
 #[derive(Clone, Debug, PartialEq)]
@@ -191,6 +217,9 @@ pub struct Viewer {
     pub name: String,
     /// Face crops cut from the decoded picture, by face key.
     pub crops: FxHashMap<String, Arc<RenderImage>>,
+    /// Where the photo sits in the grid's order, `(index, of)`, worked
+    /// out once on opening rather than per frame.
+    pub position: Option<(usize, usize)>,
 }
 
 /// A drag of gallery photos, headed for a folder or a bucket.
@@ -319,6 +348,16 @@ pub struct Library {
     avatar_ticker: bool,
     /// The people the current query named, for the results header.
     pub search_people: Vec<String>,
+    /// Every scanned entry by path — `entry_of` is asked per tagged
+    /// photo per frame, and a walk of the sections for each was a
+    /// visible stutter on a big library.
+    by_path: FxHashMap<PathBuf, Entry>,
+    /// Bumped by every save (people, buckets, denials), so the sidebar's
+    /// people summary knows to recount.
+    people_rev: u64,
+    /// The sidebar's counts, computed once per change rather than once
+    /// per frame, with the key they were computed for.
+    people_summary: Option<(SummaryKey, PeopleSummary)>,
     /// How the grid is grouped, persisted. Date by default: a camera
     /// roll is a diary before it is a directory tree.
     pub group_by: GroupBy,
@@ -510,6 +549,9 @@ impl Library {
             avatar_queue: Vec::new(),
             avatar_ticker: false,
             search_people: Vec::new(),
+            by_path: FxHashMap::default(),
+            people_rev: 0,
+            people_summary: None,
             group_by: file
                 .group_by
                 .as_deref()
@@ -543,7 +585,9 @@ impl Library {
         }
     }
 
-    fn save(&self) {
+    fn save(&mut self) {
+        // Whatever was saved, the sidebar's counts may have moved.
+        self.people_rev += 1;
         // Unit tests build libraries from thin air; writing them over
         // the developer's own library.json would be a surprise.
         if cfg!(test) {
@@ -1370,10 +1414,19 @@ pub(super) const PERSON_BOOST: f32 = 1.0;
 impl Library {
     /// The entry for a photo, if the scan knows it.
     pub fn entry_of(&self, path: &Path) -> Option<&Entry> {
-        self.sections
+        self.by_path.get(path)
+    }
+
+    /// Take a fresh scan on board, and rebuild the by-path index the
+    /// per-frame lookups lean on. The only way `sections` should be set.
+    pub fn set_sections(&mut self, sections: Vec<Section>) {
+        self.by_path = sections
             .iter()
             .flat_map(|s| s.entries.iter())
-            .find(|e| e.path == path)
+            .map(|e| (e.path.clone(), e.clone()))
+            .collect();
+        self.sections = sections;
+        self.people_rev += 1;
     }
 
     /// The detector's faces in a photo, if it has been looked at.
@@ -1529,21 +1582,33 @@ impl Library {
     /// Put every unnamed face that closely matches a named person with
     /// them, as automatic tags — skipping faces the user has dismissed
     /// or denied that name. Returns how many were added. Called after a
-    /// hand-made tag and whenever detections arrive.
+    /// hand-made tag (the whole library: the person's mean moved) and
+    /// when a snapshot is restored.
     pub fn auto_tag_all(&mut self) -> usize {
+        let paths: Vec<PathBuf> = self.faces.keys().cloned().collect();
+        self.auto_tag_paths(&paths)
+    }
+
+    /// The auto-tag pass over some photos only — the ones a loader batch
+    /// just found faces in. Nothing else changed, so nothing else can
+    /// have started matching.
+    pub fn auto_tag_paths(&mut self, paths: &[PathBuf]) -> usize {
         let centroids = self.person_centroids();
-        if centroids.is_empty() {
+        if centroids.is_empty() || paths.is_empty() {
             return 0;
         }
+        let claimed = self.claimed_by_photo();
         let mut additions: Vec<(usize, TaggedFace)> = Vec::new();
-        for (path, faces) in &self.faces {
+        for path in paths {
+            let Some(faces) = self.faces.get(path) else {
+                continue;
+            };
+            let taken = claimed.get(path.as_path());
             for face in faces {
                 let Some(embed) = face.vector() else {
                     continue;
                 };
-                if self.is_ignored(path, &face.rect)
-                    || self.people.iter().any(|p| p.tagged(path, &face.rect))
-                {
+                if taken.is_some_and(|t| t.iter().any(|r| r.same_face(&face.rect))) {
                     continue;
                 }
                 let Some((index, cosine)) =
@@ -1576,6 +1641,14 @@ impl Library {
     /// The auto-tag pass, persisted when it changed anything.
     pub(super) fn auto_tag_and_save(&mut self) {
         if self.auto_tag_all() > 0 {
+            self.save();
+        }
+    }
+
+    /// The auto-tag pass over a batch's photos, persisted when it
+    /// changed anything.
+    pub(super) fn auto_tag_paths_and_save(&mut self, paths: &[PathBuf]) {
+        if self.auto_tag_paths(paths) > 0 {
             self.save();
         }
     }
@@ -1711,22 +1784,26 @@ impl Library {
         }
     }
 
-    /// Whether a photo is inside what the sidebar has narrowed the
-    /// gallery to — the bucket on show, else the folder, else anything
-    /// — and past the map filter. The People rows count and show
-    /// within this, so a person's number is theirs *in this bucket*.
-    pub fn in_scope(&self, path: &Path) -> bool {
-        if !self.passes_map(path) {
-            return false;
-        }
+    /// What the sidebar has narrowed the gallery to — the bucket on
+    /// show, else the folder, else anything — built once per pass so a
+    /// bucket's membership is a set lookup, not a scan per photo.
+    fn scope(&self) -> Scope {
         if let Some(bucket) = self.bucket_filter.and_then(|i| self.buckets.get(i)) {
-            return bucket.photos.contains(&path.to_path_buf())
-                || bucket.matches.iter().any(|p| p == path);
+            return Scope::Bucket(bucket.contents().into_iter().collect());
         }
         match &self.folder_filter {
-            Some(root) => path.starts_with(root),
-            None => true,
+            Some(root) => Scope::Folder(root.clone()),
+            None => Scope::All,
         }
+    }
+
+    fn scope_allows(&self, scope: &Scope, path: &Path) -> bool {
+        self.passes_map(path)
+            && match scope {
+                Scope::All => true,
+                Scope::Folder(root) => path.starts_with(root),
+                Scope::Bucket(set) => set.contains(path),
+            }
     }
 
     /// What the scope is called, for the People headers: the bucket's
@@ -1746,6 +1823,11 @@ impl Library {
     /// the scan still knows and the scope (bucket, folder, map) lets
     /// through.
     pub fn person_photos(&self, index: usize) -> Vec<Entry> {
+        let scope = self.scope();
+        self.person_photos_in(index, &scope)
+    }
+
+    fn person_photos_in(&self, index: usize, scope: &Scope) -> Vec<Entry> {
         let Some(person) = self.people.get(index) else {
             return Vec::new();
         };
@@ -1753,42 +1835,103 @@ impl Library {
             .photos()
             .iter()
             .filter_map(|p| self.entry_of(p).cloned())
-            .filter(|e| self.in_scope(&e.path))
+            .filter(|e| self.scope_allows(scope, &e.path))
             .collect()
+    }
+
+    /// Every claimed face by photo — the tags and the dismissals — so a
+    /// pass over the detections asks "is this one spoken for" against
+    /// the handful in its own photo rather than every tag in the library.
+    fn claimed_by_photo(&self) -> FxHashMap<&Path, Vec<FaceRect>> {
+        let mut claimed: FxHashMap<&Path, Vec<FaceRect>> = FxHashMap::default();
+        for face in self
+            .people
+            .iter()
+            .flat_map(|p| p.faces.iter())
+            .chain(self.ignored_faces.iter())
+        {
+            claimed
+                .entry(face.photo.as_path())
+                .or_default()
+                .push(face.rect);
+        }
+        claimed
     }
 
     /// Photos with a detected face nobody has named or dismissed, in
     /// scan order, within the scope.
     pub fn unnamed_photos(&self) -> Vec<Entry> {
+        let scope = self.scope();
+        let claimed = self.claimed_by_photo();
         self.sections
             .iter()
             .flat_map(|s| s.entries.iter())
-            .filter(|e| self.in_scope(&e.path))
-            .filter(|e| self.has_unnamed_face(&e.path))
+            .filter(|e| self.scope_allows(&scope, &e.path))
+            .filter(|e| {
+                self.faces.get(&e.path).is_some_and(|faces| {
+                    let taken = claimed.get(e.path.as_path());
+                    faces
+                        .iter()
+                        .any(|f| !taken.is_some_and(|t| t.iter().any(|r| r.same_face(&f.rect))))
+                })
+            })
             .cloned()
             .collect()
     }
 
-    fn has_unnamed_face(&self, path: &Path) -> bool {
-        self.faces.get(path).is_some_and(|faces| {
-            faces.iter().any(|f| {
-                !self.is_ignored(path, &f.rect)
-                    && !self.people.iter().any(|p| p.tagged(path, &f.rect))
-            })
-        })
-    }
-
     /// How many detected faces are still unnamed, within the scope.
     pub fn unnamed_face_count(&self) -> usize {
+        let scope = self.scope();
+        self.unnamed_face_count_in(&scope, &self.claimed_by_photo())
+    }
+
+    fn unnamed_face_count_in(
+        &self,
+        scope: &Scope,
+        claimed: &FxHashMap<&Path, Vec<FaceRect>>,
+    ) -> usize {
         self.faces
             .iter()
-            .filter(|(path, _)| self.in_scope(path))
-            .flat_map(|(path, faces)| faces.iter().map(move |f| (path, f)))
-            .filter(|(path, f)| {
-                !self.is_ignored(path, &f.rect)
-                    && !self.people.iter().any(|p| p.tagged(path, &f.rect))
+            .filter(|(path, _)| self.scope_allows(scope, path))
+            .map(|(path, faces)| {
+                let taken = claimed.get(path.as_path());
+                faces
+                    .iter()
+                    .filter(|f| !taken.is_some_and(|t| t.iter().any(|r| r.same_face(&f.rect))))
+                    .count()
             })
-            .count()
+            .sum()
+    }
+
+    /// The sidebar's People numbers — each person's photos in scope and
+    /// the unnamed tally — recounted only when something they depend on
+    /// moved, and otherwise handed back from the last count. The sidebar
+    /// asks every frame; a library of thousands cannot be walked every
+    /// frame.
+    pub(super) fn people_summary(&mut self) -> PeopleSummary {
+        let key = SummaryKey {
+            index_gen: self.index_gen,
+            people_rev: self.people_rev,
+            bucket_filter: self.bucket_filter,
+            folder_filter: self.folder_filter.clone(),
+            map_filter: self.map_filter,
+            smart_synced: self.smart_synced,
+        };
+        if let Some((cached_key, summary)) = &self.people_summary {
+            if *cached_key == key {
+                return summary.clone();
+            }
+        }
+        let scope = self.scope();
+        let claimed = self.claimed_by_photo();
+        let summary = PeopleSummary {
+            photo_counts: (0..self.people.len())
+                .map(|i| self.person_photos_in(i, &scope).len())
+                .collect(),
+            unnamed_faces: self.unnamed_face_count_in(&scope, &claimed),
+        };
+        self.people_summary = Some((key, summary.clone()));
+        summary
     }
 
     /// The people a search query names, each with their photos.
@@ -2478,7 +2621,7 @@ impl Workspace {
     /// Re-walk the watched folders on a background thread.
     pub fn library_rescan(&mut self, cx: &mut Context<Self>) {
         if self.library.folders.is_empty() {
-            self.library.sections = Vec::new();
+            self.library.set_sections(Vec::new());
             return;
         }
         if self.library.scanning {
@@ -2494,7 +2637,7 @@ impl Workspace {
                 .await;
             this.update(cx, |ws, cx| {
                 ws.library.scanning = false;
-                ws.library.sections = sections;
+                ws.library.set_sections(sections);
                 ws.maybe_load_index_snapshot(cx);
                 cx.notify();
             })
@@ -2602,7 +2745,7 @@ impl Workspace {
             let keep = this.update(cx, |ws, cx| {
                 ws.library.index_gen += 1;
                 let visible_work = results.iter().any(|(_, _, for_index, _)| !for_index);
-                let mut new_faces = false;
+                let mut new_faces: Vec<PathBuf> = Vec::new();
                 for (key, mtime, for_index, outcome) in results {
                     if let Some(score) = outcome.score {
                         ws.library.flagged.insert(key.clone(), is_explicit(score));
@@ -2616,8 +2759,10 @@ impl Workspace {
                     }
                     ws.library.places.insert(key.clone(), outcome.meta.place);
                     if let Some(faces) = outcome.faces {
+                        if !faces.is_empty() {
+                            new_faces.push(key.clone());
+                        }
                         ws.library.faces.insert(key.clone(), faces);
-                        new_faces = true;
                     }
                     if outcome.needs_heif && ws.library.heif_needed.is_none() {
                         ws.library.heif_needed = Some(key.clone());
@@ -2634,8 +2779,8 @@ impl Workspace {
                 }
                 // Faces just found may belong to people already named:
                 // put them there, as Picasa filled its albums.
-                if new_faces {
-                    ws.library.auto_tag_and_save();
+                if !new_faces.is_empty() {
+                    ws.library.auto_tag_paths_and_save(&new_faces);
                 }
                 // The batch may have pushed the map over budget; shed
                 // whatever scrolled away longest ago.
@@ -4046,7 +4191,7 @@ mod tests {
         lib.people.clear();
         lib.ignored_faces.clear();
         lib.denied_faces.clear();
-        lib.sections = vec![Section {
+        lib.set_sections(vec![Section {
             dir: PathBuf::from("/p"),
             entries: photos
                 .iter()
@@ -4056,7 +4201,7 @@ mod tests {
                     edited: false,
                 })
                 .collect(),
-        }];
+        }]);
         lib
     }
 
@@ -4231,6 +4376,10 @@ mod tests {
         lib.person_filter = Some(PersonFilter::Person(0));
         assert_eq!(lib.person_photos(0).len(), 2);
         assert_eq!(lib.unnamed_face_count(), 1);
+        // The cached summary agrees, and follows the bucket below.
+        let summary = lib.people_summary();
+        assert_eq!(summary.photo_counts, vec![2]);
+        assert_eq!(summary.unnamed_faces, 1);
         // A bucket holding only b: Ann has one photo in it, and the
         // header says where.
         lib.buckets.push(Bucket {
@@ -4244,6 +4393,8 @@ mod tests {
         assert_eq!(lib.person_photos(0).len(), 1);
         assert_eq!(lib.grouped()[0].0, "People \u{b7} Ann \u{b7} in Trip");
         assert_eq!(lib.unnamed_face_count(), 0, "c is not in the bucket");
+        assert_eq!(lib.people_summary().photo_counts, vec![1]);
+        assert_eq!(lib.people_summary().unnamed_faces, 0);
         lib.bucket_filter = None;
         // A folder that holds nothing of hers.
         lib.folder_filter = Some(PathBuf::from("/elsewhere"));
@@ -4368,10 +4519,10 @@ mod tests {
             mtime: 0,
             edited: false,
         };
-        lib.sections = vec![Section {
+        lib.set_sections(vec![Section {
             dir: PathBuf::from("/p"),
             entries: vec![mk("a"), mk("b"), mk("c")],
-        }];
+        }]);
         lib.flagged.insert(PathBuf::from("/p/a.jpg"), true);
         lib.flagged.insert(PathBuf::from("/p/b.jpg"), false);
         assert_eq!(lib.verdict(Path::new("/p/a.jpg")), "flagged");
