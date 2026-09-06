@@ -38,13 +38,30 @@ open tab, but filesystem recovery across page reloads is not available in WASM.
 
 ## Gallery and documents
 
-The gallery sidebar shows cloud folders and buckets after sign-in. Folder and
-bucket lists can be searched and paged, and their contents update through live
-subscriptions. Search a folder recursively, a bucket, or the whole cloud library.
-Filters include MIME types, tags, edited state, content classification, capture
-dates, minimum rating and geographic bounds. Smart buckets save a scope, query
-and filters. Folder and bucket creation, renaming, deletion and bucket membership
-changes use the same connection.
+After sign-in the gallery sidebar lists the Schist Cloud library beneath the
+local folders and buckets: **All cloud photos**, the cloud folders as a tree, and
+the cloud buckets. Clicking any of them shows that remote library in the same
+grid the local gallery uses — thumbnails under month headers, or under folder
+headers with the sidebar's Group By chips — with the same selection, arrow keys,
+drags and right-click menu, and the tray's Edit, Download… and size slider. The
+search box in the top strip searches the remote library as you type (names and
+tags, ranked by the provider); **Filters…** beside it sets MIME types, tags,
+edited state, content classification, capture dates, minimum rating and
+geographic bounds, and a chip in the strip stays lit while any are on. Escape
+clears the search. Pages of 200 photos have links under the grid.
+
+Folder rows offer Rename, New folder inside and Delete on their right-click
+menu; bucket rows offer Edit, Add selected and Delete; a photo's menu has Edit,
+Download, bucket membership and Delete from Schist Cloud. Folder and bucket
+lists update through live subscriptions and page at 500; a Find link appears
+when a library outgrows one page. Smart buckets save a scope, query and
+filters. The browser build shows the same room with only the cloud in it.
+
+Thumbnails come from the `thumbnail_url` on each asset in a workspace snapshot:
+a signed download ticket the provider serves without credentials (format
+`thumbnail`, revision-bound). The client fetches a page's worth through a
+small worker pool, decodes WebP/PNG/JPEG at up to 256 px, and shows "no
+preview" for an asset whose URL is absent or whose fetch failed.
 
 Drag local gallery photos, a watched local folder, or files/folders from the file
 manager into a cloud bucket to upload them. Local originals remain in place.

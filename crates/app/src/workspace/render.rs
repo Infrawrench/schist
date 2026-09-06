@@ -756,11 +756,8 @@ impl Render for Workspace {
                 cx.notify();
             }))
             .on_action(cx.listener(|ws, _: &CancelGesture, _w, cx| {
-                // Escape leaves the gallery's search, a face being
-                // named, or the viewer before anything else — they are
-                // the innermost things open.
-                #[cfg(not(target_arch = "wasm32"))]
-                if ws.gallery_open() && ws.gallery_escape(cx) {
+                // Escape leaves the active gallery field or viewer first.
+                if ws.gallery_escape(cx) {
                     return;
                 }
                 ws.cancel_gesture(cx);
@@ -769,11 +766,7 @@ impl Render for Workspace {
                 // Enter in the gallery opens the selected photo — the
                 // binding takes the keystroke before any key listener
                 // could, so the branch lives here.
-                #[cfg(not(target_arch = "wasm32"))]
-                if ws.gallery_open() && !ws.library.search_active {
-                    if let Some(path) = ws.library.lead_selected().cloned() {
-                        ws.open_from_gallery(path, cx);
-                    }
+                if ws.gallery_enter(cx) {
                     return;
                 }
                 ws.commit_gesture(cx);

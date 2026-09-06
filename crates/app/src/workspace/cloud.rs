@@ -1,6 +1,10 @@
 //! Cloud account, live queries and the editor/provider binding. The socket lives
 //! in schist-cloud; this module translates its events into GPUI state changes.
+use super::gallery_chrome::GridScroll;
+#[cfg(target_arch = "wasm32")]
+use super::gallery_chrome::GroupBy;
 use super::*;
+use crate::ui::LineEdit;
 use anyhow::{anyhow, Result};
 use remote::transfer::DownloadedAsset;
 use schist_cloud::{
@@ -111,6 +115,16 @@ enum Job {
         message: String,
     },
 }
+/// What the cloud gallery's right-click menu is about.
+#[derive(Clone, Debug)]
+pub(crate) enum CloudContext {
+    Photo(String),
+    Folder(String),
+    Bucket(String),
+}
+/// Assets per page. A page's thumbnails stay decoded while it shows,
+/// so this bounds texture memory as much as it bounds the query.
+pub(crate) const PAGE_SIZE: u64 = 200;
 pub(crate) struct CloudState {
     pub generation: super::cloud_generation::GenerationState,
     pub account: Option<Account>,
@@ -129,7 +143,28 @@ pub(crate) struct CloudState {
     pub assets: Vec<Asset>,
     pub total: u64,
     pub query: AssetQuery,
-    pub selected: HashSet<String>,
+    /// The selected assets, in the order they were picked; the last is
+    /// the lead — what arrows move and Enter opens.
+    pub selected: Vec<String>,
+    /// Where a Shift-click range extends from.
+    pub select_anchor: Option<String>,
+    /// The search box in the top strip; its text becomes the query
+    /// after a short pause in typing.
+    pub search: LineEdit,
+    pub search_seq: u64,
+    /// The grid's scroll and viewport bookkeeping.
+    pub grid: GridScroll,
+    /// The gallery's right-click menu: where, and on what.
+    pub context: Option<(Point<Pixels>, CloudContext)>,
+    /// Whether the current asset watch has delivered its first snapshot.
+    pub loaded: bool,
+    /// Thumbnails whose fetch or decode failed at the current revision.
+    pub thumbnail_failed: HashSet<String>,
+    /// The browser has no local gallery to keep these in.
+    #[cfg(target_arch = "wasm32")]
+    pub thumb_px: f32,
+    #[cfg(target_arch = "wasm32")]
+    pub group_by: GroupBy,
     pub catalogue: String,
     pub folders_offset: u64,
     pub buckets_offset: u64,
@@ -197,8 +232,22 @@ impl Default for CloudState {
             buckets: vec![],
             assets: vec![],
             total: 0,
-            query: Default::default(),
-            selected: HashSet::new(),
+            query: AssetQuery {
+                limit: PAGE_SIZE,
+                ..Default::default()
+            },
+            selected: Vec::new(),
+            select_anchor: None,
+            search: LineEdit::default(),
+            search_seq: 0,
+            grid: GridScroll::default(),
+            context: None,
+            loaded: false,
+            thumbnail_failed: HashSet::new(),
+            #[cfg(target_arch = "wasm32")]
+            thumb_px: 144.0,
+            #[cfg(target_arch = "wasm32")]
+            group_by: GroupBy::Date,
             catalogue: String::new(),
             folders_offset: 0,
             buckets_offset: 0,
@@ -423,6 +472,11 @@ impl Workspace {
         self.cloud.thumbnails.clear();
         self.cloud.thumbnail_jobs.clear();
         self.cloud.thumbnail_active = 0;
+        self.cloud.thumbnail_failed.clear();
+        self.cloud.selected.clear();
+        self.cloud.select_anchor = None;
+        self.cloud.search.clear();
+        self.cloud.context = None;
         self.cloud.folders.clear();
         self.cloud.buckets.clear();
         self.cloud.writes.push_back(None);
@@ -458,17 +512,28 @@ impl Workspace {
         self.cloud.query.scope = scope;
         self.cloud.query.offset = 0;
         self.cloud.selected.clear();
-        self.cloud_watch_assets();
+        self.cloud.select_anchor = None;
+        self.cloud.context = None;
+        self.cloud_watch_assets(false);
         cx.notify();
     }
-    pub(crate) fn cloud_watch_assets(&mut self) {
+    /// (Re)subscribe to the assets the query names. `keep` leaves the
+    /// current page on screen until the new one lands — what a search
+    /// refinement wants; a change of scope starts from a blank grid.
+    pub(crate) fn cloud_watch_assets(&mut self, keep: bool) {
+        self.cloud.query.sort = self.cloud_sort();
+        self.cloud.query.limit = PAGE_SIZE;
+        self.cloud.loaded = false;
+        if !keep {
+            self.cloud.assets.clear();
+            self.cloud.total = 0;
+            self.cloud.grid.handle.set_offset(point(px(0.0), px(0.0)));
+        }
         if let Some(c) = &self.cloud.client {
             if !self.cloud.watching.is_empty() {
                 c.handle.unwatch(&self.cloud.watching);
             }
             self.cloud.watching = remote::Uuid::new_v4().to_string();
-            self.cloud.assets.clear();
-            self.cloud.total = 0;
             c.handle.watch(
                 &self.cloud.watching,
                 WatchQuery::Assets {
@@ -515,6 +580,9 @@ impl Workspace {
         self.cloud
             .thumbnail_jobs
             .retain(|(id, _)| visible.contains(id));
+        self.cloud
+            .thumbnail_failed
+            .retain(|id| visible.contains(id));
         for asset in &self.cloud.assets {
             if self.cloud.thumbnail_active >= 4 {
                 break;
@@ -557,6 +625,7 @@ impl Workspace {
                         .ok_or_else(|| anyhow!("Invalid thumbnail"))
                 })
                 .await
+                .map_err(|e| log::warn!("cloud: thumbnail for {id} failed: {e}"))
                 .ok();
                 let _ = sender.send(Job::Thumbnail {
                     epoch,
@@ -581,8 +650,14 @@ impl Workspace {
                     image,
                 } if epoch == self.cloud.epoch => {
                     self.cloud.thumbnail_active = self.cloud.thumbnail_active.saturating_sub(1);
-                    if let Some(image) = image {
-                        self.cloud.thumbnails.insert(id, (revision, image));
+                    match image {
+                        Some(image) => {
+                            self.cloud.thumbnail_failed.remove(&id);
+                            self.cloud.thumbnails.insert(id, (revision, image));
+                        }
+                        None => {
+                            self.cloud.thumbnail_failed.insert(id);
+                        }
                     }
                 }
                 #[cfg(not(target_arch = "wasm32"))]
@@ -767,8 +842,17 @@ impl Workspace {
                         .map(parse)
                         .collect::<Result<_>>()?;
                     self.cloud.total = snapshot.total;
+                    self.cloud.loaded = true;
                     let ids: HashSet<_> = self.cloud.assets.iter().map(|a| a.id.clone()).collect();
                     self.cloud.selected.retain(|id| ids.contains(id));
+                    if self
+                        .cloud
+                        .select_anchor
+                        .as_ref()
+                        .is_some_and(|id| !ids.contains(id))
+                    {
+                        self.cloud.select_anchor = None;
+                    }
                 }
                 _ => {}
             },
@@ -1588,9 +1672,12 @@ impl Workspace {
                 let domain = remote::auth::domain(&get("cloud-domain"))?;
                 self.cloud_login(domain, cx);
             }
-            "search" => {
+            "search" | "filters" => {
                 let mut q = self.cloud.query.clone();
-                q.text = get("cloud-query");
+                if kind == "search" {
+                    q.text = get("cloud-query");
+                    self.cloud.search.set_text(q.text.clone());
+                }
                 q.offset = 0;
                 q.filters = parse_filters(&fields)?;
                 if let Some(r) = q.filters.min_rating {
@@ -1603,7 +1690,7 @@ impl Workspace {
                     );
                 }
                 self.cloud.query = q;
-                self.cloud_watch_assets();
+                self.cloud_watch_assets(true);
             }
             "catalogue" => {
                 self.cloud.catalogue = get("cloud-query");
@@ -1611,19 +1698,36 @@ impl Workspace {
                 self.cloud.buckets_offset = 0;
                 self.cloud_refresh_catalogue();
             }
-            "new-folder" => {
+            "new-folder" | "new-subfolder" => {
+                // A folder made from the sidebar lands in the folder on
+                // show; one made from a folder's menu lands inside it.
+                let parent = if kind == "new-subfolder" {
+                    self.cloud
+                        .form_target
+                        .take()
+                        .map(|(id, _)| Value::from(id))
+                        .unwrap_or(Value::Nil)
+                } else {
+                    match &self.cloud.query.scope {
+                        Scope::Folder { id, .. } => id.clone().into(),
+                        _ => Value::Nil,
+                    }
+                };
                 self.cloud_mutate(
                     "folder.create",
-                    vec![
-                        ("name", get("cloud-name").into()),
-                        (
-                            "parent_id",
-                            match &self.cloud.query.scope {
-                                Scope::Folder { id, .. } => id.clone().into(),
-                                _ => Value::Nil,
-                            },
-                        ),
-                    ],
+                    vec![("name", get("cloud-name").into()), ("parent_id", parent)],
+                );
+            }
+            "delete-asset" => {
+                let (id, revision) = self
+                    .cloud
+                    .form_target
+                    .clone()
+                    .ok_or_else(|| anyhow!("No photo selected"))?;
+                self.cloud.selected.retain(|s| s != &id);
+                self.cloud_mutate(
+                    "asset.delete",
+                    vec![("id", id.into()), ("revision", revision.into())],
                 );
             }
             "new-bucket" | "edit-bucket" => {

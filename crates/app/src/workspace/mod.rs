@@ -48,6 +48,7 @@ mod docs;
 mod edit_ops;
 mod export;
 mod filters;
+pub(crate) mod gallery_chrome;
 mod image_ops;
 mod input;
 mod layers_panel;

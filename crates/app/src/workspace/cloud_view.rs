@@ -1,4 +1,19 @@
-//! Cloud gallery controls share the local gallery's sidebar and drag targets.
+//! The Schist Cloud gallery: the same room as the local library — the
+//! strip, the sidebar, the grouped grid, the tray, the right-click menu
+//! — showing a remote library over the workspace socket. Everything
+//! visual comes from `gallery_chrome`; what this file adds is the
+//! remote half: cloud folders and buckets in the sidebar, assets
+//! grouped by month or folder in the grid, the server-side search box,
+//! and the dialogs behind the mutations. The browser build, which has
+//! no local gallery, composes its whole gallery from these parts.
+use super::cloud::{CloudContext, PAGE_SIZE};
+use super::gallery_chrome::{
+    self as chrome, cell_frame, empty_note, grid_column, grid_frame, lead_probe, menu_frame,
+    menu_row, menu_sep, pal, search_field, section_header, sidebar_caption, sidebar_link,
+    sidebar_row_frame, DragGhost, GroupBy, MenuAction, TrayInfo,
+};
+#[cfg(target_arch = "wasm32")]
+use super::gallery_chrome::{group_chips, sidebar_column};
 #[cfg(not(target_arch = "wasm32"))]
 use super::library::GalleryDrag;
 use super::*;
@@ -9,12 +24,14 @@ struct GalleryDrag {
 }
 
 use crate::ui;
-use gpui::{img, AppContext as _, StatefulInteractiveElement as _, StyledImage as _};
+use gpui::{AppContext as _, StatefulInteractiveElement as _};
 use schist_cloud::{
     protocol::{map, value},
-    Scope, Value,
+    Asset, Bucket, Filters, Folder, Rule, Scope, Value,
 };
+use std::collections::BTreeMap;
 
+/// A drag of remote items — assets or a folder — headed for a bucket.
 #[derive(Clone)]
 struct RemoteDrag {
     items: Vec<Value>,
@@ -116,52 +133,689 @@ pub(crate) fn filter_fields(
         ),
     ]
 }
-pub(crate) fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
-    let mut root = div()
-        .flex()
-        .flex_col()
-        .gap_1()
-        .pt_3()
-        .child(caption("SCHIST CLOUD"));
-    if ws.cloud.account.is_none() {
-        return root
-            .child(ui::button(
-                "Sign into Schist Cloud…",
-                false,
-                |ws, _, cx| ws.cloud_sign_in(cx),
-                cx,
-            ))
-            .into_any_element();
+
+/// How many of a rule's filters are set, for the bucket header.
+fn filter_count(f: &Filters) -> usize {
+    [
+        f.mime_types.is_some(),
+        f.tags.is_some(),
+        f.edited.is_some(),
+        f.content.is_some(),
+        f.captured_after.is_some(),
+        f.captured_before.is_some(),
+        f.min_rating.is_some(),
+        f.bounds.is_some(),
+    ]
+    .into_iter()
+    .filter(|set| *set)
+    .count()
+}
+
+/// A smart bucket's rule as a header subtitle: the query in quotes,
+/// then how many filters it adds.
+fn rule_label(rule: &Rule) -> String {
+    let mut parts = Vec::new();
+    if !rule.text.trim().is_empty() {
+        parts.push(format!("\u{201c}{}\u{201d}", rule.text.trim()));
     }
-    root = root
-        .child(caption(ws.cloud.account.as_ref().unwrap().domain.clone()))
-        .child(ui::button(
-            "All cloud photos",
-            false,
-            |ws, _, cx| ws.cloud_browse(Scope::Library, cx),
+    match filter_count(&rule.filters) {
+        0 => {}
+        1 => parts.push("1 filter".to_string()),
+        n => parts.push(format!("{n} filters")),
+    }
+    if parts.is_empty() {
+        "smart bucket".to_string()
+    } else {
+        parts.join(" · ")
+    }
+}
+
+/// A cloud folder's name, and its path from the top for a subtitle.
+fn folder_names(folders: &[Folder], id: &str) -> (String, String) {
+    let find = |id: &str| folders.iter().find(|f| f.id == id);
+    let Some(folder) = find(id) else {
+        return ("Folder".to_string(), String::new());
+    };
+    let mut path = vec![folder.name.clone()];
+    let mut parent = folder.parent_id.clone();
+    // A bounded walk: a cycle in the catalogue must not hang the
+    // render.
+    for _ in 0..32 {
+        let Some(next) = parent.as_deref().and_then(find) else {
+            break;
+        };
+        path.push(next.name.clone());
+        parent = next.parent_id.clone();
+    }
+    path.reverse();
+    (folder.name.clone(), path.join(" / "))
+}
+
+/// The folders as a tree: children under their parent, siblings by
+/// name, as the file manager would show them, each with its depth. A
+/// folder whose parent is off this page of the catalogue would
+/// otherwise vanish, so orphans list at the top level.
+fn folder_tree(folders: &[Folder]) -> Vec<(usize, Folder)> {
+    fn walk(
+        parent: Option<&str>,
+        depth: usize,
+        folders: &[Folder],
+        out: &mut Vec<(usize, Folder)>,
+    ) {
+        if depth > 16 {
+            return;
+        }
+        let mut children: Vec<&Folder> = folders
+            .iter()
+            .filter(|f| f.parent_id.as_deref() == parent)
+            .collect();
+        children.sort_by(|a, b| a.name.cmp(&b.name).then(a.id.cmp(&b.id)));
+        for child in children {
+            out.push((depth, child.clone()));
+            walk(Some(&child.id), depth + 1, folders, out);
+        }
+    }
+    let mut ordered = Vec::new();
+    walk(None, 0, folders, &mut ordered);
+    let listed: std::collections::HashSet<&str> =
+        ordered.iter().map(|(_, f)| f.id.as_str()).collect();
+    let orphans: Vec<(usize, Folder)> = folders
+        .iter()
+        .filter(|f| !listed.contains(f.id.as_str()))
+        .map(|f| (0, f.clone()))
+        .collect();
+    ordered.extend(orphans);
+    ordered
+}
+
+/// One page of assets grouped for the grid: a bucket or a search as
+/// one strip, otherwise by month (newest first, a photo without a
+/// capture time filing under its upload time) or by folder (the
+/// unfiled last).
+fn group_assets(
+    assets: &[Asset],
+    folders: &[Folder],
+    buckets: &[Bucket],
+    scope: &Scope,
+    text: &str,
+    group_by: GroupBy,
+) -> Vec<(String, String, Vec<Asset>)> {
+    if let Scope::Bucket { id } = scope {
+        let bucket = buckets.iter().find(|b| &b.id == id);
+        let name = bucket
+            .map(|b| b.name.clone())
+            .unwrap_or_else(|| "Bucket".to_string());
+        let rule = bucket
+            .and_then(|b| b.rule.as_ref())
+            .map(rule_label)
+            .unwrap_or_default();
+        let title = if text.trim().is_empty() {
+            format!("Bucket · {name}")
+        } else {
+            format!("Bucket · {name} · Search results")
+        };
+        return vec![(title, rule, assets.to_vec())];
+    }
+    if !text.trim().is_empty() {
+        let title = match scope {
+            Scope::Folder { id, .. } => {
+                format!("{} · Search results", folder_names(folders, id).0)
+            }
+            _ => "Search results".to_string(),
+        };
+        return vec![(title, String::new(), assets.to_vec())];
+    }
+    match group_by {
+        GroupBy::Folder => {
+            let mut groups: BTreeMap<(bool, String, String), Vec<Asset>> = BTreeMap::new();
+            for asset in assets {
+                let key = match &asset.folder_id {
+                    Some(id) => {
+                        let (name, path) = folder_names(folders, id);
+                        (false, name, path)
+                    }
+                    None => (true, "Unfiled".to_string(), String::new()),
+                };
+                groups.entry(key).or_default().push(asset.clone());
+            }
+            groups
+                .into_iter()
+                .map(|((_, name, path), assets)| (name, path, assets))
+                .collect()
+        }
+        _ => {
+            let taken = |a: &Asset| a.captured_at.unwrap_or(a.modified_at);
+            let mut months: BTreeMap<String, Vec<Asset>> = BTreeMap::new();
+            for asset in assets {
+                let key = chrome::month_key(taken(asset) as i64);
+                months.entry(key).or_default().push(asset.clone());
+            }
+            months
+                .into_iter()
+                .rev()
+                .map(|(key, mut assets)| {
+                    assets.sort_by_key(|a| std::cmp::Reverse(taken(a)));
+                    (chrome::month_title(&key), String::new(), assets)
+                })
+                .collect()
+        }
+    }
+}
+
+impl Workspace {
+    /// The order the provider sorts a page in: by relevance while
+    /// searching, newest first under month headers, by name under
+    /// folder headers.
+    pub(crate) fn cloud_sort(&self) -> String {
+        if !self.cloud.query.text.trim().is_empty() {
+            "relevance"
+        } else {
+            match self.gallery_group_by() {
+                GroupBy::Date => "captured_desc",
+                _ => "name",
+            }
+        }
+        .into()
+    }
+
+    /// The strip's Refresh: the folder and bucket lists and the current
+    /// page, again.
+    pub(crate) fn cloud_refresh(&mut self, cx: &mut Context<Self>) {
+        self.cloud_refresh_catalogue();
+        self.cloud_watch_assets(true);
+        cx.notify();
+    }
+
+    /// The Filters… dialog: everything but the search text, which has
+    /// its own box in the strip.
+    pub(crate) fn cloud_open_filters(&mut self, cx: &mut Context<Self>) {
+        let fields = filter_fields(&self.cloud.query)
+            .into_iter()
+            .filter(|(key, _, _)| *key != "cloud-query")
+            .collect();
+        form(self, "filters", fields, cx);
+    }
+
+    pub(crate) fn cloud_filters_active(&self) -> bool {
+        self.cloud.query.filters != Filters::default()
+    }
+
+    pub(crate) fn cloud_clear_filters(&mut self, cx: &mut Context<Self>) {
+        self.cloud.query.filters = Filters::default();
+        self.cloud.query.offset = 0;
+        self.cloud_watch_assets(true);
+        cx.notify();
+    }
+
+    /// The lead of the selection — what Enter opens and the tray names.
+    pub(crate) fn cloud_lead_asset(&self) -> Option<Asset> {
+        let id = self.cloud.selected.last()?;
+        self.cloud.assets.iter().find(|a| &a.id == id).cloned()
+    }
+
+    fn cloud_asset(&self, id: &str) -> Option<Asset> {
+        self.cloud.assets.iter().find(|a| a.id == id).cloned()
+    }
+
+    fn cloud_is_selected(&self, id: &str) -> bool {
+        self.cloud.selected.iter().any(|s| s == id)
+    }
+
+    pub(crate) fn cloud_select_single(&mut self, id: String) {
+        self.cloud.select_anchor = Some(id.clone());
+        self.cloud.selected = vec![id];
+    }
+
+    fn cloud_toggle_selected(&mut self, id: String) {
+        if let Some(at) = self.cloud.selected.iter().position(|s| s == &id) {
+            self.cloud.selected.remove(at);
+        } else {
+            self.cloud.select_anchor = Some(id.clone());
+            self.cloud.selected.push(id);
+        }
+    }
+
+    /// Shift-click: select the display-order range from the anchor to
+    /// this asset, which becomes the lead.
+    fn cloud_select_range_to(&mut self, id: String) {
+        let flat = self.cloud_flat_order();
+        let anchor = self
+            .cloud
+            .select_anchor
+            .clone()
+            .unwrap_or_else(|| id.clone());
+        let (Some(a), Some(b)) = (
+            flat.iter().position(|p| p == &anchor),
+            flat.iter().position(|p| p == &id),
+        ) else {
+            self.cloud_select_single(id);
+            return;
+        };
+        let (lo, hi) = (a.min(b), a.max(b));
+        let mut range: Vec<String> = flat[lo..=hi].to_vec();
+        if a > b {
+            range.reverse();
+        }
+        self.cloud.select_anchor = Some(anchor);
+        self.cloud.selected = range;
+    }
+
+    /// Every asset the grid is showing, in display order — what arrows
+    /// walk and Shift-clicks span.
+    pub(crate) fn cloud_flat_order(&self) -> Vec<String> {
+        self.cloud_grouped()
+            .into_iter()
+            .flat_map(|(_, _, assets)| assets)
+            .map(|a| a.id)
+            .collect()
+    }
+
+    /// The page grouped the way the sidebar's chips ask — the same
+    /// readings the local grid has, minus Place, which the cloud does
+    /// not send positions for. A bucket or a search shows as one strip,
+    /// exactly as locally.
+    pub(crate) fn cloud_grouped(&self) -> Vec<(String, String, Vec<Asset>)> {
+        group_assets(
+            &self.cloud.assets,
+            &self.cloud.folders,
+            &self.cloud.buckets,
+            &self.cloud.query.scope,
+            &self.cloud.query.text,
+            self.gallery_group_by(),
+        )
+    }
+
+    /// A keystroke while the cloud search box has the keyboard.
+    pub(crate) fn cloud_search_key(
+        &mut self,
+        ev: &gpui::KeyDownEvent,
+        cx: &mut Context<Self>,
+    ) -> bool {
+        use crate::ui::LineEditKey;
+        match self.cloud.search.key(ev, cx) {
+            LineEditKey::Ignored => return false,
+            LineEditKey::Changed => self.cloud_search_changed(cx),
+            // Enter asks now rather than after the pause.
+            LineEditKey::Submitted => self.cloud_search_apply(cx),
+            LineEditKey::Moved => cx.notify(),
+        }
+        self.reset_caret_phase();
+        true
+    }
+
+    /// The text changed: ask the provider after a short pause, so a
+    /// word typed at speed is one query rather than six. Each change
+    /// supersedes the last.
+    fn cloud_search_changed(&mut self, cx: &mut Context<Self>) {
+        self.cloud.search_seq += 1;
+        let seq = self.cloud.search_seq;
+        cx.notify();
+        cx.spawn(async move |this, cx| {
+            cx.background_executor()
+                .timer(std::time::Duration::from_millis(250))
+                .await;
+            let _ = this.update(cx, |ws, cx| {
+                if ws.cloud.search_seq == seq {
+                    ws.cloud_search_apply(cx);
+                }
+            });
+        })
+        .detach();
+    }
+
+    /// Make the box's text the query.
+    fn cloud_search_apply(&mut self, cx: &mut Context<Self>) {
+        let text = self.cloud.search.text.trim().to_string();
+        if self.cloud.query.text != text {
+            self.cloud.query.text = text;
+            self.cloud.query.offset = 0;
+            self.cloud_watch_assets(true);
+        }
+        cx.notify();
+    }
+
+    /// Leave the search: clear the box and show the folder again.
+    /// Wired into the always-on Escape path. Returns whether there was
+    /// a search to leave.
+    pub(crate) fn cloud_search_clear(&mut self, cx: &mut Context<Self>) -> bool {
+        if self.cloud.context.take().is_some() {
+            cx.notify();
+            return true;
+        }
+        let searching = self.cloud.search.active
+            || !self.cloud.search.text.is_empty()
+            || !self.cloud.query.text.is_empty();
+        if !searching {
+            return false;
+        }
+        self.cloud.search.clear();
+        self.cloud.search_seq += 1;
+        if !self.cloud.query.text.is_empty() {
+            self.cloud.query.text.clear();
+            self.cloud.query.offset = 0;
+            self.cloud_watch_assets(true);
+        }
+        cx.notify();
+        true
+    }
+
+    /// An arrow key while the cloud gallery has the keyboard: move the
+    /// selection through the page in display order — left/right by
+    /// one, up/down by a visual row.
+    pub(crate) fn cloud_nav_key(
+        &mut self,
+        ev: &gpui::KeyDownEvent,
+        cx: &mut Context<Self>,
+    ) -> bool {
+        if self.cloud.search.active {
+            return false;
+        }
+        let columns = self.cloud.grid.columns(self.gallery_thumb_px()) as isize;
+        let step: isize = match ev.keystroke.key.as_str() {
+            "left" => -1,
+            "right" => 1,
+            "up" => -columns,
+            "down" => columns,
+            _ => return false,
+        };
+        let flat = self.cloud_flat_order();
+        if flat.is_empty() {
+            return false;
+        }
+        let next = match self
+            .cloud
+            .selected
+            .last()
+            .and_then(|lead| flat.iter().position(|p| p == lead))
+        {
+            Some(at) => (at as isize + step).clamp(0, flat.len() as isize - 1) as usize,
+            // Nothing selected yet: any arrow lands on the first photo.
+            None => 0,
+        };
+        let lead = flat[next].clone();
+        if ev.keystroke.modifiers.shift {
+            // Shift+arrow: the range from the anchor to wherever the
+            // lead moved, in display order.
+            let anchor = self
+                .cloud
+                .select_anchor
+                .clone()
+                .unwrap_or_else(|| lead.clone());
+            let a = flat.iter().position(|p| p == &anchor).unwrap_or(next);
+            let (lo, hi) = (a.min(next), a.max(next));
+            let mut range: Vec<String> = flat[lo..=hi].to_vec();
+            if a > next {
+                // The lead must stay last, so arrows keep moving it.
+                range.reverse();
+            }
+            self.cloud.select_anchor = Some(anchor);
+            self.cloud.selected = range;
+        } else {
+            self.cloud_select_single(lead);
+        }
+        self.cloud.grid.reveal = true;
+        cx.notify();
+        true
+    }
+
+    /// Nudge the grid until the keyboard-moved selection is on screen.
+    pub(crate) fn cloud_reveal_tick(&mut self, cx: &mut Context<Self>) {
+        if self.cloud.grid.reveal_tick() {
+            cx.notify();
+        }
+    }
+
+    /// Everything the right-click menu acts on: the selection when the
+    /// clicked photo is in it, that photo alone otherwise.
+    fn cloud_acting(&self, id: &str) -> Vec<String> {
+        if self.cloud_is_selected(id) {
+            self.cloud.selected.clone()
+        } else {
+            vec![id.to_string()]
+        }
+    }
+
+    fn cloud_add_to_bucket(&mut self, bucket: String, ids: &[String]) {
+        let items = ids
+            .iter()
+            .map(|id| map([("kind", "asset".into()), ("id", id.clone().into())]))
+            .collect();
+        self.cloud_drop_remote(bucket, items);
+    }
+
+    fn cloud_remove_from_bucket(&mut self, bucket: String, ids: &[String]) {
+        self.cloud_mutate(
+            "bucket.remove",
+            vec![("id", bucket.into()), ("asset_ids", value(ids.to_vec()))],
+        );
+    }
+}
+
+/// The chip announcing active filters, in the strip beside the search.
+pub(crate) fn filter_chip(
+    ws: &mut Workspace,
+    cx: &mut Context<Workspace>,
+) -> Option<gpui::AnyElement> {
+    ws.cloud_filters_active().then(|| {
+        chrome::filter_chip(
+            format!("Filters on ({})", filter_count(&ws.cloud.query.filters)),
+            |ws, cx| ws.cloud_open_filters(cx),
+            |ws, cx| ws.cloud_clear_filters(cx),
             cx,
-        ))
-        .child(ui::button(
-            "Find folders / buckets…",
-            false,
-            |ws, _, cx| {
-                form(
-                    ws,
-                    "catalogue",
-                    vec![field(
-                        "cloud-query",
-                        "Name contains",
-                        ws.cloud.catalogue.clone(),
-                    )],
+        )
+        .into_any_element()
+    })
+}
+
+/// The search box in the strip: the provider ranks the page by it.
+pub(crate) fn search_box(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let placeholder: SharedString = if ws.cloud.connected {
+        "Search cloud photos\u{2026}".into()
+    } else {
+        "Connecting\u{2026}".into()
+    };
+    let caret_on = ws.caret_on();
+    search_field(
+        &ws.cloud.search,
+        placeholder,
+        caret_on,
+        |ws, _cx| ws.cloud.search.focus(),
+        |ws, cx| {
+            ws.cloud_search_clear(cx);
+        },
+        cx,
+    )
+}
+
+/// What the tray says about the cloud gallery: the lead photo's name,
+/// its Edit and Download buttons, the page's count.
+pub(crate) fn tray_info(ws: &Workspace) -> TrayInfo {
+    let lead = ws.cloud_lead_asset();
+    let one = ws.cloud.selected.len() == 1;
+    let mut notes = Vec::new();
+    if lead.as_ref().is_some_and(|a| a.edited) {
+        notes.push("edited — the edits live in Schist Cloud".to_string());
+    }
+    type Act = chrome::TrayAction;
+    TrayInfo {
+        edit: lead.clone().map(|asset| {
+            Box::new(
+                move |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
+                    ws.cloud_open(asset.clone(), cx)
+                },
+            ) as Act
+        }),
+        extra: one.then(|| {
+            (
+                "Download…",
+                Box::new(
+                    |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
+                        ws.cloud_download_selected(cx)
+                    },
+                ) as Act,
+            )
+        }),
+        name: lead.map(|a| a.name),
+        selected: ws.cloud.selected.len(),
+        notes,
+        count: if ws.cloud.loaded {
+            format!("{} photos", ws.cloud.total)
+        } else if ws.cloud.connected {
+            "Loading\u{2026}".to_string()
+        } else {
+            ws.cloud.message.clone()
+        },
+    }
+}
+
+/// A row for a remote folder or bucket that takes drops: local gallery
+/// photos, a watched local folder and files from the file manager
+/// upload; remote items add by reference to a bucket.
+fn droppable(
+    row: gpui::Stateful<gpui::Div>,
+    bucket: Option<String>,
+    folder: Option<String>,
+    cx: &mut Context<Workspace>,
+) -> gpui::Stateful<gpui::Div> {
+    let (b1, f1) = (bucket.clone(), folder.clone());
+    let (b2, f2) = (bucket.clone(), folder.clone());
+    let (b3, f3) = (bucket.clone(), folder.clone());
+    let mut row = row
+        .drag_over::<GalleryDrag>(|s, _, _, _| s.bg(gpui::rgb(pal().select_border)))
+        .drag_over::<LocalFolderDrag>(|s, _, _, _| s.bg(gpui::rgb(pal().select_border)))
+        .drag_over::<ExternalPaths>(|s, _, _, _| s.bg(gpui::rgb(pal().select_border)))
+        .on_drop(cx.listener(move |ws, drag: &GalleryDrag, _, cx| {
+            cx.stop_propagation();
+            ws.cloud_drop_local(b1.clone(), f1.clone(), drag.paths.clone(), cx)
+        }))
+        .on_drop(cx.listener(move |ws, drag: &LocalFolderDrag, _, cx| {
+            cx.stop_propagation();
+            ws.cloud_drop_local(b2.clone(), f2.clone(), vec![drag.path.clone()], cx)
+        }))
+        .on_drop(cx.listener(move |ws, drag: &ExternalPaths, _, cx| {
+            cx.stop_propagation();
+            ws.cloud_drop_local(b3.clone(), f3.clone(), drag.paths().to_vec(), cx)
+        }));
+    if let Some(bucket) = bucket {
+        row = row
+            .drag_over::<RemoteDrag>(|s, _, _, _| s.bg(gpui::rgb(pal().select_border)))
+            .on_drop(cx.listener(move |ws, drag: &RemoteDrag, _, cx| {
+                cx.stop_propagation();
+                ws.cloud_drop_remote(bucket.clone(), drag.items.clone());
+                cx.notify();
+            }));
+    }
+    row
+}
+
+/// The Schist Cloud part of the sidebar: the library, its folders as a
+/// tree, its buckets — rows like the local ones, with the actions on
+/// the right-click menu.
+pub(crate) fn sidebar_section(
+    ws: &mut Workspace,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    let mut rows: Vec<gpui::AnyElement> = vec![sidebar_caption("SCHIST CLOUD").into_any_element()];
+    let Some(account) = ws.cloud.account.clone() else {
+        rows.push(
+            sidebar_link(
+                "Sign into Schist Cloud…",
+                |ws, _w, cx| ws.cloud_sign_in(cx),
+                cx,
+            )
+            .into_any_element(),
+        );
+        return rows;
+    };
+    let domain = account
+        .domain
+        .trim_start_matches("https://")
+        .trim_end_matches('/')
+        .to_string();
+    rows.push(
+        div()
+            .px_2()
+            .pb_1()
+            .text_size(px(10.0))
+            .text_color(gpui::rgb(pal().text_dim))
+            .truncate()
+            .child(domain)
+            .into_any_element(),
+    );
+    let showing = ws.cloud.show;
+    let scope = ws.cloud.query.scope.clone();
+    let count = |ws: &Workspace, this: &Scope| {
+        (showing && ws.cloud.loaded && &scope == this).then_some(ws.cloud.total as usize)
+    };
+    // The whole library.
+    {
+        let selected = showing && scope == Scope::Library;
+        let row = sidebar_row_frame(
+            "cloud-library",
+            "All cloud photos",
+            count(ws, &Scope::Library),
+            selected,
+            0,
+        )
+        .on_mouse_down(
+            MouseButton::Left,
+            cx.listener(|ws, _e: &MouseDownEvent, _w, cx| ws.cloud_browse(Scope::Library, cx)),
+        );
+        rows.push(droppable(row, None, None, cx).into_any_element());
+    }
+    let ordered = folder_tree(&ws.cloud.folders);
+    for (i, (depth, folder)) in ordered.into_iter().enumerate() {
+        let this = Scope::Folder {
+            id: folder.id.clone(),
+            recursive: true,
+        };
+        let selected = showing && matches!(&scope, Scope::Folder { id, .. } if id == &folder.id);
+        let browse = folder.id.clone();
+        let context = folder.id.clone();
+        let drag = RemoteDrag {
+            items: vec![map([
+                ("kind", "folder".into()),
+                ("id", folder.id.clone().into()),
+                ("recursive", true.into()),
+            ])],
+            label: folder.name.clone(),
+        };
+        let row = sidebar_row_frame(
+            ("cloud-folder", i),
+            format!("\u{25b8} {}", folder.name),
+            count(ws, &this),
+            selected,
+            depth,
+        )
+        .on_mouse_down(
+            MouseButton::Left,
+            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
+                ws.cloud_browse(
+                    Scope::Folder {
+                        id: browse.clone(),
+                        recursive: true,
+                    },
                     cx,
                 )
-            },
-            cx,
-        ))
-        .child(ui::button(
-            "+ Cloud folder…",
-            false,
-            |ws, _, cx| {
+            }),
+        )
+        .on_mouse_down(
+            MouseButton::Right,
+            cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                ws.cloud.context = Some((ev.position, CloudContext::Folder(context.clone())));
+                cx.notify();
+            }),
+        )
+        .on_drag(drag, |drag, _, _, cx| {
+            cx.new(|_| DragLabel(drag.label.clone()))
+        });
+        rows.push(droppable(row, None, Some(folder.id.clone()), cx).into_any_element());
+    }
+    rows.extend(catalogue_pages(true, ws, cx));
+    rows.push(
+        sidebar_link(
+            "+ New cloud folder…",
+            |ws, _w, cx| {
                 form(
                     ws,
                     "new-folder",
@@ -170,210 +824,105 @@ pub(crate) fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
                 )
             },
             cx,
-        ));
-    for (i, folder) in ws.cloud.folders.clone().into_iter().enumerate() {
-        let id = folder.id.clone();
-        let drop_id = id.clone();
-        let rename = folder.clone();
-        let delete = folder.clone();
-        let drag = RemoteDrag {
-            items: vec![map([
-                ("kind", "folder".into()),
-                ("id", id.clone().into()),
-                ("recursive", true.into()),
-            ])],
-            label: folder.name.clone(),
-        };
-        root = root.child(
-            div()
-                .id(("cloud-folder", i))
-                .flex()
-                .flex_col()
-                .child(
-                    div()
-                        .id(("cloud-folder-name", i))
-                        .px_2()
-                        .py_1()
-                        .cursor_pointer()
-                        .hover(|s| s.bg(gpui::rgb(ui::palette().field_bg)))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _, _, cx| {
-                                ws.cloud_browse(
-                                    Scope::Folder {
-                                        id: id.clone(),
-                                        recursive: true,
-                                    },
-                                    cx,
-                                )
-                            }),
-                        )
-                        .on_drag(drag, |drag, _, _, cx| {
-                            cx.new(|_| DragLabel(drag.label.clone()))
-                        })
-                        .on_drop(cx.listener(move |ws, drag: &GalleryDrag, _, cx| {
-                            ws.cloud_drop_local(None, Some(drop_id.clone()), drag.paths.clone(), cx)
-                        }))
-                        .child(format!("▸ {}", folder.name)),
-                )
-                .child(
-                    div()
-                        .flex()
-                        .gap_1()
-                        .child(ui::button(
-                            "Rename",
-                            false,
-                            move |ws, _, cx| {
-                                ws.cloud.form_target = Some((rename.id.clone(), rename.revision));
-                                form(
-                                    ws,
-                                    "rename-folder",
-                                    vec![field("cloud-name", "Name", rename.name.clone())],
-                                    cx,
-                                )
-                            },
-                            cx,
-                        ))
-                        .child(ui::button(
-                            "Delete",
-                            false,
-                            move |ws, _, cx| {
-                                ws.cloud.form_target = Some((delete.id.clone(), delete.revision));
-                                form(ws, "delete-folder", vec![], cx)
-                            },
-                            cx,
-                        )),
-                ),
-        );
-    }
-    root = root.child(catalogue_pages(true, ws, cx)).child(ui::button(
-        "+ Cloud bucket…",
-        false,
-        |ws, _, cx| {
-            let mut fields = vec![field("cloud-name", "Bucket name", "")];
-            let mut q = ws.cloud.query.clone();
-            q.text.clear();
-            q.filters = Default::default();
-            fields.extend(filter_fields(&q));
-            form(ws, "new-bucket", fields, cx)
-        },
-        cx,
-    ));
+        )
+        .into_any_element(),
+    );
+    rows.push(sidebar_caption("CLOUD BUCKETS").into_any_element());
     for (i, bucket) in ws.cloud.buckets.clone().into_iter().enumerate() {
-        let id = bucket.id.clone();
-        let local = id.clone();
-        let external = id.clone();
-        let local_folder = id.clone();
-        let remote = id.clone();
-        let edit = bucket.clone();
-        let delete = bucket.clone();
-        root = root.child(
-            div()
-                .id(("cloud-bucket", i))
-                .flex()
-                .flex_col()
-                .child(
-                    div()
-                        .id(("cloud-bucket-name", i))
-                        .px_2()
-                        .py_1()
-                        .cursor_pointer()
-                        .hover(|s| s.bg(gpui::rgb(ui::palette().field_bg)))
-                        .drag_over::<RemoteDrag>(|s, _, _, _| s.bg(gpui::rgb(ui::palette().accent)))
-                        .drag_over::<GalleryDrag>(|s, _, _, _| {
-                            s.bg(gpui::rgb(ui::palette().accent))
-                        })
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _, _, cx| {
-                                ws.cloud_browse(Scope::Bucket { id: id.clone() }, cx)
-                            }),
-                        )
-                        .on_drop(cx.listener(move |ws, drag: &GalleryDrag, _, cx| {
-                            cx.stop_propagation();
-                            ws.cloud_drop_local(Some(local.clone()), None, drag.paths.clone(), cx)
-                        }))
-                        .on_drop(cx.listener(move |ws, drag: &LocalFolderDrag, _, cx| {
-                            cx.stop_propagation();
-                            ws.cloud_drop_local(
-                                Some(local_folder.clone()),
-                                None,
-                                vec![drag.path.clone()],
-                                cx,
-                            );
-                        }))
-                        .on_drop(cx.listener(move |ws, drag: &ExternalPaths, _, cx| {
-                            cx.stop_propagation();
-                            ws.cloud_drop_local(
-                                Some(external.clone()),
-                                None,
-                                drag.paths().to_vec(),
-                                cx,
-                            )
-                        }))
-                        .on_drop(cx.listener(move |ws, drag: &RemoteDrag, _, cx| {
-                            cx.stop_propagation();
-                            ws.cloud_drop_remote(remote.clone(), drag.items.clone());
-                            cx.notify();
-                        }))
-                        .child(format!(
-                            "{} {}",
-                            if bucket.rule.is_some() { "✦" } else { "▣" },
-                            bucket.name
-                        )),
-                )
-                .child(
-                    div()
-                        .flex()
-                        .gap_1()
-                        .child(ui::button(
-                            "Edit",
-                            false,
-                            move |ws, _, cx| {
-                                ws.cloud.form_target = Some((edit.id.clone(), edit.revision));
-                                let mut fields =
-                                    vec![field("cloud-name", "Bucket name", edit.name.clone())];
-                                let mut q = schist_cloud::AssetQuery::default();
-                                if let Some(rule) = &edit.rule {
-                                    q.scope = rule.scope.clone();
-                                    q.text = rule.text.clone();
-                                    q.filters = rule.filters.clone();
-                                }
-                                ws.cloud.form_scope = q.scope.clone();
-                                fields.extend(filter_fields(&q));
-                                form(ws, "edit-bucket", fields, cx)
-                            },
-                            cx,
-                        ))
-                        .child(ui::button(
-                            "Delete",
-                            false,
-                            move |ws, _, cx| {
-                                ws.cloud.form_target = Some((delete.id.clone(), delete.revision));
-                                form(ws, "delete-bucket", vec![], cx)
-                            },
-                            cx,
-                        )),
-                ),
+        let this = Scope::Bucket {
+            id: bucket.id.clone(),
+        };
+        let selected = showing && scope == this;
+        let browse = bucket.id.clone();
+        let context = bucket.id.clone();
+        let label = if bucket.rule.is_some() {
+            format!("\u{2726} {}", bucket.name)
+        } else {
+            bucket.name.clone()
+        };
+        let row = sidebar_row_frame(("cloud-bucket", i), label, count(ws, &this), selected, 0)
+            .on_mouse_down(
+                MouseButton::Left,
+                cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
+                    ws.cloud_browse(Scope::Bucket { id: browse.clone() }, cx)
+                }),
+            )
+            .on_mouse_down(
+                MouseButton::Right,
+                cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                    ws.cloud.context = Some((ev.position, CloudContext::Bucket(context.clone())));
+                    cx.notify();
+                }),
+            );
+        rows.push(droppable(row, Some(bucket.id.clone()), None, cx).into_any_element());
+    }
+    rows.extend(catalogue_pages(false, ws, cx));
+    rows.push(
+        sidebar_link(
+            "+ New cloud bucket…",
+            |ws, _w, cx| {
+                let mut fields = vec![field("cloud-name", "Bucket name", "")];
+                let mut q = ws.cloud.query.clone();
+                q.text.clear();
+                q.filters = Default::default();
+                fields.extend(filter_fields(&q));
+                form(ws, "new-bucket", fields, cx)
+            },
+            cx,
+        )
+        .into_any_element(),
+    );
+    // A library with more folders or buckets than one page lists gets
+    // the finder; a smaller one has them all on screen already.
+    if ws.cloud.folders_total > 500
+        || ws.cloud.buckets_total > 500
+        || !ws.cloud.catalogue.is_empty()
+    {
+        rows.push(
+            sidebar_link(
+                if ws.cloud.catalogue.is_empty() {
+                    "Find folders / buckets…".to_string()
+                } else {
+                    format!("Showing \u{201c}{}\u{201d}…", ws.cloud.catalogue)
+                },
+                |ws, _w, cx| {
+                    form(
+                        ws,
+                        "catalogue",
+                        vec![field(
+                            "cloud-query",
+                            "Name contains",
+                            ws.cloud.catalogue.clone(),
+                        )],
+                        cx,
+                    )
+                },
+                cx,
+            )
+            .into_any_element(),
         );
     }
-    root.child(catalogue_pages(false, ws, cx))
-        .into_any_element()
+    rows
 }
-fn catalogue_pages(folders: bool, ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+
+/// Previous/More links under a folder or bucket list that overflows
+/// one page of the catalogue.
+fn catalogue_pages(
+    folders: bool,
+    ws: &Workspace,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
     let (offset, total) = if folders {
         (ws.cloud.folders_offset, ws.cloud.folders_total)
     } else {
         (ws.cloud.buckets_offset, ws.cloud.buckets_total)
     };
-    div()
-        .flex()
-        .gap_1()
-        .children((offset > 0).then(|| {
-            ui::button(
-                "Previous",
-                false,
-                move |ws, _, cx| {
+    let mut links = Vec::new();
+    if offset > 0 {
+        links.push(
+            sidebar_link(
+                "\u{2191} Previous",
+                move |ws, _w, cx| {
                     if folders {
                         ws.cloud.folders_offset = offset.saturating_sub(500);
                     } else {
@@ -384,12 +933,14 @@ fn catalogue_pages(folders: bool, ws: &Workspace, cx: &mut Context<Workspace>) -
                 },
                 cx,
             )
-        }))
-        .children((offset + 500 < total).then(|| {
-            ui::button(
-                "More",
-                false,
-                move |ws, _, cx| {
+            .into_any_element(),
+        );
+    }
+    if offset + 500 < total {
+        links.push(
+            sidebar_link(
+                "\u{2193} More",
+                move |ws, _w, cx| {
                     if folders {
                         ws.cloud.folders_offset = offset + 500;
                     } else {
@@ -400,210 +951,407 @@ fn catalogue_pages(folders: bool, ws: &Workspace, cx: &mut Context<Workspace>) -
                 },
                 cx,
             )
-        }))
-}
-pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
-    let selected = ws.cloud.selected.clone();
-    let items = ws.cloud.assets.clone();
-    let mut rows = Vec::new();
-    for (i, asset) in items.into_iter().enumerate() {
-        let select = asset.id.clone();
-        let open = asset.clone();
-        let drag = RemoteDrag {
-            items: if selected.contains(&asset.id) {
-                selected
-                    .iter()
-                    .map(|id| map([("kind", "asset".into()), ("id", id.clone().into())]))
-                    .collect()
-            } else {
-                vec![map([
-                    ("kind", "asset".into()),
-                    ("id", asset.id.clone().into()),
-                ])]
-            },
-            label: asset.name.clone(),
-        };
-        let mut row = div()
-            .id(("cloud-asset", i))
-            .w(px(158.0))
-            .h(px(176.0))
-            .p_2()
-            .flex()
-            .flex_col()
-            .gap_1()
-            .border_1()
-            .border_color(gpui::rgb(if selected.contains(&asset.id) {
-                ui::palette().accent
-            } else {
-                ui::palette().field_bg
-            }))
-            .cursor_pointer()
-            .on_mouse_down(
-                MouseButton::Left,
-                cx.listener(move |ws, ev: &MouseDownEvent, _, cx| {
-                    if ev.click_count == 2 {
-                        ws.cloud_open(open.clone(), cx);
-                        return;
-                    }
-                    if !ev.modifiers.control && !ev.modifiers.platform {
-                        ws.cloud.selected.clear();
-                    }
-                    if !ws.cloud.selected.insert(select.clone()) {
-                        ws.cloud.selected.remove(&select);
-                    }
-                    cx.notify();
-                }),
-            )
-            .on_drag(drag, |drag, _, _, cx| {
-                cx.new(|_| DragLabel(drag.label.clone()))
-            });
-        if let Some((_, image)) = ws.cloud.thumbnails.get(&asset.id) {
-            row = row.child(
-                img(image.clone())
-                    .w(px(138.0))
-                    .h(px(128.0))
-                    .object_fit(gpui::ObjectFit::Contain),
-            );
-        } else {
-            row = row.child(div().w(px(138.0)).h(px(128.0)).child("Preview unavailable"));
-        }
-        rows.push(
-            row.child(div().text_size(px(12.0)).truncate().child(asset.name))
-                .into_any_element(),
+            .into_any_element(),
         );
     }
+    links
+}
+
+/// Why the cloud grid is bare.
+fn empty_reason(ws: &Workspace) -> String {
+    if !ws.cloud.connected {
+        return ws.cloud.message.clone();
+    }
+    if !ws.cloud.loaded {
+        return "Loading\u{2026}".into();
+    }
+    if !ws.cloud.query.text.trim().is_empty() {
+        return "Nothing matches the search. Escape clears it.".into();
+    }
+    if ws.cloud_filters_active() {
+        return "Nothing matches the filters. The chip in the strip clears them.".into();
+    }
+    match &ws.cloud.query.scope {
+        Scope::Bucket { id } => {
+            let smart = ws
+                .cloud
+                .buckets
+                .iter()
+                .any(|b| &b.id == id && b.rule.is_some());
+            if smart {
+                "Nothing matches this bucket's rule yet. Dragging photos in works too."
+            } else {
+                "This bucket is empty. Drag photos onto its row in the sidebar to add them."
+            }
+        }
+        Scope::Folder { .. } => {
+            "This cloud folder is empty. Drop photos on its row in the sidebar, or use \
+             Upload Files…"
+        }
+        Scope::Library => {
+            "No photos in your cloud library yet. Use Upload Files…, or drag photos from \
+             the local gallery onto a cloud folder or bucket."
+        }
+    }
+    .into()
+}
+
+/// The grid: month or folder headers with a rule, then wrapped
+/// thumbnails — one page of the query, with the page links under it.
+pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    let cell = ws.gallery_thumb_px();
+    let selected = ws.cloud.selected.clone();
+    let sections = ws.cloud_grouped();
+    let access: chrome::GridAccess = |ws| &mut ws.cloud.grid;
+    let mut column = grid_column("cloud-grid", &ws.cloud.grid, access, cx);
+    if sections.is_empty() {
+        column = column.child(empty_note(empty_reason(ws)));
+    }
+    let columns = ws.cloud.grid.columns(cell);
+    for (title, subtitle, assets) in sections {
+        let detail = if subtitle.is_empty() {
+            format!("{} photos", assets.len())
+        } else {
+            format!("{subtitle} — {}", assets.len())
+        };
+        column = column.child(section_header(title, detail));
+        let mut body = div().flex().flex_col();
+        for row_assets in assets.chunks(columns) {
+            let mut row = div().flex().flex_row().gap_2().mb_2();
+            for asset in row_assets {
+                row = row.child(cloud_cell(ws, asset.clone(), cell, &selected, cx));
+            }
+            body = body.child(row);
+        }
+        column = column.child(body);
+    }
+    // The page links, in the grid's own voice, only when there is
+    // more than one page.
     let offset = ws.cloud.query.offset;
     let total = ws.cloud.total;
-    div()
-        .flex()
-        .flex_col()
-        .flex_grow()
-        .min_w(px(0.0))
-        .min_h(px(0.0))
-        .p_3()
-        .gap_2()
-        .child(caption(ws.cloud.message.clone()))
-        .child(
-            div()
-                .flex()
-                .flex_row()
-                .gap_2()
-                .child(ui::button(
-                    "Search and filters…",
-                    false,
-                    |ws, _, cx| form(ws, "search", filter_fields(&ws.cloud.query), cx),
-                    cx,
-                ))
-                .child(ui::button(
-                    "Clear filters",
-                    false,
-                    |ws, _, cx| {
-                        ws.cloud.query.text.clear();
-                        ws.cloud.query.filters = Default::default();
-                        ws.cloud.query.offset = 0;
-                        ws.cloud_watch_assets();
-                        cx.notify();
-                    },
-                    cx,
-                ))
-                .child(ui::button(
-                    "Download selected…",
-                    false,
-                    |ws, _, cx| ws.cloud_download_selected(cx),
-                    cx,
-                ))
-                .child(ui::button(
-                    "Upload files…",
-                    false,
-                    |ws, _, cx| ws.cloud_pick_upload(false, cx),
-                    cx,
-                ))
-                .child(ui::button(
-                    "Upload folder…",
-                    false,
-                    |ws, _, cx| ws.cloud_pick_upload(true, cx),
-                    cx,
-                )),
-        )
-        .child(
-            div()
-                .flex()
-                .gap_2()
-                .child(caption(format!(
-                    "{} photos · {} selected",
-                    total,
-                    selected.len()
-                )))
-                .children(
-                    matches!(ws.cloud.query.scope, Scope::Bucket { .. }).then(|| {
-                        ui::button(
-                            "Remove selected from bucket",
-                            false,
-                            |ws, _, cx| {
-                                if let Scope::Bucket { id } = &ws.cloud.query.scope {
-                                    ws.cloud_mutate(
-                                        "bucket.remove",
-                                        vec![
-                                            ("id", id.clone().into()),
-                                            (
-                                                "asset_ids",
-                                                value(
-                                                    ws.cloud
-                                                        .selected
-                                                        .iter()
-                                                        .cloned()
-                                                        .collect::<Vec<_>>(),
-                                                ),
-                                            ),
-                                        ],
-                                    );
-                                    cx.notify();
-                                }
-                            },
-                            cx,
-                        )
-                    }),
-                ),
-        )
-        .child(
-            div()
-                .id("cloud-grid-scroll")
-                .flex_grow()
-                .min_h(px(0.0))
-                .overflow_y_scroll()
-                .child(div().flex().flex_row().flex_wrap().gap_2().children(rows)),
-        )
-        .child(
-            div()
-                .flex()
-                .gap_2()
-                .children((offset > 0).then(|| {
-                    ui::button(
-                        "Previous page",
-                        false,
-                        move |ws, _, cx| {
-                            ws.cloud.query.offset = offset.saturating_sub(100);
-                            ws.cloud_watch_assets();
+    if ws.cloud.loaded && (offset > 0 || offset + PAGE_SIZE < total) {
+        let first = offset + 1;
+        let last = (offset + PAGE_SIZE).min(total);
+        let link =
+            |label: &'static str, to: u64, cx: &mut Context<Workspace>| -> gpui::AnyElement {
+                div()
+                    .px_2()
+                    .h(px(24.0))
+                    .flex()
+                    .items_center()
+                    .rounded_md()
+                    .text_size(px(12.0))
+                    .text_color(gpui::rgb(pal().header))
+                    .cursor_pointer()
+                    .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
+                    .on_mouse_down(
+                        MouseButton::Left,
+                        cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
+                            ws.cloud.query.offset = to;
+                            ws.cloud.selected.clear();
+                            ws.cloud.select_anchor = None;
+                            ws.cloud_watch_assets(false);
                             cx.notify();
-                        },
-                        cx,
+                        }),
                     )
-                }))
-                .children((offset + 100 < total).then(|| {
-                    ui::button(
-                        "Next page",
-                        false,
-                        move |ws, _, cx| {
-                            ws.cloud.query.offset = offset + 100;
-                            ws.cloud_watch_assets();
-                            cx.notify();
-                        },
-                        cx,
-                    )
-                })),
-        )
-        .into_any_element()
+                    .child(label)
+                    .into_any_element()
+            };
+        let mut pager = div().flex().flex_row().items_center().gap_2().pt_2().pb_4();
+        if offset > 0 {
+            pager = pager.child(link(
+                "\u{2190} Previous page",
+                offset.saturating_sub(PAGE_SIZE),
+                cx,
+            ));
+        }
+        pager = pager.child(
+            div()
+                .text_size(px(11.0))
+                .text_color(gpui::rgb(pal().text_dim))
+                .child(format!("{first}–{last} of {total}")),
+        );
+        if offset + PAGE_SIZE < total {
+            pager = pager.child(link("Next page \u{2192}", offset + PAGE_SIZE, cx));
+        }
+        column = column.child(pager);
+    }
+    grid_frame(column, &ws.cloud.grid, access, cx).into_any_element()
 }
+
+/// One remote photo's square: its thumbnail once fetched, the same
+/// selection, drag and menu behaviour as a local cell.
+fn cloud_cell(
+    ws: &mut Workspace,
+    asset: Asset,
+    cell: f32,
+    selected: &[String],
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
+    let thumb = ws
+        .cloud
+        .thumbnails
+        .get(&asset.id)
+        .map(|(_, image)| image.clone());
+    let failed = asset.thumbnail_url.is_none() || ws.cloud.thumbnail_failed.contains(&asset.id);
+    let ghost_thumb = thumb.clone();
+    let is_selected = selected.iter().any(|id| id == &asset.id);
+    let is_lead = selected.last() == Some(&asset.id);
+    let click = asset.clone();
+    let context = asset.id.clone();
+    // Dragging carries the whole selection when the pressed cell is in
+    // it, and just the pressed cell otherwise.
+    let carried: Vec<String> = if is_selected {
+        selected.to_vec()
+    } else {
+        vec![asset.id.clone()]
+    };
+    let drag = RemoteDrag {
+        items: carried
+            .iter()
+            .map(|id| map([("kind", "asset".into()), ("id", id.clone().into())]))
+            .collect(),
+        label: if carried.len() == 1 {
+            asset.name.clone()
+        } else {
+            format!("{} photos", carried.len())
+        },
+    };
+    cell_frame(
+        SharedString::from(format!("cloud-cell-{}", asset.id)),
+        cell,
+        is_selected,
+        thumb,
+        failed,
+        asset.edited,
+    )
+    .on_drag(drag, move |drag, _offset, _window, cx| {
+        let label = drag.label.clone();
+        let count = drag.items.len();
+        let thumb = ghost_thumb.clone();
+        cx.new(|_| DragGhost {
+            label,
+            thumb,
+            count,
+            size: cell,
+        })
+    })
+    .on_mouse_down(
+        MouseButton::Left,
+        cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+            let id = click.id.clone();
+            if ev.modifiers.platform || ev.modifiers.control {
+                // ⌘-click: in or out, keeping the rest.
+                ws.cloud_toggle_selected(id);
+            } else if ev.modifiers.shift {
+                ws.cloud_select_range_to(id);
+            } else if ev.click_count >= 2 {
+                ws.cloud_select_single(id);
+                ws.cloud_open(click.clone(), cx);
+            } else if !ws.cloud_is_selected(&id) {
+                // A plain press on an unselected photo selects it —
+                // and on a selected one keeps the selection, so a
+                // drag can carry the lot.
+                ws.cloud_select_single(id);
+            }
+            ws.cloud.context = None;
+            cx.notify();
+        }),
+    )
+    .on_mouse_down(
+        MouseButton::Right,
+        cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+            // Right-click acts on the selection when it lands in
+            // it, on this photo alone otherwise.
+            if !ws.cloud_is_selected(&context) {
+                ws.cloud_select_single(context.clone());
+            }
+            ws.cloud.context = Some((ev.position, CloudContext::Photo(context.clone())));
+            cx.notify();
+        }),
+    )
+    .children(is_lead.then(|| lead_probe(|ws| &mut ws.cloud.grid, cx)))
+}
+
+/// The cloud gallery's right-click menu: on a photo, a folder row or a
+/// bucket row.
+pub(crate) fn context_menu(
+    ws: &mut Workspace,
+    cx: &mut Context<Workspace>,
+) -> Option<gpui::AnyElement> {
+    let (position, target) = ws.cloud.context.clone()?;
+    let dismiss: fn(&mut Workspace) = |ws| ws.cloud.context = None;
+    let mut rows: Vec<gpui::AnyElement> = Vec::new();
+    let row = |rows: &mut Vec<gpui::AnyElement>,
+               label: String,
+               act: MenuAction,
+               cx: &mut Context<Workspace>| {
+        rows.push(menu_row(label, dismiss, act, cx));
+    };
+    match target {
+        CloudContext::Photo(id) => {
+            let acting = ws.cloud_acting(&id);
+            let n = acting.len();
+            if let Some(asset) = ws.cloud_asset(&id) {
+                row(
+                    &mut rows,
+                    "Edit".into(),
+                    std::rc::Rc::new(move |ws, _w, cx| ws.cloud_open(asset.clone(), cx)),
+                    cx,
+                );
+            }
+            if n == 1 {
+                row(
+                    &mut rows,
+                    "Download\u{2026}".into(),
+                    std::rc::Rc::new(|ws, _w, cx| ws.cloud_download_selected(cx)),
+                    cx,
+                );
+            }
+            rows.push(menu_sep());
+            for bucket in ws.cloud.buckets.clone() {
+                let add = acting.clone();
+                row(
+                    &mut rows,
+                    format!("Add to {}", bucket.name),
+                    std::rc::Rc::new(move |ws, _w, _cx| {
+                        ws.cloud_add_to_bucket(bucket.id.clone(), &add)
+                    }),
+                    cx,
+                );
+            }
+            row(
+                &mut rows,
+                "Add to new bucket\u{2026}".into(),
+                std::rc::Rc::new(|ws, _w, cx| {
+                    let mut fields = vec![field("cloud-name", "Bucket name", "")];
+                    let mut q = ws.cloud.query.clone();
+                    q.text.clear();
+                    q.filters = Default::default();
+                    fields.extend(filter_fields(&q));
+                    form(ws, "new-bucket", fields, cx)
+                }),
+                cx,
+            );
+            if let Scope::Bucket { id: bucket } = ws.cloud.query.scope.clone() {
+                let remove = acting.clone();
+                row(
+                    &mut rows,
+                    if n > 1 {
+                        format!("Remove {n} from this bucket")
+                    } else {
+                        "Remove from this bucket".into()
+                    },
+                    std::rc::Rc::new(move |ws, _w, _cx| {
+                        ws.cloud_remove_from_bucket(bucket.clone(), &remove)
+                    }),
+                    cx,
+                );
+            }
+            rows.push(menu_sep());
+            if let Some(asset) = ws.cloud_asset(&id) {
+                row(
+                    &mut rows,
+                    "Delete from Schist Cloud\u{2026}".into(),
+                    std::rc::Rc::new(move |ws, _w, cx| {
+                        ws.cloud.form_target = Some((asset.id.clone(), asset.revision));
+                        form(ws, "delete-asset", vec![], cx)
+                    }),
+                    cx,
+                );
+            }
+        }
+        CloudContext::Folder(id) => {
+            let folder = ws.cloud.folders.iter().find(|f| f.id == id).cloned()?;
+            let rename = folder.clone();
+            row(
+                &mut rows,
+                "Rename\u{2026}".into(),
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.cloud.form_target = Some((rename.id.clone(), rename.revision));
+                    form(
+                        ws,
+                        "rename-folder",
+                        vec![field("cloud-name", "Name", rename.name.clone())],
+                        cx,
+                    )
+                }),
+                cx,
+            );
+            let parent = folder.id.clone();
+            row(
+                &mut rows,
+                "New folder inside\u{2026}".into(),
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.cloud.form_target = Some((parent.clone(), 0));
+                    form(
+                        ws,
+                        "new-subfolder",
+                        vec![field("cloud-name", "Folder name", "")],
+                        cx,
+                    )
+                }),
+                cx,
+            );
+            rows.push(menu_sep());
+            let delete = folder;
+            row(
+                &mut rows,
+                "Delete\u{2026}".into(),
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.cloud.form_target = Some((delete.id.clone(), delete.revision));
+                    form(ws, "delete-folder", vec![], cx)
+                }),
+                cx,
+            );
+        }
+        CloudContext::Bucket(id) => {
+            let bucket = ws.cloud.buckets.iter().find(|b| b.id == id).cloned()?;
+            let edit = bucket.clone();
+            row(
+                &mut rows,
+                "Edit bucket\u{2026}".into(),
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.cloud.form_target = Some((edit.id.clone(), edit.revision));
+                    let mut fields = vec![field("cloud-name", "Bucket name", edit.name.clone())];
+                    let mut q = schist_cloud::AssetQuery::default();
+                    if let Some(rule) = &edit.rule {
+                        q.scope = rule.scope.clone();
+                        q.text = rule.text.clone();
+                        q.filters = rule.filters.clone();
+                    }
+                    ws.cloud.form_scope = q.scope.clone();
+                    fields.extend(filter_fields(&q));
+                    form(ws, "edit-bucket", fields, cx)
+                }),
+                cx,
+            );
+            if !ws.cloud.selected.is_empty() {
+                let add = ws.cloud.selected.clone();
+                let into = bucket.id.clone();
+                row(
+                    &mut rows,
+                    format!("Add selected ({})", add.len()),
+                    std::rc::Rc::new(move |ws, _w, _cx| ws.cloud_add_to_bucket(into.clone(), &add)),
+                    cx,
+                );
+            }
+            rows.push(menu_sep());
+            let delete = bucket;
+            row(
+                &mut rows,
+                "Delete bucket\u{2026}".into(),
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.cloud.form_target = Some((delete.id.clone(), delete.revision));
+                    form(ws, "delete-bucket", vec![], cx)
+                }),
+                cx,
+            );
+        }
+    }
+    Some(menu_frame(position, rows, dismiss, cx))
+}
+
 pub(crate) fn dialog(
     ws: &mut Workspace,
     kind: &'static str,
@@ -613,24 +1361,34 @@ pub(crate) fn dialog(
     let title = match kind {
         "sign-in" => "Sign into Schist Cloud",
         "search" => "Search cloud photos",
+        "filters" => "Filter cloud photos",
         "catalogue" => "Find cloud folders and buckets",
-        "new-folder" => "New cloud folder",
+        "new-folder" | "new-subfolder" => "New cloud folder",
         "new-bucket" => "New cloud bucket",
         "edit-bucket" => "Edit cloud bucket",
         "rename-folder" => "Rename cloud folder",
         "delete-folder" => "Delete cloud folder?",
         "delete-bucket" => "Delete cloud bucket?",
+        "delete-asset" => "Delete cloud photo?",
         "upload-document" => "Upload document to Schist Cloud",
         "download" => "Download cloud photo",
         _ => "Schist Cloud",
     };
     let mut body = div().flex().flex_col().gap_2();
     if kind.starts_with("delete-") {
-        body = body.child(caption(if kind == "delete-folder" {
-            "Only an empty folder can be deleted."
-        } else {
-            "Photos remain in your cloud library."
+        body = body.child(caption(match kind {
+            "delete-folder" => "Only an empty folder can be deleted.",
+            "delete-asset" => {
+                "The photo and its cloud edits are removed for good; buckets holding it \
+                 let it go."
+            }
+            _ => "Photos remain in your cloud library.",
         }));
+    }
+    if kind == "filters" {
+        body = body.child(caption(
+            "Leave a field empty to not filter by it. Dates are YYYY-MM-DD.",
+        ));
     }
     if kind.ends_with("bucket") && !kind.starts_with("delete") {
         body = body.child(caption(
@@ -803,13 +1561,21 @@ pub(crate) fn dialog(
     ui::modal_frame(title, 620.0, body, actions).into_any_element()
 }
 
+/// The browser's gallery: the cloud room on its own, since the web has
+/// no watched folders. The same strip, sidebar, grid and tray.
 #[cfg(target_arch = "wasm32")]
 pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
-    div()
+    let context_menu = context_menu(ws, cx);
+    let sidebar = sidebar_column("cloud-sidebar")
+        .child(group_chips(ws.gallery_group_by(), &GroupBy::CLOUD, cx))
+        .children(sidebar_section(ws, cx));
+    let root = div()
         .flex()
         .flex_col()
         .flex_grow()
         .min_h(px(0.0))
+        .bg(gpui::rgb(pal().grid_bg))
+        .text_color(gpui::rgb(pal().text))
         .track_focus(&ws.focus)
         .on_key_down(cx.listener(|ws, ev: &gpui::KeyDownEvent, window, cx| {
             if ws.modal.is_some() {
@@ -821,31 +1587,170 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
                 }
                 cx.notify();
                 cx.stop_propagation();
+                return;
+            }
+            if ws.gallery_key(ev, cx) {
+                cx.stop_propagation();
             }
         }))
-        .child(ui::button(
-            "Back to editor",
-            false,
-            |ws, _, cx| {
-                ws.cloud_set_visible(false);
-                cx.notify();
-            },
-            cx,
-        ))
+        .child(chrome::top_strip(ws, cx))
+        .children(
+            (ws.cloud.account.is_none() && ws.cloud.message != "Not signed in").then(|| {
+                div()
+                    .px_3()
+                    .py_2()
+                    .text_size(px(12.0))
+                    .child(ws.cloud.message.clone())
+            }),
+        )
         .child(
             div()
                 .flex()
                 .flex_row()
                 .flex_grow()
                 .min_h(px(0.0))
-                .child(
-                    div()
-                        .id("cloud-sidebar")
-                        .w(px(260.0))
-                        .overflow_y_scroll()
-                        .child(sidebar(ws, cx)),
-                )
+                .child(sidebar)
                 .child(grid(ws, cx)),
         )
-        .into_any_element()
+        .child(chrome::tray(ws, cx))
+        .children(context_menu)
+        .into_any_element();
+    ws.cloud_reveal_tick(cx);
+    root
+}
+
+#[cfg(test)]
+mod grouping_tests {
+    use super::*;
+
+    fn asset(id: &str, folder: Option<&str>, captured: Option<u64>, modified: u64) -> Asset {
+        Asset {
+            id: id.into(),
+            folder_id: folder.map(str::to_string),
+            name: format!("{id}.jpg"),
+            mime_type: "image/jpeg".into(),
+            revision: 1,
+            size: 1,
+            edited: false,
+            tags: vec![],
+            rating: 0,
+            captured_at: captured,
+            modified_at: modified,
+            thumbnail_url: None,
+        }
+    }
+    fn folder(id: &str, parent: Option<&str>, name: &str) -> Folder {
+        Folder {
+            id: id.into(),
+            parent_id: parent.map(str::to_string),
+            name: name.into(),
+            revision: 1,
+        }
+    }
+    const MARCH_2024: u64 = 1_710_504_000;
+    const APRIL_2024: u64 = 1_713_096_000;
+    const JAN_2023: u64 = 1_673_000_000;
+
+    #[test]
+    fn months_come_newest_first_with_upload_time_standing_in_for_capture() {
+        let assets = vec![
+            asset("old", None, Some(JAN_2023), APRIL_2024),
+            asset("march-a", None, Some(MARCH_2024), 0),
+            asset("undated-april", None, None, APRIL_2024),
+            asset("march-b", None, Some(MARCH_2024 + 60), 0),
+        ];
+        let groups = group_assets(&assets, &[], &[], &Scope::Library, "", GroupBy::Date);
+        let titles: Vec<&str> = groups.iter().map(|(t, _, _)| t.as_str()).collect();
+        assert_eq!(titles, ["April 2024", "March 2024", "January 2023"]);
+        let march: Vec<&str> = groups[1].2.iter().map(|a| a.id.as_str()).collect();
+        assert_eq!(march, ["march-b", "march-a"], "newest first inside a month");
+        assert_eq!(groups[0].2[0].id, "undated-april");
+    }
+
+    #[test]
+    fn folders_group_by_name_with_their_path_and_the_unfiled_last() {
+        let folders = vec![
+            folder("root", None, "Trips"),
+            folder("child", Some("root"), "Alps"),
+            folder("zoo", None, "Zoo"),
+        ];
+        let assets = vec![
+            asset("z", Some("zoo"), None, 1),
+            asset("loose", None, None, 1),
+            asset("a", Some("child"), None, 1),
+            asset("gone", Some("missing"), None, 1),
+        ];
+        let groups = group_assets(&assets, &folders, &[], &Scope::Library, "", GroupBy::Folder);
+        let heads: Vec<(&str, &str)> = groups
+            .iter()
+            .map(|(t, s, _)| (t.as_str(), s.as_str()))
+            .collect();
+        assert_eq!(
+            heads,
+            [
+                ("Alps", "Trips / Alps"),
+                ("Folder", ""),
+                ("Zoo", "Zoo"),
+                ("Unfiled", ""),
+            ]
+        );
+    }
+
+    #[test]
+    fn a_bucket_or_a_search_is_one_strip() {
+        let buckets = vec![Bucket {
+            id: "b".into(),
+            name: "Summer".into(),
+            revision: 1,
+            rule: Some(Rule {
+                scope: Scope::Library,
+                text: "beach".into(),
+                filters: Filters {
+                    min_rating: Some(3),
+                    ..Default::default()
+                },
+            }),
+        }];
+        let assets = vec![
+            asset("x", None, Some(JAN_2023), 0),
+            asset("y", None, Some(APRIL_2024), 0),
+        ];
+        let scope = Scope::Bucket { id: "b".into() };
+        let groups = group_assets(&assets, &[], &buckets, &scope, "", GroupBy::Date);
+        assert_eq!(groups.len(), 1);
+        assert_eq!(groups[0].0, "Bucket · Summer");
+        assert_eq!(groups[0].1, "\u{201c}beach\u{201d} · 1 filter");
+        assert_eq!(groups[0].2.len(), 2, "the provider's order is kept");
+        let folders = vec![folder("f", None, "Trips")];
+        let scope = Scope::Folder {
+            id: "f".into(),
+            recursive: true,
+        };
+        let groups = group_assets(&assets, &folders, &[], &scope, "sun", GroupBy::Folder);
+        assert_eq!(groups.len(), 1);
+        assert_eq!(groups[0].0, "Trips · Search results");
+    }
+
+    #[test]
+    fn the_sidebar_tree_nests_children_sorts_siblings_and_keeps_orphans() {
+        let folders = vec![
+            folder("b", None, "Beta"),
+            folder("a", None, "Alpha"),
+            folder("a2", Some("a"), "Zed"),
+            folder("a1", Some("a"), "Apple"),
+            folder("lost", Some("off-page"), "Lost"),
+        ];
+        let tree = folder_tree(&folders);
+        let tree: Vec<(usize, &str)> = tree.iter().map(|(d, f)| (*d, f.name.as_str())).collect();
+        assert_eq!(
+            tree,
+            [
+                (0, "Alpha"),
+                (1, "Apple"),
+                (1, "Zed"),
+                (0, "Beta"),
+                (0, "Lost")
+            ]
+        );
+    }
 }

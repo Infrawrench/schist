@@ -11,6 +11,7 @@
 //! folders to watch and no cameras to mount, so the whole module is
 //! compiled out of the web build.
 
+use super::gallery_chrome::GridScroll;
 use super::library_geo;
 use super::*;
 // The on-disk model — folders, buckets, the index snapshot, the caches
@@ -35,7 +36,6 @@ const THUMB_KEEP: usize = 1024;
 /// the first screenfuls to reappear instantly, a fraction of the RAM.
 const THUMB_KEEP_PARKED: usize = 256;
 /// The grid scrollbar's breathing room at each end of its track.
-const SCROLLBAR_INSET: f32 = 4.0;
 /// How many recently opened files the start screen lists.
 const RECENTS_KEPT: usize = 10;
 /// Longest edge the viewer decodes a photo at: enough to fill a
@@ -386,15 +386,7 @@ pub struct Library {
     pub map_filter_name: Option<String>,
     /// The search box: its text, whether it is taking keystrokes, and
     /// the current query's ranked results (`None` = not searching).
-    pub search: String,
-    pub search_active: bool,
-    /// The caret's byte position in `search`, always on a char
-    /// boundary — arrows move it, typing inserts at it.
-    pub search_cursor: usize,
-    /// ⌘A selected the whole query: the next keystroke replaces it,
-    /// backspace clears it, ⌘C/⌘X take it — the minimal selection a
-    /// one-line box owes the keyboard.
-    pub search_selected: bool,
+    pub search: crate::ui::LineEdit,
     pub search_results: Option<Vec<(PathBuf, f32)>>,
     /// The place the current query named, when it named one — shown on
     /// the results header.
@@ -428,73 +420,18 @@ pub struct Library {
     /// rectangles recorded each paint — what keyboard navigation needs
     /// to keep the selection on screen in a wrap layout that has no
     /// notion of rows to ask about.
-    pub grid_scroll: gpui::ScrollHandle,
-    pub grid_bounds: Bounds<Pixels>,
-    /// A scrollbar-thumb drag in progress: the pointer's offset from
-    /// the thumb's top when it was grabbed, in pixels.
-    pub scrollbar_grab: Option<f32>,
+    pub grid: GridScroll,
     /// The photos a gpui drag is currently carrying. Kept so that a
     /// drag which wanders out of the window can be handed to the
     /// platform's own drag-and-drop, and dropped on a file manager.
     pub dragging: Option<Vec<PathBuf>>,
-    pub selected_bounds: Option<Bounds<Pixels>>,
-    /// The keyboard moved the selection; scroll until it is visible.
-    reveal_selection: bool,
     /// A thumbnail failed for want of the HEIC support download; the
     /// gallery offers it once.
     heif_needed: Option<PathBuf>,
     heif_prompted: bool,
 }
 
-/// How the grid is grouped.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum GroupBy {
-    /// By capture month, newest first — the diary reading.
-    Date,
-    /// By the directory scanning found them in.
-    Folder,
-    /// By the nearest city their EXIF position names.
-    Place,
-}
-
-impl GroupBy {
-    pub const ALL: [GroupBy; 3] = [GroupBy::Date, GroupBy::Folder, GroupBy::Place];
-
-    pub fn label(self) -> &'static str {
-        match self {
-            GroupBy::Date => "Date",
-            GroupBy::Folder => "Folder",
-            GroupBy::Place => "Place",
-        }
-    }
-
-    pub(super) fn key(self) -> &'static str {
-        match self {
-            GroupBy::Date => "date",
-            GroupBy::Folder => "folder",
-            GroupBy::Place => "place",
-        }
-    }
-
-    pub(super) fn from_key(key: &str) -> Option<GroupBy> {
-        GroupBy::ALL.into_iter().find(|g| g.key() == key)
-    }
-}
-
-const MONTHS: [&str; 12] = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-];
+pub use super::gallery_chrome::GroupBy;
 
 impl Library {
     /// Load the persisted folder list and recents.
@@ -597,10 +534,7 @@ impl Library {
                 .unwrap_or(GroupBy::Date),
             map_filter: None,
             map_filter_name: None,
-            search: String::new(),
-            search_active: false,
-            search_cursor: 0,
-            search_selected: false,
+            search: Default::default(),
             search_results: None,
             search_place: None,
             search_scoped: None,
@@ -612,12 +546,8 @@ impl Library {
             last_loader_notify: None,
             index_snapshot: None,
             engine_warmed: false,
-            grid_scroll: gpui::ScrollHandle::new(),
-            grid_bounds: Bounds::default(),
-            scrollbar_grab: None,
+            grid: GridScroll::default(),
             dragging: None,
-            selected_bounds: None,
-            reveal_selection: false,
             heif_needed: None,
             heif_prompted: false,
         }
@@ -731,37 +661,6 @@ impl Library {
         self.thumb_frame += 1;
     }
 
-    /// The grid scrollbar's geometry: (track inset, thumb height,
-    /// thumb travel, max scroll), exact because it reads the scroll
-    /// handle's own extents. `None` while nothing scrolls.
-    pub(super) fn scrollbar_geometry(&self) -> Option<(f32, f32, f32, f32)> {
-        let view_h = f32::from(self.grid_bounds.size.height);
-        let max_y = f32::from(self.grid_scroll.max_offset().height);
-        if view_h <= 0.0 || max_y <= 1.0 {
-            return None;
-        }
-        let track_h = view_h - 2.0 * SCROLLBAR_INSET;
-        let thumb_h = (track_h * view_h / (view_h + max_y)).clamp(30.0, track_h);
-        let travel = (track_h - thumb_h).max(1.0);
-        Some((SCROLLBAR_INSET, thumb_h, travel, max_y))
-    }
-
-    /// Scroll so the thumb follows the pointer of an active grab;
-    /// `pointer_y` is in window coordinates.
-    pub(super) fn scrollbar_drag_to(&mut self, pointer_y: f32) {
-        let Some(grab) = self.scrollbar_grab else {
-            return;
-        };
-        let Some((inset, _, travel, max_y)) = self.scrollbar_geometry() else {
-            return;
-        };
-        let top = f32::from(self.grid_bounds.origin.y);
-        let thumb_top = (pointer_y - top - inset - grab).clamp(0.0, travel);
-        let mut offset = self.grid_scroll.offset();
-        offset.y = px(-(thumb_top / travel * max_y));
-        self.grid_scroll.set_offset(offset);
-    }
-
     /// The gallery left the screen: give back what only it was using.
     /// The scorer and the two search towers are hundreds of resident
     /// megabytes; they reload lazily, and a fully indexed library
@@ -844,7 +743,7 @@ impl Library {
                 "rule": b.is_smart().then(|| b.rule_label()),
                 "viewing": self.bucket_filter == Some(i),
             })).collect::<Vec<_>>(),
-            "search": (!self.search.is_empty()).then_some(&self.search),
+            "search": (!self.search.text.is_empty()).then_some(&self.search.text),
             "search_results": self.search_results.as_ref().map(|r| r.len()),
             "search_bucket": self
                 .search_scoped
@@ -1246,15 +1145,7 @@ impl Library {
                     .rev()
                     .map(|(key, mut entries)| {
                         entries.sort_by_key(|e| std::cmp::Reverse(self.taken_of(e)));
-                        let title = match (
-                            key.get(..4),
-                            key.get(5..7).and_then(|m| m.parse::<usize>().ok()),
-                        ) {
-                            (Some(year), Some(month)) if (1..=12).contains(&month) => {
-                                format!("{} {year}", MONTHS[month - 1])
-                            }
-                            _ => "Undated".to_string(),
-                        };
+                        let title = super::gallery_chrome::month_title(&key);
                         (title, String::new(), entries)
                     })
                     .collect()
@@ -2903,7 +2794,7 @@ impl Workspace {
     /// flips the key context to text entry so letters reach the box
     /// instead of the tool shortcuts.
     pub fn gallery_search_active(&self) -> bool {
-        self.library.open && self.library.search_active
+        self.library.open && self.library.search.active
     }
 
     /// Ask what to call a new bucket — and, optionally, its smart rule
@@ -3128,7 +3019,7 @@ impl Workspace {
                 ws.library.smart_running = false;
                 // A search scoped to this bucket was ranked over what
                 // it held before the pass; rank it over what it holds now.
-                if viewed_refilled && !ws.library.search.trim().is_empty() {
+                if viewed_refilled && !ws.library.search.text.trim().is_empty() {
                     ws.gallery_search_changed(cx);
                 }
                 cx.notify();
@@ -3144,141 +3035,13 @@ impl Workspace {
         ev: &gpui::KeyDownEvent,
         cx: &mut Context<Self>,
     ) -> bool {
-        if !self.library.search_active {
-            return false;
-        }
-        let primary = ev.keystroke.modifiers.platform || ev.keystroke.modifiers.control;
-        // Keep the caret on the rails whatever changed the text.
-        self.library.search_cursor = self.library.search_cursor.min(self.library.search.len());
-        match ev.keystroke.key.as_str() {
-            "a" if primary => {
-                self.library.search_selected = !self.library.search.is_empty();
-                self.library.search_cursor = self.library.search.len();
-                cx.notify();
-            }
-            "c" if primary && self.library.search_selected => {
-                cx.write_to_clipboard(gpui::ClipboardItem::new_string(self.library.search.clone()));
-            }
-            "x" if primary && self.library.search_selected => {
-                cx.write_to_clipboard(gpui::ClipboardItem::new_string(self.library.search.clone()));
-                self.library.search.clear();
-                self.library.search_cursor = 0;
-                self.library.search_selected = false;
-                self.gallery_search_changed(cx);
-            }
-            "v" if primary => {
-                let Some(pasted) = cx.read_from_clipboard().and_then(|item| item.text()) else {
-                    return true;
-                };
-                // One line: a pasted paragraph flattens rather than
-                // breaking the box.
-                let pasted: String = pasted
-                    .chars()
-                    .map(|c| if c.is_control() { ' ' } else { c })
-                    .collect();
-                if self.library.search_selected {
-                    self.library.search.clear();
-                    self.library.search_cursor = 0;
-                    self.library.search_selected = false;
-                }
-                let at = self.library.search_cursor;
-                self.library.search.insert_str(at, &pasted);
-                self.library.search_cursor = at + pasted.len();
-                self.gallery_search_changed(cx);
-            }
-            "left" | "right" if primary => {
-                // ⌘←/⌘→: the ends of the line.
-                self.library.search_selected = false;
-                self.library.search_cursor = if ev.keystroke.key == "left" {
-                    0
-                } else {
-                    self.library.search.len()
-                };
-                cx.notify();
-            }
-            "left" => {
-                self.library.search_cursor = if self.library.search_selected {
-                    0
-                } else {
-                    crate::ui::caret_left(&self.library.search, self.library.search_cursor)
-                };
-                self.library.search_selected = false;
-                cx.notify();
-            }
-            "right" => {
-                self.library.search_cursor = if self.library.search_selected {
-                    self.library.search.len()
-                } else {
-                    crate::ui::caret_right(&self.library.search, self.library.search_cursor)
-                        .min(self.library.search.len())
-                };
-                self.library.search_selected = false;
-                cx.notify();
-            }
-            "home" | "up" => {
-                self.library.search_cursor = 0;
-                self.library.search_selected = false;
-                cx.notify();
-            }
-            "end" | "down" => {
-                self.library.search_cursor = self.library.search.len();
-                self.library.search_selected = false;
-                cx.notify();
-            }
-            "backspace" => {
-                if self.library.search_selected {
-                    self.library.search.clear();
-                    self.library.search_cursor = 0;
-                    self.library.search_selected = false;
-                } else if self.library.search_cursor > 0 {
-                    let from =
-                        crate::ui::caret_left(&self.library.search, self.library.search_cursor);
-                    self.library
-                        .search
-                        .replace_range(from..self.library.search_cursor, "");
-                    self.library.search_cursor = from;
-                }
-                self.gallery_search_changed(cx);
-            }
-            "delete" => {
-                if self.library.search_selected {
-                    self.library.search.clear();
-                    self.library.search_cursor = 0;
-                    self.library.search_selected = false;
-                } else if self.library.search_cursor < self.library.search.len() {
-                    let to =
-                        crate::ui::caret_right(&self.library.search, self.library.search_cursor);
-                    self.library
-                        .search
-                        .replace_range(self.library.search_cursor..to, "");
-                }
-                self.gallery_search_changed(cx);
-            }
-            "enter" => {
-                // The results are already live; Enter just puts the
-                // keyboard back on the shortcuts.
-                self.library.search_active = false;
-                self.library.search_selected = false;
-                cx.notify();
-            }
-            _ => {
-                let Some(text) = ev.keystroke.key_char.as_deref() else {
-                    return false;
-                };
-                if text.chars().any(char::is_control) {
-                    return false;
-                }
-                // Typing over a selection replaces it, as anywhere.
-                if self.library.search_selected {
-                    self.library.search.clear();
-                    self.library.search_cursor = 0;
-                    self.library.search_selected = false;
-                }
-                let at = self.library.search_cursor;
-                self.library.search.insert_str(at, text);
-                self.library.search_cursor = at + text.len();
-                self.gallery_search_changed(cx);
-            }
+        use crate::ui::LineEditKey;
+        match self.library.search.key(ev, cx) {
+            LineEditKey::Ignored => return false,
+            LineEditKey::Changed => self.gallery_search_changed(cx),
+            // Enter: the results are already live; it just puts the
+            // keyboard back on the shortcuts.
+            LineEditKey::Moved | LineEditKey::Submitted => cx.notify(),
         }
         // A key landed in the box: show the caret solid from here.
         self.reset_caret_phase();
@@ -3294,11 +3057,11 @@ impl Workspace {
         ev: &gpui::KeyDownEvent,
         cx: &mut Context<Self>,
     ) -> bool {
-        if self.library.search_active {
+        if self.library.search.active {
             return false;
         }
         let columns = {
-            let width = f32::from(self.library.grid_bounds.size.width);
+            let width = f32::from(self.library.grid.bounds.size.width);
             let cell = self.library.thumb_px;
             // p_2 padding both sides, gap_2 between cells.
             (((width - 16.0 + 8.0) / (cell + 8.0)).floor() as isize).max(1)
@@ -3353,7 +3116,7 @@ impl Workspace {
         } else {
             self.library.select_single(lead);
         }
-        self.library.reveal_selection = true;
+        self.library.grid.reveal = true;
         cx.notify();
         true
     }
@@ -3409,45 +3172,23 @@ impl Workspace {
     /// Runs per render off the bounds the previous paint recorded, so
     /// it converges a frame after the selection moves.
     pub(super) fn gallery_reveal_tick(&mut self, cx: &mut Context<Self>) {
-        if !self.library.reveal_selection {
-            return;
+        if self.library.grid.reveal_tick() {
+            cx.notify();
         }
-        let (Some(cell), view) = (self.library.selected_bounds, self.library.grid_bounds) else {
-            return;
-        };
-        if view.size.height <= px(0.0) {
-            return;
-        }
-        let top = f32::from(cell.origin.y);
-        let bottom = top + f32::from(cell.size.height);
-        let view_top = f32::from(view.origin.y);
-        let view_bottom = view_top + f32::from(view.size.height);
-        let mut offset = self.library.grid_scroll.offset();
-        if bottom > view_bottom {
-            // Scrolling down means a more negative offset in gpui.
-            offset.y -= px(bottom - view_bottom + 8.0);
-        } else if top < view_top {
-            offset.y += px(view_top - top + 8.0);
-        } else {
-            self.library.reveal_selection = false;
-            return;
-        }
-        self.library.grid_scroll.set_offset(offset);
-        cx.notify();
     }
 
     /// Leave the search: clear the box and show the folders again.
     /// Wired into the always-on Escape path.
     pub(super) fn gallery_search_clear(&mut self, cx: &mut Context<Self>) -> bool {
         if !self.library.open
-            || (!self.library.search_active && self.library.search_results.is_none())
+            || (!self.library.search.active && self.library.search_results.is_none())
         {
             return false;
         }
-        self.library.search.clear();
-        self.library.search_cursor = 0;
-        self.library.search_active = false;
-        self.library.search_selected = false;
+        self.library.search.text.clear();
+        self.library.search.cursor = 0;
+        self.library.search.active = false;
+        self.library.search.selected = false;
         self.library.search_results = None;
         self.library.search_place = None;
         self.library.search_people.clear();
@@ -3466,7 +3207,7 @@ impl Workspace {
     pub(super) fn gallery_search_changed(&mut self, cx: &mut Context<Self>) {
         self.library.search_seq += 1;
         let seq = self.library.search_seq;
-        let query = self.library.search.trim().to_string();
+        let query = self.library.search.text.trim().to_string();
         self.library.search_scoped = self.library.bucket_filter;
         if query.is_empty() {
             self.library.search_results = None;
@@ -3594,8 +3335,8 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) -> Vec<(PathBuf, f32)> {
         let query = query.trim().to_string();
-        self.library.search = query.clone();
-        self.library.search_cursor = query.len();
+        self.library.search.text = query.clone();
+        self.library.search.cursor = query.len();
         self.library.search_seq += 1;
         self.library.search_scoped = self.library.bucket_filter;
         let scope = self.library.search_scope();
@@ -3674,7 +3415,7 @@ impl Workspace {
     /// buckets' refresh, so nothing that moves `bucket_filter` has to
     /// remember to.
     pub(super) fn gallery_search_rescope(&mut self, cx: &mut Context<Self>) {
-        if self.library.search.trim().is_empty()
+        if self.library.search.text.trim().is_empty()
             || self.library.search_scoped == self.library.bucket_filter
         {
             return;
