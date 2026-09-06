@@ -1888,6 +1888,7 @@ mod grouping_tests {
             modified_at: modified,
             thumbnail_url: None,
             place_name: None,
+            location: None,
         }
     }
     fn folder(id: &str, parent: Option<&str>, name: &str) -> Folder {

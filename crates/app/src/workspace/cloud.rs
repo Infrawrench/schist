@@ -2341,6 +2341,7 @@ mod cloud_lifecycle_tests {
                 modified_at: 0,
                 thumbnail_url: None,
                 place_name: None,
+                location: None,
             },
             shared,
             joined: true,
