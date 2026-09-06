@@ -29,6 +29,10 @@ macro_rules! icons {
 }
 
 icons!(
+    "character",
+    "type-align-left",
+    "type-align-center",
+    "type-align-right",
     "move",
     "swap",
     "eyedropper",

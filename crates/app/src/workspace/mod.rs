@@ -78,6 +78,7 @@ mod services;
 mod styles;
 mod tiles;
 mod toolbar;
+mod typography;
 mod view_options;
 mod viewport;
 
@@ -1208,6 +1209,7 @@ pub enum ImportSource {
 pub enum SideTab {
     Info,
     Color,
+    Character,
 }
 
 /// A boundary in degrees: what the import map's rectangle means, and

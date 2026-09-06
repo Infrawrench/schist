@@ -12,15 +12,26 @@ const INFO_ROWS_MAX_H: f32 = 88.0;
 #[cfg(not(target_arch = "wasm32"))]
 const SIDE_PANEL_CONTENT_W: f32 = 260.0 - 16.0;
 
-/// The side panel's top slot: a tab row when the open file has EXIF —
-/// Info first and by default, Color beside it — and the plain colour
-/// panel when it has none, exactly as before.
+/// The top dock: Character while using Type, Info for files with EXIF,
+/// and Color. Type's detailed controls stay here instead of wrapping the
+/// options bar onto the canvas.
 pub(super) fn top_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     ws.refresh_exif();
-    let Some(exif) = ws.exif.as_ref().and_then(|(_, e)| e.clone()) else {
+    let exif = ws.exif.as_ref().and_then(|(_, e)| e.clone());
+    let is_type = ws.editor.active_tool == "type";
+    if exif.is_none() && !is_type {
         return color_panel(ws, cx).into_any_element();
+    }
+    let default = if is_type {
+        SideTab::Character
+    } else {
+        SideTab::Info
     };
-    let tab = ws.side_tab.unwrap_or(SideTab::Info);
+    let tab = match ws.side_tab.unwrap_or(default) {
+        SideTab::Character if !is_type => default,
+        SideTab::Info if exif.is_none() => SideTab::Color,
+        tab => tab,
+    };
     let tab_chip = |label: &'static str, which: SideTab, cx: &mut Context<Workspace>| {
         let on = tab == which;
         div()
@@ -47,7 +58,7 @@ pub(super) fn top_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui
                     cx.notify();
                 }),
             )
-            .child(label.to_uppercase())
+            .child(label)
     };
     let tabs = div()
         .flex()
@@ -55,11 +66,13 @@ pub(super) fn top_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui
         .gap_1()
         .px_2()
         .pt_2()
-        .child(tab_chip("Info", SideTab::Info, cx))
+        .children(is_type.then(|| tab_chip("Character", SideTab::Character, cx)))
+        .children(exif.is_some().then(|| tab_chip("Info", SideTab::Info, cx)))
         .child(tab_chip("Color", SideTab::Color, cx));
     let body = match tab {
-        SideTab::Info => info_panel(ws, &exif, cx).into_any_element(),
+        SideTab::Info => info_panel(ws, exif.as_ref().unwrap(), cx).into_any_element(),
         SideTab::Color => color_panel(ws, cx).into_any_element(),
+        SideTab::Character => super::typography::character_panel(ws, cx),
     };
     div()
         .flex()

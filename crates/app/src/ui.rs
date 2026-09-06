@@ -606,7 +606,7 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
             MouseButton::Left,
             cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(popup, cx)),
         )
-        .child(label)
+        .child(div().flex_1().min_w_0().text_ellipsis().child(label))
         .child(crate::panels::icon(
             "chevron-down",
             11.0,

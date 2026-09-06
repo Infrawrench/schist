@@ -16,6 +16,9 @@ pub(super) type ToolSlot = (
 
 pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let tool_id = ws.editor.active_tool;
+    if tool_id == "type" {
+        return super::typography::type_options_bar(ws, cx).into_any_element();
+    }
     let (tool_icon, tool_name) = ws
         .registry
         .tools()
@@ -90,10 +93,10 @@ pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl
         .unwrap_or_default()
     {
         // Keep each control together when a tool has more options than
-        // one row can show (notably Type's OpenType and path settings).
+        // one row can show. Type has its own compact bar and panel.
         bar = bar.child(div().flex_none().child(tool_option_control(ws, opt, cx)));
     }
-    bar
+    bar.into_any_element()
 }
 
 /// Render one plugin-declared option. The shell knows the three kinds, not

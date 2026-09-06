@@ -43,6 +43,9 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         window.focus(&self.focus);
+        if self.type_field_option().is_some() {
+            self.commit_focused_field();
+        }
         // Clicking the canvas ends an inline layer rename or an open
         // note, keeping what was typed.
         self.commit_layer_rename(cx);

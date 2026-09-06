@@ -609,7 +609,9 @@ impl Workspace {
         // meant to do before `CancelGesture` -- bound in the
         // always-matching "Workspace" context -- got there ahead of it
         // and closed the whole dialog on the first press.
-        if self.modal.is_some() && self.focused_field.is_some() {
+        if self.focused_field.is_some()
+            && (self.modal.is_some() || self.type_field_option().is_some())
+        {
             self.focused_field = None;
             self.field_buffer.clear();
             cx.notify();
