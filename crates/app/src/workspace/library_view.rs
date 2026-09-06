@@ -175,39 +175,13 @@ fn drag_out_listener(cx: &mut Context<Workspace>) -> impl IntoElement {
     .size_0()
 }
 
-/// The local gallery's half of the top strip: Import and folder
-/// buttons on the left, as Picasa keeps its Import button, then the
-/// map-filter chip and the photo search in the middle.
-pub(super) fn local_strip_left(
+/// Local filter chips and search inside the shared toolbar.
+pub(super) fn local_strip_search(
     strip: gpui::Div,
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
 ) -> gpui::Div {
-    let importing = ws.library.importing;
     strip
-        .child(gallery_button(
-            if importing {
-                "Importing…"
-            } else {
-                "Import…"
-            },
-            true,
-            |ws, _w, cx| ws.gallery_import_camera(cx),
-            cx,
-        ))
-        .child(gallery_button(
-            "Add Folder…",
-            false,
-            |ws, window, cx| ws.gallery_add_folder(window, cx),
-            cx,
-        ))
-        .child(gallery_button(
-            "Refresh",
-            false,
-            |ws, _w, cx| ws.library_rescan(cx),
-            cx,
-        ))
-        .child(div().flex_grow())
         .children(ws.library.map_filter_label().map(|label| {
             chrome::filter_chip(
                 format!("Map filter: {label}"),
@@ -473,34 +447,68 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
     let total: usize = folders.iter().map(|(_, n)| n).sum();
     let mut rows: Vec<gpui::AnyElement> = Vec::new();
     rows.push(
-        sidebar_row("All Photos", total, !cloud && filter.is_none(), None, cx).into_any_element(),
+        sidebar_row(
+            "All Photos",
+            total,
+            !cloud && ws.library.bucket_filter.is_none() && filter.is_none(),
+            None,
+            cx,
+        )
+        .into_any_element(),
     );
     for (root, count) in folders {
         let label = root
             .file_name()
             .map(|n| n.to_string_lossy().into_owned())
             .unwrap_or_else(|| root.display().to_string());
-        let selected = !cloud && filter.as_deref() == Some(root.as_path());
+        let selected = !cloud
+            && ws.library.bucket_filter.is_none()
+            && filter.as_deref() == Some(root.as_path());
         rows.push(sidebar_row(label, count, selected, Some(root), cx).into_any_element());
     }
-    let groups: &[GroupBy] = if cloud {
-        &GroupBy::CLOUD
-    } else {
-        &GroupBy::ALL
-    };
     sidebar_column("gallery-sidebar")
-        .child(group_chips(ws.gallery_group_by(), groups, cx))
-        .children((!cloud).then(|| {
-            let active = ws.library.map_filter.is_some();
-            Button::new(
-                "map-filter",
-                if active {
+        .child(group_chips(ws.gallery_group_by(), &GroupBy::ALL, cx))
+        .child({
+            let active = if cloud {
+                ws.cloud.query.filters.bounds.is_some()
+            } else {
+                ws.library.map_filter.is_some()
+            };
+            div()
+                .mx_2()
+                .mb_1()
+                .px_2()
+                .h(px(22.0))
+                .flex()
+                .items_center()
+                .justify_between()
+                .rounded_md()
+                .text_size(px(11.0))
+                .cursor_pointer()
+                .bg(gpui::rgb(if active {
+                    pal().select_border
+                } else {
+                    pal().button_bg
+                }))
+                .text_color(gpui::rgb(if active { 0xFFFFFF } else { pal().text }))
+                .hover(move |s| {
+                    if active {
+                        s
+                    } else {
+                        s.bg(gpui::rgb(pal().button_hover))
+                    }
+                })
+                .on_mouse_down(
+                    MouseButton::Left,
+                    cx.listener(|ws, _e: &MouseDownEvent, _w, cx| ws.open_map_filter(cx)),
+                )
+                .child(if active {
                     "Map filter on"
                 } else {
                     "Map filter…"
                 })
                 .children(active.then(|| div().child("\u{25cf}")))
-        }))
+        })
         .child(sidebar_caption("FOLDERS"))
         .children(rows)
         .children(super::cloud_view::folder_rows(ws, cx))
@@ -557,6 +565,9 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             cx,
         ))
         .children((!cloud).then(|| super::library_people_view::people_rows(ws, cx)).flatten())
+        .children(cloud.then(|| {
+            chrome::sidebar_link("More filters…", |ws, _w, cx| ws.cloud_open_filters(cx), cx)
+        }))
 }
 
 /// One bucket in the sidebar: a drop target, a view of its contents on
@@ -1167,7 +1178,7 @@ fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let mut content_y = 8.0; // the column's p_2 top padding
     for (title, subtitle, entries) in sections {
         let detail = if subtitle.is_empty() {
-            format!("{} photos", entries.len())
+            chrome::photo_count(entries.len())
         } else {
             format!("{subtitle} — {}", entries.len())
         };
@@ -1361,7 +1372,7 @@ pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
         name,
         selected: ws.library.selected.len(),
         notes,
-        count: format!("{} photos", ws.library.photo_count()),
+        count: chrome::photo_count(ws.library.photo_count()),
     }
 }
 
@@ -1928,7 +1939,11 @@ pub(crate) fn map_filter_dialog(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let selection = ws.library.map.selection;
-    let filtering = ws.library.map_filter.is_some();
+    let filtering = if ws.cloud.show {
+        ws.cloud.query.filters.bounds.is_some()
+    } else {
+        ws.library.map_filter.is_some()
+    };
     let status = match (&selection, &ws.library.map.selection_name) {
         (Some(_), Some(name)) => format!(
             "Apply shows only photos taken in {name}; photos without an EXIF position hide."

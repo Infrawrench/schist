@@ -97,16 +97,13 @@ pub enum GroupBy {
     Date,
     /// By the directory scanning found them in, or the cloud folder.
     Folder,
-    /// By the nearest city their EXIF position names. Local only: the
-    /// cloud does not send positions.
+    /// By the nearest city their EXIF position names.
     Place,
 }
 
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 impl GroupBy {
     pub const ALL: [GroupBy; 3] = [GroupBy::Date, GroupBy::Folder, GroupBy::Place];
-    /// What the cloud can group by: it knows dates and folders.
-    pub const CLOUD: [GroupBy; 2] = [GroupBy::Date, GroupBy::Folder];
 
     pub fn label(self) -> &'static str {
         match self {
@@ -1097,14 +1094,11 @@ pub fn menu_frame(
     .into_any_element()
 }
 
-/// The strip under the menu bar: the import/upload and folder buttons
-/// on the left, as Picasa keeps its Import button, the search box in
-/// the middle, and the way back to the editor on the right. The cloud
-/// gallery gets the same strip with the remote verbs.
+/// The same toolbar for local and cloud photos; only the action's destination changes.
 pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let has_doc = ws.doc.is_some();
     let cloud = ws.cloud.show;
-    let mut strip = div()
+    let strip = div()
         .flex()
         .flex_row()
         .items_center()
@@ -1114,42 +1108,66 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEl
         .px_2()
         .bg(gpui::rgb(pal().chrome_bg))
         .border_b_1()
-        .border_color(gpui::rgb(pal().chrome_edge));
-    if cloud {
-        strip = strip
-            .child(gallery_button(
-                "Upload Files…",
-                true,
-                |ws, _w, cx| ws.cloud_pick_upload(false, cx),
-                cx,
-            ))
-            .child(gallery_button(
-                "Upload Folder…",
-                false,
-                |ws, _w, cx| ws.cloud_pick_upload(true, cx),
-                cx,
-            ))
-            .child(gallery_button(
-                "Refresh",
-                false,
-                |ws, _w, cx| ws.cloud_refresh(cx),
-                cx,
-            ))
-            .child(div().flex_grow())
+        .border_color(gpui::rgb(pal().chrome_edge))
+        .child(gallery_button(
+            "Import…",
+            true,
+            |ws, _w, cx| {
+                if ws.cloud.show {
+                    ws.cloud_pick_upload(false, cx);
+                }
+                #[cfg(not(target_arch = "wasm32"))]
+                if !ws.cloud.show {
+                    ws.gallery_import_camera(cx);
+                }
+            },
+            cx,
+        ))
+        .child(gallery_button(
+            "Add Folder…",
+            false,
+            |ws, window, cx| {
+                if ws.cloud.show {
+                    ws.cloud_pick_upload(true, cx);
+                }
+                #[cfg(not(target_arch = "wasm32"))]
+                if !ws.cloud.show {
+                    ws.gallery_add_folder(window, cx);
+                }
+                #[cfg(target_arch = "wasm32")]
+                let _ = window;
+            },
+            cx,
+        ))
+        .child(gallery_button(
+            "Refresh",
+            false,
+            |ws, _w, cx| {
+                if ws.cloud.show {
+                    ws.cloud_refresh(cx);
+                }
+                #[cfg(not(target_arch = "wasm32"))]
+                if !ws.cloud.show {
+                    ws.library_rescan(cx);
+                }
+            },
+            cx,
+        ))
+        .child(div().flex_grow());
+    let strip = if cloud {
+        strip
             .children(super::cloud_view::filter_chip(ws, cx))
             .child(super::cloud_view::search_box(ws, cx))
-            .child(gallery_button(
-                "Filters…",
-                false,
-                |ws, _w, cx| ws.cloud_open_filters(cx),
-                cx,
-            ));
     } else {
         #[cfg(not(target_arch = "wasm32"))]
         {
-            strip = super::library_view::local_strip_left(strip, ws, cx);
+            super::library_view::local_strip_search(strip, ws, cx)
         }
-    }
+        #[cfg(target_arch = "wasm32")]
+        {
+            strip
+        }
+    };
     strip
         .child(div().flex_grow())
         .child(gallery_button(
@@ -1181,6 +1199,10 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEl
                 cx,
             )
         }))
+}
+
+pub fn photo_count(count: usize) -> String {
+    format!("{count} {}", if count == 1 { "photo" } else { "photos" })
 }
 
 /// What a tray button does.
@@ -1292,18 +1314,13 @@ impl Workspace {
         }
     }
 
-    /// How the grid is grouped. The cloud cannot group by place, so it
-    /// reads that choice as by date.
+    /// One grouping choice for both local and cloud photos.
     pub(crate) fn gallery_group_by(&self) -> GroupBy {
         #[cfg(not(target_arch = "wasm32"))]
         let group = self.library.group_by;
         #[cfg(target_arch = "wasm32")]
         let group = self.cloud.group_by;
-        if self.cloud.show && group == GroupBy::Place {
-            GroupBy::Date
-        } else {
-            group
-        }
+        group
     }
 
     /// Whether a gallery search box is taking typing, for the key
@@ -1418,6 +1435,9 @@ impl Workspace {
 
     pub fn set_gallery_group(&mut self, group: GroupBy, cx: &mut Context<Self>) {
         self.cloud.group_by = group;
+        self.cloud.query.offset = 0;
+        self.cloud.query.sort = self.cloud_sort();
+        self.cloud_watch_assets(true);
         cx.notify();
     }
 }

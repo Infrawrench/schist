@@ -3919,9 +3919,24 @@ impl Workspace {
     /// Open the map-filter dialog, seeded with the active filter so
     /// editing starts from what is on.
     pub fn open_map_filter(&mut self, cx: &mut Context<Self>) {
+        if self.cloud.show {
+            let bounds = self.cloud.query.filters.bounds.as_ref().map(|b| GeoBounds {
+                south: b.south,
+                north: b.north,
+                west: b.west,
+                east: b.east,
+            });
+            self.library.map.selection = bounds;
+            self.library.map.selection_name = None;
+            if let Some(bounds) = bounds {
+                self.library.map.center = bounds.center();
+            }
+            self.open_modal(Modal::MapFilter, cx);
+            return;
+        }
+        self.library.map.selection = self.library.map_filter;
+        self.library.map.selection_name = self.library.map_filter_name.clone();
         if let Some(bounds) = self.library.map_filter {
-            self.library.map.selection = Some(bounds);
-            self.library.map.selection_name = self.library.map_filter_name.clone();
             self.library.map.center = bounds.center();
         }
         self.open_modal(Modal::MapFilter, cx);
@@ -3930,6 +3945,20 @@ impl Workspace {
     /// Make the drawn boundary the gallery's filter (or clear it, when
     /// nothing is drawn), and remember it.
     pub fn apply_map_filter(&mut self, cx: &mut Context<Self>) {
+        if self.cloud.show {
+            self.cloud.query.filters.bounds =
+                self.library.map.selection.map(|b| schist_cloud::Bounds {
+                    south: b.south,
+                    north: b.north,
+                    west: b.west,
+                    east: b.east,
+                });
+            self.cloud.query.offset = 0;
+            self.cloud_watch_assets(true);
+            self.close_modal(cx);
+            cx.notify();
+            return;
+        }
         self.library.map_filter = self.library.map.selection;
         self.library.map_filter_name = self
             .library
@@ -3942,6 +3971,13 @@ impl Workspace {
     /// Turn the map filter off. The boundary stays drawn on the map, so
     /// turning it back on is one Apply away.
     pub fn clear_map_filter(&mut self, cx: &mut Context<Self>) {
+        if self.cloud.show {
+            self.cloud.query.filters.bounds = None;
+            self.cloud.query.offset = 0;
+            self.cloud_watch_assets(true);
+            cx.notify();
+            return;
+        }
         self.library.map_filter = None;
         self.library.map_filter_name = None;
         cx.notify();
@@ -3951,6 +3987,11 @@ impl Workspace {
     pub fn set_gallery_group(&mut self, group: GroupBy, cx: &mut Context<Self>) {
         self.library.group_by = group;
         self.library.save();
+        if self.cloud.show {
+            self.cloud.query.offset = 0;
+            self.cloud.query.sort = self.cloud_sort();
+            self.cloud_watch_assets(true);
+        }
         cx.notify();
     }
 

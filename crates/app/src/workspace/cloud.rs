@@ -1965,6 +1965,7 @@ mod cloud_lifecycle_tests {
                 captured_at: None,
                 modified_at: 0,
                 thumbnail_url: None,
+                place_name: None,
             },
             shared,
             joined: true,

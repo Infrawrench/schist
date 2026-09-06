@@ -111,6 +111,9 @@ pub struct Asset {
     pub captured_at: Option<u64>,
     pub modified_at: u64,
     pub thumbnail_url: Option<String>,
+    /// Nearest city from EXIF, absent on older providers or photos without a location.
+    #[serde(default)]
+    pub place_name: Option<String>,
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Default)]
 #[serde(tag = "kind", rename_all = "snake_case")]
@@ -325,6 +328,21 @@ pub fn format_date(t: u64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg_attr(not(target_arch = "wasm32"), test)]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
+    fn asset_place_names_are_optional_for_older_providers() {
+        let mut asset = serde_json::json!({"id":"a","folder_id":null,"name":"photo.jpg",
+            "mime_type":"image/jpeg","revision":1,"size":1,"edited":false,
+            "tags":[],"rating":0,"captured_at":null,"modified_at":1,"thumbnail_url":null});
+        for name in [None, Some("New York City")] {
+            if let Some(name) = name {
+                asset["place_name"] = name.into();
+            }
+            let decoded: Asset =
+                rmp_serde::from_slice(&rmp_serde::to_vec_named(&asset).unwrap()).unwrap();
+            assert_eq!(decoded.place_name.as_deref(), name);
+        }
+    }
     #[cfg_attr(not(target_arch = "wasm32"), test)]
     #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
     fn folder_counts_arrive_with_the_catalogue() {

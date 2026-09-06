@@ -283,7 +283,29 @@ fn group_assets(
                 .map(|((_, name, path), assets)| (name, path, assets))
                 .collect()
         }
-        _ => {
+        GroupBy::Place => {
+            let mut places: BTreeMap<String, Vec<Asset>> = BTreeMap::new();
+            for asset in assets {
+                let name = asset
+                    .place_name
+                    .clone()
+                    .unwrap_or_else(|| "No location".into());
+                places.entry(name).or_default().push(asset.clone());
+            }
+            let mut groups: Vec<_> = places
+                .into_iter()
+                .map(|(name, mut assets)| {
+                    assets
+                        .sort_by_key(|a| std::cmp::Reverse(a.captured_at.unwrap_or(a.modified_at)));
+                    (name, String::new(), assets)
+                })
+                .collect();
+            groups.sort_by_key(|(name, _, assets)| {
+                (name == "No location", std::cmp::Reverse(assets.len()))
+            });
+            groups
+        }
+        GroupBy::Date => {
             let taken = |a: &Asset| a.captured_at.unwrap_or(a.modified_at);
             let mut months: BTreeMap<String, Vec<Asset>> = BTreeMap::new();
             for asset in assets {
@@ -411,8 +433,7 @@ impl Workspace {
     }
 
     /// The page grouped the way the sidebar's chips ask — the same
-    /// readings the local grid has, minus Place, which the cloud does
-    /// not send positions for. A bucket or a search shows as one strip,
+    /// readings the local grid has. A bucket or a search shows as one strip,
     /// exactly as locally.
     pub(crate) fn cloud_grouped(&self) -> Vec<(String, String, Vec<Asset>)> {
         group_assets(
@@ -596,6 +617,18 @@ pub(crate) fn filter_chip(
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
 ) -> Option<gpui::AnyElement> {
+    #[cfg(not(target_arch = "wasm32"))]
+    if ws.cloud.query.filters.bounds.is_some() && filter_count(&ws.cloud.query.filters) == 1 {
+        return Some(
+            chrome::filter_chip(
+                "Map filter: drawn area".to_string(),
+                |ws, cx| ws.open_map_filter(cx),
+                |ws, cx| ws.clear_map_filter(cx),
+                cx,
+            )
+            .into_any_element(),
+        );
+    }
     ws.cloud_filters_active().then(|| {
         chrome::filter_chip(
             format!("Filters on ({})", filter_count(&ws.cloud.query.filters)),
@@ -610,7 +643,7 @@ pub(crate) fn filter_chip(
 /// The search box in the strip: the provider ranks the page by it.
 pub(crate) fn search_box(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let placeholder: SharedString = if ws.cloud.connected {
-        "Search cloud photos\u{2026}".into()
+        "Search photos\u{2026}".into()
     } else {
         "Connecting\u{2026}".into()
     };
@@ -659,7 +692,7 @@ pub(crate) fn tray_info(ws: &Workspace) -> TrayInfo {
         selected: ws.cloud.selected.len(),
         notes,
         count: if ws.cloud.loaded {
-            format!("{} photos", ws.cloud.total)
+            chrome::photo_count(ws.cloud.total as usize)
         } else if ws.cloud.connected {
             "Loading\u{2026}".to_string()
         } else {
@@ -988,10 +1021,10 @@ fn empty_reason(ws: &Workspace) -> String {
         }
         Scope::Folder { .. } => {
             "This cloud folder is empty. Drop photos on its row in the sidebar, or use \
-             Upload Files…"
+             Import…"
         }
         Scope::Library => {
-            "No photos in your cloud library yet. Use Upload Files…, or drag photos from \
+            "No photos in your cloud library yet. Use Import…, or drag photos from \
              the local gallery onto a cloud folder or bucket."
         }
     }
@@ -1012,7 +1045,7 @@ pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
     let columns = ws.cloud.grid.columns(cell);
     for (title, subtitle, assets) in sections {
         let detail = if subtitle.is_empty() {
-            format!("{} photos", assets.len())
+            chrome::photo_count(assets.len())
         } else {
             format!("{subtitle} — {}", assets.len())
         };
@@ -1362,7 +1395,7 @@ pub(crate) fn dialog(
 ) -> gpui::AnyElement {
     let title = match kind {
         "sign-in" => "Sign into Schist Cloud",
-        "search" => "Search cloud photos",
+        "search" => "Search photos",
         "filters" => "Filter cloud photos",
         "catalogue" => "Find cloud folders and buckets",
         "new-folder" | "new-subfolder" => "New cloud folder",
@@ -1569,7 +1602,12 @@ pub(crate) fn dialog(
 pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     let context_menu = context_menu(ws, cx);
     let sidebar = sidebar_column("cloud-sidebar")
-        .child(group_chips(ws.gallery_group_by(), &GroupBy::CLOUD, cx))
+        .child(group_chips(ws.gallery_group_by(), &GroupBy::ALL, cx))
+        .child(sidebar_link(
+            "Filters…",
+            |ws, _w, cx| ws.cloud_open_filters(cx),
+            cx,
+        ))
         .child(sidebar_caption("FOLDERS"))
         .children(folder_rows(ws, cx))
         .child(sidebar_link(
@@ -1638,6 +1676,30 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
 mod grouping_tests {
     use super::*;
 
+    #[test]
+    fn places_match_local_ordering_with_unlocated_photos_last() {
+        let mut older = asset("older", None, Some(10), 100);
+        older.place_name = Some("New York City".into());
+        let mut newer = asset("newer", None, Some(20), 50);
+        newer.place_name = older.place_name.clone();
+        let mut tokyo = asset("tokyo", None, None, 30);
+        tokyo.place_name = Some("Tokyo".into());
+        let assets = [asset("missing", None, None, 40), tokyo, older, newer];
+        let groups = group_assets(&assets, &[], &[], &Scope::Library, "", GroupBy::Place);
+        assert_eq!(
+            groups.iter().map(|g| g.0.as_str()).collect::<Vec<_>>(),
+            ["New York City", "Tokyo", "No location"]
+        );
+        assert_eq!(
+            groups[0]
+                .2
+                .iter()
+                .map(|a| a.id.as_str())
+                .collect::<Vec<_>>(),
+            ["newer", "older"]
+        );
+    }
+
     fn asset(id: &str, folder: Option<&str>, captured: Option<u64>, modified: u64) -> Asset {
         Asset {
             id: id.into(),
@@ -1652,6 +1714,7 @@ mod grouping_tests {
             captured_at: captured,
             modified_at: modified,
             thumbnail_url: None,
+            place_name: None,
         }
     }
     fn folder(id: &str, parent: Option<&str>, name: &str) -> Folder {
