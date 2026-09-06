@@ -12,6 +12,7 @@ use gpui::{
 use schist_color::{ColorMode, Depth};
 use schist_core::Filter;
 use schist_tools_transform::Resample;
+use schist_ui::{Checkbox, Link, Swatch};
 
 mod adjust;
 #[cfg(not(target_arch = "wasm32"))]

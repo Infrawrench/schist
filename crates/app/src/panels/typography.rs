@@ -29,34 +29,18 @@ fn separator() -> gpui::Div {
         .bg(gpui::rgb(palette().divider))
 }
 
-fn compact_button(
-    id: &'static str,
-    label: &'static str,
-    active: bool,
-) -> gpui::Stateful<gpui::Div> {
-    div()
-        .id(id)
-        .flex()
-        .items_center()
-        .justify_center()
-        .h(px(24.0))
+fn compact_button(id: &'static str, label: &'static str, active: bool) -> Button {
+    let p = palette();
+    Button::bare(id)
+        .colors(ButtonColors {
+            bg: Some(if active { p.control_bg } else { p.panel_bg }),
+            hover: p.hover,
+            text: p.text,
+            border: Some(if active { p.edge } else { p.panel_bg }),
+        })
+        .tooltip(label, None)
         .min_w(px(26.0))
-        .flex_none()
-        .rounded_sm()
-        .border_1()
-        .border_color(gpui::rgb(if active {
-            palette().edge
-        } else {
-            palette().panel_bg
-        }))
-        .bg(gpui::rgb(if active {
-            palette().control_bg
-        } else {
-            palette().panel_bg
-        }))
-        .cursor_pointer()
-        .hover(|style| style.bg(gpui::rgb(palette().hover)))
-        .tooltip(ui::tip(label, None))
+        .px_0()
 }
 
 fn choice(
@@ -197,13 +181,10 @@ fn align_buttons(current: usize, panel: bool, cx: &mut Context<Workspace>) -> gp
                 label,
                 current == i,
             )
-            .on_mouse_down(
-                MouseButton::Left,
-                cx.listener(move |ws, _e, _w, cx| {
-                    ws.commit_focused_field();
-                    ws.set_tool_option("type-align", OptionValue::Choice(i), cx);
-                }),
-            )
+            .on_click(cx.listener(move |ws, _e, _w, cx| {
+                ws.commit_focused_field();
+                ws.set_tool_option("type-align", OptionValue::Choice(i), cx);
+            }))
             .child(icon(name, 16.0, palette().text))
         }),
     )
@@ -229,9 +210,11 @@ pub(super) fn type_options_bar(
         .border_b_1()
         .border_color(gpui::rgb(palette().panel_edge))
         .child(
-            compact_button("type-tool-indicator", "Type tool (T)", false)
-                .cursor_default()
-                .child(icon("type", 17.0, palette().text)),
+            compact_button("type-tool-indicator", "Type tool (T)", false).child(icon(
+                "type",
+                17.0,
+                palette().text,
+            )),
         )
         .child(separator())
         .child(choice(
@@ -264,13 +247,10 @@ pub(super) fn type_options_bar(
         .child(separator())
         .child(
             compact_button("type-color", "Text color", false)
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _e, _w, cx| {
-                        ws.commit_focused_field();
-                        ws.open_color_picker(ColorTarget::Foreground, cx);
-                    }),
-                )
+                .on_click(cx.listener(|ws, _e, _w, cx| {
+                    ws.commit_focused_field();
+                    ws.open_color_picker(ColorTarget::Foreground, cx);
+                }))
                 .child(
                     div()
                         .w(px(22.0))
@@ -288,49 +268,40 @@ pub(super) fn type_options_bar(
                 "Character panel",
                 ws.side_tab.unwrap_or(SideTab::Character) == SideTab::Character,
             )
-            .on_mouse_down(
-                MouseButton::Left,
-                cx.listener(|ws, _e, _w, cx| {
-                    ws.commit_focused_field();
-                    ws.side_tab = Some(
-                        if ws.side_tab.unwrap_or(SideTab::Character) == SideTab::Character {
-                            SideTab::Color
-                        } else {
-                            SideTab::Character
-                        },
-                    );
-                    cx.notify();
-                }),
-            )
+            .on_click(cx.listener(|ws, _e, _w, cx| {
+                ws.commit_focused_field();
+                ws.side_tab = Some(
+                    if ws.side_tab.unwrap_or(SideTab::Character) == SideTab::Character {
+                        SideTab::Color
+                    } else {
+                        SideTab::Character
+                    },
+                );
+                cx.notify();
+            }))
             .child(icon("character", 16.0, palette().text)),
         )
         .child(separator())
         .child(
             compact_button("type-cancel", "Cancel text edit", false)
-                .when(!editing, |d| d.opacity(0.3).cursor_default())
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e, _w, cx| {
-                        if editing {
-                            ws.commit_focused_field();
-                            ws.cancel_gesture(cx);
-                        }
-                    }),
-                )
+                .disabled(!editing)
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    if editing {
+                        ws.commit_focused_field();
+                        ws.cancel_gesture(cx);
+                    }
+                }))
                 .child(icon("close", 16.0, palette().text)),
         )
         .child(
             compact_button("type-commit", "Commit text edit", false)
-                .when(!editing, |d| d.opacity(0.3).cursor_default())
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e, _w, cx| {
-                        if editing {
-                            ws.commit_focused_field();
-                            ws.commit_gesture(cx);
-                        }
-                    }),
-                )
+                .disabled(!editing)
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    if editing {
+                        ws.commit_focused_field();
+                        ws.commit_gesture(cx);
+                    }
+                }))
                 .child(icon("check", 17.0, palette().text)),
         )
         .into_any_element()
@@ -445,13 +416,10 @@ pub(super) fn character_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -
                         .h(px(28.0))
                         .text_size(px(14.0))
                         .when(on, |d| d.border_color(gpui::rgb(palette().accent)))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _e, _w, cx| {
-                                ws.commit_focused_field();
-                                ws.set_tool_option(key, OptionValue::Bool(!on), cx);
-                            }),
-                        )
+                        .on_click(cx.listener(move |ws, _e, _w, cx| {
+                            ws.commit_focused_field();
+                            ws.set_tool_option(key, OptionValue::Bool(!on), cx);
+                        }))
                         .child(glyph)
                 }),
             ),
@@ -477,13 +445,10 @@ pub(super) fn character_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -
                         )
                         .w(px(120.0))
                         .text_size(px(11.0))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _e, _w, cx| {
-                                ws.commit_focused_field();
-                                ws.set_tool_option("type-path", OptionValue::Bool(on), cx);
-                            }),
-                        )
+                        .on_click(cx.listener(move |ws, _e, _w, cx| {
+                            ws.commit_focused_field();
+                            ws.set_tool_option("type-path", OptionValue::Bool(on), cx);
+                        }))
                         .child(label)
                     }),
             ),

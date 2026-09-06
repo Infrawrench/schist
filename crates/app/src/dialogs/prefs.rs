@@ -259,19 +259,14 @@ fn gallery_filter_row(
                 .text_color(gpui::rgb(ui::palette().text_dim))
                 .child("Needs the Content (NSFW Filter) model —")
                 .child(
-                    div()
-                        .text_color(gpui::rgb(ui::palette().accent))
-                        .cursor_pointer()
-                        .on_mouse_down(
-                            gpui::MouseButton::Left,
-                            cx.listener(|ws, _e, _w, cx| {
-                                // Leaving Preferences for the model
-                                // manager keeps what was changed.
-                                ws.keep_preferences();
-                                ws.open_modal(Modal::ModelManager, cx);
-                            }),
-                        )
-                        .child("download it in Manage Models…"),
+                    Link::new("prefs-manage-models", "download it in Manage Models…").on_click(
+                        cx.listener(|ws, _e, _w, cx| {
+                            // Leaving Preferences for the model
+                            // manager keeps what was changed.
+                            ws.keep_preferences();
+                            ws.open_modal(Modal::ModelManager, cx);
+                        }),
+                    ),
                 ),
         );
     }
@@ -287,34 +282,16 @@ fn gallery_filter_row(
         )
         .into_any_element()
     } else {
-        // The disabled twin of `ui::checkbox`: same shape, faint, and
-        // listening to nothing.
-        div()
-            .flex()
-            .flex_row()
-            .items_center()
-            .gap_2()
-            .text_size(px(12.0))
-            .text_color(gpui::rgb(ui::palette().text_faint))
-            .child(
-                div()
-                    .flex()
-                    .items_center()
-                    .justify_center()
-                    .size(px(14.0))
-                    .rounded_sm()
-                    .bg(gpui::rgb(ui::palette().deep_bg))
-                    .border_1()
-                    .border_color(gpui::rgb(ui::palette().divider))
-                    // Still honest about the stored preference, even
-                    // while it cannot be changed from here.
-                    .children(
-                        view.gallery_hide_nsfw
-                            .then(|| crate::panels::icon("check", 10.0, ui::palette().text_faint)),
-                    ),
-            )
-            .child("Hide flagged photos")
-            .into_any_element()
+        // The same box, faint and listening to nothing -- still honest
+        // about the stored preference, even while it cannot be changed
+        // from here.
+        Checkbox::new(
+            "checkbox-Hide flagged photos",
+            "Hide flagged photos",
+            view.gallery_hide_nsfw,
+        )
+        .disabled(true)
+        .into_any_element()
     });
     div()
         .flex()

@@ -1,0 +1,10 @@
+[package]
+name = "schist-ui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Schist's widget kit: the chrome components the panels and dialogs build from, and the palette they draw with"
+
+[dependencies]
+gpui.workspace = true

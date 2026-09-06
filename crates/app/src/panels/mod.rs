@@ -12,12 +12,13 @@ use crate::ui::palette;
 use crate::workspace::{ColorTarget, ContextTarget, LayerDrop, Modal, NoteField, Popup, Workspace};
 use gpui::prelude::FluentBuilder as _;
 use gpui::{
-    canvas, deferred, div, img, px, svg, Context, InteractiveElement as _, IntoElement,
-    MouseButton, MouseDownEvent, MouseMoveEvent, MouseUpEvent, ParentElement as _, RenderImage,
-    SharedString, StatefulInteractiveElement as _, Styled, Window,
+    canvas, deferred, div, img, px, Context, InteractiveElement as _, IntoElement, MouseButton,
+    MouseDownEvent, MouseMoveEvent, MouseUpEvent, ParentElement as _, RenderImage, SharedString,
+    StatefulInteractiveElement as _, Styled, Window,
 };
 use schist_color::Rgba;
 use schist_core::{BlendMode, Layer, LayerId, LayerKind};
+use schist_ui::{Button, ButtonColors, IconButton, Link, ListItem, Swatch, Tab};
 use std::sync::Arc;
 
 #[cfg(not(target_arch = "wasm32"))]
@@ -69,12 +70,7 @@ fn swatch_hex(c: Rgba) -> gpui::Rgba {
     gpui::rgb(((r as u32) << 16) | ((g as u32) << 8) | b as u32)
 }
 
-pub fn icon(name: &str, size: f32, color: u32) -> impl IntoElement {
-    svg()
-        .path(format!("icons/{name}.svg"))
-        .size(px(size))
-        .text_color(gpui::rgb(color))
-}
+pub use schist_ui::icon;
 
 trait ActiveExt: Styled + Sized {
     fn when_active(self, active: bool) -> Self {
@@ -155,17 +151,6 @@ fn icon_button(
     command: &'static str,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .flex()
-        .items_center()
-        .justify_center()
-        .size(px(22.0))
-        .rounded_sm()
-        .cursor_pointer()
-        .hover(|s| s.bg(gpui::rgb(palette().hover)))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e, _w, cx| ws.run_command(command, cx)),
-        )
-        .child(icon(icon_name, 14.0, palette().text))
+    IconButton::new(icon_name, icon_name)
+        .on_click(cx.listener(move |ws, _e, _w, cx| ws.run_command(command, cx)))
 }

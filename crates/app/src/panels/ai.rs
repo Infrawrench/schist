@@ -50,38 +50,20 @@ fn header(cx: &mut Context<Workspace>) -> impl IntoElement {
                 .items_center()
                 .gap_1()
                 .child(
-                    div()
-                        .id("ai-clear")
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .size(px(20.0))
-                        .rounded_sm()
-                        .cursor_pointer()
-                        .hover(|s| s.bg(gpui::rgb(palette().hover)))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(|ws, _e, _w, cx| ws.ai_new_conversation(cx)),
-                        )
-                        .child(icon("trash", 13.0, palette().text_dim)),
+                    IconButton::new("ai-clear", "trash")
+                        .size(20.0)
+                        .icon_size(13.0)
+                        .color(palette().text_dim)
+                        .on_click(cx.listener(|ws, _e, _w, cx| ws.ai_new_conversation(cx))),
                 )
                 // Closes the sidebar; whether it was open is a saved
                 // preference, so it comes back on the next launch.
                 .child(
-                    div()
-                        .id("ai-close")
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .size(px(20.0))
-                        .rounded_sm()
-                        .cursor_pointer()
-                        .hover(|s| s.bg(gpui::rgb(palette().hover)))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(|ws, _e, _w, cx| ws.toggle_ai_panel(cx)),
-                        )
-                        .child(icon("close", 13.0, palette().text_dim)),
+                    IconButton::new("ai-close", "close")
+                        .size(20.0)
+                        .icon_size(13.0)
+                        .color(palette().text_dim)
+                        .on_click(cx.listener(|ws, _e, _w, cx| ws.toggle_ai_panel(cx))),
                 ),
         )
 }
@@ -309,7 +291,8 @@ fn model_menu(ws: &Workspace, cx: &mut Context<Workspace>) -> AnyElement {
     } else {
         entries
             .into_iter()
-            .map(|(backend, entry)| {
+            .enumerate()
+            .map(|(ix, (backend, entry))| {
                 let picked = backend == current_backend && entry.slug == current_slug;
                 let slug = entry.slug.clone();
                 let sub = if entry.detail.is_empty() {
@@ -322,22 +305,17 @@ fn model_menu(ws: &Workspace, cx: &mut Context<Workspace>) -> AnyElement {
                 // how the rest of the chrome truncates.
                 let name = ellipsize(&entry.name, if picked { 27 } else { 31 });
                 let sub = ellipsize(&sub, 41);
-                div()
-                    .px_2()
+                ListItem::new(("ai-model", ix))
+                    .h_auto()
                     .py_1()
-                    .flex_none()
-                    .flex()
                     .flex_col()
-                    .cursor_pointer()
-                    .hover(|s| s.bg(gpui::rgb(palette().hover)))
-                    .on_mouse_down(
-                        MouseButton::Left,
-                        cx.listener(move |ws, _e, _w, cx| {
-                            ws.ai_pick_model(backend, slug.clone(), cx);
-                        }),
-                    )
+                    .items_start()
+                    .on_click(cx.listener(move |ws, _e, _w, cx| {
+                        ws.ai_pick_model(backend, slug.clone(), cx);
+                    }))
                     .child(
                         div()
+                            .w_full()
                             .flex()
                             .flex_row()
                             .items_center()
@@ -360,6 +338,7 @@ fn model_menu(ws: &Workspace, cx: &mut Context<Workspace>) -> AnyElement {
                     )
                     .child(
                         div()
+                            .w_full()
                             .flex()
                             .flex_row()
                             .items_center()
@@ -406,34 +385,21 @@ fn model_menu(ws: &Workspace, cx: &mut Context<Workspace>) -> AnyElement {
         // A search spans every harness, so the rail stands down.
         let selected = !searching && ws.ai.menu_backend == backend;
         rail = rail.child(
-            div()
-                .id(backend.icon())
-                .flex()
-                .items_center()
-                .justify_center()
-                .size(px(24.0))
-                .rounded_sm()
-                .cursor_pointer()
-                .when(selected, |d| d.bg(gpui::rgb(palette().selection_bg)))
-                .hover(|s| s.bg(gpui::rgb(palette().hover)))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e, _w, cx| {
-                        ws.ai.menu_backend = backend;
-                        ws.ai.model_search.clear();
-                        ws.ensure_ai_models(cx);
-                        cx.notify();
-                    }),
-                )
-                .child(icon(
-                    backend.icon(),
-                    13.0,
-                    if selected {
-                        palette().text
-                    } else {
-                        palette().text_dim
-                    },
-                )),
+            IconButton::new(backend.icon(), backend.icon())
+                .size(24.0)
+                .icon_size(13.0)
+                .color(if selected {
+                    palette().text
+                } else {
+                    palette().text_dim
+                })
+                .when(selected, |b| b.bg(gpui::rgb(palette().selection_bg)))
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    ws.ai.menu_backend = backend;
+                    ws.ai.model_search.clear();
+                    ws.ensure_ai_models(cx);
+                    cx.notify();
+                })),
         );
     }
 

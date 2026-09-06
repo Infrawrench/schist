@@ -21,6 +21,8 @@ futures.workspace = true
 smallvec.workspace = true
 rustc-hash.workspace = true
 
+# The widget kit: palette, buttons, rows, checkboxes.
+schist-ui.workspace = true
 schist-core.workspace = true
 schist-color.workspace = true
 schist-plugin-api.workspace = true

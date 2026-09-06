@@ -9,6 +9,7 @@ use super::library_view::{bucket_field, gallery_button, pal};
 use super::*;
 use gpui::{img, StatefulInteractiveElement as _};
 use schist_gallery::FaceRect;
+use schist_ui::{Button, ButtonColors, Link};
 use std::path::Path;
 
 /// The colour of a face box by its state: named, picked, guessed, or
@@ -194,6 +195,7 @@ pub(super) fn people_rows(
     }
     let link = |label: &'static str, cx: &mut Context<Workspace>| {
         div()
+            .id(label)
             .px_2()
             .h(px(24.0))
             .flex()
@@ -202,10 +204,7 @@ pub(super) fn people_rows(
             .text_color(gpui::rgb(pal().header))
             .cursor_pointer()
             .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-            .on_mouse_down(
-                MouseButton::Left,
-                cx.listener(|ws, _e: &MouseDownEvent, _w, cx| ws.open_people_models(cx)),
-            )
+            .on_click(cx.listener(|ws, _e, _w, cx| ws.open_people_models(cx)))
             .child(label)
             .into_any_element()
     };
@@ -652,9 +651,9 @@ fn people_panel(
                 .child("No faces found. Drag a box round one to add a person by hand."),
         );
     }
-    for face in faces {
+    for (index, face) in faces.iter().enumerate() {
         let picked = pick.is_some_and(|p| p.same_face(&face.rect));
-        col = col.child(face_row(ws, face, picked, cx));
+        col = col.child(face_row(ws, index, face, picked, cx));
     }
     // A box just drawn, not yet a face anyone knows.
     if let Some(rect) = pick.filter(|p| !faces.iter().any(|f| f.rect.same_face(p))) {
@@ -665,7 +664,7 @@ fn people_panel(
             suggestion: None,
             detected: false,
         };
-        col = col.child(face_row(ws, &fresh, true, cx));
+        col = col.child(face_row(ws, faces.len(), &fresh, true, cx));
     }
     col = col.child(
         div()
@@ -680,47 +679,44 @@ fn people_panel(
     col.into_any_element()
 }
 
-/// A small text button on the gallery palette.
+/// A small text button on the gallery palette. It swallows its press,
+/// so one inside a face row does not also pick the face; it fires on
+/// release. Its label is its id, so a row must not hold two alike.
 fn small_button(
     label: impl Into<SharedString>,
     primary: bool,
     on_click: impl Fn(&mut Workspace, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .px_2()
-        .h(px(20.0))
-        .flex()
-        .items_center()
-        .rounded_sm()
-        .text_size(px(11.0))
-        .cursor_pointer()
-        .bg(gpui::rgb(if primary {
-            pal().green
-        } else {
-            pal().button_bg
-        }))
-        .text_color(gpui::rgb(if primary { 0xFFFFFF } else { pal().text }))
-        .hover(move |s| {
-            s.bg(gpui::rgb(if primary {
+    let label = label.into();
+    Button::new(label.clone(), label)
+        .colors(ButtonColors {
+            bg: Some(if primary {
+                pal().green
+            } else {
+                pal().button_bg
+            }),
+            hover: if primary {
                 pal().green_hover
             } else {
                 pal().button_hover
-            }))
+            },
+            text: if primary { 0xFFFFFF } else { pal().text },
+            border: None,
         })
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                cx.stop_propagation();
-                on_click(ws, cx)
-            }),
-        )
-        .child(label.into())
+        .h(px(20.0))
+        .px_2()
+        .text_size(px(11.0))
+        .consume_press()
+        .on_click(cx.listener(move |ws, _e, _w, cx| on_click(ws, cx)))
 }
 
 /// One face in the panel: its crop, and its name, guess, or field.
+/// `index` is its place in the panel, which scopes its buttons' ids:
+/// every row has a Save and a Cancel.
 fn face_row(
     ws: &mut Workspace,
+    index: usize,
     face: &FaceView,
     picked: bool,
     cx: &mut Context<Workspace>,
@@ -735,6 +731,7 @@ fn face_row(
         .suggestion
         .and_then(|(i, _)| ws.library.people.get(i).map(|p| (i, p.name.clone())));
     let mut row = div()
+        .id(("face-row", index))
         .flex()
         .flex_col()
         .gap_1()
@@ -775,23 +772,22 @@ fn face_row(
             .collect();
         for (index, name) in completions {
             row = row.child(
-                div()
-                    .pl(px(56.0))
+                Button::new(("completion", index), name)
+                    .colors(ButtonColors {
+                        bg: None,
+                        hover: pal().button_hover,
+                        text: pal().header,
+                        border: None,
+                    })
                     .h(px(20.0))
-                    .flex()
-                    .items_center()
-                    .text_size(px(12.0))
-                    .text_color(gpui::rgb(pal().header))
-                    .cursor_pointer()
-                    .hover(|s| s.bg(gpui::rgb(pal().button_hover)))
-                    .on_mouse_down(
-                        MouseButton::Left,
-                        cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                            cx.stop_propagation();
-                            ws.viewer_name_as(rect, index, cx);
-                        }),
-                    )
-                    .child(SharedString::from(name)),
+                    .pl(px(56.0))
+                    .pr_0()
+                    .justify_start()
+                    .rounded_none()
+                    .consume_press()
+                    .on_click(cx.listener(move |ws, _e, _w, cx| {
+                        ws.viewer_name_as(rect, index, cx);
+                    })),
             );
         }
         let mut actions = div()
@@ -983,22 +979,8 @@ fn name_field(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
         })
 }
 
-fn model_link(
-    id: &'static str,
-    label: &'static str,
-    url: &'static str,
-    cx: &mut Context<Workspace>,
-) -> impl IntoElement {
-    div()
-        .id(id)
-        .cursor_pointer()
-        .text_color(gpui::rgb(crate::ui::palette().accent))
-        .hover(|style| style.text_color(gpui::rgb(crate::ui::palette().accent_hover)))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |_ws, _event, _window, cx| cx.open_url(url)),
-        )
-        .child(label)
+fn model_link(id: &'static str, label: &'static str, url: &'static str) -> Link {
+    Link::new(id, label).url(url)
 }
 
 /// The licences behind the People album, and the button that accepts
@@ -1042,14 +1024,12 @@ pub(crate) fn people_models_dialog(cx: &mut Context<Workspace>) -> impl IntoElem
                 "ultraface-source",
                 "UltraFace (ONNX Model Zoo)",
                 "https://github.com/onnx/models/tree/main/validated/vision/body_analysis/ultraface",
-                cx,
             ))
             .child("\u{b7}")
             .child(model_link(
                 "sface-source",
                 "SFace (OpenCV Zoo)",
                 "https://github.com/opencv/opencv_zoo/tree/main/models/face_recognition_sface",
-                cx,
             )),
     );
     body = body.child(

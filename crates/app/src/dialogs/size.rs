@@ -192,17 +192,16 @@ pub(super) fn anchor_grid(anchor: (f32, f32), cx: &mut Context<Workspace>) -> im
                     }))
                     .border_1()
                     .border_color(gpui::rgb(ui::palette().edge))
-                    .on_mouse_down(
-                        gpui::MouseButton::Left,
-                        cx.listener(move |ws, _e, _w, cx| {
-                            ws.update_modal(|m| {
-                                if let Modal::CanvasSize { anchor, .. } = m {
-                                    *anchor = value;
-                                }
-                            });
-                            cx.notify();
-                        }),
-                    ),
+                    .id(("anchor", (row * 3 + col) as usize))
+                    .cursor_pointer()
+                    .on_click(cx.listener(move |ws, _e, _w, cx| {
+                        ws.update_modal(|m| {
+                            if let Modal::CanvasSize { anchor, .. } = m {
+                                *anchor = value;
+                            }
+                        });
+                        cx.notify();
+                    })),
             );
         }
         grid = grid.child(line);
