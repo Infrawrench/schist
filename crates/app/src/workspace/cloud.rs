@@ -179,6 +179,12 @@ pub(crate) struct CloudState {
     pub buckets_offset: u64,
     pub folders_total: u64,
     pub library_total: Option<u64>,
+    pub screening: remote::Screening,
+    pub people: Option<remote::People>,
+    pub face_bounds: Bounds<Pixels>,
+    pub face_start: Option<(f32, f32)>,
+    pub face_draft: Option<remote::FaceRect>,
+    pub face_drawing: bool,
     pub buckets_total: u64,
     pub docs: HashMap<DocumentId, RemoteDocument>,
     pending: HashMap<String, Pending>,
@@ -264,6 +270,12 @@ impl Default for CloudState {
             buckets_offset: 0,
             folders_total: 0,
             library_total: None,
+            screening: remote::Screening::default(),
+            people: None,
+            face_bounds: Bounds::default(),
+            face_start: None,
+            face_draft: None,
+            face_drawing: false,
             buckets_total: 0,
             docs: HashMap::new(),
             pending: HashMap::new(),
@@ -721,6 +733,14 @@ impl Workspace {
                     self.cloud_save_download(name, download, cx);
                 }
                 Job::Uploaded { epoch, doc, asset } if epoch == self.cloud.epoch => {
+                    if asset
+                        .moderation
+                        .as_ref()
+                        .is_some_and(|m| m.status != "clear")
+                    {
+                        self.status = "Uploaded — screening before it appears in Schist Cloud. This document remains local; open its cloud copy after screening.".into();
+                        continue;
+                    }
                     if let Some(source) = self.cloud_doc(doc) {
                         match remote::document::SharedDocument::unseeded(source) {
                             Ok(shared) => {
@@ -836,6 +856,25 @@ impl Workspace {
                     self.cloud.pending.insert(id, Pending::Capabilities);
                 }
             }
+            Event::AccountUnavailable => {
+                self.cloud.disconnect();
+                self.cloud.epoch += 1;
+                self.cloud.account = None;
+                self.cloud.client = None;
+                self.cloud.writes.push_back(None);
+                self.cloud.assets.clear();
+                self.cloud.folders.clear();
+                self.cloud.buckets.clear();
+                self.cloud.thumbnails.clear();
+                self.cloud.selected.clear();
+                self.cloud.people = None;
+                self.cloud.total = 0;
+                self.cloud.library_total = None;
+                for doc in self.cloud.docs.values_mut() {
+                    doc.detach();
+                }
+                self.cloud_error("Cloud access is unavailable. Sign in again to check your account; local files remain on this device.");
+            }
             Event::Disconnected(error) => {
                 self.cloud.disconnect();
                 self.cloud.message = error;
@@ -847,49 +886,58 @@ impl Workspace {
             Event::Snapshot {
                 subscription_id,
                 snapshot,
-            } => match subscription_id.as_str() {
-                id if id == self.cloud.folders_watch => {
-                    self.cloud.library_total = snapshot.library_asset_count;
-                    self.cloud.folders = snapshot
-                        .items
-                        .into_iter()
-                        .map(parse)
-                        .collect::<Result<_>>()?;
-                    self.cloud.folders_total = snapshot.total;
+            } => {
+                if let Some(screening) = snapshot.screening {
+                    self.cloud.screening = screening;
                 }
-                id if id == self.cloud.buckets_watch => {
-                    self.cloud.buckets = snapshot
-                        .items
-                        .into_iter()
-                        .map(parse)
-                        .collect::<Result<_>>()?;
-                    self.cloud.buckets_total = snapshot.total;
+                if subscription_id == self.cloud.watching {
+                    self.cloud.people = snapshot.people;
                 }
-                id if id == self.cloud.watching => {
-                    self.cloud.assets = snapshot
-                        .items
-                        .into_iter()
-                        .map(parse)
-                        .collect::<Result<_>>()?;
-                    self.cloud.total = snapshot.total;
-                    self.cloud.loaded = true;
-                    if std::mem::take(&mut self.cloud.select_all_pending) {
-                        self.cloud.selected = self.cloud_flat_order();
-                        self.cloud.select_anchor = self.cloud.selected.first().cloned();
+                match subscription_id.as_str() {
+                    id if id == self.cloud.folders_watch => {
+                        self.cloud.library_total = snapshot.library_asset_count;
+                        self.cloud.folders = snapshot
+                            .items
+                            .into_iter()
+                            .map(parse)
+                            .collect::<Result<_>>()?;
+                        self.cloud.folders_total = snapshot.total;
                     }
-                    let ids: HashSet<_> = self.cloud.assets.iter().map(|a| a.id.clone()).collect();
-                    self.cloud.selected.retain(|id| ids.contains(id));
-                    if self
-                        .cloud
-                        .select_anchor
-                        .as_ref()
-                        .is_some_and(|id| !ids.contains(id))
-                    {
-                        self.cloud.select_anchor = None;
+                    id if id == self.cloud.buckets_watch => {
+                        self.cloud.buckets = snapshot
+                            .items
+                            .into_iter()
+                            .map(parse)
+                            .collect::<Result<_>>()?;
+                        self.cloud.buckets_total = snapshot.total;
                     }
+                    id if id == self.cloud.watching => {
+                        self.cloud.assets = snapshot
+                            .items
+                            .into_iter()
+                            .map(parse)
+                            .collect::<Result<_>>()?;
+                        self.cloud.total = snapshot.total;
+                        self.cloud.loaded = true;
+                        if std::mem::take(&mut self.cloud.select_all_pending) {
+                            self.cloud.selected = self.cloud_flat_order();
+                            self.cloud.select_anchor = self.cloud.selected.first().cloned();
+                        }
+                        let ids: HashSet<_> =
+                            self.cloud.assets.iter().map(|a| a.id.clone()).collect();
+                        self.cloud.selected.retain(|id| ids.contains(id));
+                        if self
+                            .cloud
+                            .select_anchor
+                            .as_ref()
+                            .is_some_and(|id| !ids.contains(id))
+                        {
+                            self.cloud.select_anchor = None;
+                        }
+                    }
+                    _ => {}
                 }
-                _ => {}
-            },
+            }
             Event::WatchError {
                 subscription_id,
                 error,
@@ -1921,6 +1969,9 @@ impl Workspace {
                 .map(|(_, _, v)| v.trim().to_string())
                 .unwrap_or_default()
         };
+        if super::cloud_people::submit(self, kind, &get)? {
+            return Ok(());
+        }
         match kind {
             "download" => {
                 let format = get("cloud-download-format");
@@ -2230,6 +2281,7 @@ fn parse_filters(fields: &[(&'static str, String, String)]) -> Result<Filters> {
         anyhow::ensure!(a <= b, "End date must follow start date");
     }
     Ok(Filters {
+        person_id: None,
         mime_types: list("cloud-types"),
         tags: list("cloud-tags"),
         edited,
@@ -2265,6 +2317,8 @@ mod cloud_lifecycle_tests {
         shared.local_changes(&source).unwrap();
         RemoteDocument {
             asset: Asset {
+                faces: Vec::new(),
+                moderation: None,
                 id: asset.into(),
                 folder_id: None,
                 name: "Original".into(),

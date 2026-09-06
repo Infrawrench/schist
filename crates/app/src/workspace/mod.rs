@@ -38,6 +38,7 @@ mod chrome;
 mod clipboard;
 pub(crate) mod cloud;
 pub(crate) mod cloud_generation;
+pub(crate) mod cloud_people;
 pub(crate) mod cloud_view;
 mod colormgmt;
 mod commands;
@@ -455,21 +456,6 @@ impl Workspace {
         #[cfg(target_arch = "wasm32")]
         {
             self.cloud.show
-        }
-    }
-
-    /// Whether the gallery's search box — or the viewer's name field —
-    /// is taking typing, for the key context. Always false on the web,
-    /// with the gallery itself.
-    pub fn gallery_typing(&self) -> bool {
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            self.gallery_search_active()
-                || (self.library.open && self.focused_field == Some("face-name"))
-        }
-        #[cfg(target_arch = "wasm32")]
-        {
-            false
         }
     }
 }
@@ -1176,7 +1162,10 @@ pub enum Modal {
     PeopleModels,
     /// Rename one of the gallery's people (`index` into the people
     /// list); a name somebody else has merges the two.
-    PersonName { index: usize, name: String },
+    PersonName {
+        index: usize,
+        name: String,
+    },
     /// Save one gallery photo as a flat image: format, quality where the
     /// format takes one, and a scale to shrink it by. `size` is the
     /// source's pixel size when it could be read up front, so the

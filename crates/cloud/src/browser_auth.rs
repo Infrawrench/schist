@@ -325,3 +325,10 @@ impl Login {
         })
     }
 }
+
+pub fn refresh_rejected(error: &anyhow::Error) -> bool {
+    matches!(
+        error.downcast_ref::<HttpStatus>(),
+        Some(HttpStatus(401 | 403))
+    )
+}

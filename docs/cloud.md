@@ -193,3 +193,19 @@ The Yrs image model lives in `schist-document`; `schist-cloud::document` re-expo
 for compatibility. Desktop, WASM, and the provider use the same model. The provider
 can link the library or run its standalone worker to import built-in formats,
 validate edits, and materialize downloads. See [document-library.md](document-library.md).
+
+## People and upload screening
+
+Cloud People lives in the same gallery sidebar as the local People album, scoped
+to the current cloud folder or bucket. Enable Find faces to process cleared cloud
+uploads with the same UltraFace/SFace models as desktop. Space or “View & name
+people” opens the cloud face viewer: click a box to name it, draw a missed face,
+accept a suggestion, or use “Not them”/“Not a face”. Rename can merge people;
+Forget removes names without deleting photos. Local People data remains local.
+
+Screening and blocked-upload counts arrive with live catalogue snapshots. A newly
+uploaded editor document stays local while its cloud copy is screened; open the
+cloud copy after it appears to begin collaboration. A provider account denial
+stops reconnect attempts, clears the cloud catalogue/thumbnail cache and stored
+credentials, and detaches remote documents while preserving local edits. Shield,
+Slack and CyberTipline credentials are server-only.

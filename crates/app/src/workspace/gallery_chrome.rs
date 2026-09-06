@@ -16,6 +16,7 @@
 use super::*;
 use crate::ui::LineEdit;
 use gpui::{img, StatefulInteractiveElement as _};
+use schist_ui::{Button, ButtonColors};
 
 /// The gallery's chrome colours for one theme.
 pub struct GalleryPalette {
@@ -285,35 +286,24 @@ pub fn gallery_button(
     on_click: impl Fn(&mut Workspace, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .flex()
-        .items_center()
-        .justify_center()
-        .h(px(24.0))
-        .px_3()
-        .rounded_md()
-        .text_size(px(12.0))
-        .cursor_pointer()
-        .bg(gpui::rgb(if green { pal().green } else { pal().button_bg }))
-        .text_color(gpui::rgb(if green { 0xFFFFFF } else { pal().text }))
-        .border_1()
-        .border_color(gpui::rgb(if green {
-            pal().green
-        } else {
-            pal().chrome_edge
-        }))
-        .hover(move |s| {
-            s.bg(gpui::rgb(if green {
+    let label = label.into();
+    Button::new(label.clone(), label)
+        .colors(ButtonColors {
+            bg: Some(if green { pal().green } else { pal().button_bg }),
+            hover: if green {
                 pal().green_hover
             } else {
                 pal().button_hover
-            }))
+            },
+            text: if green { 0xFFFFFF } else { pal().text },
+            border: Some(if green {
+                pal().green
+            } else {
+                pal().chrome_edge
+            }),
         })
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, window, cx| on_click(ws, window, cx)),
-        )
-        .child(label.into())
+        .rounded_md()
+        .on_click(cx.listener(move |ws, _e, window, cx| on_click(ws, window, cx)))
 }
 
 /// A chip in the top strip that announces an active filter — the
@@ -1243,6 +1233,7 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
     let thumb_px = ws.gallery_thumb_px();
     let ratio = (thumb_px - 80.0) / 160.0;
     div()
+        .id("gallery-tray")
         .flex()
         .flex_row()
         .items_center()
@@ -1335,7 +1326,7 @@ impl Workspace {
         }
         #[cfg(not(target_arch = "wasm32"))]
         {
-            self.library.search.active
+            self.library.search.active || self.focused_field == Some("face-name")
         }
         #[cfg(target_arch = "wasm32")]
         {
@@ -1351,7 +1342,9 @@ impl Workspace {
         }
         #[cfg(not(target_arch = "wasm32"))]
         {
-            self.gallery_search_key(ev, cx) || self.gallery_nav_key(ev, cx)
+            self.gallery_viewer_key(ev, cx)
+                || self.gallery_search_key(ev, cx)
+                || self.gallery_nav_key(ev, cx)
         }
         #[cfg(target_arch = "wasm32")]
         {
@@ -1370,7 +1363,7 @@ impl Workspace {
         }
         #[cfg(not(target_arch = "wasm32"))]
         {
-            self.gallery_search_clear(cx)
+            self.local_gallery_escape(cx)
         }
         #[cfg(target_arch = "wasm32")]
         {

@@ -29,6 +29,7 @@ pub struct Upload<'a> {
 pub enum Event {
     Connected,
     Disconnected(String),
+    AccountUnavailable,
     Credentials(Account),
     Snapshot {
         subscription_id: String,
@@ -253,6 +254,10 @@ async fn run(
                     let _ = events.send(Event::Credentials(account.clone()));
                 }
                 Err(error) => {
+                    if auth::refresh_rejected(&error) {
+                        let _ = events.send(Event::AccountUnavailable);
+                        return;
+                    }
                     let _ = events.send(Event::Disconnected(format!(
                         "Token refresh failed: {error}"
                     )));
@@ -264,6 +269,10 @@ async fn run(
             }
         }
         match connected(&account, &mut commands, &mut watches, &events, &mut retry).await {
+            Ok(Outcome::Unavailable) => {
+                let _ = events.send(Event::AccountUnavailable);
+                return;
+            }
             Ok(Outcome::Stop) => return,
             Ok(Outcome::Refresh) => {
                 force_refresh = true;
@@ -302,6 +311,7 @@ async fn backoff(
     }
 }
 enum Outcome {
+    Unavailable,
     Stop,
     Refresh,
 }
@@ -491,6 +501,9 @@ impl Session<'_> {
                 return Ok(None);
             }
             Message::Close(frame) => {
+                if frame == 4403 {
+                    return Ok(Some(Outcome::Unavailable));
+                }
                 if frame == 4401 {
                     return Ok(Some(Outcome::Refresh));
                 }
@@ -644,6 +657,42 @@ mod tests {
                 workspace_websocket_url: Some(url),
             },
         }
+    }
+    #[test]
+    fn account_unavailable_is_terminal_and_not_reconnected() {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let url = format!("ws://{}", listener.local_addr().unwrap());
+        let server = std::thread::spawn(move || {
+            let (stream, _) = listener.accept().unwrap();
+            stream
+                .set_read_timeout(Some(Duration::from_secs(5)))
+                .unwrap();
+            let mut ws = accept(stream).unwrap();
+            read(&mut ws);
+            send(
+                &mut ws,
+                map([("type", "ready".into()), ("protocol", 1.into())]),
+            );
+            ws.close(Some(tokio_tungstenite::tungstenite::protocol::CloseFrame {
+                code: 4403.into(),
+                reason: "Cloud account unavailable".into(),
+            }))
+            .unwrap();
+        });
+        let client = Client::start(account(url));
+        assert!(matches!(
+            client.events.recv_timeout(Duration::from_secs(5)).unwrap(),
+            Event::Connected
+        ));
+        assert!(matches!(
+            client.events.recv_timeout(Duration::from_secs(5)).unwrap(),
+            Event::AccountUnavailable
+        ));
+        assert!(matches!(
+            client.events.recv_timeout(Duration::from_secs(1)),
+            Err(mpsc::RecvTimeoutError::Disconnected)
+        ));
+        server.join().unwrap();
     }
     #[test]
     fn one_socket_multiplexes_and_resubscribes_without_replaying_mutations() {

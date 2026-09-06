@@ -437,7 +437,7 @@ impl Workspace {
     /// Escape in the gallery, innermost first: a search, then a face
     /// being named, then the viewer itself. Returns whether anything
     /// was there to leave.
-    pub fn gallery_escape(&mut self, cx: &mut Context<Self>) -> bool {
+    pub fn local_gallery_escape(&mut self, cx: &mut Context<Self>) -> bool {
         if self.gallery_search_clear(cx) {
             return true;
         }

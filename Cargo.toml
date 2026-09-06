@@ -6,6 +6,7 @@ members = [
     "crates/app",
     "crates/core",
     "crates/document",
+    "crates/people-worker",
     "crates/layer-fx",
     "crates/neural",
     "crates/psd-descriptor",

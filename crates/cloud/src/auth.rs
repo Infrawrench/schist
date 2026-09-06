@@ -322,3 +322,11 @@ mod tests {
         assert!(!path.exists());
     }
 }
+
+/// Rejected credentials need user action; retrying cannot restore access.
+pub fn refresh_rejected(error: &anyhow::Error) -> bool {
+    matches!(
+        error.downcast_ref::<ureq::Error>(),
+        Some(ureq::Error::StatusCode(401 | 403))
+    )
+}

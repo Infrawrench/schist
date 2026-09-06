@@ -20,7 +20,6 @@ use gpui::{
 };
 use schist_ui::{Button, ButtonColors, Link, ListItem};
 
-
 impl Workspace {
     pub(super) fn render_gallery(&mut self, cx: &mut Context<Self>) -> impl IntoElement {
         let cloud = self.cloud.show;
@@ -94,7 +93,7 @@ impl Workspace {
                     cx.stop_propagation();
                     return;
                 }
-                if (!ws.cloud.show && ws.gallery_viewer_key(ev, cx)) || ws.gallery_key(ev, cx) {
+                if ws.gallery_key(ev, cx) {
                     cx.stop_propagation();
                 }
             }))
@@ -478,6 +477,31 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         rows.push(sidebar_row(label, count, selected, Some(root), cx).into_any_element());
     }
     sidebar_column("gallery-sidebar")
+        .children((!cloud).then(|| sidebar_caption("VIEW")))
+        .children(
+            (!cloud)
+                .then(|| {
+                    [(false, "Photos"), (true, "World Map")]
+                        .into_iter()
+                        .map(|(map, label)| {
+                            ListItem::new(label)
+                                .h(px(26.0))
+                                .px_2()
+                                .bg(gpui::rgb(if ws.library.map_view == map {
+                                    pal().sidebar_selected
+                                } else {
+                                    pal().chrome_bg
+                                }))
+                                .on_click(cx.listener(move |ws, _, _, cx| {
+                                    ws.library.map_view = map;
+                                    cx.notify();
+                                }))
+                                .child(label)
+                        })
+                })
+                .into_iter()
+                .flatten(),
+        )
         .child(group_chips(ws.gallery_group_by(), &GroupBy::ALL, cx))
         .child({
             let active = if cloud {
@@ -577,7 +601,13 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             },
             cx,
         ))
-        .children((!cloud).then(|| super::library_people_view::people_rows(ws, cx)).flatten())
+        .children(
+            (!cloud)
+                .then(|| super::library_people_view::people_rows(ws, cx))
+                .into_iter()
+                .flatten(),
+        )
+        .children(super::cloud_people::rows(ws, cx))
 }
 
 /// One bucket in the sidebar: a drop target, a view of its contents on
@@ -1151,14 +1181,14 @@ fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
                 Some(_) => {
                     "This bucket is empty. Drag photos onto its row in the sidebar \
                          to add them."
-                        }
-                        None if ws.library.person_filter.is_some() => {
-                            "Nothing here yet. Faces appear as photos are indexed; \
+                }
+                None if ws.library.person_filter.is_some() => {
+                    "Nothing here yet. Faces appear as photos are indexed; \
                          click a photo, then a face, to say who it is."
-                        }
-                        None if scanning => "Scanning folders\u{2026}",
-                        None => {
-                            "No photos found in the watched folders. Images Schist can open \
+                }
+                None if scanning => "Scanning folders\u{2026}",
+                None => {
+                    "No photos found in the watched folders. Images Schist can open \
                          (PNG, JPEG, WebP, TIFF, HEIC, camera raws, PSD, Affinity) \
                          appear here; \
                          sub-folders are scanned six levels deep."
@@ -1370,7 +1400,7 @@ pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
         notes.push(format!("{hidden} hidden by the content filter"));
     }
     TrayInfo {
-        edit: selected.map(|entry| {
+        edit: selected.clone().map(|entry| {
             let open = entry.path.clone();
             Box::new(
                 move |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
@@ -1378,7 +1408,16 @@ pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
                 },
             ) as Box<dyn Fn(&mut Workspace, &mut Window, &mut Context<Workspace>)>
         }),
-        extra: None,
+        extra: selected.map(|entry| {
+            (
+                "View",
+                Box::new(
+                    move |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
+                        ws.open_viewer(entry.path.clone(), cx)
+                    },
+                ) as chrome::TrayAction,
+            )
+        }),
         name,
         selected: ws.library.selected.len(),
         notes,

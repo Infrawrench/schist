@@ -99,6 +99,10 @@ pub struct Rule {
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct Asset {
+    #[serde(default)]
+    pub faces: Vec<Face>,
+    #[serde(default)]
+    pub moderation: Option<Moderation>,
     pub id: String,
     pub folder_id: Option<String>,
     pub name: String,
@@ -130,6 +134,8 @@ pub enum Scope {
 }
 #[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
 pub struct Filters {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub person_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mime_types: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -199,6 +205,10 @@ pub enum WatchQuery {
 }
 #[derive(Clone, Debug, Deserialize)]
 pub struct Snapshot {
+    #[serde(default)]
+    pub screening: Option<Screening>,
+    #[serde(default)]
+    pub people: Option<People>,
     pub kind: String,
     pub revision: u64,
     pub total: u64,
@@ -465,5 +475,67 @@ mod tests {
     fn absent_filters_are_not_nil() {
         let v = value(Filters::default());
         assert!(v.as_map().unwrap().is_empty());
+    }
+}
+
+#[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
+pub struct Screening {
+    pub pending: u64,
+    #[serde(default)]
+    pub blocked: u64,
+}
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+pub struct Moderation {
+    pub status: String,
+    pub revision: u64,
+}
+#[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
+pub struct People {
+    pub enabled: bool,
+    pub pending: u64,
+    #[serde(default)]
+    pub failed: u64,
+    pub unnamed: u64,
+    pub people: Vec<Person>,
+}
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+pub struct Person {
+    pub id: String,
+    pub name: String,
+    pub asset_count: u64,
+}
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+pub struct FaceRect {
+    pub x: f32,
+    pub y: f32,
+    pub w: f32,
+    pub h: f32,
+}
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+pub struct Face {
+    pub id: String,
+    pub rect: FaceRect,
+    #[serde(default)]
+    pub person_id: Option<String>,
+    #[serde(default)]
+    pub suggestion: Option<String>,
+    #[serde(default)]
+    pub automatic: bool,
+}
+
+#[cfg(test)]
+mod people_contract_tests {
+    use super::*;
+    #[test]
+    fn screening_and_people_are_optional_for_legacy_providers() {
+        let old: Snapshot = serde_json::from_str(
+            r#"{"kind":"assets","revision":0,"total":0,"offset":0,"items":[]}"#,
+        )
+        .unwrap();
+        assert!(old.screening.is_none());
+        assert!(old.people.is_none());
+        let current: Snapshot=serde_json::from_str(r#"{"kind":"assets","revision":1,"total":0,"offset":0,"items":[],"screening":{"pending":2,"blocked":1},"people":{"enabled":true,"pending":1,"unnamed":2,"people":[{"id":"p","name":"Ann","asset_count":3}]}}"#).unwrap();
+        assert_eq!(current.screening.unwrap().pending, 2);
+        assert_eq!(current.people.unwrap().people[0].asset_count, 3);
     }
 }

@@ -6322,7 +6322,7 @@ dependencies = [
 
 [[package]]
 name = "schist-cloud"
-version = "0.11.0"
+version = "0.12.0"
 dependencies = [
  "anyhow",
  "chrono",
@@ -6510,7 +6510,7 @@ dependencies = [
 
 [[package]]
 name = "schist-document"
-version = "0.11.0"
+version = "0.12.0"
 dependencies = [
  "anyhow",
  "image",
@@ -6614,6 +6614,18 @@ dependencies = [
  "rayon",
  "sha2 0.10.9",
  "tract-onnx",
+]
+
+[[package]]
+name = "schist-people-worker"
+version = "0.12.0"
+dependencies = [
+ "anyhow",
+ "image",
+ "schist-gallery",
+ "schist-neural",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

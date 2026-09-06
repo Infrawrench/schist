@@ -107,3 +107,37 @@ fn heic_uses_the_same_optional_decoder_as_desktop() {
         Ok(_) => check(&bytes, "rgb.heic"),
     }
 }
+
+#[test]
+fn path_text_and_opentype_metadata_survive_cloud_sync_and_export() {
+    let image = image::DynamicImage::ImageRgb8(image::RgbImage::from_pixel(
+        8,
+        8,
+        image::Rgb([20, 80, 120]),
+    ));
+    let mut png = std::io::Cursor::new(Vec::new());
+    image.write_to(&mut png, image::ImageFormat::Png).unwrap();
+    let codecs = registry();
+    let mut document = import(&codecs, png.get_ref(), "text.png").unwrap();
+    // PsTx carries editable text JSON, including newly added typography fields.
+    let payload=br#"{"origin":[4,5],"spec":{"text":"Along a path","features":[{"tag":"liga","value":1}],"path":{"closed":false,"points":[[0,0],[20,5]]}}}"#.to_vec();
+    document.tree.layers[0]
+        .extras
+        .push(schist_core::layer::RawBlock {
+            key: *b"PsTx",
+            data: payload.clone(),
+        });
+    let shared = SharedDocument::new(&document).unwrap();
+    let restored = materialize(&shared.full_state()).unwrap();
+    let exported = export(&codecs, &restored, "psd").unwrap();
+    let reopened = import(&codecs, &exported.bytes, "text.psd").unwrap();
+    assert_eq!(
+        reopened.tree.layers[0]
+            .extras
+            .iter()
+            .find(|b| b.key == *b"PsTx")
+            .unwrap()
+            .data,
+        payload
+    );
+}

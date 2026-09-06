@@ -249,3 +249,22 @@ check-document:
 	$(CARGO) test -p schist-document
 format-document:
 	$(CARGO) fmt -p schist-document -p schist-cloud -p schist-codecs-common
+
+# The cloud adapter uses the same face detector, recogniser and crop as desktop.
+.PHONY: people-worker check-people
+people-worker:
+	$(CARGO) build -p schist-people-worker $(if $(filter release,$(PROFILE)),--release,)
+check-people:
+	$(CARGO) test -p schist-gallery people
+	$(CARGO) test -p schist-neural faces
+	$(CARGO) check -p schist-people-worker
+
+.PHONY: format-cloud
+format-cloud:
+	$(CARGO) fmt -p schist-cloud -p schist-app -p schist-document -p schist-people-worker
+
+.PHONY: check-gallery check-cloud-browser
+check-gallery:
+	$(CARGO) test -p schist-app
+check-cloud-browser:
+	$(CARGO) check -p schist-app --target wasm32-unknown-unknown

@@ -3,9 +3,10 @@
 //! install, a person's rename). Drawn on the gallery's palette, like
 //! the rest of the room.
 
+use super::gallery_chrome::{gallery_button, pal};
 use super::library::{FaceView, GalleryContext, PersonFilter, AVATAR_PX};
 use super::library_people::PEOPLE_MODELS;
-use super::library_view::{bucket_field, gallery_button, pal};
+use super::library_view::bucket_field;
 use super::*;
 use gpui::{img, StatefulInteractiveElement as _};
 use schist_gallery::FaceRect;

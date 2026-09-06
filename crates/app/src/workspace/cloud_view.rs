@@ -449,6 +449,10 @@ impl Workspace {
         if self.cloud.search.active {
             return false;
         }
+        if ev.keystroke.key == "space" {
+            self.cloud_people_view(cx);
+            return true;
+        }
         let columns = self.cloud.grid.columns(self.gallery_thumb_px()) as isize;
         let step: isize = match ev.keystroke.key.as_str() {
             "left" => -1,
@@ -578,6 +582,15 @@ pub(crate) fn tray_info(ws: &Workspace) -> TrayInfo {
     let lead = ws.cloud_lead_asset();
     let one = ws.cloud.selected.len() == 1;
     let mut notes = Vec::new();
+    if ws.cloud.screening.pending > 0 {
+        notes.push(format!("Screening {} uploads…", ws.cloud.screening.pending));
+    }
+    if ws.cloud.screening.blocked > 0 {
+        notes.push(format!(
+            "{} uploads unavailable after screening",
+            ws.cloud.screening.blocked
+        ));
+    }
     if lead.as_ref().is_some_and(|a| a.edited) {
         notes.push("edited — the edits live in Schist Cloud".to_string());
     }
@@ -1028,7 +1041,22 @@ fn empty_reason(ws: &Workspace) -> String {
 pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     let cell = ws.gallery_thumb_px();
     let selected = ws.cloud.selected.clone();
-    let sections = ws.cloud_grouped();
+    let mut sections = ws.cloud_grouped();
+    if let Some(id) = &ws.cloud.query.filters.person_id {
+        let name = if id == "unnamed" {
+            "Unnamed faces"
+        } else {
+            ws.cloud
+                .people
+                .as_ref()
+                .and_then(|p| p.people.iter().find(|p| &p.id == id))
+                .map(|p| p.name.as_str())
+                .unwrap_or("Person")
+        };
+        for (title, _, _) in &mut sections {
+            *title = format!("People · {name} · {title}");
+        }
+    }
     let access: chrome::GridAccess = |ws| &mut ws.cloud.grid;
     let mut column = grid_column("cloud-grid", &ws.cloud.grid, access, cx);
     if sections.is_empty() {
@@ -1230,6 +1258,12 @@ pub(crate) fn context_menu(
             if n == 1 {
                 row(
                     &mut rows,
+                    "View & name people".into(),
+                    std::rc::Rc::new(|ws, _, cx| ws.cloud_people_view(cx)),
+                    cx,
+                );
+                row(
+                    &mut rows,
                     "Download\u{2026}".into(),
                     std::rc::Rc::new(|ws, _w, cx| ws.cloud_download_selected(cx)),
                     cx,
@@ -1425,7 +1459,13 @@ pub(crate) fn dialog(
     fields: Vec<(&'static str, String, String)>,
     cx: &mut Context<Workspace>,
 ) -> gpui::AnyElement {
+    if kind == "people-view" {
+        return super::cloud_people::viewer(ws, fields, cx);
+    }
     let title = match kind {
+        "people-enable" => "Find faces",
+        "people-rename" => "Rename or merge person",
+        "face-name" | "face-add" => "Name this face",
         "sign-in" => "Sign into Schist Cloud",
         "search" => "Search photos",
         "catalogue" => "Find cloud folders and buckets",
@@ -1442,6 +1482,27 @@ pub(crate) fn dialog(
         _ => "Schist Cloud",
     };
     let mut body = div().flex().flex_col().gap_2();
+    if kind == "people-enable" {
+        body=body.child("Use UltraFace (MIT) and SFace (Apache-2.0), the same models as desktop. Processing runs on Schist Cloud after upload screening. Recognition data stays in your workspace. Apply toggles automatic face detection.");
+    }
+    if kind == "people-rename" {
+        let id = fields
+            .iter()
+            .find(|(k, _, _)| *k == "cloud-person-id")
+            .map(|(_, _, v)| v.clone())
+            .unwrap_or_default();
+        body = body
+            .child("An existing name merges the two people. Forgetting removes names, not photos.")
+            .child(chrome::gallery_button(
+                "Forget person",
+                false,
+                move |ws, _, cx| {
+                    ws.cloud_mutate("people.forget", vec![("id", id.clone().into())]);
+                    ws.close_modal(cx);
+                },
+                cx,
+            ));
+    }
     if kind.starts_with("delete-") {
         body = body.child(caption(match kind {
             "delete-folder" => "Only an empty folder can be deleted.",
@@ -1464,6 +1525,9 @@ pub(crate) fn dialog(
         ));
     }
     for (key, label, committed) in fields {
+        if label.is_empty() {
+            continue;
+        }
         if key == "cloud-download-format" {
             let mut options = vec![(String::new(), "Current editable document".to_string())];
             if let Some(capabilities) = &ws.cloud.capabilities {
@@ -1647,6 +1711,7 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
         ))
         .child(sidebar_caption("BUCKETS"))
         .children(bucket_rows(ws, cx))
+        .children(super::cloud_people::rows(ws, cx))
         .child(sidebar_link(
             "+ New bucket…",
             |ws, _w, cx| new_cloud_bucket(ws, cx),
@@ -1732,6 +1797,8 @@ mod grouping_tests {
 
     fn asset(id: &str, folder: Option<&str>, captured: Option<u64>, modified: u64) -> Asset {
         Asset {
+            faces: Vec::new(),
+            moderation: None,
             id: id.into(),
             folder_id: folder.map(str::to_string),
             name: format!("{id}.jpg"),
