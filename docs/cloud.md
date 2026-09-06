@@ -49,10 +49,8 @@ grid the local gallery uses — thumbnails under month headers, or under folder
 headers with the sidebar's Group By chips — with the same selection, arrow keys,
 drags and right-click menu, and the tray's Edit, Download… and size slider. The
 search box in the top strip searches the remote library as you type (names and
-tags, ranked by the provider); **Filters…** beside it sets MIME types, tags,
-edited state, content classification, capture dates, minimum rating and
-geographic bounds, and a chip in the strip stays lit while any are on. Escape
-clears the search. Pages of 200 photos have links under the grid.
+tags, ranked by the provider); the map filter applies to the cloud too, with
+its chip in the strip while it is on. Escape clears the search. Pages of 200 photos have links under the grid.
 
 Folder rows offer Rename, New folder inside and Delete on their right-click
 menu; bucket rows offer Edit, Add selected and Delete; a photo's menu has Edit,

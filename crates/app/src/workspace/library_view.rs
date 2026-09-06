@@ -565,9 +565,6 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             cx,
         ))
         .children((!cloud).then(|| super::library_people_view::people_rows(ws, cx)).flatten())
-        .children(cloud.then(|| {
-            chrome::sidebar_link("More filters…", |ws, _w, cx| ws.cloud_open_filters(cx), cx)
-        }))
 }
 
 /// One bucket in the sidebar: a drop target, a view of its contents on

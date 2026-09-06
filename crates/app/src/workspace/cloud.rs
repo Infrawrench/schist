@@ -1678,12 +1678,10 @@ impl Workspace {
                 let domain = remote::auth::domain(&get("cloud-domain"))?;
                 self.cloud_login(domain, cx);
             }
-            "search" | "filters" => {
+            "search" => {
                 let mut q = self.cloud.query.clone();
-                if kind == "search" {
-                    q.text = get("cloud-query");
-                    self.cloud.search.set_text(q.text.clone());
-                }
+                q.text = get("cloud-query");
+                self.cloud.search.set_text(q.text.clone());
                 q.offset = 0;
                 q.filters = parse_filters(&fields)?;
                 if let Some(r) = q.filters.min_rating {

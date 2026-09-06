@@ -348,27 +348,6 @@ impl Workspace {
         cx.notify();
     }
 
-    /// The Filters… dialog: everything but the search text, which has
-    /// its own box in the strip.
-    pub(crate) fn cloud_open_filters(&mut self, cx: &mut Context<Self>) {
-        let fields = filter_fields(&self.cloud.query)
-            .into_iter()
-            .filter(|(key, _, _)| *key != "cloud-query")
-            .collect();
-        form(self, "filters", fields, cx);
-    }
-
-    pub(crate) fn cloud_filters_active(&self) -> bool {
-        self.cloud.query.filters != Filters::default()
-    }
-
-    pub(crate) fn cloud_clear_filters(&mut self, cx: &mut Context<Self>) {
-        self.cloud.query.filters = Filters::default();
-        self.cloud.query.offset = 0;
-        self.cloud_watch_assets(true);
-        cx.notify();
-    }
-
     /// The lead of the selection — what Enter opens and the tray names.
     pub(crate) fn cloud_lead_asset(&self) -> Option<Asset> {
         let id = self.cloud.selected.last()?;
@@ -612,13 +591,14 @@ impl Workspace {
     }
 }
 
-/// The chip announcing active filters, in the strip beside the search.
+/// The map-filter chip in the strip, when the cloud query carries a
+/// drawn area — the one filter the gallery still offers beyond search.
 pub(crate) fn filter_chip(
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
 ) -> Option<gpui::AnyElement> {
     #[cfg(not(target_arch = "wasm32"))]
-    if ws.cloud.query.filters.bounds.is_some() && filter_count(&ws.cloud.query.filters) == 1 {
+    if ws.cloud.query.filters.bounds.is_some() {
         return Some(
             chrome::filter_chip(
                 "Map filter: drawn area".to_string(),
@@ -629,15 +609,8 @@ pub(crate) fn filter_chip(
             .into_any_element(),
         );
     }
-    ws.cloud_filters_active().then(|| {
-        chrome::filter_chip(
-            format!("Filters on ({})", filter_count(&ws.cloud.query.filters)),
-            |ws, cx| ws.cloud_open_filters(cx),
-            |ws, cx| ws.cloud_clear_filters(cx),
-            cx,
-        )
-        .into_any_element()
-    })
+    let _ = (ws, cx);
+    None
 }
 
 /// The search box in the strip: the provider ranks the page by it.
@@ -1003,8 +976,8 @@ fn empty_reason(ws: &Workspace) -> String {
     if !ws.cloud.query.text.trim().is_empty() {
         return "Nothing matches the search. Escape clears it.".into();
     }
-    if ws.cloud_filters_active() {
-        return "Nothing matches the filters. The chip in the strip clears them.".into();
+    if ws.cloud.query.filters.bounds.is_some() {
+        return "Nothing inside the map filter. The chip in the strip clears it.".into();
     }
     match &ws.cloud.query.scope {
         Scope::Bucket { id } => {
@@ -1396,7 +1369,6 @@ pub(crate) fn dialog(
     let title = match kind {
         "sign-in" => "Sign into Schist Cloud",
         "search" => "Search photos",
-        "filters" => "Filter cloud photos",
         "catalogue" => "Find cloud folders and buckets",
         "new-folder" | "new-subfolder" => "New cloud folder",
         "new-bucket" => "New cloud bucket",
@@ -1419,11 +1391,6 @@ pub(crate) fn dialog(
             }
             _ => "Photos remain in your cloud library.",
         }));
-    }
-    if kind == "filters" {
-        body = body.child(caption(
-            "Leave a field empty to not filter by it. Dates are YYYY-MM-DD.",
-        ));
     }
     if kind.ends_with("bucket") && !kind.starts_with("delete") {
         body = body.child(caption(
@@ -1603,11 +1570,6 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
     let context_menu = context_menu(ws, cx);
     let sidebar = sidebar_column("cloud-sidebar")
         .child(group_chips(ws.gallery_group_by(), &GroupBy::ALL, cx))
-        .child(sidebar_link(
-            "Filters…",
-            |ws, _w, cx| ws.cloud_open_filters(cx),
-            cx,
-        ))
         .child(sidebar_caption("FOLDERS"))
         .children(folder_rows(ws, cx))
         .child(sidebar_link(

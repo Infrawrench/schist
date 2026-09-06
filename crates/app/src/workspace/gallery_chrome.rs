@@ -320,6 +320,7 @@ pub fn gallery_button(
 /// least ignorable thing in the strip, since a filter you forgot is a
 /// gallery that looks mysteriously empty. Clicking it opens the
 /// filter; the ✕ clears it.
+#[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub fn filter_chip(
     label: String,
     open: impl Fn(&mut Workspace, &mut Context<Workspace>) + 'static,
