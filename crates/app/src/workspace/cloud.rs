@@ -1367,6 +1367,49 @@ impl Workspace {
     pub(crate) fn cloud_checkpoint(&mut self) {
         self.cloud_capture_edit();
     }
+    /// Create or update a cloud bucket from the shared bucket dialog:
+    /// the name, and a rule made of the search text and the drawn area.
+    /// `form_target` names the bucket being edited (none for a new
+    /// one); `form_scope` is what the rule searches. Editing keeps any
+    /// other filters the bucket's rule already had.
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub(crate) fn cloud_save_bucket(
+        &mut self,
+        name: String,
+        text: Option<String>,
+        bounds: Option<remote::Bounds>,
+    ) {
+        let name = match name.trim() {
+            "" => format!("Bucket {}", self.cloud.buckets.len() + 1),
+            typed => typed.to_string(),
+        };
+        let target = self.cloud.form_target.take();
+        let mut filters = target
+            .as_ref()
+            .and_then(|(id, _)| self.cloud.buckets.iter().find(|b| &b.id == id))
+            .and_then(|b| b.rule.as_ref())
+            .map(|r| r.filters.clone())
+            .unwrap_or_default();
+        filters.bounds = bounds;
+        let rule = if text.is_none() && filters == Filters::default() {
+            Value::Nil
+        } else {
+            value(remote::Rule {
+                scope: self.cloud.form_scope.clone(),
+                text: text.unwrap_or_default(),
+                filters,
+            })
+        };
+        let mut params = vec![("name", name.into()), ("rule", rule)];
+        let method = match target {
+            Some((id, revision)) => {
+                params.extend([("id", id.into()), ("revision", revision.into())]);
+                "bucket.update"
+            }
+            None => "bucket.create",
+        };
+        self.cloud_mutate(method, params);
+    }
     pub(crate) fn cloud_mutate(&mut self, method: &str, fields: Vec<(&'static str, Value)>) {
         if let Some(c) = &self.cloud.client {
             let mut fields = fields;

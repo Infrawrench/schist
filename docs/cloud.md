@@ -56,8 +56,10 @@ Folder rows offer Rename, New folder inside and Delete on their right-click
 menu; bucket rows offer Edit, Add selected and Delete; a photo's menu has Edit,
 Download, bucket membership and Delete from Schist Cloud. Folder and bucket
 lists update through live subscriptions and page at 500; a Find link appears
-when a library outgrows one page. Smart buckets save a scope, query and
-filters. The browser build shows the same room with only the cloud in it.
+when a library outgrows one page. A cloud bucket uses the same New Bucket
+dialog as a local one — a name, a search, and an area drawn on the map — and
+the provider keeps it filled by that rule. The browser build shows the same
+room with only the cloud in it, and asks for the name and search only.
 
 Thumbnails come from the `thumbnail_url` on each asset in a workspace snapshot:
 a signed download ticket the provider serves without credentials (format

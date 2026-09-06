@@ -1208,6 +1208,9 @@ pub enum Modal {
         query: String,
         photos: Vec<PathBuf>,
         editing: Option<usize>,
+        /// A Schist Cloud bucket rather than a local one; which one, and
+        /// its rule's scope, live in `cloud.form_target` and `form_scope`.
+        cloud: bool,
     },
     /// The full new-document dialog: everything a fresh document needs,
     /// asked up front as Photoshop does.

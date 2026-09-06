@@ -2811,6 +2811,7 @@ impl Workspace {
                 query: String::new(),
                 photos,
                 editing: None,
+                cloud: false,
             },
             cx,
         );
@@ -2833,6 +2834,7 @@ impl Workspace {
                 query,
                 photos: Vec::new(),
                 editing: Some(index),
+                cloud: false,
             },
             cx,
         );

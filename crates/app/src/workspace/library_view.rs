@@ -2195,11 +2195,27 @@ pub(crate) fn bucket_name_dialog(
     query: String,
     photos: usize,
     editing: Option<usize>,
+    cloud: bool,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let name_fallback = match editing.and_then(|i| ws.library.buckets.get(i)) {
-        Some(bucket) => bucket.name.clone(),
-        None => format!("Bucket {}", ws.library.buckets.len() + 1),
+    // The same dialog serves a Schist Cloud bucket: the name and the
+    // rule (search text, drawn area) go to the provider instead.
+    let cloud_target = cloud
+        .then_some(ws.cloud.form_target.as_ref())
+        .flatten()
+        .and_then(|(id, _)| ws.cloud.buckets.iter().find(|b| &b.id == id))
+        .cloned();
+    let is_edit = editing.is_some() || cloud_target.is_some();
+    let name_fallback = if cloud {
+        match &cloud_target {
+            Some(bucket) => bucket.name.clone(),
+            None => format!("Bucket {}", ws.cloud.buckets.len() + 1),
+        }
+    } else {
+        match editing.and_then(|i| ws.library.buckets.get(i)) {
+            Some(bucket) => bucket.name.clone(),
+            None => format!("Bucket {}", ws.library.buckets.len() + 1),
+        }
     };
     let name_field = bucket_field("bucket-name", name, name_fallback, ws, cx);
     let query_field = bucket_field(
@@ -2278,7 +2294,7 @@ pub(crate) fn bucket_name_dialog(
             cx,
         ))
         .child(crate::ui::button(
-            if editing.is_some() { "Save" } else { "Create" },
+            if is_edit { "Save" } else { "Create" },
             true,
             |ws, _w, cx| {
                 ws.commit_focused_field();
@@ -2287,6 +2303,7 @@ pub(crate) fn bucket_name_dialog(
                     query,
                     photos,
                     editing,
+                    cloud,
                 }) = ws.modal.clone()
                 else {
                     return;
@@ -2305,6 +2322,17 @@ pub(crate) fn bucket_name_dialog(
                             .unwrap_or_else(|| "Selected Area".to_string()),
                     )
                 });
+                if cloud {
+                    let bounds = area.map(|(b, _)| schist_cloud::Bounds {
+                        south: b.south,
+                        north: b.north,
+                        west: b.west,
+                        east: b.east,
+                    });
+                    ws.cloud_save_bucket(name, query, bounds);
+                    ws.close_modal(cx);
+                    return;
+                }
                 let index = match editing {
                     Some(index) => index,
                     None => ws.library.add_bucket(name.clone()),
@@ -2317,10 +2345,11 @@ pub(crate) fn bucket_name_dialog(
             },
             cx,
         ));
-    let title = if editing.is_some() {
-        "Edit Bucket"
-    } else {
-        "New Bucket"
+    let title = match (cloud, is_edit) {
+        (true, true) => "Edit Cloud Bucket",
+        (true, false) => "New Cloud Bucket",
+        (false, true) => "Edit Bucket",
+        (false, false) => "New Bucket",
     };
     crate::ui::modal_frame(title, 580.0, body, actions)
 }

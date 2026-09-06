@@ -73,67 +73,6 @@ fn field(
 ) -> (&'static str, String, String) {
     (key, label.into(), value.into())
 }
-pub(crate) fn filter_fields(
-    query: &schist_cloud::AssetQuery,
-) -> Vec<(&'static str, String, String)> {
-    let f = &query.filters;
-    vec![
-        field("cloud-query", "Search", query.text.clone()),
-        field(
-            "cloud-types",
-            "File types (MIME, comma separated)",
-            f.mime_types
-                .as_ref()
-                .map(|v| v.join(", "))
-                .unwrap_or_default(),
-        ),
-        field(
-            "cloud-tags",
-            "Tags (comma separated)",
-            f.tags.as_ref().map(|v| v.join(", ")).unwrap_or_default(),
-        ),
-        field(
-            "cloud-edited",
-            "Edited: any / yes / no",
-            f.edited
-                .map(|v| if v { "yes" } else { "no" })
-                .unwrap_or("any"),
-        ),
-        field(
-            "cloud-content",
-            "Content: all / safe / flagged",
-            f.content.as_deref().unwrap_or("all"),
-        ),
-        field(
-            "cloud-rating",
-            "Minimum rating (0–5)",
-            f.min_rating.map(|v| v.to_string()).unwrap_or_default(),
-        ),
-        field(
-            "cloud-after",
-            "Captured after (YYYY-MM-DD)",
-            f.captured_after
-                .map(schist_cloud::format_date)
-                .unwrap_or_default(),
-        ),
-        field(
-            "cloud-before",
-            "Captured before (YYYY-MM-DD)",
-            f.captured_before
-                .map(schist_cloud::format_date)
-                .unwrap_or_default(),
-        ),
-        field(
-            "cloud-bounds",
-            "Map boundary: south, west, north, east",
-            f.bounds
-                .as_ref()
-                .map(|b| format!("{}, {}, {}, {}", b.south, b.west, b.north, b.east))
-                .unwrap_or_default(),
-        ),
-    ]
-}
-
 /// How many of a rule's filters are set, for the bucket header.
 fn filter_count(f: &Filters) -> usize {
     [
@@ -728,14 +667,99 @@ pub(crate) fn new_cloud_folder(ws: &mut Workspace, cx: &mut Context<Workspace>) 
     )
 }
 
-/// The "+ New bucket" answer for the cloud.
+/// The "+ New bucket" answer for the cloud: the same dialog as a local
+/// bucket — name, search, an area on the map — sent to the provider.
+/// The browser, which has no map, gets the name and search fields.
 pub(crate) fn new_cloud_bucket(ws: &mut Workspace, cx: &mut Context<Workspace>) {
-    let mut fields = vec![field("cloud-name", "Bucket name", "")];
-    let mut q = ws.cloud.query.clone();
-    q.text.clear();
-    q.filters = Default::default();
-    fields.extend(filter_fields(&q));
-    form(ws, "new-bucket", fields, cx)
+    ws.cloud.form_target = None;
+    ws.cloud.form_scope = match &ws.cloud.query.scope {
+        Scope::Bucket { .. } => Scope::Library,
+        s => s.clone(),
+    };
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        // A fresh rule: no leftover area from the import dialog or the
+        // map filter can pass as this bucket's.
+        ws.library.map.selection = None;
+        ws.library.map.selection_name = None;
+        ws.open_modal(
+            Modal::BucketName {
+                name: String::new(),
+                query: String::new(),
+                photos: Vec::new(),
+                editing: None,
+                cloud: true,
+            },
+            cx,
+        );
+        ws.focus_field("bucket-name", "");
+    }
+    #[cfg(target_arch = "wasm32")]
+    form(
+        ws,
+        "new-bucket",
+        vec![
+            field("cloud-name", "Bucket name", ""),
+            field("cloud-query", "Search", ""),
+        ],
+        cx,
+    );
+}
+
+/// Reopen the bucket dialog on a cloud bucket: rename it, give it a
+/// rule, change or remove the one it has.
+pub(crate) fn edit_cloud_bucket(ws: &mut Workspace, bucket: Bucket, cx: &mut Context<Workspace>) {
+    ws.cloud.form_target = Some((bucket.id.clone(), bucket.revision));
+    ws.cloud.form_scope = bucket
+        .rule
+        .as_ref()
+        .map(|r| r.scope.clone())
+        .unwrap_or(Scope::Library);
+    let text = bucket
+        .rule
+        .as_ref()
+        .map(|r| r.text.clone())
+        .unwrap_or_default();
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        // Show the rule being edited: the shared map takes the
+        // bucket's area (and jumps to it), or clears.
+        match bucket.rule.as_ref().and_then(|r| r.filters.bounds.as_ref()) {
+            Some(b) => ws.library.map.jump_to(
+                "the saved area",
+                crate::workspace::GeoBounds {
+                    south: b.south,
+                    north: b.north,
+                    west: b.west,
+                    east: b.east,
+                },
+            ),
+            None => {
+                ws.library.map.selection = None;
+                ws.library.map.selection_name = None;
+            }
+        }
+        ws.open_modal(
+            Modal::BucketName {
+                name: bucket.name.clone(),
+                query: text,
+                photos: Vec::new(),
+                editing: None,
+                cloud: true,
+            },
+            cx,
+        );
+    }
+    #[cfg(target_arch = "wasm32")]
+    form(
+        ws,
+        "edit-bucket",
+        vec![
+            field("cloud-name", "Bucket name", bucket.name.clone()),
+            field("cloud-query", "Search", text),
+        ],
+        cx,
+    );
 }
 
 /// The Schist Cloud rows of the FOLDERS list: the library itself as a
@@ -1226,14 +1250,7 @@ pub(crate) fn context_menu(
             row(
                 &mut rows,
                 "Add to new bucket\u{2026}".into(),
-                std::rc::Rc::new(|ws, _w, cx| {
-                    let mut fields = vec![field("cloud-name", "Bucket name", "")];
-                    let mut q = ws.cloud.query.clone();
-                    q.text.clear();
-                    q.filters = Default::default();
-                    fields.extend(filter_fields(&q));
-                    form(ws, "new-bucket", fields, cx)
-                }),
+                std::rc::Rc::new(|ws, _w, cx| new_cloud_bucket(ws, cx)),
                 cx,
             );
             if let Scope::Bucket { id: bucket } = ws.cloud.query.scope.clone() {
@@ -1314,19 +1331,7 @@ pub(crate) fn context_menu(
             row(
                 &mut rows,
                 "Edit bucket\u{2026}".into(),
-                std::rc::Rc::new(move |ws, _w, cx| {
-                    ws.cloud.form_target = Some((edit.id.clone(), edit.revision));
-                    let mut fields = vec![field("cloud-name", "Bucket name", edit.name.clone())];
-                    let mut q = schist_cloud::AssetQuery::default();
-                    if let Some(rule) = &edit.rule {
-                        q.scope = rule.scope.clone();
-                        q.text = rule.text.clone();
-                        q.filters = rule.filters.clone();
-                    }
-                    ws.cloud.form_scope = q.scope.clone();
-                    fields.extend(filter_fields(&q));
-                    form(ws, "edit-bucket", fields, cx)
-                }),
+                std::rc::Rc::new(move |ws, _w, cx| edit_cloud_bucket(ws, edit.clone(), cx)),
                 cx,
             );
             if !ws.cloud.selected.is_empty() {
@@ -1389,7 +1394,7 @@ pub(crate) fn dialog(
     }
     if kind.ends_with("bucket") && !kind.starts_with("delete") {
         body = body.child(caption(
-            "Leave search and filters empty for a bucket filled by dragging photos in.",
+            "Leave the search empty for a bucket filled by dragging photos in.",
         ));
     }
     for (key, label, committed) in fields {
