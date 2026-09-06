@@ -52,6 +52,12 @@ search box in the top strip searches the remote library as you type (names and
 tags, ranked by the provider); the map filter applies to the cloud too, with
 its chip in the strip while it is on. Escape clears the search. Pages of 200 photos have links under the grid.
 
+The sidebar's VIEW, GROUP BY and PEOPLE sections stay whichever room is up.
+World Map plots the cloud page's photos by the `location` each asset carries,
+with the same markers, strip and marker menu as local photos. The PEOPLE list
+shows the local people and, beneath them, the cloud's people with a ☁ badge;
+right-click a cloud person to rename, merge or forget them.
+
 Folder rows offer Rename, New folder inside and Delete on their right-click
 menu; bucket rows offer Edit, Select all, Save all as ZIP, Process all (the
 originals are fetched to a scratch folder and the batch dialog saves results to

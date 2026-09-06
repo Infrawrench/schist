@@ -852,6 +852,10 @@ pub(crate) fn folder_rows(
             MouseButton::Right,
             cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
                 ws.cloud.context = Some((ev.position, CloudContext::Folder(context.clone())));
+                #[cfg(not(target_arch = "wasm32"))]
+                {
+                    ws.library.context = None;
+                }
                 cx.notify();
             }),
         )
@@ -906,6 +910,10 @@ pub(crate) fn bucket_rows(
             MouseButton::Right,
             cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
                 ws.cloud.context = Some((ev.position, CloudContext::Bucket(context.clone())));
+                #[cfg(not(target_arch = "wasm32"))]
+                {
+                    ws.library.context = None;
+                }
                 cx.notify();
             }),
         );
@@ -1222,6 +1230,10 @@ fn cloud_cell(
                 ws.cloud_select_single(context.clone());
             }
             ws.cloud.context = Some((ev.position, CloudContext::Photo(context.clone())));
+            #[cfg(not(target_arch = "wasm32"))]
+            {
+                ws.library.context = None;
+            }
             cx.notify();
         }),
     )
@@ -1355,6 +1367,70 @@ pub(crate) fn context_menu(
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.cloud.form_target = Some((delete.id.clone(), delete.revision));
                     form(ws, "delete-folder", vec![], cx)
+                }),
+                cx,
+            );
+        }
+        CloudContext::Cluster(ids) => {
+            rows.push(
+                div()
+                    .px_2()
+                    .py_1()
+                    .text_size(px(11.0))
+                    .text_color(gpui::rgb(ui::palette().text_dim))
+                    .child(format!("{} photos in this marker", ids.len()))
+                    .into_any_element(),
+            );
+            for bucket in ws.cloud.buckets.clone() {
+                let add = ids.clone();
+                row(
+                    &mut rows,
+                    format!("Add all to {}", bucket.name),
+                    std::rc::Rc::new(move |ws, _w, _cx| {
+                        ws.cloud_add_to_bucket(bucket.id.clone(), &add)
+                    }),
+                    cx,
+                );
+            }
+            row(
+                &mut rows,
+                "Add all to new bucket\u{2026}".into(),
+                std::rc::Rc::new(|ws, _w, cx| new_cloud_bucket(ws, cx)),
+                cx,
+            );
+        }
+        CloudContext::Person(id) => {
+            let person = ws
+                .cloud
+                .people
+                .as_ref()
+                .and_then(|p| p.people.iter().find(|p| p.id == id))
+                .cloned()?;
+            let rename = person.clone();
+            row(
+                &mut rows,
+                "Rename or merge\u{2026}".into(),
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.open_modal(
+                        Modal::Cloud {
+                            kind: "people-rename",
+                            fields: vec![
+                                ("cloud-person-id", "".into(), rename.id.clone()),
+                                ("cloud-name", "Name".into(), rename.name.clone()),
+                            ],
+                        },
+                        cx,
+                    )
+                }),
+                cx,
+            );
+            rows.push(menu_sep());
+            row(
+                &mut rows,
+                "Forget this person".into(),
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.cloud_mutate("people.forget", vec![("id", person.id.clone().into())]);
+                    cx.notify();
                 }),
                 cx,
             );
@@ -1711,7 +1787,7 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
         ))
         .child(sidebar_caption("BUCKETS"))
         .children(bucket_rows(ws, cx))
-        .children(super::cloud_people::rows(ws, cx))
+        .children(super::cloud_people::rows(ws, true, cx))
         .child(sidebar_link(
             "+ New bucket…",
             |ws, _w, cx| new_cloud_bucket(ws, cx),

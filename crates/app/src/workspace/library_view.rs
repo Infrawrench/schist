@@ -32,10 +32,10 @@ impl Workspace {
                 .flex_grow()
                 .min_h(px(0.0))
                 .child(sidebar(self, cx))
-                .child(if cloud {
-                    super::cloud_view::grid(self, cx)
-                } else if self.library.map_view {
+                .child(if self.library.map_view {
                     world_map(self, cx).into_any_element()
+                } else if cloud {
+                    super::cloud_view::grid(self, cx)
                 } else if self.library.viewer.is_some() {
                     super::library_people_view::viewer(self, cx)
                 } else {
@@ -47,22 +47,10 @@ impl Workspace {
                 .children(crate::panels::ai_sidebar(self, cx))
                 .into_any_element()
         };
-        let context_menu = if cloud {
-            // The cloud room has its own menu for its rows and cells —
-            // but the "+ Add folder…" / "+ New bucket" choice menus
-            // live on the library's context whichever room is up.
-            super::cloud_view::context_menu(self, cx).or_else(|| {
-                use super::library::GalleryContext;
-                matches!(
-                    self.library.context,
-                    Some((_, GalleryContext::AddFolder | GalleryContext::NewBucket))
-                )
-                .then(|| gallery_context_menu(self, cx))
-                .flatten()
-            })
-        } else {
-            gallery_context_menu(self, cx)
-        };
+        // Both rooms list both kinds of row, so either menu can be up
+        // in either room; opening one closes the other.
+        let context_menu =
+            super::cloud_view::context_menu(self, cx).or_else(|| gallery_context_menu(self, cx));
         let root = div()
             .flex()
             .flex_col()
@@ -477,10 +465,10 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         rows.push(sidebar_row(label, count, selected, Some(root), cx).into_any_element());
     }
     sidebar_column("gallery-sidebar")
-        .children((!cloud).then(|| sidebar_caption("VIEW")))
+        .child(sidebar_caption("VIEW"))
         .children(
-            (!cloud)
-                .then(|| {
+            Some(())
+                .map(|()| {
                     [(false, "Photos"), (true, "World Map")]
                         .into_iter()
                         .map(|(map, label)| {
@@ -601,13 +589,8 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             },
             cx,
         ))
-        .children(
-            (!cloud)
-                .then(|| super::library_people_view::people_rows(ws, cx))
-                .into_iter()
-                .flatten(),
-        )
-        .children(super::cloud_people::rows(ws, cx))
+        .children(super::library_people_view::people_rows(ws, cx))
+        .children(super::cloud_people::rows(ws, false, cx))
 }
 
 /// One bucket in the sidebar: a drop target, a view of its contents on
@@ -659,6 +642,7 @@ fn bucket_row(
             MouseButton::Right,
             cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
                 ws.library.context = Some((ev.position, GalleryContext::Bucket(index)));
+                ws.cloud.context = None;
                 cx.notify();
             }),
         )
@@ -837,26 +821,193 @@ fn gallery_sections(ws: &Workspace) -> Vec<(String, String, Vec<super::library::
 
 /// Browse the current gallery on a world map; the strip opens every photo
 /// in a cluster, including photos with identical coordinates at maximum zoom.
+/// A photo on the world map, from either room: the local library's
+/// entry, or a Schist Cloud asset on the page.
+#[derive(Clone)]
+enum MapPhoto {
+    Local(super::library::Entry),
+    Cloud(Box<schist_cloud::Asset>),
+}
+
+/// The photos on show with a valid position.
+type LocatedPhotos = Vec<(MapPhoto, (f64, f64))>;
+
+impl MapPhoto {
+    fn key(&self) -> String {
+        match self {
+            MapPhoto::Local(e) => e.path.display().to_string(),
+            MapPhoto::Cloud(a) => a.id.clone(),
+        }
+    }
+    fn name(&self) -> String {
+        match self {
+            MapPhoto::Local(e) => e
+                .path
+                .file_name()
+                .map(|s| s.to_string_lossy().into_owned())
+                .unwrap_or_default(),
+            MapPhoto::Cloud(a) => a.name.clone(),
+        }
+    }
+}
+
+/// The photos on show with a valid position, plus how many are still
+/// being read (local EXIF probes) and how many have none.
+fn map_photos(ws: &Workspace) -> (LocatedPhotos, usize, usize) {
+    let mut located = Vec::new();
+    let mut pending = 0;
+    let mut unlocated = 0;
+    if ws.cloud.show {
+        for asset in &ws.cloud.assets {
+            match asset
+                .location
+                .as_ref()
+                .filter(|l| super::library_geo::valid_position(l.latitude, l.longitude))
+            {
+                Some(l) => located.push((
+                    MapPhoto::Cloud(Box::new(asset.clone())),
+                    (l.latitude, l.longitude),
+                )),
+                None => unlocated += 1,
+            }
+        }
+    } else {
+        for entry in gallery_sections(ws).into_iter().flat_map(|(_, _, e)| e) {
+            if let Some(pos) = photo_position(ws, &entry.path) {
+                located.push((MapPhoto::Local(entry), pos));
+            } else if ws.library.positions.contains_key(&entry.path) {
+                unlocated += 1;
+            } else {
+                pending += 1;
+            }
+        }
+    }
+    (located, pending, unlocated)
+}
+
+fn map_photo_selected(ws: &Workspace, photo: &MapPhoto) -> bool {
+    match photo {
+        MapPhoto::Local(e) => ws.library.is_selected(&e.path),
+        MapPhoto::Cloud(a) => ws.cloud.selected.iter().any(|id| id == &a.id),
+    }
+}
+
+/// The marker's photos the strip under the map shows.
+fn map_strip_photos(ws: &Workspace) -> Vec<MapPhoto> {
+    let (located, _, _) = map_photos(ws);
+    let wanted: FxHashSet<String> = if ws.cloud.show {
+        ws.cloud.map_photos.iter().cloned().collect()
+    } else {
+        ws.library
+            .map_photos
+            .iter()
+            .map(|p| p.display().to_string())
+            .collect()
+    };
+    located
+        .into_iter()
+        .map(|(photo, _)| photo)
+        .filter(|photo| wanted.contains(&photo.key()))
+        .collect()
+}
+
+/// A marker was clicked: its photos fill the strip, the first is
+/// selected, and a double-click on a lone photo opens it.
+fn map_pick(ws: &mut Workspace, photos: &[MapPhoto], open: bool, cx: &mut Context<Workspace>) {
+    let Some(first) = photos.first() else {
+        return;
+    };
+    match first {
+        MapPhoto::Local(entry) => {
+            ws.library.map_photos = photos
+                .iter()
+                .filter_map(|p| match p {
+                    MapPhoto::Local(e) => Some(e.path.clone()),
+                    MapPhoto::Cloud(_) => None,
+                })
+                .collect();
+            ws.library.select_single(entry.path.clone());
+            if open {
+                ws.open_from_gallery(entry.path.clone(), cx);
+            }
+        }
+        MapPhoto::Cloud(asset) => {
+            ws.cloud.map_photos = photos.iter().map(MapPhoto::key).collect();
+            ws.cloud_select_single(asset.id.clone());
+            if open {
+                ws.cloud_open((**asset).clone(), cx);
+            }
+        }
+    }
+}
+
+/// A marker was right-clicked: the room's own menu for its photos.
+fn map_cluster_context(ws: &mut Workspace, photos: &[MapPhoto], at: Point<Pixels>) {
+    let paths: Vec<PathBuf> = photos
+        .iter()
+        .filter_map(|p| match p {
+            MapPhoto::Local(e) => Some(e.path.clone()),
+            MapPhoto::Cloud(_) => None,
+        })
+        .collect();
+    if paths.is_empty() {
+        let ids = photos.iter().map(MapPhoto::key).collect();
+        ws.cloud.context = Some((at, super::cloud::CloudContext::Cluster(ids)));
+        ws.library.context = None;
+    } else {
+        ws.library.context = Some((at, super::library::GalleryContext::MapCluster(paths)));
+        ws.cloud.context = None;
+    }
+}
+
+/// A photo's preview for a marker or the strip: the local thumbnail
+/// pipeline, or the cloud page's fetched thumbnail.
+fn map_photo_preview(
+    ws: &Workspace,
+    photo: &MapPhoto,
+    width: f32,
+    height: f32,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    match photo {
+        MapPhoto::Local(entry) => photo_preview(ws, entry, width, height, cx).into_any_element(),
+        MapPhoto::Cloud(asset) => {
+            let thumb = ws
+                .cloud
+                .thumbnails
+                .get(&asset.id)
+                .map(|(_, image)| image.clone());
+            div()
+                .w(px(width))
+                .h(px(height))
+                .flex_none()
+                .overflow_hidden()
+                .bg(gpui::rgb(pal().chrome_bg))
+                .child(match thumb {
+                    Some(image) => img(image)
+                        .size_full()
+                        .object_fit(gpui::ObjectFit::Contain)
+                        .into_any_element(),
+                    None => div()
+                        .size_full()
+                        .flex()
+                        .items_center()
+                        .justify_center()
+                        .text_size(px(10.0))
+                        .text_color(gpui::rgb(pal().text_dim))
+                        .child("Photo")
+                        .into_any_element(),
+                })
+                .into_any_element()
+        }
+    }
+}
+
 fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     use super::library_geo::MapSlot;
-    let entries: Vec<_> = gallery_sections(ws)
-        .into_iter()
-        .flat_map(|(_, _, entries)| entries)
-        .collect();
-    let located = entries
-        .iter()
-        .filter(|e| photo_position(ws, &e.path).is_some())
-        .count();
-    let pending = entries
-        .iter()
-        .filter(|e| !ws.library.positions.contains_key(&e.path))
-        .count();
-    let unlocated = entries.len() - located - pending;
-    let selected_paths: FxHashSet<_> = ws.library.map_photos.iter().collect();
-    let details: Vec<_> = entries
-        .into_iter()
-        .filter(|e| selected_paths.contains(&e.path) && photo_position(ws, &e.path).is_some())
-        .collect();
+    let (located_photos, pending, unlocated) = map_photos(ws);
+    let located = located_photos.len();
+    let details = map_strip_photos(ws);
     let mut status = format!("{located} photos on map · {unlocated} without location");
     if pending > 0 {
         status.push_str(&format!(" · Reading locations: {pending} remaining"));
@@ -876,7 +1027,11 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
             .child(div().text_size(px(11.0)).text_color(gpui::rgb(pal().text_dim)).child(status)))
         .child(div().px_2().pb_2().text_size(px(11.0)).text_color(gpui::rgb(pal().text_dim))
             .child(if located == 0 && pending == 0 {
-                "No photos with GPS locations in this view. Add geotagged photos or change the gallery filters."
+                if ws.cloud.show {
+                    "No photos with GPS locations on this page. Pick another folder or bucket, or a later page."
+                } else {
+                    "No photos with GPS locations in this view. Add geotagged photos or change the gallery filters."
+                }
             } else {
                 "Drag to pan · Scroll to zoom · Click a marker to see its photos · Double-click a photo to edit"
             }))
@@ -890,10 +1045,11 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
             .gap_2()
             .p_2()
             .overflow_x_scroll();
-        for entry in details {
-            let selected = ws.library.is_selected(&entry.path);
-            let path = entry.path.clone();
-            let preview = photo_preview(ws, &entry, 86.0, 62.0, cx);
+        for photo in details {
+            let selected = map_photo_selected(ws, &photo);
+            let preview = map_photo_preview(ws, &photo, 86.0, 62.0, cx);
+            let name = photo.name();
+            let pick = vec![photo.clone()];
             strip = strip.child(
                 div()
                     .flex()
@@ -913,23 +1069,24 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                     .on_mouse_down(
                         MouseButton::Left,
                         cx.listener(move |ws, ev: &MouseDownEvent, _, cx| {
-                            ws.library.select_single(path.clone());
-                            if ev.click_count >= 2 {
-                                ws.open_from_gallery(path.clone(), cx);
+                            // Picking from the strip keeps the strip:
+                            // the marker's photos stay listed.
+                            let strip = if ws.cloud.show {
+                                None
+                            } else {
+                                Some(ws.library.map_photos.clone())
+                            };
+                            let cloud_strip = ws.cloud.map_photos.clone();
+                            map_pick(ws, &pick, ev.click_count >= 2, cx);
+                            match strip {
+                                Some(paths) => ws.library.map_photos = paths,
+                                None => ws.cloud.map_photos = cloud_strip,
                             }
                             cx.notify();
                         }),
                     )
                     .child(preview)
-                    .child(
-                        div().text_size(px(10.0)).truncate().child(
-                            entry
-                                .path
-                                .file_name()
-                                .map(|s| s.to_string_lossy().into_owned())
-                                .unwrap_or_default(),
-                        ),
-                    ),
+                    .child(div().text_size(px(10.0)).truncate().child(name)),
             );
         }
         view = view
@@ -951,6 +1108,7 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                         false,
                         |ws, cx| {
                             ws.library.map_photos.clear();
+                            ws.cloud.map_photos.clear();
                             cx.notify();
                         },
                         cx,
@@ -1025,11 +1183,7 @@ fn prepare_photo_markers(
     bounds: Bounds<Pixels>,
     cx: &mut Context<Workspace>,
 ) -> Vec<(Point<Pixels>, gpui::AnyElement)> {
-    let entries: Vec<_> = gallery_sections(ws)
-        .into_iter()
-        .flat_map(|(_, _, entries)| entries)
-        .filter_map(|e| photo_position(ws, &e.path).map(|pos| (e, pos)))
-        .collect();
+    let (entries, _, _) = map_photos(ws);
     let points: Vec<_> = entries
         .iter()
         .enumerate()
@@ -1053,28 +1207,24 @@ fn prepare_photo_markers(
         let (i, x, y) = cluster[0];
         let entry = &entries[i].0;
         let mut seen = FxHashSet::default();
-        let paths: Vec<_> = cluster
+        let photos: Vec<MapPhoto> = cluster
             .iter()
-            .map(|(i, _, _)| entries[*i].0.path.clone())
-            .filter(|path| seen.insert(path.clone()))
+            .map(|(i, _, _)| entries[*i].0.clone())
+            .filter(|photo| seen.insert(photo.key()))
             .collect();
-        let context_paths = paths.clone();
-        let count = paths.len();
-        let active = paths.iter().any(|p| ws.library.is_selected(p));
-        let preview = photo_preview(ws, entry, 56.0, 42.0, cx);
+        let context_photos = photos.clone();
+        let count = photos.len();
+        let active = photos.iter().any(|p| map_photo_selected(ws, p));
+        let preview = map_photo_preview(ws, entry, 56.0, 42.0, cx);
         let label = if count > 1 {
             format!("{count} photos")
         } else {
-            entry
-                .path
-                .file_name()
-                .map(|s| s.to_string_lossy().into_owned())
-                .unwrap_or_default()
+            entry.name()
         };
         let marker = div()
             .id(SharedString::from(format!(
                 "map-pin-{}-{cluster_index}",
-                entry.path.display()
+                entry.key()
             )))
             .flex()
             .flex_col()
@@ -1087,11 +1237,7 @@ fn prepare_photo_markers(
                 cx.listener(move |ws, ev: &MouseDownEvent, _, cx| {
                     cx.stop_propagation();
                     ws.library.world_map.end_drag();
-                    ws.library.map_photos = paths.clone();
-                    ws.library.select_single(paths[0].clone());
-                    if count == 1 && ev.click_count >= 2 {
-                        ws.open_from_gallery(paths[0].clone(), cx);
-                    }
+                    map_pick(ws, &photos, count == 1 && ev.click_count >= 2, cx);
                     cx.notify();
                 }),
             )
@@ -1100,10 +1246,7 @@ fn prepare_photo_markers(
                 cx.listener(move |ws, ev: &MouseDownEvent, _, cx| {
                     cx.stop_propagation();
                     ws.library.world_map.end_drag();
-                    ws.library.context = Some((
-                        ev.position,
-                        super::library::GalleryContext::MapCluster(context_paths.clone()),
-                    ));
+                    map_cluster_context(ws, &context_photos, ev.position);
                     cx.notify();
                 }),
             )
@@ -1373,6 +1516,7 @@ fn cell_element(
                 ws.library.select_single(context_path.clone());
             }
             ws.library.context = Some((ev.position, GalleryContext::Photo(context_path.clone())));
+            ws.cloud.context = None;
             cx.notify();
         }),
     )

@@ -16,7 +16,7 @@
 use super::*;
 use crate::ui::LineEdit;
 use gpui::{img, StatefulInteractiveElement as _};
-use schist_ui::{Button, ButtonColors};
+use schist_ui::{Button, ButtonColors, ListItem};
 
 /// The gallery's chrome colours for one theme.
 pub struct GalleryPalette {
@@ -1023,25 +1023,13 @@ pub fn menu_row(
     act: MenuAction,
     cx: &mut Context<Workspace>,
 ) -> gpui::AnyElement {
-    div()
-        .px_2()
-        .h(px(24.0))
-        .flex()
-        .items_center()
-        .text_size(px(12.0))
-        .cursor_pointer()
-        .hover(|s| {
-            s.bg(gpui::rgb(crate::ui::palette().accent))
-                .text_color(gpui::rgb(crate::ui::palette().accent_text))
-        })
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, window, cx| {
-                dismiss(ws);
-                act(ws, window, cx);
-                cx.notify();
-            }),
-        )
+    ListItem::new(SharedString::from(format!("menu-row-{label}")))
+        .accent_hover()
+        .on_click(cx.listener(move |ws, _e, window, cx| {
+            dismiss(ws);
+            act(ws, window, cx);
+            cx.notify();
+        }))
         .child(SharedString::from(label))
         .into_any_element()
 }

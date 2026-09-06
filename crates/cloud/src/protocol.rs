@@ -118,6 +118,14 @@ pub struct Asset {
     /// Nearest city from EXIF, absent on older providers or photos without a location.
     #[serde(default)]
     pub place_name: Option<String>,
+    /// The EXIF fix itself, for the world map; absent on older providers.
+    #[serde(default)]
+    pub location: Option<Location>,
+}
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+pub struct Location {
+    pub latitude: f64,
+    pub longitude: f64,
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Default)]
 #[serde(tag = "kind", rename_all = "snake_case")]

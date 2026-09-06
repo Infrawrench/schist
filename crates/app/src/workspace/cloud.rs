@@ -124,10 +124,15 @@ enum Job {
 }
 /// What the cloud gallery's right-click menu is about.
 #[derive(Clone, Debug)]
+#[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub(crate) enum CloudContext {
     Photo(String),
     Folder(String),
     Bucket(String),
+    /// A world-map marker's photos.
+    Cluster(Vec<String>),
+    /// A named person in the cloud's PEOPLE list.
+    Person(String),
 }
 /// Assets per page. A page's thumbnails stay decoded while it shows,
 /// so this bounds texture memory as much as it bounds the query.
@@ -167,6 +172,9 @@ pub(crate) struct CloudState {
     pub loaded: bool,
     /// "Select all" asked before the page arrived: select it on landing.
     pub select_all_pending: bool,
+    /// The photos of the world-map marker last clicked, for its strip.
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub map_photos: Vec<String>,
     /// Thumbnails whose fetch or decode failed at the current revision.
     pub thumbnail_failed: HashSet<String>,
     /// The browser has no local gallery to keep these in.
@@ -260,6 +268,7 @@ impl Default for CloudState {
             context: None,
             loaded: false,
             select_all_pending: false,
+            map_photos: Vec::new(),
             thumbnail_failed: HashSet::new(),
             #[cfg(target_arch = "wasm32")]
             thumb_px: 144.0,

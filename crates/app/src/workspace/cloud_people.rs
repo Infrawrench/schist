@@ -1,91 +1,155 @@
 //! People names and boxes belong to the provider workspace; model credentials never leave it.
+use super::cloud_view::CLOUD_GLYPH;
 use super::gallery_chrome::{self as chrome, pal};
 use super::*;
 use gpui::{img, StatefulInteractiveElement as _};
 use schist_cloud::{protocol::value, Face, FaceRect, Value};
 
-pub(crate) fn rows(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Vec<gpui::AnyElement> {
-    if !ws.cloud.show {
+/// The cloud's people, drawn like the local PEOPLE rows: a round badge,
+/// the name, a count, and the actions on the right-click menu. Signed
+/// out, or before the provider has looked, there is nothing to list.
+/// `caption` adds the section heading, for a sidebar without a local
+/// list above.
+pub(crate) fn rows(
+    ws: &mut Workspace,
+    caption: bool,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    if ws.cloud.account.is_none() {
         return vec![];
     }
     let Some(people) = ws.cloud.people.clone() else {
         return vec![];
     };
-    let mut rows = vec![chrome::sidebar_caption("PEOPLE").into_any_element()];
-    for person in people.people {
-        let id = person.id.clone();
-        let edit = person.clone();
+    let mut rows: Vec<gpui::AnyElement> = Vec::new();
+    if caption {
+        rows.push(chrome::sidebar_caption("PEOPLE").into_any_element());
+    }
+    let viewing = ws.cloud.query.filters.person_id.clone();
+    let badge = |glyph: &'static str| {
+        div()
+            .w(px(20.0))
+            .h(px(20.0))
+            .flex_none()
+            .rounded_full()
+            .border_1()
+            .border_color(gpui::rgb(pal().text_dim))
+            .flex()
+            .items_center()
+            .justify_center()
+            .text_size(px(11.0))
+            .text_color(gpui::rgb(pal().text_dim))
+            .child(glyph)
+    };
+    let person_row = |id: SharedString,
+                      glyph: &'static str,
+                      name: String,
+                      count: u64,
+                      selected: bool,
+                      filter: String,
+                      context: Option<String>,
+                      cx: &mut Context<Workspace>| {
+        let mut row = div()
+            .id(id)
+            .flex()
+            .flex_row()
+            .items_center()
+            .gap_2()
+            .px_2()
+            .h(px(26.0))
+            .text_size(px(12.0))
+            .cursor_pointer()
+            .bg(gpui::rgb(if selected {
+                pal().sidebar_selected
+            } else {
+                pal().chrome_bg
+            }))
+            .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
+            .on_mouse_down(
+                MouseButton::Left,
+                cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
+                    ws.cloud_person(Some(filter.clone()), cx)
+                }),
+            );
+        if let Some(person) = context {
+            row = row.on_mouse_down(
+                MouseButton::Right,
+                cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                    ws.cloud.context = Some((
+                        ev.position,
+                        super::cloud::CloudContext::Person(person.clone()),
+                    ));
+                    #[cfg(not(target_arch = "wasm32"))]
+                    {
+                        ws.library.context = None;
+                    }
+                    cx.notify();
+                }),
+            );
+        }
+        row.child(badge(glyph))
+            .child(div().flex_grow().truncate().child(SharedString::from(name)))
+            .child(
+                div()
+                    .text_size(px(10.0))
+                    .text_color(gpui::rgb(pal().text_dim))
+                    .child(format!("{count}")),
+            )
+            .into_any_element()
+    };
+    for person in &people.people {
+        rows.push(person_row(
+            SharedString::from(format!("cloud-person-{}", person.id)),
+            CLOUD_GLYPH,
+            person.name.clone(),
+            person.asset_count,
+            viewing.as_deref() == Some(&person.id),
+            person.id.clone(),
+            Some(person.id.clone()),
+            cx,
+        ));
+    }
+    if people.unnamed > 0 {
+        rows.push(person_row(
+            "cloud-person-unnamed".into(),
+            "?",
+            "Unnamed faces in Schist Cloud".into(),
+            people.unnamed,
+            viewing.as_deref() == Some("unnamed"),
+            "unnamed".into(),
+            None,
+            cx,
+        ));
+    }
+    if !people.enabled {
         rows.push(
-            div()
-                .flex()
-                .items_center()
-                .child(
-                    chrome::sidebar_row_frame(
-                        SharedString::from(format!("person-{}", person.id)),
-                        person.name.clone(),
-                        Some(person.asset_count as usize),
-                        ws.cloud.query.filters.person_id.as_deref() == Some(&person.id),
-                        0,
+            chrome::sidebar_link(
+                format!("{CLOUD_GLYPH} Find faces in Schist Cloud\u{2026}"),
+                |ws, _, cx| {
+                    ws.open_modal(
+                        Modal::Cloud {
+                            kind: "people-enable",
+                            fields: vec![],
+                        },
+                        cx,
                     )
-                    .flex_grow()
-                    .on_click(
-                        cx.listener(move |ws, _, _, cx| ws.cloud_person(Some(id.clone()), cx)),
-                    ),
-                )
-                .child(chrome::gallery_button(
-                    "…",
-                    false,
-                    move |ws, _, cx| {
-                        ws.open_modal(
-                            Modal::Cloud {
-                                kind: "people-rename",
-                                fields: vec![
-                                    ("cloud-person-id", "".into(), edit.id.clone()),
-                                    ("cloud-name", "Name".into(), edit.name.clone()),
-                                ],
-                            },
-                            cx,
-                        );
-                    },
-                    cx,
-                ))
-                .into_any_element(),
+                },
+                cx,
+            )
+            .into_any_element(),
         );
     }
-    rows.push(
-        chrome::sidebar_link(
-            format!("Unnamed faces   {}", people.unnamed),
-            |ws, _, cx| ws.cloud_person(Some("unnamed".into()), cx),
-            cx,
-        )
-        .into_any_element(),
-    );
-    rows.push(
-        chrome::sidebar_link(
-            if people.enabled {
-                "Face detection settings…"
-            } else {
-                "+ Find faces…"
-            },
-            |ws, _, cx| {
-                ws.open_modal(
-                    Modal::Cloud {
-                        kind: "people-enable",
-                        fields: vec![],
-                    },
-                    cx,
-                )
-            },
-            cx,
-        )
-        .into_any_element(),
-    );
     if people.pending > 0 {
         rows.push(
             div()
                 .px_2()
+                .py_1()
                 .text_size(px(11.0))
-                .child(format!("Finding faces in {} photos…", people.pending))
+                .text_color(gpui::rgb(pal().text_dim))
+                .child(format!(
+                    "Finding faces in {} cloud photos\u{2026}",
+                    people.pending
+                ))
                 .into_any_element(),
         );
     }
@@ -93,8 +157,10 @@ pub(crate) fn rows(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Vec<gpui:
         rows.push(
             div()
                 .px_2()
+                .py_1()
                 .text_size(px(11.0))
-                .child(format!("Could not process {} photos", people.failed))
+                .text_color(gpui::rgb(pal().text_dim))
+                .child(format!("Could not process {} cloud photos", people.failed))
                 .into_any_element(),
         );
     }

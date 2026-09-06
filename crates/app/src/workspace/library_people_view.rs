@@ -124,6 +124,7 @@ pub(super) fn people_rows(
                     MouseButton::Right,
                     cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
                         ws.library.context = Some((ev.position, GalleryContext::Person(index)));
+                        ws.cloud.context = None;
                         cx.notify();
                     }),
                 )
