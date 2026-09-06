@@ -10,8 +10,8 @@
 
 use super::gallery_chrome::{
     self as chrome, cell_frame, empty_note, gallery_button, grid_column, grid_frame, group_chips,
-    lead_probe, pal, search_field, section_header, sidebar_caption, sidebar_column, sidebar_link,
-    DragGhost, GroupBy, TrayInfo,
+    lead_probe, pal, search_field, section_header, sidebar_caption, sidebar_column, DragGhost,
+    GroupBy, TrayInfo,
 };
 use super::*;
 use gpui::{
@@ -503,9 +503,19 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         }))
         .child(sidebar_caption("FOLDERS"))
         .children(rows)
-        .child(sidebar_link(
+        .children(super::cloud_view::folder_rows(ws, cx))
+        .child(chrome::sidebar_menu_link(
             "+ Add folder…",
-            |ws, window, cx| ws.gallery_add_folder(window, cx),
+            |ws, at, window, cx| {
+                // With a cloud signed in there are two kinds of folder
+                // to add; without one there is only the local kind.
+                if ws.cloud.account.is_some() {
+                    ws.library.context = Some((at, super::library::GalleryContext::AddFolder));
+                    cx.notify();
+                } else {
+                    ws.gallery_add_folder(window, cx);
+                }
+            },
             cx,
         ))
         .child(sidebar_caption("BUCKETS"))
@@ -530,17 +540,22 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             }
             rows
         })
-        .child(sidebar_link(
+        .children(super::cloud_view::bucket_rows(ws, cx))
+        .child(chrome::sidebar_menu_link(
             "+ New bucket",
-            |ws, _w, cx| {
-                // Born holding the selection, so "new bucket
-                // from these" is the dialog's Create away.
-                let selected = ws.library.selected.clone();
-                ws.gallery_new_bucket(selected, cx);
+            |ws, at, _window, cx| {
+                if ws.cloud.account.is_some() {
+                    ws.library.context = Some((at, super::library::GalleryContext::NewBucket));
+                    cx.notify();
+                } else {
+                    // Born holding the selection, so "new bucket
+                    // from these" is the dialog's Create away.
+                    let selected = ws.library.selected.clone();
+                    ws.gallery_new_bucket(selected, cx);
+                }
             },
             cx,
         ))
-        .children(super::cloud_view::sidebar_section(ws, cx))
         .children((!cloud).then(|| super::library_people_view::people_rows(ws, cx)).flatten())
 }
 
@@ -2532,6 +2547,45 @@ fn gallery_context_menu(
                     }),
                 );
             }
+        }
+        GalleryContext::AddFolder => {
+            row(
+                "Watch a folder on this computer\u{2026}".into(),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(|ws, window, cx| ws.gallery_add_folder(window, cx)),
+            );
+            row(
+                format!(
+                    "{} New Schist Cloud folder\u{2026}",
+                    super::cloud_view::CLOUD_GLYPH
+                ),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(|ws, _w, cx| super::cloud_view::new_cloud_folder(ws, cx)),
+            );
+        }
+        GalleryContext::NewBucket => {
+            row(
+                "New bucket on this computer\u{2026}".into(),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(|ws, _w, cx| {
+                    // Born holding the selection, so "new bucket from
+                    // these" is the dialog's Create away.
+                    let selected = ws.library.selected.clone();
+                    ws.gallery_new_bucket(selected, cx);
+                }),
+            );
+            row(
+                format!(
+                    "{} New Schist Cloud bucket\u{2026}",
+                    super::cloud_view::CLOUD_GLYPH
+                ),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(|ws, _w, cx| super::cloud_view::new_cloud_bucket(ws, cx)),
+            );
         }
         GalleryContext::Bucket(index) => {
             // The group actions act on everything the bucket holds:

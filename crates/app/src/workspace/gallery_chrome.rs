@@ -560,6 +560,32 @@ pub fn sidebar_link(
         .child(label.into())
 }
 
+/// A sidebar link whose click also reports the pointer, for one that
+/// opens a small menu there.
+#[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+pub fn sidebar_menu_link(
+    label: impl Into<SharedString>,
+    on_click: impl Fn(&mut Workspace, Point<Pixels>, &mut Window, &mut Context<Workspace>) + 'static,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
+    div()
+        .px_2()
+        .h(px(24.0))
+        .flex()
+        .items_center()
+        .text_size(px(12.0))
+        .text_color(gpui::rgb(pal().header))
+        .cursor_pointer()
+        .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
+        .on_mouse_down(
+            MouseButton::Left,
+            cx.listener(move |ws, e: &MouseDownEvent, window, cx| {
+                on_click(ws, e.position, window, cx)
+            }),
+        )
+        .child(label.into())
+}
+
 /// One row of the sidebar, before its behaviour: the label, an
 /// optional count on the right, the selected tint. Callers add the
 /// click, drag and drop.

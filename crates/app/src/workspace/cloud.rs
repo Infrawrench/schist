@@ -450,7 +450,13 @@ impl Workspace {
         self.cloud.message = "Connecting to Schist Cloud…".into();
         self.cloud.pending.clear();
         self.cloud_refresh_catalogue();
-        self.cloud_browse(Scope::Library, cx);
+        // Connect quietly: the cloud's rows appear in the sidebar, but
+        // whatever screen is up stays up — a stored login must not pull
+        // an open image out from under its editor.
+        self.cloud.query.scope = Scope::Library;
+        self.cloud.query.offset = 0;
+        self.cloud_watch_assets(false);
+        cx.notify();
     }
     pub(crate) fn cloud_sign_out(&mut self, cx: &mut Context<Self>) {
         self.cloud_capture_edit();

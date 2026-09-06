@@ -134,6 +134,10 @@ pub enum GalleryContext {
     /// Freeze the clicked marker's members independently of selection or zoom.
     MapCluster(Vec<PathBuf>),
     Bucket(usize),
+    /// "+ Add folder…" with a cloud signed in: local or cloud?
+    AddFolder,
+    /// "+ New bucket" with a cloud signed in: local or cloud?
+    NewBucket,
     Person(usize),
 }
 

@@ -38,9 +38,13 @@ open tab, but filesystem recovery across page reloads is not available in WASM.
 
 ## Gallery and documents
 
-After sign-in the gallery sidebar lists the Schist Cloud library beneath the
-local folders and buckets: **All cloud photos**, the cloud folders as a tree, and
-the cloud buckets. Clicking any of them shows that remote library in the same
+After sign-in the gallery sidebar lists the cloud alongside the local library:
+under FOLDERS, a ☁ **Schist Cloud** root with the cloud folders as a tree
+beneath it; under BUCKETS, the cloud buckets with the same ☁ badge. Signing in
+does not change the screen — an open image stays open, and the rows simply
+appear. **+ Add folder…** and **+ New bucket** ask whether you mean this
+computer or Schist Cloud once a cloud is signed in. Clicking a cloud row shows
+that remote library in the same
 grid the local gallery uses — thumbnails under month headers, or under folder
 headers with the sidebar's Group By chips — with the same selection, arrow keys,
 drags and right-click menu, and the tray's Edit, Download… and size slider. The

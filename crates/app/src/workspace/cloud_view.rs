@@ -9,11 +9,11 @@
 use super::cloud::{CloudContext, PAGE_SIZE};
 use super::gallery_chrome::{
     self as chrome, cell_frame, empty_note, grid_column, grid_frame, lead_probe, menu_frame,
-    menu_row, menu_sep, pal, search_field, section_header, sidebar_caption, sidebar_link,
-    sidebar_row_frame, DragGhost, GroupBy, MenuAction, TrayInfo,
+    menu_row, menu_sep, pal, search_field, section_header, sidebar_link, sidebar_row_frame,
+    DragGhost, GroupBy, MenuAction, TrayInfo,
 };
 #[cfg(target_arch = "wasm32")]
-use super::gallery_chrome::{group_chips, sidebar_column};
+use super::gallery_chrome::{group_chips, sidebar_caption, sidebar_column};
 #[cfg(not(target_arch = "wasm32"))]
 use super::library::GalleryDrag;
 use super::*;
@@ -708,52 +708,65 @@ fn droppable(
     row
 }
 
-/// The Schist Cloud part of the sidebar: the library, its folders as a
-/// tree, its buckets — rows like the local ones, with the actions on
-/// the right-click menu.
-pub(crate) fn sidebar_section(
+/// The cloud rows' badge: the one thing that tells a cloud folder or
+/// bucket from a local one in the same list.
+pub(crate) const CLOUD_GLYPH: &str = "\u{2601}";
+
+/// Whether the current asset page belongs to `this` scope and is worth
+/// a count on its row.
+fn scope_count(ws: &Workspace, this: &Scope) -> Option<usize> {
+    (ws.cloud.show && ws.cloud.loaded && &ws.cloud.query.scope == this)
+        .then_some(ws.cloud.total as usize)
+}
+
+/// The "+ New folder" answer for the cloud.
+pub(crate) fn new_cloud_folder(ws: &mut Workspace, cx: &mut Context<Workspace>) {
+    form(
+        ws,
+        "new-folder",
+        vec![field("cloud-name", "Folder name", "")],
+        cx,
+    )
+}
+
+/// The "+ New bucket" answer for the cloud.
+pub(crate) fn new_cloud_bucket(ws: &mut Workspace, cx: &mut Context<Workspace>) {
+    let mut fields = vec![field("cloud-name", "Bucket name", "")];
+    let mut q = ws.cloud.query.clone();
+    q.text.clear();
+    q.filters = Default::default();
+    fields.extend(filter_fields(&q));
+    form(ws, "new-bucket", fields, cx)
+}
+
+/// The Schist Cloud rows of the FOLDERS list: the library itself as a
+/// root, its folders as a tree beneath it, the page links — or, signed
+/// out, the way in.
+pub(crate) fn folder_rows(
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
 ) -> Vec<gpui::AnyElement> {
-    let mut rows: Vec<gpui::AnyElement> = vec![sidebar_caption("SCHIST CLOUD").into_any_element()];
-    let Some(account) = ws.cloud.account.clone() else {
+    let mut rows: Vec<gpui::AnyElement> = Vec::new();
+    if ws.cloud.account.is_none() {
         rows.push(
             sidebar_link(
-                "Sign into Schist Cloud…",
+                format!("{CLOUD_GLYPH} Sign into Schist Cloud…"),
                 |ws, _w, cx| ws.cloud_sign_in(cx),
                 cx,
             )
             .into_any_element(),
         );
         return rows;
-    };
-    let domain = account
-        .domain
-        .trim_start_matches("https://")
-        .trim_end_matches('/')
-        .to_string();
-    rows.push(
-        div()
-            .px_2()
-            .pb_1()
-            .text_size(px(10.0))
-            .text_color(gpui::rgb(pal().text_dim))
-            .truncate()
-            .child(domain)
-            .into_any_element(),
-    );
+    }
     let showing = ws.cloud.show;
     let scope = ws.cloud.query.scope.clone();
-    let count = |ws: &Workspace, this: &Scope| {
-        (showing && ws.cloud.loaded && &scope == this).then_some(ws.cloud.total as usize)
-    };
-    // The whole library.
+    // The whole library, the root the folders hang from.
     {
         let selected = showing && scope == Scope::Library;
         let row = sidebar_row_frame(
             "cloud-library",
-            "All cloud photos",
-            count(ws, &Scope::Library),
+            format!("{CLOUD_GLYPH} Schist Cloud"),
+            scope_count(ws, &Scope::Library),
             selected,
             0,
         )
@@ -764,6 +777,7 @@ pub(crate) fn sidebar_section(
         rows.push(droppable(row, None, None, cx).into_any_element());
     }
     let ordered = folder_tree(&ws.cloud.folders);
+    let count = |ws: &Workspace, this: &Scope| scope_count(ws, this);
     for (i, (depth, folder)) in ordered.into_iter().enumerate() {
         let this = Scope::Folder {
             id: folder.id.clone(),
@@ -785,7 +799,7 @@ pub(crate) fn sidebar_section(
             format!("\u{25b8} {}", folder.name),
             count(ws, &this),
             selected,
-            depth,
+            depth + 1,
         )
         .on_mouse_down(
             MouseButton::Left,
@@ -812,22 +826,21 @@ pub(crate) fn sidebar_section(
         rows.push(droppable(row, None, Some(folder.id.clone()), cx).into_any_element());
     }
     rows.extend(catalogue_pages(true, ws, cx));
-    rows.push(
-        sidebar_link(
-            "+ New cloud folder…",
-            |ws, _w, cx| {
-                form(
-                    ws,
-                    "new-folder",
-                    vec![field("cloud-name", "Folder name", "")],
-                    cx,
-                )
-            },
-            cx,
-        )
-        .into_any_element(),
-    );
-    rows.push(sidebar_caption("CLOUD BUCKETS").into_any_element());
+    rows
+}
+
+/// The Schist Cloud rows of the BUCKETS list, after the local ones.
+pub(crate) fn bucket_rows(
+    ws: &mut Workspace,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    let mut rows: Vec<gpui::AnyElement> = Vec::new();
+    if ws.cloud.account.is_none() {
+        return rows;
+    }
+    let showing = ws.cloud.show;
+    let scope = ws.cloud.query.scope.clone();
+    let count = |ws: &Workspace, this: &Scope| scope_count(ws, this);
     for (i, bucket) in ws.cloud.buckets.clone().into_iter().enumerate() {
         let this = Scope::Bucket {
             id: bucket.id.clone(),
@@ -836,9 +849,9 @@ pub(crate) fn sidebar_section(
         let browse = bucket.id.clone();
         let context = bucket.id.clone();
         let label = if bucket.rule.is_some() {
-            format!("\u{2726} {}", bucket.name)
+            format!("{CLOUD_GLYPH} \u{2726} {}", bucket.name)
         } else {
-            bucket.name.clone()
+            format!("{CLOUD_GLYPH} {}", bucket.name)
         };
         let row = sidebar_row_frame(("cloud-bucket", i), label, count(ws, &this), selected, 0)
             .on_mouse_down(
@@ -857,21 +870,6 @@ pub(crate) fn sidebar_section(
         rows.push(droppable(row, Some(bucket.id.clone()), None, cx).into_any_element());
     }
     rows.extend(catalogue_pages(false, ws, cx));
-    rows.push(
-        sidebar_link(
-            "+ New cloud bucket…",
-            |ws, _w, cx| {
-                let mut fields = vec![field("cloud-name", "Bucket name", "")];
-                let mut q = ws.cloud.query.clone();
-                q.text.clear();
-                q.filters = Default::default();
-                fields.extend(filter_fields(&q));
-                form(ws, "new-bucket", fields, cx)
-            },
-            cx,
-        )
-        .into_any_element(),
-    );
     // A library with more folders or buckets than one page lists gets
     // the finder; a smaller one has them all on screen already.
     if ws.cloud.folders_total > 500
@@ -1568,7 +1566,20 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
     let context_menu = context_menu(ws, cx);
     let sidebar = sidebar_column("cloud-sidebar")
         .child(group_chips(ws.gallery_group_by(), &GroupBy::CLOUD, cx))
-        .children(sidebar_section(ws, cx));
+        .child(sidebar_caption("FOLDERS"))
+        .children(folder_rows(ws, cx))
+        .child(sidebar_link(
+            "+ New folder…",
+            |ws, _w, cx| new_cloud_folder(ws, cx),
+            cx,
+        ))
+        .child(sidebar_caption("BUCKETS"))
+        .children(bucket_rows(ws, cx))
+        .child(sidebar_link(
+            "+ New bucket…",
+            |ws, _w, cx| new_cloud_bucket(ws, cx),
+            cx,
+        ));
     let root = div()
         .flex()
         .flex_col()
