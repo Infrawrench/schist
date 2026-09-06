@@ -718,13 +718,6 @@ fn droppable(
 /// bucket from a local one in the same list.
 pub(crate) const CLOUD_GLYPH: &str = "\u{2601}";
 
-/// The library root still gets its count from the current asset page.
-/// Individual folders and buckets get theirs from the catalogue.
-fn scope_count(ws: &Workspace, this: &Scope) -> Option<usize> {
-    (ws.cloud.show && ws.cloud.loaded && &ws.cloud.query.scope == this)
-        .then_some(ws.cloud.total as usize)
-}
-
 /// The "+ New folder" answer for the cloud.
 pub(crate) fn new_cloud_folder(ws: &mut Workspace, cx: &mut Context<Workspace>) {
     form(
@@ -772,7 +765,9 @@ pub(crate) fn folder_rows(
         let row = sidebar_row_frame(
             "cloud-library",
             format!("{CLOUD_GLYPH} Schist Cloud"),
-            scope_count(ws, &Scope::Library),
+            ws.cloud
+                .library_total
+                .and_then(|count| usize::try_from(count).ok()),
             selected,
             0,
         )

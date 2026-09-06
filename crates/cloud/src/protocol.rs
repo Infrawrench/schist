@@ -202,6 +202,9 @@ pub struct Snapshot {
     pub kind: String,
     pub revision: u64,
     pub total: u64,
+    /// Whole-library asset total, independent of this query's filters and page.
+    #[serde(default)]
+    pub library_asset_count: Option<u64>,
     pub offset: u64,
     pub items: Vec<Value>,
 }
@@ -328,6 +331,21 @@ pub fn format_date(t: u64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg_attr(not(target_arch = "wasm32"), test)]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
+    fn empty_catalogues_carry_library_totals_with_legacy_support() {
+        for count in [None, Some(0_u64), Some(5000)] {
+            let mut snapshot =
+                serde_json::json!({"kind":"folders","revision":1,"total":0,"offset":0,"items":[]});
+            if let Some(count) = count {
+                snapshot["library_asset_count"] = count.into();
+            }
+            let decoded: Snapshot =
+                rmp_serde::from_slice(&rmp_serde::to_vec_named(&snapshot).unwrap()).unwrap();
+            assert_eq!(decoded.library_asset_count, count);
+            assert_eq!(decoded.total, 0);
+        }
+    }
     #[cfg_attr(not(target_arch = "wasm32"), test)]
     #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
     fn asset_place_names_are_optional_for_older_providers() {

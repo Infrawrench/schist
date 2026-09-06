@@ -169,6 +169,7 @@ pub(crate) struct CloudState {
     pub folders_offset: u64,
     pub buckets_offset: u64,
     pub folders_total: u64,
+    pub library_total: Option<u64>,
     pub buckets_total: u64,
     pub docs: HashMap<DocumentId, RemoteDocument>,
     pending: HashMap<String, Pending>,
@@ -252,6 +253,7 @@ impl Default for CloudState {
             folders_offset: 0,
             buckets_offset: 0,
             folders_total: 0,
+            library_total: None,
             buckets_total: 0,
             docs: HashMap::new(),
             pending: HashMap::new(),
@@ -444,6 +446,7 @@ impl Workspace {
         cx.notify();
     }
     fn cloud_connect(&mut self, account: Account, cx: &mut Context<Self>) {
+        self.cloud.library_total = None;
         self.cloud.client = Some(Client::start(account.clone()));
         self.cloud.account = Some(account.clone());
         self.cloud.writes.push_back(Some(account));
@@ -476,6 +479,7 @@ impl Workspace {
         self.cloud.docs.clear();
         self.cloud.assets.clear();
         self.cloud.thumbnails.clear();
+        self.cloud.library_total = None;
         self.cloud.thumbnail_jobs.clear();
         self.cloud.thumbnail_active = 0;
         self.cloud.thumbnail_failed.clear();
@@ -826,6 +830,7 @@ impl Workspace {
                 snapshot,
             } => match subscription_id.as_str() {
                 id if id == self.cloud.folders_watch => {
+                    self.cloud.library_total = snapshot.library_asset_count;
                     self.cloud.folders = snapshot
                         .items
                         .into_iter()
