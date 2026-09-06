@@ -274,6 +274,14 @@ pub async fn logout_async(account: &Account) -> Result<()> {
     logout(account)
 }
 
+/// Rejected credentials need user action; retrying cannot restore access.
+pub fn refresh_rejected(error: &anyhow::Error) -> bool {
+    matches!(
+        error.downcast_ref::<ureq::Error>(),
+        Some(ureq::Error::StatusCode(401 | 403))
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -321,12 +329,4 @@ mod tests {
         drop(login);
         assert!(!path.exists());
     }
-}
-
-/// Rejected credentials need user action; retrying cannot restore access.
-pub fn refresh_rejected(error: &anyhow::Error) -> bool {
-    matches!(
-        error.downcast_ref::<ureq::Error>(),
-        Some(ureq::Error::StatusCode(401 | 403))
-    )
 }

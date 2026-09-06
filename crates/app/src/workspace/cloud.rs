@@ -1969,7 +1969,7 @@ impl Workspace {
                 .map(|(_, _, v)| v.trim().to_string())
                 .unwrap_or_default()
         };
-        if super::cloud_people::submit(self, kind, &get)? {
+        if super::cloud_people::submit(self, kind, get)? {
             return Ok(());
         }
         match kind {

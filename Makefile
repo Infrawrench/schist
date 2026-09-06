@@ -268,3 +268,7 @@ check-gallery:
 	$(CARGO) test -p schist-app
 check-cloud-browser:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
+
+.PHONY: lint-cloud
+lint-cloud:
+	$(CARGO) clippy -p schist-cloud -p schist-app -p schist-document -p schist-people-worker --all-targets -- -D warnings
