@@ -53,7 +53,10 @@ tags, ranked by the provider); the map filter applies to the cloud too, with
 its chip in the strip while it is on. Escape clears the search. Pages of 200 photos have links under the grid.
 
 Folder rows offer Rename, New folder inside and Delete on their right-click
-menu; bucket rows offer Edit, Add selected and Delete; a photo's menu has Edit,
+menu; bucket rows offer Edit, Select all, Save all as ZIP, Process all (the
+originals are fetched to a scratch folder and the batch dialog saves results to
+a folder you choose), Move all to a cloud folder, Clear added photos and
+Delete; a photo's menu has Edit,
 Download, bucket membership and Delete from Schist Cloud. Folder and bucket
 lists update through live subscriptions and page at 500; a Find link appears
 when a library outgrows one page. A cloud bucket uses the same New Bucket

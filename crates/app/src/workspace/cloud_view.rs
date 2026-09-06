@@ -1334,6 +1334,27 @@ pub(crate) fn context_menu(
                 std::rc::Rc::new(move |ws, _w, cx| edit_cloud_bucket(ws, edit.clone(), cx)),
                 cx,
             );
+            // How many the bucket holds: the row's count, or the page
+            // total when the bucket is the one on screen.
+            let on_screen = ws.cloud.show
+                && ws.cloud.loaded
+                && matches!(&ws.cloud.query.scope, Scope::Bucket { id: on } if on == &bucket.id);
+            let count = if on_screen {
+                Some(ws.cloud.total)
+            } else {
+                bucket.asset_count
+            };
+            let counted = |label: &str| match count {
+                Some(n) => format!("{label} ({n})"),
+                None => label.to_string(),
+            };
+            let select = bucket.id.clone();
+            row(
+                &mut rows,
+                counted("Select all"),
+                std::rc::Rc::new(move |ws, _w, cx| ws.cloud_select_all_bucket(select.clone(), cx)),
+                cx,
+            );
             if !ws.cloud.selected.is_empty() {
                 let add = ws.cloud.selected.clone();
                 let into = bucket.id.clone();
@@ -1345,6 +1366,44 @@ pub(crate) fn context_menu(
                 );
             }
             rows.push(menu_sep());
+            #[cfg(not(target_arch = "wasm32"))]
+            {
+                let zip = bucket.clone();
+                row(
+                    &mut rows,
+                    counted("Save all as ZIP\u{2026}"),
+                    std::rc::Rc::new(move |ws, _w, cx| ws.cloud_zip_bucket(zip.clone(), cx)),
+                    cx,
+                );
+                let batch = bucket.clone();
+                row(
+                    &mut rows,
+                    counted("Process all\u{2026}"),
+                    std::rc::Rc::new(move |ws, _w, cx| ws.cloud_process_bucket(batch.clone(), cx)),
+                    cx,
+                );
+            }
+            let moving = bucket.clone();
+            row(
+                &mut rows,
+                "Move all to folder\u{2026}".into(),
+                std::rc::Rc::new(move |ws, _w, cx| ws.cloud_move_bucket(&moving, cx)),
+                cx,
+            );
+            rows.push(menu_sep());
+            // A smart bucket's matches come back on the next pass; only
+            // the hand-added photos are the user's to clear.
+            let clear = bucket.clone();
+            row(
+                &mut rows,
+                if bucket.rule.is_some() {
+                    "Clear added photos".into()
+                } else {
+                    "Clear bucket".into()
+                },
+                std::rc::Rc::new(move |ws, _w, _cx| ws.cloud_clear_bucket(&clear)),
+                cx,
+            );
             let delete = bucket;
             row(
                 &mut rows,
@@ -1378,6 +1437,7 @@ pub(crate) fn dialog(
         "delete-bucket" => "Delete cloud bucket?",
         "delete-asset" => "Delete cloud photo?",
         "upload-document" => "Upload document to Schist Cloud",
+        "move-items" => "Move to cloud folder",
         "download" => "Download cloud photo",
         _ => "Schist Cloud",
     };
@@ -1391,6 +1451,12 @@ pub(crate) fn dialog(
             }
             _ => "Photos remain in your cloud library.",
         }));
+    }
+    if kind == "move-items" {
+        body = body.child(caption(
+            "Every photo in the bucket is filed into the chosen folder; its cloud edits and \
+             bucket memberships stay as they are.",
+        ));
     }
     if kind.ends_with("bucket") && !kind.starts_with("delete") {
         body = body.child(caption(
@@ -1538,6 +1604,8 @@ pub(crate) fn dialog(
                 "Continue in browser"
             } else if kind == "download" {
                 "Download…"
+            } else if kind == "move-items" {
+                "Move"
             } else if kind.starts_with("delete-") {
                 "Delete"
             } else {

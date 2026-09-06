@@ -114,6 +114,13 @@ enum Job {
         epoch: u64,
         message: String,
     },
+    /// A bucket's originals landed in a scratch folder for the batch
+    /// dialog.
+    #[cfg(not(target_arch = "wasm32"))]
+    Batch {
+        epoch: u64,
+        paths: Vec<PathBuf>,
+    },
 }
 /// What the cloud gallery's right-click menu is about.
 #[derive(Clone, Debug)]
@@ -158,6 +165,8 @@ pub(crate) struct CloudState {
     pub context: Option<(Point<Pixels>, CloudContext)>,
     /// Whether the current asset watch has delivered its first snapshot.
     pub loaded: bool,
+    /// "Select all" asked before the page arrived: select it on landing.
+    pub select_all_pending: bool,
     /// Thumbnails whose fetch or decode failed at the current revision.
     pub thumbnail_failed: HashSet<String>,
     /// The browser has no local gallery to keep these in.
@@ -244,6 +253,7 @@ impl Default for CloudState {
             grid: GridScroll::default(),
             context: None,
             loaded: false,
+            select_all_pending: false,
             thumbnail_failed: HashSet::new(),
             #[cfg(target_arch = "wasm32")]
             thumb_px: 144.0,
@@ -680,6 +690,15 @@ impl Workspace {
                     self.status = message.clone().into();
                     self.cloud.message = message;
                 }
+                #[cfg(not(target_arch = "wasm32"))]
+                Job::Batch { epoch, paths } if epoch == self.cloud.epoch => {
+                    self.open_batch_process(paths, cx);
+                    self.update_modal(|m| {
+                        if let Modal::BatchProcess { target, .. } = m {
+                            *target = super::BatchTarget::Folder;
+                        }
+                    });
+                }
                 Job::Opened {
                     epoch,
                     mut asset,
@@ -854,6 +873,10 @@ impl Workspace {
                         .collect::<Result<_>>()?;
                     self.cloud.total = snapshot.total;
                     self.cloud.loaded = true;
+                    if std::mem::take(&mut self.cloud.select_all_pending) {
+                        self.cloud.selected = self.cloud_flat_order();
+                        self.cloud.select_anchor = self.cloud.selected.first().cloned();
+                    }
                     let ids: HashSet<_> = self.cloud.assets.iter().map(|a| a.id.clone()).collect();
                     self.cloud.selected.retain(|id| ids.contains(id));
                     if self
@@ -1410,6 +1433,187 @@ impl Workspace {
         };
         self.cloud_mutate(method, params);
     }
+    /// "Select all" on a bucket row: show the bucket and select its
+    /// page — now if it is already on screen, on arrival otherwise.
+    pub(crate) fn cloud_select_all_bucket(&mut self, id: String, cx: &mut Context<Self>) {
+        let showing = self.cloud.show
+            && self.cloud.loaded
+            && matches!(&self.cloud.query.scope, Scope::Bucket { id: on } if on == &id);
+        if showing {
+            self.cloud.selected = self.cloud_flat_order();
+            self.cloud.select_anchor = self.cloud.selected.first().cloned();
+            cx.notify();
+            return;
+        }
+        self.cloud_browse(Scope::Bucket { id }, cx);
+        self.cloud.select_all_pending = true;
+    }
+    /// Drop every hand-added member; a smart rule's matches stay.
+    pub(crate) fn cloud_clear_bucket(&mut self, bucket: &Bucket) {
+        self.cloud_mutate(
+            "bucket.clear",
+            vec![
+                ("id", bucket.id.clone().into()),
+                ("revision", bucket.revision.into()),
+            ],
+        );
+    }
+    /// Ask which cloud folder a bucket's photos should be filed into.
+    pub(crate) fn cloud_move_bucket(&mut self, bucket: &Bucket, cx: &mut Context<Self>) {
+        self.cloud.form_target = Some((bucket.id.clone(), bucket.revision));
+        self.open_modal(
+            Modal::Cloud {
+                kind: "move-items",
+                fields: vec![("cloud-folder", "Folder".into(), String::new())],
+            },
+            cx,
+        );
+    }
+    /// Every photo a bucket holds — hand-added and rule-matched —
+    /// walked page by page through the provider's query request.
+    #[cfg(not(target_arch = "wasm32"))]
+    fn cloud_client_for_bucket(
+        &mut self,
+    ) -> Option<(remote::Handle, Option<remote::Capabilities>)> {
+        let Some(c) = &self.cloud.client else {
+            self.cloud_error("Sign in first");
+            return None;
+        };
+        if !self.cloud.connected {
+            self.cloud_error("Wait for the cloud connection");
+            return None;
+        }
+        Some((c.handle.clone(), self.cloud.capabilities.clone()))
+    }
+    /// Right-click ▸ Save all as ZIP…: one archive of the bucket's
+    /// photos — edited ones as the provider's default export, the rest
+    /// as their originals — built straight from the downloads.
+    #[cfg(not(target_arch = "wasm32"))]
+    pub(crate) fn cloud_zip_bucket(&mut self, bucket: Bucket, cx: &mut Context<Self>) {
+        let Some((handle, capabilities)) = self.cloud_client_for_bucket() else {
+            cx.notify();
+            return;
+        };
+        let suggested = format!("{}.zip", bucket.name.to_lowercase().replace(' ', "-"));
+        let directory = std::env::var_os("HOME")
+            .map(PathBuf::from)
+            .unwrap_or_else(|| PathBuf::from("."));
+        let prompt = cx.prompt_for_new_path(&directory, Some(&suggested));
+        let sender = self.cloud.sender.clone();
+        let epoch = self.cloud.epoch;
+        cx.spawn(async move |_this, _cx| {
+            let Ok(Ok(Some(out))) = prompt.await else {
+                return;
+            };
+            remote::runtime::spawn(async move {
+                let progress = |message: String| {
+                    let _ = sender.send(Job::Done { epoch, message });
+                };
+                let result: Result<usize> = (async {
+                    let assets = bucket_assets(&handle, &bucket.id).await?;
+                    let total = assets.len();
+                    let mut writer = super::library_ops::ZipWriter::create(&out)?;
+                    let mut names = HashSet::new();
+                    for (done, asset) in assets.into_iter().enumerate() {
+                        progress(format!("Zipping {} of {total}\u{2026}", done + 1));
+                        let format = if asset.edited {
+                            capabilities
+                                .as_ref()
+                                .map(|c| c.default_edited_export.clone())
+                                .filter(|f| {
+                                    capabilities.as_ref().is_some_and(|c| c.supports_export(f))
+                                })
+                        } else {
+                            None
+                        };
+                        let download = handle
+                            .download_asset_async(
+                                &asset.id,
+                                format.as_deref(),
+                                capabilities.as_ref(),
+                            )
+                            .await?;
+                        let mut name = download.suggested_name(&asset.name);
+                        if !names.insert(name.clone()) {
+                            name = format!("{}-{name}", done + 1);
+                            names.insert(name.clone());
+                        }
+                        writer.add(&name, &download.bytes)?;
+                    }
+                    writer.finish()?;
+                    Ok(total)
+                })
+                .await;
+                let job = match result {
+                    Ok(n) => Job::Done {
+                        epoch,
+                        message: format!("Saved {n} photos to {}", out.display()),
+                    },
+                    Err(e) => Job::Error {
+                        epoch,
+                        error: format!("ZIP failed: {e}"),
+                    },
+                };
+                let _ = sender.send(job);
+            });
+        })
+        .detach();
+        self.cloud.message = "Gathering the bucket\u{2026}".into();
+        cx.notify();
+    }
+    /// Right-click ▸ Process all…: the bucket's originals land in a
+    /// scratch folder, then the batch dialog runs over them; results
+    /// save to a folder of the user's choosing.
+    #[cfg(not(target_arch = "wasm32"))]
+    pub(crate) fn cloud_process_bucket(&mut self, bucket: Bucket, cx: &mut Context<Self>) {
+        let Some((handle, capabilities)) = self.cloud_client_for_bucket() else {
+            cx.notify();
+            return;
+        };
+        let sender = self.cloud.sender.clone();
+        let epoch = self.cloud.epoch;
+        let dir = batch_dir().join(remote::Uuid::new_v4().to_string());
+        remote::runtime::spawn(async move {
+            let result: Result<Vec<PathBuf>> = (async {
+                let assets = bucket_assets(&handle, &bucket.id).await?;
+                anyhow::ensure!(!assets.is_empty(), "This bucket is empty");
+                std::fs::create_dir_all(&dir)?;
+                let total = assets.len();
+                let mut paths = Vec::with_capacity(total);
+                for (done, asset) in assets.into_iter().enumerate() {
+                    let _ = sender.send(Job::Done {
+                        epoch,
+                        message: format!("Fetching {} of {total}\u{2026}", done + 1),
+                    });
+                    let download = handle
+                        .download_asset_async(&asset.id, None, capabilities.as_ref())
+                        .await?;
+                    let mut path = dir.join(download.suggested_name(&asset.name));
+                    if path.exists() {
+                        path = dir.join(format!(
+                            "{}-{}",
+                            done + 1,
+                            download.suggested_name(&asset.name)
+                        ));
+                    }
+                    std::fs::write(&path, download.bytes)?;
+                    paths.push(path);
+                }
+                Ok(paths)
+            })
+            .await;
+            let job = match result {
+                Ok(paths) => Job::Batch { epoch, paths },
+                Err(e) => Job::Error {
+                    epoch,
+                    error: format!("Could not fetch the bucket: {e}"),
+                },
+            };
+            let _ = sender.send(job);
+        });
+        self.cloud.message = "Gathering the bucket\u{2026}".into();
+        cx.notify();
+    }
     pub(crate) fn cloud_mutate(&mut self, method: &str, fields: Vec<(&'static str, Value)>) {
         if let Some(c) = &self.cloud.client {
             let mut fields = fields;
@@ -1850,10 +2054,72 @@ impl Workspace {
                 let folder = get("cloud-folder");
                 self.cloud_upload_current((!folder.is_empty()).then_some(folder))?;
             }
+            "move-items" => {
+                let (bucket, _) = self
+                    .cloud
+                    .form_target
+                    .take()
+                    .ok_or_else(|| anyhow!("No bucket selected"))?;
+                let folder = get("cloud-folder");
+                self.cloud_mutate(
+                    "asset.move",
+                    vec![
+                        (
+                            "items",
+                            Value::Array(vec![map([
+                                ("kind", "bucket".into()),
+                                ("id", bucket.into()),
+                            ])]),
+                        ),
+                        (
+                            "folder_id",
+                            if folder.is_empty() {
+                                Value::Nil
+                            } else {
+                                folder.into()
+                            },
+                        ),
+                    ],
+                );
+            }
             _ => return Err(anyhow!("Unknown cloud action")),
         }
         Ok(())
     }
+}
+/// Where a bucket's originals are staged for the batch dialog.
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) fn batch_dir() -> PathBuf {
+    state_dir().join("batch")
+}
+/// Every asset in a bucket, page by page through `assets.query`.
+#[cfg(not(target_arch = "wasm32"))]
+async fn bucket_assets(handle: &remote::Handle, bucket: &str) -> Result<Vec<Asset>> {
+    let mut all = Vec::new();
+    let mut offset = 0u64;
+    loop {
+        let query = AssetQuery {
+            scope: Scope::Bucket {
+                id: bucket.to_string(),
+            },
+            text: String::new(),
+            filters: Filters::default(),
+            sort: "name".into(),
+            offset,
+            limit: 500,
+        };
+        let page: remote::Snapshot =
+            parse(handle.request_async("assets.query", value(query)).await?)?;
+        let got = page.items.len() as u64;
+        for item in page.items {
+            all.push(parse::<Asset>(item)?);
+        }
+        offset += got;
+        if got == 0 || offset >= page.total {
+            break;
+        }
+    }
+    Ok(all)
 }
 fn mime(path: &std::path::Path) -> &'static str {
     match path
