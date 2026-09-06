@@ -49,7 +49,18 @@ impl Workspace {
                 .into_any_element()
         };
         let context_menu = if cloud {
-            super::cloud_view::context_menu(self, cx)
+            // The cloud room has its own menu for its rows and cells —
+            // but the "+ Add folder…" / "+ New bucket" choice menus
+            // live on the library's context whichever room is up.
+            super::cloud_view::context_menu(self, cx).or_else(|| {
+                use super::library::GalleryContext;
+                matches!(
+                    self.library.context,
+                    Some((_, GalleryContext::AddFolder | GalleryContext::NewBucket))
+                )
+                .then(|| gallery_context_menu(self, cx))
+                .flatten()
+            })
         } else {
             gallery_context_menu(self, cx)
         };
@@ -519,6 +530,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 // to add; without one there is only the local kind.
                 if ws.cloud.account.is_some() {
                     ws.library.context = Some((at, super::library::GalleryContext::AddFolder));
+                    ws.cloud.context = None;
                     cx.notify();
                 } else {
                     ws.gallery_add_folder(window, cx);
@@ -554,6 +566,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             |ws, at, _window, cx| {
                 if ws.cloud.account.is_some() {
                     ws.library.context = Some((at, super::library::GalleryContext::NewBucket));
+                    ws.cloud.context = None;
                     cx.notify();
                 } else {
                     // Born holding the selection, so "new bucket
