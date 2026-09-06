@@ -16,7 +16,7 @@ use schist_plugin_api::{
     EditorState, Modifiers, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput,
     ToolCtx, ToolOption, ToolPlugin,
 };
-use schist_text_engine::{hit_test, line_spans, rasterize, Align, StyleRun, TextSpec};
+use schist_text_engine::{hit_test, line_spans, rasterize, Align, StyleRun, TextPath, TextSpec};
 
 /// Additional-layer-info key under which the text spec is preserved.
 pub const TEXT_BLOCK_KEY: [u8; 4] = *b"PsTx";
@@ -111,6 +111,14 @@ fn render_tiles(doc: &Document, stored: &StoredText) -> (TileMap, IntRect) {
 /// descender. Editing chrome belongs to the complete line box instead, so
 /// the insertion caret cannot protrude through its outline.
 fn layout_bounds(stored: &StoredText) -> IntRect {
+    if stored.spec.path.is_some() {
+        return schist_text_engine::carets(&stored.spec)
+            .into_iter()
+            .fold(IntRect::EMPTY, |bounds, (_, c)| {
+                bounds.union(&caret_rect(c))
+            })
+            .translated(stored.origin.0, stored.origin.1);
+    }
     let mut spans = line_spans(&stored.spec).into_iter();
     let Some(first) = spans.next() else {
         return IntRect::EMPTY;
@@ -135,6 +143,17 @@ fn layout_bounds(stored: &StoredText) -> IntRect {
     right = right.max(left + 1);
     bottom = bottom.max(top + 1);
     IntRect::new(left, top, right, bottom)
+}
+
+fn caret_rect(c: schist_text_engine::Caret) -> IntRect {
+    let end_x = c.x - c.angle.sin() * c.height;
+    let end_y = c.top + c.angle.cos() * c.height;
+    IntRect::new(
+        c.x.min(end_x).floor() as i32,
+        c.top.min(end_y).floor() as i32,
+        c.x.max(end_x).ceil() as i32 + 1,
+        c.top.max(end_y).ceil() as i32 + 1,
+    )
 }
 
 /// Every font family the document's text layers ask for, in the order
@@ -258,6 +277,7 @@ pub struct TypeTool {
     /// nothing is being edited. Editing a layer adopts its spec, so the
     /// bar always describes the text you are looking at.
     spec: TextSpec,
+    use_path: bool,
 }
 
 impl TypeTool {
@@ -284,14 +304,20 @@ impl TypeTool {
     }
 
     fn start_new(&mut self, ctx: &mut ToolCtx, x: f32, y: f32) {
-        let stored = StoredText {
+        let mut stored = StoredText {
             spec: TextSpec {
                 text: String::new(),
+                path: None,
                 ..self.spec.clone()
             },
             origin: (x.round() as i32, y.round() as i32),
             color: ctx.state.foreground.to_u8(),
         };
+        if self.use_path {
+            stored.spec.path = active_text_path(ctx.doc, stored.origin);
+        }
+        self.spec.path = stored.spec.path.clone();
+        self.use_path = self.spec.path.is_some();
         let mut layer = Layer::new_raster("Text");
         write_stored(&mut layer, &stored);
         let id = layer.id;
@@ -363,6 +389,11 @@ impl TypeTool {
     /// pixels alone.
     fn contains_text(stored: &StoredText, x: f32, y: f32) -> bool {
         const SLOP: f32 = 4.0;
+        if stored.spec.path.is_some() {
+            return layout_bounds(stored)
+                .inflated(SLOP as i32)
+                .contains(x as i32, y as i32);
+        }
         let x = x - stored.origin.0 as f32;
         let y = y - stored.origin.1 as f32;
         line_spans(&stored.spec).iter().any(|line| {
@@ -415,6 +446,22 @@ fn display_name(text: &str) -> String {
     } else {
         first
     }
+}
+
+fn active_text_path(doc: &Document, origin: (i32, i32)) -> Option<TextPath> {
+    // Match Path Selection: the active live shape takes precedence over
+    // a separately stored path.
+    let path = doc
+        .active_layer
+        .and_then(|id| doc.tree.find(id))
+        .and_then(|layer| layer.shape.as_deref())
+        .map(|shape| &shape.path)
+        .or_else(|| doc.active_path.and_then(|i| doc.paths.get(i)))?;
+    let mut curve = path.subpaths.iter().find(|s| s.anchors.len() >= 2)?.clone();
+    for anchor in &mut curve.anchors {
+        *anchor = anchor.translated(-(origin.0 as f32), -(origin.1 as f32));
+    }
+    Some(TextPath { curve, offset: 0.0 })
 }
 
 impl ToolPlugin for TypeTool {
@@ -479,6 +526,7 @@ impl ToolPlugin for TypeTool {
                     runs: Vec::new(),
                     ..stored.spec.clone()
                 };
+                self.use_path = stored.spec.path.is_some();
                 let local_x = input.x - stored.origin.0 as f32;
                 let local_y = input.y - stored.origin.1 as f32;
                 let at = hit_test(&stored.spec, local_x, local_y).unwrap_or(stored.spec.text.len());
@@ -677,6 +725,23 @@ impl ToolPlugin for TypeTool {
                 80.0,
                 " px",
             ),
+            ToolOption::toggle("type-kern", "Kerning", self.spec.feature("kern", true)),
+            ToolOption::toggle("type-liga", "Ligatures", self.spec.feature("liga", false)),
+            ToolOption::toggle(
+                "type-dlig",
+                "Discretionary ligatures",
+                self.spec.feature("dlig", false),
+            ),
+            ToolOption::toggle("type-smcp", "Small caps", self.spec.feature("smcp", false)),
+            ToolOption::toggle("type-path", "On active path", self.use_path),
+            ToolOption::slider(
+                "type-path-offset",
+                "Path offset",
+                self.spec.path.as_ref().map_or(0.0, |p| p.offset),
+                -2000.0,
+                2000.0,
+                " px",
+            ),
         ]
     }
 
@@ -702,6 +767,15 @@ impl ToolPlugin for TypeTool {
             }
             "type-leading" => self.spec.line_height = value.num().clamp(0.5, 3.0),
             "type-tracking" => self.spec.tracking = value.num(),
+            "type-kern" | "type-liga" | "type-dlig" | "type-smcp" => {
+                self.spec.set_feature(&key[5..], value.bool());
+            }
+            "type-path" => self.use_path = value.bool(),
+            "type-path-offset" => {
+                if let Some(path) = &mut self.spec.path {
+                    path.offset = value.num();
+                }
+            }
             _ => {}
         }
     }
@@ -717,6 +791,15 @@ impl ToolPlugin for TypeTool {
         let Some(session) = &mut self.editing else {
             return;
         };
+        if key == "type-path" {
+            session.stored.spec.path = if self.use_path {
+                active_text_path(ctx.doc, session.stored.origin)
+            } else {
+                None
+            };
+            self.spec.path = session.stored.spec.path.clone();
+            self.use_path = self.spec.path.is_some();
+        }
         let over = match key {
             "type-family" => StyleRun {
                 family: Some(self.spec.family.clone()),
@@ -736,6 +819,10 @@ impl ToolPlugin for TypeTool {
                 spec.align = self.spec.align;
                 spec.line_height = self.spec.line_height;
                 spec.tracking = self.spec.tracking;
+                spec.features = self.spec.features.clone();
+                if key == "type-path-offset" {
+                    spec.path = self.spec.path.clone();
+                }
                 StyleRun::default()
             }
         };
@@ -854,7 +941,19 @@ impl ToolPlugin for TypeTool {
             out.push(Overlay::Rect(outline_bounds.inflated(2)));
         }
 
-        if session.has_selection() {
+        if session.has_selection() && spec.path.is_some() {
+            let carets = schist_text_engine::carets(spec);
+            let range = session.selection();
+            for pair in carets.windows(2) {
+                if range.contains(&pair[0].0) {
+                    out.push(Overlay::Highlight(
+                        caret_rect(pair[0].1)
+                            .union(&caret_rect(pair[1].1))
+                            .translated(ox as i32, oy as i32),
+                    ));
+                }
+            }
+        } else if session.has_selection() {
             let range = session.selection();
             for span in schist_text_engine::line_spans(spec) {
                 let from = range.start.max(span.start);
@@ -894,8 +993,8 @@ impl ToolPlugin for TypeTool {
             out.push(Overlay::Caret {
                 x1: x,
                 y1: y,
-                x2: x,
-                y2: y + caret.height,
+                x2: x - caret.angle.sin() * caret.height,
+                y2: y + caret.angle.cos() * caret.height,
                 color: Rgba::from_u8(
                     session.stored.color[0],
                     session.stored.color[1],
@@ -1208,6 +1307,146 @@ mod tests {
             let key = if ch == ' ' { "space" } else { &text };
             tool.on_key(ctx, key, Some(&text), Modifiers::default());
         }
+    }
+
+    #[test]
+    fn path_and_features_survive_psd_reopen_and_undo() {
+        let mut d = doc();
+        let mut path = schist_core::path::VectorPath::new("Baseline");
+        path.push_open_anchors(vec![
+            schist_core::path::Anchor::corner(100.0, 40.0),
+            schist_core::path::Anchor::corner(100.0, 190.0),
+        ]);
+        d.paths.push(path);
+        d.active_path = Some(0);
+        let mut state = EditorState::default();
+        let mut tool = TypeTool::default();
+        let mut ctx = ToolCtx {
+            doc: &mut d,
+            state: &mut state,
+        };
+        tool.set_option("type-path", OptionValue::Bool(true));
+        tool.on_pointer_down(&mut ctx, input(100.0, 40.0));
+        type_text(&mut tool, &mut ctx, "office");
+        for (key, value) in [
+            ("type-liga", OptionValue::Bool(true)),
+            ("type-path-offset", OptionValue::Num(12.0)),
+        ] {
+            tool.set_option(key, value);
+            tool.on_option_changed(&mut ctx, key);
+        }
+        let stored = tool.editing.as_ref().unwrap().stored.clone();
+        assert_eq!(stored.spec.path.as_ref().unwrap().offset, 12.0);
+        assert!(stored.spec.feature("liga", false));
+        let caret = tool
+            .overlays(ctx.doc, ctx.state)
+            .into_iter()
+            .find_map(|o| match o {
+                Overlay::Caret { x1, y1, x2, y2, .. } => Some((x1, y1, x2, y2)),
+                _ => None,
+            })
+            .unwrap();
+        assert!(
+            (caret.1 - caret.3).abs() < 0.001,
+            "vertical path needs a horizontal caret"
+        );
+        assert!((caret.0 - caret.2).abs() > 10.0);
+        tool.on_commit(&mut ctx);
+        for psb in [false, true] {
+            let bytes = schist_codec_psd::write_psd_with(ctx.doc, psb).unwrap();
+            let reopened = schist_codec_psd::read_psd(&bytes).unwrap();
+            let back = reopened.tree.iter().find_map(read_stored).unwrap();
+            assert_eq!(back.spec, stored.spec);
+            let before = render_tiles(ctx.doc, &stored).1;
+            assert_eq!(render_tiles(&reopened, &back).1, before);
+        }
+        // Editing the same layer is a single undoable change to metadata
+        // and pixels, including toggling the baseline back off.
+        let c = schist_text_engine::caret_at(&stored.spec, 0).unwrap();
+        tool.on_pointer_down(
+            &mut ctx,
+            input(c.x + stored.origin.0 as f32, c.top + stored.origin.1 as f32),
+        );
+        tool.set_option("type-path", OptionValue::Bool(false));
+        tool.on_option_changed(&mut ctx, "type-path");
+        tool.on_commit(&mut ctx);
+        assert!(ctx
+            .doc
+            .tree
+            .iter()
+            .find_map(read_stored)
+            .unwrap()
+            .spec
+            .path
+            .is_none());
+        ctx.doc.undo();
+        assert_eq!(
+            ctx.doc.tree.iter().find_map(read_stored).unwrap().spec,
+            stored.spec
+        );
+    }
+
+    #[test]
+    fn moving_a_text_layer_moves_its_editable_origin_and_undo_restores_bytes() {
+        let mut d = doc();
+        let mut state = EditorState::default();
+        let mut tool = TypeTool::default();
+        let mut ctx = ToolCtx {
+            doc: &mut d,
+            state: &mut state,
+        };
+        tool.on_pointer_down(&mut ctx, input(20.0, 40.0));
+        type_text(&mut tool, &mut ctx, "Move me");
+        tool.on_commit(&mut ctx);
+        let id = ctx.doc.active_layer.unwrap();
+        let before = read_stored(ctx.doc.tree.find(id).unwrap()).unwrap();
+        let extras = ctx.doc.tree.find(id).unwrap().extras.clone();
+        let mut edit = ctx.doc.begin_edit("Move text");
+        edit.translate_layer(id, 31, -13);
+        edit.commit();
+        let moved = read_stored(ctx.doc.tree.find(id).unwrap()).unwrap();
+        assert_eq!(moved.origin, (before.origin.0 + 31, before.origin.1 - 13));
+        let (rendered, _) = render_tiles(ctx.doc, &moved);
+        let pixels = &ctx.doc.tree.find(id).unwrap().as_raster().unwrap().tiles;
+        assert_eq!(rendered.content_bounds(), pixels.content_bounds());
+        for coord in TileCoord::covering(&rendered.content_bounds()) {
+            assert_eq!(rendered.get(coord), pixels.get(coord));
+        }
+        ctx.doc.undo();
+        assert_eq!(ctx.doc.tree.find(id).unwrap().extras, extras);
+        ctx.doc.redo();
+        assert_eq!(
+            read_stored(ctx.doc.tree.find(id).unwrap()).unwrap().origin,
+            moved.origin
+        );
+    }
+
+    #[test]
+    fn text_uses_the_same_live_shape_as_path_selection() {
+        let mut d = doc();
+        let mut path = schist_core::VectorPath::new("Shape baseline");
+        path.push_open_anchors(vec![
+            schist_core::Anchor::corner(20.0, 30.0),
+            schist_core::Anchor::corner(120.0, 80.0),
+        ]);
+        d.tree.find_mut(d.active_layer.unwrap()).unwrap().shape = Some(Box::new(
+            schist_core::VectorShape::new(path.clone(), Rgba::BLACK),
+        ));
+        d.paths.push(schist_core::VectorPath::new("Unrelated path"));
+        d.active_path = Some(0);
+        let copied = active_text_path(&d, (10, 15)).unwrap();
+        assert_eq!(copied.curve.anchors[0].point, (10.0, 15.0));
+        assert_eq!(copied.curve.anchors[1].point, (110.0, 65.0));
+        assert_eq!(
+            d.tree
+                .find(d.active_layer.unwrap())
+                .unwrap()
+                .shape
+                .as_ref()
+                .unwrap()
+                .path,
+            path
+        );
     }
 
     #[test]

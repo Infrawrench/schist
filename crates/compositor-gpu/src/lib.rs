@@ -16,7 +16,7 @@ mod exec;
 mod fx;
 pub mod plan;
 
-pub use exec::GpuContext;
+pub use exec::{GpuContext, WarpSource};
 pub use fx::GpuFx;
 
 use exec::BatchOut;

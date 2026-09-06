@@ -105,6 +105,14 @@ impl Workspace {
     pub fn activate_tool(&mut self, id: &str, cx: &mut Context<Self>) {
         let previous = self.editor.active_tool;
         if previous != id {
+            if self.type_field_option().is_some() {
+                self.commit_focused_field();
+            }
+            if id == "type" {
+                self.side_tab = Some(SideTab::Character);
+            } else if self.side_tab == Some(SideTab::Character) {
+                self.side_tab = None;
+            }
             if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(previous)) {
                 let mut ctx = ToolCtx {
                     doc,

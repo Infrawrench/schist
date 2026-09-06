@@ -37,6 +37,7 @@ mod status;
 mod tabs;
 mod titlebar;
 mod toolbar;
+mod typography;
 
 #[cfg(not(target_arch = "wasm32"))]
 pub use ai::*;

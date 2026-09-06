@@ -12,3 +12,6 @@ schist-text-engine.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 log.workspace = true
+
+[dev-dependencies]
+schist-codec-psd.workspace = true

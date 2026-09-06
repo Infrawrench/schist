@@ -12,12 +12,33 @@ fn gpu() -> Option<&'static Arc<GpuContext>> {
     GPU.get_or_init(|| match GpuCompositor::new() {
         Ok(g) => Some(g),
         Err(e) => {
+            assert!(
+                !e.starts_with("pipeline creation:"),
+                "GPU shader initialization failed: {e}"
+            );
             eprintln!("skipping GPU fx parity tests: {e}");
             None
         }
     })
     .as_ref()
     .map(|g| g.context())
+}
+
+#[test]
+fn fx_shaders_validate_without_an_adapter() {
+    for (name, source) in [
+        ("warp", include_str!("../src/fx_warp.wgsl")),
+        ("paged carve", include_str!("../src/fx_carve_paged.wgsl")),
+    ] {
+        let module = naga::front::wgsl::parse_str(source)
+            .unwrap_or_else(|e| panic!("{name}: {}", e.emit_to_string(source)));
+        naga::valid::Validator::new(
+            naga::valid::ValidationFlags::all(),
+            naga::valid::Capabilities::all(),
+        )
+        .validate(&module)
+        .unwrap_or_else(|e| panic!("{name}: {}", e.emit_to_string(source)));
+    }
 }
 
 struct Lcg(u64);
@@ -187,6 +208,65 @@ fn a_degenerate_mesh_warps_to_the_identity() {
     let source = ctx.upload_warp_source(&src).expect("upload");
     let out = ctx.run_warp(&job, &source).expect("warp dispatch");
     assert_close(&out, &schist_fx::warp_cpu(&job, &src), "degenerate mesh");
+}
+
+#[test]
+fn fractional_warps_preserve_precision_at_large_document_origins() {
+    let Some(ctx) = gpu() else { return };
+    let (w, h) = (16, 12);
+    let src = noise(w, h, 514);
+    let source = ctx.upload_warp_source(&src).expect("upload");
+    let mesh = [0.1, -0.2].repeat(4);
+    let mut job = warp_job(&mesh, w, h, 2, 2, 0);
+    job.src_origin = (0, 0);
+    job.dst_origin = (0, 0);
+    job.mesh_origin = (0, 0);
+    let cpu = schist_fx::warp_cpu(&job, &src);
+    for origin in [
+        (0, 0),
+        (923, 1024),
+        (-923, -1024),
+        (16_000_000, -16_000_000),
+    ] {
+        job.src_origin = origin;
+        job.dst_origin = origin;
+        job.mesh_origin = origin;
+        let out = ctx.run_warp(&job, &source).expect("translated warp");
+        assert_close(&out, &cpu, &format!("fractional warp at {origin:?}"));
+    }
+}
+
+#[test]
+fn warp_bands_can_sample_across_texture_pages() {
+    let Some(ctx) = gpu() else { return };
+    // A page holds 1024² pixels. Odd image width puts page boundaries
+    // inside image rows, and the last page ends in a partial texture row.
+    let (w, h) = (1031, 1021);
+    let src = noise(w, h, 515);
+    let mesh = [0.75, 1.25, -0.25, 1.75, 0.25, -1.75, -0.75, -1.25];
+    let job = WarpParams {
+        src_width: w,
+        src_height: h,
+        src_origin: (-50, 20),
+        dst_width: 67,
+        dst_height: 25,
+        dst_origin: (875, 1019),
+        mesh: &mesh,
+        mesh_cols: 2,
+        mesh_rows: 2,
+        cell: 2000.0,
+        mesh_origin: (-50, 20),
+        src_token: 55,
+    };
+    let source = ctx.upload_warp_source(&src).expect("paged upload");
+    let cpu = schist_fx::warp_cpu(&job, &src);
+    for budget in [31 * 16, 67 * 3 * 16] {
+        let out = ctx
+            .run_warp_banded(&job, &source, budget)
+            .expect("banded warp");
+        assert_close(&out, &cpu, "warp across pages and output bands");
+    }
+    assert!(ctx.run_warp_banded(&job, &source, 15).is_none());
 }
 
 #[test]
@@ -374,6 +454,37 @@ fn carving_matches_the_cpu_reference() {
 fn growing_matches_the_cpu_reference() {
     assert_carve_matches(48, 40, 60, None, "grow 48->60");
     assert_carve_matches(70, 55, 74, None, "grow 70->74");
+}
+
+#[test]
+fn paged_carving_matches_the_cpu_across_scan_and_texture_boundaries() {
+    let Some(ctx) = gpu() else { return };
+    for (w, h, target) in [
+        (37, 1, 29),
+        (41, 65, 47),
+        (273, 131, 269),
+        (1, 77, 4),
+        (67, 70, 1),
+    ] {
+        let src = noise(w, h, 700 + w as u64);
+        let protect: Vec<f32> = (0..w * h)
+            .map(|i| if i % w == w / 2 { 500.0 } else { 0.0 })
+            .collect();
+        let job = schist_fx::CarveJob {
+            px: &src,
+            protect: &protect,
+            width: w,
+            height: h,
+            target_width: target,
+        };
+        let gpu = ctx
+            .run_carve_paged_with_edge(&job, 32)
+            .expect("paged carve dispatch");
+        let cpu = schist_fx::carve_cpu(&job);
+        assert_eq!(gpu.width, cpu.width);
+        assert_close(&gpu.px, &cpu.px, "paged carve pixels");
+        assert_close(&gpu.protect, &cpu.protect, "paged carve protect mask");
+    }
 }
 
 #[test]

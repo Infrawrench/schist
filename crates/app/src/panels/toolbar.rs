@@ -16,6 +16,9 @@ pub(super) type ToolSlot = (
 
 pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let tool_id = ws.editor.active_tool;
+    if tool_id == "type" {
+        return super::typography::type_options_bar(ws, cx).into_any_element();
+    }
     let (tool_icon, tool_name) = ws
         .registry
         .tools()
@@ -27,11 +30,16 @@ pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl
     let mut bar = div()
         .flex()
         .flex_row()
+        .flex_wrap()
         .items_center()
-        .gap_4()
-        .h(px(32.0))
+        .gap_x_4()
+        .gap_y_1()
+        .min_h(px(32.0))
+        .w_full()
+        .min_w_0()
         .flex_none()
         .px_3()
+        .py_1()
         .bg(gpui::rgb(palette().panel_bg))
         .border_b_1()
         .border_color(gpui::rgb(palette().panel_edge))
@@ -84,9 +92,11 @@ pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl
         .map(|t| t.options())
         .unwrap_or_default()
     {
-        bar = bar.child(tool_option_control(ws, opt, cx));
+        // Keep each control together when a tool has more options than
+        // one row can show. Type has its own compact bar and panel.
+        bar = bar.child(div().flex_none().child(tool_option_control(ws, opt, cx)));
     }
-    bar
+    bar.into_any_element()
 }
 
 /// Render one plugin-declared option. The shell knows the three kinds, not

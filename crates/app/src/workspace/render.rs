@@ -410,7 +410,9 @@ impl Workspace {
                     cx.stop_propagation();
                     return;
                 }
-                if ws.field_key(&ev.keystroke.key, ev.keystroke.key_char.as_deref()) {
+                if ws.type_field_key(ev, cx)
+                    || ws.field_key(&ev.keystroke.key, ev.keystroke.key_char.as_deref())
+                {
                     cx.notify();
                     cx.stop_propagation();
                     return;
@@ -586,6 +588,7 @@ impl Render for Workspace {
         let key_context = if self.modal.is_some() {
             "Workspace modal"
         } else if self.tool_captures_keys()
+            || self.type_field_option().is_some()
             || self.dropdown_open()
             || self.layer_rename.is_some()
             || self.note_edit.is_some()

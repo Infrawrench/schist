@@ -25,7 +25,7 @@ struct Params {
 }
 
 @group(0) @binding(0) var<uniform> p: Params;
-@group(0) @binding(1) var<storage, read> src: array<f32>;
+@group(0) @binding(1) var src: texture_2d_array<f32>;
 @group(0) @binding(2) var<storage, read_write> dst: array<f32>;
 @group(0) @binding(3) var<storage, read> mesh: array<f32>;
 
@@ -37,8 +37,10 @@ fn src_pixel(x: i32, y: i32) -> vec4<f32> {
     if (lx < 0 || ly < 0 || lx >= i32(p.src_width) || ly >= i32(p.src_height)) {
         return vec4(0.0);
     }
-    let i = (u32(ly) * p.src_width + u32(lx)) * 4u;
-    return vec4(src[i], src[i + 1u], src[i + 2u], src[i + 3u]);
+    let i = u32(ly) * p.src_width + u32(lx);
+    let size = textureDimensions(src);
+    let page = size.x * size.y;
+    return textureLoad(src, vec2<i32>(i32(i % size.x), i32((i % page) / size.x)), i32(i / page), 0);
 }
 
 fn mesh_at(c: u32, r: u32) -> vec2<f32> {
@@ -67,13 +69,15 @@ fn mesh_sample(x: f32, y: f32) -> vec2<f32> {
     return top + (bottom - top) * ty;
 }
 
-fn fetch(fx: f32, fy: f32) -> vec4<f32> {
-    let x0f = floor(fx);
-    let y0f = floor(fy);
-    let tx = fx - x0f;
-    let ty = fy - y0f;
-    let x0 = i32(x0f);
-    let y0 = i32(y0f);
+fn fetch(x: i32, y: i32, displacement: vec2<f32>) -> vec4<f32> {
+    // Derive weights before adding the integer document position, matching
+    // the CPU without discarding subpixel precision on large coordinates.
+    let offset = floor(displacement);
+    let fraction = displacement - offset;
+    let tx = fraction.x;
+    let ty = fraction.y;
+    let x0 = x + i32(offset.x);
+    let y0 = y + i32(offset.y);
     var acc = vec4(0.0);
     for (var t = 0u; t < 4u; t++) {
         let dx = i32(t & 1u);
@@ -109,7 +113,7 @@ fn mesh_warp(@builtin(global_invocation_id) gid: vec3<u32>) {
     let fx = f32(x) + 0.5;
     let fy = f32(y) + 0.5;
     let d = mesh_sample(fx, fy);
-    let px = fetch(fx + d.x - 0.5, fy + d.y - 0.5);
+    let px = fetch(x, y, d);
     let o = (gid.y * p.dst_width + gid.x) * 4u;
     dst[o] = px.x;
     dst[o + 1u] = px.y;

@@ -12,6 +12,8 @@ use crate::plan::{Plan, PlanSource};
 use schist_core::{TileBuf, TileCoord, TILE_PIXELS};
 use wgpu::util::DeviceExt;
 
+mod carve_paged;
+
 /// Per-chunk ceiling on any one storage buffer, and the tile count that
 /// keeps the f32 output under it (256 KiB × 4 channels × 4 bytes = 1 MiB
 /// per tile).
@@ -39,6 +41,7 @@ pub struct GpuContext {
     /// whole run is a single set of buffers and no layout can drift
     /// between entry points.
     carve: CarvePipelines,
+    paged_carve: std::sync::OnceLock<carve_paged::Pipelines>,
     info: wgpu::AdapterInfo,
 }
 
@@ -50,6 +53,13 @@ struct CarvePipelines {
     resample: wgpu::ComputePipeline,
     advance_seam: wgpu::ComputePipeline,
     layout: wgpu::BindGroupLayout,
+}
+
+/// A warp snapshot stored in texture pages, independent of the maximum
+/// storage-buffer binding size. The shader uses unfiltered texture loads.
+pub struct WarpSource {
+    view: wgpu::TextureView,
+    pixels: usize,
 }
 
 /// Mirrors fx_carve.wgsl: rows per scan tile, and the columns a workgroup
@@ -207,6 +217,7 @@ impl GpuContext {
             fx_blur: make(&fx_blur_module, "box_pass"),
             fx_lens: make(&fx_lens_module, "lens_blur"),
             fx_warp: make(&fx_warp_module, "mesh_warp"),
+            paged_carve: std::sync::OnceLock::new(),
             carve: CarvePipelines {
                 energy: carve_stage("energy_pass"),
                 dp_seed: carve_stage("dp_seed"),
@@ -370,9 +381,9 @@ impl GpuContext {
     /// Run a whole content-aware resize without coming back: every stage,
     /// every seam, one readback at the end.
     ///
-    /// `None` when a plane is too big for one storage binding — unlike the
-    /// blurs there is nothing to band, since each seam depends on the last
-    /// over the whole image.
+    /// Oversized planes use texture pages and two rows of cumulative
+    /// costs. `None` means device limits or available memory still prevent
+    /// the operation, so the caller should use the CPU reference.
     pub fn run_carve(&self, job: &schist_fx::CarveJob<'_>) -> Option<schist_fx::Carved> {
         let (w0, h) = (job.width, job.height);
         let target = job.target_width.max(1);
@@ -385,7 +396,7 @@ impl GpuContext {
         let plane = max_w.checked_mul(h)?;
         let limit = self.binding_limit();
         if plane.checked_mul(16)? > limit {
-            return None;
+            return self.run_carve_paged(job);
         }
 
         let _work = self.work.lock();
@@ -814,31 +825,161 @@ impl GpuContext {
         self.finish_fx(encoder, &dst, bytes, "lens blur")
     }
 
-    /// Upload a warp source plane. Callers hold the buffer for as long as
-    /// the pixels behind it are unchanged — a whole Liquify drag — so the
-    /// per-move cost is one dispatch and one readback.
-    pub fn upload_warp_source(&self, src: &[f32]) -> Option<wgpu::Buffer> {
-        let contents = crate::fx::cast_f32s(src);
-        if contents.is_empty() {
+    /// Upload a straight-alpha snapshot into bounded 2D texture pages.
+    /// A pixel's linear index determines its page, so even very wide or
+    /// tall layers need no special sampling path and no padded CPU copy.
+    pub fn upload_warp_source(&self, src: &[f32]) -> Option<WarpSource> {
+        if src.is_empty() || !src.len().is_multiple_of(4) {
             return None;
         }
-        Some(
-            self.device
-                .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                    label: Some("fx-warp-source"),
-                    contents,
-                    usage: wgpu::BufferUsages::STORAGE,
-                }),
-        )
+        let pixels = src.len() / 4;
+        let count = u32::try_from(pixels).ok()?;
+        let edge = self.device.limits().max_texture_dimension_2d.min(1024);
+        let width = count.min(edge);
+        let height = count.div_ceil(width).min(edge);
+        let page = (width * height) as usize;
+        let layers = u32::try_from(pixels.div_ceil(page)).ok()?;
+        if layers > self.device.limits().max_texture_array_layers {
+            return None;
+        }
+        let _work = self.work.lock();
+        self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory);
+        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let texture = self.device.create_texture(&wgpu::TextureDescriptor {
+            label: Some("fx-warp-source"),
+            size: wgpu::Extent3d {
+                width,
+                height,
+                depth_or_array_layers: layers,
+            },
+            mip_level_count: 1,
+            sample_count: 1,
+            dimension: wgpu::TextureDimension::D2,
+            format: wgpu::TextureFormat::Rgba32Float,
+            usage: wgpu::TextureUsages::TEXTURE_BINDING | wgpu::TextureUsages::COPY_DST,
+            view_formats: &[],
+        });
+        for (layer, data) in src.chunks(page * 4).enumerate() {
+            let rows = data.len() / (width as usize * 4);
+            let copy = |data: &[f32], y: u32, w: u32, h: u32| {
+                self.queue.write_texture(
+                    wgpu::TexelCopyTextureInfo {
+                        texture: &texture,
+                        mip_level: 0,
+                        origin: wgpu::Origin3d {
+                            x: 0,
+                            y,
+                            z: layer as u32,
+                        },
+                        aspect: wgpu::TextureAspect::All,
+                    },
+                    crate::fx::cast_f32s(data),
+                    wgpu::TexelCopyBufferLayout {
+                        offset: 0,
+                        bytes_per_row: Some(w * 16),
+                        rows_per_image: None,
+                    },
+                    wgpu::Extent3d {
+                        width: w,
+                        height: h,
+                        depth_or_array_layers: 1,
+                    },
+                );
+            };
+            let full = rows * width as usize * 4;
+            if rows > 0 {
+                copy(&data[..full], 0, width, rows as u32);
+            }
+            if full < data.len() {
+                copy(
+                    &data[full..],
+                    rows as u32,
+                    ((data.len() - full) / 4) as u32,
+                    1,
+                );
+            }
+        }
+        let view = texture.create_view(&wgpu::TextureViewDescriptor {
+            dimension: Some(wgpu::TextureViewDimension::D2Array),
+            ..Default::default()
+        });
+        let validation = pollster::block_on(self.device.pop_error_scope());
+        let allocation = pollster::block_on(self.device.pop_error_scope());
+        if let Some(error) = validation.or(allocation) {
+            log::warn!("GPU warp upload failed: {error}");
+            return None;
+        }
+        Some(WarpSource { view, pixels })
     }
 
     /// Warp through `src`, which the caller keeps resident across a drag.
-    pub fn run_warp(
+    pub fn run_warp(&self, job: &schist_fx::WarpParams<'_>, src: &WarpSource) -> Option<Vec<f32>> {
+        self.run_warp_banded(job, src, self.binding_limit())
+    }
+
+    /// As `run_warp`, with an optional tighter output budget, useful for
+    /// callers sharing a device and for exercising band edges in tests.
+    pub fn run_warp_banded(
         &self,
         job: &schist_fx::WarpParams<'_>,
-        src: &wgpu::Buffer,
+        src: &WarpSource,
+        budget: usize,
     ) -> Option<Vec<f32>> {
+        let count = job.src_width.checked_mul(job.src_height)?;
+        if count != src.pixels
+            || job.src_width > i32::MAX as usize
+            || job.src_height > i32::MAX as usize
+        {
+            return None;
+        }
+        let out_len = job.dst_width.checked_mul(job.dst_height)?.checked_mul(4)?;
+        if out_len == 0 {
+            return Some(Vec::new());
+        }
+        let max_axis = self.device.limits().max_compute_workgroups_per_dimension as usize * 16;
+        let max_pixels = budget.min(self.binding_limit()) / 16;
+        let width = job.dst_width.min(max_axis).min(max_pixels);
+        if width == 0 {
+            return None;
+        }
+        let height = job.dst_height.min(max_axis).min(max_pixels / width);
+        if job.mesh.len().checked_mul(4)? > self.binding_limit()
+            || (job.mesh_cols >= 2
+                && job.mesh_rows >= 2
+                && (job.mesh_cols.checked_mul(job.mesh_rows)?.checked_mul(2)? > job.mesh.len()
+                    || !job.cell.is_finite()
+                    || job.cell <= 0.0))
+        {
+            return None;
+        }
+        let mut out = vec![0.0; out_len];
+        for y in (0..job.dst_height).step_by(height) {
+            for x in (0..job.dst_width).step_by(width) {
+                let w = width.min(job.dst_width - x);
+                let h = height.min(job.dst_height - y);
+                let tile = schist_fx::WarpParams {
+                    dst_width: w,
+                    dst_height: h,
+                    dst_origin: (
+                        job.dst_origin.0.checked_add(i32::try_from(x).ok()?)?,
+                        job.dst_origin.1.checked_add(i32::try_from(y).ok()?)?,
+                    ),
+                    ..*job
+                };
+                let pixels = self.run_warp_tile(&tile, src)?;
+                for row in 0..h {
+                    let offset = ((y + row) * job.dst_width + x) * 4;
+                    out[offset..offset + w * 4]
+                        .copy_from_slice(&pixels[row * w * 4..(row + 1) * w * 4]);
+                }
+            }
+        }
+        Some(out)
+    }
+
+    fn run_warp_tile(&self, job: &schist_fx::WarpParams<'_>, src: &WarpSource) -> Option<Vec<f32>> {
         let _work = self.work.lock();
+        self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory);
         self.device.push_error_scope(wgpu::ErrorFilter::Validation);
         let bytes = (job.dst_width * job.dst_height * 16) as u64;
         let dst = self.device.create_buffer(&wgpu::BufferDescriptor {
@@ -887,7 +1028,10 @@ impl GpuContext {
             layout: &self.fx_warp.get_bind_group_layout(0),
             entries: &[
                 bind_entry(0, &params),
-                bind_entry(1, src),
+                wgpu::BindGroupEntry {
+                    binding: 1,
+                    resource: wgpu::BindingResource::TextureView(&src.view),
+                },
                 bind_entry(2, &dst),
                 bind_entry(3, &mesh),
             ],
@@ -908,7 +1052,12 @@ impl GpuContext {
                 1,
             );
         }
-        self.finish_fx(encoder, &dst, bytes, "warp")
+        let result = self.finish_fx(encoder, &dst, bytes, "warp");
+        if let Some(error) = pollster::block_on(self.device.pop_error_scope()) {
+            log::warn!("GPU warp allocation failed: {error}");
+            return None;
+        }
+        result
     }
 
     /// Submit, read `bytes` back out of `out`, and turn any validation
@@ -920,35 +1069,39 @@ impl GpuContext {
         bytes: u64,
         what: &str,
     ) -> Option<Vec<f32>> {
-        let staging = self.device.create_buffer(&wgpu::BufferDescriptor {
-            label: Some("fx-staging"),
-            size: bytes,
-            usage: wgpu::BufferUsages::COPY_DST | wgpu::BufferUsages::MAP_READ,
-            mapped_at_creation: false,
-        });
-        encoder.copy_buffer_to_buffer(out, 0, &staging, 0, bytes);
-        self.queue.submit([encoder.finish()]);
-        let slice = staging.slice(..);
-        let (tx, rx) = std::sync::mpsc::channel();
-        slice.map_async(wgpu::MapMode::Read, move |r| {
-            let _ = tx.send(r);
-        });
-        self.device.poll(wgpu::PollType::wait_indefinitely()).ok()?;
-        rx.recv().ok()?.ok()?;
-        let data = slice.get_mapped_range();
-        let floats: Vec<f32> = data
-            .as_chunks::<4>()
-            .0
-            .iter()
-            .map(|b| f32::from_le_bytes(*b))
-            .collect();
-        drop(data);
-        staging.unmap();
+        let result = (|| {
+            let staging = self.device.create_buffer(&wgpu::BufferDescriptor {
+                label: Some("fx-staging"),
+                size: bytes,
+                usage: wgpu::BufferUsages::COPY_DST | wgpu::BufferUsages::MAP_READ,
+                mapped_at_creation: false,
+            });
+            encoder.copy_buffer_to_buffer(out, 0, &staging, 0, bytes);
+            self.queue.submit([encoder.finish()]);
+            let slice = staging.slice(..);
+            let (tx, rx) = std::sync::mpsc::channel();
+            slice.map_async(wgpu::MapMode::Read, move |r| {
+                let _ = tx.send(r);
+            });
+            self.device.poll(wgpu::PollType::wait_indefinitely()).ok()?;
+            rx.recv().ok()?.ok()?;
+            let data = slice.get_mapped_range();
+            let floats: Vec<f32> = data
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .map(|b| f32::from_le_bytes(*b))
+                .collect();
+            drop(data);
+            staging.unmap();
+            Some(floats)
+        })();
+        // A failed map/poll must not leave a scope for the next job to pop.
         if let Some(err) = pollster::block_on(self.device.pop_error_scope()) {
             log::warn!("gpu {what} failed, falling back to the CPU: {err}");
             return None;
         }
-        Some(floats)
+        result
     }
 
     pub fn adapter_info(&self) -> &wgpu::AdapterInfo {

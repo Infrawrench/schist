@@ -19,7 +19,7 @@ pub struct GpuFx {
 
 struct Resident {
     token: u64,
-    buffer: wgpu::Buffer,
+    buffer: crate::WarpSource,
 }
 
 impl GpuFx {
@@ -28,15 +28,6 @@ impl GpuFx {
             ctx,
             resident: parking_lot::Mutex::new(None),
         }
-    }
-
-    /// Whether a plane fits in one storage binding. The blurs band
-    /// themselves past this; the warp cannot, because an arbitrary
-    /// displacement may read anywhere in its source.
-    fn plane_ok(&self, floats: usize) -> bool {
-        floats
-            .checked_mul(4)
-            .is_some_and(|bytes| bytes <= self.ctx.binding_limit())
     }
 }
 
@@ -104,11 +95,8 @@ impl FxBackend for GpuFx {
         // two transfers of the whole layer. A tool that re-renders only
         // what its brush touched declines the deal by passing no token —
         // its jobs are too small to leave the CPU.
-        let pixels = params.dst_width * params.dst_height;
+        let pixels = params.dst_width.checked_mul(params.dst_height)?;
         if params.src_token == 0 || !schist_fx::worth_offloading(pixels, 24) {
-            return None;
-        }
-        if !self.plane_ok(pixels * 4) {
             return None;
         }
         let mut resident = self.resident.lock();
@@ -118,7 +106,7 @@ impl FxBackend for GpuFx {
         if !reuse {
             // `src` is empty only when we just told the caller we had the
             // plane, so this is a genuine upload.
-            if src.is_empty() || !self.plane_ok(src.len()) {
+            if src.is_empty() {
                 return None;
             }
             *resident = Some(Resident {

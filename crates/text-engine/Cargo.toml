@@ -7,6 +7,8 @@ license.workspace = true
 [dependencies]
 schist-core.workspace = true
 schist-color.workspace = true
+schist-vector.workspace = true
+rustybuzz = "0.20.1"
 fontdue = "0.9"
 fontdb = "0.24"
 ttf-parser = "0.25"

@@ -369,7 +369,7 @@ pub fn warp_cpu(job: &WarpParams<'_>, src: &[f32]) -> Vec<f32> {
                 let y = job.dst_origin.1 + row as i32;
                 let (fx, fy) = (x as f32 + 0.5, y as f32 + 0.5);
                 let (dx, dy) = mesh_sample(job, fx, fy);
-                let px = fetch(job, src, fx + dx - 0.5, fy + dy - 0.5);
+                let px = fetch(job, src, x, y, dx, dy);
                 dst[col * 4..col * 4 + 4].copy_from_slice(&px);
             }
         });
@@ -403,10 +403,14 @@ fn mesh_sample(job: &WarpParams<'_>, x: f32, y: f32) -> (f32, f32) {
 }
 
 /// Bilinear fetch on premultiplied alpha, returning straight alpha.
-fn fetch(job: &WarpParams<'_>, src: &[f32], fx: f32, fy: f32) -> [f32; 4] {
-    let (x0, y0) = (fx.floor(), fy.floor());
-    let (tx, ty) = (fx - x0, fy - y0);
-    let (x0, y0) = (x0 as i32, y0 as i32);
+fn fetch(job: &WarpParams<'_>, src: &[f32], x: i32, y: i32, dx: f32, dy: f32) -> [f32; 4] {
+    // Keep the subpixel displacement separate from the document position.
+    // Adding them in f32 first loses fractional bits on large coordinates;
+    // GPU reassociation of the pixel-centre +/- 0.5 makes that loss differ
+    // from the CPU near powers of two.
+    let (ox, oy) = (dx.floor(), dy.floor());
+    let (tx, ty) = (dx - ox, dy - oy);
+    let (x0, y0) = (x + ox as i32, y + oy as i32);
     let mut acc = [0.0f32; 4];
     for (dx, dy, w) in [
         (0, 0, (1.0 - tx) * (1.0 - ty)),
@@ -705,6 +709,40 @@ mod tests {
         for (o, s) in out.as_chunks::<4>().0.iter().zip(src.as_chunks::<4>().0) {
             for c in 0..4 {
                 assert!((o[c] - s[c]).abs() < 1e-5, "{o:?} != {s:?}");
+            }
+        }
+    }
+
+    #[test]
+    fn fractional_warp_sampling_is_independent_of_document_origin() {
+        let src = [
+            0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0,
+        ];
+        let mesh = [0.1, 0.2].repeat(4);
+        for origin in [
+            (0, 0),
+            (923, 1024),
+            (-923, -1024),
+            (16_000_000, -16_000_000),
+        ] {
+            let job = WarpParams {
+                src_width: 2,
+                src_height: 2,
+                src_origin: origin,
+                dst_origin: origin,
+                dst_width: 1,
+                dst_height: 1,
+                mesh: &mesh,
+                mesh_cols: 2,
+                mesh_rows: 2,
+                cell: 4.0,
+                mesh_origin: origin,
+                src_token: 0,
+            };
+            let out = warp_cpu(&job, &src);
+            // The two white texels contribute 0.1 * 0.8 + 0.9 * 0.2.
+            for (actual, expected) in out.iter().zip([0.26, 0.26, 0.26, 1.0]) {
+                assert!((actual - expected).abs() < 1e-6, "{origin:?}: {out:?}");
             }
         }
     }
