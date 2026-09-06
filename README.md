@@ -137,7 +137,10 @@ Path can fill, stroke or convert them to a selection. Rectangle, ellipse,
 line (with its own weight, 45° constrain and arrowheads), polygon and six
 custom shapes — as **live shape layers** by default, which keep their
 path, regenerate their pixels from it, and survive a PSD round trip as
-vectors. Editable text layers.
+vectors. Editable text layers, including **text on paths** with a baseline
+offset and alignment, plus **OpenType controls** for kerning, ligatures,
+discretionary ligatures and small caps. Text settings survive PSD/PSB
+save and reopen. See [docs/text.md](docs/text.md).
 
 **Non-destructive.** Sixteen adjustments — levels, curves, hue/saturation,
 brightness/contrast, black & white, colour balance, vibrance, exposure,
@@ -211,7 +214,12 @@ a lens blur at radius 60 is eleven thousand taps a pixel. **Content-Aware
 Scale** runs there too, and runs *entirely* there: find the lowest-energy
 seam, cut it, start again is hundreds of full-image passes for one
 command, so the whole loop stays on the device and only the finished image
-comes back. The CPU is the semantic reference throughout: parity tests
+comes back. **Large warps and seam carves can exceed a storage-buffer
+binding**: warp sources live in texture arrays and their output is banded;
+large carves keep their image planes in texture arrays and cumulative costs
+in two rows. Device texture limits and available memory still apply, and
+small carves stay on the CPU when dispatch overhead would cost more than
+the GPU saves. The CPU is the semantic reference throughout: parity tests
 hold the GPU to it, anything it can't express (layers mid-drag) or can't
 fit falls back for that call, and machines with no usable adapter just run
 the CPU path. Toggle it in
@@ -280,17 +288,13 @@ Remap anything in `~/.config/schist/keymap.json`:
 
 - **CMYK and Lab edit in RGB.** Files open, edit and save in their own
   mode, converting at the boundaries; the editing in between is RGB, so
-  individual ink channels are not separately editable.
-- **Text is not on a path**, and the type engine has no OpenType
-  feature controls.
-- **The mesh warp and the carve need the layer to fit one storage
-  binding.** A displacement may read anywhere in its source, and every
-  seam depends on the one before it over the whole image, so neither can
-  be split into bands the way the blurs are; on adapters at the 128 MB
-  baseline a large layer falls back to the CPU. Real GPUs report bindings
-  in the gigabytes and never reach it. The carve also stays on the CPU
-  below a couple of megapixels, where its row-by-row scan costs more in
-  dispatches than it saves.
+  individual ink channels are not separately editable. This remains
+  unresolved because tiles, editing operations and plugin APIs carry
+  RGBA, and import has already converted the native channels to RGB.
+  Correct native editing needs a coordinated storage, undo, compositor
+  and plugin-contract migration; RGB-derived controls cannot recover
+  independent CMYK separations. See the [implementation constraints and
+  remaining work](docs/native-colour-editing.md).
 
 ## Diagnostics
 
@@ -368,6 +372,7 @@ already logged into. See [docs/ai-panel.md](docs/ai-panel.md).
 * [docs/architecture.md](docs/architecture.md) — how the pieces fit
 * [docs/gallery.md](docs/gallery.md) — the Picasa-style photo gallery
 * [docs/plugin-guide.md](docs/plugin-guide.md) — writing plugins
+* [docs/text.md](docs/text.md) — OpenType controls and text on paths
 * [docs/mcp.md](docs/mcp.md) — the MCP server
 * [docs/ai-panel.md](docs/ai-panel.md) — the in-app AI sidebar
 * [docs/quicklook.md](docs/quicklook.md) — the macOS Quick Look extensions

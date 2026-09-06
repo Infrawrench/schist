@@ -3,14 +3,25 @@
 //! Scope: system font discovery, one colour per layer with the family,
 //! style and size free to change from character to character (see
 //! [`StyleRun`]), left-to-right line layout with kerning, word wrapping
-//! and alignment, rasterized to an 8-bit coverage mask. Complex shaping (ligature
-//! substitution, bidi, vertical scripts) is out of scope for v1 — those
-//! need a full shaper, which is why parley/swash is the
-//! eventual home for this crate.
+//! and alignment, rasterized to an 8-bit coverage mask. OpenType overrides
+//! enable rustybuzz shaping; stored paths position and rotate the glyphs.
+//! Paragraph bidi and vertical scripts are not yet supported.
 
 use schist_core::IntRect;
 use std::path::PathBuf;
 use std::sync::{Arc, OnceLock, RwLock};
+
+mod shaping;
+mod text_path;
+pub use text_path::TextPath;
+
+/// A layer-wide OpenType feature override. Tags are four ASCII bytes,
+/// e.g. `liga`, `kern`, `smcp`, or `ss01`; zero disables a feature.
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct OpenTypeFeature {
+    pub tag: String,
+    pub value: u32,
+}
 
 /// Horizontal alignment of wrapped lines.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, serde::Serialize, serde::Deserialize)]
@@ -60,6 +71,11 @@ pub struct TextSpec {
     /// existed load as.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub runs: Vec<StyleRun>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub features: Vec<OpenTypeFeature>,
+    /// A copy of the baseline path in layout coordinates.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub path: Option<TextPath>,
 }
 
 impl Default for TextSpec {
@@ -75,6 +91,8 @@ impl Default for TextSpec {
             tracking: 0.0,
             wrap_width: None,
             runs: Vec::new(),
+            features: Vec::new(),
+            path: None,
         }
     }
 }
@@ -161,6 +179,22 @@ impl CharStyle {
 }
 
 impl TextSpec {
+    pub fn feature(&self, tag: &str, default: bool) -> bool {
+        self.features
+            .iter()
+            .rev()
+            .find(|f| f.tag == tag)
+            .map_or(default, |f| f.value != 0)
+    }
+
+    pub fn set_feature(&mut self, tag: &str, enabled: bool) {
+        self.features.retain(|f| f.tag != tag);
+        self.features.push(OpenTypeFeature {
+            tag: tag.into(),
+            value: u32::from(enabled),
+        });
+    }
+
     /// The layer's own font, which uncovered text is set in.
     pub fn base_style(&self) -> CharStyle {
         CharStyle {
@@ -844,7 +878,7 @@ impl<'a> GposKern<'a> {
 /// One laid-out glyph, positioned relative to the layout origin.
 #[derive(Debug, Clone, Copy)]
 struct PlacedGlyph {
-    ch: char,
+    glyph: u16,
     x: f32,
     baseline: f32,
     /// Index into the layout's faces: which font, at which size.
@@ -951,9 +985,14 @@ pub struct Caret {
     pub x: f32,
     pub top: f32,
     pub height: f32,
+    /// Clockwise rotation in radians; zero for ordinary horizontal text.
+    pub angle: f32,
 }
 
 fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
+    if !spec.features.is_empty() {
+        return shaping::layout(spec, base);
+    }
     let faces = Faces::resolve(spec, base);
     // A face with GPOS kerning speaks through it alone; the legacy
     // `kern` table is only consulted when there is no GPOS to read.
@@ -1010,9 +1049,9 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
         // overflow rather than being broken mid-word.
         for word in raw_line.split_inclusive(' ') {
             let mut word_width = measure_word(word, at, prev);
-            let wraps = spec
-                .wrap_width
-                .is_some_and(|w| !current.is_empty() && width + word_width > w);
+            let wraps = spec.wrap_width.is_some_and(|w| {
+                spec.path.is_none() && !current.is_empty() && width + word_width > w
+            });
             if wraps {
                 lines.push(Line {
                     text: std::mem::take(&mut current),
@@ -1095,7 +1134,7 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
             chars.push(CharPos { byte, x });
             if !ch.is_whitespace() {
                 placed.push(PlacedGlyph {
-                    ch,
+                    glyph: faces.faces[ix].0.font.lookup_glyph_index(ch),
                     x,
                     baseline,
                     face: ix,
@@ -1135,6 +1174,41 @@ pub fn line_spans(spec: &TextSpec) -> Vec<LineSpan> {
 pub fn caret_at(spec: &TextSpec, byte: usize) -> Option<Caret> {
     let face = load_font(&spec.family, spec.bold, spec.italic)?;
     let laid = layout(spec, &face);
+    let caret = caret_in_layout(spec, &laid, byte);
+    Some(match path_guide(spec, &laid) {
+        Some(guide) => guide.caret(caret, laid.first_baseline),
+        None => caret,
+    })
+}
+
+fn path_guide(spec: &TextSpec, laid: &Layout) -> Option<text_path::Guide> {
+    text_path::Guide::new(spec.path.as_ref()?, spec.align, laid.layout_width)
+}
+
+/// All insertion points in a single layout pass, including the final one.
+pub fn carets(spec: &TextSpec) -> Vec<(usize, Caret)> {
+    let Some(face) = load_font(&spec.family, spec.bold, spec.italic) else {
+        return Vec::new();
+    };
+    let laid = layout(spec, &face);
+    let guide = path_guide(spec, &laid);
+    spec.text
+        .char_indices()
+        .map(|(i, _)| i)
+        .chain(std::iter::once(spec.text.len()))
+        .map(|i| {
+            let caret = caret_in_layout(spec, &laid, i);
+            (
+                i,
+                guide
+                    .as_ref()
+                    .map_or(caret, |g| g.caret(caret, laid.first_baseline)),
+            )
+        })
+        .collect()
+}
+
+fn caret_in_layout(spec: &TextSpec, laid: &Layout, byte: usize) -> Caret {
     let byte = clamp_to_boundary(&spec.text, byte);
 
     // The last line whose range starts at or before `byte`: with an
@@ -1170,7 +1244,7 @@ pub fn caret_at(spec: &TextSpec, byte: usize) -> Option<Caret> {
             .map(|c| c.x)
             .unwrap_or(span.x + span.width)
     };
-    Some(Caret {
+    Caret {
         x,
         top: span.top,
         height: if span.height > 0.0 {
@@ -1178,7 +1252,8 @@ pub fn caret_at(spec: &TextSpec, byte: usize) -> Option<Caret> {
         } else {
             spec.size
         },
-    })
+        angle: 0.0,
+    }
 }
 
 /// The text position nearest a point in layout coordinates.
@@ -1188,6 +1263,20 @@ pub fn caret_at(spec: &TextSpec, byte: usize) -> Option<Caret> {
 /// that line is used to its left or right, so a drag can continue beyond
 /// the ink and still select predictably.
 pub fn hit_test(spec: &TextSpec, x: f32, y: f32) -> Option<usize> {
+    if spec.path.is_some() {
+        return carets(spec)
+            .into_iter()
+            .min_by(|(_, a), (_, b)| {
+                let distance = |c: &Caret| {
+                    let (sin, cos) = c.angle.sin_cos();
+                    let (dx, dy) = (x - c.x, y - c.top);
+                    let along = (-dx * sin + dy * cos).clamp(0.0, c.height);
+                    (dx + sin * along).hypot(dy - cos * along)
+                };
+                distance(a).total_cmp(&distance(b))
+            })
+            .map(|(i, _)| i);
+    }
     let face = load_font(&spec.family, spec.bold, spec.italic)?;
     let laid = layout(spec, &face);
     let span = laid.lines.iter().min_by(|a, b| {
@@ -1238,13 +1327,15 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
         });
     }
     let faces = Faces::resolve(spec, &face);
+    let laid = layout(spec, &face);
+    let guide = path_guide(spec, &laid);
     let Layout {
         glyphs: placed,
         first_baseline,
         line_advance,
         layout_width,
         ..
-    } = layout(spec, &face);
+    } = laid;
     if placed.is_empty() {
         return Some(TextRaster {
             bounds: IntRect::EMPTY,
@@ -1261,13 +1352,20 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
     let mut bounds = IntRect::EMPTY;
     for g in &placed {
         let (font, size) = &faces.faces[g.face];
-        let (metrics, bitmap) = font.font.rasterize(g.ch, *size);
+        let (metrics, bitmap) = font.font.rasterize_indexed(g.glyph, *size);
         if metrics.width == 0 || metrics.height == 0 {
             continue;
         }
-        let left = (g.x + metrics.xmin as f32).floor() as i32;
-        let top = (g.baseline - metrics.height as f32 - metrics.ymin as f32).floor() as i32;
-        let rect = IntRect::from_xywh(left, top, metrics.width as u32, metrics.height as u32);
+        let (rect, bitmap) = if let Some(guide) = &guide {
+            text_path::glyph_bitmap(guide, g, first_baseline, &metrics, bitmap)
+        } else {
+            let left = (g.x + metrics.xmin as f32).floor() as i32;
+            let top = (g.baseline - metrics.height as f32 - metrics.ymin as f32).floor() as i32;
+            (
+                IntRect::from_xywh(left, top, metrics.width as u32, metrics.height as u32),
+                bitmap,
+            )
+        };
         bounds = bounds.union(&rect);
         rasterized.push((rect, bitmap));
     }
@@ -1313,6 +1411,124 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn opentype_spec(text: &str) -> (TextSpec, LoadedFace) {
+        // The browser's OFL font is also a deterministic shaping fixture.
+        let data = include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf");
+        let face = LoadedFace {
+            font: Arc::new(fontdue::Font::from_bytes(data.as_slice(), Default::default()).unwrap()),
+            data: Arc::new(data.to_vec()),
+            index: 0,
+            cap_ratio: None,
+        };
+        let mut spec = spec(text);
+        spec.family = "Schist OpenType test fixture".into();
+        font_cache()
+            .lock()
+            .unwrap()
+            .insert((spec.family.clone(), false, false), Some(face.clone()));
+        (spec, face)
+    }
+
+    #[test]
+    fn opentype_ligatures_and_kerning_change_the_glyph_layout() {
+        let (mut s, face) = opentype_spec("office AV");
+        s.set_feature("liga", false);
+        let separate = layout(&s, &face);
+        s.set_feature("liga", true);
+        let joined = layout(&s, &face);
+        assert!(
+            joined.glyphs.len() < separate.glyphs.len(),
+            "liga must substitute real glyphs"
+        );
+        for (byte, c) in carets(&s) {
+            assert_eq!(hit_test(&s, c.x, c.top + c.height / 2.0), Some(byte));
+        }
+        s.set_feature("kern", false);
+        let unkerned = layout(&s, &face).layout_width;
+        s.set_feature("kern", true);
+        assert!(layout(&s, &face).layout_width < unkerned);
+        let json = serde_json::to_string(&s).unwrap();
+        assert_eq!(serde_json::from_str::<TextSpec>(&json).unwrap(), s);
+    }
+
+    #[test]
+    fn shaping_keeps_utf8_carets_wrapping_and_style_runs() {
+        let (mut s, _) = opentype_spec("café office second line");
+        s.set_feature("liga", true);
+        s.wrap_width = Some(180.0);
+        s.apply_style(
+            6..12,
+            &StyleRun {
+                size: Some(56.0),
+                ..Default::default()
+            },
+        );
+        assert!(line_spans(&s).len() > 1);
+        let raster = rasterize(&s).unwrap();
+        assert!(!raster.is_empty());
+        for (byte, c) in carets(&s) {
+            assert!(s.text.is_char_boundary(byte));
+            assert!(c.x.is_finite() && c.top.is_finite());
+            assert_eq!(hit_test(&s, c.x, c.top + c.height / 2.0), Some(byte));
+        }
+    }
+
+    #[test]
+    fn path_rotates_ink_carets_and_hit_testing_together() {
+        use schist_core::path::{Anchor, SubPath};
+        let (mut s, _) = opentype_spec("office");
+        s.set_feature("liga", true);
+        let straight = rasterize(&s).unwrap();
+        s.path = Some(TextPath {
+            curve: SubPath {
+                anchors: vec![Anchor::corner(100.0, 0.0), Anchor::corner(100.0, 400.0)],
+                closed: false,
+            },
+            offset: 0.0,
+        });
+        let vertical = rasterize(&s).unwrap();
+        assert!((vertical.bounds.height() - straight.bounds.width()).abs() <= 2);
+        assert!((vertical.bounds.width() - straight.bounds.height()).abs() <= 2);
+        for (byte, c) in carets(&s) {
+            assert!((c.angle - std::f32::consts::FRAC_PI_2).abs() < 0.001);
+            assert_eq!(hit_test(&s, c.x - c.height / 2.0, c.top), Some(byte));
+        }
+        s.path.as_mut().unwrap().offset = 25.0;
+        let shifted = rasterize(&s).unwrap();
+        assert_eq!(shifted.bounds, vertical.bounds.translated(0, 25));
+        s.align = Align::Right;
+        let end = caret_at(&s, s.text.len()).unwrap();
+        assert!((end.top - 425.0).abs() < 0.01);
+    }
+
+    #[test]
+    fn curved_and_degenerate_paths_remain_renderable() {
+        use schist_core::path::{Anchor, SubPath};
+        let (mut s, _) = opentype_spec("Along the curve");
+        s.path = Some(TextPath {
+            curve: SubPath {
+                anchors: vec![
+                    Anchor::smooth(0.0, 100.0, 80.0, -100.0),
+                    Anchor::smooth(300.0, 100.0, 80.0, 100.0),
+                ],
+                closed: false,
+            },
+            offset: 0.0,
+        });
+        assert!(!rasterize(&s).unwrap().is_empty());
+        let cursors = carets(&s);
+        assert!((cursors[0].1.angle - cursors.last().unwrap().1.angle).abs() > 0.1);
+        s.path
+            .as_mut()
+            .unwrap()
+            .curve
+            .anchors
+            .fill(Anchor::corner(0.0, 0.0));
+        let fallback = rasterize(&s).unwrap();
+        s.path = None;
+        assert_eq!(fallback.coverage, rasterize(&s).unwrap().coverage);
+    }
 
     fn spec(text: &str) -> TextSpec {
         TextSpec {

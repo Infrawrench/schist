@@ -25,7 +25,7 @@ struct Params {
 }
 
 @group(0) @binding(0) var<uniform> p: Params;
-@group(0) @binding(1) var<storage, read> src: array<f32>;
+@group(0) @binding(1) var src: texture_2d_array<f32>;
 @group(0) @binding(2) var<storage, read_write> dst: array<f32>;
 @group(0) @binding(3) var<storage, read> mesh: array<f32>;
 
@@ -37,8 +37,10 @@ fn src_pixel(x: i32, y: i32) -> vec4<f32> {
     if (lx < 0 || ly < 0 || lx >= i32(p.src_width) || ly >= i32(p.src_height)) {
         return vec4(0.0);
     }
-    let i = (u32(ly) * p.src_width + u32(lx)) * 4u;
-    return vec4(src[i], src[i + 1u], src[i + 2u], src[i + 3u]);
+    let i = u32(ly) * p.src_width + u32(lx);
+    let size = textureDimensions(src);
+    let page = size.x * size.y;
+    return textureLoad(src, vec2<i32>(i32(i % size.x), i32((i % page) / size.x)), i32(i / page), 0);
 }
 
 fn mesh_at(c: u32, r: u32) -> vec2<f32> {

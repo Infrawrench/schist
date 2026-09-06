@@ -683,11 +683,49 @@ impl<'a> EditBuilder<'a> {
         if dx == 0 && dy == 0 {
             return;
         }
+        // Text pixels move with the layer, and their editable origin must
+        // move too. Keep the JSON contract here without depending on the
+        // text engine (which itself depends on core). Record complete
+        // before/after blocks so undo restores even their original bytes.
+        fn text_origins(layer: &Layer, dx: i32, dy: i32, out: &mut Vec<(LayerId, Vec<RawBlock>)>) {
+            if let Some(index) = layer.extras.iter().position(|b| b.key == *b"PsTx") {
+                let translated = (|| {
+                    let mut value: serde_json::Value =
+                        serde_json::from_slice(&layer.extras[index].data).ok()?;
+                    let origin = value.get_mut("origin")?.as_array_mut()?;
+                    if origin.len() != 2 {
+                        return None;
+                    }
+                    let x = i32::try_from(origin[0].as_i64()?).ok()?.checked_add(dx)?;
+                    let y = i32::try_from(origin[1].as_i64()?).ok()?.checked_add(dy)?;
+                    origin[0] = x.into();
+                    origin[1] = y.into();
+                    serde_json::to_vec(&value).ok()
+                })();
+                if let Some(data) = translated {
+                    let mut extras = layer.extras.clone();
+                    extras[index].data = data;
+                    out.push((layer.id, extras));
+                }
+            }
+            if let crate::layer::LayerKind::Group(group) = &layer.kind {
+                for child in &group.children {
+                    text_origins(child, dx, dy, out);
+                }
+            }
+        }
+        let mut origins = Vec::new();
+        if let Some(layer) = self.doc.tree.find(id) {
+            text_origins(layer, dx, dy, &mut origins);
+        }
         self.doc.translate_layer_content(id, dx, dy);
         if let Some(layer) = self.doc.tree.find(id) {
             self.damage = self.damage.union(&layer.content_bounds().inflated(1));
         }
         self.ops.push(EditOp::LayerTranslate { layer: id, dx, dy });
+        for (layer, extras) in origins {
+            self.set_extras(layer, extras);
+        }
     }
 
     pub fn move_layer(&mut self, from: LayerPath, to: LayerPath) {
