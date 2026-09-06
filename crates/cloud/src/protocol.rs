@@ -82,6 +82,10 @@ pub struct Bucket {
     pub name: String,
     pub revision: u64,
     pub rule: Option<Rule>,
+    /// Total matching assets, supplied with the bucket list before it is opened.
+    /// Older providers may omit the count; unknown is distinct from empty.
+    #[serde(default)]
+    pub asset_count: Option<u64>,
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct Rule {
@@ -317,6 +321,19 @@ pub fn format_date(t: u64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg_attr(not(target_arch = "wasm32"), test)]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
+    fn bucket_counts_arrive_with_the_catalogue() {
+        for count in [None, Some(0_u64), Some(1234)] {
+            let mut bucket = serde_json::json!({"id":"b","name":"Summer","revision":1,"rule":null});
+            if let Some(count) = count {
+                bucket["asset_count"] = count.into();
+            }
+            let bytes = rmp_serde::to_vec_named(&bucket).unwrap();
+            let decoded: Bucket = rmp_serde::from_slice(&bytes).unwrap();
+            assert_eq!(decoded.asset_count, count);
+        }
+    }
     pub(super) fn capabilities() -> Capabilities {
         Capabilities {
             document_models: vec![IMAGE_MODEL.into()],

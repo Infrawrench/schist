@@ -840,7 +840,6 @@ pub(crate) fn bucket_rows(
     }
     let showing = ws.cloud.show;
     let scope = ws.cloud.query.scope.clone();
-    let count = |ws: &Workspace, this: &Scope| scope_count(ws, this);
     for (i, bucket) in ws.cloud.buckets.clone().into_iter().enumerate() {
         let this = Scope::Bucket {
             id: bucket.id.clone(),
@@ -853,20 +852,28 @@ pub(crate) fn bucket_rows(
         } else {
             format!("{CLOUD_GLYPH} {}", bucket.name)
         };
-        let row = sidebar_row_frame(("cloud-bucket", i), label, count(ws, &this), selected, 0)
-            .on_mouse_down(
-                MouseButton::Left,
-                cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                    ws.cloud_browse(Scope::Bucket { id: browse.clone() }, cx)
-                }),
-            )
-            .on_mouse_down(
-                MouseButton::Right,
-                cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
-                    ws.cloud.context = Some((ev.position, CloudContext::Bucket(context.clone())));
-                    cx.notify();
-                }),
-            );
+        let row = sidebar_row_frame(
+            ("cloud-bucket", i),
+            label,
+            bucket
+                .asset_count
+                .and_then(|count| usize::try_from(count).ok()),
+            selected,
+            0,
+        )
+        .on_mouse_down(
+            MouseButton::Left,
+            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
+                ws.cloud_browse(Scope::Bucket { id: browse.clone() }, cx)
+            }),
+        )
+        .on_mouse_down(
+            MouseButton::Right,
+            cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                ws.cloud.context = Some((ev.position, CloudContext::Bucket(context.clone())));
+                cx.notify();
+            }),
+        );
         rows.push(droppable(row, Some(bucket.id.clone()), None, cx).into_any_element());
     }
     rows.extend(catalogue_pages(false, ws, cx));
@@ -1713,6 +1720,7 @@ mod grouping_tests {
             id: "b".into(),
             name: "Summer".into(),
             revision: 1,
+            asset_count: Some(2),
             rule: Some(Rule {
                 scope: Scope::Library,
                 text: "beach".into(),
