@@ -712,8 +712,8 @@ fn droppable(
 /// bucket from a local one in the same list.
 pub(crate) const CLOUD_GLYPH: &str = "\u{2601}";
 
-/// Whether the current asset page belongs to `this` scope and is worth
-/// a count on its row.
+/// The library root still gets its count from the current asset page.
+/// Individual folders and buckets get theirs from the catalogue.
 fn scope_count(ws: &Workspace, this: &Scope) -> Option<usize> {
     (ws.cloud.show && ws.cloud.loaded && &ws.cloud.query.scope == this)
         .then_some(ws.cloud.total as usize)
@@ -777,12 +777,7 @@ pub(crate) fn folder_rows(
         rows.push(droppable(row, None, None, cx).into_any_element());
     }
     let ordered = folder_tree(&ws.cloud.folders);
-    let count = |ws: &Workspace, this: &Scope| scope_count(ws, this);
     for (i, (depth, folder)) in ordered.into_iter().enumerate() {
-        let this = Scope::Folder {
-            id: folder.id.clone(),
-            recursive: true,
-        };
         let selected = showing && matches!(&scope, Scope::Folder { id, .. } if id == &folder.id);
         let browse = folder.id.clone();
         let context = folder.id.clone();
@@ -797,7 +792,9 @@ pub(crate) fn folder_rows(
         let row = sidebar_row_frame(
             ("cloud-folder", i),
             format!("\u{25b8} {}", folder.name),
-            count(ws, &this),
+            folder
+                .asset_count
+                .and_then(|count| usize::try_from(count).ok()),
             selected,
             depth + 1,
         )
@@ -1663,6 +1660,7 @@ mod grouping_tests {
             parent_id: parent.map(str::to_string),
             name: name.into(),
             revision: 1,
+            asset_count: Some(0),
         }
     }
     const MARCH_2024: u64 = 1_710_504_000;

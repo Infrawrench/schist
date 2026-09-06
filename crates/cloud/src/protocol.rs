@@ -75,6 +75,10 @@ pub struct Folder {
     pub parent_id: Option<String>,
     pub name: String,
     pub revision: u64,
+    /// Assets in this folder and its descendants, supplied with the folder list.
+    /// Older providers may omit the count; unknown is distinct from empty.
+    #[serde(default)]
+    pub asset_count: Option<u64>,
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct Bucket {
@@ -321,6 +325,20 @@ pub fn format_date(t: u64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg_attr(not(target_arch = "wasm32"), test)]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
+    fn folder_counts_arrive_with_the_catalogue() {
+        for count in [None, Some(0_u64), Some(1234)] {
+            let mut folder =
+                serde_json::json!({"id":"f","name":"Photos","revision":1,"parent_id":null});
+            if let Some(count) = count {
+                folder["asset_count"] = count.into();
+            }
+            let bytes = rmp_serde::to_vec_named(&folder).unwrap();
+            let decoded: Folder = rmp_serde::from_slice(&bytes).unwrap();
+            assert_eq!(decoded.asset_count, count);
+        }
+    }
     #[cfg_attr(not(target_arch = "wasm32"), test)]
     #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
     fn bucket_counts_arrive_with_the_catalogue() {
