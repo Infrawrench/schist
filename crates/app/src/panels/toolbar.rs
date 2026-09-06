@@ -319,28 +319,13 @@ pub fn tool_flyout(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gp
                 .unwrap_or((id, "move"));
             let selected = id == active;
             let shortcut = shortcut.clone();
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
+            ListItem::new(id)
                 .gap_2()
-                .px_2()
-                .h(px(24.0))
-                .when_active(selected)
-                .hover(move |s| {
-                    if selected {
-                        s
-                    } else {
-                        s.bg(gpui::rgb(palette().hover))
-                    }
-                })
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e, _w, cx| {
-                        ws.close_tool_flyout(cx);
-                        ws.activate_tool(id, cx);
-                    }),
-                )
+                .selected(selected)
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    ws.close_tool_flyout(cx);
+                    ws.activate_tool(id, cx);
+                }))
                 .child(icon(icon_name, 14.0, palette().text))
                 .child(div().flex_grow().text_size(px(12.0)).child(name))
                 .child(

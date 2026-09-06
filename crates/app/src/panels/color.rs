@@ -8,53 +8,41 @@ pub(super) fn color_wells(ws: &Workspace, cx: &mut Context<Workspace>) -> impl I
         .size(px(30.0))
         .mt_2()
         .child(
-            div()
+            Swatch::new("background-well", swatch_hex(ws.editor.background))
                 .absolute()
                 .bottom_0()
                 .right_0()
-                .size(px(18.0))
-                .bg(swatch_hex(ws.editor.background))
-                .border_1()
+                .rounded_none()
                 .border_color(gpui::rgb(palette().text_faint))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _ev, _w, cx| {
-                        ws.open_color_picker(ColorTarget::Background, cx)
-                    }),
+                .on_click(
+                    cx.listener(|ws, _e, _w, cx| ws.open_color_picker(ColorTarget::Background, cx)),
                 ),
         )
         .child(
-            div()
+            Swatch::new("foreground-well", swatch_hex(ws.editor.foreground))
                 .absolute()
                 .top_0()
                 .left_0()
-                .size(px(18.0))
-                .bg(swatch_hex(ws.editor.foreground))
-                .border_1()
+                .rounded_none()
                 .border_color(gpui::rgb(palette().text))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _ev, _w, cx| {
-                        ws.open_color_picker(ColorTarget::Foreground, cx)
-                    }),
+                .on_click(
+                    cx.listener(|ws, _e, _w, cx| ws.open_color_picker(ColorTarget::Foreground, cx)),
                 ),
         )
         // The empty corner between the two wells, which is where
         // Photoshop puts the swap arrows too.
         .child(
-            div()
+            IconButton::new("swap-colors", "swap")
+                .size(11.0)
+                .icon_size(11.0)
+                .color(palette().text_dim)
                 .absolute()
                 .top(px(-1.0))
                 .right(px(-1.0))
-                .size(px(11.0))
-                .child(icon("swap", 11.0, palette().text_dim))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _ev, _w, cx| {
-                        std::mem::swap(&mut ws.editor.foreground, &mut ws.editor.background);
-                        cx.notify();
-                    }),
-                ),
+                .on_click(cx.listener(|ws, _e, _w, cx| {
+                    std::mem::swap(&mut ws.editor.foreground, &mut ws.editor.background);
+                    cx.notify();
+                })),
         )
 }
 
@@ -79,37 +67,27 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
                 ws.open_context_menu(ContextTarget::Color, ev.position, cx);
             }),
         )
-        .child(
-            div()
-                .flex()
-                .flex_row()
-                .flex_wrap()
-                .gap_1()
-                .children(PALETTE.map(|hex| {
-                    div()
-                        .size(px(18.0))
-                        .bg(gpui::rgb(hex))
-                        .border_1()
-                        .border_color(gpui::rgb(palette().divider))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
-                                let color = Rgba::from_u8(
-                                    ((hex >> 16) & 0xFF) as u8,
-                                    ((hex >> 8) & 0xFF) as u8,
-                                    (hex & 0xFF) as u8,
-                                    255,
-                                );
-                                if ev.modifiers.alt {
-                                    ws.editor.background = color;
-                                } else {
-                                    ws.editor.foreground = color;
-                                }
-                                cx.notify();
-                            }),
-                        )
-                })),
-        )
+        .child(div().flex().flex_row().flex_wrap().gap_1().children(
+            PALETTE.iter().enumerate().map(|(i, &hex)| {
+                Swatch::new(("palette-swatch", i), gpui::rgb(hex))
+                    .rounded_none()
+                    .border_color(gpui::rgb(palette().divider))
+                    .on_click(cx.listener(move |ws, ev: &gpui::ClickEvent, _w, cx| {
+                        let color = Rgba::from_u8(
+                            ((hex >> 16) & 0xFF) as u8,
+                            ((hex >> 8) & 0xFF) as u8,
+                            (hex & 0xFF) as u8,
+                            255,
+                        );
+                        if ev.modifiers().alt {
+                            ws.editor.background = color;
+                        } else {
+                            ws.editor.foreground = color;
+                        }
+                        cx.notify();
+                    }))
+            }),
+        ))
         .child(slider(
             "col-r",
             "R",
@@ -147,17 +125,12 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
                         .child(format!("#{:02X}{:02X}{:02X}", fg[0], fg[1], fg[2])),
                 )
                 .child(
-                    div()
+                    Link::new("open-color-picker", "Picker\u{2026}")
                         .text_size(px(10.0))
                         .text_color(gpui::rgb(palette().text_dim))
-                        .hover(|s| s.text_color(gpui::rgb(palette().text)))
-                        .child("Picker\u{2026}")
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(|ws, _e, _w, cx| {
-                                ws.open_color_picker(ColorTarget::Foreground, cx)
-                            }),
-                        ),
+                        .on_click(cx.listener(|ws, _e, _w, cx| {
+                            ws.open_color_picker(ColorTarget::Foreground, cx)
+                        })),
                 ),
         )
         // Photoshop's spectrum bar: drag along it to take a hue directly.

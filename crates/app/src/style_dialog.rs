@@ -10,13 +10,14 @@ use crate::dialogs::{param_slider, SliderSpec};
 use crate::ui;
 use crate::workspace::{ColorTarget, Modal, Popup, Workspace};
 use gpui::{
-    div, px, Context, InteractiveElement as _, IntoElement, MouseButton, MouseDownEvent,
-    ParentElement as _, SharedString, StatefulInteractiveElement as _, Styled,
+    div, px, Context, InteractiveElement as _, IntoElement, ParentElement as _, SharedString,
+    StatefulInteractiveElement as _, Styled,
 };
 use schist_color::Rgba;
 use schist_core::{
     BevelStyle_, BlendMode, GradientShape, LayerId, LayerStyle, StrokePosition, Technique,
 };
+use schist_ui::{Checkbox, ListItem, Swatch};
 
 /// The effects, in the order Photoshop lists them.
 pub const EFFECTS: &[(&str, &str)] = &[
@@ -318,22 +319,9 @@ fn color_swatch(
     c: Rgba,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .id(id)
-        .size(px(18.0))
-        .flex_none()
-        .rounded_sm()
-        .border_1()
-        .border_color(gpui::rgb(ui::palette().edge))
-        .bg(gpui::rgb(rgb_of(c)))
-        .cursor_pointer()
-        .hover(|s| s.border_color(gpui::rgb(ui::palette().text)))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                ws.open_color_picker_on(ColorTarget::StyleEffect(key), c, cx);
-            }),
-        )
+    Swatch::new(id, gpui::rgb(rgb_of(c))).on_click(cx.listener(move |ws, _e, _w, cx| {
+        ws.open_color_picker_on(ColorTarget::StyleEffect(key), c, cx);
+    }))
 }
 
 fn blend_of(style: &LayerStyle, effect: &str) -> Option<BlendMode> {
@@ -397,36 +385,25 @@ pub fn render(
             let key = *key;
             let on = enabled(&style, key);
             let selected = key == active;
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
+            ListItem::new(key)
                 .gap_2()
-                .px_2()
                 .h(px(22.0))
                 .rounded_sm()
-                .text_size(px(12.0))
                 .when_selected(selected)
-                .child(ui::checkbox(
-                    "",
-                    on,
-                    move |ws, cx| {
+                .child(
+                    Checkbox::new(key, "", on).on_change(cx.listener(move |ws, _on, _w, cx| {
                         edit(ws, cx, |s| set_enabled(s, key, !on));
-                    },
-                    cx,
-                ))
-                .child(div().flex_grow().child(SharedString::from(*label)))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                        ws.update_modal(|m| {
-                            if let Modal::LayerStyle { active, .. } = m {
-                                *active = key;
-                            }
-                        });
-                        cx.notify();
-                    }),
+                    })),
                 )
+                .child(div().flex_grow().child(SharedString::from(*label)))
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    ws.update_modal(|m| {
+                        if let Modal::LayerStyle { active, .. } = m {
+                            *active = key;
+                        }
+                    });
+                    cx.notify();
+                }))
         }));
 
     let mut settings = div().flex().flex_col().gap_1().flex_grow();

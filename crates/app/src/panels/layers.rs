@@ -217,60 +217,45 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
                         .size_full(),
                     )
                     .child(
-                        // Visibility eye.
-                        div()
-                            .flex()
-                            .items_center()
-                            .justify_center()
-                            .size(px(20.0))
-                            .flex_none()
-                            .on_mouse_down(
-                                MouseButton::Left,
-                                cx.listener(move |ws, _e, _w, cx| {
-                                    if let Some(doc) = &mut ws.doc {
-                                        let mut edit = doc.begin_edit("Toggle Visibility");
-                                        edit.change_props(id, |l| l.visible = !l.visible);
-                                        edit.commit();
-                                    }
-                                    ws.after_change(cx);
-                                    cx.stop_propagation();
-                                }),
-                            )
-                            .child(icon(
-                                if row.visible { "eye" } else { "eye-off" },
-                                13.0,
-                                if row.visible {
-                                    palette().text
-                                } else {
-                                    palette().text_dim
-                                },
-                            )),
+                        // Visibility eye. It swallows its press so the
+                        // row beneath neither selects nor starts a drag.
+                        IconButton::new(
+                            ("layer-eye", id.0),
+                            if row.visible { "eye" } else { "eye-off" },
+                        )
+                        .size(20.0)
+                        .icon_size(13.0)
+                        .color(if row.visible {
+                            palette().text
+                        } else {
+                            palette().text_dim
+                        })
+                        .consume_press()
+                        .on_click(cx.listener(move |ws, _e, _w, cx| {
+                            if let Some(doc) = &mut ws.doc {
+                                let mut edit = doc.begin_edit("Toggle Visibility");
+                                edit.change_props(id, |l| l.visible = !l.visible);
+                                edit.commit();
+                            }
+                            ws.after_change(cx);
+                        })),
                     )
                     .child(div().w(px(row.depth as f32 * 12.0)).flex_none())
                     .child(match &row.kind {
-                        RowKind::Group => div()
-                            .flex()
-                            .items_center()
-                            .justify_center()
-                            .size(px(16.0))
-                            .flex_none()
-                            .on_mouse_down(
-                                MouseButton::Left,
-                                cx.listener(move |ws, _e, _w, cx| {
-                                    ws.toggle_group_open(id, cx);
-                                    cx.stop_propagation();
-                                }),
-                            )
-                            .child(icon(
-                                if row.open {
-                                    "chevron-down"
-                                } else {
-                                    "chevron-right"
-                                },
-                                11.0,
-                                palette().text_dim,
-                            ))
-                            .into_any_element(),
+                        RowKind::Group => IconButton::new(
+                            ("layer-fold", id.0),
+                            if row.open {
+                                "chevron-down"
+                            } else {
+                                "chevron-right"
+                            },
+                        )
+                        .size(16.0)
+                        .icon_size(11.0)
+                        .color(palette().text_dim)
+                        .consume_press()
+                        .on_click(cx.listener(move |ws, _e, _w, cx| ws.toggle_group_open(id, cx)))
+                        .into_any_element(),
                         _ => div().w(px(0.0)).into_any_element(),
                     })
                     .child(
@@ -284,12 +269,10 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
                             .flex_none()
                             .bg(gpui::rgb(palette().field_bg))
                             .rounded_sm()
+                            .id(("layer-thumb", id.0))
                             // Adjustment layers open their settings
                             // from the thumbnail, like Photoshop.
-                            .on_mouse_down(
-                                MouseButton::Left,
-                                cx.listener(move |ws, _e, _w, cx| ws.edit_adjustment(id, cx)),
-                            )
+                            .on_click(cx.listener(move |ws, _e, _w, cx| ws.edit_adjustment(id, cx)))
                             .child(match (&row.kind, thumb) {
                                 (RowKind::Raster, Some(t)) => {
                                     img(t).max_w(px(36.0)).max_h(px(28.0)).into_any_element()

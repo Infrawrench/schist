@@ -319,21 +319,13 @@ pub(super) fn menu_row_checked(
     label: String,
     hint: String,
     checked: Option<bool>,
-    on_click: impl Fn(&mut Workspace, &MouseDownEvent, &mut Window, &mut Context<Workspace>) + 'static,
+    on_click: impl Fn(&mut Workspace, &gpui::ClickEvent, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
+    ListItem::new(SharedString::from(label.clone()))
         .justify_between()
-        .px_2()
-        .h(px(24.0))
-        .hover(|s| {
-            s.bg(gpui::rgb(palette().accent))
-                .text_color(gpui::rgb(palette().accent_text))
-        })
-        .on_mouse_down(MouseButton::Left, cx.listener(on_click))
+        .accent_hover()
+        .on_click(cx.listener(on_click))
         .child(
             div()
                 .flex()
@@ -362,22 +354,13 @@ pub(super) fn menu_row_checked(
 pub(super) fn menu_row(
     label: String,
     hint: String,
-    on_click: impl Fn(&mut Workspace, &MouseDownEvent, &mut Window, &mut Context<Workspace>) + 'static,
+    on_click: impl Fn(&mut Workspace, &gpui::ClickEvent, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
+    ListItem::new(SharedString::from(label.clone()))
         .justify_between()
-        .px_2()
-        .h(px(24.0))
-        .cursor_pointer()
-        .hover(|s| {
-            s.bg(gpui::rgb(palette().accent))
-                .text_color(gpui::rgb(palette().accent_text))
-        })
-        .on_mouse_down(MouseButton::Left, cx.listener(on_click))
+        .accent_hover()
+        .on_click(cx.listener(on_click))
         .child(div().text_size(px(12.0)).child(label))
         .child(
             div()

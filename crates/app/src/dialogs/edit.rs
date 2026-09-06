@@ -369,24 +369,13 @@ pub(super) fn color_range_dialog(
                 .items_center()
                 .gap_2()
                 .child(
-                    div()
-                        .id("color-range-swatch")
-                        .size(px(18.0))
-                        .flex_none()
-                        .rounded_sm()
-                        .border_1()
-                        .border_color(gpui::rgb(ui::palette().edge))
-                        .bg(gpui::rgb(swatch))
-                        .cursor_pointer()
-                        .hover(|s| s.border_color(gpui::rgb(ui::palette().text)))
-                        .on_mouse_down(
-                            gpui::MouseButton::Left,
-                            cx.listener(move |ws, _e, _w, cx| {
-                                // This dialog stays open underneath the
-                                // picker and takes the colour on OK.
-                                ws.open_color_picker_on(ColorTarget::ColorRange, target, cx);
-                            }),
-                        ),
+                    Swatch::new("color-range-swatch", gpui::rgb(swatch)).on_click(cx.listener(
+                        move |ws, _e, _w, cx| {
+                            // This dialog stays open underneath the
+                            // picker and takes the colour on OK.
+                            ws.open_color_picker_on(ColorTarget::ColorRange, target, cx);
+                        },
+                    )),
                 )
                 .child(ui::button(
                     "Use Foreground",

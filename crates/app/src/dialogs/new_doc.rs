@@ -33,14 +33,12 @@ pub(super) fn new_file_picker(cx: &mut Context<Workspace>) -> impl IntoElement {
             .border_color(gpui::rgb(ui::palette().edge))
             .text_size(px(12.0))
             .text_color(gpui::rgb(ui::palette().text_dim))
+            .id("new-doc-custom")
             .cursor_pointer()
             .hover(|s| s.border_color(gpui::rgb(ui::palette().accent)))
-            .on_mouse_down(
-                gpui::MouseButton::Left,
-                cx.listener(|ws, _e, _w, cx| {
-                    ws.open_new_document_dialog(cx);
-                }),
-            )
+            .on_click(cx.listener(|ws, _e, _w, cx| {
+                ws.open_new_document_dialog(cx);
+            }))
             .child("Custom…"),
     );
     let actions = div().flex().flex_row().gap_2().child(ui::button(
@@ -71,24 +69,22 @@ fn preset_card(
         .bg(gpui::rgb(ui::palette().control_bg))
         .border_1()
         .border_color(gpui::rgb(ui::palette().edge))
+        .id(label)
         .cursor_pointer()
         .hover(|s| s.border_color(gpui::rgb(ui::palette().accent)))
-        .on_mouse_down(
-            gpui::MouseButton::Left,
-            cx.listener(move |ws, _e, _w, cx| {
-                ws.close_modal(cx);
-                ws.create_document(
-                    "",
-                    width,
-                    height,
-                    ppi,
-                    ColorMode::Rgb,
-                    Depth::Eight,
-                    crate::workspace::NewDocBackground::White,
-                );
-                cx.notify();
-            }),
-        )
+        .on_click(cx.listener(move |ws, _e, _w, cx| {
+            ws.close_modal(cx);
+            ws.create_document(
+                "",
+                width,
+                height,
+                ppi,
+                ColorMode::Rgb,
+                Depth::Eight,
+                crate::workspace::NewDocBackground::White,
+            );
+            cx.notify();
+        }))
         .child(div().text_size(px(12.0)).child(label))
         .child(
             div()

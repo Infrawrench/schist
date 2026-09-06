@@ -53,15 +53,9 @@ pub(super) fn note_options(ws: &Workspace, cx: &mut Context<Workspace>) -> impl 
                 .child(author),
         )
         .child(
-            div()
-                .size(px(18.0))
-                .rounded_sm()
-                .bg(swatch_hex(ws.editor.note_color))
-                .border_1()
+            Swatch::new("note-color", swatch_hex(ws.editor.note_color))
                 .border_color(gpui::rgb(palette().text_faint))
-                .cursor_pointer()
-                .on_mouse_down(
-                    MouseButton::Left,
+                .on_click(
                     cx.listener(|ws, _e, _w, cx| ws.open_color_picker(ColorTarget::Note, cx)),
                 ),
         )
@@ -81,28 +75,13 @@ pub(super) fn note_button(
     on_click: impl Fn(&mut Workspace, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let colour = if enabled {
-        palette().text
-    } else {
-        palette().text_faint
-    };
-    div()
-        .id(id)
-        .flex()
-        .items_center()
-        .justify_center()
+    Button::bare(id)
+        .ghost()
+        .disabled(!enabled)
         .size(px(20.0))
-        .rounded_sm()
+        .px_0()
         .text_size(px(13.0))
-        .text_color(gpui::rgb(colour))
-        .when(enabled, |d| {
-            d.cursor_pointer()
-                .hover(|s| s.bg(gpui::rgb(palette().hover)))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e, _w, cx| on_click(ws, cx)),
-                )
-        })
+        .on_click(cx.listener(move |ws, _e, _w, cx| on_click(ws, cx)))
         .child(label)
 }
 
@@ -175,30 +154,11 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
                     cx,
                 ))
                 .child(
-                    div()
-                        .id("note-delete")
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .size(px(20.0))
-                        .rounded_sm()
-                        .when(count > 0, |d| {
-                            d.cursor_pointer()
-                                .hover(|s| s.bg(gpui::rgb(palette().hover)))
-                                .on_mouse_down(
-                                    MouseButton::Left,
-                                    cx.listener(move |ws, _e, _w, cx| ws.delete_note(index, cx)),
-                                )
-                        })
-                        .child(icon(
-                            "trash",
-                            13.0,
-                            if count > 0 {
-                                palette().text
-                            } else {
-                                palette().text_faint
-                            },
-                        )),
+                    IconButton::new("note-delete", "trash")
+                        .size(20.0)
+                        .icon_size(13.0)
+                        .disabled(count == 0)
+                        .on_click(cx.listener(move |ws, _e, _w, cx| ws.delete_note(index, cx))),
                 ),
         );
 

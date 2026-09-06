@@ -10,9 +10,10 @@ use crate::dialogs::{param_slider, SliderSpec};
 use crate::ui;
 use crate::workspace::{GalleryEntry, Modal, Workspace};
 use gpui::{
-    div, px, Context, InteractiveElement as _, IntoElement, MouseButton, MouseDownEvent,
-    ParentElement as _, SharedString, StatefulInteractiveElement as _, Styled,
+    div, px, Context, InteractiveElement as _, IntoElement, ParentElement as _, SharedString,
+    StatefulInteractiveElement as _, Styled,
 };
+use schist_ui::{Checkbox, IconButton, ListItem};
 
 /// Mutate the open gallery and re-run its preview.
 fn edit(
@@ -83,34 +84,28 @@ pub fn render(
                         .child(SharedString::from(name)),
                 )
                 .children(list.into_iter().map(|(id, label)| {
-                    div()
-                        .px_2()
+                    ListItem::new(id)
                         .h(px(20.0))
                         .rounded_sm()
-                        .text_size(px(12.0))
-                        .hover(|s| s.bg(gpui::rgb(ui::palette().hover)))
                         .child(SharedString::from(label))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                                // Adding puts the new filter on top of the
-                                // stack and selects it, as Photoshop does.
-                                let values = ws
-                                    .registry
-                                    .filters()
-                                    .find(|f| f.id() == id)
-                                    .map(|f| schist_plugin_api::FilterValues::defaults(&f.params()))
-                                    .unwrap_or_default();
-                                edit(ws, cx, |stack, selected| {
-                                    stack.push(GalleryEntry {
-                                        id,
-                                        values,
-                                        enabled: true,
-                                    });
-                                    *selected = stack.len() - 1;
+                        .on_click(cx.listener(move |ws, _e, _w, cx| {
+                            // Adding puts the new filter on top of the
+                            // stack and selects it, as Photoshop does.
+                            let values = ws
+                                .registry
+                                .filters()
+                                .find(|f| f.id() == id)
+                                .map(|f| schist_plugin_api::FilterValues::defaults(&f.params()))
+                                .unwrap_or_default();
+                            edit(ws, cx, |stack, selected| {
+                                stack.push(GalleryEntry {
+                                    id,
+                                    values,
+                                    enabled: true,
                                 });
-                            }),
-                        )
+                                *selected = stack.len() - 1;
+                            });
+                        }))
                 }))
         }));
 
@@ -134,56 +129,44 @@ pub fn render(
         .gap(px(1.0))
         .children(names.into_iter().rev().map(|(i, name, on)| {
             let is_selected = i == selected;
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
+            ListItem::new(("gallery-entry", i))
                 .gap_2()
-                .px_2()
                 .h(px(22.0))
                 .rounded_sm()
-                .text_size(px(12.0))
                 .bg(gpui::rgb(if is_selected {
                     ui::palette().selection_bg
                 } else {
                     ui::palette().window_bg
                 }))
-                .child(ui::checkbox(
-                    "",
-                    on,
-                    move |ws, cx| {
-                        edit(ws, cx, |stack, _| {
-                            if let Some(e) = stack.get_mut(i) {
-                                e.enabled = !on;
-                            }
-                        });
-                    },
-                    cx,
-                ))
+                .child(
+                    Checkbox::new(("gallery-entry-on", i), "", on).on_change(cx.listener(
+                        move |ws, _on, _w, cx| {
+                            edit(ws, cx, |stack, _| {
+                                if let Some(e) = stack.get_mut(i) {
+                                    e.enabled = !on;
+                                }
+                            });
+                        },
+                    )),
+                )
                 .child(div().flex_grow().child(SharedString::from(name)))
                 .child(
-                    div()
-                        .px_1()
-                        .text_size(px(11.0))
-                        .text_color(gpui::rgb(ui::palette().text_dim))
-                        .child("\u{2715}")
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                                edit(ws, cx, |stack, _| {
-                                    if i < stack.len() {
-                                        stack.remove(i);
-                                    }
-                                });
-                            }),
-                        ),
+                    IconButton::new(("gallery-entry-remove", i), "close")
+                        .size(16.0)
+                        .icon_size(9.0)
+                        .color(ui::palette().text_dim)
+                        .consume_press()
+                        .on_click(cx.listener(move |ws, _e, _w, cx| {
+                            edit(ws, cx, |stack, _| {
+                                if i < stack.len() {
+                                    stack.remove(i);
+                                }
+                            });
+                        })),
                 )
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                        edit(ws, cx, |_, selected| *selected = i);
-                    }),
-                )
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    edit(ws, cx, |_, selected| *selected = i);
+                }))
         }));
 
     // Parameters of whichever entry is selected.

@@ -6187,6 +6187,7 @@ dependencies = [
  "schist-tools-type",
  "schist-tools-vector",
  "schist-tools-warp",
+ "schist-ui",
  "schist-vector",
  "sentry",
  "serde",
@@ -6652,6 +6653,13 @@ dependencies = [
  "schist-core",
  "schist-fx",
  "schist-plugin-api",
+]
+
+[[package]]
+name = "schist-ui"
+version = "0.12.0"
+dependencies = [
+ "gpui",
 ]
 
 [[package]]

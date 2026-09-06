@@ -68,67 +68,38 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
                 // Photoshop's panel has this row too.
                 .child({
                     let is_current = n_undo == 0;
-                    div()
+                    ListItem::new("history-opened")
                         .px_1()
                         .h(px(19.0))
-                        .flex_none()
                         .text_size(px(11.0))
                         .rounded_sm()
-                        .cursor_pointer()
-                        .when_active(is_current)
-                        .hover(move |s| {
-                            if is_current {
-                                s
-                            } else {
-                                s.bg(gpui::rgb(palette().hover))
-                            }
-                        })
+                        .selected(is_current)
                         .text_color(gpui::rgb(palette().text_dim))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _e, _w, cx| ws.history_jump(-n_undo, cx)),
-                        )
+                        .on_click(cx.listener(move |ws, _e, _w, cx| ws.history_jump(-n_undo, cx)))
                         .child("Opened")
                 })
                 .children(undo_entries.into_iter().enumerate().map(|(i, name)| {
                     // Jump so entry i becomes the last applied edit.
                     let steps = (i as i32 + 1) - n_undo;
                     let is_current = i as i32 + 1 == n_undo;
-                    div()
+                    ListItem::new(("history-undo", i))
                         .px_1()
                         .h(px(19.0))
-                        .flex_none()
                         .text_size(px(11.0))
                         .rounded_sm()
-                        .cursor_pointer()
-                        .when_active(is_current)
-                        .hover(move |s| {
-                            if is_current {
-                                s
-                            } else {
-                                s.bg(gpui::rgb(palette().hover))
-                            }
-                        })
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _e, _w, cx| ws.history_jump(steps, cx)),
-                        )
+                        .selected(is_current)
+                        .on_click(cx.listener(move |ws, _e, _w, cx| ws.history_jump(steps, cx)))
                         .child(name)
                 }))
                 .children(redo_entries.into_iter().enumerate().map(|(j, name)| {
                     let steps = j as i32 + 1;
-                    div()
+                    ListItem::new(("history-redo", j))
                         .px_1()
                         .h(px(19.0))
-                        .flex_none()
                         .text_size(px(11.0))
                         .rounded_sm()
                         .text_color(gpui::rgb(palette().text_faint))
-                        .hover(|s| s.bg(gpui::rgb(palette().hover)))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _e, _w, cx| ws.history_jump(steps, cx)),
-                        )
+                        .on_click(cx.listener(move |ws, _e, _w, cx| ws.history_jump(steps, cx)))
                         .child(name)
                 })),
         )

@@ -7,127 +7,15 @@
 
 use crate::workspace::{Popup, Workspace};
 use gpui::{
-    div, px, AppContext as _, Context, InteractiveElement as _, IntoElement, MouseButton,
-    ParentElement as _, SharedString, StatefulInteractiveElement as _, Styled as _,
+    div, px, Context, InteractiveElement as _, IntoElement, MouseButton, ParentElement as _,
+    SharedString, StatefulInteractiveElement as _, Styled as _,
 };
+use schist_ui::{Button, Checkbox, IconButton, ListItem};
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
-/// The chrome colours for one theme. Everything that isn't document
-/// content draws from here; the active set is swapped by [`set_light`].
-pub struct Palette {
-    /// The window shell behind the panels.
-    pub window_bg: u32,
-    /// The area surrounding the document canvas.
-    pub canvas_bg: u32,
-    pub panel_bg: u32,
-    /// Recessed strips: the document tab bar, the curve editor well.
-    pub deep_bg: u32,
-    pub status_bg: u32,
-    pub ruler_bg: u32,
-    pub field_bg: u32,
-    pub popup_bg: u32,
-    /// Small inline controls: step buttons, the active tab, badges.
-    pub control_bg: u32,
-    pub button_bg: u32,
-    pub button_hover: u32,
-    /// Row hover inside menus, popups and panels.
-    pub hover: u32,
-    /// Hairlines inside a panel (separators, section borders).
-    pub divider: u32,
-    /// Borders around fields, popups and modals.
-    pub edge: u32,
-    /// The border between panels and the shell.
-    pub panel_edge: u32,
-    /// Grid lines drawn on `deep_bg` (curve editor).
-    pub grid: u32,
-    pub text: u32,
-    pub text_dim: u32,
-    pub text_faint: u32,
-    pub accent: u32,
-    pub accent_hover: u32,
-    /// Text and icons drawn on top of `accent`.
-    pub accent_text: u32,
-    /// Selected rows that keep their own text colour (lists, tiles).
-    pub selection_bg: u32,
-}
+pub use schist_ui::{is_light, palette, set_light, tip};
 
-pub const DARK: Palette = Palette {
-    window_bg: 0x1E1E1E,
-    canvas_bg: 0x262626,
-    panel_bg: 0x1A1A1A,
-    deep_bg: 0x141414,
-    status_bg: 0x161616,
-    ruler_bg: 0x202020,
-    field_bg: 0x0E0E0E,
-    popup_bg: 0x242424,
-    control_bg: 0x2A2A2A,
-    button_bg: 0x333333,
-    button_hover: 0x3E3E3E,
-    hover: 0x2E2E2E,
-    divider: 0x2A2A2A,
-    edge: 0x3A3A3A,
-    panel_edge: 0x111111,
-    grid: 0x262626,
-    text: 0xD8D8D8,
-    text_dim: 0x9A9A9A,
-    text_faint: 0x666666,
-    accent: 0x3A6EA5,
-    accent_hover: 0x4A80BC,
-    accent_text: 0xFFFFFF,
-    selection_bg: 0x2F5B8C,
-};
-
-pub const LIGHT: Palette = Palette {
-    window_bg: 0xE8E8E8,
-    canvas_bg: 0xB4B4B4,
-    panel_bg: 0xF0F0F0,
-    deep_bg: 0xE0E0E0,
-    status_bg: 0xE4E4E4,
-    ruler_bg: 0xE6E6E6,
-    field_bg: 0xFFFFFF,
-    popup_bg: 0xFAFAFA,
-    control_bg: 0xD6D6D6,
-    button_bg: 0xD0D0D0,
-    button_hover: 0xC2C2C2,
-    hover: 0xDCDCDC,
-    divider: 0xD4D4D4,
-    edge: 0xB8B8B8,
-    panel_edge: 0xC4C4C4,
-    grid: 0xC8C8C8,
-    text: 0x1C1C1C,
-    text_dim: 0x5A5A5A,
-    text_faint: 0x9E9E9E,
-    accent: 0x3A6EA5,
-    accent_hover: 0x2E5E95,
-    accent_text: 0xFFFFFF,
-    selection_bg: 0xB8D2EE,
-};
-
-static LIGHT_THEME: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
-
-/// Select the palette that [`palette`] returns. `Workspace::render` calls
-/// this every frame from the persisted preference, so widgets built during
-/// that render (and canvas paint callbacks after it) all agree.
-pub fn set_light(light: bool) {
-    LIGHT_THEME.store(light, std::sync::atomic::Ordering::Relaxed);
-}
-
-pub fn palette() -> &'static Palette {
-    if is_light() {
-        &LIGHT
-    } else {
-        &DARK
-    }
-}
-
-/// Whether the light theme is active this frame, for chrome that keeps
-/// its own palette (the gallery) but still follows the theme choice.
-pub fn is_light() -> bool {
-    LIGHT_THEME.load(std::sync::atomic::Ordering::Relaxed)
-}
-
-/// A labelled push button.
 /// What a dialog does when the user presses Enter.
 pub type DialogAction = Rc<dyn Fn(&mut Workspace, &mut gpui::Window, &mut Context<Workspace>)>;
 
@@ -155,56 +43,7 @@ pub fn take_default_action() -> Option<DialogAction> {
     DEFAULT_ACTION.with(|slot| slot.borrow_mut().take())
 }
 
-/// A hover label for an icon-only control.
-///
-/// `grep -rn "tooltip" crates/app/` returned nothing: every icon in the
-/// window was a bare SVG with no hover label and no shortcut hint, and
-/// the only place a tool's name and key appeared was inside the flyout,
-/// which most slots do not have. The toolbar slots use this; the panel
-/// buttons, visibility eyes and tab close are still unlabelled, and want
-/// an `id` each before they can be.
-pub struct Tooltip {
-    label: SharedString,
-    /// A keyboard shortcut, shown dimmed after the label.
-    hint: Option<SharedString>,
-}
-
-impl gpui::Render for Tooltip {
-    fn render(&mut self, _window: &mut gpui::Window, _cx: &mut Context<Self>) -> impl IntoElement {
-        let mut row = div()
-            .flex()
-            .flex_row()
-            .items_center()
-            .gap_2()
-            .px_2()
-            .py_1()
-            .rounded_sm()
-            .bg(gpui::rgb(palette().popup_bg))
-            .border_1()
-            .border_color(gpui::rgb(palette().panel_edge))
-            .text_size(px(11.0))
-            .text_color(gpui::rgb(palette().text))
-            .child(self.label.clone());
-        if let Some(hint) = self.hint.clone() {
-            row = row.child(div().text_color(gpui::rgb(palette().text_dim)).child(hint));
-        }
-        row
-    }
-}
-
-/// Build a tooltip callback for [`StatefulInteractiveElement::tooltip`].
-pub fn tip(
-    label: impl Into<SharedString>,
-    hint: Option<SharedString>,
-) -> impl Fn(&mut gpui::Window, &mut gpui::App) -> gpui::AnyView + 'static {
-    let label = label.into();
-    move |_window, cx| {
-        let label = label.clone();
-        let hint = hint.clone();
-        cx.new(|_| Tooltip { label, hint }).into()
-    }
-}
-
+/// A labelled push button, wired to the workspace.
 pub fn button(
     label: impl Into<SharedString>,
     primary: bool,
@@ -216,37 +55,10 @@ pub fn button(
         let action = on_click.clone();
         DEFAULT_ACTION.with(|slot| *slot.borrow_mut() = Some(action));
     }
-    div()
-        .flex()
-        .items_center()
-        .justify_center()
-        .h(px(24.0))
-        .px_3()
-        .rounded_sm()
-        .text_size(px(12.0))
-        .cursor_pointer()
-        .bg(gpui::rgb(if primary {
-            palette().accent
-        } else {
-            palette().button_bg
-        }))
-        .text_color(gpui::rgb(if primary {
-            palette().accent_text
-        } else {
-            palette().text
-        }))
-        .hover(|s| {
-            s.bg(gpui::rgb(if primary {
-                palette().accent_hover
-            } else {
-                palette().button_hover
-            }))
-        })
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e, window, cx| on_click(ws, window, cx)),
-        )
-        .child(label.into())
+    let label = label.into();
+    Button::new(label.clone(), label)
+        .when(primary, Button::primary)
+        .on_click(cx.listener(move |ws, _e, window, cx| on_click(ws, window, cx)))
 }
 
 /// Everything a [`num_field`] needs to draw itself.
@@ -320,72 +132,46 @@ pub fn num_field(
                 )
                 .child(format!("{shown}{suffix}")),
         )
-        .child(step_button("minus", move |ws| dec(ws, -step), cx))
-        .child(step_button("plus", move |ws| inc(ws, step), cx))
+        .child(step_button(id, "minus", move |ws| dec(ws, -step), cx))
+        .child(step_button(id, "plus", move |ws| inc(ws, step), cx))
 }
 
 fn step_button(
+    field: &'static str,
     icon_name: &'static str,
     on_click: impl Fn(&mut Workspace) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .flex()
-        .items_center()
-        .justify_center()
-        .size(px(18.0))
-        .rounded_sm()
-        .bg(gpui::rgb(palette().control_bg))
-        .hover(|s| s.bg(gpui::rgb(palette().button_hover)))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e, _w, cx| {
-                on_click(ws);
-                cx.notify();
-            }),
-        )
-        .child(crate::panels::icon(icon_name, 11.0, palette().text))
+    IconButton::new(
+        SharedString::from(format!("{field}-{icon_name}")),
+        icon_name,
+    )
+    .filled()
+    .size(18.0)
+    .icon_size(11.0)
+    .on_click(cx.listener(move |ws, _e, _w, cx| {
+        on_click(ws);
+        cx.notify();
+    }))
 }
 
-/// A checkbox with a label to its right.
+/// A checkbox with a label to its right, keyed by that label.
 pub fn checkbox(
     label: impl Into<SharedString>,
     checked: bool,
     on_toggle: impl Fn(&mut Workspace, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
-        .gap_2()
-        .text_size(px(12.0))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e, _w, cx| {
-                on_toggle(ws, cx);
-                cx.notify();
-            }),
-        )
-        .child(
-            div()
-                .flex()
-                .items_center()
-                .justify_center()
-                .size(px(14.0))
-                .rounded_sm()
-                .bg(gpui::rgb(if checked {
-                    palette().accent
-                } else {
-                    palette().field_bg
-                }))
-                .border_1()
-                .border_color(gpui::rgb(palette().edge))
-                .when_some(checked.then_some(()), |d, _| {
-                    d.child(crate::panels::icon("check", 10.0, palette().accent_text))
-                }),
-        )
-        .child(label.into())
+    let label = label.into();
+    Checkbox::new(
+        SharedString::from(format!("checkbox-{label}")),
+        label,
+        checked,
+    )
+    .on_change(cx.listener(move |ws, _checked, _w, cx| {
+        on_toggle(ws, cx);
+        cx.notify();
+    }))
 }
 
 /// State of the open dropdown's option list: its scroll, the row the
@@ -647,43 +433,19 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
                 let selected = value == *current;
                 let keyed = highlight == Some(ix) && !selected;
                 let on_select = on_select.clone();
-                div()
-                    .px_2()
+                ListItem::new(("dropdown-row", ix))
                     .h(px(20.0))
-                    .flex_none()
-                    .flex()
-                    .items_center()
                     .text_size(px(11.0))
                     // Each family's name set in itself is what tells you
                     // what you are choosing; the label alone does not.
                     .when(preview_fonts, |d| d.font_family(text.clone()))
-                    .bg(gpui::rgb(if selected {
-                        palette().accent
-                    } else if keyed {
-                        palette().hover
-                    } else {
-                        palette().popup_bg
+                    .selected(selected)
+                    .highlighted(keyed)
+                    .on_click(cx.listener(move |ws, _e, _w, cx| {
+                        ws.close_popup(cx);
+                        on_select(ws, value.clone(), cx);
+                        cx.notify();
                     }))
-                    .text_color(gpui::rgb(if selected {
-                        palette().accent_text
-                    } else {
-                        palette().text
-                    }))
-                    .hover(move |s| {
-                        if selected {
-                            s
-                        } else {
-                            s.bg(gpui::rgb(palette().hover))
-                        }
-                    })
-                    .on_mouse_down(
-                        MouseButton::Left,
-                        cx.listener(move |ws, _e, _w, cx| {
-                            ws.close_popup(cx);
-                            on_select(ws, value.clone(), cx);
-                            cx.notify();
-                        }),
-                    )
                     .child(text)
                     .into_any_element()
             })

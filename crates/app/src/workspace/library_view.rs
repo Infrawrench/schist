@@ -14,6 +14,7 @@ use gpui::{
     img, prelude::FluentBuilder as _, AppContext as _, StatefulInteractiveElement as _,
     StyledImage as _,
 };
+use schist_ui::{Button, ButtonColors, Link, ListItem};
 
 /// The gallery's chrome colours for one theme.
 pub(super) struct GalleryPalette {
@@ -229,35 +230,27 @@ pub(super) fn gallery_button(
     on_click: impl Fn(&mut Workspace, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .flex()
-        .items_center()
-        .justify_center()
-        .h(px(24.0))
-        .px_3()
+    // The kit's button on the gallery's own palette: it fires on
+    // release, like every other button in the app (issue #119).
+    let colors = if green {
+        ButtonColors {
+            bg: Some(pal().green),
+            hover: pal().green_hover,
+            text: 0xFFFFFF,
+            border: Some(pal().green),
+        }
+    } else {
+        ButtonColors {
+            bg: Some(pal().button_bg),
+            hover: pal().button_hover,
+            text: pal().text,
+            border: Some(pal().chrome_edge),
+        }
+    };
+    Button::new(label, label)
+        .colors(colors)
         .rounded_md()
-        .text_size(px(12.0))
-        .cursor_pointer()
-        .bg(gpui::rgb(if green { pal().green } else { pal().button_bg }))
-        .text_color(gpui::rgb(if green { 0xFFFFFF } else { pal().text }))
-        .border_1()
-        .border_color(gpui::rgb(if green {
-            pal().green
-        } else {
-            pal().chrome_edge
-        }))
-        .hover(move |s| {
-            s.bg(gpui::rgb(if green {
-                pal().green_hover
-            } else {
-                pal().button_hover
-            }))
-        })
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, window, cx| on_click(ws, window, cx)),
-        )
-        .child(label)
+        .on_click(cx.listener(move |ws, _e, window, cx| on_click(ws, window, cx)))
 }
 
 /// The strip under the menu bar: import and folder buttons on the left,
@@ -304,35 +297,31 @@ fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
             // While the map filter is on it wears the least
             // ignorable thing in the strip — a filter you forgot is a
             // gallery that looks mysteriously empty.
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
-                .gap_1()
-                .h(px(24.0))
+            Button::bare("map-filter-chip")
+                .colors(ButtonColors {
+                    bg: Some(pal().select_border),
+                    hover: pal().select_border,
+                    text: 0xFFFFFF,
+                    border: None,
+                })
                 .px_2()
                 .rounded_md()
-                .bg(gpui::rgb(pal().select_border))
-                .text_color(gpui::rgb(0xFFFFFF))
-                .text_size(px(12.0))
-                .cursor_pointer()
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _e: &MouseDownEvent, _w, cx| ws.open_map_filter(cx)),
-                )
+                .on_click(cx.listener(|ws, _e, _w, cx| ws.open_map_filter(cx)))
                 .child(format!("Map filter: {label}"))
                 .child(
-                    div()
+                    // The × swallows its press so it does not also
+                    // open the filter it is clearing.
+                    Button::new("map-filter-clear", "\u{2715}")
+                        .colors(ButtonColors {
+                            bg: None,
+                            hover: 0xFFFFFF30,
+                            text: 0xFFFFFF,
+                            border: None,
+                        })
+                        .h_auto()
                         .px_1()
-                        .hover(|s| s.bg(gpui::rgb(0xFFFFFF30)).rounded_sm())
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(|ws, _e: &MouseDownEvent, _w, cx| {
-                                cx.stop_propagation();
-                                ws.clear_map_filter(cx);
-                            }),
-                        )
-                        .child("\u{2715}"),
+                        .consume_press()
+                        .on_click(cx.listener(|ws, _e, _w, cx| ws.clear_map_filter(cx))),
                 )
         }))
         .child(search_slot(ws, cx))
@@ -557,18 +546,21 @@ fn search_box(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
             },
         ))
         .children((!text.is_empty()).then(|| {
-            div()
+            // Swallows its press, so clearing does not also focus the
+            // box it just emptied.
+            Button::new("search-clear", "\u{2715}")
+                .colors(ButtonColors {
+                    bg: None,
+                    hover: pal().button_hover,
+                    text: pal().text_dim,
+                    border: None,
+                })
+                .h_auto()
                 .px_1()
-                .text_color(gpui::rgb(pal().text_dim))
-                .hover(|s| s.text_color(gpui::rgb(pal().text)))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _e: &MouseDownEvent, _w, cx| {
-                        cx.stop_propagation();
-                        ws.gallery_search_clear(cx);
-                    }),
-                )
-                .child("\u{2715}")
+                .consume_press()
+                .on_click(cx.listener(|ws, _e, _w, cx| {
+                    ws.gallery_search_clear(cx);
+                }))
         }))
 }
 
@@ -657,6 +649,9 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
             "The gallery is always Ctrl+Shift+G away, whatever you are editing."
         }));
     div()
+        // Its own id scope: the buttons here share labels (and so
+        // element ids) with the top strip's.
+        .id("gallery-empty-state")
         .flex()
         .flex_col()
         .flex_grow()
@@ -753,76 +748,68 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         .child({
             let current = ws.library.group_by;
             let mut row = div().flex().flex_row().gap_1().px_2().pb_2();
-            for group in super::library::GroupBy::ALL {
+            for (i, group) in super::library::GroupBy::ALL.into_iter().enumerate() {
                 let active = group == current;
                 row = row.child(
-                    div()
-                        .px_2()
+                    Button::new(("group-by", i), group.label())
+                        .colors(ButtonColors {
+                            bg: Some(if active {
+                                pal().sidebar_selected
+                            } else {
+                                pal().button_bg
+                            }),
+                            hover: if active {
+                                pal().sidebar_selected
+                            } else {
+                                pal().button_hover
+                            },
+                            text: pal().text,
+                            border: None,
+                        })
                         .h(px(20.0))
-                        .flex()
-                        .items_center()
+                        .px_2()
                         .rounded_md()
                         .text_size(px(11.0))
-                        .cursor_pointer()
-                        .bg(gpui::rgb(if active {
-                            pal().sidebar_selected
-                        } else {
-                            pal().button_bg
-                        }))
-                        .hover(move |s| {
-                            if active {
-                                s
-                            } else {
-                                s.bg(gpui::rgb(pal().button_hover))
-                            }
-                        })
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                                ws.set_gallery_group(group, cx);
-                            }),
-                        )
-                        .child(group.label()),
+                        .on_click(cx.listener(move |ws, _e, _w, cx| {
+                            ws.set_gallery_group(group, cx);
+                        })),
                 );
             }
             row
         })
         .child({
             let active = ws.library.map_filter.is_some();
-            div()
-                .mx_2()
-                .mb_1()
-                .px_2()
-                .h(px(22.0))
-                .flex()
-                .items_center()
-                .justify_between()
-                .rounded_md()
-                .text_size(px(11.0))
-                .cursor_pointer()
-                .bg(gpui::rgb(if active {
-                    pal().select_border
-                } else {
-                    pal().button_bg
-                }))
-                .text_color(gpui::rgb(if active { 0xFFFFFF } else { pal().text }))
-                .hover(move |s| {
-                    if active {
-                        s
-                    } else {
-                        s.bg(gpui::rgb(pal().button_hover))
-                    }
-                })
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _e: &MouseDownEvent, _w, cx| ws.open_map_filter(cx)),
-                )
-                .child(if active {
+            Button::new(
+                "map-filter",
+                if active {
                     "Map filter on"
                 } else {
                     "Map filter…"
-                })
-                .children(active.then(|| div().child("\u{25cf}")))
+                },
+            )
+            .colors(ButtonColors {
+                bg: Some(if active {
+                    pal().select_border
+                } else {
+                    pal().button_bg
+                }),
+                hover: if active {
+                    pal().select_border
+                } else {
+                    pal().button_hover
+                },
+                text: if active { 0xFFFFFF } else { pal().text },
+                border: None,
+            })
+            .mx_2()
+            .mb_1()
+            .px_2()
+            .h(px(22.0))
+            .justify_between()
+            .rounded_md()
+            .text_size(px(11.0))
+            .on_click(cx.listener(|ws, _e, _w, cx| ws.open_map_filter(cx)))
+            .children(active.then(|| div().child("\u{25cf}")))
         })
         .child(
             div()
@@ -836,6 +823,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         .children(rows)
         .child(
             div()
+                .id("add-folder")
                 .px_2()
                 .h(px(24.0))
                 .flex()
@@ -844,12 +832,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 .text_color(gpui::rgb(pal().header))
                 .cursor_pointer()
                 .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _e: &MouseDownEvent, window, cx| {
-                        ws.gallery_add_folder(window, cx)
-                    }),
-                )
+                .on_click(cx.listener(|ws, _e, window, cx| ws.gallery_add_folder(window, cx)))
                 .child("+ Add folder…"),
         )
         .child(
@@ -880,6 +863,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         })
         .child(
             div()
+                .id("new-bucket")
                 .px_2()
                 .h(px(24.0))
                 .flex()
@@ -888,15 +872,12 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 .text_color(gpui::rgb(pal().header))
                 .cursor_pointer()
                 .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _e: &MouseDownEvent, _w, cx| {
-                        // Born holding the selection, so "new bucket
-                        // from these" is the dialog's Create away.
-                        let selected = ws.library.selected.clone();
-                        ws.gallery_new_bucket(selected, cx);
-                    }),
-                )
+                .on_click(cx.listener(|ws, _e, _w, cx| {
+                    // Born holding the selection, so "new bucket
+                    // from these" is the dialog's Create away.
+                    let selected = ws.library.selected.clone();
+                    ws.gallery_new_bucket(selected, cx);
+                }))
                 .child("+ New bucket"),
         )
         .children(super::library_people_view::people_rows(ws, cx))
@@ -1025,22 +1006,28 @@ fn sidebar_row(
     if let Some(root) = root {
         // The quiet way out, matching Picasa's "Remove from Picasa":
         // stop watching, never delete.
+        // A ghost button that swallows its press, so it does not
+        // also select the row it sits in.
         row = row.child(
-            div()
-                .id(SharedString::from(format!("unwatch-{}", root.display())))
-                .pl_1()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .hover(|s| s.text_color(gpui::rgb(pal().text)))
-                .tooltip(crate::ui::tip("Stop watching this folder", None))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                        cx.stop_propagation();
-                        ws.gallery_remove_folder(&root.clone(), cx);
-                    }),
-                )
-                .child("\u{2715}"),
+            Button::new(
+                SharedString::from(format!("unwatch-{}", root.display())),
+                "\u{2715}",
+            )
+            .colors(ButtonColors {
+                bg: None,
+                hover: pal().button_hover,
+                text: pal().text_dim,
+                border: None,
+            })
+            .h_auto()
+            .px_1()
+            .ml_1()
+            .text_size(px(11.0))
+            .tooltip("Stop watching this folder", None)
+            .consume_press()
+            .on_click(cx.listener(move |ws, _e, _w, cx| {
+                ws.gallery_remove_folder(&root.clone(), cx);
+            })),
         );
     }
     row
@@ -1127,13 +1114,13 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
     let mut view = div().flex().flex_col().flex_grow().min_w(px(0.0)).min_h(px(0.0))
         .child(div().flex().items_center().gap_2().p_2().flex_wrap()
             .child(div().text_size(px(12.0)).child("World Map"))
-            .child(map_tool_button("−", false, |ws, cx| {
+            .child(map_tool_button("world-zoom-out", "−", false, |ws, cx| {
                 ws.library.world_map.zoom_center(-1); cx.notify();
             }, cx))
-            .child(map_tool_button("+", false, |ws, cx| {
+            .child(map_tool_button("world-zoom-in", "+", false, |ws, cx| {
                 ws.library.world_map.zoom_center(1); cx.notify();
             }, cx))
-            .child(map_tool_button("Reset view", false, |ws, cx| {
+            .child(map_tool_button("world-reset", "Reset view", false, |ws, cx| {
                 ws.library.world_map.show_world(); cx.notify();
             }, cx))
             .child(div().text_size(px(11.0)).text_color(gpui::rgb(pal().text_dim)).child(status)))
@@ -1209,6 +1196,7 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                             .child(format!("{count} photos at this marker")),
                     )
                     .child(map_tool_button(
+                        "world-strip-close",
                         "Close",
                         false,
                         |ws, cx| {
@@ -1940,6 +1928,8 @@ fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
         .and_then(|e| e.path.file_name())
         .map(|n| n.to_string_lossy().into_owned());
     div()
+        // Its own id scope: the viewer's header has an Edit button too.
+        .id("gallery-tray")
         .flex()
         .flex_row()
         .items_center()
@@ -2136,7 +2126,7 @@ pub(crate) fn camera_import_dialog(
             .text_size(px(12.0))
             .child("More than one camera is reachable. Import from:"),
     );
-    for source in sources {
+    for (i, source) in sources.iter().enumerate() {
         let pick = source.clone();
         let label = super::library::source_label(source);
         let detail = match source {
@@ -2144,29 +2134,20 @@ pub(crate) fn camera_import_dialog(
             ImportSource::Device { .. } => "via Image Capture".to_string(),
         };
         body = body.child(
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
+            ListItem::new(("camera-source", i))
                 .justify_between()
-                .px_2()
                 .h(px(26.0))
                 .rounded_sm()
-                .text_size(px(12.0))
-                .hover(|s| s.bg(gpui::rgb(crate::ui::palette().hover)))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                        ws.close_modal(cx);
-                        // On to the options: the map, the destination.
-                        ws.open_modal(
-                            Modal::CameraImportOptions {
-                                source: pick.clone(),
-                            },
-                            cx,
-                        );
-                    }),
-                )
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    ws.close_modal(cx);
+                    // On to the options: the map, the destination.
+                    ws.open_modal(
+                        Modal::CameraImportOptions {
+                            source: pick.clone(),
+                        },
+                        cx,
+                    );
+                }))
                 .child(label)
                 .child(
                     div()
@@ -2204,34 +2185,29 @@ fn boundary_editor(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
     for place in PLACES {
         let active = selection_name.as_deref() == Some(place.name);
         chips = chips.child(
-            div()
-                .px_2()
+            Button::new(place.name, place.name)
+                .colors(ButtonColors {
+                    bg: Some(if active {
+                        crate::ui::palette().selection_bg
+                    } else {
+                        crate::ui::palette().control_bg
+                    }),
+                    hover: if active {
+                        crate::ui::palette().selection_bg
+                    } else {
+                        crate::ui::palette().hover
+                    },
+                    text: crate::ui::palette().text,
+                    border: None,
+                })
                 .h(px(20.0))
-                .flex()
-                .items_center()
+                .px_2()
                 .rounded_md()
                 .text_size(px(11.0))
-                .cursor_pointer()
-                .bg(gpui::rgb(if active {
-                    crate::ui::palette().selection_bg
-                } else {
-                    crate::ui::palette().control_bg
-                }))
-                .hover(move |s| {
-                    if active {
-                        s
-                    } else {
-                        s.bg(gpui::rgb(crate::ui::palette().hover))
-                    }
-                })
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                        ws.library.map.jump_to(place.name, place.bounds);
-                        cx.notify();
-                    }),
-                )
-                .child(place.name),
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    ws.library.map.jump_to(place.name, place.bounds);
+                    cx.notify();
+                })),
         );
     }
 
@@ -2241,6 +2217,7 @@ fn boundary_editor(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
         .items_center()
         .gap_2()
         .child(map_tool_button(
+            "map-draw",
             if draw_mode { "Drawing…" } else { "Draw area" },
             draw_mode,
             |ws, cx| {
@@ -2251,6 +2228,7 @@ fn boundary_editor(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
         ));
     if selection.is_some() {
         tools = tools.child(map_tool_button(
+            "map-clear",
             "Clear boundary",
             false,
             |ws, cx| {
@@ -2270,6 +2248,7 @@ fn boundary_editor(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
         )
         .child(div().flex_grow())
         .child(map_tool_button(
+            "map-zoom-out",
             "−",
             false,
             |ws, cx| {
@@ -2285,6 +2264,7 @@ fn boundary_editor(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
                 .child(format!("z{zoom}")),
         )
         .child(map_tool_button(
+            "map-zoom-in",
             "+",
             false,
             |ws, cx| {
@@ -2383,42 +2363,25 @@ pub(crate) fn camera_import_options_dialog(
     crate::ui::modal_frame(format!("Import from {label}"), 580.0, body, actions)
 }
 
+/// The small buttons around a map. Explicitly identified, because the
+/// world map's zoom controls and the map filter's can be on screen at
+/// once and wear the same labels.
 fn map_tool_button(
+    id: &'static str,
     label: impl Into<SharedString>,
     active: bool,
     on_click: impl Fn(&mut Workspace, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .px_2()
+    // The kit's secondary fill is the editor palette's button_bg /
+    // button_hover, and `active` lights it in the accent — what this
+    // drew by hand before.
+    Button::new(id, label)
+        .active(active)
         .h(px(20.0))
-        .flex()
-        .items_center()
-        .rounded_sm()
+        .px_2()
         .text_size(px(11.0))
-        .cursor_pointer()
-        .bg(gpui::rgb(if active {
-            crate::ui::palette().accent
-        } else {
-            crate::ui::palette().button_bg
-        }))
-        .text_color(gpui::rgb(if active {
-            crate::ui::palette().accent_text
-        } else {
-            crate::ui::palette().text
-        }))
-        .hover(move |s| {
-            if active {
-                s
-            } else {
-                s.bg(gpui::rgb(crate::ui::palette().button_hover))
-            }
-        })
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| on_click(ws, cx)),
-        )
-        .child(label.into())
+        .on_click(cx.listener(move |ws, _e, _w, cx| on_click(ws, cx)))
 }
 
 /// The navigable map itself: tiles painted like the document canvas —
@@ -2741,22 +2704,8 @@ fn search_models_downloading(ws: &Workspace) -> bool {
         .any(|d| SEARCH_MODELS.contains(&d.id))
 }
 
-fn search_model_link(
-    id: &'static str,
-    label: &'static str,
-    url: &'static str,
-    cx: &mut Context<Workspace>,
-) -> impl IntoElement {
-    div()
-        .id(id)
-        .cursor_pointer()
-        .text_color(gpui::rgb(crate::ui::palette().accent))
-        .hover(|style| style.text_color(gpui::rgb(crate::ui::palette().accent_hover)))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |_ws, _event, _window, cx| cx.open_url(url)),
-        )
-        .child(label)
+fn search_model_link(id: &'static str, label: &'static str, url: &'static str) -> Link {
+    Link::new(id, label).url(url)
 }
 
 /// The licences behind photo search, and the button that accepts them.
@@ -2801,21 +2750,18 @@ pub(crate) fn search_models_dialog(cx: &mut Context<Workspace>) -> impl IntoElem
                 "mobileclip-source",
                 "MobileCLIP by Apple",
                 "https://github.com/apple/ml-mobileclip",
-                cx,
             ))
             .child("\u{b7}")
             .child(search_model_link(
                 "mobileclip-export",
                 "ONNX export by Xenova",
                 "https://huggingface.co/Xenova/mobileclip_s0",
-                cx,
             ))
             .child("\u{b7}")
             .child(search_model_link(
                 "mobileclip-license",
                 "License",
                 "https://github.com/apple/ml-mobileclip/blob/main/LICENSE",
-                cx,
             )),
     );
     body = body.child(
@@ -3083,25 +3029,13 @@ fn gallery_context_menu(
                cx: &mut Context<Workspace>,
                act: RowAction| {
         rows.push(
-            div()
-                .px_2()
-                .h(px(24.0))
-                .flex()
-                .items_center()
-                .text_size(px(12.0))
-                .cursor_pointer()
-                .hover(|s| {
-                    s.bg(gpui::rgb(crate::ui::palette().accent))
-                        .text_color(gpui::rgb(crate::ui::palette().accent_text))
-                })
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e: &MouseDownEvent, window, cx| {
-                        ws.library.context = None;
-                        act(ws, window, cx);
-                        cx.notify();
-                    }),
-                )
+            ListItem::new(("gallery-menu-row", rows.len()))
+                .accent_hover()
+                .on_click(cx.listener(move |ws, _e, window, cx| {
+                    ws.library.context = None;
+                    act(ws, window, cx);
+                    cx.notify();
+                }))
                 .child(SharedString::from(label))
                 .into_any_element(),
         );

@@ -5,6 +5,7 @@ contracts*; everything a user can see or click lives in a plugin.
 
 ```
 crates/app              GPUI shell: window, canvas, panels, dialogs, keymap
+├── crates/ui           widget kit: palette, buttons, rows, checkboxes, links
 ├── crates/plugin-api   the trait surface every feature implements
 ├── crates/core         kernel: document, COW tiles, layers, history, selection
 ├── crates/color        pixel/colour primitives, depth conversion
@@ -37,6 +38,19 @@ plugins/                first-party features, each optional at compile time
 ├── codecs-common       PNG/JPEG/WebP/TIFF/HEIC/camera raw
 └── commands-core       menu commands and their keybindings
 ```
+
+## Chrome
+
+GPUI ships no widget library, so `crates/ui` is the one the panels and
+dialogs share: the two palettes, and a small set of components (`Button`,
+`IconButton`, `Checkbox`, `ListItem`, `Tab`, `Link`, `Swatch`). They know
+nothing about the workspace; they take plain handlers, which is what
+`Context::listener` produces. The rule they enforce is *when* a control
+acts: a button, a row in a menu, a checkbox, a link all commit on
+release over the control (GPUI's `on_click`), the way native buttons do,
+and never on the press. What starts a gesture keeps the press: canvas
+tools, sliders, drags, click-to-focus fields, and the openers of menus
+and dropdowns, which native menus also open on press.
 
 ## Why the kernel is small
 
