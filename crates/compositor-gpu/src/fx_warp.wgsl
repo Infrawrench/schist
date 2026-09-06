@@ -69,13 +69,15 @@ fn mesh_sample(x: f32, y: f32) -> vec2<f32> {
     return top + (bottom - top) * ty;
 }
 
-fn fetch(fx: f32, fy: f32) -> vec4<f32> {
-    let x0f = floor(fx);
-    let y0f = floor(fy);
-    let tx = fx - x0f;
-    let ty = fy - y0f;
-    let x0 = i32(x0f);
-    let y0 = i32(y0f);
+fn fetch(x: i32, y: i32, displacement: vec2<f32>) -> vec4<f32> {
+    // Derive weights before adding the integer document position, matching
+    // the CPU without discarding subpixel precision on large coordinates.
+    let offset = floor(displacement);
+    let fraction = displacement - offset;
+    let tx = fraction.x;
+    let ty = fraction.y;
+    let x0 = x + i32(offset.x);
+    let y0 = y + i32(offset.y);
     var acc = vec4(0.0);
     for (var t = 0u; t < 4u; t++) {
         let dx = i32(t & 1u);
@@ -111,7 +113,7 @@ fn mesh_warp(@builtin(global_invocation_id) gid: vec3<u32>) {
     let fx = f32(x) + 0.5;
     let fy = f32(y) + 0.5;
     let d = mesh_sample(fx, fy);
-    let px = fetch(fx + d.x - 0.5, fy + d.y - 0.5);
+    let px = fetch(x, y, d);
     let o = (gid.y * p.dst_width + gid.x) * 4u;
     dst[o] = px.x;
     dst[o + 1u] = px.y;

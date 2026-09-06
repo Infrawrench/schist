@@ -211,6 +211,32 @@ fn a_degenerate_mesh_warps_to_the_identity() {
 }
 
 #[test]
+fn fractional_warps_preserve_precision_at_large_document_origins() {
+    let Some(ctx) = gpu() else { return };
+    let (w, h) = (16, 12);
+    let src = noise(w, h, 514);
+    let source = ctx.upload_warp_source(&src).expect("upload");
+    let mesh = [0.1, -0.2].repeat(4);
+    let mut job = warp_job(&mesh, w, h, 2, 2, 0);
+    job.src_origin = (0, 0);
+    job.dst_origin = (0, 0);
+    job.mesh_origin = (0, 0);
+    let cpu = schist_fx::warp_cpu(&job, &src);
+    for origin in [
+        (0, 0),
+        (923, 1024),
+        (-923, -1024),
+        (16_000_000, -16_000_000),
+    ] {
+        job.src_origin = origin;
+        job.dst_origin = origin;
+        job.mesh_origin = origin;
+        let out = ctx.run_warp(&job, &source).expect("translated warp");
+        assert_close(&out, &cpu, &format!("fractional warp at {origin:?}"));
+    }
+}
+
+#[test]
 fn warp_bands_can_sample_across_texture_pages() {
     let Some(ctx) = gpu() else { return };
     // A page holds 1024² pixels. Odd image width puts page boundaries

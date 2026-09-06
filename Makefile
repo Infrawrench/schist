@@ -224,7 +224,8 @@ FORCE:
 check-text:
 	$(CARGO) test -p schist-core -p schist-text-engine -p schist-tools-type -p schist-codec-affinity
 check-gpu-fx:
+	$(CARGO) test -p schist-fx
 	$(CARGO) test -p schist-compositor-gpu --test fx_parity --test fx_wiring
 check-readme: check-text check-gpu-fx
-	$(CARGO) clippy -p schist-core -p schist-text-engine -p schist-tools-type -p schist-codec-affinity -p schist-compositor-gpu --all-targets -- -D warnings
+	$(CARGO) clippy -p schist-core -p schist-text-engine -p schist-tools-type -p schist-codec-affinity -p schist-fx -p schist-compositor-gpu --all-targets -- -D warnings
 	$(CARGO) check -p schist-app
