@@ -14,6 +14,14 @@ all nine layer effects, and live vector shapes.** 540 tests,
 clippy-clean, verified end-to-end under a real window. [What is still
 missing](#not-there-yet) is a short list now.
 
+## Backers
+
+<!-- backers:start -->
+<!-- backers:end -->
+
+
+Thanks to the people and brands supporting Schist.
+
 ## Build and run
 
 ```sh
@@ -377,11 +385,3 @@ already logged into. See [docs/ai-panel.md](docs/ai-panel.md).
 * [docs/ai-panel.md](docs/ai-panel.md) — the in-app AI sidebar
 * [docs/quicklook.md](docs/quicklook.md) — the macOS Quick Look extensions
 * [docs/versioning.md](docs/versioning.md) — compatibility and releases
-
-## Backers
-
-<!-- backers:start -->
-<!-- backers:end -->
-
-
-Thanks to the people and brands supporting Schist.
