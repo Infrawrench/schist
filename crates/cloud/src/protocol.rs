@@ -4,7 +4,18 @@ use serde::{Deserialize, Serialize};
 
 pub const DEFAULT_DOMAIN: &str = "schist.app";
 pub const MAX_FRAME: usize = 256 * 1024 * 1024;
+/// The provider's per-file upload limit, separate from the wire frame limit.
+pub const MAX_UPLOAD_BYTES: u64 = 100 * 1024 * 1024;
 pub const IMAGE_MODEL: &str = "schist.image.v1";
+
+pub fn validate_upload_size(size: u64) -> Result<()> {
+    ensure!(size > 0, "File is empty");
+    ensure!(
+        size <= MAX_UPLOAD_BYTES,
+        "Exceeds the 100 MiB per-file upload limit"
+    );
+    Ok(())
+}
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Capabilities {
@@ -534,6 +545,20 @@ pub struct Face {
 #[cfg(test)]
 mod people_contract_tests {
     use super::*;
+    #[test]
+    fn upload_size_checks_match_the_provider_boundary() {
+        assert!(validate_upload_size(1).is_ok());
+        assert!(validate_upload_size(MAX_UPLOAD_BYTES).is_ok());
+        assert!(validate_upload_size(0)
+            .unwrap_err()
+            .to_string()
+            .contains("empty"));
+        assert!(validate_upload_size(MAX_UPLOAD_BYTES + 1)
+            .unwrap_err()
+            .to_string()
+            .contains("100 MiB"));
+        assert!(validate_upload_size(u64::MAX).is_err());
+    }
     #[test]
     fn screening_and_people_are_optional_for_legacy_providers() {
         let old: Snapshot = serde_json::from_str(

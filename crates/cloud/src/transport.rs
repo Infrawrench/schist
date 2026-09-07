@@ -145,6 +145,7 @@ impl Handle {
             relative,
             mutation,
         } = upload;
+        validate_upload_size(bytes.len() as u64).map_err(|e| anyhow!("{name}: {e}"))?;
         if let Some(path) = relative {
             ensure!(
                 !path.contains(['\\', '\0', ':'])

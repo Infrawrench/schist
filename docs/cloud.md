@@ -32,6 +32,13 @@ The legacy generation stream still uses its own per-job socket.
 paths and can import directly into a cloud folder or bucket. Each selection is
 limited to 512 MiB in browser memory; the provider's upload limits still apply.
 The local filesystem gallery and native drag integration remain desktop features.
+
+Imports check the 100 MiB per-file limit before loading file contents. Oversized,
+empty, or unreadable files are skipped without discarding the rest of the batch;
+the final status reports uploaded/skipped counts and the first skipped file's
+reason. A source that grows during reading is checked again. This applies to both
+desktop and WASM imports. Connection/provider failures still stop the operation,
+and already committed files remain in Cloud.
 Remote folders and assets can be dragged into remote buckets in either build.
 Downloads use the browser's download flow. Edits survive socket reconnects in the
 open tab, but filesystem recovery across page reloads is not available in WASM.

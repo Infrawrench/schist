@@ -1970,7 +1970,7 @@ impl Workspace {
                     label,
                 });
             };
-            let result: Result<usize> = (async {
+            let result: Result<UploadSummary> = (async {
                 let mut files = Vec::new();
                 for path in paths {
                     if path.is_dir() {
@@ -1986,6 +1986,7 @@ impl Workspace {
                 let total = files.len() as u64;
                 let mut done = 0u64;
                 let mut uploaded: Vec<String> = Vec::new();
+                let mut skipped = Vec::new();
                 // Files travel in compressed batches; a provider without
                 // the batch method gets them one by one instead.
                 let mut singly = false;
@@ -1993,20 +1994,24 @@ impl Workspace {
                 let mut batch_bytes = 0usize;
                 progress(0, total, format!("Uploading 0 of {total} photos…"));
                 for (path, relative) in files {
-                    #[cfg(not(target_arch = "wasm32"))]
-                    let bytes = std::fs::read(&path)?;
-                    #[cfg(target_arch = "wasm32")]
-                    let bytes = crate::web::read_file(&path)?.to_vec();
-                    let name = path
-                        .file_name()
-                        .unwrap_or_default()
-                        .to_string_lossy()
-                        .into_owned();
-                    let file = BatchFile {
-                        path: relative.unwrap_or_else(|| name.clone()),
-                        name,
-                        mime: mime(&path),
-                        bytes,
+                    let file = match read_cloud_upload(&path, relative) {
+                        Ok(file) => file,
+                        Err(error) => {
+                            skipped.push(format!(
+                                "{}: {error}",
+                                path.file_name().unwrap_or_default().to_string_lossy()
+                            ));
+                            done += 1;
+                            progress(
+                                done,
+                                total,
+                                format!(
+                                    "Processed {done} of {total} files ({} skipped)…",
+                                    skipped.len()
+                                ),
+                            );
+                            continue;
+                        }
                     };
                     let fits = file.bytes.len() <= BATCH_BYTES;
                     if !singly
@@ -2027,12 +2032,12 @@ impl Workspace {
                         done += batch.len() as u64;
                         batch.clear();
                         batch_bytes = 0;
-                        progress(done, total, format!("Uploading {done} of {total} photos…"));
+                        progress(done, total, format!("Processed {done} of {total} files…"));
                     }
                     if singly || !fits {
                         uploaded.push(send_single(&handle, folder.as_deref(), &file).await?);
                         done += 1;
-                        progress(done, total, format!("Uploading {done} of {total} photos…"));
+                        progress(done, total, format!("Processed {done} of {total} files…"));
                     } else {
                         batch_bytes += file.bytes.len();
                         batch.push(file);
@@ -2048,7 +2053,7 @@ impl Workspace {
                         }
                     }
                     done += batch.len() as u64;
-                    progress(done, total, format!("Uploading {done} of {total} photos…"));
+                    progress(done, total, format!("Processed {done} of {total} files…"));
                 }
                 if let Some(bucket) = bucket {
                     progress(done, total, "Adding to the bucket…".into());
@@ -2069,17 +2074,16 @@ impl Workspace {
                             .await?;
                     }
                 }
-                Ok(uploaded.len())
+                Ok(UploadSummary {
+                    uploaded: uploaded.len(),
+                    skipped,
+                })
             })
             .await;
             let job = match result {
-                Ok(n) => Job::Done {
+                Ok(summary) => Job::Done {
                     epoch,
-                    message: match n {
-                        0 => "Nothing to upload".into(),
-                        1 => "Uploaded 1 photo".into(),
-                        n => format!("Uploaded {n} photos"),
-                    },
+                    message: summary.message(),
                 },
                 Err(e) => Job::Error {
                     epoch,
@@ -2542,6 +2546,66 @@ async fn query_assets(
 /// each small enough to retry on its own.
 const BATCH_BYTES: usize = 48 * 1024 * 1024;
 const BATCH_FILES: usize = 250;
+struct UploadSummary {
+    uploaded: usize,
+    skipped: Vec<String>,
+}
+impl UploadSummary {
+    fn message(&self) -> String {
+        let uploaded = match self.uploaded {
+            0 => "Nothing uploaded".into(),
+            1 => "Uploaded 1 photo".into(),
+            n => format!("Uploaded {n} photos"),
+        };
+        match self.skipped.first() {
+            None => uploaded,
+            Some(reason) => format!(
+                "{uploaded}; skipped {} file{}: {reason}{}",
+                self.skipped.len(),
+                if self.skipped.len() == 1 { "" } else { "s" },
+                if self.skipped.len() > 1 {
+                    format!(" (and {} more)", self.skipped.len() - 1)
+                } else {
+                    String::new()
+                },
+            ),
+        }
+    }
+}
+
+fn read_cloud_upload(path: &std::path::Path, relative: Option<String>) -> Result<BatchFile> {
+    #[cfg(not(target_arch = "wasm32"))]
+    let bytes = {
+        use std::io::Read as _;
+        let metadata = std::fs::metadata(path)?;
+        remote::validate_upload_size(metadata.len())?;
+        // Bound the read too, in case the source grows after checking its size.
+        let mut bytes = Vec::new();
+        std::fs::File::open(path)?
+            .take(remote::MAX_UPLOAD_BYTES + 1)
+            .read_to_end(&mut bytes)?;
+        bytes
+    };
+    #[cfg(target_arch = "wasm32")]
+    let bytes = {
+        let bytes = crate::web::read_file(path)?;
+        remote::validate_upload_size(bytes.len() as u64)?;
+        bytes.to_vec()
+    };
+    remote::validate_upload_size(bytes.len() as u64)?;
+    let name = path
+        .file_name()
+        .unwrap_or_default()
+        .to_string_lossy()
+        .into_owned();
+    Ok(BatchFile {
+        path: relative.unwrap_or_else(|| name.clone()),
+        name,
+        mime: mime(path),
+        bytes,
+    })
+}
+
 struct BatchFile {
     /// The relative path inside the drop (sub-folders become cloud
     /// folders), or just the name.
@@ -2791,6 +2855,48 @@ pub(super) fn rgba_to_render_image(
 #[cfg(test)]
 mod cloud_lifecycle_tests {
     use super::*;
+    #[cfg(not(target_arch = "wasm32"))]
+    #[test]
+    fn oversized_and_empty_files_do_not_discard_the_valid_batch() {
+        use std::io::Read as _;
+        let root = std::env::temp_dir().join(format!("schist-upload-{}", remote::Uuid::new_v4()));
+        std::fs::create_dir(&root).unwrap();
+        std::fs::write(root.join("before.jpg"), b"before").unwrap();
+        std::fs::File::create(root.join("large.mov"))
+            .unwrap()
+            .set_len(remote::MAX_UPLOAD_BYTES + 1)
+            .unwrap();
+        std::fs::write(root.join("empty.jpg"), b"").unwrap();
+        std::fs::write(root.join("after.jpg"), b"after").unwrap();
+        let mut batch = Vec::new();
+        let mut skipped = Vec::new();
+        for name in ["before.jpg", "large.mov", "empty.jpg", "after.jpg"] {
+            match read_cloud_upload(&root.join(name), Some(format!("trip/{name}"))) {
+                Ok(file) => batch.push(file),
+                Err(error) => skipped.push(format!("{name}: {error}")),
+            }
+        }
+        assert_eq!(batch.len(), 2);
+        assert_eq!(batch[0].path, "trip/before.jpg");
+        assert_eq!(batch[1].path, "trip/after.jpg");
+        let (payload, total) = pack_batch(&batch).unwrap();
+        assert_eq!(total, 11);
+        let mut raw = Vec::new();
+        flate2::read::GzDecoder::new(payload.as_slice())
+            .read_to_end(&mut raw)
+            .unwrap();
+        let length = u32::from_be_bytes(raw[8..12].try_into().unwrap()) as usize;
+        assert_eq!(&raw[12 + length..], b"beforeafter");
+        let message = UploadSummary {
+            uploaded: batch.len(),
+            skipped,
+        }
+        .message();
+        assert!(message.contains("Uploaded 2 photos; skipped 2 files"));
+        assert!(message.contains("large.mov"));
+        assert!(message.contains("100 MiB"));
+        std::fs::remove_dir_all(root).unwrap();
+    }
     fn binding(asset: &str) -> RemoteDocument {
         let mut source = Document::new("Original", 1, 1, schist_color::Depth::Eight);
         let mut shared = remote::document::SharedDocument::new(&source).unwrap();
