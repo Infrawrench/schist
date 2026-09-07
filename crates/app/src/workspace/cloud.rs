@@ -121,6 +121,13 @@ enum Job {
         epoch: u64,
         paths: Vec<PathBuf>,
     },
+    /// The world map's located assets for one query.
+    #[cfg(not(target_arch = "wasm32"))]
+    MapAssets {
+        epoch: u64,
+        key: (AssetQuery, u64),
+        result: std::result::Result<Vec<Asset>, String>,
+    },
 }
 /// What the cloud gallery's right-click menu is about.
 #[derive(Clone, Debug)]
@@ -181,6 +188,21 @@ pub(crate) struct CloudState {
     /// The photos of the world-map marker last clicked, for its strip.
     #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
     pub map_photos: Vec<String>,
+    /// Every located photo in the scope on show, for the world map —
+    /// the whole scope, not one page — and the query plus change count
+    /// it answers, so it refetches only when either moves.
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub map_assets: Vec<Asset>,
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub map_key: Option<(AssetQuery, u64)>,
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub map_loading: bool,
+    /// Marker previews asked for this frame: their thumbnails load
+    /// alongside the page's.
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub map_wanted: HashSet<String>,
+    /// Bumped on every asset snapshot, so caches keyed by it refresh.
+    pub changes: u64,
     /// Thumbnails whose fetch or decode failed at the current revision.
     pub thumbnail_failed: HashSet<String>,
     /// The browser has no local gallery to keep these in.
@@ -275,6 +297,11 @@ impl Default for CloudState {
             loaded: false,
             select_all_pending: false,
             map_photos: Vec::new(),
+            map_assets: Vec::new(),
+            map_key: None,
+            map_loading: false,
+            map_wanted: HashSet::new(),
+            changes: 0,
             thumbnail_failed: HashSet::new(),
             #[cfg(target_arch = "wasm32")]
             thumb_px: 144.0,
@@ -624,7 +651,21 @@ impl Workspace {
         // A small worker pool bounds the network; decoded thumbnails
         // stay for a few pages, so paging back is instant, and only an
         // overfull cache falls back to the page on show.
-        let visible: HashSet<_> = self.cloud.assets.iter().map(|a| a.id.clone()).collect();
+        // The page's photos, then whatever the world map's markers asked
+        // for this frame.
+        let wanted: Vec<(String, u64, Option<String>)> = self
+            .cloud
+            .assets
+            .iter()
+            .chain(
+                self.cloud
+                    .map_assets
+                    .iter()
+                    .filter(|a| self.cloud.map_wanted.contains(&a.id)),
+            )
+            .map(|a| (a.id.clone(), a.revision, a.thumbnail_url.clone()))
+            .collect();
+        let visible: HashSet<String> = wanted.iter().map(|(id, _, _)| id.clone()).collect();
         if self.cloud.thumbnails.len() > THUMBNAIL_CACHE {
             self.cloud.thumbnails.retain(|id, _| visible.contains(id));
         }
@@ -634,33 +675,27 @@ impl Workspace {
         self.cloud
             .thumbnail_failed
             .retain(|id| visible.contains(id));
-        for asset in &self.cloud.assets {
+        for (id, revision, url) in wanted {
             if self.cloud.thumbnail_active >= THUMBNAIL_WORKERS {
                 break;
             }
             if self
                 .cloud
                 .thumbnails
-                .get(&asset.id)
-                .is_some_and(|(r, _)| *r == asset.revision)
+                .get(&id)
+                .is_some_and(|(r, _)| *r == revision)
             {
                 continue;
             }
-            let Some(url) = asset.thumbnail_url.clone() else {
+            let Some(url) = url else {
                 continue;
             };
-            if !self
-                .cloud
-                .thumbnail_jobs
-                .insert((asset.id.clone(), asset.revision))
-            {
+            if !self.cloud.thumbnail_jobs.insert((id.clone(), revision)) {
                 continue;
             }
             self.cloud.thumbnail_active += 1;
             let sender = self.cloud.sender.clone();
             let epoch = self.cloud.epoch;
-            let id = asset.id.clone();
-            let revision = asset.revision;
             remote::runtime::spawn(async move {
                 let image = (async {
                     let bytes = remote::auth::download_limited_async(&url, 8 * 1024 * 1024).await?;
@@ -720,6 +755,18 @@ impl Workspace {
                 Job::Done { epoch, message } if epoch == self.cloud.epoch => {
                     self.status = message.clone().into();
                     self.cloud.message = message;
+                }
+                #[cfg(not(target_arch = "wasm32"))]
+                Job::MapAssets { epoch, key, result } if epoch == self.cloud.epoch => {
+                    self.cloud.map_loading = false;
+                    // A failed fetch still records its key, so the map
+                    // does not ask again every frame; the next change
+                    // or scope retries.
+                    self.cloud.map_key = Some(key);
+                    match result {
+                        Ok(assets) => self.cloud.map_assets = assets,
+                        Err(error) => self.cloud_error(format!("World map: {error}")),
+                    }
                 }
                 #[cfg(not(target_arch = "wasm32"))]
                 Job::Batch { epoch, paths } if epoch == self.cloud.epoch => {
@@ -938,6 +985,7 @@ impl Workspace {
                             .collect::<Result<_>>()?;
                         self.cloud.total = snapshot.total;
                         self.cloud.loaded = true;
+                        self.cloud.changes += 1;
                         if std::mem::take(&mut self.cloud.select_all_pending) {
                             self.cloud.selected = self.cloud_flat_order();
                             self.cloud.select_anchor = self.cloud.selected.first().cloned();
@@ -1551,6 +1599,46 @@ impl Workspace {
             return None;
         }
         Some((c.handle.clone(), self.cloud.capabilities.clone()))
+    }
+    /// Keep the world map's located assets current for the scope and
+    /// search on show: one fetch per change, the whole scope rather than
+    /// the page, only photos with a valid fix. Called from the map's
+    /// render.
+    #[cfg(not(target_arch = "wasm32"))]
+    pub(crate) fn cloud_map_refresh(&mut self) {
+        if !self.cloud.show || !self.cloud.connected || self.cloud.map_loading {
+            return;
+        }
+        let mut query = self.cloud.query.clone();
+        query.offset = 0;
+        query.limit = 500;
+        query.sort = "captured_desc".into();
+        if query.filters.bounds.is_none() {
+            // The provider's bounds filter is also its "has a fix" test.
+            query.filters.bounds = Some(remote::Bounds {
+                south: -90.0,
+                north: 90.0,
+                west: -180.0,
+                east: 180.0,
+            });
+        }
+        let key = (query.clone(), self.cloud.changes);
+        if self.cloud.map_key.as_ref() == Some(&key) {
+            return;
+        }
+        let Some(c) = &self.cloud.client else {
+            return;
+        };
+        let handle = c.handle.clone();
+        let sender = self.cloud.sender.clone();
+        let epoch = self.cloud.epoch;
+        self.cloud.map_loading = true;
+        remote::runtime::spawn(async move {
+            let result = query_assets(&handle, query, MAP_ASSET_CAP)
+                .await
+                .map_err(|e| e.to_string());
+            let _ = sender.send(Job::MapAssets { epoch, key, result });
+        });
     }
     /// Right-click ▸ Download folder…: every photo in a cloud folder
     /// (or the whole library) into a folder of the user's choosing, the
@@ -2315,28 +2403,44 @@ fn folder_path_below(folders: &[Folder], root: Option<&str>, folder: Option<&str
     names.reverse();
     names
 }
+/// The most located photos the world map plots for one scope.
+#[cfg(not(target_arch = "wasm32"))]
+const MAP_ASSET_CAP: usize = 5000;
 /// Every asset in a scope, page by page through `assets.query`.
 #[cfg(not(target_arch = "wasm32"))]
 async fn scope_assets(handle: &remote::Handle, scope: &Scope) -> Result<Vec<Asset>> {
+    let query = AssetQuery {
+        scope: scope.clone(),
+        text: String::new(),
+        filters: Filters::default(),
+        sort: "name".into(),
+        offset: 0,
+        limit: 500,
+    };
+    query_assets(handle, query, usize::MAX).await
+}
+/// Every asset a query matches, page by page through `assets.query`,
+/// up to `cap`.
+#[cfg(not(target_arch = "wasm32"))]
+async fn query_assets(
+    handle: &remote::Handle,
+    mut query: AssetQuery,
+    cap: usize,
+) -> Result<Vec<Asset>> {
     let mut all = Vec::new();
-    let mut offset = 0u64;
+    query.limit = 500;
     loop {
-        let query = AssetQuery {
-            scope: scope.clone(),
-            text: String::new(),
-            filters: Filters::default(),
-            sort: "name".into(),
-            offset,
-            limit: 500,
-        };
-        let page: remote::Snapshot =
-            parse(handle.request_async("assets.query", value(query)).await?)?;
+        let page: remote::Snapshot = parse(
+            handle
+                .request_async("assets.query", value(query.clone()))
+                .await?,
+        )?;
         let got = page.items.len() as u64;
         for item in page.items {
             all.push(parse::<Asset>(item)?);
         }
-        offset += got;
-        if got == 0 || offset >= page.total {
+        query.offset += got;
+        if got == 0 || query.offset >= page.total || all.len() >= cap {
             break;
         }
     }

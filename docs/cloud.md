@@ -53,8 +53,10 @@ tags, ranked by the provider); the map filter applies to the cloud too, with
 its chip in the strip while it is on. Escape clears the search. Pages of 200 photos have links under the grid.
 
 The sidebar's VIEW, GROUP BY and PEOPLE sections stay whichever room is up.
-World Map plots the cloud page's photos by the `location` each asset carries,
-with the same markers, strip and marker menu as local photos. The PEOPLE list
+World Map plots every located photo in the folder, bucket or search on show
+(not just the current page, up to 5000) by the `location` each asset carries,
+with the same markers, strip and marker menu as local photos; marker
+thumbnails load on demand. The PEOPLE list
 shows the local people and, beneath them, the cloud's people with a ☁ badge;
 right-click a cloud person to rename, merge or forget them.
 

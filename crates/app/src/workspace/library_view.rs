@@ -873,18 +873,25 @@ fn map_photos(ws: &Workspace) -> (LocatedPhotos, usize, usize) {
     let mut pending = 0;
     let mut unlocated = 0;
     if ws.cloud.show {
-        for asset in &ws.cloud.assets {
-            match asset
+        // The whole scope's located photos, fetched separately from the
+        // page; the page total says how many have no fix.
+        for asset in &ws.cloud.map_assets {
+            if let Some(l) = asset
                 .location
                 .as_ref()
                 .filter(|l| super::library_geo::valid_position(l.latitude, l.longitude))
             {
-                Some(l) => located.push((
+                located.push((
                     MapPhoto::Cloud(Box::new(asset.clone())),
                     (l.latitude, l.longitude),
-                )),
-                None => unlocated += 1,
+                ));
             }
+        }
+        let total = ws.cloud.total as usize;
+        if ws.cloud.map_loading && ws.cloud.map_assets.is_empty() {
+            pending = total;
+        } else {
+            unlocated = total.saturating_sub(located.len());
         }
     } else {
         for entry in gallery_sections(ws).into_iter().flat_map(|(_, _, e)| e) {
@@ -1020,6 +1027,9 @@ fn map_photo_preview(
 
 fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     use super::library_geo::MapSlot;
+    if ws.cloud.show {
+        ws.cloud_map_refresh();
+    }
     let (located_photos, pending, unlocated) = map_photos(ws);
     let located = located_photos.len();
     let details = map_strip_photos(ws);
@@ -1043,7 +1053,7 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
         .child(div().px_2().pb_2().text_size(px(11.0)).text_color(gpui::rgb(pal().text_dim))
             .child(if located == 0 && pending == 0 {
                 if ws.cloud.show {
-                    "No photos with GPS locations on this page. Pick another folder or bucket, or a later page."
+                    "No photos with GPS locations here. Pick another folder or bucket, or clear the search."
                 } else {
                     "No photos with GPS locations in this view. Add geotagged photos or change the gallery filters."
                 }
@@ -1199,6 +1209,9 @@ fn prepare_photo_markers(
     cx: &mut Context<Workspace>,
 ) -> Vec<(Point<Pixels>, gpui::AnyElement)> {
     let (entries, _, _) = map_photos(ws);
+    // Marker previews name the thumbnails they need; the loader picks
+    // them up alongside the page's.
+    ws.cloud.map_wanted.clear();
     let points: Vec<_> = entries
         .iter()
         .enumerate()
@@ -1230,6 +1243,9 @@ fn prepare_photo_markers(
         let context_photos = photos.clone();
         let count = photos.len();
         let active = photos.iter().any(|p| map_photo_selected(ws, p));
+        if let MapPhoto::Cloud(asset) = entry {
+            ws.cloud.map_wanted.insert(asset.id.clone());
+        }
         let preview = map_photo_preview(ws, entry, 56.0, 42.0, cx);
         let label = if count > 1 {
             format!("{count} photos")
