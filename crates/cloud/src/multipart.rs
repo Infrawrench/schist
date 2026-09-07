@@ -160,28 +160,9 @@ impl Handle {
         let metadata = file.metadata()?;
         validate_upload_size(metadata.len())?;
         let modified = metadata.modified()?;
-        let mut digest = Sha256::new();
-        let mut buffer = vec![0; PART_BYTES];
-        let mut hashed = 0u64;
-        loop {
-            let length = file.read(&mut buffer)?;
-            hashed += length as u64;
-            ensure!(
-                hashed <= metadata.len(),
-                "The source file grew during upload preparation"
-            );
-            if length == 0 {
-                break;
-            }
-            digest.update(&buffer[..length]);
-        }
-        ensure!(
-            hashed == metadata.len() && file.metadata()?.modified()? == modified,
-            "The source file changed during upload preparation"
-        );
-        drop(buffer);
+        let digest = file_digest(&mut file, &metadata)?;
         let name = path.file_name().unwrap_or_default().to_string_lossy();
-        let resume_key = key(&digest.finalize(), &name, mime, folder, relative);
+        let resume_key = key(&digest, &name, mime, folder, relative);
         self.upload_chunks_async(
             ChunkUpload {
                 name: &name,
@@ -287,5 +268,81 @@ mod tests {
                 Some("other/photo.tiff")
             )
         );
+    }
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+fn file_digest(file: &mut std::fs::File, metadata: &std::fs::Metadata) -> Result<Vec<u8>> {
+    use std::io::Read;
+    let mut digest = Sha256::new();
+    let mut buffer = vec![0; PART_BYTES];
+    let mut hashed = 0u64;
+    loop {
+        let length = file.read(&mut buffer)?;
+        hashed += length as u64;
+        ensure!(
+            hashed <= metadata.len(),
+            "The source file grew during upload preparation"
+        );
+        if length == 0 {
+            break;
+        }
+        digest.update(&buffer[..length]);
+    }
+    ensure!(
+        hashed == metadata.len() && file.metadata()?.modified()? == metadata.modified()?,
+        "The source file changed during upload preparation"
+    );
+    drop(buffer);
+    Ok(digest.finalize().to_vec())
+}
+#[cfg(not(target_arch = "wasm32"))]
+pub fn resume_key_for_path(
+    path: &std::path::Path,
+    mime: &str,
+    folder: Option<&str>,
+    relative: Option<&str>,
+) -> Result<String> {
+    let mut file = std::fs::File::open(path)?;
+    let metadata = file.metadata()?;
+    validate_upload_size(metadata.len())?;
+    let digest = file_digest(&mut file, &metadata)?;
+    Ok(key(
+        &digest,
+        &path.file_name().unwrap_or_default().to_string_lossy(),
+        mime,
+        folder,
+        relative,
+    ))
+}
+pub fn resume_key_for_bytes(
+    bytes: &[u8],
+    name: &str,
+    mime: &str,
+    folder: Option<&str>,
+    relative: Option<&str>,
+) -> String {
+    key(&Sha256::digest(bytes), name, mime, folder, relative)
+}
+#[derive(Deserialize)]
+pub struct UploadCapacity {
+    pub fits: bool,
+    pub additional_bytes: u64,
+    pub remaining_bytes: Option<u64>,
+    pub shortfall_bytes: u64,
+}
+impl UploadCapacity {
+    pub fn require_space(&self) -> Result<()> {
+        let format = |bytes: u64| {
+            if bytes >= 1024 * 1024 * 1024 {
+                format!("{:.2} GiB", bytes as f64 / (1024f64.powi(3)))
+            } else if bytes >= 1024 * 1024 {
+                format!("{:.2} MiB", bytes as f64 / (1024f64.powi(2)))
+            } else {
+                format!("{bytes} bytes")
+            }
+        };
+        ensure!(self.fits,"Not enough cloud storage. This selection needs {}; {} is available. Free up {} or upgrade your plan. No files were uploaded.",format(self.additional_bytes),format(self.remaining_bytes.unwrap_or(0)),format(self.shortfall_bytes));
+        Ok(())
     }
 }

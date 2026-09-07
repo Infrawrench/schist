@@ -764,6 +764,15 @@ impl Workspace {
                 }
                 Job::Error { epoch, error } if epoch == self.cloud.epoch => {
                     self.cloud.progress = None;
+                    if error.starts_with("Not enough cloud storage.") {
+                        self.open_modal(
+                            Modal::Cloud {
+                                kind: "storage-warning",
+                                fields: vec![("message", String::new(), error.clone())],
+                            },
+                            cx,
+                        );
+                    }
                     self.cloud_error(error)
                 }
                 Job::Done { epoch, message } if epoch == self.cloud.epoch => {
@@ -1983,6 +1992,72 @@ impl Workspace {
                         files.push((path, relative));
                     }
                 }
+                progress(0, files.len() as u64, "Checking cloud storage…".into());
+                let mut selection_bytes = 0u64;
+                let mut candidates = Vec::new();
+                for (path, relative) in &files {
+                    #[cfg(not(target_arch = "wasm32"))]
+                    let size = std::fs::metadata(path)
+                        .map(|metadata| metadata.len())
+                        .unwrap_or(0);
+                    #[cfg(target_arch = "wasm32")]
+                    let size = crate::web::read_file(path)
+                        .map(|bytes| bytes.len() as u64)
+                        .unwrap_or(0);
+                    if remote::validate_upload_size(size).is_err() {
+                        continue;
+                    }
+                    selection_bytes = selection_bytes
+                        .checked_add(size)
+                        .ok_or_else(|| anyhow!("Selection is too large"))?;
+                    if size > remote::MAX_SINGLE_UPLOAD_BYTES {
+                        candidates.push((path, relative, size));
+                    }
+                }
+                let initial: remote::multipart::UploadCapacity = parse(
+                    handle
+                        .request_async(
+                            "asset.check_upload",
+                            map([("bytes", selection_bytes.into())]),
+                        )
+                        .await?,
+                )?;
+                if !initial.fits {
+                    let mut resumes = Vec::new();
+                    for (path, relative, size) in candidates {
+                        #[cfg(not(target_arch = "wasm32"))]
+                        let resume_key = remote::multipart::resume_key_for_path(
+                            path,
+                            mime(path),
+                            folder.as_deref(),
+                            relative.as_deref(),
+                        )?;
+                        #[cfg(target_arch = "wasm32")]
+                        let resume_key = remote::multipart::resume_key_for_bytes(
+                            &crate::web::read_file(path)?,
+                            &path.file_name().unwrap_or_default().to_string_lossy(),
+                            mime(path),
+                            folder.as_deref(),
+                            relative.as_deref(),
+                        );
+                        resumes.push(map([
+                            ("resume_key", resume_key.into()),
+                            ("size", size.into()),
+                        ]));
+                    }
+                    let capacity: remote::multipart::UploadCapacity = parse(
+                        handle
+                            .request_async(
+                                "asset.check_upload",
+                                map([
+                                    ("bytes", selection_bytes.into()),
+                                    ("resumes", Value::Array(resumes)),
+                                ]),
+                            )
+                            .await?,
+                    )?;
+                    capacity.require_space()?;
+                }
                 let total = files.len() as u64;
                 let mut done = 0u64;
                 let mut uploaded: Vec<String> = Vec::new();
@@ -2124,7 +2199,11 @@ impl Workspace {
                 },
                 Err(e) => Job::Error {
                     epoch,
-                    error: format!("Upload failed (completed files remain in Cloud): {e}"),
+                    error: if e.to_string().starts_with("Not enough cloud storage.") {
+                        e.to_string()
+                    } else {
+                        format!("Upload failed (completed files remain in Cloud): {e}")
+                    },
                 },
             };
             let _ = sender.send(job);

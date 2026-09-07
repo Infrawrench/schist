@@ -1614,6 +1614,16 @@ pub(crate) fn dialog(
     fields: Vec<(&'static str, String, String)>,
     cx: &mut Context<Workspace>,
 ) -> gpui::AnyElement {
+    if kind == "storage-warning" {
+        let message = fields
+            .first()
+            .map(|(_, _, value)| value.clone())
+            .unwrap_or_default();
+        let body = div().child(message);
+        let actions = ui::button("OK", true, |ws, _, cx| ws.close_modal(cx), cx);
+        return ui::modal_frame("Not enough cloud storage", 540.0, body, actions)
+            .into_any_element();
+    }
     if kind == "people-view" {
         return super::cloud_people::viewer(ws, fields, cx);
     }

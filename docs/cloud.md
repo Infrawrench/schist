@@ -243,3 +243,10 @@ cloud copy after it appears to begin collaboration. A provider account denial
 stops reconnect attempts, clears the cloud catalogue/thumbnail cache and stored
 credentials, and detaches remote documents while preserving local edits. Shield,
 Slack and CyberTipline credentials are server-only.
+
+Before importing, Schist checks the whole selection against current cloud storage,
+including other uploads' reservations. If it will not fit, a dialog shows the
+space needed, available space, and how much to free or upgrade; no file bytes are
+sent. Interrupted multipart uploads are matched by content and destination so
+resuming does not count their reserved space twice. The check is advisory: another
+device can use space afterward, and the server still enforces quota at upload.
