@@ -121,24 +121,6 @@ pub(crate) fn rows(
             cx,
         ));
     }
-    if !people.enabled {
-        rows.push(
-            chrome::sidebar_link(
-                format!("{CLOUD_GLYPH} Find faces in Schist Cloud\u{2026}"),
-                |ws, _, cx| {
-                    ws.open_modal(
-                        Modal::Cloud {
-                            kind: "people-enable",
-                            fields: vec![],
-                        },
-                        cx,
-                    )
-                },
-                cx,
-            )
-            .into_any_element(),
-        );
-    }
     if people.pending > 0 {
         rows.push(
             div()
@@ -451,8 +433,9 @@ pub(crate) fn viewer(
             body = body.child(row);
         }
         if asset.faces.is_empty() {
-            body =
-                body.child("No faces named yet. Draw a box, or enable Find faces in the sidebar.");
+            body = body.child(
+                "No faces named yet. Faces are found automatically; draw a box to add one by hand.",
+            );
         }
     } else {
         body = body.child("This photo is no longer available in this view.");
@@ -471,13 +454,6 @@ pub(crate) fn submit(
     get: impl Fn(&str) -> String,
 ) -> anyhow::Result<bool> {
     match kind {
-        "people-enable" => ws.cloud_mutate(
-            "people.enable",
-            vec![(
-                "enabled",
-                (!ws.cloud.people.as_ref().is_some_and(|p| p.enabled)).into(),
-            )],
-        ),
         "people-rename" => {
             anyhow::ensure!(!get("cloud-name").is_empty(), "Enter a name");
             ws.cloud_mutate(

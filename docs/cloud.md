@@ -231,7 +231,7 @@ validate edits, and materialize downloads. See [document-library.md](document-li
 ## People and upload screening
 
 Cloud People lives in the same gallery sidebar as the local People album, scoped
-to the current cloud folder or bucket. Enable Find faces to process cleared cloud
+to the current cloud folder or bucket. Faces are found automatically in cleared cloud
 uploads with the same UltraFace/SFace models as desktop. Space or “View & name
 people” opens the cloud face viewer: click a box to name it, draw a missed face,
 accept a suggestion, or use “Not them”/“Not a face”. Rename can merge people;

@@ -67,6 +67,13 @@ impl Workspace {
                     Ok(path) => format!("Installed {} to {}", spec.name, path.display()).into(),
                     Err(e) => format!("{}: {e}", spec.name).into(),
                 };
+                #[cfg(not(target_arch = "wasm32"))]
+                if super::library_people::PEOPLE_MODELS.contains(&id)
+                    && schist_neural::installed(id)
+                {
+                    // The position pass may have finished before the models arrived.
+                    ws.kick_thumb_loader(cx);
+                }
                 cx.notify();
             })
             .ok();

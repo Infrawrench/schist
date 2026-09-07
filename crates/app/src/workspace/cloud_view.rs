@@ -1628,7 +1628,6 @@ pub(crate) fn dialog(
         return super::cloud_people::viewer(ws, fields, cx);
     }
     let title = match kind {
-        "people-enable" => "Find faces",
         "people-rename" => "Rename or merge person",
         "face-name" | "face-add" => "Name this face",
         "sign-in" => "Sign into Schist Cloud",
@@ -1648,9 +1647,6 @@ pub(crate) fn dialog(
         _ => "Schist Cloud",
     };
     let mut body = div().flex().flex_col().gap_2();
-    if kind == "people-enable" {
-        body=body.child("Use UltraFace (MIT) and SFace (Apache-2.0), the same models as desktop. Processing runs on Schist Cloud after upload screening. Recognition data stays in your workspace. Apply toggles automatic face detection.");
-    }
     if kind == "people-rename" {
         let id = fields
             .iter()

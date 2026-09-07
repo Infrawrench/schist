@@ -90,7 +90,7 @@ mod viewport;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) use library_geo::MapSlot;
 #[cfg(not(target_arch = "wasm32"))]
-pub(crate) use library_people_view::{people_models_dialog, person_name_dialog};
+pub(crate) use library_people_view::person_name_dialog;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) use library_view::map_element;
 #[cfg(not(target_arch = "wasm32"))]
@@ -1157,9 +1157,6 @@ pub enum Modal {
     /// The gallery's offer to install the two Search models, with the
     /// licences to agree to first. Desktop-only, like the gallery.
     SearchModels,
-    /// The same offer for the two People models — the face detector
-    /// and the face recogniser.
-    PeopleModels,
     /// Rename one of the gallery's people (`index` into the people
     /// list); a name somebody else has merges the two.
     PersonName {

@@ -413,6 +413,8 @@ pub struct Library {
     /// and the generation it last wrote — so the file is read once and
     /// written only when something new was learned.
     index_loaded: bool,
+    /// Try automatic People model installation once per session, with manual retry.
+    people_models_started: bool,
     index_saved_gen: u64,
     /// When the loader last repainted for index-only work: those
     /// batches finish in milliseconds off warm caches, and notifying
@@ -548,6 +550,7 @@ impl Library {
             query_cache: FxHashMap::default(),
             index_gen: 0,
             index_loaded: false,
+            people_models_started: false,
             index_saved_gen: 0,
             last_loader_notify: None,
             index_snapshot: None,
@@ -2600,6 +2603,10 @@ impl Workspace {
 
     /// Re-walk the watched folders on a background thread.
     pub fn library_rescan(&mut self, cx: &mut Context<Self>) {
+        if !self.library.people_models_started {
+            self.library.people_models_started = true;
+            self.download_people_models(cx);
+        }
         if self.library.folders.is_empty() {
             self.library.set_sections(Vec::new());
             return;

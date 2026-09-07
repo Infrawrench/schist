@@ -1,6 +1,5 @@
 //! The People album on screen: the sidebar's rows, the viewer with its
-//! face boxes and people panel, and the two dialogs (the models to
-//! install, a person's rename). Drawn on the gallery's palette, like
+//! face boxes and people panel, and the person rename dialog. Drawn on the gallery's palette, like
 //! the rest of the room.
 
 use super::gallery_chrome::{gallery_button, pal};
@@ -10,7 +9,7 @@ use super::library_view::bucket_field;
 use super::*;
 use gpui::{img, StatefulInteractiveElement as _};
 use schist_gallery::FaceRect;
-use schist_ui::{Button, ButtonColors, Link};
+use schist_ui::{Button, ButtonColors};
 use std::path::Path;
 
 /// The colour of a face box by its state: named, picked, guessed, or
@@ -206,16 +205,16 @@ pub(super) fn people_rows(
             .text_color(gpui::rgb(pal().header))
             .cursor_pointer()
             .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-            .on_click(cx.listener(|ws, _e, _w, cx| ws.open_people_models(cx)))
+            .on_click(cx.listener(|ws, _e, _w, cx| ws.download_people_models(cx)))
             .child(label)
             .into_any_element()
     };
     if people_models_downloading(ws) {
         rows.push(people_download_progress(ws).into_any_element());
     } else if !detector {
-        rows.push(link("+ Find faces\u{2026}", cx));
+        rows.push(link("Retry face model download", cx));
     } else if !recogniser {
-        rows.push(link("+ Recognise faces\u{2026}", cx));
+        rows.push(link("Retry recognition model download", cx));
     } else if !any_people && unnamed == 0 {
         let (looked, total) = ws.library.faces_progress();
         rows.push(
@@ -633,9 +632,9 @@ fn people_panel(
                     ),
             )
             .child(gallery_button(
-                "Find faces\u{2026}",
+                "Retry face model download",
                 true,
-                |ws, _w, cx| ws.open_people_models(cx),
+                |ws, _w, cx| ws.download_people_models(cx),
                 cx,
             ));
     } else if !looked {
@@ -979,97 +978,6 @@ fn name_field(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
         } else {
             div().child(SharedString::from(typed)).into_any_element()
         })
-}
-
-fn model_link(id: &'static str, label: &'static str, url: &'static str) -> Link {
-    Link::new(id, label).url(url)
-}
-
-/// The licences behind the People album, and the button that accepts
-/// them. One dialog for both models: whichever is missing is fetched.
-pub(crate) fn people_models_dialog(cx: &mut Context<Workspace>) -> impl IntoElement {
-    let specs: Vec<&'static schist_neural::ModelSpec> = PEOPLE_MODELS
-        .iter()
-        .filter(|id| !schist_neural::installed(id))
-        .filter_map(|id| schist_neural::spec(id))
-        .collect();
-    let total: usize = specs.iter().map(|s| s.bytes).sum();
-    let mut body = div().flex().flex_col().gap_2().w(px(460.0)).child(
-        div()
-            .text_size(px(12.0))
-            .text_color(gpui::rgb(crate::ui::palette().text))
-            .child(
-                "Finding the people in your photos needs two small models, \
-                 downloaded once and kept on this machine. They run locally: \
-                 no photo ever leaves it. The detector finds faces; the \
-                 recogniser tells them apart, so once you have named someone \
-                 a few times it can suggest them elsewhere.",
-            ),
-    );
-    for spec in &specs {
-        body = body.child(div().text_size(px(12.0)).child(SharedString::from(format!(
-            "{} \u{b7} {:.1} MB \u{b7} {}",
-            spec.name,
-            spec.bytes as f64 / (1 << 20) as f64,
-            spec.license
-        ))));
-    }
-    body = body.child(
-        div()
-            .flex()
-            .flex_row()
-            .items_center()
-            .gap_1()
-            .text_size(px(11.0))
-            .text_color(gpui::rgb(crate::ui::palette().text_dim))
-            .child(model_link(
-                "ultraface-source",
-                "UltraFace (ONNX Model Zoo)",
-                "https://github.com/onnx/models/tree/main/validated/vision/body_analysis/ultraface",
-            ))
-            .child("\u{b7}")
-            .child(model_link(
-                "sface-source",
-                "SFace (OpenCV Zoo)",
-                "https://github.com/opencv/opencv_zoo/tree/main/models/face_recognition_sface",
-            )),
-    );
-    body = body.child(
-        div()
-            .pt_1()
-            .text_size(px(11.0))
-            .text_color(gpui::rgb(crate::ui::palette().text_dim))
-            .child(SharedString::from(format!(
-                "Downloading installs {} ({:.1} MB) and accepts the licences. They can be \
-                 removed again under Gallery \u{25b8} Manage Models\u{2026}",
-                if specs.len() == 1 { "it" } else { "both" },
-                total as f64 / (1 << 20) as f64
-            ))),
-    );
-    let actions = div()
-        .flex()
-        .flex_row()
-        .gap_2()
-        .child(crate::ui::button(
-            "Cancel",
-            false,
-            |ws, _w, cx| ws.close_modal(cx),
-            cx,
-        ))
-        .child(crate::ui::button(
-            "Agree and Download",
-            true,
-            |ws, _w, cx| {
-                for id in PEOPLE_MODELS {
-                    if !schist_neural::installed(id) {
-                        ws.download_model(id, cx);
-                    }
-                }
-                ws.close_modal(cx);
-            },
-            cx,
-        ));
-    crate::ui::modal_frame("People", 500.0, body, actions)
 }
 
 /// Rename a person. Renaming to a name somebody else has merges them.

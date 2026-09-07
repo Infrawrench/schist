@@ -15,7 +15,7 @@ use schist_gallery::*;
 use std::path::Path;
 
 /// The two models the People album runs on — the detector that finds
-/// faces and the recogniser that tells them apart — offered as a pair.
+/// faces and the recogniser that tells them apart — installed automatically as a pair.
 pub(crate) const PEOPLE_MODELS: [&str; 2] = ["face", "face-embed"];
 
 impl Workspace {
@@ -466,9 +466,14 @@ impl Workspace {
         cx.notify();
     }
 
-    /// Offer the two People models, licences first.
-    pub fn open_people_models(&mut self, cx: &mut Context<Self>) {
-        self.open_modal(Modal::PeopleModels, cx);
+    /// Install missing People models without a setup dialog. The downloader
+    /// deduplicates in-flight requests; the sidebar offers retry after failure.
+    pub fn download_people_models(&mut self, cx: &mut Context<Self>) {
+        for id in PEOPLE_MODELS {
+            if !schist_neural::installed(id) {
+                self.download_model(id, cx);
+            }
+        }
     }
 
     /// The rename dialog, its field already taking typing.

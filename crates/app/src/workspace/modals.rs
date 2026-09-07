@@ -512,7 +512,6 @@ impl Workspace {
             | Modal::NewFilePicker
             | Modal::MapFilter
             | Modal::SearchModels
-            | Modal::PeopleModels
             | Modal::PersonName { .. }
             | Modal::SaveImageAs { .. }
             | Modal::BatchProcess { .. }
