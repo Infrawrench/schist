@@ -29,6 +29,7 @@ macro_rules! icons {
 }
 
 icons!(
+    "loading",
     "character",
     "type-align-left",
     "type-align-center",

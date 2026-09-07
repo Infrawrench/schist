@@ -616,7 +616,9 @@ pub(crate) fn tray_info(ws: &Workspace) -> TrayInfo {
         name: lead.map(|a| a.name),
         selected: ws.cloud.selected.len(),
         notes,
-        count: if ws.cloud.loaded {
+        count: if ws.cloud.load_error.is_some() {
+            "Photos unavailable".to_string()
+        } else if ws.cloud.loaded {
             chrome::photo_count(ws.cloud.total as usize)
         } else if ws.cloud.connected {
             "Loading\u{2026}".to_string()
@@ -807,6 +809,10 @@ pub(crate) fn folder_rows(
                 .and_then(|count| usize::try_from(count).ok()),
             selected,
             0,
+        )
+        .children(
+            (ws.cloud.library_total.is_none() && ws.cloud.is_loading())
+                .then(|| chrome::loading_spinner("cloud-library-loading")),
         )
         .on_mouse_down(
             MouseButton::Left,
@@ -1018,6 +1024,9 @@ fn catalogue_pages(
 
 /// Why the cloud grid is bare.
 fn empty_reason(ws: &Workspace) -> String {
+    if let Some(error) = &ws.cloud.load_error {
+        return format!("Could not load photos: {error}. Use Refresh to try again.");
+    }
     if !ws.cloud.connected {
         return ws.cloud.message.clone();
     }
@@ -1078,12 +1087,25 @@ pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
     }
     let access: chrome::GridAccess = |ws| &mut ws.cloud.grid;
     let mut column = grid_column("cloud-grid", &ws.cloud.grid, access, cx);
+    if ws.cloud.is_loading() {
+        column = column.child(chrome::loading_note());
+    }
+    // Bucket/search grouping creates a section even with no assets. Do not
+    // render its zero count until the first snapshot confirms it is empty.
+    if !ws.cloud.loaded && ws.cloud.assets.is_empty() {
+        if !ws.cloud.is_loading() {
+            column = column.child(empty_note(empty_reason(ws)));
+        }
+        return grid_frame(column, &ws.cloud.grid, access, cx).into_any_element();
+    }
     if sections.is_empty() {
         column = column.child(empty_note(empty_reason(ws)));
     }
     let columns = ws.cloud.grid.columns(cell);
     for (title, subtitle, assets) in sections {
-        let detail = if subtitle.is_empty() {
+        let detail = if !ws.cloud.loaded {
+            "Updating…".to_string()
+        } else if subtitle.is_empty() {
             chrome::photo_count(assets.len())
         } else {
             format!("{subtitle} — {}", assets.len())

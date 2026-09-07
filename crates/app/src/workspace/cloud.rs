@@ -190,6 +190,8 @@ pub(crate) struct CloudState {
     pub context: Option<(Point<Pixels>, CloudContext)>,
     /// Whether the current asset watch has delivered its first snapshot.
     pub loaded: bool,
+    /// A failed watch is unavailable, not an empty library or an ongoing load.
+    pub load_error: Option<String>,
     /// "Select all" asked before the page arrived: select it on landing.
     pub select_all_pending: bool,
     /// The photos of the world-map marker last clicked, for its strip.
@@ -305,6 +307,7 @@ impl Default for CloudState {
             grid: GridScroll::default(),
             context: None,
             loaded: false,
+            load_error: None,
             select_all_pending: false,
             map_photos: Vec::new(),
             map_assets: Vec::new(),
@@ -355,6 +358,9 @@ impl Drop for CloudState {
     }
 }
 impl CloudState {
+    pub(crate) fn is_loading(&self) -> bool {
+        self.account.is_some() && !self.loaded && self.load_error.is_none()
+    }
     fn joinable_documents(&self) -> Vec<DocumentId> {
         self.docs
             .iter()
@@ -609,6 +615,7 @@ impl Workspace {
         self.cloud.query.sort = self.cloud_sort();
         self.cloud.query.limit = PAGE_SIZE;
         self.cloud.loaded = false;
+        self.cloud.load_error = None;
         if !keep {
             self.cloud.assets.clear();
             self.cloud.total = 0;
@@ -948,6 +955,7 @@ impl Workspace {
         match event {
             Event::Connected => {
                 self.cloud.connected = true;
+                self.cloud.load_error = None;
                 self.cloud.capabilities = None;
                 self.cloud.capabilities_ready = false;
                 self.cloud.message = "Connected to Schist Cloud".into();
@@ -977,6 +985,9 @@ impl Workspace {
             }
             Event::Disconnected(error) => {
                 self.cloud.disconnect();
+                if !self.cloud.loaded {
+                    self.cloud.load_error = Some(error.clone());
+                }
                 self.cloud.message = error;
             }
             Event::Credentials(account) => {
@@ -1019,6 +1030,7 @@ impl Workspace {
                             .collect::<Result<_>>()?;
                         self.cloud.total = snapshot.total;
                         self.cloud.loaded = true;
+                        self.cloud.load_error = None;
                         self.cloud.changes += 1;
                         if std::mem::take(&mut self.cloud.select_all_pending) {
                             self.cloud.selected = self.cloud_flat_order();
@@ -1046,6 +1058,8 @@ impl Workspace {
                 if subscription_id == self.cloud.watching {
                     self.cloud.assets.clear();
                     self.cloud.total = 0;
+                    self.cloud.loaded = false;
+                    self.cloud.load_error = Some(error.clone());
                 }
                 self.cloud_error(error);
             }

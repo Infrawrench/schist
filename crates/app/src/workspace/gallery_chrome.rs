@@ -15,7 +15,7 @@
 
 use super::*;
 use crate::ui::LineEdit;
-use gpui::{img, StatefulInteractiveElement as _};
+use gpui::{img, Animation, AnimationExt as _, StatefulInteractiveElement as _, Transformation};
 use schist_ui::{Button, ButtonColors, ListItem};
 
 /// The gallery's chrome colours for one theme.
@@ -695,6 +695,32 @@ pub fn section_header(title: String, detail: String) -> impl IntoElement {
         .child(div().h(px(1.0)).mb_2().bg(gpui::rgb(pal().cell_edge)))
 }
 
+/// The same small activity indicator for the grid, sidebar, and tray.
+pub fn loading_spinner(id: &'static str) -> impl IntoElement {
+    gpui::svg()
+        .path("icons/loading.svg")
+        .size(px(14.0))
+        .flex_none()
+        .text_color(gpui::rgb(pal().header))
+        .with_animation(
+            id,
+            Animation::new(std::time::Duration::from_millis(900)).repeat(),
+            |icon, delta| icon.with_transformation(Transformation::rotate(gpui::percentage(delta))),
+        )
+}
+
+pub fn loading_note() -> impl IntoElement {
+    div()
+        .p_4()
+        .flex()
+        .items_center()
+        .gap_2()
+        .text_size(px(12.0))
+        .text_color(gpui::rgb(pal().text_dim))
+        .child(loading_spinner("cloud-grid-loading"))
+        .child("Loading photos…")
+}
+
 /// Why the grid is bare, in the grid's own quiet voice.
 pub fn empty_note(text: impl Into<SharedString>) -> impl IntoElement {
     div()
@@ -1309,8 +1335,15 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
         })
         .child(
             div()
+                .flex()
+                .items_center()
+                .gap_2()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(pal().text_dim))
+                .children(
+                    (ws.cloud.show && ws.cloud.is_loading())
+                        .then(|| loading_spinner("cloud-count-loading")),
+                )
                 .child(info.count),
         )
         .child(size_slider(ratio, cx))
