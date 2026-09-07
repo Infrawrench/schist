@@ -1994,6 +1994,43 @@ impl Workspace {
                 let mut batch_bytes = 0usize;
                 progress(0, total, format!("Uploading 0 of {total} photos…"));
                 for (path, relative) in files {
+                    #[cfg(not(target_arch = "wasm32"))]
+                    if let Ok(metadata) = std::fs::metadata(&path) {
+                        if metadata.len() > remote::MAX_SINGLE_UPLOAD_BYTES
+                            && metadata.len() <= remote::MAX_UPLOAD_BYTES
+                        {
+                            let name = path.file_name().unwrap_or_default().to_string_lossy();
+                            progress(
+                                done,
+                                total,
+                                format!("Checking {name} for a resumable upload…"),
+                            );
+                            let asset = handle
+                                .upload_path_async(
+                                    &path,
+                                    mime(&path),
+                                    folder.as_deref(),
+                                    relative.as_deref(),
+                                    |bytes| {
+                                        progress(
+                                            done,
+                                            total,
+                                            format!(
+                                                "Uploading {name}: {}% ({} / {} MiB)",
+                                                bytes * 100 / metadata.len(),
+                                                bytes / 1024 / 1024,
+                                                metadata.len() / 1024 / 1024
+                                            ),
+                                        );
+                                    },
+                                )
+                                .await?;
+                            uploaded.push(asset.id);
+                            done += 1;
+                            progress(done, total, format!("Processed {done} of {total} files…"));
+                            continue;
+                        }
+                    }
                     let file = match read_cloud_upload(&path, relative) {
                         Ok(file) => file,
                         Err(error) => {
@@ -2579,10 +2616,14 @@ fn read_cloud_upload(path: &std::path::Path, relative: Option<String>) -> Result
         use std::io::Read as _;
         let metadata = std::fs::metadata(path)?;
         remote::validate_upload_size(metadata.len())?;
+        anyhow::ensure!(
+            metadata.len() <= remote::MAX_SINGLE_UPLOAD_BYTES,
+            "Use chunk uploads for files over 100 MiB"
+        );
         // Bound the read too, in case the source grows after checking its size.
         let mut bytes = Vec::new();
         std::fs::File::open(path)?
-            .take(remote::MAX_UPLOAD_BYTES + 1)
+            .take(remote::MAX_SINGLE_UPLOAD_BYTES + 1)
             .read_to_end(&mut bytes)?;
         bytes
     };
@@ -2894,7 +2935,7 @@ mod cloud_lifecycle_tests {
         .message();
         assert!(message.contains("Uploaded 2 photos; skipped 2 files"));
         assert!(message.contains("large.mov"));
-        assert!(message.contains("100 MiB"));
+        assert!(message.contains("5 GiB"));
         std::fs::remove_dir_all(root).unwrap();
     }
     fn binding(asset: &str) -> RemoteDocument {

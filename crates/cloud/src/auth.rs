@@ -269,7 +269,13 @@ fn read_download(url: &str, limit: u64) -> Result<DownloadResponse> {
 }
 pub fn upload(url: &str, mime: &str, bytes: &[u8]) -> Result<()> {
     secure_url(url, "https")?;
-    agent().put(url).header("Content-Type", mime).send(bytes)?;
+    agent()
+        .put(url)
+        .config()
+        .timeout_global(Some(Duration::from_secs(180)))
+        .build()
+        .header("Content-Type", mime)
+        .send(bytes)?;
     Ok(())
 }
 pub async fn upload_async(url: &str, mime: &str, bytes: &[u8]) -> Result<()> {

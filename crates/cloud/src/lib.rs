@@ -6,6 +6,7 @@ pub mod auth;
 pub mod auth;
 pub mod document;
 pub mod generation;
+pub mod multipart;
 pub mod protocol;
 pub mod runtime;
 mod socket;

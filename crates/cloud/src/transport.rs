@@ -136,6 +136,9 @@ impl Handle {
         futures::executor::block_on(self.upload_async(upload))
     }
     pub async fn upload_async(&self, upload: Upload<'_>) -> Result<Asset> {
+        if upload.bytes.len() as u64 > MAX_SINGLE_UPLOAD_BYTES {
+            return self.upload_large_bytes_async(upload).await;
+        }
         let Upload {
             name,
             bytes,

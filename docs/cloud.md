@@ -33,7 +33,15 @@ paths and can import directly into a cloud folder or bucket. Each selection is
 limited to 512 MiB in browser memory; the provider's upload limits still apply.
 The local filesystem gallery and native drag integration remain desktop features.
 
-Imports check the 100 MiB per-file limit before loading file contents. Oversized,
+Files over 100 MiB use multipart uploads (up to 5 GiB per file). Desktop hashes
+the source with a bounded buffer, then reads/uploads 8 MiB chunks directly from
+disk. Each failed chunk is retried up to three times; selecting the same file
+again resumes its saved parts for 24 hours, including after restarting the app.
+The resume identity includes the content and destination, preventing changed
+files from mixing with an earlier upload. Byte progress appears in the status
+bar. The hosted WASM app retains its 512 MiB selection memory limit.
+
+Imports check the size before loading file contents. Files over 5 GiB,
 empty, or unreadable files are skipped without discarding the rest of the batch;
 the final status reports uploaded/skipped counts and the first skipped file's
 reason. A source that grows during reading is checked again. This applies to both
