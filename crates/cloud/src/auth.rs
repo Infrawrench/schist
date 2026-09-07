@@ -37,12 +37,20 @@ pub fn domain(raw: &str) -> Result<String> {
     );
     Ok(url.origin().ascii_serialization())
 }
+/// One agent for the process: its connection pool keeps HTTPS sessions
+/// open between thumbnail fetches and downloads, where a fresh agent
+/// per request paid a TLS handshake (and a root-store load) every time.
 pub fn agent() -> ureq::Agent {
-    ureq::Agent::config_builder()
-        .timeout_global(Some(Duration::from_secs(30)))
-        .max_redirects(0)
-        .build()
-        .into()
+    static AGENT: std::sync::OnceLock<ureq::Agent> = std::sync::OnceLock::new();
+    AGENT
+        .get_or_init(|| {
+            ureq::Agent::config_builder()
+                .timeout_global(Some(Duration::from_secs(30)))
+                .max_redirects(0)
+                .build()
+                .into()
+        })
+        .clone()
 }
 #[derive(Deserialize)]
 struct Discovery {

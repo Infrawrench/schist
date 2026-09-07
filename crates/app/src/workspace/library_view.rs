@@ -702,6 +702,21 @@ fn sidebar_row(
                 cx.notify();
             }),
         )
+        .children(root.clone().map(|menu_root| {
+            // The row's menu lives on a transparent overlay child so the
+            // left click above keeps its own handler.
+            div().absolute().size_full().on_mouse_down(
+                MouseButton::Right,
+                cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                    ws.library.context = Some((
+                        ev.position,
+                        super::library::GalleryContext::LocalFolder(menu_root.clone()),
+                    ));
+                    ws.cloud.context = None;
+                    cx.notify();
+                }),
+            )
+        }))
         .child(div().flex_grow().truncate().child(label.into()))
         .child(
             div()
@@ -2784,6 +2799,46 @@ fn gallery_context_menu(
                     }),
                 );
             }
+        }
+        GalleryContext::LocalFolder(root) => {
+            if ws.cloud.account.is_some() {
+                let upload = root.clone();
+                row(
+                    "Upload to Schist Cloud\u{2026}".into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| {
+                        ws.open_modal(
+                            Modal::Cloud {
+                                kind: "upload-folder",
+                                fields: vec![
+                                    ("cloud-folder", "Folder".into(), String::new()),
+                                    ("cloud-path", "".into(), upload.display().to_string()),
+                                ],
+                            },
+                            cx,
+                        );
+                    }),
+                );
+                sep(&mut rows);
+            }
+            let reveal = root.clone();
+            row(
+                "Reveal in file manager".into(),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(move |_ws, _w, _cx| {
+                    super::library_ops::reveal_in_file_manager(&reveal);
+                }),
+            );
+            row(
+                "Stop watching this folder".into(),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.gallery_remove_folder(&root.clone(), cx);
+                }),
+            );
         }
         GalleryContext::AddFolder => {
             row(

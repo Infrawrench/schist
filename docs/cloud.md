@@ -58,7 +58,14 @@ with the same markers, strip and marker menu as local photos. The PEOPLE list
 shows the local people and, beneath them, the cloud's people with a ☁ badge;
 right-click a cloud person to rename, merge or forget them.
 
-Folder rows offer Rename, New folder inside and Delete on their right-click
+Whole folders move in either direction from the right-click menus. A cloud
+folder row (and the ☁ Schist Cloud root) offers Upload files here…, Upload
+folder here… and Download folder… (or Download everything…), which recreates
+the cloud's sub-folders under a folder you choose. A watched local folder's
+row offers Upload to Schist Cloud…, which asks for the destination cloud
+folder and keeps the local sub-folders.
+
+Folder rows also offer Rename, New folder inside and Delete on their right-click
 menu; bucket rows offer Edit, Select all, Save all as ZIP, Process all (the
 originals are fetched to a scratch folder and the batch dialog saves results to
 a folder you choose), Move all to a cloud folder, Clear added photos and

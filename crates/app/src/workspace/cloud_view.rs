@@ -811,6 +811,17 @@ pub(crate) fn folder_rows(
         .on_mouse_down(
             MouseButton::Left,
             cx.listener(|ws, _e: &MouseDownEvent, _w, cx| ws.cloud_browse(Scope::Library, cx)),
+        )
+        .on_mouse_down(
+            MouseButton::Right,
+            cx.listener(|ws, ev: &MouseDownEvent, _w, cx| {
+                ws.cloud.context = Some((ev.position, CloudContext::Library));
+                #[cfg(not(target_arch = "wasm32"))]
+                {
+                    ws.library.context = None;
+                }
+                cx.notify();
+            }),
         );
         rows.push(droppable(row, None, None, cx).into_any_element());
     }
@@ -1327,8 +1338,76 @@ pub(crate) fn context_menu(
                 );
             }
         }
+        CloudContext::Library => {
+            row(
+                &mut rows,
+                "Upload files here\u{2026}".into(),
+                std::rc::Rc::new(|ws, _w, cx| ws.cloud_pick_upload_to(None, None, false, cx)),
+                cx,
+            );
+            row(
+                &mut rows,
+                "Upload folder here\u{2026}".into(),
+                std::rc::Rc::new(|ws, _w, cx| ws.cloud_pick_upload_to(None, None, true, cx)),
+                cx,
+            );
+            #[cfg(not(target_arch = "wasm32"))]
+            row(
+                &mut rows,
+                "Download everything\u{2026}".into(),
+                std::rc::Rc::new(|ws, _w, cx| ws.cloud_download_scope(Scope::Library, cx)),
+                cx,
+            );
+            rows.push(menu_sep());
+            row(
+                &mut rows,
+                "New folder\u{2026}".into(),
+                std::rc::Rc::new(|ws, _w, cx| {
+                    ws.cloud.form_target = None;
+                    new_cloud_folder(ws, cx)
+                }),
+                cx,
+            );
+        }
         CloudContext::Folder(id) => {
             let folder = ws.cloud.folders.iter().find(|f| f.id == id).cloned()?;
+            let into_files = folder.id.clone();
+            row(
+                &mut rows,
+                "Upload files here\u{2026}".into(),
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.cloud_pick_upload_to(None, Some(into_files.clone()), false, cx)
+                }),
+                cx,
+            );
+            let into_dir = folder.id.clone();
+            row(
+                &mut rows,
+                "Upload folder here\u{2026}".into(),
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.cloud_pick_upload_to(None, Some(into_dir.clone()), true, cx)
+                }),
+                cx,
+            );
+            #[cfg(not(target_arch = "wasm32"))]
+            {
+                let download = folder.id.clone();
+                row(
+                    &mut rows,
+                    "Download folder\u{2026}".into(),
+                    std::rc::Rc::new(move |ws, _w, cx| {
+                        ws.cloud_download_scope(
+                            Scope::Folder {
+                                id: download.clone(),
+                                recursive: true,
+                            },
+                            cx,
+                        )
+                    }),
+                    cx,
+                );
+            }
+            rows.push(menu_sep());
             let rename = folder.clone();
             row(
                 &mut rows,
@@ -1554,6 +1633,7 @@ pub(crate) fn dialog(
         "delete-asset" => "Delete cloud photo?",
         "upload-document" => "Upload document to Schist Cloud",
         "move-items" => "Move to cloud folder",
+        "upload-folder" => "Upload folder to Schist Cloud",
         "download" => "Download cloud photo",
         _ => "Schist Cloud",
     };
@@ -1588,6 +1668,12 @@ pub(crate) fn dialog(
             }
             _ => "Photos remain in your cloud library.",
         }));
+    }
+    if kind == "upload-folder" {
+        body = body.child(caption(
+            "Every photo in the folder uploads into the chosen cloud folder, keeping its \
+             sub-folders. The local files stay where they are.",
+        ));
     }
     if kind == "move-items" {
         body = body.child(caption(
@@ -1746,6 +1832,8 @@ pub(crate) fn dialog(
                 "Download…"
             } else if kind == "move-items" {
                 "Move"
+            } else if kind == "upload-folder" {
+                "Upload"
             } else if kind.starts_with("delete-") {
                 "Delete"
             } else {

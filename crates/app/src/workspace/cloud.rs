@@ -131,12 +131,18 @@ pub(crate) enum CloudContext {
     Bucket(String),
     /// A world-map marker's photos.
     Cluster(Vec<String>),
+    /// The ☁ Schist Cloud root row.
+    Library,
     /// A named person in the cloud's PEOPLE list.
     Person(String),
 }
 /// Assets per page. A page's thumbnails stay decoded while it shows,
 /// so this bounds texture memory as much as it bounds the query.
 pub(crate) const PAGE_SIZE: u64 = 200;
+/// Concurrent thumbnail fetches, and how many decoded thumbnails stay
+/// in memory (~256 KB each) before the cache shrinks to the page.
+const THUMBNAIL_WORKERS: usize = 8;
+const THUMBNAIL_CACHE: usize = 600;
 pub(crate) struct CloudState {
     pub generation: super::cloud_generation::GenerationState,
     pub account: Option<Account>,
@@ -615,9 +621,13 @@ impl Workspace {
         if !self.cloud.show {
             return;
         }
-        // A small worker pool and one page of retained images bound network/texture use.
+        // A small worker pool bounds the network; decoded thumbnails
+        // stay for a few pages, so paging back is instant, and only an
+        // overfull cache falls back to the page on show.
         let visible: HashSet<_> = self.cloud.assets.iter().map(|a| a.id.clone()).collect();
-        self.cloud.thumbnails.retain(|id, _| visible.contains(id));
+        if self.cloud.thumbnails.len() > THUMBNAIL_CACHE {
+            self.cloud.thumbnails.retain(|id, _| visible.contains(id));
+        }
         self.cloud
             .thumbnail_jobs
             .retain(|(id, _)| visible.contains(id));
@@ -625,7 +635,7 @@ impl Workspace {
             .thumbnail_failed
             .retain(|id| visible.contains(id));
         for asset in &self.cloud.assets {
-            if self.cloud.thumbnail_active >= 4 {
+            if self.cloud.thumbnail_active >= THUMBNAIL_WORKERS {
                 break;
             }
             if self
@@ -1542,6 +1552,96 @@ impl Workspace {
         }
         Some((c.handle.clone(), self.cloud.capabilities.clone()))
     }
+    /// Right-click ▸ Download folder…: every photo in a cloud folder
+    /// (or the whole library) into a folder of the user's choosing, the
+    /// cloud's sub-folders recreated beneath it. Edited photos come as
+    /// the provider's default export, the rest as their originals.
+    #[cfg(not(target_arch = "wasm32"))]
+    pub(crate) fn cloud_download_scope(&mut self, scope: Scope, cx: &mut Context<Self>) {
+        let Some((handle, capabilities)) = self.cloud_client_for_bucket() else {
+            cx.notify();
+            return;
+        };
+        let prompt = cx.prompt_for_paths(gpui::PathPromptOptions {
+            files: false,
+            directories: true,
+            multiple: false,
+            prompt: Some("Download Here".into()),
+        });
+        let sender = self.cloud.sender.clone();
+        let epoch = self.cloud.epoch;
+        let folders = self.cloud.folders.clone();
+        let root = match &scope {
+            Scope::Folder { id, .. } => Some(id.clone()),
+            _ => None,
+        };
+        cx.spawn(async move |_this, _cx| {
+            let Ok(Ok(Some(mut dirs))) = prompt.await else {
+                return;
+            };
+            let Some(dest) = dirs.pop() else { return };
+            remote::runtime::spawn(async move {
+                let result: Result<usize> = (async {
+                    let assets = scope_assets(&handle, &scope).await?;
+                    let total = assets.len();
+                    let mut names: HashSet<PathBuf> = HashSet::new();
+                    for (done, asset) in assets.into_iter().enumerate() {
+                        let _ = sender.send(Job::Done {
+                            epoch,
+                            message: format!("Downloading {} of {total}\u{2026}", done + 1),
+                        });
+                        let format = if asset.edited {
+                            capabilities
+                                .as_ref()
+                                .map(|c| c.default_edited_export.clone())
+                                .filter(|f| {
+                                    capabilities.as_ref().is_some_and(|c| c.supports_export(f))
+                                })
+                        } else {
+                            None
+                        };
+                        let download = handle
+                            .download_asset_async(
+                                &asset.id,
+                                format.as_deref(),
+                                capabilities.as_ref(),
+                            )
+                            .await?;
+                        let mut dir = dest.clone();
+                        for name in
+                            folder_path_below(&folders, root.as_deref(), asset.folder_id.as_deref())
+                        {
+                            dir.push(safe_component(&name));
+                        }
+                        std::fs::create_dir_all(&dir)?;
+                        let name = download.suggested_name(&asset.name);
+                        let mut path = dir.join(safe_component(&name));
+                        if !names.insert(path.clone()) || path.exists() {
+                            path = dir.join(format!("{}-{}", done + 1, safe_component(&name)));
+                            names.insert(path.clone());
+                        }
+                        std::fs::write(&path, download.bytes)?;
+                    }
+                    Ok(total)
+                })
+                .await;
+                let job = match result {
+                    Ok(n) => Job::Done {
+                        epoch,
+                        message: format!("Downloaded {n} photos to {}", dest.display()),
+                    },
+                    Err(e) => Job::Error {
+                        epoch,
+                        error: format!("Download failed (finished files remain): {e}"),
+                    },
+                };
+                let _ = sender.send(job);
+            });
+        })
+        .detach();
+        self.cloud.message = "Gathering the folder\u{2026}".into();
+        cx.notify();
+    }
     /// Right-click ▸ Save all as ZIP…: one archive of the bucket's
     /// photos — edited ones as the provider's default export, the rest
     /// as their originals — built straight from the downloads.
@@ -1567,7 +1667,10 @@ impl Workspace {
                     let _ = sender.send(Job::Done { epoch, message });
                 };
                 let result: Result<usize> = (async {
-                    let assets = bucket_assets(&handle, &bucket.id).await?;
+                    let scope = Scope::Bucket {
+                        id: bucket.id.clone(),
+                    };
+                    let assets = scope_assets(&handle, &scope).await?;
                     let total = assets.len();
                     let mut writer = super::library_ops::ZipWriter::create(&out)?;
                     let mut names = HashSet::new();
@@ -1632,7 +1735,10 @@ impl Workspace {
         let dir = batch_dir().join(remote::Uuid::new_v4().to_string());
         remote::runtime::spawn(async move {
             let result: Result<Vec<PathBuf>> = (async {
-                let assets = bucket_assets(&handle, &bucket.id).await?;
+                let scope = Scope::Bucket {
+                    id: bucket.id.clone(),
+                };
+                let assets = scope_assets(&handle, &scope).await?;
                 anyhow::ensure!(!assets.is_empty(), "This bucket is empty");
                 std::fs::create_dir_all(&dir)?;
                 let total = assets.len();
@@ -1685,7 +1791,23 @@ impl Workspace {
             vec![("id", bucket.into()), ("items", Value::Array(items))],
         );
     }
+    /// The strip's Upload buttons: into whatever is on show.
     pub(crate) fn cloud_pick_upload(&mut self, directory: bool, cx: &mut Context<Self>) {
+        let (bucket, folder) = match &self.cloud.query.scope {
+            Scope::Bucket { id } => (Some(id.clone()), None),
+            Scope::Folder { id, .. } => (None, Some(id.clone())),
+            _ => (None, None),
+        };
+        self.cloud_pick_upload_to(bucket, folder, directory, cx);
+    }
+    /// Pick files or a folder and upload them into a bucket or folder.
+    pub(crate) fn cloud_pick_upload_to(
+        &mut self,
+        bucket: Option<String>,
+        folder: Option<String>,
+        directory: bool,
+        cx: &mut Context<Self>,
+    ) {
         #[cfg(not(target_arch = "wasm32"))]
         let prompt = {
             let picker = cx.prompt_for_paths(gpui::PathPromptOptions {
@@ -1698,11 +1820,6 @@ impl Workspace {
         };
         #[cfg(target_arch = "wasm32")]
         let prompt = crate::web::pick_cloud_files(directory);
-        let (bucket, folder) = match &self.cloud.query.scope {
-            Scope::Bucket { id } => (Some(id.clone()), None),
-            Scope::Folder { id, .. } => (None, Some(id.clone())),
-            _ => (None, None),
-        };
         cx.spawn(async move |this, cx| {
             let result = prompt.await;
             let _ = this.update(cx, |ws, cx| {
@@ -2114,6 +2231,12 @@ impl Workspace {
                 let folder = get("cloud-folder");
                 self.cloud_upload_current((!folder.is_empty()).then_some(folder))?;
             }
+            "upload-folder" => {
+                let path = PathBuf::from(get("cloud-path"));
+                anyhow::ensure!(path.is_dir(), "That folder is no longer there");
+                let folder = get("cloud-folder");
+                self.cloud_drop_local(None, (!folder.is_empty()).then_some(folder), vec![path], cx);
+            }
             "move-items" => {
                 let (bucket, _) = self
                     .cloud
@@ -2152,16 +2275,54 @@ impl Workspace {
 pub(crate) fn batch_dir() -> PathBuf {
     state_dir().join("batch")
 }
-/// Every asset in a bucket, page by page through `assets.query`.
+/// A file or folder name the local disk will take: the cloud's names
+/// are free text, and a slash in one must not become a path.
 #[cfg(not(target_arch = "wasm32"))]
-async fn bucket_assets(handle: &remote::Handle, bucket: &str) -> Result<Vec<Asset>> {
+fn safe_component(name: &str) -> String {
+    let cleaned: String = name
+        .chars()
+        .map(|c| {
+            if matches!(c, '/' | '\\' | '\0') {
+                '_'
+            } else {
+                c
+            }
+        })
+        .collect();
+    match cleaned.trim() {
+        "" | "." | ".." => "untitled".to_string(),
+        s => s.to_string(),
+    }
+}
+/// The folder names from `root` (exclusive; `None` is the library) down
+/// to `folder`, for recreating the cloud's tree on disk. A folder off
+/// the catalogue page, or a cycle, stops the walk.
+#[cfg(not(target_arch = "wasm32"))]
+fn folder_path_below(folders: &[Folder], root: Option<&str>, folder: Option<&str>) -> Vec<String> {
+    let mut names = Vec::new();
+    let mut at = folder.map(str::to_string);
+    for _ in 0..32 {
+        let Some(id) = at else { break };
+        if root == Some(id.as_str()) {
+            break;
+        }
+        let Some(f) = folders.iter().find(|f| f.id == id) else {
+            break;
+        };
+        names.push(f.name.clone());
+        at = f.parent_id.clone();
+    }
+    names.reverse();
+    names
+}
+/// Every asset in a scope, page by page through `assets.query`.
+#[cfg(not(target_arch = "wasm32"))]
+async fn scope_assets(handle: &remote::Handle, scope: &Scope) -> Result<Vec<Asset>> {
     let mut all = Vec::new();
     let mut offset = 0u64;
     loop {
         let query = AssetQuery {
-            scope: Scope::Bucket {
-                id: bucket.to_string(),
-            },
+            scope: scope.clone(),
             text: String::new(),
             filters: Filters::default(),
             sort: "name".into(),

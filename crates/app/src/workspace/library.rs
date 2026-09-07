@@ -139,6 +139,8 @@ pub enum GalleryContext {
     /// "+ New bucket" with a cloud signed in: local or cloud?
     NewBucket,
     Person(usize),
+    /// A watched local folder's row.
+    LocalFolder(PathBuf),
 }
 
 /// What the sidebar's People rows show instead of the folders.
