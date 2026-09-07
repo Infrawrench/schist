@@ -114,6 +114,13 @@ enum Job {
         epoch: u64,
         message: String,
     },
+    /// A long transfer's progress, for the tray's bar.
+    Progress {
+        epoch: u64,
+        done: u64,
+        total: u64,
+        label: String,
+    },
     /// A bucket's originals landed in a scratch folder for the batch
     /// dialog.
     #[cfg(not(target_arch = "wasm32"))]
@@ -203,6 +210,9 @@ pub(crate) struct CloudState {
     pub map_wanted: HashSet<String>,
     /// Bumped on every asset snapshot, so caches keyed by it refresh.
     pub changes: u64,
+    /// A transfer under way: done, total, and what it is doing — the
+    /// tray draws a bar from it in either room.
+    pub progress: Option<(u64, u64, String)>,
     /// Thumbnails whose fetch or decode failed at the current revision.
     pub thumbnail_failed: HashSet<String>,
     /// The browser has no local gallery to keep these in.
@@ -302,6 +312,7 @@ impl Default for CloudState {
             map_loading: false,
             map_wanted: HashSet::new(),
             changes: 0,
+            progress: None,
             thumbnail_failed: HashSet::new(),
             #[cfg(target_arch = "wasm32")]
             thumb_px: 144.0,
@@ -751,10 +762,24 @@ impl Workspace {
                 Job::SignedIn { epoch, account } if epoch == self.cloud.epoch => {
                     self.cloud_connect(account, cx)
                 }
-                Job::Error { epoch, error } if epoch == self.cloud.epoch => self.cloud_error(error),
+                Job::Error { epoch, error } if epoch == self.cloud.epoch => {
+                    self.cloud.progress = None;
+                    self.cloud_error(error)
+                }
                 Job::Done { epoch, message } if epoch == self.cloud.epoch => {
+                    self.cloud.progress = None;
                     self.status = message.clone().into();
                     self.cloud.message = message;
+                }
+                Job::Progress {
+                    epoch,
+                    done,
+                    total,
+                    label,
+                } if epoch == self.cloud.epoch => {
+                    self.status = label.clone().into();
+                    self.cloud.message = label.clone();
+                    self.cloud.progress = Some((done, total, label));
                 }
                 #[cfg(not(target_arch = "wasm32"))]
                 Job::MapAssets { epoch, key, result } if epoch == self.cloud.epoch => {
@@ -1935,8 +1960,17 @@ impl Workspace {
         let sender = self.cloud.sender.clone();
         let epoch = self.cloud.epoch;
         self.cloud.message = "Uploading files…".into();
+        self.cloud.progress = Some((0, 0, "Looking through the files…".into()));
         remote::runtime::spawn(async move {
-            let result: Result<()> = (async {
+            let progress = |done: u64, total: u64, label: String| {
+                let _ = sender.send(Job::Progress {
+                    epoch,
+                    done,
+                    total,
+                    label,
+                });
+            };
+            let result: Result<usize> = (async {
                 let mut files = Vec::new();
                 for path in paths {
                     if path.is_dir() {
@@ -1949,46 +1983,103 @@ impl Workspace {
                         files.push((path, relative));
                     }
                 }
-                let mut assets = Vec::new();
+                let total = files.len() as u64;
+                let mut done = 0u64;
+                let mut uploaded: Vec<String> = Vec::new();
+                // Files travel in compressed batches; a provider without
+                // the batch method gets them one by one instead.
+                let mut singly = false;
+                let mut batch: Vec<BatchFile> = Vec::new();
+                let mut batch_bytes = 0usize;
+                progress(0, total, format!("Uploading 0 of {total} photos…"));
                 for (path, relative) in files {
                     #[cfg(not(target_arch = "wasm32"))]
                     let bytes = std::fs::read(&path)?;
                     #[cfg(target_arch = "wasm32")]
-                    let bytes = crate::web::read_file(&path)?;
-                    let name = path.file_name().unwrap_or_default().to_string_lossy();
-                    let mime = mime(&path);
-                    let asset = handle
-                        .upload_async(remote::Upload {
-                            name: &name,
-                            bytes: &bytes,
-                            mime,
-                            folder: folder.as_deref(),
-                            asset: None,
-                            relative: relative.as_deref(),
-                            mutation: &remote::Uuid::new_v4().to_string(),
-                        })
-                        .await?;
-                    assets.push(map([("kind", "asset".into()), ("id", asset.id.into())]));
+                    let bytes = crate::web::read_file(&path)?.to_vec();
+                    let name = path
+                        .file_name()
+                        .unwrap_or_default()
+                        .to_string_lossy()
+                        .into_owned();
+                    let file = BatchFile {
+                        path: relative.unwrap_or_else(|| name.clone()),
+                        name,
+                        mime: mime(&path),
+                        bytes,
+                    };
+                    let fits = file.bytes.len() <= BATCH_BYTES;
+                    if !singly
+                        && fits
+                        && (batch_bytes + file.bytes.len() > BATCH_BYTES
+                            || batch.len() >= BATCH_FILES)
+                    {
+                        match send_batch(&handle, folder.as_deref(), &batch).await? {
+                            Some(ids) => uploaded.extend(ids),
+                            None => {
+                                singly = true;
+                                for file in &batch {
+                                    uploaded
+                                        .push(send_single(&handle, folder.as_deref(), file).await?);
+                                }
+                            }
+                        }
+                        done += batch.len() as u64;
+                        batch.clear();
+                        batch_bytes = 0;
+                        progress(done, total, format!("Uploading {done} of {total} photos…"));
+                    }
+                    if singly || !fits {
+                        uploaded.push(send_single(&handle, folder.as_deref(), &file).await?);
+                        done += 1;
+                        progress(done, total, format!("Uploading {done} of {total} photos…"));
+                    } else {
+                        batch_bytes += file.bytes.len();
+                        batch.push(file);
+                    }
+                }
+                if !batch.is_empty() {
+                    match send_batch(&handle, folder.as_deref(), &batch).await? {
+                        Some(ids) => uploaded.extend(ids),
+                        None => {
+                            for file in &batch {
+                                uploaded.push(send_single(&handle, folder.as_deref(), file).await?);
+                            }
+                        }
+                    }
+                    done += batch.len() as u64;
+                    progress(done, total, format!("Uploading {done} of {total} photos…"));
                 }
                 if let Some(bucket) = bucket {
-                    handle
-                        .request_async(
-                            "bucket.add",
-                            map([
-                                ("id", bucket.into()),
-                                ("items", Value::Array(assets)),
-                                ("mutation_id", remote::Uuid::new_v4().to_string().into()),
-                            ]),
-                        )
-                        .await?;
+                    progress(done, total, "Adding to the bucket…".into());
+                    for chunk in uploaded.chunks(1000) {
+                        let items = chunk
+                            .iter()
+                            .map(|id| map([("kind", "asset".into()), ("id", id.clone().into())]))
+                            .collect();
+                        handle
+                            .request_async(
+                                "bucket.add",
+                                map([
+                                    ("id", bucket.clone().into()),
+                                    ("items", Value::Array(items)),
+                                    ("mutation_id", remote::Uuid::new_v4().to_string().into()),
+                                ]),
+                            )
+                            .await?;
+                    }
                 }
-                Ok(())
+                Ok(uploaded.len())
             })
             .await;
             let job = match result {
-                Ok(()) => Job::Done {
+                Ok(n) => Job::Done {
                     epoch,
-                    message: "Upload complete".into(),
+                    message: match n {
+                        0 => "Nothing to upload".into(),
+                        1 => "Uploaded 1 photo".into(),
+                        n => format!("Uploaded {n} photos"),
+                    },
                 },
                 Err(e) => Job::Error {
                     epoch,
@@ -2445,6 +2536,122 @@ async fn query_assets(
         }
     }
     Ok(all)
+}
+/// One batch of a drop: at most this many bytes of files, or this many
+/// files, per compressed payload — several payloads for a big drop,
+/// each small enough to retry on its own.
+const BATCH_BYTES: usize = 48 * 1024 * 1024;
+const BATCH_FILES: usize = 250;
+struct BatchFile {
+    /// The relative path inside the drop (sub-folders become cloud
+    /// folders), or just the name.
+    path: String,
+    name: String,
+    mime: &'static str,
+    bytes: Vec<u8>,
+}
+/// The batch payload: magic, a MessagePack manifest, then the files
+/// back to back, gzip-compressed. Returns the payload and the size of
+/// the files inside it.
+fn pack_batch(files: &[BatchFile]) -> Result<(Vec<u8>, u64)> {
+    use std::io::Write as _;
+    let manifest = remote::protocol::encode(&map([(
+        "files",
+        Value::Array(
+            files
+                .iter()
+                .map(|f| {
+                    map([
+                        ("path", f.path.clone().into()),
+                        ("mime_type", f.mime.into()),
+                        ("size", (f.bytes.len() as u64).into()),
+                    ])
+                })
+                .collect(),
+        ),
+    )]))?;
+    let total: usize = files.iter().map(|f| f.bytes.len()).sum();
+    let mut raw = Vec::with_capacity(12 + manifest.len() + total);
+    raw.extend_from_slice(b"SCHISTB1");
+    raw.extend_from_slice(&(manifest.len() as u32).to_be_bytes());
+    raw.extend_from_slice(&manifest);
+    for file in files {
+        raw.extend_from_slice(&file.bytes);
+    }
+    // Photos hardly compress; the fast level keeps the CPU out of the
+    // way of the network without pretending otherwise.
+    let mut encoder = flate2::write::GzEncoder::new(Vec::new(), flate2::Compression::fast());
+    encoder.write_all(&raw)?;
+    Ok((encoder.finish()?, total as u64))
+}
+#[derive(serde::Deserialize)]
+struct BatchTicket {
+    batch_id: String,
+    put_url: String,
+}
+#[derive(serde::Deserialize)]
+struct BatchCommitted {
+    assets: Vec<String>,
+}
+/// Upload one batch: prepare, put the payload, commit. `None` when the
+/// provider has no batch method, so the caller falls back to singles.
+async fn send_batch(
+    handle: &remote::Handle,
+    folder: Option<&str>,
+    files: &[BatchFile],
+) -> Result<Option<Vec<String>>> {
+    let (payload, total) = pack_batch(files)?;
+    let mut fields = vec![
+        ("size", (payload.len() as u64).into()),
+        ("total", total.into()),
+        ("count", (files.len() as u64).into()),
+        ("mutation_id", remote::Uuid::new_v4().to_string().into()),
+    ];
+    if let Some(folder) = folder {
+        fields.push(("folder_id", folder.into()));
+    }
+    let ticket: BatchTicket = match handle
+        .request_async("asset.prepare_batch", map(fields))
+        .await
+    {
+        Ok(reply) => parse(reply)?,
+        Err(e) if e.to_string().contains("method_not_found") => return Ok(None),
+        Err(e) => return Err(e),
+    };
+    remote::auth::upload_async(&ticket.put_url, "application/gzip", &payload).await?;
+    let committed: BatchCommitted = parse(
+        handle
+            .request_async(
+                "asset.commit_batch",
+                map([
+                    ("batch_id", ticket.batch_id.into()),
+                    ("mutation_id", remote::Uuid::new_v4().to_string().into()),
+                ]),
+            )
+            .await?,
+    )?;
+    Ok(Some(committed.assets))
+}
+/// The one-file path: a provider without batches, or a file too big for
+/// one.
+async fn send_single(
+    handle: &remote::Handle,
+    folder: Option<&str>,
+    file: &BatchFile,
+) -> Result<String> {
+    let relative = (file.path != file.name).then_some(file.path.as_str());
+    let asset = handle
+        .upload_async(remote::Upload {
+            name: &file.name,
+            bytes: &file.bytes,
+            mime: file.mime,
+            folder,
+            asset: None,
+            relative,
+            mutation: &remote::Uuid::new_v4().to_string(),
+        })
+        .await?;
+    Ok(asset.id)
 }
 fn mime(path: &std::path::Path) -> &'static str {
     match path

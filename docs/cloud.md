@@ -86,7 +86,11 @@ small worker pool, decodes WebP/PNG/JPEG at up to 256 px, and shows "no
 preview" for an asset whose URL is absent or whose fetch failed.
 
 Drag local gallery photos, a watched local folder, or files/folders from the file
-manager into a cloud bucket to upload them. Local originals remain in place.
+manager into a cloud bucket or folder to upload them. Local originals remain in
+place. The files travel in gzip-compressed batches of up to 48 MiB or 250 files
+each, so a big drop is several payloads and a failed one can be retried alone;
+the tray shows a bar with the count uploaded so far. A provider without batch
+uploads receives the files one at a time.
 Directory uploads retain relative paths and skip symlinks. Drag remote photos or
 a remote folder into a bucket to add references without re-uploading. Smart
 buckets combine manually added members with their saved rule's matches. Removing

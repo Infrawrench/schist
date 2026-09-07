@@ -1261,15 +1261,52 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
         }))
         .child(div().flex_grow())
         // The editor's status bar is hidden here, so the tray carries the
-        // status line — otherwise an import's outcome lands nowhere.
-        .child(
-            div()
+        // status line — otherwise an import's outcome lands nowhere. A
+        // cloud transfer under way shows as a bar instead.
+        .child(match ws.cloud.progress.clone() {
+            Some((done, total, label)) => {
+                let ratio = if total == 0 {
+                    0.0
+                } else {
+                    (done as f32 / total as f32).clamp(0.0, 1.0)
+                };
+                div()
+                    .flex()
+                    .flex_col()
+                    .justify_center()
+                    .gap_1()
+                    .w(px(300.0))
+                    .child(
+                        div()
+                            .truncate()
+                            .text_size(px(11.0))
+                            .text_color(gpui::rgb(pal().text_dim))
+                            .child(label),
+                    )
+                    .child(
+                        div()
+                            .w_full()
+                            .h(px(4.0))
+                            .rounded_sm()
+                            .bg(gpui::rgb(pal().chrome_edge))
+                            .child(
+                                div()
+                                    .h_full()
+                                    .w(gpui::relative(ratio))
+                                    .rounded_sm()
+                                    .bg(gpui::rgb(pal().select_border)),
+                            ),
+                    )
+                    .into_any_element()
+            }
+            None => div()
                 .max_w(px(420.0))
                 .truncate()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child(ws.status.clone()),
-        )
+                .child(ws.status.clone())
+                .into_any_element(),
+        })
         .child(
             div()
                 .text_size(px(11.0))

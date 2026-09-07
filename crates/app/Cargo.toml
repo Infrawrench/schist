@@ -9,6 +9,9 @@ name = "schist"
 path = "src/main.rs"
 
 [dependencies]
+# Deflate for the gallery's ZIPs and the cloud's gzip batch uploads;
+# already in the tree behind the PNG codec, so this adds no download.
+flate2 = "1"
 schist-cloud = { path = "../cloud" }
 web-time = "1"
 gpui.workspace = true
@@ -78,11 +81,10 @@ async-trait.workspace = true
 # Gallery thumbnails: one windowless image of a file. Native-only with the
 # rest of the gallery — a browser tab has no folders to browse.
 schist-preview.workspace = true
-# The gallery's "save bucket as ZIP" writes the archive by hand; these
-# are its checksums and its deflate. flate2 is already in the tree
-# behind the PNG codec, so this adds no download.
+# The gallery's "save bucket as ZIP" writes the archive by hand; this
+# is its checksum. Its deflate, flate2, sits in the common dependencies
+# since cloud batch uploads gzip on every target.
 crc32fast.workspace = true
-flate2 = "1"
 # The daily ping: its dedup ID, and the CPU model and RAM it reports.
 rand = "0.10"
 sysinfo = { version = "0.31", default-features = false, features = ["system"] }
