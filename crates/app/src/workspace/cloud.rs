@@ -2073,114 +2073,54 @@ impl Workspace {
                     capacity.require_space()?;
                 }
                 let total = files.len() as u64;
-                let mut done = 0u64;
-                let mut uploaded: Vec<String> = Vec::new();
-                let mut skipped = Vec::new();
-                // Files travel in compressed batches; a provider without
-                // the batch method gets them one by one instead.
-                let mut singly = false;
-                let mut batch: Vec<BatchFile> = Vec::new();
-                let mut batch_bytes = 0usize;
                 progress(0, total, format!("Uploading 0 of {total} photos…"));
-                for (path, relative) in files {
-                    #[cfg(not(target_arch = "wasm32"))]
-                    if let Ok(metadata) = std::fs::metadata(&path) {
-                        if metadata.len() > remote::MAX_SINGLE_UPLOAD_BYTES
-                            && metadata.len() <= remote::MAX_UPLOAD_BYTES
-                        {
-                            let name = path.file_name().unwrap_or_default().to_string_lossy();
-                            progress(
-                                done,
-                                total,
-                                format!("Checking {name} for a resumable upload…"),
-                            );
-                            let asset = handle
-                                .upload_path_async(
-                                    &path,
-                                    mime(&path),
-                                    folder.as_deref(),
-                                    relative.as_deref(),
-                                    |bytes| {
-                                        progress(
-                                            done,
-                                            total,
-                                            format!(
-                                                "Uploading {name}: {}% ({} / {} MiB)",
-                                                bytes * 100 / metadata.len(),
-                                                bytes / 1024 / 1024,
-                                                metadata.len() / 1024 / 1024
-                                            ),
-                                        );
-                                    },
-                                )
-                                .await?;
-                            uploaded.push(asset.id);
-                            done += 1;
-                            progress(done, total, format!("Processed {done} of {total} files…"));
-                            continue;
-                        }
-                    }
-                    let file = match read_cloud_upload(&path, relative) {
-                        Ok(file) => file,
-                        Err(error) => {
-                            skipped.push(format!(
-                                "{}: {error}",
-                                path.file_name().unwrap_or_default().to_string_lossy()
-                            ));
-                            done += 1;
-                            progress(
-                                done,
-                                total,
-                                format!(
-                                    "Processed {done} of {total} files ({} skipped)…",
-                                    skipped.len()
-                                ),
-                            );
-                            continue;
-                        }
-                    };
-                    let fits = file.bytes.len() <= BATCH_BYTES;
-                    if !singly
-                        && fits
-                        && (batch_bytes + file.bytes.len() > BATCH_BYTES
-                            || batch.len() >= BATCH_FILES)
-                    {
-                        match send_batch(&handle, folder.as_deref(), &batch).await? {
-                            Some(ids) => uploaded.extend(ids),
-                            None => {
-                                singly = true;
-                                for file in &batch {
-                                    uploaded
-                                        .push(send_single(&handle, folder.as_deref(), file).await?);
-                                }
+                // A pipeline: files are read and packed into compressed
+                // batches ahead of the network, a few at a time, while
+                // one batch at a time goes up. The provider's batch
+                // support is learned from the first reply and shared
+                // back to the packer, so raw files stop being kept once
+                // payloads are known to be enough.
+                let support = Arc::new(std::sync::atomic::AtomicU8::new(SUPPORT_UNKNOWN));
+                let mut uploader = Uploader {
+                    handle: handle.clone(),
+                    folder: folder.clone(),
+                    support: support.clone(),
+                    sender: sender.clone(),
+                    epoch,
+                    total,
+                    done: 0,
+                    uploaded: Vec::new(),
+                    skipped: Vec::new(),
+                };
+                let preparer = Preparer::new(files, support);
+                #[cfg(not(target_arch = "wasm32"))]
+                {
+                    let (tx, rx) = std::sync::mpsc::sync_channel::<Prepared>(PREPARE_AHEAD);
+                    std::thread::spawn(move || {
+                        let mut preparer = preparer;
+                        while let Some(item) = preparer.next() {
+                            if tx.send(item).is_err() {
+                                break;
                             }
                         }
-                        done += batch.len() as u64;
-                        batch.clear();
-                        batch_bytes = 0;
-                        progress(done, total, format!("Processed {done} of {total} files…"));
-                    }
-                    if singly || !fits {
-                        uploaded.push(send_single(&handle, folder.as_deref(), &file).await?);
-                        done += 1;
-                        progress(done, total, format!("Processed {done} of {total} files…"));
-                    } else {
-                        batch_bytes += file.bytes.len();
-                        batch.push(file);
+                    });
+                    while let Ok(item) = rx.recv() {
+                        uploader.take(item).await?;
                     }
                 }
-                if !batch.is_empty() {
-                    match send_batch(&handle, folder.as_deref(), &batch).await? {
-                        Some(ids) => uploaded.extend(ids),
-                        None => {
-                            for file in &batch {
-                                uploaded.push(send_single(&handle, folder.as_deref(), file).await?);
-                            }
-                        }
+                #[cfg(target_arch = "wasm32")]
+                {
+                    let mut preparer = preparer;
+                    while let Some(item) = preparer.next() {
+                        uploader.take(item).await?;
                     }
-                    done += batch.len() as u64;
-                    progress(done, total, format!("Processed {done} of {total} files…"));
                 }
+                let Uploader {
+                    done,
+                    uploaded,
+                    skipped,
+                    ..
+                } = uploader;
                 if let Some(bucket) = bucket {
                     progress(done, total, "Adding to the bucket…".into());
                     for chunk in uploaded.chunks(1000) {
@@ -2791,18 +2731,276 @@ struct BatchTicket {
 struct BatchCommitted {
     assets: Vec<String>,
 }
-/// Upload one batch: prepare, put the payload, commit. `None` when the
-/// provider has no batch method, so the caller falls back to singles.
+/// How many packed batches wait ahead of the upload: with the one
+/// being packed and the one going up, at most four in memory.
+#[cfg(not(target_arch = "wasm32"))]
+const PREPARE_AHEAD: usize = 2;
+/// The provider's batch support, as the uploader learns it and tells
+/// the packer: unknown at first, then batches or singles.
+const SUPPORT_UNKNOWN: u8 = 0;
+const SUPPORT_BATCH: u8 = 1;
+const SUPPORT_SINGLES: u8 = 2;
+/// What the packer hands the uploader, in drop order.
+enum Prepared {
+    /// A batch: its compressed payload, and the raw files while the
+    /// provider's batch support is unknown or absent (an oversized
+    /// single file comes as files without a payload).
+    Batch {
+        payload: Option<(Vec<u8>, u64)>,
+        files: Option<Vec<BatchFile>>,
+        count: usize,
+    },
+    /// Too big for a batch: the resumable chunked path reads it itself.
+    #[cfg(not(target_arch = "wasm32"))]
+    Large {
+        path: PathBuf,
+        relative: Option<String>,
+        size: u64,
+    },
+    /// Left out, with the reason for the summary.
+    Skipped(String),
+    /// Packing failed; the upload stops here.
+    Failed(anyhow::Error),
+}
+/// Reads and packs the drop's files into batches, ahead of the
+/// network. Runs on its own thread on desktop, inline in the browser.
+struct Preparer {
+    files: std::vec::IntoIter<(PathBuf, Option<String>)>,
+    batch: Vec<BatchFile>,
+    batch_bytes: usize,
+    ready: std::collections::VecDeque<Prepared>,
+    support: Arc<std::sync::atomic::AtomicU8>,
+}
+impl Preparer {
+    fn new(
+        files: Vec<(PathBuf, Option<String>)>,
+        support: Arc<std::sync::atomic::AtomicU8>,
+    ) -> Self {
+        Self {
+            files: files.into_iter(),
+            batch: Vec::new(),
+            batch_bytes: 0,
+            ready: std::collections::VecDeque::new(),
+            support,
+        }
+    }
+    /// The batch so far as one item, packed unless the provider is
+    /// known to take singles only; the raw files stay unless batches
+    /// are known to work.
+    fn flush(&mut self) -> Option<Prepared> {
+        if self.batch.is_empty() {
+            return None;
+        }
+        let files = std::mem::take(&mut self.batch);
+        self.batch_bytes = 0;
+        let support = self.support.load(std::sync::atomic::Ordering::Relaxed);
+        let payload = if support == SUPPORT_SINGLES {
+            None
+        } else {
+            match pack_batch(&files) {
+                Ok(payload) => Some(payload),
+                Err(e) => return Some(Prepared::Failed(e)),
+            }
+        };
+        let count = files.len();
+        let files = (support != SUPPORT_BATCH).then_some(files);
+        Some(Prepared::Batch {
+            payload,
+            files,
+            count,
+        })
+    }
+    fn next(&mut self) -> Option<Prepared> {
+        loop {
+            if let Some(item) = self.ready.pop_front() {
+                return Some(item);
+            }
+            let Some((path, relative)) = self.files.next() else {
+                return self.flush();
+            };
+            #[cfg(not(target_arch = "wasm32"))]
+            if let Ok(metadata) = std::fs::metadata(&path) {
+                if metadata.len() > remote::MAX_SINGLE_UPLOAD_BYTES
+                    && metadata.len() <= remote::MAX_UPLOAD_BYTES
+                {
+                    // Keep the drop's order: the batch so far goes first.
+                    if let Some(batch) = self.flush() {
+                        self.ready.push_back(batch);
+                    }
+                    self.ready.push_back(Prepared::Large {
+                        path,
+                        relative,
+                        size: metadata.len(),
+                    });
+                    continue;
+                }
+            }
+            let file = match read_cloud_upload(&path, relative) {
+                Ok(file) => file,
+                Err(error) => {
+                    self.ready.push_back(Prepared::Skipped(format!(
+                        "{}: {error}",
+                        path.file_name().unwrap_or_default().to_string_lossy()
+                    )));
+                    continue;
+                }
+            };
+            if file.bytes.len() > BATCH_BYTES {
+                if let Some(batch) = self.flush() {
+                    self.ready.push_back(batch);
+                }
+                self.ready.push_back(Prepared::Batch {
+                    payload: None,
+                    files: Some(vec![file]),
+                    count: 1,
+                });
+                continue;
+            }
+            if self.batch_bytes + file.bytes.len() > BATCH_BYTES || self.batch.len() >= BATCH_FILES
+            {
+                if let Some(batch) = self.flush() {
+                    self.ready.push_back(batch);
+                }
+            }
+            self.batch_bytes += file.bytes.len();
+            self.batch.push(file);
+        }
+    }
+}
+/// Sends prepared items up one at a time and keeps the count.
+struct Uploader {
+    handle: remote::Handle,
+    folder: Option<String>,
+    support: Arc<std::sync::atomic::AtomicU8>,
+    sender: mpsc::Sender<Job>,
+    epoch: u64,
+    total: u64,
+    done: u64,
+    uploaded: Vec<String>,
+    skipped: Vec<String>,
+}
+impl Uploader {
+    fn report(&self, label: String) {
+        let _ = self.sender.send(Job::Progress {
+            epoch: self.epoch,
+            done: self.done,
+            total: self.total,
+            label,
+        });
+    }
+    fn step(&mut self, by: usize) {
+        self.done += by as u64;
+        let (done, total) = (self.done, self.total);
+        self.report(if self.skipped.is_empty() {
+            format!("Uploading {done} of {total} photos…")
+        } else {
+            format!(
+                "Uploading {done} of {total} photos ({} skipped)…",
+                self.skipped.len()
+            )
+        });
+    }
+    async fn take(&mut self, item: Prepared) -> Result<()> {
+        match item {
+            Prepared::Batch {
+                payload,
+                files,
+                count,
+            } => {
+                let folder = self.folder.clone();
+                let mut ids = None;
+                if let Some((payload, total)) = payload {
+                    if self.support.load(std::sync::atomic::Ordering::Relaxed) != SUPPORT_SINGLES {
+                        match send_batch(&self.handle, folder.as_deref(), payload, total, count)
+                            .await?
+                        {
+                            Some(found) => {
+                                self.support
+                                    .store(SUPPORT_BATCH, std::sync::atomic::Ordering::Relaxed);
+                                ids = Some(found);
+                            }
+                            None => self
+                                .support
+                                .store(SUPPORT_SINGLES, std::sync::atomic::Ordering::Relaxed),
+                        }
+                    }
+                }
+                match ids {
+                    Some(ids) => self.uploaded.extend(ids),
+                    None => {
+                        let files = files.ok_or_else(|| {
+                            anyhow!("The provider stopped accepting batch uploads mid-way")
+                        })?;
+                        for file in &files {
+                            let id = send_single(&self.handle, folder.as_deref(), file).await?;
+                            self.uploaded.push(id);
+                        }
+                    }
+                }
+                self.step(count);
+            }
+            #[cfg(not(target_arch = "wasm32"))]
+            Prepared::Large {
+                path,
+                relative,
+                size,
+            } => {
+                let name = path
+                    .file_name()
+                    .unwrap_or_default()
+                    .to_string_lossy()
+                    .into_owned();
+                self.report(format!("Checking {name} for a resumable upload…"));
+                let (sender, epoch, done, total) =
+                    (self.sender.clone(), self.epoch, self.done, self.total);
+                let asset = self
+                    .handle
+                    .upload_path_async(
+                        &path,
+                        mime(&path),
+                        self.folder.as_deref(),
+                        relative.as_deref(),
+                        |bytes| {
+                            let _ = sender.send(Job::Progress {
+                                epoch,
+                                done,
+                                total,
+                                label: format!(
+                                    "Uploading {name}: {}% ({} / {} MiB)",
+                                    bytes * 100 / size.max(1),
+                                    bytes / 1024 / 1024,
+                                    size / 1024 / 1024
+                                ),
+                            });
+                        },
+                    )
+                    .await?;
+                self.uploaded.push(asset.id);
+                self.step(1);
+            }
+            Prepared::Skipped(reason) => {
+                self.skipped.push(reason);
+                self.step(1);
+            }
+            Prepared::Failed(error) => return Err(error),
+        }
+        Ok(())
+    }
+}
+/// Upload one packed batch: prepare, put the payload, commit. `None`
+/// when the provider has no batch method, so the caller falls back to
+/// singles.
 async fn send_batch(
     handle: &remote::Handle,
     folder: Option<&str>,
-    files: &[BatchFile],
+    payload: Vec<u8>,
+    total: u64,
+    count: usize,
 ) -> Result<Option<Vec<String>>> {
-    let (payload, total) = pack_batch(files)?;
     let mut fields = vec![
         ("size", (payload.len() as u64).into()),
         ("total", total.into()),
-        ("count", (files.len() as u64).into()),
+        ("count", (count as u64).into()),
         ("mutation_id", remote::Uuid::new_v4().to_string().into()),
     ];
     if let Some(folder) = folder {
