@@ -2115,31 +2115,33 @@ impl Workspace {
                         uploader.take(item).await?;
                     }
                 }
-                let Uploader {
-                    done,
-                    uploaded,
-                    skipped,
-                    ..
-                } = uploader;
                 if let Some(bucket) = bucket {
-                    progress(done, total, "Adding to the bucket…".into());
-                    for chunk in uploaded.chunks(1000) {
-                        let items = chunk
-                            .iter()
-                            .map(|id| map([("kind", "asset".into()), ("id", id.clone().into())]))
-                            .collect();
-                        handle
-                            .request_async(
-                                "bucket.add",
-                                map([
-                                    ("id", bucket.clone().into()),
-                                    ("items", Value::Array(items)),
-                                    ("mutation_id", remote::Uuid::new_v4().to_string().into()),
-                                ]),
-                            )
+                    uploader.report("Adding to the bucket…".into());
+                    for chunk in uploader.uploaded.chunks(1000) {
+                        let mutation = remote::Uuid::new_v4().to_string();
+                        uploader
+                            .retrying("adding to the bucket", || {
+                                let items = chunk
+                                    .iter()
+                                    .map(|id| {
+                                        map([("kind", "asset".into()), ("id", id.clone().into())])
+                                    })
+                                    .collect();
+                                handle.request_async(
+                                    "bucket.add",
+                                    map([
+                                        ("id", bucket.clone().into()),
+                                        ("items", Value::Array(items)),
+                                        ("mutation_id", mutation.clone().into()),
+                                    ]),
+                                )
+                            })
                             .await?;
                     }
                 }
+                let Uploader {
+                    uploaded, skipped, ..
+                } = uploader;
                 Ok(UploadSummary {
                     uploaded: uploaded.len(),
                     skipped,
@@ -2867,6 +2869,9 @@ impl Preparer {
         }
     }
 }
+/// How long a transfer keeps waiting for the connection to come back:
+/// this many rounds of at most half a minute each — about four hours.
+const OFFLINE_RETRIES: u32 = 480;
 /// Sends prepared items up one at a time and keeps the count.
 struct Uploader {
     handle: remote::Handle,
@@ -2887,6 +2892,41 @@ impl Uploader {
             total: self.total,
             label,
         });
+    }
+    /// Run one network step, and when the connection is what failed,
+    /// wait for it to return and run the step again — with the same
+    /// mutation IDs, so the provider answers a repeated commit from its
+    /// record rather than doing it twice. A refused request (quota, a
+    /// bad file, an expired ticket) is an answer and comes straight back.
+    async fn retrying<T, Fut>(&self, what: &str, step: impl Fn() -> Fut) -> Result<T>
+    where
+        Fut: std::future::Future<Output = Result<T>>,
+    {
+        let mut attempt = 0u32;
+        loop {
+            match step().await {
+                Ok(value) => return Ok(value),
+                Err(error) if remote::transport::transient(&error) && attempt < OFFLINE_RETRIES => {
+                    attempt += 1;
+                    self.report(format!(
+                        "Connection lost while {what} — {} of {} uploaded; waiting to reconnect…",
+                        self.done, self.total
+                    ));
+                    // A short pause even when the socket says it is up:
+                    // a gateway that just dropped us is not ready yet.
+                    let pause = (1u64 << attempt.min(5)).min(30);
+                    remote::runtime::sleep(std::time::Duration::from_secs(pause)).await;
+                    if !self.handle.wait_online().await {
+                        return Err(error.context("The cloud connection was closed"));
+                    }
+                    self.report(format!(
+                        "Reconnected — resuming {what} ({} of {} uploaded)…",
+                        self.done, self.total
+                    ));
+                }
+                Err(error) => return Err(error),
+            }
+        }
     }
     fn step(&mut self, by: usize) {
         self.done += by as u64;
@@ -2911,7 +2951,21 @@ impl Uploader {
                 let mut ids = None;
                 if let Some((payload, total)) = payload {
                     if self.support.load(std::sync::atomic::Ordering::Relaxed) != SUPPORT_SINGLES {
-                        match send_batch(&self.handle, folder.as_deref(), payload, total, count)
+                        // One set of IDs for the batch: every retry
+                        // re-sends the same mutations, so the provider
+                        // can answer a repeat from its record.
+                        let batch = BatchIds::new();
+                        match self
+                            .retrying("uploading a batch", || {
+                                send_batch(
+                                    &self.handle,
+                                    folder.as_deref(),
+                                    &payload,
+                                    total,
+                                    count,
+                                    &batch,
+                                )
+                            })
                             .await?
                         {
                             Some(found) => {
@@ -2932,7 +2986,12 @@ impl Uploader {
                             anyhow!("The provider stopped accepting batch uploads mid-way")
                         })?;
                         for file in &files {
-                            let id = send_single(&self.handle, folder.as_deref(), file).await?;
+                            let mutation = remote::Uuid::new_v4().to_string();
+                            let id = self
+                                .retrying("uploading a photo", || {
+                                    send_single(&self.handle, folder.as_deref(), file, &mutation)
+                                })
+                                .await?;
                             self.uploaded.push(id);
                         }
                     }
@@ -2953,27 +3012,32 @@ impl Uploader {
                 self.report(format!("Checking {name} for a resumable upload…"));
                 let (sender, epoch, done, total) =
                     (self.sender.clone(), self.epoch, self.done, self.total);
+                // The chunked upload resumes from the parts already
+                // stored, so a retry after an outage picks up where it
+                // stopped.
                 let asset = self
-                    .handle
-                    .upload_path_async(
-                        &path,
-                        mime(&path),
-                        self.folder.as_deref(),
-                        relative.as_deref(),
-                        |bytes| {
-                            let _ = sender.send(Job::Progress {
-                                epoch,
-                                done,
-                                total,
-                                label: format!(
-                                    "Uploading {name}: {}% ({} / {} MiB)",
-                                    bytes * 100 / size.max(1),
-                                    bytes / 1024 / 1024,
-                                    size / 1024 / 1024
-                                ),
-                            });
-                        },
-                    )
+                    .retrying("uploading a large file", || {
+                        let (sender, name) = (sender.clone(), name.clone());
+                        self.handle.upload_path_async(
+                            &path,
+                            mime(&path),
+                            self.folder.as_deref(),
+                            relative.as_deref(),
+                            move |bytes| {
+                                let _ = sender.send(Job::Progress {
+                                    epoch,
+                                    done,
+                                    total,
+                                    label: format!(
+                                        "Uploading {name}: {}% ({} / {} MiB)",
+                                        bytes * 100 / size.max(1),
+                                        bytes / 1024 / 1024,
+                                        size / 1024 / 1024
+                                    ),
+                                });
+                            },
+                        )
+                    })
                     .await?;
                 self.uploaded.push(asset.id);
                 self.step(1);
@@ -2987,21 +3051,38 @@ impl Uploader {
         Ok(())
     }
 }
+/// The mutation IDs one batch uses, fixed for its lifetime so retries
+/// repeat rather than duplicate.
+struct BatchIds {
+    prepare: String,
+    commit: String,
+}
+impl BatchIds {
+    fn new() -> Self {
+        Self {
+            prepare: remote::Uuid::new_v4().to_string(),
+            commit: remote::Uuid::new_v4().to_string(),
+        }
+    }
+}
 /// Upload one packed batch: prepare, put the payload, commit. `None`
 /// when the provider has no batch method, so the caller falls back to
-/// singles.
+/// singles. Repeating the call after an outage repeats the same
+/// mutations: a prepare already answered returns its ticket, a commit
+/// already done returns its assets.
 async fn send_batch(
     handle: &remote::Handle,
     folder: Option<&str>,
-    payload: Vec<u8>,
+    payload: &[u8],
     total: u64,
     count: usize,
+    ids: &BatchIds,
 ) -> Result<Option<Vec<String>>> {
     let mut fields = vec![
         ("size", (payload.len() as u64).into()),
         ("total", total.into()),
         ("count", (count as u64).into()),
-        ("mutation_id", remote::Uuid::new_v4().to_string().into()),
+        ("mutation_id", ids.prepare.clone().into()),
     ];
     if let Some(folder) = folder {
         fields.push(("folder_id", folder.into()));
@@ -3014,14 +3095,14 @@ async fn send_batch(
         Err(e) if e.to_string().contains("method_not_found") => return Ok(None),
         Err(e) => return Err(e),
     };
-    remote::auth::upload_async(&ticket.put_url, "application/gzip", &payload).await?;
+    remote::auth::upload_async(&ticket.put_url, "application/gzip", payload).await?;
     let committed: BatchCommitted = parse(
         handle
             .request_async(
                 "asset.commit_batch",
                 map([
                     ("batch_id", ticket.batch_id.into()),
-                    ("mutation_id", remote::Uuid::new_v4().to_string().into()),
+                    ("mutation_id", ids.commit.clone().into()),
                 ]),
             )
             .await?,
@@ -3034,6 +3115,7 @@ async fn send_single(
     handle: &remote::Handle,
     folder: Option<&str>,
     file: &BatchFile,
+    mutation: &str,
 ) -> Result<String> {
     let relative = (file.path != file.name).then_some(file.path.as_str());
     let asset = handle
@@ -3044,7 +3126,7 @@ async fn send_single(
             folder,
             asset: None,
             relative,
-            mutation: &remote::Uuid::new_v4().to_string(),
+            mutation,
         })
         .await?;
     Ok(asset.id)

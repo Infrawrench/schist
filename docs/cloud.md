@@ -106,7 +106,11 @@ place. The files travel in gzip-compressed batches of up to 48 MiB or 250 files
 each, so a big drop is several payloads and a failed one can be retried alone.
 On desktop the packing runs ahead on its own thread — a couple of batches are
 read and compressed while one goes up — so the network never waits on the
-disk; the tray shows a bar with the count uploaded so far. A provider without batch
+disk; the tray shows a bar with the count uploaded so far. If the connection
+drops mid-way the upload waits for it to come back (up to about four hours)
+and resumes where it stopped: batches repeat with the same mutation IDs so
+the provider answers a repeated commit from its record, and large files
+continue from the parts already stored. A provider without batch
 uploads receives the files one at a time.
 Directory uploads retain relative paths and skip symlinks. Drag remote photos or
 a remote folder into a bucket to add references without re-uploading. Smart

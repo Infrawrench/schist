@@ -267,6 +267,20 @@ fn read_download(url: &str, limit: u64) -> Result<DownloadResponse> {
         content_disposition,
     })
 }
+/// Whether an HTTP failure was the network's doing — no connection, a
+/// timeout, a gateway standing in for an absent server — rather than
+/// the server's answer.
+pub fn network_error(error: &anyhow::Error) -> bool {
+    match error.downcast_ref::<ureq::Error>() {
+        Some(ureq::Error::StatusCode(code)) => matches!(*code, 408 | 429 | 500..=599),
+        Some(ureq::Error::Io(_))
+        | Some(ureq::Error::Timeout(_))
+        | Some(ureq::Error::ConnectionFailed)
+        | Some(ureq::Error::HostNotFound) => true,
+        Some(_) => false,
+        None => error.downcast_ref::<std::io::Error>().is_some(),
+    }
+}
 pub fn upload(url: &str, mime: &str, bytes: &[u8]) -> Result<()> {
     secure_url(url, "https")?;
     agent()

@@ -4,7 +4,14 @@ use crate::{
     socket::{Message, Socket},
 };
 use anyhow::{anyhow, ensure, Result};
-use std::{collections::HashMap, sync::mpsc, time::Duration};
+use std::{
+    collections::HashMap,
+    sync::{
+        atomic::{AtomicBool, Ordering},
+        mpsc, Arc,
+    },
+    time::Duration,
+};
 use tokio::sync::mpsc as channel;
 use web_time::Instant;
 
@@ -12,6 +19,9 @@ type Reply = std::result::Result<Value, String>;
 #[derive(Clone)]
 pub struct Handle {
     tx: channel::UnboundedSender<Command>,
+    /// Whether the workspace socket is up right now — what a long
+    /// transfer waits on before retrying after a dropped connection.
+    online: Arc<AtomicBool>,
 }
 pub struct Client {
     pub handle: Handle,
@@ -72,22 +82,24 @@ impl Client {
     pub fn start(account: Account) -> Self {
         let (tx, rx) = channel::unbounded_channel();
         let (events, out) = mpsc::channel();
+        let online = Arc::new(AtomicBool::new(false));
+        let flag = online.clone();
         #[cfg(not(target_arch = "wasm32"))]
         std::thread::spawn(move || {
             match tokio::runtime::Builder::new_current_thread()
                 .enable_all()
                 .build()
             {
-                Ok(rt) => rt.block_on(run(account, rx, events)),
+                Ok(rt) => rt.block_on(run(account, rx, events, flag)),
                 Err(e) => {
                     let _ = events.send(Event::Disconnected(e.to_string()));
                 }
             }
         });
         #[cfg(target_arch = "wasm32")]
-        runtime::spawn(run(account, rx, events));
+        runtime::spawn(run(account, rx, events, flag));
         Self {
-            handle: Handle { tx },
+            handle: Handle { tx, online },
             events: out,
         }
     }
@@ -98,6 +110,21 @@ impl Drop for Client {
     }
 }
 impl Handle {
+    /// Whether the workspace socket is connected and ready.
+    pub fn online(&self) -> bool {
+        self.online.load(Ordering::Relaxed)
+    }
+    /// Wait for the socket to be up again. `false` when the client has
+    /// been stopped meanwhile, so the caller gives up instead.
+    pub async fn wait_online(&self) -> bool {
+        while !self.online() {
+            if self.tx.is_closed() {
+                return false;
+            }
+            runtime::sleep(Duration::from_millis(500)).await;
+        }
+        true
+    }
     pub fn set_frame_limit(&self, limit: usize) {
         let _ = self.tx.send(Command::FrameLimit(limit.min(MAX_FRAME)));
     }
@@ -223,10 +250,25 @@ fn offline(
     }
     true
 }
+/// Whether an error is the connection's fault rather than the request's:
+/// a socket that dropped or was down, a transfer the network cut off, a
+/// gateway that answered for a server that was not there. Such requests
+/// are worth repeating once the connection is back; anything else is an
+/// answer.
+pub fn transient(error: &anyhow::Error) -> bool {
+    let text = error.to_string();
+    text.contains("Cloud is disconnected")
+        || text.contains("Cloud connection closed")
+        || text.contains("Cloud disconnected")
+        || text.contains("Cloud operation timed out")
+        || text.contains("channel closed")
+        || auth::network_error(error)
+}
 async fn run(
     mut account: Account,
     mut commands: channel::UnboundedReceiver<Command>,
     events: mpsc::Sender<Event>,
+    online: Arc<AtomicBool>,
 ) {
     let mut watches = HashMap::new();
     let mut retry = 0u32;
@@ -272,7 +314,17 @@ async fn run(
                 }
             }
         }
-        match connected(&account, &mut commands, &mut watches, &events, &mut retry).await {
+        let session = connected(
+            &account,
+            &mut commands,
+            &mut watches,
+            &events,
+            &mut retry,
+            &online,
+        )
+        .await;
+        online.store(false, Ordering::Relaxed);
+        match session {
             Ok(Outcome::Unavailable) => {
                 let _ = events.send(Event::AccountUnavailable);
                 return;
@@ -324,6 +376,7 @@ struct Session<'a> {
     socket: Socket,
     watches: &'a mut HashMap<String, WatchQuery>,
     events: &'a mpsc::Sender<Event>,
+    online: &'a AtomicBool,
     pending: HashMap<String, Pending>,
     revisions: HashMap<String, u64>,
     ready: bool,
@@ -337,6 +390,7 @@ async fn connected(
     watches: &mut HashMap<String, WatchQuery>,
     events: &mpsc::Sender<Event>,
     retry: &mut u32,
+    online: &AtomicBool,
 ) -> Result<Outcome> {
     let url = account
         .credentials
@@ -357,6 +411,7 @@ async fn connected(
         socket,
         watches,
         events,
+        online,
         pending: HashMap::new(),
         revisions: HashMap::new(),
         ready: false,
@@ -530,6 +585,7 @@ impl Session<'_> {
             for (id, query) in self.watches.clone() {
                 self.subscribe(&id, &query).await?;
             }
+            self.online.store(true, Ordering::Relaxed);
             let _ = self.events.send(Event::Connected);
             return Ok(None);
         }

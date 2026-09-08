@@ -148,6 +148,18 @@ pub async fn download_response(url: &str, limit: u64) -> Result<DownloadResponse
 pub async fn download_limited_async(url: &str, limit: u64) -> Result<Vec<u8>> {
     Ok(download_response(url, limit).await?.bytes)
 }
+/// Whether a fetch failed for want of a network rather than by the
+/// server's answer: a status a gateway gives for an absent server, or
+/// the browser's own "Failed to fetch" / "NetworkError".
+pub fn network_error(error: &anyhow::Error) -> bool {
+    match error.downcast_ref::<HttpStatus>() {
+        Some(HttpStatus(code)) => matches!(*code, 408 | 429 | 500..=599),
+        None => {
+            let text = error.to_string().to_ascii_lowercase();
+            text.contains("fetch") || text.contains("network")
+        }
+    }
+}
 pub async fn upload_async(url: &str, mime: &str, bytes: &[u8]) -> Result<()> {
     fetch("PUT", url, Some(mime), Some(bytes), None, 65536).await?;
     Ok(())
