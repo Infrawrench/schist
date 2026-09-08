@@ -82,7 +82,9 @@ the cloud's sub-folders under a folder you choose. A watched local folder's
 row offers Upload to Schist Cloud…, which asks for the destination cloud
 folder and keeps the local sub-folders.
 
-Folder rows also offer Rename, New folder inside and Delete on their right-click
+Deleting a cloud folder asks whether to take its contents along: unticked,
+only an empty folder goes; ticked, every photo and sub-folder inside is removed
+for good. Folder rows also offer Rename, New folder inside and Delete on their right-click
 menu; bucket rows offer Edit, Select all, Save all as ZIP, Process all (the
 originals are fetched to a scratch folder and the batch dialog saves results to
 a folder you choose), Move all to a cloud folder, Clear added photos and

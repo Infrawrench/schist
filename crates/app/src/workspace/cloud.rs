@@ -2485,13 +2485,17 @@ impl Workspace {
                     .form_target
                     .clone()
                     .ok_or_else(|| anyhow!("No item selected"))?;
+                let mut params = vec![("id", id.into()), ("revision", revision.into())];
+                if kind == "delete-folder" && get("cloud-check-contents") == "1" {
+                    params.push(("contents", true.into()));
+                }
                 self.cloud_mutate(
                     if kind == "delete-folder" {
                         "folder.delete"
                     } else {
                         "bucket.delete"
                     },
-                    vec![("id", id.into()), ("revision", revision.into())],
+                    params,
                 );
             }
             "upload-document" => {

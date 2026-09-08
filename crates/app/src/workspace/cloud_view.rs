@@ -1467,7 +1467,16 @@ pub(crate) fn context_menu(
                 "Delete\u{2026}".into(),
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.cloud.form_target = Some((delete.id.clone(), delete.revision));
-                    form(ws, "delete-folder", vec![], cx)
+                    form(
+                        ws,
+                        "delete-folder",
+                        vec![(
+                            "cloud-check-contents",
+                            "Also delete every photo and sub-folder inside".into(),
+                            String::new(),
+                        )],
+                        cx,
+                    )
                 }),
                 cx,
             );
@@ -1689,7 +1698,10 @@ pub(crate) fn dialog(
     }
     if kind.starts_with("delete-") {
         body = body.child(caption(match kind {
-            "delete-folder" => "Only an empty folder can be deleted.",
+            "delete-folder" => {
+                "An empty folder is removed from your library. Tick the box to remove \
+                 its photos and sub-folders too — for good, with their cloud edits."
+            }
             "delete-asset" => {
                 "The photo and its cloud edits are removed for good; buckets holding it \
                  let it go."
@@ -1716,6 +1728,30 @@ pub(crate) fn dialog(
     }
     for (key, label, committed) in fields {
         if label.is_empty() {
+            continue;
+        }
+        if key.starts_with("cloud-check-") {
+            // A yes/no field: "1" when ticked, empty otherwise.
+            let entity = cx.entity();
+            body = body.child(
+                schist_ui::Checkbox::new(key, label.clone(), committed == "1").on_change(
+                    move |checked, _window, cx| {
+                        let value = if *checked { "1" } else { "" }.to_string();
+                        entity.update(cx, |ws, cx| {
+                            ws.update_modal(|modal| {
+                                if let Modal::Cloud { fields, .. } = modal {
+                                    if let Some((_, _, v)) =
+                                        fields.iter_mut().find(|(k, _, _)| *k == key)
+                                    {
+                                        *v = value.clone();
+                                    }
+                                }
+                            });
+                            cx.notify();
+                        });
+                    },
+                ),
+            );
             continue;
         }
         if key == "cloud-download-format" {
