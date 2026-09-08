@@ -2090,7 +2090,9 @@ impl Workspace {
                     total,
                     done: 0,
                     uploaded: Vec::new(),
+                    existing: Vec::new(),
                     skipped: Vec::new(),
+                    dedupe: SUPPORT_UNKNOWN,
                 };
                 let preparer = Preparer::new(files, support);
                 #[cfg(not(target_arch = "wasm32"))]
@@ -2117,7 +2119,13 @@ impl Workspace {
                 }
                 if let Some(bucket) = bucket {
                     uploader.report("Adding to the bucket…".into());
-                    for chunk in uploader.uploaded.chunks(1000) {
+                    let members: Vec<String> = uploader
+                        .uploaded
+                        .iter()
+                        .chain(uploader.existing.iter())
+                        .cloned()
+                        .collect();
+                    for chunk in members.chunks(1000) {
                         let mutation = remote::Uuid::new_v4().to_string();
                         uploader
                             .retrying("adding to the bucket", || {
@@ -2140,10 +2148,14 @@ impl Workspace {
                     }
                 }
                 let Uploader {
-                    uploaded, skipped, ..
+                    uploaded,
+                    existing,
+                    skipped,
+                    ..
                 } = uploader;
                 Ok(UploadSummary {
                     uploaded: uploaded.len(),
+                    existing: existing.len(),
                     skipped,
                 })
             })
@@ -2620,15 +2632,22 @@ const BATCH_BYTES: usize = 48 * 1024 * 1024;
 const BATCH_FILES: usize = 250;
 struct UploadSummary {
     uploaded: usize,
+    /// Left out because the library already held them.
+    existing: usize,
     skipped: Vec<String>,
 }
 impl UploadSummary {
     fn message(&self) -> String {
-        let uploaded = match self.uploaded {
-            0 => "Nothing uploaded".into(),
+        let mut uploaded = match self.uploaded {
+            0 => "Nothing uploaded".to_string(),
             1 => "Uploaded 1 photo".into(),
             n => format!("Uploaded {n} photos"),
         };
+        match self.existing {
+            0 => {}
+            1 => uploaded.push_str("; 1 was already in Schist Cloud"),
+            n => uploaded.push_str(&format!("; {n} were already in Schist Cloud")),
+        }
         match self.skipped.first() {
             None => uploaded,
             Some(reason) => format!(
@@ -2675,20 +2694,52 @@ fn read_cloud_upload(path: &std::path::Path, relative: Option<String>) -> Result
         .to_string_lossy()
         .into_owned();
     Ok(BatchFile {
+        source: path.to_path_buf(),
         path: relative.unwrap_or_else(|| name.clone()),
         name,
         mime: mime(path),
+        digest: remote::transfer::sha256_hex(&bytes),
         bytes,
     })
 }
 
 struct BatchFile {
+    /// Where the bytes came from, to read them again for a repack or a
+    /// single upload.
+    source: PathBuf,
     /// The relative path inside the drop (sub-folders become cloud
     /// folders), or just the name.
     path: String,
     name: String,
     mime: &'static str,
+    /// SHA-256, hex: what the provider deduplicates by.
+    digest: String,
     bytes: Vec<u8>,
+}
+/// A batch member without its bytes: enough to ask the provider whether
+/// it already has the file, and to read it again if it must go up on
+/// its own.
+struct BatchEntry {
+    source: PathBuf,
+    path: String,
+    digest: String,
+}
+impl From<&BatchFile> for BatchEntry {
+    fn from(file: &BatchFile) -> Self {
+        Self {
+            source: file.source.clone(),
+            path: file.path.clone(),
+            digest: file.digest.clone(),
+        }
+    }
+}
+/// Read a batch's members again, for a repack after deduplication or
+/// the single-file fallback.
+fn reread(entries: &[BatchEntry]) -> Result<Vec<BatchFile>> {
+    entries
+        .iter()
+        .map(|e| read_cloud_upload(&e.source, Some(e.path.clone())))
+        .collect()
 }
 /// The batch payload: magic, a MessagePack manifest, then the files
 /// back to back, gzip-compressed. Returns the payload and the size of
@@ -2744,13 +2795,13 @@ const SUPPORT_BATCH: u8 = 1;
 const SUPPORT_SINGLES: u8 = 2;
 /// What the packer hands the uploader, in drop order.
 enum Prepared {
-    /// A batch: its compressed payload, and the raw files while the
-    /// provider's batch support is unknown or absent (an oversized
-    /// single file comes as files without a payload).
+    /// A batch: its members, and the compressed payload unless the
+    /// provider is known to take singles only (an oversized single
+    /// file also comes without one). The bytes are not kept: a repack
+    /// or a single upload reads them from disk again.
     Batch {
         payload: Option<(Vec<u8>, u64)>,
-        files: Option<Vec<BatchFile>>,
-        count: usize,
+        entries: Vec<BatchEntry>,
     },
     /// Too big for a batch: the resumable chunked path reads it itself.
     #[cfg(not(target_arch = "wasm32"))]
@@ -2804,13 +2855,8 @@ impl Preparer {
                 Err(e) => return Some(Prepared::Failed(e)),
             }
         };
-        let count = files.len();
-        let files = (support != SUPPORT_BATCH).then_some(files);
-        Some(Prepared::Batch {
-            payload,
-            files,
-            count,
-        })
+        let entries = files.iter().map(BatchEntry::from).collect();
+        Some(Prepared::Batch { payload, entries })
     }
     fn next(&mut self) -> Option<Prepared> {
         loop {
@@ -2853,8 +2899,7 @@ impl Preparer {
                 }
                 self.ready.push_back(Prepared::Batch {
                     payload: None,
-                    files: Some(vec![file]),
-                    count: 1,
+                    entries: vec![BatchEntry::from(&file)],
                 });
                 continue;
             }
@@ -2882,7 +2927,13 @@ struct Uploader {
     total: u64,
     done: u64,
     uploaded: Vec<String>,
+    /// Assets the library already had, found by digest: left out of the
+    /// upload, still added to a bucket drop.
+    existing: Vec<String>,
     skipped: Vec<String>,
+    /// Whether the provider answers `assets.exists`, learned from the
+    /// first reply.
+    dedupe: u8,
 }
 impl Uploader {
     fn report(&self, label: String) {
@@ -2947,14 +2998,51 @@ impl Uploader {
     async fn take(&mut self, item: Prepared) -> Result<()> {
         match item {
             Prepared::Batch {
-                payload,
-                files,
-                count,
+                mut payload,
+                mut entries,
             } => {
+                let count = entries.len();
+                // Ask first what the library already holds: those files
+                // stay home, and the payload is packed again without
+                // them. A provider without the question uploads all.
+                if self.dedupe != SUPPORT_SINGLES && !entries.is_empty() {
+                    let digests: Vec<String> = entries.iter().map(|e| e.digest.clone()).collect();
+                    match self
+                        .retrying("checking for duplicates", || {
+                            existing_assets(&self.handle, &digests)
+                        })
+                        .await?
+                    {
+                        Some(found) => {
+                            self.dedupe = SUPPORT_BATCH;
+                            let before = entries.len();
+                            let existing = &mut self.existing;
+                            entries.retain(|e| match found.get(&e.digest) {
+                                Some(id) => {
+                                    existing.push(id.clone());
+                                    false
+                                }
+                                None => true,
+                            });
+                            if entries.len() != before {
+                                payload = None;
+                            }
+                        }
+                        None => self.dedupe = SUPPORT_SINGLES,
+                    }
+                }
+                if entries.is_empty() {
+                    self.step(count);
+                    return Ok(());
+                }
                 let folder = self.folder.clone();
                 let mut ids = None;
-                if let Some((payload, total)) = payload {
-                    if self.support.load(std::sync::atomic::Ordering::Relaxed) != SUPPORT_SINGLES {
+                if self.support.load(std::sync::atomic::Ordering::Relaxed) != SUPPORT_SINGLES {
+                    let (payload, total) = match payload.take() {
+                        Some(packed) => packed,
+                        None => pack_batch(&reread(&entries)?)?,
+                    };
+                    {
                         // One set of IDs for the batch: every retry
                         // re-sends the same mutations, so the provider
                         // can answer a repeat from its record.
@@ -2986,9 +3074,7 @@ impl Uploader {
                 match ids {
                     Some(ids) => self.uploaded.extend(ids),
                     None => {
-                        let files = files.ok_or_else(|| {
-                            anyhow!("The provider stopped accepting batch uploads mid-way")
-                        })?;
+                        let files = reread(&entries)?;
                         for file in &files {
                             let mutation = remote::Uuid::new_v4().to_string();
                             let id = self
@@ -3053,6 +3139,36 @@ impl Uploader {
             Prepared::Failed(error) => return Err(error),
         }
         Ok(())
+    }
+}
+#[derive(serde::Deserialize)]
+struct ExistingAsset {
+    sha256: String,
+    id: String,
+}
+#[derive(serde::Deserialize)]
+struct ExistingAssets {
+    found: Vec<ExistingAsset>,
+}
+/// Which of these digests the library already holds, as digest → asset
+/// ID. `None` when the provider cannot say, so everything uploads.
+async fn existing_assets(
+    handle: &remote::Handle,
+    digests: &[String],
+) -> Result<Option<HashMap<String, String>>> {
+    let params = map([(
+        "sha256",
+        Value::Array(digests.iter().map(|d| d.clone().into()).collect()),
+    )]);
+    match handle.request_async("assets.exists", params).await {
+        Ok(reply) => {
+            let found: ExistingAssets = parse(reply)?;
+            Ok(Some(
+                found.found.into_iter().map(|f| (f.sha256, f.id)).collect(),
+            ))
+        }
+        Err(e) if e.to_string().contains("method_not_found") => Ok(None),
+        Err(e) => Err(e),
     }
 }
 /// The mutation IDs one batch uses, fixed for its lifetime so retries

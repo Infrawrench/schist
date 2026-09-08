@@ -103,7 +103,11 @@ preview" for an asset whose URL is absent or whose fetch failed.
 Drag local gallery photos, a watched local folder, or files/folders from the file
 manager into a cloud bucket or folder to upload them. Local originals remain in
 place; hidden entries such as the gallery's own `.schist` sidecar and version
-folders are left out. The files travel in gzip-compressed batches of up to 48 MiB or 250 files
+folders are left out. Files the library already holds are left out too: each
+file is hashed (SHA-256) and the provider is asked which digests it has, so a
+folder dropped twice uploads nothing the second time, though a bucket drop
+still adds the existing photos to the bucket. The rest travel in
+gzip-compressed batches of up to 48 MiB or 250 files
 each, so a big drop is several payloads and a failed one can be retried alone.
 On desktop the packing runs ahead on its own thread — a couple of batches are
 read and compressed while one goes up — so the network never waits on the

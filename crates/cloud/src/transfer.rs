@@ -14,6 +14,15 @@ struct Ticket {
     url: String,
     revision: u64,
 }
+/// A file's SHA-256 as lowercase hex — what the provider keeps per
+/// asset and answers `assets.exists` by.
+pub fn sha256_hex(bytes: &[u8]) -> String {
+    use sha2::Digest as _;
+    sha2::Sha256::digest(bytes)
+        .iter()
+        .map(|b| format!("{b:02x}"))
+        .collect()
+}
 pub struct DownloadedAsset {
     pub bytes: Vec<u8>,
     pub revision: u64,
