@@ -3429,10 +3429,18 @@ mod cloud_lifecycle_tests {
         assert_eq!(&raw[12 + length..], b"beforeafter");
         let message = UploadSummary {
             uploaded: batch.len(),
-            skipped,
+            existing: 0,
+            skipped: skipped.clone(),
         }
         .message();
         assert!(message.contains("Uploaded 2 photos; skipped 2 files"));
+        let deduped = UploadSummary {
+            uploaded: batch.len(),
+            existing: 3,
+            skipped,
+        }
+        .message();
+        assert!(deduped.contains("Uploaded 2 photos; 3 were already in Schist Cloud; skipped 2"));
         assert!(message.contains("large.mov"));
         assert!(message.contains("5 GiB"));
         std::fs::remove_dir_all(root).unwrap();
