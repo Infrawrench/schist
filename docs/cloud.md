@@ -102,7 +102,8 @@ preview" for an asset whose URL is absent or whose fetch failed.
 
 Drag local gallery photos, a watched local folder, or files/folders from the file
 manager into a cloud bucket or folder to upload them. Local originals remain in
-place. The files travel in gzip-compressed batches of up to 48 MiB or 250 files
+place; hidden entries such as the gallery's own `.schist` sidecar and version
+folders are left out. The files travel in gzip-compressed batches of up to 48 MiB or 250 files
 each, so a big drop is several payloads and a failed one can be retried alone.
 On desktop the packing runs ahead on its own thread — a couple of batches are
 read and compressed while one goes up — so the network never waits on the

@@ -2909,13 +2909,17 @@ impl Uploader {
                 Err(error) if remote::transport::transient(&error) && attempt < OFFLINE_RETRIES => {
                     attempt += 1;
                     self.report(format!(
-                        "Connection lost while {what} — {} of {} uploaded; waiting to reconnect…",
+                        "Connection interrupted while {what} — {} of {} uploaded; waiting…",
                         self.done, self.total
                     ));
-                    // A short pause even when the socket says it is up:
-                    // a gateway that just dropped us is not ready yet.
-                    let pause = (1u64 << attempt.min(5)).min(30);
-                    remote::runtime::sleep(std::time::Duration::from_secs(pause)).await;
+                    // The first retry is immediate: the session renews
+                    // itself every quarter hour by reconnecting, and that
+                    // is over in a moment. Only a repeat failure pauses,
+                    // for a gateway that just dropped us and is not ready.
+                    if attempt > 1 {
+                        let pause = (1u64 << attempt.min(5)).min(30);
+                        remote::runtime::sleep(std::time::Duration::from_secs(pause)).await;
+                    }
                     if !self.handle.wait_online().await {
                         return Err(error.context("The cloud connection was closed"));
                     }
@@ -3156,6 +3160,12 @@ fn enumerate_files(
         let entry = entry?;
         let ty = entry.file_type()?;
         if ty.is_symlink() {
+            continue;
+        }
+        // Hidden entries stay home: the gallery's own `.schist` sidecars
+        // and version folders, `.DS_Store`, thumbnail caches — none of
+        // them are photos anyone meant to upload.
+        if entry.file_name().to_string_lossy().starts_with('.') {
             continue;
         }
         if ty.is_dir() {

@@ -261,6 +261,7 @@ pub fn transient(error: &anyhow::Error) -> bool {
         || text.contains("Cloud connection closed")
         || text.contains("Cloud disconnected")
         || text.contains("Cloud operation timed out")
+        || text.contains("Cloud request timed out")
         || text.contains("channel closed")
         || auth::network_error(error)
 }
@@ -674,10 +675,13 @@ impl Session<'_> {
             self.send(map([("type", "ping".into())])).await?;
             self.ping = Instant::now();
         }
+        // Generous: a batch commit stores hundreds of files before it
+        // answers, and a repeat of a still-running commit would store
+        // them again. Dead connections are the heartbeat's to catch.
         let expired: Vec<_> = self
             .pending
             .iter()
-            .filter(|(_, p)| p.started.elapsed() > Duration::from_secs(30))
+            .filter(|(_, p)| p.started.elapsed() > Duration::from_secs(180))
             .map(|(id, _)| id.clone())
             .collect();
         for id in expired {
