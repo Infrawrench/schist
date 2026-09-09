@@ -3053,12 +3053,15 @@ impl Uploader {
                         let batch = BatchIds::new();
                         match self
                             .retrying("uploading a batch", || {
+                                // The count the provider checks is the
+                                // batch as packed — after duplicates
+                                // were left out — not the drop's tally.
                                 send_batch(
                                     &self.handle,
                                     folder.as_deref(),
                                     &payload,
                                     total,
-                                    count,
+                                    entries.len(),
                                     &batch,
                                 )
                             })
