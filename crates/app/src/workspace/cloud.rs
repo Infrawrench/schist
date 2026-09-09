@@ -2807,6 +2807,9 @@ enum Prepared {
         payload: Option<(Vec<u8>, u64)>,
         entries: Vec<BatchEntry>,
     },
+    /// Too big for a batch but small enough for one plain upload: it
+    /// goes on its own, never packed.
+    Single(BatchEntry),
     /// Too big for a batch: the resumable chunked path reads it itself.
     #[cfg(not(target_arch = "wasm32"))]
     Large {
@@ -2901,10 +2904,8 @@ impl Preparer {
                 if let Some(batch) = self.flush() {
                     self.ready.push_back(batch);
                 }
-                self.ready.push_back(Prepared::Batch {
-                    payload: None,
-                    entries: vec![BatchEntry::from(&file)],
-                });
+                self.ready
+                    .push_back(Prepared::Single(BatchEntry::from(&file)));
                 continue;
             }
             if self.batch_bytes + file.bytes.len() > BATCH_BYTES || self.batch.len() >= BATCH_FILES
@@ -3137,6 +3138,38 @@ impl Uploader {
                     })
                     .await?;
                 self.uploaded.push(asset.id);
+                self.step(1);
+            }
+            Prepared::Single(entry) => {
+                // Still worth asking whether the library has it.
+                if self.dedupe != SUPPORT_SINGLES {
+                    let digests = vec![entry.digest.clone()];
+                    match self
+                        .retrying("checking for duplicates", || {
+                            existing_assets(&self.handle, &digests)
+                        })
+                        .await?
+                    {
+                        Some(found) => {
+                            self.dedupe = SUPPORT_BATCH;
+                            if let Some(id) = found.get(&entry.digest) {
+                                self.existing.push(id.clone());
+                                self.step(1);
+                                return Ok(());
+                            }
+                        }
+                        None => self.dedupe = SUPPORT_SINGLES,
+                    }
+                }
+                let folder = self.folder.clone();
+                let file = read_cloud_upload(&entry.source, Some(entry.path.clone()))?;
+                let mutation = remote::Uuid::new_v4().to_string();
+                let id = self
+                    .retrying("uploading a photo", || {
+                        send_single(&self.handle, folder.as_deref(), &file, &mutation)
+                    })
+                    .await?;
+                self.uploaded.push(id);
                 self.step(1);
             }
             Prepared::Skipped(reason) => {
