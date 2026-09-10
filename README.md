@@ -17,6 +17,10 @@ missing](#not-there-yet) is a short list now.
 ## Backers
 
 <!-- backers:start -->
+
+### Gold
+
+<a href="https://leanercloud.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://backers.schist.app/api/logos/1070272e-84cb-4a8d-8b8d-3976fbf81d88/dark"><img src="https://backers.schist.app/api/logos/1070272e-84cb-4a8d-8b8d-3976fbf81d88/light" alt="LeanerCloud" width="120"></picture></a>
 <!-- backers:end -->
 
 
