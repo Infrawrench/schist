@@ -185,57 +185,49 @@ fn option_slider(
     let m = ui::metrics();
     let index = *bar_sliders;
     *bar_sliders += 1;
-    let mut button = div()
-        .id(SharedString::from(format!("opt-slider-{id}")))
+    // The value opens the slider the way a dropdown opens its list:
+    // on the press, or on touch on the finger lifting, so a swipe along
+    // the bar never opens one.
+    let button = DropdownButton::new(
+        SharedString::from(format!("opt-slider-{id}")),
+        display.clone(),
+    )
+    .child(
+        div()
+            .text_color(gpui::rgb(if is_open {
+                palette().accent_text
+            } else {
+                palette().text_dim
+            }))
+            .child(label),
+    )
+    .h(px(m.icon_button))
+    .px_2()
+    .text_size(px(m.small_text))
+    .when(is_open, |b| {
+        b.bg(gpui::rgb(palette().accent))
+            .text_color(gpui::rgb(palette().accent_text))
+    })
+    .on_press(cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(popup, cx)));
+    div()
         .relative()
-        .flex()
-        .flex_row()
-        .items_center()
-        .gap_1()
-        .h(px(m.icon_button))
-        .px_2()
-        .rounded_sm()
-        .bg(gpui::rgb(palette().field_bg))
-        .text_size(px(m.small_text))
-        .when_active(is_open)
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(popup, cx)),
-        )
-        .child(
-            div()
-                .text_color(gpui::rgb(if is_open {
-                    palette().accent_text
-                } else {
-                    palette().text_dim
-                }))
-                .child(label),
-        )
-        .child(display.clone());
-    if is_open {
-        button = button.child(deferred(
-            div()
-                .absolute()
-                .top(px(m.icon_button + 6.0))
-                .when(index < 2, |d| d.left_0())
-                .when(index >= 2, |d| d.right_0())
-                .w(px(280.0))
-                .flex()
-                .flex_row()
-                .items_center()
-                .p_3()
-                .bg(gpui::rgb(palette().popup_bg))
-                .text_color(gpui::rgb(palette().text))
-                .border_1()
-                .border_color(gpui::rgb(palette().edge))
-                .rounded_md()
-                .shadow_lg()
-                .occlude()
-                .on_mouse_down_out(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)))
-                .child(slider_stretch(id, label, display, target, ws, cx)),
-        ));
-    }
-    button.into_any_element()
+        .child(button)
+        .children(is_open.then(|| {
+            deferred(
+                Popover::new(("opt-slider-popup", index))
+                    .top(px(m.icon_button + 6.0))
+                    .when(index < 2, |d| d.left_0())
+                    .when(index >= 2, |d| d.right_0())
+                    .w(px(280.0))
+                    .flex_row()
+                    .items_center()
+                    .p_3()
+                    .rounded_md()
+                    .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)))
+                    .child(slider_stretch(id, label, display, target, ws, cx)),
+            )
+        }))
+        .into_any_element()
 }
 
 /// Render one plugin-declared option. The shell knows the three kinds, not

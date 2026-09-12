@@ -174,18 +174,7 @@ pub(super) fn people_rows(
         );
     }
     let link = |label: &'static str, cx: &mut Context<Workspace>| {
-        div()
-            .id(label)
-            .px_2()
-            .h(px(24.0))
-            .flex()
-            .items_center()
-            .text_size(px(12.0))
-            .text_color(gpui::rgb(pal().header))
-            .cursor_pointer()
-            .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-            .on_click(cx.listener(|ws, _e, _w, cx| ws.download_people_models(cx)))
-            .child(label)
+        chrome::sidebar_link(label, |ws, _w, cx| ws.download_people_models(cx), cx)
             .into_any_element()
     };
     if people_models_downloading(ws) {

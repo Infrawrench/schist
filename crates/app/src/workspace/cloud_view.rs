@@ -1121,24 +1121,15 @@ pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
         let last = (offset + PAGE_SIZE).min(total);
         let link =
             |label: &'static str, to: u64, cx: &mut Context<Workspace>| -> gpui::AnyElement {
-                div()
-                    .px_2()
-                    .h(px(24.0))
-                    .flex()
-                    .items_center()
+                chrome::link_button(label, label)
                     .rounded_md()
-                    .text_size(px(12.0))
-                    .text_color(gpui::rgb(pal().header))
-                    .cursor_pointer()
-                    .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-                    .on_press(cx, move |ws, _e: &chrome::Press, _w, cx| {
+                    .on_click(cx.listener(move |ws, _e, _w, cx| {
                         ws.cloud.query.offset = to;
                         ws.cloud.selected.clear();
                         ws.cloud.select_anchor = None;
                         ws.cloud_watch_assets(false);
                         cx.notify();
-                    })
-                    .child(label)
+                    }))
                     .into_any_element()
             };
         let mut pager = div().flex().flex_row().items_center().gap_2().pt_2().pb_4();

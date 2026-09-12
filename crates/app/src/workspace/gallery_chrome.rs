@@ -423,7 +423,6 @@ pub fn sidebar_caption(text: impl Into<SharedString>) -> impl IntoElement {
 /// A left-button press as the gallery's rows, tiles and links take it.
 #[derive(Clone, Copy, Debug)]
 pub struct Press {
-    pub position: Point<Pixels>,
     pub modifiers: gpui::Modifiers,
     pub click_count: usize,
 }
@@ -446,7 +445,6 @@ pub trait PressExt: gpui::InteractiveElement + Sized {
                 MouseButton::Left,
                 cx.listener(move |ws, e: &MouseUpEvent, window, cx| {
                     let press = Press {
-                        position: e.position,
                         modifiers: e.modifiers,
                         click_count: e.click_count,
                     };
@@ -458,7 +456,6 @@ pub trait PressExt: gpui::InteractiveElement + Sized {
                 MouseButton::Left,
                 cx.listener(move |ws, e: &MouseDownEvent, window, cx| {
                     let press = Press {
-                        position: e.position,
                         modifiers: e.modifiers,
                         click_count: e.click_count,
                     };
@@ -471,25 +468,34 @@ pub trait PressExt: gpui::InteractiveElement + Sized {
 
 impl<E: gpui::InteractiveElement> PressExt for E {}
 
+/// A blue text button on the gallery's palette: the sidebar's links,
+/// the grid's page links. No fill until hovered, when it takes the
+/// sidebar's selected tint; fires on release, so on touch a swipe that
+/// starts on it never fires it.
+pub fn link_button(id: impl Into<gpui::ElementId>, label: impl Into<SharedString>) -> Button {
+    Button::new(id, label)
+        .colors(ButtonColors {
+            bg: None,
+            hover: pal().sidebar_selected,
+            text: pal().header,
+            border: None,
+        })
+        .h(px(24.0))
+        .px_2()
+}
+
 /// A blue link row in the sidebar: "+ Add folder…", "+ New bucket".
 pub fn sidebar_link(
     label: impl Into<SharedString>,
     on_click: impl Fn(&mut Workspace, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .px_2()
-        .h(px(24.0))
-        .flex()
-        .items_center()
-        .text_size(px(12.0))
-        .text_color(gpui::rgb(pal().header))
-        .cursor_pointer()
-        .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-        .on_press(cx, move |ws, _e: &Press, window, cx| {
-            on_click(ws, window, cx)
-        })
-        .child(label.into())
+    let label = label.into();
+    link_button(SharedString::from(format!("link-{label}")), label)
+        .w_full()
+        .justify_start()
+        .rounded_none()
+        .on_click(cx.listener(move |ws, _e, window, cx| on_click(ws, window, cx)))
 }
 
 /// A sidebar link whose click also reports the pointer, for one that
@@ -500,19 +506,14 @@ pub fn sidebar_menu_link(
     on_click: impl Fn(&mut Workspace, Point<Pixels>, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .px_2()
-        .h(px(24.0))
-        .flex()
-        .items_center()
-        .text_size(px(12.0))
-        .text_color(gpui::rgb(pal().header))
-        .cursor_pointer()
-        .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-        .on_press(cx, move |ws, e: &Press, window, cx| {
-            on_click(ws, e.position, window, cx)
-        })
-        .child(label.into())
+    let label = label.into();
+    link_button(SharedString::from(format!("link-{label}")), label)
+        .w_full()
+        .justify_start()
+        .rounded_none()
+        .on_click(cx.listener(move |ws, e: &gpui::ClickEvent, window, cx| {
+            on_click(ws, e.position(), window, cx)
+        }))
 }
 
 /// One row of the sidebar, before its behaviour: the label, an

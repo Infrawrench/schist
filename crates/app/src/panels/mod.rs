@@ -19,8 +19,8 @@ use gpui::{
 use schist_color::Rgba;
 use schist_core::{BlendMode, Layer, LayerId, LayerKind};
 use schist_ui::{
-    menu_separator, Button, ButtonColors, Chip, Divider, Heading, IconButton, Link, ListItem,
-    MenuItem, Popover, Slider, Swatch, Tab, TextInput, TextInputColors,
+    menu_separator, Button, ButtonColors, Chip, Divider, DropdownButton, Heading, IconButton, Link,
+    ListItem, MenuItem, Popover, Slider, Swatch, Tab, TextInput, TextInputColors,
 };
 use std::sync::Arc;
 
