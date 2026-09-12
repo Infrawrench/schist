@@ -100,6 +100,7 @@ impl Workspace {
     }
 
     pub(super) fn open_in_tab(&mut self, mut doc: Document, replace_pristine: bool) {
+        self.cloud.show = false;
         // A document arriving is what ends the gallery: whether it came
         // from File ▸ New, a gallery double-click or a crash recovery,
         // the editor is where it lives — and its memory goes with it.
@@ -298,6 +299,7 @@ impl Workspace {
                 self.remove_recovery_for(doc.id);
                 #[cfg(not(target_arch = "wasm32"))]
                 self.forget_backing(doc.id);
+                self.cloud_close_document(doc.id);
             }
             if self.background_tabs.is_empty() {
                 self.active_tab = 0;
@@ -319,6 +321,7 @@ impl Workspace {
             self.remove_recovery_for(tab.doc.id);
             #[cfg(not(target_arch = "wasm32"))]
             self.forget_backing(tab.doc.id);
+            self.cloud_close_document(tab.doc.id);
             if index < self.active_tab {
                 self.active_tab -= 1;
             }
@@ -338,7 +341,7 @@ impl Workspace {
     /// Open `path` without blocking the window: the read and decode run
     /// on a background thread and the document is installed when ready.
     pub fn load_file(&mut self, path: PathBuf, cx: &mut Context<Self>) {
-        self.status = format!("Opening {}\u{2026}", path.display()).into();
+        self.status = format!("Opening {}\u{2026}", crate::ui::shown_path(&path)).into();
         cx.notify();
         let codecs = self.registry.shared_codecs();
         cx.spawn(async move |this, cx| {
@@ -383,7 +386,7 @@ impl Workspace {
                         .and_then(|id| doc.tree.find(id))
                         .is_some_and(|layer| layer.raw.is_some());
                 self.status = match &doc.path {
-                    Some(p) => format!("Opened {}", p.display()).into(),
+                    Some(p) => format!("Opened {}", crate::ui::shown_path(p)).into(),
                     None => format!("Opened {}", doc.title).into(),
                 };
                 self.install_document(doc);
@@ -579,7 +582,7 @@ impl Workspace {
     /// Decode `path` off the UI thread and insert it into the current
     /// document as a new raster layer, centered like a paste.
     pub fn place_image_as_layer(&mut self, path: PathBuf, cx: &mut Context<Self>) {
-        self.status = format!("Placing {}\u{2026}", path.display()).into();
+        self.status = format!("Placing {}\u{2026}", crate::ui::shown_path(&path)).into();
         cx.notify();
         let codecs = self.registry.shared_codecs();
         cx.spawn(async move |this, cx| {
@@ -678,7 +681,7 @@ impl Workspace {
                 if !self.post_save_backing(&path) {
                     self.note_recent(&path);
                 }
-                self.status = format!("Saved {}", path.display()).into();
+                self.status = format!("Saved {}", crate::ui::shown_path(&path)).into();
                 // Only if this is the document the close was asked for.
                 // The Save As portal does not block the window on Linux,
                 // so the user can switch tabs and save another one while
@@ -721,6 +724,9 @@ impl Workspace {
     /// ⌘S: save over the document's existing path, or fall back to Save As
     /// when it has never been saved (or its format can't be written).
     pub fn save_current(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        if self.cloud_save(cx) {
+            return;
+        }
         let path = self.doc.as_ref().and_then(|d| d.path.clone());
         match path {
             Some(path) if self.exporter_for(&path).is_some() => self.save_file_as(path, cx),

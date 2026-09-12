@@ -64,9 +64,21 @@ impl Workspace {
                 ws.status = match fetched.and_then(|bytes| {
                     schist_neural::install(spec, &bytes).map_err(|e| e.to_string())
                 }) {
-                    Ok(path) => format!("Installed {} to {}", spec.name, path.display()).into(),
+                    Ok(path) => format!(
+                        "Installed {} to {}",
+                        spec.name,
+                        crate::ui::shown_path(&path)
+                    )
+                    .into(),
                     Err(e) => format!("{}: {e}", spec.name).into(),
                 };
+                #[cfg(not(target_arch = "wasm32"))]
+                if super::library_people::PEOPLE_MODELS.contains(&id)
+                    && schist_neural::installed(id)
+                {
+                    // The position pass may have finished before the models arrived.
+                    ws.kick_thumb_loader(cx);
+                }
                 cx.notify();
             })
             .ok();
@@ -89,7 +101,7 @@ impl Workspace {
     /// user-initiated, like the font fetch — the app makes no other
     /// network requests. (The whole update path is desktop-only: a web
     /// deployment updates by serving newer files.)
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub fn check_for_update(&mut self, cx: &mut Context<Self>) {
         self.status = "Checking for updates…".into();
         cx.notify();
@@ -100,12 +112,12 @@ impl Workspace {
     /// nobody opening a document wants to be told their editor is
     /// current, and a machine that is offline at login should not be
     /// shown a failure it never asked for.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub fn check_for_update_quietly(&mut self, cx: &mut Context<Self>) {
         self.run_update_check(true, cx);
     }
 
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub(super) fn run_update_check(&mut self, quiet: bool, cx: &mut Context<Self>) {
         cx.spawn(async move |this, cx| {
             let status = cx
@@ -158,7 +170,7 @@ impl Workspace {
     /// The dialog stays up throughout: it is what shows the progress,
     /// and there is nothing useful to do in an editor whose executable
     /// is being replaced underneath it.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub fn start_update(&mut self, update: crate::update::Update, cx: &mut Context<Self>) {
         let Some(installer) = update.install.clone() else {
             return;
@@ -262,7 +274,7 @@ impl Workspace {
     /// The transfer itself is left to run out into the temporary
     /// directory, since a blocking read cannot be interrupted, but its
     /// result is dropped and nothing is installed.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub fn cancel_update(&mut self, cx: &mut Context<Self>) {
         self.update_progress = None;
         self.status = "Update cancelled".into();
@@ -271,7 +283,7 @@ impl Workspace {
     }
 
     /// Give up on an update, leaving the user where they were.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub(super) fn update_failed(&mut self, err: &str, cx: &mut Context<Self>) {
         log::error!("update failed: {err}");
         crate::update::clean_downloads();
@@ -400,7 +412,7 @@ impl Workspace {
 
     /// Enable or disable a third-party plugin. The id says which host it
     /// belongs to: Photoshop plug-ins are the ones the 8BF host found.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub fn set_plugin_enabled(&mut self, id: String, enabled: bool, cx: &mut Context<Self>) {
         if id.starts_with("8bf.") {
             let Some(dir) = schist_plugin_host_8bf::manager::PluginManager::plugin_dir() else {
@@ -432,7 +444,7 @@ impl Workspace {
     /// Install a plugin file into the plugin directory. A `.8bf` or a
     /// `.plugin` bundle goes to the Photoshop folder, anything else to
     /// the WebAssembly one, so one Install button serves both.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub fn install_plugin(&mut self, source: PathBuf, cx: &mut Context<Self>) {
         let photoshop = source
             .extension()
@@ -446,9 +458,11 @@ impl Workspace {
             match schist_plugin_host_8bf::manager::PluginManager::plugin_dir() {
                 Some(dir) => {
                     match schist_plugin_host_8bf::manager::PluginManager::install(&source, &dir) {
-                        Ok(path) => {
-                            format!("Installed {} — restart to load", path.display()).into()
-                        }
+                        Ok(path) => format!(
+                            "Installed {} — restart to load",
+                            crate::ui::shown_path(&path)
+                        )
+                        .into(),
                         Err(err) => format!("Plug-in rejected: {err}").into(),
                     }
                 }
@@ -459,7 +473,11 @@ impl Workspace {
                 return;
             };
             match schist_plugin_host_wasm::PluginManager::install(&source, &dir) {
-                Ok(path) => format!("Installed {} — restart to load", path.display()).into(),
+                Ok(path) => format!(
+                    "Installed {} — restart to load",
+                    crate::ui::shown_path(&path)
+                )
+                .into(),
                 Err(err) => format!("Plugin rejected: {err}").into(),
             }
         };

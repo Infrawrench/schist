@@ -25,6 +25,21 @@ pub(crate) fn run_app_item(
     cx: &mut Context<Workspace>,
 ) {
     match item {
+        AppItem::CloudGenerate => {
+            ws.cloud_generate_open(cx);
+        }
+        AppItem::CloudSignIn => {
+            ws.cloud_sign_in(cx);
+        }
+        AppItem::CloudBrowse => {
+            ws.cloud_browse(schist_cloud::Scope::Library, cx);
+        }
+        AppItem::CloudSignOut => {
+            ws.cloud_sign_out(cx);
+        }
+        AppItem::CloudUpload => {
+            ws.cloud_upload_document(cx);
+        }
         AppItem::New => ws.open_new_file_picker(cx),
         AppItem::Open => crate::keymap::open_file_dialog(ws, window, cx),
         AppItem::Close => ws.request_close_tab(ws.active_tab(), cx),
@@ -175,6 +190,10 @@ pub(crate) fn run_app_item(
         AppItem::DeleteLayerComp(i) => ws.delete_layer_comp(i, cx),
         AppItem::ExportArtboards => ws.export_regions(false, window, cx),
         AppItem::ExportSlices => ws.export_regions(true, window, cx),
+        #[cfg(target_os = "ios")]
+        AppItem::SaveToPhotos => ws.save_to_photos(cx),
+        #[cfg(not(target_os = "ios"))]
+        AppItem::SaveToPhotos => {}
         AppItem::RotateViewCw => ws.rotate_view(std::f32::consts::FRAC_PI_8, cx),
         AppItem::RotateViewCcw => ws.rotate_view(-std::f32::consts::FRAC_PI_8, cx),
         AppItem::ResetView => ws.reset_view_rotation(cx),
@@ -289,9 +308,9 @@ pub(crate) fn run_app_item(
                 ws.show_layer_style(id, cx);
             }
         }
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(sandboxed))]
         AppItem::CheckForUpdates => ws.check_for_update(cx),
-        #[cfg(target_arch = "wasm32")]
+        #[cfg(sandboxed)]
         AppItem::CheckForUpdates => {}
         AppItem::FreeTransform => ws.activate_tool("transform", cx),
         AppItem::Crop => {
@@ -322,7 +341,9 @@ pub(super) fn menu_row_checked(
     on_click: impl Fn(&mut Workspace, &gpui::ClickEvent, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
+    let m = ui::metrics();
     ListItem::new(SharedString::from(label.clone()))
+        .h(px(m.menu_row_h))
         .justify_between()
         .accent_hover()
         .on_click(cx.listener(on_click))
@@ -341,11 +362,11 @@ pub(super) fn menu_row_checked(
                             .then(|| icon("check", 10.0, palette().text)),
                     ),
                 )
-                .child(div().text_size(px(12.0)).child(label)),
+                .child(div().text_size(px(m.row_text)).child(label)),
         )
         .child(
             div()
-                .text_size(px(10.0))
+                .text_size(px(m.small_text - 1.0))
                 .text_color(gpui::rgb(palette().text_dim))
                 .child(hint),
         )
@@ -357,62 +378,92 @@ pub(super) fn menu_row(
     on_click: impl Fn(&mut Workspace, &gpui::ClickEvent, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
+    let m = ui::metrics();
     ListItem::new(SharedString::from(label.clone()))
+        .h(px(m.menu_row_h))
         .justify_between()
         .accent_hover()
         .on_click(cx.listener(on_click))
-        .child(div().text_size(px(12.0)).child(label))
+        .child(div().text_size(px(m.row_text)).child(label))
         .child(
             div()
-                .text_size(px(10.0))
+                .text_size(px(m.small_text - 1.0))
                 .text_color(gpui::rgb(palette().text_dim))
                 .child(hint),
         )
 }
 
-pub fn menu_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+pub fn menu_bar(
+    ws: &mut Workspace,
+    window: &Window,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
     let open = ws.open_popup;
-    div()
+    let m = ui::metrics();
+    let _ = window;
+    // On a touch screen the bar scrolls sideways: a phone-width window
+    // has no room for eight titles, and a swipe along the bar brings the
+    // rest into reach.
+    let bar = div()
+        .id("menu-bar")
         .flex()
         .flex_row()
         .items_center()
-        .h(px(28.0))
+        .h(px(m.menu_bar_h))
         .flex_none()
+        .w_full()
+        .min_w(px(0.0))
         .px_1()
         .bg(gpui::rgb(palette().panel_bg))
         .border_b_1()
         .border_color(gpui::rgb(palette().panel_edge))
-        .children(
-            menus(ws)
-                .into_iter()
-                .enumerate()
-                .map(|(i, (title, entries))| {
-                    let is_open = open == Some(Popup::Menu(i));
-                    let mut button = div()
-                        .relative()
-                        .flex()
-                        .items_center()
-                        .px_2()
-                        .h(px(22.0))
-                        .rounded_sm()
-                        .text_size(px(12.0))
-                        .when_active(is_open)
-                        .hover(|s| s.bg(gpui::rgb(palette().hover)))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(Popup::Menu(i), cx)),
-                        )
-                        .child(title);
-                    if is_open {
-                        button = button.child(deferred(
-                            menu_panel(ws, entries, &[i], 24.0, 0.0, cx).on_mouse_down_out(
-                                cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)),
-                            ),
-                        ));
-                    }
-                    button
-                }),
-        )
+        .when(ui::touch(), |bar| bar.overflow_x_scroll());
+    let title_button = |title: &'static str| {
+        div()
+            .relative()
+            .flex()
+            .flex_none()
+            .items_center()
+            .px_2()
+            .h(px(m.menu_title_h))
+            .rounded_sm()
+            .text_size(px(m.row_text))
+            .whitespace_nowrap()
+            .hover(|s| s.bg(gpui::rgb(palette().hover)))
+            .child(title)
+    };
+    bar.children(
+        menus(ws)
+            .into_iter()
+            .enumerate()
+            .map(|(i, (title, entries))| {
+                // Fingers cannot hover, and the drop-downs open their
+                // submenus on hover, so the touch chrome shows each menu
+                // as the platform's own popover instead. On a tap, not a
+                // press: a press that goes on to swipe the bar is a
+                // scroll, and must not open anything.
+                if ui::touch() {
+                    return title_button(title)
+                        .id(("menu-title", i))
+                        .on_click(cx.listener(move |ws, ev: &gpui::ClickEvent, window, _cx| {
+                            ws.open_native_menu(i, ev.position(), window);
+                        }))
+                        .into_any_element();
+                }
+                let is_open = open == Some(Popup::Menu(i));
+                let mut button = title_button(title).when_active(is_open).on_mouse_down(
+                    MouseButton::Left,
+                    cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(Popup::Menu(i), cx)),
+                );
+                if is_open {
+                    button = button.child(deferred(
+                        menu_panel(ws, entries, &[i], 24.0, 0.0, cx)
+                            .on_mouse_down_out(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx))),
+                    ));
+                }
+                button.into_any_element()
+            }),
+    )
 }
 
 /// One menu panel: the rows of `entries`, plus any submenu that is open
@@ -438,7 +489,7 @@ pub(super) fn menu_panel(
         .absolute()
         .top(px(top))
         .left(px(left))
-        .w(px(230.0))
+        .w(px(ui::metrics().menu_w))
         .py_1()
         .bg(gpui::rgb(palette().popup_bg))
         .text_color(gpui::rgb(palette().text))

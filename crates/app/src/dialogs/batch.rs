@@ -311,11 +311,20 @@ pub(super) fn batch_dialog(
     }
 
     // Output.
-    let targets: Vec<(SharedString, BatchTarget)> =
-        [BatchTarget::Edit, BatchTarget::Beside, BatchTarget::Folder]
-            .into_iter()
-            .map(|t| (SharedString::from(t.label()), t))
-            .collect();
+    // Copies fetched from Schist Cloud live in a scratch folder, so the
+    // only place results can usefully go is a folder of the user's own.
+    let from_cloud = photos
+        .first()
+        .is_some_and(|p| p.starts_with(crate::workspace::cloud::batch_dir()));
+    let choices: &[BatchTarget] = if from_cloud {
+        &[BatchTarget::Folder]
+    } else {
+        &[BatchTarget::Edit, BatchTarget::Beside, BatchTarget::Folder]
+    };
+    let targets: Vec<(SharedString, BatchTarget)> = choices
+        .iter()
+        .map(|&t| (SharedString::from(t.label()), t))
+        .collect();
     body = body.child(section("Output")).child(ui::field_row(
         "Save as",
         ui::dropdown(

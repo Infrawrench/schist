@@ -58,6 +58,7 @@ pub struct SetToolOpacity {
 actions!(
     schist,
     [
+        ToggleSidePanels,
         NewFile,
         OpenFile,
         SaveFile,
@@ -102,6 +103,11 @@ actions!(
 /// `panels` because [`RunAppItem`] carries one.
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum AppItem {
+    CloudSignIn,
+    CloudGenerate,
+    CloudBrowse,
+    CloudSignOut,
+    CloudUpload,
     New,
     Open,
     Close,
@@ -166,6 +172,8 @@ pub enum AppItem {
     NewLayerComp,
     ExportArtboards,
     ExportSlices,
+    /// The flattened document into the camera roll (iOS only).
+    SaveToPhotos,
     RotateViewCw,
     RotateViewCcw,
     ResetView,

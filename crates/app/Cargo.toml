@@ -9,6 +9,11 @@ name = "schist"
 path = "src/main.rs"
 
 [dependencies]
+# Deflate for the gallery's ZIPs and the cloud's gzip batch uploads;
+# already in the tree behind the PNG codec, so this adds no download.
+flate2 = "1"
+schist-cloud = { path = "../cloud" }
+web-time = "1"
 gpui.workspace = true
 anyhow.workspace = true
 log.workspace = true
@@ -50,11 +55,10 @@ schist-colormgmt.workspace = true
 # The gallery's on-disk model, shared with the headless MCP server.
 schist-gallery.workspace = true
 
-# Everything a browser tab cannot host: subprocesses and dlopen (the two
-# plug-in hosts, the agent CLIs behind the AI sidebar), blocking sockets
-# (ureq, sentry), and the second wgpu device the GPU compositor opens with
-# a blocking pollster wait. The web build composites on the CPU reference
-# backend and drops those features; see src/web/mod.rs.
+# Everything a browser tab cannot host: blocking sockets (ureq, sentry)
+# and the second wgpu device the GPU compositor opens with a blocking
+# pollster wait. The web build composites on the CPU reference backend
+# and drops those features; see src/web/mod.rs. iOS has all of these.
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 env_logger.workspace = true
 # Update checks, font downloads and update downloads.
@@ -62,6 +66,22 @@ ureq = { version = "3", default-features = false, features = ["rustls", "json"] 
 # Only used by the opt-in crash upload, and only in a build handed a DSN.
 sentry.workspace = true
 schist-compositor-gpu.workspace = true
+# Gallery thumbnails: one windowless image of a file. Native-only with the
+# rest of the gallery — a browser tab has no folders to browse.
+schist-preview.workspace = true
+# The gallery's "save bucket as ZIP" writes the archive by hand; this
+# is its checksum. Its deflate, flate2, sits in the common dependencies
+# since cloud batch uploads gzip on every target.
+crc32fast.workspace = true
+# The daily ping: its dedup ID, and the CPU model and RAM it reports.
+rand = "0.10"
+sysinfo = { version = "0.31", default-features = false, features = ["system"] }
+
+# What only a desktop can host: subprocesses, dlopen and a JIT. iOS
+# forbids all three (see build.rs for the `sandboxed` cfg these sites
+# test), so the plug-in hosts and the agent CLIs behind the AI sidebar
+# stay off there too.
+[target.'cfg(not(any(target_arch = "wasm32", target_os = "ios")))'.dependencies]
 schist-plugin-host-wasm.workspace = true
 # Carries the .8bf plug-in helpers, which are binaries for architectures
 # other than this one and are unpacked on first use. See the Makefile.
@@ -73,17 +93,6 @@ claude-agent-sdk-rs.workspace = true
 codex-codes.workspace = true
 tokio.workspace = true
 async-trait.workspace = true
-# Gallery thumbnails: one windowless image of a file. Native-only with the
-# rest of the gallery — a browser tab has no folders to browse.
-schist-preview.workspace = true
-# The gallery's "save bucket as ZIP" writes the archive by hand; these
-# are its checksums and its deflate. flate2 is already in the tree
-# behind the PNG codec, so this adds no download.
-crc32fast.workspace = true
-flate2 = "1"
-# The daily ping: its dedup ID, and the CPU model and RAM it reports.
-rand = "0.10"
-sysinfo = { version = "0.31", default-features = false, features = ["system"] }
 
 # ImageCaptureCore for the gallery's iPhone/PTP-camera import: those
 # devices never mount as filesystems on macOS. Same objc2 idiom as the
@@ -92,6 +101,16 @@ sysinfo = { version = "0.31", default-features = false, features = ["system"] }
 objc2 = "0.6"
 # The window's NSView, for starting a native drag out of it.
 raw-window-handle = "0.6"
+objc2-foundation = { version = "0.3", default-features = false, features = [
+    "std",
+    "NSString",
+] }
+
+# The photo library on iOS, through PHPickerViewController; the delegate
+# class is built at runtime, as on macOS.
+[target.'cfg(target_os = "ios")'.dependencies]
+objc2 = "0.6"
+block2 = "0.6"
 objc2-foundation = { version = "0.3", default-features = false, features = [
     "std",
     "NSString",

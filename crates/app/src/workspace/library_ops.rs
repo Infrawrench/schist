@@ -47,7 +47,7 @@ impl Workspace {
             this.update(cx, |ws, cx| {
                 let (moved, asked, dest) = result;
                 ws.status = if moved == asked {
-                    format!("Moved {moved} photos to {}", dest.display()).into()
+                    format!("Moved {moved} photos to {}", crate::ui::shown_path(&dest)).into()
                 } else {
                     format!(
                         "Moved {moved} of {asked} photos to {} — the log has the rest",
@@ -155,7 +155,7 @@ impl Workspace {
                 };
                 ws.status = match finished {
                     Ok(()) if written == total => {
-                        format!("Zipped {written} photos to {}{held_note}", out.display()).into()
+                        format!("Zipped {written} photos to {}{held_note}", crate::ui::shown_path(&out)).into()
                     }
                     Ok(()) => format!(
                         "Zipped {written} of {total} photos to {}{held_note} \u{2014} the log has the rest",
@@ -247,7 +247,9 @@ impl Workspace {
                     .await;
             this.update_in(cx, |ws, _window, cx| {
                 ws.status = match result {
-                    Ok((w, h)) => format!("Saved {} ({w} \u{d7} {h})", out.display()).into(),
+                    Ok((w, h)) => {
+                        format!("Saved {} ({w} \u{d7} {h})", crate::ui::shown_path(&out)).into()
+                    }
                     Err(err) => {
                         log::error!("save image as failed: {err:#}");
                         format!("Save failed: {err}").into()
@@ -865,7 +867,7 @@ fn deflate(bytes: &[u8]) -> Vec<u8> {
     encoder.finish().unwrap_or_default()
 }
 
-struct ZipWriter {
+pub(super) struct ZipWriter {
     file: std::io::BufWriter<std::fs::File>,
     /// Where the archive is being built, and where it lands on
     /// `finish` — a half-written ZIP never takes the real name.
@@ -878,7 +880,7 @@ struct ZipWriter {
 }
 
 impl ZipWriter {
-    fn create(out: &Path) -> anyhow::Result<ZipWriter> {
+    pub(super) fn create(out: &Path) -> anyhow::Result<ZipWriter> {
         let tmp = out.with_extension("schist-tmp");
         Ok(ZipWriter {
             file: std::io::BufWriter::new(std::fs::File::create(&tmp)?),
@@ -891,7 +893,7 @@ impl ZipWriter {
         })
     }
 
-    fn add(&mut self, name: &str, bytes: &[u8]) -> anyhow::Result<()> {
+    pub(super) fn add(&mut self, name: &str, bytes: &[u8]) -> anyhow::Result<()> {
         use std::io::Write as _;
         if bytes.len() as u64 > u32::MAX as u64 {
             anyhow::bail!("too large for a zip without zip64");
@@ -946,7 +948,7 @@ impl ZipWriter {
         Ok(())
     }
 
-    fn finish(mut self) -> anyhow::Result<()> {
+    pub(super) fn finish(mut self) -> anyhow::Result<()> {
         use std::io::Write as _;
         if self.entries == 0 {
             let _ = std::fs::remove_file(&self.tmp);

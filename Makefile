@@ -228,4 +228,47 @@ check-gpu-fx:
 	$(CARGO) test -p schist-compositor-gpu --test fx_parity --test fx_wiring
 check-readme: check-text check-gpu-fx
 	$(CARGO) clippy -p schist-core -p schist-text-engine -p schist-tools-type -p schist-codec-affinity -p schist-fx -p schist-compositor-gpu --all-targets -- -D warnings
+# Native cloud client and editor integration checks.
+.PHONY: check-cloud
+check-cloud:
+	$(CARGO) test -p schist-cloud
+	$(CARGO) test -p schist-app cloud_lifecycle_tests
 	$(CARGO) check -p schist-app
+
+# Requires wasm-bindgen-test-runner and a browser WebDriver (e.g. CHROMEDRIVER).
+.PHONY: check-cloud-wasm
+check-cloud-wasm:
+	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
+	CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER=wasm-bindgen-test-runner $(CARGO) test -p schist-cloud -p schist-document --target wasm32-unknown-unknown --lib
+
+# Shared desktop/cloud document engine; no GPUI or network client.
+.PHONY: document-worker check-document format-document
+document-worker:
+	$(CARGO) build $(PROFILE_FLAG) -p schist-document --bin schist-document-worker
+check-document:
+	$(CARGO) test -p schist-document
+format-document:
+	$(CARGO) fmt -p schist-document -p schist-cloud -p schist-codecs-common
+
+# The cloud adapter uses the same face detector, recogniser and crop as desktop.
+.PHONY: people-worker check-people
+people-worker:
+	$(CARGO) build -p schist-people-worker $(if $(filter release,$(PROFILE)),--release,)
+check-people:
+	$(CARGO) test -p schist-gallery people
+	$(CARGO) test -p schist-neural faces
+	$(CARGO) check -p schist-people-worker
+
+.PHONY: format-cloud
+format-cloud:
+	$(CARGO) fmt -p schist-cloud -p schist-app -p schist-document -p schist-people-worker
+
+.PHONY: check-gallery check-cloud-browser
+check-gallery:
+	$(CARGO) test -p schist-app
+check-cloud-browser:
+	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
+
+.PHONY: lint-cloud
+lint-cloud:
+	$(CARGO) clippy -p schist-cloud -p schist-app -p schist-document -p schist-people-worker --all-targets -- -D warnings

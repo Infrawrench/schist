@@ -29,13 +29,17 @@ use std::sync::atomic::Ordering;
 use std::sync::Arc;
 
 mod adjustments;
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 mod ai;
-#[cfg(target_arch = "wasm32")]
+#[cfg(sandboxed)]
 #[path = "ai_stub.rs"]
 mod ai;
 mod chrome;
 mod clipboard;
+pub(crate) mod cloud;
+pub(crate) mod cloud_generation;
+pub(crate) mod cloud_people;
+pub(crate) mod cloud_view;
 mod colormgmt;
 mod commands;
 mod compose;
@@ -45,6 +49,7 @@ mod docs;
 mod edit_ops;
 mod export;
 mod filters;
+pub(crate) mod gallery_chrome;
 mod image_ops;
 mod input;
 mod layers_panel;
@@ -60,7 +65,9 @@ mod library_geo;
 // module knocks on it the same way.
 #[cfg(target_os = "macos")]
 mod library_icc;
-#[cfg(not(target_arch = "wasm32"))]
+// The camera roll on iOS is not a filesystem either; the system picker
+// hands over originals, which land in a folder the gallery watches.
+#[cfg(not(sandboxed))]
 mod library_mcp;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_ops;
@@ -68,14 +75,22 @@ mod library_ops;
 mod library_people;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_people_view;
+#[cfg(target_os = "ios")]
+mod library_photos;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_view;
 mod modals;
 mod notes;
+#[cfg(target_os = "ios")]
+mod photos_save;
 mod recovery;
 mod render;
 mod services;
+#[cfg(target_os = "ios")]
+mod shared_files;
 mod styles;
+#[cfg(target_os = "ios")]
+mod text_input;
 mod tiles;
 mod toolbar;
 mod typography;
@@ -85,7 +100,7 @@ mod viewport;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) use library_geo::MapSlot;
 #[cfg(not(target_arch = "wasm32"))]
-pub(crate) use library_people_view::{people_models_dialog, person_name_dialog};
+pub(crate) use library_people_view::person_name_dialog;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) use library_view::map_element;
 #[cfg(not(target_arch = "wasm32"))]
@@ -201,6 +216,7 @@ pub struct ModelDownload {
 }
 
 pub struct Workspace {
+    pub(crate) cloud: cloud::CloudState,
     pub registry: PluginRegistry,
     pub editor: EditorState,
     pub doc: Option<Document>,
@@ -363,17 +379,17 @@ pub struct Workspace {
     /// captured while the dialog rendered.
     pub default_action: Option<crate::ui::DialogAction>,
     /// Third-party plugin registry state.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub plugins: schist_plugin_host_wasm::PluginManager,
     /// Discovered Photoshop plug-ins, including the ones this machine
     /// cannot run — the manager lists those with the reason.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     pub photoshop_plugins: schist_plugin_host_8bf::manager::PluginManager,
     /// Plugin enable/disable requested from the manager UI, applied on the
     /// next render pass (the checkbox callback has no context to do it).
-    // Written but never read on the web: its writer flows are compiled
-    // out with the subsystem it belongs to.
-    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    // Written but never read on the web and iOS: its writer flows are
+    // compiled out with the subsystem it belongs to.
+    #[cfg_attr(sandboxed, allow(dead_code))]
     pub pending_plugin_toggle: Option<(String, bool)>,
     /// View toggles (rulers, grid, guides, snapping, theme).
     pub view: ViewOptions,
@@ -437,6 +453,39 @@ pub struct Workspace {
     /// The photo gallery: watched folders, thumbnails, edit sidecars.
     #[cfg(not(target_arch = "wasm32"))]
     pub library: library::Library,
+    /// On a phone-width touch window the panel column takes the canvas's
+    /// place while it shows, so it starts hidden and is switched to for a
+    /// look rather than kept: this is that session-only state, distinct
+    /// from the persisted `view.side_panels` a wide window uses.
+    pub panels_overlay_open: bool,
+    /// The gallery's sidebar on a phone-width touch window is a drawer
+    /// over the grid, swiped in from the left; this is whether it is
+    /// showing, and the swipe in progress that may change that.
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub gallery_drawer_open: bool,
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub gallery_swipe: Option<GallerySwipe>,
+    /// Whether the gallery rendered compact last frame, for the chrome
+    /// that cannot see the window.
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub gallery_compact: bool,
+    /// On touch the gallery strip keeps only Import and the search box;
+    /// the rest of its buttons sit behind a "⋯" button, and this is
+    /// where that menu is open, if it is.
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    pub gallery_more: Option<gpui::Point<gpui::Pixels>>,
+    /// A drag of the history panel's grip in progress: where the
+    /// pointer started and how tall the panel was then.
+    pub history_resize: Option<(f32, f32)>,
+}
+
+/// A finger's travel across the gallery since it touched down, in
+/// points; decided on lift.
+#[derive(Clone, Copy, Default, Debug)]
+#[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+pub struct GallerySwipe {
+    pub dx: f32,
+    pub dy: f32,
 }
 
 impl Workspace {
@@ -449,22 +498,7 @@ impl Workspace {
         }
         #[cfg(target_arch = "wasm32")]
         {
-            false
-        }
-    }
-
-    /// Whether the gallery's search box — or the viewer's name field —
-    /// is taking typing, for the key context. Always false on the web,
-    /// with the gallery itself.
-    pub fn gallery_typing(&self) -> bool {
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            self.gallery_search_active()
-                || (self.library.open && self.focused_field == Some("face-name"))
-        }
-        #[cfg(target_arch = "wasm32")]
-        {
-            false
+            self.cloud.show
         }
     }
 }
@@ -688,6 +722,9 @@ pub enum Popup {
     BlendModes,
     /// A dropdown inside a dialog, keyed by field id.
     Field(&'static str),
+    /// The touch chrome's slider strip under the tool options bar, keyed
+    /// by the slider's id.
+    Slider(&'static str),
 }
 
 /// Window chrome mode, cycled with F / toggled with Tab.
@@ -758,6 +795,11 @@ pub struct ViewOptions {
     /// Draw note markers (View ▸ Notes, Photoshop's Show ▸ Notes).
     #[serde(default = "default_true")]
     pub notes: bool,
+    /// The navigator/colour/layers/history column. Always shown on the
+    /// desktop; the touch chrome has a button to fold it away, and on a
+    /// phone-width window the toggle switches between it and the canvas.
+    #[serde(default = "default_true")]
+    pub side_panels: bool,
     /// Name stamped on notes as they are placed. A preference rather than
     /// document state: it is who is reviewing, not what is being
     /// reviewed, and typing it once per session would be once too many.
@@ -795,6 +837,18 @@ pub struct ViewOptions {
     pub ai_model_claude: String,
     #[serde(default)]
     pub ai_model_codex: String,
+    /// The history panel's height. Fixed on the desktop; on touch the
+    /// grip above its title drags it, and this remembers where.
+    #[serde(default = "default_history_h")]
+    pub history_h: f32,
+}
+
+fn default_history_h() -> f32 {
+    if crate::ui::touch() {
+        260.0
+    } else {
+        150.0
+    }
 }
 
 /// Whoever is logged in, which is Photoshop's default author too. Empty
@@ -834,6 +888,7 @@ impl Default for ViewOptions {
             gpu_compositing: true,
             check_updates: true,
             notes: true,
+            side_panels: true,
             note_author: default_note_author(),
             note_color: default_note_color(),
             gallery_hide_nsfw: false,
@@ -842,6 +897,7 @@ impl Default for ViewOptions {
             ai_backend: default_ai_backend(),
             ai_model_claude: String::new(),
             ai_model_codex: String::new(),
+            history_h: default_history_h(),
         }
     }
 }
@@ -955,9 +1011,9 @@ struct ViewportKey {
 /// How far along an update the user asked for is.
 #[derive(Debug, Clone, PartialEq)]
 // Some variants belong to desktop-only flows (updates, plug-ins, HEIC)
-// and are never constructed on the web; the types stay so the modal
-// plumbing matches exhaustively on every target.
-#[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+// and are never constructed on the web or iOS; the types stay so the
+// modal plumbing matches exhaustively on every target.
+#[cfg_attr(sandboxed, allow(dead_code))]
 pub enum UpdateProgress {
     /// `total` is what the release says the download weighs; it is never
     /// zero, since an asset that lists no size is not offered.
@@ -974,6 +1030,11 @@ pub enum UpdateProgress {
 // plumbing matches exhaustively on every target.
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub enum Modal {
+    CloudGenerate,
+    Cloud {
+        kind: &'static str,
+        fields: Vec<(&'static str, String, String)>,
+    },
     ImageSize {
         width: u32,
         height: u32,
@@ -1036,18 +1097,30 @@ pub enum Modal {
         preview: bool,
     },
     /// Edit ▸ Content-Aware Scale.
-    ContentAwareScale { width: u32, height: u32 },
+    ContentAwareScale {
+        width: u32,
+        height: u32,
+    },
     /// Edit ▸ Stroke.
     Stroke {
         width: f32,
         position: schist_core::StrokePosition,
     },
     /// Edit ▸ Fill.
-    Fill { source: FillSource, opacity: f32 },
+    Fill {
+        source: FillSource,
+        opacity: f32,
+    },
     /// Select ▸ Modify, which all take one amount.
-    SelectModify { kind: ModifyKind, amount: f32 },
+    SelectModify {
+        kind: ModifyKind,
+        amount: f32,
+    },
     /// Select ▸ Color Range.
-    ColorRange { tolerance: f32, target: Rgba },
+    ColorRange {
+        tolerance: f32,
+        target: Rgba,
+    },
     /// Photoshop's Color Picker.
     ColorPicker {
         target: ColorTarget,
@@ -1061,24 +1134,41 @@ pub enum Modal {
     },
     /// "Save changes before closing?" for the active tab.
     ConfirmCloseTab,
+    /// Files another app handed over on iOS: into the gallery, or open
+    /// in the editor?
+    #[cfg_attr(not(target_os = "ios"), allow(dead_code))]
+    SharedImage {
+        paths: Vec<PathBuf>,
+    },
     /// An image file dropped on the window while a document is open:
     /// open it in its own tab, or place it as a new layer?
-    DropImage { path: PathBuf },
+    DropImage {
+        path: PathBuf,
+    },
     /// Folders dropped on the window: open every image inside as a tab,
     /// or watch them in the gallery? `images` is what a scan found in
     /// them, so the button can say how many tabs that would be.
-    DropFolders { dirs: Vec<PathBuf>, images: usize },
+    DropFolders {
+        dirs: Vec<PathBuf>,
+        images: usize,
+    },
     /// A HEIC file needs the libheif decoder and this machine has none:
     /// offer to download it (with its LGPL license texts), then retry
     /// opening `path`.
-    HeifSupport { path: PathBuf },
+    HeifSupport {
+        path: PathBuf,
+    },
     /// More than one camera is reachable: ask which to import from.
-    CameraImport { sources: Vec<ImportSource> },
+    CameraImport {
+        sources: Vec<ImportSource>,
+    },
     /// Import options for one camera: the navigable OpenStreetMap view
     /// where a boundary can be drawn (only photos whose EXIF position
     /// falls inside it import). The map's own state lives on the
     /// library, not here — it changes every pointer move.
-    CameraImportOptions { source: ImportSource },
+    CameraImportOptions {
+        source: ImportSource,
+    },
     /// A device import failed (a locked iPhone, most often): say so in
     /// a dialog with the way forward, and offer to try again with the
     /// same source and boundary. Only ever constructed on macOS, where
@@ -1091,8 +1181,12 @@ pub enum Modal {
     },
     /// A release newer than this build. On macOS and Windows it offers
     /// to install itself and restart; everywhere else it points at the
-    /// release page, since the copy came from a package manager.
-    UpdateAvailable { update: crate::update::Update },
+    /// release page, since the copy came from a package manager. Never
+    /// constructed where the self-updater is compiled out.
+    #[cfg_attr(sandboxed, allow(dead_code))]
+    UpdateAvailable {
+        update: crate::update::Update,
+    },
     /// The third-party plugin manager.
     PluginManager,
     /// Neural Filters model downloads.
@@ -1136,12 +1230,12 @@ pub enum Modal {
     /// The gallery's offer to install the two Search models, with the
     /// licences to agree to first. Desktop-only, like the gallery.
     SearchModels,
-    /// The same offer for the two People models — the face detector
-    /// and the face recogniser.
-    PeopleModels,
     /// Rename one of the gallery's people (`index` into the people
     /// list); a name somebody else has merges the two.
-    PersonName { index: usize, name: String },
+    PersonName {
+        index: usize,
+        name: String,
+    },
     /// Save one gallery photo as a flat image: format, quality where the
     /// format takes one, and a scale to shrink it by. `size` is the
     /// source's pixel size when it could be read up front, so the
@@ -1173,6 +1267,9 @@ pub enum Modal {
         query: String,
         photos: Vec<PathBuf>,
         editing: Option<usize>,
+        /// A Schist Cloud bucket rather than a local one; which one, and
+        /// its rule's scope, live in `cloud.form_target` and `form_scope`.
+        cloud: bool,
     },
     /// The full new-document dialog: everything a fresh document needs,
     /// asked up front as Photoshop does.
@@ -1315,12 +1412,12 @@ struct Preview {
 impl Workspace {
     pub fn new(
         registry: PluginRegistry,
-        #[cfg(not(target_arch = "wasm32"))] plugins: schist_plugin_host_wasm::PluginManager,
-        #[cfg(not(target_arch = "wasm32"))]
-        photoshop_plugins: schist_plugin_host_8bf::manager::PluginManager,
+        #[cfg(not(sandboxed))] plugins: schist_plugin_host_wasm::PluginManager,
+        #[cfg(not(sandboxed))] photoshop_plugins: schist_plugin_host_8bf::manager::PluginManager,
         cx: &mut Context<Self>,
     ) -> Self {
         let mut ws = Workspace {
+            cloud: cloud::CloudState::default(),
             registry,
             editor: EditorState::default(),
             doc: None,
@@ -1387,9 +1484,9 @@ impl Workspace {
             caret_blinker: false,
             field_fresh: false,
             default_action: None,
-            #[cfg(not(target_arch = "wasm32"))]
+            #[cfg(not(sandboxed))]
             plugins,
-            #[cfg(not(target_arch = "wasm32"))]
+            #[cfg(not(sandboxed))]
             photoshop_plugins,
             pending_plugin_toggle: None,
             view: load_view_options(),
@@ -1411,14 +1508,20 @@ impl Workspace {
             color: schist_colormgmt::ColorSettings::default(),
             display_transform: None,
             proof_transform: None,
-            #[cfg(not(target_arch = "wasm32"))]
+            #[cfg(not(sandboxed))]
             ai: crate::ai::AiState::new(crate::ai::Backend::Claude),
-            #[cfg(target_arch = "wasm32")]
+            #[cfg(sandboxed)]
             ai: crate::ai::AiState::default(),
             #[cfg(not(target_arch = "wasm32"))]
             library: library::Library::load(),
+            panels_overlay_open: false,
+            gallery_drawer_open: false,
+            gallery_swipe: None,
+            gallery_compact: false,
+            gallery_more: None,
+            history_resize: None,
         };
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(sandboxed))]
         {
             ws.ai.backend = crate::ai::Backend::from_pref(&ws.view.ai_backend);
             ws.ai.menu_backend = ws.ai.backend;
@@ -1433,7 +1536,7 @@ impl Workspace {
         // the last one was long enough ago. Delayed: the first seconds
         // after launch belong to opening whatever the user
         // double-clicked, not to a network round trip.
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(sandboxed))]
         if ws.view.check_updates && crate::update::check_due() {
             cx.spawn(async move |this, cx| {
                 cx.background_executor()
@@ -1476,6 +1579,7 @@ impl Workspace {
             }
         })
         .detach();
+        ws.cloud_start(cx);
         ws
     }
 }

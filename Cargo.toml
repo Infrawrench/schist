@@ -5,6 +5,8 @@ exclude = ["examples/plugins/sepia-filter", "examples/plugins/pgm-codec"]
 members = [
     "crates/app",
     "crates/core",
+    "crates/document",
+    "crates/people-worker",
     "crates/layer-fx",
     "crates/neural",
     "crates/psd-descriptor",
@@ -29,6 +31,7 @@ members = [
     "crates/mcp",
     "crates/gallery",
     "crates/ui",
+    "crates/cloud",
     "plugins/codecs-common",
     "plugins/tools-basic",
     "plugins/tools-paint",
@@ -52,6 +55,7 @@ repository = "https://github.com/Infrawrench/schist"
 [workspace.dependencies]
 # internal
 schist-core = { path = "crates/core" }
+schist-document = { path = "crates/document" }
 schist-plugin-api = { path = "crates/plugin-api" }
 schist-pixel-ops = { path = "crates/pixel-ops" }
 schist-compositor = { path = "crates/compositor" }
@@ -102,7 +106,7 @@ schist-gallery = { path = "crates/gallery" }
 # carries images to the Linux clipboards, which upstream writes as an
 # empty string.
 # Pinned by rev so a push to the fork cannot silently change builds.
-gpui = { git = "https://github.com/IAmJSD/gpui", rev = "73c9da683944ce7f4f2fdde767cded8aaf783276" }
+gpui = { git = "https://github.com/IAmJSD/gpui", rev = "135fff58f2be5a08810fe20e269d36534e9eb847" }
 anyhow = "1"
 thiserror = "2"
 serde = { version = "1", features = ["derive"] }
@@ -185,5 +189,5 @@ strip = "debuginfo"
 # the fork's two patch entries are restated here; on native targets the
 # vendored crates are byte-identical to the registry sources.
 [patch.crates-io]
-gpui_util = { git = "https://github.com/IAmJSD/gpui", rev = "73c9da683944ce7f4f2fdde767cded8aaf783276" }
-gpui_http_client = { git = "https://github.com/IAmJSD/gpui", rev = "73c9da683944ce7f4f2fdde767cded8aaf783276" }
+gpui_util = { git = "https://github.com/IAmJSD/gpui", rev = "135fff58f2be5a08810fe20e269d36534e9eb847" }
+gpui_http_client = { git = "https://github.com/IAmJSD/gpui", rev = "135fff58f2be5a08810fe20e269d36534e9eb847" }

@@ -27,7 +27,8 @@ const TYPING_SAFE: Option<&str> = Some("Workspace && editable");
 const ALWAYS: Option<&str> = Some("Workspace");
 
 fn translate(binding: &str) -> String {
-    if cfg!(target_os = "macos") {
+    // Apple keyboards, on the desktop and on an iPad, have Command.
+    if cfg!(any(target_os = "macos", target_os = "ios")) {
         binding.to_string()
     } else {
         binding.replace("cmd-", "ctrl-")
@@ -296,7 +297,7 @@ pub fn open_file_dialog(_ws: &mut Workspace, window: &mut Window, cx: &mut Conte
 }
 
 /// Pick a `.wasm` plugin to install.
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 pub fn install_plugin_dialog(
     _ws: &mut Workspace,
     window: &mut Window,

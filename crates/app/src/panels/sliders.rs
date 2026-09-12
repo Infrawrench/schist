@@ -84,25 +84,96 @@ pub(super) fn slider(
     ws: &Workspace,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
+    slider_impl(id, label, display, target, false, ws, cx)
+}
+
+/// The same slider filling whatever row it is in: what the touch chrome's
+/// popup strip shows.
+pub(super) fn slider_stretch(
+    id: &'static str,
+    label: &'static str,
+    display: String,
+    target: SliderTarget,
+    ws: &Workspace,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
+    slider_impl(id, label, display, target, true, ws, cx)
+}
+
+fn slider_impl(
+    id: &'static str,
+    label: &'static str,
+    display: String,
+    target: SliderTarget,
+    stretch: bool,
+    ws: &Workspace,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
     let ratio = slider_get(ws, target);
     let entity = cx.entity();
-    let track = div()
+    let m = ui::metrics();
+    let touch = ui::touch();
+    // On a touch screen the slider looks like the system's: a thin bar
+    // with a round thumb to put a finger on, inside a tall hit area. The
+    // desktop keeps its filled bar.
+    let thumb = m.slider_h;
+    let bar_h = 6.0;
+    let mut track = div()
         .relative()
-        .w(px(72.0))
-        .h(px(12.0))
-        .flex_none()
-        .rounded_sm()
-        .bg(gpui::rgb(palette().field_bg))
-        .child(
+        .when(stretch, |d| d.flex_grow().min_w(px(0.0)))
+        .when(!stretch, |d| d.w(px(m.slider_w)).flex_none())
+        .h(px(m.slider_h))
+        .rounded_sm();
+    if touch {
+        track = track
+            .child(
+                div()
+                    .absolute()
+                    .left_0()
+                    .right_0()
+                    .top(px((m.slider_h - bar_h) / 2.0))
+                    .h(px(bar_h))
+                    .rounded_full()
+                    .bg(gpui::rgb(palette().field_bg))
+                    .child(
+                        div()
+                            .absolute()
+                            .left_0()
+                            .top_0()
+                            .bottom_0()
+                            .when(stretch, |d| d.w(gpui::relative(ratio)))
+                            .when(!stretch, |d| d.w(px(m.slider_w * ratio)))
+                            .rounded_full()
+                            .bg(gpui::rgb(palette().accent)),
+                    ),
+            )
+            .child(
+                div()
+                    .absolute()
+                    .top_0()
+                    // The thumb's left edge runs from 0 to (width - thumb).
+                    .when(stretch, |d| {
+                        d.left(gpui::relative(ratio)).ml(px(-thumb * ratio))
+                    })
+                    .when(!stretch, |d| d.left(px((m.slider_w - thumb) * ratio)))
+                    .size(px(thumb))
+                    .rounded_full()
+                    .bg(gpui::rgb(0xffffff))
+                    .shadow_sm(),
+            );
+    } else {
+        track = track.bg(gpui::rgb(palette().field_bg)).child(
             div()
                 .absolute()
                 .left_0()
                 .top_0()
                 .bottom_0()
-                .w(px(72.0 * ratio))
+                .w(px(m.slider_w * ratio))
                 .rounded_sm()
                 .bg(gpui::rgb(palette().accent)),
-        )
+        );
+    }
+    let track = track
         .child(
             canvas(
                 move |bounds, _window, cx| {
@@ -115,7 +186,9 @@ pub(super) fn slider(
         )
         .on_mouse_down(
             MouseButton::Left,
-            cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+            cx.listener(move |ws, ev: &MouseDownEvent, window, cx| {
+                // A finger on the slider drags it; it must not scroll.
+                window.claim_touch_drag();
                 ws.begin_slider(id, slider_get(ws, target));
                 if let Some(r) = ws.slider_ratio(id, ev.position) {
                     slider_set(ws, target, r, cx);
@@ -139,11 +212,16 @@ pub(super) fn slider(
                 }
             }),
         );
-    let mut row = div().flex().flex_row().items_center().gap_1();
+    let mut row = div()
+        .flex()
+        .flex_row()
+        .items_center()
+        .gap_1()
+        .when(stretch, |d| d.flex_grow().gap_3());
     if !label.is_empty() {
         row = row.child(
             div()
-                .text_size(px(11.0))
+                .text_size(px(m.small_text))
                 .text_color(gpui::rgb(palette().text_dim))
                 .child(label),
         );
@@ -152,10 +230,10 @@ pub(super) fn slider(
         div()
             // "180 px" is wider than the old 34px slot. Keep quantities
             // on one line, including at the largest three-digit values.
-            .w(px(44.0))
+            .w(px(m.small_text * 4.0))
             .flex_none()
             .whitespace_nowrap()
-            .text_size(px(11.0))
+            .text_size(px(m.small_text))
             .child(display),
     )
 }

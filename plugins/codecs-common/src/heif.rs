@@ -17,6 +17,15 @@
 //! Builds stay pure Rust, and machines with neither get an actionable
 //! error instead of a build failure. Import only: encoding HEVC needs
 //! x265, which neither source ships, so `can_export` stays false.
+//!
+//! iOS and iPadOS decode HEIC through the system's ImageIO instead
+//! (`heif_imageio`): no download, no dlopen, and the same document out.
+//! The managed-library machinery stays compiled there only as far as the
+//! app's questions about it need answers, which are all "no".
+
+// The libheif loader and its FFI are desktop-only; on iOS the codec
+// delegates to ImageIO and these are unused.
+#![cfg_attr(target_os = "ios", allow(dead_code, unused_imports))]
 
 use std::ffi::{c_char, c_int, c_void, CStr};
 use std::path::PathBuf;
@@ -61,6 +70,7 @@ struct HeifNclx {
     full_range_flag: u8,
 }
 
+#[cfg(not(target_os = "ios"))]
 macro_rules! libheif_fns {
     ($( $field:ident : fn($($arg:ty),*) $(-> $ret:ty)? ; )*) => {
         struct LibHeif {
@@ -97,6 +107,7 @@ macro_rules! libheif_fns {
     };
 }
 
+#[cfg(not(target_os = "ios"))]
 libheif_fns! {
     context_alloc: fn() -> *mut c_void;
     context_free: fn(*mut c_void);
@@ -141,6 +152,7 @@ const NO_DECODER: &str = "may lack an HEVC decoder";
 /// The loaded library, and whether it came from the managed directory.
 /// A failed load is deliberately not cached, and `install` clears this,
 /// so a download can take effect without a restart.
+#[cfg(not(target_os = "ios"))]
 static LOADED: Mutex<Option<(&'static LibHeif, bool)>> = Mutex::new(None);
 
 /// True when an `import` error means no libheif could be loaded.
@@ -162,11 +174,16 @@ pub fn no_decoder_available(err: &anyhow::Error) -> bool {
 /// libheif with only AV1 plugins — and the managed build, which always
 /// carries one, is neither in use nor already installed.
 pub fn download_would_help(err: &anyhow::Error) -> bool {
+    // ImageIO decodes HEIC on iOS; a failure there is a broken file.
+    if cfg!(target_os = "ios") {
+        return false;
+    }
     if !no_decoder_available(err) {
         return false;
     }
     // The managed build is loaded and still could not do it: there is
     // nothing left to fetch.
+    #[cfg(not(target_os = "ios"))]
     if LOADED.lock().unwrap().is_some_and(|(_, managed)| managed) {
         return false;
     }
@@ -338,10 +355,14 @@ pub fn install(file: &RemoteFile, bytes: &[u8]) -> anyhow::Result<PathBuf> {
     // pick up the managed one instead. The old mapping stays leaked —
     // unloading a library other threads may hold references into is
     // never safe.
-    *LOADED.lock().unwrap() = None;
+    #[cfg(not(target_os = "ios"))]
+    {
+        *LOADED.lock().unwrap() = None;
+    }
     Ok(path)
 }
 
+#[cfg(not(target_os = "ios"))]
 fn libheif() -> anyhow::Result<&'static LibHeif> {
     let mut loaded = LOADED.lock().unwrap();
     if let Some((lib, _)) = *loaded {
@@ -391,6 +412,7 @@ fn libheif() -> anyhow::Result<&'static LibHeif> {
     ))
 }
 
+#[cfg(not(target_os = "ios"))]
 fn check(err: HeifError, what: &str) -> anyhow::Result<()> {
     if err.code == 0 {
         return Ok(());
@@ -411,8 +433,10 @@ fn check(err: HeifError, what: &str) -> anyhow::Result<()> {
 
 /// Frees a libheif object when dropped, so early error returns leak
 /// nothing.
+#[cfg(not(target_os = "ios"))]
 struct Owned(*mut c_void, unsafe extern "C" fn(*mut c_void));
 
+#[cfg(not(target_os = "ios"))]
 impl Drop for Owned {
     fn drop(&mut self) {
         unsafe { (self.1)(self.0) }
@@ -454,12 +478,18 @@ impl CodecPlugin for HeifCodec {
                     | b"msf1"
             )
     }
+    #[cfg(not(target_os = "ios"))]
     fn import(&self, bytes: &[u8]) -> anyhow::Result<Document> {
         let lib = libheif()?;
         import(lib, bytes)
     }
+    #[cfg(target_os = "ios")]
+    fn import(&self, bytes: &[u8]) -> anyhow::Result<Document> {
+        crate::heif_imageio::import(bytes)
+    }
 }
 
+#[cfg(not(target_os = "ios"))]
 fn import(lib: &LibHeif, bytes: &[u8]) -> anyhow::Result<Document> {
     unsafe {
         let ctx = (lib.context_alloc)();

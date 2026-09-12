@@ -34,6 +34,160 @@ thread_local! {
 }
 
 /// Start a dialog build: forget any previous dialog's default action.
+/// Whether the chrome is driven by fingers: iOS and iPadOS. Everything
+/// sized for a pointer grows to a 44pt target there, and the menus that
+/// open on hover are replaced by the platform's own.
+pub const fn touch() -> bool {
+    cfg!(target_os = "ios")
+}
+
+/// Whether this is an iPad rather than an iPhone. iPadOS has a menu bar
+/// of its own (a swipe down from the top edge, or the pointer), fed by
+/// the same menus as the macOS bar, so the in-window bar is only drawn
+/// on the phone.
+#[cfg(target_os = "ios")]
+pub fn ipad() -> bool {
+    use objc2::msg_send;
+    use objc2::runtime::{AnyClass, AnyObject};
+    static IPAD: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+    *IPAD.get_or_init(|| unsafe {
+        // UIUserInterfaceIdiomPad.
+        const PAD: isize = 1;
+        let Some(class) = AnyClass::get(c"UIDevice") else {
+            return false;
+        };
+        let device: *mut AnyObject = msg_send![class, currentDevice];
+        if device.is_null() {
+            return false;
+        }
+        let idiom: isize = msg_send![device, userInterfaceIdiom];
+        idiom == PAD
+    })
+}
+
+#[cfg(not(target_os = "ios"))]
+pub const fn ipad() -> bool {
+    false
+}
+
+/// A path as the user should read it. The desktop shows it whole; on
+/// iOS the app's container is a long opaque string that changes on
+/// every install and means nothing to anyone, so a path under it shows
+/// from the container down ("Documents/Photos/IMG_0111.heic") and any
+/// other path by its name.
+pub fn shown_path(path: &std::path::Path) -> String {
+    if !touch() {
+        return path.display().to_string();
+    }
+    if let Some(home) = std::env::var_os("HOME") {
+        if let Ok(rest) = path.strip_prefix(&home) {
+            if let Some(rest) = rest.to_str() {
+                if !rest.is_empty() {
+                    return rest.to_string();
+                }
+            }
+        }
+    }
+    path.file_name()
+        .map(|n| n.to_string_lossy().into_owned())
+        .unwrap_or_else(|| path.display().to_string())
+}
+
+/// The chrome's dimensions, in points: the desktop's, or the touch set.
+/// One table rather than `if touch()` at every call site, so the two
+/// layouts can be read side by side.
+#[derive(Clone, Copy)]
+pub struct Metrics {
+    /// The window's base text size.
+    pub text: f32,
+    /// Text in panel rows, menu rows and tool names.
+    pub row_text: f32,
+    /// Secondary text: hints, panel titles, the status bar.
+    pub small_text: f32,
+    pub menu_bar_h: f32,
+    pub menu_title_h: f32,
+    pub menu_row_h: f32,
+    pub menu_w: f32,
+    pub options_bar_h: f32,
+    pub tab_h: f32,
+    pub status_h: f32,
+    pub toolbar_w: f32,
+    pub tool_slot: f32,
+    pub tool_icon: f32,
+    pub panel_w: f32,
+    pub layer_row_h: f32,
+    pub history_row_h: f32,
+    pub icon_button: f32,
+    pub icon_button_icon: f32,
+    pub slider_w: f32,
+    pub slider_h: f32,
+}
+
+pub const DESKTOP_METRICS: Metrics = Metrics {
+    text: 12.0,
+    row_text: 12.0,
+    small_text: 11.0,
+    menu_bar_h: 28.0,
+    menu_title_h: 22.0,
+    menu_row_h: 24.0,
+    menu_w: 230.0,
+    options_bar_h: 32.0,
+    tab_h: 26.0,
+    status_h: 24.0,
+    toolbar_w: 40.0,
+    tool_slot: 30.0,
+    tool_icon: 16.0,
+    panel_w: 260.0,
+    layer_row_h: 34.0,
+    history_row_h: 19.0,
+    icon_button: 22.0,
+    icon_button_icon: 14.0,
+    slider_w: 72.0,
+    slider_h: 12.0,
+};
+
+/// Apple's 44pt minimum target, larger type, and a wider panel column
+/// to carry both.
+pub const TOUCH_METRICS: Metrics = Metrics {
+    text: 14.0,
+    row_text: 15.0,
+    small_text: 13.0,
+    menu_bar_h: 44.0,
+    menu_title_h: 36.0,
+    menu_row_h: 44.0,
+    menu_w: 280.0,
+    options_bar_h: 48.0,
+    tab_h: 40.0,
+    status_h: 30.0,
+    toolbar_w: 56.0,
+    tool_slot: 44.0,
+    tool_icon: 22.0,
+    panel_w: 320.0,
+    layer_row_h: 48.0,
+    history_row_h: 36.0,
+    icon_button: 36.0,
+    icon_button_icon: 18.0,
+    slider_w: 120.0,
+    slider_h: 22.0,
+};
+
+pub fn metrics() -> Metrics {
+    if touch() {
+        TOUCH_METRICS
+    } else {
+        DESKTOP_METRICS
+    }
+}
+
+/// Below this window width the side panels float over the canvas rather
+/// than sit beside it, and the menu bar collapses to one button: a phone,
+/// or a narrow Split View on an iPad.
+pub const COMPACT_WIDTH: f32 = 700.0;
+
+pub fn compact(window: &gpui::Window) -> bool {
+    touch() && f32::from(window.viewport_size().width) < COMPACT_WIDTH
+}
+
 pub fn reset_default_action() {
     DEFAULT_ACTION.with(|slot| *slot.borrow_mut() = None);
 }
@@ -595,7 +749,10 @@ pub fn field_row(label: impl Into<SharedString>, control: impl IntoElement) -> i
         .child(control)
 }
 
-/// Centred modal frame with a title bar and an action row.
+/// Centred modal frame with a title bar and an action row. `width` is
+/// what the dialog asks for; a window narrower than that (a phone)
+/// gets the dialog at the window's width less a margin, its text
+/// rewrapped, and a dialog taller than the window scrolls its body.
 pub fn modal_frame(
     title: impl Into<SharedString>,
     width: f32,
@@ -611,6 +768,7 @@ pub fn modal_frame(
         .flex()
         .items_center()
         .justify_center()
+        .p_2()
         .bg(gpui::rgba(0x00000080))
         // The backdrop must swallow the pointer, or the canvas underneath
         // keeps its hit box and the active tool edits the document while
@@ -621,6 +779,8 @@ pub fn modal_frame(
                 .flex()
                 .flex_col()
                 .w(px(width))
+                .max_w_full()
+                .max_h_full()
                 .p_3()
                 .gap_2()
                 .rounded_md()
@@ -637,11 +797,21 @@ pub fn modal_frame(
                         .border_color(gpui::rgb(palette().divider))
                         .child(title.into()),
                 )
-                .child(div().flex().flex_col().gap_1().child(body))
+                .child(
+                    div()
+                        .id("modal-body")
+                        .flex()
+                        .flex_col()
+                        .gap_1()
+                        .min_h(px(0.0))
+                        .overflow_y_scroll()
+                        .child(body),
+                )
                 .child(
                     div()
                         .flex()
                         .flex_row()
+                        .flex_none()
                         .justify_end()
                         .gap_2()
                         .pt_2()
@@ -710,5 +880,184 @@ mod tests {
         assert_eq!(caret_left(s, 0), 0);
         assert_eq!(caret_left(s, 99), 3);
         assert_eq!(caret_left("", 0), 0);
+    }
+}
+
+/// A one-line text box's state: the text, a caret on a char boundary,
+/// a whole-line selection, and whether it is taking keystrokes. The
+/// gallery search boxes (local and cloud) share it, so typing, ⌘A,
+/// paste and the arrows behave identically in both.
+#[derive(Clone, Debug, Default)]
+pub struct LineEdit {
+    pub text: String,
+    /// Byte position, always on a char boundary — arrows move it,
+    /// typing inserts at it.
+    pub cursor: usize,
+    /// ⌘A selected the whole line: the next keystroke replaces it,
+    /// backspace clears it, ⌘C/⌘X take it — the minimal selection a
+    /// one-line box owes the keyboard.
+    pub selected: bool,
+    pub active: bool,
+}
+
+/// What a keystroke did to a [`LineEdit`].
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum LineEditKey {
+    /// Not for the box; let it propagate.
+    Ignored,
+    /// The caret or selection moved; the text is unchanged.
+    Moved,
+    /// The text changed.
+    Changed,
+    /// Enter: the box gave the keyboard back.
+    Submitted,
+}
+
+impl LineEdit {
+    /// A click lands a caret at the end, not a selection.
+    pub fn focus(&mut self) {
+        self.active = true;
+        self.selected = false;
+        self.cursor = self.text.len();
+    }
+
+    /// Empty and inactive.
+    pub fn clear(&mut self) {
+        self.text.clear();
+        self.cursor = 0;
+        self.selected = false;
+        self.active = false;
+    }
+
+    pub fn set_text(&mut self, text: String) {
+        self.cursor = text.len();
+        self.text = text;
+        self.selected = false;
+    }
+
+    fn replace_selection(&mut self) {
+        if self.selected {
+            self.text.clear();
+            self.cursor = 0;
+            self.selected = false;
+        }
+    }
+
+    /// A keystroke while the box is active. `cx` is for the clipboard.
+    pub fn key(&mut self, ev: &gpui::KeyDownEvent, cx: &mut gpui::App) -> LineEditKey {
+        if !self.active {
+            return LineEditKey::Ignored;
+        }
+        let primary = ev.keystroke.modifiers.platform || ev.keystroke.modifiers.control;
+        // Keep the caret on the rails whatever changed the text.
+        self.cursor = self.cursor.min(self.text.len());
+        match ev.keystroke.key.as_str() {
+            "a" if primary => {
+                self.selected = !self.text.is_empty();
+                self.cursor = self.text.len();
+                LineEditKey::Moved
+            }
+            "c" if primary && self.selected => {
+                cx.write_to_clipboard(gpui::ClipboardItem::new_string(self.text.clone()));
+                LineEditKey::Moved
+            }
+            "x" if primary && self.selected => {
+                cx.write_to_clipboard(gpui::ClipboardItem::new_string(self.text.clone()));
+                self.replace_selection();
+                LineEditKey::Changed
+            }
+            "v" if primary => {
+                let Some(pasted) = cx.read_from_clipboard().and_then(|item| item.text()) else {
+                    return LineEditKey::Moved;
+                };
+                // One line: a pasted paragraph flattens rather than
+                // breaking the box.
+                let pasted: String = pasted
+                    .chars()
+                    .map(|c| if c.is_control() { ' ' } else { c })
+                    .collect();
+                self.replace_selection();
+                let at = self.cursor;
+                self.text.insert_str(at, &pasted);
+                self.cursor = at + pasted.len();
+                LineEditKey::Changed
+            }
+            "left" | "right" if primary => {
+                // ⌘←/⌘→: the ends of the line.
+                self.selected = false;
+                self.cursor = if ev.keystroke.key == "left" {
+                    0
+                } else {
+                    self.text.len()
+                };
+                LineEditKey::Moved
+            }
+            "left" => {
+                self.cursor = if self.selected {
+                    0
+                } else {
+                    caret_left(&self.text, self.cursor)
+                };
+                self.selected = false;
+                LineEditKey::Moved
+            }
+            "right" => {
+                self.cursor = if self.selected {
+                    self.text.len()
+                } else {
+                    caret_right(&self.text, self.cursor).min(self.text.len())
+                };
+                self.selected = false;
+                LineEditKey::Moved
+            }
+            "home" | "up" => {
+                self.cursor = 0;
+                self.selected = false;
+                LineEditKey::Moved
+            }
+            "end" | "down" => {
+                self.cursor = self.text.len();
+                self.selected = false;
+                LineEditKey::Moved
+            }
+            "backspace" => {
+                if self.selected {
+                    self.replace_selection();
+                } else if self.cursor > 0 {
+                    let from = caret_left(&self.text, self.cursor);
+                    self.text.replace_range(from..self.cursor, "");
+                    self.cursor = from;
+                }
+                LineEditKey::Changed
+            }
+            "delete" => {
+                if self.selected {
+                    self.replace_selection();
+                } else if self.cursor < self.text.len() {
+                    let to = caret_right(&self.text, self.cursor);
+                    self.text.replace_range(self.cursor..to, "");
+                }
+                LineEditKey::Changed
+            }
+            "enter" => {
+                self.active = false;
+                self.selected = false;
+                LineEditKey::Submitted
+            }
+            _ => {
+                let Some(text) = ev.keystroke.key_char.as_deref() else {
+                    return LineEditKey::Ignored;
+                };
+                if text.chars().any(char::is_control) {
+                    return LineEditKey::Ignored;
+                }
+                // Typing over a selection replaces it, as anywhere.
+                self.replace_selection();
+                let at = self.cursor;
+                self.text.insert_str(at, text);
+                self.cursor = at + text.len();
+                LineEditKey::Changed
+            }
+        }
     }
 }

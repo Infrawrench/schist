@@ -70,6 +70,43 @@ impl Workspace {
         cx.notify();
     }
 
+    pub fn toggle_side_panels(&mut self, window: &Window, cx: &mut Context<Self>) {
+        if crate::ui::compact(window) {
+            self.panels_overlay_open = !self.panels_overlay_open;
+        } else {
+            self.view.side_panels = !self.view.side_panels;
+            self.save_view_options();
+        }
+        cx.notify();
+    }
+
+    /// Whether the panel column is showing, for the toggle's lit state.
+    pub fn side_panels_shown(&self, window: &Window) -> bool {
+        if crate::ui::compact(window) {
+            self.panels_overlay_open
+        } else {
+            self.view.side_panels || !crate::ui::touch()
+        }
+    }
+
+    /// Show one of the menu bar's menus natively (an iPad popover or an
+    /// iPhone sheet), anchored at `position`; the item picked dispatches
+    /// through the app-menu action route like a macOS menu item.
+    pub fn open_native_menu(
+        &mut self,
+        index: usize,
+        position: gpui::Point<gpui::Pixels>,
+        window: &mut Window,
+    ) {
+        let mut menus = panels::menus(self);
+        if index >= menus.len() {
+            return;
+        }
+        let (_, entries) = menus.swap_remove(index);
+        let items = crate::native_menu::menu_items(self, entries);
+        window.show_context_menu(position, items);
+    }
+
     pub fn toggle_rulers(&mut self, cx: &mut Context<Self>) {
         self.view.rulers = !self.view.rulers;
         self.status = format!("Rulers {}", if self.view.rulers { "on" } else { "off" }).into();

@@ -2,7 +2,7 @@
 //! adjustments, export options and preferences.
 
 use crate::ui;
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 use crate::workspace::UpdateProgress;
 use crate::workspace::{ColorTarget, Modal, NewDocBackground, Popup, Workspace};
 use gpui::{
@@ -26,14 +26,14 @@ mod layer_props;
 mod models;
 mod new_doc;
 mod open;
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 mod plugins;
 mod prefs;
 mod profile;
 #[cfg(not(target_arch = "wasm32"))]
 mod save_image;
 mod size;
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 mod update;
 
 use adjust::*;
@@ -48,14 +48,14 @@ use layer_props::*;
 use models::*;
 use new_doc::*;
 use open::*;
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 use plugins::*;
 use prefs::*;
 use profile::*;
 #[cfg(not(target_arch = "wasm32"))]
 use save_image::*;
 use size::*;
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 use update::*;
 
 /// Apply a stepper delta to a pixel dimension.
@@ -100,6 +100,8 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
     // action while it builds, so Enter can fire it.
     ui::reset_default_action();
     let body = match modal {
+        Modal::CloudGenerate => crate::workspace::cloud_generation::dialog(ws, cx),
+        Modal::Cloud { kind, fields } => crate::workspace::cloud_view::dialog(ws, kind, fields, cx),
         Modal::ImageSize {
             width,
             height,
@@ -163,6 +165,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         } => crate::color_picker::render(ws, target, hsv, original, cx).into_any_element(),
         Modal::ConfirmCloseTab => confirm_close_tab(ws, cx).into_any_element(),
         Modal::DropImage { path } => drop_image(path, cx).into_any_element(),
+        Modal::SharedImage { paths } => shared_image(paths, cx).into_any_element(),
         #[cfg(not(target_arch = "wasm32"))]
         Modal::DropFolders { dirs, images } => drop_folders(dirs, images, cx).into_any_element(),
         #[cfg(target_arch = "wasm32")]
@@ -195,13 +198,13 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
             .into_any_element(),
         #[cfg(target_arch = "wasm32")]
         Modal::CameraImportFailed { .. } => return None,
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(sandboxed))]
         Modal::UpdateAvailable { update } => update_available(ws, update, cx).into_any_element(),
-        #[cfg(target_arch = "wasm32")]
+        #[cfg(sandboxed)]
         Modal::UpdateAvailable { .. } => return None,
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(sandboxed))]
         Modal::PluginManager => plugin_manager(ws, cx).into_any_element(),
-        #[cfg(target_arch = "wasm32")]
+        #[cfg(sandboxed)]
         Modal::PluginManager => return None,
         Modal::ModelManager => model_manager(ws, cx).into_any_element(),
         Modal::MissingFonts { fonts } => missing_fonts(ws, &fonts, cx).into_any_element(),
@@ -222,10 +225,6 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         Modal::MapFilter => return None,
         #[cfg(not(target_arch = "wasm32"))]
         Modal::SearchModels => crate::workspace::search_models_dialog(cx).into_any_element(),
-        #[cfg(not(target_arch = "wasm32"))]
-        Modal::PeopleModels => crate::workspace::people_models_dialog(cx).into_any_element(),
-        #[cfg(target_arch = "wasm32")]
-        Modal::PeopleModels => return None,
         #[cfg(not(target_arch = "wasm32"))]
         Modal::PersonName { index, name } => {
             crate::workspace::person_name_dialog(ws, index, name, cx).into_any_element()
@@ -264,8 +263,11 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
             query,
             photos,
             editing,
-        } => crate::workspace::bucket_name_dialog(ws, name, query, photos.len(), editing, cx)
-            .into_any_element(),
+            cloud,
+        } => {
+            crate::workspace::bucket_name_dialog(ws, name, query, photos.len(), editing, cloud, cx)
+                .into_any_element()
+        }
         #[cfg(target_arch = "wasm32")]
         Modal::BucketName { .. } => return None,
         m @ Modal::NewDocument { .. } => new_document_dialog(&state, m, cx).into_any_element(),

@@ -43,6 +43,10 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         window.focus(&self.focus);
+        // On a touch screen a moving finger scrolls by default; on the
+        // canvas it paints, pans or drags a tool instead, and two fingers
+        // do the scrolling and zooming.
+        window.claim_touch_drag();
         if self.type_field_option().is_some() {
             self.commit_focused_field();
         }

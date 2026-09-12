@@ -208,7 +208,7 @@ impl Workspace {
                             Ok(())
                         })();
                         ws.status = match result {
-                            Ok(()) => format!("Exported {}", path.display()).into(),
+                            Ok(()) => format!("Exported {}", crate::ui::shown_path(&path)).into(),
                             Err(err) => format!("Export failed: {err}").into(),
                         };
                         cx.notify();

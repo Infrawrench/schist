@@ -19,8 +19,10 @@ const APP_NAME: &str = "Schist";
 /// Rebuild the system menu bar, if anything it shows has changed since the
 /// last frame. Cheap to call from `render`: the check is a small string
 /// compare, and `NSMenu` is only rebuilt when a label or an entry differs.
+/// On iPadOS the same menus are the menu bar and the hardware keyboard's
+/// Command-key overlay; the in-window bar stays too, for iPhones.
 pub fn sync(ws: &mut Workspace, cx: &mut Context<Workspace>) {
-    if !cfg!(target_os = "macos") {
+    if !cfg!(any(target_os = "macos", target_os = "ios")) {
         return;
     }
     let signature = signature(ws);
@@ -62,6 +64,12 @@ fn signature(ws: &Workspace) -> String {
         out.push('\u{1f}');
         out.push_str(&recent.to_string_lossy());
     }
+    #[cfg(not(target_arch = "wasm32"))]
+    out.push_str(if ws.cloud.account.is_some() {
+        "cloud-in"
+    } else {
+        "cloud-out"
+    });
     out
 }
 
@@ -111,6 +119,12 @@ fn app_menu() -> Menu {
             MenuItem::action(format!("Quit {APP_NAME}"), Quit),
         ],
     }
+}
+
+/// The gpui menu items for a menu's entries; also what the touch chrome
+/// hands to a native popover or sheet.
+pub(crate) fn menu_items(ws: &Workspace, entries: Vec<MenuEntry>) -> Vec<MenuItem> {
+    items(ws, entries)
 }
 
 fn items(ws: &Workspace, entries: Vec<MenuEntry>) -> Vec<MenuItem> {
@@ -169,7 +183,11 @@ fn action_item(name: String, action: Box<dyn Action>) -> MenuItem {
 /// `None` drops the item: it belongs in the application menu instead.
 fn action_for(item: AppItem) -> Option<Box<dyn Action>> {
     Some(match item {
-        AppItem::Quit | AppItem::Preferences | AppItem::CheckForUpdates => return None,
+        AppItem::Quit | AppItem::CheckForUpdates => return None,
+        // The application menu holds Preferences on macOS. iOS has no
+        // application menu a finger can reach (the iPadOS menu bar only
+        // comes with a hardware keyboard), so View keeps it there.
+        AppItem::Preferences if !cfg!(target_os = "ios") => return None,
         AppItem::New => Box::new(NewFile),
         AppItem::Open => Box::new(OpenFile),
         AppItem::Close => Box::new(CloseTab),
@@ -276,13 +294,14 @@ mod tests {
     fn the_application_menu_holds_what_the_other_menus_drop() {
         // Quit and Preferences belong in the app menu; `action_for`
         // returning None is what keeps them out of File and View.
-        for item in [
-            AppItem::Quit,
-            AppItem::Preferences,
-            AppItem::CheckForUpdates,
-        ] {
+        for item in [AppItem::Quit, AppItem::CheckForUpdates] {
             assert!(action_for(item).is_none(), "{item:?} would be duplicated");
         }
+        // Except on iOS, where View is the only menu that can hold it.
+        assert_eq!(
+            action_for(AppItem::Preferences).is_none(),
+            !cfg!(target_os = "ios")
+        );
         assert!(action_for(AppItem::New).is_some());
         assert_eq!(shape(&app_menu().items), "x-x-x-xxx-x");
     }

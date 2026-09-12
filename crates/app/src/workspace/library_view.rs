@@ -3,12 +3,16 @@
 //! folder headers, and a tray along the bottom with the green action
 //! button and the thumbnail-size slider.
 //!
-//! It keeps its own palette rather than `ui::palette()` — a photo grid
-//! wants quieter, flatter chrome than a panel set — but it follows the
-//! theme choice: the light theme gets Picasa's warm white lightbox, the
-//! dark theme a Lightroom-grey version of the same room, so opening the
-//! gallery from a dark editor is not a flashbang.
+//! The chrome — palette, strip, tray, sidebar rows, grid frame, cells —
+//! lives in `gallery_chrome`, shared with the Schist Cloud gallery,
+//! which is the same room showing a remote library. This file is the
+//! local half: watched folders, the photo search, the local buckets.
 
+use super::gallery_chrome::{
+    self as chrome, cell_frame, empty_note, gallery_button, grid_column, grid_frame, group_chips,
+    lead_probe, pal, search_field, section_header, sidebar_caption, sidebar_column, DragGhost,
+    GroupBy, PressExt as _, TrayInfo,
+};
 use super::*;
 use gpui::{
     img, prelude::FluentBuilder as _, AppContext as _, StatefulInteractiveElement as _,
@@ -16,104 +20,105 @@ use gpui::{
 };
 use schist_ui::{Button, ButtonColors, Link, ListItem};
 
-/// The gallery's chrome colours for one theme.
-pub(super) struct GalleryPalette {
-    /// Behind the thumbnails.
-    pub(super) grid_bg: u32,
-    /// The top strip and sidebar.
-    pub(super) chrome_bg: u32,
-    pub(super) chrome_edge: u32,
-    pub(super) tray_bg: u32,
-    pub(super) sidebar_selected: u32,
-    /// Folder headers and the add-folder link — Picasa's blue.
-    pub(super) header: u32,
-    pub(super) text: u32,
-    pub(super) text_dim: u32,
-    pub(super) cell_edge: u32,
-    /// Cell border under the pointer.
-    pub(super) cell_hover: u32,
-    pub(super) select_border: u32,
-    pub(super) select_fill: u32,
-    pub(super) button_bg: u32,
-    pub(super) button_hover: u32,
-    /// The green action buttons and the "edited" badge.
-    pub(super) green: u32,
-    pub(super) green_hover: u32,
-}
-
-/// Picasa: white grid, warm grey chrome.
-const GALLERY_LIGHT: GalleryPalette = GalleryPalette {
-    grid_bg: 0xFFFFFF,
-    chrome_bg: 0xEDEDE6,
-    chrome_edge: 0xC9C9C0,
-    tray_bg: 0xE3E3DC,
-    sidebar_selected: 0xCFE0F2,
-    header: 0x2A5DB0,
-    text: 0x2B2B2B,
-    text_dim: 0x7A7A72,
-    cell_edge: 0xDDDDDD,
-    cell_hover: 0xB9CBE0,
-    select_border: 0x4A90D9,
-    select_fill: 0xE8F0FB,
-    button_bg: 0xF7F7F2,
-    button_hover: 0xFFFFFF,
-    green: 0x5C9E31,
-    green_hover: 0x6DB33F,
-};
-
-/// The same room with the lights down — Lightroom's greys.
-const GALLERY_DARK: GalleryPalette = GalleryPalette {
-    grid_bg: 0x232323,
-    chrome_bg: 0x2B2B2B,
-    chrome_edge: 0x1C1C1C,
-    tray_bg: 0x282828,
-    sidebar_selected: 0x3A4A5C,
-    header: 0x7FB0E8,
-    text: 0xD8D8D8,
-    text_dim: 0x8F8F8A,
-    cell_edge: 0x3A3A3A,
-    cell_hover: 0x55708C,
-    select_border: 0x4A90D9,
-    select_fill: 0x2C3A4A,
-    button_bg: 0x383838,
-    button_hover: 0x444444,
-    green: 0x5C9E31,
-    green_hover: 0x6DB33F,
-};
-
-pub(super) fn pal() -> &'static GalleryPalette {
-    if crate::ui::is_light() {
-        &GALLERY_LIGHT
-    } else {
-        &GALLERY_DARK
-    }
-}
-
 impl Workspace {
-    pub(super) fn render_gallery(&mut self, cx: &mut Context<Self>) -> impl IntoElement {
-        let body = if self.library.folders.is_empty() {
+    pub(super) fn render_gallery(
+        &mut self,
+        window: &Window,
+        cx: &mut Context<Self>,
+    ) -> impl IntoElement {
+        let cloud = self.cloud.show;
+        let compact = crate::ui::compact(window);
+        self.gallery_compact = compact;
+        let body = if self.library.folders.is_empty() && self.cloud.account.is_none() {
             gallery_empty_state(cx).into_any_element()
         } else {
-            div()
-                .flex()
-                .flex_row()
-                .flex_grow()
-                .min_h(px(0.0))
-                .child(sidebar(self, cx))
-                .child(if self.library.map_view {
-                    world_map(self, cx).into_any_element()
-                } else if self.library.viewer.is_some() {
-                    super::library_people_view::viewer(self, cx)
-                } else {
-                    grid(self, cx).into_any_element()
-                })
-                // The same AI panel the editor has, on its own switch
-                // (View ▸ AI Panel here too): the conversation, harness
-                // and model carry over, the prompt says which room.
-                .children(crate::panels::ai_sidebar(self, cx))
-                .into_any_element()
+            let content = if self.library.map_view {
+                world_map(self, cx).into_any_element()
+            } else if cloud {
+                super::cloud_view::grid(self, cx)
+            } else if self.library.viewer.is_some() {
+                super::library_people_view::viewer(self, cx)
+            } else {
+                grid(self, cx).into_any_element()
+            };
+            if compact {
+                // A phone has no width for a sidebar beside the grid: the
+                // grid takes it all, and the sidebar is a drawer over its
+                // left edge, swiped in and out (or toggled from the strip).
+                let drawer_open = self.gallery_drawer_open;
+                div()
+                    .relative()
+                    .flex()
+                    .flex_row()
+                    .flex_grow()
+                    .min_h(px(0.0))
+                    .on_scroll_wheel(cx.listener(|ws, ev: &gpui::ScrollWheelEvent, _w, cx| {
+                        ws.gallery_swipe_event(ev, cx);
+                    }))
+                    .child(content)
+                    .children(drawer_open.then(|| {
+                        gpui::deferred(
+                            div()
+                                .absolute()
+                                .top_0()
+                                .left_0()
+                                .right_0()
+                                .bottom_0()
+                                .flex()
+                                .flex_row()
+                                // The overlay covers the wrapper's hitbox, so
+                                // it reads the swipe itself: a leftward one
+                                // over the drawer or the scrim closes it.
+                                .occlude()
+                                .on_scroll_wheel(cx.listener(
+                                    |ws, ev: &gpui::ScrollWheelEvent, _w, cx| {
+                                        ws.gallery_swipe_event(ev, cx);
+                                    },
+                                ))
+                                // The scrim: a tap on the grid closes the drawer.
+                                .child(
+                                    div()
+                                        .absolute()
+                                        .top_0()
+                                        .left_0()
+                                        .right_0()
+                                        .bottom_0()
+                                        .bg(gpui::rgba(0x00000080))
+                                        .on_press(cx, |ws, _e, _w, cx| {
+                                            ws.gallery_drawer_open = false;
+                                            cx.notify();
+                                        }),
+                                )
+                                .child(
+                                    div()
+                                        .relative()
+                                        .flex()
+                                        .h_full()
+                                        .shadow_lg()
+                                        .child(sidebar(self, cx)),
+                                ),
+                        )
+                    }))
+                    .into_any_element()
+            } else {
+                div()
+                    .flex()
+                    .flex_row()
+                    .flex_grow()
+                    .min_h(px(0.0))
+                    .child(sidebar(self, cx))
+                    .child(content)
+                    // The same AI panel the editor has, on its own switch
+                    // (View ▸ AI Panel here too): the conversation, harness
+                    // and model carry over, the prompt says which room.
+                    .children(crate::panels::ai_sidebar(self, cx))
+                    .into_any_element()
+            }
         };
-        let context_menu = gallery_context_menu(self, cx);
+        // Both rooms list both kinds of row, so either menu can be up
+        // in either room; opening one closes the other.
+        let context_menu =
+            super::cloud_view::context_menu(self, cx).or_else(|| gallery_context_menu(self, cx));
         let root = div()
             .flex()
             .flex_col()
@@ -144,32 +149,45 @@ impl Workspace {
                     cx.stop_propagation();
                     return;
                 }
-                if ws.gallery_viewer_key(ev, cx)
-                    || ws.gallery_search_key(ev, cx)
-                    || ws.gallery_nav_key(ev, cx)
-                {
+                if ws.gallery_key(ev, cx) {
                     cx.stop_propagation();
                 }
             }))
-            .child(top_strip(self, cx))
+            .child(chrome::top_strip(self, cx))
+            .children(
+                (self.cloud.account.is_none() && self.cloud.message != "Not signed in").then(
+                    || {
+                        div()
+                            .px_3()
+                            .py_2()
+                            .text_size(px(12.0))
+                            .child(self.cloud.message.clone())
+                    },
+                ),
+            )
             .child(body)
-            .child(tray(self, cx))
+            .child(chrome::tray(self, cx))
             .children(context_menu)
+            .children(chrome::gallery_more_menu(self, cx))
             .child(drag_out_listener(cx));
-        // Each cell's paint-time probe is what queues its thumbnail;
-        // mark the frame so those probes stamp as "current" (the age
-        // eviction refuses), and make sure a loader is running for
-        // whatever the last frame asked for — and if decodes have been
-        // failing for want of HEIC support, offer it.
-        self.library.begin_thumb_frame();
-        self.kick_thumb_loader(cx);
-        // Smart buckets re-score whenever the index moved, so they
-        // fill themselves as photos are indexed and imported — and a
-        // search follows the bucket on show.
-        self.refresh_smart_buckets(cx);
-        self.gallery_search_rescope(cx);
-        self.maybe_offer_heif(cx);
-        self.gallery_reveal_tick(cx);
+        if cloud {
+            self.cloud_reveal_tick(cx);
+        } else {
+            // Each cell's paint-time probe is what queues its thumbnail;
+            // mark the frame so those probes stamp as "current" (the age
+            // eviction refuses), and make sure a loader is running for
+            // whatever the last frame asked for — and if decodes have been
+            // failing for want of HEIC support, offer it.
+            self.library.begin_thumb_frame();
+            self.kick_thumb_loader(cx);
+            // Smart buckets re-score whenever the index moved, so they
+            // fill themselves as photos are indexed and imported — and a
+            // search follows the bucket on show.
+            self.refresh_smart_buckets(cx);
+            self.gallery_search_rescope(cx);
+            self.maybe_offer_heif(cx);
+            self.gallery_reveal_tick(cx);
+        }
         root
     }
 }
@@ -202,15 +220,21 @@ fn drag_out_listener(cx: &mut Context<Workspace>) -> impl IntoElement {
                     ws.library.dragging.clone()
                 });
                 let Some(paths) = paths else { return };
-                if !crate::drag_out::over_foreign_window(window) {
-                    return;
+                // Only desktops have another window to drop on.
+                #[cfg(not(sandboxed))]
+                {
+                    if !crate::drag_out::over_foreign_window(window) {
+                        return;
+                    }
+                    moves.update(cx, |ws, _| ws.library.dragging = None);
+                    if crate::drag_out::start(&paths, window) {
+                        // The platform owns the drag now; two ghosts
+                        // following one pointer is one too many.
+                        cx.stop_active_drag(window);
+                    }
                 }
-                moves.update(cx, |ws, _| ws.library.dragging = None);
-                if crate::drag_out::start(&paths, window) {
-                    // The platform owns the drag now; two ghosts
-                    // following one pointer is one too many.
-                    cx.stop_active_drag(window);
-                }
+                #[cfg(sandboxed)]
+                let _ = (paths, window);
             });
             let ups = entity.clone();
             window.on_mouse_event(move |_ev: &gpui::MouseUpEvent, phase, _window, cx| {
@@ -224,137 +248,56 @@ fn drag_out_listener(cx: &mut Context<Workspace>) -> impl IntoElement {
     .size_0()
 }
 
-pub(super) fn gallery_button(
-    label: &'static str,
-    green: bool,
-    on_click: impl Fn(&mut Workspace, &mut Window, &mut Context<Workspace>) + 'static,
+/// Local filter chips and search inside the shared toolbar.
+pub(super) fn local_strip_search(
+    strip: gpui::Div,
+    ws: &mut Workspace,
     cx: &mut Context<Workspace>,
-) -> impl IntoElement {
-    // The kit's button on the gallery's own palette: it fires on
-    // release, like every other button in the app (issue #119).
-    let colors = if green {
-        ButtonColors {
-            bg: Some(pal().green),
-            hover: pal().green_hover,
-            text: 0xFFFFFF,
-            border: Some(pal().green),
-        }
-    } else {
-        ButtonColors {
-            bg: Some(pal().button_bg),
-            hover: pal().button_hover,
-            text: pal().text,
-            border: Some(pal().chrome_edge),
-        }
-    };
-    Button::new(label, label)
-        .colors(colors)
-        .rounded_md()
-        .on_click(cx.listener(move |ws, _e, window, cx| on_click(ws, window, cx)))
-}
-
-/// The strip under the menu bar: import and folder buttons on the left,
-/// as Picasa keeps its Import button, and the way back to the editor on
-/// the right.
-fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    let has_doc = ws.doc.is_some();
-    let importing = ws.library.importing;
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
-        .gap_2()
-        .h(px(38.0))
-        .flex_none()
-        .px_2()
-        .bg(gpui::rgb(pal().chrome_bg))
-        .border_b_1()
-        .border_color(gpui::rgb(pal().chrome_edge))
-        .child(gallery_button(
-            if importing {
-                "Importing…"
-            } else {
-                "Import…"
-            },
-            true,
-            |ws, _w, cx| ws.gallery_import_camera(cx),
-            cx,
-        ))
-        .child(gallery_button(
-            "Add Folder…",
-            false,
-            |ws, window, cx| ws.gallery_add_folder(window, cx),
-            cx,
-        ))
-        .child(gallery_button(
-            "Refresh",
-            false,
-            |ws, _w, cx| ws.library_rescan(cx),
-            cx,
-        ))
-        .child(div().flex_grow())
+) -> gpui::Div {
+    strip
         .children(ws.library.map_filter_label().map(|label| {
-            // While the map filter is on it wears the least
-            // ignorable thing in the strip — a filter you forgot is a
-            // gallery that looks mysteriously empty.
-            Button::bare("map-filter-chip")
-                .colors(ButtonColors {
-                    bg: Some(pal().select_border),
-                    hover: pal().select_border,
-                    text: 0xFFFFFF,
-                    border: None,
-                })
-                .px_2()
-                .rounded_md()
-                .on_click(cx.listener(|ws, _e, _w, cx| ws.open_map_filter(cx)))
-                .child(format!("Map filter: {label}"))
-                .child(
-                    // The × swallows its press so it does not also
-                    // open the filter it is clearing.
-                    Button::new("map-filter-clear", "\u{2715}")
-                        .colors(ButtonColors {
-                            bg: None,
-                            hover: 0xFFFFFF30,
-                            text: 0xFFFFFF,
-                            border: None,
-                        })
-                        .h_auto()
-                        .px_1()
-                        .consume_press()
-                        .on_click(cx.listener(|ws, _e, _w, cx| ws.clear_map_filter(cx))),
-                )
-        }))
-        .child(search_slot(ws, cx))
-        .child(div().flex_grow())
-        .child(gallery_button(
-            "Settings…",
-            false,
-            |ws, _w, cx| {
-                ws.snapshot_preferences();
-                ws.open_modal(Modal::Preferences, cx);
-            },
-            cx,
-        ))
-        .child(gallery_button(
-            "Open…",
-            false,
-            crate::keymap::open_file_dialog,
-            cx,
-        ))
-        .child(gallery_button(
-            "New File…",
-            false,
-            |ws, _w, cx| ws.open_new_file_picker(cx),
-            cx,
-        ))
-        .children(has_doc.then(|| {
-            gallery_button(
-                "Back to Editing",
-                false,
-                |ws, _w, cx| ws.toggle_gallery(cx),
+            chrome::filter_chip(
+                format!("Map filter: {label}"),
+                |ws, cx| ws.open_map_filter(cx),
+                |ws, cx| ws.clear_map_filter(cx),
                 cx,
             )
         }))
+        .child(search_slot(ws, cx))
+}
+
+/// The touch strip's middle: the search box once it can run and the
+/// download's progress while it is on its way. The offer to install
+/// the models is a row of the strip's "⋯" menu instead, so the strip
+/// stays one row.
+pub(super) fn touch_strip_search(
+    strip: gpui::Div,
+    ws: &mut Workspace,
+    cx: &mut Context<Workspace>,
+) -> gpui::Div {
+    let middle = if schist_neural::embed::ready() || !ws.library.people.is_empty() {
+        Some(search_box(ws, cx).into_any_element())
+    } else if search_models_downloading(ws) {
+        Some(search_download_progress(ws).into_any_element())
+    } else {
+        None
+    };
+    strip
+        .children(ws.library.map_filter_label().map(|label| {
+            chrome::filter_chip(
+                format!("Map filter: {label}"),
+                |ws, cx| ws.open_map_filter(cx),
+                |ws, cx| ws.clear_map_filter(cx),
+                cx,
+            )
+        }))
+        .children(middle)
+}
+
+/// Whether photo search still needs its models, and no download of
+/// them is running: when the strip should offer to install them.
+pub(super) fn search_offer_needed(ws: &Workspace) -> bool {
+    !schist_neural::embed::ready() && !search_models_downloading(ws)
 }
 
 /// The search box: type a description, photos rank by it. Takes the
@@ -458,8 +401,6 @@ fn search_download_progress(ws: &Workspace) -> impl IntoElement {
 /// The box itself, which only exists once the models behind it do —
 /// `search_slot` is what decides that.
 fn search_box(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    let active = ws.library.search_active;
-    let text = ws.library.search.clone();
     let (indexed, total) = ws.library.index_progress();
     let placeholder: SharedString = if !schist_neural::embed::ready() {
         "Search people and places\u{2026}".into()
@@ -468,100 +409,23 @@ fn search_box(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
     } else {
         "Search photos\u{2026}".into()
     };
-    let cursor = ws.library.search_cursor.min(text.len());
     let caret_on = ws.caret_on();
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
-        .gap_1()
-        .w(px(260.0))
-        .h(px(24.0))
-        .px_2()
-        .rounded_md()
-        .bg(gpui::rgb(pal().grid_bg))
-        .border_1()
-        .border_color(gpui::rgb(if active {
-            pal().select_border
-        } else {
-            pal().chrome_edge
-        }))
-        .text_size(px(12.0))
-        .text_color(gpui::rgb(if text.is_empty() {
-            pal().text_dim
-        } else {
-            pal().text
-        }))
-        .cursor(gpui::CursorStyle::IBeam)
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                ws.library.search_active = true;
-                // A click lands a caret, not a selection.
-                ws.library.search_selected = false;
-                ws.library.search_cursor = ws.library.search.len();
-                ws.reset_caret_phase();
-                // Focusing the box is the signal to start loading the
-                // towers, so the first query answers quickly without
-                // every gallery open paying their ~300 MB up front.
-                ws.warm_search_engine(cx);
-                cx.notify();
-            }),
-        )
-        .child(div().flex_grow().truncate().child(
-            // ⌘A's selection, drawn the way every field draws one; a
-            // focused box otherwise shows a blinking caret the arrows
-            // move, with the placeholder ghosted while it is empty.
-            if ws.library.search_selected && !text.is_empty() {
-                div()
-                    .rounded_sm()
-                    .px(px(1.0))
-                    .bg(gpui::rgb(pal().select_border))
-                    .text_color(gpui::rgb(0xFFFFFF))
-                    .child(SharedString::from(text.clone()))
-                    .into_any_element()
-            } else if active {
-                div()
-                    .flex()
-                    .flex_row()
-                    .items_center()
-                    .child(crate::ui::caret_run(
-                        text[..cursor].to_string(),
-                        text[cursor..].to_string(),
-                        caret_on,
-                        pal().text,
-                    ))
-                    .children(text.is_empty().then(|| {
-                        div()
-                            .text_color(gpui::rgb(pal().text_dim))
-                            .child(placeholder.clone())
-                    }))
-                    .into_any_element()
-            } else if text.is_empty() {
-                div().child(placeholder.clone()).into_any_element()
-            } else {
-                div()
-                    .child(SharedString::from(text.clone()))
-                    .into_any_element()
-            },
-        ))
-        .children((!text.is_empty()).then(|| {
-            // Swallows its press, so clearing does not also focus the
-            // box it just emptied.
-            Button::new("search-clear", "\u{2715}")
-                .colors(ButtonColors {
-                    bg: None,
-                    hover: pal().button_hover,
-                    text: pal().text_dim,
-                    border: None,
-                })
-                .h_auto()
-                .px_1()
-                .consume_press()
-                .on_click(cx.listener(|ws, _e, _w, cx| {
-                    ws.gallery_search_clear(cx);
-                }))
-        }))
+    search_field(
+        &ws.library.search,
+        placeholder,
+        caret_on,
+        |ws, cx| {
+            ws.library.search.focus();
+            // Focusing the box is the signal to start loading the
+            // towers, so the first query answers quickly without
+            // every gallery open paying their ~300 MB up front.
+            ws.warm_search_engine(cx);
+        },
+        |ws, cx| {
+            ws.gallery_search_clear(cx);
+        },
+        cx,
+    )
 }
 
 /// Nothing watched yet, which for most people is the first launch:
@@ -583,6 +447,10 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
         .flex_col()
         .items_start()
         .w(px(520.0))
+        // A phone is narrower than the column; let it shrink to fit,
+        // with a margin so the text does not touch the edge.
+        .max_w(gpui::relative(1.0))
+        .px_3()
         .gap_2()
         .child(
             div()
@@ -591,10 +459,19 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
                 .child("Welcome to Schist"),
         )
         .child(div().h(px(12.0)))
-        .child(caption(
-            "Watch folders of photos, or import from a camera. Files stay \
-             where they are; edits are versioned beside them:",
+        .child(crate::ui::button(
+            "Sign into Schist Cloud…",
+            false,
+            |ws, _, cx| ws.cloud_sign_in(cx),
+            cx,
         ))
+        .child(caption(if cfg!(target_os = "ios") {
+            "Import photos from your library, or add a folder from Files. \
+             Edits are versioned beside each photo:"
+        } else {
+            "Watch folders of photos, or import from a camera. Files stay \
+             where they are; edits are versioned beside them:"
+        }))
         .child(
             div()
                 .flex()
@@ -607,7 +484,11 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
                     cx,
                 ))
                 .child(gallery_button(
-                    "Import from Camera…",
+                    if cfg!(target_os = "ios") {
+                        "Import from Photos…"
+                    } else {
+                        "Import from Camera…"
+                    },
                     false,
                     |ws, _w, cx| ws.gallery_import_camera(cx),
                     cx,
@@ -643,11 +524,13 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
                 )),
         )
         .child(div().h(px(8.0)))
-        .child(caption(if cfg!(target_os = "macos") {
-            "The gallery is always \u{2318}\u{21e7}G away, whatever you are editing."
-        } else {
-            "The gallery is always Ctrl+Shift+G away, whatever you are editing."
-        }));
+        .child(caption(
+            if cfg!(any(target_os = "macos", target_os = "ios")) {
+                "The gallery is always \u{2318}\u{21e7}G away, whatever you are editing."
+            } else {
+                "The gallery is always Ctrl+Shift+G away, whatever you are editing."
+            },
+        ));
     div()
         // Its own id scope: the buttons here share labels (and so
         // element ids) with the top strip's.
@@ -660,8 +543,54 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
         .child(column)
 }
 
-/// The folder list: Picasa's left column, minus the years.
+/// The folder list: Picasa's left column, minus the years. The local
+/// folders and buckets first, then the Schist Cloud library beneath,
+/// laid out the same way.
+impl Workspace {
+    /// A horizontal swipe across the gallery body opens the drawer
+    /// (rightwards) or closes it (leftwards). Touch backends report a
+    /// finger's travel as scroll deltas with start and end phases; the
+    /// grid keeps its vertical scrolling, and only a mostly sideways
+    /// travel of some length counts.
+    pub(super) fn gallery_swipe_event(
+        &mut self,
+        ev: &gpui::ScrollWheelEvent,
+        cx: &mut Context<Self>,
+    ) {
+        let gpui::ScrollDelta::Pixels(delta) = ev.delta else {
+            return;
+        };
+        let (dx, dy) = (f32::from(delta.x), f32::from(delta.y));
+        match ev.touch_phase {
+            gpui::TouchPhase::Started => {
+                self.gallery_swipe = Some(super::GallerySwipe { dx, dy });
+            }
+            gpui::TouchPhase::Moved => {
+                if let Some(swipe) = self.gallery_swipe.as_mut() {
+                    swipe.dx += dx;
+                    swipe.dy += dy;
+                }
+            }
+            gpui::TouchPhase::Ended => {
+                let Some(swipe) = self.gallery_swipe.take() else {
+                    return;
+                };
+                let sideways = swipe.dx.abs() > 60.0 && swipe.dx.abs() > swipe.dy.abs() * 1.5;
+                if !sideways {
+                    return;
+                }
+                let open = swipe.dx > 0.0;
+                if open != self.gallery_drawer_open {
+                    self.gallery_drawer_open = open;
+                    cx.notify();
+                }
+            }
+        }
+    }
+}
+
 fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let cloud = ws.cloud.show;
     let filter = ws.library.folder_filter.clone();
     let folders: Vec<(PathBuf, usize)> = ws
         .library
@@ -680,170 +609,110 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         .collect();
     let total: usize = folders.iter().map(|(_, n)| n).sum();
     let mut rows: Vec<gpui::AnyElement> = Vec::new();
-    rows.push(sidebar_row("All Photos", total, filter.is_none(), None, cx).into_any_element());
+    rows.push(
+        sidebar_row(
+            "All Photos",
+            total,
+            !cloud && ws.library.bucket_filter.is_none() && filter.is_none(),
+            None,
+            cx,
+        )
+        .into_any_element(),
+    );
     for (root, count) in folders {
         let label = root
             .file_name()
             .map(|n| n.to_string_lossy().into_owned())
             .unwrap_or_else(|| root.display().to_string());
-        let selected = filter.as_deref() == Some(root.as_path());
+        let selected = !cloud
+            && ws.library.bucket_filter.is_none()
+            && filter.as_deref() == Some(root.as_path());
         rows.push(sidebar_row(label, count, selected, Some(root), cx).into_any_element());
     }
-    div()
-        .id("gallery-sidebar")
-        .flex()
-        .flex_col()
-        .w(px(210.0))
-        .flex_none()
-        .overflow_y_scroll()
-        .bg(gpui::rgb(pal().chrome_bg))
-        .border_r_1()
-        .border_color(gpui::rgb(pal().chrome_edge))
-        .child(
-            div()
-                .px_2()
-                .pt_2()
-                .pb_1()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child("VIEW"),
-        )
+    sidebar_column("gallery-sidebar")
+        .child(sidebar_caption("VIEW"))
         .children(
-            [(false, "Photos"), (true, "World Map")]
-                .into_iter()
-                .map(|(map, label)| {
-                    let active = ws.library.map_view == map;
-                    div()
-                        .px_2()
-                        .h(px(26.0))
-                        .flex()
-                        .items_center()
-                        .text_size(px(12.0))
-                        .cursor_pointer()
-                        .bg(gpui::rgb(if active {
-                            pal().sidebar_selected
-                        } else {
-                            pal().chrome_bg
-                        }))
-                        .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-                        .on_mouse_down(
-                            MouseButton::Left,
-                            cx.listener(move |ws, _, _, cx| {
-                                ws.library.map_view = map;
-                                cx.notify();
-                            }),
-                        )
-                        .child(label)
-                }),
-        )
-        .child(
-            div()
-                .px_2()
-                .pt_2()
-                .pb_1()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child("GROUP BY"),
-        )
-        .child({
-            let current = ws.library.group_by;
-            let mut row = div().flex().flex_row().gap_1().px_2().pb_2();
-            for (i, group) in super::library::GroupBy::ALL.into_iter().enumerate() {
-                let active = group == current;
-                row = row.child(
-                    Button::new(("group-by", i), group.label())
-                        .colors(ButtonColors {
-                            bg: Some(if active {
-                                pal().sidebar_selected
-                            } else {
-                                pal().button_bg
-                            }),
-                            hover: if active {
-                                pal().sidebar_selected
-                            } else {
-                                pal().button_hover
-                            },
-                            text: pal().text,
-                            border: None,
+            Some(())
+                .map(|()| {
+                    [(false, "Photos"), (true, "World Map")]
+                        .into_iter()
+                        .map(|(map, label)| {
+                            ListItem::new(label)
+                                .h(px(26.0))
+                                .px_2()
+                                .bg(gpui::rgb(if ws.library.map_view == map {
+                                    pal().sidebar_selected
+                                } else {
+                                    pal().chrome_bg
+                                }))
+                                .on_click(cx.listener(move |ws, _, _, cx| {
+                                    ws.library.map_view = map;
+                                    cx.notify();
+                                }))
+                                .child(label)
                         })
-                        .h(px(20.0))
-                        .px_2()
-                        .rounded_md()
-                        .text_size(px(11.0))
-                        .on_click(cx.listener(move |ws, _e, _w, cx| {
-                            ws.set_gallery_group(group, cx);
-                        })),
-                );
-            }
-            row
-        })
+                })
+                .into_iter()
+                .flatten(),
+        )
+        .child(group_chips(ws.gallery_group_by(), &GroupBy::ALL, cx))
         .child({
-            let active = ws.library.map_filter.is_some();
-            Button::new(
-                "map-filter",
-                if active {
-                    "Map filter on"
-                } else {
-                    "Map filter…"
-                },
-            )
-            .colors(ButtonColors {
-                bg: Some(if active {
+            let active = if cloud {
+                ws.cloud.query.filters.bounds.is_some()
+            } else {
+                ws.library.map_filter.is_some()
+            };
+            div()
+                .mx_2()
+                .mb_1()
+                .px_2()
+                .h(px(22.0))
+                .flex()
+                .items_center()
+                .justify_between()
+                .rounded_md()
+                .text_size(px(11.0))
+                .cursor_pointer()
+                .bg(gpui::rgb(if active {
                     pal().select_border
                 } else {
                     pal().button_bg
-                }),
-                hover: if active {
-                    pal().select_border
+                }))
+                .text_color(gpui::rgb(if active { 0xFFFFFF } else { pal().text }))
+                .hover(move |s| {
+                    if active {
+                        s
+                    } else {
+                        s.bg(gpui::rgb(pal().button_hover))
+                    }
+                })
+                .on_press(cx, |ws, _e: &chrome::Press, _w, cx| ws.open_map_filter(cx))
+                .child(if active {
+                    "Map filter on"
                 } else {
-                    pal().button_hover
-                },
-                text: if active { 0xFFFFFF } else { pal().text },
-                border: None,
-            })
-            .mx_2()
-            .mb_1()
-            .px_2()
-            .h(px(22.0))
-            .justify_between()
-            .rounded_md()
-            .text_size(px(11.0))
-            .on_click(cx.listener(|ws, _e, _w, cx| ws.open_map_filter(cx)))
-            .children(active.then(|| div().child("\u{25cf}")))
+                    "Map filter…"
+                })
+                .children(active.then(|| div().child("\u{25cf}")))
         })
-        .child(
-            div()
-                .px_2()
-                .pt_1()
-                .pb_1()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child("FOLDERS"),
-        )
+        .child(sidebar_caption("FOLDERS"))
         .children(rows)
-        .child(
-            div()
-                .id("add-folder")
-                .px_2()
-                .h(px(24.0))
-                .flex()
-                .items_center()
-                .text_size(px(12.0))
-                .text_color(gpui::rgb(pal().header))
-                .cursor_pointer()
-                .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-                .on_click(cx.listener(|ws, _e, window, cx| ws.gallery_add_folder(window, cx)))
-                .child("+ Add folder…"),
-        )
-        .child(
-            div()
-                .px_2()
-                .pt_2()
-                .pb_1()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child("BUCKETS"),
-        )
+        .children(super::cloud_view::folder_rows(ws, cx))
+        .child(chrome::sidebar_menu_link(
+            "+ Add folder…",
+            |ws, at, window, cx| {
+                // With a cloud signed in there are two kinds of folder
+                // to add; without one there is only the local kind.
+                if ws.cloud.account.is_some() {
+                    ws.library.context = Some((at, super::library::GalleryContext::AddFolder));
+                    ws.cloud.context = None;
+                    cx.notify();
+                } else {
+                    ws.gallery_add_folder(window, cx);
+                }
+            },
+            cx,
+        ))
+        .child(sidebar_caption("BUCKETS"))
         .children({
             let buckets: Vec<(usize, String, usize, bool)> = ws
                 .library
@@ -852,7 +721,11 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 .enumerate()
                 .map(|(i, b)| (i, b.name.clone(), b.contents().len(), b.is_smart()))
                 .collect();
-            let viewing = ws.library.bucket_filter;
+            let viewing = if cloud {
+                None
+            } else {
+                ws.library.bucket_filter
+            };
             let mut rows: Vec<gpui::AnyElement> = Vec::new();
             for (i, name, count, smart) in buckets {
                 rows.push(
@@ -861,26 +734,25 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             }
             rows
         })
-        .child(
-            div()
-                .id("new-bucket")
-                .px_2()
-                .h(px(24.0))
-                .flex()
-                .items_center()
-                .text_size(px(12.0))
-                .text_color(gpui::rgb(pal().header))
-                .cursor_pointer()
-                .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-                .on_click(cx.listener(|ws, _e, _w, cx| {
+        .children(super::cloud_view::bucket_rows(ws, cx))
+        .child(chrome::sidebar_menu_link(
+            "+ New bucket",
+            |ws, at, _window, cx| {
+                if ws.cloud.account.is_some() {
+                    ws.library.context = Some((at, super::library::GalleryContext::NewBucket));
+                    ws.cloud.context = None;
+                    cx.notify();
+                } else {
                     // Born holding the selection, so "new bucket
                     // from these" is the dialog's Create away.
                     let selected = ws.library.selected.clone();
                     ws.gallery_new_bucket(selected, cx);
-                }))
-                .child("+ New bucket"),
-        )
+                }
+            },
+            cx,
+        ))
         .children(super::library_people_view::people_rows(ws, cx))
+        .children(super::cloud_people::rows(ws, false, cx))
 }
 
 /// One bucket in the sidebar: a drop target, a view of its contents on
@@ -915,22 +787,21 @@ fn bucket_row(
             ws.library.add_to_bucket(index, &drag.paths);
             cx.notify();
         }))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                ws.library.bucket_filter = if ws.library.bucket_filter == Some(index) {
-                    None
-                } else {
-                    Some(index)
-                };
-                ws.library.folder_filter = None;
-                cx.notify();
-            }),
-        )
+        .on_press(cx, move |ws, _e: &chrome::Press, _w, cx| {
+            ws.cloud.show = false;
+            ws.library.bucket_filter = if ws.library.bucket_filter == Some(index) {
+                None
+            } else {
+                Some(index)
+            };
+            ws.library.folder_filter = None;
+            cx.notify();
+        })
         .on_mouse_down(
             MouseButton::Right,
             cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
                 ws.library.context = Some((ev.position, GalleryContext::Bucket(index)));
+                ws.cloud.context = None;
                 cx.notify();
             }),
         )
@@ -961,6 +832,12 @@ fn sidebar_row(
 ) -> impl IntoElement {
     let filter = root.clone();
     let mut row = div()
+        .id(SharedString::from(format!(
+            "local-folder:{}",
+            root.as_ref()
+                .map(|p| p.to_string_lossy())
+                .unwrap_or_default()
+        )))
         .flex()
         .flex_row()
         .items_center()
@@ -975,14 +852,27 @@ fn sidebar_row(
             pal().chrome_bg
         }))
         .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                ws.library.folder_filter = filter.clone();
-                ws.library.bucket_filter = None;
-                cx.notify();
-            }),
-        )
+        .on_press(cx, move |ws, _e: &chrome::Press, _w, cx| {
+            ws.cloud.show = false;
+            ws.library.folder_filter = filter.clone();
+            ws.library.bucket_filter = None;
+            cx.notify();
+        })
+        .children(root.clone().map(|menu_root| {
+            // The row's menu lives on a transparent overlay child so the
+            // left click above keeps its own handler.
+            div().absolute().size_full().on_mouse_down(
+                MouseButton::Right,
+                cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                    ws.library.context = Some((
+                        ev.position,
+                        super::library::GalleryContext::LocalFolder(menu_root.clone()),
+                    ));
+                    ws.cloud.context = None;
+                    cx.notify();
+                }),
+            )
+        }))
         .child(div().flex_grow().truncate().child(label.into()))
         .child(
             div()
@@ -993,7 +883,22 @@ fn sidebar_row(
     if let Some(drop_root) = root.clone() {
         // Dragged photos land here as a move — files, sidecars,
         // versions and all.
+        let drag_path = drop_root.clone();
         row = row
+            .on_drag(
+                super::cloud_view::LocalFolderDrag { path: drag_path },
+                |drag, _, _, cx| {
+                    cx.new(|_| {
+                        super::cloud_view::DragLabel(
+                            drag.path
+                                .file_name()
+                                .unwrap_or_default()
+                                .to_string_lossy()
+                                .into_owned(),
+                        )
+                    })
+                },
+            )
             .drag_over::<super::library::GalleryDrag>(|s, _, _, _| {
                 s.bg(gpui::rgb(pal().select_border))
             })
@@ -1087,26 +992,203 @@ fn gallery_sections(ws: &Workspace) -> Vec<(String, String, Vec<super::library::
 
 /// Browse the current gallery on a world map; the strip opens every photo
 /// in a cluster, including photos with identical coordinates at maximum zoom.
+/// A photo on the world map, from either room: the local library's
+/// entry, or a Schist Cloud asset on the page.
+#[derive(Clone)]
+enum MapPhoto {
+    Local(super::library::Entry),
+    Cloud(Box<schist_cloud::Asset>),
+}
+
+/// The photos on show with a valid position.
+type LocatedPhotos = Vec<(MapPhoto, (f64, f64))>;
+
+impl MapPhoto {
+    fn key(&self) -> String {
+        match self {
+            MapPhoto::Local(e) => e.path.display().to_string(),
+            MapPhoto::Cloud(a) => a.id.clone(),
+        }
+    }
+    fn name(&self) -> String {
+        match self {
+            MapPhoto::Local(e) => e
+                .path
+                .file_name()
+                .map(|s| s.to_string_lossy().into_owned())
+                .unwrap_or_default(),
+            MapPhoto::Cloud(a) => a.name.clone(),
+        }
+    }
+}
+
+/// The photos on show with a valid position, plus how many are still
+/// being read (local EXIF probes) and how many have none.
+fn map_photos(ws: &Workspace) -> (LocatedPhotos, usize, usize) {
+    let mut located = Vec::new();
+    let mut pending = 0;
+    let mut unlocated = 0;
+    if ws.cloud.show {
+        // The whole scope's located photos, fetched separately from the
+        // page; the page total says how many have no fix.
+        for asset in &ws.cloud.map_assets {
+            if let Some(l) = asset
+                .location
+                .as_ref()
+                .filter(|l| super::library_geo::valid_position(l.latitude, l.longitude))
+            {
+                located.push((
+                    MapPhoto::Cloud(Box::new(asset.clone())),
+                    (l.latitude, l.longitude),
+                ));
+            }
+        }
+        let total = ws.cloud.total as usize;
+        if ws.cloud.map_loading && ws.cloud.map_assets.is_empty() {
+            pending = total;
+        } else {
+            unlocated = total.saturating_sub(located.len());
+        }
+    } else {
+        for entry in gallery_sections(ws).into_iter().flat_map(|(_, _, e)| e) {
+            if let Some(pos) = photo_position(ws, &entry.path) {
+                located.push((MapPhoto::Local(entry), pos));
+            } else if ws.library.positions.contains_key(&entry.path) {
+                unlocated += 1;
+            } else {
+                pending += 1;
+            }
+        }
+    }
+    (located, pending, unlocated)
+}
+
+fn map_photo_selected(ws: &Workspace, photo: &MapPhoto) -> bool {
+    match photo {
+        MapPhoto::Local(e) => ws.library.is_selected(&e.path),
+        MapPhoto::Cloud(a) => ws.cloud.selected.iter().any(|id| id == &a.id),
+    }
+}
+
+/// The marker's photos the strip under the map shows.
+fn map_strip_photos(ws: &Workspace) -> Vec<MapPhoto> {
+    let (located, _, _) = map_photos(ws);
+    let wanted: FxHashSet<String> = if ws.cloud.show {
+        ws.cloud.map_photos.iter().cloned().collect()
+    } else {
+        ws.library
+            .map_photos
+            .iter()
+            .map(|p| p.display().to_string())
+            .collect()
+    };
+    located
+        .into_iter()
+        .map(|(photo, _)| photo)
+        .filter(|photo| wanted.contains(&photo.key()))
+        .collect()
+}
+
+/// A marker was clicked: its photos fill the strip, the first is
+/// selected, and a double-click on a lone photo opens it.
+fn map_pick(ws: &mut Workspace, photos: &[MapPhoto], open: bool, cx: &mut Context<Workspace>) {
+    let Some(first) = photos.first() else {
+        return;
+    };
+    match first {
+        MapPhoto::Local(entry) => {
+            ws.library.map_photos = photos
+                .iter()
+                .filter_map(|p| match p {
+                    MapPhoto::Local(e) => Some(e.path.clone()),
+                    MapPhoto::Cloud(_) => None,
+                })
+                .collect();
+            ws.library.select_single(entry.path.clone());
+            if open {
+                ws.open_from_gallery(entry.path.clone(), cx);
+            }
+        }
+        MapPhoto::Cloud(asset) => {
+            ws.cloud.map_photos = photos.iter().map(MapPhoto::key).collect();
+            ws.cloud_select_single(asset.id.clone());
+            if open {
+                ws.cloud_open((**asset).clone(), cx);
+            }
+        }
+    }
+}
+
+/// A marker was right-clicked: the room's own menu for its photos.
+fn map_cluster_context(ws: &mut Workspace, photos: &[MapPhoto], at: Point<Pixels>) {
+    let paths: Vec<PathBuf> = photos
+        .iter()
+        .filter_map(|p| match p {
+            MapPhoto::Local(e) => Some(e.path.clone()),
+            MapPhoto::Cloud(_) => None,
+        })
+        .collect();
+    if paths.is_empty() {
+        let ids = photos.iter().map(MapPhoto::key).collect();
+        ws.cloud.context = Some((at, super::cloud::CloudContext::Cluster(ids)));
+        ws.library.context = None;
+    } else {
+        ws.library.context = Some((at, super::library::GalleryContext::MapCluster(paths)));
+        ws.cloud.context = None;
+    }
+}
+
+/// A photo's preview for a marker or the strip: the local thumbnail
+/// pipeline, or the cloud page's fetched thumbnail.
+fn map_photo_preview(
+    ws: &Workspace,
+    photo: &MapPhoto,
+    width: f32,
+    height: f32,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    match photo {
+        MapPhoto::Local(entry) => photo_preview(ws, entry, width, height, cx).into_any_element(),
+        MapPhoto::Cloud(asset) => {
+            let thumb = ws
+                .cloud
+                .thumbnails
+                .get(&asset.id)
+                .map(|(_, image)| image.clone());
+            div()
+                .w(px(width))
+                .h(px(height))
+                .flex_none()
+                .overflow_hidden()
+                .bg(gpui::rgb(pal().chrome_bg))
+                .child(match thumb {
+                    Some(image) => img(image)
+                        .size_full()
+                        .object_fit(gpui::ObjectFit::Contain)
+                        .into_any_element(),
+                    None => div()
+                        .size_full()
+                        .flex()
+                        .items_center()
+                        .justify_center()
+                        .text_size(px(10.0))
+                        .text_color(gpui::rgb(pal().text_dim))
+                        .child("Photo")
+                        .into_any_element(),
+                })
+                .into_any_element()
+        }
+    }
+}
+
 fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     use super::library_geo::MapSlot;
-    let entries: Vec<_> = gallery_sections(ws)
-        .into_iter()
-        .flat_map(|(_, _, entries)| entries)
-        .collect();
-    let located = entries
-        .iter()
-        .filter(|e| photo_position(ws, &e.path).is_some())
-        .count();
-    let pending = entries
-        .iter()
-        .filter(|e| !ws.library.positions.contains_key(&e.path))
-        .count();
-    let unlocated = entries.len() - located - pending;
-    let selected_paths: FxHashSet<_> = ws.library.map_photos.iter().collect();
-    let details: Vec<_> = entries
-        .into_iter()
-        .filter(|e| selected_paths.contains(&e.path) && photo_position(ws, &e.path).is_some())
-        .collect();
+    if ws.cloud.show {
+        ws.cloud_map_refresh();
+    }
+    let (located_photos, pending, unlocated) = map_photos(ws);
+    let located = located_photos.len();
+    let details = map_strip_photos(ws);
     let mut status = format!("{located} photos on map · {unlocated} without location");
     if pending > 0 {
         status.push_str(&format!(" · Reading locations: {pending} remaining"));
@@ -1126,7 +1208,11 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
             .child(div().text_size(px(11.0)).text_color(gpui::rgb(pal().text_dim)).child(status)))
         .child(div().px_2().pb_2().text_size(px(11.0)).text_color(gpui::rgb(pal().text_dim))
             .child(if located == 0 && pending == 0 {
-                "No photos with GPS locations in this view. Add geotagged photos or change the gallery filters."
+                if ws.cloud.show {
+                    "No photos with GPS locations here. Pick another folder or bucket, or clear the search."
+                } else {
+                    "No photos with GPS locations in this view. Add geotagged photos or change the gallery filters."
+                }
             } else {
                 "Drag to pan · Scroll to zoom · Click a marker to see its photos · Double-click a photo to edit"
             }))
@@ -1140,10 +1226,11 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
             .gap_2()
             .p_2()
             .overflow_x_scroll();
-        for entry in details {
-            let selected = ws.library.is_selected(&entry.path);
-            let path = entry.path.clone();
-            let preview = photo_preview(ws, &entry, 86.0, 62.0, cx);
+        for photo in details {
+            let selected = map_photo_selected(ws, &photo);
+            let preview = map_photo_preview(ws, &photo, 86.0, 62.0, cx);
+            let name = photo.name();
+            let pick = vec![photo.clone()];
             strip = strip.child(
                 div()
                     .flex()
@@ -1160,26 +1247,24 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                         pal().cell_edge
                     }))
                     .cursor_pointer()
-                    .on_mouse_down(
-                        MouseButton::Left,
-                        cx.listener(move |ws, ev: &MouseDownEvent, _, cx| {
-                            ws.library.select_single(path.clone());
-                            if ev.click_count >= 2 {
-                                ws.open_from_gallery(path.clone(), cx);
-                            }
-                            cx.notify();
-                        }),
-                    )
+                    .on_press(cx, move |ws, ev: &chrome::Press, _, cx| {
+                        // Picking from the strip keeps the strip:
+                        // the marker's photos stay listed.
+                        let strip = if ws.cloud.show {
+                            None
+                        } else {
+                            Some(ws.library.map_photos.clone())
+                        };
+                        let cloud_strip = ws.cloud.map_photos.clone();
+                        map_pick(ws, &pick, ev.click_count >= 2, cx);
+                        match strip {
+                            Some(paths) => ws.library.map_photos = paths,
+                            None => ws.cloud.map_photos = cloud_strip,
+                        }
+                        cx.notify();
+                    })
                     .child(preview)
-                    .child(
-                        div().text_size(px(10.0)).truncate().child(
-                            entry
-                                .path
-                                .file_name()
-                                .map(|s| s.to_string_lossy().into_owned())
-                                .unwrap_or_default(),
-                        ),
-                    ),
+                    .child(div().text_size(px(10.0)).truncate().child(name)),
             );
         }
         view = view
@@ -1201,6 +1286,7 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                         false,
                         |ws, cx| {
                             ws.library.map_photos.clear();
+                            ws.cloud.map_photos.clear();
                             cx.notify();
                         },
                         cx,
@@ -1275,11 +1361,10 @@ fn prepare_photo_markers(
     bounds: Bounds<Pixels>,
     cx: &mut Context<Workspace>,
 ) -> Vec<(Point<Pixels>, gpui::AnyElement)> {
-    let entries: Vec<_> = gallery_sections(ws)
-        .into_iter()
-        .flat_map(|(_, _, entries)| entries)
-        .filter_map(|e| photo_position(ws, &e.path).map(|pos| (e, pos)))
-        .collect();
+    let (entries, _, _) = map_photos(ws);
+    // Marker previews name the thumbnails they need; the loader picks
+    // them up alongside the page's.
+    ws.cloud.map_wanted.clear();
     let points: Vec<_> = entries
         .iter()
         .enumerate()
@@ -1303,28 +1388,27 @@ fn prepare_photo_markers(
         let (i, x, y) = cluster[0];
         let entry = &entries[i].0;
         let mut seen = FxHashSet::default();
-        let paths: Vec<_> = cluster
+        let photos: Vec<MapPhoto> = cluster
             .iter()
-            .map(|(i, _, _)| entries[*i].0.path.clone())
-            .filter(|path| seen.insert(path.clone()))
+            .map(|(i, _, _)| entries[*i].0.clone())
+            .filter(|photo| seen.insert(photo.key()))
             .collect();
-        let context_paths = paths.clone();
-        let count = paths.len();
-        let active = paths.iter().any(|p| ws.library.is_selected(p));
-        let preview = photo_preview(ws, entry, 56.0, 42.0, cx);
+        let context_photos = photos.clone();
+        let count = photos.len();
+        let active = photos.iter().any(|p| map_photo_selected(ws, p));
+        if let MapPhoto::Cloud(asset) = entry {
+            ws.cloud.map_wanted.insert(asset.id.clone());
+        }
+        let preview = map_photo_preview(ws, entry, 56.0, 42.0, cx);
         let label = if count > 1 {
             format!("{count} photos")
         } else {
-            entry
-                .path
-                .file_name()
-                .map(|s| s.to_string_lossy().into_owned())
-                .unwrap_or_default()
+            entry.name()
         };
         let marker = div()
             .id(SharedString::from(format!(
                 "map-pin-{}-{cluster_index}",
-                entry.path.display()
+                entry.key()
             )))
             .flex()
             .flex_col()
@@ -1332,28 +1416,18 @@ fn prepare_photo_markers(
             .w(px(68.0))
             .cursor_pointer()
             .tooltip(crate::ui::tip(label, None))
-            .on_mouse_down(
-                MouseButton::Left,
-                cx.listener(move |ws, ev: &MouseDownEvent, _, cx| {
-                    cx.stop_propagation();
-                    ws.library.world_map.end_drag();
-                    ws.library.map_photos = paths.clone();
-                    ws.library.select_single(paths[0].clone());
-                    if count == 1 && ev.click_count >= 2 {
-                        ws.open_from_gallery(paths[0].clone(), cx);
-                    }
-                    cx.notify();
-                }),
-            )
+            .on_press(cx, move |ws, ev: &chrome::Press, _, cx| {
+                cx.stop_propagation();
+                ws.library.world_map.end_drag();
+                map_pick(ws, &photos, count == 1 && ev.click_count >= 2, cx);
+                cx.notify();
+            })
             .on_mouse_down(
                 MouseButton::Right,
                 cx.listener(move |ws, ev: &MouseDownEvent, _, cx| {
                     cx.stop_propagation();
                     ws.library.world_map.end_drag();
-                    ws.library.context = Some((
-                        ev.position,
-                        super::library::GalleryContext::MapCluster(context_paths.clone()),
-                    ));
+                    map_cluster_context(ws, &context_photos, ev.position);
                     cx.notify();
                 }),
             )
@@ -1405,113 +1479,46 @@ fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let selected: Vec<PathBuf> = ws.library.selected.clone();
     let sections = gallery_sections(ws);
     let scanning = ws.library.scanning;
-    let grid_entity = cx.entity();
-    let mut column = div()
-        .id("gallery-grid")
-        .flex()
-        .flex_col()
-        .flex_grow()
-        .min_h(px(0.0))
-        .overflow_y_scroll()
-        .track_scroll(&ws.library.grid_scroll)
-        .bg(gpui::rgb(pal().grid_bg))
-        .p_2()
-        // Record the viewport rectangle, so keyboard navigation can
-        // work out columns per row, the reveal logic can keep the
-        // selection on screen, and the cells' visibility probes know
-        // what "on screen" means. The canvas sits inside the scrolled
-        // content, so its bounds scroll along with it — subtract the
-        // scroll offset to get back to window coordinates, the space
-        // every cell's own bounds are reported in.
-        .child(
-            canvas(
-                {
-                    let grid_entity = grid_entity.clone();
-                    move |bounds, _window, cx| {
-                        grid_entity.update(cx, |ws, _| {
-                            let offset = ws.library.grid_scroll.offset();
-                            ws.library.grid_bounds = gpui::Bounds {
-                                origin: bounds.origin - offset,
-                                size: bounds.size,
-                            };
-                        });
-                    }
-                },
-                move |_, _, window, _| {
-                    // ⌘-wheel (Ctrl elsewhere) over the grid resizes the
-                    // thumbnails, as ⌘-wheel zooms a canvas. It has to
-                    // win over the container's own scrolling, which runs
-                    // in the bubble phase — so take it in capture and
-                    // stop it there.
-                    let grid_entity = grid_entity.clone();
-                    window.on_mouse_event(move |ev: &gpui::ScrollWheelEvent, phase, _w, cx| {
-                        if phase != gpui::DispatchPhase::Capture
-                            || !(ev.modifiers.platform || ev.modifiers.control)
-                        {
-                            return;
-                        }
-                        let dy = wheel_pixels(ev);
-                        let took = grid_entity.update(cx, |ws, cx| {
-                            if !ws.library.grid_bounds.contains(&ev.position) {
-                                return false;
-                            }
-                            ws.nudge_gallery_thumb_px(dy);
-                            cx.notify();
-                            true
-                        });
-                        if took {
-                            cx.stop_propagation();
-                        }
-                    });
-                },
-            )
-            .absolute()
-            .size_full(),
-        );
+    let access: chrome::GridAccess = |ws| &mut ws.library.grid;
+    let mut column = grid_column("gallery-grid", &ws.library.grid, access, cx);
     if sections.is_empty() {
         // Say why the grid is bare, rather than showing a void: a
         // bucket may simply be empty, a scan may be running, or the
         // watched folders may hold nothing Schist can decode.
-        column = column.child(
-            div()
-                .p_4()
-                .text_size(px(12.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child(
-                    match ws
-                        .library
-                        .bucket_filter
-                        .and_then(|i| ws.library.buckets.get(i))
-                    {
-                        Some(_) if ws.library.search_results.is_some() => {
-                            "Nothing in this bucket matches the search. Escape clears it \
+        column = column.child(empty_note(
+            match ws
+                .library
+                .bucket_filter
+                .and_then(|i| ws.library.buckets.get(i))
+            {
+                Some(_) if ws.library.search_results.is_some() => {
+                    "Nothing in this bucket matches the search. Escape clears it \
                          to show the whole bucket."
-                        }
-                        None if ws.library.search_results.is_some() => {
-                            "Nothing matches the search. Escape clears it."
-                        }
-                        Some(bucket) if bucket.is_smart() => {
-                            "Nothing matches this bucket's rule yet — matches appear as \
+                }
+                None if ws.library.search_results.is_some() => {
+                    "Nothing matches the search. Escape clears it."
+                }
+                Some(bucket) if bucket.is_smart() => {
+                    "Nothing matches this bucket's rule yet — matches appear as \
                          photos are indexed. Dragging photos in works too."
-                        }
-                        Some(_) => {
-                            "This bucket is empty. Drag photos onto its row in the sidebar \
+                }
+                Some(_) => {
+                    "This bucket is empty. Drag photos onto its row in the sidebar \
                          to add them."
-                        }
-                        None if ws.library.person_filter.is_some() => {
-                            "Nothing here yet. Faces appear as photos are indexed; \
+                }
+                None if ws.library.person_filter.is_some() => {
+                    "Nothing here yet. Faces appear as photos are indexed; \
                          click a photo, then a face, to say who it is."
-                        }
-                        None if scanning => "Scanning folders\u{2026}",
-                        None => {
-                            "No photos found in the watched folders. Images Schist can open \
+                }
+                None if scanning => "Scanning folders\u{2026}",
+                None => {
+                    "No photos found in the watched folders. Images Schist can open \
                          (PNG, JPEG, WebP, TIFF, HEIC, camera raws, PSD, Affinity) \
                          appear here; \
                          sub-folders are scanned six levels deep."
-                        }
-                    },
-                ),
-        );
+                }
+            },
+        ));
     }
     // Virtualisation: only rows near the viewport build real cells —
     // a cell is ~20 elements with listeners, and a big library built
@@ -1522,17 +1529,12 @@ fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     // keep-on-screen scroll even when it is far away.
     const HEADER_ESTIMATE: f32 = 41.0;
     let lead = ws.library.lead_selected().cloned();
-    let columns = {
-        let width = f32::from(ws.library.grid_bounds.size.width);
-        // p_2 padding both sides, gap_2 between cells — the keyboard
-        // navigation's formula, so rows agree with up/down arrows.
-        (((width - 16.0 + 8.0) / (cell + 8.0)).floor() as usize).max(1)
-    };
-    let view_h = f32::from(ws.library.grid_bounds.size.height);
+    let columns = ws.library.grid.columns(cell);
+    let view_h = f32::from(ws.library.grid.bounds.size.height);
     // The first frame has no recorded viewport yet: build everything
     // once, and virtualise from the second frame on.
     let (win_top, win_bottom) = if view_h > 0.0 {
-        let scroll_y = -f32::from(ws.library.grid_scroll.offset().y);
+        let scroll_y = -f32::from(ws.library.grid.handle.offset().y);
         (scroll_y - view_h, scroll_y + 2.0 * view_h)
     } else {
         (f32::MIN, f32::MAX)
@@ -1540,32 +1542,11 @@ fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let mut content_y = 8.0; // the column's p_2 top padding
     for (title, subtitle, entries) in sections {
         let detail = if subtitle.is_empty() {
-            format!("{} photos", entries.len())
+            chrome::photo_count(entries.len())
         } else {
             format!("{subtitle} — {}", entries.len())
         };
-        column = column.child(
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
-                .gap_2()
-                .pt_2()
-                .pb_1()
-                .child(
-                    div()
-                        .text_size(px(13.0))
-                        .text_color(gpui::rgb(pal().header))
-                        .child(title),
-                )
-                .child(
-                    div()
-                        .text_size(px(10.0))
-                        .text_color(gpui::rgb(pal().text_dim))
-                        .child(detail),
-                ),
-        );
-        column = column.child(div().h(px(1.0)).mb_2().bg(gpui::rgb(pal().cell_edge)));
+        column = column.child(section_header(title, detail));
         content_y += HEADER_ESTIMATE;
         let mut body = div().flex().flex_col();
         // Consecutive off-screen rows collapse into one spacer, so a
@@ -1597,87 +1578,7 @@ fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
         }
         column = column.child(body);
     }
-    // The scrollbar gpui doesn't paint: a track along the viewport's
-    // right edge, exact because the thumb reads the scroll handle's
-    // own extents. Clicking the track jumps there; dragging is
-    // handled by the wrapper below, so the pointer may wander off the
-    // twelve-pixel strip mid-drag without dropping the thumb.
-    let scrollbar = ws
-        .library
-        .scrollbar_geometry()
-        .map(|(inset, thumb_h, travel, max_y)| {
-            let scroll_y = (-f32::from(ws.library.grid_scroll.offset().y)).clamp(0.0, max_y);
-            let thumb_top = inset + scroll_y / max_y * travel;
-            div()
-                .absolute()
-                .top_0()
-                .right_0()
-                .bottom_0()
-                .w(px(12.0))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
-                        let y =
-                            f32::from(ev.position.y) - f32::from(ws.library.grid_bounds.origin.y);
-                        ws.library.scrollbar_grab =
-                            Some(if (thumb_top..thumb_top + thumb_h).contains(&y) {
-                                // Grabbed the thumb: keep the grip point.
-                                y - thumb_top
-                            } else {
-                                // Clicked the track: the thumb jumps
-                                // there, held by its middle.
-                                thumb_h / 2.0
-                            });
-                        ws.library.scrollbar_drag_to(f32::from(ev.position.y));
-                        cx.stop_propagation();
-                        cx.notify();
-                    }),
-                )
-                .child(
-                    div()
-                        .absolute()
-                        .top(px(thumb_top))
-                        .right(px(2.0))
-                        .w(px(8.0))
-                        .h(px(thumb_h))
-                        .rounded_md()
-                        .bg(gpui::rgb(pal().cell_edge))
-                        .hover(|s| s.bg(gpui::rgb(pal().cell_hover))),
-                )
-        });
-    div()
-        .relative()
-        .flex()
-        .flex_col()
-        .flex_grow()
-        .min_h(px(0.0))
-        // Shrinkable: a flex item's minimum width is its content's, and
-        // a row of cells is a fixed width, so without this the grid
-        // refuses to give up room to the AI panel beside it and pushes
-        // it off the right edge. The column count follows the width
-        // the next frame.
-        .min_w(px(0.0))
-        .overflow_hidden()
-        .on_mouse_move(cx.listener(|ws, ev: &gpui::MouseMoveEvent, _w, cx| {
-            if ws.library.scrollbar_grab.is_none() {
-                return;
-            }
-            if ev.pressed_button == Some(MouseButton::Left) {
-                ws.library.scrollbar_drag_to(f32::from(ev.position.y));
-                cx.notify();
-            } else {
-                // The button went up somewhere we never heard about.
-                ws.library.scrollbar_grab = None;
-            }
-        }))
-        .on_mouse_up(
-            MouseButton::Left,
-            cx.listener(|ws, _ev: &gpui::MouseUpEvent, _w, _cx| {
-                ws.library.scrollbar_grab = None;
-            }),
-        )
-        .child(column)
-        .children(scrollbar)
+    grid_frame(column, &ws.library.grid, access, cx)
 }
 
 fn cell_element(
@@ -1689,6 +1590,7 @@ fn cell_element(
 ) -> impl IntoElement {
     use super::library::{GalleryContext, GalleryDrag};
     let thumb = ws.library.thumb(&entry);
+    let failed = ws.library.thumb_failed(&entry.path);
     // The drag ghost shows the square being carried, so it wants the
     // same picture the cell shows.
     let ghost_thumb = thumb.clone();
@@ -1707,374 +1609,142 @@ fn cell_element(
     } else {
         vec![entry.path.clone()]
     };
-    let inner = cell - 10.0;
-    div()
-        .id(SharedString::from(format!("cell-{}", entry.path.display())))
-        .flex()
-        .flex_col()
-        .items_center()
-        .justify_center()
-        .w(px(cell))
-        .h(px(cell))
-        .flex_none()
-        .relative()
-        // The visibility probe: at paint time it knows the cell's real
-        // rectangle, and a cell within a viewport's height of the
-        // screen is what queues its decode and stamps its thumbnail in
-        // use. Building the element (this function) must stay free —
-        // the whole grid builds every frame.
-        .child(
-            canvas(
-                move |bounds, _window, cx| {
-                    probe_entity.update(cx, |ws, cx| {
-                        // One viewport of margin either side, so
-                        // scrolling meets thumbnails, not placeholders.
-                        let mut near = ws.library.grid_bounds;
-                        near.origin.y -= near.size.height;
-                        near.size.height *= 3.0;
-                        if near.intersects(&bounds) && ws.library.note_visible(&probe_entry) {
-                            ws.kick_thumb_loader(cx);
-                        }
-                    });
-                },
-                |_, _, _, _| {},
-            )
-            .absolute()
-            .size_full(),
-        )
-        .rounded_sm()
-        .bg(gpui::rgb(if is_selected {
-            pal().select_fill
-        } else {
-            pal().grid_bg
-        }))
-        .border_2()
-        .border_color(gpui::rgb(if is_selected {
-            pal().select_border
-        } else {
-            pal().cell_edge
-        }))
-        .cursor_pointer()
-        .hover(move |s| {
-            if is_selected {
-                s
-            } else {
-                s.border_color(gpui::rgb(pal().cell_hover))
-            }
-        })
-        .on_drag(
-            GalleryDrag { paths: drag_paths },
-            move |drag, _offset, _window, cx| {
-                // What the drag carries, in case it leaves the window
-                // and the platform's own drag-and-drop takes it on.
-                let carried = drag.paths.clone();
-                drag_entity.update(cx, |ws, _| ws.library.dragging = Some(carried));
-                let label = if drag.paths.len() == 1 {
-                    drag_path
-                        .file_name()
-                        .map(|n| n.to_string_lossy().into_owned())
-                        .unwrap_or_else(|| "1 photo".into())
-                } else {
-                    format!("{} photos", drag.paths.len())
-                };
-                let thumb = ghost_thumb.clone();
-                let count = drag.paths.len();
-                cx.new(|_| DragGhost {
-                    label,
-                    thumb,
-                    count,
-                    size: cell,
-                })
+    cell_frame(
+        SharedString::from(format!("cell-{}", entry.path.display())),
+        cell,
+        is_selected,
+        thumb,
+        failed,
+        entry.edited,
+    )
+    // The visibility probe: at paint time it knows the cell's real
+    // rectangle, and a cell within a viewport's height of the
+    // screen is what queues its decode and stamps its thumbnail in
+    // use. Building the element (this function) must stay free —
+    // the whole grid builds every frame.
+    .child(
+        canvas(
+            move |bounds, _window, cx| {
+                probe_entity.update(cx, |ws, cx| {
+                    // One viewport of margin either side, so
+                    // scrolling meets thumbnails, not placeholders.
+                    let mut near = ws.library.grid.bounds;
+                    near.origin.y -= near.size.height;
+                    near.size.height *= 3.0;
+                    if near.intersects(&bounds) && ws.library.note_visible(&probe_entry) {
+                        ws.kick_thumb_loader(cx);
+                    }
+                });
             },
+            |_, _, _, _| {},
         )
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
-                let path = click_path.clone();
-                if ev.modifiers.platform || ev.modifiers.control {
-                    // ⌘-click: in or out, keeping the rest.
-                    ws.library.toggle_selected(path);
-                } else if ev.modifiers.shift {
-                    ws.gallery_select_range_to(path);
-                } else if ev.click_count >= 2 {
-                    ws.library.select_single(path.clone());
-                    ws.open_from_gallery(path, cx);
-                } else if !ws.library.is_selected(&click_path) {
-                    // A plain press on an unselected photo selects it —
-                    // and on a selected one keeps the selection, so a
-                    // drag can carry the lot.
-                    ws.library.select_single(path);
-                }
-                ws.library.context = None;
-                cx.notify();
-            }),
-        )
-        .on_mouse_down(
-            MouseButton::Right,
-            cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
-                // Right-click acts on the selection when it lands in
-                // it, on this photo alone otherwise.
-                if !ws.library.is_selected(&context_path) {
-                    ws.library.select_single(context_path.clone());
-                }
-                ws.library.context =
-                    Some((ev.position, GalleryContext::Photo(context_path.clone())));
-                cx.notify();
-            }),
-        )
-        .children(is_lead.then(|| {
-            // The lead cell reports where it landed, for the
-            // keyboard's scroll-into-view.
-            let cell_entity = cx.entity();
-            canvas(
-                move |bounds, _window, cx| {
-                    cell_entity.update(cx, |ws, _| ws.library.selected_bounds = Some(bounds));
-                },
-                |_, _, _, _| {},
-            )
-            .absolute()
-            .size_full()
-        }))
-        .children(thumb.map(|t| img(t).max_w(px(inner)).max_h(px(inner))))
-        .children(ws.library.thumb_failed(&entry.path).then(|| {
-            div()
-                .text_size(px(10.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child("no preview")
-        }))
-        .children(entry.edited.then(|| {
-            // Picasa's little brush: a corner badge saying this photo
-            // carries an edit.
-            div()
-                .absolute()
-                .bottom(px(3.0))
-                .left(px(3.0))
-                .px_1()
-                .rounded_sm()
-                .bg(gpui::rgb(pal().green))
-                .text_size(px(9.0))
-                .text_color(gpui::rgb(0xFFFFFF))
-                .child("edited")
-        }))
+        .absolute()
+        .size_full(),
+    )
+    .on_drag(
+        GalleryDrag { paths: drag_paths },
+        move |drag, _offset, _window, cx| {
+            // What the drag carries, in case it leaves the window
+            // and the platform's own drag-and-drop takes it on.
+            let carried = drag.paths.clone();
+            drag_entity.update(cx, |ws, _| ws.library.dragging = Some(carried));
+            let label = if drag.paths.len() == 1 {
+                drag_path
+                    .file_name()
+                    .map(|n| n.to_string_lossy().into_owned())
+                    .unwrap_or_else(|| "1 photo".into())
+            } else {
+                format!("{} photos", drag.paths.len())
+            };
+            let thumb = ghost_thumb.clone();
+            let count = drag.paths.len();
+            cx.new(|_| DragGhost {
+                label,
+                thumb,
+                count,
+                size: cell,
+            })
+        },
+    )
+    .on_press(cx, move |ws, ev: &chrome::Press, _w, cx| {
+        let path = click_path.clone();
+        if ev.modifiers.platform || ev.modifiers.control {
+            // ⌘-click: in or out, keeping the rest.
+            ws.library.toggle_selected(path);
+        } else if ev.modifiers.shift {
+            ws.gallery_select_range_to(path);
+        } else if ev.click_count >= 2 {
+            ws.library.select_single(path.clone());
+            ws.open_from_gallery(path, cx);
+        } else if !ws.library.is_selected(&click_path) {
+            // A plain press on an unselected photo selects it —
+            // and on a selected one keeps the selection, so a
+            // drag can carry the lot.
+            ws.library.select_single(path);
+        }
+        ws.library.context = None;
+        cx.notify();
+    })
+    .on_mouse_down(
+        MouseButton::Right,
+        cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+            // Right-click acts on the selection when it lands in
+            // it, on this photo alone otherwise.
+            if !ws.library.is_selected(&context_path) {
+                ws.library.select_single(context_path.clone());
+            }
+            ws.library.context = Some((ev.position, GalleryContext::Photo(context_path.clone())));
+            ws.cloud.context = None;
+            cx.notify();
+        }),
+    )
+    .children(is_lead.then(|| lead_probe(|ws| &mut ws.library.grid, cx)))
 }
 
-/// The ghost that rides the pointer during a drag: the picked-up
-/// photo's whole square when its thumbnail is in memory (with a count
-/// badge for a multi-drag), the old name pill only when it is not.
-struct DragGhost {
-    label: String,
-    thumb: Option<Arc<gpui::RenderImage>>,
-    count: usize,
-    size: f32,
-}
-
-impl gpui::Render for DragGhost {
-    fn render(&mut self, _window: &mut Window, _cx: &mut Context<Self>) -> impl IntoElement {
-        let Some(thumb) = self.thumb.clone() else {
-            return div()
-                .px_2()
-                .py_1()
-                .rounded_md()
-                .bg(gpui::rgb(pal().select_border))
-                .text_color(gpui::rgb(0xFFFFFF))
-                .text_size(px(11.0))
-                .child(SharedString::from(self.label.clone()))
-                .into_any_element();
-        };
-        let inner = self.size - 10.0;
-        div()
-            .w(px(self.size))
-            .h(px(self.size))
-            .relative()
-            .flex()
-            .items_center()
-            .justify_center()
-            .rounded_sm()
-            .bg(gpui::rgb(pal().grid_bg))
-            .border_2()
-            .border_color(gpui::rgb(pal().select_border))
-            .opacity(0.85)
-            .child(img(thumb).max_w(px(inner)).max_h(px(inner)))
-            .children((self.count > 1).then(|| {
-                div()
-                    .absolute()
-                    .top(px(-6.0))
-                    .right(px(-6.0))
-                    .min_w(px(18.0))
-                    .h(px(18.0))
-                    .px_1()
-                    .flex()
-                    .items_center()
-                    .justify_center()
-                    .rounded_full()
-                    .bg(gpui::rgb(pal().select_border))
-                    .text_color(gpui::rgb(0xFFFFFF))
-                    .text_size(px(10.0))
-                    .child(format!("{}", self.count))
-            }))
-            .into_any_element()
-    }
-}
-
-/// The bottom tray: selection details and the green Edit button on the
-/// left, the photo count and size slider on the right.
-fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+/// What the tray says about the local gallery: the lead photo's name
+/// and Edit button, the selection size, the content filter's toll.
+pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
     let selected = ws.library.selected_entry().cloned();
-    let count = ws.library.photo_count();
-    let thumb_px = ws.library.thumb_px;
-    let ratio = (thumb_px - 80.0) / 160.0;
     let name = selected
         .as_ref()
         .and_then(|e| e.path.file_name())
         .map(|n| n.to_string_lossy().into_owned());
-    div()
-        // Its own id scope: the viewer's header has an Edit button too.
-        .id("gallery-tray")
-        .flex()
-        .flex_row()
-        .items_center()
-        .gap_3()
-        .h(px(40.0))
-        .flex_none()
-        .px_2()
-        .bg(gpui::rgb(pal().tray_bg))
-        .border_t_1()
-        .border_color(gpui::rgb(pal().chrome_edge))
-        .children(selected.as_ref().map(|entry| {
-            let open = entry.path.clone();
-            gallery_button(
-                "Edit",
-                true,
-                move |ws, _w, cx| ws.open_from_gallery(open.clone(), cx),
-                cx,
-            )
-        }))
-        .children(selected.as_ref().map(|entry| {
-            // The quick look — the photo big, its faces to name.
-            let view = entry.path.clone();
-            gallery_button(
-                "View",
-                false,
-                move |ws, _w, cx| ws.open_viewer(view.clone(), cx),
-                cx,
-            )
-        }))
-        .children(name.map(|name| {
-            div()
-                .text_size(px(12.0))
-                .text_color(gpui::rgb(pal().text))
-                .child(name)
-        }))
-        .children((ws.library.selected.len() > 1).then(|| {
-            div()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child(format!("{} selected", ws.library.selected.len()))
-        }))
-        .children(selected.as_ref().is_some_and(|e| e.edited).then(|| {
-            div()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child("edited — versions kept beside the file")
-        }))
-        .children({
-            let hidden = if ws.view.gallery_hide_nsfw {
-                ws.library.flagged_count()
-            } else {
-                0
-            };
-            (hidden > 0).then(|| {
-                div()
-                    .text_size(px(11.0))
-                    .text_color(gpui::rgb(pal().text_dim))
-                    .child(format!("{hidden} hidden by the content filter"))
-            })
-        })
-        .child(div().flex_grow())
-        // The editor's status bar is hidden here, so the tray carries the
-        // status line — otherwise an import's outcome lands nowhere.
-        .child(
-            div()
-                .max_w(px(420.0))
-                .truncate()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child(ws.status.clone()),
-        )
-        .child(
-            div()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child(format!("{count} photos")),
-        )
-        .child(size_slider(ratio, cx))
-}
-
-/// The thumbnail-size slider, drawn on the gallery's own palette so it
-/// does not import the editor theme's near-black track onto the tray.
-fn size_slider(ratio: f32, cx: &mut Context<Workspace>) -> impl IntoElement {
-    const WIDTH: f32 = 110.0;
-    let entity = cx.entity();
-    let set = move |ws: &mut Workspace, r: f32| {
-        ws.set_gallery_thumb_px(80.0 + r * 160.0);
+    let mut notes = Vec::new();
+    if selected.as_ref().is_some_and(|e| e.edited) {
+        notes.push("edited — versions kept beside the file".to_string());
+    }
+    let hidden = if ws.view.gallery_hide_nsfw {
+        ws.library.flagged_count()
+    } else {
+        0
     };
-    let down = set;
-    let moved = set;
-    div()
-        .relative()
-        .w(px(WIDTH))
-        .h(px(12.0))
-        .flex_none()
-        .rounded_sm()
-        .bg(gpui::rgb(pal().chrome_edge))
-        .child(
-            div()
-                .absolute()
-                .left_0()
-                .top_0()
-                .bottom_0()
-                .w(px(WIDTH * ratio.clamp(0.0, 1.0)))
-                .rounded_sm()
-                .bg(gpui::rgb(pal().select_border)),
-        )
-        .child(
-            gpui::canvas(
-                move |bounds, _window, cx| {
-                    entity.update(cx, |ws, _| {
-                        ws.record_slider_bounds("gallery-thumb-size", bounds)
-                    });
+    if hidden > 0 {
+        notes.push(format!("{hidden} hidden by the content filter"));
+    }
+    TrayInfo {
+        edit: selected.clone().map(|entry| {
+            let open = entry.path.clone();
+            Box::new(
+                move |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
+                    ws.open_from_gallery(open.clone(), cx)
                 },
-                |_, _, _, _| {},
+            ) as Box<dyn Fn(&mut Workspace, &mut Window, &mut Context<Workspace>)>
+        }),
+        extra: selected.map(|entry| {
+            (
+                "View",
+                Box::new(
+                    move |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
+                        ws.open_viewer(entry.path.clone(), cx)
+                    },
+                ) as chrome::TrayAction,
             )
-            .absolute()
-            .size_full(),
-        )
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, ev: &gpui::MouseDownEvent, _w, cx| {
-                ws.begin_slider("gallery-thumb-size", ratio);
-                if let Some(r) = ws.slider_ratio("gallery-thumb-size", ev.position) {
-                    down(ws, r);
-                }
-                cx.notify();
-            }),
-        )
-        .on_mouse_move(cx.listener(move |ws, ev: &gpui::MouseMoveEvent, _w, cx| {
-            if ev.pressed_button == Some(MouseButton::Left)
-                && ws.dragging_slider("gallery-thumb-size")
-            {
-                if let Some(r) = ws.slider_ratio("gallery-thumb-size", ev.position) {
-                    moved(ws, r);
-                    cx.notify();
-                }
-            }
-        }))
-        .on_mouse_up(
-            MouseButton::Left,
-            cx.listener(|ws, _ev: &gpui::MouseUpEvent, _w, _cx| {
-                ws.end_slider("gallery-thumb-size");
-            }),
-        )
+        }),
+        name,
+        selected: ws.library.selected.len(),
+        notes,
+        count: chrome::photo_count(ws.library.photo_count()),
+    }
 }
 
 /// The camera picker. Several mounted cameras ask which one; none says
@@ -2640,7 +2310,11 @@ pub(crate) fn map_filter_dialog(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let selection = ws.library.map.selection;
-    let filtering = ws.library.map_filter.is_some();
+    let filtering = if ws.cloud.show {
+        ws.cloud.query.filters.bounds.is_some()
+    } else {
+        ws.library.map_filter.is_some()
+    };
     let status = match (&selection, &ws.library.map.selection_name) {
         (Some(_), Some(name)) => format!(
             "Apply shows only photos taken in {name}; photos without an EXIF position hide."
@@ -2716,7 +2390,7 @@ pub(crate) fn search_models_dialog(cx: &mut Context<Workspace>) -> impl IntoElem
         .filter_map(|id| schist_neural::spec(id))
         .collect();
     let total: usize = specs.iter().map(|s| s.bytes).sum();
-    let mut body = div().flex().flex_col().gap_2().w(px(460.0)).child(
+    let mut body = div().flex().flex_col().gap_2().w_full().child(
         div()
             .text_size(px(12.0))
             .text_color(gpui::rgb(crate::ui::palette().text))
@@ -2854,14 +2528,11 @@ pub(super) fn bucket_field(
         }))
         .text_size(px(12.0))
         .overflow_hidden()
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                ws.commit_focused_field();
-                ws.focus_field(id, typed.clone());
-                cx.notify();
-            }),
-        )
+        .on_press(cx, move |ws, _e: &chrome::Press, _w, cx| {
+            ws.commit_focused_field();
+            ws.focus_field(id, typed.clone());
+            cx.notify();
+        })
         .child(caret_and_text);
     if empty {
         field = field.child(
@@ -2882,11 +2553,27 @@ pub(crate) fn bucket_name_dialog(
     query: String,
     photos: usize,
     editing: Option<usize>,
+    cloud: bool,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let name_fallback = match editing.and_then(|i| ws.library.buckets.get(i)) {
-        Some(bucket) => bucket.name.clone(),
-        None => format!("Bucket {}", ws.library.buckets.len() + 1),
+    // The same dialog serves a Schist Cloud bucket: the name and the
+    // rule (search text, drawn area) go to the provider instead.
+    let cloud_target = cloud
+        .then_some(ws.cloud.form_target.as_ref())
+        .flatten()
+        .and_then(|(id, _)| ws.cloud.buckets.iter().find(|b| &b.id == id))
+        .cloned();
+    let is_edit = editing.is_some() || cloud_target.is_some();
+    let name_fallback = if cloud {
+        match &cloud_target {
+            Some(bucket) => bucket.name.clone(),
+            None => format!("Bucket {}", ws.cloud.buckets.len() + 1),
+        }
+    } else {
+        match editing.and_then(|i| ws.library.buckets.get(i)) {
+            Some(bucket) => bucket.name.clone(),
+            None => format!("Bucket {}", ws.library.buckets.len() + 1),
+        }
     };
     let name_field = bucket_field("bucket-name", name, name_fallback, ws, cx);
     let query_field = bucket_field(
@@ -2965,7 +2652,7 @@ pub(crate) fn bucket_name_dialog(
             cx,
         ))
         .child(crate::ui::button(
-            if editing.is_some() { "Save" } else { "Create" },
+            if is_edit { "Save" } else { "Create" },
             true,
             |ws, _w, cx| {
                 ws.commit_focused_field();
@@ -2974,6 +2661,7 @@ pub(crate) fn bucket_name_dialog(
                     query,
                     photos,
                     editing,
+                    cloud,
                 }) = ws.modal.clone()
                 else {
                     return;
@@ -2992,6 +2680,17 @@ pub(crate) fn bucket_name_dialog(
                             .unwrap_or_else(|| "Selected Area".to_string()),
                     )
                 });
+                if cloud {
+                    let bounds = area.map(|(b, _)| schist_cloud::Bounds {
+                        south: b.south,
+                        north: b.north,
+                        west: b.west,
+                        east: b.east,
+                    });
+                    ws.cloud_save_bucket(name, query, bounds);
+                    ws.close_modal(cx);
+                    return;
+                }
                 let index = match editing {
                     Some(index) => index,
                     None => ws.library.add_bucket(name.clone()),
@@ -3004,10 +2703,11 @@ pub(crate) fn bucket_name_dialog(
             },
             cx,
         ));
-    let title = if editing.is_some() {
-        "Edit Bucket"
-    } else {
-        "New Bucket"
+    let title = match (cloud, is_edit) {
+        (true, true) => "Edit Cloud Bucket",
+        (true, false) => "New Cloud Bucket",
+        (false, true) => "Edit Bucket",
+        (false, false) => "New Bucket",
     };
     crate::ui::modal_frame(title, 580.0, body, actions)
 }
@@ -3259,6 +2959,85 @@ fn gallery_context_menu(
                     }),
                 );
             }
+        }
+        GalleryContext::LocalFolder(root) => {
+            if ws.cloud.account.is_some() {
+                let upload = root.clone();
+                row(
+                    "Upload to Schist Cloud\u{2026}".into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| {
+                        ws.open_modal(
+                            Modal::Cloud {
+                                kind: "upload-folder",
+                                fields: vec![
+                                    ("cloud-folder", "Folder".into(), String::new()),
+                                    ("cloud-path", "".into(), upload.display().to_string()),
+                                ],
+                            },
+                            cx,
+                        );
+                    }),
+                );
+                sep(&mut rows);
+            }
+            let reveal = root.clone();
+            row(
+                "Reveal in file manager".into(),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(move |_ws, _w, _cx| {
+                    super::library_ops::reveal_in_file_manager(&reveal);
+                }),
+            );
+            row(
+                "Stop watching this folder".into(),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(move |ws, _w, cx| {
+                    ws.gallery_remove_folder(&root.clone(), cx);
+                }),
+            );
+        }
+        GalleryContext::AddFolder => {
+            row(
+                "Watch a folder on this computer\u{2026}".into(),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(|ws, window, cx| ws.gallery_add_folder(window, cx)),
+            );
+            row(
+                format!(
+                    "{} New Schist Cloud folder\u{2026}",
+                    super::cloud_view::CLOUD_GLYPH
+                ),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(|ws, _w, cx| super::cloud_view::new_cloud_folder(ws, cx)),
+            );
+        }
+        GalleryContext::NewBucket => {
+            row(
+                "New bucket on this computer\u{2026}".into(),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(|ws, _w, cx| {
+                    // Born holding the selection, so "new bucket from
+                    // these" is the dialog's Create away.
+                    let selected = ws.library.selected.clone();
+                    ws.gallery_new_bucket(selected, cx);
+                }),
+            );
+            row(
+                format!(
+                    "{} New Schist Cloud bucket\u{2026}",
+                    super::cloud_view::CLOUD_GLYPH
+                ),
+                &mut rows,
+                cx,
+                std::rc::Rc::new(|ws, _w, cx| super::cloud_view::new_cloud_bucket(ws, cx)),
+            );
         }
         GalleryContext::Bucket(index) => {
             // The group actions act on everything the bucket holds:

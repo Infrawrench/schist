@@ -21,7 +21,7 @@ use schist_core::{BlendMode, Layer, LayerId, LayerKind};
 use schist_ui::{Button, ButtonColors, IconButton, Link, ListItem, Swatch, Tab};
 use std::sync::Arc;
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 mod ai;
 mod color;
 mod context;
@@ -40,14 +40,14 @@ mod titlebar;
 mod toolbar;
 mod typography;
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 pub use ai::*;
 use color::*;
 use info::*;
 
-/// The sidebar renders nothing on the web, where the AI subsystem (which
-/// drives locally installed agent CLIs) is compiled out.
-#[cfg(target_arch = "wasm32")]
+/// The sidebar renders nothing on the web or iOS, where the AI subsystem
+/// (which drives locally installed agent CLIs) is compiled out.
+#[cfg(sandboxed)]
 pub fn ai_sidebar(_ws: &mut Workspace, _cx: &mut Context<Workspace>) -> Option<gpui::AnyElement> {
     None
 }
@@ -88,7 +88,7 @@ impl<T: Styled> ActiveExt for T {}
 
 fn keybind_hint(kb: Option<&str>) -> String {
     let Some(kb) = kb else { return String::new() };
-    let kb = if cfg!(target_os = "macos") {
+    let kb = if cfg!(any(target_os = "macos", target_os = "ios")) {
         kb.to_string()
     } else {
         kb.replace("cmd-", "ctrl-")
@@ -112,7 +112,7 @@ fn keybind_hint(kb: Option<&str>) -> String {
         .join("+")
 }
 
-pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Stateful<gpui::Div> {
     // Scrollable: the Info tab can be taller than a small window, and
     // without this the panels below it were squeezed into each other —
     // Layers over History, a stray border across the map. Short content
@@ -122,7 +122,7 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
         .id("side-panels")
         .flex()
         .flex_col()
-        .w(px(260.0))
+        .w(px(ui::metrics().panel_w))
         .flex_none()
         .min_h(px(0.0))
         .overflow_y_scroll()
@@ -138,7 +138,7 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
 
 fn panel_title(name: &'static str) -> impl IntoElement {
     div()
-        .text_size(px(11.0))
+        .text_size(px(ui::metrics().small_text))
         .text_color(gpui::rgb(palette().text_dim))
         .pb_1()
         .child(name.to_uppercase())
@@ -151,6 +151,9 @@ fn icon_button(
     command: &'static str,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
+    let m = ui::metrics();
     IconButton::new(icon_name, icon_name)
+        .size(m.icon_button)
+        .icon_size(m.icon_button_icon)
         .on_click(cx.listener(move |ws, _e, _w, cx| ws.run_command(command, cx)))
 }

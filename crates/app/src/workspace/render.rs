@@ -577,7 +577,7 @@ impl Render for Workspace {
             self.focused_once = true;
             window.focus(&self.focus);
         }
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(sandboxed))]
         if let Some((id, enabled)) = self.pending_plugin_toggle.take() {
             self.set_plugin_enabled(id, enabled, cx);
         }
@@ -607,10 +607,19 @@ impl Render for Workspace {
             self.ensure_caret_blinker(cx);
         }
         let chrome = self.screen_mode == ScreenMode::Standard;
+        // What system UI covers: the status bar, home indicator and
+        // keyboard on iOS, nothing anywhere else. The window runs edge to
+        // edge under them and the root pads by this much instead.
+        let insets = window.safe_area_insets();
         // On macOS the menus live in the system bar, not in the window.
         crate::native_menu::sync(self, cx);
-        let in_window_menus = chrome && !cfg!(target_os = "macos");
+        // On macOS the menus live in the system bar, and iPadOS has a
+        // system bar of its own; the phone has neither.
+        let in_window_menus = chrome && !cfg!(target_os = "macos") && !crate::ui::ipad();
         let modal = crate::dialogs::render(self, cx);
+        // The software keyboard's way in, while a field has the caret.
+        #[cfg(target_os = "ios")]
+        let text_input_bridge = self.text_input_bridge(cx);
         let context_menu = panels::context_menu(self, window.viewport_size(), cx);
         let tool_flyout = panels::tool_flyout(self, cx);
         // Two bodies share the shell (menu bar, action handlers, modal
@@ -620,43 +629,65 @@ impl Render for Workspace {
         let body: gpui::AnyElement = if gallery {
             #[cfg(not(target_arch = "wasm32"))]
             {
-                self.render_gallery(cx).into_any_element()
+                self.render_gallery(window, cx).into_any_element()
             }
             #[cfg(target_arch = "wasm32")]
             {
-                unreachable!("the gallery is not compiled into the web build")
+                super::cloud_view::browser_gallery(self, cx)
             }
         } else {
-            div()
-                .flex()
-                .flex_row()
-                .flex_grow()
-                .min_h(px(0.0))
-                .children(chrome.then(|| panels::toolbar(self, cx)))
-                .child(
-                    div()
-                        .relative()
-                        .flex()
-                        .flex_grow()
-                        .size_full()
-                        .child(self.render_canvas(cx))
-                        .children((chrome && self.view.rulers).then(|| panels::rulers(self, cx))),
-                )
-                .children(chrome.then(|| panels::side_panels(self, cx)))
-                .children(if chrome {
-                    panels::ai_sidebar(self, cx)
-                } else {
-                    None
-                })
-                .into_any_element()
+            // The panel column sits beside the canvas, except on a
+            // phone-width touch window, where there is no room for both:
+            // there the options bar's toggle switches the whole body
+            // between the canvas (with its toolbar) and the panels.
+            let panels = chrome && self.side_panels_shown(window);
+            let panels_page = panels && crate::ui::compact(window);
+            if panels_page {
+                div()
+                    .flex()
+                    .flex_row()
+                    .flex_grow()
+                    .min_h(px(0.0))
+                    .child(panels::side_panels(self, cx).w_full().border_l_0())
+                    .into_any_element()
+            } else {
+                div()
+                    .flex()
+                    .flex_row()
+                    .flex_grow()
+                    .min_h(px(0.0))
+                    .children(chrome.then(|| panels::toolbar(self, cx)))
+                    .child(
+                        div()
+                            .relative()
+                            .flex()
+                            .flex_grow()
+                            .size_full()
+                            .child(self.render_canvas(cx))
+                            .children(
+                                (chrome && self.view.rulers).then(|| panels::rulers(self, cx)),
+                            ),
+                    )
+                    .children(panels.then(|| panels::side_panels(self, cx)))
+                    .children(if chrome {
+                        panels::ai_sidebar(self, cx)
+                    } else {
+                        None
+                    })
+                    .into_any_element()
+            }
         };
-        div()
+        let root = div()
             .size_full()
             .flex()
             .flex_col()
+            .pt(insets.top)
+            .pb(insets.bottom)
+            .pl(insets.left)
+            .pr(insets.right)
             .bg(gpui::rgb(crate::ui::palette().window_bg))
             .text_color(gpui::rgb(crate::ui::palette().text))
-            .text_size(px(12.0))
+            .text_size(px(crate::ui::metrics().text))
             // While a tool is capturing typing the context loses "editable",
             // which is what single-letter shortcuts are bound against — so
             // letters reach the tool instead of switching tools.
@@ -673,6 +704,9 @@ impl Render for Workspace {
             }))
             .on_action(cx.listener(|ws, action: &RunAppItem, window, cx| {
                 panels::run_app_item(ws, action.item, window, cx);
+            }))
+            .on_action(cx.listener(|ws, _: &ToggleSidePanels, window, cx| {
+                ws.toggle_side_panels(window, cx);
             }))
             .on_action(cx.listener(|ws, action: &OpenFilter, _w, cx| {
                 // The dialog holds the filter's id for the life of the
@@ -756,11 +790,8 @@ impl Render for Workspace {
                 cx.notify();
             }))
             .on_action(cx.listener(|ws, _: &CancelGesture, _w, cx| {
-                // Escape leaves the gallery's search, a face being
-                // named, or the viewer before anything else — they are
-                // the innermost things open.
-                #[cfg(not(target_arch = "wasm32"))]
-                if ws.gallery_open() && ws.gallery_escape(cx) {
+                // Escape leaves the active gallery field or viewer first.
+                if ws.gallery_escape(cx) {
                     return;
                 }
                 ws.cancel_gesture(cx);
@@ -769,11 +800,7 @@ impl Render for Workspace {
                 // Enter in the gallery opens the selected photo — the
                 // binding takes the keystroke before any key listener
                 // could, so the branch lives here.
-                #[cfg(not(target_arch = "wasm32"))]
-                if ws.gallery_open() && !ws.library.search_active {
-                    if let Some(path) = ws.library.lead_selected().cloned() {
-                        ws.open_from_gallery(path, cx);
-                    }
+                if ws.gallery_enter(cx) {
                     return;
                 }
                 ws.commit_gesture(cx);
@@ -837,13 +864,32 @@ impl Render for Workspace {
             // native drag/traffic-light area and follows the app theme.
             // Other platforms retain their native window decorations.
             .children((chrome && cfg!(target_os = "macos")).then(|| panels::title_bar(self)))
-            .children(in_window_menus.then(|| panels::menu_bar(self, cx)))
-            .children(editor_chrome.then(|| panels::tool_options_bar(self, cx)))
+            .children(in_window_menus.then(|| panels::menu_bar(self, window, cx)))
+            .children(editor_chrome.then(|| panels::tool_options_bar(self, window, cx)))
             .children(editor_chrome.then(|| panels::tab_bar(self, cx)))
             .child(body)
             .children(editor_chrome.then(|| panels::status_bar(self)))
             .children(tool_flyout)
             .children(context_menu)
-            .children(modal)
+            .children(modal);
+        #[cfg(target_os = "ios")]
+        let root = {
+            use gpui::Styled as _;
+            let mut root = root.children(text_input_bridge);
+            // The symbols the chrome uses as text (the cloud on cloud
+            // rows, the star on smart buckets, the ✕ on chips) are not
+            // in the iOS system font, and CoreText's own cascade reaches
+            // for the emoji font first, which draws them as emoji on a
+            // device and as the missing-glyph box in the Simulator.
+            // Naming the fonts that hold them as text puts them first.
+            root.text_style()
+                .get_or_insert_with(Default::default)
+                .font_fallbacks = Some(gpui::FontFallbacks::from_fonts(vec![
+                "Apple Symbols".into(),
+                "Zapf Dingbats".into(),
+            ]));
+            root
+        };
+        root
     }
 }

@@ -90,7 +90,7 @@ pub(super) fn missing_fonts(
         .flex()
         .flex_col()
         .gap_1()
-        .w(px(520.0))
+        .w_full()
         .max_h(px(360.0))
         .overflow_y_scroll()
         .child(

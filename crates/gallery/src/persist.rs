@@ -72,11 +72,60 @@ pub struct LibraryFile {
     pub denied_faces: Vec<DeniedFace>,
 }
 
+/// Stands in for the app container's path in the saved file on iOS,
+/// where the container moves on every install of the app: a watched
+/// folder saved as an absolute path would be lost at the next update.
+const SANDBOX_TOKEN: &str = "$SANDBOX";
+
+/// The sandbox path every in-container path is saved relative to; only
+/// iOS relocates it.
+fn sandbox_home() -> Option<String> {
+    if cfg!(target_os = "ios") {
+        std::env::var("HOME").ok().filter(|h| !h.is_empty())
+    } else {
+        None
+    }
+}
+
+/// Paths saved under an earlier container of this app (before they were
+/// saved relative, or by an older build) point at the container's old
+/// name, `.../Application/<uuid>`; the contents moved with it, so point
+/// them at the current one.
+fn relocate_sandbox(text: String, home: &str) -> String {
+    let Some((parent, current)) = home.rsplit_once('/') else {
+        return text;
+    };
+    if current.is_empty() {
+        return text;
+    }
+    let prefix = format!("{parent}/");
+    let mut out = String::with_capacity(text.len());
+    let mut rest = text.as_str();
+    while let Some(at) = rest.find(&prefix) {
+        let after = at + prefix.len();
+        out.push_str(&rest[..after]);
+        rest = &rest[after..];
+        // A container name is a UUID: 36 ASCII characters up to the next
+        // path separator.
+        let id_len = rest.find(['/', '"']).unwrap_or(rest.len());
+        if id_len == current.len() {
+            out.push_str(current);
+            rest = &rest[id_len..];
+        }
+    }
+    out.push_str(rest);
+    out
+}
+
 impl LibraryFile {
     /// Read the file, or the defaults when it is missing or unreadable.
     pub fn load() -> LibraryFile {
         library_path()
             .and_then(|p| std::fs::read_to_string(p).ok())
+            .map(|text| match sandbox_home() {
+                Some(home) => relocate_sandbox(text.replace(SANDBOX_TOKEN, &home), &home),
+                None => text,
+            })
             .and_then(|text| serde_json::from_str(&text).ok())
             .unwrap_or_default()
     }
@@ -88,7 +137,14 @@ impl LibraryFile {
         if let Some(dir) = path.parent() {
             std::fs::create_dir_all(dir)?;
         }
-        std::fs::write(path, serde_json::to_string_pretty(self)?)?;
+        let mut text = serde_json::to_string_pretty(self)?;
+        if let Some(home) = sandbox_home() {
+            // Paths never need JSON escaping on iOS (no quotes or
+            // backslashes in a container path), so the substitution is
+            // safe on the serialised text.
+            text = text.replace(&home, SANDBOX_TOKEN);
+        }
+        std::fs::write(path, text)?;
         Ok(())
     }
 }
@@ -96,6 +152,17 @@ impl LibraryFile {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn saved_paths_follow_the_container() {
+        let text = r#"{"folders": ["/c/Application/AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA/Documents/Photos", "/elsewhere/Photos"]}"#.to_string();
+        let moved = relocate_sandbox(text, "/c/Application/BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB");
+        assert!(
+            moved.contains("/c/Application/BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB/Documents/Photos")
+        );
+        assert!(moved.contains("/elsewhere/Photos"));
+        assert!(!moved.contains("AAAAAAAA"));
+    }
 
     #[test]
     fn buckets_saved_before_they_had_rules_still_read() {

@@ -122,8 +122,10 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
         .flex_grow()
         // A floor, not zero: the side column scrolls now, and a growing
         // panel with no floor would collapse to nothing under a tall
-        // Info tab instead of pushing the column past the window.
-        .min_h(px(220.0))
+        // Info tab instead of pushing the column past the window. Lower
+        // on touch, where the history panel's grip trades height with
+        // this one and a landscape iPad has little to go round.
+        .min_h(px(if ui::touch() { 120.0 } else { 220.0 }))
         .p_2()
         .gap_1()
         .border_t_1()
@@ -169,7 +171,7 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
                         .items_center()
                         .gap_1()
                         .px_1()
-                        .h(px(34.0))
+                        .h(px(ui::metrics().layer_row_h))
                         .flex_none()
                         .rounded_sm()
                         .when_active(row.active);

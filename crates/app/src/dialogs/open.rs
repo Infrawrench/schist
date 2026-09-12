@@ -56,6 +56,72 @@ pub(super) fn drop_image(
 /// of executable code (hash-pinned to a schist release) and the
 /// libraries carry their own (LGPL-3.0) licenses, which are installed
 /// alongside.
+/// Files another app handed over on iOS: the gallery or the editor?
+/// (The desktop never constructs the modal; it opens files outright.)
+pub(super) fn shared_image(
+    paths: Vec<std::path::PathBuf>,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
+    let name = paths
+        .first()
+        .and_then(|p| p.file_name())
+        .map(|n| n.to_string_lossy().into_owned())
+        .unwrap_or_default();
+    let what = if paths.len() == 1 {
+        format!("\u{201C}{name}\u{201D}")
+    } else {
+        format!("these {} files", paths.len())
+    };
+    let gallery_paths = paths.clone();
+    ui::modal_frame(
+        if paths.len() == 1 {
+            "Shared Image"
+        } else {
+            "Shared Images"
+        },
+        380.0,
+        div()
+            .text_size(px(12.0))
+            .child(format!("Add {what} to the gallery, or open in the editor?")),
+        div()
+            .flex()
+            .flex_row()
+            .gap_2()
+            .child(ui::button(
+                "Cancel",
+                false,
+                |ws, _window, cx| ws.close_modal(cx),
+                cx,
+            ))
+            .child(ui::button(
+                "Add to Gallery",
+                false,
+                move |ws, _window, cx| {
+                    ws.close_modal(cx);
+                    #[cfg(target_os = "ios")]
+                    ws.add_shared_to_gallery(gallery_paths.clone(), cx);
+                    #[cfg(not(target_os = "ios"))]
+                    let _ = &gallery_paths;
+                },
+                cx,
+            ))
+            .child(ui::button(
+                "Open in Editor",
+                true,
+                move |ws, _window, cx| {
+                    ws.close_modal(cx);
+                    #[cfg(target_os = "ios")]
+                    ws.open_shared_in_editor(paths.clone(), cx);
+                    #[cfg(not(target_os = "ios"))]
+                    for path in paths.clone() {
+                        ws.load_file(path, cx);
+                    }
+                },
+                cx,
+            )),
+    )
+}
+
 #[cfg(not(target_arch = "wasm32"))]
 pub(super) fn heif_support(
     ws: &Workspace,

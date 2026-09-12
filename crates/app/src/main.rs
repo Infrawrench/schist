@@ -2,11 +2,12 @@
 
 mod actions;
 // The AI sidebar drives agent CLIs the user has installed; a browser tab
-// can spawn no processes, so the whole subsystem stays off the web build
-// (a stub keeps the bits of state the UI shares compiling).
-#[cfg(not(target_arch = "wasm32"))]
+// and an iOS app can spawn no processes, so the whole subsystem stays off
+// those builds (a stub keeps the bits of state the UI shares compiling).
+// `sandboxed` is set by build.rs for exactly those targets.
+#[cfg(not(sandboxed))]
 mod ai;
-#[cfg(target_arch = "wasm32")]
+#[cfg(sandboxed)]
 #[path = "ai_stub.rs"]
 mod ai;
 mod assets;
@@ -15,9 +16,9 @@ mod crash;
 mod curve_editor;
 mod dialogs;
 // Dragging photos out of the window onto the desktop's file manager.
-// Native-only: it is the platforms' own drag protocols, and a browser
-// tab has no file manager to drop on.
-#[cfg(not(target_arch = "wasm32"))]
+// Desktop-only: it is the platforms' own drag protocols, and neither a
+// browser tab nor an iOS app has a file manager to drop on.
+#[cfg(not(sandboxed))]
 mod drag_out;
 mod fonts;
 mod gallery;
@@ -26,9 +27,11 @@ mod native_menu;
 mod panels;
 mod style_dialog;
 mod ui;
-#[cfg(not(target_arch = "wasm32"))]
+// The self-updater replaces the running binary; a web deployment serves
+// newer files and an iOS app updates through the store.
+#[cfg(not(sandboxed))]
 mod update;
-#[cfg(target_arch = "wasm32")]
+#[cfg(sandboxed)]
 #[path = "update_stub.rs"]
 mod update;
 // Linux renders through Vulkan and panics inside GPUI when there is no
@@ -49,49 +52,13 @@ use gpui::{
     px, size, App, AppContext as _, Application, AsyncApp, Bounds, TitlebarOptions, WindowBounds,
     WindowHandle, WindowOptions,
 };
-use schist_plugin_api::{CodecPlugin, PluginManifest, PluginRegistry};
+use schist_plugin_api::{PluginManifest, PluginRegistry};
 use std::cell::RefCell;
 use std::path::PathBuf;
 use std::rc::Rc;
 use workspace::Workspace;
 
-/// PSD/PSB import and export via `schist-codec-psd`.
-struct PsdCodec;
-
-impl CodecPlugin for PsdCodec {
-    fn id(&self) -> &'static str {
-        "codec.psd"
-    }
-    fn name(&self) -> &'static str {
-        "Photoshop PSD"
-    }
-    fn extensions(&self) -> &'static [&'static str] {
-        &["psd", "psb"]
-    }
-    fn probe(&self, bytes: &[u8]) -> bool {
-        schist_codec_psd::is_psd(bytes)
-    }
-    fn import(&self, bytes: &[u8]) -> anyhow::Result<schist_core::Document> {
-        Ok(schist_codec_psd::read_psd(bytes)?)
-    }
-    fn can_export(&self) -> bool {
-        true
-    }
-    fn export(&self, doc: &schist_core::Document) -> anyhow::Result<Vec<u8>> {
-        Ok(schist_codec_psd::write_psd(doc)?)
-    }
-}
-
-struct PsdPlugin;
-
-impl PluginManifest for PsdPlugin {
-    fn id(&self) -> &'static str {
-        "schist.codec-psd"
-    }
-    fn register(&self, registry: &mut PluginRegistry) {
-        registry.register_codec(Box::new(PsdCodec));
-    }
-}
+pub use schist_codecs_common::{PsdCodec, PsdPlugin};
 
 /// Whether an opt-in diagnostic is on: the preference, or the environment
 /// variable that overrides it for one run.
@@ -106,13 +73,13 @@ fn opted_in(preference: bool, var: &str) -> bool {
 /// The two third-party hosts need what a browser tab lacks — a JIT for the
 /// sandboxed wasm plugins, subprocesses and dlopen for the Photoshop ones —
 /// so the web build assembles only the first-party registry.
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 type Hosts = (
     PluginRegistry,
     schist_plugin_host_wasm::PluginManager,
     schist_plugin_host_8bf::manager::PluginManager,
 );
-#[cfg(target_arch = "wasm32")]
+#[cfg(sandboxed)]
 type Hosts = PluginRegistry;
 
 fn build_registry() -> Hosts {
@@ -136,7 +103,7 @@ fn build_registry() -> Hosts {
         log::info!("loading plugin {}", manifest.id());
         manifest.register(&mut registry);
     }
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     {
         // Third-party WebAssembly plugins, sandboxed.
         let manager = match schist_plugin_host_wasm::PluginManager::plugin_dir() {
@@ -154,11 +121,11 @@ fn build_registry() -> Hosts {
         );
         (registry, manager, photoshop)
     }
-    #[cfg(target_arch = "wasm32")]
+    #[cfg(sandboxed)]
     registry
 }
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(sandboxed))]
 /// Report which Photoshop plug-in helpers this build carries.
 ///
 /// They are binaries for architectures other than this one, so they ride
@@ -232,11 +199,26 @@ fn path_from_url(url: &str) -> Option<PathBuf> {
 }
 
 fn main() {
+    #[cfg(not(target_arch = "wasm32"))]
+    if let Some(callback) = std::env::args()
+        .skip(1)
+        .find(|arg| arg.starts_with("schist://"))
+    {
+        let dir = schist_gallery::state_dir()
+            .unwrap_or_else(std::env::temp_dir)
+            .join("schist/cloud");
+        if let Err(error) = schist_cloud::auth::forward_callback(&callback, &dir) {
+            eprintln!("Cloud sign-in callback failed: {error}");
+            std::process::exit(1);
+        }
+        return;
+    }
+
     // `schist --mcp-bridge <addr>` is not a GUI launch at all: it is the
     // stdio pump an agent harness spawns as its "MCP server", forwarding
     // into the running app's loopback endpoint. Handled before anything
     // else so no window, logger or driver probe gets in the way.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     {
         let mut args = std::env::args().skip(1);
         if args.next().as_deref() == Some("--mcp-bridge") {
@@ -264,7 +246,7 @@ fn main() {
     // AI panel's CLIs live on. Start asking the login shell for its PATH
     // now and collect the answer later: it is a shell startup, and the
     // window must not wait on it.
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     ai::path::start();
     // Before anything else: a system with no Vulkan driver cannot open a
     // window, and saying so plainly beats the panic that follows from
@@ -296,9 +278,9 @@ fn main() {
     // first ping can say which adapter it settled on.
     #[cfg(not(target_arch = "wasm32"))]
     telemetry::start(workspace::schist_folder());
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(sandboxed))]
     let (registry, plugin_manager, photoshop_plugins) = build_registry();
-    #[cfg(target_arch = "wasm32")]
+    #[cfg(sandboxed)]
     let registry = build_registry();
 
     let requests: Rc<RefCell<OpenRequests>> = Rc::default();
@@ -308,6 +290,15 @@ fn main() {
     app.on_open_urls({
         let requests = requests.clone();
         move |urls| {
+            #[cfg(not(target_arch = "wasm32"))]
+            for callback in urls.iter().filter(|url| url.starts_with("schist://")) {
+                let dir = schist_gallery::state_dir()
+                    .unwrap_or_else(std::env::temp_dir)
+                    .join("schist/cloud");
+                if let Err(error) = schist_cloud::auth::forward_callback(callback, &dir) {
+                    log::error!("Cloud callback failed: {error}");
+                }
+            }
             let paths: Vec<PathBuf> = urls.iter().filter_map(|u| path_from_url(u)).collect();
             if paths.is_empty() {
                 return;
@@ -362,11 +353,12 @@ fn main() {
                 },
                 |_window, cx| {
                     cx.new(|cx| {
-                        #[cfg(not(target_arch = "wasm32"))]
+                        #[cfg(not(sandboxed))]
                         let mut ws =
                             Workspace::new(registry, plugin_manager, photoshop_plugins, cx);
-                        #[cfg(target_arch = "wasm32")]
-                        let ws = Workspace::new(registry, cx);
+                        #[cfg(sandboxed)]
+                        #[allow(unused_mut)]
+                        let mut ws = Workspace::new(registry, cx);
                         // Recovery runs whatever else is happening: opening
                         // a document from the shell or the file manager is
                         // not a reason to leave a previous session's
@@ -379,7 +371,8 @@ fn main() {
                                 ws.recover_all(recoveries, cx);
                             }
                             if let Some(path) = std::env::args().nth(1) {
-                                ws.load_file(path.into(), cx);
+                                let path = path_from_url(&path).unwrap_or_else(|| path.into());
+                                ws.load_file(path, cx);
                             } else if ws.tab_count() == 0 {
                                 // Picasa boot: a launch with nothing to
                                 // open lands in the gallery, empty or
@@ -457,6 +450,13 @@ fn main() {
 }
 
 fn open_all(paths: Vec<PathBuf>, window: WindowHandle<Workspace>, cx: &mut App) {
+    // On iOS a file handed over by another app is as likely meant for
+    // the gallery as for the editor, so the workspace asks first.
+    #[cfg(target_os = "ios")]
+    if let Err(err) = window.update(cx, |ws, _window, cx| ws.offer_shared_files(paths, cx)) {
+        log::error!("open failed: {err:#}");
+    }
+    #[cfg(not(target_os = "ios"))]
     for path in paths {
         if let Err(err) = window.update(cx, |ws, _window, cx| ws.load_file(path, cx)) {
             log::error!("open failed: {err:#}");

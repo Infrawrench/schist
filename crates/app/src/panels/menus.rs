@@ -43,7 +43,7 @@ pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     // is showing, the bar holds its menus instead of the editor's.
     #[cfg(not(target_arch = "wasm32"))]
     if ws.gallery_open() {
-        return gallery_menus(ws);
+        return prune_sandboxed(gallery_menus(ws));
     }
     // `mut` for the desktop-only recents insertion below.
     #[allow(unused_mut)]
@@ -53,6 +53,7 @@ pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
             vec![
                 App("New", New, Some("cmd-n")),
                 App("Open…", Open, Some("cmd-o")),
+                Sub("Schist Cloud", cloud_entries(ws)),
                 App("Browse Gallery…", OpenGallery, Some("cmd-shift-g")),
                 App("Close", Close, Some("cmd-w")),
                 App("Save", Save, Some("cmd-s")),
@@ -268,29 +269,55 @@ pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
             menus[0].1.insert(2, Sub("Open Recent", recents));
         }
     }
-    // Items whose whole subsystem is compiled out on the web: plug-in
-    // hosts (no subprocesses or JITs in a tab), the self-updater (a web
-    // deployment updates by serving newer files), and the AI panel
-    // (drives locally installed CLIs). A menu item that answers "this
-    // does nothing in a browser" is worse than no item.
-    #[cfg(target_arch = "wasm32")]
-    let menus = {
+    // The camera roll is where an iPad or iPhone keeps pictures, so the
+    // File menu there can save straight to it, after Export.
+    if cfg!(target_os = "ios") {
+        if let Some((_, file)) = menus.iter_mut().find(|(name, _)| *name == "File") {
+            if let Some(at) = file.iter().position(|e| matches!(e, App(_, Export, _))) {
+                file.insert(at + 1, App("Save to Photos", SaveToPhotos, None));
+            }
+        }
+    }
+    prune_sandboxed(menus)
+}
+
+/// Drops the items whose whole subsystem is compiled out on the web
+/// and on iOS: plug-in hosts (no subprocesses or JITs there), the
+/// self-updater (a web deployment updates by serving newer files, an
+/// iOS app through the store), the AI panel (drives locally installed
+/// CLIs), and Quit (neither a tab nor an iOS app quits itself). The
+/// gallery goes too on the web, which has no folders; iOS keeps it. A
+/// menu item that answers "this does nothing here" is worse than no
+/// item. Separators left leading, trailing or doubled go with them.
+/// Both menu sets pass through here, the editor's and the gallery's.
+#[cfg_attr(not(sandboxed), allow(clippy::needless_pass_by_value))]
+fn prune_sandboxed(
+    menus: Vec<(&'static str, Vec<MenuEntry>)>,
+) -> Vec<(&'static str, Vec<MenuEntry>)> {
+    #[cfg(not(sandboxed))]
+    {
+        menus
+    }
+    #[cfg(sandboxed)]
+    {
+        use AppItem::*;
+        use MenuEntry::*;
         let mut menus = menus;
         for (_, entries) in &mut menus {
             entries.retain(|e| {
-                !matches!(
-                    e,
-                    App(
-                        _,
-                        Plugins | CheckForUpdates | ToggleAi | Quit | OpenGallery,
-                        _
-                    )
-                )
+                !matches!(e, App(_, Plugins | CheckForUpdates | ToggleAi | Quit, _))
+                    && !(cfg!(target_arch = "wasm32") && matches!(e, App(_, OpenGallery, _)))
             });
+            entries.dedup_by(|a, b| matches!(a, Sep) && matches!(b, Sep));
+            while matches!(entries.first(), Some(Sep)) {
+                entries.remove(0);
+            }
+            while matches!(entries.last(), Some(Sep)) {
+                entries.pop();
+            }
         }
         menus
-    };
-    menus
+    }
 }
 
 /// The n-th recent files as menu rows.
@@ -319,6 +346,7 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     let mut file = vec![
         App("New", New, Some("cmd-n")),
         App("Open…", Open, Some("cmd-o")),
+        Sub("Schist Cloud", cloud_entries(ws)),
     ];
     let recents = recent_entries(ws);
     if !recents.is_empty() {
@@ -327,7 +355,15 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     file.extend([
         Sep,
         App("Add Folder to Gallery…", GalleryAddFolder, None),
-        App("Import from Camera…", GalleryImportCamera, None),
+        App(
+            if cfg!(target_os = "ios") {
+                "Import from Photos…"
+            } else {
+                "Import from Camera…"
+            },
+            GalleryImportCamera,
+            None,
+        ),
         Sep,
         App("Quit", Quit, Some("cmd-q")),
     ]);
@@ -656,3 +692,17 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
 ];
+fn cloud_entries(ws: &Workspace) -> Vec<MenuEntry> {
+    use AppItem::*;
+    use MenuEntry::*;
+    if ws.cloud.account.is_some() {
+        vec![
+            App("Browse Schist Cloud", CloudBrowse, None),
+            App("Generate images…", CloudGenerate, None),
+            App("Upload document to Schist Cloud…", CloudUpload, None),
+            App("Sign out of Schist Cloud", CloudSignOut, None),
+        ]
+    } else {
+        vec![App("Sign into Schist Cloud…", CloudSignIn, None)]
+    }
+}

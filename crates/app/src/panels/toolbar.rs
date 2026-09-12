@@ -14,7 +14,11 @@ pub(super) type ToolSlot = (
     Option<SharedString>,
 );
 
-pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+pub fn tool_options_bar(
+    ws: &mut Workspace,
+    window: &Window,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
     let tool_id = ws.editor.active_tool;
     if tool_id == "type" {
         return super::typography::type_options_bar(ws, cx).into_any_element();
@@ -27,14 +31,17 @@ pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl
         .unwrap_or(("move", "Move"));
     let is_paint = matches!(tool_id, "brush" | "pencil" | "eraser");
 
+    let m = ui::metrics();
     let mut bar = div()
         .flex()
         .flex_row()
         .flex_wrap()
         .items_center()
-        .gap_x_4()
+        // Tighter on touch: the controls are already larger, and a phone
+        // has no width to give away.
+        .gap_x(px(if ui::touch() { 8.0 } else { 16.0 }))
         .gap_y_1()
-        .min_h(px(32.0))
+        .min_h(px(m.options_bar_h))
         .w_full()
         .min_w_0()
         .flex_none()
@@ -49,14 +56,19 @@ pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl
                 .flex_row()
                 .items_center()
                 .gap_2()
-                .w(px(130.0))
+                .when(!ui::touch(), |d| d.w(px(130.0)))
                 .flex_none()
-                .child(icon(tool_icon, 15.0, palette().text))
-                .child(div().text_size(px(12.0)).child(tool_name)),
+                .child(icon(tool_icon, m.tool_icon - 1.0, palette().text))
+                .child(div().text_size(px(m.row_text)).child(tool_name)),
         );
+    // On a touch screen each slider is a button naming its value, and a
+    // tap opens the slider in a popover under it; the count says which
+    // side to hang the popover from.
+    let mut bar_sliders: usize = 0;
     if is_paint {
         bar = bar
-            .child(slider(
+            .child(option_slider(
+                &mut bar_sliders,
                 "opt-size",
                 "Size",
                 format!("{:.0}px", ws.editor.brush_size),
@@ -64,7 +76,8 @@ pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl
                 ws,
                 cx,
             ))
-            .child(slider(
+            .child(option_slider(
+                &mut bar_sliders,
                 "opt-hard",
                 "Hardness",
                 format!("{:.0}%", ws.editor.brush_hardness * 100.0),
@@ -76,7 +89,8 @@ pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl
     if tool_id == "note" {
         bar = bar.child(note_options(ws, cx));
     }
-    bar = bar.child(slider(
+    bar = bar.child(option_slider(
+        &mut bar_sliders,
         "opt-opacity",
         "Opacity",
         format!("{:.0}%", ws.editor.tool_opacity * 100.0),
@@ -94,14 +108,141 @@ pub fn tool_options_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl
     {
         // Keep each control together when a tool has more options than
         // one row can show. Type has its own compact bar and panel.
-        bar = bar.child(div().flex_none().child(tool_option_control(ws, opt, cx)));
+        bar = bar.child(div().flex_none().child(tool_option_control(
+            &mut bar_sliders,
+            ws,
+            opt,
+            cx,
+        )));
+    }
+    if ui::touch() {
+        bar = bar
+            .child(div().flex_grow())
+            .children(ui::touch().then(|| save_to_photos_button(ws, cx)))
+            .child(side_panels_toggle(ws, window, cx));
     }
     bar.into_any_element()
 }
 
+/// The touch chrome's panel button. On an iPad it folds the panel column
+/// away, which is the difference between a canvas and a wide one; on a
+/// phone it switches the body between the canvas and the panels, and
+/// its icon names the one it will switch to.
+/// On iOS, the camera roll is a tap away from the canvas: the flattened
+/// document goes to Photos (the same item as File ▸ Save to Photos).
+#[cfg_attr(not(target_os = "ios"), allow(dead_code))]
+fn save_to_photos_button(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let m = ui::metrics();
+    IconButton::new("save-to-photos", "save-photos")
+        .size(m.icon_button)
+        .icon_size(m.icon_button_icon)
+        .disabled(ws.doc.is_none())
+        .tooltip("Save to Photos", None)
+        .on_click(
+            cx.listener(|ws, _e, window, cx| run_app_item(ws, AppItem::SaveToPhotos, window, cx)),
+        )
+}
+
+fn side_panels_toggle(
+    ws: &Workspace,
+    window: &Window,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
+    let m = ui::metrics();
+    let shown = ws.side_panels_shown(window);
+    let compact = ui::compact(window);
+    let icon = if compact && shown {
+        "artboard"
+    } else {
+        "navigator"
+    };
+    IconButton::new("side-panels-toggle", icon)
+        .size(m.icon_button)
+        .icon_size(m.icon_button_icon)
+        .active(shown && !compact)
+        .on_click(cx.listener(|ws, _e, window, cx| ws.toggle_side_panels(window, cx)))
+}
+
+/// A slider in the tool options bar: the slider itself on the desktop,
+/// and on a touch screen a button carrying its label and value that
+/// opens the slider in a popover hanging from it. The first two hang
+/// from their left edge and the rest from their right, which keeps the
+/// popover on a phone's screen whichever end of the bar its button is.
+fn option_slider(
+    bar_sliders: &mut usize,
+    id: &'static str,
+    label: &'static str,
+    display: String,
+    target: SliderTarget,
+    ws: &Workspace,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    if !ui::touch() {
+        return slider(id, label, display, target, ws, cx).into_any_element();
+    }
+    let popup = Popup::Slider(id);
+    let is_open = ws.open_popup == Some(popup);
+    let m = ui::metrics();
+    let index = *bar_sliders;
+    *bar_sliders += 1;
+    let mut button = div()
+        .id(SharedString::from(format!("opt-slider-{id}")))
+        .relative()
+        .flex()
+        .flex_row()
+        .items_center()
+        .gap_1()
+        .h(px(m.icon_button))
+        .px_2()
+        .rounded_sm()
+        .bg(gpui::rgb(palette().field_bg))
+        .text_size(px(m.small_text))
+        .when_active(is_open)
+        .on_mouse_down(
+            MouseButton::Left,
+            cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(popup, cx)),
+        )
+        .child(
+            div()
+                .text_color(gpui::rgb(if is_open {
+                    palette().accent_text
+                } else {
+                    palette().text_dim
+                }))
+                .child(label),
+        )
+        .child(display.clone());
+    if is_open {
+        button = button.child(deferred(
+            div()
+                .absolute()
+                .top(px(m.icon_button + 6.0))
+                .when(index < 2, |d| d.left_0())
+                .when(index >= 2, |d| d.right_0())
+                .w(px(280.0))
+                .flex()
+                .flex_row()
+                .items_center()
+                .p_3()
+                .bg(gpui::rgb(palette().popup_bg))
+                .text_color(gpui::rgb(palette().text))
+                .border_1()
+                .border_color(gpui::rgb(palette().edge))
+                .rounded_md()
+                .shadow_lg()
+                .occlude()
+                .on_mouse_down_out(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)))
+                .child(slider_stretch(id, label, display, target, ws, cx)),
+        ));
+    }
+    button.into_any_element()
+}
+
 /// Render one plugin-declared option. The shell knows the three kinds, not
-/// the tools.
-pub(super) fn tool_option_control(
+/// the tools. `bar_sliders` counts the bar's sliders so far, for the touch
+/// chrome's popovers.
+fn tool_option_control(
+    bar_sliders: &mut usize,
     ws: &Workspace,
     opt: schist_plugin_api::ToolOption,
     cx: &mut Context<Workspace>,
@@ -117,7 +258,8 @@ pub(super) fn tool_option_control(
             } else {
                 format!("{v:.1}{suffix}")
             };
-            slider(
+            option_slider(
+                bar_sliders,
                 key,
                 opt.label,
                 display,
@@ -125,7 +267,6 @@ pub(super) fn tool_option_control(
                 ws,
                 cx,
             )
-            .into_any_element()
         }
         OptionKind::Toggle => {
             let on = opt.value.bool();
@@ -216,11 +357,18 @@ pub fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
         })
         .collect();
 
+    let m = ui::metrics();
+    // Scrolls when the window is shorter than the tool list (a phone,
+    // with 44pt slots): the slots keep their size and the column moves,
+    // rather than every slot shrinking to fit.
     div()
+        .id("toolbar")
         .flex()
         .flex_col()
-        .w(px(40.0))
+        .w(px(m.toolbar_w))
         .flex_none()
+        .min_h(px(0.0))
+        .overflow_y_scroll()
         .items_center()
         .bg(gpui::rgb(palette().panel_bg))
         .border_r_1()
@@ -232,9 +380,10 @@ pub fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
                     .id(SharedString::from(format!("tool-slot-{group}")))
                     .relative()
                     .flex()
+                    .flex_none()
                     .items_center()
                     .justify_center()
-                    .size(px(30.0))
+                    .size(px(m.tool_slot))
                     .my(px(1.0))
                     .rounded_sm()
                     .cursor_pointer()
@@ -259,6 +408,12 @@ pub fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
                             ws.release_tool_group(group, cx);
                         }),
                     )
+                    .on_mouse_up_out(
+                        MouseButton::Left,
+                        cx.listener(move |ws, _ev, _w, _cx| {
+                            ws.abandon_tool_press(group);
+                        }),
+                    )
                     // Right-click opens the flyout immediately, for
                     // people who don't want to wait out the hold.
                     .on_mouse_down(
@@ -269,7 +424,7 @@ pub fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
                     )
                     .child(icon(
                         icon_name,
-                        16.0,
+                        m.tool_icon,
                         if is_active {
                             palette().accent_text
                         } else {

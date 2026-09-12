@@ -170,12 +170,14 @@ pub(super) fn preferences(
                 cx,
             ),
         ))
-        .child(
+        // The keymap file is for an editor on the desktop; the container
+        // path it lives at on iOS is neither reachable nor readable.
+        .children((!ui::touch()).then(|| {
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(format!("Keyboard shortcuts: {keymap_path}")),
-        )
+                .child(format!("Keyboard shortcuts: {keymap_path}"))
+        }))
         .child(
             div()
                 .text_size(px(11.0))

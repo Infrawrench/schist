@@ -135,7 +135,7 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
         .flex()
         .flex_col()
         .gap_1()
-        .w(px(520.0))
+        .w_full()
         .max_h(px(360.0))
         .overflow_y_scroll()
         .children(rows)

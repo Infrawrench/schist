@@ -158,10 +158,11 @@ pub fn context_menu(
 
     // Keep the menu on screen: flip it back from the right/bottom edges
     // instead of letting it clip, which is what Photoshop does.
-    const WIDTH: f32 = 240.0;
-    let height = rows.len() as f32 * 24.0 + 8.0;
+    let m = ui::metrics();
+    let width = m.menu_w + 10.0;
+    let height = rows.len() as f32 * m.menu_row_h + 8.0;
     let left = f32::from(menu.position.x)
-        .min(f32::from(viewport.width) - WIDTH - 4.0)
+        .min(f32::from(viewport.width) - width - 4.0)
         .max(0.0);
     let top = f32::from(menu.position.y)
         .min(f32::from(viewport.height) - height - 4.0)
@@ -173,7 +174,7 @@ pub fn context_menu(
                 .absolute()
                 .left(px(left))
                 .top(px(top))
-                .w(px(WIDTH))
+                .w(px(width))
                 .py_1()
                 .bg(gpui::rgb(palette().popup_bg))
                 .text_color(gpui::rgb(palette().text))

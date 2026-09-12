@@ -29,6 +29,7 @@ macro_rules! icons {
 }
 
 icons!(
+    "loading",
     "character",
     "type-align-left",
     "type-align-center",
@@ -107,6 +108,7 @@ icons!(
     "puppet",
     "vanishing-point",
     "artboard",
+    "save-photos",
     "count",
     "frame",
     "note",

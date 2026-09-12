@@ -105,6 +105,14 @@ impl Workspace {
         .detach();
     }
 
+    /// The pointer left the slot before releasing (on a touch screen, the
+    /// finger went on to scroll the toolbar): neither a click nor a hold.
+    pub fn abandon_tool_press(&mut self, group: &'static str) {
+        if self.tool_press == Some(group) {
+            self.tool_press = None;
+        }
+    }
+
     /// Release on a toolbar slot: activate unless the hold already opened
     /// the flyout.
     pub fn release_tool_group(&mut self, group: &'static str, cx: &mut Context<Self>) {

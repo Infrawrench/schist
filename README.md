@@ -45,6 +45,10 @@ only the part that finds one. On Debian and Fedora that is
 on a virtual machine with no GPU driver of its own. With no driver
 installed Schist stops at startup and says which package is missing.
 
+Schist also runs on iPad and iPhone: `tools/ios-build.sh --debug` builds
+it for the Simulator and launches it; see [docs/ios.md](docs/ios.md) for
+the touch model, the packaging, and which desktop subsystems stay out.
+
 Schist also runs in the browser: `make web` assembles a static
 deployment (WebGPU, chunked wasm, a loading page) into `dist/web/` —
 see [docs/web.md](docs/web.md) for what's included and what isn't.
@@ -75,6 +79,11 @@ geometry and `python3 tools/logo.py` re-emits the SVGs and every `.icns`,
 file, never its output.
 
 ## What it does
+
+**Schist Cloud.** Sign in from the welcome screen or File menu, with
+`schist.app` as the default provider. Live remote folders, searchable buckets,
+filters, uploads and collaborative editing share a MessagePack WebSocket.
+See [docs/cloud.md](docs/cloud.md) for setup and the provider contract.
 
 **Documents.** PSD and PSB read *and* write — layers, nested groups, masks,
 all 27 blend modes, adjustment layers, layer effects, vector shapes,
