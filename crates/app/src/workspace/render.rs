@@ -611,6 +611,7 @@ impl Render for Workspace {
         // keyboard on iOS, nothing anywhere else. The window runs edge to
         // edge under them and the root pads by this much instead.
         let insets = window.safe_area_insets();
+        self.visible_height = f32::from(window.viewport_size().height - insets.top - insets.bottom);
         // On macOS the menus live in the system bar, not in the window.
         crate::native_menu::sync(self, cx);
         // On macOS the menus live in the system bar, and iPadOS has a
@@ -618,7 +619,7 @@ impl Render for Workspace {
         let in_window_menus = chrome && !cfg!(target_os = "macos") && !crate::ui::ipad();
         let modal = crate::dialogs::render(self, cx);
         // The software keyboard's way in, while a field has the caret.
-        #[cfg(target_os = "ios")]
+        #[cfg(any(target_os = "ios", target_os = "android"))]
         let text_input_bridge = self.text_input_bridge(cx);
         let context_menu = panels::context_menu(self, window.viewport_size(), cx);
         let tool_flyout = panels::tool_flyout(self, cx);
@@ -871,11 +872,25 @@ impl Render for Workspace {
             .children(editor_chrome.then(|| panels::status_bar(self)))
             .children(tool_flyout)
             .children(context_menu)
-            .children(modal);
+            // A dialog's overlay is absolute, so the root's inset padding
+            // does not reach it; a box inset the same way keeps the
+            // dialog clear of the status bar and, on a touch screen, above
+            // the software keyboard rather than half under it.
+            .children(modal.map(|modal| {
+                div()
+                    .absolute()
+                    .top(insets.top)
+                    .bottom(insets.bottom)
+                    .left(insets.left)
+                    .right(insets.right)
+                    .child(modal)
+            }));
+        #[cfg(any(target_os = "ios", target_os = "android"))]
+        let root = root.children(text_input_bridge);
         #[cfg(target_os = "ios")]
         let root = {
             use gpui::Styled as _;
-            let mut root = root.children(text_input_bridge);
+            let mut root = root;
             // The symbols the chrome uses as text (the cloud on cloud
             // rows, the star on smart buckets, the ✕ on chips) are not
             // in the iOS system font, and CoreText's own cascade reaches

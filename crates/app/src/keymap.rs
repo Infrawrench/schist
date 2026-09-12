@@ -278,13 +278,16 @@ pub fn open_file_dialog(ws: &mut Workspace, window: &mut Window, cx: &mut Contex
 }
 
 #[cfg(not(target_arch = "wasm32"))]
-pub fn open_file_dialog(_ws: &mut Workspace, window: &mut Window, cx: &mut Context<Workspace>) {
-    let rx = cx.prompt_for_paths(PathPromptOptions {
-        files: true,
-        directories: false,
-        multiple: false,
-        prompt: Some("Open".into()),
-    });
+pub fn open_file_dialog(ws: &mut Workspace, window: &mut Window, cx: &mut Context<Workspace>) {
+    let rx = ws.prompt_for_paths(
+        PathPromptOptions {
+            files: true,
+            directories: false,
+            multiple: false,
+            prompt: Some("Open".into()),
+        },
+        cx,
+    );
     cx.spawn_in(window, async move |this, cx| {
         if let Ok(Ok(Some(mut paths))) = rx.await {
             if let Some(path) = paths.pop() {
@@ -372,7 +375,7 @@ pub fn save_file_dialog(ws: &mut Workspace, window: &mut Window, cx: &mut Contex
     // PSD is the native save format; keep an existing
     // extension when the document already has a writable one.
     let suggested = suggested_name(ws);
-    let rx = cx.prompt_for_new_path(&dir, Some(&suggested));
+    let rx = ws.prompt_for_new_path(&dir, Some(&suggested), cx);
     cx.spawn_in(window, async move |this, cx| {
         match rx.await {
             Ok(Ok(Some(path))) => {

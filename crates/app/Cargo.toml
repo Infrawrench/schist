@@ -4,6 +4,16 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 
+# The app is a library with a one-line executable in front of it, because
+# Android runs it as a shared library instead: NativeActivity loads
+# `libschist_app.so` and calls the `android_main` that `src/lib.rs`
+# defines. `tools/android-build.sh` builds that with
+# `cargo rustc --lib --crate-type cdylib`; every other target builds the
+# `schist` binary and never sees a cdylib.
+[lib]
+name = "schist_app"
+path = "src/lib.rs"
+
 [[bin]]
 name = "schist"
 path = "src/main.rs"
@@ -78,10 +88,11 @@ rand = "0.10"
 sysinfo = { version = "0.31", default-features = false, features = ["system"] }
 
 # What only a desktop can host: subprocesses, dlopen and a JIT. iOS
-# forbids all three (see build.rs for the `sandboxed` cfg these sites
-# test), so the plug-in hosts and the agent CLIs behind the AI sidebar
-# stay off there too.
-[target.'cfg(not(any(target_arch = "wasm32", target_os = "ios")))'.dependencies]
+# forbids all three, and Android has none of the desktop binaries they
+# would run (see build.rs for the `sandboxed` cfg these sites test), so
+# the plug-in hosts and the agent CLIs behind the AI sidebar stay off
+# there too.
+[target.'cfg(not(any(target_arch = "wasm32", target_os = "ios", target_os = "android")))'.dependencies]
 schist-plugin-host-wasm.workspace = true
 # Carries the .8bf plug-in helpers, which are binaries for architectures
 # other than this one and are unpacked on first use. See the Makefile.

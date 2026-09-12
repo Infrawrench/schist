@@ -106,7 +106,7 @@ exe = $(if $(findstring windows,$(1)),.exe,)
 HELPERS := $(foreach t,$(HELPER_TARGETS),$(DESTDIR)/$(name-$(t)))
 
 .DEFAULT_GOAL := help
-.PHONY: help all app build web helpers install-helpers preflight release check-bundle clean-helpers FORCE
+.PHONY: help all app build web android helpers install-helpers preflight release check-bundle clean-helpers FORCE
 
 help:
 	@echo 'make build            the app, carrying the plug-in helpers ($(PROFILE))'
@@ -114,6 +114,7 @@ help:
 	@echo
 	@echo 'make app              just the Schist binary, no helpers'
 	@echo 'make web              the browser build, into dist/web/'
+	@echo 'make android          the Android package, into dist/android/'
 	@echo 'make helpers          just the .8bf plug-in helpers, beside the binary'
 	@echo 'make install-helpers DESTDIR=DIR   put the helpers somewhere else'
 	@echo
@@ -145,6 +146,12 @@ app:
 # with nothing make's dependency graph would add. See docs/web.md.
 web:
 	./tools/web-build.sh
+
+# The Android package, assembled into dist/android/Schist.apk. A script
+# for the same reason as the web build; without --no-run it also installs
+# and launches the app on a device or emulator. See docs/android.md.
+android:
+	./tools/android-build.sh --no-run
 
 helpers: preflight $(HELPERS)
 

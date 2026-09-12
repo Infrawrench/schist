@@ -403,11 +403,11 @@ pub fn menu_bar(
             .enumerate()
             .map(|(i, (title, entries))| {
                 // Fingers cannot hover, and the drop-downs open their
-                // submenus on hover, so the touch chrome shows each menu
-                // as the platform's own popover instead. On a tap, not a
-                // press: a press that goes on to swipe the bar is a
+                // submenus on hover, so on iOS the touch chrome shows each
+                // menu as the platform's own popover instead. On a tap,
+                // not a press: a press that goes on to swipe the bar is a
                 // scroll, and must not open anything.
-                if ui::touch() {
+                if cfg!(target_os = "ios") {
                     return title_button(title)
                         .id(("menu-title", i))
                         .on_click(cx.listener(move |ws, ev: &gpui::ClickEvent, window, _cx| {
@@ -416,17 +416,32 @@ pub fn menu_bar(
                         .into_any_element();
                 }
                 let is_open = open == Some(Popup::Menu(i));
-                let mut button = title_button(title).when_active(is_open).on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(Popup::Menu(i), cx)),
-                );
-                if is_open {
-                    button = button.child(deferred(
+                let panel = is_open.then(|| {
+                    deferred(
                         menu_panel(ws, entries, &[i], 24.0, 0.0, cx)
                             .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx))),
-                    ));
+                    )
+                });
+                let button = title_button(title).when_active(is_open).children(panel);
+                // Android has no native menus, so its bar opens the
+                // desktop's own drop-downs, whose submenu rows open on a
+                // tap as well as on hover. A tap for the title too, so a
+                // swipe along the bar stays a scroll.
+                if ui::touch() {
+                    button
+                        .id(("menu-title", i))
+                        .on_click(
+                            cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(Popup::Menu(i), cx)),
+                        )
+                        .into_any_element()
+                } else {
+                    button
+                        .on_mouse_down(
+                            MouseButton::Left,
+                            cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(Popup::Menu(i), cx)),
+                        )
+                        .into_any_element()
                 }
-                button.into_any_element()
             }),
     )
 }
@@ -534,6 +549,7 @@ pub(super) fn menu_entry_row(
             here.push(row);
             let open = ws.open_submenu == here;
             let hover_path = here.clone();
+            let tap_path = here.clone();
             let mut root = div().relative().child(
                 MenuItem::new(label, label)
                     .submenu()
@@ -545,13 +561,23 @@ pub(super) fn menu_entry_row(
                             ws.open_submenu = hover_path.clone();
                             cx.notify();
                         }
+                    }))
+                    // A finger cannot hover, so a tap opens it too (a
+                    // finger's press lands the pointer on the row, which
+                    // hovers it, but the tap is the gesture a finger means).
+                    .on_click(cx.listener(move |ws, _e, _w, cx| {
+                        if ws.open_submenu != tap_path {
+                            ws.open_submenu = tap_path.clone();
+                            cx.notify();
+                        }
                     })),
             );
             if open {
                 // Sits alongside its own row, clear of this panel's width.
                 // Not wrapped in `deferred`: the panel containing this row
                 // already is, and GPUI does not allow nesting them.
-                root = root.child(menu_panel(ws, children, &here, -4.0, 224.0, cx));
+                let beside = ui::metrics().menu_w - 6.0;
+                root = root.child(menu_panel(ws, children, &here, -4.0, beside, cx));
             }
             root.into_any_element()
         }

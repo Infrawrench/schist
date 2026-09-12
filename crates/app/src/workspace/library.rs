@@ -3512,12 +3512,15 @@ impl Workspace {
     /// Ask for folders and watch them. Multiple selection: adding a
     /// year's worth of albums should not take a dialog each.
     pub fn gallery_add_folder(&mut self, window: &mut Window, cx: &mut Context<Self>) {
-        let rx = cx.prompt_for_paths(gpui::PathPromptOptions {
-            files: false,
-            directories: true,
-            multiple: true,
-            prompt: Some("Add to Gallery".into()),
-        });
+        let rx = self.prompt_for_paths(
+            gpui::PathPromptOptions {
+                files: false,
+                directories: true,
+                multiple: true,
+                prompt: Some("Add to Gallery".into()),
+            },
+            cx,
+        );
         cx.spawn_in(window, async move |this, cx| {
             if let Ok(Ok(Some(paths))) = rx.await {
                 this.update_in(cx, |ws, _window, cx| ws.add_gallery_folders(paths, cx))

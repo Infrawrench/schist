@@ -48,6 +48,8 @@ mod context;
 mod docs;
 mod edit_ops;
 mod export;
+// The path prompts, and the picker drawn where the platform has none.
+pub mod file_picker;
 mod filters;
 pub(crate) mod gallery_chrome;
 mod image_ops;
@@ -89,7 +91,8 @@ mod services;
 #[cfg(target_os = "ios")]
 mod shared_files;
 mod styles;
-#[cfg(target_os = "ios")]
+// The software keyboard's way in, on the platforms that have one.
+#[cfg(any(target_os = "ios", target_os = "android"))]
 mod text_input;
 mod tiles;
 mod toolbar;
@@ -333,6 +336,11 @@ pub struct Workspace {
     pub context_menu: Option<ContextMenu>,
     /// The open modal dialog, if any.
     pub modal: Option<Modal>,
+    /// The file picker's state while `Modal::FilePicker` is up.
+    pub file_picker: Option<file_picker::FilePicker>,
+    /// The window's height inside the safe-area insets as of the last
+    /// frame: what a dialog has to fit in, with the keyboard up or not.
+    pub visible_height: f32,
     /// A quit is waiting on the unsaved-changes prompts. Set by
     /// `request_quit`, cleared by `cancel_quit`, and consumed by
     /// `resume_quit` once every tab is clean.
@@ -1222,6 +1230,9 @@ pub enum Modal {
     /// File ▸ New: the preset picker — one click for a common size,
     /// Custom… for the full dialog below.
     NewFilePicker,
+    /// Schist's own open/save dialog, on the platforms with no native
+    /// one; its state is `Workspace::file_picker`.
+    FilePicker,
     /// The gallery's map filter: the navigable map, a drawn boundary,
     /// and Apply — the grid then shows only photos taken inside it.
     MapFilter,
@@ -1467,6 +1478,8 @@ impl Workspace {
             tool_press: None,
             context_menu: None,
             modal: None,
+            file_picker: None,
+            visible_height: 900.0,
             pending_quit: false,
             modal_stack: Vec::new(),
             side_tab: None,

@@ -70,10 +70,25 @@ pub const fn ipad() -> bool {
 /// iOS the app's container is a long opaque string that changes on
 /// every install and means nothing to anyone, so a path under it shows
 /// from the container down ("Documents/Photos/IMG_0111.heic") and any
-/// other path by its name.
+/// other path by its name. Android's Documents folder is outside its
+/// home and shown the same way; the device's shared folders show whole,
+/// since "Pictures" is the name a user knows them by.
 pub fn shown_path(path: &std::path::Path) -> String {
     if !touch() {
         return path.display().to_string();
+    }
+    #[cfg(target_os = "android")]
+    {
+        if let Some(files) =
+            crate::android::documents_dir().and_then(|d| d.parent().map(|p| p.to_path_buf()))
+        {
+            if let Ok(rest) = path.strip_prefix(&files) {
+                return rest.display().to_string();
+            }
+        }
+        if path.starts_with("/storage/emulated/0") {
+            return path.display().to_string();
+        }
     }
     if let Some(home) = std::env::var_os("HOME") {
         if let Ok(rest) = path.strip_prefix(&home) {

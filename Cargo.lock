@@ -85,6 +85,31 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "683d7910e743518b0e34f1186f92494becacb047c7b6bf616c96772180fef923"
 
 [[package]]
+name = "android-activity"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0f2a1bb052857d5dd49572219344a7332b31b76405648eabac5bc68978251bcd"
+dependencies = [
+ "android-properties",
+ "bitflags 2.13.1",
+ "cc",
+ "jni",
+ "libc",
+ "log",
+ "ndk",
+ "ndk-context",
+ "ndk-sys",
+ "num_enum",
+ "thiserror 2.0.20",
+]
+
+[[package]]
+name = "android-properties"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fc7eb209b1518d6bb87b283c20095f5228ecda460da70b44f0802523dea6da04"
+
+[[package]]
 name = "android_system_properties"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -738,9 +763,8 @@ dependencies = [
 
 [[package]]
 name = "blade-graphics"
-version = "0.7.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e71cfb73b98eb9f58ee84048aa1bdf4e7497fd20c141b57523499fa066b48fed"
+version = "0.7.0"
+source = "git+https://github.com/IAmJSD/gpui?rev=3113227d61a2147178e12ad189d8ceebeffc1046#3113227d61a2147178e12ad189d8ceebeffc1046"
 dependencies = [
  "ash",
  "ash-window",
@@ -2857,8 +2881,9 @@ dependencies = [
 [[package]]
 name = "gpui"
 version = "0.2.2"
-source = "git+https://github.com/IAmJSD/gpui?rev=135fff58f2be5a08810fe20e269d36534e9eb847#135fff58f2be5a08810fe20e269d36534e9eb847"
+source = "git+https://github.com/IAmJSD/gpui?rev=3113227d61a2147178e12ad189d8ceebeffc1046#3113227d61a2147178e12ad189d8ceebeffc1046"
 dependencies = [
+ "android-activity",
  "anyhow",
  "as-raw-xcb-connection",
  "ashpd 0.11.1",
@@ -2902,6 +2927,7 @@ dependencies = [
  "image",
  "inventory",
  "itertools 0.14.0",
+ "jni",
  "js-sys",
  "libc",
  "log",
@@ -2993,7 +3019,7 @@ dependencies = [
 [[package]]
 name = "gpui_http_client"
 version = "0.2.2"
-source = "git+https://github.com/IAmJSD/gpui?rev=135fff58f2be5a08810fe20e269d36534e9eb847#135fff58f2be5a08810fe20e269d36534e9eb847"
+source = "git+https://github.com/IAmJSD/gpui?rev=3113227d61a2147178e12ad189d8ceebeffc1046#3113227d61a2147178e12ad189d8ceebeffc1046"
 dependencies = [
  "anyhow",
  "async-compression",
@@ -3075,7 +3101,7 @@ dependencies = [
 [[package]]
 name = "gpui_util"
 version = "0.2.2"
-source = "git+https://github.com/IAmJSD/gpui?rev=135fff58f2be5a08810fe20e269d36534e9eb847#135fff58f2be5a08810fe20e269d36534e9eb847"
+source = "git+https://github.com/IAmJSD/gpui?rev=3113227d61a2147178e12ad189d8ceebeffc1046#3113227d61a2147178e12ad189d8ceebeffc1046"
 dependencies = [
  "anyhow",
  "async-fs",
@@ -4368,6 +4394,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "ndk"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c3f42e7bbe13d351b6bead8286a43aac9534b82bd3cc43e47037f012ebfd62d4"
+dependencies = [
+ "bitflags 2.13.1",
+ "jni-sys 0.3.1",
+ "log",
+ "ndk-sys",
+ "num_enum",
+ "thiserror 1.0.69",
+]
+
+[[package]]
+name = "ndk-context"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "27b02d87554356db9e9a873add8782d4ea6e3e58ea071a9adb9a2e8ddb884a8b"
+
+[[package]]
 name = "ndk-sys"
 version = "0.6.0+11769913"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4583,6 +4629,28 @@ checksum = "91df4bbde75afed763b708b7eee1e8e7651e02d97f6d5dd763e89367e957b23b"
 dependencies = [
  "hermit-abi",
  "libc",
+]
+
+[[package]]
+name = "num_enum"
+version = "0.7.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26"
+dependencies = [
+ "num_enum_derive",
+ "rustversion",
+]
+
+[[package]]
+name = "num_enum_derive"
+version = "0.7.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8"
+dependencies = [
+ "proc-macro-crate",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
 ]
 
 [[package]]

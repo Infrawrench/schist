@@ -91,7 +91,7 @@ impl Workspace {
         let dir = std::env::var("HOME")
             .map(PathBuf::from)
             .unwrap_or_else(|_| PathBuf::from("."));
-        let rx = cx.prompt_for_new_path(&dir, Some(&suggested));
+        let rx = self.prompt_for_new_path(&dir, Some(&suggested), cx);
         let codecs = self.registry.shared_codecs();
         cx.spawn_in(window, async move |this, cx| {
             let Ok(Ok(Some(out))) = rx.await else { return };
@@ -235,7 +235,7 @@ impl Workspace {
             .map(|p| p.to_path_buf())
             .or_else(|| std::env::var("HOME").ok().map(PathBuf::from))
             .unwrap_or_else(|| PathBuf::from("."));
-        let rx = cx.prompt_for_new_path(&dir, Some(&suggested));
+        let rx = self.prompt_for_new_path(&dir, Some(&suggested), cx);
         cx.spawn_in(window, async move |this, cx| {
             let Ok(Ok(Some(out))) = rx.await else { return };
             let target = out.clone();
@@ -290,12 +290,15 @@ impl Workspace {
         if paths.is_empty() {
             return;
         }
-        let rx = cx.prompt_for_paths(gpui::PathPromptOptions {
-            files: false,
-            directories: true,
-            multiple: false,
-            prompt: Some("Move Here".into()),
-        });
+        let rx = self.prompt_for_paths(
+            gpui::PathPromptOptions {
+                files: false,
+                directories: true,
+                multiple: false,
+                prompt: Some("Move Here".into()),
+            },
+            cx,
+        );
         cx.spawn_in(window, async move |this, cx| {
             let Ok(Ok(Some(mut dirs))) = rx.await else {
                 return;
@@ -409,12 +412,15 @@ impl Workspace {
             }
             BatchTarget::Folder => {
                 let Some(codec) = flat else { return };
-                let rx = cx.prompt_for_paths(gpui::PathPromptOptions {
-                    files: false,
-                    directories: true,
-                    multiple: false,
-                    prompt: Some("Save Copies Here".into()),
-                });
+                let rx = self.prompt_for_paths(
+                    gpui::PathPromptOptions {
+                        files: false,
+                        directories: true,
+                        multiple: false,
+                        prompt: Some("Save Copies Here".into()),
+                    },
+                    cx,
+                );
                 cx.spawn_in(window, async move |this, cx| {
                     let Ok(Ok(Some(mut dirs))) = rx.await else {
                         return;

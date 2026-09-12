@@ -115,13 +115,14 @@ pub fn is_light() -> bool {
     LIGHT_THEME.load(std::sync::atomic::Ordering::Relaxed)
 }
 
-/// Whether the chrome is driven by fingers: iOS and iPadOS. Everything
-/// sized for a pointer grows to a 44pt target there, the components
-/// that act on the press act on the finger lifting instead (so a swipe
-/// that starts on one never fires it), and the menus that open on hover
-/// are replaced by the platform's own.
+/// Whether the chrome is driven by fingers: iOS, iPadOS and Android.
+/// Everything sized for a pointer grows to a 44pt target there, the
+/// components that act on the press act on the finger lifting instead
+/// (so a swipe that starts on one never fires it), and the menus that
+/// open on hover are replaced by the platform's own (iOS) or open on a
+/// tap as well (Android, which has no native menus).
 pub const fn touch() -> bool {
-    cfg!(target_os = "ios")
+    cfg!(any(target_os = "ios", target_os = "android"))
 }
 
 /// The chrome's dimensions, in points: the desktop's, or the touch set.

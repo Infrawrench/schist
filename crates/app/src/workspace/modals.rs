@@ -114,6 +114,9 @@ impl Workspace {
     }
 
     pub fn close_modal(&mut self, cx: &mut Context<Self>) {
+        // A file picker going away unanswered is a cancel: dropping its
+        // sender is what tells the prompt's caller.
+        self.file_picker = None;
         // Any filter preview still on the canvas belongs to the dialog that
         // is going away, so put the original pixels back. Committing a
         // filter clears the preview first, so this only fires on cancel.
@@ -248,6 +251,7 @@ impl Workspace {
             || id == "bucket-query"
             || id == "face-name"
             || id == "person-name"
+            || id == file_picker::NAME_FIELD
             || id.starts_with("cloud-");
         let hex = id == "cp-hex";
         // The caret belongs to the textual fields; keep it on the rails
@@ -344,6 +348,14 @@ impl Workspace {
 
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
         let buffer = self.field_buffer.clone();
+        // The file picker's name: committed on Enter before the dialog
+        // confirms, so the confirm reads it from the picker.
+        if id == file_picker::NAME_FIELD {
+            if let Some(picker) = self.file_picker.as_mut() {
+                picker.name = buffer;
+            }
+            return;
+        }
         if id == "cloud-generation-input" {
             if let Some(id) = self.cloud.generation.editing.clone() {
                 self.cloud
@@ -511,6 +523,7 @@ impl Workspace {
             | Modal::CameraImportOptions { .. }
             | Modal::CameraImportFailed { .. }
             | Modal::NewFilePicker
+            | Modal::FilePicker
             | Modal::MapFilter
             | Modal::SearchModels
             | Modal::PersonName { .. }

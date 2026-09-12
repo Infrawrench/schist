@@ -140,7 +140,10 @@ const LIBRARY_CANDIDATES: &[&str] = &[
     "/opt/homebrew/lib/libheif.1.dylib",
     "/usr/local/lib/libheif.1.dylib",
 ];
-#[cfg(not(any(target_os = "linux", target_os = "macos")))]
+// Android ships no libheif; the managed download is the one that loads.
+#[cfg(target_os = "android")]
+const LIBRARY_CANDIDATES: &[&str] = &["libheif.so"];
+#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "android")))]
 const LIBRARY_CANDIDATES: &[&str] = &["heif.dll", "libheif.dll", "libheif-1.dll"];
 
 /// The app and the tests match on these phrases to recognise the cases
@@ -298,12 +301,29 @@ pub fn managed_library() -> Option<&'static ManagedLibrary> {
         "libheif-1.23.2-windows-x86_64.dll" as "heif.dll",
         "a3e200cb857fdd78d01cb05329a7650c035eceb359e9d3f0783dab5cf950b594"
     );
+    // Build 4 added the Android artifacts (NDK cross builds with the
+    // NDK's libc++ linked in, so they depend on Bionic alone); the other
+    // platforms stay on the build they were verified against. arm64 is
+    // every device and the emulator on an Apple Silicon host, x86_64 the
+    // emulator on an Intel one.
+    static ANDROID_AARCH64: ManagedLibrary = managed!(
+        "v1.23.2-4", "1.23.2",
+        "libheif-1.23.2-android-aarch64.so" as "libheif.so",
+        "04f44aacae441b09fcb01e2ca180d34ea0df90ab1fc2d1bdd6f5ebaa05ad06d2"
+    );
+    static ANDROID_X86_64: ManagedLibrary = managed!(
+        "v1.23.2-4", "1.23.2",
+        "libheif-1.23.2-android-x86_64.so" as "libheif.so",
+        "a3d03157059f11bd2b4dd2253b736ff84e0881f1aef86bd337aec6a3bbf797b5"
+    );
     match (std::env::consts::OS, std::env::consts::ARCH) {
         ("linux", "x86_64") => Some(&LINUX_X86_64),
         ("linux", "aarch64") => Some(&LINUX_AARCH64),
         ("macos", "aarch64") => Some(&MACOS_AARCH64),
         ("macos", "x86_64") => Some(&MACOS_X86_64),
         ("windows", "x86_64") => Some(&WINDOWS_X86_64),
+        ("android", "aarch64") => Some(&ANDROID_AARCH64),
+        ("android", "x86_64") => Some(&ANDROID_X86_64),
         _ => None,
     }
 }

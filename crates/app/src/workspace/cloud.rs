@@ -1698,12 +1698,15 @@ impl Workspace {
             cx.notify();
             return;
         };
-        let prompt = cx.prompt_for_paths(gpui::PathPromptOptions {
-            files: false,
-            directories: true,
-            multiple: false,
-            prompt: Some("Download Here".into()),
-        });
+        let prompt = self.prompt_for_paths(
+            gpui::PathPromptOptions {
+                files: false,
+                directories: true,
+                multiple: false,
+                prompt: Some("Download Here".into()),
+            },
+            cx,
+        );
         let sender = self.cloud.sender.clone();
         let epoch = self.cloud.epoch;
         let folders = self.cloud.folders.clone();
@@ -1794,7 +1797,7 @@ impl Workspace {
         let directory = std::env::var_os("HOME")
             .map(PathBuf::from)
             .unwrap_or_else(|| PathBuf::from("."));
-        let prompt = cx.prompt_for_new_path(&directory, Some(&suggested));
+        let prompt = self.prompt_for_new_path(&directory, Some(&suggested), cx);
         let sender = self.cloud.sender.clone();
         let epoch = self.cloud.epoch;
         cx.spawn(async move |_this, _cx| {
@@ -1949,12 +1952,15 @@ impl Workspace {
     ) {
         #[cfg(not(target_arch = "wasm32"))]
         let prompt = {
-            let picker = cx.prompt_for_paths(gpui::PathPromptOptions {
-                files: !directory,
-                directories: directory,
-                multiple: true,
-                prompt: Some("Upload to Schist Cloud".into()),
-            });
+            let picker = self.prompt_for_paths(
+                gpui::PathPromptOptions {
+                    files: !directory,
+                    directories: directory,
+                    multiple: true,
+                    prompt: Some("Upload to Schist Cloud".into()),
+                },
+                cx,
+            );
             async move { picker.await? }
         };
         #[cfg(target_arch = "wasm32")]
@@ -2273,7 +2279,7 @@ impl Workspace {
         let directory = std::env::var_os("HOME")
             .map(PathBuf::from)
             .unwrap_or_else(|| PathBuf::from("."));
-        let prompt = cx.prompt_for_new_path(&directory, Some(&name));
+        let prompt = self.prompt_for_new_path(&directory, Some(&name), cx);
         cx.spawn(async move |this, cx| {
             let Ok(Ok(Some(path))) = prompt.await else {
                 return;

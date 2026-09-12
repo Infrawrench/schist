@@ -104,9 +104,9 @@ schist-gallery = { path = "crates/gallery" }
 # mouse events, which upstream has no equivalent of; needed for trackpad
 # pinch-to-zoom and pressure-sensitive painting on the canvas. It also
 # carries images to the Linux clipboards, which upstream writes as an
-# empty string.
+# empty string, and the iOS and Android backends the mobile ports run on.
 # Pinned by rev so a push to the fork cannot silently change builds.
-gpui = { git = "https://github.com/IAmJSD/gpui", rev = "135fff58f2be5a08810fe20e269d36534e9eb847" }
+gpui = { git = "https://github.com/IAmJSD/gpui", rev = "3113227d61a2147178e12ad189d8ceebeffc1046" }
 anyhow = "1"
 thiserror = "2"
 serde = { version = "1", features = ["derive"] }
@@ -189,5 +189,11 @@ strip = "debuginfo"
 # the fork's two patch entries are restated here; on native targets the
 # vendored crates are byte-identical to the registry sources.
 [patch.crates-io]
-gpui_util = { git = "https://github.com/IAmJSD/gpui", rev = "135fff58f2be5a08810fe20e269d36534e9eb847" }
-gpui_http_client = { git = "https://github.com/IAmJSD/gpui", rev = "135fff58f2be5a08810fe20e269d36534e9eb847" }
+gpui_util = { git = "https://github.com/IAmJSD/gpui", rev = "3113227d61a2147178e12ad189d8ceebeffc1046" }
+gpui_http_client = { git = "https://github.com/IAmJSD/gpui", rev = "3113227d61a2147178e12ad189d8ceebeffc1046" }
+# The fork's third patch: blade-graphics (gpui's Vulkan renderer, used on
+# Linux and Android) with its device-extension check relaxed for drivers
+# that have the extensions as core Vulkan but do not list them, which the
+# Android emulator's does not. See the fork's vendor/README.md. Identical
+# to the registry crate on any device that lists them.
+blade-graphics = { git = "https://github.com/IAmJSD/gpui", rev = "3113227d61a2147178e12ad189d8ceebeffc1046" }

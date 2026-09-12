@@ -45,7 +45,7 @@ impl Workspace {
                 .and_then(|p| p.parent().map(|p| p.to_path_buf()))
                 .or_else(|| std::env::var("HOME").ok().map(PathBuf::from))
                 .unwrap_or_else(|| PathBuf::from("."));
-            let rx = cx.prompt_for_new_path(&dir, Some("export"));
+            let rx = self.prompt_for_new_path(&dir, Some("export"), cx);
             let doc_regions = regions;
             cx.spawn_in(window, async move |this, cx| {
                 if let Ok(Ok(Some(path))) = rx.await {
@@ -189,7 +189,7 @@ impl Workspace {
                 .or_else(|| std::env::var("HOME").ok().map(PathBuf::from))
                 .unwrap_or_else(|| PathBuf::from("."));
             let codec_id = codec_id.to_string();
-            let rx = cx.prompt_for_new_path(&dir, Some(&suggested));
+            let rx = self.prompt_for_new_path(&dir, Some(&suggested), cx);
             cx.spawn_in(window, async move |this, cx| {
                 if let Ok(Ok(Some(path))) = rx.await {
                     this.update_in(cx, |ws, _window, cx| {

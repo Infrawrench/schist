@@ -16,7 +16,7 @@ jobs:
         with:
           components: rustfmt, clippy
           # The plugin host's tests build the example plugins for real.
-          targets: wasm32-unknown-unknown
+          targets: wasm32-unknown-unknown, aarch64-linux-android
       - name: Linux system deps
         if: runner.os == 'Linux'
         run: |
@@ -38,3 +38,15 @@ jobs:
       - name: Cross-build the plug-in helpers, and check they unpack
         if: runner.os == 'Linux'
         run: make check-bundle PROFILE=debug
+      # The Android port, type-checked the way the gpui fork checks its
+      # backend: the runner image ships an NDK, and the android-activity
+      # glue compiles one C file with its clang. Packaging an APK and
+      # running it is tools/android-build.sh, by hand.
+      - name: Android cross-check
+        if: runner.os == 'Linux'
+        run: |
+          toolchain="$ANDROID_NDK_LATEST_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin"
+          export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="$toolchain/aarch64-linux-android30-clang"
+          export CC_aarch64_linux_android="$toolchain/aarch64-linux-android30-clang"
+          export AR_aarch64_linux_android="$toolchain/llvm-ar"
+          cargo check -p schist-app --lib --target aarch64-linux-android

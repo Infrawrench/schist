@@ -20,6 +20,7 @@ mod batch;
 mod close;
 mod edit;
 mod export;
+mod file_picker;
 mod filters;
 mod fonts;
 mod layer_props;
@@ -42,6 +43,7 @@ use batch::*;
 use close::*;
 use edit::*;
 use export::*;
+use file_picker::*;
 use filters::*;
 use fonts::*;
 use layer_props::*;
@@ -219,6 +221,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
             profile_dialog(&state, convert, selected, cx).into_any_element()
         }
         Modal::NewFilePicker => new_file_picker(cx).into_any_element(),
+        Modal::FilePicker => file_picker(ws, &state, cx),
         #[cfg(not(target_arch = "wasm32"))]
         Modal::MapFilter => crate::workspace::map_filter_dialog(ws, cx).into_any_element(),
         #[cfg(target_arch = "wasm32")]

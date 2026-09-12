@@ -103,6 +103,19 @@ impl GpuContext {
             force_fallback_adapter: false,
         }))
         .map_err(|e| format!("no wgpu adapter: {e}"))?;
+        // A software Vulkan device -- the Android emulator's SwiftShader
+        // -- takes minutes to compile the kernels and then runs them
+        // slower than the CPU compositor's thread pool would, and on
+        // Android the emulator is the only place one turns up. The
+        // desktop keeps its software devices: lavapipe on a VM is a
+        // choice the user made.
+        #[cfg(target_os = "android")]
+        if adapter.get_info().device_type == wgpu::DeviceType::Cpu {
+            return Err(format!(
+                "{} is a software Vulkan device; the CPU compositor is faster",
+                adapter.get_info().name
+            ));
+        }
         let adapter_limits = adapter.limits();
         let mut limits = wgpu::Limits::default();
         limits.max_storage_buffer_binding_size = adapter_limits

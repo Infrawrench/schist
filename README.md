@@ -49,6 +49,11 @@ Schist also runs on iPad and iPhone: `tools/ios-build.sh --debug` builds
 it for the Simulator and launches it; see [docs/ios.md](docs/ios.md) for
 the touch model, the packaging, and which desktop subsystems stay out.
 
+And on Android: `tools/android-build.sh --debug` builds an APK and runs it
+on a connected device or an emulator it boots; see
+[docs/android.md](docs/android.md) for what an Android build has, what it
+lacks (the system file picker, for one), and the SDK it needs.
+
 Schist also runs in the browser: `make web` assembles a static
 deployment (WebGPU, chunked wasm, a loading page) into `dist/web/` —
 see [docs/web.md](docs/web.md) for what's included and what isn't.

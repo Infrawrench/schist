@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Schist's Android manifest; tools/android-build.sh links it into the APK
+  with aapt2, setting the version from the workspace's.
+
+  The activity is Android's own NativeActivity: it loads libschist_app.so
+  (the app crate built as a cdylib) and calls the `android_main` that
+  gpui::android_main! defines in crates/app/src/lib.rs. No Java is
+  compiled. `configChanges` keeps a rotation, a dark-mode switch or a
+  keyboard from recreating the activity: gpui gets a resize or an
+  appearance change instead, as the gpui fork's own manifest does.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.infrawrench.schist">
+
+    <!-- 30 is the floor for WindowInsets.getInsets, which the safe-area
+         insets come from; 35 is the platform the build links against. -->
+    <uses-sdk android:minSdkVersion="30" android:targetSdkVersion="35" />
+
+    <!-- Schist Cloud, font and model downloads, the update check's
+         sibling (the daily ping), crash upload when opted in. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- gpui renders through blade on Vulkan 1.1; every device from about
+         2019 on has it. -->
+    <uses-feature android:name="android.hardware.vulkan.version"
+        android:version="0x401000"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <application
+        android:label="Schist"
+        android:icon="@mipmap/ic_launcher"
+        android:hasCode="false"
+        android:extractNativeLibs="true"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+        <activity
+            android:name="android.app.NativeActivity"
+            android:label="Schist"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|navigation|uiMode|density|locale|fontScale"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data android:name="android.app.lib_name" android:value="schist_app" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- The Schist Cloud sign-in callback. Delivered through the
+                 launch intent, so it reaches the app when the browser
+                 starts it; an app already running is not told (see
+                 docs/android.md). -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="schist" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
