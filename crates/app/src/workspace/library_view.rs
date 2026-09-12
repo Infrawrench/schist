@@ -18,7 +18,10 @@ use gpui::{
     img, prelude::FluentBuilder as _, AppContext as _, StatefulInteractiveElement as _,
     StyledImage as _,
 };
-use schist_ui::{Button, ButtonColors, Link, ListItem};
+use schist_ui::{
+    menu_separator, Badge, Button, ButtonColors, Chip, Divider, Link, ListItem, MenuItem,
+    ProgressBar, TextInput,
+};
 
 impl Workspace {
     pub(super) fn render_gallery(
@@ -382,20 +385,7 @@ fn search_download_progress(ws: &Workspace) -> impl IntoElement {
                     mb(total)
                 ))),
         )
-        .child(
-            div()
-                .w_full()
-                .h(px(4.0))
-                .rounded_sm()
-                .bg(gpui::rgb(pal().chrome_edge))
-                .child(
-                    div()
-                        .h_full()
-                        .w(gpui::relative(ratio))
-                        .rounded_sm()
-                        .bg(gpui::rgb(pal().select_border)),
-                ),
-        )
+        .child(ProgressBar::new(ratio).colors(chrome::track_colors()))
 }
 
 /// The box itself, which only exists once the models behind it do —
@@ -498,11 +488,7 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
         .child(
             // A hairline between the two ways in, the width of the
             // column rather than the whole window.
-            div()
-                .w_full()
-                .h(px(1.0))
-                .my_2()
-                .bg(gpui::rgb(pal().cell_edge)),
+            Divider::horizontal().color(pal().cell_edge).my_2(),
         )
         .child(caption("Or open an image to edit:"))
         .child(
@@ -662,37 +648,22 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             } else {
                 ws.library.map_filter.is_some()
             };
-            div()
-                .mx_2()
-                .mb_1()
-                .px_2()
-                .h(px(22.0))
-                .flex()
-                .items_center()
-                .justify_between()
-                .rounded_md()
-                .text_size(px(11.0))
-                .cursor_pointer()
-                .bg(gpui::rgb(if active {
-                    pal().select_border
-                } else {
-                    pal().button_bg
-                }))
-                .text_color(gpui::rgb(if active { 0xFFFFFF } else { pal().text }))
-                .hover(move |s| {
-                    if active {
-                        s
-                    } else {
-                        s.bg(gpui::rgb(pal().button_hover))
-                    }
-                })
-                .on_press(cx, |ws, _e: &chrome::Press, _w, cx| ws.open_map_filter(cx))
-                .child(if active {
+            Chip::new(
+                "map-filter",
+                if active {
                     "Map filter on"
                 } else {
                     "Map filter…"
-                })
-                .children(active.then(|| div().child("\u{25cf}")))
+                },
+            )
+            .selected(active)
+            .colors(chrome::chip_colors(pal().select_border, 0xFFFFFF))
+            .mx_2()
+            .mb_1()
+            .h(px(22.0))
+            .justify_between()
+            .on_click(cx.listener(|ws, _e, _w, cx| ws.open_map_filter(cx)))
+            .children(active.then(|| div().child("\u{25cf}")))
         })
         .child(sidebar_caption("FOLDERS"))
         .children(rows)
@@ -1445,16 +1416,11 @@ fn prepare_photo_markers(
                     .bg(gpui::rgb(pal().chrome_bg))
                     .child(preview)
                     .children((count > 1).then(|| {
-                        div()
+                        Badge::new(count.to_string())
+                            .colors(pal().select_border, 0xFFFFFF)
                             .absolute()
                             .right(px(0.0))
                             .bottom(px(0.0))
-                            .px_1()
-                            .rounded_sm()
-                            .bg(gpui::rgb(pal().select_border))
-                            .text_color(gpui::rgb(0xFFFFFF))
-                            .text_size(px(10.0))
-                            .child(count.to_string())
                     })),
             )
             .child(div().w(px(3.0)).h(px(5.0)).bg(gpui::rgb(0xFFFFFF)))
@@ -1854,31 +1820,12 @@ fn boundary_editor(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
     let mut chips = div().flex().flex_row().flex_wrap().gap_1();
     for place in PLACES {
         let active = selection_name.as_deref() == Some(place.name);
-        chips = chips.child(
-            Button::new(place.name, place.name)
-                .colors(ButtonColors {
-                    bg: Some(if active {
-                        crate::ui::palette().selection_bg
-                    } else {
-                        crate::ui::palette().control_bg
-                    }),
-                    hover: if active {
-                        crate::ui::palette().selection_bg
-                    } else {
-                        crate::ui::palette().hover
-                    },
-                    text: crate::ui::palette().text,
-                    border: None,
-                })
-                .h(px(20.0))
-                .px_2()
-                .rounded_md()
-                .text_size(px(11.0))
-                .on_click(cx.listener(move |ws, _e, _w, cx| {
-                    ws.library.map.jump_to(place.name, place.bounds);
-                    cx.notify();
-                })),
-        );
+        chips = chips.child(Chip::new(place.name, place.name).selected(active).on_click(
+            cx.listener(move |ws, _e, _w, cx| {
+                ws.library.map.jump_to(place.name, place.bounds);
+                cx.notify();
+            }),
+        ));
     }
 
     let mut tools = div()
@@ -2491,57 +2438,27 @@ pub(super) fn bucket_field(
     } else {
         value
     };
-    let empty = typed.is_empty();
     // The caret belongs to what was typed, never to the placeholder —
     // "Bucket 1|" in full text colour read as an already-filled field.
     // While the field is empty the caret sits alone at the start, the
     // placeholder ghosted behind it, the way every real input does it.
     // It blinks, and the arrow keys move it.
-    let caret_and_text = div()
-        .text_color(gpui::rgb(crate::ui::palette().text))
-        .child(if focused {
-            let (before, after) = if ws.field_buffer.is_empty() {
-                (typed.clone(), String::new())
-            } else {
-                let at = ws.field_cursor.min(typed.len());
-                (typed[..at].to_string(), typed[at..].to_string())
-            };
-            crate::ui::caret_run(before, after, ws.caret_on(), crate::ui::palette().text)
-                .into_any_element()
-        } else {
-            div().child(typed.clone()).into_any_element()
-        });
-    let mut field = div()
+    let cursor = if ws.field_buffer.is_empty() {
+        typed.len()
+    } else {
+        ws.field_cursor.min(typed.len())
+    };
+    TextInput::new(id, typed.clone())
+        .cursor(cursor)
+        .active(focused)
+        .caret_on(ws.caret_on())
+        .placeholder(placeholder)
         .w(px(360.0))
-        .h(px(22.0))
-        .px_1()
-        .flex()
-        .flex_row()
-        .items_center()
-        .rounded_sm()
-        .bg(gpui::rgb(crate::ui::palette().field_bg))
-        .border_1()
-        .border_color(gpui::rgb(if focused {
-            crate::ui::palette().accent
-        } else {
-            crate::ui::palette().field_bg
-        }))
-        .text_size(px(12.0))
-        .overflow_hidden()
-        .on_press(cx, move |ws, _e: &chrome::Press, _w, cx| {
+        .on_focus(cx.listener(move |ws, _e, _w, cx| {
             ws.commit_focused_field();
             ws.focus_field(id, typed.clone());
             cx.notify();
-        })
-        .child(caret_and_text);
-    if empty {
-        field = field.child(
-            div()
-                .text_color(gpui::rgb(crate::ui::palette().text_dim))
-                .child(placeholder),
-        );
-    }
-    field
+        }))
 }
 
 /// Create or edit a bucket: its name, and the optional smart rule —
@@ -2729,25 +2646,17 @@ fn gallery_context_menu(
                cx: &mut Context<Workspace>,
                act: RowAction| {
         rows.push(
-            ListItem::new(("gallery-menu-row", rows.len()))
-                .accent_hover()
+            MenuItem::new(("gallery-menu-row", rows.len()), label)
                 .on_click(cx.listener(move |ws, _e, window, cx| {
                     ws.library.context = None;
                     act(ws, window, cx);
                     cx.notify();
                 }))
-                .child(SharedString::from(label))
                 .into_any_element(),
         );
     };
     let sep = |rows: &mut Vec<gpui::AnyElement>| {
-        rows.push(
-            div()
-                .h(px(1.0))
-                .my_1()
-                .bg(gpui::rgb(crate::ui::palette().edge))
-                .into_any_element(),
-        );
+        rows.push(menu_separator().into_any_element());
     };
     match target {
         GalleryContext::MapCluster(photos) => {
@@ -3169,27 +3078,10 @@ fn gallery_context_menu(
             );
         }
     }
-    Some(
-        gpui::deferred(
-            div()
-                .absolute()
-                .left(position.x)
-                .top(position.y)
-                .w(px(220.0))
-                .py_1()
-                .bg(gpui::rgb(crate::ui::palette().popup_bg))
-                .text_color(gpui::rgb(crate::ui::palette().text))
-                .border_1()
-                .border_color(gpui::rgb(crate::ui::palette().edge))
-                .rounded_sm()
-                .shadow_lg()
-                .occlude()
-                .on_mouse_down_out(cx.listener(|ws, _e, _w, cx| {
-                    ws.library.context = None;
-                    cx.notify();
-                }))
-                .children(rows),
-        )
-        .into_any_element(),
-    )
+    Some(chrome::menu_frame(
+        position,
+        rows,
+        |ws| ws.library.context = None,
+        cx,
+    ))
 }

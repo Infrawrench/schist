@@ -74,8 +74,7 @@ pub(super) fn slider_set(
     }
 }
 
-/// A horizontal slider. The track's live bounds are recorded via a nested
-/// canvas so mouse positions can be mapped back to a 0..=1 ratio.
+/// A horizontal slider with its label and readout.
 pub(super) fn slider(
     id: &'static str,
     label: &'static str,
@@ -110,108 +109,21 @@ fn slider_impl(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let ratio = slider_get(ws, target);
-    let entity = cx.entity();
     let m = ui::metrics();
-    let touch = ui::touch();
-    // On a touch screen the slider looks like the system's: a thin bar
-    // with a round thumb to put a finger on, inside a tall hit area. The
-    // desktop keeps its filled bar.
-    let thumb = m.slider_h;
-    let bar_h = 6.0;
-    let mut track = div()
-        .relative()
-        .when(stretch, |d| d.flex_grow().min_w(px(0.0)))
-        .when(!stretch, |d| d.w(px(m.slider_w)).flex_none())
-        .h(px(m.slider_h))
-        .rounded_sm();
-    if touch {
-        track = track
-            .child(
-                div()
-                    .absolute()
-                    .left_0()
-                    .right_0()
-                    .top(px((m.slider_h - bar_h) / 2.0))
-                    .h(px(bar_h))
-                    .rounded_full()
-                    .bg(gpui::rgb(palette().field_bg))
-                    .child(
-                        div()
-                            .absolute()
-                            .left_0()
-                            .top_0()
-                            .bottom_0()
-                            .when(stretch, |d| d.w(gpui::relative(ratio)))
-                            .when(!stretch, |d| d.w(px(m.slider_w * ratio)))
-                            .rounded_full()
-                            .bg(gpui::rgb(palette().accent)),
-                    ),
-            )
-            .child(
-                div()
-                    .absolute()
-                    .top_0()
-                    // The thumb's left edge runs from 0 to (width - thumb).
-                    .when(stretch, |d| {
-                        d.left(gpui::relative(ratio)).ml(px(-thumb * ratio))
-                    })
-                    .when(!stretch, |d| d.left(px((m.slider_w - thumb) * ratio)))
-                    .size(px(thumb))
-                    .rounded_full()
-                    .bg(gpui::rgb(0xffffff))
-                    .shadow_sm(),
-            );
-    } else {
-        track = track.bg(gpui::rgb(palette().field_bg)).child(
-            div()
-                .absolute()
-                .left_0()
-                .top_0()
-                .bottom_0()
-                .w(px(m.slider_w * ratio))
-                .rounded_sm()
-                .bg(gpui::rgb(palette().accent)),
-        );
-    }
-    let track = track
-        .child(
-            canvas(
-                move |bounds, _window, cx| {
-                    entity.update(cx, |ws, _| ws.record_slider_bounds(id, bounds));
-                },
-                |_, _, _, _| {},
-            )
-            .absolute()
-            .size_full(),
-        )
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, ev: &MouseDownEvent, window, cx| {
-                // A finger on the slider drags it; it must not scroll.
-                window.claim_touch_drag();
-                ws.begin_slider(id, slider_get(ws, target));
-                if let Some(r) = ws.slider_ratio(id, ev.position) {
-                    slider_set(ws, target, r, cx);
-                }
-            }),
-        )
-        .on_mouse_move(cx.listener(move |ws, ev: &MouseMoveEvent, _w, cx| {
-            if ev.pressed_button == Some(MouseButton::Left) && ws.dragging_slider(id) {
-                if let Some(r) = ws.slider_ratio(id, ev.position) {
-                    slider_set(ws, target, r, cx);
-                }
+    // The kit's slider draws the desktop's filled bar or the touch
+    // chrome's thumb, records its own bounds and drag, and claims a
+    // finger's drag so it does not scroll.
+    let track = Slider::new(id, ratio)
+        .when(stretch, |s| s.flex_grow().min_w(px(0.0)))
+        .when(!stretch, |s| s.w(px(m.slider_w)))
+        .on_change(cx.listener(move |ws, r, _w, cx| slider_set(ws, target, *r, cx)))
+        // The kit hands back the ratio the drag began at, which is what
+        // the layer-opacity undo entry wants.
+        .on_release(cx.listener(move |ws, before, _w, cx| {
+            if let SliderTarget::LayerOpacity(layer) = target {
+                ws.commit_layer_opacity(layer, *before, cx);
             }
-        }))
-        .on_mouse_up(
-            MouseButton::Left,
-            cx.listener(move |ws, _ev: &MouseUpEvent, _w, cx| {
-                if let Some(before) = ws.end_slider(id) {
-                    if let SliderTarget::LayerOpacity(layer) = target {
-                        ws.commit_layer_opacity(layer, before, cx);
-                    }
-                }
-            }),
-        );
+        }));
     let mut row = div()
         .flex()
         .flex_row()

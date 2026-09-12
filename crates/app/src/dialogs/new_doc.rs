@@ -176,42 +176,19 @@ pub(super) fn new_document_dialog(
         .gap_1()
         .child(ui::field_row(
             "Name",
-            div()
+            TextInput::new("new-doc-name", shown_name.clone())
+                .cursor(if state.field_buffer.is_empty() {
+                    shown_name.len()
+                } else {
+                    state.field_cursor.min(shown_name.len())
+                })
+                .active(name_focused)
+                .caret_on(state.caret_on)
                 .w(px(200.0))
-                .h(px(22.0))
-                .px_1()
-                .flex()
-                .items_center()
-                .rounded_sm()
-                .bg(gpui::rgb(ui::palette().field_bg))
-                .border_1()
-                .border_color(gpui::rgb(if name_focused {
-                    ui::palette().accent
-                } else {
-                    ui::palette().field_bg
-                }))
-                .text_size(px(12.0))
-                .on_mouse_down(
-                    gpui::MouseButton::Left,
-                    cx.listener(move |ws, _e, _w, cx| {
-                        ws.focus_field("new-doc-name", committed.clone());
-                        cx.notify();
-                    }),
-                )
-                // A caret makes it obvious the field takes typing; it
-                // blinks, and the arrows move it.
-                .child(if name_focused {
-                    let (before, after) = if state.field_buffer.is_empty() {
-                        (shown_name.clone(), String::new())
-                    } else {
-                        let at = state.field_cursor.min(shown_name.len());
-                        (shown_name[..at].to_string(), shown_name[at..].to_string())
-                    };
-                    ui::caret_run(before, after, state.caret_on, ui::palette().text)
-                        .into_any_element()
-                } else {
-                    div().child(shown_name.clone()).into_any_element()
-                }),
+                .on_focus(cx.listener(move |ws, _e, _w, cx| {
+                    ws.focus_field("new-doc-name", committed.clone());
+                    cx.notify();
+                })),
         ))
         .child(ui::field_row(
             "Preset",

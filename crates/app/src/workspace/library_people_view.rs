@@ -2,14 +2,14 @@
 //! face boxes and people panel, and the person rename dialog. Drawn on the gallery's palette, like
 //! the rest of the room.
 
-use super::gallery_chrome::{gallery_button, pal};
+use super::gallery_chrome::{self as chrome, gallery_button, pal, sidebar_caption};
 use super::library::{FaceView, GalleryContext, PersonFilter, AVATAR_PX};
 use super::library_people::PEOPLE_MODELS;
 use super::library_view::bucket_field;
 use super::*;
 use gpui::{img, StatefulInteractiveElement as _};
 use schist_gallery::FaceRect;
-use schist_ui::{Button, ButtonColors};
+use schist_ui::{Badge, Button, ButtonColors, ProgressBar, TextInput};
 use std::path::Path;
 
 /// The colour of a face box by its state: named, picked, guessed, or
@@ -24,17 +24,6 @@ fn box_color(face: &FaceView, picked: bool) -> u32 {
     } else {
         0xFFFFFF
     }
-}
-
-/// A small section heading in the sidebar's style.
-fn heading(text: &'static str) -> impl IntoElement {
-    div()
-        .px_2()
-        .pt_2()
-        .pb_1()
-        .text_size(px(11.0))
-        .text_color(gpui::rgb(pal().text_dim))
-        .child(text)
 }
 
 /// A round avatar, or a grey disc while the cut is on its way.
@@ -64,7 +53,7 @@ pub(super) fn people_rows(
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
 ) -> Vec<gpui::AnyElement> {
-    let mut rows: Vec<gpui::AnyElement> = vec![heading("PEOPLE").into_any_element()];
+    let mut rows: Vec<gpui::AnyElement> = vec![sidebar_caption("PEOPLE").into_any_element()];
     let detector = schist_neural::installed("face");
     let recogniser = schist_neural::installed("face-embed");
     // Their photos in the bucket or folder on show, not in the world:
@@ -170,19 +159,9 @@ pub(super) fn people_rows(
                     }),
                 )
                 .child(
-                    div()
-                        .w(px(20.0))
-                        .h(px(20.0))
-                        .flex_none()
-                        .rounded_full()
-                        .border_1()
-                        .border_color(gpui::rgb(pal().text_dim))
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .text_size(px(11.0))
-                        .text_color(gpui::rgb(pal().text_dim))
-                        .child("?"),
+                    Badge::new("?")
+                        .outlined()
+                        .colors(pal().text_dim, pal().text_dim),
                 )
                 .child(div().flex_grow().truncate().child("Unnamed faces"))
                 .child(
@@ -284,20 +263,7 @@ fn people_download_progress(ws: &Workspace) -> impl IntoElement {
                     mb(total)
                 ))),
         )
-        .child(
-            div()
-                .w_full()
-                .h(px(4.0))
-                .rounded_sm()
-                .bg(gpui::rgb(pal().chrome_edge))
-                .child(
-                    div()
-                        .h_full()
-                        .w(gpui::relative(ratio))
-                        .rounded_sm()
-                        .bg(gpui::rgb(pal().select_border)),
-                ),
-        )
+        .child(ProgressBar::new(ratio).colors(chrome::track_colors()))
 }
 
 /// The viewer: one photo, big, its faces boxed, and the people panel
@@ -924,60 +890,23 @@ fn name_field(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     };
     let cursor = ws.field_cursor.min(typed.len());
     let caret_on = ws.caret_on();
-    div()
+    TextInput::new("face-name", typed)
+        .cursor(cursor)
+        .active(focused)
+        .caret_on(caret_on)
+        .placeholder("Who is this?")
+        .colors(chrome::text_input_colors())
         .flex_grow()
         .h(px(24.0))
         .px_2()
-        .flex()
-        .flex_row()
-        .items_center()
         .rounded_md()
-        .bg(gpui::rgb(pal().grid_bg))
-        .border_1()
-        .border_color(gpui::rgb(if focused {
-            pal().select_border
-        } else {
-            pal().chrome_edge
+        .on_focus(cx.listener(move |ws, _e, _w, cx| {
+            cx.stop_propagation();
+            if ws.focused_field != Some("face-name") {
+                ws.focus_field("face-name", current.clone());
+            }
+            cx.notify();
         }))
-        .text_size(px(12.0))
-        .text_color(gpui::rgb(pal().text))
-        .cursor(gpui::CursorStyle::IBeam)
-        .overflow_hidden()
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e: &MouseDownEvent, _w, cx| {
-                cx.stop_propagation();
-                if ws.focused_field != Some("face-name") {
-                    ws.focus_field("face-name", current.clone());
-                }
-                cx.notify();
-            }),
-        )
-        .child(if focused {
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
-                .child(crate::ui::caret_run(
-                    typed[..cursor].to_string(),
-                    typed[cursor..].to_string(),
-                    caret_on,
-                    pal().text,
-                ))
-                .children(typed.is_empty().then(|| {
-                    div()
-                        .text_color(gpui::rgb(pal().text_dim))
-                        .child("Who is this?")
-                }))
-                .into_any_element()
-        } else if typed.is_empty() {
-            div()
-                .text_color(gpui::rgb(pal().text_dim))
-                .child("Who is this?")
-                .into_any_element()
-        } else {
-            div().child(SharedString::from(typed)).into_any_element()
-        })
 }
 
 /// Rename a person. Renaming to a name somebody else has merges them.

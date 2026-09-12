@@ -295,19 +295,5 @@ fn gallery_filter_row(
         .disabled(true)
         .into_any_element()
     });
-    div()
-        .flex()
-        .flex_row()
-        .justify_between()
-        .gap_3()
-        .child(
-            div()
-                .w(px(110.0))
-                .flex_none()
-                .pt(px(4.0))
-                .text_size(px(12.0))
-                .text_color(gpui::rgb(ui::palette().text_dim))
-                .child("Gallery"),
-        )
-        .child(control)
+    FieldRow::new("Gallery").top_aligned().child(control)
 }

@@ -3,6 +3,7 @@ use super::*;
 use crate::ui;
 use gpui::{img, StatefulInteractiveElement as _, StyledImage as _};
 use schist_cloud::generation::{self as api, Input, Inputs, Item};
+use schist_ui::TextInput;
 use std::{
     collections::HashMap,
     sync::{
@@ -319,38 +320,19 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                 } else {
                     current.clone()
                 };
-                let control = div()
-                    .min_h(px(25.0))
+                // One box per item, so their element ids do not collide.
+                let element_id = SharedString::from(format!("cloud-generation-input-{id}"));
+                let control = TextInput::new(element_id, shown)
+                    .cursor(ws.field_cursor)
+                    .active(focused)
+                    .caret_on(ws.caret_on())
                     .w(px(330.0))
-                    .px_1()
-                    .bg(gpui::rgb(ui::palette().field_bg))
-                    .border_1()
-                    .border_color(gpui::rgb(if focused {
-                        ui::palette().accent
-                    } else {
-                        ui::palette().field_bg
-                    }))
-                    .on_mouse_down(
-                        MouseButton::Left,
-                        cx.listener(move |ws, _, _, cx| {
-                            ws.commit_focused_field();
-                            ws.cloud.generation.editing = Some(id.clone());
-                            ws.focus_field("cloud-generation-input", current.clone());
-                            cx.notify();
-                        }),
-                    )
-                    .child(if focused {
-                        let at = ws.field_cursor.min(shown.len());
-                        ui::caret_run(
-                            shown[..at].into(),
-                            shown[at..].into(),
-                            ws.caret_on(),
-                            ui::palette().text,
-                        )
-                        .into_any_element()
-                    } else {
-                        div().child(shown).into_any_element()
-                    });
+                    .on_focus(cx.listener(move |ws, _, _, cx| {
+                        ws.commit_focused_field();
+                        ws.cloud.generation.editing = Some(id.clone());
+                        ws.focus_field("cloud-generation-input", current.clone());
+                        cx.notify();
+                    }));
                 body = body
                     .child(ui::field_row(
                         format!("{title}{}", if required { " *" } else { "" }),

@@ -341,35 +341,10 @@ pub(super) fn menu_row_checked(
     on_click: impl Fn(&mut Workspace, &gpui::ClickEvent, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let m = ui::metrics();
-    ListItem::new(SharedString::from(label.clone()))
-        .h(px(m.menu_row_h))
-        .justify_between()
-        .accent_hover()
+    MenuItem::new(SharedString::from(label.clone()), label)
+        .hint(hint)
+        .checked(checked)
         .on_click(cx.listener(on_click))
-        .child(
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
-                .gap_1()
-                .child(
-                    // Fixed-width gutter so labels line up whether or not
-                    // the item is checkable.
-                    div().w(px(12.0)).flex_none().children(
-                        checked
-                            .unwrap_or(false)
-                            .then(|| icon("check", 10.0, palette().text)),
-                    ),
-                )
-                .child(div().text_size(px(m.row_text)).child(label)),
-        )
-        .child(
-            div()
-                .text_size(px(m.small_text - 1.0))
-                .text_color(gpui::rgb(palette().text_dim))
-                .child(hint),
-        )
 }
 
 pub(super) fn menu_row(
@@ -378,19 +353,9 @@ pub(super) fn menu_row(
     on_click: impl Fn(&mut Workspace, &gpui::ClickEvent, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let m = ui::metrics();
-    ListItem::new(SharedString::from(label.clone()))
-        .h(px(m.menu_row_h))
-        .justify_between()
-        .accent_hover()
+    MenuItem::new(SharedString::from(label.clone()), label)
+        .hint(hint)
         .on_click(cx.listener(on_click))
-        .child(div().text_size(px(m.row_text)).child(label))
-        .child(
-            div()
-                .text_size(px(m.small_text - 1.0))
-                .text_color(gpui::rgb(palette().text_dim))
-                .child(hint),
-        )
 }
 
 pub fn menu_bar(
@@ -458,7 +423,7 @@ pub fn menu_bar(
                 if is_open {
                     button = button.child(deferred(
                         menu_panel(ws, entries, &[i], 24.0, 0.0, cx)
-                            .on_mouse_down_out(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx))),
+                            .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx))),
                     ));
                 }
                 button.into_any_element()
@@ -479,25 +444,18 @@ pub(super) fn menu_panel(
     top: f32,
     left: f32,
     cx: &mut Context<Workspace>,
-) -> gpui::Div {
+) -> Popover {
     let rows: Vec<gpui::AnyElement> = entries
         .into_iter()
         .enumerate()
         .map(|(row, entry)| menu_entry_row(ws, entry, path, row, cx))
         .collect();
-    div()
-        .absolute()
+    // Keyed by depth: one menu and one chain of submenus is open at a
+    // time, so depth tells the panels apart.
+    Popover::new(("menu-panel", path.len()))
         .top(px(top))
         .left(px(left))
         .w(px(ui::metrics().menu_w))
-        .py_1()
-        .bg(gpui::rgb(palette().popup_bg))
-        .text_color(gpui::rgb(palette().text))
-        .border_1()
-        .border_color(gpui::rgb(palette().edge))
-        .rounded_sm()
-        .shadow_lg()
-        .occlude()
         .children(rows)
 }
 
@@ -509,11 +467,7 @@ pub(super) fn menu_entry_row(
     cx: &mut Context<Workspace>,
 ) -> gpui::AnyElement {
     match entry {
-        MenuEntry::Sep => div()
-            .h(px(1.0))
-            .my_1()
-            .bg(gpui::rgb(palette().edge))
-            .into_any_element(),
+        MenuEntry::Sep => menu_separator().into_any_element(),
         MenuEntry::Cmd(id) => {
             let (label, hint) = ws
                 .registry
@@ -580,26 +534,19 @@ pub(super) fn menu_entry_row(
             here.push(row);
             let open = ws.open_submenu == here;
             let hover_path = here.clone();
-            let mut root = div()
-                .relative()
-                .flex()
-                .flex_row()
-                .items_center()
-                .justify_between()
-                .px_2()
-                .h(px(22.0))
-                .text_size(px(12.0))
-                .hover(|s| s.bg(gpui::rgb(palette().hover)))
-                // Photoshop opens submenus on hover, and the pointer has to
-                // cross the parent row to reach the child panel anyway.
-                .on_mouse_move(cx.listener(move |ws, _e: &MouseMoveEvent, _w, cx| {
-                    if ws.open_submenu != hover_path {
-                        ws.open_submenu = hover_path.clone();
-                        cx.notify();
-                    }
-                }))
-                .child(div().child(label))
-                .child(icon("chevron-right", 10.0, palette().text_dim));
+            let mut root = div().relative().child(
+                MenuItem::new(label, label)
+                    .submenu()
+                    .highlighted(open)
+                    // Photoshop opens submenus on hover, and the pointer has
+                    // to cross the parent row to reach the child panel anyway.
+                    .on_hover(cx.listener(move |ws, hovered, _w, cx| {
+                        if *hovered && ws.open_submenu != hover_path {
+                            ws.open_submenu = hover_path.clone();
+                            cx.notify();
+                        }
+                    })),
+            );
             if open {
                 // Sits alongside its own row, clear of this panel's width.
                 // Not wrapped in `deferred`: the panel containing this row

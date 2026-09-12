@@ -7,11 +7,9 @@ use super::*;
 pub(super) fn note_options(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let editing = ws.note_edit_buffer(NoteField::Author);
     let author = match editing {
-        Some(buffer) => format!("{buffer}|"),
-        None if ws.view.note_author.is_empty() => "Author".to_string(),
+        Some(buffer) => buffer.to_string(),
         None => ws.view.note_author.clone(),
     };
-    let placeholder = editing.is_none() && ws.view.note_author.is_empty();
     div()
         .flex()
         .flex_row()
@@ -24,33 +22,11 @@ pub(super) fn note_options(ws: &Workspace, cx: &mut Context<Workspace>) -> impl 
                 .child("Author"),
         )
         .child(
-            div()
+            TextInput::new("note-author", author)
+                .active(editing.is_some())
+                .placeholder("Author")
                 .w(px(120.0))
-                .h(px(22.0))
-                .px_1()
-                .flex()
-                .items_center()
-                .rounded_sm()
-                .cursor_text()
-                .bg(gpui::rgb(palette().field_bg))
-                .border_1()
-                .border_color(gpui::rgb(if editing.is_some() {
-                    palette().accent
-                } else {
-                    palette().panel_edge
-                }))
-                .text_size(px(12.0))
-                .text_color(gpui::rgb(if placeholder {
-                    palette().text_faint
-                } else {
-                    palette().text
-                }))
-                .overflow_hidden()
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _e, _w, cx| ws.begin_note_author_edit(cx)),
-                )
-                .child(author),
+                .on_focus(cx.listener(|ws, _e, _w, cx| ws.begin_note_author_edit(cx))),
         )
         .child(
             Swatch::new("note-color", swatch_hex(ws.editor.note_color))
@@ -112,10 +88,9 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
     // The caret goes on the end of the buffer, matching the layers
     // panel's inline rename and the dialogs' fields.
     let body = match editing {
-        Some(buffer) => format!("{buffer}|"),
+        Some(buffer) => buffer.to_string(),
         None => note.map(|n| n.text.clone()).unwrap_or_default(),
     };
-    let empty_body = editing.is_none() && body.is_empty();
 
     let header = div()
         .flex()
@@ -188,42 +163,14 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
                     .child(author),
             )
             .child(
-                div()
-                    .id("note-body")
+                // A paragraph, not a line: newlines break.
+                TextInput::new("note-body", body)
+                    .multiline()
+                    .active(editing.is_some())
+                    .placeholder("Click to write")
                     .h(px(72.0))
-                    .p_1()
-                    .rounded_sm()
-                    .cursor_text()
                     .overflow_hidden()
-                    .bg(gpui::rgb(palette().field_bg))
-                    .border_1()
-                    .border_color(gpui::rgb(if editing.is_some() {
-                        palette().accent
-                    } else {
-                        palette().panel_edge
-                    }))
-                    .text_size(px(12.0))
-                    .text_color(gpui::rgb(if empty_body {
-                        palette().text_faint
-                    } else {
-                        palette().text
-                    }))
-                    .flex()
-                    .flex_col()
-                    .on_mouse_down(
-                        MouseButton::Left,
-                        cx.listener(move |ws, _e, _w, cx| ws.begin_note_edit(index, cx)),
-                    )
-                    // One child per line: a note is a paragraph, and a
-                    // single text child would run the whole thing
-                    // together on one line.
-                    .children(if empty_body {
-                        vec![SharedString::from("Click to write")]
-                    } else {
-                        body.split('\n')
-                            .map(|line| SharedString::from(line.to_string()))
-                            .collect()
-                    }),
+                    .on_focus(cx.listener(move |ws, _e, _w, cx| ws.begin_note_edit(index, cx))),
             )
     };
     Some(panel.into_any_element())

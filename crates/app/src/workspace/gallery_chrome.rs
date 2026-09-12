@@ -15,10 +15,11 @@
 
 use super::*;
 use crate::ui::LineEdit;
-use gpui::{img, Animation, AnimationExt as _, StatefulInteractiveElement as _, Transformation};
-#[cfg(not(target_arch = "wasm32"))]
-use schist_ui::IconButton;
-use schist_ui::{Button, ButtonColors, ListItem};
+use gpui::{img, StatefulInteractiveElement as _};
+use schist_ui::{
+    menu_separator, Badge, Button, ButtonColors, Chip, ChipColors, Divider, Heading, IconButton,
+    MenuItem, Popover, ProgressBar, Slider, Spinner, TextInput, TextInputColors, TrackColors,
+};
 
 /// The gallery's chrome colours for one theme.
 pub struct GalleryPalette {
@@ -90,6 +91,41 @@ pub fn pal() -> &'static GalleryPalette {
         &GALLERY_LIGHT
     } else {
         &GALLERY_DARK
+    }
+}
+
+/// The kit's text box on the gallery's palette: the grid's white, a
+/// chrome-edge border at rest, the selection blue when focused.
+pub fn text_input_colors() -> TextInputColors {
+    TextInputColors {
+        bg: pal().grid_bg,
+        border: Some(pal().chrome_edge),
+        focus_border: pal().select_border,
+        text: pal().text,
+        placeholder: pal().text_dim,
+        selection: pal().select_border,
+        selection_text: 0xFFFFFF,
+    }
+}
+
+/// The kit's slider and progress track on the gallery's palette.
+pub fn track_colors() -> TrackColors {
+    TrackColors {
+        track: pal().chrome_edge,
+        fill: pal().select_border,
+    }
+}
+
+/// The kit's chip on the gallery's palette; `selected_bg` and
+/// `selected_text` are the caller's, since the sidebar tints its chips
+/// and the strip fills them.
+pub fn chip_colors(selected_bg: u32, selected_text: u32) -> ChipColors {
+    ChipColors {
+        bg: pal().button_bg,
+        hover: pal().button_hover,
+        text: pal().text,
+        selected_bg,
+        selected_text,
     }
 }
 
@@ -319,29 +355,19 @@ pub fn filter_chip(
     clear: impl Fn(&mut Workspace, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
-        .gap_1()
+    Chip::new("filter-chip", label)
+        .selected(true)
+        .colors(chip_colors(pal().select_border, 0xFFFFFF))
         .h(px(24.0))
-        .px_2()
-        .rounded_md()
-        .bg(gpui::rgb(pal().select_border))
-        .text_color(gpui::rgb(0xFFFFFF))
         .text_size(px(12.0))
-        .cursor_pointer()
-        .on_press(cx, move |ws, _e: &Press, _w, cx| open(ws, cx))
-        .child(label)
+        .on_click(cx.listener(move |ws, _e, _w, cx| open(ws, cx)))
         .child(
-            div()
-                .px_1()
-                .hover(|s| s.bg(gpui::rgb(0xFFFFFF30)).rounded_sm())
-                .on_press(cx, move |ws, _e: &Press, _w, cx| {
-                    cx.stop_propagation();
-                    clear(ws, cx);
-                })
-                .child("\u{2715}"),
+            IconButton::new("clear", "close")
+                .size(16.0)
+                .icon_size(9.0)
+                .color(0xFFFFFF)
+                .consume_press()
+                .on_click(cx.listener(move |ws, _e, _w, cx| clear(ws, cx))),
         )
 }
 
@@ -357,163 +383,41 @@ pub fn search_field(
     clear: impl Fn(&mut Workspace, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let active = edit.active;
-    let text = edit.text.clone();
-    let cursor = edit.cursor.min(text.len());
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
-        .gap_1()
+    TextInput::edit("gallery-search", edit)
+        .placeholder(placeholder)
+        .caret_on(caret_on)
+        .colors(text_input_colors())
         .w(px(260.0))
         .h(px(24.0))
         .px_2()
         .rounded_md()
-        .bg(gpui::rgb(pal().grid_bg))
-        .border_1()
-        .border_color(gpui::rgb(if active {
-            pal().select_border
-        } else {
-            pal().chrome_edge
-        }))
-        .text_size(px(12.0))
-        .text_color(gpui::rgb(if text.is_empty() {
-            pal().text_dim
-        } else {
-            pal().text
-        }))
-        .cursor(gpui::CursorStyle::IBeam)
-        .on_press(cx, move |ws, _e: &Press, _w, cx| {
+        .on_focus(cx.listener(move |ws, _e, _w, cx| {
             focus(ws, cx);
             ws.reset_caret_phase();
             cx.notify();
-        })
-        .child(div().flex_grow().truncate().child(
-            // ⌘A's selection, drawn the way every field draws one; a
-            // focused box otherwise shows a blinking caret the arrows
-            // move, with the placeholder ghosted while it is empty.
-            if edit.selected && !text.is_empty() {
-                div()
-                    .rounded_sm()
-                    .px(px(1.0))
-                    .bg(gpui::rgb(pal().select_border))
-                    .text_color(gpui::rgb(0xFFFFFF))
-                    .child(SharedString::from(text.clone()))
-                    .into_any_element()
-            } else if active {
-                div()
-                    .flex()
-                    .flex_row()
-                    .items_center()
-                    .child(crate::ui::caret_run(
-                        text[..cursor].to_string(),
-                        text[cursor..].to_string(),
-                        caret_on,
-                        pal().text,
-                    ))
-                    .children(text.is_empty().then(|| {
-                        div()
-                            .text_color(gpui::rgb(pal().text_dim))
-                            .child(placeholder.clone())
-                    }))
-                    .into_any_element()
-            } else if text.is_empty() {
-                div().child(placeholder.clone()).into_any_element()
-            } else {
-                div()
-                    .child(SharedString::from(text.clone()))
-                    .into_any_element()
-            },
-        ))
-        .children((!text.is_empty()).then(|| {
-            div()
-                .px_1()
-                .text_color(gpui::rgb(pal().text_dim))
-                .hover(|s| s.text_color(gpui::rgb(pal().text)))
-                .on_press(cx, move |ws, _e: &Press, _w, cx| {
-                    cx.stop_propagation();
-                    clear(ws, cx);
-                })
-                .child("\u{2715}")
         }))
+        .on_clear(cx.listener(move |ws, _e, _w, cx| clear(ws, cx)))
 }
 
 /// The thumbnail-size slider, drawn on the gallery's own palette so it
 /// does not import the editor theme's near-black track onto the tray.
 pub fn size_slider(ratio: f32, cx: &mut Context<Workspace>) -> impl IntoElement {
-    const WIDTH: f32 = 110.0;
-    let entity = cx.entity();
-    let set = move |ws: &mut Workspace, r: f32| {
-        ws.set_gallery_thumb_px(80.0 + r * 160.0);
-    };
-    let down = set;
-    let moved = set;
-    div()
-        .relative()
-        .w(px(WIDTH))
-        .h(px(12.0))
-        .flex_none()
-        .rounded_sm()
-        .bg(gpui::rgb(pal().chrome_edge))
-        .child(
-            div()
-                .absolute()
-                .left_0()
-                .top_0()
-                .bottom_0()
-                .w(px(WIDTH * ratio.clamp(0.0, 1.0)))
-                .rounded_sm()
-                .bg(gpui::rgb(pal().select_border)),
-        )
-        .child(
-            gpui::canvas(
-                move |bounds, _window, cx| {
-                    entity.update(cx, |ws, _| {
-                        ws.record_slider_bounds("gallery-thumb-size", bounds)
-                    });
-                },
-                |_, _, _, _| {},
-            )
-            .absolute()
-            .size_full(),
-        )
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, ev: &gpui::MouseDownEvent, _w, cx| {
-                ws.begin_slider("gallery-thumb-size", ratio);
-                if let Some(r) = ws.slider_ratio("gallery-thumb-size", ev.position) {
-                    down(ws, r);
-                }
-                cx.notify();
-            }),
-        )
-        .on_mouse_move(cx.listener(move |ws, ev: &gpui::MouseMoveEvent, _w, cx| {
-            if ev.pressed_button == Some(MouseButton::Left)
-                && ws.dragging_slider("gallery-thumb-size")
-            {
-                if let Some(r) = ws.slider_ratio("gallery-thumb-size", ev.position) {
-                    moved(ws, r);
-                    cx.notify();
-                }
-            }
+    Slider::new("gallery-thumb-size", ratio)
+        .w(px(110.0))
+        .colors(track_colors())
+        .on_change(cx.listener(|ws, r, _w, cx| {
+            ws.set_gallery_thumb_px(80.0 + *r * 160.0);
+            cx.notify();
         }))
-        .on_mouse_up(
-            MouseButton::Left,
-            cx.listener(|ws, _ev: &gpui::MouseUpEvent, _w, _cx| {
-                ws.end_slider("gallery-thumb-size");
-            }),
-        )
 }
 
 /// A section caption in the sidebar: "FOLDERS", "BUCKETS".
 pub fn sidebar_caption(text: impl Into<SharedString>) -> impl IntoElement {
-    div()
+    Heading::new(text)
+        .color(pal().text_dim)
         .px_2()
         .pt_2()
         .pb_1()
-        .text_size(px(11.0))
-        .text_color(gpui::rgb(pal().text_dim))
-        .child(text.into())
 }
 
 /// A left-button press as the gallery's rows, tiles and links take it.
@@ -654,33 +558,15 @@ pub fn group_chips(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let mut row = div().flex().flex_row().gap_1().px_2().pb_2();
-    for &group in options {
+    for (ix, &group) in options.iter().enumerate() {
         let active = group == current;
         row = row.child(
-            div()
-                .px_2()
-                .h(px(20.0))
-                .flex()
-                .items_center()
-                .rounded_md()
-                .text_size(px(11.0))
-                .cursor_pointer()
-                .bg(gpui::rgb(if active {
-                    pal().sidebar_selected
-                } else {
-                    pal().button_bg
-                }))
-                .hover(move |s| {
-                    if active {
-                        s
-                    } else {
-                        s.bg(gpui::rgb(pal().button_hover))
-                    }
-                })
-                .on_press(cx, move |ws, _e: &Press, _w, cx| {
+            Chip::new(("group-chip", ix), group.label())
+                .selected(active)
+                .colors(chip_colors(pal().sidebar_selected, pal().text))
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
                     ws.set_gallery_group(group, cx);
-                })
-                .child(group.label()),
+                })),
         );
     }
     div().child(sidebar_caption("GROUP BY")).child(row)
@@ -726,21 +612,12 @@ pub fn section_header(title: String, detail: String) -> impl IntoElement {
                         .child(detail),
                 ),
         )
-        .child(div().h(px(1.0)).mb_2().bg(gpui::rgb(pal().cell_edge)))
+        .child(Divider::horizontal().color(pal().cell_edge).mb_2())
 }
 
 /// The same small activity indicator for the grid, sidebar, and tray.
 pub fn loading_spinner(id: &'static str) -> impl IntoElement {
-    gpui::svg()
-        .path("icons/loading.svg")
-        .size(px(14.0))
-        .flex_none()
-        .text_color(gpui::rgb(pal().header))
-        .with_animation(
-            id,
-            Animation::new(std::time::Duration::from_millis(900)).repeat(),
-            |icon, delta| icon.with_transformation(Transformation::rotate(gpui::percentage(delta))),
-        )
+    Spinner::new(id).color(pal().header)
 }
 
 pub fn loading_note() -> impl IntoElement {
@@ -1071,21 +948,11 @@ impl gpui::Render for DragGhost {
             .opacity(0.85)
             .child(img(thumb).max_w(px(inner)).max_h(px(inner)))
             .children((self.count > 1).then(|| {
-                div()
+                Badge::new(format!("{}", self.count))
+                    .colors(pal().select_border, 0xFFFFFF)
                     .absolute()
                     .top(px(-6.0))
                     .right(px(-6.0))
-                    .min_w(px(18.0))
-                    .h(px(18.0))
-                    .px_1()
-                    .flex()
-                    .items_center()
-                    .justify_center()
-                    .rounded_full()
-                    .bg(gpui::rgb(pal().select_border))
-                    .text_color(gpui::rgb(0xFFFFFF))
-                    .text_size(px(10.0))
-                    .child(format!("{}", self.count))
             }))
             .into_any_element()
     }
@@ -1102,26 +969,17 @@ pub fn menu_row(
     act: MenuAction,
     cx: &mut Context<Workspace>,
 ) -> gpui::AnyElement {
-    let m = crate::ui::metrics();
-    ListItem::new(SharedString::from(format!("menu-row-{label}")))
-        .accent_hover()
-        .h(px(m.menu_row_h))
-        .text_size(px(m.text))
+    MenuItem::new(SharedString::from(format!("menu-row-{label}")), label)
         .on_click(cx.listener(move |ws, _e, window, cx| {
             dismiss(ws);
             act(ws, window, cx);
             cx.notify();
         }))
-        .child(SharedString::from(label))
         .into_any_element()
 }
 
 pub fn menu_sep() -> gpui::AnyElement {
-    div()
-        .h(px(1.0))
-        .my_1()
-        .bg(gpui::rgb(crate::ui::palette().edge))
-        .into_any_element()
+    menu_separator().into_any_element()
 }
 
 /// The menu's popup at the pointer, over everything; a click anywhere
@@ -1152,17 +1010,10 @@ pub fn menu_frame_at(
             .position(position)
             .snap_to_window_with_margin(px(8.0))
             .child(
-                div()
+                Popover::new("gallery-menu")
+                    .in_flow()
                     .w(px(220.0))
-                    .py_1()
-                    .bg(gpui::rgb(crate::ui::palette().popup_bg))
-                    .text_color(gpui::rgb(crate::ui::palette().text))
-                    .border_1()
-                    .border_color(gpui::rgb(crate::ui::palette().edge))
-                    .rounded_sm()
-                    .shadow_lg()
-                    .occlude()
-                    .on_mouse_down_out(cx.listener(move |ws, _e, _w, cx| {
+                    .on_dismiss(cx.listener(move |ws, _e, _w, cx| {
                         dismiss(ws);
                         cx.notify();
                     }))
@@ -1519,20 +1370,7 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
                             .text_color(gpui::rgb(pal().text_dim))
                             .child(label),
                     )
-                    .child(
-                        div()
-                            .w_full()
-                            .h(px(4.0))
-                            .rounded_sm()
-                            .bg(gpui::rgb(pal().chrome_edge))
-                            .child(
-                                div()
-                                    .h_full()
-                                    .w(gpui::relative(ratio))
-                                    .rounded_sm()
-                                    .bg(gpui::rgb(pal().select_border)),
-                            ),
-                    )
+                    .child(ProgressBar::new(ratio).colors(track_colors()))
                     .into_any_element()
             }
             None => div()

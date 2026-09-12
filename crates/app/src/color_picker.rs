@@ -24,6 +24,7 @@ use gpui::{
     SharedString, Styled as _,
 };
 use schist_color::Rgba;
+use schist_ui::TextInput;
 use smallvec::smallvec;
 use std::sync::Arc;
 
@@ -636,36 +637,23 @@ fn hex_field(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let committed = format!("{:06X}", to_hex(chosen));
-    let shown: SharedString = if focused {
-        format!("#{buffer}").into()
+    // The row's label is the "#"; the box holds the six digits.
+    let shown = if focused {
+        buffer.to_string()
     } else {
-        format!("#{committed}").into()
+        committed.clone()
     };
     ui::field_row(
         "#",
-        div()
-            .flex()
-            .items_center()
+        TextInput::new("cp-hex", shown)
+            .active(focused)
             .w(px(86.0))
             .h(px(20.0))
-            .px_1()
-            .rounded_sm()
-            .bg(rgb(ui::palette().field_bg))
-            .border_1()
-            .border_color(rgb(if focused {
-                ui::palette().accent
-            } else {
-                ui::palette().field_bg
-            }))
             .text_size(px(11.0))
-            .on_mouse_down(
-                MouseButton::Left,
-                cx.listener(move |ws, _e, _w, cx| {
-                    ws.focus_field("cp-hex", committed.clone());
-                    cx.notify();
-                }),
-            )
-            .child(shown),
+            .on_focus(cx.listener(move |ws, _e, _w, cx| {
+                ws.focus_field("cp-hex", committed.clone());
+                cx.notify();
+            })),
     )
 }
 

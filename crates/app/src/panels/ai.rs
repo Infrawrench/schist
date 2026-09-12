@@ -2,15 +2,16 @@
 //! harness, streamed as it happens, and a prompt box.
 //!
 //! Rendering only — the conversation lives in `crate::ai` workers and the
-//! workspace's `ai_*` methods. The prompt box follows the notes panel's
-//! text-entry pattern: a plain buffer, a drawn `|` caret, one child div
-//! per line. Harness and model are picked together in one popup — a
+//! workspace's `ai_*` methods. The prompt box is a multiline kit
+//! `TextInput` over a plain buffer, the way the notes panel's fields
+//! are. Harness and model are picked together in one popup — a
 //! search box over the live catalogs each installed CLI reported, with a
 //! rail to flip between harnesses — opened from the chip beside Send.
 
 use super::*;
 use crate::ai::{AiEntryKind, Backend};
 use gpui::AnyElement;
+use schist_ui::DropdownButton;
 
 /// Errors get a colour of their own; the palette has no failure red
 /// because nothing else in the chrome fails inline.
@@ -174,18 +175,6 @@ fn entry(kind: AiEntryKind, text: &str, streaming: bool) -> AnyElement {
 
 fn prompt_box(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let editing = ws.ai.input_active;
-    let empty = ws.ai.input.is_empty();
-    let shown = if editing {
-        format!("{}|", ws.ai.input)
-    } else if empty {
-        if ws.gallery_open() {
-            "Ask about your photos".to_string()
-        } else {
-            "Ask about or edit this document".to_string()
-        }
-    } else {
-        ws.ai.input.clone()
-    };
     let running = ws.ai.running;
     div()
         .relative()
@@ -198,35 +187,19 @@ fn prompt_box(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
         .border_color(gpui::rgb(palette().panel_edge))
         .children(ws.ai.model_menu.then(|| model_menu(ws, cx)))
         .child(
-            div()
-                .id("ai-input")
+            TextInput::new("ai-input", ws.ai.input.clone())
+                .multiline()
+                .active(editing)
+                .placeholder(if ws.gallery_open() {
+                    "Ask about your photos"
+                } else {
+                    "Ask about or edit this document"
+                })
                 .min_h(px(44.0))
-                .p_1()
-                .rounded_sm()
-                .cursor_text()
-                .bg(gpui::rgb(palette().field_bg))
-                .border_1()
-                .border_color(gpui::rgb(if editing {
-                    palette().accent
-                } else {
-                    palette().panel_edge
-                }))
-                .text_size(px(12.0))
-                .text_color(gpui::rgb(if !editing && empty {
-                    palette().text_faint
-                } else {
-                    palette().text
-                }))
-                .flex()
-                .flex_col()
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(|ws, _e, _w, cx| {
-                        ws.ai.input_active = true;
-                        cx.notify();
-                    }),
-                )
-                .children(shown.split('\n').map(|l| SharedString::from(l.to_string()))),
+                .on_focus(cx.listener(|ws, _e, _w, cx| {
+                    ws.ai.input_active = true;
+                    cx.notify();
+                })),
         )
         .child(
             div()
@@ -245,27 +218,9 @@ fn prompt_box(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
 
 /// The chip that opens the picker, in the corner where its choice acts.
 fn model_chip(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    div()
-        .id("ai-model-chip")
-        .flex()
-        .flex_row()
-        .items_center()
-        .gap_1()
-        .h(px(22.0))
-        .px_1p5()
-        .rounded_sm()
-        .cursor_pointer()
-        .bg(gpui::rgb(palette().control_bg))
-        .hover(|s| s.bg(gpui::rgb(palette().button_hover)))
-        .text_size(px(11.0))
-        .text_color(gpui::rgb(palette().text))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(|ws, _e, _w, cx| ws.open_ai_model_menu(cx)),
-        )
+    DropdownButton::new("ai-model-chip", ws.ai_model_name())
         .child(icon(ws.ai.backend.icon(), 11.0, palette().text_dim))
-        .child(SharedString::from(ws.ai_model_name()))
-        .child(icon("chevron-down", 10.0, palette().text_dim))
+        .on_press(cx.listener(|ws, _e, _w, cx| ws.open_ai_model_menu(cx)))
 }
 
 /// The picker: search over the live catalogs, a rail per installed
@@ -404,20 +359,15 @@ fn model_menu(ws: &Workspace, cx: &mut Context<Workspace>) -> AnyElement {
     }
 
     gpui::deferred(
-        div()
-            .absolute()
+        Popover::new("ai-model-menu")
             .bottom(px(34.0))
             .left(px(8.0))
             .w(px(276.0))
-            .flex()
-            .flex_col()
+            // The search header sits flush with the top edge, so no
+            // menu padding above it.
+            .py_0()
             .rounded_md()
-            .bg(gpui::rgb(palette().popup_bg))
-            .border_1()
-            .border_color(gpui::rgb(palette().edge))
-            .shadow_lg()
-            .occlude()
-            .on_mouse_down_out(cx.listener(|ws, _e, _w, cx| ws.close_ai_model_menu(cx)))
+            .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_ai_model_menu(cx)))
             .child(
                 div()
                     .flex()

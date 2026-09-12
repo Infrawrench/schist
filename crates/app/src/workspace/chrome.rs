@@ -125,35 +125,6 @@ impl Workspace {
         Some((x.clamp(0.0, 1.0), (1.0 - y).clamp(0.0, 1.0)))
     }
 
-    /// 0..=1 ratio of a window position along a slider's recorded track.
-    pub fn slider_ratio(&self, id: &'static str, window_pos: Point<Pixels>) -> Option<f32> {
-        let b = self.slider_bounds.get(id)?;
-        let w = f32::from(b.size.width);
-        if w <= 0.0 {
-            return None;
-        }
-        Some(((f32::from(window_pos.x) - f32::from(b.origin.x)) / w).clamp(0.0, 1.0))
-    }
-
-    pub fn begin_slider(&mut self, id: &'static str, before: f32) {
-        self.active_slider = Some((id, before));
-    }
-
-    pub fn dragging_slider(&self, id: &'static str) -> bool {
-        matches!(self.active_slider, Some((s, _)) if s == id)
-    }
-
-    /// End a slider drag, returning the value it started at.
-    pub fn end_slider(&mut self, id: &'static str) -> Option<f32> {
-        match self.active_slider {
-            Some((s, before)) if s == id => {
-                self.active_slider = None;
-                Some(before)
-            }
-            _ => None,
-        }
-    }
-
     /// Live (history-free) layer opacity update during a slider drag; the
     /// drag commits one undo step on release via `commit_layer_opacity`.
     pub fn set_layer_opacity_live(&mut self, id: schist_core::LayerId, value: f32) {

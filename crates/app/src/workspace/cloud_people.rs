@@ -4,6 +4,7 @@ use super::gallery_chrome::{self as chrome, pal};
 use super::*;
 use gpui::{img, StatefulInteractiveElement as _};
 use schist_cloud::{protocol::value, Face, FaceRect, Value};
+use schist_ui::Badge;
 
 /// The cloud's people, drawn like the local PEOPLE rows: a round badge,
 /// the name, a count, and the actions on the right-click menu. Signed
@@ -27,19 +28,9 @@ pub(crate) fn rows(
     }
     let viewing = ws.cloud.query.filters.person_id.clone();
     let badge = |glyph: &'static str| {
-        div()
-            .w(px(20.0))
-            .h(px(20.0))
-            .flex_none()
-            .rounded_full()
-            .border_1()
-            .border_color(gpui::rgb(pal().text_dim))
-            .flex()
-            .items_center()
-            .justify_center()
-            .text_size(px(11.0))
-            .text_color(gpui::rgb(pal().text_dim))
-            .child(glyph)
+        Badge::new(glyph)
+            .outlined()
+            .colors(pal().text_dim, pal().text_dim)
     };
     let person_row = |id: SharedString,
                       glyph: &'static str,

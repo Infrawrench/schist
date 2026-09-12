@@ -1,6 +1,7 @@
 //! The update-available prompt and its download progress.
 
 use super::*;
+use schist_ui::ProgressBar;
 
 /// A newer release than this build.
 ///
@@ -105,17 +106,7 @@ pub(super) fn megabytes(bytes: u64) -> String {
 /// A filled bar, `fraction` of the way across the dialog.
 pub(super) fn progress_bar(fraction: f32) -> impl IntoElement {
     // The frame's width less its padding, which is `p_3` on both sides.
-    let width = UPDATE_DIALOG_WIDTH - 24.0;
-    div()
-        .w(px(width))
+    ProgressBar::new(fraction)
+        .w(px(UPDATE_DIALOG_WIDTH - 24.0))
         .h(px(6.0))
-        .rounded_sm()
-        .bg(gpui::rgb(ui::palette().button_bg))
-        .child(
-            div()
-                .h_full()
-                .w(px(width * fraction.clamp(0.0, 1.0)))
-                .rounded_sm()
-                .bg(gpui::rgb(ui::palette().accent)),
-        )
 }

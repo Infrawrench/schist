@@ -288,20 +288,12 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
                     .child(match &rename {
                         // Inline rename: an editable field with the
                         // dialogs' caret convention.
-                        Some((rid, buffer)) if *rid == id => div()
-                            .flex_grow()
-                            .h(px(22.0))
-                            .px_1()
-                            .flex()
-                            .items_center()
-                            .rounded_sm()
-                            .bg(gpui::rgb(palette().field_bg))
-                            .border_1()
-                            .border_color(gpui::rgb(palette().accent))
-                            .text_size(px(12.0))
-                            .text_color(gpui::rgb(palette().text))
-                            .child(format!("{buffer}|"))
-                            .into_any_element(),
+                        Some((rid, buffer)) if *rid == id => {
+                            TextInput::new("layer-rename", buffer.clone())
+                                .active(true)
+                                .flex_grow()
+                                .into_any_element()
+                        }
                         _ => div()
                             .flex_grow()
                             .text_size(px(12.0))

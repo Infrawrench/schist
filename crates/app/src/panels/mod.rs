@@ -18,7 +18,10 @@ use gpui::{
 };
 use schist_color::Rgba;
 use schist_core::{BlendMode, Layer, LayerId, LayerKind};
-use schist_ui::{Button, ButtonColors, IconButton, Link, ListItem, Swatch, Tab};
+use schist_ui::{
+    menu_separator, Button, ButtonColors, Chip, Divider, Heading, IconButton, Link, ListItem,
+    MenuItem, Popover, Slider, Swatch, Tab, TextInput, TextInputColors,
+};
 use std::sync::Arc;
 
 #[cfg(not(sandboxed))]
@@ -137,11 +140,7 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
 }
 
 fn panel_title(name: &'static str) -> impl IntoElement {
-    div()
-        .text_size(px(ui::metrics().small_text))
-        .text_color(gpui::rgb(palette().text_dim))
-        .pb_1()
-        .child(name.to_uppercase())
+    Heading::new(name).uppercase().pb_1()
 }
 
 // ===== layers panel =====

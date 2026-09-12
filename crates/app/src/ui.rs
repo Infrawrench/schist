@@ -1,20 +1,24 @@
-//! Small widget kit shared by the panels and dialogs.
+//! The workspace's wiring for the widget kit (`schist_ui`).
 //!
-//! Deliberately minimal: GPUI ships no widget library, and a full text-input
-//! implementation needs an IME handler, so numeric fields here are edited by
-//! click-to-focus plus digit keys (see `Workspace::field_key`) rather than
-//! by a general-purpose text editor.
+//! The components live in `crates/ui` and know nothing about the
+//! workspace; what is here adapts them to it: handlers that take
+//! `&mut Workspace`, the dialog default-action slot, the dropdown's
+//! keyboard state, and the numeric fields that are edited by
+//! click-to-focus plus digit keys (see `Workspace::field_key`) because
+//! GPUI ships no text editor.
 
 use crate::workspace::{Popup, Workspace};
-use gpui::{
-    div, px, Context, InteractiveElement as _, IntoElement, MouseButton, ParentElement as _,
-    SharedString, StatefulInteractiveElement as _, Styled as _,
+use gpui::{div, px, Context, IntoElement, ParentElement as _, SharedString, Styled as _};
+use schist_ui::{
+    Button, Checkbox, DropdownButton, FieldRow, ListItem, Modal, NumberField, Popover, Slider,
 };
-use schist_ui::{Button, Checkbox, IconButton, ListItem};
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
-pub use schist_ui::{is_light, palette, set_light, tip};
+pub use schist_ui::{
+    caret_left, caret_right, is_light, metrics, palette, set_light, tip, touch, LineEdit,
+    LineEditKey,
+};
 
 /// What a dialog does when the user presses Enter.
 pub type DialogAction = Rc<dyn Fn(&mut Workspace, &mut gpui::Window, &mut Context<Workspace>)>;
@@ -31,14 +35,6 @@ thread_local! {
     /// picks it up. GPUI renders on one thread, synchronously, so the
     /// slot is only ever live for the duration of one dialog build.
     static DEFAULT_ACTION: RefCell<Option<DialogAction>> = const { RefCell::new(None) };
-}
-
-/// Start a dialog build: forget any previous dialog's default action.
-/// Whether the chrome is driven by fingers: iOS and iPadOS. Everything
-/// sized for a pointer grows to a 44pt target there, and the menus that
-/// open on hover are replaced by the platform's own.
-pub const fn touch() -> bool {
-    cfg!(target_os = "ios")
 }
 
 /// Whether this is an iPad rather than an iPhone. iPadOS has a menu bar
@@ -93,92 +89,6 @@ pub fn shown_path(path: &std::path::Path) -> String {
         .unwrap_or_else(|| path.display().to_string())
 }
 
-/// The chrome's dimensions, in points: the desktop's, or the touch set.
-/// One table rather than `if touch()` at every call site, so the two
-/// layouts can be read side by side.
-#[derive(Clone, Copy)]
-pub struct Metrics {
-    /// The window's base text size.
-    pub text: f32,
-    /// Text in panel rows, menu rows and tool names.
-    pub row_text: f32,
-    /// Secondary text: hints, panel titles, the status bar.
-    pub small_text: f32,
-    pub menu_bar_h: f32,
-    pub menu_title_h: f32,
-    pub menu_row_h: f32,
-    pub menu_w: f32,
-    pub options_bar_h: f32,
-    pub tab_h: f32,
-    pub status_h: f32,
-    pub toolbar_w: f32,
-    pub tool_slot: f32,
-    pub tool_icon: f32,
-    pub panel_w: f32,
-    pub layer_row_h: f32,
-    pub history_row_h: f32,
-    pub icon_button: f32,
-    pub icon_button_icon: f32,
-    pub slider_w: f32,
-    pub slider_h: f32,
-}
-
-pub const DESKTOP_METRICS: Metrics = Metrics {
-    text: 12.0,
-    row_text: 12.0,
-    small_text: 11.0,
-    menu_bar_h: 28.0,
-    menu_title_h: 22.0,
-    menu_row_h: 24.0,
-    menu_w: 230.0,
-    options_bar_h: 32.0,
-    tab_h: 26.0,
-    status_h: 24.0,
-    toolbar_w: 40.0,
-    tool_slot: 30.0,
-    tool_icon: 16.0,
-    panel_w: 260.0,
-    layer_row_h: 34.0,
-    history_row_h: 19.0,
-    icon_button: 22.0,
-    icon_button_icon: 14.0,
-    slider_w: 72.0,
-    slider_h: 12.0,
-};
-
-/// Apple's 44pt minimum target, larger type, and a wider panel column
-/// to carry both.
-pub const TOUCH_METRICS: Metrics = Metrics {
-    text: 14.0,
-    row_text: 15.0,
-    small_text: 13.0,
-    menu_bar_h: 44.0,
-    menu_title_h: 36.0,
-    menu_row_h: 44.0,
-    menu_w: 280.0,
-    options_bar_h: 48.0,
-    tab_h: 40.0,
-    status_h: 30.0,
-    toolbar_w: 56.0,
-    tool_slot: 44.0,
-    tool_icon: 22.0,
-    panel_w: 320.0,
-    layer_row_h: 48.0,
-    history_row_h: 36.0,
-    icon_button: 36.0,
-    icon_button_icon: 18.0,
-    slider_w: 120.0,
-    slider_h: 22.0,
-};
-
-pub fn metrics() -> Metrics {
-    if touch() {
-        TOUCH_METRICS
-    } else {
-        DESKTOP_METRICS
-    }
-}
-
 /// Below this window width the side panels float over the canvas rather
 /// than sit beside it, and the menu bar collapses to one button: a phone,
 /// or a narrow Split View on an iPad.
@@ -188,6 +98,7 @@ pub fn compact(window: &gpui::Window) -> bool {
     touch() && f32::from(window.viewport_size().width) < COMPACT_WIDTH
 }
 
+/// Start a dialog build: forget any previous dialog's default action.
 pub fn reset_default_action() {
     DEFAULT_ACTION.with(|slot| *slot.borrow_mut() = None);
 }
@@ -254,59 +165,22 @@ pub fn num_field(
         committed.clone()
     };
     let dec = on_change.clone();
-    let inc = on_change.clone();
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
-        .gap_1()
-        .child(
-            div()
-                .flex()
-                .items_center()
-                .justify_end()
-                .w(px(62.0))
-                .h(px(20.0))
-                .px_1()
-                .rounded_sm()
-                .bg(gpui::rgb(palette().field_bg))
-                .border_1()
-                .border_color(gpui::rgb(if focused {
-                    palette().accent
-                } else {
-                    palette().field_bg
-                }))
-                .text_size(px(11.0))
-                .on_mouse_down(
-                    MouseButton::Left,
-                    cx.listener(move |ws, _e, _w, cx| {
-                        ws.focus_field(id, committed.clone());
-                        cx.notify();
-                    }),
-                )
-                .child(format!("{shown}{suffix}")),
-        )
-        .child(step_button(id, "minus", move |ws| dec(ws, -step), cx))
-        .child(step_button(id, "plus", move |ws| inc(ws, step), cx))
-}
-
-fn step_button(
-    field: &'static str,
-    icon_name: &'static str,
-    on_click: impl Fn(&mut Workspace) + 'static,
-    cx: &mut Context<Workspace>,
-) -> impl IntoElement {
-    IconButton::new(
-        SharedString::from(format!("{field}-{icon_name}")),
-        icon_name,
-    )
-    .filled()
-    .size(18.0)
-    .icon_size(11.0)
-    .on_click(cx.listener(move |ws, _e, _w, cx| {
-        on_click(ws);
-        cx.notify();
-    }))
+    let inc = on_change;
+    NumberField::new(id, shown)
+        .suffix(suffix)
+        .focused(focused)
+        .on_focus(cx.listener(move |ws, _e, _w, cx| {
+            ws.focus_field(id, committed.clone());
+            cx.notify();
+        }))
+        .on_decrement(cx.listener(move |ws, _e, _w, cx| {
+            dec(ws, -step);
+            cx.notify();
+        }))
+        .on_increment(cx.listener(move |ws, _e, _w, cx| {
+            inc(ws, step);
+            cx.notify();
+        }))
 }
 
 /// A checkbox with a label to its right, keyed by that label.
@@ -533,25 +407,13 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
         .relative()
         .flex()
         .flex_row()
-        .items_center()
-        .justify_between()
         .when(width > 0.0, |d| d.w(px(width)))
         .when(width <= 0.0, |d| d.flex_grow())
-        .h(px(20.0))
-        .px_1()
-        .rounded_sm()
-        .bg(gpui::rgb(palette().field_bg))
-        .text_size(px(11.0))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(popup, cx)),
-        )
-        .child(div().flex_1().min_w_0().text_ellipsis().child(label))
-        .child(crate::panels::icon(
-            "chevron-down",
-            11.0,
-            palette().text_dim,
-        ));
+        .child(
+            DropdownButton::new(("dropdown-button", popup_key(popup)), label)
+                .w_full()
+                .on_press(cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(popup, cx))),
+        );
     if is_open {
         let current_ix = options.iter().position(|(_, v)| v == current);
         // Open at the current value rather than the top of the list, so
@@ -605,28 +467,32 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
             })
             .collect();
         root = root.child(gpui::deferred(
-            div()
-                .id("dropdown-items")
-                .absolute()
+            Popover::new("dropdown-items")
                 .top(px(22.0))
                 .left_0()
                 .w(px(width.max(140.0)))
                 .max_h(px(300.0))
-                .overflow_y_scroll()
                 .track_scroll(&scroll.handle)
-                .py_1()
-                .bg(gpui::rgb(palette().popup_bg))
-                .text_color(gpui::rgb(palette().text))
-                .border_1()
-                .border_color(gpui::rgb(palette().edge))
-                .rounded_sm()
-                .shadow_lg()
-                .occlude()
-                .on_mouse_down_out(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)))
+                .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)))
                 .children(rows),
         ));
     }
     root
+}
+
+/// A number that tells one dropdown's button from another's within a
+/// frame, for its element id.
+fn popup_key(popup: Popup) -> u64 {
+    match popup {
+        Popup::Menu(ix) => ix as u64,
+        Popup::BlendModes => u64::MAX,
+        Popup::Field(id) | Popup::Slider(id) => {
+            use std::hash::{Hash as _, Hasher as _};
+            let mut h = std::collections::hash_map::DefaultHasher::new();
+            id.hash(&mut h);
+            h.finish()
+        }
+    }
 }
 
 /// A bare slider track that reports a 0..1 ratio while dragged. Panels and
@@ -635,118 +501,20 @@ pub fn slider_track(
     id: &'static str,
     ratio: f32,
     width: f32,
-    on_change: impl Fn(&mut Workspace, f32, &mut Context<Workspace>) + Clone + 'static,
+    on_change: impl Fn(&mut Workspace, f32, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let entity = cx.entity();
-    let down = on_change.clone();
-    let moved = on_change;
-    div()
-        .relative()
+    Slider::new(id, ratio)
         .w(px(width))
-        .h(px(12.0))
-        .flex_none()
-        .rounded_sm()
-        .bg(gpui::rgb(palette().field_bg))
-        .child(
-            div()
-                .absolute()
-                .left_0()
-                .top_0()
-                .bottom_0()
-                .w(px(width * ratio.clamp(0.0, 1.0)))
-                .rounded_sm()
-                .bg(gpui::rgb(palette().accent)),
-        )
-        .child(
-            gpui::canvas(
-                move |bounds, _window, cx| {
-                    entity.update(cx, |ws, _| ws.record_slider_bounds(id, bounds));
-                },
-                |_, _, _, _| {},
-            )
-            .absolute()
-            .size_full(),
-        )
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, ev: &gpui::MouseDownEvent, _w, cx| {
-                ws.begin_slider(id, ratio);
-                if let Some(r) = ws.slider_ratio(id, ev.position) {
-                    down(ws, r, cx);
-                }
-                cx.notify();
-            }),
-        )
-        .on_mouse_move(cx.listener(move |ws, ev: &gpui::MouseMoveEvent, _w, cx| {
-            if ev.pressed_button == Some(MouseButton::Left) && ws.dragging_slider(id) {
-                if let Some(r) = ws.slider_ratio(id, ev.position) {
-                    moved(ws, r, cx);
-                    cx.notify();
-                }
-            }
+        .on_change(cx.listener(move |ws, r, _w, cx| {
+            on_change(ws, *r, cx);
+            cx.notify();
         }))
-        .on_mouse_up(
-            MouseButton::Left,
-            cx.listener(move |ws, _ev: &gpui::MouseUpEvent, _w, _cx| {
-                ws.end_slider(id);
-            }),
-        )
 }
 
 /// A labelled row inside a dialog.
-/// The previous char boundary in `s` before byte position `at` — what
-/// a left arrow moves a field's caret by.
-pub fn caret_left(s: &str, at: usize) -> usize {
-    s[..at.min(s.len())]
-        .char_indices()
-        .next_back()
-        .map_or(0, |(i, _)| i)
-}
-
-/// The next char boundary in `s` after byte position `at`.
-pub fn caret_right(s: &str, at: usize) -> usize {
-    let at = at.min(s.len());
-    at + s[at..].chars().next().map_or(0, |c| c.len_utf8())
-}
-
-/// A focused field's inside: the text split around a caret bar that
-/// blinks. The bar keeps its one-pixel slot while off, so the text
-/// does not shuffle as it blinks; `color` is the field's text colour,
-/// since the gallery has its own palette.
-pub fn caret_run(before: String, after: String, on: bool, color: u32) -> impl IntoElement {
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
-        .max_w_full()
-        .overflow_hidden()
-        .children((!before.is_empty()).then(|| div().flex_none().child(SharedString::from(before))))
-        .child(div().flex_none().w(px(1.0)).h(px(13.0)).bg(if on {
-            gpui::rgba((color << 8) | 0xFF)
-        } else {
-            gpui::rgba(0x00000000)
-        }))
-        .children((!after.is_empty()).then(|| div().flex_none().child(SharedString::from(after))))
-}
-
 pub fn field_row(label: impl Into<SharedString>, control: impl IntoElement) -> impl IntoElement {
-    div()
-        .flex()
-        .flex_row()
-        .items_center()
-        .justify_between()
-        .gap_3()
-        .h(px(26.0))
-        .child(
-            div()
-                .w(px(110.0))
-                .flex_none()
-                .text_size(px(12.0))
-                .text_color(gpui::rgb(palette().text_dim))
-                .child(label.into()),
-        )
-        .child(control)
+    FieldRow::new(label).child(control)
 }
 
 /// Centred modal frame with a title bar and an action row. `width` is
@@ -759,72 +527,14 @@ pub fn modal_frame(
     body: impl IntoElement,
     actions: impl IntoElement,
 ) -> impl IntoElement {
-    div()
-        .absolute()
-        .top_0()
-        .left_0()
-        .right_0()
-        .bottom_0()
-        .flex()
-        .items_center()
-        .justify_center()
-        .p_2()
-        .bg(gpui::rgba(0x00000080))
-        // The backdrop must swallow the pointer, or the canvas underneath
-        // keeps its hit box and the active tool edits the document while
-        // the dialog is open -- dragging a slider would also drag the layer.
-        .occlude()
-        .child(
-            div()
-                .flex()
-                .flex_col()
-                .w(px(width))
-                .max_w_full()
-                .max_h_full()
-                .p_3()
-                .gap_2()
-                .rounded_md()
-                .bg(gpui::rgb(palette().panel_bg))
-                .border_1()
-                .border_color(gpui::rgb(palette().edge))
-                .shadow_lg()
-                .text_color(gpui::rgb(palette().text))
-                .child(
-                    div()
-                        .text_size(px(13.0))
-                        .pb_1()
-                        .border_b_1()
-                        .border_color(gpui::rgb(palette().divider))
-                        .child(title.into()),
-                )
-                .child(
-                    div()
-                        .id("modal-body")
-                        .flex()
-                        .flex_col()
-                        .gap_1()
-                        .min_h(px(0.0))
-                        .overflow_y_scroll()
-                        .child(body),
-                )
-                .child(
-                    div()
-                        .flex()
-                        .flex_row()
-                        .flex_none()
-                        .justify_end()
-                        .gap_2()
-                        .pt_2()
-                        .child(actions),
-                ),
-        )
+    Modal::new(title).width(width).child(body).action(actions)
 }
 
 use gpui::prelude::FluentBuilder as _;
 
 #[cfg(test)]
 mod tests {
-    use super::{caret_left, caret_right, type_ahead_target};
+    use super::type_ahead_target;
 
     #[test]
     fn type_ahead_finds_the_first_row_starting_with_the_word() {
@@ -862,202 +572,5 @@ mod tests {
         // But a real prefix wins over cycling: "aa" finds Aardvark.
         let rows = ["Abel", "Aardvark", "Arial"];
         assert_eq!(type_ahead_target(&rows, "aa", Some(0)), Some(1));
-    }
-
-    #[test]
-    fn the_caret_moves_by_whole_characters_and_stays_in_bounds() {
-        // "aé🙂" — one, two and four byte characters.
-        let s = "a\u{e9}\u{1f642}";
-        assert_eq!(caret_right(s, 0), 1);
-        assert_eq!(caret_right(s, 1), 3);
-        assert_eq!(caret_right(s, 3), 7);
-        // At (or past) the end there is nowhere further to go.
-        assert_eq!(caret_right(s, 7), 7);
-        assert_eq!(caret_right(s, 99).min(s.len()), 7);
-        assert_eq!(caret_left(s, 7), 3);
-        assert_eq!(caret_left(s, 3), 1);
-        assert_eq!(caret_left(s, 1), 0);
-        assert_eq!(caret_left(s, 0), 0);
-        assert_eq!(caret_left(s, 99), 3);
-        assert_eq!(caret_left("", 0), 0);
-    }
-}
-
-/// A one-line text box's state: the text, a caret on a char boundary,
-/// a whole-line selection, and whether it is taking keystrokes. The
-/// gallery search boxes (local and cloud) share it, so typing, ⌘A,
-/// paste and the arrows behave identically in both.
-#[derive(Clone, Debug, Default)]
-pub struct LineEdit {
-    pub text: String,
-    /// Byte position, always on a char boundary — arrows move it,
-    /// typing inserts at it.
-    pub cursor: usize,
-    /// ⌘A selected the whole line: the next keystroke replaces it,
-    /// backspace clears it, ⌘C/⌘X take it — the minimal selection a
-    /// one-line box owes the keyboard.
-    pub selected: bool,
-    pub active: bool,
-}
-
-/// What a keystroke did to a [`LineEdit`].
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum LineEditKey {
-    /// Not for the box; let it propagate.
-    Ignored,
-    /// The caret or selection moved; the text is unchanged.
-    Moved,
-    /// The text changed.
-    Changed,
-    /// Enter: the box gave the keyboard back.
-    Submitted,
-}
-
-impl LineEdit {
-    /// A click lands a caret at the end, not a selection.
-    pub fn focus(&mut self) {
-        self.active = true;
-        self.selected = false;
-        self.cursor = self.text.len();
-    }
-
-    /// Empty and inactive.
-    pub fn clear(&mut self) {
-        self.text.clear();
-        self.cursor = 0;
-        self.selected = false;
-        self.active = false;
-    }
-
-    pub fn set_text(&mut self, text: String) {
-        self.cursor = text.len();
-        self.text = text;
-        self.selected = false;
-    }
-
-    fn replace_selection(&mut self) {
-        if self.selected {
-            self.text.clear();
-            self.cursor = 0;
-            self.selected = false;
-        }
-    }
-
-    /// A keystroke while the box is active. `cx` is for the clipboard.
-    pub fn key(&mut self, ev: &gpui::KeyDownEvent, cx: &mut gpui::App) -> LineEditKey {
-        if !self.active {
-            return LineEditKey::Ignored;
-        }
-        let primary = ev.keystroke.modifiers.platform || ev.keystroke.modifiers.control;
-        // Keep the caret on the rails whatever changed the text.
-        self.cursor = self.cursor.min(self.text.len());
-        match ev.keystroke.key.as_str() {
-            "a" if primary => {
-                self.selected = !self.text.is_empty();
-                self.cursor = self.text.len();
-                LineEditKey::Moved
-            }
-            "c" if primary && self.selected => {
-                cx.write_to_clipboard(gpui::ClipboardItem::new_string(self.text.clone()));
-                LineEditKey::Moved
-            }
-            "x" if primary && self.selected => {
-                cx.write_to_clipboard(gpui::ClipboardItem::new_string(self.text.clone()));
-                self.replace_selection();
-                LineEditKey::Changed
-            }
-            "v" if primary => {
-                let Some(pasted) = cx.read_from_clipboard().and_then(|item| item.text()) else {
-                    return LineEditKey::Moved;
-                };
-                // One line: a pasted paragraph flattens rather than
-                // breaking the box.
-                let pasted: String = pasted
-                    .chars()
-                    .map(|c| if c.is_control() { ' ' } else { c })
-                    .collect();
-                self.replace_selection();
-                let at = self.cursor;
-                self.text.insert_str(at, &pasted);
-                self.cursor = at + pasted.len();
-                LineEditKey::Changed
-            }
-            "left" | "right" if primary => {
-                // ⌘←/⌘→: the ends of the line.
-                self.selected = false;
-                self.cursor = if ev.keystroke.key == "left" {
-                    0
-                } else {
-                    self.text.len()
-                };
-                LineEditKey::Moved
-            }
-            "left" => {
-                self.cursor = if self.selected {
-                    0
-                } else {
-                    caret_left(&self.text, self.cursor)
-                };
-                self.selected = false;
-                LineEditKey::Moved
-            }
-            "right" => {
-                self.cursor = if self.selected {
-                    self.text.len()
-                } else {
-                    caret_right(&self.text, self.cursor).min(self.text.len())
-                };
-                self.selected = false;
-                LineEditKey::Moved
-            }
-            "home" | "up" => {
-                self.cursor = 0;
-                self.selected = false;
-                LineEditKey::Moved
-            }
-            "end" | "down" => {
-                self.cursor = self.text.len();
-                self.selected = false;
-                LineEditKey::Moved
-            }
-            "backspace" => {
-                if self.selected {
-                    self.replace_selection();
-                } else if self.cursor > 0 {
-                    let from = caret_left(&self.text, self.cursor);
-                    self.text.replace_range(from..self.cursor, "");
-                    self.cursor = from;
-                }
-                LineEditKey::Changed
-            }
-            "delete" => {
-                if self.selected {
-                    self.replace_selection();
-                } else if self.cursor < self.text.len() {
-                    let to = caret_right(&self.text, self.cursor);
-                    self.text.replace_range(self.cursor..to, "");
-                }
-                LineEditKey::Changed
-            }
-            "enter" => {
-                self.active = false;
-                self.selected = false;
-                LineEditKey::Submitted
-            }
-            _ => {
-                let Some(text) = ev.keystroke.key_char.as_deref() else {
-                    return LineEditKey::Ignored;
-                };
-                if text.chars().any(char::is_control) {
-                    return LineEditKey::Ignored;
-                }
-                // Typing over a selection replaces it, as anywhere.
-                self.replace_selection();
-                let at = self.cursor;
-                self.text.insert_str(at, text);
-                self.cursor = at + text.len();
-                LineEditKey::Changed
-            }
-        }
     }
 }

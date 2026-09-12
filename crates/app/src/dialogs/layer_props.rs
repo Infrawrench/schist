@@ -18,43 +18,21 @@ pub(super) fn layer_properties(
     };
     let body = ui::field_row(
         "Name",
-        div()
+        TextInput::new("layer-name", shown.clone())
+            // Nothing typed yet: the committed name shows with the
+            // caret at its end, as it always did.
+            .cursor(if state.field_buffer.is_empty() {
+                shown.len()
+            } else {
+                state.field_cursor.min(shown.len())
+            })
+            .active(focused)
+            .caret_on(state.caret_on)
             .w(px(200.0))
-            .h(px(22.0))
-            .px_1()
-            .flex()
-            .items_center()
-            .rounded_sm()
-            .bg(gpui::rgb(ui::palette().field_bg))
-            .border_1()
-            .border_color(gpui::rgb(if focused {
-                ui::palette().accent
-            } else {
-                ui::palette().field_bg
-            }))
-            .text_size(px(12.0))
-            .on_mouse_down(
-                gpui::MouseButton::Left,
-                cx.listener(move |ws, _e, _w, cx| {
-                    ws.focus_field("layer-name", committed.clone());
-                    cx.notify();
-                }),
-            )
-            // A caret makes it obvious the field takes typing; it
-            // blinks, and the arrows move it.
-            .child(if focused {
-                let (before, after) = if state.field_buffer.is_empty() {
-                    // Nothing typed yet: the committed name shows with
-                    // the caret at its end, as it always did.
-                    (shown.clone(), String::new())
-                } else {
-                    let at = state.field_cursor.min(shown.len());
-                    (shown[..at].to_string(), shown[at..].to_string())
-                };
-                ui::caret_run(before, after, state.caret_on, ui::palette().text).into_any_element()
-            } else {
-                div().child(shown.clone()).into_any_element()
-            }),
+            .on_focus(cx.listener(move |ws, _e, _w, cx| {
+                ws.focus_field("layer-name", committed.clone());
+                cx.notify();
+            })),
     );
 
     let committed = name;

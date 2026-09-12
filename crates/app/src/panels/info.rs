@@ -34,17 +34,8 @@ pub(super) fn top_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui
     };
     let tab_chip = |label: &'static str, which: SideTab, cx: &mut Context<Workspace>| {
         let on = tab == which;
-        Button::new(label, label)
-            .ghost()
-            .h(px(22.0))
-            .px_2()
-            .text_size(px(11.0))
-            .when(on, |b| b.bg(gpui::rgb(palette().hover)))
-            .text_color(gpui::rgb(if on {
-                palette().text
-            } else {
-                palette().text_dim
-            }))
+        Chip::new(label, label)
+            .selected(on)
             .on_click(cx.listener(move |ws, _e, _w, cx| {
                 ws.side_tab = Some(which);
                 cx.notify();

@@ -495,21 +495,12 @@ pub fn tool_flyout(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gp
 
     Some(
         deferred(
-            div()
-                .absolute()
+            Popover::new("tool-flyout")
                 // Sits just right of the toolbar, level with the slot.
                 .left(px(42.0))
                 .top(px(f32::from(position.y) - 12.0))
                 .w(px(200.0))
-                .py_1()
-                .bg(gpui::rgb(palette().popup_bg))
-                .text_color(gpui::rgb(palette().text))
-                .border_1()
-                .border_color(gpui::rgb(palette().edge))
-                .rounded_sm()
-                .shadow_lg()
-                .occlude()
-                .on_mouse_down_out(cx.listener(|ws, _e, _w, cx| ws.close_tool_flyout(cx)))
+                .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_tool_flyout(cx)))
                 .children(rows),
         )
         .into_any_element(),

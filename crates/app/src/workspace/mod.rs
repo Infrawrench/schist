@@ -315,11 +315,9 @@ pub struct Workspace {
     /// Generation of the most recently requested sensor-data preview.
     /// Slow results from an older slider position are discarded on arrival.
     raw_preview_seq: u64,
-    /// Live bounds of slider tracks, recorded each frame by their canvases.
+    /// Live bounds of the picker's and the curve editor's drag surfaces,
+    /// recorded each frame by their canvases.
     slider_bounds: FxHashMap<&'static str, Bounds<Pixels>>,
-    /// Slider drag in progress: (slider id, value before the drag) — used
-    /// to commit layer-opacity drags as one undo step on release.
-    active_slider: Option<(&'static str, f32)>,
     /// Layer thumbnails keyed by layer id, tagged with the doc revision
     /// they were rendered at.
     thumbs: FxHashMap<schist_core::LayerId, (u64, Arc<RenderImage>)>,
@@ -1462,7 +1460,6 @@ impl Workspace {
             filter_preview: None,
             raw_preview_seq: 0,
             slider_bounds: FxHashMap::default(),
-            active_slider: None,
             thumbs: FxHashMap::default(),
             tool_groups: Vec::new(),
             group_active: FxHashMap::default(),

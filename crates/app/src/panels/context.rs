@@ -121,11 +121,7 @@ pub fn context_menu(
     let rows: Vec<gpui::AnyElement> = entries
         .into_iter()
         .map(|entry| match entry {
-            ContextEntry::Sep => div()
-                .h(px(1.0))
-                .my_1()
-                .bg(gpui::rgb(palette().edge))
-                .into_any_element(),
+            ContextEntry::Sep => menu_separator().into_any_element(),
             ContextEntry::Cmd(id) => {
                 let (label, hint) = ws
                     .registry
@@ -170,20 +166,11 @@ pub fn context_menu(
 
     Some(
         deferred(
-            div()
-                .absolute()
+            Popover::new("context-menu")
                 .left(px(left))
                 .top(px(top))
                 .w(px(width))
-                .py_1()
-                .bg(gpui::rgb(palette().popup_bg))
-                .text_color(gpui::rgb(palette().text))
-                .border_1()
-                .border_color(gpui::rgb(palette().edge))
-                .rounded_sm()
-                .shadow_lg()
-                .occlude()
-                .on_mouse_down_out(cx.listener(|ws, _e, _w, cx| ws.close_context_menu(cx)))
+                .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_context_menu(cx)))
                 .children(rows),
         )
         .into_any_element(),

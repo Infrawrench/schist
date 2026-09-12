@@ -5,6 +5,7 @@
 use super::*;
 use crate::workspace::{BatchRecipe, BatchTarget, CanvasTransform};
 use schist_core::AdjustmentKind;
+use schist_ui::Heading;
 use std::path::PathBuf;
 
 /// The adjustments on offer, in the order Photoshop's menu lists the
@@ -41,11 +42,7 @@ const STEP_POPUPS: [&str; 6] = [
 const UPSCALERS: &[&str] = &["waifu2x-photo", "waifu2x-art"];
 
 fn section(title: &'static str) -> impl IntoElement {
-    div()
-        .pt_1()
-        .text_size(px(11.0))
-        .text_color(gpui::rgb(ui::palette().text_dim))
-        .child(title)
+    Heading::new(title).pt_1()
 }
 
 #[allow(clippy::too_many_arguments)]

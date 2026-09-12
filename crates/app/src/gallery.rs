@@ -13,7 +13,7 @@ use gpui::{
     div, px, Context, InteractiveElement as _, IntoElement, ParentElement as _, SharedString,
     StatefulInteractiveElement as _, Styled,
 };
-use schist_ui::{Checkbox, IconButton, ListItem};
+use schist_ui::{Checkbox, Divider, Heading, IconButton, ListItem};
 
 /// Mutate the open gallery and re-run its preview.
 fn edit(
@@ -75,14 +75,7 @@ pub fn render(
             div()
                 .flex()
                 .flex_col()
-                .child(
-                    div()
-                        .px_1()
-                        .pt_2()
-                        .text_size(px(11.0))
-                        .text_color(gpui::rgb(ui::palette().text_dim))
-                        .child(SharedString::from(name)),
-                )
+                .child(Heading::new(SharedString::from(name)).px_1().pt_2())
                 .children(list.into_iter().map(|(id, label)| {
                     ListItem::new(id)
                         .h(px(20.0))
@@ -215,14 +208,9 @@ pub fn render(
         .flex_col()
         .gap_2()
         .flex_grow()
-        .child(
-            div()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(ui::palette().text_dim))
-                .child("Stack (applied bottom to top)"),
-        )
+        .child(Heading::new("Stack (applied bottom to top)"))
         .child(stack_panel)
-        .child(div().h(px(1.0)).bg(gpui::rgb(ui::palette().divider)))
+        .child(Divider::horizontal())
         .child(params)
         .child(ui::checkbox(
             "Preview",

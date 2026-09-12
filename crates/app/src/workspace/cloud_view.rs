@@ -29,6 +29,7 @@ use schist_cloud::{
     protocol::{map, value},
     Asset, Bucket, Filters, Folder, Rule, Scope, Value,
 };
+use schist_ui::{Heading, Radio, TextInput};
 use std::collections::BTreeMap;
 
 /// A drag of remote items — assets or a folder — headed for a bucket.
@@ -52,11 +53,8 @@ impl Render for DragLabel {
             .child(self.0.clone())
     }
 }
-fn caption(text: impl Into<SharedString>) -> gpui::Div {
-    div()
-        .text_size(px(11.0))
-        .text_color(gpui::rgb(ui::palette().text_dim))
-        .child(text.into())
+fn caption(text: impl Into<SharedString>) -> Heading {
+    Heading::new(text)
 }
 fn form(
     ws: &mut Workspace,
@@ -1773,11 +1771,13 @@ pub(crate) fn dialog(
                 .max_h(px(320.0))
                 .overflow_y_scroll();
             for (id, name) in options {
-                let display = format!("{} {}", if id == committed { "●" } else { "○" }, name);
-                choices = choices.child(ui::button(
-                    display,
-                    false,
-                    move |ws, _, cx| {
+                choices = choices.child(
+                    Radio::new(
+                        SharedString::from(format!("radio-{id}")),
+                        name,
+                        id == committed,
+                    )
+                    .on_select(cx.listener(move |ws, _e, _w, cx| {
                         ws.update_modal(|modal| {
                             if let Modal::Cloud { fields, .. } = modal {
                                 if let Some((_, _, selected)) = fields
@@ -1789,9 +1789,8 @@ pub(crate) fn dialog(
                             }
                         });
                         cx.notify();
-                    },
-                    cx,
-                ));
+                    })),
+                );
             }
             body = body.child(ui::field_row("Format", choices));
             continue;
@@ -1804,11 +1803,13 @@ pub(crate) fn dialog(
                     .iter()
                     .map(|f| (f.id.clone(), f.name.clone())),
             ) {
-                let display = format!("{} {}", if id == committed { "●" } else { "○" }, name);
-                choices = choices.child(ui::button(
-                    display,
-                    false,
-                    move |ws, _, cx| {
+                choices = choices.child(
+                    Radio::new(
+                        SharedString::from(format!("radio-{id}")),
+                        name,
+                        id == committed,
+                    )
+                    .on_select(cx.listener(move |ws, _e, _w, cx| {
                         ws.update_modal(|modal| {
                             if let Modal::Cloud { fields, .. } = modal {
                                 if let Some((_, _, v)) =
@@ -1819,9 +1820,8 @@ pub(crate) fn dialog(
                             }
                         });
                         cx.notify();
-                    },
-                    cx,
-                ));
+                    })),
+                );
             }
             body = body.child(ui::field_row("Folder", choices));
             continue;
@@ -1832,36 +1832,17 @@ pub(crate) fn dialog(
         } else {
             committed.clone()
         };
-        let value = if active {
-            let at = ws.field_cursor.min(shown.len());
-            ui::caret_run(
-                shown[..at].to_string(),
-                shown[at..].to_string(),
-                ws.caret_on(),
-                ui::palette().text,
-            )
-            .into_any_element()
-        } else {
-            div().child(shown).into_any_element()
-        };
         body = body.child(ui::field_row(
             label,
-            div()
+            TextInput::new(key, shown)
+                .cursor(ws.field_cursor)
+                .active(active)
+                .caret_on(ws.caret_on())
                 .w(px(270.0))
-                .min_h(px(24.0))
-                .px_1()
-                .bg(gpui::rgb(ui::palette().field_bg))
-                .border_1()
-                .border_color(gpui::rgb(if active {
-                    ui::palette().accent
-                } else {
-                    ui::palette().field_bg
-                }))
-                .on_press(cx, move |ws, _, _, cx| {
+                .on_focus(cx.listener(move |ws, _, _, cx| {
                     ws.focus_field(key, committed.clone());
                     cx.notify();
-                })
-                .child(value),
+                })),
         ));
     }
     let actions = div()

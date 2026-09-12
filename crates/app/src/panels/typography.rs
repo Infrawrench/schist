@@ -20,13 +20,8 @@ fn option(options: &[ToolOption], key: &str) -> ToolOption {
         .clone()
 }
 
-fn separator() -> gpui::Div {
-    div()
-        .w(px(1.0))
-        .h(px(20.0))
-        .mx_1()
-        .flex_none()
-        .bg(gpui::rgb(palette().divider))
+fn separator() -> Divider {
+    Divider::vertical().h(px(20.0)).mx_1()
 }
 
 fn compact_button(id: &'static str, label: &'static str, active: bool) -> Button {
@@ -108,53 +103,29 @@ fn number(
     } else {
         value.clone()
     };
-    div()
-        .id(field_id)
-        .flex()
-        .items_center()
-        .justify_between()
+    TextInput::new(field_id, shown)
+        .active(focused)
+        .selected(selected)
+        .suffix(suffix.trim())
+        .align_end()
         .w(px(width))
-        .h(px(22.0))
-        .flex_none()
-        .px_1()
-        .rounded_sm()
-        .border_1()
-        .border_color(gpui::rgb(if focused {
-            palette().accent
-        } else {
-            palette().edge
-        }))
-        .bg(gpui::rgb(palette().field_bg))
         .text_size(px(11.0))
-        .tooltip(ui::tip(
+        .colors(TextInputColors {
+            border: Some(palette().edge),
+            ..Default::default()
+        })
+        .tooltip(
             format!(
                 "{} · Type a value, or use ↑ / ↓ (Shift for larger steps)",
                 option.label
             ),
             None,
-        ))
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(move |ws, _e, _w, cx| {
-                ws.commit_focused_field();
-                ws.focus_field(field_id, value.clone());
-                cx.notify();
-            }),
         )
-        .child(
-            div()
-                .flex_1()
-                .min_w_0()
-                .text_ellipsis()
-                .when(selected, |d| d.bg(gpui::rgb(palette().selection_bg)))
-                .child(shown),
-        )
-        .child(
-            div()
-                .flex_none()
-                .text_color(gpui::rgb(palette().text_dim))
-                .child(suffix.trim()),
-        )
+        .on_focus(cx.listener(move |ws, _e, _w, cx| {
+            ws.commit_focused_field();
+            ws.focus_field(field_id, value.clone());
+            cx.notify();
+        }))
         .into_any_element()
 }
 
@@ -325,15 +296,13 @@ pub(super) fn character_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -
     let options = options(ws);
     let path = option(&options, "type-path").value.bool();
     let row = || div().flex().items_center().gap_2();
-    let section = |label| {
-        div()
+    let section = |label: &'static str| {
+        Heading::new(label)
+            .text_size(px(10.0))
             .mt_1()
             .pt_2()
             .border_t_1()
             .border_color(gpui::rgb(palette().divider))
-            .text_size(px(10.0))
-            .text_color(gpui::rgb(palette().text_dim))
-            .child(label)
     };
     let mut panel = div()
         .flex()
