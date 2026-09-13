@@ -577,6 +577,12 @@ impl Focusable for Workspace {
 
 impl Render for Workspace {
     fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
+        // Movie frames are transient. Release their atlas slots in either
+        // room, including the final frame after closing the video viewer.
+        #[cfg(not(target_arch = "wasm32"))]
+        for image in self.library.video_retired.lock().unwrap().drain(..) {
+            let _ = window.drop_image(image);
+        }
         // Every colour below comes from the palette, so the theme must be
         // selected before any child renders.
         crate::ui::set_light(self.view.theme == Theme::Light);

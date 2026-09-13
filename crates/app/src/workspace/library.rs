@@ -259,6 +259,11 @@ pub struct Library {
     pub folders: Vec<PathBuf>,
     /// Recently opened files, newest first, persisted.
     pub recents: Vec<PathBuf>,
+    pub video_editor: Option<PathBuf>,
+    #[cfg(not(target_arch = "wasm32"))]
+    pub video: Option<super::video::VideoViewer>,
+    #[cfg(not(target_arch = "wasm32"))]
+    pub video_retired: Arc<std::sync::Mutex<Vec<Arc<RenderImage>>>>,
     /// Scan result, grouped by directory.
     pub sections: Vec<Section>,
     /// Sidebar filter: show only sections under this root. `None` = all.
@@ -483,6 +488,11 @@ impl Library {
             open: false,
             folders,
             recents: file.recents,
+            video_editor: file.video_editor,
+            #[cfg(not(target_arch = "wasm32"))]
+            video: None,
+            #[cfg(not(target_arch = "wasm32"))]
+            video_retired: Arc::default(),
             sections: Vec::new(),
             folder_filter: None,
             selected: Vec::new(),
@@ -591,6 +601,7 @@ impl Library {
         let file = LibraryFile {
             folders: self.folders.clone(),
             recents: self.recents.clone(),
+            video_editor: self.video_editor.clone(),
             thumb_px: Some(self.thumb_px),
             group_by: Some(self.group_by.key().to_string()),
             buckets: self
@@ -702,6 +713,10 @@ impl Library {
         // The viewer's decode is the biggest single picture in memory,
         // and a photo on show in a gallery that has closed is nobody's.
         self.viewer = None;
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            self.video = None;
+        }
         self.evict_thumbs(THUMB_KEEP_PARKED);
         // Leaving the gallery is also a fine moment to persist what
         // indexing learned, in case the loader never went idle.
@@ -2140,7 +2155,7 @@ fn load_thumb(job: &ThumbJob) -> ThumbOutcome {
         } else {
             THUMB_EDGE
         };
-        match schist_preview::render_file(&job.source, edge) {
+        match media_preview(&job.source, edge) {
             Ok(preview) => {
                 let thumb = if edge == THUMB_EDGE {
                     preview
@@ -2660,7 +2675,7 @@ impl Workspace {
         }
         self.library.scanning = true;
         let folders = self.library.folders.clone();
-        let exts = self.codec_extensions();
+        let exts = self.gallery_extensions();
         cx.spawn(async move |this, cx| {
             let sections = cx
                 .background_executor()
@@ -2714,6 +2729,21 @@ impl Workspace {
             .flat_map(|c| c.extensions())
             .map(|e| e.to_string())
             .collect()
+    }
+
+    /// Videos belong in local browsing/import, not cloud image backup.
+    pub(super) fn gallery_extensions(&self) -> Vec<String> {
+        let exts = self.codec_extensions();
+        #[cfg(not(target_arch = "wasm32"))]
+        let exts = exts
+            .into_iter()
+            .chain(
+                schist_gallery::VIDEO_EXTENSIONS
+                    .iter()
+                    .map(|e| e.to_string()),
+            )
+            .collect();
+        exts
     }
 
     /// Start the thumbnail loader if decodes are queued and none is
@@ -2938,7 +2968,7 @@ impl Workspace {
                     .as_deref()
                     .map(str::trim)
                     .filter(|q| !q.is_empty())
-                    .map(str::to_string);
+                    .map(|e| e.to_string());
                 let cached = query
                     .as_ref()
                     .and_then(|q| self.library.query_cache.get(q).cloned());
@@ -3564,7 +3594,7 @@ impl Workspace {
     /// thousand tabs. The gallery is the other answer, and the dialog
     /// that offers this offers that first.
     pub fn open_folder_images(&mut self, dirs: Vec<PathBuf>, cx: &mut Context<Self>) {
-        let images: Vec<PathBuf> = scan_folders(&dirs, &self.codec_extensions())
+        let images: Vec<PathBuf> = scan_folders(&dirs, &self.gallery_extensions())
             .into_iter()
             .flat_map(|s| s.entries.into_iter().map(|e| e.path))
             .collect();
@@ -3610,6 +3640,11 @@ impl Workspace {
         #[cfg(target_os = "ios")]
         {
             self.import_photos(cx);
+            return;
+        }
+        #[cfg(target_os = "android")]
+        {
+            self.import_mobile_media(cx);
             return;
         }
         #[allow(unreachable_code)]
@@ -3730,7 +3765,7 @@ impl Workspace {
         area: Option<(library_geo::GeoBounds, String)>,
         cx: &mut Context<Self>,
     ) {
-        let exts = self.codec_extensions();
+        let exts = self.gallery_extensions();
         let copy_dest = dest.clone();
         let bounds = area.as_ref().map(|(b, _)| *b);
         cx.spawn(async move |this, cx| {
@@ -3966,6 +4001,11 @@ impl Workspace {
     /// and either way the document saves to the sidecar, never over the
     /// original.
     pub fn open_from_gallery(&mut self, original: PathBuf, cx: &mut Context<Self>) {
+        #[cfg(not(target_arch = "wasm32"))]
+        if schist_gallery::is_video(&original) {
+            self.open_video(original, cx);
+            return;
+        }
         let Some(psd) = backing_psd(&original) else {
             return;
         };
@@ -4882,4 +4922,19 @@ mod grouping_tests {
         assert!(normalized.get(..7) == Some("2026-08"));
         assert!("2026-09-01 00:00:00" > normalized.as_str());
     }
+}
+
+/// One poster frame for video; image codecs retain the existing path.
+fn media_preview(path: &Path, edge: u32) -> anyhow::Result<schist_preview::Preview> {
+    #[cfg(not(target_arch = "wasm32"))]
+    if schist_gallery::is_video(path) {
+        let frame = crate::video::frame(path, 0.0, edge, Arc::new(crate::video::Job::default()))?;
+        return Ok(schist_preview::Preview {
+            width: frame.width,
+            height: frame.height,
+            rgba: frame.rgba,
+            source: schist_preview::Source::Decoded,
+        });
+    }
+    schist_preview::render_file(path, edge)
 }

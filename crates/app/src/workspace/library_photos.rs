@@ -91,7 +91,7 @@ fn delegate_class() -> &'static AnyClass {
 
 /// The view controller to present from: the key window's root, or
 /// whatever it has presented on top.
-unsafe fn presenting_controller() -> Option<*mut AnyObject> {
+pub(super) unsafe fn presenting_controller() -> Option<*mut AnyObject> {
     unsafe {
         let app_class = AnyClass::get(c"UIApplication")?;
         let app: *mut AnyObject = msg_send![app_class, sharedApplication];
@@ -179,7 +179,12 @@ unsafe fn present_picker() -> Result<(), String> {
         // 0 is unlimited.
         let _: () = msg_send![config, setSelectionLimit: 0isize];
         let images: *mut AnyObject = msg_send![filter_class, imagesFilter];
-        let _: () = msg_send![config, setFilter: images];
+        let videos: *mut AnyObject = msg_send![filter_class, videosFilter];
+        let values = [images, videos];
+        let filters: Retained<AnyObject> = msg_send![AnyClass::get(c"NSArray").unwrap(), arrayWithObjects: values.as_ptr(), count: values.len()];
+        let filter: Retained<AnyObject> =
+            msg_send![filter_class, anyFilterMatchingSubfilters: &*filters];
+        let _: () = msg_send![config, setFilter: &*filter];
         // PHPickerConfigurationAssetRepresentationModeCurrent: the original
         // bytes as they are, HEIC included, with the user's edits applied.
         let _: () = msg_send![config, setPreferredAssetRepresentationMode: 1isize];
@@ -220,11 +225,19 @@ unsafe extern "C-unwind" fn did_finish_picking(
             }
         }
         let image_type = NSString::from_str("public.image");
+        let movie_type = NSString::from_str("public.movie");
         for i in 0..count {
             let result: *mut AnyObject = msg_send![results, objectAtIndex: i];
             let provider: *mut AnyObject = msg_send![result, itemProvider];
+            if provider.is_null() {
+                record(None);
+                continue;
+            }
+            let has_video: bool =
+                msg_send![provider, hasItemConformingToTypeIdentifier: &*movie_type];
+            let media_type = if has_video { &movie_type } else { &image_type };
             let has_image: bool =
-                msg_send![provider, hasItemConformingToTypeIdentifier: &*image_type];
+                msg_send![provider, hasItemConformingToTypeIdentifier: &**media_type];
             if provider.is_null() || !has_image {
                 record(None);
                 continue;
@@ -235,7 +248,7 @@ unsafe extern "C-unwind" fn did_finish_picking(
                 record(copied);
             });
             // Returns the NSProgress for the load, which nothing here reads.
-            let _progress: *mut AnyObject = msg_send![provider, loadFileRepresentationForTypeIdentifier: &*image_type, completionHandler: &*handler];
+            let _progress: *mut AnyObject = msg_send![provider, loadFileRepresentationForTypeIdentifier: &**media_type, completionHandler: &*handler];
         }
     }
 }

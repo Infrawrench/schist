@@ -329,7 +329,7 @@ pub fn gallery_button(
     green: bool,
     on_click: impl Fn(&mut Workspace, &mut Window, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
-) -> impl IntoElement {
+) -> impl IntoElement + gpui::Styled {
     let label = label.into();
     Button::new(label.clone(), label)
         .colors(ButtonColors {
@@ -1507,6 +1507,10 @@ impl Workspace {
             return self.cloud_search_key(ev, cx) || self.cloud_nav_key(ev, cx);
         }
         #[cfg(not(target_arch = "wasm32"))]
+        if self.video_key(ev, cx) {
+            return true;
+        }
+        #[cfg(not(target_arch = "wasm32"))]
         {
             self.gallery_viewer_key(ev, cx)
                 || self.gallery_search_key(ev, cx)
@@ -1542,6 +1546,10 @@ impl Workspace {
     pub(crate) fn gallery_enter(&mut self, cx: &mut Context<Self>) -> bool {
         if !self.gallery_open() {
             return false;
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        if !self.cloud.show && self.video_enter(cx) {
+            return true;
         }
         if self.cloud.show {
             if self.cloud.search.active {

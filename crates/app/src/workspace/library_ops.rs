@@ -193,6 +193,11 @@ impl Workspace {
     /// one format every build exports), the photo's own pixel size
     /// read up front so the scale slider can speak in pixels.
     pub(super) fn open_save_image_as(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        #[cfg(not(target_arch = "wasm32"))]
+        if schist_gallery::is_video(&path) {
+            self.open_video(path, cx);
+            return;
+        }
         let codec = self
             .registry
             .codecs()
@@ -354,6 +359,10 @@ impl Workspace {
 
     /// Right-click ▸ Process…: the batch dialog over these photos.
     pub(super) fn open_batch_process(&mut self, photos: Vec<PathBuf>, cx: &mut Context<Self>) {
+        let photos: Vec<_> = photos
+            .into_iter()
+            .filter(|p| !schist_gallery::is_video(p))
+            .collect();
         if photos.is_empty() {
             return;
         }
@@ -400,6 +409,13 @@ impl Workspace {
         window: &mut Window,
         cx: &mut Context<Self>,
     ) {
+        let photos: Vec<_> = photos
+            .into_iter()
+            .filter(|p| !schist_gallery::is_video(p))
+            .collect();
+        if photos.is_empty() {
+            return;
+        }
         if recipe.is_empty() {
             self.status = t("library.batch.nothing_to_do").into();
             cx.notify();
@@ -807,11 +823,13 @@ fn zip_plan(path: &Path) -> ZipPlan {
         // exactly what the archive wants, so its bytes go in as they
         // are — re-encoding a JPEG would only lose a second generation,
         // and a raw developed to PNG would lose the raw.
-        None if lossy || ext == "png" || is_raw(&ext) => ZipPlan {
-            source: path.to_path_buf(),
-            verbatim: true,
-            ext,
-        },
+        None if lossy || ext == "png" || is_raw(&ext) || schist_gallery::is_video(path) => {
+            ZipPlan {
+                source: path.to_path_buf(),
+                verbatim: true,
+                ext,
+            }
+        }
         None => ZipPlan {
             source: path.to_path_buf(),
             verbatim: false,
@@ -1067,6 +1085,24 @@ mod tests {
     /// The archive our writer emits, read back with a bare parser: the
     /// signatures, counts and stored bytes all land where the spec puts
     /// them, which is what any unzip checks first.
+    #[test]
+    fn video_archives_preserve_original_bytes_and_ignore_image_sidecars() {
+        let dir = tempfile::tempdir().unwrap();
+        let movie = dir.path().join("holiday.MOV");
+        let bytes = b"original video bytes";
+        std::fs::write(&movie, bytes).unwrap();
+        std::fs::create_dir(dir.path().join(".schist")).unwrap();
+        std::fs::write(
+            dir.path().join(".schist/holiday.MOV.psd"),
+            b"not a video edit",
+        )
+        .unwrap();
+        let (name, archived) = zip_entry(&[], &movie).unwrap();
+        assert_eq!(name, "holiday.mov");
+        assert_eq!(archived, bytes);
+        assert_eq!(std::fs::read(movie).unwrap(), bytes);
+    }
+
     #[test]
     fn the_zip_writer_round_trips() {
         let dir = std::env::temp_dir().join(format!("schist-zip-test-{}", std::process::id()));
