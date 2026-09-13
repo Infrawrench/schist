@@ -30,8 +30,6 @@ pub fn tab_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
             let select = cx.entity();
             let close = cx.entity();
             Tab::new(("doc-tab", i), label)
-                .h(px(m.tab_h - 1.0))
-                .text_size(px(m.small_text))
                 .active(is_active)
                 .on_select(move |_w, cx| select.update(cx, |ws, cx| ws.select_tab(i, cx)))
                 .on_close(move |_w, cx| close.update(cx, |ws, cx| ws.request_close_tab(i, cx)))

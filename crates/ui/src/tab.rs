@@ -1,6 +1,6 @@
 //! A document tab.
 
-use crate::{palette, Handler, IconButton};
+use crate::{metrics, palette, Handler, IconButton};
 use gpui::{
     div, px, App, ElementId, InteractiveElement as _, IntoElement, MouseButton, ParentElement as _,
     Refineable as _, RenderOnce, SharedString, StyleRefinement, Styled, Window,
@@ -59,18 +59,19 @@ impl Styled for Tab {
 impl RenderOnce for Tab {
     fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
         let p = palette();
+        let m = metrics();
         let mut el = div()
             .flex()
             .flex_row()
             .items_center()
             .gap_1()
-            .h(px(25.0))
+            .h(px(m.tab_h - 1.0))
             .pl_2()
             .pr_1()
             .max_w(px(180.0))
             .border_r_1()
             .border_color(gpui::rgb(p.panel_edge))
-            .text_size(px(11.0));
+            .text_size(px(m.small_text));
         el = if self.active {
             el.bg(gpui::rgb(p.control_bg)).text_color(gpui::rgb(p.text))
         } else {
@@ -86,8 +87,8 @@ impl RenderOnce for Tab {
             });
         }
         let mut close = IconButton::new("close", "close")
-            .size(16.0)
-            .icon_size(9.0)
+            .size(m.tab_close)
+            .icon_size(m.tab_close_icon)
             .color(p.text_dim)
             .consume_press();
         if let Some(on_close) = self.on_close {
@@ -99,6 +100,7 @@ impl RenderOnce for Tab {
         }
         el.child(
             div()
+                .min_w_0()
                 .overflow_hidden()
                 .whitespace_nowrap()
                 .text_ellipsis()
