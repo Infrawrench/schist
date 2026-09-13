@@ -54,6 +54,12 @@ mod context;
 mod docs;
 mod edit_ops;
 mod export;
+#[cfg(not(target_arch = "wasm32"))]
+mod video;
+#[cfg(any(target_os = "ios", target_os = "android"))]
+mod video_mobile;
+#[cfg(target_os = "ios")]
+pub(crate) use video_mobile::install_ios_window_scene_fix;
 // The path prompts, and the picker drawn where the platform has none.
 pub mod file_picker;
 mod filters;
@@ -1564,6 +1570,8 @@ impl Workspace {
             }
             ws.watch_agent_path(cx);
         }
+        #[cfg(target_os = "android")]
+        ws.watch_media_imports(cx);
         ws.rebuild_tool_groups();
         ws.sync_note_defaults();
         // A launch-time update check, when the preference allows one and

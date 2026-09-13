@@ -42,7 +42,8 @@ mkdir -p "$app"
 cp "target/$target/$profile/schist" "$app/schist"
 cp packaging/ios/Info.plist "$app/Info.plist"
 # Keep the bundle's version in step with the workspace's.
-version=$(sed -n '0,/^version = /s/^version = "\(.*\)"/\1/p' Cargo.toml)
+version=$(awk -F '"' '/^version = / { print $2; exit }' Cargo.toml)
+: "${version:?missing workspace version}"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $version" \
   -c "Set :CFBundleShortVersionString $version" "$app/Info.plist"
 echo "-- bundled $app"

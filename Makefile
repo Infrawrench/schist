@@ -291,3 +291,37 @@ check-cloud-browser:
 .PHONY: lint-cloud
 lint-cloud:
 	$(CARGO) clippy -p schist-cloud -p schist-app -p schist-document -p schist-people-worker --all-targets -- -D warnings
+
+# Native video decoding, gallery invariants, and catalogs.
+.PHONY: check-video format-video
+check-video:
+	$(CARGO) test -p schist-gallery -p schist-i18n
+	$(CARGO) test -p schist-app
+	$(MAKE) check-video-native
+
+.PHONY: check-video-native
+check-video-native:
+	$(CARGO) test -p schist-app video::native_tests -- --include-ignored
+format-video:
+	$(CARGO) fmt -p schist-app -p schist-gallery
+
+.PHONY: lint-video
+lint-video:
+	$(CARGO) clippy -p schist-app -p schist-gallery --all-targets -- -D warnings
+
+# Regenerate our small native-encoded H.264 test clips (macOS only).
+.PHONY: video-fixtures
+video-fixtures:
+	swift tools/video-fixtures.swift crates/app/tests/fixtures/video
+
+.PHONY: check-video-ios check-video-android
+check-video-ios:
+	$(CARGO) check -p schist-app --target aarch64-apple-ios
+check-video-android:
+	./tools/android-build.sh --check
+
+.PHONY: check-video-android-native check-video-ios-native
+check-video-android-native:
+	./tools/android-build.sh --video-test
+check-video-ios-native:
+	IOS_TEST_FILTER=video:: ./tools/ios-test.sh -p schist-app --lib

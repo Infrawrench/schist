@@ -33,7 +33,20 @@ impl Workspace {
         let cloud = self.cloud.show;
         let compact = crate::ui::compact(window);
         self.gallery_compact = compact;
-        let body = if self.library.folders.is_empty() && self.cloud.account.is_none() {
+        #[cfg(not(target_arch = "wasm32"))]
+        let video = self.library.video.is_some() && !cloud;
+        #[cfg(target_arch = "wasm32")]
+        let video = false;
+        let body = if video {
+            #[cfg(not(target_arch = "wasm32"))]
+            {
+                self.render_video(window, cx)
+            }
+            #[cfg(target_arch = "wasm32")]
+            {
+                div().into_any_element()
+            }
+        } else if self.library.folders.is_empty() && self.cloud.account.is_none() {
             gallery_empty_state(cx).into_any_element()
         } else {
             let content = if self.library.map_view {
@@ -175,7 +188,7 @@ impl Workspace {
                 }),
             )
             .child(body)
-            .child(chrome::tray(self, cx))
+            .children((!video).then(|| chrome::tray(self, cx)))
             .children(context_menu)
             .children(chrome::gallery_more_menu(self, cx))
             .child(drag_out_listener(cx));
@@ -1646,6 +1659,17 @@ fn cell_element(
         failed,
         entry.edited,
     )
+    .children(schist_gallery::is_video(&entry.path).then(|| {
+        div()
+            .absolute()
+            .top_1()
+            .left_1()
+            .px_1()
+            .bg(gpui::rgba(0x000000BB))
+            .text_color(gpui::rgb(0xFFFFFF))
+            .text_size(px(11.0))
+            .child(t("video.badge"))
+    }))
     // The visibility probe: at paint time it knows the cell's real
     // rectangle, and a cell within a viewport's height of the
     // screen is what queues its decode and stamps its thumbnail in
@@ -1751,14 +1775,18 @@ pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
         notes.push(tn("library.tray.n_hidden", hidden as u64));
     }
     TrayInfo {
-        edit: selected.clone().map(|entry| {
-            let open = entry.path.clone();
-            Box::new(
-                move |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
-                    ws.open_from_gallery(open.clone(), cx)
-                },
-            ) as Box<dyn Fn(&mut Workspace, &mut Window, &mut Context<Workspace>)>
-        }),
+        edit: selected
+            .clone()
+            .filter(|entry| !schist_gallery::is_video(&entry.path))
+            .map(|entry| {
+                let open = entry.path.clone();
+                Box::new(
+                    move |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
+                        ws.open_from_gallery(open.clone(), cx)
+                    },
+                )
+                    as Box<dyn Fn(&mut Workspace, &mut Window, &mut Context<Workspace>)>
+            }),
         extra: selected.map(|entry| {
             (
                 t("library.tray.view"),
@@ -2768,9 +2796,13 @@ fn gallery_context_menu(
             let acting = ws.library.selected.clone();
             let n = acting.len();
 
-            if n > 1 {
-                let open = acting.clone();
-                let opening = n.min(super::DROP_OPEN_CAP);
+            if n > 1 && acting.iter().any(|p| !schist_gallery::is_video(p)) {
+                let open: Vec<_> = acting
+                    .iter()
+                    .filter(|p| !schist_gallery::is_video(p))
+                    .cloned()
+                    .collect();
+                let opening = open.len().min(super::DROP_OPEN_CAP);
                 row(
                     tf!("library.menu.edit_n_in_tabs", n = opening),
                     &mut rows,
@@ -2782,7 +2814,12 @@ fn gallery_context_menu(
             } else {
                 let open = path.clone();
                 row(
-                    t("common.edit").into(),
+                    t(if schist_gallery::is_video(&path) {
+                        "video.view"
+                    } else {
+                        "common.edit"
+                    })
+                    .into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| {
@@ -2791,7 +2828,12 @@ fn gallery_context_menu(
                 );
                 let view = path.clone();
                 row(
-                    t("library.menu.view_name_people").into(),
+                    t(if schist_gallery::is_video(&path) {
+                        "video.edit_frame"
+                    } else {
+                        "library.menu.view_name_people"
+                    })
+                    .into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| {
@@ -2870,7 +2912,7 @@ fn gallery_context_menu(
                         ws.save_photos_zip(zip.clone(), "photos.zip".into(), window, cx);
                     }),
                 );
-            } else {
+            } else if !schist_gallery::is_video(&path) {
                 // One photo leaves as an image: its edit, in a chosen
                 // format, at a chosen size.
                 let one = path.clone();
@@ -2883,11 +2925,15 @@ fn gallery_context_menu(
                     }),
                 );
             }
-            {
-                // Turn, upscale, colour — one recipe over the lot.
-                let batch = acting.clone();
+            if acting.iter().any(|p| !schist_gallery::is_video(p)) {
+                // Turn, upscale, colour — one recipe over the images.
+                let batch: Vec<_> = acting
+                    .iter()
+                    .filter(|p| !schist_gallery::is_video(p))
+                    .cloned()
+                    .collect();
                 let label = if n > 1 {
-                    tf!("library.menu.process_n", n = n)
+                    tf!("library.menu.process_n", n = batch.len())
                 } else {
                     t("library.menu.process").to_string()
                 };

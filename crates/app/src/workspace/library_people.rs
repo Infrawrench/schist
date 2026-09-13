@@ -22,6 +22,14 @@ pub(crate) const PEOPLE_MODELS: [&str; 2] = ["face", "face-embed"];
 impl Workspace {
     /// Show one photo instead of the grid, its faces ready to name.
     pub fn open_viewer(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            if schist_gallery::is_video(&path) {
+                self.open_video(path, cx);
+                return;
+            }
+            self.library.video = None;
+        }
         let Some(entry) = self.library.entry_of(&path).cloned() else {
             return;
         };
@@ -443,6 +451,11 @@ impl Workspace {
     /// being named, then the viewer itself. Returns whether anything
     /// was there to leave.
     pub fn local_gallery_escape(&mut self, cx: &mut Context<Self>) -> bool {
+        #[cfg(not(target_arch = "wasm32"))]
+        if self.library.video.take().is_some() {
+            cx.notify();
+            return true;
+        }
         if self.gallery_search_clear(cx) {
             return true;
         }

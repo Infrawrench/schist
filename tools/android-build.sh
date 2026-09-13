@@ -24,6 +24,7 @@ profile=release
 profile_flag=--release
 run=1
 check=0
+video_test=0
 abi=arm64-v8a
 for arg in "$@"; do
   case "$arg" in
@@ -31,6 +32,7 @@ for arg in "$@"; do
     --x86_64) abi=x86_64 ;;
     --no-run) run=0 ;;
     --check) check=1; run=0 ;;
+    --video-test) video_test=1; run=0 ;;
     *) echo "unknown argument: $arg" >&2; exit 2 ;;
   esac
 done
@@ -90,10 +92,9 @@ export "AR_${target_lower}=$toolchain/llvm-ar"
 rustup target list --installed 2>/dev/null | grep -qx "$target" \
   || rustup target add "$target"
 
-compile_camera_sync_java() {
+compile_android_java() {
   local stage="$1"
-  # The one Java class: the camera-roll backup's JobService, which calls
-  # into the same library. javac comes with the JDK the SDK tools need
+  # The native activity bridge, video decoder, URI provider and backup service. javac comes with the JDK the SDK tools need
   # anyway; d8 is in build-tools.
   if ! command -v javac >/dev/null; then
     echo "javac not found: install a JDK (brew install --cask temurin)" >&2
@@ -107,13 +108,31 @@ compile_camera_sync_java() {
     "$stage"/classes/com/infrawrench/schist/*.class
 }
 
+# Test the packaged decoder on a connected emulator/device, without starting
+# the UI. This runs Android's real MediaCodec implementation, not desktop mocks.
+if [ "$video_test" = 1 ]; then
+  stage="target/android-video-test"
+  compile_android_java "$stage"
+  javac -source 8 -target 8 -Xlint:-options -bootclasspath "$platform_jar" \
+    -classpath "$stage/classes:$build_tools/core-lambda-stubs.jar" -d "$stage/classes" \
+    tools/tests/VideoDecoderTest.java
+  d8 --release --min-api 30 --lib "$platform_jar" --output "$stage" \
+    "$stage"/classes/com/infrawrench/schist/*.class
+  remote="/data/local/tmp/schist-video-test-$$"
+  adb shell mkdir -p "$remote"
+  trap 'adb shell rm -rf "$remote" >/dev/null 2>&1 || true' EXIT
+  adb push "$stage/classes.dex" crates/app/tests/fixtures/video/*.mp4 "$remote/" >/dev/null
+  adb shell "CLASSPATH=$remote/classes.dex app_process / com.infrawrench.schist.VideoDecoderTest $remote"
+  exit 0
+fi
+
 # NativeActivity loads a shared library, so the app crate is built as
 # one: the cdylib crate type is passed here rather than set in Cargo.toml,
 # where it would make every other platform link a library it never uses.
 echo "-- building schist for $target ($profile)"
 if [ "$check" = 1 ]; then
   cargo check -p schist-app --target "$target"
-  compile_camera_sync_java "target/$target/camera-sync-java-check"
+  compile_android_java "target/$target/camera-sync-java-check"
   exit 0
 fi
 cargo rustc -p schist-app --lib --crate-type cdylib --target "$target" $profile_flag
@@ -127,15 +146,16 @@ cp "$lib" "$stage/lib/$abi/"
 # Keep the APK's version in step with the workspace's. versionCode has
 # to be an integer that only ever grows: major, minor and patch, two
 # digits each.
-version=$(sed -n '0,/^version = /s/^version = "\(.*\)"/\1/p' Cargo.toml)
-code=$(echo "$version" | awk -F. '{ printf "%d%02d%02d", $1, $2, $3 }')
+version=$(awk -F '"' '/^version = / { print $2; exit }' Cargo.toml)
+: "${version:?missing workspace version}"
+code=$(echo "$version" | awk -F. '{ printf "%d", $1 * 10000 + $2 * 100 + $3 }')
 echo "-- packaging $apk ($version, versionCode $code)"
 aapt2 compile --dir packaging/android/res -o "$stage/res.zip"
 aapt2 link -o "$stage/unaligned.apk" \
   --manifest packaging/android/AndroidManifest.xml \
   --version-name "$version" --version-code "$code" \
   -I "$platform_jar" "$stage/res.zip"
-compile_camera_sync_java "$stage"
+compile_android_java "$stage"
 (cd "$stage" && zip -q -r unaligned.apk lib classes.dex)
 zipalign -f -p 4 "$stage/unaligned.apk" "$stage/aligned.apk"
 keystore="$HOME/.android/debug.keystore"
@@ -181,7 +201,7 @@ echo "-- installing"
 adb install -r "$apk" >/dev/null
 adb logcat -c
 echo "-- launching (logs follow; ctrl-c leaves the app running)"
-adb shell am start -W -n com.infrawrench.schist/android.app.NativeActivity >/dev/null
+adb shell am start -W -n com.infrawrench.schist/.SchistActivity >/dev/null
 # Schist's own output: stdout, stderr and panics reach logcat through
 # gpui, plus the activity's and the runtime's messages.
 adb logcat -v time gpui-stdout:V gpui-stderr:V NativeActivity:V AndroidRuntime:E DEBUG:V '*:S'

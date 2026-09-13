@@ -58,6 +58,8 @@ pub struct LibraryFile {
     pub folders: Vec<PathBuf>,
     #[serde(default)]
     pub recents: Vec<PathBuf>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub video_editor: Option<PathBuf>,
     #[serde(default)]
     pub thumb_px: Option<f32>,
     #[serde(default)]

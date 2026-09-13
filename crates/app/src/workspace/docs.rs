@@ -346,6 +346,11 @@ impl Workspace {
     /// Open `path` without blocking the window: the read and decode run
     /// on a background thread and the document is installed when ready.
     pub fn load_file(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        #[cfg(not(target_arch = "wasm32"))]
+        if schist_gallery::is_video(&path) {
+            self.open_video(path, cx);
+            return;
+        }
         self.status = tf!(
             "workspace.docs.opening",
             name = crate::ui::shown_path(&path)
@@ -500,7 +505,7 @@ impl Workspace {
             let (dirs, files): (Vec<PathBuf>, Vec<PathBuf>) =
                 paths.into_iter().partition(|p| p.is_dir());
             if !dirs.is_empty() {
-                let images = schist_gallery::scan_folders(&dirs, &self.codec_extensions())
+                let images = schist_gallery::scan_folders(&dirs, &self.gallery_extensions())
                     .iter()
                     .map(|s| s.entries.len())
                     .sum();

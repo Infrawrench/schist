@@ -179,6 +179,75 @@ where; both take a format and, where it applies, a quality. Photos are
 processed one at a time on the background executor with the tray
 counting, since an upscale is seconds per megapixel.
 
+## Video
+
+Local MP4, MOV/M4V, MKV, WebM, AVI, MPEG, MTS/M2TS and 3GP files appear
+alongside images with a video badge and a poster frame. Open them from the
+gallery, File ▸ Open, a drop, or the command line to show the video viewer.
+Videos do not become image documents or receive image-edit sidecars.
+
+The viewer offers silent playback, a seek bar, previous/next frame buttons,
+and a timestamp. Space toggles playback; the arrow keys step through frames.
+**Edit frame** (Enter) opens the selected source frame at full resolution as
+a new unsaved image. Saving it asks for an image destination; the video is
+never overwritten. Escape or **Back to gallery** closes the preview.
+
+**Find sharper frame** examines the frames within half a second on either
+side of the selected moment, comparing luminance edge sharpness at a common
+size. It selects the best nearby candidate for inspection before editing;
+it cannot remove motion blur or guarantee that the clip has a sharp frame.
+Frame selection uses decoder timestamps, including variable-rate footage.
+Phone rotation and pixel aspect ratio are applied to previews and captures.
+Captures are 8-bit RGB images; this is not an HDR video grading workflow.
+
+**Choose video editor…** picks an application (`.app` on macOS, an executable
+on Windows or Linux) and opens the original video in it. Schist remembers
+that choice in `library.json`; **Open in video editor** uses it next time.
+You can change the choice in the viewer at any time.
+
+On iOS and Android, **Open in another app…** presents the system share sheet
+or app chooser. Compatible installed editors can import the original video;
+the source is never opened for writing by Schist. Android grants read access
+to just the selected file through a private content provider.
+
+On iOS, **Import…** accepts both photos and videos from Photos. Movies can also
+be opened from Files or another app. On Android, **Import…** opens the system
+media document picker, copies the selected items into Documents/Imports, and
+adds that folder to the gallery. Videos sent through Android's Share or Open
+With actions follow the same import path before opening. These explicit
+selections do not require broad camera-roll video permission.
+
+The mobile viewer has touch-sized controls, a wrapping timeline, and a
+scrollable layout for small screens. Playback pauses when the app loses focus.
+
+Preview and frame extraction use **AVFoundation on macOS and iOS/iPadOS**, **Media Foundation
+on Windows**, **MediaExtractor/MediaCodec on Android**, and the system
+**GStreamer 1.x on Linux**. No FFmpeg executable,
+ffprobe, or bundled FFmpeg library is required. Linux loads GStreamer at runtime
+and needs its playback, videoconvert, videoflip, appsink, demuxer and decoder
+plugins (for example, OpenH264 or hardware H.264 decoding). The optional
+FFmpeg-backed `gst-libav` plugin is excluded from decoder selection.
+
+Codec support depends on the platform's available decoders; recognizing a
+container extension does not guarantee every codec inside it can play. If a
+file cannot be decoded, the viewer displays the error and still offers the
+external editor. Playback is silent; use that editor for audio and video work.
+Video works with local files on desktop and mobile. The browser and Cloud
+do not accept video yet.
+
+`make check-video` exercises native decoding with small original H.264 fixtures,
+including variable timestamps, phone rotation, capture after seeking, and a
+nearby sharper frame. Linux requires the GStreamer plugins above to run those
+decoder tests. The fixtures can be regenerated on macOS with
+`make video-fixtures`, which uses AVFoundation's encoder.
+`make check-video-ios-native` runs the frame tests in a booted iOS Simulator;
+`make check-video-android-native` exercises real MediaCodec decoding on a
+connected Android emulator or device. Neither test needs FFmpeg.
+
+Videos are excluded from image batch processing and retain their original
+bytes and extension when included in a gallery ZIP. Their thumbnails describe
+only the poster frame; image search and People do not index the entire clip.
+
 ## The AI panel
 
 The editor's AI panel (View ▸ AI Panel, ⌘⇧A) is the gallery's too, on

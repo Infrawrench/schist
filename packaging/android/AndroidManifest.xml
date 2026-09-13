@@ -3,10 +3,9 @@
   Schist's Android manifest; tools/android-build.sh links it into the APK
   with aapt2, setting the version from the workspace's.
 
-  The activity is Android's own NativeActivity: it loads libschist_app.so
+  The activity extends Android's NativeActivity: it loads libschist_app.so
   (the app crate built as a cdylib) and calls the `android_main` that
-  gpui::android_main! defines in crates/app/src/lib.rs. No Java is
-  compiled. `configChanges` keeps a rotation, a dark-mode switch or a
+  gpui::android_main! defines in crates/app/src/lib.rs. A small Java subclass handles media picker results and incoming videos. `configChanges` keeps a rotation, a dark-mode switch or a
   keyboard from recreating the activity: gpui gets a resize or an
   appearance change instead, as the gpui fork's own manifest does.
 -->
@@ -45,7 +44,7 @@
         android:extractNativeLibs="true"
         android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
         <activity
-            android:name="android.app.NativeActivity"
+            android:name=".SchistActivity"
             android:label="Schist"
             android:exported="true"
             android:launchMode="singleTop"
@@ -66,8 +65,22 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="schist" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" android:mimeType="video/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="video/*" />
+            </intent-filter>
         </activity>
-        <!-- The camera-roll backup's background wake: the one Java class
+        <provider android:name=".VideoProvider"
+            android:authorities="com.infrawrench.schist.video"
+            android:exported="false" android:grantUriPermissions="true" />
+        <!-- The camera-roll backup's background wake: the Java service
              (packaging/android/java), which calls into the same
              libschist_app.so. -->
         <service

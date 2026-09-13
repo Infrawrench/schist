@@ -8,8 +8,22 @@ use std::path::{Path, PathBuf};
 /// it is part of the disk-cache key, so a change re-renders the lot.
 pub const THUMB_EDGE: u32 = 256;
 
+fn home_storage_dir(unix_subdir: &str) -> Option<PathBuf> {
+    let home = PathBuf::from(std::env::var("HOME").ok()?);
+    let legacy = home.join(unix_subdir);
+    // A device sandbox permits app data under Library, not arbitrary dot
+    // directories at its root. Keep existing simulator data and recoveries
+    // in place; older simulator builds could write the Unix locations.
+    #[cfg(target_os = "ios")]
+    if !legacy.join("schist").exists() {
+        return Some(home.join("Library/Application Support"));
+    }
+    Some(legacy)
+}
+
 /// The per-user state directory (`~/.local/state` on Unix, LOCALAPPDATA
-/// on Windows): caches, the recovery files, the update stamp.
+/// on Windows, Library/Application Support on iOS): caches, recoveries,
+/// and the update stamp.
 pub fn state_dir() -> Option<PathBuf> {
     if cfg!(windows) {
         std::env::var("LOCALAPPDATA")
@@ -20,11 +34,7 @@ pub fn state_dir() -> Option<PathBuf> {
         std::env::var("XDG_STATE_HOME")
             .ok()
             .map(PathBuf::from)
-            .or_else(|| {
-                std::env::var("HOME")
-                    .ok()
-                    .map(|h| PathBuf::from(h).join(".local/state"))
-            })
+            .or_else(|| home_storage_dir(".local/state"))
     }
 }
 
@@ -33,11 +43,7 @@ pub fn library_path() -> Option<PathBuf> {
     let base = std::env::var("XDG_CONFIG_HOME")
         .ok()
         .map(PathBuf::from)
-        .or_else(|| {
-            std::env::var("HOME")
-                .ok()
-                .map(|h| PathBuf::from(h).join(".config"))
-        })?;
+        .or_else(|| home_storage_dir(".config"))?;
     Some(base.join("schist/library.json"))
 }
 
@@ -55,6 +61,9 @@ pub fn people_summary_path() -> Option<PathBuf> {
 
 /// The PSD sidecar an edit of `original` saves into.
 pub fn backing_psd(original: &Path) -> Option<PathBuf> {
+    if crate::is_video(original) {
+        return None;
+    }
     let dir = original.parent()?;
     let name = original.file_name()?.to_string_lossy();
     Some(dir.join(".schist").join(format!("{name}.psd")))

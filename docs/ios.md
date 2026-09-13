@@ -74,6 +74,20 @@ and `ui::touch()` is the one switch. Documents open through the system
 document picker and save through it too; the Documents folder is visible
 in the Files app (`UIFileSharingEnabled`) and the gallery watches it.
 
+**Video.** Import accepts photos and videos from Photos; Files and other apps
+can open movies in Schist too. AVFoundation provides silent playback, frame
+stepping, full-resolution frame capture and the nearby sharper-frame search.
+Captured frames open as separate unsaved images. Open in another app presents
+the iOS share sheet, anchored as a popover on iPad. Playback pauses on losing
+focus. The same backend serves macOS, including sample-accurate seeking and
+phone orientation. See [Video](gallery.md#video) for codec and capture limits.
+
+The app repairs GPUI's scene attachment before its window first appears:
+UIKit needs the root controller attached after the scene to size the share
+sheet correctly. Gallery settings and recovery state use
+`Library/Application Support/schist` in the device sandbox; existing simulator
+state in the older Unix directories remains in place.
+
 **Menus.** iPadOS has a menu bar of its own, a swipe down from the top
 edge or the pointer, fed by the same menus Schist sets for macOS, so an
 iPad draws no menu bar in the window (`ui::ipad()`, from the device's

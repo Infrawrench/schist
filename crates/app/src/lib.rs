@@ -45,6 +45,8 @@ mod update;
 mod update;
 // Linux renders through Vulkan and panics inside GPUI when there is no
 // driver to render with. Nothing to check on macOS (Metal) or Windows.
+#[cfg(not(target_arch = "wasm32"))]
+mod video;
 #[cfg(target_os = "linux")]
 mod vulkan;
 // The browser build's shims: the in-memory file system behind open/save,
@@ -362,6 +364,9 @@ pub fn main() {
         }
     });
 
+    #[cfg(target_os = "ios")]
+    workspace::install_ios_window_scene_fix();
+
     app.run(move |cx: &mut App| {
         // gpui's font database starts empty in a browser; feed it the same
         // faces the text engine got. Its default `.SystemUIFont` resolves
@@ -435,6 +440,16 @@ pub fn main() {
                 },
             )
             .expect("failed to open window");
+
+        #[cfg(any(target_os = "ios", target_os = "android"))]
+        let _ = window.update(cx, |_ws, win, cx| {
+            cx.observe_window_activation(win, |ws, win, cx| {
+                if !win.is_window_active() {
+                    ws.pause_mobile_video(cx);
+                }
+            })
+            .detach();
+        });
 
         // Quit routes through the workspace so unsaved documents get a
         // prompt. Registered here rather than before `open_window` because

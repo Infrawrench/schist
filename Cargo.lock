@@ -6338,6 +6338,7 @@ dependencies = [
  "image",
  "jni",
  "js-sys",
+ "libloading",
  "log",
  "objc2",
  "objc2-foundation",
