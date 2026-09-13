@@ -327,13 +327,24 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                 let element_id = SharedString::from(format!("cloud-generation-input-{id}"));
                 let control = TextInput::new(element_id, shown)
                     .cursor(ws.field_cursor)
+                    .selection(ws.field_selection())
                     .active(focused)
                     .caret_on(ws.caret_on())
                     .w(px(330.0))
-                    .on_focus(cx.listener(move |ws, _, _, cx| {
-                        ws.commit_focused_field();
-                        ws.cloud.generation.editing = Some(id.clone());
-                        ws.focus_field("cloud-generation-input", current.clone());
+                    .on_focus(cx.listener(move |ws, press: &ui::TextPress, _, cx| {
+                        // A press in a box that was not the open one
+                        // moves the session to it first; the caret then
+                        // lands where the press did.
+                        if ws.cloud.generation.editing.as_ref() != Some(&id) {
+                            ws.commit_focused_field();
+                            ws.cloud.generation.editing = Some(id.clone());
+                            ws.focus_field("cloud-generation-input", current.clone());
+                        }
+                        ws.press_field("cloud-generation-input", current.clone(), press);
+                        cx.notify();
+                    }))
+                    .on_select_to(cx.listener(move |ws, offset: &usize, _, cx| {
+                        ws.drag_field("cloud-generation-input", *offset);
                         cx.notify();
                     }));
                 body = body

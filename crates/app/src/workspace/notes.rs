@@ -117,23 +117,56 @@ impl Workspace {
             return;
         };
         self.editor.active_note = Some(index);
-        self.note_edit = Some((NoteField::Text(index), text));
+        let mut edit = crate::ui::LineEdit::focused(text);
+        // A note's body is a paragraph: Enter breaks the line rather
+        // than ending the session.
+        edit.multiline = true;
+        self.note_edit = Some((NoteField::Text(index), edit));
         cx.notify();
     }
 
     /// Start typing into the Author field on the options bar.
     pub fn begin_note_author_edit(&mut self, cx: &mut Context<Self>) {
         self.commit_note_edit(cx);
-        self.note_edit = Some((NoteField::Author, self.view.note_author.clone()));
+        let author = self.view.note_author.clone();
+        self.note_edit = Some((NoteField::Author, crate::ui::LineEdit::focused(author)));
         cx.notify();
     }
 
     /// What an open field is showing, for the renderer to draw a caret
     /// after. `None` when that field is not the one being typed into.
-    pub fn note_edit_buffer(&self, field: NoteField) -> Option<&str> {
+    pub fn note_edit_buffer(&self, field: NoteField) -> Option<&crate::ui::LineEdit> {
         match &self.note_edit {
-            Some((f, text)) if *f == field => Some(text),
+            Some((f, edit)) if *f == field => Some(edit),
             _ => None,
+        }
+    }
+
+    /// A press in an open note's field: the caret lands where it was
+    /// clicked. `field` says which of the two boxes it was.
+    pub fn note_edit_press(
+        &mut self,
+        field: NoteField,
+        press: &crate::ui::TextPress,
+        cx: &mut Context<Self>,
+    ) {
+        if let Some((f, edit)) = self.note_edit.as_mut() {
+            if *f == field {
+                edit.press(press);
+                self.reset_caret_phase();
+                cx.notify();
+            }
+        }
+    }
+
+    /// The pointer dragging across an open note's field.
+    pub fn note_edit_drag(&mut self, field: NoteField, offset: usize, cx: &mut Context<Self>) {
+        if let Some((f, edit)) = self.note_edit.as_mut() {
+            if *f == field {
+                edit.extend_to(offset);
+                self.reset_caret_phase();
+                cx.notify();
+            }
         }
     }
 
@@ -143,9 +176,10 @@ impl Workspace {
     /// a legitimate pin, and clearing one should not silently restore what
     /// it used to say.
     pub fn commit_note_edit(&mut self, cx: &mut Context<Self>) {
-        let Some((field, text)) = self.note_edit.take() else {
+        let Some((field, edit)) = self.note_edit.take() else {
             return;
         };
+        let text = edit.text;
         match field {
             NoteField::Text(index) => {
                 if let Some(doc) = self.doc.as_mut() {
@@ -178,48 +212,23 @@ impl Workspace {
     /// paragraph, not a field, and Photoshop's is multi-line too. Escape
     /// and clicking away are what end the session.
     pub fn note_edit_key(&mut self, ev: &gpui::KeyDownEvent, cx: &mut Context<Self>) -> bool {
-        if self.note_edit.is_none() {
+        let Some((_, edit)) = self.note_edit.as_mut() else {
             return false;
-        }
+        };
         match ev.keystroke.key.as_str() {
             "escape" | "tab" => self.commit_note_edit(cx),
-            // A note's body is a paragraph, so Enter breaks the line, as
-            // it does in Photoshop's Notes panel. The one-line Author
-            // field has nothing to break, so there Enter means done.
-            "enter"
-                if self
-                    .note_edit
-                    .as_ref()
-                    .is_some_and(|(f, _)| *f == NoteField::Author) =>
-            {
-                self.commit_note_edit(cx)
-            }
-            "enter" => {
-                if let Some((_, text)) = self.note_edit.as_mut() {
-                    text.push('\n');
+            // The body is a paragraph, so Enter breaks the line there,
+            // as it does in Photoshop's Notes panel; the box knows which
+            // it is. The one-line Author field has nothing to break, so
+            // its Enter comes back as a submission and means done.
+            _ => match edit.key(ev, cx) {
+                crate::ui::LineEditKey::Submitted => self.commit_note_edit(cx),
+                _ => {
+                    self.reset_caret_phase();
+                    cx.notify();
                 }
-            }
-            "backspace" => {
-                if let Some((_, text)) = self.note_edit.as_mut() {
-                    text.pop();
-                }
-            }
-            "space" => {
-                if let Some((_, text)) = self.note_edit.as_mut() {
-                    text.push(' ');
-                }
-            }
-            _ => {
-                if let (Some((_, text)), Some(typed)) =
-                    (self.note_edit.as_mut(), ev.keystroke.key_char.as_deref())
-                {
-                    if !typed.is_empty() && !typed.chars().any(char::is_control) {
-                        text.push_str(typed);
-                    }
-                }
-            }
+            },
         }
-        cx.notify();
         true
     }
 }

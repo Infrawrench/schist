@@ -14,7 +14,7 @@
 //! gallery from a dark editor is not a flashbang.
 
 use super::*;
-use crate::ui::LineEdit;
+use crate::ui::{LineEdit, TextPress};
 use gpui::{img, StatefulInteractiveElement as _};
 use schist_i18n::{t, tf, tn};
 use schist_ui::{
@@ -381,10 +381,15 @@ pub fn filter_chip(
 /// keyboard while active (the key context flips to text entry, so
 /// letters stop being tool shortcuts). `focus` runs on click, `clear`
 /// on the ✕ that appears once there is text.
+///
+/// `field` says which box this is -- the library's or the cloud's --
+/// so a press can put the caret where it landed and a drag can sweep a
+/// selection out of it.
 pub fn search_field(
     edit: &LineEdit,
     placeholder: SharedString,
     caret_on: bool,
+    field: fn(&mut Workspace) -> &mut LineEdit,
     focus: impl Fn(&mut Workspace, &mut Context<Workspace>) + 'static,
     clear: impl Fn(&mut Workspace, &mut Context<Workspace>) + 'static,
     cx: &mut Context<Workspace>,
@@ -397,8 +402,16 @@ pub fn search_field(
         .h(px(24.0))
         .px_2()
         .rounded_md()
-        .on_focus(cx.listener(move |ws, _e, _w, cx| {
+        .on_focus(cx.listener(move |ws, press: &TextPress, _w, cx| {
+            // `focus` is what opens the box for typing; the press then
+            // says where in the text the caret goes.
             focus(ws, cx);
+            field(ws).press(press);
+            ws.reset_caret_phase();
+            cx.notify();
+        }))
+        .on_select_to(cx.listener(move |ws, offset: &usize, _w, cx| {
+            field(ws).extend_to(*offset);
             ws.reset_caret_phase();
             cx.notify();
         }))

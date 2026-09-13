@@ -151,7 +151,7 @@ impl Workspace {
         self.ai.model_menu = true;
         self.ai.menu_backend = self.ai.backend;
         self.ai.model_search.clear();
-        self.ai.input_active = false;
+        self.ai.input.active = false;
         self.ensure_ai_models(cx);
         cx.notify();
     }
@@ -272,7 +272,7 @@ impl Workspace {
         self.ai_end_conversation();
         self.ai.transcript.clear();
         self.ai.session = None;
-        self.ai.input_active = false;
+        self.ai.input.active = false;
         cx.notify();
     }
 
@@ -297,7 +297,7 @@ impl Workspace {
     /// Send the typed prompt, starting a conversation worker if none is
     /// live.
     pub fn ai_send(&mut self, cx: &mut Context<Self>) {
-        let prompt = self.ai.input.trim().to_string();
+        let prompt = self.ai.input.text.trim().to_string();
         if prompt.is_empty() || self.ai.running {
             return;
         }
@@ -373,7 +373,9 @@ impl Workspace {
             };
             self.ai.conversation = Some(conversation);
         }
-        self.ai.input.clear();
+        // Emptied, but still holding the keyboard: the next prompt is
+        // typed straight after the one that was just sent.
+        self.ai.input.set_text(String::new());
         self.ai.transcript.push(AiEntry {
             kind: AiEntryKind::User,
             text: prompt.clone(),
@@ -391,25 +393,17 @@ impl Workspace {
     /// Feed a keystroke to the prompt box. Consumes every key while it is
     /// focused, so tool shortcuts can't fire mid-sentence.
     pub fn ai_input_key(&mut self, ev: &gpui::KeyDownEvent, cx: &mut Context<Self>) -> bool {
-        if !self.ai.input_active {
+        if !self.ai.input.active {
             return false;
         }
         match ev.keystroke.key.as_str() {
-            "escape" => self.ai.input_active = false,
+            "escape" => self.ai.input.active = false,
             // Enter sends; a paragraph break is Shift+Enter, as in every
-            // chat box.
-            "enter" if ev.keystroke.modifiers.shift => self.ai.input.push('\n'),
-            "enter" => self.ai_send(cx),
-            "backspace" => {
-                self.ai.input.pop();
-            }
-            "space" => self.ai.input.push(' '),
+            // chat box, and that is the one the box itself takes.
+            "enter" if !ev.keystroke.modifiers.shift => self.ai_send(cx),
             _ => {
-                if let Some(typed) = ev.keystroke.key_char.as_deref() {
-                    if !typed.is_empty() && !typed.chars().any(char::is_control) {
-                        self.ai.input.push_str(typed);
-                    }
-                }
+                self.ai.input.key(ev, cx);
+                self.reset_caret_phase();
             }
         }
         cx.notify();

@@ -161,11 +161,16 @@ pub(super) fn file_picker(
                 } else {
                     shown.len()
                 })
+                .selection(state.field_selection.clone())
                 .active(focused)
                 .caret_on(state.caret_on)
                 .w(px(260.0))
-                .on_focus(cx.listener(move |ws, _e, _w, cx| {
-                    ws.focus_field(NAME_FIELD, committed.clone());
+                .on_focus(cx.listener(move |ws, press: &ui::TextPress, _w, cx| {
+                    ws.press_field(NAME_FIELD, committed.clone(), press);
+                    cx.notify();
+                }))
+                .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
+                    ws.drag_field(NAME_FIELD, *offset);
                     cx.notify();
                 })),
         ));

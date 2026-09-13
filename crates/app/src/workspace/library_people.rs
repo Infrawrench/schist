@@ -419,7 +419,12 @@ impl Workspace {
             match ev.keystroke.key.as_str() {
                 "enter" | "tab" => self.viewer_commit_name(cx),
                 key => {
-                    self.field_key(key, ev.keystroke.key_char.as_deref());
+                    self.field_key(
+                        key,
+                        ev.keystroke.key_char.as_deref(),
+                        ev.keystroke.modifiers,
+                        cx,
+                    );
                 }
             }
             cx.notify();

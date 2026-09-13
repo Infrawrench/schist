@@ -897,6 +897,7 @@ fn name_field(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let caret_on = ws.caret_on();
     TextInput::new("face-name", typed)
         .cursor(cursor)
+        .selection(ws.field_selection())
         .active(focused)
         .caret_on(caret_on)
         .placeholder(t("library.viewer.who_is_this"))
@@ -905,11 +906,15 @@ fn name_field(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
         .h(px(24.0))
         .px_2()
         .rounded_md()
-        .on_focus(cx.listener(move |ws, _e, _w, cx| {
-            cx.stop_propagation();
-            if ws.focused_field != Some("face-name") {
-                ws.focus_field("face-name", current.clone());
-            }
+        .on_focus(
+            cx.listener(move |ws, press: &crate::ui::TextPress, _w, cx| {
+                cx.stop_propagation();
+                ws.press_field("face-name", current.clone(), press);
+                cx.notify();
+            }),
+        )
+        .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
+            ws.drag_field("face-name", *offset);
             cx.notify();
         }))
 }

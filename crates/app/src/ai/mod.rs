@@ -314,10 +314,9 @@ pub enum AiEntryKind {
 /// Everything the workspace holds for the sidebar.
 pub struct AiState {
     pub backend: Backend,
-    /// The prompt being typed.
-    pub input: String,
-    /// Whether the input box is capturing keys.
-    pub input_active: bool,
+    /// The prompt being typed. Its `active` is what says the box has
+    /// the keyboard.
+    pub input: crate::ui::LineEdit,
     pub transcript: Vec<AiEntry>,
     /// A turn is in flight.
     pub running: bool,
@@ -359,8 +358,7 @@ impl AiState {
     pub fn new(backend: Backend) -> AiState {
         AiState {
             backend,
-            input: String::new(),
-            input_active: false,
+            input: crate::ui::LineEdit::multiline(),
             transcript: Vec::new(),
             running: false,
             shared: AiShared::default(),

@@ -3244,10 +3244,7 @@ impl Workspace {
         {
             return false;
         }
-        self.library.search.text.clear();
-        self.library.search.cursor = 0;
-        self.library.search.active = false;
-        self.library.search.selected = false;
+        self.library.search.clear();
         self.library.search_results = None;
         self.library.search_place = None;
         self.library.search_people.clear();

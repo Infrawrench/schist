@@ -31,9 +31,11 @@
 //! down: a field taking the keyboard ([`TextInput::on_focus`]), a
 //! dropdown opening ([`DropdownButton::on_press`]), a popup dismissing
 //! on a press outside it ([`Popover::on_dismiss`]), a slider's drag
-//! beginning. Those take a [`PressHandler`], and the release then goes
-//! where it belongs. On a touch screen they wait for the finger to lift
-//! instead, so a swipe never fires them; see [`touch`].
+//! beginning. Those take a [`PressHandler`] -- a field's takes a
+//! [`TextPress`], which is the same press plus where in the text it
+//! landed -- and the release then goes where it belongs. On a touch
+//! screen they wait for the finger to lift instead, so a swipe never
+//! fires them; see [`touch`].
 //!
 //! The components size themselves from [`metrics`]: the desktop's
 //! table, or the touch set with its 44pt targets and larger type.
@@ -80,7 +82,7 @@ pub use checkbox::Checkbox;
 pub use chip::{Badge, Chip, ChipColors};
 pub use icon::icon;
 pub use layout::{Divider, FieldRow, Heading, Modal};
-pub use line_edit::{caret_left, caret_right, LineEdit, LineEditKey};
+pub use line_edit::{caret_left, caret_right, word_at, LineEdit, LineEditKey};
 pub use link::Link;
 pub use list_item::ListItem;
 pub use number_field::NumberField;
@@ -90,7 +92,7 @@ pub use slider::{ProgressBar, Slider, TrackColors};
 pub use spinner::Spinner;
 pub use swatch::Swatch;
 pub use tab::Tab;
-pub use text_input::{TextInput, TextInputColors};
+pub use text_input::{OffsetHandler, TextInput, TextInputColors, TextPress, TextPressHandler};
 pub use theme::{
     is_light, metrics, palette, set_light, touch, Metrics, Palette, DARK, DESKTOP_METRICS, LIGHT,
     TOUCH_METRICS,

@@ -146,7 +146,12 @@ impl Workspace {
                             ws.confirm_modal(window, cx);
                         }
                         key => {
-                            ws.field_key(key, ev.keystroke.key_char.as_deref());
+                            ws.field_key(
+                                key,
+                                ev.keystroke.key_char.as_deref(),
+                                ev.keystroke.modifiers,
+                                cx,
+                            );
                         }
                     }
                     cx.notify();
@@ -410,6 +415,7 @@ fn search_box(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
         &ws.library.search,
         placeholder,
         caret_on,
+        |ws| &mut ws.library.search,
         |ws, cx| {
             ws.library.search.focus();
             // Focusing the box is the signal to start loading the
@@ -2505,13 +2511,22 @@ pub(super) fn bucket_field(
     };
     TextInput::new(id, typed.clone())
         .cursor(cursor)
+        .selection(ws.field_selection())
         .active(focused)
         .caret_on(ws.caret_on())
         .placeholder(placeholder)
         .w(px(360.0))
-        .on_focus(cx.listener(move |ws, _e, _w, cx| {
-            ws.commit_focused_field();
-            ws.focus_field(id, typed.clone());
+        .on_focus(
+            cx.listener(move |ws, press: &crate::ui::TextPress, _w, cx| {
+                if ws.focused_field != Some(id) {
+                    ws.commit_focused_field();
+                }
+                ws.press_field(id, typed.clone(), press);
+                cx.notify();
+            }),
+        )
+        .on_select_to(cx.listener(move |ws, offset: &usize, _w, cx| {
+            ws.drag_field(id, *offset);
             cx.notify();
         }))
 }

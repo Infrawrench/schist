@@ -17,7 +17,7 @@ use std::rc::Rc;
 
 pub use schist_ui::{
     caret_left, caret_right, is_light, metrics, palette, set_light, tip, touch, LineEdit,
-    LineEditKey,
+    LineEditKey, TextPress,
 };
 
 /// A blend mode's name in the user's language.

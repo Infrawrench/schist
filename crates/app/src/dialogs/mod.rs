@@ -79,6 +79,9 @@ struct DialogState {
     /// The caret's place in `field_buffer`, and whether this instant
     /// of the blink shows it.
     field_cursor: usize,
+    /// What is selected in the field, low end first; empty when nothing
+    /// is.
+    field_selection: std::ops::Range<usize>,
     caret_on: bool,
     /// Shares the workspace's dropdown state (it clones as a handle),
     /// so dialog dropdowns open at their current value and follow the
@@ -96,6 +99,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         focused_field: ws.focused_field,
         field_buffer: ws.field_buffer.clone(),
         field_cursor: ws.field_cursor,
+        field_selection: ws.field_selection(),
         caret_on: ws.caret_on(),
         dropdown: ws.dropdown.clone(),
     };

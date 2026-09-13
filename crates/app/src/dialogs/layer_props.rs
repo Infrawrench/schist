@@ -27,11 +27,16 @@ pub(super) fn layer_properties(
             } else {
                 state.field_cursor.min(shown.len())
             })
+            .selection(state.field_selection.clone())
             .active(focused)
             .caret_on(state.caret_on)
             .w(px(200.0))
-            .on_focus(cx.listener(move |ws, _e, _w, cx| {
-                ws.focus_field("layer-name", committed.clone());
+            .on_focus(cx.listener(move |ws, press: &ui::TextPress, _w, cx| {
+                ws.press_field("layer-name", committed.clone(), press);
+                cx.notify();
+            }))
+            .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
+                ws.drag_field("layer-name", *offset);
                 cx.notify();
             })),
     );

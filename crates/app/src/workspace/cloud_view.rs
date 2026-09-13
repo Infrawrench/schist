@@ -572,6 +572,7 @@ pub(crate) fn search_box(ws: &mut Workspace, cx: &mut Context<Workspace>) -> imp
         &ws.cloud.search,
         placeholder,
         caret_on,
+        |ws| &mut ws.cloud.search,
         |ws, _cx| ws.cloud.search.focus(),
         |ws, cx| {
             ws.cloud_search_clear(cx);
@@ -1835,11 +1836,16 @@ pub(crate) fn dialog(
             label,
             TextInput::new(key, shown)
                 .cursor(ws.field_cursor)
+                .selection(ws.field_selection())
                 .active(active)
                 .caret_on(ws.caret_on())
                 .w(px(270.0))
-                .on_focus(cx.listener(move |ws, _, _, cx| {
-                    ws.focus_field(key, committed.clone());
+                .on_focus(cx.listener(move |ws, press: &ui::TextPress, _, cx| {
+                    ws.press_field(key, committed.clone(), press);
+                    cx.notify();
+                }))
+                .on_select_to(cx.listener(move |ws, offset: &usize, _, cx| {
+                    ws.drag_field(key, *offset);
                     cx.notify();
                 })),
         ));
@@ -1923,7 +1929,12 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
                     ws.commit_focused_field();
                     ws.confirm_modal(window, cx);
                 } else {
-                    ws.field_key(&ev.keystroke.key, ev.keystroke.key_char.as_deref());
+                    ws.field_key(
+                        &ev.keystroke.key,
+                        ev.keystroke.key_char.as_deref(),
+                        ev.keystroke.modifiers,
+                        cx,
+                    );
                 }
                 cx.notify();
                 cx.stop_propagation();

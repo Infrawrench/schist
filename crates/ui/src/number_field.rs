@@ -1,10 +1,10 @@
 //! A numeric field with ± steppers beside it.
 
-use crate::{ClickHandler, IconButton, PressHandler, TextInput};
+use crate::{ClickHandler, IconButton, TextInput, TextPress, TextPressHandler};
 use gpui::prelude::FluentBuilder as _;
 use gpui::{
-    div, px, App, ClickEvent, ElementId, InteractiveElement as _, IntoElement, MouseDownEvent,
-    ParentElement as _, Refineable as _, RenderOnce, SharedString, StyleRefinement, Styled, Window,
+    div, px, App, ClickEvent, ElementId, InteractiveElement as _, IntoElement, ParentElement as _,
+    Refineable as _, RenderOnce, SharedString, StyleRefinement, Styled, Window,
 };
 
 /// A number's box, right-aligned with its unit after it, and a minus
@@ -21,7 +21,7 @@ pub struct NumberField {
     suffix: Option<SharedString>,
     focused: bool,
     style: StyleRefinement,
-    on_focus: Option<PressHandler>,
+    on_focus: Option<TextPressHandler>,
     on_decrement: Option<ClickHandler>,
     on_increment: Option<ClickHandler>,
 }
@@ -53,10 +53,11 @@ impl NumberField {
         self
     }
 
-    /// The press on the box that gives it the keyboard.
+    /// The press on the box that gives it the keyboard, told where in
+    /// the text it landed.
     pub fn on_focus(
         mut self,
-        handler: impl Fn(&MouseDownEvent, &mut Window, &mut App) + 'static,
+        handler: impl Fn(&TextPress, &mut Window, &mut App) + 'static,
     ) -> Self {
         self.on_focus = Some(Box::new(handler));
         self
