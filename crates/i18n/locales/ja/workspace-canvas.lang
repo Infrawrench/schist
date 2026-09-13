@@ -1,0 +1,45 @@
+# エディターのカンバスとその周辺（crates/app/src/workspace：viewport、
+# view_options、notes、edit_ops、image_ops、layers_panel、chrome、render）：
+# ステータスバーの応答とヒストリー項目。メニュー項目と英語がまったく同じ
+# ものは menu.lang のキーを使い回すので、ここにはありません。
+
+# ステータスバーの応答
+workspace.canvas.rotate_view_degrees = 表示を回転 {degrees}°
+workspace.canvas.view_reset = 表示をリセットしました
+workspace.canvas.notes_on = ノートを表示
+workspace.canvas.notes_off = ノートを非表示
+workspace.canvas.rulers_on = 定規を表示
+workspace.canvas.rulers_off = 定規を非表示
+workspace.canvas.grid_on = グリッドを表示
+workspace.canvas.grid_off = グリッドを非表示
+workspace.canvas.guides_on = ガイドを表示
+workspace.canvas.guides_off = ガイドを非表示
+workspace.canvas.extras_on = エクストラを表示
+workspace.canvas.extras_off = エクストラを非表示
+workspace.canvas.snap_on = スナップをオン
+workspace.canvas.snap_off = スナップをオフ
+workspace.canvas.guides_cleared = ガイドを消去しました
+workspace.canvas.no_path = 使用できるパスがありません
+workspace.canvas.path_empty = パスが空です
+workspace.canvas.stroke_needs_selection = 境界線を描くには選択範囲が必要です
+workspace.canvas.nothing_to_stroke = 境界線を描く対象がありません
+workspace.canvas.content_aware_fill_needs_selection = コンテンツに応じた塗りつぶしには選択範囲が必要です
+workspace.canvas.content_aware_fill_needs_pixel_layer = コンテンツに応じた塗りつぶしにはピクセルレイヤーが必要です
+workspace.canvas.color_range_needs_pixel_layer = 色域指定にはピクセルレイヤーが必要です
+workspace.canvas.nothing_to_adjust = 調整する対象がありません
+workspace.canvas.nothing_to_trim = トリミングする対象がありません
+workspace.canvas.trimmed = トリミングしました
+workspace.canvas.indexed_not_supported = インデックスカラーはまだサポートされていません
+workspace.canvas.opacity_percent = 不透明度：{n}%
+
+# ヒストリーパネルの項目
+workspace.history.stroke = 境界線を描く
+workspace.history.fill = 塗りつぶし
+workspace.history.content_aware_scale = コンテンツに応じて拡大・縮小
+workspace.history.filter_gallery = フィルターギャラリー
+workspace.history.color_range = 色域指定
+workspace.history.move_layer = レイヤーの移動
+workspace.history.move_layers = 複数レイヤーの移動
+workspace.history.layer_opacity = レイヤーの不透明度
+workspace.history.delete_note = ノートを削除
+workspace.history.edit_note = ノートを編集

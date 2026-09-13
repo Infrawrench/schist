@@ -1,0 +1,252 @@
+# モーダルダイアログ（crates/app/src/dialogs/、style_dialog.rs、
+# color_picker.rs、curve_editor.rs）。すべてのダイアログが共有するボタン
+# — OK、キャンセル、閉じる、完了 — は common.lang にあります。
+# 用語は日本語版 Photoshop に合わせています（新規ドキュメント、画像解像度、
+# カンバスサイズ、環境設定、レイヤースタイル、再サンプル）。
+
+# 複数のダイアログで共用
+dialog.save_ellipsis = 保存…
+dialog.use_foreground = 描画色を使用
+dialog.downloading = ダウンロード中…
+dialog.downloading_of = ダウンロード中… {total} 中 {got}
+dialog.no_config_dir = （設定ディレクトリがありません）
+
+# レイヤープロパティ
+dialog.layer_props.title = レイヤープロパティ
+
+# 書き出し
+dialog.export.format = 形式
+dialog.export.dither = ディザ
+dialog.export.dither_note = 8 bit に減色するときにディザを使用
+dialog.export.export_ellipsis = 書き出し…
+
+# 写真を処理（ギャラリーのバッチ処理ダイアログ）
+dialog.batch.title = 写真を処理
+dialog.batch.note_edit.other = {n} 枚の写真 — ギャラリーの編集として保存されます。元画像は変更されません。
+dialog.batch.note_edit_edited.other = {n} 枚の写真、うち {edited} 枚は編集済み — レシピは編集の上に重ねられ、以前の編集はバージョンとして保持されます。
+dialog.batch.note_copies.other = {n} 枚の写真 — 統合されたコピーです。元画像は変更されません。
+dialog.batch.note_copies_edited.other = {n} 枚の写真、うち {edited} 枚は編集済み — コピーは編集結果から作成されます。
+dialog.batch.turn = 向き
+dialog.batch.rotate = 回転
+dialog.batch.flip = 反転
+dialog.batch.upscale = 拡大
+dialog.batch.colour = カラー
+dialog.batch.add_adjustment = 色調補正…
+dialog.batch.output = 出力
+dialog.batch.save_as = 保存形式
+dialog.batch.process = 処理
+dialog.batch.process_n = {n} 枚を処理
+dialog.batch.nothing_to_do = 処理する内容がありません。まず向き、拡大、色調補正のいずれかを選んでください
+
+# コンテンツに応じた拡大・縮小
+dialog.content_aware_scale.title = コンテンツに応じた拡大・縮小
+dialog.content_aware_scale.note = ディテールの少ない継ぎ目を削ります。選択範囲は保護する部分を示します。
+
+# 境界線（レイヤースタイルダイアログの境界線の位置にも使用）
+dialog.stroke.title = 境界線
+dialog.stroke.location = 位置
+dialog.stroke.inside = 内側
+dialog.stroke.outside = 外側
+dialog.stroke.note = 選択範囲を描画色で縁取ります。
+
+# 塗りつぶし
+dialog.fill.contents = 内容
+
+# 色域指定
+dialog.color_range.title = 色域指定
+dialog.color_range.sampled = 指定色
+dialog.color_range.fuzziness = 許容量
+dialog.color_range.note = 作業レイヤー上で、指定色に近いピクセルを選択します。
+
+# Schist が自前で描くファイルピッカー（Android）
+dialog.file_picker.up = ↑ 上へ
+dialog.file_picker.empty = ここには何もありません
+dialog.file_picker.choose_folder = このフォルダーを選択
+
+# フィルターダイアログ
+dialog.filter.camera_raw_development = Camera Raw 現像
+dialog.filter.reset_as_shot = 撮影時の設定に戻す
+dialog.filter.raw_note = 作業レイヤーを元のセンサーデータから現像し直します。
+dialog.filter.note = 作業レイヤーの選択範囲内に適用されます。
+
+# 見つからないフォント
+dialog.fonts.title = 見つからないフォント
+dialog.fonts.install_named = {name} をインストール
+dialog.fonts.no_document = ドキュメントが開かれていないため、確認する対象がありません。
+dialog.fonts.all_installed = このドキュメントが使用しているフォントはすべてインストール済みです。テキストは組まれたときのフォントで表示されます。
+dialog.fonts.missing_intro = このドキュメントは、お使いの環境にないフォントで組まれています。テキストは代替フォントで読めますが、字幅や行分割は組まれたときのものとは異なります。
+dialog.fonts.footer = ダウンロードは Google Fonts のオープンなカタログから行われ、{dir} に保存されます。オープンライセンスでないフォントが取得されることはありません。字幅に互換性のある自由なフォントがある場合はそちらが提示され、送り幅が一致するためレイアウトが復元されます。
+dialog.fonts.user_font_dir = ユーザーフォントディレクトリ
+
+# Neural Filters のモデル
+dialog.models.title = Neural Filters のモデル
+dialog.models.built_in = 内蔵 · {size}
+dialog.models.installed = インストール済み · {size}
+dialog.models.not_installed = 未インストール · {size}
+dialog.models.not_in_browser = ブラウザーでは利用できません · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = モデルは {dir} に保存されます。モデルのないフィルターは信号処理による方法に切り替わり、その旨を表示します。
+
+# 新規ドキュメント
+dialog.new_doc.title = 新規ドキュメント
+dialog.new_doc.picker_title = 新規ファイル
+dialog.new_doc.custom_ellipsis = カスタム…
+dialog.new_doc.preset = プリセット
+dialog.new_doc.preset_default = デフォルト（1280 × 800）
+dialog.new_doc.preset_hd = HD（1920 × 1080）
+dialog.new_doc.preset_4k = 4K UHD（3840 × 2160）
+dialog.new_doc.preset_square = 正方形（1080 × 1080）
+dialog.new_doc.preset_a4 = A4、300 ppi
+dialog.new_doc.preset_us_letter = US Letter、300 ppi
+dialog.new_doc.summary = {w} × {h} ピクセル @ {ppi} ppi · {size}
+dialog.new_doc.create = 作成
+dialog.new_doc.created = 新規ドキュメント：{w} × {h} ピクセル
+
+# ファイルを開く：ドロップされた画像とフォルダー、共有されたファイル、HEIC のサポート
+dialog.open.image_title = 画像を開く
+dialog.open.image_prompt = 「{name}」を新規タブで開きますか、それとも新規レイヤーとして現在のドキュメントに追加しますか？
+dialog.open.new_tab = 新規タブ
+dialog.open.new_layer = 新規レイヤー
+dialog.open.quoted = 「{name}」
+dialog.open.these_files.other = これら {n} 個のファイル
+dialog.open.shared_title_one = 共有された画像
+dialog.open.shared_title_many = 共有された画像
+dialog.open.shared_prompt = {what}をギャラリーに追加しますか、それともエディターで開きますか？
+dialog.open.add_to_gallery = ギャラリーに追加
+dialog.open.open_in_editor = エディターで開く
+dialog.open.heic_title = HEIC のサポート
+dialog.open.heic_needs_decoder = 「{name}」を開くには HEVC デコーダーが必要ですが、このシステムにはインストールされていません。
+dialog.open.heic_offer = Schist は、libde265 HEVC デコーダーを含むデコード専用ビルドの libheif {version}（約 5 MB）をダウンロードできます。どちらも LGPL-3.0 ライセンスです。ライセンス文はライブラリと同じ場所にインストールされ、ソースはプロジェクトページで入手できます。
+dialog.open.licenses_source = ライセンスとソース
+dialog.open.folders_title = ドロップされたフォルダー
+dialog.open.n_folders.other = {n} 個のフォルダー
+dialog.open.open_in_tabs = タブで開く
+dialog.open.open_first_in_tabs = 最初の {n} 個をタブで開く
+dialog.open.open_n_in_tabs.other = {n} 個をタブで開く
+dialog.open.folder_holds.other = {what}には、Schist が開ける画像が {n} 個あります（サブフォルダーを含む）。
+dialog.open.folders_note = 「ギャラリーに追加」はフォルダーをその場で監視します — 何もコピーされず、編集は各写真の隣にバージョンとして保存されます。タブで開くと、すべての画像がすぐにエディターに読み込まれます。
+
+# プラグイン
+dialog.plugins.title = プラグイン
+dialog.plugins.kind_filter = フィルター
+dialog.plugins.kind_format = ファイル形式
+dialog.plugins.kind_unavailable = 利用できません
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = プラグインは {dir} から読み込まれます
+dialog.plugins.none = プラグインはまだインストールされていません。
+dialog.plugins.install_ellipsis = インストール…
+dialog.plugins.photoshop_heading = Photoshop プラグイン
+dialog.plugins.loaded_from = {folders} から読み込み
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# 環境設定
+dialog.prefs.title = 環境設定
+dialog.prefs.theme = テーマ
+dialog.prefs.theme_dark = ダーク
+dialog.prefs.theme_light = ライト
+dialog.prefs.grid_spacing = グリッド間隔
+dialog.prefs.snapping = スナップ
+dialog.prefs.snap_to = ガイド、グリッド、カンバスの端にスナップ
+dialog.prefs.rendering_intent = マッチング方法
+dialog.prefs.intent_perceptual = 知覚的
+dialog.prefs.intent_relative = 相対的な色域を維持
+dialog.prefs.intent_saturation = 彩度
+dialog.prefs.intent_absolute = 絶対的な色域を維持
+dialog.prefs.scrolling = スクロール
+dialog.prefs.zoom_with_scroll = スクロールホイールでズーム
+dialog.prefs.rendering = 描画
+dialog.prefs.gpu_compositing = GPU による合成
+dialog.prefs.diagnostics = 診断
+dialog.prefs.crash_reports = パニック時にローカルのクラッシュレポートを書き出す
+dialog.prefs.crash_upload = 開発者にも送信する
+dialog.prefs.telemetry = 匿名の ping を 1 日 1 回送信する
+dialog.prefs.diagnostics_note = 診断の設定は Schist の次回起動時に反映されます。
+dialog.prefs.updates = アップデート
+dialog.prefs.check_updates = 起動時に新しいリリースを確認
+dialog.prefs.keyboard_shortcuts = キーボードショートカット：{path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) モデルが必要です —
+dialog.prefs.nsfw_download_link = 「モデルを管理…」でダウンロード
+dialog.prefs.hide_flagged = フラグを付けた写真を隠す
+
+# プロファイルの指定 / プロファイル変換
+dialog.profile.profile = プロファイル
+dialog.profile.assign_title = プロファイルの指定
+dialog.profile.convert_title = プロファイル変換
+dialog.profile.assign = 指定
+dialog.profile.convert = 変換
+dialog.profile.assign_note = 既存のピクセル値を新しいプロファイルのもとで解釈し直します。
+dialog.profile.convert_note = 色の見えが保たれるようにピクセル値を書き換えます。
+
+# 画像を別名で保存（ギャラリーの写真を統合された画像として保存）
+dialog.save_image.title = 画像を別名で保存
+dialog.save_image.note = {name} — 編集があればその結果を保存します。元画像は変更されません。
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# 画像解像度とカンバスサイズ
+dialog.size.image_title = 画像解像度
+dialog.size.canvas_title = カンバスサイズ
+dialog.size.constrain = 縦横比
+dialog.size.keep_proportions = 縦横比を固定
+dialog.size.resample = 再サンプル
+dialog.size.bicubic = バイキュービック法
+dialog.size.bilinear = バイリニア法
+dialog.size.nearest = ニアレストネイバー法
+dialog.size.anchor = 基準位置
+dialog.size.currently = 現在 {w} × {h} ピクセル
+dialog.size.image_size_status = 画像解像度：{w} × {h}
+dialog.size.canvas_size_status = カンバスサイズ：{w} × {h}
+
+# アップデートがあります
+dialog.update.title = アップデートがあります
+dialog.update.available = Schist {version} が公開されています。このコピーは {current} です。
+dialog.update.installing = アップデートをインストール中…
+dialog.update.can_install = Schist がダウンロード（{size}）して、このコピーに上書きインストールできます。
+dialog.update.external = このコピーは、それを管理している場所 — パッケージマネージャー、AppImage、自分でのビルド — から来ているため、インストールされた方法でアップデートされます。
+dialog.update.later = 後で
+dialog.update.release_notes = リリースノート
+dialog.update.update_restart = アップデートして再起動
+dialog.update.open_page = リリースページを開く
+
+# レイヤースタイル：各効果（Photoshop の名称）とそのコントロール
+dialog.style.title = レイヤースタイル
+dialog.style.bevel = ベベルとエンボス
+dialog.style.stroke = 境界線
+dialog.style.inner_shadow = シャドウ（内側）
+dialog.style.inner_glow = 光彩（内側）
+dialog.style.satin = サテン
+dialog.style.color_overlay = カラーオーバーレイ
+dialog.style.gradient_overlay = グラデーションオーバーレイ
+dialog.style.outer_glow = 光彩（外側）
+dialog.style.drop_shadow = ドロップシャドウ
+dialog.style.blur = ぼかし（ガウス）
+dialog.style.gradient_from = グラデーションオーバーレイの開始色
+dialog.style.gradient_to = グラデーションオーバーレイの終了色
+dialog.style.soften = 滑らかに
+dialog.style.depth = 深さ
+dialog.style.altitude = 高度
+dialog.style.highlight = ハイライト
+dialog.style.shadow = シャドウ
+dialog.style.outer_bevel = ベベル（外側）
+dialog.style.inner_bevel = ベベル（内側）
+dialog.style.emboss = エンボス
+dialog.style.pillow_emboss = ピローエンボス
+dialog.style.linear = 線形
+dialog.style.radial = 円形
+dialog.style.reverse = 逆方向
+dialog.style.from_to = 開始 / 終了
+dialog.style.from_fg = 開始 = 描画色
+dialog.style.to_fg = 終了 = 描画色
+dialog.style.precise = シャープ
+dialog.style.knockout = レイヤーがドロップシャドウをノックアウト
+
+# カラーピッカー
+dialog.color_picker.title = カラーピッカー（{what}）
+dialog.color_picker.effect_color = {effect}のカラー
+dialog.color_picker.note_color = 注釈のカラー
+dialog.color_picker.new = 新しい色
+dialog.color_picker.current = 現在の色
+
+# トーンカーブのグラフ
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = チャンネルをリセット
+dialog.curves.hint = ドラッグで形を調整 · クリックで追加 · Alt＋クリックで削除

@@ -18,6 +18,7 @@
         <string>sv</string>
         <string>de</string>
         <string>zh-Hans</string>
+        <string>ja</string>
     </array>
     <key>CFBundleIconFile</key><string>schist</string>
     <key>CFBundlePackageType</key><string>APPL</string>

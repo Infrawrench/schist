@@ -1,0 +1,30 @@
+# 範囲を修復するツール（plugins/tools-retouch）：パッチ、コンテンツに応じた
+# 移動、赤目修正、マジック消しゴム。モードと許容値は common.lang から。
+
+# パッチ
+tool.patch.name = パッチツール
+tool.patch.description = 傷や汚れを囲む輪郭をドラッグして描き、その選択範囲をきれいなピクセルの上までドラッグすると、そこのテクスチャが傷になじませて移植されます。パッチのモードで、どちら側をドラッグするかが決まります。
+tool.patch.option.patch = パッチ
+tool.patch.choice.source = ソース
+tool.patch.choice.destination = 目標
+tool.patch.history.patch = パッチツール
+
+# コンテンツに応じた移動
+tool.content_aware_move.name = コンテンツに応じた移動ツール
+tool.content_aware_move.description = 選択したオブジェクトを別の場所へドラッグすると、あとに残った穴が周囲から補われます。「拡張」モードではオブジェクトは移動せず引き伸ばされます。
+tool.content_aware_move.choice.move = 移動
+tool.content_aware_move.choice.extend = 拡張
+tool.content_aware_move.history.move = コンテンツに応じた移動
+
+# 赤目修正
+tool.red_eye.name = 赤目修正ツール
+tool.red_eye.description = 瞳をクリックして、フラッシュによる赤みを抜きます。
+tool.red_eye.option.pupil_size = 瞳孔サイズ
+tool.red_eye.option.darken = 暗くする量
+tool.red_eye.history.red_eye = 赤目修正
+
+# マジック消しゴム
+tool.magic_eraser.name = マジック消しゴムツール
+tool.magic_eraser.description = クリックすると、ポインターの下にある似た色の範囲を許容値の範囲内で消去します。クリック位置につながった部分だけ、またはレイヤー全体が対象になります。
+tool.magic_eraser.option.contiguous = 隣接
+tool.magic_eraser.history.erase = マジック消しゴム

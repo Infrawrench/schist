@@ -1,0 +1,348 @@
+# 日本語：Schist Cloud のサインイン、クラウドギャラリー（サイドバーの行、
+# グリッドの見出しと空の状態、右クリックメニュー、各ダイアログ）、
+# アップロードとダウンロード、人物と顔、画像生成、そして crates/cloud が
+# そのまま表示するために渡すステータスとエラーの文言。
+# `cloud.services.*` は crates/app/src/workspace/services.rs：モデル、
+# フォント、アップデート、プラグインを外部から取得する間のステータスバー。
+#
+# 「Schist Cloud」は製品名なので、どの言語でもそのまま表記する。
+# 日本語には単複の区別がないため、計数文字列は .other のみを用意する。
+
+# ステータスバーとトレイのメッセージ。`cloud.msg.not_signed_in` はクラウド
+# パネルの既定のメッセージで、ギャラリーはこれと比較して待機中かエラー表示か
+# を見分ける。
+cloud.msg.not_signed_in = サインインしていません
+cloud.status.opening_sign_in = ブラウザーでサインインを開いています…
+cloud.status.connecting = Schist Cloud に接続中…
+cloud.status.connected = Schist Cloud に接続しました
+cloud.status.signed_out = サインアウトしました
+cloud.status.updated = クラウドを更新しました
+cloud.status.opening = {name} を開いています…
+cloud.status.saved = Schist Cloud に保存しました
+cloud.status.saving = Schist Cloud に保存中…
+cloud.status.offline_will_sync = オフライン — クラウドの編集は再接続後に同期されます
+cloud.status.uploaded_screening = アップロードしました — 審査を通過してから Schist Cloud に表示されます。このドキュメントはローカルに残ります。審査後にクラウド上のコピーを開いてください。
+cloud.status.gathering_folder = フォルダーを収集中…
+cloud.status.gathering_bucket = コレクションを収集中…
+cloud.status.renewing_login = クラウドのサインインを更新中…
+
+# ステータスバーやトレイに表示されるエラー
+cloud.error.named = {name}：{error}
+cloud.error.recovery_failed = クラウドの復旧に失敗しました：{error}
+cloud.error.stored_login_invalid = 保存されたクラウドのサインイン情報が無効です：{error}
+cloud.error.could_not_read_login = クラウドのサインイン情報を読み込めませんでした：{error}
+cloud.error.could_not_persist_login = クラウドのサインイン情報を保存できませんでした：{error}
+cloud.error.sign_in_failed = クラウドへのサインインに失敗しました：{error}
+cloud.error.server_logout_failed = ローカルではサインアウトしました。サーバー側のサインアウトに失敗しました：{error}
+cloud.error.token_refresh_failed = トークンの更新に失敗しました：{error}
+cloud.error.access_unavailable = クラウドにアクセスできません。アカウントを確認するため、もう一度サインインしてください。ローカルのファイルはこのデバイスに残ります。
+cloud.error.world_map = 世界地図：{error}
+cloud.error.open_document = クラウドドキュメントを開く：{error}
+cloud.error.unsupported_format = サポートされていないリモートファイル形式です
+cloud.error.could_not_restore_edits = クラウドの編集を復元できませんでした：{error}
+cloud.error.no_collaborative_editing = このプロバイダーは共同での画像編集に対応していません
+cloud.error.no_collaborative_editing_save_local = このプロバイダーは共同での画像編集に対応していません。代わりにローカルコピーを保存してください
+cloud.error.connect_before_undo = クラウドの編集を取り消す前に接続してください
+cloud.error.edit_not_saved = クラウドの編集が保存されていません：{error}
+cloud.error.no_cloud_document = クラウドドキュメントがありません
+cloud.error.sync_stopped = このドキュメントのクラウド同期は停止しました。再接続するにはクラウドギャラリーから開き直してください。編集はローカルに残ります。
+cloud.error.sign_in_first = 先にサインインしてください
+cloud.error.wait_for_connection = クラウドへの接続をお待ちください
+cloud.error.bucket_empty = このコレクションは空です
+cloud.error.rating_range = 評価は 0 から 5 の間で指定してください
+cloud.error.invalid_content_filter = コンテンツフィルターが無効です
+cloud.error.edited_filter = 「編集済み」は any、yes、no のいずれかにしてください
+cloud.error.content_filter = 「コンテンツ」は all、safe、flagged のいずれかにしてください
+cloud.error.invalid_bounds = 有効な南、西、北、東の座標を入力してください
+cloud.error.date_order = 終了日は開始日より後にしてください
+cloud.error.no_photo_selected = 写真が選択されていません
+cloud.error.no_bucket_selected = コレクションが選択されていません
+cloud.error.no_folder_selected = フォルダーが選択されていません
+cloud.error.no_item_selected = 項目が選択されていません
+cloud.error.folder_gone = そのフォルダーはもう存在しません
+cloud.error.unknown_action = 不明なクラウド操作です
+# プロバイダーが容量不足で断ったときの文言。最初の一文はアプリが照合して
+# 容量のダイアログを開くのに使うので、独立した文字列にしてある。
+cloud.error.not_enough_storage = クラウドの容量が足りません。
+cloud.error.not_enough_storage_detail = この選択には {needed} が必要ですが、空き容量は {available} です。{shortfall} を空けるか、プランをアップグレードしてください。ファイルはアップロードされていません。
+
+# サインイン（crates/cloud/src/auth.rs と browser_auth.rs）
+cloud.auth.enter_domain = ドメインを入力してください
+cloud.auth.domain_only = パスを含めず、ドメインのみを入力してください
+cloud.auth.sign_in_expired = サインインの有効期限が切れました。もう一度お試しください
+cloud.auth.allow_popup = サインインのポップアップを許可して、もう一度お試しください
+cloud.auth.sign_in_cancelled = サインインをキャンセルしました
+cloud.auth.sign_in_window_closed = サインインウィンドウが閉じられました
+cloud.auth.available_at = クラウドは try.schist.app で利用できます
+
+# サイドバーのクラウドの行
+cloud.sidebar.folders = フォルダー
+cloud.sidebar.buckets = コレクション
+cloud.sidebar.people = 人物
+cloud.sidebar.new_folder = + 新規フォルダー…
+cloud.sidebar.new_bucket = + 新規コレクション…
+cloud.sidebar.find_folders_buckets = フォルダー / コレクションを検索…
+cloud.sidebar.showing = 「{text}」を表示中…
+cloud.sidebar.previous = ↑ 前へ
+cloud.sidebar.more = ↓ もっと見る
+
+# グリッド：見出し、件数、空の状態、検索ボックス、トレイ
+cloud.gallery.bucket = コレクション
+cloud.gallery.bucket_n = コレクション {n}
+cloud.gallery.bucket_title = コレクション · {name}
+cloud.gallery.bucket_search_title = コレクション · {name} · 検索結果
+cloud.gallery.folder_search_title = {name} · 検索結果
+cloud.gallery.search_results = 検索結果
+cloud.gallery.people_title = 人物 · {name} · {title}
+cloud.gallery.smart_bucket = スマートコレクション
+cloud.gallery.n_filters.other = {n} 件のフィルター
+cloud.gallery.unfiled = 未整理
+cloud.gallery.no_location = 位置情報なし
+cloud.gallery.updating = 更新中…
+cloud.gallery.connecting = 接続中…
+cloud.gallery.section_detail = {subtitle} — {n}
+cloud.gallery.page_range = {total} 件中 {first}–{last} 件
+cloud.gallery.previous_page = ← 前のページ
+cloud.gallery.next_page = 次のページ →
+cloud.gallery.search_placeholder = 写真を検索…
+cloud.gallery.map_filter_drawn_area = マップフィルター：描画した範囲
+cloud.gallery.download = ダウンロード…
+cloud.gallery.photos_unavailable = 写真を利用できません
+cloud.gallery.edited_note = 編集済み — 編集内容は Schist Cloud にあります
+cloud.gallery.screening_uploads.other = {n} 件のアップロードを審査中…
+cloud.gallery.uploads_blocked.other = 審査の結果、{n} 件のアップロードは利用できません
+cloud.gallery.could_not_load = 写真を読み込めませんでした：{error}。「更新」でもう一度お試しください。
+cloud.gallery.empty_search = 検索に一致するものがありません。Escape キーで検索を消去できます。
+cloud.gallery.empty_map_filter = マップフィルターの範囲内には何もありません。ストリップのチップで解除できます。
+cloud.gallery.empty_smart_bucket = このコレクションの条件に一致するものはまだありません。写真をドラッグして入れることもできます。
+cloud.gallery.empty_bucket = このコレクションは空です。サイドバーにあるこのコレクションの行に写真をドラッグすると追加できます。
+cloud.gallery.empty_folder = このクラウドフォルダーは空です。サイドバーにあるこのフォルダーの行に写真をドロップするか、「読み込み…」を使ってください
+cloud.gallery.empty_library = クラウドライブラリにはまだ写真がありません。「読み込み…」を使うか、ローカルのギャラリーからクラウドのフォルダーやコレクションに写真をドラッグしてください。
+
+# 右クリックメニュー
+cloud.menu.view_people = 人物を表示して名前を付ける
+cloud.menu.add_to_bucket = {name} に追加
+cloud.menu.add_to_new_bucket = 新規コレクションに追加…
+cloud.menu.remove_from_bucket = このコレクションから取り除く
+cloud.menu.remove_n_from_bucket = このコレクションから {n} 件を取り除く
+cloud.menu.delete_from_cloud = Schist Cloud から削除…
+cloud.menu.upload_files_here = ここにファイルをアップロード…
+cloud.menu.upload_folder_here = ここにフォルダーをアップロード…
+cloud.menu.download_everything = すべてダウンロード…
+cloud.menu.download_folder = フォルダーをダウンロード…
+cloud.menu.new_folder = 新規フォルダー…
+cloud.menu.new_folder_inside = この中に新規フォルダー…
+cloud.menu.rename = 名前を変更…
+cloud.menu.delete = 削除…
+cloud.menu.photos_in_marker.other = このマーカー内の {n} 枚の写真
+cloud.menu.add_all_to_bucket = すべてを {name} に追加
+cloud.menu.add_all_to_new_bucket = すべてを新規コレクションに追加…
+cloud.menu.rename_or_merge = 名前の変更または統合…
+cloud.menu.forget_person = この人物を忘れる
+cloud.menu.edit_bucket = コレクションを編集…
+cloud.menu.select_all = すべてを選択
+cloud.menu.counted = {label}（{n}）
+cloud.menu.add_selected = 選択項目を追加（{n}）
+cloud.menu.save_all_zip = すべてを ZIP として保存…
+cloud.menu.process_all = すべてを処理…
+cloud.menu.move_all_to_folder = すべてをフォルダーに移動…
+cloud.menu.clear_added = 追加した写真を消去
+cloud.menu.clear_bucket = コレクションを空にする
+cloud.menu.delete_bucket = コレクションを削除…
+
+# ダイアログ：タイトル、項目名、注記、ボタン
+cloud.dialog.sign_in_title = Schist Cloud にサインイン
+cloud.dialog.domain = ドメイン
+cloud.dialog.continue_in_browser = ブラウザーで続ける
+cloud.dialog.storage_title = クラウドの容量が足りません
+cloud.dialog.people_rename_title = 人物の名前変更または統合
+cloud.dialog.people_rename_note = 既存の名前を入力すると、2 人の人物が統合されます。忘れても消えるのは名前だけで、写真は残ります。
+cloud.dialog.forget_person = 人物を忘れる
+cloud.dialog.face_name_title = この顔に名前を付ける
+cloud.dialog.search_title = 写真を検索
+cloud.dialog.catalogue_title = クラウドのフォルダーとコレクションを検索
+cloud.dialog.name_contains = 名前に含まれる文字
+cloud.dialog.new_folder_title = 新規クラウドフォルダー
+cloud.dialog.folder_name = フォルダー名
+cloud.dialog.new_bucket_title = 新規クラウドコレクション
+cloud.dialog.edit_bucket_title = クラウドコレクションを編集
+cloud.dialog.bucket_name = コレクション名
+cloud.dialog.bucket_rule_note = 写真をドラッグして入れるコレクションにする場合は、検索を空のままにしてください。
+cloud.dialog.saved_area = 保存した範囲
+cloud.dialog.rename_folder_title = クラウドフォルダーの名前を変更
+cloud.dialog.delete_folder_title = クラウドフォルダーを削除しますか？
+cloud.dialog.delete_folder_note = 空のフォルダーはライブラリから取り除かれます。チェックを入れると、中の写真とサブフォルダーも、クラウドの編集内容ごと完全に削除されます。
+cloud.dialog.delete_contents_check = 中のすべての写真とサブフォルダーも削除する
+cloud.dialog.delete_bucket_title = クラウドコレクションを削除しますか？
+cloud.dialog.delete_bucket_note = 写真はクラウドライブラリに残ります。
+cloud.dialog.delete_asset_title = クラウドの写真を削除しますか？
+cloud.dialog.delete_asset_note = 写真とそのクラウドの編集内容は完全に削除され、その写真を含むコレクションからも取り除かれます。
+cloud.dialog.upload_document_title = Schist Cloud にドキュメントをアップロード
+cloud.dialog.folder_id = フォルダー ID（空欄で未整理）
+cloud.dialog.upload_folder_title = Schist Cloud にフォルダーをアップロード
+cloud.dialog.upload_folder_note = フォルダー内のすべての写真が、サブフォルダーの構成を保ったまま、選択したクラウドフォルダーにアップロードされます。ローカルのファイルはそのままの場所に残ります。
+cloud.dialog.upload = アップロード
+cloud.dialog.move_items_title = クラウドフォルダーに移動
+cloud.dialog.move_items_note = コレクション内のすべての写真が、選択したフォルダーに整理されます。クラウドの編集内容とコレクションへの所属はそのままです。
+cloud.dialog.move = 移動
+cloud.dialog.download_title = クラウドの写真をダウンロード
+cloud.dialog.format = 形式
+cloud.dialog.format_current = 現在の編集可能なドキュメント
+cloud.dialog.format_original = 元のファイル
+cloud.dialog.format_with_extension = {name}（.{extension}）
+
+# アップロード
+cloud.upload.prompt = Schist Cloud にアップロード
+cloud.upload.uploading_files = ファイルをアップロード中…
+cloud.upload.looking_through = ファイルを確認中…
+cloud.upload.checking_storage = クラウドの空き容量を確認中…
+cloud.upload.selection_too_large = 選択したデータが大きすぎます
+cloud.upload.progress = {m} 枚中 {n} 枚の写真をアップロード中…
+cloud.upload.progress_skipped = {m} 枚中 {n} 枚の写真をアップロード中（{skipped} 件スキップ）…
+cloud.upload.adding_to_bucket = コレクションに追加中…
+cloud.upload.checking_resumable = {name} に再開できるアップロードがないか確認中…
+cloud.upload.large_progress = {name} をアップロード中：{percent}%（{done} / {total} MiB）
+# `{what}` には下の `cloud.upload.step.*` のいずれかが入る
+cloud.upload.interrupted = {what}中に接続が切断されました — {m} 件中 {n} 件アップロード済み。待機中…
+cloud.upload.resuming = 再接続しました — {what}を再開します（{m} 件中 {n} 件アップロード済み）…
+cloud.upload.step.adding_to_bucket = コレクションへの追加
+cloud.upload.step.checking_duplicates = 重複の確認
+cloud.upload.step.uploading_batch = バッチのアップロード
+cloud.upload.step.uploading_photo = 写真のアップロード
+cloud.upload.step.uploading_large_file = 大きなファイルのアップロード
+cloud.upload.connection_closed = クラウドへの接続が切断されました
+cloud.upload.failed_partial = アップロードに失敗しました（完了したファイルはクラウドに残ります）：{error}
+cloud.upload.open_document_first = 先にドキュメントを開いてください
+cloud.upload.over_100mib = 100 MiB を超えるファイルには分割アップロードを使ってください
+cloud.upload.file_empty = ファイルが空です
+cloud.upload.over_5gib = 1 ファイルあたり 5 GiB のアップロード上限を超えています
+# ドロップ後のまとめ：各節は「; 」でつながれる
+cloud.upload.summary_none = 何もアップロードされませんでした
+cloud.upload.summary_uploaded.other = {n} 枚の写真をアップロードしました
+cloud.upload.summary_existing.other = {n} 枚はすでに Schist Cloud にありました
+cloud.upload.summary_skipped.other = {n} 件のファイルをスキップしました：{reason}
+cloud.upload.summary_skipped_more = {reason}（ほか {n} 件）
+
+# ダウンロード
+cloud.download.here = ここにダウンロード
+cloud.download.downloading = {name} をダウンロード中…
+cloud.download.done = {name} をダウンロードしました
+cloud.download.failed = クラウドからのダウンロードに失敗しました：{error}
+cloud.download.could_not_save = ダウンロードしたファイルを保存できませんでした：{error}
+cloud.download.wait_for_connection = ダウンロードする前にクラウドへの接続をお待ちください
+cloud.download.select_one = ダウンロードするクラウドの写真を 1 枚選択してください
+cloud.download.select_first = 先にクラウドの写真を選択してください
+cloud.download.progress_n_of_m = {m} 件中 {n} 件をダウンロード中…
+cloud.download.done_to.other = {n} 枚の写真を {path} にダウンロードしました
+cloud.download.failed_partial = ダウンロードに失敗しました（完了したファイルは残ります）：{error}
+cloud.download.zipping_n_of_m = {m} 件中 {n} 件を圧縮中…
+cloud.download.zipped_to.other = {n} 枚の写真を {path} に保存しました
+cloud.download.zip_failed = ZIP の作成に失敗しました：{error}
+cloud.download.fetching_n_of_m = {m} 件中 {n} 件を取得中…
+cloud.download.could_not_fetch_bucket = コレクションを取得できませんでした：{error}
+cloud.download.kept_changing = ダウンロード中にクラウドのファイルが変わり続けました。もう一度お試しください
+
+# 人物と顔
+cloud.people.title = この写真に写っている人物
+cloud.people.person = 人物
+cloud.people.unnamed = 名前なし
+cloud.people.unnamed_faces = 名前のない顔
+cloud.people.unnamed_faces_row = Schist Cloud 内の名前のない顔
+cloud.people.finding_faces.other = {n} 枚のクラウドの写真から顔を検出中…
+cloud.people.could_not_process.other = {n} 枚のクラウドの写真を処理できませんでした
+cloud.people.add_face = 顔を追加…
+cloud.people.cancel_drawing = 描画をキャンセル
+cloud.people.auto_suffix = {name} · 自動
+cloud.people.not_a_face = 顔ではない
+cloud.people.not_them = 別人
+cloud.people.confirm_suggestion = これは {name} ですか？ はい
+cloud.people.no_faces = 名前を付けた顔はまだありません。顔は自動的に検出されます。枠を描いて手動で追加することもできます。
+cloud.people.photo_unavailable = この写真はこのビューでは利用できなくなりました。
+cloud.people.enter_a_name = 名前を入力してください
+
+# 画像生成
+cloud.generate.title = Schist Cloud で画像を生成
+cloud.generate.generate = 生成
+cloud.generate.stop = 停止
+cloud.generate.loading_form = 生成フォームを読み込み中…
+cloud.generate.required_field = {title} *
+cloud.generate.preparing_preview = プレビューを準備中…
+cloud.generate.preview_unavailable = プレビューを利用できません：{error}
+cloud.generate.slot = {part} · {n}
+cloud.generate.slot_status = {name}：{status}
+cloud.generate.generating = 生成中…
+cloud.generate.complete = 完了
+cloud.generate.open_image = 画像を開く
+cloud.generate.document_title = 生成画像 {n}
+cloud.generate.memory_limit = 生成結果がメモリの上限を超えています
+cloud.generate.unsupported_format = サポートされていない生成画像の形式です
+cloud.generate.enter_field = {title}を入力してください
+cloud.generate.choose_field = {title}を選択してください
+cloud.generate.cancelled = 生成をキャンセルしました
+cloud.generate.timed_out = 生成がタイムアウトしました
+
+# アプリの外から取得するもの（workspace/services.rs）：ニューラルモデル、
+# フォント、アップデート、プラグイン
+cloud.services.downloading = {name} をダウンロード中…
+cloud.services.installed_model = {name} を {path} にインストールしました
+cloud.services.removed = {name} を削除しました
+cloud.services.checking_for_updates = アップデートを確認中…
+cloud.services.update_available = Schist {version} が利用できます
+cloud.services.up_to_date = Schist {version} は最新です
+cloud.services.update_check_failed = アップデートの確認に失敗しました：{error}
+cloud.services.downloading_schist = Schist {version} をダウンロード中…
+cloud.services.installing_update = アップデートをインストール中…
+cloud.services.restarting = Schist {version} で再起動中…
+cloud.services.update_cancelled = アップデートをキャンセルしました
+cloud.services.update_failed = アップデートに失敗しました：{error}
+cloud.services.font_downloads_unavailable_web = {name}：ブラウザーではフォントをダウンロードできません
+cloud.services.installed_font.other = {name}（{faces} 書体）をインストールしました · {n} 個のテキストレイヤーを組み直しました
+cloud.services.plugin_enabled = {id} を有効にしました — 再起動すると適用されます
+cloud.services.plugin_disabled = {id} を無効にしました — 再起動すると適用されます
+cloud.services.plugin_installed = {path} をインストールしました — 再起動すると読み込まれます
+cloud.services.photoshop_plugin_rejected = プラグインが拒否されました：{error}
+cloud.services.plugin_rejected = プラグインを受け付けられませんでした：{error}
+
+# 通信層（crates/cloud）：アプリがステータス行やダイアログにそのまま表示する
+# エラーの文言。ワイヤレベルの診断（不正なフレーム、重複したハンドシェイク）
+# はコード内の英語のままにしてある。
+cloud.transport.disconnected = クラウドの接続が切断されました
+cloud.transport.connecting = クラウドに接続中です
+cloud.transport.connection_closed = クラウドの接続が閉じられました
+cloud.transport.disconnected_outcome_unknown = クラウドの接続が切断されました。変更の結果は不明な可能性があります
+cloud.transport.timed_out = クラウドの操作がタイムアウトしました
+cloud.transport.request_timed_out = クラウドへのリクエストがタイムアウトしました。変更の結果は不明な可能性があります
+cloud.transport.handshake_timed_out = クラウドのハンドシェイクがタイムアウトしました
+cloud.transport.heartbeat_timed_out = クラウドのハートビートがタイムアウトしました
+cloud.transport.no_workspace_endpoint = プロバイダーにクラウドワークスペースのエンドポイントがありません
+cloud.transport.could_not_open_socket = クラウドのソケットを開けませんでした
+cloud.transport.websocket_failed = クラウドの WebSocket が失敗しました
+cloud.transport.socket_closed = クラウドのソケットは閉じられています
+cloud.transport.send_buffer_full = クラウドの送信バッファーがいっぱいです
+cloud.transport.send_failed = クラウドへの送信に失敗しました
+cloud.transport.close_failed = クラウド接続のクローズに失敗しました
+cloud.transport.frame_too_large = メッセージがワークスペースのフレーム上限 {bytes} バイトを超えています
+cloud.transport.document_too_large = 共有ドキュメントがプロバイダーの上限 {bytes} バイトを超えています。編集はローカルに残ります
+cloud.transport.browser_window_unavailable = ブラウザーウィンドウを利用できません
+cloud.transport.browser_restricted = ブラウザーからのクラウド接続は schist.app に限られます
+cloud.transport.http_status = クラウド HTTP {code}
+cloud.transport.browser_request_failed = ブラウザーからのクラウドリクエストが失敗しました
+cloud.transport.response_too_large = クラウドの応答がサイズの上限を超えています
+cloud.transport.invalid_credentials = クラウドの認証情報が無効です
+cloud.transport.unsupported_browser_sign_in = プロバイダーはこのブラウザーのサインイン方式に対応していません
+cloud.transport.expected_secure_url = 認証情報を含まない絶対 {scheme} URL が必要です
+cloud.transport.source_changed_during_upload = アップロード中に元のファイルが変更されました
+cloud.transport.select_again_to_resume = アップロード済みの部分から再開するには、このファイルをもう一度選択してください
+cloud.transport.source_changed_select_again = 元のファイルが変更されました。新しいアップロードを始めるには、もう一度選択してください
+cloud.transport.source_grew_during_preparation = アップロードの準備中に元のファイルが大きくなりました
+cloud.transport.source_changed_during_preparation = アップロードの準備中に元のファイルが変更されました
+# 容量のメッセージで 1 MiB 未満の量に使う単位
+cloud.transport.bytes = {n} バイト
+cloud.transport.invalid_value_for = {title}の値が無効です
+cloud.transport.invalid_option_for = {title}の選択肢が無効です
+cloud.transport.generation_connection_closed = 生成の接続が閉じられました
+cloud.transport.generation_closed_early = すべてのスロットが完了する前に生成が終了しました
+cloud.transport.generated_image_too_large = 生成された画像が 64 MiB を超えています
+cloud.transport.no_export_support = プロバイダーは書き出しへの対応を表明していません
+cloud.transport.unsupported_download_format = プロバイダーは要求されたダウンロード形式に対応していません
+cloud.transport.date_before_1970 = 日付が 1970 年より前です

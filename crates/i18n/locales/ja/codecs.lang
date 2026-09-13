@@ -1,0 +1,50 @@
+# plugins/codecs-common：書き出しダイアログが並べる形式名と、読み込みが
+# 失敗したときのメッセージ（ステータスラインの「開けませんでした：」の
+# あとに出る）。HEIC のダウンロード同意ダイアログ自体はアプリ側
+# （dialogs.lang）にあり、コーデックは何が起きたかだけを渡す。
+
+# コーデックが登録する形式名。ファイルダイアログ用の長い形式名は
+# common.filetype.* にある。
+codec.png.name = PNG 画像
+codec.jpeg.name = JPEG 画像
+codec.webp.name = WebP 画像
+codec.tiff.name = TIFF 画像
+codec.heif.name = HEIF 画像
+codec.raw.name = カメラ RAW 画像
+codec.affinity.name = Affinity ドキュメント
+codec.psd.name = Photoshop ドキュメント
+
+# 共用の読み込みメッセージ。デコーダー自身のメッセージの前に付き、
+# 「PNG のデコード中: unexpected end of file」のように読める。
+codec.msg.decoding = {name} のデコード中
+codec.msg.zero_sized = 画像にピクセルがありません
+codec.msg.assembling_document = ドキュメントの組み立て中
+
+# カメラ RAW
+codec.raw.msg.decoding = RAW ファイルのデコード中
+codec.raw.msg.developing = RAW ファイルの現像中
+codec.raw.msg.finding_preview = 埋め込みプレビューの検索中
+codec.raw.msg.decoding_preview = 埋め込みプレビューのデコード中
+codec.raw.msg.decoder_panicked = RAW デコーダーはこのファイルを読み込めませんでした：{what}
+
+# Affinity
+codec.affinity.import_title = Affinity の読み込み
+codec.affinity.flattened_preview_layer = 統合されたプレビュー
+codec.affinity.msg.no_preview = 使える埋め込みプレビューがありません。Affinity のレイヤー形式は非公開なので、Schist はファイルが持つ統合済みプレビューを読み込みます。このファイルにはそれがありません。Affinity で保存し直すか、PSD として書き出すとレイヤーごと読み込めます。
+
+# HEIF。`no_library` と `no_decoder` は、同意のうえで libheif を
+# ダウンロードすると解決する 2 つの場合。{details} は各ライブラリの
+# 探索結果、{what} は失敗した段階、{message} は libheif 自身の文言。
+codec.heif.msg.no_library = libheif が使えません（{details}）。HEIC を開くには libheif ライブラリが必要です（Linux：libheif1 をインストール。macOS：brew install libheif）。
+codec.heif.msg.no_decoder = {what}：{message} — この libheif のビルドには HEVC デコーダーがないかもしれません（Debian/Ubuntu では libheif-plugin-libde265 をインストールしてください）
+codec.heif.msg.unknown_error = 不明なエラー
+codec.heif.msg.initialising = libheif の初期化中
+codec.heif.msg.reading_container = HEIF コンテナの読み取り中
+codec.heif.msg.finding_primary_image = メイン画像の検索中
+codec.heif.msg.reading_icc_profile = ICC プロファイルの読み取り中
+codec.heif.msg.decoding_image = 画像のデコード中
+codec.heif.msg.checksum_mismatch = {name} のチェックサムが一致しません：{expected} のはずが {got} でした
+# iOS では ImageIO が HEIC をデコードする
+codec.heif.msg.imageio_cannot_read = ImageIO は HEIF コンテナを読み込めませんでした
+codec.heif.msg.container_empty = HEIF コンテナに画像がありません
+codec.heif.msg.imageio_cannot_decode = ImageIO はメイン画像をデコードできませんでした

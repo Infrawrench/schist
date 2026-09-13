@@ -14,7 +14,7 @@ use std::path::PathBuf;
 
 /// The locales Schist ships. Kept in step with `Locale::ALL` in
 /// `src/lib.rs`; the test there fails if a directory is missing.
-const LOCALES: &[&str] = &["en", "sv", "de", "zh-Hans"];
+const LOCALES: &[&str] = &["en", "sv", "de", "zh-Hans", "ja"];
 
 fn main() {
     let out = PathBuf::from(env::var("OUT_DIR").expect("OUT_DIR"));

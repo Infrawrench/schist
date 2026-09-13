@@ -1,0 +1,162 @@
+# メニューバー。ウィンドウ内のものと macOS / iPadOS のシステムメニューは
+# 同じモデル（crates/app/src/panels/menus.rs）から作られる。用語は
+# 日本語版 Photoshop に合わせている。プラグインのコマンドは
+# commands.lang、フィルターは filters.lang、色調補正は
+# adjustments.lang から名前を取る。
+
+# ファイル
+menu.file = ファイル
+menu.file.new = 新規
+menu.file.open = 開く…
+menu.file.open_recent = 最近使用したファイルを開く
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = ギャラリーを参照…
+menu.file.close = 閉じる
+menu.file.save = 保存
+menu.file.save_as = 別名で保存…
+menu.file.export = 書き出し…
+menu.file.export_submenu = 書き出し
+menu.file.export_artboards = アートボードを PNG に書き出し…
+menu.file.export_slices = スライスを PNG に書き出し…
+menu.file.save_to_photos = 「写真」に保存
+menu.file.plugins = プラグイン…
+menu.file.missing_fonts = 見つからないフォント…
+menu.file.check_for_updates = アップデートを確認…
+menu.file.quit = 終了
+menu.file.add_folder_to_gallery = ギャラリーにフォルダーを追加…
+menu.file.import_from_photos = 「写真」から読み込み…
+menu.file.import_from_camera = カメラから読み込み…
+
+# 編集
+menu.edit = 編集
+menu.edit.fill = 塗りつぶし…
+menu.edit.stroke = 境界線を描く…
+menu.edit.content_aware_fill = コンテンツに応じた塗りつぶし
+menu.edit.content_aware_scale = コンテンツに応じて拡大・縮小…
+menu.edit.puppet_warp = パペットワープ
+menu.edit.free_transform = 自由変形
+menu.edit.transform = 変形
+menu.edit.rotate_180 = 180°回転
+menu.edit.rotate_90_cw = 90°回転（時計回り）
+menu.edit.rotate_90_ccw = 90°回転（反時計回り）
+menu.edit.flip_horizontal = 水平方向に反転
+menu.edit.flip_vertical = 垂直方向に反転
+
+# イメージ
+menu.image = イメージ
+menu.image.mode = モード
+menu.image.adjustments = 色調補正
+menu.image.auto_tone = 自動トーン補正
+menu.image.auto_contrast = 自動コントラスト
+menu.image.auto_color = 自動カラー補正
+menu.image.image_size = 画像解像度…
+menu.image.canvas_size = カンバスサイズ…
+menu.image.image_rotation = 画像の回転
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90°（時計回り）
+menu.image.rotate_90_ccw = 90°（反時計回り）
+menu.image.flip_canvas_horizontal = カンバスを水平方向に反転
+menu.image.flip_canvas_vertical = カンバスを垂直方向に反転
+menu.image.crop_to_selection = 選択範囲を切り抜き
+menu.image.trim = トリミング
+menu.image.assign_profile = プロファイルの指定…
+menu.image.convert_to_profile = プロファイル変換…
+
+# 選択範囲
+menu.select = 選択範囲
+menu.select.color_range = 色域指定…
+menu.select.modify = 選択範囲を変更
+menu.select.border = 境界線…
+menu.select.smooth = 滑らかに…
+menu.select.expand = 拡張…
+menu.select.contract = 縮小…
+menu.select.feather = 境界をぼかす…
+menu.select.transform_selection = 選択範囲を変形
+
+# レイヤー
+menu.layer = レイヤー
+menu.layer.layer_style = レイヤースタイル…
+menu.layer.layer_comps = レイヤーカンプ
+menu.layer.new_layer_comp = 新規レイヤーカンプ
+menu.layer.delete_layer_comp = 「{name}」を削除
+menu.layer.path = パス
+menu.layer.fill_path = パスの塗りつぶし
+menu.layer.stroke_path = パスの境界線を描く
+menu.layer.make_selection = 選択範囲を作成
+menu.layer.delete_path = パスを削除
+
+# 色調補正
+menu.adjust = 色調補正
+
+# フィルター
+menu.filter = フィルター
+menu.filter.filter_gallery = フィルターギャラリー…
+menu.filter.liquify = ゆがみ
+menu.filter.vanishing_point = 消点
+menu.filter.manage_models = モデルを管理…
+menu.filter.camera_raw_development = Camera Raw 現像…
+
+# 表示
+menu.view = 表示
+menu.view.rotate_view_cw = 時計回りに表示を回転
+menu.view.rotate_view_ccw = 反時計回りに表示を回転
+menu.view.reset_view = 表示をリセット
+menu.view.zoom_in = ズームイン
+menu.view.zoom_out = ズームアウト
+menu.view.fit_on_screen = 画面サイズに合わせる
+menu.view.actual_size = 100%
+menu.view.rulers = 定規
+menu.view.grid = グリッド
+menu.view.guides = ガイド
+menu.view.notes = ノート
+menu.view.ai_panel = AI パネル
+menu.view.extras = エクストラ
+menu.view.snap = スナップ
+menu.view.clear_guides = ガイドを消去
+menu.view.clear_notes = ノートを消去
+menu.view.clear_count = カウントを消去
+menu.view.screen_mode = スクリーンモード
+menu.view.proof_colors = 色の校正
+# システムのメニューバーにはチェックマークが付かないため、切り替え項目は
+# Finder の「サイドバーを隠す」「サイドバーを表示」と同じく、
+# クリックしたときの動作を名前にする。
+menu.view.show_rulers = 定規を表示
+menu.view.hide_rulers = 定規を隠す
+menu.view.show_grid = グリッドを表示
+menu.view.hide_grid = グリッドを隠す
+menu.view.show_guides = ガイドを表示
+menu.view.hide_guides = ガイドを隠す
+menu.view.show_notes = ノートを表示
+menu.view.hide_notes = ノートを隠す
+menu.view.show_extras = エクストラを表示
+menu.view.hide_extras = エクストラを隠す
+menu.view.enable_snapping = スナップを有効にする
+menu.view.disable_snapping = スナップを無効にする
+menu.view.enable_proof_colors = 色の校正を有効にする
+menu.view.disable_proof_colors = 色の校正を無効にする
+
+# ギャラリー（ギャラリー表示中のメニューバー）
+menu.gallery = ギャラリー
+menu.gallery.edit_selected = 選択した項目を編集
+menu.gallery.refresh = 更新
+menu.gallery.map_filter = 地図で絞り込み…
+menu.gallery.back_to_editor = エディターに戻る
+
+# Schist Cloud のサブメニュー
+menu.cloud.browse = Schist Cloud を参照
+menu.cloud.generate = 画像を生成…
+menu.cloud.upload = ドキュメントを Schist Cloud にアップロード…
+menu.cloud.sign_out = Schist Cloud からサインアウト
+menu.cloud.sign_in = Schist Cloud にサインイン…
+
+# macOS のアプリケーションメニュー
+menu.app.services = サービス
+menu.app.hide = {app} を隠す
+menu.app.hide_others = ほかを隠す
+menu.app.show_all = すべてを表示
+menu.app.quit = {app} を終了
+
+# 実行できないメニュー項目へのステータスバーの応答
+menu.status.transform_selection_needs_selection = 「選択範囲を変形」には選択範囲が必要です
+menu.status.crop_needs_selection = 「選択範囲を切り抜き」には選択範囲が必要です
+menu.status.select_photo_to_edit = 編集する写真を選択してください

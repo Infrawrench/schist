@@ -1,0 +1,28 @@
+# 基本ツール（plugins/tools-basic）：移動、スポイト、手のひら、ズーム。
+# アプリ全体で共有するオプション名（レイヤー、グループ）は common.lang から。
+# 用語は日本語版 Photoshop に合わせています。
+
+# 移動
+tool.move.name = 移動ツール
+tool.move.description = 選択中のレイヤーの内容をドラッグして移動します。「自動選択」がオンのときは、押した時点でポインターの下にあるレイヤー（またはグループ全体）が選ばれます。
+tool.move.option.auto_select = 自動選択
+tool.move.history.move_layer = レイヤーの移動
+
+# スポイト
+tool.eyedropper.name = スポイトツール
+tool.eyedropper.description = ポインターの下の色を描画色として取り込みます。Alt キーを押しているときは背景色になります。ドラッグ中は取り込みを続けます。
+tool.eyedropper.option.sample_size = サンプル範囲
+tool.eyedropper.option.sample = サンプル
+tool.eyedropper.choice.point_sample = 指定されたピクセル
+tool.eyedropper.choice.average_3 = 3 ピクセル四方の平均
+tool.eyedropper.choice.average_5 = 5 ピクセル四方の平均
+tool.eyedropper.choice.average_11 = 11 ピクセル四方の平均
+tool.eyedropper.choice.average_31 = 31 ピクセル四方の平均
+tool.eyedropper.choice.all_layers = すべてのレイヤー
+tool.eyedropper.choice.current_layer = 現在のレイヤー
+
+# 手のひらとズーム
+tool.hand.name = 手のひらツール
+tool.hand.description = 表示をスクロールします。ビューはウィンドウに属するため、ヘッドレスではドキュメントに何も影響しません。
+tool.zoom.name = ズームツール
+tool.zoom.description = 表示を拡大・縮小します。ビューはウィンドウに属するため、ヘッドレスではドキュメントに何も影響しません。

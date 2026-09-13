@@ -54,8 +54,8 @@ on a connected device or an emulator it boots; see
 [docs/android.md](docs/android.md) for what an Android build has, what it
 lacks (the system file picker, for one), and the SDK it needs.
 
-The chrome speaks English, Swedish, German and Simplified Chinese,
-following the system language; `SCHIST_LANG=de` tries another for one
+The chrome speaks English, Swedish, German, Simplified Chinese and
+Japanese, following the system language; `SCHIST_LANG=de` tries another for one
 run. See [docs/i18n.md](docs/i18n.md) for how strings are added.
 
 Schist also runs in the browser: `make web` assembles a static

@@ -1,0 +1,88 @@
+# ペイントツール（plugins/tools-paint）：ストロークを描くツール、
+# 2 種類のグラデーション、塗りつぶし。各ストロークツールのヒストリー
+# 項目は個別のキーなので、言語ごとにツール名ではなく操作名を使えます。
+# 許容値、スタイル、サイズは common.lang から。
+
+# ブラシ
+tool.brush.name = ブラシツール
+tool.brush.description = 描画色でソフトエッジのストロークを描きます。サイズ、硬さ、不透明度はエディターの現在のブラシ設定に従います。
+tool.brush.history.stroke = ブラシツール
+
+# 鉛筆
+tool.pencil.name = 鉛筆ツール
+tool.pencil.description = 描画色でハードエッジの、アンチエイリアスのかからないストロークを描きます。
+tool.pencil.history.stroke = 鉛筆ツール
+
+# 消しゴム
+tool.eraser.name = 消しゴムツール
+tool.eraser.description = ストロークに沿って消去し、レイヤーを透明に戻します。
+tool.eraser.history.stroke = 消しゴムツール
+
+# コピースタンプ
+tool.clone.name = コピースタンプツール
+tool.clone.description = コピースタンプツール：Alt キーを押しながらクリックしてソースポイントを決め、描画するとその距離だけ離れた位置のピクセルが複写されます。
+tool.clone.history.stroke = コピースタンプツール
+
+# 覆い焼き、焼き込み、スポンジ
+tool.dodge.name = 覆い焼きツール
+tool.dodge.description = ストロークが通ったピクセルを明るくします。
+tool.dodge.history.stroke = 覆い焼きツール
+tool.burn.name = 焼き込みツール
+tool.burn.description = ストロークが通ったピクセルを暗くします。
+tool.burn.history.stroke = 焼き込みツール
+tool.sponge.name = スポンジツール
+tool.sponge.description = ストロークが通ったピクセルの彩度を上げる、または下げます。
+tool.sponge.history.stroke = スポンジツール
+
+# ぼかし、シャープ、指先
+tool.blur.name = ぼかしツール
+tool.blur.description = ストロークが通ったピクセルをぼかします。
+tool.blur.history.stroke = ぼかしツール
+tool.sharpen.name = シャープツール
+tool.sharpen.description = ストロークが通ったピクセルをシャープにします。
+tool.sharpen.history.stroke = シャープツール
+tool.smudge.name = 指先ツール
+tool.smudge.description = 乾いていない絵の具を押し広げるように、ストロークに沿って色を引き伸ばします。
+tool.smudge.history.stroke = 指先ツール
+
+# 修復
+tool.heal.name = 修復ブラシツール
+tool.heal.description = 修復ブラシツール：Alt キーを押しながらクリックしてソースを決め、描画します。ソースのテクスチャが描画先の色と陰影になじむように合成されます。
+tool.heal.history.stroke = 修復ブラシツール
+tool.spot_heal.name = スポット修復ブラシツール
+tool.spot_heal.description = スポット修復ブラシツール：傷や汚れの上をなぞるだけで、周囲から取ったテクスチャに置き換わります。ソースポイントを決める必要はありません。
+tool.spot_heal.history.stroke = スポット修復ブラシツール
+
+# ヒストリーブラシ
+tool.history_brush.name = ヒストリーブラシツール
+tool.history_brush.description = ドキュメントのヒストリースナップショットからピクセルを描き戻し、その後の作業をストロークごとに取り消します。
+tool.history_brush.history.stroke = ヒストリーブラシツール
+
+# 背景消しゴム
+tool.background_eraser.name = 背景消しゴムツール
+tool.background_eraser.description = ブラシの中心でサンプリングした色だけを消去し、似ていないピクセルは残します。被写体を背景から切り離すときに使います。
+tool.background_eraser.history.stroke = 背景消しゴムツール
+
+# グラデーション。円形グラデーションは線形のオプションとヒストリーを共有します。
+tool.gradient.name = グラデーションツール
+tool.gradient.description = ドラッグしてレイヤー（選択範囲があればその内側）を、ドラッグの向きに沿って描画色から背景色へ変化する線形グラデーションで塗ります。
+tool.gradient.radial.name = 円形グラデーション
+tool.gradient.radial.description = 中心から外へドラッグして、描画色から背景色への円形グラデーションで塗ります。
+tool.gradient.option.gradient = グラデーション
+tool.gradient.option.reverse = 逆方向
+tool.gradient.option.dither = ディザ
+tool.gradient.choice.foreground_to_background = 描画色から背景色へ
+tool.gradient.choice.foreground_to_transparent = 描画色から透明に
+tool.gradient.choice.linear = 線形
+tool.gradient.choice.radial = 円形
+tool.gradient.choice.angle = 円錐形
+tool.gradient.choice.reflected = 反射形
+tool.gradient.choice.diamond = 菱形
+tool.gradient.history.gradient = グラデーション
+
+# 塗りつぶし
+tool.bucket.name = 塗りつぶしツール
+tool.bucket.description = クリックすると、ポインターの下にある似た色のつながった範囲を、許容値の範囲内で描画色に塗りつぶします。
+tool.bucket.option.contiguous = 隣接
+tool.bucket.option.all_layers = 全レイヤーを対象
+tool.bucket.history.fill = 塗りつぶしツール

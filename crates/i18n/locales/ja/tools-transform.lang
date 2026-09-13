@@ -1,0 +1,33 @@
+# 自由変形、選択範囲の変形、切り抜き（plugins/tools-transform）。
+# 「画像解像度」と補間方法のドロップダウンが共有する再サンプルの名前、
+# および画像解像度とカンバスサイズのヒストリー項目もここにあります。
+
+# 自由変形
+tool.transform.name = 自由変形
+tool.transform.description = 自由変形。実行すると選択中のレイヤーを囲むバウンディングボックスが開きます。角をドラッグすると拡大・縮小、角の外側をドラッグすると回転、辺をドラッグするとシアーになります。Enter キーで確定するまで何も書き込まれず、Esc キーで取り消すとレイヤーは元に戻ります。
+tool.transform.option.interpolation = 補間方法
+tool.transform.history.transform = 自由変形
+tool.transform.history.image_size = 画像解像度
+tool.transform.history.canvas_size = カンバスサイズ
+
+# 選択範囲を変形
+tool.transform.selection.name = 選択範囲を変形
+tool.transform.selection.description = 選択範囲を変形：同じバウンディングボックスで、中のピクセルではなく選択範囲の輪郭だけを動かします。確定または取り消しで終了します。
+tool.transform.selection.history.transform = 選択範囲を変形
+
+# 古典的な再サンプル方式。日本語版 Photoshop の「画像解像度」の呼び方に合わせています
+tool.transform.resample.nearest_neighbor = ニアレストネイバー法
+tool.transform.resample.bilinear = バイリニア法
+tool.transform.resample.bicubic = バイキュービック法
+
+# 切り抜き
+tool.crop.name = 切り抜きツール
+tool.crop.description = 残す範囲をドラッグして決め、ハンドルで調整します。Enter キーで確定するとドキュメントがその範囲に切り詰められ、Esc キーで取り消すと元のままです。
+tool.crop.option.ratio = 比率
+tool.crop.option.delete_cropped = 切り抜いたピクセルを削除
+tool.crop.choice.unconstrained = 制約なし
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = 切り抜き

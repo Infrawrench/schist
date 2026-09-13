@@ -1,0 +1,127 @@
+# ワークスペース（crates/app/src/workspace）。用語は日本語版 Photoshop に
+# 合わせている：画像解像度、カンバスサイズ、塗りつぶし、境界線、境界を
+# ぼかす、色域指定、復帰、書き出し、配置、アートボード、スライス。
+# 日本語は単複を区別しないため、数を数える項目は .other だけを置く。
+
+# 編集 ▸ 塗りつぶし：内容の種類（mod.rs、FillSource）
+workspace.fill.gray_50 = 50% グレー
+workspace.fill.content_aware = コンテンツに応じる
+
+# 選択範囲 ▸ 選択範囲を変更：ダイアログのタイトル（ModifyKind）
+workspace.modify.expand = 選択範囲の拡張
+workspace.modify.contract = 選択範囲の縮小
+workspace.modify.border = 選択範囲の境界線
+workspace.modify.smooth = 選択範囲を滑らかに
+workspace.modify.feather = 境界をぼかす
+
+
+# ギャラリーのバッチ処理ダイアログ：結果の保存先（BatchTarget）
+workspace.batch.target.edit = ギャラリーの編集（バージョンを保持）
+workspace.batch.target.beside = 元ファイルの隣にコピー
+workspace.batch.target.folder = フォルダー内にコピー…
+
+# イメージ ▸ 画像解像度。処理中ダイアログのタイトル
+workspace.modal.image_size.title = 画像解像度
+
+# ドキュメントとタブ（docs.rs）
+workspace.docs.opening = {name} を開いています…
+workspace.docs.opened = {name} を開きました
+workspace.docs.open_failed = 開けませんでした：{error}
+workspace.docs.no_codec = {name} は Schist が対応していない形式です
+workspace.docs.no_exporter = Schist は .{ext} ファイルを保存できません
+workspace.docs.empty_response = サーバーが空の応答を返しました
+workspace.docs.heic_not_installed = HEIC サポートがインストールされていません
+workspace.docs.heic_downloading = HEIC サポートをダウンロードしています（libheif {version}）…
+workspace.docs.heic_installed = HEIC サポートをインストールしました
+workspace.docs.heic_download_failed = HEIC サポートのダウンロードに失敗しました：{error}
+workspace.docs.placing = {name} を配置しています…
+workspace.docs.place_image = 画像を配置
+workspace.docs.placed = {name} を配置しました
+workspace.docs.place_failed = 配置できませんでした：{error}
+workspace.docs.saved = {name} を保存しました
+workspace.docs.save_failed = 保存できませんでした：{error}
+
+# 調整レイヤー（adjustments.rs）。{name} は adjustments.lang の調整名
+workspace.adjustment.new_layer = 新規{name}レイヤー
+workspace.adjustment.added = {name}を追加しました
+workspace.adjustment.settings = {name}の設定
+workspace.adjustment.updated = {name}を更新しました
+workspace.adjustment.no_settings = {name}に編集できる設定はありません
+
+# レイヤーカンプ（comps.rs）
+workspace.comps.name_n = レイヤーカンプ {n}
+workspace.comps.captured = レイヤーカンプを記録しました
+workspace.comps.apply = {name} を適用
+
+# レイヤースタイル（styles.rs）：ヒストリーの項目とステータス
+workspace.styles.layer_style = レイヤースタイル
+
+# レイヤーの属性（context.rs）
+workspace.context.rename_layer = レイヤー名を変更
+
+# ツールの切り替え（commands.rs）
+workspace.commands.tool = ツール：{name}
+
+# カラーマネジメント（colormgmt.rs）。{name} はプロファイル自身の名前
+workspace.colormgmt.assign = {name} を指定
+workspace.colormgmt.assigned = {name} を指定しました
+workspace.colormgmt.convert_to = {name} に変換
+workspace.colormgmt.converted_to = {name} に変換しました
+workspace.colormgmt.convert_failed = 変換できませんでした：{error}
+workspace.colormgmt.proof_on = 校正設定をオンにしました
+workspace.colormgmt.proof_off = 校正設定をオフにしました
+
+# フィルターの実行（filters.rs）。{name} はフィルターの名前
+workspace.filters.choose = 選択
+workspace.filters.select_layer_first = 先にレイヤーを選択してください
+workspace.filters.needs_pixel_layer = フィルターにはピクセルレイヤーが必要です
+workspace.filters.nothing_to_filter = フィルターを適用する対象がありません
+workspace.filters.went_away = フィルターが見つからなくなりました
+workspace.filters.failed = {name}：{error}
+workspace.filters.layer_gone = {name}：処理したレイヤーがなくなりました
+workspace.filters.plugin_title = Photoshop プラグイン
+workspace.filters.running = {name} を実行しています
+workspace.filters.plugin_note = このプラグインは独自のプロセスで動きます。ウィンドウが開いた場合は、そちらで操作を進めてください。
+workspace.filters.raw_preview_developing = RAW プレビューを現像しています…
+workspace.filters.raw_preview_done = RAW プレビュー（高速デモザイク）
+workspace.filters.raw_preview_size_changed = RAW プレビューのサイズが変わりました：{w} × {h}
+workspace.filters.raw_preview_failed = RAW プレビューに失敗しました：{error}
+workspace.filters.raw_developing = 元の撮影データを現像しています…
+workspace.filters.raw_developing_note = 最良のデモザイク処理を使います。PSD または PSB として保存したあとも、元の RAW とこれらの設定は編集できます。
+workspace.filters.raw_document_changed = RAW 現像が終わる前にドキュメントが変更されました
+workspace.filters.raw_failed = RAW 現像に失敗しました：{error}
+workspace.filters.raw_too_wide = RAW 現像の結果が横に大きすぎます
+workspace.filters.raw_too_tall = RAW 現像の結果が縦に大きすぎます
+workspace.filters.raw_size_changed = RAW 現像のサイズが {w} × {h} に変わりました。現在のレイヤーを維持します
+workspace.filters.raw_history = Camera Raw 現像
+workspace.filters.raw_applied = Camera Raw 現像を適用しました（最良のデモザイク）
+
+# ニューラル拡大による画像解像度の変更（filters.rs）。{name} はモデル
+workspace.image_size.done = 画像解像度：{w} × {h}
+workspace.image_size.bicubic_fallback = 画像解像度：{w} × {h} — {name} モデルを読み込めなかったため、バイキュービックで代用しました
+workspace.image_size.upscaling = {name} で拡大しています
+workspace.image_size.upscaling_note = {mp} メガピクセルをネットワークで処理します。1 メガピクセルにつき数秒かかり、終わるまでドキュメントは保持されます。
+
+# 書き出し（export.rs）
+workspace.export.no_slices = 書き出すスライスがありません
+workspace.export.no_artboards = 書き出すアートボードがありません
+workspace.export.regions.other = {n} 個の領域を書き出しました
+workspace.export.prompt = 書き出し形式：
+workspace.export.done = {name} を書き出しました
+workspace.export.failed = 書き出せませんでした：{error}
+workspace.export.codec_vanished = 書き出しモジュールが利用できなくなりました
+
+# プラットフォームにファイル選択画面がないときに Schist 自身が描く
+# ファイルピッカー（file_picker.rs）
+workspace.file_picker.choose_folder = フォルダーを選択
+workspace.file_picker.type_a_name = ファイル名を入力してください
+workspace.file_picker.exists = {name} は既にあります。もう一度「保存」をタップすると置き換えます
+workspace.file_picker.tap_a_file = ファイルをタップして開きます
+workspace.file_picker.pictures = ピクチャ
+workspace.file_picker.camera = カメラ
+workspace.file_picker.downloads = ダウンロード
+workspace.file_picker.permission_denied = Schist にはこのフォルダーを読み取る権限がありません
+
+# クラッシュからの復元（recovery.rs）
+workspace.recovery.recovered_title = {title}（復元）
+workspace.recovery.recovered.other = 前回のセッションから {n} 個のドキュメントを復元しました

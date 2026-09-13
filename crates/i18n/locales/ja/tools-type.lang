@@ -1,0 +1,29 @@
+# 文字ツール（plugins/tools-type）。フォント、スタイル、サイズ、左揃え、
+# 中央揃え、右揃え、新しいレイヤーに付く「テキスト」は common.lang から。
+# フォントファミリー名は翻訳しません。
+
+tool.type.name = 横書き文字ツール
+tool.type.description = クリックするとその場所にテキストレイヤーを作り、既存のものをクリックすると編集します。編集中はキー入力をそのまま受け取り（文字はキー入力として送ります）、確定するとレイヤーが描画されて編集が終わります。
+
+# オプションバー
+tool.type.option.align = 整列
+tool.type.option.leading = 行送り
+tool.type.option.tracking = トラッキング
+tool.type.option.kerning = カーニング
+tool.type.option.ligatures = 合字
+tool.type.option.discretionary_ligatures = 任意の合字
+tool.type.option.small_caps = スモールキャップス
+tool.type.option.on_path = 現在のパス上
+tool.type.option.path_offset = パスのオフセット
+
+# スタイルのドロップダウン。日本語版 Photoshop の並び順です
+tool.type.choice.regular = レギュラー
+tool.type.choice.bold = ボールド
+tool.type.choice.italic = イタリック
+tool.type.choice.bold_italic = ボールドイタリック
+
+# ヒストリー
+tool.type.history.new_layer = 新規テキストレイヤー
+tool.type.history.edit = テキストの編集
+tool.type.history.discard = テキストの破棄
+tool.type.history.discard_empty = 空のテキストの破棄

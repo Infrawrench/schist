@@ -71,6 +71,22 @@ const STRINGS = {
     noticeLink: "Desktop-App laden.",
     ok: "OK",
   },
+  ja: {
+    loading: "読み込み中…",
+    starting: "起動中…",
+    webgpu:
+      "Schist には WebGPU が必要ですが、このブラウザーは対応していません。" +
+      "Chrome/Edge 113 以降、Firefox 141 以降、Safari 26 以降が対応しています。",
+    noticeTitle: "Schist はデスクトップ版が最適です",
+    noticeBody:
+      "ご覧になっているのはウェブ版で、軽量な構成です。合成を CPU で行い、" +
+      "一部の機能——Photoshop 用およびサードパーティのプラグイン、画像ギャラリー、" +
+      "AI パネル、HEIC の読み込み、フォントのダウンロード——を省いており、" +
+      "ファイルはダウンロードとして保存されます。macOS、Windows、Linux 向けの" +
+      "無料のデスクトップ版にはそのすべてがあります。",
+    noticeLink: "デスクトップ版を入手",
+    ok: "OK",
+  },
   zh: {
     loading: "正在载入…",
     starting: "正在启动…",

@@ -1,0 +1,21 @@
+# 調整レイヤーと［イメージ▸色調補正］コマンドの名称。日本語版 Photoshop に合わせた名称。
+adjustment.levels.name = レベル補正
+adjustment.curves.name = トーンカーブ
+adjustment.hue_saturation.name = 色相・彩度
+adjustment.brightness_contrast.name = 明るさ・コントラスト
+adjustment.black_white.name = 白黒
+adjustment.solid_color.name = ベタ塗り
+adjustment.gradient_fill.name = グラデーション
+adjustment.pattern_fill.name = パターン
+adjustment.invert.name = 階調の反転
+adjustment.posterize.name = ポスタリゼーション
+adjustment.threshold.name = 2階調化
+adjustment.color_balance.name = カラーバランス
+adjustment.vibrance.name = 自然な彩度
+adjustment.exposure.name = 露光量
+adjustment.photo_filter.name = 写真フィルター
+adjustment.gradient_map.name = グラデーションマップ
+adjustment.selective_color.name = 特定色域の選択
+adjustment.channel_mixer.name = チャンネルミキサー
+# PSD から読み込んだ、Schist に編集画面のない種類。
+adjustment.other.name = 調整

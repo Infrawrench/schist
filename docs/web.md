@@ -132,11 +132,11 @@ the main thread, so they use the fast demosaic path but can still pause the
 interface longer than their desktop equivalents on a large capture.
 
 - Text layers can only use the fonts the page ships (IBM Plex Sans
-  Regular, and for readers whose browser is set to Chinese a 1.5 MB
-  subset of Noto Sans CJK SC that the chrome needs — add more in
-  `web/fonts/` and they are picked up by the build script). A font whose
-  name contains `SC` is tagged `lang: zh` in the manifest and fetched
-  only by those readers; see [i18n.md](i18n.md).
+  Regular, and for readers whose browser is set to Chinese or Japanese
+  a ~1.5 MB subset of the matching Noto Sans CJK — add more in
+  `web/fonts/` and they are picked up by the build script). Those two
+  are tagged `lang: zh` and `lang: ja` in the manifest and fetched only
+  by those readers; see [i18n.md](i18n.md).
 - Drag-and-drop of files onto the window doesn't arrive: gpui's
   file-drop events carry paths, which browser drops don't have.
 - Clipboard is a write-through mirror (see the gpui fork's `docs/web.md`

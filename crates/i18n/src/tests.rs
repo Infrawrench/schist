@@ -316,6 +316,8 @@ fn language_tags_negotiate_by_language_alone() {
     assert_eq!(Locale::from_tag("zh-Hans-CN"), Some(Locale::ZhHans));
     assert_eq!(Locale::from_tag("zh-TW"), Some(Locale::ZhHans));
     assert_eq!(Locale::from_tag("ZH"), Some(Locale::ZhHans));
+    assert_eq!(Locale::from_tag("ja-JP"), Some(Locale::Ja));
+    assert_eq!(Locale::from_tag("ja_JP.UTF-8"), Some(Locale::Ja));
     assert_eq!(Locale::from_tag("en-GB"), Some(Locale::En));
     assert_eq!(Locale::from_tag("fr-FR"), None);
     assert_eq!(Locale::from_tag("C"), None);
@@ -326,9 +328,11 @@ fn language_tags_negotiate_by_language_alone() {
 #[test]
 fn the_first_language_we_have_wins() {
     assert_eq!(Locale::negotiate(["fr-FR", "sv-SE", "en"]), Locale::Sv);
-    assert_eq!(Locale::negotiate(["fr-FR", "ja"]), Locale::En);
+    // Nothing on the list is a language Schist has.
+    assert_eq!(Locale::negotiate(["fr-FR", "ko"]), Locale::En);
     assert_eq!(Locale::negotiate(Vec::<String>::new()), Locale::En);
     assert_eq!(Locale::negotiate(["de", "sv"]), Locale::De);
+    assert_eq!(Locale::negotiate(["fr", "ja", "en"]), Locale::Ja);
 }
 
 #[test]
@@ -370,6 +374,12 @@ fn counts_pick_the_singular_where_the_language_has_one() {
     assert_eq!(tn("common.n_layers", 2), "2 layers");
     set_locale(Locale::ZhHans);
     assert_eq!(tn("common.n_layers", 1), "1 个图层");
+    // Japanese marks no number either, so one string serves both.
+    set_locale(Locale::Ja);
+    assert_eq!(
+        tn("common.n_layers", 1),
+        tn("common.n_layers", 7).replace('7', "1")
+    );
     set_locale(Locale::De);
     assert_eq!(tn("common.n_layers", 1), "1 Ebene");
     assert_eq!(tn("common.n_layers", 5), "5 Ebenen");
@@ -396,29 +406,36 @@ fn the_macros_name_their_arguments() {
     assert_eq!(tn!("common.n_layers", 3), "3 layers");
 }
 
-/// The browser build draws Chinese with a subset of Noto Sans CJK SC
-/// (`tools/web-cjk-font.sh`), and a character the subset lacks draws
-/// as a box. So: every character the Chinese chrome uses is in it.
+/// The browser build draws Chinese and Japanese with subsets of Noto
+/// Sans CJK (`tools/web-cjk-font.sh`), and a character a subset lacks
+/// draws as a box. So: every character those catalogs use is in the
+/// face that will be asked to draw it.
 #[test]
-fn the_web_font_covers_the_chinese_catalog() {
-    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../web/fonts/NotoSansSC-Schist.otf");
-    let bytes = std::fs::read(&path)
-        .unwrap_or_else(|err| panic!("{}: {err}; run tools/web-cjk-font.sh", path.display()));
-    let face = ttf_parser::Face::parse(&bytes, 0).expect("a parseable font");
-    // Only the CJK characters: Latin, arrows and the like come from the
-    // Latin face, for Chinese readers as for everyone else.
-    let cjk = |c: char| matches!(c as u32, 0x2E80..=0x9FFF | 0xF900..=0xFAFF | 0xFF00..=0xFFEF);
-    let mut missing: BTreeSet<char> = BTreeSet::new();
-    for value in catalogs()[Locale::ZhHans.index()].values() {
-        for c in value.chars() {
-            if cjk(c) && face.glyph_index(c).is_none() {
-                missing.insert(c);
+fn the_web_fonts_cover_their_catalogs() {
+    let fonts = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../web/fonts");
+    for (locale, file) in [
+        (Locale::ZhHans, "NotoSansSC-Schist.otf"),
+        (Locale::Ja, "NotoSansJP-Schist.otf"),
+    ] {
+        let path = fonts.join(file);
+        let bytes = std::fs::read(&path)
+            .unwrap_or_else(|err| panic!("{}: {err}; run tools/web-cjk-font.sh", path.display()));
+        let face = ttf_parser::Face::parse(&bytes, 0).expect("a parseable font");
+        // Only the CJK characters: Latin, arrows and the like come from
+        // the Latin face, for these readers as for everyone else.
+        let cjk = |c: char| matches!(c as u32, 0x2E80..=0x9FFF | 0xF900..=0xFAFF | 0xFF00..=0xFFEF);
+        let mut missing: BTreeSet<char> = BTreeSet::new();
+        for value in catalogs()[locale.index()].values() {
+            for c in value.chars() {
+                if cjk(c) && face.glyph_index(c).is_none() {
+                    missing.insert(c);
+                }
             }
         }
+        assert!(
+            missing.is_empty(),
+            "{file} lacks {}; re-run tools/web-cjk-font.sh",
+            missing.iter().collect::<String>()
+        );
     }
-    assert!(
-        missing.is_empty(),
-        "the Chinese web font lacks {}; re-run tools/web-cjk-font.sh",
-        missing.iter().collect::<String>()
-    );
 }

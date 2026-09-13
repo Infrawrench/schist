@@ -1,0 +1,28 @@
+# ワープ系のツール（plugins/tools-warp）：ゆがみ、パペットワープ、消点。
+# モード、サイズ、筆圧は common.lang から。
+
+# ゆがみ
+tool.liquify.name = ゆがみツール
+tool.liquify.description = 大きなブラシでピクセルを押す、回す、縮める、膨らませるといった操作をします。どれになるかは「ツール」オプション次第です。ゆがみはメッシュに蓄積され、確定したときにレイヤーへ適用されます。
+tool.liquify.option.tool = ツール
+tool.liquify.choice.forward_warp = 前方ワープ
+tool.liquify.choice.reconstruct = 再構築
+tool.liquify.choice.twirl_cw = 時計回りに回転
+tool.liquify.choice.twirl_ccw = 反時計回りに回転
+tool.liquify.choice.pucker = 縮小
+tool.liquify.choice.bloat = 膨張
+tool.liquify.choice.push_left = 左に押す
+tool.liquify.history.liquify = ゆがみ
+
+# パペットワープ
+tool.puppet_warp.name = パペットワープ
+tool.puppet_warp.description = クリックしてレイヤーに数か所のピンを打ち、そのひとつをドラッグします。メッシュはピンを軸に、「剛性」オプションに応じて硬く、あるいはゆるく曲がります。確定すると適用されます。
+tool.puppet_warp.option.stiffness = 剛性
+tool.puppet_warp.history.puppet_warp = パペットワープ
+
+# 消点
+tool.vanishing_point.name = 消点
+tool.vanishing_point.description = 遠近のあるものの上に面をドラッグして作り、モードを「コピー」に切り替えて描画します。複写されたピクセルは面に沿って、奥ほど小さくなります。
+tool.vanishing_point.choice.edit_plane = 面を編集
+tool.vanishing_point.choice.clone = コピー
+tool.vanishing_point.history.vanishing_point = 消点

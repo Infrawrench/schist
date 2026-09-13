@@ -1,0 +1,41 @@
+# AI パネルのワークスペース側（crates/app/src/workspace/ai.rs）と、その
+# 背後のエージェント（crates/app/src/ai/）：ステータスライン、対話記録の
+# 注記、そこに出るエラー。モデルへ送るもの — システムプロンプト、MCP の
+# ツールカタログ、JSON-RPC の応答 — は英語のままでここにはない。
+# 「Claude Code」「Codex」とモデル名は製品名なのでそのまま。下の
+# `{backend}` はそのどちらか。
+
+# ステータスバー
+ai.status.panel_shown = AI パネルを表示しました
+ai.status.panel_hidden = AI パネルを非表示にしました — 表示 ▸ AI パネル（{shortcut}）で戻せます
+ai.status.tool = AI：{name}
+
+# 対話記録の薄い色の行
+ai.info.connected = {backend} に接続しました
+ai.info.now_in_gallery = ギャラリーに移りました。
+ai.info.now_in_editor = エディターに移りました。
+ai.tool.shell_command = シェルコマンド
+
+# 対話記録のエラー
+ai.error.cli_missing = {backend} の CLI（「{binary}」）が PATH にありません。先にインストールしてログインしてください。
+ai.error.endpoint_failed = MCP エンドポイントを開始できませんでした：{error}
+ai.error.binding_endpoint = MCP エンドポイントのバインド中
+ai.error.spawning_endpoint_thread = MCP エンドポイントのスレッド開始中
+ai.error.runtime_failed = エージェントのランタイムを開始できませんでした：{error}
+ai.error.worker_failed = {backend} のワーカーを開始できませんでした：{error}
+ai.error.did_not_start = {backend} が起動しませんでした：{error}
+ai.error.switch_model_failed = モデルを切り替えられませんでした：{error}
+ai.error.send_failed = プロンプトを送信できませんでした：{error}
+ai.error.interrupt_failed = 中断できませんでした：{error}
+ai.error.locating_binary = Schist の実行ファイルの検索中
+ai.error.starting_app_server = Codex アプリサーバーの開始中
+ai.error.attaching_app_server = Codex アプリサーバーへの接続中
+ai.error.initializing_app_server = Codex アプリサーバーの初期化中
+ai.error.resuming_thread = Codex スレッドの再開中
+ai.error.starting_thread = Codex スレッドの開始中
+
+# CLI が応答するまで表示する、モデルピッカーの予備カタログ
+ai.model.opus_detail = 最も高性能なモデル
+ai.model.sonnet_detail = 日常的な作業に効率的
+ai.model.haiku_detail = 手早い回答に最速
+ai.model.codex_catalog = Codex カタログ

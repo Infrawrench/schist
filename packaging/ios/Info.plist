@@ -20,6 +20,7 @@
         <string>sv</string>
         <string>de</string>
         <string>zh-Hans</string>
+        <string>ja</string>
     </array>
     <key>MinimumOSVersion</key><string>16.0</string>
     <key>LSRequiresIPhoneOS</key><true/>

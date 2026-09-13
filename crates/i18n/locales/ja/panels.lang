@@ -1,0 +1,104 @@
+# カンバスの周りの画面（crates/app/src/panels）：各パネル、ツールバーと
+# そのオプションバー、ステータスバー、タイトルバー、ドキュメントタブ、
+# 右クリックメニュー。crates/app/src/keymap.rs のファイルダイアログも。
+# パネル名は日本語版 Photoshop に合わせている：レイヤー、ヒストリー、
+# 情報、ナビゲーター、カラー、文字、ノート、ツール、属性。ほかの領域が
+# すでに持つ名前（レイヤー、カラー、ノート、不透明度、サイズ）は
+# common.lang と menu.lang から使い回す。
+
+# メニューのショートカット表示に使う修飾キー
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# ステータスバー：ドキュメントの名前とサイズ。未保存のときは中黒を付ける
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# ドキュメントタブとウインドウタイトル
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# ナビゲーター
+panel.navigator.title = ナビゲーター
+panel.navigator.actual_pixels = 実際のピクセル数
+
+# カラーパネルとその右クリックメニュー
+panel.color.picker = カラーピッカー…
+panel.color.swap = 描画色と背景色を入れ替え
+panel.color.reset = 初期設定の描画色と背景色
+
+# レイヤーパネル：行の右クリックメニューと、目のアイコンが書き込む
+# ヒストリーの項目
+panel.layers.blending_options = レイヤー効果…
+panel.layers.properties = レイヤーの属性…
+panel.layers.show_hide = レイヤーの表示/非表示
+panel.layers.toggle_visibility = 表示の切り替え
+
+# ヒストリーパネル
+panel.history.title = ヒストリー
+panel.history.opened = 開く
+
+# 情報タブ：写真の EXIF が伝える内容
+panel.info.title = 情報
+panel.info.camera = カメラ
+panel.info.lens = レンズ
+panel.info.iso = ISO {iso}
+panel.info.bias = 露出補正
+panel.info.flash_fired = フラッシュ発光
+panel.info.no_flash = フラッシュなし
+panel.info.white_balance = ホワイトバランス {wb}
+panel.info.metering = 測光 {metering}
+panel.info.taken = 撮影日時
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · 向き {o}
+panel.info.software = ソフトウェア
+panel.info.where = 場所
+
+# ノートパネルとノートツールのオプション
+panel.notes.author = 作成者
+panel.notes.clear_all = すべて消去
+panel.notes.unattributed = 作成者なし
+panel.notes.empty = カンバスをクリックするとノートを残せます。
+panel.notes.placeholder = クリックして入力
+
+# 文字パネルと文字ツールのオプションバー
+panel.character.title = 文字
+panel.character.type_tool = 文字ツール (T)
+panel.character.align_left = 左揃え
+panel.character.align_center = 中央揃え
+panel.character.align_right = 右揃え
+panel.character.text_color = テキストカラー
+panel.character.panel = 文字パネル
+panel.character.cancel_edit = テキスト編集を取り消す
+panel.character.commit_edit = テキスト編集を確定する
+panel.character.number_tip = {label} · 数値を入力するか、↑ / ↓ を使ってください（Shift を押すと大きく変わります）
+panel.character.leading = 行送り
+panel.character.tracking = トラッキング
+panel.character.alignment = 揃え
+panel.character.opentype = OpenType
+panel.character.text_on_path = パス上文字
+panel.character.straight = 直線
+panel.character.on_path = パス上
+panel.character.straight_tip = テキストレイヤーの通常のベースラインを使います
+panel.character.on_path_tip = 選択中のパスの複製を使います
+panel.character.path_offset = パスのオフセット
+
+# AI パネル
+panel.ai.title = AI
+panel.ai.empty_editor = 編集を頼むと、カンバス上でそのとおりに進みます。エージェントはメニューと同じツール、フィルター、コマンドを、1 つずつ取り消せる形で使います。
+panel.ai.empty_gallery = 写真について尋ねると、ギャラリー上でそのとおりに進みます。エージェントは検索、サムネイルの確認、選択、グループへの仕分け、エディターで開くことができます。
+panel.ai.thinking = 考え中…
+panel.ai.placeholder_editor = このドキュメントについて尋ねる、または編集する
+panel.ai.placeholder_gallery = 写真について尋ねる
+panel.ai.send = 送信
+panel.ai.stop = 停止
+panel.ai.fetching_models = CLI にモデルを問い合わせています…
+panel.ai.no_models = 一致するモデルがありません
+panel.ai.search_models = モデルを検索…
+
+# ファイルダイアログ（keymap.rs）
+panel.keymap.install_plugin = プラグインをインストール
+panel.keymap.save_as_prompt = 別名で保存 — 拡張子で形式が決まります：

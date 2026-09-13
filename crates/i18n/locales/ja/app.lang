@@ -1,0 +1,49 @@
+# crates/app のうちパネル・ワークスペース・ダイアログ以外 — フィルター
+# ギャラリー、フォントの取得、アップデータのエラー（アップデートに失敗
+# したときステータスラインに出る）、Vulkan チェックの案内。
+# パッケージ名とコマンドはどの言語でもそのまま。
+
+# フィルターギャラリー
+app.filter_gallery.title = フィルターギャラリー
+app.filter_gallery.stack = スタック（下から上へ適用）
+app.filter_gallery.no_settings = このフィルターに設定はありません。
+
+# フォント：「不足しているフォント」の行の説明と、取得に失敗したときの表示
+app.fonts.not_open_licensed = オープンライセンスではありません · {substitute} が字幅の合う代替です
+app.fonts.missing_substituted = 見つかりません · テキストは代替フォントで表示されています
+app.fonts.not_in_catalogue = {family} はオープンフォントカタログにありません
+app.fonts.no_faces = {family} にダウンロードできる書体がありません
+app.fonts.empty_response = 応答が空でした
+
+# アップデータ：ダウンロードやインストールに失敗した理由
+app.update.unreadable_response = 応答を読み取れません：{error}
+app.update.no_temp_dir = ダウンロード先の一時ディレクトリがありません
+app.update.asset_has_path = リリースがアセット名にパスを含めています
+app.update.too_big = ダウンロードがリリースの示すサイズより大きくなっています
+app.update.stopped_at = ダウンロードが {total} バイト中 {got} バイトで止まりました
+app.update.hash_mismatch = ダウンロードのハッシュが {want} ではなく {got} です
+app.update.not_in_bundle = このコピーはアプリケーションバンドルの中にありません
+app.update.no_parent_dir = アプリケーションバンドルに親ディレクトリがありません
+app.update.cannot_write = {dir} に書き込めません
+app.update.cannot_move_aside = {app} を退避できません
+app.update.cannot_move_in = 新しいバンドルを所定の場所に移動できません
+app.update.cannot_run_ditto = /usr/bin/ditto を実行できません
+app.update.unpack_failed = ダウンロードの展開に失敗しました：{error}
+app.update.no_app_in_download = ダウンロードに Schist.app が入っていません
+app.update.cannot_run_codesign = /usr/bin/codesign を実行できません
+app.update.signature_invalid = ダウンロードの署名を検証できません：{error}
+app.update.download_unsigned = このコピーには署名がありますが、ダウンロードにはありません
+app.update.different_developer = ダウンロードは別の開発者が署名しています
+app.update.cannot_relaunch = 再起動プログラムを開始できません
+app.update.not_installed_copy = このコピーはインストーラーが置いたものではありません
+app.update.cannot_start_installer = インストーラーを開始できません
+app.update.platform_unsupported = このプラットフォームでは、アップデートは Schist をインストールしたのと同じ方法で入ります
+
+# Linux での Vulkan チェック：ウインドウが開く前にターミナルへ出力する。
+# パッケージ名とコマンドはどの言語でもそのまま。
+app.vulkan.no_loader = schist: このシステムに Vulkan ローダーがないため、描画する手段がありません。\n\nSchist は Vulkan で描画しますが、`libvulkan.so.1` がインストールされていません。\nローダーとドライバーの両方が必要です：\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: このセッションが指している Vulkan ドライバーが存在しません。\n\n{var} が設定されています。これを設定すると、ローダーによるドライバーの検索に\n加わるのではなく、検索そのものを*置き換え*ます。つまり、存在しないこれらの\nファイルがドライバーの一覧のすべてであり、このセッションのすべての Vulkan\nプログラムは、いくつインストールされていてもドライバーを 1 つも見つけられません：\n\n{missing}\n    {var}={value}\n\n存在するマニフェストを指すようにしてください。インストール済みのドライバーは\n/usr/share/vulkan/icd.d に置きます。あるいは設定を解除して、ローダー自身に\n探させてください。設定ファイル（Hyprland の `env =`、systemd の environment.d\nドロップイン、シェルのプロファイル）から設定しているセッションでは、そちらを\n直す必要があり、すでに動いているプログラムに反映するにはログインし直します。\n
+app.vulkan.override_note = \n{var} に {value} が設定されており、これがローダー自身の検索を置き換えます。\nこれらのマニフェストのどれもこのマシン用でないなら、まず設定の解除を試してください。\n
+app.vulkan.no_driver = schist: Vulkan ドライバーがインストールされていないため、描画する先がありません。\n\nSchist は Vulkan で描画します。ローダーはインストールされていますが、ドライバーが\nないと報告しています。探す 2 か所のどちらにも何も登録されていません：\n\n{dirs}\n\nローダーはドライバーとは別に配布されるので、たいていはパッケージが 1 つ足りない\nだけです。\n\nこのマシンの GPU に合うものをインストールしてください：\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA のプロプライエタリドライバーは自前のものを含みます（Arch では\n`nvidia-utils`、Debian では `nvidia-driver`）。仮想マシンの中など、入れられる\nGPU ドライバーがない環境では、ソフトウェアラスタライザーが動く選択肢です：\nArch では `vulkan-swrast`、それ以外では `mesa-vulkan-drivers` に含まれます。\n遅いですが、起動はします。\n{overridden}
+app.vulkan.no_device = schist: Vulkan ドライバーはインストールされていますが、描画できるデバイスがありません。\n\nドライバーがこの GPU に対応していないか、GPU に到達できないのかもしれません。\nSSH 越しやコンテナの中では、/dev/dri がないことがよくあります。ローダーに何が\n見えているかは `vulkaninfo --summary` が教えてくれます。\n\nこのマシンに GPU がないのであれば、ソフトウェアラスタライザーが GPU なしで\n描画します：Arch では `vulkan-swrast`、Debian と Fedora では\n`mesa-vulkan-drivers` に含まれます。\n
+app.vulkan.skip_hint = それでも Schist を起動し、Schist 自身のやり方で失敗させるには、{var}=1 を設定してください。

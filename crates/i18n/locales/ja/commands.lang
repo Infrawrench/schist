@@ -1,0 +1,118 @@
+# plugins/commands-core：「編集」「選択範囲」「レイヤー」メニューのコマンド。
+# 名称は日本語版 Photoshop の呼び方に合わせている。ヒストリーの項目は、
+# そのコマンドによる編集をヒストリーパネルが表示するときの名前。
+
+# 編集
+command.edit.undo.title = 取り消し
+command.edit.undo.description = ドキュメントのヒストリーを 1 段階戻します。
+command.edit.redo.title = やり直し
+command.edit.redo.description = 直前に取り消した編集をやり直します。
+command.edit.copy.title = コピー
+command.edit.copy.description = 選択中のレイヤーの選択範囲のピクセルを内部クリップボードにコピーします（選択範囲がないときはレイヤー全体）。
+command.edit.copy_merged.title = 結合部分をコピー
+command.edit.copy_merged.description = 選択中のレイヤーだけからではなく、表示中のすべてのレイヤーを合成した状態で選択範囲をコピーします。
+command.edit.cut.title = カット
+command.edit.cut.description = 選択範囲のピクセルをクリップボードにコピーし、選択中のレイヤーから消去します。
+command.edit.paste.title = ペースト
+command.edit.paste.description = クリップボードの内容を、選択中のレイヤーの上の新規レイヤーにカンバスの中央を基準にペーストします。
+command.edit.paste.layer_name = ペーストしたレイヤー
+command.edit.paste_in_place.title = 同じ位置にペースト
+command.edit.paste_in_place.description = クリップボードの内容を、コピーしたときと同じ座標で新規レイヤーにペーストします。
+command.edit.fill_foreground.title = 描画色で塗りつぶす
+command.edit.fill_foreground.description = 選択範囲（選択範囲がないときはカンバス全体）を描画色で塗りつぶします。
+command.edit.fill_background.title = 背景色で塗りつぶす
+command.edit.fill_background.description = 選択範囲（選択範囲がないときはカンバス全体）を背景色で塗りつぶします。
+
+# 選択範囲
+command.select.all.title = すべてを選択
+command.select.all.description = カンバス全体を選択します。
+command.select.deselect.title = 選択を解除
+command.select.deselect.description = 選択範囲を解除し、編集が再びレイヤー全体に適用されるようにします。
+command.select.inverse.title = 選択範囲を反転
+command.select.inverse.description = 選択されている領域と選択されていない領域を入れ替えます。
+command.select.reselect.title = 再選択
+command.select.reselect.description = 最後に解除した選択範囲を呼び戻します。
+command.select.reselect.msg.nothing_to_reselect = 再選択できる選択範囲がありません
+command.select.feather.title = 選択範囲の境界をぼかす
+command.select.feather.description = 2 ピクセルのぼかしで選択範囲の境界を柔らかくし、次の編集が境界でなだらかに消えるようにします。
+command.select.grow.title = 選択範囲を拡張
+command.select.grow.description = 自動選択ツールの許容値の範囲で、すでに選択されている部分と似た隣接ピクセルまで選択範囲を広げます。
+command.select.similar.title = 近似色を選択
+command.select.similar.description = 自動選択ツールの許容値の範囲で、隣接しているかどうかにかかわらず、レイヤー内の選択範囲と似たピクセルをすべて選択します。
+command.select.save.title = 選択範囲を保存
+command.select.save.description = 現在の選択範囲を、名前付きのアルファチャンネルとしてドキュメントに保存します。
+command.select.save.channel_name = アルファ {n}
+command.select.load.title = 選択範囲を読み込む
+command.select.load.description = 最後に保存した選択範囲を復元します。
+
+# レイヤー
+command.layer.new.title = 新規レイヤー
+command.layer.new.description = 選択中のレイヤーの上に空のピクセルレイヤーを追加し、それを選択状態にします。
+command.layer.duplicate.title = レイヤーを複製
+command.layer.duplicate.description = 選択中のレイヤーを内容ごと、その上の新規レイヤーにコピーします。
+command.layer.smart_object.title = スマートオブジェクトに変換
+command.layer.smart_object.description = 選択中のピクセルレイヤーのピクセルをスマートオブジェクトに包み、以後の変形やフィルターが元のデータから再サンプリングされるようにします。
+command.layer.rasterize.title = レイヤーをラスタライズ
+command.layer.rasterize.description = シェイプ、テキスト、スマートオブジェクトのレイヤーを通常のピクセルに変換します。
+command.layer.delete.title = レイヤーを削除
+command.layer.delete.description = 選択中のレイヤーを削除します。
+command.layer.group.title = レイヤーをグループ化
+command.layer.group.description = 選択中のレイヤーを、その場で新しいグループにまとめます。
+command.layer.raise.title = 前面へ
+command.layer.raise.description = 選択中のレイヤーを、所属するグループの中で 1 つ上に移動します。
+command.layer.lower.title = 背面へ
+command.layer.lower.description = 選択中のレイヤーを、所属するグループの中で 1 つ下に移動します。
+command.layer.to_front.title = 最前面へ
+command.layer.to_front.description = 選択中のレイヤーを、所属するグループの最上部に移動します。
+command.layer.to_back.title = 最背面へ
+command.layer.to_back.description = 選択中のレイヤーを、所属するグループの最下部に移動します。
+command.layer.clipping_mask.title = クリッピングマスクを作成/解除
+command.layer.clipping_mask.description = 選択中のレイヤーを下のレイヤーにクリッピングします。すでにクリッピングされている場合は解除します。クリッピングされたレイヤーは、ベースにピクセルがある部分にだけ表示されます。
+command.layer.cut_to_new.title = カットしたレイヤー
+command.layer.cut_to_new.description = 選択範囲のピクセルを選択中のレイヤーから切り取り、その上の新規レイヤーに移します。
+command.layer.cut_to_new.layer_name = カットしたレイヤー
+command.layer.add_mask.title = レイヤーマスクを追加
+command.layer.add_mask.description = 選択中のレイヤーにレイヤーマスクを追加します。選択範囲があるときは、その部分だけを表示します。
+command.layer.flatten.title = 画像を統合
+command.layer.flatten.description = 表示中のすべての内容を不透明な背景レイヤー 1 枚に合成し、非表示のレイヤーは破棄します。
+command.layer.merge_down.title = 下のレイヤーと結合
+command.layer.merge_down.description = 選択中のレイヤーを、その下のレイヤーに合成します。
+command.layer.merge_down.msg.no_layer_below = 結合できるレイヤーが下にありません
+command.layer.merge_visible.title = 表示レイヤーを結合
+command.layer.merge_visible.description = 表示中のレイヤーをすべて 1 枚に合成し、非表示のレイヤーはそのままにします。
+
+# コマンドが実行されなかった理由（ステータスバーに表示。複数のコマンドで
+# 共用）
+command.msg.nothing_to_copy = コピー元のピクセルレイヤーを選択してください
+command.msg.clipboard_empty = クリップボードが空です
+
+# ヒストリーパネルの項目
+command.history.grow = 選択範囲を拡張
+command.history.similar = 近似色を選択
+command.history.clear = 消去
+command.history.merge_down = 下のレイヤーと結合
+command.history.flatten_image = 画像を統合
+command.history.merge_visible = 表示レイヤーを結合
+command.history.paste = ペースト
+command.history.fill = 塗りつぶし
+command.history.select_all = すべてを選択
+command.history.deselect = 選択を解除
+command.history.select_inverse = 選択範囲を反転
+command.history.new_layer = 新規レイヤー
+command.history.duplicate_layer = レイヤーを複製
+command.history.convert_to_smart_object = スマートオブジェクトに変換
+command.history.rasterize_layer = レイヤーをラスタライズ
+command.history.delete_layer = レイヤーを削除
+command.history.delete_layers = レイヤーを削除
+command.history.group_layer = レイヤーをグループ化
+command.history.group_layers = レイヤーをグループ化
+command.history.reselect = 再選択
+command.history.feather = 境界をぼかす
+command.history.load_selection = 選択範囲を読み込む
+command.history.bring_forward = 前面へ
+command.history.send_backward = 背面へ
+command.history.bring_to_front = 最前面へ
+command.history.send_to_back = 最背面へ
+command.history.clipping_mask = クリッピングマスク
+command.history.layer_via_cut = カットしたレイヤー
+command.history.add_layer_mask = レイヤーマスクを追加

@@ -19,6 +19,6 @@ sys-locale = "0.3"
 sys-locale = { version = "0.3", features = ["js"] }
 
 [dev-dependencies]
-# Reads the Chinese web font's character map, to check it covers the
-# zh-Hans catalogs. Already in the tree behind the text engine.
+# Reads the CJK web fonts' character maps, to check they cover the
+# zh-Hans and ja catalogs. Already in the tree behind the text engine.
 ttf-parser = "0.21"

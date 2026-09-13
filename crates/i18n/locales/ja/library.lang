@@ -1,0 +1,310 @@
+# 写真ギャラリー：サイドバー、グリッドとその見出し、世界地図、
+# 「人物」アルバムとビューア、カメラからの読み込み、コレクションと
+# 地図フィルターのダイアログ、トレイのステータス行。
+# 用語はできるだけ日本語版 Photoshop、「写真」App、Picasa に合わせています。
+# 日本語には文法上の数がないため、.other 形式のみを用意しています。
+
+# サイドバーの見出しと行
+library.sidebar.view = 表示
+library.sidebar.folders = フォルダー
+library.sidebar.buckets = コレクション
+library.sidebar.people = 人物
+library.sidebar.group_by = グループ化
+library.sidebar.all_photos = すべての写真
+library.sidebar.world_map = 世界地図
+library.sidebar.map_filter = 地図フィルター…
+library.sidebar.map_filter_on = 地図フィルター：オン
+library.sidebar.add_folder = + フォルダーを追加…
+library.sidebar.new_bucket = + 新規コレクション
+library.sidebar.stop_watching = このフォルダーの監視をやめる
+library.sidebar.unnamed_faces = 名称未設定の顔
+library.sidebar.retry_face_model = 顔検出モデルのダウンロードを再試行
+library.sidebar.retry_recognition_model = 顔認識モデルのダウンロードを再試行
+library.sidebar.looking_for_faces = 顔を検索中… {looked}/{total}
+library.sidebar.faces_appear = 写真のインデックスが作成されると、ここに顔が表示されます。
+library.sidebar.downloading_face_models = 顔モデルをダウンロード中… {got}/{total} MB
+
+# グリッドのグループ化
+library.group_by.date = 撮影日
+library.group_by.folder = フォルダー
+library.group_by.place = 場所
+
+# 月の見出し
+library.month.january = 1月
+library.month.february = 2月
+library.month.march = 3月
+library.month.april = 4月
+library.month.may = 5月
+library.month.june = 6月
+library.month.july = 7月
+library.month.august = 8月
+library.month.september = 9月
+library.month.october = 10月
+library.month.november = 11月
+library.month.december = 12月
+library.month.title = {year}年{month}
+library.month.undated = 撮影日なし
+
+# ローカルライブラリが作るグループ見出し
+library.group.person = 人物 · {name}
+library.group.person_in = 人物 · {name} · {scope} 内
+library.group.unnamed = 名称未設定の顔
+library.group.unnamed_in = 名称未設定の顔 · {scope} 内
+library.group.bucket = コレクション · {name}
+library.group.no_location = 位置情報なし
+library.group.not_indexed = 未インデックス
+library.group.detail = {detail} — {n}
+
+# 上部のバー
+library.strip.import = 読み込み…
+library.strip.add_folder = フォルダーを追加…
+library.strip.settings = 設定…
+library.strip.new_file = 新規ファイル…
+library.strip.back_to_editing = 編集に戻る
+library.strip.enable_search = 写真検索を有効にする…
+library.strip.enable_search_menu = 写真検索を有効にする…
+library.strip.map_filter_chip = 地図フィルター：{name}
+library.strip.downloading_search = 写真検索をダウンロード中… {got}/{total} MB
+
+# 検索ボックス
+library.search.placeholder = 写真を検索…
+library.search.placeholder_indexing = 検索（{indexed}/{total} 件をインデックス済み）
+library.search.placeholder_people_places = 人物と場所を検索…
+library.search.results = 検索結果
+library.search.results_in_bucket = コレクション · {name} · 検索結果
+library.search.near = {place} 付近
+library.search.with = {names} と一緒
+
+# トレイとセル
+library.tray.view = 表示
+library.tray.edited_note = 編集済み — バージョンはファイルの隣に保存されます
+library.tray.n_hidden.other = コンテンツフィルターにより {n} 枚を非表示
+library.cell.no_preview = プレビューなし
+library.cell.edited = 編集済み
+library.gallery.loading = 写真を読み込み中…
+
+# ようこそ画面。まだどのフォルダーも監視していないとき
+library.welcome.title = Schist へようこそ
+library.welcome.intro = 写真の入ったフォルダーを監視するか、カメラから読み込みます。ファイルは元の場所に残り、編集はその隣にバージョンとして保存されます：
+library.welcome.intro_ios = ライブラリから写真を読み込むか、「ファイル」からフォルダーを追加します。編集は各写真の隣にバージョンとして保存されます：
+library.welcome.or_open = または、画像を開いて編集します：
+library.welcome.shortcut_mac = 何を編集していても、⌘⇧G でいつでもギャラリーに戻れます。
+library.welcome.shortcut = 何を編集していても、Ctrl+Shift+G でいつでもギャラリーに戻れます。
+
+# グリッドが空になる理由
+library.gallery.empty_bucket_search = このコレクションに検索と一致するものはありません。Escape キーで検索を消すと、コレクション全体が表示されます。
+library.gallery.empty_search = 検索と一致するものはありません。Escape キーで検索を消せます。
+library.gallery.empty_smart_bucket = このコレクションのルールに一致するものはまだありません — 写真のインデックスが作成されるにつれて一致するものが現れます。写真をドラッグして入れることもできます。
+library.gallery.empty_bucket = このコレクションは空です。サイドバーのその行に写真をドラッグすると追加できます。
+library.gallery.empty_person = ここにはまだ何もありません。写真のインデックスが作成されると顔が現れます。写真をクリックし、次に顔をクリックして、誰なのかを指定してください。
+library.gallery.scanning = フォルダーをスキャン中…
+library.gallery.empty = 監視中のフォルダーに写真が見つかりません。Schist が開ける画像（PNG、JPEG、WebP、TIFF、HEIC、カメラ RAW、PSD、Affinity）がここに表示されます。サブフォルダーは 6 階層までスキャンします。
+
+# コレクション
+library.bucket.default_name = コレクション {n}
+library.bucket.rule_matches = 「{query}」に一致
+library.bucket.rule_taken_in = {name} で撮影
+library.bucket.new_title = 新規コレクション
+library.bucket.edit_title = コレクションを編集
+library.bucket.new_cloud_title = 新規クラウドコレクション
+library.bucket.edit_cloud_title = クラウドコレクションを編集
+library.bucket.create = 作成
+library.bucket.query_placeholder = 例：浜辺の犬（任意）
+library.bucket.the_drawn_area = 描画した範囲
+library.bucket.area_help = Shift キーを押しながら地図をドラッグする（またはプリセットを選ぶ）と範囲を追加できます。ごく短くドラッグすると消えます。ルールがコレクションを自動で埋め続けます。
+library.bucket.rule_none = ルールなし：写真をドラッグして入れる、ふつうのコレクションです。
+library.bucket.rule_query = 「{query}」に一致する写真をすべて保持します。
+library.bucket.rule_area = {area}で撮影された写真をすべて保持します。
+library.bucket.rule_query_area = 「{query}」に一致し、{area}で撮影された写真をすべて保持します。
+library.bucket.starts_with.other = 選択した {n} 枚の写真を最初から含みます。
+
+# 世界地図
+library.map.status = 地図上に {located} 枚 · 位置情報なし {unlocated} 枚
+library.map.reading_locations = 位置情報を読み込み中：残り {n} 枚
+library.map.reset_view = 表示をリセット
+library.map.no_photos = この表示範囲に GPS 位置情報のある写真はありません。ジオタグ付きの写真を追加するか、ギャラリーのフィルターを変更してください。
+library.map.no_photos_cloud = ここには GPS 位置情報のある写真はありません。別のフォルダーかコレクションを選ぶか、検索を消してください。
+library.map.hint = ドラッグで移動 · スクロールで拡大縮小 · マーカーをクリックして写真を表示 · 写真をダブルクリックして編集
+library.map.n_at_marker.other = このマーカーの位置に {n} 枚の写真
+library.map.n_in_marker.other = このマーカーの中に {n} 枚の写真
+library.map.attribution = © OpenStreetMap コントリビューター
+
+# 読み込み、地図フィルター、コレクションで共用する境界エディタ
+library.map.draw_area = 範囲を描画
+library.map.drawing = 描画中…
+library.map.clear_boundary = 境界を消去
+library.map.editor_hint = ドラッグで移動 · スクロールで拡大縮小 · Shift＋ドラッグで描画
+
+# 地図フィルター
+library.map_filter.title = 地図フィルター
+library.map_filter.drawn_area = 描画した範囲
+library.map_filter.apply_named = 「適用」すると {name} で撮影された写真だけが表示され、EXIF に位置情報のない写真は隠れます。
+library.map_filter.apply_drawn = 「適用」すると {south}°, {west}° から {north}°, {east}° の範囲内で撮影された写真だけが表示され、EXIF に位置情報のない写真は隠れます。
+library.map_filter.draw_first = まず境界を描画し（Shift＋ドラッグ、またはプリセットのチップ）、「適用」を押してください。何も描かずに適用するとフィルターがオフになります。
+library.map_filter.turn_off = フィルターをオフにする
+
+# カメラからの読み込み：選択画面、オプション、失敗ダイアログ
+library.import.title = カメラから読み込み
+library.import.from = {name} から読み込み
+library.import.no_cameras = カメラが見つかりません。
+library.import.no_cameras_help = カメラ、メモリーカード、または iPhone を接続してください。iPhone はロックを解除し、「このコンピュータを信頼しますか？」に答えるまで写真を表示しません — 対応したら少し待って「再スキャン」を押してください。DCIM フォルダーのあるディスクとしてマウントされるものも対象です。
+library.import.scan_again = 再スキャン
+library.import.pick_source = 複数のカメラが利用できます。読み込み元：
+library.import.via_image_capture = 「イメージキャプチャ」経由
+library.import.boundary_named = 境界：{name} — EXIF の位置がその中に入る写真だけを読み込みます。位置情報のない写真はカメラに残ります。
+library.import.boundary_drawn = 境界：{south}°, {west}° から {north}°, {east}° — EXIF の位置がその中に入る写真だけを読み込みます。
+library.import.no_boundary = 境界なし — カメラ上のすべてを読み込みます。
+library.import.destination = ~/Pictures/Schist Imports/{name} に読み込みます — 読み込み済みのファイルはスキップされるので、再実行しても安全です。
+library.import.selected_area = 選択した範囲
+library.import.locked_help = デバイスがロックされている場合：ロックを解除し、確認が出たら「信頼」をタップし、接続したまま、もう一度お試しください。
+library.import.try_again = 再試行
+library.import.add_to_gallery = ギャラリーに追加
+
+# カメラからの読み込み：トレイの表示
+library.import.needs_home = 読み込みには、コピー先となるホームディレクトリが必要です
+library.import.importing_from = {source} から読み込み中…
+library.import.importing_in_place = {place} で撮影された写真を {source} から読み込み中…
+library.import.device_macos_only = デバイスからの直接読み込みは macOS の機能です
+library.import.failed = 読み込みに失敗しました：{error}
+library.import.from_failed = {name} からの読み込みに失敗しました
+library.import.locked = {name} はロックされています — ロックを解除し、「信頼」をタップして続けてください
+library.import.reading_catalog = {name} の写真カタログを読み込み中…
+library.import.progress_from = {name} から写真を読み込み中 {n}/{total}…
+library.import.progress = 写真を読み込み中 {n}/{total}…
+library.import.choose_photos = 読み込む写真を選択…
+library.import.photos_open_failed = 写真ライブラリを開けませんでした：{error}
+library.import.done.other = {n} 枚の写真を {dest} に読み込みました
+library.import.done_in_place.other = {place} で撮影された {n} 枚の写真を {dest} に読み込みました（{filtered} 枚は別の場所、または位置情報がないため、カメラに残しました）
+library.import.n_failed.other = {n} 枚が失敗
+library.import.no_dcim = {source} に DCIM フォルダーがありません
+library.import.already_running = 読み込みはすでに実行中です
+library.import.camera_gone = そのカメラはもう接続されていません
+library.import.camera_disconnected = 読み込みの途中でカメラが切断されました
+library.import.unknown_error = 不明なエラー
+library.import.picker_needs_ios14 = 写真ピッカーには iOS 14 以降が必要です
+library.import.picker_unavailable = 写真ピッカーを利用できません
+library.import.no_window = ピッカーを表示するウインドウがありません
+
+# マウント名から何もわからないときの、カメラのボリュームの呼び名
+library.volume.iphone = iPhone または iPad
+library.volume.camera = カメラ
+library.volume.phone = スマートフォン
+
+# ウインドウにドロップしてタブで開いたフォルダー
+library.open_folder.opened.other = {n} 枚の画像を開きました
+library.open_folder.opened_first = {total} 枚の画像のうち最初の {n} 枚を開きました — 残りはギャラリーにあります
+
+# 写真検索モデルのダイアログ
+library.search_models.title = 写真検索
+library.search_models.intro = 写真に写っているもので検索するには、一度だけダウンロードしてこのマシンに保存する 2 つのモデルが必要です。モデルはローカルで動作し、写真がこのマシンから出ることはありません。
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = Apple の MobileCLIP
+library.search_models.export = Xenova による ONNX 書き出し
+library.search_models.license = ライセンス
+library.search_models.download_note = ダウンロードすると両方（合計 {mb} MB）がインストールされ、それぞれのライセンスに同意したことになります。「ギャラリー ▸ モデルを管理…」から削除できます。
+library.search_models.agree = 同意してダウンロード
+
+# 右クリックメニュー
+library.menu.add_all_to = すべて {name} に追加
+library.menu.add_all_to_new_bucket = すべて新規コレクションに追加…
+library.menu.edit_n_in_tabs = {n} 枚をタブで編集
+library.menu.view_name_people = 人物を表示して名前を付ける
+library.menu.reveal = ファイルマネージャーで表示
+library.menu.add_to = {name} に追加
+library.menu.add_to_new_bucket = 新規コレクションに追加
+library.menu.remove_from_bucket = このコレクションから削除
+library.menu.save_n_as_zip = {n} 枚を ZIP として保存…
+library.menu.save_image_as = 画像を別名で保存…
+library.menu.process = 処理…
+library.menu.process_n = {n} 枚の写真を処理…
+library.menu.move_to_folder = フォルダーに移動…
+library.menu.move_n_to_folder = {n} 枚をフォルダーに移動…
+library.menu.revert = オリジナルに戻す
+library.menu.revert_n = {n} 枚をオリジナルに戻す
+library.menu.upload_to_cloud = Schist Cloud にアップロード…
+library.menu.watch_local_folder = このコンピュータ上のフォルダーを監視…
+library.menu.new_cloud_folder = {glyph} 新規 Schist Cloud フォルダー…
+library.menu.new_local_bucket = このコンピュータ上に新規コレクション…
+library.menu.new_cloud_bucket = {glyph} 新規 Schist Cloud コレクション…
+library.menu.edit_bucket = コレクションを編集…
+library.menu.select_all_n = すべてを選択（{n}）
+library.menu.save_all_as_zip = すべてを ZIP として保存…（{n}）
+library.menu.process_all = すべてを処理…（{n}）
+library.menu.move_all_to_folder = すべてをフォルダーに移動…
+library.menu.clear_added = 追加した写真を消去
+library.menu.clear_bucket = コレクションを空にする
+library.menu.delete_bucket = コレクションを削除
+library.menu.show_person = {name} を表示
+library.menu.rename_person = 名前を変更…
+library.menu.forget_person.other = 人物を削除（{n} 個の顔）
+
+# 移動、ZIP 圧縮、保存、復元、一括処理
+library.ops.moving.other = {n} 枚の写真を {dest} に移動中…
+library.ops.moved.other = {n} 枚の写真を {dest} に移動しました
+library.ops.moved_partial = {total} 枚の写真のうち {n} 枚を {dest} に移動しました — 残りはログにあります
+library.ops.move_here = ここに移動
+library.ops.no_export_format = ここには画像を保存できる形式がありません
+library.ops.saved_size = {name} を保存しました（{w} × {h}）
+library.ops.save_failed = 保存に失敗しました：{error}
+library.ops.opening_first = {total} 枚の写真のうち最初の {n} 枚を開いています — 残りはギャラリーにあります
+library.ops.nothing_to_revert = 戻すものがありません：どの写真にも編集がありません
+library.ops.reverted.other = {n} 枚の写真をオリジナルに戻しました — 編集内容は versions/ に残ります
+library.ops.no_file_name = このファイルには名前がありません
+library.zip.nothing_all_held = ZIP にするものがありません：コンテンツフィルターが、その {n} 枚すべてを除外しています
+library.zip.failed = ZIP に失敗しました：{error}
+library.zip.progress = ZIP 圧縮中 {n}/{total}…
+library.zip.n_held.other = （コンテンツフィルターにより {n} 枚を除外）
+library.zip.done.other = {n} 枚の写真を {dest} に ZIP 圧縮しました
+library.zip.done_partial = {total} 枚の写真のうち {n} 枚を {dest} に ZIP 圧縮しました — 残りはログにあります
+library.zip.nothing_readable = ZIP にできる、読み取り可能なものがありません
+library.zip.too_large = zip64 なしの ZIP には大きすぎます
+library.batch.nothing_to_do = 実行することがありません：先に回転、拡大、または色調補正を選んでください
+library.batch.save_copies_here = ここにコピーを保存
+library.batch.processing.other = {n} 枚の写真を処理中…
+library.batch.progress = 処理済み {n}/{total} — {name}
+library.batch.failed = 処理に失敗しました：{error}
+library.batch.done.other = {n} 枚の写真を処理しました
+library.batch.done_partial = {total} 枚の写真のうち {n} 枚を処理しました — 残りはログにあります
+library.batch.model_would_not_load = {name} モデルを読み込めませんでした
+library.batch.no_psd_writer = PSD の書き出しモジュールが読み込まれていません
+
+# ビューアと「人物」アルバム
+library.viewer.back = ‹ 写真に戻る
+library.viewer.could_not_decode = この写真はデコードできませんでした。
+library.viewer.label_auto = {name} · 自動
+library.viewer.label_guess = {name}？
+library.viewer.people_heading = この写真の人物
+library.viewer.faces_intro = 顔は、一度だけダウンロードされる小さなモデルが見つけます。手動で枠を描くこともできます。
+library.viewer.looking_for_faces = 顔を検索中…
+library.viewer.no_faces = 顔が見つかりません。顔を囲むように枠をドラッグすると、手動で人物を追加できます。
+library.viewer.help = 顔をクリックして名前を付け、Enter で保存します。写真上をドラッグすると、検出器が見逃した顔を指定できます。← → で写真を移動、Esc で戻ります。
+library.viewer.not_them = 別人です
+library.viewer.remove_name = 名前を削除
+library.viewer.not_a_face = 顔ではありません
+library.viewer.auto = 自動
+library.viewer.is_this = これは {name} ですか？
+library.viewer.someone_else = 別の人
+library.viewer.add_name = 名前を追加…
+library.viewer.who_is_this = これは誰ですか？
+library.people.rename_title = 人物の名前を変更
+library.people.merge_warning = すでに「{name}」という人物がいます：保存すると 2 人が統合されます。
+library.people.merge_note = 他の人がすでに使っている名前に変更すると、2 人の人物が統合されます。
+library.people.named = {name} と名付けました
+library.people.named_followed.other = {name} と名付けました · さらに {n} 個の顔が自動で一致しました
+
+# 「写真」に保存（iOS）
+library.photos.saving = 「写真」に保存中…
+library.photos.saved = 「写真」に保存しました
+library.photos.save_failed = 「写真」への保存に失敗しました：{error}
+library.photos.no_document = 開いているドキュメントがありません
+library.photos.no_png_codec = PNG コーデックが読み込まれていません
+library.photos.no_answer = 写真ライブラリが応答しませんでした
+library.photos.bad_url = ファイルのパスを URL に変換できませんでした
+library.photos.unavailable = 写真ライブラリを利用できません
+library.photos.declined = 写真ライブラリが拒否しました
+
+# App に共有されたファイル（iOS）
+library.shared.needs_documents = ギャラリーには、コピー先となる「書類」フォルダーが必要です
+library.shared.added.other = {n} 枚の写真をギャラリーに追加しました
+library.shared.open_needs_documents = 開くには、コピー先となる「書類」フォルダーが必要です
+library.shared.could_not_open = {name} を開けませんでした：{error}

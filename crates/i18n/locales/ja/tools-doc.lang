@@ -1,0 +1,33 @@
+# ドキュメントの付属物を扱うツール（plugins/tools-doc）：アートボード、
+# スライス、フレーム、ノート、カウント。フレームのシェイプのラベルは
+# common.shape。
+
+# アートボード
+tool.artboard.name = アートボードツール
+tool.artboard.description = アートボードをドラッグして作ります。カンバス上の名前付きの領域で、単独で書き出せます。既存のアートボードの内側をドラッグすると移動します。
+tool.artboard.default_name = アートボード {n}
+
+# スライス
+tool.slice.name = スライスツール
+tool.slice.description = 書き出し用のスライスをドラッグして作ります。カンバス上の名前付きの長方形で、独立した画像として書き出されます。既存のスライスの内側をドラッグすると移動します。
+tool.slice.default_name = スライス {n}
+
+# フレーム
+tool.frame.name = フレームツール
+tool.frame.description = フレームをドラッグして作ります。長方形（または楕円形）のレイヤーで、中に配置したものをマスクします。
+tool.frame.default_name = フレーム {n}
+tool.frame.choice.rectangle = 長方形
+tool.frame.choice.ellipse = 楕円形
+tool.frame.history.frame = フレーム
+
+# ノート
+tool.note.name = ノートツール
+tool.note.description = 何もないカンバスをクリックすると、エディターの状態にある作成者と色を添えてノートをその場所に留めます。既存のピンをクリックすると、ノートパネル用に選択されます。
+tool.note.history.place = ノートを配置
+tool.note.history.move = ノートを移動
+tool.note.history.delete = ノートを削除
+
+# カウント
+tool.count.name = カウントツール
+tool.count.description = クリックすると番号付きのカウントマーカーをカンバスに置き、既存のマーカーをクリックすると取り除きます。
+tool.count.default_name = カウント {n}

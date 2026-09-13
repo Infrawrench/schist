@@ -154,7 +154,7 @@ own Vulkan device; gpui's renderer is separate), the crash reporter, the
 daily ping, font and model downloads, and the cloud.
 
 The chrome follows the device language, or the per-app language Android
-13+ offers in Settings (`res/xml/locales_config.xml` lists the four);
+13+ offers in Settings (`res/xml/locales_config.xml` lists the five);
 the activity's configuration is read at startup, and `configChanges`
 keeps a change from recreating the activity, so a new language shows on
 the next launch. See [i18n.md](i18n.md).

@@ -40,8 +40,8 @@
 //! ignored. Values run to the end of the line, trimmed; `\n` and `\\`
 //! are the two escapes. A placeholder is `{name}` and is filled by
 //! [`tf`]; a string with a count comes in a `.one` and a `.other`
-//! variant for [`tn`], where `{n}` is the count (Chinese has no
-//! singular form and so needs only `.other`). A key that merely ends
+//! variant for [`tn`], where `{n}` is the count (Chinese and Japanese
+//! have no singular form and so need only `.other`). A key that merely ends
 //! in `.other` — `filter.category.other`, a heading — is an ordinary
 //! string; it is the `.one` beside it that makes a pair.
 //!
@@ -75,11 +75,19 @@ pub enum Locale {
     /// included: a Simplified catalog is closer to what a Taiwanese or
     /// Hong Kong reader wants than an English one.
     ZhHans,
+    /// Japanese.
+    Ja,
 }
 
 impl Locale {
     /// Every locale, in the order the catalogs are embedded.
-    pub const ALL: [Locale; 4] = [Locale::En, Locale::Sv, Locale::De, Locale::ZhHans];
+    pub const ALL: [Locale; 5] = [
+        Locale::En,
+        Locale::Sv,
+        Locale::De,
+        Locale::ZhHans,
+        Locale::Ja,
+    ];
 
     /// The BCP 47 tag, which is also the catalog directory's name.
     pub fn tag(self) -> &'static str {
@@ -88,6 +96,7 @@ impl Locale {
             Locale::Sv => "sv",
             Locale::De => "de",
             Locale::ZhHans => "zh-Hans",
+            Locale::Ja => "ja",
         }
     }
 
@@ -98,13 +107,15 @@ impl Locale {
             Locale::Sv => "Svenska",
             Locale::De => "Deutsch",
             Locale::ZhHans => "简体中文",
+            Locale::Ja => "日本語",
         }
     }
 
     /// Whether the language distinguishes one of something from several,
-    /// which decides whether a `.one` variant is looked for.
+    /// which decides whether a `.one` variant is looked for. Neither
+    /// Chinese nor Japanese marks a noun for number.
     pub fn has_singular(self) -> bool {
-        !matches!(self, Locale::ZhHans)
+        !matches!(self, Locale::ZhHans | Locale::Ja)
     }
 
     fn index(self) -> usize {
@@ -128,6 +139,7 @@ impl Locale {
             "sv" => Some(Locale::Sv),
             "de" => Some(Locale::De),
             "zh" => Some(Locale::ZhHans),
+            "ja" => Some(Locale::Ja),
             _ => None,
         }
     }
@@ -147,19 +159,20 @@ impl Locale {
 }
 
 /// The catalogs, joined by `build.rs` from `locales/<tag>/*.lang`.
-const SOURCES: [&str; 4] = [
+const SOURCES: [&str; 5] = [
     include_str!(concat!(env!("OUT_DIR"), "/en.lang")),
     include_str!(concat!(env!("OUT_DIR"), "/sv.lang")),
     include_str!(concat!(env!("OUT_DIR"), "/de.lang")),
     include_str!(concat!(env!("OUT_DIR"), "/zh-Hans.lang")),
+    include_str!(concat!(env!("OUT_DIR"), "/ja.lang")),
 ];
 
 type Catalog = HashMap<&'static str, &'static str>;
 
-fn catalogs() -> &'static [Catalog; 4] {
-    static CATALOGS: OnceLock<[Catalog; 4]> = OnceLock::new();
+fn catalogs() -> &'static [Catalog; 5] {
+    static CATALOGS: OnceLock<[Catalog; 5]> = OnceLock::new();
     CATALOGS.get_or_init(|| {
-        let mut out: [Catalog; 4] = Default::default();
+        let mut out: [Catalog; 5] = Default::default();
         for (catalog, source) in out.iter_mut().zip(SOURCES) {
             for (key, value) in parse(source) {
                 catalog.insert(key, value);

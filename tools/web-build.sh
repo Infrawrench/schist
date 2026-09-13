@@ -123,18 +123,22 @@ python3 - "$OUT" <<'EOF'
 import json, os, sys
 out = sys.argv[1]
 def size(p): return os.path.getsize(os.path.join(out, p))
+def cjk_lang(f):
+    """The language a CJK subset is for, by the name it ships under."""
+    return {"NotoSansSC": "zh", "NotoSansJP": "ja"}.get(f.split("-")[0])
 wasm = sorted(f for f in os.listdir(f"{out}/pkg") if ".wasm." in f)
 manifest = {
     "js": "pkg/schist.js",
     "wasm": [{"file": f"pkg/{f}", "bytes": size(f"pkg/{f}")} for f in wasm],
-    # A font with a `lang` is fetched only for that language: the
-    # Chinese face (tools/web-cjk-font.sh) is 1.5 MB no other reader
-    # needs. Everything else is fetched by everyone.
+    # A font with a `lang` is fetched only by that language's readers:
+    # the two CJK faces (tools/web-cjk-font.sh) are 1.5 MB each that
+    # nobody else needs, and no reader needs both. Everything else is
+    # fetched by everyone.
     "fonts": [
         {
             "file": f"assets/fonts/{f}",
             "bytes": size(f"assets/fonts/{f}"),
-            **({"lang": "zh"} if "SC" in f else {}),
+            **({"lang": cjk_lang(f)} if cjk_lang(f) else {}),
         }
         for f in sorted(os.listdir(f"{out}/assets/fonts"))
         if f.endswith((".ttf", ".otf"))

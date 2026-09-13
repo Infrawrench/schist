@@ -1,0 +1,43 @@
+# 選択系のツール（plugins/tools-select）：選択ツール 2 種、なげなわ 3 種、
+# 自動選択、クイック選択、オブジェクト選択。アプリ全体で共有するラベル
+# （モード、ぼかし、幅、コントラスト、許容値、サイズ、新規、追加、選択、
+# 選択解除）は common.lang から。
+
+# 新しい形が既存の選択範囲とどう組み合わさるか。Photoshop のオプションバーの
+# ボタンの並び順です。「新規」と「追加」は common.new と common.add。
+tool.select.mode.subtract = 一部削除
+tool.select.mode.intersect = 共通範囲
+
+# 選択ツール
+tool.marquee.rect.name = 長方形選択ツール
+tool.marquee.rect.description = ドラッグして長方形の選択範囲を作ります。ドラッグを始めるときに Shift キーを押すと選択範囲に追加、Alt キーで一部削除、両方で共通範囲になります。ドラッグ中の Shift キーは正方形に固定します。ドラッグせずにクリックすると選択を解除します。
+tool.marquee.ellipse.name = 楕円形選択ツール
+tool.marquee.ellipse.description = ドラッグして楕円形の選択範囲を作ります。Shift キーと Alt キーの組み合わせは長方形選択ツールと同じです。
+
+# なげなわ
+tool.lasso.name = なげなわツール
+tool.lasso.description = ドラッグしてフリーハンドで輪郭を描きます。ドラッグを終えると両端が結ばれて選択範囲が閉じます。Shift キーで追加、Alt キーで一部削除。
+tool.lasso.history.select = なげなわ選択
+tool.lasso.polygonal.name = 多角形選択ツール
+tool.lasso.polygonal.description = 角を順にクリックして直線で囲まれた選択範囲を作り、最初の点の近くをクリックして閉じます。
+tool.lasso.polygonal.history.select = 多角形選択
+tool.lasso.magnetic.name = マグネット選択ツール
+tool.lasso.magnetic.description = 境界線に沿っておおまかになぞると、輪郭はその近くでもっともコントラストの強いところに吸着します。
+tool.lasso.magnetic.history.select = マグネット選択
+tool.lasso.magnetic.option.frequency = 頻度
+
+# 自動選択
+tool.wand.name = 自動選択ツール
+tool.wand.description = クリックすると、ポインターの下にある似た色のつながった範囲を許容値の範囲内で選択します。「選択範囲を拡張」「近似色を選択」「色域指定」も同じ許容値を参照します。
+tool.wand.option.contiguous = 隣接
+tool.wand.history.select = 自動選択
+
+# クイック選択
+tool.quick_select.name = クイック選択ツール
+tool.quick_select.description = 範囲の上をなぞると、ブラシが通った似た色のピクセルへ選択範囲が広がります。
+tool.quick_select.history.select = クイック選択
+
+# オブジェクト選択
+tool.object_select.name = オブジェクト選択ツール
+tool.object_select.description = オブジェクトを囲むように四角をドラッグすると、その中で見つかったオブジェクトに選択範囲が吸着します。
+tool.object_select.history.select = オブジェクト選択

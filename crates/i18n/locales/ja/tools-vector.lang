@@ -1,0 +1,54 @@
+# ベクトル系のツール（plugins/tools-vector）：ペン各種、選択用の矢印 2 種、
+# シェイプ、カスタムシェイプ。モード、シェイプ、ピクセル、パスは
+# common.lang から。
+
+# ペン
+tool.pen.name = ペンツール
+tool.pen.description = パスを作ります。クリックでコーナーポイント、ドラッグでそこから曲線の方向線を引き出し、最初の点をクリックすると閉じます。確定するとパスはシェイプレイヤーになります。
+tool.pen.option.rubber_band = ラバーバンド
+tool.pen.history.fill = パスの塗りつぶし
+# フリーフォームペンや曲線ペンが保存するパスに付ける名前
+tool.pen.default_path_name = パス {n}
+tool.pen.freeform.name = フリーフォームペンツール
+tool.pen.freeform.description = フリーハンドで線をドラッグすると、「カーブフィット」オプションで決まるゆるさでパスに整形されます。
+tool.pen.freeform.option.fit = カーブフィット
+tool.pen.curvature.name = 曲線ペンツール
+tool.pen.curvature.description = 点を順にクリックすると、そこを滑らかに通る曲線のパスになります。
+
+# 矢印
+tool.path_select.name = パスコンポーネント選択ツール
+tool.path_select.description = パスをクリックして選択し、ドラッグするとパス全体を移動します。
+tool.direct_select.name = パス選択ツール
+tool.direct_select.description = アンカーポイントや方向線を個別にドラッグして、その周りのパスの形を変えます。
+
+# シェイプ。それぞれにツール名とラベルがあり、ラベルはドラッグで作られる
+# レイヤーとパスの名前になります。ライブシェイプレイヤーのヒストリー項目は
+# ラベルを tool.shape.history.layer に入れたものです。
+tool.shape.history.layer = {name}レイヤー
+tool.shape.rect.name = 長方形ツール
+tool.shape.rect.label = 長方形
+tool.shape.rect.description = 描画色で長方形のシェイプレイヤーをドラッグして作ります。ベクトルのまま保たれ、サイズを変えると描き直されます。
+tool.shape.ellipse.name = 楕円形ツール
+tool.shape.ellipse.label = 楕円形
+tool.shape.ellipse.description = 描画色で楕円形のシェイプレイヤーをドラッグして作ります。
+tool.shape.line.name = ラインツール
+tool.shape.line.label = ライン
+tool.shape.line.description = 描画色で直線のシェイプレイヤーをドラッグして作ります。
+tool.shape.line.option.weight = 線の太さ
+tool.shape.line.option.arrow_start = 開始点
+tool.shape.line.option.arrow_end = 終了点
+tool.shape.polygon.name = 多角形ツール
+tool.shape.polygon.label = 多角形
+tool.shape.polygon.description = 描画色で正多角形のシェイプレイヤーをドラッグして作ります。角数はオプションで決めます。
+tool.shape.polygon.option.sides = 角数
+
+# カスタムシェイプ
+tool.shape.custom.name = カスタムシェイプツール
+tool.shape.custom.label = カスタムシェイプ
+tool.shape.custom.description = 「シェイプ」オプションで選んだ組み込みのプリセットシェイプをドラッグして作ります。
+tool.shape.custom.choice.heart = ハート
+tool.shape.custom.choice.star = 星
+tool.shape.custom.choice.arrow = 矢印
+tool.shape.custom.choice.lightning = 稲妻
+tool.shape.custom.choice.cross = 十字
+tool.shape.custom.choice.speech_bubble = 吹き出し

@@ -1,0 +1,171 @@
+# Neural Filters、Camera Raw、ぼかしギャラリー、レンズ系フィルター
+# （plugins/filters-core：neural.rs、camera_raw.rs、blurgallery.rs、
+# lens.rs）。キーはプラグインが登録する id に従って
+# filter.<id>.name、filter.<id>.param.<key>、filter.<id>.choice.<value>、
+# filter.<id>.msg.<what> となります。これらのフィルターが共有するラベルは
+# filter.neural.param.<label> です。モデル名（"Depth (Depth Blur)"）は
+# ［モデルを管理］に表示されるものなので、そのままにします。
+# 名称は日本語版 Photoshop に合わせています。
+
+# 複数のフィルターが共有するラベル
+filter.neural.param.center_x = 中心 X
+filter.neural.param.center_y = 中心 Y
+filter.neural.param.direction = 方向
+filter.neural.param.transition = 境界のぼかし
+filter.neural.param.detail = ディテール
+filter.neural.param.eyes = 目
+
+# モデルを使うフィルターがダイアログに表示する説明
+filter.neural.msg.using_model = {model} · {license} を使用しています。
+filter.neural.msg.get_model = 「フィルター ▸ Neural Filters ▸ モデルを管理」から入手できます。
+
+# Camera Raw フィルター
+filter.camera_raw.name = Camera Raw フィルター
+filter.camera_raw.param.temperature = 色温度
+filter.camera_raw.param.tint = 色かぶり補正
+filter.camera_raw.param.highlights = ハイライト
+filter.camera_raw.param.shadows = シャドウ
+filter.camera_raw.param.whites = 白レベル
+filter.camera_raw.param.blacks = 黒レベル
+filter.camera_raw.param.clarity = 明瞭度
+filter.camera_raw.param.dehaze = かすみの除去
+filter.camera_raw.param.vibrance = 自然な彩度
+filter.camera_raw.param.sharpening = シャープ
+filter.camera_raw.param.noise = ノイズ軽減
+filter.camera_raw.param.vignette = 周辺光量
+
+# レンズ補正
+filter.lens_correction.name = レンズ補正
+filter.lens_correction.param.distortion = ゆがみを除去
+filter.lens_correction.param.red = レッド／シアンの色収差を補正
+filter.lens_correction.param.blue = ブルー／イエローの色収差を補正
+filter.lens_correction.param.vignette = 周辺光量補正の適用量
+filter.lens_correction.param.midpoint = 周辺光量補正の中心点
+filter.lens_correction.param.vertical = 垂直方向の遠近補正
+filter.lens_correction.param.horizontal = 水平方向の遠近補正
+
+# 広角補正
+filter.adaptive_wide_angle.name = 広角補正
+filter.adaptive_wide_angle.param.projection = 補正
+filter.adaptive_wide_angle.choice.fisheye = 魚眼
+filter.adaptive_wide_angle.choice.perspective = 遠近法
+filter.adaptive_wide_angle.choice.full_spherical = 全球面
+filter.adaptive_wide_angle.param.focal = 焦点距離
+filter.adaptive_wide_angle.param.crop = クロップ係数
+
+# ぼかしギャラリー
+filter.field_blur.name = フィールドぼかし
+filter.field_blur.param.position = シャープな位置
+filter.iris_blur.name = 虹彩絞りぼかし
+filter.iris_blur.param.roundness = 真円率
+filter.tilt_shift.name = チルトシフト
+filter.tilt_shift.param.position = 中心
+filter.tilt_shift.param.band = シャープな範囲
+filter.spin_blur.name = スピンぼかし
+filter.spin_blur.param.angle = ぼかしの角度
+filter.path_blur.name = パスぼかし
+filter.path_blur.param.speed = 速度
+filter.path_blur.param.curve = 曲率
+filter.path_blur.param.taper = テーパー
+
+# ぼかし
+filter.shape_blur.name = ぼかし（形状）
+filter.shape_blur.choice.square = 正方形
+filter.shape_blur.choice.diamond = ひし形
+filter.shape_blur.choice.hexagon = 六角形
+filter.shape_blur.choice.cross = 十字
+filter.shape_blur.choice.ring = リング
+filter.shape_blur.choice.star = 星形
+filter.smart_blur.name = ぼかし（詳細）
+filter.smart_blur.choice.normal = 標準
+filter.smart_blur.choice.edge_only = エッジのみ
+filter.smart_blur.choice.overlay_edge = オーバーレイエッジ
+
+# ビデオ
+filter.deinterlace.name = インターレース解除
+filter.deinterlace.param.field = 削除
+filter.deinterlace.choice.odd_fields = 奇数フィールド
+filter.deinterlace.choice.even_fields = 偶数フィールド
+filter.deinterlace.param.fill = 新しいフィールドの作成方法
+filter.deinterlace.choice.interpolation = 補間
+filter.deinterlace.choice.duplication = 複製
+filter.ntsc_colors.name = NTSC カラー
+
+# Neural Filters
+filter.neural.skin_smoothing.name = スキンスムージング
+filter.neural.skin_smoothing.param.blur = 滑らかさ
+filter.neural.skin_smoothing.param.detail = ディテールを保持
+filter.neural.skin_smoothing.msg.no_model = {model} がインストールされていません — 顔ではなく、肌色の部分すべてを滑らかにします。
+
+filter.neural.jpeg_artifacts.name = JPEG のノイズを削除
+filter.neural.jpeg_artifacts.msg.no_model = {model} がインストールされていません — 代わりに 8 ピクセルのグリッドを滑らかにします。
+
+filter.neural.colorize.name = 着色
+filter.neural.colorize.param.warmth = 暖かみ
+filter.neural.colorize.msg.no_model = {model} がインストールされていません — 代わりに輝度に応じて色を付けます。
+
+filter.neural.super_zoom.name = スーパーズーム
+filter.neural.super_zoom.msg.no_model = {model} がインストールされていません — 代わりにエッジ方向のシャープを使用します。
+
+filter.neural.style_transfer.name = スタイルの適用
+filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = スタイルのモデルがインストールされていないため、カラーのみを適用します。「フィルター ▸ Neural Filters ▸ モデルを管理」から入手できます。
+filter.neural.style_transfer.msg.installed = インストール済み：{styles}（ONNX Model Zoo、Apache-2.0）。
+
+filter.neural.color_transfer.name = カラーの適用
+filter.neural.color_transfer.param.hue = 目標の色相
+filter.neural.color_transfer.param.contrast = コントラストを合わせる
+filter.neural.color_transfer.msg.info = 下のレイヤーからカラーを取り込みます。下に何もない場合は、代わりに目標の色相に合わせます。
+
+filter.neural.depth_blur.name = 深度ぼかし
+filter.neural.depth_blur.param.focus = 焦点距離
+filter.neural.depth_blur.param.blur = ぼかしの強さ
+filter.neural.depth_blur.msg.no_model = {model} がインストールされていません — 代わりに局所的なシャープさで焦点を決めます。
+
+filter.neural.harmonization.name = 調和
+filter.neural.harmonization.param.tone = 色調を合わせる
+filter.neural.harmonization.msg.info = このレイヤーを、その下にあるものに合わせます。下に何もない場合は合わせる相手がないため、何も起こりません。
+
+filter.neural.landscape_mixer.name = 風景ミキサー
+filter.neural.landscape_mixer.param.bands = 深度の階調
+filter.neural.landscape_mixer.msg.with_depth = 下のレイヤーからカラーを取り込み、Depth (Depth Blur) を使って階調ごとに合わせます。
+filter.neural.landscape_mixer.msg.without_depth = 下のレイヤーからカラーを取り込みます。Depth (Depth Blur) をインストールすると、画像全体をまとめてではなく、空は空に、地面は地面に合わせられます。
+
+filter.neural.photo_restoration.name = 写真の復元
+filter.neural.photo_restoration.param.enhance = 写真を強調
+filter.neural.photo_restoration.param.scratches = 傷を軽減
+filter.neural.photo_restoration.param.tone = 色調を復元
+filter.neural.photo_restoration.msg.no_model = モデルを使わずに補正しています。
+filter.neural.photo_restoration.msg.using_deblock = Deblock を使用しています · Schist 用に学習。
+filter.neural.photo_restoration.msg.using_detail = Detail を使用しています · Schist 用に学習。
+filter.neural.photo_restoration.msg.using_both = Deblock と Detail を使用しています · Schist 用に学習。
+
+filter.neural.photo_to_sketch.name = 顔写真をスケッチに
+filter.neural.photo_to_sketch.param.weight = 線の太さ
+filter.neural.photo_to_sketch.param.shading = 陰影
+
+filter.neural.face_to_caricature.name = 顔写真をカリカチュアに
+filter.neural.face_to_caricature.param.mouth = 口
+filter.neural.face_to_caricature.param.head = 頭
+filter.neural.face_to_caricature.msg.no_model = {model} がインストールされていないため、何も起こりません — デフォルメする顔がありません。
+
+filter.neural.smart_portrait.name = スマートポートレート
+filter.neural.smart_portrait.param.happiness = 幸福感
+filter.neural.smart_portrait.param.surprise = 驚き
+filter.neural.smart_portrait.param.age = 顔の年齢
+filter.neural.smart_portrait.param.gaze = 視線
+filter.neural.smart_portrait.param.light = 光の方向
+filter.neural.smart_portrait.msg.no_model = {model} がインストールされていないため、何も起こりません — 処理する顔がありません。
+
+filter.neural.makeup_transfer.name = メイクアップの適用
+filter.neural.makeup_transfer.param.lips = 唇
+filter.neural.makeup_transfer.param.skin = 肌の色
+filter.neural.makeup_transfer.msg.info = 下のレイヤーにある顔からメイクアップを取り込みます。テクスチャではなくカラーのみです。
+filter.neural.makeup_transfer.msg.no_model = {model} がインストールされていないため、何も起こりません。
+
+filter.neural.sketch_to_portrait.name = スケッチを顔写真に
+filter.neural.sketch_to_portrait.param.detail = 線を保持
+filter.neural.sketch_to_portrait.msg.with_face = このアプリケーション自身の「顔写真をスケッチに」を描き起こすよう学習しています。見つかった顔に作用します。
+filter.neural.sketch_to_portrait.msg.no_face = このアプリケーション自身の「顔写真をスケッチに」を描き起こすよう学習しています。Faces (Skin Smoothing) をインストールすると、選択範囲全体ではなく顔に作用します。
