@@ -371,6 +371,12 @@ pub struct Workspace {
     /// boundary). Only the textual fields move it; numeric fields stay
     /// append-only, matching their caret-less rendering.
     pub field_cursor: usize,
+    /// The still end of the field's selection: equal to `field_cursor`
+    /// when nothing is selected. A press, a drag or a shifted key is
+    /// what parts the two -- see `Workspace::with_field_edit`, which
+    /// runs the same [`crate::ui::LineEdit`] model every other box in
+    /// the application uses.
+    pub field_anchor: usize,
     /// When the caret last moved or typed: carets show during the even
     /// 530 ms beats since then, so one is always solid right after a
     /// keystroke. `None` (the web build, which has no blink timer)
@@ -428,12 +434,12 @@ pub struct Workspace {
     /// clicked row.
     layer_anchor: Option<schist_core::LayerId>,
     /// An inline rename in progress in the layers panel: the layer and
-    /// the text typed so far.
-    pub layer_rename: Option<(schist_core::LayerId, String)>,
-    /// A note field being typed into: which one, and the text so far.
-    /// Held here rather than written straight through so the whole typing
-    /// session is one history entry rather than one per keystroke.
-    pub note_edit: Option<(NoteField, String)>,
+    /// the box being typed into.
+    pub layer_rename: Option<(schist_core::LayerId, crate::ui::LineEdit)>,
+    /// A note field being typed into: which one, and the box. Held here
+    /// rather than written straight through so the whole typing session
+    /// is one history entry rather than one per keystroke.
+    pub note_edit: Option<(NoteField, crate::ui::LineEdit)>,
     /// The selection outline, tagged with the selection generation it was
     /// traced from.
     selection_outline: Option<(u64, SelectionOutline)>,
@@ -1492,6 +1498,7 @@ impl Workspace {
             focused_field: None,
             field_buffer: String::new(),
             field_cursor: 0,
+            field_anchor: 0,
             caret_phase: None,
             caret_blinker: false,
             field_fresh: false,

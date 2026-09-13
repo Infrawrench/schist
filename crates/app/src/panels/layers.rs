@@ -110,6 +110,7 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
     // Drop indicator while rows are being dragged, and any rename field.
     let layer_drop = ws.layer_drop;
     let rename = ws.layer_rename.clone();
+    let caret_on = ws.caret_on();
     let thumbs: Vec<Option<Arc<RenderImage>>> =
         rows.iter().map(|r| ws.layer_thumbnail(r.id)).collect();
     let opacity_display = active_layer
@@ -289,10 +290,29 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
                     .child(match &rename {
                         // Inline rename: an editable field with the
                         // dialogs' caret convention.
-                        Some((rid, buffer)) if *rid == id => {
-                            TextInput::new("layer-rename", buffer.clone())
-                                .active(true)
+                        Some((rid, edit)) if *rid == id => {
+                            TextInput::edit("layer-rename", edit)
+                                .caret_on(caret_on)
                                 .flex_grow()
+                                .on_focus(cx.listener(|ws, press: &ui::TextPress, _w, cx| {
+                                    // The row underneath treats a press
+                                    // as "select this layer", which
+                                    // ends the rename; inside the box
+                                    // the press belongs to the caret.
+                                    cx.stop_propagation();
+                                    if let Some((_, edit)) = ws.layer_rename.as_mut() {
+                                        edit.press(press);
+                                        ws.reset_caret_phase();
+                                        cx.notify();
+                                    }
+                                }))
+                                .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
+                                    if let Some((_, edit)) = ws.layer_rename.as_mut() {
+                                        edit.extend_to(*offset);
+                                        ws.reset_caret_phase();
+                                        cx.notify();
+                                    }
+                                }))
                                 .into_any_element()
                         }
                         _ => div()

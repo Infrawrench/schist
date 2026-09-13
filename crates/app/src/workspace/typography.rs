@@ -79,7 +79,12 @@ impl Workspace {
                         self.field_buffer.clear();
                     }
                 }
-                self.field_key(&ev.keystroke.key, ev.keystroke.key_char.as_deref());
+                self.field_key(
+                    &ev.keystroke.key,
+                    ev.keystroke.key_char.as_deref(),
+                    ev.keystroke.modifiers,
+                    cx,
+                );
                 self.field_buffer.parse::<f32>().ok()
             }
         };

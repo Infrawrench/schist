@@ -8,6 +8,8 @@
 
 #[derive(Default)]
 pub struct AiState {
-    pub input_active: bool,
+    /// Never typed into here, but the shared code asks whether the
+    /// prompt box has the keyboard; on these builds there is no box.
+    pub input: crate::ui::LineEdit,
     pub model_menu: bool,
 }

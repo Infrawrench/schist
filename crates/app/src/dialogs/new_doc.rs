@@ -211,11 +211,16 @@ pub(super) fn new_document_dialog(
                 } else {
                     state.field_cursor.min(shown_name.len())
                 })
+                .selection(state.field_selection.clone())
                 .active(name_focused)
                 .caret_on(state.caret_on)
                 .w(px(200.0))
-                .on_focus(cx.listener(move |ws, _e, _w, cx| {
-                    ws.focus_field("new-doc-name", committed.clone());
+                .on_focus(cx.listener(move |ws, press: &ui::TextPress, _w, cx| {
+                    ws.press_field("new-doc-name", committed.clone(), press);
+                    cx.notify();
+                }))
+                .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
+                    ws.drag_field("new-doc-name", *offset);
                     cx.notify();
                 })),
         ))

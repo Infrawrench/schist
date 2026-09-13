@@ -8,9 +8,10 @@ use schist_i18n::t;
 pub(super) fn note_options(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let editing = ws.note_edit_buffer(NoteField::Author);
     let author = match editing {
-        Some(buffer) => buffer.to_string(),
+        Some(edit) => edit.text.clone(),
         None => ws.view.note_author.clone(),
     };
+    let caret_on = ws.caret_on();
     div()
         .flex()
         .flex_row()
@@ -24,10 +25,23 @@ pub(super) fn note_options(ws: &Workspace, cx: &mut Context<Workspace>) -> impl 
         )
         .child(
             TextInput::new("note-author", author)
+                .cursor(editing.map_or(0, |edit| edit.cursor))
+                .selection(editing.map_or(0..0, |edit| edit.selection()))
                 .active(editing.is_some())
+                .caret_on(caret_on)
                 .placeholder(t("panel.notes.author"))
                 .w(px(120.0))
-                .on_focus(cx.listener(|ws, _e, _w, cx| ws.begin_note_author_edit(cx))),
+                .on_focus(cx.listener(|ws, press: &ui::TextPress, _w, cx| {
+                    // The first press opens the session; it and every
+                    // one after put the caret where it landed.
+                    if ws.note_edit_buffer(NoteField::Author).is_none() {
+                        ws.begin_note_author_edit(cx);
+                    }
+                    ws.note_edit_press(NoteField::Author, press, cx);
+                }))
+                .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
+                    ws.note_edit_drag(NoteField::Author, *offset, cx);
+                })),
         )
         .child(
             Swatch::new("note-color", swatch_hex(ws.editor.note_color))
@@ -86,12 +100,11 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
             }
         })
         .unwrap_or_default();
-    // The caret goes on the end of the buffer, matching the layers
-    // panel's inline rename and the dialogs' fields.
     let body = match editing {
-        Some(buffer) => buffer.to_string(),
+        Some(edit) => edit.text.clone(),
         None => note.map(|n| n.text.clone()).unwrap_or_default(),
     };
+    let caret_on = ws.caret_on();
 
     let header = div()
         .flex()
@@ -167,11 +180,22 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
                 // A paragraph, not a line: newlines break.
                 TextInput::new("note-body", body)
                     .multiline()
+                    .cursor(editing.map_or(0, |edit| edit.cursor))
+                    .selection(editing.map_or(0..0, |edit| edit.selection()))
                     .active(editing.is_some())
+                    .caret_on(caret_on)
                     .placeholder(t("panel.notes.placeholder"))
                     .h(px(72.0))
                     .overflow_hidden()
-                    .on_focus(cx.listener(move |ws, _e, _w, cx| ws.begin_note_edit(index, cx))),
+                    .on_focus(cx.listener(move |ws, press: &ui::TextPress, _w, cx| {
+                        if ws.note_edit_buffer(NoteField::Text(index)).is_none() {
+                            ws.begin_note_edit(index, cx);
+                        }
+                        ws.note_edit_press(NoteField::Text(index), press, cx);
+                    }))
+                    .on_select_to(cx.listener(move |ws, offset: &usize, _w, cx| {
+                        ws.note_edit_drag(NoteField::Text(index), *offset, cx);
+                    })),
             )
     };
     Some(panel.into_any_element())

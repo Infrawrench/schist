@@ -1,6 +1,7 @@
 //! Modal dialogs, their numeric/text fields, and the colour picker.
 
 use super::*;
+use crate::ui;
 
 impl Workspace {
     // ----- modals and numeric fields -----
@@ -161,8 +162,83 @@ impl Workspace {
         self.focused_field = Some(id);
         self.field_buffer = current.into();
         self.field_cursor = self.field_buffer.len();
+        self.field_anchor = self.field_cursor;
         self.field_fresh = true;
         self.reset_caret_phase();
+    }
+
+    /// The focused field's text, caret and selection as the
+    /// [`crate::ui::LineEdit`] every other box in the application is
+    /// built on, so that a press, a drag, a shifted arrow and typing
+    /// over a selection all behave here exactly as they do in the
+    /// gallery's search box. The dialogs keep the buffer in three plain
+    /// fields of their own -- what a field means on commit depends on
+    /// which one it is -- so this borrows them into the model and puts
+    /// them back.
+    fn with_field_edit<R>(&mut self, f: impl FnOnce(&mut ui::LineEdit) -> R) -> R {
+        let mut edit = ui::LineEdit {
+            text: std::mem::take(&mut self.field_buffer),
+            cursor: self.field_cursor,
+            anchor: self.field_anchor,
+            active: true,
+            multiline: false,
+        };
+        let out = f(&mut edit);
+        self.field_buffer = edit.text;
+        self.field_cursor = edit.cursor;
+        self.field_anchor = edit.anchor;
+        out
+    }
+
+    /// What is selected in the focused field, low end first, for the
+    /// renderer to draw on the selection fill. Empty when nothing is.
+    pub fn field_selection(&self) -> std::ops::Range<usize> {
+        let cursor = self.field_cursor.min(self.field_buffer.len());
+        let anchor = self.field_anchor.min(self.field_buffer.len());
+        cursor.min(anchor)..cursor.max(anchor)
+    }
+
+    /// A press in a field: it takes the keyboard if it did not have it,
+    /// and the caret lands where the press did -- a double click taking
+    /// the word under it, a triple the lot.
+    ///
+    /// `current` seeds the buffer the first time, the way
+    /// [`Workspace::focus_field`] does.
+    pub fn press_field(
+        &mut self,
+        id: &'static str,
+        current: impl Into<String>,
+        press: &ui::TextPress,
+    ) {
+        if self.focused_field != Some(id) {
+            self.focus_field(id, current);
+        }
+        self.with_field_edit(|edit| edit.press(press));
+        // A press is a caret move, so the caret shows solid from here.
+        self.reset_caret_phase();
+    }
+
+    /// The pointer dragging across the focused field: the selection
+    /// follows it.
+    pub fn drag_field(&mut self, id: &'static str, offset: usize) {
+        if self.focused_field != Some(id) {
+            return;
+        }
+        self.with_field_edit(|edit| edit.extend_to(offset));
+        self.reset_caret_phase();
+    }
+
+    /// Whether anything is showing a caret: a dialog field, a gallery
+    /// search box, an inline rename, a note, the AI prompt. What the
+    /// blink timer runs for, and so only where there is one -- the web
+    /// build's carets stay solid and it has no gallery to ask about.
+    #[cfg(not(target_arch = "wasm32"))]
+    pub fn caret_somewhere(&self) -> bool {
+        self.focused_field.is_some()
+            || self.gallery_search_active()
+            || self.layer_rename.is_some()
+            || self.note_edit.is_some()
+            || self.ai.input.active
     }
 
     /// Whether carets are on this instant of the blink. Solid right
@@ -193,7 +269,7 @@ impl Workspace {
         self.caret_blinker = true;
         cx.spawn(async move |this, cx| loop {
             let wait = match this.update(cx, |ws, _| {
-                let active = ws.focused_field.is_some() || ws.gallery_search_active();
+                let active = ws.caret_somewhere();
                 if !active {
                     ws.caret_blinker = false;
                 }
@@ -237,11 +313,22 @@ impl Workspace {
 
     /// Feed a keystroke to the focused numeric field. Returns true when the
     /// field consumed it.
-    pub(super) fn field_key(&mut self, key: &str, text: Option<&str>) -> bool {
+    ///
+    /// `mods` is what decides whether an arrow moves the caret or drags
+    /// a selection along behind it.
+    pub(super) fn field_key(
+        &mut self,
+        key: &str,
+        text: Option<&str>,
+        mods: gpui::Modifiers,
+        cx: &mut gpui::App,
+    ) -> bool {
         let Some(id) = self.focused_field else {
             return false;
         };
         let fresh = std::mem::take(&mut self.field_fresh);
+        let shift = mods.shift;
+        let primary = mods.platform || mods.control;
         // Text fields (layer and document names) take any printable
         // character; the picker's hex field takes hex digits up to a full
         // triplet; numeric fields only digits.
@@ -257,45 +344,87 @@ impl Workspace {
         // The caret belongs to the textual fields; keep it on the rails
         // in case the buffer changed underneath it.
         self.field_cursor = self.field_cursor.min(self.field_buffer.len());
+        self.field_anchor = self.field_anchor.min(self.field_buffer.len());
         match key {
-            "left" if textual => {
-                self.field_cursor = crate::ui::caret_left(&self.field_buffer, self.field_cursor);
+            // A ⌘ (or Ctrl) chord the field has no use for is a command,
+            // not text: without this ⌘Z in a dialog typed a "z", since
+            // the key arrives carrying one.
+            _ if primary && !matches!(key, "a" | "c" | "x" | "v" | "left" | "right") => {
+                self.field_fresh = fresh;
+                return false;
+            }
+            // The clipboard. A bound ⌘C/⌘X/⌘V is excluded from the
+            // typing and modal contexts (see `keymap`), so these
+            // keystrokes reach the field rather than the document.
+            "c" | "x" if textual && primary && !self.field_selection().is_empty() => {
+                let selected = self.field_buffer[self.field_selection()].to_string();
+                cx.write_to_clipboard(gpui::ClipboardItem::new_string(selected));
+                if key == "c" {
+                    return true;
+                }
+                self.with_field_edit(|edit| {
+                    edit.delete_selection();
+                });
+            }
+            "v" if textual && primary => {
+                let Some(pasted) = cx.read_from_clipboard().and_then(|item| item.text()) else {
+                    return true;
+                };
+                // One line: a pasted paragraph flattens rather than
+                // breaking the field.
+                let pasted: String = pasted
+                    .chars()
+                    .map(|c| if c.is_control() { ' ' } else { c })
+                    .collect();
+                self.with_field_edit(|edit| edit.insert(&pasted));
+            }
+            "a" if textual && primary => {
+                self.with_field_edit(|edit| edit.select_all());
                 self.reset_caret_phase();
                 return true;
             }
-            "right" if textual => {
-                self.field_cursor = crate::ui::caret_right(&self.field_buffer, self.field_cursor)
-                    .min(self.field_buffer.len());
+            // ⌘←/⌘→ go to the ends of the line, as they do everywhere
+            // else; Shift takes the selection with them.
+            "left" | "right" if textual && primary => {
+                let to = if key == "left" {
+                    0
+                } else {
+                    self.field_buffer.len()
+                };
+                self.with_field_edit(|edit| edit.move_caret(to, shift));
+                self.reset_caret_phase();
+                return true;
+            }
+            "left" | "right" if textual => {
+                self.with_field_edit(|edit| edit.arrow(key == "right", shift));
                 self.reset_caret_phase();
                 return true;
             }
             "home" | "up" if textual => {
-                self.field_cursor = 0;
+                self.with_field_edit(|edit| edit.move_caret(0, shift));
                 self.reset_caret_phase();
                 return true;
             }
             "end" | "down" if textual => {
-                self.field_cursor = self.field_buffer.len();
+                let end = self.field_buffer.len();
+                self.with_field_edit(|edit| edit.move_caret(end, shift));
                 self.reset_caret_phase();
                 return true;
             }
-            "space" if textual => {
-                self.field_buffer.insert(self.field_cursor, ' ');
-                self.field_cursor += 1;
-            }
-            "backspace" if textual => {
-                if self.field_cursor > 0 {
-                    let from = crate::ui::caret_left(&self.field_buffer, self.field_cursor);
-                    self.field_buffer.replace_range(from..self.field_cursor, "");
-                    self.field_cursor = from;
+            "space" if textual => self.with_field_edit(|edit| edit.insert(" ")),
+            "backspace" if textual => self.with_field_edit(|edit| {
+                if !edit.delete_selection() && edit.cursor > 0 {
+                    let from = crate::ui::caret_left(&edit.text, edit.cursor);
+                    edit.text.replace_range(from..edit.cursor, "");
+                    edit.place_caret(from);
                 }
-            }
-            "delete" if textual => {
-                if self.field_cursor < self.field_buffer.len() {
-                    let to = crate::ui::caret_right(&self.field_buffer, self.field_cursor);
-                    self.field_buffer.replace_range(self.field_cursor..to, "");
+            }),
+            "delete" if textual => self.with_field_edit(|edit| {
+                if !edit.delete_selection() && edit.cursor < edit.text.len() {
+                    let to = crate::ui::caret_right(&edit.text, edit.cursor);
+                    edit.text.replace_range(edit.cursor..to, "");
                 }
-            }
+            }),
             "backspace" => {
                 self.field_buffer.pop();
             }
@@ -308,6 +437,7 @@ impl Workspace {
                 self.focused_field = None;
                 self.field_buffer.clear();
                 self.field_cursor = 0;
+                self.field_anchor = 0;
                 return true;
             }
             "enter" | "tab" => {
@@ -320,8 +450,8 @@ impl Workspace {
             },
             _ => match text {
                 Some(t) if !t.is_empty() && !t.chars().any(char::is_control) && textual => {
-                    self.field_buffer.insert_str(self.field_cursor, t);
-                    self.field_cursor += t.len();
+                    // Typing over a selection replaces it, as anywhere.
+                    self.with_field_edit(|edit| edit.insert(t));
                 }
                 Some(t)
                     if !t.is_empty()
@@ -344,6 +474,7 @@ impl Workspace {
         self.focused_field = None;
         self.field_buffer.clear();
         self.field_cursor = 0;
+        self.field_anchor = 0;
     }
 
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
@@ -617,8 +748,8 @@ impl Workspace {
         }
         // Same shape for the AI prompt box: escape hands the keyboard
         // back and the draft stays put.
-        if self.ai.input_active {
-            self.ai.input_active = false;
+        if self.ai.input.active {
+            self.ai.input.active = false;
             cx.notify();
             return;
         }

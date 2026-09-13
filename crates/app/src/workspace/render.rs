@@ -404,7 +404,12 @@ impl Workspace {
                             ws.confirm_modal(window, cx);
                         }
                         key => {
-                            ws.field_key(key, ev.keystroke.key_char.as_deref());
+                            ws.field_key(
+                                key,
+                                ev.keystroke.key_char.as_deref(),
+                                ev.keystroke.modifiers,
+                                cx,
+                            );
                         }
                     }
                     cx.notify();
@@ -412,7 +417,12 @@ impl Workspace {
                     return;
                 }
                 if ws.type_field_key(ev, cx)
-                    || ws.field_key(&ev.keystroke.key, ev.keystroke.key_char.as_deref())
+                    || ws.field_key(
+                        &ev.keystroke.key,
+                        ev.keystroke.key_char.as_deref(),
+                        ev.keystroke.modifiers,
+                        cx,
+                    )
                 {
                     cx.notify();
                     cx.stop_propagation();
@@ -593,7 +603,7 @@ impl Render for Workspace {
             || self.dropdown_open()
             || self.layer_rename.is_some()
             || self.note_edit.is_some()
-            || self.ai.input_active
+            || self.ai.input.active
             || self.ai.model_menu
             || self.gallery_typing()
         {
@@ -604,7 +614,7 @@ impl Render for Workspace {
         // A caret somewhere needs the blink timer running; it retires
         // itself once every field lets go of the keyboard.
         #[cfg(not(target_arch = "wasm32"))]
-        if self.focused_field.is_some() || self.gallery_search_active() {
+        if self.caret_somewhere() {
             self.ensure_caret_blinker(cx);
         }
         let chrome = self.screen_mode == ScreenMode::Standard;

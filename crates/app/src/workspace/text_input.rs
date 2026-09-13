@@ -63,8 +63,7 @@ impl Workspace {
     /// tool.
     fn focused_text(&self) -> Option<(&str, Range<usize>)> {
         if self.focused_field.is_some() {
-            let caret = self.field_cursor.min(self.field_buffer.len());
-            return Some((&self.field_buffer, caret..caret));
+            return Some((&self.field_buffer, self.field_selection()));
         }
         if self.gallery_open() {
             let edit = if self.cloud.show {
@@ -73,20 +72,14 @@ impl Workspace {
                 &self.library.search
             };
             if edit.active {
-                let range = if edit.selected {
-                    0..edit.text.len()
-                } else {
-                    let caret = edit.cursor.min(edit.text.len());
-                    caret..caret
-                };
-                return Some((&edit.text, range));
+                return Some((&edit.text, edit.selection()));
             }
         }
-        if let Some((_, name)) = &self.layer_rename {
-            return Some((name, name.len()..name.len()));
+        if let Some((_, edit)) = &self.layer_rename {
+            return Some((&edit.text, edit.selection()));
         }
-        if let Some((_, text)) = &self.note_edit {
-            return Some((text, text.len()..text.len()));
+        if let Some((_, edit)) = &self.note_edit {
+            return Some((&edit.text, edit.selection()));
         }
         None
     }

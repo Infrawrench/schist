@@ -171,7 +171,7 @@ fn entry(kind: AiEntryKind, text: &str, streaming: bool) -> AnyElement {
 }
 
 fn prompt_box(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    let editing = ws.ai.input_active;
+    let caret_on = ws.caret_on();
     let running = ws.ai.running;
     div()
         .relative()
@@ -184,17 +184,22 @@ fn prompt_box(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
         .border_color(gpui::rgb(palette().panel_edge))
         .children(ws.ai.model_menu.then(|| model_menu(ws, cx)))
         .child(
-            TextInput::new("ai-input", ws.ai.input.clone())
-                .multiline()
-                .active(editing)
+            TextInput::edit("ai-input", &ws.ai.input)
+                .caret_on(caret_on)
                 .placeholder(if ws.gallery_open() {
                     t("panel.ai.placeholder_gallery")
                 } else {
                     t("panel.ai.placeholder_editor")
                 })
                 .min_h(px(44.0))
-                .on_focus(cx.listener(|ws, _e, _w, cx| {
-                    ws.ai.input_active = true;
+                .on_focus(cx.listener(|ws, press: &ui::TextPress, _w, cx| {
+                    ws.ai.input.press(press);
+                    ws.reset_caret_phase();
+                    cx.notify();
+                }))
+                .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
+                    ws.ai.input.extend_to(*offset);
+                    ws.reset_caret_phase();
                     cx.notify();
                 })),
         )

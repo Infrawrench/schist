@@ -316,7 +316,7 @@ impl Workspace {
         else {
             return;
         };
-        self.layer_rename = Some((id, name));
+        self.layer_rename = Some((id, crate::ui::LineEdit::focused(name)));
         self.layer_drag = None;
         self.layer_drop = None;
         self.focused_field = None;
@@ -324,10 +324,10 @@ impl Workspace {
     }
 
     pub fn commit_layer_rename(&mut self, cx: &mut Context<Self>) {
-        if let Some((id, name)) = self.layer_rename.take() {
+        if let Some((id, edit)) = self.layer_rename.take() {
             // An emptied field keeps the old name: rename_layer rejects
             // blank names.
-            self.rename_layer(id, name, cx);
+            self.rename_layer(id, edit.text, cx);
             cx.notify();
         }
     }
@@ -339,35 +339,21 @@ impl Workspace {
     }
 
     /// Feed a keystroke to an inline layer rename. Consumes every key
-    /// while one is open so shortcuts can't fire mid-typing.
+    /// while one is open so shortcuts can't fire mid-typing; the box
+    /// itself answers the rest, so the name types, selects and moves
+    /// its caret like any other field.
     pub fn layer_rename_key(&mut self, ev: &gpui::KeyDownEvent, cx: &mut Context<Self>) -> bool {
-        if self.layer_rename.is_none() {
+        let Some((_, edit)) = self.layer_rename.as_mut() else {
             return false;
-        }
+        };
         match ev.keystroke.key.as_str() {
-            "enter" | "tab" => self.commit_layer_rename(cx),
+            "tab" => self.commit_layer_rename(cx),
             "escape" => self.cancel_layer_rename(cx),
-            "backspace" => {
-                if let Some((_, name)) = self.layer_rename.as_mut() {
-                    name.pop();
-                }
-            }
-            "space" => {
-                if let Some((_, name)) = self.layer_rename.as_mut() {
-                    name.push(' ');
-                }
-            }
-            _ => {
-                if let (Some((_, name)), Some(typed)) =
-                    (self.layer_rename.as_mut(), ev.keystroke.key_char.as_deref())
-                {
-                    if !typed.is_empty() && !typed.chars().any(char::is_control) {
-                        name.push_str(typed);
-                    }
-                }
-            }
+            _ => match edit.key(ev, cx) {
+                crate::ui::LineEditKey::Submitted => self.commit_layer_rename(cx),
+                _ => cx.notify(),
+            },
         }
-        cx.notify();
         true
     }
 }
