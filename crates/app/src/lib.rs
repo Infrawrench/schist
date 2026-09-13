@@ -364,6 +364,9 @@ pub fn main() {
         }
     });
 
+    #[cfg(target_os = "ios")]
+    workspace::install_ios_window_scene_fix();
+
     app.run(move |cx: &mut App| {
         // gpui's font database starts empty in a browser; feed it the same
         // faces the text engine got. Its default `.SystemUIFont` resolves

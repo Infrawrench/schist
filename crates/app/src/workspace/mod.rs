@@ -58,6 +58,8 @@ mod export;
 mod video;
 #[cfg(any(target_os = "ios", target_os = "android"))]
 mod video_mobile;
+#[cfg(target_os = "ios")]
+pub(crate) use video_mobile::install_ios_window_scene_fix;
 // The path prompts, and the picker drawn where the platform has none.
 pub mod file_picker;
 mod filters;

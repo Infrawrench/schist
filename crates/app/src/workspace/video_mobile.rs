@@ -3,6 +3,50 @@
 use super::*;
 use schist_i18n::{t, tf};
 
+/// GPUI assigns the root controller before attaching its UIWindow to a scene.
+/// UIKit then caches incorrect presentation metrics when the window first
+/// becomes visible. Reattach the root immediately after setWindowScene:, before
+/// makeKeyAndVisible. Doing this later, at the share action, is too late.
+/// Remove this compatibility fix when GPUI initializes the scene before its root.
+#[cfg(target_os = "ios")]
+pub(crate) fn install_ios_window_scene_fix() {
+    use objc2::{
+        ffi, msg_send,
+        rc::Retained,
+        runtime::{AnyClass, AnyObject, Imp, Sel},
+        sel,
+    };
+    unsafe extern "C-unwind" fn set_scene(this: *mut AnyObject, _: Sel, scene: *mut AnyObject) {
+        unsafe {
+            let this = &*this;
+            let superclass = AnyClass::get(c"UIWindow").unwrap();
+            let _: () = msg_send![super(this, superclass), setWindowScene: scene];
+            if !scene.is_null() {
+                let root: Option<Retained<AnyObject>> = msg_send![this, rootViewController];
+                if let Some(root) = root {
+                    let _: () =
+                        msg_send![this, setRootViewController: std::ptr::null::<AnyObject>()];
+                    let _: () = msg_send![this, setRootViewController: &*root];
+                }
+            }
+        }
+    }
+    if let Some(class) = AnyClass::get(c"GPUIWindow") {
+        unsafe {
+            // Preserve a future GPUI implementation of this setter.
+            ffi::class_addMethod(
+                (class as *const AnyClass).cast_mut(),
+                sel!(setWindowScene:),
+                std::mem::transmute::<
+                    unsafe extern "C-unwind" fn(*mut AnyObject, Sel, *mut AnyObject),
+                    Imp,
+                >(set_scene),
+                c"v@:@".as_ptr(),
+            );
+        }
+    }
+}
+
 impl Workspace {
     pub(crate) fn pause_mobile_video(&mut self, cx: &mut Context<Self>) {
         if let Some(video) = self.library.video.as_mut() {
