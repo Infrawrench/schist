@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Runs a crate's test binaries inside a booted iOS Simulator.
 #
 # cargo builds the tests for the Simulator target; each binary is wrapped
@@ -8,7 +8,7 @@
 #
 #   tools/ios-test.sh -p schist-compositor-gpu
 #   SIMULATOR_UDID=<udid> tools/ios-test.sh -p schist-compositor-gpu
-set -eu
+set -euo pipefail
 cd "$(dirname "$0")/.."
 target=aarch64-apple-ios-sim
 udid="${SIMULATOR_UDID:-$(xcrun simctl list devices booted -j | python3 -c 'import json,sys; d=json.load(sys.stdin); print(next(dev["udid"] for devs in d["devices"].values() for dev in devs))' 2>/dev/null || true)}"
@@ -17,8 +17,13 @@ if [ -z "$udid" ]; then
     exit 1
 fi
 out=$(mktemp -d)
+trap 'rm -rf "$out"' EXIT
 status=0
 cargo test --no-run --target "$target" "$@" 2>&1 | tee "$out/build.log" >&2
+if ! grep -Eq '^[[:space:]]*Executable' "$out/build.log"; then
+    echo "no test binaries were built" >&2
+    exit 1
+fi
 grep -E '^\s*Executable' "$out/build.log" | sed -E 's/.*\((.*)\)$/\1/' | while read -r bin; do
     name=$(basename "$bin" | sed -E 's/-[0-9a-f]+$//')
     app="$out/$name.app"
@@ -45,7 +50,7 @@ PLIST
     xcrun simctl install "$udid" "$app"
     # The harness's summary is the verdict; the launch itself exits 0
     # whatever the tests did.
-    xcrun simctl launch --console-pty "$udid" "$id" | tee "$out/$name.log"
+    xcrun simctl launch --console-pty "$udid" "$id" "${IOS_TEST_FILTER:-}" | tee "$out/$name.log"
     xcrun simctl uninstall "$udid" "$id" || true
     if ! grep -q '^test result: .*ok' "$out/$name.log" || grep -q 'FAILED' "$out/$name.log"; then
         echo "$name: FAILED" >&2
@@ -53,5 +58,4 @@ PLIST
     fi
 done
 [ ! -e "$out/failed" ] || status=1
-rm -rf "$out"
 exit $status

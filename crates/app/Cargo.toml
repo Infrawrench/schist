@@ -200,6 +200,7 @@ libloading.workspace = true
 x11rb = "0.13"
 
 [dev-dependencies]
+tokio.workspace = true
 # The camera-roll backup's tests walk a scratch folder and move its
 # mtimes about.
 tempfile = "3"

@@ -24,6 +24,7 @@ profile=release
 profile_flag=--release
 run=1
 check=0
+video_test=0
 abi=arm64-v8a
 for arg in "$@"; do
   case "$arg" in
@@ -31,6 +32,7 @@ for arg in "$@"; do
     --x86_64) abi=x86_64 ;;
     --no-run) run=0 ;;
     --check) check=1; run=0 ;;
+    --video-test) video_test=1; run=0 ;;
     *) echo "unknown argument: $arg" >&2; exit 2 ;;
   esac
 done
@@ -105,6 +107,24 @@ compile_android_java() {
   d8 --release --min-api 30 --lib "$platform_jar" --output "$stage" \
     "$stage"/classes/com/infrawrench/schist/*.class
 }
+
+# Test the packaged decoder on a connected emulator/device, without starting
+# the UI. This runs Android's real MediaCodec implementation, not desktop mocks.
+if [ "$video_test" = 1 ]; then
+  stage="target/android-video-test"
+  compile_android_java "$stage"
+  javac -source 8 -target 8 -Xlint:-options -bootclasspath "$platform_jar" \
+    -classpath "$stage/classes:$build_tools/core-lambda-stubs.jar" -d "$stage/classes" \
+    tools/tests/VideoDecoderTest.java
+  d8 --release --min-api 30 --lib "$platform_jar" --output "$stage" \
+    "$stage"/classes/com/infrawrench/schist/*.class
+  remote="/data/local/tmp/schist-video-test-$$"
+  adb shell mkdir -p "$remote"
+  trap 'adb shell rm -rf "$remote" >/dev/null 2>&1 || true' EXIT
+  adb push "$stage/classes.dex" crates/app/tests/fixtures/video/*.mp4 "$remote/" >/dev/null
+  adb shell "CLASSPATH=$remote/classes.dex app_process / com.infrawrench.schist.VideoDecoderTest $remote"
+  exit 0
+fi
 
 # NativeActivity loads a shared library, so the app crate is built as
 # one: the cdylib crate type is passed here rather than set in Cargo.toml,
