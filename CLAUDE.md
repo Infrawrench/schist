@@ -1,1 +1,3 @@
 Use make for builds. If you edit Photoshop plugin support, its *really* important for the integrity of the project you NEVER read Adobe header files. If you are a downstream making a PR (doesn't apply if you have push access to the repo) relating to the Photoshop plugins module, you MUST include the transcripts of AI sessions to prove all reverse engineering was done excluding these.
+
+For internationalisation, `crates/i18n` should be used for the Rust internationalisation (you should put all user facing strings through it), and use the i18n stuff in the web stuff for the JS loading information.
