@@ -18,11 +18,22 @@ use gpui::{
 };
 use schist_adjustments::{CurveChannel, Curves};
 use schist_core::{Document, IntRect, Layer};
+use schist_i18n::t;
 
 /// Side of the square graph, in pixels.
 const SIZE: f32 = 256.0;
 /// How close a click has to be to grab a point, in curve units.
 const GRAB: f32 = 0.035;
+
+/// A curve channel's name in the user's language.
+fn channel_name(channel: CurveChannel) -> &'static str {
+    t(match channel {
+        CurveChannel::Rgb => "dialog.curves.rgb",
+        CurveChannel::Red => "common.red",
+        CurveChannel::Green => "common.green",
+        CurveChannel::Blue => "common.blue",
+    })
+}
 
 /// Which curve dialog is open, so the editor can write back to it.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -262,18 +273,18 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
         .flex_col()
         .gap_2()
         .child(ui::field_row(
-            "Channel",
+            t("common.channel"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
                     popup: Popup::Field("curve-channel"),
                     is_open: ws.open_popup == Some(Popup::Field("curve-channel")),
                     current: channel,
-                    label: channel.label().into(),
+                    label: channel_name(channel).into(),
                     width: 130.0,
                     options: CurveChannel::ALL
                         .iter()
-                        .map(|c| (SharedString::from(c.label()), *c))
+                        .map(|c| (SharedString::from(channel_name(*c)), *c))
                         .collect(),
                 },
                 |ws, c, _cx| ws.curve_channel = c,
@@ -288,7 +299,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
                 .items_center()
                 .gap_2()
                 .child(ui::button(
-                    "Reset Channel",
+                    t("dialog.curves.reset_channel"),
                     false,
                     move |ws, _w, cx| {
                         let Some((_, mut curves, channel)) = current(ws) else {
@@ -303,7 +314,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
                     div()
                         .text_size(px(11.0))
                         .text_color(gpui::rgb(ui::palette().text_dim))
-                        .child("Drag to shape · click to add · alt-click to remove"),
+                        .child(t("dialog.curves.hint")),
                 ),
         )
 }

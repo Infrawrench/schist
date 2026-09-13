@@ -13,6 +13,7 @@ use claude_agent_sdk_rs::{
     PermissionMode, SdkMcpServer, SystemPrompt,
 };
 use futures::StreamExt as _;
+use schist_i18n::tf;
 use std::collections::HashMap;
 use std::sync::Arc;
 
@@ -57,12 +58,16 @@ pub fn start(shared: AiShared, resume: Option<String>, system_prompt: String) ->
                 .build()
             {
                 Ok(runtime) => runtime.block_on(run(&worker, rx, resume, system_prompt)),
-                Err(e) => worker.error(format!("starting the agent runtime failed: {e}")),
+                Err(e) => worker.error(tf!("ai.error.runtime_failed", error = e)),
             }
             worker.push(AgentEvent::Closed);
         });
     if let Err(e) = spawned {
-        shared.error(format!("starting the Claude worker failed: {e}"));
+        shared.error(tf!(
+            "ai.error.worker_failed",
+            backend = Backend::Claude.label(),
+            error = e
+        ));
         shared.push(AgentEvent::Closed);
     }
     Conversation {
@@ -114,10 +119,17 @@ async fn run(
 ) {
     let mut client = ClaudeClient::new(options(shared, resume, system_prompt));
     if let Err(e) = client.connect().await {
-        shared.error(format!("Claude Code did not start: {e}"));
+        shared.error(tf!(
+            "ai.error.did_not_start",
+            backend = Backend::Claude.label(),
+            error = e
+        ));
         return;
     }
-    shared.push(AgentEvent::Info("Claude Code connected".into()));
+    shared.push(AgentEvent::Info(tf!(
+        "ai.info.connected",
+        backend = Backend::Claude.label()
+    )));
     // The model applied to the live session; the CLI keeps it until told
     // otherwise, so it only needs saying when the selection changes.
     let mut applied_model: Option<String> = None;
@@ -130,11 +142,11 @@ async fn run(
         if model != applied_model {
             match client.set_model(model.as_deref()).await {
                 Ok(()) => applied_model = model,
-                Err(e) => shared.error(format!("switching model failed: {e}")),
+                Err(e) => shared.error(tf!("ai.error.switch_model_failed", error = e)),
             }
         }
         if let Err(e) = client.query(prompt).await {
-            shared.error(format!("sending the prompt failed: {e}"));
+            shared.error(tf!("ai.error.send_failed", error = e));
             shared.push(AgentEvent::TurnDone);
             continue;
         }
@@ -162,7 +174,7 @@ async fn run(
                 cmd = rx.recv() => match cmd {
                     Some(ConvCmd::Interrupt) => {
                         if let Err(e) = client.interrupt().await {
-                            shared.error(format!("interrupt failed: {e}"));
+                            shared.error(tf!("ai.error.interrupt_failed", error = e));
                         }
                     }
                     Some(ConvCmd::Say { .. }) => {

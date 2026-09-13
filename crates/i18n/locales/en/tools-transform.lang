@@ -1,0 +1,33 @@
+# Free transform, transform selection and crop (plugins/tools-transform),
+# plus the resampling names Image Size and the Interpolation dropdown
+# share, and the history entries of Image Size and Canvas Size.
+
+# Free transform
+tool.transform.name = Free Transform
+tool.transform.description = Free Transform. Activating it opens a transform box around the active layer: drag a corner to scale, drag outside one to rotate, drag an edge to skew. Nothing is written until it is committed (Enter), and cancelling (Escape) puts the layer back.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Free Transform
+tool.transform.history.image_size = Image Size
+tool.transform.history.canvas_size = Canvas Size
+
+# Transform selection
+tool.transform.selection.name = Transform Selection
+tool.transform.selection.description = Transform Selection: the same box, moving the selection outline rather than the pixels inside it. Commit or cancel to finish.
+tool.transform.selection.history.transform = Transform Selection
+
+# The classical resampling filters, as Photoshop's Image Size names them
+tool.transform.resample.nearest_neighbor = Nearest Neighbor
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+# Crop
+tool.crop.name = Crop
+tool.crop.description = Drag out the area to keep and adjust its handles; committing (Enter) trims the document to it, cancelling (Escape) leaves it alone.
+tool.crop.option.ratio = Ratio
+tool.crop.option.delete_cropped = Delete Cropped Pixels
+tool.crop.choice.unconstrained = Unconstrained
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Crop

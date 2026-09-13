@@ -1,6 +1,7 @@
 //! Right-click context menus and the actions they run.
 
 use super::*;
+use schist_i18n::t;
 
 /// One entry in a right-click menu.
 pub(super) enum ContextEntry {
@@ -28,9 +29,9 @@ pub(super) fn context_entries(target: ContextTarget) -> Vec<ContextEntry> {
     use ContextEntry::*;
     match target {
         ContextTarget::Layer(id) => vec![
-            App("Blending Options…", LayerStyle(id)),
-            App("Layer Properties…", LayerProperties(id)),
-            App("Show/Hide Layer", ToggleVisibility(id)),
+            App(t("panel.layers.blending_options"), LayerStyle(id)),
+            App(t("panel.layers.properties"), LayerProperties(id)),
+            App(t("panel.layers.show_hide"), ToggleVisibility(id)),
             Sep,
             Cmd("layer.duplicate"),
             Cmd("layer.delete"),
@@ -53,12 +54,12 @@ pub(super) fn context_entries(target: ContextTarget) -> Vec<ContextEntry> {
         ],
         ContextTarget::History => vec![Cmd("edit.undo"), Cmd("edit.redo")],
         ContextTarget::Color => vec![
-            App("Swap Colors", SwapColors),
-            App("Reset to Black and White", DefaultColors),
+            App(t("panel.color.swap"), SwapColors),
+            App(t("panel.color.reset"), DefaultColors),
         ],
         ContextTarget::Navigator => vec![
-            App("Fit on Screen", ZoomFit),
-            App("Actual Pixels", ZoomActual),
+            App(t("menu.view.fit_on_screen"), ZoomFit),
+            App(t("panel.navigator.actual_pixels"), ZoomActual),
         ],
         ContextTarget::Canvas => vec![
             Cmd("select.all"),
@@ -68,7 +69,7 @@ pub(super) fn context_entries(target: ContextTarget) -> Vec<ContextEntry> {
             Cmd("edit.copy"),
             Cmd("edit.paste"),
             Sep,
-            App("Clear Guides", ClearGuides),
+            App(t("menu.view.clear_guides"), ClearGuides),
         ],
     }
 }
@@ -83,7 +84,7 @@ pub(super) fn run_context_action(
         ContextAction::LayerStyle(id) => ws.show_layer_style(id, cx),
         ContextAction::ToggleVisibility(id) => {
             if let Some(doc) = &mut ws.doc {
-                let mut edit = doc.begin_edit("Toggle Visibility");
+                let mut edit = doc.begin_edit(t("panel.layers.toggle_visibility"));
                 edit.change_props(id, |l| l.visible = !l.visible);
                 edit.commit();
             }

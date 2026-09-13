@@ -2,6 +2,7 @@
 //! Modify and Color Range.
 
 use super::*;
+use schist_i18n::t;
 
 /// Edit ▸ Content-Aware Scale.
 pub(super) fn content_aware_scale_dialog(
@@ -15,7 +16,7 @@ pub(super) fn content_aware_scale_dialog(
         .flex_col()
         .gap_1()
         .child(ui::field_row(
-            "Width",
+            t("common.width"),
             ui::num_field(
                 ui::NumField {
                     id: "cas-width",
@@ -37,7 +38,7 @@ pub(super) fn content_aware_scale_dialog(
             ),
         ))
         .child(ui::field_row(
-            "Height",
+            t("common.height"),
             ui::num_field(
                 ui::NumField {
                     id: "cas-height",
@@ -62,20 +63,20 @@ pub(super) fn content_aware_scale_dialog(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child("Carves low-detail seams. A selection marks what to protect."),
+                .child(t("dialog.content_aware_scale.note")),
         );
     let actions = div()
         .flex()
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             |ws, _w, cx| {
                 let mut run = None;
@@ -91,7 +92,7 @@ pub(super) fn content_aware_scale_dialog(
             },
             cx,
         ));
-    ui::modal_frame("Content-Aware Scale", 340.0, body, actions)
+    ui::modal_frame(t("dialog.content_aware_scale.title"), 340.0, body, actions)
 }
 
 /// Edit ▸ Stroke.
@@ -110,7 +111,7 @@ pub(super) fn stroke_dialog(
         .child(param_slider(
             SliderSpec {
                 id: "stroke-width",
-                label: "Width",
+                label: t("common.width"),
                 value: width,
                 min: 1.0,
                 max: 250.0,
@@ -127,24 +128,28 @@ pub(super) fn stroke_dialog(
             cx,
         ))
         .child(ui::field_row(
-            "Location",
+            t("dialog.stroke.location"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
                     popup: Popup::Field("stroke-position"),
                     is_open: ws.open_popup == Some(Popup::Field("stroke-position")),
                     current: position,
-                    label: match position {
-                        StrokePosition::Inside => "Inside",
-                        StrokePosition::Center => "Center",
-                        StrokePosition::Outside => "Outside",
-                    }
-                    .into(),
+                    label: stroke_position_name(position).into(),
                     width: 150.0,
                     options: vec![
-                        ("Inside".into(), StrokePosition::Inside),
-                        ("Center".into(), StrokePosition::Center),
-                        ("Outside".into(), StrokePosition::Outside),
+                        (
+                            stroke_position_name(StrokePosition::Inside).into(),
+                            StrokePosition::Inside,
+                        ),
+                        (
+                            stroke_position_name(StrokePosition::Center).into(),
+                            StrokePosition::Center,
+                        ),
+                        (
+                            stroke_position_name(StrokePosition::Outside).into(),
+                            StrokePosition::Outside,
+                        ),
                     ],
                 },
                 |ws, p, _cx| {
@@ -161,20 +166,20 @@ pub(super) fn stroke_dialog(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child("Strokes the selection in the foreground colour."),
+                .child(t("dialog.stroke.note")),
         );
     let actions = div()
         .flex()
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             |ws, _w, cx| {
                 let mut run = None;
@@ -190,7 +195,7 @@ pub(super) fn stroke_dialog(
             },
             cx,
         ));
-    ui::modal_frame("Stroke", 340.0, body, actions)
+    ui::modal_frame(t("dialog.stroke.title"), 340.0, body, actions)
 }
 
 /// Edit ▸ Fill.
@@ -207,7 +212,7 @@ pub(super) fn fill_dialog(
         .flex_col()
         .gap_1()
         .child(ui::field_row(
-            "Contents",
+            t("dialog.fill.contents"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
@@ -234,7 +239,7 @@ pub(super) fn fill_dialog(
         .child(param_slider(
             SliderSpec {
                 id: "fill-opacity",
-                label: "Opacity",
+                label: t("common.opacity"),
                 value: opacity * 100.0,
                 min: 0.0,
                 max: 100.0,
@@ -255,13 +260,13 @@ pub(super) fn fill_dialog(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             |ws, _w, cx| {
                 let mut run = None;
@@ -277,7 +282,7 @@ pub(super) fn fill_dialog(
             },
             cx,
         ));
-    ui::modal_frame("Fill", 340.0, body, actions)
+    ui::modal_frame(t("common.fill"), 340.0, body, actions)
 }
 
 /// Select ▸ Modify: one amount and an OK.
@@ -321,13 +326,13 @@ pub(super) fn modify_dialog(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| {
                 let mut run = None;
@@ -362,7 +367,7 @@ pub(super) fn color_range_dialog(
         .flex_col()
         .gap_1()
         .child(ui::field_row(
-            "Sampled",
+            t("dialog.color_range.sampled"),
             div()
                 .flex()
                 .flex_row()
@@ -378,7 +383,7 @@ pub(super) fn color_range_dialog(
                     )),
                 )
                 .child(ui::button(
-                    "Use Foreground",
+                    t("dialog.use_foreground"),
                     false,
                     |ws, _w, cx| {
                         let fg = ws.editor.foreground;
@@ -395,7 +400,7 @@ pub(super) fn color_range_dialog(
         .child(param_slider(
             SliderSpec {
                 id: "color-range-fuzziness",
-                label: "Fuzziness",
+                label: t("dialog.color_range.fuzziness"),
                 value: tolerance,
                 min: 0.0,
                 max: 200.0,
@@ -415,20 +420,20 @@ pub(super) fn color_range_dialog(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child("Selects pixels near the sampled colour on the active layer."),
+                .child(t("dialog.color_range.note")),
         );
     let actions = div()
         .flex()
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| {
                 let mut run = None;
@@ -444,5 +449,5 @@ pub(super) fn color_range_dialog(
             },
             cx,
         ));
-    ui::modal_frame("Color Range", 360.0, body, actions)
+    ui::modal_frame(t("dialog.color_range.title"), 360.0, body, actions)
 }

@@ -1,6 +1,7 @@
 //! Filter parameter dialogs and destructive adjustments.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 #[allow(clippy::too_many_arguments)]
 pub(super) fn filter_dialog(
@@ -20,7 +21,7 @@ pub(super) fn filter_dialog(
         .map(|f| (f.name().to_string(), f.params()))
         .unwrap_or_else(|| (id.to_string(), Vec::new()));
     if raw_development {
-        name = "Camera Raw Development".to_string();
+        name = t("dialog.filter.camera_raw_development").to_string();
     }
 
     // Scrolls, because Custom is a five-by-five kernel and Lighting
@@ -67,7 +68,7 @@ pub(super) fn filter_dialog(
     }
     if raw_development {
         body = body.child(ui::button(
-            "Reset to As Shot",
+            t("dialog.filter.reset_as_shot"),
             false,
             move |ws, _window, cx| {
                 let Some(filter) = ws.registry.filters().find(|filter| filter.id() == id) else {
@@ -106,8 +107,8 @@ pub(super) fn filter_dialog(
     {
         let chosen = map
             .as_ref()
-            .map(|m| format!("{} \u{d7} {}", m.width, m.height))
-            .unwrap_or_else(|| "None".to_string());
+            .map(|m| tf!("common.dimensions", w = m.width, h = m.height))
+            .unwrap_or_else(|| t("common.none").to_string());
         body = body.child(
             div()
                 .flex()
@@ -130,7 +131,7 @@ pub(super) fn filter_dialog(
                         .child(SharedString::from(chosen)),
                 )
                 .child(ui::button(
-                    "Choose\u{2026}",
+                    t("common.choose"),
                     false,
                     move |ws, window, cx| ws.choose_filter_map(id, window, cx),
                     cx,
@@ -155,7 +156,7 @@ pub(super) fn filter_dialog(
     }
     body = body
         .child(ui::checkbox(
-            "Preview",
+            t("common.preview"),
             preview,
             move |ws, cx| {
                 let mut next = None;
@@ -182,9 +183,9 @@ pub(super) fn filter_dialog(
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
                 .child(if raw_development {
-                    "Re-develops the active layer from its original sensor data."
+                    t("dialog.filter.raw_note")
                 } else {
-                    "Applies to the active layer, inside the selection."
+                    t("dialog.filter.note")
                 }),
         );
 
@@ -194,13 +195,13 @@ pub(super) fn filter_dialog(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| {
                 // A RAW-backed layer renders asynchronously. Close its
@@ -276,7 +277,7 @@ pub(super) fn destructive_adjustment_dialog(
         ));
     }
     body = body.child(ui::checkbox(
-        "Preview",
+        t("common.preview"),
         preview,
         move |ws, cx| {
             let mut next = None;
@@ -303,13 +304,13 @@ pub(super) fn destructive_adjustment_dialog(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| {
                 let mut run = None;
@@ -327,7 +328,7 @@ pub(super) fn destructive_adjustment_dialog(
             cx,
         ));
     ui::modal_frame(
-        kind.display_name(),
+        ui::adjustment_name(kind),
         if curves { 430.0 } else { 380.0 },
         body,
         actions,

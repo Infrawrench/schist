@@ -14,6 +14,7 @@
 
 use super::AiShared;
 use anyhow::{Context as _, Result};
+use schist_i18n::t;
 use std::io::{BufRead, BufReader, Read, Write};
 use std::net::{TcpListener, TcpStream};
 
@@ -27,7 +28,8 @@ impl Endpoint {
     /// the app's life. The accept thread holds only the queues, so it
     /// outliving the workspace costs nothing.
     pub fn start(shared: AiShared) -> Result<Endpoint> {
-        let listener = TcpListener::bind(("127.0.0.1", 0)).context("binding MCP endpoint")?;
+        let listener =
+            TcpListener::bind(("127.0.0.1", 0)).context(t("ai.error.binding_endpoint"))?;
         let addr = listener.local_addr()?.to_string();
         let token = random_token();
         let expected = token.clone();
@@ -43,7 +45,7 @@ impl Endpoint {
                         .spawn(move || serve(stream, &shared, &expected));
                 }
             })
-            .context("spawning MCP endpoint thread")?;
+            .context(t("ai.error.spawning_endpoint_thread"))?;
         Ok(Endpoint { addr, token })
     }
 }

@@ -1,6 +1,7 @@
 //! The colour panel: foreground/background wells and the swatch palette.
 
 use super::*;
+use schist_i18n::t;
 
 pub(super) fn color_wells(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     div()
@@ -60,7 +61,7 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
         .flex_col()
         .p_2()
         .gap_1()
-        .child(panel_title("Color"))
+        .child(panel_title(t("common.color")))
         .on_mouse_down(
             MouseButton::Right,
             cx.listener(|ws, ev: &MouseDownEvent, _w, cx| {
@@ -125,7 +126,7 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
                         .child(format!("#{:02X}{:02X}{:02X}", fg[0], fg[1], fg[2])),
                 )
                 .child(
-                    Link::new("open-color-picker", "Picker\u{2026}")
+                    Link::new("open-color-picker", t("panel.color.picker"))
                         .text_size(px(10.0))
                         .text_color(gpui::rgb(palette().text_dim))
                         .on_click(cx.listener(|ws, _e, _w, cx| {

@@ -153,6 +153,12 @@ Like iOS, Android keeps the gallery, the GPU compositor (`wgpu` on its
 own Vulkan device; gpui's renderer is separate), the crash reporter, the
 daily ping, font and model downloads, and the cloud.
 
+The chrome follows the device language, or the per-app language Android
+13+ offers in Settings (`res/xml/locales_config.xml` lists the four);
+the activity's configuration is read at startup, and `configChanges`
+keeps a change from recreating the activity, so a new language shows on
+the next launch. See [i18n.md](i18n.md).
+
 ## Status
 
 Compiles and type-checks for `aarch64-linux-android` (CI's "Android

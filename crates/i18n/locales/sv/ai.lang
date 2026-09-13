@@ -1,0 +1,37 @@
+# Svenska: AI-panelen. "Claude Code", "Codex" och modellnamnen är
+# produktnamn; `{backend}` är ett av dem.
+
+# Statusfält
+ai.status.panel_shown = AI-panelen visas
+ai.status.panel_hidden = AI-panelen dold — Visa ▸ AI-panel ({shortcut}) tar tillbaka den
+ai.status.tool = AI: {name}
+
+# Dämpade rader i utskriften
+ai.info.connected = {backend} ansluten
+ai.info.now_in_gallery = Nu i galleriet.
+ai.info.now_in_editor = Nu i redigeraren.
+ai.tool.shell_command = skalkommando
+
+# Fel i utskriften
+ai.error.cli_missing = Kommandot {backend} (”{binary}”) finns inte i PATH. Installera det och logga in först.
+ai.error.endpoint_failed = MCP-ändpunkten kunde inte startas: {error}
+ai.error.binding_endpoint = bindning av MCP-ändpunkten
+ai.error.spawning_endpoint_thread = start av MCP-ändpunktens tråd
+ai.error.runtime_failed = agentens körmiljö kunde inte startas: {error}
+ai.error.worker_failed = arbetstråden för {backend} kunde inte startas: {error}
+ai.error.did_not_start = {backend} startade inte: {error}
+ai.error.switch_model_failed = modellbytet misslyckades: {error}
+ai.error.send_failed = prompten kunde inte skickas: {error}
+ai.error.interrupt_failed = avbrottet misslyckades: {error}
+ai.error.locating_binary = sökning efter Schist-programfilen
+ai.error.starting_app_server = start av Codex appserver
+ai.error.attaching_app_server = anslutning till Codex appserver
+ai.error.initializing_app_server = initiering av Codex appserver
+ai.error.resuming_thread = återupptagning av Codex-tråden
+ai.error.starting_thread = start av Codex-tråden
+
+# Modellväljarens reservkatalog, tills kommandot svarar
+ai.model.opus_detail = Mest kapabla nivån
+ai.model.sonnet_detail = Effektiv för rutinuppgifter
+ai.model.haiku_detail = Snabbast för korta svar
+ai.model.codex_catalog = Codex-katalog

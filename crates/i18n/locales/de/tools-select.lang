@@ -1,0 +1,42 @@
+# Die Auswahlwerkzeuge (plugins/tools-select). Die Begriffe folgen dem
+# deutschen Photoshop: Auswahlrechteck, Lasso, Zauberstab, Schnellauswahl,
+# Objektauswahl.
+
+# Wie eine neue Form auf die bestehende Auswahl trifft. Neu und
+# Hinzufügen sind common.new und common.add.
+tool.select.mode.subtract = Subtrahieren
+tool.select.mode.intersect = Schnittmenge
+
+# Auswahlrechteck und -ellipse
+tool.marquee.rect.name = Auswahlrechteck
+tool.marquee.rect.description = Ziehen Sie eine rechteckige Auswahl auf. Umschalt zu Beginn des Ziehens fügt der Auswahl hinzu, Alt subtrahiert, beide bilden die Schnittmenge; Umschalt während des Ziehens macht sie quadratisch. Ein Klick ohne Ziehen hebt die Auswahl auf.
+tool.marquee.ellipse.name = Auswahlellipse
+tool.marquee.ellipse.description = Ziehen Sie eine elliptische Auswahl auf, mit derselben Umschalt/Alt-Kombination wie beim Auswahlrechteck.
+
+# Lassos
+tool.lasso.name = Lasso
+tool.lasso.description = Ziehen Sie eine Freihandkontur; die Auswahl wird zwischen den Enden geschlossen, sobald das Ziehen endet. Umschalt fügt hinzu, Alt subtrahiert.
+tool.lasso.history.select = Lasso-Auswahl
+tool.lasso.polygonal.name = Polygon-Lasso
+tool.lasso.polygonal.description = Klicken Sie Ecke für Ecke, um eine Auswahl mit geraden Kanten aufzubauen, und klicken Sie nahe dem ersten Punkt, um sie zu schließen.
+tool.lasso.polygonal.history.select = Polygon-Lasso
+tool.lasso.magnetic.name = Magnetisches Lasso
+tool.lasso.magnetic.description = Fahren Sie grob an einer Kante entlang, und die Kontur rastet am stärksten Kontrast nahe dem Pfad ein.
+tool.lasso.magnetic.history.select = Magnetisches Lasso
+tool.lasso.magnetic.option.frequency = Frequenz
+
+# Zauberstab
+tool.wand.name = Zauberstab
+tool.wand.description = Klicken Sie, um den zusammenhängenden Bereich ähnlicher Farbe unter dem Zeiger auszuwählen, innerhalb der Toleranz-Option -- derselben Toleranz, die Auswahl vergrößern, Ähnliches auswählen und Farbbereich verwenden.
+tool.wand.option.contiguous = Benachbart
+tool.wand.history.select = Zauberstab
+
+# Schnellauswahl
+tool.quick_select.name = Schnellauswahl
+tool.quick_select.description = Malen Sie über einen Bereich, und die Auswahl wächst durch die ähnlichen Pixel, die der Pinsel überstreicht.
+tool.quick_select.history.select = Schnellauswahl
+
+# Objektauswahl
+tool.object_select.name = Objektauswahl
+tool.object_select.description = Ziehen Sie einen Rahmen um ein Objekt, und die Auswahl rastet an dem darin gefundenen Objekt ein.
+tool.object_select.history.select = Objektauswahl

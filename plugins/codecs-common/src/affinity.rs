@@ -20,6 +20,7 @@
 
 use schist_color::Depth;
 use schist_core::{blit_rgba8, Document, IntRect, Layer};
+use schist_i18n::t;
 use schist_plugin_api::CodecPlugin;
 
 /// Every Affinity file starts with these bytes.
@@ -45,7 +46,7 @@ impl CodecPlugin for AffinityCodec {
         "codec.affinity"
     }
     fn name(&self) -> &'static str {
-        "Affinity"
+        t("codec.affinity.name")
     }
     fn extensions(&self) -> &'static [&'static str] {
         // ".af" is the unified extension of Canva-era Affinity; the
@@ -164,7 +165,7 @@ impl AffinityCodec {
         if (rgba.width(), rgba.height()) != (width, height) {
             rgba = image::imageops::resize(&rgba, width, height, image::imageops::Triangle);
         }
-        let mut layer = Layer::new_raster("Flattened preview");
+        let mut layer = Layer::new_raster(t("codec.affinity.flattened_preview_layer"));
         blit_rgba8(
             &mut layer.as_raster_mut().unwrap().tiles,
             Depth::Eight,
@@ -178,8 +179,8 @@ impl AffinityCodec {
     fn import_preview(&self, bytes: &[u8]) -> anyhow::Result<Document> {
         if let Some(rgba) = self.best_preview(bytes) {
             let (w, h) = rgba.dimensions();
-            let mut doc = Document::new("Affinity import", w, h, Depth::Eight);
-            let mut layer = Layer::new_raster("Background");
+            let mut doc = Document::new(t("codec.affinity.import_title"), w, h, Depth::Eight);
+            let mut layer = Layer::new_raster(t("common.background_layer"));
             blit_rgba8(
                 &mut layer.as_raster_mut().unwrap().tiles,
                 Depth::Eight,
@@ -191,12 +192,7 @@ impl AffinityCodec {
             doc.mark_saved();
             return Ok(doc);
         }
-        anyhow::bail!(
-            "no usable embedded preview. Affinity's layered format is \
-             proprietary; Schist imports the flattened preview the file \
-             carries. This file has none — re-save it in Affinity, or export \
-             it as PSD for a full layered import."
-        )
+        anyhow::bail!("{}", t("codec.affinity.msg.no_preview"))
     }
 }
 
@@ -411,7 +407,7 @@ mod tests {
     #[test]
     fn no_preview_is_a_clear_error() {
         let err = AffinityCodec.import(&fake_affinity(&[])).unwrap_err();
-        assert!(err.to_string().contains("preview"), "{err}");
+        assert_eq!(err.to_string(), t("codec.affinity.msg.no_preview"));
     }
 
     #[test]

@@ -17,6 +17,7 @@ use objc2::rc::Retained;
 use objc2::runtime::{AnyClass, AnyObject, Bool, ClassBuilder, Sel};
 use objc2::{msg_send, sel};
 use objc2_foundation::NSString;
+use schist_i18n::t;
 use std::ffi::c_void;
 use std::path::{Path, PathBuf};
 use std::sync::{Mutex, OnceLock};
@@ -101,7 +102,7 @@ unsafe fn ns_string(ptr: *mut AnyObject) -> Option<String> {
 
 unsafe fn error_string(error: *mut AnyObject) -> String {
     let description: *mut AnyObject = msg_send![error, localizedDescription];
-    ns_string(description).unwrap_or_else(|| "unknown error".into())
+    ns_string(description).unwrap_or_else(|| t("library.import.unknown_error").into())
 }
 
 /// Start watching for cameras. Idempotent; call from the main thread.
@@ -146,10 +147,10 @@ pub(super) fn begin_import(id: u64, dest: PathBuf, keep: Option<KeepFilter>) -> 
     let device = {
         let mut shared = lock();
         if shared.job.is_some() {
-            return Err("an import is already running".into());
+            return Err(t("library.import.already_running").into());
         }
         let Some(device) = shared.devices.iter().find(|d| d.id == id) else {
-            return Err("that camera is no longer connected".into());
+            return Err(t("library.import.camera_gone").into());
         };
         let ptr = device.obj.0;
         shared.job = Some(Job {
@@ -338,7 +339,7 @@ extern "C" fn did_add_device(
         };
         let raw = Retained::into_raw(retained);
         let name_obj: *mut AnyObject = msg_send![raw, name];
-        let name = ns_string(name_obj).unwrap_or_else(|| "Camera".into());
+        let name = ns_string(name_obj).unwrap_or_else(|| t("library.volume.camera").into());
         let mut shared = lock();
         let id = shared.next_id;
         shared.next_id += 1;
@@ -375,7 +376,7 @@ fn forget_device(device: *mut AnyObject) {
     log::info!("gallery: camera disconnected: {}", gone.name);
     if let Some(job) = shared.job.as_mut() {
         if job.device_id == gone.id && job.finished.is_none() {
-            job.finished = Some(Err("the camera disconnected mid-import".into()));
+            job.finished = Some(Err(t("library.import.camera_disconnected").into()));
         }
     }
     drop(shared);

@@ -1,6 +1,7 @@
 //! Layer properties.
 
 use super::*;
+use schist_i18n::t;
 
 /// Layer Properties: rename a layer.
 pub(super) fn layer_properties(
@@ -17,7 +18,7 @@ pub(super) fn layer_properties(
         name.clone()
     };
     let body = ui::field_row(
-        "Name",
+        t("common.name"),
         TextInput::new("layer-name", shown.clone())
             // Nothing typed yet: the committed name shows with the
             // caret at its end, as it always did.
@@ -41,13 +42,13 @@ pub(super) fn layer_properties(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| {
                 let name = if ws.field_buffer.is_empty() {
@@ -60,5 +61,5 @@ pub(super) fn layer_properties(
             },
             cx,
         ));
-    ui::modal_frame("Layer Properties", 340.0, body, actions)
+    ui::modal_frame(t("dialog.layer_props.title"), 340.0, body, actions)
 }

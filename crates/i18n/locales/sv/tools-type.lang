@@ -1,0 +1,28 @@
+# Textverktyget (plugins/tools-type). Termerna följer det svenska
+# Photoshop: radavstånd, spärra/knip, kerning, ligaturer, kapitäler.
+
+tool.type.name = Text
+tool.type.description = Klicka för att börja ett textlager där, eller klicka på ett befintligt för att redigera det. Medan det är öppet tar verktyget emot råa tangenttryck (skicka tecken som tangentinmatning), och bekräfta renderar lagret och stänger redigeringen.
+
+# Alternativfältet
+tool.type.option.align = Justering
+tool.type.option.leading = Radavstånd
+tool.type.option.tracking = Spärra/knip
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligaturer
+tool.type.option.discretionary_ligatures = Diskretionära ligaturer
+tool.type.option.small_caps = Kapitäler
+tool.type.option.on_path = På aktiv bana
+tool.type.option.path_offset = Banförskjutning
+
+# Stilmenyn
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Fet
+tool.type.choice.italic = Kursiv
+tool.type.choice.bold_italic = Fet kursiv
+
+# Historik
+tool.type.history.new_layer = Nytt textlager
+tool.type.history.edit = Redigera text
+tool.type.history.discard = Ta bort text
+tool.type.history.discard_empty = Ta bort tom text

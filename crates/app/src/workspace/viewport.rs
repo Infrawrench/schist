@@ -1,6 +1,7 @@
 //! The view transform: zoom, pan, rotation, and gesture settling.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 impl Workspace {
     // ----- viewport -----
@@ -107,7 +108,11 @@ impl Workspace {
     pub fn rotate_view(&mut self, delta: f32, cx: &mut Context<Self>) {
         self.rotation = (self.rotation + delta).rem_euclid(std::f32::consts::TAU);
         self.invalidate_viewport_image();
-        self.status = format!("Rotate View {:.0}\u{b0}", self.rotation.to_degrees()).into();
+        self.status = tf!(
+            "workspace.canvas.rotate_view_degrees",
+            degrees = self.rotation.to_degrees().round() as i32
+        )
+        .into();
         cx.notify();
     }
 
@@ -115,7 +120,7 @@ impl Workspace {
     pub fn reset_view_rotation(&mut self, cx: &mut Context<Self>) {
         self.rotation = 0.0;
         self.invalidate_viewport_image();
-        self.status = "View reset".into();
+        self.status = t("workspace.canvas.view_reset").into();
         cx.notify();
     }
 

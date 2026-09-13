@@ -1,5 +1,6 @@
 use crate::protocol::*;
 use anyhow::{anyhow, ensure, Context, Result};
+use schist_i18n::{t, tf};
 use serde::Deserialize;
 use std::{
     io::{Read, Write},
@@ -16,13 +17,13 @@ pub fn secure_url(raw: &str, scheme: &str) -> Result<Url> {
             && url.host_str().is_some()
             && url.username().is_empty()
             && url.password().is_none(),
-        "Expected an absolute {scheme} URL without credentials"
+        tf!("cloud.transport.expected_secure_url", scheme = scheme)
     );
     Ok(url)
 }
 pub fn domain(raw: &str) -> Result<String> {
     let raw = raw.trim();
-    ensure!(!raw.is_empty(), "Enter a domain");
+    ensure!(!raw.is_empty(), t("cloud.auth.enter_domain"));
     let url = secure_url(
         &if raw.contains("://") {
             raw.into()
@@ -33,7 +34,7 @@ pub fn domain(raw: &str) -> Result<String> {
     )?;
     ensure!(
         url.path() == "/" && url.query().is_none() && url.fragment().is_none(),
-        "Enter only a domain, without a path"
+        t("cloud.auth.domain_only")
     );
     Ok(url.origin().ascii_serialization())
 }
@@ -108,7 +109,7 @@ impl Login {
     pub fn poll(&self) -> Result<Option<String>> {
         ensure!(
             self.started.elapsed() < Duration::from_secs(600),
-            "Sign-in expired; try again"
+            t("cloud.auth.sign_in_expired")
         );
         match self.listener.accept() {
             Ok((stream, _)) => {
@@ -190,14 +191,14 @@ fn exchange(url: &str, body: serde_json::Value) -> Result<Credentials> {
     let c: Credentials = agent().post(url).send_json(body)?.body_mut().read_json()?;
     ensure!(
         !c.access_token.is_empty() && !c.refresh_token.is_empty() && c.expires_at.is_finite(),
-        "Invalid credentials"
+        t("cloud.transport.invalid_credentials")
     );
     secure_url(&c.generation_endpoint_url, "https")?;
     secure_url(&c.logout_url, "https")?;
     secure_url(
         c.workspace_websocket_url
             .as_deref()
-            .context("Provider has no cloud workspace endpoint")?,
+            .context(t("cloud.transport.no_workspace_endpoint"))?,
         "wss",
     )?;
     Ok(c)

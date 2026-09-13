@@ -11,6 +11,7 @@ use gpui::{
 };
 use schist_color::{ColorMode, Depth};
 use schist_core::Filter;
+use schist_i18n::t;
 use schist_tools_transform::Resample;
 use schist_ui::{Checkbox, FieldRow, Link, Swatch, TextInput};
 
@@ -349,6 +350,16 @@ pub(crate) fn param_slider(
                     .child(display),
             ),
     )
+}
+
+/// A stroke position's name, shared with the Layer Style dialog.
+pub(crate) fn stroke_position_name(position: schist_core::StrokePosition) -> &'static str {
+    use schist_core::StrokePosition;
+    t(match position {
+        StrokePosition::Inside => "dialog.stroke.inside",
+        StrokePosition::Center => "common.center",
+        StrokePosition::Outside => "dialog.stroke.outside",
+    })
 }
 
 /// What is showing while a plug-in runs in its own process.

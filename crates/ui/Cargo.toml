@@ -7,4 +7,5 @@ repository.workspace = true
 description = "Schist's widget kit: the chrome components the panels and dialogs build from, and the palette they draw with"
 
 [dependencies]
+schist-i18n.workspace = true
 gpui.workspace = true

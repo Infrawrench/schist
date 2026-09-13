@@ -14,6 +14,7 @@
 
 use crate::util::{luma, premultiply, put, sample, unpremultiply};
 use crate::{choice, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues};
 
 /// Sample one channel through its own coordinate map.
@@ -56,25 +57,67 @@ fn remap_channels(
 simple_filter!(
     LensCorrection,
     "filter.lens_correction",
-    "Lens Correction",
-    "Other",
+    t("filter.lens_correction.name"),
+    t("filter.category.other"),
     [
-        param("distortion", "Remove Distortion", -100.0, 100.0, 0.0, ""),
-        param("red", "Fix Red/Cyan Fringe", -50.0, 50.0, 0.0, ""),
-        param("blue", "Fix Blue/Yellow Fringe", -50.0, 50.0, 0.0, ""),
-        param("vignette", "Vignette Amount", -100.0, 100.0, 0.0, ""),
-        param("midpoint", "Vignette Midpoint", 0.0, 100.0, 50.0, ""),
-        param("vertical", "Vertical Perspective", -100.0, 100.0, 0.0, ""),
         param(
-            "horizontal",
-            "Horizontal Perspective",
+            "distortion",
+            t("filter.lens_correction.param.distortion"),
             -100.0,
             100.0,
             0.0,
             ""
         ),
-        param("angle", "Angle", -180.0, 180.0, 0.0, "\u{b0}"),
-        param("scale", "Scale", 50.0, 200.0, 100.0, "%")
+        param(
+            "red",
+            t("filter.lens_correction.param.red"),
+            -50.0,
+            50.0,
+            0.0,
+            ""
+        ),
+        param(
+            "blue",
+            t("filter.lens_correction.param.blue"),
+            -50.0,
+            50.0,
+            0.0,
+            ""
+        ),
+        param(
+            "vignette",
+            t("filter.lens_correction.param.vignette"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "midpoint",
+            t("filter.lens_correction.param.midpoint"),
+            0.0,
+            100.0,
+            50.0,
+            ""
+        ),
+        param(
+            "vertical",
+            t("filter.lens_correction.param.vertical"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "horizontal",
+            t("filter.lens_correction.param.horizontal"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param("angle", t("common.angle"), -180.0, 180.0, 0.0, "\u{b0}"),
+        param("scale", t("common.scale"), 50.0, 200.0, 100.0, "%")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Everything a lens profile carries, as sliders. Positive
@@ -144,18 +187,41 @@ simple_filter!(
 );
 
 /// The projections Adaptive Wide Angle knows how to undo.
-const PROJECTIONS: &[&str] = &["Fisheye", "Perspective", "Full Spherical"];
+static PROJECTIONS: &[&str] = &[
+    "filter.adaptive_wide_angle.choice.fisheye",
+    "filter.adaptive_wide_angle.choice.perspective",
+    "filter.adaptive_wide_angle.choice.full_spherical",
+];
 
 simple_filter!(
     AdaptiveWideAngle,
     "filter.adaptive_wide_angle",
-    "Adaptive Wide Angle",
-    "Other",
+    t("filter.adaptive_wide_angle.name"),
+    t("filter.category.other"),
     [
-        choice("projection", "Correction", PROJECTIONS, 0),
-        param("focal", "Focal Length", 4.0, 60.0, 14.0, " mm"),
-        param("crop", "Crop Factor", 0.5, 3.0, 1.0, "\u{d7}"),
-        param("scale", "Scale", 50.0, 200.0, 100.0, "%")
+        choice(
+            "projection",
+            t("filter.adaptive_wide_angle.param.projection"),
+            choices(PROJECTIONS),
+            0
+        ),
+        param(
+            "focal",
+            t("filter.adaptive_wide_angle.param.focal"),
+            4.0,
+            60.0,
+            14.0,
+            " mm"
+        ),
+        param(
+            "crop",
+            t("filter.adaptive_wide_angle.param.crop"),
+            0.5,
+            3.0,
+            1.0,
+            "\u{d7}"
+        ),
+        param("scale", t("common.scale"), 50.0, 200.0, 100.0, "%")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // A very wide lens does not project the world the way a normal

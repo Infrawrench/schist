@@ -1,0 +1,23 @@
+# Adjustment layers and the Image ▸ Adjustments commands: the names.
+# Keyed by the ids in crates/app/src/actions.rs (adjustment_id); the
+# parameter labels of each adjustment's dialog are in dialogs.lang.
+adjustment.levels.name = Levels
+adjustment.curves.name = Curves
+adjustment.hue_saturation.name = Hue/Saturation
+adjustment.brightness_contrast.name = Brightness/Contrast
+adjustment.black_white.name = Black & White
+adjustment.solid_color.name = Solid Color
+adjustment.gradient_fill.name = Gradient Fill
+adjustment.pattern_fill.name = Pattern Fill
+adjustment.invert.name = Invert
+adjustment.posterize.name = Posterize
+adjustment.threshold.name = Threshold
+adjustment.color_balance.name = Color Balance
+adjustment.vibrance.name = Vibrance
+adjustment.exposure.name = Exposure
+adjustment.photo_filter.name = Photo Filter
+adjustment.gradient_map.name = Gradient Map
+adjustment.selective_color.name = Selective Color
+adjustment.channel_mixer.name = Channel Mixer
+# A kind read from a PSD that Schist has no editor for.
+adjustment.other.name = Adjustment

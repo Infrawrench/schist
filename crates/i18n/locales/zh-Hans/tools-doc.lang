@@ -1,0 +1,32 @@
+# 文档工具（plugins/tools-doc）：画板、切片、图框、注释和计数。
+# 术语沿用简体中文版 Photoshop。
+
+# 画板
+tool.artboard.name = 画板
+tool.artboard.description = 拖出一个画板：画布上一个可单独导出的命名区域。在现有画板内拖动可移动它。
+tool.artboard.default_name = 画板 {n}
+
+# 切片
+tool.slice.name = 切片
+tool.slice.description = 拖出一个导出切片，即画布上作为单独图像导出的命名矩形。在现有切片内拖动可移动它。
+tool.slice.default_name = 切片 {n}
+
+# 图框
+tool.frame.name = 图框
+tool.frame.description = 拖出一个图框：一个矩形（或椭圆）图层，会遮盖放入其中的内容。
+tool.frame.default_name = 图框 {n}
+tool.frame.choice.rectangle = 矩形
+tool.frame.choice.ellipse = 椭圆
+tool.frame.history.frame = 图框
+
+# 注释
+tool.note.name = 注释
+tool.note.description = 单击空白画布以在该处固定一条注释，并标记编辑器状态中的作者和颜色；单击现有的图钉可在“注释”面板中选中它。
+tool.note.history.place = 放置注释
+tool.note.history.move = 移动注释
+tool.note.history.delete = 删除注释
+
+# 计数
+tool.count.name = 计数
+tool.count.description = 单击以在画布上放置带编号的计数标记，单击现有标记可将其移除。
+tool.count.default_name = 计数 {n}

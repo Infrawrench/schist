@@ -1,0 +1,28 @@
+# 文字工具（plugins/tools-type）。术语沿用简体中文版 Photoshop：
+# 行距、字距、字偶距、连字、自由连字、小型大写字母。
+
+tool.type.name = 文字
+tool.type.description = 单击以在该处开始一个文字图层，或单击现有文字图层进行编辑。打开期间工具直接接收按键（以按键输入的方式发送字符），提交后渲染图层并结束编辑。
+
+# 选项栏
+tool.type.option.align = 对齐
+tool.type.option.leading = 行距
+tool.type.option.tracking = 字距
+tool.type.option.kerning = 字偶距
+tool.type.option.ligatures = 连字
+tool.type.option.discretionary_ligatures = 自由连字
+tool.type.option.small_caps = 小型大写字母
+tool.type.option.on_path = 沿当前路径
+tool.type.option.path_offset = 路径偏移
+
+# 样式菜单
+tool.type.choice.regular = 常规
+tool.type.choice.bold = 粗体
+tool.type.choice.italic = 斜体
+tool.type.choice.bold_italic = 粗斜体
+
+# 历史记录
+tool.type.history.new_layer = 新建文字图层
+tool.type.history.edit = 编辑文字
+tool.type.history.discard = 放弃文字
+tool.type.history.discard_empty = 放弃空文字

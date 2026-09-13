@@ -5,6 +5,7 @@
 use super::*;
 use crate::workspace::{BatchRecipe, BatchTarget, CanvasTransform};
 use schist_core::AdjustmentKind;
+use schist_i18n::{t, tf, tn};
 use schist_ui::Heading;
 use std::path::PathBuf;
 
@@ -62,23 +63,10 @@ pub(super) fn batch_dialog(
         .filter(|p| schist_gallery::backing_psd(p).is_some_and(|s| s.exists()))
         .count();
     let note = match (target, edited) {
-        (BatchTarget::Edit, 0) => format!(
-            "{n} photo{} — saved as gallery edits; the originals are never touched.",
-            if n == 1 { "" } else { "s" }
-        ),
-        (BatchTarget::Edit, _) => format!(
-            "{n} photo{}, {edited} already edited — the recipe goes on top of the edit, \
-             and the previous edit is kept as a version.",
-            if n == 1 { "" } else { "s" }
-        ),
-        (_, 0) => format!(
-            "{n} photo{} — flat copies; the originals are never touched.",
-            if n == 1 { "" } else { "s" }
-        ),
-        (_, _) => format!(
-            "{n} photo{}, {edited} already edited — the copies are made from the edits.",
-            if n == 1 { "" } else { "s" }
-        ),
+        (BatchTarget::Edit, 0) => tn("dialog.batch.note_edit", n as u64),
+        (BatchTarget::Edit, _) => tn!("dialog.batch.note_edit_edited", n as u64, edited = edited),
+        (_, 0) => tn("dialog.batch.note_copies", n as u64),
+        (_, _) => tn!("dialog.batch.note_copies_edited", n as u64, edited = edited),
     };
 
     let mut body = div().flex().flex_col().gap_1().child(
@@ -91,23 +79,29 @@ pub(super) fn batch_dialog(
 
     // Turn.
     let rotations: Vec<(SharedString, Option<CanvasTransform>)> = vec![
-        ("None".into(), None),
-        ("90\u{b0} Clockwise".into(), Some(CanvasTransform::Cw90)),
+        (t("common.none").into(), None),
         (
-            "90\u{b0} Counter Clockwise".into(),
+            t("menu.image.rotate_90_cw").into(),
+            Some(CanvasTransform::Cw90),
+        ),
+        (
+            t("menu.image.rotate_90_ccw").into(),
             Some(CanvasTransform::Ccw90),
         ),
-        ("180\u{b0}".into(), Some(CanvasTransform::Rotate180)),
+        (
+            t("menu.image.rotate_180").into(),
+            Some(CanvasTransform::Rotate180),
+        ),
     ];
     let rotate_label = rotations
         .iter()
         .find(|(_, r)| *r == recipe.rotate)
         .map(|(l, _)| l.clone())
-        .unwrap_or_else(|| "None".into());
+        .unwrap_or_else(|| t("common.none").into());
     body = body
-        .child(section("Turn"))
+        .child(section(t("dialog.batch.turn")))
         .child(ui::field_row(
-            "Rotate",
+            t("dialog.batch.rotate"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
@@ -129,13 +123,13 @@ pub(super) fn batch_dialog(
             ),
         ))
         .child(ui::field_row(
-            "Flip",
+            t("dialog.batch.flip"),
             div()
                 .flex()
                 .flex_row()
                 .gap_4()
                 .child(ui::checkbox(
-                    "Horizontal",
+                    t("common.horizontal"),
                     recipe.flip_h,
                     |ws, _cx| {
                         ws.update_modal(|m| {
@@ -147,7 +141,7 @@ pub(super) fn batch_dialog(
                     cx,
                 ))
                 .child(ui::checkbox(
-                    "Vertical",
+                    t("common.vertical"),
                     recipe.flip_v,
                     |ws, _cx| {
                         ws.update_modal(|m| {
@@ -161,7 +155,8 @@ pub(super) fn batch_dialog(
         ));
 
     // Size.
-    let mut upscalers: Vec<(SharedString, Option<&'static str>)> = vec![("None".into(), None)];
+    let mut upscalers: Vec<(SharedString, Option<&'static str>)> =
+        vec![(t("common.none").into(), None)];
     upscalers.extend(UPSCALERS.iter().map(|id| {
         (
             SharedString::from(schist_tools_transform::Resample::Neural(id).display_name()),
@@ -172,9 +167,9 @@ pub(super) fn batch_dialog(
         .iter()
         .find(|(_, u)| *u == recipe.upscale)
         .map(|(l, _)| l.clone())
-        .unwrap_or_else(|| "None".into());
-    body = body.child(section("Size")).child(ui::field_row(
-        "Upscale",
+        .unwrap_or_else(|| t("common.none").into());
+    body = body.child(section(t("common.size"))).child(ui::field_row(
+        t("dialog.batch.upscale"),
         ui::dropdown(
             &ws.dropdown,
             ui::Dropdown {
@@ -197,10 +192,10 @@ pub(super) fn batch_dialog(
     ));
 
     // Colour: each step is an adjustment layer, its sliders under it.
-    body = body.child(section("Colour"));
+    body = body.child(section(t("dialog.batch.colour")));
     let kind_options: Vec<(SharedString, AdjustmentKind)> = KINDS
         .iter()
-        .map(|k| (SharedString::from(k.display_name()), *k))
+        .map(|k| (SharedString::from(ui::adjustment_name(*k)), *k))
         .collect();
     for (i, params) in recipe.adjustments.iter().enumerate() {
         let Some(popup) = STEP_POPUPS.get(i).copied() else {
@@ -219,7 +214,7 @@ pub(super) fn batch_dialog(
                         popup: Popup::Field(popup),
                         is_open: state.open_popup == Some(Popup::Field(popup)),
                         current: kind,
-                        label: kind.display_name().into(),
+                        label: ui::adjustment_name(kind).into(),
                         width: 190.0,
                         options: kind_options.clone(),
                     },
@@ -237,7 +232,7 @@ pub(super) fn batch_dialog(
                     cx,
                 ))
                 .child(ui::button(
-                    "Remove",
+                    t("common.remove"),
                     false,
                     move |ws, _w, _cx| {
                         ws.update_modal(|m| {
@@ -278,14 +273,14 @@ pub(super) fn batch_dialog(
     }
     if recipe.adjustments.len() < STEP_POPUPS.len() {
         body = body.child(ui::field_row(
-            "Add",
+            t("common.add"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
                     popup: Popup::Field("batch-adj-add"),
                     is_open: state.open_popup == Some(Popup::Field("batch-adj-add")),
                     current: None,
-                    label: "Adjustment\u{2026}".into(),
+                    label: t("dialog.batch.add_adjustment").into(),
                     width: 190.0,
                     options: kind_options
                         .iter()
@@ -322,28 +317,30 @@ pub(super) fn batch_dialog(
         .iter()
         .map(|&t| (SharedString::from(t.label()), t))
         .collect();
-    body = body.child(section("Output")).child(ui::field_row(
-        "Save as",
-        ui::dropdown(
-            &ws.dropdown,
-            ui::Dropdown {
-                popup: Popup::Field("batch-target"),
-                is_open: state.open_popup == Some(Popup::Field("batch-target")),
-                current: target,
-                label: target.label().into(),
-                width: 190.0,
-                options: targets,
-            },
-            |ws, value, _cx| {
-                ws.update_modal(|m| {
-                    if let Modal::BatchProcess { target, .. } = m {
-                        *target = value;
-                    }
-                });
-            },
-            cx,
-        ),
-    ));
+    body = body
+        .child(section(t("dialog.batch.output")))
+        .child(ui::field_row(
+            t("dialog.batch.save_as"),
+            ui::dropdown(
+                &ws.dropdown,
+                ui::Dropdown {
+                    popup: Popup::Field("batch-target"),
+                    is_open: state.open_popup == Some(Popup::Field("batch-target")),
+                    current: target,
+                    label: target.label().into(),
+                    width: 190.0,
+                    options: targets,
+                },
+                |ws, value, _cx| {
+                    ws.update_modal(|m| {
+                        if let Modal::BatchProcess { target, .. } = m {
+                            *target = value;
+                        }
+                    });
+                },
+                cx,
+            ),
+        ));
     if target != BatchTarget::Edit {
         let codecs: Vec<(SharedString, &'static str)> = ws
             .registry
@@ -363,7 +360,7 @@ pub(super) fn batch_dialog(
             .map(|c| c.supports_quality())
             .unwrap_or(false);
         body = body.child(ui::field_row(
-            "Format",
+            t("dialog.export.format"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
@@ -388,7 +385,7 @@ pub(super) fn batch_dialog(
             body = body.child(param_slider(
                 SliderSpec {
                     id: "batch-quality",
-                    label: "Quality",
+                    label: t("common.quality"),
                     value: options.quality as f32,
                     min: 1.0,
                     max: 100.0,
@@ -408,16 +405,16 @@ pub(super) fn batch_dialog(
     }
 
     let run_label = if n == 1 {
-        "Process".to_string()
+        t("dialog.batch.process").to_string()
     } else {
-        format!("Process {n}")
+        tf!("dialog.batch.process_n", n = n)
     };
     let actions = div()
         .flex()
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
@@ -437,8 +434,7 @@ pub(super) fn batch_dialog(
                     return;
                 };
                 if recipe.is_empty() {
-                    ws.status =
-                        "Nothing to do: pick a turn, an upscale or an adjustment first".into();
+                    ws.status = t("dialog.batch.nothing_to_do").into();
                     cx.notify();
                     return;
                 }
@@ -447,5 +443,5 @@ pub(super) fn batch_dialog(
             },
             cx,
         ));
-    ui::modal_frame("Process Photos", 440.0, body, actions)
+    ui::modal_frame(t("dialog.batch.title"), 440.0, body, actions)
 }

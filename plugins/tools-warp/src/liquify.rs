@@ -6,21 +6,22 @@
 //! throws it away.
 
 use schist_core::{Document, IntRect, TileMap};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{
     EditorState, OptionValue, Overlay, PointerInput, ToolCtx, ToolOption, ToolPlugin,
 };
 
 use crate::mesh::{warp_into, Mesh};
 
-/// Photoshop's Liquify brushes.
-const MODES: &[&str] = &[
-    "Forward Warp",
-    "Reconstruct",
-    "Twirl CW",
-    "Twirl CCW",
-    "Pucker",
-    "Bloat",
-    "Push Left",
+/// Photoshop's Liquify brushes, as catalog keys in [`Mode::index`] order.
+static MODES: &[&str] = &[
+    "tool.liquify.choice.forward_warp",
+    "tool.liquify.choice.reconstruct",
+    "tool.liquify.choice.twirl_cw",
+    "tool.liquify.choice.twirl_ccw",
+    "tool.liquify.choice.pucker",
+    "tool.liquify.choice.bloat",
+    "tool.liquify.choice.push_left",
 ];
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -241,7 +242,7 @@ impl LiquifyTool {
             return;
         };
         let warped = std::mem::replace(&mut raster.tiles, session.original);
-        let mut edit = ctx.doc.begin_edit("Liquify");
+        let mut edit = ctx.doc.begin_edit(t("tool.liquify.history.liquify"));
         edit.replace_layer_tiles(session.layer, warped);
         edit.commit();
     }
@@ -258,11 +259,10 @@ impl ToolPlugin for LiquifyTool {
         "liquify"
     }
     fn name(&self) -> &'static str {
-        "Liquify"
+        t("tool.liquify.name")
     }
     fn description(&self) -> &'static str {
-        "Push, twirl, pucker or bloat pixels under a large brush -- the mode option picks \
-         which. The warp accumulates in a mesh and is applied to the layer on commit."
+        t("tool.liquify.description")
     }
     fn icon(&self) -> &'static str {
         "liquify"
@@ -273,11 +273,23 @@ impl ToolPlugin for LiquifyTool {
 
     fn options(&self) -> Vec<ToolOption> {
         vec![
-            ToolOption::choice("liquify-mode", "Tool", MODES, self.mode.index()),
-            ToolOption::slider("liquify-size", "Size", self.size, 10.0, 1000.0, " px"),
+            ToolOption::choice(
+                "liquify-mode",
+                t("tool.liquify.option.tool"),
+                choices(MODES),
+                self.mode.index(),
+            ),
+            ToolOption::slider(
+                "liquify-size",
+                t("common.size"),
+                self.size,
+                10.0,
+                1000.0,
+                " px",
+            ),
             ToolOption::slider(
                 "liquify-pressure",
-                "Pressure",
+                t("common.pressure"),
                 self.pressure,
                 1.0,
                 100.0,

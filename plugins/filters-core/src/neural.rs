@@ -32,6 +32,7 @@ use std::sync::{Arc, Mutex};
 
 use crate::util::{at, gaussian_rgba, luma, put, sample, warp};
 use crate::{choice, param, simple_filter};
+use schist_i18n::{choices, t, tf};
 use schist_neural::Face;
 use schist_plugin_api::{FilterContext, FilterParam, FilterPlugin, FilterValues};
 
@@ -54,18 +55,25 @@ fn rgb_of(px: &[f32]) -> Vec<f32> {
     rgb
 }
 
-/// The note a model-backed filter shows in its dialog.
-fn model_note(id: &str, fallback: &str) -> Option<String> {
+/// The note a model-backed filter shows in its dialog: which model it
+/// is using, or that the model is not installed. `no_model` is the key
+/// of the filter's own sentence about what it does without one, with a
+/// `{model}` placeholder for the model's name.
+fn model_note(id: &str, no_model: &str) -> Option<String> {
     match schist_neural::spec(id) {
         Some(spec) if schist_neural::installed(id) => {
             // The dot rather than nested brackets: the names already have
             // brackets in them.
-            Some(format!("Using {} \u{b7} {}.", spec.name, spec.license))
+            Some(tf!(
+                "filter.neural.msg.using_model",
+                model = spec.name,
+                license = spec.license
+            ))
         }
         Some(spec) => Some(format!(
-            "{} is not installed \u{2014} {fallback} Get it from \
-             Filter \u{25b8} Neural Filters \u{25b8} Manage Models.",
-            spec.name
+            "{} {}",
+            tf!(no_model, model = spec.name),
+            t("filter.neural.msg.get_model")
         )),
         None => None,
     }
@@ -180,23 +188,34 @@ impl FilterPlugin for SkinSmoothing {
         "filter.neural.skin_smoothing"
     }
     fn name(&self) -> &'static str {
-        "Skin Smoothing"
+        t("filter.neural.skin_smoothing.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("blur", "Smoothness", 0.0, 100.0, 50.0, ""),
-            param("detail", "Keep Detail", 0.0, 100.0, 40.0, ""),
+            param(
+                "blur",
+                t("filter.neural.skin_smoothing.param.blur"),
+                0.0,
+                100.0,
+                50.0,
+                "",
+            ),
+            param(
+                "detail",
+                t("filter.neural.skin_smoothing.param.detail"),
+                0.0,
+                100.0,
+                40.0,
+                "",
+            ),
         ]
     }
 
     fn info(&self) -> Option<String> {
-        model_note(
-            "face",
-            "smoothing anything skin-coloured instead of the faces.",
-        )
+        model_note("face", "filter.neural.skin_smoothing.msg.no_model")
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -308,17 +327,24 @@ impl FilterPlugin for JpegArtifactRemoval {
         "filter.neural.jpeg_artifacts"
     }
     fn name(&self) -> &'static str {
-        "JPEG Artifact Removal"
+        t("filter.neural.jpeg_artifacts.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
-        vec![param("strength", "Strength", 0.0, 100.0, 60.0, "")]
+        vec![param(
+            "strength",
+            t("common.strength"),
+            0.0,
+            100.0,
+            60.0,
+            "",
+        )]
     }
 
     fn info(&self) -> Option<String> {
-        model_note("dejpeg", "smoothing the 8-pixel grid instead.")
+        model_note("dejpeg", "filter.neural.jpeg_artifacts.msg.no_model")
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -430,20 +456,27 @@ impl FilterPlugin for Colorize {
         "filter.neural.colorize"
     }
     fn name(&self) -> &'static str {
-        "Colorize"
+        t("filter.neural.colorize.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("warmth", "Warmth", -100.0, 100.0, 0.0, ""),
-            param("strength", "Strength", 0.0, 100.0, 70.0, ""),
+            param(
+                "warmth",
+                t("filter.neural.colorize.param.warmth"),
+                -100.0,
+                100.0,
+                0.0,
+                "",
+            ),
+            param("strength", t("common.strength"), 0.0, 100.0, 70.0, ""),
         ]
     }
 
     fn info(&self) -> Option<String> {
-        model_note("colorize", "tinting by luminance instead.")
+        model_note("colorize", "filter.neural.colorize.msg.no_model")
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -520,17 +553,24 @@ impl FilterPlugin for SuperZoom {
         "filter.neural.super_zoom"
     }
     fn name(&self) -> &'static str {
-        "Super Zoom"
+        t("filter.neural.super_zoom.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
-        vec![param("detail", "Detail", 0.0, 100.0, 60.0, "")]
+        vec![param(
+            "detail",
+            t("filter.neural.param.detail"),
+            0.0,
+            100.0,
+            60.0,
+            "",
+        )]
     }
 
     fn info(&self) -> Option<String> {
-        model_note("detail", "using edge-directed sharpening instead.")
+        model_note("detail", "filter.neural.super_zoom.msg.no_model")
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -578,7 +618,11 @@ fn edge_directed_sharpen(px: &mut [f32], w: usize, h: usize, detail: f32) {
 }
 
 /// The styles this build knows about, in catalogue order.
-const STYLES: &[&str] = &["Mosaic", "Candy", "Udnie"];
+static STYLES: &[&str] = &[
+    "filter.neural.style_transfer.choice.mosaic",
+    "filter.neural.style_transfer.choice.candy",
+    "filter.neural.style_transfer.choice.udnie",
+];
 const STYLE_IDS: &[&str] = &["style-mosaic", "style-candy", "style-udnie"];
 
 /// Style Transfer: repaint the image in a learned style.
@@ -593,15 +637,15 @@ impl FilterPlugin for StyleTransfer {
         "filter.neural.style_transfer"
     }
     fn name(&self) -> &'static str {
-        "Style Transfer"
+        t("filter.neural.style_transfer.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            choice("style", "Style", STYLES, 0),
-            param("strength", "Strength", 0.0, 100.0, 100.0, ""),
+            choice("style", t("common.style"), choices(STYLES), 0),
+            param("strength", t("common.strength"), 0.0, 100.0, 100.0, ""),
         ]
     }
 
@@ -612,16 +656,14 @@ impl FilterPlugin for StyleTransfer {
             .iter()
             .enumerate()
             .filter(|(_, id)| schist_neural::installed(id))
-            .map(|(i, _)| STYLES[i])
+            .map(|(i, _)| t(STYLES[i]))
             .collect();
         Some(if ready.is_empty() {
-            "No style models installed \u{2014} transferring colour only. \
-             Get them from Filter \u{25b8} Neural Filters \u{25b8} Manage Models."
-                .to_string()
+            t("filter.neural.style_transfer.msg.no_styles").to_string()
         } else {
-            format!(
-                "Installed: {} (ONNX Model Zoo, Apache-2.0).",
-                ready.join(", ")
+            tf!(
+                "filter.neural.style_transfer.msg.installed",
+                styles = ready.join(", ")
             )
         })
     }
@@ -694,16 +736,30 @@ impl FilterPlugin for ColorTransfer {
         "filter.neural.color_transfer"
     }
     fn name(&self) -> &'static str {
-        "Color Transfer"
+        t("filter.neural.color_transfer.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("hue", "Target Hue", 0.0, 360.0, 30.0, "\u{b0}"),
-            param("strength", "Strength", 0.0, 100.0, 60.0, ""),
-            param("contrast", "Match Contrast", 0.0, 100.0, 50.0, ""),
+            param(
+                "hue",
+                t("filter.neural.color_transfer.param.hue"),
+                0.0,
+                360.0,
+                30.0,
+                "\u{b0}",
+            ),
+            param("strength", t("common.strength"), 0.0, 100.0, 60.0, ""),
+            param(
+                "contrast",
+                t("filter.neural.color_transfer.param.contrast"),
+                0.0,
+                100.0,
+                50.0,
+                "",
+            ),
         ]
     }
 
@@ -712,11 +768,7 @@ impl FilterPlugin for ColorTransfer {
     }
 
     fn info(&self) -> Option<String> {
-        Some(
-            "Takes its palette from the layer underneath. With nothing \
-             underneath it aims at the Target Hue instead."
-                .to_string(),
-        )
+        Some(t("filter.neural.color_transfer.msg.info").to_string())
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -829,20 +881,34 @@ impl FilterPlugin for DepthBlur {
         "filter.neural.depth_blur"
     }
     fn name(&self) -> &'static str {
-        "Depth Blur"
+        t("filter.neural.depth_blur.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("focus", "Focal Distance", 0.0, 100.0, 50.0, ""),
-            param("blur", "Blur Strength", 0.0, 100.0, 50.0, ""),
+            param(
+                "focus",
+                t("filter.neural.depth_blur.param.focus"),
+                0.0,
+                100.0,
+                50.0,
+                "",
+            ),
+            param(
+                "blur",
+                t("filter.neural.depth_blur.param.blur"),
+                0.0,
+                100.0,
+                50.0,
+                "",
+            ),
         ]
     }
 
     fn info(&self) -> Option<String> {
-        model_note("depth", "focusing by local sharpness instead.")
+        model_note("depth", "filter.neural.depth_blur.msg.no_model")
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -991,15 +1057,22 @@ impl FilterPlugin for Harmonization {
         "filter.neural.harmonization"
     }
     fn name(&self) -> &'static str {
-        "Harmonization"
+        t("filter.neural.harmonization.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("strength", "Strength", 0.0, 100.0, 75.0, ""),
-            param("tone", "Match Tone", 0.0, 100.0, 100.0, ""),
+            param("strength", t("common.strength"), 0.0, 100.0, 75.0, ""),
+            param(
+                "tone",
+                t("filter.neural.harmonization.param.tone"),
+                0.0,
+                100.0,
+                100.0,
+                "",
+            ),
         ]
     }
 
@@ -1008,11 +1081,7 @@ impl FilterPlugin for Harmonization {
     }
 
     fn info(&self) -> Option<String> {
-        Some(
-            "Matches this layer to whatever is underneath it. With nothing \
-             underneath there is nothing to match to and this does nothing."
-                .to_string(),
-        )
+        Some(t("filter.neural.harmonization.msg.info").to_string())
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -1093,15 +1162,22 @@ impl FilterPlugin for LandscapeMixer {
         "filter.neural.landscape_mixer"
     }
     fn name(&self) -> &'static str {
-        "Landscape Mixer"
+        t("filter.neural.landscape_mixer.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("strength", "Strength", 0.0, 100.0, 70.0, ""),
-            param("bands", "Depth Bands", 1.0, 5.0, 3.0, ""),
+            param("strength", t("common.strength"), 0.0, 100.0, 70.0, ""),
+            param(
+                "bands",
+                t("filter.neural.landscape_mixer.param.bands"),
+                1.0,
+                5.0,
+                3.0,
+                "",
+            ),
         ]
     }
 
@@ -1111,14 +1187,9 @@ impl FilterPlugin for LandscapeMixer {
 
     fn info(&self) -> Option<String> {
         Some(if schist_neural::installed("depth") {
-            "Takes its palette from the layer underneath, matched band by \
-             band using Depth (Depth Blur)."
-                .to_string()
+            t("filter.neural.landscape_mixer.msg.with_depth").to_string()
         } else {
-            "Takes its palette from the layer underneath. Install Depth \
-             (Depth Blur) to match sky to sky and ground to ground rather \
-             than the picture as a whole."
-                .to_string()
+            t("filter.neural.landscape_mixer.msg.without_depth").to_string()
         })
     }
 
@@ -1200,32 +1271,52 @@ impl FilterPlugin for PhotoRestoration {
         "filter.neural.photo_restoration"
     }
     fn name(&self) -> &'static str {
-        "Photo Restoration"
+        t("filter.neural.photo_restoration.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("enhance", "Photo Enhancement", 0.0, 100.0, 50.0, ""),
-            param("scratches", "Scratch Reduction", 0.0, 100.0, 30.0, ""),
-            param("tone", "Restore Tone", 0.0, 100.0, 60.0, ""),
+            param(
+                "enhance",
+                t("filter.neural.photo_restoration.param.enhance"),
+                0.0,
+                100.0,
+                50.0,
+                "",
+            ),
+            param(
+                "scratches",
+                t("filter.neural.photo_restoration.param.scratches"),
+                0.0,
+                100.0,
+                30.0,
+                "",
+            ),
+            param(
+                "tone",
+                t("filter.neural.photo_restoration.param.tone"),
+                0.0,
+                100.0,
+                60.0,
+                "",
+            ),
         ]
     }
 
     fn info(&self) -> Option<String> {
-        let mut have: Vec<&str> = Vec::new();
-        if schist_neural::installed("dejpeg") {
-            have.push("Deblock");
-        }
-        if schist_neural::installed("detail") {
-            have.push("Detail");
-        }
-        Some(if have.is_empty() {
-            "Cleaning up without a model.".to_string()
-        } else {
-            format!("Using {} \u{b7} trained for Schist.", have.join(" and "))
-        })
+        let deblock = schist_neural::installed("dejpeg");
+        let detail = schist_neural::installed("detail");
+        Some(
+            t(match (deblock, detail) {
+                (true, true) => "filter.neural.photo_restoration.msg.using_both",
+                (true, false) => "filter.neural.photo_restoration.msg.using_deblock",
+                (false, true) => "filter.neural.photo_restoration.msg.using_detail",
+                (false, false) => "filter.neural.photo_restoration.msg.no_model",
+            })
+            .to_string(),
+        )
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -1363,12 +1454,33 @@ fn restore_tone(px: &mut [f32], amount: f32) {
 simple_filter!(
     PhotoToSketch,
     "filter.neural.photo_to_sketch",
-    "Photo to Sketch",
-    "Neural Filters",
+    t("filter.neural.photo_to_sketch.name"),
+    t("filter.category.neural"),
     [
-        param("detail", "Detail", 0.0, 100.0, 50.0, ""),
-        param("weight", "Line Weight", 0.0, 100.0, 50.0, ""),
-        param("shading", "Shading", 0.0, 100.0, 40.0, "")
+        param(
+            "detail",
+            t("filter.neural.param.detail"),
+            0.0,
+            100.0,
+            50.0,
+            ""
+        ),
+        param(
+            "weight",
+            t("filter.neural.photo_to_sketch.param.weight"),
+            0.0,
+            100.0,
+            50.0,
+            ""
+        ),
+        param(
+            "shading",
+            t("filter.neural.photo_to_sketch.param.shading"),
+            0.0,
+            100.0,
+            40.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // The pencil-sketch construction every drawing tutorial teaches,
@@ -1428,24 +1540,42 @@ impl FilterPlugin for FaceToCaricature {
         "filter.neural.face_to_caricature"
     }
     fn name(&self) -> &'static str {
-        "Face to Caricature"
+        t("filter.neural.face_to_caricature.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("eyes", "Eyes", -100.0, 100.0, 60.0, ""),
-            param("mouth", "Mouth", -100.0, 100.0, 40.0, ""),
-            param("head", "Head", -100.0, 100.0, 25.0, ""),
+            param(
+                "eyes",
+                t("filter.neural.param.eyes"),
+                -100.0,
+                100.0,
+                60.0,
+                "",
+            ),
+            param(
+                "mouth",
+                t("filter.neural.face_to_caricature.param.mouth"),
+                -100.0,
+                100.0,
+                40.0,
+                "",
+            ),
+            param(
+                "head",
+                t("filter.neural.face_to_caricature.param.head"),
+                -100.0,
+                100.0,
+                25.0,
+                "",
+            ),
         ]
     }
 
     fn info(&self) -> Option<String> {
-        model_note(
-            "face",
-            "so this does nothing \u{2014} there is nothing to caricature.",
-        )
+        model_note("face", "filter.neural.face_to_caricature.msg.no_model")
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -1595,26 +1725,58 @@ impl FilterPlugin for SmartPortrait {
         "filter.neural.smart_portrait"
     }
     fn name(&self) -> &'static str {
-        "Smart Portrait"
+        t("filter.neural.smart_portrait.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("happiness", "Happiness", -100.0, 100.0, 0.0, ""),
-            param("surprise", "Surprise", -100.0, 100.0, 0.0, ""),
-            param("age", "Facial Age", -100.0, 100.0, 0.0, ""),
-            param("gaze", "Gaze", -100.0, 100.0, 0.0, ""),
-            param("light", "Light Direction", -100.0, 100.0, 0.0, ""),
+            param(
+                "happiness",
+                t("filter.neural.smart_portrait.param.happiness"),
+                -100.0,
+                100.0,
+                0.0,
+                "",
+            ),
+            param(
+                "surprise",
+                t("filter.neural.smart_portrait.param.surprise"),
+                -100.0,
+                100.0,
+                0.0,
+                "",
+            ),
+            param(
+                "age",
+                t("filter.neural.smart_portrait.param.age"),
+                -100.0,
+                100.0,
+                0.0,
+                "",
+            ),
+            param(
+                "gaze",
+                t("filter.neural.smart_portrait.param.gaze"),
+                -100.0,
+                100.0,
+                0.0,
+                "",
+            ),
+            param(
+                "light",
+                t("filter.neural.smart_portrait.param.light"),
+                -100.0,
+                100.0,
+                0.0,
+                "",
+            ),
         ]
     }
 
     fn info(&self) -> Option<String> {
-        model_note(
-            "face",
-            "so this does nothing \u{2014} it has no face to work on.",
-        )
+        model_note("face", "filter.neural.smart_portrait.msg.no_model")
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -1831,16 +1993,30 @@ impl FilterPlugin for MakeupTransfer {
         "filter.neural.makeup_transfer"
     }
     fn name(&self) -> &'static str {
-        "Makeup Transfer"
+        t("filter.neural.makeup_transfer.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("lips", "Lips", 0.0, 100.0, 80.0, ""),
-            param("eyes", "Eyes", 0.0, 100.0, 60.0, ""),
-            param("skin", "Skin Tone", 0.0, 100.0, 30.0, ""),
+            param(
+                "lips",
+                t("filter.neural.makeup_transfer.param.lips"),
+                0.0,
+                100.0,
+                80.0,
+                "",
+            ),
+            param("eyes", t("filter.neural.param.eyes"), 0.0, 100.0, 60.0, ""),
+            param(
+                "skin",
+                t("filter.neural.makeup_transfer.param.skin"),
+                0.0,
+                100.0,
+                30.0,
+                "",
+            ),
         ]
     }
 
@@ -1850,12 +2026,8 @@ impl FilterPlugin for MakeupTransfer {
 
     fn info(&self) -> Option<String> {
         match schist_neural::installed("face") {
-            true => Some(
-                "Takes the makeup from a face on the layer underneath. \
-                 Colour, not texture."
-                    .to_string(),
-            ),
-            false => model_note("face", "so this does nothing."),
+            true => Some(t("filter.neural.makeup_transfer.msg.info").to_string()),
+            false => model_note("face", "filter.neural.makeup_transfer.msg.no_model"),
         }
     }
 
@@ -2005,28 +2177,30 @@ impl FilterPlugin for SketchToPortrait {
         "filter.neural.sketch_to_portrait"
     }
     fn name(&self) -> &'static str {
-        "Sketch to Portrait"
+        t("filter.neural.sketch_to_portrait.name")
     }
     fn category(&self) -> &'static str {
-        "Neural Filters"
+        t("filter.category.neural")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("strength", "Strength", 0.0, 100.0, 100.0, ""),
-            param("detail", "Keep Lines", 0.0, 100.0, 25.0, ""),
-            param("colour", "Colour", 0.0, 300.0, 150.0, "%"),
+            param("strength", t("common.strength"), 0.0, 100.0, 100.0, ""),
+            param(
+                "detail",
+                t("filter.neural.sketch_to_portrait.param.detail"),
+                0.0,
+                100.0,
+                25.0,
+                "",
+            ),
+            param("colour", t("common.color"), 0.0, 300.0, 150.0, "%"),
         ]
     }
 
     fn info(&self) -> Option<String> {
         Some(match schist_neural::installed("face") {
-            true => "Trained to fill in this application's own Photo to \
-                     Sketch. Works on the face it finds."
-                .to_string(),
-            false => "Trained to fill in this application's own Photo to \
-                      Sketch. Install Faces (Skin Smoothing) and it will \
-                      work on the face rather than the whole selection."
-                .to_string(),
+            true => t("filter.neural.sketch_to_portrait.msg.with_face").to_string(),
+            false => t("filter.neural.sketch_to_portrait.msg.no_face").to_string(),
         })
     }
 

@@ -1,0 +1,258 @@
+# The modal dialogs (crates/app/src/dialogs/, style_dialog.rs,
+# color_picker.rs, curve_editor.rs). Buttons every dialog shares — OK,
+# Cancel, Close, Done — are in common.lang.
+
+# Shared by several dialogs
+dialog.save_ellipsis = Save…
+dialog.use_foreground = Use Foreground
+dialog.downloading = Downloading…
+dialog.downloading_of = Downloading… {got} of {total}
+dialog.no_config_dir = (no config directory)
+
+# Layer Properties
+dialog.layer_props.title = Layer Properties
+
+# Export
+dialog.export.format = Format
+dialog.export.dither = Dither
+dialog.export.dither_note = Dither when reducing to 8-bit
+dialog.export.export_ellipsis = Export…
+
+# Process Photos (the gallery's batch dialog)
+dialog.batch.title = Process Photos
+dialog.batch.note_edit.one = {n} photo — saved as gallery edits; the originals are never touched.
+dialog.batch.note_edit.other = {n} photos — saved as gallery edits; the originals are never touched.
+dialog.batch.note_edit_edited.one = {n} photo, {edited} already edited — the recipe goes on top of the edit, and the previous edit is kept as a version.
+dialog.batch.note_edit_edited.other = {n} photos, {edited} already edited — the recipe goes on top of the edit, and the previous edit is kept as a version.
+dialog.batch.note_copies.one = {n} photo — flat copies; the originals are never touched.
+dialog.batch.note_copies.other = {n} photos — flat copies; the originals are never touched.
+dialog.batch.note_copies_edited.one = {n} photo, {edited} already edited — the copies are made from the edits.
+dialog.batch.note_copies_edited.other = {n} photos, {edited} already edited — the copies are made from the edits.
+dialog.batch.turn = Turn
+dialog.batch.rotate = Rotate
+dialog.batch.flip = Flip
+dialog.batch.upscale = Upscale
+dialog.batch.colour = Colour
+dialog.batch.add_adjustment = Adjustment…
+dialog.batch.output = Output
+dialog.batch.save_as = Save as
+dialog.batch.process = Process
+dialog.batch.process_n = Process {n}
+dialog.batch.nothing_to_do = Nothing to do: pick a turn, an upscale or an adjustment first
+
+# Content-Aware Scale
+dialog.content_aware_scale.title = Content-Aware Scale
+dialog.content_aware_scale.note = Carves low-detail seams. A selection marks what to protect.
+
+# Stroke (also the Layer Style dialog's stroke position)
+dialog.stroke.title = Stroke
+dialog.stroke.location = Location
+dialog.stroke.inside = Inside
+dialog.stroke.outside = Outside
+dialog.stroke.note = Strokes the selection in the foreground colour.
+
+# Fill
+dialog.fill.contents = Contents
+
+# Color Range
+dialog.color_range.title = Color Range
+dialog.color_range.sampled = Sampled
+dialog.color_range.fuzziness = Fuzziness
+dialog.color_range.note = Selects pixels near the sampled colour on the active layer.
+
+# The file picker Schist draws itself (Android)
+dialog.file_picker.up = ↑ Up
+dialog.file_picker.empty = Nothing here
+dialog.file_picker.choose_folder = Choose This Folder
+
+# Filter dialogs
+dialog.filter.camera_raw_development = Camera Raw Development
+dialog.filter.reset_as_shot = Reset to As Shot
+dialog.filter.raw_note = Re-develops the active layer from its original sensor data.
+dialog.filter.note = Applies to the active layer, inside the selection.
+
+# Missing Fonts
+dialog.fonts.title = Missing Fonts
+dialog.fonts.install_named = Install {name}
+dialog.fonts.no_document = No document is open, so there is nothing to check.
+dialog.fonts.all_installed = Every font this document uses is installed. Its text is set in the fonts it was laid out with.
+dialog.fonts.missing_intro = This document is set in fonts you don't have. Text is readable in a substitute, but its widths and line breaks are not the ones it was laid out with.
+dialog.fonts.footer = Downloads come from the Google Fonts open catalogue and are kept in {dir}. A font that isn't openly licensed is never fetched — where a metric-compatible libre design exists it is offered instead, which restores the layout because the advance widths match.
+dialog.fonts.user_font_dir = your user font directory
+
+# Neural Filter Models
+dialog.models.title = Neural Filter Models
+dialog.models.built_in = Built in · {size}
+dialog.models.installed = Installed · {size}
+dialog.models.not_installed = Not installed · {size}
+dialog.models.not_in_browser = Not available in the browser · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Models are kept in {dir}. Filters that have no model fall back to signal processing and say so.
+
+# New Document
+dialog.new_doc.title = New Document
+dialog.new_doc.picker_title = New File
+dialog.new_doc.custom_ellipsis = Custom…
+dialog.new_doc.preset = Preset
+dialog.new_doc.preset_default = Default (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Square (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Create
+dialog.new_doc.created = New document: {w} × {h} px
+
+# Opening files: dropped images and folders, shared files, HEIC support
+dialog.open.image_title = Open Image
+dialog.open.image_prompt = Open “{name}” in a new tab, or add it to the current document as a new layer?
+dialog.open.new_tab = New Tab
+dialog.open.new_layer = New Layer
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = this {n} file
+dialog.open.these_files.other = these {n} files
+dialog.open.shared_title_one = Shared Image
+dialog.open.shared_title_many = Shared Images
+dialog.open.shared_prompt = Add {what} to the gallery, or open in the editor?
+dialog.open.add_to_gallery = Add to Gallery
+dialog.open.open_in_editor = Open in Editor
+dialog.open.heic_title = HEIC Support
+dialog.open.heic_needs_decoder = Opening “{name}” needs an HEVC decoder, which is not installed on this system.
+dialog.open.heic_offer = Schist can download a decode-only build of libheif {version} with the libde265 HEVC decoder (≈5 MB). Both are LGPL-3.0 licensed; their license texts are installed next to the library, and the source is available at the project page.
+dialog.open.licenses_source = Licenses & Source
+dialog.open.folders_title = Dropped Folders
+dialog.open.n_folders.one = {n} folder
+dialog.open.n_folders.other = {n} folders
+dialog.open.open_in_tabs = Open in Tabs
+dialog.open.open_first_in_tabs = Open First {n} in Tabs
+dialog.open.open_n_in_tabs.one = Open {n} in a Tab
+dialog.open.open_n_in_tabs.other = Open {n} in Tabs
+dialog.open.folder_holds.one = {what} holds {n} image Schist can open (sub-folders included).
+dialog.open.folder_holds.other = {what} holds {n} images Schist can open (sub-folders included).
+dialog.open.folders_note = Add to Gallery watches the folders in place — nothing is copied, and edits are versioned beside each photo. Opening in tabs loads every image into the editor now.
+
+# Plugins
+dialog.plugins.title = Plugins
+dialog.plugins.kind_filter = filter
+dialog.plugins.kind_format = format
+dialog.plugins.kind_unavailable = unavailable
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Plugins load from {dir}
+dialog.plugins.none = No plugins installed yet.
+dialog.plugins.install_ellipsis = Install…
+dialog.plugins.photoshop_heading = Photoshop plug-ins
+dialog.plugins.loaded_from = Loaded from {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Preferences
+dialog.prefs.title = Preferences
+dialog.prefs.theme = Theme
+dialog.prefs.theme_dark = Dark
+dialog.prefs.theme_light = Light
+dialog.prefs.grid_spacing = Grid spacing
+dialog.prefs.snapping = Snapping
+dialog.prefs.snap_to = Snap to guides, grid and canvas edges
+dialog.prefs.rendering_intent = Rendering intent
+dialog.prefs.intent_perceptual = Perceptual
+dialog.prefs.intent_relative = Relative Colorimetric
+dialog.prefs.intent_saturation = Saturation
+dialog.prefs.intent_absolute = Absolute Colorimetric
+dialog.prefs.scrolling = Scrolling
+dialog.prefs.zoom_with_scroll = Zoom with scroll wheel
+dialog.prefs.rendering = Rendering
+dialog.prefs.gpu_compositing = GPU compositing
+dialog.prefs.diagnostics = Diagnostics
+dialog.prefs.crash_reports = Write a local crash report on panic
+dialog.prefs.crash_upload = Also send it to the developers
+dialog.prefs.telemetry = Send an anonymous daily ping
+dialog.prefs.diagnostics_note = Diagnostics take effect when Schist next starts.
+dialog.prefs.updates = Updates
+dialog.prefs.check_updates = Check for new releases at launch
+dialog.prefs.keyboard_shortcuts = Keyboard shortcuts: {path}
+dialog.prefs.nsfw_needs_model = Needs the Content (NSFW Filter) model —
+dialog.prefs.nsfw_download_link = download it in Manage Models…
+dialog.prefs.hide_flagged = Hide flagged photos
+
+# Assign Profile / Convert to Profile
+dialog.profile.profile = Profile
+dialog.profile.assign_title = Assign Profile
+dialog.profile.convert_title = Convert to Profile
+dialog.profile.assign = Assign
+dialog.profile.convert = Convert
+dialog.profile.assign_note = Reinterprets the existing pixel values under the new profile.
+dialog.profile.convert_note = Rewrites pixel values so colours keep their appearance.
+
+# Save Image As (a gallery photo as a flat image)
+dialog.save_image.title = Save Image As
+dialog.save_image.note = {name} — the edit, if it has one; the original is never touched.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# Image Size and Canvas Size
+dialog.size.image_title = Image Size
+dialog.size.canvas_title = Canvas Size
+dialog.size.constrain = Constrain
+dialog.size.keep_proportions = Keep proportions
+dialog.size.resample = Resample
+dialog.size.bicubic = Bicubic
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Nearest Neighbor
+dialog.size.anchor = Anchor
+dialog.size.currently = Currently {w} × {h} px
+dialog.size.image_size_status = Image size: {w} × {h}
+dialog.size.canvas_size_status = Canvas size: {w} × {h}
+
+# Update Available
+dialog.update.title = Update Available
+dialog.update.available = Schist {version} is available. This copy is {current}.
+dialog.update.installing = Installing the update…
+dialog.update.can_install = Schist can download it ({size}) and install it over this copy.
+dialog.update.external = This copy came from somewhere that owns it — a package manager, an AppImage, a build of your own — so it updates the way it was installed.
+dialog.update.later = Later
+dialog.update.release_notes = Release Notes
+dialog.update.update_restart = Update and Restart
+dialog.update.open_page = Open Release Page
+
+# Layer Style: the effects (Photoshop's names) and their controls
+dialog.style.title = Layer Style
+dialog.style.bevel = Bevel & Emboss
+dialog.style.stroke = Stroke
+dialog.style.inner_shadow = Inner Shadow
+dialog.style.inner_glow = Inner Glow
+dialog.style.satin = Satin
+dialog.style.color_overlay = Color Overlay
+dialog.style.gradient_overlay = Gradient Overlay
+dialog.style.outer_glow = Outer Glow
+dialog.style.drop_shadow = Drop Shadow
+dialog.style.blur = Gaussian Blur
+dialog.style.gradient_from = Gradient Overlay From
+dialog.style.gradient_to = Gradient Overlay To
+dialog.style.soften = Soften
+dialog.style.depth = Depth
+dialog.style.altitude = Altitude
+dialog.style.highlight = Highlight
+dialog.style.shadow = Shadow
+dialog.style.outer_bevel = Outer Bevel
+dialog.style.inner_bevel = Inner Bevel
+dialog.style.emboss = Emboss
+dialog.style.pillow_emboss = Pillow Emboss
+dialog.style.linear = Linear
+dialog.style.radial = Radial
+dialog.style.reverse = Reverse
+dialog.style.from_to = From / To
+dialog.style.from_fg = From = FG
+dialog.style.to_fg = To = FG
+dialog.style.precise = Precise
+dialog.style.knockout = Layer knocks out drop shadow
+
+# Color Picker
+dialog.color_picker.title = Color Picker ({what})
+dialog.color_picker.effect_color = {effect} Color
+dialog.color_picker.note_color = Note Color
+dialog.color_picker.new = new
+dialog.color_picker.current = current
+
+# The Curves graph
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Reset Channel
+dialog.curves.hint = Drag to shape · click to add · alt-click to remove

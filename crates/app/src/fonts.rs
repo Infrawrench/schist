@@ -18,6 +18,7 @@
 //!   actually restores the layout.
 
 use schist_core::Document;
+use schist_i18n::{t, tf};
 
 /// Where the licence check and the font files come from.
 #[cfg(not(target_arch = "wasm32"))]
@@ -44,8 +45,8 @@ impl MissingFont {
     /// One line explaining what the user gets, for the dialog row.
     pub fn detail(&self) -> String {
         match self.substitute {
-            Some(sub) => format!("not openly licensed \u{b7} {sub} matches its metrics"),
-            None => "missing \u{b7} text is being set in a substitute".to_string(),
+            Some(sub) => tf!("app.fonts.not_open_licensed", substitute = sub),
+            None => t("app.fonts.missing_substituted").to_string(),
         }
     }
 }
@@ -127,7 +128,7 @@ pub type Face = (String, Vec<u8>);
 #[cfg(not(target_arch = "wasm32"))]
 pub fn fetch_family(family: &str) -> Result<Vec<Face>, String> {
     let licence =
-        licence_dir(family).ok_or_else(|| format!("{family} is not in the open font catalogue"))?;
+        licence_dir(family).ok_or_else(|| tf!("app.fonts.not_in_catalogue", family = family))?;
     log::info!("fetching {family} ({licence}/) from Google Fonts");
 
     let mut faces = Vec::new();
@@ -155,7 +156,7 @@ pub fn fetch_family(family: &str) -> Result<Vec<Face>, String> {
         faces.push((format!("{}-{weight}.{ext}", slug(family)), bytes));
     }
     if faces.is_empty() {
-        return Err(format!("no downloadable faces for {family}"));
+        return Err(tf!("app.fonts.no_faces", family = family));
     }
     Ok(faces)
 }
@@ -211,7 +212,7 @@ fn get_bytes(url: &str) -> Result<Vec<u8>, String> {
         .read_to_end(&mut bytes)
         .map_err(|e| e.to_string())?;
     if bytes.is_empty() {
-        return Err("empty response".into());
+        return Err(t("app.fonts.empty_response").into());
     }
     Ok(bytes)
 }

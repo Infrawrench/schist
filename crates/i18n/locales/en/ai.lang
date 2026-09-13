@@ -1,0 +1,42 @@
+# The AI sidebar's workspace side (crates/app/src/workspace/ai.rs) and
+# the agent harnesses behind it (crates/app/src/ai/): status lines,
+# transcript notes and the errors a person reads there. What is sent
+# to the model — the system prompts, the MCP tool catalog, the JSON-RPC
+# replies — stays English and is not here. "Claude Code", "Codex" and
+# the model names are product names and stay as written; `{backend}`
+# below is one of them.
+
+# Status bar
+ai.status.panel_shown = AI panel shown
+ai.status.panel_hidden = AI panel hidden — View ▸ AI Panel ({shortcut}) brings it back
+ai.status.tool = AI: {name}
+
+# Dim rows in the transcript
+ai.info.connected = {backend} connected
+ai.info.now_in_gallery = Now in the gallery.
+ai.info.now_in_editor = Now in the editor.
+ai.tool.shell_command = shell command
+
+# Errors in the transcript
+ai.error.cli_missing = The {backend} CLI (“{binary}”) is not on PATH. Install and log into it first.
+ai.error.endpoint_failed = starting the MCP endpoint failed: {error}
+ai.error.binding_endpoint = binding the MCP endpoint
+ai.error.spawning_endpoint_thread = starting the MCP endpoint thread
+ai.error.runtime_failed = starting the agent runtime failed: {error}
+ai.error.worker_failed = starting the {backend} worker failed: {error}
+ai.error.did_not_start = {backend} did not start: {error}
+ai.error.switch_model_failed = switching model failed: {error}
+ai.error.send_failed = sending the prompt failed: {error}
+ai.error.interrupt_failed = interrupt failed: {error}
+ai.error.locating_binary = locating the Schist binary
+ai.error.starting_app_server = starting the Codex app server
+ai.error.attaching_app_server = attaching to the Codex app server
+ai.error.initializing_app_server = initializing the Codex app server
+ai.error.resuming_thread = resuming the Codex thread
+ai.error.starting_thread = starting the Codex thread
+
+# The model picker's fallback catalog, shown until the CLI answers
+ai.model.opus_detail = Most capable tier
+ai.model.sonnet_detail = Efficient for routine tasks
+ai.model.haiku_detail = Fastest for quick answers
+ai.model.codex_catalog = Codex catalog

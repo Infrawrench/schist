@@ -2,6 +2,7 @@
 //! with explicit encoder settings.
 
 use super::*;
+use schist_i18n::{t, tf, tn};
 
 impl Workspace {
     /// Export every artboard, or every slice, as its own file next to the
@@ -21,9 +22,9 @@ impl Workspace {
         };
         if regions.is_empty() {
             self.status = if slices {
-                "No slices to export".into()
+                t("workspace.export.no_slices").into()
             } else {
-                "No artboards to export".into()
+                t("workspace.export.no_artboards").into()
             };
             cx.notify();
             return;
@@ -123,7 +124,7 @@ impl Workspace {
                 Err(e) => log::error!("export {name}: {e}"),
             }
         }
-        self.status = format!("Exported {written} region(s)").into();
+        self.status = tn("workspace.export.regions", written as u64).into();
         cx.notify();
     }
 
@@ -164,20 +165,21 @@ impl Workspace {
         #[cfg(target_arch = "wasm32")]
         {
             let _ = window;
-            let Some(name) = crate::web::prompt_string("Export as:", &suggested) else {
+            let Some(name) = crate::web::prompt_string(t("workspace.export.prompt"), &suggested)
+            else {
                 return;
             };
             let result = (|| -> anyhow::Result<()> {
                 let doc = self
                     .doc
                     .as_ref()
-                    .ok_or_else(|| anyhow::anyhow!("no document"))?;
+                    .ok_or_else(|| anyhow::anyhow!("{}", t("common.no_document")))?;
                 let bytes = codec.export_with(doc, &options)?;
                 crate::web::download_bytes(&name, &bytes)
             })();
             self.status = match result {
-                Ok(()) => format!("Exported {name}").into(),
-                Err(err) => format!("Export failed: {err}").into(),
+                Ok(()) => tf!("workspace.export.done", name = name).into(),
+                Err(err) => tf!("workspace.export.failed", error = err).into(),
             };
             cx.notify();
         }
@@ -197,19 +199,24 @@ impl Workspace {
                             let doc = ws
                                 .doc
                                 .as_ref()
-                                .ok_or_else(|| anyhow::anyhow!("no document"))?;
+                                .ok_or_else(|| anyhow::anyhow!("{}", t("common.no_document")))?;
                             let codec = ws
                                 .registry
                                 .codecs()
                                 .find(|c| c.id() == codec_id)
-                                .ok_or_else(|| anyhow::anyhow!("codec vanished"))?;
+                                .ok_or_else(|| {
+                                    anyhow::anyhow!("{}", t("workspace.export.codec_vanished"))
+                                })?;
                             let bytes = codec.export_with(doc, &options)?;
                             std::fs::write(&path, bytes)?;
                             Ok(())
                         })();
                         ws.status = match result {
-                            Ok(()) => format!("Exported {}", crate::ui::shown_path(&path)).into(),
-                            Err(err) => format!("Export failed: {err}").into(),
+                            Ok(()) => {
+                                tf!("workspace.export.done", name = crate::ui::shown_path(&path))
+                                    .into()
+                            }
+                            Err(err) => tf!("workspace.export.failed", error = err).into(),
                         };
                         cx.notify();
                     })

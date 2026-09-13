@@ -1,6 +1,7 @@
 //! The Layer Style dialog session: preview, commit, revert.
 
 use super::*;
+use schist_i18n::t;
 
 impl Workspace {
     // ----- change propagation -----
@@ -84,12 +85,12 @@ impl Workspace {
             if let Some(l) = doc.tree.find_mut(layer) {
                 l.style = *original;
             }
-            let mut edit = doc.begin_edit("Layer Style");
+            let mut edit = doc.begin_edit(t("workspace.styles.layer_style"));
             edit.record_layer_style(layer, *original, *style);
             edit.commit();
             doc.damage_all();
         }
-        self.status = "Layer Style".into();
+        self.status = t("workspace.styles.layer_style").into();
         self.after_change(cx);
     }
 

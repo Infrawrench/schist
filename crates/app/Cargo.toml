@@ -19,6 +19,7 @@ name = "schist"
 path = "src/main.rs"
 
 [dependencies]
+schist-i18n.workspace = true
 # Deflate for the gallery's ZIPs and the cloud's gzip batch uploads;
 # already in the tree behind the PNG codec, so this adds no download.
 flate2 = "1"

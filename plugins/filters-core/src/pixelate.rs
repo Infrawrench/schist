@@ -2,6 +2,7 @@
 
 use crate::util::{at, luma, premultiply, put, unpremultiply, value_noise};
 use crate::{choice, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues};
 
 /// Average `px` over each cell of a grid and paint the cell flat.
@@ -55,9 +56,16 @@ fn cellular(px: &mut [f32], w: usize, h: usize, cell: usize, jitter: bool, seed:
 simple_filter!(
     Mosaic,
     "filter.mosaic",
-    "Mosaic",
-    "Pixelate",
-    [param("size", "Cell Size", 2.0, 200.0, 10.0, " px")],
+    t("filter.mosaic.name"),
+    t("filter.category.pixelate"),
+    [param(
+        "size",
+        t("filter.param.cell_size"),
+        2.0,
+        200.0,
+        10.0,
+        " px"
+    )],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         cellular(px, w, h, v.get("size").round() as usize, false, 0);
     }
@@ -66,9 +74,16 @@ simple_filter!(
 simple_filter!(
     Crystallize,
     "filter.crystallize",
-    "Crystallize",
-    "Pixelate",
-    [param("size", "Cell Size", 3.0, 300.0, 12.0, " px")],
+    t("filter.crystallize.name"),
+    t("filter.category.pixelate"),
+    [param(
+        "size",
+        t("filter.param.cell_size"),
+        3.0,
+        300.0,
+        12.0,
+        " px"
+    )],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         cellular(px, w, h, v.get("size").round() as usize, true, 7717);
     }
@@ -77,9 +92,16 @@ simple_filter!(
 simple_filter!(
     Pointillize,
     "filter.pointillize",
-    "Pointillize",
-    "Pixelate",
-    [param("size", "Cell Size", 3.0, 300.0, 8.0, " px")],
+    t("filter.pointillize.name"),
+    t("filter.category.pixelate"),
+    [param(
+        "size",
+        t("filter.param.cell_size"),
+        3.0,
+        300.0,
+        8.0,
+        " px"
+    )],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Dots of the cell's colour on the background colour, which here
         // is the cell's own average lightened towards white.
@@ -121,8 +143,8 @@ simple_filter!(
 simple_filter!(
     Facet,
     "filter.facet",
-    "Facet",
-    "Pixelate",
+    t("filter.facet.name"),
+    t("filter.category.pixelate"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         // Replace each pixel with whichever neighbour's colour is most
@@ -162,9 +184,16 @@ simple_filter!(
 simple_filter!(
     Fragment,
     "filter.fragment",
-    "Fragment",
-    "Pixelate",
-    [param("offset", "Offset", 1.0, 32.0, 4.0, " px")],
+    t("filter.fragment.name"),
+    t("filter.category.pixelate"),
+    [param(
+        "offset",
+        t("filter.param.offset"),
+        1.0,
+        32.0,
+        4.0,
+        " px"
+    )],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Four copies, offset diagonally, averaged: Photoshop's Fragment.
         let d = v.get("offset").round() as i32;
@@ -189,14 +218,49 @@ simple_filter!(
 simple_filter!(
     ColorHalftone,
     "filter.color_halftone",
-    "Color Halftone",
-    "Pixelate",
+    t("filter.color_halftone.name"),
+    t("filter.category.pixelate"),
     [
-        param("radius", "Max Radius", 2.0, 64.0, 8.0, " px"),
-        param("c1", "Screen Angle 1", 0.0, 360.0, 108.0, "\u{b0}"),
-        param("c2", "Screen Angle 2", 0.0, 360.0, 162.0, "\u{b0}"),
-        param("c3", "Screen Angle 3", 0.0, 360.0, 90.0, "\u{b0}"),
-        param("c4", "Screen Angle 4", 0.0, 360.0, 45.0, "\u{b0}")
+        param(
+            "radius",
+            t("filter.color_halftone.param.radius"),
+            2.0,
+            64.0,
+            8.0,
+            " px"
+        ),
+        param(
+            "c1",
+            t("filter.color_halftone.param.c1"),
+            0.0,
+            360.0,
+            108.0,
+            "\u{b0}"
+        ),
+        param(
+            "c2",
+            t("filter.color_halftone.param.c2"),
+            0.0,
+            360.0,
+            162.0,
+            "\u{b0}"
+        ),
+        param(
+            "c3",
+            t("filter.color_halftone.param.c3"),
+            0.0,
+            360.0,
+            90.0,
+            "\u{b0}"
+        ),
+        param(
+            "c4",
+            t("filter.color_halftone.param.c4"),
+            0.0,
+            360.0,
+            45.0,
+            "\u{b0}"
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Each channel screened on its own grid, rotated apart so the dots
@@ -239,27 +303,27 @@ simple_filter!(
 );
 
 /// Photoshop's ten mezzotint screens.
-const MEZZOTINT_TYPES: &[&str] = &[
-    "Fine Dots",
-    "Medium Dots",
-    "Grainy Dots",
-    "Coarse Dots",
-    "Short Lines",
-    "Medium Lines",
-    "Long Lines",
-    "Short Strokes",
-    "Medium Strokes",
-    "Long Strokes",
+static MEZZOTINT_TYPES: &[&str] = &[
+    "filter.mezzotint.choice.fine_dots",
+    "filter.mezzotint.choice.medium_dots",
+    "filter.mezzotint.choice.grainy_dots",
+    "filter.mezzotint.choice.coarse_dots",
+    "filter.mezzotint.choice.short_lines",
+    "filter.mezzotint.choice.medium_lines",
+    "filter.mezzotint.choice.long_lines",
+    "filter.mezzotint.choice.short_strokes",
+    "filter.mezzotint.choice.medium_strokes",
+    "filter.mezzotint.choice.long_strokes",
 ];
 
 simple_filter!(
     Mezzotint,
     "filter.mezzotint",
-    "Mezzotint",
-    "Pixelate",
+    t("filter.mezzotint.name"),
+    t("filter.category.pixelate"),
     [
-        choice("type", "Type", MEZZOTINT_TYPES, 1),
-        param("grain", "Grain", 1.0, 16.0, 2.0, " px")
+        choice("type", t("common.type"), choices(MEZZOTINT_TYPES), 1),
+        param("grain", t("filter.param.grain"), 1.0, 16.0, 2.0, " px")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Threshold each channel against a noise field: dark areas keep

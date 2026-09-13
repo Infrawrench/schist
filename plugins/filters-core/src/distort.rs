@@ -3,14 +3,22 @@
 
 use crate::util::{blur_plane, fbm, luma, surface, value_noise, warp};
 use crate::{choice, context_filter, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterContext, FilterParam, FilterPlugin, FilterValues};
 
 simple_filter!(
     Twirl,
     "filter.twirl",
-    "Twirl",
-    "Distort",
-    [param("angle", "Angle", -999.0, 999.0, 50.0, "\u{b0}")],
+    t("filter.twirl.name"),
+    t("filter.category.distort"),
+    [param(
+        "angle",
+        t("common.angle"),
+        -999.0,
+        999.0,
+        50.0,
+        "\u{b0}"
+    )],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let angle = v.get("angle").to_radians();
         let (cx, cy) = (w as f32 / 2.0, h as f32 / 2.0);
@@ -32,11 +40,11 @@ simple_filter!(
 simple_filter!(
     Ripple,
     "filter.ripple",
-    "Ripple",
-    "Distort",
+    t("filter.ripple.name"),
+    t("filter.category.distort"),
     [
-        param("amount", "Amount", -999.0, 999.0, 100.0, ""),
-        param("size", "Size", 1.0, 64.0, 12.0, " px")
+        param("amount", t("common.amount"), -999.0, 999.0, 100.0, ""),
+        param("size", t("common.size"), 1.0, 64.0, 12.0, " px")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let amount = v.get("amount") / 100.0;
@@ -50,19 +58,61 @@ simple_filter!(
     }
 );
 
+/// The three waveforms Wave can add up.
+static WAVE_TYPES: &[&str] = &[
+    "filter.wave.choice.sine",
+    "filter.wave.choice.triangle",
+    "filter.wave.choice.square",
+];
+
 simple_filter!(
     Wave,
     "filter.wave",
-    "Wave",
-    "Distort",
+    t("filter.wave.name"),
+    t("filter.category.distort"),
     [
-        param("generators", "Number of Generators", 1.0, 8.0, 1.0, ""),
-        param("wavelength", "Wavelength", 1.0, 400.0, 60.0, " px"),
-        param("amplitude", "Amplitude", 0.0, 200.0, 15.0, " px"),
-        param("horizontal", "Horizontal Scale", 0.0, 100.0, 100.0, "%"),
-        param("vertical", "Vertical Scale", 0.0, 100.0, 100.0, "%"),
-        choice("type", "Type", &["Sine", "Triangle", "Square"], 0),
-        param("seed", "Randomness", 0.0, 999.0, 1.0, "")
+        param(
+            "generators",
+            t("filter.wave.param.generators"),
+            1.0,
+            8.0,
+            1.0,
+            ""
+        ),
+        param(
+            "wavelength",
+            t("filter.wave.param.wavelength"),
+            1.0,
+            400.0,
+            60.0,
+            " px"
+        ),
+        param(
+            "amplitude",
+            t("filter.wave.param.amplitude"),
+            0.0,
+            200.0,
+            15.0,
+            " px"
+        ),
+        param(
+            "horizontal",
+            t("filter.param.horizontal_scale"),
+            0.0,
+            100.0,
+            100.0,
+            "%"
+        ),
+        param(
+            "vertical",
+            t("filter.param.vertical_scale"),
+            0.0,
+            100.0,
+            100.0,
+            "%"
+        ),
+        choice("type", t("common.type"), choices(WAVE_TYPES), 0),
+        param("seed", t("filter.param.randomness"), 0.0, 999.0, 1.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Photoshop's Wave is several wave generators added together,
@@ -110,17 +160,35 @@ simple_filter!(
 );
 
 /// Photoshop's three ZigZags, which are three directions to push in.
-const ZIGZAG_STYLES: &[&str] = &["Around Center", "Out From Center", "Pond Ripples"];
+static ZIGZAG_STYLES: &[&str] = &[
+    "filter.zigzag.choice.around_center",
+    "filter.zigzag.choice.out_from_center",
+    "filter.zigzag.choice.pond_ripples",
+];
+
+/// Spherize and Pinch: a sphere, or a cylinder either way.
+static AXIS_MODES: &[&str] = &[
+    "filter.choice.axis.normal",
+    "filter.choice.axis.horizontal_only",
+    "filter.choice.axis.vertical_only",
+];
 
 simple_filter!(
     ZigZag,
     "filter.zigzag",
-    "ZigZag",
-    "Distort",
+    t("filter.zigzag.name"),
+    t("filter.category.distort"),
     [
-        param("amount", "Amount", -100.0, 100.0, 30.0, ""),
-        param("ridges", "Ridges", 1.0, 20.0, 5.0, ""),
-        choice("style", "Style", ZIGZAG_STYLES, 2)
+        param("amount", t("common.amount"), -100.0, 100.0, 30.0, ""),
+        param(
+            "ridges",
+            t("filter.zigzag.param.ridges"),
+            1.0,
+            20.0,
+            5.0,
+            ""
+        ),
+        choice("style", t("common.style"), choices(ZIGZAG_STYLES), 2)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let amount = v.get("amount") / 100.0;
@@ -163,16 +231,11 @@ simple_filter!(
 simple_filter!(
     Spherize,
     "filter.spherize",
-    "Spherize",
-    "Distort",
+    t("filter.spherize.name"),
+    t("filter.category.distort"),
     [
-        param("amount", "Amount", -100.0, 100.0, 50.0, "%"),
-        choice(
-            "mode",
-            "Mode",
-            &["Normal", "Horizontal Only", "Vertical Only"],
-            0
-        )
+        param("amount", t("common.amount"), -100.0, 100.0, 50.0, "%"),
+        choice("mode", t("common.mode"), choices(AXIS_MODES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let amount = v.get("amount") / 100.0;
@@ -203,16 +266,11 @@ simple_filter!(
 simple_filter!(
     Pinch,
     "filter.pinch",
-    "Pinch",
-    "Distort",
+    t("filter.pinch.name"),
+    t("filter.category.distort"),
     [
-        param("amount", "Amount", -100.0, 100.0, 50.0, "%"),
-        choice(
-            "mode",
-            "Mode",
-            &["Normal", "Horizontal Only", "Vertical Only"],
-            0
-        )
+        param("amount", t("common.amount"), -100.0, 100.0, 50.0, "%"),
+        choice("mode", t("common.mode"), choices(AXIS_MODES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let amount = v.get("amount") / 100.0;
@@ -238,15 +296,21 @@ simple_filter!(
     }
 );
 
+/// Which way Polar Coordinates converts.
+static POLAR_DIRECTIONS: &[&str] = &[
+    "filter.polar.choice.polar_to_rectangular",
+    "filter.polar.choice.rectangular_to_polar",
+];
+
 simple_filter!(
     PolarCoordinates,
     "filter.polar",
-    "Polar Coordinates",
-    "Distort",
+    t("filter.polar.name"),
+    t("filter.category.distort"),
     [choice(
         "to_polar",
-        "Convert",
-        &["Polar to Rectangular", "Rectangular to Polar"],
+        t("filter.polar.param.to_polar"),
+        choices(POLAR_DIRECTIONS),
         1
     )],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
@@ -272,18 +336,37 @@ simple_filter!(
     }
 );
 
+/// The shapes anybody actually drags Shear's curve into.
+static SHEAR_CURVES: &[&str] = &[
+    "filter.shear.choice.bow",
+    "filter.shear.choice.s_curve",
+    "filter.shear.choice.ramp",
+];
+
+/// What happens where a remap sends a pixel off the edge: Shear and
+/// Displace offer the same two answers.
+static EDGE_UNDEFINED: &[&str] = &[
+    "filter.choice.undefined.repeat_edge_pixels",
+    "filter.choice.undefined.wrap_around",
+];
+
 simple_filter!(
     Shear,
     "filter.shear",
-    "Shear",
-    "Distort",
+    t("filter.shear.name"),
+    t("filter.category.distort"),
     [
-        param("amount", "Amount", -200.0, 200.0, 40.0, " px"),
-        choice("curve", "Curve", &["Bow", "S-Curve", "Ramp"], 0),
+        param("amount", t("common.amount"), -200.0, 200.0, 40.0, " px"),
+        choice(
+            "curve",
+            t("filter.shear.param.curve"),
+            choices(SHEAR_CURVES),
+            0
+        ),
         choice(
             "undefined",
-            "Undefined Areas",
-            &["Repeat Edge Pixels", "Wrap Around"],
+            t("filter.param.undefined_areas"),
+            choices(EDGE_UNDEFINED),
             0
         )
     ],
@@ -311,10 +394,10 @@ simple_filter!(
 );
 
 /// How a map that is not the layer's size gets used.
-const MAP_FIT: &[&str] = &["Stretch To Fit", "Tile"];
-
-/// What happens where the displacement sends a pixel off the edge.
-const MAP_UNDEFINED: &[&str] = &["Repeat Edge Pixels", "Wrap Around"];
+static MAP_FIT: &[&str] = &[
+    "filter.displace.choice.stretch_to_fit",
+    "filter.displace.choice.tile",
+];
 
 /// Filter ▸ Distort ▸ Displace.
 ///
@@ -331,32 +414,47 @@ impl FilterPlugin for Displace {
         "filter.displace"
     }
     fn name(&self) -> &'static str {
-        "Displace"
+        t("filter.displace.name")
     }
     fn category(&self) -> &'static str {
-        "Distort"
+        t("filter.category.distort")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("scale", "Horizontal Scale", 0.0, 200.0, 20.0, " px"),
-            param("vscale", "Vertical Scale", 0.0, 200.0, 20.0, " px"),
-            param("detail", "Detail", 1.0, 64.0, 16.0, " px"),
-            param("seed", "Randomness", 0.0, 999.0, 1.0, ""),
-            choice("fit", "Map Fit", MAP_FIT, 0),
-            choice("undefined", "Undefined Areas", MAP_UNDEFINED, 0),
+            param(
+                "scale",
+                t("filter.param.horizontal_scale"),
+                0.0,
+                200.0,
+                20.0,
+                " px",
+            ),
+            param(
+                "vscale",
+                t("filter.param.vertical_scale"),
+                0.0,
+                200.0,
+                20.0,
+                " px",
+            ),
+            param("detail", t("filter.param.detail"), 1.0, 64.0, 16.0, " px"),
+            param("seed", t("filter.param.randomness"), 0.0, 999.0, 1.0, ""),
+            choice("fit", t("filter.displace.param.fit"), choices(MAP_FIT), 0),
+            choice(
+                "undefined",
+                t("filter.param.undefined_areas"),
+                choices(EDGE_UNDEFINED),
+                0,
+            ),
         ]
     }
 
     fn wants_map(&self) -> Option<&'static str> {
-        Some("Displacement Map")
+        Some(t("filter.displace.map"))
     }
 
     fn info(&self) -> Option<String> {
-        Some(
-            "With no map chosen this displaces through a noise field of \
-             its own; Detail and Randomness shape it."
-                .to_string(),
-        )
+        Some(t("filter.displace.msg.info").to_string())
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
@@ -410,12 +508,33 @@ impl FilterPlugin for Displace {
 context_filter!(
     DiffuseGlow,
     "filter.diffuse_glow",
-    "Diffuse Glow",
-    "Distort",
+    t("filter.diffuse_glow.name"),
+    t("filter.category.distort"),
     [
-        param("graininess", "Graininess", 0.0, 10.0, 6.0, ""),
-        param("glow", "Glow Amount", 0.0, 20.0, 10.0, ""),
-        param("clear", "Clear Amount", 0.0, 20.0, 15.0, "")
+        param(
+            "graininess",
+            t("filter.param.graininess"),
+            0.0,
+            10.0,
+            6.0,
+            ""
+        ),
+        param(
+            "glow",
+            t("filter.diffuse_glow.param.glow"),
+            0.0,
+            20.0,
+            10.0,
+            ""
+        ),
+        param(
+            "clear",
+            t("filter.diffuse_glow.param.clear"),
+            0.0,
+            20.0,
+            15.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Light bleeding out of the highlights through a grainy diffusion
@@ -452,13 +571,39 @@ context_filter!(
 simple_filter!(
     Glass,
     "filter.glass",
-    "Glass",
-    "Distort",
+    t("filter.glass.name"),
+    t("filter.category.distort"),
     [
-        param("distortion", "Distortion", 0.0, 20.0, 5.0, ""),
-        param("smoothness", "Smoothness", 1.0, 15.0, 3.0, ""),
-        choice("texture", "Texture", GLASS_TEXTURES, 0),
-        param("scaling", "Scaling", 50.0, 200.0, 100.0, "%")
+        param(
+            "distortion",
+            t("filter.glass.param.distortion"),
+            0.0,
+            20.0,
+            5.0,
+            ""
+        ),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            15.0,
+            3.0,
+            ""
+        ),
+        choice(
+            "texture",
+            t("filter.param.texture"),
+            choices(GLASS_TEXTURES),
+            0
+        ),
+        param(
+            "scaling",
+            t("filter.param.scaling"),
+            50.0,
+            200.0,
+            100.0,
+            "%"
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Seen through a sheet of textured glass: the texture is a height
@@ -497,23 +642,37 @@ simple_filter!(
 
 /// Glass has its own texture list: the first two are its own, the rest
 /// are the surfaces the Texture group uses.
-const GLASS_TEXTURES: &[&str] = &[
-    "Frosted",
-    "Blocks",
-    "Canvas",
-    "Sandstone",
-    "Burlap",
-    "Brick",
+static GLASS_TEXTURES: &[&str] = &[
+    "filter.glass.choice.frosted",
+    "filter.glass.choice.blocks",
+    "filter.choice.surface.canvas",
+    "filter.choice.surface.sandstone",
+    "filter.choice.surface.burlap",
+    "filter.choice.surface.brick",
 ];
 
 simple_filter!(
     OceanRipple,
     "filter.ocean_ripple",
-    "Ocean Ripple",
-    "Distort",
+    t("filter.ocean_ripple.name"),
+    t("filter.category.distort"),
     [
-        param("size", "Ripple Size", 1.0, 15.0, 9.0, ""),
-        param("magnitude", "Ripple Magnitude", 0.0, 20.0, 9.0, "")
+        param(
+            "size",
+            t("filter.ocean_ripple.param.size"),
+            1.0,
+            15.0,
+            9.0,
+            ""
+        ),
+        param(
+            "magnitude",
+            t("filter.ocean_ripple.param.magnitude"),
+            0.0,
+            20.0,
+            9.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Randomly spaced ripples, as though the image were under moving

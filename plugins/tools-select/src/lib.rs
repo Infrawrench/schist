@@ -7,6 +7,7 @@
 use schist_core::{
     Document, IntRect, LayerKind, SelectOp, Selection, TileCoord, TileMap, TILE_SIZE,
 };
+use schist_i18n::{choices, t};
 use schist_plugin_api::{
     EditorState, Modifiers, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput,
     ToolCtx, ToolOption, ToolPlugin,
@@ -76,7 +77,12 @@ fn active_raster(doc: &Document) -> Option<&schist_core::RasterLayer> {
 
 /// The four ways a new shape can meet the existing selection, in the order
 /// Photoshop's buttons sit in.
-const SELECT_MODES: &[&str] = &["New", "Add", "Subtract", "Intersect"];
+static SELECT_MODES: &[&str] = &[
+    "common.new",
+    "common.add",
+    "tool.select.mode.subtract",
+    "tool.select.mode.intersect",
+];
 
 fn mode_from_index(i: usize) -> SelectOp {
     match i {
@@ -207,22 +213,15 @@ impl ToolPlugin for MarqueeTool {
 
     fn name(&self) -> &'static str {
         match self.shape {
-            MarqueeShape::Rect => "Rectangular Marquee",
-            MarqueeShape::Ellipse => "Elliptical Marquee",
+            MarqueeShape::Rect => t("tool.marquee.rect.name"),
+            MarqueeShape::Ellipse => t("tool.marquee.ellipse.name"),
         }
     }
 
     fn description(&self) -> &'static str {
         match self.shape {
-            MarqueeShape::Rect => {
-                "Drag out a rectangular selection. Shift at the start of the drag adds to \
-                 the selection, alt subtracts, both intersect; shift during the drag squares \
-                 it off. A click with no drag deselects."
-            }
-            MarqueeShape::Ellipse => {
-                "Drag out an elliptical selection, with the same shift/alt combining as the \
-                 rectangular marquee."
-            }
+            MarqueeShape::Rect => t("tool.marquee.rect.description"),
+            MarqueeShape::Ellipse => t("tool.marquee.ellipse.description"),
         }
     }
 
@@ -271,7 +270,7 @@ impl ToolPlugin for MarqueeTool {
         if rect.is_empty() {
             // Click without drag: deselect (Photoshop behavior).
             if op == SelectOp::Replace {
-                let mut edit = ctx.doc.begin_edit("Deselect");
+                let mut edit = ctx.doc.begin_edit(t("common.deselect"));
                 edit.change_selection(|sel, _| sel.deselect());
                 edit.commit();
             }
@@ -279,7 +278,7 @@ impl ToolPlugin for MarqueeTool {
         }
         let shape = self.shape;
         let feather = self.feather;
-        let mut edit = ctx.doc.begin_edit("Select");
+        let mut edit = ctx.doc.begin_edit(t("common.select"));
         edit.change_selection(|sel, _| {
             commit_shape(sel, feather, op, |target, op| match shape {
                 MarqueeShape::Rect => target.select_rect(rect, op),
@@ -296,14 +295,19 @@ impl ToolPlugin for MarqueeTool {
 
     fn options(&self) -> Vec<ToolOption> {
         vec![
-            ToolOption::choice("marquee-mode", "Mode", SELECT_MODES, mode_index(self.mode)),
+            ToolOption::choice(
+                "marquee-mode",
+                t("common.mode"),
+                choices(SELECT_MODES),
+                mode_index(self.mode),
+            ),
             ToolOption::slider(
                 "marquee-feather",
-                "Feather",
+                t("common.feather"),
                 self.feather,
                 0.0,
                 250.0,
-                " px",
+                t("common.unit.px_suffix"),
             ),
         ]
     }
@@ -384,9 +388,9 @@ impl LassoTool {
         }
         let op = op_from(self.modifiers, self.mode);
         let name = match self.kind {
-            LassoKind::Free => "Lasso Select",
-            LassoKind::Polygonal => "Polygonal Lasso",
-            LassoKind::Magnetic => "Magnetic Lasso",
+            LassoKind::Free => t("tool.lasso.history.select"),
+            LassoKind::Polygonal => t("tool.lasso.polygonal.history.select"),
+            LassoKind::Magnetic => t("tool.lasso.magnetic.history.select"),
         };
         let mut edit = ctx.doc.begin_edit(name);
         let feather = self.feather;
@@ -460,25 +464,16 @@ impl ToolPlugin for LassoTool {
     }
     fn name(&self) -> &'static str {
         match self.kind {
-            LassoKind::Free => "Lasso",
-            LassoKind::Polygonal => "Polygonal Lasso",
-            LassoKind::Magnetic => "Magnetic Lasso",
+            LassoKind::Free => t("tool.lasso.name"),
+            LassoKind::Polygonal => t("tool.lasso.polygonal.name"),
+            LassoKind::Magnetic => t("tool.lasso.magnetic.name"),
         }
     }
     fn description(&self) -> &'static str {
         match self.kind {
-            LassoKind::Free => {
-                "Drag a freehand outline; the selection closes across the ends when the drag \
-                 finishes. Shift adds, alt subtracts."
-            }
-            LassoKind::Polygonal => {
-                "Click corner after corner to build a straight-edged selection, and click \
-                 near the first point to close it."
-            }
-            LassoKind::Magnetic => {
-                "Trace roughly along an edge and the outline snaps to the strongest contrast \
-                 near the path."
-            }
+            LassoKind::Free => t("tool.lasso.description"),
+            LassoKind::Polygonal => t("tool.lasso.polygonal.description"),
+            LassoKind::Magnetic => t("tool.lasso.magnetic.description"),
         }
     }
     fn icon(&self) -> &'static str {
@@ -497,16 +492,42 @@ impl ToolPlugin for LassoTool {
 
     fn options(&self) -> Vec<ToolOption> {
         let mut opts = vec![
-            ToolOption::choice("lasso-mode", "Mode", SELECT_MODES, mode_index(self.mode)),
-            ToolOption::slider("lasso-feather", "Feather", self.feather, 0.0, 250.0, " px"),
+            ToolOption::choice(
+                "lasso-mode",
+                t("common.mode"),
+                choices(SELECT_MODES),
+                mode_index(self.mode),
+            ),
+            ToolOption::slider(
+                "lasso-feather",
+                t("common.feather"),
+                self.feather,
+                0.0,
+                250.0,
+                t("common.unit.px_suffix"),
+            ),
         ];
         if self.kind == LassoKind::Magnetic {
             opts.extend([
-                ToolOption::slider("lasso-width", "Width", self.width, 1.0, 40.0, " px"),
-                ToolOption::slider("lasso-contrast", "Contrast", self.contrast, 1.0, 100.0, ""),
+                ToolOption::slider(
+                    "lasso-width",
+                    t("common.width"),
+                    self.width,
+                    1.0,
+                    40.0,
+                    t("common.unit.px_suffix"),
+                ),
+                ToolOption::slider(
+                    "lasso-contrast",
+                    t("common.contrast"),
+                    self.contrast,
+                    1.0,
+                    100.0,
+                    "",
+                ),
                 ToolOption::slider(
                     "lasso-frequency",
-                    "Frequency",
+                    t("tool.lasso.magnetic.option.frequency"),
                     self.frequency,
                     1.0,
                     100.0,
@@ -700,11 +721,10 @@ impl ToolPlugin for WandTool {
         "wand"
     }
     fn name(&self) -> &'static str {
-        "Magic Wand"
+        t("tool.wand.name")
     }
     fn description(&self) -> &'static str {
-        "Click to select the connected area of similar colour under the pointer, within \
-         the tolerance option -- the same tolerance Grow, Similar and Color Range read."
+        t("tool.wand.description")
     }
     fn icon(&self) -> &'static str {
         "wand"
@@ -720,21 +740,30 @@ impl ToolPlugin for WandTool {
             return;
         };
         let op = op_from(input.modifiers, self.mode);
-        commit_pixels(ctx, &pixels, op, "Magic Wand");
+        commit_pixels(ctx, &pixels, op, t("tool.wand.history.select"));
     }
 
     fn options(&self) -> Vec<ToolOption> {
         vec![
-            ToolOption::choice("wand-mode", "Mode", SELECT_MODES, mode_index(self.mode)),
+            ToolOption::choice(
+                "wand-mode",
+                t("common.mode"),
+                choices(SELECT_MODES),
+                mode_index(self.mode),
+            ),
             ToolOption::slider(
                 "wand-tolerance",
-                "Tolerance",
+                t("common.tolerance"),
                 self.tolerance as f32,
                 0.0,
                 255.0,
                 "",
             ),
-            ToolOption::toggle("wand-contiguous", "Contiguous", self.contiguous),
+            ToolOption::toggle(
+                "wand-contiguous",
+                t("tool.wand.option.contiguous"),
+                self.contiguous,
+            ),
         ]
     }
 
@@ -853,11 +882,10 @@ impl ToolPlugin for QuickSelectTool {
         "quick_select"
     }
     fn name(&self) -> &'static str {
-        "Quick Selection"
+        t("tool.quick_select.name")
     }
     fn description(&self) -> &'static str {
-        "Paint over a region and the selection grows through the similar pixels the brush \
-         passes over."
+        t("tool.quick_select.description")
     }
     fn icon(&self) -> &'static str {
         "quick-select"
@@ -871,8 +899,22 @@ impl ToolPlugin for QuickSelectTool {
 
     fn options(&self) -> Vec<ToolOption> {
         vec![
-            ToolOption::slider("qs-size", "Size", self.radius, 1.0, 120.0, " px"),
-            ToolOption::slider("qs-tolerance", "Tolerance", self.tolerance, 1.0, 128.0, ""),
+            ToolOption::slider(
+                "qs-size",
+                t("common.size"),
+                self.radius,
+                1.0,
+                120.0,
+                t("common.unit.px_suffix"),
+            ),
+            ToolOption::slider(
+                "qs-tolerance",
+                t("common.tolerance"),
+                self.tolerance,
+                1.0,
+                128.0,
+                "",
+            ),
         ]
     }
 
@@ -899,7 +941,7 @@ impl ToolPlugin for QuickSelectTool {
         } else {
             SelectOp::Replace
         };
-        commit_pixels(ctx, &added, op, "Quick Selection");
+        commit_pixels(ctx, &added, op, t("tool.quick_select.history.select"));
     }
 
     fn on_pointer_move(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
@@ -912,7 +954,7 @@ impl ToolPlugin for QuickSelectTool {
         } else {
             SelectOp::Add
         };
-        commit_pixels(ctx, &added, op, "Quick Selection");
+        commit_pixels(ctx, &added, op, t("tool.quick_select.history.select"));
     }
 
     fn on_pointer_up(&mut self, _ctx: &mut ToolCtx, _input: PointerInput) {
@@ -1171,10 +1213,10 @@ impl ToolPlugin for ObjectSelectTool {
         "object_select"
     }
     fn name(&self) -> &'static str {
-        "Object Selection"
+        t("tool.object_select.name")
     }
     fn description(&self) -> &'static str {
-        "Drag a box around an object and the selection snaps to the object found inside it."
+        t("tool.object_select.description")
     }
     fn icon(&self) -> &'static str {
         "object-select"
@@ -1185,8 +1227,20 @@ impl ToolPlugin for ObjectSelectTool {
 
     fn options(&self) -> Vec<ToolOption> {
         vec![
-            ToolOption::choice("os-mode", "Mode", SELECT_MODES, mode_index(self.mode)),
-            ToolOption::slider("os-tolerance", "Tolerance", self.tolerance, 1.0, 128.0, ""),
+            ToolOption::choice(
+                "os-mode",
+                t("common.mode"),
+                choices(SELECT_MODES),
+                mode_index(self.mode),
+            ),
+            ToolOption::slider(
+                "os-tolerance",
+                t("common.tolerance"),
+                self.tolerance,
+                1.0,
+                128.0,
+                "",
+            ),
         ]
     }
 
@@ -1224,7 +1278,7 @@ impl ToolPlugin for ObjectSelectTool {
             ctx,
             &pixels,
             op_from(self.modifiers, self.mode),
-            "Object Selection",
+            t("tool.object_select.history.select"),
         );
     }
 

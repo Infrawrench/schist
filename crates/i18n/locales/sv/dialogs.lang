@@ -1,0 +1,258 @@
+# Svenska: de modala dialogrutorna. Termerna följer svenska Photoshop
+# (Nytt dokument, Bildstorlek, Arbetsytans storlek, Lagerstil, Ändra
+# upplösning).
+
+# Delade av flera dialogrutor
+dialog.save_ellipsis = Spara…
+dialog.use_foreground = Använd förgrundsfärg
+dialog.downloading = Hämtar…
+dialog.downloading_of = Hämtar… {got} av {total}
+dialog.no_config_dir = (ingen konfigurationsmapp)
+
+# Lageregenskaper
+dialog.layer_props.title = Lageregenskaper
+
+# Exportera
+dialog.export.format = Format
+dialog.export.dither = Gitter
+dialog.export.dither_note = Använd gitter vid reducering till 8 bitar
+dialog.export.export_ellipsis = Exportera…
+
+# Bearbeta foton (galleriets batchdialog)
+dialog.batch.title = Bearbeta foton
+dialog.batch.note_edit.one = {n} foto — sparas som galleriredigering; originalen rörs aldrig.
+dialog.batch.note_edit.other = {n} foton — sparas som galleriredigeringar; originalen rörs aldrig.
+dialog.batch.note_edit_edited.one = {n} foto, {edited} redan redigerat — receptet läggs ovanpå redigeringen, och den tidigare redigeringen behålls som en version.
+dialog.batch.note_edit_edited.other = {n} foton, {edited} redan redigerade — receptet läggs ovanpå redigeringen, och den tidigare redigeringen behålls som en version.
+dialog.batch.note_copies.one = {n} foto — platta kopior; originalen rörs aldrig.
+dialog.batch.note_copies.other = {n} foton — platta kopior; originalen rörs aldrig.
+dialog.batch.note_copies_edited.one = {n} foto, {edited} redan redigerat — kopiorna görs från redigeringarna.
+dialog.batch.note_copies_edited.other = {n} foton, {edited} redan redigerade — kopiorna görs från redigeringarna.
+dialog.batch.turn = Vrid
+dialog.batch.rotate = Rotera
+dialog.batch.flip = Vänd
+dialog.batch.upscale = Skala upp
+dialog.batch.colour = Färg
+dialog.batch.add_adjustment = Justering…
+dialog.batch.output = Utdata
+dialog.batch.save_as = Spara som
+dialog.batch.process = Bearbeta
+dialog.batch.process_n = Bearbeta {n}
+dialog.batch.nothing_to_do = Inget att göra: välj först en vridning, en uppskalning eller en justering
+
+# Innehållsanpassad skalning
+dialog.content_aware_scale.title = Innehållsanpassad skalning
+dialog.content_aware_scale.note = Skär bort sömmar med lite detaljer. En markering visar vad som ska skyddas.
+
+# Linje (även linjens placering i dialogrutan Lagerstil)
+dialog.stroke.title = Linje
+dialog.stroke.location = Placering
+dialog.stroke.inside = Innanför
+dialog.stroke.outside = Utanför
+dialog.stroke.note = Ritar en linje runt markeringen i förgrundsfärgen.
+
+# Fyll
+dialog.fill.contents = Innehåll
+
+# Färgområde
+dialog.color_range.title = Färgområde
+dialog.color_range.sampled = Provtagen
+dialog.color_range.fuzziness = Oskärpa
+dialog.color_range.note = Markerar pixlar nära den provtagna färgen på det aktiva lagret.
+
+# Filväljaren Schist ritar själv (Android)
+dialog.file_picker.up = ↑ Upp
+dialog.file_picker.empty = Inget här
+dialog.file_picker.choose_folder = Välj den här mappen
+
+# Filterdialogrutor
+dialog.filter.camera_raw_development = Camera Raw-framkallning
+dialog.filter.reset_as_shot = Återställ till Som fotograferat
+dialog.filter.raw_note = Framkallar det aktiva lagret på nytt från dess ursprungliga sensordata.
+dialog.filter.note = Tillämpas på det aktiva lagret, inom markeringen.
+
+# Saknade teckensnitt
+dialog.fonts.title = Saknade teckensnitt
+dialog.fonts.install_named = Installera {name}
+dialog.fonts.no_document = Inget dokument är öppet, så det finns inget att kontrollera.
+dialog.fonts.all_installed = Alla teckensnitt som dokumentet använder är installerade. Dess text är satt i de teckensnitt den formgavs med.
+dialog.fonts.missing_intro = Det här dokumentet är satt i teckensnitt du inte har. Texten är läsbar i ett ersättningsteckensnitt, men dess bredder och radbrytningar är inte de som den formgavs med.
+dialog.fonts.footer = Hämtningar kommer från Google Fonts öppna katalog och sparas i {dir}. Ett teckensnitt som inte har en öppen licens hämtas aldrig — där det finns en fri design med samma mått erbjuds den i stället, vilket återställer layouten eftersom teckenbredderna stämmer.
+dialog.fonts.user_font_dir = din teckensnittsmapp
+
+# Neural Filters-modeller
+dialog.models.title = Neural Filters-modeller
+dialog.models.built_in = Inbyggd · {size}
+dialog.models.installed = Installerad · {size}
+dialog.models.not_installed = Inte installerad · {size}
+dialog.models.not_in_browser = Inte tillgänglig i webbläsaren · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modeller sparas i {dir}. Filter som saknar modell faller tillbaka på signalbehandling och säger det.
+
+# Nytt dokument
+dialog.new_doc.title = Nytt dokument
+dialog.new_doc.picker_title = Ny fil
+dialog.new_doc.custom_ellipsis = Anpassad…
+dialog.new_doc.preset = Förinställning
+dialog.new_doc.preset_default = Standard (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Kvadrat (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px vid {ppi} ppi · {size}
+dialog.new_doc.create = Skapa
+dialog.new_doc.created = Nytt dokument: {w} × {h} px
+
+# Öppna filer: släppta bilder och mappar, delade filer, HEIC-stöd
+dialog.open.image_title = Öppna bild
+dialog.open.image_prompt = Vill du öppna ”{name}” i en ny flik, eller lägga till den som ett nytt lager i det aktuella dokumentet?
+dialog.open.new_tab = Ny flik
+dialog.open.new_layer = Nytt lager
+dialog.open.quoted = ”{name}”
+dialog.open.these_files.one = den här filen ({n})
+dialog.open.these_files.other = de här {n} filerna
+dialog.open.shared_title_one = Delad bild
+dialog.open.shared_title_many = Delade bilder
+dialog.open.shared_prompt = Vill du lägga till {what} i galleriet, eller öppna i redigeraren?
+dialog.open.add_to_gallery = Lägg till i galleriet
+dialog.open.open_in_editor = Öppna i redigeraren
+dialog.open.heic_title = HEIC-stöd
+dialog.open.heic_needs_decoder = För att öppna ”{name}” behövs en HEVC-avkodare, och det finns ingen installerad på det här systemet.
+dialog.open.heic_offer = Schist kan hämta ett rent avkodningsbygge av libheif {version} med HEVC-avkodaren libde265 (≈5 MB). Båda har licensen LGPL-3.0; deras licenstexter installeras bredvid biblioteket, och källkoden finns på projektsidan.
+dialog.open.licenses_source = Licenser och källkod
+dialog.open.folders_title = Släppta mappar
+dialog.open.n_folders.one = {n} mapp
+dialog.open.n_folders.other = {n} mappar
+dialog.open.open_in_tabs = Öppna i flikar
+dialog.open.open_first_in_tabs = Öppna de första {n} i flikar
+dialog.open.open_n_in_tabs.one = Öppna {n} i en flik
+dialog.open.open_n_in_tabs.other = Öppna {n} i flikar
+dialog.open.folder_holds.one = {what} innehåller {n} bild som Schist kan öppna (undermappar inräknade).
+dialog.open.folder_holds.other = {what} innehåller {n} bilder som Schist kan öppna (undermappar inräknade).
+dialog.open.folders_note = Lägg till i galleriet bevakar mapparna där de är — inget kopieras, och redigeringar versioneras bredvid varje foto. Att öppna i flikar läser in varje bild i redigeraren nu.
+
+# Plugin-program
+dialog.plugins.title = Plugin-program
+dialog.plugins.kind_filter = filter
+dialog.plugins.kind_format = format
+dialog.plugins.kind_unavailable = otillgängligt
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Plugin-program läses in från {dir}
+dialog.plugins.none = Inga plugin-program installerade ännu.
+dialog.plugins.install_ellipsis = Installera…
+dialog.plugins.photoshop_heading = Photoshop-plugin-program
+dialog.plugins.loaded_from = Inlästa från {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Inställningar
+dialog.prefs.title = Inställningar
+dialog.prefs.theme = Tema
+dialog.prefs.theme_dark = Mörkt
+dialog.prefs.theme_light = Ljust
+dialog.prefs.grid_spacing = Rutnätsavstånd
+dialog.prefs.snapping = Fäst
+dialog.prefs.snap_to = Fäst mot stödlinjer, rutnät och arbetsytans kanter
+dialog.prefs.rendering_intent = Återgivningsmetod
+dialog.prefs.intent_perceptual = Perceptuell
+dialog.prefs.intent_relative = Relativ kolorimetrisk
+dialog.prefs.intent_saturation = Mättnad
+dialog.prefs.intent_absolute = Absolut kolorimetrisk
+dialog.prefs.scrolling = Rullning
+dialog.prefs.zoom_with_scroll = Zooma med rullhjulet
+dialog.prefs.rendering = Rendering
+dialog.prefs.gpu_compositing = GPU-sammansättning
+dialog.prefs.diagnostics = Diagnostik
+dialog.prefs.crash_reports = Skriv en lokal kraschrapport vid krasch
+dialog.prefs.crash_upload = Skicka den även till utvecklarna
+dialog.prefs.telemetry = Skicka en anonym daglig ping
+dialog.prefs.diagnostics_note = Diagnostiken börjar gälla när Schist startas nästa gång.
+dialog.prefs.updates = Uppdateringar
+dialog.prefs.check_updates = Sök efter nya versioner vid start
+dialog.prefs.keyboard_shortcuts = Kortkommandon: {path}
+dialog.prefs.nsfw_needs_model = Kräver modellen Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = hämta den under Hantera modeller…
+dialog.prefs.hide_flagged = Dölj flaggade foton
+
+# Tilldela profil / Konvertera till profil
+dialog.profile.profile = Profil
+dialog.profile.assign_title = Tilldela profil
+dialog.profile.convert_title = Konvertera till profil
+dialog.profile.assign = Tilldela
+dialog.profile.convert = Konvertera
+dialog.profile.assign_note = Tolkar om de befintliga pixelvärdena under den nya profilen.
+dialog.profile.convert_note = Räknar om pixelvärdena så att färgerna behåller sitt utseende.
+
+# Spara bild som (ett gallerifoto som platt bild)
+dialog.save_image.title = Spara bild som
+dialog.save_image.note = {name} — redigeringen, om det finns någon; originalet rörs aldrig.
+dialog.save_image.scale_to = {percent} % → {w} × {h}
+
+# Bildstorlek och Arbetsytans storlek
+dialog.size.image_title = Bildstorlek
+dialog.size.canvas_title = Arbetsytans storlek
+dialog.size.constrain = Begränsa
+dialog.size.keep_proportions = Behåll proportioner
+dialog.size.resample = Ändra upplösning
+dialog.size.bicubic = Bikubisk
+dialog.size.bilinear = Bilinjär
+dialog.size.nearest = Närmaste granne
+dialog.size.anchor = Ankare
+dialog.size.currently = För närvarande {w} × {h} px
+dialog.size.image_size_status = Bildstorlek: {w} × {h}
+dialog.size.canvas_size_status = Arbetsytans storlek: {w} × {h}
+
+# Uppdatering tillgänglig
+dialog.update.title = Uppdatering tillgänglig
+dialog.update.available = Schist {version} finns tillgänglig. Det här exemplaret är {current}.
+dialog.update.installing = Installerar uppdateringen…
+dialog.update.can_install = Schist kan hämta den ({size}) och installera den över det här exemplaret.
+dialog.update.external = Det här exemplaret kommer från någon som äger det — en pakethanterare, en AppImage, ett eget bygge — så det uppdateras på samma sätt som det installerades.
+dialog.update.later = Senare
+dialog.update.release_notes = Versionsinformation
+dialog.update.update_restart = Uppdatera och starta om
+dialog.update.open_page = Öppna versionssidan
+
+# Lagerstil: effekterna (Photoshops namn) och deras reglage
+dialog.style.title = Lagerstil
+dialog.style.bevel = Avfasning och relief
+dialog.style.stroke = Linje
+dialog.style.inner_shadow = Inre skugga
+dialog.style.inner_glow = Inre glöd
+dialog.style.satin = Satäng
+dialog.style.color_overlay = Färgövertäckning
+dialog.style.gradient_overlay = Övertoningsövertäckning
+dialog.style.outer_glow = Yttre glöd
+dialog.style.drop_shadow = Skugga
+dialog.style.blur = Gaussisk oskärpa
+dialog.style.gradient_from = Övertoningsövertäckning från
+dialog.style.gradient_to = Övertoningsövertäckning till
+dialog.style.soften = Mjukhet
+dialog.style.depth = Djup
+dialog.style.altitude = Höjd
+dialog.style.highlight = Högdager
+dialog.style.shadow = Skugga
+dialog.style.outer_bevel = Yttre avfasning
+dialog.style.inner_bevel = Inre avfasning
+dialog.style.emboss = Relief
+dialog.style.pillow_emboss = Kuddrelief
+dialog.style.linear = Linjär
+dialog.style.radial = Radiell
+dialog.style.reverse = Omvänd
+dialog.style.from_to = Från / Till
+dialog.style.from_fg = Från = FG
+dialog.style.to_fg = Till = FG
+dialog.style.precise = Exakt
+dialog.style.knockout = Lagret slår ut skuggan
+
+# Färgväljare
+dialog.color_picker.title = Färgväljare ({what})
+dialog.color_picker.effect_color = Färg för {effect}
+dialog.color_picker.note_color = Anteckningsfärg
+dialog.color_picker.new = ny
+dialog.color_picker.current = aktuell
+
+# Kurvgrafen
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Återställ kanal
+dialog.curves.hint = Dra för att forma · klicka för att lägga till · alt-klicka för att ta bort

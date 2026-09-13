@@ -1,6 +1,7 @@
 //! Filter parameter dialogs and adjustment layers.
 
 use super::*;
+use schist_i18n::tf;
 
 impl Workspace {
     /// Open a filter's parameter dialog, pre-filled with its defaults.
@@ -40,7 +41,7 @@ impl Workspace {
     pub fn add_adjustment(&mut self, kind: schist_core::AdjustmentKind, cx: &mut Context<Self>) {
         let params = schist_adjustments::Params::default_for(kind);
         let Some(doc) = self.doc.as_mut() else { return };
-        let mut layer = Layer::new_raster(kind.display_name());
+        let mut layer = Layer::new_raster(crate::ui::adjustment_name(kind));
         layer.kind = schist_core::LayerKind::Adjustment(schist_core::AdjustmentData {
             kind,
             raw: Vec::new(),
@@ -54,11 +55,18 @@ impl Workspace {
             }
             None => schist_core::LayerPath(vec![doc.tree.layers.len()]),
         };
-        let mut edit = doc.begin_edit(format!("New {} Layer", kind.display_name()));
+        let mut edit = doc.begin_edit(tf!(
+            "workspace.adjustment.new_layer",
+            name = crate::ui::adjustment_name(kind)
+        ));
         edit.insert_layer(path, layer);
         edit.commit();
         doc.active_layer = Some(id);
-        self.status = format!("Added {}", kind.display_name()).into();
+        self.status = tf!(
+            "workspace.adjustment.added",
+            name = crate::ui::adjustment_name(kind)
+        )
+        .into();
         self.after_change(cx);
         // Anything with controls opens its dialog straight away.
         if !params.param_specs().is_empty() {
@@ -108,13 +116,20 @@ impl Workspace {
                 data.params_json = original.0.clone();
                 data.raw = original.1.clone();
             }
-            let mut edit = doc.begin_edit(format!("{} Settings", params.display_name()));
+            let mut edit = doc.begin_edit(tf!(
+                "workspace.adjustment.settings",
+                name = crate::ui::adjustment_name(params.kind())
+            ));
             // Editing parameters supersedes the preserved PSD payload, so
             // the writer emits our values rather than stale bytes.
             edit.record_adjustment_params(layer, original, after);
             edit.commit();
         }
-        self.status = format!("{} updated", params.display_name()).into();
+        self.status = tf!(
+            "workspace.adjustment.updated",
+            name = crate::ui::adjustment_name(params.kind())
+        )
+        .into();
         self.after_change(cx);
     }
 
@@ -150,7 +165,11 @@ impl Workspace {
             .and_then(|j| serde_json::from_str(j).ok())
             .unwrap_or_else(|| schist_adjustments::parse_psd(data.kind, &data.raw));
         if params.param_specs().is_empty() {
-            self.status = format!("{} has no editable settings", params.display_name()).into();
+            self.status = tf!(
+                "workspace.adjustment.no_settings",
+                name = crate::ui::adjustment_name(params.kind())
+            )
+            .into();
             return;
         }
         let original = (data.params_json.clone(), data.raw.clone());

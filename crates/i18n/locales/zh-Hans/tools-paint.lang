@@ -1,0 +1,85 @@
+# 绘画工具（plugins/tools-paint）。术语尽量与简体中文版 Photoshop 一致。
+
+# 画笔
+tool.brush.name = 画笔
+tool.brush.description = 以前景色绘制柔边描边，大小、硬度和不透明度取自当前画笔设置。
+tool.brush.history.stroke = 画笔
+
+# 铅笔
+tool.pencil.name = 铅笔
+tool.pencil.description = 以前景色绘制硬边、无消除锯齿的描边。
+tool.pencil.history.stroke = 铅笔
+
+# 橡皮擦
+tool.eraser.name = 橡皮擦
+tool.eraser.description = 沿描边擦除，使图层恢复透明。
+tool.eraser.history.stroke = 橡皮擦
+
+# 仿制图章
+tool.clone.name = 仿制图章
+tool.clone.description = 仿制图章：按住 Alt 点击设置源点，然后绘制，像素会按该偏移从源点复制过来。
+tool.clone.history.stroke = 仿制图章
+
+# 减淡、加深、海绵
+tool.dodge.name = 减淡
+tool.dodge.description = 使描边经过的像素变亮。
+tool.dodge.history.stroke = 减淡
+tool.burn.name = 加深
+tool.burn.description = 使描边经过的像素变暗。
+tool.burn.history.stroke = 加深
+tool.sponge.name = 海绵
+tool.sponge.description = 增加或降低描边经过的像素的饱和度。
+tool.sponge.history.stroke = 海绵
+
+# 模糊、锐化、涂抹
+tool.blur.name = 模糊
+tool.blur.description = 使描边经过的像素变模糊。
+tool.blur.history.stroke = 模糊
+tool.sharpen.name = 锐化
+tool.sharpen.description = 使描边经过的像素更清晰。
+tool.sharpen.history.stroke = 锐化
+tool.smudge.name = 涂抹
+tool.smudge.description = 沿描边拖动颜色，就像推开未干的颜料。
+tool.smudge.history.stroke = 涂抹
+
+# 修复
+tool.heal.name = 修复画笔
+tool.heal.description = 修复画笔：按住 Alt 点击设置源点，然后绘制；源的纹理会融入目标自身的颜色和光照。
+tool.heal.history.stroke = 修复画笔
+tool.spot_heal.name = 污点修复画笔
+tool.spot_heal.description = 污点修复画笔：在瑕疵上绘制，即以周围的纹理替换它，无需设置源点。
+tool.spot_heal.history.stroke = 污点修复画笔
+
+# 历史记录画笔
+tool.history_brush.name = 历史记录画笔
+tool.history_brush.description = 从文档的历史记录快照中绘回像素，逐笔撤销之后的修改。
+tool.history_brush.history.stroke = 历史记录画笔
+
+# 背景橡皮擦
+tool.background_eraser.name = 背景橡皮擦
+tool.background_eraser.description = 擦除画笔中心取样到的颜色，保留其他颜色的像素，用于把主体从背景中抠出。
+tool.background_eraser.history.stroke = 背景橡皮擦
+
+# 渐变
+tool.gradient.name = 渐变
+tool.gradient.description = 拖动以用线性渐变填充图层（有选区时填充选区），渐变沿拖动方向从前景色过渡到背景色。
+tool.gradient.radial.name = 径向渐变
+tool.gradient.radial.description = 从中心向外拖动，以前景色到背景色的径向渐变填充。
+tool.gradient.option.gradient = 渐变
+tool.gradient.option.reverse = 反向
+tool.gradient.option.dither = 仿色
+tool.gradient.choice.foreground_to_background = 前景色到背景色
+tool.gradient.choice.foreground_to_transparent = 前景色到透明
+tool.gradient.choice.linear = 线性
+tool.gradient.choice.radial = 径向
+tool.gradient.choice.angle = 角度
+tool.gradient.choice.reflected = 对称
+tool.gradient.choice.diamond = 菱形
+tool.gradient.history.gradient = 渐变
+
+# 油漆桶
+tool.bucket.name = 油漆桶
+tool.bucket.description = 点击后，将指针下方颜色相近的连续区域在容差范围内填充为前景色。
+tool.bucket.option.contiguous = 连续
+tool.bucket.option.all_layers = 所有图层
+tool.bucket.history.fill = 油漆桶

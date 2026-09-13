@@ -1,0 +1,29 @@
+# Das Textwerkzeug (plugins/tools-type). Die Begriffe folgen dem
+# deutschen Photoshop: Zeilenabstand, Laufweite, Kerning, Ligaturen,
+# Bedingte Ligaturen, Kapitälchen.
+
+tool.type.name = Text
+tool.type.description = Klicken Sie, um dort eine Textebene zu beginnen, oder klicken Sie auf eine bestehende, um sie zu bearbeiten. Solange sie offen ist, nimmt das Werkzeug rohe Tasten entgegen (Zeichen als Tasteneingabe senden); Bestätigen rendert die Ebene und schließt die Bearbeitung.
+
+# Die Optionsleiste
+tool.type.option.align = Ausrichtung
+tool.type.option.leading = Zeilenabstand
+tool.type.option.tracking = Laufweite
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligaturen
+tool.type.option.discretionary_ligatures = Bedingte Ligaturen
+tool.type.option.small_caps = Kapitälchen
+tool.type.option.on_path = Auf aktivem Pfad
+tool.type.option.path_offset = Pfadversatz
+
+# Das Stil-Menü
+tool.type.choice.regular = Standard
+tool.type.choice.bold = Fett
+tool.type.choice.italic = Kursiv
+tool.type.choice.bold_italic = Fett kursiv
+
+# Protokoll
+tool.type.history.new_layer = Neue Textebene
+tool.type.history.edit = Text bearbeiten
+tool.type.history.discard = Text verwerfen
+tool.type.history.discard_empty = Leeren Text verwerfen

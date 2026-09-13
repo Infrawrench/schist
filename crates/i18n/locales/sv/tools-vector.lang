@@ -1,0 +1,54 @@
+# Vektorverktygen (plugins/tools-vector): ritstiften, de två
+# markeringspilarna, formerna och egna former. Termerna följer det svenska
+# Photoshop: ritstift, frihandsritstift, banmarkering, direktmarkering.
+
+# Ritstift
+tool.pen.name = Ritstift
+tool.pen.description = Bygg en bana: klicka för en hörnpunkt, dra för att dra ut kurvhandtag ur den, och klicka på den första punkten för att sluta banan. Bekräfta gör banan till ett formlager.
+tool.pen.option.rubber_band = Gummiband
+tool.pen.history.fill = Fyll bana
+# Namnet ett frihands- eller kurvritstift ger banan det sparar
+tool.pen.default_path_name = Bana {n}
+tool.pen.freeform.name = Frihandsritstift
+tool.pen.freeform.description = Dra en frihandslinje, så anpassas den till en bana, så löst som alternativet Kurvanpassning anger.
+tool.pen.freeform.option.fit = Kurvanpassning
+tool.pen.curvature.name = Kurvritstift
+tool.pen.curvature.description = Klicka en serie punkter, så dras banan som en mjuk kurva genom dem.
+
+# Pilarna
+tool.path_select.name = Banmarkering
+tool.path_select.description = Klicka på en bana för att markera den, och dra för att flytta hela banan.
+tool.direct_select.name = Direktmarkering
+tool.direct_select.description = Dra en enskild ankarpunkt eller dess handtag för att omforma banan runt den.
+
+# Former. Varje form har ett verktygsnamn och en etikett, som namnger
+# lagret och banan ett drag skapar; historikposten för ett formlager är
+# etiketten ifylld i tool.shape.history.layer.
+tool.shape.history.layer = {name}-lager
+tool.shape.rect.name = Rektangelverktyg
+tool.shape.rect.label = Rektangel
+tool.shape.rect.description = Dra ut ett rektangelformlager i förgrundsfärgen; det förblir vektor och rastreras om när det ändrar storlek.
+tool.shape.ellipse.name = Ellipsverktyg
+tool.shape.ellipse.label = Ellips
+tool.shape.ellipse.description = Dra ut ett ellipsformlager i förgrundsfärgen.
+tool.shape.line.name = Linjeverktyg
+tool.shape.line.label = Linje
+tool.shape.line.description = Dra ut ett formlager med en rak linje i förgrundsfärgen.
+tool.shape.line.option.weight = Tjocklek
+tool.shape.line.option.arrow_start = Start
+tool.shape.line.option.arrow_end = Slut
+tool.shape.polygon.name = Polygonverktyg
+tool.shape.polygon.label = Polygon
+tool.shape.polygon.description = Dra ut ett regelbundet polygonformlager i förgrundsfärgen, med antalet sidor från alternativen.
+tool.shape.polygon.option.sides = Sidor
+
+# Egna former
+tool.shape.custom.name = Egen form
+tool.shape.custom.label = Egen form
+tool.shape.custom.description = Dra ut en av de inbyggda förinställda formerna, vald med alternativet Form.
+tool.shape.custom.choice.heart = Hjärta
+tool.shape.custom.choice.star = Stjärna
+tool.shape.custom.choice.arrow = Pil
+tool.shape.custom.choice.lightning = Blixt
+tool.shape.custom.choice.cross = Kors
+tool.shape.custom.choice.speech_bubble = Pratbubbla

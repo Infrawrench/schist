@@ -24,6 +24,7 @@ use gpui::{
     SharedString, Styled as _,
 };
 use schist_color::Rgba;
+use schist_i18n::{t, tf};
 use schist_ui::TextInput;
 use smallvec::smallvec;
 use std::sync::Arc;
@@ -263,29 +264,30 @@ pub fn render(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| ws.commit_color_picker(cx),
             cx,
         ));
 
+    let what = match target {
+        ColorTarget::Foreground => t("common.foreground_color").to_string(),
+        ColorTarget::Background => t("common.background_color").to_string(),
+        ColorTarget::StyleEffect(effect) => tf!(
+            "dialog.color_picker.effect_color",
+            effect = crate::style_dialog::effect_label(effect)
+        ),
+        ColorTarget::ColorRange => t("dialog.color_range.title").to_string(),
+        ColorTarget::Note => t("dialog.color_picker.note_color").to_string(),
+    };
     ui::modal_frame(
-        match target {
-            ColorTarget::Foreground => SharedString::from("Color Picker (Foreground Color)"),
-            ColorTarget::Background => SharedString::from("Color Picker (Background Color)"),
-            ColorTarget::StyleEffect(effect) => SharedString::from(format!(
-                "Color Picker ({} Color)",
-                crate::style_dialog::effect_label(effect)
-            )),
-            ColorTarget::ColorRange => SharedString::from("Color Picker (Color Range)"),
-            ColorTarget::Note => SharedString::from("Color Picker (Note Color)"),
-        },
+        SharedString::from(tf!("dialog.color_picker.title", what = what)),
         620.0,
         body,
         actions,
@@ -474,8 +476,8 @@ fn comparison(chosen: Rgba, original: Rgba) -> impl IntoElement {
         .flex()
         .flex_col()
         .gap_1()
-        .child(cell(chosen, "new"))
-        .child(cell(original, "current"))
+        .child(cell(chosen, t("dialog.color_picker.new")))
+        .child(cell(original, t("dialog.color_picker.current")))
 }
 
 /// One picker component's value in the units its field shows.

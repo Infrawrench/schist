@@ -1,0 +1,28 @@
+# 变形工具（plugins/tools-warp）。术语尽量与简体中文版 Photoshop 一致，
+# 工具名与菜单（menu.lang）相同。
+
+# 液化
+tool.liquify.name = 液化
+tool.liquify.description = 用大画笔推动、旋转、收缩或膨胀像素，由“工具”选项决定哪一种。变形累积在网格中，确认时应用到图层。
+tool.liquify.option.tool = 工具
+tool.liquify.choice.forward_warp = 向前变形
+tool.liquify.choice.reconstruct = 重建
+tool.liquify.choice.twirl_cw = 顺时针旋转扭曲
+tool.liquify.choice.twirl_ccw = 逆时针旋转扭曲
+tool.liquify.choice.pucker = 褶皱
+tool.liquify.choice.bloat = 膨胀
+tool.liquify.choice.push_left = 左推
+tool.liquify.history.liquify = 液化
+
+# 操控变形
+tool.puppet_warp.name = 操控变形
+tool.puppet_warp.description = 点击在图层上放置几个图钉，再拖动其中一个：网格围绕图钉弯曲，刚硬或松弛由“刚度”决定。确认后应用。
+tool.puppet_warp.option.stiffness = 刚度
+tool.puppet_warp.history.puppet_warp = 操控变形
+
+# 消失点
+tool.vanishing_point.name = 消失点
+tool.vanishing_point.description = 在有透视的物体上拖出一个平面，再把模式切换为“仿制”并绘制：复制的像素沿平面走向，随距离缩小。
+tool.vanishing_point.choice.edit_plane = 编辑平面
+tool.vanishing_point.choice.clone = 仿制
+tool.vanishing_point.history.vanishing_point = 消失点

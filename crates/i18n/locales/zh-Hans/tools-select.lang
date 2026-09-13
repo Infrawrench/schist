@@ -1,0 +1,40 @@
+# 选择工具（plugins/tools-select）。术语沿用简体中文版 Photoshop：
+# 矩形选框、套索、魔棒、快速选择、对象选择。
+
+# 新形状与现有选区的组合方式。"新建"和"添加"是 common.new 和 common.add。
+tool.select.mode.subtract = 减去
+tool.select.mode.intersect = 交叉
+
+# 选框
+tool.marquee.rect.name = 矩形选框
+tool.marquee.rect.description = 拖动以创建矩形选区。拖动开始时按住 Shift 可添加到选区，按住 Alt 可减去，同时按住两者取交叉；拖动过程中按住 Shift 可约束为正方形。单击而不拖动则取消选择。
+tool.marquee.ellipse.name = 椭圆选框
+tool.marquee.ellipse.description = 拖动以创建椭圆选区，Shift/Alt 的组合方式与矩形选框相同。
+
+# 套索
+tool.lasso.name = 套索
+tool.lasso.description = 拖动绘制自由手绘轮廓；拖动结束时选区在两端之间闭合。Shift 添加，Alt 减去。
+tool.lasso.history.select = 套索选择
+tool.lasso.polygonal.name = 多边形套索
+tool.lasso.polygonal.description = 逐个单击各角点以构建直边选区，在第一个点附近单击可将其闭合。
+tool.lasso.polygonal.history.select = 多边形套索
+tool.lasso.magnetic.name = 磁性套索
+tool.lasso.magnetic.description = 沿边缘大致描画，轮廓会吸附到路径附近对比度最强的位置。
+tool.lasso.magnetic.history.select = 磁性套索
+tool.lasso.magnetic.option.frequency = 频率
+
+# 魔棒
+tool.wand.name = 魔棒
+tool.wand.description = 单击以选择指针下颜色相近的连通区域，范围由容差选项决定——扩大选取、选取相似和色彩范围使用同一容差。
+tool.wand.option.contiguous = 连续
+tool.wand.history.select = 魔棒
+
+# 快速选择
+tool.quick_select.name = 快速选择
+tool.quick_select.description = 在区域上涂抹，选区会沿画笔经过的相似像素扩展。
+tool.quick_select.history.select = 快速选择
+
+# 对象选择
+tool.object_select.name = 对象选择
+tool.object_select.description = 围绕对象拖出一个框，选区会吸附到框内找到的对象。
+tool.object_select.history.select = 对象选择

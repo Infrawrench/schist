@@ -1,0 +1,28 @@
+# The warp tools (plugins/tools-warp): Liquify, Puppet Warp, Vanishing
+# Point. Mode, Size and Pressure come from common.lang.
+
+# Liquify
+tool.liquify.name = Liquify
+tool.liquify.description = Push, twirl, pucker or bloat pixels under a large brush -- the mode option picks which. The warp accumulates in a mesh and is applied to the layer on commit.
+tool.liquify.option.tool = Tool
+tool.liquify.choice.forward_warp = Forward Warp
+tool.liquify.choice.reconstruct = Reconstruct
+tool.liquify.choice.twirl_cw = Twirl CW
+tool.liquify.choice.twirl_ccw = Twirl CCW
+tool.liquify.choice.pucker = Pucker
+tool.liquify.choice.bloat = Bloat
+tool.liquify.choice.push_left = Push Left
+tool.liquify.history.liquify = Liquify
+
+# Puppet Warp
+tool.puppet_warp.name = Puppet Warp
+tool.puppet_warp.description = Click to pin the layer at a few points, then drag one: the mesh bends around the pins, stiffly or loosely as the Stiffness option says. Commit applies it.
+tool.puppet_warp.option.stiffness = Stiffness
+tool.puppet_warp.history.puppet_warp = Puppet Warp
+
+# Vanishing Point
+tool.vanishing_point.name = Vanishing Point
+tool.vanishing_point.description = Drag out a plane over something with perspective in it, then switch the mode to Clone and paint: the copied pixels follow the plane, shrinking with distance.
+tool.vanishing_point.choice.edit_plane = Edit Plane
+tool.vanishing_point.choice.clone = Clone
+tool.vanishing_point.history.vanishing_point = Vanishing Point

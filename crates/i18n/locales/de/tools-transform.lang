@@ -1,0 +1,32 @@
+# Frei transformieren, Auswahl transformieren und Freistellen
+# (plugins/tools-transform). Die Begriffe folgen dem deutschen Photoshop.
+
+# Frei transformieren
+tool.transform.name = Frei transformieren
+tool.transform.description = Frei transformieren. Beim Aktivieren öffnet sich ein Transformationsrahmen um die aktive Ebene: Ziehen Sie an einer Ecke, um zu skalieren, außerhalb einer Ecke, um zu drehen, und an einer Kante, um zu neigen. Nichts wird geschrieben, bis bestätigt wird (Eingabe); Abbrechen (Esc) stellt die Ebene wieder her.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Frei transformieren
+tool.transform.history.image_size = Bildgröße
+tool.transform.history.canvas_size = Arbeitsflächengröße
+
+# Auswahl transformieren
+tool.transform.selection.name = Auswahl transformieren
+tool.transform.selection.description = Auswahl transformieren: derselbe Rahmen, der aber die Auswahlkontur statt der Pixel darin bewegt. Bestätigen oder abbrechen zum Beenden.
+tool.transform.selection.history.transform = Auswahl transformieren
+
+# Die klassischen Neuberechnungsfilter, wie Bildgröße sie nennt
+tool.transform.resample.nearest_neighbor = Pixelwiederholung
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bikubisch
+
+# Freistellen
+tool.crop.name = Freistellen
+tool.crop.description = Ziehen Sie den Bereich auf, der erhalten bleiben soll, und passen Sie seine Griffe an; Bestätigen (Eingabe) beschneidet das Dokument darauf, Abbrechen (Esc) lässt es unverändert.
+tool.crop.option.ratio = Verhältnis
+tool.crop.option.delete_cropped = Freigestellte Pixel löschen
+tool.crop.choice.unconstrained = Frei
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Freistellen

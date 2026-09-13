@@ -1,0 +1,328 @@
+# Die Fotogalerie: Seitenleiste, Raster und seine Überschriften, die
+# Weltkarte, das Album „Personen“ und der Betrachter, der Kameraimport,
+# die Dialoge für Sammlungen und den Kartenfilter sowie die Statuszeilen.
+# Die Begriffe folgen dem deutschen Photoshop, Fotos und Picasa, wo es
+# einen gibt; Apples App heißt Fotos.
+
+# Beschriftungen und Zeilen der Seitenleiste
+library.sidebar.view = ANSICHT
+library.sidebar.folders = ORDNER
+library.sidebar.buckets = SAMMLUNGEN
+library.sidebar.people = PERSONEN
+library.sidebar.group_by = GRUPPIEREN NACH
+library.sidebar.all_photos = Alle Fotos
+library.sidebar.world_map = Weltkarte
+library.sidebar.map_filter = Kartenfilter…
+library.sidebar.map_filter_on = Kartenfilter aktiv
+library.sidebar.add_folder = + Ordner hinzufügen…
+library.sidebar.new_bucket = + Neue Sammlung
+library.sidebar.stop_watching = Diesen Ordner nicht mehr beobachten
+library.sidebar.unnamed_faces = Unbenannte Gesichter
+library.sidebar.retry_face_model = Gesichtsmodell erneut herunterladen
+library.sidebar.retry_recognition_model = Erkennungsmodell erneut herunterladen
+library.sidebar.looking_for_faces = Gesichter werden gesucht… {looked}/{total}
+library.sidebar.faces_appear = Gesichter erscheinen hier, sobald Fotos indiziert sind.
+library.sidebar.downloading_face_models = Gesichtsmodelle werden heruntergeladen… {got} von {total} MB
+
+# Wie das Raster gruppiert wird
+library.group_by.date = Datum
+library.group_by.folder = Ordner
+library.group_by.place = Ort
+
+# Monatsüberschriften
+library.month.january = Januar
+library.month.february = Februar
+library.month.march = März
+library.month.april = April
+library.month.may = Mai
+library.month.june = Juni
+library.month.july = Juli
+library.month.august = August
+library.month.september = September
+library.month.october = Oktober
+library.month.november = November
+library.month.december = Dezember
+library.month.title = {month} {year}
+library.month.undated = Ohne Datum
+
+# Gruppenüberschriften, die die lokale Bibliothek bildet
+library.group.person = Personen · {name}
+library.group.person_in = Personen · {name} · in {scope}
+library.group.unnamed = Unbenannte Gesichter
+library.group.unnamed_in = Unbenannte Gesichter · in {scope}
+library.group.bucket = Sammlung · {name}
+library.group.no_location = Kein Ort
+library.group.not_indexed = Noch nicht indiziert
+library.group.detail = {detail} — {n}
+
+# Die Leiste oben
+library.strip.import = Importieren…
+library.strip.add_folder = Ordner hinzufügen…
+library.strip.settings = Einstellungen…
+library.strip.new_file = Neue Datei…
+library.strip.back_to_editing = Zurück zur Bearbeitung
+library.strip.enable_search = Fotosuche aktivieren…
+library.strip.enable_search_menu = Fotosuche aktivieren…
+library.strip.map_filter_chip = Kartenfilter: {name}
+library.strip.downloading_search = Fotosuche wird heruntergeladen… {got} von {total} MB
+
+# Das Suchfeld
+library.search.placeholder = Fotos suchen…
+library.search.placeholder_indexing = Suchen ({indexed}/{total} indiziert)
+library.search.placeholder_people_places = Personen und Orte suchen…
+library.search.results = Suchergebnisse
+library.search.results_in_bucket = Sammlung · {name} · Suchergebnisse
+library.search.near = bei {place}
+library.search.with = mit {names}
+
+# Die Ablage und die Zellen
+library.tray.view = Anzeigen
+library.tray.edited_note = bearbeitet — Versionen liegen neben der Datei
+library.tray.n_hidden.one = {n} vom Inhaltsfilter ausgeblendet
+library.tray.n_hidden.other = {n} vom Inhaltsfilter ausgeblendet
+library.cell.no_preview = keine Vorschau
+library.cell.edited = bearbeitet
+library.gallery.loading = Fotos werden geladen…
+
+# Der Willkommensbildschirm, bevor ein Ordner beobachtet wird
+library.welcome.title = Willkommen bei Schist
+library.welcome.intro = Beobachten Sie Ordner mit Fotos oder importieren Sie von einer Kamera. Die Dateien bleiben, wo sie sind; Bearbeitungen werden daneben versioniert:
+library.welcome.intro_ios = Importieren Sie Fotos aus Ihrer Mediathek oder fügen Sie einen Ordner aus „Dateien“ hinzu. Bearbeitungen werden neben jedem Foto versioniert:
+library.welcome.or_open = Oder öffnen Sie ein Bild zum Bearbeiten:
+library.welcome.shortcut_mac = Die Galerie ist immer nur ein ⌘⇧G entfernt, was auch immer Sie gerade bearbeiten.
+library.welcome.shortcut = Die Galerie ist immer nur ein Strg+Umschalt+G entfernt, was auch immer Sie gerade bearbeiten.
+
+# Warum das Raster leer ist
+library.gallery.empty_bucket_search = Nichts in dieser Sammlung passt zur Suche. Escape löscht sie und zeigt die ganze Sammlung.
+library.gallery.empty_search = Nichts passt zur Suche. Escape löscht sie.
+library.gallery.empty_smart_bucket = Noch nichts passt zur Regel dieser Sammlung — Treffer erscheinen, sobald Fotos indiziert sind. Fotos hineinziehen geht auch.
+library.gallery.empty_bucket = Diese Sammlung ist leer. Ziehen Sie Fotos auf ihre Zeile in der Seitenleiste, um sie hinzuzufügen.
+library.gallery.empty_person = Hier ist noch nichts. Gesichter erscheinen, sobald Fotos indiziert sind; klicken Sie auf ein Foto und dann auf ein Gesicht, um zu sagen, wer es ist.
+library.gallery.scanning = Ordner werden durchsucht…
+library.gallery.empty = Keine Fotos in den beobachteten Ordnern gefunden. Bilder, die Schist öffnen kann (PNG, JPEG, WebP, TIFF, HEIC, Kamera-Raws, PSD, Affinity), erscheinen hier; Unterordner werden sechs Ebenen tief durchsucht.
+
+# Sammlungen
+library.bucket.default_name = Sammlung {n}
+library.bucket.rule_matches = passt zu „{query}“
+library.bucket.rule_taken_in = aufgenommen in {name}
+library.bucket.new_title = Neue Sammlung
+library.bucket.edit_title = Sammlung bearbeiten
+library.bucket.new_cloud_title = Neue Cloud-Sammlung
+library.bucket.edit_cloud_title = Cloud-Sammlung bearbeiten
+library.bucket.create = Erstellen
+library.bucket.query_placeholder = z. B. Hund am Strand (optional)
+library.bucket.the_drawn_area = dem gezeichneten Bereich
+library.bucket.area_help = Ziehen Sie mit gedrückter Umschalttaste auf der Karte (oder wählen Sie eine Vorgabe), um einen Bereich hinzuzufügen; ein winziges Ziehen löscht ihn. Regeln halten die Sammlung automatisch gefüllt.
+library.bucket.rule_none = Keine Regel: eine gewöhnliche Sammlung, die durch Hineinziehen von Fotos gefüllt wird.
+library.bucket.rule_query = Behält jedes Foto, das zu „{query}“ passt.
+library.bucket.rule_area = Behält jedes Foto, das in {area} aufgenommen wurde.
+library.bucket.rule_query_area = Behält jedes Foto, das zu „{query}“ passt und in {area} aufgenommen wurde.
+library.bucket.starts_with.one = Beginnt mit dem ausgewählten Foto.
+library.bucket.starts_with.other = Beginnt mit den {n} ausgewählten Fotos.
+
+# Die Weltkarte
+library.map.status = {located} Fotos auf der Karte · {unlocated} ohne Ort
+library.map.reading_locations = Orte werden gelesen: noch {n}
+library.map.reset_view = Ansicht zurücksetzen
+library.map.no_photos = Keine Fotos mit GPS-Position in dieser Ansicht. Fügen Sie Fotos mit Geotag hinzu oder ändern Sie die Filter der Galerie.
+library.map.no_photos_cloud = Hier gibt es keine Fotos mit GPS-Position. Wählen Sie einen anderen Ordner oder eine andere Sammlung, oder löschen Sie die Suche.
+library.map.hint = Ziehen verschiebt · Scrollen zoomt · Klick auf eine Markierung zeigt ihre Fotos · Doppelklick auf ein Foto bearbeitet es
+library.map.n_at_marker.one = {n} Foto an dieser Markierung
+library.map.n_at_marker.other = {n} Fotos an dieser Markierung
+library.map.n_in_marker.one = {n} Foto in dieser Markierung
+library.map.n_in_marker.other = {n} Fotos in dieser Markierung
+library.map.attribution = © OpenStreetMap-Mitwirkende
+
+# Der Bereichseditor, den Import, Kartenfilter und Sammlungen teilen
+library.map.draw_area = Bereich zeichnen
+library.map.drawing = Zeichnen…
+library.map.clear_boundary = Grenze löschen
+library.map.editor_hint = Ziehen verschiebt · Scrollen zoomt · Umschalt-Ziehen zeichnet
+
+# Der Kartenfilter
+library.map_filter.title = Kartenfilter
+library.map_filter.drawn_area = gezeichneter Bereich
+library.map_filter.apply_named = „Anwenden“ zeigt nur Fotos, die in {name} aufgenommen wurden; Fotos ohne EXIF-Position werden ausgeblendet.
+library.map_filter.apply_drawn = „Anwenden“ zeigt nur Fotos, die innerhalb von {south}°, {west}° bis {north}°, {east}° aufgenommen wurden; Fotos ohne EXIF-Position werden ausgeblendet.
+library.map_filter.draw_first = Zeichnen Sie eine Grenze (Umschalt-Ziehen oder ein Vorgabe-Chip) und wählen Sie dann „Anwenden“. Anwenden ohne Zeichnung schaltet den Filter aus.
+library.map_filter.turn_off = Filter ausschalten
+
+# Kameraimport: die Auswahl, die Optionen, der Fehlerdialog
+library.import.title = Von Kamera importieren
+library.import.from = Von {name} importieren
+library.import.no_cameras = Keine Kameras gefunden.
+library.import.no_cameras_help = Schließen Sie eine Kamera, eine Speicherkarte oder ein iPhone an. Ein iPhone muss entsperrt sein und „Diesem Computer vertrauen“ beantwortet haben, bevor es seine Fotos zeigt — tun Sie das, warten Sie einen Moment und drücken Sie „Erneut suchen“. Alles, was als Laufwerk mit einem DCIM-Ordner eingebunden wird, zählt ebenfalls.
+library.import.scan_again = Erneut suchen
+library.import.pick_source = Mehr als eine Kamera ist erreichbar. Importieren von:
+library.import.via_image_capture = über Digitale Bilder
+library.import.boundary_named = Grenze: {name} — nur Fotos, deren EXIF-Position darin liegt, werden importiert; Fotos ohne Position bleiben auf der Kamera.
+library.import.boundary_drawn = Grenze: {south}°, {west}° bis {north}°, {east}° — nur Fotos, deren EXIF-Position darin liegt, werden importiert.
+library.import.no_boundary = Keine Grenze — alles auf der Kamera wird importiert.
+library.import.destination = Nach ~/Pictures/Schist Imports/{name} — bereits importierte Dateien werden übersprungen, ein erneuter Durchlauf ist also unbedenklich.
+library.import.selected_area = Ausgewählter Bereich
+library.import.locked_help = Falls das Gerät gesperrt ist: entsperren Sie es, tippen Sie auf „Diesem Computer vertrauen“, wenn es fragt, lassen Sie es angeschlossen und versuchen Sie es erneut.
+library.import.try_again = Erneut versuchen
+library.import.add_to_gallery = Zur Galerie hinzufügen
+
+# Kameraimport: was die Ablage sagt
+library.import.needs_home = Der Import braucht ein Benutzerverzeichnis, in das er kopieren kann
+library.import.importing_from = Import von {source}…
+library.import.importing_in_place = Fotos, die in {place} aufgenommen wurden, werden von {source} importiert…
+library.import.device_macos_only = Direkter Geräteimport gibt es nur unter macOS
+library.import.failed = Import fehlgeschlagen: {error}
+library.import.from_failed = Import von {name} fehlgeschlagen
+library.import.locked = {name} ist gesperrt — entsperren Sie es und tippen Sie auf „Vertrauen“, um fortzufahren
+library.import.reading_catalog = Der Fotokatalog von {name} wird gelesen…
+library.import.progress_from = Foto {n}/{total} wird von {name} importiert…
+library.import.progress = Foto {n}/{total} wird importiert…
+library.import.choose_photos = Fotos zum Importieren auswählen…
+library.import.photos_open_failed = Die Fotomediathek konnte nicht geöffnet werden: {error}
+library.import.done.one = {n} Foto nach {dest} importiert
+library.import.done.other = {n} Fotos nach {dest} importiert
+library.import.done_in_place.one = {n} in {place} aufgenommenes Foto nach {dest} importiert ({filtered} anderswo oder ohne Position auf der Kamera belassen)
+library.import.done_in_place.other = {n} in {place} aufgenommene Fotos nach {dest} importiert ({filtered} anderswo oder ohne Position auf der Kamera belassen)
+library.import.n_failed.one = {n} fehlgeschlagen
+library.import.n_failed.other = {n} fehlgeschlagen
+library.import.no_dcim = Kein DCIM-Ordner auf {source}
+library.import.already_running = Ein Import läuft bereits
+library.import.camera_gone = Diese Kamera ist nicht mehr verbunden
+library.import.camera_disconnected = Die Kamera wurde mitten im Import getrennt
+library.import.unknown_error = Unbekannter Fehler
+library.import.picker_needs_ios14 = Die Fotoauswahl braucht iOS 14 oder neuer
+library.import.picker_unavailable = Die Fotoauswahl ist nicht verfügbar
+library.import.no_window = Kein Fenster, aus dem die Auswahl gezeigt werden kann
+
+# Wie ein Kameralaufwerk heißt, wenn sein Einbindungsname nichts sagt
+library.volume.iphone = iPhone oder iPad
+library.volume.camera = Kamera
+library.volume.phone = Telefon
+
+# Ein auf das Fenster gezogener Ordner, als Tabs geöffnet
+library.open_folder.opened.one = {n} Bild geöffnet
+library.open_folder.opened.other = {n} Bilder geöffnet
+library.open_folder.opened_first = Die ersten {n} von {total} Bildern geöffnet — den Rest hält die Galerie
+
+# Der Dialog für die Modelle der Fotosuche
+library.search_models.title = Fotosuche
+library.search_models.intro = Fotos danach zu durchsuchen, was auf ihnen zu sehen ist, braucht zwei Modelle, die einmal heruntergeladen und auf diesem Rechner behalten werden. Sie laufen lokal: kein Foto verlässt ihn je.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = MobileCLIP von Apple
+library.search_models.export = ONNX-Export von Xenova
+library.search_models.license = Lizenz
+library.search_models.download_note = Das Herunterladen installiert beide ({mb} MB insgesamt) und akzeptiert ihre Lizenzen. Sie lassen sich unter Galerie ▸ Modelle verwalten… wieder entfernen.
+library.search_models.agree = Zustimmen und herunterladen
+
+# Das Kontextmenü
+library.menu.add_all_to = Alle zu {name} hinzufügen
+library.menu.add_all_to_new_bucket = Alle zu neuer Sammlung hinzufügen…
+library.menu.edit_n_in_tabs = {n} in Tabs bearbeiten
+library.menu.view_name_people = Personen anzeigen und benennen
+library.menu.reveal = Im Dateimanager anzeigen
+library.menu.add_to = Zu {name} hinzufügen
+library.menu.add_to_new_bucket = Zu neuer Sammlung hinzufügen
+library.menu.remove_from_bucket = Aus dieser Sammlung entfernen
+library.menu.save_n_as_zip = {n} als ZIP sichern…
+library.menu.save_image_as = Bild sichern unter…
+library.menu.process = Verarbeiten…
+library.menu.process_n = {n} Fotos verarbeiten…
+library.menu.move_to_folder = In Ordner verschieben…
+library.menu.move_n_to_folder = {n} in Ordner verschieben…
+library.menu.revert = Auf Original zurücksetzen
+library.menu.revert_n = {n} auf Originale zurücksetzen
+library.menu.upload_to_cloud = In Schist Cloud hochladen…
+library.menu.watch_local_folder = Einen Ordner auf diesem Computer beobachten…
+library.menu.new_cloud_folder = {glyph} Neuer Schist-Cloud-Ordner…
+library.menu.new_local_bucket = Neue Sammlung auf diesem Computer…
+library.menu.new_cloud_bucket = {glyph} Neue Schist-Cloud-Sammlung…
+library.menu.edit_bucket = Sammlung bearbeiten…
+library.menu.select_all_n = Alle auswählen ({n})
+library.menu.save_all_as_zip = Alle als ZIP sichern… ({n})
+library.menu.process_all = Alle verarbeiten… ({n})
+library.menu.move_all_to_folder = Alle in Ordner verschieben…
+library.menu.clear_added = Hinzugefügte Fotos entfernen
+library.menu.clear_bucket = Sammlung leeren
+library.menu.delete_bucket = Sammlung löschen
+library.menu.show_person = {name} anzeigen
+library.menu.rename_person = Umbenennen…
+library.menu.forget_person.one = Person vergessen ({n} Gesicht)
+library.menu.forget_person.other = Person vergessen ({n} Gesichter)
+
+# Verschieben, zippen, sichern, zurücksetzen, Stapelverarbeitung
+library.ops.moving.one = {n} Foto wird nach {dest} verschoben…
+library.ops.moving.other = {n} Fotos werden nach {dest} verschoben…
+library.ops.moved.one = {n} Foto nach {dest} verschoben
+library.ops.moved.other = {n} Fotos nach {dest} verschoben
+library.ops.moved_partial = {n} von {total} Fotos nach {dest} verschoben — der Rest steht im Protokoll
+library.ops.move_here = Hierher verschieben
+library.ops.no_export_format = Kein Format hier kann ein Bild sichern
+library.ops.saved_size = {name} gesichert ({w} × {h})
+library.ops.save_failed = Sichern fehlgeschlagen: {error}
+library.ops.opening_first = Die ersten {n} von {total} Fotos werden geöffnet — den Rest hält die Galerie
+library.ops.nothing_to_revert = Nichts zurückzusetzen: keines dieser Fotos hat eine Bearbeitung
+library.ops.reverted.one = {n} Foto auf sein Original zurückgesetzt — die Bearbeitung bleibt unter versions/ erhalten
+library.ops.reverted.other = {n} Fotos auf ihre Originale zurückgesetzt — die Bearbeitungen bleiben unter versions/ erhalten
+library.ops.no_file_name = Die Datei hat keinen Namen
+library.zip.nothing_all_held = Nichts zu zippen: der Inhaltsfilter hält alle {n} dieser Fotos zurück
+library.zip.failed = ZIP fehlgeschlagen: {error}
+library.zip.progress = {n}/{total} wird gezippt…
+library.zip.n_held.one = ({n} vom Inhaltsfilter ausgelassen)
+library.zip.n_held.other = ({n} vom Inhaltsfilter ausgelassen)
+library.zip.done.one = {n} Foto nach {dest} gezippt
+library.zip.done.other = {n} Fotos nach {dest} gezippt
+library.zip.done_partial = {n} von {total} Fotos nach {dest} gezippt — der Rest steht im Protokoll
+library.zip.nothing_readable = Nichts konnte zum Zippen gelesen werden
+library.zip.too_large = Zu groß für ein ZIP ohne zip64
+library.batch.nothing_to_do = Nichts zu tun: wählen Sie zuerst eine Drehung, eine Hochskalierung oder eine Korrektur
+library.batch.save_copies_here = Kopien hier sichern
+library.batch.processing.one = {n} Foto wird verarbeitet…
+library.batch.processing.other = {n} Fotos werden verarbeitet…
+library.batch.progress = {n}/{total} verarbeitet — {name}
+library.batch.failed = Verarbeitung fehlgeschlagen: {error}
+library.batch.done.one = {n} Foto verarbeitet
+library.batch.done.other = {n} Fotos verarbeitet
+library.batch.done_partial = {n} von {total} Fotos verarbeitet — der Rest steht im Protokoll
+library.batch.model_would_not_load = Das Modell {name} ließ sich nicht laden
+library.batch.no_psd_writer = Kein PSD-Schreiber ist geladen
+
+# Der Betrachter und das Album „Personen“
+library.viewer.back = ‹ Zurück zu den Fotos
+library.viewer.could_not_decode = Dieses Foto konnte nicht dekodiert werden.
+library.viewer.label_auto = {name} · auto
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = PERSONEN AUF DIESEM FOTO
+library.viewer.faces_intro = Gesichter findet ein kleines Modell, das einmal heruntergeladen wird. Rahmen lassen sich weiterhin von Hand ziehen.
+library.viewer.looking_for_faces = Gesichter werden gesucht…
+library.viewer.no_faces = Keine Gesichter gefunden. Ziehen Sie einen Rahmen um eines, um eine Person von Hand hinzuzufügen.
+library.viewer.help = Klicken Sie auf ein Gesicht, um es zu benennen; Eingabe sichert. Ziehen Sie auf dem Foto, um ein Gesicht zu markieren, das der Detektor übersehen hat. ← → wechseln das Foto, Esc geht zurück.
+library.viewer.not_them = Nicht diese Person
+library.viewer.remove_name = Namen entfernen
+library.viewer.not_a_face = Kein Gesicht
+library.viewer.auto = auto
+library.viewer.is_this = Ist das {name}?
+library.viewer.someone_else = Jemand anderes
+library.viewer.add_name = Namen hinzufügen…
+library.viewer.who_is_this = Wer ist das?
+library.people.rename_title = Person umbenennen
+library.people.merge_warning = Jemand heißt bereits „{name}“: Sichern führt die beiden zusammen.
+library.people.merge_note = Umbenennen in einen Namen, den jemand anderes bereits hat, führt die beiden Personen zusammen.
+library.people.named = {name} benannt
+library.people.named_followed.one = {name} benannt · {n} weiteres Gesicht automatisch zugeordnet
+library.people.named_followed.other = {name} benannt · {n} weitere Gesichter automatisch zugeordnet
+
+# In Fotos sichern (iOS)
+library.photos.saving = Wird in Fotos gesichert…
+library.photos.saved = In Fotos gesichert
+library.photos.save_failed = Sichern in Fotos fehlgeschlagen: {error}
+library.photos.no_document = kein Dokument ist geöffnet
+library.photos.no_png_codec = der PNG-Codec ist nicht geladen
+library.photos.no_answer = die Fotomediathek hat nicht geantwortet
+library.photos.bad_url = der Pfad der Datei ließ sich nicht in eine URL umwandeln
+library.photos.unavailable = die Fotomediathek ist nicht verfügbar
+library.photos.declined = die Fotomediathek hat abgelehnt
+
+# In die App geteilte Dateien (iOS)
+library.shared.needs_documents = Die Galerie braucht einen Dokumente-Ordner, in den sie kopieren kann
+library.shared.added.one = {n} Foto zur Galerie hinzugefügt
+library.shared.added.other = {n} Fotos zur Galerie hinzugefügt
+library.shared.open_needs_documents = Das Öffnen braucht einen Dokumente-Ordner, in den kopiert werden kann
+library.shared.could_not_open = {name} konnte nicht geöffnet werden: {error}

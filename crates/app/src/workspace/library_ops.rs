@@ -7,6 +7,7 @@
 
 use super::library::backing_psd;
 use super::*;
+use schist_i18n::{t, tf, tn};
 use std::path::Path;
 
 impl Workspace {
@@ -21,10 +22,10 @@ impl Workspace {
         if paths.is_empty() {
             return;
         }
-        self.status = format!(
-            "Moving {} photos to {}\u{2026}",
-            paths.len(),
-            dest.display()
+        self.status = schist_i18n::tn!(
+            "library.ops.moving",
+            paths.len() as u64,
+            dest = dest.display()
         )
         .into();
         cx.notify();
@@ -47,11 +48,18 @@ impl Workspace {
             this.update(cx, |ws, cx| {
                 let (moved, asked, dest) = result;
                 ws.status = if moved == asked {
-                    format!("Moved {moved} photos to {}", crate::ui::shown_path(&dest)).into()
+                    schist_i18n::tn!(
+                        "library.ops.moved",
+                        moved as u64,
+                        dest = crate::ui::shown_path(&dest)
+                    )
+                    .into()
                 } else {
-                    format!(
-                        "Moved {moved} of {asked} photos to {} — the log has the rest",
-                        dest.display()
+                    tf!(
+                        "library.ops.moved_partial",
+                        n = moved,
+                        total = asked,
+                        dest = dest.display()
                     )
                     .into()
                 };
@@ -80,10 +88,7 @@ impl Workspace {
             .zip_candidates(paths, self.view.gallery_hide_nsfw);
         if paths.is_empty() {
             if held > 0 {
-                self.status = format!(
-                    "Nothing to zip: the content filter keeps all {held} of those photos out"
-                )
-                .into();
+                self.status = tf!("library.zip.nothing_all_held", n = held).into();
                 cx.notify();
             }
             return;
@@ -110,7 +115,7 @@ impl Workspace {
                 Err(err) => {
                     log::error!("zip failed: {err:#}");
                     this.update(cx, |ws, cx| {
-                        ws.status = format!("ZIP failed: {err}").into();
+                        ws.status = tf!("library.zip.failed", error = err).into();
                         cx.notify();
                     })
                     .ok();
@@ -136,7 +141,7 @@ impl Workspace {
                     Err(err) => log::warn!("zip: skipping {}: {err:#}", path.display()),
                 }
                 let keep = this.update(cx, |ws, cx| {
-                    ws.status = format!("Zipping {}/{total}\u{2026}", done + 1).into();
+                    ws.status = tf!("library.zip.progress", n = done + 1, total = total).into();
                     cx.notify();
                 });
                 if keep.is_err() {
@@ -150,21 +155,31 @@ impl Workspace {
             this.update(cx, |ws, cx| {
                 let held_note = match held {
                     0 => String::new(),
-                    1 => " (1 left out by the content filter)".into(),
-                    n => format!(" ({n} left out by the content filter)"),
+                    n => format!(" {}", tn("library.zip.n_held", n as u64)),
                 };
                 ws.status = match finished {
-                    Ok(()) if written == total => {
-                        format!("Zipped {written} photos to {}{held_note}", crate::ui::shown_path(&out)).into()
-                    }
+                    Ok(()) if written == total => format!(
+                        "{}{held_note}",
+                        schist_i18n::tn!(
+                            "library.zip.done",
+                            written as u64,
+                            dest = crate::ui::shown_path(&out)
+                        )
+                    )
+                    .into(),
                     Ok(()) => format!(
-                        "Zipped {written} of {total} photos to {}{held_note} \u{2014} the log has the rest",
-                        out.display()
+                        "{}{held_note}",
+                        tf!(
+                            "library.zip.done_partial",
+                            n = written,
+                            total = total,
+                            dest = out.display()
+                        )
                     )
                     .into(),
                     Err(err) => {
                         log::error!("zip failed: {err:#}");
-                        format!("ZIP failed: {err}").into()
+                        tf!("library.zip.failed", error = err).into()
                     }
                 };
                 cx.notify();
@@ -185,7 +200,7 @@ impl Workspace {
             .or_else(|| self.registry.codecs().find(|c| c.can_export()))
             .map(|c| c.id());
         let Some(codec) = codec else {
-            self.status = "No format here can save an image".into();
+            self.status = t("library.ops.no_export_format").into();
             cx.notify();
             return;
         };
@@ -247,12 +262,16 @@ impl Workspace {
                     .await;
             this.update_in(cx, |ws, _window, cx| {
                 ws.status = match result {
-                    Ok((w, h)) => {
-                        format!("Saved {} ({w} \u{d7} {h})", crate::ui::shown_path(&out)).into()
-                    }
+                    Ok((w, h)) => tf!(
+                        "library.ops.saved_size",
+                        name = crate::ui::shown_path(&out),
+                        w = w,
+                        h = h
+                    )
+                    .into(),
                     Err(err) => {
                         log::error!("save image as failed: {err:#}");
-                        format!("Save failed: {err}").into()
+                        tf!("library.ops.save_failed", error = err).into()
                     }
                 };
                 cx.notify();
@@ -271,10 +290,7 @@ impl Workspace {
             self.open_from_gallery(path, cx);
         }
         if total > opening {
-            self.status = format!(
-                "Opening the first {opening} of {total} photos — the gallery holds the rest"
-            )
-            .into();
+            self.status = tf!("library.ops.opening_first", n = opening, total = total).into();
             cx.notify();
         }
     }
@@ -295,7 +311,7 @@ impl Workspace {
                 files: false,
                 directories: true,
                 multiple: false,
-                prompt: Some("Move Here".into()),
+                prompt: Some(t("library.ops.move_here").into()),
             },
             cx,
         );
@@ -329,12 +345,8 @@ impl Workspace {
             }
         }
         self.status = match reverted {
-            0 => "Nothing to revert: none of those photos has an edit".into(),
-            1 => "Reverted 1 photo to its original — the edit is kept under versions/".into(),
-            n => format!(
-                "Reverted {n} photos to their originals — the edits are kept under versions/"
-            )
-            .into(),
+            0 => t("library.ops.nothing_to_revert").into(),
+            n => tn("library.ops.reverted", n as u64).into(),
         };
         self.library_rescan(cx);
         cx.notify();
@@ -357,7 +369,7 @@ impl Workspace {
             .or_else(|| self.registry.codecs().find(|c| c.can_export()))
             .map(|c| c.id());
         let Some(codec) = codec else {
-            self.status = "No format here can save an image".into();
+            self.status = t("library.ops.no_export_format").into();
             cx.notify();
             return;
         };
@@ -389,7 +401,7 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         if recipe.is_empty() {
-            self.status = "Nothing to do: pick a turn, an upscale or an adjustment first".into();
+            self.status = t("library.batch.nothing_to_do").into();
             cx.notify();
             return;
         }
@@ -417,7 +429,7 @@ impl Workspace {
                         files: false,
                         directories: true,
                         multiple: false,
-                        prompt: Some("Save Copies Here".into()),
+                        prompt: Some(t("library.batch.save_copies_here").into()),
                     },
                     cx,
                 );
@@ -459,7 +471,7 @@ impl Workspace {
             return;
         }
         let total = photos.len();
-        self.status = format!("Processing {total} photos\u{2026}").into();
+        self.status = tn("library.batch.processing", total as u64).into();
         cx.notify();
         let codecs = self.registry.shared_codecs();
         let recipe = Arc::new(recipe);
@@ -483,17 +495,18 @@ impl Workspace {
                             // The grid renders from the sidecar once it
                             // exists; the cached thumbnail is the old one.
                             ws.library.thumbs.remove(&path);
-                            ws.status = format!(
-                                "Processed {}/{total} \u{2014} {}",
-                                done + 1,
-                                out.display()
+                            ws.status = tf!(
+                                "library.batch.progress",
+                                n = done + 1,
+                                total = total,
+                                name = out.display()
                             )
                             .into();
                         }
                         Err(err) => {
                             failed += 1;
                             log::error!("batch failed for {}: {err:#}", path.display());
-                            ws.status = format!("Processing failed: {err}").into();
+                            ws.status = tf!("library.batch.failed", error = err).into();
                         }
                     }
                     cx.notify();
@@ -504,11 +517,12 @@ impl Workspace {
             }
             this.update(cx, |ws, cx| {
                 if failed == 0 {
-                    ws.status = format!("Processed {total} photos").into();
+                    ws.status = tn("library.batch.done", total as u64).into();
                 } else {
-                    ws.status = format!(
-                        "Processed {} of {total} photos \u{2014} the log has the rest",
-                        total - failed
+                    ws.status = tf!(
+                        "library.batch.done_partial",
+                        n = total - failed,
+                        total = total
                     )
                     .into();
                 }
@@ -580,7 +594,8 @@ fn process_photo(
 ) -> anyhow::Result<PathBuf> {
     // The edit is the picture the gallery shows, so a recipe applies on
     // top of it; the original stands in when there is none.
-    let sidecar = backing_psd(path).ok_or_else(|| anyhow::anyhow!("no file name"))?;
+    let sidecar =
+        backing_psd(path).ok_or_else(|| anyhow::anyhow!("{}", t("library.ops.no_file_name")))?;
     let source = if sidecar.exists() {
         sidecar.clone()
     } else {
@@ -595,8 +610,11 @@ fn process_photo(
         match schist_tools_transform::plan_neural(&doc, w, h, id) {
             schist_tools_transform::Plan::NoModel => {
                 anyhow::bail!(
-                    "the {} model would not load",
-                    schist_tools_transform::Resample::Neural(id).display_name()
+                    "{}",
+                    tf!(
+                        "library.batch.model_would_not_load",
+                        name = schist_tools_transform::Resample::Neural(id).display_name()
+                    )
                 )
             }
             schist_tools_transform::Plan::Classical => {
@@ -627,7 +645,7 @@ fn process_photo(
             let psd = codecs
                 .iter()
                 .find(|c| c.can_export() && c.extensions().contains(&"psd"))
-                .ok_or_else(|| anyhow::anyhow!("no PSD writer is loaded"))?;
+                .ok_or_else(|| anyhow::anyhow!("{}", t("library.batch.no_psd_writer")))?;
             if let Some(name) = path.file_name() {
                 doc.title = name.to_string_lossy().into_owned();
             }
@@ -902,7 +920,7 @@ impl ZipWriter {
     pub(super) fn add(&mut self, name: &str, bytes: &[u8]) -> anyhow::Result<()> {
         use std::io::Write as _;
         if bytes.len() as u64 > u32::MAX as u64 {
-            anyhow::bail!("too large for a zip without zip64");
+            anyhow::bail!("{}", t("library.zip.too_large"));
         }
         // Two folders can hold the same file name; a ZIP cannot.
         let mut name = name.to_string();
@@ -958,7 +976,7 @@ impl ZipWriter {
         use std::io::Write as _;
         if self.entries == 0 {
             let _ = std::fs::remove_file(&self.tmp);
-            anyhow::bail!("nothing could be read to zip");
+            anyhow::bail!("{}", t("library.zip.nothing_readable"));
         }
         let central_offset = self.offset;
         let central_len = self.central.len() as u32;

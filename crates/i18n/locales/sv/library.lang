@@ -1,0 +1,327 @@
+# Fotogalleriet: sidopanelen, rutnätet och dess rubriker, världskartan,
+# albumet Personer och visaren, kameraimport, dialogerna för hinkar och
+# kartfilter samt statusraderna. Termerna följer svenska Photoshop,
+# Bilder och Picasa där det finns en; Apples app heter Bilder.
+
+# Sidopanelens rubriker och rader
+library.sidebar.view = VISA
+library.sidebar.folders = MAPPAR
+library.sidebar.buckets = HINKAR
+library.sidebar.people = PERSONER
+library.sidebar.group_by = GRUPPERA EFTER
+library.sidebar.all_photos = Alla foton
+library.sidebar.world_map = Världskarta
+library.sidebar.map_filter = Kartfilter…
+library.sidebar.map_filter_on = Kartfilter på
+library.sidebar.add_folder = + Lägg till mapp…
+library.sidebar.new_bucket = + Ny hink
+library.sidebar.stop_watching = Sluta bevaka den här mappen
+library.sidebar.unnamed_faces = Namnlösa ansikten
+library.sidebar.retry_face_model = Försök hämta ansiktsmodellen igen
+library.sidebar.retry_recognition_model = Försök hämta igenkänningsmodellen igen
+library.sidebar.looking_for_faces = Letar efter ansikten… {looked}/{total}
+library.sidebar.faces_appear = Ansikten dyker upp här allteftersom foton indexeras.
+library.sidebar.downloading_face_models = Hämtar ansiktsmodeller… {got} av {total} MB
+
+# Hur rutnätet grupperas
+library.group_by.date = Datum
+library.group_by.folder = Mapp
+library.group_by.place = Plats
+
+# Månadsrubriker
+library.month.january = Januari
+library.month.february = Februari
+library.month.march = Mars
+library.month.april = April
+library.month.may = Maj
+library.month.june = Juni
+library.month.july = Juli
+library.month.august = Augusti
+library.month.september = September
+library.month.october = Oktober
+library.month.november = November
+library.month.december = December
+library.month.title = {month} {year}
+library.month.undated = Odaterat
+
+# Grupprubriker som det lokala biblioteket bygger
+library.group.person = Personer · {name}
+library.group.person_in = Personer · {name} · i {scope}
+library.group.unnamed = Namnlösa ansikten
+library.group.unnamed_in = Namnlösa ansikten · i {scope}
+library.group.bucket = Hink · {name}
+library.group.no_location = Ingen plats
+library.group.not_indexed = Inte indexerat ännu
+library.group.detail = {detail} — {n}
+
+# Remsan högst upp
+library.strip.import = Importera…
+library.strip.add_folder = Lägg till mapp…
+library.strip.settings = Inställningar…
+library.strip.new_file = Ny fil…
+library.strip.back_to_editing = Tillbaka till redigeringen
+library.strip.enable_search = Aktivera fotosökning…
+library.strip.enable_search_menu = Aktivera fotosökning…
+library.strip.map_filter_chip = Kartfilter: {name}
+library.strip.downloading_search = Hämtar fotosökning… {got} av {total} MB
+
+# Sökrutan
+library.search.placeholder = Sök foton…
+library.search.placeholder_indexing = Sök ({indexed}/{total} indexerade)
+library.search.placeholder_people_places = Sök personer och platser…
+library.search.results = Sökresultat
+library.search.results_in_bucket = Hink · {name} · Sökresultat
+library.search.near = nära {place}
+library.search.with = med {names}
+
+# Brickan och cellerna
+library.tray.view = Visa
+library.tray.edited_note = redigerad — versioner sparas bredvid filen
+library.tray.n_hidden.one = {n} dold av innehållsfiltret
+library.tray.n_hidden.other = {n} dolda av innehållsfiltret
+library.cell.no_preview = ingen förhandsvisning
+library.cell.edited = redigerad
+library.gallery.loading = Läser in foton…
+
+# Välkomstskärmen, innan någon mapp bevakas
+library.welcome.title = Välkommen till Schist
+library.welcome.intro = Bevaka mappar med foton eller importera från en kamera. Filerna stannar där de är; ändringar sparas versionerade bredvid dem:
+library.welcome.intro_ios = Importera foton från ditt bibliotek eller lägg till en mapp från Filer. Ändringar sparas versionerade bredvid varje foto:
+library.welcome.or_open = Eller öppna en bild för att redigera:
+library.welcome.shortcut_mac = Galleriet är alltid ett ⌘⇧G bort, vad du än redigerar.
+library.welcome.shortcut = Galleriet är alltid ett Ctrl+Skift+G bort, vad du än redigerar.
+
+# Varför rutnätet är tomt
+library.gallery.empty_bucket_search = Inget i den här hinken matchar sökningen. Escape rensar den och visar hela hinken.
+library.gallery.empty_search = Inget matchar sökningen. Escape rensar den.
+library.gallery.empty_smart_bucket = Inget matchar hinkens regel ännu — träffar dyker upp allteftersom foton indexeras. Det går också att dra in foton.
+library.gallery.empty_bucket = Hinken är tom. Dra foton till dess rad i sidopanelen för att lägga till dem.
+library.gallery.empty_person = Inget här ännu. Ansikten dyker upp allteftersom foton indexeras; klicka på ett foto och sedan på ett ansikte för att ange vem det är.
+library.gallery.scanning = Söker igenom mappar…
+library.gallery.empty = Inga foton hittades i de bevakade mapparna. Bilder som Schist kan öppna (PNG, JPEG, WebP, TIFF, HEIC, kameraråfiler, PSD, Affinity) visas här; undermappar söks igenom sex nivåer ner.
+
+# Hinkar
+library.bucket.default_name = Hink {n}
+library.bucket.rule_matches = matchar ”{query}”
+library.bucket.rule_taken_in = tagna i {name}
+library.bucket.new_title = Ny hink
+library.bucket.edit_title = Redigera hink
+library.bucket.new_cloud_title = Ny molnhink
+library.bucket.edit_cloud_title = Redigera molnhink
+library.bucket.create = Skapa
+library.bucket.query_placeholder = t.ex. hund på en strand (valfritt)
+library.bucket.the_drawn_area = det ritade området
+library.bucket.area_help = Skift-dra på kartan (eller välj ett förval) för att lägga till ett område; ett pyttelitet drag rensar det. Regler håller hinken fylld automatiskt.
+library.bucket.rule_none = Ingen regel: en vanlig hink som fylls genom att dra in foton.
+library.bucket.rule_query = Behåller varje foto som matchar ”{query}”.
+library.bucket.rule_area = Behåller varje foto taget i {area}.
+library.bucket.rule_query_area = Behåller varje foto som matchar ”{query}” och är taget i {area}.
+library.bucket.starts_with.one = Börjar med det markerade fotot.
+library.bucket.starts_with.other = Börjar med de {n} markerade fotona.
+
+# Världskartan
+library.map.status = {located} foton på kartan · {unlocated} utan plats
+library.map.reading_locations = Läser platser: {n} kvar
+library.map.reset_view = Återställ vyn
+library.map.no_photos = Inga foton med GPS-position i den här vyn. Lägg till geotaggade foton eller ändra galleriets filter.
+library.map.no_photos_cloud = Inga foton med GPS-position här. Välj en annan mapp eller hink, eller rensa sökningen.
+library.map.hint = Dra för att panorera · Rulla för att zooma · Klicka på en markör för att se dess foton · Dubbelklicka på ett foto för att redigera
+library.map.n_at_marker.one = {n} foto vid den här markören
+library.map.n_at_marker.other = {n} foton vid den här markören
+library.map.n_in_marker.one = {n} foto i den här markören
+library.map.n_in_marker.other = {n} foton i den här markören
+library.map.attribution = © OpenStreetMaps bidragsgivare
+
+# Gränsredigeraren som import, kartfiltret och hinkar delar
+library.map.draw_area = Rita område
+library.map.drawing = Ritar…
+library.map.clear_boundary = Rensa gräns
+library.map.editor_hint = dra panorerar · rulla zoomar · skift-dra ritar
+
+# Kartfiltret
+library.map_filter.title = Kartfilter
+library.map_filter.drawn_area = ritat område
+library.map_filter.apply_named = Använd visar bara foton tagna i {name}; foton utan EXIF-position döljs.
+library.map_filter.apply_drawn = Använd visar bara foton tagna inom {south}°, {west}° till {north}°, {east}°; foton utan EXIF-position döljs.
+library.map_filter.draw_first = Rita en gräns (skift-dra, eller ett förvalschip) och tryck sedan Använd. Att använda utan något ritat stänger av filtret.
+library.map_filter.turn_off = Stäng av filtret
+
+# Kameraimport: väljaren, alternativen, feldialogen
+library.import.title = Importera från kamera
+library.import.from = Importera från {name}
+library.import.no_cameras = Inga kameror hittades.
+library.import.no_cameras_help = Anslut en kamera, ett minneskort eller en iPhone. En iPhone måste vara upplåst och ha svarat på Lita på den här datorn innan den visar sina foton — gör det, vänta en stund och tryck Sök igen. Allt som monteras som en disk med en DCIM-mapp räknas också.
+library.import.scan_again = Sök igen
+library.import.pick_source = Mer än en kamera är nåbar. Importera från:
+library.import.via_image_capture = via Bildinsamling
+library.import.boundary_named = Gräns: {name} — bara foton vars EXIF-position ligger innanför importeras; foton utan position stannar på kameran.
+library.import.boundary_drawn = Gräns: {south}°, {west}° till {north}°, {east}° — bara foton vars EXIF-position ligger innanför importeras.
+library.import.no_boundary = Ingen gräns — allt på kameran importeras.
+library.import.destination = Till ~/Pictures/Schist Imports/{name} — redan importerade filer hoppas över, så det är säkert att köra igen.
+library.import.selected_area = Markerat område
+library.import.locked_help = Om enheten är låst: lås upp den, tryck Lita på den här datorn när den frågar, låt den vara ansluten och försök igen.
+library.import.try_again = Försök igen
+library.import.add_to_gallery = Lägg till i galleriet
+
+# Kameraimport: vad brickan säger
+library.import.needs_home = Import behöver en hemkatalog att kopiera till
+library.import.importing_from = Importerar från {source}…
+library.import.importing_in_place = Importerar foton tagna i {place} från {source}…
+library.import.device_macos_only = Direkt import från enhet finns bara på macOS
+library.import.failed = Importen misslyckades: {error}
+library.import.from_failed = Importen från {name} misslyckades
+library.import.locked = {name} är låst — lås upp den och tryck Lita på för att fortsätta
+library.import.reading_catalog = Läser fotokatalogen på {name}…
+library.import.progress_from = Importerar foto {n}/{total} från {name}…
+library.import.progress = Importerar foto {n}/{total}…
+library.import.choose_photos = Välj foton att importera…
+library.import.photos_open_failed = Kunde inte öppna fotobiblioteket: {error}
+library.import.done.one = Importerade {n} foto till {dest}
+library.import.done.other = Importerade {n} foton till {dest}
+library.import.done_in_place.one = Importerade {n} foto taget i {place} till {dest} ({filtered} på annan plats eller utan position lämnades på kameran)
+library.import.done_in_place.other = Importerade {n} foton tagna i {place} till {dest} ({filtered} på annan plats eller utan position lämnades på kameran)
+library.import.n_failed.one = {n} misslyckades
+library.import.n_failed.other = {n} misslyckades
+library.import.no_dcim = Ingen DCIM-mapp på {source}
+library.import.already_running = En import pågår redan
+library.import.camera_gone = Den kameran är inte längre ansluten
+library.import.camera_disconnected = Kameran kopplades från mitt under importen
+library.import.unknown_error = Okänt fel
+library.import.picker_needs_ios14 = Fotoväljaren kräver iOS 14 eller senare
+library.import.picker_unavailable = Fotoväljaren är inte tillgänglig
+library.import.no_window = Inget fönster att visa väljaren från
+
+# Vad en kameravolym kallas när dess monteringsnamn inte säger något
+library.volume.iphone = iPhone eller iPad
+library.volume.camera = Kamera
+library.volume.phone = Telefon
+
+# En mapp som släppts på fönstret och öppnats som flikar
+library.open_folder.opened.one = Öppnade {n} bild
+library.open_folder.opened.other = Öppnade {n} bilder
+library.open_folder.opened_first = Öppnade de första {n} av {total} bilder — resten finns i galleriet
+
+# Dialogen för fotosökningens modeller
+library.search_models.title = Fotosökning
+library.search_models.intro = Att söka foton efter vad de innehåller kräver två modeller som hämtas en gång och sparas på den här datorn. De körs lokalt: inget foto lämnar den någonsin.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = MobileCLIP från Apple
+library.search_models.export = ONNX-export av Xenova
+library.search_models.license = Licens
+library.search_models.download_note = Hämtningen installerar båda ({mb} MB totalt) och godkänner deras licenser. De kan tas bort igen under Galleri ▸ Hantera modeller…
+library.search_models.agree = Godkänn och hämta
+
+# Högerklicksmenyn
+library.menu.add_all_to = Lägg till alla i {name}
+library.menu.add_all_to_new_bucket = Lägg till alla i ny hink…
+library.menu.edit_n_in_tabs = Redigera {n} i flikar
+library.menu.view_name_people = Visa och namnge personer
+library.menu.reveal = Visa i filhanteraren
+library.menu.add_to = Lägg till i {name}
+library.menu.add_to_new_bucket = Lägg till i ny hink
+library.menu.remove_from_bucket = Ta bort från den här hinken
+library.menu.save_n_as_zip = Spara {n} som ZIP…
+library.menu.save_image_as = Spara bild som…
+library.menu.process = Bearbeta…
+library.menu.process_n = Bearbeta {n} foton…
+library.menu.move_to_folder = Flytta till mapp…
+library.menu.move_n_to_folder = Flytta {n} till mapp…
+library.menu.revert = Återgå till originalet
+library.menu.revert_n = Återgå till originalen för {n}
+library.menu.upload_to_cloud = Ladda upp till Schist Cloud…
+library.menu.watch_local_folder = Bevaka en mapp på den här datorn…
+library.menu.new_cloud_folder = {glyph} Ny Schist Cloud-mapp…
+library.menu.new_local_bucket = Ny hink på den här datorn…
+library.menu.new_cloud_bucket = {glyph} Ny Schist Cloud-hink…
+library.menu.edit_bucket = Redigera hink…
+library.menu.select_all_n = Markera alla ({n})
+library.menu.save_all_as_zip = Spara alla som ZIP… ({n})
+library.menu.process_all = Bearbeta alla… ({n})
+library.menu.move_all_to_folder = Flytta alla till mapp…
+library.menu.clear_added = Rensa tillagda foton
+library.menu.clear_bucket = Töm hinken
+library.menu.delete_bucket = Radera hink
+library.menu.show_person = Visa {name}
+library.menu.rename_person = Byt namn…
+library.menu.forget_person.one = Glöm person ({n} ansikte)
+library.menu.forget_person.other = Glöm person ({n} ansikten)
+
+# Flytta, zippa, spara, återgå, batchbearbeta
+library.ops.moving.one = Flyttar {n} foto till {dest}…
+library.ops.moving.other = Flyttar {n} foton till {dest}…
+library.ops.moved.one = Flyttade {n} foto till {dest}
+library.ops.moved.other = Flyttade {n} foton till {dest}
+library.ops.moved_partial = Flyttade {n} av {total} foton till {dest} — resten står i loggen
+library.ops.move_here = Flytta hit
+library.ops.no_export_format = Inget format här kan spara en bild
+library.ops.saved_size = Sparade {name} ({w} × {h})
+library.ops.save_failed = Det gick inte att spara: {error}
+library.ops.opening_first = Öppnar de första {n} av {total} foton — resten finns i galleriet
+library.ops.nothing_to_revert = Inget att återgå till: inget av de fotona har någon redigering
+library.ops.reverted.one = Återställde {n} foto till originalet — redigeringen finns kvar under versions/
+library.ops.reverted.other = Återställde {n} foton till originalen — redigeringarna finns kvar under versions/
+library.ops.no_file_name = Filen har inget namn
+library.zip.nothing_all_held = Inget att zippa: innehållsfiltret håller alla {n} av de fotona utanför
+library.zip.failed = ZIP misslyckades: {error}
+library.zip.progress = Zippar {n}/{total}…
+library.zip.n_held.one = ({n} utelämnat av innehållsfiltret)
+library.zip.n_held.other = ({n} utelämnade av innehållsfiltret)
+library.zip.done.one = Zippade {n} foto till {dest}
+library.zip.done.other = Zippade {n} foton till {dest}
+library.zip.done_partial = Zippade {n} av {total} foton till {dest} — resten står i loggen
+library.zip.nothing_readable = Inget kunde läsas för att zippas
+library.zip.too_large = För stort för en ZIP utan zip64
+library.batch.nothing_to_do = Inget att göra: välj först en rotation, en uppskalning eller en justering
+library.batch.save_copies_here = Spara kopior här
+library.batch.processing.one = Bearbetar {n} foto…
+library.batch.processing.other = Bearbetar {n} foton…
+library.batch.progress = Bearbetade {n}/{total} — {name}
+library.batch.failed = Bearbetningen misslyckades: {error}
+library.batch.done.one = Bearbetade {n} foto
+library.batch.done.other = Bearbetade {n} foton
+library.batch.done_partial = Bearbetade {n} av {total} foton — resten står i loggen
+library.batch.model_would_not_load = Modellen {name} gick inte att läsa in
+library.batch.no_psd_writer = Ingen PSD-skrivare är inläst
+
+# Visaren och albumet Personer
+library.viewer.back = ‹ Tillbaka till fotona
+library.viewer.could_not_decode = Det här fotot kunde inte avkodas.
+library.viewer.label_auto = {name} · auto
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = PERSONER PÅ DET HÄR FOTOT
+library.viewer.faces_intro = Ansikten hittas av en liten modell som hämtas en gång. Rutor kan fortfarande ritas för hand.
+library.viewer.looking_for_faces = Letar efter ansikten…
+library.viewer.no_faces = Inga ansikten hittades. Dra en ruta runt ett för att lägga till en person för hand.
+library.viewer.help = Klicka på ett ansikte för att namnge det; Enter sparar. Dra på fotot för att markera ett ansikte som detektorn missade. ← → växlar foto, Esc går tillbaka.
+library.viewer.not_them = Inte hen
+library.viewer.remove_name = Ta bort namn
+library.viewer.not_a_face = Inget ansikte
+library.viewer.auto = auto
+library.viewer.is_this = Är det här {name}?
+library.viewer.someone_else = Någon annan
+library.viewer.add_name = Lägg till ett namn…
+library.viewer.who_is_this = Vem är det här?
+library.people.rename_title = Byt namn på person
+library.people.merge_warning = Någon heter redan ”{name}”: att spara slår ihop de två.
+library.people.merge_note = Att byta till ett namn som någon annan redan har slår ihop de två personerna.
+library.people.named = Namngav {name}
+library.people.named_followed.one = Namngav {name} · {n} ansikte till matchades automatiskt
+library.people.named_followed.other = Namngav {name} · {n} ansikten till matchades automatiskt
+
+# Spara i Bilder (iOS)
+library.photos.saving = Sparar i Bilder…
+library.photos.saved = Sparat i Bilder
+library.photos.save_failed = Det gick inte att spara i Bilder: {error}
+library.photos.no_document = inget dokument är öppet
+library.photos.no_png_codec = PNG-kodeken är inte inläst
+library.photos.no_answer = fotobiblioteket svarade inte
+library.photos.bad_url = filens sökväg kunde inte göras till en URL
+library.photos.unavailable = fotobiblioteket är inte tillgängligt
+library.photos.declined = fotobiblioteket avböjde
+
+# Filer som delats in i appen (iOS)
+library.shared.needs_documents = Galleriet behöver en Dokument-mapp att kopiera till
+library.shared.added.one = Lade till {n} foto i galleriet
+library.shared.added.other = Lade till {n} foton i galleriet
+library.shared.open_needs_documents = Öppning behöver en Dokument-mapp att kopiera till
+library.shared.could_not_open = Kunde inte öppna {name}: {error}

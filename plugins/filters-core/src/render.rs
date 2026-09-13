@@ -2,17 +2,18 @@
 
 use crate::util::{at, blur_plane, fbm, luma_map, put, value_noise};
 use crate::{choice, context_filter, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterContext, FilterParam, FilterPlugin, FilterValues};
 
 context_filter!(
     Clouds,
     "filter.clouds",
-    "Clouds",
-    "Render",
+    t("filter.clouds.name"),
+    t("filter.category.render"),
     [
-        param("scale", "Scale", 4.0, 512.0, 96.0, " px"),
-        param("detail", "Detail", 1.0, 8.0, 5.0, ""),
-        param("seed", "Seed", 0.0, 999.0, 1.0, "")
+        param("scale", t("common.scale"), 4.0, 512.0, 96.0, " px"),
+        param("detail", t("filter.param.detail"), 1.0, 8.0, 5.0, ""),
+        param("seed", t("filter.param.seed"), 0.0, 999.0, 1.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Rendered between the foreground and background colours, which
@@ -45,12 +46,12 @@ context_filter!(
 context_filter!(
     DifferenceClouds,
     "filter.difference_clouds",
-    "Difference Clouds",
-    "Render",
+    t("filter.difference_clouds.name"),
+    t("filter.category.render"),
     [
-        param("scale", "Scale", 4.0, 512.0, 96.0, " px"),
-        param("detail", "Detail", 1.0, 8.0, 5.0, ""),
-        param("seed", "Seed", 0.0, 999.0, 1.0, "")
+        param("scale", t("common.scale"), 4.0, 512.0, 96.0, " px"),
+        param("detail", t("filter.param.detail"), 1.0, 8.0, 5.0, ""),
+        param("seed", t("filter.param.seed"), 0.0, 999.0, 1.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Same field, differenced against what is already there, which is
@@ -84,12 +85,19 @@ context_filter!(
 context_filter!(
     Fibers,
     "filter.fibers",
-    "Fibers",
-    "Render",
+    t("filter.fibers.name"),
+    t("filter.category.render"),
     [
-        param("variance", "Variance", 1.0, 64.0, 16.0, ""),
-        param("strength", "Strength", 1.0, 64.0, 4.0, ""),
-        param("seed", "Randomize", 0.0, 999.0, 0.0, "")
+        param(
+            "variance",
+            t("filter.fibers.param.variance"),
+            1.0,
+            64.0,
+            16.0,
+            ""
+        ),
+        param("strength", t("common.strength"), 1.0, 64.0, 4.0, ""),
+        param("seed", t("filter.fibers.param.seed"), 0.0, 999.0, 0.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Vertical streaks between the two colours: noise that varies
@@ -122,18 +130,35 @@ context_filter!(
 );
 
 /// The lenses Photoshop offers, which differ in how their ghosts fall.
-const LENS_TYPES: &[&str] = &["50-300mm Zoom", "35mm Prime", "105mm Prime", "Movie Prime"];
+static LENS_TYPES: &[&str] = &[
+    "filter.lens_flare.choice.zoom_50_300",
+    "filter.lens_flare.choice.prime_35",
+    "filter.lens_flare.choice.prime_105",
+    "filter.lens_flare.choice.movie_prime",
+];
 
 simple_filter!(
     LensFlare,
     "filter.lens_flare",
-    "Lens Flare",
-    "Render",
+    t("filter.lens_flare.name"),
+    t("filter.category.render"),
     [
-        param("x", "Centre X", 0.0, 100.0, 50.0, "%"),
-        param("y", "Centre Y", 0.0, 100.0, 50.0, "%"),
-        param("brightness", "Brightness", 10.0, 300.0, 100.0, "%"),
-        choice("lens", "Lens Type", LENS_TYPES, 0)
+        param("x", t("filter.param.centre_x"), 0.0, 100.0, 50.0, "%"),
+        param("y", t("filter.param.centre_y"), 0.0, 100.0, 50.0, "%"),
+        param(
+            "brightness",
+            t("common.brightness"),
+            10.0,
+            300.0,
+            100.0,
+            "%"
+        ),
+        choice(
+            "lens",
+            t("filter.lens_flare.param.lens"),
+            choices(LENS_TYPES),
+            0
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let cx = v.get("x") / 100.0 * w as f32;
@@ -202,7 +227,11 @@ simple_filter!(
 );
 
 /// The lights this build offers, which are Photoshop's three.
-const LIGHT_TYPES: &[&str] = &["Spot", "Point", "Infinite"];
+static LIGHT_TYPES: &[&str] = &[
+    "filter.lighting_effects.choice.spot",
+    "filter.lighting_effects.choice.point",
+    "filter.lighting_effects.choice.infinite",
+];
 
 // Filter ▸ Render ▸ Lighting Effects.
 //
@@ -219,18 +248,72 @@ const LIGHT_TYPES: &[&str] = &["Spot", "Point", "Infinite"];
 simple_filter!(
     LightingEffects,
     "filter.lighting_effects",
-    "Lighting Effects",
-    "Render",
+    t("filter.lighting_effects.name"),
+    t("filter.category.render"),
     [
-        choice("type", "Light Type", LIGHT_TYPES, 0),
-        param("x", "Light X", 0.0, 100.0, 30.0, "%"),
-        param("y", "Light Y", 0.0, 100.0, 25.0, "%"),
-        param("angle", "Direction", 0.0, 360.0, 45.0, "\u{b0}"),
-        param("intensity", "Intensity", 0.0, 300.0, 120.0, "%"),
-        param("spread", "Spread", 5.0, 200.0, 60.0, "%"),
-        param("ambience", "Ambience", 0.0, 100.0, 35.0, "%"),
-        param("gloss", "Gloss", 0.0, 100.0, 30.0, "%"),
-        param("height", "Texture Height", 0.0, 200.0, 60.0, "%")
+        choice(
+            "type",
+            t("filter.lighting_effects.param.type"),
+            choices(LIGHT_TYPES),
+            0
+        ),
+        param(
+            "x",
+            t("filter.lighting_effects.param.x"),
+            0.0,
+            100.0,
+            30.0,
+            "%"
+        ),
+        param(
+            "y",
+            t("filter.lighting_effects.param.y"),
+            0.0,
+            100.0,
+            25.0,
+            "%"
+        ),
+        param(
+            "angle",
+            t("filter.lighting_effects.param.angle"),
+            0.0,
+            360.0,
+            45.0,
+            "\u{b0}"
+        ),
+        param(
+            "intensity",
+            t("filter.param.intensity"),
+            0.0,
+            300.0,
+            120.0,
+            "%"
+        ),
+        param("spread", t("common.spread"), 5.0, 200.0, 60.0, "%"),
+        param(
+            "ambience",
+            t("filter.lighting_effects.param.ambience"),
+            0.0,
+            100.0,
+            35.0,
+            "%"
+        ),
+        param(
+            "gloss",
+            t("filter.lighting_effects.param.gloss"),
+            0.0,
+            100.0,
+            30.0,
+            "%"
+        ),
+        param(
+            "height",
+            t("filter.lighting_effects.param.height"),
+            0.0,
+            200.0,
+            60.0,
+            "%"
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let kind = (v.get("type").round().max(0.0) as usize).min(2);
@@ -332,7 +415,13 @@ simple_filter!(
 /// Photoshop's Picture Frame is a script with about forty presets built
 /// out of vector art. These five are generated, which means they scale to
 /// any size and there is no art file to ship.
-const FRAME_STYLES: &[&str] = &["Plain", "Beveled", "Matted", "Rounded", "Ornate"];
+static FRAME_STYLES: &[&str] = &[
+    "filter.picture_frame.choice.plain",
+    "filter.picture_frame.choice.beveled",
+    "filter.picture_frame.choice.matted",
+    "filter.picture_frame.choice.rounded",
+    "filter.picture_frame.choice.ornate",
+];
 
 // Filter ▸ Render ▸ Picture Frame.
 //
@@ -343,13 +432,27 @@ const FRAME_STYLES: &[&str] = &["Plain", "Beveled", "Matted", "Rounded", "Ornate
 simple_filter!(
     PictureFrame,
     "filter.picture_frame",
-    "Picture Frame",
-    "Render",
+    t("filter.picture_frame.name"),
+    t("filter.category.render"),
     [
-        choice("style", "Style", FRAME_STYLES, 1),
-        param("width", "Frame Width", 1.0, 40.0, 8.0, "%"),
-        param("tone", "Tone", 0.0, 100.0, 25.0, ""),
-        param("relief", "Relief", 0.0, 100.0, 60.0, "")
+        choice("style", t("common.style"), choices(FRAME_STYLES), 1),
+        param(
+            "width",
+            t("filter.picture_frame.param.width"),
+            1.0,
+            40.0,
+            8.0,
+            "%"
+        ),
+        param(
+            "tone",
+            t("filter.picture_frame.param.tone"),
+            0.0,
+            100.0,
+            25.0,
+            ""
+        ),
+        param("relief", t("filter.param.relief"), 0.0, 100.0, 60.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let style = (v.get("style").round().max(0.0) as usize).min(FRAME_STYLES.len() - 1);
@@ -503,16 +606,51 @@ fn limb(px: &mut [f32], w: usize, h: usize, b: &Branch, light: f32, colour: [f32
 simple_filter!(
     Tree,
     "filter.tree",
-    "Tree",
-    "Render",
+    t("filter.tree.name"),
+    t("filter.category.render"),
     [
-        param("height", "Branches Height", 20.0, 100.0, 70.0, "%"),
-        param("thickness", "Branches Thickness", 1.0, 100.0, 30.0, ""),
-        param("spread", "Branches Spread", 5.0, 90.0, 32.0, "\u{b0}"),
-        param("leaves", "Leaves Amount", 0.0, 100.0, 70.0, ""),
-        param("size", "Leaves Size", 1.0, 100.0, 40.0, ""),
-        param("light", "Light Direction", -100.0, 100.0, -50.0, ""),
-        param("seed", "Randomness", 0.0, 999.0, 7.0, "")
+        param(
+            "height",
+            t("filter.tree.param.height"),
+            20.0,
+            100.0,
+            70.0,
+            "%"
+        ),
+        param(
+            "thickness",
+            t("filter.tree.param.thickness"),
+            1.0,
+            100.0,
+            30.0,
+            ""
+        ),
+        param(
+            "spread",
+            t("filter.tree.param.spread"),
+            5.0,
+            90.0,
+            32.0,
+            "\u{b0}"
+        ),
+        param(
+            "leaves",
+            t("filter.tree.param.leaves"),
+            0.0,
+            100.0,
+            70.0,
+            ""
+        ),
+        param("size", t("filter.tree.param.size"), 1.0, 100.0, 40.0, ""),
+        param(
+            "light",
+            t("filter.tree.param.light"),
+            -100.0,
+            100.0,
+            -50.0,
+            ""
+        ),
+        param("seed", t("filter.param.randomness"), 0.0, 999.0, 7.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let trunk = v.get("height") / 100.0 * h as f32 * 0.42;
@@ -637,20 +775,34 @@ impl FilterPlugin for Flame {
         "filter.flame"
     }
     fn name(&self) -> &'static str {
-        "Flame"
+        t("filter.flame.name")
     }
     fn category(&self) -> &'static str {
-        "Render"
+        t("filter.category.render")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            param("count", "Flames", 1.0, 24.0, 5.0, ""),
-            param("height", "Length", 10.0, 100.0, 55.0, "%"),
-            param("width", "Width", 5.0, 100.0, 30.0, ""),
-            param("angle", "Angle", -60.0, 60.0, 0.0, "\u{b0}"),
-            param("turbulence", "Turbulent", 0.0, 100.0, 45.0, ""),
-            param("opacity", "Opacity", 0.0, 100.0, 100.0, ""),
-            param("seed", "Randomness", 0.0, 999.0, 3.0, ""),
+            param("count", t("filter.flame.param.count"), 1.0, 24.0, 5.0, ""),
+            param(
+                "height",
+                t("filter.flame.param.height"),
+                10.0,
+                100.0,
+                55.0,
+                "%",
+            ),
+            param("width", t("common.width"), 5.0, 100.0, 30.0, ""),
+            param("angle", t("common.angle"), -60.0, 60.0, 0.0, "\u{b0}"),
+            param(
+                "turbulence",
+                t("filter.flame.param.turbulence"),
+                0.0,
+                100.0,
+                45.0,
+                "",
+            ),
+            param("opacity", t("common.opacity"), 0.0, 100.0, 100.0, ""),
+            param("seed", t("filter.param.randomness"), 0.0, 999.0, 3.0, ""),
         ]
     }
 
@@ -659,11 +811,7 @@ impl FilterPlugin for Flame {
     }
 
     fn info(&self) -> Option<String> {
-        Some(
-            "Burns along the active path when there is one, and up from \
-             the bottom of the selection when there is not."
-                .to_string(),
-        )
+        Some(t("filter.flame.msg.info").to_string())
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {

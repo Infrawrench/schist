@@ -1,0 +1,46 @@
+# 简体中文：crates/app 中面板、工作区和对话框之外的部分 — 滤镜库、字体获取、
+# 更新程序的错误，以及 Vulkan 检查的提示。软件包名称和命令保持原样。
+
+# 滤镜库
+app.filter_gallery.title = 滤镜库
+app.filter_gallery.stack = 堆栈（自下而上应用）
+app.filter_gallery.no_settings = 此滤镜没有设置。
+
+# 字体：“缺失字体”中的行说明，以及获取失败时的提示
+app.fonts.not_open_licensed = 未采用开放许可 · {substitute} 与其字宽一致
+app.fonts.missing_substituted = 缺失 · 文本正以替代字体显示
+app.fonts.not_in_catalogue = {family} 不在开放字体目录中
+app.fonts.no_faces = {family} 没有可下载的字形
+app.fonts.empty_response = 响应为空
+
+# 更新程序：下载或安装失败的原因
+app.update.unreadable_response = 无法读取响应：{error}
+app.update.no_temp_dir = 没有可用于下载的临时目录
+app.update.asset_has_path = 该发行版的文件名中含有路径
+app.update.too_big = 下载内容比发行版声明的更大
+app.update.stopped_at = 下载在 {got} / {total} 字节处中断
+app.update.hash_mismatch = 下载内容的哈希值为 {got}，而非 {want}
+app.update.not_in_bundle = 当前副本不在应用程序包内
+app.update.no_parent_dir = 应用程序包没有上级目录
+app.update.cannot_write = 无法写入 {dir}
+app.update.cannot_move_aside = 无法移开 {app}
+app.update.cannot_move_in = 无法将新程序包移到位
+app.update.cannot_run_ditto = 无法运行 /usr/bin/ditto
+app.update.unpack_failed = 解压下载内容失败：{error}
+app.update.no_app_in_download = 下载内容中没有 Schist.app
+app.update.cannot_run_codesign = 无法运行 /usr/bin/codesign
+app.update.signature_invalid = 下载内容的签名无法验证：{error}
+app.update.download_unsigned = 当前副本已签名，而下载内容未签名
+app.update.different_developer = 下载内容由另一位开发者签名
+app.update.cannot_relaunch = 无法启动重启程序
+app.update.not_installed_copy = 当前副本并非由安装程序放置于此
+app.update.cannot_start_installer = 无法启动安装程序
+app.update.platform_unsupported = 在此平台上，更新按 Schist 安装时的方式进行
+
+# Linux 上的 Vulkan 检查：在任何窗口出现之前输出到终端。
+app.vulkan.no_loader = schist: 此系统没有 Vulkan 加载器，因此无法绘制任何内容。\n\nSchist 通过 Vulkan 渲染，而 `libvulkan.so.1` 尚未安装。\n加载器和驱动程序都需要安装：\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: 此会话指向的 Vulkan 驱动程序不存在。\n\n{var} 已被设置，而设置它会*替换*加载器对驱动程序的搜索，\n而不是补充它。因此这些并不存在的文件就是全部的驱动程序列表 --\n此会话中的每个 Vulkan 程序都看不到任何驱动程序，无论安装了多少个：\n\n{missing}\n    {var}={value}\n\n请将它指向一个存在的清单文件 -- 已安装的驱动程序把清单放在\n/usr/share/vulkan/icd.d -- 或者取消设置该变量，让加载器自行查找。\n如果会话是从配置文件设置它的（Hyprland 的 `env =`、systemd 的\nenvironment.d 片段、shell 配置文件），就必须在那里修改，\n而且改动要重新登录后才会作用于已在运行的程序。\n
+app.vulkan.override_note = \n{var} 被设置为 {value}，这会替换加载器自身的搜索：\n如果这些清单中没有一个适用于本机，首先应尝试取消设置它。\n
+app.vulkan.no_driver = schist: 未安装 Vulkan 驱动程序，因此无法在任何设备上绘制。\n\nSchist 通过 Vulkan 渲染。加载器已安装，但报告没有驱动程序 --\n在它查找的两个位置都没有注册任何驱动程序：\n\n{dirs}\n\n加载器与驱动程序是分开发布的，所以通常只是缺少一个软件包。\n\n请安装适用于本机 GPU 的那个：\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA 的专有驱动程序自带 Vulkan 驱动（Arch 上为 `nvidia-utils`，\nDebian 上为 `nvidia-driver`）。在虚拟机中，或任何没有 GPU 驱动可装的地方，\n软件光栅化器才是能用的那个：Arch 上为 `vulkan-swrast`，其他系统上包含在\n`mesa-vulkan-drivers` 中。它很慢，但能启动。\n{overridden}
+app.vulkan.no_device = schist: 已安装 Vulkan 驱动程序，但没有可用于渲染的设备。\n\n驱动程序可能不支持此 GPU，或无法访问它 -- 通过 SSH 或在容器内时，\n/dev/dri 常常缺失。`vulkaninfo --summary` 会报告加载器看到的内容。\n\n如果本机没有 GPU，软件光栅化器可以完全不用 GPU 进行渲染：\nArch 上为 `vulkan-swrast`，Debian 和 Fedora 上包含在 `mesa-vulkan-drivers` 中。\n
+app.vulkan.skip_hint = 若仍要启动 Schist 并让它以自己的方式失败，请设置 {var}=1。

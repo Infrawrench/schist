@@ -22,6 +22,7 @@
 //!   editor rewriting them, so the dialog only points at the release.
 
 use anyhow::Context as _;
+use schist_i18n::{t, tf};
 use std::io::{Read as _, Write as _};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -131,7 +132,9 @@ pub fn check() -> UpdateStatus {
     let release: Release = match response {
         Ok(mut r) => match r.body_mut().read_json() {
             Ok(v) => v,
-            Err(err) => return UpdateStatus::Failed(format!("unreadable response: {err}")),
+            Err(err) => {
+                return UpdateStatus::Failed(tf!("app.update.unreadable_response", error = err))
+            }
         },
         Err(err) => return UpdateStatus::Failed(format!("{err}")),
     };
@@ -214,13 +217,13 @@ pub fn self_installable() -> bool {
 pub fn download(installer: &Installer, received: &AtomicU64) -> anyhow::Result<PathBuf> {
     use sha2::Digest as _;
 
-    let dir = download_dir().context("no temporary directory to download into")?;
+    let dir = download_dir().context(t("app.update.no_temp_dir"))?;
     // A previous attempt's half-file must not be mistaken for this one.
     let _ = std::fs::remove_dir_all(&dir);
     std::fs::create_dir_all(&dir)?;
     let name = Path::new(&installer.file_name)
         .file_name()
-        .context("the release names its asset with a path")?;
+        .context(t("app.update.asset_has_path"))?;
     let path = dir.join(name);
 
     let mut response = ureq::get(&installer.url)
@@ -245,7 +248,7 @@ pub fn download(installer: &Installer, received: &AtomicU64) -> anyhow::Result<P
             break;
         }
         total += n as u64;
-        anyhow::ensure!(total <= cap, "the download is bigger than the release says");
+        anyhow::ensure!(total <= cap, "{}", t("app.update.too_big"));
         hasher.update(&buf[..n]);
         file.write_all(&buf[..n])?;
         received.store(total, Ordering::Relaxed);
@@ -256,13 +259,17 @@ pub fn download(installer: &Installer, received: &AtomicU64) -> anyhow::Result<P
     if installer.size > 0 {
         anyhow::ensure!(
             total == installer.size,
-            "the download stopped at {total} of {} bytes",
-            installer.size
+            "{}",
+            tf!("app.update.stopped_at", got = total, total = installer.size)
         );
     }
     if let Some(want) = &installer.sha256 {
         let got = format!("{:x}", hasher.finalize());
-        anyhow::ensure!(&got == want, "the download hashes to {got}, not {want}");
+        anyhow::ensure!(
+            &got == want,
+            "{}",
+            tf!("app.update.hash_mismatch", got = got, want = want)
+        );
     }
     Ok(path)
 }
@@ -313,15 +320,14 @@ fn is_writable(dir: &Path) -> bool {
 /// start once this process exits.
 #[cfg(target_os = "macos")]
 pub fn install_and_restart(zip: &Path) -> anyhow::Result<()> {
-    let app = bundle_path().context("this copy is not inside an application bundle")?;
-    let parent = app
-        .parent()
-        .context("the application bundle has no parent directory")?;
+    let app = bundle_path().context(t("app.update.not_in_bundle"))?;
+    let parent = app.parent().context(t("app.update.no_parent_dir"))?;
     // Staged beside the bundle, not in the temporary directory: the swap
     // below is a rename, and a rename cannot cross volumes.
     let stage = parent.join(format!(".schist-update-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&stage);
-    std::fs::create_dir(&stage).with_context(|| format!("cannot write to {}", parent.display()))?;
+    std::fs::create_dir(&stage)
+        .with_context(|| tf!("app.update.cannot_write", dir = parent.display()))?;
 
     let unpacked = unpack(zip, &stage).and_then(|new_app| {
         verify_signature(&app, &new_app)?;
@@ -340,11 +346,11 @@ pub fn install_and_restart(zip: &Path) -> anyhow::Result<()> {
     let backup = parent.join(format!(".Schist.app.old-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&backup);
     std::fs::rename(&app, &backup)
-        .with_context(|| format!("cannot move {} aside", app.display()))?;
+        .with_context(|| tf!("app.update.cannot_move_aside", app = app.display()))?;
     if let Err(err) = std::fs::rename(&new_app, &app) {
         let _ = std::fs::rename(&backup, &app);
         let _ = std::fs::remove_dir_all(&stage);
-        return Err(anyhow::Error::new(err).context("cannot move the new bundle into place"));
+        return Err(anyhow::Error::new(err).context(t("app.update.cannot_move_in")));
     }
     let _ = std::fs::remove_dir_all(&backup);
     let _ = std::fs::remove_dir_all(&stage);
@@ -365,16 +371,20 @@ fn unpack(zip: &Path, stage: &Path) -> anyhow::Result<PathBuf> {
         .arg(zip)
         .arg(stage)
         .output()
-        .context("cannot run /usr/bin/ditto")?;
+        .context(t("app.update.cannot_run_ditto"))?;
     anyhow::ensure!(
         out.status.success(),
-        "unpacking the download failed: {}",
-        String::from_utf8_lossy(&out.stderr).trim()
+        "{}",
+        tf!(
+            "app.update.unpack_failed",
+            error = String::from_utf8_lossy(&out.stderr).trim()
+        )
     );
     let app = stage.join("Schist.app");
     anyhow::ensure!(
         app.join("Contents/MacOS/schist").is_file(),
-        "the download holds no Schist.app"
+        "{}",
+        t("app.update.no_app_in_download")
     );
     Ok(app)
 }
@@ -415,11 +425,14 @@ fn verify_signature(app: &Path, new_app: &Path) -> anyhow::Result<()> {
             .args(["--verify", "--strict"])
             .arg(new_app)
             .output()
-            .context("cannot run /usr/bin/codesign")?;
+            .context(t("app.update.cannot_run_codesign"))?;
         anyhow::ensure!(
             out.status.success(),
-            "the download's signature does not verify: {}",
-            String::from_utf8_lossy(&out.stderr).trim()
+            "{}",
+            tf!(
+                "app.update.signature_invalid",
+                error = String::from_utf8_lossy(&out.stderr).trim()
+            )
         );
     }
     let Some(ours) = signing_team(app) else {
@@ -428,12 +441,9 @@ fn verify_signature(app: &Path, new_app: &Path) -> anyhow::Result<()> {
         return Ok(());
     };
     let Some(theirs) = theirs else {
-        anyhow::bail!("this copy is signed and the download is not");
+        anyhow::bail!("{}", t("app.update.download_unsigned"));
     };
-    anyhow::ensure!(
-        ours == theirs,
-        "the download is signed by a different developer"
-    );
+    anyhow::ensure!(ours == theirs, "{}", t("app.update.different_developer"));
     Ok(())
 }
 
@@ -449,7 +459,7 @@ fn relaunch(app: &Path) -> anyhow::Result<()> {
         .arg("-c")
         .arg(script)
         .spawn()
-        .context("cannot start the relauncher")?;
+        .context(t("app.update.cannot_relaunch"))?;
     Ok(())
 }
 
@@ -489,7 +499,7 @@ pub fn install_and_restart(setup: &Path) -> anyhow::Result<()> {
     /// the waiter outlives us.
     const DETACHED_NO_WINDOW: u32 = 0x0000_0008 | 0x0800_0000;
 
-    let dir = install_dir().context("this copy was not put here by the installer")?;
+    let dir = install_dir().context(t("app.update.not_installed_copy"))?;
     let exe = dir.join("schist.exe");
     // The installer is elevated (its manifest asks for admin), so the
     // relaunch has to be a separate, unelevated Start-Process — starting
@@ -509,7 +519,7 @@ pub fn install_and_restart(setup: &Path) -> anyhow::Result<()> {
         .arg(script)
         .creation_flags(DETACHED_NO_WINDOW)
         .spawn()
-        .context("cannot start the installer")?;
+        .context(t("app.update.cannot_start_installer"))?;
     Ok(())
 }
 
@@ -526,7 +536,7 @@ fn ps_quote(s: &str) -> String {
 /// it exists so the rest compiles.
 #[cfg(not(any(target_os = "macos", windows)))]
 pub fn install_and_restart(_file: &Path) -> anyhow::Result<()> {
-    anyhow::bail!("updates on this platform are installed the way Schist was")
+    anyhow::bail!("{}", t("app.update.platform_unsupported"))
 }
 
 // -------------------------------------------------- launch-time checking

@@ -46,6 +46,13 @@ Restart Schist; the filter appears in the **Filter** menu with a slider
 per declared parameter. **File → Plugins…** lists what loaded, shows why
 anything was refused, and can enable/disable or install plugins.
 
+A plugin's `name`, `category` and parameter labels are shown as written:
+the sandbox has no access to the app's string catalogs, so a third-party
+plugin ships whatever language its author chose (English by convention).
+A `category` that matches one of the Filter menu's English headings
+("Blur", "Sharpen", …) files the filter under that heading in every
+language; see [i18n.md](i18n.md).
+
 Two complete examples live in [`examples/plugins`](../examples/plugins):
 `sepia-filter` (a filter) and `pgm-codec` (a Netpbm PGM decoder).
 

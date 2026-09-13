@@ -1,6 +1,7 @@
 //! Export with explicit encoder settings.
 
 use super::*;
+use schist_i18n::t;
 
 pub(super) fn export_dialog(
     ws: &mut Workspace,
@@ -28,7 +29,7 @@ pub(super) fn export_dialog(
         .unwrap_or(false);
 
     let mut body = div().flex().flex_col().gap_1().child(ui::field_row(
-        "Format",
+        t("dialog.export.format"),
         ui::dropdown(
             &ws.dropdown,
             ui::Dropdown {
@@ -53,7 +54,7 @@ pub(super) fn export_dialog(
         body = body.child(param_slider(
             SliderSpec {
                 id: "export-quality",
-                label: "Quality",
+                label: t("common.quality"),
                 value: options.quality as f32,
                 min: 1.0,
                 max: 100.0,
@@ -71,9 +72,9 @@ pub(super) fn export_dialog(
         ));
     }
     body = body.child(ui::field_row(
-        "Dither",
+        t("dialog.export.dither"),
         ui::checkbox(
-            "Dither when reducing to 8-bit",
+            t("dialog.export.dither_note"),
             options.dither,
             |ws, _cx| {
                 ws.update_modal(|m| {
@@ -91,13 +92,13 @@ pub(super) fn export_dialog(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "Export…",
+            t("dialog.export.export_ellipsis"),
             true,
             move |ws, window, cx| {
                 ws.close_modal(cx);
@@ -105,5 +106,5 @@ pub(super) fn export_dialog(
             },
             cx,
         ));
-    ui::modal_frame("Export", 360.0, body, actions)
+    ui::modal_frame(t("common.export"), 360.0, body, actions)
 }

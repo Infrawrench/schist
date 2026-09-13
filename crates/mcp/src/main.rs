@@ -271,6 +271,9 @@ fn main() {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("warn"))
         .target(env_logger::Target::Stderr)
         .init();
+    // The tool catalog is read by a model, not a person: command titles
+    // and descriptions stay English whatever the machine's language.
+    schist_i18n::set_locale(schist_i18n::Locale::En);
     let stdin = std::io::stdin();
     let mut server = Server::default();
     for line in stdin.lock().lines() {

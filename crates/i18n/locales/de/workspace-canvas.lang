@@ -1,0 +1,44 @@
+# Die Leinwand und ihr Umfeld: Statuszeilen-Meldungen und Protokoll-
+# Einträge. Begriffe nach dem deutschen Photoshop (Kontur füllen,
+# Fläche füllen, Inhaltsbasierte Füllung, Hilfslinien, Notiz).
+
+# Statuszeile
+workspace.canvas.rotate_view_degrees = Ansicht drehen {degrees}°
+workspace.canvas.view_reset = Ansicht zurückgesetzt
+workspace.canvas.notes_on = Notizen ein
+workspace.canvas.notes_off = Notizen aus
+workspace.canvas.rulers_on = Lineale ein
+workspace.canvas.rulers_off = Lineale aus
+workspace.canvas.grid_on = Raster ein
+workspace.canvas.grid_off = Raster aus
+workspace.canvas.guides_on = Hilfslinien ein
+workspace.canvas.guides_off = Hilfslinien aus
+workspace.canvas.extras_on = Extras ein
+workspace.canvas.extras_off = Extras aus
+workspace.canvas.snap_on = Ausrichten ein
+workspace.canvas.snap_off = Ausrichten aus
+workspace.canvas.guides_cleared = Hilfslinien gelöscht
+workspace.canvas.no_path = Kein Pfad vorhanden
+workspace.canvas.path_empty = Der Pfad ist leer
+workspace.canvas.stroke_needs_selection = „Kontur füllen“ benötigt eine Auswahl
+workspace.canvas.nothing_to_stroke = Keine Kontur zum Füllen
+workspace.canvas.content_aware_fill_needs_selection = „Inhaltsbasierte Füllung“ benötigt eine Auswahl
+workspace.canvas.content_aware_fill_needs_pixel_layer = „Inhaltsbasierte Füllung“ benötigt eine Pixelebene
+workspace.canvas.color_range_needs_pixel_layer = „Farbbereich“ benötigt eine Pixelebene
+workspace.canvas.nothing_to_adjust = Nichts anzupassen
+workspace.canvas.nothing_to_trim = Nichts zuzuschneiden
+workspace.canvas.trimmed = Zugeschnitten
+workspace.canvas.indexed_not_supported = Indizierte Farbe wird noch nicht unterstützt
+workspace.canvas.opacity_percent = Deckkraft: {n} %
+
+# Protokoll
+workspace.history.stroke = Kontur füllen
+workspace.history.fill = Fläche füllen
+workspace.history.content_aware_scale = Inhaltsbasiert skalieren
+workspace.history.filter_gallery = Filtergalerie
+workspace.history.color_range = Farbbereich
+workspace.history.move_layer = Ebene verschieben
+workspace.history.move_layers = Ebenen verschieben
+workspace.history.layer_opacity = Ebenendeckkraft
+workspace.history.delete_note = Notiz löschen
+workspace.history.edit_note = Notiz bearbeiten

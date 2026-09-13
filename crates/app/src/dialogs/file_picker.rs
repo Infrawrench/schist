@@ -5,6 +5,7 @@
 
 use super::*;
 use crate::workspace::file_picker::{places, PickerKind, NAME_FIELD};
+use schist_i18n::t;
 use schist_ui::ListItem;
 
 pub(super) fn file_picker(
@@ -68,7 +69,7 @@ pub(super) fn file_picker(
                 .cursor_pointer()
                 .hover(|s| s.bg(gpui::rgb(pal.hover)))
                 .on_click(cx.listener(|ws, _e, _w, cx| ws.picker_up(cx)))
-                .child("↑ Up"),
+                .child(t("dialog.file_picker.up")),
         )
         .child(
             div()
@@ -106,7 +107,7 @@ pub(super) fn file_picker(
     if let Some(error) = &picker.error {
         list = list.child(note(error.clone()));
     } else if picker.entries.is_empty() {
-        list = list.child(note("Nothing here".into()));
+        list = list.child(note(t("dialog.file_picker.empty").into()));
     } else {
         for (i, entry) in picker.entries.iter().enumerate() {
             let selected = picker.selected.contains(&entry.path);
@@ -153,7 +154,7 @@ pub(super) fn file_picker(
             committed.clone()
         };
         body = body.child(ui::field_row(
-            "Name",
+            t("common.name"),
             TextInput::new(NAME_FIELD, shown.clone())
                 .cursor(if focused {
                     state.field_cursor.min(shown.len())
@@ -171,16 +172,16 @@ pub(super) fn file_picker(
     }
 
     let primary = match kind {
-        PickerKind::Save => "Save",
-        PickerKind::Open { files: true, .. } => "Open",
-        PickerKind::Open { .. } => "Choose This Folder",
+        PickerKind::Save => t("common.save"),
+        PickerKind::Open { files: true, .. } => t("common.open"),
+        PickerKind::Open { .. } => t("dialog.file_picker.choose_folder"),
     };
     let actions = div()
         .flex()
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,

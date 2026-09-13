@@ -1,0 +1,41 @@
+# Markeringsverktygen (plugins/tools-select). Termerna följer det svenska
+# Photoshop: markeringsram, lasso, trollstav, snabbval, objektmarkering.
+
+# Hur en ny form möter den befintliga markeringen. Ny och Lägg till är
+# common.new och common.add.
+tool.select.mode.subtract = Subtrahera
+tool.select.mode.intersect = Skärning
+
+# Markeringsramar
+tool.marquee.rect.name = Rektangulär markeringsram
+tool.marquee.rect.description = Dra ut en rektangulär markering. Skift i början av draget lägger till i markeringen, alt subtraherar, båda ger skärningen; skift under draget gör den kvadratisk. Ett klick utan drag avmarkerar.
+tool.marquee.ellipse.name = Elliptisk markeringsram
+tool.marquee.ellipse.description = Dra ut en elliptisk markering, som kombineras med skift/alt på samma sätt som den rektangulära markeringsramen.
+
+# Lasson
+tool.lasso.name = Lasso
+tool.lasso.description = Dra en frihandskontur; markeringen sluts mellan ändarna när draget avslutas. Skift lägger till, alt subtraherar.
+tool.lasso.history.select = Lassomarkering
+tool.lasso.polygonal.name = Polygonlasso
+tool.lasso.polygonal.description = Klicka hörn efter hörn för att bygga en markering med raka kanter, och klicka nära den första punkten för att sluta den.
+tool.lasso.polygonal.history.select = Polygonlasso
+tool.lasso.magnetic.name = Magnetlasso
+tool.lasso.magnetic.description = Följ ungefärligt en kant, så fäster konturen vid den starkaste kontrasten nära banan.
+tool.lasso.magnetic.history.select = Magnetlasso
+tool.lasso.magnetic.option.frequency = Frekvens
+
+# Trollstav
+tool.wand.name = Trollstav
+tool.wand.description = Klicka för att markera det sammanhängande området med liknande färg under pekaren, inom toleransalternativet -- samma tolerans som Utöka, Liknande och Färgområde använder.
+tool.wand.option.contiguous = Angränsande
+tool.wand.history.select = Trollstav
+
+# Snabbval
+tool.quick_select.name = Snabbval
+tool.quick_select.description = Måla över ett område, så växer markeringen genom de liknande pixlar som penseln passerar.
+tool.quick_select.history.select = Snabbval
+
+# Objektmarkering
+tool.object_select.name = Objektmarkering
+tool.object_select.description = Dra en ruta runt ett objekt, så fäster markeringen vid det objekt som hittas inuti den.
+tool.object_select.history.select = Objektmarkering

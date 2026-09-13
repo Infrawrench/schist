@@ -166,6 +166,10 @@ application menu a finger can reach (macOS keeps it in the app menu).
 Unlike the browser build, iOS keeps the gallery, the GPU compositor, the
 crash reporter, the daily ping, font and model downloads, and the cloud.
 
+The chrome follows the device language, or the per-app language Settings
+offers (`CFBundleLocalizations` in the Info.plist is what makes it
+appear); the preference is read at startup. See [i18n.md](i18n.md).
+
 **GPU compositing** runs on iOS as on the desktop: `wgpu` opens the
 Metal adapter (the app's own instance; gpui's renderer is separate) and
 the layer stack, adjustments, blend modes, filters and warps run as the

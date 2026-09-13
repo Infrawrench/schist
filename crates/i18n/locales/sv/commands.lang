@@ -1,0 +1,116 @@
+# plugins/commands-core: kommandona i menyerna Redigera, Markera och
+# Lager. Titlarna följer svenska Photoshop där det finns en.
+
+# Redigera
+command.edit.undo.title = Ångra
+command.edit.undo.description = Gå ett steg tillbaka i dokumentets ångra-historik.
+command.edit.redo.title = Gör om
+command.edit.redo.description = Gör om den ändring som senast ångrades.
+command.edit.copy.title = Kopiera
+command.edit.copy.description = Kopiera det aktiva lagrets markerade pixlar till det interna urklippet (hela lagret när inget är markerat).
+command.edit.copy_merged.title = Kopiera sammanslaget
+command.edit.copy_merged.description = Kopiera markeringen som alla synliga lager tillsammans visar den, i stället för bara från det aktiva lagret.
+command.edit.cut.title = Klipp ut
+command.edit.cut.description = Kopiera de markerade pixlarna till urklippet och radera dem från det aktiva lagret.
+command.edit.paste.title = Klistra in
+command.edit.paste.description = Klistra in urklippet som ett nytt lager ovanför det aktiva, centrerat på arbetsytan.
+command.edit.paste.layer_name = Inklistrat lager
+command.edit.paste_in_place.title = Klistra in på plats
+command.edit.paste_in_place.description = Klistra in urklippet som ett nytt lager på de koordinater det kopierades från.
+command.edit.fill_foreground.title = Fyll med förgrundsfärg
+command.edit.fill_foreground.description = Fyll markeringen (eller hela arbetsytan när inget är markerat) med förgrundsfärgen.
+command.edit.fill_background.title = Fyll med bakgrundsfärg
+command.edit.fill_background.description = Fyll markeringen (eller hela arbetsytan när inget är markerat) med bakgrundsfärgen.
+
+# Markera
+command.select.all.title = Markera allt
+command.select.all.description = Markera hela arbetsytan.
+command.select.deselect.title = Avmarkera
+command.select.deselect.description = Släpp markeringen, så att ändringar gäller hela lagret igen.
+command.select.inverse.title = Omvänd
+command.select.inverse.description = Byt plats på markerade och omarkerade områden.
+command.select.reselect.title = Markera igen
+command.select.reselect.description = Ta tillbaka den markering som senast släpptes.
+command.select.reselect.msg.nothing_to_reselect = Ingen markering att ta tillbaka
+command.select.feather.title = Ludda markeringen
+command.select.feather.description = Mjuka upp markeringens kant med två pixlars oskärpa, så att nästa ändring tonas ut över den.
+command.select.grow.title = Utvidga
+command.select.grow.description = Utvidga markeringen till angränsande pixlar som liknar det som redan är markerat, inom trollstavens tolerans.
+command.select.similar.title = Liknande
+command.select.similar.description = Markera varje pixel i lagret som liknar markeringen, angränsande eller inte, inom trollstavens tolerans.
+command.select.save.title = Spara markering
+command.select.save.description = Lägg undan den aktuella markeringen i dokumentet som en namngiven alfakanal.
+command.select.save.channel_name = Alfa {n}
+command.select.load.title = Läs in markering
+command.select.load.description = Återställ den senast sparade markeringen.
+
+# Lager
+command.layer.new.title = Nytt lager
+command.layer.new.description = Lägg till ett tomt pixellager ovanför det aktiva och gör det aktivt.
+command.layer.duplicate.title = Duplicera lager
+command.layer.duplicate.description = Kopiera det aktiva lagret, med allt innehåll, till ett nytt lager ovanför.
+command.layer.smart_object.title = Konvertera till smart objekt
+command.layer.smart_object.description = Packa in det aktiva pixellagrets pixlar i ett smart objekt, så att senare omformningar och filter samplar om från den orörda källan.
+command.layer.rasterize.title = Rastrera lager
+command.layer.rasterize.description = Gör om ett form-, text- eller smart objekt-lager till vanliga pixlar.
+command.layer.delete.title = Ta bort lager
+command.layer.delete.description = Ta bort de markerade lagren.
+command.layer.group.title = Gruppera lager
+command.layer.group.description = Packa in de markerade lagren i en ny grupp, på plats.
+command.layer.raise.title = Flytta framåt
+command.layer.raise.description = Flytta det aktiva lagret ett steg uppåt i gruppens stapel.
+command.layer.lower.title = Flytta bakåt
+command.layer.lower.description = Flytta det aktiva lagret ett steg nedåt i gruppens stapel.
+command.layer.to_front.title = Placera överst
+command.layer.to_front.description = Flytta det aktiva lagret överst i sin grupp.
+command.layer.to_back.title = Placera underst
+command.layer.to_back.description = Flytta det aktiva lagret underst i sin grupp.
+command.layer.clipping_mask.title = Skapa/ta bort urklippsmask
+command.layer.clipping_mask.description = Klipp det aktiva lagret mot lagret under, eller ta bort urklippsmasken om det redan är klippt; ett klippt lager syns bara där dess bas har pixlar.
+command.layer.cut_to_new.title = Lager via Klipp ut
+command.layer.cut_to_new.description = Flytta de markerade pixlarna ut ur det aktiva lagret till ett nytt lager ovanför.
+command.layer.cut_to_new.layer_name = Lager via Klipp ut
+command.layer.add_mask.title = Lägg till lagermask
+command.layer.add_mask.description = Lägg till en lagermask på det aktiva lagret, som visar bara markeringen när det finns en.
+command.layer.flatten.title = Gör till ett lager
+command.layer.flatten.description = Slå samman allt synligt till ett ogenomskinligt bakgrundslager; dolda lager kastas.
+command.layer.merge_down.title = Sammanfoga nedåt
+command.layer.merge_down.description = Slå samman det aktiva lagret med lagret under.
+command.layer.merge_down.msg.no_layer_below = Inget lager under att sammanfoga med
+command.layer.merge_visible.title = Sammanfoga synliga
+command.layer.merge_visible.description = Slå samman alla synliga lager till ett; dolda lager lämnas orörda.
+
+# Varför ett kommando inte gjorde något (statusraden)
+command.msg.nothing_to_copy = Markera ett pixellager att kopiera från
+command.msg.clipboard_empty = Urklippet är tomt
+
+# Poster i historikpanelen
+command.history.grow = Utvidga
+command.history.similar = Liknande
+command.history.clear = Radera
+command.history.merge_down = Sammanfoga nedåt
+command.history.flatten_image = Gör till ett lager
+command.history.merge_visible = Sammanfoga synliga
+command.history.paste = Klistra in
+command.history.fill = Fyll
+command.history.select_all = Markera allt
+command.history.deselect = Avmarkera
+command.history.select_inverse = Omvänd
+command.history.new_layer = Nytt lager
+command.history.duplicate_layer = Duplicera lager
+command.history.convert_to_smart_object = Konvertera till smart objekt
+command.history.rasterize_layer = Rastrera lager
+command.history.delete_layer = Ta bort lager
+command.history.delete_layers = Ta bort lager
+command.history.group_layer = Gruppera lager
+command.history.group_layers = Gruppera lager
+command.history.reselect = Markera igen
+command.history.feather = Ludd
+command.history.load_selection = Läs in markering
+command.history.bring_forward = Flytta framåt
+command.history.send_backward = Flytta bakåt
+command.history.bring_to_front = Placera överst
+command.history.send_to_back = Placera underst
+command.history.clipping_mask = Urklippsmask
+command.history.layer_via_cut = Lager via Klipp ut
+command.history.add_layer_mask = Lägg till lagermask

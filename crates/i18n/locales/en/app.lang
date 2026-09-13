@@ -1,0 +1,48 @@
+# crates/app outside the panels, workspace and dialogs: the Filter
+# Gallery, the font fetcher, the self-updater's errors (shown in the
+# status line when an update fails) and the Vulkan check's advice.
+
+# Filter Gallery
+app.filter_gallery.title = Filter Gallery
+app.filter_gallery.stack = Stack (applied bottom to top)
+app.filter_gallery.no_settings = This filter has no settings.
+
+# Fonts: the row detail in Missing Fonts, and what a failed fetch says
+app.fonts.not_open_licensed = not openly licensed · {substitute} matches its metrics
+app.fonts.missing_substituted = missing · text is being set in a substitute
+app.fonts.not_in_catalogue = {family} is not in the open font catalogue
+app.fonts.no_faces = no downloadable faces for {family}
+app.fonts.empty_response = empty response
+
+# The self-updater: why a download or install failed
+app.update.unreadable_response = unreadable response: {error}
+app.update.no_temp_dir = no temporary directory to download into
+app.update.asset_has_path = the release names its asset with a path
+app.update.too_big = the download is bigger than the release says
+app.update.stopped_at = the download stopped at {got} of {total} bytes
+app.update.hash_mismatch = the download hashes to {got}, not {want}
+app.update.not_in_bundle = this copy is not inside an application bundle
+app.update.no_parent_dir = the application bundle has no parent directory
+app.update.cannot_write = cannot write to {dir}
+app.update.cannot_move_aside = cannot move {app} aside
+app.update.cannot_move_in = cannot move the new bundle into place
+app.update.cannot_run_ditto = cannot run /usr/bin/ditto
+app.update.unpack_failed = unpacking the download failed: {error}
+app.update.no_app_in_download = the download holds no Schist.app
+app.update.cannot_run_codesign = cannot run /usr/bin/codesign
+app.update.signature_invalid = the download's signature does not verify: {error}
+app.update.download_unsigned = this copy is signed and the download is not
+app.update.different_developer = the download is signed by a different developer
+app.update.cannot_relaunch = cannot start the relauncher
+app.update.not_installed_copy = this copy was not put here by the installer
+app.update.cannot_start_installer = cannot start the installer
+app.update.platform_unsupported = updates on this platform are installed the way Schist was
+
+# The Vulkan check on Linux: printed to the terminal before any window
+# exists. Package names and commands stay as they are in every language.
+app.vulkan.no_loader = schist: no Vulkan loader on this system, so there is nothing to draw with.\n\nSchist renders through Vulkan, and `libvulkan.so.1` is not installed.\nBoth the loader and a driver are needed:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: the Vulkan driver this session points at is not there.\n\n{var} is set, and setting it *replaces* the loader's search for\ndrivers rather than adding to it. So these files, which do not exist,\nare the whole driver list -- and every Vulkan program in this session\nsees no driver at all, however many are installed:\n\n{missing}\n    {var}={value}\n\nPoint it at a manifest that exists -- installed drivers put theirs in\n/usr/share/vulkan/icd.d -- or unset it and let the loader find its own.\nA session that sets this from a config file (Hyprland's `env =`, a\nsystemd environment.d drop-in, a shell profile) has to be told there,\nand the change takes a fresh login to reach anything already running.\n
+app.vulkan.override_note = \n{var} is set to {value}, and that replaces the loader's own\nsearch: if none of those manifests is for this machine, unsetting it is\nthe first thing to try.\n
+app.vulkan.no_driver = schist: no Vulkan driver installed, so there is nothing to draw on.\n\nSchist renders through Vulkan. The loader is installed and reports no\ndriver -- nothing has registered one in either place they are looked for:\n\n{dirs}\n\nThe loader ships separately from the drivers, so this is usually a single\nmissing package.\n\nInstall the one for this machine's GPU:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA's proprietary driver carries its own (`nvidia-utils` on Arch,\n`nvidia-driver` on Debian). In a virtual machine, or anywhere with no\nGPU driver to install, the software rasteriser is the one that works:\n`vulkan-swrast` on Arch, part of `mesa-vulkan-drivers` elsewhere. It is\nslow, but it starts.\n{overridden}
+app.vulkan.no_device = schist: a Vulkan driver is installed but offers no device to render on.\n\nThe driver may not cover this GPU, or may not be able to reach it --\nover SSH, or inside a container, /dev/dri is a common thing to be\nmissing. `vulkaninfo --summary` reports what the loader sees.\n\nThe software rasteriser renders without a GPU at all, if that is what\nthis machine has: `vulkan-swrast` on Arch, part of `mesa-vulkan-drivers`\non Debian and Fedora.\n
+app.vulkan.skip_hint = To start Schist anyway and let it fail its own way, set {var}=1.

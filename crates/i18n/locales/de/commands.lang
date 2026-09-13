@@ -1,0 +1,116 @@
+# plugins/commands-core: die Befehle der Menüs Bearbeiten, Auswahl und
+# Ebene. Die Titel folgen dem deutschen Photoshop, wo es einen gibt.
+
+# Bearbeiten
+command.edit.undo.title = Rückgängig
+command.edit.undo.description = Einen Eintrag im Protokoll des Dokuments zurückgehen.
+command.edit.redo.title = Wiederholen
+command.edit.redo.description = Die zuletzt rückgängig gemachte Bearbeitung erneut ausführen.
+command.edit.copy.title = Kopieren
+command.edit.copy.description = Die ausgewählten Pixel der aktiven Ebene in die interne Zwischenablage kopieren (ohne Auswahl die ganze Ebene).
+command.edit.copy_merged.title = Auf eine Ebene reduziert kopieren
+command.edit.copy_merged.description = Die Auswahl so kopieren, wie alle sichtbaren Ebenen zusammen sie zeigen, statt nur aus der aktiven Ebene.
+command.edit.cut.title = Ausschneiden
+command.edit.cut.description = Die ausgewählten Pixel in die Zwischenablage kopieren und aus der aktiven Ebene löschen.
+command.edit.paste.title = Einfügen
+command.edit.paste.description = Die Zwischenablage als neue Ebene über der aktiven einfügen, zentriert auf der Arbeitsfläche.
+command.edit.paste.layer_name = Eingefügte Ebene
+command.edit.paste_in_place.title = An Originalposition einfügen
+command.edit.paste_in_place.description = Die Zwischenablage als neue Ebene an den Koordinaten einfügen, von denen sie kopiert wurde.
+command.edit.fill_foreground.title = Mit Vordergrundfarbe füllen
+command.edit.fill_foreground.description = Die Auswahl (oder ohne Auswahl die ganze Arbeitsfläche) mit der Vordergrundfarbe füllen.
+command.edit.fill_background.title = Mit Hintergrundfarbe füllen
+command.edit.fill_background.description = Die Auswahl (oder ohne Auswahl die ganze Arbeitsfläche) mit der Hintergrundfarbe füllen.
+
+# Auswahl
+command.select.all.title = Alles auswählen
+command.select.all.description = Die gesamte Arbeitsfläche auswählen.
+command.select.deselect.title = Auswahl aufheben
+command.select.deselect.description = Die Auswahl aufheben, sodass Bearbeitungen wieder für die ganze Ebene gelten.
+command.select.inverse.title = Auswahl umkehren
+command.select.inverse.description = Ausgewählte und nicht ausgewählte Bereiche vertauschen.
+command.select.reselect.title = Erneut auswählen
+command.select.reselect.description = Die zuletzt aufgehobene Auswahl wiederherstellen.
+command.select.reselect.msg.nothing_to_reselect = Keine Auswahl zum erneuten Auswählen
+command.select.feather.title = Weiche Auswahlkante
+command.select.feather.description = Die Auswahlkante mit einer Weichzeichnung von zwei Pixeln abmildern, sodass die nächste Bearbeitung darüber ausläuft.
+command.select.grow.title = Auswahl vergrößern
+command.select.grow.description = Die Auswahl auf angrenzende Pixel ausdehnen, die dem bereits Ausgewählten ähneln, innerhalb der Toleranz des Zauberstabs.
+command.select.similar.title = Ähnliches auswählen
+command.select.similar.description = Jedes Pixel der Ebene auswählen, das der Auswahl ähnelt, angrenzend oder nicht, innerhalb der Toleranz des Zauberstabs.
+command.select.save.title = Auswahl speichern
+command.select.save.description = Die aktuelle Auswahl als benannten Alphakanal im Dokument ablegen.
+command.select.save.channel_name = Alpha {n}
+command.select.load.title = Auswahl laden
+command.select.load.description = Die zuletzt gespeicherte Auswahl wiederherstellen.
+
+# Ebene
+command.layer.new.title = Neue Ebene
+command.layer.new.description = Eine leere Pixelebene über der aktiven anlegen und aktivieren.
+command.layer.duplicate.title = Ebene duplizieren
+command.layer.duplicate.description = Die aktive Ebene mit ihrem gesamten Inhalt auf eine neue Ebene darüber kopieren.
+command.layer.smart_object.title = In Smartobjekt konvertieren
+command.layer.smart_object.description = Die Pixel der aktiven Pixelebene in ein Smartobjekt packen, sodass spätere Transformationen und Filter aus der unveränderten Quelle neu berechnen.
+command.layer.rasterize.title = Ebene rastern
+command.layer.rasterize.description = Eine Form-, Text- oder Smartobjekt-Ebene in gewöhnliche Pixel umwandeln.
+command.layer.delete.title = Ebene löschen
+command.layer.delete.description = Die ausgewählten Ebenen löschen.
+command.layer.group.title = Ebenen gruppieren
+command.layer.group.description = Die ausgewählten Ebenen an Ort und Stelle in eine neue Gruppe packen.
+command.layer.raise.title = Schrittweise nach vorne
+command.layer.raise.description = Die aktive Ebene im Stapel ihrer Gruppe eine Position nach oben verschieben.
+command.layer.lower.title = Schrittweise nach hinten
+command.layer.lower.description = Die aktive Ebene im Stapel ihrer Gruppe eine Position nach unten verschieben.
+command.layer.to_front.title = In den Vordergrund
+command.layer.to_front.description = Die aktive Ebene an den Anfang ihrer Gruppe verschieben.
+command.layer.to_back.title = In den Hintergrund
+command.layer.to_back.description = Die aktive Ebene an das Ende ihrer Gruppe verschieben.
+command.layer.clipping_mask.title = Schnittmaske erstellen/zurückwandeln
+command.layer.clipping_mask.description = Die aktive Ebene auf die darunter liegende beschneiden, oder die Schnittmaske zurückwandeln, wenn es schon eine gibt; eine beschnittene Ebene ist nur dort sichtbar, wo ihre Basis Pixel hat.
+command.layer.cut_to_new.title = Ebene durch Ausschneiden
+command.layer.cut_to_new.description = Die ausgewählten Pixel aus der aktiven Ebene auf eine neue Ebene darüber verschieben.
+command.layer.cut_to_new.layer_name = Ebene durch Ausschneiden
+command.layer.add_mask.title = Ebenenmaske hinzufügen
+command.layer.add_mask.description = Der aktiven Ebene eine Ebenenmaske hinzufügen, die nur die Auswahl zeigt, wenn es eine gibt.
+command.layer.flatten.title = Auf Hintergrundebene reduzieren
+command.layer.flatten.description = Alles Sichtbare zu einer deckenden Hintergrundebene zusammenfügen; ausgeblendete Ebenen werden verworfen.
+command.layer.merge_down.title = Mit darunter liegender auf eine Ebene reduzieren
+command.layer.merge_down.description = Die aktive Ebene mit der darunter liegenden Ebene zusammenfügen.
+command.layer.merge_down.msg.no_layer_below = Keine Ebene darunter, mit der reduziert werden könnte
+command.layer.merge_visible.title = Sichtbare auf eine Ebene reduzieren
+command.layer.merge_visible.description = Alle sichtbaren Ebenen zu einer zusammenfügen; ausgeblendete Ebenen bleiben unberührt.
+
+# Warum ein Befehl nichts getan hat (Statuszeile)
+command.msg.nothing_to_copy = Zum Kopieren eine Pixelebene auswählen
+command.msg.clipboard_empty = Die Zwischenablage ist leer
+
+# Einträge im Protokoll
+command.history.grow = Auswahl vergrößern
+command.history.similar = Ähnliches auswählen
+command.history.clear = Löschen
+command.history.merge_down = Mit darunter liegender auf eine Ebene reduzieren
+command.history.flatten_image = Auf Hintergrundebene reduzieren
+command.history.merge_visible = Sichtbare auf eine Ebene reduzieren
+command.history.paste = Einfügen
+command.history.fill = Fläche füllen
+command.history.select_all = Alles auswählen
+command.history.deselect = Auswahl aufheben
+command.history.select_inverse = Auswahl umkehren
+command.history.new_layer = Neue Ebene
+command.history.duplicate_layer = Ebene duplizieren
+command.history.convert_to_smart_object = In Smartobjekt konvertieren
+command.history.rasterize_layer = Ebene rastern
+command.history.delete_layer = Ebene löschen
+command.history.delete_layers = Ebenen löschen
+command.history.group_layer = Ebene gruppieren
+command.history.group_layers = Ebenen gruppieren
+command.history.reselect = Erneut auswählen
+command.history.feather = Weiche Kante
+command.history.load_selection = Auswahl laden
+command.history.bring_forward = Schrittweise nach vorne
+command.history.send_backward = Schrittweise nach hinten
+command.history.bring_to_front = In den Vordergrund
+command.history.send_to_back = In den Hintergrund
+command.history.clipping_mask = Schnittmaske
+command.history.layer_via_cut = Ebene durch Ausschneiden
+command.history.add_layer_mask = Ebenenmaske hinzufügen

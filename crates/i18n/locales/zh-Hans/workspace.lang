@@ -1,0 +1,124 @@
+# 工作区（crates/app/src/workspace）。术语沿用 Photoshop 简体中文版：
+# 图像大小、画布大小、填充、描边、羽化、色彩范围、恢复、导出、置入、
+# 画板、切片。中文没有单复数之分，计数只有 .other 形式。
+
+# 编辑 ▸ 填充：内容来源（mod.rs，FillSource）
+workspace.fill.gray_50 = 50% 灰色
+workspace.fill.content_aware = 内容识别
+
+# 选择 ▸ 修改：对话框标题（ModifyKind）
+workspace.modify.expand = 扩展选区
+workspace.modify.contract = 收缩选区
+workspace.modify.border = 边界选区
+workspace.modify.smooth = 平滑选区
+workspace.modify.feather = 羽化选区
+
+# 图库的批处理对话框：结果的去向（BatchTarget）
+workspace.batch.target.edit = 图库编辑（带版本）
+workspace.batch.target.beside = 原件旁的副本
+workspace.batch.target.folder = 文件夹中的副本…
+
+# 图像 ▸ 图像大小，忙碌对话框的标题
+workspace.modal.image_size.title = 图像大小
+
+# 文档与标签页（docs.rs）
+workspace.docs.opening = 正在打开 {name}…
+workspace.docs.opened = 已打开 {name}
+workspace.docs.open_failed = 打开失败：{error}
+workspace.docs.no_codec = Schist 无法打开 {name} 的格式
+workspace.docs.no_exporter = Schist 无法存储 .{ext} 文件
+workspace.docs.empty_response = 服务器返回了空响应
+workspace.docs.heic_not_installed = 未安装 HEIC 支持
+workspace.docs.heic_downloading = 正在下载 HEIC 支持（libheif {version}）…
+workspace.docs.heic_installed = HEIC 支持已安装
+workspace.docs.heic_download_failed = HEIC 支持下载失败：{error}
+workspace.docs.placing = 正在置入 {name}…
+workspace.docs.place_image = 置入图像
+workspace.docs.placed = 已置入 {name}
+workspace.docs.place_failed = 置入失败：{error}
+workspace.docs.saved = 已存储 {name}
+workspace.docs.save_failed = 存储失败：{error}
+
+# 调整图层（adjustments.rs）；{name} 是调整的名称
+workspace.adjustment.new_layer = 新建{name}图层
+workspace.adjustment.added = 已添加{name}
+workspace.adjustment.settings = {name}设置
+workspace.adjustment.updated = {name}已更新
+workspace.adjustment.no_settings = {name}没有可编辑的设置
+
+# 图层复合（comps.rs）
+workspace.comps.name_n = 图层复合 {n}
+workspace.comps.captured = 已捕获图层复合
+workspace.comps.apply = 应用 {name}
+
+# 图层样式（styles.rs）
+workspace.styles.layer_style = 图层样式
+
+# 图层属性（context.rs）
+workspace.context.rename_layer = 重命名图层
+
+# 切换工具（commands.rs）
+workspace.commands.tool = 工具：{name}
+
+# 颜色管理（colormgmt.rs）；{name} 是配置文件自身的名称
+workspace.colormgmt.assign = 指定 {name}
+workspace.colormgmt.assigned = 已指定 {name}
+workspace.colormgmt.convert_to = 转换为 {name}
+workspace.colormgmt.converted_to = 已转换为 {name}
+workspace.colormgmt.convert_failed = 转换失败：{error}
+workspace.colormgmt.proof_on = 校样颜色已开启
+workspace.colormgmt.proof_off = 校样颜色已关闭
+
+# 滤镜（filters.rs）；{name} 是滤镜的名称
+workspace.filters.choose = 选择
+workspace.filters.select_layer_first = 请先选择一个图层
+workspace.filters.needs_pixel_layer = 滤镜需要像素图层
+workspace.filters.nothing_to_filter = 没有可应用滤镜的内容
+workspace.filters.went_away = 滤镜已不可用
+workspace.filters.failed = {name}：{error}
+workspace.filters.layer_gone = {name}：所处理的图层已不存在
+workspace.filters.plugin_title = Photoshop 增效工具
+workspace.filters.running = 正在运行 {name}
+workspace.filters.plugin_note = 该增效工具在自己的进程中运行。如果它打开了窗口，请在该窗口中操作以继续。
+workspace.filters.raw_preview_developing = 正在显影 RAW 预览…
+workspace.filters.raw_preview_done = RAW 预览（快速去马赛克）
+workspace.filters.raw_preview_size_changed = RAW 预览尺寸已更改：{w} × {h}
+workspace.filters.raw_preview_failed = RAW 预览失败：{error}
+workspace.filters.raw_developing = 正在显影原始拍摄…
+workspace.filters.raw_developing_note = 使用最佳去马赛克路径。存储为 PSD 或 PSB 后，原始 RAW 和这些设置仍可编辑。
+workspace.filters.raw_document_changed = RAW 显影完成时文档已更改
+workspace.filters.raw_failed = RAW 显影失败：{error}
+workspace.filters.raw_too_wide = RAW 显影结果过宽
+workspace.filters.raw_too_tall = RAW 显影结果过高
+workspace.filters.raw_size_changed = RAW 显影尺寸已更改为 {w} × {h}；保留当前图层
+workspace.filters.raw_history = Camera Raw 显影
+workspace.filters.raw_applied = 已应用 Camera Raw 显影（最佳去马赛克）
+
+# 通过神经网络模型放大的图像大小（filters.rs）；{name} 是模型
+workspace.image_size.done = 图像大小：{w} × {h}
+workspace.image_size.bicubic_fallback = 图像大小：{w} × {h} — {name} 模型无法载入，已改用两次立方
+workspace.image_size.upscaling = 正在使用 {name} 放大
+workspace.image_size.upscaling_note = {mp} 百万像素将通过网络处理，每百万像素需数秒。文档在完成前将保持锁定。
+
+# 导出（export.rs）
+workspace.export.no_slices = 没有可导出的切片
+workspace.export.no_artboards = 没有可导出的画板
+workspace.export.regions.other = 已导出 {n} 个区域
+workspace.export.prompt = 导出为：
+workspace.export.done = 已导出 {name}
+workspace.export.failed = 导出失败：{error}
+workspace.export.codec_vanished = 导出器已不可用
+
+# Schist 自己的文件选择器（file_picker.rs）
+workspace.file_picker.choose_folder = 选择文件夹
+workspace.file_picker.type_a_name = 请输入文件名
+workspace.file_picker.exists = {name} 已存在；再次点按“存储”以替换
+workspace.file_picker.tap_a_file = 点按文件以打开
+workspace.file_picker.pictures = 图片
+workspace.file_picker.camera = 相机
+workspace.file_picker.downloads = 下载
+workspace.file_picker.permission_denied = Schist 没有读取此文件夹的权限
+
+# 崩溃恢复（recovery.rs）
+workspace.recovery.recovered_title = {title}（已恢复）
+workspace.recovery.recovered.other = 已从上次会话恢复 {n} 个文档

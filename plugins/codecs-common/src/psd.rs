@@ -1,3 +1,4 @@
+use schist_i18n::t;
 use schist_plugin_api::{CodecPlugin, PluginManifest, PluginRegistry};
 
 /// PSD/PSB import and export via `schist-codec-psd`.
@@ -8,7 +9,7 @@ impl CodecPlugin for PsdCodec {
         "codec.psd"
     }
     fn name(&self) -> &'static str {
-        "Photoshop PSD"
+        t("codec.psd.name")
     }
     fn extensions(&self) -> &'static [&'static str] {
         &["psd", "psb"]

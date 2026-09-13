@@ -1,0 +1,43 @@
+# plugins/codecs-common：格式名称与导入消息（显示在状态栏“打开失败：”之后）。
+
+# 格式名称；文件对话框用的长名称在 common.filetype.*。
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# 共用的导入消息；后面紧跟解码器自己的消息。
+codec.msg.decoding = 解码 {name} 时
+codec.msg.zero_sized = 图像没有像素
+codec.msg.assembling_document = 组装文档时
+
+# Camera Raw
+codec.raw.msg.decoding = 解码原始文件时
+codec.raw.msg.developing = 处理原始文件时
+codec.raw.msg.finding_preview = 查找内嵌预览时
+codec.raw.msg.decoding_preview = 解码内嵌预览时
+codec.raw.msg.decoder_panicked = 原始数据解码器处理此文件失败：{what}
+
+# Affinity
+codec.affinity.import_title = Affinity 导入
+codec.affinity.flattened_preview_layer = 拼合的预览
+codec.affinity.msg.no_preview = 没有可用的内嵌预览。Affinity 的图层格式是私有格式；Schist 导入的是文件自带的拼合预览。此文件没有预览——请在 Affinity 中重新存储，或导出为 PSD 以完整导入图层。
+
+# HEIF
+codec.heif.msg.no_library = libheif 不可用（{details}）。打开 HEIC 需要 libheif 库（Linux：安装 libheif1；macOS：brew install libheif）。
+codec.heif.msg.no_decoder = {what}：{message}——此 libheif 版本可能没有 HEVC 解码器（Debian/Ubuntu 上请安装 libheif-plugin-libde265）
+codec.heif.msg.unknown_error = 未知错误
+codec.heif.msg.initialising = 初始化 libheif 时
+codec.heif.msg.reading_container = 读取 HEIF 容器时
+codec.heif.msg.finding_primary_image = 查找主图像时
+codec.heif.msg.reading_icc_profile = 读取 ICC 配置文件时
+codec.heif.msg.decoding_image = 解码图像时
+codec.heif.msg.checksum_mismatch = {name} 的校验和不匹配：应为 {expected}，实为 {got}
+# iOS 上由 ImageIO 解码 HEIC
+codec.heif.msg.imageio_cannot_read = ImageIO 无法读取 HEIF 容器
+codec.heif.msg.container_empty = HEIF 容器中没有图像
+codec.heif.msg.imageio_cannot_decode = ImageIO 无法解码主图像

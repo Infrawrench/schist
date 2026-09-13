@@ -2,6 +2,7 @@
 //! the preview/apply cycle.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 const CAMERA_RAW_FILTER: &str = "filter.camera_raw";
 const RAW_PREVIEW_DEBOUNCE_MS: u64 = 120;
@@ -178,7 +179,7 @@ impl Workspace {
                 files: true,
                 directories: false,
                 multiple: false,
-                prompt: Some("Choose".into()),
+                prompt: Some(t("workspace.filters.choose").into()),
             },
             cx,
         );
@@ -433,7 +434,7 @@ impl Workspace {
     fn begin_filter_preview_for(&mut self, whole_layer: bool) -> bool {
         self.filter_preview = None;
         let Some(layer_id) = self.doc.as_ref().and_then(|d| d.active_layer) else {
-            self.status = "Select a layer first".into();
+            self.status = t("workspace.filters.select_layer_first").into();
             return false;
         };
         if self
@@ -443,7 +444,7 @@ impl Workspace {
             .and_then(|l| l.as_raster())
             .is_none()
         {
-            self.status = "Filters need a pixel layer".into();
+            self.status = t("workspace.filters.needs_pixel_layer").into();
             return false;
         }
         // A RAW development is the whole capture. A selection still applies
@@ -455,7 +456,7 @@ impl Workspace {
             self.filter_region(layer_id)
         };
         if region.is_empty() {
-            self.status = "Nothing to filter".into();
+            self.status = t("workspace.filters.nothing_to_filter").into();
             return false;
         }
         let Some(original) = self.read_region(layer_id, region) else {
@@ -494,7 +495,7 @@ impl Workspace {
         let values = values.clone();
         self.raw_preview_seq = self.raw_preview_seq.wrapping_add(1);
         let sequence = self.raw_preview_seq;
-        self.status = "Developing RAW preview…".into();
+        self.status = t("workspace.filters.raw_preview_developing").into();
         cx.notify();
 
         cx.spawn(async move |this, cx| {
@@ -552,19 +553,20 @@ impl Workspace {
                             false,
                             false,
                         );
-                        ws.status = "RAW preview (fast demosaic)".into();
+                        ws.status = t("workspace.filters.raw_preview_done").into();
                         ws.after_change(cx);
                     }
                     Ok(developed) => {
-                        ws.status = format!(
-                            "RAW preview size changed: {} × {}",
-                            developed.width, developed.height
+                        ws.status = tf!(
+                            "workspace.filters.raw_preview_size_changed",
+                            w = developed.width,
+                            h = developed.height
                         )
                         .into();
                         cx.notify();
                     }
                     Err(err) => {
-                        ws.status = format!("RAW preview failed: {err}").into();
+                        ws.status = tf!("workspace.filters.raw_preview_failed", error = err).into();
                         cx.notify();
                     }
                 }
@@ -661,7 +663,7 @@ impl Workspace {
         }
         let preview = self.filter_preview.take();
         let Some(layer_id) = self.doc.as_ref().and_then(|d| d.active_layer) else {
-            self.status = "Select a layer first".into();
+            self.status = t("workspace.filters.select_layer_first").into();
             return;
         };
         let Some(filter) = self.registry.filters().find(|f| f.id() == id) else {
@@ -676,7 +678,7 @@ impl Workspace {
             .and_then(|l| l.as_raster())
             .is_none()
         {
-            self.status = "Filters need a pixel layer".into();
+            self.status = t("workspace.filters.needs_pixel_layer").into();
             return;
         }
         // Reuse the preview's region so what was previewed is what lands.
@@ -685,7 +687,7 @@ impl Workspace {
             .map(|p| p.region)
             .unwrap_or_else(|| self.filter_region(layer_id));
         if region.is_empty() {
-            self.status = "Nothing to filter".into();
+            self.status = t("workspace.filters.nothing_to_filter").into();
             return;
         }
         let Some(original) = self.read_region(layer_id, region) else {
@@ -696,7 +698,7 @@ impl Workspace {
         // `unwrap` on registry state in a UI path is a panic waiting for
         // someone to add an early return between the two lookups.
         let Some(filter) = self.registry.filters().find(|f| f.id() == id) else {
-            self.status = "Filter went away".into();
+            self.status = t("workspace.filters.went_away").into();
             return;
         };
         // A filter that runs outside this process blocks for as long as
@@ -711,11 +713,9 @@ impl Workspace {
             let (w, h) = (region.width() as usize, region.height() as usize);
             self.open_modal(
                 Modal::Busy {
-                    title: "Photoshop plug-in".into(),
-                    what: format!("Running {name}"),
-                    note: "The plug-in runs in its own process. If it opens a \
-                           window, answer that to continue."
-                        .into(),
+                    title: t("workspace.filters.plugin_title").into(),
+                    what: tf!("workspace.filters.running", name = name),
+                    note: t("workspace.filters.plugin_note").into(),
                 },
                 cx,
             );
@@ -762,7 +762,7 @@ impl Workspace {
         // that did nothing would put an entry in the history that undoes
         // nothing.
         if let Some(err) = filter.last_error() {
-            self.status = format!("{name}: {err}").into();
+            self.status = tf!("workspace.filters.failed", name = name, error = err).into();
             cx.notify();
             return;
         }
@@ -798,10 +798,10 @@ impl Workspace {
         self.raw_preview_seq = self.raw_preview_seq.wrapping_add(1);
         self.open_modal(
             Modal::Busy {
+                // A product name, the same in every language.
                 title: "Camera Raw".into(),
-                what: "Developing the original capture…".into(),
-                note: "Using the best demosaic path. The original RAW and these settings remain editable after saving as PSD or PSB."
-                    .into(),
+                what: t("workspace.filters.raw_developing").into(),
+                note: t("workspace.filters.raw_developing_note").into(),
             },
             cx,
         );
@@ -825,33 +825,31 @@ impl Workspace {
                     return;
                 };
                 if doc.id != document_id || doc.tree.find(layer_id).is_none() {
-                    ws.status = "RAW development finished after its document changed".into();
+                    ws.status = t("workspace.filters.raw_document_changed").into();
                     cx.notify();
                     return;
                 }
                 let developed = match rendered {
                     Ok(developed) => developed,
                     Err(err) => {
-                        ws.status = format!("RAW development failed: {err}").into();
+                        ws.status = tf!("workspace.filters.raw_failed", error = err).into();
                         cx.notify();
                         return;
                     }
                 };
                 let Ok(width) = u32::try_from(developed.width) else {
-                    ws.status = "RAW development is too wide".into();
+                    ws.status = t("workspace.filters.raw_too_wide").into();
                     cx.notify();
                     return;
                 };
                 let Ok(height) = u32::try_from(developed.height) else {
-                    ws.status = "RAW development is too tall".into();
+                    ws.status = t("workspace.filters.raw_too_tall").into();
                     cx.notify();
                     return;
                 };
                 if (width, height) != (doc.width, doc.height) {
-                    ws.status = format!(
-                        "RAW development size changed to {width} × {height}; keeping the current layer"
-                    )
-                    .into();
+                    ws.status =
+                        tf!("workspace.filters.raw_size_changed", w = width, h = height).into();
                     cx.notify();
                     return;
                 }
@@ -865,11 +863,11 @@ impl Workspace {
                 );
                 let mut after = raw;
                 after.settings = settings;
-                let mut edit = doc.begin_edit("Camera Raw Development");
+                let mut edit = doc.begin_edit(t("workspace.filters.raw_history"));
                 edit.replace_layer_tiles(layer_id, tiles);
                 edit.set_raw_development(layer_id, Some(Box::new(after)));
                 edit.commit();
-                ws.status = "Camera Raw development applied (best demosaic)".into();
+                ws.status = t("workspace.filters.raw_applied").into();
                 ws.after_change(cx);
             })
             .ok();
@@ -891,7 +889,7 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         let name = schist_tools_transform::Resample::Neural(id).display_name();
-        let done = format!("Image size: {width} × {height}");
+        let done = tf!("workspace.image_size.done", w = width, h = height);
         let Some(doc) = self.doc.as_ref() else { return };
         if width == 0 || height == 0 || (width == doc.width && height == doc.height) {
             self.close_modal(cx);
@@ -917,7 +915,12 @@ impl Workspace {
         match plan {
             schist_tools_transform::Plan::NoModel => bicubic(
                 self,
-                format!("{done} — the {name} model would not load, so bicubic stood in"),
+                tf!(
+                    "workspace.image_size.bicubic_fallback",
+                    w = width,
+                    h = height,
+                    name = name
+                ),
                 cx,
             ),
             schist_tools_transform::Plan::Classical => bicubic(self, done, cx),
@@ -925,11 +928,11 @@ impl Workspace {
                 let mp = plan.megapixels();
                 self.open_modal(
                     Modal::Busy {
-                        title: "Image Size".into(),
-                        what: format!("Upscaling with {name}"),
-                        note: format!(
-                            "{mp:.1} megapixels through the network, at a few \
-                             seconds each. The document is held until it finishes."
+                        title: t("workspace.modal.image_size.title").into(),
+                        what: tf!("workspace.image_size.upscaling", name = name),
+                        note: tf!(
+                            "workspace.image_size.upscaling_note",
+                            mp = format!("{mp:.1}")
                         ),
                     },
                     cx,
@@ -972,7 +975,7 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         if let Some(err) = failure {
-            self.status = format!("{name}: {err}").into();
+            self.status = tf!("workspace.filters.failed", name = name, error = err).into();
             cx.notify();
             return;
         }
@@ -983,7 +986,7 @@ impl Workspace {
             .and_then(|l| l.as_raster())
             .is_some();
         if !still_there {
-            self.status = format!("{name}: the layer it filtered is gone").into();
+            self.status = tf!("workspace.filters.layer_gone", name = name).into();
             cx.notify();
             return;
         }

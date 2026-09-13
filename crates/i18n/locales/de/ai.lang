@@ -1,0 +1,37 @@
+# Deutsch: das KI-Bedienfeld. „Claude Code“, „Codex“ und die
+# Modellnamen sind Produktnamen; `{backend}` ist einer davon.
+
+# Statusleiste
+ai.status.panel_shown = KI-Bedienfeld eingeblendet
+ai.status.panel_hidden = KI-Bedienfeld ausgeblendet — Ansicht ▸ KI-Bedienfeld ({shortcut}) holt es zurück
+ai.status.tool = KI: {name}
+
+# Gedämpfte Zeilen im Verlauf
+ai.info.connected = {backend} verbunden
+ai.info.now_in_gallery = Jetzt in der Galerie.
+ai.info.now_in_editor = Jetzt im Editor.
+ai.tool.shell_command = Shell-Befehl
+
+# Fehler im Verlauf
+ai.error.cli_missing = Das {backend}-Kommando („{binary}“) ist nicht im PATH. Installieren Sie es und melden Sie sich zuerst an.
+ai.error.endpoint_failed = MCP-Endpunkt konnte nicht gestartet werden: {error}
+ai.error.binding_endpoint = Binden des MCP-Endpunkts
+ai.error.spawning_endpoint_thread = Starten des MCP-Endpunkt-Threads
+ai.error.runtime_failed = Agent-Laufzeit konnte nicht gestartet werden: {error}
+ai.error.worker_failed = {backend}-Worker konnte nicht gestartet werden: {error}
+ai.error.did_not_start = {backend} ist nicht gestartet: {error}
+ai.error.switch_model_failed = Modellwechsel fehlgeschlagen: {error}
+ai.error.send_failed = Senden des Prompts fehlgeschlagen: {error}
+ai.error.interrupt_failed = Unterbrechen fehlgeschlagen: {error}
+ai.error.locating_binary = Suchen der Schist-Programmdatei
+ai.error.starting_app_server = Starten des Codex-App-Servers
+ai.error.attaching_app_server = Verbinden mit dem Codex-App-Server
+ai.error.initializing_app_server = Initialisieren des Codex-App-Servers
+ai.error.resuming_thread = Fortsetzen des Codex-Threads
+ai.error.starting_thread = Starten des Codex-Threads
+
+# Der Ersatzkatalog der Modellauswahl, bis das Kommando antwortet
+ai.model.opus_detail = Leistungsfähigste Stufe
+ai.model.sonnet_detail = Effizient für Routineaufgaben
+ai.model.haiku_detail = Am schnellsten für kurze Antworten
+ai.model.codex_catalog = Codex-Katalog

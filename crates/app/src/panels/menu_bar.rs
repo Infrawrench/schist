@@ -2,6 +2,7 @@
 //! click lands on.
 
 use super::*;
+use schist_i18n::t;
 
 /// Check state for the toggling menu items.
 pub(super) fn app_item_checked(ws: &Workspace, item: AppItem) -> Option<bool> {
@@ -213,7 +214,7 @@ pub(crate) fn run_app_item(
         AppItem::VanishingPointItem => ws.activate_tool("vanishing_point", cx),
         AppItem::TransformSelection => {
             if ws.doc.as_ref().is_some_and(|d| d.selection.is_empty()) {
-                ws.status = "Transform Selection needs a selection".into();
+                ws.status = t("menu.status.transform_selection_needs_selection").into();
                 cx.notify();
             } else {
                 ws.activate_tool("transform.selection", cx);
@@ -235,7 +236,7 @@ pub(crate) fn run_app_item(
             if let Some(path) = ws.library.lead_selected().cloned() {
                 ws.open_from_gallery(path, cx);
             } else {
-                ws.status = "Select a photo to edit".into();
+                ws.status = t("menu.status.select_photo_to_edit").into();
             }
         }
         #[cfg(not(target_arch = "wasm32"))]
@@ -327,7 +328,7 @@ pub(crate) fn run_app_item(
                     ws.after_change(cx);
                     ws.fit_to_view();
                 }
-                _ => ws.status = "Crop to Selection needs a selection".into(),
+                _ => ws.status = t("menu.status.crop_needs_selection").into(),
             }
         }
     }
@@ -501,7 +502,7 @@ pub(super) fn menu_entry_row(
             .into_any_element()
         }
         MenuEntry::Adjustment(kind) => menu_row(
-            kind.display_name().to_string(),
+            crate::ui::adjustment_name(kind).to_string(),
             String::new(),
             move |ws, _e, _w, cx| {
                 ws.close_popup(cx);

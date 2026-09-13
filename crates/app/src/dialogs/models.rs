@@ -1,6 +1,7 @@
 //! The Neural Filters model manager.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 /// Filter ▸ Neural Filters ▸ Manage Models.
 ///
@@ -28,9 +29,15 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
             // than as a size.
             let size_of = |bytes: f64| {
                 if bytes < (1 << 20) as f64 {
-                    format!("{:.0} KB", bytes / (1 << 10) as f64)
+                    tf!(
+                        "common.kilobytes",
+                        n = format!("{:.0}", bytes / (1 << 10) as f64)
+                    )
                 } else {
-                    format!("{:.1} MB", bytes / (1 << 20) as f64)
+                    tf!(
+                        "common.megabytes",
+                        n = format!("{:.1}", bytes / (1 << 20) as f64)
+                    )
                 }
             };
             let size = schist_neural::installed_size(spec)
@@ -43,26 +50,26 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
             let carried = spec.built_in() && cfg!(not(target_arch = "wasm32"));
             let fetchable = schist_neural::download_url(spec).is_some();
             let state = if carried {
-                format!("Built in \u{b7} {size}")
+                tf!("dialog.models.built_in", size = size)
             } else if let Some(download) = busy {
                 // Against the size this build expects rather than the
                 // one the server declared: they are the same file, and
                 // the hash check afterwards is what says so.
                 let got = download.got.load(std::sync::atomic::Ordering::Relaxed);
-                format!(
-                    "Downloading\u{2026} {} of {}",
-                    size_of(got as f64),
-                    size_of(spec.bytes as f64)
+                tf!(
+                    "dialog.downloading_of",
+                    got = size_of(got as f64),
+                    total = size_of(spec.bytes as f64)
                 )
             } else if installed {
-                format!("Installed \u{b7} {size}")
+                tf!("dialog.models.installed", size = size)
             } else if fetchable {
-                format!("Not installed \u{b7} {size}")
+                tf!("dialog.models.not_installed", size = size)
             } else {
                 // The externally-hosted models: their GitHub URLs redirect
                 // through a host that sends no CORS headers, so a browser
                 // cannot fetch them at all.
-                format!("Not available in the browser \u{b7} {size}")
+                tf!("dialog.models.not_in_browser", size = size)
             };
             let action: gpui::AnyElement = if carried || (!installed && !fetchable) {
                 div().into_any_element()
@@ -74,7 +81,7 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                     .into_any_element()
             } else if installed {
                 ui::button(
-                    "Remove",
+                    t("common.remove"),
                     false,
                     move |ws, _w, cx| ws.remove_model(id, cx),
                     cx,
@@ -82,7 +89,7 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                 .into_any_element()
             } else {
                 ui::button(
-                    "Download",
+                    t("common.download"),
                     true,
                     move |ws, _w, cx| ws.download_model(id, cx),
                     cx,
@@ -113,9 +120,10 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                             div()
                                 .text_size(px(11.0))
                                 .text_color(gpui::rgb(ui::palette().text_dim))
-                                .child(SharedString::from(format!(
-                                    "{state} \u{b7} {}",
-                                    spec.license
+                                .child(SharedString::from(tf!(
+                                    "dialog.models.state_license",
+                                    state = state,
+                                    license = spec.license
                                 ))),
                         )
                         .child(
@@ -144,17 +152,16 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                 .pt_2()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(SharedString::from(format!(
-                    "Models are kept in {}. Filters that have no model fall \
-                     back to signal processing and say so.",
-                    schist_neural::model_dir().display()
+                .child(SharedString::from(tf!(
+                    "dialog.models.footer",
+                    dir = schist_neural::model_dir().display()
                 ))),
         );
     let actions = div().flex().flex_row().gap_2().child(ui::button(
-        "Close",
+        t("common.close"),
         true,
         |ws, _w, cx| ws.close_modal(cx),
         cx,
     ));
-    ui::modal_frame("Neural Filter Models", 560.0, body, actions)
+    ui::modal_frame(t("dialog.models.title"), 560.0, body, actions)
 }

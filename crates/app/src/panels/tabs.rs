@@ -1,6 +1,7 @@
 //! The document tab strip.
 
 use super::*;
+use schist_i18n::tf;
 
 /// Photoshop-style document tabs: one per open file, the active one lit,
 /// a dot marking unsaved changes. Click to switch, middle-click or the ×
@@ -22,7 +23,7 @@ pub fn tab_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
         .children(tabs.into_iter().enumerate().map(|(i, (title, dirty))| {
             let is_active = i == active;
             let label: SharedString = if dirty {
-                format!("{title} •").into()
+                tf!("panel.tabs.dirty", title = title).into()
             } else {
                 title
             };

@@ -1,0 +1,20 @@
+# Einstellungsebenen, wie im deutschen Photoshop.
+adjustment.levels.name = Tonwertkorrektur
+adjustment.curves.name = Gradationskurven
+adjustment.hue_saturation.name = Farbton/Sättigung
+adjustment.brightness_contrast.name = Helligkeit/Kontrast
+adjustment.black_white.name = Schwarzweiß
+adjustment.solid_color.name = Volltonfarbe
+adjustment.gradient_fill.name = Verlauf
+adjustment.pattern_fill.name = Muster
+adjustment.invert.name = Umkehren
+adjustment.posterize.name = Tontrennung
+adjustment.threshold.name = Schwellenwert
+adjustment.color_balance.name = Farbbalance
+adjustment.vibrance.name = Dynamik
+adjustment.exposure.name = Belichtung
+adjustment.photo_filter.name = Fotofilter
+adjustment.gradient_map.name = Verlaufsumsetzung
+adjustment.selective_color.name = Selektive Farbkorrektur
+adjustment.channel_mixer.name = Kanalmixer
+adjustment.other.name = Korrektur

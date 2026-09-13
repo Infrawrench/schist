@@ -1,6 +1,7 @@
 //! The layers panel: row selection, drag-reorder, and inline rename.
 
 use super::*;
+use schist_i18n::t;
 
 impl Workspace {
     // ----- layers panel: selection, drag-reorder, inline rename -----
@@ -249,9 +250,9 @@ impl Workspace {
             }
         }
         let mut edit = doc.begin_edit(if moving.len() > 1 {
-            "Move Layers"
+            t("workspace.history.move_layers")
         } else {
-            "Move Layer"
+            t("workspace.history.move_layer")
         });
         let mut prev: Option<schist_core::LayerId> = None;
         for id in moving {
@@ -357,11 +358,11 @@ impl Workspace {
                 }
             }
             _ => {
-                if let (Some((_, name)), Some(t)) =
+                if let (Some((_, name)), Some(typed)) =
                     (self.layer_rename.as_mut(), ev.keystroke.key_char.as_deref())
                 {
-                    if !t.is_empty() && !t.chars().any(char::is_control) {
-                        name.push_str(t);
+                    if !typed.is_empty() && !typed.chars().any(char::is_control) {
+                        name.push_str(typed);
                     }
                 }
             }

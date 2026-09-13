@@ -10,6 +10,7 @@ use schist_color::Rgba;
 use schist_core::{
     Document, IntRect, LayerId, LayerKind, StrokeEdit, TileCoord, TileMap, TILE_SIZE,
 };
+use schist_i18n::{choices, t};
 use schist_plugin_api::{
     EditorState, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput, ToolCtx,
     ToolOption, ToolPlugin,
@@ -154,22 +155,22 @@ impl Stroke {
     ) -> Option<Stroke> {
         let layer = paintable_layer(ctx.doc)?;
         let mut stroke = Stroke {
-            edit: StrokeEdit::new(match mode {
-                PaintMode::Brush => "Brush",
-                PaintMode::Pencil => "Pencil",
-                PaintMode::Eraser => "Eraser",
-                PaintMode::Clone => "Clone Stamp",
-                PaintMode::Dodge => "Dodge",
-                PaintMode::Burn => "Burn",
-                PaintMode::Sponge => "Sponge",
-                PaintMode::Blur => "Blur",
-                PaintMode::Sharpen => "Sharpen",
-                PaintMode::Smudge => "Smudge",
-                PaintMode::Heal => "Healing Brush",
-                PaintMode::SpotHeal => "Spot Healing Brush",
-                PaintMode::HistoryBrush => "History Brush",
-                PaintMode::BackgroundEraser => "Background Eraser",
-            }),
+            edit: StrokeEdit::new(t(match mode {
+                PaintMode::Brush => "tool.brush.history.stroke",
+                PaintMode::Pencil => "tool.pencil.history.stroke",
+                PaintMode::Eraser => "tool.eraser.history.stroke",
+                PaintMode::Clone => "tool.clone.history.stroke",
+                PaintMode::Dodge => "tool.dodge.history.stroke",
+                PaintMode::Burn => "tool.burn.history.stroke",
+                PaintMode::Sponge => "tool.sponge.history.stroke",
+                PaintMode::Blur => "tool.blur.history.stroke",
+                PaintMode::Sharpen => "tool.sharpen.history.stroke",
+                PaintMode::Smudge => "tool.smudge.history.stroke",
+                PaintMode::Heal => "tool.heal.history.stroke",
+                PaintMode::SpotHeal => "tool.spot_heal.history.stroke",
+                PaintMode::HistoryBrush => "tool.history_brush.history.stroke",
+                PaintMode::BackgroundEraser => "tool.background_eraser.history.stroke",
+            })),
             layer,
             coverage: FxHashMap::default(),
             last: (input.x, input.y),
@@ -719,61 +720,41 @@ impl ToolPlugin for PaintTool {
     }
 
     fn name(&self) -> &'static str {
-        match self.mode {
-            PaintMode::Brush => "Brush",
-            PaintMode::Pencil => "Pencil",
-            PaintMode::Eraser => "Eraser",
-            PaintMode::Clone => "Clone Stamp",
-            PaintMode::Dodge => "Dodge",
-            PaintMode::Burn => "Burn",
-            PaintMode::Sponge => "Sponge",
-            PaintMode::Blur => "Blur",
-            PaintMode::Sharpen => "Sharpen",
-            PaintMode::Smudge => "Smudge",
-            PaintMode::Heal => "Healing Brush",
-            PaintMode::SpotHeal => "Spot Healing Brush",
-            PaintMode::HistoryBrush => "History Brush",
-            PaintMode::BackgroundEraser => "Background Eraser",
-        }
+        t(match self.mode {
+            PaintMode::Brush => "tool.brush.name",
+            PaintMode::Pencil => "tool.pencil.name",
+            PaintMode::Eraser => "tool.eraser.name",
+            PaintMode::Clone => "tool.clone.name",
+            PaintMode::Dodge => "tool.dodge.name",
+            PaintMode::Burn => "tool.burn.name",
+            PaintMode::Sponge => "tool.sponge.name",
+            PaintMode::Blur => "tool.blur.name",
+            PaintMode::Sharpen => "tool.sharpen.name",
+            PaintMode::Smudge => "tool.smudge.name",
+            PaintMode::Heal => "tool.heal.name",
+            PaintMode::SpotHeal => "tool.spot_heal.name",
+            PaintMode::HistoryBrush => "tool.history_brush.name",
+            PaintMode::BackgroundEraser => "tool.background_eraser.name",
+        })
     }
 
     fn description(&self) -> &'static str {
-        match self.mode {
-            PaintMode::Brush => {
-                "Paint a soft-edged stroke in the foreground colour, sized by the editor's \
-                 brush size, hardness and opacity."
-            }
-            PaintMode::Pencil => {
-                "Paint a hard-edged, unantialiased stroke in the foreground colour."
-            }
-            PaintMode::Eraser => "Erase along the stroke, taking the layer back to transparency.",
-            PaintMode::Clone => {
-                "Clone Stamp: alt-click to set the source point, then paint pixels copied \
-                 from it at that offset."
-            }
-            PaintMode::Dodge => "Lighten the pixels the stroke passes over.",
-            PaintMode::Burn => "Darken the pixels the stroke passes over.",
-            PaintMode::Sponge => "Saturate, or desaturate, the pixels the stroke passes over.",
-            PaintMode::Blur => "Blur the pixels the stroke passes over.",
-            PaintMode::Sharpen => "Sharpen the pixels the stroke passes over.",
-            PaintMode::Smudge => "Drag colour along the stroke, as if pushing wet paint.",
-            PaintMode::Heal => {
-                "Healing Brush: alt-click to set the source, then paint; the source's texture \
-                 is blended into the destination's own colour and lighting."
-            }
-            PaintMode::SpotHeal => {
-                "Spot Healing Brush: paint over a blemish and it is replaced with texture \
-                 taken from around it -- no source point to set."
-            }
-            PaintMode::HistoryBrush => {
-                "Paint pixels back out of the document's history snapshot, undoing later \
-                 work stroke by stroke."
-            }
-            PaintMode::BackgroundEraser => {
-                "Erase the colour sampled under the brush's centre and leave unlike pixels \
-                 alone, for lifting a subject off its background."
-            }
-        }
+        t(match self.mode {
+            PaintMode::Brush => "tool.brush.description",
+            PaintMode::Pencil => "tool.pencil.description",
+            PaintMode::Eraser => "tool.eraser.description",
+            PaintMode::Clone => "tool.clone.description",
+            PaintMode::Dodge => "tool.dodge.description",
+            PaintMode::Burn => "tool.burn.description",
+            PaintMode::Sponge => "tool.sponge.description",
+            PaintMode::Blur => "tool.blur.description",
+            PaintMode::Sharpen => "tool.sharpen.description",
+            PaintMode::Smudge => "tool.smudge.description",
+            PaintMode::Heal => "tool.heal.description",
+            PaintMode::SpotHeal => "tool.spot_heal.description",
+            PaintMode::HistoryBrush => "tool.history_brush.description",
+            PaintMode::BackgroundEraser => "tool.background_eraser.description",
+        })
     }
 
     fn icon(&self) -> &'static str {
@@ -829,7 +810,7 @@ impl ToolPlugin for PaintTool {
         match self.mode {
             PaintMode::BackgroundEraser => vec![ToolOption::slider(
                 "bge-tolerance",
-                "Tolerance",
+                t("common.tolerance"),
                 self.tolerance * 100.0,
                 1.0,
                 100.0,
@@ -914,8 +895,18 @@ pub enum GradientStyle {
     Diamond,
 }
 
-const GRADIENT_STYLES: &[&str] = &["Linear", "Radial", "Angle", "Reflected", "Diamond"];
-const GRADIENT_FILLS: &[&str] = &["Foreground to Background", "Foreground to Transparent"];
+/// Catalog keys, in [`GradientStyle::index`] order.
+static GRADIENT_STYLES: &[&str] = &[
+    "tool.gradient.choice.linear",
+    "tool.gradient.choice.radial",
+    "tool.gradient.choice.angle",
+    "tool.gradient.choice.reflected",
+    "tool.gradient.choice.diamond",
+];
+static GRADIENT_FILLS: &[&str] = &[
+    "tool.gradient.choice.foreground_to_background",
+    "tool.gradient.choice.foreground_to_transparent",
+];
 
 impl GradientStyle {
     fn from_index(i: usize) -> GradientStyle {
@@ -980,21 +971,14 @@ impl ToolPlugin for GradientTool {
     }
     fn name(&self) -> &'static str {
         match self.kind {
-            GradientKind::Linear => "Gradient",
-            GradientKind::Radial => "Radial Gradient",
+            GradientKind::Linear => t("tool.gradient.name"),
+            GradientKind::Radial => t("tool.gradient.radial.name"),
         }
     }
     fn description(&self) -> &'static str {
         match self.kind {
-            GradientKind::Linear => {
-                "Drag to fill the layer -- through the selection when there is one -- with a \
-                 linear gradient running from the foreground colour to the background colour \
-                 along the drag."
-            }
-            GradientKind::Radial => {
-                "Drag from the centre outwards to fill with a radial gradient between the \
-                 foreground and background colours."
-            }
+            GradientKind::Linear => t("tool.gradient.description"),
+            GradientKind::Radial => t("tool.gradient.radial.description"),
         }
     }
     fn icon(&self) -> &'static str {
@@ -1050,18 +1034,26 @@ impl ToolPlugin for GradientTool {
         vec![
             ToolOption::choice(
                 "gradient-fill",
-                "Gradient",
-                GRADIENT_FILLS,
+                t("tool.gradient.option.gradient"),
+                choices(GRADIENT_FILLS),
                 usize::from(self.to_transparent),
             ),
             ToolOption::choice(
                 "gradient-style",
-                "Style",
-                GRADIENT_STYLES,
+                t("common.style"),
+                choices(GRADIENT_STYLES),
                 self.style.index(),
             ),
-            ToolOption::toggle("gradient-reverse", "Reverse", self.reverse),
-            ToolOption::toggle("gradient-dither", "Dither", self.dither),
+            ToolOption::toggle(
+                "gradient-reverse",
+                t("tool.gradient.option.reverse"),
+                self.reverse,
+            ),
+            ToolOption::toggle(
+                "gradient-dither",
+                t("tool.gradient.option.dither"),
+                self.dither,
+            ),
         ]
     }
 
@@ -1130,7 +1122,7 @@ fn fill_gradient(ctx: &mut ToolCtx, fill: GradientFill, from: (f32, f32), to: (f
     let len_sq = (dx * dx + dy * dy).max(1e-6);
     let radius = len_sq.sqrt().max(1e-6);
 
-    let mut edit = ctx.doc.begin_edit("Gradient");
+    let mut edit = ctx.doc.begin_edit(t("tool.gradient.history.gradient"));
     for coord in TileCoord::covering(&region) {
         let trect = coord.rect();
         let clip = trect.intersect(&region);
@@ -1217,11 +1209,10 @@ impl ToolPlugin for BucketTool {
         "bucket"
     }
     fn name(&self) -> &'static str {
-        "Paint Bucket"
+        t("tool.bucket.name")
     }
     fn description(&self) -> &'static str {
-        "Click to flood the connected area of similar colour under the pointer with the \
-         foreground colour, within the tool's tolerance."
+        t("tool.bucket.description")
     }
     fn icon(&self) -> &'static str {
         "bucket"
@@ -1314,7 +1305,7 @@ impl ToolPlugin for BucketTool {
 
         let color = ctx.state.foreground;
         let opacity = ctx.state.tool_opacity;
-        let mut edit = ctx.doc.begin_edit("Paint Bucket");
+        let mut edit = ctx.doc.begin_edit(t("tool.bucket.history.fill"));
         let mut by_tile: FxHashMap<TileCoord, Vec<(i32, i32)>> = FxHashMap::default();
         for (px, py) in filled {
             by_tile
@@ -1344,14 +1335,22 @@ impl ToolPlugin for BucketTool {
         vec![
             ToolOption::slider(
                 "bucket-tolerance",
-                "Tolerance",
+                t("common.tolerance"),
                 self.tolerance as f32,
                 0.0,
                 255.0,
                 "",
             ),
-            ToolOption::toggle("bucket-contiguous", "Contiguous", self.contiguous),
-            ToolOption::toggle("bucket-all-layers", "All Layers", self.all_layers),
+            ToolOption::toggle(
+                "bucket-contiguous",
+                t("tool.bucket.option.contiguous"),
+                self.contiguous,
+            ),
+            ToolOption::toggle(
+                "bucket-all-layers",
+                t("tool.bucket.option.all_layers"),
+                self.all_layers,
+            ),
         ]
     }
 
@@ -1621,7 +1620,7 @@ mod tests {
         assert_eq!(p[3], 255);
         assert_eq!(pixel(&doc, 50, 100)[3], 0, "far pixel untouched");
 
-        assert_eq!(doc.undo().as_deref(), Some("Brush"));
+        assert_eq!(doc.undo().as_deref(), Some(t("tool.brush.history.stroke")));
         assert_eq!(pixel(&doc, 50, 30)[3], 0, "undo clears stroke");
         doc.redo();
         assert_eq!(pixel(&doc, 50, 30)[0], 255, "redo restores");

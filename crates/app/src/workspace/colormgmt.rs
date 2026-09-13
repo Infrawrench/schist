@@ -2,6 +2,7 @@
 //! soft proofing.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 impl Workspace {
     // ----- colour management -----
@@ -66,12 +67,12 @@ impl Workspace {
     /// Assign a profile: same numbers, new interpretation.
     pub fn assign_profile(&mut self, profile: schist_colormgmt::Profile, cx: &mut Context<Self>) {
         if let Some(doc) = self.doc.as_mut() {
-            let mut edit = doc.begin_edit(format!("Assign {}", profile.name()));
+            let mut edit = doc.begin_edit(tf!("workspace.colormgmt.assign", name = profile.name()));
             edit.set_icc_profile(profile.icc_bytes().map(|b| b.to_vec()));
             edit.commit();
             doc.damage_all();
         }
-        self.status = format!("Assigned {}", profile.name()).into();
+        self.status = tf!("workspace.colormgmt.assigned", name = profile.name()).into();
         self.rebuild_color_transforms();
         self.after_change(cx);
     }
@@ -90,14 +91,14 @@ impl Workspace {
             None => self.color.working.clone(),
         };
         let transform = match schist_colormgmt::ColorTransform::new(&source, &profile, intent) {
-            Ok(t) => t,
+            Ok(transform) => transform,
             Err(err) => {
-                self.status = format!("Convert failed: {err}").into();
+                self.status = tf!("workspace.colormgmt.convert_failed", error = err).into();
                 return;
             }
         };
 
-        let mut edit = doc.begin_edit(format!("Convert to {}", profile.name()));
+        let mut edit = doc.begin_edit(tf!("workspace.colormgmt.convert_to", name = profile.name()));
         for id in edit.raster_layer_ids() {
             let Some(raster) = edit.doc().tree.find(id).and_then(|l| l.as_raster()) else {
                 continue;
@@ -115,7 +116,7 @@ impl Workspace {
         }
         edit.set_icc_profile(profile.icc_bytes().map(|b| b.to_vec()));
         edit.commit();
-        self.status = format!("Converted to {}", profile.name()).into();
+        self.status = tf!("workspace.colormgmt.converted_to", name = profile.name()).into();
         self.rebuild_color_transforms();
         self.after_change(cx);
     }
@@ -130,9 +131,9 @@ impl Workspace {
         });
         self.color.proof = (!already_proofing_this).then_some(profile);
         self.status = if self.color.proof.is_some() {
-            "Proof colors on".into()
+            t("workspace.colormgmt.proof_on").into()
         } else {
-            "Proof colors off".into()
+            t("workspace.colormgmt.proof_off").into()
         };
         self.rebuild_color_transforms();
         self.after_change(cx);

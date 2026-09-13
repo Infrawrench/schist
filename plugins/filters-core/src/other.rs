@@ -5,14 +5,15 @@ use crate::util::{
     at, convolve3, gaussian_rgba, luma, premultiply, put, sample, unpremultiply, value_noise,
 };
 use crate::{choice, context_filter, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterContext, FilterParam, FilterPlugin, FilterValues};
 
 simple_filter!(
     HighPass,
     "filter.high_pass",
-    "High Pass",
-    "Other",
-    [param("radius", "Radius", 0.1, 250.0, 3.0, " px")],
+    t("filter.high_pass.name"),
+    t("filter.category.other"),
+    [param("radius", t("common.radius"), 0.1, 250.0, 3.0, " px")],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // What is left after the low frequencies are taken away, centred
         // on mid grey. The classic sharpening pre-pass.
@@ -32,17 +33,32 @@ simple_filter!(
 );
 
 /// What Offset leaves where the picture used to be.
-const OFFSET_UNDEFINED: &[&str] = &["Set to Transparent", "Repeat Edge Pixels", "Wrap Around"];
+static OFFSET_UNDEFINED: &[&str] = &[
+    "filter.choice.undefined.set_to_transparent",
+    "filter.choice.undefined.repeat_edge_pixels",
+    "filter.choice.undefined.wrap_around",
+];
+
+/// The shape of Maximum and Minimum's structuring element.
+static PRESERVE: &[&str] = &[
+    "filter.choice.preserve.squareness",
+    "filter.choice.preserve.roundness",
+];
 
 simple_filter!(
     Offset,
     "filter.offset",
-    "Offset",
-    "Other",
+    t("filter.offset.name"),
+    t("filter.category.other"),
     [
-        param("x", "Horizontal", -2000.0, 2000.0, 0.0, " px"),
-        param("y", "Vertical", -2000.0, 2000.0, 0.0, " px"),
-        choice("undefined", "Undefined Areas", OFFSET_UNDEFINED, 2)
+        param("x", t("common.horizontal"), -2000.0, 2000.0, 0.0, " px"),
+        param("y", t("common.vertical"), -2000.0, 2000.0, 0.0, " px"),
+        choice(
+            "undefined",
+            t("filter.param.undefined_areas"),
+            choices(OFFSET_UNDEFINED),
+            2
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let dx = v.get("x").round() as i32;
@@ -113,11 +129,11 @@ fn morph(px: &mut [f32], w: usize, h: usize, radius: i32, take_max: bool, round:
 simple_filter!(
     Maximum,
     "filter.maximum",
-    "Maximum",
-    "Other",
+    t("filter.maximum.name"),
+    t("filter.category.other"),
     [
-        param("radius", "Radius", 1.0, 40.0, 2.0, " px"),
-        choice("preserve", "Preserve", &["Squareness", "Roundness"], 1)
+        param("radius", t("common.radius"), 1.0, 40.0, 2.0, " px"),
+        choice("preserve", t("filter.param.preserve"), choices(PRESERVE), 1)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         morph(
@@ -134,11 +150,11 @@ simple_filter!(
 simple_filter!(
     Minimum,
     "filter.minimum",
-    "Minimum",
-    "Other",
+    t("filter.minimum.name"),
+    t("filter.category.other"),
     [
-        param("radius", "Radius", 1.0, 40.0, 2.0, " px"),
-        choice("preserve", "Preserve", &["Squareness", "Roundness"], 1)
+        param("radius", t("common.radius"), 1.0, 40.0, 2.0, " px"),
+        choice("preserve", t("filter.param.preserve"), choices(PRESERVE), 1)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         morph(
@@ -152,17 +168,33 @@ simple_filter!(
     }
 );
 
+/// Radial Blur's two motions, and the three sample counts it offers.
+static RADIAL_METHODS: &[&str] = &[
+    "filter.radial_blur.choice.spin",
+    "filter.radial_blur.choice.zoom",
+];
+static RADIAL_QUALITIES: &[&str] = &[
+    "filter.radial_blur.choice.draft",
+    "filter.radial_blur.choice.good",
+    "filter.radial_blur.choice.best",
+];
+
 simple_filter!(
     RadialBlur,
     "filter.radial_blur",
-    "Radial Blur",
-    "Blur",
+    t("filter.radial_blur.name"),
+    t("filter.category.blur"),
     [
-        param("amount", "Amount", 1.0, 100.0, 10.0, ""),
-        choice("method", "Blur Method", &["Spin", "Zoom"], 0),
-        choice("quality", "Quality", &["Draft", "Good", "Best"], 1),
-        param("x", "Centre X", 0.0, 100.0, 50.0, "%"),
-        param("y", "Centre Y", 0.0, 100.0, 50.0, "%")
+        param("amount", t("common.amount"), 1.0, 100.0, 10.0, ""),
+        choice(
+            "method",
+            t("filter.radial_blur.param.method"),
+            choices(RADIAL_METHODS),
+            0
+        ),
+        choice("quality", t("common.quality"), choices(RADIAL_QUALITIES), 1),
+        param("x", t("filter.param.centre_x"), 0.0, 100.0, 50.0, "%"),
+        param("y", t("filter.param.centre_y"), 0.0, 100.0, 50.0, "%")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Average along an arc (spin) or a ray (zoom) through the centre.
@@ -209,11 +241,11 @@ simple_filter!(
 simple_filter!(
     SurfaceBlur,
     "filter.surface_blur",
-    "Surface Blur",
-    "Blur",
+    t("filter.surface_blur.name"),
+    t("filter.category.blur"),
     [
-        param("radius", "Radius", 1.0, 40.0, 5.0, " px"),
-        param("threshold", "Threshold", 1.0, 255.0, 15.0, "")
+        param("radius", t("common.radius"), 1.0, 40.0, 5.0, " px"),
+        param("threshold", t("common.threshold"), 1.0, 255.0, 15.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Bilateral: average only over neighbours that look similar, so
@@ -260,8 +292,8 @@ simple_filter!(
 simple_filter!(
     AverageBlur,
     "filter.average",
-    "Average",
-    "Blur",
+    t("filter.average.name"),
+    t("filter.category.blur"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         let _ = (w, h);
@@ -294,8 +326,14 @@ simple_filter!(
 /// A lens's iris is a ring of straight blades, and an out-of-focus
 /// highlight comes out the shape of the hole they leave -- which is why
 /// bokeh is hexagonal on one lens and round on another.
-const IRIS_SHAPES: &[&str] = &[
-    "Circle", "Triangle", "Square", "Pentagon", "Hexagon", "Heptagon", "Octagon",
+static IRIS_SHAPES: &[&str] = &[
+    "filter.lens_blur.choice.circle",
+    "filter.lens_blur.choice.triangle",
+    "filter.lens_blur.choice.square",
+    "filter.lens_blur.choice.pentagon",
+    "filter.lens_blur.choice.hexagon",
+    "filter.lens_blur.choice.heptagon",
+    "filter.lens_blur.choice.octagon",
 ];
 
 /// The specular threshold `schist_fx`'s disc blur bakes into its own
@@ -304,24 +342,80 @@ const IRIS_SHAPES: &[&str] = &[
 const FX_THRESHOLD: f32 = 0.75;
 
 /// Where Lens Blur reads its depth from, which decides what stays sharp.
-const DEPTH_SOURCES: &[&str] = &["None", "Transparency", "Layer Below"];
+static DEPTH_SOURCES: &[&str] = &[
+    "common.none",
+    "filter.lens_blur.choice.transparency",
+    "filter.lens_blur.choice.layer_below",
+];
 
 context_filter!(
     LensBlur,
     "filter.lens_blur",
-    "Lens Blur",
-    "Blur",
+    t("filter.lens_blur.name"),
+    t("filter.category.blur"),
     [
-        param("radius", "Radius", 1.0, 60.0, 8.0, " px"),
-        choice("shape", "Iris Shape", IRIS_SHAPES, 0),
-        param("curvature", "Blade Curvature", 0.0, 100.0, 0.0, ""),
-        param("rotation", "Rotation", 0.0, 360.0, 0.0, "\u{b0}"),
-        param("brightness", "Specular Brightness", 0.0, 100.0, 0.0, ""),
-        param("threshold", "Specular Threshold", 0.0, 100.0, 75.0, ""),
-        param("noise", "Noise", 0.0, 100.0, 0.0, ""),
-        choice("depth", "Depth Map", DEPTH_SOURCES, 0),
-        param("focal", "Blur Focal Distance", 0.0, 100.0, 0.0, ""),
-        param("invert_depth", "Invert Depth Map", 0.0, 1.0, 0.0, "")
+        param("radius", t("common.radius"), 1.0, 60.0, 8.0, " px"),
+        choice(
+            "shape",
+            t("filter.lens_blur.param.shape"),
+            choices(IRIS_SHAPES),
+            0
+        ),
+        param(
+            "curvature",
+            t("filter.lens_blur.param.curvature"),
+            0.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param("rotation", t("common.rotation"), 0.0, 360.0, 0.0, "\u{b0}"),
+        param(
+            "brightness",
+            t("filter.lens_blur.param.brightness"),
+            0.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "threshold",
+            t("filter.lens_blur.param.threshold"),
+            0.0,
+            100.0,
+            75.0,
+            ""
+        ),
+        param(
+            "noise",
+            t("filter.lens_blur.param.noise"),
+            0.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        choice(
+            "depth",
+            t("filter.lens_blur.param.depth"),
+            choices(DEPTH_SOURCES),
+            0
+        ),
+        param(
+            "focal",
+            t("filter.lens_blur.param.focal"),
+            0.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "invert_depth",
+            t("filter.lens_blur.param.invert_depth"),
+            0.0,
+            1.0,
+            0.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // A flat kernel rather than a Gaussian, which is what makes
@@ -443,19 +537,30 @@ context_filter!(
 
 /// What Smart Sharpen is trying to undo, which decides what it
 /// subtracts.
-const SHARPEN_REMOVE: &[&str] = &["Gaussian Blur", "Lens Blur", "Motion Blur"];
+static SHARPEN_REMOVE: &[&str] = &[
+    "filter.gaussian_blur.name",
+    "filter.lens_blur.name",
+    "filter.motion_blur.name",
+];
 
 simple_filter!(
     SmartSharpen,
     "filter.smart_sharpen",
-    "Smart Sharpen",
-    "Sharpen",
+    t("filter.smart_sharpen.name"),
+    t("filter.category.sharpen"),
     [
-        param("amount", "Amount", 1.0, 500.0, 100.0, "%"),
-        param("radius", "Radius", 0.1, 64.0, 1.5, " px"),
-        param("noise", "Reduce Noise", 0.0, 100.0, 10.0, "%"),
-        choice("remove", "Remove", SHARPEN_REMOVE, 1),
-        param("angle", "Angle", 0.0, 360.0, 0.0, "\u{b0}")
+        param("amount", t("common.amount"), 1.0, 500.0, 100.0, "%"),
+        param("radius", t("common.radius"), 0.1, 64.0, 1.5, " px"),
+        param(
+            "noise",
+            t("filter.smart_sharpen.param.noise"),
+            0.0,
+            100.0,
+            10.0,
+            "%"
+        ),
+        choice("remove", t("common.remove"), choices(SHARPEN_REMOVE), 1),
+        param("angle", t("common.angle"), 0.0, 360.0, 0.0, "\u{b0}")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Unsharp mask that leaves low-contrast detail alone, which is
@@ -525,8 +630,8 @@ simple_filter!(
 simple_filter!(
     SharpenEdges,
     "filter.sharpen_edges",
-    "Sharpen Edges",
-    "Sharpen",
+    t("filter.sharpen_edges.name"),
+    t("filter.category.sharpen"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         // Sharpen only where there is already an edge.
@@ -555,8 +660,8 @@ simple_filter!(
 simple_filter!(
     Despeckle,
     "filter.despeckle",
-    "Despeckle",
-    "Noise",
+    t("filter.despeckle.name"),
+    t("filter.category.noise"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         // Median of 3x3, but only away from edges, so detail survives.
@@ -589,11 +694,11 @@ simple_filter!(
 simple_filter!(
     DustAndScratches,
     "filter.dust_scratches",
-    "Dust & Scratches",
-    "Noise",
+    t("filter.dust_scratches.name"),
+    t("filter.category.noise"),
     [
-        param("radius", "Radius", 1.0, 16.0, 2.0, " px"),
-        param("threshold", "Threshold", 0.0, 255.0, 20.0, "")
+        param("radius", t("common.radius"), 1.0, 16.0, 2.0, " px"),
+        param("threshold", t("common.threshold"), 0.0, 255.0, 20.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let r = v.get("radius").round().max(1.0) as i32;
@@ -629,14 +734,42 @@ simple_filter!(
 simple_filter!(
     ReduceNoise,
     "filter.reduce_noise",
-    "Reduce Noise",
-    "Noise",
+    t("filter.reduce_noise.name"),
+    t("filter.category.noise"),
     [
-        param("strength", "Strength", 0.0, 10.0, 5.0, ""),
-        param("detail", "Preserve Details", 0.0, 100.0, 60.0, "%"),
-        param("colour", "Reduce Colour Noise", 0.0, 100.0, 50.0, "%"),
-        param("sharpen", "Sharpen Details", 0.0, 100.0, 25.0, "%"),
-        param("jpeg", "Remove JPEG Artifact", 0.0, 1.0, 0.0, "")
+        param("strength", t("common.strength"), 0.0, 10.0, 5.0, ""),
+        param(
+            "detail",
+            t("filter.reduce_noise.param.detail"),
+            0.0,
+            100.0,
+            60.0,
+            "%"
+        ),
+        param(
+            "colour",
+            t("filter.reduce_noise.param.colour"),
+            0.0,
+            100.0,
+            50.0,
+            "%"
+        ),
+        param(
+            "sharpen",
+            t("filter.reduce_noise.param.sharpen"),
+            0.0,
+            100.0,
+            25.0,
+            "%"
+        ),
+        param(
+            "jpeg",
+            t("filter.reduce_noise.param.jpeg"),
+            0.0,
+            1.0,
+            0.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Bilateral again, but tuned the other way round: a small spatial
@@ -761,8 +894,8 @@ fn fixed_blur(px: &mut [f32], w: usize, h: usize, sigma: f32) {
 simple_filter!(
     Blur,
     "filter.blur",
-    "Blur",
-    "Blur",
+    t("filter.blur.name"),
+    t("filter.category.blur"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         fixed_blur(px, w, h, 0.6);
@@ -772,8 +905,8 @@ simple_filter!(
 simple_filter!(
     BlurMore,
     "filter.blur_more",
-    "Blur More",
-    "Blur",
+    t("filter.blur_more.name"),
+    t("filter.category.blur"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         fixed_blur(px, w, h, 1.7);
@@ -783,8 +916,8 @@ simple_filter!(
 simple_filter!(
     SharpenMore,
     "filter.sharpen_more",
-    "Sharpen More",
-    "Sharpen",
+    t("filter.sharpen_more.name"),
+    t("filter.category.sharpen"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         // The same 3x3 Laplacian as Sharpen with the centre weighted
@@ -832,10 +965,10 @@ impl FilterPlugin for Custom {
         "filter.custom"
     }
     fn name(&self) -> &'static str {
-        "Custom"
+        t("filter.custom.name")
     }
     fn category(&self) -> &'static str {
-        "Other"
+        t("filter.category.other")
     }
     fn params(&self) -> Vec<FilterParam> {
         let mut out: Vec<FilterParam> = (0..25)
@@ -851,10 +984,17 @@ impl FilterPlugin for Custom {
                 )
             })
             .collect();
-        out.push(param("scale", "Scale", 1.0, 999.0, 1.0, ""));
+        out.push(param("scale", t("common.scale"), 1.0, 999.0, 1.0, ""));
         // In Photoshop's 0..255 units, because that is what every kernel
         // anyone has ever written down assumes.
-        out.push(param("offset", "Offset", -255.0, 255.0, 0.0, ""));
+        out.push(param(
+            "offset",
+            t("filter.param.offset"),
+            -255.0,
+            255.0,
+            0.0,
+            "",
+        ));
         out
     }
 
@@ -913,7 +1053,12 @@ impl FilterPlugin for Custom {
 /// is now hue, and convert back. Photoshop has shipped it as a plug-in
 /// with no dialog since version 3; the round trip is why it has two
 /// directions.
-const HSB_MODES: &[&str] = &["RGB to HSB", "RGB to HSL", "HSB to RGB", "HSL to RGB"];
+static HSB_MODES: &[&str] = &[
+    "filter.hsb_hsl.choice.rgb_to_hsb",
+    "filter.hsb_hsl.choice.rgb_to_hsl",
+    "filter.hsb_hsl.choice.hsb_to_rgb",
+    "filter.hsb_hsl.choice.hsl_to_rgb",
+];
 
 fn to_hs(r: f32, g: f32, b: f32, lightness: bool) -> [f32; 3] {
     let max = r.max(g).max(b);
@@ -971,9 +1116,9 @@ fn from_hs(h: f32, s: f32, v: f32, lightness: bool) -> [f32; 3] {
 simple_filter!(
     HsbHsl,
     "filter.hsb_hsl",
-    "HSB/HSL",
-    "Other",
-    [choice("mode", "Mode", HSB_MODES, 0)],
+    t("filter.hsb_hsl.name"),
+    t("filter.category.other"),
+    [choice("mode", t("common.mode"), choices(HSB_MODES), 0)],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let _ = (w, h);
         let mode = (v.get("mode").round().max(0.0) as usize).min(3);

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The languages the chrome speaks (crates/i18n), so that Android 13+
+  offers a per-app language for Schist in Settings. The choice reaches
+  the app through the activity's configuration; see docs/i18n.md.
+-->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="sv" />
+    <locale android:name="de" />
+    <locale android:name="zh-Hans" />
+</locale-config>

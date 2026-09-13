@@ -1,0 +1,32 @@
+# The document-furniture tools (plugins/tools-doc): artboards, slices,
+# frames, notes and counts. The frame's Shape label is common.shape.
+
+# Artboard
+tool.artboard.name = Artboard
+tool.artboard.description = Drag out an artboard: a named region of the canvas that exports on its own. Dragging inside an existing one moves it.
+tool.artboard.default_name = Artboard {n}
+
+# Slice
+tool.slice.name = Slice
+tool.slice.description = Drag out an export slice, a named rectangle of the canvas exported as its own image. Dragging inside an existing one moves it.
+tool.slice.default_name = Slice {n}
+
+# Frame
+tool.frame.name = Frame
+tool.frame.description = Drag out a frame: a rectangular (or elliptical) layer that masks whatever is placed into it.
+tool.frame.default_name = Frame {n}
+tool.frame.choice.rectangle = Rectangle
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Frame
+
+# Note
+tool.note.name = Note
+tool.note.description = Click empty canvas to pin a note there, stamped with the author and colour in the editor state; click an existing pin to select it for the Notes panel.
+tool.note.history.place = Place Note
+tool.note.history.move = Move Note
+tool.note.history.delete = Delete Note
+
+# Count
+tool.count.name = Count
+tool.count.description = Click to drop numbered count markers on the canvas, and click an existing one to remove it.
+tool.count.default_name = Count {n}

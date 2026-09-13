@@ -2,6 +2,7 @@
 
 use crate::util::{at, convolve3, gaussian_rgba, luma, put, value_noise};
 use crate::{choice, context_filter, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterContext, FilterParam, FilterPlugin, FilterValues};
 
 /// Sobel gradient magnitude of the luminance at every pixel, 0..~1.
@@ -27,8 +28,8 @@ fn edges(px: &[f32], w: usize, h: usize) -> Vec<f32> {
 simple_filter!(
     FindEdges,
     "filter.find_edges",
-    "Find Edges",
-    "Stylize",
+    t("filter.find_edges.name"),
+    t("filter.category.stylize"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         let e = edges(px, w, h);
@@ -46,12 +47,26 @@ simple_filter!(
 simple_filter!(
     GlowingEdges,
     "filter.glowing_edges",
-    "Glowing Edges",
-    "Stylize",
+    t("filter.glowing_edges.name"),
+    t("filter.category.stylize"),
     [
-        param("width", "Edge Width", 1.0, 14.0, 2.0, ""),
-        param("brightness", "Edge Brightness", 0.0, 20.0, 6.0, ""),
-        param("smoothness", "Smoothness", 1.0, 15.0, 5.0, "")
+        param("width", t("filter.param.edge_width"), 1.0, 14.0, 2.0, ""),
+        param(
+            "brightness",
+            t("filter.param.edge_brightness"),
+            0.0,
+            20.0,
+            6.0,
+            ""
+        ),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            15.0,
+            5.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let width = v.get("width").max(1.0);
@@ -91,12 +106,12 @@ simple_filter!(
 simple_filter!(
     Emboss,
     "filter.emboss",
-    "Emboss",
-    "Stylize",
+    t("filter.emboss.name"),
+    t("filter.category.stylize"),
     [
-        param("angle", "Angle", -180.0, 180.0, 135.0, "\u{b0}"),
-        param("height", "Height", 1.0, 10.0, 3.0, " px"),
-        param("amount", "Amount", 1.0, 500.0, 100.0, "%")
+        param("angle", t("common.angle"), -180.0, 180.0, 135.0, "\u{b0}"),
+        param("height", t("common.height"), 1.0, 10.0, 3.0, " px"),
+        param("amount", t("common.amount"), 1.0, 500.0, 100.0, "%")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let angle = v.get("angle").to_radians();
@@ -132,8 +147,8 @@ simple_filter!(
 simple_filter!(
     Solarize,
     "filter.solarize",
-    "Solarize",
-    "Stylize",
+    t("filter.solarize.name"),
+    t("filter.category.stylize"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         // Invert everything above mid grey, which is what over-exposing a
@@ -150,14 +165,32 @@ simple_filter!(
     }
 );
 
+/// Which side of the crossing Trace Contour inks.
+static CONTOUR_EDGES: &[&str] = &[
+    "filter.trace_contour.choice.lower",
+    "filter.trace_contour.choice.upper",
+];
+
 simple_filter!(
     TraceContour,
     "filter.trace_contour",
-    "Trace Contour",
-    "Stylize",
+    t("filter.trace_contour.name"),
+    t("filter.category.stylize"),
     [
-        param("level", "Level", 0.0, 1.0, 0.5, ""),
-        choice("edge", "Edge", &["Lower", "Upper"], 0)
+        param(
+            "level",
+            t("filter.trace_contour.param.level"),
+            0.0,
+            1.0,
+            0.5,
+            ""
+        ),
+        choice(
+            "edge",
+            t("filter.trace_contour.param.edge"),
+            choices(CONTOUR_EDGES),
+            0
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Mark where each channel crosses the level, per channel, which is
@@ -188,18 +221,29 @@ simple_filter!(
     }
 );
 
+/// Wind's three strengths of streak, and the two sides it blows from.
+static WIND_METHODS: &[&str] = &[
+    "filter.wind.choice.wind",
+    "filter.wind.choice.blast",
+    "filter.wind.choice.stagger",
+];
+static WIND_DIRECTIONS: &[&str] = &[
+    "filter.wind.choice.from_the_left",
+    "filter.wind.choice.from_the_right",
+];
+
 simple_filter!(
     Wind,
     "filter.wind",
-    "Wind",
-    "Stylize",
+    t("filter.wind.name"),
+    t("filter.category.stylize"),
     [
-        param("strength", "Strength", 1.0, 100.0, 20.0, " px"),
-        choice("method", "Method", &["Wind", "Blast", "Stagger"], 0),
+        param("strength", t("common.strength"), 1.0, 100.0, 20.0, " px"),
+        choice("method", t("common.method"), choices(WIND_METHODS), 0),
         choice(
             "direction",
-            "Direction",
-            &["From the Left", "From the Right"],
+            t("filter.wind.param.direction"),
+            choices(WIND_DIRECTIONS),
             0
         )
     ],
@@ -256,23 +300,30 @@ simple_filter!(
 );
 
 /// What Photoshop leaves in the gaps between the tiles.
-const TILE_FILLS: &[&str] = &[
-    "Transparent",
-    "Background Color",
-    "Foreground Color",
-    "Inverse Image",
-    "Unaltered Image",
+static TILE_FILLS: &[&str] = &[
+    "common.transparent",
+    "common.background_color",
+    "common.foreground_color",
+    "filter.tiles.choice.inverse_image",
+    "filter.tiles.choice.unaltered_image",
 ];
 
 context_filter!(
     Tiles,
     "filter.tiles",
-    "Tiles",
-    "Stylize",
+    t("filter.tiles.name"),
+    t("filter.category.stylize"),
     [
-        param("count", "Number of Tiles", 2.0, 64.0, 10.0, ""),
-        param("offset", "Maximum Offset", 1.0, 99.0, 10.0, "%"),
-        choice("fill", "Fill Empty Area With", TILE_FILLS, 0)
+        param("count", t("filter.tiles.param.count"), 2.0, 64.0, 10.0, ""),
+        param(
+            "offset",
+            t("filter.tiles.param.offset"),
+            1.0,
+            99.0,
+            10.0,
+            "%"
+        ),
+        choice("fill", t("filter.tiles.param.fill"), choices(TILE_FILLS), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Break the image into tiles and shove each one off its place.
@@ -337,16 +388,21 @@ context_filter!(
 );
 
 /// Photoshop's four ways of frosting an image.
-const DIFFUSE_MODES: &[&str] = &["Normal", "Darken Only", "Lighten Only", "Anisotropic"];
+static DIFFUSE_MODES: &[&str] = &[
+    "filter.diffuse.choice.normal",
+    "filter.diffuse.choice.darken_only",
+    "filter.diffuse.choice.lighten_only",
+    "filter.diffuse.choice.anisotropic",
+];
 
 simple_filter!(
     Diffuse,
     "filter.diffuse",
-    "Diffuse",
-    "Stylize",
+    t("filter.diffuse.name"),
+    t("filter.category.stylize"),
     [
-        param("amount", "Amount", 1.0, 32.0, 4.0, " px"),
-        choice("mode", "Mode", DIFFUSE_MODES, 0)
+        param("amount", t("common.amount"), 1.0, 32.0, 4.0, " px"),
+        choice("mode", t("common.mode"), choices(DIFFUSE_MODES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Swap each pixel with a random neighbour, which frosts the image.
@@ -400,14 +456,49 @@ simple_filter!(
 simple_filter!(
     OilPaint,
     "filter.oil_paint",
-    "Oil Paint",
-    "Stylize",
+    t("filter.oil_paint.name"),
+    t("filter.category.stylize"),
     [
-        param("radius", "Stylization", 1.0, 12.0, 4.0, " px"),
-        param("levels", "Cleanliness", 2.0, 64.0, 20.0, ""),
-        param("bristle", "Bristle Detail", 0.0, 10.0, 4.0, ""),
-        param("shine", "Shine", 0.0, 10.0, 2.0, ""),
-        param("angle", "Lighting Angle", 0.0, 360.0, 45.0, "\u{b0}")
+        param(
+            "radius",
+            t("filter.oil_paint.param.radius"),
+            1.0,
+            12.0,
+            4.0,
+            " px"
+        ),
+        param(
+            "levels",
+            t("filter.oil_paint.param.levels"),
+            2.0,
+            64.0,
+            20.0,
+            ""
+        ),
+        param(
+            "bristle",
+            t("filter.oil_paint.param.bristle"),
+            0.0,
+            10.0,
+            4.0,
+            ""
+        ),
+        param(
+            "shine",
+            t("filter.oil_paint.param.shine"),
+            0.0,
+            10.0,
+            2.0,
+            ""
+        ),
+        param(
+            "angle",
+            t("filter.oil_paint.param.angle"),
+            0.0,
+            360.0,
+            45.0,
+            "\u{b0}"
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Kuwahara-ish: take the colour of the most common intensity bin
@@ -466,17 +557,39 @@ simple_filter!(
     }
 );
 
+/// Extrude's two solids, and what decides how far each comes forward.
+static EXTRUDE_TYPES: &[&str] = &[
+    "filter.extrude.choice.blocks",
+    "filter.extrude.choice.pyramids",
+];
+static EXTRUDE_BASES: &[&str] = &[
+    "filter.extrude.choice.level",
+    "filter.extrude.choice.random",
+];
+
 simple_filter!(
     Extrude,
     "filter.extrude",
-    "Extrude",
-    "Stylize",
+    t("filter.extrude.name"),
+    t("filter.category.stylize"),
     [
-        choice("type", "Type", &["Blocks", "Pyramids"], 0),
-        param("size", "Size", 2.0, 64.0, 12.0, " px"),
-        param("depth", "Depth", 1.0, 200.0, 30.0, " px"),
-        choice("basis", "Depth From", &["Level", "Random"], 0),
-        param("solid", "Solid Front Faces", 0.0, 1.0, 0.0, "")
+        choice("type", t("common.type"), choices(EXTRUDE_TYPES), 0),
+        param("size", t("common.size"), 2.0, 64.0, 12.0, " px"),
+        param(
+            "depth",
+            t("filter.extrude.param.depth"),
+            1.0,
+            200.0,
+            30.0,
+            " px"
+        ),
+        choice(
+            "basis",
+            t("filter.extrude.param.basis"),
+            choices(EXTRUDE_BASES),
+            0
+        ),
+        param("solid", t("filter.extrude.param.solid"), 0.0, 1.0, 0.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Blocks pushed towards the viewer by their own brightness --

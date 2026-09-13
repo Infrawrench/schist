@@ -1,0 +1,31 @@
+# The region retouching tools (plugins/tools-retouch): Patch,
+# Content-Aware Move, Red Eye, Magic Eraser. Mode and Tolerance come
+# from common.lang.
+
+# Patch
+tool.patch.name = Patch
+tool.patch.description = Drag an outline around a flaw, then drag that selection onto clean pixels: the texture there is fitted into the flaw. Patch mode chooses which end of the pair you drag.
+tool.patch.option.patch = Patch
+tool.patch.choice.source = Source
+tool.patch.choice.destination = Destination
+tool.patch.history.patch = Patch
+
+# Content-Aware Move
+tool.content_aware_move.name = Content-Aware Move
+tool.content_aware_move.description = Drag a selected object elsewhere and the hole it leaves is filled in from its surroundings. In Extend mode the object is stretched instead of moved.
+tool.content_aware_move.choice.move = Move
+tool.content_aware_move.choice.extend = Extend
+tool.content_aware_move.history.move = Content-Aware Move
+
+# Red Eye
+tool.red_eye.name = Red Eye
+tool.red_eye.description = Click a pupil to drain the flash red out of it.
+tool.red_eye.option.pupil_size = Pupil Size
+tool.red_eye.option.darken = Darken
+tool.red_eye.history.red_eye = Red Eye
+
+# Magic Eraser
+tool.magic_eraser.name = Magic Eraser
+tool.magic_eraser.description = Click to erase the area of similar colour under the pointer, within the tool's tolerance -- contiguous with the click, or everywhere in the layer.
+tool.magic_eraser.option.contiguous = Contiguous
+tool.magic_eraser.history.erase = Magic Eraser

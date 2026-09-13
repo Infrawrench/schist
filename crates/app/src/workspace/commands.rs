@@ -2,6 +2,7 @@
 //! edit funnels through.
 
 use super::*;
+use schist_i18n::tf;
 
 impl Workspace {
     /// Re-rasterize any layer whose effects are stale.
@@ -132,7 +133,7 @@ impl Workspace {
             let group = tool.group();
             self.group_active.insert(group, id);
             self.editor.active_tool = id;
-            self.status = format!("Tool: {name}").into();
+            self.status = tf!("workspace.commands.tool", name = name).into();
             if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(id)) {
                 let mut ctx = ToolCtx {
                     doc,

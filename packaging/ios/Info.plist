@@ -11,6 +11,16 @@
     <key>CFBundlePackageType</key><string>APPL</string>
     <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
     <key>CFBundleDevelopmentRegion</key><string>en</string>
+    <!-- The languages the chrome speaks (crates/i18n). This is what makes
+         Settings offer a per-app language for Schist; the strings are
+         compiled in, not in .lproj folders. -->
+    <key>CFBundleLocalizations</key>
+    <array>
+        <string>en</string>
+        <string>sv</string>
+        <string>de</string>
+        <string>zh-Hans</string>
+    </array>
     <key>MinimumOSVersion</key><string>16.0</string>
     <key>LSRequiresIPhoneOS</key><true/>
     <key>UIDeviceFamily</key><array><integer>1</integer><integer>2</integer></array>

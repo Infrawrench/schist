@@ -15,6 +15,7 @@ name = "schist-mcp"
 path = "src/main.rs"
 
 [dependencies]
+schist-i18n.workspace = true
 schist-core.workspace = true
 schist-plugin-api.workspace = true
 schist-compositor.workspace = true

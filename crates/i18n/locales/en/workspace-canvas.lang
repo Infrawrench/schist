@@ -1,0 +1,45 @@
+# The editor's canvas and its surroundings (crates/app/src/workspace:
+# viewport, view_options, notes, edit_ops, image_ops, layers_panel,
+# chrome, render): status-bar replies and history entries. Entries that
+# share a menu item's exact English reuse the menu.lang key instead.
+
+# Status-bar replies
+workspace.canvas.rotate_view_degrees = Rotate View {degrees}°
+workspace.canvas.view_reset = View reset
+workspace.canvas.notes_on = Notes on
+workspace.canvas.notes_off = Notes off
+workspace.canvas.rulers_on = Rulers on
+workspace.canvas.rulers_off = Rulers off
+workspace.canvas.grid_on = Grid on
+workspace.canvas.grid_off = Grid off
+workspace.canvas.guides_on = Guides on
+workspace.canvas.guides_off = Guides off
+workspace.canvas.extras_on = Extras on
+workspace.canvas.extras_off = Extras off
+workspace.canvas.snap_on = Snap on
+workspace.canvas.snap_off = Snap off
+workspace.canvas.guides_cleared = Guides cleared
+workspace.canvas.no_path = No path to use
+workspace.canvas.path_empty = The path is empty
+workspace.canvas.stroke_needs_selection = Stroke needs a selection
+workspace.canvas.nothing_to_stroke = Nothing to stroke
+workspace.canvas.content_aware_fill_needs_selection = Content-Aware Fill needs a selection
+workspace.canvas.content_aware_fill_needs_pixel_layer = Content-Aware Fill needs a pixel layer
+workspace.canvas.color_range_needs_pixel_layer = Color Range needs a pixel layer
+workspace.canvas.nothing_to_adjust = Nothing to adjust
+workspace.canvas.nothing_to_trim = Nothing to trim
+workspace.canvas.trimmed = Trimmed
+workspace.canvas.indexed_not_supported = Indexed Color is not supported yet
+workspace.canvas.opacity_percent = Opacity: {n}%
+
+# History panel entries
+workspace.history.stroke = Stroke
+workspace.history.fill = Fill
+workspace.history.content_aware_scale = Content-Aware Scale
+workspace.history.filter_gallery = Filter Gallery
+workspace.history.color_range = Color Range
+workspace.history.move_layer = Move Layer
+workspace.history.move_layers = Move Layers
+workspace.history.layer_opacity = Layer Opacity
+workspace.history.delete_note = Delete Note
+workspace.history.edit_note = Edit Note

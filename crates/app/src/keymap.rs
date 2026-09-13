@@ -10,6 +10,7 @@ use crate::workspace::Workspace;
 #[cfg(not(target_arch = "wasm32"))]
 use gpui::PathPromptOptions;
 use gpui::{Action, Context, DummyKeyboardMapper, KeyBinding, KeyBindingContextPredicate, Window};
+use schist_i18n::t;
 use schist_plugin_api::PluginRegistry;
 use std::path::PathBuf;
 
@@ -284,7 +285,7 @@ pub fn open_file_dialog(ws: &mut Workspace, window: &mut Window, cx: &mut Contex
             files: true,
             directories: false,
             multiple: false,
-            prompt: Some("Open".into()),
+            prompt: Some(t("common.open").into()),
         },
         cx,
     );
@@ -310,7 +311,7 @@ pub fn install_plugin_dialog(
         files: true,
         directories: false,
         multiple: false,
-        prompt: Some("Install Plugin".into()),
+        prompt: Some(t("panel.keymap.install_plugin").into()),
     });
     cx.spawn_in(window, async move |this, cx| {
         if let Ok(Ok(Some(mut paths))) = rx.await {
@@ -329,10 +330,7 @@ pub fn save_file_dialog(ws: &mut Workspace, _window: &mut Window, cx: &mut Conte
     // (whose extension picks the format), and the browser's own prompt
     // answers it. The save lands as a download.
     let suggested = suggested_name(ws);
-    match crate::web::prompt_string(
-        "Save as \u{2014} the extension picks the format:",
-        &suggested,
-    ) {
+    match crate::web::prompt_string(t("panel.keymap.save_as_prompt"), &suggested) {
         Some(name) => {
             let path = PathBuf::from("/web/save").join(name);
             ws.save_file_as(path, cx);

@@ -1,0 +1,30 @@
+# Retuscheringsverktygen (plugins/tools-retouch). Termerna följer svenska
+# Photoshop.
+
+# Lappa
+tool.patch.name = Lappa
+tool.patch.description = Dra en kontur runt ett fel och dra sedan markeringen till rena pixlar: strukturen där passas in i felet. Lappningsläget avgör vilken ände av paret du drar.
+tool.patch.option.patch = Lappning
+tool.patch.choice.source = Källa
+tool.patch.choice.destination = Mål
+tool.patch.history.patch = Lappa
+
+# Innehållsanpassad flyttning
+tool.content_aware_move.name = Innehållsanpassad flyttning
+tool.content_aware_move.description = Dra ett markerat objekt någon annanstans, så fylls hålet det lämnar från omgivningen. I läget Utöka sträcks objektet ut i stället för att flyttas.
+tool.content_aware_move.choice.move = Flytta
+tool.content_aware_move.choice.extend = Utöka
+tool.content_aware_move.history.move = Innehållsanpassad flyttning
+
+# Röda ögon
+tool.red_eye.name = Röda ögon
+tool.red_eye.description = Klicka på en pupill för att ta bort blixtens röda färg ur den.
+tool.red_eye.option.pupil_size = Pupillstorlek
+tool.red_eye.option.darken = Mörkhetsgrad
+tool.red_eye.history.red_eye = Röda ögon
+
+# Magiskt suddgummi
+tool.magic_eraser.name = Magiskt suddgummi
+tool.magic_eraser.description = Klicka för att sudda området med liknande färg under pekaren, inom verktygets tolerans – sammanhängande med klicket eller överallt i lagret.
+tool.magic_eraser.option.contiguous = Angränsande
+tool.magic_eraser.history.erase = Magiskt suddgummi

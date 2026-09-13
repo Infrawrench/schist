@@ -31,6 +31,7 @@
         android:label="Schist"
         android:icon="@mipmap/ic_launcher"
         android:hasCode="false"
+        android:localeConfig="@xml/locales_config"
         android:extractNativeLibs="true"
         android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
         <activity

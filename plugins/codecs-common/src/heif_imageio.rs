@@ -28,6 +28,7 @@ use core_graphics::{
 };
 use foreign_types::ForeignType;
 use schist_core::Document;
+use schist_i18n::t;
 
 /// `kCGBitmapByteOrder32Big`: with premultiplied-last alpha, memory order
 /// R, G, B, A.
@@ -77,22 +78,25 @@ pub(crate) fn import(bytes: &[u8]) -> anyhow::Result<Document> {
         let source = CGImageSourceCreateWithData(data.as_concrete_TypeRef(), std::ptr::null());
         anyhow::ensure!(
             !source.is_null(),
-            "ImageIO could not read the HEIF container"
+            "{}",
+            t("codec.heif.msg.imageio_cannot_read")
         );
         let source = Released(source);
         anyhow::ensure!(
             CGImageSourceGetCount(source.0) > 0,
-            "the HEIF container holds no image"
+            "{}",
+            t("codec.heif.msg.container_empty")
         );
 
         let image = CGImageSourceCreateImageAtIndex(source.0, 0, std::ptr::null());
         anyhow::ensure!(
             !image.is_null(),
-            "ImageIO could not decode the primary image"
+            "{}",
+            t("codec.heif.msg.imageio_cannot_decode")
         );
         let image = CGImage::from_ptr(image as *mut _);
         let (w, h) = (image.width(), image.height());
-        anyhow::ensure!(w > 0 && h > 0, "zero-sized image");
+        anyhow::ensure!(w > 0 && h > 0, "{}", t("codec.msg.zero_sized"));
 
         // Draw in the image's own RGB space so nothing is converted, and
         // keep that space's profile for the document. Anything else
@@ -143,7 +147,8 @@ pub(crate) fn import(bytes: &[u8]) -> anyhow::Result<Document> {
         let orientation = orientation(source.0).unwrap_or(1);
         let (w, h, rgba) = reorient(w as u32, h as u32, rgba, orientation);
 
-        crate::flat_document("HEIF", w, h, &rgba, icc).context("assembling document")
+        crate::flat_document(t("codec.heif.name"), w, h, &rgba, icc)
+            .context(t("codec.msg.assembling_document"))
     }
 }
 

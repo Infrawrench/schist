@@ -542,14 +542,14 @@ impl FillSource {
     ];
 
     pub fn label(self) -> &'static str {
-        match self {
-            FillSource::Foreground => "Foreground Color",
-            FillSource::Background => "Background Color",
-            FillSource::Black => "Black",
-            FillSource::White => "White",
-            FillSource::Gray => "50% Gray",
-            FillSource::ContentAware => "Content-Aware",
-        }
+        schist_i18n::t(match self {
+            FillSource::Foreground => "common.foreground_color",
+            FillSource::Background => "common.background_color",
+            FillSource::Black => "common.black",
+            FillSource::White => "common.white",
+            FillSource::Gray => "workspace.fill.gray_50",
+            FillSource::ContentAware => "workspace.fill.content_aware",
+        })
     }
 }
 
@@ -564,12 +564,12 @@ pub enum PathOp {
 
 impl PathOp {
     pub fn title(self) -> &'static str {
-        match self {
-            PathOp::Fill => "Fill Path",
-            PathOp::Stroke => "Stroke Path",
-            PathOp::Select => "Make Selection",
-            PathOp::Delete => "Delete Path",
-        }
+        schist_i18n::t(match self {
+            PathOp::Fill => "menu.layer.fill_path",
+            PathOp::Stroke => "menu.layer.stroke_path",
+            PathOp::Select => "menu.layer.make_selection",
+            PathOp::Delete => "menu.layer.delete_path",
+        })
     }
 }
 
@@ -583,11 +583,11 @@ pub enum AutoMode {
 
 impl AutoMode {
     pub fn title(self) -> &'static str {
-        match self {
-            AutoMode::Tone => "Auto Tone",
-            AutoMode::Contrast => "Auto Contrast",
-            AutoMode::Color => "Auto Color",
-        }
+        schist_i18n::t(match self {
+            AutoMode::Tone => "menu.image.auto_tone",
+            AutoMode::Contrast => "menu.image.auto_contrast",
+            AutoMode::Color => "menu.image.auto_color",
+        })
     }
 }
 
@@ -603,13 +603,13 @@ pub enum CanvasTransform {
 
 impl CanvasTransform {
     pub fn title(self) -> &'static str {
-        match self {
-            CanvasTransform::Cw90 => "Rotate 90\u{b0} Clockwise",
-            CanvasTransform::Ccw90 => "Rotate 90\u{b0} Counter Clockwise",
-            CanvasTransform::Rotate180 => "Rotate 180\u{b0}",
-            CanvasTransform::FlipH => "Flip Horizontal",
-            CanvasTransform::FlipV => "Flip Vertical",
-        }
+        schist_i18n::t(match self {
+            CanvasTransform::Cw90 => "menu.edit.rotate_90_cw",
+            CanvasTransform::Ccw90 => "menu.edit.rotate_90_ccw",
+            CanvasTransform::Rotate180 => "menu.edit.rotate_180",
+            CanvasTransform::FlipH => "menu.edit.flip_horizontal",
+            CanvasTransform::FlipV => "menu.edit.flip_vertical",
+        })
     }
 }
 
@@ -672,11 +672,11 @@ pub enum BatchTarget {
 #[cfg(not(target_arch = "wasm32"))]
 impl BatchTarget {
     pub fn label(self) -> &'static str {
-        match self {
-            BatchTarget::Edit => "Gallery edits (versioned)",
-            BatchTarget::Beside => "Copies beside the originals",
-            BatchTarget::Folder => "Copies in a folder\u{2026}",
-        }
+        schist_i18n::t(match self {
+            BatchTarget::Edit => "workspace.batch.target.edit",
+            BatchTarget::Beside => "workspace.batch.target.beside",
+            BatchTarget::Folder => "workspace.batch.target.folder",
+        })
     }
 }
 
@@ -692,21 +692,21 @@ pub enum ModifyKind {
 
 impl ModifyKind {
     pub fn title(self) -> &'static str {
-        match self {
-            ModifyKind::Expand => "Expand Selection",
-            ModifyKind::Contract => "Contract Selection",
-            ModifyKind::Border => "Border Selection",
-            ModifyKind::Smooth => "Smooth Selection",
-            ModifyKind::Feather => "Feather Selection",
-        }
+        schist_i18n::t(match self {
+            ModifyKind::Expand => "workspace.modify.expand",
+            ModifyKind::Contract => "workspace.modify.contract",
+            ModifyKind::Border => "workspace.modify.border",
+            ModifyKind::Smooth => "workspace.modify.smooth",
+            ModifyKind::Feather => "workspace.modify.feather",
+        })
     }
 
     pub fn label(self) -> &'static str {
-        match self {
-            ModifyKind::Feather => "Radius",
-            ModifyKind::Border => "Width",
-            _ => "Amount",
-        }
+        schist_i18n::t(match self {
+            ModifyKind::Feather => "common.radius",
+            ModifyKind::Border => "common.width",
+            _ => "common.amount",
+        })
     }
 }
 
@@ -752,11 +752,12 @@ pub enum Theme {
 }
 
 impl Theme {
-    pub fn display_name(self) -> &'static str {
-        match self {
-            Theme::Dark => "Dark",
-            Theme::Light => "Light",
-        }
+    /// The name shown in Preferences, in the user's language.
+    pub fn label(self) -> &'static str {
+        schist_i18n::t(match self {
+            Theme::Dark => "dialog.prefs.theme_dark",
+            Theme::Light => "dialog.prefs.theme_light",
+        })
     }
 }
 
@@ -1334,13 +1335,14 @@ pub enum NewDocBackground {
 }
 
 impl NewDocBackground {
-    pub fn display_name(self) -> &'static str {
-        match self {
-            NewDocBackground::White => "White",
-            NewDocBackground::BackgroundColor => "Background Color",
-            NewDocBackground::Black => "Black",
-            NewDocBackground::Transparent => "Transparent",
-        }
+    /// The name shown in the New Document dialog, in the user's language.
+    pub fn label(self) -> &'static str {
+        schist_i18n::t(match self {
+            NewDocBackground::White => "common.white",
+            NewDocBackground::BackgroundColor => "common.background_color",
+            NewDocBackground::Black => "common.black",
+            NewDocBackground::Transparent => "common.transparent",
+        })
     }
 }
 
@@ -1452,7 +1454,7 @@ impl Workspace {
             pan_last: None,
             space_held: false,
             pointer_down: false,
-            status: "Ready".into(),
+            status: schist_i18n::t("common.ready").into(),
             open_popup: None,
             dropdown: Default::default(),
             open_submenu: Vec::new(),
@@ -1816,12 +1818,17 @@ fn decode_file(
                 .iter()
                 .find(|c| c.extensions().contains(&ext.as_str()))
         })
-        .ok_or_else(|| anyhow::anyhow!("no codec for {}", path.display()))?;
+        .ok_or_else(|| {
+            anyhow::anyhow!(
+                "{}",
+                schist_i18n::tf!("workspace.docs.no_codec", name = path.display())
+            )
+        })?;
     let mut doc = codec.import(&bytes)?;
     doc.title = path
         .file_name()
         .map(|n| n.to_string_lossy().into_owned())
-        .unwrap_or_else(|| "Untitled".into());
+        .unwrap_or_else(|| schist_i18n::t("common.untitled").into());
     doc.path = Some(path.to_path_buf());
     Ok(doc)
 }
@@ -1855,7 +1862,7 @@ fn fetch_model(url: &str, got: &AtomicU64) -> Result<Vec<u8>, String> {
         got.store(bytes.len() as u64, Ordering::Relaxed);
     }
     if bytes.is_empty() {
-        return Err("empty response".into());
+        return Err(schist_i18n::t("workspace.docs.empty_response").into());
     }
     Ok(bytes)
 }

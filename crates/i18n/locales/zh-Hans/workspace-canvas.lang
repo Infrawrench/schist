@@ -1,0 +1,43 @@
+# 画布及其周边：状态栏提示和历史记录条目。术语参照简体中文版
+# Photoshop（描边、填充、内容识别填充、参考线、注释）。
+
+# 状态栏
+workspace.canvas.rotate_view_degrees = 旋转视图 {degrees}°
+workspace.canvas.view_reset = 视图已复位
+workspace.canvas.notes_on = 注释已开启
+workspace.canvas.notes_off = 注释已关闭
+workspace.canvas.rulers_on = 标尺已开启
+workspace.canvas.rulers_off = 标尺已关闭
+workspace.canvas.grid_on = 网格已开启
+workspace.canvas.grid_off = 网格已关闭
+workspace.canvas.guides_on = 参考线已开启
+workspace.canvas.guides_off = 参考线已关闭
+workspace.canvas.extras_on = 额外内容已开启
+workspace.canvas.extras_off = 额外内容已关闭
+workspace.canvas.snap_on = 对齐已开启
+workspace.canvas.snap_off = 对齐已关闭
+workspace.canvas.guides_cleared = 参考线已清除
+workspace.canvas.no_path = 没有可用的路径
+workspace.canvas.path_empty = 路径为空
+workspace.canvas.stroke_needs_selection = 描边需要选区
+workspace.canvas.nothing_to_stroke = 没有可描边的内容
+workspace.canvas.content_aware_fill_needs_selection = 内容识别填充需要选区
+workspace.canvas.content_aware_fill_needs_pixel_layer = 内容识别填充需要像素图层
+workspace.canvas.color_range_needs_pixel_layer = 色彩范围需要像素图层
+workspace.canvas.nothing_to_adjust = 没有可调整的内容
+workspace.canvas.nothing_to_trim = 没有可裁切的内容
+workspace.canvas.trimmed = 已裁切
+workspace.canvas.indexed_not_supported = 尚不支持索引颜色
+workspace.canvas.opacity_percent = 不透明度：{n}%
+
+# 历史记录
+workspace.history.stroke = 描边
+workspace.history.fill = 填充
+workspace.history.content_aware_scale = 内容识别缩放
+workspace.history.filter_gallery = 滤镜库
+workspace.history.color_range = 色彩范围
+workspace.history.move_layer = 移动图层
+workspace.history.move_layers = 移动图层
+workspace.history.layer_opacity = 图层不透明度
+workspace.history.delete_note = 删除注释
+workspace.history.edit_note = 编辑注释

@@ -20,6 +20,7 @@ use codex_codes::{
     McpServerElicitationRequestResponse, Notification, SandboxMode, ServerMessage, ServerRequest,
     ThreadItem, ThreadResumeParams, ThreadStartParams, TurnStartParams, UserInput,
 };
+use schist_i18n::{t, tf};
 use std::sync::{Arc, Mutex};
 
 /// Start a Codex conversation worker. `resume` continues an earlier
@@ -52,7 +53,11 @@ pub fn start(
             worker.push(AgentEvent::Closed);
         });
     if let Err(e) = spawned {
-        shared.error(format!("starting the Codex worker failed: {e}"));
+        shared.error(tf!(
+            "ai.error.worker_failed",
+            backend = Backend::Codex.label(),
+            error = e
+        ));
         shared.push(AgentEvent::Closed);
     }
     Conversation {
@@ -76,7 +81,7 @@ fn run(
     resume: Option<String>,
     system_prompt: &str,
 ) -> Result<()> {
-    let exe = std::env::current_exe().context("locating the schist binary")?;
+    let exe = std::env::current_exe().context(t("ai.error.locating_binary"))?;
     // The CLI is located on the login shell's PATH, not launchd's — the
     // builder's own `which` would only see what a Finder launch inherits
     // — and that PATH is passed on to the app-server's own children.
@@ -119,11 +124,13 @@ fn run(
     if let Some(home) = home_dir() {
         builder = builder.working_directory(home);
     }
-    let child = builder.spawn_sync().context("starting codex app-server")?;
+    let child = builder
+        .spawn_sync()
+        .context(t("ai.error.starting_app_server"))?;
     if let Ok(mut slot) = pid.lock() {
         *slot = Some(child.id());
     }
-    let mut client = SyncClient::new(child).context("attaching to codex app-server")?;
+    let mut client = SyncClient::new(child).context(t("ai.error.attaching_app_server"))?;
     client
         .initialize(&InitializeParams {
             client_info: ClientInfo {
@@ -133,7 +140,7 @@ fn run(
             },
             capabilities: None,
         })
-        .context("initializing codex app-server")?;
+        .context(t("ai.error.initializing_app_server"))?;
 
     // Read-only sandbox and no approval prompts: the agent's hands are
     // the schist MCP tools, and there is no dialog here to answer an
@@ -149,7 +156,7 @@ fn run(
                     developer_instructions: Some(system_prompt.to_string()),
                     ..Default::default()
                 })
-                .context("resuming codex thread")?;
+                .context(t("ai.error.resuming_thread"))?;
             id
         }
         None => {
@@ -161,12 +168,15 @@ fn run(
                     developer_instructions: Some(system_prompt.to_string()),
                     ..Default::default()
                 })
-                .context("starting codex thread")?;
+                .context(t("ai.error.starting_thread"))?;
             started.thread.id
         }
     };
     shared.push(AgentEvent::Session(thread_id.clone()));
-    shared.push(AgentEvent::Info("Codex connected".into()));
+    shared.push(AgentEvent::Info(tf!(
+        "ai.info.connected",
+        backend = Backend::Codex.label()
+    )));
 
     while let Ok(cmd) = rx.recv() {
         let (prompt, model) = match cmd {
@@ -184,7 +194,7 @@ fn run(
             model,
             ..Default::default()
         }) {
-            shared.error(format!("sending the prompt failed: {e}"));
+            shared.error(tf!("ai.error.send_failed", error = e));
             shared.push(AgentEvent::TurnDone);
             continue;
         }
@@ -232,7 +242,7 @@ fn forward(shared: &AiShared, notification: Notification) -> bool {
                     shared.push(AgentEvent::ToolCall(tool));
                 }
                 ThreadItem::CommandExecution { .. } => {
-                    shared.push(AgentEvent::ToolCall("shell command".into()));
+                    shared.push(AgentEvent::ToolCall(t("ai.tool.shell_command").into()));
                 }
                 _ => {}
             }

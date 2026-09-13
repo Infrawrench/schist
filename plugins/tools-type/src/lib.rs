@@ -12,6 +12,7 @@ use schist_color::Rgba;
 use schist_core::{
     Document, IntRect, Layer, LayerId, LayerPath, RawBlock, TileCoord, TileMap, TILE_SIZE,
 };
+use schist_i18n::{choices, t};
 use schist_plugin_api::{
     EditorState, Modifiers, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput,
     ToolCtx, ToolOption, ToolPlugin,
@@ -265,8 +266,13 @@ fn is_continuation(ch: char) -> bool {
 }
 
 /// The styles the options bar offers, in the order Photoshop lists them.
-const STYLES: &[&str] = &["Regular", "Bold", "Italic", "Bold Italic"];
-const ALIGNMENTS: &[&str] = &["Left", "Center", "Right"];
+static STYLES: &[&str] = &[
+    "tool.type.choice.regular",
+    "tool.type.choice.bold",
+    "tool.type.choice.italic",
+    "tool.type.choice.bold_italic",
+];
+static ALIGNMENTS: &[&str] = &["common.left", "common.center", "common.right"];
 
 #[derive(Default)]
 pub struct TypeTool {
@@ -318,7 +324,7 @@ impl TypeTool {
         }
         self.spec.path = stored.spec.path.clone();
         self.use_path = self.spec.path.is_some();
-        let mut layer = Layer::new_raster("Text");
+        let mut layer = Layer::new_raster(t("common.text"));
         write_stored(&mut layer, &stored);
         let id = layer.id;
         let original_extras = layer.extras.clone();
@@ -330,7 +336,7 @@ impl TypeTool {
             }
             None => LayerPath(vec![ctx.doc.tree.layers.len()]),
         };
-        let mut edit = ctx.doc.begin_edit("New Text Layer");
+        let mut edit = ctx.doc.begin_edit(t("tool.type.history.new_layer"));
         edit.insert_layer(path, layer);
         edit.commit();
         ctx.doc.active_layer = Some(id);
@@ -442,7 +448,7 @@ impl TypeTool {
 fn display_name(text: &str) -> String {
     let first: String = text.lines().next().unwrap_or("").chars().take(24).collect();
     if first.trim().is_empty() {
-        "Text".to_string()
+        t("common.text").to_string()
     } else {
         first
     }
@@ -469,12 +475,10 @@ impl ToolPlugin for TypeTool {
         "type"
     }
     fn name(&self) -> &'static str {
-        "Type"
+        t("tool.type.name")
     }
     fn description(&self) -> &'static str {
-        "Click to start a text layer there, or click an existing one to edit it. While it \
-         is open the tool takes raw keys (send characters as key input), and committing \
-         renders the layer and closes the edit."
+        t("tool.type.description")
     }
     fn icon(&self) -> &'static str {
         "type"
@@ -691,18 +695,25 @@ impl ToolPlugin for TypeTool {
             .position(|f| *f == self.spec.family)
             .unwrap_or(0);
         vec![
-            ToolOption::choice("type-family", "Font", families, family),
+            ToolOption::choice("type-family", t("common.font"), families, family),
             ToolOption::choice(
                 "type-style",
-                "Style",
-                STYLES,
+                t("common.style"),
+                choices(STYLES),
                 usize::from(self.spec.bold) | (usize::from(self.spec.italic) << 1),
             ),
-            ToolOption::slider("type-size", "Size", self.spec.size, 6.0, 400.0, " px"),
+            ToolOption::slider(
+                "type-size",
+                t("common.size"),
+                self.spec.size,
+                6.0,
+                400.0,
+                t("common.unit.px_suffix"),
+            ),
             ToolOption::choice(
                 "type-align",
-                "Align",
-                ALIGNMENTS,
+                t("tool.type.option.align"),
+                choices(ALIGNMENTS),
                 match self.spec.align {
                     Align::Left => 0,
                     Align::Center => 1,
@@ -711,7 +722,7 @@ impl ToolPlugin for TypeTool {
             ),
             ToolOption::slider(
                 "type-leading",
-                "Leading",
+                t("tool.type.option.leading"),
                 self.spec.line_height,
                 0.5,
                 3.0,
@@ -719,28 +730,40 @@ impl ToolPlugin for TypeTool {
             ),
             ToolOption::slider(
                 "type-tracking",
-                "Tracking",
+                t("tool.type.option.tracking"),
                 self.spec.tracking,
                 -20.0,
                 80.0,
-                " px",
+                t("common.unit.px_suffix"),
             ),
-            ToolOption::toggle("type-kern", "Kerning", self.spec.feature("kern", true)),
-            ToolOption::toggle("type-liga", "Ligatures", self.spec.feature("liga", false)),
+            ToolOption::toggle(
+                "type-kern",
+                t("tool.type.option.kerning"),
+                self.spec.feature("kern", true),
+            ),
+            ToolOption::toggle(
+                "type-liga",
+                t("tool.type.option.ligatures"),
+                self.spec.feature("liga", false),
+            ),
             ToolOption::toggle(
                 "type-dlig",
-                "Discretionary ligatures",
+                t("tool.type.option.discretionary_ligatures"),
                 self.spec.feature("dlig", false),
             ),
-            ToolOption::toggle("type-smcp", "Small caps", self.spec.feature("smcp", false)),
-            ToolOption::toggle("type-path", "On active path", self.use_path),
+            ToolOption::toggle(
+                "type-smcp",
+                t("tool.type.option.small_caps"),
+                self.spec.feature("smcp", false),
+            ),
+            ToolOption::toggle("type-path", t("tool.type.option.on_path"), self.use_path),
             ToolOption::slider(
                 "type-path-offset",
-                "Path offset",
+                t("tool.type.option.path_offset"),
                 self.spec.path.as_ref().map_or(0.0, |p| p.offset),
                 -2000.0,
                 2000.0,
-                " px",
+                t("common.unit.px_suffix"),
             ),
         ]
     }
@@ -847,7 +870,7 @@ impl ToolPlugin for TypeTool {
         if !session.dirty {
             // Nothing typed: drop an empty layer we created.
             if session.created {
-                let mut edit = ctx.doc.begin_edit("Discard Empty Text");
+                let mut edit = ctx.doc.begin_edit(t("tool.type.history.discard_empty"));
                 edit.remove_layer(session.layer);
                 edit.commit();
                 // The insert and this removal cancel out, so collapse the
@@ -861,9 +884,10 @@ impl ToolPlugin for TypeTool {
                 // undo stack. Clicking with the type tool and not typing
                 // therefore reverted the user's last two real edits, with
                 // the History panel still listing them as applied.
-                ctx.doc
-                    .history
-                    .drop_cancelling_pair("Discard Empty Text", "New Text Layer");
+                ctx.doc.history.drop_cancelling_pair(
+                    t("tool.type.history.discard_empty"),
+                    t("tool.type.history.new_layer"),
+                );
             }
             return;
         }
@@ -882,7 +906,7 @@ impl ToolPlugin for TypeTool {
         }
         layer.name = session.original_name.clone();
         let extras = std::mem::replace(&mut layer.extras, session.original_extras.clone());
-        let mut edit = ctx.doc.begin_edit("Edit Text");
+        let mut edit = ctx.doc.begin_edit(t("tool.type.history.edit"));
         edit.replace_layer_tiles(session.layer, tiles);
         edit.set_extras(session.layer, extras);
         edit.change_props(session.layer, |l| l.name = name);
@@ -909,7 +933,7 @@ impl ToolPlugin for TypeTool {
         }
         ctx.doc.add_damage(before);
         if session.created {
-            let mut edit = ctx.doc.begin_edit("Discard Text");
+            let mut edit = ctx.doc.begin_edit(t("tool.type.history.discard"));
             edit.remove_layer(session.layer);
             edit.commit();
         }
@@ -1643,7 +1667,7 @@ mod tests {
         assert_eq!(read_stored(&d.tree.layers[1]).unwrap().spec.text, "Yo");
         assert_eq!(d.tree.layers[1].name, "Yo");
 
-        assert_eq!(d.undo().as_deref(), Some("Edit Text"));
+        assert_eq!(d.undo().as_deref(), Some(t("tool.type.history.edit")));
         let stored = read_stored(&d.tree.layers[1]).unwrap();
         assert_eq!(stored.spec.text, "Hi", "the spec undoes with the pixels");
         assert_eq!(stored.spec.size, 48.0);

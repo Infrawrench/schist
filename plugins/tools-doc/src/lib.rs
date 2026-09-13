@@ -10,6 +10,7 @@ use schist_core::{
     Artboard, CountGroup, Document, IntRect, Layer, LayerMask, MaskTileMap, Note, Slice, TileCoord,
     TILE_SIZE,
 };
+use schist_i18n::{choices, t, tf};
 use schist_plugin_api::{
     EditorState, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput, ToolCtx,
     ToolOption, ToolPlugin,
@@ -98,7 +99,7 @@ impl RectTool {
             }
         }
         let n = doc.frame_count() + 1;
-        let mut layer = Layer::new_raster(format!("Frame {n}"));
+        let mut layer = Layer::new_raster(tf!("tool.frame.default_name", n = n));
         layer.is_frame = true;
         layer.mask = Some(LayerMask {
             tiles: mask_tiles,
@@ -130,12 +131,15 @@ impl RectTool {
         }
         let id = layer.id;
         let path = schist_core::LayerPath(vec![doc.tree.layers.len()]);
-        let mut edit = doc.begin_edit("Frame");
+        let mut edit = doc.begin_edit(t("tool.frame.history.frame"));
         edit.insert_layer(path, layer);
         edit.commit();
         doc.active_layer = Some(id);
     }
 }
+
+/// The two outlines a frame can have, as catalog keys.
+static FRAME_SHAPES: &[&str] = &["tool.frame.choice.rectangle", "tool.frame.choice.ellipse"];
 
 impl ToolPlugin for RectTool {
     fn id(&self) -> &'static str {
@@ -147,25 +151,16 @@ impl ToolPlugin for RectTool {
     }
     fn name(&self) -> &'static str {
         match self.kind {
-            RectKind::Artboard => "Artboard",
-            RectKind::Slice => "Slice",
-            RectKind::Frame => "Frame",
+            RectKind::Artboard => t("tool.artboard.name"),
+            RectKind::Slice => t("tool.slice.name"),
+            RectKind::Frame => t("tool.frame.name"),
         }
     }
     fn description(&self) -> &'static str {
         match self.kind {
-            RectKind::Artboard => {
-                "Drag out an artboard: a named region of the canvas that exports on its own. \
-                 Dragging inside an existing one moves it."
-            }
-            RectKind::Slice => {
-                "Drag out an export slice, a named rectangle of the canvas exported as its \
-                 own image. Dragging inside an existing one moves it."
-            }
-            RectKind::Frame => {
-                "Drag out a frame: a rectangular (or elliptical) layer that masks whatever \
-                 is placed into it."
-            }
+            RectKind::Artboard => t("tool.artboard.description"),
+            RectKind::Slice => t("tool.slice.description"),
+            RectKind::Frame => t("tool.frame.description"),
         }
     }
     fn icon(&self) -> &'static str {
@@ -192,8 +187,8 @@ impl ToolPlugin for RectTool {
         match self.kind {
             RectKind::Frame => vec![ToolOption::choice(
                 "frame-shape",
-                "Shape",
-                &["Rectangle", "Ellipse"],
+                t("common.shape"),
+                choices(FRAME_SHAPES),
                 self.ellipse as usize,
             )],
             _ => Vec::new(),
@@ -266,14 +261,14 @@ impl ToolPlugin for RectTool {
             RectKind::Artboard => {
                 let n = ctx.doc.artboards.len() + 1;
                 ctx.doc.artboards.push(Artboard {
-                    name: format!("Artboard {n}"),
+                    name: tf!("tool.artboard.default_name", n = n),
                     rect,
                 });
             }
             RectKind::Slice => {
                 let n = ctx.doc.slices.len() + 1;
                 ctx.doc.slices.push(Slice {
-                    name: format!("Slice {n}"),
+                    name: tf!("tool.slice.default_name", n = n),
                     rect,
                     user: true,
                 });
@@ -385,20 +380,14 @@ impl ToolPlugin for PointTool {
     }
     fn name(&self) -> &'static str {
         match self.kind {
-            PointKind::Note => "Note",
-            PointKind::Count => "Count",
+            PointKind::Note => t("tool.note.name"),
+            PointKind::Count => t("tool.count.name"),
         }
     }
     fn description(&self) -> &'static str {
         match self.kind {
-            PointKind::Note => {
-                "Click empty canvas to pin a note there, stamped with the author and colour \
-                 in the editor state; click an existing pin to select it for the Notes panel."
-            }
-            PointKind::Count => {
-                "Click to drop numbered count markers on the canvas, and click an existing \
-                 one to remove it."
-            }
+            PointKind::Note => t("tool.note.description"),
+            PointKind::Count => t("tool.count.description"),
         }
     }
     fn icon(&self) -> &'static str {
@@ -419,7 +408,7 @@ impl ToolPlugin for PointTool {
                 // and grabs it for a drag.
                 if let Some(i) = note_at(ctx.doc, input.x, input.y, r) {
                     if input.modifiers.alt {
-                        let mut edit = ctx.doc.begin_edit("Delete Note");
+                        let mut edit = ctx.doc.begin_edit(t("tool.note.history.delete"));
                         edit.change_notes(|notes| {
                             notes.remove(i);
                         });
@@ -443,7 +432,7 @@ impl ToolPlugin for PointTool {
                     // ever showed and no user could change.
                     let author = ctx.state.note_author.clone();
                     let color = ctx.state.note_color;
-                    let mut edit = ctx.doc.begin_edit("Place Note");
+                    let mut edit = ctx.doc.begin_edit(t("tool.note.history.place"));
                     edit.change_notes(|notes| {
                         notes.push(Note::new((input.x, input.y), author, color));
                     });
@@ -456,7 +445,7 @@ impl ToolPlugin for PointTool {
                 // one back off, which is how Photoshop's Count works.
                 if ctx.doc.counts.is_empty() {
                     ctx.doc.counts.push(CountGroup {
-                        name: "Count 1".into(),
+                        name: tf!("tool.count.default_name", n = 1),
                         points: Vec::new(),
                     });
                 }
@@ -504,7 +493,7 @@ impl ToolPlugin for PointTool {
         // `change_notes` is a no-op when the two match, so a click that
         // only selected a note leaves no history entry.
         let after = std::mem::replace(&mut ctx.doc.notes, before);
-        let mut edit = ctx.doc.begin_edit("Move Note");
+        let mut edit = ctx.doc.begin_edit(t("tool.note.history.move"));
         edit.change_notes(|notes| *notes = after);
         edit.commit();
     }

@@ -1,0 +1,32 @@
+# Omforma fritt, transformera markering och beskärning
+# (plugins/tools-transform). Termerna följer det svenska Photoshop.
+
+# Omforma fritt
+tool.transform.name = Omforma fritt
+tool.transform.description = Omforma fritt. När verktyget aktiveras öppnas en omformningsram runt det aktiva lagret: dra i ett hörn för att skala, dra utanför ett hörn för att rotera, dra i en kant för att skeva. Inget skrivs förrän det bekräftas (Retur), och att avbryta (Esc) återställer lagret.
+tool.transform.option.interpolation = Interpolering
+tool.transform.history.transform = Omforma fritt
+tool.transform.history.image_size = Bildstorlek
+tool.transform.history.canvas_size = Storlek på arbetsyta
+
+# Transformera markering
+tool.transform.selection.name = Transformera markering
+tool.transform.selection.description = Transformera markering: samma ram, men den flyttar markeringens kontur i stället för pixlarna inuti den. Bekräfta eller avbryt för att avsluta.
+tool.transform.selection.history.transform = Transformera markering
+
+# De klassiska omsamplingsfiltren, som Bildstorlek benämner dem
+tool.transform.resample.nearest_neighbor = Närmaste granne
+tool.transform.resample.bilinear = Bilinjär
+tool.transform.resample.bicubic = Bikubisk
+
+# Beskärning
+tool.crop.name = Beskärning
+tool.crop.description = Dra ut det område som ska behållas och justera dess handtag; bekräfta (Retur) beskär dokumentet till det, avbryt (Esc) lämnar det orört.
+tool.crop.option.ratio = Förhållande
+tool.crop.option.delete_cropped = Ta bort beskurna pixlar
+tool.crop.choice.unconstrained = Fritt
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Beskär

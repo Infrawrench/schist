@@ -1,0 +1,54 @@
+# The vector tools (plugins/tools-vector): the pens, the two selection
+# arrows, the shapes and the custom shapes. Mode, Shape, Pixels and Path
+# come from common.lang.
+
+# Pens
+tool.pen.name = Pen
+tool.pen.description = Build a path: click for a corner point, drag to pull curve handles out of it, and click the first point to close. Commit turns the path into a shape layer.
+tool.pen.option.rubber_band = Rubber Band
+tool.pen.history.fill = Path Fill
+# The name a freeform or curvature pen gives the path it stores
+tool.pen.default_path_name = Path {n}
+tool.pen.freeform.name = Freeform Pen
+tool.pen.freeform.description = Drag a freehand line and it is fitted to a path, as loosely as the Fit option says.
+tool.pen.freeform.option.fit = Fit
+tool.pen.curvature.name = Curvature Pen
+tool.pen.curvature.description = Click a series of points and the path is curved smoothly through them.
+
+# The arrows
+tool.path_select.name = Path Selection
+tool.path_select.description = Click a path to select it, and drag to move the whole path.
+tool.direct_select.name = Direct Selection
+tool.direct_select.description = Drag an individual anchor point or its handles to reshape the path around it.
+
+# Shapes. Each has a tool name and a label, which names the layer and the
+# path a drag creates; the history entry for a live shape layer is the
+# label filled into tool.shape.history.layer.
+tool.shape.history.layer = {name} Layer
+tool.shape.rect.name = Rectangle Tool
+tool.shape.rect.label = Rectangle
+tool.shape.rect.description = Drag out a rectangle shape layer in the foreground colour; it stays vector and re-rasterizes when resized.
+tool.shape.ellipse.name = Ellipse Tool
+tool.shape.ellipse.label = Ellipse
+tool.shape.ellipse.description = Drag out an ellipse shape layer in the foreground colour.
+tool.shape.line.name = Line Tool
+tool.shape.line.label = Line
+tool.shape.line.description = Drag out a straight line shape layer in the foreground colour.
+tool.shape.line.option.weight = Weight
+tool.shape.line.option.arrow_start = Start
+tool.shape.line.option.arrow_end = End
+tool.shape.polygon.name = Polygon Tool
+tool.shape.polygon.label = Polygon
+tool.shape.polygon.description = Drag out a regular polygon shape layer in the foreground colour, with the number of sides from the options.
+tool.shape.polygon.option.sides = Sides
+
+# Custom shapes
+tool.shape.custom.name = Custom Shape
+tool.shape.custom.label = Custom Shape
+tool.shape.custom.description = Drag out one of the built-in preset shapes, picked with the Shape option.
+tool.shape.custom.choice.heart = Heart
+tool.shape.custom.choice.star = Star
+tool.shape.custom.choice.arrow = Arrow
+tool.shape.custom.choice.lightning = Lightning
+tool.shape.custom.choice.cross = Cross
+tool.shape.custom.choice.speech_bubble = Speech Bubble

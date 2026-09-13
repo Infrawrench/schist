@@ -1,0 +1,55 @@
+# Die Vektorwerkzeuge (plugins/tools-vector): die Zeichenstifte, die zwei
+# Auswahlpfeile, die Formen und die eigenen Formen. Die Begriffe folgen
+# dem deutschen Photoshop: Zeichenstift, Freiform-Zeichenstift,
+# Pfadauswahl, Direktauswahl, Linienzeichner, Eigene Form.
+
+# Zeichenstifte
+tool.pen.name = Zeichenstift
+tool.pen.description = Bauen Sie einen Pfad: Klicken setzt einen Eckpunkt, Ziehen zieht Kurvengriffe aus ihm heraus, ein Klick auf den ersten Punkt schließt ihn. Bestätigen macht aus dem Pfad eine Formebene.
+tool.pen.option.rubber_band = Gummiband
+tool.pen.history.fill = Pfad füllen
+# Der Name, den ein Freiform- oder Kurvenzeichenstift dem gespeicherten Pfad gibt
+tool.pen.default_path_name = Pfad {n}
+tool.pen.freeform.name = Freiform-Zeichenstift
+tool.pen.freeform.description = Ziehen Sie eine Freihandlinie, und sie wird an einen Pfad angepasst, so locker, wie es die Option Kurvenanpassung vorgibt.
+tool.pen.freeform.option.fit = Kurvenanpassung
+tool.pen.curvature.name = Kurvenzeichenstift
+tool.pen.curvature.description = Klicken Sie eine Reihe von Punkten, und der Pfad wird glatt durch sie gekrümmt.
+
+# Die Pfeile
+tool.path_select.name = Pfadauswahl
+tool.path_select.description = Klicken Sie auf einen Pfad, um ihn auszuwählen, und ziehen Sie, um den ganzen Pfad zu verschieben.
+tool.direct_select.name = Direktauswahl
+tool.direct_select.description = Ziehen Sie einen einzelnen Ankerpunkt oder seine Griffe, um den Pfad um ihn herum umzuformen.
+
+# Formen. Jede hat einen Werkzeugnamen und eine Bezeichnung, die die
+# Ebene und den Pfad benennt, die ein Ziehen anlegt; der Protokolleintrag
+# einer Formebene ist die Bezeichnung in tool.shape.history.layer.
+tool.shape.history.layer = {name}-Ebene
+tool.shape.rect.name = Rechteck-Werkzeug
+tool.shape.rect.label = Rechteck
+tool.shape.rect.description = Ziehen Sie eine Rechteck-Formebene in der Vordergrundfarbe auf; sie bleibt Vektor und wird beim Skalieren neu gerastert.
+tool.shape.ellipse.name = Ellipse-Werkzeug
+tool.shape.ellipse.label = Ellipse
+tool.shape.ellipse.description = Ziehen Sie eine Ellipsen-Formebene in der Vordergrundfarbe auf.
+tool.shape.line.name = Linienzeichner
+tool.shape.line.label = Linie
+tool.shape.line.description = Ziehen Sie eine Formebene mit einer geraden Linie in der Vordergrundfarbe auf.
+tool.shape.line.option.weight = Stärke
+tool.shape.line.option.arrow_start = Anfang
+tool.shape.line.option.arrow_end = Ende
+tool.shape.polygon.name = Polygon-Werkzeug
+tool.shape.polygon.label = Polygon
+tool.shape.polygon.description = Ziehen Sie eine regelmäßige Polygon-Formebene in der Vordergrundfarbe auf, mit der Seitenzahl aus den Optionen.
+tool.shape.polygon.option.sides = Seiten
+
+# Eigene Formen
+tool.shape.custom.name = Eigene Form
+tool.shape.custom.label = Eigene Form
+tool.shape.custom.description = Ziehen Sie eine der eingebauten vorgegebenen Formen auf, gewählt mit der Option Form.
+tool.shape.custom.choice.heart = Herz
+tool.shape.custom.choice.star = Stern
+tool.shape.custom.choice.arrow = Pfeil
+tool.shape.custom.choice.lightning = Blitz
+tool.shape.custom.choice.cross = Kreuz
+tool.shape.custom.choice.speech_bubble = Sprechblase

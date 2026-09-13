@@ -1,13 +1,14 @@
 //! The plug-in manager, including the Photoshop plug-in section.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 /// The third-party plugin manager: what loaded, what didn't and why, and
 /// per-plugin enable/disable.
 pub(super) fn plugin_manager(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let dir = schist_plugin_host_wasm::PluginManager::plugin_dir()
         .map(|p| p.display().to_string())
-        .unwrap_or_else(|| "(no config directory)".into());
+        .unwrap_or_else(|| t("dialog.no_config_dir").into());
     let rows: Vec<gpui::AnyElement> = ws
         .plugins
         .entries
@@ -15,14 +16,18 @@ pub(super) fn plugin_manager(ws: &mut Workspace, cx: &mut Context<Workspace>) ->
         .map(|entry| {
             let id = entry.id.clone();
             let enabled = entry.enabled;
-            let kind = match &entry.kind {
-                Some(schist_plugin_host_wasm::abi::PluginKind::Filter) => "filter",
-                Some(schist_plugin_host_wasm::abi::PluginKind::Codec) => "format",
-                None => "unavailable",
-            };
+            let kind = t(match &entry.kind {
+                Some(schist_plugin_host_wasm::abi::PluginKind::Filter) => {
+                    "dialog.plugins.kind_filter"
+                }
+                Some(schist_plugin_host_wasm::abi::PluginKind::Codec) => {
+                    "dialog.plugins.kind_format"
+                }
+                None => "dialog.plugins.kind_unavailable",
+            });
             let detail = match &entry.error {
                 Some(err) => err.to_string(),
-                None => format!("{kind} · {}", entry.id),
+                None => tf!("dialog.plugins.detail", kind = kind, id = entry.id),
             };
             let failed = entry.error.is_some();
             div()
@@ -52,7 +57,11 @@ pub(super) fn plugin_manager(ws: &mut Workspace, cx: &mut Context<Workspace>) ->
                     div().into_any_element()
                 } else {
                     ui::checkbox(
-                        if enabled { "Enabled" } else { "Disabled" },
+                        if enabled {
+                            t("common.enabled")
+                        } else {
+                            t("common.disabled")
+                        },
                         enabled,
                         move |ws, _cx| {
                             let id = id.clone();
@@ -74,14 +83,14 @@ pub(super) fn plugin_manager(ws: &mut Workspace, cx: &mut Context<Workspace>) ->
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(format!("Plugins load from {dir}")),
+                .child(tf!("dialog.plugins.load_from", dir = dir)),
         )
         .when(rows.is_empty(), |d| {
             d.child(
                 div()
                     .text_size(px(12.0))
                     .py_2()
-                    .child("No plugins installed yet."),
+                    .child(t("dialog.plugins.none")),
             )
         })
         .children(rows)
@@ -92,18 +101,18 @@ pub(super) fn plugin_manager(ws: &mut Workspace, cx: &mut Context<Workspace>) ->
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Install…",
+            t("dialog.plugins.install_ellipsis"),
             false,
             crate::keymap::install_plugin_dialog,
             cx,
         ))
         .child(ui::button(
-            "Close",
+            t("common.close"),
             true,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ));
-    ui::modal_frame("Plugins", 420.0, body, actions)
+    ui::modal_frame(t("dialog.plugins.title"), 420.0, body, actions)
 }
 
 /// The Photoshop plug-in half of the manager.
@@ -131,12 +140,16 @@ pub(super) fn photoshop_section(
         .flex()
         .flex_col()
         .pt_2()
-        .child(div().text_size(px(12.0)).child("Photoshop plug-ins"))
+        .child(
+            div()
+                .text_size(px(12.0))
+                .child(t("dialog.plugins.photoshop_heading")),
+        )
         .child(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(format!("Loaded from {folders}")),
+                .child(tf!("dialog.plugins.loaded_from", folders = folders)),
         )
         .into_any_element()];
 
@@ -144,8 +157,16 @@ pub(super) fn photoshop_section(
         let id = entry.id.clone();
         let enabled = entry.enabled;
         let detail = match &entry.blocker {
-            Some(why) => format!("{} · {why}", entry.architecture),
-            None => format!("{} · {}", entry.architecture, entry.id),
+            Some(why) => tf!(
+                "dialog.plugins.ps_detail",
+                architecture = entry.architecture,
+                detail = why
+            ),
+            None => tf!(
+                "dialog.plugins.ps_detail",
+                architecture = entry.architecture,
+                detail = entry.id
+            ),
         };
         let blocked = entry.blocker.is_some();
         out.push(
@@ -180,7 +201,11 @@ pub(super) fn photoshop_section(
                     div().into_any_element()
                 } else {
                     ui::checkbox(
-                        if enabled { "Enabled" } else { "Disabled" },
+                        if enabled {
+                            t("common.enabled")
+                        } else {
+                            t("common.disabled")
+                        },
                         enabled,
                         move |ws, _cx| {
                             let id = id.clone();

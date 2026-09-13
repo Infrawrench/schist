@@ -18,6 +18,7 @@
 //! camera's own JPEG in brightness with the highlights still there.
 
 use schist_core::{Document, RawDevelopment, RawSettings};
+use schist_i18n::{t, tf};
 use schist_plugin_api::CodecPlugin;
 
 pub use schist_codec_raw::demosaic::Quality as RawQuality;
@@ -153,7 +154,7 @@ impl CodecPlugin for RawCodec {
         "codec.raw"
     }
     fn name(&self) -> &'static str {
-        "Camera Raw"
+        t("codec.raw.name")
     }
     fn extensions(&self) -> &'static [&'static str] {
         RAW_EXTENSIONS
@@ -182,7 +183,10 @@ fn guarded<T>(f: impl FnOnce() -> anyhow::Result<T>) -> anyhow::Result<T> {
                 .map(|s| s.to_string())
                 .or_else(|| payload.downcast_ref::<String>().cloned())
                 .unwrap_or_else(|| "unknown panic".into());
-            Err(anyhow::anyhow!("native raw decoder panicked: {what}"))
+            Err(anyhow::anyhow!(tf!(
+                "codec.raw.msg.decoder_panicked",
+                what = what
+            )))
         }
     }
 }
@@ -194,6 +198,7 @@ mod native {
     use schist_codec_raw::{DevelopOptions, Orientation};
     use schist_color::Depth;
     use schist_core::Document;
+    use schist_i18n::t;
     use std::sync::Arc;
 
     /// Decode and develop through `schist-codec-raw`, then the
@@ -204,14 +209,14 @@ mod native {
     pub(super) fn develop_document(bytes: &[u8]) -> anyhow::Result<Document> {
         let developed = develop_rgba(bytes, RawSettings::default(), RawQuality::Best)?;
         let mut doc = crate::deep_document(
-            "Raw",
+            t("codec.raw.name"),
             developed.width as u32,
             developed.height as u32,
             &developed.rgba,
             Depth::Sixteen,
             None,
         )
-        .context("assembling document")?;
+        .context(t("codec.msg.assembling_document"))?;
         if let Some(layer) = doc.tree.layers.first_mut() {
             layer.raw = Some(Box::new(RawDevelopment {
                 source: Arc::from(bytes),
@@ -227,7 +232,7 @@ mod native {
         quality: RawQuality,
     ) -> anyhow::Result<DevelopedRaw> {
         let settings = settings.sanitized();
-        let raw = schist_codec_raw::decode(bytes).context("decoding")?;
+        let raw = schist_codec_raw::decode(bytes).context(t("codec.raw.msg.decoding"))?;
         if raw.color_matrix.is_none() {
             log::warn!(
                 "raw: no colour matrix for {} {}; developing in camera RGB",
@@ -240,7 +245,8 @@ mod native {
             white_balance: Some(adjusted_white_balance(raw.wb_coeffs, settings)),
             ..DevelopOptions::default()
         };
-        let developed = schist_codec_raw::develop(&raw, &options).context("developing")?;
+        let developed =
+            schist_codec_raw::develop(&raw, &options).context(t("codec.raw.msg.developing"))?;
         let mut rgba = Vec::with_capacity(developed.rgb.len() / 3 * 4);
         for px in developed.rgb.as_chunks::<3>().0 {
             rgba.extend_from_slice(&[px[0], px[1], px[2], 1.0]);
@@ -271,11 +277,13 @@ mod native {
 
     /// The embedded JPEG, decoded and turned upright.
     pub(super) fn embedded_preview(bytes: &[u8]) -> anyhow::Result<Option<image::RgbaImage>> {
-        let Some(jpeg) = schist_codec_raw::preview(bytes).context("finding preview")? else {
+        let Some(jpeg) =
+            schist_codec_raw::preview(bytes).context(t("codec.raw.msg.finding_preview"))?
+        else {
             return Ok(None);
         };
         let img = image::load_from_memory_with_format(&jpeg, image::ImageFormat::Jpeg)
-            .context("decoding embedded preview")?
+            .context(t("codec.raw.msg.decoding_preview"))?
             .into_rgba8();
         let upright = match schist_codec_raw::orientation(bytes) {
             Orientation::Rotate180 => image::imageops::rotate180(&img),

@@ -114,7 +114,7 @@ rm -f "$OUT"/pkg/*.d.ts
 echo '-- assets'
 cp web/index.html web/loader.js "$OUT/"
 cp crates/app/assets/icons/*.svg "$OUT/assets/icons/"
-cp web/fonts/*.ttf web/fonts/LICENSE-* "$OUT/assets/fonts/"
+cp web/fonts/*.ttf web/fonts/*.otf web/fonts/LICENSE-* "$OUT/assets/fonts/"
 cp crates/neural/models/*.onnx "$OUT/assets/models/"
 cp assets/logo/schist.svg "$OUT/assets/logo/"
 
@@ -127,8 +127,15 @@ wasm = sorted(f for f in os.listdir(f"{out}/pkg") if ".wasm." in f)
 manifest = {
     "js": "pkg/schist.js",
     "wasm": [{"file": f"pkg/{f}", "bytes": size(f"pkg/{f}")} for f in wasm],
+    # A font with a `lang` is fetched only for that language: the
+    # Chinese face (tools/web-cjk-font.sh) is 1.5 MB no other reader
+    # needs. Everything else is fetched by everyone.
     "fonts": [
-        {"file": f"assets/fonts/{f}", "bytes": size(f"assets/fonts/{f}")}
+        {
+            "file": f"assets/fonts/{f}",
+            "bytes": size(f"assets/fonts/{f}"),
+            **({"lang": "zh"} if "SC" in f else {}),
+        }
         for f in sorted(os.listdir(f"{out}/assets/fonts"))
         if f.endswith((".ttf", ".otf"))
     ],

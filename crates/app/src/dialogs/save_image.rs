@@ -2,6 +2,7 @@
 //! chosen size.
 
 use super::*;
+use schist_i18n::{t, tf};
 use std::path::PathBuf;
 
 #[allow(clippy::too_many_arguments)]
@@ -46,12 +47,13 @@ pub(super) fn save_image_dialog(
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
                 .pb_1()
-                .child(SharedString::from(format!(
-                    "{name} — the edit, if it has one; the original is never touched."
+                .child(SharedString::from(tf!(
+                    "dialog.save_image.note",
+                    name = name
                 ))),
         )
         .child(ui::field_row(
-            "Format",
+            t("dialog.export.format"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
@@ -76,7 +78,7 @@ pub(super) fn save_image_dialog(
         body = body.child(param_slider(
             SliderSpec {
                 id: "save-image-quality",
-                label: "Quality",
+                label: t("common.quality"),
                 value: options.quality as f32,
                 min: 1.0,
                 max: 100.0,
@@ -97,19 +99,19 @@ pub(super) fn save_image_dialog(
     // means little; "1512 × 2016" is a decision.
     let percent = (scale * 100.0).round();
     let scale_label = match size {
-        Some((w, h)) => format!(
-            "{}% \u{2192} {} \u{d7} {}",
-            percent,
-            ((w as f32 * scale).round() as u32).max(1),
-            ((h as f32 * scale).round() as u32).max(1)
+        Some((w, h)) => tf!(
+            "dialog.save_image.scale_to",
+            percent = percent,
+            w = ((w as f32 * scale).round() as u32).max(1),
+            h = ((h as f32 * scale).round() as u32).max(1)
         ),
-        None => format!("{percent}%"),
+        None => tf!("common.n_percent", n = percent),
     };
     body = body
         .child(param_slider(
             SliderSpec {
                 id: "save-image-scale",
-                label: "Scale",
+                label: t("common.scale"),
                 value: percent,
                 min: 10.0,
                 max: 100.0,
@@ -138,13 +140,13 @@ pub(super) fn save_image_dialog(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "Save…",
+            t("dialog.save_ellipsis"),
             true,
             move |ws, window, cx| {
                 let Some(Modal::SaveImageAs {
@@ -162,5 +164,5 @@ pub(super) fn save_image_dialog(
             },
             cx,
         ));
-    ui::modal_frame("Save Image As", 380.0, body, actions)
+    ui::modal_frame(t("dialog.save_image.title"), 380.0, body, actions)
 }

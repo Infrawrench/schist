@@ -2,6 +2,7 @@
 
 use super::*;
 use crate::workspace::SideTab;
+use schist_i18n::{t, tf};
 use schist_plugin_api::{OptionKind, OptionValue, ToolOption};
 
 fn options(ws: &Workspace) -> Vec<ToolOption> {
@@ -115,10 +116,7 @@ fn number(
             ..Default::default()
         })
         .tooltip(
-            format!(
-                "{} · Type a value, or use ↑ / ↓ (Shift for larger steps)",
-                option.label
-            ),
+            tf!("panel.character.number_tip", label = option.label),
             None,
         )
         .on_focus(cx.listener(move |ws, _e, _w, cx| {
@@ -132,9 +130,9 @@ fn number(
 fn align_buttons(current: usize, panel: bool, cx: &mut Context<Workspace>) -> gpui::Div {
     div().flex().items_center().gap(px(1.0)).children(
         [
-            ("type-align-left", "Align left"),
-            ("type-align-center", "Align center"),
-            ("type-align-right", "Align right"),
+            ("type-align-left", t("panel.character.align_left")),
+            ("type-align-center", t("panel.character.align_center")),
+            ("type-align-right", t("panel.character.align_right")),
         ]
         .into_iter()
         .enumerate()
@@ -181,11 +179,8 @@ pub(super) fn type_options_bar(
         .border_b_1()
         .border_color(gpui::rgb(palette().panel_edge))
         .child(
-            compact_button("type-tool-indicator", "Type tool (T)", false).child(icon(
-                "type",
-                17.0,
-                palette().text,
-            )),
+            compact_button("type-tool-indicator", t("panel.character.type_tool"), false)
+                .child(icon("type", 17.0, palette().text)),
         )
         .child(separator())
         .child(choice(
@@ -217,7 +212,7 @@ pub(super) fn type_options_bar(
         ))
         .child(separator())
         .child(
-            compact_button("type-color", "Text color", false)
+            compact_button("type-color", t("panel.character.text_color"), false)
                 .on_click(cx.listener(|ws, _e, _w, cx| {
                     ws.commit_focused_field();
                     ws.open_color_picker(ColorTarget::Foreground, cx);
@@ -236,7 +231,7 @@ pub(super) fn type_options_bar(
         .child(
             compact_button(
                 "show-character",
-                "Character panel",
+                t("panel.character.panel"),
                 ws.side_tab.unwrap_or(SideTab::Character) == SideTab::Character,
             )
             .on_click(cx.listener(|ws, _e, _w, cx| {
@@ -254,7 +249,7 @@ pub(super) fn type_options_bar(
         )
         .child(separator())
         .child(
-            compact_button("type-cancel", "Cancel text edit", false)
+            compact_button("type-cancel", t("panel.character.cancel_edit"), false)
                 .disabled(!editing)
                 .on_click(cx.listener(move |ws, _e, _w, cx| {
                     if editing {
@@ -265,7 +260,7 @@ pub(super) fn type_options_bar(
                 .child(icon("close", 16.0, palette().text)),
         )
         .child(
-            compact_button("type-commit", "Commit text edit", false)
+            compact_button("type-commit", t("panel.character.commit_edit"), false)
                 .disabled(!editing)
                 .on_click(cx.listener(move |ws, _e, _w, cx| {
                     if editing {
@@ -329,7 +324,7 @@ pub(super) fn character_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -
         .child(
             row()
                 .child(labeled(
-                    "Size",
+                    t("common.size"),
                     number(
                         ws,
                         option(&options, "type-size"),
@@ -339,7 +334,7 @@ pub(super) fn character_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -
                     ),
                 ))
                 .child(labeled(
-                    "Leading",
+                    t("panel.character.leading"),
                     number(
                         ws,
                         option(&options, "type-leading"),
@@ -352,7 +347,7 @@ pub(super) fn character_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -
         .child(
             row()
                 .child(labeled(
-                    "Tracking",
+                    t("panel.character.tracking"),
                     number(
                         ws,
                         option(&options, "type-tracking"),
@@ -362,12 +357,12 @@ pub(super) fn character_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -
                     ),
                 ))
                 .child(labeled(
-                    "Alignment",
+                    t("panel.character.alignment"),
                     align_buttons(option(&options, "type-align").value.index(), true, cx)
                         .into_any_element(),
                 )),
         )
-        .child(section("OpenType"))
+        .child(section(t("panel.character.opentype")))
         .child(
             row().children(
                 [
@@ -393,38 +388,41 @@ pub(super) fn character_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -
                 }),
             ),
         )
-        .child(section("Text on a path"))
+        .child(section(t("panel.character.text_on_path")))
         .child(
             div().flex().gap_1().children(
-                [(false, "Straight"), (true, "On path")]
-                    .into_iter()
-                    .map(|(on, label)| {
-                        compact_button(
-                            if on {
-                                "character-on-path"
-                            } else {
-                                "character-straight"
-                            },
-                            if on {
-                                "Use a copy of the active path"
-                            } else {
-                                "Use the text layer's ordinary baseline"
-                            },
-                            path == on,
-                        )
-                        .w(px(120.0))
-                        .text_size(px(11.0))
-                        .on_click(cx.listener(move |ws, _e, _w, cx| {
-                            ws.commit_focused_field();
-                            ws.set_tool_option("type-path", OptionValue::Bool(on), cx);
-                        }))
-                        .child(label)
-                    }),
+                [
+                    (false, t("panel.character.straight")),
+                    (true, t("panel.character.on_path")),
+                ]
+                .into_iter()
+                .map(|(on, label)| {
+                    compact_button(
+                        if on {
+                            "character-on-path"
+                        } else {
+                            "character-straight"
+                        },
+                        if on {
+                            t("panel.character.on_path_tip")
+                        } else {
+                            t("panel.character.straight_tip")
+                        },
+                        path == on,
+                    )
+                    .w(px(120.0))
+                    .text_size(px(11.0))
+                    .on_click(cx.listener(move |ws, _e, _w, cx| {
+                        ws.commit_focused_field();
+                        ws.set_tool_option("type-path", OptionValue::Bool(on), cx);
+                    }))
+                    .child(label)
+                }),
             ),
         );
     if path {
         panel = panel.child(labeled(
-            "Path offset",
+            t("panel.character.path_offset"),
             number(
                 ws,
                 option(&options, "type-path-offset"),

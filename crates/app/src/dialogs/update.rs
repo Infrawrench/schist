@@ -1,6 +1,7 @@
 //! The update-available prompt and its download progress.
 
 use super::*;
+use schist_i18n::{t, tf};
 use schist_ui::ProgressBar;
 
 /// A newer release than this build.
@@ -23,32 +24,27 @@ pub(super) fn update_available(
         .flex_col()
         .gap_2()
         .text_size(px(12.0))
-        .child(format!(
-            "Schist {} is available. This copy is {}.",
-            update.version,
-            crate::update::current_version()
+        .child(tf!(
+            "dialog.update.available",
+            version = update.version,
+            current = crate::update::current_version()
         ));
     let body = match (&installer, &progress) {
         (_, Some(UpdateProgress::Downloading { received, total })) => body
-            .child(format!(
-                "Downloading\u{2026} {} of {}",
-                megabytes(*received),
-                megabytes(*total)
+            .child(tf!(
+                "dialog.downloading_of",
+                got = megabytes(*received),
+                total = megabytes(*total)
             ))
             .child(progress_bar(*received as f32 / (*total).max(1) as f32)),
         (_, Some(UpdateProgress::Installing)) => body
-            .child("Installing the update\u{2026}".to_string())
+            .child(t("dialog.update.installing").to_string())
             .child(progress_bar(1.0)),
-        (Some(installer), None) => body.child(format!(
-            "Schist can download it ({}) and install it over this copy.",
-            megabytes(installer.size)
+        (Some(installer), None) => body.child(tf!(
+            "dialog.update.can_install",
+            size = megabytes(installer.size)
         )),
-        (None, None) => body.child(
-            "This copy came from somewhere that owns it \u{2014} a package \
-             manager, an AppImage, a build of your own \u{2014} so it updates \
-             the way it was installed."
-                .to_string(),
-        ),
+        (None, None) => body.child(t("dialog.update.external").to_string()),
     };
 
     let actions = div().flex().flex_row().gap_2();
@@ -57,14 +53,14 @@ pub(super) fn update_available(
         // moment and there is no half of it to back out to.
         Some(UpdateProgress::Installing) => actions,
         Some(UpdateProgress::Downloading { .. }) => actions.child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _window, cx| ws.cancel_update(cx),
             cx,
         )),
         None => {
             let actions = actions.child(ui::button(
-                "Later",
+                t("dialog.update.later"),
                 false,
                 |ws, _window, cx| ws.close_modal(cx),
                 cx,
@@ -72,19 +68,19 @@ pub(super) fn update_available(
             match installer {
                 Some(_) => actions
                     .child(ui::button(
-                        "Release Notes",
+                        t("dialog.update.release_notes"),
                         false,
                         move |_ws, _window, cx| cx.open_url(&page),
                         cx,
                     ))
                     .child(ui::button(
-                        "Update and Restart",
+                        t("dialog.update.update_restart"),
                         true,
                         move |ws, _window, cx| ws.start_update(update.clone(), cx),
                         cx,
                     )),
                 None => actions.child(ui::button(
-                    "Open Release Page",
+                    t("dialog.update.open_page"),
                     true,
                     move |_ws, _window, cx| cx.open_url(&page),
                     cx,
@@ -92,7 +88,7 @@ pub(super) fn update_available(
             }
         }
     };
-    ui::modal_frame("Update Available", UPDATE_DIALOG_WIDTH, body, actions)
+    ui::modal_frame(t("dialog.update.title"), UPDATE_DIALOG_WIDTH, body, actions)
 }
 
 /// The update dialog's width, which its progress bar has to match.
@@ -100,7 +96,10 @@ pub(super) const UPDATE_DIALOG_WIDTH: f32 = 420.0;
 
 /// A download's size, in the megabytes a release page would quote.
 pub(super) fn megabytes(bytes: u64) -> String {
-    format!("{:.1} MB", bytes as f64 / 1_000_000.0)
+    tf!(
+        "common.megabytes",
+        n = format!("{:.1}", bytes as f64 / 1_000_000.0)
+    )
 }
 
 /// A filled bar, `fraction` of the way across the dialog.

@@ -1,0 +1,44 @@
+# Arbetsytan runt bilden: statusradens svar och historikposter. Termer
+# efter svenska Photoshop (Linje, Fyll, Innehållsanpassad fyllning,
+# Stödlinjer, Anteckning).
+
+# Statusraden
+workspace.canvas.rotate_view_degrees = Rotera vyn {degrees}°
+workspace.canvas.view_reset = Vyn återställd
+workspace.canvas.notes_on = Anteckningar på
+workspace.canvas.notes_off = Anteckningar av
+workspace.canvas.rulers_on = Linjaler på
+workspace.canvas.rulers_off = Linjaler av
+workspace.canvas.grid_on = Stödraster på
+workspace.canvas.grid_off = Stödraster av
+workspace.canvas.guides_on = Stödlinjer på
+workspace.canvas.guides_off = Stödlinjer av
+workspace.canvas.extras_on = Extrafunktioner på
+workspace.canvas.extras_off = Extrafunktioner av
+workspace.canvas.snap_on = Fäst på
+workspace.canvas.snap_off = Fäst av
+workspace.canvas.guides_cleared = Stödlinjer borttagna
+workspace.canvas.no_path = Ingen bana att använda
+workspace.canvas.path_empty = Banan är tom
+workspace.canvas.stroke_needs_selection = Linje kräver en markering
+workspace.canvas.nothing_to_stroke = Ingen linje att rita
+workspace.canvas.content_aware_fill_needs_selection = Innehållsanpassad fyllning kräver en markering
+workspace.canvas.content_aware_fill_needs_pixel_layer = Innehållsanpassad fyllning kräver ett pixellager
+workspace.canvas.color_range_needs_pixel_layer = Färgområde kräver ett pixellager
+workspace.canvas.nothing_to_adjust = Inget att justera
+workspace.canvas.nothing_to_trim = Inget att beskära
+workspace.canvas.trimmed = Beskuret
+workspace.canvas.indexed_not_supported = Indexerad färg stöds inte ännu
+workspace.canvas.opacity_percent = Opacitet: {n} %
+
+# Historik
+workspace.history.stroke = Linje
+workspace.history.fill = Fyll
+workspace.history.content_aware_scale = Innehållsanpassad skalning
+workspace.history.filter_gallery = Filtergalleri
+workspace.history.color_range = Färgområde
+workspace.history.move_layer = Flytta lager
+workspace.history.move_layers = Flytta lager
+workspace.history.layer_opacity = Lageropacitet
+workspace.history.delete_note = Ta bort anteckning
+workspace.history.edit_note = Redigera anteckning

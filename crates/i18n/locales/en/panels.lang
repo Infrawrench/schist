@@ -1,0 +1,104 @@
+# The chrome around the canvas (crates/app/src/panels): the side
+# panels, the toolbar and its options bar, the status bar, the title
+# bar, the document tabs and the right-click menus; and the file
+# dialogs in crates/app/src/keymap.rs. Panel names follow Photoshop's
+# own localisations. Titles that another area already has — Layers,
+# Color, Notes, Opacity, Size — are reused from common.lang and
+# menu.lang rather than repeated here.
+
+# The modifier keys as a menu's shortcut hint spells them
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Status bar: the document's title and size, with a dot when unsaved
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Document tabs and the window title
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigator
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Actual Pixels
+
+# Color panel and its right-click menu
+panel.color.picker = Picker…
+panel.color.swap = Swap Colors
+panel.color.reset = Reset to Black and White
+
+# Layers panel: the row's right-click menu and the history entry the
+# visibility eye writes
+panel.layers.blending_options = Blending Options…
+panel.layers.properties = Layer Properties…
+panel.layers.show_hide = Show/Hide Layer
+panel.layers.toggle_visibility = Toggle Visibility
+
+# History panel
+panel.history.title = History
+panel.history.opened = Opened
+
+# Info tab: what the photo's EXIF says
+panel.info.title = Info
+panel.info.camera = Camera
+panel.info.lens = Lens
+panel.info.iso = ISO {iso}
+panel.info.bias = Bias
+panel.info.flash_fired = flash fired
+panel.info.no_flash = no flash
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering} metering
+panel.info.taken = Taken
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientation {o}
+panel.info.software = Software
+panel.info.where = Where
+
+# Notes panel and the Note tool's options
+panel.notes.author = Author
+panel.notes.clear_all = Clear All
+panel.notes.unattributed = Unattributed
+panel.notes.empty = Click the canvas to leave a note.
+panel.notes.placeholder = Click to write
+
+# Character panel and the Type tool's options bar
+panel.character.title = Character
+panel.character.type_tool = Type tool (T)
+panel.character.align_left = Align left
+panel.character.align_center = Align center
+panel.character.align_right = Align right
+panel.character.text_color = Text color
+panel.character.panel = Character panel
+panel.character.cancel_edit = Cancel text edit
+panel.character.commit_edit = Commit text edit
+panel.character.number_tip = {label} · Type a value, or use ↑ / ↓ (Shift for larger steps)
+panel.character.leading = Leading
+panel.character.tracking = Tracking
+panel.character.alignment = Alignment
+panel.character.opentype = OpenType
+panel.character.text_on_path = Text on a path
+panel.character.straight = Straight
+panel.character.on_path = On path
+panel.character.straight_tip = Use the text layer's ordinary baseline
+panel.character.on_path_tip = Use a copy of the active path
+panel.character.path_offset = Path offset
+
+# AI sidebar
+panel.ai.title = AI
+panel.ai.empty_editor = Ask for an edit and watch it happen on the canvas. The agent drives the same tools, filters and commands as the menus, one undo step each.
+panel.ai.empty_gallery = Ask about your photos and watch it happen in the gallery: the agent can search, look at thumbnails, select, sort into buckets, and open a photo in the editor.
+panel.ai.thinking = thinking…
+panel.ai.placeholder_editor = Ask about or edit this document
+panel.ai.placeholder_gallery = Ask about your photos
+panel.ai.send = Send
+panel.ai.stop = Stop
+panel.ai.fetching_models = Asking the CLI for its models…
+panel.ai.no_models = No models match
+panel.ai.search_models = Search models…
+
+# File dialogs (keymap.rs)
+panel.keymap.install_plugin = Install Plugin
+panel.keymap.save_as_prompt = Save as — the extension picks the format:

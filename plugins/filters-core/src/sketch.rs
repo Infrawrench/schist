@@ -16,18 +16,19 @@ use crate::util::{
     blur_plane, edges, fbm, from_luma_between, gradient, luma_map, streak, surface, value_noise,
 };
 use crate::{choice, context_filter, param};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterContext, FilterParam, FilterPlugin, FilterValues};
 
 /// Photoshop's eight light positions, as a direction to light from.
-pub const LIGHTS: &[&str] = &[
-    "Top",
-    "Top Right",
-    "Right",
-    "Bottom Right",
-    "Bottom",
-    "Bottom Left",
-    "Left",
-    "Top Left",
+pub static LIGHTS: &[&str] = &[
+    "filter.choice.light.top",
+    "filter.choice.light.top_right",
+    "filter.choice.light.right",
+    "filter.choice.light.bottom_right",
+    "filter.choice.light.bottom",
+    "filter.choice.light.bottom_left",
+    "filter.choice.light.left",
+    "filter.choice.light.top_left",
 ];
 
 pub fn light_of(pick: f32) -> (f32, f32) {
@@ -50,12 +51,19 @@ fn relief(plane: &[f32], w: usize, h: usize, light: (f32, f32), strength: f32) -
 context_filter!(
     BasRelief,
     "filter.bas_relief",
-    "Bas Relief",
-    "Sketch",
+    t("filter.bas_relief.name"),
+    t("filter.category.sketch"),
     [
-        param("detail", "Detail", 1.0, 15.0, 13.0, ""),
-        param("smoothness", "Smoothness", 1.0, 15.0, 3.0, ""),
-        choice("light", "Light", LIGHTS, 3)
+        param("detail", t("filter.param.detail"), 1.0, 15.0, 13.0, ""),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            15.0,
+            3.0,
+            ""
+        ),
+        choice("light", t("filter.param.light"), choices(LIGHTS), 3)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Carved shallowly into stone: the picture as a height field, lit
@@ -73,12 +81,33 @@ context_filter!(
 context_filter!(
     ChalkAndCharcoal,
     "filter.chalk_charcoal",
-    "Chalk & Charcoal",
-    "Sketch",
+    t("filter.chalk_charcoal.name"),
+    t("filter.category.sketch"),
     [
-        param("charcoal", "Charcoal Area", 0.0, 20.0, 6.0, ""),
-        param("chalk", "Chalk Area", 0.0, 20.0, 6.0, ""),
-        param("pressure", "Stroke Pressure", 0.0, 5.0, 1.0, "")
+        param(
+            "charcoal",
+            t("filter.chalk_charcoal.param.charcoal"),
+            0.0,
+            20.0,
+            6.0,
+            ""
+        ),
+        param(
+            "chalk",
+            t("filter.chalk_charcoal.param.chalk"),
+            0.0,
+            20.0,
+            6.0,
+            ""
+        ),
+        param(
+            "pressure",
+            t("filter.param.stroke_pressure"),
+            0.0,
+            5.0,
+            1.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Charcoal in the shadows, chalk in the highlights, mid grey
@@ -112,12 +141,26 @@ context_filter!(
 context_filter!(
     Charcoal,
     "filter.charcoal",
-    "Charcoal",
-    "Sketch",
+    t("filter.charcoal.name"),
+    t("filter.category.sketch"),
     [
-        param("thickness", "Charcoal Thickness", 1.0, 7.0, 1.0, ""),
-        param("detail", "Detail", 0.0, 5.0, 5.0, ""),
-        param("balance", "Light/Dark Balance", 0.0, 100.0, 50.0, "")
+        param(
+            "thickness",
+            t("filter.charcoal.param.thickness"),
+            1.0,
+            7.0,
+            1.0,
+            ""
+        ),
+        param("detail", t("filter.param.detail"), 0.0, 5.0, 5.0, ""),
+        param(
+            "balance",
+            t("filter.param.light_dark_balance"),
+            0.0,
+            100.0,
+            50.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Smudged charcoal on paper: the edges are where the stick
@@ -145,11 +188,18 @@ context_filter!(
 context_filter!(
     Chrome,
     "filter.chrome",
-    "Chrome",
-    "Sketch",
+    t("filter.chrome.name"),
+    t("filter.category.sketch"),
     [
-        param("detail", "Detail", 0.0, 10.0, 4.0, ""),
-        param("smoothness", "Smoothness", 0.0, 10.0, 7.0, "")
+        param("detail", t("filter.param.detail"), 0.0, 10.0, 4.0, ""),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            0.0,
+            10.0,
+            7.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Polished metal: the picture as a surface, lit, and then its
@@ -174,14 +224,40 @@ context_filter!(
 context_filter!(
     ConteCrayon,
     "filter.conte_crayon",
-    "Cont\u{e9} Crayon",
-    "Sketch",
+    t("filter.conte_crayon.name"),
+    t("filter.category.sketch"),
     [
-        param("foreground", "Foreground Level", 1.0, 15.0, 8.0, ""),
-        param("background", "Background Level", 1.0, 15.0, 8.0, ""),
-        choice("texture", "Texture", crate::artistic::SURFACES, 0),
-        param("scaling", "Scaling", 50.0, 200.0, 100.0, "%"),
-        param("relief", "Relief", 0.0, 50.0, 20.0, "")
+        param(
+            "foreground",
+            t("filter.conte_crayon.param.foreground"),
+            1.0,
+            15.0,
+            8.0,
+            ""
+        ),
+        param(
+            "background",
+            t("filter.conte_crayon.param.background"),
+            1.0,
+            15.0,
+            8.0,
+            ""
+        ),
+        choice(
+            "texture",
+            t("filter.param.texture"),
+            choices(crate::artistic::SURFACES),
+            0
+        ),
+        param(
+            "scaling",
+            t("filter.param.scaling"),
+            50.0,
+            200.0,
+            100.0,
+            "%"
+        ),
+        param("relief", t("filter.param.relief"), 0.0, 50.0, 20.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // A dense, soft crayon that only touches the high points of the
@@ -219,12 +295,31 @@ context_filter!(
 context_filter!(
     GraphicPen,
     "filter.graphic_pen",
-    "Graphic Pen",
-    "Sketch",
+    t("filter.graphic_pen.name"),
+    t("filter.category.sketch"),
     [
-        param("length", "Stroke Length", 1.0, 15.0, 15.0, ""),
-        param("balance", "Light/Dark Balance", 0.0, 100.0, 50.0, ""),
-        choice("direction", "Stroke Direction", crate::brush::DIRECTIONS, 0)
+        param(
+            "length",
+            t("filter.param.stroke_length"),
+            1.0,
+            15.0,
+            15.0,
+            ""
+        ),
+        param(
+            "balance",
+            t("filter.param.light_dark_balance"),
+            0.0,
+            100.0,
+            50.0,
+            ""
+        ),
+        choice(
+            "direction",
+            t("filter.param.stroke_direction"),
+            choices(crate::brush::DIRECTIONS),
+            0
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // One pen, one direction, no grey: the tone is carried entirely
@@ -253,17 +348,26 @@ context_filter!(
 );
 
 /// The three patterns Photoshop's halftone offers.
-const HALFTONE_PATTERNS: &[&str] = &["Circle", "Dot", "Line"];
+static HALFTONE_PATTERNS: &[&str] = &[
+    "filter.halftone_pattern.choice.circle",
+    "filter.halftone_pattern.choice.dot",
+    "filter.halftone_pattern.choice.line",
+];
 
 context_filter!(
     HalftonePattern,
     "filter.halftone_pattern",
-    "Halftone Pattern",
-    "Sketch",
+    t("filter.halftone_pattern.name"),
+    t("filter.category.sketch"),
     [
-        param("size", "Size", 1.0, 12.0, 1.0, ""),
-        param("contrast", "Contrast", 0.0, 50.0, 5.0, ""),
-        choice("pattern", "Pattern Type", HALFTONE_PATTERNS, 1)
+        param("size", t("common.size"), 1.0, 12.0, 1.0, ""),
+        param("contrast", t("common.contrast"), 0.0, 50.0, 5.0, ""),
+        choice(
+            "pattern",
+            t("filter.halftone_pattern.param.pattern"),
+            choices(HALFTONE_PATTERNS),
+            1
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // A screen, as a newspaper would print it -- but drawn *over* the
@@ -304,12 +408,26 @@ context_filter!(
 context_filter!(
     NotePaper,
     "filter.note_paper",
-    "Note Paper",
-    "Sketch",
+    t("filter.note_paper.name"),
+    t("filter.category.sketch"),
     [
-        param("balance", "Image Balance", 0.0, 50.0, 25.0, ""),
-        param("graininess", "Graininess", 0.0, 20.0, 10.0, ""),
-        param("relief", "Relief", 0.0, 25.0, 11.0, "")
+        param(
+            "balance",
+            t("filter.param.image_balance"),
+            0.0,
+            50.0,
+            25.0,
+            ""
+        ),
+        param(
+            "graininess",
+            t("filter.param.graininess"),
+            0.0,
+            20.0,
+            10.0,
+            ""
+        ),
+        param("relief", t("filter.param.relief"), 0.0, 25.0, 11.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Handmade paper with the image pressed into it: the picture is
@@ -338,11 +456,18 @@ context_filter!(
 context_filter!(
     Photocopy,
     "filter.photocopy",
-    "Photocopy",
-    "Sketch",
+    t("filter.photocopy.name"),
+    t("filter.category.sketch"),
     [
-        param("detail", "Detail", 1.0, 24.0, 7.0, ""),
-        param("darkness", "Darkness", 1.0, 50.0, 8.0, "")
+        param("detail", t("filter.param.detail"), 1.0, 24.0, 7.0, ""),
+        param(
+            "darkness",
+            t("filter.photocopy.param.darkness"),
+            1.0,
+            50.0,
+            8.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // A bad photocopy: the machine holds the edges and the deepest
@@ -368,12 +493,26 @@ context_filter!(
 context_filter!(
     Plaster,
     "filter.plaster",
-    "Plaster",
-    "Sketch",
+    t("filter.plaster.name"),
+    t("filter.category.sketch"),
     [
-        param("balance", "Image Balance", 0.0, 50.0, 25.0, ""),
-        param("smoothness", "Smoothness", 1.0, 15.0, 2.0, ""),
-        choice("light", "Light", LIGHTS, 5)
+        param(
+            "balance",
+            t("filter.param.image_balance"),
+            0.0,
+            50.0,
+            25.0,
+            ""
+        ),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            15.0,
+            2.0,
+            ""
+        ),
+        choice("light", t("filter.param.light"), choices(LIGHTS), 5)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Poured and set: the dark half of the picture rises out of the
@@ -405,12 +544,33 @@ context_filter!(
 context_filter!(
     Reticulation,
     "filter.reticulation",
-    "Reticulation",
-    "Sketch",
+    t("filter.reticulation.name"),
+    t("filter.category.sketch"),
     [
-        param("density", "Density", 0.0, 50.0, 12.0, ""),
-        param("black", "Black Level", 0.0, 50.0, 40.0, ""),
-        param("white", "White Level", 0.0, 50.0, 5.0, "")
+        param(
+            "density",
+            t("filter.reticulation.param.density"),
+            0.0,
+            50.0,
+            12.0,
+            ""
+        ),
+        param(
+            "black",
+            t("filter.reticulation.param.black"),
+            0.0,
+            50.0,
+            40.0,
+            ""
+        ),
+        param(
+            "white",
+            t("filter.reticulation.param.white"),
+            0.0,
+            50.0,
+            5.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Film emulsion that has cracked and clumped -- what happens when
@@ -439,11 +599,25 @@ context_filter!(
 context_filter!(
     Stamp,
     "filter.stamp",
-    "Stamp",
-    "Sketch",
+    t("filter.stamp.name"),
+    t("filter.category.sketch"),
     [
-        param("balance", "Light/Dark Balance", 0.0, 50.0, 25.0, ""),
-        param("smoothness", "Smoothness", 1.0, 50.0, 5.0, "")
+        param(
+            "balance",
+            t("filter.param.light_dark_balance"),
+            0.0,
+            50.0,
+            25.0,
+            ""
+        ),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            50.0,
+            5.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // A rubber stamp: one threshold, and enough smoothing first that
@@ -463,12 +637,26 @@ context_filter!(
 context_filter!(
     TornEdges,
     "filter.torn_edges",
-    "Torn Edges",
-    "Sketch",
+    t("filter.torn_edges.name"),
+    t("filter.category.sketch"),
     [
-        param("balance", "Image Balance", 0.0, 50.0, 25.0, ""),
-        param("smoothness", "Smoothness", 1.0, 15.0, 9.0, ""),
-        param("contrast", "Contrast", 1.0, 25.0, 12.0, "")
+        param(
+            "balance",
+            t("filter.param.image_balance"),
+            0.0,
+            50.0,
+            25.0,
+            ""
+        ),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            15.0,
+            9.0,
+            ""
+        ),
+        param("contrast", t("common.contrast"), 1.0, 25.0, 12.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Stamp, but the threshold wanders: the boundary is pushed about
@@ -501,12 +689,19 @@ context_filter!(
 context_filter!(
     WaterPaper,
     "filter.water_paper",
-    "Water Paper",
-    "Sketch",
+    t("filter.water_paper.name"),
+    t("filter.category.sketch"),
     [
-        param("fiber", "Fiber Length", 3.0, 50.0, 15.0, ""),
-        param("brightness", "Brightness", 0.0, 100.0, 60.0, ""),
-        param("contrast", "Contrast", 0.0, 100.0, 80.0, "")
+        param(
+            "fiber",
+            t("filter.water_paper.param.fiber"),
+            3.0,
+            50.0,
+            15.0,
+            ""
+        ),
+        param("brightness", t("common.brightness"), 0.0, 100.0, 60.0, ""),
+        param("contrast", t("common.contrast"), 0.0, 100.0, 80.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, _ctx: &FilterContext| {
         // Painted onto fibrous, wet paper: the colour runs along the

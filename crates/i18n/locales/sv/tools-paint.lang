@@ -1,0 +1,85 @@
+# Målarverktygen (plugins/tools-paint). Termerna följer svenska Photoshop.
+
+# Pensel
+tool.brush.name = Pensel
+tool.brush.description = Målar ett mjukt penseldrag i förgrundsfärgen, med den penselstorlek, hårdhet och opacitet som är inställd.
+tool.brush.history.stroke = Pensel
+
+# Penna
+tool.pencil.name = Penna
+tool.pencil.description = Målar ett hårt, okantutjämnat drag i förgrundsfärgen.
+tool.pencil.history.stroke = Penna
+
+# Suddgummi
+tool.eraser.name = Suddgummi
+tool.eraser.description = Suddar längs draget och gör lagret genomskinligt igen.
+tool.eraser.history.stroke = Suddgummi
+
+# Klonstämpel
+tool.clone.name = Klonstämpel
+tool.clone.description = Klonstämpel: Alt-klicka för att ange källpunkten och måla sedan med pixlar kopierade därifrån med samma förskjutning.
+tool.clone.history.stroke = Klonstämpel
+
+# Skugga, Efterbelys, Svamp
+tool.dodge.name = Skugga
+tool.dodge.description = Ljusar upp pixlarna som draget går över.
+tool.dodge.history.stroke = Skugga
+tool.burn.name = Efterbelys
+tool.burn.description = Mörkar pixlarna som draget går över.
+tool.burn.history.stroke = Efterbelys
+tool.sponge.name = Svamp
+tool.sponge.description = Ökar eller minskar mättnaden i pixlarna som draget går över.
+tool.sponge.history.stroke = Svamp
+
+# Oskärpa, Skärpa, Smeta ut
+tool.blur.name = Oskärpa
+tool.blur.description = Gör pixlarna som draget går över oskarpa.
+tool.blur.history.stroke = Oskärpa
+tool.sharpen.name = Skärpa
+tool.sharpen.description = Gör pixlarna som draget går över skarpare.
+tool.sharpen.history.stroke = Skärpa
+tool.smudge.name = Smeta ut
+tool.smudge.description = Drar färg längs draget, som om du sköt våt färg framför dig.
+tool.smudge.history.stroke = Smeta ut
+
+# Lagning
+tool.heal.name = Lagningspensel
+tool.heal.description = Lagningspensel: Alt-klicka för att ange källan och måla sedan; källans struktur blandas in i målets egen färg och ljussättning.
+tool.heal.history.stroke = Lagningspensel
+tool.spot_heal.name = Punktlagningspensel
+tool.spot_heal.description = Punktlagningspensel: måla över en fläck så ersätts den med struktur från omgivningen – ingen källpunkt behövs.
+tool.spot_heal.history.stroke = Punktlagningspensel
+
+# Händelsepensel
+tool.history_brush.name = Händelsepensel
+tool.history_brush.description = Målar tillbaka pixlar från dokumentets händelseögonblick och ångrar senare arbete drag för drag.
+tool.history_brush.history.stroke = Händelsepensel
+
+# Bakgrundssuddgummi
+tool.background_eraser.name = Bakgrundssuddgummi
+tool.background_eraser.description = Suddar den färg som tas upp under penselns mitt och lämnar olika pixlar i fred, för att lyfta ett motiv från sin bakgrund.
+tool.background_eraser.history.stroke = Bakgrundssuddgummi
+
+# Övertoning
+tool.gradient.name = Övertoning
+tool.gradient.description = Dra för att fylla lagret – genom markeringen om det finns en – med en linjär övertoning från förgrundsfärgen till bakgrundsfärgen längs draget.
+tool.gradient.radial.name = Radiell övertoning
+tool.gradient.radial.description = Dra från mitten och utåt för att fylla med en radiell övertoning mellan förgrunds- och bakgrundsfärgen.
+tool.gradient.option.gradient = Övertoning
+tool.gradient.option.reverse = Omvänd
+tool.gradient.option.dither = Gitter
+tool.gradient.choice.foreground_to_background = Förgrund till bakgrund
+tool.gradient.choice.foreground_to_transparent = Förgrund till genomskinlig
+tool.gradient.choice.linear = Linjär
+tool.gradient.choice.radial = Radiell
+tool.gradient.choice.angle = Vinkel
+tool.gradient.choice.reflected = Reflekterad
+tool.gradient.choice.diamond = Diamant
+tool.gradient.history.gradient = Övertoning
+
+# Färgpyts
+tool.bucket.name = Färgpyts
+tool.bucket.description = Klicka för att fylla det sammanhängande området med liknande färg under pekaren med förgrundsfärgen, inom verktygets tolerans.
+tool.bucket.option.contiguous = Angränsande
+tool.bucket.option.all_layers = Alla lager
+tool.bucket.history.fill = Färgpyts

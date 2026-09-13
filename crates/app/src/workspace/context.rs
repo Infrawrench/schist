@@ -1,6 +1,7 @@
 //! Right-click context menus and layer properties.
 
 use super::*;
+use schist_i18n::t;
 
 impl Workspace {
     // ----- context menus -----
@@ -55,7 +56,7 @@ impl Workspace {
             if trimmed.is_empty() {
                 return;
             }
-            let mut edit = doc.begin_edit("Rename Layer");
+            let mut edit = doc.begin_edit(t("workspace.context.rename_layer"));
             edit.change_props(layer, |l| l.name = trimmed.to_string());
             edit.commit();
         }

@@ -23,6 +23,6 @@ pub async fn sleep(duration: Duration) {
 pub async fn timeout<T>(duration: Duration, task: impl Future<Output = T>) -> anyhow::Result<T> {
     tokio::select! {
         result = task => Ok(result),
-        _ = sleep(duration) => anyhow::bail!("Cloud operation timed out"),
+        _ = sleep(duration) => anyhow::bail!(schist_i18n::t("cloud.transport.timed_out")),
     }
 }

@@ -1,0 +1,32 @@
+# Dokumentverktygen (plugins/tools-doc): ritytor, segment, ramar,
+# anteckningar och räkning. Termerna följer det svenska Photoshop.
+
+# Rityta
+tool.artboard.name = Rityta
+tool.artboard.description = Dra ut en rityta: ett namngivet område på arbetsytan som exporteras för sig. Att dra inuti en befintlig flyttar den.
+tool.artboard.default_name = Rityta {n}
+
+# Segment
+tool.slice.name = Segment
+tool.slice.description = Dra ut ett exportsegment, en namngiven rektangel på arbetsytan som exporteras som en egen bild. Att dra inuti ett befintligt flyttar det.
+tool.slice.default_name = Segment {n}
+
+# Ram
+tool.frame.name = Ram
+tool.frame.description = Dra ut en ram: ett rektangulärt (eller elliptiskt) lager som maskerar det som placeras i det.
+tool.frame.default_name = Ram {n}
+tool.frame.choice.rectangle = Rektangel
+tool.frame.choice.ellipse = Ellips
+tool.frame.history.frame = Ram
+
+# Anteckning
+tool.note.name = Anteckning
+tool.note.description = Klicka på tom arbetsyta för att fästa en anteckning där, märkt med författaren och färgen i redigeringsläget; klicka på en befintlig nål för att markera den i panelen Anteckningar.
+tool.note.history.place = Placera anteckning
+tool.note.history.move = Flytta anteckning
+tool.note.history.delete = Ta bort anteckning
+
+# Räkning
+tool.count.name = Räkning
+tool.count.description = Klicka för att sätta ut numrerade räknemarkörer på arbetsytan, och klicka på en befintlig för att ta bort den.
+tool.count.default_name = Räkning {n}

@@ -9,6 +9,7 @@ pub mod paths;
 
 use schist_color::Rgba;
 use schist_core::{Document, IntRect, Layer, LayerId, LayerPath, TileCoord, TILE_SIZE};
+use schist_i18n::{choices, t, tf};
 use schist_plugin_api::{
     EditorState, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput, ToolCtx,
     ToolOption, ToolPlugin,
@@ -138,7 +139,12 @@ pub(crate) fn commit_layer(doc: &mut Document, layer: Layer, path: LayerPath, ed
 pub(crate) fn commit_shape_layer(doc: &mut Document, shape: schist_core::VectorShape, name: &str) {
     let layer = shape_layer(doc, shape, name);
     let path = insert_path(doc, false);
-    commit_layer(doc, layer, path, &format!("{name} Layer"));
+    commit_layer(
+        doc,
+        layer,
+        path,
+        &tf!("tool.shape.history.layer", name = name),
+    );
 }
 
 /// A path rasterized onto a fresh layer, clipped to the selection. `None`
@@ -286,13 +292,17 @@ pub enum ShapeKind {
 impl ShapeKind {
     fn label(self) -> &'static str {
         match self {
-            ShapeKind::Rectangle => "Rectangle",
-            ShapeKind::Ellipse => "Ellipse",
-            ShapeKind::Line => "Line",
-            ShapeKind::Polygon => "Polygon",
+            ShapeKind::Rectangle => t("tool.shape.rect.label"),
+            ShapeKind::Ellipse => t("tool.shape.ellipse.label"),
+            ShapeKind::Line => t("tool.shape.line.label"),
+            ShapeKind::Polygon => t("tool.shape.polygon.label"),
         }
     }
 }
+
+/// Photoshop's tool mode: a live shape layer, or plain pixels. Shared by
+/// the shape tools and the pen.
+static SHAPE_MODES: &[&str] = &["common.shape", "common.pixels"];
 
 pub struct ShapeTool {
     kind: ShapeKind,
@@ -551,25 +561,19 @@ impl ToolPlugin for ShapeTool {
 
     fn name(&self) -> &'static str {
         match self.kind {
-            ShapeKind::Rectangle => "Rectangle Tool",
-            ShapeKind::Ellipse => "Ellipse Tool",
-            ShapeKind::Line => "Line Tool",
-            ShapeKind::Polygon => "Polygon Tool",
+            ShapeKind::Rectangle => t("tool.shape.rect.name"),
+            ShapeKind::Ellipse => t("tool.shape.ellipse.name"),
+            ShapeKind::Line => t("tool.shape.line.name"),
+            ShapeKind::Polygon => t("tool.shape.polygon.name"),
         }
     }
 
     fn description(&self) -> &'static str {
         match self.kind {
-            ShapeKind::Rectangle => {
-                "Drag out a rectangle shape layer in the foreground colour; it stays vector \
-                 and re-rasterizes when resized."
-            }
-            ShapeKind::Ellipse => "Drag out an ellipse shape layer in the foreground colour.",
-            ShapeKind::Line => "Drag out a straight line shape layer in the foreground colour.",
-            ShapeKind::Polygon => {
-                "Drag out a regular polygon shape layer in the foreground colour, with the \
-                 number of sides from the options."
-            }
+            ShapeKind::Rectangle => t("tool.shape.rect.description"),
+            ShapeKind::Ellipse => t("tool.shape.ellipse.description"),
+            ShapeKind::Line => t("tool.shape.line.description"),
+            ShapeKind::Polygon => t("tool.shape.polygon.description"),
         }
     }
 
@@ -620,7 +624,7 @@ impl ToolPlugin for ShapeTool {
         self.current = None;
         let name = self.kind.label();
         let edit = if self.vector {
-            format!("{name} Layer")
+            tf!("tool.shape.history.layer", name = name)
         } else {
             name.to_string()
         };
@@ -640,19 +644,34 @@ impl ToolPlugin for ShapeTool {
     fn options(&self) -> Vec<ToolOption> {
         let mut out = vec![ToolOption::choice(
             "shape-mode",
-            "Mode",
-            &["Shape", "Pixels"],
+            t("common.mode"),
+            choices(SHAPE_MODES),
             (!self.vector) as usize,
         )];
         out.extend(match self.kind {
             ShapeKind::Line => vec![
-                ToolOption::slider("shape-weight", "Weight", self.weight, 1.0, 100.0, " px"),
-                ToolOption::toggle("shape-arrow-start", "Start", self.arrow_start),
-                ToolOption::toggle("shape-arrow-end", "End", self.arrow_end),
+                ToolOption::slider(
+                    "shape-weight",
+                    t("tool.shape.line.option.weight"),
+                    self.weight,
+                    1.0,
+                    100.0,
+                    t("common.unit.px_suffix"),
+                ),
+                ToolOption::toggle(
+                    "shape-arrow-start",
+                    t("tool.shape.line.option.arrow_start"),
+                    self.arrow_start,
+                ),
+                ToolOption::toggle(
+                    "shape-arrow-end",
+                    t("tool.shape.line.option.arrow_end"),
+                    self.arrow_end,
+                ),
             ],
             ShapeKind::Polygon => vec![ToolOption::slider(
                 "shape-sides",
-                "Sides",
+                t("tool.shape.polygon.option.sides"),
                 self.sides as f32,
                 3.0,
                 24.0,
@@ -711,7 +730,7 @@ impl PenTool {
         if self.anchors.len() < 3 {
             return None;
         }
-        let mut path = schist_core::VectorPath::new("Path");
+        let mut path = schist_core::VectorPath::new(t("common.path"));
         path.subpaths.push(schist_core::SubPath {
             anchors: self
                 .anchors
@@ -764,11 +783,10 @@ impl ToolPlugin for PenTool {
         "pen"
     }
     fn name(&self) -> &'static str {
-        "Pen"
+        t("tool.pen.name")
     }
     fn description(&self) -> &'static str {
-        "Build a path: click for a corner point, drag to pull curve handles out of it, and \
-         click the first point to close. Commit turns the path into a shape layer."
+        t("tool.pen.description")
     }
     fn icon(&self) -> &'static str {
         "pen"
@@ -813,25 +831,35 @@ impl ToolPlugin for PenTool {
             if let Some(shape) = self.vector_shape(color) {
                 self.anchors.clear();
                 self.dragging = false;
-                commit_shape_layer(ctx.doc, shape, "Path");
+                commit_shape_layer(ctx.doc, shape, t("common.path"));
                 return;
             }
         }
         let path = self.build_path(true);
         self.anchors.clear();
         self.dragging = false;
-        commit_shape(ctx.doc, &path, color, FillRule::NonZero, "Path Fill");
+        commit_shape(
+            ctx.doc,
+            &path,
+            color,
+            FillRule::NonZero,
+            t("tool.pen.history.fill"),
+        );
     }
 
     fn options(&self) -> Vec<ToolOption> {
         vec![
             ToolOption::choice(
                 "pen-mode",
-                "Mode",
-                &["Shape", "Pixels"],
+                t("common.mode"),
+                choices(SHAPE_MODES),
                 usize::from(!self.vector),
             ),
-            ToolOption::toggle("pen-rubber-band", "Rubber Band", self.rubber_band),
+            ToolOption::toggle(
+                "pen-rubber-band",
+                t("tool.pen.option.rubber_band"),
+                self.rubber_band,
+            ),
         ]
     }
 
@@ -970,7 +998,7 @@ mod tests {
         tool.on_pointer_up(&mut ctx, input(40.0, 30.0));
 
         assert_eq!(doc.tree.layers.len(), 2, "shape went on its own layer");
-        assert_eq!(doc.tree.layers[1].name, "Rectangle");
+        assert_eq!(doc.tree.layers[1].name, t("tool.shape.rect.label"));
         assert_eq!(top_px(&doc, 20, 20), [255, 0, 0, 255]);
         assert_eq!(top_px(&doc, 60, 60)[3], 0);
         doc.undo();
@@ -1007,7 +1035,11 @@ mod tests {
             doc.tree.layers[1].shape.is_some(),
             "committed as a live shape"
         );
-        assert_eq!(doc.undo().as_deref(), Some("Ellipse Layer"));
+        let edit = tf!(
+            "tool.shape.history.layer",
+            name = t("tool.shape.ellipse.label")
+        );
+        assert_eq!(doc.undo().as_deref(), Some(edit.as_str()));
         assert_eq!(doc.tree.layers.len(), 1, "one edit for the whole drag");
         assert_eq!(doc.undo(), None, "the preview left nothing in history");
     }
@@ -1058,7 +1090,7 @@ mod tests {
         assert_eq!(top_px(ctx.doc, 70, 70)[3], 0, "outside the selection");
         assert!(ctx.doc.tree.layers[1].shape.is_none());
         tool.on_pointer_up(&mut ctx, input(90.0, 90.0));
-        assert_eq!(doc.undo().as_deref(), Some("Rectangle"));
+        assert_eq!(doc.undo().as_deref(), Some(t("tool.shape.rect.label")));
         assert_eq!(doc.tree.layers.len(), 1);
     }
 

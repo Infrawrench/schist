@@ -19,6 +19,7 @@
 
 use crate::util::{at, gaussian_rgba, luma, premultiply, put, sample, unpremultiply};
 use crate::{choice, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues};
 
 /// Blur by a per-pixel amount in 0..=1, where 1 is `radius`.
@@ -69,13 +70,34 @@ fn feathered(distance: f32, edge: f32, feather: f32) -> f32 {
 simple_filter!(
     FieldBlur,
     "filter.field_blur",
-    "Field Blur",
-    "Blur Gallery",
+    t("filter.field_blur.name"),
+    t("filter.category.blur_gallery"),
     [
-        param("blur", "Blur", 0.0, 200.0, 15.0, " px"),
-        param("angle", "Direction", 0.0, 360.0, 90.0, "\u{b0}"),
-        param("position", "Sharp At", 0.0, 100.0, 50.0, "%"),
-        param("spread", "Transition", 1.0, 100.0, 50.0, "%")
+        param("blur", t("common.blur"), 0.0, 200.0, 15.0, " px"),
+        param(
+            "angle",
+            t("filter.neural.param.direction"),
+            0.0,
+            360.0,
+            90.0,
+            "\u{b0}"
+        ),
+        param(
+            "position",
+            t("filter.field_blur.param.position"),
+            0.0,
+            100.0,
+            50.0,
+            "%"
+        ),
+        param(
+            "spread",
+            t("filter.neural.param.transition"),
+            1.0,
+            100.0,
+            50.0,
+            "%"
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // One pin's worth of Field Blur: sharp along a line across the
@@ -100,15 +122,36 @@ simple_filter!(
 simple_filter!(
     IrisBlur,
     "filter.iris_blur",
-    "Iris Blur",
-    "Blur Gallery",
+    t("filter.iris_blur.name"),
+    t("filter.category.blur_gallery"),
     [
-        param("blur", "Blur", 0.0, 200.0, 20.0, " px"),
-        param("x", "Centre X", 0.0, 100.0, 50.0, "%"),
-        param("y", "Centre Y", 0.0, 100.0, 50.0, "%"),
-        param("radius", "Radius", 1.0, 100.0, 35.0, "%"),
-        param("roundness", "Roundness", 0.0, 100.0, 100.0, "%"),
-        param("feather", "Feather", 0.0, 100.0, 50.0, "%")
+        param("blur", t("common.blur"), 0.0, 200.0, 20.0, " px"),
+        param(
+            "x",
+            t("filter.neural.param.center_x"),
+            0.0,
+            100.0,
+            50.0,
+            "%"
+        ),
+        param(
+            "y",
+            t("filter.neural.param.center_y"),
+            0.0,
+            100.0,
+            50.0,
+            "%"
+        ),
+        param("radius", t("common.radius"), 1.0, 100.0, 35.0, "%"),
+        param(
+            "roundness",
+            t("filter.iris_blur.param.roundness"),
+            0.0,
+            100.0,
+            100.0,
+            "%"
+        ),
+        param("feather", t("common.feather"), 0.0, 100.0, 50.0, "%")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // An ellipse of sharpness with everything outside it going soft,
@@ -135,14 +178,35 @@ simple_filter!(
 simple_filter!(
     TiltShift,
     "filter.tilt_shift",
-    "Tilt-Shift",
-    "Blur Gallery",
+    t("filter.tilt_shift.name"),
+    t("filter.category.blur_gallery"),
     [
-        param("blur", "Blur", 0.0, 200.0, 24.0, " px"),
-        param("position", "Centre", 0.0, 100.0, 50.0, "%"),
-        param("band", "Sharp Band", 1.0, 100.0, 20.0, "%"),
-        param("feather", "Transition", 0.0, 100.0, 30.0, "%"),
-        param("angle", "Angle", 0.0, 360.0, 0.0, "\u{b0}")
+        param("blur", t("common.blur"), 0.0, 200.0, 24.0, " px"),
+        param(
+            "position",
+            t("filter.tilt_shift.param.position"),
+            0.0,
+            100.0,
+            50.0,
+            "%"
+        ),
+        param(
+            "band",
+            t("filter.tilt_shift.param.band"),
+            1.0,
+            100.0,
+            20.0,
+            "%"
+        ),
+        param(
+            "feather",
+            t("filter.neural.param.transition"),
+            0.0,
+            100.0,
+            30.0,
+            "%"
+        ),
+        param("angle", t("common.angle"), 0.0, 360.0, 0.0, "\u{b0}")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // A band of the picture in focus and everything beyond it soft,
@@ -166,14 +230,35 @@ simple_filter!(
 simple_filter!(
     SpinBlur,
     "filter.spin_blur",
-    "Spin Blur",
-    "Blur Gallery",
+    t("filter.spin_blur.name"),
+    t("filter.category.blur_gallery"),
     [
-        param("angle", "Blur Angle", 0.0, 60.0, 12.0, "\u{b0}"),
-        param("x", "Centre X", 0.0, 100.0, 50.0, "%"),
-        param("y", "Centre Y", 0.0, 100.0, 50.0, "%"),
-        param("radius", "Radius", 1.0, 100.0, 50.0, "%"),
-        param("feather", "Feather", 0.0, 100.0, 30.0, "%")
+        param(
+            "angle",
+            t("filter.spin_blur.param.angle"),
+            0.0,
+            60.0,
+            12.0,
+            "\u{b0}"
+        ),
+        param(
+            "x",
+            t("filter.neural.param.center_x"),
+            0.0,
+            100.0,
+            50.0,
+            "%"
+        ),
+        param(
+            "y",
+            t("filter.neural.param.center_y"),
+            0.0,
+            100.0,
+            50.0,
+            "%"
+        ),
+        param("radius", t("common.radius"), 1.0, 100.0, 50.0, "%"),
+        param("feather", t("common.feather"), 0.0, 100.0, 30.0, "%")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // A wheel turning: the smear follows the arc through each pixel,
@@ -220,13 +305,41 @@ simple_filter!(
 simple_filter!(
     PathBlur,
     "filter.path_blur",
-    "Path Blur",
-    "Blur Gallery",
+    t("filter.path_blur.name"),
+    t("filter.category.blur_gallery"),
     [
-        param("speed", "Speed", 0.0, 100.0, 50.0, "%"),
-        param("angle", "Direction", 0.0, 360.0, 0.0, "\u{b0}"),
-        param("curve", "Curvature", -100.0, 100.0, 0.0, "%"),
-        param("taper", "Taper", 0.0, 100.0, 0.0, "%")
+        param(
+            "speed",
+            t("filter.path_blur.param.speed"),
+            0.0,
+            100.0,
+            50.0,
+            "%"
+        ),
+        param(
+            "angle",
+            t("filter.neural.param.direction"),
+            0.0,
+            360.0,
+            0.0,
+            "\u{b0}"
+        ),
+        param(
+            "curve",
+            t("filter.path_blur.param.curve"),
+            -100.0,
+            100.0,
+            0.0,
+            "%"
+        ),
+        param(
+            "taper",
+            t("filter.path_blur.param.taper"),
+            0.0,
+            100.0,
+            0.0,
+            "%"
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Motion along a path rather than along a straight line: the
@@ -285,7 +398,14 @@ simple_filter!(
 ///
 /// Photoshop loads these from the shape presets, which is a file of
 /// vector art; these are the same silhouettes, generated.
-const SHAPES: &[&str] = &["Square", "Diamond", "Hexagon", "Cross", "Ring", "Star"];
+static SHAPES: &[&str] = &[
+    "filter.shape_blur.choice.square",
+    "filter.shape_blur.choice.diamond",
+    "filter.shape_blur.choice.hexagon",
+    "filter.shape_blur.choice.cross",
+    "filter.shape_blur.choice.ring",
+    "filter.shape_blur.choice.star",
+];
 
 /// Whether a point inside the kernel's unit square belongs to the shape.
 fn in_shape(kind: usize, u: f32, v: f32) -> bool {
@@ -314,11 +434,11 @@ fn in_shape(kind: usize, u: f32, v: f32) -> bool {
 simple_filter!(
     ShapeBlur,
     "filter.shape_blur",
-    "Shape Blur",
-    "Blur",
+    t("filter.shape_blur.name"),
+    t("filter.category.blur"),
     [
-        param("radius", "Radius", 1.0, 60.0, 10.0, " px"),
-        choice("shape", "Shape", SHAPES, 0)
+        param("radius", t("common.radius"), 1.0, 60.0, 10.0, " px"),
+        choice("shape", t("common.shape"), choices(SHAPES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // An average over a kernel shaped like something other than a
@@ -359,17 +479,21 @@ simple_filter!(
 );
 
 /// What Smart Blur does with the edges it finds.
-const SMART_MODES: &[&str] = &["Normal", "Edge Only", "Overlay Edge"];
+static SMART_MODES: &[&str] = &[
+    "filter.smart_blur.choice.normal",
+    "filter.smart_blur.choice.edge_only",
+    "filter.smart_blur.choice.overlay_edge",
+];
 
 simple_filter!(
     SmartBlur,
     "filter.smart_blur",
-    "Smart Blur",
-    "Blur",
+    t("filter.smart_blur.name"),
+    t("filter.category.blur"),
     [
-        param("radius", "Radius", 0.1, 100.0, 5.0, " px"),
-        param("threshold", "Threshold", 0.1, 100.0, 25.0, ""),
-        choice("mode", "Mode", SMART_MODES, 0)
+        param("radius", t("common.radius"), 0.1, 100.0, 5.0, " px"),
+        param("threshold", t("common.threshold"), 0.1, 100.0, 25.0, ""),
+        choice("mode", t("common.mode"), choices(SMART_MODES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Blur everything that is *nearly* the same as its surroundings
@@ -434,14 +558,25 @@ simple_filter!(
 simple_filter!(
     Deinterlace,
     "filter.deinterlace",
-    "De-Interlace",
-    "Video",
+    t("filter.deinterlace.name"),
+    t("filter.category.video"),
     [
-        choice("field", "Eliminate", &["Odd Fields", "Even Fields"], 0),
+        choice(
+            "field",
+            t("filter.deinterlace.param.field"),
+            choices(&[
+                "filter.deinterlace.choice.odd_fields",
+                "filter.deinterlace.choice.even_fields"
+            ]),
+            0
+        ),
         choice(
             "fill",
-            "Create New Fields By",
-            &["Interpolation", "Duplication"],
+            t("filter.deinterlace.param.fill"),
+            choices(&[
+                "filter.deinterlace.choice.interpolation",
+                "filter.deinterlace.choice.duplication"
+            ]),
             0
         )
     ],
@@ -479,8 +614,8 @@ simple_filter!(
 simple_filter!(
     NtscColors,
     "filter.ntsc_colors",
-    "NTSC Colors",
-    "Video",
+    t("filter.ntsc_colors.name"),
+    t("filter.category.video"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         // Television could not carry the corners of the RGB cube: too

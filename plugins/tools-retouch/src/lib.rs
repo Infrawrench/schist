@@ -12,6 +12,7 @@ pub use fill::inpaint;
 
 use schist_color::Rgba;
 use schist_core::{Document, IntRect, LayerId, Selection, TileCoord, TileMap, TILE_SIZE};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{
     EditorState, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput, ToolCtx,
     ToolOption, ToolPlugin,
@@ -123,12 +124,10 @@ impl ToolPlugin for PatchTool {
         "patch"
     }
     fn name(&self) -> &'static str {
-        "Patch"
+        t("tool.patch.name")
     }
     fn description(&self) -> &'static str {
-        "Drag an outline around a flaw, then drag that selection onto clean pixels: the \
-         texture there is fitted into the flaw. Patch mode chooses which end of the pair \
-         you drag."
+        t("tool.patch.description")
     }
     fn icon(&self) -> &'static str {
         "patch"
@@ -140,8 +139,8 @@ impl ToolPlugin for PatchTool {
     fn options(&self) -> Vec<ToolOption> {
         vec![ToolOption::choice(
             "patch-mode",
-            "Patch",
-            &["Source", "Destination"],
+            t("tool.patch.option.patch"),
+            choices(&["tool.patch.choice.source", "tool.patch.choice.destination"]),
             if self.source_mode { 0 } else { 1 },
         )]
     }
@@ -236,7 +235,8 @@ impl ToolPlugin for PatchTool {
             (dm[2] - sm[2]) / n,
         ];
         let source_mode = self.source_mode;
-        write_rect(ctx.doc, layer, dst_rect, "Patch", |x, y| {
+        let name = t("tool.patch.history.patch");
+        write_rect(ctx.doc, layer, dst_rect, name, |x, y| {
             let sel_x = if source_mode { x } else { x - dx };
             let sel_y = if source_mode { y } else { y - dy };
             let cov = sel.coverage(sel_x, sel_y) as f32 / 255.0;
@@ -305,11 +305,10 @@ impl ToolPlugin for ContentAwareMoveTool {
         "content_aware_move"
     }
     fn name(&self) -> &'static str {
-        "Content-Aware Move"
+        t("tool.content_aware_move.name")
     }
     fn description(&self) -> &'static str {
-        "Drag a selected object elsewhere and the hole it leaves is filled in from its \
-         surroundings. In Extend mode the object is stretched instead of moved."
+        t("tool.content_aware_move.description")
     }
     fn icon(&self) -> &'static str {
         "content-move"
@@ -321,8 +320,11 @@ impl ToolPlugin for ContentAwareMoveTool {
     fn options(&self) -> Vec<ToolOption> {
         vec![ToolOption::choice(
             "cam-mode",
-            "Mode",
-            &["Move", "Extend"],
+            t("common.mode"),
+            choices(&[
+                "tool.content_aware_move.choice.move",
+                "tool.content_aware_move.choice.extend",
+            ]),
             self.extend as usize,
         )]
     }
@@ -379,7 +381,8 @@ impl ToolPlugin for ContentAwareMoveTool {
         let touched = hole_rect.union(&dst);
         let extend = self.extend;
         let hw = hole_rect.width().max(0) as usize;
-        write_rect(ctx.doc, layer, touched, "Content-Aware Move", |x, y| {
+        let name = t("tool.content_aware_move.history.move");
+        write_rect(ctx.doc, layer, touched, name, |x, y| {
             // Moved pixels win where the selection now lands.
             let cov = sel.coverage(x - dx, y - dy) as f32 / 255.0;
             if cov > 0.0 {
@@ -461,10 +464,10 @@ impl ToolPlugin for RedEyeTool {
         "red_eye"
     }
     fn name(&self) -> &'static str {
-        "Red Eye"
+        t("tool.red_eye.name")
     }
     fn description(&self) -> &'static str {
-        "Click a pupil to drain the flash red out of it."
+        t("tool.red_eye.description")
     }
     fn icon(&self) -> &'static str {
         "red-eye"
@@ -477,7 +480,7 @@ impl ToolPlugin for RedEyeTool {
         vec![
             ToolOption::slider(
                 "redeye-size",
-                "Pupil Size",
+                t("tool.red_eye.option.pupil_size"),
                 self.amount * 100.0,
                 1.0,
                 100.0,
@@ -485,7 +488,7 @@ impl ToolPlugin for RedEyeTool {
             ),
             ToolOption::slider(
                 "redeye-darken",
-                "Darken",
+                t("tool.red_eye.option.darken"),
                 self.darken * 100.0,
                 0.0,
                 100.0,
@@ -541,7 +544,8 @@ impl ToolPlugin for RedEyeTool {
             return;
         };
         let (threshold, darken) = (1.0 - self.amount, self.darken);
-        write_rect(ctx.doc, layer, rect, "Red Eye", |x, y| {
+        let name = t("tool.red_eye.history.red_eye");
+        write_rect(ctx.doc, layer, rect, name, |x, y| {
             let c = tiles.pixel(x, y);
             if c.a <= 0.0 {
                 return None;
@@ -610,11 +614,10 @@ impl ToolPlugin for MagicEraserTool {
         "magic_eraser"
     }
     fn name(&self) -> &'static str {
-        "Magic Eraser"
+        t("tool.magic_eraser.name")
     }
     fn description(&self) -> &'static str {
-        "Click to erase the area of similar colour under the pointer, within the tool's \
-         tolerance -- contiguous with the click, or everywhere in the layer."
+        t("tool.magic_eraser.description")
     }
     fn icon(&self) -> &'static str {
         "eraser-magic"
@@ -627,13 +630,17 @@ impl ToolPlugin for MagicEraserTool {
         vec![
             ToolOption::slider(
                 "me-tolerance",
-                "Tolerance",
+                t("common.tolerance"),
                 self.tolerance as f32,
                 0.0,
                 255.0,
                 "",
             ),
-            ToolOption::toggle("me-contiguous", "Contiguous", self.contiguous),
+            ToolOption::toggle(
+                "me-contiguous",
+                t("tool.magic_eraser.option.contiguous"),
+                self.contiguous,
+            ),
         ]
     }
 
@@ -705,7 +712,8 @@ impl ToolPlugin for MagicEraserTool {
         for (x, y) in &erase {
             rect = rect.union(&IntRect::new(*x, *y, *x + 1, *y + 1));
         }
-        write_rect(ctx.doc, layer, rect, "Magic Eraser", |x, y| {
+        let name = t("tool.magic_eraser.history.erase");
+        write_rect(ctx.doc, layer, rect, name, |x, y| {
             if !set.contains(&(x, y)) {
                 return None;
             }

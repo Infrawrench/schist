@@ -1,6 +1,10 @@
 //! Autosaved crash-recovery snapshots.
 
 use super::*;
+// Only the native recovery path shows anything; a browser tab has no
+// snapshots on disk to recover.
+#[cfg(not(target_arch = "wasm32"))]
+use schist_i18n::{tf, tn};
 
 impl Workspace {
     // ----- crash recovery -----
@@ -125,7 +129,7 @@ impl Workspace {
             // No real path: it must be saved somewhere deliberate.
             doc.path = None;
             doc.dirty = true;
-            doc.title = format!("{} (recovered)", doc.title);
+            doc.title = tf!("workspace.recovery.recovered_title", title = doc.title);
             self.open_in_tab(doc, recovered == 0);
             // The load path prompts for fonts the document names but the
             // system lacks; a recovered document deserves the same offer.
@@ -134,11 +138,7 @@ impl Workspace {
             recovered += 1;
         }
         if recovered > 0 {
-            self.status = if recovered == 1 {
-                "Recovered unsaved work from a previous session".into()
-            } else {
-                format!("Recovered {recovered} documents from a previous session").into()
-            };
+            self.status = tn("workspace.recovery.recovered", recovered as u64).into();
             cx.notify();
         }
     }

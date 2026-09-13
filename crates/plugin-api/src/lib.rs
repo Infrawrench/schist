@@ -568,9 +568,12 @@ impl FilterValues {
 pub trait FilterPlugin: Send + Sync {
     fn id(&self) -> &'static str;
     fn name(&self) -> &'static str;
-    /// Menu grouping, e.g. "Blur" or "Sharpen".
+    /// Menu grouping, e.g. "Blur" or "Sharpen", in the user's language
+    /// for a built-in filter (`schist_i18n::t("filter.category.blur")`).
+    /// A third-party plug-in names its category in English and the menu
+    /// files it under the matching heading.
     fn category(&self) -> &'static str {
-        "Other"
+        schist_i18n::t("filter.category.other")
     }
     fn params(&self) -> Vec<FilterParam> {
         Vec::new()

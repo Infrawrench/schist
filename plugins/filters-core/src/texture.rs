@@ -7,6 +7,7 @@
 
 use crate::util::{at, luma, put, surface, value_noise};
 use crate::{choice, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues};
 
 /// Where a jittered grid puts the cell nearest a point, and how far away
@@ -42,12 +43,33 @@ fn cell_of(x: f32, y: f32, size: f32, seed: u32) -> ([f32; 2], f32, f32) {
 simple_filter!(
     Craquelure,
     "filter.craquelure",
-    "Craquelure",
-    "Texture",
+    t("filter.craquelure.name"),
+    t("filter.category.texture"),
     [
-        param("spacing", "Crack Spacing", 2.0, 100.0, 15.0, ""),
-        param("depth", "Crack Depth", 0.0, 10.0, 6.0, ""),
-        param("brightness", "Crack Brightness", 0.0, 10.0, 9.0, "")
+        param(
+            "spacing",
+            t("filter.craquelure.param.spacing"),
+            2.0,
+            100.0,
+            15.0,
+            ""
+        ),
+        param(
+            "depth",
+            t("filter.craquelure.param.depth"),
+            0.0,
+            10.0,
+            6.0,
+            ""
+        ),
+        param(
+            "brightness",
+            t("filter.craquelure.param.brightness"),
+            0.0,
+            10.0,
+            9.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // An old painting whose surface has cracked. The cracks are the
@@ -88,28 +110,40 @@ simple_filter!(
 );
 
 /// Photoshop's grain types, all ten of them.
-const GRAIN_TYPES: &[&str] = &[
-    "Regular",
-    "Soft",
-    "Sprinkles",
-    "Clumped",
-    "Contrasty",
-    "Enlarged",
-    "Stippled",
-    "Horizontal",
-    "Vertical",
-    "Speckle",
+static GRAIN_TYPES: &[&str] = &[
+    "filter.grain.choice.regular",
+    "filter.grain.choice.soft",
+    "filter.grain.choice.sprinkles",
+    "filter.grain.choice.clumped",
+    "filter.grain.choice.contrasty",
+    "filter.grain.choice.enlarged",
+    "filter.grain.choice.stippled",
+    "common.horizontal",
+    "common.vertical",
+    "filter.grain.choice.speckle",
 ];
 
 simple_filter!(
     Grain,
     "filter.grain",
-    "Grain",
-    "Texture",
+    t("filter.grain.name"),
+    t("filter.category.texture"),
     [
-        param("intensity", "Intensity", 0.0, 100.0, 40.0, ""),
-        param("contrast", "Contrast", 0.0, 100.0, 50.0, ""),
-        choice("kind", "Grain Type", GRAIN_TYPES, 0)
+        param(
+            "intensity",
+            t("filter.param.intensity"),
+            0.0,
+            100.0,
+            40.0,
+            ""
+        ),
+        param("contrast", t("common.contrast"), 0.0, 100.0, 50.0, ""),
+        choice(
+            "kind",
+            t("filter.grain.param.kind"),
+            choices(GRAIN_TYPES),
+            0
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Ten grains, which are ten different noise fields rather than
@@ -160,12 +194,33 @@ simple_filter!(
 simple_filter!(
     MosaicTiles,
     "filter.mosaic_tiles",
-    "Mosaic Tiles",
-    "Texture",
+    t("filter.mosaic_tiles.name"),
+    t("filter.category.texture"),
     [
-        param("size", "Tile Size", 2.0, 100.0, 22.0, ""),
-        param("grout", "Grout Width", 1.0, 15.0, 3.0, ""),
-        param("lighten", "Lighten Grout", 0.0, 10.0, 9.0, "")
+        param(
+            "size",
+            t("filter.mosaic_tiles.param.size"),
+            2.0,
+            100.0,
+            22.0,
+            ""
+        ),
+        param(
+            "grout",
+            t("filter.mosaic_tiles.param.grout"),
+            1.0,
+            15.0,
+            3.0,
+            ""
+        ),
+        param(
+            "lighten",
+            t("filter.mosaic_tiles.param.lighten"),
+            0.0,
+            10.0,
+            9.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Irregular tiles with grout between them. Not to be confused
@@ -200,11 +255,11 @@ simple_filter!(
 simple_filter!(
     Patchwork,
     "filter.patchwork",
-    "Patchwork",
-    "Texture",
+    t("filter.patchwork.name"),
+    t("filter.category.texture"),
     [
-        param("size", "Square Size", 0.0, 10.0, 4.0, ""),
-        param("relief", "Relief", 0.0, 25.0, 8.0, "")
+        param("size", t("filter.patchwork.param.size"), 0.0, 10.0, 4.0, ""),
+        param("relief", t("filter.param.relief"), 0.0, 25.0, 8.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Needlepoint: the picture is squared off into stitches, and each
@@ -253,12 +308,26 @@ simple_filter!(
 simple_filter!(
     StainedGlass,
     "filter.stained_glass",
-    "Stained Glass",
-    "Texture",
+    t("filter.stained_glass.name"),
+    t("filter.category.texture"),
     [
-        param("size", "Cell Size", 2.0, 50.0, 12.0, ""),
-        param("border", "Border Thickness", 1.0, 20.0, 4.0, ""),
-        param("light", "Light Intensity", 0.0, 10.0, 3.0, "")
+        param("size", t("filter.param.cell_size"), 2.0, 50.0, 12.0, ""),
+        param(
+            "border",
+            t("filter.stained_glass.param.border"),
+            1.0,
+            20.0,
+            4.0,
+            ""
+        ),
+        param(
+            "light",
+            t("filter.param.light_intensity"),
+            0.0,
+            10.0,
+            3.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Every cell takes one colour, the seams between them go to lead,
@@ -300,14 +369,31 @@ simple_filter!(
 simple_filter!(
     Texturizer,
     "filter.texturizer",
-    "Texturizer",
-    "Texture",
+    t("filter.texturizer.name"),
+    t("filter.category.texture"),
     [
-        choice("texture", "Texture", crate::artistic::SURFACES, 0),
-        param("scaling", "Scaling", 50.0, 200.0, 100.0, "%"),
-        param("relief", "Relief", 0.0, 50.0, 4.0, ""),
-        choice("light", "Light", crate::sketch::LIGHTS, 7),
-        param("invert", "Invert", 0.0, 1.0, 0.0, "")
+        choice(
+            "texture",
+            t("filter.param.texture"),
+            choices(crate::artistic::SURFACES),
+            0
+        ),
+        param(
+            "scaling",
+            t("filter.param.scaling"),
+            50.0,
+            200.0,
+            100.0,
+            "%"
+        ),
+        param("relief", t("filter.param.relief"), 0.0, 50.0, 4.0, ""),
+        choice(
+            "light",
+            t("filter.param.light"),
+            choices(crate::sketch::LIGHTS),
+            7
+        ),
+        param("invert", t("common.invert"), 0.0, 1.0, 0.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // The plain one: the image, printed on a surface. The surface is

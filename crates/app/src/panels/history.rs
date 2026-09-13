@@ -1,6 +1,7 @@
 //! The history panel.
 
 use super::*;
+use schist_i18n::t;
 
 pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let (undo_entries, redo_entries): (Vec<String>, Vec<String>) = ws
@@ -40,7 +41,7 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
                 .flex_row()
                 .items_center()
                 .justify_between()
-                .child(panel_title("History"))
+                .child(panel_title(t("panel.history.title")))
                 .child(
                     div()
                         .flex()
@@ -83,7 +84,7 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
                         .selected(is_current)
                         .text_color(gpui::rgb(palette().text_dim))
                         .on_click(cx.listener(move |ws, _e, _w, cx| ws.history_jump(-n_undo, cx)))
-                        .child("Opened")
+                        .child(t("panel.history.opened"))
                 })
                 .children(undo_entries.into_iter().enumerate().map(|(i, name)| {
                     // Jump so entry i becomes the last applied edit.

@@ -1,0 +1,28 @@
+# Die Verformungswerkzeuge (plugins/tools-warp). Die Begriffe folgen dem
+# deutschen Photoshop; die Werkzeugnamen sind die des Menüs (menu.lang).
+
+# Verflüssigen
+tool.liquify.name = Verflüssigen
+tool.liquify.description = Schiebt, verwirbelt, zieht zusammen oder bläst Pixel unter einem großen Pinsel auf – die Werkzeugoption entscheidet. Die Verformung sammelt sich in einem Gitter und wird beim Bestätigen auf die Ebene angewendet.
+tool.liquify.option.tool = Werkzeug
+tool.liquify.choice.forward_warp = Vorwärts krümmen
+tool.liquify.choice.reconstruct = Rekonstruieren
+tool.liquify.choice.twirl_cw = Strudel im Uhrzeigersinn
+tool.liquify.choice.twirl_ccw = Strudel gegen den Uhrzeigersinn
+tool.liquify.choice.pucker = Zusammenziehen
+tool.liquify.choice.bloat = Aufblasen
+tool.liquify.choice.push_left = Nach links schieben
+tool.liquify.history.liquify = Verflüssigen
+
+# Formgitter
+tool.puppet_warp.name = Formgitter
+tool.puppet_warp.description = Die Ebene per Klick an einigen Punkten anpinnen und dann einen Pin ziehen: Das Gitter biegt sich um die Pins, steif oder locker je nach Steifheit. Bestätigen wendet es an.
+tool.puppet_warp.option.stiffness = Steifheit
+tool.puppet_warp.history.puppet_warp = Formgitter
+
+# Fluchtpunkt
+tool.vanishing_point.name = Fluchtpunkt
+tool.vanishing_point.description = Eine Fläche über etwas mit Perspektive aufziehen, dann in den Modus „Klonen“ wechseln und malen: Die kopierten Pixel folgen der Fläche und werden mit der Entfernung kleiner.
+tool.vanishing_point.choice.edit_plane = Fläche bearbeiten
+tool.vanishing_point.choice.clone = Klonen
+tool.vanishing_point.history.vanishing_point = Fluchtpunkt

@@ -16,6 +16,7 @@
 use super::*;
 use crate::ui::LineEdit;
 use gpui::{img, StatefulInteractiveElement as _};
+use schist_i18n::{t, tf, tn};
 use schist_ui::{
     menu_separator, Badge, Button, ButtonColors, Chip, ChipColors, Divider, Heading, IconButton,
     MenuItem, Popover, ProgressBar, Slider, Spinner, TextInput, TextInputColors, TrackColors,
@@ -146,9 +147,9 @@ impl GroupBy {
 
     pub fn label(self) -> &'static str {
         match self {
-            GroupBy::Date => "Date",
-            GroupBy::Folder => "Folder",
-            GroupBy::Place => "Place",
+            GroupBy::Date => t("library.group_by.date"),
+            GroupBy::Folder => t("library.group_by.folder"),
+            GroupBy::Place => t("library.group_by.place"),
         }
     }
 
@@ -165,19 +166,20 @@ impl GroupBy {
     }
 }
 
+/// The month names' catalog keys, January first.
 pub const MONTHS: [&str; 12] = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "library.month.january",
+    "library.month.february",
+    "library.month.march",
+    "library.month.april",
+    "library.month.may",
+    "library.month.june",
+    "library.month.july",
+    "library.month.august",
+    "library.month.september",
+    "library.month.october",
+    "library.month.november",
+    "library.month.december",
 ];
 
 /// A "YYYY-MM" month key as a header: "March 2024", or "Undated" for
@@ -188,9 +190,13 @@ pub fn month_title(key: &str) -> String {
         key.get(5..7).and_then(|m| m.parse::<usize>().ok()),
     ) {
         (Some(year), Some(month)) if (1..=12).contains(&month) => {
-            format!("{} {year}", MONTHS[month - 1])
+            tf!(
+                "library.month.title",
+                month = t(MONTHS[month - 1]),
+                year = year
+            )
         }
-        _ => "Undated".to_string(),
+        _ => t("library.month.undated").to_string(),
     }
 }
 
@@ -570,7 +576,9 @@ pub fn group_chips(
                 })),
         );
     }
-    div().child(sidebar_caption("GROUP BY")).child(row)
+    div()
+        .child(sidebar_caption(t("library.sidebar.group_by")))
+        .child(row)
 }
 
 /// The sidebar's column: fixed width, its own scroll, the chrome tint.
@@ -630,7 +638,7 @@ pub fn loading_note() -> impl IntoElement {
         .text_size(px(12.0))
         .text_color(gpui::rgb(pal().text_dim))
         .child(loading_spinner("cloud-grid-loading"))
-        .child("Loading photos…")
+        .child(t("library.gallery.loading"))
 }
 
 /// Why the grid is bare, in the grid's own quiet voice.
@@ -879,7 +887,7 @@ pub fn cell_frame(
             div()
                 .text_size(px(10.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child("no preview")
+                .child(t("library.cell.no_preview"))
         }))
         .children(edited.then(|| {
             // Picasa's little brush: a corner badge saying this photo
@@ -893,7 +901,7 @@ pub fn cell_frame(
                 .bg(gpui::rgb(pal().green))
                 .text_size(px(9.0))
                 .text_color(gpui::rgb(0xFFFFFF))
-                .child("edited")
+                .child(t("library.cell.edited"))
         }))
 }
 
@@ -1097,14 +1105,24 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyEl
         .bg(gpui::rgb(pal().chrome_bg))
         .border_b_1()
         .border_color(gpui::rgb(pal().chrome_edge))
-        .child(gallery_button("Import…", true, strip_actions::import, cx))
         .child(gallery_button(
-            "Add Folder…",
+            t("library.strip.import"),
+            true,
+            strip_actions::import,
+            cx,
+        ))
+        .child(gallery_button(
+            t("library.strip.add_folder"),
             false,
             strip_actions::add_folder,
             cx,
         ))
-        .child(gallery_button("Refresh", false, strip_actions::refresh, cx))
+        .child(gallery_button(
+            t("common.refresh"),
+            false,
+            strip_actions::refresh,
+            cx,
+        ))
         .child(div().flex_grow());
     let strip = if cloud {
         strip
@@ -1123,28 +1141,31 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyEl
     strip
         .child(div().flex_grow())
         .child(gallery_button(
-            "Settings…",
+            t("library.strip.settings"),
             false,
             strip_actions::settings,
             cx,
         ))
         .child(gallery_button(
-            "Open…",
+            t("common.open_ellipsis"),
             false,
             crate::keymap::open_file_dialog,
             cx,
         ))
         .child(gallery_button(
-            "New File…",
+            t("library.strip.new_file"),
             false,
             strip_actions::new_file,
             cx,
         ))
-        .children(
-            (has_doc || cfg!(target_arch = "wasm32")).then(|| {
-                gallery_button("Back to Editing", false, strip_actions::back_to_editor, cx)
-            }),
-        )
+        .children((has_doc || cfg!(target_arch = "wasm32")).then(|| {
+            gallery_button(
+                t("library.strip.back_to_editing"),
+                false,
+                strip_actions::back_to_editor,
+                cx,
+            )
+        }))
         .into_any_element()
 }
 
@@ -1179,7 +1200,12 @@ fn touch_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElem
                     cx.notify();
                 }))
         }))
-        .child(gallery_button("Import…", true, strip_actions::import, cx));
+        .child(gallery_button(
+            t("library.strip.import"),
+            true,
+            strip_actions::import,
+            cx,
+        ));
     let strip = if cloud {
         strip
             .children(super::cloud_view::filter_chip(ws, cx))
@@ -1232,26 +1258,46 @@ pub fn gallery_more_menu(
             cx,
         ));
     };
-    row(&mut rows, "Add Folder…", strip_actions::add_folder, cx);
-    row(&mut rows, "Refresh", strip_actions::refresh, cx);
+    row(
+        &mut rows,
+        t("library.strip.add_folder"),
+        strip_actions::add_folder,
+        cx,
+    );
+    row(&mut rows, t("common.refresh"), strip_actions::refresh, cx);
     rows.push(menu_sep());
     if !ws.cloud.show && super::library_view::search_offer_needed(ws) {
         row(
             &mut rows,
-            "Enable Photo Search…",
+            t("library.strip.enable_search_menu"),
             |ws, _w, cx| ws.open_modal(Modal::SearchModels, cx),
             cx,
         );
     }
-    row(&mut rows, "Settings…", strip_actions::settings, cx);
+    row(
+        &mut rows,
+        t("library.strip.settings"),
+        strip_actions::settings,
+        cx,
+    );
     rows.push(menu_sep());
-    row(&mut rows, "Open…", crate::keymap::open_file_dialog, cx);
-    row(&mut rows, "New File…", strip_actions::new_file, cx);
+    row(
+        &mut rows,
+        t("common.open_ellipsis"),
+        crate::keymap::open_file_dialog,
+        cx,
+    );
+    row(
+        &mut rows,
+        t("library.strip.new_file"),
+        strip_actions::new_file,
+        cx,
+    );
     if ws.doc.is_some() {
         rows.push(menu_sep());
         row(
             &mut rows,
-            "Back to Editing",
+            t("library.strip.back_to_editing"),
             strip_actions::back_to_editor,
             cx,
         );
@@ -1269,7 +1315,7 @@ pub fn gallery_more_menu(
 }
 
 pub fn photo_count(count: usize) -> String {
-    format!("{count} {}", if count == 1 { "photo" } else { "photos" })
+    tn("common.n_photos", count as u64)
 }
 
 /// What a tray button does.
@@ -1320,10 +1366,9 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
         .bg(gpui::rgb(pal().tray_bg))
         .border_t_1()
         .border_color(gpui::rgb(pal().chrome_edge))
-        .children(
-            info.edit
-                .map(|edit| gallery_button("Edit", true, move |ws, w, cx| edit(ws, w, cx), cx)),
-        )
+        .children(info.edit.map(|edit| {
+            gallery_button(t("common.edit"), true, move |ws, w, cx| edit(ws, w, cx), cx)
+        }))
         .children(
             info.extra.map(|(label, act)| {
                 gallery_button(label, false, move |ws, w, cx| act(ws, w, cx), cx)
@@ -1339,7 +1384,7 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child(format!("{} selected", info.selected))
+                .child(tn("common.n_selected", info.selected as u64))
         }))
         .children(info.notes.into_iter().map(|note| {
             div()
@@ -1556,8 +1601,15 @@ mod tests {
         assert_eq!(month_key(0), "1970-01");
         // 1999-12-31T23:59:59Z
         assert_eq!(month_key(946_684_799), "1999-12");
-        assert_eq!(month_title("2024-03"), "March 2024");
-        assert_eq!(month_title("0000-00"), "Undated");
-        assert_eq!(month_title("nonsense"), "Undated");
+        assert_eq!(
+            month_title("2024-03"),
+            tf!(
+                "library.month.title",
+                month = t("library.month.march"),
+                year = 2024
+            )
+        );
+        assert_eq!(month_title("0000-00"), t("library.month.undated"));
+        assert_eq!(month_title("nonsense"), t("library.month.undated"));
     }
 }

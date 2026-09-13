@@ -1,6 +1,7 @@
 //! Confirming a close with unsaved changes.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 /// "Save changes before closing?" for the active tab. Save falls back to
 /// the Save As dialog for never-saved documents; the tab then stays open
@@ -13,19 +14,19 @@ pub(super) fn confirm_close_tab(
         .doc
         .as_ref()
         .map(|d| d.title.clone())
-        .unwrap_or_else(|| "Untitled".into());
+        .unwrap_or_else(|| t("common.untitled").into());
     ui::modal_frame(
-        "Unsaved Changes",
+        t("common.unsaved_changes"),
         380.0,
-        div().text_size(px(12.0)).child(format!(
-            "Save changes to \u{201C}{title}\u{201D} before closing?"
-        )),
+        div()
+            .text_size(px(12.0))
+            .child(tf!("common.unsaved_changes_prompt", name = title)),
         div()
             .flex()
             .flex_row()
             .gap_2()
             .child(ui::button(
-                "Don't Save",
+                t("common.dont_save"),
                 false,
                 |ws, _window, cx| {
                     ws.close_modal(cx);
@@ -36,7 +37,7 @@ pub(super) fn confirm_close_tab(
                 cx,
             ))
             .child(ui::button(
-                "Cancel",
+                t("common.cancel"),
                 false,
                 |ws, _window, cx| {
                     ws.cancel_quit();
@@ -45,7 +46,7 @@ pub(super) fn confirm_close_tab(
                 cx,
             ))
             .child(ui::button(
-                "Save…",
+                t("dialog.save_ellipsis"),
                 true,
                 |ws, window, cx| {
                     ws.close_modal(cx);

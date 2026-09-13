@@ -33,6 +33,7 @@ use std::sync::Mutex;
 
 use anyhow::Context as _;
 use schist_core::Document;
+use schist_i18n::{t, tf};
 use schist_plugin_api::CodecPlugin;
 
 /// `enum heif_colorspace`
@@ -146,11 +147,36 @@ const LIBRARY_CANDIDATES: &[&str] = &["libheif.so"];
 #[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "android")))]
 const LIBRARY_CANDIDATES: &[&str] = &["heif.dll", "libheif.dll", "libheif-1.dll"];
 
-/// The app and the tests match on these phrases to recognise the cases
-/// a consented download fixes (as opposed to a broken file); keep them
-/// out of other error messages.
-const NOT_AVAILABLE: &str = "libheif is not available";
-const NO_DECODER: &str = "may lack an HEVC decoder";
+/// Why this machine could not decode HEIC, as opposed to a broken file.
+/// Carried in the error chain, so the app and the tests recognise the
+/// cases a consented download fixes whatever language the message is
+/// shown in.
+#[derive(Debug)]
+pub enum Unavailable {
+    /// No libheif could be loaded; `details` is what each candidate
+    /// path said.
+    NoLibrary { details: String },
+    /// A libheif loaded but reported "unsupported feature" while doing
+    /// `what`, which a build with no HEVC decoder does.
+    NoDecoder { what: String, message: String },
+}
+
+impl std::fmt::Display for Unavailable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Unavailable::NoLibrary { details } => {
+                f.write_str(&tf!("codec.heif.msg.no_library", details = details))
+            }
+            Unavailable::NoDecoder { what, message } => f.write_str(&tf!(
+                "codec.heif.msg.no_decoder",
+                what = what,
+                message = message
+            )),
+        }
+    }
+}
+
+impl std::error::Error for Unavailable {}
 
 /// The loaded library, and whether it came from the managed directory.
 /// A failed load is deliberately not cached, and `install` clears this,
@@ -160,7 +186,12 @@ static LOADED: Mutex<Option<(&'static LibHeif, bool)>> = Mutex::new(None);
 
 /// True when an `import` error means no libheif could be loaded.
 pub fn is_missing_library_error(err: &anyhow::Error) -> bool {
-    format!("{err:#}").contains(NOT_AVAILABLE)
+    err.chain().any(|e| {
+        matches!(
+            e.downcast_ref::<Unavailable>(),
+            Some(Unavailable::NoLibrary { .. })
+        )
+    })
 }
 
 /// True when the failure is "this machine cannot decode HEIC" — no
@@ -168,7 +199,8 @@ pub fn is_missing_library_error(err: &anyhow::Error) -> bool {
 /// file. Tests skip on this; the app asks the further question of
 /// whether a download would fix it.
 pub fn no_decoder_available(err: &anyhow::Error) -> bool {
-    is_missing_library_error(err) || format!("{err:#}").contains(NO_DECODER)
+    err.chain()
+        .any(|e| e.downcast_ref::<Unavailable>().is_some())
 }
 
 /// True when this machine cannot decode HEIC today but installing the
@@ -360,9 +392,13 @@ pub fn install(file: &RemoteFile, bytes: &[u8]) -> anyhow::Result<PathBuf> {
     let got = format!("{:x}", sha2::Sha256::digest(bytes));
     anyhow::ensure!(
         got == file.sha256,
-        "checksum mismatch for {}: expected {}, got {got}",
-        file.name,
-        file.sha256
+        "{}",
+        tf!(
+            "codec.heif.msg.checksum_mismatch",
+            name = file.name,
+            expected = file.sha256,
+            got = got
+        )
     );
     let dir = managed_dir();
     std::fs::create_dir_all(&dir)?;
@@ -416,7 +452,10 @@ fn libheif() -> anyhow::Result<&'static LibHeif> {
                 if let Some(init) = lib.init {
                     // Loads the decoder plugins on distros that ship
                     // them as separate shared objects.
-                    check(unsafe { init(std::ptr::null()) }, "initialising libheif")?;
+                    check(
+                        unsafe { init(std::ptr::null()) },
+                        t("codec.heif.msg.initialising"),
+                    )?;
                 }
                 let lib = &*Box::leak(Box::new(lib));
                 *loaded = Some((lib, *from_managed));
@@ -425,11 +464,10 @@ fn libheif() -> anyhow::Result<&'static LibHeif> {
             Err(err) => errors.push(format!("{}: {err}", name.to_string_lossy())),
         }
     }
-    Err(anyhow::anyhow!(
-        "{NOT_AVAILABLE} ({}). Opening HEIC needs the libheif library \
-         (Linux: install libheif1; macOS: brew install libheif)",
-        errors.join("; ")
-    ))
+    Err(Unavailable::NoLibrary {
+        details: errors.join("; "),
+    }
+    .into())
 }
 
 #[cfg(not(target_os = "ios"))]
@@ -438,15 +476,16 @@ fn check(err: HeifError, what: &str) -> anyhow::Result<()> {
         return Ok(());
     }
     let message = if err.message.is_null() {
-        "unknown error".into()
+        t("codec.heif.msg.unknown_error").into()
     } else {
         unsafe { CStr::from_ptr(err.message) }.to_string_lossy()
     };
     if err.code == ERROR_UNSUPPORTED {
-        anyhow::bail!(
-            "{what}: {message} — this libheif build {NO_DECODER} \
-             (on Debian/Ubuntu, install libheif-plugin-libde265)"
-        );
+        return Err(Unavailable::NoDecoder {
+            what: what.into(),
+            message: message.into_owned(),
+        }
+        .into());
     }
     anyhow::bail!("{what}: {message}");
 }
@@ -471,7 +510,7 @@ impl CodecPlugin for HeifCodec {
         "codec.heif"
     }
     fn name(&self) -> &'static str {
-        "HEIF"
+        t("codec.heif.name")
     }
     fn extensions(&self) -> &'static [&'static str] {
         // .hif is what Canon and Sony cameras name their HEIF captures.
@@ -522,13 +561,13 @@ fn import(lib: &LibHeif, bytes: &[u8]) -> anyhow::Result<Document> {
                 bytes.len(),
                 std::ptr::null(),
             ),
-            "reading HEIF container",
+            t("codec.heif.msg.reading_container"),
         )?;
 
         let mut handle = std::ptr::null_mut();
         check(
             (lib.context_get_primary_image_handle)(ctx.0, &mut handle),
-            "finding primary image",
+            t("codec.heif.msg.finding_primary_image"),
         )?;
         let handle = Owned(handle, lib.image_handle_release);
 
@@ -537,7 +576,7 @@ fn import(lib: &LibHeif, bytes: &[u8]) -> anyhow::Result<Document> {
         // portrait iPhone shots come out upright.
         let width = (lib.image_handle_get_width)(handle.0);
         let height = (lib.image_handle_get_height)(handle.0);
-        anyhow::ensure!(width > 0 && height > 0, "zero-sized image");
+        anyhow::ensure!(width > 0 && height > 0, "{}", t("codec.msg.zero_sized"));
         let (w, h) = (width as u32, height as u32);
 
         let mut icc = match (lib.image_handle_get_color_profile_type)(handle.0) {
@@ -551,7 +590,7 @@ fn import(lib: &LibHeif, bytes: &[u8]) -> anyhow::Result<Document> {
                                 handle.0,
                                 profile.as_mut_ptr().cast(),
                             ),
-                            "reading ICC profile",
+                            t("codec.heif.msg.reading_icc_profile"),
                         )
                         .map(|()| profile)
                         .map_err(|err| log::warn!("HEIF: {err:#}"))
@@ -586,7 +625,7 @@ fn import(lib: &LibHeif, bytes: &[u8]) -> anyhow::Result<Document> {
                 },
                 std::ptr::null(),
             ),
-            "decoding image",
+            t("codec.heif.msg.decoding_image"),
         )?;
         let image = Owned(image, lib.image_release);
 
@@ -653,6 +692,7 @@ fn import(lib: &LibHeif, bytes: &[u8]) -> anyhow::Result<Document> {
             out
         };
 
-        crate::flat_document("HEIF", w, h, &rgba, icc).context("assembling document")
+        crate::flat_document(t("codec.heif.name"), w, h, &rgba, icc)
+            .context(t("codec.msg.assembling_document"))
     }
 }

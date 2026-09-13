@@ -1,0 +1,88 @@
+# The painting tools (plugins/tools-paint): the stroke tools, the two
+# gradients and the paint bucket. Each stroke tool's history entry is
+# its own key so a language can name the action rather than the tool.
+# Tolerance, Style, Size come from common.lang.
+
+# Brush
+tool.brush.name = Brush
+tool.brush.description = Paint a soft-edged stroke in the foreground colour, sized by the editor's brush size, hardness and opacity.
+tool.brush.history.stroke = Brush
+
+# Pencil
+tool.pencil.name = Pencil
+tool.pencil.description = Paint a hard-edged, unantialiased stroke in the foreground colour.
+tool.pencil.history.stroke = Pencil
+
+# Eraser
+tool.eraser.name = Eraser
+tool.eraser.description = Erase along the stroke, taking the layer back to transparency.
+tool.eraser.history.stroke = Eraser
+
+# Clone Stamp
+tool.clone.name = Clone Stamp
+tool.clone.description = Clone Stamp: alt-click to set the source point, then paint pixels copied from it at that offset.
+tool.clone.history.stroke = Clone Stamp
+
+# Dodge, Burn, Sponge
+tool.dodge.name = Dodge
+tool.dodge.description = Lighten the pixels the stroke passes over.
+tool.dodge.history.stroke = Dodge
+tool.burn.name = Burn
+tool.burn.description = Darken the pixels the stroke passes over.
+tool.burn.history.stroke = Burn
+tool.sponge.name = Sponge
+tool.sponge.description = Saturate, or desaturate, the pixels the stroke passes over.
+tool.sponge.history.stroke = Sponge
+
+# Blur, Sharpen, Smudge
+tool.blur.name = Blur
+tool.blur.description = Blur the pixels the stroke passes over.
+tool.blur.history.stroke = Blur
+tool.sharpen.name = Sharpen
+tool.sharpen.description = Sharpen the pixels the stroke passes over.
+tool.sharpen.history.stroke = Sharpen
+tool.smudge.name = Smudge
+tool.smudge.description = Drag colour along the stroke, as if pushing wet paint.
+tool.smudge.history.stroke = Smudge
+
+# Healing
+tool.heal.name = Healing Brush
+tool.heal.description = Healing Brush: alt-click to set the source, then paint; the source's texture is blended into the destination's own colour and lighting.
+tool.heal.history.stroke = Healing Brush
+tool.spot_heal.name = Spot Healing Brush
+tool.spot_heal.description = Spot Healing Brush: paint over a blemish and it is replaced with texture taken from around it -- no source point to set.
+tool.spot_heal.history.stroke = Spot Healing Brush
+
+# History Brush
+tool.history_brush.name = History Brush
+tool.history_brush.description = Paint pixels back out of the document's history snapshot, undoing later work stroke by stroke.
+tool.history_brush.history.stroke = History Brush
+
+# Background Eraser
+tool.background_eraser.name = Background Eraser
+tool.background_eraser.description = Erase the colour sampled under the brush's centre and leave unlike pixels alone, for lifting a subject off its background.
+tool.background_eraser.history.stroke = Background Eraser
+
+# Gradient. The radial tool shares the linear one's options and history.
+tool.gradient.name = Gradient
+tool.gradient.description = Drag to fill the layer -- through the selection when there is one -- with a linear gradient running from the foreground colour to the background colour along the drag.
+tool.gradient.radial.name = Radial Gradient
+tool.gradient.radial.description = Drag from the centre outwards to fill with a radial gradient between the foreground and background colours.
+tool.gradient.option.gradient = Gradient
+tool.gradient.option.reverse = Reverse
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Foreground to Background
+tool.gradient.choice.foreground_to_transparent = Foreground to Transparent
+tool.gradient.choice.linear = Linear
+tool.gradient.choice.radial = Radial
+tool.gradient.choice.angle = Angle
+tool.gradient.choice.reflected = Reflected
+tool.gradient.choice.diamond = Diamond
+tool.gradient.history.gradient = Gradient
+
+# Paint Bucket
+tool.bucket.name = Paint Bucket
+tool.bucket.description = Click to flood the connected area of similar colour under the pointer with the foreground colour, within the tool's tolerance.
+tool.bucket.option.contiguous = Contiguous
+tool.bucket.option.all_layers = All Layers
+tool.bucket.history.fill = Paint Bucket

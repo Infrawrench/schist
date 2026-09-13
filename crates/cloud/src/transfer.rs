@@ -7,6 +7,7 @@ use crate::{
 #[cfg(not(target_arch = "wasm32"))]
 use anyhow::bail;
 use anyhow::{ensure, Context, Result};
+use schist_i18n::t;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -84,14 +85,14 @@ fn params(id: &str, format: Option<&str>, capabilities: Option<&Capabilities>) -
     let mut fields = vec![("id", id.into())];
     if let Some(format) = format {
         ensure!(valid_format(format), "Invalid download format");
-        let capabilities = capabilities.context("Provider does not advertise export support")?;
+        let capabilities = capabilities.context(t("cloud.transport.no_export_support"))?;
         ensure!(
             if format == "original" {
                 capabilities.original_download
             } else {
                 capabilities.supports_export(format)
             },
-            "Provider does not support the requested download format"
+            t("cloud.transport.unsupported_download_format")
         );
         fields.push(("format", format.into()));
     }
@@ -172,7 +173,7 @@ fn download_with(
                 ) =>
             {
                 if attempt == 2 {
-                    bail!("The cloud file kept changing during download; try again");
+                    bail!(t("cloud.download.kept_changing"));
                 }
             }
             Err(error) => return Err(error),

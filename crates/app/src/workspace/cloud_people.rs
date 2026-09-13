@@ -4,6 +4,7 @@ use super::gallery_chrome::{self as chrome, pal};
 use super::*;
 use gpui::{img, StatefulInteractiveElement as _};
 use schist_cloud::{protocol::value, Face, FaceRect, Value};
+use schist_i18n::{t, tf, tn};
 use schist_ui::Badge;
 
 /// The cloud's people, drawn like the local PEOPLE rows: a round badge,
@@ -24,7 +25,7 @@ pub(crate) fn rows(
     };
     let mut rows: Vec<gpui::AnyElement> = Vec::new();
     if caption {
-        rows.push(chrome::sidebar_caption("PEOPLE").into_any_element());
+        rows.push(chrome::sidebar_caption(t("cloud.sidebar.people")).into_any_element());
     }
     let viewing = ws.cloud.query.filters.person_id.clone();
     let badge = |glyph: &'static str| {
@@ -104,7 +105,7 @@ pub(crate) fn rows(
         rows.push(person_row(
             "cloud-person-unnamed".into(),
             "?",
-            "Unnamed faces in Schist Cloud".into(),
+            t("cloud.people.unnamed_faces_row").into(),
             people.unnamed,
             viewing.as_deref() == Some("unnamed"),
             "unnamed".into(),
@@ -119,10 +120,7 @@ pub(crate) fn rows(
                 .py_1()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child(format!(
-                    "Finding faces in {} cloud photos\u{2026}",
-                    people.pending
-                ))
+                .child(tn("cloud.people.finding_faces", people.pending))
                 .into_any_element(),
         );
     }
@@ -133,7 +131,7 @@ pub(crate) fn rows(
                 .py_1()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child(format!("Could not process {} cloud photos", people.failed))
+                .child(tn("cloud.people.could_not_process", people.failed))
                 .into_any_element(),
         );
     }
@@ -203,7 +201,7 @@ impl Workspace {
                         rect.map(|r| serde_json::to_string(&r).unwrap())
                             .unwrap_or_default(),
                     ),
-                    ("cloud-name", "Name".into(), name.clone()),
+                    ("cloud-name", t("common.name").into(), name.clone()),
                 ],
             },
             cx,
@@ -332,9 +330,9 @@ pub(crate) fn viewer(
         }
         body = body.child(chrome::gallery_button(
             if ws.cloud.face_drawing {
-                "Cancel drawing"
+                t("cloud.people.cancel_drawing")
             } else {
-                "Add a face…"
+                t("cloud.people.add_face")
             },
             false,
             |ws, _, cx| {
@@ -358,7 +356,7 @@ pub(crate) fn viewer(
                         .find(|p| &p.id == id)
                 })
                 .map(|p| p.name.as_str())
-                .unwrap_or("Unnamed");
+                .unwrap_or(t("cloud.people.unnamed"));
             let a = asset.clone();
             let f = face.clone();
             let mut row = div()
@@ -366,12 +364,19 @@ pub(crate) fn viewer(
                 .gap_2()
                 .items_center()
                 .child(chrome::gallery_button(
-                    format!("{}{}", person, if face.automatic { " · auto" } else { "" }),
+                    if face.automatic {
+                        tf!("cloud.people.auto_suffix", name = person)
+                    } else {
+                        person.to_string()
+                    },
                     false,
                     move |ws, _, cx| ws.cloud_face_name(&a, Some(&f), None, cx),
                     cx,
                 ));
-            for (label, method) in [("Not a face", "face.dismiss"), ("Not them", "face.reject")] {
+            for (label, method) in [
+                (t("cloud.people.not_a_face"), "face.dismiss"),
+                (t("cloud.people.not_them"), "face.reject"),
+            ] {
                 if method == "face.reject" && !face.automatic && face.suggestion.is_none() {
                     continue;
                 }
@@ -405,7 +410,7 @@ pub(crate) fn viewer(
                 let a = asset.clone();
                 let f = face.clone();
                 row = row.child(chrome::gallery_button(
-                    format!("Is this {name}? Yes"),
+                    tf!("cloud.people.confirm_suggestion", name = name),
                     false,
                     move |ws, _, _| {
                         ws.cloud_mutate(
@@ -424,18 +429,16 @@ pub(crate) fn viewer(
             body = body.child(row);
         }
         if asset.faces.is_empty() {
-            body = body.child(
-                "No faces named yet. Faces are found automatically; draw a box to add one by hand.",
-            );
+            body = body.child(t("cloud.people.no_faces"));
         }
     } else {
-        body = body.child("This photo is no longer available in this view.");
+        body = body.child(t("cloud.people.photo_unavailable"));
     }
     crate::ui::modal_frame(
-        "People in this photo",
+        t("cloud.people.title"),
         620.,
         body,
-        chrome::gallery_button("Close", false, |ws, _, cx| ws.close_modal(cx), cx),
+        chrome::gallery_button(t("common.close"), false, |ws, _, cx| ws.close_modal(cx), cx),
     )
     .into_any_element()
 }
@@ -446,7 +449,10 @@ pub(crate) fn submit(
 ) -> anyhow::Result<bool> {
     match kind {
         "people-rename" => {
-            anyhow::ensure!(!get("cloud-name").is_empty(), "Enter a name");
+            anyhow::ensure!(
+                !get("cloud-name").is_empty(),
+                t("cloud.people.enter_a_name")
+            );
             ws.cloud_mutate(
                 "people.rename",
                 vec![
@@ -456,7 +462,10 @@ pub(crate) fn submit(
             );
         }
         "face-name" | "face-add" => {
-            anyhow::ensure!(!get("cloud-name").is_empty(), "Enter a name");
+            anyhow::ensure!(
+                !get("cloud-name").is_empty(),
+                t("cloud.people.enter_a_name")
+            );
             let mut fields = vec![
                 ("asset_id", get("cloud-asset-id").into()),
                 ("revision", get("cloud-revision").parse::<u64>()?.into()),

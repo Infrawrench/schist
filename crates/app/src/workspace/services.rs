@@ -2,6 +2,7 @@
 //! update checks, fonts, and plug-ins.
 
 use super::*;
+use schist_i18n::tf;
 
 impl Workspace {
     /// Download a Neural Filters model and install it.
@@ -24,7 +25,7 @@ impl Workspace {
             id,
             got: got.clone(),
         });
-        self.status = format!("Downloading {}\u{2026}", spec.name).into();
+        self.status = tf!("cloud.services.downloading", name = spec.name).into();
         cx.notify();
         // A repaint every so often while it runs, so the dialog's count
         // climbs. The fetch itself cannot ask for one: it is on a
@@ -64,13 +65,13 @@ impl Workspace {
                 ws.status = match fetched.and_then(|bytes| {
                     schist_neural::install(spec, &bytes).map_err(|e| e.to_string())
                 }) {
-                    Ok(path) => format!(
-                        "Installed {} to {}",
-                        spec.name,
-                        crate::ui::shown_path(&path)
+                    Ok(path) => tf!(
+                        "cloud.services.installed_model",
+                        name = spec.name,
+                        path = crate::ui::shown_path(&path)
                     )
                     .into(),
-                    Err(e) => format!("{}: {e}", spec.name).into(),
+                    Err(e) => tf!("cloud.error.named", name = spec.name, error = e).into(),
                 };
                 #[cfg(not(target_arch = "wasm32"))]
                 if super::library_people::PEOPLE_MODELS.contains(&id)
@@ -91,7 +92,7 @@ impl Workspace {
             return;
         };
         self.status = match schist_neural::uninstall(spec) {
-            Ok(()) => format!("Removed {}", spec.name).into(),
+            Ok(()) => tf!("cloud.services.removed", name = spec.name).into(),
             Err(e) => format!("{e}").into(),
         };
         cx.notify();
@@ -103,7 +104,7 @@ impl Workspace {
     /// deployment updates by serving newer files.)
     #[cfg(not(sandboxed))]
     pub fn check_for_update(&mut self, cx: &mut Context<Self>) {
-        self.status = "Checking for updates…".into();
+        self.status = schist_i18n::t("cloud.services.checking_for_updates").into();
         cx.notify();
         self.run_update_check(false, cx);
     }
@@ -137,7 +138,8 @@ impl Workspace {
                 match status {
                     crate::update::UpdateStatus::Available(update) => {
                         log::info!("update {} available at {}", update.version, update.page);
-                        ws.status = format!("Schist {} is available", update.version).into();
+                        ws.status =
+                            tf!("cloud.services.update_available", version = update.version).into();
                         // The launch-time check lands five seconds in,
                         // by which time the user may be in a dialog of
                         // their own. Theirs wins; the status line still
@@ -148,12 +150,14 @@ impl Workspace {
                         }
                     }
                     crate::update::UpdateStatus::UpToDate if !quiet => {
-                        ws.status =
-                            format!("Schist {} is up to date", crate::update::current_version())
-                                .into();
+                        ws.status = tf!(
+                            "cloud.services.up_to_date",
+                            version = crate::update::current_version()
+                        )
+                        .into();
                     }
                     crate::update::UpdateStatus::Failed(err) if !quiet => {
-                        ws.status = format!("Update check failed: {err}").into();
+                        ws.status = tf!("cloud.services.update_check_failed", error = err).into();
                     }
                     _ => {}
                 }
@@ -182,7 +186,11 @@ impl Workspace {
             received: 0,
             total: installer.size,
         });
-        self.status = format!("Downloading Schist {}\u{2026}", update.version).into();
+        self.status = tf!(
+            "cloud.services.downloading_schist",
+            version = update.version
+        )
+        .into();
         cx.notify();
 
         // The download runs on a background thread and counts bytes into
@@ -235,7 +243,7 @@ impl Workspace {
                     return false;
                 }
                 ws.update_progress = Some(UpdateProgress::Installing);
-                ws.status = "Installing the update\u{2026}".into();
+                ws.status = schist_i18n::t("cloud.services.installing_update").into();
                 cx.notify();
                 true
             });
@@ -258,7 +266,7 @@ impl Workspace {
                         // than lost: it lands whenever this process does
                         // exit.
                         ws.status =
-                            format!("Restarting into Schist {}\u{2026}", update.version).into();
+                            tf!("cloud.services.restarting", version = update.version).into();
                         ws.request_quit(cx);
                     }
                     Err(err) => ws.update_failed(&format!("{err:#}"), cx),
@@ -277,7 +285,7 @@ impl Workspace {
     #[cfg(not(sandboxed))]
     pub fn cancel_update(&mut self, cx: &mut Context<Self>) {
         self.update_progress = None;
-        self.status = "Update cancelled".into();
+        self.status = schist_i18n::t("cloud.services.update_cancelled").into();
         self.close_modal(cx);
         cx.notify();
     }
@@ -288,7 +296,7 @@ impl Workspace {
         log::error!("update failed: {err}");
         crate::update::clean_downloads();
         self.update_progress = None;
-        self.status = format!("Update failed: {err}").into();
+        self.status = tf!("cloud.services.update_failed", error = err).into();
         self.close_modal(cx);
         cx.notify();
     }
@@ -306,7 +314,11 @@ impl Workspace {
     /// metric-compatible substitute.
     #[cfg(target_arch = "wasm32")]
     pub fn download_font(&mut self, _family: String, target: String, cx: &mut Context<Self>) {
-        self.status = format!("{target}: font downloads aren't available in the browser").into();
+        self.status = tf!(
+            "cloud.services.font_downloads_unavailable_web",
+            name = target
+        )
+        .into();
         cx.notify();
     }
 
@@ -316,7 +328,7 @@ impl Workspace {
             return;
         }
         self.font_downloads.push(family.clone());
-        self.status = format!("Downloading {target}\u{2026}").into();
+        self.status = tf!("cloud.services.downloading", name = target).into();
         cx.notify();
         cx.spawn(async move |this, cx| {
             let fetch_target = target.clone();
@@ -337,12 +349,15 @@ impl Workspace {
                             .map(|doc| schist_tools_type::rerender_family(doc, &family))
                             .unwrap_or(0);
                         ws.refresh_missing_fonts();
-                        format!(
-                            "Installed {target} ({n} faces) \u{b7} re-set {redrawn} text layer(s)"
+                        schist_i18n::tn!(
+                            "cloud.services.installed_font",
+                            redrawn as u64,
+                            name = target,
+                            faces = n
                         )
                         .into()
                     }
-                    Err(e) => format!("{target}: {e}").into(),
+                    Err(e) => tf!("cloud.error.named", name = target, error = e).into(),
                 };
                 cx.notify();
             })
@@ -419,11 +434,11 @@ impl Workspace {
                 return;
             };
             self.photoshop_plugins.set_enabled(&id, enabled, &dir);
-            self.status = format!(
-                "{} {} — restart to apply",
-                id,
-                if enabled { "enabled" } else { "disabled" }
-            )
+            self.status = if enabled {
+                tf!("cloud.services.plugin_enabled", id = id)
+            } else {
+                tf!("cloud.services.plugin_disabled", id = id)
+            }
             .into();
             cx.notify();
             return;
@@ -432,11 +447,11 @@ impl Workspace {
             return;
         };
         self.plugins.set_enabled(&id, enabled, &dir);
-        self.status = format!(
-            "{} {} — restart to apply",
-            id,
-            if enabled { "enabled" } else { "disabled" }
-        )
+        self.status = if enabled {
+            tf!("cloud.services.plugin_enabled", id = id)
+        } else {
+            tf!("cloud.services.plugin_disabled", id = id)
+        }
         .into();
         cx.notify();
     }
@@ -458,12 +473,14 @@ impl Workspace {
             match schist_plugin_host_8bf::manager::PluginManager::plugin_dir() {
                 Some(dir) => {
                     match schist_plugin_host_8bf::manager::PluginManager::install(&source, &dir) {
-                        Ok(path) => format!(
-                            "Installed {} — restart to load",
-                            crate::ui::shown_path(&path)
+                        Ok(path) => tf!(
+                            "cloud.services.plugin_installed",
+                            path = crate::ui::shown_path(&path)
                         )
                         .into(),
-                        Err(err) => format!("Plug-in rejected: {err}").into(),
+                        Err(err) => {
+                            tf!("cloud.services.photoshop_plugin_rejected", error = err).into()
+                        }
                     }
                 }
                 None => return,
@@ -473,12 +490,12 @@ impl Workspace {
                 return;
             };
             match schist_plugin_host_wasm::PluginManager::install(&source, &dir) {
-                Ok(path) => format!(
-                    "Installed {} — restart to load",
-                    crate::ui::shown_path(&path)
+                Ok(path) => tf!(
+                    "cloud.services.plugin_installed",
+                    path = crate::ui::shown_path(&path)
                 )
                 .into(),
-                Err(err) => format!("Plugin rejected: {err}").into(),
+                Err(err) => tf!("cloud.services.plugin_rejected", error = err).into(),
             }
         };
         cx.notify();

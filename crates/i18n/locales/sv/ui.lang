@@ -1,0 +1,5 @@
+# The widget kit (crates/ui). Every control there takes its label,
+# placeholder and tooltip from its caller, and its own literals are
+# element ids, icon names and key names, so the kit carries no
+# strings of its own. The file exists so the kit has a home when it
+# gains one.

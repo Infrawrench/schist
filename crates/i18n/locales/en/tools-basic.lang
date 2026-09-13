@@ -1,0 +1,28 @@
+# The basic tools (plugins/tools-basic): Move, Eyedropper, Hand, Zoom.
+# Option labels shared with the rest of the app (Layer, Group) come
+# from common.lang.
+
+# Move
+tool.move.name = Move
+tool.move.description = Drag the active layer's contents to a new position. With Auto-Select on, the press picks whichever layer -- or whole group -- is under the pointer first.
+tool.move.option.auto_select = Auto-Select
+tool.move.history.move_layer = Move Layer
+
+# Eyedropper
+tool.eyedropper.name = Eyedropper
+tool.eyedropper.description = Sample the colour under the pointer into the foreground swatch, or into the background swatch when alt is held. Dragging keeps sampling.
+tool.eyedropper.option.sample_size = Sample Size
+tool.eyedropper.option.sample = Sample
+tool.eyedropper.choice.point_sample = Point Sample
+tool.eyedropper.choice.average_3 = 3 by 3 Average
+tool.eyedropper.choice.average_5 = 5 by 5 Average
+tool.eyedropper.choice.average_11 = 11 by 11 Average
+tool.eyedropper.choice.average_31 = 31 by 31 Average
+tool.eyedropper.choice.all_layers = All Layers
+tool.eyedropper.choice.current_layer = Current Layer
+
+# Hand and Zoom
+tool.hand.name = Hand
+tool.hand.description = Pans the view. The viewport belongs to the window, so headless this tool does nothing to the document.
+tool.zoom.name = Zoom
+tool.zoom.description = Zooms the view. The viewport belongs to the window, so headless this tool does nothing to the document.

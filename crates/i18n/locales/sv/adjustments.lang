@@ -1,0 +1,20 @@
+# Justeringslager, som i svenska Photoshop.
+adjustment.levels.name = Nivåer
+adjustment.curves.name = Kurvor
+adjustment.hue_saturation.name = Nyans/mättnad
+adjustment.brightness_contrast.name = Intensitet/kontrast
+adjustment.black_white.name = Svartvitt
+adjustment.solid_color.name = Enfärgad
+adjustment.gradient_fill.name = Övertoning
+adjustment.pattern_fill.name = Mönster
+adjustment.invert.name = Invertera
+adjustment.posterize.name = Färgreducering
+adjustment.threshold.name = Tröskelvärde
+adjustment.color_balance.name = Färgbalans
+adjustment.vibrance.name = Lyster
+adjustment.exposure.name = Exponering
+adjustment.photo_filter.name = Fotofilter
+adjustment.gradient_map.name = Övertoningskarta
+adjustment.selective_color.name = Selektiv färg
+adjustment.channel_mixer.name = Kanalmixer
+adjustment.other.name = Justering

@@ -2,6 +2,7 @@
 //! server ticket when a user selects an interrupted file again (24-hour expiry).
 use crate::{auth, protocol::*, runtime, Handle};
 use anyhow::{ensure, Result};
+use schist_i18n::{t, tf};
 use serde::Deserialize;
 use sha2::{Digest, Sha256};
 use std::time::Duration;
@@ -98,7 +99,7 @@ impl Handle {
                     let bytes = read(offset, length)?;
                     ensure!(
                         bytes.len() == length,
-                        "The source file changed during upload"
+                        t("cloud.transport.source_changed_during_upload")
                     );
                     for attempt in 0..3 {
                         let result = async {
@@ -123,9 +124,9 @@ impl Handle {
                         match result {
                             Ok(()) => break,
                             Err(error) if attempt == 2 => {
-                                return Err(error.context(
-                                    "Select this file again to resume its uploaded parts",
-                                ))
+                                return Err(
+                                    error.context(t("cloud.transport.select_again_to_resume"))
+                                )
                             }
                             Err(_) => runtime::sleep(Duration::from_secs(1 << attempt)).await,
                         }
@@ -176,7 +177,7 @@ impl Handle {
                 let current = file.metadata()?;
                 ensure!(
                     current.len() == metadata.len() && current.modified()? == modified,
-                    "The source file changed; select it again to start a new upload"
+                    t("cloud.transport.source_changed_select_again")
                 );
                 file.seek(SeekFrom::Start(offset))?;
                 let mut bytes = vec![0; length];
@@ -282,7 +283,7 @@ fn file_digest(file: &mut std::fs::File, metadata: &std::fs::Metadata) -> Result
         hashed += length as u64;
         ensure!(
             hashed <= metadata.len(),
-            "The source file grew during upload preparation"
+            t("cloud.transport.source_grew_during_preparation")
         );
         if length == 0 {
             break;
@@ -291,7 +292,7 @@ fn file_digest(file: &mut std::fs::File, metadata: &std::fs::Metadata) -> Result
     }
     ensure!(
         hashed == metadata.len() && file.metadata()?.modified()? == metadata.modified()?,
-        "The source file changed during upload preparation"
+        t("cloud.transport.source_changed_during_preparation")
     );
     drop(buffer);
     Ok(digest.finalize().to_vec())
@@ -339,10 +340,22 @@ impl UploadCapacity {
             } else if bytes >= 1024 * 1024 {
                 format!("{:.2} MiB", bytes as f64 / (1024f64.powi(2)))
             } else {
-                format!("{bytes} bytes")
+                tf!("cloud.transport.bytes", n = bytes)
             }
         };
-        ensure!(self.fits,"Not enough cloud storage. This selection needs {}; {} is available. Free up {} or upgrade your plan. No files were uploaded.",format(self.additional_bytes),format(self.remaining_bytes.unwrap_or(0)),format(self.shortfall_bytes));
+        // The first sentence is its own string: the app matches it to
+        // open the storage dialog.
+        ensure!(
+            self.fits,
+            "{} {}",
+            t("cloud.error.not_enough_storage"),
+            tf!(
+                "cloud.error.not_enough_storage_detail",
+                needed = format(self.additional_bytes),
+                available = format(self.remaining_bytes.unwrap_or(0)),
+                shortfall = format(self.shortfall_bytes)
+            )
+        );
         Ok(())
     }
 }

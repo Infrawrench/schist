@@ -1,0 +1,116 @@
+# plugins/commands-core：“编辑”“选择”“图层”菜单中的命令。
+# 标题沿用简体中文 Photoshop 的叫法。
+
+# 编辑
+command.edit.undo.title = 还原
+command.edit.undo.description = 在文档的历史记录中后退一步。
+command.edit.redo.title = 重做
+command.edit.redo.description = 重新执行最近一次被还原的编辑。
+command.edit.copy.title = 拷贝
+command.edit.copy.description = 将当前图层中选中的像素拷贝到内部剪贴板（没有选区时拷贝整个图层）。
+command.edit.copy_merged.title = 合并拷贝
+command.edit.copy_merged.description = 按所有可见图层合成后的样子拷贝选区，而不是只从当前图层拷贝。
+command.edit.cut.title = 剪切
+command.edit.cut.description = 将选中的像素拷贝到剪贴板，并从当前图层中抹去。
+command.edit.paste.title = 粘贴
+command.edit.paste.description = 将剪贴板内容粘贴为当前图层上方的新图层，并置于画布中央。
+command.edit.paste.layer_name = 粘贴的图层
+command.edit.paste_in_place.title = 原位粘贴
+command.edit.paste_in_place.description = 将剪贴板内容粘贴为新图层，位置与拷贝时相同。
+command.edit.fill_foreground.title = 用前景色填充
+command.edit.fill_foreground.description = 用前景色填充选区（没有选区时填充整个画布）。
+command.edit.fill_background.title = 用背景色填充
+command.edit.fill_background.description = 用背景色填充选区（没有选区时填充整个画布）。
+
+# 选择
+command.select.all.title = 全部
+command.select.all.description = 选中整个画布。
+command.select.deselect.title = 取消选择
+command.select.deselect.description = 取消选区，让编辑重新作用于整个图层。
+command.select.inverse.title = 反选
+command.select.inverse.description = 互换已选中与未选中的区域。
+command.select.reselect.title = 重新选择
+command.select.reselect.description = 恢复最近一次取消的选区。
+command.select.reselect.msg.nothing_to_reselect = 没有可重新选择的选区
+command.select.feather.title = 羽化选区
+command.select.feather.description = 用两个像素的模糊柔化选区边缘，让下一次编辑在边缘处渐隐。
+command.select.grow.title = 扩大选取
+command.select.grow.description = 在魔棒容差范围内，把选区扩展到与已选内容相似的相邻像素。
+command.select.similar.title = 选取相似
+command.select.similar.description = 在魔棒容差范围内，选中图层里所有与选区相似的像素，无论是否相邻。
+command.select.save.title = 存储选区
+command.select.save.description = 把当前选区作为命名的 Alpha 通道存入文档。
+command.select.save.channel_name = Alpha {n}
+command.select.load.title = 载入选区
+command.select.load.description = 恢复最近存储的选区。
+
+# 图层
+command.layer.new.title = 新建图层
+command.layer.new.description = 在当前图层上方添加一个空的像素图层并将其设为当前图层。
+command.layer.duplicate.title = 复制图层
+command.layer.duplicate.description = 把当前图层连同全部内容拷贝到上方的新图层。
+command.layer.smart_object.title = 转换为智能对象
+command.layer.smart_object.description = 把当前像素图层的像素包装成智能对象，之后的变换和滤镜都从未改动的源重新采样。
+command.layer.rasterize.title = 栅格化图层
+command.layer.rasterize.description = 把形状、文字或智能对象图层转换为普通像素。
+command.layer.delete.title = 删除图层
+command.layer.delete.description = 删除选中的图层。
+command.layer.group.title = 图层编组
+command.layer.group.description = 把选中的图层就地放进一个新组。
+command.layer.raise.title = 前移一层
+command.layer.raise.description = 把当前图层在所属组中上移一位。
+command.layer.lower.title = 后移一层
+command.layer.lower.description = 把当前图层在所属组中下移一位。
+command.layer.to_front.title = 置为顶层
+command.layer.to_front.description = 把当前图层移到所属组的最上方。
+command.layer.to_back.title = 置为底层
+command.layer.to_back.description = 把当前图层移到所属组的最下方。
+command.layer.clipping_mask.title = 创建/释放剪贴蒙版
+command.layer.clipping_mask.description = 把当前图层剪贴到下方图层，若已剪贴则释放；被剪贴的图层只在其基底有像素的地方显示。
+command.layer.cut_to_new.title = 通过剪切的图层
+command.layer.cut_to_new.description = 把选中的像素从当前图层移到上方的新图层。
+command.layer.cut_to_new.layer_name = 通过剪切的图层
+command.layer.add_mask.title = 添加图层蒙版
+command.layer.add_mask.description = 为当前图层添加图层蒙版；有选区时只显示选区内的部分。
+command.layer.flatten.title = 拼合图像
+command.layer.flatten.description = 把所有可见内容合成为一个不透明的背景图层，并丢弃隐藏的图层。
+command.layer.merge_down.title = 向下合并
+command.layer.merge_down.description = 把当前图层合并到它下方的图层。
+command.layer.merge_down.msg.no_layer_below = 下方没有可合并的图层
+command.layer.merge_visible.title = 合并可见图层
+command.layer.merge_visible.description = 把所有可见图层合并为一个，隐藏的图层保持不变。
+
+# 命令未执行的原因（状态栏）
+command.msg.nothing_to_copy = 请先选择一个要拷贝的像素图层
+command.msg.clipboard_empty = 剪贴板为空
+
+# 历史记录面板中的条目
+command.history.grow = 扩大选取
+command.history.similar = 选取相似
+command.history.clear = 清除
+command.history.merge_down = 向下合并
+command.history.flatten_image = 拼合图像
+command.history.merge_visible = 合并可见图层
+command.history.paste = 粘贴
+command.history.fill = 填充
+command.history.select_all = 全部
+command.history.deselect = 取消选择
+command.history.select_inverse = 反选
+command.history.new_layer = 新建图层
+command.history.duplicate_layer = 复制图层
+command.history.convert_to_smart_object = 转换为智能对象
+command.history.rasterize_layer = 栅格化图层
+command.history.delete_layer = 删除图层
+command.history.delete_layers = 删除图层
+command.history.group_layer = 图层编组
+command.history.group_layers = 图层编组
+command.history.reselect = 重新选择
+command.history.feather = 羽化
+command.history.load_selection = 载入选区
+command.history.bring_forward = 前移一层
+command.history.send_backward = 后移一层
+command.history.bring_to_front = 置为顶层
+command.history.send_to_back = 置为底层
+command.history.clipping_mask = 剪贴蒙版
+command.history.layer_via_cut = 通过剪切的图层
+command.history.add_layer_mask = 添加图层蒙版

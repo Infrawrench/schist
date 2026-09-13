@@ -56,6 +56,7 @@ pub use native::Socket;
 mod browser {
     use super::*;
     use anyhow::{anyhow, ensure};
+    use schist_i18n::t;
     use wasm_bindgen::{closure::Closure, JsCast};
     use web_sys::{CloseEvent, Event, MessageEvent, WebSocket};
     pub struct Socket {
@@ -78,7 +79,8 @@ mod browser {
     impl Socket {
         pub async fn connect(url: &str) -> Result<Self> {
             crate::auth::secure_url(url, "wss")?;
-            let ws = WebSocket::new(url).map_err(|_| anyhow!("Could not open cloud socket"))?;
+            let ws = WebSocket::new(url)
+                .map_err(|_| anyhow!(t("cloud.transport.could_not_open_socket")))?;
             ws.set_binary_type(web_sys::BinaryType::Arraybuffer);
             let (tx, messages) = tokio::sync::mpsc::unbounded_channel();
             let (ready, opened) = tokio::sync::oneshot::channel();
@@ -110,7 +112,7 @@ mod browser {
                 let _ = events.send(Ok(Message::Close(event.code())));
             });
             let error = Closure::new(move |_: Event| {
-                let _ = tx.send(Err(anyhow!("Cloud WebSocket failed")));
+                let _ = tx.send(Err(anyhow!(t("cloud.transport.websocket_failed"))));
             });
             ws.set_onopen(Some(open.as_ref().unchecked_ref()));
             ws.set_onmessage(Some(message.as_ref().unchecked_ref()));
@@ -130,21 +132,23 @@ mod browser {
         pub async fn send(&mut self, bytes: Vec<u8>) -> Result<()> {
             ensure!(
                 self.ws.ready_state() == WebSocket::OPEN,
-                "Cloud socket is closed"
+                t("cloud.transport.socket_closed")
             );
             ensure!(
                 self.ws.buffered_amount() as usize + bytes.len() <= crate::MAX_FRAME,
-                "Cloud send buffer is full"
+                t("cloud.transport.send_buffer_full")
             );
             self.ws
                 .send_with_u8_array(&bytes)
-                .map_err(|_| anyhow!("Cloud send failed"))
+                .map_err(|_| anyhow!(t("cloud.transport.send_failed")))
         }
         pub async fn flush(&mut self) -> Result<()> {
             Ok(())
         }
         pub async fn close(&mut self) -> Result<()> {
-            self.ws.close().map_err(|_| anyhow!("Cloud close failed"))
+            self.ws
+                .close()
+                .map_err(|_| anyhow!(t("cloud.transport.close_failed")))
         }
         pub async fn next(&mut self) -> Option<Result<Message>> {
             self.messages.recv().await

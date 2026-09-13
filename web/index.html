@@ -134,14 +134,17 @@
     </div>
     <div id="schist-desktop-notice">
       <div class="card">
-        <h2>Schist runs best as a desktop app</h2>
-        <p>
+        <!-- English here; loader.js swaps in the browser's language
+             from its own small dictionary, the same four languages as
+             the app's chrome (docs/i18n.md). -->
+        <h2 id="schist-desktop-notice-title">Schist runs best as a desktop app</h2>
+        <p id="schist-desktop-notice-body">
           You're using the web version, which is a lighter build: it
           composites on the CPU and leaves out some features &mdash;
           Photoshop and third-party plug-ins, image gallery, the AI panel, HEIC import
           and font downloads &mdash; and files are saved as downloads.
           The free desktop app for macOS, Windows and Linux has all of
-          it. <a href="https://schist.app" target="_blank" rel="noopener">Get the desktop app.</a>
+          it. <a id="schist-desktop-notice-link" href="https://schist.app" target="_blank" rel="noopener">Get the desktop app.</a>
         </p>
         <button id="schist-desktop-notice-ok">OK</button>
       </div>

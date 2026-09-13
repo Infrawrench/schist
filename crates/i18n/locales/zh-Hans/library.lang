@@ -1,0 +1,309 @@
+# 照片图库：边栏、网格及其标题、世界地图、“人物”相册与查看器、
+# 相机导入、集合与地图筛选对话框，以及托盘的状态行。
+# 术语尽量与简体中文版 Photoshop、“照片”和 Picasa 一致；
+# Apple 的应用叫“照片”。中文没有单复数之分，只提供 .other 形式。
+
+# 边栏的标题与行
+library.sidebar.view = 视图
+library.sidebar.folders = 文件夹
+library.sidebar.buckets = 集合
+library.sidebar.people = 人物
+library.sidebar.group_by = 分组方式
+library.sidebar.all_photos = 所有照片
+library.sidebar.world_map = 世界地图
+library.sidebar.map_filter = 地图筛选…
+library.sidebar.map_filter_on = 地图筛选已开启
+library.sidebar.add_folder = + 添加文件夹…
+library.sidebar.new_bucket = + 新建集合
+library.sidebar.stop_watching = 停止监视此文件夹
+library.sidebar.unnamed_faces = 未命名的面孔
+library.sidebar.retry_face_model = 重试下载面孔模型
+library.sidebar.retry_recognition_model = 重试下载识别模型
+library.sidebar.looking_for_faces = 正在查找面孔… {looked}/{total}
+library.sidebar.faces_appear = 照片建立索引后，面孔会出现在这里。
+library.sidebar.downloading_face_models = 正在下载面孔模型… {got}/{total} MB
+
+# 网格的分组方式
+library.group_by.date = 日期
+library.group_by.folder = 文件夹
+library.group_by.place = 地点
+
+# 月份标题
+library.month.january = 1月
+library.month.february = 2月
+library.month.march = 3月
+library.month.april = 4月
+library.month.may = 5月
+library.month.june = 6月
+library.month.july = 7月
+library.month.august = 8月
+library.month.september = 9月
+library.month.october = 10月
+library.month.november = 11月
+library.month.december = 12月
+library.month.title = {year}年{month}
+library.month.undated = 无日期
+
+# 本地图库生成的分组标题
+library.group.person = 人物 · {name}
+library.group.person_in = 人物 · {name} · 位于 {scope}
+library.group.unnamed = 未命名的面孔
+library.group.unnamed_in = 未命名的面孔 · 位于 {scope}
+library.group.bucket = 集合 · {name}
+library.group.no_location = 无位置
+library.group.not_indexed = 尚未建立索引
+library.group.detail = {detail} — {n}
+
+# 顶栏
+library.strip.import = 导入…
+library.strip.add_folder = 添加文件夹…
+library.strip.settings = 设置…
+library.strip.new_file = 新建文件…
+library.strip.back_to_editing = 返回编辑
+library.strip.enable_search = 启用照片搜索…
+library.strip.enable_search_menu = 启用照片搜索…
+library.strip.map_filter_chip = 地图筛选：{name}
+library.strip.downloading_search = 正在下载照片搜索… {got}/{total} MB
+
+# 搜索框
+library.search.placeholder = 搜索照片…
+library.search.placeholder_indexing = 搜索（已索引 {indexed}/{total}）
+library.search.placeholder_people_places = 搜索人物和地点…
+library.search.results = 搜索结果
+library.search.results_in_bucket = 集合 · {name} · 搜索结果
+library.search.near = 靠近 {place}
+library.search.with = 包含 {names}
+
+# 托盘与单元格
+library.tray.view = 查看
+library.tray.edited_note = 已编辑 — 版本保存在文件旁
+library.tray.n_hidden.other = {n} 张已被内容过滤器隐藏
+library.cell.no_preview = 无预览
+library.cell.edited = 已编辑
+library.gallery.loading = 正在载入照片…
+
+# 欢迎屏幕，尚未监视任何文件夹时
+library.welcome.title = 欢迎使用 Schist
+library.welcome.intro = 监视存放照片的文件夹，或从相机导入。文件留在原处；编辑以版本形式保存在文件旁：
+library.welcome.intro_ios = 从您的图库导入照片，或从“文件”添加一个文件夹。编辑以版本形式保存在每张照片旁：
+library.welcome.or_open = 或打开一张图像进行编辑：
+library.welcome.shortcut_mac = 无论正在编辑什么，按 ⌘⇧G 即可随时回到图库。
+library.welcome.shortcut = 无论正在编辑什么，按 Ctrl+Shift+G 即可随时回到图库。
+
+# 网格为空的原因
+library.gallery.empty_bucket_search = 此集合中没有与搜索匹配的内容。按 Escape 可清除搜索并显示整个集合。
+library.gallery.empty_search = 没有与搜索匹配的内容。按 Escape 可清除搜索。
+library.gallery.empty_smart_bucket = 尚无内容符合此集合的规则 — 照片建立索引后，匹配项会陆续出现。也可以将照片拖入。
+library.gallery.empty_bucket = 此集合为空。将照片拖到边栏中它所在的行即可添加。
+library.gallery.empty_person = 这里还没有内容。照片建立索引后会出现面孔；点按一张照片，再点按一张面孔，即可指定是谁。
+library.gallery.scanning = 正在扫描文件夹…
+library.gallery.empty = 在监视的文件夹中未找到照片。Schist 能打开的图像（PNG、JPEG、WebP、TIFF、HEIC、相机 RAW、PSD、Affinity）会显示在这里；子文件夹最多扫描六层。
+
+# 集合
+library.bucket.default_name = 集合 {n}
+library.bucket.rule_matches = 匹配“{query}”
+library.bucket.rule_taken_in = 拍摄于 {name}
+library.bucket.new_title = 新建集合
+library.bucket.edit_title = 编辑集合
+library.bucket.new_cloud_title = 新建云端集合
+library.bucket.edit_cloud_title = 编辑云端集合
+library.bucket.create = 创建
+library.bucket.query_placeholder = 例如：海滩上的狗（可选）
+library.bucket.the_drawn_area = 已绘制的区域
+library.bucket.area_help = 按住 Shift 在地图上拖动（或选择一个预设）以添加区域；轻微拖动一下即可清除。规则会自动让集合保持填充。
+library.bucket.rule_none = 无规则：普通集合，通过拖入照片来填充。
+library.bucket.rule_query = 保留所有匹配“{query}”的照片。
+library.bucket.rule_area = 保留所有拍摄于{area}的照片。
+library.bucket.rule_query_area = 保留所有匹配“{query}”且拍摄于{area}的照片。
+library.bucket.starts_with.other = 初始包含所选的 {n} 张照片。
+
+# 世界地图
+library.map.status = 地图上有 {located} 张照片 · {unlocated} 张无位置
+library.map.reading_locations = 正在读取位置：还剩 {n} 张
+library.map.reset_view = 重置视图
+library.map.no_photos = 此视图中没有带 GPS 位置的照片。请添加带地理标记的照片，或更改图库的筛选条件。
+library.map.no_photos_cloud = 这里没有带 GPS 位置的照片。请选择其他文件夹或集合，或清除搜索。
+library.map.hint = 拖动平移 · 滚动缩放 · 点按标记查看其照片 · 连按两下照片进行编辑
+library.map.n_at_marker.other = 此标记处有 {n} 张照片
+library.map.n_in_marker.other = 此标记内有 {n} 张照片
+library.map.attribution = © OpenStreetMap 贡献者
+
+# 导入、地图筛选和集合共用的边界编辑器
+library.map.draw_area = 绘制区域
+library.map.drawing = 正在绘制…
+library.map.clear_boundary = 清除边界
+library.map.editor_hint = 拖动平移 · 滚动缩放 · Shift 拖动绘制
+
+# 地图筛选
+library.map_filter.title = 地图筛选
+library.map_filter.drawn_area = 已绘制的区域
+library.map_filter.apply_named = “应用”后只显示拍摄于 {name} 的照片；没有 EXIF 位置的照片会被隐藏。
+library.map_filter.apply_drawn = “应用”后只显示拍摄于 {south}°, {west}° 到 {north}°, {east}° 范围内的照片；没有 EXIF 位置的照片会被隐藏。
+library.map_filter.draw_first = 先绘制一个边界（Shift 拖动，或点按预设标签），再按“应用”。未绘制任何边界就应用会关闭筛选。
+library.map_filter.turn_off = 关闭筛选
+
+# 相机导入：选择器、选项、失败对话框
+library.import.title = 从相机导入
+library.import.from = 从 {name} 导入
+library.import.no_cameras = 未找到相机。
+library.import.no_cameras_help = 请插入相机、存储卡或 iPhone。iPhone 需先解锁并回答“信任此电脑”后才会显示照片 — 完成后稍等片刻，再按“重新扫描”。任何挂载为磁盘且带有 DCIM 文件夹的设备也算。
+library.import.scan_again = 重新扫描
+library.import.pick_source = 可访问的相机不止一台。从以下设备导入：
+library.import.via_image_capture = 通过“图像捕捉”
+library.import.boundary_named = 边界：{name} — 只导入 EXIF 位置落在其中的照片；没有位置的照片留在相机上。
+library.import.boundary_drawn = 边界：{south}°, {west}° 到 {north}°, {east}° — 只导入 EXIF 位置落在其中的照片。
+library.import.no_boundary = 无边界 — 导入相机上的全部内容。
+library.import.destination = 导入到 ~/Pictures/Schist Imports/{name} — 已导入过的文件会被跳过，因此可以放心重复运行。
+library.import.selected_area = 所选区域
+library.import.locked_help = 如果设备已锁定：请解锁，在询问时轻点“信任此电脑”，保持连接，然后重试。
+library.import.try_again = 重试
+library.import.add_to_gallery = 添加到图库
+
+# 相机导入：托盘中的提示
+library.import.needs_home = 导入需要一个可供拷贝的主目录
+library.import.importing_from = 正在从 {source} 导入…
+library.import.importing_in_place = 正在从 {source} 导入拍摄于 {place} 的照片…
+library.import.device_macos_only = 直接从设备导入仅在 macOS 上可用
+library.import.failed = 导入失败：{error}
+library.import.from_failed = 从 {name} 导入失败
+library.import.locked = {name} 已锁定 — 请解锁并轻点“信任”以继续
+library.import.reading_catalog = 正在读取 {name} 的照片目录…
+library.import.progress_from = 正在从 {name} 导入第 {n}/{total} 张照片…
+library.import.progress = 正在导入第 {n}/{total} 张照片…
+library.import.choose_photos = 选择要导入的照片…
+library.import.photos_open_failed = 无法打开照片图库：{error}
+library.import.done.other = 已将 {n} 张照片导入到 {dest}
+library.import.done_in_place.other = 已将拍摄于 {place} 的 {n} 张照片导入到 {dest}（{filtered} 张位于其他地点或没有位置，留在相机上）
+library.import.n_failed.other = {n} 张失败
+library.import.no_dcim = {source} 上没有 DCIM 文件夹
+library.import.already_running = 已有一个导入正在进行
+library.import.camera_gone = 该相机已断开连接
+library.import.camera_disconnected = 相机在导入过程中断开了连接
+library.import.unknown_error = 未知错误
+library.import.picker_needs_ios14 = 照片选择器需要 iOS 14 或更高版本
+library.import.picker_unavailable = 照片选择器不可用
+library.import.no_window = 没有可用于显示选择器的窗口
+
+# 挂载名称说明不了什么时，相机卷宗的叫法
+library.volume.iphone = iPhone 或 iPad
+library.volume.camera = 相机
+library.volume.phone = 手机
+
+# 拖到窗口上并以标签页打开的文件夹
+library.open_folder.opened.other = 已打开 {n} 张图像
+library.open_folder.opened_first = 已打开 {total} 张图像中的前 {n} 张 — 其余的在图库中
+
+# 照片搜索模型对话框
+library.search_models.title = 照片搜索
+library.search_models.intro = 按照片内容搜索需要两个模型，只需下载一次并保存在本机。它们在本地运行：任何照片都不会离开这台电脑。
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = Apple 的 MobileCLIP
+library.search_models.export = Xenova 的 ONNX 导出版本
+library.search_models.license = 许可证
+library.search_models.download_note = 下载即安装这两个模型（共 {mb} MB）并接受其许可证。之后可在“图库 ▸ 管理模型…”中移除。
+library.search_models.agree = 同意并下载
+
+# 右键菜单
+library.menu.add_all_to = 全部添加到 {name}
+library.menu.add_all_to_new_bucket = 全部添加到新集合…
+library.menu.edit_n_in_tabs = 在标签页中编辑 {n} 张
+library.menu.view_name_people = 查看并命名人物
+library.menu.reveal = 在文件管理器中显示
+library.menu.add_to = 添加到 {name}
+library.menu.add_to_new_bucket = 添加到新集合
+library.menu.remove_from_bucket = 从此集合中移除
+library.menu.save_n_as_zip = 将 {n} 张存储为 ZIP…
+library.menu.save_image_as = 图像存储为…
+library.menu.process = 处理…
+library.menu.process_n = 处理 {n} 张照片…
+library.menu.move_to_folder = 移动到文件夹…
+library.menu.move_n_to_folder = 将 {n} 张移动到文件夹…
+library.menu.revert = 恢复为原片
+library.menu.revert_n = 将 {n} 张恢复为原片
+library.menu.upload_to_cloud = 上传到 Schist Cloud…
+library.menu.watch_local_folder = 监视这台电脑上的文件夹…
+library.menu.new_cloud_folder = {glyph} 新建 Schist Cloud 文件夹…
+library.menu.new_local_bucket = 在这台电脑上新建集合…
+library.menu.new_cloud_bucket = {glyph} 新建 Schist Cloud 集合…
+library.menu.edit_bucket = 编辑集合…
+library.menu.select_all_n = 全选（{n}）
+library.menu.save_all_as_zip = 全部存储为 ZIP…（{n}）
+library.menu.process_all = 全部处理…（{n}）
+library.menu.move_all_to_folder = 全部移动到文件夹…
+library.menu.clear_added = 清除添加的照片
+library.menu.clear_bucket = 清空集合
+library.menu.delete_bucket = 删除集合
+library.menu.show_person = 显示 {name}
+library.menu.rename_person = 重命名…
+library.menu.forget_person.other = 忘记人物（{n} 张面孔）
+
+# 移动、压缩、存储、恢复、批处理
+library.ops.moving.other = 正在将 {n} 张照片移动到 {dest}…
+library.ops.moved.other = 已将 {n} 张照片移动到 {dest}
+library.ops.moved_partial = 已将 {total} 张照片中的 {n} 张移动到 {dest} — 其余见日志
+library.ops.move_here = 移动到此处
+library.ops.no_export_format = 这里没有能存储图像的格式
+library.ops.saved_size = 已存储 {name}（{w} × {h}）
+library.ops.save_failed = 存储失败：{error}
+library.ops.opening_first = 正在打开 {total} 张照片中的前 {n} 张 — 其余的在图库中
+library.ops.nothing_to_revert = 无可恢复的内容：这些照片都没有编辑
+library.ops.reverted.other = 已将 {n} 张照片恢复为原片 — 编辑内容保留在 versions/ 下
+library.ops.no_file_name = 该文件没有名称
+library.zip.nothing_all_held = 无可压缩的内容：内容过滤器排除了这 {n} 张照片的全部
+library.zip.failed = ZIP 失败：{error}
+library.zip.progress = 正在压缩 {n}/{total}…
+library.zip.n_held.other = （{n} 张被内容过滤器排除）
+library.zip.done.other = 已将 {n} 张照片压缩到 {dest}
+library.zip.done_partial = 已将 {total} 张照片中的 {n} 张压缩到 {dest} — 其余见日志
+library.zip.nothing_readable = 没有可读取并压缩的内容
+library.zip.too_large = 太大，没有 zip64 无法生成 ZIP
+library.batch.nothing_to_do = 无事可做：请先选择旋转、放大或调整
+library.batch.save_copies_here = 将副本存储到此处
+library.batch.processing.other = 正在处理 {n} 张照片…
+library.batch.progress = 已处理 {n}/{total} — {name}
+library.batch.failed = 处理失败：{error}
+library.batch.done.other = 已处理 {n} 张照片
+library.batch.done_partial = 已处理 {total} 张照片中的 {n} 张 — 其余见日志
+library.batch.model_would_not_load = 模型 {name} 无法加载
+library.batch.no_psd_writer = 未加载 PSD 写入器
+
+# 查看器与“人物”相册
+library.viewer.back = ‹ 返回照片
+library.viewer.could_not_decode = 此照片无法解码。
+library.viewer.label_auto = {name} · 自动
+library.viewer.label_guess = {name}？
+library.viewer.people_heading = 此照片中的人物
+library.viewer.faces_intro = 面孔由一个只需下载一次的小模型查找。也可以手动绘制方框。
+library.viewer.looking_for_faces = 正在查找面孔…
+library.viewer.no_faces = 未找到面孔。围绕面孔拖出一个方框即可手动添加人物。
+library.viewer.help = 点按面孔为其命名；按 Enter 存储。在照片上拖动可标记检测器漏掉的面孔。← → 切换照片，Esc 返回。
+library.viewer.not_them = 不是此人
+library.viewer.remove_name = 移除名字
+library.viewer.not_a_face = 不是面孔
+library.viewer.auto = 自动
+library.viewer.is_this = 这是 {name} 吗？
+library.viewer.someone_else = 其他人
+library.viewer.add_name = 添加名字…
+library.viewer.who_is_this = 这是谁？
+library.people.rename_title = 重命名人物
+library.people.merge_warning = 已有人叫“{name}”：存储会合并两者。
+library.people.merge_note = 改成别人已有的名字会合并两个人物。
+library.people.named = 已命名为 {name}
+library.people.named_followed.other = 已命名为 {name} · 另有 {n} 张面孔已自动匹配
+
+# 存储到“照片”（iOS）
+library.photos.saving = 正在存储到“照片”…
+library.photos.saved = 已存储到“照片”
+library.photos.save_failed = 存储到“照片”失败：{error}
+library.photos.no_document = 没有打开的文档
+library.photos.no_png_codec = 未加载 PNG 编解码器
+library.photos.no_answer = 照片图库没有响应
+library.photos.bad_url = 文件路径无法转换为 URL
+library.photos.unavailable = 照片图库不可用
+library.photos.declined = 照片图库拒绝了请求
+
+# 共享到 App 的文件（iOS）
+library.shared.needs_documents = 图库需要一个可供拷贝的“文稿”文件夹
+library.shared.added.other = 已将 {n} 张照片添加到图库
+library.shared.open_needs_documents = 打开需要一个可供拷贝的“文稿”文件夹
+library.shared.could_not_open = 无法打开 {name}：{error}

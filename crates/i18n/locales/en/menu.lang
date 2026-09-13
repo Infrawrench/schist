@@ -1,0 +1,160 @@
+# The menu bar: the in-window one and the macOS/iPadOS system one, which
+# are built from the same model (crates/app/src/panels/menus.rs). Items
+# that are plugin commands take their titles from commands.lang; filters
+# from filters.lang; adjustments from adjustments.lang.
+
+# File
+menu.file = File
+menu.file.new = New
+menu.file.open = Open…
+menu.file.open_recent = Open Recent
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Browse Gallery…
+menu.file.close = Close
+menu.file.save = Save
+menu.file.save_as = Save As…
+menu.file.export = Export…
+menu.file.export_submenu = Export
+menu.file.export_artboards = Artboards to PNG…
+menu.file.export_slices = Slices to PNG…
+menu.file.save_to_photos = Save to Photos
+menu.file.plugins = Plugins…
+menu.file.missing_fonts = Missing Fonts…
+menu.file.check_for_updates = Check for Updates…
+menu.file.quit = Quit
+menu.file.add_folder_to_gallery = Add Folder to Gallery…
+menu.file.import_from_photos = Import from Photos…
+menu.file.import_from_camera = Import from Camera…
+
+# Edit
+menu.edit = Edit
+menu.edit.fill = Fill…
+menu.edit.stroke = Stroke…
+menu.edit.content_aware_fill = Content-Aware Fill
+menu.edit.content_aware_scale = Content-Aware Scale…
+menu.edit.puppet_warp = Puppet Warp
+menu.edit.free_transform = Free Transform
+menu.edit.transform = Transform
+menu.edit.rotate_180 = Rotate 180°
+menu.edit.rotate_90_cw = Rotate 90° Clockwise
+menu.edit.rotate_90_ccw = Rotate 90° Counter Clockwise
+menu.edit.flip_horizontal = Flip Horizontal
+menu.edit.flip_vertical = Flip Vertical
+
+# Image
+menu.image = Image
+menu.image.mode = Mode
+menu.image.adjustments = Adjustments
+menu.image.auto_tone = Auto Tone
+menu.image.auto_contrast = Auto Contrast
+menu.image.auto_color = Auto Color
+menu.image.image_size = Image Size…
+menu.image.canvas_size = Canvas Size…
+menu.image.image_rotation = Image Rotation
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° Clockwise
+menu.image.rotate_90_ccw = 90° Counter Clockwise
+menu.image.flip_canvas_horizontal = Flip Canvas Horizontal
+menu.image.flip_canvas_vertical = Flip Canvas Vertical
+menu.image.crop_to_selection = Crop to Selection
+menu.image.trim = Trim
+menu.image.assign_profile = Assign Profile…
+menu.image.convert_to_profile = Convert to Profile…
+
+# Select
+menu.select = Select
+menu.select.color_range = Color Range…
+menu.select.modify = Modify
+menu.select.border = Border…
+menu.select.smooth = Smooth…
+menu.select.expand = Expand…
+menu.select.contract = Contract…
+menu.select.feather = Feather…
+menu.select.transform_selection = Transform Selection
+
+# Layer
+menu.layer = Layer
+menu.layer.layer_style = Layer Style…
+menu.layer.layer_comps = Layer Comps
+menu.layer.new_layer_comp = New Layer Comp
+menu.layer.delete_layer_comp = Delete {name}
+menu.layer.path = Path
+menu.layer.fill_path = Fill Path
+menu.layer.stroke_path = Stroke Path
+menu.layer.make_selection = Make Selection
+menu.layer.delete_path = Delete Path
+
+# Adjust
+menu.adjust = Adjust
+
+# Filter
+menu.filter = Filter
+menu.filter.filter_gallery = Filter Gallery…
+menu.filter.liquify = Liquify
+menu.filter.vanishing_point = Vanishing Point
+menu.filter.manage_models = Manage Models…
+menu.filter.camera_raw_development = Camera Raw Development…
+
+# View
+menu.view = View
+menu.view.rotate_view_cw = Rotate View Clockwise
+menu.view.rotate_view_ccw = Rotate View Counter Clockwise
+menu.view.reset_view = Reset View
+menu.view.zoom_in = Zoom In
+menu.view.zoom_out = Zoom Out
+menu.view.fit_on_screen = Fit on Screen
+menu.view.actual_size = 100%
+menu.view.rulers = Rulers
+menu.view.grid = Grid
+menu.view.guides = Guides
+menu.view.notes = Notes
+menu.view.ai_panel = AI Panel
+menu.view.extras = Extras
+menu.view.snap = Snap
+menu.view.clear_guides = Clear Guides
+menu.view.clear_notes = Clear Notes
+menu.view.clear_count = Clear Count
+menu.view.screen_mode = Screen Mode
+menu.view.proof_colors = Proof Colors
+# The system menu bar has no check marks, so a toggle says what the
+# click will do, as Finder's "Hide Sidebar" / "Show Sidebar" does.
+menu.view.show_rulers = Show Rulers
+menu.view.hide_rulers = Hide Rulers
+menu.view.show_grid = Show Grid
+menu.view.hide_grid = Hide Grid
+menu.view.show_guides = Show Guides
+menu.view.hide_guides = Hide Guides
+menu.view.show_notes = Show Notes
+menu.view.hide_notes = Hide Notes
+menu.view.show_extras = Show Extras
+menu.view.hide_extras = Hide Extras
+menu.view.enable_snapping = Enable Snapping
+menu.view.disable_snapping = Disable Snapping
+menu.view.enable_proof_colors = Enable Proof Colors
+menu.view.disable_proof_colors = Disable Proof Colors
+
+# Gallery (the bar while the gallery is showing)
+menu.gallery = Gallery
+menu.gallery.edit_selected = Edit Selected
+menu.gallery.refresh = Refresh
+menu.gallery.map_filter = Map Filter…
+menu.gallery.back_to_editor = Back to Editor
+
+# Schist Cloud submenu
+menu.cloud.browse = Browse Schist Cloud
+menu.cloud.generate = Generate images…
+menu.cloud.upload = Upload document to Schist Cloud…
+menu.cloud.sign_out = Sign out of Schist Cloud
+menu.cloud.sign_in = Sign into Schist Cloud…
+
+# The macOS application menu
+menu.app.services = Services
+menu.app.hide = Hide {app}
+menu.app.hide_others = Hide Others
+menu.app.show_all = Show All
+menu.app.quit = Quit {app}
+
+# Status-bar replies to menu items that cannot act
+menu.status.transform_selection_needs_selection = Transform Selection needs a selection
+menu.status.crop_needs_selection = Crop to Selection needs a selection
+menu.status.select_photo_to_edit = Select a photo to edit

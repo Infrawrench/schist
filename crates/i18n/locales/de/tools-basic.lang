@@ -1,0 +1,27 @@
+# Die Grundwerkzeuge (plugins/tools-basic): Verschieben, Pipette, Hand,
+# Zoom. Die Begriffe folgen dem deutschen Photoshop.
+
+# Verschieben
+tool.move.name = Verschieben
+tool.move.description = Zieht den Inhalt der aktiven Ebene an eine neue Position. Mit Auto-Auswahl wählt der Druck zuerst die Ebene – oder die ganze Gruppe – unter dem Zeiger.
+tool.move.option.auto_select = Auto-Auswahl
+tool.move.history.move_layer = Ebene verschieben
+
+# Pipette
+tool.eyedropper.name = Pipette
+tool.eyedropper.description = Nimmt die Farbe unter dem Zeiger als Vordergrundfarbe auf, mit gehaltener Alt-Taste als Hintergrundfarbe. Beim Ziehen wird weiter aufgenommen.
+tool.eyedropper.option.sample_size = Aufnahmebereich
+tool.eyedropper.option.sample = Aufnehmen
+tool.eyedropper.choice.point_sample = Punkt
+tool.eyedropper.choice.average_3 = 3 × 3 Pixel Durchschnitt
+tool.eyedropper.choice.average_5 = 5 × 5 Pixel Durchschnitt
+tool.eyedropper.choice.average_11 = 11 × 11 Pixel Durchschnitt
+tool.eyedropper.choice.average_31 = 31 × 31 Pixel Durchschnitt
+tool.eyedropper.choice.all_layers = Alle Ebenen
+tool.eyedropper.choice.current_layer = Aktuelle Ebene
+
+# Hand und Zoom
+tool.hand.name = Hand
+tool.hand.description = Verschiebt den Bildausschnitt. Der Ausschnitt gehört zum Fenster; ohne Fenster tut das Werkzeug dem Dokument nichts.
+tool.zoom.name = Zoom
+tool.zoom.description = Zoomt den Bildausschnitt. Der Ausschnitt gehört zum Fenster; ohne Fenster tut das Werkzeug dem Dokument nichts.

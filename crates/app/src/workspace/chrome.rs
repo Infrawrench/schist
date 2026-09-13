@@ -2,6 +2,7 @@
 //! mode and opacity, and history navigation.
 
 use super::*;
+use schist_i18n::t;
 
 impl Workspace {
     // ----- UI support: popups, sliders, thumbnails, history -----
@@ -153,7 +154,7 @@ impl Workspace {
             if let Some(layer) = doc.tree.find_mut(id) {
                 layer.opacity = before;
             }
-            let mut edit = doc.begin_edit("Layer Opacity");
+            let mut edit = doc.begin_edit(t("workspace.history.layer_opacity"));
             edit.change_props(id, |l| l.opacity = after);
             edit.commit();
         }
@@ -167,7 +168,7 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         if let Some(doc) = &mut self.doc {
-            let mut edit = doc.begin_edit("Blend Mode");
+            let mut edit = doc.begin_edit(t("common.blend_mode"));
             edit.change_props(id, |l| l.blend = mode);
             edit.commit();
         }

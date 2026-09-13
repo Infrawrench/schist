@@ -18,6 +18,7 @@ use gpui::{
 };
 use schist_color::Rgba;
 use schist_core::{BlendMode, Layer, LayerId, LayerKind};
+use schist_i18n::t;
 use schist_ui::{
     menu_separator, Button, ButtonColors, Chip, Divider, DropdownButton, Heading, IconButton, Link,
     ListItem, MenuItem, Popover, Slider, Swatch, Tab, TextInput, TextInputColors,
@@ -98,10 +99,10 @@ fn keybind_hint(kb: Option<&str>) -> String {
     };
     kb.split('-')
         .map(|part| match part {
-            "cmd" => "Cmd".to_string(),
-            "ctrl" => "Ctrl".to_string(),
-            "shift" => "Shift".to_string(),
-            "alt" => "Alt".to_string(),
+            "cmd" => t("panel.keys.cmd").to_string(),
+            "ctrl" => t("panel.keys.ctrl").to_string(),
+            "shift" => t("panel.keys.shift").to_string(),
+            "alt" => t("panel.keys.alt").to_string(),
             other if other.len() == 1 => other.to_uppercase(),
             other => {
                 let mut c = other.chars();

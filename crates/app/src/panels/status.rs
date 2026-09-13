@@ -1,21 +1,30 @@
 //! The status bar along the bottom of the window.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 pub fn status_bar(ws: &Workspace) -> impl IntoElement {
     let title = ws
         .doc
         .as_ref()
         .map(|d| {
-            format!(
-                "{}{}  {}×{}",
-                d.title,
-                if d.dirty { " •" } else { "" },
-                d.width,
-                d.height
-            )
+            if d.dirty {
+                tf!(
+                    "panel.status.document_dirty",
+                    title = d.title,
+                    w = d.width,
+                    h = d.height
+                )
+            } else {
+                tf!(
+                    "panel.status.document",
+                    title = d.title,
+                    w = d.width,
+                    h = d.height
+                )
+            }
         })
-        .unwrap_or_else(|| "No document".into());
+        .unwrap_or_else(|| t("common.no_document").to_string());
     let zoom = format!("{:.0}%", ws.zoom * 100.0);
     let brush = format!("{:.0}px", ws.editor.brush_size);
     let m = ui::metrics();

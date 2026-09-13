@@ -1,6 +1,18 @@
 //! Preferences.
 
 use super::*;
+use schist_i18n::{t, tf};
+
+/// A rendering intent's name in the user's language.
+fn intent_name(intent: schist_colormgmt::Intent) -> &'static str {
+    use schist_colormgmt::Intent;
+    t(match intent {
+        Intent::Perceptual => "dialog.prefs.intent_perceptual",
+        Intent::RelativeColorimetric => "dialog.prefs.intent_relative",
+        Intent::Saturation => "dialog.prefs.intent_saturation",
+        Intent::AbsoluteColorimetric => "dialog.prefs.intent_absolute",
+    })
+}
 
 /// Application preferences (⌘K).
 pub(super) fn preferences(
@@ -12,25 +24,31 @@ pub(super) fn preferences(
     let intent = ws.color.intent;
     let keymap_path = crate::keymap::user_keymap_path()
         .map(|p| p.display().to_string())
-        .unwrap_or_else(|| "(no config directory)".into());
+        .unwrap_or_else(|| t("dialog.no_config_dir").into());
 
     let body = div()
         .flex()
         .flex_col()
         .gap_1()
         .child(ui::field_row(
-            "Theme",
+            t("dialog.prefs.theme"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
                     popup: Popup::Field("pref-theme"),
                     is_open: state.open_popup == Some(Popup::Field("pref-theme")),
                     current: view.theme,
-                    label: (view.theme.display_name()).into(),
+                    label: view.theme.label().into(),
                     width: 150.0,
                     options: vec![
-                        ("Dark".into(), crate::workspace::Theme::Dark),
-                        ("Light".into(), crate::workspace::Theme::Light),
+                        (
+                            crate::workspace::Theme::Dark.label().into(),
+                            crate::workspace::Theme::Dark,
+                        ),
+                        (
+                            crate::workspace::Theme::Light.label().into(),
+                            crate::workspace::Theme::Light,
+                        ),
                     ],
                 },
                 |ws, theme, _cx| ws.set_theme_quiet(theme),
@@ -38,7 +56,7 @@ pub(super) fn preferences(
             ),
         ))
         .child(ui::field_row(
-            "Grid spacing",
+            t("dialog.prefs.grid_spacing"),
             ui::num_field(
                 ui::NumField {
                     id: "pref-grid",
@@ -56,9 +74,9 @@ pub(super) fn preferences(
             ),
         ))
         .child(ui::field_row(
-            "Snapping",
+            t("dialog.prefs.snapping"),
             ui::checkbox(
-                "Snap to guides, grid and canvas edges",
+                t("dialog.prefs.snap_to"),
                 view.snap,
                 |ws, _cx| {
                     ws.view.snap = !ws.view.snap;
@@ -68,18 +86,18 @@ pub(super) fn preferences(
             ),
         ))
         .child(ui::field_row(
-            "Rendering intent",
+            t("dialog.prefs.rendering_intent"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
                     popup: Popup::Field("pref-intent"),
                     is_open: state.open_popup == Some(Popup::Field("pref-intent")),
                     current: intent,
-                    label: (intent.display_name()).into(),
+                    label: intent_name(intent).into(),
                     width: 180.0,
                     options: schist_colormgmt::Intent::all()
                         .iter()
-                        .map(|i| (SharedString::from(i.display_name()), *i))
+                        .map(|i| (SharedString::from(intent_name(*i)), *i))
                         .collect(),
                 },
                 |ws, value, _cx| {
@@ -90,9 +108,9 @@ pub(super) fn preferences(
             ),
         ))
         .child(ui::field_row(
-            "Scrolling",
+            t("dialog.prefs.scrolling"),
             ui::checkbox(
-                "Zoom with scroll wheel",
+                t("dialog.prefs.zoom_with_scroll"),
                 view.zoom_with_scroll,
                 |ws, _cx| {
                     ws.view.zoom_with_scroll = !ws.view.zoom_with_scroll;
@@ -107,9 +125,9 @@ pub(super) fn preferences(
             (!cfg!(target_arch = "wasm32")).then(|| gallery_filter_row(&view, cx)),
         )
         .child(ui::field_row(
-            "Rendering",
+            t("dialog.prefs.rendering"),
             ui::checkbox(
-                "GPU compositing",
+                t("dialog.prefs.gpu_compositing"),
                 view.gpu_compositing,
                 |ws, cx| {
                     ws.view.gpu_compositing = !ws.view.gpu_compositing;
@@ -123,9 +141,9 @@ pub(super) fn preferences(
             ),
         ))
         .child(ui::field_row(
-            "Diagnostics",
+            t("dialog.prefs.diagnostics"),
             ui::checkbox(
-                "Write a local crash report on panic",
+                t("dialog.prefs.crash_reports"),
                 view.crash_reports,
                 |ws, _cx| {
                     ws.view.crash_reports = !ws.view.crash_reports;
@@ -141,7 +159,7 @@ pub(super) fn preferences(
             ui::field_row(
                 "",
                 ui::checkbox(
-                    "Also send it to the developers",
+                    t("dialog.prefs.crash_upload"),
                     view.crash_upload,
                     |ws, _cx| {
                         ws.view.crash_upload = !ws.view.crash_upload;
@@ -156,12 +174,12 @@ pub(super) fn preferences(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child("Diagnostics take effect when Schist next starts."),
+                .child(t("dialog.prefs.diagnostics_note")),
         )
         .child(ui::field_row(
-            "Updates",
+            t("dialog.prefs.updates"),
             ui::checkbox(
-                "Check for new releases at launch",
+                t("dialog.prefs.check_updates"),
                 view.check_updates,
                 |ws, _cx| {
                     ws.view.check_updates = !ws.view.check_updates;
@@ -176,13 +194,16 @@ pub(super) fn preferences(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(format!("Keyboard shortcuts: {keymap_path}"))
+                .child(tf!("dialog.prefs.keyboard_shortcuts", path = keymap_path))
         }))
         .child(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(format!("Version {}", crate::update::current_version())),
+                .child(tf!(
+                    "common.version_n",
+                    version = crate::update::current_version()
+                )),
         );
 
     let actions = div()
@@ -190,7 +211,7 @@ pub(super) fn preferences(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| {
                 ws.revert_preferences(cx);
@@ -199,7 +220,7 @@ pub(super) fn preferences(
             cx,
         ))
         .child(ui::button(
-            "Done",
+            t("common.done"),
             true,
             |ws, _w, cx| {
                 ws.keep_preferences();
@@ -207,7 +228,7 @@ pub(super) fn preferences(
             },
             cx,
         ));
-    ui::modal_frame("Preferences", 400.0, body, actions)
+    ui::modal_frame(t("dialog.prefs.title"), 400.0, body, actions)
 }
 
 /// The daily-ping switch. The preference is a marker file in the config
@@ -222,7 +243,7 @@ fn telemetry_row(cx: &mut Context<Workspace>) -> Option<impl IntoElement> {
     Some(ui::field_row(
         "",
         ui::checkbox(
-            "Send an anonymous daily ping",
+            t("dialog.prefs.telemetry"),
             enabled,
             move |_ws, _cx| {
                 if let Err(err) = crate::telemetry::set_enabled(&folder, !enabled) {
@@ -259,22 +280,21 @@ fn gallery_filter_row(
                 .gap_1()
                 .text_size(px(10.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child("Needs the Content (NSFW Filter) model —")
+                .child(t("dialog.prefs.nsfw_needs_model"))
                 .child(
-                    Link::new("prefs-manage-models", "download it in Manage Models…").on_click(
-                        cx.listener(|ws, _e, _w, cx| {
+                    Link::new("prefs-manage-models", t("dialog.prefs.nsfw_download_link"))
+                        .on_click(cx.listener(|ws, _e, _w, cx| {
                             // Leaving Preferences for the model
                             // manager keeps what was changed.
                             ws.keep_preferences();
                             ws.open_modal(Modal::ModelManager, cx);
-                        }),
-                    ),
+                        })),
                 ),
         );
     }
     control = control.child(if installed {
         ui::checkbox(
-            "Hide flagged photos",
+            t("dialog.prefs.hide_flagged"),
             view.gallery_hide_nsfw,
             |ws, _cx| {
                 ws.view.gallery_hide_nsfw = !ws.view.gallery_hide_nsfw;
@@ -289,11 +309,13 @@ fn gallery_filter_row(
         // from here.
         Checkbox::new(
             "checkbox-Hide flagged photos",
-            "Hide flagged photos",
+            t("dialog.prefs.hide_flagged"),
             view.gallery_hide_nsfw,
         )
         .disabled(true)
         .into_any_element()
     });
-    FieldRow::new("Gallery").top_aligned().child(control)
+    FieldRow::new(t("menu.gallery"))
+        .top_aligned()
+        .child(control)
 }

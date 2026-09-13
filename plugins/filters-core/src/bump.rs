@@ -14,10 +14,15 @@
 
 use crate::util::{blur_plane, luma_map, put};
 use crate::{choice, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues};
 
 /// How much of the picture's own detail survives into the map.
-const BLUR_DETAIL: &[&str] = &["High", "Medium", "Low"];
+static BLUR_DETAIL: &[&str] = &[
+    "filter.choice.blur_detail.high",
+    "filter.choice.blur_detail.medium",
+    "filter.choice.blur_detail.low",
+];
 
 /// The height field both filters work from.
 fn height_field(
@@ -44,12 +49,17 @@ fn height_field(
 simple_filter!(
     GenerateBumpMap,
     "filter.bump_map",
-    "Generate Bump Map",
-    "3D",
+    t("filter.bump_map.name"),
+    t("filter.category.3d"),
     [
-        choice("blur", "Blur Detail", BLUR_DETAIL, 1),
-        param("contrast", "Contrast", 0.0, 100.0, 30.0, ""),
-        param("invert", "Invert Height", 0.0, 1.0, 0.0, "")
+        choice(
+            "blur",
+            t("filter.param.blur_detail"),
+            choices(BLUR_DETAIL),
+            1
+        ),
+        param("contrast", t("common.contrast"), 0.0, 100.0, 30.0, ""),
+        param("invert", t("filter.param.invert_height"), 0.0, 1.0, 0.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // A greyscale height field: white is high, black is low, which is
@@ -70,13 +80,25 @@ simple_filter!(
 simple_filter!(
     GenerateNormalMap,
     "filter.normal_map",
-    "Generate Normal Map",
-    "3D",
+    t("filter.normal_map.name"),
+    t("filter.category.3d"),
     [
-        choice("blur", "Blur Detail", BLUR_DETAIL, 1),
-        param("contrast", "Contrast", 0.0, 100.0, 30.0, ""),
-        param("strength", "Height Scale", 1.0, 100.0, 30.0, ""),
-        param("invert", "Invert Height", 0.0, 1.0, 0.0, "")
+        choice(
+            "blur",
+            t("filter.param.blur_detail"),
+            choices(BLUR_DETAIL),
+            1
+        ),
+        param("contrast", t("common.contrast"), 0.0, 100.0, 30.0, ""),
+        param(
+            "strength",
+            t("filter.normal_map.param.strength"),
+            1.0,
+            100.0,
+            30.0,
+            ""
+        ),
+        param("invert", t("filter.param.invert_height"), 0.0, 1.0, 0.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Tangent-space normals: the surface's slope at each point,

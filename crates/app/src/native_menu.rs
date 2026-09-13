@@ -12,6 +12,7 @@ use crate::actions::*;
 use crate::panels::{self, MenuEntry};
 use crate::workspace::Workspace;
 use gpui::{Action, Context, Menu, MenuItem, SystemMenuType};
+use schist_i18n::{t, tf};
 
 /// The bold first menu, named after the app.
 const APP_NAME: &str = "Schist";
@@ -100,23 +101,23 @@ fn app_menu() -> Menu {
             // No About box to open yet; the update check is the other item
             // macOS keeps here.
             MenuItem::action(
-                "Check for Updates…",
+                t("menu.file.check_for_updates"),
                 RunAppItem {
                     item: AppItem::CheckForUpdates,
                 },
             ),
             MenuItem::separator(),
-            MenuItem::action("Preferences…", ShowPreferences),
+            MenuItem::action(t("common.preferences"), ShowPreferences),
             MenuItem::separator(),
-            MenuItem::os_submenu("Services", SystemMenuType::Services),
+            MenuItem::os_submenu(t("menu.app.services"), SystemMenuType::Services),
             MenuItem::separator(),
             // No key equivalents: ⌘H is View ▸ Extras here, as it is in
             // Photoshop, and the menu would take the keystroke first.
-            MenuItem::action(format!("Hide {APP_NAME}"), HideApp),
-            MenuItem::action("Hide Others", HideOthers),
-            MenuItem::action("Show All", ShowAll),
+            MenuItem::action(tf!("menu.app.hide", app = APP_NAME), HideApp),
+            MenuItem::action(t("menu.app.hide_others"), HideOthers),
+            MenuItem::action(t("menu.app.show_all"), ShowAll),
             MenuItem::separator(),
-            MenuItem::action(format!("Quit {APP_NAME}"), Quit),
+            MenuItem::action(tf!("menu.app.quit", app = APP_NAME), Quit),
         ],
     }
 }
@@ -144,7 +145,7 @@ fn item(ws: &Workspace, entry: MenuEntry) -> Option<MenuItem> {
             action_item(label, Box::new(RunCommand { id: id.to_string() }))
         }
         MenuEntry::Adjustment(kind) => action_item(
-            kind.display_name().to_string(),
+            crate::ui::adjustment_name(kind).to_string(),
             Box::new(AddAdjustment {
                 kind: adjustment_id(kind)?.to_string(),
             }),
@@ -223,21 +224,41 @@ fn action_for(item: AppItem) -> Option<Box<dyn Action>> {
 /// without one is a label that says what the click will do — Finder's "Hide
 /// Sidebar" / "Show Sidebar". The in-window bar keeps its check marks.
 fn label_for(ws: &Workspace, label: &'static str, item: AppItem) -> String {
-    let toggled = |on: bool, verb: (&str, &str), noun: &str| {
-        format!("{} {noun}", if on { verb.1 } else { verb.0 })
-    };
-    const SHOW: (&str, &str) = ("Show", "Hide");
-    const ENABLE: (&str, &str) = ("Enable", "Disable");
+    let toggled = |on: bool, (off_key, on_key): (&str, &str)| t(if on { on_key } else { off_key });
     match item {
-        AppItem::ToggleRulers => toggled(ws.view.rulers, SHOW, "Rulers"),
-        AppItem::ToggleGrid => toggled(ws.view.grid, SHOW, "Grid"),
-        AppItem::ToggleGuides => toggled(ws.view.guides, SHOW, "Guides"),
-        AppItem::ToggleNotes => toggled(ws.view.notes, SHOW, "Notes"),
-        AppItem::ToggleExtras => toggled(ws.view.extras, SHOW, "Extras"),
-        AppItem::ToggleSnap => toggled(ws.view.snap, ENABLE, "Snapping"),
-        AppItem::ProofColors => toggled(ws.color.proof.is_some(), ENABLE, "Proof Colors"),
-        _ => label.to_string(),
+        AppItem::ToggleRulers => toggled(
+            ws.view.rulers,
+            ("menu.view.show_rulers", "menu.view.hide_rulers"),
+        ),
+        AppItem::ToggleGrid => {
+            toggled(ws.view.grid, ("menu.view.show_grid", "menu.view.hide_grid"))
+        }
+        AppItem::ToggleGuides => toggled(
+            ws.view.guides,
+            ("menu.view.show_guides", "menu.view.hide_guides"),
+        ),
+        AppItem::ToggleNotes => toggled(
+            ws.view.notes,
+            ("menu.view.show_notes", "menu.view.hide_notes"),
+        ),
+        AppItem::ToggleExtras => toggled(
+            ws.view.extras,
+            ("menu.view.show_extras", "menu.view.hide_extras"),
+        ),
+        AppItem::ToggleSnap => toggled(
+            ws.view.snap,
+            ("menu.view.enable_snapping", "menu.view.disable_snapping"),
+        ),
+        AppItem::ProofColors => toggled(
+            ws.color.proof.is_some(),
+            (
+                "menu.view.enable_proof_colors",
+                "menu.view.disable_proof_colors",
+            ),
+        ),
+        _ => return label.to_string(),
     }
+    .to_string()
 }
 
 /// Drop the separators left hanging by items that moved to the application

@@ -19,6 +19,7 @@ use super::*;
 // headless MCP server. This file is what the window does with it.
 use schist_gallery::*;
 pub use schist_gallery::{backing_psd, Entry, Section};
+use schist_i18n::{t, tf, tn};
 use std::collections::BTreeMap;
 use std::path::Path;
 
@@ -118,10 +119,10 @@ impl Bucket {
     pub fn rule_label(&self) -> String {
         let mut parts = Vec::new();
         if let Some(query) = &self.query {
-            parts.push(format!("matches \u{201c}{query}\u{201d}"));
+            parts.push(tf!("library.bucket.rule_matches", query = query));
         }
         if let Some((_, name)) = &self.area {
-            parts.push(format!("taken in {name}"));
+            parts.push(tf!("library.bucket.rule_taken_in", name = name));
         }
         parts.join(" · ")
     }
@@ -1083,7 +1084,7 @@ impl Library {
         Some(
             self.map_filter_name
                 .clone()
-                .unwrap_or_else(|| "drawn area".to_string()),
+                .unwrap_or_else(|| t("library.map_filter.drawn_area").to_string()),
         )
     }
 
@@ -1104,21 +1105,26 @@ impl Library {
         // Inside the bucket or folder on show, when there is one: the
         // People rows narrow what is already there, and say so.
         if let Some(filter) = self.person_filter {
-            let scope = self
-                .scope_label()
-                .map(|s| format!(" \u{b7} in {s}"))
-                .unwrap_or_default();
+            let scope = self.scope_label();
             return match filter {
                 PersonFilter::Person(i) => match self.people.get(i) {
                     Some(person) => vec![(
-                        format!("People \u{b7} {}{scope}", person.name),
+                        match &scope {
+                            Some(scope) => {
+                                tf!("library.group.person_in", name = person.name, scope = scope)
+                            }
+                            None => tf!("library.group.person", name = person.name),
+                        },
                         String::new(),
                         self.person_photos(i),
                     )],
                     None => Vec::new(),
                 },
                 PersonFilter::Unnamed => vec![(
-                    format!("Unnamed faces{scope}"),
+                    match &scope {
+                        Some(scope) => tf!("library.group.unnamed_in", scope = scope),
+                        None => t("library.group.unnamed").to_string(),
+                    },
                     String::new(),
                     self.unnamed_photos(),
                 )],
@@ -1141,7 +1147,7 @@ impl Library {
                 .filter(|e| self.passes_map(&e.path))
                 .collect();
             return vec![(
-                format!("Bucket · {}", bucket.name),
+                tf!("library.group.bucket", name = bucket.name),
                 bucket.rule_label(),
                 entries,
             )];
@@ -1198,8 +1204,8 @@ impl Library {
                 {
                     let key = match self.places.get(&entry.path) {
                         Some(Some(city)) => city.clone(),
-                        Some(None) => "No location".to_string(),
-                        None => "Not indexed yet".to_string(),
+                        Some(None) => t("library.group.no_location").to_string(),
+                        None => t("library.group.not_indexed").to_string(),
                     };
                     buckets.entry(key).or_default().push(entry.clone());
                 }
@@ -1211,7 +1217,10 @@ impl Library {
                     })
                     .collect();
                 groups.sort_by(|a, b| {
-                    let tail = |t: &str| t == "No location" || t == "Not indexed yet";
+                    let tail = |title: &str| {
+                        title == t("library.group.no_location")
+                            || title == t("library.group.not_indexed")
+                    };
                     (tail(&a.0), std::cmp::Reverse(a.2.len()))
                         .cmp(&(tail(&b.0), std::cmp::Reverse(b.2.len())))
                 });
@@ -1223,7 +1232,7 @@ impl Library {
     /// A fresh bucket; an empty name falls back to "Bucket N".
     pub fn add_bucket(&mut self, name: String) -> usize {
         let name = match name.trim() {
-            "" => format!("Bucket {}", self.buckets.len() + 1),
+            "" => tf!("library.bucket.default_name", n = self.buckets.len() + 1),
             typed => typed.to_string(),
         };
         self.buckets.push(Bucket {
@@ -2466,11 +2475,11 @@ pub(super) fn volume_label(root: &Path) -> String {
         .map(|n| n.to_string_lossy().into_owned())
         .unwrap_or_else(|| root.display().to_string());
     if name.starts_with("afc:") {
-        "iPhone or iPad".into()
+        t("library.volume.iphone").into()
     } else if name.starts_with("gphoto2:") {
-        "Camera".into()
+        t("library.volume.camera").into()
     } else if name.starts_with("mtp:") {
-        "Phone".into()
+        t("library.volume.phone").into()
     } else {
         name
     }
@@ -2491,7 +2500,7 @@ fn sanitize_folder_name(name: &str) -> String {
         .collect();
     let trimmed = cleaned.trim().trim_matches('.');
     if trimmed.is_empty() {
-        "Selected Area".into()
+        t("library.import.selected_area").into()
     } else {
         trimmed.to_string()
     }
@@ -2562,8 +2571,12 @@ fn copy_dcim(
     exts: &[String],
     area: Option<library_geo::GeoBounds>,
 ) -> anyhow::Result<(usize, usize)> {
-    let dcim = dcim_dir(source)
-        .ok_or_else(|| anyhow::anyhow!("no DCIM folder on {}", source.display()))?;
+    let dcim = dcim_dir(source).ok_or_else(|| {
+        anyhow::anyhow!(
+            "{}",
+            tf!("library.import.no_dcim", source = source.display())
+        )
+    })?;
     std::fs::create_dir_all(dest)?;
     let mut copied = 0;
     let mut filtered = 0;
@@ -3517,7 +3530,7 @@ impl Workspace {
                 files: false,
                 directories: true,
                 multiple: true,
-                prompt: Some("Add to Gallery".into()),
+                prompt: Some(t("library.import.add_to_gallery").into()),
             },
             cx,
         );
@@ -3564,10 +3577,14 @@ impl Workspace {
             self.load_file(path, cx);
         }
         self.status = if total > opening {
-            format!("Opened the first {opening} of {total} images — the gallery holds the rest")
-                .into()
+            tf!(
+                "library.open_folder.opened_first",
+                n = opening,
+                total = total
+            )
+            .into()
         } else {
-            format!("Opened {opening} images").into()
+            tn("library.open_folder.opened", opening as u64).into()
         };
         cx.notify();
     }
@@ -3643,7 +3660,7 @@ impl Workspace {
         }
         let label = source_label(&source);
         let Some(home) = std::env::var("HOME").ok().map(PathBuf::from) else {
-            self.status = "Import needs a home directory to copy into".into();
+            self.status = t("library.import.needs_home").into();
             return;
         };
         // A boundary is a sorting instruction, so it names the
@@ -3656,10 +3673,13 @@ impl Workspace {
         let dest = home.join("Pictures/Schist Imports").join(&dest_name);
         self.library.importing = true;
         self.status = match &area {
-            Some((_, name)) => {
-                format!("Importing photos taken in {name} from {label}\u{2026}").into()
-            }
-            None => format!("Importing from {label}\u{2026}").into(),
+            Some((_, name)) => tf!(
+                "library.import.importing_in_place",
+                place = name,
+                source = label
+            )
+            .into(),
+            None => tf!("library.import.importing_from", source = label).into(),
         };
         // The destination joins the gallery now, not when the import
         // finishes: with the gallery open and a rescan ticking below,
@@ -3680,7 +3700,7 @@ impl Workspace {
                 // Never constructed off macOS; the arm exists for the
                 // exhaustiveness check.
                 self.library.importing = false;
-                self.status = "Direct device import is a macOS feature".into();
+                self.status = t("library.import.device_macos_only").into();
             }
         }
         // While the import runs, keep rescanning the watched folders so
@@ -3729,7 +3749,7 @@ impl Workspace {
                     }
                     Err(err) => {
                         log::error!("camera import failed: {err:#}");
-                        ws.status = format!("Import failed: {err}").into();
+                        ws.status = tf!("library.import.failed", error = err).into();
                     }
                 }
                 cx.notify();
@@ -3797,13 +3817,15 @@ impl Workspace {
                     return true;
                 }
                 ws.status = if status.locked {
-                    format!("{name} is locked — unlock it and tap Trust to continue").into()
+                    tf!("library.import.locked", name = name).into()
                 } else {
                     match status.total {
-                        None => format!("Reading {name}'s photo catalog\u{2026}").into(),
-                        Some(total) => format!(
-                            "Importing photo {}/{total} from {name}\u{2026}",
-                            (status.done + 1).min(total.max(1))
+                        None => tf!("library.import.reading_catalog", name = name).into(),
+                        Some(total) => tf!(
+                            "library.import.progress_from",
+                            n = (status.done + 1).min(total.max(1)),
+                            total = total,
+                            name = name
                         )
                         .into(),
                     }
@@ -3826,17 +3848,17 @@ impl Workspace {
     fn import_photos(&mut self, cx: &mut Context<Self>) {
         use super::library_photos;
         let Some(home) = std::env::var("HOME").ok().map(PathBuf::from) else {
-            self.status = "Import needs a home directory to copy into".into();
+            self.status = t("library.import.needs_home").into();
             return;
         };
         let dest = home.join("Documents/Photos");
         if let Err(err) = library_photos::begin_import(dest.clone()) {
-            self.status = format!("Could not open the photo library: {err}").into();
+            self.status = tf!("library.import.photos_open_failed", error = err).into();
             cx.notify();
             return;
         }
         self.library.importing = true;
-        self.status = "Choose photos to import\u{2026}".into();
+        self.status = t("library.import.choose_photos").into();
         if !self.library.folders.contains(&dest) {
             self.library.folders.push(dest.clone());
             self.library.folders.sort();
@@ -3861,9 +3883,10 @@ impl Workspace {
                     return true;
                 }
                 if let Some(total) = status.total {
-                    ws.status = format!(
-                        "Importing photo {}/{total}\u{2026}",
-                        (status.done + 1).min(total.max(1))
+                    ws.status = tf!(
+                        "library.import.progress",
+                        n = (status.done + 1).min(total.max(1)),
+                        total = total
                     )
                     .into();
                     ws.library_rescan(cx);
@@ -3891,7 +3914,7 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         log::error!("camera import failed: {message}");
-        self.status = format!("Import from {name} failed").into();
+        self.status = tf!("library.import.from_failed", name = name).into();
         self.open_modal(
             Modal::CameraImportFailed {
                 source: ImportSource::Device { id, name },
@@ -3919,18 +3942,22 @@ impl Workspace {
             self.library.save();
         }
         let mut message = match area {
-            Some((_, name)) => format!(
-                "Imported {copied} photos taken in {name} to {} \
-                 ({filtered} elsewhere or without a position left on the camera)",
-                dest.display()
+            Some((_, name)) => schist_i18n::tn!(
+                "library.import.done_in_place",
+                copied as u64,
+                place = name,
+                dest = dest.display(),
+                filtered = filtered
             ),
-            None => format!(
-                "Imported {copied} photos to {}",
-                crate::ui::shown_path(&dest)
+            None => schist_i18n::tn!(
+                "library.import.done",
+                copied as u64,
+                dest = crate::ui::shown_path(&dest)
             ),
         };
         if failed > 0 {
-            message.push_str(&format!(" — {failed} failed"));
+            message.push_str(" — ");
+            message.push_str(&tn("library.import.n_failed", failed as u64));
         }
         self.status = message.into();
         self.library.open = true;
@@ -4274,7 +4301,7 @@ mod tests {
         assert_eq!(lib.people[0].faces.len(), 2);
         assert_eq!(lib.person_filter, Some(PersonFilter::Person(0)));
         let groups = lib.grouped();
-        assert_eq!(groups[0].0, "People \u{b7} Ann");
+        assert_eq!(groups[0].0, tf!("library.group.person", name = "Ann"));
         assert_eq!(groups[0].2.len(), 2);
         lib.rename_person(0, "Ann Example");
         assert_eq!(lib.people[0].name, "Ann Example");
@@ -4427,7 +4454,10 @@ mod tests {
         });
         lib.bucket_filter = Some(0);
         assert_eq!(lib.person_photos(0).len(), 1);
-        assert_eq!(lib.grouped()[0].0, "People \u{b7} Ann \u{b7} in Trip");
+        assert_eq!(
+            lib.grouped()[0].0,
+            tf!("library.group.person_in", name = "Ann", scope = "Trip")
+        );
         assert_eq!(lib.unnamed_face_count(), 0, "c is not in the bucket");
         assert_eq!(lib.people_summary().photo_counts, vec![1]);
         assert_eq!(lib.people_summary().unnamed_faces, 0);

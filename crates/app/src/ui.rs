@@ -20,6 +20,53 @@ pub use schist_ui::{
     LineEditKey,
 };
 
+/// A blend mode's name in the user's language.
+///
+/// The kernel's `BlendMode::display_name` is the English name the PSD
+/// format knows, and stays that; this is what the chrome shows.
+pub fn blend_mode_name(mode: schist_core::BlendMode) -> &'static str {
+    use schist_core::BlendMode::*;
+    schist_i18n::t(match mode {
+        PassThrough => "blend.pass_through",
+        Normal => "blend.normal",
+        Dissolve => "blend.dissolve",
+        Darken => "blend.darken",
+        Multiply => "blend.multiply",
+        ColorBurn => "blend.color_burn",
+        LinearBurn => "blend.linear_burn",
+        DarkerColor => "blend.darker_color",
+        Lighten => "blend.lighten",
+        Screen => "blend.screen",
+        ColorDodge => "blend.color_dodge",
+        LinearDodge => "blend.linear_dodge",
+        LighterColor => "blend.lighter_color",
+        Overlay => "blend.overlay",
+        SoftLight => "blend.soft_light",
+        HardLight => "blend.hard_light",
+        VividLight => "blend.vivid_light",
+        LinearLight => "blend.linear_light",
+        PinLight => "blend.pin_light",
+        HardMix => "blend.hard_mix",
+        Difference => "blend.difference",
+        Exclusion => "blend.exclusion",
+        Subtract => "blend.subtract",
+        Divide => "blend.divide",
+        Hue => "blend.hue",
+        Saturation => "blend.saturation",
+        Color => "blend.color",
+        Luminosity => "blend.luminosity",
+    })
+}
+
+/// An adjustment's name in the user's language; `AdjustmentKind::
+/// display_name` is the English the PSD format knows.
+pub fn adjustment_name(kind: schist_core::AdjustmentKind) -> &'static str {
+    match crate::actions::adjustment_id(kind) {
+        Some(id) => schist_i18n::t(&format!("adjustment.{id}.name")),
+        None => schist_i18n::t("adjustment.other.name"),
+    }
+}
+
 /// What a dialog does when the user presses Enter.
 pub type DialogAction = Rc<dyn Fn(&mut Workspace, &mut gpui::Window, &mut Context<Workspace>)>;
 

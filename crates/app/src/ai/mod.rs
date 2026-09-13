@@ -9,6 +9,7 @@
 //! workspace to answer against the live document. Nothing here touches
 //! the UI or the document directly — the UI thread owns both.
 
+use schist_i18n::t;
 use std::collections::VecDeque;
 use std::sync::{Arc, Mutex};
 
@@ -92,21 +93,28 @@ impl Backend {
         };
         match self {
             Backend::Claude => vec![
-                entry("Claude Opus", "opus", "Most capable tier", true),
+                entry("Claude Opus", "opus", t("ai.model.opus_detail"), true),
                 entry(
                     "Claude Sonnet",
                     "sonnet",
-                    "Efficient for routine tasks",
+                    t("ai.model.sonnet_detail"),
                     false,
                 ),
-                entry("Claude Haiku", "haiku", "Fastest for quick answers", false),
+                entry("Claude Haiku", "haiku", t("ai.model.haiku_detail"), false),
             ],
             Backend::Codex => codex_codes::CodexModel::known()
                 .iter()
                 // Hidden from Codex's own picker; same here.
                 .filter(|m| !matches!(m, codex_codes::CodexModel::CodexAutoReview))
                 .enumerate()
-                .map(|(i, m)| entry(m.display_name(), m.cli_arg(), "Codex catalog", i == 0))
+                .map(|(i, m)| {
+                    entry(
+                        m.display_name(),
+                        m.cli_arg(),
+                        t("ai.model.codex_catalog"),
+                        i == 0,
+                    )
+                })
                 .collect(),
         }
     }

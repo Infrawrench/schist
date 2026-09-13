@@ -1,0 +1,30 @@
+# Die Retuschewerkzeuge (plugins/tools-retouch). Die Begriffe folgen dem
+# deutschen Photoshop.
+
+# Ausbessern
+tool.patch.name = Ausbessern
+tool.patch.description = Einen Makel umfahren und die Auswahl dann auf saubere Pixel ziehen: deren Struktur wird in den Makel eingepasst. Der Modus legt fest, welches Ende des Paars gezogen wird.
+tool.patch.option.patch = Ausbessern
+tool.patch.choice.source = Quelle
+tool.patch.choice.destination = Ziel
+tool.patch.history.patch = Ausbessern
+
+# Inhaltsbasiert verschieben
+tool.content_aware_move.name = Inhaltsbasiert verschieben
+tool.content_aware_move.description = Ein ausgewähltes Objekt woandershin ziehen; das Loch, das es hinterlässt, wird aus der Umgebung gefüllt. Im Modus „Erweitern“ wird das Objekt gedehnt statt verschoben.
+tool.content_aware_move.choice.move = Verschieben
+tool.content_aware_move.choice.extend = Erweitern
+tool.content_aware_move.history.move = Inhaltsbasiert verschieben
+
+# Rote-Augen
+tool.red_eye.name = Rote-Augen
+tool.red_eye.description = Auf eine Pupille klicken, um das Blitzrot herauszunehmen.
+tool.red_eye.option.pupil_size = Pupillengröße
+tool.red_eye.option.darken = Verdunkelungsgrad
+tool.red_eye.history.red_eye = Rote-Augen
+
+# Magischer Radiergummi
+tool.magic_eraser.name = Magischer Radiergummi
+tool.magic_eraser.description = Klicken, um die Fläche ähnlicher Farbe unter dem Zeiger innerhalb der Toleranz zu radieren – zusammenhängend mit dem Klick oder überall in der Ebene.
+tool.magic_eraser.option.contiguous = Benachbart
+tool.magic_eraser.history.erase = Magischer Radiergummi

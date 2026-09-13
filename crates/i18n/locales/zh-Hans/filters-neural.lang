@@ -1,0 +1,167 @@
+# Neural Filters、Camera Raw、模糊画廊和镜头滤镜（plugins/filters-core：
+# neural.rs、camera_raw.rs、blurgallery.rs、lens.rs）。滤镜名称沿用
+# Photoshop 简体中文版的叫法。模型名称（"Depth (Depth Blur)"）以
+# "管理模型"中显示的为准，保持不变。
+
+# 多个滤镜共用的标签
+filter.neural.param.center_x = 中心 X
+filter.neural.param.center_y = 中心 Y
+filter.neural.param.direction = 方向
+filter.neural.param.transition = 过渡
+filter.neural.param.detail = 细节
+filter.neural.param.eyes = 眼睛
+
+# 基于模型的滤镜在对话框中的说明
+filter.neural.msg.using_model = 正在使用 {model} · {license}。
+filter.neural.msg.get_model = 可在"滤镜 ▸ Neural Filters ▸ 管理模型"中获取。
+
+# Camera Raw 滤镜
+filter.camera_raw.name = Camera Raw 滤镜
+filter.camera_raw.param.temperature = 色温
+filter.camera_raw.param.tint = 色调
+filter.camera_raw.param.highlights = 高光
+filter.camera_raw.param.shadows = 阴影
+filter.camera_raw.param.whites = 白色
+filter.camera_raw.param.blacks = 黑色
+filter.camera_raw.param.clarity = 清晰度
+filter.camera_raw.param.dehaze = 去除薄雾
+filter.camera_raw.param.vibrance = 自然饱和度
+filter.camera_raw.param.sharpening = 锐化
+filter.camera_raw.param.noise = 减少杂色
+filter.camera_raw.param.vignette = 晕影
+
+# 镜头校正
+filter.lens_correction.name = 镜头校正
+filter.lens_correction.param.distortion = 移去扭曲
+filter.lens_correction.param.red = 修复红/青边
+filter.lens_correction.param.blue = 修复蓝/黄边
+filter.lens_correction.param.vignette = 晕影数量
+filter.lens_correction.param.midpoint = 晕影中点
+filter.lens_correction.param.vertical = 垂直透视
+filter.lens_correction.param.horizontal = 水平透视
+
+# 自适应广角
+filter.adaptive_wide_angle.name = 自适应广角
+filter.adaptive_wide_angle.param.projection = 校正
+filter.adaptive_wide_angle.choice.fisheye = 鱼眼
+filter.adaptive_wide_angle.choice.perspective = 透视
+filter.adaptive_wide_angle.choice.full_spherical = 完整球面
+filter.adaptive_wide_angle.param.focal = 焦距
+filter.adaptive_wide_angle.param.crop = 裁剪系数
+
+# 模糊画廊
+filter.field_blur.name = 场景模糊
+filter.field_blur.param.position = 清晰位置
+filter.iris_blur.name = 光圈模糊
+filter.iris_blur.param.roundness = 圆度
+filter.tilt_shift.name = 移轴模糊
+filter.tilt_shift.param.position = 中心
+filter.tilt_shift.param.band = 清晰区域
+filter.spin_blur.name = 旋转模糊
+filter.spin_blur.param.angle = 模糊角度
+filter.path_blur.name = 路径模糊
+filter.path_blur.param.speed = 速度
+filter.path_blur.param.curve = 曲率
+filter.path_blur.param.taper = 锥度
+
+# 模糊
+filter.shape_blur.name = 形状模糊
+filter.shape_blur.choice.square = 正方形
+filter.shape_blur.choice.diamond = 菱形
+filter.shape_blur.choice.hexagon = 六边形
+filter.shape_blur.choice.cross = 十字
+filter.shape_blur.choice.ring = 圆环
+filter.shape_blur.choice.star = 星形
+filter.smart_blur.name = 特殊模糊
+filter.smart_blur.choice.normal = 正常
+filter.smart_blur.choice.edge_only = 仅限边缘
+filter.smart_blur.choice.overlay_edge = 叠加边缘
+
+# 视频
+filter.deinterlace.name = 逐行
+filter.deinterlace.param.field = 消除
+filter.deinterlace.choice.odd_fields = 奇数场
+filter.deinterlace.choice.even_fields = 偶数场
+filter.deinterlace.param.fill = 创建新场方式
+filter.deinterlace.choice.interpolation = 插值
+filter.deinterlace.choice.duplication = 复制
+filter.ntsc_colors.name = NTSC 颜色
+
+# Neural Filters
+filter.neural.skin_smoothing.name = 皮肤平滑度
+filter.neural.skin_smoothing.param.blur = 平滑度
+filter.neural.skin_smoothing.param.detail = 保留细节
+filter.neural.skin_smoothing.msg.no_model = 未安装 {model}，改为平滑所有肤色区域，而不只是面部。
+
+filter.neural.jpeg_artifacts.name = 移除 JPEG 伪影
+filter.neural.jpeg_artifacts.msg.no_model = 未安装 {model}，改为平滑 8 像素网格。
+
+filter.neural.colorize.name = 着色
+filter.neural.colorize.param.warmth = 暖色
+filter.neural.colorize.msg.no_model = 未安装 {model}，改为按亮度着色。
+
+filter.neural.super_zoom.name = 超级缩放
+filter.neural.super_zoom.msg.no_model = 未安装 {model}，改为沿边缘方向锐化。
+
+filter.neural.style_transfer.name = 风格转换
+filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = 未安装任何风格模型，仅转换颜色。可在"滤镜 ▸ Neural Filters ▸ 管理模型"中获取。
+filter.neural.style_transfer.msg.installed = 已安装：{styles}（ONNX Model Zoo，Apache-2.0）。
+
+filter.neural.color_transfer.name = 颜色转换
+filter.neural.color_transfer.param.hue = 目标色相
+filter.neural.color_transfer.param.contrast = 匹配对比度
+filter.neural.color_transfer.msg.info = 从下方图层获取调色板。下方没有图层时，改为以目标色相为准。
+
+filter.neural.depth_blur.name = 深度模糊
+filter.neural.depth_blur.param.focus = 焦距
+filter.neural.depth_blur.param.blur = 模糊强度
+filter.neural.depth_blur.msg.no_model = 未安装 {model}，改为按局部清晰度对焦。
+
+filter.neural.harmonization.name = 协调
+filter.neural.harmonization.param.tone = 匹配色调
+filter.neural.harmonization.msg.info = 使此图层与下方内容相匹配。下方没有图层时无从匹配，滤镜不做任何处理。
+
+filter.neural.landscape_mixer.name = 风景混合器
+filter.neural.landscape_mixer.param.bands = 深度分层
+filter.neural.landscape_mixer.msg.with_depth = 从下方图层获取调色板，并使用 Depth (Depth Blur) 逐层匹配。
+filter.neural.landscape_mixer.msg.without_depth = 从下方图层获取调色板。安装 Depth (Depth Blur) 后可让天空匹配天空、地面匹配地面，而不是整张图片一起匹配。
+
+filter.neural.photo_restoration.name = 照片恢复
+filter.neural.photo_restoration.param.enhance = 照片增强
+filter.neural.photo_restoration.param.scratches = 划痕减少
+filter.neural.photo_restoration.param.tone = 恢复色调
+filter.neural.photo_restoration.msg.no_model = 未使用模型进行清理。
+filter.neural.photo_restoration.msg.using_deblock = 正在使用 Deblock · 为 Schist 训练。
+filter.neural.photo_restoration.msg.using_detail = 正在使用 Detail · 为 Schist 训练。
+filter.neural.photo_restoration.msg.using_both = 正在使用 Deblock 和 Detail · 为 Schist 训练。
+
+filter.neural.photo_to_sketch.name = 照片到草图
+filter.neural.photo_to_sketch.param.weight = 线条粗细
+filter.neural.photo_to_sketch.param.shading = 明暗
+
+filter.neural.face_to_caricature.name = 面部到漫画
+filter.neural.face_to_caricature.param.mouth = 嘴
+filter.neural.face_to_caricature.param.head = 头部
+filter.neural.face_to_caricature.msg.no_model = 未安装 {model}，此滤镜不做任何处理——没有可夸张的面部。
+
+filter.neural.smart_portrait.name = 智能肖像
+filter.neural.smart_portrait.param.happiness = 喜悦
+filter.neural.smart_portrait.param.surprise = 惊讶
+filter.neural.smart_portrait.param.age = 面部年龄
+filter.neural.smart_portrait.param.gaze = 视线
+filter.neural.smart_portrait.param.light = 光线方向
+filter.neural.smart_portrait.msg.no_model = 未安装 {model}，此滤镜不做任何处理——没有可处理的面部。
+
+filter.neural.makeup_transfer.name = 妆容迁移
+filter.neural.makeup_transfer.param.lips = 嘴唇
+filter.neural.makeup_transfer.param.skin = 肤色
+filter.neural.makeup_transfer.msg.info = 从下方图层中的面部获取妆容。只迁移颜色，不迁移纹理。
+filter.neural.makeup_transfer.msg.no_model = 未安装 {model}，此滤镜不做任何处理。
+
+filter.neural.sketch_to_portrait.name = 草图到肖像
+filter.neural.sketch_to_portrait.param.detail = 保留线条
+filter.neural.sketch_to_portrait.msg.with_face = 经训练可填补本程序自身"照片到草图"的结果。作用于检测到的面部。
+filter.neural.sketch_to_portrait.msg.no_face = 经训练可填补本程序自身"照片到草图"的结果。安装 Faces (Skin Smoothing) 后将作用于面部，而不是整个选区。

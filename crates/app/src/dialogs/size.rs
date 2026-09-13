@@ -1,6 +1,7 @@
 //! Image Size and Canvas Size.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 pub(super) fn resample_options() -> Vec<(SharedString, Resample)> {
     [
@@ -11,8 +12,19 @@ pub(super) fn resample_options() -> Vec<(SharedString, Resample)> {
         Resample::Neural("waifu2x-art"),
     ]
     .into_iter()
-    .map(|r| (r.display_name().into(), r))
+    .map(|r| (resample_name(r).into(), r))
     .collect()
+}
+
+/// A resampling method's name in the user's language. The neural
+/// upscalers are named after their models, which are names.
+pub(super) fn resample_name(resample: Resample) -> &'static str {
+    match resample {
+        Resample::Classic(Filter::Bicubic) => t("dialog.size.bicubic"),
+        Resample::Classic(Filter::Bilinear) => t("dialog.size.bilinear"),
+        Resample::Classic(Filter::Nearest) => t("dialog.size.nearest"),
+        other => other.display_name(),
+    }
 }
 
 pub(super) fn image_size(
@@ -36,7 +48,7 @@ pub(super) fn image_size(
         .flex_col()
         .gap_1()
         .child(ui::field_row(
-            "Width",
+            t("common.width"),
             ui::num_field(
                 ui::NumField {
                     id: "image-size-w",
@@ -66,7 +78,7 @@ pub(super) fn image_size(
             ),
         ))
         .child(ui::field_row(
-            "Height",
+            t("common.height"),
             ui::num_field(
                 ui::NumField {
                     id: "image-size-h",
@@ -96,9 +108,9 @@ pub(super) fn image_size(
             ),
         ))
         .child(ui::field_row(
-            "Constrain",
+            t("dialog.size.constrain"),
             ui::checkbox(
-                "Keep proportions",
+                t("dialog.size.keep_proportions"),
                 link,
                 |ws, _cx| {
                     ws.update_modal(|m| {
@@ -111,14 +123,14 @@ pub(super) fn image_size(
             ),
         ))
         .child(ui::field_row(
-            "Resample",
+            t("dialog.size.resample"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
                     popup: Popup::Field("image-size-filter"),
                     is_open: state.open_popup == Some(Popup::Field("image-size-filter")),
                     current: resample,
-                    label: (resample.display_name()).into(),
+                    label: resample_name(resample).into(),
                     width: 170.0,
                     options: resample_options(),
                 },
@@ -136,7 +148,7 @@ pub(super) fn image_size(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(format!("Currently {doc_w} × {doc_h} px")),
+                .child(tf!("dialog.size.currently", w = doc_w, h = doc_h)),
         );
 
     let actions = div()
@@ -144,13 +156,13 @@ pub(super) fn image_size(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| {
                 // The neural path closes the dialog itself, because it may
@@ -162,7 +174,7 @@ pub(super) fn image_size(
                 if let Some(doc) = ws.doc.as_mut() {
                     schist_tools_transform::resize_image_with(doc, width, height, resample);
                 }
-                ws.status = format!("Image size: {width} × {height}").into();
+                ws.status = tf!("dialog.size.image_size_status", w = width, h = height).into();
                 ws.close_modal(cx);
                 ws.after_change(cx);
                 ws.fit_to_view();
@@ -170,7 +182,7 @@ pub(super) fn image_size(
             cx,
         ));
 
-    ui::modal_frame("Image Size", 340.0, body, actions)
+    ui::modal_frame(t("dialog.size.image_title"), 340.0, body, actions)
 }
 
 /// The nine-way anchor grid for Canvas Size.
@@ -227,7 +239,7 @@ pub(super) fn canvas_size(
         .flex_col()
         .gap_1()
         .child(ui::field_row(
-            "Width",
+            t("common.width"),
             ui::num_field(
                 ui::NumField {
                     id: "canvas-size-w",
@@ -248,7 +260,7 @@ pub(super) fn canvas_size(
             ),
         ))
         .child(ui::field_row(
-            "Height",
+            t("common.height"),
             ui::num_field(
                 ui::NumField {
                     id: "canvas-size-h",
@@ -268,12 +280,15 @@ pub(super) fn canvas_size(
                 cx,
             ),
         ))
-        .child(ui::field_row("Anchor", anchor_grid(anchor, cx)))
+        .child(ui::field_row(
+            t("dialog.size.anchor"),
+            anchor_grid(anchor, cx),
+        ))
         .child(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(format!("Currently {doc_w} × {doc_h} px")),
+                .child(tf!("dialog.size.currently", w = doc_w, h = doc_h)),
         );
 
     let actions = div()
@@ -281,19 +296,19 @@ pub(super) fn canvas_size(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| {
                 if let Some(doc) = ws.doc.as_mut() {
                     schist_tools_transform::resize_canvas(doc, width, height, anchor);
                 }
-                ws.status = format!("Canvas size: {width} × {height}").into();
+                ws.status = tf!("dialog.size.canvas_size_status", w = width, h = height).into();
                 ws.close_modal(cx);
                 ws.after_change(cx);
                 ws.fit_to_view();
@@ -301,5 +316,5 @@ pub(super) fn canvas_size(
             cx,
         ));
 
-    ui::modal_frame("Canvas Size", 340.0, body, actions)
+    ui::modal_frame(t("dialog.size.canvas_title"), 340.0, body, actions)
 }

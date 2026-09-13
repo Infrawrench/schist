@@ -1,0 +1,31 @@
+# Blend modes, in the Layers panel's order. The kernel's
+# BlendMode::display_name is the English the PSD format knows; these are
+# what the chrome shows (crates/app/src/ui.rs, blend_mode_name).
+blend.pass_through = Pass Through
+blend.normal = Normal
+blend.dissolve = Dissolve
+blend.darken = Darken
+blend.multiply = Multiply
+blend.color_burn = Color Burn
+blend.linear_burn = Linear Burn
+blend.darker_color = Darker Color
+blend.lighten = Lighten
+blend.screen = Screen
+blend.color_dodge = Color Dodge
+blend.linear_dodge = Linear Dodge (Add)
+blend.lighter_color = Lighter Color
+blend.overlay = Overlay
+blend.soft_light = Soft Light
+blend.hard_light = Hard Light
+blend.vivid_light = Vivid Light
+blend.linear_light = Linear Light
+blend.pin_light = Pin Light
+blend.hard_mix = Hard Mix
+blend.difference = Difference
+blend.exclusion = Exclusion
+blend.subtract = Subtract
+blend.divide = Divide
+blend.hue = Hue
+blend.saturation = Saturation
+blend.color = Color
+blend.luminosity = Luminosity

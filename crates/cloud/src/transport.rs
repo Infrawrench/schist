@@ -4,6 +4,7 @@ use crate::{
     socket::{Message, Socket},
 };
 use anyhow::{anyhow, ensure, Result};
+use schist_i18n::{t, tf};
 use std::{
     collections::HashMap,
     sync::{
@@ -175,7 +176,8 @@ impl Handle {
             relative,
             mutation,
         } = upload;
-        validate_upload_size(bytes.len() as u64).map_err(|e| anyhow!("{name}: {e}"))?;
+        validate_upload_size(bytes.len() as u64)
+            .map_err(|e| anyhow!(tf!("cloud.error.named", name = name, error = e)))?;
         if let Some(path) = relative {
             ensure!(
                 !path.contains(['\\', '\0', ':'])
@@ -244,7 +246,7 @@ fn offline(
                 started: Instant::now(),
                 reply,
             },
-            Err("Cloud is disconnected".into()),
+            Err(t("cloud.transport.disconnected").into()),
         ),
         Command::Stop => return false,
     }
@@ -257,11 +259,11 @@ fn offline(
 /// answer.
 pub fn transient(error: &anyhow::Error) -> bool {
     let text = error.to_string();
-    text.contains("Cloud is disconnected")
-        || text.contains("Cloud connection closed")
-        || text.contains("Cloud disconnected")
-        || text.contains("Cloud operation timed out")
-        || text.contains("Cloud request timed out")
+    text.contains(t("cloud.transport.disconnected"))
+        || text.contains(t("cloud.transport.connection_closed"))
+        || text.contains(t("cloud.transport.disconnected_outcome_unknown"))
+        || text.contains(t("cloud.transport.timed_out"))
+        || text.contains(t("cloud.transport.request_timed_out"))
         || text.contains("channel closed")
         || auth::network_error(error)
 }
@@ -305,8 +307,9 @@ async fn run(
                         let _ = events.send(Event::AccountUnavailable);
                         return;
                     }
-                    let _ = events.send(Event::Disconnected(format!(
-                        "Token refresh failed: {error}"
+                    let _ = events.send(Event::Disconnected(tf!(
+                        "cloud.error.token_refresh_failed",
+                        error = error
                     )));
                     if !backoff(&mut commands, &mut watches, &events, &mut retry).await {
                         return;
@@ -333,7 +336,7 @@ async fn run(
             Ok(Outcome::Stop) => return,
             Ok(Outcome::Refresh) => {
                 force_refresh = true;
-                let _ = events.send(Event::Disconnected("Renewing cloud login…".into()));
+                let _ = events.send(Event::Disconnected(t("cloud.status.renewing_login").into()));
             }
             Err(e) => {
                 let _ = events.send(Event::Disconnected(e.to_string()));
@@ -397,7 +400,7 @@ async fn connected(
         .credentials
         .workspace_websocket_url
         .as_deref()
-        .ok_or_else(|| anyhow!("No workspace endpoint"))?;
+        .ok_or_else(|| anyhow!(t("cloud.transport.no_workspace_endpoint")))?;
     #[cfg(not(test))]
     auth::secure_url(url, "wss")?;
     // Unit tests use a loopback peer; production builds always require TLS.
@@ -437,7 +440,7 @@ async fn connected(
             events,
             id,
             pending,
-            Err("Cloud disconnected; mutation outcome may be unknown".into()),
+            Err(t("cloud.transport.disconnected_outcome_unknown").into()),
         );
     }
     result
@@ -469,8 +472,11 @@ impl Session<'_> {
             let outcome = match wake {
                 Wake::Command(command) => self.command(command).await?,
                 Wake::Wire(message) => {
-                    self.message(message.ok_or_else(|| anyhow!("Cloud connection closed"))??)
-                        .await?
+                    self.message(
+                        message
+                            .ok_or_else(|| anyhow!(t("cloud.transport.connection_closed")))??,
+                    )
+                    .await?
                 }
                 Wake::Tick => {
                     tick_due = Instant::now() + Duration::from_millis(100);
@@ -522,7 +528,12 @@ impl Session<'_> {
                     reply,
                 };
                 if !self.ready {
-                    finish(self.events, id, pending, Err("Cloud is connecting".into()));
+                    finish(
+                        self.events,
+                        id,
+                        pending,
+                        Err(t("cloud.transport.connecting").into()),
+                    );
                     return Ok(None);
                 }
                 let value = map([
@@ -567,7 +578,7 @@ impl Session<'_> {
                 if frame == 4401 {
                     return Ok(Some(Outcome::Refresh));
                 }
-                return Err(anyhow!("Cloud connection closed"));
+                return Err(anyhow!(t("cloud.transport.connection_closed")));
             }
             _ => return Err(anyhow!("Cloud requires binary MessagePack frames")),
         };
@@ -665,11 +676,11 @@ impl Session<'_> {
     async fn tick(&mut self) -> Result<()> {
         ensure!(
             self.ready || self.started.elapsed() < Duration::from_secs(15),
-            "Cloud handshake timed out"
+            t("cloud.transport.handshake_timed_out")
         );
         ensure!(
             self.received.elapsed() < Duration::from_secs(60),
-            "Cloud heartbeat timed out"
+            t("cloud.transport.heartbeat_timed_out")
         );
         if self.ready && self.ping.elapsed() > Duration::from_secs(20) {
             self.send(map([("type", "ping".into())])).await?;
@@ -685,10 +696,7 @@ impl Session<'_> {
             .map(|(id, _)| id.clone())
             .collect();
         for id in expired {
-            self.reply(
-                id,
-                Err("Cloud request timed out; mutation outcome may be unknown".into()),
-            );
+            self.reply(id, Err(t("cloud.transport.request_timed_out").into()));
         }
         Ok(())
     }
@@ -889,7 +897,10 @@ mod tests {
         match client.events.recv_timeout(Duration::from_secs(5)).unwrap() {
             Event::Reply { id, result } => {
                 assert_eq!(id, large);
-                assert!(result.unwrap_err().contains("128 byte"));
+                assert_eq!(
+                    result.unwrap_err(),
+                    tf!("cloud.transport.frame_too_large", bytes = 128)
+                );
             }
             _ => panic!("Expected local size rejection"),
         }

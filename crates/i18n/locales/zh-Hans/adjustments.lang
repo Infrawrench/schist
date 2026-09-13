@@ -1,0 +1,20 @@
+# 调整图层，与简体中文版 Photoshop 一致。
+adjustment.levels.name = 色阶
+adjustment.curves.name = 曲线
+adjustment.hue_saturation.name = 色相/饱和度
+adjustment.brightness_contrast.name = 亮度/对比度
+adjustment.black_white.name = 黑白
+adjustment.solid_color.name = 纯色
+adjustment.gradient_fill.name = 渐变
+adjustment.pattern_fill.name = 图案
+adjustment.invert.name = 反相
+adjustment.posterize.name = 色调分离
+adjustment.threshold.name = 阈值
+adjustment.color_balance.name = 色彩平衡
+adjustment.vibrance.name = 自然饱和度
+adjustment.exposure.name = 曝光度
+adjustment.photo_filter.name = 照片滤镜
+adjustment.gradient_map.name = 渐变映射
+adjustment.selective_color.name = 可选颜色
+adjustment.channel_mixer.name = 通道混合器
+adjustment.other.name = 调整

@@ -1,5 +1,6 @@
 use crate::{Account, Credentials};
 use anyhow::{anyhow, ensure, Result};
+use schist_i18n::{t, tf};
 use serde::Deserialize;
 use sha2::{Digest, Sha256};
 use std::{
@@ -17,7 +18,7 @@ use web_sys::{
 
 pub const CLIENT_ORIGIN: &str = "https://try.schist.app";
 pub fn window() -> Result<Window> {
-    web_sys::window().ok_or_else(|| anyhow!("Browser window unavailable"))
+    web_sys::window().ok_or_else(|| anyhow!(t("cloud.transport.browser_window_unavailable")))
 }
 pub fn secure_url(raw: &str, scheme: &str) -> Result<Url> {
     let url = Url::parse(raw)?;
@@ -27,7 +28,7 @@ pub fn secure_url(raw: &str, scheme: &str) -> Result<Url> {
             && url.port_or_known_default() == Some(443)
             && url.username().is_empty()
             && url.password().is_none(),
-        "Browser cloud connections are restricted to schist.app"
+        t("cloud.transport.browser_restricted")
     );
     Ok(url)
 }
@@ -35,7 +36,7 @@ pub fn domain(raw: &str) -> Result<String> {
     let raw = raw.trim();
     ensure!(
         raw == "schist.app" || raw == "https://schist.app" || raw == "https://schist.app/",
-        "Browser cloud connections are restricted to schist.app"
+        t("cloud.transport.browser_restricted")
     );
     Ok("https://schist.app".into())
 }
@@ -43,12 +44,12 @@ pub fn domain(raw: &str) -> Result<String> {
 pub struct HttpStatus(pub u16);
 impl std::fmt::Display for HttpStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Cloud HTTP {}", self.0)
+        f.write_str(&tf!("cloud.transport.http_status", code = self.0))
     }
 }
 impl std::error::Error for HttpStatus {}
 fn js_error(_: JsValue) -> anyhow::Error {
-    anyhow!("Browser cloud request failed")
+    anyhow!(t("cloud.transport.browser_request_failed"))
 }
 pub struct DownloadResponse {
     pub bytes: Vec<u8>,
@@ -66,7 +67,7 @@ pub async fn fetch(
     secure_url(url, "https")?;
     ensure!(
         window()?.location().origin().map_err(js_error)? == CLIENT_ORIGIN,
-        "Cloud is available at try.schist.app"
+        t("cloud.auth.available_at")
     );
     let abort = web_sys::AbortController::new().map_err(js_error)?;
     struct Abort(web_sys::AbortController);
@@ -129,7 +130,7 @@ pub async fn fetch(
                 );
                 if bytes.len() as u64 + u64::from(data.length()) > limit {
                     let _ = reader.cancel();
-                    anyhow::bail!("Cloud response exceeds size limit");
+                    anyhow::bail!(t("cloud.transport.response_too_large"));
                 }
                 bytes.extend(data.to_vec());
             }
@@ -189,14 +190,14 @@ async fn exchange(url: &str, body: serde_json::Value) -> Result<Credentials> {
     let c: Credentials = serde_json::from_slice(&response.bytes)?;
     ensure!(
         !c.access_token.is_empty() && !c.refresh_token.is_empty() && c.expires_at.is_finite(),
-        "Invalid cloud credentials"
+        t("cloud.transport.invalid_credentials")
     );
     secure_url(&c.logout_url, "https")?;
     secure_url(&c.generation_endpoint_url, "https")?;
     secure_url(
         c.workspace_websocket_url
             .as_deref()
-            .ok_or_else(|| anyhow!("No workspace endpoint"))?,
+            .ok_or_else(|| anyhow!(t("cloud.transport.no_workspace_endpoint")))?,
         "wss",
     )?;
     Ok(c)
@@ -218,7 +219,7 @@ impl Login {
         let window = window()?;
         ensure!(
             window.location().origin().map_err(js_error)? == CLIENT_ORIGIN,
-            "Cloud is available at try.schist.app"
+            t("cloud.auth.available_at")
         );
         let popup = window
             .open_with_url_and_target_and_features(
@@ -227,7 +228,7 @@ impl Login {
                 "popup,width=520,height=720",
             )
             .map_err(js_error)?
-            .ok_or_else(|| anyhow!("Allow the sign-in popup and try again"))?;
+            .ok_or_else(|| anyhow!(t("cloud.auth.allow_popup")))?;
         Ok(Self { popup })
     }
     pub async fn finish(self, cancel: &AtomicBool) -> Result<Account> {
@@ -254,7 +255,7 @@ impl Login {
                     .origins
                     .iter()
                     .any(|s| s == CLIENT_ORIGIN),
-            "Provider does not support this browser sign-in flow"
+            t("cloud.transport.unsupported_browser_sign_in")
         );
         let mut url = secure_url(&discovery.authentication_url, "https")?;
         secure_url(&discovery.code_exchange_url, "https")?;
@@ -320,10 +321,13 @@ impl Login {
                 if let Some(code) = result.borrow_mut().take() {
                     return Ok(code);
                 }
-                ensure!(!cancel.load(Ordering::Relaxed), "Sign-in cancelled");
+                ensure!(
+                    !cancel.load(Ordering::Relaxed),
+                    t("cloud.auth.sign_in_cancelled")
+                );
                 ensure!(
                     !self.popup.closed().map_err(js_error)?,
-                    "Sign-in window closed"
+                    t("cloud.auth.sign_in_window_closed")
                 );
                 crate::runtime::sleep(Duration::from_millis(100)).await;
             }

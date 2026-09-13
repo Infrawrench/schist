@@ -1,0 +1,27 @@
+# Grundverktygen (plugins/tools-basic): Flytta, Pipett, Hand, Zooma.
+# Termerna följer svenska Photoshop.
+
+# Flytta
+tool.move.name = Flytta
+tool.move.description = Dra det aktiva lagrets innehåll till en ny plats. Med Automarkera på väljer tryckningen först det lager – eller hela den grupp – som ligger under pekaren.
+tool.move.option.auto_select = Automarkera
+tool.move.history.move_layer = Flytta lager
+
+# Pipett
+tool.eyedropper.name = Pipett
+tool.eyedropper.description = Tar upp färgen under pekaren i förgrundsrutan, eller i bakgrundsrutan när Alt hålls ned. Att dra fortsätter ta prov.
+tool.eyedropper.option.sample_size = Provstorlek
+tool.eyedropper.option.sample = Prov
+tool.eyedropper.choice.point_sample = Punktprov
+tool.eyedropper.choice.average_3 = Genomsnitt 3 × 3
+tool.eyedropper.choice.average_5 = Genomsnitt 5 × 5
+tool.eyedropper.choice.average_11 = Genomsnitt 11 × 11
+tool.eyedropper.choice.average_31 = Genomsnitt 31 × 31
+tool.eyedropper.choice.all_layers = Alla lager
+tool.eyedropper.choice.current_layer = Aktuellt lager
+
+# Hand och Zooma
+tool.hand.name = Hand
+tool.hand.description = Panorerar vyn. Vyn tillhör fönstret, så utan fönster gör verktyget inget med dokumentet.
+tool.zoom.name = Zooma
+tool.zoom.description = Zoomar vyn. Vyn tillhör fönstret, så utan fönster gör verktyget inget med dokumentet.

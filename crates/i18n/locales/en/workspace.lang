@@ -1,0 +1,132 @@
+# The workspace (crates/app/src/workspace): documents and tabs, the
+# dialogs' shared enums, filters and adjustments, export, colour
+# management, the in-app file picker, crash recovery, and the status-bar
+# messages each of them sets. Keyed by module: workspace.<module>.<what>.
+# The dialogs' own labels are in dialogs.lang; the canvas-side modules
+# (edit_ops, image_ops, layers panel, …) are in workspace-canvas.lang.
+
+# Edit ▸ Fill sources (mod.rs, FillSource); the rest come from common.lang
+workspace.fill.gray_50 = 50% Gray
+workspace.fill.content_aware = Content-Aware
+
+# Select ▸ Modify dialog titles (ModifyKind)
+workspace.modify.expand = Expand Selection
+workspace.modify.contract = Contract Selection
+workspace.modify.border = Border Selection
+workspace.modify.smooth = Smooth Selection
+workspace.modify.feather = Feather Selection
+
+
+# The gallery's batch dialog: where the results go (BatchTarget)
+workspace.batch.target.edit = Gallery edits (versioned)
+workspace.batch.target.beside = Copies beside the originals
+workspace.batch.target.folder = Copies in a folder…
+
+# Image ▸ Image Size, as the busy dialog titles itself
+workspace.modal.image_size.title = Image Size
+
+# Documents and tabs (docs.rs)
+workspace.docs.opening = Opening {name}…
+workspace.docs.opened = Opened {name}
+workspace.docs.open_failed = Open failed: {error}
+workspace.docs.no_codec = {name} is not a format Schist can open
+workspace.docs.no_exporter = Schist cannot save .{ext} files
+workspace.docs.empty_response = The server sent an empty response
+workspace.docs.heic_not_installed = HEIC support is not installed
+workspace.docs.heic_downloading = Downloading HEIC support (libheif {version})…
+workspace.docs.heic_installed = HEIC support installed
+workspace.docs.heic_download_failed = HEIC support download failed: {error}
+workspace.docs.placing = Placing {name}…
+workspace.docs.place_image = Place Image
+workspace.docs.placed = Placed {name}
+workspace.docs.place_failed = Place failed: {error}
+workspace.docs.saved = Saved {name}
+workspace.docs.save_failed = Save failed: {error}
+
+# Adjustment layers (adjustments.rs); {name} is the adjustment's name
+# from adjustments.lang
+workspace.adjustment.new_layer = New {name} Layer
+workspace.adjustment.added = Added {name}
+workspace.adjustment.settings = {name} Settings
+workspace.adjustment.updated = {name} updated
+workspace.adjustment.no_settings = {name} has no editable settings
+
+# Layer comps (comps.rs)
+workspace.comps.name_n = Layer Comp {n}
+workspace.comps.captured = Layer comp captured
+workspace.comps.apply = Apply {name}
+
+# Layer Style (styles.rs): the history entry and status
+workspace.styles.layer_style = Layer Style
+
+# Layer Properties (context.rs)
+workspace.context.rename_layer = Rename Layer
+
+# Tool activation (commands.rs)
+workspace.commands.tool = Tool: {name}
+
+# Colour management (colormgmt.rs); {name} is a profile's own name
+workspace.colormgmt.assign = Assign {name}
+workspace.colormgmt.assigned = Assigned {name}
+workspace.colormgmt.convert_to = Convert to {name}
+workspace.colormgmt.converted_to = Converted to {name}
+workspace.colormgmt.convert_failed = Convert failed: {error}
+workspace.colormgmt.proof_on = Proof colors on
+workspace.colormgmt.proof_off = Proof colors off
+
+# Running filters (filters.rs); {name} is the filter's name
+workspace.filters.choose = Choose
+workspace.filters.select_layer_first = Select a layer first
+workspace.filters.needs_pixel_layer = Filters need a pixel layer
+workspace.filters.nothing_to_filter = Nothing to filter
+workspace.filters.went_away = Filter went away
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: the layer it filtered is gone
+workspace.filters.plugin_title = Photoshop plug-in
+workspace.filters.running = Running {name}
+workspace.filters.plugin_note = The plug-in runs in its own process. If it opens a window, answer that to continue.
+workspace.filters.raw_preview_developing = Developing RAW preview…
+workspace.filters.raw_preview_done = RAW preview (fast demosaic)
+workspace.filters.raw_preview_size_changed = RAW preview size changed: {w} × {h}
+workspace.filters.raw_preview_failed = RAW preview failed: {error}
+workspace.filters.raw_developing = Developing the original capture…
+workspace.filters.raw_developing_note = Using the best demosaic path. The original RAW and these settings remain editable after saving as PSD or PSB.
+workspace.filters.raw_document_changed = RAW development finished after its document changed
+workspace.filters.raw_failed = RAW development failed: {error}
+workspace.filters.raw_too_wide = RAW development is too wide
+workspace.filters.raw_too_tall = RAW development is too tall
+workspace.filters.raw_size_changed = RAW development size changed to {w} × {h}; keeping the current layer
+workspace.filters.raw_history = Camera Raw Development
+workspace.filters.raw_applied = Camera Raw development applied (best demosaic)
+
+# Image Size through a neural upscaler (filters.rs); {name} is the model
+workspace.image_size.done = Image size: {w} × {h}
+workspace.image_size.bicubic_fallback = Image size: {w} × {h} — the {name} model would not load, so bicubic stood in
+workspace.image_size.upscaling = Upscaling with {name}
+workspace.image_size.upscaling_note = {mp} megapixels through the network, at a few seconds each. The document is held until it finishes.
+
+# Export (export.rs)
+workspace.export.no_slices = No slices to export
+workspace.export.no_artboards = No artboards to export
+workspace.export.regions.one = Exported {n} region
+workspace.export.regions.other = Exported {n} regions
+workspace.export.prompt = Export as:
+workspace.export.done = Exported {name}
+workspace.export.failed = Export failed: {error}
+workspace.export.codec_vanished = The exporter is no longer available
+
+# Schist's own file picker (file_picker.rs), drawn where the platform
+# has none
+workspace.file_picker.choose_folder = Choose Folder
+workspace.file_picker.type_a_name = Type a name for the file
+workspace.file_picker.exists = {name} exists; tap Save again to replace it
+workspace.file_picker.tap_a_file = Tap a file to open
+workspace.file_picker.pictures = Pictures
+workspace.file_picker.camera = Camera
+workspace.file_picker.downloads = Downloads
+workspace.file_picker.permission_denied = Schist does not have permission to read this folder
+
+# Crash recovery (recovery.rs)
+workspace.recovery.recovered_title = {title} (recovered)
+workspace.recovery.recovered.one = Recovered unsaved work from a previous session
+workspace.recovery.recovered.other = Recovered {n} documents from a previous session

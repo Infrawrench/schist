@@ -7,6 +7,7 @@
 
 use schist_color::Rgba;
 use schist_core::IntRect;
+use schist_i18n::{choices, t};
 use schist_plugin_api::{
     OptionValue, PluginManifest, PluginRegistry, PointerInput, ToolCtx, ToolOption, ToolPlugin,
 };
@@ -27,7 +28,8 @@ pub struct MoveTool {
     auto_select_group: bool,
 }
 
-const AUTO_TARGETS: &[&str] = &["Layer", "Group"];
+/// The two things Auto-Select can pick; compared by index.
+static AUTO_TARGETS: &[&str] = &["common.layer", "common.group"];
 
 struct Drag {
     layer: schist_core::LayerId,
@@ -106,11 +108,10 @@ impl ToolPlugin for MoveTool {
         "move"
     }
     fn name(&self) -> &'static str {
-        "Move"
+        t("tool.move.name")
     }
     fn description(&self) -> &'static str {
-        "Drag the active layer's contents to a new position. With Auto-Select on, \
-         the press picks whichever layer -- or whole group -- is under the pointer first."
+        t("tool.move.description")
     }
     fn icon(&self) -> &'static str {
         "move"
@@ -122,14 +123,14 @@ impl ToolPlugin for MoveTool {
     fn options(&self) -> Vec<ToolOption> {
         let mut opts = vec![ToolOption::toggle(
             "move-auto",
-            "Auto-Select",
+            t("tool.move.option.auto_select"),
             self.auto_select,
         )];
         if self.auto_select {
             opts.push(ToolOption::choice(
                 "move-auto-target",
                 "",
-                AUTO_TARGETS,
+                choices(AUTO_TARGETS),
                 usize::from(self.auto_select_group),
             ));
         }
@@ -208,7 +209,7 @@ impl ToolPlugin for MoveTool {
         if dx == 0 && dy == 0 {
             return;
         }
-        let mut edit = ctx.doc.begin_edit("Move Layer");
+        let mut edit = ctx.doc.begin_edit(t("tool.move.history.move_layer"));
         edit.translate_layer(drag.layer, dx, dy);
         edit.commit();
     }
@@ -238,15 +239,18 @@ pub struct EyedropperTool {
 }
 
 /// Photoshop's sample sizes, and the square each averages over.
-const SAMPLE_SIZES: &[&str] = &[
-    "Point Sample",
-    "3 by 3 Average",
-    "5 by 5 Average",
-    "11 by 11 Average",
-    "31 by 31 Average",
+static SAMPLE_SIZES: &[&str] = &[
+    "tool.eyedropper.choice.point_sample",
+    "tool.eyedropper.choice.average_3",
+    "tool.eyedropper.choice.average_5",
+    "tool.eyedropper.choice.average_11",
+    "tool.eyedropper.choice.average_31",
 ];
 const SAMPLE_EXTENTS: [i32; 5] = [1, 3, 5, 11, 31];
-const SAMPLE_SCOPES: &[&str] = &["All Layers", "Current Layer"];
+static SAMPLE_SCOPES: &[&str] = &[
+    "tool.eyedropper.choice.all_layers",
+    "tool.eyedropper.choice.current_layer",
+];
 
 impl EyedropperTool {
     fn new() -> Self {
@@ -312,11 +316,10 @@ impl ToolPlugin for EyedropperTool {
         "eyedropper"
     }
     fn name(&self) -> &'static str {
-        "Eyedropper"
+        t("tool.eyedropper.name")
     }
     fn description(&self) -> &'static str {
-        "Sample the colour under the pointer into the foreground swatch, or into the \
-         background swatch when alt is held. Dragging keeps sampling."
+        t("tool.eyedropper.description")
     }
     fn icon(&self) -> &'static str {
         "eyedropper"
@@ -327,11 +330,16 @@ impl ToolPlugin for EyedropperTool {
 
     fn options(&self) -> Vec<ToolOption> {
         vec![
-            ToolOption::choice("dropper-size", "Sample Size", SAMPLE_SIZES, self.sample),
+            ToolOption::choice(
+                "dropper-size",
+                t("tool.eyedropper.option.sample_size"),
+                choices(SAMPLE_SIZES),
+                self.sample,
+            ),
             ToolOption::choice(
                 "dropper-scope",
-                "Sample",
-                SAMPLE_SCOPES,
+                t("tool.eyedropper.option.sample"),
+                choices(SAMPLE_SCOPES),
                 usize::from(self.current_layer_only),
             ),
         ]
@@ -376,6 +384,7 @@ impl ToolPlugin for EyedropperTool {
 }
 
 /// Viewport tools — no-ops at the document level (see module docs).
+/// `$name` and `$desc` are catalog keys.
 macro_rules! viewport_tool {
     ($ty:ident, $id:literal, $name:literal, $desc:literal, $icon:literal, $key:literal) => {
         pub struct $ty;
@@ -385,10 +394,10 @@ macro_rules! viewport_tool {
                 $id
             }
             fn name(&self) -> &'static str {
-                $name
+                t($name)
             }
             fn description(&self) -> &'static str {
-                $desc
+                t($desc)
             }
             fn icon(&self) -> &'static str {
                 $icon
@@ -406,18 +415,16 @@ macro_rules! viewport_tool {
 viewport_tool!(
     HandTool,
     "hand",
-    "Hand",
-    "Pans the view. The viewport belongs to the window, so headless this tool does nothing \
-     to the document.",
+    "tool.hand.name",
+    "tool.hand.description",
     "hand",
     "h"
 );
 viewport_tool!(
     ZoomTool,
     "zoom",
-    "Zoom",
-    "Zooms the view. The viewport belongs to the window, so headless this tool does nothing \
-     to the document.",
+    "tool.zoom.name",
+    "tool.zoom.description",
     "zoom",
     "z"
 );

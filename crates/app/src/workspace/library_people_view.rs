@@ -9,6 +9,7 @@ use super::library_view::bucket_field;
 use super::*;
 use gpui::{img, StatefulInteractiveElement as _};
 use schist_gallery::FaceRect;
+use schist_i18n::{t, tf};
 use schist_ui::{Badge, Button, ButtonColors, ProgressBar, TextInput};
 use std::path::Path;
 
@@ -53,7 +54,8 @@ pub(super) fn people_rows(
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
 ) -> Vec<gpui::AnyElement> {
-    let mut rows: Vec<gpui::AnyElement> = vec![sidebar_caption("PEOPLE").into_any_element()];
+    let mut rows: Vec<gpui::AnyElement> =
+        vec![sidebar_caption(t("library.sidebar.people")).into_any_element()];
     let detector = schist_neural::installed("face");
     let recogniser = schist_neural::installed("face-embed");
     // Their photos in the bucket or folder on show, not in the world:
@@ -163,7 +165,12 @@ pub(super) fn people_rows(
                         .outlined()
                         .colors(pal().text_dim, pal().text_dim),
                 )
-                .child(div().flex_grow().truncate().child("Unnamed faces"))
+                .child(
+                    div()
+                        .flex_grow()
+                        .truncate()
+                        .child(t("library.sidebar.unnamed_faces")),
+                )
                 .child(
                     div()
                         .text_size(px(10.0))
@@ -180,9 +187,9 @@ pub(super) fn people_rows(
     if people_models_downloading(ws) {
         rows.push(people_download_progress(ws).into_any_element());
     } else if !detector {
-        rows.push(link("Retry face model download", cx));
+        rows.push(link(t("library.sidebar.retry_face_model"), cx));
     } else if !recogniser {
-        rows.push(link("Retry recognition model download", cx));
+        rows.push(link(t("library.sidebar.retry_recognition_model"), cx));
     } else if !any_people && unnamed == 0 {
         let (looked, total) = ws.library.faces_progress();
         rows.push(
@@ -192,9 +199,13 @@ pub(super) fn people_rows(
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(pal().text_dim))
                 .child(if looked < total {
-                    format!("Looking for faces\u{2026} {looked}/{total}")
+                    tf!(
+                        "library.sidebar.looking_for_faces",
+                        looked = looked,
+                        total = total
+                    )
                 } else {
-                    "Faces appear here as photos are indexed.".to_string()
+                    t("library.sidebar.faces_appear").to_string()
                 })
                 .into_any_element(),
         );
@@ -246,10 +257,10 @@ fn people_download_progress(ws: &Workspace) -> impl IntoElement {
             div()
                 .text_size(px(10.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child(SharedString::from(format!(
-                    "Downloading face models\u{2026} {:.0} of {:.0} MB",
-                    mb(got),
-                    mb(total)
+                .child(SharedString::from(tf!(
+                    "library.sidebar.downloading_face_models",
+                    got = format!("{:.0}", mb(got)),
+                    total = format!("{:.0}", mb(total))
                 ))),
         )
         .child(ProgressBar::new(ratio).colors(chrome::track_colors()))
@@ -278,7 +289,7 @@ pub(super) fn viewer(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .unwrap_or_default();
     let position = v
         .position
-        .map(|(at, of)| format!("{} of {of}", at + 1))
+        .map(|(at, of)| tf!("common.n_of_m", n = at + 1, m = of))
         .unwrap_or_default();
     let edit_path = path.clone();
     let header = div()
@@ -293,7 +304,7 @@ pub(super) fn viewer(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .border_b_1()
         .border_color(gpui::rgb(pal().chrome_edge))
         .child(gallery_button(
-            "\u{2039} Back to photos",
+            t("library.viewer.back"),
             false,
             |ws, _w, cx| ws.close_viewer(cx),
             cx,
@@ -325,7 +336,7 @@ pub(super) fn viewer(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         )
         .child(div().flex_grow())
         .child(gallery_button(
-            "Edit",
+            t("common.edit"),
             true,
             move |ws, _w, cx| ws.open_from_gallery(edit_path.clone(), cx),
             cx,
@@ -381,9 +392,9 @@ pub(super) fn viewer(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                     .text_size(px(12.0))
                     .text_color(gpui::rgb(pal().text_dim))
                     .child(if loading {
-                        "Loading\u{2026}"
+                        t("common.loading")
                     } else {
-                        "This photo could not be decoded."
+                        t("library.viewer.could_not_decode")
                     }),
             );
         }
@@ -470,9 +481,13 @@ fn picture_element(
         let picked = pick.is_some_and(|p| p.same_face(&face.rect));
         let color = box_color(face, picked);
         let label = match (face.person, face.suggestion) {
-            (Some(i), _) if face.auto => names.get(i).map(|n| format!("{n} \u{b7} auto")),
+            (Some(i), _) if face.auto => names
+                .get(i)
+                .map(|n| tf!("library.viewer.label_auto", name = n)),
             (Some(i), _) => names.get(i).cloned(),
-            (None, Some((i, _))) => names.get(i).map(|n| format!("{n}?")),
+            (None, Some((i, _))) => names
+                .get(i)
+                .map(|n| tf!("library.viewer.label_guess", name = n)),
             (None, None) => None,
         };
         let (x, y, w, h) = (
@@ -571,7 +586,7 @@ fn people_panel(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child("PEOPLE IN THIS PHOTO"),
+                .child(t("library.viewer.people_heading")),
         );
     if people_models_downloading(ws) {
         col = col.child(people_download_progress(ws));
@@ -581,13 +596,10 @@ fn people_panel(
                 div()
                     .text_size(px(12.0))
                     .text_color(gpui::rgb(pal().text))
-                    .child(
-                        "Faces are found by a small model that is downloaded once. \
-                         Boxes can still be drawn by hand.",
-                    ),
+                    .child(t("library.viewer.faces_intro")),
             )
             .child(gallery_button(
-                "Retry face model download",
+                t("library.sidebar.retry_face_model"),
                 true,
                 |ws, _w, cx| ws.download_people_models(cx),
                 cx,
@@ -597,14 +609,14 @@ fn people_panel(
             div()
                 .text_size(px(12.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child("Looking for faces\u{2026}"),
+                .child(t("library.viewer.looking_for_faces")),
         );
     } else if faces.is_empty() && pick.is_none() {
         col = col.child(
             div()
                 .text_size(px(12.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child("No faces found. Drag a box round one to add a person by hand."),
+                .child(t("library.viewer.no_faces")),
         );
     }
     for (index, face) in faces.iter().enumerate() {
@@ -627,10 +639,7 @@ fn people_panel(
             .pt_2()
             .text_size(px(11.0))
             .text_color(gpui::rgb(pal().text_dim))
-            .child(
-                "Click a face to name it; Enter saves. Drag on the photo to mark a face \
-                 the detector missed. \u{2190} \u{2192} move between photos, Esc goes back.",
-            ),
+            .child(t("library.viewer.help")),
     );
     col.into_any_element()
 }
@@ -752,28 +761,32 @@ fn face_row(
             .gap_1()
             .pl(px(56.0))
             .child(small_button(
-                "Save",
+                t("common.save"),
                 true,
                 |ws, cx| ws.viewer_commit_name(cx),
                 cx,
             ));
         if named.is_some() {
             actions = actions.child(small_button(
-                if face.auto { "Not them" } else { "Remove name" },
+                if face.auto {
+                    t("library.viewer.not_them")
+                } else {
+                    t("library.viewer.remove_name")
+                },
                 false,
                 move |ws, cx| ws.viewer_untag(rect, cx),
                 cx,
             ));
         } else if face.detected {
             actions = actions.child(small_button(
-                "Not a face",
+                t("library.viewer.not_a_face"),
                 false,
                 move |ws, cx| ws.viewer_ignore(rect, cx),
                 cx,
             ));
         }
         actions = actions.child(small_button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, cx| {
                 ws.viewer_unpick();
@@ -801,10 +814,10 @@ fn face_row(
                             div()
                                 .text_size(px(10.0))
                                 .text_color(gpui::rgb(pal().text_dim))
-                                .child("auto"),
+                                .child(t("library.viewer.auto")),
                         )
                         .child(small_button(
-                            "Not them",
+                            t("library.viewer.not_them"),
                             false,
                             move |ws, cx| ws.viewer_untag(rect, cx),
                             cx,
@@ -822,7 +835,10 @@ fn face_row(
                             div()
                                 .text_size(px(12.0))
                                 .text_color(gpui::rgb(pal().text))
-                                .child(SharedString::from(format!("Is this {name}?"))),
+                                .child(SharedString::from(tf!(
+                                    "library.viewer.is_this",
+                                    name = name
+                                ))),
                         )
                         .child(
                             div()
@@ -830,13 +846,13 @@ fn face_row(
                                 .flex_row()
                                 .gap_1()
                                 .child(small_button(
-                                    "Yes",
+                                    t("common.yes"),
                                     true,
                                     move |ws, cx| ws.viewer_name_as(rect, index, cx),
                                     cx,
                                 ))
                                 .child(small_button(
-                                    "Someone else",
+                                    t("library.viewer.someone_else"),
                                     false,
                                     move |ws, cx| {
                                         ws.viewer_pick(rect);
@@ -853,7 +869,7 @@ fn face_row(
                         .flex_grow()
                         .text_size(px(12.0))
                         .text_color(gpui::rgb(pal().text_dim))
-                        .child("Add a name\u{2026}"),
+                        .child(t("library.viewer.add_name")),
                 );
             }
         }
@@ -883,7 +899,7 @@ fn name_field(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
         .cursor(cursor)
         .active(focused)
         .caret_on(caret_on)
-        .placeholder("Who is this?")
+        .placeholder(t("library.viewer.who_is_this"))
         .colors(chrome::text_input_colors())
         .flex_grow()
         .h(px(24.0))
@@ -905,7 +921,7 @@ pub(crate) fn person_name_dialog(
     name: String,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let field = bucket_field("person-name", name, "Name".to_string(), ws, cx);
+    let field = bucket_field("person-name", name, t("common.name").to_string(), ws, cx);
     let live = if ws.focused_field == Some("person-name") {
         ws.field_buffer.clone()
     } else {
@@ -925,18 +941,15 @@ pub(crate) fn person_name_dialog(
         .flex()
         .flex_col()
         .gap_2()
-        .child(crate::ui::field_row("Name", field))
+        .child(crate::ui::field_row(t("common.name"), field))
         .child(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(crate::ui::palette().text_dim))
                 .child(if merges {
-                    format!(
-                        "Somebody is already called \u{201c}{}\u{201d}: saving merges the two.",
-                        live.trim()
-                    )
+                    tf!("library.people.merge_warning", name = live.trim())
                 } else {
-                    "Renaming to a name somebody else already has merges the two people.".into()
+                    t("library.people.merge_note").into()
                 }),
         );
     let actions = div()
@@ -944,13 +957,13 @@ pub(crate) fn person_name_dialog(
         .flex_row()
         .gap_2()
         .child(crate::ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(crate::ui::button(
-            "Save",
+            t("common.save"),
             true,
             |ws, _w, cx| {
                 ws.commit_focused_field();
@@ -961,5 +974,5 @@ pub(crate) fn person_name_dialog(
             },
             cx,
         ));
-    crate::ui::modal_frame("Rename Person", 420.0, body, actions)
+    crate::ui::modal_frame(t("library.people.rename_title"), 420.0, body, actions)
 }

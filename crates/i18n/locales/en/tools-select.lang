@@ -1,0 +1,43 @@
+# The selection tools (plugins/tools-select): the marquees, the three
+# lassos, the magic wand, quick selection and object selection. Labels
+# they share with the rest of the app -- Mode, Feather, Width, Contrast,
+# Tolerance, Size, New, Add, Select, Deselect -- come from common.lang.
+
+# How a new shape meets the existing selection, in the order Photoshop's
+# buttons sit in. New and Add are common.new and common.add.
+tool.select.mode.subtract = Subtract
+tool.select.mode.intersect = Intersect
+
+# Marquees
+tool.marquee.rect.name = Rectangular Marquee
+tool.marquee.rect.description = Drag out a rectangular selection. Shift at the start of the drag adds to the selection, alt subtracts, both intersect; shift during the drag squares it off. A click with no drag deselects.
+tool.marquee.ellipse.name = Elliptical Marquee
+tool.marquee.ellipse.description = Drag out an elliptical selection, with the same shift/alt combining as the rectangular marquee.
+
+# Lassos
+tool.lasso.name = Lasso
+tool.lasso.description = Drag a freehand outline; the selection closes across the ends when the drag finishes. Shift adds, alt subtracts.
+tool.lasso.history.select = Lasso Select
+tool.lasso.polygonal.name = Polygonal Lasso
+tool.lasso.polygonal.description = Click corner after corner to build a straight-edged selection, and click near the first point to close it.
+tool.lasso.polygonal.history.select = Polygonal Lasso
+tool.lasso.magnetic.name = Magnetic Lasso
+tool.lasso.magnetic.description = Trace roughly along an edge and the outline snaps to the strongest contrast near the path.
+tool.lasso.magnetic.history.select = Magnetic Lasso
+tool.lasso.magnetic.option.frequency = Frequency
+
+# Magic wand
+tool.wand.name = Magic Wand
+tool.wand.description = Click to select the connected area of similar colour under the pointer, within the tolerance option -- the same tolerance Grow, Similar and Color Range read.
+tool.wand.option.contiguous = Contiguous
+tool.wand.history.select = Magic Wand
+
+# Quick selection
+tool.quick_select.name = Quick Selection
+tool.quick_select.description = Paint over a region and the selection grows through the similar pixels the brush passes over.
+tool.quick_select.history.select = Quick Selection
+
+# Object selection
+tool.object_select.name = Object Selection
+tool.object_select.description = Drag a box around an object and the selection snaps to the object found inside it.
+tool.object_select.history.select = Object Selection

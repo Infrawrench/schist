@@ -1,0 +1,127 @@
+# Arbetsytan (crates/app/src/workspace). Termerna följer Photoshops
+# svenska lokalisering: Bildstorlek, Arbetsytans storlek, Fyll, Linje,
+# Ludd, Färgområde, Återställ, Exportera, Montera, Ritytor, Segment.
+
+# Redigera ▸ Fyll: källor (mod.rs, FillSource)
+workspace.fill.gray_50 = 50 % grå
+workspace.fill.content_aware = Innehållsanpassad
+
+# Markera ▸ Ändra: dialogtitlar (ModifyKind)
+workspace.modify.expand = Utöka markering
+workspace.modify.contract = Minska markering
+workspace.modify.border = Rama in markering
+workspace.modify.smooth = Mjuka upp markering
+workspace.modify.feather = Ludda markering
+
+
+# Galleriets batchdialog: vart resultaten hamnar (BatchTarget)
+workspace.batch.target.edit = Galleriredigeringar (versionshanterade)
+workspace.batch.target.beside = Kopior bredvid originalen
+workspace.batch.target.folder = Kopior i en mapp…
+
+# Bild ▸ Bildstorlek, som upptagetdialogen kallar sig
+workspace.modal.image_size.title = Bildstorlek
+
+# Dokument och flikar (docs.rs)
+workspace.docs.opening = Öppnar {name}…
+workspace.docs.opened = Öppnade {name}
+workspace.docs.open_failed = Kunde inte öppna: {error}
+workspace.docs.no_codec = {name} har ett format som Schist inte kan öppna
+workspace.docs.no_exporter = Schist kan inte spara .{ext}-filer
+workspace.docs.empty_response = Servern skickade ett tomt svar
+workspace.docs.heic_not_installed = HEIC-stöd är inte installerat
+workspace.docs.heic_downloading = Hämtar HEIC-stöd (libheif {version})…
+workspace.docs.heic_installed = HEIC-stöd installerat
+workspace.docs.heic_download_failed = Hämtningen av HEIC-stöd misslyckades: {error}
+workspace.docs.placing = Monterar {name}…
+workspace.docs.place_image = Montera bild
+workspace.docs.placed = Monterade {name}
+workspace.docs.place_failed = Kunde inte montera: {error}
+workspace.docs.saved = Sparade {name}
+workspace.docs.save_failed = Kunde inte spara: {error}
+
+# Justeringslager (adjustments.rs); {name} är justeringens namn
+workspace.adjustment.new_layer = Nytt {name}-lager
+workspace.adjustment.added = Lade till {name}
+workspace.adjustment.settings = Inställningar för {name}
+workspace.adjustment.updated = {name} uppdaterad
+workspace.adjustment.no_settings = {name} har inga redigerbara inställningar
+
+# Lagerkompositioner (comps.rs)
+workspace.comps.name_n = Lagerkomposition {n}
+workspace.comps.captured = Lagerkomposition sparad
+workspace.comps.apply = Använd {name}
+
+# Lagerstil (styles.rs)
+workspace.styles.layer_style = Lagerstil
+
+# Lageregenskaper (context.rs)
+workspace.context.rename_layer = Byt namn på lager
+
+# Verktygsbyte (commands.rs)
+workspace.commands.tool = Verktyg: {name}
+
+# Färghantering (colormgmt.rs); {name} är profilens eget namn
+workspace.colormgmt.assign = Tilldela {name}
+workspace.colormgmt.assigned = Tilldelade {name}
+workspace.colormgmt.convert_to = Konvertera till {name}
+workspace.colormgmt.converted_to = Konverterade till {name}
+workspace.colormgmt.convert_failed = Konverteringen misslyckades: {error}
+workspace.colormgmt.proof_on = Korrekturfärger på
+workspace.colormgmt.proof_off = Korrekturfärger av
+
+# Filter (filters.rs); {name} är filtrets namn
+workspace.filters.choose = Välj
+workspace.filters.select_layer_first = Välj ett lager först
+workspace.filters.needs_pixel_layer = Filter kräver ett pixellager
+workspace.filters.nothing_to_filter = Inget att filtrera
+workspace.filters.went_away = Filtret är inte längre tillgängligt
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: lagret som filtrerades finns inte längre
+workspace.filters.plugin_title = Photoshop-plugin
+workspace.filters.running = Kör {name}
+workspace.filters.plugin_note = Pluginprogrammet körs i en egen process. Om det öppnar ett fönster, svara där för att fortsätta.
+workspace.filters.raw_preview_developing = Framkallar RAW-förhandsvisning…
+workspace.filters.raw_preview_done = RAW-förhandsvisning (snabb demosaicing)
+workspace.filters.raw_preview_size_changed = RAW-förhandsvisningens storlek ändrades: {w} × {h}
+workspace.filters.raw_preview_failed = RAW-förhandsvisningen misslyckades: {error}
+workspace.filters.raw_developing = Framkallar originalbilden…
+workspace.filters.raw_developing_note = Använder den bästa demosaicing-metoden. RAW-originalet och de här inställningarna kan fortfarande redigeras efter att dokumentet sparats som PSD eller PSB.
+workspace.filters.raw_document_changed = RAW-framkallningen blev klar efter att dokumentet ändrats
+workspace.filters.raw_failed = RAW-framkallningen misslyckades: {error}
+workspace.filters.raw_too_wide = RAW-framkallningen är för bred
+workspace.filters.raw_too_tall = RAW-framkallningen är för hög
+workspace.filters.raw_size_changed = RAW-framkallningens storlek ändrades till {w} × {h}; det nuvarande lagret behålls
+workspace.filters.raw_history = Camera Raw-framkallning
+workspace.filters.raw_applied = Camera Raw-framkallning tillämpad (bästa demosaicing)
+
+# Bildstorlek via neural uppskalning (filters.rs); {name} är modellen
+workspace.image_size.done = Bildstorlek: {w} × {h}
+workspace.image_size.bicubic_fallback = Bildstorlek: {w} × {h} – modellen {name} kunde inte läsas in, så bikubisk användes i stället
+workspace.image_size.upscaling = Skalar upp med {name}
+workspace.image_size.upscaling_note = {mp} megapixlar genom nätverket, några sekunder var. Dokumentet hålls låst tills det är klart.
+
+# Export (export.rs)
+workspace.export.no_slices = Inga segment att exportera
+workspace.export.no_artboards = Inga ritytor att exportera
+workspace.export.regions.one = Exporterade {n} område
+workspace.export.regions.other = Exporterade {n} områden
+workspace.export.prompt = Exportera som:
+workspace.export.done = Exporterade {name}
+workspace.export.failed = Exporten misslyckades: {error}
+workspace.export.codec_vanished = Exportfunktionen är inte längre tillgänglig
+
+# Schists egen filväljare (file_picker.rs)
+workspace.file_picker.choose_folder = Välj mapp
+workspace.file_picker.type_a_name = Ange ett namn för filen
+workspace.file_picker.exists = {name} finns redan; tryck på Spara igen för att ersätta den
+workspace.file_picker.tap_a_file = Tryck på en fil för att öppna den
+workspace.file_picker.pictures = Bilder
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Hämtade filer
+workspace.file_picker.permission_denied = Schist har inte behörighet att läsa den här mappen
+
+# Återställning efter krasch (recovery.rs)
+workspace.recovery.recovered_title = {title} (återställd)
+workspace.recovery.recovered.one = Återställde osparat arbete från en tidigare session
+workspace.recovery.recovered.other = Återställde {n} dokument från en tidigare session

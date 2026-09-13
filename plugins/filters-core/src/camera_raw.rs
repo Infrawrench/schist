@@ -11,6 +11,7 @@
 
 use crate::util::{at, gaussian_rgba, luma, put};
 use crate::{param, simple_filter};
+use schist_i18n::t;
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues};
 
 /// Smooth weighting of a value's membership of a tonal band.
@@ -26,24 +27,108 @@ fn band(l: f32, centre: f32, width: f32) -> f32 {
 simple_filter!(
     CameraRaw,
     "filter.camera_raw",
-    "Camera Raw Filter",
+    t("filter.camera_raw.name"),
     "Camera Raw",
     [
-        param("temperature", "Temperature", -100.0, 100.0, 0.0, ""),
-        param("tint", "Tint", -100.0, 100.0, 0.0, ""),
-        param("exposure", "Exposure", -5.0, 5.0, 0.0, " EV"),
-        param("contrast", "Contrast", -100.0, 100.0, 0.0, ""),
-        param("highlights", "Highlights", -100.0, 100.0, 0.0, ""),
-        param("shadows", "Shadows", -100.0, 100.0, 0.0, ""),
-        param("whites", "Whites", -100.0, 100.0, 0.0, ""),
-        param("blacks", "Blacks", -100.0, 100.0, 0.0, ""),
-        param("clarity", "Clarity", -100.0, 100.0, 0.0, ""),
-        param("dehaze", "Dehaze", -100.0, 100.0, 0.0, ""),
-        param("vibrance", "Vibrance", -100.0, 100.0, 0.0, ""),
-        param("saturation", "Saturation", -100.0, 100.0, 0.0, ""),
-        param("sharpening", "Sharpening", 0.0, 150.0, 0.0, ""),
-        param("noise", "Noise Reduction", 0.0, 100.0, 0.0, ""),
-        param("vignette", "Vignette", -100.0, 100.0, 0.0, ""),
+        param(
+            "temperature",
+            t("filter.camera_raw.param.temperature"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "tint",
+            t("filter.camera_raw.param.tint"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param("exposure", t("common.exposure"), -5.0, 5.0, 0.0, " EV"),
+        param("contrast", t("common.contrast"), -100.0, 100.0, 0.0, ""),
+        param(
+            "highlights",
+            t("filter.camera_raw.param.highlights"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "shadows",
+            t("filter.camera_raw.param.shadows"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "whites",
+            t("filter.camera_raw.param.whites"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "blacks",
+            t("filter.camera_raw.param.blacks"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "clarity",
+            t("filter.camera_raw.param.clarity"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "dehaze",
+            t("filter.camera_raw.param.dehaze"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "vibrance",
+            t("filter.camera_raw.param.vibrance"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param("saturation", t("common.saturation"), -100.0, 100.0, 0.0, ""),
+        param(
+            "sharpening",
+            t("filter.camera_raw.param.sharpening"),
+            0.0,
+            150.0,
+            0.0,
+            ""
+        ),
+        param(
+            "noise",
+            t("filter.camera_raw.param.noise"),
+            0.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "vignette",
+            t("filter.camera_raw.param.vignette"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // ---- white balance ----

@@ -1,0 +1,47 @@
+# Svenska: crates/app utanför panelerna, arbetsytan och dialogrutorna —
+# filtergalleriet, teckensnittshämtningen, uppdaterarens fel och
+# Vulkan-kontrollens råd. Paketnamn och kommandon lämnas som de är.
+
+# Filtergalleri
+app.filter_gallery.title = Filtergalleri
+app.filter_gallery.stack = Stapel (tillämpas nerifrån och upp)
+app.filter_gallery.no_settings = Det här filtret har inga inställningar.
+
+# Teckensnitt: raden i Saknade teckensnitt och felen vid hämtning
+app.fonts.not_open_licensed = inte öppet licensierat · {substitute} har samma mått
+app.fonts.missing_substituted = saknas · texten sätts i ett ersättningsteckensnitt
+app.fonts.not_in_catalogue = {family} finns inte i den öppna teckensnittskatalogen
+app.fonts.no_faces = inga hämtningsbara snitt för {family}
+app.fonts.empty_response = tomt svar
+
+# Uppdateraren: varför en hämtning eller installation misslyckades
+app.update.unreadable_response = oläsligt svar: {error}
+app.update.no_temp_dir = ingen tillfällig mapp att hämta till
+app.update.asset_has_path = utgåvan namnger sin fil med en sökväg
+app.update.too_big = hämtningen är större än utgåvan uppger
+app.update.stopped_at = hämtningen stannade vid {got} av {total} byte
+app.update.hash_mismatch = hämtningens kontrollsumma är {got}, inte {want}
+app.update.not_in_bundle = det här exemplaret ligger inte i ett programpaket
+app.update.no_parent_dir = programpaketet har ingen överordnad mapp
+app.update.cannot_write = kan inte skriva till {dir}
+app.update.cannot_move_aside = kan inte flytta undan {app}
+app.update.cannot_move_in = kan inte flytta det nya paketet på plats
+app.update.cannot_run_ditto = kan inte köra /usr/bin/ditto
+app.update.unpack_failed = det gick inte att packa upp hämtningen: {error}
+app.update.no_app_in_download = hämtningen innehåller inget Schist.app
+app.update.cannot_run_codesign = kan inte köra /usr/bin/codesign
+app.update.signature_invalid = hämtningens signatur går inte att verifiera: {error}
+app.update.download_unsigned = det här exemplaret är signerat men inte hämtningen
+app.update.different_developer = hämtningen är signerad av en annan utvecklare
+app.update.cannot_relaunch = kan inte starta omstartaren
+app.update.not_installed_copy = det här exemplaret lades inte här av installationsprogrammet
+app.update.cannot_start_installer = kan inte starta installationsprogrammet
+app.update.platform_unsupported = på den här plattformen installeras uppdateringar på samma sätt som Schist installerades
+
+# Vulkan-kontrollen på Linux: skrivs i terminalen innan något fönster finns.
+app.vulkan.no_loader = schist: ingen Vulkan-laddare på det här systemet, så det finns inget att rita med.\n\nSchist renderar via Vulkan, och `libvulkan.so.1` är inte installerat.\nBåde laddaren och en drivrutin behövs:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan-drivrutinen som den här sessionen pekar på finns inte.\n\n{var} är satt, och det *ersätter* laddarens sökning efter drivrutiner\ni stället för att komplettera den. De här filerna, som inte finns, är\nalltså hela drivrutinslistan -- och varje Vulkan-program i den här\nsessionen ser ingen drivrutin alls, hur många som än är installerade:\n\n{missing}\n    {var}={value}\n\nPeka den på ett manifest som finns -- installerade drivrutiner lägger\nsina i /usr/share/vulkan/icd.d -- eller ta bort variabeln och låt\nladdaren hitta sina egna. En session som sätter den från en\nkonfigurationsfil (Hyprlands `env =`, en systemd environment.d-fil, en\nskalprofil) måste ändras där, och ändringen når inget som redan kör\nförrän efter en ny inloggning.\n
+app.vulkan.override_note = \n{var} är satt till {value}, och det ersätter laddarens egen sökning:\nom inget av de manifesten är för den här maskinen är det första att\nprova att ta bort variabeln.\n
+app.vulkan.no_driver = schist: ingen Vulkan-drivrutin installerad, så det finns inget att rita på.\n\nSchist renderar via Vulkan. Laddaren är installerad och rapporterar\ningen drivrutin -- ingen har registrerat sig på något av de två ställen\ndär de söks:\n\n{dirs}\n\nLaddaren levereras skilt från drivrutinerna, så det här är oftast ett\nenda paket som saknas.\n\nInstallera det för den här maskinens GPU:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIAs proprietära drivrutin har sin egen (`nvidia-utils` på Arch,\n`nvidia-driver` på Debian). I en virtuell maskin, eller överallt där det\ninte finns någon GPU-drivrutin att installera, är programvaru-\nrastreraren den som fungerar: `vulkan-swrast` på Arch, en del av\n`mesa-vulkan-drivers` på andra system. Den är långsam, men den startar.\n{overridden}
+app.vulkan.no_device = schist: en Vulkan-drivrutin är installerad men erbjuder ingen enhet att rendera på.\n\nDrivrutinen kanske inte täcker den här GPU:n, eller kan inte nå den --\növer SSH, eller i en container, saknas ofta /dev/dri.\n`vulkaninfo --summary` visar vad laddaren ser.\n\nProgramvarurastreraren renderar helt utan GPU, om det är vad den här\nmaskinen har: `vulkan-swrast` på Arch, en del av `mesa-vulkan-drivers`\npå Debian och Fedora.\n
+app.vulkan.skip_hint = För att starta Schist ändå och låta det misslyckas på sitt eget sätt, sätt {var}=1.

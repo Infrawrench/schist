@@ -1,0 +1,86 @@
+# Die Malwerkzeuge (plugins/tools-paint). Die Begriffe folgen dem
+# deutschen Photoshop.
+
+# Pinsel
+tool.brush.name = Pinsel
+tool.brush.description = Malt einen weichen Strich in der Vordergrundfarbe, mit der eingestellten Pinselgröße, Härte und Deckkraft.
+tool.brush.history.stroke = Pinsel
+
+# Buntstift
+tool.pencil.name = Buntstift
+tool.pencil.description = Malt einen harten Strich ohne Kantenglättung in der Vordergrundfarbe.
+tool.pencil.history.stroke = Buntstift
+
+# Radiergummi
+tool.eraser.name = Radiergummi
+tool.eraser.description = Radiert entlang des Strichs und macht die Ebene dort wieder transparent.
+tool.eraser.history.stroke = Radiergummi
+
+# Kopierstempel
+tool.clone.name = Kopierstempel
+tool.clone.description = Kopierstempel: Mit Alt-Klick den Quellpunkt setzen, dann malen – die Pixel werden mit diesem Versatz von dort kopiert.
+tool.clone.history.stroke = Kopierstempel
+
+# Abwedler, Nachbelichter, Schwamm
+tool.dodge.name = Abwedler
+tool.dodge.description = Hellt die Pixel auf, über die der Strich führt.
+tool.dodge.history.stroke = Abwedler
+tool.burn.name = Nachbelichter
+tool.burn.description = Dunkelt die Pixel ab, über die der Strich führt.
+tool.burn.history.stroke = Nachbelichter
+tool.sponge.name = Schwamm
+tool.sponge.description = Sättigt oder entsättigt die Pixel, über die der Strich führt.
+tool.sponge.history.stroke = Schwamm
+
+# Weichzeichner, Scharfzeichner, Wischfinger
+tool.blur.name = Weichzeichner
+tool.blur.description = Zeichnet die Pixel weich, über die der Strich führt.
+tool.blur.history.stroke = Weichzeichner
+tool.sharpen.name = Scharfzeichner
+tool.sharpen.description = Zeichnet die Pixel scharf, über die der Strich führt.
+tool.sharpen.history.stroke = Scharfzeichner
+tool.smudge.name = Wischfinger
+tool.smudge.description = Zieht Farbe den Strich entlang, als würde nasse Farbe verschoben.
+tool.smudge.history.stroke = Wischfinger
+
+# Reparatur
+tool.heal.name = Reparatur-Pinsel
+tool.heal.description = Reparatur-Pinsel: Mit Alt-Klick die Quelle setzen, dann malen; die Struktur der Quelle wird in Farbe und Licht des Ziels eingepasst.
+tool.heal.history.stroke = Reparatur-Pinsel
+tool.spot_heal.name = Bereichsreparatur-Pinsel
+tool.spot_heal.description = Bereichsreparatur-Pinsel: Über einen Makel malen, und er wird durch Struktur aus der Umgebung ersetzt – ohne Quellpunkt.
+tool.spot_heal.history.stroke = Bereichsreparatur-Pinsel
+
+# Protokollpinsel
+tool.history_brush.name = Protokollpinsel
+tool.history_brush.description = Malt Pixel aus dem Protokoll-Schnappschuss des Dokuments zurück und macht spätere Arbeit Strich für Strich rückgängig.
+tool.history_brush.history.stroke = Protokollpinsel
+
+# Hintergrund-Radiergummi
+tool.background_eraser.name = Hintergrund-Radiergummi
+tool.background_eraser.description = Radiert die unter der Pinselmitte aufgenommene Farbe und lässt abweichende Pixel stehen, um ein Motiv vom Hintergrund zu lösen.
+tool.background_eraser.history.stroke = Hintergrund-Radiergummi
+
+# Verlauf
+tool.gradient.name = Verlauf
+tool.gradient.description = Ziehen, um die Ebene – innerhalb der Auswahl, wenn es eine gibt – mit einem linearen Verlauf von der Vordergrund- zur Hintergrundfarbe entlang des Zugs zu füllen.
+tool.gradient.radial.name = Kreisförmiger Verlauf
+tool.gradient.radial.description = Von der Mitte nach außen ziehen, um mit einem kreisförmigen Verlauf zwischen Vordergrund- und Hintergrundfarbe zu füllen.
+tool.gradient.option.gradient = Verlauf
+tool.gradient.option.reverse = Umkehren
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Vordergrund zu Hintergrund
+tool.gradient.choice.foreground_to_transparent = Vordergrund zu Transparent
+tool.gradient.choice.linear = Linear
+tool.gradient.choice.radial = Kreisförmig
+tool.gradient.choice.angle = Winkel
+tool.gradient.choice.reflected = Reflektiert
+tool.gradient.choice.diamond = Raute
+tool.gradient.history.gradient = Verlauf
+
+# Füllwerkzeug
+tool.bucket.name = Füllwerkzeug
+tool.bucket.description = Klicken, um die zusammenhängende Fläche ähnlicher Farbe unter dem Zeiger innerhalb der Toleranz mit der Vordergrundfarbe zu füllen.
+tool.bucket.option.contiguous = Benachbart
+tool.bucket.option.all_layers = Alle Ebenen
+tool.bucket.history.fill = Füllwerkzeug

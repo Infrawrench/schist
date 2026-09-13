@@ -1,6 +1,7 @@
 //! Layer comps: capture and restore layer visibility and appearance.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 impl Workspace {
     /// Capture every layer's visibility and appearance as a named comp.
@@ -19,11 +20,11 @@ impl Workspace {
             })
             .collect();
         let n = doc.layer_comps.len() + 1;
-        let mut comp = schist_core::LayerComp::new(format!("Layer Comp {n}"));
+        let mut comp = schist_core::LayerComp::new(tf!("workspace.comps.name_n", n = n));
         comp.states = states;
         doc.layer_comps.push(comp);
         doc.mark_dirty();
-        self.status = "Layer comp captured".into();
+        self.status = t("workspace.comps.captured").into();
         cx.notify();
     }
 
@@ -34,7 +35,7 @@ impl Workspace {
         let Some(comp) = doc.layer_comps.get(index).cloned() else {
             return;
         };
-        let mut edit = doc.begin_edit(format!("Apply {}", comp.name));
+        let mut edit = doc.begin_edit(tf!("workspace.comps.apply", name = comp.name));
         for state in &comp.states {
             edit.change_props(state.layer, |l| {
                 if comp.apply_visibility {

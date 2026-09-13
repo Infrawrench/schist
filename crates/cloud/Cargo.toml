@@ -19,6 +19,7 @@ schist-document.workspace = true
 schist-core.workspace = true
 schist-color.workspace = true
 schist-codec-psd.workspace = true
+schist-i18n.workspace = true
 
 sha2 = "0.10"
 chrono = "0.4"

@@ -1,6 +1,7 @@
 //! The note tool's options and the notes panel.
 
 use super::*;
+use schist_i18n::t;
 
 /// The Note tool's own controls: who is writing, in what colour, and a
 /// way to clear the lot -- the three Photoshop puts in its options bar.
@@ -19,12 +20,12 @@ pub(super) fn note_options(ws: &Workspace, cx: &mut Context<Workspace>) -> impl 
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(palette().text_dim))
-                .child("Author"),
+                .child(t("panel.notes.author")),
         )
         .child(
             TextInput::new("note-author", author)
                 .active(editing.is_some())
-                .placeholder("Author")
+                .placeholder(t("panel.notes.author"))
                 .w(px(120.0))
                 .on_focus(cx.listener(|ws, _e, _w, cx| ws.begin_note_author_edit(cx))),
         )
@@ -36,7 +37,7 @@ pub(super) fn note_options(ws: &Workspace, cx: &mut Context<Workspace>) -> impl 
                 ),
         )
         .child(ui::button(
-            "Clear All",
+            t("panel.notes.clear_all"),
             false,
             |ws, _w, cx| ws.clear_notes(cx),
             cx,
@@ -79,7 +80,7 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
     let author = note
         .map(|n| {
             if n.author.is_empty() {
-                "Unattributed".to_string()
+                t("panel.notes.unattributed").to_string()
             } else {
                 n.author.clone()
             }
@@ -97,7 +98,7 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
         .flex_row()
         .items_center()
         .justify_between()
-        .child(panel_title("Notes"))
+        .child(panel_title(t("menu.view.notes")))
         .child(
             div()
                 .flex()
@@ -152,7 +153,7 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(palette().text_faint))
-                .child("Click the canvas to leave a note."),
+                .child(t("panel.notes.empty")),
         )
     } else {
         panel
@@ -167,7 +168,7 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
                 TextInput::new("note-body", body)
                     .multiline()
                     .active(editing.is_some())
-                    .placeholder("Click to write")
+                    .placeholder(t("panel.notes.placeholder"))
                     .h(px(72.0))
                     .overflow_hidden()
                     .on_focus(cx.listener(move |ws, _e, _w, cx| ws.begin_note_edit(index, cx))),

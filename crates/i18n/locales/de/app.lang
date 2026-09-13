@@ -1,0 +1,48 @@
+# Deutsch: crates/app außerhalb der Panels, des Workspace und der
+# Dialoge — Filtergalerie, Schriftenabruf, die Fehler des Updaters und
+# der Rat des Vulkan-Checks. Paketnamen und Befehle bleiben, wie sie sind.
+
+# Filtergalerie
+app.filter_gallery.title = Filtergalerie
+app.filter_gallery.stack = Stapel (von unten nach oben angewendet)
+app.filter_gallery.no_settings = Dieser Filter hat keine Einstellungen.
+
+# Schriften: die Zeile in „Fehlende Schriften“ und die Fehler beim Laden
+app.fonts.not_open_licensed = nicht offen lizenziert · {substitute} hat dieselben Maße
+app.fonts.missing_substituted = fehlt · Text wird in einer Ersatzschrift gesetzt
+app.fonts.not_in_catalogue = {family} ist nicht im offenen Schriftenkatalog
+app.fonts.no_faces = keine ladbaren Schnitte für {family}
+app.fonts.empty_response = leere Antwort
+
+# Der Updater: warum ein Download oder eine Installation fehlschlug
+app.update.unreadable_response = unlesbare Antwort: {error}
+app.update.no_temp_dir = kein temporärer Ordner zum Herunterladen
+app.update.asset_has_path = das Release benennt seine Datei mit einem Pfad
+app.update.too_big = der Download ist größer, als das Release angibt
+app.update.stopped_at = der Download brach bei {got} von {total} Bytes ab
+app.update.hash_mismatch = der Download hat die Prüfsumme {got}, nicht {want}
+app.update.not_in_bundle = diese Kopie liegt nicht in einem Programmpaket
+app.update.no_parent_dir = das Programmpaket hat keinen übergeordneten Ordner
+app.update.cannot_write = kann nicht nach {dir} schreiben
+app.update.cannot_move_aside = kann {app} nicht beiseitelegen
+app.update.cannot_move_in = kann das neue Paket nicht an seinen Platz bewegen
+app.update.cannot_run_ditto = kann /usr/bin/ditto nicht ausführen
+app.update.unpack_failed = das Entpacken des Downloads ist fehlgeschlagen: {error}
+app.update.no_app_in_download = der Download enthält kein Schist.app
+app.update.cannot_run_codesign = kann /usr/bin/codesign nicht ausführen
+app.update.signature_invalid = die Signatur des Downloads lässt sich nicht prüfen: {error}
+app.update.download_unsigned = diese Kopie ist signiert, der Download nicht
+app.update.different_developer = der Download ist von einem anderen Entwickler signiert
+app.update.cannot_relaunch = kann den Neustarter nicht starten
+app.update.not_installed_copy = diese Kopie wurde nicht vom Installer hierher gelegt
+app.update.cannot_start_installer = kann den Installer nicht starten
+app.update.platform_unsupported = auf dieser Plattform werden Updates so installiert, wie Schist installiert wurde
+
+# Der Vulkan-Check unter Linux: erscheint im Terminal, bevor es ein
+# Fenster gibt.
+app.vulkan.no_loader = schist: kein Vulkan-Loader auf diesem System, also gibt es nichts, womit gezeichnet werden könnte.\n\nSchist rendert über Vulkan, und `libvulkan.so.1` ist nicht installiert.\nEs braucht sowohl den Loader als auch einen Treiber:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: der Vulkan-Treiber, auf den diese Sitzung zeigt, ist nicht da.\n\n{var} ist gesetzt, und das *ersetzt* die Suche des Loaders nach\nTreibern, statt sie zu ergänzen. Diese Dateien, die es nicht gibt, sind\nalso die ganze Treiberliste -- und jedes Vulkan-Programm in dieser\nSitzung sieht gar keinen Treiber, egal wie viele installiert sind:\n\n{missing}\n    {var}={value}\n\nLass sie auf ein Manifest zeigen, das existiert -- installierte Treiber\nlegen ihres in /usr/share/vulkan/icd.d ab -- oder lösche die Variable\nund lass den Loader selbst suchen. Eine Sitzung, die sie aus einer\nKonfigurationsdatei setzt (Hyprlands `env =`, ein systemd-\nenvironment.d-Drop-in, ein Shell-Profil), muss dort geändert werden,\nund die Änderung erreicht laufende Programme erst nach einem neuen Login.\n
+app.vulkan.override_note = \n{var} ist auf {value} gesetzt, und das ersetzt die eigene Suche des\nLoaders: wenn keines dieser Manifeste für diese Maschine ist, ist das\nLöschen der Variable das Erste, was sich auszuprobieren lohnt.\n
+app.vulkan.no_driver = schist: kein Vulkan-Treiber installiert, also gibt es nichts, worauf gezeichnet werden könnte.\n\nSchist rendert über Vulkan. Der Loader ist installiert und meldet\nkeinen Treiber -- an keinem der beiden Orte, an denen gesucht wird, hat\nsich einer registriert:\n\n{dirs}\n\nDer Loader kommt getrennt von den Treibern, also fehlt meist nur ein\neinziges Paket.\n\nInstalliere das für die GPU dieser Maschine:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIAs proprietärer Treiber bringt seinen eigenen mit (`nvidia-utils`\nunter Arch, `nvidia-driver` unter Debian). In einer virtuellen Maschine,\noder überall, wo es keinen GPU-Treiber zu installieren gibt, ist der\nSoftware-Rasterizer der, der funktioniert: `vulkan-swrast` unter Arch,\nTeil von `mesa-vulkan-drivers` anderswo. Er ist langsam, aber er startet.\n{overridden}
+app.vulkan.no_device = schist: ein Vulkan-Treiber ist installiert, bietet aber kein Gerät zum Rendern an.\n\nDer Treiber deckt diese GPU vielleicht nicht ab oder kommt nicht an sie\nheran -- über SSH oder in einem Container fehlt oft /dev/dri.\n`vulkaninfo --summary` zeigt, was der Loader sieht.\n\nDer Software-Rasterizer rendert ganz ohne GPU, falls diese Maschine\nkeine hat: `vulkan-swrast` unter Arch, Teil von `mesa-vulkan-drivers`\nunter Debian und Fedora.\n
+app.vulkan.skip_hint = Um Schist trotzdem zu starten und es auf seine Weise scheitern zu lassen, setze {var}=1.

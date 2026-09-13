@@ -1,0 +1,32 @@
+# Die Dokumentwerkzeuge (plugins/tools-doc): Zeichenflächen, Slices,
+# Rahmen, Notizen und Zählung. Die Begriffe folgen dem deutschen Photoshop.
+
+# Zeichenfläche
+tool.artboard.name = Zeichenfläche
+tool.artboard.description = Ziehen Sie eine Zeichenfläche auf: einen benannten Bereich der Arbeitsfläche, der eigenständig exportiert wird. Ziehen innerhalb einer bestehenden verschiebt sie.
+tool.artboard.default_name = Zeichenfläche {n}
+
+# Slice
+tool.slice.name = Slice
+tool.slice.description = Ziehen Sie ein Export-Slice auf, ein benanntes Rechteck der Arbeitsfläche, das als eigenes Bild exportiert wird. Ziehen innerhalb eines bestehenden verschiebt es.
+tool.slice.default_name = Slice {n}
+
+# Rahmen
+tool.frame.name = Rahmen
+tool.frame.description = Ziehen Sie einen Rahmen auf: eine rechteckige (oder elliptische) Ebene, die maskiert, was hineingelegt wird.
+tool.frame.default_name = Rahmen {n}
+tool.frame.choice.rectangle = Rechteck
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Rahmen
+
+# Notiz
+tool.note.name = Notiz
+tool.note.description = Klicken Sie auf leere Arbeitsfläche, um dort eine Notiz anzuheften, versehen mit Autor und Farbe aus dem Editor-Status; klicken Sie auf eine bestehende, um sie für das Notizen-Bedienfeld auszuwählen.
+tool.note.history.place = Notiz platzieren
+tool.note.history.move = Notiz verschieben
+tool.note.history.delete = Notiz löschen
+
+# Zählung
+tool.count.name = Zählung
+tool.count.description = Klicken Sie, um nummerierte Zählmarken auf der Arbeitsfläche zu setzen, und klicken Sie auf eine bestehende, um sie zu entfernen.
+tool.count.default_name = Zählung {n}

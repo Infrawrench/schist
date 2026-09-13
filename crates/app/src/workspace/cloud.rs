@@ -14,6 +14,7 @@ use schist_cloud::{
     Value, WatchQuery,
 };
 use schist_core::DocumentId;
+use schist_i18n::{t, tf, tn};
 use std::{
     collections::{HashMap, HashSet, VecDeque},
     sync::{
@@ -266,7 +267,7 @@ impl Default for CloudState {
                                 if let Err(e) = remote::auth::private_write(&path, &bytes) {
                                     let _ = errors.send(Job::Error {
                                         epoch,
-                                        error: format!("Cloud recovery failed: {e}"),
+                                        error: tf!("cloud.error.recovery_failed", error = e),
                                     });
                                 }
                             }
@@ -288,7 +289,7 @@ impl Default for CloudState {
             capabilities_ready: false,
             download_target: None,
             show: false,
-            message: "Not signed in".into(),
+            message: t("cloud.msg.not_signed_in").into(),
             thumbnails: HashMap::new(),
             thumbnail_jobs: HashSet::new(),
             thumbnail_active: 0,
@@ -420,10 +421,14 @@ impl Workspace {
                     match result {
                         Ok(Some((_, data))) => match serde_json::from_slice::<Account>(&data) {
                             Ok(account) => ws.cloud_connect(account, cx),
-                            Err(e) => ws.cloud_error(format!("Stored cloud login is invalid: {e}")),
+                            Err(e) => {
+                                ws.cloud_error(tf!("cloud.error.stored_login_invalid", error = e))
+                            }
                         },
                         Ok(None) => {}
-                        Err(e) => ws.cloud_error(format!("Could not read cloud login: {e}")),
+                        Err(e) => {
+                            ws.cloud_error(tf!("cloud.error.could_not_read_login", error = e))
+                        }
                     }
                 });
             })
@@ -456,7 +461,7 @@ impl Workspace {
                     kind: "sign-in",
                     fields: vec![(
                         "cloud-domain",
-                        "Domain".into(),
+                        t("cloud.dialog.domain").into(),
                         remote::DEFAULT_DOMAIN.into(),
                     )],
                 },
@@ -472,7 +477,7 @@ impl Workspace {
         self.cloud.cancel = Arc::new(AtomicBool::new(false));
         let cancel = self.cloud.cancel.clone();
         let sender = self.cloud.sender.clone();
-        self.cloud.message = "Opening sign-in in your browser…".into();
+        self.cloud.message = t("cloud.status.opening_sign_in").into();
         #[cfg(not(target_arch = "wasm32"))]
         std::thread::spawn(move || {
             let result = (|| -> Result<()> {
@@ -503,7 +508,7 @@ impl Workspace {
             if let Err(e) = result {
                 let _ = sender.send(Job::Error {
                     epoch,
-                    error: format!("Cloud sign-in failed: {e}"),
+                    error: tf!("cloud.error.sign_in_failed", error = e),
                 });
             }
         });
@@ -531,7 +536,7 @@ impl Workspace {
         self.cloud.client = Some(Client::start(account.clone()));
         self.cloud.account = Some(account.clone());
         self.cloud.writes.push_back(Some(account));
-        self.cloud.message = "Connecting to Schist Cloud…".into();
+        self.cloud.message = t("cloud.status.connecting").into();
         self.cloud.pending.clear();
         self.cloud_refresh_catalogue();
         // Connect quietly: the cloud's rows appear in the sidebar, but
@@ -571,7 +576,7 @@ impl Workspace {
         self.cloud.folders.clear();
         self.cloud.buckets.clear();
         self.cloud.writes.push_back(None);
-        self.cloud.message = "Signed out".into();
+        self.cloud.message = t("cloud.status.signed_out").into();
         if let Some(account) = account {
             let sender = self.cloud.sender.clone();
             let epoch = self.cloud.epoch;
@@ -579,7 +584,7 @@ impl Workspace {
                 if let Err(e) = remote::auth::logout_async(&account).await {
                     let _ = sender.send(Job::Error {
                         epoch,
-                        error: format!("Signed out locally; server logout failed: {e}"),
+                        error: tf!("cloud.error.server_logout_failed", error = e),
                     });
                 }
             });
@@ -771,7 +776,7 @@ impl Workspace {
                 }
                 Job::Error { epoch, error } if epoch == self.cloud.epoch => {
                     self.cloud.progress = None;
-                    if error.starts_with("Not enough cloud storage.") {
+                    if error.starts_with(t("cloud.error.not_enough_storage")) {
                         self.open_modal(
                             Modal::Cloud {
                                 kind: "storage-warning",
@@ -806,7 +811,7 @@ impl Workspace {
                     self.cloud.map_key = Some(key);
                     match result {
                         Ok(assets) => self.cloud.map_assets = assets,
-                        Err(error) => self.cloud_error(format!("World map: {error}")),
+                        Err(error) => self.cloud_error(tf!("cloud.error.world_map", error = error)),
                     }
                 }
                 #[cfg(not(target_arch = "wasm32"))]
@@ -829,7 +834,7 @@ impl Workspace {
                         asset.mime_type = mime.clone();
                     }
                     if let Err(e) = self.cloud_install(asset, download.bytes, cx) {
-                        self.cloud_error(format!("Open cloud document: {e}"));
+                        self.cloud_error(tf!("cloud.error.open_document", error = e));
                     }
                 }
                 Job::Downloaded {
@@ -845,7 +850,7 @@ impl Workspace {
                         .as_ref()
                         .is_some_and(|m| m.status != "clear")
                     {
-                        self.status = "Uploaded — screening before it appears in Schist Cloud. This document remains local; open its cloud copy after screening.".into();
+                        self.status = t("cloud.status.uploaded_screening").into();
                         continue;
                     }
                     if let Some(source) = self.cloud_doc(doc) {
@@ -940,7 +945,7 @@ impl Workspace {
             let _ = this.update(cx, |ws, cx| {
                 ws.cloud.writing = false;
                 if let Err(e) = result {
-                    ws.cloud_error(format!("Could not persist cloud login: {e}"));
+                    ws.cloud_error(tf!("cloud.error.could_not_persist_login", error = e));
                 }
                 cx.notify();
             });
@@ -958,7 +963,7 @@ impl Workspace {
                 self.cloud.load_error = None;
                 self.cloud.capabilities = None;
                 self.cloud.capabilities_ready = false;
-                self.cloud.message = "Connected to Schist Cloud".into();
+                self.cloud.message = t("cloud.status.connected").into();
                 if let Some(client) = &self.cloud.client {
                     let id = client.handle.call("workspace.capabilities", map([]));
                     self.cloud.pending.insert(id, Pending::Capabilities);
@@ -981,7 +986,7 @@ impl Workspace {
                 for doc in self.cloud.docs.values_mut() {
                     doc.detach();
                 }
-                self.cloud_error("Cloud access is unavailable. Sign in again to check your account; local files remain on this device.");
+                self.cloud_error(t("cloud.error.access_unavailable"));
             }
             Event::Disconnected(error) => {
                 self.cloud.disconnect();
@@ -1144,7 +1149,7 @@ impl Workspace {
                     }
                     (_, Err(error)) => self.cloud_error(error),
                     (_, Ok(_)) => {
-                        self.cloud.message = "Cloud updated".into();
+                        self.cloud.message = t("cloud.status.updated").into();
                     }
                 }
             }
@@ -1174,7 +1179,7 @@ impl Workspace {
             .registry
             .codecs()
             .find(|c| c.probe(&data))
-            .ok_or_else(|| anyhow!("Unsupported remote file format"))?
+            .ok_or_else(|| anyhow!(t("cloud.error.unsupported_format")))?
             .import(&data)?;
         doc.title = asset.name.clone();
         doc.path = None;
@@ -1187,7 +1192,7 @@ impl Workspace {
                     recovered.id = doc.id;
                     doc = recovered;
                 }
-                Err(e) => self.cloud_error(format!("Could not restore cloud edits: {e}")),
+                Err(e) => self.cloud_error(tf!("cloud.error.could_not_restore_edits", error = e)),
             }
         }
         let id = doc.id;
@@ -1240,7 +1245,7 @@ impl Workspace {
         let handle = c.handle.clone();
         let sender = self.cloud.sender.clone();
         let epoch = self.cloud.epoch;
-        self.cloud.message = format!("Opening {}…", asset.name);
+        self.cloud.message = tf!("cloud.status.opening", name = asset.name);
         remote::runtime::spawn(async move {
             let result = handle.download_asset_async(&asset.id, None, None).await;
             let job = match result {
@@ -1268,7 +1273,7 @@ impl Workspace {
             .as_ref()
             .is_some_and(|c| !c.supports_image_model())
         {
-            self.cloud_error("This provider does not support collaborative image editing");
+            self.cloud_error(t("cloud.error.no_collaborative_editing"));
             return;
         }
         let Some(d) = self.cloud.docs.get_mut(&id) else {
@@ -1307,7 +1312,7 @@ impl Workspace {
             return false;
         };
         if !d.joined {
-            self.cloud_error("Connect before undoing cloud edits");
+            self.cloud_error(t("cloud.error.connect_before_undo"));
             return true;
         }
         if d.shared.undo(redo) {
@@ -1340,7 +1345,7 @@ impl Workspace {
             }
             Ok(None) => {}
             Err(e) => {
-                self.cloud_error(format!("Cloud edit is not saved: {e}"));
+                self.cloud_error(tf!("cloud.error.edit_not_saved", error = e));
             }
         }
     }
@@ -1393,7 +1398,7 @@ impl Workspace {
             .cloud
             .docs
             .get_mut(&id)
-            .ok_or_else(|| anyhow!("No cloud document"))?;
+            .ok_or_else(|| anyhow!(t("cloud.error.no_cloud_document")))?;
         let mut next = d.shared.render()?;
         next.id = id;
         next.dirty = d.generation > d.saved;
@@ -1443,14 +1448,14 @@ impl Workspace {
             .as_ref()
             .is_some_and(|c| !c.supports_image_model())
         {
-            self.cloud_error("This provider does not support collaborative image editing; save a local copy instead");
+            self.cloud_error(t("cloud.error.no_collaborative_editing_save_local"));
             cx.notify();
             return true;
         }
         self.cloud_capture_edit();
         let remote = &self.cloud.docs[&id];
         if remote.detached {
-            self.cloud_error("Cloud sync has stopped for this document. Reopen it from the cloud gallery to reconnect; edits remain local.");
+            self.cloud_error(t("cloud.error.sync_stopped"));
             cx.notify();
             return true;
         }
@@ -1460,7 +1465,7 @@ impl Workspace {
                 doc.mark_saved();
             }
             self.cloud_finish_save(id, cx);
-            self.status = "Saved to Schist Cloud".into();
+            self.status = t("cloud.status.saved").into();
             cx.notify();
             return true;
         }
@@ -1469,9 +1474,9 @@ impl Workspace {
         }
         self.cloud_send_document(id);
         self.status = if self.cloud.connected {
-            "Saving to Schist Cloud…"
+            t("cloud.status.saving")
         } else {
-            "Offline — cloud edits will sync after reconnecting"
+            t("cloud.status.offline_will_sync")
         }
         .into();
         cx.notify();
@@ -1546,7 +1551,7 @@ impl Workspace {
                     files,
                 });
             }
-            Err(e) => self.cloud_error(format!("Cloud recovery failed: {e}")),
+            Err(e) => self.cloud_error(tf!("cloud.error.recovery_failed", error = e)),
         }
     }
     #[cfg(target_arch = "wasm32")]
@@ -1566,7 +1571,7 @@ impl Workspace {
         bounds: Option<remote::Bounds>,
     ) {
         let name = match name.trim() {
-            "" => format!("Bucket {}", self.cloud.buckets.len() + 1),
+            "" => tf!("cloud.gallery.bucket_n", n = self.cloud.buckets.len() + 1),
             typed => typed.to_string(),
         };
         let target = self.cloud.form_target.take();
@@ -1627,7 +1632,7 @@ impl Workspace {
         self.open_modal(
             Modal::Cloud {
                 kind: "move-items",
-                fields: vec![("cloud-folder", "Folder".into(), String::new())],
+                fields: vec![("cloud-folder", t("common.folder").into(), String::new())],
             },
             cx,
         );
@@ -1639,11 +1644,11 @@ impl Workspace {
         &mut self,
     ) -> Option<(remote::Handle, Option<remote::Capabilities>)> {
         let Some(c) = &self.cloud.client else {
-            self.cloud_error("Sign in first");
+            self.cloud_error(t("cloud.error.sign_in_first"));
             return None;
         };
         if !self.cloud.connected {
-            self.cloud_error("Wait for the cloud connection");
+            self.cloud_error(t("cloud.error.wait_for_connection"));
             return None;
         }
         Some((c.handle.clone(), self.cloud.capabilities.clone()))
@@ -1703,7 +1708,7 @@ impl Workspace {
                 files: false,
                 directories: true,
                 multiple: false,
-                prompt: Some("Download Here".into()),
+                prompt: Some(t("cloud.download.here").into()),
             },
             cx,
         );
@@ -1727,7 +1732,7 @@ impl Workspace {
                     for (done, asset) in assets.into_iter().enumerate() {
                         let _ = sender.send(Job::Done {
                             epoch,
-                            message: format!("Downloading {} of {total}\u{2026}", done + 1),
+                            message: tf!("cloud.download.progress_n_of_m", n = done + 1, m = total),
                         });
                         let format = if asset.edited {
                             capabilities
@@ -1767,21 +1772,22 @@ impl Workspace {
                 let job = match result {
                     Ok(n) => Job::Done {
                         epoch,
-                        message: format!(
-                            "Downloaded {n} photos to {}",
-                            crate::ui::shown_path(&dest)
+                        message: tn!(
+                            "cloud.download.done_to",
+                            n as u64,
+                            path = crate::ui::shown_path(&dest)
                         ),
                     },
                     Err(e) => Job::Error {
                         epoch,
-                        error: format!("Download failed (finished files remain): {e}"),
+                        error: tf!("cloud.download.failed_partial", error = e),
                     },
                 };
                 let _ = sender.send(job);
             });
         })
         .detach();
-        self.cloud.message = "Gathering the folder\u{2026}".into();
+        self.cloud.message = t("cloud.status.gathering_folder").into();
         cx.notify();
     }
     /// Right-click ▸ Save all as ZIP…: one archive of the bucket's
@@ -1817,7 +1823,11 @@ impl Workspace {
                     let mut writer = super::library_ops::ZipWriter::create(&out)?;
                     let mut names = HashSet::new();
                     for (done, asset) in assets.into_iter().enumerate() {
-                        progress(format!("Zipping {} of {total}\u{2026}", done + 1));
+                        progress(tf!(
+                            "cloud.download.zipping_n_of_m",
+                            n = done + 1,
+                            m = total
+                        ));
                         let format = if asset.edited {
                             capabilities
                                 .as_ref()
@@ -1849,18 +1859,22 @@ impl Workspace {
                 let job = match result {
                     Ok(n) => Job::Done {
                         epoch,
-                        message: format!("Saved {n} photos to {}", crate::ui::shown_path(&out)),
+                        message: tn!(
+                            "cloud.download.zipped_to",
+                            n as u64,
+                            path = crate::ui::shown_path(&out)
+                        ),
                     },
                     Err(e) => Job::Error {
                         epoch,
-                        error: format!("ZIP failed: {e}"),
+                        error: tf!("cloud.download.zip_failed", error = e),
                     },
                 };
                 let _ = sender.send(job);
             });
         })
         .detach();
-        self.cloud.message = "Gathering the bucket\u{2026}".into();
+        self.cloud.message = t("cloud.status.gathering_bucket").into();
         cx.notify();
     }
     /// Right-click ▸ Process all…: the bucket's originals land in a
@@ -1881,14 +1895,14 @@ impl Workspace {
                     id: bucket.id.clone(),
                 };
                 let assets = scope_assets(&handle, &scope).await?;
-                anyhow::ensure!(!assets.is_empty(), "This bucket is empty");
+                anyhow::ensure!(!assets.is_empty(), t("cloud.error.bucket_empty"));
                 std::fs::create_dir_all(&dir)?;
                 let total = assets.len();
                 let mut paths = Vec::with_capacity(total);
                 for (done, asset) in assets.into_iter().enumerate() {
                     let _ = sender.send(Job::Done {
                         epoch,
-                        message: format!("Fetching {} of {total}\u{2026}", done + 1),
+                        message: tf!("cloud.download.fetching_n_of_m", n = done + 1, m = total),
                     });
                     let download = handle
                         .download_asset_async(&asset.id, None, capabilities.as_ref())
@@ -1911,12 +1925,12 @@ impl Workspace {
                 Ok(paths) => Job::Batch { epoch, paths },
                 Err(e) => Job::Error {
                     epoch,
-                    error: format!("Could not fetch the bucket: {e}"),
+                    error: tf!("cloud.download.could_not_fetch_bucket", error = e),
                 },
             };
             let _ = sender.send(job);
         });
-        self.cloud.message = "Gathering the bucket\u{2026}".into();
+        self.cloud.message = t("cloud.status.gathering_bucket").into();
         cx.notify();
     }
     pub(crate) fn cloud_mutate(&mut self, method: &str, fields: Vec<(&'static str, Value)>) {
@@ -1957,7 +1971,7 @@ impl Workspace {
                     files: !directory,
                     directories: directory,
                     multiple: true,
-                    prompt: Some("Upload to Schist Cloud".into()),
+                    prompt: Some(t("cloud.upload.prompt").into()),
                 },
                 cx,
             );
@@ -1991,8 +2005,8 @@ impl Workspace {
         let handle = c.handle.clone();
         let sender = self.cloud.sender.clone();
         let epoch = self.cloud.epoch;
-        self.cloud.message = "Uploading files…".into();
-        self.cloud.progress = Some((0, 0, "Looking through the files…".into()));
+        self.cloud.message = t("cloud.upload.uploading_files").into();
+        self.cloud.progress = Some((0, 0, t("cloud.upload.looking_through").into()));
         remote::runtime::spawn(async move {
             let progress = |done: u64, total: u64, label: String| {
                 let _ = sender.send(Job::Progress {
@@ -2015,7 +2029,11 @@ impl Workspace {
                         files.push((path, relative));
                     }
                 }
-                progress(0, files.len() as u64, "Checking cloud storage…".into());
+                progress(
+                    0,
+                    files.len() as u64,
+                    t("cloud.upload.checking_storage").into(),
+                );
                 let mut selection_bytes = 0u64;
                 let mut candidates = Vec::new();
                 for (path, relative) in &files {
@@ -2032,7 +2050,7 @@ impl Workspace {
                     }
                     selection_bytes = selection_bytes
                         .checked_add(size)
-                        .ok_or_else(|| anyhow!("Selection is too large"))?;
+                        .ok_or_else(|| anyhow!(t("cloud.upload.selection_too_large")))?;
                     if size > remote::MAX_SINGLE_UPLOAD_BYTES {
                         candidates.push((path, relative, size));
                     }
@@ -2082,7 +2100,7 @@ impl Workspace {
                     capacity.require_space()?;
                 }
                 let total = files.len() as u64;
-                progress(0, total, format!("Uploading 0 of {total} photos…"));
+                progress(0, total, tf!("cloud.upload.progress", n = 0, m = total));
                 // A pipeline: files are read and packed into compressed
                 // batches ahead of the network, a few at a time, while
                 // one batch at a time goes up. The provider's batch
@@ -2127,7 +2145,7 @@ impl Workspace {
                     }
                 }
                 if let Some(bucket) = bucket {
-                    uploader.report("Adding to the bucket…".into());
+                    uploader.report(t("cloud.upload.adding_to_bucket").into());
                     let members: Vec<String> = uploader
                         .uploaded
                         .iter()
@@ -2137,7 +2155,7 @@ impl Workspace {
                     for chunk in members.chunks(1000) {
                         let mutation = remote::Uuid::new_v4().to_string();
                         uploader
-                            .retrying("adding to the bucket", || {
+                            .retrying(t("cloud.upload.step.adding_to_bucket"), || {
                                 let items = chunk
                                     .iter()
                                     .map(|id| {
@@ -2176,10 +2194,13 @@ impl Workspace {
                 },
                 Err(e) => Job::Error {
                     epoch,
-                    error: if e.to_string().starts_with("Not enough cloud storage.") {
+                    error: if e
+                        .to_string()
+                        .starts_with(t("cloud.error.not_enough_storage"))
+                    {
                         e.to_string()
                     } else {
-                        format!("Upload failed (completed files remain in Cloud): {e}")
+                        tf!("cloud.upload.failed_partial", error = e)
                     },
                 },
             };
@@ -2199,23 +2220,19 @@ impl Workspace {
         self.open_modal(
             Modal::Cloud {
                 kind: "upload-document",
-                fields: vec![(
-                    "cloud-folder",
-                    "Folder ID (empty for unfiled)".into(),
-                    folder,
-                )],
+                fields: vec![("cloud-folder", t("cloud.dialog.folder_id").into(), folder)],
             },
             cx,
         );
     }
     pub(crate) fn cloud_download_selected(&mut self, cx: &mut Context<Self>) {
         if !self.cloud.connected || !self.cloud.capabilities_ready {
-            self.cloud_error("Wait for the cloud connection before downloading");
+            self.cloud_error(t("cloud.download.wait_for_connection"));
             cx.notify();
             return;
         }
         if self.cloud.selected.len() != 1 {
-            self.cloud_error("Select one cloud photo to download");
+            self.cloud_error(t("cloud.download.select_one"));
             cx.notify();
             return;
         }
@@ -2228,7 +2245,11 @@ impl Workspace {
         self.open_modal(
             Modal::Cloud {
                 kind: "download",
-                fields: vec![("cloud-download-format", "Format".into(), String::new())],
+                fields: vec![(
+                    "cloud-download-format",
+                    t("cloud.dialog.format").into(),
+                    String::new(),
+                )],
             },
             cx,
         );
@@ -2238,18 +2259,18 @@ impl Workspace {
             .cloud
             .download_target
             .clone()
-            .ok_or_else(|| anyhow!("Select a cloud photo first"))?;
+            .ok_or_else(|| anyhow!(t("cloud.download.select_first")))?;
         let handle = self
             .cloud
             .client
             .as_ref()
-            .ok_or_else(|| anyhow!("Sign in first"))?
+            .ok_or_else(|| anyhow!(t("cloud.error.sign_in_first")))?
             .handle
             .clone();
         let capabilities = self.cloud.capabilities.clone();
         let epoch = self.cloud.epoch;
         let sender = self.cloud.sender.clone();
-        self.cloud.message = format!("Downloading {}…", asset.name);
+        self.cloud.message = tf!("cloud.download.downloading", name = asset.name);
         remote::runtime::spawn(async move {
             let job = match handle
                 .download_asset_async(&asset.id, format.as_deref(), capabilities.as_ref())
@@ -2262,7 +2283,7 @@ impl Workspace {
                 },
                 Err(error) => Job::Error {
                     epoch,
-                    error: format!("Cloud download failed: {error}"),
+                    error: tf!("cloud.download.failed", error = error),
                 },
             };
             let _ = sender.send(job);
@@ -2291,10 +2312,13 @@ impl Workspace {
             let _ = this.update(cx, |ws, cx| {
                 match result {
                     Ok(path) => {
-                        ws.cloud.message = format!("Downloaded {}", crate::ui::shown_path(&path));
+                        ws.cloud.message =
+                            tf!("cloud.download.done", name = crate::ui::shown_path(&path));
                         ws.status = ws.cloud.message.clone().into();
                     }
-                    Err(error) => ws.cloud_error(format!("Could not save download: {error}")),
+                    Err(error) => {
+                        ws.cloud_error(tf!("cloud.download.could_not_save", error = error))
+                    }
                 }
                 cx.notify();
             });
@@ -2309,7 +2333,7 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         match crate::web::download_bytes(&name, &download.bytes) {
-            Ok(()) => self.cloud.message = format!("Downloaded {name}"),
+            Ok(()) => self.cloud.message = tf!("cloud.download.done", name = name),
             Err(e) => self.cloud_error(e.to_string()),
         }
         cx.notify();
@@ -2318,7 +2342,7 @@ impl Workspace {
         let doc = self
             .doc
             .as_ref()
-            .ok_or_else(|| anyhow!("Open a document first"))?;
+            .ok_or_else(|| anyhow!(t("cloud.upload.open_document_first")))?;
         let data = schist_codec_psd::write_psd(doc)?;
         let id = doc.id;
         let name = format!("{}.psd", doc.title.trim_end_matches(".psd"));
@@ -2326,7 +2350,7 @@ impl Workspace {
             .cloud
             .client
             .as_ref()
-            .ok_or_else(|| anyhow!("Sign in first"))?
+            .ok_or_else(|| anyhow!(t("cloud.error.sign_in_first")))?
             .handle
             .clone();
         let sender = self.cloud.sender.clone();
@@ -2390,12 +2414,12 @@ impl Workspace {
                 q.offset = 0;
                 q.filters = parse_filters(&fields)?;
                 if let Some(r) = q.filters.min_rating {
-                    anyhow::ensure!(r <= 5, "Rating must be 0–5");
+                    anyhow::ensure!(r <= 5, t("cloud.error.rating_range"));
                 }
                 if let Some(c) = &q.filters.content {
                     anyhow::ensure!(
                         ["all", "safe", "flagged"].contains(&c.as_str()),
-                        "Invalid content filter"
+                        t("cloud.error.invalid_content_filter")
                     );
                 }
                 self.cloud.query = q;
@@ -2432,7 +2456,7 @@ impl Workspace {
                     .cloud
                     .form_target
                     .clone()
-                    .ok_or_else(|| anyhow!("No photo selected"))?;
+                    .ok_or_else(|| anyhow!(t("cloud.error.no_photo_selected")))?;
                 self.cloud.selected.retain(|s| s != &id);
                 self.cloud_mutate(
                     "asset.delete",
@@ -2465,7 +2489,7 @@ impl Workspace {
                         .cloud
                         .form_target
                         .clone()
-                        .ok_or_else(|| anyhow!("No bucket selected"))?;
+                        .ok_or_else(|| anyhow!(t("cloud.error.no_bucket_selected")))?;
                     params.extend([("id", id.into()), ("revision", revision.into())]);
                     "bucket.update"
                 } else {
@@ -2478,7 +2502,7 @@ impl Workspace {
                     .cloud
                     .form_target
                     .clone()
-                    .ok_or_else(|| anyhow!("No folder selected"))?;
+                    .ok_or_else(|| anyhow!(t("cloud.error.no_folder_selected")))?;
                 self.cloud_mutate(
                     "folder.update",
                     vec![
@@ -2493,7 +2517,7 @@ impl Workspace {
                     .cloud
                     .form_target
                     .clone()
-                    .ok_or_else(|| anyhow!("No item selected"))?;
+                    .ok_or_else(|| anyhow!(t("cloud.error.no_item_selected")))?;
                 let mut params = vec![("id", id.into()), ("revision", revision.into())];
                 if kind == "delete-folder" && get("cloud-check-contents") == "1" {
                     params.push(("contents", true.into()));
@@ -2513,7 +2537,7 @@ impl Workspace {
             }
             "upload-folder" => {
                 let path = PathBuf::from(get("cloud-path"));
-                anyhow::ensure!(path.is_dir(), "That folder is no longer there");
+                anyhow::ensure!(path.is_dir(), t("cloud.error.folder_gone"));
                 let folder = get("cloud-folder");
                 self.cloud_drop_local(None, (!folder.is_empty()).then_some(folder), vec![path], cx);
             }
@@ -2522,7 +2546,7 @@ impl Workspace {
                     .cloud
                     .form_target
                     .take()
-                    .ok_or_else(|| anyhow!("No bucket selected"))?;
+                    .ok_or_else(|| anyhow!(t("cloud.error.no_bucket_selected")))?;
                 let folder = get("cloud-folder");
                 self.cloud_mutate(
                     "asset.move",
@@ -2545,7 +2569,7 @@ impl Workspace {
                     ],
                 );
             }
-            _ => return Err(anyhow!("Unknown cloud action")),
+            _ => return Err(anyhow!(t("cloud.error.unknown_action"))),
         }
         Ok(())
     }
@@ -2651,28 +2675,34 @@ struct UploadSummary {
 }
 impl UploadSummary {
     fn message(&self) -> String {
+        // The clauses are each a whole sentence; "; " joins them.
         let mut uploaded = match self.uploaded {
-            0 => "Nothing uploaded".to_string(),
-            1 => "Uploaded 1 photo".into(),
-            n => format!("Uploaded {n} photos"),
+            0 => t("cloud.upload.summary_none").to_string(),
+            n => tn("cloud.upload.summary_uploaded", n as u64),
         };
-        match self.existing {
-            0 => {}
-            1 => uploaded.push_str("; 1 was already in Schist Cloud"),
-            n => uploaded.push_str(&format!("; {n} were already in Schist Cloud")),
+        if self.existing > 0 {
+            uploaded.push_str("; ");
+            uploaded.push_str(&tn("cloud.upload.summary_existing", self.existing as u64));
         }
         match self.skipped.first() {
             None => uploaded,
-            Some(reason) => format!(
-                "{uploaded}; skipped {} file{}: {reason}{}",
-                self.skipped.len(),
-                if self.skipped.len() == 1 { "" } else { "s" },
-                if self.skipped.len() > 1 {
-                    format!(" (and {} more)", self.skipped.len() - 1)
+            Some(reason) => {
+                let reason = if self.skipped.len() > 1 {
+                    tf!(
+                        "cloud.upload.summary_skipped_more",
+                        reason = reason,
+                        n = self.skipped.len() - 1
+                    )
                 } else {
-                    String::new()
-                },
-            ),
+                    reason.clone()
+                };
+                let skipped = tn!(
+                    "cloud.upload.summary_skipped",
+                    self.skipped.len() as u64,
+                    reason = reason
+                );
+                format!("{uploaded}; {skipped}")
+            }
         }
     }
 }
@@ -2685,7 +2715,7 @@ fn read_cloud_upload(path: &std::path::Path, relative: Option<String>) -> Result
         remote::validate_upload_size(metadata.len())?;
         anyhow::ensure!(
             metadata.len() <= remote::MAX_SINGLE_UPLOAD_BYTES,
-            "Use chunk uploads for files over 100 MiB"
+            t("cloud.upload.over_100mib")
         );
         // Bound the read too, in case the source grows after checking its size.
         let mut bytes = Vec::new();
@@ -2973,9 +3003,11 @@ impl Uploader {
                 Ok(value) => return Ok(value),
                 Err(error) if remote::transport::transient(&error) && attempt < OFFLINE_RETRIES => {
                     attempt += 1;
-                    self.report(format!(
-                        "Connection interrupted while {what} — {} of {} uploaded; waiting…",
-                        self.done, self.total
+                    self.report(tf!(
+                        "cloud.upload.interrupted",
+                        what = what,
+                        n = self.done,
+                        m = self.total
                     ));
                     // The first retry is immediate: the session renews
                     // itself every quarter hour by reconnecting, and that
@@ -2986,11 +3018,13 @@ impl Uploader {
                         remote::runtime::sleep(std::time::Duration::from_secs(pause)).await;
                     }
                     if !self.handle.wait_online().await {
-                        return Err(error.context("The cloud connection was closed"));
+                        return Err(error.context(t("cloud.upload.connection_closed")));
                     }
-                    self.report(format!(
-                        "Reconnected — resuming {what} ({} of {} uploaded)…",
-                        self.done, self.total
+                    self.report(tf!(
+                        "cloud.upload.resuming",
+                        what = what,
+                        n = self.done,
+                        m = self.total
                     ));
                 }
                 Err(error) => return Err(error),
@@ -3001,11 +3035,13 @@ impl Uploader {
         self.done += by as u64;
         let (done, total) = (self.done, self.total);
         self.report(if self.skipped.is_empty() {
-            format!("Uploading {done} of {total} photos…")
+            tf!("cloud.upload.progress", n = done, m = total)
         } else {
-            format!(
-                "Uploading {done} of {total} photos ({} skipped)…",
-                self.skipped.len()
+            tf!(
+                "cloud.upload.progress_skipped",
+                n = done,
+                m = total,
+                skipped = self.skipped.len()
             )
         });
     }
@@ -3022,7 +3058,7 @@ impl Uploader {
                 if self.dedupe != SUPPORT_SINGLES && !entries.is_empty() {
                     let digests: Vec<String> = entries.iter().map(|e| e.digest.clone()).collect();
                     match self
-                        .retrying("checking for duplicates", || {
+                        .retrying(t("cloud.upload.step.checking_duplicates"), || {
                             existing_assets(&self.handle, &digests)
                         })
                         .await?
@@ -3062,7 +3098,7 @@ impl Uploader {
                         // can answer a repeat from its record.
                         let batch = BatchIds::new();
                         match self
-                            .retrying("uploading a batch", || {
+                            .retrying(t("cloud.upload.step.uploading_batch"), || {
                                 // The count the provider checks is the
                                 // batch as packed — after duplicates
                                 // were left out — not the drop's tally.
@@ -3095,7 +3131,7 @@ impl Uploader {
                         for file in &files {
                             let mutation = remote::Uuid::new_v4().to_string();
                             let id = self
-                                .retrying("uploading a photo", || {
+                                .retrying(t("cloud.upload.step.uploading_photo"), || {
                                     send_single(&self.handle, folder.as_deref(), file, &mutation)
                                 })
                                 .await?;
@@ -3116,14 +3152,14 @@ impl Uploader {
                     .unwrap_or_default()
                     .to_string_lossy()
                     .into_owned();
-                self.report(format!("Checking {name} for a resumable upload…"));
+                self.report(tf!("cloud.upload.checking_resumable", name = name));
                 let (sender, epoch, done, total) =
                     (self.sender.clone(), self.epoch, self.done, self.total);
                 // The chunked upload resumes from the parts already
                 // stored, so a retry after an outage picks up where it
                 // stopped.
                 let asset = self
-                    .retrying("uploading a large file", || {
+                    .retrying(t("cloud.upload.step.uploading_large_file"), || {
                         let (sender, name) = (sender.clone(), name.clone());
                         self.handle.upload_path_async(
                             &path,
@@ -3135,11 +3171,12 @@ impl Uploader {
                                     epoch,
                                     done,
                                     total,
-                                    label: format!(
-                                        "Uploading {name}: {}% ({} / {} MiB)",
-                                        bytes * 100 / size.max(1),
-                                        bytes / 1024 / 1024,
-                                        size / 1024 / 1024
+                                    label: tf!(
+                                        "cloud.upload.large_progress",
+                                        name = name,
+                                        percent = bytes * 100 / size.max(1),
+                                        done = bytes / 1024 / 1024,
+                                        total = size / 1024 / 1024
                                     ),
                                 });
                             },
@@ -3154,7 +3191,7 @@ impl Uploader {
                 if self.dedupe != SUPPORT_SINGLES {
                     let digests = vec![entry.digest.clone()];
                     match self
-                        .retrying("checking for duplicates", || {
+                        .retrying(t("cloud.upload.step.checking_duplicates"), || {
                             existing_assets(&self.handle, &digests)
                         })
                         .await?
@@ -3174,7 +3211,7 @@ impl Uploader {
                 let file = read_cloud_upload(&entry.source, Some(entry.path.clone()))?;
                 let mutation = remote::Uuid::new_v4().to_string();
                 let id = self
-                    .retrying("uploading a photo", || {
+                    .retrying(t("cloud.upload.step.uploading_photo"), || {
                         send_single(&self.handle, folder.as_deref(), &file, &mutation)
                     })
                     .await?;
@@ -3368,20 +3405,20 @@ fn parse_filters(fields: &[(&'static str, String, String)]) -> Result<Filters> {
         "any" | "" => None,
         "yes" => Some(true),
         "no" => Some(false),
-        _ => return Err(anyhow!("Edited must be any, yes or no")),
+        _ => return Err(anyhow!(t("cloud.error.edited_filter"))),
     };
     let content = match get("cloud-content") {
         "all" | "" => None,
         "safe" => Some("safe".into()),
         "flagged" => Some("flagged".into()),
-        _ => return Err(anyhow!("Content must be all, safe or flagged")),
+        _ => return Err(anyhow!(t("cloud.error.content_filter"))),
     };
     let rating = get("cloud-rating");
     let min_rating = if rating.is_empty() {
         None
     } else {
         let r: u8 = rating.parse()?;
-        anyhow::ensure!(r <= 5, "Rating must be between 0 and 5");
+        anyhow::ensure!(r <= 5, t("cloud.error.rating_range"));
         Some(r)
     };
     let b = get("cloud-bounds");
@@ -3400,7 +3437,7 @@ fn parse_filters(fields: &[(&'static str, String, String)]) -> Result<Filters> {
                 && c[0] <= c[2]
                 && c[1].abs() <= 180.0
                 && c[3].abs() <= 180.0,
-            "Enter valid south, west, north, east coordinates"
+            t("cloud.error.invalid_bounds")
         );
         Some(remote::Bounds {
             south: c[0],
@@ -3412,7 +3449,7 @@ fn parse_filters(fields: &[(&'static str, String, String)]) -> Result<Filters> {
     let captured_after = remote::parse_date(get("cloud-after"), false)?;
     let captured_before = remote::parse_date(get("cloud-before"), true)?;
     if let (Some(a), Some(b)) = (captured_after, captured_before) {
-        anyhow::ensure!(a <= b, "End date must follow start date");
+        anyhow::ensure!(a <= b, t("cloud.error.date_order"));
     }
     Ok(Filters {
         person_id: None,

@@ -1,0 +1,100 @@
+# 画布周围的界面（crates/app/src/panels）：各面板、工具栏及其选项栏、
+# 状态栏、标题栏、文档标签页和右键菜单；以及 keymap.rs 中的文件对话框。
+# 面板名称沿用简体中文 Photoshop：图层、历史记录、信息、导航器、颜色、
+# 属性、字符。
+
+# 菜单快捷键提示中的修饰键
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# 状态栏
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# 文档标签页和窗口标题
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# 导航器
+panel.navigator.title = 导航器
+panel.navigator.actual_pixels = 实际像素
+
+# 颜色面板及其右键菜单
+panel.color.picker = 拾色器…
+panel.color.swap = 交换颜色
+panel.color.reset = 恢复为黑白
+
+# 图层面板
+panel.layers.blending_options = 混合选项…
+panel.layers.properties = 图层属性…
+panel.layers.show_hide = 显示/隐藏图层
+panel.layers.toggle_visibility = 切换可见性
+
+# 历史记录面板
+panel.history.title = 历史记录
+panel.history.opened = 已打开
+
+# 信息标签页
+panel.info.title = 信息
+panel.info.camera = 相机
+panel.info.lens = 镜头
+panel.info.iso = ISO {iso}
+panel.info.bias = 曝光补偿
+panel.info.flash_fired = 已闪光
+panel.info.no_flash = 未闪光
+panel.info.white_balance = 白平衡 {wb}
+panel.info.metering = 测光 {metering}
+panel.info.taken = 拍摄时间
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · 方向 {o}
+panel.info.software = 软件
+panel.info.where = 位置
+
+# 注释面板和注释工具的选项
+panel.notes.author = 作者
+panel.notes.clear_all = 全部清除
+panel.notes.unattributed = 未署名
+panel.notes.empty = 点按画布以留下注释。
+panel.notes.placeholder = 点按以书写
+
+# 字符面板和文字工具的选项栏
+panel.character.title = 字符
+panel.character.type_tool = 文字工具 (T)
+panel.character.align_left = 左对齐
+panel.character.align_center = 居中对齐
+panel.character.align_right = 右对齐
+panel.character.text_color = 文本颜色
+panel.character.panel = 字符面板
+panel.character.cancel_edit = 取消文本编辑
+panel.character.commit_edit = 提交文本编辑
+panel.character.number_tip = {label} · 输入数值，或使用 ↑ / ↓（按住 Shift 步长更大）
+panel.character.leading = 行距
+panel.character.tracking = 字距
+panel.character.alignment = 对齐
+panel.character.opentype = OpenType
+panel.character.text_on_path = 路径文字
+panel.character.straight = 直线
+panel.character.on_path = 沿路径
+panel.character.straight_tip = 使用文本图层的普通基线
+panel.character.on_path_tip = 使用当前路径的副本
+panel.character.path_offset = 路径偏移
+
+# AI 面板
+panel.ai.title = AI
+panel.ai.empty_editor = 提出一项编辑要求，然后看着它在画布上发生。代理使用与菜单相同的工具、滤镜和命令，每一步都可单独撤销。
+panel.ai.empty_gallery = 询问有关照片的问题，然后看着它在图库中发生：代理可以搜索、查看缩略图、选择、分组整理，并在编辑器中打开照片。
+panel.ai.thinking = 思考中…
+panel.ai.placeholder_editor = 询问或编辑此文档
+panel.ai.placeholder_gallery = 询问有关照片的问题
+panel.ai.send = 发送
+panel.ai.stop = 停止
+panel.ai.fetching_models = 正在向 CLI 询问可用模型…
+panel.ai.no_models = 没有匹配的模型
+panel.ai.search_models = 搜索模型…
+
+# 文件对话框（keymap.rs）
+panel.keymap.install_plugin = 安装插件
+panel.keymap.save_as_prompt = 存储为 — 扩展名决定格式：

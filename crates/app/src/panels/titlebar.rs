@@ -1,15 +1,16 @@
 //! Window title chrome painted into AppKit's transparent title-bar area.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 /// A title bar that follows Schist's own theme. macOS keeps drawing and
 /// operating the traffic-light controls above this row; the centred label
 /// stays clear of them and follows the active document.
 pub fn title_bar(ws: &Workspace) -> impl IntoElement {
     let title: SharedString = match ws.doc.as_ref() {
-        Some(doc) if doc.dirty => format!("{} • — Schist", doc.title).into(),
-        Some(doc) => format!("{} — Schist", doc.title).into(),
-        None => "Schist".into(),
+        Some(doc) if doc.dirty => tf!("panel.titlebar.document_dirty", title = doc.title).into(),
+        Some(doc) => tf!("panel.titlebar.document", title = doc.title).into(),
+        None => t("common.app_name").into(),
     };
 
     div()

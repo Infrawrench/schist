@@ -9,6 +9,7 @@
 //! when one is installed and on its own CPU reference otherwise. Anything
 //! whose cost is a couple of taps per pixel stays here.
 
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues, PluginManifest, PluginRegistry};
 
 pub mod artistic;
@@ -174,15 +175,15 @@ impl FilterPlugin for GaussianBlur {
         "filter.gaussian_blur"
     }
     fn name(&self) -> &'static str {
-        "Gaussian Blur"
+        t("filter.gaussian_blur.name")
     }
     fn category(&self) -> &'static str {
-        "Blur"
+        t("filter.category.blur")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![FilterParam {
             key: "radius",
-            label: "Radius",
+            label: t("common.radius"),
             min: 0.0,
             max: 100.0,
             default: 4.0,
@@ -202,15 +203,15 @@ impl FilterPlugin for BoxBlur {
         "filter.box_blur"
     }
     fn name(&self) -> &'static str {
-        "Box Blur"
+        t("filter.box_blur.name")
     }
     fn category(&self) -> &'static str {
-        "Blur"
+        t("filter.category.blur")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![FilterParam {
             key: "radius",
-            label: "Radius",
+            label: t("common.radius"),
             min: 0.0,
             max: 100.0,
             default: 4.0,
@@ -230,16 +231,16 @@ impl FilterPlugin for MotionBlur {
         "filter.motion_blur"
     }
     fn name(&self) -> &'static str {
-        "Motion Blur"
+        t("filter.motion_blur.name")
     }
     fn category(&self) -> &'static str {
-        "Blur"
+        t("filter.category.blur")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
             FilterParam {
                 key: "distance",
-                label: "Distance",
+                label: t("common.distance"),
                 min: 1.0,
                 max: 200.0,
                 default: 12.0,
@@ -248,7 +249,7 @@ impl FilterPlugin for MotionBlur {
             },
             FilterParam {
                 key: "angle",
-                label: "Angle",
+                label: t("common.angle"),
                 min: -180.0,
                 max: 180.0,
                 default: 0.0,
@@ -303,15 +304,15 @@ impl FilterPlugin for Sharpen {
         "filter.sharpen"
     }
     fn name(&self) -> &'static str {
-        "Sharpen"
+        t("filter.sharpen.name")
     }
     fn category(&self) -> &'static str {
-        "Sharpen"
+        t("filter.category.sharpen")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![FilterParam {
             key: "amount",
-            label: "Amount",
+            label: t("common.amount"),
             min: 0.0,
             max: 300.0,
             default: 100.0,
@@ -338,16 +339,16 @@ impl FilterPlugin for UnsharpMask {
         "filter.unsharp_mask"
     }
     fn name(&self) -> &'static str {
-        "Unsharp Mask"
+        t("filter.unsharp_mask.name")
     }
     fn category(&self) -> &'static str {
-        "Sharpen"
+        t("filter.category.sharpen")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
             FilterParam {
                 key: "amount",
-                label: "Amount",
+                label: t("common.amount"),
                 min: 0.0,
                 max: 500.0,
                 default: 100.0,
@@ -356,7 +357,7 @@ impl FilterPlugin for UnsharpMask {
             },
             FilterParam {
                 key: "radius",
-                label: "Radius",
+                label: t("common.radius"),
                 min: 0.1,
                 max: 50.0,
                 default: 2.0,
@@ -365,7 +366,7 @@ impl FilterPlugin for UnsharpMask {
             },
             FilterParam {
                 key: "threshold",
-                label: "Threshold",
+                label: t("common.threshold"),
                 min: 0.0,
                 max: 255.0,
                 default: 0.0,
@@ -421,6 +422,12 @@ fn unsharp_mask(
     }
 }
 
+/// The two noise distributions Add Noise offers.
+static ADD_NOISE_DISTRIBUTIONS: &[&str] = &[
+    "filter.add_noise.choice.uniform",
+    "filter.add_noise.choice.gaussian",
+];
+
 pub struct AddNoise;
 
 impl FilterPlugin for AddNoise {
@@ -428,16 +435,16 @@ impl FilterPlugin for AddNoise {
         "filter.add_noise"
     }
     fn name(&self) -> &'static str {
-        "Add Noise"
+        t("filter.add_noise.name")
     }
     fn category(&self) -> &'static str {
-        "Noise"
+        t("filter.category.noise")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
             FilterParam {
                 key: "amount",
-                label: "Amount",
+                label: t("common.amount"),
                 min: 0.0,
                 max: 100.0,
                 default: 10.0,
@@ -446,16 +453,16 @@ impl FilterPlugin for AddNoise {
             },
             FilterParam {
                 key: "distribution",
-                label: "Distribution",
+                label: t("filter.add_noise.param.distribution"),
                 min: 0.0,
                 max: 1.0,
                 default: 0.0,
                 suffix: "",
-                choices: &["Uniform", "Gaussian"],
+                choices: choices(ADD_NOISE_DISTRIBUTIONS),
             },
             FilterParam {
                 key: "monochrome",
-                label: "Monochrome",
+                label: t("filter.add_noise.param.monochrome"),
                 min: 0.0,
                 max: 1.0,
                 default: 1.0,
@@ -525,15 +532,15 @@ impl FilterPlugin for Median {
         "filter.median"
     }
     fn name(&self) -> &'static str {
-        "Median"
+        t("filter.median.name")
     }
     fn category(&self) -> &'static str {
-        "Noise"
+        t("filter.category.noise")
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![FilterParam {
             key: "radius",
-            label: "Radius",
+            label: t("common.radius"),
             min: 1.0,
             max: 10.0,
             default: 2.0,

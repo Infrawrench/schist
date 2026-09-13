@@ -1,0 +1,44 @@
+# plugins/codecs-common: formatnamn och importmeddelanden (på statusraden
+# efter "Kunde inte öppna:").
+
+# Formatnamn; de långa formerna för fildialoger är common.filetype.*.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Gemensamma importmeddelanden; de står före avkodarens eget meddelande.
+codec.msg.decoding = vid avkodning av {name}
+codec.msg.zero_sized = bilden har inga pixlar
+codec.msg.assembling_document = när dokumentet sattes ihop
+
+# Camera Raw
+codec.raw.msg.decoding = vid avkodning av råfilen
+codec.raw.msg.developing = vid framkallning av råfilen
+codec.raw.msg.finding_preview = när den inbäddade förhandsvisningen söktes
+codec.raw.msg.decoding_preview = vid avkodning av den inbäddade förhandsvisningen
+codec.raw.msg.decoder_panicked = råavkodaren misslyckades med den här filen: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity-import
+codec.affinity.flattened_preview_layer = Sammanslagen förhandsvisning
+codec.affinity.msg.no_preview = Ingen användbar inbäddad förhandsvisning. Affinitys lagerformat är proprietärt; Schist importerar den sammanslagna förhandsvisning som filen bär med sig. Den här filen saknar en – spara om den i Affinity, eller exportera den som PSD för en fullständig import med lager.
+
+# HEIF
+codec.heif.msg.no_library = libheif är inte tillgängligt ({details}). För att öppna HEIC behövs biblioteket libheif (Linux: installera libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} – det här bygget av libheif saknar kanske HEVC-avkodare (installera libheif-plugin-libde265 på Debian/Ubuntu)
+codec.heif.msg.unknown_error = okänt fel
+codec.heif.msg.initialising = vid initiering av libheif
+codec.heif.msg.reading_container = vid läsning av HEIF-behållaren
+codec.heif.msg.finding_primary_image = när huvudbilden söktes
+codec.heif.msg.reading_icc_profile = vid läsning av ICC-profilen
+codec.heif.msg.decoding_image = vid avkodning av bilden
+codec.heif.msg.checksum_mismatch = Kontrollsumman för {name} stämmer inte: väntade {expected}, fick {got}
+# iOS, där ImageIO avkodar HEIC
+codec.heif.msg.imageio_cannot_read = ImageIO kunde inte läsa HEIF-behållaren
+codec.heif.msg.container_empty = HEIF-behållaren innehåller ingen bild
+codec.heif.msg.imageio_cannot_decode = ImageIO kunde inte avkoda huvudbilden

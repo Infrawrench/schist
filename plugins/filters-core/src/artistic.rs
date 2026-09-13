@@ -18,6 +18,7 @@ use crate::util::{
     streak, surface, value_noise,
 };
 use crate::{choice, context_filter, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterContext, FilterParam, FilterPlugin, FilterValues};
 
 /// Flatten an image into regions a brush could have painted.
@@ -72,12 +73,33 @@ fn flatten(px: &mut [f32], w: usize, h: usize, radius: f32, tolerance: f32) {
 context_filter!(
     ColoredPencil,
     "filter.colored_pencil",
-    "Colored Pencil",
-    "Artistic",
+    t("filter.colored_pencil.name"),
+    t("filter.category.artistic"),
     [
-        param("width", "Pencil Width", 1.0, 24.0, 4.0, ""),
-        param("pressure", "Stroke Pressure", 0.0, 15.0, 8.0, ""),
-        param("paper", "Paper Brightness", 0.0, 50.0, 25.0, "")
+        param(
+            "width",
+            t("filter.colored_pencil.param.width"),
+            1.0,
+            24.0,
+            4.0,
+            ""
+        ),
+        param(
+            "pressure",
+            t("filter.param.stroke_pressure"),
+            0.0,
+            15.0,
+            8.0,
+            ""
+        ),
+        param(
+            "paper",
+            t("filter.colored_pencil.param.paper"),
+            0.0,
+            50.0,
+            25.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Crosshatched pencil: the edges become strokes, the paper shows
@@ -122,12 +144,26 @@ context_filter!(
 simple_filter!(
     Cutout,
     "filter.cutout",
-    "Cutout",
-    "Artistic",
+    t("filter.cutout.name"),
+    t("filter.category.artistic"),
     [
-        param("levels", "Number of Levels", 2.0, 8.0, 4.0, ""),
-        param("simplicity", "Edge Simplicity", 0.0, 10.0, 4.0, ""),
-        param("fidelity", "Edge Fidelity", 1.0, 3.0, 2.0, "")
+        param("levels", t("filter.cutout.param.levels"), 2.0, 8.0, 4.0, ""),
+        param(
+            "simplicity",
+            t("filter.cutout.param.simplicity"),
+            0.0,
+            10.0,
+            4.0,
+            ""
+        ),
+        param(
+            "fidelity",
+            t("filter.cutout.param.fidelity"),
+            1.0,
+            3.0,
+            2.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Coloured paper cut out and layered: a few flat tones, and the
@@ -146,12 +182,12 @@ simple_filter!(
 simple_filter!(
     DryBrush,
     "filter.dry_brush",
-    "Dry Brush",
-    "Artistic",
+    t("filter.dry_brush.name"),
+    t("filter.category.artistic"),
     [
-        param("size", "Brush Size", 0.0, 10.0, 2.0, ""),
-        param("detail", "Brush Detail", 0.0, 10.0, 8.0, ""),
-        param("texture", "Texture", 1.0, 3.0, 1.0, "")
+        param("size", t("filter.param.brush_size"), 0.0, 10.0, 2.0, ""),
+        param("detail", t("filter.param.brush_detail"), 0.0, 10.0, 8.0, ""),
+        param("texture", t("filter.param.texture"), 1.0, 3.0, 1.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Somewhere between oil and watercolour: flattened into painted
@@ -175,12 +211,26 @@ simple_filter!(
 simple_filter!(
     FilmGrain,
     "filter.film_grain",
-    "Film Grain",
-    "Artistic",
+    t("filter.film_grain.name"),
+    t("filter.category.artistic"),
     [
-        param("grain", "Grain", 0.0, 20.0, 4.0, ""),
-        param("highlight", "Highlight Area", 0.0, 20.0, 0.0, ""),
-        param("intensity", "Intensity", 0.0, 10.0, 10.0, "")
+        param("grain", t("filter.param.grain"), 0.0, 20.0, 4.0, ""),
+        param(
+            "highlight",
+            t("filter.param.highlight_area"),
+            0.0,
+            20.0,
+            0.0,
+            ""
+        ),
+        param(
+            "intensity",
+            t("filter.param.intensity"),
+            0.0,
+            10.0,
+            10.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let _ = h;
@@ -211,12 +261,12 @@ simple_filter!(
 simple_filter!(
     Fresco,
     "filter.fresco",
-    "Fresco",
-    "Artistic",
+    t("filter.fresco.name"),
+    t("filter.category.artistic"),
     [
-        param("size", "Brush Size", 0.0, 10.0, 2.0, ""),
-        param("detail", "Brush Detail", 0.0, 10.0, 8.0, ""),
-        param("texture", "Texture", 1.0, 3.0, 1.0, "")
+        param("size", t("filter.param.brush_size"), 0.0, 10.0, 2.0, ""),
+        param("detail", t("filter.param.brush_detail"), 0.0, 10.0, 8.0, ""),
+        param("texture", t("filter.param.texture"), 1.0, 3.0, 1.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Painted onto wet plaster in short, dark, hurried dabs: coarse
@@ -245,11 +295,18 @@ simple_filter!(
 context_filter!(
     NeonGlow,
     "filter.neon_glow",
-    "Neon Glow",
-    "Artistic",
+    t("filter.neon_glow.name"),
+    t("filter.category.artistic"),
     [
-        param("size", "Glow Size", 1.0, 24.0, 5.0, ""),
-        param("brightness", "Glow Brightness", 0.0, 50.0, 15.0, "")
+        param("size", t("filter.neon_glow.param.size"), 1.0, 24.0, 5.0, ""),
+        param(
+            "brightness",
+            t("filter.neon_glow.param.brightness"),
+            0.0,
+            50.0,
+            15.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // The image collapses to a dark ghost of itself and its edges
@@ -274,11 +331,11 @@ context_filter!(
 simple_filter!(
     PaintDaubs,
     "filter.paint_daubs",
-    "Paint Daubs",
-    "Artistic",
+    t("filter.paint_daubs.name"),
+    t("filter.category.artistic"),
     [
-        param("size", "Brush Size", 1.0, 50.0, 8.0, ""),
-        param("sharpness", "Sharpness", 0.0, 40.0, 7.0, "")
+        param("size", t("filter.param.brush_size"), 1.0, 50.0, 8.0, ""),
+        param("sharpness", t("filter.param.sharpness"), 0.0, 40.0, 7.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Dabs laid *along* what they are painting: the smear follows the
@@ -333,12 +390,26 @@ simple_filter!(
 simple_filter!(
     PaletteKnife,
     "filter.palette_knife",
-    "Palette Knife",
-    "Artistic",
+    t("filter.palette_knife.name"),
+    t("filter.category.artistic"),
     [
-        param("size", "Stroke Size", 1.0, 50.0, 25.0, ""),
-        param("detail", "Stroke Detail", 1.0, 3.0, 3.0, ""),
-        param("softness", "Softness", 0.0, 10.0, 0.0, "")
+        param(
+            "size",
+            t("filter.palette_knife.param.size"),
+            1.0,
+            50.0,
+            25.0,
+            ""
+        ),
+        param("detail", t("filter.param.stroke_detail"), 1.0, 3.0, 3.0, ""),
+        param(
+            "softness",
+            t("filter.palette_knife.param.softness"),
+            0.0,
+            10.0,
+            0.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Thin paint spread flat with a blade: large facets, hard edges
@@ -359,12 +430,26 @@ simple_filter!(
 simple_filter!(
     PlasticWrap,
     "filter.plastic_wrap",
-    "Plastic Wrap",
-    "Artistic",
+    t("filter.plastic_wrap.name"),
+    t("filter.category.artistic"),
     [
-        param("strength", "Highlight Strength", 0.0, 20.0, 15.0, ""),
-        param("detail", "Detail", 1.0, 15.0, 9.0, ""),
-        param("smoothness", "Smoothness", 1.0, 15.0, 7.0, "")
+        param(
+            "strength",
+            t("filter.plastic_wrap.param.strength"),
+            0.0,
+            20.0,
+            15.0,
+            ""
+        ),
+        param("detail", t("filter.param.detail"), 1.0, 15.0, 9.0, ""),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            15.0,
+            7.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Cling film over the subject. The film's shape is the image's
@@ -393,12 +478,33 @@ simple_filter!(
 simple_filter!(
     PosterEdges,
     "filter.poster_edges",
-    "Poster Edges",
-    "Artistic",
+    t("filter.poster_edges.name"),
+    t("filter.category.artistic"),
     [
-        param("thickness", "Edge Thickness", 0.0, 10.0, 2.0, ""),
-        param("intensity", "Edge Intensity", 0.0, 10.0, 1.0, ""),
-        param("levels", "Posterization", 0.0, 6.0, 2.0, "")
+        param(
+            "thickness",
+            t("filter.poster_edges.param.thickness"),
+            0.0,
+            10.0,
+            2.0,
+            ""
+        ),
+        param(
+            "intensity",
+            t("filter.poster_edges.param.intensity"),
+            0.0,
+            10.0,
+            1.0,
+            ""
+        ),
+        param(
+            "levels",
+            t("filter.poster_edges.param.levels"),
+            0.0,
+            6.0,
+            2.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Posterised colour with the boundaries inked in, which is the
@@ -423,19 +529,45 @@ simple_filter!(
 );
 
 /// The textures the Artistic and Texture groups draw onto.
-pub const SURFACES: &[&str] = &["Canvas", "Sandstone", "Burlap", "Brick"];
+pub static SURFACES: &[&str] = &[
+    "filter.choice.surface.canvas",
+    "filter.choice.surface.sandstone",
+    "filter.choice.surface.burlap",
+    "filter.choice.surface.brick",
+];
 
 simple_filter!(
     RoughPastels,
     "filter.rough_pastels",
-    "Rough Pastels",
-    "Artistic",
+    t("filter.rough_pastels.name"),
+    t("filter.category.artistic"),
     [
-        param("length", "Stroke Length", 0.0, 40.0, 6.0, ""),
-        param("detail", "Stroke Detail", 1.0, 20.0, 4.0, ""),
-        choice("texture", "Texture", SURFACES, 0),
-        param("scaling", "Scaling", 50.0, 200.0, 100.0, "%"),
-        param("relief", "Relief", 0.0, 50.0, 20.0, "")
+        param(
+            "length",
+            t("filter.param.stroke_length"),
+            0.0,
+            40.0,
+            6.0,
+            ""
+        ),
+        param(
+            "detail",
+            t("filter.param.stroke_detail"),
+            1.0,
+            20.0,
+            4.0,
+            ""
+        ),
+        choice("texture", t("filter.param.texture"), choices(SURFACES), 0),
+        param(
+            "scaling",
+            t("filter.param.scaling"),
+            50.0,
+            200.0,
+            100.0,
+            "%"
+        ),
+        param("relief", t("filter.param.relief"), 0.0, 50.0, 20.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Chalk dragged across a rough surface: the stroke smears the
@@ -469,12 +601,33 @@ simple_filter!(
 simple_filter!(
     SmudgeStick,
     "filter.smudge_stick",
-    "Smudge Stick",
-    "Artistic",
+    t("filter.smudge_stick.name"),
+    t("filter.category.artistic"),
     [
-        param("length", "Stroke Length", 0.0, 10.0, 2.0, ""),
-        param("highlight", "Highlight Area", 0.0, 20.0, 0.0, ""),
-        param("intensity", "Intensity", 0.0, 10.0, 10.0, "")
+        param(
+            "length",
+            t("filter.param.stroke_length"),
+            0.0,
+            10.0,
+            2.0,
+            ""
+        ),
+        param(
+            "highlight",
+            t("filter.param.highlight_area"),
+            0.0,
+            20.0,
+            0.0,
+            ""
+        ),
+        param(
+            "intensity",
+            t("filter.param.intensity"),
+            0.0,
+            10.0,
+            10.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Softens by smearing the dark areas along a diagonal while
@@ -506,12 +659,26 @@ simple_filter!(
 simple_filter!(
     Sponge,
     "filter.sponge",
-    "Sponge",
-    "Artistic",
+    t("filter.sponge.name"),
+    t("filter.category.artistic"),
     [
-        param("size", "Brush Size", 0.0, 10.0, 5.0, ""),
-        param("definition", "Definition", 0.0, 25.0, 12.0, ""),
-        param("smoothness", "Smoothness", 1.0, 15.0, 5.0, "")
+        param("size", t("filter.param.brush_size"), 0.0, 10.0, 5.0, ""),
+        param(
+            "definition",
+            t("filter.sponge.param.definition"),
+            0.0,
+            25.0,
+            12.0,
+            ""
+        ),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            15.0,
+            5.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Dabbed on with a sponge: blotches of colour with holes in them,
@@ -536,14 +703,28 @@ simple_filter!(
 simple_filter!(
     Underpainting,
     "filter.underpainting",
-    "Underpainting",
-    "Artistic",
+    t("filter.underpainting.name"),
+    t("filter.category.artistic"),
     [
-        param("size", "Brush Size", 0.0, 40.0, 6.0, ""),
-        param("coverage", "Texture Coverage", 0.0, 40.0, 16.0, ""),
-        choice("texture", "Texture", SURFACES, 0),
-        param("scaling", "Scaling", 50.0, 200.0, 100.0, "%"),
-        param("relief", "Relief", 0.0, 50.0, 20.0, "")
+        param("size", t("filter.param.brush_size"), 0.0, 40.0, 6.0, ""),
+        param(
+            "coverage",
+            t("filter.underpainting.param.coverage"),
+            0.0,
+            40.0,
+            16.0,
+            ""
+        ),
+        choice("texture", t("filter.param.texture"), choices(SURFACES), 0),
+        param(
+            "scaling",
+            t("filter.param.scaling"),
+            50.0,
+            200.0,
+            100.0,
+            "%"
+        ),
+        param("relief", t("filter.param.relief"), 0.0, 50.0, 20.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // The blocked-in first layer of a painting: the subject reduced
@@ -572,12 +753,19 @@ simple_filter!(
 simple_filter!(
     Watercolor,
     "filter.watercolor",
-    "Watercolor",
-    "Artistic",
+    t("filter.watercolor.name"),
+    t("filter.category.artistic"),
     [
-        param("detail", "Brush Detail", 1.0, 14.0, 9.0, ""),
-        param("shadow", "Shadow Intensity", 0.0, 10.0, 1.0, ""),
-        param("texture", "Texture", 1.0, 3.0, 1.0, "")
+        param("detail", t("filter.param.brush_detail"), 1.0, 14.0, 9.0, ""),
+        param(
+            "shadow",
+            t("filter.watercolor.param.shadow"),
+            0.0,
+            10.0,
+            1.0,
+            ""
+        ),
+        param("texture", t("filter.param.texture"), 1.0, 3.0, 1.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Flat washes that pool darker where they meet an edge, which is

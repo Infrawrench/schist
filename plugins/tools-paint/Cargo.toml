@@ -5,6 +5,7 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+schist-i18n.workspace = true
 schist-compositor.workspace = true
 schist-core.workspace = true
 schist-plugin-api.workspace = true

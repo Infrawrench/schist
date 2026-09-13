@@ -1,0 +1,101 @@
+# Die Bedienfelder, die Werkzeugleiste, die Statusleiste, die
+# Titelleiste, die Dokumentregister und die Kontextmenüs
+# (crates/app/src/panels), dazu die Dateidialoge in keymap.rs. Die
+# Namen folgen dem deutschen Photoshop: Ebenen, Protokoll,
+# Informationen, Navigator, Farbe, Eigenschaften, Zeichen.
+
+# Die Zusatztasten, wie ein Menü sein Tastaturkürzel schreibt
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Strg
+panel.keys.shift = Umschalt
+panel.keys.alt = Alt
+
+# Statusleiste
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Dokumentregister und Fenstertitel
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigator
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Tatsächliche Pixel
+
+# Farbbedienfeld und sein Kontextmenü
+panel.color.picker = Farbwähler…
+panel.color.swap = Farben tauschen
+panel.color.reset = Auf Schwarz und Weiß zurücksetzen
+
+# Ebenenbedienfeld
+panel.layers.blending_options = Fülloptionen…
+panel.layers.properties = Ebeneneigenschaften…
+panel.layers.show_hide = Ebene ein-/ausblenden
+panel.layers.toggle_visibility = Sichtbarkeit umschalten
+
+# Protokollbedienfeld
+panel.history.title = Protokoll
+panel.history.opened = Geöffnet
+
+# Informationen
+panel.info.title = Informationen
+panel.info.camera = Kamera
+panel.info.lens = Objektiv
+panel.info.iso = ISO {iso}
+panel.info.bias = Korrektur
+panel.info.flash_fired = Blitz ausgelöst
+panel.info.no_flash = kein Blitz
+panel.info.white_balance = WA {wb}
+panel.info.metering = Messung {metering}
+panel.info.taken = Aufgenommen
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · Ausrichtung {o}
+panel.info.software = Software
+panel.info.where = Ort
+
+# Notizenbedienfeld und die Optionen des Notizwerkzeugs
+panel.notes.author = Autor
+panel.notes.clear_all = Alle löschen
+panel.notes.unattributed = Ohne Autor
+panel.notes.empty = Auf die Arbeitsfläche klicken, um eine Notiz zu hinterlassen.
+panel.notes.placeholder = Zum Schreiben klicken
+
+# Zeichenbedienfeld und die Optionsleiste des Textwerkzeugs
+panel.character.title = Zeichen
+panel.character.type_tool = Textwerkzeug (T)
+panel.character.align_left = Linksbündig
+panel.character.align_center = Zentriert
+panel.character.align_right = Rechtsbündig
+panel.character.text_color = Textfarbe
+panel.character.panel = Zeichenbedienfeld
+panel.character.cancel_edit = Textbearbeitung abbrechen
+panel.character.commit_edit = Textbearbeitung übernehmen
+panel.character.number_tip = {label} · Wert eingeben oder ↑ / ↓ verwenden (Umschalt für größere Schritte)
+panel.character.leading = Zeilenabstand
+panel.character.tracking = Laufweite
+panel.character.alignment = Ausrichtung
+panel.character.opentype = OpenType
+panel.character.text_on_path = Text auf Pfad
+panel.character.straight = Gerade
+panel.character.on_path = Auf Pfad
+panel.character.straight_tip = Die normale Grundlinie der Textebene verwenden
+panel.character.on_path_tip = Eine Kopie des aktiven Pfads verwenden
+panel.character.path_offset = Pfadversatz
+
+# KI-Bedienfeld
+panel.ai.title = KI
+panel.ai.empty_editor = Bitten Sie um eine Bearbeitung und sehen Sie zu, wie sie auf der Arbeitsfläche geschieht. Der Agent bedient dieselben Werkzeuge, Filter und Befehle wie die Menüs, je ein Rückgängig-Schritt.
+panel.ai.empty_gallery = Fragen Sie nach Ihren Fotos und sehen Sie zu, wie es in der Galerie geschieht: Der Agent kann suchen, Miniaturen ansehen, auswählen, in Stapel sortieren und ein Foto im Editor öffnen.
+panel.ai.thinking = denkt nach…
+panel.ai.placeholder_editor = Zu diesem Dokument fragen oder es bearbeiten
+panel.ai.placeholder_gallery = Zu Ihren Fotos fragen
+panel.ai.send = Senden
+panel.ai.stop = Stopp
+panel.ai.fetching_models = Die CLI wird nach ihren Modellen gefragt…
+panel.ai.no_models = Keine passenden Modelle
+panel.ai.search_models = Modelle suchen…
+
+# Dateidialoge (keymap.rs)
+panel.keymap.install_plugin = Plugin installieren
+panel.keymap.save_as_prompt = Speichern unter — die Dateiendung bestimmt das Format:

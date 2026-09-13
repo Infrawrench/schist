@@ -6,7 +6,7 @@
 //! one history entry for the whole session (Cancel puts the old style
 //! back), the same shape the adjustment dialogs use.
 
-use crate::dialogs::{param_slider, SliderSpec};
+use crate::dialogs::{param_slider, stroke_position_name, SliderSpec};
 use crate::ui;
 use crate::workspace::{ColorTarget, Modal, Popup, Workspace};
 use gpui::{
@@ -17,22 +17,24 @@ use schist_color::Rgba;
 use schist_core::{
     BevelStyle_, BlendMode, GradientShape, LayerId, LayerStyle, StrokePosition, Technique,
 };
+use schist_i18n::t;
 use schist_ui::{Checkbox, ListItem, Swatch};
 
-/// The effects, in the order Photoshop lists them.
+/// The effects, in the order Photoshop lists them: each one's key in
+/// the style, and the catalog key of its name.
 pub const EFFECTS: &[(&str, &str)] = &[
-    ("bevel", "Bevel & Emboss"),
-    ("stroke", "Stroke"),
-    ("inner_shadow", "Inner Shadow"),
-    ("inner_glow", "Inner Glow"),
-    ("satin", "Satin"),
-    ("color_overlay", "Color Overlay"),
-    ("gradient_overlay", "Gradient Overlay"),
-    ("outer_glow", "Outer Glow"),
-    ("drop_shadow", "Drop Shadow"),
+    ("bevel", "dialog.style.bevel"),
+    ("stroke", "dialog.style.stroke"),
+    ("inner_shadow", "dialog.style.inner_shadow"),
+    ("inner_glow", "dialog.style.inner_glow"),
+    ("satin", "dialog.style.satin"),
+    ("color_overlay", "dialog.style.color_overlay"),
+    ("gradient_overlay", "dialog.style.gradient_overlay"),
+    ("outer_glow", "dialog.style.outer_glow"),
+    ("drop_shadow", "dialog.style.drop_shadow"),
     // Affinity's own, at the bottom of its panel: not a decoration
     // around the layer but a softening of the layer itself.
-    ("blur", "Gaussian Blur"),
+    ("blur", "dialog.style.blur"),
 ];
 
 fn enabled(style: &LayerStyle, key: &str) -> bool {
@@ -69,7 +71,7 @@ fn set_enabled(style: &mut LayerStyle, key: &str, on: bool) {
 
 /// Every numeric control in the dialog, addressed by `<effect>.<field>`.
 /// Keeping them in one table means the widgets, the setter and the layout
-/// cannot drift apart.
+/// cannot drift apart. `label` is the catalog key of the row's label.
 struct Field {
     key: &'static str,
     label: &'static str,
@@ -96,43 +98,49 @@ const fn f(
 
 fn fields(effect: &str) -> &'static [Field] {
     const SHADOW: &[Field] = &[
-        f("opacity", "Opacity", 0.0, 100.0, "%"),
-        f("angle", "Angle", -180.0, 180.0, "\u{b0}"),
-        f("distance", "Distance", 0.0, 250.0, " px"),
-        f("spread", "Spread", 0.0, 100.0, "%"),
-        f("size", "Size", 0.0, 250.0, " px"),
+        f("opacity", "common.opacity", 0.0, 100.0, "%"),
+        f("angle", "common.angle", -180.0, 180.0, "\u{b0}"),
+        f("distance", "common.distance", 0.0, 250.0, " px"),
+        f("spread", "common.spread", 0.0, 100.0, "%"),
+        f("size", "common.size", 0.0, 250.0, " px"),
     ];
     const GLOW: &[Field] = &[
-        f("opacity", "Opacity", 0.0, 100.0, "%"),
-        f("spread", "Spread", 0.0, 100.0, "%"),
-        f("size", "Size", 0.0, 250.0, " px"),
+        f("opacity", "common.opacity", 0.0, 100.0, "%"),
+        f("spread", "common.spread", 0.0, 100.0, "%"),
+        f("size", "common.size", 0.0, 250.0, " px"),
     ];
     const STROKE: &[Field] = &[
-        f("size", "Size", 1.0, 250.0, " px"),
-        f("opacity", "Opacity", 0.0, 100.0, "%"),
+        f("size", "common.size", 1.0, 250.0, " px"),
+        f("opacity", "common.opacity", 0.0, 100.0, "%"),
     ];
-    const OVERLAY: &[Field] = &[f("opacity", "Opacity", 0.0, 100.0, "%")];
+    const OVERLAY: &[Field] = &[f("opacity", "common.opacity", 0.0, 100.0, "%")];
     const GRADIENT: &[Field] = &[
-        f("opacity", "Opacity", 0.0, 100.0, "%"),
-        f("angle", "Angle", -180.0, 180.0, "\u{b0}"),
-        f("scale", "Scale", 0.1, 5.0, "\u{d7}"),
+        f("opacity", "common.opacity", 0.0, 100.0, "%"),
+        f("angle", "common.angle", -180.0, 180.0, "\u{b0}"),
+        f("scale", "common.scale", 0.1, 5.0, "\u{d7}"),
     ];
     const SATIN: &[Field] = &[
-        f("opacity", "Opacity", 0.0, 100.0, "%"),
-        f("angle", "Angle", -180.0, 180.0, "\u{b0}"),
-        f("distance", "Distance", 0.0, 250.0, " px"),
-        f("size", "Size", 0.0, 250.0, " px"),
+        f("opacity", "common.opacity", 0.0, 100.0, "%"),
+        f("angle", "common.angle", -180.0, 180.0, "\u{b0}"),
+        f("distance", "common.distance", 0.0, 250.0, " px"),
+        f("size", "common.size", 0.0, 250.0, " px"),
     ];
     const BEVEL: &[Field] = &[
-        f("size", "Size", 0.0, 250.0, " px"),
-        f("soften", "Soften", 0.0, 16.0, " px"),
-        f("depth", "Depth", 0.0, 10.0, "\u{d7}"),
-        f("angle", "Angle", -180.0, 180.0, "\u{b0}"),
-        f("altitude", "Altitude", 0.0, 90.0, "\u{b0}"),
-        f("highlight_opacity", "Highlight", 0.0, 100.0, "%"),
-        f("shadow_opacity", "Shadow", 0.0, 100.0, "%"),
+        f("size", "common.size", 0.0, 250.0, " px"),
+        f("soften", "dialog.style.soften", 0.0, 16.0, " px"),
+        f("depth", "dialog.style.depth", 0.0, 10.0, "\u{d7}"),
+        f("angle", "common.angle", -180.0, 180.0, "\u{b0}"),
+        f("altitude", "dialog.style.altitude", 0.0, 90.0, "\u{b0}"),
+        f(
+            "highlight_opacity",
+            "dialog.style.highlight",
+            0.0,
+            100.0,
+            "%",
+        ),
+        f("shadow_opacity", "dialog.style.shadow", 0.0, 100.0, "%"),
     ];
-    const BLUR: &[Field] = &[f("radius", "Radius", 0.0, 250.0, " px")];
+    const BLUR: &[Field] = &[f("radius", "common.radius", 0.0, 250.0, " px")];
     match effect {
         "drop_shadow" | "inner_shadow" => SHADOW,
         "outer_glow" | "inner_glow" => GLOW,
@@ -283,15 +291,33 @@ fn color_of(style: &LayerStyle, effect: &str) -> Option<Rgba> {
 /// The display name of a colour this dialog owns, for the Color Picker's
 /// title bar.
 pub fn effect_label(effect: &str) -> &'static str {
-    match effect {
-        "gradient_overlay.from" => "Gradient Overlay From",
-        "gradient_overlay.to" => "Gradient Overlay To",
+    t(match effect {
+        "gradient_overlay.from" => "dialog.style.gradient_from",
+        "gradient_overlay.to" => "dialog.style.gradient_to",
         _ => EFFECTS
             .iter()
             .find(|(key, _)| *key == effect)
             .map(|(_, label)| *label)
-            .unwrap_or("Layer Style"),
-    }
+            .unwrap_or("dialog.style.title"),
+    })
+}
+
+/// A bevel style's name.
+fn bevel_style_name(style: BevelStyle_) -> &'static str {
+    t(match style {
+        BevelStyle_::OuterBevel => "dialog.style.outer_bevel",
+        BevelStyle_::InnerBevel => "dialog.style.inner_bevel",
+        BevelStyle_::Emboss => "dialog.style.emboss",
+        BevelStyle_::PillowEmboss => "dialog.style.pillow_emboss",
+    })
+}
+
+/// A gradient shape's name.
+fn gradient_shape_name(shape: GradientShape) -> &'static str {
+    t(match shape {
+        GradientShape::Linear => "dialog.style.linear",
+        GradientShape::Radial => "dialog.style.radial",
+    })
 }
 
 pub fn set_color(style: &mut LayerStyle, effect: &str, c: Rgba) {
@@ -395,7 +421,7 @@ pub fn render(
                         edit(ws, cx, |s| set_enabled(s, key, !on));
                     })),
                 )
-                .child(div().flex_grow().child(SharedString::from(*label)))
+                .child(div().flex_grow().child(SharedString::from(t(label))))
                 .on_click(cx.listener(move |ws, _e, _w, cx| {
                     ws.update_modal(|m| {
                         if let Modal::LayerStyle { active, .. } = m {
@@ -410,7 +436,7 @@ pub fn render(
     let title = EFFECTS
         .iter()
         .find(|(k, _)| *k == active)
-        .map(|(_, l)| *l)
+        .map(|(_, l)| t(l))
         .unwrap_or("");
     settings = settings.child(
         div()
@@ -421,18 +447,18 @@ pub fn render(
 
     if let Some(mode) = blend_of(&style, active) {
         settings = settings.child(ui::field_row(
-            "Blend",
+            t("common.blend"),
             ui::dropdown(
                 &ws.dropdown,
                 ui::Dropdown {
                     popup: Popup::Field("fx-blend"),
                     is_open: ws.open_popup == Some(Popup::Field("fx-blend")),
                     current: mode,
-                    label: mode.display_name().into(),
+                    label: ui::blend_mode_name(mode).into(),
                     width: 150.0,
                     options: BlendMode::layer_modes()
                         .iter()
-                        .map(|m| (SharedString::from(m.display_name()), *m))
+                        .map(|m| (SharedString::from(ui::blend_mode_name(*m)), *m))
                         .collect(),
                 },
                 move |ws, m, _cx| {
@@ -452,7 +478,7 @@ pub fn render(
 
     if let Some(c) = color_of(&style, active) {
         settings = settings.child(ui::field_row(
-            "Color",
+            t("common.color"),
             div()
                 .flex()
                 .flex_row()
@@ -460,7 +486,7 @@ pub fn render(
                 .gap_2()
                 .child(color_swatch("style-color-swatch", active, c, cx))
                 .child(ui::button(
-                    "Use Foreground",
+                    t("dialog.use_foreground"),
                     false,
                     move |ws, _w, cx| {
                         let fg = ws.editor.foreground;
@@ -478,7 +504,7 @@ pub fn render(
         settings = settings.child(param_slider(
             SliderSpec {
                 id: key,
-                label: field.label,
+                label: t(field.label),
                 value: if pct { raw * 100.0 } else { raw },
                 min: field.min,
                 max: field.max,
@@ -498,24 +524,28 @@ pub fn render(
         "stroke" => {
             let pos = style.stroke.settings.position;
             settings.child(ui::field_row(
-                "Position",
+                t("common.position"),
                 ui::dropdown(
                     &ws.dropdown,
                     ui::Dropdown {
                         popup: Popup::Field("fx-stroke-pos"),
                         is_open: ws.open_popup == Some(Popup::Field("fx-stroke-pos")),
                         current: pos,
-                        label: match pos {
-                            StrokePosition::Outside => "Outside",
-                            StrokePosition::Inside => "Inside",
-                            StrokePosition::Center => "Center",
-                        }
-                        .into(),
+                        label: stroke_position_name(pos).into(),
                         width: 150.0,
                         options: vec![
-                            ("Outside".into(), StrokePosition::Outside),
-                            ("Inside".into(), StrokePosition::Inside),
-                            ("Center".into(), StrokePosition::Center),
+                            (
+                                stroke_position_name(StrokePosition::Outside).into(),
+                                StrokePosition::Outside,
+                            ),
+                            (
+                                stroke_position_name(StrokePosition::Inside).into(),
+                                StrokePosition::Inside,
+                            ),
+                            (
+                                stroke_position_name(StrokePosition::Center).into(),
+                                StrokePosition::Center,
+                            ),
                         ],
                     },
                     move |ws, p, _cx| {
@@ -533,27 +563,24 @@ pub fn render(
         "bevel" => {
             let st = style.bevel.settings.style;
             settings.child(ui::field_row(
-                "Style",
+                t("common.style"),
                 ui::dropdown(
                     &ws.dropdown,
                     ui::Dropdown {
                         popup: Popup::Field("fx-bevel-style"),
                         is_open: ws.open_popup == Some(Popup::Field("fx-bevel-style")),
                         current: st,
-                        label: match st {
-                            BevelStyle_::OuterBevel => "Outer Bevel",
-                            BevelStyle_::InnerBevel => "Inner Bevel",
-                            BevelStyle_::Emboss => "Emboss",
-                            BevelStyle_::PillowEmboss => "Pillow Emboss",
-                        }
-                        .into(),
+                        label: bevel_style_name(st).into(),
                         width: 150.0,
-                        options: vec![
-                            ("Outer Bevel".into(), BevelStyle_::OuterBevel),
-                            ("Inner Bevel".into(), BevelStyle_::InnerBevel),
-                            ("Emboss".into(), BevelStyle_::Emboss),
-                            ("Pillow Emboss".into(), BevelStyle_::PillowEmboss),
-                        ],
+                        options: [
+                            BevelStyle_::OuterBevel,
+                            BevelStyle_::InnerBevel,
+                            BevelStyle_::Emboss,
+                            BevelStyle_::PillowEmboss,
+                        ]
+                        .into_iter()
+                        .map(|s| (bevel_style_name(s).into(), s))
+                        .collect(),
                     },
                     move |ws, v, _cx| {
                         ws.update_modal(|md| {
@@ -572,23 +599,19 @@ pub fn render(
             let rev = style.gradient_overlay.settings.reverse;
             settings
                 .child(ui::field_row(
-                    "Shape",
+                    t("common.shape"),
                     ui::dropdown(
                         &ws.dropdown,
                         ui::Dropdown {
                             popup: Popup::Field("fx-grad-shape"),
                             is_open: ws.open_popup == Some(Popup::Field("fx-grad-shape")),
                             current: shape,
-                            label: match shape {
-                                GradientShape::Linear => "Linear",
-                                GradientShape::Radial => "Radial",
-                            }
-                            .into(),
+                            label: gradient_shape_name(shape).into(),
                             width: 150.0,
-                            options: vec![
-                                ("Linear".into(), GradientShape::Linear),
-                                ("Radial".into(), GradientShape::Radial),
-                            ],
+                            options: [GradientShape::Linear, GradientShape::Radial]
+                                .into_iter()
+                                .map(|s| (gradient_shape_name(s).into(), s))
+                                .collect(),
                         },
                         move |ws, v, _cx| {
                             ws.update_modal(|md| {
@@ -602,7 +625,7 @@ pub fn render(
                     ),
                 ))
                 .child(ui::checkbox(
-                    "Reverse",
+                    t("dialog.style.reverse"),
                     rev,
                     move |ws, cx| {
                         edit(ws, cx, |s| {
@@ -612,7 +635,7 @@ pub fn render(
                     cx,
                 ))
                 .child(ui::field_row(
-                    "From / To",
+                    t("dialog.style.from_to"),
                     div()
                         .flex()
                         .flex_row()
@@ -625,7 +648,7 @@ pub fn render(
                             cx,
                         ))
                         .child(ui::button(
-                            "From = FG",
+                            t("dialog.style.from_fg"),
                             false,
                             move |ws, _w, cx| {
                                 let fg = ws.editor.foreground;
@@ -640,7 +663,7 @@ pub fn render(
                             cx,
                         ))
                         .child(ui::button(
-                            "To = FG",
+                            t("dialog.style.to_fg"),
                             false,
                             move |ws, _w, cx| {
                                 let fg = ws.editor.foreground;
@@ -659,7 +682,7 @@ pub fn render(
             };
             let precise = tech == Technique::Precise;
             settings.child(ui::checkbox(
-                "Precise",
+                t("dialog.style.precise"),
                 precise,
                 move |ws, cx| {
                     let next = if precise {
@@ -681,7 +704,7 @@ pub fn render(
         "drop_shadow" => {
             let knock = style.drop_shadow.settings.knockout;
             settings.child(ui::checkbox(
-                "Layer knocks out drop shadow",
+                t("dialog.style.knockout"),
                 knock,
                 move |ws, cx| {
                     edit(ws, cx, |s| s.drop_shadow.settings.knockout = !knock);
@@ -692,7 +715,7 @@ pub fn render(
         "satin" => {
             let inv = style.satin.settings.invert;
             settings.child(ui::checkbox(
-                "Invert",
+                t("common.invert"),
                 inv,
                 move |ws, cx| {
                     edit(ws, cx, |s| s.satin.settings.invert = !inv);
@@ -718,18 +741,18 @@ pub fn render(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| ws.commit_layer_style(cx),
             cx,
         ));
-    ui::modal_frame("Layer Style", 620.0, body, actions)
+    ui::modal_frame(t("dialog.style.title"), 620.0, body, actions)
 }
 
 fn rgb_of(c: Rgba) -> u32 {

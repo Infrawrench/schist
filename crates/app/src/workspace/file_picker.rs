@@ -16,6 +16,7 @@
 use super::*;
 use futures::channel::oneshot;
 use gpui::PathPromptOptions;
+use schist_i18n::{t, tf};
 use std::path::Path;
 
 /// The name field's id in the workspace's field state.
@@ -88,9 +89,9 @@ impl Workspace {
             };
             let title = options.prompt.unwrap_or_else(|| {
                 if options.files {
-                    "Open".into()
+                    t("common.open").into()
                 } else {
-                    "Choose Folder".into()
+                    t("workspace.file_picker.choose_folder").into()
                 }
             });
             self.open_file_picker(
@@ -122,7 +123,7 @@ impl Workspace {
             let name = suggested_name.unwrap_or_default().to_string();
             self.open_file_picker(
                 PickerKind::Save,
-                "Save".into(),
+                t("common.save").into(),
                 start_dir(Some(directory)),
                 name,
                 Reply::NewPath(tx),
@@ -228,14 +229,14 @@ impl Workspace {
                 let name = typed.unwrap_or_else(|| picker.name.clone());
                 let name = name.trim();
                 if name.is_empty() || name.contains('/') {
-                    self.status = "Type a name for the file".into();
+                    self.status = t("workspace.file_picker.type_a_name").into();
                     cx.notify();
                     return;
                 }
                 let path = picker.dir.join(name);
                 if path.exists() && picker.replace_armed.as_ref() != Some(&path) {
                     picker.replace_armed = Some(path);
-                    self.status = format!("{name} exists; tap Save again to replace it").into();
+                    self.status = tf!("workspace.file_picker.exists", name = name).into();
                     cx.notify();
                     return;
                 }
@@ -248,7 +249,7 @@ impl Workspace {
                     // Nothing picked in a folder chooser means this folder.
                     Some(vec![picker.dir.clone()])
                 } else {
-                    self.status = "Tap a file to open".into();
+                    self.status = t("workspace.file_picker.tap_a_file").into();
                     cx.notify();
                     return;
                 }
@@ -274,13 +275,13 @@ impl Workspace {
 pub fn places() -> Vec<(&'static str, PathBuf)> {
     let mut out = Vec::new();
     if let Some(documents) = documents_dir() {
-        out.push(("Documents", documents));
+        out.push((t("common.documents"), documents));
     }
     let shared = Path::new("/storage/emulated/0");
     for (label, sub) in [
-        ("Pictures", "Pictures"),
-        ("Camera", "DCIM"),
-        ("Downloads", "Download"),
+        (t("workspace.file_picker.pictures"), "Pictures"),
+        (t("workspace.file_picker.camera"), "DCIM"),
+        (t("workspace.file_picker.downloads"), "Download"),
     ] {
         let dir = shared.join(sub);
         if dir.is_dir() {
@@ -332,7 +333,7 @@ fn read_listing(dir: &Path, kind: PickerKind) -> (Vec<Entry>, Option<String>) {
 pub fn list_dir(dir: &Path, kind: PickerKind) -> Result<Vec<Entry>, String> {
     let read = std::fs::read_dir(dir).map_err(|err| match err.kind() {
         std::io::ErrorKind::PermissionDenied => {
-            "Schist does not have permission to read this folder".to_string()
+            t("workspace.file_picker.permission_denied").to_string()
         }
         _ => err.to_string(),
     })?;

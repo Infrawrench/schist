@@ -31,6 +31,7 @@
 //! Schist wants is Blade's call, not ours.
 
 use ash::vk;
+use schist_i18n::{t, tf};
 
 /// What the probe found. Everything but [`Verdict::Usable`] is fatal —
 /// Blade fails on the same machine for the same reason moments later.
@@ -136,22 +137,16 @@ fn missing_paths(value: &str) -> Vec<String> {
 }
 
 /// What to tell someone whose system cannot render, and what to do about it.
+///
+/// The texts are in the catalog (`app.vulkan.*`), each a paragraph or
+/// two with the package commands inside it; `schist_i18n::init` has run
+/// by the time this is asked, so they come out in the user's language.
 fn advice(verdict: &Verdict) -> String {
     let body = match verdict {
         // Unreachable through `check`, and cheaper to answer than to prove
         // unreachable.
         Verdict::Usable => String::new(),
-        Verdict::NoLoader => "\
-schist: no Vulkan loader on this system, so there is nothing to draw with.
-
-Schist renders through Vulkan, and `libvulkan.so.1` is not installed.
-Both the loader and a driver are needed:
-
-    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver
-    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers
-    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers
-"
-        .to_string(),
+        Verdict::NoLoader => t("app.vulkan.no_loader").to_string(),
         // The driver list was named by the environment, and some of it is
         // not there. Almost certainly the whole problem, and installing a
         // package would not fix it -- so say this instead, not as well.
@@ -161,26 +156,11 @@ Both the loader and a driver are needed:
                 .iter()
                 .map(|path| format!("    {path}\n"))
                 .collect::<String>();
-            format!(
-                "\
-schist: the Vulkan driver this session points at is not there.
-
-{var} is set, and setting it *replaces* the loader's search for
-drivers rather than adding to it. So these files, which do not exist,
-are the whole driver list -- and every Vulkan program in this session
-sees no driver at all, however many are installed:
-
-{missing}
-    {var}={value}
-
-Point it at a manifest that exists -- installed drivers put theirs in
-/usr/share/vulkan/icd.d -- or unset it and let the loader find its own.
-A session that sets this from a config file (Hyprland's `env =`, a
-systemd environment.d drop-in, a shell profile) has to be told there,
-and the change takes a fresh login to reach anything already running.
-",
+            tf!(
+                "app.vulkan.override_missing",
                 var = over.var,
                 value = over.value,
+                missing = missing
             )
         }
         Verdict::NoDriver(over) => {
@@ -188,55 +168,22 @@ and the change takes a fresh login to reach anything already running.
             // machine -- still worth naming, since unsetting it is a
             // faster thing to try than a package install.
             let overridden = match over {
-                Some(over) => format!(
-                    "\n{var} is set to {value}, and that replaces the loader's own
-search: if none of those manifests is for this machine, unsetting it is
-the first thing to try.\n",
+                Some(over) => tf!(
+                    "app.vulkan.override_note",
                     var = over.var,
-                    value = over.value,
+                    value = over.value
                 ),
                 None => String::new(),
             };
-            format!(
-                "\
-schist: no Vulkan driver installed, so there is nothing to draw on.
-
-Schist renders through Vulkan. The loader is installed and reports no
-driver -- nothing has registered one in either place they are looked for:
-
-{ICD_DIRS}
-
-The loader ships separately from the drivers, so this is usually a single
-missing package.
-
-Install the one for this machine's GPU:
-
-    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver
-    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers
-    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers
-
-NVIDIA's proprietary driver carries its own (`nvidia-utils` on Arch,
-`nvidia-driver` on Debian). In a virtual machine, or anywhere with no
-GPU driver to install, the software rasteriser is the one that works:
-`vulkan-swrast` on Arch, part of `mesa-vulkan-drivers` elsewhere. It is
-slow, but it starts.
-{overridden}"
+            tf!(
+                "app.vulkan.no_driver",
+                dirs = ICD_DIRS,
+                overridden = overridden
             )
         }
-        Verdict::NoDevice => "\
-schist: a Vulkan driver is installed but offers no device to render on.
-
-The driver may not cover this GPU, or may not be able to reach it --
-over SSH, or inside a container, /dev/dri is a common thing to be
-missing. `vulkaninfo --summary` reports what the loader sees.
-
-The software rasteriser renders without a GPU at all, if that is what
-this machine has: `vulkan-swrast` on Arch, part of `mesa-vulkan-drivers`
-on Debian and Fedora.
-"
-        .to_string(),
+        Verdict::NoDevice => t("app.vulkan.no_device").to_string(),
     };
-    format!("{body}\nTo start Schist anyway and let it fail its own way, set {SKIP_VAR}=1.\n")
+    format!("{body}\n{}\n", tf!("app.vulkan.skip_hint", var = SKIP_VAR))
 }
 
 /// Refuse to start, with an explanation, when Vulkan cannot possibly work.

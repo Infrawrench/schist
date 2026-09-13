@@ -1,0 +1,119 @@
+# plugins/commands-core: the Edit, Select and Layer commands. A command's
+# title is its menu label; its description is also the tool description
+# the MCP server publishes (which pins English). The history entries are
+# what the History panel shows for an edit the command made.
+
+# Edit
+command.edit.undo.title = Undo
+command.edit.undo.description = Step back one entry in the document's undo history.
+command.edit.redo.title = Redo
+command.edit.redo.description = Redo the edit that was last undone.
+command.edit.copy.title = Copy
+command.edit.copy.description = Copy the active layer's selected pixels to the internal clipboard (the whole layer when nothing is selected).
+command.edit.copy_merged.title = Copy Merged
+command.edit.copy_merged.description = Copy the selection as every visible layer composites it, rather than from the active layer alone.
+command.edit.cut.title = Cut
+command.edit.cut.description = Copy the selected pixels to the clipboard and erase them from the active layer.
+command.edit.paste.title = Paste
+command.edit.paste.description = Paste the clipboard into a new layer above the active one, centred on the canvas.
+command.edit.paste.layer_name = Pasted Layer
+command.edit.paste_in_place.title = Paste in Place
+command.edit.paste_in_place.description = Paste the clipboard into a new layer at the coordinates it was copied from.
+command.edit.fill_foreground.title = Fill with Foreground
+command.edit.fill_foreground.description = Fill the selection (or the whole canvas when nothing is selected) with the foreground colour.
+command.edit.fill_background.title = Fill with Background
+command.edit.fill_background.description = Fill the selection (or the whole canvas when nothing is selected) with the background colour.
+
+# Select
+command.select.all.title = Select All
+command.select.all.description = Select the entire canvas.
+command.select.deselect.title = Deselect
+command.select.deselect.description = Drop the selection, so edits apply to the whole layer again.
+command.select.inverse.title = Select Inverse
+command.select.inverse.description = Swap selected and unselected areas.
+command.select.reselect.title = Reselect
+command.select.reselect.description = Bring back the selection that was last dropped.
+command.select.reselect.msg.nothing_to_reselect = Nothing to reselect
+command.select.feather.title = Feather Selection
+command.select.feather.description = Soften the selection's edge by a two-pixel blur, so the next edit fades out across it.
+command.select.grow.title = Grow
+command.select.grow.description = Extend the selection into touching pixels that resemble what is already selected, within the magic wand's tolerance.
+command.select.similar.title = Similar
+command.select.similar.description = Select every pixel in the layer resembling the selection, touching it or not, within the magic wand's tolerance.
+command.select.save.title = Save Selection
+command.select.save.description = Stash the current selection in the document as a named alpha channel.
+command.select.save.channel_name = Alpha {n}
+command.select.load.title = Load Selection
+command.select.load.description = Restore the most recently saved selection.
+
+# Layer
+command.layer.new.title = New Layer
+command.layer.new.description = Add an empty raster layer above the active one and make it active.
+command.layer.duplicate.title = Duplicate Layer
+command.layer.duplicate.description = Copy the active layer, contents and all, onto a new layer above it.
+command.layer.smart_object.title = Convert to Smart Object
+command.layer.smart_object.description = Wrap the active raster layer's pixels in a smart object, so later transforms and filters resample the untouched source.
+command.layer.rasterize.title = Rasterize Layer
+command.layer.rasterize.description = Bake a shape, text or smart-object layer down to plain pixels.
+command.layer.delete.title = Delete Layer
+command.layer.delete.description = Delete the selected layers.
+command.layer.group.title = Group Layers
+command.layer.group.description = Wrap the selected layers in a new group, in place.
+command.layer.raise.title = Bring Forward
+command.layer.raise.description = Move the active layer one place up its group's stack.
+command.layer.lower.title = Send Backward
+command.layer.lower.description = Move the active layer one place down its group's stack.
+command.layer.to_front.title = Bring to Front
+command.layer.to_front.description = Move the active layer to the top of its group.
+command.layer.to_back.title = Send to Back
+command.layer.to_back.description = Move the active layer to the bottom of its group.
+command.layer.clipping_mask.title = Create/Release Clipping Mask
+command.layer.clipping_mask.description = Clip the active layer to the one below it, or release it if it already is; a clipped layer shows only where its base has pixels.
+command.layer.cut_to_new.title = Layer via Cut
+command.layer.cut_to_new.description = Move the selected pixels out of the active layer and onto a new layer above it.
+command.layer.cut_to_new.layer_name = Layer via Cut
+command.layer.add_mask.title = Add Layer Mask
+command.layer.add_mask.description = Add a layer mask to the active layer, revealing only the selection when there is one.
+command.layer.flatten.title = Flatten Image
+command.layer.flatten.description = Composite everything visible into one opaque Background layer, discarding hidden layers.
+command.layer.merge_down.title = Merge Down
+command.layer.merge_down.description = Composite the active layer into the layer beneath it.
+command.layer.merge_down.msg.no_layer_below = No layer below to merge into
+command.layer.merge_visible.title = Merge Visible
+command.layer.merge_visible.description = Composite every visible layer into one, leaving hidden layers alone.
+
+# Why a command declined, shown on the status line (shared by more
+# than one command)
+command.msg.nothing_to_copy = Select a pixel layer to copy from
+command.msg.clipboard_empty = Nothing on the clipboard
+
+# History panel entries
+command.history.grow = Grow
+command.history.similar = Similar
+command.history.clear = Clear
+command.history.merge_down = Merge Down
+command.history.flatten_image = Flatten Image
+command.history.merge_visible = Merge Visible
+command.history.paste = Paste
+command.history.fill = Fill
+command.history.select_all = Select All
+command.history.deselect = Deselect
+command.history.select_inverse = Select Inverse
+command.history.new_layer = New Layer
+command.history.duplicate_layer = Duplicate Layer
+command.history.convert_to_smart_object = Convert to Smart Object
+command.history.rasterize_layer = Rasterize Layer
+command.history.delete_layer = Delete Layer
+command.history.delete_layers = Delete Layers
+command.history.group_layer = Group Layer
+command.history.group_layers = Group Layers
+command.history.reselect = Reselect
+command.history.feather = Feather
+command.history.load_selection = Load Selection
+command.history.bring_forward = Bring Forward
+command.history.send_backward = Send Backward
+command.history.bring_to_front = Bring to Front
+command.history.send_to_back = Send to Back
+command.history.clipping_mask = Clipping Mask
+command.history.layer_via_cut = Layer via Cut
+command.history.add_layer_mask = Add Layer Mask

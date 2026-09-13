@@ -14,6 +14,7 @@ use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, Bool};
 use objc2::{class, msg_send};
 use objc2_foundation::NSString;
+use schist_i18n::{t, tf};
 use std::path::PathBuf;
 
 impl Workspace {
@@ -23,10 +24,10 @@ impl Workspace {
             let doc = self
                 .doc
                 .as_ref()
-                .ok_or_else(|| anyhow::anyhow!("no document is open"))?;
+                .ok_or_else(|| anyhow::anyhow!("{}", t("library.photos.no_document")))?;
             let codec = self
                 .png_codec()
-                .ok_or_else(|| anyhow::anyhow!("the PNG codec is not loaded"))?;
+                .ok_or_else(|| anyhow::anyhow!("{}", t("library.photos.no_png_codec")))?;
             let bytes = codec.export(doc)?;
             let dir = std::env::temp_dir().join("schist-photos");
             std::fs::create_dir_all(&dir)?;
@@ -41,12 +42,12 @@ impl Workspace {
         let path = match encoded {
             Ok(path) => path,
             Err(err) => {
-                self.status = format!("Save to Photos failed: {err}").into();
+                self.status = tf!("library.photos.save_failed", error = err).into();
                 cx.notify();
                 return;
             }
         };
-        self.status = "Saving to Photos\u{2026}".into();
+        self.status = t("library.photos.saving").into();
         cx.notify();
 
         let (tx, rx) = std::sync::mpsc::channel::<Result<(), String>>();
@@ -57,15 +58,15 @@ impl Workspace {
                 .spawn(async move {
                     let result = rx
                         .recv()
-                        .unwrap_or_else(|_| Err("the photo library did not answer".into()));
+                        .unwrap_or_else(|_| Err(t("library.photos.no_answer").into()));
                     let _ = std::fs::remove_file(&path);
                     result
                 })
                 .await;
             this.update(cx, |ws, cx| {
                 ws.status = match result {
-                    Ok(()) => "Saved to Photos".into(),
-                    Err(err) => format!("Save to Photos failed: {err}").into(),
+                    Ok(()) => t("library.photos.saved").into(),
+                    Err(err) => tf!("library.photos.save_failed", error = err).into(),
                 };
                 cx.notify();
             })
@@ -82,13 +83,13 @@ fn add_image_file(path: &std::path::Path, tx: std::sync::mpsc::Sender<Result<(),
     unsafe {
         let url: Option<Retained<AnyObject>> = msg_send![class!(NSURL), fileURLWithPath: &*path_ns];
         let Some(url) = url else {
-            let _ = tx.send(Err("the file's path could not be made a URL".into()));
+            let _ = tx.send(Err(t("library.photos.bad_url").into()));
             return;
         };
         let library: Option<Retained<AnyObject>> =
             msg_send![class!(PHPhotoLibrary), sharedPhotoLibrary];
         let Some(library) = library else {
-            let _ = tx.send(Err("the photo library is unavailable".into()));
+            let _ = tx.send(Err(t("library.photos.unavailable").into()));
             return;
         };
         let changes = RcBlock::new(move || {
@@ -101,13 +102,13 @@ fn add_image_file(path: &std::path::Path, tx: std::sync::mpsc::Sender<Result<(),
             let result = if success.as_bool() {
                 Ok(())
             } else if error.is_null() {
-                Err("the photo library declined".to_string())
+                Err(t("library.photos.declined").to_string())
             } else {
                 let description: Option<Retained<NSString>> =
                     msg_send![error, localizedDescription];
                 Err(description
                     .map(|d| d.to_string())
-                    .unwrap_or_else(|| "the photo library declined".into()))
+                    .unwrap_or_else(|| t("library.photos.declined").into()))
             };
             let _ = tx.send(result);
         });

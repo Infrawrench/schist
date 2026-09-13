@@ -6,6 +6,7 @@ use crate::{
     socket::{Message, Socket},
 };
 use anyhow::{anyhow, ensure, Result};
+use schist_i18n::{t, tf};
 use serde::{Deserialize, Serialize};
 use std::{
     collections::{BTreeMap, HashMap, HashSet},
@@ -145,7 +146,7 @@ pub fn validate(items: &[Item], inputs: &Inputs) -> Result<()> {
                 if *required {
                     ensure!(
                         matches!(inputs.get(id),Some(Input::Text(s)) if !s.trim().is_empty()),
-                        "Enter {title}"
+                        tf!("cloud.generate.enter_field", title = title)
                     );
                 }
             }
@@ -161,12 +162,20 @@ pub fn validate(items: &[Item], inputs: &Inputs) -> Result<()> {
                     Some(Input::Text(s)) if !multiple => vec![s.clone()],
                     Some(Input::Multiple(v)) if *multiple => v.clone(),
                     None => vec![],
-                    _ => return Err(anyhow!("Invalid value for {title}")),
+                    _ => {
+                        return Err(anyhow!(tf!(
+                            "cloud.transport.invalid_value_for",
+                            title = title
+                        )))
+                    }
                 };
-                ensure!(!required || !selected.is_empty(), "Choose {title}");
+                ensure!(
+                    !required || !selected.is_empty(),
+                    tf!("cloud.generate.choose_field", title = title)
+                );
                 ensure!(
                     selected.iter().all(|id| values.iter().any(|v| &v.id == id)),
-                    "Invalid option for {title}"
+                    tf!("cloud.transport.invalid_option_for", title = title)
                 );
             }
             Item::LiveTextPreview { .. } => {}
@@ -196,13 +205,16 @@ pub async fn generate(
     let mut chunks: HashMap<usize, Vec<u8>> = HashMap::new();
     let mut last = web_time::Instant::now();
     loop {
-        ensure!(!cancel.load(Ordering::Relaxed), "Generation cancelled");
+        ensure!(
+            !cancel.load(Ordering::Relaxed),
+            t("cloud.generate.cancelled")
+        );
         ensure!(
             last.elapsed() < Duration::from_secs(120),
-            "Generation timed out"
+            t("cloud.generate.timed_out")
         );
         let message = tokio::select! {
-            message = ws.next() => message.ok_or_else(|| anyhow!("Generation connection closed"))??,
+            message = ws.next() => message.ok_or_else(|| anyhow!(t("cloud.transport.generation_connection_closed")))??,
             _ = runtime::sleep(Duration::from_millis(100)) => continue,
         };
         last = web_time::Instant::now();
@@ -259,7 +271,7 @@ pub async fn generate(
                 let data = chunks.entry(index).or_default();
                 ensure!(
                     data.len() + frame.len() - 1 <= 64 * 1024 * 1024,
-                    "Generated image exceeds 64 MiB"
+                    t("cloud.transport.generated_image_too_large")
                 );
                 data.extend_from_slice(&frame[1..]);
                 if frame[0] & 128 != 0 {
@@ -273,9 +285,7 @@ pub async fn generate(
                 ws.flush().await?;
             }
             Message::Pong => {}
-            Message::Close(_) => {
-                return Err(anyhow!("Generation closed before every slot completed"))
-            }
+            Message::Close(_) => return Err(anyhow!(t("cloud.transport.generation_closed_early"))),
         }
     }
     let _ = ws.close().await;

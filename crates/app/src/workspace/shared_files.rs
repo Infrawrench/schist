@@ -11,6 +11,7 @@
 //! folder in Files) stays where it is.
 
 use super::*;
+use schist_i18n::{t, tf, tn};
 use std::path::{Path, PathBuf};
 
 impl Workspace {
@@ -25,7 +26,7 @@ impl Workspace {
     /// Bring the files into the gallery's Photos folder and show them.
     pub fn add_shared_to_gallery(&mut self, paths: Vec<PathBuf>, cx: &mut Context<Self>) {
         let Some(dest) = documents_dir().map(|d| d.join("Photos")) else {
-            self.status = "The gallery needs a Documents folder to copy into".into();
+            self.status = t("library.shared.needs_documents").into();
             cx.notify();
             return;
         };
@@ -45,12 +46,10 @@ impl Workspace {
             self.library.folders.sort();
             self.library.save();
         }
-        let mut message = match added {
-            1 => "Added 1 photo to the gallery".to_string(),
-            n => format!("Added {n} photos to the gallery"),
-        };
+        let mut message = tn("library.shared.added", added as u64);
         if failed > 0 {
-            message.push_str(&format!(" \u{2014} {failed} failed"));
+            message.push_str(" \u{2014} ");
+            message.push_str(&tn("library.import.n_failed", failed as u64));
         }
         self.status = message.into();
         self.library.open = true;
@@ -61,7 +60,7 @@ impl Workspace {
     /// Bring the files into Documents and open each in its own tab.
     pub fn open_shared_in_editor(&mut self, paths: Vec<PathBuf>, cx: &mut Context<Self>) {
         let Some(dest) = documents_dir() else {
-            self.status = "Opening needs a Documents folder to copy into".into();
+            self.status = t("library.shared.open_needs_documents").into();
             cx.notify();
             return;
         };
@@ -69,8 +68,12 @@ impl Workspace {
             match stash(&path, &dest) {
                 Ok(path) => self.load_file(path, cx),
                 Err(err) => {
-                    self.status =
-                        format!("Could not open {}: {err}", crate::ui::shown_path(&path)).into();
+                    self.status = tf!(
+                        "library.shared.could_not_open",
+                        name = crate::ui::shown_path(&path),
+                        error = err
+                    )
+                    .into();
                     cx.notify();
                 }
             }
@@ -98,7 +101,7 @@ fn stash(path: &Path, dest: &Path) -> anyhow::Result<PathBuf> {
     std::fs::create_dir_all(dest)?;
     let name = path
         .file_name()
-        .ok_or_else(|| anyhow::anyhow!("the file has no name"))?;
+        .ok_or_else(|| anyhow::anyhow!("{}", t("library.ops.no_file_name")))?;
     let stem = path
         .file_stem()
         .map(|s| s.to_string_lossy().into_owned())

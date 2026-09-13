@@ -13,7 +13,41 @@ use gpui::{
     div, px, Context, InteractiveElement as _, IntoElement, ParentElement as _, SharedString,
     StatefulInteractiveElement as _, Styled,
 };
+use schist_i18n::{t, t_in, Locale};
 use schist_ui::{Checkbox, Divider, Heading, IconButton, ListItem};
+
+/// The Filter menu's category keys, in the menu's order. A filter names
+/// its category in English whatever the language, so the translated
+/// heading is found by matching the English form, as the menu does.
+static CATEGORY_KEYS: &[&str] = &[
+    "filter.category.3d",
+    "filter.category.artistic",
+    "filter.category.blur",
+    "filter.category.blur_gallery",
+    "filter.category.brush_strokes",
+    "filter.category.distort",
+    "filter.category.noise",
+    "filter.category.pixelate",
+    "filter.category.render",
+    "filter.category.sharpen",
+    "filter.category.sketch",
+    "filter.category.stylize",
+    "filter.category.texture",
+    "filter.category.video",
+    "filter.category.other",
+    "filter.category.neural",
+    "filter.category.plugins",
+];
+
+/// A filter category's heading in the user's language, or the category
+/// as the filter spelled it when it is not one of the menu's.
+fn category_name(category: &'static str) -> &'static str {
+    CATEGORY_KEYS
+        .iter()
+        .find(|key| t_in(Locale::En, key) == category)
+        .map(|key| t(key))
+        .unwrap_or(category)
+}
 
 /// Mutate the open gallery and re-run its preview.
 fn edit(
@@ -57,9 +91,10 @@ pub fn render(
     let mut categories: Vec<(&'static str, Vec<(&'static str, String)>)> = Vec::new();
     for f in ws.registry.filters().filter(|f| !f.runs_out_of_process()) {
         let entry = (f.id(), f.name().to_string());
-        match categories.iter_mut().find(|(c, _)| *c == f.category()) {
+        let category = category_name(f.category());
+        match categories.iter_mut().find(|(c, _)| *c == category) {
             Some((_, list)) => list.push(entry),
-            None => categories.push((f.category(), vec![entry])),
+            None => categories.push((category, vec![entry])),
         }
     }
 
@@ -176,7 +211,7 @@ pub fn render(
                 div()
                     .text_size(px(11.0))
                     .text_color(gpui::rgb(ui::palette().text_dim))
-                    .child("This filter has no settings."),
+                    .child(t("app.filter_gallery.no_settings")),
             );
         }
         for spec in specs {
@@ -208,12 +243,12 @@ pub fn render(
         .flex_col()
         .gap_2()
         .flex_grow()
-        .child(Heading::new("Stack (applied bottom to top)"))
+        .child(Heading::new(t("app.filter_gallery.stack")))
         .child(stack_panel)
         .child(Divider::horizontal())
         .child(params)
         .child(ui::checkbox(
-            "Preview",
+            t("common.preview"),
             preview,
             move |ws, cx| {
                 let mut next = None;
@@ -238,13 +273,13 @@ pub fn render(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             |ws, _w, cx| {
                 let mut run = None;
@@ -261,5 +296,5 @@ pub fn render(
             },
             cx,
         ));
-    ui::modal_frame("Filter Gallery", 620.0, body, actions)
+    ui::modal_frame(t("app.filter_gallery.title"), 620.0, body, actions)
 }

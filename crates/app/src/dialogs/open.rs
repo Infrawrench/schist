@@ -2,6 +2,7 @@
 //! image, and the HEIC decoder consent prompt.
 
 use super::*;
+use schist_i18n::{t, tf, tn};
 
 /// An image was dropped on the window while a document is open: its own
 /// tab, or a new layer in the current document?
@@ -15,23 +16,23 @@ pub(super) fn drop_image(
         .unwrap_or_else(|| path.display().to_string());
     let tab_path = path.clone();
     ui::modal_frame(
-        "Open Image",
+        t("dialog.open.image_title"),
         380.0,
-        div().text_size(px(12.0)).child(format!(
-            "Open \u{201C}{name}\u{201D} in a new tab, or add it to the current document as a new layer?"
-        )),
+        div()
+            .text_size(px(12.0))
+            .child(tf!("dialog.open.image_prompt", name = name)),
         div()
             .flex()
             .flex_row()
             .gap_2()
             .child(ui::button(
-                "Cancel",
+                t("common.cancel"),
                 false,
                 |ws, _window, cx| ws.close_modal(cx),
                 cx,
             ))
             .child(ui::button(
-                "New Tab",
+                t("dialog.open.new_tab"),
                 false,
                 move |ws, _window, cx| {
                     ws.close_modal(cx);
@@ -40,7 +41,7 @@ pub(super) fn drop_image(
                 cx,
             ))
             .child(ui::button(
-                "New Layer",
+                t("dialog.open.new_layer"),
                 true,
                 move |ws, _window, cx| {
                     ws.close_modal(cx);
@@ -68,33 +69,33 @@ pub(super) fn shared_image(
         .map(|n| n.to_string_lossy().into_owned())
         .unwrap_or_default();
     let what = if paths.len() == 1 {
-        format!("\u{201C}{name}\u{201D}")
+        tf!("dialog.open.quoted", name = name)
     } else {
-        format!("these {} files", paths.len())
+        tn("dialog.open.these_files", paths.len() as u64)
     };
     let gallery_paths = paths.clone();
     ui::modal_frame(
-        if paths.len() == 1 {
-            "Shared Image"
+        t(if paths.len() == 1 {
+            "dialog.open.shared_title_one"
         } else {
-            "Shared Images"
-        },
+            "dialog.open.shared_title_many"
+        }),
         380.0,
         div()
             .text_size(px(12.0))
-            .child(format!("Add {what} to the gallery, or open in the editor?")),
+            .child(tf!("dialog.open.shared_prompt", what = what)),
         div()
             .flex()
             .flex_row()
             .gap_2()
             .child(ui::button(
-                "Cancel",
+                t("common.cancel"),
                 false,
                 |ws, _window, cx| ws.close_modal(cx),
                 cx,
             ))
             .child(ui::button(
-                "Add to Gallery",
+                t("dialog.open.add_to_gallery"),
                 false,
                 move |ws, _window, cx| {
                     ws.close_modal(cx);
@@ -106,7 +107,7 @@ pub(super) fn shared_image(
                 cx,
             ))
             .child(ui::button(
-                "Open in Editor",
+                t("dialog.open.open_in_editor"),
                 true,
                 move |ws, _window, cx| {
                     ws.close_modal(cx);
@@ -137,45 +138,36 @@ pub(super) fn heif_support(
     let downloading = ws.heif_download;
     let source_url = managed.source_url;
     ui::modal_frame(
-        "HEIC Support",
+        t("dialog.open.heic_title"),
         420.0,
         div()
             .flex()
             .flex_col()
             .gap_2()
             .text_size(px(12.0))
-            .child(format!(
-                "Opening \u{201C}{name}\u{201D} needs an HEVC decoder, which is not \
-                 installed on this system."
-            ))
-            .child(format!(
-                "Schist can download a decode-only build of libheif {} with the \
-                 libde265 HEVC decoder (\u{2248}5 MB). Both are LGPL-3.0 licensed; \
-                 their license texts are installed next to the library, and the \
-                 source is available at the project page.",
-                managed.version
-            )),
+            .child(tf!("dialog.open.heic_needs_decoder", name = name))
+            .child(tf!("dialog.open.heic_offer", version = managed.version)),
         div()
             .flex()
             .flex_row()
             .gap_2()
             .child(ui::button(
-                "Cancel",
+                t("common.cancel"),
                 false,
                 |ws, _window, cx| ws.close_modal(cx),
                 cx,
             ))
             .child(ui::button(
-                "Licenses & Source",
+                t("dialog.open.licenses_source"),
                 false,
                 move |_ws, _window, cx| cx.open_url(source_url),
                 cx,
             ))
             .child(ui::button(
                 if downloading {
-                    "Downloading\u{2026}"
+                    t("dialog.downloading")
                 } else {
-                    "Download"
+                    t("common.download")
                 },
                 true,
                 move |ws, _window, cx| {
@@ -201,47 +193,42 @@ pub(super) fn drop_folders(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let what = if dirs.len() == 1 {
-        format!(
-            "\u{201C}{}\u{201D}",
-            dirs[0]
+        tf!(
+            "dialog.open.quoted",
+            name = dirs[0]
                 .file_name()
                 .map(|n| n.to_string_lossy().into_owned())
                 .unwrap_or_else(|| dirs[0].display().to_string())
         )
     } else {
-        format!("{} folders", dirs.len())
+        tn("dialog.open.n_folders", dirs.len() as u64)
     };
     let cap = crate::workspace::DROP_OPEN_CAP;
     let open_label = if images == 0 {
-        "Open in Tabs".to_string()
+        t("dialog.open.open_in_tabs").to_string()
     } else if images > cap {
-        format!("Open First {cap} in Tabs")
-    } else if images == 1 {
-        "Open 1 in a Tab".to_string()
+        tf!("dialog.open.open_first_in_tabs", n = cap)
     } else {
-        format!("Open {images} in Tabs")
+        tn("dialog.open.open_n_in_tabs", images as u64)
     };
     let body = div()
         .flex()
         .flex_col()
         .gap_1()
-        .child(div().text_size(px(12.0)).child(format!(
-            "{what} holds {images} image{} Schist can open (sub-folders included).",
-            if images == 1 { "" } else { "s" }
+        .child(div().text_size(px(12.0)).child(tn!(
+            "dialog.open.folder_holds",
+            images as u64,
+            what = what
         )))
         .child(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(
-                    "Add to Gallery watches the folders in place — nothing is copied, \
-                     and edits are versioned beside each photo. Opening in tabs loads \
-                     every image into the editor now.",
-                ),
+                .child(t("dialog.open.folders_note")),
         );
     let open_dirs = dirs.clone();
     ui::modal_frame(
-        "Dropped Folders",
+        t("dialog.open.folders_title"),
         420.0,
         body,
         div()
@@ -249,7 +236,7 @@ pub(super) fn drop_folders(
             .flex_row()
             .gap_2()
             .child(ui::button(
-                "Cancel",
+                t("common.cancel"),
                 false,
                 |ws, _window, cx| ws.close_modal(cx),
                 cx,
@@ -264,7 +251,7 @@ pub(super) fn drop_folders(
                 cx,
             ))
             .child(ui::button(
-                "Add to Gallery",
+                t("dialog.open.add_to_gallery"),
                 true,
                 move |ws, _window, cx| {
                     ws.close_modal(cx);

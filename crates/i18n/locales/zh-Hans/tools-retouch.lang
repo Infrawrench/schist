@@ -1,0 +1,29 @@
+# 修饰工具（plugins/tools-retouch）。术语尽量与简体中文版 Photoshop 一致。
+
+# 修补
+tool.patch.name = 修补
+tool.patch.description = 围绕瑕疵拖出轮廓，再把该选区拖到干净的像素上：那里的纹理会被拟合到瑕疵中。修补模式决定拖动的是哪一端。
+tool.patch.option.patch = 修补
+tool.patch.choice.source = 源
+tool.patch.choice.destination = 目标
+tool.patch.history.patch = 修补
+
+# 内容识别移动
+tool.content_aware_move.name = 内容识别移动
+tool.content_aware_move.description = 把选中的对象拖到别处，留下的空洞会由周围内容填补。在“扩展”模式下对象会被拉伸而不是移动。
+tool.content_aware_move.choice.move = 移动
+tool.content_aware_move.choice.extend = 扩展
+tool.content_aware_move.history.move = 内容识别移动
+
+# 红眼
+tool.red_eye.name = 红眼
+tool.red_eye.description = 点击瞳孔，去除闪光灯造成的红色。
+tool.red_eye.option.pupil_size = 瞳孔大小
+tool.red_eye.option.darken = 变暗量
+tool.red_eye.history.red_eye = 红眼
+
+# 魔术橡皮擦
+tool.magic_eraser.name = 魔术橡皮擦
+tool.magic_eraser.description = 点击后，在容差范围内擦除指针下方颜色相近的区域——与点击处连续的部分，或整个图层中的所有部分。
+tool.magic_eraser.option.contiguous = 连续
+tool.magic_eraser.history.erase = 魔术橡皮擦

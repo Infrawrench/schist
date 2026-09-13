@@ -29,6 +29,7 @@ use schist_cloud::{
     protocol::{map, value},
     Asset, Bucket, Filters, Folder, Rule, Scope, Value,
 };
+use schist_i18n::{t, tf, tn};
 use schist_ui::{Heading, Radio, TextInput};
 use std::collections::BTreeMap;
 
@@ -97,11 +98,10 @@ fn rule_label(rule: &Rule) -> String {
     }
     match filter_count(&rule.filters) {
         0 => {}
-        1 => parts.push("1 filter".to_string()),
-        n => parts.push(format!("{n} filters")),
+        n => parts.push(tn("cloud.gallery.n_filters", n as u64)),
     }
     if parts.is_empty() {
-        "smart bucket".to_string()
+        t("cloud.gallery.smart_bucket").to_string()
     } else {
         parts.join(" · ")
     }
@@ -111,7 +111,7 @@ fn rule_label(rule: &Rule) -> String {
 fn folder_names(folders: &[Folder], id: &str) -> (String, String) {
     let find = |id: &str| folders.iter().find(|f| f.id == id);
     let Some(folder) = find(id) else {
-        return ("Folder".to_string(), String::new());
+        return (t("common.folder").to_string(), String::new());
     };
     let mut path = vec![folder.name.clone()];
     let mut parent = folder.parent_id.clone();
@@ -181,24 +181,27 @@ fn group_assets(
         let bucket = buckets.iter().find(|b| &b.id == id);
         let name = bucket
             .map(|b| b.name.clone())
-            .unwrap_or_else(|| "Bucket".to_string());
+            .unwrap_or_else(|| t("cloud.gallery.bucket").to_string());
         let rule = bucket
             .and_then(|b| b.rule.as_ref())
             .map(rule_label)
             .unwrap_or_default();
         let title = if text.trim().is_empty() {
-            format!("Bucket · {name}")
+            tf!("cloud.gallery.bucket_title", name = name)
         } else {
-            format!("Bucket · {name} · Search results")
+            tf!("cloud.gallery.bucket_search_title", name = name)
         };
         return vec![(title, rule, assets.to_vec())];
     }
     if !text.trim().is_empty() {
         let title = match scope {
             Scope::Folder { id, .. } => {
-                format!("{} · Search results", folder_names(folders, id).0)
+                tf!(
+                    "cloud.gallery.folder_search_title",
+                    name = folder_names(folders, id).0
+                )
             }
-            _ => "Search results".to_string(),
+            _ => t("cloud.gallery.search_results").to_string(),
         };
         return vec![(title, String::new(), assets.to_vec())];
     }
@@ -211,7 +214,7 @@ fn group_assets(
                         let (name, path) = folder_names(folders, id);
                         (false, name, path)
                     }
-                    None => (true, "Unfiled".to_string(), String::new()),
+                    None => (true, t("cloud.gallery.unfiled").to_string(), String::new()),
                 };
                 groups.entry(key).or_default().push(asset.clone());
             }
@@ -226,7 +229,7 @@ fn group_assets(
                 let name = asset
                     .place_name
                     .clone()
-                    .unwrap_or_else(|| "No location".into());
+                    .unwrap_or_else(|| t("cloud.gallery.no_location").into());
                 places.entry(name).or_default().push(asset.clone());
             }
             let mut groups: Vec<_> = places
@@ -238,7 +241,10 @@ fn group_assets(
                 })
                 .collect();
             groups.sort_by_key(|(name, _, assets)| {
-                (name == "No location", std::cmp::Reverse(assets.len()))
+                (
+                    name == t("cloud.gallery.no_location"),
+                    std::cmp::Reverse(assets.len()),
+                )
             });
             groups
         }
@@ -542,7 +548,7 @@ pub(crate) fn filter_chip(
     if ws.cloud.query.filters.bounds.is_some() {
         return Some(
             chrome::filter_chip(
-                "Map filter: drawn area".to_string(),
+                t("cloud.gallery.map_filter_drawn_area").to_string(),
                 |ws, cx| ws.open_map_filter(cx),
                 |ws, cx| ws.clear_map_filter(cx),
                 cx,
@@ -557,9 +563,9 @@ pub(crate) fn filter_chip(
 /// The search box in the strip: the provider ranks the page by it.
 pub(crate) fn search_box(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let placeholder: SharedString = if ws.cloud.connected {
-        "Search photos\u{2026}".into()
+        t("cloud.gallery.search_placeholder").into()
     } else {
-        "Connecting\u{2026}".into()
+        t("cloud.gallery.connecting").into()
     };
     let caret_on = ws.caret_on();
     search_field(
@@ -581,16 +587,19 @@ pub(crate) fn tray_info(ws: &Workspace) -> TrayInfo {
     let one = ws.cloud.selected.len() == 1;
     let mut notes = Vec::new();
     if ws.cloud.screening.pending > 0 {
-        notes.push(format!("Screening {} uploads…", ws.cloud.screening.pending));
+        notes.push(tn(
+            "cloud.gallery.screening_uploads",
+            ws.cloud.screening.pending,
+        ));
     }
     if ws.cloud.screening.blocked > 0 {
-        notes.push(format!(
-            "{} uploads unavailable after screening",
-            ws.cloud.screening.blocked
+        notes.push(tn(
+            "cloud.gallery.uploads_blocked",
+            ws.cloud.screening.blocked,
         ));
     }
     if lead.as_ref().is_some_and(|a| a.edited) {
-        notes.push("edited — the edits live in Schist Cloud".to_string());
+        notes.push(t("cloud.gallery.edited_note").to_string());
     }
     type Act = chrome::TrayAction;
     TrayInfo {
@@ -603,7 +612,7 @@ pub(crate) fn tray_info(ws: &Workspace) -> TrayInfo {
         }),
         extra: one.then(|| {
             (
-                "Download…",
+                t("cloud.gallery.download"),
                 Box::new(
                     |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
                         ws.cloud_download_selected(cx)
@@ -615,11 +624,11 @@ pub(crate) fn tray_info(ws: &Workspace) -> TrayInfo {
         selected: ws.cloud.selected.len(),
         notes,
         count: if ws.cloud.load_error.is_some() {
-            "Photos unavailable".to_string()
+            t("cloud.gallery.photos_unavailable").to_string()
         } else if ws.cloud.loaded {
             chrome::photo_count(ws.cloud.total as usize)
         } else if ws.cloud.connected {
-            "Loading\u{2026}".to_string()
+            t("common.loading").to_string()
         } else {
             ws.cloud.message.clone()
         },
@@ -675,7 +684,7 @@ pub(crate) fn new_cloud_folder(ws: &mut Workspace, cx: &mut Context<Workspace>) 
     form(
         ws,
         "new-folder",
-        vec![field("cloud-name", "Folder name", "")],
+        vec![field("cloud-name", t("cloud.dialog.folder_name"), "")],
         cx,
     )
 }
@@ -712,8 +721,8 @@ pub(crate) fn new_cloud_bucket(ws: &mut Workspace, cx: &mut Context<Workspace>) 
         ws,
         "new-bucket",
         vec![
-            field("cloud-name", "Bucket name", ""),
-            field("cloud-query", "Search", ""),
+            field("cloud-name", t("cloud.dialog.bucket_name"), ""),
+            field("cloud-query", t("common.search"), ""),
         ],
         cx,
     );
@@ -739,7 +748,7 @@ pub(crate) fn edit_cloud_bucket(ws: &mut Workspace, bucket: Bucket, cx: &mut Con
         // bucket's area (and jumps to it), or clears.
         match bucket.rule.as_ref().and_then(|r| r.filters.bounds.as_ref()) {
             Some(b) => ws.library.map.jump_to(
-                "the saved area",
+                t("cloud.dialog.saved_area"),
                 crate::workspace::GeoBounds {
                     south: b.south,
                     north: b.north,
@@ -768,8 +777,12 @@ pub(crate) fn edit_cloud_bucket(ws: &mut Workspace, bucket: Bucket, cx: &mut Con
         ws,
         "edit-bucket",
         vec![
-            field("cloud-name", "Bucket name", bucket.name.clone()),
-            field("cloud-query", "Search", text),
+            field(
+                "cloud-name",
+                t("cloud.dialog.bucket_name"),
+                bucket.name.clone(),
+            ),
+            field("cloud-query", t("common.search"), text),
         ],
         cx,
     );
@@ -786,7 +799,7 @@ pub(crate) fn folder_rows(
     if ws.cloud.account.is_none() {
         rows.push(
             sidebar_link(
-                format!("{CLOUD_GLYPH} Sign into Schist Cloud…"),
+                format!("{CLOUD_GLYPH} {}", t("menu.cloud.sign_in")),
                 |ws, _w, cx| ws.cloud_sign_in(cx),
                 cx,
             )
@@ -937,9 +950,9 @@ pub(crate) fn bucket_rows(
         rows.push(
             sidebar_link(
                 if ws.cloud.catalogue.is_empty() {
-                    "Find folders / buckets…".to_string()
+                    t("cloud.sidebar.find_folders_buckets").to_string()
                 } else {
-                    format!("Showing \u{201c}{}\u{201d}…", ws.cloud.catalogue)
+                    tf!("cloud.sidebar.showing", text = ws.cloud.catalogue)
                 },
                 |ws, _w, cx| {
                     form(
@@ -947,7 +960,7 @@ pub(crate) fn bucket_rows(
                         "catalogue",
                         vec![field(
                             "cloud-query",
-                            "Name contains",
+                            t("cloud.dialog.name_contains"),
                             ws.cloud.catalogue.clone(),
                         )],
                         cx,
@@ -977,7 +990,7 @@ fn catalogue_pages(
     if offset > 0 {
         links.push(
             sidebar_link(
-                "\u{2191} Previous",
+                t("cloud.sidebar.previous"),
                 move |ws, _w, cx| {
                     if folders {
                         ws.cloud.folders_offset = offset.saturating_sub(500);
@@ -995,7 +1008,7 @@ fn catalogue_pages(
     if offset + 500 < total {
         links.push(
             sidebar_link(
-                "\u{2193} More",
+                t("cloud.sidebar.more"),
                 move |ws, _w, cx| {
                     if folders {
                         ws.cloud.folders_offset = offset + 500;
@@ -1016,19 +1029,19 @@ fn catalogue_pages(
 /// Why the cloud grid is bare.
 fn empty_reason(ws: &Workspace) -> String {
     if let Some(error) = &ws.cloud.load_error {
-        return format!("Could not load photos: {error}. Use Refresh to try again.");
+        return tf!("cloud.gallery.could_not_load", error = error);
     }
     if !ws.cloud.connected {
         return ws.cloud.message.clone();
     }
     if !ws.cloud.loaded {
-        return "Loading\u{2026}".into();
+        return t("common.loading").into();
     }
     if !ws.cloud.query.text.trim().is_empty() {
-        return "Nothing matches the search. Escape clears it.".into();
+        return t("cloud.gallery.empty_search").into();
     }
     if ws.cloud.query.filters.bounds.is_some() {
-        return "Nothing inside the map filter. The chip in the strip clears it.".into();
+        return t("cloud.gallery.empty_map_filter").into();
     }
     match &ws.cloud.query.scope {
         Scope::Bucket { id } => {
@@ -1038,19 +1051,13 @@ fn empty_reason(ws: &Workspace) -> String {
                 .iter()
                 .any(|b| &b.id == id && b.rule.is_some());
             if smart {
-                "Nothing matches this bucket's rule yet. Dragging photos in works too."
+                t("cloud.gallery.empty_smart_bucket")
             } else {
-                "This bucket is empty. Drag photos onto its row in the sidebar to add them."
+                t("cloud.gallery.empty_bucket")
             }
         }
-        Scope::Folder { .. } => {
-            "This cloud folder is empty. Drop photos on its row in the sidebar, or use \
-             Import…"
-        }
-        Scope::Library => {
-            "No photos in your cloud library yet. Use Import…, or drag photos from \
-             the local gallery onto a cloud folder or bucket."
-        }
+        Scope::Folder { .. } => t("cloud.gallery.empty_folder"),
+        Scope::Library => t("cloud.gallery.empty_library"),
     }
     .into()
 }
@@ -1063,17 +1070,17 @@ pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
     let mut sections = ws.cloud_grouped();
     if let Some(id) = &ws.cloud.query.filters.person_id {
         let name = if id == "unnamed" {
-            "Unnamed faces"
+            t("cloud.people.unnamed_faces")
         } else {
             ws.cloud
                 .people
                 .as_ref()
                 .and_then(|p| p.people.iter().find(|p| &p.id == id))
                 .map(|p| p.name.as_str())
-                .unwrap_or("Person")
+                .unwrap_or(t("cloud.people.person"))
         };
         for (title, _, _) in &mut sections {
-            *title = format!("People · {name} · {title}");
+            *title = tf!("cloud.gallery.people_title", name = name, title = title);
         }
     }
     let access: chrome::GridAccess = |ws| &mut ws.cloud.grid;
@@ -1095,11 +1102,15 @@ pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
     let columns = ws.cloud.grid.columns(cell);
     for (title, subtitle, assets) in sections {
         let detail = if !ws.cloud.loaded {
-            "Updating…".to_string()
+            t("cloud.gallery.updating").to_string()
         } else if subtitle.is_empty() {
             chrome::photo_count(assets.len())
         } else {
-            format!("{subtitle} — {}", assets.len())
+            tf!(
+                "cloud.gallery.section_detail",
+                subtitle = subtitle,
+                n = assets.len()
+            )
         };
         column = column.child(section_header(title, detail));
         let mut body = div().flex().flex_col();
@@ -1135,7 +1146,7 @@ pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
         let mut pager = div().flex().flex_row().items_center().gap_2().pt_2().pb_4();
         if offset > 0 {
             pager = pager.child(link(
-                "\u{2190} Previous page",
+                t("cloud.gallery.previous_page"),
                 offset.saturating_sub(PAGE_SIZE),
                 cx,
             ));
@@ -1144,10 +1155,15 @@ pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child(format!("{first}–{last} of {total}")),
+                .child(tf!(
+                    "cloud.gallery.page_range",
+                    first = first,
+                    last = last,
+                    total = total
+                )),
         );
         if offset + PAGE_SIZE < total {
-            pager = pager.child(link("Next page \u{2192}", offset + PAGE_SIZE, cx));
+            pager = pager.child(link(t("cloud.gallery.next_page"), offset + PAGE_SIZE, cx));
         }
         column = column.child(pager);
     }
@@ -1189,7 +1205,7 @@ fn cloud_cell(
         label: if carried.len() == 1 {
             asset.name.clone()
         } else {
-            format!("{} photos", carried.len())
+            tn("common.n_photos", carried.len() as u64)
         },
     };
     cell_frame(
@@ -1271,7 +1287,7 @@ pub(crate) fn context_menu(
             if let Some(asset) = ws.cloud_asset(&id) {
                 row(
                     &mut rows,
-                    "Edit".into(),
+                    t("common.edit").into(),
                     std::rc::Rc::new(move |ws, _w, cx| ws.cloud_open(asset.clone(), cx)),
                     cx,
                 );
@@ -1279,13 +1295,13 @@ pub(crate) fn context_menu(
             if n == 1 {
                 row(
                     &mut rows,
-                    "View & name people".into(),
+                    t("cloud.menu.view_people").into(),
                     std::rc::Rc::new(|ws, _, cx| ws.cloud_people_view(cx)),
                     cx,
                 );
                 row(
                     &mut rows,
-                    "Download\u{2026}".into(),
+                    t("cloud.gallery.download").into(),
                     std::rc::Rc::new(|ws, _w, cx| ws.cloud_download_selected(cx)),
                     cx,
                 );
@@ -1295,7 +1311,7 @@ pub(crate) fn context_menu(
                 let add = acting.clone();
                 row(
                     &mut rows,
-                    format!("Add to {}", bucket.name),
+                    tf!("cloud.menu.add_to_bucket", name = bucket.name),
                     std::rc::Rc::new(move |ws, _w, _cx| {
                         ws.cloud_add_to_bucket(bucket.id.clone(), &add)
                     }),
@@ -1304,7 +1320,7 @@ pub(crate) fn context_menu(
             }
             row(
                 &mut rows,
-                "Add to new bucket\u{2026}".into(),
+                t("cloud.menu.add_to_new_bucket").into(),
                 std::rc::Rc::new(|ws, _w, cx| new_cloud_bucket(ws, cx)),
                 cx,
             );
@@ -1313,9 +1329,9 @@ pub(crate) fn context_menu(
                 row(
                     &mut rows,
                     if n > 1 {
-                        format!("Remove {n} from this bucket")
+                        tf!("cloud.menu.remove_n_from_bucket", n = n)
                     } else {
-                        "Remove from this bucket".into()
+                        t("cloud.menu.remove_from_bucket").into()
                     },
                     std::rc::Rc::new(move |ws, _w, _cx| {
                         ws.cloud_remove_from_bucket(bucket.clone(), &remove)
@@ -1327,7 +1343,7 @@ pub(crate) fn context_menu(
             if let Some(asset) = ws.cloud_asset(&id) {
                 row(
                     &mut rows,
-                    "Delete from Schist Cloud\u{2026}".into(),
+                    t("cloud.menu.delete_from_cloud").into(),
                     std::rc::Rc::new(move |ws, _w, cx| {
                         ws.cloud.form_target = Some((asset.id.clone(), asset.revision));
                         form(ws, "delete-asset", vec![], cx)
@@ -1339,27 +1355,27 @@ pub(crate) fn context_menu(
         CloudContext::Library => {
             row(
                 &mut rows,
-                "Upload files here\u{2026}".into(),
+                t("cloud.menu.upload_files_here").into(),
                 std::rc::Rc::new(|ws, _w, cx| ws.cloud_pick_upload_to(None, None, false, cx)),
                 cx,
             );
             row(
                 &mut rows,
-                "Upload folder here\u{2026}".into(),
+                t("cloud.menu.upload_folder_here").into(),
                 std::rc::Rc::new(|ws, _w, cx| ws.cloud_pick_upload_to(None, None, true, cx)),
                 cx,
             );
             #[cfg(not(target_arch = "wasm32"))]
             row(
                 &mut rows,
-                "Download everything\u{2026}".into(),
+                t("cloud.menu.download_everything").into(),
                 std::rc::Rc::new(|ws, _w, cx| ws.cloud_download_scope(Scope::Library, cx)),
                 cx,
             );
             rows.push(menu_sep());
             row(
                 &mut rows,
-                "New folder\u{2026}".into(),
+                t("cloud.menu.new_folder").into(),
                 std::rc::Rc::new(|ws, _w, cx| {
                     ws.cloud.form_target = None;
                     new_cloud_folder(ws, cx)
@@ -1372,7 +1388,7 @@ pub(crate) fn context_menu(
             let into_files = folder.id.clone();
             row(
                 &mut rows,
-                "Upload files here\u{2026}".into(),
+                t("cloud.menu.upload_files_here").into(),
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.cloud_pick_upload_to(None, Some(into_files.clone()), false, cx)
                 }),
@@ -1381,7 +1397,7 @@ pub(crate) fn context_menu(
             let into_dir = folder.id.clone();
             row(
                 &mut rows,
-                "Upload folder here\u{2026}".into(),
+                t("cloud.menu.upload_folder_here").into(),
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.cloud_pick_upload_to(None, Some(into_dir.clone()), true, cx)
                 }),
@@ -1392,7 +1408,7 @@ pub(crate) fn context_menu(
                 let download = folder.id.clone();
                 row(
                     &mut rows,
-                    "Download folder\u{2026}".into(),
+                    t("cloud.menu.download_folder").into(),
                     std::rc::Rc::new(move |ws, _w, cx| {
                         ws.cloud_download_scope(
                             Scope::Folder {
@@ -1409,13 +1425,13 @@ pub(crate) fn context_menu(
             let rename = folder.clone();
             row(
                 &mut rows,
-                "Rename\u{2026}".into(),
+                t("cloud.menu.rename").into(),
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.cloud.form_target = Some((rename.id.clone(), rename.revision));
                     form(
                         ws,
                         "rename-folder",
-                        vec![field("cloud-name", "Name", rename.name.clone())],
+                        vec![field("cloud-name", t("common.name"), rename.name.clone())],
                         cx,
                     )
                 }),
@@ -1424,13 +1440,13 @@ pub(crate) fn context_menu(
             let parent = folder.id.clone();
             row(
                 &mut rows,
-                "New folder inside\u{2026}".into(),
+                t("cloud.menu.new_folder_inside").into(),
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.cloud.form_target = Some((parent.clone(), 0));
                     form(
                         ws,
                         "new-subfolder",
-                        vec![field("cloud-name", "Folder name", "")],
+                        vec![field("cloud-name", t("cloud.dialog.folder_name"), "")],
                         cx,
                     )
                 }),
@@ -1440,7 +1456,7 @@ pub(crate) fn context_menu(
             let delete = folder;
             row(
                 &mut rows,
-                "Delete\u{2026}".into(),
+                t("cloud.menu.delete").into(),
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.cloud.form_target = Some((delete.id.clone(), delete.revision));
                     form(
@@ -1448,7 +1464,7 @@ pub(crate) fn context_menu(
                         "delete-folder",
                         vec![(
                             "cloud-check-contents",
-                            "Also delete every photo and sub-folder inside".into(),
+                            t("cloud.dialog.delete_contents_check").into(),
                             String::new(),
                         )],
                         cx,
@@ -1464,14 +1480,14 @@ pub(crate) fn context_menu(
                     .py_1()
                     .text_size(px(11.0))
                     .text_color(gpui::rgb(ui::palette().text_dim))
-                    .child(format!("{} photos in this marker", ids.len()))
+                    .child(tn("cloud.menu.photos_in_marker", ids.len() as u64))
                     .into_any_element(),
             );
             for bucket in ws.cloud.buckets.clone() {
                 let add = ids.clone();
                 row(
                     &mut rows,
-                    format!("Add all to {}", bucket.name),
+                    tf!("cloud.menu.add_all_to_bucket", name = bucket.name),
                     std::rc::Rc::new(move |ws, _w, _cx| {
                         ws.cloud_add_to_bucket(bucket.id.clone(), &add)
                     }),
@@ -1480,7 +1496,7 @@ pub(crate) fn context_menu(
             }
             row(
                 &mut rows,
-                "Add all to new bucket\u{2026}".into(),
+                t("cloud.menu.add_all_to_new_bucket").into(),
                 std::rc::Rc::new(|ws, _w, cx| new_cloud_bucket(ws, cx)),
                 cx,
             );
@@ -1495,14 +1511,14 @@ pub(crate) fn context_menu(
             let rename = person.clone();
             row(
                 &mut rows,
-                "Rename or merge\u{2026}".into(),
+                t("cloud.menu.rename_or_merge").into(),
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.open_modal(
                         Modal::Cloud {
                             kind: "people-rename",
                             fields: vec![
                                 ("cloud-person-id", "".into(), rename.id.clone()),
-                                ("cloud-name", "Name".into(), rename.name.clone()),
+                                ("cloud-name", t("common.name").into(), rename.name.clone()),
                             ],
                         },
                         cx,
@@ -1513,7 +1529,7 @@ pub(crate) fn context_menu(
             rows.push(menu_sep());
             row(
                 &mut rows,
-                "Forget this person".into(),
+                t("cloud.menu.forget_person").into(),
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.cloud_mutate("people.forget", vec![("id", person.id.clone().into())]);
                     cx.notify();
@@ -1526,7 +1542,7 @@ pub(crate) fn context_menu(
             let edit = bucket.clone();
             row(
                 &mut rows,
-                "Edit bucket\u{2026}".into(),
+                t("cloud.menu.edit_bucket").into(),
                 std::rc::Rc::new(move |ws, _w, cx| edit_cloud_bucket(ws, edit.clone(), cx)),
                 cx,
             );
@@ -1541,13 +1557,13 @@ pub(crate) fn context_menu(
                 bucket.asset_count
             };
             let counted = |label: &str| match count {
-                Some(n) => format!("{label} ({n})"),
+                Some(n) => tf!("cloud.menu.counted", label = label, n = n),
                 None => label.to_string(),
             };
             let select = bucket.id.clone();
             row(
                 &mut rows,
-                counted("Select all"),
+                counted(t("cloud.menu.select_all")),
                 std::rc::Rc::new(move |ws, _w, cx| ws.cloud_select_all_bucket(select.clone(), cx)),
                 cx,
             );
@@ -1556,7 +1572,7 @@ pub(crate) fn context_menu(
                 let into = bucket.id.clone();
                 row(
                     &mut rows,
-                    format!("Add selected ({})", add.len()),
+                    tf!("cloud.menu.add_selected", n = add.len()),
                     std::rc::Rc::new(move |ws, _w, _cx| ws.cloud_add_to_bucket(into.clone(), &add)),
                     cx,
                 );
@@ -1567,14 +1583,14 @@ pub(crate) fn context_menu(
                 let zip = bucket.clone();
                 row(
                     &mut rows,
-                    counted("Save all as ZIP\u{2026}"),
+                    counted(t("cloud.menu.save_all_zip")),
                     std::rc::Rc::new(move |ws, _w, cx| ws.cloud_zip_bucket(zip.clone(), cx)),
                     cx,
                 );
                 let batch = bucket.clone();
                 row(
                     &mut rows,
-                    counted("Process all\u{2026}"),
+                    counted(t("cloud.menu.process_all")),
                     std::rc::Rc::new(move |ws, _w, cx| ws.cloud_process_bucket(batch.clone(), cx)),
                     cx,
                 );
@@ -1582,7 +1598,7 @@ pub(crate) fn context_menu(
             let moving = bucket.clone();
             row(
                 &mut rows,
-                "Move all to folder\u{2026}".into(),
+                t("cloud.menu.move_all_to_folder").into(),
                 std::rc::Rc::new(move |ws, _w, cx| ws.cloud_move_bucket(&moving, cx)),
                 cx,
             );
@@ -1593,9 +1609,9 @@ pub(crate) fn context_menu(
             row(
                 &mut rows,
                 if bucket.rule.is_some() {
-                    "Clear added photos".into()
+                    t("cloud.menu.clear_added").into()
                 } else {
-                    "Clear bucket".into()
+                    t("cloud.menu.clear_bucket").into()
                 },
                 std::rc::Rc::new(move |ws, _w, _cx| ws.cloud_clear_bucket(&clear)),
                 cx,
@@ -1603,7 +1619,7 @@ pub(crate) fn context_menu(
             let delete = bucket;
             row(
                 &mut rows,
-                "Delete bucket\u{2026}".into(),
+                t("cloud.menu.delete_bucket").into(),
                 std::rc::Rc::new(move |ws, _w, cx| {
                     ws.cloud.form_target = Some((delete.id.clone(), delete.revision));
                     form(ws, "delete-bucket", vec![], cx)
@@ -1627,30 +1643,30 @@ pub(crate) fn dialog(
             .map(|(_, _, value)| value.clone())
             .unwrap_or_default();
         let body = div().child(message);
-        let actions = ui::button("OK", true, |ws, _, cx| ws.close_modal(cx), cx);
-        return ui::modal_frame("Not enough cloud storage", 540.0, body, actions)
+        let actions = ui::button(t("common.ok"), true, |ws, _, cx| ws.close_modal(cx), cx);
+        return ui::modal_frame(t("cloud.dialog.storage_title"), 540.0, body, actions)
             .into_any_element();
     }
     if kind == "people-view" {
         return super::cloud_people::viewer(ws, fields, cx);
     }
     let title = match kind {
-        "people-rename" => "Rename or merge person",
-        "face-name" | "face-add" => "Name this face",
-        "sign-in" => "Sign into Schist Cloud",
-        "search" => "Search photos",
-        "catalogue" => "Find cloud folders and buckets",
-        "new-folder" | "new-subfolder" => "New cloud folder",
-        "new-bucket" => "New cloud bucket",
-        "edit-bucket" => "Edit cloud bucket",
-        "rename-folder" => "Rename cloud folder",
-        "delete-folder" => "Delete cloud folder?",
-        "delete-bucket" => "Delete cloud bucket?",
-        "delete-asset" => "Delete cloud photo?",
-        "upload-document" => "Upload document to Schist Cloud",
-        "move-items" => "Move to cloud folder",
-        "upload-folder" => "Upload folder to Schist Cloud",
-        "download" => "Download cloud photo",
+        "people-rename" => t("cloud.dialog.people_rename_title"),
+        "face-name" | "face-add" => t("cloud.dialog.face_name_title"),
+        "sign-in" => t("cloud.dialog.sign_in_title"),
+        "search" => t("cloud.dialog.search_title"),
+        "catalogue" => t("cloud.dialog.catalogue_title"),
+        "new-folder" | "new-subfolder" => t("cloud.dialog.new_folder_title"),
+        "new-bucket" => t("cloud.dialog.new_bucket_title"),
+        "edit-bucket" => t("cloud.dialog.edit_bucket_title"),
+        "rename-folder" => t("cloud.dialog.rename_folder_title"),
+        "delete-folder" => t("cloud.dialog.delete_folder_title"),
+        "delete-bucket" => t("cloud.dialog.delete_bucket_title"),
+        "delete-asset" => t("cloud.dialog.delete_asset_title"),
+        "upload-document" => t("cloud.dialog.upload_document_title"),
+        "move-items" => t("cloud.dialog.move_items_title"),
+        "upload-folder" => t("cloud.dialog.upload_folder_title"),
+        "download" => t("cloud.dialog.download_title"),
         _ => "Schist Cloud",
     };
     let mut body = div().flex().flex_col().gap_2();
@@ -1661,9 +1677,9 @@ pub(crate) fn dialog(
             .map(|(_, _, v)| v.clone())
             .unwrap_or_default();
         body = body
-            .child("An existing name merges the two people. Forgetting removes names, not photos.")
+            .child(t("cloud.dialog.people_rename_note"))
             .child(chrome::gallery_button(
-                "Forget person",
+                t("cloud.dialog.forget_person"),
                 false,
                 move |ws, _, cx| {
                     ws.cloud_mutate("people.forget", vec![("id", id.clone().into())]);
@@ -1674,33 +1690,19 @@ pub(crate) fn dialog(
     }
     if kind.starts_with("delete-") {
         body = body.child(caption(match kind {
-            "delete-folder" => {
-                "An empty folder is removed from your library. Tick the box to remove \
-                 its photos and sub-folders too — for good, with their cloud edits."
-            }
-            "delete-asset" => {
-                "The photo and its cloud edits are removed for good; buckets holding it \
-                 let it go."
-            }
-            _ => "Photos remain in your cloud library.",
+            "delete-folder" => t("cloud.dialog.delete_folder_note"),
+            "delete-asset" => t("cloud.dialog.delete_asset_note"),
+            _ => t("cloud.dialog.delete_bucket_note"),
         }));
     }
     if kind == "upload-folder" {
-        body = body.child(caption(
-            "Every photo in the folder uploads into the chosen cloud folder, keeping its \
-             sub-folders. The local files stay where they are.",
-        ));
+        body = body.child(caption(t("cloud.dialog.upload_folder_note")));
     }
     if kind == "move-items" {
-        body = body.child(caption(
-            "Every photo in the bucket is filed into the chosen folder; its cloud edits and \
-             bucket memberships stay as they are.",
-        ));
+        body = body.child(caption(t("cloud.dialog.move_items_note")));
     }
     if kind.ends_with("bucket") && !kind.starts_with("delete") {
-        body = body.child(caption(
-            "Leave the search empty for a bucket filled by dragging photos in.",
-        ));
+        body = body.child(caption(t("cloud.dialog.bucket_rule_note")));
     }
     for (key, label, committed) in fields {
         if label.is_empty() {
@@ -1731,10 +1733,10 @@ pub(crate) fn dialog(
             continue;
         }
         if key == "cloud-download-format" {
-            let mut options = vec![(String::new(), "Current editable document".to_string())];
+            let mut options = vec![(String::new(), t("cloud.dialog.format_current").to_string())];
             if let Some(capabilities) = &ws.cloud.capabilities {
                 if capabilities.original_download {
-                    options.push(("original".into(), "Original file".into()));
+                    options.push(("original".into(), t("cloud.dialog.format_original").into()));
                 }
                 let mut seen = std::collections::HashSet::new();
                 for format in &capabilities.formats {
@@ -1748,7 +1750,11 @@ pub(crate) fn dialog(
                         {
                             options.push((
                                 extension.clone(),
-                                format!("{} (.{})", format.name, extension),
+                                tf!(
+                                    "cloud.dialog.format_with_extension",
+                                    name = format.name,
+                                    extension = extension
+                                ),
                             ));
                         }
                     }
@@ -1783,17 +1789,19 @@ pub(crate) fn dialog(
                     })),
                 );
             }
-            body = body.child(ui::field_row("Format", choices));
+            body = body.child(ui::field_row(t("cloud.dialog.format"), choices));
             continue;
         }
         if key == "cloud-folder" {
             let mut choices = div().flex().flex_col().gap_1();
-            for (id, name) in std::iter::once((String::new(), "Unfiled".to_string())).chain(
-                ws.cloud
-                    .folders
-                    .iter()
-                    .map(|f| (f.id.clone(), f.name.clone())),
-            ) {
+            for (id, name) in
+                std::iter::once((String::new(), t("cloud.gallery.unfiled").to_string())).chain(
+                    ws.cloud
+                        .folders
+                        .iter()
+                        .map(|f| (f.id.clone(), f.name.clone())),
+                )
+            {
                 choices = choices.child(
                     Radio::new(
                         SharedString::from(format!("radio-{id}")),
@@ -1814,7 +1822,7 @@ pub(crate) fn dialog(
                     })),
                 );
             }
-            body = body.child(ui::field_row("Folder", choices));
+            body = body.child(ui::field_row(t("common.folder"), choices));
             continue;
         }
         let active = ws.focused_field == Some(key);
@@ -1840,24 +1848,24 @@ pub(crate) fn dialog(
         .flex()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
             if kind == "sign-in" {
-                "Continue in browser"
+                t("cloud.dialog.continue_in_browser")
             } else if kind == "download" {
-                "Download…"
+                t("cloud.gallery.download")
             } else if kind == "move-items" {
-                "Move"
+                t("cloud.dialog.move")
             } else if kind == "upload-folder" {
-                "Upload"
+                t("cloud.dialog.upload")
             } else if kind.starts_with("delete-") {
-                "Delete"
+                t("common.delete")
             } else {
-                "Apply"
+                t("common.apply")
             },
             true,
             move |ws, _, cx| {
@@ -1886,18 +1894,18 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
     let context_menu = context_menu(ws, cx);
     let sidebar = sidebar_column("cloud-sidebar")
         .child(group_chips(ws.gallery_group_by(), &GroupBy::ALL, cx))
-        .child(sidebar_caption("FOLDERS"))
+        .child(sidebar_caption(t("cloud.sidebar.folders")))
         .children(folder_rows(ws, cx))
         .child(sidebar_link(
-            "+ New folder…",
+            t("cloud.sidebar.new_folder"),
             |ws, _w, cx| new_cloud_folder(ws, cx),
             cx,
         ))
-        .child(sidebar_caption("BUCKETS"))
+        .child(sidebar_caption(t("cloud.sidebar.buckets")))
         .children(bucket_rows(ws, cx))
         .children(super::cloud_people::rows(ws, true, cx))
         .child(sidebar_link(
-            "+ New bucket…",
+            t("cloud.sidebar.new_bucket"),
             |ws, _w, cx| new_cloud_bucket(ws, cx),
             cx,
         ));
@@ -1927,13 +1935,15 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
         }))
         .child(chrome::top_strip(ws, cx))
         .children(
-            (ws.cloud.account.is_none() && ws.cloud.message != "Not signed in").then(|| {
-                div()
-                    .px_3()
-                    .py_2()
-                    .text_size(px(12.0))
-                    .child(ws.cloud.message.clone())
-            }),
+            (ws.cloud.account.is_none() && ws.cloud.message != t("cloud.msg.not_signed_in")).then(
+                || {
+                    div()
+                        .px_3()
+                        .py_2()
+                        .text_size(px(12.0))
+                        .child(ws.cloud.message.clone())
+                },
+            ),
         )
         .child(
             div()

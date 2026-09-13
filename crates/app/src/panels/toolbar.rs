@@ -1,6 +1,7 @@
 //! The toolbar, its flyouts, and the tool options bar above the canvas.
 
 use super::*;
+use schist_i18n::t;
 
 /// One toolbar slot: its group, the icon of the tool currently showing,
 /// whether that tool is active, whether the group has more than one tool,
@@ -70,7 +71,7 @@ pub fn tool_options_bar(
             .child(option_slider(
                 &mut bar_sliders,
                 "opt-size",
-                "Size",
+                t("common.size"),
                 format!("{:.0}px", ws.editor.brush_size),
                 SliderTarget::BrushSize,
                 ws,
@@ -79,7 +80,7 @@ pub fn tool_options_bar(
             .child(option_slider(
                 &mut bar_sliders,
                 "opt-hard",
-                "Hardness",
+                t("common.hardness"),
                 format!("{:.0}%", ws.editor.brush_hardness * 100.0),
                 SliderTarget::BrushHardness,
                 ws,
@@ -92,7 +93,7 @@ pub fn tool_options_bar(
     bar = bar.child(option_slider(
         &mut bar_sliders,
         "opt-opacity",
-        "Opacity",
+        t("common.opacity"),
         format!("{:.0}%", ws.editor.tool_opacity * 100.0),
         SliderTarget::ToolOpacity,
         ws,
@@ -137,7 +138,7 @@ fn save_to_photos_button(ws: &Workspace, cx: &mut Context<Workspace>) -> impl In
         .size(m.icon_button)
         .icon_size(m.icon_button_icon)
         .disabled(ws.doc.is_none())
-        .tooltip("Save to Photos", None)
+        .tooltip(t("menu.file.save_to_photos"), None)
         .on_click(
             cx.listener(|ws, _e, window, cx| run_app_item(ws, AppItem::SaveToPhotos, window, cx)),
         )
@@ -336,7 +337,7 @@ pub fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
                 .registry
                 .tool_mut(shown)
                 .map(|t| (t.icon(), t.name().to_string(), t.shortcut()))
-                .unwrap_or(("move", "Move".into(), None));
+                .unwrap_or(("move", schist_i18n::t("tool.move.name").to_string(), None));
             let hint = key.map(|k| SharedString::from(k.to_uppercase()));
             (
                 group,

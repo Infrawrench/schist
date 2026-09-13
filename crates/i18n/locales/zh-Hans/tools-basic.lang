@@ -1,0 +1,27 @@
+# 基本工具（plugins/tools-basic）：移动、吸管、抓手、缩放。
+# 术语尽量与简体中文版 Photoshop 一致。
+
+# 移动
+tool.move.name = 移动
+tool.move.description = 将当前图层的内容拖到新位置。开启“自动选择”后，按下时会先选中指针下方的图层（或整个组）。
+tool.move.option.auto_select = 自动选择
+tool.move.history.move_layer = 移动图层
+
+# 吸管
+tool.eyedropper.name = 吸管
+tool.eyedropper.description = 将指针下方的颜色吸取为前景色；按住 Alt 时吸取为背景色。拖动时会持续取样。
+tool.eyedropper.option.sample_size = 取样大小
+tool.eyedropper.option.sample = 样本
+tool.eyedropper.choice.point_sample = 取样点
+tool.eyedropper.choice.average_3 = 3 × 3 平均
+tool.eyedropper.choice.average_5 = 5 × 5 平均
+tool.eyedropper.choice.average_11 = 11 × 11 平均
+tool.eyedropper.choice.average_31 = 31 × 31 平均
+tool.eyedropper.choice.all_layers = 所有图层
+tool.eyedropper.choice.current_layer = 当前图层
+
+# 抓手与缩放
+tool.hand.name = 抓手
+tool.hand.description = 平移视图。视图属于窗口，因此在无窗口模式下此工具不会改动文档。
+tool.zoom.name = 缩放
+tool.zoom.description = 缩放视图。视图属于窗口，因此在无窗口模式下此工具不会改动文档。

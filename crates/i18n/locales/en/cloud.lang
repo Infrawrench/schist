@@ -1,0 +1,361 @@
+# Schist Cloud: the sign-in flow, the cloud gallery (sidebar rows, the
+# grid's headings and empty states, the right-click menu, the dialogs),
+# uploads and downloads, people and faces, image generation — and the
+# status and error text crates/cloud hands the app to show verbatim.
+# `cloud.services.*` is crates/app/src/workspace/services.rs: what the
+# status bar says while a model, a font, an update or a plug-in is
+# fetched from outside the app.
+#
+# "Schist Cloud" is a product name and stays as written in every
+# language; the ☁ glyph that marks cloud rows is added in code.
+
+# Status-bar and tray messages. `cloud.msg.not_signed_in` is the cloud
+# panel's resting message; the gallery views compare against it to tell
+# an idle tray from one showing an error.
+cloud.msg.not_signed_in = Not signed in
+cloud.status.opening_sign_in = Opening sign-in in your browser…
+cloud.status.connecting = Connecting to Schist Cloud…
+cloud.status.connected = Connected to Schist Cloud
+cloud.status.signed_out = Signed out
+cloud.status.updated = Cloud updated
+cloud.status.opening = Opening {name}…
+cloud.status.saved = Saved to Schist Cloud
+cloud.status.saving = Saving to Schist Cloud…
+cloud.status.offline_will_sync = Offline — cloud edits will sync after reconnecting
+cloud.status.uploaded_screening = Uploaded — screening before it appears in Schist Cloud. This document remains local; open its cloud copy after screening.
+cloud.status.gathering_folder = Gathering the folder…
+cloud.status.gathering_bucket = Gathering the bucket…
+cloud.status.renewing_login = Renewing cloud login…
+
+# Errors shown in the status bar or the tray
+cloud.error.named = {name}: {error}
+cloud.error.recovery_failed = Cloud recovery failed: {error}
+cloud.error.stored_login_invalid = Stored cloud login is invalid: {error}
+cloud.error.could_not_read_login = Could not read cloud login: {error}
+cloud.error.could_not_persist_login = Could not persist cloud login: {error}
+cloud.error.sign_in_failed = Cloud sign-in failed: {error}
+cloud.error.server_logout_failed = Signed out locally; server logout failed: {error}
+cloud.error.token_refresh_failed = Token refresh failed: {error}
+cloud.error.access_unavailable = Cloud access is unavailable. Sign in again to check your account; local files remain on this device.
+cloud.error.world_map = World map: {error}
+cloud.error.open_document = Open cloud document: {error}
+cloud.error.unsupported_format = Unsupported remote file format
+cloud.error.could_not_restore_edits = Could not restore cloud edits: {error}
+cloud.error.no_collaborative_editing = This provider does not support collaborative image editing
+cloud.error.no_collaborative_editing_save_local = This provider does not support collaborative image editing; save a local copy instead
+cloud.error.connect_before_undo = Connect before undoing cloud edits
+cloud.error.edit_not_saved = Cloud edit is not saved: {error}
+cloud.error.no_cloud_document = No cloud document
+cloud.error.sync_stopped = Cloud sync has stopped for this document. Reopen it from the cloud gallery to reconnect; edits remain local.
+cloud.error.sign_in_first = Sign in first
+cloud.error.wait_for_connection = Wait for the cloud connection
+cloud.error.bucket_empty = This bucket is empty
+cloud.error.rating_range = Rating must be between 0 and 5
+cloud.error.invalid_content_filter = Invalid content filter
+cloud.error.edited_filter = Edited must be any, yes or no
+cloud.error.content_filter = Content must be all, safe or flagged
+cloud.error.invalid_bounds = Enter valid south, west, north, east coordinates
+cloud.error.date_order = End date must follow start date
+cloud.error.no_photo_selected = No photo selected
+cloud.error.no_bucket_selected = No bucket selected
+cloud.error.no_folder_selected = No folder selected
+cloud.error.no_item_selected = No item selected
+cloud.error.folder_gone = That folder is no longer there
+cloud.error.unknown_action = Unknown cloud action
+# The provider's storage refusal: the first sentence is also what the
+# app matches to open the storage dialog, so it is its own string.
+cloud.error.not_enough_storage = Not enough cloud storage.
+cloud.error.not_enough_storage_detail = This selection needs {needed}; {available} is available. Free up {shortfall} or upgrade your plan. No files were uploaded.
+
+# Sign-in (crates/cloud/src/auth.rs and browser_auth.rs)
+cloud.auth.enter_domain = Enter a domain
+cloud.auth.domain_only = Enter only a domain, without a path
+cloud.auth.sign_in_expired = Sign-in expired; try again
+cloud.auth.allow_popup = Allow the sign-in popup and try again
+cloud.auth.sign_in_cancelled = Sign-in cancelled
+cloud.auth.sign_in_window_closed = Sign-in window closed
+cloud.auth.available_at = Cloud is available at try.schist.app
+
+# The sidebar's cloud rows
+cloud.sidebar.folders = FOLDERS
+cloud.sidebar.buckets = BUCKETS
+cloud.sidebar.people = PEOPLE
+cloud.sidebar.new_folder = + New folder…
+cloud.sidebar.new_bucket = + New bucket…
+cloud.sidebar.find_folders_buckets = Find folders / buckets…
+cloud.sidebar.showing = Showing “{text}”…
+cloud.sidebar.previous = ↑ Previous
+cloud.sidebar.more = ↓ More
+
+# The grid: headings, counts, empty states, the search box, the tray
+cloud.gallery.bucket = Bucket
+cloud.gallery.bucket_n = Bucket {n}
+cloud.gallery.bucket_title = Bucket · {name}
+cloud.gallery.bucket_search_title = Bucket · {name} · Search results
+cloud.gallery.folder_search_title = {name} · Search results
+cloud.gallery.search_results = Search results
+cloud.gallery.people_title = People · {name} · {title}
+cloud.gallery.smart_bucket = smart bucket
+cloud.gallery.n_filters.one = {n} filter
+cloud.gallery.n_filters.other = {n} filters
+cloud.gallery.unfiled = Unfiled
+cloud.gallery.no_location = No location
+cloud.gallery.updating = Updating…
+cloud.gallery.connecting = Connecting…
+cloud.gallery.section_detail = {subtitle} — {n}
+cloud.gallery.page_range = {first}–{last} of {total}
+cloud.gallery.previous_page = ← Previous page
+cloud.gallery.next_page = Next page →
+cloud.gallery.search_placeholder = Search photos…
+cloud.gallery.map_filter_drawn_area = Map filter: drawn area
+cloud.gallery.download = Download…
+cloud.gallery.photos_unavailable = Photos unavailable
+cloud.gallery.edited_note = edited — the edits live in Schist Cloud
+cloud.gallery.screening_uploads.one = Screening {n} upload…
+cloud.gallery.screening_uploads.other = Screening {n} uploads…
+cloud.gallery.uploads_blocked.one = {n} upload unavailable after screening
+cloud.gallery.uploads_blocked.other = {n} uploads unavailable after screening
+cloud.gallery.could_not_load = Could not load photos: {error}. Use Refresh to try again.
+cloud.gallery.empty_search = Nothing matches the search. Escape clears it.
+cloud.gallery.empty_map_filter = Nothing inside the map filter. The chip in the strip clears it.
+cloud.gallery.empty_smart_bucket = Nothing matches this bucket's rule yet. Dragging photos in works too.
+cloud.gallery.empty_bucket = This bucket is empty. Drag photos onto its row in the sidebar to add them.
+cloud.gallery.empty_folder = This cloud folder is empty. Drop photos on its row in the sidebar, or use Import…
+cloud.gallery.empty_library = No photos in your cloud library yet. Use Import…, or drag photos from the local gallery onto a cloud folder or bucket.
+
+# The right-click menu
+cloud.menu.view_people = View & name people
+cloud.menu.add_to_bucket = Add to {name}
+cloud.menu.add_to_new_bucket = Add to new bucket…
+cloud.menu.remove_from_bucket = Remove from this bucket
+cloud.menu.remove_n_from_bucket = Remove {n} from this bucket
+cloud.menu.delete_from_cloud = Delete from Schist Cloud…
+cloud.menu.upload_files_here = Upload files here…
+cloud.menu.upload_folder_here = Upload folder here…
+cloud.menu.download_everything = Download everything…
+cloud.menu.download_folder = Download folder…
+cloud.menu.new_folder = New folder…
+cloud.menu.new_folder_inside = New folder inside…
+cloud.menu.rename = Rename…
+cloud.menu.delete = Delete…
+cloud.menu.photos_in_marker.one = {n} photo in this marker
+cloud.menu.photos_in_marker.other = {n} photos in this marker
+cloud.menu.add_all_to_bucket = Add all to {name}
+cloud.menu.add_all_to_new_bucket = Add all to new bucket…
+cloud.menu.rename_or_merge = Rename or merge…
+cloud.menu.forget_person = Forget this person
+cloud.menu.edit_bucket = Edit bucket…
+cloud.menu.select_all = Select all
+cloud.menu.counted = {label} ({n})
+cloud.menu.add_selected = Add selected ({n})
+cloud.menu.save_all_zip = Save all as ZIP…
+cloud.menu.process_all = Process all…
+cloud.menu.move_all_to_folder = Move all to folder…
+cloud.menu.clear_added = Clear added photos
+cloud.menu.clear_bucket = Clear bucket
+cloud.menu.delete_bucket = Delete bucket…
+
+# The dialogs: titles, field labels, notes, buttons
+cloud.dialog.sign_in_title = Sign into Schist Cloud
+cloud.dialog.domain = Domain
+cloud.dialog.continue_in_browser = Continue in browser
+cloud.dialog.storage_title = Not enough cloud storage
+cloud.dialog.people_rename_title = Rename or merge person
+cloud.dialog.people_rename_note = An existing name merges the two people. Forgetting removes names, not photos.
+cloud.dialog.forget_person = Forget person
+cloud.dialog.face_name_title = Name this face
+cloud.dialog.search_title = Search photos
+cloud.dialog.catalogue_title = Find cloud folders and buckets
+cloud.dialog.name_contains = Name contains
+cloud.dialog.new_folder_title = New cloud folder
+cloud.dialog.folder_name = Folder name
+cloud.dialog.new_bucket_title = New cloud bucket
+cloud.dialog.edit_bucket_title = Edit cloud bucket
+cloud.dialog.bucket_name = Bucket name
+cloud.dialog.bucket_rule_note = Leave the search empty for a bucket filled by dragging photos in.
+cloud.dialog.saved_area = the saved area
+cloud.dialog.rename_folder_title = Rename cloud folder
+cloud.dialog.delete_folder_title = Delete cloud folder?
+cloud.dialog.delete_folder_note = An empty folder is removed from your library. Tick the box to remove its photos and sub-folders too — for good, with their cloud edits.
+cloud.dialog.delete_contents_check = Also delete every photo and sub-folder inside
+cloud.dialog.delete_bucket_title = Delete cloud bucket?
+cloud.dialog.delete_bucket_note = Photos remain in your cloud library.
+cloud.dialog.delete_asset_title = Delete cloud photo?
+cloud.dialog.delete_asset_note = The photo and its cloud edits are removed for good; buckets holding it let it go.
+cloud.dialog.upload_document_title = Upload document to Schist Cloud
+cloud.dialog.folder_id = Folder ID (empty for unfiled)
+cloud.dialog.upload_folder_title = Upload folder to Schist Cloud
+cloud.dialog.upload_folder_note = Every photo in the folder uploads into the chosen cloud folder, keeping its sub-folders. The local files stay where they are.
+cloud.dialog.upload = Upload
+cloud.dialog.move_items_title = Move to cloud folder
+cloud.dialog.move_items_note = Every photo in the bucket is filed into the chosen folder; its cloud edits and bucket memberships stay as they are.
+cloud.dialog.move = Move
+cloud.dialog.download_title = Download cloud photo
+cloud.dialog.format = Format
+cloud.dialog.format_current = Current editable document
+cloud.dialog.format_original = Original file
+cloud.dialog.format_with_extension = {name} (.{extension})
+
+# Uploads
+cloud.upload.prompt = Upload to Schist Cloud
+cloud.upload.uploading_files = Uploading files…
+cloud.upload.looking_through = Looking through the files…
+cloud.upload.checking_storage = Checking cloud storage…
+cloud.upload.selection_too_large = Selection is too large
+cloud.upload.progress = Uploading {n} of {m} photos…
+cloud.upload.progress_skipped = Uploading {n} of {m} photos ({skipped} skipped)…
+cloud.upload.adding_to_bucket = Adding to the bucket…
+cloud.upload.checking_resumable = Checking {name} for a resumable upload…
+cloud.upload.large_progress = Uploading {name}: {percent}% ({done} / {total} MiB)
+# `{what}` is one of the `cloud.upload.step.*` phrases below
+cloud.upload.interrupted = Connection interrupted while {what} — {n} of {m} uploaded; waiting…
+cloud.upload.resuming = Reconnected — resuming {what} ({n} of {m} uploaded)…
+cloud.upload.step.adding_to_bucket = adding to the bucket
+cloud.upload.step.checking_duplicates = checking for duplicates
+cloud.upload.step.uploading_batch = uploading a batch
+cloud.upload.step.uploading_photo = uploading a photo
+cloud.upload.step.uploading_large_file = uploading a large file
+cloud.upload.connection_closed = The cloud connection was closed
+cloud.upload.failed_partial = Upload failed (completed files remain in Cloud): {error}
+cloud.upload.open_document_first = Open a document first
+cloud.upload.over_100mib = Use chunk uploads for files over 100 MiB
+cloud.upload.file_empty = File is empty
+cloud.upload.over_5gib = Exceeds the 5 GiB per-file upload limit
+# The summary after a drop: the clauses are joined with "; "
+cloud.upload.summary_none = Nothing uploaded
+cloud.upload.summary_uploaded.one = Uploaded {n} photo
+cloud.upload.summary_uploaded.other = Uploaded {n} photos
+cloud.upload.summary_existing.one = {n} was already in Schist Cloud
+cloud.upload.summary_existing.other = {n} were already in Schist Cloud
+cloud.upload.summary_skipped.one = skipped {n} file: {reason}
+cloud.upload.summary_skipped.other = skipped {n} files: {reason}
+cloud.upload.summary_skipped_more = {reason} (and {n} more)
+
+# Downloads
+cloud.download.here = Download Here
+cloud.download.downloading = Downloading {name}…
+cloud.download.done = Downloaded {name}
+cloud.download.failed = Cloud download failed: {error}
+cloud.download.could_not_save = Could not save download: {error}
+cloud.download.wait_for_connection = Wait for the cloud connection before downloading
+cloud.download.select_one = Select one cloud photo to download
+cloud.download.select_first = Select a cloud photo first
+cloud.download.progress_n_of_m = Downloading {n} of {m}…
+cloud.download.done_to.one = Downloaded {n} photo to {path}
+cloud.download.done_to.other = Downloaded {n} photos to {path}
+cloud.download.failed_partial = Download failed (finished files remain): {error}
+cloud.download.zipping_n_of_m = Zipping {n} of {m}…
+cloud.download.zipped_to.one = Saved {n} photo to {path}
+cloud.download.zipped_to.other = Saved {n} photos to {path}
+cloud.download.zip_failed = ZIP failed: {error}
+cloud.download.fetching_n_of_m = Fetching {n} of {m}…
+cloud.download.could_not_fetch_bucket = Could not fetch the bucket: {error}
+cloud.download.kept_changing = The cloud file kept changing during download; try again
+
+# People and faces
+cloud.people.title = People in this photo
+cloud.people.person = Person
+cloud.people.unnamed = Unnamed
+cloud.people.unnamed_faces = Unnamed faces
+cloud.people.unnamed_faces_row = Unnamed faces in Schist Cloud
+cloud.people.finding_faces.one = Finding faces in {n} cloud photo…
+cloud.people.finding_faces.other = Finding faces in {n} cloud photos…
+cloud.people.could_not_process.one = Could not process {n} cloud photo
+cloud.people.could_not_process.other = Could not process {n} cloud photos
+cloud.people.add_face = Add a face…
+cloud.people.cancel_drawing = Cancel drawing
+cloud.people.auto_suffix = {name} · auto
+cloud.people.not_a_face = Not a face
+cloud.people.not_them = Not them
+cloud.people.confirm_suggestion = Is this {name}? Yes
+cloud.people.no_faces = No faces named yet. Faces are found automatically; draw a box to add one by hand.
+cloud.people.photo_unavailable = This photo is no longer available in this view.
+cloud.people.enter_a_name = Enter a name
+
+# Image generation
+cloud.generate.title = Generate with Schist Cloud
+cloud.generate.generate = Generate
+cloud.generate.stop = Stop
+cloud.generate.loading_form = Loading generation form…
+cloud.generate.required_field = {title} *
+cloud.generate.preparing_preview = Preparing preview…
+cloud.generate.preview_unavailable = Preview unavailable: {error}
+cloud.generate.slot = {part} · {n}
+cloud.generate.slot_status = {name}: {status}
+cloud.generate.generating = Generating…
+cloud.generate.complete = Complete
+cloud.generate.open_image = Open image
+cloud.generate.document_title = Generated {n}
+cloud.generate.memory_limit = Generated results exceed the memory limit
+cloud.generate.unsupported_format = Unsupported generated image format
+cloud.generate.enter_field = Enter {title}
+cloud.generate.choose_field = Choose {title}
+cloud.generate.cancelled = Generation cancelled
+cloud.generate.timed_out = Generation timed out
+
+# Things fetched from outside the app (workspace/services.rs): neural
+# models, fonts, updates, plug-ins
+cloud.services.downloading = Downloading {name}…
+cloud.services.installed_model = Installed {name} to {path}
+cloud.services.removed = Removed {name}
+cloud.services.checking_for_updates = Checking for updates…
+cloud.services.update_available = Schist {version} is available
+cloud.services.up_to_date = Schist {version} is up to date
+cloud.services.update_check_failed = Update check failed: {error}
+cloud.services.downloading_schist = Downloading Schist {version}…
+cloud.services.installing_update = Installing the update…
+cloud.services.restarting = Restarting into Schist {version}…
+cloud.services.update_cancelled = Update cancelled
+cloud.services.update_failed = Update failed: {error}
+cloud.services.font_downloads_unavailable_web = {name}: font downloads aren't available in the browser
+cloud.services.installed_font.one = Installed {name} ({faces} faces) · re-set {n} text layer
+cloud.services.installed_font.other = Installed {name} ({faces} faces) · re-set {n} text layers
+cloud.services.plugin_enabled = {id} enabled — restart to apply
+cloud.services.plugin_disabled = {id} disabled — restart to apply
+cloud.services.plugin_installed = Installed {path} — restart to load
+cloud.services.photoshop_plugin_rejected = Plug-in rejected: {error}
+cloud.services.plugin_rejected = Plugin rejected: {error}
+
+# The transport (crates/cloud): what its errors say when the app shows
+# them verbatim in the status line or a dialog. Wire-level diagnostics
+# (a malformed frame, a duplicate handshake) stay English in the code.
+cloud.transport.disconnected = Cloud is disconnected
+cloud.transport.connecting = Cloud is connecting
+cloud.transport.connection_closed = Cloud connection closed
+cloud.transport.disconnected_outcome_unknown = Cloud disconnected; mutation outcome may be unknown
+cloud.transport.timed_out = Cloud operation timed out
+cloud.transport.request_timed_out = Cloud request timed out; mutation outcome may be unknown
+cloud.transport.handshake_timed_out = Cloud handshake timed out
+cloud.transport.heartbeat_timed_out = Cloud heartbeat timed out
+cloud.transport.no_workspace_endpoint = Provider has no cloud workspace endpoint
+cloud.transport.could_not_open_socket = Could not open cloud socket
+cloud.transport.websocket_failed = Cloud WebSocket failed
+cloud.transport.socket_closed = Cloud socket is closed
+cloud.transport.send_buffer_full = Cloud send buffer is full
+cloud.transport.send_failed = Cloud send failed
+cloud.transport.close_failed = Cloud close failed
+cloud.transport.frame_too_large = Message exceeds the {bytes} byte workspace frame limit
+cloud.transport.document_too_large = Shared document exceeds the provider's {bytes} byte limit; edits remain local
+cloud.transport.browser_window_unavailable = Browser window unavailable
+cloud.transport.browser_restricted = Browser cloud connections are restricted to schist.app
+cloud.transport.http_status = Cloud HTTP {code}
+cloud.transport.browser_request_failed = Browser cloud request failed
+cloud.transport.response_too_large = Cloud response exceeds size limit
+cloud.transport.invalid_credentials = Invalid cloud credentials
+cloud.transport.unsupported_browser_sign_in = Provider does not support this browser sign-in flow
+cloud.transport.expected_secure_url = Expected an absolute {scheme} URL without credentials
+cloud.transport.source_changed_during_upload = The source file changed during upload
+cloud.transport.select_again_to_resume = Select this file again to resume its uploaded parts
+cloud.transport.source_changed_select_again = The source file changed; select it again to start a new upload
+cloud.transport.source_grew_during_preparation = The source file grew during upload preparation
+cloud.transport.source_changed_during_preparation = The source file changed during upload preparation
+# The unit in the storage message when the amount is under a mebibyte
+cloud.transport.bytes = {n} bytes
+cloud.transport.invalid_value_for = Invalid value for {title}
+cloud.transport.invalid_option_for = Invalid option for {title}
+cloud.transport.generation_connection_closed = Generation connection closed
+cloud.transport.generation_closed_early = Generation closed before every slot completed
+cloud.transport.generated_image_too_large = Generated image exceeds 64 MiB
+cloud.transport.no_export_support = Provider does not advertise export support
+cloud.transport.unsupported_download_format = Provider does not support the requested download format
+cloud.transport.date_before_1970 = Date precedes 1970

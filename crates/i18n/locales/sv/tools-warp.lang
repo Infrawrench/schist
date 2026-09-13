@@ -1,0 +1,28 @@
+# Förvrängningsverktygen (plugins/tools-warp). Termerna följer svenska
+# Photoshop; verktygsnamnen är desamma som i menyn (menu.lang).
+
+# Gör flytande
+tool.liquify.name = Gör flytande
+tool.liquify.description = Knuffar, virvlar, drar ihop eller blåser upp pixlar under en stor pensel – verktygsvalet avgör vilket. Förvrängningen samlas i ett nät och läggs på lagret när du bekräftar.
+tool.liquify.option.tool = Verktyg
+tool.liquify.choice.forward_warp = Vrid framåt
+tool.liquify.choice.reconstruct = Rekonstruera
+tool.liquify.choice.twirl_cw = Virvel medurs
+tool.liquify.choice.twirl_ccw = Virvel moturs
+tool.liquify.choice.pucker = Dra ihop
+tool.liquify.choice.bloat = Blås upp
+tool.liquify.choice.push_left = Skjut åt vänster
+tool.liquify.history.liquify = Gör flytande
+
+# Marionettförvrängning
+tool.puppet_warp.name = Marionettförvrängning
+tool.puppet_warp.description = Klicka för att nåla fast lagret på några punkter och dra sedan en av dem: nätet böjer sig runt nålarna, stelt eller löst enligt Styvhet. Bekräfta för att använda.
+tool.puppet_warp.option.stiffness = Styvhet
+tool.puppet_warp.history.puppet_warp = Marionettförvrängning
+
+# Gränspunkt
+tool.vanishing_point.name = Gränspunkt
+tool.vanishing_point.description = Dra ut ett plan över något med perspektiv, byt sedan läge till Klona och måla: de kopierade pixlarna följer planet och krymper med avståndet.
+tool.vanishing_point.choice.edit_plane = Redigera plan
+tool.vanishing_point.choice.clone = Klona
+tool.vanishing_point.history.vanishing_point = Gränspunkt

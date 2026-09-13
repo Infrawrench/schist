@@ -7,6 +7,7 @@
 //! than committed on the spot.
 
 use schist_core::{Anchor, Document, IntRect, SubPath, VectorPath};
+use schist_i18n::{choices, t, tf};
 use schist_plugin_api::{
     EditorState, OptionValue, Overlay, PointerInput, ToolCtx, ToolOption, ToolPlugin,
 };
@@ -160,16 +161,14 @@ impl ToolPlugin for PathSelectTool {
     }
     fn name(&self) -> &'static str {
         match self.kind {
-            ArrowKind::Path => "Path Selection",
-            ArrowKind::Direct => "Direct Selection",
+            ArrowKind::Path => t("tool.path_select.name"),
+            ArrowKind::Direct => t("tool.direct_select.name"),
         }
     }
     fn description(&self) -> &'static str {
         match self.kind {
-            ArrowKind::Path => "Click a path to select it, and drag to move the whole path.",
-            ArrowKind::Direct => {
-                "Drag an individual anchor point or its handles to reshape the path around it."
-            }
+            ArrowKind::Path => t("tool.path_select.description"),
+            ArrowKind::Direct => t("tool.direct_select.description"),
         }
     }
     fn icon(&self) -> &'static str {
@@ -340,7 +339,10 @@ impl FreeformPenTool {
         } else {
             Self::simplify(&points, self.fit.max(0.5))
         };
-        let mut path = VectorPath::new(format!("Path {}", ctx.doc.paths.len() + 1));
+        let mut path = VectorPath::new(tf!(
+            "tool.pen.default_path_name",
+            n = ctx.doc.paths.len() + 1
+        ));
         path.subpaths.push(SubPath {
             anchors: kept.iter().map(|(x, y)| Anchor::corner(*x, *y)).collect(),
             closed: false,
@@ -371,16 +373,16 @@ impl ToolPlugin for FreeformPenTool {
     }
     fn name(&self) -> &'static str {
         if self.curvature {
-            "Curvature Pen"
+            t("tool.pen.curvature.name")
         } else {
-            "Freeform Pen"
+            t("tool.pen.freeform.name")
         }
     }
     fn description(&self) -> &'static str {
         if self.curvature {
-            "Click a series of points and the path is curved smoothly through them."
+            t("tool.pen.curvature.description")
         } else {
-            "Drag a freehand line and it is fitted to a path, as loosely as the Fit option says."
+            t("tool.pen.freeform.description")
         }
     }
     fn icon(&self) -> &'static str {
@@ -400,11 +402,11 @@ impl ToolPlugin for FreeformPenTool {
         } else {
             vec![ToolOption::slider(
                 "freeform-fit",
-                "Fit",
+                t("tool.pen.freeform.option.fit"),
                 self.fit,
                 0.5,
                 10.0,
-                " px",
+                t("common.unit.px_suffix"),
             )]
         }
     }
@@ -551,13 +553,14 @@ const PRESETS: &[(&str, &[(f32, f32)])] = &[
     ),
 ];
 
-const PRESET_NAMES: &[&str] = &[
-    "Heart",
-    "Star",
-    "Arrow",
-    "Lightning",
-    "Cross",
-    "Speech Bubble",
+/// `PRESETS` by name, as catalog keys, in the same order.
+static PRESET_NAMES: &[&str] = &[
+    "tool.shape.custom.choice.heart",
+    "tool.shape.custom.choice.star",
+    "tool.shape.custom.choice.arrow",
+    "tool.shape.custom.choice.lightning",
+    "tool.shape.custom.choice.cross",
+    "tool.shape.custom.choice.speech_bubble",
 ];
 
 pub struct CustomShapeTool {
@@ -603,7 +606,7 @@ impl CustomShapeTool {
             &b.build(0.25),
             colour,
             schist_vector::FillRule::NonZero,
-            "Custom Shape",
+            t("tool.shape.custom.label"),
         )
     }
 
@@ -640,10 +643,10 @@ impl ToolPlugin for CustomShapeTool {
         "shape.custom"
     }
     fn name(&self) -> &'static str {
-        "Custom Shape"
+        t("tool.shape.custom.name")
     }
     fn description(&self) -> &'static str {
-        "Drag out one of the built-in preset shapes, picked with the Shape option."
+        t("tool.shape.custom.description")
     }
     fn icon(&self) -> &'static str {
         "shape-custom"
@@ -655,8 +658,8 @@ impl ToolPlugin for CustomShapeTool {
     fn options(&self) -> Vec<ToolOption> {
         vec![ToolOption::choice(
             "custom-shape",
-            "Shape",
-            PRESET_NAMES,
+            t("common.shape"),
+            choices(PRESET_NAMES),
             self.shape,
         )]
     }
@@ -693,7 +696,7 @@ impl ToolPlugin for CustomShapeTool {
         self.on_pointer_move(ctx, input);
         self.anchor = None;
         self.current = None;
-        self.preview.commit(ctx.doc, "Custom Shape");
+        self.preview.commit(ctx.doc, t("tool.shape.custom.label"));
     }
 
     fn on_cancel(&mut self, ctx: &mut ToolCtx) {

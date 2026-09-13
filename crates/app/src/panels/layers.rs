@@ -1,6 +1,7 @@
 //! The layers panel: rows, blend mode and opacity controls.
 
 use super::*;
+use schist_i18n::t;
 
 pub(super) struct LayerRow {
     id: LayerId,
@@ -70,7 +71,7 @@ pub(super) fn blend_mode_control(
     let options = match active_layer {
         Some(_) => BlendMode::layer_modes()
             .iter()
-            .map(|&mode| (SharedString::from(mode.display_name()), mode))
+            .map(|&mode| (SharedString::from(crate::ui::blend_mode_name(mode)), mode))
             .collect(),
         None => Vec::new(),
     };
@@ -78,7 +79,7 @@ pub(super) fn blend_mode_control(
         popup: Popup::BlendModes,
         is_open: ws.open_popup == Some(Popup::BlendModes),
         current,
-        label: current.display_name().into(),
+        label: crate::ui::blend_mode_name(current).into(),
         width: 0.0,
         options,
     };
@@ -130,7 +131,7 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
         .gap_1()
         .border_t_1()
         .border_color(gpui::rgb(palette().panel_edge))
-        .child(panel_title("Layers"))
+        .child(panel_title(t("common.layers")))
         .child(
             div()
                 .flex()
@@ -235,7 +236,7 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
                         .consume_press()
                         .on_click(cx.listener(move |ws, _e, _w, cx| {
                             if let Some(doc) = &mut ws.doc {
-                                let mut edit = doc.begin_edit("Toggle Visibility");
+                                let mut edit = doc.begin_edit(t("panel.layers.toggle_visibility"));
                                 edit.change_props(id, |l| l.visible = !l.visible);
                                 edit.commit();
                             }

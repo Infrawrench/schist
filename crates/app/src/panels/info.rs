@@ -4,6 +4,7 @@
 use super::*;
 use crate::workspace::SideTab;
 use schist_gallery::ExifSummary;
+use schist_i18n::{t, tf};
 
 /// The tallest the EXIF rows get before they scroll: about three rows.
 const INFO_ROWS_MAX_H: f32 = 88.0;
@@ -32,24 +33,40 @@ pub(super) fn top_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui
         SideTab::Info if exif.is_none() => SideTab::Color,
         tab => tab,
     };
-    let tab_chip = |label: &'static str, which: SideTab, cx: &mut Context<Workspace>| {
-        let on = tab == which;
-        Chip::new(label, label)
-            .selected(on)
-            .on_click(cx.listener(move |ws, _e, _w, cx| {
-                ws.side_tab = Some(which);
-                cx.notify();
-            }))
-    };
+    let tab_chip =
+        |id: &'static str, label: &'static str, which: SideTab, cx: &mut Context<Workspace>| {
+            let on = tab == which;
+            Chip::new(id, label)
+                .selected(on)
+                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    ws.side_tab = Some(which);
+                    cx.notify();
+                }))
+        };
     let tabs = div()
         .flex()
         .flex_row()
         .gap_1()
         .px_2()
         .pt_2()
-        .children(is_type.then(|| tab_chip("Character", SideTab::Character, cx)))
-        .children(exif.is_some().then(|| tab_chip("Info", SideTab::Info, cx)))
-        .child(tab_chip("Color", SideTab::Color, cx));
+        .children(is_type.then(|| {
+            tab_chip(
+                "side-tab-character",
+                t("panel.character.title"),
+                SideTab::Character,
+                cx,
+            )
+        }))
+        .children(
+            exif.is_some()
+                .then(|| tab_chip("side-tab-info", t("panel.info.title"), SideTab::Info, cx)),
+        )
+        .child(tab_chip(
+            "side-tab-color",
+            t("common.color"),
+            SideTab::Color,
+            cx,
+        ));
     let body = match tab {
         SideTab::Info => info_panel(ws, exif.as_ref().unwrap(), cx).into_any_element(),
         SideTab::Color => color_panel(ws, cx).into_any_element(),
@@ -121,60 +138,61 @@ fn info_panel(
     };
     let mut rows: Vec<gpui::AnyElement> = Vec::new();
     if let Some(camera) = exif.camera() {
-        rows.push(row("Camera", camera).into_any_element());
+        rows.push(row(t("panel.info.camera"), camera).into_any_element());
     }
     if let Some(lens) = &exif.lens {
-        rows.push(row("Lens", lens.clone()).into_any_element());
+        rows.push(row(t("panel.info.lens"), lens.clone()).into_any_element());
     }
     // The exposure triangle on one line, as a camera's own display
     // puts it.
     let exposure: Vec<String> = [
         exif.exposure.clone(),
         exif.aperture.clone(),
-        exif.iso.map(|iso| format!("ISO {iso}")),
+        exif.iso.map(|iso| tf!("panel.info.iso", iso = iso)),
         exif.focal_length.clone(),
     ]
     .into_iter()
     .flatten()
     .collect();
     if !exposure.is_empty() {
-        rows.push(row("Exposure", exposure.join(" \u{b7} ")).into_any_element());
+        rows.push(row(t("common.exposure"), exposure.join(" \u{b7} ")).into_any_element());
     }
     if let Some(bias) = &exif.exposure_bias {
-        rows.push(row("Bias", bias.clone()).into_any_element());
+        rows.push(row(t("panel.info.bias"), bias.clone()).into_any_element());
     }
     let mut extras: Vec<String> = Vec::new();
     if let Some(flash) = exif.flash {
         extras.push(if flash {
-            "flash fired".into()
+            t("panel.info.flash_fired").into()
         } else {
-            "no flash".into()
+            t("panel.info.no_flash").into()
         });
     }
     if let Some(wb) = &exif.white_balance {
-        extras.push(format!("WB {}", wb.to_lowercase()));
+        extras.push(tf!("panel.info.white_balance", wb = wb.to_lowercase()));
     }
     if let Some(metering) = &exif.metering {
-        extras.push(format!("{} metering", metering.to_lowercase()));
+        extras.push(tf!(
+            "panel.info.metering",
+            metering = metering.to_lowercase()
+        ));
     }
     if !extras.is_empty() {
-        rows.push(row("Settings", extras.join(", ")).into_any_element());
+        rows.push(row(t("common.settings"), extras.join(", ")).into_any_element());
     }
     if let Some(taken) = &exif.taken {
-        rows.push(row("Taken", taken.clone()).into_any_element());
+        rows.push(row(t("panel.info.taken"), taken.clone()).into_any_element());
     }
     if let (Some(w), Some(h)) = (exif.width, exif.height) {
-        let mp = (w as f64 * h as f64) / 1_000_000.0;
-        let orient = match exif.orientation {
-            Some(o) if o > 1 => format!(" \u{b7} orientation {o}"),
-            _ => String::new(),
+        let mp = format!("{:.1}", (w as f64 * h as f64) / 1_000_000.0);
+        let size = match exif.orientation {
+            Some(o) if o > 1 => tf!("panel.info.size_oriented", w = w, h = h, mp = mp, o = o),
+            _ => tf!("panel.info.size", w = w, h = h, mp = mp),
         };
-        rows.push(
-            row("Size", format!("{w} \u{d7} {h} \u{b7} {mp:.1} MP{orient}")).into_any_element(),
-        );
+        rows.push(row(t("common.size"), size).into_any_element());
     }
     if let Some(software) = &exif.software {
-        rows.push(row("Software", software.clone()).into_any_element());
+        rows.push(row(t("panel.info.software"), software.clone()).into_any_element());
     }
     if let Some((lat, lon)) = exif.gps {
         let place = schist_gallery::nearest_city(lat, lon);
@@ -185,7 +203,7 @@ fn info_panel(
         if let Some(alt) = exif.altitude_m {
             text.push_str(&format!(" \u{b7} {alt:.0} m"));
         }
-        rows.push(row("Where", text).into_any_element());
+        rows.push(row(t("panel.info.where"), text).into_any_element());
     }
     // The rows are their own scrolling region, bounded so the map
     // beneath stays put whatever a camera wrote (some write a lot).
@@ -194,7 +212,7 @@ fn info_panel(
         .flex_col()
         .p_2()
         .gap_1()
-        .child(panel_title("Info"))
+        .child(panel_title(t("panel.info.title")))
         .child(
             div()
                 .relative()

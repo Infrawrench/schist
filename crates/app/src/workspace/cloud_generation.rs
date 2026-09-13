@@ -3,6 +3,7 @@ use super::*;
 use crate::ui;
 use gpui::{img, StatefulInteractiveElement as _, StyledImage as _};
 use schist_cloud::generation::{self as api, Input, Inputs, Item};
+use schist_i18n::{t, tf};
 use schist_ui::TextInput;
 use std::{
     collections::HashMap,
@@ -109,7 +110,9 @@ impl Workspace {
                 {
                     g.previews.insert(
                         url,
-                        result.unwrap_or_else(|e| format!("Preview unavailable: {e}")),
+                        result.unwrap_or_else(|e| {
+                            tf!("cloud.generate.preview_unavailable", error = e)
+                        }),
                     );
                 }
                 Job::Done(epoch, result) if epoch == self.cloud.epoch => {
@@ -124,7 +127,7 @@ impl Workspace {
                         for part in parts {
                             for i in 0..part.children_count {
                                 g.slots.push((
-                                    format!("{} · {}", part.part_name, i + 1),
+                                    tf!("cloud.generate.slot", part = part.part_name, n = i + 1),
                                     false,
                                     None,
                                 ));
@@ -251,7 +254,7 @@ impl Workspace {
             .map_err(|e| e.to_string())
             .and_then(|()| {
                 if retained > 256 * 1024 * 1024 {
-                    Err("Generated results exceed the memory limit".into())
+                    Err(t("cloud.generate.memory_limit").into())
                 } else {
                     Ok(())
                 }
@@ -268,11 +271,11 @@ impl Workspace {
             .registry
             .codecs()
             .find(|c| c.probe(&generated.bytes))
-            .ok_or_else(|| anyhow::anyhow!("Unsupported generated image format"))
+            .ok_or_else(|| anyhow::anyhow!(t("cloud.generate.unsupported_format")))
             .and_then(|codec| codec.import(&generated.bytes));
         match result {
             Ok(mut doc) => {
-                doc.title = format!("Generated {}", generated.index + 1);
+                doc.title = tf!("cloud.generate.document_title", n = generated.index + 1);
                 doc.path = None;
                 doc.dirty = true;
                 self.open_in_tab(doc, true);
@@ -296,7 +299,7 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .overflow_y_scroll();
     let g = &ws.cloud.generation;
     if g.loading {
-        body = body.child("Loading generation form…");
+        body = body.child(t("cloud.generate.loading_form"));
     }
     if !g.error.is_empty() {
         body = body.child(div().text_color(gpui::rgb(0xd45b50)).child(g.error.clone()));
@@ -335,7 +338,11 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                     }));
                 body = body
                     .child(ui::field_row(
-                        format!("{title}{}", if required { " *" } else { "" }),
+                        if required {
+                            tf!("cloud.generate.required_field", title = title)
+                        } else {
+                            title
+                        },
                         control,
                     ))
                     .child(div().text_size(px(11.0)).child(description));
@@ -386,7 +393,11 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                 }
                 body = body
                     .child(ui::field_row(
-                        format!("{title}{}", if required { " *" } else { "" }),
+                        if required {
+                            tf!("cloud.generate.required_field", title = title)
+                        } else {
+                            title
+                        },
                         choices,
                     ))
                     .child(div().text_size(px(11.0)).child(description));
@@ -397,19 +408,20 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                         g.previews
                             .get(&live_preview_url)
                             .cloned()
-                            .unwrap_or_else(|| "Preparing preview…".into()),
+                            .unwrap_or_else(|| t("cloud.generate.preparing_preview").into()),
                     ),
                 )
             }
         }
     }
     for (name, complete, rejected) in &g.slots {
-        body = body.child(div().text_size(px(11.0)).child(format!(
-            "{name}: {}",
-            rejected.as_deref().unwrap_or(if *complete {
-                "Complete"
+        body = body.child(div().text_size(px(11.0)).child(tf!(
+            "cloud.generate.slot_status",
+            name = name,
+            status = rejected.as_deref().unwrap_or(if *complete {
+                t("cloud.generate.complete")
             } else {
-                "Generating…"
+                t("cloud.generate.generating")
             })
         )));
     }
@@ -425,7 +437,7 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
             );
         }
         results = results.child(card.child(ui::button(
-            "Open image",
+            t("cloud.generate.open_image"),
             false,
             move |ws, _, cx| ws.cloud_open_generated(i, cx),
             cx,
@@ -437,7 +449,11 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .flex()
         .gap_2()
         .child(ui::button(
-            if running { "Stop" } else { "Close" },
+            if running {
+                t("cloud.generate.stop")
+            } else {
+                t("common.close")
+            },
             false,
             |ws, _, cx| {
                 ws.cloud.generation.cancel.store(true, Ordering::Relaxed);
@@ -445,9 +461,13 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
             },
             cx,
         ))
-        .children(
-            (!running && !g.loading)
-                .then(|| ui::button("Generate", true, |ws, _, cx| ws.cloud_generate_run(cx), cx)),
-        );
-    ui::modal_frame("Generate with Schist Cloud", 680.0, body, actions).into_any_element()
+        .children((!running && !g.loading).then(|| {
+            ui::button(
+                t("cloud.generate.generate"),
+                true,
+                |ws, _, cx| ws.cloud_generate_run(cx),
+                cx,
+            )
+        }));
+    ui::modal_frame(t("cloud.generate.title"), 680.0, body, actions).into_any_element()
 }

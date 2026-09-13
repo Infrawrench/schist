@@ -1,0 +1,50 @@
+# plugins/codecs-common: the format names an export dialog lists, and
+# the messages an import can fail with (shown on the status line after
+# "Open failed:"). The HEIC download consent dialog itself is the app's
+# (dialogs.lang); the codec only supplies what went wrong.
+
+# Format names, as the codecs register them. The long forms a file
+# dialog wants are common.filetype.*.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Shared import messages. These prefix a decoder's own message, so they
+# read as a clause: "decoding PNG: unexpected end of file".
+codec.msg.decoding = decoding {name}
+codec.msg.zero_sized = the image has no pixels
+codec.msg.assembling_document = assembling the document
+
+# Camera raw
+codec.raw.msg.decoding = decoding the raw file
+codec.raw.msg.developing = developing the raw file
+codec.raw.msg.finding_preview = looking for the embedded preview
+codec.raw.msg.decoding_preview = decoding the embedded preview
+codec.raw.msg.decoder_panicked = the raw decoder failed on this file: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity import
+codec.affinity.flattened_preview_layer = Flattened preview
+codec.affinity.msg.no_preview = No usable embedded preview. Affinity's layered format is proprietary; Schist imports the flattened preview the file carries. This file has none — re-save it in Affinity, or export it as PSD for a full layered import.
+
+# HEIF. `no_library` and `no_decoder` are the two cases the consented
+# libheif download fixes; {details} is what each library path said,
+# {what} the step that failed and {message} libheif's own words.
+codec.heif.msg.no_library = libheif is not available ({details}). Opening HEIC needs the libheif library (Linux: install libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — this libheif build may lack an HEVC decoder (on Debian/Ubuntu, install libheif-plugin-libde265)
+codec.heif.msg.unknown_error = unknown error
+codec.heif.msg.initialising = initialising libheif
+codec.heif.msg.reading_container = reading the HEIF container
+codec.heif.msg.finding_primary_image = finding the primary image
+codec.heif.msg.reading_icc_profile = reading the ICC profile
+codec.heif.msg.decoding_image = decoding the image
+codec.heif.msg.checksum_mismatch = Checksum mismatch for {name}: expected {expected}, got {got}
+# iOS, where ImageIO decodes HEIC instead
+codec.heif.msg.imageio_cannot_read = ImageIO could not read the HEIF container
+codec.heif.msg.container_empty = the HEIF container holds no image
+codec.heif.msg.imageio_cannot_decode = ImageIO could not decode the primary image

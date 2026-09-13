@@ -1,0 +1,156 @@
+# Die Menüleiste. Die Begriffe folgen dem deutschen Photoshop, wo es
+# einen gibt.
+
+# Datei
+menu.file = Datei
+menu.file.new = Neu
+menu.file.open = Öffnen…
+menu.file.open_recent = Zuletzt geöffnet
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Galerie durchsuchen…
+menu.file.close = Schließen
+menu.file.save = Sichern
+menu.file.save_as = Sichern unter…
+menu.file.export = Exportieren…
+menu.file.export_submenu = Exportieren
+menu.file.export_artboards = Zeichenflächen als PNG…
+menu.file.export_slices = Slices als PNG…
+menu.file.save_to_photos = In Fotos sichern
+menu.file.plugins = Plug-ins…
+menu.file.missing_fonts = Fehlende Schriften…
+menu.file.check_for_updates = Nach Updates suchen…
+menu.file.quit = Beenden
+menu.file.add_folder_to_gallery = Ordner zur Galerie hinzufügen…
+menu.file.import_from_photos = Aus Fotos importieren…
+menu.file.import_from_camera = Von Kamera importieren…
+
+# Bearbeiten
+menu.edit = Bearbeiten
+menu.edit.fill = Fläche füllen…
+menu.edit.stroke = Kontur füllen…
+menu.edit.content_aware_fill = Inhaltsbasierte Füllung
+menu.edit.content_aware_scale = Inhaltsbasiert skalieren…
+menu.edit.puppet_warp = Formgitter
+menu.edit.free_transform = Frei transformieren
+menu.edit.transform = Transformieren
+menu.edit.rotate_180 = Um 180° drehen
+menu.edit.rotate_90_cw = Um 90° im Uhrzeigersinn drehen
+menu.edit.rotate_90_ccw = Um 90° gegen den Uhrzeigersinn drehen
+menu.edit.flip_horizontal = Horizontal spiegeln
+menu.edit.flip_vertical = Vertikal spiegeln
+
+# Bild
+menu.image = Bild
+menu.image.mode = Modus
+menu.image.adjustments = Korrekturen
+menu.image.auto_tone = Auto-Farbton
+menu.image.auto_contrast = Auto-Kontrast
+menu.image.auto_color = Auto-Farbe
+menu.image.image_size = Bildgröße…
+menu.image.canvas_size = Arbeitsfläche…
+menu.image.image_rotation = Bilddrehung
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° im Uhrzeigersinn
+menu.image.rotate_90_ccw = 90° gegen den Uhrzeigersinn
+menu.image.flip_canvas_horizontal = Arbeitsfläche horizontal spiegeln
+menu.image.flip_canvas_vertical = Arbeitsfläche vertikal spiegeln
+menu.image.crop_to_selection = Auf Auswahl freistellen
+menu.image.trim = Zuschneiden
+menu.image.assign_profile = Profil zuweisen…
+menu.image.convert_to_profile = In Profil umwandeln…
+
+# Auswahl
+menu.select = Auswahl
+menu.select.color_range = Farbbereich…
+menu.select.modify = Auswahl verändern
+menu.select.border = Rand…
+menu.select.smooth = Abrunden…
+menu.select.expand = Erweitern…
+menu.select.contract = Verkleinern…
+menu.select.feather = Weiche Kante…
+menu.select.transform_selection = Auswahl transformieren
+
+# Ebene
+menu.layer = Ebene
+menu.layer.layer_style = Ebenenstil…
+menu.layer.layer_comps = Ebenenkompositionen
+menu.layer.new_layer_comp = Neue Ebenenkomposition
+menu.layer.delete_layer_comp = {name} löschen
+menu.layer.path = Pfad
+menu.layer.fill_path = Pfadfläche füllen
+menu.layer.stroke_path = Pfadkontur füllen
+menu.layer.make_selection = Auswahl erstellen
+menu.layer.delete_path = Pfad löschen
+
+# Korrektur
+menu.adjust = Korrektur
+
+# Filter
+menu.filter = Filter
+menu.filter.filter_gallery = Filtergalerie…
+menu.filter.liquify = Verflüssigen
+menu.filter.vanishing_point = Fluchtpunkt
+menu.filter.manage_models = Modelle verwalten…
+menu.filter.camera_raw_development = Camera-Raw-Entwicklung…
+
+# Ansicht
+menu.view = Ansicht
+menu.view.rotate_view_cw = Ansicht im Uhrzeigersinn drehen
+menu.view.rotate_view_ccw = Ansicht gegen den Uhrzeigersinn drehen
+menu.view.reset_view = Ansicht zurücksetzen
+menu.view.zoom_in = Einzoomen
+menu.view.zoom_out = Auszoomen
+menu.view.fit_on_screen = Ganzes Bild
+menu.view.actual_size = 100 %
+menu.view.rulers = Lineale
+menu.view.grid = Raster
+menu.view.guides = Hilfslinien
+menu.view.notes = Notizen
+menu.view.ai_panel = KI-Bedienfeld
+menu.view.extras = Extras
+menu.view.snap = Ausrichten
+menu.view.clear_guides = Hilfslinien löschen
+menu.view.clear_notes = Notizen löschen
+menu.view.clear_count = Zählung löschen
+menu.view.screen_mode = Bildschirmmodus
+menu.view.proof_colors = Farbproof
+menu.view.show_rulers = Lineale einblenden
+menu.view.hide_rulers = Lineale ausblenden
+menu.view.show_grid = Raster einblenden
+menu.view.hide_grid = Raster ausblenden
+menu.view.show_guides = Hilfslinien einblenden
+menu.view.hide_guides = Hilfslinien ausblenden
+menu.view.show_notes = Notizen einblenden
+menu.view.hide_notes = Notizen ausblenden
+menu.view.show_extras = Extras einblenden
+menu.view.hide_extras = Extras ausblenden
+menu.view.enable_snapping = Ausrichten aktivieren
+menu.view.disable_snapping = Ausrichten deaktivieren
+menu.view.enable_proof_colors = Farbproof aktivieren
+menu.view.disable_proof_colors = Farbproof deaktivieren
+
+# Galerie
+menu.gallery = Galerie
+menu.gallery.edit_selected = Auswahl bearbeiten
+menu.gallery.refresh = Aktualisieren
+menu.gallery.map_filter = Kartenfilter…
+menu.gallery.back_to_editor = Zurück zum Editor
+
+# Schist Cloud
+menu.cloud.browse = Schist Cloud durchsuchen
+menu.cloud.generate = Bilder generieren…
+menu.cloud.upload = Dokument in Schist Cloud hochladen…
+menu.cloud.sign_out = Von Schist Cloud abmelden
+menu.cloud.sign_in = Bei Schist Cloud anmelden…
+
+# Das Programm-Menü auf macOS
+menu.app.services = Dienste
+menu.app.hide = {app} ausblenden
+menu.app.hide_others = Andere ausblenden
+menu.app.show_all = Alle einblenden
+menu.app.quit = {app} beenden
+
+# Antworten in der Statusleiste
+menu.status.transform_selection_needs_selection = „Auswahl transformieren“ braucht eine Auswahl
+menu.status.crop_needs_selection = „Auf Auswahl freistellen“ braucht eine Auswahl
+menu.status.select_photo_to_edit = Wähle ein Foto zum Bearbeiten

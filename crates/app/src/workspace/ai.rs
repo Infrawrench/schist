@@ -10,6 +10,7 @@
 
 use super::*;
 use crate::ai::{self, AgentEvent, AiEntry, AiEntryKind, Backend, ConvCmd, ModelEntry};
+use schist_i18n::{t, tf};
 use serde_json::{json, Value};
 
 /// How often the queues are drained while a conversation is talking.
@@ -32,13 +33,13 @@ impl Workspace {
             self.view.ai_panel
         };
         self.status = if shown {
-            "AI panel shown".into()
+            t("ai.status.panel_shown").into()
         } else {
             // The panel's own close button lands here too; say how to
             // get it back.
-            format!(
-                "AI panel hidden — View ▸ AI Panel ({}) brings it back",
-                if cfg!(target_os = "macos") {
+            tf!(
+                "ai.status.panel_hidden",
+                shortcut = if cfg!(target_os = "macos") {
                     "Cmd+Shift+A"
                 } else {
                     "Ctrl+Shift+A"
@@ -218,9 +219,9 @@ impl Workspace {
             }
             "space" => self.ai.model_search.push(' '),
             _ => {
-                if let Some(t) = ev.keystroke.key_char.as_deref() {
-                    if !t.is_empty() && !t.chars().any(char::is_control) {
-                        self.ai.model_search.push_str(t);
+                if let Some(typed) = ev.keystroke.key_char.as_deref() {
+                    if !typed.is_empty() && !typed.chars().any(char::is_control) {
+                        self.ai.model_search.push_str(typed);
                     }
                 }
             }
@@ -304,10 +305,10 @@ impl Workspace {
         if !backend.available() {
             self.ai.transcript.push(AiEntry {
                 kind: AiEntryKind::Error,
-                text: format!(
-                    "The {} CLI ({:?}) is not on PATH. Install and log into it first.",
-                    backend.label(),
-                    backend.binary()
+                text: tf!(
+                    "ai.error.cli_missing",
+                    backend = backend.label(),
+                    binary = backend.binary()
                 ),
             });
             cx.notify();
@@ -333,9 +334,9 @@ impl Workspace {
             self.ai.transcript.push(AiEntry {
                 kind: AiEntryKind::Info,
                 text: if gallery {
-                    "Now in the gallery.".into()
+                    t("ai.info.now_in_gallery").into()
                 } else {
-                    "Now in the editor.".into()
+                    t("ai.info.now_in_editor").into()
                 },
             });
         }
@@ -353,7 +354,7 @@ impl Workspace {
                             Err(e) => {
                                 self.ai.transcript.push(AiEntry {
                                     kind: AiEntryKind::Error,
-                                    text: format!("starting the MCP endpoint failed: {e:#}"),
+                                    text: tf!("ai.error.endpoint_failed", error = format!("{e:#}")),
                                 });
                                 cx.notify();
                                 return;
@@ -404,9 +405,9 @@ impl Workspace {
             }
             "space" => self.ai.input.push(' '),
             _ => {
-                if let Some(t) = ev.keystroke.key_char.as_deref() {
-                    if !t.is_empty() && !t.chars().any(char::is_control) {
-                        self.ai.input.push_str(t);
+                if let Some(typed) = ev.keystroke.key_char.as_deref() {
+                    if !typed.is_empty() && !typed.chars().any(char::is_control) {
+                        self.ai.input.push_str(typed);
                     }
                 }
             }
@@ -593,7 +594,7 @@ impl Workspace {
                 #[cfg(not(target_arch = "wasm32"))]
                 if name.starts_with("gallery_") {
                     let outcome = self.gallery_tool(name, &args, cx);
-                    self.status = format!("AI: {name}").into();
+                    self.status = tf!("ai.status.tool", name = name).into();
                     cx.notify();
                     return match outcome {
                         Ok(content) => envelope(id, json!({"content": content})),
@@ -627,7 +628,7 @@ impl Workspace {
                         }
                     },
                 };
-                self.status = format!("AI: {name}").into();
+                self.status = tf!("ai.status.tool", name = name).into();
                 // The canvas, panels and history must reflect whatever the
                 // call did before the agent's next look at the document.
                 self.after_change(cx);

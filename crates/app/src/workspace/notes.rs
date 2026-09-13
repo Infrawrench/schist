@@ -1,6 +1,7 @@
 //! Annotation notes: placing, editing and deleting them.
 
 use super::*;
+use schist_i18n::t;
 
 impl Workspace {
     // ----- notes -----
@@ -33,7 +34,12 @@ impl Workspace {
 
     pub fn toggle_notes(&mut self, cx: &mut Context<Self>) {
         self.view.notes = !self.view.notes;
-        self.status = format!("Notes {}", if self.view.notes { "on" } else { "off" }).into();
+        self.status = if self.view.notes {
+            t("workspace.canvas.notes_on")
+        } else {
+            t("workspace.canvas.notes_off")
+        }
+        .into();
         self.save_view_options();
         cx.notify();
     }
@@ -63,7 +69,7 @@ impl Workspace {
             if index >= doc.notes.len() {
                 return;
             }
-            let mut edit = doc.begin_edit("Delete Note");
+            let mut edit = doc.begin_edit(t("workspace.history.delete_note"));
             edit.change_notes(|notes| {
                 notes.remove(index);
             });
@@ -82,7 +88,7 @@ impl Workspace {
             if doc.notes.is_empty() {
                 return;
             }
-            let mut edit = doc.begin_edit("Clear Notes");
+            let mut edit = doc.begin_edit(t("menu.view.clear_notes"));
             edit.change_notes(|notes| notes.clear());
             edit.commit();
         }
@@ -144,7 +150,7 @@ impl Workspace {
             NoteField::Text(index) => {
                 if let Some(doc) = self.doc.as_mut() {
                     if doc.notes.get(index).is_some_and(|n| n.text != text) {
-                        let mut edit = doc.begin_edit("Edit Note");
+                        let mut edit = doc.begin_edit(t("workspace.history.edit_note"));
                         edit.change_notes(|notes| notes[index].text = text);
                         edit.commit();
                     }
@@ -204,11 +210,11 @@ impl Workspace {
                 }
             }
             _ => {
-                if let (Some((_, text)), Some(t)) =
+                if let (Some((_, text)), Some(typed)) =
                     (self.note_edit.as_mut(), ev.keystroke.key_char.as_deref())
                 {
-                    if !t.is_empty() && !t.chars().any(char::is_control) {
-                        text.push_str(t);
+                    if !typed.is_empty() && !typed.chars().any(char::is_control) {
+                        text.push_str(typed);
                     }
                 }
             }

@@ -1,0 +1,258 @@
+# Deutsch: die modalen Dialoge. Die Begriffe folgen dem deutschen
+# Photoshop (Neues Dokument, Bildgröße, Arbeitsfläche, Ebenenstil,
+# Neu berechnen).
+
+# Von mehreren Dialogen geteilt
+dialog.save_ellipsis = Sichern…
+dialog.use_foreground = Vordergrundfarbe verwenden
+dialog.downloading = Wird geladen…
+dialog.downloading_of = Wird geladen… {got} von {total}
+dialog.no_config_dir = (kein Konfigurationsordner)
+
+# Ebeneneigenschaften
+dialog.layer_props.title = Ebeneneigenschaften
+
+# Exportieren
+dialog.export.format = Format
+dialog.export.dither = Dithering
+dialog.export.dither_note = Beim Reduzieren auf 8 Bit dithern
+dialog.export.export_ellipsis = Exportieren…
+
+# Fotos verarbeiten (der Stapeldialog der Galerie)
+dialog.batch.title = Fotos verarbeiten
+dialog.batch.note_edit.one = {n} Foto — als Galeriebearbeitung gesichert; die Originale werden nie angerührt.
+dialog.batch.note_edit.other = {n} Fotos — als Galeriebearbeitungen gesichert; die Originale werden nie angerührt.
+dialog.batch.note_edit_edited.one = {n} Foto, {edited} bereits bearbeitet — das Rezept kommt auf die Bearbeitung, und die bisherige Bearbeitung bleibt als Version erhalten.
+dialog.batch.note_edit_edited.other = {n} Fotos, {edited} bereits bearbeitet — das Rezept kommt auf die Bearbeitung, und die bisherige Bearbeitung bleibt als Version erhalten.
+dialog.batch.note_copies.one = {n} Foto — flache Kopien; die Originale werden nie angerührt.
+dialog.batch.note_copies.other = {n} Fotos — flache Kopien; die Originale werden nie angerührt.
+dialog.batch.note_copies_edited.one = {n} Foto, {edited} bereits bearbeitet — die Kopien entstehen aus den Bearbeitungen.
+dialog.batch.note_copies_edited.other = {n} Fotos, {edited} bereits bearbeitet — die Kopien entstehen aus den Bearbeitungen.
+dialog.batch.turn = Drehen
+dialog.batch.rotate = Drehung
+dialog.batch.flip = Spiegeln
+dialog.batch.upscale = Hochskalieren
+dialog.batch.colour = Farbe
+dialog.batch.add_adjustment = Korrektur…
+dialog.batch.output = Ausgabe
+dialog.batch.save_as = Sichern als
+dialog.batch.process = Verarbeiten
+dialog.batch.process_n = {n} verarbeiten
+dialog.batch.nothing_to_do = Nichts zu tun: wähle zuerst eine Drehung, ein Hochskalieren oder eine Korrektur
+
+# Inhaltsbasiert skalieren
+dialog.content_aware_scale.title = Inhaltsbasiert skalieren
+dialog.content_aware_scale.note = Entfernt detailarme Nähte. Eine Auswahl markiert, was geschützt wird.
+
+# Kontur (auch die Konturposition im Ebenenstil-Dialog)
+dialog.stroke.title = Kontur
+dialog.stroke.location = Position
+dialog.stroke.inside = Innen
+dialog.stroke.outside = Außen
+dialog.stroke.note = Zeichnet die Kontur der Auswahl in der Vordergrundfarbe.
+
+# Fläche füllen
+dialog.fill.contents = Inhalt
+
+# Farbbereich
+dialog.color_range.title = Farbbereich
+dialog.color_range.sampled = Aufgenommen
+dialog.color_range.fuzziness = Toleranz
+dialog.color_range.note = Wählt auf der aktiven Ebene die Pixel nahe der aufgenommenen Farbe aus.
+
+# Die Dateiauswahl, die Schist selbst zeichnet (Android)
+dialog.file_picker.up = ↑ Nach oben
+dialog.file_picker.empty = Hier ist nichts
+dialog.file_picker.choose_folder = Diesen Ordner wählen
+
+# Filterdialoge
+dialog.filter.camera_raw_development = Camera-Raw-Entwicklung
+dialog.filter.reset_as_shot = Auf „Wie aufgenommen“ zurücksetzen
+dialog.filter.raw_note = Entwickelt die aktive Ebene aus ihren ursprünglichen Sensordaten neu.
+dialog.filter.note = Wirkt auf die aktive Ebene, innerhalb der Auswahl.
+
+# Fehlende Schriften
+dialog.fonts.title = Fehlende Schriften
+dialog.fonts.install_named = {name} installieren
+dialog.fonts.no_document = Es ist kein Dokument geöffnet, also gibt es nichts zu prüfen.
+dialog.fonts.all_installed = Jede Schrift, die dieses Dokument verwendet, ist installiert. Sein Text steht in den Schriften, mit denen er gesetzt wurde.
+dialog.fonts.missing_intro = Dieses Dokument ist in Schriften gesetzt, die du nicht hast. Der Text ist in einer Ersatzschrift lesbar, aber seine Breiten und Zeilenumbrüche sind nicht die, mit denen er gesetzt wurde.
+dialog.fonts.footer = Downloads kommen aus dem offenen Google-Fonts-Katalog und werden in {dir} abgelegt. Eine Schrift, die nicht offen lizenziert ist, wird nie geladen — wo ein metrisch kompatibles freies Design existiert, wird stattdessen dieses angeboten, was das Layout wiederherstellt, weil die Dickten übereinstimmen.
+dialog.fonts.user_font_dir = deinem Schriftenordner
+
+# Neural-Filter-Modelle
+dialog.models.title = Neural-Filter-Modelle
+dialog.models.built_in = Eingebaut · {size}
+dialog.models.installed = Installiert · {size}
+dialog.models.not_installed = Nicht installiert · {size}
+dialog.models.not_in_browser = Im Browser nicht verfügbar · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modelle liegen in {dir}. Filter ohne Modell weichen auf Signalverarbeitung aus und sagen das auch.
+
+# Neues Dokument
+dialog.new_doc.title = Neues Dokument
+dialog.new_doc.picker_title = Neue Datei
+dialog.new_doc.custom_ellipsis = Eigene…
+dialog.new_doc.preset = Vorgabe
+dialog.new_doc.preset_default = Standard (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Quadrat (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px bei {ppi} ppi · {size}
+dialog.new_doc.create = Erstellen
+dialog.new_doc.created = Neues Dokument: {w} × {h} px
+
+# Dateien öffnen: abgelegte Bilder und Ordner, geteilte Dateien, HEIC
+dialog.open.image_title = Bild öffnen
+dialog.open.image_prompt = „{name}“ in einem neuen Tab öffnen oder als neue Ebene zum aktuellen Dokument hinzufügen?
+dialog.open.new_tab = Neuer Tab
+dialog.open.new_layer = Neue Ebene
+dialog.open.quoted = „{name}“
+dialog.open.these_files.one = diese {n} Datei
+dialog.open.these_files.other = diese {n} Dateien
+dialog.open.shared_title_one = Geteiltes Bild
+dialog.open.shared_title_many = Geteilte Bilder
+dialog.open.shared_prompt = {what} zur Galerie hinzufügen oder im Editor öffnen?
+dialog.open.add_to_gallery = Zur Galerie hinzufügen
+dialog.open.open_in_editor = Im Editor öffnen
+dialog.open.heic_title = HEIC-Unterstützung
+dialog.open.heic_needs_decoder = Um „{name}“ zu öffnen, wird ein HEVC-Decoder gebraucht, der auf diesem System nicht installiert ist.
+dialog.open.heic_offer = Schist kann einen reinen Decodier-Build von libheif {version} mit dem HEVC-Decoder libde265 laden (≈5 MB). Beide stehen unter der LGPL-3.0; ihre Lizenztexte werden neben der Bibliothek installiert, und der Quellcode ist auf der Projektseite verfügbar.
+dialog.open.licenses_source = Lizenzen & Quellcode
+dialog.open.folders_title = Abgelegte Ordner
+dialog.open.n_folders.one = {n} Ordner
+dialog.open.n_folders.other = {n} Ordner
+dialog.open.open_in_tabs = In Tabs öffnen
+dialog.open.open_first_in_tabs = Die ersten {n} in Tabs öffnen
+dialog.open.open_n_in_tabs.one = {n} in einem Tab öffnen
+dialog.open.open_n_in_tabs.other = {n} in Tabs öffnen
+dialog.open.folder_holds.one = {what} enthält {n} Bild, das Schist öffnen kann (Unterordner eingeschlossen).
+dialog.open.folder_holds.other = {what} enthält {n} Bilder, die Schist öffnen kann (Unterordner eingeschlossen).
+dialog.open.folders_note = „Zur Galerie hinzufügen“ beobachtet die Ordner an Ort und Stelle — nichts wird kopiert, und Bearbeitungen werden neben jedem Foto versioniert. Das Öffnen in Tabs lädt jedes Bild jetzt in den Editor.
+
+# Plug-ins
+dialog.plugins.title = Plug-ins
+dialog.plugins.kind_filter = Filter
+dialog.plugins.kind_format = Format
+dialog.plugins.kind_unavailable = nicht verfügbar
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Plug-ins werden aus {dir} geladen
+dialog.plugins.none = Noch keine Plug-ins installiert.
+dialog.plugins.install_ellipsis = Installieren…
+dialog.plugins.photoshop_heading = Photoshop-Plug-ins
+dialog.plugins.loaded_from = Geladen aus {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Voreinstellungen
+dialog.prefs.title = Voreinstellungen
+dialog.prefs.theme = Erscheinungsbild
+dialog.prefs.theme_dark = Dunkel
+dialog.prefs.theme_light = Hell
+dialog.prefs.grid_spacing = Rasterabstand
+dialog.prefs.snapping = Ausrichten
+dialog.prefs.snap_to = An Hilfslinien, Raster und Arbeitsflächenrändern ausrichten
+dialog.prefs.rendering_intent = Renderpriorität
+dialog.prefs.intent_perceptual = Perzeptiv
+dialog.prefs.intent_relative = Relativ farbmetrisch
+dialog.prefs.intent_saturation = Sättigung
+dialog.prefs.intent_absolute = Absolut farbmetrisch
+dialog.prefs.scrolling = Scrollen
+dialog.prefs.zoom_with_scroll = Mit dem Scrollrad zoomen
+dialog.prefs.rendering = Rendern
+dialog.prefs.gpu_compositing = GPU-Compositing
+dialog.prefs.diagnostics = Diagnose
+dialog.prefs.crash_reports = Bei einem Absturz einen lokalen Bericht schreiben
+dialog.prefs.crash_upload = Ihn auch an die Entwickler senden
+dialog.prefs.telemetry = Täglich einen anonymen Ping senden
+dialog.prefs.diagnostics_note = Die Diagnose-Einstellungen gelten ab dem nächsten Start von Schist.
+dialog.prefs.updates = Updates
+dialog.prefs.check_updates = Beim Start nach neuen Versionen suchen
+dialog.prefs.keyboard_shortcuts = Tastaturbefehle: {path}
+dialog.prefs.nsfw_needs_model = Benötigt das Modell „Content (NSFW Filter)“ —
+dialog.prefs.nsfw_download_link = unter „Modelle verwalten…“ laden
+dialog.prefs.hide_flagged = Markierte Fotos ausblenden
+
+# Profil zuweisen / In Profil umwandeln
+dialog.profile.profile = Profil
+dialog.profile.assign_title = Profil zuweisen
+dialog.profile.convert_title = In Profil umwandeln
+dialog.profile.assign = Zuweisen
+dialog.profile.convert = Umwandeln
+dialog.profile.assign_note = Deutet die vorhandenen Pixelwerte unter dem neuen Profil neu.
+dialog.profile.convert_note = Rechnet die Pixelwerte um, sodass die Farben ihr Aussehen behalten.
+
+# Bild sichern unter (ein Galeriefoto als flaches Bild)
+dialog.save_image.title = Bild sichern unter
+dialog.save_image.note = {name} — die Bearbeitung, falls es eine gibt; das Original wird nie angerührt.
+dialog.save_image.scale_to = {percent} % → {w} × {h}
+
+# Bildgröße und Arbeitsfläche
+dialog.size.image_title = Bildgröße
+dialog.size.canvas_title = Arbeitsfläche
+dialog.size.constrain = Proportionen
+dialog.size.keep_proportions = Proportionen beibehalten
+dialog.size.resample = Neu berechnen
+dialog.size.bicubic = Bikubisch
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Pixelwiederholung
+dialog.size.anchor = Anker
+dialog.size.currently = Derzeit {w} × {h} px
+dialog.size.image_size_status = Bildgröße: {w} × {h}
+dialog.size.canvas_size_status = Arbeitsfläche: {w} × {h}
+
+# Update verfügbar
+dialog.update.title = Update verfügbar
+dialog.update.available = Schist {version} ist verfügbar. Diese Kopie ist {current}.
+dialog.update.installing = Update wird installiert…
+dialog.update.can_install = Schist kann es laden ({size}) und über diese Kopie installieren.
+dialog.update.external = Diese Kopie stammt von jemandem, dem sie gehört — einem Paketmanager, einem AppImage, einem eigenen Build — und wird deshalb so aktualisiert, wie sie installiert wurde.
+dialog.update.later = Später
+dialog.update.release_notes = Versionshinweise
+dialog.update.update_restart = Aktualisieren und neu starten
+dialog.update.open_page = Release-Seite öffnen
+
+# Ebenenstil: die Effekte (Photoshops Namen) und ihre Regler
+dialog.style.title = Ebenenstil
+dialog.style.bevel = Abgeflachte Kante und Relief
+dialog.style.stroke = Kontur
+dialog.style.inner_shadow = Schatten nach innen
+dialog.style.inner_glow = Schein nach innen
+dialog.style.satin = Glanz
+dialog.style.color_overlay = Farbüberlagerung
+dialog.style.gradient_overlay = Verlaufsüberlagerung
+dialog.style.outer_glow = Schein nach außen
+dialog.style.drop_shadow = Schlagschatten
+dialog.style.blur = Gaußscher Weichzeichner
+dialog.style.gradient_from = Verlaufsüberlagerung von
+dialog.style.gradient_to = Verlaufsüberlagerung bis
+dialog.style.soften = Weichzeichnen
+dialog.style.depth = Tiefe
+dialog.style.altitude = Höhe
+dialog.style.highlight = Lichter
+dialog.style.shadow = Schatten
+dialog.style.outer_bevel = Abgeflachte Kante außen
+dialog.style.inner_bevel = Abgeflachte Kante innen
+dialog.style.emboss = Relief
+dialog.style.pillow_emboss = Kissenrelief
+dialog.style.linear = Linear
+dialog.style.radial = Radial
+dialog.style.reverse = Umkehren
+dialog.style.from_to = Von / Bis
+dialog.style.from_fg = Von = VG
+dialog.style.to_fg = Bis = VG
+dialog.style.precise = Präzise
+dialog.style.knockout = Ebene spart Schlagschatten aus
+
+# Farbwähler
+dialog.color_picker.title = Farbwähler ({what})
+dialog.color_picker.effect_color = Farbe für {effect}
+dialog.color_picker.note_color = Notizfarbe
+dialog.color_picker.new = neu
+dialog.color_picker.current = aktuell
+
+# Der Gradationskurven-Graph
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Kanal zurücksetzen
+dialog.curves.hint = Ziehen formt · Klicken fügt hinzu · Wahltaste-Klick entfernt

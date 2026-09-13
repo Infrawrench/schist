@@ -11,6 +11,7 @@
 //! triangulation.
 
 use schist_core::{Document, IntRect, LayerId, TileMap};
+use schist_i18n::t;
 use schist_plugin_api::{
     EditorState, OptionValue, Overlay, PointerInput, ToolCtx, ToolOption, ToolPlugin,
 };
@@ -233,7 +234,9 @@ impl PuppetWarpTool {
         {
             raster.tiles = session.original.clone();
         }
-        let mut edit = ctx.doc.begin_edit("Puppet Warp");
+        let mut edit = ctx
+            .doc
+            .begin_edit(t("tool.puppet_warp.history.puppet_warp"));
         edit.replace_layer_tiles(session.layer, tiles);
         edit.commit();
     }
@@ -250,11 +253,10 @@ impl ToolPlugin for PuppetWarpTool {
         "puppet_warp"
     }
     fn name(&self) -> &'static str {
-        "Puppet Warp"
+        t("tool.puppet_warp.name")
     }
     fn description(&self) -> &'static str {
-        "Click to pin the layer at a few points, then drag one: the mesh bends around the \
-         pins, stiffly or loosely as the Stiffness option says. Commit applies it."
+        t("tool.puppet_warp.description")
     }
     fn icon(&self) -> &'static str {
         "puppet"
@@ -266,7 +268,7 @@ impl ToolPlugin for PuppetWarpTool {
     fn options(&self) -> Vec<ToolOption> {
         vec![ToolOption::slider(
             "puppet-stiffness",
-            "Stiffness",
+            t("tool.puppet_warp.option.stiffness"),
             self.stiffness,
             0.5,
             3.0,

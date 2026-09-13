@@ -9,10 +9,16 @@
 
 use crate::util::{blur_plane, edges, from_luma, luma_map, put, sample, streak, value_noise};
 use crate::{choice, param, simple_filter};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues};
 
 /// The four stroke directions Photoshop offers, as unit vectors.
-pub const DIRECTIONS: &[&str] = &["Right Diagonal", "Horizontal", "Left Diagonal", "Vertical"];
+pub static DIRECTIONS: &[&str] = &[
+    "filter.choice.direction.right_diagonal",
+    "filter.choice.direction.horizontal",
+    "filter.choice.direction.left_diagonal",
+    "filter.choice.direction.vertical",
+];
 
 pub fn direction_of(pick: f32) -> (f32, f32) {
     match (pick.round().max(0.0) as usize).min(3) {
@@ -26,12 +32,26 @@ pub fn direction_of(pick: f32) -> (f32, f32) {
 simple_filter!(
     AccentedEdges,
     "filter.accented_edges",
-    "Accented Edges",
-    "Brush Strokes",
+    t("filter.accented_edges.name"),
+    t("filter.category.brush_strokes"),
     [
-        param("width", "Edge Width", 1.0, 14.0, 2.0, ""),
-        param("brightness", "Edge Brightness", 0.0, 50.0, 38.0, ""),
-        param("smoothness", "Smoothness", 1.0, 15.0, 5.0, "")
+        param("width", t("filter.param.edge_width"), 1.0, 14.0, 2.0, ""),
+        param(
+            "brightness",
+            t("filter.param.edge_brightness"),
+            0.0,
+            50.0,
+            38.0,
+            ""
+        ),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            15.0,
+            5.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // The edges are picked out in ink: bright ink above the halfway
@@ -64,12 +84,26 @@ simple_filter!(
 simple_filter!(
     AngledStrokes,
     "filter.angled_strokes",
-    "Angled Strokes",
-    "Brush Strokes",
+    t("filter.angled_strokes.name"),
+    t("filter.category.brush_strokes"),
     [
-        param("balance", "Direction Balance", 0.0, 100.0, 50.0, ""),
-        param("length", "Stroke Length", 3.0, 50.0, 15.0, ""),
-        param("sharpness", "Sharpness", 0.0, 10.0, 3.0, "")
+        param(
+            "balance",
+            t("filter.angled_strokes.param.balance"),
+            0.0,
+            100.0,
+            50.0,
+            ""
+        ),
+        param(
+            "length",
+            t("filter.param.stroke_length"),
+            3.0,
+            50.0,
+            15.0,
+            ""
+        ),
+        param("sharpness", t("filter.param.sharpness"), 0.0, 10.0, 3.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Light areas are painted one way and dark areas the other, so
@@ -95,12 +129,19 @@ simple_filter!(
 simple_filter!(
     Crosshatch,
     "filter.crosshatch",
-    "Crosshatch",
-    "Brush Strokes",
+    t("filter.crosshatch.name"),
+    t("filter.category.brush_strokes"),
     [
-        param("length", "Stroke Length", 3.0, 50.0, 9.0, ""),
-        param("sharpness", "Sharpness", 0.0, 20.0, 6.0, ""),
-        param("strength", "Strength", 1.0, 3.0, 1.0, "")
+        param(
+            "length",
+            t("filter.param.stroke_length"),
+            3.0,
+            50.0,
+            9.0,
+            ""
+        ),
+        param("sharpness", t("filter.param.sharpness"), 0.0, 20.0, 6.0, ""),
+        param("strength", t("common.strength"), 1.0, 3.0, 1.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Pencil hatching in both diagonals at once. Taking the darker of
@@ -132,12 +173,33 @@ simple_filter!(
 simple_filter!(
     DarkStrokes,
     "filter.dark_strokes",
-    "Dark Strokes",
-    "Brush Strokes",
+    t("filter.dark_strokes.name"),
+    t("filter.category.brush_strokes"),
     [
-        param("balance", "Balance", 0.0, 10.0, 5.0, ""),
-        param("black", "Black Intensity", 0.0, 10.0, 6.0, ""),
-        param("white", "White Intensity", 0.0, 10.0, 2.0, "")
+        param(
+            "balance",
+            t("filter.dark_strokes.param.balance"),
+            0.0,
+            10.0,
+            5.0,
+            ""
+        ),
+        param(
+            "black",
+            t("filter.dark_strokes.param.black"),
+            0.0,
+            10.0,
+            6.0,
+            ""
+        ),
+        param(
+            "white",
+            t("filter.dark_strokes.param.white"),
+            0.0,
+            10.0,
+            2.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Short strokes, black in the shadows and white in the
@@ -166,12 +228,33 @@ simple_filter!(
 simple_filter!(
     InkOutlines,
     "filter.ink_outlines",
-    "Ink Outlines",
-    "Brush Strokes",
+    t("filter.ink_outlines.name"),
+    t("filter.category.brush_strokes"),
     [
-        param("length", "Stroke Length", 1.0, 50.0, 4.0, ""),
-        param("dark", "Dark Intensity", 0.0, 50.0, 20.0, ""),
-        param("light", "Light Intensity", 0.0, 50.0, 10.0, "")
+        param(
+            "length",
+            t("filter.param.stroke_length"),
+            1.0,
+            50.0,
+            4.0,
+            ""
+        ),
+        param(
+            "dark",
+            t("filter.ink_outlines.param.dark"),
+            0.0,
+            50.0,
+            20.0,
+            ""
+        ),
+        param(
+            "light",
+            t("filter.param.light_intensity"),
+            0.0,
+            50.0,
+            10.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // A pen drawing over the photograph: fine ink lines where the
@@ -199,11 +282,25 @@ simple_filter!(
 simple_filter!(
     Spatter,
     "filter.spatter",
-    "Spatter",
-    "Brush Strokes",
+    t("filter.spatter.name"),
+    t("filter.category.brush_strokes"),
     [
-        param("radius", "Spray Radius", 0.0, 25.0, 10.0, ""),
-        param("smoothness", "Smoothness", 1.0, 15.0, 5.0, "")
+        param(
+            "radius",
+            t("filter.param.spray_radius"),
+            0.0,
+            25.0,
+            10.0,
+            ""
+        ),
+        param(
+            "smoothness",
+            t("filter.param.smoothness"),
+            1.0,
+            15.0,
+            5.0,
+            ""
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // An airbrush spitting: every pixel is fetched from somewhere
@@ -236,12 +333,24 @@ simple_filter!(
 simple_filter!(
     SprayedStrokes,
     "filter.sprayed_strokes",
-    "Sprayed Strokes",
-    "Brush Strokes",
+    t("filter.sprayed_strokes.name"),
+    t("filter.category.brush_strokes"),
     [
-        param("length", "Stroke Length", 0.0, 20.0, 12.0, ""),
-        param("radius", "Spray Radius", 0.0, 25.0, 7.0, ""),
-        choice("direction", "Stroke Direction", DIRECTIONS, 0)
+        param(
+            "length",
+            t("filter.param.stroke_length"),
+            0.0,
+            20.0,
+            12.0,
+            ""
+        ),
+        param("radius", t("filter.param.spray_radius"), 0.0, 25.0, 7.0, ""),
+        choice(
+            "direction",
+            t("filter.param.stroke_direction"),
+            choices(DIRECTIONS),
+            0
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Spatter with a grain to it: the jitter runs along the chosen
@@ -268,12 +377,19 @@ simple_filter!(
 simple_filter!(
     SumiE,
     "filter.sumi_e",
-    "Sumi-e",
-    "Brush Strokes",
+    t("filter.sumi_e.name"),
+    t("filter.category.brush_strokes"),
     [
-        param("width", "Stroke Width", 3.0, 15.0, 10.0, ""),
-        param("pressure", "Stroke Pressure", 0.0, 15.0, 2.0, ""),
-        param("contrast", "Contrast", 0.0, 40.0, 16.0, "")
+        param("width", t("filter.sumi_e.param.width"), 3.0, 15.0, 10.0, ""),
+        param(
+            "pressure",
+            t("filter.param.stroke_pressure"),
+            0.0,
+            15.0,
+            2.0,
+            ""
+        ),
+        param("contrast", t("common.contrast"), 0.0, 40.0, 16.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Ink on wet rice paper: a loaded brush, very few tones, and the

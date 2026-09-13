@@ -3,6 +3,7 @@
 //! Filter Gallery.
 
 use super::*;
+use schist_i18n::{t, t_in, Locale};
 
 impl Workspace {
     /// Rasterize the active path: fill it, stroke it, or turn it into a
@@ -10,12 +11,12 @@ impl Workspace {
     pub fn use_active_path(&mut self, op: PathOp, cx: &mut Context<Self>) {
         let Some(doc) = self.doc.as_ref() else { return };
         let Some(path) = doc.active_path.and_then(|i| doc.paths.get(i)).cloned() else {
-            self.status = "No path to use".into();
+            self.status = t("workspace.canvas.no_path").into();
             cx.notify();
             return;
         };
         if path.is_empty() {
-            self.status = "The path is empty".into();
+            self.status = t("workspace.canvas.path_empty").into();
             cx.notify();
             return;
         }
@@ -30,7 +31,7 @@ impl Workspace {
                     &flat,
                     colour,
                     schist_vector::FillRule::NonZero,
-                    "Fill Path",
+                    op.title(),
                 );
             }
             PathOp::Stroke => {
@@ -45,14 +46,14 @@ impl Workspace {
                     &stroked,
                     colour,
                     schist_vector::FillRule::NonZero,
-                    "Stroke Path",
+                    op.title(),
                 );
             }
             PathOp::Select => {
                 let rect = flat.bounds();
                 let mask = schist_vector::rasterize(&flat, rect, schist_vector::FillRule::NonZero);
                 let w = rect.width().max(0) as usize;
-                let mut edit = doc.begin_edit("Make Selection");
+                let mut edit = doc.begin_edit(op.title());
                 edit.change_selection(|sel, _| {
                     sel.deselect();
                     sel.activate();
@@ -88,7 +89,7 @@ impl Workspace {
         let colour = self.editor.foreground;
         let Some(doc) = self.doc.as_mut() else { return };
         if doc.selection.is_empty() {
-            self.status = "Stroke needs a selection".into();
+            self.status = t("workspace.canvas.stroke_needs_selection").into();
             cx.notify();
             return;
         }
@@ -117,11 +118,11 @@ impl Workspace {
         }
         let rect = band.bounds().intersect(&canvas);
         if rect.is_empty() {
-            self.status = "Nothing to stroke".into();
+            self.status = t("workspace.canvas.nothing_to_stroke").into();
             cx.notify();
             return;
         }
-        let mut edit = doc.begin_edit("Stroke");
+        let mut edit = doc.begin_edit(t("workspace.history.stroke"));
         for coord in TileCoord::covering(&rect) {
             let trect = coord.rect();
             let clip = trect.intersect(&rect);
@@ -151,7 +152,7 @@ impl Workspace {
             }
         }
         edit.commit();
-        self.status = "Stroke".into();
+        self.status = t("workspace.history.stroke").into();
         self.after_change(cx);
     }
 
@@ -182,7 +183,7 @@ impl Workspace {
             return;
         }
         let selection = doc.selection.clone();
-        let mut edit = doc.begin_edit("Fill");
+        let mut edit = doc.begin_edit(t("workspace.history.fill"));
         for coord in TileCoord::covering(&rect) {
             let trect = coord.rect();
             let clip = trect.intersect(&rect);
@@ -212,7 +213,7 @@ impl Workspace {
             }
         }
         edit.commit();
-        self.status = "Fill".into();
+        self.status = t("workspace.history.fill").into();
         self.after_change(cx);
     }
 
@@ -220,7 +221,7 @@ impl Workspace {
     pub fn content_aware_fill(&mut self, cx: &mut Context<Self>) {
         let Some(doc) = self.doc.as_mut() else { return };
         if doc.selection.is_empty() {
-            self.status = "Content-Aware Fill needs a selection".into();
+            self.status = t("workspace.canvas.content_aware_fill_needs_selection").into();
             cx.notify();
             return;
         }
@@ -243,7 +244,7 @@ impl Workspace {
             .and_then(|l| l.as_raster())
             .map(|r| r.tiles.clone())
         else {
-            self.status = "Content-Aware Fill needs a pixel layer".into();
+            self.status = t("workspace.canvas.content_aware_fill_needs_pixel_layer").into();
             cx.notify();
             return;
         };
@@ -257,7 +258,7 @@ impl Workspace {
             }
         }
         let filled = schist_tools_retouch::inpaint(&tiles, rect, &hole);
-        let mut edit = doc.begin_edit("Content-Aware Fill");
+        let mut edit = doc.begin_edit(t("menu.edit.content_aware_fill"));
         for coord in TileCoord::covering(&rect) {
             let trect = coord.rect();
             let clip = trect.intersect(&rect);
@@ -289,7 +290,7 @@ impl Workspace {
             }
         }
         edit.commit();
-        self.status = "Content-Aware Fill".into();
+        self.status = t("menu.edit.content_aware_fill").into();
         self.after_change(cx);
     }
 
@@ -322,14 +323,14 @@ impl Workspace {
                 img.into_tiles(IntRect::from_size(width, height), depth),
             ));
         }
-        let mut edit = doc.begin_edit("Content-Aware Scale");
+        let mut edit = doc.begin_edit(t("workspace.history.content_aware_scale"));
         for (id, tiles) in carved {
             edit.replace_layer_tiles(id, tiles);
         }
         edit.set_canvas_size(width, height);
         edit.change_selection(|sel, _| sel.deselect());
         edit.commit();
-        self.status = "Content-Aware Scale".into();
+        self.status = t("workspace.history.content_aware_scale").into();
         self.fit_to_view();
         self.after_change(cx);
     }
@@ -344,7 +345,7 @@ impl Workspace {
         let first = self
             .registry
             .filters()
-            .find(|f| f.category() == "Stylize")
+            .find(|f| f.category() == t_in(Locale::En, "filter.category.stylize"))
             .or_else(|| self.registry.filters().find(|f| !f.runs_out_of_process()));
         let stack = first
             .map(|f| {
@@ -426,10 +427,10 @@ impl Workspace {
             preview.region,
             &preview.original,
             &buf,
-            "Filter Gallery",
+            t("workspace.history.filter_gallery"),
             true,
         );
-        self.status = "Filter Gallery".into();
+        self.status = t("workspace.history.filter_gallery").into();
         self.after_change(cx);
     }
 }

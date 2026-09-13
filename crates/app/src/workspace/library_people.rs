@@ -12,6 +12,7 @@
 use super::library::{PersonFilter, ViewImage, Viewer, AVATAR_PX, VIEW_EDGE};
 use super::*;
 use schist_gallery::*;
+use schist_i18n::tf;
 use std::path::Path;
 
 /// The two models the People album runs on — the detector that finds
@@ -220,9 +221,8 @@ impl Workspace {
             return;
         };
         self.status = match followed {
-            0 => format!("Named {name}"),
-            1 => format!("Named {name} \u{b7} 1 more face matched automatically"),
-            n => format!("Named {name} \u{b7} {n} more faces matched automatically"),
+            0 => tf!("library.people.named", name = name),
+            n => schist_i18n::tn!("library.people.named_followed", n as u64, name = name),
         }
         .into();
     }

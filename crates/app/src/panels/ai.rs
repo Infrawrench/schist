@@ -11,6 +11,7 @@
 use super::*;
 use crate::ai::{AiEntryKind, Backend};
 use gpui::AnyElement;
+use schist_i18n::t;
 use schist_ui::DropdownButton;
 
 /// Errors get a colour of their own; the palette has no failure red
@@ -43,7 +44,7 @@ fn header(cx: &mut Context<Workspace>) -> impl IntoElement {
         .items_center()
         .justify_between()
         .p_2()
-        .child(panel_title("AI"))
+        .child(panel_title(t("panel.ai.title")))
         .child(
             div()
                 .flex()
@@ -100,13 +101,9 @@ fn transcript(ws: &mut Workspace) -> impl IntoElement {
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(palette().text_faint))
                 .child(if ws.gallery_open() {
-                    "Ask about your photos and watch it happen in the gallery: \
-                     the agent can search, look at thumbnails, select, sort \
-                     into buckets, and open a photo in the editor."
+                    t("panel.ai.empty_gallery")
                 } else {
-                    "Ask for an edit and watch it happen on the canvas. \
-                     The agent drives the same tools, filters and commands \
-                     as the menus, one undo step each."
+                    t("panel.ai.empty_editor")
                 })
         }))
         .children(
@@ -115,7 +112,7 @@ fn transcript(ws: &mut Workspace) -> impl IntoElement {
                     div()
                         .text_size(px(11.0))
                         .text_color(gpui::rgb(palette().text_faint))
-                        .child("thinking…")
+                        .child(t("panel.ai.thinking"))
                 }),
         )
 }
@@ -191,9 +188,9 @@ fn prompt_box(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
                 .multiline()
                 .active(editing)
                 .placeholder(if ws.gallery_open() {
-                    "Ask about your photos"
+                    t("panel.ai.placeholder_gallery")
                 } else {
-                    "Ask about or edit this document"
+                    t("panel.ai.placeholder_editor")
                 })
                 .min_h(px(44.0))
                 .on_focus(cx.listener(|ws, _e, _w, cx| {
@@ -209,9 +206,11 @@ fn prompt_box(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
                 .justify_between()
                 .child(model_chip(ws, cx))
                 .child(if running {
-                    ui::button("Stop", false, |ws, _w, cx| ws.ai_stop(cx), cx).into_any_element()
+                    ui::button(t("panel.ai.stop"), false, |ws, _w, cx| ws.ai_stop(cx), cx)
+                        .into_any_element()
                 } else {
-                    ui::button("Send", true, |ws, _w, cx| ws.ai_send(cx), cx).into_any_element()
+                    ui::button(t("panel.ai.send"), true, |ws, _w, cx| ws.ai_send(cx), cx)
+                        .into_any_element()
                 }),
         )
 }
@@ -240,9 +239,9 @@ fn model_menu(ws: &Workspace, cx: &mut Context<Workspace>) -> AnyElement {
 
     let entries = ws.ai_menu_entries();
     let rows: Vec<AnyElement> = if fetching && entries.is_empty() {
-        vec![menu_note("Asking the CLI for its models…")]
+        vec![menu_note(t("panel.ai.fetching_models"))]
     } else if entries.is_empty() {
-        vec![menu_note("No models match")]
+        vec![menu_note(t("panel.ai.no_models"))]
     } else {
         entries
             .into_iter()
@@ -397,7 +396,7 @@ fn model_menu(ws: &Workspace, cx: &mut Context<Workspace>) -> AnyElement {
                             .child(SharedString::from(if searching {
                                 format!("{search}|")
                             } else {
-                                "Search models…|".to_string()
+                                format!("{}|", t("panel.ai.search_models"))
                             })),
                     ),
             )

@@ -8,6 +8,7 @@
 
 use schist_color::Rgba;
 use schist_core::{Document, IntRect, LayerId, TileCoord, TileMap, TILE_SIZE};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{
     EditorState, OptionValue, Overlay, PointerInput, ToolCtx, ToolOption, ToolPlugin,
 };
@@ -248,11 +249,10 @@ impl ToolPlugin for VanishingPointTool {
         "vanishing_point"
     }
     fn name(&self) -> &'static str {
-        "Vanishing Point"
+        t("tool.vanishing_point.name")
     }
     fn description(&self) -> &'static str {
-        "Drag out a plane over something with perspective in it, then switch the mode to \
-         Clone and paint: the copied pixels follow the plane, shrinking with distance."
+        t("tool.vanishing_point.description")
     }
     fn icon(&self) -> &'static str {
         "vanishing-point"
@@ -265,14 +265,17 @@ impl ToolPlugin for VanishingPointTool {
         vec![
             ToolOption::choice(
                 "vp-phase",
-                "Mode",
-                &["Edit Plane", "Clone"],
+                t("common.mode"),
+                choices(&[
+                    "tool.vanishing_point.choice.edit_plane",
+                    "tool.vanishing_point.choice.clone",
+                ]),
                 match self.phase {
                     Phase::DefinePlane => 0,
                     Phase::Clone => 1,
                 },
             ),
-            ToolOption::slider("vp-size", "Size", self.size, 10.0, 400.0, " px"),
+            ToolOption::slider("vp-size", t("common.size"), self.size, 10.0, 400.0, " px"),
         ]
     }
 
@@ -387,7 +390,9 @@ impl ToolPlugin for VanishingPointTool {
                 if let Some(raster) = ctx.doc.tree.find_mut(id).and_then(|l| l.as_raster_mut()) {
                     raster.tiles = snapshot;
                 }
-                let mut edit = ctx.doc.begin_edit("Vanishing Point");
+                let mut edit = ctx
+                    .doc
+                    .begin_edit(t("tool.vanishing_point.history.vanishing_point"));
                 edit.replace_layer_tiles(id, after);
                 edit.commit();
             }

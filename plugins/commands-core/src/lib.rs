@@ -5,6 +5,7 @@
 use schist_core::{
     blit_rgba8, Document, IntRect, Layer, LayerId, LayerKind, LayerPath, TileCoord, TILE_SIZE,
 };
+use schist_i18n::{t, tf};
 use schist_plugin_api::{
     ClipboardImage, Command, CommandCtx, CommandPlugin, PluginManifest, PluginRegistry,
 };
@@ -35,7 +36,7 @@ fn cmd(
 /// tolerance, which is what `state.tolerance` carries.
 fn grow_selection(ctx: &mut CommandCtx, contiguous: bool) {
     if ctx.doc.selection.is_empty() {
-        ctx.refuse("Select something first");
+        ctx.refuse(t("common.select_something_first"));
         return;
     }
     let canvas = ctx.doc.canvas_rect();
@@ -121,7 +122,11 @@ fn grow_selection(ctx: &mut CommandCtx, contiguous: bool) {
     if out.is_empty() {
         return;
     }
-    let name = if contiguous { "Grow" } else { "Similar" };
+    let name = if contiguous {
+        t("command.history.grow")
+    } else {
+        t("command.history.similar")
+    };
     let mut edit = ctx.doc.begin_edit(name);
     edit.change_selection(|sel, _| {
         for (x, y) in &out {
@@ -159,7 +164,9 @@ fn reid(layer: &mut Layer) {
 
 /// Why copy and cut decline: no active layer, or one made of something
 /// other than pixels.
-const NOTHING_TO_COPY: &str = "Select a pixel layer to copy from";
+fn nothing_to_copy() -> &'static str {
+    t("command.msg.nothing_to_copy")
+}
 
 /// Copy the active layer's pixels within the selection to a ClipboardImage.
 fn copy_pixels(doc: &Document, merged: bool) -> Option<ClipboardImage> {
@@ -223,7 +230,7 @@ fn clear_selection(ctx: &mut CommandCtx) {
         return;
     }
     let selection = ctx.doc.selection.clone();
-    let mut edit = ctx.doc.begin_edit("Clear");
+    let mut edit = ctx.doc.begin_edit(t("command.history.clear"));
     for coord in TileCoord::covering(&bounds) {
         let trect = coord.rect();
         let clip = trect.intersect(&bounds);
@@ -255,7 +262,7 @@ fn merge_down(ctx: &mut CommandCtx) {
     };
     let ix = *path.0.last().unwrap();
     if ix == 0 {
-        ctx.refuse("No layer below to merge into");
+        ctx.refuse(t("command.layer.merge_down.msg.no_layer_below"));
         return;
     }
     let mut below_path = path.clone();
@@ -305,7 +312,7 @@ fn merge_down(ctx: &mut CommandCtx) {
         }
         layers[ix - 1].id
     };
-    let mut edit = ctx.doc.begin_edit("Merge Down");
+    let mut edit = ctx.doc.begin_edit(t("command.history.merge_down"));
     edit.remove_layer(id);
     edit.remove_layer(below_id);
     edit.insert_layer(below_path, merged);
@@ -343,7 +350,11 @@ fn merge_all(ctx: &mut CommandCtx, flatten: bool) {
             px[3] = 255;
         }
     }
-    let name = if flatten { "Background" } else { "Merged" };
+    let name = if flatten {
+        t("common.background_layer")
+    } else {
+        t("common.merged")
+    };
     let mut merged = Layer::new_raster(name);
     blit_rgba8(
         &mut merged.as_raster_mut().unwrap().tiles,
@@ -363,9 +374,9 @@ fn merge_all(ctx: &mut CommandCtx, flatten: bool) {
         .map(|l| l.id)
         .collect();
     let title = if flatten {
-        "Flatten Image"
+        t("command.history.flatten_image")
     } else {
-        "Merge Visible"
+        t("command.history.merge_visible")
     };
     let mut edit = ctx.doc.begin_edit(title);
     for id in doomed {
@@ -379,7 +390,7 @@ fn merge_all(ctx: &mut CommandCtx, flatten: bool) {
 
 fn paste(ctx: &mut CommandCtx, in_place: bool) {
     let Some(clip) = ctx.state.clipboard.clone() else {
-        ctx.refuse("Nothing on the clipboard");
+        ctx.refuse(t("command.msg.clipboard_empty"));
         return;
     };
     let rect = if in_place {
@@ -395,7 +406,7 @@ fn paste(ctx: &mut CommandCtx, in_place: bool) {
             clip.rect.height() as u32,
         )
     };
-    let mut layer = Layer::new_raster("Pasted Layer");
+    let mut layer = Layer::new_raster(t("command.edit.paste.layer_name"));
     blit_rgba8(
         &mut layer.as_raster_mut().unwrap().tiles,
         ctx.doc.depth,
@@ -404,7 +415,7 @@ fn paste(ctx: &mut CommandCtx, in_place: bool) {
     );
     let id = layer.id;
     let path = insert_path_above_active(ctx.doc);
-    let mut edit = ctx.doc.begin_edit("Paste");
+    let mut edit = ctx.doc.begin_edit(t("command.history.paste"));
     edit.insert_layer(path, layer);
     edit.commit();
     ctx.doc.active_layer = Some(id);
@@ -429,7 +440,7 @@ fn fill_selection(ctx: &mut CommandCtx, background: bool) {
         return;
     }
     let selection = ctx.doc.selection.clone();
-    let mut edit = ctx.doc.begin_edit("Fill");
+    let mut edit = ctx.doc.begin_edit(t("command.history.fill"));
     for coord in TileCoord::covering(&bounds) {
         let trect = coord.rect();
         let clip = trect.intersect(&bounds);
@@ -458,86 +469,117 @@ impl CommandPlugin for CoreCommandsPlugin {
     fn commands(&self) -> Vec<Command> {
         vec![
             // --- Edit ---
-            cmd("edit.undo", "Undo",
-                "Step back one entry in the document's undo history.", Some("cmd-z"), |ctx| {
-                ctx.doc.undo();
-            }),
-            cmd("edit.redo", "Redo",
-                "Redo the edit that was last undone.", Some("cmd-shift-z"), |ctx| {
-                ctx.doc.redo();
-            }),
-            cmd("edit.copy", "Copy",
-                "Copy the active layer's selected pixels to the internal clipboard (the whole layer when nothing is selected).", Some("cmd-c"), |ctx| {
-                match copy_pixels(ctx.doc, false) {
-                    Some(clip) => ctx.state.clipboard = Some(Arc::new(clip)),
-                    // Saying nothing while the clipboard kept its previous
-                    // contents read as "copied", and the next paste looked
-                    // like it had pasted the wrong thing.
-                    None => ctx.refuse(NOTHING_TO_COPY),
-                }
-            }),
+            cmd(
+                "edit.undo",
+                t("command.edit.undo.title"),
+                t("command.edit.undo.description"),
+                Some("cmd-z"),
+                |ctx| {
+                    ctx.doc.undo();
+                },
+            ),
+            cmd(
+                "edit.redo",
+                t("command.edit.redo.title"),
+                t("command.edit.redo.description"),
+                Some("cmd-shift-z"),
+                |ctx| {
+                    ctx.doc.redo();
+                },
+            ),
+            cmd(
+                "edit.copy",
+                t("command.edit.copy.title"),
+                t("command.edit.copy.description"),
+                Some("cmd-c"),
+                |ctx| {
+                    match copy_pixels(ctx.doc, false) {
+                        Some(clip) => ctx.state.clipboard = Some(Arc::new(clip)),
+                        // Saying nothing while the clipboard kept its previous
+                        // contents read as "copied", and the next paste looked
+                        // like it had pasted the wrong thing.
+                        None => ctx.refuse(nothing_to_copy()),
+                    }
+                },
+            ),
             cmd(
                 "edit.copy_merged",
-                "Copy Merged",
-                "Copy the selection as every visible layer composites it, rather than from the active layer alone.",
+                t("command.edit.copy_merged.title"),
+                t("command.edit.copy_merged.description"),
                 Some("cmd-shift-c"),
                 |ctx| match copy_pixels(ctx.doc, true) {
                     Some(clip) => ctx.state.clipboard = Some(Arc::new(clip)),
-                    None => ctx.refuse(NOTHING_TO_COPY),
+                    None => ctx.refuse(nothing_to_copy()),
                 },
             ),
-            cmd("edit.cut", "Cut",
-                "Copy the selected pixels to the clipboard and erase them from the active layer.", Some("cmd-x"), |ctx| {
-                match copy_pixels(ctx.doc, false) {
+            cmd(
+                "edit.cut",
+                t("command.edit.cut.title"),
+                t("command.edit.cut.description"),
+                Some("cmd-x"),
+                |ctx| match copy_pixels(ctx.doc, false) {
                     Some(clip) => {
                         ctx.state.clipboard = Some(Arc::new(clip));
                         clear_selection(ctx);
                     }
-                    None => ctx.refuse(NOTHING_TO_COPY),
-                }
-            }),
-            cmd("edit.paste", "Paste",
-                "Paste the clipboard into a new layer above the active one, centred on the canvas.", Some("cmd-v"), |ctx| {
-                paste(ctx, false)
-            }),
+                    None => ctx.refuse(nothing_to_copy()),
+                },
+            ),
+            cmd(
+                "edit.paste",
+                t("command.edit.paste.title"),
+                t("command.edit.paste.description"),
+                Some("cmd-v"),
+                |ctx| paste(ctx, false),
+            ),
             cmd(
                 "edit.paste_in_place",
-                "Paste in Place",
-                "Paste the clipboard into a new layer at the coordinates it was copied from.",
+                t("command.edit.paste_in_place.title"),
+                t("command.edit.paste_in_place.description"),
                 Some("cmd-shift-v"),
                 |ctx| paste(ctx, true),
             ),
             cmd(
                 "edit.fill_foreground",
-                "Fill with Foreground",
-                "Fill the selection (or the whole canvas when nothing is selected) with the foreground colour.",
+                t("command.edit.fill_foreground.title"),
+                t("command.edit.fill_foreground.description"),
                 Some("alt-backspace"),
                 |ctx| fill_selection(ctx, false),
             ),
             cmd(
                 "edit.fill_background",
-                "Fill with Background",
-                "Fill the selection (or the whole canvas when nothing is selected) with the background colour.",
+                t("command.edit.fill_background.title"),
+                t("command.edit.fill_background.description"),
                 Some("cmd-backspace"),
                 |ctx| fill_selection(ctx, true),
             ),
             // --- Select ---
-            cmd("select.all", "Select All",
-                "Select the entire canvas.", Some("cmd-a"), |ctx| {
-                let mut edit = ctx.doc.begin_edit("Select All");
-                edit.change_selection(|sel, canvas| sel.select_all(canvas));
-                edit.commit();
-            }),
-            cmd("select.deselect", "Deselect",
-                "Drop the selection, so edits apply to the whole layer again.", Some("cmd-d"), |ctx| {
-                let mut edit = ctx.doc.begin_edit("Deselect");
-                edit.change_selection(|sel, _| sel.deselect());
-                edit.commit();
-            }),
+            cmd(
+                "select.all",
+                t("command.select.all.title"),
+                t("command.select.all.description"),
+                Some("cmd-a"),
+                |ctx| {
+                    let mut edit = ctx.doc.begin_edit(t("command.history.select_all"));
+                    edit.change_selection(|sel, canvas| sel.select_all(canvas));
+                    edit.commit();
+                },
+            ),
+            cmd(
+                "select.deselect",
+                t("command.select.deselect.title"),
+                t("command.select.deselect.description"),
+                Some("cmd-d"),
+                |ctx| {
+                    let mut edit = ctx.doc.begin_edit(t("command.history.deselect"));
+                    edit.change_selection(|sel, _| sel.deselect());
+                    edit.commit();
+                },
+            ),
             cmd(
                 "select.inverse",
-                "Select Inverse",
-                "Swap selected and unselected areas.",
+                t("command.select.inverse.title"),
+                t("command.select.inverse.description"),
                 Some("cmd-shift-i"),
                 |ctx| {
                     // Nothing selected means nothing to invert; without
@@ -546,46 +588,55 @@ impl CommandPlugin for CoreCommandsPlugin {
                     if ctx.doc.selection.is_empty() {
                         return;
                     }
-                    let mut edit = ctx.doc.begin_edit("Select Inverse");
+                    let mut edit = ctx.doc.begin_edit(t("command.history.select_inverse"));
                     edit.change_selection(|sel, canvas| sel.invert(canvas));
                     edit.commit();
                 },
             ),
             // --- Layer ---
-            cmd("layer.new", "New Layer",
-                "Add an empty raster layer above the active one and make it active.", Some("cmd-shift-n"), |ctx| {
-                let path = insert_path_above_active(ctx.doc);
-                let n = ctx.doc.tree.len() + 1;
-                let mut layer = Layer::new_raster(format!("Layer {n}"));
-                layer.name = format!("Layer {n}");
-                let id = layer.id;
-                let mut edit = ctx.doc.begin_edit("New Layer");
-                edit.insert_layer(path, layer);
-                edit.commit();
-                ctx.doc.active_layer = Some(id);
-            }),
-            cmd("layer.duplicate", "Duplicate Layer",
-                "Copy the active layer, contents and all, onto a new layer above it.", Some("cmd-j"), |ctx| {
-                let Some(id) = ctx.doc.active_layer else {
-                    return;
-                };
-                let Some(src) = ctx.doc.tree.find(id) else {
-                    return;
-                };
-                let mut copy = src.clone();
-                copy.name = format!("{} copy", copy.name);
-                reid(&mut copy);
-                let new_id = copy.id;
-                let path = insert_path_above_active(ctx.doc);
-                let mut edit = ctx.doc.begin_edit("Duplicate Layer");
-                edit.insert_layer(path, copy);
-                edit.commit();
-                ctx.doc.active_layer = Some(new_id);
-            }),
+            cmd(
+                "layer.new",
+                t("command.layer.new.title"),
+                t("command.layer.new.description"),
+                Some("cmd-shift-n"),
+                |ctx| {
+                    let path = insert_path_above_active(ctx.doc);
+                    let n = ctx.doc.tree.len() + 1;
+                    let layer = Layer::new_raster(tf!("common.layer_n", n = n));
+                    let id = layer.id;
+                    let mut edit = ctx.doc.begin_edit(t("command.history.new_layer"));
+                    edit.insert_layer(path, layer);
+                    edit.commit();
+                    ctx.doc.active_layer = Some(id);
+                },
+            ),
+            cmd(
+                "layer.duplicate",
+                t("command.layer.duplicate.title"),
+                t("command.layer.duplicate.description"),
+                Some("cmd-j"),
+                |ctx| {
+                    let Some(id) = ctx.doc.active_layer else {
+                        return;
+                    };
+                    let Some(src) = ctx.doc.tree.find(id) else {
+                        return;
+                    };
+                    let mut copy = src.clone();
+                    copy.name = tf!("common.copy_suffix", name = copy.name);
+                    reid(&mut copy);
+                    let new_id = copy.id;
+                    let path = insert_path_above_active(ctx.doc);
+                    let mut edit = ctx.doc.begin_edit(t("command.history.duplicate_layer"));
+                    edit.insert_layer(path, copy);
+                    edit.commit();
+                    ctx.doc.active_layer = Some(new_id);
+                },
+            ),
             cmd(
                 "layer.smart_object",
-                "Convert to Smart Object",
-                "Wrap the active raster layer's pixels in a smart object, so later transforms and filters resample the untouched source.",
+                t("command.layer.smart_object.title"),
+                t("command.layer.smart_object.description"),
                 None,
                 |ctx| {
                     let Some(id) = ctx.doc.active_layer else {
@@ -604,152 +655,214 @@ impl CommandPlugin for CoreCommandsPlugin {
                     // source; what is on the canvas does not change.
                     let so =
                         schist_core::SmartObject::wrap(raster.tiles.clone(), layer.name.clone());
-                    let mut edit = ctx.doc.begin_edit("Convert to Smart Object");
+                    let mut edit = ctx
+                        .doc
+                        .begin_edit(t("command.history.convert_to_smart_object"));
                     edit.set_smart_object(id, Some(Box::new(so)));
                     edit.commit();
                 },
             ),
-            cmd("layer.rasterize", "Rasterize Layer",
-                "Bake a shape, text or smart-object layer down to plain pixels.", None, |ctx| {
-                let Some(id) = ctx.doc.active_layer else {
-                    return;
-                };
-                if ctx
-                    .doc
-                    .tree
-                    .find(id)
-                    .and_then(|l| l.smart.as_ref())
-                    .is_none()
-                {
-                    return;
-                }
-                // Drop the source; the rendered pixels stay exactly as they
-                // are, so this is only a loss of future editability.
-                let mut edit = ctx.doc.begin_edit("Rasterize Layer");
-                edit.set_smart_object(id, None);
-                edit.commit();
-            }),
-            cmd("layer.delete", "Delete Layer",
-                "Delete the selected layers.", None, |ctx| {
-                // Deletes the panel's whole multi-selection as one edit.
-                let ids = selection_roots(ctx.doc);
-                if ids.is_empty() {
-                    return;
-                }
-                let mut edit = ctx.doc.begin_edit(if ids.len() > 1 {
-                    "Delete Layers"
-                } else {
-                    "Delete Layer"
-                });
-                for id in ids {
-                    edit.remove_layer(id);
-                }
-                edit.commit();
-            }),
-            cmd("layer.group", "Group Layers",
-                "Wrap the selected layers in a new group, in place.", Some("cmd-g"), |ctx| {
-                // Wraps the selected layers in a group, which lands where
-                // the topmost of them was.
-                let ids = selection_roots(ctx.doc);
-                let Some(mut insert) = ids.first().and_then(|&id| ctx.doc.tree.path_of(id)) else {
-                    return;
-                };
-                let mut group = Layer::new_group("Group");
-                let group_id = group.id;
-                let mut edit = ctx.doc.begin_edit(if ids.len() > 1 {
-                    "Group Layers"
-                } else {
-                    "Group Layer"
-                });
-                let mut children = Vec::new();
-                for id in ids {
-                    let Some(path) = edit.doc().tree.path_of(id) else {
-                        continue;
+            cmd(
+                "layer.rasterize",
+                t("command.layer.rasterize.title"),
+                t("command.layer.rasterize.description"),
+                None,
+                |ctx| {
+                    let Some(id) = ctx.doc.active_layer else {
+                        return;
                     };
-                    let Some(layer) = ctx_remove(&mut edit, id) else {
-                        continue;
-                    };
-                    children.push(layer);
-                    // A removal earlier in the same sibling vec shifts the
-                    // insertion slot down by one.
-                    let d = path.0.len() - 1;
-                    if insert.0.len() > d && insert.0[..d] == path.0[..d] && insert.0[d] > path.0[d]
+                    if ctx
+                        .doc
+                        .tree
+                        .find(id)
+                        .and_then(|l| l.smart.as_ref())
+                        .is_none()
                     {
-                        insert.0[d] -= 1;
+                        return;
                     }
-                }
-                if !children.is_empty() {
-                    // Collected topmost first; children are stored
-                    // bottom-to-top.
-                    children.reverse();
-                    if let LayerKind::Group(g) = &mut group.kind {
-                        g.children = children;
+                    // Drop the source; the rendered pixels stay exactly as they
+                    // are, so this is only a loss of future editability.
+                    let mut edit = ctx.doc.begin_edit(t("command.history.rasterize_layer"));
+                    edit.set_smart_object(id, None);
+                    edit.commit();
+                },
+            ),
+            cmd(
+                "layer.delete",
+                t("command.layer.delete.title"),
+                t("command.layer.delete.description"),
+                None,
+                |ctx| {
+                    // Deletes the panel's whole multi-selection as one edit.
+                    let ids = selection_roots(ctx.doc);
+                    if ids.is_empty() {
+                        return;
                     }
-                    edit.insert_layer(insert, group);
-                }
-                edit.commit();
-                ctx.doc.active_layer = Some(group_id);
-                ctx.doc.selected = vec![group_id];
-            }),
-            cmd("select.reselect", "Reselect",
-                "Bring back the selection that was last dropped.", Some("cmd-shift-d"), |ctx| {
-                let Some(previous) = ctx.doc.last_selection.clone() else {
-                    ctx.refuse("Nothing to reselect");
-                    return;
-                };
-                let mut edit = ctx.doc.begin_edit("Reselect");
-                edit.change_selection(|sel, _| *sel = previous);
-                edit.commit();
-            }),
-            cmd("select.feather", "Feather Selection",
-                "Soften the selection's edge by a two-pixel blur, so the next edit fades out across it.", None, |ctx| {
-                let mut edit = ctx.doc.begin_edit("Feather");
-                edit.change_selection(|sel, _| sel.feather(2.0));
-                edit.commit();
-            }),
-            cmd("select.grow", "Grow",
-                "Extend the selection into touching pixels that resemble what is already selected, within the magic wand's tolerance.", None, |ctx| {
-                grow_selection(ctx, true);
-            }),
-            cmd("select.similar", "Similar",
-                "Select every pixel in the layer resembling the selection, touching it or not, within the magic wand's tolerance.", None, |ctx| {
-                grow_selection(ctx, false);
-            }),
-            cmd("select.save", "Save Selection",
-                "Stash the current selection in the document as a named alpha channel.", None, |ctx| {
-                if ctx.doc.selection.is_empty() {
-                    ctx.refuse("Select something first");
-                    return;
-                }
-                let n = ctx.doc.saved_selections.len() + 1;
-                let sel = ctx.doc.selection.clone();
-                ctx.doc.saved_selections.push((format!("Alpha {n}"), sel));
-                ctx.doc.mark_dirty();
-            }),
-            cmd("select.load", "Load Selection",
-                "Restore the most recently saved selection.", None, |ctx| {
-                // Loads the most recently saved one; the dialog picks by
-                // name once there is a channels panel to name them in.
-                let Some((_, sel)) = ctx.doc.saved_selections.last().cloned() else {
-                    return;
-                };
-                let mut edit = ctx.doc.begin_edit("Load Selection");
-                edit.change_selection(|s, _| *s = sel);
-                edit.commit();
-            }),
+                    let mut edit = ctx.doc.begin_edit(if ids.len() > 1 {
+                        t("command.history.delete_layers")
+                    } else {
+                        t("command.history.delete_layer")
+                    });
+                    for id in ids {
+                        edit.remove_layer(id);
+                    }
+                    edit.commit();
+                },
+            ),
+            cmd(
+                "layer.group",
+                t("command.layer.group.title"),
+                t("command.layer.group.description"),
+                Some("cmd-g"),
+                |ctx| {
+                    // Wraps the selected layers in a group, which lands where
+                    // the topmost of them was.
+                    let ids = selection_roots(ctx.doc);
+                    let Some(mut insert) = ids.first().and_then(|&id| ctx.doc.tree.path_of(id))
+                    else {
+                        return;
+                    };
+                    let mut group = Layer::new_group(t("common.group"));
+                    let group_id = group.id;
+                    let mut edit = ctx.doc.begin_edit(if ids.len() > 1 {
+                        t("command.history.group_layers")
+                    } else {
+                        t("command.history.group_layer")
+                    });
+                    let mut children = Vec::new();
+                    for id in ids {
+                        let Some(path) = edit.doc().tree.path_of(id) else {
+                            continue;
+                        };
+                        let Some(layer) = ctx_remove(&mut edit, id) else {
+                            continue;
+                        };
+                        children.push(layer);
+                        // A removal earlier in the same sibling vec shifts the
+                        // insertion slot down by one.
+                        let d = path.0.len() - 1;
+                        if insert.0.len() > d
+                            && insert.0[..d] == path.0[..d]
+                            && insert.0[d] > path.0[d]
+                        {
+                            insert.0[d] -= 1;
+                        }
+                    }
+                    if !children.is_empty() {
+                        // Collected topmost first; children are stored
+                        // bottom-to-top.
+                        children.reverse();
+                        if let LayerKind::Group(g) = &mut group.kind {
+                            g.children = children;
+                        }
+                        edit.insert_layer(insert, group);
+                    }
+                    edit.commit();
+                    ctx.doc.active_layer = Some(group_id);
+                    ctx.doc.selected = vec![group_id];
+                },
+            ),
+            cmd(
+                "select.reselect",
+                t("command.select.reselect.title"),
+                t("command.select.reselect.description"),
+                Some("cmd-shift-d"),
+                |ctx| {
+                    let Some(previous) = ctx.doc.last_selection.clone() else {
+                        ctx.refuse(t("command.select.reselect.msg.nothing_to_reselect"));
+                        return;
+                    };
+                    let mut edit = ctx.doc.begin_edit(t("command.history.reselect"));
+                    edit.change_selection(|sel, _| *sel = previous);
+                    edit.commit();
+                },
+            ),
+            cmd(
+                "select.feather",
+                t("command.select.feather.title"),
+                t("command.select.feather.description"),
+                None,
+                |ctx| {
+                    let mut edit = ctx.doc.begin_edit(t("command.history.feather"));
+                    edit.change_selection(|sel, _| sel.feather(2.0));
+                    edit.commit();
+                },
+            ),
+            cmd(
+                "select.grow",
+                t("command.select.grow.title"),
+                t("command.select.grow.description"),
+                None,
+                |ctx| {
+                    grow_selection(ctx, true);
+                },
+            ),
+            cmd(
+                "select.similar",
+                t("command.select.similar.title"),
+                t("command.select.similar.description"),
+                None,
+                |ctx| {
+                    grow_selection(ctx, false);
+                },
+            ),
+            cmd(
+                "select.save",
+                t("command.select.save.title"),
+                t("command.select.save.description"),
+                None,
+                |ctx| {
+                    if ctx.doc.selection.is_empty() {
+                        ctx.refuse(t("common.select_something_first"));
+                        return;
+                    }
+                    let n = ctx.doc.saved_selections.len() + 1;
+                    let sel = ctx.doc.selection.clone();
+                    ctx.doc
+                        .saved_selections
+                        .push((tf!("command.select.save.channel_name", n = n), sel));
+                    ctx.doc.mark_dirty();
+                },
+            ),
+            cmd(
+                "select.load",
+                t("command.select.load.title"),
+                t("command.select.load.description"),
+                None,
+                |ctx| {
+                    // Loads the most recently saved one; the dialog picks by
+                    // name once there is a channels panel to name them in.
+                    let Some((_, sel)) = ctx.doc.saved_selections.last().cloned() else {
+                        return;
+                    };
+                    let mut edit = ctx.doc.begin_edit(t("command.history.load_selection"));
+                    edit.change_selection(|s, _| *s = sel);
+                    edit.commit();
+                },
+            ),
             // --- Layer ordering ---
-            cmd("layer.raise", "Bring Forward",
-                "Move the active layer one place up its group's stack.", Some("cmd-]"), |ctx| {
-                move_layer_by(ctx, 1);
-            }),
-            cmd("layer.lower", "Send Backward",
-                "Move the active layer one place down its group's stack.", Some("cmd-["), |ctx| {
-                move_layer_by(ctx, -1);
-            }),
+            cmd(
+                "layer.raise",
+                t("command.layer.raise.title"),
+                t("command.layer.raise.description"),
+                Some("cmd-]"),
+                |ctx| {
+                    move_layer_by(ctx, 1);
+                },
+            ),
+            cmd(
+                "layer.lower",
+                t("command.layer.lower.title"),
+                t("command.layer.lower.description"),
+                Some("cmd-["),
+                |ctx| {
+                    move_layer_by(ctx, -1);
+                },
+            ),
             cmd(
                 "layer.to_front",
-                "Bring to Front",
-                "Move the active layer to the top of its group.",
+                t("command.layer.to_front.title"),
+                t("command.layer.to_front.description"),
                 Some("cmd-shift-]"),
                 |ctx| {
                     move_layer_to_end(ctx, true);
@@ -757,8 +870,8 @@ impl CommandPlugin for CoreCommandsPlugin {
             ),
             cmd(
                 "layer.to_back",
-                "Send to Back",
-                "Move the active layer to the bottom of its group.",
+                t("command.layer.to_back.title"),
+                t("command.layer.to_back.description"),
                 Some("cmd-shift-["),
                 |ctx| {
                     move_layer_to_end(ctx, false);
@@ -766,8 +879,8 @@ impl CommandPlugin for CoreCommandsPlugin {
             ),
             cmd(
                 "layer.clipping_mask",
-                "Create/Release Clipping Mask",
-                "Clip the active layer to the one below it, or release it if it already is; a clipped layer shows only where its base has pixels.",
+                t("command.layer.clipping_mask.title"),
+                t("command.layer.clipping_mask.description"),
                 Some("cmd-alt-g"),
                 |ctx| {
                     let Some(id) = ctx.doc.active_layer else {
@@ -780,22 +893,22 @@ impl CommandPlugin for CoreCommandsPlugin {
                     if *path.0.last().unwrap() == 0 {
                         return;
                     }
-                    let mut edit = ctx.doc.begin_edit("Clipping Mask");
+                    let mut edit = ctx.doc.begin_edit(t("command.history.clipping_mask"));
                     edit.change_props(id, |l| l.clipping = !l.clipping);
                     edit.commit();
                 },
             ),
             cmd(
                 "layer.cut_to_new",
-                "Layer via Cut",
-                "Move the selected pixels out of the active layer and onto a new layer above it.",
+                t("command.layer.cut_to_new.title"),
+                t("command.layer.cut_to_new.description"),
                 Some("cmd-shift-j"),
                 |ctx| {
                     let Some(clip) = copy_pixels(ctx.doc, false) else {
                         return;
                     };
                     clear_selection(ctx);
-                    let mut layer = Layer::new_raster("Layer via Cut");
+                    let mut layer = Layer::new_raster(t("command.layer.cut_to_new.layer_name"));
                     blit_rgba8(
                         &mut layer.as_raster_mut().unwrap().tiles,
                         ctx.doc.depth,
@@ -804,50 +917,66 @@ impl CommandPlugin for CoreCommandsPlugin {
                     );
                     let id = layer.id;
                     let path = insert_path_above_active(ctx.doc);
-                    let mut edit = ctx.doc.begin_edit("Layer via Cut");
+                    let mut edit = ctx.doc.begin_edit(t("command.history.layer_via_cut"));
                     edit.insert_layer(path, layer);
                     edit.commit();
                     ctx.doc.active_layer = Some(id);
                 },
             ),
-            cmd("layer.add_mask", "Add Layer Mask",
-                "Add a layer mask to the active layer, revealing only the selection when there is one.", None, |ctx| {
-                let Some(id) = ctx.doc.active_layer else {
-                    return;
-                };
-                if ctx.doc.tree.find(id).map(|l| l.mask.is_some()) != Some(false) {
-                    return;
-                }
-                // A mask made from a selection reveals only the selection.
-                let selection = ctx.doc.selection.clone();
-                let canvas = ctx.doc.canvas_rect();
-                let mut mask = schist_core::LayerMask::new_revealing();
-                if !selection.is_empty() {
-                    mask.default_value = 0;
-                    mask.bounds = canvas;
-                    for coord in TileCoord::covering(&canvas) {
-                        let rect = coord.rect();
-                        let buf = mask.tiles.get_mut_or_insert(coord);
-                        for y in rect.top..rect.bottom {
-                            for x in rect.left..rect.right {
-                                let ix = ((y - rect.top) * TILE_SIZE + (x - rect.left)) as usize;
-                                buf[ix] = selection.coverage(x, y);
+            cmd(
+                "layer.add_mask",
+                t("command.layer.add_mask.title"),
+                t("command.layer.add_mask.description"),
+                None,
+                |ctx| {
+                    let Some(id) = ctx.doc.active_layer else {
+                        return;
+                    };
+                    if ctx.doc.tree.find(id).map(|l| l.mask.is_some()) != Some(false) {
+                        return;
+                    }
+                    // A mask made from a selection reveals only the selection.
+                    let selection = ctx.doc.selection.clone();
+                    let canvas = ctx.doc.canvas_rect();
+                    let mut mask = schist_core::LayerMask::new_revealing();
+                    if !selection.is_empty() {
+                        mask.default_value = 0;
+                        mask.bounds = canvas;
+                        for coord in TileCoord::covering(&canvas) {
+                            let rect = coord.rect();
+                            let buf = mask.tiles.get_mut_or_insert(coord);
+                            for y in rect.top..rect.bottom {
+                                for x in rect.left..rect.right {
+                                    let ix =
+                                        ((y - rect.top) * TILE_SIZE + (x - rect.left)) as usize;
+                                    buf[ix] = selection.coverage(x, y);
+                                }
                             }
                         }
                     }
-                }
-                let mut edit = ctx.doc.begin_edit("Add Layer Mask");
-                edit.set_mask(id, Some(mask));
-                edit.commit();
-            }),
-            cmd("layer.flatten", "Flatten Image",
-                "Composite everything visible into one opaque Background layer, discarding hidden layers.", None, flatten_image),
-            cmd("layer.merge_down", "Merge Down",
-                "Composite the active layer into the layer beneath it.", Some("cmd-e"), merge_down),
+                    let mut edit = ctx.doc.begin_edit(t("command.history.add_layer_mask"));
+                    edit.set_mask(id, Some(mask));
+                    edit.commit();
+                },
+            ),
+            cmd(
+                "layer.flatten",
+                t("command.layer.flatten.title"),
+                t("command.layer.flatten.description"),
+                None,
+                flatten_image,
+            ),
+            cmd(
+                "layer.merge_down",
+                t("command.layer.merge_down.title"),
+                t("command.layer.merge_down.description"),
+                Some("cmd-e"),
+                merge_down,
+            ),
             cmd(
                 "layer.merge_visible",
-                "Merge Visible",
-                "Composite every visible layer into one, leaving hidden layers alone.",
+                t("command.layer.merge_visible.title"),
+                t("command.layer.merge_visible.description"),
                 Some("cmd-shift-e"),
                 merge_visible,
             ),
@@ -871,9 +1000,9 @@ fn move_layer_by(ctx: &mut CommandCtx, delta: i32) {
     let mut to = path.clone();
     *to.0.last_mut().unwrap() = target as usize;
     let mut edit = ctx.doc.begin_edit(if delta > 0 {
-        "Bring Forward"
+        t("command.history.bring_forward")
     } else {
-        "Send Backward"
+        t("command.history.send_backward")
     });
     edit.move_layer(path, to);
     edit.commit();
@@ -908,9 +1037,9 @@ fn move_layer_to_end(ctx: &mut CommandCtx, to_front: bool) {
         return;
     }
     let mut edit = ctx.doc.begin_edit(if to_front {
-        "Bring to Front"
+        t("command.history.bring_to_front")
     } else {
-        "Send to Back"
+        t("command.history.send_to_back")
     });
     edit.move_layer(path, to);
     edit.commit();
@@ -1054,7 +1183,7 @@ mod tests {
         run(&reg, "edit.paste_in_place", &mut doc, &mut state);
         assert_eq!(doc.tree.layers.len(), 2);
         let pasted = doc.tree.layers.last().unwrap();
-        assert_eq!(pasted.name, "Pasted Layer");
+        assert_eq!(pasted.name, t("command.edit.paste.layer_name"));
         assert_eq!(
             pasted.as_raster().unwrap().tiles.pixel(15, 15).to_u8(),
             [10, 20, 30, 255]
@@ -1231,14 +1360,14 @@ mod tests {
         let mut doc = doc_with_pixels();
         assert_eq!(
             run_for_refusal(&reg, "select.grow", &mut doc, &mut state).as_deref(),
-            Some("Select something first"),
+            Some(t("common.select_something_first")),
             "Grow with no selection"
         );
 
         let mut doc = doc_with_pixels();
         assert_eq!(
             run_for_refusal(&reg, "select.reselect", &mut doc, &mut state).as_deref(),
-            Some("Nothing to reselect"),
+            Some(t("command.select.reselect.msg.nothing_to_reselect")),
             "Reselect with no previous selection"
         );
 
@@ -1246,7 +1375,7 @@ mod tests {
         state.clipboard = None;
         assert_eq!(
             run_for_refusal(&reg, "edit.paste", &mut doc, &mut state).as_deref(),
-            Some("Nothing on the clipboard"),
+            Some(t("command.msg.clipboard_empty")),
             "Paste with an empty clipboard"
         );
 
@@ -1254,7 +1383,7 @@ mod tests {
         doc.active_layer = None;
         assert_eq!(
             run_for_refusal(&reg, "edit.copy", &mut doc, &mut state).as_deref(),
-            Some(NOTHING_TO_COPY),
+            Some(nothing_to_copy()),
             "Copy with no active layer"
         );
 
@@ -1262,7 +1391,7 @@ mod tests {
         doc.active_layer = None;
         assert_eq!(
             run_for_refusal(&reg, "edit.cut", &mut doc, &mut state).as_deref(),
-            Some(NOTHING_TO_COPY),
+            Some(nothing_to_copy()),
             "Cut with no active layer"
         );
 
@@ -1270,7 +1399,7 @@ mod tests {
         doc.active_layer = Some(doc.tree.layers[0].id);
         assert_eq!(
             run_for_refusal(&reg, "layer.merge_down", &mut doc, &mut state).as_deref(),
-            Some("No layer below to merge into"),
+            Some(t("command.layer.merge_down.msg.no_layer_below")),
             "Merge Down on the bottom layer"
         );
     }
@@ -1310,12 +1439,12 @@ mod tests {
         let mut doc = build();
         run(&reg, "layer.merge_visible", &mut doc, &mut state);
         assert_eq!(doc.tree.len(), 2, "merge visible keeps the hidden layer");
-        assert!(doc.tree.iter().any(|l| l.name == "Merged"));
+        assert!(doc.tree.iter().any(|l| l.name == t("common.merged")));
 
         let mut doc = build();
         run(&reg, "layer.flatten", &mut doc, &mut state);
         assert_eq!(doc.tree.len(), 1, "flatten discards hidden layers");
-        assert_eq!(doc.tree.layers[0].name, "Background");
+        assert_eq!(doc.tree.layers[0].name, t("common.background_layer"));
     }
 
     #[test]
@@ -1416,7 +1545,10 @@ mod m11_tests {
 
         run(&reg, "layer.delete", &mut doc, &mut state);
         assert_eq!(names(&doc), vec!["L1", "L3"]);
-        assert_eq!(doc.history.undo_name(), Some("Delete Layers"));
+        assert_eq!(
+            doc.history.undo_name(),
+            Some(t("command.history.delete_layers"))
+        );
 
         run(&reg, "edit.undo", &mut doc, &mut state);
         assert_eq!(names(&doc), vec!["L0", "L1", "L2", "L3"], "one undo step");
@@ -1432,7 +1564,7 @@ mod m11_tests {
         doc.selected = vec![l1, l3];
 
         run(&reg, "layer.group", &mut doc, &mut state);
-        assert_eq!(names(&doc), vec!["L0", "L2", "Group"]);
+        assert_eq!(names(&doc), vec!["L0", "L2", t("common.group")]);
         let group = &doc.tree.layers[2];
         let children: Vec<&str> = group
             .children()
@@ -1463,7 +1595,10 @@ mod m11_tests {
 
         run(&reg, "layer.delete", &mut doc, &mut state);
         assert_eq!(names(&doc), vec!["L0"]);
-        assert_eq!(doc.history.undo_name(), Some("Delete Layer"));
+        assert_eq!(
+            doc.history.undo_name(),
+            Some(t("command.history.delete_layer"))
+        );
     }
 
     #[test]

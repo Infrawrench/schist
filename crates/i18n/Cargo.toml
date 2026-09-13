@@ -1,0 +1,24 @@
+[package]
+name = "schist-i18n"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Schist's user-interface strings: the catalogs, the locale the OS asks for, and the lookup everything user-visible goes through"
+
+[dependencies]
+log.workspace = true
+# The OS's preferred languages, on every platform Schist builds for:
+# CFLocaleCopyPreferredLanguages on macOS and iOS, the user's display
+# language on Windows, LANGUAGE/LC_ALL/LC_MESSAGES/LANG on Linux, the
+# system properties on Android, and navigator.languages in a browser.
+# Already in the tree behind the text engine, so this adds nothing.
+sys-locale = "0.3"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+sys-locale = { version = "0.3", features = ["js"] }
+
+[dev-dependencies]
+# Reads the Chinese web font's character map, to check it covers the
+# zh-Hans catalogs. Already in the tree behind the text engine.
+ttf-parser = "0.21"

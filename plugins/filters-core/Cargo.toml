@@ -5,6 +5,7 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+schist-i18n.workspace = true
 log.workspace = true
 schist-plugin-api.workspace = true
 schist-neural.workspace = true

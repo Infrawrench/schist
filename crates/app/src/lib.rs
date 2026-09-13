@@ -255,6 +255,16 @@ pub fn main() {
         }));
         console_log::init_with_level(log::Level::Info).ok();
     }
+    // The language, before anything builds a label: the plugin registry
+    // below asks every command for its title as it registers, and the
+    // menus are built from those. The OS's preference list, except on
+    // Android, where the activity's configuration knows about a per-app
+    // language the system properties do not; `SCHIST_LANG` overrides
+    // either for one run.
+    #[cfg(target_os = "android")]
+    schist_i18n::init_from_tags(android::locale_tags());
+    #[cfg(not(target_os = "android"))]
+    schist_i18n::init();
     // A Finder/desktop launch gets launchd's bare PATH, not the one the
     // AI panel's CLIs live on. Start asking the login shell for its PATH
     // now and collect the answer later: it is a shell startup, and the

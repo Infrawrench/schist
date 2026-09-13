@@ -1,0 +1,155 @@
+# 菜单栏。术语尽量与简体中文版 Photoshop 一致。
+
+# 文件
+menu.file = 文件
+menu.file.new = 新建
+menu.file.open = 打开…
+menu.file.open_recent = 最近打开文件
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = 浏览图库…
+menu.file.close = 关闭
+menu.file.save = 存储
+menu.file.save_as = 存储为…
+menu.file.export = 导出…
+menu.file.export_submenu = 导出
+menu.file.export_artboards = 画板导出为 PNG…
+menu.file.export_slices = 切片导出为 PNG…
+menu.file.save_to_photos = 存储到“照片”
+menu.file.plugins = 增效工具…
+menu.file.missing_fonts = 缺失字体…
+menu.file.check_for_updates = 检查更新…
+menu.file.quit = 退出
+menu.file.add_folder_to_gallery = 将文件夹添加到图库…
+menu.file.import_from_photos = 从“照片”导入…
+menu.file.import_from_camera = 从相机导入…
+
+# 编辑
+menu.edit = 编辑
+menu.edit.fill = 填充…
+menu.edit.stroke = 描边…
+menu.edit.content_aware_fill = 内容识别填充
+menu.edit.content_aware_scale = 内容识别缩放…
+menu.edit.puppet_warp = 操控变形
+menu.edit.free_transform = 自由变换
+menu.edit.transform = 变换
+menu.edit.rotate_180 = 旋转 180 度
+menu.edit.rotate_90_cw = 顺时针旋转 90 度
+menu.edit.rotate_90_ccw = 逆时针旋转 90 度
+menu.edit.flip_horizontal = 水平翻转
+menu.edit.flip_vertical = 垂直翻转
+
+# 图像
+menu.image = 图像
+menu.image.mode = 模式
+menu.image.adjustments = 调整
+menu.image.auto_tone = 自动色调
+menu.image.auto_contrast = 自动对比度
+menu.image.auto_color = 自动颜色
+menu.image.image_size = 图像大小…
+menu.image.canvas_size = 画布大小…
+menu.image.image_rotation = 图像旋转
+menu.image.rotate_180 = 180 度
+menu.image.rotate_90_cw = 顺时针 90 度
+menu.image.rotate_90_ccw = 逆时针 90 度
+menu.image.flip_canvas_horizontal = 水平翻转画布
+menu.image.flip_canvas_vertical = 垂直翻转画布
+menu.image.crop_to_selection = 裁剪到选区
+menu.image.trim = 裁切
+menu.image.assign_profile = 指定配置文件…
+menu.image.convert_to_profile = 转换为配置文件…
+
+# 选择
+menu.select = 选择
+menu.select.color_range = 色彩范围…
+menu.select.modify = 修改
+menu.select.border = 边界…
+menu.select.smooth = 平滑…
+menu.select.expand = 扩展…
+menu.select.contract = 收缩…
+menu.select.feather = 羽化…
+menu.select.transform_selection = 变换选区
+
+# 图层
+menu.layer = 图层
+menu.layer.layer_style = 图层样式…
+menu.layer.layer_comps = 图层复合
+menu.layer.new_layer_comp = 新建图层复合
+menu.layer.delete_layer_comp = 删除“{name}”
+menu.layer.path = 路径
+menu.layer.fill_path = 填充路径
+menu.layer.stroke_path = 描边路径
+menu.layer.make_selection = 建立选区
+menu.layer.delete_path = 删除路径
+
+# 调整
+menu.adjust = 调整
+
+# 滤镜
+menu.filter = 滤镜
+menu.filter.filter_gallery = 滤镜库…
+menu.filter.liquify = 液化
+menu.filter.vanishing_point = 消失点
+menu.filter.manage_models = 管理模型…
+menu.filter.camera_raw_development = Camera Raw 显影…
+
+# 视图
+menu.view = 视图
+menu.view.rotate_view_cw = 顺时针旋转视图
+menu.view.rotate_view_ccw = 逆时针旋转视图
+menu.view.reset_view = 复位视图
+menu.view.zoom_in = 放大
+menu.view.zoom_out = 缩小
+menu.view.fit_on_screen = 按屏幕大小缩放
+menu.view.actual_size = 100%
+menu.view.rulers = 标尺
+menu.view.grid = 网格
+menu.view.guides = 参考线
+menu.view.notes = 注释
+menu.view.ai_panel = AI 面板
+menu.view.extras = 额外内容
+menu.view.snap = 对齐
+menu.view.clear_guides = 清除参考线
+menu.view.clear_notes = 清除注释
+menu.view.clear_count = 清除计数
+menu.view.screen_mode = 屏幕模式
+menu.view.proof_colors = 校样颜色
+menu.view.show_rulers = 显示标尺
+menu.view.hide_rulers = 隐藏标尺
+menu.view.show_grid = 显示网格
+menu.view.hide_grid = 隐藏网格
+menu.view.show_guides = 显示参考线
+menu.view.hide_guides = 隐藏参考线
+menu.view.show_notes = 显示注释
+menu.view.hide_notes = 隐藏注释
+menu.view.show_extras = 显示额外内容
+menu.view.hide_extras = 隐藏额外内容
+menu.view.enable_snapping = 启用对齐
+menu.view.disable_snapping = 停用对齐
+menu.view.enable_proof_colors = 启用校样颜色
+menu.view.disable_proof_colors = 停用校样颜色
+
+# 图库
+menu.gallery = 图库
+menu.gallery.edit_selected = 编辑所选
+menu.gallery.refresh = 刷新
+menu.gallery.map_filter = 地图筛选…
+menu.gallery.back_to_editor = 返回编辑器
+
+# Schist Cloud
+menu.cloud.browse = 浏览 Schist Cloud
+menu.cloud.generate = 生成图像…
+menu.cloud.upload = 将文档上传到 Schist Cloud…
+menu.cloud.sign_out = 退出登录 Schist Cloud
+menu.cloud.sign_in = 登录 Schist Cloud…
+
+# macOS 的应用程序菜单
+menu.app.services = 服务
+menu.app.hide = 隐藏 {app}
+menu.app.hide_others = 隐藏其他
+menu.app.show_all = 全部显示
+menu.app.quit = 退出 {app}
+
+# 状态栏提示
+menu.status.transform_selection_needs_selection = “变换选区”需要先建立选区
+menu.status.crop_needs_selection = “裁剪到选区”需要先建立选区
+menu.status.select_photo_to_edit = 请选择要编辑的照片

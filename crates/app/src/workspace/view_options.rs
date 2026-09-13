@@ -1,6 +1,7 @@
 //! View options, preferences, screen mode, rulers, guides and snapping.
 
 use super::*;
+use schist_i18n::t;
 
 impl Workspace {
     // ----- view options, guides and snapping -----
@@ -109,28 +110,48 @@ impl Workspace {
 
     pub fn toggle_rulers(&mut self, cx: &mut Context<Self>) {
         self.view.rulers = !self.view.rulers;
-        self.status = format!("Rulers {}", if self.view.rulers { "on" } else { "off" }).into();
+        self.status = if self.view.rulers {
+            t("workspace.canvas.rulers_on")
+        } else {
+            t("workspace.canvas.rulers_off")
+        }
+        .into();
         self.save_view_options();
         cx.notify();
     }
 
     pub fn toggle_grid(&mut self, cx: &mut Context<Self>) {
         self.view.grid = !self.view.grid;
-        self.status = format!("Grid {}", if self.view.grid { "on" } else { "off" }).into();
+        self.status = if self.view.grid {
+            t("workspace.canvas.grid_on")
+        } else {
+            t("workspace.canvas.grid_off")
+        }
+        .into();
         self.save_view_options();
         cx.notify();
     }
 
     pub fn toggle_guides(&mut self, cx: &mut Context<Self>) {
         self.view.guides = !self.view.guides;
-        self.status = format!("Guides {}", if self.view.guides { "on" } else { "off" }).into();
+        self.status = if self.view.guides {
+            t("workspace.canvas.guides_on")
+        } else {
+            t("workspace.canvas.guides_off")
+        }
+        .into();
         self.save_view_options();
         cx.notify();
     }
 
     pub fn toggle_extras(&mut self, cx: &mut Context<Self>) {
         self.view.extras = !self.view.extras;
-        self.status = format!("Extras {}", if self.view.extras { "on" } else { "off" }).into();
+        self.status = if self.view.extras {
+            t("workspace.canvas.extras_on")
+        } else {
+            t("workspace.canvas.extras_off")
+        }
+        .into();
         self.save_view_options();
         cx.notify();
     }
@@ -138,9 +159,9 @@ impl Workspace {
     pub fn toggle_snap(&mut self, cx: &mut Context<Self>) {
         self.view.snap = !self.view.snap;
         self.status = if self.view.snap {
-            "Snap on"
+            t("workspace.canvas.snap_on")
         } else {
-            "Snap off"
+            t("workspace.canvas.snap_off")
         }
         .into();
         self.save_view_options();
@@ -239,7 +260,7 @@ impl Workspace {
                 doc.damage_all();
             }
         }
-        self.status = "Guides cleared".into();
+        self.status = t("workspace.canvas.guides_cleared").into();
         self.after_change(cx);
     }
 

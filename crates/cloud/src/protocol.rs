@@ -1,5 +1,6 @@
 use anyhow::{bail, ensure, Result};
 pub use rmpv::Value;
+use schist_i18n::{t, tf};
 use serde::{Deserialize, Serialize};
 
 pub const DEFAULT_DOMAIN: &str = "schist.app";
@@ -10,11 +11,8 @@ pub const MAX_UPLOAD_BYTES: u64 = 5 * 1024 * 1024 * 1024;
 pub const IMAGE_MODEL: &str = "schist.image.v1";
 
 pub fn validate_upload_size(size: u64) -> Result<()> {
-    ensure!(size > 0, "File is empty");
-    ensure!(
-        size <= MAX_UPLOAD_BYTES,
-        "Exceeds the 5 GiB per-file upload limit"
-    );
+    ensure!(size > 0, t("cloud.upload.file_empty"));
+    ensure!(size <= MAX_UPLOAD_BYTES, t("cloud.upload.over_5gib"));
     Ok(())
 }
 
@@ -59,8 +57,10 @@ impl Capabilities {
     pub fn check_document(&self, bytes: usize) -> Result<()> {
         ensure!(
             bytes as u64 <= self.max_document_bytes,
-            "Shared document exceeds the provider's {} byte limit; edits remain local",
-            self.max_document_bytes
+            tf!(
+                "cloud.transport.document_too_large",
+                bytes = self.max_document_bytes
+            )
         );
         Ok(())
     }
@@ -316,8 +316,10 @@ pub fn encode_with_limit(v: &Value, limit: usize) -> Result<Vec<u8>> {
     let b = rmp_serde::to_vec_named(v)?;
     ensure!(
         b.len() <= limit.min(MAX_FRAME),
-        "Message exceeds the {} byte workspace frame limit",
-        limit.min(MAX_FRAME)
+        tf!(
+            "cloud.transport.frame_too_large",
+            bytes = limit.min(MAX_FRAME)
+        )
     );
     Ok(b)
 }
@@ -349,7 +351,7 @@ pub fn parse_date(raw: &str, end: bool) -> Result<Option<u64>> {
         .unwrap()
         .and_utc()
         .timestamp();
-    ensure!(time >= 0, "Date precedes 1970");
+    ensure!(time >= 0, t("cloud.transport.date_before_1970"));
     Ok(Some(time as u64))
 }
 pub fn format_date(t: u64) -> String {
@@ -550,14 +552,16 @@ mod people_contract_tests {
     fn upload_size_checks_match_the_provider_boundary() {
         assert!(validate_upload_size(1).is_ok());
         assert!(validate_upload_size(MAX_UPLOAD_BYTES).is_ok());
-        assert!(validate_upload_size(0)
-            .unwrap_err()
-            .to_string()
-            .contains("empty"));
-        assert!(validate_upload_size(MAX_UPLOAD_BYTES + 1)
-            .unwrap_err()
-            .to_string()
-            .contains("5 GiB"));
+        assert_eq!(
+            validate_upload_size(0).unwrap_err().to_string(),
+            t("cloud.upload.file_empty")
+        );
+        assert_eq!(
+            validate_upload_size(MAX_UPLOAD_BYTES + 1)
+                .unwrap_err()
+                .to_string(),
+            t("cloud.upload.over_5gib")
+        );
         assert!(validate_upload_size(u64::MAX).is_err());
     }
     #[test]

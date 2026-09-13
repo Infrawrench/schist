@@ -2,6 +2,7 @@
 //! layer-comp entries built from the registry.
 
 use super::*;
+use schist_i18n::{t, t_in, tf, Locale};
 
 pub(crate) enum MenuEntry {
     /// A registered plugin command (label + keybind resolved from registry).
@@ -26,7 +27,7 @@ pub(crate) enum MenuEntry {
 /// implementations.
 pub(crate) fn filter_menu_label(ws: &Workspace, id: &str) -> String {
     if ws.is_raw_redevelopment(id) {
-        "Camera Raw Development…".to_string()
+        t("menu.filter.camera_raw_development").to_string()
     } else {
         ws.registry
             .filters()
@@ -49,34 +50,38 @@ pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     #[allow(unused_mut)]
     let mut menus = vec![
         (
-            "File",
+            t("menu.file"),
             vec![
-                App("New", New, Some("cmd-n")),
-                App("Open…", Open, Some("cmd-o")),
-                Sub("Schist Cloud", cloud_entries(ws)),
-                App("Browse Gallery…", OpenGallery, Some("cmd-shift-g")),
-                App("Close", Close, Some("cmd-w")),
-                App("Save", Save, Some("cmd-s")),
-                App("Save As…", SaveAs, Some("cmd-shift-s")),
-                App("Export…", Export, Some("cmd-shift-alt-s")),
+                App(t("menu.file.new"), New, Some("cmd-n")),
+                App(t("menu.file.open"), Open, Some("cmd-o")),
+                Sub(t("menu.file.schist_cloud"), cloud_entries(ws)),
+                App(
+                    t("menu.file.browse_gallery"),
+                    OpenGallery,
+                    Some("cmd-shift-g"),
+                ),
+                App(t("menu.file.close"), Close, Some("cmd-w")),
+                App(t("menu.file.save"), Save, Some("cmd-s")),
+                App(t("menu.file.save_as"), SaveAs, Some("cmd-shift-s")),
+                App(t("menu.file.export"), Export, Some("cmd-shift-alt-s")),
                 Sep,
                 Sub(
                     "Export",
                     vec![
-                        App("Artboards to PNG…", ExportArtboards, None),
-                        App("Slices to PNG…", ExportSlices, None),
+                        App(t("menu.file.export_artboards"), ExportArtboards, None),
+                        App(t("menu.file.export_slices"), ExportSlices, None),
                     ],
                 ),
                 Sep,
-                App("Plugins…", Plugins, None),
-                App("Missing Fonts…", ManageFonts, None),
-                App("Check for Updates…", CheckForUpdates, None),
+                App(t("menu.file.plugins"), Plugins, None),
+                App(t("menu.file.missing_fonts"), ManageFonts, None),
+                App(t("menu.file.check_for_updates"), CheckForUpdates, None),
                 Sep,
-                App("Quit", Quit, Some("cmd-q")),
+                App(t("menu.file.quit"), Quit, Some("cmd-q")),
             ],
         ),
         (
-            "Edit",
+            t("menu.edit"),
             vec![
                 Cmd("edit.undo"),
                 Cmd("edit.redo"),
@@ -89,87 +94,98 @@ pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 Sep,
                 Cmd("edit.fill_foreground"),
                 Cmd("edit.fill_background"),
-                App("Fill…", FillItem, Some("shift-f5")),
-                App("Stroke…", StrokeItem, None),
-                App("Content-Aware Fill", ContentAwareFill, None),
-                App("Content-Aware Scale…", ContentAwareScaleItem, None),
-                App("Puppet Warp", PuppetWarpItem, None),
+                App(t("menu.edit.fill"), FillItem, Some("shift-f5")),
+                App(t("menu.edit.stroke"), StrokeItem, None),
+                App(t("menu.edit.content_aware_fill"), ContentAwareFill, None),
+                App(
+                    t("menu.edit.content_aware_scale"),
+                    ContentAwareScaleItem,
+                    None,
+                ),
+                App(t("menu.edit.puppet_warp"), PuppetWarpItem, None),
                 Sep,
-                App("Free Transform", FreeTransform, Some("cmd-t")),
+                App(t("menu.edit.free_transform"), FreeTransform, Some("cmd-t")),
                 Sub(
                     "Transform",
                     vec![
-                        App("Rotate 180°", Rotate180, None),
-                        App("Rotate 90° Clockwise", RotateCw, None),
-                        App("Rotate 90° Counter Clockwise", RotateCcw, None),
+                        App(t("menu.edit.rotate_180"), Rotate180, None),
+                        App(t("menu.edit.rotate_90_cw"), RotateCw, None),
+                        App(t("menu.edit.rotate_90_ccw"), RotateCcw, None),
                         Sep,
-                        App("Flip Horizontal", FlipCanvasH, None),
-                        App("Flip Vertical", FlipCanvasV, None),
+                        App(t("menu.edit.flip_horizontal"), FlipCanvasH, None),
+                        App(t("menu.edit.flip_vertical"), FlipCanvasV, None),
                     ],
                 ),
             ],
         ),
         (
-            "Image",
+            t("menu.image"),
             vec![
                 Sub(
                     "Mode",
                     vec![
-                        App("RGB Color", ModeRgb, None),
-                        App("Grayscale", ModeGrayscale, None),
-                        App("CMYK Color", ModeCmyk, None),
-                        App("Lab Color", ModeLab, None),
-                        App("Indexed Color", ModeIndexed, None),
+                        App(t("common.rgb"), ModeRgb, None),
+                        App(t("common.grayscale"), ModeGrayscale, None),
+                        App(t("common.cmyk"), ModeCmyk, None),
+                        App(t("common.lab"), ModeLab, None),
+                        App(t("common.indexed"), ModeIndexed, None),
                     ],
                 ),
-                Sub("Adjustments", destructive_adjustment_entries()),
+                Sub(
+                    t("menu.image.adjustments"),
+                    destructive_adjustment_entries(),
+                ),
                 Sep,
-                App("Auto Tone", AutoTone, None),
-                App("Auto Contrast", AutoContrast, None),
-                App("Auto Color", AutoColor, None),
+                App(t("menu.image.auto_tone"), AutoTone, None),
+                App(t("menu.image.auto_contrast"), AutoContrast, None),
+                App(t("menu.image.auto_color"), AutoColor, None),
                 Sep,
-                App("Image Size…", ImageSize, Some("cmd-alt-i")),
-                App("Canvas Size…", CanvasSize, Some("cmd-alt-c")),
+                App(t("menu.image.image_size"), ImageSize, Some("cmd-alt-i")),
+                App(t("menu.image.canvas_size"), CanvasSize, Some("cmd-alt-c")),
                 Sub(
                     "Image Rotation",
                     vec![
-                        App("180°", Rotate180, None),
-                        App("90° Clockwise", RotateCw, None),
-                        App("90° Counter Clockwise", RotateCcw, None),
+                        App(t("menu.image.rotate_180"), Rotate180, None),
+                        App(t("menu.image.rotate_90_cw"), RotateCw, None),
+                        App(t("menu.image.rotate_90_ccw"), RotateCcw, None),
                         Sep,
-                        App("Flip Canvas Horizontal", FlipCanvasH, None),
-                        App("Flip Canvas Vertical", FlipCanvasV, None),
+                        App(t("menu.image.flip_canvas_horizontal"), FlipCanvasH, None),
+                        App(t("menu.image.flip_canvas_vertical"), FlipCanvasV, None),
                     ],
                 ),
-                App("Crop to Selection", Crop, None),
-                App("Trim", Trim, None),
+                App(t("menu.image.crop_to_selection"), Crop, None),
+                App(t("menu.image.trim"), Trim, None),
                 Sep,
-                App("Assign Profile…", AssignProfile, None),
-                App("Convert to Profile…", ConvertProfile, None),
+                App(t("menu.image.assign_profile"), AssignProfile, None),
+                App(t("menu.image.convert_to_profile"), ConvertProfile, None),
             ],
         ),
         (
-            "Select",
+            t("menu.select"),
             vec![
                 Cmd("select.all"),
                 Cmd("select.deselect"),
                 Cmd("select.reselect"),
                 Cmd("select.inverse"),
                 Sep,
-                App("Color Range…", ColorRangeItem, None),
+                App(t("menu.select.color_range"), ColorRangeItem, None),
                 Sep,
                 Sub(
                     "Modify",
                     vec![
-                        App("Border…", SelectBorder, None),
-                        App("Smooth…", SelectSmooth, None),
-                        App("Expand…", SelectExpand, None),
-                        App("Contract…", SelectContract, None),
-                        App("Feather…", SelectFeatherItem, None),
+                        App(t("menu.select.border"), SelectBorder, None),
+                        App(t("menu.select.smooth"), SelectSmooth, None),
+                        App(t("menu.select.expand"), SelectExpand, None),
+                        App(t("menu.select.contract"), SelectContract, None),
+                        App(t("menu.select.feather"), SelectFeatherItem, None),
                     ],
                 ),
                 Sep,
-                App("Transform Selection", TransformSelection, None),
+                App(
+                    t("menu.select.transform_selection"),
+                    TransformSelection,
+                    None,
+                ),
                 Sep,
                 Cmd("select.grow"),
                 Cmd("select.similar"),
@@ -179,7 +195,7 @@ pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
             ],
         ),
         (
-            "Layer",
+            t("menu.layer"),
             vec![
                 Cmd("layer.new"),
                 Cmd("layer.duplicate"),
@@ -188,18 +204,18 @@ pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 Cmd("layer.smart_object"),
                 Cmd("layer.rasterize"),
                 Sep,
-                App("Layer Style…", LayerStyleItem, None),
+                App(t("menu.layer.layer_style"), LayerStyleItem, None),
                 Sep,
-                Sub("Layer Comps", layer_comp_entries(ws)),
+                Sub(t("menu.layer.layer_comps"), layer_comp_entries(ws)),
                 Sep,
                 Sub(
                     "Path",
                     vec![
-                        App("Fill Path", PathFill, None),
-                        App("Stroke Path", PathStroke, None),
-                        App("Make Selection", PathToSelection, None),
+                        App(t("menu.layer.fill_path"), PathFill, None),
+                        App(t("menu.layer.stroke_path"), PathStroke, None),
+                        App(t("menu.layer.make_selection"), PathToSelection, None),
                         Sep,
-                        App("Delete Path", PathDelete, None),
+                        App(t("menu.layer.delete_path"), PathDelete, None),
                     ],
                 ),
                 Sep,
@@ -209,54 +225,54 @@ pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
             ],
         ),
         (
-            "Adjust",
+            t("menu.adjust"),
             schist_adjustments::Params::creatable()
                 .iter()
                 .map(|&k| Adjustment(k))
                 .collect(),
         ),
-        ("Filter", {
+        (t("menu.filter"), {
             // Liquify and Vanishing Point sit above the categories, as
             // they do in Photoshop's Filter menu.
             let mut out = vec![
-                App("Filter Gallery…", FilterGalleryItem, None),
+                App(t("menu.filter.filter_gallery"), FilterGalleryItem, None),
                 Filter("filter.adaptive_wide_angle"),
                 Filter("filter.camera_raw"),
                 Filter("filter.lens_correction"),
-                App("Liquify", LiquifyItem, None),
-                App("Vanishing Point", VanishingPointItem, None),
+                App(t("menu.filter.liquify"), LiquifyItem, None),
+                App(t("menu.filter.vanishing_point"), VanishingPointItem, None),
                 Sep,
             ];
             out.extend(filter_menu_entries(ws));
             out
         }),
         (
-            "View",
+            t("menu.view"),
             vec![
-                App("Rotate View Clockwise", RotateViewCw, None),
-                App("Rotate View Counter Clockwise", RotateViewCcw, None),
-                App("Reset View", ResetView, None),
+                App(t("menu.view.rotate_view_cw"), RotateViewCw, None),
+                App(t("menu.view.rotate_view_ccw"), RotateViewCcw, None),
+                App(t("menu.view.reset_view"), ResetView, None),
                 Sep,
-                App("Zoom In", ZoomIn, Some("cmd-=")),
-                App("Zoom Out", ZoomOut, Some("cmd--")),
-                App("Fit on Screen", ZoomFit, Some("cmd-0")),
-                App("100%", ZoomActual, Some("cmd-1")),
+                App(t("menu.view.zoom_in"), ZoomIn, Some("cmd-=")),
+                App(t("menu.view.zoom_out"), ZoomOut, Some("cmd--")),
+                App(t("menu.view.fit_on_screen"), ZoomFit, Some("cmd-0")),
+                App(t("menu.view.actual_size"), ZoomActual, Some("cmd-1")),
                 Sep,
-                App("Rulers", ToggleRulers, Some("cmd-r")),
-                App("Grid", ToggleGrid, Some("cmd-'")),
-                App("Guides", ToggleGuides, Some("cmd-;")),
-                App("Notes", ToggleNotes, None),
-                App("AI Panel", ToggleAi, Some("cmd-shift-a")),
-                App("Extras", ToggleExtras, Some("cmd-h")),
-                App("Snap", ToggleSnap, Some("cmd-shift-;")),
-                App("Clear Guides", ClearGuides, Some("cmd-alt-;")),
-                App("Clear Notes", ClearNotes, None),
-                App("Clear Count", ClearCounts, None),
+                App(t("menu.view.rulers"), ToggleRulers, Some("cmd-r")),
+                App(t("menu.view.grid"), ToggleGrid, Some("cmd-'")),
+                App(t("menu.view.guides"), ToggleGuides, Some("cmd-;")),
+                App(t("menu.view.notes"), ToggleNotes, None),
+                App(t("menu.view.ai_panel"), ToggleAi, Some("cmd-shift-a")),
+                App(t("menu.view.extras"), ToggleExtras, Some("cmd-h")),
+                App(t("menu.view.snap"), ToggleSnap, Some("cmd-shift-;")),
+                App(t("menu.view.clear_guides"), ClearGuides, Some("cmd-alt-;")),
+                App(t("menu.view.clear_notes"), ClearNotes, None),
+                App(t("menu.view.clear_count"), ClearCounts, None),
                 Sep,
-                App("Screen Mode", ScreenModeItem, Some("f")),
-                App("Proof Colors", ProofColors, None),
+                App(t("menu.view.screen_mode"), ScreenModeItem, Some("f")),
+                App(t("menu.view.proof_colors"), ProofColors, None),
                 Sep,
-                App("Preferences…", Preferences, Some("cmd-k")),
+                App(t("common.preferences"), Preferences, Some("cmd-k")),
             ],
         ),
     ];
@@ -266,15 +282,20 @@ pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     {
         let recents = recent_entries(ws);
         if !recents.is_empty() {
-            menus[0].1.insert(2, Sub("Open Recent", recents));
+            menus[0]
+                .1
+                .insert(2, Sub(t("menu.file.open_recent"), recents));
         }
     }
     // The camera roll is where an iPad or iPhone keeps pictures, so the
     // File menu there can save straight to it, after Export.
     if cfg!(target_os = "ios") {
-        if let Some((_, file)) = menus.iter_mut().find(|(name, _)| *name == "File") {
+        if let Some((_, file)) = menus.iter_mut().find(|(name, _)| *name == t("menu.file")) {
             if let Some(at) = file.iter().position(|e| matches!(e, App(_, Export, _))) {
-                file.insert(at + 1, App("Save to Photos", SaveToPhotos, None));
+                file.insert(
+                    at + 1,
+                    App(t("menu.file.save_to_photos"), SaveToPhotos, None),
+                );
             }
         }
     }
@@ -344,54 +365,58 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     use AppItem::*;
     use MenuEntry::*;
     let mut file = vec![
-        App("New", New, Some("cmd-n")),
-        App("Open…", Open, Some("cmd-o")),
-        Sub("Schist Cloud", cloud_entries(ws)),
+        App(t("menu.file.new"), New, Some("cmd-n")),
+        App(t("menu.file.open"), Open, Some("cmd-o")),
+        Sub(t("menu.file.schist_cloud"), cloud_entries(ws)),
     ];
     let recents = recent_entries(ws);
     if !recents.is_empty() {
-        file.push(Sub("Open Recent", recents));
+        file.push(Sub(t("menu.file.open_recent"), recents));
     }
     file.extend([
         Sep,
-        App("Add Folder to Gallery…", GalleryAddFolder, None),
+        App(t("menu.file.add_folder_to_gallery"), GalleryAddFolder, None),
         App(
             if cfg!(target_os = "ios") {
-                "Import from Photos…"
+                t("menu.file.import_from_photos")
             } else {
-                "Import from Camera…"
+                t("menu.file.import_from_camera")
             },
             GalleryImportCamera,
             None,
         ),
         Sep,
-        App("Quit", Quit, Some("cmd-q")),
+        App(t("menu.file.quit"), Quit, Some("cmd-q")),
     ]);
     vec![
-        ("File", file),
+        (t("menu.file"), file),
         (
-            "Gallery",
+            t("menu.gallery"),
             vec![
-                App("Edit Selected", GalleryEditSelected, None),
-                App("Refresh", GalleryRefresh, None),
-                App("Map Filter…", GalleryMapFilter, None),
+                App(t("menu.gallery.edit_selected"), GalleryEditSelected, None),
+                App(t("menu.gallery.refresh"), GalleryRefresh, None),
+                App(t("menu.gallery.map_filter"), GalleryMapFilter, None),
                 Sep,
                 // The content filter's model downloads live here too, so
                 // turning the filter on never requires leaving the room.
-                App("Manage Models…", ManageModels, None),
+                App(t("menu.filter.manage_models"), ManageModels, None),
                 Sep,
-                App("Back to Editor", OpenGallery, Some("cmd-shift-g")),
+                App(
+                    t("menu.gallery.back_to_editor"),
+                    OpenGallery,
+                    Some("cmd-shift-g"),
+                ),
             ],
         ),
         // On macOS Preferences sits in the application menu instead and
         // this menu converts to nothing; the native bar drops menus that
         // end up empty.
         (
-            "View",
+            t("menu.view"),
             vec![
-                App("AI Panel", ToggleAi, Some("cmd-shift-a")),
+                App(t("menu.view.ai_panel"), ToggleAi, Some("cmd-shift-a")),
                 Sep,
-                App("Preferences…", Preferences, Some("cmd-k")),
+                App(t("common.preferences"), Preferences, Some("cmd-k")),
             ],
         ),
     ]
@@ -404,18 +429,18 @@ pub(super) fn filter_menu_entries(ws: &Workspace) -> Vec<MenuEntry> {
     // Photoshop's Filter menu.
     let mut groups: Vec<MenuEntry> = FILTER_GROUPS
         .iter()
-        .map(|(name, ids)| {
+        .map(|(key, ids)| {
             let mut entries: Vec<MenuEntry> = ids.iter().map(|id| MenuEntry::Filter(id)).collect();
             // The Neural Filters need somewhere to fetch their models.
-            if *name == "Neural Filters" {
+            if *key == "filter.category.neural" {
                 entries.push(MenuEntry::Sep);
                 entries.push(MenuEntry::App(
-                    "Manage Models…",
+                    t("menu.filter.manage_models"),
                     AppItem::ManageModels,
                     None,
                 ));
             }
-            MenuEntry::Sub(name, entries)
+            MenuEntry::Sub(t(key), entries)
         })
         .collect();
     add_photoshop_plugins(ws, &mut groups);
@@ -434,7 +459,16 @@ pub(super) fn filter_menu_entries(ws: &Workspace) -> Vec<MenuEntry> {
 /// past where the pointer can go.
 pub(super) fn add_photoshop_plugins(ws: &Workspace, groups: &mut Vec<MenuEntry>) {
     for filter in ws.registry.filters().filter(|f| f.runs_out_of_process()) {
-        let category = filter.category();
+        // A PiPL names its category in English whatever the language
+        // of the menu, so "Blur" has to find the heading that reads
+        // "Oskärpa": the built-in group whose English name it is, or
+        // failing that a group already added under the plug-in's own
+        // name.
+        let category = FILTER_GROUPS
+            .iter()
+            .find(|(key, _)| t_in(Locale::En, key) == filter.category())
+            .map(|(key, _)| t(key))
+            .unwrap_or(filter.category());
         let existing = groups.iter_mut().find_map(|g| match g {
             MenuEntry::Sub(name, entries) if *name == category => Some(entries),
             _ => None,
@@ -453,7 +487,7 @@ pub(super) fn add_photoshop_plugins(ws: &Workspace, groups: &mut Vec<MenuEntry>)
 /// each of which applies on click and can be deleted from beside it.
 pub(super) fn layer_comp_entries(ws: &Workspace) -> Vec<MenuEntry> {
     let mut out = vec![MenuEntry::App(
-        "New Layer Comp",
+        t("menu.layer.new_layer_comp"),
         AppItem::NewLayerComp,
         None,
     )];
@@ -470,7 +504,7 @@ pub(super) fn layer_comp_entries(ws: &Workspace) -> Vec<MenuEntry> {
         out.push(MenuEntry::Sep);
         for (i, name) in comps.iter().enumerate() {
             out.push(MenuEntry::Dynamic(
-                format!("Delete {name}"),
+                tf!("menu.layer.delete_layer_comp", name = name),
                 AppItem::DeleteLayerComp(i),
             ));
         }
@@ -484,17 +518,27 @@ pub(super) fn destructive_adjustment_entries() -> Vec<MenuEntry> {
     schist_adjustments::Params::creatable()
         .iter()
         .filter(|k| !matches!(k, schist_core::AdjustmentKind::SolidColor))
-        .map(|&k| MenuEntry::App(k.display_name(), AppItem::ApplyAdjustment(k), None))
+        .map(|&k| {
+            MenuEntry::App(
+                crate::ui::adjustment_name(k),
+                AppItem::ApplyAdjustment(k),
+                None,
+            )
+        })
         .collect()
 }
 
-/// Menu grouping for the built-in filters.
+/// Menu grouping for the built-in filters: each category's string key
+/// (`filters.lang`) and the filters under it.
 pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
     // Photoshop's own order, which starts with 3D and puts Other last
     // before the Neural Filters.
-    ("3D", &["filter.bump_map", "filter.normal_map"]),
     (
-        "Artistic",
+        "filter.category.3d",
+        &["filter.bump_map", "filter.normal_map"],
+    ),
+    (
+        "filter.category.artistic",
         &[
             "filter.colored_pencil",
             "filter.cutout",
@@ -514,7 +558,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Blur",
+        "filter.category.blur",
         &[
             "filter.average",
             "filter.blur",
@@ -530,7 +574,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Blur Gallery",
+        "filter.category.blur_gallery",
         &[
             "filter.field_blur",
             "filter.iris_blur",
@@ -540,7 +584,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Brush Strokes",
+        "filter.category.brush_strokes",
         &[
             "filter.accented_edges",
             "filter.angled_strokes",
@@ -553,7 +597,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Distort",
+        "filter.category.distort",
         &[
             "filter.diffuse_glow",
             "filter.displace",
@@ -570,7 +614,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Noise",
+        "filter.category.noise",
         &[
             "filter.add_noise",
             "filter.despeckle",
@@ -580,7 +624,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Pixelate",
+        "filter.category.pixelate",
         &[
             "filter.color_halftone",
             "filter.crystallize",
@@ -592,7 +636,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Render",
+        "filter.category.render",
         &[
             "filter.flame",
             "filter.picture_frame",
@@ -605,7 +649,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Sharpen",
+        "filter.category.sharpen",
         &[
             "filter.sharpen",
             "filter.sharpen_edges",
@@ -615,7 +659,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Sketch",
+        "filter.category.sketch",
         &[
             "filter.bas_relief",
             "filter.chalk_charcoal",
@@ -634,7 +678,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Stylize",
+        "filter.category.stylize",
         &[
             "filter.diffuse",
             "filter.emboss",
@@ -649,7 +693,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Texture",
+        "filter.category.texture",
         &[
             "filter.craquelure",
             "filter.grain",
@@ -659,9 +703,12 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
             "filter.texturizer",
         ],
     ),
-    ("Video", &["filter.deinterlace", "filter.ntsc_colors"]),
     (
-        "Other",
+        "filter.category.video",
+        &["filter.deinterlace", "filter.ntsc_colors"],
+    ),
+    (
+        "filter.category.other",
         &[
             "filter.custom",
             "filter.high_pass",
@@ -672,7 +719,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Neural Filters",
+        "filter.category.neural",
         &[
             "filter.neural.style_transfer",
             "filter.neural.skin_smoothing",
@@ -697,12 +744,12 @@ fn cloud_entries(ws: &Workspace) -> Vec<MenuEntry> {
     use MenuEntry::*;
     if ws.cloud.account.is_some() {
         vec![
-            App("Browse Schist Cloud", CloudBrowse, None),
-            App("Generate images…", CloudGenerate, None),
-            App("Upload document to Schist Cloud…", CloudUpload, None),
-            App("Sign out of Schist Cloud", CloudSignOut, None),
+            App(t("menu.cloud.browse"), CloudBrowse, None),
+            App(t("menu.cloud.generate"), CloudGenerate, None),
+            App(t("menu.cloud.upload"), CloudUpload, None),
+            App(t("menu.cloud.sign_out"), CloudSignOut, None),
         ]
     } else {
-        vec![App("Sign into Schist Cloud…", CloudSignIn, None)]
+        vec![App(t("menu.cloud.sign_in"), CloudSignIn, None)]
     }
 }

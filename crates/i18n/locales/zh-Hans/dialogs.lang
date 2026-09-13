@@ -1,0 +1,249 @@
+# 简体中文：模态对话框。术语沿用简体中文版 Photoshop（新建文档、图像大小、
+# 画布大小、图层样式、重新采样）。
+
+# 多个对话框共用
+dialog.save_ellipsis = 存储…
+dialog.use_foreground = 使用前景色
+dialog.downloading = 正在下载…
+dialog.downloading_of = 正在下载… {got} / {total}
+dialog.no_config_dir = （没有配置目录）
+
+# 图层属性
+dialog.layer_props.title = 图层属性
+
+# 导出
+dialog.export.format = 格式
+dialog.export.dither = 仿色
+dialog.export.dither_note = 降为 8 位时使用仿色
+dialog.export.export_ellipsis = 导出…
+
+# 处理照片（图库的批处理对话框）
+dialog.batch.title = 处理照片
+dialog.batch.note_edit.other = {n} 张照片 — 存储为图库编辑；原件绝不会被改动。
+dialog.batch.note_edit_edited.other = {n} 张照片，其中 {edited} 张已编辑 — 配方会叠加在编辑之上，之前的编辑保留为一个版本。
+dialog.batch.note_copies.other = {n} 张照片 — 拼合的副本；原件绝不会被改动。
+dialog.batch.note_copies_edited.other = {n} 张照片，其中 {edited} 张已编辑 — 副本由编辑结果生成。
+dialog.batch.turn = 转向
+dialog.batch.rotate = 旋转
+dialog.batch.flip = 翻转
+dialog.batch.upscale = 放大
+dialog.batch.colour = 颜色
+dialog.batch.add_adjustment = 调整…
+dialog.batch.output = 输出
+dialog.batch.save_as = 存储为
+dialog.batch.process = 处理
+dialog.batch.process_n = 处理 {n} 张
+dialog.batch.nothing_to_do = 无事可做：请先选择旋转、放大或调整
+
+# 内容识别缩放
+dialog.content_aware_scale.title = 内容识别缩放
+dialog.content_aware_scale.note = 移除细节较少的接缝。选区标记需要保护的部分。
+
+# 描边（也用于“图层样式”对话框中描边的位置）
+dialog.stroke.title = 描边
+dialog.stroke.location = 位置
+dialog.stroke.inside = 内部
+dialog.stroke.outside = 外部
+dialog.stroke.note = 用前景色为选区描边。
+
+# 填充
+dialog.fill.contents = 内容
+
+# 色彩范围
+dialog.color_range.title = 色彩范围
+dialog.color_range.sampled = 取样
+dialog.color_range.fuzziness = 颜色容差
+dialog.color_range.note = 在当前图层上选择接近取样颜色的像素。
+
+# Schist 自绘的文件选择器（Android）
+dialog.file_picker.up = ↑ 上一级
+dialog.file_picker.empty = 这里没有内容
+dialog.file_picker.choose_folder = 选择此文件夹
+
+# 滤镜对话框
+dialog.filter.camera_raw_development = Camera Raw 显影
+dialog.filter.reset_as_shot = 重置为拍摄设置
+dialog.filter.raw_note = 从原始传感器数据重新显影当前图层。
+dialog.filter.note = 应用于当前图层的选区内。
+
+# 缺失字体
+dialog.fonts.title = 缺失字体
+dialog.fonts.install_named = 安装 {name}
+dialog.fonts.no_document = 没有打开的文档，因此无需检查。
+dialog.fonts.all_installed = 此文档使用的每种字体都已安装。文本以排版时所用的字体显示。
+dialog.fonts.missing_intro = 此文档使用了你没有的字体。文本可以用替代字体阅读，但字宽和换行与排版时不同。
+dialog.fonts.footer = 下载来自 Google Fonts 开放目录，保存在 {dir}。未采用开放许可的字体绝不会被获取 — 如果存在字宽兼容的自由字体，则改为提供该字体，由于字宽一致，版式得以恢复。
+dialog.fonts.user_font_dir = 你的用户字体目录
+
+# Neural Filters 模型
+dialog.models.title = Neural Filters 模型
+dialog.models.built_in = 内置 · {size}
+dialog.models.installed = 已安装 · {size}
+dialog.models.not_installed = 未安装 · {size}
+dialog.models.not_in_browser = 浏览器中不可用 · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = 模型保存在 {dir}。没有模型的滤镜会回退到信号处理，并会予以说明。
+
+# 新建文档
+dialog.new_doc.title = 新建文档
+dialog.new_doc.picker_title = 新建文件
+dialog.new_doc.custom_ellipsis = 自定义…
+dialog.new_doc.preset = 预设
+dialog.new_doc.preset_default = 默认 (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = 正方形 (1080 × 1080)
+dialog.new_doc.preset_a4 = A4，300 ppi
+dialog.new_doc.preset_us_letter = US Letter，300 ppi
+dialog.new_doc.summary = {w} × {h} 像素 @ {ppi} ppi · {size}
+dialog.new_doc.create = 创建
+dialog.new_doc.created = 新建文档：{w} × {h} 像素
+
+# 打开文件：拖入的图像和文件夹、共享的文件、HEIC 支持
+dialog.open.image_title = 打开图像
+dialog.open.image_prompt = 在新标签页中打开“{name}”，还是作为新图层添加到当前文档？
+dialog.open.new_tab = 新标签页
+dialog.open.new_layer = 新建图层
+dialog.open.quoted = “{name}”
+dialog.open.these_files.other = 这 {n} 个文件
+dialog.open.shared_title_one = 共享的图像
+dialog.open.shared_title_many = 共享的图像
+dialog.open.shared_prompt = 将{what}添加到图库，还是在编辑器中打开？
+dialog.open.add_to_gallery = 添加到图库
+dialog.open.open_in_editor = 在编辑器中打开
+dialog.open.heic_title = HEIC 支持
+dialog.open.heic_needs_decoder = 打开“{name}”需要 HEVC 解码器，而此系统尚未安装。
+dialog.open.heic_offer = Schist 可以下载仅含解码功能的 libheif {version} 及 libde265 HEVC 解码器（约 5 MB）。两者均采用 LGPL-3.0 许可；许可文本会安装在库文件旁，源代码可在项目页面获取。
+dialog.open.licenses_source = 许可与源代码
+dialog.open.folders_title = 拖入的文件夹
+dialog.open.n_folders.other = {n} 个文件夹
+dialog.open.open_in_tabs = 在标签页中打开
+dialog.open.open_first_in_tabs = 在标签页中打开前 {n} 张
+dialog.open.open_n_in_tabs.other = 在标签页中打开 {n} 张
+dialog.open.folder_holds.other = {what}包含 {n} 张 Schist 可以打开的图像（含子文件夹）。
+dialog.open.folders_note = “添加到图库”会就地监视这些文件夹 — 不复制任何内容，编辑以版本形式保存在每张照片旁。在标签页中打开则会立即把所有图像载入编辑器。
+
+# 增效工具
+dialog.plugins.title = 增效工具
+dialog.plugins.kind_filter = 滤镜
+dialog.plugins.kind_format = 格式
+dialog.plugins.kind_unavailable = 不可用
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = 增效工具从 {dir} 载入
+dialog.plugins.none = 尚未安装任何增效工具。
+dialog.plugins.install_ellipsis = 安装…
+dialog.plugins.photoshop_heading = Photoshop 增效工具
+dialog.plugins.loaded_from = 载入自 {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# 首选项
+dialog.prefs.title = 首选项
+dialog.prefs.theme = 主题
+dialog.prefs.theme_dark = 深色
+dialog.prefs.theme_light = 浅色
+dialog.prefs.grid_spacing = 网格间距
+dialog.prefs.snapping = 对齐
+dialog.prefs.snap_to = 对齐到参考线、网格和画布边缘
+dialog.prefs.rendering_intent = 渲染方法
+dialog.prefs.intent_perceptual = 可感知
+dialog.prefs.intent_relative = 相对比色
+dialog.prefs.intent_saturation = 饱和度
+dialog.prefs.intent_absolute = 绝对比色
+dialog.prefs.scrolling = 滚动
+dialog.prefs.zoom_with_scroll = 用滚轮缩放
+dialog.prefs.rendering = 渲染
+dialog.prefs.gpu_compositing = GPU 合成
+dialog.prefs.diagnostics = 诊断
+dialog.prefs.crash_reports = 崩溃时写入本地崩溃报告
+dialog.prefs.crash_upload = 同时发送给开发者
+dialog.prefs.telemetry = 每天发送一次匿名 ping
+dialog.prefs.diagnostics_note = 诊断设置在 Schist 下次启动时生效。
+dialog.prefs.updates = 更新
+dialog.prefs.check_updates = 启动时检查新版本
+dialog.prefs.keyboard_shortcuts = 键盘快捷键：{path}
+dialog.prefs.nsfw_needs_model = 需要 Content (NSFW Filter) 模型 —
+dialog.prefs.nsfw_download_link = 在“管理模型…”中下载
+dialog.prefs.hide_flagged = 隐藏被标记的照片
+
+# 指定配置文件 / 转换为配置文件
+dialog.profile.profile = 配置文件
+dialog.profile.assign_title = 指定配置文件
+dialog.profile.convert_title = 转换为配置文件
+dialog.profile.assign = 指定
+dialog.profile.convert = 转换
+dialog.profile.assign_note = 按新配置文件重新解释现有像素值。
+dialog.profile.convert_note = 重写像素值，使颜色保持外观不变。
+
+# 图像存储为（把图库照片存为拼合图像）
+dialog.save_image.title = 图像存储为
+dialog.save_image.note = {name} — 存储编辑结果（如有）；原件绝不会被改动。
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# 图像大小与画布大小
+dialog.size.image_title = 图像大小
+dialog.size.canvas_title = 画布大小
+dialog.size.constrain = 约束
+dialog.size.keep_proportions = 保持比例
+dialog.size.resample = 重新采样
+dialog.size.bicubic = 两次立方
+dialog.size.bilinear = 两次线性
+dialog.size.nearest = 邻近
+dialog.size.anchor = 定位
+dialog.size.currently = 当前 {w} × {h} 像素
+dialog.size.image_size_status = 图像大小：{w} × {h}
+dialog.size.canvas_size_status = 画布大小：{w} × {h}
+
+# 有可用更新
+dialog.update.title = 有可用更新
+dialog.update.available = Schist {version} 已发布。当前副本为 {current}。
+dialog.update.installing = 正在安装更新…
+dialog.update.can_install = Schist 可以下载它（{size}）并覆盖安装到当前副本。
+dialog.update.external = 当前副本来自它的所有者 — 包管理器、AppImage 或你自己的构建 — 因此按安装时的方式更新。
+dialog.update.later = 以后再说
+dialog.update.release_notes = 发行说明
+dialog.update.update_restart = 更新并重新启动
+dialog.update.open_page = 打开发布页面
+
+# 图层样式：各效果（Photoshop 的名称）及其控件
+dialog.style.title = 图层样式
+dialog.style.bevel = 斜面和浮雕
+dialog.style.stroke = 描边
+dialog.style.inner_shadow = 内阴影
+dialog.style.inner_glow = 内发光
+dialog.style.satin = 光泽
+dialog.style.color_overlay = 颜色叠加
+dialog.style.gradient_overlay = 渐变叠加
+dialog.style.outer_glow = 外发光
+dialog.style.drop_shadow = 投影
+dialog.style.blur = 高斯模糊
+dialog.style.gradient_from = 渐变叠加起点
+dialog.style.gradient_to = 渐变叠加终点
+dialog.style.soften = 软化
+dialog.style.depth = 深度
+dialog.style.altitude = 高度
+dialog.style.highlight = 高光
+dialog.style.shadow = 阴影
+dialog.style.outer_bevel = 外斜面
+dialog.style.inner_bevel = 内斜面
+dialog.style.emboss = 浮雕效果
+dialog.style.pillow_emboss = 枕状浮雕
+dialog.style.linear = 线性
+dialog.style.radial = 径向
+dialog.style.reverse = 反向
+dialog.style.from_to = 起点 / 终点
+dialog.style.from_fg = 起点 = 前景色
+dialog.style.to_fg = 终点 = 前景色
+dialog.style.precise = 精确
+dialog.style.knockout = 图层挖空投影
+
+# 拾色器
+dialog.color_picker.title = 拾色器（{what}）
+dialog.color_picker.effect_color = {effect}颜色
+dialog.color_picker.note_color = 注释颜色
+dialog.color_picker.new = 新的
+dialog.color_picker.current = 当前
+
+# 曲线图
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = 重置通道
+dialog.curves.hint = 拖动调整形状 · 单击添加 · 按住 Alt 单击删除

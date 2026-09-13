@@ -1,0 +1,155 @@
+# Menyraden. Termerna följer svenska Photoshop där det finns en.
+
+# Arkiv
+menu.file = Arkiv
+menu.file.new = Nytt
+menu.file.open = Öppna…
+menu.file.open_recent = Öppna senaste
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Bläddra i galleriet…
+menu.file.close = Stäng
+menu.file.save = Spara
+menu.file.save_as = Spara som…
+menu.file.export = Exportera…
+menu.file.export_submenu = Exportera
+menu.file.export_artboards = Ritytor till PNG…
+menu.file.export_slices = Segment till PNG…
+menu.file.save_to_photos = Spara i Bilder
+menu.file.plugins = Plugin-program…
+menu.file.missing_fonts = Saknade teckensnitt…
+menu.file.check_for_updates = Sök efter uppdateringar…
+menu.file.quit = Avsluta
+menu.file.add_folder_to_gallery = Lägg till mapp i galleriet…
+menu.file.import_from_photos = Importera från Bilder…
+menu.file.import_from_camera = Importera från kamera…
+
+# Redigera
+menu.edit = Redigera
+menu.edit.fill = Fyll…
+menu.edit.stroke = Linje…
+menu.edit.content_aware_fill = Innehållsanpassad fyllning
+menu.edit.content_aware_scale = Innehållsanpassad skalning…
+menu.edit.puppet_warp = Marionettförvrängning
+menu.edit.free_transform = Fri transformering
+menu.edit.transform = Transformera
+menu.edit.rotate_180 = Rotera 180°
+menu.edit.rotate_90_cw = Rotera 90° medurs
+menu.edit.rotate_90_ccw = Rotera 90° moturs
+menu.edit.flip_horizontal = Vänd horisontellt
+menu.edit.flip_vertical = Vänd vertikalt
+
+# Bild
+menu.image = Bild
+menu.image.mode = Läge
+menu.image.adjustments = Justeringar
+menu.image.auto_tone = Auto-ton
+menu.image.auto_contrast = Auto-kontrast
+menu.image.auto_color = Auto-färg
+menu.image.image_size = Bildstorlek…
+menu.image.canvas_size = Arbetsytans storlek…
+menu.image.image_rotation = Bildrotering
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° medurs
+menu.image.rotate_90_ccw = 90° moturs
+menu.image.flip_canvas_horizontal = Vänd arbetsytan horisontellt
+menu.image.flip_canvas_vertical = Vänd arbetsytan vertikalt
+menu.image.crop_to_selection = Beskär till markering
+menu.image.trim = Beskär automatiskt
+menu.image.assign_profile = Tilldela profil…
+menu.image.convert_to_profile = Konvertera till profil…
+
+# Markera
+menu.select = Markera
+menu.select.color_range = Färgområde…
+menu.select.modify = Ändra
+menu.select.border = Ram…
+menu.select.smooth = Mjukare…
+menu.select.expand = Utöka…
+menu.select.contract = Minska…
+menu.select.feather = Ludd…
+menu.select.transform_selection = Transformera markering
+
+# Lager
+menu.layer = Lager
+menu.layer.layer_style = Lagerstil…
+menu.layer.layer_comps = Lagerkompositioner
+menu.layer.new_layer_comp = Ny lagerkomposition
+menu.layer.delete_layer_comp = Ta bort {name}
+menu.layer.path = Bana
+menu.layer.fill_path = Fyll bana
+menu.layer.stroke_path = Linje längs bana
+menu.layer.make_selection = Skapa markering
+menu.layer.delete_path = Ta bort bana
+
+# Justera
+menu.adjust = Justera
+
+# Filter
+menu.filter = Filter
+menu.filter.filter_gallery = Filtergalleri…
+menu.filter.liquify = Gör flytande
+menu.filter.vanishing_point = Gränspunkt
+menu.filter.manage_models = Hantera modeller…
+menu.filter.camera_raw_development = Camera Raw-framkallning…
+
+# Visa
+menu.view = Visa
+menu.view.rotate_view_cw = Rotera vyn medurs
+menu.view.rotate_view_ccw = Rotera vyn moturs
+menu.view.reset_view = Återställ vyn
+menu.view.zoom_in = Zooma in
+menu.view.zoom_out = Zooma ut
+menu.view.fit_on_screen = Anpassa till skärm
+menu.view.actual_size = 100 %
+menu.view.rulers = Linjaler
+menu.view.grid = Stödraster
+menu.view.guides = Stödlinjer
+menu.view.notes = Anteckningar
+menu.view.ai_panel = AI-panel
+menu.view.extras = Extrafunktioner
+menu.view.snap = Fäst
+menu.view.clear_guides = Ta bort stödlinjer
+menu.view.clear_notes = Ta bort anteckningar
+menu.view.clear_count = Nollställ räkning
+menu.view.screen_mode = Skärmläge
+menu.view.proof_colors = Korrekturfärger
+menu.view.show_rulers = Visa linjaler
+menu.view.hide_rulers = Dölj linjaler
+menu.view.show_grid = Visa stödraster
+menu.view.hide_grid = Dölj stödraster
+menu.view.show_guides = Visa stödlinjer
+menu.view.hide_guides = Dölj stödlinjer
+menu.view.show_notes = Visa anteckningar
+menu.view.hide_notes = Dölj anteckningar
+menu.view.show_extras = Visa extrafunktioner
+menu.view.hide_extras = Dölj extrafunktioner
+menu.view.enable_snapping = Aktivera fästning
+menu.view.disable_snapping = Inaktivera fästning
+menu.view.enable_proof_colors = Aktivera korrekturfärger
+menu.view.disable_proof_colors = Inaktivera korrekturfärger
+
+# Galleri
+menu.gallery = Galleri
+menu.gallery.edit_selected = Redigera markerade
+menu.gallery.refresh = Uppdatera
+menu.gallery.map_filter = Kartfilter…
+menu.gallery.back_to_editor = Tillbaka till redigeraren
+
+# Schist Cloud
+menu.cloud.browse = Bläddra i Schist Cloud
+menu.cloud.generate = Generera bilder…
+menu.cloud.upload = Ladda upp dokument till Schist Cloud…
+menu.cloud.sign_out = Logga ut från Schist Cloud
+menu.cloud.sign_in = Logga in på Schist Cloud…
+
+# Programmenyn på macOS
+menu.app.services = Tjänster
+menu.app.hide = Göm {app}
+menu.app.hide_others = Göm övriga
+menu.app.show_all = Visa alla
+menu.app.quit = Avsluta {app}
+
+# Statusradens svar
+menu.status.transform_selection_needs_selection = Transformera markering kräver en markering
+menu.status.crop_needs_selection = Beskär till markering kräver en markering
+menu.status.select_photo_to_edit = Markera ett foto att redigera

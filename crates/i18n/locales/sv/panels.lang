@@ -1,0 +1,100 @@
+# Panelerna, verktygsfältet, statusfältet, titelraden, dokumentflikarna
+# och högerklicksmenyerna (crates/app/src/panels), samt fildialogerna i
+# keymap.rs. Panelnamnen följer svenska Photoshop: Lager, Händelser,
+# Info, Navigatör, Färg, Egenskaper, Tecken.
+
+# Modifieringstangenterna som en menys kortkommando skriver dem
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Skift
+panel.keys.alt = Alt
+
+# Statusfältet
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Dokumentflikar och fönstertiteln
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigatör
+panel.navigator.title = Navigatör
+panel.navigator.actual_pixels = Faktiska pixlar
+
+# Färgpanelen och dess högerklicksmeny
+panel.color.picker = Färgväljare…
+panel.color.swap = Växla färger
+panel.color.reset = Återställ till svart och vitt
+
+# Lagerpanelen
+panel.layers.blending_options = Blandningsalternativ…
+panel.layers.properties = Lageregenskaper…
+panel.layers.show_hide = Visa/dölj lager
+panel.layers.toggle_visibility = Växla synlighet
+
+# Händelsepanelen
+panel.history.title = Händelser
+panel.history.opened = Öppnad
+
+# Infofliken
+panel.info.title = Info
+panel.info.camera = Kamera
+panel.info.lens = Objektiv
+panel.info.iso = ISO {iso}
+panel.info.bias = Kompensation
+panel.info.flash_fired = blixt utlöst
+panel.info.no_flash = ingen blixt
+panel.info.white_balance = VB {wb}
+panel.info.metering = ljusmätning {metering}
+panel.info.taken = Tagen
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientering {o}
+panel.info.software = Programvara
+panel.info.where = Plats
+
+# Anteckningspanelen och anteckningsverktygets alternativ
+panel.notes.author = Författare
+panel.notes.clear_all = Rensa alla
+panel.notes.unattributed = Okänd författare
+panel.notes.empty = Klicka på arbetsytan för att lämna en anteckning.
+panel.notes.placeholder = Klicka för att skriva
+
+# Teckenpanelen och textverktygets alternativfält
+panel.character.title = Tecken
+panel.character.type_tool = Textverktyg (T)
+panel.character.align_left = Vänsterjustera
+panel.character.align_center = Centrera
+panel.character.align_right = Högerjustera
+panel.character.text_color = Textfärg
+panel.character.panel = Teckenpanelen
+panel.character.cancel_edit = Avbryt textredigering
+panel.character.commit_edit = Bekräfta textredigering
+panel.character.number_tip = {label} · Skriv ett värde eller använd ↑ / ↓ (Skift för större steg)
+panel.character.leading = Radavstånd
+panel.character.tracking = Spärra/knip
+panel.character.alignment = Justering
+panel.character.opentype = OpenType
+panel.character.text_on_path = Text på bana
+panel.character.straight = Rak
+panel.character.on_path = På bana
+panel.character.straight_tip = Använd textlagrets vanliga baslinje
+panel.character.on_path_tip = Använd en kopia av den aktiva banan
+panel.character.path_offset = Baneförskjutning
+
+# AI-panelen
+panel.ai.title = AI
+panel.ai.empty_editor = Be om en redigering och se den ske på arbetsytan. Agenten använder samma verktyg, filter och kommandon som menyerna, ett ångra-steg vardera.
+panel.ai.empty_gallery = Fråga om dina foton och se det ske i galleriet: agenten kan söka, titta på miniatyrer, markera, sortera i högar och öppna ett foto i redigeraren.
+panel.ai.thinking = tänker…
+panel.ai.placeholder_editor = Fråga om eller redigera det här dokumentet
+panel.ai.placeholder_gallery = Fråga om dina foton
+panel.ai.send = Skicka
+panel.ai.stop = Stoppa
+panel.ai.fetching_models = Frågar CLI:t efter dess modeller…
+panel.ai.no_models = Inga modeller matchar
+panel.ai.search_models = Sök modeller…
+
+# Fildialoger (keymap.rs)
+panel.keymap.install_plugin = Installera plugin
+panel.keymap.save_as_prompt = Spara som — filändelsen avgör formatet:

@@ -3,13 +3,14 @@
 //! rotation, Trim, and colour mode.
 
 use super::*;
+use schist_i18n::t;
 
 impl Workspace {
     /// Run a Select ▸ Modify operation as one history entry.
     pub fn apply_select_modify(&mut self, kind: ModifyKind, amount: f32, cx: &mut Context<Self>) {
         let Some(doc) = self.doc.as_mut() else { return };
         if doc.selection.is_empty() {
-            self.status = "Select something first".into();
+            self.status = t("common.select_something_first").into();
             cx.notify();
             return;
         }
@@ -35,7 +36,7 @@ impl Workspace {
             .and_then(|id| doc.tree.find(id))
             .and_then(|l| l.as_raster())
         else {
-            self.status = "Color Range needs a pixel layer".into();
+            self.status = t("workspace.canvas.color_range_needs_pixel_layer").into();
             cx.notify();
             return;
         };
@@ -66,7 +67,7 @@ impl Workspace {
                     (v * 255.0).round() as u8;
             }
         }
-        let mut edit = doc.begin_edit("Color Range");
+        let mut edit = doc.begin_edit(t("workspace.history.color_range"));
         edit.change_selection(|sel, canvas| {
             sel.deselect();
             sel.activate();
@@ -75,7 +76,7 @@ impl Workspace {
             });
         });
         edit.commit();
-        self.status = "Color Range".into();
+        self.status = t("workspace.history.color_range").into();
         self.after_change(cx);
     }
 
@@ -143,13 +144,13 @@ impl Workspace {
         };
         let mut buf = preview.original.clone();
         params.apply_buffer(&mut buf);
-        let name = kind.display_name().to_string();
+        let name = crate::ui::adjustment_name(kind);
         self.write_region(
             preview.layer,
             preview.region,
             &preview.original,
             &buf,
-            &name,
+            name,
             true,
         );
         self.status = name.into();
@@ -185,7 +186,7 @@ impl Workspace {
                 .map(|p| p[ch])
                 .collect();
             if vals.is_empty() {
-                self.status = "Nothing to adjust".into();
+                self.status = t("workspace.canvas.nothing_to_adjust").into();
                 cx.notify();
                 return;
             }
@@ -289,7 +290,7 @@ impl Workspace {
             }
         }
         if keep.is_empty() || keep == canvas {
-            self.status = "Nothing to trim".into();
+            self.status = t("workspace.canvas.nothing_to_trim").into();
             cx.notify();
             return;
         }
@@ -300,7 +301,7 @@ impl Workspace {
     pub fn resize_canvas_to(&mut self, rect: IntRect, cx: &mut Context<Self>) {
         let Some(doc) = self.doc.as_mut() else { return };
         schist_tools_transform::crop_to(doc, rect);
-        self.status = "Trimmed".into();
+        self.status = t("workspace.canvas.trimmed").into();
         self.fit_to_view();
         self.after_change(cx);
     }
@@ -316,7 +317,7 @@ impl Workspace {
         // the image and labelling the history entry "Grayscale", so the
         // menu item claimed to do something it had never implemented.
         if mode == schist_color::ColorMode::Indexed {
-            self.status = "Indexed Color is not supported yet".into();
+            self.status = t("workspace.canvas.indexed_not_supported").into();
             cx.notify();
             return;
         }
@@ -333,7 +334,7 @@ impl Workspace {
                         .map(|r| (*id, r.tiles.iter().map(|(c, _)| *c).collect()))
                 })
                 .collect();
-            let mut edit = doc.begin_edit("Grayscale");
+            let mut edit = doc.begin_edit(color_mode_name(mode));
             for (id, coords) in coords_by_layer {
                 for coord in coords {
                     let Some(tile) = edit.writable_tile(id, coord) else {
@@ -351,16 +352,29 @@ impl Workspace {
         } else {
             // CMYK/Lab/RGB change nothing but the mode, which still has
             // to be undoable: it used to produce no history entry at all.
-            let mut edit = doc.begin_edit(mode.display_name().to_string());
+            let mut edit = doc.begin_edit(color_mode_name(mode));
             edit.set_color_mode(mode);
             edit.commit();
         }
         if let Some(doc) = self.doc.as_mut() {
             doc.damage_all();
         }
-        self.status = mode.display_name().into();
+        self.status = color_mode_name(mode).into();
         self.after_change(cx);
     }
+}
+
+/// The name of a colour mode as the chrome shows it; the kernel's
+/// `display_name` is the English the file format knows.
+fn color_mode_name(mode: schist_color::ColorMode) -> &'static str {
+    use schist_color::ColorMode::*;
+    t(match mode {
+        Rgb => "common.rgb",
+        Grayscale => "common.grayscale",
+        Cmyk => "common.cmyk",
+        Lab => "common.lab",
+        Indexed => "common.indexed",
+    })
 }
 
 /// Turn or flip a whole document, every raster layer with it, as one

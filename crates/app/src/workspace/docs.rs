@@ -1,6 +1,7 @@
 //! Documents and tabs: creating, opening, saving, closing.
 
 use super::*;
+use schist_i18n::{t, tf};
 
 impl Workspace {
     // ----- document lifecycle -----
@@ -33,7 +34,7 @@ impl Workspace {
     pub(super) fn next_untitled_name(&self) -> String {
         let taken = self.tab_strip();
         (1..)
-            .map(|n| format!("Untitled-{n}"))
+            .map(|n| tf!("common.untitled_n", n = n))
             .find(|name| !taken.iter().any(|(title, _)| title.as_ref() == name))
             .unwrap()
     }
@@ -54,7 +55,11 @@ impl Workspace {
         let height = height.clamp(1, 30000);
         let name = name.trim();
         let mut doc = Document::new(
-            if name.is_empty() { "Untitled" } else { name },
+            if name.is_empty() {
+                t("common.untitled")
+            } else {
+                name
+            },
             width,
             height,
             depth,
@@ -74,9 +79,9 @@ impl Workspace {
         // A filled start is "Background", a transparent one an ordinary
         // "Layer 1", as in Photoshop.
         let mut layer = Layer::new_raster(if fill.is_some() {
-            "Background"
+            t("common.background_layer").to_string()
         } else {
-            "Layer 1"
+            tf!("common.layer_n", n = 1)
         });
         if let Some(rgba) = fill {
             let buf = rgba.repeat(width as usize * height as usize);
@@ -341,7 +346,11 @@ impl Workspace {
     /// Open `path` without blocking the window: the read and decode run
     /// on a background thread and the document is installed when ready.
     pub fn load_file(&mut self, path: PathBuf, cx: &mut Context<Self>) {
-        self.status = format!("Opening {}\u{2026}", crate::ui::shown_path(&path)).into();
+        self.status = tf!(
+            "workspace.docs.opening",
+            name = crate::ui::shown_path(&path)
+        )
+        .into();
         cx.notify();
         let codecs = self.registry.shared_codecs();
         cx.spawn(async move |this, cx| {
@@ -386,8 +395,8 @@ impl Workspace {
                         .and_then(|id| doc.tree.find(id))
                         .is_some_and(|layer| layer.raw.is_some());
                 self.status = match &doc.path {
-                    Some(p) => format!("Opened {}", crate::ui::shown_path(p)).into(),
-                    None => format!("Opened {}", doc.title).into(),
+                    Some(p) => tf!("workspace.docs.opened", name = crate::ui::shown_path(p)).into(),
+                    None => tf!("workspace.docs.opened", name = doc.title).into(),
                 };
                 self.install_document(doc);
                 // Adopt a gallery edit's sidecar arrangement, or record
@@ -410,12 +419,12 @@ impl Workspace {
                     && schist_codecs_common::heif::managed_library().is_some()
                     && self.modal.is_none() =>
             {
-                self.status = "HEIC support is not installed".into();
+                self.status = t("workspace.docs.heic_not_installed").into();
                 self.open_modal(Modal::HeifSupport { path }, cx);
             }
             Err(err) => {
                 log::error!("open failed: {err:#}");
-                self.status = format!("Open failed: {err}").into();
+                self.status = tf!("workspace.docs.open_failed", error = err).into();
             }
         }
     }
@@ -432,11 +441,7 @@ impl Workspace {
             return;
         };
         self.heif_download = true;
-        self.status = format!(
-            "Downloading HEIC support (libheif {})\u{2026}",
-            managed.version
-        )
-        .into();
+        self.status = tf!("workspace.docs.heic_downloading", version = managed.version).into();
         cx.notify();
         cx.spawn(async move |this, cx| {
             let installed = cx
@@ -464,13 +469,13 @@ impl Workspace {
                     // and stay where the user is.
                     Ok(()) if ws.library.open => {
                         ws.library.retry_failed_thumbs();
-                        ws.status = "HEIC support installed".into();
+                        ws.status = t("workspace.docs.heic_installed").into();
                         ws.library_rescan(cx);
                     }
                     Ok(()) => ws.load_file(path, cx),
                     Err(err) => {
                         log::error!("HEIC support download failed: {err:#}");
-                        ws.status = format!("HEIC support download failed: {err}").into();
+                        ws.status = tf!("workspace.docs.heic_download_failed", error = err).into();
                     }
                 }
                 cx.notify();
@@ -582,7 +587,11 @@ impl Workspace {
     /// Decode `path` off the UI thread and insert it into the current
     /// document as a new raster layer, centered like a paste.
     pub fn place_image_as_layer(&mut self, path: PathBuf, cx: &mut Context<Self>) {
-        self.status = format!("Placing {}\u{2026}", crate::ui::shown_path(&path)).into();
+        self.status = tf!(
+            "workspace.docs.placing",
+            name = crate::ui::shown_path(&path)
+        )
+        .into();
         cx.notify();
         let codecs = self.registry.shared_codecs();
         cx.spawn(async move |this, cx| {
@@ -615,7 +624,7 @@ impl Workspace {
             Ok(r) => r,
             Err(err) => {
                 log::error!("place failed: {err:#}");
-                self.status = format!("Place failed: {err}").into();
+                self.status = tf!("workspace.docs.place_failed", error = err).into();
                 return;
             }
         };
@@ -650,11 +659,11 @@ impl Workspace {
             }
             None => schist_core::LayerPath(vec![doc.tree.layers.len()]),
         };
-        let mut edit = doc.begin_edit("Place Image");
+        let mut edit = doc.begin_edit(t("workspace.docs.place_image"));
         edit.insert_layer(insert_at, layer);
         edit.commit();
         doc.active_layer = Some(id);
-        self.status = format!("Placed {title}").into();
+        self.status = tf!("workspace.docs.placed", name = title).into();
         self.after_change(cx);
     }
 
@@ -681,7 +690,8 @@ impl Workspace {
                 if !self.post_save_backing(&path) {
                     self.note_recent(&path);
                 }
-                self.status = format!("Saved {}", crate::ui::shown_path(&path)).into();
+                self.status =
+                    tf!("workspace.docs.saved", name = crate::ui::shown_path(&path)).into();
                 // Only if this is the document the close was asked for.
                 // The Save As portal does not block the window on Linux,
                 // so the user can switch tabs and save another one while
@@ -696,7 +706,7 @@ impl Workspace {
                 // The tab stays open on a failed save, whatever was asked.
                 self.close_after_save = None;
                 log::error!("save failed: {err:#}");
-                self.status = format!("Save failed: {err}").into();
+                self.status = tf!("workspace.docs.save_failed", error = err).into();
             }
         }
         cx.notify();
@@ -748,7 +758,7 @@ impl Workspace {
         let doc = self
             .doc
             .as_ref()
-            .ok_or_else(|| anyhow::anyhow!("no document"))?;
+            .ok_or_else(|| anyhow::anyhow!("{}", t("common.no_document")))?;
         self.write_doc_to(doc, path)
     }
 
@@ -759,8 +769,11 @@ impl Workspace {
     ) -> anyhow::Result<()> {
         let codec = self.exporter_for(path).ok_or_else(|| {
             anyhow::anyhow!(
-                "no exporter for .{}",
-                path.extension().and_then(|e| e.to_str()).unwrap_or("")
+                "{}",
+                tf!(
+                    "workspace.docs.no_exporter",
+                    ext = path.extension().and_then(|e| e.to_str()).unwrap_or("")
+                )
             )
         })?;
         let bytes = codec.export(doc)?;

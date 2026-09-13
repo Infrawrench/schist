@@ -14,6 +14,7 @@ pub use psd::{PsdCodec, PsdPlugin};
 pub use raw::RawCodec;
 use schist_color::Depth;
 use schist_core::{blit_rgba8, blit_rgba_f32, Document, IntRect, Layer};
+use schist_i18n::{t, tf};
 use schist_plugin_api::{CodecPlugin, ExportOptions, PluginManifest, PluginRegistry};
 
 mod affinity;
@@ -34,7 +35,7 @@ fn flat_document(
     anyhow::ensure!(rgba.len() == w as usize * h as usize * 4, "buffer size");
     let mut doc = Document::new(title, w, h, Depth::Eight);
     doc.icc_profile = icc;
-    let mut layer = Layer::new_raster("Background");
+    let mut layer = Layer::new_raster(t("common.background_layer"));
     blit_rgba8(
         &mut layer.as_raster_mut().unwrap().tiles,
         Depth::Eight,
@@ -85,17 +86,17 @@ fn depth_for(color: image::ColorType) -> Depth {
 fn import_with(format: ImageFormat, bytes: &[u8], title: &str) -> anyhow::Result<Document> {
     let mut decoder = image::ImageReader::with_format(std::io::Cursor::new(bytes), format)
         .into_decoder()
-        .with_context(|| format!("decoding {title}"))?;
+        .with_context(|| tf!("codec.msg.decoding", name = title))?;
     use image::ImageDecoder as _;
     let mut icc = decoder
         .icc_profile()
         .ok()
         .flatten()
         .filter(|b| !b.is_empty());
-    let img =
-        image::DynamicImage::from_decoder(decoder).with_context(|| format!("decoding {title}"))?;
+    let img = image::DynamicImage::from_decoder(decoder)
+        .with_context(|| tf!("codec.msg.decoding", name = title))?;
     let (w, h) = (img.width(), img.height());
-    anyhow::ensure!(w > 0 && h > 0, "zero-sized image");
+    anyhow::ensure!(w > 0 && h > 0, "{}", t("codec.msg.zero_sized"));
 
     // HDR PNGs (iPhone captures, HDR screenshots) mark BT.2100 PQ/HLG in
     // a cICP chunk, which overrides any iCCP profile; shown raw those
@@ -165,7 +166,7 @@ pub(crate) fn deep_document(
     anyhow::ensure!(rgba.len() == w as usize * h as usize * 4, "buffer size");
     let mut doc = Document::new(title, w, h, depth);
     doc.icc_profile = icc;
-    let mut layer = Layer::new_raster("Background");
+    let mut layer = Layer::new_raster(t("common.background_layer"));
     blit_rgba_f32(
         &mut layer.as_raster_mut().unwrap().tiles,
         depth,
@@ -299,7 +300,7 @@ fn export_flat(
 }
 
 macro_rules! simple_codec {
-    ($ty:ident, $id:literal, $name:literal, $format:expr, $exts:expr, $magic:expr) => {
+    ($ty:ident, $id:literal, $name:expr, $format:expr, $exts:expr, $magic:expr) => {
         pub struct $ty;
 
         impl CodecPlugin for $ty {
@@ -351,7 +352,7 @@ macro_rules! simple_codec {
 simple_codec!(
     PngCodec,
     "codec.png",
-    "PNG",
+    t("codec.png.name"),
     ImageFormat::Png,
     &["png"],
     &[&[(0, b"\x89PNG")]]
@@ -359,7 +360,7 @@ simple_codec!(
 simple_codec!(
     JpegCodec,
     "codec.jpeg",
-    "JPEG",
+    t("codec.jpeg.name"),
     ImageFormat::Jpeg,
     &["jpg", "jpeg"],
     &[&[(0, b"\xFF\xD8\xFF")]]
@@ -367,7 +368,7 @@ simple_codec!(
 simple_codec!(
     WebPCodec,
     "codec.webp",
-    "WebP",
+    t("codec.webp.name"),
     ImageFormat::WebP,
     &["webp"],
     // "RIFF" alone is any RIFF container; webp also declares itself at
@@ -378,7 +379,7 @@ simple_codec!(
 simple_codec!(
     TiffCodec,
     "codec.tiff",
-    "TIFF",
+    t("codec.tiff.name"),
     ImageFormat::Tiff,
     &["tif", "tiff"],
     // Classic TIFF plus BigTIFF, which uses version 43 instead of 42.
@@ -650,7 +651,15 @@ mod tests {
             sha256: "239f59ed55e737c77147cf55ad0c1b030b6d7ee748a7426952f9b852d5a935e5",
         };
         let err = heif::install(&file, b"tampered").unwrap_err();
-        assert!(err.to_string().contains("checksum mismatch"), "{err}");
+        assert_eq!(
+            err.to_string(),
+            tf!(
+                "codec.heif.msg.checksum_mismatch",
+                name = file.name,
+                expected = file.sha256,
+                got = format!("{:x}", <sha2::Sha256 as sha2::Digest>::digest(b"tampered"))
+            )
+        );
         assert!(
             !dir.join("libtest.so.1").exists(),
             "nothing written on mismatch"

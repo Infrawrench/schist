@@ -1,25 +1,39 @@
 //! File ▸ New: presets and the new-document dialog.
 
 use super::*;
+use schist_i18n::{t, tf};
 
-/// (label, width, height, ppi) rows of the File ▸ New preset dropdown,
-/// matched against the dialog's current values to show which is selected.
+/// (label key, width, height, ppi) rows of the File ▸ New preset
+/// dropdown, matched against the dialog's current values to show which
+/// is selected. The key names the preset in the catalog; `t` gives the
+/// label.
 pub(super) const NEW_DOC_PRESETS: &[(&str, u32, u32, f32)] = &[
-    ("Default (1280 × 800)", 1280, 800, 72.0),
-    ("HD (1920 × 1080)", 1920, 1080, 72.0),
-    ("4K UHD (3840 × 2160)", 3840, 2160, 72.0),
-    ("Square (1080 × 1080)", 1080, 1080, 72.0),
-    ("A4, 300 ppi", 2480, 3508, 300.0),
-    ("US Letter, 300 ppi", 2550, 3300, 300.0),
+    ("dialog.new_doc.preset_default", 1280, 800, 72.0),
+    ("dialog.new_doc.preset_hd", 1920, 1080, 72.0),
+    ("dialog.new_doc.preset_4k", 3840, 2160, 72.0),
+    ("dialog.new_doc.preset_square", 1080, 1080, 72.0),
+    ("dialog.new_doc.preset_a4", 2480, 3508, 300.0),
+    ("dialog.new_doc.preset_us_letter", 2550, 3300, 300.0),
 ];
+
+/// A colour mode's name in the user's language.
+fn mode_name(mode: ColorMode) -> &'static str {
+    t(match mode {
+        ColorMode::Rgb => "common.rgb",
+        ColorMode::Grayscale => "common.grayscale",
+        ColorMode::Cmyk => "common.cmyk",
+        ColorMode::Lab => "common.lab",
+        ColorMode::Indexed => "common.indexed",
+    })
+}
 
 /// File ▸ New: the preset picker. One card per common size — a click
 /// creates the document on the spot — and Custom… opens the full
 /// dialog below for everything else.
 pub(super) fn new_file_picker(cx: &mut Context<Workspace>) -> impl IntoElement {
     let mut cards = div().flex().flex_row().flex_wrap().gap_2();
-    for &(label, width, height, ppi) in NEW_DOC_PRESETS {
-        cards = cards.child(preset_card(label, width, height, ppi, cx));
+    for &(key, width, height, ppi) in NEW_DOC_PRESETS {
+        cards = cards.child(preset_card(key, width, height, ppi, cx));
     }
     cards = cards.child(
         div()
@@ -39,7 +53,7 @@ pub(super) fn new_file_picker(cx: &mut Context<Workspace>) -> impl IntoElement {
             .on_click(cx.listener(|ws, _e, _w, cx| {
                 ws.open_new_document_dialog(cx);
             }))
-            .child("Custom…"),
+            .child(t("dialog.new_doc.custom_ellipsis")),
     );
     let actions = div().flex().flex_row().gap_2().child(ui::button(
         "Cancel",
@@ -47,12 +61,13 @@ pub(super) fn new_file_picker(cx: &mut Context<Workspace>) -> impl IntoElement {
         |ws, _w, cx| ws.close_modal(cx),
         cx,
     ));
-    ui::modal_frame("New File", 520.0, cards, actions)
+    ui::modal_frame(t("dialog.new_doc.picker_title"), 520.0, cards, actions)
 }
 
-/// A preset card: click it and the document exists.
+/// A preset card: click it and the document exists. `key` is the
+/// preset's catalog key, which also serves as the card's element id.
 fn preset_card(
-    label: &'static str,
+    key: &'static str,
     width: u32,
     height: u32,
     ppi: f32,
@@ -69,7 +84,7 @@ fn preset_card(
         .bg(gpui::rgb(ui::palette().control_bg))
         .border_1()
         .border_color(gpui::rgb(ui::palette().edge))
-        .id(label)
+        .id(key)
         .cursor_pointer()
         .hover(|s| s.border_color(gpui::rgb(ui::palette().accent)))
         .on_click(cx.listener(move |ws, _e, _w, cx| {
@@ -85,12 +100,12 @@ fn preset_card(
             );
             cx.notify();
         }))
-        .child(div().text_size(px(12.0)).child(label))
+        .child(div().text_size(px(12.0)).child(t(key)))
         .child(
             div()
                 .text_size(px(10.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(format!("{width} × {height} px")),
+                .child(tf!("common.dimensions_px", w = width, h = height)),
         )
 }
 
@@ -125,18 +140,23 @@ pub(super) fn new_document_dialog(
         .iter()
         .position(|(_, w, h, r)| *w == width && *h == height && (*r - resolution).abs() < 0.5);
     let preset_label: SharedString = preset
-        .map(|i| NEW_DOC_PRESETS[i].0.into())
-        .unwrap_or_else(|| "Custom".into());
+        .map(|i| t(NEW_DOC_PRESETS[i].0).into())
+        .unwrap_or_else(|| t("common.custom").into());
     let preset_options: Vec<(SharedString, usize)> = NEW_DOC_PRESETS
         .iter()
         .enumerate()
-        .map(|(i, (label, ..))| (SharedString::from(*label), i))
+        .map(|(i, (key, ..))| (SharedString::from(t(key)), i))
         .collect();
 
-    let depth_label = |d: Depth| match d {
-        Depth::Eight => "8 bit",
-        Depth::Sixteen => "16 bit",
-        Depth::ThirtyTwo => "32 bit",
+    let depth_label = |d: Depth| {
+        tf!(
+            "common.bits_per_channel",
+            n = match d {
+                Depth::Eight => 8,
+                Depth::Sixteen => 16,
+                Depth::ThirtyTwo => 32,
+            }
+        )
     };
     let mode_options: Vec<(SharedString, ColorMode)> = [
         ColorMode::Rgb,
@@ -145,7 +165,7 @@ pub(super) fn new_document_dialog(
         ColorMode::Lab,
     ]
     .into_iter()
-    .map(|m| (SharedString::from(m.display_name()), m))
+    .map(|m| (SharedString::from(mode_name(m)), m))
     .collect();
     let background_options: Vec<(SharedString, NewDocBackground)> = [
         NewDocBackground::White,
@@ -154,7 +174,7 @@ pub(super) fn new_document_dialog(
         NewDocBackground::Transparent,
     ]
     .into_iter()
-    .map(|b| (SharedString::from(b.display_name()), b))
+    .map(|b| (SharedString::from(b.label()), b))
     .collect();
 
     // Uncompressed pixel size, the way Photoshop's dialog reports it.
@@ -163,11 +183,20 @@ pub(super) fn new_document_dialog(
         * (mode.channels() as u64 + 1)
         * depth.bytes_per_channel() as u64;
     let size = if bytes < 1 << 20 {
-        format!("{:.0} KB", bytes as f64 / (1u64 << 10) as f64)
+        tf!(
+            "common.kilobytes",
+            n = format!("{:.0}", bytes as f64 / (1u64 << 10) as f64)
+        )
     } else if bytes < 1 << 30 {
-        format!("{:.1} MB", bytes as f64 / (1u64 << 20) as f64)
+        tf!(
+            "common.megabytes",
+            n = format!("{:.1}", bytes as f64 / (1u64 << 20) as f64)
+        )
     } else {
-        format!("{:.2} GB", bytes as f64 / (1u64 << 30) as f64)
+        tf!(
+            "common.gigabytes",
+            n = format!("{:.2}", bytes as f64 / (1u64 << 30) as f64)
+        )
     };
 
     let body = div()
@@ -175,7 +204,7 @@ pub(super) fn new_document_dialog(
         .flex_col()
         .gap_1()
         .child(ui::field_row(
-            "Name",
+            t("common.name"),
             TextInput::new("new-doc-name", shown_name.clone())
                 .cursor(if state.field_buffer.is_empty() {
                     shown_name.len()
@@ -191,7 +220,7 @@ pub(super) fn new_document_dialog(
                 })),
         ))
         .child(ui::field_row(
-            "Preset",
+            t("dialog.new_doc.preset"),
             ui::dropdown(
                 &state.dropdown,
                 ui::Dropdown {
@@ -222,7 +251,7 @@ pub(super) fn new_document_dialog(
             ),
         ))
         .child(ui::field_row(
-            "Width",
+            t("common.width"),
             ui::num_field(
                 ui::NumField {
                     id: "new-doc-w",
@@ -243,7 +272,7 @@ pub(super) fn new_document_dialog(
             ),
         ))
         .child(ui::field_row(
-            "Height",
+            t("common.height"),
             ui::num_field(
                 ui::NumField {
                     id: "new-doc-h",
@@ -264,7 +293,7 @@ pub(super) fn new_document_dialog(
             ),
         ))
         .child(ui::field_row(
-            "Resolution",
+            t("common.resolution"),
             ui::num_field(
                 ui::NumField {
                     id: "new-doc-dpi",
@@ -285,14 +314,14 @@ pub(super) fn new_document_dialog(
             ),
         ))
         .child(ui::field_row(
-            "Color Mode",
+            t("common.color_mode"),
             ui::dropdown(
                 &state.dropdown,
                 ui::Dropdown {
                     popup: Popup::Field("new-doc-mode"),
                     is_open: state.open_popup == Some(Popup::Field("new-doc-mode")),
                     current: mode,
-                    label: (mode.display_name()).into(),
+                    label: mode_name(mode).into(),
                     width: 150.0,
                     options: mode_options,
                 },
@@ -307,7 +336,7 @@ pub(super) fn new_document_dialog(
             ),
         ))
         .child(ui::field_row(
-            "Bit Depth",
+            t("common.bit_depth"),
             ui::dropdown(
                 &state.dropdown,
                 ui::Dropdown {
@@ -332,14 +361,14 @@ pub(super) fn new_document_dialog(
             ),
         ))
         .child(ui::field_row(
-            "Background",
+            t("common.background"),
             ui::dropdown(
                 &state.dropdown,
                 ui::Dropdown {
                     popup: Popup::Field("new-doc-bg"),
                     is_open: state.open_popup == Some(Popup::Field("new-doc-bg")),
                     current: background,
-                    label: (background.display_name()).into(),
+                    label: background.label().into(),
                     width: 150.0,
                     options: background_options,
                 },
@@ -357,8 +386,12 @@ pub(super) fn new_document_dialog(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(format!(
-                    "{width} × {height} px @ {resolution:.0} ppi · {size}"
+                .child(tf!(
+                    "dialog.new_doc.summary",
+                    w = width,
+                    h = height,
+                    ppi = format!("{resolution:.0}"),
+                    size = size
                 )),
         );
 
@@ -367,13 +400,13 @@ pub(super) fn new_document_dialog(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            "Create",
+            t("dialog.new_doc.create"),
             true,
             |ws, _w, cx| {
                 let Some(Modal::NewDocument {
@@ -390,11 +423,11 @@ pub(super) fn new_document_dialog(
                 };
                 ws.close_modal(cx);
                 ws.create_document(&name, width, height, resolution, mode, depth, background);
-                ws.status = format!("New document: {width} × {height} px").into();
+                ws.status = tf!("dialog.new_doc.created", w = width, h = height).into();
                 cx.notify();
             },
             cx,
         ));
 
-    ui::modal_frame("New Document", 400.0, body, actions)
+    ui::modal_frame(t("dialog.new_doc.title"), 400.0, body, actions)
 }

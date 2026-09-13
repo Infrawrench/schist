@@ -7,6 +7,7 @@
 //! restores the snapshot.
 
 use schist_core::{Affine, Document, Filter, IntRect, LayerId, LayerKind, TileMap};
+use schist_i18n::{choices, t};
 use schist_plugin_api::{
     EditorState, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput, ToolCtx,
     ToolOption, ToolPlugin,
@@ -260,7 +261,23 @@ fn point_in_quad(x: f32, y: f32, quad: &[(f32, f32); 4]) -> bool {
     inside
 }
 
-const INTERPOLATIONS: &[&str] = &["Nearest Neighbor", "Bilinear", "Bicubic"];
+/// The Interpolation dropdown, in `Filter` order; see [`filter_name`].
+static INTERPOLATIONS: &[&str] = &[
+    "tool.transform.resample.nearest_neighbor",
+    "tool.transform.resample.bilinear",
+    "tool.transform.resample.bicubic",
+];
+
+/// A classical filter's name as the user sees it, for the Interpolation
+/// dropdown and the Image Size dialog. `Filter::display_name` in the
+/// kernel stays English.
+pub fn filter_name(filter: Filter) -> &'static str {
+    match filter {
+        Filter::Nearest => t("tool.transform.resample.nearest_neighbor"),
+        Filter::Bilinear => t("tool.transform.resample.bilinear"),
+        Filter::Bicubic => t("tool.transform.resample.bicubic"),
+    }
+}
 
 pub struct TransformTool {
     mode: TransformMode,
@@ -334,23 +351,15 @@ impl ToolPlugin for TransformTool {
 
     fn name(&self) -> &'static str {
         match self.mode {
-            TransformMode::Layer => "Free Transform",
-            TransformMode::Selection => "Transform Selection",
+            TransformMode::Layer => t("tool.transform.name"),
+            TransformMode::Selection => t("tool.transform.selection.name"),
         }
     }
 
     fn description(&self) -> &'static str {
         match self.mode {
-            TransformMode::Layer => {
-                "Free Transform. Activating it opens a transform box around the active \
-                 layer: drag a corner to scale, drag outside one to rotate, drag an edge to \
-                 skew. Nothing is written until it is committed (Enter), and cancelling \
-                 (Escape) puts the layer back."
-            }
-            TransformMode::Selection => {
-                "Transform Selection: the same box, moving the selection outline rather than \
-                 the pixels inside it. Commit or cancel to finish."
-            }
+            TransformMode::Layer => t("tool.transform.description"),
+            TransformMode::Selection => t("tool.transform.selection.description"),
         }
     }
 
@@ -373,8 +382,8 @@ impl ToolPlugin for TransformTool {
     fn options(&self) -> Vec<ToolOption> {
         vec![ToolOption::choice(
             "transform-interpolation",
-            "Interpolation",
-            INTERPOLATIONS,
+            t("tool.transform.option.interpolation"),
+            choices(INTERPOLATIONS),
             match self.resample {
                 Filter::Nearest => 0,
                 Filter::Bilinear => 1,
@@ -503,7 +512,9 @@ impl ToolPlugin for TransformTool {
             let canvas = ctx.doc.canvas_rect();
             let matrix = session.matrix();
             let base = session.original_selection.clone();
-            let mut edit = ctx.doc.begin_edit("Transform Selection");
+            let mut edit = ctx
+                .doc
+                .begin_edit(t("tool.transform.selection.history.transform"));
             edit.change_selection(|sel, _| *sel = base.transformed(&matrix, canvas));
             edit.commit();
             return;
@@ -532,7 +543,7 @@ impl ToolPlugin for TransformTool {
                 clip,
             ),
         };
-        let mut edit = ctx.doc.begin_edit("Free Transform");
+        let mut edit = ctx.doc.begin_edit(t("tool.transform.history.transform"));
         edit.replace_layer_tiles(session.layer, tiles);
         if let Some(so) = smart {
             edit.set_smart_object(session.layer, Some(Box::new(so)));
@@ -584,7 +595,13 @@ impl ToolPlugin for TransformTool {
 
 /// Crop: drag a rectangle, Enter trims the canvas to it.
 /// Photoshop's crop ratio presets, and the width:height each locks to.
-const CROP_RATIOS: &[&str] = &["Unconstrained", "1:1", "4:3", "3:2", "16:9"];
+static CROP_RATIOS: &[&str] = &[
+    "tool.crop.choice.unconstrained",
+    "tool.crop.choice.ratio_1_1",
+    "tool.crop.choice.ratio_4_3",
+    "tool.crop.choice.ratio_3_2",
+    "tool.crop.choice.ratio_16_9",
+];
 const CROP_ASPECTS: [Option<f32>; 5] = [
     None,
     Some(1.0),
@@ -606,7 +623,7 @@ pub struct CropTool {
 
 /// Clear every pixel outside `keep` on every raster layer.
 fn discard_outside(doc: &mut Document, keep: IntRect) {
-    let mut edit = doc.begin_edit("Crop");
+    let mut edit = doc.begin_edit(t("tool.crop.history.crop"));
     for id in edit.raster_layer_ids() {
         let Some(tiles) = edit
             .doc()
@@ -653,11 +670,10 @@ impl ToolPlugin for CropTool {
         "crop"
     }
     fn name(&self) -> &'static str {
-        "Crop"
+        t("tool.crop.name")
     }
     fn description(&self) -> &'static str {
-        "Drag out the area to keep and adjust its handles; committing (Enter) trims the \
-         document to it, cancelling (Escape) leaves it alone."
+        t("tool.crop.description")
     }
     fn icon(&self) -> &'static str {
         "crop"
@@ -699,8 +715,17 @@ impl ToolPlugin for CropTool {
 
     fn options(&self) -> Vec<ToolOption> {
         vec![
-            ToolOption::choice("crop-ratio", "Ratio", CROP_RATIOS, self.ratio),
-            ToolOption::toggle("crop-delete", "Delete Cropped Pixels", self.delete_cropped),
+            ToolOption::choice(
+                "crop-ratio",
+                t("tool.crop.option.ratio"),
+                choices(CROP_RATIOS),
+                self.ratio,
+            ),
+            ToolOption::toggle(
+                "crop-delete",
+                t("tool.crop.option.delete_cropped"),
+                self.delete_cropped,
+            ),
         ]
     }
 
@@ -741,7 +766,7 @@ impl ToolPlugin for CropTool {
 /// Trim the canvas to `rect`, moving every layer so the crop origin becomes
 /// (0, 0). One undoable edit.
 pub fn crop_to(doc: &mut Document, rect: IntRect) {
-    let mut edit = doc.begin_edit("Crop");
+    let mut edit = doc.begin_edit(t("tool.crop.history.crop"));
     let ids = edit.raster_layer_ids();
     for id in ids {
         edit.translate_layer(id, -rect.left, -rect.top);
@@ -758,7 +783,7 @@ pub fn resize_image(doc: &mut Document, width: u32, height: u32, filter: Filter)
     }
     let from = (doc.width, doc.height);
     let depth = doc.depth;
-    let mut edit = doc.begin_edit("Image Size");
+    let mut edit = doc.begin_edit(t("tool.transform.history.image_size"));
     let ids = edit.raster_layer_ids();
     for id in ids {
         let Some(raster) = edit.doc().tree.find(id).and_then(|l| l.as_raster()) else {
@@ -791,7 +816,7 @@ pub enum Resample {
 impl Resample {
     pub fn display_name(self) -> &'static str {
         match self {
-            Resample::Classic(f) => f.display_name(),
+            Resample::Classic(f) => filter_name(f),
             Resample::Neural(id) => schist_neural::spec(id).map_or(id, |s| s.name),
         }
     }
@@ -957,7 +982,7 @@ pub fn apply_upscaled(doc: &mut Document, up: Upscaled) {
         return;
     }
     let (width, height) = up.to;
-    let mut edit = doc.begin_edit("Image Size");
+    let mut edit = doc.begin_edit(t("tool.transform.history.image_size"));
     for (id, rgba, (w, h)) in up.layers {
         if edit
             .doc()
@@ -1056,7 +1081,7 @@ pub fn resize_canvas(doc: &mut Document, width: u32, height: u32, anchor: (f32, 
     }
     let dx = ((width as f32 - doc.width as f32) * anchor.0).round() as i32;
     let dy = ((height as f32 - doc.height as f32) * anchor.1).round() as i32;
-    let mut edit = doc.begin_edit("Canvas Size");
+    let mut edit = doc.begin_edit(t("tool.transform.history.canvas_size"));
     let ids = edit.raster_layer_ids();
     for id in ids {
         edit.translate_layer(id, dx, dy);
@@ -1218,7 +1243,10 @@ mod tests {
             "emptiness stayed empty"
         );
 
-        assert_eq!(doc.undo().as_deref(), Some("Image Size"));
+        assert_eq!(
+            doc.undo().as_deref(),
+            Some(t("tool.transform.history.image_size"))
+        );
         assert_eq!((doc.width, doc.height), (200, 200), "one undoable edit");
     }
 
@@ -1270,7 +1298,10 @@ mod tests {
         // The square grew about its centre: pixels now reach further out.
         assert_eq!(px(&doc, 40, 40)[3], 255, "centre still covered");
         assert!(px(&doc, 75, 75)[3] > 0, "grew past the original edge");
-        assert_eq!(doc.undo().as_deref(), Some("Free Transform"));
+        assert_eq!(
+            doc.undo().as_deref(),
+            Some(t("tool.transform.history.transform"))
+        );
         assert_eq!(px(&doc, 75, 75)[3], 0, "undo restores original extent");
         assert_eq!(px(&doc, 30, 30), [0, 128, 255, 255]);
     }

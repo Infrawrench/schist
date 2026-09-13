@@ -1,0 +1,29 @@
+# The type tool (plugins/tools-type). Font, Style, Size, Left, Center,
+# Right and the "Text" a new layer is named come from common.lang; font
+# family names are never translated.
+
+tool.type.name = Type
+tool.type.description = Click to start a text layer there, or click an existing one to edit it. While it is open the tool takes raw keys (send characters as key input), and committing renders the layer and closes the edit.
+
+# The options bar
+tool.type.option.align = Align
+tool.type.option.leading = Leading
+tool.type.option.tracking = Tracking
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligatures
+tool.type.option.discretionary_ligatures = Discretionary ligatures
+tool.type.option.small_caps = Small caps
+tool.type.option.on_path = On active path
+tool.type.option.path_offset = Path offset
+
+# The Style dropdown, in the order Photoshop lists them
+tool.type.choice.regular = Regular
+tool.type.choice.bold = Bold
+tool.type.choice.italic = Italic
+tool.type.choice.bold_italic = Bold Italic
+
+# History
+tool.type.history.new_layer = New Text Layer
+tool.type.history.edit = Edit Text
+tool.type.history.discard = Discard Text
+tool.type.history.discard_empty = Discard Empty Text

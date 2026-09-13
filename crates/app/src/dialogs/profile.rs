@@ -1,6 +1,7 @@
 //! Assigning and converting colour profiles.
 
 use super::*;
+use schist_i18n::t;
 
 pub(super) fn profile_dialog(
     state: &DialogState,
@@ -20,16 +21,16 @@ pub(super) fn profile_dialog(
         .unwrap_or_else(|| "sRGB".into());
 
     let explanation = if convert {
-        "Rewrites pixel values so colours keep their appearance."
+        t("dialog.profile.convert_note")
     } else {
-        "Reinterprets the existing pixel values under the new profile."
+        t("dialog.profile.assign_note")
     };
     let body = div()
         .flex()
         .flex_col()
         .gap_1()
         .child(ui::field_row(
-            "Profile",
+            t("dialog.profile.profile"),
             ui::dropdown(
                 &state.dropdown,
                 ui::Dropdown {
@@ -62,13 +63,17 @@ pub(super) fn profile_dialog(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(ui::button(
-            if convert { "Convert" } else { "Assign" },
+            if convert {
+                t("dialog.profile.convert")
+            } else {
+                t("dialog.profile.assign")
+            },
             true,
             move |ws, _w, cx| {
                 let profile = schist_colormgmt::Profile::builtins()
@@ -86,9 +91,9 @@ pub(super) fn profile_dialog(
         ));
     ui::modal_frame(
         if convert {
-            "Convert to Profile"
+            t("dialog.profile.convert_title")
         } else {
-            "Assign Profile"
+            t("dialog.profile.assign_title")
         },
         340.0,
         body,

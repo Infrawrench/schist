@@ -51,6 +51,25 @@ pub fn prepare_environment() {
     DOCUMENTS.set(documents).ok();
 }
 
+/// The languages the user prefers, highest first: the activity's own
+/// locale — which is the per-app language when one is set in Settings,
+/// and the device's otherwise — followed by what the system properties
+/// say, for a process not started by an activity.
+pub fn locale_tags() -> Vec<String> {
+    let mut tags = Vec::new();
+    if let Some(app) = gpui::android::app() {
+        let config = app.config();
+        if let Some(language) = config.language() {
+            match config.country() {
+                Some(country) => tags.push(format!("{language}-{country}")),
+                None => tags.push(language),
+            }
+        }
+    }
+    tags.extend(schist_i18n::system_tags());
+    tags
+}
+
 /// Where documents are saved and imports land; `None` before
 /// [`prepare_environment`] has run, or when the app has no storage.
 pub fn documents_dir() -> Option<PathBuf> {

@@ -1,0 +1,32 @@
+# 自由变换、变换选区和裁剪（plugins/tools-transform）。
+# 术语沿用简体中文版 Photoshop。
+
+# 自由变换
+tool.transform.name = 自由变换
+tool.transform.description = 自由变换。激活后会在当前图层周围打开一个变换框：拖动角点可缩放，在角点外拖动可旋转，拖动边可斜切。按 Enter 提交前不会写入任何内容，按 Esc 取消则恢复图层。
+tool.transform.option.interpolation = 插值
+tool.transform.history.transform = 自由变换
+tool.transform.history.image_size = 图像大小
+tool.transform.history.canvas_size = 画布大小
+
+# 变换选区
+tool.transform.selection.name = 变换选区
+tool.transform.selection.description = 变换选区：同样的变换框，但移动的是选区轮廓而非其中的像素。提交或取消以结束。
+tool.transform.selection.history.transform = 变换选区
+
+# 经典重采样滤镜，沿用"图像大小"对话框的叫法
+tool.transform.resample.nearest_neighbor = 邻近
+tool.transform.resample.bilinear = 两次线性
+tool.transform.resample.bicubic = 两次立方
+
+# 裁剪
+tool.crop.name = 裁剪
+tool.crop.description = 拖出要保留的区域并调整其控制点；按 Enter 提交会将文档裁剪到该区域，按 Esc 取消则保持原样。
+tool.crop.option.ratio = 比例
+tool.crop.option.delete_cropped = 删除裁剪的像素
+tool.crop.choice.unconstrained = 不受约束
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = 裁剪

@@ -1,6 +1,7 @@
 //! Painting: the canvas element and the window layout around it.
 
 use super::*;
+use schist_i18n::tf;
 
 impl Workspace {
     /// Everything the paint closure needs, computed with &mut self.
@@ -735,7 +736,7 @@ impl Render for Workspace {
             }))
             .on_action(cx.listener(|ws, action: &SetToolOpacity, _w, cx| {
                 ws.editor.tool_opacity = action.percent as f32 / 100.0;
-                ws.status = format!("Opacity: {}%", action.percent).into();
+                ws.status = tf!("workspace.canvas.opacity_percent", n = action.percent).into();
                 cx.notify();
             }))
             .on_action(cx.listener(|ws, _: &NewFile, _w, cx| {

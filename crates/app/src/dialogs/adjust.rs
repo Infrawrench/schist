@@ -1,6 +1,7 @@
 //! The adjustment-layer parameter dialog.
 
 use super::*;
+use schist_i18n::t;
 
 pub(super) fn adjustment_dialog(
     ws: &mut Workspace,
@@ -10,7 +11,7 @@ pub(super) fn adjustment_dialog(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let specs = params.param_specs();
-    let title = params.display_name().to_string();
+    let title = ui::adjustment_name(params.kind());
     let curves = matches!(params, schist_adjustments::Params::Curves(_));
     let mut body = div().flex().flex_col().gap_1();
     if curves {
@@ -53,7 +54,7 @@ pub(super) fn adjustment_dialog(
         .flex_row()
         .gap_2()
         .child(ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             move |ws, _w, cx| {
                 ws.revert_adjustment(layer, cancel_original.clone(), cx);
@@ -62,7 +63,7 @@ pub(super) fn adjustment_dialog(
             cx,
         ))
         .child(ui::button(
-            "OK",
+            t("common.ok"),
             true,
             move |ws, _w, cx| {
                 ws.commit_adjustment(layer, &committed, original.clone(), cx);

@@ -18,6 +18,7 @@ use objc2::rc::Retained;
 use objc2::runtime::{AnyClass, AnyObject, AnyProtocol, ClassBuilder, Sel};
 use objc2::{msg_send, sel};
 use objc2_foundation::NSString;
+use schist_i18n::t;
 use std::path::PathBuf;
 use std::sync::{Mutex, OnceLock};
 
@@ -143,7 +144,7 @@ pub(super) fn begin_import(dest: PathBuf) -> Result<(), String> {
     {
         let mut shared = lock();
         if shared.job.is_some() {
-            return Err("an import is already running".into());
+            return Err(t("library.import.already_running").into());
         }
         shared.job = Some(Job {
             dest,
@@ -166,12 +167,13 @@ pub(super) fn begin_import(dest: PathBuf) -> Result<(), String> {
 unsafe fn present_picker() -> Result<(), String> {
     unsafe {
         let config_class = AnyClass::get(c"PHPickerConfiguration")
-            .ok_or("the photo picker needs iOS 14 or later")?;
-        let picker_class =
-            AnyClass::get(c"PHPickerViewController").ok_or("the photo picker is unavailable")?;
-        let filter_class =
-            AnyClass::get(c"PHPickerFilter").ok_or("the photo picker is unavailable")?;
-        let controller = presenting_controller().ok_or("no window to present the picker from")?;
+            .ok_or_else(|| t("library.import.picker_needs_ios14").to_string())?;
+        let picker_class = AnyClass::get(c"PHPickerViewController")
+            .ok_or_else(|| t("library.import.picker_unavailable").to_string())?;
+        let filter_class = AnyClass::get(c"PHPickerFilter")
+            .ok_or_else(|| t("library.import.picker_unavailable").to_string())?;
+        let controller =
+            presenting_controller().ok_or_else(|| t("library.import.no_window").to_string())?;
 
         let config: *mut AnyObject = msg_send![config_class, new];
         // 0 is unlimited.

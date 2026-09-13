@@ -1,0 +1,168 @@
+# Neural Filters, Camera Raw, die Weichzeichnergalerie und die
+# Objektivfilter (plugins/filters-core: neural.rs, camera_raw.rs,
+# blurgallery.rs, lens.rs). Die Filternamen folgen dem deutschen
+# Photoshop, wo es sie dort gibt. Modellnamen („Depth (Depth Blur)“)
+# sind die, die „Modelle verwalten“ anzeigt, und bleiben unverändert.
+
+# Beschriftungen, die mehrere Filter teilen
+filter.neural.param.center_x = Mitte X
+filter.neural.param.center_y = Mitte Y
+filter.neural.param.direction = Richtung
+filter.neural.param.transition = Übergang
+filter.neural.param.detail = Details
+filter.neural.param.eyes = Augen
+
+# Was ein modellgestützter Filter in seinem Dialog sagt
+filter.neural.msg.using_model = Verwendet {model} · {license}.
+filter.neural.msg.get_model = Zu finden unter Filter ▸ Neural Filters ▸ Modelle verwalten.
+
+# Camera Raw-Filter
+filter.camera_raw.name = Camera Raw-Filter
+filter.camera_raw.param.temperature = Temperatur
+filter.camera_raw.param.tint = Farbton
+filter.camera_raw.param.highlights = Lichter
+filter.camera_raw.param.shadows = Tiefen
+filter.camera_raw.param.whites = Weiß
+filter.camera_raw.param.blacks = Schwarz
+filter.camera_raw.param.clarity = Klarheit
+filter.camera_raw.param.dehaze = Dunst entfernen
+filter.camera_raw.param.vibrance = Dynamik
+filter.camera_raw.param.sharpening = Schärfen
+filter.camera_raw.param.noise = Rauschreduzierung
+filter.camera_raw.param.vignette = Vignettierung
+
+# Objektivkorrektur
+filter.lens_correction.name = Objektivkorrektur
+filter.lens_correction.param.distortion = Verzerrung entfernen
+filter.lens_correction.param.red = Rot/Cyan-Farbsaum korrigieren
+filter.lens_correction.param.blue = Blau/Gelb-Farbsaum korrigieren
+filter.lens_correction.param.vignette = Vignettierungsstärke
+filter.lens_correction.param.midpoint = Vignettierungsmittelpunkt
+filter.lens_correction.param.vertical = Vertikale Perspektive
+filter.lens_correction.param.horizontal = Horizontale Perspektive
+
+# Adaptive Weitwinkelkorrektur
+filter.adaptive_wide_angle.name = Adaptive Weitwinkelkorrektur
+filter.adaptive_wide_angle.param.projection = Korrektur
+filter.adaptive_wide_angle.choice.fisheye = Fischauge
+filter.adaptive_wide_angle.choice.perspective = Perspektive
+filter.adaptive_wide_angle.choice.full_spherical = Vollständig sphärisch
+filter.adaptive_wide_angle.param.focal = Brennweite
+filter.adaptive_wide_angle.param.crop = Crop-Faktor
+
+# Weichzeichnergalerie
+filter.field_blur.name = Feldweichzeichnung
+filter.field_blur.param.position = Scharf bei
+filter.iris_blur.name = Iris-Weichzeichnung
+filter.iris_blur.param.roundness = Rundheit
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Mitte
+filter.tilt_shift.param.band = Scharfer Bereich
+filter.spin_blur.name = Kreisförmige Weichzeichnung
+filter.spin_blur.param.angle = Weichzeichnungswinkel
+filter.path_blur.name = Pfad-Weichzeichnung
+filter.path_blur.param.speed = Geschwindigkeit
+filter.path_blur.param.curve = Krümmung
+filter.path_blur.param.taper = Verjüngung
+
+# Weichzeichnungsfilter
+filter.shape_blur.name = Formweichzeichner
+filter.shape_blur.choice.square = Quadrat
+filter.shape_blur.choice.diamond = Raute
+filter.shape_blur.choice.hexagon = Sechseck
+filter.shape_blur.choice.cross = Kreuz
+filter.shape_blur.choice.ring = Ring
+filter.shape_blur.choice.star = Stern
+filter.smart_blur.name = Selektiver Weichzeichner
+filter.smart_blur.choice.normal = Normal
+filter.smart_blur.choice.edge_only = Nur Kanten
+filter.smart_blur.choice.overlay_edge = Kanten überlagern
+
+# Videofilter
+filter.deinterlace.name = De-Interlace
+filter.deinterlace.param.field = Entfernen
+filter.deinterlace.choice.odd_fields = Ungerade Zeilen
+filter.deinterlace.choice.even_fields = Gerade Zeilen
+filter.deinterlace.param.fill = Neue Zeilen erstellen durch
+filter.deinterlace.choice.interpolation = Interpolation
+filter.deinterlace.choice.duplication = Duplizieren
+filter.ntsc_colors.name = NTSC-Farben
+
+# Neural Filters
+filter.neural.skin_smoothing.name = Hautglättung
+filter.neural.skin_smoothing.param.blur = Glättung
+filter.neural.skin_smoothing.param.detail = Details erhalten
+filter.neural.skin_smoothing.msg.no_model = {model} ist nicht installiert — stattdessen wird alles Hautfarbene geglättet, nicht nur die Gesichter.
+
+filter.neural.jpeg_artifacts.name = JPEG-Artefakte entfernen
+filter.neural.jpeg_artifacts.msg.no_model = {model} ist nicht installiert — stattdessen wird das 8-Pixel-Raster geglättet.
+
+filter.neural.colorize.name = Kolorieren
+filter.neural.colorize.param.warmth = Wärme
+filter.neural.colorize.msg.no_model = {model} ist nicht installiert — stattdessen wird nach Luminanz getönt.
+
+filter.neural.super_zoom.name = Super-Zoom
+filter.neural.super_zoom.msg.no_model = {model} ist nicht installiert — stattdessen wird entlang der Kanten geschärft.
+
+filter.neural.style_transfer.name = Stilübertragung
+filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Keine Stilmodelle installiert — es wird nur die Farbe übertragen. Zu finden unter Filter ▸ Neural Filters ▸ Modelle verwalten.
+filter.neural.style_transfer.msg.installed = Installiert: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Farbübertragung
+filter.neural.color_transfer.param.hue = Zielfarbton
+filter.neural.color_transfer.param.contrast = Kontrast angleichen
+filter.neural.color_transfer.msg.info = Nimmt die Palette der darunterliegenden Ebene. Liegt nichts darunter, wird stattdessen der Zielfarbton angestrebt.
+
+filter.neural.depth_blur.name = Tiefenunschärfe
+filter.neural.depth_blur.param.focus = Fokusabstand
+filter.neural.depth_blur.param.blur = Weichzeichnungsstärke
+filter.neural.depth_blur.msg.no_model = {model} ist nicht installiert — stattdessen wird nach lokaler Schärfe fokussiert.
+
+filter.neural.harmonization.name = Harmonisierung
+filter.neural.harmonization.param.tone = Tonwerte angleichen
+filter.neural.harmonization.msg.info = Gleicht diese Ebene an das an, was darunter liegt. Liegt nichts darunter, gibt es nichts anzugleichen, und der Filter tut nichts.
+
+filter.neural.landscape_mixer.name = Landschaftsmixer
+filter.neural.landscape_mixer.param.bands = Tiefenbänder
+filter.neural.landscape_mixer.msg.with_depth = Nimmt die Palette der darunterliegenden Ebene, Band für Band angeglichen mit Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Nimmt die Palette der darunterliegenden Ebene. Mit Depth (Depth Blur) wird Himmel an Himmel und Boden an Boden angeglichen statt das Bild als Ganzes.
+
+filter.neural.photo_restoration.name = Fotowiederherstellung
+filter.neural.photo_restoration.param.enhance = Fotoverbesserung
+filter.neural.photo_restoration.param.scratches = Kratzerreduzierung
+filter.neural.photo_restoration.param.tone = Tonwerte wiederherstellen
+filter.neural.photo_restoration.msg.no_model = Bereinigung ohne Modell.
+filter.neural.photo_restoration.msg.using_deblock = Verwendet Deblock · trainiert für Schist.
+filter.neural.photo_restoration.msg.using_detail = Verwendet Detail · trainiert für Schist.
+filter.neural.photo_restoration.msg.using_both = Verwendet Deblock und Detail · trainiert für Schist.
+
+filter.neural.photo_to_sketch.name = Foto zu Skizze
+filter.neural.photo_to_sketch.param.weight = Linienstärke
+filter.neural.photo_to_sketch.param.shading = Schattierung
+
+filter.neural.face_to_caricature.name = Gesicht zu Karikatur
+filter.neural.face_to_caricature.param.mouth = Mund
+filter.neural.face_to_caricature.param.head = Kopf
+filter.neural.face_to_caricature.msg.no_model = {model} ist nicht installiert, also passiert nichts — es gibt nichts zu karikieren.
+
+filter.neural.smart_portrait.name = Smartes Porträt
+filter.neural.smart_portrait.param.happiness = Fröhlichkeit
+filter.neural.smart_portrait.param.surprise = Überraschung
+filter.neural.smart_portrait.param.age = Gesichtsalter
+filter.neural.smart_portrait.param.gaze = Blickrichtung
+filter.neural.smart_portrait.param.light = Lichtrichtung
+filter.neural.smart_portrait.msg.no_model = {model} ist nicht installiert, also passiert nichts — es gibt kein Gesicht zum Bearbeiten.
+
+filter.neural.makeup_transfer.name = Make-up-Übertragung
+filter.neural.makeup_transfer.param.lips = Lippen
+filter.neural.makeup_transfer.param.skin = Hautton
+filter.neural.makeup_transfer.msg.info = Nimmt das Make-up eines Gesichts auf der darunterliegenden Ebene. Farbe, nicht Struktur.
+filter.neural.makeup_transfer.msg.no_model = {model} ist nicht installiert, also passiert nichts.
+
+filter.neural.sketch_to_portrait.name = Skizze zu Porträt
+filter.neural.sketch_to_portrait.param.detail = Linien erhalten
+filter.neural.sketch_to_portrait.msg.with_face = Darauf trainiert, das programmeigene „Foto zu Skizze“ auszufüllen. Arbeitet auf dem Gesicht, das gefunden wird.
+filter.neural.sketch_to_portrait.msg.no_face = Darauf trainiert, das programmeigene „Foto zu Skizze“ auszufüllen. Mit Faces (Skin Smoothing) arbeitet der Filter auf dem Gesicht statt auf der ganzen Auswahl.

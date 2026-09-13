@@ -18,6 +18,7 @@ use gpui::{
     img, prelude::FluentBuilder as _, AppContext as _, StatefulInteractiveElement as _,
     StyledImage as _,
 };
+use schist_i18n::{t, tf, tn};
 use schist_ui::{
     menu_separator, Badge, Button, ButtonColors, Chip, Divider, Link, ListItem, MenuItem,
     ProgressBar, TextInput,
@@ -158,15 +159,15 @@ impl Workspace {
             }))
             .child(chrome::top_strip(self, cx))
             .children(
-                (self.cloud.account.is_none() && self.cloud.message != "Not signed in").then(
-                    || {
-                        div()
-                            .px_3()
-                            .py_2()
-                            .text_size(px(12.0))
-                            .child(self.cloud.message.clone())
-                    },
-                ),
+                (self.cloud.account.is_none()
+                    && self.cloud.message != schist_i18n::t("cloud.msg.not_signed_in"))
+                .then(|| {
+                    div()
+                        .px_3()
+                        .py_2()
+                        .text_size(px(12.0))
+                        .child(self.cloud.message.clone())
+                }),
             )
             .child(body)
             .child(chrome::tray(self, cx))
@@ -260,7 +261,7 @@ pub(super) fn local_strip_search(
     strip
         .children(ws.library.map_filter_label().map(|label| {
             chrome::filter_chip(
-                format!("Map filter: {label}"),
+                tf!("library.strip.map_filter_chip", name = label),
                 |ws, cx| ws.open_map_filter(cx),
                 |ws, cx| ws.clear_map_filter(cx),
                 cx,
@@ -288,7 +289,7 @@ pub(super) fn touch_strip_search(
     strip
         .children(ws.library.map_filter_label().map(|label| {
             chrome::filter_chip(
-                format!("Map filter: {label}"),
+                tf!("library.strip.map_filter_chip", name = label),
                 |ws, cx| ws.open_map_filter(cx),
                 |ws, cx| ws.clear_map_filter(cx),
                 cx,
@@ -319,7 +320,7 @@ fn search_slot(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElem
         search_download_progress(ws).into_any_element()
     } else {
         gallery_button(
-            "Enable photo search\u{2026}",
+            t("library.strip.enable_search"),
             false,
             |ws, _w, cx| ws.open_modal(Modal::SearchModels, cx),
             cx,
@@ -379,10 +380,10 @@ fn search_download_progress(ws: &Workspace) -> impl IntoElement {
             div()
                 .text_size(px(10.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child(SharedString::from(format!(
-                    "Downloading photo search\u{2026} {:.0} of {:.0} MB",
-                    mb(got),
-                    mb(total)
+                .child(SharedString::from(tf!(
+                    "library.strip.downloading_search",
+                    got = format!("{:.0}", mb(got)),
+                    total = format!("{:.0}", mb(total))
                 ))),
         )
         .child(ProgressBar::new(ratio).colors(chrome::track_colors()))
@@ -393,11 +394,16 @@ fn search_download_progress(ws: &Workspace) -> impl IntoElement {
 fn search_box(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let (indexed, total) = ws.library.index_progress();
     let placeholder: SharedString = if !schist_neural::embed::ready() {
-        "Search people and places\u{2026}".into()
+        t("library.search.placeholder_people_places").into()
     } else if indexed < total {
-        format!("Search ({indexed}/{total} indexed)").into()
+        tf!(
+            "library.search.placeholder_indexing",
+            indexed = indexed,
+            total = total
+        )
+        .into()
     } else {
-        "Search photos\u{2026}".into()
+        t("library.search.placeholder").into()
     };
     let caret_on = ws.caret_on();
     search_field(
@@ -446,21 +452,19 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
             div()
                 .text_size(px(22.0))
                 .text_color(gpui::rgb(pal().text))
-                .child("Welcome to Schist"),
+                .child(t("library.welcome.title")),
         )
         .child(div().h(px(12.0)))
         .child(crate::ui::button(
-            "Sign into Schist Cloud…",
+            t("menu.cloud.sign_in"),
             false,
             |ws, _, cx| ws.cloud_sign_in(cx),
             cx,
         ))
         .child(caption(if cfg!(target_os = "ios") {
-            "Import photos from your library, or add a folder from Files. \
-             Edits are versioned beside each photo:"
+            t("library.welcome.intro_ios")
         } else {
-            "Watch folders of photos, or import from a camera. Files stay \
-             where they are; edits are versioned beside them:"
+            t("library.welcome.intro")
         }))
         .child(
             div()
@@ -468,16 +472,16 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
                 .flex_row()
                 .gap_2()
                 .child(gallery_button(
-                    "Add Folder…",
+                    t("library.strip.add_folder"),
                     true,
                     |ws, window, cx| ws.gallery_add_folder(window, cx),
                     cx,
                 ))
                 .child(gallery_button(
                     if cfg!(target_os = "ios") {
-                        "Import from Photos…"
+                        t("menu.file.import_from_photos")
                     } else {
-                        "Import from Camera…"
+                        t("menu.file.import_from_camera")
                     },
                     false,
                     |ws, _w, cx| ws.gallery_import_camera(cx),
@@ -490,20 +494,20 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
             // column rather than the whole window.
             Divider::horizontal().color(pal().cell_edge).my_2(),
         )
-        .child(caption("Or open an image to edit:"))
+        .child(caption(t("library.welcome.or_open")))
         .child(
             div()
                 .flex()
                 .flex_row()
                 .gap_2()
                 .child(gallery_button(
-                    "Open…",
+                    t("common.open_ellipsis"),
                     false,
                     crate::keymap::open_file_dialog,
                     cx,
                 ))
                 .child(gallery_button(
-                    "New File…",
+                    t("library.strip.new_file"),
                     false,
                     |ws, _w, cx| ws.open_new_file_picker(cx),
                     cx,
@@ -512,9 +516,9 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
         .child(div().h(px(8.0)))
         .child(caption(
             if cfg!(any(target_os = "macos", target_os = "ios")) {
-                "The gallery is always \u{2318}\u{21e7}G away, whatever you are editing."
+                t("library.welcome.shortcut_mac")
             } else {
-                "The gallery is always Ctrl+Shift+G away, whatever you are editing."
+                t("library.welcome.shortcut")
             },
         ));
     div()
@@ -597,7 +601,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
     let mut rows: Vec<gpui::AnyElement> = Vec::new();
     rows.push(
         sidebar_row(
-            "All Photos",
+            t("library.sidebar.all_photos"),
             total,
             !cloud && ws.library.bucket_filter.is_none() && filter.is_none(),
             None,
@@ -616,27 +620,30 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         rows.push(sidebar_row(label, count, selected, Some(root), cx).into_any_element());
     }
     sidebar_column("gallery-sidebar")
-        .child(sidebar_caption("VIEW"))
+        .child(sidebar_caption(t("library.sidebar.view")))
         .children(
             Some(())
                 .map(|()| {
-                    [(false, "Photos"), (true, "World Map")]
-                        .into_iter()
-                        .map(|(map, label)| {
-                            ListItem::new(label)
-                                .h(px(26.0))
-                                .px_2()
-                                .bg(gpui::rgb(if ws.library.map_view == map {
-                                    pal().sidebar_selected
-                                } else {
-                                    pal().chrome_bg
-                                }))
-                                .on_click(cx.listener(move |ws, _, _, cx| {
-                                    ws.library.map_view = map;
-                                    cx.notify();
-                                }))
-                                .child(label)
-                        })
+                    [
+                        (false, t("common.photos")),
+                        (true, t("library.sidebar.world_map")),
+                    ]
+                    .into_iter()
+                    .map(|(map, label)| {
+                        ListItem::new(label)
+                            .h(px(26.0))
+                            .px_2()
+                            .bg(gpui::rgb(if ws.library.map_view == map {
+                                pal().sidebar_selected
+                            } else {
+                                pal().chrome_bg
+                            }))
+                            .on_click(cx.listener(move |ws, _, _, cx| {
+                                ws.library.map_view = map;
+                                cx.notify();
+                            }))
+                            .child(label)
+                    })
                 })
                 .into_iter()
                 .flatten(),
@@ -651,9 +658,9 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             Chip::new(
                 "map-filter",
                 if active {
-                    "Map filter on"
+                    t("library.sidebar.map_filter_on")
                 } else {
-                    "Map filter…"
+                    t("library.sidebar.map_filter")
                 },
             )
             .selected(active)
@@ -665,11 +672,11 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             .on_click(cx.listener(|ws, _e, _w, cx| ws.open_map_filter(cx)))
             .children(active.then(|| div().child("\u{25cf}")))
         })
-        .child(sidebar_caption("FOLDERS"))
+        .child(sidebar_caption(t("library.sidebar.folders")))
         .children(rows)
         .children(super::cloud_view::folder_rows(ws, cx))
         .child(chrome::sidebar_menu_link(
-            "+ Add folder…",
+            t("library.sidebar.add_folder"),
             |ws, at, window, cx| {
                 // With a cloud signed in there are two kinds of folder
                 // to add; without one there is only the local kind.
@@ -683,7 +690,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             },
             cx,
         ))
-        .child(sidebar_caption("BUCKETS"))
+        .child(sidebar_caption(t("library.sidebar.buckets")))
         .children({
             let buckets: Vec<(usize, String, usize, bool)> = ws
                 .library
@@ -707,7 +714,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         })
         .children(super::cloud_view::bucket_rows(ws, cx))
         .child(chrome::sidebar_menu_link(
-            "+ New bucket",
+            t("library.sidebar.new_bucket"),
             |ws, at, _window, cx| {
                 if ws.cloud.account.is_some() {
                     ws.library.context = Some((at, super::library::GalleryContext::NewBucket));
@@ -899,7 +906,7 @@ fn sidebar_row(
             .px_1()
             .ml_1()
             .text_size(px(11.0))
-            .tooltip("Stop watching this folder", None)
+            .tooltip(t("library.sidebar.stop_watching"), None)
             .consume_press()
             .on_click(cx.listener(move |ws, _e, _w, cx| {
                 ws.gallery_remove_folder(&root.clone(), cx);
@@ -939,17 +946,20 @@ fn gallery_sections(ws: &Workspace) -> Vec<(String, String, Vec<super::library::
                 .filter_map(|(path, _)| by_path.get(path).map(|e| (*e).clone()))
                 .filter(|e| ws.library.passes_map(&e.path))
                 .collect();
-            let mut title = match bucket {
-                Some(bucket) => format!("Bucket · {} · Search results", bucket.name),
-                None => "Search results".to_string(),
-            };
+            let mut parts = vec![match bucket {
+                Some(bucket) => tf!("library.search.results_in_bucket", name = bucket.name),
+                None => t("library.search.results").to_string(),
+            }];
             if let Some(place) = &ws.library.search_place {
-                title.push_str(&format!(" · near {place}"));
+                parts.push(tf!("library.search.near", place = place));
             }
             if !ws.library.search_people.is_empty() {
-                title.push_str(&format!(" · with {}", ws.library.search_people.join(", ")));
+                parts.push(tf!(
+                    "library.search.with",
+                    names = ws.library.search_people.join(", ")
+                ));
             }
-            vec![(title, String::new(), entries)]
+            vec![(parts.join(" · "), String::new(), entries)]
         } else {
             ws.library.grouped()
         };
@@ -1144,7 +1154,7 @@ fn map_photo_preview(
                         .justify_center()
                         .text_size(px(10.0))
                         .text_color(gpui::rgb(pal().text_dim))
-                        .child("Photo")
+                        .child(t("common.photo"))
                         .into_any_element(),
                 })
                 .into_any_element()
@@ -1160,35 +1170,99 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
     let (located_photos, pending, unlocated) = map_photos(ws);
     let located = located_photos.len();
     let details = map_strip_photos(ws);
-    let mut status = format!("{located} photos on map · {unlocated} without location");
+    let mut status = tf!(
+        "library.map.status",
+        located = located,
+        unlocated = unlocated
+    );
     if pending > 0 {
-        status.push_str(&format!(" · Reading locations: {pending} remaining"));
+        status.push_str(" · ");
+        status.push_str(&tf!("library.map.reading_locations", n = pending));
     }
-    let mut view = div().flex().flex_col().flex_grow().min_w(px(0.0)).min_h(px(0.0))
-        .child(div().flex().items_center().gap_2().p_2().flex_wrap()
-            .child(div().text_size(px(12.0)).child("World Map"))
-            .child(map_tool_button("world-zoom-out", "−", false, |ws, cx| {
-                ws.library.world_map.zoom_center(-1); cx.notify();
-            }, cx))
-            .child(map_tool_button("world-zoom-in", "+", false, |ws, cx| {
-                ws.library.world_map.zoom_center(1); cx.notify();
-            }, cx))
-            .child(map_tool_button("world-reset", "Reset view", false, |ws, cx| {
-                ws.library.world_map.show_world(); cx.notify();
-            }, cx))
-            .child(div().text_size(px(11.0)).text_color(gpui::rgb(pal().text_dim)).child(status)))
-        .child(div().px_2().pb_2().text_size(px(11.0)).text_color(gpui::rgb(pal().text_dim))
-            .child(if located == 0 && pending == 0 {
-                if ws.cloud.show {
-                    "No photos with GPS locations here. Pick another folder or bucket, or clear the search."
+    let mut view = div()
+        .flex()
+        .flex_col()
+        .flex_grow()
+        .min_w(px(0.0))
+        .min_h(px(0.0))
+        .child(
+            div()
+                .flex()
+                .items_center()
+                .gap_2()
+                .p_2()
+                .flex_wrap()
+                .child(
+                    div()
+                        .text_size(px(12.0))
+                        .child(t("library.sidebar.world_map")),
+                )
+                .child(map_tool_button(
+                    "world-zoom-out",
+                    "−",
+                    false,
+                    |ws, cx| {
+                        ws.library.world_map.zoom_center(-1);
+                        cx.notify();
+                    },
+                    cx,
+                ))
+                .child(map_tool_button(
+                    "world-zoom-in",
+                    "+",
+                    false,
+                    |ws, cx| {
+                        ws.library.world_map.zoom_center(1);
+                        cx.notify();
+                    },
+                    cx,
+                ))
+                .child(map_tool_button(
+                    "world-reset",
+                    t("library.map.reset_view"),
+                    false,
+                    |ws, cx| {
+                        ws.library.world_map.show_world();
+                        cx.notify();
+                    },
+                    cx,
+                ))
+                .child(
+                    div()
+                        .text_size(px(11.0))
+                        .text_color(gpui::rgb(pal().text_dim))
+                        .child(status),
+                ),
+        )
+        .child(
+            div()
+                .px_2()
+                .pb_2()
+                .text_size(px(11.0))
+                .text_color(gpui::rgb(pal().text_dim))
+                .child(if located == 0 && pending == 0 {
+                    if ws.cloud.show {
+                        t("library.map.no_photos_cloud")
+                    } else {
+                        t("library.map.no_photos")
+                    }
                 } else {
-                    "No photos with GPS locations in this view. Add geotagged photos or change the gallery filters."
-                }
-            } else {
-                "Drag to pan · Scroll to zoom · Click a marker to see its photos · Double-click a photo to edit"
-            }))
-        .child(div().relative().flex_grow().min_h(px(0.0)).overflow_hidden()
-            .child(div().absolute().size_full().child(map_element(ws, MapSlot::World, 0.0, cx))));
+                    t("library.map.hint")
+                }),
+        )
+        .child(
+            div()
+                .relative()
+                .flex_grow()
+                .min_h(px(0.0))
+                .overflow_hidden()
+                .child(div().absolute().size_full().child(map_element(
+                    ws,
+                    MapSlot::World,
+                    0.0,
+                    cx,
+                ))),
+        );
     if !details.is_empty() {
         let count = details.len();
         let mut strip = div()
@@ -1249,11 +1323,11 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                     .child(
                         div()
                             .text_size(px(11.0))
-                            .child(format!("{count} photos at this marker")),
+                            .child(tn("library.map.n_at_marker", count as u64)),
                     )
                     .child(map_tool_button(
                         "world-strip-close",
-                        "Close",
+                        t("common.close"),
                         false,
                         |ws, cx| {
                             ws.library.map_photos.clear();
@@ -1320,7 +1394,7 @@ fn photo_preview(
                 .justify_center()
                 .text_size(px(10.0))
                 .text_color(gpui::rgb(pal().text_dim))
-                .child("Photo")
+                .child(t("common.photo"))
                 .into_any_element(),
         })
 }
@@ -1372,7 +1446,7 @@ fn prepare_photo_markers(
         }
         let preview = map_photo_preview(ws, entry, 56.0, 42.0, cx);
         let label = if count > 1 {
-            format!("{count} photos")
+            tn("common.n_photos", count as u64)
         } else {
             entry.name()
         };
@@ -1458,31 +1532,14 @@ fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
                 .and_then(|i| ws.library.buckets.get(i))
             {
                 Some(_) if ws.library.search_results.is_some() => {
-                    "Nothing in this bucket matches the search. Escape clears it \
-                         to show the whole bucket."
+                    t("library.gallery.empty_bucket_search")
                 }
-                None if ws.library.search_results.is_some() => {
-                    "Nothing matches the search. Escape clears it."
-                }
-                Some(bucket) if bucket.is_smart() => {
-                    "Nothing matches this bucket's rule yet — matches appear as \
-                         photos are indexed. Dragging photos in works too."
-                }
-                Some(_) => {
-                    "This bucket is empty. Drag photos onto its row in the sidebar \
-                         to add them."
-                }
-                None if ws.library.person_filter.is_some() => {
-                    "Nothing here yet. Faces appear as photos are indexed; \
-                         click a photo, then a face, to say who it is."
-                }
-                None if scanning => "Scanning folders\u{2026}",
-                None => {
-                    "No photos found in the watched folders. Images Schist can open \
-                         (PNG, JPEG, WebP, TIFF, HEIC, camera raws, PSD, Affinity) \
-                         appear here; \
-                         sub-folders are scanned six levels deep."
-                }
+                None if ws.library.search_results.is_some() => t("library.gallery.empty_search"),
+                Some(bucket) if bucket.is_smart() => t("library.gallery.empty_smart_bucket"),
+                Some(_) => t("library.gallery.empty_bucket"),
+                None if ws.library.person_filter.is_some() => t("library.gallery.empty_person"),
+                None if scanning => t("library.gallery.scanning"),
+                None => t("library.gallery.empty"),
             },
         ));
     }
@@ -1510,7 +1567,7 @@ fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
         let detail = if subtitle.is_empty() {
             chrome::photo_count(entries.len())
         } else {
-            format!("{subtitle} — {}", entries.len())
+            tf!("library.group.detail", detail = subtitle, n = entries.len())
         };
         column = column.child(section_header(title, detail));
         content_y += HEADER_ESTIMATE;
@@ -1618,9 +1675,9 @@ fn cell_element(
                 drag_path
                     .file_name()
                     .map(|n| n.to_string_lossy().into_owned())
-                    .unwrap_or_else(|| "1 photo".into())
+                    .unwrap_or_else(|| tn("common.n_photos", 1))
             } else {
-                format!("{} photos", drag.paths.len())
+                tn("common.n_photos", drag.paths.len() as u64)
             };
             let thumb = ghost_thumb.clone();
             let count = drag.paths.len();
@@ -1677,7 +1734,7 @@ pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
         .map(|n| n.to_string_lossy().into_owned());
     let mut notes = Vec::new();
     if selected.as_ref().is_some_and(|e| e.edited) {
-        notes.push("edited — versions kept beside the file".to_string());
+        notes.push(t("library.tray.edited_note").to_string());
     }
     let hidden = if ws.view.gallery_hide_nsfw {
         ws.library.flagged_count()
@@ -1685,7 +1742,7 @@ pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
         0
     };
     if hidden > 0 {
-        notes.push(format!("{hidden} hidden by the content filter"));
+        notes.push(tn("library.tray.n_hidden", hidden as u64));
     }
     TrayInfo {
         edit: selected.clone().map(|entry| {
@@ -1698,7 +1755,7 @@ pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
         }),
         extra: selected.map(|entry| {
             (
-                "View",
+                t("library.tray.view"),
                 Box::new(
                     move |ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>| {
                         ws.open_viewer(entry.path.clone(), cx)
@@ -1724,30 +1781,29 @@ pub(crate) fn camera_import_dialog(
             .flex()
             .flex_col()
             .gap_2()
-            .child(div().text_size(px(12.0)).child("No cameras found."))
+            .child(
+                div()
+                    .text_size(px(12.0))
+                    .child(t("library.import.no_cameras")),
+            )
             .child(
                 div()
                     .text_size(px(11.0))
                     .text_color(gpui::rgb(crate::ui::palette().text_dim))
-                    .child(
-                        "Plug a camera, memory card or iPhone in. An iPhone must be \
-                         unlocked, with Trust This Computer answered, before it shows its \
-                         photos — do that, give it a moment, and press Scan Again. Anything \
-                         that mounts as a disk with a DCIM folder counts too.",
-                    ),
+                    .child(t("library.import.no_cameras_help")),
             );
         let actions = div()
             .flex()
             .flex_row()
             .gap_2()
             .child(crate::ui::button(
-                "Cancel",
+                t("common.cancel"),
                 false,
                 |ws, _w, cx| ws.close_modal(cx),
                 cx,
             ))
             .child(crate::ui::button(
-                "Scan Again",
+                t("library.import.scan_again"),
                 true,
                 |ws, _w, cx| {
                     ws.close_modal(cx);
@@ -1755,19 +1811,19 @@ pub(crate) fn camera_import_dialog(
                 },
                 cx,
             ));
-        return crate::ui::modal_frame("Import from Camera", 420.0, body, actions);
+        return crate::ui::modal_frame(t("library.import.title"), 420.0, body, actions);
     }
     let mut body = div().flex().flex_col().gap_1().child(
         div()
             .text_size(px(12.0))
-            .child("More than one camera is reachable. Import from:"),
+            .child(t("library.import.pick_source")),
     );
     for (i, source) in sources.iter().enumerate() {
         let pick = source.clone();
         let label = super::library::source_label(source);
         let detail = match source {
             ImportSource::Volume(path) => path.display().to_string(),
-            ImportSource::Device { .. } => "via Image Capture".to_string(),
+            ImportSource::Device { .. } => t("library.import.via_image_capture").to_string(),
         };
         body = body.child(
             ListItem::new(("camera-source", i))
@@ -1794,12 +1850,12 @@ pub(crate) fn camera_import_dialog(
         );
     }
     let actions = div().flex().flex_row().gap_2().child(crate::ui::button(
-        "Cancel",
+        t("common.cancel"),
         false,
         |ws, _w, cx| ws.close_modal(cx),
         cx,
     ));
-    crate::ui::modal_frame("Import from Camera", 420.0, body, actions)
+    crate::ui::modal_frame(t("library.import.title"), 420.0, body, actions)
 }
 
 /// Import options for one camera: a navigable OpenStreetMap view.
@@ -1835,7 +1891,11 @@ fn boundary_editor(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
         .gap_2()
         .child(map_tool_button(
             "map-draw",
-            if draw_mode { "Drawing…" } else { "Draw area" },
+            if draw_mode {
+                t("library.map.drawing")
+            } else {
+                t("library.map.draw_area")
+            },
             draw_mode,
             |ws, cx| {
                 ws.library.map.draw_mode = !ws.library.map.draw_mode;
@@ -1846,7 +1906,7 @@ fn boundary_editor(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
     if selection.is_some() {
         tools = tools.child(map_tool_button(
             "map-clear",
-            "Clear boundary",
+            t("library.map.clear_boundary"),
             false,
             |ws, cx| {
                 ws.library.map.clear_selection();
@@ -1861,7 +1921,7 @@ fn boundary_editor(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl Into
                 .text_size(px(10.0))
                 .text_color(gpui::rgb(crate::ui::palette().text_dim))
                 .truncate()
-                .child("drag pans · scroll zooms · shift-drag draws"),
+                .child(t("library.map.editor_hint")),
         )
         .child(div().flex_grow())
         .child(map_tool_button(
@@ -1914,20 +1974,19 @@ pub(crate) fn camera_import_options_dialog(
     let selection = ws.library.map.selection;
     let selection_name = ws.library.map.selection_name.clone();
     let summary = match (&selection, &selection_name) {
-        (Some(_), Some(name)) => format!(
-            "Boundary: {name} — only photos whose EXIF position falls inside it import; \
-             photos without a position stay on the camera."
+        (Some(_), Some(name)) => tf!("library.import.boundary_named", name = name),
+        (Some(b), None) => tf!(
+            "library.import.boundary_drawn",
+            south = format!("{:.3}", b.south),
+            west = format!("{:.3}", b.west),
+            north = format!("{:.3}", b.north),
+            east = format!("{:.3}", b.east)
         ),
-        (Some(b), None) => format!(
-            "Boundary: {:.3}°, {:.3}° to {:.3}°, {:.3}° — only photos whose EXIF position \
-             falls inside it import.",
-            b.south, b.west, b.north, b.east
-        ),
-        (None, _) => "No boundary — everything on the camera imports.".to_string(),
+        (None, _) => t("library.import.no_boundary").to_string(),
     };
     let dest_name = match (&selection, &selection_name) {
         (Some(_), Some(name)) => name.clone(),
-        (Some(_), None) => "Selected Area".to_string(),
+        (Some(_), None) => t("library.import.selected_area").to_string(),
         (None, _) => label.clone(),
     };
 
@@ -1946,16 +2005,13 @@ pub(crate) fn camera_import_options_dialog(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(crate::ui::palette().text_dim))
-                .child(format!(
-                    "Into ~/Pictures/Schist Imports/{dest_name} — already-imported files \
-                     are skipped, so re-running is safe."
-                )),
+                .child(tf!("library.import.destination", name = dest_name)),
         );
 
     let area = selection.map(|b| {
         (
             b,
-            selection_name.unwrap_or_else(|| "Selected Area".to_string()),
+            selection_name.unwrap_or_else(|| t("library.import.selected_area").to_string()),
         )
     });
     let actions = div()
@@ -1963,13 +2019,13 @@ pub(crate) fn camera_import_options_dialog(
         .flex_row()
         .gap_2()
         .child(crate::ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(crate::ui::button(
-            "Import",
+            t("common.import"),
             true,
             move |ws, _w, cx| {
                 ws.close_modal(cx);
@@ -1977,7 +2033,12 @@ pub(crate) fn camera_import_options_dialog(
             },
             cx,
         ));
-    crate::ui::modal_frame(format!("Import from {label}"), 580.0, body, actions)
+    crate::ui::modal_frame(
+        tf!("library.import.from", name = label),
+        580.0,
+        body,
+        actions,
+    )
 }
 
 /// The small buttons around a map. Explicitly identified, because the
@@ -2200,7 +2261,7 @@ pub(crate) fn map_element(
                 .bg(gpui::rgba(0xFFFFFFB0))
                 .text_size(px(9.0))
                 .text_color(gpui::rgb(0x333333))
-                .child("\u{a9} OpenStreetMap contributors"),
+                .child(t("library.map.attribution")),
         )
 }
 
@@ -2222,23 +2283,20 @@ pub(crate) fn camera_import_failed_dialog(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(crate::ui::palette().text_dim))
-                .child(
-                    "If the device is locked: unlock it, tap Trust This Computer when it \
-                     asks, keep it plugged in, and try again.",
-                ),
+                .child(t("library.import.locked_help")),
         );
     let actions = div()
         .flex()
         .flex_row()
         .gap_2()
         .child(crate::ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(crate::ui::button(
-            "Try Again",
+            t("library.import.try_again"),
             true,
             move |ws, _w, cx| {
                 ws.close_modal(cx);
@@ -2246,7 +2304,12 @@ pub(crate) fn camera_import_failed_dialog(
             },
             cx,
         ));
-    crate::ui::modal_frame(format!("Import from {label}"), 420.0, body, actions)
+    crate::ui::modal_frame(
+        tf!("library.import.from", name = label),
+        420.0,
+        body,
+        actions,
+    )
 }
 
 /// The gallery's map filter: draw where, Apply, and the grid shows
@@ -2263,17 +2326,15 @@ pub(crate) fn map_filter_dialog(
         ws.library.map_filter.is_some()
     };
     let status = match (&selection, &ws.library.map.selection_name) {
-        (Some(_), Some(name)) => format!(
-            "Apply shows only photos taken in {name}; photos without an EXIF position hide."
+        (Some(_), Some(name)) => tf!("library.map_filter.apply_named", name = name),
+        (Some(b), None) => tf!(
+            "library.map_filter.apply_drawn",
+            south = format!("{:.3}", b.south),
+            west = format!("{:.3}", b.west),
+            north = format!("{:.3}", b.north),
+            east = format!("{:.3}", b.east)
         ),
-        (Some(b), None) => format!(
-            "Apply shows only photos taken inside {:.3}°, {:.3}° to {:.3}°, {:.3}°; \
-             photos without an EXIF position hide.",
-            b.south, b.west, b.north, b.east
-        ),
-        (None, _) => "Draw a boundary (Shift-drag, or a preset chip), then Apply. Applying with \
-             nothing drawn turns the filter off."
-            .to_string(),
+        (None, _) => t("library.map_filter.draw_first").to_string(),
     };
     let body = div()
         .flex()
@@ -2289,7 +2350,7 @@ pub(crate) fn map_filter_dialog(
     let mut actions = div().flex().flex_row().gap_2();
     if filtering {
         actions = actions.child(crate::ui::button(
-            "Turn Filter Off",
+            t("library.map_filter.turn_off"),
             false,
             |ws, _w, cx| {
                 ws.clear_map_filter(cx);
@@ -2300,18 +2361,18 @@ pub(crate) fn map_filter_dialog(
     }
     actions = actions
         .child(crate::ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(crate::ui::button(
-            "Apply",
+            t("common.apply"),
             true,
             |ws, _w, cx| ws.apply_map_filter(cx),
             cx,
         ));
-    crate::ui::modal_frame("Map Filter", 580.0, body, actions)
+    crate::ui::modal_frame(t("library.map_filter.title"), 580.0, body, actions)
 }
 
 /// The two models photo search runs on, offered together: neither is
@@ -2341,21 +2402,17 @@ pub(crate) fn search_models_dialog(cx: &mut Context<Workspace>) -> impl IntoElem
         div()
             .text_size(px(12.0))
             .text_color(gpui::rgb(crate::ui::palette().text))
-            .child(
-                "Searching photos by what is in them needs two models, \
-                     downloaded once and kept on this machine. They run \
-                     locally: no photo ever leaves it.",
-            ),
+            .child(t("library.search_models.intro")),
     );
     for spec in &specs {
         body = body.child(
             div()
                 .flex()
                 .flex_col()
-                .child(div().text_size(px(12.0)).child(SharedString::from(format!(
-                    "{} \u{b7} {:.0} MB",
-                    spec.name,
-                    spec.bytes as f64 / (1 << 20) as f64
+                .child(div().text_size(px(12.0)).child(SharedString::from(tf!(
+                    "library.search_models.model_size",
+                    name = spec.name,
+                    mb = format!("{:.0}", spec.bytes as f64 / (1 << 20) as f64)
                 )))),
         );
     }
@@ -2369,19 +2426,19 @@ pub(crate) fn search_models_dialog(cx: &mut Context<Workspace>) -> impl IntoElem
             .text_color(gpui::rgb(crate::ui::palette().text_dim))
             .child(search_model_link(
                 "mobileclip-source",
-                "MobileCLIP by Apple",
+                t("library.search_models.by_apple"),
                 "https://github.com/apple/ml-mobileclip",
             ))
             .child("\u{b7}")
             .child(search_model_link(
                 "mobileclip-export",
-                "ONNX export by Xenova",
+                t("library.search_models.export"),
                 "https://huggingface.co/Xenova/mobileclip_s0",
             ))
             .child("\u{b7}")
             .child(search_model_link(
                 "mobileclip-license",
-                "License",
+                t("library.search_models.license"),
                 "https://github.com/apple/ml-mobileclip/blob/main/LICENSE",
             )),
     );
@@ -2390,11 +2447,9 @@ pub(crate) fn search_models_dialog(cx: &mut Context<Workspace>) -> impl IntoElem
             .pt_1()
             .text_size(px(11.0))
             .text_color(gpui::rgb(crate::ui::palette().text_dim))
-            .child(SharedString::from(format!(
-                "Downloading installs both ({:.0} MB in all) and accepts their \
-                 licences. They can be removed again under Gallery \u{25b8} \
-                 Manage Models\u{2026}",
-                total as f64 / (1 << 20) as f64
+            .child(SharedString::from(tf!(
+                "library.search_models.download_note",
+                mb = format!("{:.0}", total as f64 / (1 << 20) as f64)
             ))),
     );
     let actions = div()
@@ -2402,13 +2457,13 @@ pub(crate) fn search_models_dialog(cx: &mut Context<Workspace>) -> impl IntoElem
         .flex_row()
         .gap_2()
         .child(crate::ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(crate::ui::button(
-            "Agree and Download",
+            t("library.search_models.agree"),
             true,
             |ws, _w, cx| {
                 for id in SEARCH_MODELS {
@@ -2420,7 +2475,7 @@ pub(crate) fn search_models_dialog(cx: &mut Context<Workspace>) -> impl IntoElem
             },
             cx,
         ));
-    crate::ui::modal_frame("Photo Search", 500.0, body, actions)
+    crate::ui::modal_frame(t("library.search_models.title"), 500.0, body, actions)
 }
 
 /// One text field of the bucket dialog: the layer-name pattern, with a
@@ -2484,19 +2539,25 @@ pub(crate) fn bucket_name_dialog(
     let name_fallback = if cloud {
         match &cloud_target {
             Some(bucket) => bucket.name.clone(),
-            None => format!("Bucket {}", ws.cloud.buckets.len() + 1),
+            None => tf!(
+                "library.bucket.default_name",
+                n = ws.cloud.buckets.len() + 1
+            ),
         }
     } else {
         match editing.and_then(|i| ws.library.buckets.get(i)) {
             Some(bucket) => bucket.name.clone(),
-            None => format!("Bucket {}", ws.library.buckets.len() + 1),
+            None => tf!(
+                "library.bucket.default_name",
+                n = ws.library.buckets.len() + 1
+            ),
         }
     };
     let name_field = bucket_field("bucket-name", name, name_fallback, ws, cx);
     let query_field = bucket_field(
         "bucket-query",
         query.clone(),
-        "e.g. dog on a beach (optional)".to_string(),
+        t("library.bucket.query_placeholder").to_string(),
         ws,
         cx,
     );
@@ -2508,7 +2569,7 @@ pub(crate) fn bucket_name_dialog(
             .map
             .selection_name
             .clone()
-            .unwrap_or_else(|| "the drawn area".to_string())
+            .unwrap_or_else(|| t("library.bucket.the_drawn_area").to_string())
     });
     let live_query = if ws.focused_field == Some("bucket-query") && !ws.field_buffer.is_empty() {
         ws.field_buffer.clone()
@@ -2516,28 +2577,22 @@ pub(crate) fn bucket_name_dialog(
         query
     };
     let rule_line = match (live_query.trim(), &area_name) {
-        ("", None) => "No rule: an ordinary bucket, filled by dragging photos in.".to_string(),
-        (q, None) => format!("Keeps every photo matching \u{201c}{q}\u{201d}."),
-        ("", Some(area)) => format!("Keeps every photo taken in {area}."),
-        (q, Some(area)) => {
-            format!("Keeps every photo matching \u{201c}{q}\u{201d} taken in {area}.")
-        }
+        ("", None) => t("library.bucket.rule_none").to_string(),
+        (q, None) => tf!("library.bucket.rule_query", query = q),
+        ("", Some(area)) => tf!("library.bucket.rule_area", area = area),
+        (q, Some(area)) => tf!("library.bucket.rule_query_area", query = q, area = area),
     };
     let mut body = div()
         .flex()
         .flex_col()
         .gap_2()
-        .child(crate::ui::field_row("Name", name_field))
-        .child(crate::ui::field_row("Search", query_field))
+        .child(crate::ui::field_row(t("common.name"), name_field))
+        .child(crate::ui::field_row(t("common.search"), query_field))
         .child(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(crate::ui::palette().text_dim))
-                .child(
-                    "Shift-drag the map (or pick a preset) to add an area; \
-                     a tiny drag clears it. Rules keep the bucket filled \
-                     automatically.",
-                ),
+                .child(t("library.bucket.area_help")),
         )
         .child(boundary_editor(ws, cx))
         .child(
@@ -2551,11 +2606,7 @@ pub(crate) fn bucket_name_dialog(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(crate::ui::palette().text_dim))
-                .child(if photos == 1 {
-                    "Starts holding the selected photo.".to_string()
-                } else {
-                    format!("Starts holding the {photos} selected photos.")
-                }),
+                .child(tn("library.bucket.starts_with", photos as u64)),
         );
     }
     let actions = div()
@@ -2563,13 +2614,17 @@ pub(crate) fn bucket_name_dialog(
         .flex_row()
         .gap_2()
         .child(crate::ui::button(
-            "Cancel",
+            t("common.cancel"),
             false,
             |ws, _w, cx| ws.close_modal(cx),
             cx,
         ))
         .child(crate::ui::button(
-            if is_edit { "Save" } else { "Create" },
+            if is_edit {
+                t("common.save")
+            } else {
+                t("library.bucket.create")
+            },
             true,
             |ws, _w, cx| {
                 ws.commit_focused_field();
@@ -2594,7 +2649,7 @@ pub(crate) fn bucket_name_dialog(
                             .map
                             .selection_name
                             .clone()
-                            .unwrap_or_else(|| "Selected Area".to_string()),
+                            .unwrap_or_else(|| t("library.import.selected_area").to_string()),
                     )
                 });
                 if cloud {
@@ -2621,10 +2676,10 @@ pub(crate) fn bucket_name_dialog(
             cx,
         ));
     let title = match (cloud, is_edit) {
-        (true, true) => "Edit Cloud Bucket",
-        (true, false) => "New Cloud Bucket",
-        (false, true) => "Edit Bucket",
-        (false, false) => "New Bucket",
+        (true, true) => t("library.bucket.edit_cloud_title"),
+        (true, false) => t("library.bucket.new_cloud_title"),
+        (false, true) => t("library.bucket.edit_title"),
+        (false, false) => t("library.bucket.new_title"),
     };
     crate::ui::modal_frame(title, 580.0, body, actions)
 }
@@ -2666,13 +2721,13 @@ fn gallery_context_menu(
                     .py_1()
                     .text_size(px(11.0))
                     .text_color(gpui::rgb(crate::ui::palette().text_dim))
-                    .child(format!("{} photos in this marker", photos.len()))
+                    .child(tn("library.map.n_in_marker", photos.len() as u64))
                     .into_any_element(),
             );
             for (i, bucket) in ws.library.buckets.iter().enumerate() {
                 let add = photos.clone();
                 row(
-                    format!("Add all to {}", bucket.name),
+                    tf!("library.menu.add_all_to", name = bucket.name),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, _cx| {
@@ -2681,7 +2736,7 @@ fn gallery_context_menu(
                 );
             }
             row(
-                "Add all to new bucket…".into(),
+                t("library.menu.add_all_to_new_bucket").into(),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(move |ws, _w, cx| {
@@ -2702,7 +2757,7 @@ fn gallery_context_menu(
                 let open = acting.clone();
                 let opening = n.min(super::DROP_OPEN_CAP);
                 row(
-                    format!("Edit {opening} in tabs"),
+                    tf!("library.menu.edit_n_in_tabs", n = opening),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| {
@@ -2712,7 +2767,7 @@ fn gallery_context_menu(
             } else {
                 let open = path.clone();
                 row(
-                    "Edit".into(),
+                    t("common.edit").into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| {
@@ -2721,7 +2776,7 @@ fn gallery_context_menu(
                 );
                 let view = path.clone();
                 row(
-                    "View & name people".into(),
+                    t("library.menu.view_name_people").into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| {
@@ -2732,7 +2787,7 @@ fn gallery_context_menu(
             {
                 let reveal = path.clone();
                 row(
-                    "Reveal in file manager".into(),
+                    t("library.menu.reveal").into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |_ws, _w, _cx| {
@@ -2744,7 +2799,7 @@ fn gallery_context_menu(
             for (i, bucket) in ws.library.buckets.iter().enumerate() {
                 let add = acting.clone();
                 row(
-                    format!("Add to {}", bucket.name),
+                    tf!("library.menu.add_to", name = bucket.name),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, _cx| {
@@ -2755,7 +2810,7 @@ fn gallery_context_menu(
             {
                 let add = acting.clone();
                 row(
-                    "Add to new bucket".into(),
+                    t("library.menu.add_to_new_bucket").into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| {
@@ -2774,7 +2829,7 @@ fn gallery_context_menu(
             if let Some(bucket) = removable {
                 let drop_path = path.clone();
                 row(
-                    "Remove from this bucket".into(),
+                    t("library.menu.remove_from_bucket").into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, _cx| {
@@ -2793,7 +2848,7 @@ fn gallery_context_menu(
             } else if n > 1 {
                 // Several photos leave as an archive.
                 row(
-                    format!("Save {} as ZIP…", zip.len()),
+                    tf!("library.menu.save_n_as_zip", n = zip.len()),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, window, cx| {
@@ -2805,7 +2860,7 @@ fn gallery_context_menu(
                 // format, at a chosen size.
                 let one = path.clone();
                 row(
-                    "Save image as…".into(),
+                    t("library.menu.save_image_as").into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| {
@@ -2817,9 +2872,9 @@ fn gallery_context_menu(
                 // Turn, upscale, colour — one recipe over the lot.
                 let batch = acting.clone();
                 let label = if n > 1 {
-                    format!("Process {n} photos\u{2026}")
+                    tf!("library.menu.process_n", n = n)
                 } else {
-                    "Process\u{2026}".to_string()
+                    t("library.menu.process").to_string()
                 };
                 row(
                     label,
@@ -2834,9 +2889,9 @@ fn gallery_context_menu(
             {
                 let moving = acting.clone();
                 let label = if n > 1 {
-                    format!("Move {n} to folder\u{2026}")
+                    tf!("library.menu.move_n_to_folder", n = n)
                 } else {
-                    "Move to folder\u{2026}".to_string()
+                    t("library.menu.move_to_folder").to_string()
                 };
                 row(
                     label,
@@ -2855,9 +2910,9 @@ fn gallery_context_menu(
             if edited > 0 {
                 let revert = acting;
                 let label = if edited > 1 {
-                    format!("Revert {edited} to originals")
+                    tf!("library.menu.revert_n", n = edited)
                 } else {
-                    "Revert to original".to_string()
+                    t("library.menu.revert").to_string()
                 };
                 row(
                     label,
@@ -2873,7 +2928,7 @@ fn gallery_context_menu(
             if ws.cloud.account.is_some() {
                 let upload = root.clone();
                 row(
-                    "Upload to Schist Cloud\u{2026}".into(),
+                    t("library.menu.upload_to_cloud").into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| {
@@ -2881,7 +2936,7 @@ fn gallery_context_menu(
                             Modal::Cloud {
                                 kind: "upload-folder",
                                 fields: vec![
-                                    ("cloud-folder", "Folder".into(), String::new()),
+                                    ("cloud-folder", t("common.folder").into(), String::new()),
                                     ("cloud-path", "".into(), upload.display().to_string()),
                                 ],
                             },
@@ -2893,7 +2948,7 @@ fn gallery_context_menu(
             }
             let reveal = root.clone();
             row(
-                "Reveal in file manager".into(),
+                t("library.menu.reveal").into(),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(move |_ws, _w, _cx| {
@@ -2901,7 +2956,7 @@ fn gallery_context_menu(
                 }),
             );
             row(
-                "Stop watching this folder".into(),
+                t("library.sidebar.stop_watching").into(),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(move |ws, _w, cx| {
@@ -2911,15 +2966,15 @@ fn gallery_context_menu(
         }
         GalleryContext::AddFolder => {
             row(
-                "Watch a folder on this computer\u{2026}".into(),
+                t("library.menu.watch_local_folder").into(),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(|ws, window, cx| ws.gallery_add_folder(window, cx)),
             );
             row(
-                format!(
-                    "{} New Schist Cloud folder\u{2026}",
-                    super::cloud_view::CLOUD_GLYPH
+                tf!(
+                    "library.menu.new_cloud_folder",
+                    glyph = super::cloud_view::CLOUD_GLYPH
                 ),
                 &mut rows,
                 cx,
@@ -2928,7 +2983,7 @@ fn gallery_context_menu(
         }
         GalleryContext::NewBucket => {
             row(
-                "New bucket on this computer\u{2026}".into(),
+                t("library.menu.new_local_bucket").into(),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(|ws, _w, cx| {
@@ -2939,9 +2994,9 @@ fn gallery_context_menu(
                 }),
             );
             row(
-                format!(
-                    "{} New Schist Cloud bucket\u{2026}",
-                    super::cloud_view::CLOUD_GLYPH
+                tf!(
+                    "library.menu.new_cloud_bucket",
+                    glyph = super::cloud_view::CLOUD_GLYPH
                 ),
                 &mut rows,
                 cx,
@@ -2958,7 +3013,7 @@ fn gallery_context_menu(
                 .map(|b| (b.contents(), b.name.clone(), b.is_smart()))
                 .unwrap_or_default();
             row(
-                "Edit bucket…".into(),
+                t("library.menu.edit_bucket").into(),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(move |ws, _w, cx| {
@@ -2970,7 +3025,7 @@ fn gallery_context_menu(
                 // the photo menu can take it from here.
                 let select = photos.clone();
                 row(
-                    format!("Select all ({})", photos.len()),
+                    tf!("library.menu.select_all_n", n = photos.len()),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, _cx| {
@@ -2987,7 +3042,7 @@ fn gallery_context_menu(
             if !zip.is_empty() {
                 let suggested = format!("{}.zip", name.to_lowercase().replace(' ', "-"));
                 row(
-                    format!("Save all as ZIP… ({})", zip.len()),
+                    tf!("library.menu.save_all_as_zip", n = zip.len()),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, window, cx| {
@@ -2998,7 +3053,7 @@ fn gallery_context_menu(
             if !photos.is_empty() {
                 let batch = photos.clone();
                 row(
-                    format!("Process all\u{2026} ({})", photos.len()),
+                    tf!("library.menu.process_all", n = photos.len()),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| {
@@ -3007,7 +3062,7 @@ fn gallery_context_menu(
                 );
                 let moving = photos;
                 row(
-                    "Move all to folder\u{2026}".into(),
+                    t("library.menu.move_all_to_folder").into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, window, cx| {
@@ -3020,9 +3075,9 @@ fn gallery_context_menu(
                 // A smart bucket's matches come back on the next pass;
                 // only the hand-added photos are the user's to clear.
                 if smart {
-                    "Clear added photos".into()
+                    t("library.menu.clear_added").into()
                 } else {
-                    "Clear bucket".into()
+                    t("library.menu.clear_bucket").into()
                 },
                 &mut rows,
                 cx,
@@ -3031,7 +3086,7 @@ fn gallery_context_menu(
                 }),
             );
             row(
-                "Delete bucket".into(),
+                t("library.menu.delete_bucket").into(),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(move |ws, _w, _cx| {
@@ -3047,7 +3102,7 @@ fn gallery_context_menu(
                 .map(|p| (p.name.clone(), p.faces.len()))
                 .unwrap_or_default();
             row(
-                format!("Show {name}"),
+                tf!("library.menu.show_person", name = name),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(move |ws, _w, cx| {
@@ -3055,7 +3110,7 @@ fn gallery_context_menu(
                 }),
             );
             row(
-                "Rename\u{2026}".into(),
+                t("library.menu.rename_person").into(),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(move |ws, _w, cx| {
@@ -3065,11 +3120,7 @@ fn gallery_context_menu(
             sep(&mut rows);
             // The faces go back to unnamed; nothing is deleted.
             row(
-                if faces == 1 {
-                    "Forget person (1 face)".to_string()
-                } else {
-                    format!("Forget person ({faces} faces)")
-                },
+                tn("library.menu.forget_person", faces as u64),
                 &mut rows,
                 cx,
                 std::rc::Rc::new(move |ws, _w, _cx| {

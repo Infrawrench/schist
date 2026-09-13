@@ -1,0 +1,53 @@
+# 矢量工具（plugins/tools-vector）：钢笔、两个选择箭头、形状和自定形状。
+# 术语沿用简体中文版 Photoshop：钢笔、自由钢笔、弯度钢笔、路径选择、
+# 直接选择、自定形状。
+
+# 钢笔
+tool.pen.name = 钢笔
+tool.pen.description = 构建路径：单击添加角点，拖动可从中拉出曲线控制柄，单击第一个点可闭合。提交后路径将变为形状图层。
+tool.pen.option.rubber_band = 橡皮带
+tool.pen.history.fill = 填充路径
+# 自由钢笔或弯度钢笔为其存储的路径起的名字
+tool.pen.default_path_name = 路径 {n}
+tool.pen.freeform.name = 自由钢笔
+tool.pen.freeform.description = 拖动绘制自由手绘线条，它会按曲线拟合选项设定的松紧程度拟合为路径。
+tool.pen.freeform.option.fit = 曲线拟合
+tool.pen.curvature.name = 弯度钢笔
+tool.pen.curvature.description = 依次单击一系列点，路径会平滑地弯曲穿过这些点。
+
+# 箭头
+tool.path_select.name = 路径选择
+tool.path_select.description = 单击路径以将其选中，拖动可移动整条路径。
+tool.direct_select.name = 直接选择
+tool.direct_select.description = 拖动单个锚点或其控制柄，以重塑其周围的路径。
+
+# 形状。每种形状有工具名和标签，标签用作拖动创建的图层和路径的名字；
+# 形状图层的历史记录是填入 tool.shape.history.layer 的标签。
+tool.shape.history.layer = {name}图层
+tool.shape.rect.name = 矩形工具
+tool.shape.rect.label = 矩形
+tool.shape.rect.description = 以前景色拖出一个矩形形状图层；它保持为矢量，调整大小时会重新栅格化。
+tool.shape.ellipse.name = 椭圆工具
+tool.shape.ellipse.label = 椭圆
+tool.shape.ellipse.description = 以前景色拖出一个椭圆形状图层。
+tool.shape.line.name = 直线工具
+tool.shape.line.label = 直线
+tool.shape.line.description = 以前景色拖出一个直线形状图层。
+tool.shape.line.option.weight = 粗细
+tool.shape.line.option.arrow_start = 起点
+tool.shape.line.option.arrow_end = 终点
+tool.shape.polygon.name = 多边形工具
+tool.shape.polygon.label = 多边形
+tool.shape.polygon.description = 以前景色拖出一个正多边形形状图层，边数取自选项。
+tool.shape.polygon.option.sides = 边数
+
+# 自定形状
+tool.shape.custom.name = 自定形状
+tool.shape.custom.label = 自定形状
+tool.shape.custom.description = 拖出一个内置的预设形状，通过“形状”选项选择。
+tool.shape.custom.choice.heart = 心形
+tool.shape.custom.choice.star = 星形
+tool.shape.custom.choice.arrow = 箭头
+tool.shape.custom.choice.lightning = 闪电
+tool.shape.custom.choice.cross = 十字
+tool.shape.custom.choice.speech_bubble = 对话气泡

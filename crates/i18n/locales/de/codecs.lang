@@ -1,0 +1,44 @@
+# plugins/codecs-common: Formatnamen und Importmeldungen (in der
+# Statuszeile hinter "Öffnen fehlgeschlagen:").
+
+# Formatnamen; die langen Formen für Dateidialoge sind common.filetype.*.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Gemeinsame Importmeldungen; sie stehen vor der Meldung des Decoders.
+codec.msg.decoding = beim Decodieren von {name}
+codec.msg.zero_sized = das Bild hat keine Pixel
+codec.msg.assembling_document = beim Zusammenstellen des Dokuments
+
+# Camera Raw
+codec.raw.msg.decoding = beim Decodieren der Rohdatei
+codec.raw.msg.developing = beim Entwickeln der Rohdatei
+codec.raw.msg.finding_preview = beim Suchen der eingebetteten Vorschau
+codec.raw.msg.decoding_preview = beim Decodieren der eingebetteten Vorschau
+codec.raw.msg.decoder_panicked = der Raw-Decoder ist an dieser Datei gescheitert: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity-Import
+codec.affinity.flattened_preview_layer = Reduzierte Vorschau
+codec.affinity.msg.no_preview = Keine brauchbare eingebettete Vorschau. Das Ebenenformat von Affinity ist proprietär; Schist importiert die reduzierte Vorschau, die die Datei mitführt. Diese Datei hat keine – sichern Sie sie in Affinity erneut, oder exportieren Sie sie als PSD für einen vollständigen Import mit Ebenen.
+
+# HEIF
+codec.heif.msg.no_library = libheif ist nicht verfügbar ({details}). Zum Öffnen von HEIC wird die Bibliothek libheif gebraucht (Linux: libheif1 installieren; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} – dieser libheif-Build hat womöglich keinen HEVC-Decoder (unter Debian/Ubuntu libheif-plugin-libde265 installieren)
+codec.heif.msg.unknown_error = unbekannter Fehler
+codec.heif.msg.initialising = beim Initialisieren von libheif
+codec.heif.msg.reading_container = beim Lesen des HEIF-Containers
+codec.heif.msg.finding_primary_image = beim Suchen des Hauptbilds
+codec.heif.msg.reading_icc_profile = beim Lesen des ICC-Profils
+codec.heif.msg.decoding_image = beim Decodieren des Bilds
+codec.heif.msg.checksum_mismatch = Prüfsumme von {name} stimmt nicht: erwartet {expected}, erhalten {got}
+# iOS, wo ImageIO HEIC decodiert
+codec.heif.msg.imageio_cannot_read = ImageIO konnte den HEIF-Container nicht lesen
+codec.heif.msg.container_empty = der HEIF-Container enthält kein Bild
+codec.heif.msg.imageio_cannot_decode = ImageIO konnte das Hauptbild nicht decodieren

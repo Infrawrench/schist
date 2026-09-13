@@ -1,0 +1,128 @@
+# Der Arbeitsbereich (crates/app/src/workspace). Die Begriffe folgen der
+# deutschen Photoshop-Lokalisierung: Bildgröße, Arbeitsfläche, Fläche
+# füllen, Kontur, Weiche Kante, Farbbereich, Wiederherstellen,
+# Exportieren, Platzieren, Zeichenflächen, Slices.
+
+# Bearbeiten ▸ Fläche füllen: Quellen (mod.rs, FillSource)
+workspace.fill.gray_50 = 50 % Grau
+workspace.fill.content_aware = Inhaltsbasiert
+
+# Auswahl ▸ Auswahl verändern: Dialogtitel (ModifyKind)
+workspace.modify.expand = Auswahl erweitern
+workspace.modify.contract = Auswahl verkleinern
+workspace.modify.border = Auswahl umranden
+workspace.modify.smooth = Auswahl abrunden
+workspace.modify.feather = Weiche Auswahlkante
+
+
+# Der Stapeldialog der Galerie: wohin die Ergebnisse gehen (BatchTarget)
+workspace.batch.target.edit = Galerie-Bearbeitungen (versioniert)
+workspace.batch.target.beside = Kopien neben den Originalen
+workspace.batch.target.folder = Kopien in einem Ordner…
+
+# Bild ▸ Bildgröße, wie sich der Wartedialog nennt
+workspace.modal.image_size.title = Bildgröße
+
+# Dokumente und Tabs (docs.rs)
+workspace.docs.opening = {name} wird geöffnet…
+workspace.docs.opened = {name} geöffnet
+workspace.docs.open_failed = Öffnen fehlgeschlagen: {error}
+workspace.docs.no_codec = {name} hat ein Format, das Schist nicht öffnen kann
+workspace.docs.no_exporter = Schist kann keine .{ext}-Dateien sichern
+workspace.docs.empty_response = Der Server hat eine leere Antwort gesendet
+workspace.docs.heic_not_installed = HEIC-Unterstützung ist nicht installiert
+workspace.docs.heic_downloading = HEIC-Unterstützung wird geladen (libheif {version})…
+workspace.docs.heic_installed = HEIC-Unterstützung installiert
+workspace.docs.heic_download_failed = Download der HEIC-Unterstützung fehlgeschlagen: {error}
+workspace.docs.placing = {name} wird platziert…
+workspace.docs.place_image = Bild platzieren
+workspace.docs.placed = {name} platziert
+workspace.docs.place_failed = Platzieren fehlgeschlagen: {error}
+workspace.docs.saved = {name} gesichert
+workspace.docs.save_failed = Sichern fehlgeschlagen: {error}
+
+# Einstellungsebenen (adjustments.rs); {name} ist der Name der Einstellung
+workspace.adjustment.new_layer = Neue {name}-Ebene
+workspace.adjustment.added = {name} hinzugefügt
+workspace.adjustment.settings = {name}-Einstellungen
+workspace.adjustment.updated = {name} aktualisiert
+workspace.adjustment.no_settings = {name} hat keine bearbeitbaren Einstellungen
+
+# Ebenenkompositionen (comps.rs)
+workspace.comps.name_n = Ebenenkomposition {n}
+workspace.comps.captured = Ebenenkomposition erfasst
+workspace.comps.apply = {name} anwenden
+
+# Ebenenstil (styles.rs)
+workspace.styles.layer_style = Ebenenstil
+
+# Ebeneneigenschaften (context.rs)
+workspace.context.rename_layer = Ebene umbenennen
+
+# Werkzeugwechsel (commands.rs)
+workspace.commands.tool = Werkzeug: {name}
+
+# Farbmanagement (colormgmt.rs); {name} ist der Name des Profils
+workspace.colormgmt.assign = {name} zuweisen
+workspace.colormgmt.assigned = {name} zugewiesen
+workspace.colormgmt.convert_to = In {name} umwandeln
+workspace.colormgmt.converted_to = In {name} umgewandelt
+workspace.colormgmt.convert_failed = Umwandlung fehlgeschlagen: {error}
+workspace.colormgmt.proof_on = Farbproof ein
+workspace.colormgmt.proof_off = Farbproof aus
+
+# Filter (filters.rs); {name} ist der Name des Filters
+workspace.filters.choose = Auswählen
+workspace.filters.select_layer_first = Zuerst eine Ebene auswählen
+workspace.filters.needs_pixel_layer = Filter brauchen eine Pixelebene
+workspace.filters.nothing_to_filter = Nichts zu filtern
+workspace.filters.went_away = Der Filter ist nicht mehr verfügbar
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: Die gefilterte Ebene ist nicht mehr da
+workspace.filters.plugin_title = Photoshop-Zusatzmodul
+workspace.filters.running = {name} wird ausgeführt
+workspace.filters.plugin_note = Das Zusatzmodul läuft in einem eigenen Prozess. Öffnet es ein Fenster, beantworten Sie dieses, um fortzufahren.
+workspace.filters.raw_preview_developing = RAW-Vorschau wird entwickelt…
+workspace.filters.raw_preview_done = RAW-Vorschau (schnelles Demosaicing)
+workspace.filters.raw_preview_size_changed = Größe der RAW-Vorschau hat sich geändert: {w} × {h}
+workspace.filters.raw_preview_failed = RAW-Vorschau fehlgeschlagen: {error}
+workspace.filters.raw_developing = Die Originalaufnahme wird entwickelt…
+workspace.filters.raw_developing_note = Verwendet das beste Demosaicing-Verfahren. Die RAW-Originaldatei und diese Einstellungen bleiben nach dem Sichern als PSD oder PSB bearbeitbar.
+workspace.filters.raw_document_changed = Die RAW-Entwicklung wurde fertig, nachdem sich das Dokument geändert hatte
+workspace.filters.raw_failed = RAW-Entwicklung fehlgeschlagen: {error}
+workspace.filters.raw_too_wide = Die RAW-Entwicklung ist zu breit
+workspace.filters.raw_too_tall = Die RAW-Entwicklung ist zu hoch
+workspace.filters.raw_size_changed = Größe der RAW-Entwicklung hat sich auf {w} × {h} geändert; die aktuelle Ebene bleibt erhalten
+workspace.filters.raw_history = Camera-Raw-Entwicklung
+workspace.filters.raw_applied = Camera-Raw-Entwicklung angewendet (bestes Demosaicing)
+
+# Bildgröße über ein neuronales Modell (filters.rs); {name} ist das Modell
+workspace.image_size.done = Bildgröße: {w} × {h}
+workspace.image_size.bicubic_fallback = Bildgröße: {w} × {h} – das Modell {name} ließ sich nicht laden, stattdessen wurde bikubisch verwendet
+workspace.image_size.upscaling = Hochskalieren mit {name}
+workspace.image_size.upscaling_note = {mp} Megapixel durch das Netzwerk, jeweils einige Sekunden. Das Dokument bleibt gesperrt, bis es fertig ist.
+
+# Exportieren (export.rs)
+workspace.export.no_slices = Keine Slices zum Exportieren
+workspace.export.no_artboards = Keine Zeichenflächen zum Exportieren
+workspace.export.regions.one = {n} Bereich exportiert
+workspace.export.regions.other = {n} Bereiche exportiert
+workspace.export.prompt = Exportieren als:
+workspace.export.done = {name} exportiert
+workspace.export.failed = Export fehlgeschlagen: {error}
+workspace.export.codec_vanished = Der Exporter ist nicht mehr verfügbar
+
+# Schists eigener Dateidialog (file_picker.rs)
+workspace.file_picker.choose_folder = Ordner auswählen
+workspace.file_picker.type_a_name = Geben Sie einen Namen für die Datei ein
+workspace.file_picker.exists = {name} ist bereits vorhanden; tippen Sie erneut auf „Sichern“, um sie zu ersetzen
+workspace.file_picker.tap_a_file = Tippen Sie auf eine Datei, um sie zu öffnen
+workspace.file_picker.pictures = Bilder
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Downloads
+workspace.file_picker.permission_denied = Schist hat keine Berechtigung, diesen Ordner zu lesen
+
+# Wiederherstellen nach einem Absturz (recovery.rs)
+workspace.recovery.recovered_title = {title} (wiederhergestellt)
+workspace.recovery.recovered.one = Ungesicherte Arbeit aus einer früheren Sitzung wiederhergestellt
+workspace.recovery.recovered.other = {n} Dokumente aus einer früheren Sitzung wiederhergestellt
