@@ -89,8 +89,23 @@ drop-downs: a tap on a title opens its menu (a tap rather than a press,
 so a swipe along the bar, which scrolls it, opens nothing), and a tap on
 a "Name ›" row opens its submenu, which on the desktop opens on hover.
 
-**Files.** There is no system file picker either: a `NativeActivity`
-cannot receive the activity result one answers with. Every prompt for a
+**Video and media import.** Import uses Android's system document picker for
+photos and videos. Selected files are copied off the UI thread into the app's
+Documents/Imports folder and added to the gallery. A small NativeActivity
+subclass also accepts video content URIs from Share and Open With, including
+while the app is running. Broad video-library permission is not needed for
+these selections.
+
+MediaExtractor and MediaCodec provide silent playback, real frame timestamps,
+frame stepping, nearby sharpness search and full-resolution capture. Flexible
+YUV planes are copied with their strides and crop rectangle, converted to RGB,
+and oriented for display. Captures are separate unsaved images. Open in another
+app uses the system chooser with a read-only grant for the selected original;
+a private content provider keeps other apps out of the rest of the sandbox.
+Playback pauses when the app loses focus. See [Video](gallery.md#video).
+
+**Files.** General Open and Save dialogs use Schist’s own file picker. The
+activity-result bridge currently handles media imports. Every prompt for a
 path -- Open, Save As, Export, Add Folder to Gallery, the cloud's
 uploads and downloads -- goes through `Workspace::prompt_for_paths` and
 `prompt_for_new_path`, which on Android open a dialog of Schist's own
@@ -132,7 +147,7 @@ is mounted `noexec`).
 credentials: an AES key generated in the Android keystore encrypts it
 into the app's private storage. The browser's `schist://` callback
 reaches the app through its launch intent when the browser starts it;
-an app already running is not told (a `NativeActivity` does not see a
+an app already running is not told (the auth path does not yet dispatch a
 new intent), so a sign-in started from a running app has to be finished
 by closing and reopening it.
 
@@ -145,9 +160,8 @@ behind the AI sidebar are desktop installs, and the store updates the
 app. So: the Photoshop and WebAssembly plug-in hosts (the first-party
 plugins are all there), the AI sidebar and the MCP bridge, the
 self-updater, dragging photos out to a file manager, and Quit. The
-iOS-only pieces stay iOS-only: Save to Photos, Import from Photos (the
-camera roll needs the photo picker, another activity result), and the
-share-sheet handover.
+iOS-only pieces stay iOS-only: Save to Photos, the Photos-specific picker, and the iOS share-sheet handover. Android media
+import and video handoff use its own picker and chooser.
 
 Like iOS, Android keeps the gallery, the GPU compositor (`wgpu` on its
 own Vulkan device; gpui's renderer is separate), the crash reporter, the
@@ -193,8 +207,7 @@ Two things the emulator taught:
 
 What a device would still change: the storage permission (so the shared
 Pictures, camera roll and Downloads can be read), a Save to Photos
-through `MediaStore` (an insert needs no activity result), and a launch
-intent carrying a `content://` URI, which `path_from_url` does not open.
+through `MediaStore` (an insert needs no activity result), and physical-device validation of the new video import and handoff paths.
 
 ## Camera roll backup
 
