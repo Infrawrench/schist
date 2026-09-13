@@ -323,6 +323,12 @@ pub fn main() {
     #[cfg(sandboxed)]
     let registry = build_registry();
 
+    // The camera-roll backup's background task: its handler has to be
+    // registered before the app finishes launching, so before gpui
+    // starts UIKit at all.
+    #[cfg(target_os = "ios")]
+    workspace::camera_sync_ios::register_background_task();
+
     let requests: Rc<RefCell<OpenRequests>> = Rc::default();
     let app = Application::new().with_assets(assets::Assets);
     // Finder does not use argv: a double-clicked document arrives as an Apple

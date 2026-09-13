@@ -256,3 +256,10 @@ dialog.color_picker.current = aktuell
 dialog.curves.rgb = RGB
 dialog.curves.reset_channel = Återställ kanal
 dialog.curves.hint = Dra för att forma · klicka för att lägga till · alt-klicka för att ta bort
+
+# Kamerarullens rad i Inställningar, på telefoner.
+dialog.prefs.camera_sync = Kamerarulle
+dialog.prefs.camera_sync_enabled = Säkerhetskopiera till Schist Cloud
+dialog.prefs.camera_sync_sign_in = Logga in på Schist Cloud för att säkerhetskopiera kamerarullen.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Ändra…

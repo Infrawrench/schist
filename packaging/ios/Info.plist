@@ -63,11 +63,19 @@
          let documents opened from Files be edited where they are. -->
     <key>UIFileSharingEnabled</key><true/>
     <key>LSSupportsOpeningDocumentsInPlace</key><true/>
-    <!-- Photos and camera access, for the gallery's import. -->
+    <!-- Photos access: the gallery's import, and the camera-roll backup
+         to Schist Cloud, which reads the library to find new photos. -->
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Schist imports photos from your library into its gallery.</string>
+    <string>Schist imports photos from your library into its gallery, and backs up your camera roll to Schist Cloud when you turn that on.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>Schist saves exported images to your photo library.</string>
+    <!-- The camera-roll backup's background launch: iOS starts the app
+         now and then, on a network, to upload what is new
+         (crates/app/src/workspace/camera_sync_ios.rs). -->
+    <key>UIBackgroundModes</key>
+    <array><string>processing</string></array>
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array><string>com.infrawrench.schist.camera-sync</string></array>
 
     <key>UTImportedTypeDeclarations</key>
     <array>

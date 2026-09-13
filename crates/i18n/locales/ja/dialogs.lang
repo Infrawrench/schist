@@ -250,3 +250,10 @@ dialog.color_picker.current = 現在の色
 dialog.curves.rgb = RGB
 dialog.curves.reset_channel = チャンネルをリセット
 dialog.curves.hint = ドラッグで形を調整 · クリックで追加 · Alt＋クリックで削除
+
+# 環境設定のカメラロールの行（スマートフォン向け）。
+dialog.prefs.camera_sync = カメラロール
+dialog.prefs.camera_sync_enabled = Schist Cloud にバックアップ
+dialog.prefs.camera_sync_sign_in = カメラロールをバックアップするには Schist Cloud にサインインしてください。
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = 変更…

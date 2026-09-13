@@ -118,6 +118,17 @@ objc2-foundation = { version = "0.3", default-features = false, features = [
     "NSString",
 ] }
 
+# The camera-roll backup's Android half: the media permission, the
+# shared folders and the background job are all Java, reached over JNI
+# through the activity gpui holds. Both crates are already in the tree
+# behind gpui's Android backend.
+[target.'cfg(target_os = "android")'.dependencies]
+jni = "0.22"
+android-activity = { version = "0.6", features = ["native-activity"] }
+# gpui names its credentials file by this hash of the key; the headless
+# job reads the same file.
+seahash = "4"
+
 # The photo library on iOS, through PHPickerViewController; the delegate
 # class is built at runtime, as on macOS.
 [target.'cfg(target_os = "ios")'.dependencies]
@@ -184,3 +195,9 @@ ash = "0.38"
 # source side, on its own connection. Same version gpui's X11 backend
 # already links.
 x11rb = "0.13"
+
+[dev-dependencies]
+# The camera-roll backup's tests walk a scratch folder and move its
+# mtimes about.
+tempfile = "3"
+filetime = "0.2"

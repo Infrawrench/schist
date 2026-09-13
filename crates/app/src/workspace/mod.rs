@@ -34,6 +34,12 @@ mod ai;
 #[cfg(sandboxed)]
 #[path = "ai_stub.rs"]
 mod ai;
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod camera_sync;
+#[cfg(target_os = "android")]
+pub(crate) mod camera_sync_android;
+#[cfg(target_os = "ios")]
+pub(crate) mod camera_sync_ios;
 mod chrome;
 mod clipboard;
 pub(crate) mod cloud;
@@ -854,6 +860,13 @@ pub struct ViewOptions {
     /// grip above its title drags it, and this remembers where.
     #[serde(default = "default_history_h")]
     pub history_h: f32,
+    /// The camera-roll backup to Schist Cloud: whether it runs, from
+    /// where, into which folder. Asked about once after the first
+    /// sign-in on a phone. Desktop keeps the preference but does not
+    /// run the backup; the browser uses separate preferences.
+    #[cfg(not(target_arch = "wasm32"))]
+    #[serde(default)]
+    pub camera_sync: camera_sync::CameraSync,
 }
 
 fn default_history_h() -> f32 {
@@ -911,6 +924,8 @@ impl Default for ViewOptions {
             ai_model_claude: String::new(),
             ai_model_codex: String::new(),
             history_h: default_history_h(),
+            #[cfg(not(target_arch = "wasm32"))]
+            camera_sync: Default::default(),
         }
     }
 }

@@ -51,6 +51,38 @@ Remote folders and assets can be dragged into remote buckets in either build.
 Downloads use the browser's download flow. Edits survive socket reconnects in the
 open tab, but filesystem recovery across page reloads is not available in WASM.
 
+## Camera roll backup
+
+On iOS and Android, an interactive sign-in offers to back up the camera roll.
+Choose the source and an existing top-level cloud folder, or enter a name for
+a new folder. **Not now** dismisses the offer. **Camera roll backup** in
+Preferences and **Back up camera roll…** on the cloud root's context menu
+reopen setup; the Preferences switch pauses or resumes an existing rule.
+Signing out stops backup and clears its destination so another account never
+inherits permission to upload the camera roll.
+
+On iOS, choose All Photos or an album and grant Photos access. Limited access
+backs up only the photos selected in Settings; the dialog shows a note when
+that restriction applies. Originals stored in iCloud are fetched as needed.
+On Android, choose Camera (`DCIM/Camera`), all camera folders (`DCIM`), Pictures,
+or another readable folder. Android requires access to all photos for this
+folder-based backup. Choosing only selected photos leaves setup waiting for
+full permission; after two minutes it reports how to change access in Settings.
+
+Backup copies image files, excludes videos and editor project files, and never
+deletes local photos. SHA-256 duplicate detection avoids uploading photos the
+provider already has; those photos keep their existing cloud location. New
+uploads go into the chosen destination, preserving source subfolders on Android.
+An interrupted run checkpoints acknowledged photos and retries the rest.
+The sidebar shows progress, the last successful backup, or an error.
+
+While open, Schist checks periodically (15 minutes) and responds to changes
+in Photos on iOS or source-folder changes polled every 30 seconds on Android.
+Background runs use iOS BackgroundTasks and Android JobScheduler. The OS
+chooses when they run; network availability, power management and force-stopping
+the app can delay them. Disabling backup cancels scheduled and active work.
+Android's job can restore the encrypted login and run without an activity.
+
 ## Gallery and documents
 
 After sign-in the gallery sidebar lists the cloud alongside the local library:

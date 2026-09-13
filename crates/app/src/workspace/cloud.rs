@@ -25,7 +25,7 @@ use std::{
 };
 
 #[cfg(not(target_arch = "wasm32"))]
-const CREDENTIAL_KEY: &str = "https://schist.app/schist-cloud";
+pub(super) const CREDENTIAL_KEY: &str = "https://schist.app/schist-cloud";
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) fn state_dir() -> PathBuf {
     schist_gallery::state_dir()
@@ -76,12 +76,19 @@ enum RecoveryTask {
     },
     Remove(PathBuf),
 }
-enum Job {
+pub(super) enum Job {
     Thumbnail {
         epoch: u64,
         id: String,
         revision: u64,
         image: Option<Arc<RenderImage>>,
+    },
+    /// The camera-roll backup's engine and platform bridges.
+    #[cfg(not(target_arch = "wasm32"))]
+    Sync {
+        epoch: u64,
+        revision: u64,
+        job: super::camera_sync::SyncJob,
     },
     #[cfg(not(target_arch = "wasm32"))]
     Browser {
@@ -239,7 +246,10 @@ pub(crate) struct CloudState {
     pending: HashMap<String, Pending>,
     pub epoch: u64,
     jobs: mpsc::Receiver<Job>,
-    sender: mpsc::Sender<Job>,
+    pub(super) sender: mpsc::Sender<Job>,
+    /// The camera-roll backup, while the app is open.
+    #[cfg(not(target_arch = "wasm32"))]
+    pub sync: super::camera_sync::SyncState,
     cancel: Arc<AtomicBool>,
     writes: VecDeque<Option<Account>>,
     #[cfg(not(target_arch = "wasm32"))]
@@ -282,6 +292,8 @@ impl Default for CloudState {
         };
         Self {
             generation: Default::default(),
+            #[cfg(not(target_arch = "wasm32"))]
+            sync: Default::default(),
             account: None,
             client: None,
             connected: false,
@@ -410,9 +422,17 @@ impl Workspace {
     pub(crate) fn cloud_start(&mut self, cx: &mut Context<Self>) {
         #[cfg(not(target_arch = "wasm32"))]
         {
-            let read = cx.read_credentials(CREDENTIAL_KEY);
+            #[cfg(target_os = "android")]
+            let handover = cx.background_executor().spawn(async {
+                super::camera_sync_android::hand_over_to_activity();
+            });
             let epoch = self.cloud.epoch;
             cx.spawn(async move |this, cx| {
+                #[cfg(target_os = "android")]
+                handover.await;
+                let Ok(read) = this.update(cx, |_, cx| cx.read_credentials(CREDENTIAL_KEY)) else {
+                    return;
+                };
                 let result = read.await;
                 let _ = this.update(cx, |ws, cx| {
                     if ws.cloud.epoch != epoch {
@@ -444,7 +464,7 @@ impl Workspace {
         })
         .detach();
     }
-    fn cloud_error(&mut self, error: impl Into<String>) {
+    pub(super) fn cloud_error(&mut self, error: impl Into<String>) {
         let error = error.into();
         self.status = error.clone().into();
         self.cloud.message = error;
@@ -535,6 +555,10 @@ impl Workspace {
         self.cloud.library_total = None;
         self.cloud.client = Some(Client::start(account.clone()));
         self.cloud.account = Some(account.clone());
+        #[cfg(target_os = "android")]
+        super::camera_sync_android::restore_status(&mut self.view.camera_sync);
+        #[cfg(not(target_arch = "wasm32"))]
+        self.camera_sync_update_background();
         self.cloud.writes.push_back(Some(account));
         self.cloud.message = t("cloud.status.connecting").into();
         self.cloud.pending.clear();
@@ -550,6 +574,8 @@ impl Workspace {
     pub(crate) fn cloud_sign_out(&mut self, cx: &mut Context<Self>) {
         self.cloud_capture_edit();
         self.cloud_checkpoint();
+        #[cfg(not(target_arch = "wasm32"))]
+        self.camera_sync_sign_out();
         self.cloud.epoch += 1;
         self.cloud.cancel.store(true, Ordering::Relaxed);
         self.cloud.generation.cancel.store(true, Ordering::Relaxed);
@@ -748,10 +774,20 @@ impl Workspace {
     fn cloud_tick(&mut self, cx: &mut Context<Self>) {
         self.cloud_capture_edit();
         self.cloud_generation_tick(cx);
+        #[cfg(not(target_arch = "wasm32"))]
+        self.camera_sync_tick(cx);
         let mut changed = false;
         while let Ok(job) = self.cloud.jobs.try_recv() {
             changed = true;
             match job {
+                #[cfg(not(target_arch = "wasm32"))]
+                Job::Sync {
+                    epoch,
+                    revision,
+                    job,
+                } if epoch == self.cloud.epoch && revision == self.cloud.sync.revision => {
+                    self.camera_sync_job(job, cx)
+                }
                 Job::Thumbnail {
                     epoch,
                     id,
@@ -772,7 +808,18 @@ impl Workspace {
                 #[cfg(not(target_arch = "wasm32"))]
                 Job::Browser { epoch, url } if epoch == self.cloud.epoch => cx.open_url(&url),
                 Job::SignedIn { epoch, account } if epoch == self.cloud.epoch => {
-                    self.cloud_connect(account, cx)
+                    #[cfg(not(target_arch = "wasm32"))]
+                    if self.cloud.account.is_some() {
+                        self.camera_sync_sign_out();
+                    }
+                    self.cloud_connect(account, cx);
+                    // A sign-in someone just made, not a stored login
+                    // restored at launch: the moment to ask, once, about
+                    // the camera roll.
+                    #[cfg(not(target_arch = "wasm32"))]
+                    if super::camera_sync::offered() && !self.view.camera_sync.asked {
+                        self.cloud.sync.prompt_pending = true;
+                    }
                 }
                 Job::Error { epoch, error } if epoch == self.cloud.epoch => {
                     self.cloud.progress = None;
@@ -944,6 +991,14 @@ impl Workspace {
             let result = task.await;
             let _ = this.update(cx, |ws, cx| {
                 ws.cloud.writing = false;
+                #[cfg(target_os = "ios")]
+                if result.is_ok() {
+                    if let Err(error) =
+                        super::camera_sync_ios::background_credentials(ws.view.camera_sync.enabled)
+                    {
+                        ws.cloud_error(tf!("cloud.sync.keychain_failed", error = error));
+                    }
+                }
                 if let Err(e) = result {
                     ws.cloud_error(tf!("cloud.error.could_not_persist_login", error = e));
                 }
@@ -970,6 +1025,8 @@ impl Workspace {
                 }
             }
             Event::AccountUnavailable => {
+                #[cfg(not(target_arch = "wasm32"))]
+                self.camera_sync_sign_out();
                 self.cloud.disconnect();
                 self.cloud.epoch += 1;
                 self.cloud.account = None;
@@ -2008,14 +2065,15 @@ impl Workspace {
         self.cloud.message = t("cloud.upload.uploading_files").into();
         self.cloud.progress = Some((0, 0, t("cloud.upload.looking_through").into()));
         remote::runtime::spawn(async move {
-            let progress = |done: u64, total: u64, label: String| {
-                let _ = sender.send(Job::Progress {
+            let progress_sender = sender.clone();
+            let report: Report = Arc::new(move |done: u64, total: u64, label: String| {
+                let _ = progress_sender.send(Job::Progress {
                     epoch,
                     done,
                     total,
                     label,
                 });
-            };
+            });
             let result: Result<UploadSummary> = (async {
                 let mut files = Vec::new();
                 for path in paths {
@@ -2029,121 +2087,9 @@ impl Workspace {
                         files.push((path, relative));
                     }
                 }
-                progress(
-                    0,
-                    files.len() as u64,
-                    t("cloud.upload.checking_storage").into(),
-                );
-                let mut selection_bytes = 0u64;
-                let mut candidates = Vec::new();
-                for (path, relative) in &files {
-                    #[cfg(not(target_arch = "wasm32"))]
-                    let size = std::fs::metadata(path)
-                        .map(|metadata| metadata.len())
-                        .unwrap_or(0);
-                    #[cfg(target_arch = "wasm32")]
-                    let size = crate::web::read_file(path)
-                        .map(|bytes| bytes.len() as u64)
-                        .unwrap_or(0);
-                    if remote::validate_upload_size(size).is_err() {
-                        continue;
-                    }
-                    selection_bytes = selection_bytes
-                        .checked_add(size)
-                        .ok_or_else(|| anyhow!(t("cloud.upload.selection_too_large")))?;
-                    if size > remote::MAX_SINGLE_UPLOAD_BYTES {
-                        candidates.push((path, relative, size));
-                    }
-                }
-                let initial: remote::multipart::UploadCapacity = parse(
-                    handle
-                        .request_async(
-                            "asset.check_upload",
-                            map([("bytes", selection_bytes.into())]),
-                        )
-                        .await?,
-                )?;
-                if !initial.fits {
-                    let mut resumes = Vec::new();
-                    for (path, relative, size) in candidates {
-                        #[cfg(not(target_arch = "wasm32"))]
-                        let resume_key = remote::multipart::resume_key_for_path(
-                            path,
-                            mime(path),
-                            folder.as_deref(),
-                            relative.as_deref(),
-                        )?;
-                        #[cfg(target_arch = "wasm32")]
-                        let resume_key = remote::multipart::resume_key_for_bytes(
-                            &crate::web::read_file(path)?,
-                            &path.file_name().unwrap_or_default().to_string_lossy(),
-                            mime(path),
-                            folder.as_deref(),
-                            relative.as_deref(),
-                        );
-                        resumes.push(map([
-                            ("resume_key", resume_key.into()),
-                            ("size", size.into()),
-                        ]));
-                    }
-                    let capacity: remote::multipart::UploadCapacity = parse(
-                        handle
-                            .request_async(
-                                "asset.check_upload",
-                                map([
-                                    ("bytes", selection_bytes.into()),
-                                    ("resumes", Value::Array(resumes)),
-                                ]),
-                            )
-                            .await?,
-                    )?;
-                    capacity.require_space()?;
-                }
-                let total = files.len() as u64;
-                progress(0, total, tf!("cloud.upload.progress", n = 0, m = total));
-                // A pipeline: files are read and packed into compressed
-                // batches ahead of the network, a few at a time, while
-                // one batch at a time goes up. The provider's batch
-                // support is learned from the first reply and shared
-                // back to the packer, so raw files stop being kept once
-                // payloads are known to be enough.
-                let support = Arc::new(std::sync::atomic::AtomicU8::new(SUPPORT_UNKNOWN));
-                let mut uploader = Uploader {
-                    handle: handle.clone(),
-                    folder: folder.clone(),
-                    support: support.clone(),
-                    sender: sender.clone(),
-                    epoch,
-                    total,
-                    done: 0,
-                    uploaded: Vec::new(),
-                    existing: Vec::new(),
-                    skipped: Vec::new(),
-                    dedupe: SUPPORT_UNKNOWN,
-                };
-                let preparer = Preparer::new(files, support);
-                #[cfg(not(target_arch = "wasm32"))]
-                {
-                    let (tx, rx) = std::sync::mpsc::sync_channel::<Prepared>(PREPARE_AHEAD);
-                    std::thread::spawn(move || {
-                        let mut preparer = preparer;
-                        while let Some(item) = preparer.next() {
-                            if tx.send(item).is_err() {
-                                break;
-                            }
-                        }
-                    });
-                    while let Ok(item) = rx.recv() {
-                        uploader.take(item).await?;
-                    }
-                }
-                #[cfg(target_arch = "wasm32")]
-                {
-                    let mut preparer = preparer;
-                    while let Some(item) = preparer.next() {
-                        uploader.take(item).await?;
-                    }
-                }
+                let uploader =
+                    upload_files(&handle, folder.clone(), files, report.clone(), None, None)
+                        .await?;
                 if let Some(bucket) = bucket {
                     uploader.report(t("cloud.upload.adding_to_bucket").into());
                     let members: Vec<String> = uploader
@@ -2208,6 +2154,170 @@ impl Workspace {
         });
         cx.notify();
     }
+}
+/// Where an upload's progress goes: done, total, and what it is doing.
+/// The drag-and-drop path turns it into the tray's bar; the camera-roll
+/// backup keeps its own tally, and a headless run just logs it.
+pub(super) type Report = Arc<dyn Fn(u64, u64, String) + Send + Sync>;
+/// Acknowledged sources, including duplicates; checkpointed before the next request.
+pub(super) type Handled = Arc<dyn Fn(&[PathBuf]) -> Result<()> + Send + Sync>;
+pub(super) async fn cancellable<T>(
+    cancel: Option<&Arc<AtomicBool>>,
+    work: impl std::future::Future<Output = Result<T>>,
+) -> Result<T> {
+    let Some(cancel) = cancel else {
+        return work.await;
+    };
+    anyhow::ensure!(!cancel.load(Ordering::Relaxed), t("cloud.upload.cancelled"));
+    let stopped = async {
+        while !cancel.load(Ordering::Relaxed) {
+            remote::runtime::sleep(std::time::Duration::from_millis(100)).await;
+        }
+    };
+    futures::pin_mut!(work, stopped);
+    match futures::future::select(work, stopped).await {
+        futures::future::Either::Left((result, _)) => result,
+        futures::future::Either::Right(_) => anyhow::bail!(t("cloud.upload.cancelled")),
+    }
+}
+/// The upload pipeline shared by every local-file upload: the storage
+/// check, then the files read, hashed, checked against the library and
+/// sent up in compressed batches. `files` are (path, relative path
+/// inside the drop). `cancel`, when given, is read between items and
+/// stops the run with an error. Returns the uploader with its tallies
+/// so the caller can go on with what it collected (a bucket to add to,
+/// a ledger to write).
+pub(super) async fn upload_files(
+    handle: &remote::Handle,
+    folder: Option<String>,
+    files: Vec<(PathBuf, Option<String>)>,
+    report: Report,
+    cancel: Option<Arc<AtomicBool>>,
+    handled: Option<Handled>,
+) -> Result<Uploader> {
+    let progress = |done: u64, total: u64, label: String| report(done, total, label);
+    progress(
+        0,
+        files.len() as u64,
+        t("cloud.upload.checking_storage").into(),
+    );
+    if cancel.is_none() {
+        let mut selection_bytes = 0u64;
+        let mut candidates = Vec::new();
+        for (path, relative) in &files {
+            #[cfg(not(target_arch = "wasm32"))]
+            let size = std::fs::metadata(path)
+                .map(|metadata| metadata.len())
+                .unwrap_or(0);
+            #[cfg(target_arch = "wasm32")]
+            let size = crate::web::read_file(path)
+                .map(|bytes| bytes.len() as u64)
+                .unwrap_or(0);
+            if remote::validate_upload_size(size).is_err() {
+                continue;
+            }
+            selection_bytes = selection_bytes
+                .checked_add(size)
+                .ok_or_else(|| anyhow!(t("cloud.upload.selection_too_large")))?;
+            if size > remote::MAX_SINGLE_UPLOAD_BYTES {
+                candidates.push((path, relative, size));
+            }
+        }
+        let initial: remote::multipart::UploadCapacity = parse(
+            handle
+                .request_async(
+                    "asset.check_upload",
+                    map([("bytes", selection_bytes.into())]),
+                )
+                .await?,
+        )?;
+        if !initial.fits {
+            let mut resumes = Vec::new();
+            for (path, relative, size) in candidates {
+                #[cfg(not(target_arch = "wasm32"))]
+                let resume_key = remote::multipart::resume_key_for_path(
+                    path,
+                    mime(path),
+                    folder.as_deref(),
+                    relative.as_deref(),
+                )?;
+                #[cfg(target_arch = "wasm32")]
+                let resume_key = remote::multipart::resume_key_for_bytes(
+                    &crate::web::read_file(path)?,
+                    &path.file_name().unwrap_or_default().to_string_lossy(),
+                    mime(path),
+                    folder.as_deref(),
+                    relative.as_deref(),
+                );
+                resumes.push(map([
+                    ("resume_key", resume_key.into()),
+                    ("size", size.into()),
+                ]));
+            }
+            let capacity: remote::multipart::UploadCapacity = parse(
+                handle
+                    .request_async(
+                        "asset.check_upload",
+                        map([
+                            ("bytes", selection_bytes.into()),
+                            ("resumes", Value::Array(resumes)),
+                        ]),
+                    )
+                    .await?,
+            )?;
+            capacity.require_space()?;
+        }
+    }
+    let total = files.len() as u64;
+    progress(0, total, tf!("cloud.upload.progress", n = 0, m = total));
+    // A pipeline: files are read and packed into compressed
+    // batches ahead of the network, a few at a time, while
+    // one batch at a time goes up. The provider's batch
+    // support is learned from the first reply and shared
+    // back to the packer, so raw files stop being kept once
+    // payloads are known to be enough.
+    let support = Arc::new(std::sync::atomic::AtomicU8::new(SUPPORT_UNKNOWN));
+    let mut uploader = Uploader {
+        handle: handle.clone(),
+        folder,
+        support: support.clone(),
+        report,
+        cancel,
+        handled,
+        total,
+        done: 0,
+        uploaded: Vec::new(),
+        existing: Vec::new(),
+        skipped: Vec::new(),
+        skipped_sources: Vec::new(),
+        dedupe: SUPPORT_UNKNOWN,
+    };
+    let preparer = Preparer::new(files, support);
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        let (tx, rx) = std::sync::mpsc::sync_channel::<Prepared>(PREPARE_AHEAD);
+        std::thread::spawn(move || {
+            let mut preparer = preparer;
+            while let Some(item) = preparer.next() {
+                if tx.send(item).is_err() {
+                    break;
+                }
+            }
+        });
+        while let Ok(item) = rx.recv() {
+            uploader.take(item).await?;
+        }
+    }
+    #[cfg(target_arch = "wasm32")]
+    {
+        let mut preparer = preparer;
+        while let Some(item) = preparer.next() {
+            uploader.take(item).await?;
+        }
+    }
+    Ok(uploader)
+}
+impl Workspace {
     pub(crate) fn cloud_upload_document(&mut self, cx: &mut Context<Self>) {
         if self.cloud.account.is_none() {
             self.cloud_sign_in(cx);
@@ -2399,6 +2509,8 @@ impl Workspace {
             return Ok(());
         }
         match kind {
+            #[cfg(not(target_arch = "wasm32"))]
+            "camera-sync" => self.camera_sync_submit(&fields, cx)?,
             "download" => {
                 let format = get("cloud-download-format");
                 self.cloud_start_download((!format.is_empty()).then_some(format))?;
@@ -2763,6 +2875,7 @@ struct BatchFile {
 /// it already has the file, and to read it again if it must go up on
 /// its own.
 struct BatchEntry {
+    size: u64,
     source: PathBuf,
     path: String,
     digest: String,
@@ -2770,6 +2883,7 @@ struct BatchEntry {
 impl From<&BatchFile> for BatchEntry {
     fn from(file: &BatchFile) -> Self {
         Self {
+            size: file.bytes.len() as u64,
             source: file.source.clone(),
             path: file.path.clone(),
             digest: file.digest.clone(),
@@ -2857,7 +2971,7 @@ enum Prepared {
         size: u64,
     },
     /// Left out, with the reason for the summary.
-    Skipped(String),
+    Skipped { source: PathBuf, reason: String },
     /// Packing failed; the upload stops here.
     Failed(anyhow::Error),
 }
@@ -2932,10 +3046,14 @@ impl Preparer {
             let file = match read_cloud_upload(&path, relative) {
                 Ok(file) => file,
                 Err(error) => {
-                    self.ready.push_back(Prepared::Skipped(format!(
+                    let reason = format!(
                         "{}: {error}",
                         path.file_name().unwrap_or_default().to_string_lossy()
-                    )));
+                    );
+                    self.ready.push_back(Prepared::Skipped {
+                        source: path,
+                        reason,
+                    });
                     continue;
                 }
             };
@@ -2962,31 +3080,57 @@ impl Preparer {
 /// this many rounds of at most half a minute each — about four hours.
 const OFFLINE_RETRIES: u32 = 480;
 /// Sends prepared items up one at a time and keeps the count.
-struct Uploader {
+pub(super) struct Uploader {
     handle: remote::Handle,
     folder: Option<String>,
     support: Arc<std::sync::atomic::AtomicU8>,
-    sender: mpsc::Sender<Job>,
-    epoch: u64,
+    report: Report,
+    /// Read between items; set, the run stops with an error.
+    cancel: Option<Arc<AtomicBool>>,
+    handled: Option<Handled>,
     total: u64,
     done: u64,
-    uploaded: Vec<String>,
+    pub(super) uploaded: Vec<String>,
     /// Assets the library already had, found by digest: left out of the
     /// upload, still added to a bucket drop.
-    existing: Vec<String>,
-    skipped: Vec<String>,
+    pub(super) existing: Vec<String>,
+    pub(super) skipped: Vec<String>,
+    /// The files behind `skipped`, for a caller that keeps a record of
+    /// what went up and must not count these.
+    pub(super) skipped_sources: Vec<PathBuf>,
     /// Whether the provider answers `assets.exists`, learned from the
     /// first reply.
     dedupe: u8,
 }
 impl Uploader {
+    fn handled(&self, paths: &[PathBuf]) -> Result<()> {
+        if let Some(handled) = &self.handled {
+            handled(paths)?;
+        }
+        Ok(())
+    }
+    // The backup checks only bytes left after deduplication. Drag uploads
+    // retain their whole-selection preflight above.
+    async fn check_space(&self, bytes: u64) -> Result<()> {
+        if self.cancel.is_some() && bytes > 0 {
+            let capacity: remote::multipart::UploadCapacity = parse(
+                self.retrying(t("cloud.upload.checking_storage"), || {
+                    self.handle
+                        .request_async("asset.check_upload", map([("bytes", bytes.into())]))
+                })
+                .await?,
+            )?;
+            capacity.require_space()?;
+        }
+        Ok(())
+    }
     fn report(&self, label: String) {
-        let _ = self.sender.send(Job::Progress {
-            epoch: self.epoch,
-            done: self.done,
-            total: self.total,
-            label,
-        });
+        (self.report)(self.done, self.total, label);
+    }
+    fn cancelled(&self) -> bool {
+        self.cancel
+            .as_ref()
+            .is_some_and(|cancel| cancel.load(Ordering::Relaxed))
     }
     /// Run one network step, and when the connection is what failed,
     /// wait for it to return and run the step again — with the same
@@ -2999,7 +3143,7 @@ impl Uploader {
     {
         let mut attempt = 0u32;
         loop {
-            match step().await {
+            match cancellable(self.cancel.as_ref(), step()).await {
                 Ok(value) => return Ok(value),
                 Err(error) if remote::transport::transient(&error) && attempt < OFFLINE_RETRIES => {
                     attempt += 1;
@@ -3015,9 +3159,17 @@ impl Uploader {
                     // for a gateway that just dropped us and is not ready.
                     if attempt > 1 {
                         let pause = (1u64 << attempt.min(5)).min(30);
-                        remote::runtime::sleep(std::time::Duration::from_secs(pause)).await;
+                        cancellable(self.cancel.as_ref(), async {
+                            remote::runtime::sleep(std::time::Duration::from_secs(pause)).await;
+                            Ok(())
+                        })
+                        .await?;
                     }
-                    if !self.handle.wait_online().await {
+                    if !cancellable(self.cancel.as_ref(), async {
+                        Ok(self.handle.wait_online().await)
+                    })
+                    .await?
+                    {
                         return Err(error.context(t("cloud.upload.connection_closed")));
                     }
                     self.report(tf!(
@@ -3046,6 +3198,9 @@ impl Uploader {
         });
     }
     async fn take(&mut self, item: Prepared) -> Result<()> {
+        if self.cancelled() {
+            anyhow::bail!(t("cloud.upload.cancelled"));
+        }
         match item {
             Prepared::Batch {
                 mut payload,
@@ -3065,6 +3220,13 @@ impl Uploader {
                     {
                         Some(found) => {
                             self.dedupe = SUPPORT_BATCH;
+                            self.handled(
+                                &entries
+                                    .iter()
+                                    .filter(|e| found.contains_key(&e.digest))
+                                    .map(|e| e.source.clone())
+                                    .collect::<Vec<_>>(),
+                            )?;
                             let before = entries.len();
                             let existing = &mut self.existing;
                             entries.retain(|e| match found.get(&e.digest) {
@@ -3086,6 +3248,8 @@ impl Uploader {
                     return Ok(());
                 }
                 let folder = self.folder.clone();
+                self.check_space(entries.iter().map(|e| e.size).sum())
+                    .await?;
                 let mut ids = None;
                 if self.support.load(std::sync::atomic::Ordering::Relaxed) != SUPPORT_SINGLES {
                     let (payload, total) = match payload.take() {
@@ -3125,7 +3289,16 @@ impl Uploader {
                     }
                 }
                 match ids {
-                    Some(ids) => self.uploaded.extend(ids),
+                    Some(ids) => {
+                        anyhow::ensure!(
+                            ids.len() == entries.len(),
+                            t("cloud.upload.incomplete_batch")
+                        );
+                        self.handled(
+                            &entries.iter().map(|e| e.source.clone()).collect::<Vec<_>>(),
+                        )?;
+                        self.uploaded.extend(ids);
+                    }
                     None => {
                         let files = reread(&entries)?;
                         for file in &files {
@@ -3136,6 +3309,7 @@ impl Uploader {
                                 })
                                 .await?;
                             self.uploaded.push(id);
+                            self.handled(std::slice::from_ref(&file.source))?;
                         }
                     }
                 }
@@ -3147,43 +3321,62 @@ impl Uploader {
                 relative,
                 size,
             } => {
+                if self.cancel.is_some() && self.dedupe != SUPPORT_SINGLES {
+                    let digest = upload_path_digest(&path, self.cancel.as_ref())?;
+                    match self
+                        .retrying(t("cloud.upload.step.checking_duplicates"), || {
+                            existing_assets(&self.handle, std::slice::from_ref(&digest))
+                        })
+                        .await?
+                    {
+                        Some(found) => {
+                            self.dedupe = SUPPORT_BATCH;
+                            if let Some(id) = found.get(&digest) {
+                                self.handled(std::slice::from_ref(&path))?;
+                                self.existing.push(id.clone());
+                                self.step(1);
+                                return Ok(());
+                            }
+                        }
+                        None => self.dedupe = SUPPORT_SINGLES,
+                    }
+                }
                 let name = path
                     .file_name()
                     .unwrap_or_default()
                     .to_string_lossy()
                     .into_owned();
                 self.report(tf!("cloud.upload.checking_resumable", name = name));
-                let (sender, epoch, done, total) =
-                    (self.sender.clone(), self.epoch, self.done, self.total);
+                let (report, done, total) = (self.report.clone(), self.done, self.total);
                 // The chunked upload resumes from the parts already
                 // stored, so a retry after an outage picks up where it
                 // stopped.
                 let asset = self
                     .retrying(t("cloud.upload.step.uploading_large_file"), || {
-                        let (sender, name) = (sender.clone(), name.clone());
+                        let (report, name) = (report.clone(), name.clone());
                         self.handle.upload_path_async(
                             &path,
                             mime(&path),
                             self.folder.as_deref(),
                             relative.as_deref(),
                             move |bytes| {
-                                let _ = sender.send(Job::Progress {
-                                    epoch,
+                                report(
                                     done,
                                     total,
-                                    label: tf!(
+                                    tf!(
                                         "cloud.upload.large_progress",
                                         name = name,
                                         percent = bytes * 100 / size.max(1),
                                         done = bytes / 1024 / 1024,
                                         total = size / 1024 / 1024
                                     ),
-                                });
+                                );
                             },
                         )
                     })
                     .await?;
                 self.uploaded.push(asset.id);
+                self.handled(std::slice::from_ref(&path))?;
                 self.step(1);
             }
             Prepared::Single(entry) => {
@@ -3199,6 +3392,7 @@ impl Uploader {
                         Some(found) => {
                             self.dedupe = SUPPORT_BATCH;
                             if let Some(id) = found.get(&entry.digest) {
+                                self.handled(std::slice::from_ref(&entry.source))?;
                                 self.existing.push(id.clone());
                                 self.step(1);
                                 return Ok(());
@@ -3209,6 +3403,7 @@ impl Uploader {
                 }
                 let folder = self.folder.clone();
                 let file = read_cloud_upload(&entry.source, Some(entry.path.clone()))?;
+                self.check_space(file.bytes.len() as u64).await?;
                 let mutation = remote::Uuid::new_v4().to_string();
                 let id = self
                     .retrying(t("cloud.upload.step.uploading_photo"), || {
@@ -3216,10 +3411,12 @@ impl Uploader {
                     })
                     .await?;
                 self.uploaded.push(id);
+                self.handled(std::slice::from_ref(&entry.source))?;
                 self.step(1);
             }
-            Prepared::Skipped(reason) => {
+            Prepared::Skipped { source, reason } => {
                 self.skipped.push(reason);
+                self.skipped_sources.push(source);
                 self.step(1);
             }
             Prepared::Failed(error) => return Err(error),
@@ -3235,6 +3432,37 @@ struct ExistingAsset {
 #[derive(serde::Deserialize)]
 struct ExistingAssets {
     found: Vec<ExistingAsset>,
+}
+#[cfg(not(target_arch = "wasm32"))]
+fn upload_path_digest(path: &std::path::Path, cancel: Option<&Arc<AtomicBool>>) -> Result<String> {
+    use sha2::{Digest, Sha256};
+    use std::io::Read;
+    let mut file = std::fs::File::open(path)?;
+    let metadata = file.metadata()?;
+    let mut hash = Sha256::new();
+    let mut buffer = vec![0; 1024 * 1024];
+    let mut read = 0u64;
+    loop {
+        anyhow::ensure!(
+            !cancel.is_some_and(|c| c.load(Ordering::Relaxed)),
+            t("cloud.upload.cancelled")
+        );
+        let count = file.read(&mut buffer)?;
+        if count == 0 {
+            break;
+        }
+        read += count as u64;
+        anyhow::ensure!(
+            read <= metadata.len(),
+            t("cloud.transport.source_grew_during_preparation")
+        );
+        hash.update(&buffer[..count]);
+    }
+    anyhow::ensure!(
+        read == metadata.len() && file.metadata()?.modified()? == metadata.modified()?,
+        t("cloud.transport.source_changed_during_preparation")
+    );
+    Ok(format!("{:x}", hash.finalize()))
 }
 /// Which of these digests the library already holds, as digest → asset
 /// ID. `None` when the provider cannot say, so everything uploads.
@@ -3337,7 +3565,7 @@ async fn send_single(
         .await?;
     Ok(asset.id)
 }
-fn mime(path: &std::path::Path) -> &'static str {
+pub(super) fn mime(path: &std::path::Path) -> &'static str {
     match path
         .extension()
         .and_then(|s| s.to_str())

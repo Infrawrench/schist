@@ -256,3 +256,10 @@ dialog.color_picker.current = current
 dialog.curves.rgb = RGB
 dialog.curves.reset_channel = Reset Channel
 dialog.curves.hint = Drag to shape · click to add · alt-click to remove
+
+# The camera-roll backup's row in Preferences, on the phones.
+dialog.prefs.camera_sync = Camera roll
+dialog.prefs.camera_sync_enabled = Back up to Schist Cloud
+dialog.prefs.camera_sync_sign_in = Sign into Schist Cloud to back up your camera roll.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Change…

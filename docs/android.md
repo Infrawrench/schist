@@ -20,8 +20,8 @@ AVD_NAME=pixel tools/android-build.sh --debug
 
 The script builds the app crate as a shared library for the target,
 packages `dist/android/Schist.apk` from `packaging/android/` (the
-manifest, the launcher icon) with the SDK's `aapt2`, `zipalign` and
-`apksigner`, and, unless told not to, installs it on the connected device
+manifest, launcher icon and camera-backup JobService) with the SDK's `aapt2`,
+`javac`, `d8`, `zipalign` and `apksigner`, and, unless told not to, installs it on the connected device
 or a running emulator -- booting one if there is neither, created from
 the newest installed system image -- launches it, and follows its log.
 The APK is signed with the SDK's debug key, which a device accepts from
@@ -114,10 +114,10 @@ app's external files directory
 the app's own but reachable over USB and `adb`, so what the user saves
 can be got at; the picker starts there, and a path under it shows from
 `Documents` down. The device's shared folders (Pictures, DCIM, Download)
-are listed as places but reading them needs the storage permission,
-which the app does not yet ask for (a permission request's answer is
-another activity result); the picker says so when a folder cannot be
-read.
+are listed as places. Camera-roll backup asks for `READ_MEDIA_IMAGES` on
+Android 13+ or `READ_EXTERNAL_STORAGE` on Android 11–12. Once granted,
+image files in DCIM and Pictures are readable; this does not grant access to
+arbitrary files in Downloads. The picker reports folders it cannot read.
 
 **HEIC** decodes through the same downloaded libheif as the desktop:
 [IAmJSD/libheif-prebuilt](https://github.com/IAmJSD/libheif-prebuilt)
@@ -195,3 +195,27 @@ What a device would still change: the storage permission (so the shared
 Pictures, camera roll and Downloads can be read), a Save to Photos
 through `MediaStore` (an insert needs no activity result), and a launch
 intent carrying a `content://` URI, which `path_from_url` does not open.
+
+## Camera roll backup
+
+See [Camera roll backup](cloud.md#camera-roll-backup) for setup and behavior.
+`CameraSyncJob.java` is a JobService running the Rust upload engine headless.
+Job 1 requires a network and requests a 15-minute interval; the OS may defer it.
+`RECEIVE_BOOT_COMPLETED` lets the scheduled job survive a reboot.
+The job reads and refreshes gpui's AES-GCM-encrypted login using the same
+AndroidKeyStore key, and hands control to the workspace when an activity opens.
+
+`make check-camera-sync-android` checks Rust with the NDK environment and
+compiles the Java service to DEX. `make android PROFILE=debug` builds the APK.
+For a device smoke test, enable backup, push a JPEG into `/sdcard/DCIM/Camera`,
+and confirm a second run uploads nothing. Close the activity (do not force-stop
+the package), then request the scheduled job:
+
+```sh
+adb shell cmd jobscheduler run -f com.infrawrench.schist 1
+```
+
+Check both permission denial and Android 14+ selected-photo access. The latter
+must not be mistaken for a full grant; Schist declares and requests
+`READ_MEDIA_VISUAL_USER_SELECTED` alongside `READ_MEDIA_IMAGES`, following
+[Android's partial-access guidance](https://developer.android.com/about/versions/14/changes/partial-photo-video-access).

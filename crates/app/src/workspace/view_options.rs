@@ -25,7 +25,26 @@ impl Workspace {
         let (view, intent) = *snapshot;
         let gpu_changed = view.gpu_compositing != self.view.gpu_compositing;
         let theme_changed = view.theme != self.view.theme;
+        #[cfg(not(target_arch = "wasm32"))]
+        let sync_changed = self.view.camera_sync.enabled != view.camera_sync.enabled;
+        #[cfg(not(target_arch = "wasm32"))]
+        let sync_result = (
+            self.view.camera_sync.last_run,
+            self.view.camera_sync.last_error.clone(),
+        );
         self.view = view;
+        // A backup may finish while Preferences is open. Cancel restores
+        // the switch, while keeping the outcome of that completed work.
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            self.view.camera_sync.last_run = sync_result.0;
+            self.view.camera_sync.last_error = sync_result.1;
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        if sync_changed {
+            let enabled = self.view.camera_sync.enabled;
+            self.camera_sync_set_enabled(enabled, cx);
+        }
         self.color.intent = intent;
         if gpu_changed {
             init_compositor_backend(self.view.gpu_compositing);

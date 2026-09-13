@@ -842,6 +842,20 @@ pub(crate) fn folder_rows(
         );
         rows.push(droppable(row, None, None, cx).into_any_element());
     }
+    // The camera-roll backup's line, under the root it feeds.
+    #[cfg(not(target_arch = "wasm32"))]
+    if let Some(status) = ws.camera_sync_status() {
+        rows.push(
+            div()
+                .pl(px(28.0))
+                .pr_2()
+                .pb_1()
+                .text_size(px(10.0))
+                .text_color(gpui::rgb(pal().text_dim))
+                .child(status)
+                .into_any_element(),
+        );
+    }
     let ordered = folder_tree(&ws.cloud.folders);
     for (i, (depth, folder)) in ordered.into_iter().enumerate() {
         let selected = showing && matches!(&scope, Scope::Folder { id, .. } if id == &folder.id);
@@ -1383,6 +1397,16 @@ pub(crate) fn context_menu(
                 }),
                 cx,
             );
+            #[cfg(any(target_os = "ios", target_os = "android"))]
+            {
+                rows.push(menu_sep());
+                row(
+                    &mut rows,
+                    t("cloud.sync.menu").into(),
+                    std::rc::Rc::new(|ws, _w, cx| ws.camera_sync_prompt(cx)),
+                    cx,
+                );
+            }
         }
         CloudContext::Folder(id) => {
             let folder = ws.cloud.folders.iter().find(|f| f.id == id).cloned()?;
@@ -1638,6 +1662,10 @@ pub(crate) fn dialog(
     fields: Vec<(&'static str, String, String)>,
     cx: &mut Context<Workspace>,
 ) -> gpui::AnyElement {
+    #[cfg(not(target_arch = "wasm32"))]
+    if kind == "camera-sync" {
+        return super::camera_sync::form(ws, &fields, cx);
+    }
     if kind == "storage-warning" {
         let message = fields
             .first()

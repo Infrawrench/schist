@@ -9,21 +9,36 @@ which subsystems a sandboxed app can carry.
 ## Building and running
 
 ```sh
-tools/ios-build.sh --debug        # Simulator, debug: fast to build
-tools/ios-build.sh                # Simulator, release
-tools/ios-build.sh --device       # an unsigned arm64 bundle in dist/ios/
-SIMULATOR_DEVICE="iPhone 17 Pro" tools/ios-build.sh --debug
+make ios PROFILE=debug           # unsigned Simulator bundle
+make ios                         # Simulator, release
+make ios-device PROFILE=debug    # unsigned arm64 device bundle
 ```
 
 The script builds `schist-app` for the target, assembles
-`dist/ios/Schist.app` from `packaging/ios/Info.plist`, and for the
-Simulator boots one (an iPad Pro by default), installs the bundle and
-launches it with its logs on the terminal. Requirements: a macOS host
+`dist/ios/Schist.app` from `packaging/ios/Info.plist`. Both make targets
+only build and bundle. To install a Simulator build on a booted device:
+
+```sh
+xcrun simctl install booted dist/ios/Schist.app
+xcrun simctl launch --console-pty booted com.infrawrench.schist
+```
+
+Requirements: a macOS host
 with Xcode and its iOS platform, and the rustup targets (the script adds
 them). A device build needs signing on top: an Apple development
-certificate, an entitlements file (`keychain-access-groups` for the
-cloud sign-in's keychain items), and `codesign` over the bundle, or an
-Xcode project that links the binary as a static library.
+certificate, a provisioning profile covering the phone and
+`com.infrawrench.schist`, an entitlements file (`keychain-access-groups`
+for the cloud sign-in's keychain items), and `codesign` over the bundle.
+Xcode's automatic signing can create these once a developer account is
+added in Settings → Accounts. A Developer ID certificate for macOS does
+not sign iPhone apps. With the matching profile embedded and the bundle
+signed, install and launch on a paired phone with Developer Mode enabled:
+
+```sh
+xcrun devicectl list devices
+xcrun devicectl device install app --device <device-id> dist/ios/Schist.app
+xcrun devicectl device process launch --device <device-id> --console com.infrawrench.schist
+```
 
 ## What is different
 
@@ -234,3 +249,42 @@ Compiles and type-checks for the Simulator and device targets. Launch,
 rendering, and touch in the Simulator are checked by hand with
 `tools/ios-build.sh --debug`; see the gpui fork's docs for what its
 backend has and has not been verified on.
+
+## Camera roll backup
+
+See [Camera roll backup](cloud.md#camera-roll-backup) for setup and behavior.
+Photos access uses `PHAccessLevelReadWrite`; the import picker and Save to
+Photos remain separate actions. A Photos change observer triggers another
+backup when images are added. Staged originals are removed after upload,
+and cancelled exports clean up when Photos finishes writing.
+
+The app registers `com.infrawrench.schist.camera-sync` before gpui starts
+UIKit, as required by [BGTaskScheduler registration](https://developer.apple.com/documentation/backgroundtasks/bgtaskscheduler/register(fortaskwithidentifier:using:launchhandler:)).
+`Info.plist` permits that identifier and the `processing` background mode.
+Background requests require a network. Expiration cancels the upload and
+completes the OS task; an in-flight foreground backup also requests a short
+grace period when the app moves into the background.
+
+While backup is enabled, the cloud login's Keychain item uses
+`kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`, so a cold background
+launch can sign in after the phone locks. Disabling backup restores
+`kSecAttrAccessibleWhenUnlockedThisDeviceOnly`. The change is applied when
+the preference changes and after credentials are saved; other Keychain
+items are untouched.
+
+`make check-camera-sync-ios` checks the device target;
+`make ios PROFILE=debug` packages a Simulator build. To smoke-test, install it,
+sign in, approve the backup prompt and add photos using
+`xcrun simctl addmedia booted photo.jpg`. Confirm they appear in the destination,
+then add another photo to exercise the observer. With backup enabled and a
+pending processing request, attach LLDB and use Apple's development-only hook
+to request a launch. If scheduling is unavailable in the Simulator, use a
+signed device for this step:
+
+```text
+e -l objc -- (void)[[(id)objc_getClass("BGTaskScheduler") sharedScheduler] _simulateLaunchForTaskWithIdentifier:(id)[(id)objc_getClass("NSString") stringWithUTF8String:"com.infrawrench.schist.camera-sync"]]
+```
+
+Also test limited Photos access, denial, disabling backup during a run and
+signing out. Real background scheduling and persisted Keychain login require
+validation on a signed device build.

@@ -23,12 +23,14 @@ cd "$(dirname "$0")/.."
 profile=release
 profile_flag=--release
 run=1
+check=0
 abi=arm64-v8a
 for arg in "$@"; do
   case "$arg" in
     --debug) profile=debug; profile_flag= ;;
     --x86_64) abi=x86_64 ;;
     --no-run) run=0 ;;
+    --check) check=1; run=0 ;;
     *) echo "unknown argument: $arg" >&2; exit 2 ;;
   esac
 done
@@ -88,10 +90,32 @@ export "AR_${target_lower}=$toolchain/llvm-ar"
 rustup target list --installed 2>/dev/null | grep -qx "$target" \
   || rustup target add "$target"
 
+compile_camera_sync_java() {
+  local stage="$1"
+  # The one Java class: the camera-roll backup's JobService, which calls
+  # into the same library. javac comes with the JDK the SDK tools need
+  # anyway; d8 is in build-tools.
+  if ! command -v javac >/dev/null; then
+    echo "javac not found: install a JDK (brew install --cask temurin)" >&2
+    exit 1
+  fi
+  mkdir -p "$stage/classes"
+  javac -source 8 -target 8 -Xlint:-options -bootclasspath "$platform_jar" \
+    -classpath "$build_tools/core-lambda-stubs.jar" -d "$stage/classes" \
+    packaging/android/java/com/infrawrench/schist/*.java
+  d8 --release --min-api 30 --lib "$platform_jar" --output "$stage" \
+    "$stage"/classes/com/infrawrench/schist/*.class
+}
+
 # NativeActivity loads a shared library, so the app crate is built as
 # one: the cdylib crate type is passed here rather than set in Cargo.toml,
 # where it would make every other platform link a library it never uses.
 echo "-- building schist for $target ($profile)"
+if [ "$check" = 1 ]; then
+  cargo check -p schist-app --target "$target"
+  compile_camera_sync_java "target/$target/camera-sync-java-check"
+  exit 0
+fi
 cargo rustc -p schist-app --lib --crate-type cdylib --target "$target" $profile_flag
 
 lib="target/$target/$profile/libschist_app.so"
@@ -111,7 +135,8 @@ aapt2 link -o "$stage/unaligned.apk" \
   --manifest packaging/android/AndroidManifest.xml \
   --version-name "$version" --version-code "$code" \
   -I "$platform_jar" "$stage/res.zip"
-(cd "$stage" && zip -q -r unaligned.apk lib)
+compile_camera_sync_java "$stage"
+(cd "$stage" && zip -q -r unaligned.apk lib classes.dex)
 zipalign -f -p 4 "$stage/unaligned.apk" "$stage/aligned.apk"
 keystore="$HOME/.android/debug.keystore"
 if [ ! -f "$keystore" ]; then

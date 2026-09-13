@@ -20,6 +20,16 @@
     <!-- Schist Cloud, font and model downloads, the update check's
          sibling (the daily ping), crash upload when opted in. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- The camera-roll backup reads the shared DCIM and Pictures
+         folders: the media permission on Android 13+, the storage one
+         before. Asked for from the backup's prompt, never at launch. -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <!-- The backup's periodic job survives a reboot. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- gpui renders through blade on Vulkan 1.1; every device from about
          2019 on has it. -->
     <uses-feature android:name="android.hardware.vulkan.version"
@@ -30,7 +40,7 @@
     <application
         android:label="Schist"
         android:icon="@mipmap/ic_launcher"
-        android:hasCode="false"
+        android:hasCode="true"
         android:localeConfig="@xml/locales_config"
         android:extractNativeLibs="true"
         android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
@@ -57,5 +67,12 @@
                 <data android:scheme="schist" />
             </intent-filter>
         </activity>
+        <!-- The camera-roll backup's background wake: the one Java class
+             (packaging/android/java), which calls into the same
+             libschist_app.so. -->
+        <service
+            android:name=".CameraSyncJob"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false" />
     </application>
 </manifest>

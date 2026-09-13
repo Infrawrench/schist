@@ -256,3 +256,10 @@ dialog.color_picker.current = aktuell
 dialog.curves.rgb = RGB
 dialog.curves.reset_channel = Kanal zurücksetzen
 dialog.curves.hint = Ziehen formt · Klicken fügt hinzu · Wahltaste-Klick entfernt
+
+# Die Zeile der Kamerarollen-Sicherung in den Einstellungen, auf Telefonen.
+dialog.prefs.camera_sync = Kamerarolle
+dialog.prefs.camera_sync_enabled = In Schist Cloud sichern
+dialog.prefs.camera_sync_sign_in = Bei Schist Cloud anmelden, um die Kamerarolle zu sichern.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Ändern…

@@ -151,7 +151,19 @@ web:
 # for the same reason as the web build; without --no-run it also installs
 # and launches the app on a device or emulator. See docs/android.md.
 android:
-	./tools/android-build.sh --no-run
+	./tools/android-build.sh $(if $(filter debug,$(PROFILE)),--debug,) --no-run
+
+.PHONY: ios ios-device check-camera-sync check-camera-sync-ios check-camera-sync-android
+ios:
+	./tools/ios-build.sh $(if $(filter debug,$(PROFILE)),--debug,) --no-run
+ios-device:
+	./tools/ios-build.sh $(if $(filter debug,$(PROFILE)),--debug,) --device
+check-camera-sync:
+	$(CARGO) test -p schist-app camera_sync
+check-camera-sync-ios:
+	$(CARGO) check -p schist-app --target aarch64-apple-ios
+check-camera-sync-android:
+	./tools/android-build.sh --check
 
 helpers: preflight $(HELPERS)
 

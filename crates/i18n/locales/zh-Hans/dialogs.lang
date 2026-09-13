@@ -247,3 +247,10 @@ dialog.color_picker.current = 当前
 dialog.curves.rgb = RGB
 dialog.curves.reset_channel = 重置通道
 dialog.curves.hint = 拖动调整形状 · 单击添加 · 按住 Alt 单击删除
+
+# 偏好设置中的相机胶卷一行（手机上）。
+dialog.prefs.camera_sync = 相机胶卷
+dialog.prefs.camera_sync_enabled = 备份到 Schist Cloud
+dialog.prefs.camera_sync_sign_in = 登录 Schist Cloud 以备份相机胶卷。
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = 更改…

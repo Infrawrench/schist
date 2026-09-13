@@ -188,6 +188,7 @@ pub(super) fn preferences(
                 cx,
             ),
         ))
+        .children(camera_sync_row(ws, cx))
         // The keymap file is for an editor on the desktop; the container
         // path it lives at on iOS is neither reachable nor readable.
         .children((!ui::touch()).then(|| {
@@ -229,6 +230,68 @@ pub(super) fn preferences(
             cx,
         ));
     ui::modal_frame(t("dialog.prefs.title"), 400.0, body, actions)
+}
+
+/// The camera-roll backup, on the phones: its switch, and the way back to
+/// the dialog that set it up. The row needs a cloud login to mean
+/// anything, so without one it says that instead.
+#[cfg(any(target_os = "ios", target_os = "android"))]
+fn camera_sync_row(ws: &Workspace, cx: &mut Context<Workspace>) -> Option<impl IntoElement> {
+    let rule = &ws.view.camera_sync;
+    let mut control = div().flex().flex_col().gap_1().max_w(px(260.0));
+    if ws.cloud.account.is_none() {
+        control = control.child(
+            div()
+                .text_size(px(10.0))
+                .text_color(gpui::rgb(ui::palette().text_dim))
+                .child(t("dialog.prefs.camera_sync_sign_in")),
+        );
+    } else {
+        control = control
+            .child(ui::checkbox(
+                t("dialog.prefs.camera_sync_enabled"),
+                rule.enabled,
+                |ws, cx| {
+                    let enabled = !ws.view.camera_sync.enabled;
+                    ws.camera_sync_set_enabled(enabled, cx);
+                },
+                cx,
+            ))
+            .child(
+                div()
+                    .flex()
+                    .flex_row()
+                    .flex_wrap()
+                    .gap_1()
+                    .text_size(px(10.0))
+                    .text_color(gpui::rgb(ui::palette().text_dim))
+                    .children(rule.source.as_ref().map(|source| {
+                        tf!(
+                            "dialog.prefs.camera_sync_rule",
+                            source = source.label(),
+                            folder = if rule.folder_name.is_empty() {
+                                t("cloud.gallery.unfiled").to_string()
+                            } else {
+                                rule.folder_name.clone()
+                            }
+                        )
+                    }))
+                    .child(
+                        Link::new("prefs-camera-sync", t("dialog.prefs.camera_sync_change"))
+                            .on_click(cx.listener(|ws, _e, _w, cx| {
+                                // Leaving Preferences for the backup's
+                                // dialog keeps what was changed.
+                                ws.keep_preferences();
+                                ws.camera_sync_prompt(cx);
+                            })),
+                    ),
+            );
+    }
+    Some(ui::field_row(t("dialog.prefs.camera_sync"), control))
+}
+#[cfg(not(any(target_os = "ios", target_os = "android")))]
+fn camera_sync_row(_ws: &Workspace, _cx: &mut Context<Workspace>) -> Option<gpui::Div> {
+    None
 }
 
 /// The daily-ping switch. The preference is a marker file in the config
