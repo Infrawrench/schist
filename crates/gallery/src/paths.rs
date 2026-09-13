@@ -55,6 +55,9 @@ pub fn people_summary_path() -> Option<PathBuf> {
 
 /// The PSD sidecar an edit of `original` saves into.
 pub fn backing_psd(original: &Path) -> Option<PathBuf> {
+    if crate::is_video(original) {
+        return None;
+    }
     let dir = original.parent()?;
     let name = original.file_name()?.to_string_lossy();
     Some(dir.join(".schist").join(format!("{name}.psd")))
