@@ -112,6 +112,13 @@ impl Login {
         );
         match self.listener.accept() {
             Ok((stream, _)) => {
+                // BSD sockets (macOS) inherit the listener's non-blocking
+                // mode, and a read timeout means nothing on one of
+                // those: the callback's bytes can arrive a moment after
+                // the connection does, and the read would fail with
+                // WouldBlock instead of waiting. Linux and Windows hand
+                // out a blocking socket here regardless.
+                stream.set_nonblocking(false)?;
                 stream.set_read_timeout(Some(Duration::from_secs(1)))?;
                 let mut data = String::new();
                 stream.take(8193).read_to_string(&mut data)?;
@@ -353,7 +360,21 @@ mod tests {
         assert!(forward_callback(&wrong, dir.path()).is_err());
         let callback = format!("schist://ig-callback?state={state}&code=code");
         forward_callback(&callback, dir.path()).unwrap();
-        assert_eq!(login.poll().unwrap(), Some(callback));
+        // The listener is non-blocking, and on loopback the connection
+        // can land in its accept queue a moment after the client's
+        // connect has returned; the app polls once a frame, so poll
+        // here the same way rather than exactly once.
+        let deadline = Instant::now() + Duration::from_secs(5);
+        let received = loop {
+            match login.poll().unwrap() {
+                Some(data) => break Some(data),
+                None if Instant::now() < deadline => {
+                    std::thread::sleep(Duration::from_millis(10));
+                }
+                None => break None,
+            }
+        };
+        assert_eq!(received, Some(callback));
         drop(login);
         assert!(!path.exists());
     }
