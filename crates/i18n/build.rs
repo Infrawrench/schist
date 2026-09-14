@@ -1,5 +1,5 @@
-//! Stitch each locale's catalog files into one, so the crate embeds a
-//! single `include_str!` per language.
+//! Join and compress each locale's catalog using a shared preset dictionary,
+//! so the crate embeds compressed bytes and inflates only languages in use.
 //!
 //! The catalogs live in `locales/<locale>/*.lang`, one file per area of
 //! the app (`menu.lang`, `tools.lang`, `filters.lang`, …) so that adding
@@ -8,10 +8,62 @@
 //! joins them in name order; the parser does not care where a key came
 //! from, and the tests check that no key is defined twice.
 
+use flate2::{write::ZlibEncoder, Compress, Compression};
+use std::collections::BTreeMap;
 use std::env;
 use std::fmt::Write;
 use std::fs;
+use std::io::Write as IoWrite;
 use std::path::PathBuf;
+
+const DICTIONARY_BYTES: usize = 32 * 1024;
+
+/// DEFLATE can refer back only 32 KiB, so learn from the beginning of each
+/// catalog, where a preset dictionary can help. Repeated keys and values
+/// make useful matches across languages; estimated savings rank the candidates.
+/// Ordered maps and lexical tie-breaking make the result reproducible.
+fn dictionary(sources: &[String]) -> Vec<u8> {
+    let mut counts = BTreeMap::<&str, usize>::new();
+    for source in sources {
+        let mut end = source.len().min(DICTIONARY_BYTES);
+        while !source.is_char_boundary(end) {
+            end -= 1;
+        }
+        for line in source[..end].lines() {
+            if line.trim_start().starts_with('#') {
+                continue;
+            }
+            if let Some(separator) = line.find('=') {
+                for text in [&line[..=separator], line[separator + 1..].trim()] {
+                    if !text.is_empty() {
+                        *counts.entry(text).or_default() += 1;
+                    }
+                }
+            }
+        }
+    }
+    let mut ranked: Vec<_> = counts
+        .into_iter()
+        .filter(|(_, count)| *count > 1)
+        .map(|(text, count)| ((count - 1) * text.len(), text))
+        .collect();
+    ranked.sort_unstable();
+    let mut selected = Vec::new();
+    let mut size = 0;
+    for (_, text) in ranked.into_iter().rev() {
+        if size + text.len() + 1 <= DICTIONARY_BYTES {
+            selected.push(text);
+            size += text.len() + 1;
+        }
+    }
+    let mut dictionary = Vec::with_capacity(size);
+    // Put the most useful matches last, where they stay in the window longest.
+    for text in selected.into_iter().rev() {
+        dictionary.extend_from_slice(text.as_bytes());
+        dictionary.push(b'\n');
+    }
+    dictionary
+}
 
 fn main() {
     let out = PathBuf::from(env::var("OUT_DIR").expect("OUT_DIR"));
@@ -77,7 +129,7 @@ fn main() {
         .unwrap();
     }
     generated.push_str("];\n");
-    writeln!(generated, "const SOURCES: [&str; {}] = [", locales.len()).unwrap();
+    let mut sources = Vec::with_capacity(locales.len());
     for row in &locales {
         let locale = row[0];
         let dir = root.join(locale);
@@ -101,10 +153,38 @@ fn main() {
                 joined.push('\n');
             }
         }
-        fs::write(out.join(format!("{locale}.lang")), joined).expect("writing the joined catalog");
+        sources.push(joined);
+    }
+    // Gzip cannot carry a preset dictionary. The zlib wrapper records its
+    // Adler-32 ID and a checksum of each catalog, checked during inflation.
+    let dictionary = dictionary(&sources);
+    fs::write(out.join("locales.dict"), &dictionary).expect("writing the shared locale dictionary");
+    generated.push_str(
+        "const DICTIONARY: &[u8] = include_bytes!(concat!(env!(\"OUT_DIR\"), \"/locales.dict\"));\n",
+    );
+    writeln!(
+        generated,
+        "const SOURCES: [(&[u8], usize); {}] = [",
+        locales.len()
+    )
+    .unwrap();
+    for (row, source) in locales.iter().zip(&sources) {
+        let locale = row[0];
+        let mut compressor = Compress::new(Compression::best(), true);
+        compressor
+            .set_dictionary(&dictionary)
+            .expect("setting the locale dictionary");
+        let mut encoder = ZlibEncoder::new_with_compress(Vec::new(), compressor);
+        encoder
+            .write_all(source.as_bytes())
+            .expect("compressing the catalog");
+        let compressed = encoder.finish().expect("finishing the compressed catalog");
+        fs::write(out.join(format!("{locale}.lang.zlib")), compressed)
+            .expect("writing the compressed catalog");
         writeln!(
             generated,
-            "    include_str!(concat!(env!(\"OUT_DIR\"), \"/{locale}.lang\")),"
+            "    (include_bytes!(concat!(env!(\"OUT_DIR\"), \"/{locale}.lang.zlib\")), {}),",
+            source.len()
         )
         .unwrap();
     }

@@ -8,6 +8,8 @@ description = "Schist's user-interface strings: the catalogs, the locale the OS 
 
 [dependencies]
 log.workspace = true
+# Pure Rust preset-dictionary support, including wasm without a C toolchain.
+flate2 = { version = "1.1.9", default-features = false, features = ["zlib-rs"] }
 # The OS's preferred languages, on every platform Schist builds for:
 # CFLocaleCopyPreferredLanguages on macOS and iOS, the user's display
 # language on Windows, LANGUAGE/LC_ALL/LC_MESSAGES/LANG on Linux, the
@@ -17,6 +19,9 @@ sys-locale = "0.3"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 sys-locale = { version = "0.3", features = ["js"] }
+
+[build-dependencies]
+flate2 = { version = "1.1.9", default-features = false, features = ["zlib-rs"] }
 
 [dev-dependencies]
 serde_json.workspace = true

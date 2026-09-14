@@ -165,12 +165,15 @@ check-camera-sync-ios:
 check-camera-sync-android:
 	./tools/android-build.sh --check
 
-.PHONY: check-i18n
+.PHONY: check-i18n check-i18n-wasm
 check-i18n:
 	$(CARGO) test -p schist-i18n
 	python3 tools/check-i18n.py
 	python3 tools/sync-i18n.py --check
 	node --test web/i18n.test.mjs
+
+check-i18n-wasm:
+	$(CARGO) check -p schist-i18n --target wasm32-unknown-unknown
 
 helpers: preflight $(HELPERS)
 

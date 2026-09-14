@@ -77,10 +77,85 @@ fn english_is_not_empty() {
 }
 
 #[test]
+fn compressed_catalogs_match_the_source_files() {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("locales");
+    for locale in Locale::ALL {
+        let mut files: Vec<_> = std::fs::read_dir(root.join(locale.tag()))
+            .unwrap()
+            .map(|entry| entry.unwrap().path())
+            .filter(|path| path.extension().is_some_and(|ext| ext == "lang"))
+            .collect();
+        files.sort();
+        let mut expected = String::new();
+        for file in files {
+            let text = std::fs::read_to_string(&file).unwrap();
+            expected.push_str(&format!(
+                "# ==== {} ====\n",
+                file.file_name().unwrap().to_str().unwrap()
+            ));
+            expected.push_str(&text);
+            if !text.ends_with('\n') {
+                expected.push('\n');
+            }
+        }
+        assert_eq!(source(locale), expected, "{} catalog changed", locale.tag());
+    }
+}
+
+#[test]
+fn shared_dictionary_reduces_the_total_embedded_size() {
+    use std::io::Write;
+
+    assert!(!DICTIONARY.is_empty());
+    assert!(DICTIONARY.len() <= 32 * 1024);
+    let mut without_dictionary = 0;
+    for locale in Locale::ALL {
+        let mut encoder = flate2::write::ZlibEncoder::new(Vec::new(), flate2::Compression::best());
+        encoder.write_all(source(locale).as_bytes()).unwrap();
+        without_dictionary += encoder.finish().unwrap().len();
+    }
+    let compressed = DICTIONARY.len() + SOURCES.iter().map(|(bytes, _)| bytes.len()).sum::<usize>();
+    let uncompressed = SOURCES.iter().map(|(_, len)| len).sum::<usize>();
+    assert!(
+        compressed < without_dictionary,
+        "the dictionary must pay for its own storage"
+    );
+    assert!(compressed < uncompressed / 2);
+    println!("catalog bytes: {uncompressed} raw, {without_dictionary} zlib, {compressed} zlib with dictionary");
+}
+
+#[test]
+fn compressed_catalogs_reject_damage_and_the_wrong_dictionary() {
+    let (compressed, len) = SOURCES[Locale::En.index()];
+    assert!(decompress(compressed, len, b"wrong dictionary").is_err());
+    assert!(decompress(compressed, len - 1, DICTIONARY).is_err());
+    assert!(decompress(compressed, len + 1, DICTIONARY).is_err());
+    for end in [0, 1, 6, compressed.len() / 2, compressed.len() - 1] {
+        assert!(decompress(&compressed[..end], len, DICTIONARY).is_err());
+    }
+    let mut damaged = compressed.to_vec();
+    *damaged.last_mut().unwrap() ^= 1;
+    assert!(decompress(&damaged, len, DICTIONARY).is_err());
+    let mut trailing = compressed.to_vec();
+    trailing.push(0);
+    assert!(decompress(&trailing, len, DICTIONARY).is_err());
+}
+
+#[test]
+fn concurrent_lookups_share_the_decompressed_catalog() {
+    std::thread::scope(|scope| {
+        let handles: Vec<_> = (0..8).map(|_| scope.spawn(|| source(Locale::En))).collect();
+        for handle in handles {
+            assert!(std::ptr::eq(handle.join().unwrap(), source(Locale::En)));
+        }
+    });
+}
+
+#[test]
 fn no_key_is_defined_twice() {
-    for (locale, source) in Locale::ALL.iter().zip(SOURCES) {
+    for locale in Locale::ALL {
         let mut seen: BTreeMap<&str, usize> = BTreeMap::new();
-        for (key, _) in parse(source) {
+        for (key, _) in parse(source(locale)) {
             *seen.entry(key).or_default() += 1;
         }
         let dupes: Vec<&str> = seen

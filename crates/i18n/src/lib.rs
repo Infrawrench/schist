@@ -15,8 +15,9 @@
 //! [`t`] returns a `&'static str`, which is what makes the rest of the
 //! app cheap to localise: the plugin traits declare a tool's `name()` as
 //! `&'static str`, the menu model holds `&'static str` labels, and none
-//! of them had to change. The catalogs are embedded with `include_str!`,
-//! so a translation is a slice of the binary's own data.
+//! of them had to change. Catalogs are compressed at build time with a
+//! shared dictionary, then inflated once on first use and kept for the
+//! process's lifetime, so translations remain static slices.
 //!
 //! # Which language
 //!
@@ -154,7 +155,50 @@ type Catalog = HashMap<&'static str, &'static str>;
 fn catalog(locale: Locale) -> &'static Catalog {
     static CATALOGS: [OnceLock<Catalog>; Locale::ALL.len()] =
         [const { OnceLock::new() }; Locale::ALL.len()];
-    CATALOGS[locale.index()].get_or_init(|| parse(SOURCES[locale.index()]).collect())
+    CATALOGS[locale.index()].get_or_init(|| parse(source(locale)).collect())
+}
+
+fn source(locale: Locale) -> &'static str {
+    // Static storage keeps the text alive, and OnceLock shares one allocation
+    // per used language even when lookups race on different threads.
+    static DECOMPRESSED: [OnceLock<String>; Locale::ALL.len()] =
+        [const { OnceLock::new() }; Locale::ALL.len()];
+    DECOMPRESSED[locale.index()]
+        .get_or_init(|| {
+            let (compressed, len) = SOURCES[locale.index()];
+            decompress(compressed, len, DICTIONARY)
+                .unwrap_or_else(|err| panic!("decompressing the {} catalog: {err}", locale.tag()))
+        })
+        .as_str()
+}
+
+fn decompress(compressed: &[u8], len: usize, dictionary: &[u8]) -> std::io::Result<String> {
+    use flate2::{Decompress, FlushDecompress, Status};
+    use std::io::{Error, ErrorKind};
+
+    let mut decoder = Decompress::new(true);
+    let mut output = vec![0; len];
+    let status = match decoder.decompress(compressed, &mut output, FlushDecompress::Finish) {
+        Err(err) if err.needs_dictionary().is_some() => {
+            decoder.set_dictionary(dictionary)?;
+            decoder.decompress(
+                &compressed[decoder.total_in() as usize..],
+                &mut output,
+                FlushDecompress::Finish,
+            )?
+        }
+        result => result?,
+    };
+    if status != Status::StreamEnd
+        || decoder.total_in() != compressed.len() as u64
+        || decoder.total_out() != len as u64
+    {
+        return Err(Error::new(
+            ErrorKind::InvalidData,
+            "invalid catalog length or incomplete stream",
+        ));
+    }
+    String::from_utf8(output).map_err(|err| Error::new(ErrorKind::InvalidData, err))
 }
 
 /// The active locale's index into `SOURCES`; English until `init` runs.
