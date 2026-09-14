@@ -270,6 +270,7 @@ pub(super) fn type_options_bar(
                 }))
                 .child(icon("check", 17.0, palette().text)),
         )
+        .child(crate::workspace::spotlight::search_button(cx))
         .into_any_element()
 }
 

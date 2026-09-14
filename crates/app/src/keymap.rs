@@ -26,6 +26,7 @@ const TYPING_SAFE: Option<&str> = Some("Workspace && editable");
 /// Bindings that must stay live in every state. Escape is how you leave a
 /// text session or a dialog, so it cannot be suppressed by either.
 const ALWAYS: Option<&str> = Some("Workspace");
+const SEARCH: Option<&str> = Some("Workspace && !modal");
 
 fn translate(binding: &str) -> String {
     // Apple keyboards, on the desktop and on an iPad, have Command.
@@ -77,6 +78,11 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
             }
         }
     }
+    bindings.push(KeyBinding::new(
+        &translate("cmd-shift-p"),
+        ShowSearch,
+        SEARCH,
+    ));
     // App-level bindings.
     bindings.extend([
         KeyBinding::new(&translate("cmd-n"), NewFile, CONTEXT),
@@ -394,7 +400,7 @@ pub fn save_file_dialog(ws: &mut Workspace, window: &mut Window, cx: &mut Contex
 
 #[cfg(test)]
 mod tests {
-    use super::{override_context, try_binding, ALWAYS, CONTEXT, TYPING_SAFE};
+    use super::{override_context, try_binding, ALWAYS, CONTEXT, SEARCH, TYPING_SAFE};
     use crate::actions::ActivateTool;
     use gpui::{KeyBindingContextPredicate, KeyContext};
 
@@ -463,6 +469,18 @@ mod tests {
                 );
             }
         }
+    }
+
+    #[test]
+    fn spotlight_owns_typing_but_keeps_its_toggle_and_escape() {
+        let spotlight = "Workspace spotlight text_entry";
+        assert!(!fires(CONTEXT, spotlight));
+        assert!(!fires(TYPING_SAFE, spotlight));
+        assert!(fires(ALWAYS, spotlight));
+        assert!(fires(SEARCH, spotlight));
+        assert!(fires(SEARCH, TYPING));
+        assert!(fires(SEARCH, ORDINARY));
+        assert!(!fires(SEARCH, MODAL));
     }
 
     #[test]

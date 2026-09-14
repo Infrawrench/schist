@@ -79,6 +79,7 @@ actions!(
         ShowImageSize,
         ShowCanvasSize,
         ShowPreferences,
+        ShowSearch,
         ShowLayerStyle,
         ToggleRulers,
         ToggleGrid,
@@ -103,6 +104,7 @@ actions!(
 /// `panels` because [`RunAppItem`] carries one.
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum AppItem {
+    Search,
     CloudSignIn,
     CloudGenerate,
     CloudBrowse,

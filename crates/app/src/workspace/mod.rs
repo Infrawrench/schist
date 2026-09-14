@@ -102,6 +102,7 @@ mod render;
 mod services;
 #[cfg(target_os = "ios")]
 mod shared_files;
+pub(crate) mod spotlight;
 mod styles;
 // The software keyboard's way in, on the platforms that have one.
 #[cfg(any(target_os = "ios", target_os = "android"))]
@@ -348,6 +349,7 @@ pub struct Workspace {
     pub context_menu: Option<ContextMenu>,
     /// The open modal dialog, if any.
     pub modal: Option<Modal>,
+    pub(crate) spotlight: spotlight::Spotlight,
     /// The file picker's state while `Modal::FilePicker` is up.
     pub file_picker: Option<file_picker::FilePicker>,
     /// The window's height inside the safe-area insets as of the last
@@ -1507,6 +1509,7 @@ impl Workspace {
             tool_press: None,
             context_menu: None,
             modal: None,
+            spotlight: spotlight::Spotlight::new(cx.focus_handle()),
             file_picker: None,
             visible_height: 900.0,
             pending_quit: false,

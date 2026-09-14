@@ -234,7 +234,8 @@ impl Workspace {
     /// build's carets stay solid and it has no gallery to ask about.
     #[cfg(not(target_arch = "wasm32"))]
     pub fn caret_somewhere(&self) -> bool {
-        self.focused_field.is_some()
+        self.spotlight.open
+            || self.focused_field.is_some()
             || self.gallery_search_active()
             || self.layer_rename.is_some()
             || self.note_edit.is_some()

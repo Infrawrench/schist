@@ -38,14 +38,36 @@ pub(crate) fn filter_menu_label(ws: &Workspace, id: &str) -> String {
 }
 
 pub(crate) fn menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
+    #[cfg(not(target_arch = "wasm32"))]
+    let mut menus = if ws.gallery_open() {
+        prune_sandboxed(gallery_menus(ws))
+    } else {
+        editor_menus(ws)
+    };
+    #[cfg(target_arch = "wasm32")]
+    let mut menus = editor_menus(ws);
+    if let Some((_, entries)) = menus.first_mut() {
+        entries.insert(
+            0,
+            MenuEntry::App(t("common.search"), AppItem::Search, Some("cmd-shift-p")),
+        );
+        entries.insert(1, MenuEntry::Sep);
+    }
+    menus
+}
+
+/// Every available menu action, independent of which workspace is showing.
+pub(crate) fn search_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
+    #[allow(unused_mut)]
+    let mut menus = editor_menus(ws);
+    #[cfg(not(target_arch = "wasm32"))]
+    menus.extend(prune_sandboxed(gallery_menus(ws)));
+    menus
+}
+
+fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     use AppItem::*;
     use MenuEntry::*;
-    // The gallery is a different room with different furniture: while it
-    // is showing, the bar holds its menus instead of the editor's.
-    #[cfg(not(target_arch = "wasm32"))]
-    if ws.gallery_open() {
-        return prune_sandboxed(gallery_menus(ws));
-    }
     // `mut` for the desktop-only recents insertion below.
     #[allow(unused_mut)]
     let mut menus = vec![

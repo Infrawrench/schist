@@ -598,11 +598,16 @@ impl Render for Workspace {
         if let Some((id, enabled)) = self.pending_plugin_toggle.take() {
             self.set_plugin_enabled(id, enabled, cx);
         }
+        if self.modal.is_some() {
+            self.dismiss_spotlight(window, cx);
+        }
         // Three mutually exclusive input states. A single "is something
         // capturing keys" flag was not enough: the document commands were
         // bound against plain "Workspace", which matches in every state, so
         // only the unmodified single-letter bindings were ever suppressed.
-        let key_context = if self.modal.is_some() {
+        let key_context = if self.spotlight.open {
+            "Workspace spotlight text_entry"
+        } else if self.modal.is_some() {
             "Workspace modal"
         } else if self.tool_captures_keys()
             || self.type_field_option().is_some()
@@ -638,6 +643,7 @@ impl Render for Workspace {
         // The software keyboard's way in, while a field has the caret.
         #[cfg(any(target_os = "ios", target_os = "android"))]
         let text_input_bridge = self.text_input_bridge(cx);
+        let spotlight = self.render_spotlight(window, cx);
         let context_menu = panels::context_menu(self, window.viewport_size(), cx);
         let tool_flyout = panels::tool_flyout(self, cx);
         // Two bodies share the shell (menu bar, action handlers, modal
@@ -713,6 +719,9 @@ impl Render for Workspace {
             // Files dragged in from the OS: anywhere in the window works.
             .on_drop(cx.listener(|ws, paths: &ExternalPaths, _w, cx| {
                 ws.handle_dropped_paths(paths.paths().to_vec(), cx);
+            }))
+            .on_action(cx.listener(|ws, _: &ShowSearch, window, cx| {
+                ws.show_spotlight(window, cx);
             }))
             .on_action(cx.listener(|ws, action: &RunCommand, _w, cx| {
                 ws.run_command(&action.id.clone(), cx);
@@ -807,7 +816,10 @@ impl Render for Workspace {
                 ws.editor.background = schist_color::Rgba::WHITE;
                 cx.notify();
             }))
-            .on_action(cx.listener(|ws, _: &CancelGesture, _w, cx| {
+            .on_action(cx.listener(|ws, _: &CancelGesture, window, cx| {
+                if ws.dismiss_spotlight(window, cx) {
+                    return;
+                }
                 // Escape leaves the active gallery field or viewer first.
                 if ws.gallery_escape(cx) {
                     return;
@@ -901,7 +913,8 @@ impl Render for Workspace {
                     .left(insets.left)
                     .right(insets.right)
                     .child(modal)
-            }));
+            }))
+            .children(spotlight);
         #[cfg(any(target_os = "ios", target_os = "android"))]
         let root = root.children(text_input_bridge);
         #[cfg(target_os = "ios")]
