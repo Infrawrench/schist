@@ -74,11 +74,20 @@ impl Decoder {
                 .encode_wide()
                 .chain(Some(0))
                 .collect::<Vec<_>>();
+            // canonicalize returns a verbatim Windows path (\\?\...). Open
+            // it as a file: the URL resolver can mistake it for a network URL.
+            let stream = MFCreateFile(
+                MF_ACCESSMODE_READ,
+                MF_OPENMODE_FAIL_IF_NOT_EXIST,
+                MF_FILEFLAGS_NONE,
+                PCWSTR(path.as_ptr()),
+            )
+            .context(t("video.decode_failed"))?;
             let mut attributes = None;
             MFCreateAttributes(&mut attributes, 1)?;
             let attributes = attributes.context(t("video.decode_failed"))?;
             attributes.SetUINT32(&MF_SOURCE_READER_ENABLE_VIDEO_PROCESSING, 1)?;
-            let reader = MFCreateSourceReaderFromURL(PCWSTR(path.as_ptr()), &attributes)
+            let reader = MFCreateSourceReaderFromByteStream(&stream, &attributes)
                 .context(t("video.decode_failed"))?;
             reader.SetStreamSelection(MF_SOURCE_READER_ALL_STREAMS.0 as u32, false)?;
             reader
