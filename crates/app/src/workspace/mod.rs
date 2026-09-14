@@ -942,7 +942,7 @@ impl Default for ViewOptions {
 /// wins) asks for: the compositor and the filter/warp kernels behind
 /// `schist_fx`, which share one device. Safe to call again when the
 /// preference flips; falls back to the CPU with a log line when no adapter
-/// exists.
+/// exists. The `gpu-compositing` feature flag must also be enabled.
 pub fn init_compositor_backend(prefer_gpu: bool) {
     // The GPU backend opens a second wgpu device with a blocking wait,
     // which the browser's single thread cannot make progress under; the
@@ -960,7 +960,7 @@ pub fn init_compositor_backend(prefer_gpu: bool) {
             Some("1") => true,
             _ => prefer_gpu,
         };
-        if !enabled {
+        if !crate::feature_enabled("gpu-compositing") || !enabled {
             schist_compositor::set_backend(Arc::new(schist_compositor::CpuCompositor));
             schist_fx::set_backend(Arc::new(schist_fx::CpuFx));
             return;

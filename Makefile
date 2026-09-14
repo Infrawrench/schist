@@ -298,6 +298,11 @@ check-gallery:
 check-cloud-browser:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
 
+.PHONY: check-feature-flags
+check-feature-flags:
+	$(CARGO) test -p schist-app --lib feature_flags::
+	$(CARGO) test -p schist-app --test feature_flags
+
 .PHONY: lint-cloud
 lint-cloud:
 	$(CARGO) clippy -p schist-cloud -p schist-app -p schist-document -p schist-people-worker --all-targets -- -D warnings

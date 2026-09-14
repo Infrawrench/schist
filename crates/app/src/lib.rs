@@ -29,6 +29,7 @@ mod dialogs;
 // browser tab nor an iOS app has a file manager to drop on.
 #[cfg(not(sandboxed))]
 mod drag_out;
+mod feature_flags;
 mod fonts;
 mod gallery;
 mod keymap;
@@ -69,6 +70,7 @@ use std::path::PathBuf;
 use std::rc::Rc;
 use workspace::Workspace;
 
+pub use feature_flags::feature_enabled;
 pub use schist_codecs_common::{PsdCodec, PsdPlugin};
 
 /// Whether an opt-in diagnostic is on: the preference, or the environment
