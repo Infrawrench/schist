@@ -31,6 +31,8 @@ def relation(text):
         bounds = [int(v) for v in value.split("..")]
         if not variable:
             alternatives.append(bounds[0] <= 0 <= bounds[-1])
+        elif modulus and bounds == [0]:
+            alternatives.append(f"n.is_multiple_of({modulus})")
         elif len(bounds) == 1:
             alternatives.append(f"{left} == {bounds[0]}")
         else:

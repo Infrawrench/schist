@@ -85,7 +85,7 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
             "other"
         }
         "lv" | "prg" => {
-            if n % 10 == 0 || (11..=19).contains(&(n % 100)) {
+            if n.is_multiple_of(10) || (11..=19).contains(&(n % 100)) {
                 return "zero";
             }
             if n % 10 == 1 && !(n % 100 == 11) {
@@ -160,7 +160,7 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
             if n == 0 || n == 1 {
                 return "one";
             }
-            if !(n == 0) && n % 1000000 == 0 {
+            if !(n == 0) && n.is_multiple_of(1000000) {
                 return "many";
             }
             "other"
@@ -169,7 +169,7 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
             if (0..=1).contains(&(n)) {
                 return "one";
             }
-            if !(n == 0) && n % 1000000 == 0 {
+            if !(n == 0) && n.is_multiple_of(1000000) {
                 return "many";
             }
             "other"
@@ -178,7 +178,7 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
             if n == 1 {
                 return "one";
             }
-            if !(n == 0) && n % 1000000 == 0 {
+            if !(n == 0) && n.is_multiple_of(1000000) {
                 return "many";
             }
             "other"
@@ -187,7 +187,7 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
             if n == 1 {
                 return "one";
             }
-            if !(n == 0) && n % 1000000 == 0 {
+            if !(n == 0) && n.is_multiple_of(1000000) {
                 return "many";
             }
             "other"
@@ -259,7 +259,8 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
             if (2..=4).contains(&(n % 10)) && !((12..=14).contains(&(n % 100))) {
                 return "few";
             }
-            if n % 10 == 0 || (5..=9).contains(&(n % 10)) || (11..=14).contains(&(n % 100)) {
+            if n.is_multiple_of(10) || (5..=9).contains(&(n % 10)) || (11..=14).contains(&(n % 100))
+            {
                 return "many";
             }
             "other"
@@ -280,7 +281,8 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
             if (2..=4).contains(&(n % 10)) && !((12..=14).contains(&(n % 100))) {
                 return "few";
             }
-            if n % 10 == 0 || (5..=9).contains(&(n % 10)) || (11..=14).contains(&(n % 100)) {
+            if n.is_multiple_of(10) || (5..=9).contains(&(n % 10)) || (11..=14).contains(&(n % 100))
+            {
                 return "many";
             }
             "other"
@@ -311,7 +313,7 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
             {
                 return "few";
             }
-            if !(n == 0) && n % 1000000 == 0 {
+            if !(n == 0) && n.is_multiple_of(1000000) {
                 return "many";
             }
             "other"
@@ -353,7 +355,12 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
             if n % 10 == 2 {
                 return "two";
             }
-            if n % 100 == 0 || n % 100 == 20 || n % 100 == 40 || n % 100 == 60 || n % 100 == 80 {
+            if n.is_multiple_of(100)
+                || n % 100 == 20
+                || n % 100 == 40
+                || n % 100 == 60
+                || n % 100 == 80
+            {
                 return "few";
             }
             "other"
@@ -366,7 +373,7 @@ pub(crate) fn category(language: &str, n: u64) -> &'static str {
                 return "one";
             }
             if (n % 100 == 2 || n % 100 == 22 || n % 100 == 42 || n % 100 == 62 || n % 100 == 82)
-                || n % 1000 == 0
+                || n.is_multiple_of(1000)
                     && ((1000..=20000).contains(&(n % 100000))
                         || n % 100000 == 40000
                         || n % 100000 == 60000
