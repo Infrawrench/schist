@@ -144,6 +144,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # Kjörstillingar
 dialog.prefs.title = Kjörstillingar
 dialog.prefs.theme = Þema
+dialog.prefs.theme_system = Kerfi
 dialog.prefs.theme_dark = Dökkt
 dialog.prefs.theme_light = Ljóst
 dialog.prefs.grid_spacing = Bil í hnitaneti

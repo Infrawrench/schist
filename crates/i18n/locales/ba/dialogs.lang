@@ -117,6 +117,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Параметрҙар
 dialog.prefs.theme = Тема
+dialog.prefs.theme_system = Система
 dialog.prefs.theme_dark = Ҡараңғы
 dialog.prefs.theme_light = Яҡты
 dialog.prefs.grid_spacing = Селтәр аралығы

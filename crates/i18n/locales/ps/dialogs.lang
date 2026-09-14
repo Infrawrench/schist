@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = له {folders} څخه بار شوي
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = غوره توبونه
 dialog.prefs.theme = رنګبڼه
+dialog.prefs.theme_system = سیسټم
 dialog.prefs.theme_dark = تیاره
 dialog.prefs.theme_light = روښانه
 dialog.prefs.grid_spacing = د جالۍ واټن

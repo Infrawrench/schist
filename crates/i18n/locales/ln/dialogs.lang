@@ -128,6 +128,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Maponi
 dialog.prefs.theme = Motif
+dialog.prefs.theme_system = Sistɛmi
 dialog.prefs.theme_dark = Molili
 dialog.prefs.theme_light = Pole
 dialog.prefs.grid_spacing = Ntaka ya monyama ya milɔngɔ

@@ -129,6 +129,7 @@ dialog.plugins.loaded_from = Завантажено з {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Параметри
 dialog.prefs.theme = Тема
+dialog.prefs.theme_system = Системна
 dialog.prefs.theme_dark = Темна
 dialog.prefs.theme_light = Світла
 dialog.prefs.grid_spacing = Інтервал сітки

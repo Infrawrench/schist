@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = {folders} ਤੋਂ ਲੋਡ ਕੀਤੇ
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = ਤਰਜੀਹਾਂ
 dialog.prefs.theme = ਥੀਮ
+dialog.prefs.theme_system = ਸਿਸਟਮ
 dialog.prefs.theme_dark = ਗੂੜ੍ਹੀ
 dialog.prefs.theme_light = ਹਲਕੀ
 dialog.prefs.grid_spacing = ਗਰਿੱਡ ਵਿੱਥ

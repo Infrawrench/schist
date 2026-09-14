@@ -115,6 +115,7 @@ dialog.plugins.loaded_from = Kargita de {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferaji
 dialog.prefs.theme = Temo
+dialog.prefs.theme_system = Sistemo
 dialog.prefs.theme_dark = Obskura
 dialog.prefs.theme_light = Klara
 dialog.prefs.grid_spacing = Gridinterspaco

@@ -121,6 +121,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = I ka labɛncogow
 dialog.prefs.theme = Ɲɛjiracogo
+dialog.prefs.theme_system = Sigicogo
 dialog.prefs.theme_dark = Dibi
 dialog.prefs.theme_light = Yelen
 dialog.prefs.grid_spacing = Ja-filɛ cɛjan

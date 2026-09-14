@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = {folders} эченнән йөкләнде
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Көйләүләр
 dialog.prefs.theme = Тема
+dialog.prefs.theme_system = Система
 dialog.prefs.theme_dark = Караңгы
 dialog.prefs.theme_light = Якты
 dialog.prefs.grid_spacing = Челтәр аралыгы

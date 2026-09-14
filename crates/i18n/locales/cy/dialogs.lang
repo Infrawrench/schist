@@ -156,6 +156,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Dewisiadau
 dialog.prefs.theme = Thema
+dialog.prefs.theme_system = System
 dialog.prefs.theme_dark = Tywyll
 dialog.prefs.theme_light = Golau
 dialog.prefs.grid_spacing = Bylchau'r grid

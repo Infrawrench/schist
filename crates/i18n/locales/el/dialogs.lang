@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Φορτώθηκαν από {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Προτιμήσεις
 dialog.prefs.theme = Θέμα
+dialog.prefs.theme_system = Σύστημα
 dialog.prefs.theme_dark = Σκούρο
 dialog.prefs.theme_light = Φωτεινό
 dialog.prefs.grid_spacing = Απόσταση πλέγματος

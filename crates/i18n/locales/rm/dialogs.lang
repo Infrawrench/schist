@@ -114,6 +114,7 @@ dialog.plugins.loaded_from = Chargià da {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferenzas
 dialog.prefs.theme = Design
+dialog.prefs.theme_system = Sistem
 dialog.prefs.theme_dark = Stgir
 dialog.prefs.theme_light = Cler
 dialog.prefs.grid_spacing = Spaziament dal giatter

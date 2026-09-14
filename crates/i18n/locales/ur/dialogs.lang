@@ -114,6 +114,7 @@ dialog.plugins.loaded_from = {folders} سے لوڈ شدہ
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = ترجیحات
 dialog.prefs.theme = تھیم
+dialog.prefs.theme_system = سسٹم
 dialog.prefs.theme_dark = گہرا
 dialog.prefs.theme_light = روشن
 dialog.prefs.grid_spacing = جال کا فاصلہ

@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Вчитано од {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Поставки
 dialog.prefs.theme = Тема
+dialog.prefs.theme_system = Системска
 dialog.prefs.theme_dark = Темна
 dialog.prefs.theme_light = Светла
 dialog.prefs.grid_spacing = Растојание на мрежата

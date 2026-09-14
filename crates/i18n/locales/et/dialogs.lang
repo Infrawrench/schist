@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Laaditud kaustadest {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Eelistused
 dialog.prefs.theme = Teema
+dialog.prefs.theme_system = Süsteem
 dialog.prefs.theme_dark = Tume
 dialog.prefs.theme_light = Hele
 dialog.prefs.grid_spacing = Ruudustiku samm

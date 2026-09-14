@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Dimuat tina {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Préferénsi
 dialog.prefs.theme = Téma
+dialog.prefs.theme_system = Sistem
 dialog.prefs.theme_dark = Poék
 dialog.prefs.theme_light = Caang
 dialog.prefs.grid_spacing = Jarak grid

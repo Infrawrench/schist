@@ -146,6 +146,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # Preferencias
 dialog.prefs.title = Preferencias
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sistema
 dialog.prefs.theme_dark = Fosco
 dialog.prefs.theme_light = Claro
 dialog.prefs.grid_spacing = Espaciado d'a reixeta

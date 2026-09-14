@@ -142,6 +142,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # 環境設定
 dialog.prefs.title = 環境設定
 dialog.prefs.theme = テーマ
+dialog.prefs.theme_system = システム
 dialog.prefs.theme_dark = ダーク
 dialog.prefs.theme_light = ライト
 dialog.prefs.grid_spacing = グリッド間隔

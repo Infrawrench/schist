@@ -120,6 +120,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Väörkeure
 dialog.prefs.theme = Thema
+dialog.prefs.theme_system = Systeem
 dialog.prefs.theme_dark = Donker
 dialog.prefs.theme_light = Leech
 dialog.prefs.grid_spacing = Rasterafstandj

@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = {folders} నుండి లోడ్ అయ్య
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = ప్రాధాన్యతలు
 dialog.prefs.theme = థీమ్
+dialog.prefs.theme_system = సిస్టమ్
 dialog.prefs.theme_dark = ముదురు
 dialog.prefs.theme_light = లేత
 dialog.prefs.grid_spacing = గ్రిడ్ అంతరం

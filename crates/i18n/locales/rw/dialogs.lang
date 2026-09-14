@@ -114,6 +114,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Ibyifuzo
 dialog.prefs.theme = Insanganyamatsiko
+dialog.prefs.theme_system = Sisitemu
 dialog.prefs.theme_dark = Cyijimye
 dialog.prefs.theme_light = Kimurika
 dialog.prefs.grid_spacing = Intera y'urusobe

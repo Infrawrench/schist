@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Nampidirina avy amin'ny {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Safidy
 dialog.prefs.theme = Lohahevitra
+dialog.prefs.theme_system = Rafitra
 dialog.prefs.theme_dark = Maizina
 dialog.prefs.theme_light = Mazava
 dialog.prefs.grid_spacing = Elanelan'ny makarakara

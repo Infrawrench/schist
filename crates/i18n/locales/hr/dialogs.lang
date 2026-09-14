@@ -136,6 +136,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Postavke
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sustav
 dialog.prefs.theme_dark = Tamna
 dialog.prefs.theme_light = Svijetla
 dialog.prefs.grid_spacing = Razmak mreže

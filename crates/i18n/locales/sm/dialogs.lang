@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Ua uta mai {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Mea e Manaʻo Ai
 dialog.prefs.theme = Foliga
+dialog.prefs.theme_system = Faiga
 dialog.prefs.theme_dark = Pogisa
 dialog.prefs.theme_light = Malamalama
 dialog.prefs.grid_spacing = Avanoa o le upega

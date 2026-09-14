@@ -449,13 +449,12 @@ pub fn main() {
             )
             .expect("failed to open window");
 
-        #[cfg(any(target_os = "ios", target_os = "android"))]
         let _ = window.update(cx, |_ws, win, cx| {
-            // GPUI forwards UIKit trait changes and Android night-mode
-            // configuration changes. Repaint even when the app is idle;
-            // the render selects the palette from the new appearance.
+            // Repaint when the system appearance changes, even while
+            // idle; the render resolves the selected theme's palette.
             cx.observe_window_appearance(win, |_ws, _win, cx| cx.notify())
                 .detach();
+            #[cfg(any(target_os = "ios", target_os = "android"))]
             cx.observe_window_activation(win, |ws, win, cx| {
                 if !win.is_window_active() {
                     ws.pause_mobile_video(cx);

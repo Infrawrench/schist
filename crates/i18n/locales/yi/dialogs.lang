@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = געלאָדן פֿון {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = פּרעפֿערענצן
 dialog.prefs.theme = טעמע
+dialog.prefs.theme_system = סיסטעם
 dialog.prefs.theme_dark = טונקל
 dialog.prefs.theme_light = ליכטיק
 dialog.prefs.grid_spacing = גריד־אָפּשטאַנד

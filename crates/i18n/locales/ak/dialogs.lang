@@ -124,6 +124,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Apɛde
 dialog.prefs.theme = Anim Sɛso
+dialog.prefs.theme_system = Nhyehyɛe
 dialog.prefs.theme_dark = Tuntum
 dialog.prefs.theme_light = Hann
 dialog.prefs.grid_spacing = Grid ntam

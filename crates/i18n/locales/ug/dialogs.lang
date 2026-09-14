@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = {folders} دىن يۈكلەندى
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = مايىللىقلار
 dialog.prefs.theme = ئۇسلۇب
+dialog.prefs.theme_system = سىستېما
 dialog.prefs.theme_dark = قاراڭغۇ
 dialog.prefs.theme_light = يورۇق
 dialog.prefs.grid_spacing = تور ئارىلىقى

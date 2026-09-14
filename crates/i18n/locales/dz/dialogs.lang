@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = {folders} ལས་མངོན་གསལ་འ�
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = དགའ་གདམ།
 dialog.prefs.theme = བརྗོད་གཞི།
+dialog.prefs.theme_system = རིམ་ལུགས།
 dialog.prefs.theme_dark = གནགཔོ།
 dialog.prefs.theme_light = དཀརཔོ།
 dialog.prefs.grid_spacing = དྲྭ་མིག་བར་སྟོང་།

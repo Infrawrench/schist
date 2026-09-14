@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = {folders}에서 불러옴
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = 환경 설정
 dialog.prefs.theme = 테마
+dialog.prefs.theme_system = 시스템
 dialog.prefs.theme_dark = 어둡게
 dialog.prefs.theme_light = 밝게
 dialog.prefs.grid_spacing = 격자 간격

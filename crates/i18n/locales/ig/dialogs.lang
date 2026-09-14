@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = E bunyere site na {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Mmasị
 dialog.prefs.theme = Isiokwu
+dialog.prefs.theme_system = Sistemụ
 dialog.prefs.theme_dark = Ọchịchịrị
 dialog.prefs.theme_light = Ìhè
 dialog.prefs.grid_spacing = Oghere grid

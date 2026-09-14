@@ -138,6 +138,7 @@ dialog.plugins.loaded_from = Imgħobbija minn {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferenzi
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sistema
 dialog.prefs.theme_dark = Skur
 dialog.prefs.theme_light = Ċar
 dialog.prefs.grid_spacing = Spazjar tal-grilja

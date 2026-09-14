@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Tcherdjîs di {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferinces
 dialog.prefs.theme = Tinme
+dialog.prefs.theme_system = Sistinme
 dialog.prefs.theme_dark = Somb
 dialog.prefs.theme_light = Clair
 dialog.prefs.grid_spacing = Espåçmint del grile

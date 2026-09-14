@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Eṃōj load jen {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Kōņaan ko
 dialog.prefs.theme = Theme
+dialog.prefs.theme_system = System
 dialog.prefs.theme_dark = Kilmeej
 dialog.prefs.theme_light = Meram
 dialog.prefs.grid_spacing = Kōtaan line in grid

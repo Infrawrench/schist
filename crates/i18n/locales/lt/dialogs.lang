@@ -121,6 +121,7 @@ dialog.plugins.loaded_from = Įkelta iš {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Nuostatos
 dialog.prefs.theme = Apipavidalinimas
+dialog.prefs.theme_system = Sistemos
 dialog.prefs.theme_dark = Tamsus
 dialog.prefs.theme_light = Šviesus
 dialog.prefs.grid_spacing = Tinklelio tarpai

@@ -121,6 +121,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Ivyo ukunda
 dialog.prefs.theme = Insiguro y'amabara
+dialog.prefs.theme_system = Sisitemu
 dialog.prefs.theme_dark = Yijimye
 dialog.prefs.theme_light = Yaka
 dialog.prefs.grid_spacing = Intera y'urusenga

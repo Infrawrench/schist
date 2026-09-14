@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Cargats dempuèi {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferéncias
 dialog.prefs.theme = Tèma
+dialog.prefs.theme_system = Sistèma
 dialog.prefs.theme_dark = Escur
 dialog.prefs.theme_light = Clar
 dialog.prefs.grid_spacing = Espaciament de la grasilha

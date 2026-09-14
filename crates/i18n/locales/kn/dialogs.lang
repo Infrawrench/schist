@@ -114,6 +114,7 @@ dialog.plugins.loaded_from = {folders}ನಿಂದ ಲೋಡ್ ಆಗಿದೆ
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = ಆದ್ಯತೆಗಳು
 dialog.prefs.theme = ಥೀಮ್
+dialog.prefs.theme_system = ವ್ಯವಸ್ಥೆ
 dialog.prefs.theme_dark = ಗಾಢ
 dialog.prefs.theme_light = ತಿಳಿ
 dialog.prefs.grid_spacing = ಜಾಲರಿ ಅಂತರ

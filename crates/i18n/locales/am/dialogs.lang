@@ -114,6 +114,7 @@ dialog.plugins.loaded_from = ከ{folders} ተጭኗል
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = ምርጫዎች
 dialog.prefs.theme = ገጽታ
+dialog.prefs.theme_system = ስርዓት
 dialog.prefs.theme_dark = ጨለማ
 dialog.prefs.theme_light = ብርሃን
 dialog.prefs.grid_spacing = የፍርግርግ ክፍተት

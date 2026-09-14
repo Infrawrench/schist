@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = โหลดจาก {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = การกำหนดค่า
 dialog.prefs.theme = ธีม
+dialog.prefs.theme_system = ระบบ
 dialog.prefs.theme_dark = มืด
 dialog.prefs.theme_light = สว่าง
 dialog.prefs.grid_spacing = ระยะห่างเส้นตาราง

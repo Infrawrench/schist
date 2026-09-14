@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Đã tải từ {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Tùy chọn
 dialog.prefs.theme = Chủ đề
+dialog.prefs.theme_system = Hệ thống
 dialog.prefs.theme_dark = Tối
 dialog.prefs.theme_light = Sáng
 dialog.prefs.grid_spacing = Khoảng cách lưới

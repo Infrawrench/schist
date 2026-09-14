@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Akorodhwa kubva mu{folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Zvaunofarira
 dialog.prefs.theme = Dingindira
+dialog.prefs.theme_system = Sisitimu
 dialog.prefs.theme_dark = Rakasviba
 dialog.prefs.theme_light = Rakajeka
 dialog.prefs.grid_spacing = Mukaha wegiridhi

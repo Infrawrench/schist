@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Makåkarga ginen {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferensia siha
 dialog.prefs.theme = Theme
+dialog.prefs.theme_system = Sisteman
 dialog.prefs.theme_dark = Homhom
 dialog.prefs.theme_light = Ma'lak
 dialog.prefs.grid_spacing = Espåsiun grid

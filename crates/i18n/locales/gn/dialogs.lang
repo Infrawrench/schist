@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Oñekarga {folders}-gui
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Jeporavorã
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sistema
 dialog.prefs.theme_dark = Pytũ
 dialog.prefs.theme_light = Hesakã
 dialog.prefs.grid_spacing = Cuadrícula pa'ũ

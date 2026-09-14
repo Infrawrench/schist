@@ -148,6 +148,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # Voreinstellungen
 dialog.prefs.title = Voreinstellungen
 dialog.prefs.theme = Erscheinungsbild
+dialog.prefs.theme_system = System
 dialog.prefs.theme_dark = Dunkel
 dialog.prefs.theme_light = Hell
 dialog.prefs.grid_spacing = Rasterabstand

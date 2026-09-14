@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Kulayishwe kusuka ku-{folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Lokutsandvwako
 dialog.prefs.theme = Ingcikitsi
+dialog.prefs.theme_system = Luhlelo
 dialog.prefs.theme_dark = Mnyama
 dialog.prefs.theme_light = Khanya
 dialog.prefs.grid_spacing = Sikhala segridi

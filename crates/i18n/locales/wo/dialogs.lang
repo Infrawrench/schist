@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Yeb nañu leen ci {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Tànneef yi
 dialog.prefs.theme = Melokaan
+dialog.prefs.theme_system = Doxalin
 dialog.prefs.theme_dark = Lëndëm
 dialog.prefs.theme_light = Leer
 dialog.prefs.grid_spacing = Diggante këmb gi

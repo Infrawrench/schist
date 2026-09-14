@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = ໂຫຼດຈາກ {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = ການຕັ້ງຄ່າ
 dialog.prefs.theme = ຮູບແບບສີ
+dialog.prefs.theme_system = ລະບົບ
 dialog.prefs.theme_dark = ມືດ
 dialog.prefs.theme_light = ສະຫວ່າງ
 dialog.prefs.grid_spacing = ໄລຍະຫ່າງຕາຕະລາງ

@@ -114,6 +114,7 @@ dialog.plugins.loaded_from = Բեռնվել է՝ {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Նախընտրություններ
 dialog.prefs.theme = Թեմա
+dialog.prefs.theme_system = Համակարգ
 dialog.prefs.theme_dark = Մուգ
 dialog.prefs.theme_light = Բաց
 dialog.prefs.grid_spacing = Ցանցի քայլ

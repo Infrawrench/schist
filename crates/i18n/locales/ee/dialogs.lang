@@ -122,6 +122,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Tɔtrɔ Siwo Wodi
 dialog.prefs.theme = Nɔnɔme
+dialog.prefs.theme_system = Ðoɖowɔwɔ
 dialog.prefs.theme_dark = Viviti
 dialog.prefs.theme_light = Kleŋkleŋ
 dialog.prefs.grid_spacing = Grid ƒe dome

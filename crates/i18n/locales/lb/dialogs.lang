@@ -122,6 +122,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Astellungen
 dialog.prefs.theme = Design
+dialog.prefs.theme_system = System
 dialog.prefs.theme_dark = Donkel
 dialog.prefs.theme_light = Hell
 dialog.prefs.grid_spacing = Gitterofstand

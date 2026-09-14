@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = {folders} އިން ލޯޑްކުރި
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = ކަމުދާ ގޮތްތައް
 dialog.prefs.theme = ތީމް
+dialog.prefs.theme_system = ސިސްޓަމް
 dialog.prefs.theme_dark = އަނދިރި
 dialog.prefs.theme_light = އަލި
 dialog.prefs.grid_spacing = ގްރިޑް ހުސްމިން

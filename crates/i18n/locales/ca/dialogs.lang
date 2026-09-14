@@ -121,6 +121,7 @@ dialog.plugins.loaded_from = Carregats des de {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferències
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sistema
 dialog.prefs.theme_dark = Fosc
 dialog.prefs.theme_light = Clar
 dialog.prefs.grid_spacing = Espaiat de la graella

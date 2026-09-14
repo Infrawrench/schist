@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Lodem long {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Ol Prefrens
 dialog.prefs.theme = Theme
+dialog.prefs.theme_system = Sistem
 dialog.prefs.theme_dark = Dak
 dialog.prefs.theme_light = Laet
 dialog.prefs.grid_spacing = Spes blong grid

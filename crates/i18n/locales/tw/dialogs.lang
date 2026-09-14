@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Wɔde fi {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Nea Wopɛ
 dialog.prefs.theme = Anim Sɛso
+dialog.prefs.theme_system = Nhyehyɛe
 dialog.prefs.theme_dark = Kusuu
 dialog.prefs.theme_light = Hann
 dialog.prefs.grid_spacing = Nkyekyɛmu nsensanee ntam

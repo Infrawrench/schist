@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = A gbé wọ́n láti {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Àwọn ààyò
 dialog.prefs.theme = Àkòrí
+dialog.prefs.theme_system = Ètò
 dialog.prefs.theme_dark = Òkùnkùn
 dialog.prefs.theme_light = Ìmọ́lẹ̀
 dialog.prefs.grid_spacing = Ààyè àwọ̀n

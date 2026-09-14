@@ -116,6 +116,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = ဦးစားပေးသတ်မှတ်ချက်များ
 dialog.prefs.theme = အသွင်အပြင်
+dialog.prefs.theme_system = စနစ်
 dialog.prefs.theme_dark = အမှောင်
 dialog.prefs.theme_light = အလင်း
 dialog.prefs.grid_spacing = ဇယားကွက်အကွာ

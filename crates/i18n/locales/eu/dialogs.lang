@@ -142,6 +142,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # Hobespenak
 dialog.prefs.title = Hobespenak
 dialog.prefs.theme = Gaia
+dialog.prefs.theme_system = Sistema
 dialog.prefs.theme_dark = Iluna
 dialog.prefs.theme_light = Argia
 dialog.prefs.grid_spacing = Saretaren tartea

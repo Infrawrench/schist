@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Ex {folders} onerata
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Praeferentiae
 dialog.prefs.theme = Aspectus
+dialog.prefs.theme_system = Systema
 dialog.prefs.theme_dark = Obscurus
 dialog.prefs.theme_light = Clarus
 dialog.prefs.grid_spacing = Spatiatio reticuli

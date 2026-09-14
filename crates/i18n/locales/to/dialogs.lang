@@ -118,6 +118,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Preferences
 dialog.prefs.theme = Kaveinga
+dialog.prefs.theme_system = Sisitemi
 dialog.prefs.theme_dark = Fakapoʻuli
 dialog.prefs.theme_light = Maama
 dialog.prefs.grid_spacing = Vahaʻa ʻo e kupenga

@@ -152,6 +152,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Gwellvezioù
 dialog.prefs.theme = Neuz
+dialog.prefs.theme_system = Reizhiad
 dialog.prefs.theme_dark = Teñval
 dialog.prefs.theme_light = Sklaer
 dialog.prefs.grid_spacing = Esaou ar gael

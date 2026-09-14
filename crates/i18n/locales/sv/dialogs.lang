@@ -148,6 +148,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # Inställningar
 dialog.prefs.title = Inställningar
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = System
 dialog.prefs.theme_dark = Mörkt
 dialog.prefs.theme_light = Ljust
 dialog.prefs.grid_spacing = Rutnätsavstånd

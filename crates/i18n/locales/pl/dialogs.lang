@@ -129,6 +129,7 @@ dialog.plugins.loaded_from = Wczytano z {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferencje
 dialog.prefs.theme = Motyw
+dialog.prefs.theme_system = Systemowy
 dialog.prefs.theme_dark = Ciemny
 dialog.prefs.theme_light = Jasny
 dialog.prefs.grid_spacing = Odstęp siatki

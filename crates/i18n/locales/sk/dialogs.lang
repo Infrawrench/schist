@@ -130,6 +130,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Predvoľby
 dialog.prefs.theme = Motív
+dialog.prefs.theme_system = Systém
 dialog.prefs.theme_dark = Tmavý
 dialog.prefs.theme_light = Svetlý
 dialog.prefs.grid_spacing = Rozstupy mriežky

@@ -146,6 +146,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # අභිරුචි
 dialog.prefs.title = අභිරුචි
 dialog.prefs.theme = තේමාව
+dialog.prefs.theme_system = පද්ධතිය
 dialog.prefs.theme_dark = අඳුරු
 dialog.prefs.theme_light = ආලෝකමත්
 dialog.prefs.grid_spacing = ජාලක පරතරය

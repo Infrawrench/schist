@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Waxaa laga soo raray {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Doorbidyada
 dialog.prefs.theme = Muuqaalka Midabka
+dialog.prefs.theme_system = Nidaamka
 dialog.prefs.theme_dark = Madow
 dialog.prefs.theme_light = Iftiin
 dialog.prefs.grid_spacing = Kala-fogaanta shabagga

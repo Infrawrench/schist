@@ -148,6 +148,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # Preferences
 dialog.prefs.title = পছন্দসমূহ
 dialog.prefs.theme = থীম
+dialog.prefs.theme_system = প্ৰণালী
 dialog.prefs.theme_dark = গাঢ়
 dialog.prefs.theme_light = পাতল
 dialog.prefs.grid_spacing = গ্ৰীডৰ ব্যৱধান

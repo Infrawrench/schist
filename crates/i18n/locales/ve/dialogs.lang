@@ -128,6 +128,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Zwine na zwi Takalela
 dialog.prefs.theme = Thero
+dialog.prefs.theme_system = Sisṱeme
 dialog.prefs.theme_dark = Ya Swiswi
 dialog.prefs.theme_light = Ya Tshedza
 dialog.prefs.grid_spacing = Tshikhala tsha giridi

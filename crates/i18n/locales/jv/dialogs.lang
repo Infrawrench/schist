@@ -106,6 +106,7 @@ dialog.plugins.loaded_from = Dimuat saka {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Préferènsi
 dialog.prefs.theme = Téma
+dialog.prefs.theme_system = Sistem
 dialog.prefs.theme_dark = Peteng
 dialog.prefs.theme_light = Padhang
 dialog.prefs.grid_spacing = Jarak kothak-kothak

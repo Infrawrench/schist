@@ -139,6 +139,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # 首选项
 dialog.prefs.title = 首选项
 dialog.prefs.theme = 主题
+dialog.prefs.theme_system = 系统
 dialog.prefs.theme_dark = 深色
 dialog.prefs.theme_light = 浅色
 dialog.prefs.grid_spacing = 网格间距

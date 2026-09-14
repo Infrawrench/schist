@@ -122,6 +122,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Zokonda
 dialog.prefs.theme = Maonekedwe
+dialog.prefs.theme_system = Dongosolo
 dialog.prefs.theme_dark = Akuda
 dialog.prefs.theme_light = Owala
 dialog.prefs.grid_spacing = Mpata wa gulidi

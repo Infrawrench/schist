@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = បានផ្ទុកពី {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = ចំណូលចិត្ត
 dialog.prefs.theme = រូបរាង
+dialog.prefs.theme_system = ប្រព័ន្ធ
 dialog.prefs.theme_dark = ងងឹត
 dialog.prefs.theme_light = ភ្លឺ
 dialog.prefs.grid_spacing = គម្លាតក្រឡាចត្រង្គ

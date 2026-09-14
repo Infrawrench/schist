@@ -145,6 +145,7 @@ dialog.plugins.loaded_from = تم التحميل من {folders}
 dialog.plugins.ps_detail = {architecture} · ‏{detail}
 dialog.prefs.title = التفضيلات
 dialog.prefs.theme = السمة
+dialog.prefs.theme_system = النظام
 dialog.prefs.theme_dark = داكنة
 dialog.prefs.theme_light = فاتحة
 dialog.prefs.grid_spacing = تباعد الشبكة

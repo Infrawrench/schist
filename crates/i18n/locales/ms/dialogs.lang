@@ -140,6 +140,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # Keutamaan
 dialog.prefs.title = Keutamaan
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sistem
 dialog.prefs.theme_dark = Gelap
 dialog.prefs.theme_light = Cerah
 dialog.prefs.grid_spacing = Jarak grid

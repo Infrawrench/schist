@@ -121,6 +121,7 @@ dialog.plugins.loaded_from = Načteno z {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Předvolby
 dialog.prefs.theme = Motiv
+dialog.prefs.theme_system = Systém
 dialog.prefs.theme_dark = Tmavý
 dialog.prefs.theme_light = Světlý
 dialog.prefs.grid_spacing = Rozestup mřížky

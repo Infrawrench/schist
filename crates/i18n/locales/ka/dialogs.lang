@@ -124,6 +124,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = პარამეტრები
 dialog.prefs.theme = თემა
+dialog.prefs.theme_system = სისტემა
 dialog.prefs.theme_dark = მუქი
 dialog.prefs.theme_light = ღია
 dialog.prefs.grid_spacing = ბადის დაშორება

@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = ലോഡ് ചെയ്ത ഫോൾഡറുക�
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = മുൻഗണനകൾ
 dialog.prefs.theme = തീം
+dialog.prefs.theme_system = സിസ്റ്റം
 dialog.prefs.theme_dark = ഇരുണ്ടത്
 dialog.prefs.theme_light = തെളിഞ്ഞത്
 dialog.prefs.grid_spacing = ഗ്രിഡ് ഇടവേള

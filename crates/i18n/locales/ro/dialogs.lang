@@ -121,6 +121,7 @@ dialog.plugins.loaded_from = Încărcate din {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferințe
 dialog.prefs.theme = Temă
+dialog.prefs.theme_system = Sistem
 dialog.prefs.theme_dark = Întunecată
 dialog.prefs.theme_light = Luminoasă
 dialog.prefs.grid_spacing = Spațiere grilă

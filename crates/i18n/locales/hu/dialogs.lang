@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Betöltve innen: {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Beállítások
 dialog.prefs.theme = Téma
+dialog.prefs.theme_system = Rendszer
 dialog.prefs.theme_dark = Sötét
 dialog.prefs.theme_light = Világos
 dialog.prefs.grid_spacing = Rácsköz

@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = Dimuat dari {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Preferensi
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sistem
 dialog.prefs.theme_dark = Gelap
 dialog.prefs.theme_light = Terang
 dialog.prefs.grid_spacing = Jarak kisi

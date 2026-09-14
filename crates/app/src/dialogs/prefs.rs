@@ -40,6 +40,10 @@ pub(super) fn preferences(
                 width: 150.0,
                 options: vec![
                     (
+                        crate::workspace::Theme::System.label().into(),
+                        crate::workspace::Theme::System,
+                    ),
+                    (
                         crate::workspace::Theme::Dark.label().into(),
                         crate::workspace::Theme::Dark,
                     ),

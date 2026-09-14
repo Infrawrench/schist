@@ -763,11 +763,12 @@ pub enum ScreenMode {
     FullCanvas,
 }
 
-/// Light or dark chrome.
+/// Chrome appearance, following the system unless explicitly selected.
 #[cfg(not(any(target_os = "ios", target_os = "android")))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, serde::Serialize, serde::Deserialize)]
 pub enum Theme {
     #[default]
+    System,
     Dark,
     Light,
 }
@@ -777,6 +778,7 @@ impl Theme {
     /// The name shown in Preferences, in the user's language.
     pub fn label(self) -> &'static str {
         schist_i18n::t(match self {
+            Theme::System => "dialog.prefs.theme_system",
             Theme::Dark => "dialog.prefs.theme_dark",
             Theme::Light => "dialog.prefs.theme_light",
         })
@@ -922,7 +924,7 @@ impl Default for ViewOptions {
             snap: true,
             grid_spacing: 64.0,
             #[cfg(not(any(target_os = "ios", target_os = "android")))]
-            theme: Theme::Dark,
+            theme: Theme::default(),
             zoom_with_scroll: false,
             crash_reports: false,
             crash_upload: false,

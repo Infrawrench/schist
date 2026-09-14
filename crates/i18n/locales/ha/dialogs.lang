@@ -129,6 +129,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # Zaɓuɓɓuka
 dialog.prefs.title = Zaɓuɓɓuka
 dialog.prefs.theme = Jigo
+dialog.prefs.theme_system = Tsarin na'ura
 dialog.prefs.theme_dark = Duhu
 dialog.prefs.theme_light = Haske
 dialog.prefs.grid_spacing = Tazarar raga

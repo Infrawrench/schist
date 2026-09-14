@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Na-load mula sa {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Mga Kagustuhan
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sistema
 dialog.prefs.theme_dark = Madilim
 dialog.prefs.theme_light = Maliwanag
 dialog.prefs.grid_spacing = Agwat ng grid

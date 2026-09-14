@@ -136,6 +136,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # प्राधान्यानि
 dialog.prefs.title = प्राधान्यानि
 dialog.prefs.theme = दृश्यरूपम्
+dialog.prefs.theme_system = प्रणाली
 dialog.prefs.theme_dark = कृष्णम्
 dialog.prefs.theme_light = उज्ज्वलम्
 dialog.prefs.grid_spacing = जालकान्तरम्

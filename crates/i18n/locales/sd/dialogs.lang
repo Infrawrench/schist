@@ -146,6 +146,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # ترجيحون
 dialog.prefs.title = ترجيحون
 dialog.prefs.theme = ٿيم
+dialog.prefs.theme_system = سسٽم
 dialog.prefs.theme_dark = اونداهو
 dialog.prefs.theme_light = روشن
 dialog.prefs.grid_spacing = گرڊ جو فاصلو

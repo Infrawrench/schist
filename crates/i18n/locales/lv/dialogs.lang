@@ -135,6 +135,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Preferences
 dialog.prefs.theme = Dizains
+dialog.prefs.theme_system = Sistēma
 dialog.prefs.theme_dark = Tumšs
 dialog.prefs.theme_light = Gaišs
 dialog.prefs.grid_spacing = Režģa atstarpe

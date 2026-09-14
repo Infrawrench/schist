@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = {folders} qovluğundan yüklənib
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Tərcihlər
 dialog.prefs.theme = Mövzu
+dialog.prefs.theme_system = Sistem
 dialog.prefs.theme_dark = Tünd
 dialog.prefs.theme_light = Açıq
 dialog.prefs.grid_spacing = Tor aralığı

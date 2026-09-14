@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = {folders} இலிருந்து ஏற்ற�
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = விருப்பங்கள்
 dialog.prefs.theme = தோற்றப்பாணி
+dialog.prefs.theme_system = அமைப்பு
 dialog.prefs.theme_dark = இருண்டது
 dialog.prefs.theme_light = வெளிர்ந்தது
 dialog.prefs.grid_spacing = கட்ட இடைவெளி

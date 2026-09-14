@@ -140,6 +140,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 # Preferences
 dialog.prefs.title = Okukhethwako
 dialog.prefs.theme = Isihloko Sokubonakala
+dialog.prefs.theme_system = Ihlelo
 dialog.prefs.theme_dark = Okunzima
 dialog.prefs.theme_light = Okukhanyako
 dialog.prefs.grid_spacing = Isikhala segridi

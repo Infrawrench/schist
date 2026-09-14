@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Zilayishwe kwi-{folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Ukhetho
 dialog.prefs.theme = Umxholo
+dialog.prefs.theme_system = Inkqubo
 dialog.prefs.theme_dark = Mnyama
 dialog.prefs.theme_light = Khanya
 dialog.prefs.grid_spacing = Izithuba zegridi

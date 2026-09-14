@@ -128,6 +128,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = ምርጫታት
 dialog.prefs.theme = መልክዕ
+dialog.prefs.theme_system = ስርዓት
 dialog.prefs.theme_dark = ጸልማት
 dialog.prefs.theme_light = ብሩህ
 dialog.prefs.grid_spacing = ርሕቀት መርበብ

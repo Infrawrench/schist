@@ -128,6 +128,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Saýlamalar
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Ulgam
 dialog.prefs.theme_dark = Garaňky
 dialog.prefs.theme_light = Ýagty
 dialog.prefs.grid_spacing = Gözenek aralygy

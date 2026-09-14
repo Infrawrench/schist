@@ -114,6 +114,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Preferans
 dialog.prefs.theme = Tèm
+dialog.prefs.theme_system = Sistèm
 dialog.prefs.theme_dark = Fonse
 dialog.prefs.theme_light = Klè
 dialog.prefs.grid_spacing = Espas kadriyaj

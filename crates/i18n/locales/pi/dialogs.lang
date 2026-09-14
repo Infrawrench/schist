@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = {folders}to āharitaṃ
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Abhiruciyo
 dialog.prefs.theme = Vaṇṇākāro
+dialog.prefs.theme_system = Vyavasthā
 dialog.prefs.theme_dark = Andhakāro
 dialog.prefs.theme_light = Obhāso
 dialog.prefs.grid_spacing = Jālāntaraṃ

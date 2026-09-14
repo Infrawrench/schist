@@ -137,6 +137,7 @@ dialog.plugins.loaded_from = Lódáilte ó {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Sainroghanna
 dialog.prefs.theme = Téama
+dialog.prefs.theme_system = Córas
 dialog.prefs.theme_dark = Dorcha
 dialog.prefs.theme_light = Geal
 dialog.prefs.grid_spacing = Spásáil greille

@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = {folders} मधून लोड केले
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = प्राधान्ये
 dialog.prefs.theme = दृश्यरूप
+dialog.prefs.theme_system = प्रणाली
 dialog.prefs.theme_dark = गडद
 dialog.prefs.theme_light = फिकट
 dialog.prefs.grid_spacing = जाळीतील अंतर

@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Ji {folders} hat barkirin
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Vebijark
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sîstem
 dialog.prefs.theme_dark = Tarî
 dialog.prefs.theme_light = Ronî
 dialog.prefs.grid_spacing = Navbera torê

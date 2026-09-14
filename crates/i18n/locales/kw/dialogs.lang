@@ -145,6 +145,7 @@ dialog.plugins.loaded_from = Kargys dhyworth {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Dewisyow
 dialog.prefs.theme = Thema
+dialog.prefs.theme_system = System
 dialog.prefs.theme_dark = Tewl
 dialog.prefs.theme_light = Golow
 dialog.prefs.grid_spacing = Pellter grid

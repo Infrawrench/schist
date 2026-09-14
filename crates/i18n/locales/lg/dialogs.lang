@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Zitikkiddwa okuva mu {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = By'oyagala
 dialog.prefs.theme = Endabika
+dialog.prefs.theme_system = Enkola
 dialog.prefs.theme_dark = Enzirugavu
 dialog.prefs.theme_light = Entangaavu
 dialog.prefs.grid_spacing = Ebanga ly'akatimba

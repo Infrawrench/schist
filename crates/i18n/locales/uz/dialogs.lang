@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = {folders} dan yuklangan
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Parametrlar
 dialog.prefs.theme = Mavzu
+dialog.prefs.theme_system = Tizim
 dialog.prefs.theme_dark = To‘q
 dialog.prefs.theme_light = Och
 dialog.prefs.grid_spacing = To‘r oralig‘i

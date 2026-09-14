@@ -123,6 +123,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Likhetho
 dialog.prefs.theme = Ponahalo
+dialog.prefs.theme_system = Sistimi
 dialog.prefs.theme_dark = Lefifi
 dialog.prefs.theme_light = Khanya
 dialog.prefs.grid_spacing = Sekheo sa keriti

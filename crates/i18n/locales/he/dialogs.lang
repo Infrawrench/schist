@@ -121,6 +121,7 @@ dialog.plugins.loaded_from = נטענו מתוך {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = העדפות
 dialog.prefs.theme = ערכת נושא
+dialog.prefs.theme_system = מערכת
 dialog.prefs.theme_dark = כהה
 dialog.prefs.theme_light = בהירה
 dialog.prefs.grid_spacing = מרווח הרשת

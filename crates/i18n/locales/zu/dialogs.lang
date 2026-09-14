@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Kulayishwe ku-{folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Okuncanyelwayo
 dialog.prefs.theme = Itimu
+dialog.prefs.theme_system = Isistimu
 dialog.prefs.theme_dark = Okumnyama
 dialog.prefs.theme_light = Okukhanyayo
 dialog.prefs.grid_spacing = Isikhala segridi

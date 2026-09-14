@@ -128,6 +128,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Mapendeleo
 dialog.prefs.theme = Mandhari
+dialog.prefs.theme_system = Mfumo
 dialog.prefs.theme_dark = Nyeusi
 dialog.prefs.theme_light = Angavu
 dialog.prefs.grid_spacing = Nafasi za gridi

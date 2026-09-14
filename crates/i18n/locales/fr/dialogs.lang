@@ -121,6 +121,7 @@ dialog.plugins.loaded_from = Chargés depuis {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Préférences
 dialog.prefs.theme = Thème
+dialog.prefs.theme_system = Système
 dialog.prefs.theme_dark = Sombre
 dialog.prefs.theme_light = Clair
 dialog.prefs.grid_spacing = Pas de la grille

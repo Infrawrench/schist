@@ -24,8 +24,6 @@ impl Workspace {
         };
         let (view, intent) = *snapshot;
         let gpu_changed = view.gpu_compositing != self.view.gpu_compositing;
-        #[cfg(not(any(target_os = "ios", target_os = "android")))]
-        let theme_changed = view.theme != self.view.theme;
         #[cfg(not(target_arch = "wasm32"))]
         let sync_changed = self.view.camera_sync.enabled != view.camera_sync.enabled;
         #[cfg(not(target_arch = "wasm32"))]
@@ -52,10 +50,6 @@ impl Workspace {
             // The caches hold tiles composited by the other backend; the
             // dialog's own toggle drops them and reverting has to as well.
             self.rebuild_after_backend_change(cx);
-        }
-        #[cfg(not(any(target_os = "ios", target_os = "android")))]
-        if theme_changed {
-            self.set_theme_quiet(self.view.theme);
         }
         self.rebuild_color_transforms();
         self.save_view_options();
@@ -189,12 +183,11 @@ impl Workspace {
         cx.notify();
     }
 
-    /// Change the chrome theme and persist it. Callers repaint themselves
-    /// (dialog dropdowns already notify).
+    /// Persist the theme choice; the next render resolves its palette.
+    /// Callers repaint themselves (dialog dropdowns already notify).
     #[cfg(not(any(target_os = "ios", target_os = "android")))]
     pub fn set_theme_quiet(&mut self, theme: Theme) {
         self.view.theme = theme;
-        crate::ui::set_light(theme == Theme::Light);
         self.save_view_options();
     }
 

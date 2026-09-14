@@ -105,6 +105,7 @@ dialog.plugins.loaded_from = I utaina i {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Ngā Manakohanga
 dialog.prefs.theme = Kaupapa
+dialog.prefs.theme_system = Pūnaha
 dialog.prefs.theme_dark = Pōuri
 dialog.prefs.theme_light = Mārama
 dialog.prefs.grid_spacing = Mokowā mātiti

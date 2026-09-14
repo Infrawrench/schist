@@ -129,6 +129,7 @@ dialog.plugins.loaded_from = Air an luchdadh o {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Roghainnean
 dialog.prefs.theme = Ùrlar
+dialog.prefs.theme_system = Siostam
 dialog.prefs.theme_dark = Dorcha
 dialog.prefs.theme_light = Soilleir
 dialog.prefs.grid_spacing = Beàrnadh na grioda

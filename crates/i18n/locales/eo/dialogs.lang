@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Ŝargita el {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Agordoj
 dialog.prefs.theme = Etoso
+dialog.prefs.theme_system = Sistemo
 dialog.prefs.theme_dark = Malhela
 dialog.prefs.theme_light = Hela
 dialog.prefs.grid_spacing = Krada interspaco

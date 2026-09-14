@@ -114,6 +114,7 @@ dialog.plugins.loaded_from = Ngarkuar nga {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Parapëlqimet
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Sistemi
 dialog.prefs.theme_dark = E errët
 dialog.prefs.theme_light = E çelët
 dialog.prefs.grid_spacing = Hapësira e rrjetës

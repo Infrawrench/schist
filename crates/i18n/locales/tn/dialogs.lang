@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = Di laisitswe go tswa {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = Dikgetho
 dialog.prefs.theme = Theme
+dialog.prefs.theme_system = Tsamaiso
 dialog.prefs.theme_dark = Lefifi
 dialog.prefs.theme_light = Lesedi
 dialog.prefs.grid_spacing = Sekgala sa keriti

@@ -122,6 +122,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Voorkeure
 dialog.prefs.theme = Tema
+dialog.prefs.theme_system = Stelsel
 dialog.prefs.theme_dark = Donker
 dialog.prefs.theme_light = Lig
 dialog.prefs.grid_spacing = Roosterspasiëring

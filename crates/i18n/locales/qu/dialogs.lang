@@ -117,6 +117,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Munasqakuna
 dialog.prefs.theme = Rikch'ay
+dialog.prefs.theme_system = Llikacha
 dialog.prefs.theme_dark = Tutayaq
 dialog.prefs.theme_light = K'anchaq
 dialog.prefs.grid_spacing = Tawa tawa siq'ikunap karun

@@ -113,6 +113,7 @@ dialog.plugins.loaded_from = بارگیری‌شده از {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 dialog.prefs.title = ترجیحات
 dialog.prefs.theme = پوسته
+dialog.prefs.theme_system = سیستم
 dialog.prefs.theme_dark = تیره
 dialog.prefs.theme_light = روشن
 dialog.prefs.grid_spacing = فاصلهٔ شبکه
