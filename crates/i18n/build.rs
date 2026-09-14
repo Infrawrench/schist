@@ -51,7 +51,7 @@ fn dictionary(sources: &[String]) -> Vec<u8> {
     let mut selected = Vec::new();
     let mut size = 0;
     for (_, text) in ranked.into_iter().rev() {
-        if size + text.len() + 1 <= DICTIONARY_BYTES {
+        if size + text.len() < DICTIONARY_BYTES {
             selected.push(text);
             size += text.len() + 1;
         }
