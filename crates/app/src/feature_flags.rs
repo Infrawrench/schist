@@ -84,8 +84,8 @@ mod tests {
     }
 
     #[test]
-    fn cloud_is_opt_in_and_independent_of_gpu_compositing() {
-        assert!(!evaluate("schist-cloud", &parse_overrides(None)));
+    fn cloud_is_enabled_by_default_and_independent_of_gpu_compositing() {
+        assert!(evaluate("schist-cloud", &parse_overrides(None)));
         let overrides =
             parse_overrides(Some(r#"{"schist-cloud": true, "gpu-compositing": false}"#));
         assert!(evaluate("schist-cloud", &overrides));

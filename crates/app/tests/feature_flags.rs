@@ -8,15 +8,15 @@ use std::process::Command;
 #[test]
 fn feature_flag_environment_overrides() {
     for (overrides, gpu, cloud) in [
-        (None, true, false),
-        (Some(r#"{"gpu-compositing": false}"#), false, false),
-        (Some(r#"{"gpu-compositing": true}"#), true, false),
-        (Some(r#"{"gpu-compositing": "false"}"#), true, false),
-        (Some("not json"), true, false),
-        (Some(r#"{"unknown": true}"#), true, false),
+        (None, true, true),
+        (Some(r#"{"gpu-compositing": false}"#), false, true),
+        (Some(r#"{"gpu-compositing": true}"#), true, true),
+        (Some(r#"{"gpu-compositing": "false"}"#), true, true),
+        (Some("not json"), true, true),
+        (Some(r#"{"unknown": true}"#), true, true),
         (Some(r#"{"schist-cloud": true}"#), true, true),
         (Some(r#"{"schist-cloud": false}"#), true, false),
-        (Some(r#"{"schist-cloud": "true"}"#), true, false),
+        (Some(r#"{"schist-cloud": "false"}"#), true, true),
         (
             Some(r#"{"schist-cloud": true, "gpu-compositing": false}"#),
             false,
