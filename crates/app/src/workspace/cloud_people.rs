@@ -7,6 +7,102 @@ use schist_cloud::{protocol::value, Face, FaceRect, Value};
 use schist_i18n::{t, tf, tn};
 use schist_ui::Badge;
 
+const PREVIEW_PX: u32 = 64;
+
+impl super::cloud::CloudState {
+    /// Crop once per source image and face box, using local People's crop and
+    /// padding. RenderImage already holds BGRA: resampling preserves that order.
+    pub(super) fn face_preview_image(
+        &mut self,
+        image: &Arc<RenderImage>,
+        rect: &FaceRect,
+    ) -> Option<Arc<RenderImage>> {
+        let coordinates = [rect.x, rect.y, rect.w, rect.h];
+        let dimensions = image.size(0);
+        let width = u32::from(dimensions.width);
+        let height = u32::from(dimensions.height);
+        if width == 0
+            || height == 0
+            || !coordinates.iter().all(|v| v.is_finite())
+            || rect.w <= 0.0
+            || rect.h <= 0.0
+        {
+            return None;
+        }
+        let key = (image.id, coordinates.map(f32::to_bits));
+        if let Some(crop) = self.face_previews.get(&key) {
+            return Some(crop.clone());
+        }
+        let rect = schist_gallery::FaceRect {
+            x: rect.x,
+            y: rect.y,
+            w: rect.w,
+            h: rect.h,
+        };
+        let pixels = schist_gallery::face_crop_rgba(
+            image.as_bytes(0)?,
+            width,
+            height,
+            &rect,
+            schist_gallery::AVATAR_GROW,
+            PREVIEW_PX,
+        )?;
+        let buffer = image::RgbaImage::from_raw(PREVIEW_PX, PREVIEW_PX, pixels)?;
+        let crop = Arc::new(RenderImage::new(smallvec![image::Frame::new(buffer)]));
+        self.face_previews.insert(key, crop.clone());
+        Some(crop)
+    }
+}
+
+fn face_preview(
+    cloud: &mut super::cloud::CloudState,
+    image: Option<Arc<RenderImage>>,
+    rect: &FaceRect,
+    size: f32,
+) -> gpui::AnyElement {
+    let mut frame = div()
+        .w(px(size))
+        .h(px(size))
+        .flex_none()
+        .rounded_full()
+        .overflow_hidden()
+        .bg(gpui::rgb(pal().cell_edge));
+    if let Some(image) = image.and_then(|image| cloud.face_preview_image(&image, rect)) {
+        frame = frame.child(img(image).w(px(size)).h(px(size)).rounded_full());
+    }
+    frame.into_any_element()
+}
+
+pub(super) fn naming_preview(
+    ws: &mut Workspace,
+    fields: &[(&str, String, String)],
+) -> Option<gpui::AnyElement> {
+    let get = |key| {
+        fields
+            .iter()
+            .find(|(k, _, _)| *k == key)
+            .map(|(_, _, v)| v.as_str())
+    };
+    let asset = ws
+        .cloud
+        .assets
+        .iter()
+        .find(|a| Some(a.id.as_str()) == get("cloud-asset-id"))?;
+    let rect = asset
+        .faces
+        .iter()
+        .find(|face| Some(face.id.as_str()) == get("cloud-face-id"))
+        .map(|face| face.rect.clone())
+        .or_else(|| serde_json::from_str::<FaceRect>(get("cloud-face-rect")?).ok())?;
+    let image = ws
+        .cloud
+        .thumbnails
+        .get(&asset.id)
+        .filter(|(revision, _)| *revision == asset.revision)
+        .map(|(_, image)| image.clone());
+    Some(face_preview(&mut ws.cloud, image, &rect, 64.0))
+}
+
 /// The cloud's people, drawn like the local PEOPLE rows: a round badge,
 /// the name, a count, and the actions on the right-click menu. Signed
 /// out, or before the provider has looked, there is nothing to list.
@@ -34,7 +130,7 @@ pub(crate) fn rows(
             .colors(pal().text_dim, pal().text_dim)
     };
     let person_row = |id: SharedString,
-                      glyph: &'static str,
+                      portrait: gpui::AnyElement,
                       name: String,
                       count: u64,
                       selected: bool,
@@ -79,7 +175,7 @@ pub(crate) fn rows(
                 }),
             );
         }
-        row.child(badge(glyph))
+        row.child(portrait)
             .child(div().flex_grow().truncate().child(SharedString::from(name)))
             .child(
                 div()
@@ -90,9 +186,23 @@ pub(crate) fn rows(
             .into_any_element()
     };
     for person in &people.people {
+        let portrait = person
+            .avatar
+            .as_ref()
+            .map(|avatar| {
+                let image = ws.cloud.avatar_source(avatar).and_then(|(revision, _)| {
+                    ws.cloud
+                        .thumbnails
+                        .get(&avatar.asset_id)
+                        .filter(|(r, _)| *r == revision)
+                        .map(|(_, image)| image.clone())
+                });
+                face_preview(&mut ws.cloud, image, &avatar.rect, 20.0)
+            })
+            .unwrap_or_else(|| badge(CLOUD_GLYPH).into_any_element());
         rows.push(person_row(
             SharedString::from(format!("cloud-person-{}", person.id)),
-            CLOUD_GLYPH,
+            portrait,
             person.name.clone(),
             person.asset_count,
             viewing.as_deref() == Some(&person.id),
@@ -104,7 +214,7 @@ pub(crate) fn rows(
     if people.unnamed > 0 {
         rows.push(person_row(
             "cloud-person-unnamed".into(),
-            "?",
+            badge("?").into_any_element(),
             t("cloud.people.unnamed_faces_row").into(),
             people.unnamed,
             viewing.as_deref() == Some("unnamed"),
@@ -223,7 +333,13 @@ pub(crate) fn viewer(
         .cloned();
     let mut body = div().flex().flex_col().gap_2();
     if let Some(asset) = asset {
-        if let Some((_, image)) = ws.cloud.thumbnails.get(&asset.id).cloned() {
+        let image = ws
+            .cloud
+            .thumbnails
+            .get(&asset.id)
+            .filter(|(revision, _)| *revision == asset.revision)
+            .map(|(_, image)| image.clone());
+        if let Some(image) = image.clone() {
             let size = image.size(0);
             let ratio = u32::from(size.width) as f32 / u32::from(size.height) as f32;
             let width = 520.0_f32.min(380.0 * ratio);
@@ -355,19 +471,20 @@ pub(crate) fn viewer(
                         .iter()
                         .find(|p| &p.id == id)
                 })
-                .map(|p| p.name.as_str())
-                .unwrap_or(t("cloud.people.unnamed"));
+                .map(|p| p.name.clone())
+                .unwrap_or_else(|| t("cloud.people.unnamed").to_string());
             let a = asset.clone();
             let f = face.clone();
             let mut row = div()
                 .flex()
                 .gap_2()
                 .items_center()
+                .child(face_preview(&mut ws.cloud, image.clone(), &face.rect, 48.0))
                 .child(chrome::gallery_button(
                     if face.automatic {
                         tf!("cloud.people.auto_suffix", name = person)
                     } else {
-                        person.to_string()
+                        person
                     },
                     false,
                     move |ws, _, cx| ws.cloud_face_name(&a, Some(&f), None, cx),

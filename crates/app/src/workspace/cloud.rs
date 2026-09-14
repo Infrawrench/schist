@@ -176,6 +176,7 @@ pub(crate) struct CloudState {
     pub show: bool,
     pub message: String,
     pub thumbnails: HashMap<String, (u64, Arc<RenderImage>)>,
+    pub(super) face_previews: HashMap<(gpui::ImageId, [u32; 4]), Arc<RenderImage>>,
     thumbnail_jobs: HashSet<(String, u64)>,
     thumbnail_active: usize,
     pub folders: Vec<Folder>,
@@ -305,6 +306,7 @@ impl Default for CloudState {
             show: false,
             message: t("cloud.msg.not_signed_in").into(),
             thumbnails: HashMap::new(),
+            face_previews: HashMap::new(),
             thumbnail_jobs: HashSet::new(),
             thumbnail_active: 0,
             folders: vec![],
@@ -373,6 +375,61 @@ impl Drop for CloudState {
     }
 }
 impl CloudState {
+    /// Resolve older avatar metadata from the page when possible. New providers
+    /// include a ticket so the sidebar also works for photos outside that page.
+    pub(super) fn avatar_source(
+        &self,
+        avatar: &remote::PersonAvatar,
+    ) -> Option<(u64, Option<String>)> {
+        if let Some(revision) = avatar.revision {
+            return Some((revision, avatar.thumbnail_url.clone()));
+        }
+        self.assets
+            .iter()
+            .chain(&self.map_assets)
+            .find(|asset| asset.id == avatar.asset_id)
+            .map(|asset| (asset.revision, asset.thumbnail_url.clone()))
+    }
+    fn wanted_thumbnails(&self) -> Vec<(String, u64, Option<String>)> {
+        // Cloud people remain visible beside local albums, even with the cloud
+        // grid closed. Keep their source photos in the shared thumbnail cache.
+        let portraits = self
+            .people
+            .iter()
+            .flat_map(|people| &people.people)
+            .filter_map(|person| {
+                let avatar = person.avatar.as_ref()?;
+                let (revision, url) = self.avatar_source(avatar)?;
+                Some((avatar.asset_id.clone(), revision, url))
+            });
+        let sources = portraits.chain(
+            self.assets
+                .iter()
+                .chain(
+                    self.map_assets
+                        .iter()
+                        .filter(|a| self.map_wanted.contains(&a.id)),
+                )
+                .filter(|_| self.show)
+                .map(|a| (a.id.clone(), a.revision, a.thumbnail_url.clone())),
+        );
+        let mut positions = HashMap::new();
+        let mut wanted: Vec<(String, u64, Option<String>)> = Vec::new();
+        for source in sources {
+            let position = *positions.entry(source.0.clone()).or_insert(wanted.len());
+            if position == wanted.len() {
+                wanted.push(source);
+            } else {
+                // A map snapshot may still refer to an earlier revision. One
+                // source per photo keeps an old response from replacing it.
+                let current = &mut wanted[position];
+                if source.1 > current.1 || (source.1 == current.1 && current.2.is_none()) {
+                    *current = source;
+                }
+            }
+        }
+        wanted
+    }
     pub(crate) fn is_loading(&self) -> bool {
         self.account.is_some() && !self.loaded && self.load_error.is_none()
     }
@@ -608,7 +665,9 @@ impl Workspace {
         self.cloud.pending.clear();
         self.cloud.docs.clear();
         self.cloud.assets.clear();
+        self.cloud.people = None;
         self.cloud.thumbnails.clear();
+        self.cloud.face_previews.clear();
         self.cloud.library_total = None;
         self.cloud.thumbnail_jobs.clear();
         self.cloud.thumbnail_active = 0;
@@ -718,29 +777,17 @@ impl Workspace {
         }
     }
     fn cloud_load_thumbnails(&mut self) {
-        if !self.cloud.show {
+        if self.cloud.account.is_none() {
             return;
         }
         // A small worker pool bounds the network; decoded thumbnails
         // stay for a few pages, so paging back is instant, and only an
         // overfull cache falls back to the page on show.
-        // The page's photos, then whatever the world map's markers asked
-        // for this frame.
-        let wanted: Vec<(String, u64, Option<String>)> = self
-            .cloud
-            .assets
-            .iter()
-            .chain(
-                self.cloud
-                    .map_assets
-                    .iter()
-                    .filter(|a| self.cloud.map_wanted.contains(&a.id)),
-            )
-            .map(|a| (a.id.clone(), a.revision, a.thumbnail_url.clone()))
-            .collect();
+        let wanted = self.cloud.wanted_thumbnails();
         let visible: HashSet<String> = wanted.iter().map(|(id, _, _)| id.clone()).collect();
         if self.cloud.thumbnails.len() > THUMBNAIL_CACHE {
             self.cloud.thumbnails.retain(|id, _| visible.contains(id));
+            self.cloud.face_previews.clear();
         }
         self.cloud
             .thumbnail_jobs
@@ -819,6 +866,17 @@ impl Workspace {
                     image,
                 } if epoch == self.cloud.epoch => {
                     self.cloud.thumbnail_active = self.cloud.thumbnail_active.saturating_sub(1);
+                    // A face's source may have changed revision while its old
+                    // thumbnail was downloading. Do not replace the new image.
+                    if !self
+                        .cloud
+                        .wanted_thumbnails()
+                        .iter()
+                        .any(|(wanted, r, _)| wanted == &id && *r == revision)
+                    {
+                        self.cloud.thumbnail_jobs.remove(&(id, revision));
+                        continue;
+                    }
                     match image {
                         Some(image) => {
                             self.cloud.thumbnail_failed.remove(&id);
@@ -1060,6 +1118,10 @@ impl Workspace {
                 self.cloud.folders.clear();
                 self.cloud.buckets.clear();
                 self.cloud.thumbnails.clear();
+                self.cloud.face_previews.clear();
+                self.cloud.thumbnail_jobs.clear();
+                self.cloud.thumbnail_active = 0;
+                self.cloud.thumbnail_failed.clear();
                 self.cloud.selected.clear();
                 self.cloud.people = None;
                 self.cloud.total = 0;
@@ -1089,6 +1151,7 @@ impl Workspace {
                 }
                 if subscription_id == self.cloud.watching {
                     self.cloud.people = snapshot.people;
+                    self.cloud.face_previews.clear();
                 }
                 match subscription_id.as_str() {
                     id if id == self.cloud.folders_watch => {
@@ -3733,6 +3796,116 @@ pub(super) fn rgba_to_render_image(
 #[cfg(test)]
 mod cloud_lifecycle_tests {
     use super::*;
+    #[test]
+    fn face_previews_preserve_color_and_cache_by_source_and_rectangle() {
+        let mut state = CloudState::default();
+        let image = rgba_to_render_image(120, 60, [230, 40, 10, 255].repeat(120 * 60)).unwrap();
+        let mut rect = remote::FaceRect {
+            x: 0.8,
+            y: 0.2,
+            w: 0.2,
+            h: 0.4,
+        };
+        let crop = state.face_preview_image(&image, &rect).unwrap();
+        assert_eq!(u32::from(crop.size(0).width), 64);
+        assert_eq!(u32::from(crop.size(0).height), 64);
+        // GPUI consumes BGRA, including crops cut from an existing RenderImage.
+        assert_eq!(&crop.as_bytes(0).unwrap()[..4], &[10, 40, 230, 255]);
+        assert!(Arc::ptr_eq(
+            &crop,
+            &state.face_preview_image(&image, &rect).unwrap()
+        ));
+        rect.x = 0.0;
+        assert!(!Arc::ptr_eq(
+            &crop,
+            &state.face_preview_image(&image, &rect).unwrap()
+        ));
+        let replacement =
+            rgba_to_render_image(120, 60, [10, 40, 230, 255].repeat(120 * 60)).unwrap();
+        assert_eq!(
+            &state
+                .face_preview_image(&replacement, &rect)
+                .unwrap()
+                .as_bytes(0)
+                .unwrap()[..4],
+            &[230, 40, 10, 255]
+        );
+        rect.w = f32::NAN;
+        assert!(state.face_preview_image(&image, &rect).is_none());
+    }
+    #[test]
+    fn people_thumbnails_load_outside_the_page_and_while_browsing_local_photos() {
+        let mut state = CloudState::default();
+        state.assets.push(binding("on-page").asset);
+        state.people = Some(
+            serde_json::from_value(serde_json::json!({
+                "enabled": true, "pending": 0, "unnamed": 0,
+                "people": [{"id": "ann", "name": "Ann", "asset_count": 1,
+                    "avatar": {"asset_id": "off-page", "revision": 7,
+                        "thumbnail_url": "https://cloud.test/portrait",
+                        "rect": {"x": 0.1, "y": 0.2, "w": 0.3, "h": 0.4}}}]
+            }))
+            .unwrap(),
+        );
+        let portrait = (
+            "off-page".into(),
+            7,
+            Some("https://cloud.test/portrait".into()),
+        );
+        assert_eq!(state.wanted_thumbnails(), vec![portrait.clone()]);
+        state.show = true;
+        assert_eq!(
+            state.wanted_thumbnails(),
+            vec![portrait, ("on-page".into(), 1, None)]
+        );
+        let avatar = state.people.as_mut().unwrap().people[0]
+            .avatar
+            .as_mut()
+            .unwrap();
+        avatar.revision = Some(8);
+        assert_eq!(state.wanted_thumbnails()[0].1, 8);
+        // Multiple people, the page and stale map markers may share a photo.
+        // Fetch it once, using the newest revision and its matching URL.
+        let mut source = binding("off-page").asset;
+        source.revision = 9;
+        source.thumbnail_url = Some("https://cloud.test/new-portrait".into());
+        state.assets.push(source.clone());
+        source.revision = 7;
+        source.thumbnail_url = Some("https://cloud.test/stale-portrait".into());
+        state.map_assets.push(source);
+        state.map_wanted.insert("off-page".into());
+        assert_eq!(
+            state.wanted_thumbnails(),
+            vec![
+                (
+                    "off-page".into(),
+                    9,
+                    Some("https://cloud.test/new-portrait".into())
+                ),
+                ("on-page".into(), 1, None),
+            ]
+        );
+        state.people = None;
+        state.show = false;
+        assert!(state.wanted_thumbnails().is_empty());
+    }
+    #[test]
+    fn legacy_people_avatars_use_the_page_thumbnail_when_available() {
+        let mut state = CloudState::default();
+        let mut asset = binding("photo").asset;
+        asset.thumbnail_url = Some("https://cloud.test/thumbnail".into());
+        state.assets.push(asset);
+        let avatar: remote::PersonAvatar = serde_json::from_value(serde_json::json!({
+            "asset_id": "photo", "rect": {"x": 0.1, "y": 0.2, "w": 0.3, "h": 0.4}
+        }))
+        .unwrap();
+        assert_eq!(
+            state.avatar_source(&avatar),
+            Some((1, Some("https://cloud.test/thumbnail".into())))
+        );
+        state.assets.clear();
+        assert_eq!(state.avatar_source(&avatar), None);
+    }
     #[cfg(not(target_arch = "wasm32"))]
     #[test]
     fn oversized_and_empty_files_do_not_discard_the_valid_batch() {

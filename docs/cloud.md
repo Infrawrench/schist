@@ -139,6 +139,12 @@ a signed download ticket the provider serves without credentials (format
 `thumbnail`, revision-bound). The client fetches a page's worth through a
 small worker pool, decodes WebP/PNG/JPEG at up to 256 px, and shows "no
 preview" for an asset whose URL is absent or whose fetch failed.
+People portraits use the same queue and cache, including while the local gallery
+is open. Each person's optional `avatar` carries `asset_id`, `rect`, `revision`
+and a signed `thumbnail_url`, so its photo need not be on the current page. The
+sidebar, face viewer and naming dialog frame the face with the local People
+album's square crop and padding. Older providers without avatar tickets can use
+a source thumbnail already present on the page; missing previews keep a placeholder.
 
 Drag local gallery photos, a watched local folder, or files/folders from the file
 manager into a cloud bucket or folder to upload them. Local originals remain in
