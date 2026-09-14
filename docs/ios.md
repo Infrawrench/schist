@@ -74,6 +74,12 @@ and `ui::touch()` is the one switch. Documents open through the system
 document picker and save through it too; the Documents folder is visible
 in the Files app (`UIFileSharingEnabled`) and the gallery watches it.
 
+The editor and gallery follow the system's light or dark appearance, including
+changes while the app is open. GPUI reads UIKit's
+[`userInterfaceStyle`](https://developer.apple.com/documentation/uikit/uitraitcollection/userinterfacestyle)
+through `Window::appearance()`. Preferences has no colour scheme option on iOS;
+previously saved theme values are ignored.
+
 **Video.** Import accepts photos and videos from Photos; Files and other apps
 can open movies in Schist too. AVFoundation provides silent playback, frame
 stepping, full-resolution frame capture and the nearby sharper-frame search.

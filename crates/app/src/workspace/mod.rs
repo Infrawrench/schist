@@ -764,6 +764,7 @@ pub enum ScreenMode {
 }
 
 /// Light or dark chrome.
+#[cfg(not(any(target_os = "ios", target_os = "android")))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, serde::Serialize, serde::Deserialize)]
 pub enum Theme {
     #[default]
@@ -771,6 +772,7 @@ pub enum Theme {
     Light,
 }
 
+#[cfg(not(any(target_os = "ios", target_os = "android")))]
 impl Theme {
     /// The name shown in Preferences, in the user's language.
     pub fn label(self) -> &'static str {
@@ -793,6 +795,10 @@ pub struct ViewOptions {
     pub extras: bool,
     pub snap: bool,
     pub grid_spacing: f32,
+    /// Mobile follows the window's system appearance; old saved theme
+    /// values are ignored there and omitted when preferences are saved.
+    #[cfg(not(any(target_os = "ios", target_os = "android")))]
+    #[serde(default)]
     pub theme: Theme,
     /// Scroll zooms instead of panning (Photoshop's "Zoom with Scroll
     /// Wheel"). Useful on touchpads, where pinch gestures never arrive —
@@ -915,6 +921,7 @@ impl Default for ViewOptions {
             extras: true,
             snap: true,
             grid_spacing: 64.0,
+            #[cfg(not(any(target_os = "ios", target_os = "android")))]
             theme: Theme::Dark,
             zoom_with_scroll: false,
             crash_reports: false,

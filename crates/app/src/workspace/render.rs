@@ -585,6 +585,12 @@ impl Render for Workspace {
         }
         // Every colour below comes from the palette, so the theme must be
         // selected before any child renders.
+        #[cfg(any(target_os = "ios", target_os = "android"))]
+        crate::ui::set_light(matches!(
+            window.appearance(),
+            gpui::WindowAppearance::Light | gpui::WindowAppearance::VibrantLight
+        ));
+        #[cfg(not(any(target_os = "ios", target_os = "android")))]
         crate::ui::set_light(self.view.theme == Theme::Light);
         // Whichever dropdown renders open this frame registers itself.
         crate::ui::reset_open_dropdown();

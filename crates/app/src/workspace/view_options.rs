@@ -24,6 +24,7 @@ impl Workspace {
         };
         let (view, intent) = *snapshot;
         let gpu_changed = view.gpu_compositing != self.view.gpu_compositing;
+        #[cfg(not(any(target_os = "ios", target_os = "android")))]
         let theme_changed = view.theme != self.view.theme;
         #[cfg(not(target_arch = "wasm32"))]
         let sync_changed = self.view.camera_sync.enabled != view.camera_sync.enabled;
@@ -52,6 +53,7 @@ impl Workspace {
             // dialog's own toggle drops them and reverting has to as well.
             self.rebuild_after_backend_change(cx);
         }
+        #[cfg(not(any(target_os = "ios", target_os = "android")))]
         if theme_changed {
             self.set_theme_quiet(self.view.theme);
         }
@@ -189,6 +191,7 @@ impl Workspace {
 
     /// Change the chrome theme and persist it. Callers repaint themselves
     /// (dialog dropdowns already notify).
+    #[cfg(not(any(target_os = "ios", target_os = "android")))]
     pub fn set_theme_quiet(&mut self, theme: Theme) {
         self.view.theme = theme;
         crate::ui::set_light(theme == Theme::Light);

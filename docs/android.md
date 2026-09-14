@@ -83,6 +83,12 @@ is up), and everything sized for a pointer grows to a 44pt target
 gallery strip as an iPhone does (`ui::compact()`); a tablet has the
 desktop's layout at touch sizes.
 
+The editor and gallery follow the system's light or dark appearance, including
+changes while the app is open. GPUI reads the configuration's
+[night mode](https://developer.android.com/develop/ui/views/theming/darktheme)
+through `Window::appearance()`. Preferences has no colour scheme option on
+Android; previously saved theme values are ignored.
+
 **Menus.** Android has no menu bar of its own and no native menus, so
 the in-window bar is always drawn, and it opens the desktop's own
 drop-downs: a tap on a title opens its menu (a tap rather than a press,

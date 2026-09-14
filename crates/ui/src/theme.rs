@@ -95,8 +95,9 @@ pub const LIGHT: Palette = Palette {
 static LIGHT_THEME: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
 
 /// Select the palette that [`palette`] returns. The application calls
-/// this every frame from the persisted preference, so widgets built
-/// during that render (and canvas paint callbacks after it) all agree.
+/// this every frame from the system appearance on mobile or the persisted
+/// preference elsewhere, so widgets built during that render (and canvas
+/// paint callbacks after it) all agree.
 pub fn set_light(light: bool) {
     LIGHT_THEME.store(light, std::sync::atomic::Ordering::Relaxed);
 }

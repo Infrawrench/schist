@@ -26,35 +26,34 @@ pub(super) fn preferences(
         .map(|p| p.display().to_string())
         .unwrap_or_else(|| t("dialog.no_config_dir").into());
 
-    let body = div()
-        .flex()
-        .flex_col()
-        .gap_1()
-        .child(ui::field_row(
-            t("dialog.prefs.theme"),
-            ui::dropdown(
-                &ws.dropdown,
-                ui::Dropdown {
-                    popup: Popup::Field("pref-theme"),
-                    is_open: state.open_popup == Some(Popup::Field("pref-theme")),
-                    current: view.theme,
-                    label: view.theme.label().into(),
-                    width: 150.0,
-                    options: vec![
-                        (
-                            crate::workspace::Theme::Dark.label().into(),
-                            crate::workspace::Theme::Dark,
-                        ),
-                        (
-                            crate::workspace::Theme::Light.label().into(),
-                            crate::workspace::Theme::Light,
-                        ),
-                    ],
-                },
-                |ws, theme, _cx| ws.set_theme_quiet(theme),
-                cx,
-            ),
-        ))
+    let body = div().flex().flex_col().gap_1();
+    #[cfg(not(any(target_os = "ios", target_os = "android")))]
+    let body = body.child(ui::field_row(
+        t("dialog.prefs.theme"),
+        ui::dropdown(
+            &ws.dropdown,
+            ui::Dropdown {
+                popup: Popup::Field("pref-theme"),
+                is_open: state.open_popup == Some(Popup::Field("pref-theme")),
+                current: view.theme,
+                label: view.theme.label().into(),
+                width: 150.0,
+                options: vec![
+                    (
+                        crate::workspace::Theme::Dark.label().into(),
+                        crate::workspace::Theme::Dark,
+                    ),
+                    (
+                        crate::workspace::Theme::Light.label().into(),
+                        crate::workspace::Theme::Light,
+                    ),
+                ],
+            },
+            |ws, theme, _cx| ws.set_theme_quiet(theme),
+            cx,
+        ),
+    ));
+    let body = body
         .child(ui::field_row(
             t("dialog.prefs.grid_spacing"),
             ui::num_field(
