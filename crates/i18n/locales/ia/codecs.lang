@@ -1,0 +1,37 @@
+# Nomines de formatos e messages de importation.
+
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Raw de camera
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = decodification de {name}
+codec.msg.zero_sized = le imagine non ha pixels
+codec.msg.assembling_document = assemblage del documento
+
+codec.raw.msg.decoding = decodification del file raw
+codec.raw.msg.developing = developpamento del file raw
+codec.raw.msg.finding_preview = cerca del previsualisation incorporate
+codec.raw.msg.decoding_preview = decodification del previsualisation incorporate
+codec.raw.msg.decoder_panicked = le decodificator raw falleva con iste file: {what}
+
+codec.affinity.import_title = Importation Affinity
+codec.affinity.flattened_preview_layer = Previsualisation applanate
+codec.affinity.msg.no_preview = Necun previsualisation incorporate usabile. Le formato a stratos de Affinity es proprietari; Schist importa le previsualisation applanate portate per le file. Iste file non contine un — salva lo de novo in Affinity, o exporta lo como PSD pro un importation complete a stratos.
+
+codec.heif.msg.no_library = libheif non es disponibile ({details}). Aperir HEIC require le bibliotheca libheif (Linux: installa libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — iste compilation de libheif pote non includer un decodificator HEVC (sur Debian/Ubuntu, installa libheif-plugin-libde265)
+codec.heif.msg.unknown_error = error incognite
+codec.heif.msg.initialising = initialisation de libheif
+codec.heif.msg.reading_container = lectura del contentor HEIF
+codec.heif.msg.finding_primary_image = cerca del imagine primari
+codec.heif.msg.reading_icc_profile = lectura del profilo ICC
+codec.heif.msg.decoding_image = decodification del imagine
+codec.heif.msg.checksum_mismatch = Le summa de controlo de {name} non corresponde: expectate {expected}, obtenite {got}
+codec.heif.msg.imageio_cannot_read = ImageIO non poteva leger le contentor HEIF
+codec.heif.msg.container_empty = le contentor HEIF non contine imagines
+codec.heif.msg.imageio_cannot_decode = ImageIO non poteva decodificar le imagine primari

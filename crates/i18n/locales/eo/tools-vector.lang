@@ -1,0 +1,44 @@
+# Vektoraj iloj
+tool.pen.name = Plumo
+tool.pen.description = Konstruu kurbon: alklaku por angula ankropunkto, trenu por eltiri ĝiajn kurbtenilojn, kaj alklaku la unuan punkton por fermi. Konfirmo transformas la kurbon en forman tavolon.
+tool.pen.option.rubber_band = Elasta streko
+tool.pen.history.fill = Plenigi kurbon
+tool.pen.default_path_name = Kurbo {n}
+tool.pen.freeform.name = Libermana plumo
+tool.pen.freeform.description = Trenu libermanan linion, kiu estos adaptita al kurbo tiel loze, kiel indikas la opcio Adapto.
+tool.pen.freeform.option.fit = Adapto
+tool.pen.curvature.name = Kurba plumo
+tool.pen.curvature.description = Alklaku sinsekvon de punktoj, kaj la kurbo glate pasos tra ili.
+
+tool.path_select.name = Kurba elekto
+tool.path_select.description = Alklaku kurbon por elekti ĝin, kaj trenu por movi la tutan kurbon.
+tool.direct_select.name = Rekta elekto
+tool.direct_select.description = Trenu unuopan ankropunkton aŭ ĝiajn tenilojn por reformi la kurbon ĉirkaŭ ĝi.
+
+tool.shape.history.layer = Tavolo {name}
+tool.shape.rect.name = Rektangula ilo
+tool.shape.rect.label = Rektangulo
+tool.shape.rect.description = Trenu rektangulan forman tavolon per la malfona koloro; ĝi restas vektora kaj estas denove rastrumata post ŝanĝo de grando.
+tool.shape.ellipse.name = Elipsa ilo
+tool.shape.ellipse.label = Elipso
+tool.shape.ellipse.description = Trenu elipsan forman tavolon per la malfona koloro.
+tool.shape.line.name = Linia ilo
+tool.shape.line.label = Linio
+tool.shape.line.description = Trenu rektan linian forman tavolon per la malfona koloro.
+tool.shape.line.option.weight = Dikeco
+tool.shape.line.option.arrow_start = Komenco
+tool.shape.line.option.arrow_end = Fino
+tool.shape.polygon.name = Plurangula ilo
+tool.shape.polygon.label = Plurangulo
+tool.shape.polygon.description = Trenu regulan plurangulan forman tavolon per la malfona koloro, kun la nombro de lateroj elektita en la opcioj.
+tool.shape.polygon.option.sides = Lateroj
+
+tool.shape.custom.name = Propra formo
+tool.shape.custom.label = Propra formo
+tool.shape.custom.description = Trenu unu el la enkonstruitaj antaŭagorditaj formoj, elektitan per la opcio Formo.
+tool.shape.custom.choice.heart = Koro
+tool.shape.custom.choice.star = Stelo
+tool.shape.custom.choice.arrow = Sago
+tool.shape.custom.choice.lightning = Fulmo
+tool.shape.custom.choice.cross = Kruco
+tool.shape.custom.choice.speech_bubble = Parolveziko

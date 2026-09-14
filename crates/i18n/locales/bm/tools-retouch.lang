@@ -1,0 +1,24 @@
+# Ja labɛn kokura baarakɛminɛnw
+tool.patch.name = Patch
+tool.patch.description = I ka kɛrɛ taamasiyɛnnen sama ka fili yɔrɔ lamini, ka o sugandili sama ka taa pikisɛli saniyalenw kan; olu tɛksitiri bɛ da fili yɔrɔ la. Patch cogoya bɛ a jira i bɛ fili yɔrɔ walima saniya yɔrɔ min sama.
+tool.patch.option.patch = Patch
+tool.patch.choice.source = Bɔyɔrɔ
+tool.patch.choice.destination = Taa yɔrɔ
+tool.patch.history.patch = Patch
+
+tool.content_aware_move.name = Kɔnɔkow faamuyalen lamagali
+tool.content_aware_move.description = I ka fɛn sugandilen sama ka taa yɔrɔ wɛrɛ la; dingɛ min bɛ to a kɔ, a laminifɛnw bɛ o fa. Yirali cogoya la, fɛn bɛ janya, a tɛ lamaga.
+tool.content_aware_move.choice.move = Lamaga
+tool.content_aware_move.choice.extend = Yiriwa
+tool.content_aware_move.history.move = Kɔnɔkow faamuyalen lamagali
+
+tool.red_eye.name = Ɲɛkisɛ wulen
+tool.red_eye.description = Ɲɛkisɛ digi ka flaashi wulennama bɔ a la.
+tool.red_eye.option.pupil_size = Ɲɛkisɛ bonya
+tool.red_eye.option.darken = Finya
+tool.red_eye.history.red_eye = Ɲɛkisɛ wulen
+
+tool.magic_eraser.name = Bɔlan kabakoma
+tool.magic_eraser.description = Digi ka kulɛri ɲɔgɔnna yɔrɔ min bɛ kurukuru jukɔrɔ, o bɔ baarakɛminɛn ka dan kɔnɔ: a bɛ se ka kɛ digi yɔrɔ la yɔrɔ dafalenw dɔrɔn ye, walima kaliki fan bɛɛ.
+tool.magic_eraser.option.contiguous = Da kelen
+tool.magic_eraser.history.erase = Bɔlan kabakoma

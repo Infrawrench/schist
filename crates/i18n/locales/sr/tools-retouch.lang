@@ -1,0 +1,24 @@
+# Алатке за ретуширање области.
+tool.patch.name = Закрпа
+tool.patch.description = Превуците контуру око недостатка, па тај избор превуците преко чистих пиксела: њихова текстура се уклапа у недостатак. Режим закрпе одређује који крај пара превлачите.
+tool.patch.option.patch = Закрпа
+tool.patch.choice.source = Извор
+tool.patch.choice.destination = Одредиште
+tool.patch.history.patch = Закрпа
+
+tool.content_aware_move.name = Померање с обзиром на садржај
+tool.content_aware_move.description = Превуците изабрани објекат на друго место, а празнина коју остави попуниће се на основу околине. У режиму Прошири објекат се растеже уместо да се помери.
+tool.content_aware_move.choice.move = Помери
+tool.content_aware_move.choice.extend = Прошири
+tool.content_aware_move.history.move = Померање с обзиром на садржај
+
+tool.red_eye.name = Црвене очи
+tool.red_eye.description = Кликните на зеницу да уклоните црвенило изазвано блицем.
+tool.red_eye.option.pupil_size = Величина зенице
+tool.red_eye.option.darken = Потамни
+tool.red_eye.history.red_eye = Црвене очи
+
+tool.magic_eraser.name = Чаробна гумица
+tool.magic_eraser.description = Кликните да обришете област сличне боје испод показивача, унутар толеранције алатке — повезану с местом клика или свуда у слоју.
+tool.magic_eraser.option.contiguous = Суседно
+tool.magic_eraser.history.erase = Чаробна гумица

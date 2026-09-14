@@ -1,0 +1,156 @@
+# د کړکۍ او سیسټم غورنۍ پټه.
+
+# دوتنه
+menu.file = دوتنه
+menu.file.new = نوی
+menu.file.open = پرانیستل…
+menu.file.open_recent = وروستۍ پرانیستل
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = نندارتون لټول…
+menu.file.close = تړل
+menu.file.save = ساتل
+menu.file.save_as = په بل نوم ساتل…
+menu.file.export = صادرول…
+menu.file.export_submenu = صادرول
+menu.file.export_artboards = هنرتختې PNG ته…
+menu.file.export_slices = ټوټې PNG ته…
+menu.file.save_to_photos = په انځورونو کې ساتل
+menu.file.plugins = پلګ‌اینونه…
+menu.file.missing_fonts = ورکې لیکبڼې…
+menu.file.check_for_updates = اوسمهالونه کتل…
+menu.file.quit = وتل
+menu.file.add_folder_to_gallery = نندارتون ته پوښۍ زیاتول…
+menu.file.import_from_photos = له انځورونو راوړل…
+menu.file.import_from_camera = له کامرې راوړل…
+
+# سمون
+menu.edit = سمون
+menu.edit.fill = ډکول…
+menu.edit.stroke = کرښه وهل…
+menu.edit.content_aware_fill = له منځپانګې خبر ډکول
+menu.edit.content_aware_scale = له منځپانګې خبر کچول…
+menu.edit.puppet_warp = ګوډاګي کږول
+menu.edit.free_transform = خپلواک بدلون
+menu.edit.transform = بدلون
+menu.edit.rotate_180 = 180° څرخ
+menu.edit.rotate_90_cw = 90° ساعت‌لوري ته څرخ
+menu.edit.rotate_90_ccw = 90° د ساعت خلاف څرخ
+menu.edit.flip_horizontal = افقي اړول
+menu.edit.flip_vertical = عمودي اړول
+
+# انځور
+menu.image = انځور
+menu.image.mode = حالت
+menu.image.adjustments = سمونونه
+menu.image.auto_tone = خپلکار ټون
+menu.image.auto_contrast = خپلکار توپیر
+menu.image.auto_color = خپلکار رنګ
+menu.image.image_size = د انځور کچه…
+menu.image.canvas_size = د انځورپاڼې کچه…
+menu.image.image_rotation = د انځور څرخون
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° ساعت‌لوري ته
+menu.image.rotate_90_ccw = 90° د ساعت خلاف
+menu.image.flip_canvas_horizontal = انځورپاڼه افقي اړول
+menu.image.flip_canvas_vertical = انځورپاڼه عمودي اړول
+menu.image.crop_to_selection = تر ټاکنې پرېکول
+menu.image.trim = څنډې پرېکول
+menu.image.assign_profile = پېژنیال ټاکل…
+menu.image.convert_to_profile = پېژنیال ته اړول…
+
+# ټاکنه
+menu.select = ټاکنه
+menu.select.color_range = د رنګ لړۍ…
+menu.select.modify = بدلول
+menu.select.border = پوله…
+menu.select.smooth = هوارول…
+menu.select.expand = پراخول…
+menu.select.contract = راټولول…
+menu.select.feather = نرمول…
+menu.select.transform_selection = د ټاکنې بدلون
+
+# طبقه
+menu.layer = طبقه
+menu.layer.layer_style = د طبقې بڼه…
+menu.layer.layer_comps = د طبقو جوړښتونه
+menu.layer.new_layer_comp = د طبقو نوی جوړښت
+menu.layer.delete_layer_comp = {name} ړنګول
+menu.layer.path = لار
+menu.layer.fill_path = لار ډکول
+menu.layer.stroke_path = پر لار کرښه وهل
+menu.layer.make_selection = ټاکنه جوړول
+menu.layer.delete_path = لار ړنګول
+
+# برابرول
+menu.adjust = سمون
+
+# چاڼګر
+menu.filter = چاڼګر
+menu.filter.filter_gallery = د چاڼګرو نندارتون…
+menu.filter.liquify = مایع کول
+menu.filter.vanishing_point = د ورکېدو ټکی
+menu.filter.manage_models = موډلونه اداره کول…
+menu.filter.camera_raw_development = د Camera Raw پراختیا…
+
+# لید
+menu.view = لید
+menu.view.rotate_view_cw = لید ساعت‌لوري ته څرخ
+menu.view.rotate_view_ccw = لید د ساعت خلاف څرخ
+menu.view.reset_view = لید بیا ټاکل
+menu.view.zoom_in = لید لویول
+menu.view.zoom_out = لید کوچنی کول
+menu.view.fit_on_screen = پر پرده برابرول
+menu.view.actual_size = 100%
+menu.view.rulers = خط‌کشونه
+menu.view.grid = جالۍ
+menu.view.guides = لارښودونه
+menu.view.notes = یادښتونه
+menu.view.ai_panel = د AI چوکاټ
+menu.view.extras = اضافي توکي
+menu.view.snap = نښلول
+menu.view.clear_guides = لارښودونه پاکول
+menu.view.clear_notes = یادښتونه پاکول
+menu.view.clear_count = شمېرنه پاکول
+menu.view.screen_mode = د پردې حالت
+menu.view.proof_colors = د رنګونو ازموینه
+# د سیسټم غورنۍ کې نښې نشته؛ نو د بدلوونکې کړنې نوم څرګندوي چې په کېکاږلو به څه وشي.
+menu.view.show_rulers = خط‌کشونه ښودل
+menu.view.hide_rulers = خط‌کشونه پټول
+menu.view.show_grid = جالۍ ښودل
+menu.view.hide_grid = جالۍ پټول
+menu.view.show_guides = لارښودونه ښودل
+menu.view.hide_guides = لارښودونه پټول
+menu.view.show_notes = یادښتونه ښودل
+menu.view.hide_notes = یادښتونه پټول
+menu.view.show_extras = اضافي توکي ښودل
+menu.view.hide_extras = اضافي توکي پټول
+menu.view.enable_snapping = نښلول فعالول
+menu.view.disable_snapping = نښلول غیرفعالول
+menu.view.enable_proof_colors = د رنګونو ازموینه فعالول
+menu.view.disable_proof_colors = د رنګونو ازموینه غیرفعالول
+
+# نندارتون
+menu.gallery = نندارتون
+menu.gallery.edit_selected = ټاکل شوی سمول
+menu.gallery.refresh = تازه کول
+menu.gallery.map_filter = د نقشې چاڼګر…
+menu.gallery.back_to_editor = سمونګر ته ستنېدل
+
+# د Schist Cloud فرعي غورنۍ
+menu.cloud.browse = Schist Cloud لټول
+menu.cloud.generate = انځورونه جوړول…
+menu.cloud.upload = Schist Cloud ته سند پورته کول…
+menu.cloud.sign_out = له Schist Cloud څخه وتل
+menu.cloud.sign_in = Schist Cloud ته ننوتل…
+
+# د macOS اپ غورنۍ
+menu.app.services = خدمتونه
+menu.app.hide = {app} پټول
+menu.app.hide_others = نور پټول
+menu.app.show_all = ټول ښودل
+menu.app.quit = له {app} وتل
+
+# د هغو غورنۍ توکو لپاره د حالت ځوابونه چې عمل نشي کولی
+menu.status.transform_selection_needs_selection = د ټاکنې بدلون یوې ټاکنې ته اړتیا لري
+menu.status.crop_needs_selection = تر ټاکنې پرېکول یوې ټاکنې ته اړتیا لري
+menu.status.select_photo_to_edit = د سمون لپاره یو انځور وټاکئ

@@ -1,0 +1,30 @@
+# მონიშვნის ხელსაწყოები
+tool.select.mode.subtract = გამოკლება
+tool.select.mode.intersect = გადაკვეთა
+
+tool.marquee.rect.name = მართკუთხა მონიშვნა
+tool.marquee.rect.description = გადათრევით შექმენით მართკუთხა მონიშნული არე. გადათრევის დაწყებისას Shift მონიშნულ არეს დაამატებს, Alt გამოაკლებს, ორივე ერთად კი გადაკვეთას დატოვებს; გადათრევისას Shift მართკუთხედს კვადრატად აქცევს. გადათრევის გარეშე დაწკაპუნება მონიშვნას ხსნის.
+tool.marquee.ellipse.name = ელიფსური მონიშვნა
+tool.marquee.ellipse.description = გადათრევით შექმენით ელიფსური მონიშნული არე; Shift/Alt-ით გაერთიანება ისევე მუშაობს, როგორც მართკუთხა მონიშვნისას.
+
+tool.lasso.name = ლასო
+tool.lasso.description = ხელით შემოხაზეთ კონტური; გადათრევის დასრულებისას მისი ბოლოები შეერთდება. Shift ამატებს, Alt კი აკლებს.
+tool.lasso.history.select = ლასოთი მონიშვნა
+tool.lasso.polygonal.name = მრავალკუთხა ლასო
+tool.lasso.polygonal.description = სწორკიდიანი მონიშვნის ასაგებად თანმიმდევრულად დაწკაპუნეთ კუთხეებზე; დასახურად პირველ წერტილთან ახლოს დაწკაპუნეთ.
+tool.lasso.polygonal.history.select = მრავალკუთხა ლასო
+tool.lasso.magnetic.name = მაგნიტური ლასო
+tool.lasso.magnetic.description = დაახლოებით გაჰყევით კიდეს და კონტური გზასთან ახლოს უდიდეს კონტრასტს მიებმება.
+tool.lasso.magnetic.history.select = მაგნიტური ლასო
+tool.lasso.magnetic.option.frequency = სიხშირე
+
+tool.wand.name = ჯადოსნური ჯოხი
+tool.wand.description = დაწკაპუნებით მონიშნეთ მაჩვენებლის ქვეშ მსგავსი ფერის მომიჯნავე უბანი მითითებული დაშვების ფარგლებში — იმავე დაშვებას იყენებს გაზრდა, მსგავსი და ფერთა დიაპაზონი.
+tool.wand.option.contiguous = მომიჯნავე
+tool.wand.history.select = ჯადოსნური ჯოხი
+tool.quick_select.name = სწრაფი მონიშვნა
+tool.quick_select.description = გადაუსვით უბანს და მონიშნული არე ფუნჯის გზაზე მდებარე მსგავს პიქსელებზე გავრცელდება.
+tool.quick_select.history.select = სწრაფი მონიშვნა
+tool.object_select.name = ობიექტის მონიშვნა
+tool.object_select.description = ობიექტის გარშემო ჩარჩო შემოხაზეთ და მონიშნული არე შიგნით აღმოჩენილ ობიექტს მოერგება.
+tool.object_select.history.select = ობიექტის მონიშვნა

@@ -1,0 +1,72 @@
+tool.brush.name = Libhulashi
+tool.brush.description = Penda umugca lonemiphetfo letsambile ngembala wangembili, lobukhulu bawo bulawulwa bukhulu belibhulashi, kucina nekungabonakali ngale kwemhleli.
+tool.brush.history.stroke = Libhulashi
+
+tool.pencil.name = Ipenseli
+tool.pencil.description = Penda umugca lonemiphetfo lecinile lengakatsambiswa, ngembala wangembili.
+tool.pencil.history.stroke = Ipenseli
+
+tool.eraser.name = Sisuli
+tool.eraser.description = Sula ulandzele umugca, ubuyisele luhlaka ekubonakaleni ngale.
+tool.eraser.history.stroke = Sisuli
+
+tool.clone.name = Sitembu Sekukopisha
+tool.clone.description = Sitembu Sekukopisha: chafata nge-alt kuze usethe liphuzu leliwumtfombo, bese upenda emaphikseli lakopishwe kulo kuloko kuphambuka.
+tool.clone.history.stroke = Sitembu Sekukopisha
+
+tool.dodge.name = Khanyisa
+tool.dodge.description = Khanyisa emaphikseli ladlulwe ngumugca.
+tool.dodge.history.stroke = Khanyisa
+tool.burn.name = Shisa
+tool.burn.description = Yenta emaphikseli ladlulwe ngumugca abe mnyama.
+tool.burn.history.stroke = Shisa
+tool.sponge.name = Sipontji
+tool.sponge.description = Gcwalisa nobe unciphise umbala wemaphikseli ladlulwe ngumugca.
+tool.sponge.history.stroke = Sipontji
+
+tool.blur.name = Fiphata
+tool.blur.description = Fiphata emaphikseli ladlulwe ngumugca.
+tool.blur.history.stroke = Fiphata
+tool.sharpen.name = Lola
+tool.sharpen.description = Lola emaphikseli ladlulwe ngumugca.
+tool.sharpen.history.stroke = Lola
+tool.smudge.name = Gcobisa
+tool.smudge.description = Hudvula umbala ulandzele umugca, kube shangatsi udvudvula pende lomanti.
+tool.smudge.history.stroke = Gcobisa
+
+tool.heal.name = Libhulashi Lekulungisa
+tool.heal.description = Libhulashi Lekulungisa: chafata nge-alt kuze usethe umtfombo, bese upenda; kwakheka kwebuso bemtfombo kuhlanganiswa nembala nekukhanya kwendzawo lekuyiwa kuyo.
+tool.heal.history.stroke = Libhulashi Lekulungisa
+tool.spot_heal.name = Libhulashi Lekulungisa Emabala
+tool.spot_heal.description = Libhulashi Lekulungisa Emabala: penda etikwelibala bese kufakwa kwakheka kwebuso lokutsatfwe endzaweni lelitungeletile -- kute liphuzu leliwumtfombo lokufanele lisethwe.
+tool.spot_heal.history.stroke = Libhulashi Lekulungisa Emabala
+
+tool.history_brush.name = Libhulashi Lemlandvo
+tool.history_brush.description = Penda emaphikseli uwabuyise kusuka esitfombeni sesimo semlandvo wedokhumenti, uhlehlise umsebenti lowentiwe ngemuva kwaloko umugca ngemugca.
+tool.history_brush.history.stroke = Libhulashi Lemlandvo
+
+tool.background_eraser.name = Sisuli Sangemuva
+tool.background_eraser.description = Sula umbala lotsatfwe ngekhatsi kwelibhulashi bese ushiya emaphikseli langafani nawo, kuze ukhiphe intfo lengembili esendlalelweni sayo sangemuva.
+tool.background_eraser.history.stroke = Sisuli Sangemuva
+
+tool.gradient.name = Lushintjombala
+tool.gradient.description = Hudvula kuze ugcwalise luhlaka -- udlule kulokukhetsiwe nangabe kukhona -- ngelushintjombala lolulandzela umugca kusuka embala wangembili kuya embala wangemuva, lulandzele kuhudvula.
+tool.gradient.radial.name = Lushintjombala Lwendilinga
+tool.gradient.radial.description = Hudvula kusuka emkhatsini uye ngaphandle kuze ugcwalise ngelushintjombala lwendilinga emkhatsini wembala wangembili newangemuva.
+tool.gradient.option.gradient = Lushintjombala
+tool.gradient.option.reverse = Phindzisela Emuva
+tool.gradient.option.dither = Hlanganisa Emachashati
+tool.gradient.choice.foreground_to_background = Wangembili Kuya Wangemuva
+tool.gradient.choice.foreground_to_transparent = Wangembili Kuya Kulokubonakala Ngale
+tool.gradient.choice.linear = Lokulandzela Umugca
+tool.gradient.choice.radial = Lwendilinga
+tool.gradient.choice.angle = I-engeli
+tool.gradient.choice.reflected = Lokuboniswe Esibukweni
+tool.gradient.choice.diamond = Idayimane
+tool.gradient.history.gradient = Lushintjombala
+
+tool.bucket.name = Libhakede Lapende
+tool.bucket.description = Chafata kuze ugcwalise indzawo lehlanganako yembala lofananako longephansi kwesikhombi ngembala wangembili, ngekhatsi kwemkhawulo welithuluzi.
+tool.bucket.option.contiguous = Lokuhlanganako
+tool.bucket.option.all_layers = Tonkhe Tinhlaka
+tool.bucket.history.fill = Libhakede Lapende

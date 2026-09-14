@@ -1,0 +1,36 @@
+# Ochr gweithle'r bar ochr AI a'r harneisiau asiant y tu ôl iddo.
+
+# Bar statws
+ai.status.panel_shown = Panel AI wedi'i ddangos
+ai.status.panel_hidden = Panel AI wedi'i guddio — mae Golwg ▸ Panel AI ({shortcut}) yn dod ag ef yn ôl
+ai.status.tool = AI: {name}
+
+# Rhesi pylu yn y trawsgrifiad
+ai.info.connected = {backend} wedi cysylltu
+ai.info.now_in_gallery = Yn yr oriel bellach.
+ai.info.now_in_editor = Yn y golygydd bellach.
+ai.tool.shell_command = gorchymyn plisgyn
+
+# Gwallau yn y trawsgrifiad
+ai.error.cli_missing = Nid yw CLI {backend} (“{binary}”) ar PATH. Gosodwch ef a mewngofnodwch iddo yn gyntaf.
+ai.error.endpoint_failed = methwyd cychwyn pwynt terfyn MCP: {error}
+ai.error.binding_endpoint = rhwymo pwynt terfyn MCP
+ai.error.spawning_endpoint_thread = cychwyn edefyn pwynt terfyn MCP
+ai.error.runtime_failed = methwyd cychwyn amgylchedd rhedeg yr asiant: {error}
+ai.error.worker_failed = methwyd cychwyn gweithiwr {backend}: {error}
+ai.error.did_not_start = ni chychwynnodd {backend}: {error}
+ai.error.switch_model_failed = methwyd newid model: {error}
+ai.error.send_failed = methwyd anfon yr anogwr: {error}
+ai.error.interrupt_failed = methwyd torri ar draws: {error}
+ai.error.locating_binary = canfod deuaidd Schist
+ai.error.starting_app_server = cychwyn gweinydd ap Codex
+ai.error.attaching_app_server = cysylltu â gweinydd ap Codex
+ai.error.initializing_app_server = ymgychwyn gweinydd ap Codex
+ai.error.resuming_thread = ailddechrau edefyn Codex
+ai.error.starting_thread = cychwyn edefyn Codex
+
+# Catalog wrth gefn y dewisydd model
+ai.model.opus_detail = Yr haen fwyaf galluog
+ai.model.sonnet_detail = Effeithlon ar gyfer tasgau arferol
+ai.model.haiku_detail = Cyflymaf ar gyfer atebion cyflym
+ai.model.codex_catalog = Catalog Codex

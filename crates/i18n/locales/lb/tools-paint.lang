@@ -1,0 +1,73 @@
+# Molwierkzeugen, Verleef a Faarfeemer.
+tool.brush.name = Pinsel
+tool.brush.description = Moolt e Stréch mat mëllem Rand an der Virdergrondfaarf; d'Gréisst, d'Häert an d'Deckkraaft gi vun de Pinselastellunge vum Editeur bestëmmt.
+tool.brush.history.stroke = Pinselstréch
+
+tool.pencil.name = Bläistëft
+tool.pencil.description = Moolt e Stréch mat haardem Rand an ouni Kantenglättung an der Virdergrondfaarf.
+tool.pencil.history.stroke = Bläistëftstréch
+
+tool.eraser.name = Gummi
+tool.eraser.description = Läscht laanscht de Stréch a mécht d'Eben do erëm transparent.
+tool.eraser.history.stroke = Gummistréch
+
+tool.clone.name = Kopéierstempel
+tool.clone.description = Kopéierstempel: Klickt mat Alt, fir de Quellpunkt festzeleeën, a moolt dann d'Pixel, déi mat deem Versaz dovu kopéiert ginn.
+tool.clone.history.stroke = Kopéierstempel
+
+tool.dodge.name = Ofhalen
+tool.dodge.description = Hellt d'Pixel op, iwwer déi de Stréch geet.
+tool.dodge.history.stroke = Ofhalen
+tool.burn.name = Nobeliichten
+tool.burn.description = Donkelt d'Pixel of, iwwer déi de Stréch geet.
+tool.burn.history.stroke = Nobeliichten
+tool.sponge.name = Schwamm
+tool.sponge.description = Erhéicht oder verréngert d'Saturatioun vun de Pixel, iwwer déi de Stréch geet.
+tool.sponge.history.stroke = Schwamm
+
+tool.blur.name = Onschaarfzeechnen
+tool.blur.description = Mécht d'Pixel onscharf, iwwer déi de Stréch geet.
+tool.blur.history.stroke = Onschaarfzeechnen
+tool.sharpen.name = Schaarfzeechnen
+tool.sharpen.description = Mécht d'Pixel méi schaarf, iwwer déi de Stréch geet.
+tool.sharpen.history.stroke = Schaarfzeechnen
+tool.smudge.name = Verwëschen
+tool.smudge.description = Zitt d'Faarf laanscht de Stréch, wéi wann Dir naass Faarf géift drécken.
+tool.smudge.history.stroke = Verwëschen
+
+tool.heal.name = Reparaturpinsel
+tool.heal.description = Reparaturpinsel: Klickt mat Alt, fir d'Quell festzeleeën, a moolt dann; d'Textur vun der Quell gëtt mat der eegener Faarf a Beliichtung vum Zil vermëscht.
+tool.heal.history.stroke = Reparaturpinsel
+tool.spot_heal.name = Beräichsreparaturpinsel
+tool.spot_heal.description = Beräichsreparaturpinsel: Moolt iwwer eng Feelstell; se gëtt duerch Textur aus hirer Ëmgéigend ersat, ouni datt e Quellpunkt festgeluecht muss ginn.
+tool.spot_heal.history.stroke = Beräichsreparaturpinsel
+
+tool.history_brush.name = Protokollpinsel
+tool.history_brush.description = Moolt Pixel aus dem gespäicherten Zoustand vum Dokument zeréck a mécht spéider Aarbecht Stréch fir Stréch réckgängeg.
+tool.history_brush.history.stroke = Protokollpinsel
+
+tool.background_eraser.name = Hannergrondgummi
+tool.background_eraser.description = Läscht déi Faarf, déi ënner der Mëtt vum Pinsel iwwerholl gëtt, a léisst aner Pixel onverännert, fir e Sujet vu sengem Hannergrond ze trennen.
+tool.background_eraser.history.stroke = Hannergrondgummi
+
+tool.gradient.name = Verlaf
+tool.gradient.description = Zitt, fir d'Eben — duerch d'Auswiel, wann eng besteet — mat engem lineare Verlaf vun der Virdergrond- an d'Hannergrondfaarf an Zuchrichtung ze fëllen.
+tool.gradient.radial.name = Radiale Verlaf
+tool.gradient.radial.description = Zitt vun der Mëtt no baussen, fir mat engem radiale Verlaf tëscht der Virdergrond- an der Hannergrondfaarf ze fëllen.
+tool.gradient.option.gradient = Verlaf
+tool.gradient.option.reverse = Ëmdréinen
+tool.gradient.option.dither = Dithering
+tool.gradient.choice.foreground_to_background = Virdergrond op Hannergrond
+tool.gradient.choice.foreground_to_transparent = Virdergrond op Transparent
+tool.gradient.choice.linear = Linear
+tool.gradient.choice.radial = Radial
+tool.gradient.choice.angle = Wénkel
+tool.gradient.choice.reflected = Gespigelt
+tool.gradient.choice.diamond = Diamant
+tool.gradient.history.gradient = Verlaf
+
+tool.bucket.name = Faarfeemer
+tool.bucket.description = Klickt, fir de verbonne Beräich mat änlecher Faarf ënner dem Mauszeiger bannent der Toleranz vum Wierkzeug mat der Virdergrondfaarf ze fëllen.
+tool.bucket.option.contiguous = Zesummenhängend
+tool.bucket.option.all_layers = All Ebenen
+tool.bucket.history.fill = Faarfeemer

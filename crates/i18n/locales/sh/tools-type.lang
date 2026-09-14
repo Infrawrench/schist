@@ -1,0 +1,22 @@
+tool.type.name = Tekst
+tool.type.description = Kliknite kako biste na tom mjestu započeli tekstni sloj ili kliknite postojeći da biste ga uredili. Dok je otvoren, alat prihvaća izravne pritiske tipki (znakove šaljite kao unos tipkovnicom), a potvrdom se sloj iscrtava i uređivanje zatvara.
+
+tool.type.option.align = Poravnanje
+tool.type.option.leading = Prored
+tool.type.option.tracking = Razmak između znakova
+tool.type.option.kerning = Podrezivanje
+tool.type.option.ligatures = Ligature
+tool.type.option.discretionary_ligatures = Dodatne ligature
+tool.type.option.small_caps = Kapitalke
+tool.type.option.on_path = Na aktivnoj putanji
+tool.type.option.path_offset = Odmak od putanje
+
+tool.type.choice.regular = Obično
+tool.type.choice.bold = Podebljano
+tool.type.choice.italic = Kurziv
+tool.type.choice.bold_italic = Podebljani kurziv
+
+tool.type.history.new_layer = Novi tekstni sloj
+tool.type.history.edit = Uredi tekst
+tool.type.history.discard = Odbaci tekst
+tool.type.history.discard_empty = Odbaci prazan tekst

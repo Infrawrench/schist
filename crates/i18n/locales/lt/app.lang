@@ -1,0 +1,39 @@
+app.filter_gallery.title = Filtrų galerija
+app.filter_gallery.stack = Rietuvė (taikoma iš apačios į viršų)
+app.filter_gallery.no_settings = Šis filtras neturi nustatymų.
+
+app.fonts.not_open_licensed = neturi atvirosios licencijos · {substitute} atitinka jo metriką
+app.fonts.missing_substituted = trūksta · tekstas renkamas pakaitiniu šriftu
+app.fonts.not_in_catalogue = {family} nėra atvirųjų šriftų kataloge
+app.fonts.no_faces = nėra atsisiunčiamų {family} šrifto variantų
+app.fonts.empty_response = tuščias atsakas
+
+app.update.unreadable_response = neperskaitomas atsakas: {error}
+app.update.no_temp_dir = nėra laikinojo aplanko, į kurį būtų galima atsisiųsti
+app.update.asset_has_path = leidime išteklius pavadintas su keliu
+app.update.too_big = atsisiuntimas didesnis, nei nurodyta leidime
+app.update.stopped_at = atsisiuntimas sustojo ties {got} iš {total} baitų
+app.update.hash_mismatch = atsisiuntimo maišos reikšmė yra {got}, o ne {want}
+app.update.not_in_bundle = ši kopija nėra programos paketo viduje
+app.update.no_parent_dir = programos paketas neturi pirminio aplanko
+app.update.cannot_write = nepavyksta rašyti į {dir}
+app.update.cannot_move_aside = nepavyksta patraukti {app}
+app.update.cannot_move_in = nepavyksta perkelti naujo paketo į vietą
+app.update.cannot_run_ditto = nepavyksta paleisti /usr/bin/ditto
+app.update.unpack_failed = nepavyko išskleisti atsisiuntimo: {error}
+app.update.no_app_in_download = atsisiuntime nėra Schist.app
+app.update.cannot_run_codesign = nepavyksta paleisti /usr/bin/codesign
+app.update.signature_invalid = nepavyko patikrinti atsisiuntimo parašo: {error}
+app.update.download_unsigned = ši kopija pasirašyta, o atsisiuntimas – ne
+app.update.different_developer = atsisiuntimą pasirašė kitas kūrėjas
+app.update.cannot_relaunch = nepavyksta paleisti paleidimo iš naujo programos
+app.update.not_installed_copy = diegimo programa neįdėjo šios kopijos į šią vietą
+app.update.cannot_start_installer = nepavyksta paleisti diegimo programos
+app.update.platform_unsupported = šioje platformoje naujiniai diegiami tokiu pačiu būdu kaip Schist
+
+app.vulkan.no_loader = schist: šioje sistemoje nėra „Vulkan“ įkėliklio, todėl nėra kuo piešti.\n\nSchist atvaizduoja per „Vulkan“, o `libvulkan.so.1` neįdiegta.\nReikia ir įkėliklio, ir tvarkyklės:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: šiam seansui nurodytos „Vulkan“ tvarkyklės nėra.\n\nNustatytas {var}, o ši nuostata *pakeičia* įkėliklio vykdomą\ntvarkyklių paiešką, o ne ją papildo. Taigi šie neegzistuojantys failai\nyra visas tvarkyklių sąrašas, todėl nė viena šio seanso „Vulkan“ programa\nnemato jokios tvarkyklės, kad ir kiek jų būtų įdiegta:\n\n{missing}\n    {var}={value}\n\nNurodykite esamą deklaracijos failą – įdiegtos tvarkyklės savąjį įrašo į\n/usr/share/vulkan/icd.d – arba pašalinkite kintamojo nuostatą ir leiskite\nįkėlikliui pačiam atlikti paiešką. Jei seansas šį kintamąjį nustato\nkonfigūracijos faile („Hyprland“ `env =`, „systemd“ environment.d\nįterpinyje ar apvalkalo profilyje), jį reikia pakeisti ten, o kad pakeitimas\npasiektų jau veikiančias programas, reikia iš naujo prisijungti.\n
+app.vulkan.override_note = \n{var} nustatytas kaip {value}, ir tai pakeičia įkėliklio paiešką:\njei nė viena iš tų deklaracijų neskirta šiam kompiuteriui, pirmiausia\nverta pabandyti pašalinti šio kintamojo nuostatą.\n
+app.vulkan.no_driver = schist: neįdiegta jokia „Vulkan“ tvarkyklė, todėl nėra kuo piešti.\n\nSchist atvaizduoja per „Vulkan“. Įkėliklis įdiegtas, bet neranda jokios\ntvarkyklės – nė viena neužregistruota nė vienoje iš dviejų ieškomų vietų:\n\n{dirs}\n\nĮkėliklis platinamas atskirai nuo tvarkyklių, todėl dažniausiai trūksta\nvieno paketo.\n\nĮdiekite šio kompiuterio grafikos procesoriui skirtą paketą:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA nuosavybinė tvarkyklė turi savąją (`nvidia-utils` sistemoje „Arch“,\n`nvidia-driver` sistemoje „Debian“). Virtualiojoje mašinoje arba kitur,\nkur nėra diegtinos grafikos procesoriaus tvarkyklės, tinka programinis\nrastrizatorius: `vulkan-swrast` sistemoje „Arch“, o kitur jis yra\n`mesa-vulkan-drivers` dalis. Jis lėtas, bet pasileidžia.\n{overridden}
+app.vulkan.no_device = schist: „Vulkan“ tvarkyklė įdiegta, bet nepateikia įrenginio, kuriuo būtų galima atvaizduoti.\n\nTvarkyklė gali netikti šiam grafikos procesoriui arba jo nepasiekti –\nnaudojant SSH ar konteinerį dažnai trūksta /dev/dri. Komanda\n`vulkaninfo --summary` parodo, ką mato įkėliklis.\n\nJei šiame kompiuteryje išvis nėra grafikos procesoriaus, be jo atvaizduoja\nprograminis rastrizatorius: `vulkan-swrast` sistemoje „Arch“, o „Debian“\nir „Fedora“ sistemose jis yra `mesa-vulkan-drivers` dalis.\n
+app.vulkan.skip_hint = Jei vis tiek norite paleisti Schist ir leisti jai savaip patirti klaidą, nustatykite {var}=1.

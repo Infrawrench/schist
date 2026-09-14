@@ -1,0 +1,155 @@
+# Barra de menús.
+
+# Fichero
+menu.file = Fichero
+menu.file.new = Nuevo
+menu.file.open = Ubrir…
+menu.file.open_recent = Ubrir recient
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Explorar a galería…
+menu.file.close = Zarrar
+menu.file.save = Alzar
+menu.file.save_as = Alzar como…
+menu.file.export = Exportar…
+menu.file.export_submenu = Exportar
+menu.file.export_artboards = Mesas de treballo ta PNG…
+menu.file.export_slices = Talladas ta PNG…
+menu.file.save_to_photos = Alzar en Fotos
+menu.file.plugins = Complementos…
+menu.file.missing_fonts = Fuents que faltan…
+menu.file.check_for_updates = Comprebar si bi ha actualizacions…
+menu.file.quit = Salir
+menu.file.add_folder_to_gallery = Anyadir carpeta a la galería…
+menu.file.import_from_photos = Importar dende Fotos…
+menu.file.import_from_camera = Importar dende a camera…
+
+# Edición
+menu.edit = Edición
+menu.edit.fill = Rechelenar…
+menu.edit.stroke = Trazo…
+menu.edit.content_aware_fill = Recheleno sensible a lo conteniu
+menu.edit.content_aware_scale = Escala sensible a lo conteniu…
+menu.edit.puppet_warp = Deformación de monyaco
+menu.edit.free_transform = Transformación libre
+menu.edit.transform = Transformar
+menu.edit.rotate_180 = Chirar 180°
+menu.edit.rotate_90_cw = Chirar 90° en sentiu horario
+menu.edit.rotate_90_ccw = Chirar 90° en sentiu antihorario
+menu.edit.flip_horizontal = Voltear horizontalment
+menu.edit.flip_vertical = Voltear verticalment
+
+# Imachen
+menu.image = Imachen
+menu.image.mode = Modo
+menu.image.adjustments = Achustes
+menu.image.auto_tone = Ton automatico
+menu.image.auto_contrast = Contraste automatico
+menu.image.auto_color = Color automatica
+menu.image.image_size = Grandaria d'a imachen…
+menu.image.canvas_size = Grandaria d'o lenzo…
+menu.image.image_rotation = Rotación d'a imachen
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° en sentiu horario
+menu.image.rotate_90_ccw = 90° en sentiu antihorario
+menu.image.flip_canvas_horizontal = Voltear o lenzo horizontalment
+menu.image.flip_canvas_vertical = Voltear o lenzo verticalment
+menu.image.crop_to_selection = Retallar a la selección
+menu.image.trim = Recortar
+menu.image.assign_profile = Asignar perfil…
+menu.image.convert_to_profile = Convertir a perfil…
+
+# Selección
+menu.select = Selección
+menu.select.color_range = Rango de colors…
+menu.select.modify = Modificar
+menu.select.border = Borde…
+menu.select.smooth = Suavizar…
+menu.select.expand = Expandir…
+menu.select.contract = Contrayer…
+menu.select.feather = Esvaneixer…
+menu.select.transform_selection = Transformar selección
+
+# Capa
+menu.layer = Capa
+menu.layer.layer_style = Estilo de capa…
+menu.layer.layer_comps = Composicions de capas
+menu.layer.new_layer_comp = Nueva composición de capas
+menu.layer.delete_layer_comp = Borrar {name}
+menu.layer.path = Trazau
+menu.layer.fill_path = Rechelenar trazau
+menu.layer.stroke_path = Trazar contorno
+menu.layer.make_selection = Crear selección
+menu.layer.delete_path = Borrar trazau
+
+# Achustar
+menu.adjust = Achustar
+
+# Filtro
+menu.filter = Filtro
+menu.filter.filter_gallery = Galería de filtros…
+menu.filter.liquify = Licuar
+menu.filter.vanishing_point = Punto de fuga
+menu.filter.manage_models = Chestionar modelos…
+menu.filter.camera_raw_development = Revelau de Camera Raw…
+
+# Vista
+menu.view = Vista
+menu.view.rotate_view_cw = Chirar a vista en sentiu horario
+menu.view.rotate_view_ccw = Chirar a vista en sentiu antihorario
+menu.view.reset_view = Restablir vista
+menu.view.zoom_in = Acercar
+menu.view.zoom_out = Aluenyar
+menu.view.fit_on_screen = Achustar a la pantalla
+menu.view.actual_size = 100%
+menu.view.rulers = Reglas
+menu.view.grid = Reixeta
+menu.view.guides = Guiaderas
+menu.view.notes = Notas
+menu.view.ai_panel = Panel d'IA
+menu.view.extras = Extras
+menu.view.snap = Alinear
+menu.view.clear_guides = Borrar guiaderas
+menu.view.clear_notes = Borrar notas
+menu.view.clear_count = Borrar contadors
+menu.view.screen_mode = Modo de pantalla
+menu.view.proof_colors = Colors de preba
+menu.view.show_rulers = Amostrar reglas
+menu.view.hide_rulers = Amagar reglas
+menu.view.show_grid = Amostrar reixeta
+menu.view.hide_grid = Amagar reixeta
+menu.view.show_guides = Amostrar guiaderas
+menu.view.hide_guides = Amagar guiaderas
+menu.view.show_notes = Amostrar notas
+menu.view.hide_notes = Amagar notas
+menu.view.show_extras = Amostrar extras
+menu.view.hide_extras = Amagar extras
+menu.view.enable_snapping = Activar l'aliniación
+menu.view.disable_snapping = Desactivar l'aliniación
+menu.view.enable_proof_colors = Activar as colors de preba
+menu.view.disable_proof_colors = Desactivar as colors de preba
+
+# Galería
+menu.gallery = Galería
+menu.gallery.edit_selected = Editar as fotos trigadas
+menu.gallery.refresh = Actualizar
+menu.gallery.map_filter = Filtro d'o mapa…
+menu.gallery.back_to_editor = Tornar a l'editor
+
+# Submenú de Schist Cloud
+menu.cloud.browse = Explorar Schist Cloud
+menu.cloud.generate = Chenerar imachens…
+menu.cloud.upload = Puyar documento a Schist Cloud…
+menu.cloud.sign_out = Zarrar sesión en Schist Cloud
+menu.cloud.sign_in = Encetar sesión en Schist Cloud…
+
+# Menú de l'aplicación en macOS
+menu.app.services = Servicios
+menu.app.hide = Amagar {app}
+menu.app.hide_others = Amagar as atras
+menu.app.show_all = Amostrar-lo tot
+menu.app.quit = Salir de {app}
+
+# Respuestas d'a barra d'estau
+menu.status.transform_selection_needs_selection = Transformar selección ameneste una selección
+menu.status.crop_needs_selection = Retallar a la selección ameneste una selección
+menu.status.select_photo_to_edit = Tría una foto ta editar-la

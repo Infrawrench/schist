@@ -1,0 +1,26 @@
+# Ferramentas para elementos do documento.
+
+tool.artboard.name = Mesa de traballo
+tool.artboard.description = Arrastra para crear unha mesa de traballo: unha rexión con nome do lenzo que se exporta por separado. Se arrastras dentro dunha xa existente, móvese.
+tool.artboard.default_name = Mesa de traballo {n}
+
+tool.slice.name = Sector
+tool.slice.description = Arrastra para crear un sector de exportación, un rectángulo con nome do lenzo que se exporta como unha imaxe independente. Se arrastras dentro dun xa existente, móvese.
+tool.slice.default_name = Sector {n}
+
+tool.frame.name = Marco
+tool.frame.description = Arrastra para crear un marco: unha capa rectangular (ou elíptica) que enmascara todo o que se coloque nela.
+tool.frame.default_name = Marco {n}
+tool.frame.choice.rectangle = Rectángulo
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Marco
+
+tool.note.name = Nota
+tool.note.description = Preme nunha zona baleira do lenzo para fixar alí unha nota, marcada co autor e a cor do estado do editor; preme nun marcador existente para seleccionalo no panel Notas.
+tool.note.history.place = Colocar nota
+tool.note.history.move = Mover nota
+tool.note.history.delete = Eliminar nota
+
+tool.count.name = Reconto
+tool.count.description = Preme para colocar marcadores de reconto numerados no lenzo e preme nun xa existente para retiralo.
+tool.count.default_name = Reconto {n}

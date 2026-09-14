@@ -1,0 +1,29 @@
+# L-għodda tat-test (plugins/tools-type). Tipografija, Stil, Daqs, Xellug, Ċentru,
+# Lemin u t-"Test" li bih jissemma saff ġdid jiġu minn common.lang; l-ismijiet
+# tal-familji tat-tipi qatt ma jiġu tradotti.
+
+tool.type.name = Test
+tool.type.description = Ikklikkja biex tibda saff ta' test hemmhekk, jew ikklikkja wieħed eżistenti biex teditjah. Waqt li jkun miftuħ, l-għodda taċċetta t-tasti direttament (ibgħat il-karattri bħala input tat-tastiera), u meta tapplika tirrendi s-saff u tagħlaq l-editjar.
+
+# Il-bar tal-għażliet
+tool.type.option.align = Allinjament
+tool.type.option.leading = Spazjar bejn il-Linji
+tool.type.option.tracking = Spazjar bejn l-Ittri
+tool.type.option.kerning = Kernjar
+tool.type.option.ligatures = Ligaturi
+tool.type.option.discretionary_ligatures = Ligaturi Fakultattivi
+tool.type.option.small_caps = Ittri Kapitali Żgħar
+tool.type.option.on_path = Fuq il-passaġġ attiv
+tool.type.option.path_offset = Spostament mill-passaġġ
+
+# Il-menù Stil, fl-ordni li jelenkahom Photoshop
+tool.type.choice.regular = Regolari
+tool.type.choice.bold = Grassett
+tool.type.choice.italic = Korsiv
+tool.type.choice.bold_italic = Grassett Korsiv
+
+# Storja
+tool.type.history.new_layer = Saff ta' Test Ġdid
+tool.type.history.edit = Editja t-Test
+tool.type.history.discard = Warrab it-Test
+tool.type.history.discard_empty = Warrab it-Test Vojt

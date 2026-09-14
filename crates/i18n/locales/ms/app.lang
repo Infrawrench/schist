@@ -1,0 +1,37 @@
+# Galeri Penapis, fon, pengemas kini dan diagnostik Vulkan
+app.filter_gallery.title = Galeri Penapis
+app.filter_gallery.stack = Tindanan (digunakan dari bawah ke atas)
+app.filter_gallery.no_settings = Penapis ini tidak mempunyai tetapan.
+app.fonts.not_open_licensed = bukan berlesen terbuka · {substitute} sepadan dengan metriknya
+app.fonts.missing_substituted = tiada · teks sedang ditetapkan dengan fon pengganti
+app.fonts.not_in_catalogue = {family} tiada dalam katalog fon terbuka
+app.fonts.no_faces = tiada muka taip yang boleh dimuat turun untuk {family}
+app.fonts.empty_response = respons kosong
+app.update.unreadable_response = respons tidak dapat dibaca: {error}
+app.update.no_temp_dir = tiada direktori sementara untuk memuat turun
+app.update.asset_has_path = keluaran menamakan asetnya dengan laluan
+app.update.too_big = muat turun lebih besar daripada saiz yang dinyatakan oleh keluaran
+app.update.stopped_at = muat turun terhenti pada {got} daripada {total} bait
+app.update.hash_mismatch = cincangan muat turun ialah {got}, bukannya {want}
+app.update.not_in_bundle = salinan ini tidak berada dalam berkas aplikasi
+app.update.no_parent_dir = berkas aplikasi tidak mempunyai direktori induk
+app.update.cannot_write = tidak dapat menulis ke {dir}
+app.update.cannot_move_aside = tidak dapat mengalihkan {app}
+app.update.cannot_move_in = tidak dapat memindahkan berkas baharu ke tempatnya
+app.update.cannot_run_ditto = tidak dapat menjalankan /usr/bin/ditto
+app.update.unpack_failed = gagal menyahbungkus muat turun: {error}
+app.update.no_app_in_download = muat turun tidak mengandungi Schist.app
+app.update.cannot_run_codesign = tidak dapat menjalankan /usr/bin/codesign
+app.update.signature_invalid = tandatangan muat turun tidak dapat disahkan: {error}
+app.update.download_unsigned = salinan ini ditandatangani tetapi muat turun tidak
+app.update.different_developer = muat turun ditandatangani oleh pembangun yang berbeza
+app.update.cannot_relaunch = tidak dapat memulakan pelancar semula
+app.update.not_installed_copy = salinan ini tidak diletakkan di sini oleh pemasang
+app.update.cannot_start_installer = tidak dapat memulakan pemasang
+app.update.platform_unsupported = kemas kini pada platform ini dipasang dengan cara Schist dipasang
+app.vulkan.no_loader = schist: tiada pemuat Vulkan pada sistem ini, jadi tiada apa-apa untuk dilukis.\n\nSchist memapar melalui Vulkan dan `libvulkan.so.1` tidak dipasang.\nPemuat dan pemacu kedua-duanya diperlukan:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: pemacu Vulkan yang dituju oleh sesi ini tiada.\n\n{var} ditetapkan, dan tetapan itu *menggantikan* carian pemuat untuk\npemacu, bukannya menambah kepadanya. Oleh itu, fail berikut yang tidak wujud\nmerupakan seluruh senarai pemacu -- dan setiap program Vulkan dalam sesi ini\ntidak melihat sebarang pemacu, tidak kira berapa banyak yang dipasang:\n\n{missing}\n    {var}={value}\n\nTujukannya kepada manifes yang wujud -- pemacu yang dipasang meletakkan manifes di\n/usr/share/vulkan/icd.d -- atau nyahtetapkannya dan biarkan pemuat mencarinya sendiri.\nSesi yang menetapkan ini daripada fail konfigurasi (`env =` Hyprland, sisipan\nenvironment.d systemd, profil shell) perlu diubah di situ,\ndan log masuk baharu diperlukan agar perubahan sampai kepada apa-apa yang sudah berjalan.\n
+app.vulkan.override_note = \n{var} ditetapkan kepada {value}, dan ini menggantikan carian pemuat\nsendiri: jika tiada manifes tersebut sesuai untuk mesin ini, tindakan\npertama yang patut dicuba ialah menyah tetapkannya.\n
+app.vulkan.no_driver = schist: tiada pemacu Vulkan dipasang, jadi tiada apa-apa untuk dilukis.\n\nSchist memapar melalui Vulkan. Pemuat dipasang tetapi melaporkan tiada\npemacu -- tiada pemacu didaftarkan di mana-mana lokasi yang dicari:\n\n{dirs}\n\nPemuat dibekalkan secara berasingan daripada pemacu, jadi biasanya hanya satu\npakej yang tiada.\n\nPasang pemacu untuk GPU mesin ini:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nPemacu proprietari NVIDIA membawa pemacunya sendiri (`nvidia-utils` pada Arch,\n`nvidia-driver` pada Debian). Dalam mesin maya atau tempat yang tiada\npemacu GPU untuk dipasang, peraster perisianlah yang boleh digunakan:\n`vulkan-swrast` pada Arch, sebahagian daripada `mesa-vulkan-drivers` di tempat lain. Ia\nperlahan, tetapi dapat dimulakan.\n{overridden}
+app.vulkan.no_device = schist: pemacu Vulkan dipasang tetapi tidak menawarkan peranti untuk pemaparan.\n\nPemacu mungkin tidak menyokong GPU ini atau tidak dapat mencapainya --\nmelalui SSH atau dari dalam bekas, /dev/dri lazimnya\ntiada. `vulkaninfo --summary` melaporkan apa yang dilihat oleh pemuat.\n\nPeraster perisian memapar tanpa GPU langsung, jika itulah keadaan\nmesin ini: `vulkan-swrast` pada Arch, sebahagian daripada `mesa-vulkan-drivers`\npada Debian dan Fedora.\n
+app.vulkan.skip_hint = Untuk tetap memulakan Schist dan membiarkannya gagal dengan caranya sendiri, tetapkan {var}=1.

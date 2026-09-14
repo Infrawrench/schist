@@ -1,0 +1,27 @@
+# Patch
+tool.patch.name = പാച്ച്
+tool.patch.description = ന്യൂനതയ്ക്കു ചുറ്റും ഒരു രൂപരേഖ വലിച്ചിട്ട്, ആ തിരഞ്ഞെടുപ്പ് വൃത്തിയുള്ള പിക്സലുകളിലേക്കു വലിക്കുക: അവിടത്തെ ടെക്സ്ചർ ന്യൂനതയിൽ യോജിപ്പിക്കും. ഈ ജോഡിയിലെ ഏത് അറ്റമാണ് വലിക്കേണ്ടതെന്ന് പാച്ച് മോഡ് നിശ്ചയിക്കുന്നു.
+tool.patch.option.patch = പാച്ച്
+tool.patch.choice.source = ഉറവിടം
+tool.patch.choice.destination = ലക്ഷ്യസ്ഥാനം
+tool.patch.history.patch = പാച്ച്
+
+# Content-Aware Move
+tool.content_aware_move.name = ഉള്ളടക്കം തിരിച്ചറിഞ്ഞുള്ള നീക്കം
+tool.content_aware_move.description = തിരഞ്ഞെടുത്ത വസ്തു മറ്റൊരിടത്തേക്ക് വലിച്ചാൽ, അത് ഒഴിഞ്ഞുപോയ ഭാഗം ചുറ്റുപാടിൽനിന്ന് നിറയ്ക്കപ്പെടും. വിപുലീകരിക്കൽ മോഡിൽ വസ്തു നീക്കുന്നതിനുപകരം നീട്ടപ്പെടും.
+tool.content_aware_move.choice.move = നീക്കുക
+tool.content_aware_move.choice.extend = വിപുലീകരിക്കുക
+tool.content_aware_move.history.move = ഉള്ളടക്കം തിരിച്ചറിഞ്ഞുള്ള നീക്കം
+
+# Red Eye
+tool.red_eye.name = ചുവന്ന കണ്ണ്
+tool.red_eye.description = ഫ്ലാഷ് മൂലമുള്ള ചുവപ്പുനിറം നീക്കാൻ കൃഷ്ണമണിയിൽ ക്ലിക്ക് ചെയ്യുക.
+tool.red_eye.option.pupil_size = കൃഷ്ണമണിയുടെ വലുപ്പം
+tool.red_eye.option.darken = ഇരുണ്ടതാക്കുക
+tool.red_eye.history.red_eye = ചുവന്ന കണ്ണ്
+
+# Magic Eraser
+tool.magic_eraser.name = മാന്ത്രിക മായ്ക്കൽ
+tool.magic_eraser.description = ഉപകരണത്തിന്റെ സഹിഷ്ണുതാപരിധിക്കുള്ളിൽ, പോയിന്ററിനു കീഴിലുള്ള സമാന വർണ്ണമുള്ള ഭാഗം മായ്ക്കാൻ ക്ലിക്ക് ചെയ്യുക—ക്ലിക്ക് ചെയ്ത ഭാഗത്തോട് ചേർന്നിരിക്കുന്നവ മാത്രം അല്ലെങ്കിൽ ലെയറിലെ എല്ലായിടവും.
+tool.magic_eraser.option.contiguous = ചേർന്നിരിക്കുന്നവ
+tool.magic_eraser.history.erase = മാന്ത്രിക മായ്ക്കൽ

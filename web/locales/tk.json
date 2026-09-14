@@ -1,0 +1,9 @@
+{
+  "loading": "Ýüklenýär…",
+  "starting": "Başladylýar…",
+  "webgpu": "Schist üçin WebGPU gerek, emma bu brauzer ony üpjün etmeýär. Chrome/Edge 113+, Firefox 141+ we Safari 26+ ony goldaýar.",
+  "noticeTitle": "Schist iş stoly programmasy hökmünde iň gowy işleýär",
+  "noticeBody": "Siz has ýeňil düzülen web wersiýasyny ulanýarsyňyz: ol şekili CPU-da birleşdirýär we käbir mümkinçilikleri — Photoshop plaginlerini we üçünji tarap plaginlerini, surat galereýasyny, AI panelini, HEIC importyny hem-de şrift ýüklemelerini — öz içine almaýar; faýllar bolsa ýüklenen faýl görnüşinde saklanýar. macOS, Windows we Linux üçin mugt iş stoly programmasynda bularyň ählisi bar.",
+  "noticeLink": "Iş stoly programmasyny alyň.",
+  "ok": "Bolýar"
+}

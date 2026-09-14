@@ -1,0 +1,20 @@
+# Lapisan pelarasan dan arahan Imej ▸ Pelarasan
+adjustment.levels.name = Aras
+adjustment.curves.name = Lengkung
+adjustment.hue_saturation.name = Rona/Ketepuan
+adjustment.brightness_contrast.name = Kecerahan/Kontras
+adjustment.black_white.name = Hitam & Putih
+adjustment.solid_color.name = Warna Padu
+adjustment.gradient_fill.name = Isian Gradien
+adjustment.pattern_fill.name = Isian Corak
+adjustment.invert.name = Songsangkan
+adjustment.posterize.name = Poster
+adjustment.threshold.name = Ambang
+adjustment.color_balance.name = Imbangan Warna
+adjustment.vibrance.name = Kerancakan
+adjustment.exposure.name = Pendedahan
+adjustment.photo_filter.name = Penapis Foto
+adjustment.gradient_map.name = Peta Gradien
+adjustment.selective_color.name = Warna Terpilih
+adjustment.channel_mixer.name = Pengadun Saluran
+adjustment.other.name = Pelarasan

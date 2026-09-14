@@ -1,0 +1,20 @@
+# የማስተካከያ ንብርብሮች ስሞች።
+adjustment.levels.name = ደረጃዎች
+adjustment.curves.name = ከርቮች
+adjustment.hue_saturation.name = የቀለም ዓይነት/ሙሌት
+adjustment.brightness_contrast.name = ብሩህነት/ንፅፅር
+adjustment.black_white.name = ጥቁር እና ነጭ
+adjustment.solid_color.name = ነጠላ ቀለም
+adjustment.gradient_fill.name = የቀለም ሽግግር ሙሌት
+adjustment.pattern_fill.name = የንድፍ ሙሌት
+adjustment.invert.name = ገልብጥ
+adjustment.posterize.name = የቀለም ደረጃዎችን ቀንስ
+adjustment.threshold.name = ገደብ
+adjustment.color_balance.name = የቀለም ሚዛን
+adjustment.vibrance.name = የቀለም ንቃት
+adjustment.exposure.name = ተጋላጭነት
+adjustment.photo_filter.name = የፎቶ ማጣሪያ
+adjustment.gradient_map.name = የቀለም ሽግግር ካርታ
+adjustment.selective_color.name = የተመረጠ ቀለም
+adjustment.channel_mixer.name = የሰርጥ ቀላቃይ
+adjustment.other.name = ማስተካከያ

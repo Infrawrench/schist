@@ -1,0 +1,102 @@
+workspace.fill.gray_50 = 50% sivá
+workspace.fill.content_aware = Podľa obsahu
+workspace.modify.expand = Rozšíriť výber
+workspace.modify.contract = Zúžiť výber
+workspace.modify.border = Ohraničiť výber
+workspace.modify.smooth = Vyhladiť výber
+workspace.modify.feather = Rozostriť okraje výberu
+
+workspace.batch.target.edit = Úpravy v galérii (s verziami)
+workspace.batch.target.beside = Kópie vedľa originálov
+workspace.batch.target.folder = Kópie v priečinku…
+workspace.modal.image_size.title = Veľkosť obrázka
+
+workspace.docs.opening = Otvára sa {name}…
+workspace.docs.opened = Otvorené: {name}
+workspace.docs.open_failed = Otvorenie zlyhalo: {error}
+workspace.docs.no_codec = Schist nedokáže otvoriť formát súboru {name}
+workspace.docs.no_exporter = Schist nedokáže ukladať súbory .{ext}
+workspace.docs.empty_response = Server odoslal prázdnu odpoveď
+workspace.docs.heic_not_installed = Podpora HEIC nie je nainštalovaná
+workspace.docs.heic_downloading = Sťahuje sa podpora HEIC (libheif {version})…
+workspace.docs.heic_installed = Podpora HEIC bola nainštalovaná
+workspace.docs.heic_download_failed = Stiahnutie podpory HEIC zlyhalo: {error}
+workspace.docs.placing = Umiestňuje sa {name}…
+workspace.docs.place_image = Umiestniť obrázok
+workspace.docs.placed = Umiestnené: {name}
+workspace.docs.place_failed = Umiestnenie zlyhalo: {error}
+workspace.docs.saved = Uložené: {name}
+workspace.docs.save_failed = Uloženie zlyhalo: {error}
+
+workspace.adjustment.new_layer = Nová vrstva {name}
+workspace.adjustment.added = Pridané: {name}
+workspace.adjustment.settings = Nastavenia: {name}
+workspace.adjustment.updated = Úprava {name} bola aktualizovaná
+workspace.adjustment.no_settings = Úprava {name} nemá upraviteľné nastavenia
+workspace.comps.name_n = Kompozícia vrstiev {n}
+workspace.comps.captured = Kompozícia vrstiev bola zachytená
+workspace.comps.apply = Použiť {name}
+workspace.styles.layer_style = Štýl vrstvy
+workspace.context.rename_layer = Premenovať vrstvu
+workspace.commands.tool = Nástroj: {name}
+
+workspace.colormgmt.assign = Priradiť {name}
+workspace.colormgmt.assigned = Priradené: {name}
+workspace.colormgmt.convert_to = Previesť do {name}
+workspace.colormgmt.converted_to = Prevedené do {name}
+workspace.colormgmt.convert_failed = Prevod zlyhal: {error}
+workspace.colormgmt.proof_on = Kontrolné farby zapnuté
+workspace.colormgmt.proof_off = Kontrolné farby vypnuté
+
+workspace.filters.choose = Vybrať
+workspace.filters.select_layer_first = Najprv vyberte vrstvu
+workspace.filters.needs_pixel_layer = Filtre vyžadujú pixelovú vrstvu
+workspace.filters.nothing_to_filter = Nie je čo filtrovať
+workspace.filters.went_away = Filter už nie je k dispozícii
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: filtrovaná vrstva už neexistuje
+workspace.filters.plugin_title = Zásuvný modul Photoshopu
+workspace.filters.running = Spúšťa sa {name}
+workspace.filters.plugin_note = Zásuvný modul beží vo vlastnom procese. Ak otvorí okno, odpovedzte v ňom, aby mohol pokračovať.
+workspace.filters.raw_preview_developing = Vyvoláva sa náhľad RAW…
+workspace.filters.raw_preview_done = Náhľad RAW (rýchla demozaikácia)
+workspace.filters.raw_preview_size_changed = Veľkosť náhľadu RAW sa zmenila: {w} × {h}
+workspace.filters.raw_preview_failed = Náhľad RAW zlyhal: {error}
+workspace.filters.raw_developing = Vyvoláva sa pôvodná snímka…
+workspace.filters.raw_developing_note = Používa sa najkvalitnejšia demozaikácia. Pôvodný súbor RAW aj tieto nastavenia zostanú upraviteľné po uložení vo formáte PSD alebo PSB.
+workspace.filters.raw_document_changed = Vyvolanie RAW sa dokončilo až po zmene dokumentu
+workspace.filters.raw_failed = Vyvolanie RAW zlyhalo: {error}
+workspace.filters.raw_too_wide = Výsledok vyvolania RAW je príliš široký
+workspace.filters.raw_too_tall = Výsledok vyvolania RAW je príliš vysoký
+workspace.filters.raw_size_changed = Veľkosť vyvolaného RAW sa zmenila na {w} × {h}; aktuálna vrstva sa zachová
+workspace.filters.raw_history = Spracovanie v Camera Raw
+workspace.filters.raw_applied = Spracovanie v Camera Raw bolo použité (najkvalitnejšia demozaikácia)
+
+workspace.image_size.done = Veľkosť obrázka: {w} × {h}
+workspace.image_size.bicubic_fallback = Veľkosť obrázka: {w} × {h} — model {name} sa nepodarilo načítať, preto sa použila bikubická interpolácia
+workspace.image_size.upscaling = Zväčšuje sa pomocou modelu {name}
+workspace.image_size.upscaling_note = Sieť spracuje {mp} megapixelov, každý zaberie niekoľko sekúnd. Dokument zostane zablokovaný až do dokončenia.
+
+workspace.export.no_slices = Nie sú žiadne výrezy na export
+workspace.export.no_artboards = Nie sú žiadne pracovné plochy na export
+workspace.export.regions.one = Exportovaná {n} oblasť
+workspace.export.regions.few = Exportované {n} oblasti
+workspace.export.regions.other = Exportovaných {n} oblastí
+workspace.export.prompt = Exportovať ako:
+workspace.export.done = Exportované: {name}
+workspace.export.failed = Export zlyhal: {error}
+workspace.export.codec_vanished = Exportér už nie je k dispozícii
+
+workspace.file_picker.choose_folder = Vybrať priečinok
+workspace.file_picker.type_a_name = Zadajte názov súboru
+workspace.file_picker.exists = Súbor {name} existuje; ďalším ťuknutím na Uložiť ho nahradíte
+workspace.file_picker.tap_a_file = Ťuknite na súbor, ktorý chcete otvoriť
+workspace.file_picker.pictures = Obrázky
+workspace.file_picker.camera = Fotoaparát
+workspace.file_picker.downloads = Stiahnuté
+workspace.file_picker.permission_denied = Schist nemá povolenie čítať tento priečinok
+
+workspace.recovery.recovered_title = {title} (obnovené)
+workspace.recovery.recovered.one = Obnovená neuložená práca z predchádzajúcej relácie
+workspace.recovery.recovered.few = Obnovené {n} dokumenty z predchádzajúcej relácie
+workspace.recovery.recovered.other = Obnovených {n} dokumentov z predchádzajúcej relácie

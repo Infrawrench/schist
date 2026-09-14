@@ -1,0 +1,21 @@
+# ابزارهای رتوش ناحیه‌ای
+tool.patch.name = وصله
+tool.patch.description = دور عیب خطی بکشید، سپس ناحیهٔ انتخاب را روی پیکسل‌های سالم بکشید تا بافت آنجا با عیب سازگار شود. حالت وصله تعیین می‌کند کدام سر این جفت را بکشید.
+tool.patch.option.patch = وصله
+tool.patch.choice.source = مبدأ
+tool.patch.choice.destination = مقصد
+tool.patch.history.patch = وصله
+tool.content_aware_move.name = جابه‌جایی آگاه از محتوا
+tool.content_aware_move.description = شیء انتخاب‌شده را به جای دیگری بکشید تا حفرهٔ باقی‌مانده از محیط اطراف پر شود. در حالت گسترش، شیء به‌جای جابه‌جایی کشیده می‌شود.
+tool.content_aware_move.choice.move = جابه‌جایی
+tool.content_aware_move.choice.extend = گسترش
+tool.content_aware_move.history.move = جابه‌جایی آگاه از محتوا
+tool.red_eye.name = قرمزی چشم
+tool.red_eye.description = روی مردمک کلیک کنید تا قرمزی فلاش از آن حذف شود.
+tool.red_eye.option.pupil_size = اندازهٔ مردمک
+tool.red_eye.option.darken = تیره‌کردن
+tool.red_eye.history.red_eye = قرمزی چشم
+tool.magic_eraser.name = پاک‌کن جادویی
+tool.magic_eraser.description = کلیک کنید تا ناحیهٔ دارای رنگ مشابه زیر نشانگر، در محدودهٔ تلورانس ابزار، پاک شود؛ چه پیوسته با محل کلیک باشد و چه در سراسر لایه.
+tool.magic_eraser.option.contiguous = پیوسته
+tool.magic_eraser.history.erase = پاک‌کن جادویی

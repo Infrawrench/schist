@@ -1,0 +1,156 @@
+# Il-bar tal-menù fit-tieqa u dak tas-sistema macOS/iPadOS.
+
+# Fajl
+menu.file = Fajl
+menu.file.new = Ġdid
+menu.file.open = Iftaħ…
+menu.file.open_recent = Iftaħ Riċenti
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Ibbrawżja l-Gallerija…
+menu.file.close = Agħlaq
+menu.file.save = Issejvja
+menu.file.save_as = Issejvja Bħala…
+menu.file.export = Esporta…
+menu.file.export_submenu = Esporta
+menu.file.export_artboards = Żoni tax-Xogħol għal PNG…
+menu.file.export_slices = Sezzjonijiet għal PNG…
+menu.file.save_to_photos = Issejvja fir-Ritratti
+menu.file.plugins = Plugins…
+menu.file.missing_fonts = Tipografiji Neqsin…
+menu.file.check_for_updates = Iċċekkja għal Aġġornamenti…
+menu.file.quit = Oħroġ
+menu.file.add_folder_to_gallery = Żid Fowlder mal-Gallerija…
+menu.file.import_from_photos = Importa mir-Ritratti…
+menu.file.import_from_camera = Importa mill-Kamera…
+
+# Editja
+menu.edit = Editja
+menu.edit.fill = Imla…
+menu.edit.stroke = Linja…
+menu.edit.content_aware_fill = Mili Konxju tal-Kontenut
+menu.edit.content_aware_scale = Skala Konxja tal-Kontenut…
+menu.edit.puppet_warp = Tgħawwiġ tal-Pupazz
+menu.edit.free_transform = Trasformazzjoni Libera
+menu.edit.transform = Ittrasforma
+menu.edit.rotate_180 = Dawwar 180°
+menu.edit.rotate_90_cw = Dawwar 90° Lejn il-Lemin
+menu.edit.rotate_90_ccw = Dawwar 90° Lejn ix-Xellug
+menu.edit.flip_horizontal = Aqleb Orizzontalment
+menu.edit.flip_vertical = Aqleb Vertikalment
+
+# Immaġni
+menu.image = Immaġni
+menu.image.mode = Mod
+menu.image.adjustments = Aġġustamenti
+menu.image.auto_tone = Tonalità Awtomatika
+menu.image.auto_contrast = Kuntrast Awtomatiku
+menu.image.auto_color = Kulur Awtomatiku
+menu.image.image_size = Daqs tal-Immaġni…
+menu.image.canvas_size = Daqs tal-Kanvas…
+menu.image.image_rotation = Rotazzjoni tal-Immaġni
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° Lejn il-Lemin
+menu.image.rotate_90_ccw = 90° Lejn ix-Xellug
+menu.image.flip_canvas_horizontal = Aqleb il-Kanvas Orizzontalment
+menu.image.flip_canvas_vertical = Aqleb il-Kanvas Vertikalment
+menu.image.crop_to_selection = Aqta' mal-Għażla
+menu.image.trim = Ittrimmja
+menu.image.assign_profile = Assenja Profil…
+menu.image.convert_to_profile = Ikkonverti għal Profil…
+
+# Agħżel
+menu.select = Agħżel
+menu.select.color_range = Firxa ta' Kuluri…
+menu.select.modify = Immodifika
+menu.select.border = Bordura…
+menu.select.smooth = Illixxa…
+menu.select.expand = Wessa'…
+menu.select.contract = Ċekken…
+menu.select.feather = Rattab it-Truf…
+menu.select.transform_selection = Ittrasforma l-Għażla
+
+# Saff
+menu.layer = Saff
+menu.layer.layer_style = Stil tas-Saff…
+menu.layer.layer_comps = Kompożizzjonijiet tas-Saffi
+menu.layer.new_layer_comp = Kompożizzjoni Ġdida tas-Saffi
+menu.layer.delete_layer_comp = Ħassar {name}
+menu.layer.path = Passaġġ
+menu.layer.fill_path = Imla l-Passaġġ
+menu.layer.stroke_path = Pinġi Linja mal-Passaġġ
+menu.layer.make_selection = Oħloq Għażla
+menu.layer.delete_path = Ħassar il-Passaġġ
+
+# Aġġusta
+menu.adjust = Aġġusta
+
+# Filtru
+menu.filter = Filtru
+menu.filter.filter_gallery = Gallerija tal-Filtri…
+menu.filter.liquify = Likwifika
+menu.filter.vanishing_point = Punt ta' Għajbien
+menu.filter.manage_models = Immaniġġja l-Mudelli…
+menu.filter.camera_raw_development = Żvilupp ta' Camera Raw…
+
+# Dehra
+menu.view = Dehra
+menu.view.rotate_view_cw = Dawwar il-Veduta Lejn il-Lemin
+menu.view.rotate_view_ccw = Dawwar il-Veduta Lejn ix-Xellug
+menu.view.reset_view = Irrisettja l-Veduta
+menu.view.zoom_in = Kabbar
+menu.view.zoom_out = Ċekken
+menu.view.fit_on_screen = Waħħal mal-Iskrin
+menu.view.actual_size = 100%
+menu.view.rulers = Rigi
+menu.view.grid = Grilja
+menu.view.guides = Gwidi
+menu.view.notes = Noti
+menu.view.ai_panel = Pannell tal-IA
+menu.view.extras = Elementi Addizzjonali
+menu.view.snap = Allinja
+menu.view.clear_guides = Neħħi l-Gwidi
+menu.view.clear_notes = Neħħi n-Noti
+menu.view.clear_count = Neħħi l-Għadd
+menu.view.screen_mode = Mod tal-Iskrin
+menu.view.proof_colors = Kuluri ta' Prova
+# Il-kmandi li ġejjin jgħidu x'se jagħmel il-klikk.
+menu.view.show_rulers = Uri r-Rigi
+menu.view.hide_rulers = Aħbi r-Rigi
+menu.view.show_grid = Uri l-Grilja
+menu.view.hide_grid = Aħbi l-Grilja
+menu.view.show_guides = Uri l-Gwidi
+menu.view.hide_guides = Aħbi l-Gwidi
+menu.view.show_notes = Uri n-Noti
+menu.view.hide_notes = Aħbi n-Noti
+menu.view.show_extras = Uri l-Elementi Addizzjonali
+menu.view.hide_extras = Aħbi l-Elementi Addizzjonali
+menu.view.enable_snapping = Attiva l-Allinjament
+menu.view.disable_snapping = Iddiżattiva l-Allinjament
+menu.view.enable_proof_colors = Attiva l-Kuluri ta' Prova
+menu.view.disable_proof_colors = Iddiżattiva l-Kuluri ta' Prova
+
+# Gallerija
+menu.gallery = Gallerija
+menu.gallery.edit_selected = Editja l-Magħżulin
+menu.gallery.refresh = Aġġorna
+menu.gallery.map_filter = Filtru tal-Mappa…
+menu.gallery.back_to_editor = Lura għall-Editur
+
+# Submenù ta' Schist Cloud
+menu.cloud.browse = Ibbrawżja Schist Cloud
+menu.cloud.generate = Iġġenera immaġnijiet…
+menu.cloud.upload = Tella' dokument fuq Schist Cloud…
+menu.cloud.sign_out = Oħroġ minn Schist Cloud
+menu.cloud.sign_in = Idħol fi Schist Cloud…
+
+# Il-menù tal-applikazzjoni f'macOS
+menu.app.services = Servizzi
+menu.app.hide = Aħbi {app}
+menu.app.hide_others = Aħbi l-Oħrajn
+menu.app.show_all = Uri Kollox
+menu.app.quit = Oħroġ minn {app}
+
+# Risposti fil-bar tal-istat għal kmandi li ma jistgħux jitwettqu
+menu.status.transform_selection_needs_selection = It-Trasformazzjoni tal-Għażla teħtieġ għażla
+menu.status.crop_needs_selection = Il-Qtugħ mal-Għażla jeħtieġ għażla
+menu.status.select_photo_to_edit = Agħżel ritratt biex teditjah

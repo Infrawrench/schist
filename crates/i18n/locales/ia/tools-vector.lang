@@ -1,0 +1,45 @@
+# Instrumentos vectorial.
+
+tool.pen.name = Pluma
+tool.pen.description = Construe un percurso: clicca pro un puncto angular, trahe pro extraher de illo ansas de curva, e clicca le prime puncto pro clauder. Confirmar converte le percurso in un strato de forma.
+tool.pen.option.rubber_band = Banda elastic
+tool.pen.history.fill = Reimplimento de percurso
+tool.pen.default_path_name = Percurso {n}
+tool.pen.freeform.name = Pluma a mano libere
+tool.pen.freeform.description = Trahe un linea a mano libere e illo es adaptate a un percurso, con le flexibilitate definite per le option Adaptation.
+tool.pen.freeform.option.fit = Adaptation
+tool.pen.curvature.name = Pluma de curvatura
+tool.pen.curvature.description = Clicca un serie de punctos e le percurso se curva suavemente a transverso de illos.
+
+tool.path_select.name = Selection de percurso
+tool.path_select.description = Clicca sur un percurso pro seliger lo, e trahe pro mover le percurso integre.
+tool.direct_select.name = Selection directe
+tool.direct_select.description = Trahe un singule puncto de ancorage o su ansas pro reformar le percurso circum illo.
+
+tool.shape.history.layer = Strato {name}
+tool.shape.rect.name = Instrumento Rectangulo
+tool.shape.rect.label = Rectangulo
+tool.shape.rect.description = Trahe pro crear un strato de forma rectangular con le color de prime plano; illo remane vectorial e es rasterisate de novo quando su dimension cambia.
+tool.shape.ellipse.name = Instrumento Ellipse
+tool.shape.ellipse.label = Ellipse
+tool.shape.ellipse.description = Trahe pro crear un strato de forma elliptic con le color de prime plano.
+tool.shape.line.name = Instrumento Linea
+tool.shape.line.label = Linea
+tool.shape.line.description = Trahe pro crear un strato de forma de linea recte con le color de prime plano.
+tool.shape.line.option.weight = Spissor
+tool.shape.line.option.arrow_start = Initio
+tool.shape.line.option.arrow_end = Fin
+tool.shape.polygon.name = Instrumento Polygono
+tool.shape.polygon.label = Polygono
+tool.shape.polygon.description = Trahe pro crear un strato de forma polygonal regular con le color de prime plano e le numero de lateres definite in le optiones.
+tool.shape.polygon.option.sides = Lateres
+
+tool.shape.custom.name = Forma personalisate
+tool.shape.custom.label = Forma personalisate
+tool.shape.custom.description = Trahe pro crear un del formas predefinite incorporate, seligite con le option Forma.
+tool.shape.custom.choice.heart = Corde
+tool.shape.custom.choice.star = Stella
+tool.shape.custom.choice.arrow = Flecha
+tool.shape.custom.choice.lightning = Fulmine
+tool.shape.custom.choice.cross = Cruce
+tool.shape.custom.choice.speech_bubble = Bulla de parola

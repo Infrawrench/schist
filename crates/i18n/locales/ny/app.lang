@@ -1,0 +1,39 @@
+app.filter_gallery.title = Gallery ya Masefa
+app.filter_gallery.stack = Mulu (zimagwiritsidwa ntchito kuchokera pansi kupita pamwamba)
+app.filter_gallery.no_settings = Sefa iyi ilibe zokonda.
+
+app.fonts.not_open_licensed = chilolezo chake sichotseguka · {substitute} ikufanana ndi miyeso yake
+app.fonts.missing_substituted = ikusowa · mawu akuikidwa mu font yolowa m'malo
+app.fonts.not_in_catalogue = {family} mulibe mu mndandanda wa ma font otseguka
+app.fonts.no_faces = palibe mitundu ya font ya {family} yoti itsitsidwe
+app.fonts.empty_response = yankho lopanda kanthu
+
+app.update.unreadable_response = yankho silingawerengedwe: {error}
+app.update.no_temp_dir = palibe foda yakanthawi yotsitsiramo
+app.update.asset_has_path = release yatchula asset yake ndi path
+app.update.too_big = zomwe zatsitsidwa ndi zazikulu kuposa momwe release yanenera
+app.update.stopped_at = kutsitsa kwaima pa byte {got} mwa {total}
+app.update.hash_mismatch = hash ya zomwe zatsitsidwa ndi {got}, osati {want}
+app.update.not_in_bundle = kope ili silili mkati mwa bundle ya pulogalamu
+app.update.no_parent_dir = bundle ya pulogalamuyi ilibe foda ya makolo
+app.update.cannot_write = sizingatheke kulemba mu {dir}
+app.update.cannot_move_aside = sizingatheke kusunthira {app} pambali
+app.update.cannot_move_in = sizingatheke kuika bundle yatsopano pamalo ake
+app.update.cannot_run_ditto = sizingatheke kuyambitsa /usr/bin/ditto
+app.update.unpack_failed = kutsegula zomwe zatsitsidwa kwalephera: {error}
+app.update.no_app_in_download = zomwe zatsitsidwa zilibe Schist.app
+app.update.cannot_run_codesign = sizingatheke kuyambitsa /usr/bin/codesign
+app.update.signature_invalid = siginecha ya zomwe zatsitsidwa sinatsimikizike: {error}
+app.update.download_unsigned = kope ili lasainidwa koma zomwe zatsitsidwa sizinasainidwe
+app.update.different_developer = zomwe zatsitsidwa zasainidwa ndi wopanga wina
+app.update.cannot_relaunch = sizingatheke kuyambitsa pulogalamu yoyambitsanso
+app.update.not_installed_copy = kope ili silinaikidwe pano ndi installer
+app.update.cannot_start_installer = sizingatheke kuyambitsa installer
+app.update.platform_unsupported = zosintha pa platform iyi zimaikidwa m'njira yomwe Schist inaikidwira
+
+app.vulkan.no_loader = schist: palibe Vulkan loader m'dongosolo lino, choncho palibe chojambulira.\n\nSchist imajambula kudzera mu Vulkan, ndipo `libvulkan.so.1` sinaikidwe.\nLoader ndi driver zonse zikufunika:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan driver yomwe session iyi yalozeredwa kulibe.\n\n{var} yaikidwa, ndipo kuiika kumalowa *m'malo mwa* kufufuza kwa ma driver kwa loader, osati kuwonjezera. Choncho mafayilo awa, omwe kulibe, ndiwo mndandanda wonse wa ma driver—ndipo pulogalamu iliyonse ya Vulkan mu session iyi siiona driver ngakhale ma driver ambiri ataikidwa:\n\n{missing}\n    {var}={value}\n\nIlozereni ku manifest yomwe ilipo—ma driver oikidwa amaika ma manifest awo mu\n/usr/share/vulkan/icd.d—kapena chotsani mtengowo kuti loader ifufuze yokha.\nNgati session imatenga mtengowu mu fayilo ya config (Hyprland's `env =`,\nsystemd environment.d drop-in, kapena shell profile), uyenera kusinthidwa kumeneko,\nndipo muyenera kulowanso mu akaunti kuti kusinthako kufike ku mapulogalamu omwe akuyenda kale.\n
+app.vulkan.override_note = \n{var} yaikidwa kukhala {value}, ndipo izi zimalowa m'malo mwa kufufuza kwa loader:\nngati palibe manifest mwa amenewa yomwe ili ya makina enieniwa, kuchotsa mtengowo\nndiko koyamba kuyesa.\n
+app.vulkan.no_driver = schist: palibe Vulkan driver yoikidwa, choncho palibe chojambulira.\n\nSchist imajambula kudzera mu Vulkan. Loader yaikidwa koma ikunena kuti palibe\ndriver—palibe driver amene walembetsedwa m'malo awiri alionse amene amafufuzidwa:\n\n{dirs}\n\nLoader imabwera payokha mosiyana ndi ma driver, choncho nthawi zambiri package\nimodzi ndiyo ikusowa.\n\nIkani driver ya GPU ya makina enieniwa:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver ya NVIDIA ya eni ake ili ndi yake (`nvidia-utils` pa Arch,\n`nvidia-driver` pa Debian). Mu makina a pulogalamu oyerekezera kompyuta, kapena kulikonse\nkumene kulibe GPU driver yoti muike, rasteriser ya pulogalamu ndiyo imagwira ntchito:\n`vulkan-swrast` pa Arch, ndipo ili m'gulu la `mesa-vulkan-drivers` kwina.\nNdi yochedwa, koma imayamba.\n{overridden}
+app.vulkan.no_device = schist: Vulkan driver yaikidwa koma sipereka chipangizo chojambulirapo.\n\nMwina driver sagwira ntchito ndi GPU iyi, kapena sangathe kuipeza—pa SSH, kapena mkati mwa container, nthawi zambiri /dev/dri ndi yomwe imasowa. `vulkaninfo --summary` imanena zomwe loader ikuona.\n\nRasteriser ya pulogalamu imajambula popanda GPU konse, ngati makina enieniwa alibe GPU: `vulkan-swrast` pa Arch, ndipo ili m'gulu la `mesa-vulkan-drivers` pa Debian ndi Fedora.\n
+app.vulkan.skip_hint = Kuti muyambitsebe Schist ndi kuisiya ilephere m'njira yake, ikani {var}=1.

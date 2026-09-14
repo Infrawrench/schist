@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galari Hidlen
+app.filter_gallery.stack = Bern (gorres dhyworth goles dhe wartha)
+app.filter_gallery.no_settings = Nyns eus settyansow dhe'n hidlen ma.
+app.fonts.not_open_licensed = nyns yw leshyans ygor · {substitute} a omdhesedh orth y vusuryow
+app.fonts.missing_substituted = fyllys · an tekst a vydh settys yn leel
+app.fonts.not_in_catalogue = nyns eus {family} y'n katalog font ygor
+app.fonts.no_faces = fasow iskargadow vyth rag {family}
+app.fonts.empty_response = gortheb gwag
+app.update.unreadable_response = gortheb anredadow: {error}
+app.update.no_temp_dir = restrenva dres termyn vyth dhe iskarga ynni
+app.update.asset_has_path = an dyllans a henw y asedh gans hyns
+app.update.too_big = an iskargyans yw brassa es a lever an dyllans
+app.update.stopped_at = an iskargyans a astovas orth {got} a {total} byt
+app.update.hash_mismatch = hash an iskargyans yw {got}, na {want}
+app.update.not_in_bundle = nyns yw an kopi ma yn pusorn app
+app.update.no_parent_dir = nyns eus restrenva kar dhe'n pusorn app
+app.update.cannot_write = ny yll skrifa dhe {dir}
+app.update.cannot_move_aside = ny yll remova {app} a-tu
+app.update.cannot_move_in = ny yll remova an pusorn nowydh dhe'y le
+app.update.cannot_run_ditto = ny yll eksekutya /usr/bin/ditto
+app.update.unpack_failed = dibakya an iskargyans a fyllis: {error}
+app.update.no_app_in_download = nyns eus Schist.app y'n iskargyans
+app.update.cannot_run_codesign = ny yll eksekutya /usr/bin/codesign
+app.update.signature_invalid = sinans an iskargyans ny yll bos gwiryes: {error}
+app.update.download_unsigned = sinys yw an kopi ma ha nyns yw an iskargyans
+app.update.different_developer = sinys yw an iskargyans gans displegyas aral
+app.update.cannot_relaunch = ny yll dalleth an dastalleger
+app.update.not_installed_copy = an kopi ma ny veu gorres omma gans an leador
+app.update.cannot_start_installer = ny yll dalleth an leador
+app.update.platform_unsupported = nowedhyansow war an byns ma a vydh les avel dell veu Schist
+app.vulkan.no_loader = schist: nyns eus karger Vulkan war an system ma, hag ytho nyns eus tra vyth dhe dhiskwedhes ganso.\n\nSchist a rendr dre Vulkan, ha nyns yw `libvulkan.so.1` les.\nRes yw an karger hag unn dreiver: agas gorhemmynnow system a sew.\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: nyns eus an dreiver Vulkan a'n esedh ma ow poyntya dhodho.\n\n{var} yw settys, hag y settya a wra treuswul hwilas an karger rag\ndreiveryon yn le keworra dhodho. Ytho an restrennow ma, na wra eksistya,\nyw an rol dreiveryon dien — ha pub program Vulkan y'n esedh ma\nny wel dreiver vyth, py lies a vydh les: \n\n{missing}\n    {var}={value}\n\nPoyntyewgh ev orth manifest usi owth eksistya — dreiveryon les a wra gorra aga re yn\n/usr/share/vulkan/icd.d — po disettyewgh ev ha gasa an karger kavos y re y honan.\nEsedh ow settya hemma dhyworth restren restrans (Hyprland `env =`, ynworrans\nenvironment.d systemd, profil shell) res yw y janjya ena,\nha res yw omgelmi a-nowydh rag an chanj dhe dreghi dhe draow usi ow redek seulabrys.\n
+app.vulkan.override_note = \n{var} yw settys dhe {value}, hag hemma a dreuswul hwilas an karger\ny honan: mar nyns yw unn a'n manifestow na rag an jynn ma, y dhisettya\nyw an pyth kynsa dhe assaya.\n
+app.vulkan.no_driver = schist: nyns eus dreiver Vulkan les, hag ytho nyns eus tra vyth dhe dhiskwedhes warno.\n\nSchist a rendr dre Vulkan. Les yw an karger hag ev a lever nyns eus\ndreiver — tra vyth re jedhys unn yn neb le a'n dhew may hwilir: \n\n{dirs}\n\nAn karger a dheu diberth dhyworth an dreiveryon, hag ytho dre usadow hemma yw unn\npaket fyllys.\n\nLeygh an hini rag GPU an jynn ma: \n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nYma dreiver perghennog NVIDIA gans y hini y honan (`nvidia-utils` war Arch,\n`nvidia-driver` war Debian). Yn jynn virtual po neb le heb\ndreiver GPU dhe lea, an rasterer medhelweyth yw an hini a ober: \n`vulkan-swrast` war Arch, rann a `mesa-vulkan-drivers` yn tylleryow erell. Gorrek\nyw, mes yth yll dalleth.\n{overridden}
+app.vulkan.no_device = schist: les yw dreiver Vulkan mes ny brov devis dhe rendra warno.\n\nMartesen an dreiver ny wra skoodhya an GPU ma, po ny yll y drehedhes —\ndres SSH, po yn lestryn, /dev/dri yw tra usadow dhe vos\nfyllys. `vulkaninfo --summary` a lever pyth a wel an karger.\n\nAn rasterer medhelweyth a rendr heb GPU oll, mar nyns eus unn y'n jynn ma: `vulkan-swrast` war Arch, rann a `mesa-vulkan-drivers`\nwar Debian ha Fedora.\n
+app.vulkan.skip_hint = Rag dalleth Schist dhe'n kas ha gasa ev dhe fyllel yn y fordh y honan, settyewgh {var}=1.

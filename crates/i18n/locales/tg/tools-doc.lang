@@ -1,0 +1,24 @@
+tool.artboard.name = Лавҳаи корӣ
+tool.artboard.description = Лавҳаи кориро кашида созед: минтақаи номдори рони тасвир, ки мустақилона содир мешавад. Кашидан дар дохили лавҳаи мавҷудбуда онро мекӯчонад.
+tool.artboard.default_name = Лавҳаи корӣ {n}
+
+tool.slice.name = Бурида
+tool.slice.description = Буридаи содиротиро кашида созед: росткунҷаи номдори рони тасвир, ки ҳамчун тасвири алоҳида содир мешавад. Кашидан дар дохили буридаи мавҷудбуда онро мекӯчонад.
+tool.slice.default_name = Бурида {n}
+
+tool.frame.name = Чорчӯба
+tool.frame.description = Чорчӯбаро кашида созед: қабати росткунҷа ё байзашакл, ки ҳар чизи дар он гузошташударо ниқоб мекунад.
+tool.frame.default_name = Чорчӯба {n}
+tool.frame.choice.rectangle = Росткунҷа
+tool.frame.choice.ellipse = Байза
+tool.frame.history.frame = Чорчӯба
+
+tool.note.name = Ёддошт
+tool.note.description = Дар ҷойи холии рони тасвир зер кунед, то он ҷо ёддоште бо номи муаллиф ва ранги ҳолати муҳаррир гузошта шавад; барои интихоби ёддошти мавҷуда дар лавҳаи «Ёддоштҳо» нишонаи онро зер кунед.
+tool.note.history.place = Гузоштани ёддошт
+tool.note.history.move = Ҷойивазкунии ёддошт
+tool.note.history.delete = Нест кардани ёддошт
+
+tool.count.name = Ҳисобкунак
+tool.count.description = Барои гузоштани нишонҳои рақамдори ҳисоб дар рони тасвир зер кунед; барои нест кардани нишонаи мавҷуда онро зер кунед.
+tool.count.default_name = Ҳисоб {n}

@@ -1,0 +1,23 @@
+# ပုံပျက်ပြောင်း ကိရိယာများ
+tool.liquify.name = အရည်ပျော်ပုံဖော်ရန်
+tool.liquify.description = စုတ်တံကြီးအောက်ရှိ ပစ်ဇယ်များကို တွန်းခြင်း၊ မွှေ့လှည့်ခြင်း၊ ချုံ့ခြင်း သို့မဟုတ် ဖောင်းစေခြင်း ပြုလုပ်ပါ။ မည်သို့ပြုလုပ်မည်ကို စနစ်ရွေးချယ်မှုဖြင့် သတ်မှတ်သည်။ ပုံပျက်မှုကို ကွက်ကွန်တစ်ခုပေါ်တွင် စုစည်းပြီး အတည်ပြုချိန်တွင် အလွှာသို့ သက်ရောက်စေသည်။
+tool.liquify.option.tool = ကိရိယာ
+tool.liquify.choice.forward_warp = ရှေ့သို့ ပုံပျက်ပြောင်း
+tool.liquify.choice.reconstruct = ပြန်လည်တည်ဆောက်
+tool.liquify.choice.twirl_cw = နာရီလက်တံအတိုင်း လှည့်မွှေ့
+tool.liquify.choice.twirl_ccw = နာရီလက်တံပြန် လှည့်မွှေ့
+tool.liquify.choice.pucker = ချုံ့ရန်
+tool.liquify.choice.bloat = ဖောင်းစေရန်
+tool.liquify.choice.push_left = ဘယ်ဘက်သို့ တွန်းရန်
+tool.liquify.history.liquify = အရည်ပျော်ပုံဖော်ရန်
+
+tool.puppet_warp.name = ရုပ်သေး ပုံပျက်ပြောင်းရန်
+tool.puppet_warp.description = အလွှာကို နေရာအနည်းငယ်တွင် ချိတ်ရန် နှိပ်ပြီး အမှတ်တစ်ခုကို ဆွဲပါ။ တောင့်တင်းမှု ရွေးချယ်ချက်အတိုင်း ကွက်ကွန်သည် ချိတ်အမှတ်များပတ်လည်တွင် တင်းတင်း သို့မဟုတ် ပျော့ပျောင်းစွာ ကွေးသည်။ အတည်ပြုလိုက်လျှင် ပြောင်းလဲမှု သက်ရောက်သည်။
+tool.puppet_warp.option.stiffness = တောင့်တင်းမှု
+tool.puppet_warp.history.puppet_warp = ရုပ်သေး ပုံပျက်ပြောင်းရန်
+
+tool.vanishing_point.name = ရှုထောင့်ပျောက်မှတ်
+tool.vanishing_point.description = ရှုထောင့်အနက်ရှိသော အရာတစ်ခုပေါ်တွင် မျက်နှာပြင်တစ်ခု ဆွဲသတ်မှတ်ပြီး စနစ်ကို ပုံတူကူးရန်သို့ ပြောင်းကာ ဆေးခြယ်ပါ။ ကူးယူထားသော ပစ်ဇယ်များသည် မျက်နှာပြင်အတိုင်း လိုက်၍ အကွာအဝေးများလာလေ သေးလာလေ ဖြစ်သည်။
+tool.vanishing_point.choice.edit_plane = မျက်နှာပြင် တည်းဖြတ်ရန်
+tool.vanishing_point.choice.clone = ပုံတူကူးရန်
+tool.vanishing_point.history.vanishing_point = ရှုထောင့်ပျောက်မှတ်

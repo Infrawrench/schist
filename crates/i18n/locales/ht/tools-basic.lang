@@ -1,0 +1,21 @@
+tool.move.name = Deplase
+tool.move.description = Trennen sa ki nan kouch aktif la pou mete l yon lòt kote. Lè Seleksyon otomatik limen, depi ou peze, zouti a chwazi premye kouch la — oswa tout gwoup la — ki anba pwentè a.
+tool.move.option.auto_select = Seleksyon otomatik
+tool.move.history.move_layer = Deplase kouch
+
+tool.eyedropper.name = Pipèt
+tool.eyedropper.description = Pran echantiyon koulè ki anba pwentè a pou mete l nan echantiyon koulè devan an, oswa nan echantiyon koulè dèyè a lè w kenbe alt. Pandan w ap trennen, li kontinye pran echantiyon.
+tool.eyedropper.option.sample_size = Gwosè echantiyon
+tool.eyedropper.option.sample = Echantiyon
+tool.eyedropper.choice.point_sample = Echantiyon yon pwen
+tool.eyedropper.choice.average_3 = Mwayèn 3 pa 3
+tool.eyedropper.choice.average_5 = Mwayèn 5 pa 5
+tool.eyedropper.choice.average_11 = Mwayèn 11 pa 11
+tool.eyedropper.choice.average_31 = Mwayèn 31 pa 31
+tool.eyedropper.choice.all_layers = Tout kouch yo
+tool.eyedropper.choice.current_layer = Kouch aktyèl la
+
+tool.hand.name = Men
+tool.hand.description = Deplase vi a. Zòn vizib la fè pati fenèt la, kidonk zouti sa a pa fè anyen nan dokiman an lè pa gen koòdone grafik.
+tool.zoom.name = Zoum
+tool.zoom.description = Agrandi oswa redui vi a. Zòn vizib la fè pati fenèt la, kidonk zouti sa a pa fè anyen nan dokiman an lè pa gen koòdone grafik.

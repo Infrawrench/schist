@@ -1,0 +1,24 @@
+# Move
+tool.move.name = Cālanaṃ
+tool.move.description = Kammakārakassa santharassa antogataṃ navaṭṭhānaṃ ākaḍḍhatha. Sayaṃ-gahaṇe pavattamāne, paṭhamaṃ niddesakassa heṭṭhā yo koci santharo vā sakalagaṇo vā atthi, so phusanena gayhati.
+tool.move.option.auto_select = Sayaṃ-gahaṇaṃ
+tool.move.history.move_layer = Santharacālanaṃ
+
+# Eyedropper
+tool.eyedropper.name = Vaṇṇaggāhakaṃ
+tool.eyedropper.description = Niddesakassa heṭṭhā vaṇṇaṃ gahetvā purimavaṇṇanidassane ṭhapeti; alt dhāriyamāne pacchimavaṇṇanidassane ṭhapeti. Ākaḍḍhiyamāne nirantaraṃ vaṇṇaṃ gaṇhāti.
+tool.eyedropper.option.sample_size = Nidassanappamāṇaṃ
+tool.eyedropper.option.sample = Nidassanaṃ
+tool.eyedropper.choice.point_sample = Bindunidassanaṃ
+tool.eyedropper.choice.average_3 = 3 × 3 majjhimamānaṃ
+tool.eyedropper.choice.average_5 = 5 × 5 majjhimamānaṃ
+tool.eyedropper.choice.average_11 = 11 × 11 majjhimamānaṃ
+tool.eyedropper.choice.average_31 = 31 × 31 majjhimamānaṃ
+tool.eyedropper.choice.all_layers = Sabbe santharā
+tool.eyedropper.choice.current_layer = Vattamānasantharo
+
+# Hand and Zoom
+tool.hand.name = Hattho
+tool.hand.description = Dassanabhāgaṃ cāleti. Dassanavātapānaṃ vātapānasseva hoti; tasmā vātapānarahite payoge idaṃ karaṇaṃ potthake kiñci na karoti.
+tool.zoom.name = Dassanappamāṇaṃ
+tool.zoom.description = Dassanaṃ mahantaṃ vā khuddakaṃ vā karoti. Dassanavātapānaṃ vātapānasseva hoti; tasmā vātapānarahite payoge idaṃ karaṇaṃ potthake kiñci na karoti.

@@ -1,0 +1,21 @@
+tool.move.name = Күчерү
+tool.move.description = Актив катлам эчтәлеген яңа урынга сөйрәгез. Автоматик сайлау кабызылган булса, басканда күрсәткеч астындагы иң беренче катлам яки бөтен төркем сайлана.
+tool.move.option.auto_select = Автоматик сайлау
+tool.move.history.move_layer = Катламны күчерү
+
+tool.eyedropper.name = Пипетка
+tool.eyedropper.description = Күрсәткеч астындагы төсне алгы төс үрнәгенә күчерә; Alt тотып торылса, арткы төс үрнәгенә күчерә. Сөйрәгәндә төсләрне өзлексез сайлый.
+tool.eyedropper.option.sample_size = Үрнәк зурлыгы
+tool.eyedropper.option.sample = Үрнәк
+tool.eyedropper.choice.point_sample = Ноктадан үрнәк
+tool.eyedropper.choice.average_3 = 3 × 3 уртача
+tool.eyedropper.choice.average_5 = 5 × 5 уртача
+tool.eyedropper.choice.average_11 = 11 × 11 уртача
+tool.eyedropper.choice.average_31 = 31 × 31 уртача
+tool.eyedropper.choice.all_layers = Барлык катламнар
+tool.eyedropper.choice.current_layer = Хәзерге катлам
+
+tool.hand.name = Кул
+tool.hand.description = Күренешне күчерә. Күренеш өлкәсе тәрәзәнеке булганга, график интерфейссыз эшләгәндә бу корал документка тәэсир итми.
+tool.zoom.name = Масштаб
+tool.zoom.description = Күренеш масштабын үзгәртә. Күренеш өлкәсе тәрәзәнеке булганга, график интерфейссыз эшләгәндә бу корал документка тәэсир итми.

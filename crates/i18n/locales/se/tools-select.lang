@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Geahpedit
+tool.select.mode.intersect = Riste
+
+tool.marquee.rect.name = Njuolggočiegat válljenguovlu
+tool.marquee.rect.description = Gease njuolggočiegat válljema. Shift geassima álggus lasiha válljemii, alt geahpeda ja goappašat ráhkadit rasttildusa; Shift geassima áigge dahká das njealječiega. Coahkkaleapmi geasekeahttá hilgu válljema.
+tool.marquee.ellipse.name = Ellipsahámát válljenguovlu
+tool.marquee.ellipse.description = Gease ellipsahámát válljema seamma Shift/alt-ovttastahttimiin go njuolggočiegat válljenguovlu.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Gease gieđain sárgojuvvon sárgosa; válljen giddejuvvo geažis geahčái go geassin loahpahuvvo. Shift lasiha ja alt geahpeda.
+tool.lasso.history.select = Lassoválljen
+tool.lasso.polygonal.name = Moanačiegat lasso
+tool.lasso.polygonal.description = Coahkkal čiega čiega maŋis vai ráhkadat njuolga ravddat válljema, ja coahkkal vuosttaš čuozi lahka vai giddejuvvo.
+tool.lasso.polygonal.history.select = Moanačiegat lassoválljen
+tool.lasso.magnetic.name = Magnehtalaš lasso
+tool.lasso.magnetic.description = Čuovo sullii ravdda, de sárggus giddejuvvo bálgá lahka nannoseamos kontrástii.
+tool.lasso.magnetic.history.select = Magnehtalaš lassoválljen
+tool.lasso.magnetic.option.frequency = Dávjjadat
+
+tool.wand.name = Noaidesággi
+tool.wand.description = Coahkkal vai válljet čujuhanáli vuolde oktavuođas sullasaš ivnni guovllu gierdama siskkobealde — seamma gierdama lohket Viiddit, Sulalaš ja Ivdneguovlu.
+tool.wand.option.contiguous = Oktavuođas
+tool.wand.history.select = Noaidesággi
+
+tool.quick_select.name = Jođánis válljen
+tool.quick_select.description = Mále guovllu badjel, de válljen viidána sullasaš govvačuoggáid mielde maid badjel peansal manná.
+tool.quick_select.history.select = Jođánis válljen
+
+tool.object_select.name = Objeaktaválljen
+tool.object_select.description = Gease bovssa objeavtta birra, de válljen giddejuvvo bovssa siste gávdnon objektii.
+tool.object_select.history.select = Objeaktaválljen

@@ -1,0 +1,36 @@
+app.filter_gallery.title = 필터 갤러리
+app.filter_gallery.stack = 스택(아래에서 위 순서로 적용)
+app.filter_gallery.no_settings = 이 필터에는 설정이 없습니다.
+app.fonts.not_open_licensed = 공개 라이선스 없음 · {substitute}의 메트릭이 일치함
+app.fonts.missing_substituted = 누락됨 · 대체 글꼴로 텍스트를 조판하는 중
+app.fonts.not_in_catalogue = {family}은(는) 공개 글꼴 카탈로그에 없습니다
+app.fonts.no_faces = {family}에 다운로드 가능한 글꼴이 없습니다
+app.fonts.empty_response = 빈 응답
+app.update.unreadable_response = 응답을 읽을 수 없습니다: {error}
+app.update.no_temp_dir = 다운로드에 사용할 임시 디렉터리가 없습니다
+app.update.asset_has_path = 릴리스의 에셋 이름에 경로가 포함되어 있습니다
+app.update.too_big = 다운로드가 릴리스에 명시된 크기보다 큽니다
+app.update.stopped_at = 총 {total}바이트 중 {got}바이트에서 다운로드가 중단되었습니다
+app.update.hash_mismatch = 다운로드 해시는 {got}이며 예상값 {want}과(와) 다릅니다
+app.update.not_in_bundle = 이 Schist는 응용 프로그램 번들 안에 없습니다
+app.update.no_parent_dir = 응용 프로그램 번들에 상위 디렉터리가 없습니다
+app.update.cannot_write = {dir}에 쓸 수 없습니다
+app.update.cannot_move_aside = {app}을(를) 옆으로 이동할 수 없습니다
+app.update.cannot_move_in = 새 번들을 제자리로 이동할 수 없습니다
+app.update.cannot_run_ditto = /usr/bin/ditto를 실행할 수 없습니다
+app.update.unpack_failed = 다운로드 압축 풀기 실패: {error}
+app.update.no_app_in_download = 다운로드에 Schist.app이 없습니다
+app.update.cannot_run_codesign = /usr/bin/codesign을 실행할 수 없습니다
+app.update.signature_invalid = 다운로드 서명을 확인할 수 없습니다: {error}
+app.update.download_unsigned = 현재 앱은 서명되어 있지만 다운로드는 서명되지 않았습니다
+app.update.different_developer = 다운로드가 다른 개발자의 서명으로 되어 있습니다
+app.update.cannot_relaunch = 재실행 프로그램을 시작할 수 없습니다
+app.update.not_installed_copy = 현재 앱은 설치 프로그램으로 이 위치에 설치되지 않았습니다
+app.update.cannot_start_installer = 설치 프로그램을 시작할 수 없습니다
+app.update.platform_unsupported = 이 플랫폼의 업데이트는 Schist를 설치한 방식으로 설치됩니다
+app.vulkan.no_loader = schist: 이 시스템에 Vulkan 로더가 없어 화면을 그릴 수 없습니다.\n\nSchist는 Vulkan으로 렌더링하지만 `libvulkan.so.1`이 설치되지 않았습니다.\n로더와 드라이버가 모두 필요합니다:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: 이 세션이 가리키는 Vulkan 드라이버가 없습니다.\n\n{var}이(가) 설정되어 있으며 이 설정은 드라이버 검색에 추가되는 대신 로더의 검색을 대체합니다. 따라서 존재하지 않는 다음 파일이 전체 드라이버 목록이 되어 이 세션의 모든 Vulkan 프로그램에서 드라이버를 찾지 못합니다. 실제로 설치된 드라이버 수와는 관계없습니다:\n\n{missing}\n    {var}={value}\n\n존재하는 매니페스트를 지정하거나 설정을 해제하여 로더가 직접 찾게 하세요. 설치된 드라이버의 매니페스트는 /usr/share/vulkan/icd.d에 있습니다. 구성 파일(Hyprland의 `env =`, systemd environment.d 설정 파일 또는 셸 프로필)에서 이 값을 설정했다면 해당 파일을 수정하고 새로 로그인해야 실행 중인 항목에도 변경 사항이 적용됩니다.\n
+app.vulkan.override_note = \n{var}이(가) {value}(으)로 설정되어 로더 자체 검색을 대체합니다. 이 컴퓨터에 맞는 매니페스트가 없다면 먼저 설정을 해제해 보세요.\n
+app.vulkan.no_driver = schist: Vulkan 드라이버가 설치되지 않아 화면을 그릴 수 없습니다.\n\nSchist는 Vulkan으로 렌더링합니다. 로더는 설치되어 있지만 다음 검색 위치에 등록된 드라이버가 없습니다:\n\n{dirs}\n\n이 컴퓨터의 GPU에 맞는 드라이버를 설치하세요:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA 독점 드라이버에는 자체 드라이버가 포함됩니다(Arch의 `nvidia-utils`, Debian의 `nvidia-driver`). 가상 머신처럼 GPU 드라이버가 없는 환경에서는 소프트웨어 래스터라이저를 사용하세요. Arch에서는 `vulkan-swrast`, 그 밖에서는 `mesa-vulkan-drivers`의 일부입니다. 느리지만 실행할 수 있습니다.\n{overridden}
+app.vulkan.no_device = schist: Vulkan 드라이버가 설치되어 있지만 렌더링할 장치를 제공하지 않습니다.\n\n드라이버가 이 GPU를 지원하지 않거나 SSH 또는 컨테이너 안에서 /dev/dri에 접근하지 못할 수 있습니다. `vulkaninfo --summary`로 로더가 감지한 항목을 확인하세요.\n\nGPU가 없는 컴퓨터에서는 소프트웨어 래스터라이저를 사용할 수 있습니다. Arch에서는 `vulkan-swrast`, Debian과 Fedora에서는 `mesa-vulkan-drivers`의 일부입니다.\n
+app.vulkan.skip_hint = 그래도 Schist를 시작하여 자체 방식으로 실패하게 하려면 {var}=1로 설정하세요.

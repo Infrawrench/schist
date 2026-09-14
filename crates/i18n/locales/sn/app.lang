@@ -1,0 +1,36 @@
+app.filter_gallery.title = Garari yeMasefa
+app.filter_gallery.stack = Murwi (zvinoiswa kubva pasi kuenda kumusoro)
+app.filter_gallery.no_settings = Sefa iyi haina zvirongwa.
+app.fonts.not_open_licensed = haina rezinesi rakazaruka · {substitute} inofanana nezviyero zvayo
+app.fonts.missing_substituted = haipo · mavara ari kuiswa nefonti inotsiva
+app.fonts.not_in_catalogue = {family} haisi mukatalogi yemafonti akazaruka
+app.fonts.no_faces = hapana maface anogona kudhaunirodhwa e{family}
+app.fonts.empty_response = mhinduro isina chinhu
+app.update.unreadable_response = mhinduro isingaverengeki: {error}
+app.update.no_temp_dir = hapana forodha yenguva pfupi yekudhaunirodhera mairi
+app.update.asset_has_path = zvakaburitswa zvinopa asset yazvo nzira yefaira
+app.update.too_big = zvakadhaunirodhwa zvakakura kupfuura zvinotaurwa nezvakaburitswa
+app.update.stopped_at = kudhaunirodha kwakamira pa{got} pamabhaiti {total}
+app.update.hash_mismatch = hash yezvakadhaunirodhwa i{got}, kwete {want}
+app.update.not_in_bundle = kopi iyi haisi mukati mebundle yeapp
+app.update.no_parent_dir = bundle yeapp haina forodha yemubereki
+app.update.cannot_write = hazvikwanisiki kunyora ku{dir}
+app.update.cannot_move_aside = hazvikwanisiki kubvisa {app} munzira
+app.update.cannot_move_in = hazvikwanisiki kuisa bundle itsva panzvimbo
+app.update.cannot_run_ditto = hazvikwanisiki kumhanyisa /usr/bin/ditto
+app.update.unpack_failed = kuvhura zvakadhaunirodhwa kwakundikana: {error}
+app.update.no_app_in_download = zvakadhaunirodhwa hazvina Schist.app
+app.update.cannot_run_codesign = hazvikwanisiki kumhanyisa /usr/bin/codesign
+app.update.signature_invalid = siginicha yezvakadhaunirodhwa haisimbisiki: {error}
+app.update.download_unsigned = kopi iyi ine siginicha asi zvakadhaunirodhwa hazvina
+app.update.different_developer = zvakadhaunirodhwa zvakasainwa nemugadziri akasiyana
+app.update.cannot_relaunch = hazvikwanisiki kutanga chinotangazve app
+app.update.not_installed_copy = kopi iyi haina kuiswa pano neinstaller
+app.update.cannot_start_installer = hazvikwanisiki kutanga installer
+app.update.platform_unsupported = zvigadziridzo papuratifomu iyi zvinoiswa nenzira yakaiswa Schist
+app.vulkan.no_loader = schist: hapana Vulkan loader musisitimu ino, saka hapana chekudhirowa nacho.\n\nSchist inoratidza mifananidzo ichishandisa Vulkan, uye `libvulkan.so.1` haina kuiswa.\nLoader nemutyairi zvinodiwa zvese:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: mutyairi weVulkan uri kunongedzerwa nesesheni ino haupo.\n\n{var} yakaiswa, uye kuiisa *kunotsiva* kutsvaga kwevatyairi kunoitwa neloader\npachinzvimbo chekuwedzera pairi. Saka mafaira aya, ayo asipo,\nndiwo rondedzero yose yevatyairi -- uye purogiramu yese yeVulkan musesheni ino\nhaina kana mutyairi mumwe chete wainoona, zvisinei nekuti vangani vakaiswa:\n\n{missing}\n    {var}={value}\n\nInongedzere kumanifest iripo -- vatyairi vakaiswa vanoisa mamanifest avo mu\n/usr/share/vulkan/icd.d -- kana kuibvisa wobvumira loader kuti izvitsvakire.\nKana sesheni ichiisa izvi kubva mufaira rezvirongwa (`env =` yeHyprland,\nfile rekuwedzera re systemd environment.d, purofaira yeshell), zvinofanira kuchinjwa imomo,\nuye shanduko inoda kupinda patsva kuti isvike pane zvagara zvichimhanya.\n
+app.vulkan.override_note = \n{var} yakaiswa ku{value}, uye izvozvo zvinotsiva kutsvaga kunoitwa neloader:\nkana pasina manifest ipapo iri yemuchina uyu, chinhu chokutanga kuedza kuibvisa.\n
+app.vulkan.no_driver = schist: hapana mutyairi weVulkan akaiswa, saka hapana chekudhirowa nacho.\n\nSchist inoratidza mifananidzo ichishandisa Vulkan. Loader yakaiswa asi inoti hapana\nmutyairi -- hapana wakanyoresa mutyairi munzvimbo mbiri dzinotsvagwa:\n\n{dirs}\n\nLoader inouya yakaparadzana nevatyairi, saka kazhinji panenge pangoshaikwa\npakeji rimwe chete.\n\nIsa rinoenderana neGPU yemuchina uyu:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nMutyairi weNVIDIA wega une rake (`nvidia-utils` paArch,\n`nvidia-driver` paDebian). Mumuchina wevirtual, kana pese pasina mutyairi\nweGPU wekuisa, software rasteriser ndiyo inoshanda:\n`vulkan-swrast` paArch, uye chikamu che`mesa-vulkan-drivers` kune dzimwe nzvimbo.\nInononoka, asi inotanga.\n{overridden}
+app.vulkan.no_device = schist: mutyairi weVulkan akaiswa asi haapi mudziyo wekushandisa pakuratidza mifananidzo.\n\nMutyairi angasatsigira GPU iyi, kana kuti angatadza kusvika pairi --\npaSSH, kana mukati mecontainer, /dev/dri ndiyo inowanzoshaikwa.\n`vulkaninfo --summary` inoratidza zvinoonekwa neloader.\n\nSoftware rasteriser inoratidza mifananidzo isina GPU zvachose, kana muchina uyu\nusina GPU: `vulkan-swrast` paArch, chikamu che`mesa-vulkan-drivers`\npaDebian neFedora.\n
+app.vulkan.skip_hint = Kuti utange Schist zvakadaro uye uisiye ichikundikana nenzira yayo, isa {var}=1.

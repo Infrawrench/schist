@@ -1,0 +1,21 @@
+# Livelli di regolazione e comandi Immagine ▸ Regolazioni: i nomi.
+adjustment.levels.name = Livelli
+adjustment.curves.name = Curve
+adjustment.hue_saturation.name = Tonalità/Saturazione
+adjustment.brightness_contrast.name = Luminosità/Contrasto
+adjustment.black_white.name = Bianco e nero
+adjustment.solid_color.name = Tinta unita
+adjustment.gradient_fill.name = Riempimento sfumatura
+adjustment.pattern_fill.name = Riempimento pattern
+adjustment.invert.name = Inverti
+adjustment.posterize.name = Posterizza
+adjustment.threshold.name = Soglia
+adjustment.color_balance.name = Bilanciamento colore
+adjustment.vibrance.name = Vividezza
+adjustment.exposure.name = Esposizione
+adjustment.photo_filter.name = Filtro fotografico
+adjustment.gradient_map.name = Mappa sfumatura
+adjustment.selective_color.name = Correzione colore selettiva
+adjustment.channel_mixer.name = Miscelatore canale
+# Un tipo letto da un PSD per il quale Schist non dispone di un editor.
+adjustment.other.name = Regolazione

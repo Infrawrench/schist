@@ -1,0 +1,43 @@
+# Iragazkien galeria
+app.filter_gallery.title = Iragazkien galeria
+app.filter_gallery.stack = Pila (behetik gora aplikatua)
+app.filter_gallery.no_settings = Iragazki honek ez du ezarpenik.
+
+# Letra-tipoak
+app.fonts.not_open_licensed = ez du lizentzia irekirik · {substitute} bat dator haren metrikekin
+app.fonts.missing_substituted = falta da · testua ordezko letra-tipo batekin konposatzen ari da
+app.fonts.not_in_catalogue = {family} ez dago letra-tipo irekien katalogoan
+app.fonts.no_faces = ez dago deskarga daitekeen {family} letra-tipo aurpegirik
+app.fonts.empty_response = erantzun hutsa
+
+# Eguneratzailea
+app.update.unreadable_response = erantzuna ezin da irakurri: {error}
+app.update.no_temp_dir = ez dago deskarga gordetzeko aldi baterako direktoriorik
+app.update.asset_has_path = bertsioak bide bat erabili du baliabidearen izenean
+app.update.too_big = deskarga bertsioak adierazitakoa baino handiagoa da
+app.update.stopped_at = deskarga {got} bytean gelditu da, guztira {total} byte izanik
+app.update.hash_mismatch = deskargaren hash-a {got} da, ez {want}
+app.update.not_in_bundle = kopia hau ez dago aplikazio-pakete baten barruan
+app.update.no_parent_dir = aplikazio-paketeak ez du direktorio gurasorik
+app.update.cannot_write = ezin da {dir} direktorioan idatzi
+app.update.cannot_move_aside = ezin da {app} alde batera mugitu
+app.update.cannot_move_in = ezin da pakete berria dagokion tokira mugitu
+app.update.cannot_run_ditto = ezin da /usr/bin/ditto exekutatu
+app.update.unpack_failed = huts egin du deskarga deskonprimatzean: {error}
+app.update.no_app_in_download = deskargak ez du Schist.app fitxategirik
+app.update.cannot_run_codesign = ezin da /usr/bin/codesign exekutatu
+app.update.signature_invalid = ezin izan da deskargaren sinadura egiaztatu: {error}
+app.update.download_unsigned = kopia hau sinatuta dago, baina deskarga ez
+app.update.different_developer = deskarga beste garatzaile batek sinatu du
+app.update.cannot_relaunch = ezin da berrabiarazlea abiarazi
+app.update.not_installed_copy = instalatzaileak ez zuen kopia hau hemen jarri
+app.update.cannot_start_installer = ezin da instalatzailea abiarazi
+app.update.platform_unsupported = plataforma honetan eguneratzeak Schist instalatu zen modu berean instalatzen dira
+
+# Linuxeko Vulkan egiaztapena
+app.vulkan.no_loader = schist: sistema honek ez du Vulkan kargatzailerik; beraz, ezin da ezer marraztu.\n\nSchist aplikazioak Vulkan bidez errendatzen du, eta `libvulkan.so.1` ez dago instalatuta.\nKargatzailea eta kontrolatzaile bat behar dira:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: saio honek adierazten duen Vulkan kontrolatzailea ez dago bertan.\n\n{var} ezarrita dago, eta ezarpen horrek kargatzailearen kontrolatzaile-bilaketa *ordezten* du, ez dio ezer gehitzen. Beraz, existitzen ez diren fitxategi hauek kontrolatzaileen zerrenda osoa dira, eta saio honetako Vulkan programa guztiek ez dute inolako kontrolatzailerik ikusiko, zenbat instalatuta dauden gorabehera:\n\n{missing}\n    {var}={value}\n\nAdierazi existitzen den manifestu bat —instalatutako kontrolatzaileek /usr/share/vulkan/icd.d direktorioan jartzen dituzte bereak—, edo kendu aldagaia eta utzi kargatzaileari bere kabuz aurkitzen.\nKonfigurazio-fitxategi batetik ezartzen duen saio batean (Hyprland-eko `env =`, systemd-ren environment.d fitxategi gehigarri bat edo shell profila), han aldatu behar da, eta saio berria hasi behar da aldaketa dagoeneko martxan dagoen edozertara iristeko.\n
+app.vulkan.override_note = \n{var} aldagaiak {value} balioa du, eta horrek kargatzailearen berezko bilaketa ordezten du: manifestu horietako bat ere ez bada makina honetarako, aldagaia kentzea da probatu beharreko lehenengo gauza.\n
+app.vulkan.no_driver = schist: ez dago Vulkan kontrolatzailerik instalatuta; beraz, ezin da ezer marraztu.\n\nSchist aplikazioak Vulkan bidez errendatzen du. Kargatzailea instalatuta dago, baina ez du kontrolatzailerik aurkitu: ez da bat ere erregistratu bilatzen duen bi kokapenetako batean ere:\n\n{dirs}\n\nKargatzailea kontrolatzaileetatik bereizita banatzen da; beraz, normalean pakete bakar bat falta da.\n\nInstalatu makina honetako GPUari dagokiona:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIAren jabedun kontrolatzaileak berea dakar (`nvidia-utils` Arch-en, `nvidia-driver` Debian-en). Makina birtual batean, edo GPU kontrolatzailerik instalatu ezin den edozein lekutan, software bidezko rasterizatzaileak funtzionatzen du: `vulkan-swrast` Arch-en, eta `mesa-vulkan-drivers` paketearen parte beste sistemetan. Motela da, baina abiarazi egiten da.\n{overridden}
+app.vulkan.no_device = schist: Vulkan kontrolatzaile bat instalatuta dago, baina ez du errendatzeko gailurik eskaintzen.\n\nBaliteke kontrolatzaileak GPU hau ez onartzea edo bertara iritsi ezin izatea; SSH bidez edo edukiontzi baten barruan, /dev/dri falta izatea ohikoa da. `vulkaninfo --summary` komandoak kargatzaileak ikusten duena erakusten du.\n\nMakina honek GPUrik ez badu, software bidezko rasterizatzaileak GPUrik gabe errendatzen du: `vulkan-swrast` Arch-en, eta `mesa-vulkan-drivers` paketearen parte Debian-en eta Fedora-n.\n
+app.vulkan.skip_hint = Schist hala ere abiarazi eta bere erara huts egiten uzteko, ezarri {var}=1.

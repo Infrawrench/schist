@@ -1,0 +1,31 @@
+# AI پینل اور ایجنٹ کی حالت
+ai.status.panel_shown = AI پینل دکھایا گیا
+ai.status.panel_hidden = AI پینل چھپا دیا گیا — منظر ▸ AI پینل ({shortcut}) اسے دوبارہ دکھاتا ہے
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} منسلک ہے
+ai.info.now_in_gallery = اب گیلری میں ہیں۔
+ai.info.now_in_editor = اب مدیر میں ہیں۔
+ai.tool.shell_command = شیل کمانڈ
+
+ai.error.cli_missing = {backend} CLI (”{binary}“) PATH میں نہیں ہے۔ پہلے اسے نصب کرکے سائن ان کریں۔
+ai.error.endpoint_failed = MCP اختتامی نقطہ شروع نہیں ہو سکا: {error}
+ai.error.binding_endpoint = MCP اختتامی نقطہ باندھا جا رہا ہے
+ai.error.spawning_endpoint_thread = MCP اختتامی نقطے کا تھریڈ شروع کیا جا رہا ہے
+ai.error.runtime_failed = ایجنٹ رن ٹائم شروع نہیں ہو سکا: {error}
+ai.error.worker_failed = {backend} ورکر شروع نہیں ہو سکا: {error}
+ai.error.did_not_start = {backend} شروع نہیں ہوا: {error}
+ai.error.switch_model_failed = ماڈل تبدیل نہیں ہو سکا: {error}
+ai.error.send_failed = ہدایت نہیں بھیجی جا سکی: {error}
+ai.error.interrupt_failed = عمل روکا نہیں جا سکا: {error}
+ai.error.locating_binary = Schist بائنری تلاش کی جا رہی ہے
+ai.error.starting_app_server = Codex ایپ سرور شروع کیا جا رہا ہے
+ai.error.attaching_app_server = Codex ایپ سرور سے منسلک کیا جا رہا ہے
+ai.error.initializing_app_server = Codex ایپ سرور کی ابتدا کی جا رہی ہے
+ai.error.resuming_thread = Codex تھریڈ بحال کیا جا رہا ہے
+ai.error.starting_thread = Codex تھریڈ شروع کیا جا رہا ہے
+
+ai.model.opus_detail = سب سے زیادہ صلاحیت والا درجہ
+ai.model.sonnet_detail = معمول کے کاموں کے لیے مؤثر
+ai.model.haiku_detail = فوری جوابات کے لیے تیز ترین
+ai.model.codex_catalog = Codex فہرست

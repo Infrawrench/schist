@@ -1,0 +1,106 @@
+workspace.fill.gray_50 = 50% pelēks
+workspace.fill.content_aware = Saturjutīgs
+
+workspace.modify.expand = Paplašināt atlasi
+workspace.modify.contract = Sašaurināt atlasi
+workspace.modify.border = Atlases apmale
+workspace.modify.smooth = Izlīdzināt atlasi
+workspace.modify.feather = Izpludināt atlases malas
+
+workspace.batch.target.edit = Galerijas labojumi (ar versijām)
+workspace.batch.target.beside = Kopijas blakus oriģināliem
+workspace.batch.target.folder = Kopijas mapē…
+
+workspace.modal.image_size.title = Attēla lielums
+
+workspace.docs.opening = Atver {name}…
+workspace.docs.opened = Atvērts {name}
+workspace.docs.open_failed = Neizdevās atvērt: {error}
+workspace.docs.no_codec = Schist nevar atvērt formātu {name}
+workspace.docs.no_exporter = Schist nevar saglabāt .{ext} failus
+workspace.docs.empty_response = Serveris nosūtīja tukšu atbildi
+workspace.docs.heic_not_installed = HEIC atbalsts nav instalēts
+workspace.docs.heic_downloading = Lejupielādē HEIC atbalstu (libheif {version})…
+workspace.docs.heic_installed = HEIC atbalsts instalēts
+workspace.docs.heic_download_failed = Neizdevās lejupielādēt HEIC atbalstu: {error}
+workspace.docs.placing = Ievieto {name}…
+workspace.docs.place_image = Ievietot attēlu
+workspace.docs.placed = Ievietots {name}
+workspace.docs.place_failed = Neizdevās ievietot: {error}
+workspace.docs.saved = Saglabāts {name}
+workspace.docs.save_failed = Neizdevās saglabāt: {error}
+
+workspace.adjustment.new_layer = Jauns slānis {name}
+workspace.adjustment.added = Pievienots: {name}
+workspace.adjustment.settings = {name} iestatījumi
+workspace.adjustment.updated = {name} atjaunināts
+workspace.adjustment.no_settings = Korekcijai {name} nav rediģējamu iestatījumu
+
+workspace.comps.name_n = Slāņu kompozīcija {n}
+workspace.comps.captured = Slāņu kompozīcija tverta
+workspace.comps.apply = Lietot {name}
+
+workspace.styles.layer_style = Slāņa stils
+workspace.context.rename_layer = Pārdēvēt slāni
+workspace.commands.tool = Rīks: {name}
+
+workspace.colormgmt.assign = Piešķirt {name}
+workspace.colormgmt.assigned = Piešķirts {name}
+workspace.colormgmt.convert_to = Konvertēt uz {name}
+workspace.colormgmt.converted_to = Konvertēts uz {name}
+workspace.colormgmt.convert_failed = Neizdevās konvertēt: {error}
+workspace.colormgmt.proof_on = Krāsu priekšskatījums ieslēgts
+workspace.colormgmt.proof_off = Krāsu priekšskatījums izslēgts
+
+workspace.filters.choose = Izvēlēties
+workspace.filters.select_layer_first = Vispirms atlasiet slāni
+workspace.filters.needs_pixel_layer = Filtriem nepieciešams pikseļu slānis
+workspace.filters.nothing_to_filter = Nav nekā, ko filtrēt
+workspace.filters.went_away = Filtrs vairs nav pieejams
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: filtrētais slānis vairs nepastāv
+workspace.filters.plugin_title = Photoshop spraudnis
+workspace.filters.running = Darbojas {name}
+workspace.filters.plugin_note = Spraudnis darbojas atsevišķā procesā. Ja tas atver logu, atbildiet tajā, lai turpinātu.
+workspace.filters.raw_preview_developing = Attīsta RAW priekšskatījumu…
+workspace.filters.raw_preview_done = RAW priekšskatījums (ātra demosaicēšana)
+workspace.filters.raw_preview_size_changed = RAW priekšskatījuma lielums mainījās: {w} × {h}
+workspace.filters.raw_preview_failed = Neizdevās izveidot RAW priekšskatījumu: {error}
+workspace.filters.raw_developing = Attīsta oriģinālo uzņēmumu…
+workspace.filters.raw_developing_note = Izmanto labāko demosaicēšanas metodi. Oriģinālā RAW sensora dati un šie iestatījumi paliek rediģējami arī pēc saglabāšanas PSD vai PSB formātā.
+workspace.filters.raw_document_changed = RAW attīstīšana pabeigta pēc dokumenta izmaiņām
+workspace.filters.raw_failed = RAW attīstīšana neizdevās: {error}
+workspace.filters.raw_too_wide = RAW attīstīšanas rezultāts ir pārāk plats
+workspace.filters.raw_too_tall = RAW attīstīšanas rezultāts ir pārāk augsts
+workspace.filters.raw_size_changed = RAW attīstīšanas lielums mainījās uz {w} × {h}; pašreizējais slānis tiek paturēts
+workspace.filters.raw_history = Camera Raw attīstīšana
+workspace.filters.raw_applied = Camera Raw attīstīšana lietota (labākā demosaicēšana)
+
+workspace.image_size.done = Attēla lielums: {w} × {h}
+workspace.image_size.bicubic_fallback = Attēla lielums: {w} × {h} — modeli {name} neizdevās ielādēt, tāpēc tika izmantota bikubiska interpolācija
+workspace.image_size.upscaling = Palielina ar {name}
+workspace.image_size.upscaling_note = Neironu tīklam jāapstrādā {mp} megapikseļi, katram vajadzīgas dažas sekundes. Dokuments nebūs pieejams, līdz apstrāde būs pabeigta.
+
+workspace.export.no_slices = Nav eksportējamu šķēlumu
+workspace.export.no_artboards = Nav eksportējamu montāžas laukumu
+workspace.export.regions.zero = Eksportēti {n} apgabalu
+workspace.export.regions.one = Eksportēts {n} apgabals
+workspace.export.regions.other = Eksportēti {n} apgabali
+workspace.export.prompt = Eksportēt kā:
+workspace.export.done = Eksportēts {name}
+workspace.export.failed = Neizdevās eksportēt: {error}
+workspace.export.codec_vanished = Eksportētājs vairs nav pieejams
+
+workspace.file_picker.choose_folder = Izvēlēties mapi
+workspace.file_picker.type_a_name = Ierakstiet faila nosaukumu
+workspace.file_picker.exists = {name} jau pastāv; pieskarieties Saglabāt vēlreiz, lai to aizstātu
+workspace.file_picker.tap_a_file = Pieskarieties failam, lai to atvērtu
+workspace.file_picker.pictures = Attēli
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Lejupielādes
+workspace.file_picker.permission_denied = Schist nav atļaujas lasīt šo mapi
+
+workspace.recovery.recovered_title = {title} (atkopts)
+workspace.recovery.recovered.zero = Atkopti {n} nesaglabātu dokumentu no iepriekšējās sesijas
+workspace.recovery.recovered.one = Atkopts {n} nesaglabāts dokuments no iepriekšējās sesijas
+workspace.recovery.recovered.other = Atkopti {n} dokumenti no iepriekšējās sesijas

@@ -1,0 +1,47 @@
+# Pens
+tool.pen.name = Ipeni
+tool.pen.description = Yakha indlela: qhafaza ukwenza iphuzu lekhona, dosa ukukhupha iimbambo zejika kilo, bese uqhafaza iphuzu lokuthoma ukuyivala. Ukuqinisekisa kutjhugulula indlela ibe yileya yobujamo.
+tool.pen.option.rubber_band = Iraba Enwebekako
+tool.pen.history.fill = Ukuzalisa Indlela
+tool.pen.default_path_name = Indlela {n}
+tool.pen.freeform.name = Ipeni Lesandla
+tool.pen.freeform.description = Dosa umuda ngesandla bese ulinganiswa nendlela, ngokutjhaphuluka okutjhiwo likhetho Lokulinganisa.
+tool.pen.freeform.option.fit = Linganisa
+tool.pen.curvature.name = Ipeni Lejika
+tool.pen.curvature.description = Qhafaza umlandelande wamaphuzu bese indlela ijika butjhelelezi idlule kiwo.
+
+# Arrows
+tool.path_select.name = Ukukhetha Indlela
+tool.path_select.description = Qhafaza indlela ukuyikhetha, bese uyidosa ukukhambisa indlela yoke.
+tool.direct_select.name = Ukukhetha Bunqopha
+tool.direct_select.description = Dosa iphuzu elilodwa lokunamathisela namkha iimbambo zalo ukutjhugulula ubujamo bendlela elizombeleza kiyo.
+
+# Shapes
+tool.shape.history.layer = Ileya ye-{name}
+tool.shape.rect.name = Ithulusi Lesikwere
+tool.shape.rect.label = Isikwere
+tool.shape.rect.description = Dosa wenze ileya yobujamo obusikwere ngombala wangaphambili; ihlala iyivektha bese iphendulwa amaphikseli godu nakutjhugululwa ubukhulu.
+tool.shape.ellipse.name = Ithulusi Lesiyingi
+tool.shape.ellipse.label = Isiyingi
+tool.shape.ellipse.description = Dosa wenze ileya yobujamo obuyisiyingi ngombala wangaphambili.
+tool.shape.line.name = Ithulusi Lomuda
+tool.shape.line.label = Umuda
+tool.shape.line.description = Dosa wenze ileya yobujamo bomuda onqophileko ngombala wangaphambili.
+tool.shape.line.option.weight = Ukujiya
+tool.shape.line.option.arrow_start = Isithomo
+tool.shape.line.option.arrow_end = Isiphetho
+tool.shape.polygon.name = Ithulusi Lobujamo Obunamahlangothi
+tool.shape.polygon.label = Ubujamo Obunamahlangothi
+tool.shape.polygon.description = Dosa wenze ileya yobujamo obunamahlangothi alinganako ngombala wangaphambili, inani lamahlangothi lithathwa eenkhethweni.
+tool.shape.polygon.option.sides = Amahlangothi
+
+# Custom shapes
+tool.shape.custom.name = Ubujamo Obuzenzeleko
+tool.shape.custom.label = Ubujamo Obuzenzeleko
+tool.shape.custom.description = Dosa wenze ubujamo obunye obuhleliweko obufakiweko, obukhethwe ngekhetho Lobujamo.
+tool.shape.custom.choice.heart = Ihliziyo
+tool.shape.custom.choice.star = Ikwekwezi
+tool.shape.custom.choice.arrow = Umtjhoko
+tool.shape.custom.choice.lightning = Umbani
+tool.shape.custom.choice.cross = Isiphambano
+tool.shape.custom.choice.speech_bubble = Ibhamuza Lekulumo

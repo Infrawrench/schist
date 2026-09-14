@@ -1,0 +1,9 @@
+{
+  "loading": "Na-ebunye…",
+  "starting": "Na-amalite…",
+  "webgpu": "Schist chọrọ WebGPU, nke ihe nchọgharị a anaghị enye. Chrome/Edge 113+, Firefox 141+ na Safari 26+ na-enye ya.",
+  "noticeTitle": "Schist na-arụ ọrụ nke ọma karịa dịka ngwa desktọọpụ",
+  "noticeBody": "Ị na-eji ụdị webụ, nke bụ ụdị e mere ka ọ dị mfe: ọ na-ejikọta onyonyo site na CPU ma hapụ ụfọdụ atụmatụ — Photoshop plug-in na plug-in ndị nrụpụta ndị ọzọ, ebe ngosi onyonyo, panel AI, mbubata HEIC na nbudata fọnt — a na-echekwakwa faịlụ dịka nbudata. Ngwa desktọọpụ efu maka macOS, Windows na Linux nwere ha niile.",
+  "noticeLink": "Nweta ngwa desktọọpụ.",
+  "ok": "Ọ dị mma"
+}

@@ -1,0 +1,31 @@
+# د سند اړوند وسیلې: هنرتختې، ټوټې، چوکاټونه، یادښتونه او شمېرنې.
+
+# هنرتخته
+tool.artboard.name = هنرتخته
+tool.artboard.description = هنرتخته راکاږئ: د انځورپاڼې یوه نومول شوې برخه چې په خپلواکه توګه صادرېږي. د شته هنرتختې له دننه راکاږل هغه لېږدوي.
+tool.artboard.default_name = هنرتخته {n}
+
+# ټوټه
+tool.slice.name = ټوټه
+tool.slice.description = د صادرولو ټوټه راکاږئ؛ دا د انځورپاڼې نومول شوی مستطیل دی چې د جلا انځور په توګه صادرېږي. د شته ټوټې له دننه راکاږل هغه لېږدوي.
+tool.slice.default_name = ټوټه {n}
+
+# چوکاټ
+tool.frame.name = چوکاټ
+tool.frame.description = چوکاټ راکاږئ: یوه مستطیله (یا بیضوي) طبقه چې هر څه پکې ځای پر ځای شي، پوښي یې.
+tool.frame.default_name = چوکاټ {n}
+tool.frame.choice.rectangle = مستطیل
+tool.frame.choice.ellipse = بیضوي
+tool.frame.history.frame = چوکاټ
+
+# یادښت
+tool.note.name = یادښت
+tool.note.description = د انځورپاڼې په تش ځای کې کېکاږئ چې یادښت هلته ونښلول شي؛ یادښت د سمونګر په حالت کې د لیکوال او رنګ نښه اخلي. پر شته نښه کېکاږئ چې د یادښتونو په چوکاټ کې یې وټاکئ.
+tool.note.history.place = یادښت ایښودل
+tool.note.history.move = یادښت لېږدول
+tool.note.history.delete = یادښت ړنګول
+
+# شمېرنه
+tool.count.name = شمېرنه
+tool.count.description = کېکاږئ چې په انځورپاڼه کې شمېرل شوې نښې کېږدئ، او پر شته نښه کېکاږئ چې هغه لرې کړئ.
+tool.count.default_name = شمېرنه {n}

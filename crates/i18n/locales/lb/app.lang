@@ -1,0 +1,40 @@
+# Filtergalerie, Schrëften, Aktualiséierungen a Vulkan-Diagnos.
+app.filter_gallery.title = Filtergalerie
+app.filter_gallery.stack = Stapel (vun ënnen no uewe applizéiert)
+app.filter_gallery.no_settings = Dëse Filter huet keng Astellungen.
+
+app.fonts.not_open_licensed = net ënner enger oppener Lizenz · {substitute} huet déiselwecht Metrik
+app.fonts.missing_substituted = feelt · den Text gëtt mat enger Ersatzschrëft gesat
+app.fonts.not_in_catalogue = {family} ass net am Katalog vun oppene Schrëften
+app.fonts.no_faces = Keng Schrëftschnëtter fir {family} disponibel
+app.fonts.empty_response = Eidel Äntwert
+
+app.update.unreadable_response = Onliesbar Äntwert: {error}
+app.update.no_temp_dir = Keen temporären Dossier fir den Download
+app.update.asset_has_path = D'Verëffentlechung nennt hir Ressource mat engem Pad
+app.update.too_big = Den Download ass méi grouss wéi an der Verëffentlechung uginn
+app.update.stopped_at = Den Download ass bei {got} vun {total} Byte stoe bliwwen
+app.update.hash_mismatch = Den Hash vum Download ass {got} amplaz vun {want}
+app.update.not_in_bundle = Dës Kopie ass net an engem App-Bundle
+app.update.no_parent_dir = Den App-Bundle huet keen iwwergeuerdneten Dossier
+app.update.cannot_write = An {dir} kann net geschriwwe ginn
+app.update.cannot_move_aside = {app} kann net op d'Säit geréckelt ginn
+app.update.cannot_move_in = Den neie Bundle kann net op seng Plaz geréckelt ginn
+app.update.cannot_run_ditto = /usr/bin/ditto kann net ausgefouert ginn
+app.update.unpack_failed = Den Download konnt net ausgepaakt ginn: {error}
+app.update.no_app_in_download = Den Download enthält kee Schist.app
+app.update.cannot_run_codesign = /usr/bin/codesign kann net ausgefouert ginn
+app.update.signature_invalid = D'Signatur vum Download konnt net iwwerpréift ginn: {error}
+app.update.download_unsigned = Dës Kopie ass ënnerschriwwen, den Download awer net
+app.update.different_developer = Den Download ass vun engem aneren Entwéckler ënnerschriwwen
+app.update.cannot_relaunch = De Programm fir den Neistart kann net gestart ginn
+app.update.not_installed_copy = Dës Kopie gouf net vum Installatiounsprogramm heihinner gesat
+app.update.cannot_start_installer = Den Installatiounsprogramm kann net gestart ginn
+app.update.platform_unsupported = Aktualiséierungen op dëser Plattform ginn esou installéiert wéi Schist selwer
+
+app.vulkan.no_loader = schist: Op dësem System gëtt et kee Vulkan-Loader, dofir kann näischt gezeechent ginn.\n\nSchist rendert iwwer Vulkan, an `libvulkan.so.1` ass net installéiert.\nSouwuel de Loader wéi och en Driver sinn néideg:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: De Vulkan-Driver, op deen dës Sessioun weist, ass net do.\n\n{var} ass gesat, an dës Astellung *ersetzt* d'Sich vum Loader no\nDriveren, amplaz se ze ergänzen. Dës Fichieren, déi net existéieren,\nsinn also déi ganz Driverlëscht — an all Vulkan-Programm an dëser\nSessioun gesäit iwwerhaapt keen Driver, egal wéi vill installéiert sinn:\n\n{missing}\n    {var}={value}\n\nWeist op e Manifest, dat existéiert — installéiert Drivere späicheren\nhir Manifesten ënner /usr/share/vulkan/icd.d — oder läscht d'Variabel a\nloosst de Loader selwer sichen. Wann eng Konfiguratiounsdatei dës Variabel\nsetzt (Hyprland mat `env =`, eng environment.d-Drop-in-Datei vu systemd\noder e Shell-Profil), muss se do geännert ginn. Eng nei Umeldung ass\nnéideg, fir datt d'Ännerung schonn aktiv Programmer erreecht.\n
+app.vulkan.override_note = \n{var} ass op {value} gesat, an dat ersetzt dem Loader seng eege Sich.\nWa kee vun dëse Manifeste fir dëse Computer ass, sollt Dir als éischt\nprobéieren, d'Variabel ze läschen.\n
+app.vulkan.no_driver = schist: Et ass kee Vulkan-Driver installéiert, dofir kann näischt gezeechent ginn.\n\nSchist rendert iwwer Vulkan. De Loader ass installéiert a mellt keen\nDriver — op kenger vun deenen zwou gesichte Plazen ass een enregistréiert:\n\n{dirs}\n\nDe Loader gëtt getrennt vun den Driveren geliwwert, dofir feelt normalerweis\nnëmmen een eenzege Pak.\n\nInstalléiert dee fir d'GPU vun dësem Computer:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDem NVIDIA säi propriétaire Driver bréngt säin eegenen mat (`nvidia-utils`\nop Arch, `nvidia-driver` op Debian). An enger virtueller Maschinn oder\nwou keen GPU-Driver installéiert ka ginn, funktionéiert de Software-\nRasteriséierer: `vulkan-swrast` op Arch, anzwousch en Deel vu\n`mesa-vulkan-drivers`. En ass lues, mee e start.\n{overridden}
+app.vulkan.no_device = schist: E Vulkan-Driver ass installéiert, bitt awer keen Apparat fir ze renderen.\n\nDen Driver ënnerstëtzt dës GPU eventuell net oder kann net drop zougräifen —\niwwer SSH oder an engem Container feelt dacks /dev/dri.\n`vulkaninfo --summary` weist, wat de Loader gesäit.\n\nDe Software-Rasteriséierer rendert ganz ouni GPU, falls dëse Computer keng\nhuet: `vulkan-swrast` op Arch, an en Deel vu `mesa-vulkan-drivers` op\nDebian a Fedora.\n
+app.vulkan.skip_hint = Fir Schist trotzdeem ze starten an et op seng eegen Aart feele ze loossen, setzt {var}=1.

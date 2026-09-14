@@ -1,0 +1,31 @@
+# Sauyawa kyauta, sauya zaɓi da datsewa, da sunayen sake ɗaukar samfur.
+
+# Sauyawa kyauta
+tool.transform.name = Sauyawa Kyauta
+tool.transform.description = Sauyawa Kyauta. Kunna shi yana buɗe akwatin sauyawa kewaye da shimfiɗa mai aiki: ja kusurwa don canza girma, ja wajen kusurwa don juyawa, ko ja gefe don karkatarwa. Ba a rubuta komai sai an tabbatar (Enter), kuma sokewa (Escape) tana mayar da shimfiɗar yadda take.
+tool.transform.option.interpolation = Ƙiyasin Tsakani
+tool.transform.history.transform = Sauyawa Kyauta
+tool.transform.history.image_size = Girman Hoto
+tool.transform.history.canvas_size = Girman Wurin Zane
+
+# Sauya zaɓi
+tool.transform.selection.name = Sauya Zaɓi
+tool.transform.selection.description = Sauya Zaɓi: akwatin iri ɗaya ne, amma yana matsar da iyakar zaɓin maimakon pixels da ke cikinsa. Tabbatar ko soke don gamawa.
+tool.transform.selection.history.transform = Sauya Zaɓi
+
+# Matatan sake ɗaukar samfur na gargajiya
+tool.transform.resample.nearest_neighbor = Maƙwabci Mafi Kusa
+tool.transform.resample.bilinear = Layi Biyu
+tool.transform.resample.bicubic = Kubik Biyu
+
+# Datsewa
+tool.crop.name = Datsewa
+tool.crop.description = Ja yankin da za a riƙe sannan daidaita hannayensa; tabbatarwa (Enter) tana datse takardar zuwa yankin, sokewa (Escape) kuma tana barin ta yadda take.
+tool.crop.option.ratio = Rabo
+tool.crop.option.delete_cropped = Share Pixels da Aka Datse
+tool.crop.choice.unconstrained = Ba Tare da Ƙuntatawa ba
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Datsewa

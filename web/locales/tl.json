@@ -1,0 +1,9 @@
+{
+  "loading": "Naglo-load…",
+  "starting": "Nagsisimula…",
+  "webgpu": "Kailangan ng Schist ang WebGPU, ngunit hindi ito ibinibigay ng browser na ito. Sinusuportahan ito ng Chrome/Edge 113+, Firefox 141+, at Safari 26+.",
+  "noticeTitle": "Pinakamahusay na gumagana ang Schist bilang desktop app",
+  "noticeBody": "Ginagamit mo ang web na bersiyon, isang mas magaan na build ng software: sa CPU nito pinagsasama ang mga layer at wala rito ang ilang kakayahan — mga Photoshop plug-in at mga third-party plug-in, gallery ng larawan, AI panel, pag-import ng HEIC, at pag-download ng mga font — at sine-save ang mga file bilang mga download. Nasa libreng desktop app para sa macOS, Windows, at Linux ang lahat ng ito.",
+  "noticeLink": "Kunin ang desktop app.",
+  "ok": "OK"
+}

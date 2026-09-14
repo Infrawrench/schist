@@ -1,0 +1,29 @@
+# Frij transformearje
+tool.transform.name = Frij transformearje
+tool.transform.description = Frij transformearje. Nei it aktivearjen ferskynt in transformaasje-fak om de aktive laach: sleep in hoeke om te skaaljen, sleep bûten in hoeke om te draaien en sleep in râne om skean te setten. Der wurdt neat tapast oant jo befêstigje (Enter); by annulearjen (Escape) wurdt de laach weromset.
+tool.transform.option.interpolation = Ynterpolaasje
+tool.transform.history.transform = Frij transformearje
+tool.transform.history.image_size = Ofbyldingsgrutte
+tool.transform.history.canvas_size = Kanvasgrutte
+
+# Seleksje transformearje
+tool.transform.selection.name = Seleksje transformearje
+tool.transform.selection.description = Seleksje transformearje: itselde fak, mar no wurdt de seleksje-omtrek ferpleatst yn stee fan de piksels deryn. Befêstigje of annulearje om ôf te sluten.
+tool.transform.selection.history.transform = Seleksje transformearje
+
+# Werbemonsteringsfilters
+tool.transform.resample.nearest_neighbor = Neiste buorpiksel
+tool.transform.resample.bilinear = Bilineêr
+tool.transform.resample.bicubic = Bikubysk
+
+# Bysnije
+tool.crop.name = Bysnije
+tool.crop.description = Sleep it te behâlden gebiet út en pas de hânsels oan; by befêstigjen (Enter) wurdt it dokumint dêrop bysnien, by annulearjen (Escape) bliuwt it sa't it wie.
+tool.crop.option.ratio = Ferhâlding
+tool.crop.option.delete_cropped = Bysniene piksels wiskje
+tool.crop.choice.unconstrained = Sûnder beheiningen
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Bysnije

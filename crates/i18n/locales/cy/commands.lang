@@ -1,0 +1,115 @@
+# Gorchmynion Golygu, Dewis a Haen.
+
+# Golygu
+command.edit.undo.title = Dadwneud
+command.edit.undo.description = Ewch yn ôl un cofnod yn hanes dadwneud y ddogfen.
+command.edit.redo.title = Ailwneud
+command.edit.redo.description = Ailwnewch y golygiad a ddadwnaed ddiwethaf.
+command.edit.copy.title = Copïo
+command.edit.copy.description = Copïwch bicseli dewisedig yr haen weithredol i'r clipfwrdd mewnol (yr haen gyfan pan nad oes dim wedi'i ddewis).
+command.edit.copy_merged.title = Copïo'r Cyfuniad
+command.edit.copy_merged.description = Copïwch y detholiad fel y caiff ei gyfansoddi gan bob haen weladwy, yn hytrach nag o'r haen weithredol yn unig.
+command.edit.cut.title = Torri
+command.edit.cut.description = Copïwch y picseli dewisedig i'r clipfwrdd a'u dileu o'r haen weithredol.
+command.edit.paste.title = Gludo
+command.edit.paste.description = Gludwch gynnwys y clipfwrdd i haen newydd uwchben yr haen weithredol, wedi'i ganoli ar y cynfas.
+command.edit.paste.layer_name = Haen wedi'i Gludo
+command.edit.paste_in_place.title = Gludo yn ei Le
+command.edit.paste_in_place.description = Gludwch gynnwys y clipfwrdd i haen newydd wrth y cyfesurynnau y copïwyd ef ohonynt.
+command.edit.fill_foreground.title = Llenwi â'r Blaendir
+command.edit.fill_foreground.description = Llenwch y detholiad (neu'r cynfas cyfan pan nad oes dim wedi'i ddewis) â lliw'r blaendir.
+command.edit.fill_background.title = Llenwi â'r Cefndir
+command.edit.fill_background.description = Llenwch y detholiad (neu'r cynfas cyfan pan nad oes dim wedi'i ddewis) â lliw'r cefndir.
+
+# Dewis
+command.select.all.title = Dewis Popeth
+command.select.all.description = Dewiswch y cynfas cyfan.
+command.select.deselect.title = Dad-ddewis
+command.select.deselect.description = Gollyngwch y detholiad, fel bod golygiadau'n berthnasol i'r haen gyfan eto.
+command.select.inverse.title = Gwrthdroi'r Detholiad
+command.select.inverse.description = Cyfnewidiwch yr ardaloedd sydd wedi'u dewis a'r rhai sydd heb eu dewis.
+command.select.reselect.title = Ail-ddewis
+command.select.reselect.description = Dewch â'r detholiad a ollyngwyd ddiwethaf yn ôl.
+command.select.reselect.msg.nothing_to_reselect = Dim i'w ail-ddewis
+command.select.feather.title = Meddalu Ymyl y Detholiad
+command.select.feather.description = Meddalwch ymyl y detholiad â chymylu dau bicsel, fel bod y golygiad nesaf yn pylu ar ei draws.
+command.select.grow.title = Tyfu
+command.select.grow.description = Estynnwch y detholiad i bicseli cyffiniol sy'n debyg i'r hyn sydd eisoes wedi'i ddewis, o fewn goddefiant yr hudlath.
+command.select.similar.title = Tebyg
+command.select.similar.description = Dewiswch bob picsel yn yr haen sy'n debyg i'r detholiad, boed yn ei gyffwrdd ai peidio, o fewn goddefiant yr hudlath.
+command.select.save.title = Cadw'r Detholiad
+command.select.save.description = Cadwch y detholiad presennol yn y ddogfen fel sianel alffa ag enw.
+command.select.save.channel_name = Alffa {n}
+command.select.load.title = Llwytho Detholiad
+command.select.load.description = Adferwch y detholiad a gadwyd ddiwethaf.
+
+# Haen
+command.layer.new.title = Haen Newydd
+command.layer.new.description = Ychwanegwch haen raster wag uwchben yr haen weithredol a'i gwneud yn weithredol.
+command.layer.duplicate.title = Dyblygu Haen
+command.layer.duplicate.description = Copïwch yr haen weithredol, ynghyd â'i holl gynnwys, i haen newydd uwch ei phen.
+command.layer.smart_object.title = Trosi'n Wrthrych Clyfar
+command.layer.smart_object.description = Lapiwch bicseli'r haen raster weithredol mewn gwrthrych clyfar, fel bod trawsnewidiadau a hidlwyr diweddarach yn ailhap-samplu'r ffynhonnell ddigyffwrdd.
+command.layer.rasterize.title = Rasteirio Haen
+command.layer.rasterize.description = Pobwch haen siâp, testun neu wrthrych clyfar i lawr yn bicseli plaen.
+command.layer.delete.title = Dileu Haen
+command.layer.delete.description = Dilëwch yr haenau dewisedig.
+command.layer.group.title = Grwpio Haenau
+command.layer.group.description = Lapiwch yr haenau dewisedig mewn grŵp newydd yn yr un lle.
+command.layer.raise.title = Symud Ymlaen
+command.layer.raise.description = Symudwch yr haen weithredol un safle i fyny ym mhentwr ei grŵp.
+command.layer.lower.title = Symud yn Ôl
+command.layer.lower.description = Symudwch yr haen weithredol un safle i lawr ym mhentwr ei grŵp.
+command.layer.to_front.title = Symud i'r Blaen
+command.layer.to_front.description = Symudwch yr haen weithredol i frig ei grŵp.
+command.layer.to_back.title = Symud i'r Cefn
+command.layer.to_back.description = Symudwch yr haen weithredol i waelod ei grŵp.
+command.layer.clipping_mask.title = Creu/Rhyddhau Masg Clipio
+command.layer.clipping_mask.description = Clipiwch yr haen weithredol i'r un oddi tani, neu ei rhyddhau os yw eisoes wedi'i chlipio; dim ond lle mae picseli yn ei haen sylfaen y dangosir haen wedi'i chlipio.
+command.layer.cut_to_new.title = Haen drwy Dorri
+command.layer.cut_to_new.description = Symudwch y picseli dewisedig allan o'r haen weithredol ac i haen newydd uwch ei phen.
+command.layer.cut_to_new.layer_name = Haen drwy Dorri
+command.layer.add_mask.title = Ychwanegu Masg Haen
+command.layer.add_mask.description = Ychwanegwch fasg haen at yr haen weithredol, gan ddatgelu'r detholiad yn unig pan fo un.
+command.layer.flatten.title = Gwastatáu Delwedd
+command.layer.flatten.description = Cyfansoddwch bopeth sy'n weladwy yn un haen Cefndir ddidraidd, gan waredu'r haenau cudd.
+command.layer.merge_down.title = Cyfuno i Lawr
+command.layer.merge_down.description = Cyfansoddwch yr haen weithredol i'r haen oddi tani.
+command.layer.merge_down.msg.no_layer_below = Dim haen oddi tani i gyfuno iddi
+command.layer.merge_visible.title = Cyfuno'r Gweladwy
+command.layer.merge_visible.description = Cyfansoddwch bob haen weladwy yn un, gan adael yr haenau cudd heb eu newid.
+
+# Pam y gwrthododd gorchymyn
+command.msg.nothing_to_copy = Dewiswch haen bicseli i gopïo ohoni
+command.msg.clipboard_empty = Dim ar y clipfwrdd
+
+# Cofnodion y panel Hanes
+command.history.grow = Tyfu
+command.history.similar = Tebyg
+command.history.clear = Clirio
+command.history.merge_down = Cyfuno i Lawr
+command.history.flatten_image = Gwastatáu Delwedd
+command.history.merge_visible = Cyfuno'r Gweladwy
+command.history.paste = Gludo
+command.history.fill = Llenwi
+command.history.select_all = Dewis Popeth
+command.history.deselect = Dad-ddewis
+command.history.select_inverse = Gwrthdroi'r Detholiad
+command.history.new_layer = Haen Newydd
+command.history.duplicate_layer = Dyblygu Haen
+command.history.convert_to_smart_object = Trosi'n Wrthrych Clyfar
+command.history.rasterize_layer = Rasteirio Haen
+command.history.delete_layer = Dileu Haen
+command.history.delete_layers = Dileu Haenau
+command.history.group_layer = Grwpio Haen
+command.history.group_layers = Grwpio Haenau
+command.history.reselect = Ail-ddewis
+command.history.feather = Meddalu Ymylon
+command.history.load_selection = Llwytho Detholiad
+command.history.bring_forward = Symud Ymlaen
+command.history.send_backward = Symud yn Ôl
+command.history.bring_to_front = Symud i'r Blaen
+command.history.send_to_back = Symud i'r Cefn
+command.history.clipping_mask = Masg Clipio
+command.history.layer_via_cut = Haen drwy Dorri
+command.history.add_layer_mask = Ychwanegu Masg Haen

@@ -1,0 +1,97 @@
+# Paneli ochr, bariau offer a statws, tabiau, dewislenni cyd-destun a deialogau ffeiliau.
+
+# Bysellau addasu
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Bar statws
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Tabiau dogfen a theitl ffenestr
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Llywiwr
+panel.navigator.title = Llywiwr
+panel.navigator.actual_pixels = Picseli Gwirioneddol
+
+# Panel Lliw
+panel.color.picker = Dewisydd…
+panel.color.swap = Cyfnewid Lliwiau
+panel.color.reset = Ailosod i Ddu a Gwyn
+
+# Panel Haenau
+panel.layers.blending_options = Dewisiadau Cyfuno…
+panel.layers.properties = Priodweddau Haen…
+panel.layers.show_hide = Dangos/Cuddio Haen
+panel.layers.toggle_visibility = Toglo Gwelededd
+
+# Panel Hanes
+panel.history.title = Hanes
+panel.history.opened = Wedi Agor
+
+# Tab Gwybodaeth
+panel.info.title = Gwybodaeth
+panel.info.camera = Camera
+panel.info.lens = Lens
+panel.info.iso = ISO {iso}
+panel.info.bias = Tuedd
+panel.info.flash_fired = fflach wedi tanio
+panel.info.no_flash = dim fflach
+panel.info.white_balance = CB {wb}
+panel.info.metering = mesuryddiad {metering}
+panel.info.taken = Tynnwyd
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · cyfeiriadedd {o}
+panel.info.software = Meddalwedd
+panel.info.where = Lleoliad
+
+# Panel Nodiadau
+panel.notes.author = Awdur
+panel.notes.clear_all = Clirio Popeth
+panel.notes.unattributed = Heb briodoli
+panel.notes.empty = Cliciwch y cynfas i adael nodyn.
+panel.notes.placeholder = Cliciwch i ysgrifennu
+
+# Panel Nodau
+panel.character.title = Nod
+panel.character.type_tool = Offeryn Teip (T)
+panel.character.align_left = Alinio i'r chwith
+panel.character.align_center = Alinio i'r canol
+panel.character.align_right = Alinio i'r dde
+panel.character.text_color = Lliw testun
+panel.character.panel = Panel Nodau
+panel.character.cancel_edit = Canslo golygu'r testun
+panel.character.commit_edit = Cadarnhau golygu'r testun
+panel.character.number_tip = {label} · Teipiwch werth, neu defnyddiwch ↑ / ↓ (Shift ar gyfer camau mwy)
+panel.character.leading = Bylchu Llinellau
+panel.character.tracking = Bylchu Nodau
+panel.character.alignment = Aliniad
+panel.character.opentype = OpenType
+panel.character.text_on_path = Testun ar lwybr
+panel.character.straight = Syth
+panel.character.on_path = Ar lwybr
+panel.character.straight_tip = Defnyddio gwaelodlin arferol yr haen destun
+panel.character.on_path_tip = Defnyddio copi o'r llwybr gweithredol
+panel.character.path_offset = Atred y llwybr
+
+# Bar ochr AI
+panel.ai.title = AI
+panel.ai.empty_editor = Gofynnwch am olygiad a gwyliwch ef yn digwydd ar y cynfas. Mae'r asiant yn rheoli'r un offer, hidlwyr a gorchmynion â'r dewislenni, un cam dadwneud yr un.
+panel.ai.empty_gallery = Gofynnwch am eich ffotograffau a gwyliwch y gwaith yn digwydd yn yr oriel: gall yr asiant chwilio, edrych ar fân-luniau, dewis, trefnu mewn bwcedi, ac agor ffotograff yn y golygydd.
+panel.ai.thinking = wrthi'n meddwl…
+panel.ai.placeholder_editor = Holi am y ddogfen hon neu ei golygu
+panel.ai.placeholder_gallery = Holi am eich ffotograffau
+panel.ai.send = Anfon
+panel.ai.stop = Stopio
+panel.ai.fetching_models = Wrthi'n gofyn i'r CLI am ei fodelau…
+panel.ai.no_models = Nid oes modelau sy'n cyfateb
+panel.ai.search_models = Chwilio modelau…
+
+# Deialogau ffeiliau
+panel.keymap.install_plugin = Gosod Ategyn
+panel.keymap.save_as_prompt = Cadw fel — mae'r estyniad yn pennu'r fformat:

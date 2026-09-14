@@ -1,0 +1,21 @@
+tool.move.name = Жылжыту
+tool.move.description = Белсенді қабаттың мазмұнын жаңа орынға сүйреп жылжытыңыз. Автоматты таңдау қосулы болса, басқанда меңзердің астындағы қабат немесе тұтас топ алдымен таңдалады.
+tool.move.option.auto_select = Автоматты таңдау
+tool.move.history.move_layer = Қабатты жылжыту
+
+tool.eyedropper.name = Тамшуыр
+tool.eyedropper.description = Меңзердің астындағы түсті алдыңғы түс үлгісіне, ал Alt пернесін басып тұрғанда артқы түс үлгісіне алыңыз. Сүйрегенде түс үздіксіз алынады.
+tool.eyedropper.option.sample_size = Үлгі өлшемі
+tool.eyedropper.option.sample = Үлгі алу
+tool.eyedropper.choice.point_sample = Нүктелік үлгі
+tool.eyedropper.choice.average_3 = 3 × 3 орташа мәні
+tool.eyedropper.choice.average_5 = 5 × 5 орташа мәні
+tool.eyedropper.choice.average_11 = 11 × 11 орташа мәні
+tool.eyedropper.choice.average_31 = 31 × 31 орташа мәні
+tool.eyedropper.choice.all_layers = Барлық қабаттар
+tool.eyedropper.choice.current_layer = Ағымдағы қабат
+
+tool.hand.name = Қол
+tool.hand.description = Көріністі панорамалап жылжытады. Көрініс аймағы терезеге тиесілі болғандықтан, интерфейссіз режимде бұл құрал құжатқа әсер етпейді.
+tool.zoom.name = Масштаб
+tool.zoom.description = Көрініс масштабын өзгертеді. Көрініс аймағы терезеге тиесілі болғандықтан, интерфейссіз режимде бұл құрал құжатқа әсер етпейді.

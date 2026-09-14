@@ -1,0 +1,26 @@
+# ಮೂಲ ಪರಿಕರಗಳು: ಸರಿಸು, ಬಣ್ಣ ಹೀರುಗ, ಕೈ ಮತ್ತು ಝೂಮ್.
+
+# ಸರಿಸು
+tool.move.name = ಸರಿಸು
+tool.move.description = ಸಕ್ರಿಯ ಲೇಯರ್‌ನ ವಿಷಯವನ್ನು ಹೊಸ ಸ್ಥಾನಕ್ಕೆ ಎಳೆಯಿರಿ. ಸ್ವಯಂ-ಆಯ್ಕೆ ಆನ್ ಆಗಿದ್ದರೆ, ಒತ್ತಿದಾಗ ಪಾಯಿಂಟರ್‌ನ ಕೆಳಗೆ ಮೊದಲು ಸಿಗುವ ಲೇಯರ್ ಅಥವಾ ಇಡೀ ಗುಂಪನ್ನು ಆಯ್ಕೆಮಾಡುತ್ತದೆ.
+tool.move.option.auto_select = ಸ್ವಯಂ-ಆಯ್ಕೆ
+tool.move.history.move_layer = ಲೇಯರ್ ಸರಿಸಿ
+
+# ಬಣ್ಣ ಹೀರುಗ
+tool.eyedropper.name = ಬಣ್ಣ ಹೀರುಗ
+tool.eyedropper.description = ಪಾಯಿಂಟರ್‌ನ ಕೆಳಗಿನ ಬಣ್ಣವನ್ನು ಮುಂಭಾಗದ ಬಣ್ಣದ ಮಾದರಿಗೆ ತೆಗೆದುಕೊಳ್ಳಿ; Alt ಒತ್ತಿಹಿಡಿದಿದ್ದರೆ ಅದನ್ನು ಹಿನ್ನೆಲೆಯ ಬಣ್ಣದ ಮಾದರಿಗೆ ತೆಗೆದುಕೊಳ್ಳಿ. ಎಳೆಯುತ್ತಾ ಹೋದರೆ ಬಣ್ಣದ ಮಾದರಿಯನ್ನು ನಿರಂತರವಾಗಿ ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ.
+tool.eyedropper.option.sample_size = ಮಾದರಿ ಗಾತ್ರ
+tool.eyedropper.option.sample = ಮಾದರಿ
+tool.eyedropper.choice.point_sample = ಬಿಂದು ಮಾದರಿ
+tool.eyedropper.choice.average_3 = 3 × 3 ಸರಾಸರಿ
+tool.eyedropper.choice.average_5 = 5 × 5 ಸರಾಸರಿ
+tool.eyedropper.choice.average_11 = 11 × 11 ಸರಾಸರಿ
+tool.eyedropper.choice.average_31 = 31 × 31 ಸರಾಸರಿ
+tool.eyedropper.choice.all_layers = ಎಲ್ಲಾ ಲೇಯರ್‌ಗಳು
+tool.eyedropper.choice.current_layer = ಪ್ರಸ್ತುತ ಲೇಯರ್
+
+# ಕೈ ಮತ್ತು ಝೂಮ್
+tool.hand.name = ಕೈ
+tool.hand.description = ನೋಟವನ್ನು ಸರಿಸುತ್ತದೆ. ವೀಕ್ಷಣಾ ಪ್ರದೇಶವು ವಿಂಡೋಗೆ ಸೇರಿರುವುದರಿಂದ, ಹೆಡ್‌ಲೆಸ್ ಬಳಕೆಯಲ್ಲಿ ಈ ಪರಿಕರವು ಡಾಕ್ಯುಮೆಂಟ್‌ಗೆ ಏನನ್ನೂ ಮಾಡುವುದಿಲ್ಲ.
+tool.zoom.name = ಝೂಮ್
+tool.zoom.description = ನೋಟವನ್ನು ಹಿಗ್ಗಿಸುತ್ತದೆ ಅಥವಾ ಕುಗ್ಗಿಸುತ್ತದೆ. ವೀಕ್ಷಣಾ ಪ್ರದೇಶವು ವಿಂಡೋಗೆ ಸೇರಿರುವುದರಿಂದ, ಹೆಡ್‌ಲೆಸ್ ಬಳಕೆಯಲ್ಲಿ ಈ ಪರಿಕರವು ಡಾಕ್ಯುಮೆಂಟ್‌ಗೆ ಏನನ್ನೂ ಮಾಡುವುದಿಲ್ಲ.

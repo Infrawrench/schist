@@ -1,0 +1,27 @@
+# Pata
+tool.patch.name = Pata
+tool.patch.description = Saetchîz on cotoû åtoû d' on må, poy saetchîz ç' tchoezixhaedje la so des picsels propres: leu tecsure si mete å må. Li môde Pata dit ké costé del paire vos saetchîz.
+tool.patch.option.patch = Pata
+tool.patch.choice.source = Sourçaedje
+tool.patch.choice.destination = Destinaedje
+tool.patch.history.patch = Pata
+
+# Bodjaedje ki comprind l' contnou
+tool.content_aware_move.name = Bodjaedje ki comprind l' contnou
+tool.content_aware_move.description = Saetchîz on cayet tchoezi ôte pårt et l' trô k' i lét est rimpli avou çou k' i gn a åtoû. E môde Astinde, li cayet est astindou al plaece d' esse bodjî.
+tool.content_aware_move.choice.move = Bodjî
+tool.content_aware_move.choice.extend = Astinde
+tool.content_aware_move.history.move = Bodjaedje ki comprind l' contnou
+
+# Rodje ouy
+tool.red_eye.name = Rodje ouy
+tool.red_eye.description = Clitchîz so ene pupiye po fé rexhe li rodje do flash.
+tool.red_eye.option.pupil_size = Grandeu del pupiye
+tool.red_eye.option.darken = Rinde pus noer
+tool.red_eye.history.red_eye = Rodje ouy
+
+# Gome madjike
+tool.magic_eraser.name = Gome madjike
+tool.magic_eraser.description = Clitchîz po disfacer l' redjon del minme coleur pa dzo l' pwinteu, sorlon l' tolerince di l' usteye: seulmint çou k' est loyî å pont clitchî, oudon-bén tot costé dins l' coûtche.
+tool.magic_eraser.option.contiguous = A costé onk di l' ôte
+tool.magic_eraser.history.erase = Gome madjike

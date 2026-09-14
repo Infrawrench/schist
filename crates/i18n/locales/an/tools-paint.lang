@@ -1,0 +1,85 @@
+# Ferramientas de pintura, degradaus y poal de pintura.
+
+# Pinzell
+tool.brush.name = Pinzell
+tool.brush.description = Pinta un trazo con cantos suaus en a color d'o primer plano, con a grandaria, dureza y opacidat d'o pinzell de l'editor.
+tool.brush.history.stroke = Pinzell
+
+# Lapiz
+tool.pencil.name = Lapiz
+tool.pencil.description = Pinta un trazo de cantos duros, sin antialiasing, en a color d'o primer plano.
+tool.pencil.history.stroke = Lapiz
+
+# Borrador
+tool.eraser.name = Borrador
+tool.eraser.description = Borra a lo largo d'o trazo y torna a capa a la transparencia.
+tool.eraser.history.stroke = Borrador
+
+# Tampón de clonar
+tool.clone.name = Tampón de clonar
+tool.clone.description = Tampón de clonar: fe Alt+clic ta establir o punto d'orichen y dimpués pinta os pixels copiaus dende ixe punto con o mesmo desplazamiento.
+tool.clone.history.stroke = Tampón de clonar
+
+# Sobreexponer, Subexponer y Esponcha
+tool.dodge.name = Sobreexponer
+tool.dodge.description = Aclara os pixels por an pasa o trazo.
+tool.dodge.history.stroke = Sobreexponer
+tool.burn.name = Subexponer
+tool.burn.description = Enfosca os pixels por an pasa o trazo.
+tool.burn.history.stroke = Subexponer
+tool.sponge.name = Esponcha
+tool.sponge.description = Satura u desatura os pixels por an pasa o trazo.
+tool.sponge.history.stroke = Esponcha
+
+# Desenfocar, Enfocar y Dedo
+tool.blur.name = Desenfocar
+tool.blur.description = Desenfoca os pixels por an pasa o trazo.
+tool.blur.history.stroke = Desenfocar
+tool.sharpen.name = Enfocar
+tool.sharpen.description = Enfoca os pixels por an pasa o trazo.
+tool.sharpen.history.stroke = Enfocar
+tool.smudge.name = Dedo
+tool.smudge.description = Arrociega a color a lo largo d'o trazo, como si empentases pintura mullada.
+tool.smudge.history.stroke = Dedo
+
+# Corrección
+tool.heal.name = Pinzell corrector
+tool.heal.description = Pinzell corrector: fe Alt+clic ta establir l'orichen y dimpués pinta; a textura de l'orichen se fusiona con a color y a iluminación propias d'o destino.
+tool.heal.history.stroke = Pinzell corrector
+tool.spot_heal.name = Pinzell corrector puntual
+tool.spot_heal.description = Pinzell corrector puntual: pinta sobre un defecto y se substituye con textura presa d'o suyo entorno, sin haber d'establir garra punto d'orichen.
+tool.spot_heal.history.stroke = Pinzell corrector puntual
+
+# Pinzell d'historial
+tool.history_brush.name = Pinzell d'historial
+tool.history_brush.description = Recupera pixels d'a instantania d'historial d'o documento y desfa os treballos posteriors trazo por trazo.
+tool.history_brush.history.stroke = Pinzell d'historial
+
+# Borrador de fondo
+tool.background_eraser.name = Borrador de fondo
+tool.background_eraser.description = Borra a color prebada baixo o centro d'o pinzell y deixa intactos os pixels diferents, ta separar un motivo d'o suyo fondo.
+tool.background_eraser.history.stroke = Borrador de fondo
+
+# Degradau
+tool.gradient.name = Degradau
+tool.gradient.description = Arrociega ta emplir a capa —a traviés d'a selección si bi'n ha una— con un degradau linial que va d'a color d'o primer plano a la color de fondo en a dirección de l'arrocegue.
+tool.gradient.radial.name = Degradau radial
+tool.gradient.radial.description = Arrociega dende o centro enta afuera ta emplir con un degradau radial entre as colors d'o primer plano y de fondo.
+tool.gradient.option.gradient = Degradau
+tool.gradient.option.reverse = Invertir
+tool.gradient.option.dither = Tramado
+tool.gradient.choice.foreground_to_background = De primer plano a fondo
+tool.gradient.choice.foreground_to_transparent = De primer plano a transparent
+tool.gradient.choice.linear = Linial
+tool.gradient.choice.radial = Radial
+tool.gradient.choice.angle = Angular
+tool.gradient.choice.reflected = Reflectiu
+tool.gradient.choice.diamond = Diamant
+tool.gradient.history.gradient = Degradau
+
+# Poal de pintura
+tool.bucket.name = Poal de pintura
+tool.bucket.description = Fe clic ta inundar con a color d'o primer plano l'aria connectada de color pareixida que ye baixo o puntero, dentro d'a tolerancia d'a ferramienta.
+tool.bucket.option.contiguous = Contiguo
+tool.bucket.option.all_layers = Todas as capas
+tool.bucket.history.fill = Poal de pintura

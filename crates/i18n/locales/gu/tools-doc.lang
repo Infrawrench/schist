@@ -1,0 +1,29 @@
+# Artboard
+tool.artboard.name = આર્ટબોર્ડ
+tool.artboard.description = આર્ટબોર્ડ દોરી કાઢો: કેનવાસનો નામવાળો વિસ્તાર, જે અલગથી એક્સપોર્ટ થાય છે. પહેલેથી રહેલા આર્ટબોર્ડની અંદર ખેંચવાથી તે ખસે છે.
+tool.artboard.default_name = આર્ટબોર્ડ {n}
+
+# Slice
+tool.slice.name = સ્લાઇસ
+tool.slice.description = એક્સપોર્ટ સ્લાઇસ દોરી કાઢો, એટલે કે કેનવાસનો નામવાળો લંબચોરસ વિસ્તાર, જે અલગ છબી તરીકે એક્સપોર્ટ થાય છે. પહેલેથી રહેલી સ્લાઇસની અંદર ખેંચવાથી તે ખસે છે.
+tool.slice.default_name = સ્લાઇસ {n}
+
+# Frame
+tool.frame.name = ફ્રેમ
+tool.frame.description = ફ્રેમ દોરી કાઢો: એક લંબચોરસ (અથવા અંડાકાર) લેયર, જે તેની અંદર મૂકેલી કોઈ પણ વસ્તુને માસ્ક કરે છે.
+tool.frame.default_name = ફ્રેમ {n}
+tool.frame.choice.rectangle = લંબચોરસ
+tool.frame.choice.ellipse = અંડાકાર
+tool.frame.history.frame = ફ્રેમ
+
+# Note
+tool.note.name = નોંધ
+tool.note.description = ખાલી કેનવાસ પર ક્લિક કરીને ત્યાં નોંધ પિન કરો; તેના પર એડિટરની સ્થિતિમાં રહેલા લેખક અને રંગની છાપ મૂકાય છે. Notes પેનલ માટે નોંધ પસંદ કરવા, હાલની પિન પર ક્લિક કરો.
+tool.note.history.place = નોંધ મૂકી
+tool.note.history.move = નોંધ ખસેડી
+tool.note.history.delete = નોંધ કાઢી
+
+# Count
+tool.count.name = ગણતરી
+tool.count.description = કેનવાસ પર ક્રમાંકિત ગણતરી-ચિહ્ન મૂકવા ક્લિક કરો અને હાલનું ચિહ્ન દૂર કરવા તેના પર ક્લિક કરો.
+tool.count.default_name = ગણતરી {n}

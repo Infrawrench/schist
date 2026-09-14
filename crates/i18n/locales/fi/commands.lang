@@ -1,0 +1,117 @@
+# plugins/commands-core: Muokkaa-, Valitse- ja Taso-komennot. Komennon otsikko
+# on valikon nimi, ja kuvaus julkaistaan myös MCP-palvelimen työkalukuvauksena
+# (joka pysyy englanniksi). Historiakirjaukset näkyvät Historia-paneelissa.
+
+# Muokkaa
+command.edit.undo.title = Kumoa
+command.edit.undo.description = Palaa yksi vaihe taaksepäin dokumentin kumoamishistoriassa.
+command.edit.redo.title = Tee uudelleen
+command.edit.redo.description = Tee viimeksi kumottu muokkaus uudelleen.
+command.edit.copy.title = Kopioi
+command.edit.copy.description = Kopioi aktiivisen tason valitut kuvapisteet sisäiselle leikepöydälle (koko taso, jos mitään ei ole valittu).
+command.edit.copy_merged.title = Kopioi yhdistettynä
+command.edit.copy_merged.description = Kopioi valinta kaikkien näkyvien tasojen yhdistelmänä eikä vain aktiiviselta tasolta.
+command.edit.cut.title = Leikkaa
+command.edit.cut.description = Kopioi valitut kuvapisteet leikepöydälle ja pyyhi ne aktiiviselta tasolta.
+command.edit.paste.title = Liitä
+command.edit.paste.description = Liitä leikepöydän sisältö uudelle tasolle aktiivisen tason yläpuolelle piirtoalueelle keskitettynä.
+command.edit.paste.layer_name = Liitetty taso
+command.edit.paste_in_place.title = Liitä paikalleen
+command.edit.paste_in_place.description = Liitä leikepöydän sisältö uudelle tasolle koordinaatteihin, joista se kopioitiin.
+command.edit.fill_foreground.title = Täytä edustavärillä
+command.edit.fill_foreground.description = Täytä valinta edustavärillä tai koko piirtoalue, jos mitään ei ole valittu.
+command.edit.fill_background.title = Täytä taustavärillä
+command.edit.fill_background.description = Täytä valinta taustavärillä tai koko piirtoalue, jos mitään ei ole valittu.
+
+# Valitse
+command.select.all.title = Valitse kaikki
+command.select.all.description = Valitse koko piirtoalue.
+command.select.deselect.title = Poista valinta
+command.select.deselect.description = Poista valinta, jolloin muokkaukset kohdistuvat jälleen koko tasoon.
+command.select.inverse.title = Käänteinen valinta
+command.select.inverse.description = Vaihda valitut ja valitsemattomat alueet keskenään.
+command.select.reselect.title = Valitse uudelleen
+command.select.reselect.description = Palauta viimeksi poistettu valinta.
+command.select.reselect.msg.nothing_to_reselect = Ei mitään uudelleen valittavaa
+command.select.feather.title = Häivytä valinta
+command.select.feather.description = Pehmennä valinnan reunaa kahden kuvapisteen sumennuksella, jotta seuraava muokkaus häipyy sen poikki.
+command.select.grow.title = Laajenna
+command.select.grow.description = Laajenna valinta sitä koskettaviin, jo valittuja muistuttaviin kuvapisteisiin taikasauvan toleranssin rajoissa.
+command.select.similar.title = Samankaltainen
+command.select.similar.description = Valitse tasolta kaikki valintaa muistuttavat kuvapisteet riippumatta siitä, koskettavatko ne valintaa, taikasauvan toleranssin rajoissa.
+command.select.save.title = Tallenna valinta
+command.select.save.description = Tallenna nykyinen valinta dokumenttiin nimettynä alfakanavana.
+command.select.save.channel_name = Alfa {n}
+command.select.load.title = Lataa valinta
+command.select.load.description = Palauta viimeksi tallennettu valinta.
+
+# Taso
+command.layer.new.title = Uusi taso
+command.layer.new.description = Lisää tyhjä kuvapistetaso aktiivisen tason yläpuolelle ja aktivoi se.
+command.layer.duplicate.title = Monista taso
+command.layer.duplicate.description = Kopioi aktiivinen taso sisältöineen uudelle tasolle sen yläpuolelle.
+command.layer.smart_object.title = Muunna älykkääksi objektiksi
+command.layer.smart_object.description = Kääri aktiivisen kuvapistetason kuvapisteet älykkääseen objektiin, jotta myöhemmät muunnokset ja suotimet uudelleenotostavat koskematonta lähdettä.
+command.layer.rasterize.title = Rasteroi taso
+command.layer.rasterize.description = Muunna muoto-, teksti- tai älykäs objektitaso tavallisiksi kuvapisteiksi.
+command.layer.delete.title = Poista taso
+command.layer.delete.description = Poista valitut tasot.
+command.layer.group.title = Ryhmitä tasot
+command.layer.group.description = Kääri valitut tasot uuteen ryhmään nykyisille paikoilleen.
+command.layer.raise.title = Tuo eteenpäin
+command.layer.raise.description = Siirrä aktiivista tasoa yksi paikka ylöspäin ryhmän pinossa.
+command.layer.lower.title = Vie taaksepäin
+command.layer.lower.description = Siirrä aktiivista tasoa yksi paikka alaspäin ryhmän pinossa.
+command.layer.to_front.title = Tuo eteen
+command.layer.to_front.description = Siirrä aktiivinen taso ryhmänsä päällimmäiseksi.
+command.layer.to_back.title = Vie taakse
+command.layer.to_back.description = Siirrä aktiivinen taso ryhmänsä alimmaiseksi.
+command.layer.clipping_mask.title = Luo/vapauta leikkausmaski
+command.layer.clipping_mask.description = Leikkaa aktiivinen taso sen alapuoliseen tasoon tai vapauta jo leikattu taso; leikattu taso näkyy vain pohjatason kuvapisteiden kohdalla.
+command.layer.cut_to_new.title = Taso leikkaamalla
+command.layer.cut_to_new.description = Siirrä valitut kuvapisteet aktiiviselta tasolta uudelle tasolle sen yläpuolelle.
+command.layer.cut_to_new.layer_name = Taso leikkaamalla
+command.layer.add_mask.title = Lisää tasomaski
+command.layer.add_mask.description = Lisää aktiiviselle tasolle tasomaski, joka näyttää vain valinnan, jos valinta on olemassa.
+command.layer.flatten.title = Yhdistä kuva
+command.layer.flatten.description = Yhdistä kaikki näkyvä yhdelle peittävälle Tausta-tasolle ja hylkää kätketyt tasot.
+command.layer.merge_down.title = Yhdistä alaspäin
+command.layer.merge_down.description = Yhdistä aktiivinen taso sen alapuoliseen tasoon.
+command.layer.merge_down.msg.no_layer_below = Alapuolella ei ole yhdistettävää tasoa
+command.layer.merge_visible.title = Yhdistä näkyvät
+command.layer.merge_visible.description = Yhdistä kaikki näkyvät tasot yhdeksi mutta säilytä kätketyt tasot ennallaan.
+
+# Syy komennon suorittamatta jättämiseen tilarivillä
+command.msg.nothing_to_copy = Valitse kuvapistetaso, jolta kopioidaan
+command.msg.clipboard_empty = Leikepöytä on tyhjä
+
+# Historia-paneelin merkinnät
+command.history.grow = Laajenna
+command.history.similar = Samankaltainen
+command.history.clear = Tyhjennä
+command.history.merge_down = Yhdistä alaspäin
+command.history.flatten_image = Yhdistä kuva
+command.history.merge_visible = Yhdistä näkyvät
+command.history.paste = Liitä
+command.history.fill = Täyttö
+command.history.select_all = Valitse kaikki
+command.history.deselect = Poista valinta
+command.history.select_inverse = Käänteinen valinta
+command.history.new_layer = Uusi taso
+command.history.duplicate_layer = Monista taso
+command.history.convert_to_smart_object = Muunna älykkääksi objektiksi
+command.history.rasterize_layer = Rasteroi taso
+command.history.delete_layer = Poista taso
+command.history.delete_layers = Poista tasot
+command.history.group_layer = Ryhmitä taso
+command.history.group_layers = Ryhmitä tasot
+command.history.reselect = Valitse uudelleen
+command.history.feather = Häivytys
+command.history.load_selection = Lataa valinta
+command.history.bring_forward = Tuo eteenpäin
+command.history.send_backward = Vie taaksepäin
+command.history.bring_to_front = Tuo eteen
+command.history.send_to_back = Vie taakse
+command.history.clipping_mask = Leikkausmaski
+command.history.layer_via_cut = Taso leikkaamalla
+command.history.add_layer_mask = Lisää tasomaski

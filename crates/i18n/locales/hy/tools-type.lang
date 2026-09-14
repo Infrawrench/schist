@@ -1,0 +1,24 @@
+# Տեքստի գործիքը
+
+tool.type.name = Տեքստ
+tool.type.description = Սեղմեք՝ այդտեղ տեքստային շերտ սկսելու համար, կամ սեղմեք գոյություն ունեցող տեքստային շերտին՝ այն խմբագրելու համար։ Բաց վիճակում գործիքն ընդունում է անմիջական ստեղնային մուտք (նիշերն ուղարկեք որպես ստեղնային մուտք), իսկ հաստատելիս շերտը պատկերապատկերվում է, և խմբագրումն ավարտվում է։
+
+tool.type.option.align = Հավասարեցում
+tool.type.option.leading = Տողամիջակայք
+tool.type.option.tracking = Նիշերի ընդհանուր միջակայք
+tool.type.option.kerning = Նիշազույգերի միջակայք
+tool.type.option.ligatures = Կցագրեր
+tool.type.option.discretionary_ligatures = Լրացուցիչ կցագրեր
+tool.type.option.small_caps = Փոքր մեծատառեր
+tool.type.option.on_path = Ակտիվ ուղեգծի վրա
+tool.type.option.path_offset = Շեղում ուղեգծից
+
+tool.type.choice.regular = Սովորական
+tool.type.choice.bold = Թավ
+tool.type.choice.italic = Շեղագիր
+tool.type.choice.bold_italic = Թավ շեղագիր
+
+tool.type.history.new_layer = Նոր տեքստային շերտ
+tool.type.history.edit = Տեքստի խմբագրում
+tool.type.history.discard = Տեքստի մերժում
+tool.type.history.discard_empty = Դատարկ տեքստի մերժում

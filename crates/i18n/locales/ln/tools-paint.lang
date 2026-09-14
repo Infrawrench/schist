@@ -1,0 +1,72 @@
+tool.brush.name = Brɔsi
+tool.brush.description = Pakolá molɔngɔ oyo ndelo na yango ezali pɛtɛɛ na langi ya liboso; bonene na yango eutaka na bonene, bokasi mpe bokasi ya kozipa ya brɔsi ya editɛrɛ.
+tool.brush.history.stroke = Brɔsi
+
+tool.pencil.name = Krɛyo
+tool.pencil.description = Pakolá molɔngɔ oyo ndelo na yango ezali makasi mpe ezali na anti-aliasing te, na langi ya liboso.
+tool.pencil.history.stroke = Krɛyo
+
+tool.eraser.name = Gome
+tool.eraser.description = Pangusá na molɔngɔ oyo obendi, mpe zongisá kalke na komonisa oyo ezali na nsima.
+tool.eraser.history.stroke = Gome
+
+tool.clone.name = Tampon ya klonɛ
+tool.clone.description = Tampon ya klonɛ: finá na alt mpo na kotya pwɛ ya liziba, na nsima pakolá bapiksele oyo ekopiami uta kuna na ntaka wana.
+tool.clone.history.stroke = Tampon ya klonɛ
+
+tool.dodge.name = Kongɛngisa
+tool.dodge.description = Koyeisa bapiksele oyo molɔngɔ ezali kolekela pole.
+tool.dodge.history.stroke = Kongɛngisa
+tool.burn.name = Koyeisa molili
+tool.burn.description = Koyeisa bapiksele oyo molɔngɔ ezali kolekela molili.
+tool.burn.history.stroke = Koyeisa molili
+tool.sponge.name = Eponge
+tool.sponge.description = Kobakisa to kokitisa bokasi ya langi ya bapiksele oyo molɔngɔ ezali kolekela.
+tool.sponge.history.stroke = Eponge
+
+tool.blur.name = Flou
+tool.blur.description = Kitisá bopolele ya bapiksele oyo molɔngɔ ezali kolekela.
+tool.blur.history.stroke = Flou
+tool.sharpen.name = Koyeisa polele
+tool.sharpen.description = Bakisá bopolele ya bapiksele oyo molɔngɔ ezali kolekela.
+tool.sharpen.history.stroke = Koyeisa polele
+tool.smudge.name = Kopanza langi
+tool.smudge.description = Benda langi na molɔngɔ lokola ozali kotindika pentire ya mai.
+tool.smudge.history.stroke = Kopanza langi
+
+tool.heal.name = Brɔsi ya kobongisa
+tool.heal.description = Brɔsi ya kobongisa: finá na alt mpo na kotya liziba, na nsima pakolá; tekstire ya liziba esangisamaka na langi mpe pole ya esika ezali kokóma.
+tool.heal.history.stroke = Brɔsi ya kobongisa
+tool.spot_heal.name = Brɔsi ya kobongisa litɔnɔ
+tool.spot_heal.description = Brɔsi ya kobongisa litɔnɔ: pakolá likoló ya mbeba mpe tekstire oyo ezwami na zingazinga ekozwa esika na yango -- pwɛ ya liziba esengeli te.
+tool.spot_heal.history.stroke = Brɔsi ya kobongisa litɔnɔ
+
+tool.history_brush.name = Brɔsi ya lisolo ya misala
+tool.history_brush.description = Pakolá mpo na kozongisa bapiksele uta na kopi ya lisolo ya dokima, mpe longolá misala ya nsima molɔngɔ nsima ya molɔngɔ.
+tool.history_brush.history.stroke = Brɔsi ya lisolo ya misala
+
+tool.background_eraser.name = Gome ya nsima
+tool.background_eraser.description = Pangusá langi oyo ezwami na katikati ya brɔsi mpe tiká bapiksele ya langi mosusu, mpo na kolongola eloko na nsima na yango.
+tool.background_eraser.history.stroke = Gome ya nsima
+
+tool.gradient.name = Degrade
+tool.gradient.description = Benda mpo na kotondisa kalke — na kati ya eteni eponami soki ezali — na degrade ya molɔngɔ oyo ezali kolanda kobenda, uta na langi ya liboso kino na langi ya nsima.
+tool.gradient.radial.name = Degrade ya zingazinga
+tool.gradient.radial.description = Benda uta na katikati na libándá mpo na kotondisa na degrade ya zingazinga kati na langi ya liboso mpe ya nsima.
+tool.gradient.option.gradient = Degrade
+tool.gradient.option.reverse = Kozongola
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Langi ya liboso kino ya nsima
+tool.gradient.choice.foreground_to_transparent = Langi ya liboso kino oyo emonisaka nsima
+tool.gradient.choice.linear = Ya molɔngɔ
+tool.gradient.choice.radial = Ya zingazinga
+tool.gradient.choice.angle = Anglɛ
+tool.gradient.choice.reflected = Lokola talatala
+tool.gradient.choice.diamond = Diamá
+tool.gradient.history.gradient = Degrade
+
+tool.bucket.name = Saani ya pentire
+tool.bucket.description = Finá mpo na kotondisa etando oyo ekangani mpe ezali na langi ekokani na oyo ezali na nse ya elembo, na langi ya liboso mpe na kati ya toleransi ya esaleli.
+tool.bucket.option.contiguous = Oyo ekangani
+tool.bucket.option.all_layers = Ba kalke nyonso
+tool.bucket.history.fill = Saani ya pentire

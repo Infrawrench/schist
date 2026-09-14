@@ -1,0 +1,31 @@
+# Aisinas d'elements de document : plans de trabalh, trencadisses, encastres, nòtas e comptatges.
+
+# Plan de trabalh
+tool.artboard.name = Plan de trabalh
+tool.artboard.description = Fasètz lisar per traçar un plan de trabalh : una region nomenada de la tela que s'expòrta separadament. Se fasètz lisar dins un plan existent, lo desplaçatz.
+tool.artboard.default_name = Plan de trabalh {n}
+
+# Trencadís
+tool.slice.name = Trencadís
+tool.slice.description = Fasètz lisar per traçar un trencadís d'exportacion, un rectangle nomenat de la tela qu'es exportat coma imatge separat. Se fasètz lisar dins un trencadís existent, lo desplaçatz.
+tool.slice.default_name = Trencadís {n}
+
+# Encastre
+tool.frame.name = Encastre
+tool.frame.description = Fasètz lisar per traçar un encastre : un calc rectangular (o elliptic) que masca çò que i es plaçat.
+tool.frame.default_name = Encastre {n}
+tool.frame.choice.rectangle = Rectangle
+tool.frame.choice.ellipse = Ellipsa
+tool.frame.history.frame = Encastre
+
+# Nòta
+tool.note.name = Nòta
+tool.note.description = Clicatz sus una partida voida de la tela per i espillar una nòta, marcada amb l'autor e la color definits dins l'editor ; clicatz sus una espingla existenta per la seleccionar dins lo panèl Nòtas.
+tool.note.history.place = Plaçar la nòta
+tool.note.history.move = Desplaçar la nòta
+tool.note.history.delete = Suprimir la nòta
+
+# Comptatge
+tool.count.name = Comptatge
+tool.count.description = Clicatz per depausar de marcas de comptatge numerotadas sus la tela, e clicatz sus una marca existenta per la levar.
+tool.count.default_name = Comptatge {n}

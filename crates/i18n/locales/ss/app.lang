@@ -1,0 +1,39 @@
+app.filter_gallery.title = Igalari Yetihlungi
+app.filter_gallery.stack = Sitaki (sisetjentiswa kusuka phansi kuya etulu)
+app.filter_gallery.no_settings = Lesihlungi site tilungiselelo.
+
+app.fonts.not_open_licensed = ayinayo ilayisensi levulekile · {substitute} ihambisana netilinganiso tayo
+app.fonts.missing_substituted = ayikho · umbhalo usetjentiswa ngelifonti lelingena esikhundleni
+app.fonts.not_in_catalogue = {family} ayikho kukhathalogi yemafonti lavulekile
+app.fonts.no_faces = kute tinhlobo telifonti ta-{family} letilandzekako
+app.fonts.empty_response = imphendvulo lengenalutfo
+
+app.update.unreadable_response = imphendvulo lengafundzeki: {error}
+app.update.no_temp_dir = kute ifolda yesikhashana yekulandza kuyo
+app.update.asset_has_path = lokukhishwe kabusha kuniketa intfo yako ligama lelinendlela
+app.update.too_big = lokulandziwe kukhulu kunaloko lokushiwo ngulokukhishwe kabusha
+app.update.stopped_at = kulandza kume kumabhayithi langu-{got} kulangu-{total}
+app.update.hash_mismatch = ihashi yalokulandziwe ngu-{got}, hhayi {want}
+app.update.not_in_bundle = lekhophi ayikho ekhatsi kwephakheji yeluhlelo
+app.update.no_parent_dir = iphakheji yeluhlelo ayinayo ifolda lengumtali
+app.update.cannot_write = akukwazeki kubhala ku-{dir}
+app.update.cannot_move_aside = akukwazeki kususa {app} endleleni
+app.update.cannot_move_in = akukwazeki kuhambisa iphakheji lensha iye endzaweni yayo
+app.update.cannot_run_ditto = akukwazeki kusebentisa /usr/bin/ditto
+app.update.unpack_failed = kwehlulekile kuvula lokulandziwe: {error}
+app.update.no_app_in_download = lokulandziwe akunayo i-Schist.app
+app.update.cannot_run_codesign = akukwazeki kusebentisa /usr/bin/codesign
+app.update.signature_invalid = siginesha yalokulandziwe ayicinisekiswa: {error}
+app.update.download_unsigned = lekhophi isayiniwe kodvwa lokulandziwe akukakasayinwa
+app.update.different_developer = lokulandziwe kusayinwe ngumtfutfukisi lowehlukile
+app.update.cannot_relaunch = akukwazeki kucalisa kabusha sivuli
+app.update.not_installed_copy = lekhophi ayikabekwa lapha sifaki
+app.update.cannot_start_installer = akukwazeki kucalisa sifaki
+app.update.platform_unsupported = tibuyeketo kuleplathifomu tifakwa ngendlela Schist leyafakwa ngayo
+
+app.vulkan.no_loader = schist: kute silayishi se-Vulkan kuloluhlelo, ngako kute lokungadvwetjwa ngako.\n\nSchist idvweba nge-Vulkan, futsi `libvulkan.so.1` ayikafakwa.\nKudzingeka silayishi kanye nesishayeli:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: sishayeli se-Vulkan lesikhonjwe nguleseshini asikho.\n\n{var} isethiwe, futsi kusetha yona *kutsatsa indzawo* yekusesha kwesilayishi\netishayelini esikhundleni sekungeta kuko. Ngako lamafayela, langekho,\nngilo lonkhe luhla lwetishayeli -- futsi lonkhe luhlelo lwe-Vulkan kuliseshini\naluboni ngisho sinye sishayeli, noma kungabe kufakwe letingaki:\n\n{missing}\n    {var}={value}\n\nYikhombe kumanifest lakhona -- tishayeli letifakiwe tibeka emanifest ato ku-\n/usr/share/vulkan/icd.d -- nobe uyekele kuyisetha bese uvumela silayishi sititfolele.\nIseshini lesetha loku efayeleni lekulungiselela (`env =` ye-Hyprland, lifayela\nlelingetwe ku-systemd environment.d, iphrofayela ye-shell) kufanele ilungiswe lapho,\nfutsi lolushintjo ludzingeka kungena kabusha kuze lufinyelele lokusevele kusebenta.\n
+app.vulkan.override_note = \n{var} isethwe yaba ngu-{value}, futsi loko kutsatsa indzawo yekusesha kwesilayishi:\nnangabe kute kulawo mamanifest lelikalomshini, kuyekela kuyisetha yintfo\nyekucala lokufanele uyizame.\n
+app.vulkan.no_driver = schist: kute sishayeli se-Vulkan lesifakiwe, ngako kute lokungadvwetjwa kuso.\n\nSchist idvweba nge-Vulkan. Silayishi sifakiwe kodvwa sibika kutsi kute\nsishayeli -- kute lesibhalisiwe kunobe nguyiphi indzawo kulena lemibili leseshwa kuyo:\n\n{dirs}\n\nSilayishi sitfunyelwa sehlukene netishayeli, ngako loku kuvamise kuba liphakheji\nlinye lelingekho.\n\nFaka sishayeli se-GPU yalomshini:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nSishayeli se-NVIDIA lesiphatsekako sita naso (`nvidia-utils` ku-Arch,\n`nvidia-driver` ku-Debian). Emshinini longuwelizinga, nobe lapho kute khona\nsishayeli se-GPU lesingafakwa, i-rasteriser yesofthiwe ngiyo lesebentako:\n`vulkan-swrast` ku-Arch, iyincenye ye-`mesa-vulkan-drivers` kuletinye tindzawo.\nIyanensa, kodvwa iyacala.\n{overridden}
+app.vulkan.no_device = schist: sishayeli se-Vulkan sifakiwe kodvwa asiniki divayisi yekudvweba kuyo.\n\nKungenteka sishayeli asiyisekeli le-GPU, nobe singakwati kuyifinyelela --\nnge-SSH nobe ekhatsi kwesiqukatsi, /dev/dri ivamise kuba yintfo\nlengekhoyo. `vulkaninfo --summary` ibika loko lokubonwa silayishi.\n\nI-rasteriser yesofthiwe idvweba ngaphandle kwe-GPU, nangabe nguloko\nlomshini lonako: `vulkan-swrast` ku-Arch, iyincenye ye-`mesa-vulkan-drivers`\nku-Debian naku-Fedora.\n
+app.vulkan.skip_hint = Kuze ucalise Schist nome kunjalo bese uyiyekela yehluleke ngendlela yayo, setha {var}=1.

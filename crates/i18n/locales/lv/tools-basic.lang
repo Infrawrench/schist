@@ -1,0 +1,24 @@
+# Pārvietošana
+tool.move.name = Pārvietošana
+tool.move.description = Velciet aktīvā slāņa saturu uz jaunu vietu. Ja ieslēgta automātiskā atlase, nospiežot vispirms tiek izvēlēts zem rādītāja esošais slānis vai visa grupa.
+tool.move.option.auto_select = Automātiskā atlase
+tool.move.history.move_layer = Pārvietot slāni
+
+# Pipete
+tool.eyedropper.name = Pipete
+tool.eyedropper.description = Paņemiet zem rādītāja esošās krāsas paraugu priekšplāna krāsai vai, turot nospiestu Alt, fona krāsai. Velkot paraugu ņemšana turpinās.
+tool.eyedropper.option.sample_size = Parauga lielums
+tool.eyedropper.option.sample = Paraugs
+tool.eyedropper.choice.point_sample = Punkta paraugs
+tool.eyedropper.choice.average_3 = Vidējais 3 × 3
+tool.eyedropper.choice.average_5 = Vidējais 5 × 5
+tool.eyedropper.choice.average_11 = Vidējais 11 × 11
+tool.eyedropper.choice.average_31 = Vidējais 31 × 31
+tool.eyedropper.choice.all_layers = Visi slāņi
+tool.eyedropper.choice.current_layer = Pašreizējais slānis
+
+# Roka un tālummaiņa
+tool.hand.name = Roka
+tool.hand.description = Pārbīda skatu. Skata apgabals pieder logam, tāpēc bezgrafikas režīmā šis rīks dokumentu nemaina.
+tool.zoom.name = Tālummaiņa
+tool.zoom.description = Tuvina vai tālina skatu. Skata apgabals pieder logam, tāpēc bezgrafikas režīmā šis rīks dokumentu nemaina.

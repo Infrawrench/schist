@@ -1,0 +1,43 @@
+tool.pen.name = Pen
+tool.pen.description = Wɔ mɔ aɖe: zi be nàwɔ dzogoe, he be nàɖe curve ƒe asilelewo le eme, eye nàzi teƒe gbãtɔ la be nàtui. Ne ède asi edzi la, mɔ la zu nɔnɔme ƒe layer.
+tool.pen.option.rubber_band = Rubber Band
+tool.pen.history.fill = Mɔ ƒe Yɔyɔ
+tool.pen.default_path_name = Mɔ {n}
+tool.pen.freeform.name = Freeform Pen
+tool.pen.freeform.description = He fli kple asi eye woaɖoe ɖe mɔ aɖe dzi, le vɔ̃ɖi si Fit ƒe ɖoɖo la gblɔ la nu.
+tool.pen.freeform.option.fit = Fit
+tool.pen.curvature.name = Curvature Pen
+tool.pen.curvature.description = Zi teƒe geɖewo eye woawɔ mɔ la curve dzadzɛe ato wo me.
+
+tool.path_select.name = Mɔ ƒe Tiatia
+tool.path_select.description = Zi mɔ aɖe dzi be nàtiae, eye nàhee be nàɖe mɔ blibo la.
+tool.direct_select.name = Tiatia Dzidzɔe
+tool.direct_select.description = He anchor point ɖeka alo eƒe asilelewo be nàtrɔ mɔ la ƒe nɔnɔme le exlã.
+
+tool.shape.history.layer = {name} ƒe Layer
+tool.shape.rect.name = Rectangle Dɔwɔnu
+tool.shape.rect.label = Rectangle
+tool.shape.rect.description = He rectangle nɔnɔme ƒe layer le ŋgɔgbe ƒe amadede me; enɔa vector eye wògbugbɔa eɖokui raster ne wotrɔ eƒe lolome.
+tool.shape.ellipse.name = Ellipse Dɔwɔnu
+tool.shape.ellipse.label = Ellipse
+tool.shape.ellipse.description = He ellipse nɔnɔme ƒe layer le ŋgɔgbe ƒe amadede me.
+tool.shape.line.name = Fli Dɔwɔnu
+tool.shape.line.label = Fli
+tool.shape.line.description = He fli dzɔdzɔe ƒe nɔnɔme-layer le ŋgɔgbe ƒe amadede me.
+tool.shape.line.option.weight = Kpekpeme
+tool.shape.line.option.arrow_start = Gɔmedzedze
+tool.shape.line.option.arrow_end = Nuwuwu
+tool.shape.polygon.name = Polygon Dɔwɔnu
+tool.shape.polygon.label = Polygon
+tool.shape.polygon.description = He polygon si ƒe axawo sɔ ƒe nɔnɔme-layer le ŋgɔgbe ƒe amadede me, kple axawo ƒe xexlẽme tso ɖoɖowo me.
+tool.shape.polygon.option.sides = Axawo
+
+tool.shape.custom.name = Nɔnɔme Tɔxɛ
+tool.shape.custom.label = Nɔnɔme Tɔxɛ
+tool.shape.custom.description = He nɔnɔme siwo wotsɔ kpe ɖe eme xoxo la dometɔ ɖeka, si wotia kple Nɔnɔme ƒe ɖoɖo.
+tool.shape.custom.choice.heart = Dzi
+tool.shape.custom.choice.star = Ɣletivi
+tool.shape.custom.choice.arrow = Aŋutrɔ
+tool.shape.custom.choice.lightning = Dzigbẽ
+tool.shape.custom.choice.cross = Atitsoga
+tool.shape.custom.choice.speech_bubble = Nyaƒoƒo ƒe Bubble

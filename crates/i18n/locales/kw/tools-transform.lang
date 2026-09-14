@@ -1,0 +1,26 @@
+# Treusfurvya rydh, treusfurvya dewis ha treghy.
+tool.transform.name = Treusfurvya Rydh
+tool.transform.description = Treusfurvya Rydh. Pan vydh bywheys, yth ygor kyst treusfurvya yn-dro dhe'n gwisk oberiethek: tenna korn rag skeulya, tenna a-woeles dhe unn rag rosella, ha tenna amal rag gwyra. Tra vyth ny vydh skrifys kyns y komitya (Enter), ha hedhi (Escape) a wra gorra'n gwisk arta.
+tool.transform.option.interpolation = Interpolasyon
+tool.transform.history.transform = Treusfurvya Rydh
+tool.transform.history.image_size = Braster Delwenn
+tool.transform.history.canvas_size = Braster Lien
+
+tool.transform.selection.name = Treusfurvya Dewis
+tool.transform.selection.description = Treusfurvya Dewis: an kyst keth, ow sewya linen an dewis yn le an piksellow ynno. Komitya po hedhi rag gorfenna.
+tool.transform.selection.history.transform = Treusfurvya Dewis
+
+tool.transform.resample.nearest_neighbor = Kentresek Nessa
+tool.transform.resample.bilinear = Dewlinen
+tool.transform.resample.bicubic = Dewgubek
+
+tool.crop.name = Treghy
+tool.crop.description = Tenna an ran dhe witha ha chanjya y dhornlaow; komitya (Enter) a dregh an skrifen dhodho, ha hedhi (Escape) a'n gasa heb chanj.
+tool.crop.option.ratio = Kevradh
+tool.crop.option.delete_cropped = Dilea Piksellow Treghys
+tool.crop.choice.unconstrained = Heb Stroth
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Treghy

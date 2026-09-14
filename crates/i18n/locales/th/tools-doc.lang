@@ -1,0 +1,29 @@
+# Artboard
+tool.artboard.name = อาร์ตบอร์ด
+tool.artboard.description = ลากเพื่อสร้างอาร์ตบอร์ด ซึ่งเป็นพื้นที่บนผืนผ้าใบที่มีชื่อและส่งออกแยกต่างหากได้ การลากภายในอาร์ตบอร์ดที่มีอยู่จะเป็นการย้ายอาร์ตบอร์ดนั้น
+tool.artboard.default_name = อาร์ตบอร์ด {n}
+
+# Slice
+tool.slice.name = สไลซ์
+tool.slice.description = ลากเพื่อสร้างสไลซ์สำหรับส่งออก ซึ่งเป็นพื้นที่สี่เหลี่ยมที่มีชื่อบนผืนผ้าใบและส่งออกเป็นภาพแยกต่างหาก การลากภายในสไลซ์ที่มีอยู่จะเป็นการย้ายสไลซ์นั้น
+tool.slice.default_name = สไลซ์ {n}
+
+# Frame
+tool.frame.name = กรอบ
+tool.frame.description = ลากเพื่อสร้างกรอบ ซึ่งเป็นเลเยอร์รูปสี่เหลี่ยมผืนผ้า (หรือวงรี) ที่ใช้มาสก์สิ่งที่วางไว้ภายใน
+tool.frame.default_name = กรอบ {n}
+tool.frame.choice.rectangle = สี่เหลี่ยมผืนผ้า
+tool.frame.choice.ellipse = วงรี
+tool.frame.history.frame = กรอบ
+
+# Note
+tool.note.name = บันทึกย่อ
+tool.note.description = คลิกพื้นที่ว่างบนผืนผ้าใบเพื่อปักบันทึกย่อพร้อมชื่อผู้เขียนและสีจากสถานะตัวแก้ไข หรือคลิกหมุดที่มีอยู่เพื่อเลือกในแผงบันทึกย่อ
+tool.note.history.place = วางบันทึกย่อ
+tool.note.history.move = ย้ายบันทึกย่อ
+tool.note.history.delete = ลบบันทึกย่อ
+
+# Count
+tool.count.name = นับ
+tool.count.description = คลิกเพื่อวางเครื่องหมายนับที่มีหมายเลขบนผืนผ้าใบ และคลิกเครื่องหมายที่มีอยู่เพื่อลบ
+tool.count.default_name = นับ {n}

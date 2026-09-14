@@ -1,0 +1,33 @@
+# Instrumentos de selection.
+
+tool.select.mode.subtract = Subtraher
+tool.select.mode.intersect = Intersecar
+
+tool.marquee.rect.name = Selection rectangular
+tool.marquee.rect.description = Trahe pro definir un selection rectangular. Shift al initio del traction adde al selection, Alt subtrahe, e ambes produce le intersection; Shift durante le traction lo rende quadrate. Un clic sin traction desselige.
+tool.marquee.ellipse.name = Selection elliptic
+tool.marquee.ellipse.description = Trahe pro definir un selection elliptic, con le mesme combinationes de Shift/Alt que pro le selection rectangular.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Trahe un contorno a mano libere; le selection se claude inter le extremitates quando le traction fini. Shift adde e Alt subtrahe.
+tool.lasso.history.select = Selection con lasso
+tool.lasso.polygonal.name = Lasso polygonal
+tool.lasso.polygonal.description = Clicca de angulo in angulo pro construer un selection a bordos recte, e clicca presso al prime puncto pro clauder lo.
+tool.lasso.polygonal.history.select = Lasso polygonal
+tool.lasso.magnetic.name = Lasso magnetic
+tool.lasso.magnetic.description = Seque approximativemente un bordo e le contorno se attrahe al contrasto le plus forte presso al percurso.
+tool.lasso.magnetic.history.select = Lasso magnetic
+tool.lasso.magnetic.option.frequency = Frequentia
+
+tool.wand.name = Virga magic
+tool.wand.description = Clicca pro seliger le area connectite de color similar sub le punctator, intra le option de tolerantia — le mesme tolerantia legite per Crescer, Simile e Gamma de colores.
+tool.wand.option.contiguous = Contigue
+tool.wand.history.select = Virga magic
+
+tool.quick_select.name = Selection rapide
+tool.quick_select.description = Pinge super un region e le selection cresce a transverso del pixels similar super le quales le pincel passa.
+tool.quick_select.history.select = Selection rapide
+
+tool.object_select.name = Selection de objecto
+tool.object_select.description = Trahe un quadro circum un objecto e le selection se adapta al objecto trovate intra illo.
+tool.object_select.history.select = Selection de objecto

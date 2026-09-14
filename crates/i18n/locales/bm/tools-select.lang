@@ -1,0 +1,32 @@
+# Sugandili baarakɛminɛnw
+tool.select.mode.subtract = Bɔ
+tool.select.mode.intersect = Bɛnɲɔgɔn kan
+
+tool.marquee.rect.name = Tigɛda sugandilan
+tool.marquee.rect.description = Sama ka tigɛda sugandili bɔ. Ni Shift digilen don sama daminɛ na, a bɛ fara sugandili kan; alt b'a bɔ, fila bɛ yɔrɔ bɛnɲɔgɔn kan sugandi. Ni Shift digilen don sama tuma, a b'a kɛ kare ye. Digi kelen ni sama tɛ, o bɛ sugandili bɔ.
+tool.marquee.ellipse.name = Birilen sugandilan
+tool.marquee.ellipse.description = Sama ka birilen sugandili bɔ; Shift/alt b'a fara, bɔ walima bɛnɲɔgɔn kan i n'a fɔ tigɛda sugandilan.
+
+tool.lasso.name = Laso
+tool.lasso.description = Sama ni bolo ye ka kɛrɛsira bɔ; sama banna tuma, sugandili bɛ datugu a laban fila cɛ. Shift b'a fara, alt b'a bɔ.
+tool.lasso.history.select = Laso sugandili
+tool.lasso.polygonal.name = Poligɔni laso
+tool.lasso.polygonal.description = Kulu digi kelen-kelen ka kɛrɛ tilennen sugandili dilan; pwen fɔlɔ dafɛ digi k'a datugu.
+tool.lasso.polygonal.history.select = Poligɔni laso
+tool.lasso.magnetic.name = Manyɛti laso
+tool.lasso.magnetic.description = Sira bɔ kɛrɛ dɔ dafɛ; kɛrɛsira bɛ yɛrɛma-bɛn farabɔ fangaman na min bɛ sira dafɛ.
+tool.lasso.magnetic.history.select = Manyɛti laso
+tool.lasso.magnetic.option.frequency = Frequency
+
+tool.wand.name = Kabako bere
+tool.wand.description = Digi ka kulɛri ɲɔgɔnna yɔrɔ dafalen min bɛ kurukuru jukɔrɔ, o sugandi Se hakɛ kɔnɔ; Bonya, Ɲɔgɔnna ani Kulɛri dan bɛ se hakɛ kelen kalan.
+tool.wand.option.contiguous = Da kelen
+tool.wand.history.select = Kabako bere
+
+tool.quick_select.name = Sugandili teliman
+tool.quick_select.description = Bɔrɔsi yɔrɔ dɔ kan; sugandili bɛ bonya ka tɛmɛ pikisɛli ɲɔgɔnnamaw fɛ minnu bɛ bɔrɔsi sira la.
+tool.quick_select.history.select = Sugandili teliman
+
+tool.object_select.name = Fɛn sugandili
+tool.object_select.description = Kutu dɔ sama fɛn lamini; sugandili bɛ yɛrɛma-bɛn fɛn min sɔrɔla a kɔnɔ, o la.
+tool.object_select.history.select = Fɛn sugandili

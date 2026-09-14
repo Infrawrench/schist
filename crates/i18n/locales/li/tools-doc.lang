@@ -1,0 +1,26 @@
+# Hulpmiddele veur documentonderdeile: tekengebeej, segment, kader, notitie en telling.
+
+tool.artboard.name = Tekengebeed
+tool.artboard.description = Trèk 'n tekengebeed: 'n gebied mit 'ne naam op 't canvas dat apart geëxporteerd weurt. Sleipe binne 'n bestaond tekengebeed verplaats 't.
+tool.artboard.default_name = Tekengebeed {n}
+
+tool.slice.name = Segment
+tool.slice.description = Trèk 'n exportsegment: 'ne rechthuuk mit 'ne naam op 't canvas, dae es eige aafbiljing geëxporteerd weurt. Sleipe binne 'n bestaond segment verplaats 't.
+tool.slice.default_name = Segment {n}
+
+tool.frame.name = Kader
+tool.frame.description = Trèk 'n kader: 'n rechthuukige (of elliptische) laog die alles maskeert wat d'rin geplaats weurt.
+tool.frame.default_name = Kader {n}
+tool.frame.choice.rectangle = Rechthuuk
+tool.frame.choice.ellipse = Ellips
+tool.frame.history.frame = Kader
+
+tool.note.name = Notitie
+tool.note.description = Klik op 'n laeg stökske van 't canvas om dao 'n notitie vas te make, mit de auteur en kleur oet de bewèrkerstoestand. Klik op 'n bestaonde pin om häöm veur 't paneel Notities te selectere.
+tool.note.history.place = Notitie plaatse
+tool.note.history.move = Notitie verplaatse
+tool.note.history.delete = Notitie verwiedere
+
+tool.count.name = Telling
+tool.count.description = Klik om genómmerde telmarkeringe op 't canvas te plaatse en klik op 'n bestaonde markering om ze te verwiedere.
+tool.count.default_name = Telling {n}

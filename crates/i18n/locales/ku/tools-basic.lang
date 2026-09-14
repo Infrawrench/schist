@@ -1,0 +1,26 @@
+# Amûrên bingehîn: Veguhastin, Renghilgir, Dest û Nêzîkkirin.
+
+# Veguhastin
+tool.move.name = Veguhastin
+tool.move.description = Naveroka layera çalak bikişîne cihê nû. Dema Hilbijartina Xweber vekirî be, bi pêlêkirinê ew layer — an jî koma tevahî — ku pêşî di bin nîşankerê de ye tê hilbijartin.
+tool.move.option.auto_select = Hilbijartina Xweber
+tool.move.history.move_layer = Layerê Veguhêze
+
+# Renghilgir
+tool.eyedropper.name = Renghilgir
+tool.eyedropper.description = Rengê di bin nîşankerê de têxe nimûneya rengê pêşîn; dema alt girtî be, têxe nimûneya rengê paşîn. Bi kişandinê nimûnegirtin berdewam dike.
+tool.eyedropper.option.sample_size = Mezinahiya Nimûneyê
+tool.eyedropper.option.sample = Nimûne
+tool.eyedropper.choice.point_sample = Nimûneya Xalê
+tool.eyedropper.choice.average_3 = Navînî 3 bi 3
+tool.eyedropper.choice.average_5 = Navînî 5 bi 5
+tool.eyedropper.choice.average_11 = Navînî 11 bi 11
+tool.eyedropper.choice.average_31 = Navînî 31 bi 31
+tool.eyedropper.choice.all_layers = Hemû Layer
+tool.eyedropper.choice.current_layer = Layera Niha
+
+# Dest û Nêzîkkirin
+tool.hand.name = Dest
+tool.hand.description = Dîtinê digerîne. Qada dîtinê aîdê pencereyê ye, ji ber vê yekê di moda bêser de ev amûr tiştekî li belgeyê naguherîne.
+tool.zoom.name = Nêzîkkirin
+tool.zoom.description = Dîtinê nêzîk an dûr dike. Qada dîtinê aîdê pencereyê ye, ji ber vê yekê di moda bêser de ev amûr tiştekî li belgeyê naguherîne.

@@ -1,0 +1,265 @@
+# The modal dialogs (crates/app/src/dialogs/, style_dialog.rs,
+# color_picker.rs, curve_editor.rs). Buttons every dialog shares — OK,
+# Cancel, Close, Done — are in common.lang.
+
+# Shared by several dialogs
+dialog.save_ellipsis = সংৰক্ষণ কৰক…
+dialog.use_foreground = অগ্ৰভূমি ব্যৱহাৰ কৰক
+dialog.downloading = ডাউনল'ড হৈ আছে…
+dialog.downloading_of = ডাউনল'ড হৈ আছে… {total}-ৰ ভিতৰত {got}
+dialog.no_config_dir = (কোনো কনফিগ ডাইৰেক্টৰি নাই)
+
+# Layer Properties
+dialog.layer_props.title = স্তৰৰ বৈশিষ্ট্যসমূহ
+
+# Export
+dialog.export.format = ফৰ্মেট
+dialog.export.dither = ডিথাৰ
+dialog.export.dither_note = 8-বিটলৈ হ্ৰাস কৰোঁতে ডিথাৰ কৰক
+dialog.export.export_ellipsis = ৰপ্তানি কৰক…
+
+# Process Photos (the gallery's batch dialog)
+dialog.batch.title = ফটো প্ৰক্ৰিয়াকৰণ
+dialog.batch.note_edit.one = {n}খন ফটো — গেলেৰীৰ সম্পাদনা হিচাপে সংৰক্ষিত; মূলখন কেতিয়াও সলনি কৰা নহয়।
+dialog.batch.note_edit.other = {n}খন ফটো — গেলেৰীৰ সম্পাদনা হিচাপে সংৰক্ষিত; মূলবোৰ কেতিয়াও সলনি কৰা নহয়।
+dialog.batch.note_edit_edited.one = {n}খন ফটো, ইতিমধ্যে {edited}খন সম্পাদিত — ৰেচিপিটো সম্পাদনাৰ ওপৰত প্ৰয়োগ হয় আৰু আগৰ সম্পাদনাটো এটা সংস্কৰণ হিচাপে ৰখা হয়।
+dialog.batch.note_edit_edited.other = {n}খন ফটো, ইতিমধ্যে {edited}খন সম্পাদিত — ৰেচিপিটো সম্পাদনাৰ ওপৰত প্ৰয়োগ হয় আৰু আগৰ সম্পাদনাটো এটা সংস্কৰণ হিচাপে ৰখা হয়।
+dialog.batch.note_copies.one = {n}খন ফটো — সমতল প্ৰতিলিপি; মূলখন কেতিয়াও সলনি কৰা নহয়।
+dialog.batch.note_copies.other = {n}খন ফটো — সমতল প্ৰতিলিপি; মূলবোৰ কেতিয়াও সলনি কৰা নহয়।
+dialog.batch.note_copies_edited.one = {n}খন ফটো, ইতিমধ্যে {edited}খন সম্পাদিত — সম্পাদনাবোৰৰ পৰা প্ৰতিলিপি সৃষ্টি কৰা হয়।
+dialog.batch.note_copies_edited.other = {n}খন ফটো, ইতিমধ্যে {edited}খন সম্পাদিত — সম্পাদনাবোৰৰ পৰা প্ৰতিলিপি সৃষ্টি কৰা হয়।
+dialog.batch.turn = ঘূৰাওক
+dialog.batch.rotate = ঘূৰ্ণন
+dialog.batch.flip = ওলোটাওক
+dialog.batch.upscale = আকাৰ বৃদ্ধি
+dialog.batch.colour = ৰং
+dialog.batch.add_adjustment = সমন্বয়…
+dialog.batch.output = আউটপুট
+dialog.batch.save_as = এই ৰূপে সংৰক্ষণ কৰক
+dialog.batch.process = প্ৰক্ৰিয়া কৰক
+dialog.batch.process_n = {n}টা প্ৰক্ৰিয়া কৰক
+dialog.batch.nothing_to_do = কৰিবলৈ একো নাই: প্ৰথমে ঘূৰ্ণন, আকাৰ বৃদ্ধি বা সমন্বয় বাছক
+
+# Content-Aware Scale
+dialog.content_aware_scale.title = বিষয়বস্তু-সচেতন মাপ
+dialog.content_aware_scale.note = কম-বিৱৰণৰ সীৱনবোৰ আঁতৰায়। নিৰ্বাচনে সুৰক্ষিত কৰিবলগীয়া অংশ চিহ্নিত কৰে।
+
+# Stroke (also the Layer Style dialog's stroke position)
+dialog.stroke.title = ষ্ট্ৰ'ক
+dialog.stroke.location = অৱস্থান
+dialog.stroke.inside = ভিতৰত
+dialog.stroke.outside = বাহিৰত
+dialog.stroke.note = নিৰ্বাচনটো অগ্ৰভূমিৰ ৰঙেৰে ষ্ট্ৰ'ক কৰে।
+
+# Fill
+dialog.fill.contents = বিষয়বস্তু
+
+# Color Range
+dialog.color_range.title = ৰঙৰ পৰিসৰ
+dialog.color_range.sampled = নমুনা লোৱা
+dialog.color_range.fuzziness = বিস্তৃতি
+dialog.color_range.note = সক্ৰিয় স্তৰত নমুনা লোৱা ৰঙৰ ওচৰৰ পিক্সেলবোৰ নিৰ্বাচন কৰে।
+
+# The file picker Schist draws itself (Android)
+dialog.file_picker.up = ↑ ওপৰলৈ
+dialog.file_picker.empty = ইয়াত একো নাই
+dialog.file_picker.choose_folder = এই ফ'ল্ডাৰটো বাছক
+
+# Filter dialogs
+dialog.filter.camera_raw_development = Camera Raw বিকাশ
+dialog.filter.reset_as_shot = তোলাৰ সময়ৰ অৱস্থালৈ পুনঃস্থাপন কৰক
+dialog.filter.raw_note = সক্ৰিয় স্তৰটো তাৰ মূল ছেন্সৰ ডেটাৰ পৰা পুনৰ বিকশিত কৰে।
+dialog.filter.note = নিৰ্বাচনৰ ভিতৰত সক্ৰিয় স্তৰত প্ৰয়োগ হয়।
+
+# Missing Fonts
+dialog.fonts.title = অনুপস্থিত ফণ্টসমূহ
+dialog.fonts.install_named = {name} ইনষ্টল কৰক
+dialog.fonts.no_document = কোনো দস্তাবেজ খোলা নাই, সেয়েহে পৰীক্ষা কৰিবলৈ একো নাই।
+dialog.fonts.all_installed = এই দস্তাবেজে ব্যৱহাৰ কৰা প্ৰতিটো ফণ্ট ইনষ্টল কৰা আছে। লিখনী যিবোৰ ফণ্টেৰে সজোৱা হৈছিল, সেইবোৰতেই দেখুওৱা হৈছে।
+dialog.fonts.missing_intro = এই দস্তাবেজখন আপোনাৰ নথকা ফণ্টেৰে সজোৱা হৈছে। বিকল্প ফণ্টত লিখনী পঢ়িব পাৰি, কিন্তু তাৰ প্ৰস্থ আৰু শাৰী ভঙা মূল বিন্যাসৰ সৈতে একে নহয়।
+dialog.fonts.footer = ডাউনল'ডবোৰ Google Fonts-ৰ মুক্ত কেটেলগৰ পৰা আহে আৰু {dir}-ত ৰখা হয়। মুক্ত অনুজ্ঞাপত্ৰ নথকা ফণ্ট কেতিয়াও অনা নহয়—মাপ-মিলা মুক্ত ডিজাইন থাকিলে তাক বিকল্প হিচাপে আগবঢ়োৱা হয়; আখৰৰ অগ্ৰসৰ প্ৰস্থ মিলা বাবে ই বিন্যাস পুনৰুদ্ধাৰ কৰে।
+dialog.fonts.user_font_dir = আপোনাৰ ব্যৱহাৰকাৰী ফণ্ট ডাইৰেক্টৰি
+
+# Neural Filter Models
+dialog.models.title = Neural Filter মডেলসমূহ
+dialog.models.built_in = অন্তৰ্নিৰ্মিত · {size}
+dialog.models.installed = ইনষ্টল কৰা · {size}
+dialog.models.not_installed = ইনষ্টল কৰা নাই · {size}
+dialog.models.not_in_browser = ব্ৰাউজাৰত উপলব্ধ নহয় · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = মডেলবোৰ {dir}-ত ৰখা হয়। মডেল নথকা ফিল্টাৰবোৰে ছিগনেল প্ৰক্ৰিয়াকৰণ ব্যৱহাৰ কৰে আৰু সেয়া জনায়।
+
+# New Document
+dialog.new_doc.title = নতুন দস্তাবেজ
+dialog.new_doc.picker_title = নতুন ফাইল
+dialog.new_doc.custom_ellipsis = স্বনিৰ্বাচিত…
+dialog.new_doc.preset = পূৰ্বছেট
+dialog.new_doc.preset_default = পূৰ্বনিৰ্ধাৰিত (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = বৰ্গ (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = সৃষ্টি কৰক
+dialog.new_doc.created = নতুন দস্তাবেজ: {w} × {h} px
+
+# Opening files: dropped images and folders, shared files, HEIC support
+dialog.open.image_title = ছবি খোলক
+dialog.open.image_prompt = “{name}” এখন নতুন টেবত খুলিব, নে বৰ্তমানৰ দস্তাবেজত নতুন স্তৰ হিচাপে যোগ কৰিব?
+dialog.open.new_tab = নতুন টেব
+dialog.open.new_layer = নতুন স্তৰ
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = এই {n}টা ফাইল
+dialog.open.these_files.other = এই {n}টা ফাইল
+dialog.open.shared_title_one = ভাগ-বতৰা কৰা ছবি
+dialog.open.shared_title_many = ভাগ-বতৰা কৰা ছবিসমূহ
+dialog.open.shared_prompt = {what} গেলেৰীত যোগ কৰিব, নে সম্পাদকত খুলিব?
+dialog.open.add_to_gallery = গেলেৰীত যোগ কৰক
+dialog.open.open_in_editor = সম্পাদকত খোলক
+dialog.open.heic_title = HEIC সমৰ্থন
+dialog.open.heic_needs_decoder = “{name}” খুলিবলৈ এটা HEVC ডিক'ডাৰ প্ৰয়োজন, যিটো এই ছিষ্টেমত ইনষ্টল কৰা নাই।
+dialog.open.heic_offer = Schist-এ libde265 HEVC ডিক'ডাৰসহ libheif {version}-ৰ কেৱল ডিক'ড কৰিব পৰা বিল্ড এটা ডাউনল'ড কৰিব পাৰে (≈5 MB)। দুয়োটাই LGPL-3.0 অনুজ্ঞাপ্ৰাপ্ত; সিহঁতৰ অনুজ্ঞাপত্ৰৰ পাঠ লাইব্ৰেৰীৰ কাষত ইনষ্টল কৰা হয় আৰু উৎস প্ৰকল্পৰ পৃষ্ঠাত উপলব্ধ।
+dialog.open.licenses_source = অনুজ্ঞাপত্ৰ আৰু উৎস
+dialog.open.folders_title = পেলোৱা ফ'ল্ডাৰসমূহ
+dialog.open.n_folders.one = {n}টা ফ'ল্ডাৰ
+dialog.open.n_folders.other = {n}টা ফ'ল্ডাৰ
+dialog.open.open_in_tabs = টেবসমূহত খোলক
+dialog.open.open_first_in_tabs = প্ৰথম {n}টা টেবত খোলক
+dialog.open.open_n_in_tabs.one = {n}টা এটা টেবত খোলক
+dialog.open.open_n_in_tabs.other = {n}টা টেবসমূহত খোলক
+dialog.open.folder_holds.one = {what}-ত Schist-এ খুলিব পৰা {n}খন ছবি আছে (উপ-ফ'ল্ডাৰসহ)।
+dialog.open.folder_holds.other = {what}-ত Schist-এ খুলিব পৰা {n}খন ছবি আছে (উপ-ফ'ল্ডাৰসহ)।
+dialog.open.folders_note = গেলেৰীত যোগ কৰিলে ফ'ল্ডাৰবোৰ যথাস্থানতে নিৰীক্ষণ কৰা হয়—একো নকল কৰা নহয় আৰু প্ৰতিখন ফটোৰ কাষত সম্পাদনাবোৰ সংস্কৰণ হিচাপে ৰখা হয়। টেবত খুলিলে এতিয়াই প্ৰতিখন ছবি সম্পাদকত লোড হয়।
+
+# Plugins
+dialog.plugins.title = প্লাগ-ইনসমূহ
+dialog.plugins.kind_filter = ফিল্টাৰ
+dialog.plugins.kind_format = ফৰ্মেট
+dialog.plugins.kind_unavailable = উপলব্ধ নহয়
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = প্লাগ-ইনসমূহ {dir}-ৰ পৰা লোড হয়
+dialog.plugins.none = এতিয়াও কোনো প্লাগ-ইন ইনষ্টল কৰা নাই।
+dialog.plugins.install_ellipsis = ইনষ্টল কৰক…
+dialog.plugins.photoshop_heading = Photoshop প্লাগ-ইনসমূহ
+dialog.plugins.loaded_from = {folders}-ৰ পৰা লোড কৰা হৈছে
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Preferences
+dialog.prefs.title = পছন্দসমূহ
+dialog.prefs.theme = থীম
+dialog.prefs.theme_dark = গাঢ়
+dialog.prefs.theme_light = পাতল
+dialog.prefs.grid_spacing = গ্ৰীডৰ ব্যৱধান
+dialog.prefs.snapping = স্নেপিং
+dialog.prefs.snap_to = সহায়ক ৰেখা, গ্ৰীড আৰু কেনভাছৰ কাষত স্নেপ কৰক
+dialog.prefs.rendering_intent = ৰেণ্ডাৰিং উদ্দেশ্য
+dialog.prefs.intent_perceptual = দৃশ্যগ্ৰাহ্য
+dialog.prefs.intent_relative = আপেক্ষিক ৰংমিতিক
+dialog.prefs.intent_saturation = সম্পৃক্ততা
+dialog.prefs.intent_absolute = পৰম ৰংমিতিক
+dialog.prefs.scrolling = স্ক্ৰ'লিং
+dialog.prefs.zoom_with_scroll = স্ক্ৰ'ল চকাৰে জুম কৰক
+dialog.prefs.rendering = ৰেণ্ডাৰিং
+dialog.prefs.gpu_compositing = GPU কম্প'জিটিং
+dialog.prefs.diagnostics = ৰোগনিৰ্ণয়
+dialog.prefs.crash_reports = পেনিক হ'লে স্থানীয় ক্ৰেছ প্ৰতিবেদন লিখক
+dialog.prefs.crash_upload = লগতে ডেভেলপাৰসকললৈ পঠিয়াওক
+dialog.prefs.telemetry = দৈনিক এটা বেনামী পিং পঠিয়াওক
+dialog.prefs.diagnostics_note = Schist পৰৱৰ্তী বাৰ আৰম্ভ হ'লে ৰোগনিৰ্ণয় ছেটিংছ কাৰ্যকৰী হয়।
+dialog.prefs.updates = আপডেটসমূহ
+dialog.prefs.check_updates = আৰম্ভণিতে নতুন ৰিলিজ পৰীক্ষা কৰক
+dialog.prefs.keyboard_shortcuts = কীব'ৰ্ড চৰ্টকাট: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) মডেল প্ৰয়োজন —
+dialog.prefs.nsfw_download_link = মডেলসমূহ পৰিচালনা কৰক-ত ইয়াক ডাউনল'ড কৰক…
+dialog.prefs.hide_flagged = চিহ্নিত ফটো লুকুৱাওক
+
+# Assign Profile / Convert to Profile
+dialog.profile.profile = প্ৰ'ফাইল
+dialog.profile.assign_title = প্ৰ'ফাইল নিৰ্ধাৰণ
+dialog.profile.convert_title = প্ৰ'ফাইললৈ ৰূপান্তৰ
+dialog.profile.assign = নিৰ্ধাৰণ কৰক
+dialog.profile.convert = ৰূপান্তৰ কৰক
+dialog.profile.assign_note = নতুন প্ৰ'ফাইলৰ অধীনত বৰ্তমানৰ পিক্সেল মানবোৰ নতুনকৈ ব্যাখ্যা কৰে।
+dialog.profile.convert_note = ৰংবোৰৰ ৰূপ একে ৰাখিবলৈ পিক্সেল মান পুনৰ লিখে।
+
+# Save Image As (a gallery photo as a flat image)
+dialog.save_image.title = ছবি এই ৰূপে সংৰক্ষণ কৰক
+dialog.save_image.note = {name} — সম্পাদনা থাকিলে সম্পাদিত ৰূপটো; মূলখন কেতিয়াও সলনি কৰা নহয়।
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# Image Size and Canvas Size
+dialog.size.image_title = ছবিৰ আকাৰ
+dialog.size.canvas_title = কেনভাছৰ আকাৰ
+dialog.size.constrain = সীমাবদ্ধ কৰক
+dialog.size.keep_proportions = অনুপাত ৰাখক
+dialog.size.resample = পুনৰ নমুনা লওক
+dialog.size.bicubic = দ্বিঘনীয়
+dialog.size.bilinear = দ্বিৰৈখিক
+dialog.size.nearest = নিকটতম প্ৰতিবেশী
+dialog.size.anchor = এংকৰ
+dialog.size.currently = বৰ্তমান {w} × {h} px
+dialog.size.image_size_status = ছবিৰ আকাৰ: {w} × {h}
+dialog.size.canvas_size_status = কেনভাছৰ আকাৰ: {w} × {h}
+
+# Update Available
+dialog.update.title = আপডেট উপলব্ধ
+dialog.update.available = Schist {version} উপলব্ধ। এই প্ৰতিলিপিটো {current}।
+dialog.update.installing = আপডেট ইনষ্টল হৈ আছে…
+dialog.update.can_install = Schist-এ ইয়াক ({size}) ডাউনল'ড কৰি এই প্ৰতিলিপিৰ ওপৰত ইনষ্টল কৰিব পাৰে।
+dialog.update.external = এই প্ৰতিলিপিটো ইয়াক নিয়ন্ত্ৰণ কৰা আন উৎসৰ পৰা আহিছে—পেকেজ মেনেজাৰ, AppImage বা আপোনাৰ নিজা বিল্ড—সেয়েহে যি পদ্ধতিৰে ইনষ্টল কৰা হৈছিল, সেই পদ্ধতিৰেই আপডেট হয়।
+dialog.update.later = পিছত
+dialog.update.release_notes = ৰিলিজ টোকা
+dialog.update.update_restart = আপডেট কৰি পুনৰাৰম্ভ কৰক
+dialog.update.open_page = ৰিলিজ পৃষ্ঠা খোলক
+
+# Layer Style: the effects (Photoshop's names) and their controls
+dialog.style.title = স্তৰৰ শৈলী
+dialog.style.bevel = বেভেল আৰু এম্ব'ছ
+dialog.style.stroke = ষ্ট্ৰ'ক
+dialog.style.inner_shadow = ভিতৰৰ ছাঁ
+dialog.style.inner_glow = ভিতৰৰ দ্যুতি
+dialog.style.satin = ছেটিন
+dialog.style.color_overlay = ৰঙৰ অভাৰলে
+dialog.style.gradient_overlay = গ্ৰেডিয়েণ্ট অভাৰলে
+dialog.style.outer_glow = বাহিৰৰ দ্যুতি
+dialog.style.drop_shadow = ড্ৰপ শ্বেডো
+dialog.style.blur = গাউছীয় অস্পষ্টকৰণ
+dialog.style.gradient_from = গ্ৰেডিয়েণ্ট অভাৰলেৰ আৰম্ভণি
+dialog.style.gradient_to = গ্ৰেডিয়েণ্ট অভাৰলেৰ শেষ
+dialog.style.soften = কোমল কৰক
+dialog.style.depth = গভীৰতা
+dialog.style.altitude = উচ্চতা
+dialog.style.highlight = উজ্জ্বল অংশ
+dialog.style.shadow = ছাঁ
+dialog.style.outer_bevel = বাহিৰৰ বেভেল
+dialog.style.inner_bevel = ভিতৰৰ বেভেল
+dialog.style.emboss = এম্ব'ছ
+dialog.style.pillow_emboss = পিল' এম্ব'ছ
+dialog.style.linear = ৰৈখিক
+dialog.style.radial = ব্যাসাৰ্ধীয়
+dialog.style.reverse = বিপৰীত কৰক
+dialog.style.from_to = পৰা / লৈ
+dialog.style.from_fg = পৰা = অগ্ৰভূমি
+dialog.style.to_fg = লৈ = অগ্ৰভূমি
+dialog.style.precise = সূক্ষ্ম
+dialog.style.knockout = স্তৰে ড্ৰপ শ্বেডো আঁতৰায়
+
+# Color Picker
+dialog.color_picker.title = ৰং নিৰ্বাচক ({what})
+dialog.color_picker.effect_color = {effect}-ৰ ৰং
+dialog.color_picker.note_color = টোকাৰ ৰং
+dialog.color_picker.new = নতুন
+dialog.color_picker.current = বৰ্তমান
+
+# The Curves graph
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = চেনেল পুনঃস্থাপন কৰক
+dialog.curves.hint = আকৃতি দিবলৈ টানক · যোগ কৰিবলৈ ক্লিক কৰক · আঁতৰাবলৈ Alt-ক্লিক কৰক
+
+# The camera-roll backup's row in Preferences, on the phones.
+dialog.prefs.camera_sync = কেমেৰা ৰ'ল
+dialog.prefs.camera_sync_enabled = Schist Cloud-ত বেকআপ লওক
+dialog.prefs.camera_sync_sign_in = কেমেৰা ৰ'ল বেকআপ ল'বলৈ Schist Cloud-ত ছাইন ইন কৰক।
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = সলনি কৰক…

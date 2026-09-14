@@ -1,0 +1,22 @@
+tool.type.name = Umbhalo
+tool.type.description = Chofoza ukuze uqale isendlalelo sombhalo lapho, kumbe uchofoze esesivele sikhona ukuze usihlele. Ngesikhathi sivuliwe ithuluzi lamukela okhiye uqobo (thumela izinhlamvu njengokufakwa ngokhiye), njalo ukwamukela kudweba isendlalelo bese kuvala ukuhlela.
+
+tool.type.option.align = Qondanisa
+tool.type.option.leading = Isikhala Phakathi Kwemigqa
+tool.type.option.tracking = Isikhala Sezinhlamvu
+tool.type.option.kerning = Ukusondeza Izinhlamvu
+tool.type.option.ligatures = Izinhlamvu Ezihlanganisiweyo
+tool.type.option.discretionary_ligatures = Izinhlamvu ezihlanganisiweyo ezingakhethwa
+tool.type.option.small_caps = Osonhlamvukazi Abancane
+tool.type.option.on_path = Emzileni osebenzayo
+tool.type.option.path_offset = Ukusuka emzileni
+
+tool.type.choice.regular = Okuvamileyo
+tool.type.choice.bold = Okugqamileyo
+tool.type.choice.italic = Okutshekileyo
+tool.type.choice.bold_italic = Okugqamileyo Okutshekileyo
+
+tool.type.history.new_layer = Isendlalelo Esitsha Sombhalo
+tool.type.history.edit = Hlela Umbhalo
+tool.type.history.discard = Lahla Umbhalo
+tool.type.history.discard_empty = Lahla Umbhalo Ongelalutho

@@ -1,0 +1,29 @@
+# د سیمې د بیا سمون وسیلې: پیوند، له منځپانګې خبر لېږد، سره سترګه او جادويي پاکوونکی.
+
+# پیوند
+tool.patch.name = پیوند
+tool.patch.description = د نیمګړتیا چاپېر کرښه راکاږئ، بیا هغه ټاکنه پر پاکو پېکسلو راکاږئ؛ د هغه ځای جوړښت په نیمګړتیا کې برابرېږي. د پیوند حالت ټاکي چې د جوړې کوم سر راکاږئ.
+tool.patch.option.patch = پیوند
+tool.patch.choice.source = سرچینه
+tool.patch.choice.destination = موخه
+tool.patch.history.patch = پیوند
+
+# له منځپانګې خبر لېږد
+tool.content_aware_move.name = له منځپانګې خبر لېږد
+tool.content_aware_move.description = ټاکل شوی څیز بل ځای ته راکاږئ؛ پاتې شوی تش ځای یې د شاوخوا له منځپانګې ډکېږي. د غځولو په حالت کې څیز د لېږد پر ځای غځول کېږي.
+tool.content_aware_move.choice.move = لېږد
+tool.content_aware_move.choice.extend = غځول
+tool.content_aware_move.history.move = له منځپانګې خبر لېږد
+
+# سره سترګه
+tool.red_eye.name = سره سترګه
+tool.red_eye.description = پر کسی کېکاږئ چې د فلش سوروالی ترې لرې شي.
+tool.red_eye.option.pupil_size = د کسي کچه
+tool.red_eye.option.darken = تیاره کول
+tool.red_eye.history.red_eye = سره سترګه
+
+# جادويي پاکوونکی
+tool.magic_eraser.name = جادويي پاکوونکی
+tool.magic_eraser.description = کېکاږئ چې د وسیلې د زغم په کچه، د نښې لاندې د ورته رنګ سیمه پاکه شي؛ یا له کېکاږل شوي ځای سره نښتې سیمه، یا په ټوله طبقه کې ټول ورته رنګ.
+tool.magic_eraser.option.contiguous = سره نښتی
+tool.magic_eraser.history.erase = جادويي پاکوونکی

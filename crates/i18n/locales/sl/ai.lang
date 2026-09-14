@@ -1,0 +1,30 @@
+ai.status.panel_shown = Prikazana je Plošča za umetno inteligenco
+ai.status.panel_hidden = Plošča za umetno inteligenco je skrita — Pogled ▸ Plošča za umetno inteligenco ({shortcut}) jo znova prikaže
+ai.status.tool = UI: {name}
+
+ai.info.connected = {backend} je povezan
+ai.info.now_in_gallery = Zdaj ste v galeriji.
+ai.info.now_in_editor = Zdaj ste v urejevalniku.
+ai.tool.shell_command = ukaz lupine
+
+ai.error.cli_missing = Orodja ukazne vrstice za {backend} (»{binary}«) ni na poti PATH. Najprej ga namestite in se vanj prijavite.
+ai.error.endpoint_failed = zagon končne točke MCP ni uspel: {error}
+ai.error.binding_endpoint = vezava končne točke MCP
+ai.error.spawning_endpoint_thread = zagon niti končne točke MCP
+ai.error.runtime_failed = zagon izvajalnega okolja agenta ni uspel: {error}
+ai.error.worker_failed = zagon izvajalca {backend} ni uspel: {error}
+ai.error.did_not_start = {backend} se ni zagnal: {error}
+ai.error.switch_model_failed = preklop modela ni uspel: {error}
+ai.error.send_failed = pošiljanje poziva ni uspelo: {error}
+ai.error.interrupt_failed = prekinitev ni uspela: {error}
+ai.error.locating_binary = iskanje izvršljive datoteke Schist
+ai.error.starting_app_server = zagon aplikacijskega strežnika Codex
+ai.error.attaching_app_server = povezovanje z aplikacijskim strežnikom Codex
+ai.error.initializing_app_server = inicializacija aplikacijskega strežnika Codex
+ai.error.resuming_thread = nadaljevanje niti Codex
+ai.error.starting_thread = zagon niti Codex
+
+ai.model.opus_detail = Najzmogljivejša raven
+ai.model.sonnet_detail = Učinkovit za vsakdanja opravila
+ai.model.haiku_detail = Najhitrejši za kratke odgovore
+ai.model.codex_catalog = Katalog Codex

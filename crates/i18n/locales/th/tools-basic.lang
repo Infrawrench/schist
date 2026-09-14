@@ -1,0 +1,28 @@
+# The basic tools (plugins/tools-basic): Move, Eyedropper, Hand, Zoom.
+# Option labels shared with the rest of the app (Layer, Group) come
+# from common.lang.
+
+# Move
+tool.move.name = ย้าย
+tool.move.description = ลากเนื้อหาของเลเยอร์ที่กำลังใช้งานไปยังตำแหน่งใหม่ เมื่อเปิดเลือกอัตโนมัติ การกดจะเลือกเลเยอร์หรือทั้งกลุ่มที่อยู่ใต้ตัวชี้ก่อน
+tool.move.option.auto_select = เลือกอัตโนมัติ
+tool.move.history.move_layer = ย้ายเลเยอร์
+
+# Eyedropper
+tool.eyedropper.name = หลอดดูดสี
+tool.eyedropper.description = เก็บตัวอย่างสีใต้ตัวชี้ไปยังช่องสีพื้นหน้า หรือช่องสีพื้นหลังเมื่อกด Alt ค้างไว้ ลากเพื่อเก็บตัวอย่างอย่างต่อเนื่อง
+tool.eyedropper.option.sample_size = ขนาดตัวอย่าง
+tool.eyedropper.option.sample = เก็บตัวอย่างจาก
+tool.eyedropper.choice.point_sample = จุดตัวอย่าง
+tool.eyedropper.choice.average_3 = ค่าเฉลี่ย 3 × 3
+tool.eyedropper.choice.average_5 = ค่าเฉลี่ย 5 × 5
+tool.eyedropper.choice.average_11 = ค่าเฉลี่ย 11 × 11
+tool.eyedropper.choice.average_31 = ค่าเฉลี่ย 31 × 31
+tool.eyedropper.choice.all_layers = ทุกเลเยอร์
+tool.eyedropper.choice.current_layer = เลเยอร์ปัจจุบัน
+
+# Hand and Zoom
+tool.hand.name = มือ
+tool.hand.description = เลื่อนมุมมอง พื้นที่มุมมองเป็นของหน้าต่าง ดังนั้นในโหมดไร้หน้าต่าง เครื่องมือนี้จะไม่ส่งผลต่อเอกสาร
+tool.zoom.name = ซูม
+tool.zoom.description = ซูมมุมมอง พื้นที่มุมมองเป็นของหน้าต่าง ดังนั้นในโหมดไร้หน้าต่าง เครื่องมือนี้จะไม่ส่งผลต่อเอกสาร

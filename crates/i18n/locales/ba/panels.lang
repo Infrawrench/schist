@@ -1,0 +1,83 @@
+# Киндер тирәһендәге панелдәр һәм ҡоралдар һыҙаты.
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Навигатор
+panel.navigator.actual_pixels = Ғәмәлдәге пикселдәр
+
+panel.color.picker = Төҫ һайлағыс…
+panel.color.swap = Төҫтәрҙе алмаштырыу
+panel.color.reset = Ҡара һәм аҡ төҫкә ҡайтарыу
+
+panel.layers.blending_options = Ҡатнаштырыу параметрҙары…
+panel.layers.properties = Ҡатлам үҙенсәлектәре…
+panel.layers.show_hide = Ҡатламды күрһәтеү/йәшереү
+panel.layers.toggle_visibility = Күренеүсәнлекте алмаштырыу
+
+panel.history.title = Тарих
+panel.history.opened = Асылды
+
+panel.info.title = Мәғлүмәт
+panel.info.camera = Камера
+panel.info.lens = Объектив
+panel.info.iso = ISO {iso}
+panel.info.bias = Экспозиция компенсацияһы
+panel.info.flash_fired = ялтырауыҡ эшләгән
+panel.info.no_flash = ялтырауыҡ эшләмәгән
+panel.info.white_balance = Аҡ төҫ балансы {wb}
+panel.info.metering = {metering} экспозиция үлсәүе
+panel.info.taken = Төшөрөлгән
+panel.info.size = {w} × {h} · {mp} МП
+panel.info.size_oriented = {w} × {h} · {mp} МП · йүнәлеш {o}
+panel.info.software = Программа
+panel.info.where = Урын
+
+panel.notes.author = Автор
+panel.notes.clear_all = Барыһын таҙартыу
+panel.notes.unattributed = Авторһыҙ
+panel.notes.empty = Иҫкәрмә ҡалдырыу өсөн киндергә сиртегеҙ.
+panel.notes.placeholder = Яҙыу өсөн сиртегеҙ
+
+panel.character.title = Символ
+panel.character.type_tool = Текст ҡоралы (T)
+panel.character.align_left = Һулға тигеҙләү
+panel.character.align_center = Үҙәккә тигеҙләү
+panel.character.align_right = Уңға тигеҙләү
+panel.character.text_color = Текст төҫө
+panel.character.panel = Символ панеле
+panel.character.cancel_edit = Тексты үҙгәртеүҙән баш тартыу
+panel.character.commit_edit = Тексты үҙгәртеүҙе раҫлау
+panel.character.number_tip = {label} · Ҡиммәт индерегеҙ йәки ↑ / ↓ ҡулланығыҙ (ҙурыраҡ аҙым өсөн Shift)
+panel.character.leading = Юл аралығы
+panel.character.tracking = Хәреф аралығы
+panel.character.alignment = Тигеҙләү
+panel.character.opentype = OpenType
+panel.character.text_on_path = Контурҙағы текст
+panel.character.straight = Тура
+panel.character.on_path = Контурҙа
+panel.character.straight_tip = Текст ҡатламының ғәҙәти төп һыҙығын ҡулланыу
+panel.character.on_path_tip = Әүҙем контурҙың күсермәһен ҡулланыу
+panel.character.path_offset = Контур буйынса тайпылыш
+
+panel.ai.title = ЯИ
+panel.ai.empty_editor = Үҙгәртеүҙе һорағыҙ һәм уның киндерҙә башҡарылыуын күҙәтегеҙ. Агент менюларҙағы шул уҡ ҡоралдар, фильтрҙар һәм командалар менән идара итә; һәр ғәмәлде айырым кире ҡайтарып була.
+panel.ai.empty_gallery = Фотоларығыҙ тураһында һорағыҙ һәм һөҙөмтәне галереяла күҙәтегеҙ: агент эҙләй, бәләкәй рәсемдәрҙе ҡарай, һайлай, төркөмдәргә бүлә һәм фотоны мөхәррирҙә аса ала.
+panel.ai.thinking = уйлай…
+panel.ai.placeholder_editor = Был документ тураһында һорағыҙ йәки уны үҙгәртегеҙ
+panel.ai.placeholder_gallery = Фотоларығыҙ тураһында һорағыҙ
+panel.ai.send = Ебәреү
+panel.ai.stop = Туҡтатыу
+panel.ai.fetching_models = CLI ҡоралының моделдәре һорала…
+panel.ai.no_models = Бер модель дә тура килмәй
+panel.ai.search_models = Моделдәрҙе эҙләү…
+
+panel.keymap.install_plugin = Плагин урынлаштырыу
+panel.keymap.save_as_prompt = Икенсе исем менән һаҡлау — форматты киңәйтеү билдәләй:

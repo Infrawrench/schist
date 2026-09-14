@@ -1,0 +1,9 @@
+{
+  "loading": "Đang tải…",
+  "starting": "Đang khởi động…",
+  "webgpu": "Schist cần WebGPU nhưng trình duyệt này không hỗ trợ. Chrome/Edge 113+, Firefox 141+ và Safari 26+ có hỗ trợ.",
+  "noticeTitle": "Schist hoạt động tốt nhất dưới dạng ứng dụng máy tính",
+  "noticeBody": "Bạn đang dùng phiên bản web, một bản dựng nhẹ hơn: phiên bản này tổng hợp trên CPU và không bao gồm một số tính năng — phần bổ trợ Photoshop và phần bổ trợ bên thứ ba, thư viện ảnh, bảng AI, nhập HEIC và tải phông chữ — đồng thời tệp được lưu dưới dạng bản tải xuống. Ứng dụng máy tính miễn phí cho macOS, Windows và Linux có đầy đủ các tính năng này.",
+  "noticeLink": "Tải ứng dụng máy tính.",
+  "ok": "OK"
+}

@@ -1,0 +1,25 @@
+tool.transform.name = Transformatio Libera
+tool.transform.description = Transformatio Libera. Ea activa facta capsam transformationis circum stratum activum aperit: angulum trahe ut magnitudinem mutes, extra angulum trahe ut rotes, marginem trahe ut obliques. Nihil inscribitur donec confirmetur (Enter); si rescinditur (Escape), stratum restituitur.
+tool.transform.option.interpolation = Interpolatio
+tool.transform.history.transform = Transformatio Libera
+tool.transform.history.image_size = Magnitudo Imaginis
+tool.transform.history.canvas_size = Magnitudo Telae
+
+tool.transform.selection.name = Transformatio Selectionis
+tool.transform.selection.description = Transformatio Selectionis: eadem capsa, sed lineam selectionis potius quam elementa pictoria intra eam movet. Confirma aut rescinde ut perficias.
+tool.transform.selection.history.transform = Transformatio Selectionis
+
+tool.transform.resample.nearest_neighbor = Vicinus Proximus
+tool.transform.resample.bilinear = Bilinearis
+tool.transform.resample.bicubic = Bicubica
+
+tool.crop.name = Recidere
+tool.crop.description = Regionem servandam trahe et ansas eius compone; confirmando (Enter) documentum ad eam resecatur, rescindendo (Escape) intactum manet.
+tool.crop.option.ratio = Proportio
+tool.crop.option.delete_cropped = Elementa Recisa Delere
+tool.crop.choice.unconstrained = Sine Vinculo
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Recisio

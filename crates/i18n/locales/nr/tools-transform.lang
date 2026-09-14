@@ -1,0 +1,31 @@
+# Free transform, transform selection and crop (plugins/tools-transform).
+
+# Free transform
+tool.transform.name = Tjhugulula Ngokutjhaphulukileko
+tool.transform.description = Tjhugulula Ngokutjhaphulukileko. Ukuyivula kuvula ibhoksi lokutjhugulula lizombeleze ileya esebenzako: dosa ekhoneni ukutjhugulula ubukhulu, dosa ngaphandle kwekhona ukuyizombezisa, dosa umphetho ukuyitjhigamisa. Akukho okutlolwako bekube kuqinisekiswa (Enter), begodu ukukhansela (Escape) kubuyisela ileya.
+tool.transform.option.interpolation = Ukulinganisa
+tool.transform.history.transform = Tjhugulula Ngokutjhaphulukileko
+tool.transform.history.image_size = Ubukhulu Besithombe
+tool.transform.history.canvas_size = Ubukhulu Bekhanvasi
+
+# Transform selection
+tool.transform.selection.name = Tjhugulula Okukhethiweko
+tool.transform.selection.description = Tjhugulula Okukhethiweko: ibhoksi elifanako, likhambisa umuda wokukhetha kunamaphikseli angaphakathi kwawo. Qinisekisa namkha khansela ukuze uqede.
+tool.transform.selection.history.transform = Tjhugulula Okukhethiweko
+
+# The classical resampling filters
+tool.transform.resample.nearest_neighbor = Umakhelwana Oseduze
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+# Crop
+tool.crop.name = Sika
+tool.crop.description = Dosa indawo ozoyigcina bese ulungisa iimbambo zayo; ukuqinisekisa (Enter) kusika idokhumenti ngokwendawo leyo, ukukhansela (Escape) kuyitjhiya injalo.
+tool.crop.option.ratio = Isilinganiso
+tool.crop.option.delete_cropped = Sula Amaphikseli Asikiweko
+tool.crop.choice.unconstrained = Akunamkhawulo
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Sika

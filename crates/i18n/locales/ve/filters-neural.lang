@@ -1,0 +1,161 @@
+# Madzina ane fiḽithara nnzhi dza a shumisa
+filter.neural.param.center_x = Vhukati ha X
+filter.neural.param.center_y = Vhukati ha Y
+filter.neural.param.direction = Sia
+filter.neural.param.transition = Tshanduko
+filter.neural.param.detail = Zwidodombedzwa
+filter.neural.param.eyes = Maṱo
+
+filter.neural.msg.using_model = I khou shumisa {model} · {license}.
+filter.neural.msg.get_model = I waneni kha Fiḽithara ▸ Neural Filters ▸ Langula Dzimoḓelo.
+
+# Camera Raw Filter
+filter.camera_raw.name = Fiḽithara ya Camera Raw
+filter.camera_raw.param.temperature = Thempheretsha
+filter.camera_raw.param.tint = Muvhalanyana
+filter.camera_raw.param.highlights = Zwipiḓa zwi Penyaho
+filter.camera_raw.param.shadows = Mirunzi
+filter.camera_raw.param.whites = Zwitshena
+filter.camera_raw.param.blacks = Zwitswu
+filter.camera_raw.param.clarity = U Vhonala Zwavhuḓi
+filter.camera_raw.param.dehaze = Bvisa Khuli
+filter.camera_raw.param.vibrance = U Tshila ha Mivhala
+filter.camera_raw.param.sharpening = U Ita uri zwi Vhonale
+filter.camera_raw.param.noise = U Fhungudza Bonyongo
+filter.camera_raw.param.vignette = Vignette
+
+# U khakhulula ḽentsi
+filter.lens_correction.name = U Khakhulula Ḽentsi
+filter.lens_correction.param.distortion = Bvisa u Khothea
+filter.lens_correction.param.red = Khakhulula Meme Mutswuku/Cyan
+filter.lens_correction.param.blue = Khakhulula Meme wa Lutombo/Tshitopana
+filter.lens_correction.param.vignette = Tshikalo tsha Vignette
+filter.lens_correction.param.midpoint = Tshithoma tsha Vhukati tsha Vignette
+filter.lens_correction.param.vertical = Mbonalo ya Vhulapfu
+filter.lens_correction.param.horizontal = Mbonalo ya Vhuphara
+
+# Adaptive Wide Angle
+filter.adaptive_wide_angle.name = Khona Khulwane i Ḓidzudzanyaho
+filter.adaptive_wide_angle.param.projection = Khakhululo
+filter.adaptive_wide_angle.choice.fisheye = Ḽiṱo ḽa Khovhe
+filter.adaptive_wide_angle.choice.perspective = Mbonalo ya Vhukhule
+filter.adaptive_wide_angle.choice.full_spherical = Tshipulumbu Tshoṱhe
+filter.adaptive_wide_angle.param.focal = Vhulapfu ha Focal
+filter.adaptive_wide_angle.param.crop = Tshikalo tsha u Geredza
+
+# Gaḽari ya u fhungudza u vhonala zwavhuḓi
+filter.field_blur.name = U Fhungudza u Vhonala Zwavhuḓi ha Tsimu
+filter.field_blur.param.position = Hu Vhonalaho kha
+filter.iris_blur.name = U Fhungudza u Vhonala Zwavhuḓi ha Iris
+filter.iris_blur.param.roundness = U Monana
+filter.tilt_shift.name = U Sendama-u Sudzulusa
+filter.tilt_shift.param.position = Vhukati
+filter.tilt_shift.param.band = Banda i Vhonalaho
+filter.spin_blur.name = U Fhungudza u Vhonala Zwavhuḓi nga u Monesa
+filter.spin_blur.param.angle = Khona ya u Fhungudza u Vhonala Zwavhuḓi
+filter.path_blur.name = U Fhungudza u Vhonala Zwavhuḓi ha Nḓila
+filter.path_blur.param.speed = Luvelo
+filter.path_blur.param.curve = U Khothea
+filter.path_blur.param.taper = U Seṱea
+
+# U fhungudza u vhonala zwavhuḓi
+filter.shape_blur.name = U Fhungudza u Vhonala Zwavhuḓi nga Tshivhumbeo
+filter.shape_blur.choice.square = Tshikwea
+filter.shape_blur.choice.diamond = Daimane
+filter.shape_blur.choice.hexagon = Hexagon
+filter.shape_blur.choice.cross = Tshifhambano
+filter.shape_blur.choice.ring = Rinngi
+filter.shape_blur.choice.star = Ṋaledzi
+filter.smart_blur.name = U Fhungudza u Vhonala Zwavhuḓi nga Vhuṱali
+filter.smart_blur.choice.normal = Zwo Ḓoweleaho
+filter.smart_blur.choice.edge_only = Meme Fhedzi
+filter.smart_blur.choice.overlay_edge = Fukedza Meme
+
+# Vidio
+filter.deinterlace.name = Bvisa u Ṱanganelana ha Mitalo
+filter.deinterlace.param.field = Bvisa
+filter.deinterlace.choice.odd_fields = Masimu a Nomboro dzi sa Kovhekani nga Mbili
+filter.deinterlace.choice.even_fields = Masimu a Nomboro dzi Kovhekanaho nga Mbili
+filter.deinterlace.param.fill = Ita Masimu Maswa nga
+filter.deinterlace.choice.interpolation = U Humbulela Ndeme dza Vhukati
+filter.deinterlace.choice.duplication = U Ita Khophi
+filter.ntsc_colors.name = Mivhala ya NTSC
+
+# Neural Filters
+filter.neural.skin_smoothing.name = U Tsenzheledza Lukanda
+filter.neural.skin_smoothing.param.blur = U Tsenzhelela
+filter.neural.skin_smoothing.param.detail = Vhulunga Zwidodombedzwa
+filter.neural.skin_smoothing.msg.no_model = {model} a yo ngo dzheniswa — hu khou tsenzheledzwa tshithu tshiṅwe na tshiṅwe tshi re na muvhala wa lukanda nṱhani ha zwifhaṱuwo.
+
+filter.neural.jpeg_artifacts.name = U Bvisa Zwiga zwa JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} a yo ngo dzheniswa — hu khou tsenzheledzwa giridi ya dzipixel dza 8 nṱhani hazwo.
+
+filter.neural.colorize.name = Engedza Muvhala
+filter.neural.colorize.param.warmth = U Dudela ha Muvhala
+filter.neural.colorize.msg.no_model = {model} a yo ngo dzheniswa — hu khou engedzwa muvhala hu tshi tevhedzwa u penya nṱhani hazwo.
+
+filter.neural.super_zoom.name = U Hudza nga Maanḓa
+filter.neural.super_zoom.msg.no_model = {model} a yo ngo dzheniswa — hu khou shumiswa u vhonadza hu langiwaho nga meme nṱhani hazwo.
+
+filter.neural.style_transfer.name = U Pfukisela Tshitaela
+filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = A hu na dzimoḓelo dza tshitaela dzo dzheniswaho — hu khou pfukiselwa muvhala fhedzi. Dzi waneni kha Fiḽithara ▸ Neural Filters ▸ Langula Dzimoḓelo.
+filter.neural.style_transfer.msg.installed = Zwo dzheniswa: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = U Pfukisela Muvhala
+filter.neural.color_transfer.param.hue = Muvhala wo Livhiswaho
+filter.neural.color_transfer.param.contrast = Fanyisa Phambano
+filter.neural.color_transfer.msg.info = I dzhia mivhala yayo kha ḽeyara i re nga fhasi. Arali hu si na tshithu nga fhasi i livha kha Muvhala wo Livhiswaho.
+
+filter.neural.depth_blur.name = U Fhungudza u Vhonala Zwavhuḓi nga Vhudzivha
+filter.neural.depth_blur.param.focus = Vhukhule ha Focal
+filter.neural.depth_blur.param.blur = Maanḓa a u Fhungudza u Vhonala Zwavhuḓi
+filter.neural.depth_blur.msg.no_model = {model} a yo ngo dzheniswa — hu khou sedziswa hu tshi tevhedzwa u vhonala ha fhethu nga fhethu nṱhani hazwo.
+
+filter.neural.harmonization.name = U Fanyisa
+filter.neural.harmonization.param.tone = Fanyisa Thounu
+filter.neural.harmonization.msg.info = I fanyisa ḽeyara iyi na zwiṅwe na zwiṅwe zwi re nga fhasi hayo. Arali hu si na tshithu nga fhasi, a hu na tshine tsha nga fanyiswa nahone hezwi a zwi iti tshithu.
+
+filter.neural.landscape_mixer.name = Mutanganyi wa Zwivhuya
+filter.neural.landscape_mixer.param.bands = Mabanda a Vhudzivha
+filter.neural.landscape_mixer.msg.with_depth = I dzhia mivhala yayo kha ḽeyara i re nga fhasi, yo fanyiswa banda nga banda hu tshi shumiswa Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = I dzhia mivhala yayo kha ḽeyara i re nga fhasi. Dzhenisani Depth (Depth Blur) uri makoleni a fanyiswe na makoleni na mavu a fanyiswe na mavu nṱhani ha u fanyisa tshifanyiso tshoṱhe.
+
+filter.neural.photo_restoration.name = U Vhuedzedza Tshinepe
+filter.neural.photo_restoration.param.enhance = U Khwinisa Tshinepe
+filter.neural.photo_restoration.param.scratches = U Fhungudza Mikweṅwe
+filter.neural.photo_restoration.param.tone = Vhuedzedza Thounu
+filter.neural.photo_restoration.msg.no_model = I khou kunakisa hu si na modele.
+filter.neural.photo_restoration.msg.using_deblock = I khou shumisa Deblock · yo gudiselwa Schist.
+filter.neural.photo_restoration.msg.using_detail = I khou shumisa Detail · yo gudiselwa Schist.
+filter.neural.photo_restoration.msg.using_both = I khou shumisa Deblock na Detail · dzo gudiselwa Schist.
+
+filter.neural.photo_to_sketch.name = Tshinepe tshi vhe Tshiketshe
+filter.neural.photo_to_sketch.param.weight = Vhudenya ha Mutalo
+filter.neural.photo_to_sketch.param.shading = Mirunzi
+
+filter.neural.face_to_caricature.name = Tshifhaṱuwo tshi vhe Caricature
+filter.neural.face_to_caricature.param.mouth = Mulomo
+filter.neural.face_to_caricature.param.head = Ṱhoho
+filter.neural.face_to_caricature.msg.no_model = {model} a yo ngo dzheniswa, ngauralo hezwi a zwi iti tshithu — a hu na tshine tsha nga itwa caricature.
+
+filter.neural.smart_portrait.name = Tshifanyiso tsha Muthu tsha Vhuṱali
+filter.neural.smart_portrait.param.happiness = Dakalo
+filter.neural.smart_portrait.param.surprise = U Mangala
+filter.neural.smart_portrait.param.age = Miṅwaha ya Tshifhaṱuwo
+filter.neural.smart_portrait.param.gaze = U Sedza
+filter.neural.smart_portrait.param.light = Sia ḽa Tshedza
+filter.neural.smart_portrait.msg.no_model = {model} a yo ngo dzheniswa, ngauralo hezwi a zwi iti tshithu — a i na tshifhaṱuwo tshine ya nga shuma khatsho.
+
+filter.neural.makeup_transfer.name = U Pfukisela Makeup
+filter.neural.makeup_transfer.param.lips = Milomo
+filter.neural.makeup_transfer.param.skin = Thounu ya Lukanda
+filter.neural.makeup_transfer.msg.info = I dzhia makeup kha tshifhaṱuwo tshi re kha ḽeyara i re nga fhasi. Muvhala, hu si tshivhumbeo tsha nnṱha.
+filter.neural.makeup_transfer.msg.no_model = {model} a yo ngo dzheniswa, ngauralo hezwi a zwi iti tshithu.
+
+filter.neural.sketch_to_portrait.name = Tshiketshe tshi vhe Tshifanyiso tsha Muthu
+filter.neural.sketch_to_portrait.param.detail = Vhulunga Mitalo
+filter.neural.sketch_to_portrait.msg.with_face = Yo gudiselwa u ḓadza Photo to Sketch ya yeneyi app. I shuma kha tshifhaṱuwo tshine ya tshi wana.
+filter.neural.sketch_to_portrait.msg.no_face = Yo gudiselwa u ḓadza Photo to Sketch ya yeneyi app. Dzhenisani Faces (Skin Smoothing) uri i shume kha tshifhaṱuwo nṱhani ha zwo nangiwaho zwoṱhe.

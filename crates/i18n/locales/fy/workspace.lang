@@ -1,0 +1,104 @@
+# Folboarnen
+workspace.fill.gray_50 = 50% griis
+workspace.fill.content_aware = Ynhâldsbewust
+
+workspace.modify.expand = Seleksje fergrutsje
+workspace.modify.contract = Seleksje ynlûke
+workspace.modify.border = Seleksjerâne
+workspace.modify.smooth = Seleksje glêdmeitsje
+workspace.modify.feather = Seleksjerâne fersêftsje
+
+workspace.batch.target.edit = Galerybewurkingen (mei ferzjes)
+workspace.batch.target.beside = Kopyen njonken de orizjinelen
+workspace.batch.target.folder = Kopyen yn in map…
+
+workspace.modal.image_size.title = Ofbyldingsgrutte
+
+workspace.docs.opening = {name} iepenje…
+workspace.docs.opened = {name} iepene
+workspace.docs.open_failed = Iepenjen mislearre: {error}
+workspace.docs.no_codec = {name} is gjin formaat dat Schist iepenje kin
+workspace.docs.no_exporter = Schist kin gjin .{ext}-bestannen bewarje
+workspace.docs.empty_response = De tsjinner hat in leech antwurd stjoerd
+workspace.docs.heic_not_installed = HEIC-stipe is net ynstallearre
+workspace.docs.heic_downloading = HEIC-stipe ynlade (libheif {version})…
+workspace.docs.heic_installed = HEIC-stipe ynstallearre
+workspace.docs.heic_download_failed = Ynladen fan HEIC-stipe is mislearre: {error}
+workspace.docs.placing = {name} pleatse…
+workspace.docs.place_image = Ofbylding pleatse
+workspace.docs.placed = {name} pleatst
+workspace.docs.place_failed = Pleatsen mislearre: {error}
+workspace.docs.saved = {name} bewarre
+workspace.docs.save_failed = Bewarjen mislearre: {error}
+
+workspace.adjustment.new_layer = Nije {name}-laach
+workspace.adjustment.added = {name} tafoege
+workspace.adjustment.settings = Ynstellingen foar {name}
+workspace.adjustment.updated = {name} bywurke
+workspace.adjustment.no_settings = {name} hat gjin bewurkbere ynstellingen
+
+workspace.comps.name_n = Laachkomposysje {n}
+workspace.comps.captured = Laachkomposysje fêstlein
+workspace.comps.apply = {name} tapasse
+workspace.styles.layer_style = Laachstyl
+workspace.context.rename_layer = Laach omneame
+workspace.commands.tool = Ark: {name}
+
+workspace.colormgmt.assign = {name} tawize
+workspace.colormgmt.assigned = {name} tawiisd
+workspace.colormgmt.convert_to = Omsette nei {name}
+workspace.colormgmt.converted_to = Omset nei {name}
+workspace.colormgmt.convert_failed = Omsetten mislearre: {error}
+workspace.colormgmt.proof_on = Proefkleuren oan
+workspace.colormgmt.proof_off = Proefkleuren út
+
+workspace.filters.choose = Kieze
+workspace.filters.select_layer_first = Selektearje earst in laach
+workspace.filters.needs_pixel_layer = Filters hawwe in piksellaach nedich
+workspace.filters.nothing_to_filter = Neat om te filterjen
+workspace.filters.went_away = Filter is ferdwûn
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: de filtere laach is ferdwûn
+workspace.filters.plugin_title = Photoshop-ynstekker
+workspace.filters.running = {name} útfiere
+workspace.filters.plugin_note = De ynstekker draait yn in eigen proses. As dy in finster iepenet, beantwurdzje dat dan om troch te gean.
+workspace.filters.raw_preview_developing = RAW-foarbyld ûntwikkelje…
+workspace.filters.raw_preview_done = RAW-foarbyld (flugge demosaic)
+workspace.filters.raw_preview_size_changed = Grutte fan RAW-foarbyld feroare: {w} × {h}
+workspace.filters.raw_preview_failed = RAW-foarbyld mislearre: {error}
+workspace.filters.raw_developing = De orizjinele opname ûntwikkelje…
+workspace.filters.raw_developing_note = It bêste demosaic-paad wurdt brûkt. De orizjinele RAW en dizze ynstellingen bliuwe nei bewarjen as PSD of PSB bewurkber.
+workspace.filters.raw_document_changed = RAW-ûntwikkeling wie klear neidat it dokumint feroare wie
+workspace.filters.raw_failed = RAW-ûntwikkeling mislearre: {error}
+workspace.filters.raw_too_wide = RAW-ûntwikkeling is te breed
+workspace.filters.raw_too_tall = RAW-ûntwikkeling is te heech
+workspace.filters.raw_size_changed = Grutte troch RAW-ûntwikkeling feroare yn {w} × {h}; de hjoeddeiske laach wurdt behâlden
+workspace.filters.raw_history = Camera Raw-ûntwikkeling
+workspace.filters.raw_applied = Camera Raw-ûntwikkeling tapast (bêste demosaic)
+
+workspace.image_size.done = Ofbyldingsgrutte: {w} × {h}
+workspace.image_size.bicubic_fallback = Ofbyldingsgrutte: {w} × {h} — it model {name} koe net laden wurde, dat bikubyske ynterpolaasje is ynstee brûkt
+workspace.image_size.upscaling = Mei {name} opskale
+workspace.image_size.upscaling_note = {mp} megapiksels troch it netwurk, elk in pear sekonden. It dokumint wurdt fêsthâlden oant dit klear is.
+
+workspace.export.no_slices = Gjin útsnijingen om te eksportearjen
+workspace.export.no_artboards = Gjin tekengebieten om te eksportearjen
+workspace.export.regions.one = {n} gebiet eksportearre
+workspace.export.regions.other = {n} gebieten eksportearre
+workspace.export.prompt = Eksportearje as:
+workspace.export.done = {name} eksportearre
+workspace.export.failed = Eksportearjen mislearre: {error}
+workspace.export.codec_vanished = De eksportfunksje is net mear beskikber
+
+workspace.file_picker.choose_folder = Map kieze
+workspace.file_picker.type_a_name = Typ in namme foar it bestân
+workspace.file_picker.exists = {name} bestiet; tik nochris op Bewarje om it te ferfangen
+workspace.file_picker.tap_a_file = Tik op in bestân om it te iepenjen
+workspace.file_picker.pictures = Ofbyldingen
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Downloads
+workspace.file_picker.permission_denied = Schist hat gjin tastimming om dizze map te lêzen
+
+workspace.recovery.recovered_title = {title} (weromhelle)
+workspace.recovery.recovered.one = Net bewarre wurk út in eardere sesje weromhelle
+workspace.recovery.recovered.other = {n} dokuminten út in eardere sesje weromhelle

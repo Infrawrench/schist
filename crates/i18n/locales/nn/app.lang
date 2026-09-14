@@ -1,0 +1,39 @@
+app.filter_gallery.title = Filtergalleri
+app.filter_gallery.stack = Stabel (vert brukt nedanfrå og opp)
+app.filter_gallery.no_settings = Dette filteret har ingen innstillingar.
+
+app.fonts.not_open_licensed = ikkje ope lisensiert · {substitute} har same skriftmål
+app.fonts.missing_substituted = manglar · teksten vert sett med ei erstatningsskrift
+app.fonts.not_in_catalogue = {family} finst ikkje i den opne skriftkatalogen
+app.fonts.no_faces = ingen nedlastbare snitt for {family}
+app.fonts.empty_response = tomt svar
+
+app.update.unreadable_response = svaret kan ikkje lesast: {error}
+app.update.no_temp_dir = inga mellombels mappe å lasta ned til
+app.update.asset_has_path = utgjevinga har gjeve ressursen eit namn med filsti
+app.update.too_big = nedlastinga er større enn utgjevinga opplyser
+app.update.stopped_at = nedlastinga stoppa ved {got} av {total} byte
+app.update.hash_mismatch = nedlastinga har kontrollsummen {got}, ikkje {want}
+app.update.not_in_bundle = denne kopien ligg ikkje i ei programpakke
+app.update.no_parent_dir = programpakka har inga overordna mappe
+app.update.cannot_write = kan ikkje skriva til {dir}
+app.update.cannot_move_aside = kan ikkje flytta {app} til side
+app.update.cannot_move_in = kan ikkje flytta den nye pakka på plass
+app.update.cannot_run_ditto = kan ikkje køyra /usr/bin/ditto
+app.update.unpack_failed = klarte ikkje å pakka ut nedlastinga: {error}
+app.update.no_app_in_download = nedlastinga inneheld ikkje Schist.app
+app.update.cannot_run_codesign = kan ikkje køyra /usr/bin/codesign
+app.update.signature_invalid = signaturen til nedlastinga kan ikkje stadfestast: {error}
+app.update.download_unsigned = denne kopien er signert, men nedlastinga er ikkje det
+app.update.different_developer = nedlastinga er signert av ein annan utviklar
+app.update.cannot_relaunch = kan ikkje starta omstartsprogrammet
+app.update.not_installed_copy = denne kopien vart ikkje lagd her av installeringsprogrammet
+app.update.cannot_start_installer = kan ikkje starta installeringsprogrammet
+app.update.platform_unsupported = oppdateringar på denne plattforma vert installerte på same måte som Schist vart installert
+
+app.vulkan.no_loader = schist: systemet har ingen Vulkan-lastar, så det finst ingenting å teikna med.\n\nSchist teiknar gjennom Vulkan, og `libvulkan.so.1` er ikkje installert.\nBåde lastaren og ein drivar trengst:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan-drivaren som denne økta peikar på, finst ikkje.\n\n{var} er sett, og denne innstillinga *erstattar* søket lastaren gjer etter\ndrivarar i staden for å leggja noko til. Desse filene, som ikkje finst,\ner difor heile drivarlista – og alle Vulkan-program i denne økta\ner heilt utan drivar, same kor mange som er installerte:\n\n{missing}\n    {var}={value}\n\nLa variabelen peika på eit manifest som finst – installerte drivarar legg\nmanifestet sitt i /usr/share/vulkan/icd.d – eller fjern innstillinga og la\nlastaren finna drivarane sjølv. Dersom økta set variabelen frå ei oppsettsfil\n(`env =` i Hyprland, eit systemd-tillegg i environment.d eller ein skalprofil),\nmå du endra han der. Du må logga inn på nytt før endringa tek til å gjelda for program som alt køyrer.\n
+app.vulkan.override_note = \n{var} er sett til {value}, og det erstattar søket lastaren sjølv gjer:\nDersom ingen av desse manifesta passar til maskina, bør du først prøva\nå fjerna innstillinga.\n
+app.vulkan.no_driver = schist: ingen Vulkan-drivar er installert, så det finst ingenting å teikna på.\n\nSchist teiknar gjennom Vulkan. Lastaren er installert, men melder at ingen\ndrivar finst – ingen drivar er registrert på nokon av dei to stadene der det vert leita:\n\n{dirs}\n\nLastaren vert levert skilt frå drivarane, så det manglar vanlegvis berre éi pakke.\n\nInstaller drivaren for grafikkprosessoren i denne maskina:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDen proprietære NVIDIA-drivaren har sin eigen (`nvidia-utils` på Arch,\n`nvidia-driver` på Debian). I ei virtuell maskin, eller ein annan stad der\ningen GPU-drivar kan installerast, fungerer programvarerasteriseraren:\n`vulkan-swrast` på Arch og ein del av `mesa-vulkan-drivers` på andre system.\nHan er langsam, men han startar.\n{overridden}
+app.vulkan.no_device = schist: ein Vulkan-drivar er installert, men tilbyr inga eining å teikna på.\n\nDrivaren støttar kanskje ikkje denne grafikkprosessoren eller får ikkje tilgang\ntil han. Over SSH eller i ein behaldar er det ofte /dev/dri som manglar.\n`vulkaninfo --summary` viser kva lastaren finn.\n\nProgramvarerasteriseraren kan teikna heilt utan grafikkprosessor dersom maskina\nikkje har ein: `vulkan-swrast` på Arch og delen av `mesa-vulkan-drivers`\npå Debian og Fedora.\n
+app.vulkan.skip_hint = Set {var}=1 for å starta Schist likevel og la programmet feila på sin eigen måte.

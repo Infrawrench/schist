@@ -1,0 +1,24 @@
+# Move
+tool.move.name = ખસેડો
+tool.move.description = સક્રિય લેયરની સામગ્રીને ખેંચીને નવી જગ્યાએ ખસેડો. સ્વતઃ-પસંદગી ચાલુ હોય ત્યારે, દબાવવાથી પોઇન્ટરની નીચે સૌથી પહેલાં આવતું લેયર — અથવા આખું ગ્રૂપ — પસંદ થાય છે.
+tool.move.option.auto_select = સ્વતઃ-પસંદગી
+tool.move.history.move_layer = લેયર ખસેડ્યું
+
+# Eyedropper
+tool.eyedropper.name = આઇડ્રોપર
+tool.eyedropper.description = પોઇન્ટરની નીચેના રંગનો નમૂનો અગ્રભૂમિના સ્વૉચમાં લો, અથવા Alt દબાવેલું હોય ત્યારે પૃષ્ઠભૂમિના સ્વૉચમાં લો. ખેંચતા રહેવાથી નમૂના લેવાતા રહે છે.
+tool.eyedropper.option.sample_size = નમૂનાનું કદ
+tool.eyedropper.option.sample = નમૂનો
+tool.eyedropper.choice.point_sample = બિંદુ નમૂનો
+tool.eyedropper.choice.average_3 = 3 બાય 3 સરેરાશ
+tool.eyedropper.choice.average_5 = 5 બાય 5 સરેરાશ
+tool.eyedropper.choice.average_11 = 11 બાય 11 સરેરાશ
+tool.eyedropper.choice.average_31 = 31 બાય 31 સરેરાશ
+tool.eyedropper.choice.all_layers = બધા લેયર
+tool.eyedropper.choice.current_layer = વર્તમાન લેયર
+
+# Hand and Zoom
+tool.hand.name = હાથ
+tool.hand.description = દૃશ્યને પૅન કરે છે. વ્યૂપોર્ટ વિન્ડોનો ભાગ હોવાથી, હેડલેસ સ્થિતિમાં આ ટૂલ દસ્તાવેજમાં કોઈ ફેરફાર કરતું નથી.
+tool.zoom.name = ઝૂમ
+tool.zoom.description = દૃશ્યને ઝૂમ કરે છે. વ્યૂપોર્ટ વિન્ડોનો ભાગ હોવાથી, હેડલેસ સ્થિતિમાં આ ટૂલ દસ્તાવેજમાં કોઈ ફેરફાર કરતું નથી.

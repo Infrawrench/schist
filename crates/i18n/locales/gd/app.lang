@@ -1,0 +1,36 @@
+app.filter_gallery.title = Gailearaidh nan criathragan
+app.filter_gallery.stack = Stac (air a chur an sàs on bhonn gu mullach)
+app.filter_gallery.no_settings = Chan eil roghainn sam bith aig a’ chriathrag seo.
+app.fonts.not_open_licensed = chan eil e fo cheadachas fosgailte · tha meataireachd {substitute} co-ionnan ris
+app.fonts.missing_substituted = a dhìth · tha an teacsa ’ga chur ann an cruth-clò ionaid
+app.fonts.not_in_catalogue = Chan eil {family} ann an catalog nan cruthan-clò fosgailte
+app.fonts.no_faces = chan eil aodann ri luchdadh a-nuas airson {family}
+app.fonts.empty_response = freagairt fhalamh
+app.update.unreadable_response = freagairt nach gabh leughadh: {error}
+app.update.no_temp_dir = chan eil pasgan sealach ann far an gabh a luchdadh a-nuas
+app.update.asset_has_path = tha an sgaoileadh a’ toirt ainm dhan mhaoin sa bheil slighe
+app.update.too_big = tha an luchdadh a-nuas nas motha na tha an sgaoileadh ag ràdh
+app.update.stopped_at = stad an luchdadh a-nuas aig {got} à {total} baidht
+app.update.hash_mismatch = fhuair an luchdadh a-nuas hais {got} seach {want}
+app.update.not_in_bundle = chan eil an lethbhreac seo am broinn trusgan aplacaid
+app.update.no_parent_dir = chan eil pasgan pàrant aig trusgan na h-aplacaid
+app.update.cannot_write = cha ghabh sgrìobhadh gu {dir}
+app.update.cannot_move_aside = cha ghabh {app} a ghluasad gu aon taobh
+app.update.cannot_move_in = cha ghabh an trusgan ùr a ghluasad dhan àite aige
+app.update.cannot_run_ditto = cha ghabh /usr/bin/ditto a ruith
+app.update.unpack_failed = dh’fhàillig dì-phacadh an luchdaidh a-nuas: {error}
+app.update.no_app_in_download = chan eil Schist.app san luchdadh a-nuas
+app.update.cannot_run_codesign = cha ghabh /usr/bin/codesign a ruith
+app.update.signature_invalid = cha ghabh ainm-sgrìobhte an luchdaidh a-nuas a dhearbhadh: {error}
+app.update.download_unsigned = tha ainm-sgrìobhte ris an lethbhreac seo ach chan eil ris an luchdadh a-nuas
+app.update.different_developer = chaidh an luchdadh a-nuas a shoidhneadh le leasaiche eile
+app.update.cannot_relaunch = cha ghabh an t-ath-thòisichear a chur gu dol
+app.update.not_installed_copy = cha deach an lethbhreac seo a chur an-seo leis an stàlaichear
+app.update.cannot_start_installer = cha ghabh an stàlaichear a chur gu dol
+app.update.platform_unsupported = stàlaichear ùrachaidhean air an ùrlar seo san aon dòigh san deach Schist a stàladh
+app.vulkan.no_loader = schist: chan eil luchdaiche Vulkan air an t-siostam seo agus mar sin chan eil dad ann leis an gabh tarraing.\n\nReandaraidh Schist tro Vulkan agus chan eil `libvulkan.so.1` stàlaichte.\nTha an luchdaiche agus draibhear le chèile a dhìth:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: chan eil an draibhear Vulkan air a bheil an seisean seo a’ tomhadh ann.\n\nTha {var} suidhichte, agus nuair a shuidhichear e, thèid lorg an luchdaiche\nair draibhearan a chur ’na àite seach cur ris. Mar sin, ’s iad na\nfaidhlichean seo nach eil ann liosta nan draibhearan gu lèir — agus chan\nfhaic prògram Vulkan sam bith san t-seisean seo draibhear idir, ge b’ e\ncia mheud dhiubh a tha stàlaichte:\n\n{missing}\n    {var}={value}\n\nTomhais air manifest a tha ann — cuiridh draibhearan stàlaichte an cuid\nfhèin ann an /usr/share/vulkan/icd.d — no neo-shuidhich e agus leig leis\nan luchdaiche an draibhear fhèin a lorg. Ma shuidhicheas seisean seo o\nfhaidhle rèiteachaidh (`env =` aig Hyprland, faidhle environment.d aig\nsystemd, pròifil slige), feumar atharrachadh an sin, agus feumar\nclàradh a-steach às ùr mus ruig an t-atharrachadh dad a tha a’ ruith.\n
+app.vulkan.override_note = \nTha {var} suidhichte gu {value}, agus tha sin a’ dol an àite lorg an\nluchdaiche fhèin: mura buin gin dhe na manifestean sin dhan inneal seo,\n’s e a neo-shuidheachadh a’ chiad rud ri fheuchainn.\n
+app.vulkan.no_driver = schist: chan eil draibhear Vulkan stàlaichte agus mar sin chan eil dad ann air an gabh tarraing.\n\nReandaraidh Schist tro Vulkan. Tha an luchdaiche stàlaichte ach chan eil\ne ag aithris draibhear — cha deach gin a chlàradh san dà àite far an\ntèid an lorg:\n\n{dirs}\n\nTha an luchdaiche ’ga sholar air leth o na draibhearan agus mar sin mar\nas trice chan eil ach aon phacaid a dhìth.\n\nStàlaich am fear airson GPU an inneil seo:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nTha an draibhear aige fhèin an cois draibhear dìlseanach NVIDIA\n(`nvidia-utils` air Arch, `nvidia-driver` air Debian). Ann an inneal\nbiortail, no àite sam bith far nach eil draibhear GPU ri stàladh,\nobraichidh an rasteraiche bathar-bog: `vulkan-swrast` air Arch agus mar\nphàirt de `mesa-vulkan-drivers` ann an àiteachan eile. Tha e slaodach\nach tòisichidh e.\n{overridden}
+app.vulkan.no_device = schist: tha draibhear Vulkan stàlaichte ach chan eil e a’ tairgsinn uidheam air an gabh reandaradh.\n\nDh’fhaodadh nach eil an draibhear a’ gabhail a-steach an GPU seo no nach\nurrainn dha a ruigsinn — thar SSH, no am broinn soitheach, ’s ann tric\na bhios /dev/dri a dhìth. Innsidh `vulkaninfo --summary` dhut na chì an\nluchdaiche.\n\nReandaraidh an rasteraiche bathar-bog às aonais GPU sam bith, mas e sin\nna tha aig an inneal seo: `vulkan-swrast` air Arch agus mar phàirt de\n`mesa-vulkan-drivers` air Debian is Fedora.\n
+app.vulkan.skip_hint = Gus Schist a thòiseachadh co-dhiù agus leigeil leis fàilligeadh air a dhòigh fhèin, suidhich {var}=1.

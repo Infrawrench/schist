@@ -1,0 +1,37 @@
+# Filtergalleri, skrifter, selvopdatering og Vulkan-kontrol.
+app.filter_gallery.title = Filtergalleri
+app.filter_gallery.stack = Stak (anvendes fra bunden og op)
+app.filter_gallery.no_settings = Dette filter har ingen indstillinger.
+app.fonts.not_open_licensed = ikke under en åben licens · {substitute} har samme metrik
+app.fonts.missing_substituted = mangler · teksten sættes med en erstatningsskrift
+app.fonts.not_in_catalogue = {family} findes ikke i kataloget over åbne skrifter
+app.fonts.no_faces = ingen skrifter, der kan hentes, til {family}
+app.fonts.empty_response = tomt svar
+app.update.unreadable_response = svaret kan ikke læses: {error}
+app.update.no_temp_dir = ingen midlertidig mappe at hente til
+app.update.asset_has_path = aktivets navn i udgivelsen indeholder en sti
+app.update.too_big = overførslen er større end angivet i udgivelsen
+app.update.stopped_at = overførslen stoppede ved {got} af {total} byte
+app.update.hash_mismatch = overførslens hash er {got}, ikke {want}
+app.update.not_in_bundle = denne kopi ligger ikke i en programpakke
+app.update.no_parent_dir = programpakken har ingen overordnet mappe
+app.update.cannot_write = kan ikke skrive til {dir}
+app.update.cannot_move_aside = kan ikke flytte {app} til side
+app.update.cannot_move_in = kan ikke flytte den nye pakke på plads
+app.update.cannot_run_ditto = kan ikke køre /usr/bin/ditto
+app.update.unpack_failed = udpakning af overførslen mislykkedes: {error}
+app.update.no_app_in_download = overførslen indeholder ikke Schist.app
+app.update.cannot_run_codesign = kan ikke køre /usr/bin/codesign
+app.update.signature_invalid = overførslens signatur kan ikke bekræftes: {error}
+app.update.download_unsigned = denne kopi er signeret, men overførslen er ikke
+app.update.different_developer = overførslen er signeret af en anden udvikler
+app.update.cannot_relaunch = kan ikke starte genstartsprogrammet
+app.update.not_installed_copy = denne kopi blev ikke placeret her af installationsprogrammet
+app.update.cannot_start_installer = kan ikke starte installationsprogrammet
+app.update.platform_unsupported = opdateringer på denne platform installeres på samme måde som Schist
+app.vulkan.no_loader = schist: der er ingen Vulkan-loader på systemet, så der er intet at tegne med.\n\nSchist gengiver gennem Vulkan, og `libvulkan.so.1` er ikke installeret.\nBåde loaderen og en driver er nødvendige:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: den Vulkan-driver, som denne session peger på, findes ikke.\n\n{var} er angivet, og indstillingen *erstatter* loaderens søgning efter\ndrivere i stedet for at føje noget til den. Disse filer, som ikke findes,\ner derfor hele driverlisten — og intet Vulkan-program i denne session\nkan se en driver, uanset hvor mange der er installeret:\n\n{missing}\n    {var}={value}\n\nPeg på et manifest, der findes — installerede drivere lægger deres i\n/usr/share/vulkan/icd.d — eller fjern indstillingen, og lad loaderen søge selv.\nHvis en konfigurationsfil angiver dette for sessionen (Hyprlands `env =`, en\nsystemd environment.d-fil eller en shellprofil), skal det ændres dér,\nog du skal logge ind igen, før ændringen når programmer, der allerede kører.\n
+app.vulkan.override_note = \n{var} er angivet til {value}, og det erstatter loaderens egen\nsøgning. Hvis ingen af manifesterne passer til denne maskine, skal du\nførst prøve at fjerne indstillingen.\n
+app.vulkan.no_driver = schist: der er ingen Vulkan-driver installeret, så der er intet at tegne med.\n\nSchist gengiver gennem Vulkan. Loaderen er installeret, men rapporterer ingen\ndriver — ingen er registreret på de to steder, der gennemsøges:\n\n{dirs}\n\nLoaderen leveres separat fra driverne, så der mangler normalt én pakke.\n\nInstaller pakken til maskinens GPU:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIAs egen driver indeholder sin egen (`nvidia-utils` på Arch,\n`nvidia-driver` på Debian). I en virtuel maskine, eller hvor der ikke kan\ninstalleres en GPU-driver, virker softwarerasterisering:\n`vulkan-swrast` på Arch og en del af `mesa-vulkan-drivers` andre steder. Den er\nlangsom, men den starter.\n{overridden}
+app.vulkan.no_device = schist: der er installeret en Vulkan-driver, men den tilbyder ingen enhed at gengive på.\n\nDriveren understøtter muligvis ikke denne GPU eller kan ikke nå den —\nover SSH eller i en container mangler /dev/dri ofte.\n`vulkaninfo --summary` viser, hvad loaderen kan se.\n\nSoftwarerasterisering gengiver helt uden GPU, hvis maskinen ikke har en:\n`vulkan-swrast` på Arch og en del af `mesa-vulkan-drivers` på Debian og Fedora.\n
+app.vulkan.skip_hint = Angiv {var}=1 for alligevel at starte Schist og lade det fejle på sin egen måde.

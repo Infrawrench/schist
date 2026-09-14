@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Навигатор
+panel.navigator.actual_pixels = Чыныгы пикселдер
+
+panel.color.picker = Түс тандагыч…
+panel.color.swap = Түстөрдү алмаштыруу
+panel.color.reset = Ак-карага кайтаруу
+
+panel.layers.blending_options = Аралаштыруу параметрлери…
+panel.layers.properties = Катмардын касиеттери…
+panel.layers.show_hide = Катмарды көрсөтүү/жашыруу
+panel.layers.toggle_visibility = Көрүнүшүн которуу
+
+panel.history.title = Таржымал
+panel.history.opened = Ачылды
+
+panel.info.title = Маалымат
+panel.info.camera = Камера
+panel.info.lens = Объектив
+panel.info.iso = ISO {iso}
+panel.info.bias = Экспозиция оңдоосу
+panel.info.flash_fired = жарк эткен жарык иштеген
+panel.info.no_flash = жарк эткен жарык иштеген эмес
+panel.info.white_balance = Ак түс балансы {wb}
+panel.info.metering = {metering} өлчөөсү
+panel.info.taken = Тартылган убактысы
+panel.info.size = {w} × {h} · {mp} МП
+panel.info.size_oriented = {w} × {h} · {mp} МП · багыты {o}
+panel.info.software = Программа
+panel.info.where = Жери
+
+panel.notes.author = Автор
+panel.notes.clear_all = Баарын тазалоо
+panel.notes.unattributed = Автору жок
+panel.notes.empty = Эскертме калтыруу үчүн кенепти басыңыз.
+panel.notes.placeholder = Жазуу үчүн басыңыз
+
+panel.character.title = Символ
+panel.character.type_tool = Текст куралы (T)
+panel.character.align_left = Солго тегиздөө
+panel.character.align_center = Ортого тегиздөө
+panel.character.align_right = Оңго тегиздөө
+panel.character.text_color = Тексттин түсү
+panel.character.panel = «Символ» панели
+panel.character.cancel_edit = Текстти түзөтүүнү жокко чыгаруу
+panel.character.commit_edit = Текстти түзөтүүнү ырастоо
+panel.character.number_tip = {label} · Маани териңиз же ↑ / ↓ колдонуңуз (чоң кадамдар үчүн Shift)
+panel.character.leading = Сап аралыгы
+panel.character.tracking = Тамгалардын жалпы аралыгы
+panel.character.alignment = Тегиздөө
+panel.character.opentype = OpenType
+panel.character.text_on_path = Контурдагы текст
+panel.character.straight = Түз
+panel.character.on_path = Контур боюнча
+panel.character.straight_tip = Текст катмарынын кадимки базалык сызыгын колдонуу
+panel.character.on_path_tip = Активдүү контурдун көчүрмөсүн колдонуу
+panel.character.path_offset = Контурдан жылышы
+
+panel.ai.title = ЖИ
+panel.ai.empty_editor = Өзгөртүү киргизүүнү сурап, анын кенепте аткарылышын көрүңүз. Агент менюдагы эле куралдарды, фильтрлерди жана буйруктарды башкарат; ар бири өзүнчө артка кайтаруу кадамы болот.
+panel.ai.empty_gallery = Сүрөттөрүңүз жөнүндө сурап, натыйжасын галереядан көрүңүз: агент издей алат, эскиздерди карайт, тандайт, топторго бөлөт жана сүрөттү редактордо ачат.
+panel.ai.thinking = ойлонууда…
+panel.ai.placeholder_editor = Бул документ жөнүндө сураңыз же аны түзөтүңүз
+panel.ai.placeholder_gallery = Сүрөттөрүңүз жөнүндө сураңыз
+panel.ai.send = Жөнөтүү
+panel.ai.stop = Токтотуу
+panel.ai.fetching_models = CLI'ден моделдери суралууда…
+panel.ai.no_models = Дал келген модель жок
+panel.ai.search_models = Моделдерди издөө…
+
+panel.keymap.install_plugin = Плагин орнотуу
+panel.keymap.save_as_prompt = Башкача сактоо — кеңейтүү форматты аныктайт:

@@ -1,0 +1,40 @@
+# Statusmeldingen
+workspace.canvas.rotate_view_degrees = Byld {degrees}° draaie
+workspace.canvas.view_reset = Byld weromset
+workspace.canvas.notes_on = Notysjes oan
+workspace.canvas.notes_off = Notysjes út
+workspace.canvas.rulers_on = Linialen oan
+workspace.canvas.rulers_off = Linialen út
+workspace.canvas.grid_on = Raster oan
+workspace.canvas.grid_off = Raster út
+workspace.canvas.guides_on = Hulplinen oan
+workspace.canvas.guides_off = Hulplinen út
+workspace.canvas.extras_on = Ekstra's oan
+workspace.canvas.extras_off = Ekstra's út
+workspace.canvas.snap_on = Magnetysk útlynjen oan
+workspace.canvas.snap_off = Magnetysk útlynjen út
+workspace.canvas.guides_cleared = Hulplinen wiske
+workspace.canvas.no_path = Gjin brûkber paad
+workspace.canvas.path_empty = It paad is leech
+workspace.canvas.stroke_needs_selection = Foar in streek is in seleksje nedich
+workspace.canvas.nothing_to_stroke = Neat om te omlinen
+workspace.canvas.content_aware_fill_needs_selection = Ynhâldsbewust folje hat in seleksje nedich
+workspace.canvas.content_aware_fill_needs_pixel_layer = Ynhâldsbewust folje hat in piksellaach nedich
+workspace.canvas.color_range_needs_pixel_layer = Kleureberik hat in piksellaach nedich
+workspace.canvas.nothing_to_adjust = Neat om oan te passen
+workspace.canvas.nothing_to_trim = Neat om by te snijen
+workspace.canvas.trimmed = Rânen bysnien
+workspace.canvas.indexed_not_supported = Yndeksearre kleur wurdt noch net stipe
+workspace.canvas.opacity_percent = Dekking: {n}%
+
+# Skiednis
+workspace.history.stroke = Streek
+workspace.history.fill = Folje
+workspace.history.content_aware_scale = Ynhâldsbewust skaalje
+workspace.history.filter_gallery = Filtergalery
+workspace.history.color_range = Kleureberik
+workspace.history.move_layer = Laach ferpleatse
+workspace.history.move_layers = Lagen ferpleatse
+workspace.history.layer_opacity = Laachdekking
+workspace.history.delete_note = Notysje wiskje
+workspace.history.edit_note = Notysje bewurkje

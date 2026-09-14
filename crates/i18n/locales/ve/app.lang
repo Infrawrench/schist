@@ -1,0 +1,36 @@
+app.filter_gallery.title = Gaḽari ya Dzi-fiḽithara
+app.filter_gallery.stack = Thulwi (zwi shumiswa u bva fhasi u ya nṱha)
+app.filter_gallery.no_settings = Fiḽithara iyi a i na nzudzanyo.
+app.fonts.not_open_licensed = a i na ḽaisentsi yo vuleaho · {substitute} i fana na zwikalo zwayo
+app.fonts.missing_substituted = a i ho · maṅwalo a khou vhewa nga iṅwe fonto
+app.fonts.not_in_catalogue = {family} a i ho kha khaṱalogo ya dzifonto dzo vuleaho
+app.fonts.no_faces = a hu na zwitaela zwa {family} zwine zwa nga dawuniḽodiwa
+app.fonts.empty_response = phindulo a i na tshithu
+app.update.unreadable_response = phindulo a i vhalei: {error}
+app.update.no_temp_dir = a hu na foḽuda ya tshifhinganyana ya u dawuniḽodela khayo
+app.update.asset_has_path = vesheni yo bviswaho yo ira tshishumiswa tshayo nga nḓila ya faela
+app.update.too_big = zwo dawuniḽodiwaho ndi zwihulu u fhira zwe vesheni yo bviswaho ya amba
+app.update.stopped_at = u dawuniḽoda zwo ima kha byte dza {got} kha {total}
+app.update.hash_mismatch = hash ya zwo dawuniḽodiwaho ndi {got}, hu si {want}
+app.update.not_in_bundle = khophi iyi a i ngomu ha phakhethe ya app
+app.update.no_parent_dir = phakhethe ya app a i na foḽuda ya mubebi
+app.update.cannot_write = a zwi konadzei u ṅwala kha {dir}
+app.update.cannot_move_aside = a zwi konadzei u sudzulusa {app} i bvule nḓila
+app.update.cannot_move_in = a zwi konadzei u vhea phakhethe ntswa fhethu hayo
+app.update.cannot_run_ditto = a zwi konadzei u shumisa /usr/bin/ditto
+app.update.unpack_failed = u panga zwo dawuniḽodiwaho zwo kundwa: {error}
+app.update.no_app_in_download = zwo dawuniḽodiwaho a zwi na Schist.app
+app.update.cannot_run_codesign = a zwi konadzei u shumisa /usr/bin/codesign
+app.update.signature_invalid = tsaino ya zwo dawuniḽodiwaho a i khwaṱhisedzei: {error}
+app.update.download_unsigned = khophi iyi yo sainiwa ngeno zwo dawuniḽodiwaho zwi songo sainiwa
+app.update.different_developer = zwo dawuniḽodiwaho zwo sainiwa nga muṅwe mubveledzi
+app.update.cannot_relaunch = a zwi konadzei u thoma tshithomi hafhu
+app.update.not_installed_copy = khophi iyi a yo ngo vhewa hafha nga tshidzhenisi
+app.update.cannot_start_installer = a zwi konadzei u thoma tshidzhenisi
+app.update.platform_unsupported = khwiniso dza pulatifomo iyi dzi dzheniswa nga nḓila ye Schist ya dzheniswa ngayo
+app.vulkan.no_loader = schist: a hu na Vulkan loader kha sisiteme iyi, zwenezwo a hu na tshine ha nga olwa ngatsho.\n\nSchist i sumbedza nga Vulkan, nahone `libvulkan.so.1` a yo ngo dzheniswa.\nHu ṱoḓea loader na driver: \n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: driver ya Vulkan yo sumbiwaho nga session iyi a i ho.\n\n{var} yo setiwa, nahone u i seta zwi *dzhiela vhudzulo* u ṱoḓa ha loader\ndriver nṱhani ha u engedza khazwo. Zwenezwo hedzi faela dzi siho\nndi mutevhe woṱhe wa driver -- nahone mbekanyamushumo iṅwe na iṅwe ya Vulkan kha session iyi\na i vhoni na driver na nthihi, hu sa londwi uri ho dzheniswa nngana:\n\n{missing}\n    {var}={value}\n\nI livhiseni kha manifest i re hone -- driver dzo dzheniswaho dzi vhea dzadzo kha\n/usr/share/vulkan/icd.d -- kana ni i unsete uri loader i ḓiṱoḓele.\nSession ine ya seta hezwi kha faela ya nzudzanyo (Hyprland `env =`,\nsystemd environment.d drop-in, phurofaiḽi ya shell) i tea u vhudzwa henefho,\nnahone tshanduko i ṱoḓa u dzhena hafhu uri i swike kha zwo no shumaho.\n
+app.vulkan.override_note = \n{var} yo setiwa kha {value}, nahone zwenezwo zwi dzhiela vhudzulo u ṱoḓa ha loader:\narali hu si na na nthihi ya dzi-manifest idzo ine ya vha ya mutshini uyu, u i unseta ndi\ntshithu tsha u thoma tshine na tea u lingedza.\n
+app.vulkan.no_driver = schist: a hu na driver ya Vulkan yo dzheniswaho, zwenezwo a hu na tshine ha nga olwa khatsho.\n\nSchist i sumbedza nga Vulkan. Loader yo dzheniswa nahone i amba uri a hu na\ndriver -- a hu na yo ḓiṅwalisaho kha na fhethu huthihi ha huvhili hune ha sedzwa:\n\n{dirs}\n\nLoader i ḓa yo fhambana na driver, zwenezwo kanzhi ndi phakhethe nthihi\ni siho.\n\nDzhenisani ine ya vha ya GPU ya mutshini uyu:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver ya NVIDIA i si ya tshitshavha i na yayo (`nvidia-utils` kha Arch,\n`nvidia-driver` kha Debian). Kha mutshini wo edziswaho, kana huṅwe hu si na\ndriver ya GPU ine ya nga dzheniswa, software rasteriser ndi yone ine ya shuma:\n`vulkan-swrast` kha Arch, tshipiḓa tsha `mesa-vulkan-drivers` huṅwe. I a\nongolowa, fhedzi i a thoma.\n{overridden}
+app.vulkan.no_device = schist: driver ya Vulkan yo dzheniswa fhedzi a i ṋei tshishumiswa tsha u ola khatsho.\n\nDriver i nga vha i sa tikedzi GPU iyi, kana i sa koni u swika khayo --\nnga SSH, kana ngomu ha khontheina, kanzhi /dev/dri ndi yone i siho.\n`vulkaninfo --summary` i vhiga zwine loader ya vhona.\n\nSoftware rasteriser i ola hu si na GPU na luthihi, arali mutshini uyu wo tou ralo:\n`vulkan-swrast` kha Arch, tshipiḓa tsha `mesa-vulkan-drivers` kha Debian na Fedora.\n
+app.vulkan.skip_hint = U thoma Schist naho zwo ralo na u i litsha i kundwe nga nḓila yayo, setani {var}=1.

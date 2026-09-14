@@ -1,0 +1,83 @@
+# Panɛliw
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigatɛri
+panel.navigator.actual_pixels = Pikisɛli yɛrɛw
+
+panel.color.picker = Kulɛri sugandilan…
+panel.color.swap = Kulɛriw falen
+panel.color.reset = Lasegin fin ni jɛ la
+
+panel.layers.blending_options = Ɲagamincogo suganditaw…
+panel.layers.properties = Kaliki kunnafoniyaw…
+panel.layers.show_hide = Kaliki jira/dogo
+panel.layers.toggle_visibility = Jiralenya yɛlɛma
+
+panel.history.title = Baara kɔrɔlenw
+panel.history.opened = Dayɛlɛlen
+
+panel.info.title = Kunnafoni
+panel.info.camera = Kamera
+panel.info.lens = Lantiyɛri
+panel.info.iso = ISO {iso}
+panel.info.bias = Exposure labɛnni
+panel.info.flash_fired = Flaashi bɔra
+panel.info.no_flash = Flaashi ma bɔ
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering} sumanni
+panel.info.taken = Talen
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · jɔcogo {o}
+panel.info.software = Porogaramu
+panel.info.where = Yɔrɔ
+
+panel.notes.author = Sɛbɛnnikɛla
+panel.notes.clear_all = Bɛɛ bɔ
+panel.notes.unattributed = Tigi tɔgɔ tɛ a la
+panel.notes.empty = Kanvas digi ka kunkan bila.
+panel.notes.placeholder = Digi ka sɛbɛn
+
+panel.character.title = Karakteri
+panel.character.type_tool = Sɛbɛn baarakɛminɛn (T)
+panel.character.align_left = Jɔ numan fɛ
+panel.character.align_center = Jɔ cɛmancɛ
+panel.character.align_right = Jɔ kini fɛ
+panel.character.text_color = Sɛbɛn kulɛri
+panel.character.panel = Karakteri panɛli
+panel.character.cancel_edit = Bɔ sɛbɛn labɛnni la
+panel.character.commit_edit = Sɔn sɛbɛn labɛnni ma
+panel.character.number_tip = {label} · Hakɛ dɔ sɛbɛn, walima ↑ / ↓ kɛ (Shift ka taama janman kɛ)
+panel.character.leading = Sɛbɛn siraw cɛjan
+panel.character.tracking = Harfu cɛjan
+panel.character.alignment = Jɔcogo
+panel.character.opentype = OpenType
+panel.character.text_on_path = Sɛbɛn sira kan
+panel.character.straight = Tilennen
+panel.character.on_path = Sira kan
+panel.character.straight_tip = Sɛbɛn kaliki ka baselini normali kɛ
+panel.character.on_path_tip = Sira min bɛ baara la, o kopi kɛ
+panel.character.path_offset = Sira bɔli
+
+panel.ai.title = AI
+panel.ai.empty_editor = Labɛnni dɔ ɲini, ka a kɛcogo lajɛ kanvas kan. Agent bɛ baarakɛ ni baarakɛminɛn, sɛgɛsɛgɛlan ani komandi kelenw ye i n'a fɔ menu; kelen-kelen bɛ kɛ laseginni kelen ye.
+panel.ai.empty_gallery = I ka foto ko ɲininka ka baara kɛcogo lajɛ galeri la: agent bɛ se ka ɲini, ja dɔgɔmanw lajɛ, sugandi, tila gurupuw la, ani foto dayɛlɛ labɛnnikɛlan na.
+panel.ai.thinking = A bɛ miiri…
+panel.ai.placeholder_editor = Nin sɛbɛn ko ɲininka walima a labɛn
+panel.ai.placeholder_gallery = I ka fotow ko ɲininka
+panel.ai.send = Ci
+panel.ai.stop = Jɔ
+panel.ai.fetching_models = CLI bɛ ɲininka a ka misaliw la…
+panel.ai.no_models = Misali si ma bɛn
+panel.ai.search_models = Misaliw ɲini…
+
+panel.keymap.install_plugin = Plug-in sigindi
+panel.keymap.save_as_prompt = Mara tɔgɔ wɛrɛ la — dosiyɛ laban bɛ cogoya sugandi:

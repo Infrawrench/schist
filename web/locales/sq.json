@@ -1,0 +1,9 @@
+{
+  "loading": "Po ngarkohet…",
+  "starting": "Po niset…",
+  "webgpu": "Schist ka nevojë për WebGPU, të cilin ky shfletues nuk e ofron. Chrome/Edge 113+, Firefox 141+ dhe Safari 26+ e mbështesin.",
+  "noticeTitle": "Schist funksionon më mirë si aplikacion për desktop",
+  "noticeBody": "Po përdorni versionin për ueb, i cili është një variant më i lehtë: kompozimin e kryen në CPU dhe nuk përfshin disa veçori — shtojcat për Photoshop dhe shtojcat e palëve të treta, galerinë e imazheve, panelin e inteligjencës artificiale, importimin HEIC dhe shkarkimin e shkronjave — ndërsa skedarët ruhen si shkarkime. Aplikacioni falas për desktop për macOS, Windows dhe Linux i përfshin të gjitha.",
+  "noticeLink": "Merrni aplikacionin për desktop.",
+  "ok": "Në rregull"
+}

@@ -1,0 +1,29 @@
+# Montāžas laukums
+tool.artboard.name = Montāžas laukums
+tool.artboard.description = Velkot izveidojiet montāžas laukumu — nosauktu audekla apgabalu, ko var eksportēt atsevišķi. Velkot esoša laukuma iekšpusē, tas tiek pārvietots.
+tool.artboard.default_name = Montāžas laukums {n}
+
+# Šķēlums
+tool.slice.name = Šķēlums
+tool.slice.description = Velkot izveidojiet eksportējamu šķēlumu — nosauktu audekla taisnstūri, ko eksportē kā atsevišķu attēlu. Velkot esoša šķēluma iekšpusē, tas tiek pārvietots.
+tool.slice.default_name = Šķēlums {n}
+
+# Ietvars
+tool.frame.name = Ietvars
+tool.frame.description = Velkot izveidojiet ietvaru — taisnstūrveida (vai eliptisku) slāni, kas maskē visu tajā ievietoto.
+tool.frame.default_name = Ietvars {n}
+tool.frame.choice.rectangle = Taisnstūris
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Ietvars
+
+# Piezīme
+tool.note.name = Piezīme
+tool.note.description = Noklikšķiniet tukšā audekla vietā, lai tur piespraustu piezīmi ar redaktora stāvoklī norādīto autoru un krāsu; noklikšķiniet uz esošas piespraudes, lai to atlasītu piezīmju panelī.
+tool.note.history.place = Novietot piezīmi
+tool.note.history.move = Pārvietot piezīmi
+tool.note.history.delete = Dzēst piezīmi
+
+# Skaitīšana
+tool.count.name = Skaitīšana
+tool.count.description = Noklikšķiniet, lai uz audekla novietotu numurētus skaitīšanas marķierus, un noklikšķiniet uz esoša marķiera, lai to noņemtu.
+tool.count.default_name = Skaits {n}

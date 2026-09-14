@@ -1,0 +1,47 @@
+# Pens
+tool.pen.name = પેન
+tool.pen.description = પાથ બનાવો: ખૂણાનું બિંદુ બનાવવા ક્લિક કરો, તેમાંથી વક્રના હૅન્ડલ ખેંચવા ડ્રૅગ કરો અને પાથ બંધ કરવા પહેલા બિંદુ પર ક્લિક કરો. કમિટ કરવાથી પાથ આકાર લેયરમાં ફેરવાય છે.
+tool.pen.option.rubber_band = રબર બૅન્ડ
+tool.pen.history.fill = પાથ ભરણ
+tool.pen.default_path_name = પાથ {n}
+tool.pen.freeform.name = મુક્તહસ્ત પેન
+tool.pen.freeform.description = મુક્તહસ્ત રેખા ખેંચો અને Fit વિકલ્પ મુજબ તેને ઢીલાશથી પાથમાં બંધબેસાડવામાં આવશે.
+tool.pen.freeform.option.fit = બંધબેસાડો
+tool.pen.curvature.name = વક્રતા પેન
+tool.pen.curvature.description = બિંદુઓની શ્રેણી પર ક્લિક કરો અને પાથ તેમાંથી સુંવાળી રીતે વળશે.
+
+# Arrows
+tool.path_select.name = પાથ પસંદગી
+tool.path_select.description = પાથ પસંદ કરવા તેના પર ક્લિક કરો અને આખો પાથ ખસેડવા તેને ખેંચો.
+tool.direct_select.name = સીધી પસંદગી
+tool.direct_select.description = પાથનો આકાર બદલવા કોઈ એક ઍન્કર બિંદુ અથવા તેના હૅન્ડલ ખેંચો.
+
+# Shapes
+tool.shape.history.layer = {name} લેયર
+tool.shape.rect.name = લંબચોરસ ટૂલ
+tool.shape.rect.label = લંબચોરસ
+tool.shape.rect.description = અગ્રભૂમિના રંગમાં લંબચોરસ આકારનું લેયર દોરી કાઢો; તે વેક્ટર રહે છે અને કદ બદલતાં ફરી રાસ્ટરાઇઝ થાય છે.
+tool.shape.ellipse.name = અંડાકાર ટૂલ
+tool.shape.ellipse.label = અંડાકાર
+tool.shape.ellipse.description = અગ્રભૂમિના રંગમાં અંડાકારનું લેયર દોરી કાઢો.
+tool.shape.line.name = રેખા ટૂલ
+tool.shape.line.label = રેખા
+tool.shape.line.description = અગ્રભૂમિના રંગમાં સીધી રેખાનું લેયર દોરી કાઢો.
+tool.shape.line.option.weight = જાડાઈ
+tool.shape.line.option.arrow_start = શરૂઆત
+tool.shape.line.option.arrow_end = અંત
+tool.shape.polygon.name = બહુકોણ ટૂલ
+tool.shape.polygon.label = બહુકોણ
+tool.shape.polygon.description = વિકલ્પોમાં આપેલી બાજુઓની સંખ્યા સાથે અગ્રભૂમિના રંગમાં સમબહુકોણનું લેયર દોરી કાઢો.
+tool.shape.polygon.option.sides = બાજુઓ
+
+# Custom shapes
+tool.shape.custom.name = કસ્ટમ આકાર
+tool.shape.custom.label = કસ્ટમ આકાર
+tool.shape.custom.description = Shape વિકલ્પ વડે પસંદ કરેલા બિલ્ટ-ઇન પૂર્વનિર્ધારિત આકારોમાંથી એક દોરી કાઢો.
+tool.shape.custom.choice.heart = હૃદય
+tool.shape.custom.choice.star = તારો
+tool.shape.custom.choice.arrow = તીર
+tool.shape.custom.choice.lightning = વીજળી
+tool.shape.custom.choice.cross = ચોકડી
+tool.shape.custom.choice.speech_bubble = સંવાદ બબલ

@@ -1,0 +1,159 @@
+# Kopīgie parametri
+filter.neural.param.center_x = Centrs X
+filter.neural.param.center_y = Centrs Y
+filter.neural.param.direction = Virziens
+filter.neural.param.transition = Pāreja
+filter.neural.param.detail = Detalizācija
+filter.neural.param.eyes = Acis
+
+filter.neural.msg.using_model = Izmantotais modelis: {model} · {license}.
+filter.neural.msg.get_model = Iegūstiet to sadaļā Filtrs ▸ Neural Filters ▸ Pārvaldīt modeļus.
+
+# Camera Raw filtrs
+filter.camera_raw.name = Camera Raw filtrs
+filter.camera_raw.param.temperature = Temperatūra
+filter.camera_raw.param.tint = Tonējums
+filter.camera_raw.param.highlights = Gaišie apgabali
+filter.camera_raw.param.shadows = Ēnas
+filter.camera_raw.param.whites = Baltie toņi
+filter.camera_raw.param.blacks = Melnie toņi
+filter.camera_raw.param.clarity = Skaidrība
+filter.camera_raw.param.dehaze = Dūmakas noņemšana
+filter.camera_raw.param.vibrance = Dzīvīgums
+filter.camera_raw.param.sharpening = Asināšana
+filter.camera_raw.param.noise = Trokšņa samazināšana
+filter.camera_raw.param.vignette = Vinjete
+
+# Objektīva korekcija
+filter.lens_correction.name = Objektīva korekcija
+filter.lens_correction.param.distortion = Noņemt kropļojumu
+filter.lens_correction.param.red = Labot sarkano/ciāna maliņu
+filter.lens_correction.param.blue = Labot zilo/dzelteno maliņu
+filter.lens_correction.param.vignette = Vinjetes daudzums
+filter.lens_correction.param.midpoint = Vinjetes viduspunkts
+filter.lens_correction.param.vertical = Vertikālā perspektīva
+filter.lens_correction.param.horizontal = Horizontālā perspektīva
+
+filter.adaptive_wide_angle.name = Adaptīvais platleņķis
+filter.adaptive_wide_angle.param.projection = Korekcija
+filter.adaptive_wide_angle.choice.fisheye = Zivsacs
+filter.adaptive_wide_angle.choice.perspective = Perspektīva
+filter.adaptive_wide_angle.choice.full_spherical = Pilna sfēra
+filter.adaptive_wide_angle.param.focal = Fokusa attālums
+filter.adaptive_wide_angle.param.crop = Apgriešanas koeficients
+
+# Aizmiglojumu galerija
+filter.field_blur.name = Lauka aizmiglojums
+filter.field_blur.param.position = Ass vietā
+filter.iris_blur.name = Varavīksnenes aizmiglojums
+filter.iris_blur.param.roundness = Apaļums
+filter.tilt_shift.name = Slīpuma nobīde
+filter.tilt_shift.param.position = Centrs
+filter.tilt_shift.param.band = Asuma josla
+filter.spin_blur.name = Rotācijas aizmiglojums
+filter.spin_blur.param.angle = Aizmiglojuma leņķis
+filter.path_blur.name = Ceļa aizmiglojums
+filter.path_blur.param.speed = Ātrums
+filter.path_blur.param.curve = Izliekums
+filter.path_blur.param.taper = Sašaurinājums
+
+filter.shape_blur.name = Formas aizmiglojums
+filter.shape_blur.choice.square = Kvadrāts
+filter.shape_blur.choice.diamond = Rombs
+filter.shape_blur.choice.hexagon = Sešstūris
+filter.shape_blur.choice.cross = Krusts
+filter.shape_blur.choice.ring = Gredzens
+filter.shape_blur.choice.star = Zvaigzne
+filter.smart_blur.name = Viedais aizmiglojums
+filter.smart_blur.choice.normal = Normāls
+filter.smart_blur.choice.edge_only = Tikai malas
+filter.smart_blur.choice.overlay_edge = Pārklāt malas
+
+# Video
+filter.deinterlace.name = Rindpārleces noņemšana
+filter.deinterlace.param.field = Noņemt
+filter.deinterlace.choice.odd_fields = Nepāra lauki
+filter.deinterlace.choice.even_fields = Pāra lauki
+filter.deinterlace.param.fill = Izveidot jaunus laukus ar
+filter.deinterlace.choice.interpolation = Interpolāciju
+filter.deinterlace.choice.duplication = Dublēšanu
+filter.ntsc_colors.name = NTSC krāsas
+
+# Neironu filtri
+filter.neural.skin_smoothing.name = Ādas izlīdzināšana
+filter.neural.skin_smoothing.param.blur = Gludums
+filter.neural.skin_smoothing.param.detail = Saglabāt detaļas
+filter.neural.skin_smoothing.msg.no_model = Modelis {model} nav instalēts — tā vietā tiek izlīdzināti visi ādas krāsas apgabali, nevis sejas.
+
+filter.neural.jpeg_artifacts.name = JPEG artefaktu noņemšana
+filter.neural.jpeg_artifacts.msg.no_model = Modelis {model} nav instalēts — tā vietā tiek izlīdzināts 8 pikseļu režģis.
+
+filter.neural.colorize.name = Iekrāsot
+filter.neural.colorize.param.warmth = Siltums
+filter.neural.colorize.msg.no_model = Modelis {model} nav instalēts — tā vietā tonējums tiek veidots pēc spožuma.
+
+filter.neural.super_zoom.name = Īpašā tālummaiņa
+filter.neural.super_zoom.msg.no_model = Modelis {model} nav instalēts — tā vietā tiek izmantota pēc malām vadīta asināšana.
+
+filter.neural.style_transfer.name = Stila pārnese
+filter.neural.style_transfer.choice.mosaic = Mozaīka
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Nav instalēts neviens stila modelis — tiek pārnesta tikai krāsa. Iegūstiet modeļus sadaļā Filtrs ▸ Neural Filters ▸ Pārvaldīt modeļus.
+filter.neural.style_transfer.msg.installed = Instalēti: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Krāsu pārnese
+filter.neural.color_transfer.param.hue = Mērķa nokrāsa
+filter.neural.color_transfer.param.contrast = Saskaņot kontrastu
+filter.neural.color_transfer.msg.info = Paleti ņem no zemāk esošā slāņa. Ja zem tā nekā nav, par mērķi izmanto iestatījumu Mērķa nokrāsa.
+
+filter.neural.depth_blur.name = Dziļuma aizmiglojums
+filter.neural.depth_blur.param.focus = Fokusa attālums
+filter.neural.depth_blur.param.blur = Aizmiglojuma stiprums
+filter.neural.depth_blur.msg.no_model = Modelis {model} nav instalēts — tā vietā fokusu nosaka pēc vietējā asuma.
+
+filter.neural.harmonization.name = Harmonizēšana
+filter.neural.harmonization.param.tone = Saskaņot toni
+filter.neural.harmonization.msg.info = Saskaņo šo slāni ar visu, kas atrodas zem tā. Ja apakšā nekā nav, nav ar ko saskaņot un nekas netiek mainīts.
+
+filter.neural.landscape_mixer.name = Ainavu mikseris
+filter.neural.landscape_mixer.param.bands = Dziļuma joslas
+filter.neural.landscape_mixer.msg.with_depth = Paleti ņem no zemāk esošā slāņa un joslu pēc joslas saskaņo, izmantojot Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Paleti ņem no zemāk esošā slāņa. Instalējiet Depth (Depth Blur), lai debesis saskaņotu ar debesīm un zemi ar zemi, nevis visu attēlu kopumā.
+
+filter.neural.photo_restoration.name = Fotoattēlu restaurācija
+filter.neural.photo_restoration.param.enhance = Fotoattēla uzlabošana
+filter.neural.photo_restoration.param.scratches = Skrāpējumu samazināšana
+filter.neural.photo_restoration.param.tone = Atjaunot toni
+filter.neural.photo_restoration.msg.no_model = Attīrīšana bez modeļa.
+filter.neural.photo_restoration.msg.using_deblock = Tiek izmantots Deblock · apmācīts Schist vajadzībām.
+filter.neural.photo_restoration.msg.using_detail = Tiek izmantots Detail · apmācīts Schist vajadzībām.
+filter.neural.photo_restoration.msg.using_both = Tiek izmantoti Deblock un Detail · apmācīti Schist vajadzībām.
+
+filter.neural.photo_to_sketch.name = Fotoattēls par skici
+filter.neural.photo_to_sketch.param.weight = Līnijas biezums
+filter.neural.photo_to_sketch.param.shading = Ēnošana
+
+filter.neural.face_to_caricature.name = Seja par karikatūru
+filter.neural.face_to_caricature.param.mouth = Mute
+filter.neural.face_to_caricature.param.head = Galva
+filter.neural.face_to_caricature.msg.no_model = Modelis {model} nav instalēts, tāpēc nekas netiek mainīts — nav nekā, ko kariķēt.
+
+filter.neural.smart_portrait.name = Viedais portrets
+filter.neural.smart_portrait.param.happiness = Prieks
+filter.neural.smart_portrait.param.surprise = Pārsteigums
+filter.neural.smart_portrait.param.age = Sejas vecums
+filter.neural.smart_portrait.param.gaze = Skatiens
+filter.neural.smart_portrait.param.light = Gaismas virziens
+filter.neural.smart_portrait.msg.no_model = Modelis {model} nav instalēts, tāpēc nekas netiek mainīts — nav sejas, ko apstrādāt.
+
+filter.neural.makeup_transfer.name = Grima pārnese
+filter.neural.makeup_transfer.param.lips = Lūpas
+filter.neural.makeup_transfer.param.skin = Ādas tonis
+filter.neural.makeup_transfer.msg.info = Grimu ņem no sejas zemāk esošajā slānī. Tiek pārnesta krāsa, nevis faktūra.
+filter.neural.makeup_transfer.msg.no_model = Modelis {model} nav instalēts, tāpēc nekas netiek mainīts.
+
+filter.neural.sketch_to_portrait.name = Skice par portretu
+filter.neural.sketch_to_portrait.param.detail = Saglabāt līnijas
+filter.neural.sketch_to_portrait.msg.with_face = Apmācīts aizpildīt šīs lietotnes filtra Fotoattēls par skici rezultātu. Darbojas ar atrasto seju.
+filter.neural.sketch_to_portrait.msg.no_face = Apmācīts aizpildīt šīs lietotnes filtra Fotoattēls par skici rezultātu. Instalējiet Faces (Skin Smoothing), lai tas darbotos ar seju, nevis visu atlasi.

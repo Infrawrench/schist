@@ -1,0 +1,419 @@
+# Schist Cloud: the sign-in flow, the cloud gallery (sidebar rows, the
+# grid's headings and empty states, the right-click menu, the dialogs),
+# uploads and downloads, people and faces, image generation — and the
+# status and error text crates/cloud hands the app to show verbatim.
+# `cloud.services.*` is crates/app/src/workspace/services.rs: what the
+# status bar says while a model, a font, an update or a plug-in is
+# fetched from outside the app.
+#
+# "Schist Cloud" is a product name and stays as written in every
+# language; the ☁ glyph that marks cloud rows is added in code.
+
+# Status-bar and tray messages. `cloud.msg.not_signed_in` is the cloud
+# panel's resting message; the gallery views compare against it to tell
+# an idle tray from one showing an error.
+cloud.msg.not_signed_in = ছাইন ইন কৰা নাই
+cloud.status.opening_sign_in = ব্ৰাউজাৰত ছাইন-ইন খোলা হৈছে…
+cloud.status.connecting = Schist Cloud-ৰ সৈতে সংযোগ কৰা হৈছে…
+cloud.status.connected = Schist Cloud-ৰ সৈতে সংযুক্ত
+cloud.status.signed_out = ছাইন আউট কৰা হ'ল
+cloud.status.updated = ক্লাউড আপডেট হ'ল
+cloud.status.opening = {name} খোলা হৈছে…
+cloud.status.saved = Schist Cloud-ত সংৰক্ষণ কৰা হ'ল
+cloud.status.saving = Schist Cloud-ত সংৰক্ষণ কৰা হৈছে…
+cloud.status.offline_will_sync = অফলাইন — পুনৰ সংযোগ হ'লে ক্লাউড সম্পাদনাবোৰ ছিংক হ'ব
+cloud.status.uploaded_screening = আপল'ড হ'ল — Schist Cloud-ত দেখুওৱাৰ আগতে পৰীক্ষা কৰা হৈছে। এই দস্তাবেজ স্থানীয়ভাৱে থাকে; পৰীক্ষাৰ পিছত ইয়াৰ ক্লাউড প্ৰতিলিপি খোলক।
+cloud.status.gathering_folder = ফ'ল্ডাৰ সংগ্ৰহ কৰা হৈছে…
+cloud.status.gathering_bucket = বাকেট সংগ্ৰহ কৰা হৈছে…
+cloud.status.renewing_login = ক্লাউড লগইন নবীকৰণ কৰা হৈছে…
+
+# Errors shown in the status bar or the tray
+cloud.error.named = {name}: {error}
+cloud.error.recovery_failed = ক্লাউড পুনৰুদ্ধাৰ বিফল হ'ল: {error}
+cloud.error.stored_login_invalid = সংৰক্ষিত ক্লাউড লগইন অবৈধ: {error}
+cloud.error.could_not_read_login = ক্লাউড লগইন পঢ়িব পৰা নগ'ল: {error}
+cloud.error.could_not_persist_login = ক্লাউড লগইন স্থায়ীভাৱে ৰাখিব পৰা নগ'ল: {error}
+cloud.error.sign_in_failed = ক্লাউড ছাইন-ইন বিফল হ'ল: {error}
+cloud.error.server_logout_failed = স্থানীয়ভাৱে ছাইন আউট হ'ল; ছাৰ্ভাৰৰ লগআউট বিফল: {error}
+cloud.error.token_refresh_failed = টোকেন সতেজ কৰা বিফল হ'ল: {error}
+cloud.error.access_unavailable = ক্লাউড প্ৰৱেশ উপলব্ধ নহয়। একাউণ্ট পৰীক্ষা কৰিবলৈ পুনৰ ছাইন ইন কৰক; স্থানীয় ফাইলবোৰ এই ডিভাইচতে থাকে।
+cloud.error.world_map = বিশ্ব মানচিত্ৰ: {error}
+cloud.error.open_document = ক্লাউড দস্তাবেজ খোলক: {error}
+cloud.error.unsupported_format = অসমৰ্থিত দূৰৱৰ্তী ফাইল ফৰ্মেট
+cloud.error.could_not_restore_edits = ক্লাউড সম্পাদনা পুনৰুদ্ধাৰ কৰিব পৰা নগ'ল: {error}
+cloud.error.no_collaborative_editing = এই প্ৰদানকাৰীয়ে সহযোগিতামূলক ছবি সম্পাদনা সমৰ্থন নকৰে
+cloud.error.no_collaborative_editing_save_local = এই প্ৰদানকাৰীয়ে সহযোগিতামূলক ছবি সম্পাদনা সমৰ্থন নকৰে; তাৰ সলনি স্থানীয় প্ৰতিলিপি সংৰক্ষণ কৰক
+cloud.error.connect_before_undo = ক্লাউড সম্পাদনা পূৰ্বাৱস্থালৈ নিয়াৰ আগতে সংযোগ কৰক
+cloud.error.edit_not_saved = ক্লাউড সম্পাদনা সংৰক্ষিত নহ'ল: {error}
+cloud.error.no_cloud_document = কোনো ক্লাউড দস্তাবেজ নাই
+cloud.error.sync_stopped = এই দস্তাবেজৰ ক্লাউড ছিংক বন্ধ হৈছে। পুনৰ সংযোগ কৰিবলৈ ক্লাউড গেলেৰীৰ পৰা আকৌ খোলক; সম্পাদনাবোৰ স্থানীয়ভাৱে থাকে।
+cloud.error.sign_in_first = প্ৰথমে ছাইন ইন কৰক
+cloud.error.wait_for_connection = ক্লাউড সংযোগৰ বাবে অপেক্ষা কৰক
+cloud.error.bucket_empty = এই বাকেটটো খালী
+cloud.error.rating_range = ৰেটিং 0 আৰু 5-ৰ মাজত হ'ব লাগিব
+cloud.error.invalid_content_filter = অবৈধ বিষয়বস্তু ফিল্টাৰ
+# Keep the accepted input values any/yes/no and all/safe/flagged literal in
+# translations: workspace/cloud.rs::parse_filters parses these exact words.
+cloud.error.edited_filter = “সম্পাদিত”ৰ মান any, yes বা no হ’ব লাগিব
+cloud.error.content_filter = “বিষয়বস্তু”ৰ মান all, safe বা flagged হ’ব লাগিব
+cloud.error.invalid_bounds = বৈধ দক্ষিণ, পশ্চিম, উত্তৰ, পূব স্থানাংক লিখক
+cloud.error.date_order = শেষৰ তাৰিখ আৰম্ভণিৰ তাৰিখৰ পিছৰ হ'ব লাগিব
+cloud.error.no_photo_selected = কোনো ফটো নিৰ্বাচিত নহয়
+cloud.error.no_bucket_selected = কোনো বাকেট নিৰ্বাচিত নহয়
+cloud.error.no_folder_selected = কোনো ফ'ল্ডাৰ নিৰ্বাচিত নহয়
+cloud.error.no_item_selected = কোনো বস্তু নিৰ্বাচিত নহয়
+cloud.error.folder_gone = সেই ফ'ল্ডাৰটো আৰু নাই
+cloud.error.unknown_action = অজ্ঞাত ক্লাউড কাৰ্য
+# The provider's storage refusal: the first sentence is also what the
+# app matches to open the storage dialog, so it is its own string.
+cloud.error.not_enough_storage = পৰ্যাপ্ত ক্লাউড সঞ্চয়স্থান নাই।
+cloud.error.not_enough_storage_detail = এই নিৰ্বাচনৰ বাবে {needed} প্ৰয়োজন; {available} উপলব্ধ। {shortfall} খালী কৰক অথবা আপোনাৰ পৰিকল্পনা উন্নীত কৰক। কোনো ফাইল আপল'ড হোৱা নাই।
+
+# Sign-in (crates/cloud/src/auth.rs and browser_auth.rs)
+cloud.auth.enter_domain = এটা ড'মেইন লিখক
+cloud.auth.domain_only = পথ অবিহনে কেৱল এটা ড'মেইন লিখক
+cloud.auth.sign_in_expired = ছাইন-ইনৰ সময় উকলিল; পুনৰ চেষ্টা কৰক
+cloud.auth.allow_popup = ছাইন-ইন পপ-আপৰ অনুমতি দি পুনৰ চেষ্টা কৰক
+cloud.auth.sign_in_cancelled = ছাইন-ইন বাতিল কৰা হ'ল
+cloud.auth.sign_in_window_closed = ছাইন-ইন উইণ্ড' বন্ধ কৰা হ'ল
+cloud.auth.available_at = ক্লাউড try.schist.app-ত উপলব্ধ
+
+# The sidebar's cloud rows
+cloud.sidebar.folders = ফ'ল্ডাৰসমূহ
+cloud.sidebar.buckets = বাকেটসমূহ
+cloud.sidebar.people = মানুহ
+cloud.sidebar.new_folder = + নতুন ফ'ল্ডাৰ…
+cloud.sidebar.new_bucket = + নতুন বাকেট…
+cloud.sidebar.find_folders_buckets = ফ'ল্ডাৰ / বাকেট বিচাৰক…
+cloud.sidebar.showing = “{text}” দেখুওৱা হৈছে…
+cloud.sidebar.previous = ↑ আগৰ
+cloud.sidebar.more = ↓ অধিক
+
+# The grid: headings, counts, empty states, the search box, the tray
+cloud.gallery.bucket = বাকেট
+cloud.gallery.bucket_n = বাকেট {n}
+cloud.gallery.bucket_title = বাকেট · {name}
+cloud.gallery.bucket_search_title = বাকেট · {name} · সন্ধানৰ ফলাফল
+cloud.gallery.folder_search_title = {name} · সন্ধানৰ ফলাফল
+cloud.gallery.search_results = সন্ধানৰ ফলাফল
+cloud.gallery.people_title = মানুহ · {name} · {title}
+cloud.gallery.smart_bucket = স্মাৰ্ট বাকেট
+cloud.gallery.n_filters.one = {n}টা ফিল্টাৰ
+cloud.gallery.n_filters.other = {n}টা ফিল্টাৰ
+cloud.gallery.unfiled = ফ'ল্ডাৰত নথকা
+cloud.gallery.no_location = অৱস্থান নাই
+cloud.gallery.updating = আপডেট হৈ আছে…
+cloud.gallery.connecting = সংযোগ কৰা হৈছে…
+cloud.gallery.section_detail = {subtitle} — {n}
+cloud.gallery.page_range = {total}-ৰ ভিতৰত {first}–{last}
+cloud.gallery.previous_page = ← আগৰ পৃষ্ঠা
+cloud.gallery.next_page = পৰৱৰ্তী পৃষ্ঠা →
+cloud.gallery.search_placeholder = ফটো সন্ধান কৰক…
+cloud.gallery.map_filter_drawn_area = মানচিত্ৰ ফিল্টাৰ: অঁকা অঞ্চল
+cloud.gallery.download = ডাউনল'ড কৰক…
+cloud.gallery.photos_unavailable = ফটো উপলব্ধ নহয়
+cloud.gallery.edited_note = সম্পাদিত — সম্পাদনাবোৰ Schist Cloud-ত আছে
+cloud.gallery.screening_uploads.one = {n}টা আপল'ড পৰীক্ষা কৰা হৈছে…
+cloud.gallery.screening_uploads.other = {n}টা আপল'ড পৰীক্ষা কৰা হৈছে…
+cloud.gallery.uploads_blocked.one = পৰীক্ষাৰ পিছত {n}টা আপল'ড উপলব্ধ নহয়
+cloud.gallery.uploads_blocked.other = পৰীক্ষাৰ পিছত {n}টা আপল'ড উপলব্ধ নহয়
+cloud.gallery.could_not_load = ফটো লোড কৰিব পৰা নগ'ল: {error}। পুনৰ চেষ্টা কৰিবলৈ সতেজ কৰক ব্যৱহাৰ কৰক।
+cloud.gallery.empty_search = সন্ধানৰ সৈতে একো মিলা নাই। Escape-এ সেয়া আঁতৰায়।
+cloud.gallery.empty_map_filter = মানচিত্ৰ ফিল্টাৰৰ ভিতৰত একো নাই। ওপৰৰ পটীৰ চিপটোৱে ইয়াক আঁতৰায়।
+cloud.gallery.empty_smart_bucket = এই বাকেটৰ নিয়মৰ সৈতে এতিয়াও একো মিলা নাই। ফটো টানি আনিও যোগ কৰিব পাৰি।
+cloud.gallery.empty_bucket = এই বাকেটটো খালী। ফটো যোগ কৰিবলৈ কাষৰ পেনেলত ইয়াৰ শাৰীৰ ওপৰলৈ টানি আনক।
+cloud.gallery.empty_folder = এই ক্লাউড ফ'ল্ডাৰটো খালী। কাষৰ পেনেলত ইয়াৰ শাৰীৰ ওপৰত ফটো পেলাওক, অথবা আমদানি কৰক… ব্যৱহাৰ কৰক।
+cloud.gallery.empty_library = আপোনাৰ ক্লাউড লাইব্ৰেৰীত এতিয়াও কোনো ফটো নাই। আমদানি কৰক… ব্যৱহাৰ কৰক, অথবা স্থানীয় গেলেৰীৰ পৰা কোনো ক্লাউড ফ'ল্ডাৰ বা বাকেটলৈ ফটো টানি আনক।
+
+# The right-click menu
+cloud.menu.view_people = মানুহ চাওক আৰু নাম দিয়ক
+cloud.menu.add_to_bucket = {name}-ত যোগ কৰক
+cloud.menu.add_to_new_bucket = নতুন বাকেটত যোগ কৰক…
+cloud.menu.remove_from_bucket = এই বাকেটৰ পৰা আঁতৰাওক
+cloud.menu.remove_n_from_bucket = এই বাকেটৰ পৰা {n}টা আঁতৰাওক
+cloud.menu.delete_from_cloud = Schist Cloud-ৰ পৰা মচক…
+cloud.menu.upload_files_here = ইয়াত ফাইল আপল'ড কৰক…
+cloud.menu.upload_folder_here = ইয়াত ফ'ল্ডাৰ আপল'ড কৰক…
+cloud.menu.download_everything = সকলো ডাউনল'ড কৰক…
+cloud.menu.download_folder = ফ'ল্ডাৰ ডাউনল'ড কৰক…
+cloud.menu.new_folder = নতুন ফ'ল্ডাৰ…
+cloud.menu.new_folder_inside = ভিতৰত নতুন ফ'ল্ডাৰ…
+cloud.menu.rename = পুনৰ নাম দিয়ক…
+cloud.menu.delete = মচক…
+cloud.menu.photos_in_marker.one = এই চিহ্নত {n}খন ফটো
+cloud.menu.photos_in_marker.other = এই চিহ্নত {n}খন ফটো
+cloud.menu.add_all_to_bucket = সকলো {name}-ত যোগ কৰক
+cloud.menu.add_all_to_new_bucket = সকলো নতুন বাকেটত যোগ কৰক…
+cloud.menu.rename_or_merge = পুনৰ নাম দিয়ক বা একত্ৰিত কৰক…
+cloud.menu.forget_person = এই ব্যক্তিক পাহৰক
+cloud.menu.edit_bucket = বাকেট সম্পাদনা কৰক…
+cloud.menu.select_all = সকলো নিৰ্বাচন কৰক
+cloud.menu.counted = {label} ({n})
+cloud.menu.add_selected = নিৰ্বাচিতবোৰ যোগ কৰক ({n})
+cloud.menu.save_all_zip = সকলো ZIP হিচাপে সংৰক্ষণ কৰক…
+cloud.menu.process_all = সকলো প্ৰক্ৰিয়া কৰক…
+cloud.menu.move_all_to_folder = সকলো ফ'ল্ডাৰলৈ নিয়ক…
+cloud.menu.clear_added = যোগ কৰা ফটো আঁতৰাওক
+cloud.menu.clear_bucket = বাকেট খালী কৰক
+cloud.menu.delete_bucket = বাকেট মচক…
+
+# The dialogs: titles, field labels, notes, buttons
+cloud.dialog.sign_in_title = Schist Cloud-ত ছাইন ইন কৰক
+cloud.dialog.domain = ড'মেইন
+cloud.dialog.continue_in_browser = ব্ৰাউজাৰত অব্যাহত ৰাখক
+cloud.dialog.storage_title = পৰ্যাপ্ত ক্লাউড সঞ্চয়স্থান নাই
+cloud.dialog.people_rename_title = ব্যক্তিৰ পুনৰ নাম দিয়ক বা একত্ৰিত কৰক
+cloud.dialog.people_rename_note = আগৰে পৰা থকা নাম দিলে দুয়োজন ব্যক্তি একত্ৰিত হয়। পাহৰিলে নামবোৰহে আঁতৰে, ফটো নহয়।
+cloud.dialog.forget_person = ব্যক্তিক পাহৰক
+cloud.dialog.face_name_title = এই মুখৰ নাম দিয়ক
+cloud.dialog.search_title = ফটো সন্ধান কৰক
+cloud.dialog.catalogue_title = ক্লাউড ফ'ল্ডাৰ আৰু বাকেট বিচাৰক
+cloud.dialog.name_contains = নামত আছে
+cloud.dialog.new_folder_title = নতুন ক্লাউড ফ'ল্ডাৰ
+cloud.dialog.folder_name = ফ'ল্ডাৰৰ নাম
+cloud.dialog.new_bucket_title = নতুন ক্লাউড বাকেট
+cloud.dialog.edit_bucket_title = ক্লাউড বাকেট সম্পাদনা কৰক
+cloud.dialog.bucket_name = বাকেটৰ নাম
+cloud.dialog.bucket_rule_note = ফটো টানি আনি পূৰণ কৰা বাকেটৰ বাবে সন্ধানটো খালী ৰাখক।
+cloud.dialog.saved_area = সংৰক্ষিত অঞ্চল
+cloud.dialog.rename_folder_title = ক্লাউড ফ'ল্ডাৰৰ পুনৰ নাম দিয়ক
+cloud.dialog.delete_folder_title = ক্লাউড ফ'ল্ডাৰ মচিবনে?
+cloud.dialog.delete_folder_note = খালী ফ'ল্ডাৰ আপোনাৰ লাইব্ৰেৰীৰ পৰা আঁতৰোৱা হয়। ইয়াৰ ফটো আৰু উপ-ফ'ল্ডাৰো সিহঁতৰ ক্লাউড সম্পাদনাসহ চিৰদিনৰ বাবে আঁতৰাবলৈ বাকচত টিক দিয়ক।
+cloud.dialog.delete_contents_check = ভিতৰৰ প্ৰতিখন ফটো আৰু উপ-ফ'ল্ডাৰো মচক
+cloud.dialog.delete_bucket_title = ক্লাউড বাকেট মচিবনে?
+cloud.dialog.delete_bucket_note = ফটোবোৰ আপোনাৰ ক্লাউড লাইব্ৰেৰীত থাকে।
+cloud.dialog.delete_asset_title = ক্লাউড ফটো মচিবনে?
+cloud.dialog.delete_asset_note = ফটোখন আৰু তাৰ ক্লাউড সম্পাদনাবোৰ চিৰদিনৰ বাবে আঁতৰোৱা হয়; ইয়াক ৰখা বাকেটবোৰৰ পৰাও এৰি দিয়া হয়।
+cloud.dialog.upload_document_title = দস্তাবেজ Schist Cloud-লৈ আপল'ড কৰক
+cloud.dialog.folder_id = ফ'ল্ডাৰ ID (ফ'ল্ডাৰত নাৰাখিবলৈ খালী)
+cloud.dialog.upload_folder_title = ফ'ল্ডাৰ Schist Cloud-লৈ আপল'ড কৰক
+cloud.dialog.upload_folder_note = ফ'ল্ডাৰৰ প্ৰতিখন ফটো উপ-ফ'ল্ডাৰসমূহ অক্ষুণ্ণ ৰাখি বাছি লোৱা ক্লাউড ফ'ল্ডাৰলৈ আপল'ড হয়। স্থানীয় ফাইলবোৰ যথাস্থানতে থাকে।
+cloud.dialog.upload = আপল'ড কৰক
+cloud.dialog.move_items_title = ক্লাউড ফ'ল্ডাৰলৈ নিয়ক
+cloud.dialog.move_items_note = বাকেটৰ প্ৰতিখন ফটো বাছি লোৱা ফ'ল্ডাৰত সজোৱা হয়; ক্লাউড সম্পাদনা আৰু বাকেটৰ সদস্যতা আগৰ দৰেই থাকে।
+cloud.dialog.move = নিয়ক
+cloud.dialog.download_title = ক্লাউড ফটো ডাউনল'ড কৰক
+cloud.dialog.format = ফৰ্মেট
+cloud.dialog.format_current = বৰ্তমানৰ সম্পাদনাযোগ্য দস্তাবেজ
+cloud.dialog.format_original = মূল ফাইল
+cloud.dialog.format_with_extension = {name} (.{extension})
+
+# Uploads
+cloud.upload.prompt = Schist Cloud-লৈ আপল'ড কৰক
+cloud.upload.uploading_files = ফাইল আপল'ড কৰা হৈছে…
+cloud.upload.looking_through = ফাইলবোৰ চোৱা হৈছে…
+cloud.upload.checking_storage = ক্লাউড সঞ্চয়স্থান পৰীক্ষা কৰা হৈছে…
+cloud.upload.selection_too_large = নিৰ্বাচনটো অত্যধিক ডাঙৰ
+cloud.upload.progress = {m}খন ফটোৰ ভিতৰত {n}খন আপল'ড কৰা হৈছে…
+cloud.upload.progress_skipped = {m}খন ফটোৰ ভিতৰত {n}খন আপল'ড কৰা হৈছে ({skipped}খন বাদ)…
+cloud.upload.adding_to_bucket = বাকেটত যোগ কৰা হৈছে…
+cloud.upload.checking_resumable = পুনৰ আৰম্ভ কৰিব পৰা আপল'ডৰ বাবে {name} পৰীক্ষা কৰা হৈছে…
+cloud.upload.large_progress = {name} আপল'ড কৰা হৈছে: {percent}% ({done} / {total} MiB)
+# `{what}` is one of the `cloud.upload.step.*` phrases below
+cloud.upload.interrupted = {what} সময়ত সংযোগ বিচ্ছিন্ন হ'ল — {m}টাৰ ভিতৰত {n}টা আপল'ড হৈছে; অপেক্ষা কৰা হৈছে…
+cloud.upload.resuming = পুনৰ সংযোগ হ'ল — {what} পুনৰ আৰম্ভ কৰা হৈছে ({m}টাৰ ভিতৰত {n}টা আপল'ড হৈছে)…
+cloud.upload.step.adding_to_bucket = বাকেটত যোগ কৰা
+cloud.upload.step.checking_duplicates = প্ৰতিলিপি পৰীক্ষা কৰা
+cloud.upload.step.uploading_batch = এটা গোট আপল'ড কৰা
+cloud.upload.step.uploading_photo = এখন ফটো আপল'ড কৰা
+cloud.upload.step.uploading_large_file = এটা বৃহৎ ফাইল আপল'ড কৰা
+cloud.upload.connection_closed = ক্লাউড সংযোগ বন্ধ কৰা হ'ল
+cloud.upload.failed_partial = আপল'ড বিফল হ'ল (সম্পূৰ্ণ হোৱা ফাইলবোৰ ক্লাউডত থাকে): {error}
+cloud.upload.open_document_first = প্ৰথমে এটা দস্তাবেজ খোলক
+cloud.upload.over_100mib = 100 MiB-তকৈ ডাঙৰ ফাইলৰ বাবে খণ্ডিত আপল'ড ব্যৱহাৰ কৰক
+cloud.upload.file_empty = ফাইলটো খালী
+cloud.upload.over_5gib = প্ৰতি ফাইলৰ 5 GiB আপল'ড সীমা অতিক্ৰম কৰিছে
+# The summary after a drop: the clauses are joined with "; "
+cloud.upload.summary_none = একো আপল'ড নহ'ল
+cloud.upload.summary_uploaded.one = {n}খন ফটো আপল'ড হ'ল
+cloud.upload.summary_uploaded.other = {n}খন ফটো আপল'ড হ'ল
+cloud.upload.summary_existing.one = {n}খন আগৰে পৰা Schist Cloud-ত আছিল
+cloud.upload.summary_existing.other = {n}খন আগৰে পৰা Schist Cloud-ত আছিল
+cloud.upload.summary_skipped.one = {n}টা ফাইল বাদ দিয়া হ'ল: {reason}
+cloud.upload.summary_skipped.other = {n}টা ফাইল বাদ দিয়া হ'ল: {reason}
+cloud.upload.summary_skipped_more = {reason} (আৰু {n}টা)
+
+# Downloads
+cloud.download.here = ইয়াত ডাউনল'ড কৰক
+cloud.download.downloading = {name} ডাউনল'ড হৈ আছে…
+cloud.download.done = {name} ডাউনল'ড কৰা হ'ল
+cloud.download.failed = ক্লাউড ডাউনল'ড বিফল হ'ল: {error}
+cloud.download.could_not_save = ডাউনল'ড সংৰক্ষণ কৰিব পৰা নগ'ল: {error}
+cloud.download.wait_for_connection = ডাউনল'ড কৰাৰ আগতে ক্লাউড সংযোগৰ বাবে অপেক্ষা কৰক
+cloud.download.select_one = ডাউনল'ড কৰিবলৈ এখন ক্লাউড ফটো নিৰ্বাচন কৰক
+cloud.download.select_first = প্ৰথমে এখন ক্লাউড ফটো নিৰ্বাচন কৰক
+cloud.download.progress_n_of_m = {m}টাৰ ভিতৰত {n}টা ডাউনল'ড কৰা হৈছে…
+cloud.download.done_to.one = {n}খন ফটো {path}-লৈ ডাউনল'ড কৰা হ'ল
+cloud.download.done_to.other = {n}খন ফটো {path}-লৈ ডাউনল'ড কৰা হ'ল
+cloud.download.failed_partial = ডাউনল'ড বিফল হ'ল (সম্পূৰ্ণ হোৱা ফাইলবোৰ থাকে): {error}
+cloud.download.zipping_n_of_m = {m}টাৰ ভিতৰত {n}টা ZIP কৰা হৈছে…
+cloud.download.zipped_to.one = {n}খন ফটো {path}-ত সংৰক্ষণ কৰা হ'ল
+cloud.download.zipped_to.other = {n}খন ফটো {path}-ত সংৰক্ষণ কৰা হ'ল
+cloud.download.zip_failed = ZIP বিফল হ'ল: {error}
+cloud.download.fetching_n_of_m = {m}টাৰ ভিতৰত {n}টা অনা হৈছে…
+cloud.download.could_not_fetch_bucket = বাকেট আনিব পৰা নগ'ল: {error}
+cloud.download.kept_changing = ডাউনল'ডৰ সময়ত ক্লাউড ফাইলটো সলনি হৈ থাকিল; পুনৰ চেষ্টা কৰক
+
+# People and faces
+cloud.people.title = এই ফটোত থকা মানুহ
+cloud.people.person = ব্যক্তি
+cloud.people.unnamed = নাম নথকা
+cloud.people.unnamed_faces = নাম নথকা মুখ
+cloud.people.unnamed_faces_row = Schist Cloud-ত নাম নথকা মুখ
+cloud.people.finding_faces.one = {n}খন ক্লাউড ফটোত মুখ বিচৰা হৈছে…
+cloud.people.finding_faces.other = {n}খন ক্লাউড ফটোত মুখ বিচৰা হৈছে…
+cloud.people.could_not_process.one = {n}খন ক্লাউড ফটো প্ৰক্ৰিয়া কৰিব পৰা নগ'ল
+cloud.people.could_not_process.other = {n}খন ক্লাউড ফটো প্ৰক্ৰিয়া কৰিব পৰা নগ'ল
+cloud.people.add_face = মুখ যোগ কৰক…
+cloud.people.cancel_drawing = অংকন বাতিল কৰক
+cloud.people.auto_suffix = {name} · স্বয়ংক্ৰিয়
+cloud.people.not_a_face = মুখ নহয়
+cloud.people.not_them = এই ব্যক্তি নহয়
+cloud.people.confirm_suggestion = এয়া {name} নেকি? হয়
+cloud.people.no_faces = এতিয়াও কোনো মুখৰ নাম দিয়া নাই। মুখবোৰ স্বয়ংক্ৰিয়ভাৱে বিচৰা হয়; হাতেৰে যোগ কৰিবলৈ বাকচ আঁকক।
+cloud.people.photo_unavailable = এই ফটোখন এই দৃশ্যত আৰু উপলব্ধ নহয়।
+cloud.people.enter_a_name = এটা নাম লিখক
+
+# Image generation
+cloud.generate.title = Schist Cloud-ৰে সৃষ্টি কৰক
+cloud.generate.generate = সৃষ্টি কৰক
+cloud.generate.stop = বন্ধ কৰক
+cloud.generate.loading_form = সৃষ্টি প্ৰপত্ৰ লোড হৈ আছে…
+cloud.generate.required_field = {title} *
+cloud.generate.preparing_preview = পূৰ্বদৰ্শন প্ৰস্তুত কৰা হৈছে…
+cloud.generate.preview_unavailable = পূৰ্বদৰ্শন উপলব্ধ নহয়: {error}
+cloud.generate.slot = {part} · {n}
+cloud.generate.slot_status = {name}: {status}
+cloud.generate.generating = সৃষ্টি কৰা হৈছে…
+cloud.generate.complete = সম্পূৰ্ণ
+cloud.generate.open_image = ছবি খোলক
+cloud.generate.document_title = সৃষ্টি কৰা {n}
+cloud.generate.memory_limit = সৃষ্টি কৰা ফলাফলবোৰে মেমৰিৰ সীমা অতিক্ৰম কৰিছে
+cloud.generate.unsupported_format = সৃষ্টি কৰা ছবিৰ ফৰ্মেট অসমৰ্থিত
+cloud.generate.enter_field = {title} লিখক
+cloud.generate.choose_field = {title} বাছক
+cloud.generate.cancelled = সৃষ্টি বাতিল কৰা হ'ল
+cloud.generate.timed_out = সৃষ্টিৰ সময়সীমা উকলিল
+
+# Things fetched from outside the app (workspace/services.rs): neural
+# models, fonts, updates, plug-ins
+cloud.services.downloading = {name} ডাউনল'ড হৈ আছে…
+cloud.services.installed_model = {name} {path}-ত ইনষ্টল কৰা হ'ল
+cloud.services.removed = {name} আঁতৰোৱা হ'ল
+cloud.services.checking_for_updates = আপডেট পৰীক্ষা কৰা হৈছে…
+cloud.services.update_available = Schist {version} উপলব্ধ
+cloud.services.up_to_date = Schist {version} শেহতীয়া
+cloud.services.update_check_failed = আপডেট পৰীক্ষা বিফল হ'ল: {error}
+cloud.services.downloading_schist = Schist {version} ডাউনল'ড হৈ আছে…
+cloud.services.installing_update = আপডেট ইনষ্টল হৈ আছে…
+cloud.services.restarting = Schist {version}-ত পুনৰাৰম্ভ কৰা হৈছে…
+cloud.services.update_cancelled = আপডেট বাতিল কৰা হ'ল
+cloud.services.update_failed = আপডেট বিফল হ'ল: {error}
+cloud.services.font_downloads_unavailable_web = {name}: ব্ৰাউজাৰত ফণ্ট ডাউনল'ড উপলব্ধ নহয়
+cloud.services.installed_font.one = {name} ইনষ্টল কৰা হ'ল ({faces}টা ফেচ) · {n}টা লিখনী স্তৰ পুনৰ সজোৱা হ'ল
+cloud.services.installed_font.other = {name} ইনষ্টল কৰা হ'ল ({faces}টা ফেচ) · {n}টা লিখনী স্তৰ পুনৰ সজোৱা হ'ল
+cloud.services.plugin_enabled = {id} সক্ষম কৰা হ'ল — প্ৰয়োগ কৰিবলৈ পুনৰাৰম্ভ কৰক
+cloud.services.plugin_disabled = {id} অক্ষম কৰা হ'ল — প্ৰয়োগ কৰিবলৈ পুনৰাৰম্ভ কৰক
+cloud.services.plugin_installed = {path} ইনষ্টল কৰা হ'ল — লোড কৰিবলৈ পুনৰাৰম্ভ কৰক
+cloud.services.photoshop_plugin_rejected = প্লাগ-ইন অস্বীকৃত: {error}
+cloud.services.plugin_rejected = প্লাগ-ইন অস্বীকৃত: {error}
+
+# The transport (crates/cloud): what its errors say when the app shows
+# them verbatim in the status line or a dialog. Wire-level diagnostics
+# (a malformed frame, a duplicate handshake) stay English in the code.
+cloud.transport.disconnected = ক্লাউড সংযোগ বিচ্ছিন্ন
+cloud.transport.connecting = ক্লাউড সংযোগ কৰা হৈছে
+cloud.transport.connection_closed = ক্লাউড সংযোগ বন্ধ হ'ল
+cloud.transport.disconnected_outcome_unknown = ক্লাউড সংযোগ বিচ্ছিন্ন; পৰিৱৰ্তনৰ ফলাফল অজ্ঞাত হ'ব পাৰে
+cloud.transport.timed_out = ক্লাউড কাৰ্যৰ সময়সীমা উকলিল
+cloud.transport.request_timed_out = ক্লাউড অনুৰোধৰ সময়সীমা উকলিল; পৰিৱৰ্তনৰ ফলাফল অজ্ঞাত হ'ব পাৰে
+cloud.transport.handshake_timed_out = ক্লাউড হেণ্ডশ্বেকৰ সময়সীমা উকলিল
+cloud.transport.heartbeat_timed_out = ক্লাউড হাৰ্টবিটৰ সময়সীমা উকলিল
+cloud.transport.no_workspace_endpoint = প্ৰদানকাৰীৰ কোনো ক্লাউড কৰ্মস্থান এণ্ডপইণ্ট নাই
+cloud.transport.could_not_open_socket = ক্লাউড ছকেট খুলিব পৰা নগ'ল
+cloud.transport.websocket_failed = ক্লাউড WebSocket বিফল হ'ল
+cloud.transport.socket_closed = ক্লাউড ছকেট বন্ধ
+cloud.transport.send_buffer_full = ক্লাউড প্ৰেৰণ বাফাৰ পূৰ্ণ
+cloud.transport.send_failed = ক্লাউড প্ৰেৰণ বিফল হ'ল
+cloud.transport.close_failed = ক্লাউড বন্ধ কৰা বিফল হ'ল
+cloud.transport.frame_too_large = বাৰ্তাই {bytes} বাইট কৰ্মস্থান ফ্ৰেমৰ সীমা অতিক্ৰম কৰিছে
+cloud.transport.document_too_large = ভাগ-বতৰা কৰা দস্তাবেজে প্ৰদানকাৰীৰ {bytes} বাইট সীমা অতিক্ৰম কৰিছে; সম্পাদনাবোৰ স্থানীয়ভাৱে থাকে
+cloud.transport.browser_window_unavailable = ব্ৰাউজাৰ উইণ্ড' উপলব্ধ নহয়
+cloud.transport.browser_restricted = ব্ৰাউজাৰৰ ক্লাউড সংযোগ কেৱল schist.app-লৈ সীমাবদ্ধ
+cloud.transport.http_status = ক্লাউড HTTP {code}
+cloud.transport.browser_request_failed = ব্ৰাউজাৰৰ ক্লাউড অনুৰোধ বিফল হ'ল
+cloud.transport.response_too_large = ক্লাউড সঁহাৰিয়ে আকাৰৰ সীমা অতিক্ৰম কৰিছে
+cloud.transport.invalid_credentials = অবৈধ ক্লাউড প্ৰমাণপত্ৰ
+cloud.transport.unsupported_browser_sign_in = প্ৰদানকাৰীয়ে এই ব্ৰাউজাৰ ছাইন-ইন প্ৰবাহ সমৰ্থন নকৰে
+cloud.transport.expected_secure_url = প্ৰমাণপত্ৰ নথকা এটা সম্পূৰ্ণ {scheme} URL আশা কৰা হৈছিল
+cloud.transport.source_changed_during_upload = আপল'ডৰ সময়ত উৎস ফাইল সলনি হ'ল
+cloud.transport.select_again_to_resume = আপল'ড কৰা অংশবোৰ পুনৰ আৰম্ভ কৰিবলৈ এই ফাইলটো আকৌ নিৰ্বাচন কৰক
+cloud.transport.source_changed_select_again = উৎস ফাইল সলনি হৈছে; নতুন আপল'ড আৰম্ভ কৰিবলৈ আকৌ নিৰ্বাচন কৰক
+cloud.transport.source_grew_during_preparation = আপল'ড প্ৰস্তুতিৰ সময়ত উৎস ফাইল ডাঙৰ হ'ল
+cloud.transport.source_changed_during_preparation = আপল'ড প্ৰস্তুতিৰ সময়ত উৎস ফাইল সলনি হ'ল
+# The unit in the storage message when the amount is under a mebibyte
+cloud.transport.bytes = {n} বাইট
+cloud.transport.invalid_value_for = {title}-ৰ বাবে অবৈধ মান
+cloud.transport.invalid_option_for = {title}-ৰ বাবে অবৈধ বিকল্প
+cloud.transport.generation_connection_closed = সৃষ্টি সংযোগ বন্ধ হ'ল
+cloud.transport.generation_closed_early = প্ৰতিটো স্থান সম্পূৰ্ণ হোৱাৰ আগতে সৃষ্টি বন্ধ হ'ল
+cloud.transport.generated_image_too_large = সৃষ্টি কৰা ছবিয়ে 64 MiB অতিক্ৰম কৰিছে
+cloud.transport.no_export_support = প্ৰদানকাৰীয়ে ৰপ্তানি সমৰ্থন প্ৰকাশ কৰা নাই
+cloud.transport.unsupported_download_format = প্ৰদানকাৰীয়ে অনুৰোধ কৰা ডাউনল'ড ফৰ্মেট সমৰ্থন নকৰে
+cloud.transport.date_before_1970 = তাৰিখ 1970-ৰ আগৰ
+
+# The camera-roll backup (crates/app/src/workspace/camera_sync.rs): the
+# prompt after the first sign-in on a phone, the sidebar's line under
+# the cloud root, and the status-bar messages while it runs.
+cloud.sync.prompt_title = আপোনাৰ কেমেৰা ৰ'ল বেকআপ ল'বনে?
+cloud.sync.prompt_note = Schist খোলা থাকোঁতে, আৰু ছিষ্টেমে অনুমতি দিলে পটভূমিত, নতুন ফটোবোৰ Schist Cloud ফ'ল্ডাৰলৈ নকল কৰা হয়। আপোনাৰ ক্লাউড লাইব্ৰেৰীত ইতিমধ্যে থকা ফটো কেতিয়াও দুবাৰ আপল'ড নহয়।
+cloud.sync.background_note = এই ডিভাইচৰ পৰা একো আঁতৰোৱা নহয়। পছন্দসমূহত যিকোনো সময়ত বেকআপ সলনি বা বন্ধ কৰক।
+cloud.sync.photos_from = ইয়াৰ পৰা ফটো
+cloud.sync.all_photos = সকলো ফটো
+cloud.sync.album_with_count = {name} ({n})
+cloud.sync.source_camera = কেমেৰা
+cloud.sync.source_dcim = সকলো কেমেৰা ফ'ল্ডাৰ
+cloud.sync.source_pictures = ছবিসমূহ
+cloud.sync.choose_folder = ফ'ল্ডাৰ বাছক…
+cloud.sync.new_folder = নতুন ফ'ল্ডাৰ
+cloud.sync.default_folder = কেমেৰা ৰ'ল
+cloud.sync.not_now = এতিয়া নহয়
+cloud.sync.back_up = বেকআপ লওক
+cloud.sync.menu = কেমেৰা ৰ'ল বেকআপ লওক…
+cloud.sync.name_the_folder = নতুন ফ'ল্ডাৰৰ নাম দিয়ক
+cloud.sync.no_source = ফটো ক'ৰ পৰা আহে সেয়া বাছক
+cloud.sync.albums_ios_only = ফটো এলবাম কেৱল iOS-ত উৎস হিচাপে উপলব্ধ
+cloud.sync.source_unreadable = {path} পঢ়িব নোৱাৰি
+cloud.sync.permission_denied = ফটো বেকআপ ল'বলৈ Schist-ক আপোনাৰ ফটোত প্ৰৱেশৰ প্ৰয়োজন। ছেটিংছত অনুমতি দি পুনৰ চেষ্টা কৰক।
+cloud.sync.partial_access = Schist-এ কেৱল আপোনাৰ কিছুমান ফটো দেখা পায়। কেমেৰা ৰ'ল বেকআপ ল'বলৈ ছেটিংছত সকলো ফটোৰ অনুমতি দিয়ক।
+cloud.sync.keychain_failed = পটভূমিৰ ছাইন-ইন আপডেট কৰিব পৰা নগ'ল (Keychain ত্ৰুটি {error})।
+cloud.sync.waiting_for_permission = ফটো প্ৰৱেশৰ বাবে অপেক্ষা কৰা হৈছে…
+cloud.sync.creating_folder = {name} ফ'ল্ডাৰ সৃষ্টি কৰা হৈছে…
+cloud.sync.folder_failed = ক্লাউড ফ'ল্ডাৰ সৃষ্টি কৰিব পৰা নগ'ল: {error}
+cloud.sync.folder_id_missing = প্ৰদানকাৰীয়ে কোনটো ফ'ল্ডাৰ সৃষ্টি কৰিলে সেয়া নজনালে
+cloud.sync.enabled = কেমেৰা ৰ'ল বেকআপ চালু
+cloud.sync.starting = কেমেৰা ৰ'ল পৰীক্ষা কৰা হৈছে…
+cloud.sync.progress = {m}টাৰ ভিতৰত {n}টা বেকআপ লোৱা হৈছে…
+cloud.sync.up_to_date = কেমেৰা ৰ'লৰ বেকআপ সম্পূৰ্ণ
+cloud.sync.summary_none = বেকআপ ল'বলৈ নতুন একো নাই
+cloud.sync.summary_uploaded.one = {n}খন ফটোৰ বেকআপ লোৱা হ'ল
+cloud.sync.summary_uploaded.other = {n}খন ফটোৰ বেকআপ লোৱা হ'ল
+cloud.sync.summary_existing.one = {n}খন আগৰে পৰা Schist Cloud-ত আছিল
+cloud.sync.summary_existing.other = {n}খন আগৰে পৰা Schist Cloud-ত আছিল
+cloud.sync.summary_skipped.one = {n}খন পঢ়িব পৰা নগ'ল
+cloud.sync.summary_skipped.other = {n}খন পঢ়িব পৰা নগ'ল
+cloud.sync.summary_pending.one = পৰৱৰ্তী বাৰৰ বাবে {n}খন বাকী
+cloud.sync.summary_pending.other = পৰৱৰ্তী বাৰৰ বাবে {n}খন বাকী
+cloud.sync.failed = কেমেৰা ৰ'ল বেকআপ বন্ধ হ'ল: {error}
+cloud.sync.last_backed_up = কেমেৰা ৰ'লৰ বেকআপ {when} লোৱা হৈছিল
+cloud.sync.waiting = কেমেৰা ৰ'ল বেকআপে ক্লাউডৰ বাবে অপেক্ষা কৰিছে
+cloud.sync.just_now = এইমাত্ৰ
+cloud.sync.minutes_ago = {n} মিনিট আগতে
+cloud.sync.hours_ago = {n} ঘণ্টা আগতে
+cloud.sync.days_ago = {n} দিন আগতে
+cloud.upload.cancelled = আপল'ড বাতিল কৰা হ'ল
+cloud.sync.album_gone = সেই এলবামটো আৰু ফটো লাইব্ৰেৰীত নাই
+cloud.sync.asset_gone = ফটোখন আৰু ফটো লাইব্ৰেৰীত নাই
+cloud.sync.export_timed_out = ফটো লাইব্ৰেৰীয়ে সময়মতে ফটোখন প্ৰদান নকৰিলে
+cloud.sync.limited_note = কেৱল ছেটিংছত নিৰ্বাচন কৰা ফটোবোৰৰ বেকআপ লোৱা হ'ব। গোটেই লাইব্ৰেৰী বেকআপ ল'বলৈ Photos-ৰ সম্পূৰ্ণ প্ৰৱেশ অনুমতি দিয়ক।
+cloud.upload.incomplete_batch = ক্লাউডে অসম্পূৰ্ণ গোট আপল'ড সঁহাৰি দিলে

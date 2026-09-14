@@ -1,0 +1,9 @@
+{
+  "loading": "Loading…",
+  "starting": "Starting…",
+  "webgpu": "Schist needs WebGPU, which this browser doesn't offer. Chrome/Edge 113+, Firefox 141+ and Safari 26+ do.",
+  "noticeTitle": "Schist runs best as a desktop app",
+  "noticeBody": "You're using the web version, which is a lighter build: it composites on the CPU and leaves out some features — Photoshop plug-ins and third-party plug-ins, image gallery, the AI panel, HEIC import and font downloads — and files are saved as downloads. The free desktop app for macOS, Windows and Linux has all of it.",
+  "noticeLink": "Get the desktop app.",
+  "ok": "OK"
+}

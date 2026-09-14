@@ -1,0 +1,36 @@
+app.filter_gallery.title = معرض المرشحات
+app.filter_gallery.stack = المكدس (يُطبّق من الأسفل إلى الأعلى)
+app.filter_gallery.no_settings = لا يحتوي هذا المرشح على إعدادات.
+app.fonts.not_open_licensed = ليس بترخيص مفتوح · يطابق {substitute} مقاييسه
+app.fonts.missing_substituted = مفقود · جارٍ تنضيد النص بخط بديل
+app.fonts.not_in_catalogue = الخط {family} غير موجود في دليل الخطوط المفتوحة
+app.fonts.no_faces = لا توجد أوجه خطوط قابلة للتنزيل لـ {family}
+app.fonts.empty_response = استجابة فارغة
+app.update.unreadable_response = استجابة غير قابلة للقراءة: {error}
+app.update.no_temp_dir = لا يوجد مجلد مؤقت للتنزيل إليه
+app.update.asset_has_path = يتضمن اسم أصل الإصدار مسارًا
+app.update.too_big = حجم التنزيل أكبر مما يذكره الإصدار
+app.update.stopped_at = توقف التنزيل عند {got} من أصل {total} بايت
+app.update.hash_mismatch = بصمة التنزيل هي {got} بدلًا من {want}
+app.update.not_in_bundle = هذه النسخة ليست داخل حزمة تطبيق
+app.update.no_parent_dir = لا تحتوي حزمة التطبيق على مجلد أصل
+app.update.cannot_write = تعذرت الكتابة إلى {dir}
+app.update.cannot_move_aside = تعذر نقل {app} جانبًا
+app.update.cannot_move_in = تعذر نقل الحزمة الجديدة إلى مكانها
+app.update.cannot_run_ditto = تعذر تشغيل /usr/bin/ditto
+app.update.unpack_failed = فشل فك حزمة التنزيل: {error}
+app.update.no_app_in_download = لا يحتوي التنزيل على Schist.app
+app.update.cannot_run_codesign = تعذر تشغيل /usr/bin/codesign
+app.update.signature_invalid = تعذر التحقق من توقيع التنزيل: {error}
+app.update.download_unsigned = هذه النسخة موقّعة والتنزيل غير موقّع
+app.update.different_developer = التنزيل موقّع من مطوّر مختلف
+app.update.cannot_relaunch = تعذر تشغيل أداة إعادة التشغيل
+app.update.not_installed_copy = لم يضع المثبّت هذه النسخة هنا
+app.update.cannot_start_installer = تعذر تشغيل المثبّت
+app.update.platform_unsupported = تُثبّت التحديثات على هذه المنصة بالطريقة نفسها التي ثُبّت بها Schist
+app.vulkan.no_loader = schist: لا يوجد محمّل Vulkan على هذا النظام، ولذلك لا يوجد ما يمكن الرسم به.\n\nيستخدم Schist واجهة Vulkan للتصيير، لكن `libvulkan.so.1` غير مثبّتة.\nيلزم كل من المحمّل وبرنامج التشغيل:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: برنامج تشغيل Vulkan الذي تشير إليه هذه الجلسة غير موجود.\n\nالمتغير {var} مضبوط، وضبطه *يستبدل* بحث المحمّل عن برامج التشغيل بدلًا من الإضافة إليه. لذلك تمثل هذه الملفات غير الموجودة قائمة برامج التشغيل كاملة، ولا يرى أي برنامج Vulkan في هذه الجلسة أي برنامج تشغيل مهما كان عدد البرامج المثبّتة:\n\n{missing}\n    {var}={value}\n\nوجّهه إلى بيان موجود — تضع برامج التشغيل المثبّتة بياناتها في\n/usr/share/vulkan/icd.d — أو ألغ ضبطه ودع المحمّل يبحث بنفسه.\nإذا ضبطت الجلسة هذا المتغير من ملف إعداد (مثل `env =` في Hyprland، أو ملف systemd ضمن environment.d، أو ملف تعريف الصدفة) فيجب تغييره هناك، ويلزم تسجيل دخول جديد كي يصل التغيير إلى البرامج قيد التشغيل.\n
+app.vulkan.override_note = \nالمتغير {var} مضبوط على {value}، وهذا يستبدل بحث المحمّل نفسه؛ إذا لم يكن أي من هذه البيانات مناسبًا لهذا الجهاز، فأول ما ينبغي تجربته هو إلغاء ضبطه.\n
+app.vulkan.no_driver = schist: لا يوجد برنامج تشغيل Vulkan مثبّت، ولذلك لا يوجد ما يمكن الرسم عليه.\n\nيستخدم Schist واجهة Vulkan للتصيير. المحمّل مثبّت لكنه لا يبلغ عن أي برنامج تشغيل؛ فلم يسجل أي برنامج نفسه في أي من موقعي البحث:\n\n{dirs}\n\nيُوزع المحمّل منفصلًا عن برامج التشغيل، ولذلك تكون المشكلة عادة حزمة واحدة مفقودة.\n\nثبّت البرنامج الملائم لوحدة معالجة الرسومات في هذا الجهاز:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nيتضمن برنامج NVIDIA المملوك برنامجه الخاص (`nvidia-utils` على Arch و`nvidia-driver` على Debian). في جهاز افتراضي، أو في أي بيئة لا يوجد فيها برنامج تشغيل لوحدة معالجة رسومات، يعمل المصيّر البرمجي: `vulkan-swrast` على Arch، وهو جزء من `mesa-vulkan-drivers` في الأنظمة الأخرى. إنه بطيء، لكنه يعمل.\n{overridden}
+app.vulkan.no_device = schist: يوجد برنامج تشغيل Vulkan مثبّت لكنه لا يوفر جهازًا للتصيير عليه.\n\nقد لا يدعم برنامج التشغيل وحدة معالجة الرسومات هذه، أو قد يتعذر عليه الوصول إليها؛ عبر SSH أو داخل حاوية، يكون غياب /dev/dri سببًا شائعًا. يعرض الأمر `vulkaninfo --summary` ما يراه المحمّل.\n\nيمكن للمصيّر البرمجي العمل بلا وحدة معالجة رسومات إذا كان هذا ما يتوفر في الجهاز: `vulkan-swrast` على Arch، وهو جزء من `mesa-vulkan-drivers` على Debian وFedora.\n
+app.vulkan.skip_hint = لبدء Schist على أي حال وتركه يفشل بطريقته، اضبط {var}=1.

@@ -1,0 +1,32 @@
+# Ferramentas de selección.
+tool.select.mode.subtract = Restar
+tool.select.mode.intersect = Intersecar
+
+tool.marquee.rect.name = Marco rectangular
+tool.marquee.rect.description = Arrastra para crear unha selección rectangular. Maiús ao comezar a arrastrar engade á selección, Alt resta e ambas as teclas intersecan; Maiús durante o arrastre convértea nun cadrado. Premer sen arrastrar desfai a selección.
+tool.marquee.ellipse.name = Marco elíptico
+tool.marquee.ellipse.description = Arrastra para crear unha selección elíptica, coas mesmas combinacións de Maiús e Alt ca no marco rectangular.
+
+tool.lasso.name = Lazo
+tool.lasso.description = Arrastra un contorno a man alzada; a selección péchase unindo os extremos cando remata o arrastre. Maiús engade e Alt resta.
+tool.lasso.history.select = Selección con lazo
+tool.lasso.polygonal.name = Lazo poligonal
+tool.lasso.polygonal.description = Preme nunha esquina tras outra para crear unha selección de bordos rectos e preme preto do primeiro punto para pechala.
+tool.lasso.polygonal.history.select = Lazo poligonal
+tool.lasso.magnetic.name = Lazo magnético
+tool.lasso.magnetic.description = Segue aproximadamente un bordo e o contorno axustarase ao contraste máis forte preto do trazado.
+tool.lasso.magnetic.history.select = Lazo magnético
+tool.lasso.magnetic.option.frequency = Frecuencia
+
+tool.wand.name = Variña máxica
+tool.wand.description = Preme para seleccionar a zona conectada de cor semellante baixo o punteiro, dentro da tolerancia definida; é a mesma tolerancia que empregan Aumentar, Semellante e Intervalo de cores.
+tool.wand.option.contiguous = Contiguo
+tool.wand.history.select = Variña máxica
+
+tool.quick_select.name = Selección rápida
+tool.quick_select.description = Pinta sobre unha rexión e a selección medrará polos píxeles semellantes sobre os que pase o pincel.
+tool.quick_select.history.select = Selección rápida
+
+tool.object_select.name = Selección de obxectos
+tool.object_select.description = Arrastra un cadro arredor dun obxecto e a selección axustarase ao obxecto atopado no seu interior.
+tool.object_select.history.select = Selección de obxectos

@@ -1,0 +1,40 @@
+# Formato sutikuna
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Cámara RAW
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Yaykuchiy willakuykuna
+codec.msg.decoding = {name} decodificachkan
+codec.msg.zero_sized = rikch'ayqa mana pixelniyuqchu
+codec.msg.assembling_document = qillqa khiputa huñuchkan
+
+# Cámara raw
+codec.raw.msg.decoding = raw archivota decodificachkan
+codec.raw.msg.developing = raw archivota wiñachichkan
+codec.raw.msg.finding_preview = ukhupi kaq ñawpaq qhawanata maskachkan
+codec.raw.msg.decoding_preview = ukhupi kaq ñawpaq qhawanata decodificachkan
+codec.raw.msg.decoder_panicked = raw decodificaq kay archivopi pantarun: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity yaykuchiy
+codec.affinity.flattened_preview_layer = Pampachasqa ñawpaq qhawana
+codec.affinity.msg.no_preview = Manam llamk'achina ukhu ñawpaq qhawana kanchu. Affinitypa patayuq formatonqa sapanchasqam; Schistqa archivopi kaq pampachasqa ñawpaq qhawanallata yaykuchin. Kay archivoqa manam chayniyuqchu — Affinitypi wakmanta waqaychay, utaq llapan patayuq yaykuchinapaq PSD hina lluqsichiy.
+
+# HEIF
+codec.heif.msg.no_library = libheif mana kanchu ({details}). HEIC kichanapaqqa libheif biblioteca kanan tiyan (Linux: libheif1 churay; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — kay libheif ruwasqapi ichapas HEVC decodificaq mana kanchu (Debian/Ubuntupi, libheif-plugin-libde265 churay)
+codec.heif.msg.unknown_error = mana riqsisqa pantay
+codec.heif.msg.initialising = libheif wakichichkan
+codec.heif.msg.reading_container = HEIF contenedorta ñawinchachkan
+codec.heif.msg.finding_primary_image = hatun rikch'ayta maskachkan
+codec.heif.msg.reading_icc_profile = ICC perfilta ñawinchachkan
+codec.heif.msg.decoding_image = rikch'ayta decodificachkan
+codec.heif.msg.checksum_mismatch = {name} nisqap checksum yupaynin mana tupanchu: {expected} suyasqa, {got} chaskisqa
+codec.heif.msg.imageio_cannot_read = ImageIOqa HEIF contenedorta mana ñawinchayta atirqanchu
+codec.heif.msg.container_empty = HEIF contenedorqa mana rikch'ayniyuqchu
+codec.heif.msg.imageio_cannot_decode = ImageIOqa hatun rikch'ayta mana decodificayta atirqanchu

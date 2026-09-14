@@ -1,0 +1,22 @@
+tool.liquify.name = Сұйылту
+tool.liquify.description = Үлкен қылқалам астындағы пиксельдерді итеріңіз, айналдырыңыз, қысыңыз немесе керіңіз — әрекетті режим параметрі таңдайды. Деформация торда жинақталып, растағанда қабатқа қолданылады.
+tool.liquify.option.tool = Құрал
+tool.liquify.choice.forward_warp = Алға деформациялау
+tool.liquify.choice.reconstruct = Қалпына келтіру
+tool.liquify.choice.twirl_cw = Сағат тілімен айналдыру
+tool.liquify.choice.twirl_ccw = Сағат тіліне қарсы айналдыру
+tool.liquify.choice.pucker = Қысу
+tool.liquify.choice.bloat = Керу
+tool.liquify.choice.push_left = Солға итеру
+tool.liquify.history.liquify = Сұйылту
+
+tool.puppet_warp.name = Қуыршақ деформациясы
+tool.puppet_warp.description = Қабатты бірнеше нүктеден бекіту үшін шертіңіз, содан кейін біреуін сүйреңіз: тор «Қаттылық» параметріне сай бекіту нүктелерінің айналасында қаттырақ немесе еркінірек иіледі. Растағанда өзгеріс қолданылады.
+tool.puppet_warp.option.stiffness = Қаттылық
+tool.puppet_warp.history.puppet_warp = Қуыршақ деформациясы
+
+tool.vanishing_point.name = Жоғалу нүктесі
+tool.vanishing_point.description = Перспективасы бар нысанның үстіне жазықтықты сүйреп белгілеңіз, содан кейін режимді «Клондау» күйіне ауыстырып, бояңыз: көшірілген пиксельдер жазықтық бойымен орналасып, қашықтаған сайын кішірейеді.
+tool.vanishing_point.choice.edit_plane = Жазықтықты өңдеу
+tool.vanishing_point.choice.clone = Клондау
+tool.vanishing_point.history.vanishing_point = Жоғалу нүктесі

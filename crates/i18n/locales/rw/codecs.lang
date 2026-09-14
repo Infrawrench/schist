@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Idosiye mbisi ya kamera
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = gusobanura {name}
+codec.msg.zero_sized = ishusho nta pikisele ifite
+codec.msg.assembling_document = guteranya inyandiko
+
+codec.raw.msg.decoding = gusobanura idosiye mbisi
+codec.raw.msg.developing = gutunganya idosiye mbisi
+codec.raw.msg.finding_preview = gushakisha igaragazambere riri mu idosiye
+codec.raw.msg.decoding_preview = gusobanura igaragazambere riri mu idosiye
+codec.raw.msg.decoder_panicked = igisobanura idosiye mbisi cyananiwe kuri iyi dosiye: {what}
+
+codec.affinity.import_title = Kuzana Affinity
+codec.affinity.flattened_preview_layer = Igaragazambere ryahujwe
+codec.affinity.msg.no_preview = Nta garagazambere riri mu idosiye rishobora gukoreshwa. Imiterere y'inzego ni umutungo bwite wa Affinity; Schist izana igaragazambere ryahujwe idosiye yitwaje. Iyi dosiye nta ryo ifite — ongera uyibike muri Affinity, cyangwa uyibike nka PSD kugira ngo uzane inzego zose.
+
+codec.heif.msg.no_library = libheif ntiboneka ({details}). Gufungura HEIC bisaba isomero rya libheif (Linux: shyiramo libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — iyi verisiyo ya libheif ishobora kuba idafite igisobanura HEVC (kuri Debian/Ubuntu, shyiramo libheif-plugin-libde265)
+codec.heif.msg.unknown_error = ikosa ritazwi
+codec.heif.msg.initialising = gutegura libheif
+codec.heif.msg.reading_container = gusoma kontineri y'idosiye ya HEIF
+codec.heif.msg.finding_primary_image = gushakisha ishusho y'ibanze
+codec.heif.msg.reading_icc_profile = gusoma umwirondoro wa ICC
+codec.heif.msg.decoding_image = gusobanura ishusho
+codec.heif.msg.checksum_mismatch = Umubare w'igenzura wa {name} ntuhuye: wari utegerejwe {expected}, habonetse {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ntiyashoboye gusoma kontineri y'idosiye ya HEIF
+codec.heif.msg.container_empty = kontineri y'idosiye ya HEIF nta shusho irimo
+codec.heif.msg.imageio_cannot_decode = ImageIO ntiyashoboye gusobanura ishusho y'ibanze

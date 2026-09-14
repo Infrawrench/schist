@@ -1,0 +1,100 @@
+workspace.fill.gray_50 = Imvi 50%
+workspace.fill.content_aware = Yozindikira Zamkati
+workspace.modify.expand = Kulitsani Malo Osankhidwa
+workspace.modify.contract = Chepetsani Malo Osankhidwa
+workspace.modify.border = Ikani Malire pa Malo Osankhidwa
+workspace.modify.smooth = Salazani Malo Osankhidwa
+workspace.modify.feather = Fewetsani M'mphepete mwa Malo Osankhidwa
+
+workspace.batch.target.edit = Zosintha za mu gallery (zosungidwa m'mitundu)
+workspace.batch.target.beside = Makope pafupi ndi mafayilo oyambirira
+workspace.batch.target.folder = Makope mu foda…
+workspace.modal.image_size.title = Kukula kwa Chithunzi
+
+workspace.docs.opening = Ikutsegula {name}…
+workspace.docs.opened = Yatsegula {name}
+workspace.docs.open_failed = Kutsegula kwalephera: {error}
+workspace.docs.no_codec = {name} si mtundu wa fayilo womwe Schist ingatsegule
+workspace.docs.no_exporter = Schist singasunge mafayilo a .{ext}
+workspace.docs.empty_response = Seva yatumiza yankho lopanda kanthu
+workspace.docs.heic_not_installed = Kuthandiza HEIC sikunaikidwe
+workspace.docs.heic_downloading = Ikutsitsa chothandizira HEIC (libheif {version})…
+workspace.docs.heic_installed = Chothandizira HEIC chaikidwa
+workspace.docs.heic_download_failed = Kutsitsa chothandizira HEIC kwalephera: {error}
+workspace.docs.placing = Ikuika {name}…
+workspace.docs.place_image = Ikani Chithunzi
+workspace.docs.placed = Yaika {name}
+workspace.docs.place_failed = Kuika kwalephera: {error}
+workspace.docs.saved = Yasunga {name}
+workspace.docs.save_failed = Kusunga kwalephera: {error}
+
+workspace.adjustment.new_layer = Layer Yatsopano ya {name}
+workspace.adjustment.added = Yaonjezera {name}
+workspace.adjustment.settings = Zokonda za {name}
+workspace.adjustment.updated = {name} yasinthidwa
+workspace.adjustment.no_settings = {name} ilibe zokonda zosinthika
+workspace.comps.name_n = Maonekedwe a Layer {n}
+workspace.comps.captured = Maonekedwe a layer agwidwa
+workspace.comps.apply = Gwiritsani Ntchito {name}
+workspace.styles.layer_style = Masitayelo a Layer
+workspace.context.rename_layer = Sinthani Dzina la Layer
+workspace.commands.tool = Chida: {name}
+
+workspace.colormgmt.assign = Perekani {name}
+workspace.colormgmt.assigned = Yapatsidwa {name}
+workspace.colormgmt.convert_to = Sinthani Kukhala {name}
+workspace.colormgmt.converted_to = Yasinthidwa Kukhala {name}
+workspace.colormgmt.convert_failed = Kusintha kwalephera: {error}
+workspace.colormgmt.proof_on = Kuyesa mitundu kwayatsidwa
+workspace.colormgmt.proof_off = Kuyesa mitundu kwazimitsidwa
+
+workspace.filters.choose = Sankhani
+workspace.filters.select_layer_first = Sankhani kaye layer
+workspace.filters.needs_pixel_layer = Masefa amafuna layer ya ma pixel
+workspace.filters.nothing_to_filter = Palibe chosefera
+workspace.filters.went_away = Sefa yachoka
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: layer yomwe inasefedwa yachoka
+workspace.filters.plugin_title = Plug-in ya Photoshop
+workspace.filters.running = Ikuyambitsa {name}
+workspace.filters.plugin_note = Plug-in imayenda mu process yake. Ngati yatsegula zenera, yankhani mmenemo kuti mupitirize.
+workspace.filters.raw_preview_developing = Ikukonza chithunzi choonera cha RAW…
+workspace.filters.raw_preview_done = Chithunzi choonera cha RAW (demosaic yachangu)
+workspace.filters.raw_preview_size_changed = Kukula kwa chithunzi choonera cha RAW kwasintha: {w} × {h}
+workspace.filters.raw_preview_failed = Chithunzi choonera cha RAW chalephera: {error}
+workspace.filters.raw_developing = Ikukonza chithunzi choyambirira chojambulidwa…
+workspace.filters.raw_developing_note = Ikugwiritsa ntchito njira yabwino kwambiri ya demosaic. Fayilo yoyambirira ya RAW ndi zokonda izi zimakhalabe zosinthika mutasunga ngati PSD kapena PSB.
+workspace.filters.raw_document_changed = Kukonza RAW kwatha chikalata chake chitasintha
+workspace.filters.raw_failed = Kukonza RAW kwalephera: {error}
+workspace.filters.raw_too_wide = Zotsatira za RAW ndi zotambalala kwambiri
+workspace.filters.raw_too_tall = Zotsatira za RAW ndi zazitali kwambiri
+workspace.filters.raw_size_changed = Kukula kwa zotsatira za RAW kwasintha kukhala {w} × {h}; layer yamakono ikusungidwa
+workspace.filters.raw_history = Kukonza ndi Camera Raw
+workspace.filters.raw_applied = Kukonza ndi Camera Raw kwagwiritsidwa ntchito (demosaic yabwino kwambiri)
+
+workspace.image_size.done = Kukula kwa chithunzi: {w} × {h}
+workspace.image_size.bicubic_fallback = Kukula kwa chithunzi: {w} × {h} — model ya {name} sinatseguke, choncho bicubic yalowa m'malo
+workspace.image_size.upscaling = Ikukulitsa ndi {name}
+workspace.image_size.upscaling_note = Ma megapixel {mp} kudzera mu network, masekondi angapo pa lililonse. Chikalatachi chimasungidwa mpaka zitatha.
+
+workspace.export.no_slices = Palibe magawo oti atumizidwe
+workspace.export.no_artboards = Palibe ma artboard oti atumizidwe
+workspace.export.regions.one = Yatumiza dera {n}
+workspace.export.regions.other = Yatumiza madera {n}
+workspace.export.prompt = Tumizani monga:
+workspace.export.done = Yatumiza {name}
+workspace.export.failed = Kutumiza kwalephera: {error}
+workspace.export.codec_vanished = Chotumizira sichikupezekanso
+
+workspace.file_picker.choose_folder = Sankhani Foda
+workspace.file_picker.type_a_name = Lembani dzina la fayilo
+workspace.file_picker.exists = {name} ilipo; dinaninso Sungani kuti mulowe m'malo mwake
+workspace.file_picker.tap_a_file = Dinani fayilo kuti muitsegule
+workspace.file_picker.pictures = Zithunzi
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Zotsitsidwa
+workspace.file_picker.permission_denied = Schist ilibe chilolezo chowerenga foda iyi
+
+workspace.recovery.recovered_title = {title} (yabwezeretsedwa)
+workspace.recovery.recovered.one = Yabwezeretsa ntchito yosasungidwa ya session yapita
+workspace.recovery.recovered.other = Yabwezeretsa zikalata {n} za session yapita

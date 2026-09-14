@@ -1,0 +1,162 @@
+# Hainbat iragazkik partekatutako etiketak
+filter.neural.param.center_x = X zentroa
+filter.neural.param.center_y = Y zentroa
+filter.neural.param.direction = Norabidea
+filter.neural.param.transition = Trantsizioa
+filter.neural.param.detail = Xehetasuna
+filter.neural.param.eyes = Begiak
+
+# Modeloa darabilen iragazki baten elkarrizketa
+filter.neural.msg.using_model = {model} erabiltzen · {license}.
+filter.neural.msg.get_model = Eskuratu Iragazkia ▸ Neural Filters ▸ Kudeatu modeloak menuan.
+
+# Camera Raw iragazkia
+filter.camera_raw.name = Camera Raw iragazkia
+filter.camera_raw.param.temperature = Tenperatura
+filter.camera_raw.param.tint = Ñabardura
+filter.camera_raw.param.highlights = Argiuneak
+filter.camera_raw.param.shadows = Itzalak
+filter.camera_raw.param.whites = Zuriak
+filter.camera_raw.param.blacks = Beltzak
+filter.camera_raw.param.clarity = Argitasuna
+filter.camera_raw.param.dehaze = Kendu gandua
+filter.camera_raw.param.vibrance = Bizitasuna
+filter.camera_raw.param.sharpening = Zorroztasuna
+filter.camera_raw.param.noise = Zarata-murrizketa
+filter.camera_raw.param.vignette = Bineta
+
+# Objektiboaren zuzenketa
+filter.lens_correction.name = Objektiboaren zuzenketa
+filter.lens_correction.param.distortion = Kendu distortsioa
+filter.lens_correction.param.red = Zuzendu ertz gorri/ziana
+filter.lens_correction.param.blue = Zuzendu ertz urdin/horia
+filter.lens_correction.param.vignette = Bineta-kantitatea
+filter.lens_correction.param.midpoint = Binetaren erdiko puntua
+filter.lens_correction.param.vertical = Perspektiba bertikala
+filter.lens_correction.param.horizontal = Perspektiba horizontala
+
+# Angelu zabal moldagarria
+filter.adaptive_wide_angle.name = Angelu zabal moldagarria
+filter.adaptive_wide_angle.param.projection = Zuzenketa
+filter.adaptive_wide_angle.choice.fisheye = Arrain-begia
+filter.adaptive_wide_angle.choice.perspective = Perspektiba
+filter.adaptive_wide_angle.choice.full_spherical = Esferiko osoa
+filter.adaptive_wide_angle.param.focal = Foku-distantzia
+filter.adaptive_wide_angle.param.crop = Mozte-faktorea
+
+# Lausotze-galeria
+filter.field_blur.name = Eremu-lausotzea
+filter.field_blur.param.position = Zorrotz hemen
+filter.iris_blur.name = Iris-lausotzea
+filter.iris_blur.param.roundness = Biribiltasuna
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Zentroa
+filter.tilt_shift.param.band = Zorroztasun-banda
+filter.spin_blur.name = Biraketa-lausotzea
+filter.spin_blur.param.angle = Lausotze-angelua
+filter.path_blur.name = Bide-lausotzea
+filter.path_blur.param.speed = Abiadura
+filter.path_blur.param.curve = Kurbadura
+filter.path_blur.param.taper = Estutzea
+
+# Lausotzea
+filter.shape_blur.name = Forma-lausotzea
+filter.shape_blur.choice.square = Karratua
+filter.shape_blur.choice.diamond = Erronboa
+filter.shape_blur.choice.hexagon = Hexagonoa
+filter.shape_blur.choice.cross = Gurutzea
+filter.shape_blur.choice.ring = Eraztuna
+filter.shape_blur.choice.star = Izarra
+filter.smart_blur.name = Lausotze adimenduna
+filter.smart_blur.choice.normal = Normala
+filter.smart_blur.choice.edge_only = Ertza soilik
+filter.smart_blur.choice.overlay_edge = Gainjarri ertza
+
+# Bideoa
+filter.deinterlace.name = Desgurutzelarkatu
+filter.deinterlace.param.field = Ezabatu
+filter.deinterlace.choice.odd_fields = Eremu bakoitiak
+filter.deinterlace.choice.even_fields = Eremu bikoitiak
+filter.deinterlace.param.fill = Sortu eremu berriak honela
+filter.deinterlace.choice.interpolation = Interpolazioa
+filter.deinterlace.choice.duplication = Bikoizketa
+filter.ntsc_colors.name = NTSC koloreak
+
+# Neural Filters
+filter.neural.skin_smoothing.name = Azala leuntzea
+filter.neural.skin_smoothing.param.blur = Leuntasuna
+filter.neural.skin_smoothing.param.detail = Mantendu xehetasuna
+filter.neural.skin_smoothing.msg.no_model = {model} ez dago instalatuta; horren ordez, azal-kolorea duen guztia leuntzen.
+
+filter.neural.jpeg_artifacts.name = Kendu JPEG artefaktuak
+filter.neural.jpeg_artifacts.msg.no_model = {model} ez dago instalatuta; horren ordez, 8 pixeleko sareta leuntzen.
+
+filter.neural.colorize.name = Koloreztatu
+filter.neural.colorize.param.warmth = Berotasuna
+filter.neural.colorize.msg.no_model = {model} ez dago instalatuta; horren ordez, luminantziaren arabera ñabartzen.
+
+filter.neural.super_zoom.name = Super zooma
+filter.neural.super_zoom.msg.no_model = {model} ez dago instalatuta; horren ordez, ertzen araberako zorroztasuna erabiltzen.
+
+filter.neural.style_transfer.name = Estilo-transferentzia
+filter.neural.style_transfer.choice.mosaic = Mosaikoa
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Ez dago estilo-modelorik instalatuta; kolorea soilik transferitzen. Eskuratu Iragazkia ▸ Neural Filters ▸ Kudeatu modeloak menuan.
+filter.neural.style_transfer.msg.installed = Instalatuta: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Kolore-transferentzia
+filter.neural.color_transfer.param.hue = Helburuko tonua
+filter.neural.color_transfer.param.contrast = Parekatu kontrastea
+filter.neural.color_transfer.msg.info = Azpiko geruzatik hartzen du paleta. Azpian ezer ez badago, Helburuko tonua lortzen saiatzen da.
+
+filter.neural.depth_blur.name = Sakonera-lausotzea
+filter.neural.depth_blur.param.focus = Foku-distantzia
+filter.neural.depth_blur.param.blur = Lausotze-indarra
+filter.neural.depth_blur.msg.no_model = {model} ez dago instalatuta; horren ordez, tokiko zorroztasunaren arabera fokatzen.
+
+filter.neural.harmonization.name = Harmonizazioa
+filter.neural.harmonization.param.tone = Parekatu tonua
+filter.neural.harmonization.msg.info = Geruza hau azpian dagoenarekin parekatzen du. Azpian ezer ez badago, ez dago zerekin parekatu eta ez du ezer egiten.
+
+filter.neural.landscape_mixer.name = Paisaia-nahasgailua
+filter.neural.landscape_mixer.param.bands = Sakonera-bandak
+filter.neural.landscape_mixer.msg.with_depth = Azpiko geruzatik hartzen du paleta, bandaz banda parekatuta Depth (Depth Blur) erabiliz.
+filter.neural.landscape_mixer.msg.without_depth = Azpiko geruzatik hartzen du paleta. Instalatu Depth (Depth Blur), zerua zeruarekin eta lurra lurrarekin parekatzeko, irudi osoa batera parekatu beharrean.
+
+filter.neural.photo_restoration.name = Argazki-zaharberritzea
+filter.neural.photo_restoration.param.enhance = Argazki-hobekuntza
+filter.neural.photo_restoration.param.scratches = Marradura-murrizketa
+filter.neural.photo_restoration.param.tone = Berrezarri tonua
+filter.neural.photo_restoration.msg.no_model = Modelorik gabe garbitzen.
+filter.neural.photo_restoration.msg.using_deblock = Deblock erabiltzen · Schistentzat trebatua.
+filter.neural.photo_restoration.msg.using_detail = Detail erabiltzen · Schistentzat trebatua.
+filter.neural.photo_restoration.msg.using_both = Deblock eta Detail erabiltzen · Schistentzat trebatuak.
+
+filter.neural.photo_to_sketch.name = Argazkitik zirriborrora
+filter.neural.photo_to_sketch.param.weight = Lerro-lodiera
+filter.neural.photo_to_sketch.param.shading = Itzaldura
+
+filter.neural.face_to_caricature.name = Aurpegitik karikaturara
+filter.neural.face_to_caricature.param.mouth = Ahoa
+filter.neural.face_to_caricature.param.head = Burua
+filter.neural.face_to_caricature.msg.no_model = {model} ez dago instalatuta; beraz, honek ez du ezer egiten: ez dago karikaturizatzeko ezer.
+
+filter.neural.smart_portrait.name = Erretratu adimenduna
+filter.neural.smart_portrait.param.happiness = Poztasuna
+filter.neural.smart_portrait.param.surprise = Harridura
+filter.neural.smart_portrait.param.age = Aurpegiaren adina
+filter.neural.smart_portrait.param.gaze = Begirada
+filter.neural.smart_portrait.param.light = Argiaren norabidea
+filter.neural.smart_portrait.msg.no_model = {model} ez dago instalatuta; beraz, honek ez du ezer egiten: ez du lantzeko aurpegirik.
+
+filter.neural.makeup_transfer.name = Makillaje-transferentzia
+filter.neural.makeup_transfer.param.lips = Ezpainak
+filter.neural.makeup_transfer.param.skin = Azal-tonua
+filter.neural.makeup_transfer.msg.info = Azpiko geruzako aurpegi batetik hartzen du makillajea. Kolorea, ez testura.
+filter.neural.makeup_transfer.msg.no_model = {model} ez dago instalatuta; beraz, honek ez du ezer egiten.
+
+filter.neural.sketch_to_portrait.name = Zirriborrotik erretratura
+filter.neural.sketch_to_portrait.param.detail = Mantendu lerroak
+filter.neural.sketch_to_portrait.msg.with_face = Aplikazio honen Argazkitik zirriborrora emaitzak osatzeko trebatua. Aurkitzen duen aurpegian lan egiten du.
+filter.neural.sketch_to_portrait.msg.no_face = Aplikazio honen Argazkitik zirriborrora emaitzak osatzeko trebatua. Instalatu Faces (Skin Smoothing), hautapen osoan beharrean aurpegian lan egin dezan.

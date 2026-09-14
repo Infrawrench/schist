@@ -1,0 +1,40 @@
+# Rispostas de sa barra de istadu
+workspace.canvas.rotate_view_degrees = Gira sa visualizatzione de {degrees}°
+workspace.canvas.view_reset = Visualizatzione ripristinada
+workspace.canvas.notes_on = Notas ativas
+workspace.canvas.notes_off = Notas disativadas
+workspace.canvas.rulers_on = Rigas ativas
+workspace.canvas.rulers_off = Rigas disativadas
+workspace.canvas.grid_on = Retza ativa
+workspace.canvas.grid_off = Retza disativada
+workspace.canvas.guides_on = Ghias ativas
+workspace.canvas.guides_off = Ghias disativadas
+workspace.canvas.extras_on = Elementos in prus ativos
+workspace.canvas.extras_off = Elementos in prus disativados
+workspace.canvas.snap_on = Acapiadura ativa
+workspace.canvas.snap_off = Acapiadura disativada
+workspace.canvas.guides_cleared = Ghias isboidadas
+workspace.canvas.no_path = Perunu percursu de impreare
+workspace.canvas.path_empty = Su percursu est bòidu
+workspace.canvas.stroke_needs_selection = Pro su tratu serbit una seletzione
+workspace.canvas.nothing_to_stroke = Nudda de tratizare
+workspace.canvas.content_aware_fill_needs_selection = Pro sa Prentura cun atentzione a su cuntenutu serbit una seletzione
+workspace.canvas.content_aware_fill_needs_pixel_layer = Pro sa Prentura cun atentzione a su cuntenutu serbit un'istratu de pixel
+workspace.canvas.color_range_needs_pixel_layer = Pro sa Gamma de colores serbit un'istratu de pixel
+workspace.canvas.nothing_to_adjust = Nudda de assestare
+workspace.canvas.nothing_to_trim = Nudda de rifilare
+workspace.canvas.trimmed = Rifiladu
+workspace.canvas.indexed_not_supported = Su Colore inditzizadu no est ancora cumpatìbile
+workspace.canvas.opacity_percent = Opacidade: {n}%
+
+# Boghes de sa cronologia
+workspace.history.stroke = Tratu
+workspace.history.fill = Prentura
+workspace.history.content_aware_scale = Iscala cun atentzione a su cuntenutu
+workspace.history.filter_gallery = Galleria de filtros
+workspace.history.color_range = Gamma de colores
+workspace.history.move_layer = Tramuda s'istratu
+workspace.history.move_layers = Tramuda is istratos
+workspace.history.layer_opacity = Opacidade de s'istratu
+workspace.history.delete_note = Cantzella sa nota
+workspace.history.edit_note = Modìfica sa nota

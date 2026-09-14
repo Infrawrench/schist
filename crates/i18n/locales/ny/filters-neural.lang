@@ -1,0 +1,148 @@
+filter.neural.param.center_x = Pakati X
+filter.neural.param.center_y = Pakati Y
+filter.neural.param.direction = Kolowera
+filter.neural.param.transition = Kusintha
+filter.neural.param.detail = Tsatanetsatane
+filter.neural.param.eyes = Maso
+filter.neural.msg.using_model = Ikugwiritsa ntchito {model} · {license}.
+filter.neural.msg.get_model = Pezani kuchokera ku Sefa ▸ Neural Filters ▸ Konzani Ma Model.
+
+filter.camera_raw.name = Sefa ya Camera Raw
+filter.camera_raw.param.temperature = Kutentha
+filter.camera_raw.param.tint = Mtundu Wowonjezera
+filter.camera_raw.param.highlights = Malo Owala
+filter.camera_raw.param.shadows = Mithunzi
+filter.camera_raw.param.whites = Mitundu Yoyera
+filter.camera_raw.param.blacks = Mitundu Yakuda
+filter.camera_raw.param.clarity = Kumveka Bwino
+filter.camera_raw.param.dehaze = Chotsani Nkhungu
+filter.camera_raw.param.vibrance = Kulimbitsa Mitundu
+filter.camera_raw.param.sharpening = Kuonetsa Bwino
+filter.camera_raw.param.noise = Kuchepetsa Phokoso
+filter.camera_raw.param.vignette = Vignette
+
+filter.lens_correction.name = Kukonza Lens
+filter.lens_correction.param.distortion = Chotsani Kupotozeka
+filter.lens_correction.param.red = Konzani M'mphepete Mofiira/Cyan
+filter.lens_correction.param.blue = Konzani M'mphepete Mwabuluu/Wachikasu
+filter.lens_correction.param.vignette = Kuchuluka kwa Vignette
+filter.lens_correction.param.midpoint = Pakati pa Vignette
+filter.lens_correction.param.vertical = Perspective Yoimirira
+filter.lens_correction.param.horizontal = Perspective Yam'mbali
+
+filter.adaptive_wide_angle.name = Ngodya Yaikulu Yodzisintha
+filter.adaptive_wide_angle.param.projection = Kukonza
+filter.adaptive_wide_angle.choice.fisheye = Diso la Nsomba
+filter.adaptive_wide_angle.choice.perspective = Perspective
+filter.adaptive_wide_angle.choice.full_spherical = Yozungulira Yonse
+filter.adaptive_wide_angle.param.focal = Utali wa Focal
+filter.adaptive_wide_angle.param.crop = Mlingo Wodulira
+
+filter.field_blur.name = Kusawoneka Bwino kwa Dera
+filter.field_blur.param.position = Poonekera Bwino
+filter.iris_blur.name = Kusawoneka Bwino kwa Iris
+filter.iris_blur.param.roundness = Kuzungulira
+filter.tilt_shift.name = Kupendeketsa ndi Kusuntha
+filter.tilt_shift.param.position = Pakati
+filter.tilt_shift.param.band = Mzere Wooneka Bwino
+filter.spin_blur.name = Kusawoneka Bwino Pozungulira
+filter.spin_blur.param.angle = Ngodya Yosawoneka Bwino
+filter.path_blur.name = Kusawoneka Bwino kwa Path
+filter.path_blur.param.speed = Liwiro
+filter.path_blur.param.curve = Kupindika
+filter.path_blur.param.taper = Kuchepa Kumapeto
+
+filter.shape_blur.name = Kusawoneka Bwino kwa Mawonekedwe
+filter.shape_blur.choice.square = Sikweya
+filter.shape_blur.choice.diamond = Dayamondi
+filter.shape_blur.choice.hexagon = Hexagon
+filter.shape_blur.choice.cross = Mtanda
+filter.shape_blur.choice.ring = Mphete
+filter.shape_blur.choice.star = Nyenyezi
+filter.smart_blur.name = Kusawoneka Bwino Mwanzeru
+filter.smart_blur.choice.normal = Wamba
+filter.smart_blur.choice.edge_only = M'mphepete Mokha
+filter.smart_blur.choice.overlay_edge = Ikani M'mphepete Pamwamba
+
+filter.deinterlace.name = Chotsani Interlace
+filter.deinterlace.param.field = Chotsani
+filter.deinterlace.choice.odd_fields = Ma Field a Manambala Osagawika ndi 2
+filter.deinterlace.choice.even_fields = Ma Field a Manambala Ogawika ndi 2
+filter.deinterlace.param.fill = Pangani Ma Field Atsopano Pogwiritsa Ntchito
+filter.deinterlace.choice.interpolation = Interpolation
+filter.deinterlace.choice.duplication = Kupanga Chofanana
+filter.ntsc_colors.name = Mitundu ya NTSC
+
+filter.neural.skin_smoothing.name = Kusalaza Khungu
+filter.neural.skin_smoothing.param.blur = Kusalala
+filter.neural.skin_smoothing.param.detail = Sungani Tsatanetsatane
+filter.neural.skin_smoothing.msg.no_model = {model} sinaikidwe—m'malo mwa nkhope, ikusasalaza chilichonse cha mtundu wa khungu.
+filter.neural.jpeg_artifacts.name = Kuchotsa Zolakwika za JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} sinaikidwe—ikusasalaza gulidi ya ma pixel 8 m'malo mwake.
+filter.neural.colorize.name = Ikani Mtundu
+filter.neural.colorize.param.warmth = Kutentha kwa Mtundu
+filter.neural.colorize.msg.no_model = {model} sinaikidwe—ikupereka mtundu malinga ndi kuwala m'malo mwake.
+filter.neural.super_zoom.name = Kukulitsa Kwambiri
+filter.neural.super_zoom.msg.no_model = {model} sinaikidwe—ikugwiritsa ntchito kuonetsa bwino motsatira m'mphepete m'malo mwake.
+
+filter.neural.style_transfer.name = Kusamutsa Masitayelo
+filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Palibe ma model a masitayelo oikidwa—ikusamutsa mtundu wokha. Pezani kuchokera ku Sefa ▸ Neural Filters ▸ Konzani Ma Model.
+filter.neural.style_transfer.msg.installed = Zoikidwa: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Kusamutsa Mtundu
+filter.neural.color_transfer.param.hue = Mtundu Wofunika
+filter.neural.color_transfer.param.contrast = Fananitsani Kusiyana
+filter.neural.color_transfer.msg.info = Imatenga gulu la mitundu mu layer yomwe ili pansi pake. Ngati palibe chili pansi, imalunjika ku Mtundu Wofunika m'malo mwake.
+
+filter.neural.depth_blur.name = Kusawoneka Bwino kwa Kuzama
+filter.neural.depth_blur.param.focus = Mtunda wa Focus
+filter.neural.depth_blur.param.blur = Mphamvu Yosawoneka Bwino
+filter.neural.depth_blur.msg.no_model = {model} sinaikidwe—ikuika focus malinga ndi kuoneka bwino kwa malo m'malo mwake.
+
+filter.neural.harmonization.name = Kugwirizanitsa
+filter.neural.harmonization.param.tone = Fananitsani Kamvekedwe
+filter.neural.harmonization.msg.info = Imafanitsa layer iyi ndi chilichonse chomwe chili pansi pake. Ngati palibe chili pansi, palibe chofanizira ndipo palibe chimene imachita.
+
+filter.neural.landscape_mixer.name = Chosakanizira Malo Achilengedwe
+filter.neural.landscape_mixer.param.bands = Magulu a Kuzama
+filter.neural.landscape_mixer.msg.with_depth = Imatenga gulu la mitundu mu layer yomwe ili pansi pake, kufananitsa gulu ndi gulu pogwiritsa ntchito Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Imatenga gulu la mitundu mu layer yomwe ili pansi pake. Ikani Depth (Depth Blur) kuti ifananitse thambo ndi thambo komanso nthaka ndi nthaka m'malo mofananitsa chithunzi chonse.
+
+filter.neural.photo_restoration.name = Kubwezeretsa Chithunzi cha Kamera
+filter.neural.photo_restoration.param.enhance = Kukonza Chithunzi cha Kamera
+filter.neural.photo_restoration.param.scratches = Kuchepetsa Mikwingwirima
+filter.neural.photo_restoration.param.tone = Bwezeretsani Kamvekedwe
+filter.neural.photo_restoration.msg.no_model = Ikuyeretsa popanda model.
+filter.neural.photo_restoration.msg.using_deblock = Ikugwiritsa ntchito Deblock · yophunzitsidwa ya Schist.
+filter.neural.photo_restoration.msg.using_detail = Ikugwiritsa ntchito Detail · yophunzitsidwa ya Schist.
+filter.neural.photo_restoration.msg.using_both = Ikugwiritsa ntchito Deblock ndi Detail · zophunzitsidwa za Schist.
+
+filter.neural.photo_to_sketch.name = Chithunzi cha Kamera Kukhala Chojambula
+filter.neural.photo_to_sketch.param.weight = Makulidwe a Mzere
+filter.neural.photo_to_sketch.param.shading = Mthunzi
+filter.neural.face_to_caricature.name = Nkhope Kukhala Caricature
+filter.neural.face_to_caricature.param.mouth = Pakamwa
+filter.neural.face_to_caricature.param.head = Mutu
+filter.neural.face_to_caricature.msg.no_model = {model} sinaikidwe, choncho izi sizichita kanthu—palibe chopanga caricature.
+
+filter.neural.smart_portrait.name = Portrait Yanzeru
+filter.neural.smart_portrait.param.happiness = Chimwemwe
+filter.neural.smart_portrait.param.surprise = Kudabwa
+filter.neural.smart_portrait.param.age = Zaka za Nkhope
+filter.neural.smart_portrait.param.gaze = Kuyang'ana
+filter.neural.smart_portrait.param.light = Kolowera kwa Kuwala
+filter.neural.smart_portrait.msg.no_model = {model} sinaikidwe, choncho izi sizichita kanthu—zilibe nkhope yogwirirapo ntchito.
+
+filter.neural.makeup_transfer.name = Kusamutsa Makeup
+filter.neural.makeup_transfer.param.lips = Milomo
+filter.neural.makeup_transfer.param.skin = Mtundu wa Khungu
+filter.neural.makeup_transfer.msg.info = Imatenga makeup pa nkhope yomwe ili mu layer yapansi. Mtundu wokha, osati kapangidwe.
+filter.neural.makeup_transfer.msg.no_model = {model} sinaikidwe, choncho izi sizichita kanthu.
+
+filter.neural.sketch_to_portrait.name = Chojambula Kukhala Portrait
+filter.neural.sketch_to_portrait.param.detail = Sungani Mizere
+filter.neural.sketch_to_portrait.msg.with_face = Yaphunzitsidwa kudzaza zotsatira za Photo to Sketch za pulogalamuyi. Imagwira ntchito pa nkhope yomwe yapeza.
+filter.neural.sketch_to_portrait.msg.no_face = Yaphunzitsidwa kudzaza zotsatira za Photo to Sketch za pulogalamuyi. Ikani Faces (Skin Smoothing) ndipo idzagwira ntchito pa nkhope m'malo mwa malo onse osankhidwa.

@@ -1,0 +1,25 @@
+tool.transform.name = Slobodno transformiranje
+tool.transform.description = Slobodno transformiranje. Aktiviranjem se oko aktivnog sloja otvara okvir za transformiranje: povucite kut za promjenu veličine, izvan kuta za zakretanje ili rub za ukošavanje. Promjene se ne zapisuju dok ih ne potvrdite tipkom Enter, a otkazivanje tipkom Escape vraća sloj u početno stanje.
+tool.transform.option.interpolation = Interpolacija
+tool.transform.history.transform = Slobodno transformiranje
+tool.transform.history.image_size = Veličina slike
+tool.transform.history.canvas_size = Veličina platna
+
+tool.transform.selection.name = Transformiranje odabira
+tool.transform.selection.description = Transformiranje odabira: isti okvir, ali pomiče obris odabira umjesto piksela unutar njega. Za završetak potvrdite ili otkažite postupak.
+tool.transform.selection.history.transform = Transformiranje odabira
+
+tool.transform.resample.nearest_neighbor = Najbliži susjed
+tool.transform.resample.bilinear = Bilinearno
+tool.transform.resample.bicubic = Bikubično
+
+tool.crop.name = Obrezivanje
+tool.crop.description = Povucite kako biste označili područje koje želite zadržati i prilagodite njegove ručke; potvrdom tipkom Enter dokument se obrezuje na to područje, a otkazivanjem tipkom Escape ostaje nepromijenjen.
+tool.crop.option.ratio = Omjer
+tool.crop.option.delete_cropped = Izbriši obrezane piksele
+tool.crop.choice.unconstrained = Bez ograničenja
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Obrezivanje

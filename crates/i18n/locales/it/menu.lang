@@ -1,0 +1,155 @@
+# Barra dei menu dell'applicazione.
+
+# File
+menu.file = File
+menu.file.new = Nuovo
+menu.file.open = Apri…
+menu.file.open_recent = Apri recenti
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Sfoglia galleria…
+menu.file.close = Chiudi
+menu.file.save = Salva
+menu.file.save_as = Salva con nome…
+menu.file.export = Esporta…
+menu.file.export_submenu = Esporta
+menu.file.export_artboards = Esporta tavole da disegno in PNG…
+menu.file.export_slices = Esporta sezioni in PNG…
+menu.file.save_to_photos = Salva in Foto
+menu.file.plugins = Plugin…
+menu.file.missing_fonts = Font mancanti…
+menu.file.check_for_updates = Verifica aggiornamenti…
+menu.file.quit = Esci
+menu.file.add_folder_to_gallery = Aggiungi cartella alla galleria…
+menu.file.import_from_photos = Importa da Foto…
+menu.file.import_from_camera = Importa da fotocamera…
+
+# Modifica
+menu.edit = Modifica
+menu.edit.fill = Riempi…
+menu.edit.stroke = Traccia…
+menu.edit.content_aware_fill = Riempimento in base al contenuto
+menu.edit.content_aware_scale = Scala in base al contenuto…
+menu.edit.puppet_warp = Alterazione marionetta
+menu.edit.free_transform = Trasformazione libera
+menu.edit.transform = Trasforma
+menu.edit.rotate_180 = Ruota di 180°
+menu.edit.rotate_90_cw = Ruota di 90° in senso orario
+menu.edit.rotate_90_ccw = Ruota di 90° in senso antiorario
+menu.edit.flip_horizontal = Rifletti in orizzontale
+menu.edit.flip_vertical = Rifletti in verticale
+
+# Immagine
+menu.image = Immagine
+menu.image.mode = Metodo
+menu.image.adjustments = Regolazioni
+menu.image.auto_tone = Tonalità automatica
+menu.image.auto_contrast = Contrasto automatico
+menu.image.auto_color = Colore automatico
+menu.image.image_size = Dimensione immagine…
+menu.image.canvas_size = Dimensione quadro…
+menu.image.image_rotation = Rotazione immagine
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° in senso orario
+menu.image.rotate_90_ccw = 90° in senso antiorario
+menu.image.flip_canvas_horizontal = Rifletti quadro in orizzontale
+menu.image.flip_canvas_vertical = Rifletti quadro in verticale
+menu.image.crop_to_selection = Ritaglia in base alla selezione
+menu.image.trim = Rifila
+menu.image.assign_profile = Assegna profilo…
+menu.image.convert_to_profile = Converti in profilo…
+
+# Selezione
+menu.select = Selezione
+menu.select.color_range = Intervallo colori…
+menu.select.modify = Modifica
+menu.select.border = Bordo…
+menu.select.smooth = Arrotonda…
+menu.select.expand = Espandi…
+menu.select.contract = Contrai…
+menu.select.feather = Sfuma…
+menu.select.transform_selection = Trasforma selezione
+
+# Livello
+menu.layer = Livello
+menu.layer.layer_style = Stile livello…
+menu.layer.layer_comps = Composizioni livelli
+menu.layer.new_layer_comp = Nuova composizione livelli
+menu.layer.delete_layer_comp = Elimina {name}
+menu.layer.path = Tracciato
+menu.layer.fill_path = Riempi tracciato
+menu.layer.stroke_path = Traccia tracciato
+menu.layer.make_selection = Crea selezione
+menu.layer.delete_path = Elimina tracciato
+
+# Regola
+menu.adjust = Regola
+
+# Filtro
+menu.filter = Filtro
+menu.filter.filter_gallery = Galleria filtri…
+menu.filter.liquify = Fluidifica
+menu.filter.vanishing_point = Fuoco prospettico
+menu.filter.manage_models = Gestisci modelli…
+menu.filter.camera_raw_development = Sviluppo Camera Raw…
+
+# Visualizza
+menu.view = Visualizza
+menu.view.rotate_view_cw = Ruota vista in senso orario
+menu.view.rotate_view_ccw = Ruota vista in senso antiorario
+menu.view.reset_view = Ripristina vista
+menu.view.zoom_in = Ingrandisci
+menu.view.zoom_out = Riduci
+menu.view.fit_on_screen = Adatta allo schermo
+menu.view.actual_size = 100%
+menu.view.rulers = Righelli
+menu.view.grid = Griglia
+menu.view.guides = Guide
+menu.view.notes = Note
+menu.view.ai_panel = Pannello IA
+menu.view.extras = Extra
+menu.view.snap = Allinea
+menu.view.clear_guides = Cancella guide
+menu.view.clear_notes = Cancella note
+menu.view.clear_count = Cancella conteggio
+menu.view.screen_mode = Metodo schermo
+menu.view.proof_colors = Prova colori
+menu.view.show_rulers = Mostra righelli
+menu.view.hide_rulers = Nascondi righelli
+menu.view.show_grid = Mostra griglia
+menu.view.hide_grid = Nascondi griglia
+menu.view.show_guides = Mostra guide
+menu.view.hide_guides = Nascondi guide
+menu.view.show_notes = Mostra note
+menu.view.hide_notes = Nascondi note
+menu.view.show_extras = Mostra extra
+menu.view.hide_extras = Nascondi extra
+menu.view.enable_snapping = Attiva allineamento
+menu.view.disable_snapping = Disattiva allineamento
+menu.view.enable_proof_colors = Attiva prova colori
+menu.view.disable_proof_colors = Disattiva prova colori
+
+# Galleria
+menu.gallery = Galleria
+menu.gallery.edit_selected = Modifica selezionati
+menu.gallery.refresh = Ricarica
+menu.gallery.map_filter = Filtro mappa…
+menu.gallery.back_to_editor = Torna all'editor
+
+# Sottomenu Schist Cloud
+menu.cloud.browse = Sfoglia Schist Cloud
+menu.cloud.generate = Genera immagini…
+menu.cloud.upload = Carica documento su Schist Cloud…
+menu.cloud.sign_out = Esci da Schist Cloud
+menu.cloud.sign_in = Accedi a Schist Cloud…
+
+# Menu dell'applicazione macOS
+menu.app.services = Servizi
+menu.app.hide = Nascondi {app}
+menu.app.hide_others = Nascondi altre
+menu.app.show_all = Mostra tutte
+menu.app.quit = Esci da {app}
+
+# Risposte della barra di stato per le voci di menu non disponibili
+menu.status.transform_selection_needs_selection = Trasforma selezione richiede una selezione
+menu.status.crop_needs_selection = Ritaglia in base alla selezione richiede una selezione
+menu.status.select_photo_to_edit = Seleziona una foto da modificare

@@ -1,0 +1,27 @@
+# Tanlash vositalari
+tool.select.mode.subtract = Ayirish
+tool.select.mode.intersect = Kesishma
+tool.marquee.rect.name = To‘rtburchak tanlash
+tool.marquee.rect.description = To‘rtburchak tanlovni sudrab chizing. Sudrash boshida Shift bosilsa tanlovga qo‘shadi, Alt ayiradi, ikkalasi birga kesishmani oladi; sudrash davomida Shift shaklni kvadrat qiladi. Sudramasdan bosish tanlovni bekor qiladi.
+tool.marquee.ellipse.name = Ellipssimon tanlash
+tool.marquee.ellipse.description = To‘rtburchak tanlashdagi kabi Shift/Alt yordamida birlashtirib, ellipssimon tanlovni sudrab chizing.
+tool.lasso.name = Lasso
+tool.lasso.description = Erkin shaklli chegara chizing; sudrash tugaganda tanlovning uchlari tutashtiriladi. Shift qo‘shadi, Alt ayiradi.
+tool.lasso.history.select = Lasso bilan tanlash
+tool.lasso.polygonal.name = Ko‘pburchakli lasso
+tool.lasso.polygonal.description = To‘g‘ri qirrali tanlov yaratish uchun burchaklarni ketma-ket bosing va yopish uchun birinchi nuqta yaqiniga bosing.
+tool.lasso.polygonal.history.select = Ko‘pburchakli lasso
+tool.lasso.magnetic.name = Magnitli lasso
+tool.lasso.magnetic.description = Qirra bo‘ylab taxminan chizing, shunda chegara kontur yaqinidagi eng kuchli kontrastga yopishadi.
+tool.lasso.magnetic.history.select = Magnitli lasso
+tool.lasso.magnetic.option.frequency = Chastota
+tool.wand.name = Sehrli tayoqcha
+tool.wand.description = Ko‘rsatkich ostidagi o‘xshash rangli tutash sohani joizlik parametri doirasida tanlash uchun bosing; Kengaytirish, O‘xshash va Rang oralig‘i ham shu joizlikdan foydalanadi.
+tool.wand.option.contiguous = Tutash
+tool.wand.history.select = Sehrli tayoqcha
+tool.quick_select.name = Tezkor tanlash
+tool.quick_select.description = Sohani bo‘yab chiqing, shunda tanlov mo‘yqalam o‘tgan o‘xshash piksellar bo‘ylab kengayadi.
+tool.quick_select.history.select = Tezkor tanlash
+tool.object_select.name = Obyektni tanlash
+tool.object_select.description = Obyekt atrofida ramka chizing, shunda tanlov uning ichida topilgan obyekt chegaralariga yopishadi.
+tool.object_select.history.select = Obyektni tanlash

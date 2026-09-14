@@ -1,0 +1,25 @@
+# Herramientas de elementos auxiliares del documento.
+tool.artboard.name = Mesa de trabajo
+tool.artboard.description = Arrastra para crear una mesa de trabajo: una región con nombre del lienzo que se exporta por separado. Si arrastras dentro de una existente, la desplazas.
+tool.artboard.default_name = Mesa de trabajo {n}
+
+tool.slice.name = Sector
+tool.slice.description = Arrastra para crear un sector de exportación, un rectángulo con nombre del lienzo que se exporta como imagen independiente. Si arrastras dentro de uno existente, lo desplazas.
+tool.slice.default_name = Sector {n}
+
+tool.frame.name = Marco
+tool.frame.description = Arrastra para crear un marco: una capa rectangular (o elíptica) que enmascara todo lo que se coloque en ella.
+tool.frame.default_name = Marco {n}
+tool.frame.choice.rectangle = Rectángulo
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Marco
+
+tool.note.name = Nota
+tool.note.description = Haz clic en una zona vacía del lienzo para fijar una nota con el autor y el color del estado del editor; haz clic en una marca existente para seleccionarla en el panel Notas.
+tool.note.history.place = Colocar nota
+tool.note.history.move = Mover nota
+tool.note.history.delete = Eliminar nota
+
+tool.count.name = Recuento
+tool.count.description = Haz clic para colocar marcadores de recuento numerados en el lienzo y haz clic en uno existente para eliminarlo.
+tool.count.default_name = Recuento {n}

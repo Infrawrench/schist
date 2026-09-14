@@ -1,0 +1,21 @@
+# Retushutensili.
+tool.patch.name = Fliko
+tool.patch.description = Trenez konturo cirkum difekto, pose trenez ta selekto sur neta pixeli: la texturo ibe adaptesas en la difekto. La flikomodo selektas qua extremo dil paro esas trenata.
+tool.patch.option.patch = Fliko
+tool.patch.choice.source = Fonteno
+tool.patch.choice.destination = Destino
+tool.patch.history.patch = Fliko
+tool.content_aware_move.name = Kontenajo-konscia movo
+tool.content_aware_move.description = Trenez selektita objekto altraloke e la truo lasita plenesas de lua cirkumajo. En modo Extendar, la objekto extensas vice movesas.
+tool.content_aware_move.choice.move = Movar
+tool.content_aware_move.choice.extend = Extendar
+tool.content_aware_move.history.move = Kontenajo-konscia movo
+tool.red_eye.name = Reda okulo
+tool.red_eye.description = Kliktez pupilo por evacuar la reda koloro dil fulguro.
+tool.red_eye.option.pupil_size = Pupilgrando
+tool.red_eye.option.darken = Obskurigar
+tool.red_eye.history.red_eye = Reda okulo
+tool.magic_eraser.name = Magika efacilo
+tool.magic_eraser.description = Kliktez por efacar la areo de simila koloro sub la indikilo, segun la tolero dil utensilo — kontigua kun la kliko, o omnaloke en la strato.
+tool.magic_eraser.option.contiguous = Kontigua
+tool.magic_eraser.history.erase = Magika efacilo

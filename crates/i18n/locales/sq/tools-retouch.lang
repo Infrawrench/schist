@@ -1,0 +1,29 @@
+# Veglat e retushimit të zonave: Arnimi, Zhvendosja sipas përmbajtjes, Sytë e kuq dhe Goma magjike.
+
+# Arnimi
+tool.patch.name = Arnim
+tool.patch.description = Tërhiqni një kontur rreth një të mete, pastaj tërhiqeni atë përzgjedhje mbi pikselë të pastër: tekstura e atjeshme përshtatet me të metën. Modaliteti i arnimit përcakton se cilin skaj të çiftit tërhiqni.
+tool.patch.option.patch = Arnim
+tool.patch.choice.source = Burimi
+tool.patch.choice.destination = Destinacioni
+tool.patch.history.patch = Arnim
+
+# Zhvendosja sipas përmbajtjes
+tool.content_aware_move.name = Zhvendosje sipas përmbajtjes
+tool.content_aware_move.description = Tërhiqeni një objekt të përzgjedhur diku tjetër dhe hapësira që lë pas mbushet nga rrethina. Në modalitetin Zgjatje, objekti zgjatet në vend që të zhvendoset.
+tool.content_aware_move.choice.move = Zhvendosje
+tool.content_aware_move.choice.extend = Zgjatje
+tool.content_aware_move.history.move = Zhvendosje sipas përmbajtjes
+
+# Sytë e kuq
+tool.red_eye.name = Sy i kuq
+tool.red_eye.description = Klikoni mbi një bebëz për t'i hequr skuqjen e shkaktuar nga blici.
+tool.red_eye.option.pupil_size = Madhësia e bebëzës
+tool.red_eye.option.darken = Errëso
+tool.red_eye.history.red_eye = Sy i kuq
+
+# Goma magjike
+tool.magic_eraser.name = Gomë magjike
+tool.magic_eraser.description = Klikoni për të fshirë zonën me ngjyrë të ngjashme nën tregues, brenda tolerancës së veglës — zonën e bashkëlidhur me pikën e klikimit ose kudo në shtresë.
+tool.magic_eraser.option.contiguous = E bashkëlidhur
+tool.magic_eraser.history.erase = Gomë magjike

@@ -1,0 +1,43 @@
+tool.pen.name = Калем
+tool.pen.description = Контур түзүңүз: бурчтук чекит үчүн басыңыз, андан ийри сызыктын кармагычтарын чыгаруу үчүн сүйрөңүз жана жабуу үчүн биринчи чекитти басыңыз. Ырастаганда контур фигура катмарына айланат.
+tool.pen.option.rubber_band = Резина тасма
+tool.pen.history.fill = Контурду толтуруу
+tool.pen.default_path_name = Контур {n}
+tool.pen.freeform.name = Эркин калем
+tool.pen.freeform.description = Эркин сызыкты сүйрөп чийиңиз; ал «Дал келтирүү» параметрине жараша контурга эркин же так дал келтирилет.
+tool.pen.freeform.option.fit = Дал келтирүү
+tool.pen.curvature.name = Ийрилик калеми
+tool.pen.curvature.description = Бир катар чекиттерди бассаңыз, контур алар аркылуу жылмакай ийилет.
+
+tool.path_select.name = Контурду тандоо
+tool.path_select.description = Контурду тандоо үчүн басыңыз, ал эми бүт контурду жылдыруу үчүн сүйрөңүз.
+tool.direct_select.name = Түз тандоо
+tool.direct_select.description = Контурдун формасын өзгөртүү үчүн өзүнчө таяныч чекитти же анын кармагычтарын сүйрөңүз.
+
+tool.shape.history.layer = {name} катмары
+tool.shape.rect.name = Тик бурчтук куралы
+tool.shape.rect.label = Тик бурчтук
+tool.shape.rect.description = Алдыңкы пландын түсүндөгү тик бурчтуу фигура катмарын сүйрөп түзүңүз; ал вектор бойдон калып, өлчөмү өзгөргөндө кайра растрланат.
+tool.shape.ellipse.name = Эллипс куралы
+tool.shape.ellipse.label = Эллипс
+tool.shape.ellipse.description = Алдыңкы пландын түсүндөгү эллипс фигура катмарын сүйрөп түзүңүз.
+tool.shape.line.name = Сызык куралы
+tool.shape.line.label = Сызык
+tool.shape.line.description = Алдыңкы пландын түсүндөгү түз сызык фигура катмарын сүйрөп түзүңүз.
+tool.shape.line.option.weight = Калыңдык
+tool.shape.line.option.arrow_start = Башы
+tool.shape.line.option.arrow_end = Аягы
+tool.shape.polygon.name = Көп бурчтук куралы
+tool.shape.polygon.label = Көп бурчтук
+tool.shape.polygon.description = Параметрлерде көрсөтүлгөн капталдардын саны менен, алдыңкы пландын түсүндөгү туура көп бурчтук фигура катмарын сүйрөп түзүңүз.
+tool.shape.polygon.option.sides = Капталдар
+
+tool.shape.custom.name = Ыңгайлаштырылган фигура
+tool.shape.custom.label = Ыңгайлаштырылган фигура
+tool.shape.custom.description = «Фигура» параметринен тандалган, алдын ала орнотулган фигуралардын бирин сүйрөп түзүңүз.
+tool.shape.custom.choice.heart = Жүрөк
+tool.shape.custom.choice.star = Жылдыз
+tool.shape.custom.choice.arrow = Жебе
+tool.shape.custom.choice.lightning = Чагылган
+tool.shape.custom.choice.cross = Кайчылаш
+tool.shape.custom.choice.speech_bubble = Сөз көбүгү

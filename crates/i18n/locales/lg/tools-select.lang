@@ -1,0 +1,27 @@
+# Engeri y'okulonda
+tool.select.mode.subtract = Toolako
+tool.select.mode.intersect = Kwataganya ebigatta
+tool.marquee.rect.name = Akalonda aka nneekulungirivu
+tool.marquee.rect.description = Walula ekirondeddwa ekya nneekulungirivu. Shift ku ntandikwa y'okuwalula eyongera ku birondeddwa, alt etoolako, ate byombi bisigaza awagatta; shift ng'okyawulula ekifuula kya nsonda nnya ezenkanankana. Okunyiga awatali kuwalula kuggyako okulonda.
+tool.marquee.ellipse.name = Akalonda aka nninga
+tool.marquee.ellipse.description = Walula ekirondeddwa ekya nninga, ng'okugatta kwa shift/alt kwe kumu n'okw'akalonda aka nneekulungirivu.
+tool.lasso.name = Laaso
+tool.lasso.description = Walula omusalaba ogw'emikono; ekirondeddwa kiggalawo wakati w'enkomerero ng'okuwalula kuwedde. Shift eyongerako, alt etoolako.
+tool.lasso.history.select = Okulonda ne Laaso
+tool.lasso.polygonal.name = Laaso ey'enjuyi nnyingi
+tool.lasso.polygonal.description = Nyiga ku nsonda emu oluvannyuma y'endala okukola ekirondeddwa eky'embalama ennesimbye, era nyiga okumpi n'ensonga esooka okukiggalawo.
+tool.lasso.polygonal.history.select = Laaso ey'enjuyi nnyingi
+tool.lasso.magnetic.name = Laaso ya magineeti
+tool.lasso.magnetic.description = Goberera embalama mu ngeri ey'oku lusegere, omusalaba ne gukwatagana n'enjawulo esinga amaanyi okumpi n'ekkubo.
+tool.lasso.magnetic.history.select = Laaso ya magineeti
+tool.lasso.magnetic.option.frequency = Emirundi
+tool.wand.name = Akati k'amagezi
+tool.wand.description = Nyiga okulonda ekitundu ekikwatagana ekya langi efaanagana eri wansi w'akasonze, okusinziira ku kigero ky'okukkiriza enjawulo — kye kigero kye kimu Gaziya, Ebyefaananyiriza ne Ekibangirizi kya langi bye bisoma.
+tool.wand.option.contiguous = Ebikwatagana
+tool.wand.history.select = Akati k'amagezi
+tool.quick_select.name = Okulonda okw'amangu
+tool.quick_select.description = Siiga ku kitundu, ekirondeddwa ne kigaziwa okuyita mu pixels ezifaanagana bbulashi kw'eyita.
+tool.quick_select.history.select = Okulonda okw'amangu
+tool.object_select.name = Okulonda ekintu
+tool.object_select.description = Walula akabokisi okwetooloola ekintu, ekirondeddwa ne kikwata ku kintu ekizuuliddwa munda.
+tool.object_select.history.select = Okulonda ekintu

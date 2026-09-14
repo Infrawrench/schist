@@ -1,0 +1,100 @@
+workspace.fill.gray_50 = 50% Gro
+workspace.fill.content_aware = Inhaltsbaséiert
+workspace.modify.expand = Auswiel vergréisseren
+workspace.modify.contract = Auswiel verklengeren
+workspace.modify.border = Rand vun der Auswiel
+workspace.modify.smooth = Auswiel glätten
+workspace.modify.feather = Auswiel mëll maachen
+
+workspace.batch.target.edit = Galerieännerungen (mat Versiounen)
+workspace.batch.target.beside = Kopien nieft den Originaler
+workspace.batch.target.folder = Kopien an engem Dossier…
+workspace.modal.image_size.title = Bildgréisst
+
+workspace.docs.opening = {name} gëtt opgemaach…
+workspace.docs.opened = {name} opgemaach
+workspace.docs.open_failed = Opmaache mësslongen: {error}
+workspace.docs.no_codec = Schist kann d'Format vu {name} net opmaachen
+workspace.docs.no_exporter = Schist kann keng .{ext}-Fichiere späicheren
+workspace.docs.empty_response = De Server huet eng eidel Äntwert geschéckt
+workspace.docs.heic_not_installed = HEIC-Ënnerstëtzung ass net installéiert
+workspace.docs.heic_downloading = HEIC-Ënnerstëtzung (libheif {version}) gëtt erofgelueden…
+workspace.docs.heic_installed = HEIC-Ënnerstëtzung installéiert
+workspace.docs.heic_download_failed = HEIC-Ënnerstëtzung konnt net erofgeluede ginn: {error}
+workspace.docs.placing = {name} gëtt placéiert…
+workspace.docs.place_image = Bild placéieren
+workspace.docs.placed = {name} placéiert
+workspace.docs.place_failed = Placéiere mësslongen: {error}
+workspace.docs.saved = {name} gespäichert
+workspace.docs.save_failed = Späichere mësslongen: {error}
+
+workspace.adjustment.new_layer = Nei Eben: {name}
+workspace.adjustment.added = {name} dobäigesat
+workspace.adjustment.settings = Astellunge fir {name}
+workspace.adjustment.updated = {name} aktualiséiert
+workspace.adjustment.no_settings = {name} huet keng verännerbar Astellungen
+workspace.comps.name_n = Ebenekompositioun {n}
+workspace.comps.captured = Ebenekompositioun erfaasst
+workspace.comps.apply = {name} uwenden
+workspace.styles.layer_style = Ebenestil
+workspace.context.rename_layer = Eben ëmbenennen
+workspace.commands.tool = Wierkzeug: {name}
+
+workspace.colormgmt.assign = {name} zouweisen
+workspace.colormgmt.assigned = {name} zougewisen
+workspace.colormgmt.convert_to = An {name} ëmwandelen
+workspace.colormgmt.converted_to = An {name} ëmgewandelt
+workspace.colormgmt.convert_failed = Ëmwandlung mësslongen: {error}
+workspace.colormgmt.proof_on = Prouffaarwen un
+workspace.colormgmt.proof_off = Prouffaarwen aus
+
+workspace.filters.choose = Auswielen
+workspace.filters.select_layer_first = Wielt fir d'éischt eng Eben aus
+workspace.filters.needs_pixel_layer = Filtere brauchen eng Pixeleben
+workspace.filters.nothing_to_filter = Näischt fir ze filteren
+workspace.filters.went_away = De Filter ass net méi do
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: D'Eben, déi gefiltert gouf, ass net méi do
+workspace.filters.plugin_title = Photoshop-Plug-in
+workspace.filters.running = {name} gëtt ausgefouert
+workspace.filters.plugin_note = De Plug-in leeft an engem eegene Prozess. Wann en eng Fënster opmécht, reagéiert dorop, fir weiderzefueren.
+workspace.filters.raw_preview_developing = RAW-Virschau gëtt entwéckelt…
+workspace.filters.raw_preview_done = RAW-Virschau (séieren Demosaicing)
+workspace.filters.raw_preview_size_changed = D'Gréisst vun der RAW-Virschau huet geännert: {w} × {h}
+workspace.filters.raw_preview_failed = RAW-Virschau mësslongen: {error}
+workspace.filters.raw_developing = D'Originalopnam gëtt entwéckelt…
+workspace.filters.raw_developing_note = Dee beschten Demosaicing-Wee gëtt benotzt. Den originale RAW an dës Astellunge bleiwen ännerbar, nodeems als PSD oder PSB gespäichert gouf.
+workspace.filters.raw_document_changed = D'RAW-Entwécklung war fäerdeg, nodeems hiert Dokument geännert gouf
+workspace.filters.raw_failed = RAW-Entwécklung mësslongen: {error}
+workspace.filters.raw_too_wide = D'RAW-Entwécklung ass ze breet
+workspace.filters.raw_too_tall = D'RAW-Entwécklung ass ze héich
+workspace.filters.raw_size_changed = D'Gréisst vun der RAW-Entwécklung gouf op {w} × {h} geännert; déi aktuell Eben gëtt bäibehalen
+workspace.filters.raw_history = Camera Raw entwéckelen
+workspace.filters.raw_applied = Camera Raw-Entwécklung ugewannt (bescht Demosaicing)
+
+workspace.image_size.done = Bildgréisst: {w} × {h}
+workspace.image_size.bicubic_fallback = Bildgréisst: {w} × {h} — de Modell {name} konnt net geluede ginn, dofir gouf bikubesch interpoléiert
+workspace.image_size.upscaling = Vergréisserung mat {name}
+workspace.image_size.upscaling_note = {mp} Megapixel duerch d'Netz, jeeweils an e puer Sekonnen. D'Dokument gëtt bis zum Ofschloss blockéiert.
+
+workspace.export.no_slices = Keng Slicë fir z'exportéieren
+workspace.export.no_artboards = Keng Zeechefläche fir z'exportéieren
+workspace.export.regions.one = {n} Beräich exportéiert
+workspace.export.regions.other = {n} Beräicher exportéiert
+workspace.export.prompt = Exportéieren als:
+workspace.export.done = {name} exportéiert
+workspace.export.failed = Export mësslongen: {error}
+workspace.export.codec_vanished = Den Exportprogramm ass net méi disponibel
+
+workspace.file_picker.choose_folder = Dossier auswielen
+workspace.file_picker.type_a_name = Gitt en Numm fir de Fichier an
+workspace.file_picker.exists = {name} existéiert; tippt nach eng Kéier op Späicheren, fir en ze ersetzen
+workspace.file_picker.tap_a_file = Tippt op e Fichier, fir en opzemaachen
+workspace.file_picker.pictures = Biller
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Downloads
+workspace.file_picker.permission_denied = Schist huet keng Berechtegung, dësen Dossier ze liesen
+
+workspace.recovery.recovered_title = {title} (erëm hiergestallt)
+workspace.recovery.recovered.one = Net gespäichert Aarbecht aus enger viregter Sessioun erëm hiergestallt
+workspace.recovery.recovered.other = {n} Dokumenter aus enger viregter Sessioun erëm hiergestallt

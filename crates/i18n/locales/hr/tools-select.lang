@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Oduzmi
+tool.select.mode.intersect = Presijeci
+
+tool.marquee.rect.name = Pravokutni okvir za odabir
+tool.marquee.rect.description = Povucite pravokutni odabir. Shift na početku povlačenja dodaje odabiru, Alt oduzima, a obje tipke stvaraju presjek; Shift tijekom povlačenja stvara kvadrat. Klik bez povlačenja poništava odabir.
+tool.marquee.ellipse.name = Eliptični okvir za odabir
+tool.marquee.ellipse.description = Povucite eliptični odabir uz isto kombiniranje tipkama Shift i Alt kao kod pravokutnog okvira.
+
+tool.lasso.name = Laso
+tool.lasso.description = Povucite slobodan obris; odabir se zatvara između krajnjih točaka kad povlačenje završi. Shift dodaje, a Alt oduzima.
+tool.lasso.history.select = Odabir lasom
+tool.lasso.polygonal.name = Poligonalni laso
+tool.lasso.polygonal.description = Klikajte kut za kutom kako biste izradili odabir ravnih rubova, a zatim kliknite blizu prve točke kako biste ga zatvorili.
+tool.lasso.polygonal.history.select = Poligonalni laso
+tool.lasso.magnetic.name = Magnetski laso
+tool.lasso.magnetic.description = Približno pratite rub, a obris će se priljubiti uz najjači kontrast u blizini putanje.
+tool.lasso.magnetic.history.select = Magnetski laso
+tool.lasso.magnetic.option.frequency = Učestalost
+
+tool.wand.name = Čarobni štapić
+tool.wand.description = Kliknite kako biste odabrali povezano područje slične boje ispod pokazivača, unutar postavljene tolerancije — iste tolerancije koju upotrebljavaju Proširi, Slično i Raspon boja.
+tool.wand.option.contiguous = Susjedno
+tool.wand.history.select = Čarobni štapić
+
+tool.quick_select.name = Brzi odabir
+tool.quick_select.description = Prijeđite kistom preko područja, a odabir će se širiti kroz slične piksele preko kojih kist prolazi.
+tool.quick_select.history.select = Brzi odabir
+
+tool.object_select.name = Odabir objekta
+tool.object_select.description = Povucite okvir oko objekta, a odabir će se priljubiti uz objekt pronađen unutar njega.
+tool.object_select.history.select = Odabir objekta

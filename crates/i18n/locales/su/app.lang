@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galéri Saringan
+app.filter_gallery.stack = Tumpukan (diterapkeun ti handap ka luhur)
+app.filter_gallery.no_settings = Saringan ieu teu boga setélan.
+app.fonts.not_open_licensed = lain lisénsi kabuka · {substitute} cocog jeung métrikna
+app.fonts.missing_substituted = leungit · téks keur disetél maké font gaganti
+app.fonts.not_in_catalogue = {family} teu aya dina katalog font kabuka
+app.fonts.no_faces = euweuh face anu bisa diunduh pikeun {family}
+app.fonts.empty_response = réspon kosong
+app.update.unreadable_response = réspon teu bisa dibaca: {error}
+app.update.no_temp_dir = euweuh diréktori samentara pikeun nyimpen unduhan
+app.update.asset_has_path = release méré ngaran asetna maké path
+app.update.too_big = unduhan leuwih gedé tibatan ukuran anu disebutkeun dina release
+app.update.stopped_at = unduhan eureun dina {got} tina {total} byte
+app.update.hash_mismatch = hash unduhan nyaéta {got}, lain {want}
+app.update.not_in_bundle = salinan ieu teu aya dina bundle aplikasi
+app.update.no_parent_dir = bundle aplikasi teu boga diréktori indung
+app.update.cannot_write = teu bisa nulis kana {dir}
+app.update.cannot_move_aside = teu bisa mindahkeun {app} ka sisi
+app.update.cannot_move_in = teu bisa mindahkeun bundle anyar ka tempatna
+app.update.cannot_run_ditto = teu bisa ngajalankeun /usr/bin/ditto
+app.update.unpack_failed = gagal muka bungkusan unduhan: {error}
+app.update.no_app_in_download = unduhan teu ngandung Schist.app
+app.update.cannot_run_codesign = teu bisa ngajalankeun /usr/bin/codesign
+app.update.signature_invalid = tanda tangan unduhan teu bisa divérifikasi: {error}
+app.update.download_unsigned = salinan ieu ditandatanganan tapi unduhan henteu
+app.update.different_developer = unduhan ditandatanganan ku pamekar anu béda
+app.update.cannot_relaunch = teu bisa ngamimitian pangajalankeun deui
+app.update.not_installed_copy = salinan ieu lain ditempatkeun di dieu ku pamasang
+app.update.cannot_start_installer = teu bisa ngamimitian pamasang
+app.update.platform_unsupported = apdet dina platform ieu dipasang ku cara anu dipaké pikeun masang Schist
+app.vulkan.no_loader = schist: euweuh loader Vulkan dina sistem ieu, jadi euweuh sarana pikeun ngagambar.\n\nSchist ngarender ngaliwatan Vulkan, sarta `libvulkan.so.1` teu dipasang.\nLoader jeung driver duanana diperlukeun:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: driver Vulkan anu dituduh ku sési ieu teu aya.\n\n{var} disetél, sarta setélan éta *ngagantikeun* pancarian driver ku loader, lain nambahan kana pancarianana. Jadi berkas-berkas ieu, anu teu aya, mangrupa sakabéh daptar driver — sarta unggal program Vulkan dina sési ieu teu ningali driver pisan, sanajan sabaraha lobana anu geus dipasang:\n\n{missing}\n    {var}={value}\n\nTuduhkeun kana manifés anu aya — driver anu dipasang nunda manifésna dina\n/usr/share/vulkan/icd.d — atawa pupus setélanana sarta antepkeun loader néangan sorangan.\nLamun sési nyetél ieu tina berkas konfigurasi (`env =` Hyprland,\ndrop-in environment.d systemd, profil shell), setélan kudu dirobah di dinya,\nsarta kudu asup deui supaya parobahan nepi ka sagala hal anu geus jalan.\n
+app.vulkan.override_note = \n{var} disetél kana {value}, sarta éta ngagantikeun pancarian loader\nsorangan: lamun euweuh manifés éta anu cocog jeung mesin ieu, mupus\nsetélanana mangrupa hal kahiji anu kudu dicoba.\n
+app.vulkan.no_driver = schist: euweuh driver Vulkan anu dipasang, jadi euweuh sarana pikeun ngagambar.\n\nSchist ngarender ngaliwatan Vulkan. Loader geus dipasang tapi ngalaporkeun euweuh\ndriver — euweuh anu ngadaptarkeun driver dina dua lokasi anu dipariksa:\n\n{dirs}\n\nLoader dikirim misah ti driver, jadi biasana ngan hiji pakét anu kurang.\n\nPasang driver pikeun GPU mesin ieu:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver proprietér NVIDIA mawa driver Vulkan sorangan (`nvidia-utils` dina Arch,\n`nvidia-driver` dina Debian). Dina mesin virtual, atawa di tempat anu teu boga\ndriver GPU pikeun dipasang, rasterizer parangkat lunak mangrupa pilihan anu bisa jalan:\n`vulkan-swrast` dina Arch, bagian tina `mesa-vulkan-drivers` di tempat séjén. Éta\nlalaunan, tapi bisa ngamimitian.\n{overridden}
+app.vulkan.no_device = schist: driver Vulkan geus dipasang tapi teu nyadiakeun alat pikeun ngarender.\n\nDriver bisa jadi teu ngarojong GPU ieu, atawa teu bisa ngaksésna —\nngaliwatan SSH, atawa di jero konténer, /dev/dri mindeng teu aya.\n`vulkaninfo --summary` ngalaporkeun naon anu katempo ku loader.\n\nRasterizer parangkat lunak ngarender tanpa GPU lamun éta anu diperlukeun\nku mesin ieu: `vulkan-swrast` dina Arch, bagian tina `mesa-vulkan-drivers`\ndina Debian jeung Fedora.\n
+app.vulkan.skip_hint = Pikeun tetep ngamimitian Schist sarta ngantepkeunana gagal ku carana sorangan, setél {var}=1.

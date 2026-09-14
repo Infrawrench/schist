@@ -1,0 +1,9 @@
+{
+  "loading": "’Ga luchdadh…",
+  "starting": "’Ga thòiseachadh…",
+  "webgpu": "Tha WebGPU a dhìth air Schist ach chan eil am brabhsair seo ’ga thabhann. Tha Chrome/Edge 113+, Firefox 141+ agus Safari 26+ ’ga thabhann.",
+  "noticeTitle": "Obraichidh Schist as fheàrr mar aplacaid deasg",
+  "noticeBody": "Tha thu a’ cleachdadh an tionndaidh-lìn, a tha na thionndadh nas aotruime: nì e co-dhealbhadh air an CPU agus chan eil cuid dhe na gleusan ann — plugain Photoshop agus plugain treas-phàrtaidh, gailearaidh dhealbhan, am panal AI, ion-phortadh HEIC agus luchdadh a-nuas chruthan-clò — agus thèid faidhlichean a shàbhaladh mar nithean air an luchdadh a-nuas. Tha iad uile san aplacaid deasg shaor airson macOS, Windows agus Linux.",
+  "noticeLink": "Faigh an aplacaid deasg.",
+  "ok": "Ceart ma-thà"
+}

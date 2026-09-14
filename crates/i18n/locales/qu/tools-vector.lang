@@ -1,0 +1,47 @@
+# Pluma llamk'anakuna
+tool.pen.name = Pluma
+tool.pen.description = Ñanta ruray: k'uchu ch'ikupaq ñit'iy, k'umukpa hap'inankunata hurqunapaq aysay, wichq'anapaqtaq ñawpaq ch'ikuta ñit'iy. Takyachispa ñanta forma pataman tikran.
+tool.pen.option.rubber_band = Elástico
+tool.pen.history.fill = Ñanta hunt'achiy
+tool.pen.default_path_name = Ñan {n}
+tool.pen.freeform.name = Munasqa pluma
+tool.pen.freeform.description = Makiwan munasqayki siq'ita aysay; Tupachiy akllana nisqanman hina allillata utaq sinchita ñanman tupachisqa kanqa.
+tool.pen.freeform.option.fit = Tupachiy
+tool.pen.curvature.name = K'umu pluma
+tool.pen.curvature.description = Achka ch'ikukunata ñit'iy; ñanqa paykunanta llamp'uta k'umuchisqa kanqa.
+
+# Wach'ikuna
+tool.path_select.name = Ñan akllana
+tool.path_select.description = Ñanta akllanapaq ñit'iy; llapan ñanta kuyuchinapaq aysay.
+tool.direct_select.name = Chiqap akllana
+tool.direct_select.description = Huk sapalla watana ch'ikuta utaq hap'inankunata aysay, muyuriqninpi ñanpa formanta tikranapaq.
+
+# Formakuna
+tool.shape.history.layer = {name} pata
+tool.shape.rect.name = Tawa kuchu llamk'ana
+tool.shape.rect.label = Tawa kuchu
+tool.shape.rect.description = Ñawpaq llim'iwan tawa kuchu forma patata aysaspa ruray; vector hina qhipakun, sayaynin tikrakuptinqataq wakmanta rasterizakun.
+tool.shape.ellipse.name = Elipse llamk'ana
+tool.shape.ellipse.label = Elipse
+tool.shape.ellipse.description = Ñawpaq llim'iwan elipse forma patata aysaspa ruray.
+tool.shape.line.name = Siq'i llamk'ana
+tool.shape.line.label = Siq'i
+tool.shape.line.description = Ñawpaq llim'iwan chiqap siq'i forma patata aysaspa ruray.
+tool.shape.line.option.weight = Rakhu kaynin
+tool.shape.line.option.arrow_start = Qallariy
+tool.shape.line.option.arrow_end = Tukuy
+tool.shape.polygon.name = Polígono llamk'ana
+tool.shape.polygon.label = Polígono
+tool.shape.polygon.description = Ñawpaq llim'iwan kuska polígono forma patata aysaspa ruray; kantunkunap yupayninqa akllanakunamanta hamun.
+tool.shape.polygon.option.sides = Kantukuna
+
+# Munasqa formakuna
+tool.shape.custom.name = Munasqa forma
+tool.shape.custom.label = Munasqa forma
+tool.shape.custom.description = Ñawpaqmantaraq kaq formakunamanta hukninta aysaspa ruray; Forma akllanawan akllasqa.
+tool.shape.custom.choice.heart = Sunqu
+tool.shape.custom.choice.star = Quyllur
+tool.shape.custom.choice.arrow = Wach'i
+tool.shape.custom.choice.lightning = Illapa
+tool.shape.custom.choice.cross = Chakana
+tool.shape.custom.choice.speech_bubble = Rimay puqpu

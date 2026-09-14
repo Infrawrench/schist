@@ -1,0 +1,153 @@
+filter.neural.param.center_x = Kituo X
+filter.neural.param.center_y = Kituo Y
+filter.neural.param.direction = Mwelekeo
+filter.neural.param.transition = Mpito
+filter.neural.param.detail = Maelezo
+filter.neural.param.eyes = Macho
+
+filter.neural.msg.using_model = Inatumia {model} · {license}.
+filter.neural.msg.get_model = Ipate kupitia Kichujio ▸ Neural Filters ▸ Dhibiti Miundo.
+
+filter.camera_raw.name = Kichujio cha Camera Raw
+filter.camera_raw.param.temperature = Halijoto
+filter.camera_raw.param.tint = Tint
+filter.camera_raw.param.highlights = Maeneo Angavu
+filter.camera_raw.param.shadows = Vivuli
+filter.camera_raw.param.whites = Nyeupe
+filter.camera_raw.param.blacks = Nyeusi
+filter.camera_raw.param.clarity = Uwazi
+filter.camera_raw.param.dehaze = Ondoa Ukungu
+filter.camera_raw.param.vibrance = Uchangamfu
+filter.camera_raw.param.sharpening = Uongezaji Makali
+filter.camera_raw.param.noise = Upunguzaji wa Kelele
+filter.camera_raw.param.vignette = Vigneti
+
+filter.lens_correction.name = Urekebishaji wa Lenzi
+filter.lens_correction.param.distortion = Ondoa Upotoshaji
+filter.lens_correction.param.red = Rekebisha Pindo Jekundu/Siani
+filter.lens_correction.param.blue = Rekebisha Pindo la Bluu/Manjano
+filter.lens_correction.param.vignette = Kiasi cha Vigneti
+filter.lens_correction.param.midpoint = Kituo cha Vigneti
+filter.lens_correction.param.vertical = Mtazamo Wima
+filter.lens_correction.param.horizontal = Mtazamo Mlalo
+
+filter.adaptive_wide_angle.name = Pembe Pana Inayojirekebisha
+filter.adaptive_wide_angle.param.projection = Urekebishaji
+filter.adaptive_wide_angle.choice.fisheye = Jicho la Samaki
+filter.adaptive_wide_angle.choice.perspective = Mtazamo
+filter.adaptive_wide_angle.choice.full_spherical = Duara Kamili
+filter.adaptive_wide_angle.param.focal = Urefu wa Fokasi
+filter.adaptive_wide_angle.param.crop = Kipengele cha Upunguzaji
+
+filter.field_blur.name = Ukungu wa Sehemu
+filter.field_blur.param.position = Weka Makali Kwenye
+filter.iris_blur.name = Ukungu wa Iris
+filter.iris_blur.param.roundness = Uduara
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Kituo
+filter.tilt_shift.param.band = Ukanda Mkali
+filter.spin_blur.name = Ukungu wa Mzunguko
+filter.spin_blur.param.angle = Pembe ya Ukungu
+filter.path_blur.name = Ukungu wa Njia
+filter.path_blur.param.speed = Kasi
+filter.path_blur.param.curve = Mkunjo
+filter.path_blur.param.taper = Upunguzaji wa Taratibu
+
+filter.shape_blur.name = Ukungu wa Umbo
+filter.shape_blur.choice.square = Mraba
+filter.shape_blur.choice.diamond = Almasi
+filter.shape_blur.choice.hexagon = Heksagoni
+filter.shape_blur.choice.cross = Msalaba
+filter.shape_blur.choice.ring = Pete
+filter.shape_blur.choice.star = Nyota
+filter.smart_blur.name = Ukungu Mahiri
+filter.smart_blur.choice.normal = Kawaida
+filter.smart_blur.choice.edge_only = Kingo Pekee
+filter.smart_blur.choice.overlay_edge = Wekelea Kingo
+
+filter.deinterlace.name = Ondoa Interlace
+filter.deinterlace.param.field = Ondoa
+filter.deinterlace.choice.odd_fields = Sehemu Witiri
+filter.deinterlace.choice.even_fields = Sehemu Shufwa
+filter.deinterlace.param.fill = Unda Sehemu Mpya Kwa
+filter.deinterlace.choice.interpolation = Ukadiriaji wa Kati
+filter.deinterlace.choice.duplication = Urudufu
+filter.ntsc_colors.name = Rangi za NTSC
+
+filter.neural.skin_smoothing.name = Ulainishaji wa Ngozi
+filter.neural.skin_smoothing.param.blur = Ulaini
+filter.neural.skin_smoothing.param.detail = Hifadhi Maelezo
+filter.neural.skin_smoothing.msg.no_model = {model} haijasakinishwa — inalainisha chochote chenye rangi ya ngozi badala ya nyuso.
+
+filter.neural.jpeg_artifacts.name = Uondoaji wa Mabaki ya JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} haijasakinishwa — inalainisha gridi ya pikseli 8 badala yake.
+
+filter.neural.colorize.name = Tia Rangi
+filter.neural.colorize.param.warmth = Ujoto
+filter.neural.colorize.msg.no_model = {model} haijasakinishwa — inatia rangi kulingana na uangavu badala yake.
+
+filter.neural.super_zoom.name = Ukuzaji Mkuu
+filter.neural.super_zoom.msg.no_model = {model} haijasakinishwa — inaongeza makali kwa kufuata kingo badala yake.
+
+filter.neural.style_transfer.name = Uhamishaji wa Mtindo
+filter.neural.style_transfer.choice.mosaic = Musaiki
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Hakuna miundo ya mitindo iliyosakinishwa — inahamisha rangi pekee. Ipate kupitia Kichujio ▸ Neural Filters ▸ Dhibiti Miundo.
+filter.neural.style_transfer.msg.installed = Zilizosakinishwa: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Uhamishaji wa Rangi
+filter.neural.color_transfer.param.hue = Rangi Lengwa
+filter.neural.color_transfer.param.contrast = Linganisha Utofautishaji
+filter.neural.color_transfer.msg.info = Huchukua paleti yake kutoka kwenye safu iliyo chini. Ikiwa hakuna kitu chini, hulenga Rangi Lengwa badala yake.
+
+filter.neural.depth_blur.name = Ukungu wa Kina
+filter.neural.depth_blur.param.focus = Umbali wa Fokasi
+filter.neural.depth_blur.param.blur = Nguvu ya Ukungu
+filter.neural.depth_blur.msg.no_model = {model} haijasakinishwa — inalenga kwa kutumia ukali wa eneo badala yake.
+
+filter.neural.harmonization.name = Ulinganifu
+filter.neural.harmonization.param.tone = Linganisha Toni
+filter.neural.harmonization.msg.info = Hulinganisha safu hii na chochote kilicho chini yake. Ikiwa hakuna kitu chini, hakuna cha kulinganisha na hii haitafanya chochote.
+
+filter.neural.landscape_mixer.name = Kichanganyaji cha Mandhari
+filter.neural.landscape_mixer.param.bands = Mikanda ya Kina
+filter.neural.landscape_mixer.msg.with_depth = Huchukua paleti yake kutoka kwenye safu iliyo chini, ikilinganisha ukanda kwa ukanda kwa kutumia Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Huchukua paleti yake kutoka kwenye safu iliyo chini. Sakinisha Depth (Depth Blur) ili kulinganisha anga na anga na ardhi na ardhi badala ya picha nzima.
+
+filter.neural.photo_restoration.name = Urejeshaji wa Picha
+filter.neural.photo_restoration.param.enhance = Uboreshaji wa Picha
+filter.neural.photo_restoration.param.scratches = Upunguzaji wa Mikwaruzo
+filter.neural.photo_restoration.param.tone = Rejesha Toni
+filter.neural.photo_restoration.msg.no_model = Inasafisha bila muundo.
+filter.neural.photo_restoration.msg.using_deblock = Inatumia Deblock · imefunzwa kwa ajili ya Schist.
+filter.neural.photo_restoration.msg.using_detail = Inatumia Detail · imefunzwa kwa ajili ya Schist.
+filter.neural.photo_restoration.msg.using_both = Inatumia Deblock na Detail · zimefunzwa kwa ajili ya Schist.
+
+filter.neural.photo_to_sketch.name = Picha kuwa Mchoro
+filter.neural.photo_to_sketch.param.weight = Unene wa Mstari
+filter.neural.photo_to_sketch.param.shading = Uwekaji Vivuli
+
+filter.neural.face_to_caricature.name = Uso kuwa Kikaragosi
+filter.neural.face_to_caricature.param.mouth = Mdomo
+filter.neural.face_to_caricature.param.head = Kichwa
+filter.neural.face_to_caricature.msg.no_model = {model} haijasakinishwa, kwa hivyo hii haitafanya chochote — hakuna cha kubadili kuwa kikaragosi.
+
+filter.neural.smart_portrait.name = Picha Mahiri ya Uso
+filter.neural.smart_portrait.param.happiness = Furaha
+filter.neural.smart_portrait.param.surprise = Mshangao
+filter.neural.smart_portrait.param.age = Umri wa Uso
+filter.neural.smart_portrait.param.gaze = Mwelekeo wa Macho
+filter.neural.smart_portrait.param.light = Mwelekeo wa Mwanga
+filter.neural.smart_portrait.msg.no_model = {model} haijasakinishwa, kwa hivyo hii haitafanya chochote — haina uso wa kufanyia kazi.
+
+filter.neural.makeup_transfer.name = Uhamishaji wa Vipodozi
+filter.neural.makeup_transfer.param.lips = Midomo
+filter.neural.makeup_transfer.param.skin = Toni ya Ngozi
+filter.neural.makeup_transfer.msg.info = Huchukua vipodozi kutoka kwenye uso katika safu iliyo chini. Rangi, si muundo wa uso.
+filter.neural.makeup_transfer.msg.no_model = {model} haijasakinishwa, kwa hivyo hii haitafanya chochote.
+
+filter.neural.sketch_to_portrait.name = Mchoro kuwa Picha ya Uso
+filter.neural.sketch_to_portrait.param.detail = Hifadhi Mistari
+filter.neural.sketch_to_portrait.msg.with_face = Imefunzwa kujaza Picha kuwa Mchoro ya programu hii. Hufanya kazi kwenye uso inaoupata.
+filter.neural.sketch_to_portrait.msg.no_face = Imefunzwa kujaza Picha kuwa Mchoro ya programu hii. Sakinisha Faces (Skin Smoothing) ili ifanye kazi kwenye uso badala ya uteuzi mzima.

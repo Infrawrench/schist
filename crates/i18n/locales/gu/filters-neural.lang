@@ -1,0 +1,144 @@
+# Shared labels
+filter.neural.param.center_x = મધ્ય X
+filter.neural.param.center_y = મધ્ય Y
+filter.neural.param.direction = દિશા
+filter.neural.param.transition = સંક્રમણ
+filter.neural.param.detail = વિગતો
+filter.neural.param.eyes = આંખો
+filter.neural.msg.using_model = {model} વપરાય છે · {license}.
+filter.neural.msg.get_model = તેને «ફિલ્ટર ▸ Neural Filters ▸ મૉડલ સંચાલિત કરો»માંથી મેળવો.
+
+# Camera Raw Filter
+filter.camera_raw.name = Camera Raw ફિલ્ટર
+filter.camera_raw.param.temperature = તાપમાન
+filter.camera_raw.param.tint = ટિન્ટ
+filter.camera_raw.param.highlights = હાઇલાઇટ
+filter.camera_raw.param.shadows = શેડો
+filter.camera_raw.param.whites = સફેદ ભાગ
+filter.camera_raw.param.blacks = કાળા ભાગ
+filter.camera_raw.param.clarity = સ્પષ્ટતા
+filter.camera_raw.param.dehaze = ધુમ્મસ દૂર કરો
+filter.camera_raw.param.vibrance = વાઇબ્રન્સ
+filter.camera_raw.param.sharpening = તીક્ષ્ણતા
+filter.camera_raw.param.noise = નૉઇઝ ઘટાડો
+filter.camera_raw.param.vignette = વિગ્નેટ
+
+# Lens Correction
+filter.lens_correction.name = લેન્સ સુધારણા
+filter.lens_correction.param.distortion = વિકૃતિ દૂર કરો
+filter.lens_correction.param.red = લાલ/સાયન કિનારી સુધારો
+filter.lens_correction.param.blue = વાદળી/પીળી કિનારી સુધારો
+filter.lens_correction.param.vignette = વિગ્નેટની માત્રા
+filter.lens_correction.param.midpoint = વિગ્નેટનું મધ્યબિંદુ
+filter.lens_correction.param.vertical = ઊભું પરિપ્રેક્ષ્ય
+filter.lens_correction.param.horizontal = આડું પરિપ્રેક્ષ્ય
+
+# Adaptive Wide Angle
+filter.adaptive_wide_angle.name = અનુકૂલક વાઇડ ઍંગલ
+filter.adaptive_wide_angle.param.projection = સુધારણા
+filter.adaptive_wide_angle.choice.fisheye = ફિશઆઇ
+filter.adaptive_wide_angle.choice.perspective = પરિપ્રેક્ષ્ય
+filter.adaptive_wide_angle.choice.full_spherical = પૂર્ણ ગોળાકાર
+filter.adaptive_wide_angle.param.focal = ફોકલ લંબાઈ
+filter.adaptive_wide_angle.param.crop = ક્રૉપ ગુણાંક
+
+# Blur Gallery
+filter.field_blur.name = ફિલ્ડ બ્લર
+filter.field_blur.param.position = અહીં તીક્ષ્ણ
+filter.iris_blur.name = આઇરિસ બ્લર
+filter.iris_blur.param.roundness = ગોળાઈ
+filter.tilt_shift.name = ટિલ્ટ-શિફ્ટ
+filter.tilt_shift.param.position = મધ્ય
+filter.tilt_shift.param.band = તીક્ષ્ણ પટ્ટો
+filter.spin_blur.name = સ્પિન બ્લર
+filter.spin_blur.param.angle = બ્લર કોણ
+filter.path_blur.name = પાથ બ્લર
+filter.path_blur.param.speed = ઝડપ
+filter.path_blur.param.curve = વક્રતા
+filter.path_blur.param.taper = ક્રમશઃ સાંકડું
+
+# Blur and video
+filter.shape_blur.name = આકાર બ્લર
+filter.shape_blur.choice.square = ચોરસ
+filter.shape_blur.choice.diamond = હીરો
+filter.shape_blur.choice.hexagon = ષટ્કોણ
+filter.shape_blur.choice.cross = ચોકડી
+filter.shape_blur.choice.ring = વલય
+filter.shape_blur.choice.star = તારો
+filter.smart_blur.name = સ્માર્ટ બ્લર
+filter.smart_blur.choice.normal = સામાન્ય
+filter.smart_blur.choice.edge_only = માત્ર ધાર
+filter.smart_blur.choice.overlay_edge = ઓવરલે ધાર
+filter.deinterlace.name = ડી-ઇન્ટરલેસ
+filter.deinterlace.param.field = દૂર કરો
+filter.deinterlace.choice.odd_fields = એકી ફીલ્ડ
+filter.deinterlace.choice.even_fields = બેકી ફીલ્ડ
+filter.deinterlace.param.fill = નવી ફીલ્ડ આ રીતે બનાવો
+filter.deinterlace.choice.interpolation = ઇન્ટરપોલેશન
+filter.deinterlace.choice.duplication = નકલ
+filter.ntsc_colors.name = NTSC રંગો
+
+# Neural Filters
+filter.neural.skin_smoothing.name = ત્વચા સુંવાળી કરવી
+filter.neural.skin_smoothing.param.blur = સુંવાળાપણું
+filter.neural.skin_smoothing.param.detail = વિગતો જાળવો
+filter.neural.skin_smoothing.msg.no_model = {model} ઇન્સ્ટૉલ નથી — તેના બદલે ત્વચાના રંગવાળી દરેક વસ્તુ સુંવાળી કરવામાં આવે છે.
+filter.neural.jpeg_artifacts.name = JPEG આર્ટિફૅક્ટ દૂર કરવા
+filter.neural.jpeg_artifacts.msg.no_model = {model} ઇન્સ્ટૉલ નથી — તેના બદલે 8-પિક્સેલની જાળી સુંવાળી કરવામાં આવે છે.
+filter.neural.colorize.name = રંગીન બનાવો
+filter.neural.colorize.param.warmth = ઉષ્મા
+filter.neural.colorize.msg.no_model = {model} ઇન્સ્ટૉલ નથી — તેના બદલે પ્રકાશમાનતા પ્રમાણે ટિન્ટ કરવામાં આવે છે.
+filter.neural.super_zoom.name = સુપર ઝૂમ
+filter.neural.super_zoom.msg.no_model = {model} ઇન્સ્ટૉલ નથી — તેના બદલે ધાર-આધારિત તીક્ષ્ણતા વપરાય છે.
+filter.neural.style_transfer.name = શૈલી સ્થાનાંતરણ
+filter.neural.style_transfer.choice.mosaic = મોઝેઇક
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = કોઈ શૈલી મૉડલ ઇન્સ્ટૉલ નથી — માત્ર રંગ સ્થાનાંતરિત થાય છે. તેમને «ફિલ્ટર ▸ Neural Filters ▸ મૉડલ સંચાલિત કરો»માંથી મેળવો.
+filter.neural.style_transfer.msg.installed = ઇન્સ્ટૉલ થયેલાં: {styles} (ONNX Model Zoo, Apache-2.0).
+filter.neural.color_transfer.name = રંગ સ્થાનાંતરણ
+filter.neural.color_transfer.param.hue = લક્ષ્ય હ્યુ
+filter.neural.color_transfer.param.contrast = કોન્ટ્રાસ્ટ મેળવો
+filter.neural.color_transfer.msg.info = તે પોતાની રંગપટ્ટી નીચેના લેયરમાંથી લે છે. નીચે કંઈ ન હોય ત્યારે તેના બદલે લક્ષ્ય હ્યુ મેળવવાનો પ્રયાસ કરે છે.
+filter.neural.depth_blur.name = ઊંડાઈ બ્લર
+filter.neural.depth_blur.param.focus = ફોકલ અંતર
+filter.neural.depth_blur.param.blur = બ્લરની તીવ્રતા
+filter.neural.depth_blur.msg.no_model = {model} ઇન્સ્ટૉલ નથી — તેના બદલે સ્થાનિક તીક્ષ્ણતા પ્રમાણે ફોકસ કરવામાં આવે છે.
+filter.neural.harmonization.name = સુમેળ
+filter.neural.harmonization.param.tone = ટોન મેળવો
+filter.neural.harmonization.msg.info = આ લેયરને તેની નીચેની વસ્તુ સાથે મેળવે છે. નીચે કંઈ ન હોય તો મેળવવા જેવું કંઈ નથી અને કોઈ ફેરફાર થતો નથી.
+filter.neural.landscape_mixer.name = લેન્ડસ્કેપ મિક્સર
+filter.neural.landscape_mixer.param.bands = ઊંડાઈ પટ્ટા
+filter.neural.landscape_mixer.msg.with_depth = Depth (Depth Blur) વડે એક-એક પટ્ટો મેળવીને તે પોતાની રંગપટ્ટી નીચેના લેયરમાંથી લે છે.
+filter.neural.landscape_mixer.msg.without_depth = તે પોતાની રંગપટ્ટી નીચેના લેયરમાંથી લે છે. આખા ચિત્રને એકસાથે મેળવવાને બદલે આકાશને આકાશ અને જમીનને જમીન સાથે મેળવવા Depth (Depth Blur) ઇન્સ્ટૉલ કરો.
+filter.neural.photo_restoration.name = ફોટો પુનઃસ્થાપન
+filter.neural.photo_restoration.param.enhance = ફોટો સુધારણા
+filter.neural.photo_restoration.param.scratches = ઘસરકા ઘટાડો
+filter.neural.photo_restoration.param.tone = ટોન પુનઃસ્થાપિત કરો
+filter.neural.photo_restoration.msg.no_model = મૉડલ વિના સફાઈ કરવામાં આવે છે.
+filter.neural.photo_restoration.msg.using_deblock = Deblock વપરાય છે · Schist માટે તાલીમબદ્ધ.
+filter.neural.photo_restoration.msg.using_detail = Detail વપરાય છે · Schist માટે તાલીમબદ્ધ.
+filter.neural.photo_restoration.msg.using_both = Deblock અને Detail વપરાય છે · Schist માટે તાલીમબદ્ધ.
+filter.neural.photo_to_sketch.name = ફોટોમાંથી સ્કેચ
+filter.neural.photo_to_sketch.param.weight = રેખાની જાડાઈ
+filter.neural.photo_to_sketch.param.shading = શેડિંગ
+filter.neural.face_to_caricature.name = ચહેરામાંથી કૅરિકેચર
+filter.neural.face_to_caricature.param.mouth = મોઢું
+filter.neural.face_to_caricature.param.head = માથું
+filter.neural.face_to_caricature.msg.no_model = {model} ઇન્સ્ટૉલ નથી, તેથી આ કંઈ કરતું નથી — કૅરિકેચર બનાવવા માટે કંઈ નથી.
+filter.neural.smart_portrait.name = સ્માર્ટ પોર્ટ્રેટ
+filter.neural.smart_portrait.param.happiness = ખુશી
+filter.neural.smart_portrait.param.surprise = આશ્ચર્ય
+filter.neural.smart_portrait.param.age = ચહેરાની ઉંમર
+filter.neural.smart_portrait.param.gaze = નજર
+filter.neural.smart_portrait.param.light = પ્રકાશની દિશા
+filter.neural.smart_portrait.msg.no_model = {model} ઇન્સ્ટૉલ નથી, તેથી આ કંઈ કરતું નથી — કામ કરવા માટે તેની પાસે કોઈ ચહેરો નથી.
+filter.neural.makeup_transfer.name = મેકઅપ સ્થાનાંતરણ
+filter.neural.makeup_transfer.param.lips = હોઠ
+filter.neural.makeup_transfer.param.skin = ત્વચાનો ટોન
+filter.neural.makeup_transfer.msg.info = તે નીચેના લેયરના ચહેરામાંથી મેકઅપ લે છે. ટેક્સ્ચર નહીં, માત્ર રંગ.
+filter.neural.makeup_transfer.msg.no_model = {model} ઇન્સ્ટૉલ નથી, તેથી આ કંઈ કરતું નથી.
+filter.neural.sketch_to_portrait.name = સ્કેચમાંથી પોર્ટ્રેટ
+filter.neural.sketch_to_portrait.param.detail = રેખાઓ જાળવો
+filter.neural.sketch_to_portrait.msg.with_face = આ એપ્લિકેશનના પોતાના Photo to Sketchને ભરવા માટે તાલીમબદ્ધ. તેને મળતા ચહેરા પર કામ કરે છે.
+filter.neural.sketch_to_portrait.msg.no_face = આ એપ્લિકેશનના પોતાના Photo to Sketchને ભરવા માટે તાલીમબદ્ધ. Faces (Skin Smoothing) ઇન્સ્ટૉલ કરો અને તે આખી પસંદગીને બદલે ચહેરા પર કામ કરશે.

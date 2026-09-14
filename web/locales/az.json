@@ -1,0 +1,9 @@
+{
+  "loading": "Yüklənir…",
+  "starting": "Başladılır…",
+  "webgpu": "Schist üçün WebGPU tələb olunur, lakin bu brauzer onu dəstəkləmir. Chrome/Edge 113+, Firefox 141+ və Safari 26+ dəstəkləyir.",
+  "noticeTitle": "Schist masaüstü tətbiqi kimi daha yaxşı işləyir",
+  "noticeBody": "Veb versiyadan istifadə edirsiniz; bu, daha yüngül yığımdır: kompozisiyanı CPU-da aparır, Photoshop plaginlərini və üçüncü tərəf plaginlərini, şəkil qalereyasını, AI panelini, HEIC idxalını və şrift endirmələrini daxil etmir, fayllar isə endirmə kimi saxlanılır. macOS, Windows və Linux üçün pulsuz masaüstü tətbiqində bunların hamısı var.",
+  "noticeLink": "Masaüstü tətbiqini əldə edin.",
+  "ok": "OK"
+}

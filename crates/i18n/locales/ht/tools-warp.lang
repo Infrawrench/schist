@@ -1,0 +1,22 @@
+tool.liquify.name = Likidifye
+tool.liquify.description = Pouse, toubiyonnen, plise oswa gonfle piksèl ki anba yon gwo bwòs — opsyon mòd la chwazi aksyon an. Defòmasyon an akimile nan yon may epi li aplike sou kouch la lè w valide.
+tool.liquify.option.tool = Zouti
+tool.liquify.choice.forward_warp = Defòme annavan
+tool.liquify.choice.reconstruct = Rekonstwi
+tool.liquify.choice.twirl_cw = Toubiyonnen nan sans zegwi mont
+tool.liquify.choice.twirl_ccw = Toubiyonnen nan sans kontrè zegwi mont
+tool.liquify.choice.pucker = Plise
+tool.liquify.choice.bloat = Gonfle
+tool.liquify.choice.push_left = Pouse agoch
+tool.liquify.history.liquify = Likidifye
+
+tool.puppet_warp.name = Defòmasyon mannken
+tool.puppet_warp.description = Klike pou fikse kouch la nan kèk pwen, epi trennen youn ladan yo: may la koube toutotou pwen yo, swa rèd swa lach selon opsyon Rèd la. Lè w valide, sa aplike l.
+tool.puppet_warp.option.stiffness = Rèd
+tool.puppet_warp.history.puppet_warp = Defòmasyon mannken
+
+tool.vanishing_point.name = Pwen disparisyon
+tool.vanishing_point.description = Trennen pou trase yon plan sou yon bagay ki gen pèspektiv, epi chanje mòd la pou Klone epi pentire: piksèl ki kopye yo suiv plan an epi yo vin pi piti ak distans lan.
+tool.vanishing_point.choice.edit_plane = Modifye plan
+tool.vanishing_point.choice.clone = Klone
+tool.vanishing_point.history.vanishing_point = Pwen disparisyon

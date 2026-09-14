@@ -1,0 +1,29 @@
+# Artboard
+tool.artboard.name = Artboard
+tool.artboard.description = Arrastra para un fama'tinas artboard: un gai-na'an na lugåt gi canvas ni ma'eksporta na maisa. Yanggen un arrastra gi halom un artboard ni gaige esta, un na'kalamten.
+tool.artboard.default_name = Artboard {n}
+
+# Slice
+tool.slice.name = Slice
+tool.slice.description = Arrastra para un fama'tinas export slice, un gai-na'an na rektånggulu gi canvas ni ma'eksporta komu maisa na imåhen. Yanggen un arrastra gi halom un slice ni gaige esta, un na'kalamten.
+tool.slice.default_name = Slice {n}
+
+# Frame
+tool.frame.name = Frame
+tool.frame.description = Arrastra para un fama'tinas frame: un rektånggulu (pat eliptiku) na layer ni ha nå'na' håfa un po'lo gi halom-ña.
+tool.frame.default_name = Frame {n}
+tool.frame.choice.rectangle = Rektånggulu
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Frame
+
+# Note
+tool.note.name = Nota
+tool.note.description = Klik gi un tåya' kontenidon lugåt gi canvas para un pega nota guihe, yan para u gai na'an i tumugi' yan kulot ginen i editor state; klik gi un pin ni gaige esta para un ayek para i Notes panel.
+tool.note.history.place = Pega nota
+tool.note.history.move = Na'kalamten nota
+tool.note.history.delete = Na'suha nota
+
+# Count
+tool.count.name = Kuenta
+tool.count.description = Klik para un pega manmanumiru na count marker gi canvas, yan klik gi unu ni gaige esta para un na'suha.
+tool.count.default_name = Kuenta {n}

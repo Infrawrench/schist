@@ -1,0 +1,83 @@
+# Diphanele, bara ea lisebelisoa, boemo le di-tab tsa tokomane.
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Selaoli sa Pono
+panel.navigator.actual_pixels = Lipiksele tsa Sebele
+
+panel.color.picker = Sekhethi…
+panel.color.swap = Fapanyetsana Mebala
+panel.color.reset = Khutlisetsa ho Botšo le Bosoeu
+
+panel.layers.blending_options = Likhetho tsa ho Kopanya…
+panel.layers.properties = Litšobotsi tsa Mokhahlelo…
+panel.layers.show_hide = Bontša/Pata Mokhahlelo
+panel.layers.toggle_visibility = Fetola Hore na oa Bonahala
+
+panel.history.title = Nalane
+panel.history.opened = E Butsoe
+
+panel.info.title = Tlhahisoleseding
+panel.info.camera = Khamera
+panel.info.lens = Lense
+panel.info.iso = ISO {iso}
+panel.info.bias = Tokiso ea Kganya
+panel.info.flash_fired = flash e ile ea bonesa
+panel.info.no_flash = ha ho flash
+panel.info.white_balance = Tekano ea Bosoeu {wb}
+panel.info.metering = tekanyo ea leseli ea {metering}
+panel.info.taken = E Nkuoe
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · tsela {o}
+panel.info.software = Software
+panel.info.where = Sebaka
+
+panel.notes.author = Mongoli
+panel.notes.clear_all = Hlakola Tsohle
+panel.notes.unattributed = Ha e na Mongoli
+panel.notes.empty = Tobetsa seile ho siea ntlha.
+panel.notes.placeholder = Tobetsa ho ngola
+
+panel.character.title = Tlhaku
+panel.character.type_tool = Sesebelisoa sa Mongolo (T)
+panel.character.align_left = Tsepanya ka ho le letšehali
+panel.character.align_center = Tsepanya bohareng
+panel.character.align_right = Tsepanya ka ho le letona
+panel.character.text_color = 'Mala oa mongolo
+panel.character.panel = Phanele ea Tlhaku
+panel.character.cancel_edit = Hlakola ho hlophisa mongolo
+panel.character.commit_edit = Tiisa ho hlophisa mongolo
+panel.character.number_tip = {label} · Ngola boleng, kapa sebelisa ↑ / ↓ (Shift bakeng sa mehato e meholo)
+panel.character.leading = Sekheo sa Mela
+panel.character.tracking = Sekheo sa Litlhaku
+panel.character.alignment = Tsepanyo
+panel.character.opentype = OpenType
+panel.character.text_on_path = Mongolo tseleng
+panel.character.straight = O otlolohileng
+panel.character.on_path = Tseleng
+panel.character.straight_tip = Sebelisa mola o tloaelehileng oo litlhaku tsa mokhahlelo oa mongolo li lutseng ho oona
+panel.character.on_path_tip = Sebelisa kopi ea tsela e sebetsang
+panel.character.path_offset = Ho Sutha Tseleng
+
+panel.ai.title = AI
+panel.ai.empty_editor = Kopa hore ho hlophisoe 'me u bone ho etsahala seileng. Moemeli o sebelisa lisebelisoa, disefo le litaelo tse tšoanang le tsa dimenu, ketso ka 'ngoe e ka etsolloa ka mohato o le mong.
+panel.ai.empty_gallery = Botsa ka lifoto tsa hao 'me u bone ho etsahala pokellong: moemeli a ka batla, a sheba litšoantšo tse nyenyane, a khetha, a hlophisa ka lihlopha le ho bula foto mohlophising.
+panel.ai.thinking = e ntse e nahana…
+panel.ai.placeholder_editor = Botsa ka tokomane ena kapa u e hlophise
+panel.ai.placeholder_gallery = Botsa ka lifoto tsa hao
+panel.ai.send = Romela
+panel.ai.stop = Emisa
+panel.ai.fetching_models = E botsa CLI ka dimotlolo tsa eona…
+panel.ai.no_models = Ha ho dimotlolo tse lumellanang
+panel.ai.search_models = Batla dimotlolo…
+
+panel.keymap.install_plugin = Kenya Plug-in
+panel.keymap.save_as_prompt = Boloka e le — katoloso ea lebitso e khetha sebopeho:

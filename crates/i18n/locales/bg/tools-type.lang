@@ -1,0 +1,23 @@
+# Инструментът за текст.
+tool.type.name = Текст
+tool.type.description = Щракнете, за да започнете текстов слой на това място, или върху съществуващ текстов слой, за да го редактирате. Докато е отворен, инструментът приема директно натиснатите клавиши (изпращайте знаците като клавиатурен вход), а потвърждаването изобразява слоя и приключва редактирането.
+
+tool.type.option.align = Подравняване
+tool.type.option.leading = Междуредие
+tool.type.option.tracking = Разредка
+tool.type.option.kerning = Кернинг
+tool.type.option.ligatures = Лигатури
+tool.type.option.discretionary_ligatures = Допълнителни лигатури
+tool.type.option.small_caps = Капител
+tool.type.option.on_path = Върху активната пътека
+tool.type.option.path_offset = Отместване по пътеката
+
+tool.type.choice.regular = Обикновен
+tool.type.choice.bold = Получер
+tool.type.choice.italic = Курсив
+tool.type.choice.bold_italic = Получер курсив
+
+tool.type.history.new_layer = Нов текстов слой
+tool.type.history.edit = Редактиране на текст
+tool.type.history.discard = Отхвърляне на текста
+tool.type.history.discard_empty = Отхвърляне на празния текст

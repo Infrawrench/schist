@@ -1,0 +1,43 @@
+tool.pen.name = Pluenn
+tool.pen.description = Sevel un treug: klikit evit ur poent-korn, riklait evit tennañ dornelloù krommennoù dioutañ, ha klikit ar poent kentañ evit serriñ. Kadarnaat a dro an treug en ur gwiskad stumm.
+tool.pen.option.rubber_band = Elastik
+tool.pen.history.fill = Leuniañ an treug
+tool.pen.default_path_name = Treug {n}
+tool.pen.freeform.name = Pluenn gant an dorn
+tool.pen.freeform.description = Riklait ul linenn gant an dorn hag azasaet e vo ouzh un treug, ken laosk ma lavar an dibarzh Azasaat.
+tool.pen.freeform.option.fit = Azasaat
+tool.pen.curvature.name = Pluenn krommadur
+tool.pen.curvature.description = Klikit un heuliad poentoù hag an treug a vo krommet ingal drezo.
+
+tool.path_select.name = Diuzañ un treug
+tool.path_select.description = Klikit un treug evit e ziuzañ, ha riklait evit dilec'hiañ an treug a-bezh.
+tool.direct_select.name = Diuzañ eeun
+tool.direct_select.description = Riklait ur poent-eoriañ hiniennel pe e zornelloù evit adstummañ an treug en-dro dezhañ.
+
+tool.shape.history.layer = Gwiskad {name}
+tool.shape.rect.name = Benveg reizhkorneg
+tool.shape.rect.label = Reizhkorneg
+tool.shape.rect.description = Riklait ur gwiskad stumm reizhkornek gant liv ar rakleur; stumm sturiadel e chom hag adraselaet e vez pa vez adventet.
+tool.shape.ellipse.name = Benveg elipsenn
+tool.shape.ellipse.label = Elipsenn
+tool.shape.ellipse.description = Riklait ur gwiskad stumm eliptek gant liv ar rakleur.
+tool.shape.line.name = Benveg linenn
+tool.shape.line.label = Linenn
+tool.shape.line.description = Riklait ur gwiskad stumm linenn eeun gant liv ar rakleur.
+tool.shape.line.option.weight = Tevder
+tool.shape.line.option.arrow_start = Deroù
+tool.shape.line.option.arrow_end = Dibenn
+tool.shape.polygon.name = Benveg lieskorneg
+tool.shape.polygon.label = Lieskorneg
+tool.shape.polygon.description = Riklait ur gwiskad stumm lieskornek reoliek gant liv ar rakleur, gant an niver a gostezioù dibabet en dibarzhioù.
+tool.shape.polygon.option.sides = Kostezennoù
+
+tool.shape.custom.name = Stumm personelaet
+tool.shape.custom.label = Stumm personelaet
+tool.shape.custom.description = Riklait unan eus ar stummoù rakarventennet enkorfet, dibabet gant an dibarzh Stumm.
+tool.shape.custom.choice.heart = Kalon
+tool.shape.custom.choice.star = Steredenn
+tool.shape.custom.choice.arrow = Bir
+tool.shape.custom.choice.lightning = Luc'hedenn
+tool.shape.custom.choice.cross = Kroaz
+tool.shape.custom.choice.speech_bubble = Klogorenn gomz

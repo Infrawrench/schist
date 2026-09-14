@@ -1,0 +1,32 @@
+# Pannello lateral IA e infrastructura del agentes.
+
+ai.status.panel_shown = Pannello IA monstrate
+ai.status.panel_hidden = Pannello IA celate — Vista ▸ Pannello IA ({shortcut}) lo reaperi
+ai.status.tool = IA: {name}
+
+ai.info.connected = {backend} connectite
+ai.info.now_in_gallery = Ora in le galeria.
+ai.info.now_in_editor = Ora in le editor.
+ai.tool.shell_command = commando de shell
+
+ai.error.cli_missing = Le CLI de {backend} (“{binary}”) non es in PATH. Installa lo e aperi session in illo primo.
+ai.error.endpoint_failed = le initiation del puncto terminal MCP falleva: {error}
+ai.error.binding_endpoint = association del puncto terminal MCP
+ai.error.spawning_endpoint_thread = initiation del filo del puncto terminal MCP
+ai.error.runtime_failed = le initiation del ambiente de execution del agente falleva: {error}
+ai.error.worker_failed = le initiation del executor {backend} falleva: {error}
+ai.error.did_not_start = {backend} non se initiava: {error}
+ai.error.switch_model_failed = le cambio de modello falleva: {error}
+ai.error.send_failed = le invio del instruction falleva: {error}
+ai.error.interrupt_failed = le interruption falleva: {error}
+ai.error.locating_binary = localisation del binario Schist
+ai.error.starting_app_server = initiation del servitor de application Codex
+ai.error.attaching_app_server = connexion al servitor de application Codex
+ai.error.initializing_app_server = initialisation del servitor de application Codex
+ai.error.resuming_thread = reprisa del filo Codex
+ai.error.starting_thread = initiation del filo Codex
+
+ai.model.opus_detail = Nivello le plus capabile
+ai.model.sonnet_detail = Efficiente pro labores habitual
+ai.model.haiku_detail = Le plus rapide pro responsas breve
+ai.model.codex_catalog = Catalogo Codex

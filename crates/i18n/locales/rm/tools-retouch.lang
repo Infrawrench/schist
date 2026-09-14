@@ -1,0 +1,25 @@
+# Utensils per retuschar regiuns.
+
+tool.patch.name = Taclun
+tool.patch.description = Tira in contur enturn in defect e tira lura questa selecziun sin pixels nets: la structura da là vegn adattada al defect. Il modus da taclun determinescha tgenina da las duas regiuns che ti tiras.
+tool.patch.option.patch = Taclun
+tool.patch.choice.source = Funtauna
+tool.patch.choice.destination = Destinaziun
+tool.patch.history.patch = Taclun
+
+tool.content_aware_move.name = Spustar tenor il cuntegn
+tool.content_aware_move.description = Tira in object selecziunà en in auter lieu; la fora restanta vegn emplenida tenor ses conturn. En il modus Extender vegn l'object extendì empè da spustà.
+tool.content_aware_move.choice.move = Spustar
+tool.content_aware_move.choice.extend = Extender
+tool.content_aware_move.history.move = Spustar tenor il cuntegn
+
+tool.red_eye.name = Egls cotschens
+tool.red_eye.description = Clicca sin ina pupilla per allontanar il cotschen dal flaesch.
+tool.red_eye.option.pupil_size = Grondezza da la pupilla
+tool.red_eye.option.darken = Stgirentar
+tool.red_eye.history.red_eye = Egls cotschens
+
+tool.magic_eraser.name = Gumma magica
+tool.magic_eraser.description = Clicca per stizzar la regiun da colur sumeglianta sut il punctader entaifer la toleranza da l'utensil, saja mo la regiun colliada cun il punct cliccà u tut las regiuns en la stresa.
+tool.magic_eraser.option.contiguous = Regiun colliada
+tool.magic_eraser.history.erase = Gumma magica

@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = dekodiranje datoteke {name}
+codec.msg.zero_sized = slika nima slikovnih pik
+codec.msg.assembling_document = sestavljanje dokumenta
+
+codec.raw.msg.decoding = dekodiranje neobdelane datoteke
+codec.raw.msg.developing = razvijanje neobdelane datoteke
+codec.raw.msg.finding_preview = iskanje vdelanega predogleda
+codec.raw.msg.decoding_preview = dekodiranje vdelanega predogleda
+codec.raw.msg.decoder_panicked = dekodirnik neobdelanih datotek ni uspel obdelati te datoteke: {what}
+
+codec.affinity.import_title = Uvoz iz programa Affinity
+codec.affinity.flattened_preview_layer = Sploščen predogled
+codec.affinity.msg.no_preview = Uporabnega vdelanega predogleda ni. Večplastna oblika programa Affinity je lastniška; Schist uvozi sploščeni predogled, ki ga vsebuje datoteka. Ta datoteka ga nima — znova jo shranite v programu Affinity ali jo za popoln uvoz plasti izvozite kot PSD.
+
+codec.heif.msg.no_library = Knjižnica libheif ni na voljo ({details}). Za odpiranje datotek HEIC potrebujete knjižnico libheif (Linux: namestite libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — ta gradnja knjižnice libheif morda nima dekodirnika HEVC (v sistemu Debian/Ubuntu namestite libheif-plugin-libde265)
+codec.heif.msg.unknown_error = neznana napaka
+codec.heif.msg.initialising = inicializacija knjižnice libheif
+codec.heif.msg.reading_container = branje vsebnika HEIF
+codec.heif.msg.finding_primary_image = iskanje glavne slike
+codec.heif.msg.reading_icc_profile = branje profila ICC
+codec.heif.msg.decoding_image = dekodiranje slike
+codec.heif.msg.checksum_mismatch = Kontrolna vsota datoteke {name} se ne ujema: pričakovana je {expected}, dobljena pa {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ni mogel prebrati vsebnika HEIF
+codec.heif.msg.container_empty = vsebnik HEIF ne vsebuje slike
+codec.heif.msg.imageio_cannot_decode = ImageIO ni mogel dekodirati glavne slike

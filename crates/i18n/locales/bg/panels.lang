@@ -1,0 +1,83 @@
+# Панели, ленти, раздели и файлови диалози около платното.
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Навигатор
+panel.navigator.actual_pixels = Действителни пиксели
+
+panel.color.picker = Избор на цвят…
+panel.color.swap = Размяна на цветовете
+panel.color.reset = Връщане към черно и бяло
+
+panel.layers.blending_options = Настройки за смесване…
+panel.layers.properties = Свойства на слоя…
+panel.layers.show_hide = Показване/скриване на слоя
+panel.layers.toggle_visibility = Превключване на видимостта
+
+panel.history.title = История
+panel.history.opened = Отворено
+
+panel.info.title = Информация
+panel.info.camera = Фотоапарат
+panel.info.lens = Обектив
+panel.info.iso = ISO {iso}
+panel.info.bias = Компенсация
+panel.info.flash_fired = със светкавица
+panel.info.no_flash = без светкавица
+panel.info.white_balance = Баланс на бялото: {wb}
+panel.info.metering = измерване: {metering}
+panel.info.taken = Заснета
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · ориентация {o}
+panel.info.software = Софтуер
+panel.info.where = Местоположение
+
+panel.notes.author = Автор
+panel.notes.clear_all = Изчистване на всички
+panel.notes.unattributed = Без автор
+panel.notes.empty = Щракнете върху платното, за да оставите бележка.
+panel.notes.placeholder = Щракнете, за да пишете
+
+panel.character.title = Знак
+panel.character.type_tool = Инструмент „Текст“ (T)
+panel.character.align_left = Подравняване отляво
+panel.character.align_center = Подравняване по средата
+panel.character.align_right = Подравняване отдясно
+panel.character.text_color = Цвят на текста
+panel.character.panel = Панел „Знак“
+panel.character.cancel_edit = Отказ от редактирането на текста
+panel.character.commit_edit = Потвърждаване на редактирането на текста
+panel.character.number_tip = {label} · Въведете стойност или използвайте ↑ / ↓ (Shift за по-големи стъпки)
+panel.character.leading = Междуредие
+panel.character.tracking = Разредка
+panel.character.alignment = Подравняване
+panel.character.opentype = OpenType
+panel.character.text_on_path = Текст по пътека
+panel.character.straight = Прав
+panel.character.on_path = По пътека
+panel.character.straight_tip = Използване на обичайната базова линия на текстовия слой
+panel.character.on_path_tip = Използване на копие на активната пътека
+panel.character.path_offset = Отместване по пътеката
+
+panel.ai.title = ИИ
+panel.ai.empty_editor = Поискайте редакция и наблюдавайте изпълнението ѝ върху платното. Агентът използва същите инструменти, филтри и команди като менютата, всеки в отделна стъпка за отмяна.
+panel.ai.empty_gallery = Попитайте за снимките си и наблюдавайте изпълнението в галерията: агентът може да търси, да разглежда миниатюри, да избира, да разпределя в групи и да отваря снимка в редактора.
+panel.ai.thinking = обмисляне…
+panel.ai.placeholder_editor = Попитайте за документа или поискайте редакция
+panel.ai.placeholder_gallery = Попитайте за снимките си
+panel.ai.send = Изпращане
+panel.ai.stop = Спиране
+panel.ai.fetching_models = Извличане на моделите от интерфейса за команден ред…
+panel.ai.no_models = Няма съответстващи модели
+panel.ai.search_models = Търсене на модели…
+
+panel.keymap.install_plugin = Инсталиране на приставка
+panel.keymap.save_as_prompt = Запазване като — разширението определя формата:

@@ -1,0 +1,22 @@
+tool.type.name = पाठः
+tool.type.description = तत्र पाठस्तरम् आरब्धुं नोदयतु, विद्यमानं पाठस्तरं सम्पादयितुं वा तस्मिन् नोदयतु। उद्घाटिते सति साधनं मूलकुञ्जीः गृह्णाति (कुञ्जीनिवेशरूपेण अक्षराणि प्रेषयतु); प्रतिबद्धकरणेन स्तरः चित्रितः सम्पादनं च पिहितं भवति।
+
+tool.type.option.align = संरेखणम्
+tool.type.option.leading = पङ्क्त्यन्तरम्
+tool.type.option.tracking = अक्षरान्तरम्
+tool.type.option.kerning = अक्षरयुग्मान्तरम्
+tool.type.option.ligatures = संयुक्ताक्षराणि
+tool.type.option.discretionary_ligatures = वैकल्पिकसंयुक्ताक्षराणि
+tool.type.option.small_caps = लघुमहदक्षराणि
+tool.type.option.on_path = सक्रियमार्गे
+tool.type.option.path_offset = मार्गविस्थापनम्
+
+tool.type.choice.regular = नियमितम्
+tool.type.choice.bold = स्थूलम्
+tool.type.choice.italic = तिर्यक्
+tool.type.choice.bold_italic = स्थूलतिर्यक्
+
+tool.type.history.new_layer = नूतनपाठस्तरः
+tool.type.history.edit = पाठसम्पादनम्
+tool.type.history.discard = पाठत्यागः
+tool.type.history.discard_empty = रिक्तपाठत्यागः

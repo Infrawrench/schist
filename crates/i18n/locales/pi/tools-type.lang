@@ -1,0 +1,25 @@
+tool.type.name = Akkharakaraṇaṃ
+tool.type.description = Phusitvā tattha akkharasantharaṃ ārabhatha, atha vā vijjamānaṃ phusitvā sampādetha. Tasmiṃ vivaṭe sati karaṇaṃ aparivattitāni taḷitāni gaṇhāti (akkharāni taḷanāgamanena pesetha); niṭṭhāpiyamāne santharaṃ chāyārūpaṃ katvā sampādanaṃ pidahati.
+
+# Options
+tool.type.option.align = Samekaraṇaṃ
+tool.type.option.leading = Pantyantaraṃ
+tool.type.option.tracking = Akkharantaraṃ
+tool.type.option.kerning = Akkharayugalantaraṃ
+tool.type.option.ligatures = Saṃyuttakkharāni
+tool.type.option.discretionary_ligatures = Vikappasaṃyuttakkharāni
+tool.type.option.small_caps = Khuddakamahakkharāni
+tool.type.option.on_path = Kammakārakamagge
+tool.type.option.path_offset = Maggā apagamaṃ
+
+# Style
+tool.type.choice.regular = Pakatikaṃ
+tool.type.choice.bold = Thūlaṃ
+tool.type.choice.italic = Tiriyanataṃ
+tool.type.choice.bold_italic = Thūla-tiriyanataṃ
+
+# History
+tool.type.history.new_layer = Nava-akkharasantharo
+tool.type.history.edit = Akkharasampādanaṃ
+tool.type.history.discard = Akkharachaḍḍanaṃ
+tool.type.history.discard_empty = Suññakkharachaḍḍanaṃ

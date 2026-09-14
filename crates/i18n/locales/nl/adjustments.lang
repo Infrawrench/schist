@@ -1,0 +1,20 @@
+# Aanpassingslagen en opdrachten onder Afbeelding ▸ Aanpassingen.
+adjustment.levels.name = Niveaus
+adjustment.curves.name = Curven
+adjustment.hue_saturation.name = Kleurtoon/verzadiging
+adjustment.brightness_contrast.name = Helderheid/contrast
+adjustment.black_white.name = Zwart-wit
+adjustment.solid_color.name = Effen kleur
+adjustment.gradient_fill.name = Verloopvulling
+adjustment.pattern_fill.name = Patroonvulling
+adjustment.invert.name = Negatief
+adjustment.posterize.name = Waarden beperken
+adjustment.threshold.name = Drempel
+adjustment.color_balance.name = Kleurbalans
+adjustment.vibrance.name = Levendigheid
+adjustment.exposure.name = Belichting
+adjustment.photo_filter.name = Fotofilter
+adjustment.gradient_map.name = Verloop toewijzen
+adjustment.selective_color.name = Selectieve kleur
+adjustment.channel_mixer.name = Kanaalmixer
+adjustment.other.name = Aanpassing

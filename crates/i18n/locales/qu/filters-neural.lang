@@ -1,0 +1,147 @@
+# Wakin suysunakuna rakinakusqan sutichakuna
+filter.neural.param.center_x = X chawpi
+filter.neural.param.center_y = Y chawpi
+filter.neural.param.direction = Ñan
+filter.neural.param.transition = Tikraynin
+filter.neural.param.detail = Ñut'u kaqninkuna
+filter.neural.param.eyes = Ñawikuna
+
+filter.neural.msg.using_model = {model} llamk'achkan · {license}.
+filter.neural.msg.get_model = Suysuna ▸ Neural Filters ▸ Modelokunata kamachiy nisqamanta tariy.
+
+# Camera Raw suysuna
+filter.camera_raw.name = Camera Raw suysuna
+filter.camera_raw.param.temperature = Llimp'i temperatura
+filter.camera_raw.param.tint = Llimp'i yapana
+filter.camera_raw.param.highlights = Aswan k'anchaqkuna
+filter.camera_raw.param.shadows = Llanthukuna
+filter.camera_raw.param.whites = Yuraqkuna
+filter.camera_raw.param.blacks = Yanakuna
+filter.camera_raw.param.clarity = Ch'uya rikukuynin
+filter.camera_raw.param.dehaze = Pukutay qichuy
+filter.camera_raw.param.vibrance = Kawsay llimp'i
+filter.camera_raw.param.sharpening = Nitidezta yapay
+filter.camera_raw.param.noise = Ch'aqwa pisiyachiy
+filter.camera_raw.param.vignette = Viñeta
+
+# Lente allichay
+filter.lens_correction.name = Lente allichay
+filter.lens_correction.param.distortion = Waq'uyta qichuy
+filter.lens_correction.param.red = Puka/cian kantuta allichay
+filter.lens_correction.param.blue = Anqas/q'illu kantuta allichay
+filter.lens_correction.param.vignette = Viñeta hayk'a kaynin
+filter.lens_correction.param.midpoint = Viñeta chawpin
+filter.lens_correction.param.vertical = Sayay perspectiva
+filter.lens_correction.param.horizontal = Kinray perspectiva
+
+# T'ikrasqa hatun k'uchu
+filter.adaptive_wide_angle.name = T'ikrasqa hatun k'uchu
+filter.adaptive_wide_angle.param.projection = Allichay
+filter.adaptive_wide_angle.choice.fisheye = Challwa ñawi
+filter.adaptive_wide_angle.choice.perspective = Perspectiva
+filter.adaptive_wide_angle.choice.full_spherical = Llapan esfera
+filter.adaptive_wide_angle.param.focal = Focal karu
+filter.adaptive_wide_angle.param.crop = K'utuy tupun
+
+# Desenfoque galería
+filter.field_blur.name = Pampa desenfoque
+filter.field_blur.param.position = Kaypi enfocasqa
+filter.iris_blur.name = Iris desenfoque
+filter.iris_blur.param.roundness = Muyu kaynin
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Chawpi
+filter.tilt_shift.param.band = Enfocasqa wach'i
+filter.spin_blur.name = Muyuq desenfoque
+filter.spin_blur.param.angle = Desenfoque k'uchu
+filter.path_blur.name = Ñan desenfoque
+filter.path_blur.param.speed = Utqay kaynin
+filter.path_blur.param.curve = K'umu kaynin
+filter.path_blur.param.taper = Tukuyninpi ñañuyachiy
+
+# Desenfoque
+filter.shape_blur.name = Formayuq desenfoque
+filter.shape_blur.choice.square = Cuadrado
+filter.shape_blur.choice.diamond = Diamante
+filter.shape_blur.choice.hexagon = Suqta kuchu
+filter.shape_blur.choice.cross = Chakana
+filter.shape_blur.choice.ring = Siwi
+filter.shape_blur.choice.star = Quyllur
+filter.smart_blur.name = Yuyayniyuq desenfoque
+filter.smart_blur.choice.normal = Normal
+filter.smart_blur.choice.edge_only = Kantullapi
+filter.smart_blur.choice.overlay_edge = Hawa churasqa kantu
+
+# Video
+filter.deinterlace.name = Entrelazado qichuy
+filter.deinterlace.param.field = Qulluy
+filter.deinterlace.choice.odd_fields = Chulla yupayniyuq pampakuna
+filter.deinterlace.choice.even_fields = Masa yupayniyuq pampakuna
+filter.deinterlace.param.fill = Musuq pampakunata kaywan ruray
+filter.deinterlace.choice.interpolation = Interpolación
+filter.deinterlace.choice.duplication = Iskaychay
+filter.ntsc_colors.name = NTSC llimp'ikuna
+
+# Neural Filters
+filter.neural.skin_smoothing.name = Qara llamp'uyachiy
+filter.neural.skin_smoothing.param.blur = Llamp'u kaynin
+filter.neural.skin_smoothing.param.detail = Ñut'u kaqninkunata waqaychay
+filter.neural.skin_smoothing.msg.no_model = {model} mana churasqachu — uyakunataqa qara llimp'iyuq ima kaqtapas llamp'uyachichkan.
+filter.neural.jpeg_artifacts.name = JPEG pantay señalkuna qichuy
+filter.neural.jpeg_artifacts.msg.no_model = {model} mana churasqachu — rantinpi 8-pixel tawa tawa siq'ita llamp'uyachichkan.
+filter.neural.colorize.name = Llimp'ichay
+filter.neural.colorize.param.warmth = Q'uñi kaynin
+filter.neural.colorize.msg.no_model = {model} mana churasqachu — rantinpi luminanciaman hina llimp'ichachkan.
+filter.neural.super_zoom.name = Ancha hatunyachiy
+filter.neural.super_zoom.msg.no_model = {model} mana churasqachu — rantinpi kantukunaman qhawaspa nitidezta yapachkan.
+filter.neural.style_transfer.name = Rikch'ay apachiy
+filter.neural.style_transfer.choice.mosaic = Mosaico
+filter.neural.style_transfer.choice.candy = Misk'i
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Mana rikch'ay modelo churasqachu — llim'illata apachichkan. Suysuna ▸ Neural Filters ▸ Modelokunata kamachiy nisqamanta tariy.
+filter.neural.style_transfer.msg.installed = Churasqa: {styles} (ONNX Model Zoo, Apache-2.0).
+filter.neural.color_transfer.name = Llimp'i apachiy
+filter.neural.color_transfer.param.hue = Munasqa llimp'i rikch'ay
+filter.neural.color_transfer.param.contrast = Kutinnaqta tupachiy
+filter.neural.color_transfer.msg.info = Uranpi kaq patamanta llimp'i huñunta hap'in. Uranta mana imapas kaptinqa Munasqa llimp'i rikch'ayman chayananpaq ruwan.
+filter.neural.depth_blur.name = Ukhu desenfoque
+filter.neural.depth_blur.param.focus = Focal karu
+filter.neural.depth_blur.param.blur = Desenfoque kallpan
+filter.neural.depth_blur.msg.no_model = {model} mana churasqachu — rantinpi k'itipi nitidezman hina enfocachkan.
+filter.neural.harmonization.name = Tupanachiy
+filter.neural.harmonization.param.tone = Tonota tupachiy
+filter.neural.harmonization.msg.info = Kay patata uranpi kaq imawanpas tupachin. Uranta mana imapas kaptinqa manam tupachina kanchu, kaytaq mana imatapas ruwanchu.
+filter.neural.landscape_mixer.name = Pacha rikch'ay chaqruq
+filter.neural.landscape_mixer.param.bands = Ukhu wach'ikuna
+filter.neural.landscape_mixer.msg.with_depth = Uranpi kaq patamanta llimp'i huñunta hap'in, Depth (Depth Blur) nisqawan wach'imanta wach'i tupachispa.
+filter.neural.landscape_mixer.msg.without_depth = Uranpi kaq patamanta llimp'i huñunta hap'in. Llapan rikch'ayta hukllapi tupachiytaqa, hanaq pachata hanaq pachawan, hallp'ata hallp'awan tupachinapaq Depth (Depth Blur) churay.
+filter.neural.photo_restoration.name = Fotota kutichiy
+filter.neural.photo_restoration.param.enhance = Fotota allinchay
+filter.neural.photo_restoration.param.scratches = Qhasquykunata pisiyachiy
+filter.neural.photo_restoration.param.tone = Tonota kutichiy
+filter.neural.photo_restoration.msg.no_model = Mana modelowan pichachkan.
+filter.neural.photo_restoration.msg.using_deblock = Deblock llamk'achkan · Schistpaq yachachisqa.
+filter.neural.photo_restoration.msg.using_detail = Detail llamk'achkan · Schistpaq yachachisqa.
+filter.neural.photo_restoration.msg.using_both = Deblock Detail ima llamk'achkan · Schistpaq yachachisqa.
+filter.neural.photo_to_sketch.name = Fotomanta bosquejo
+filter.neural.photo_to_sketch.param.weight = Siq'i rakhun
+filter.neural.photo_to_sketch.param.shading = Llanthuchay
+filter.neural.face_to_caricature.name = Uyamanta caricatura
+filter.neural.face_to_caricature.param.mouth = Simi
+filter.neural.face_to_caricature.param.head = Uma
+filter.neural.face_to_caricature.msg.no_model = {model} mana churasqachu; chayrayku kayqa mana imatapas ruwanchu — caricaturaman tikrana ima manam kanchu.
+filter.neural.smart_portrait.name = Yuyayniyuq retrato
+filter.neural.smart_portrait.param.happiness = Kusisqa kay
+filter.neural.smart_portrait.param.surprise = Utkasqa kay
+filter.neural.smart_portrait.param.age = Uyap watankuna
+filter.neural.smart_portrait.param.gaze = Qhaway
+filter.neural.smart_portrait.param.light = K'anchay ñan
+filter.neural.smart_portrait.msg.no_model = {model} mana churasqachu; chayrayku kayqa mana imatapas ruwanchu — llamk'anapaq manam uyayuqchu.
+filter.neural.makeup_transfer.name = Maquillaje apachiy
+filter.neural.makeup_transfer.param.lips = Wirp'akuna
+filter.neural.makeup_transfer.param.skin = Qara tono
+filter.neural.makeup_transfer.msg.info = Uranpi kaq patap uyamanta maquillajeta hap'in. Llim'ita, manam texturatachu.
+filter.neural.makeup_transfer.msg.no_model = {model} mana churasqachu; chayrayku kayqa mana imatapas ruwanchu.
+filter.neural.sketch_to_portrait.name = Bosquejomanta retrato
+filter.neural.sketch_to_portrait.param.detail = Siq'ikunata waqaychay
+filter.neural.sketch_to_portrait.msg.with_face = Kay aplicacionpa kikin Fotomanta bosquejo ruwasqanta hunt'achinapaq yachachisqa. Tarisqan uyapi llamk'an.
+filter.neural.sketch_to_portrait.msg.no_face = Kay aplicacionpa kikin Fotomanta bosquejo ruwasqanta hunt'achinapaq yachachisqa. Faces (Skin Smoothing) churay, llapan akllasqapiqa uyapi llamk'ananpaq.

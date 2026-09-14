@@ -1,0 +1,84 @@
+# Pannellos, barras e schedas circum le tela.
+
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Pixels real
+
+panel.color.picker = Selector…
+panel.color.swap = Excambiar colores
+panel.color.reset = Reinitialisar a nigre e blanc
+
+panel.layers.blending_options = Optiones de fusion…
+panel.layers.properties = Proprietates del strato…
+panel.layers.show_hide = Monstrar/Celar strato
+panel.layers.toggle_visibility = Commutar visibilitate
+
+panel.history.title = Historia
+panel.history.opened = Aperite
+
+panel.info.title = Information
+panel.info.camera = Camera
+panel.info.lens = Objectivo
+panel.info.iso = ISO {iso}
+panel.info.bias = Compensation
+panel.info.flash_fired = flash discargate
+panel.info.no_flash = sin flash
+panel.info.white_balance = Balancia del blanc {wb}
+panel.info.metering = mesuration {metering}
+panel.info.taken = Prendite
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientation {o}
+panel.info.software = Software
+panel.info.where = Loco
+
+panel.notes.author = Autor
+panel.notes.clear_all = Vacuar toto
+panel.notes.unattributed = Sin attribution
+panel.notes.empty = Clicca sur le tela pro lassar un nota.
+panel.notes.placeholder = Clicca pro scriber
+
+panel.character.title = Character
+panel.character.type_tool = Instrumento Texto (T)
+panel.character.align_left = Alinear a sinistra
+panel.character.align_center = Centrar
+panel.character.align_right = Alinear a dextera
+panel.character.text_color = Color del texto
+panel.character.panel = Pannello Character
+panel.character.cancel_edit = Cancellar modification del texto
+panel.character.commit_edit = Confirmar modification del texto
+panel.character.number_tip = {label} · Scribe un valor, o usa ↑ / ↓ (Shift pro passos plus grande)
+panel.character.leading = Interlinea
+panel.character.tracking = Spatiamento
+panel.character.alignment = Alineamento
+panel.character.opentype = OpenType
+panel.character.text_on_path = Texto sur un percurso
+panel.character.straight = Recte
+panel.character.on_path = Sur percurso
+panel.character.straight_tip = Usar le linea de base ordinari del strato de texto
+panel.character.on_path_tip = Usar un copia del percurso active
+panel.character.path_offset = Displaciamento sur le percurso
+
+panel.ai.title = IA
+panel.ai.empty_editor = Demanda un modification e observa lo occurrer sur le tela. Le agente dirige le mesme instrumentos, filtros e commandos que le menus, e cata action constitue un passo separate que pote esser disfacite.
+panel.ai.empty_gallery = Demanda re tu photos e observa le action in le galeria: le agente pote cercar, examinar miniaturas, seliger, ordinar in gruppos e aperir un photo in le editor.
+panel.ai.thinking = in curso de pensar…
+panel.ai.placeholder_editor = Demanda re iste documento o modifica lo
+panel.ai.placeholder_gallery = Demanda re tu photos
+panel.ai.send = Inviar
+panel.ai.stop = Stoppar
+panel.ai.fetching_models = Demanda al CLI su modellos…
+panel.ai.no_models = Necun modello corresponde
+panel.ai.search_models = Cercar modellos…
+
+panel.keymap.install_plugin = Installar plug-in
+panel.keymap.save_as_prompt = Salvar como — le extension determina le formato:

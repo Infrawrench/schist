@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Trek af
+tool.select.mode.intersect = Sny
+
+tool.marquee.rect.name = Reghoekige markies
+tool.marquee.rect.description = Sleep om 'n reghoekige seleksie te skep. Shift aan die begin van die sleepbeweging voeg by die seleksie, Alt trek af en albei sny daarmee; Shift tydens die sleepbeweging maak dit vierkantig. 'n Klik sonder om te sleep, ontselekteer.
+tool.marquee.ellipse.name = Elliptiese markies
+tool.marquee.ellipse.description = Sleep om 'n elliptiese seleksie te skep, met dieselfde Shift/Alt-kombinasies as die reghoekige markies.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Sleep 'n vryhand-omtrek; die seleksie sluit tussen die eindpunte wanneer die sleepbeweging klaar is. Shift voeg by en Alt trek af.
+tool.lasso.history.select = Lasso-seleksie
+tool.lasso.polygonal.name = Veelhoeklasso
+tool.lasso.polygonal.description = Klik opeenvolgende hoeke om 'n seleksie met reguit rande te bou, en klik naby die eerste punt om dit te sluit.
+tool.lasso.polygonal.history.select = Veelhoeklasso
+tool.lasso.magnetic.name = Magnetiese lasso
+tool.lasso.magnetic.description = Trek rofweg langs 'n rand en die omtrek klamp aan die sterkste kontras naby die pad vas.
+tool.lasso.magnetic.history.select = Magnetiese lasso
+tool.lasso.magnetic.option.frequency = Frekwensie
+
+tool.wand.name = Towerstaffie
+tool.wand.description = Klik om die aaneenlopende gebied van soortgelyke kleur onder die wyser binne die toleransie te selekteer — dieselfde toleransie wat Vergroot, Soortgelyk en Kleurreeks gebruik.
+tool.wand.option.contiguous = Aaneenlopend
+tool.wand.history.select = Towerstaffie
+
+tool.quick_select.name = Vinnige seleksie
+tool.quick_select.description = Verf oor 'n gebied en die seleksie groei deur die soortgelyke pixels waaroor die kwas beweeg.
+tool.quick_select.history.select = Vinnige seleksie
+
+tool.object_select.name = Voorwerpseleksie
+tool.object_select.description = Sleep 'n kassie om 'n voorwerp en die seleksie klamp aan die voorwerp wat daarin gevind word vas.
+tool.object_select.history.select = Voorwerpseleksie

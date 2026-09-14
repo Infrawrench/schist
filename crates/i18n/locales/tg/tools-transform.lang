@@ -1,0 +1,25 @@
+tool.transform.name = Табдилдиҳии озод
+tool.transform.description = Табдилдиҳии озод. Ҳангоми фаъол кардан гирди қабати фаъол қуттии табдилдиҳӣ кушода мешавад: гӯшаро кашед, то андоза тағйир ёбад; берун аз гӯша кашед, то битобад; канорро кашед, то каҷ шавад. То тасдиқ кардан (Enter) чизе сабт намешавад ва бекор кардан (Escape) қабатро ба ҳолати пешина бармегардонад.
+tool.transform.option.interpolation = Интерполятсия
+tool.transform.history.transform = Табдилдиҳии озод
+tool.transform.history.image_size = Андозаи тасвир
+tool.transform.history.canvas_size = Андозаи рони тасвир
+
+tool.transform.selection.name = Табдилдиҳии интихоб
+tool.transform.selection.description = Табдилдиҳии интихоб: ҳамон қуттӣ, аммо ба ҷойи пикселҳои дохилӣ хатти канории интихобро мекӯчонад. Барои анҷом тасдиқ ё бекор кунед.
+tool.transform.selection.history.transform = Табдилдиҳии интихоб
+
+tool.transform.resample.nearest_neighbor = Ҳамсояи наздиктарин
+tool.transform.resample.bilinear = Духаттӣ
+tool.transform.resample.bicubic = Бикубӣ
+
+tool.crop.name = Буридан
+tool.crop.description = Минтақаи нигоҳдоштаниро кашида интихоб кунед ва дастакҳояшро танзим намоед; тасдиқ кардан (Enter) ҳуҷҷатро то он минтақа мебурад, бекор кардан (Escape) онро бетағйир мегузорад.
+tool.crop.option.ratio = Таносуб
+tool.crop.option.delete_cropped = Нест кардани пикселҳои буридашуда
+tool.crop.choice.unconstrained = Бе маҳдудият
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Буридан

@@ -1,0 +1,36 @@
+app.filter_gallery.title = גלריית מסננים
+app.filter_gallery.stack = ערימה (מוחלת מלמטה למעלה)
+app.filter_gallery.no_settings = למסנן זה אין הגדרות.
+app.fonts.not_open_licensed = ללא רישיון פתוח · המדדים של {substitute} תואמים
+app.fonts.missing_substituted = חסר · המלל מוצג בגופן חלופי
+app.fonts.not_in_catalogue = ‏{family} אינו בקטלוג הגופנים הפתוח
+app.fonts.no_faces = אין סגנונות להורדה עבור {family}
+app.fonts.empty_response = תגובה ריקה
+app.update.unreadable_response = תגובה שאינה ניתנת לקריאה: {error}
+app.update.no_temp_dir = אין תיקייה זמנית להורדה אליה
+app.update.asset_has_path = שם הנכס במהדורה כולל נתיב
+app.update.too_big = ההורדה גדולה מהגודל שצוין במהדורה
+app.update.stopped_at = ההורדה נעצרה ב־{got} מתוך {total} בתים
+app.update.hash_mismatch = גיבוב ההורדה הוא {got} ולא {want}
+app.update.not_in_bundle = עותק זה אינו בתוך חבילת יישום
+app.update.no_parent_dir = לחבילת היישום אין תיקיית אב
+app.update.cannot_write = לא ניתן לכתוב אל {dir}
+app.update.cannot_move_aside = לא ניתן להזיז את {app} הצדה
+app.update.cannot_move_in = לא ניתן להעביר את החבילה החדשה למקומה
+app.update.cannot_run_ditto = לא ניתן להריץ את /usr/bin/ditto
+app.update.unpack_failed = פריקת ההורדה נכשלה: {error}
+app.update.no_app_in_download = ההורדה אינה מכילה Schist.app
+app.update.cannot_run_codesign = לא ניתן להריץ את /usr/bin/codesign
+app.update.signature_invalid = אימות חתימת ההורדה נכשל: {error}
+app.update.download_unsigned = עותק זה חתום וההורדה אינה חתומה
+app.update.different_developer = ההורדה חתומה בידי מפתח אחר
+app.update.cannot_relaunch = לא ניתן להפעיל את מפעיל ההפעלה מחדש
+app.update.not_installed_copy = עותק זה לא הוצב כאן בידי המתקין
+app.update.cannot_start_installer = לא ניתן להפעיל את המתקין
+app.update.platform_unsupported = עדכונים בפלטפורמה זו מותקנים באותה הדרך שבה Schist הותקן
+app.vulkan.no_loader = schist: אין טוען Vulkan במערכת זו, ולכן אין במה לצייר.\n\nSchist מעבד תצוגה באמצעות Vulkan, ו־`libvulkan.so.1` אינו מותקן.\nנדרשים גם הטוען וגם מנהל התקן:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: מנהל התקן Vulkan שאליו מצביעה הפעלה זו אינו קיים.\n\n{var} מוגדר, והגדרתו *מחליפה* את חיפוש מנהלי ההתקנים של הטוען במקום להוסיף לו. לכן הקבצים הבאים, שאינם קיימים, הם כל רשימת מנהלי ההתקנים—וכל תוכנית Vulkan בהפעלה זו אינה רואה מנהל התקן כלל, בלי קשר לכמה מהם מותקנים:\n\n{missing}\n    {var}={value}\n\nיש להפנות אותו למניפסט קיים—מנהלי התקנים מותקנים שמים את שלהם ב־/usr/share/vulkan/icd.d—או לבטל את הגדרתו ולאפשר לטוען לחפש בעצמו. אם ההפעלה מגדירה זאת בקובץ תצורה (`env =` של Hyprland, קובץ environment.d של systemd או פרופיל מעטפת), יש לשנות זאת שם ולהיכנס מחדש כדי שהשינוי יגיע לתוכניות שכבר פועלות.\n
+app.vulkan.override_note = \n{var} מוגדר כ־{value}, וזה מחליף את החיפוש של הטוען עצמו; אם אף מניפסט אינו מתאים למחשב זה, הצעד הראשון שכדאי לנסות הוא לבטל את ההגדרה.\n
+app.vulkan.no_driver = schist: לא מותקן מנהל התקן Vulkan, ולכן אין במה לצייר.\n\nSchist מעבד תצוגה באמצעות Vulkan. הטוען מותקן ואינו מדווח על מנהל התקן—דבר לא רשם מנהל התקן באף אחד משני המקומות שבהם מחפשים:\n\n{dirs}\n\nהטוען מופץ בנפרד ממנהלי ההתקנים, ולכן לרוב חסרה חבילה אחת בלבד.\n\nיש להתקין את מנהל ההתקן עבור המעבד הגרפי במחשב זה:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nמנהל ההתקן הקנייני של NVIDIA כולל אחד משלו (`nvidia-utils` ב־Arch,‏ `nvidia-driver` ב־Debian). במכונה וירטואלית או במקום ללא מנהל התקן גרפי להתקנה, מרסטר התוכנה הוא האפשרות שעובדת: `vulkan-swrast` ב־Arch וחלק מ־`mesa-vulkan-drivers` במקומות אחרים. הוא איטי, אך מופעל.\n{overridden}
+app.vulkan.no_device = schist: מנהל התקן Vulkan מותקן אך אינו מציע התקן לעיבוד תצוגה.\n\nייתכן שמנהל ההתקן אינו תומך במעבד הגרפי הזה או שאינו יכול להגיע אליו—דרך SSH או בתוך מכל, חסרונו של /dev/dri הוא מקרה נפוץ. `vulkaninfo --summary` מדווח על מה שהטוען רואה.\n\nמרסטר התוכנה מעבד ללא מעבד גרפי כלל, אם זה מה שיש במחשב: `vulkan-swrast` ב־Arch וחלק מ־`mesa-vulkan-drivers` ב־Debian וב־Fedora.\n
+app.vulkan.skip_hint = כדי להפעיל את Schist בכל זאת ולאפשר לו להיכשל בדרכו, יש להגדיר {var}=1.

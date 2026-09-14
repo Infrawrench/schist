@@ -1,0 +1,25 @@
+# Floeiber meitsje
+tool.liquify.name = Floeiber meitsje
+tool.liquify.description = Triuw, draai, knyp of blaas piksels ûnder in grutte kwast op — de modusopsje bepaalt wat bart. De ferfoarming wurdt yn in gaas opboud en by it befêstigjen op de laach tapast.
+tool.liquify.option.tool = Ark
+tool.liquify.choice.forward_warp = Foarút ferfoarmje
+tool.liquify.choice.reconstruct = Rekonstruearje
+tool.liquify.choice.twirl_cw = Mei de klok mei draaie
+tool.liquify.choice.twirl_ccw = Tsjin de klok yn draaie
+tool.liquify.choice.pucker = Ynlûke
+tool.liquify.choice.bloat = Opblaze
+tool.liquify.choice.push_left = Nei lofts triuwe
+tool.liquify.history.liquify = Floeiber meitsje
+
+# Poppetransformaasje
+tool.puppet_warp.name = Poppetransformaasje
+tool.puppet_warp.description = Klik om de laach op in pear punten fêst te setten en sleep dan ien dêrfan: it gaas bûcht om de pinnen hinne, stiif of soepel neffens de opsje Stivens. Befêstigjen past de transformaasje ta.
+tool.puppet_warp.option.stiffness = Stivens
+tool.puppet_warp.history.puppet_warp = Poppetransformaasje
+
+# Ferdwynpunt
+tool.vanishing_point.name = Ferdwynpunt
+tool.vanishing_point.description = Sleep in flak oer eat mei perspektyf en skeakelje dan de modus oer nei Klone om te skilderjen: de kopiearre piksels folgje it flak en wurde lytser mei de ôfstân.
+tool.vanishing_point.choice.edit_plane = Flak bewurkje
+tool.vanishing_point.choice.clone = Klone
+tool.vanishing_point.history.vanishing_point = Ferdwynpunt

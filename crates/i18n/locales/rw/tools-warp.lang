@@ -1,0 +1,25 @@
+# Liquify
+tool.liquify.name = Guhindura nk'amazi
+tool.liquify.description = Sunika, zengurutsa, egeranya cyangwa ubyimbyishe amapikisele ari munsi y'igisigisho kinini — uburyo bwatoranyijwe ni bwo bugena igikorwa. Ihindura ryirundanyiriza mu rusenga maze rigashyirwa ku rwego iyo ryemejwe.
+tool.liquify.option.tool = Igikoresho
+tool.liquify.choice.forward_warp = Gusunika imbere
+tool.liquify.choice.reconstruct = Kongera kubaka
+tool.liquify.choice.twirl_cw = Kuzengurutsa iburyo
+tool.liquify.choice.twirl_ccw = Kuzengurutsa ibumoso
+tool.liquify.choice.pucker = Kwegeranya
+tool.liquify.choice.bloat = Kubyimbyisha
+tool.liquify.choice.push_left = Gusunika ibumoso
+tool.liquify.history.liquify = Guhindura nk'amazi
+
+# Puppet Warp
+tool.puppet_warp.name = Kugonda nk'igipupe
+tool.puppet_warp.description = Kanda ushyire imambo ku rwego ahantu hake, hanyuma ukurure imwe: urusenga ruragonda ruzengurutse imambo, rukomere cyangwa rworohe nk'uko ihitamo ry'Ugukomera ribigena. Kwemeza birabishyira mu bikorwa.
+tool.puppet_warp.option.stiffness = Ugukomera
+tool.puppet_warp.history.puppet_warp = Kugonda nk'igipupe
+
+# Vanishing Point
+tool.vanishing_point.name = Akadomo ko kuzimiriramo
+tool.vanishing_point.description = Kurura ukore ubuso bugororotse hejuru y'ikintu gifite perspective, hanyuma uhindure uburyo bube Gukopa maze usige: amapikisele yakopwe akurikira ubwo buso, akagenda aba mato uko intera yiyongera.
+tool.vanishing_point.choice.edit_plane = Guhindura ubuso
+tool.vanishing_point.choice.clone = Gukopa
+tool.vanishing_point.history.vanishing_point = Akadomo ko kuzimiriramo

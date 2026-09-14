@@ -1,0 +1,26 @@
+# Основные инструменты: перемещение, пипетка, рука и масштаб.
+
+# Перемещение
+tool.move.name = Перемещение
+tool.move.description = Перетащите содержимое активного слоя в новое положение. Если включён автовыбор, при нажатии сначала выбирается слой или целая группа под указателем.
+tool.move.option.auto_select = Автовыбор
+tool.move.history.move_layer = Перемещение слоя
+
+# Пипетка
+tool.eyedropper.name = Пипетка
+tool.eyedropper.description = Возьмите образец цвета под указателем в качестве основного цвета или фонового цвета, если удерживается Alt. При перетаскивании образцы берутся непрерывно.
+tool.eyedropper.option.sample_size = Размер образца
+tool.eyedropper.option.sample = Образец
+tool.eyedropper.choice.point_sample = Точечная проба
+tool.eyedropper.choice.average_3 = Среднее 3 × 3
+tool.eyedropper.choice.average_5 = Среднее 5 × 5
+tool.eyedropper.choice.average_11 = Среднее 11 × 11
+tool.eyedropper.choice.average_31 = Среднее 31 × 31
+tool.eyedropper.choice.all_layers = Все слои
+tool.eyedropper.choice.current_layer = Текущий слой
+
+# Рука и масштаб
+tool.hand.name = Рука
+tool.hand.description = Перемещает область просмотра. Она принадлежит окну, поэтому в режиме без интерфейса этот инструмент не изменяет документ.
+tool.zoom.name = Масштаб
+tool.zoom.description = Изменяет масштаб просмотра. Область просмотра принадлежит окну, поэтому в режиме без интерфейса этот инструмент не изменяет документ.

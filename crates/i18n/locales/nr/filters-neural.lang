@@ -1,0 +1,159 @@
+# Shared labels
+filter.neural.param.center_x = Isentha X
+filter.neural.param.center_y = Isentha Y
+filter.neural.param.direction = Indlela
+filter.neural.param.transition = Itjhuguluko
+filter.neural.param.detail = Imininingwana
+filter.neural.param.eyes = Amehlo
+filter.neural.msg.using_model = Kusetjenziswa {model} · {license}.
+filter.neural.msg.get_model = Yithole kokuthi Isihlungi ▸ Neural Filters ▸ Lawula Amamodeli.
+
+# Camera Raw
+filter.camera_raw.name = Isihlungi se-Camera Raw
+filter.camera_raw.param.temperature = Ukutjhisa
+filter.camera_raw.param.tint = Ithinti
+filter.camera_raw.param.highlights = Iindawo Ezikhanya Khulu
+filter.camera_raw.param.shadows = Amathunzi
+filter.camera_raw.param.whites = Okumhlophe
+filter.camera_raw.param.blacks = Okunzima
+filter.camera_raw.param.clarity = Ukucaca
+filter.camera_raw.param.dehaze = Susa Ikungu
+filter.camera_raw.param.vibrance = Ukuphila Kombala
+filter.camera_raw.param.sharpening = Ukulolisa
+filter.camera_raw.param.noise = Ukunciphisa Itjhada
+filter.camera_raw.param.vignette = I-Vignette
+
+# Lens correction
+filter.lens_correction.name = Ukulungisa Ilensi
+filter.lens_correction.param.distortion = Susa Ukutjhuguluka
+filter.lens_correction.param.red = Lungisa Umphetho Obomvu/Osayani
+filter.lens_correction.param.blue = Lungisa Umphetho Ohlaza Sasibhakabhaka/Osarulana
+filter.lens_correction.param.vignette = Inani le-Vignette
+filter.lens_correction.param.midpoint = Iphuzu Eliphakathi le-Vignette
+filter.lens_correction.param.vertical = Ukubonakala Kokujula Okujamileko
+filter.lens_correction.param.horizontal = Ukubonakala Kokujula Okuvundlileko
+
+filter.adaptive_wide_angle.name = I-engela Ebanzi Ezivumelanisako
+filter.adaptive_wide_angle.param.projection = Ukulungisa
+filter.adaptive_wide_angle.choice.fisheye = Ilihlo Lefesi
+filter.adaptive_wide_angle.choice.perspective = Ukubonakala Kokujula
+filter.adaptive_wide_angle.choice.full_spherical = Ubujamo Bebholo Obupheleleko
+filter.adaptive_wide_angle.param.focal = Ubude Bokutjheja
+filter.adaptive_wide_angle.param.crop = Isilinganiso Sokusika
+
+# Blur Gallery
+filter.field_blur.name = Ukufiphala Kwendawo
+filter.field_blur.param.position = Kucace Ku
+filter.iris_blur.name = Ukufiphala Kwe-Iris
+filter.iris_blur.param.roundness = Ukuzombeleza
+filter.tilt_shift.name = Ukutjhigamisa Nokukhambisa
+filter.tilt_shift.param.position = Isentha
+filter.tilt_shift.param.band = Ibhande Elicacileko
+filter.spin_blur.name = Ukufiphala Ngokuzombeza
+filter.spin_blur.param.angle = I-engela Yokufiphala
+filter.path_blur.name = Ukufiphala Kwendlela
+filter.path_blur.param.speed = Ibelo
+filter.path_blur.param.curve = Ijika
+filter.path_blur.param.taper = Ukuncipha
+
+# Blur
+filter.shape_blur.name = Ukufiphala Kobujamo
+filter.shape_blur.choice.square = Isikwere Esilingene Mahlangothi
+filter.shape_blur.choice.diamond = Idayimani
+filter.shape_blur.choice.hexagon = Ubujamo Obunamahlangothi Asithandathu
+filter.shape_blur.choice.cross = Isiphambano
+filter.shape_blur.choice.ring = Irondo
+filter.shape_blur.choice.star = Ikwekwezi
+filter.smart_blur.name = Ukufiphala Okuhlakaniphileko
+filter.smart_blur.choice.normal = Okujayelekileko
+filter.smart_blur.choice.edge_only = Umphetho Kwaphela
+filter.smart_blur.choice.overlay_edge = Mbesa Umphetho
+
+# Video
+filter.deinterlace.name = Susa Ukuphicaphicana
+filter.deinterlace.param.field = Susa
+filter.deinterlace.choice.odd_fields = Iindawo Zeenomboro Ezingahlukaniseki Kabili
+filter.deinterlace.choice.even_fields = Iindawo Zeenomboro Ezihlukaniseka Kabili
+filter.deinterlace.param.fill = Yakha Iindawo Ezitja Ngokuthi
+filter.deinterlace.choice.interpolation = Ukulinganisa
+filter.deinterlace.choice.duplication = Ukuphinda Kabili
+filter.ntsc_colors.name = Imibala ye-NTSC
+
+# Neural Filters
+filter.neural.skin_smoothing.name = Ukubutjhelelisa Isikhumba
+filter.neural.skin_smoothing.param.blur = Ukubutjhelelezi
+filter.neural.skin_smoothing.param.detail = Gcina Imininingwana
+filter.neural.skin_smoothing.msg.no_model = I-{model} ayikafakwa — kunalokho kubutjheleliswa koke okunombala wesikhumba ngaphandle kobuso.
+
+filter.neural.jpeg_artifacts.name = Ukususa Amaphutha we-JPEG
+filter.neural.jpeg_artifacts.msg.no_model = I-{model} ayikafakwa — kunalokho kubutjheleliswa igridi yamaphikseli abu-8.
+
+filter.neural.colorize.name = Faka Umbala
+filter.neural.colorize.param.warmth = Ukufuthumala
+filter.neural.colorize.msg.no_model = I-{model} ayikafakwa — kunalokho kufakwa ithinti ngokuya ngokukhanya.
+
+filter.neural.super_zoom.name = Ukusondeza Okukhulu
+filter.neural.super_zoom.msg.no_model = I-{model} ayikafakwa — kunalokho kusetjenziswa ukulolisa okulandela imiphetho.
+
+filter.neural.style_transfer.name = Ukudlulisa Isitayela
+filter.neural.style_transfer.choice.mosaic = Imozeyikhi
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Akunamamodeli wesitayela afakiweko — kudluliswa umbala kwaphela. Wathole kokuthi Isihlungi ▸ Neural Filters ▸ Lawula Amamodeli.
+filter.neural.style_transfer.msg.installed = Kufakiwe: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Ukudlulisa Umbala
+filter.neural.color_transfer.param.hue = Umbala Ohlosiweko
+filter.neural.color_transfer.param.contrast = Fanisa Umehluko
+filter.neural.color_transfer.msg.info = Kuthatha iphalethi eleyeni engaphasi. Nakunganalitho ngaphasi, kuqalwa Umbala Ohlosiweko.
+
+filter.neural.depth_blur.name = Ukufiphala Ngokujula
+filter.neural.depth_blur.param.focus = Ibanga Lokutjheja
+filter.neural.depth_blur.param.blur = Amandla Wokufiphala
+filter.neural.depth_blur.msg.no_model = I-{model} ayikafakwa — kunalokho kutjhejwa ngokucaca kwendawo.
+
+filter.neural.harmonization.name = Ukuvumelanisa
+filter.neural.harmonization.param.tone = Fanisa Ithoni
+filter.neural.harmonization.msg.info = Kufanisa ileya le nananyana yini engaphasi kwayo. Nakunganalitho ngaphasi, akunanto engafaniswa begodu lokhu akwenzi litho.
+
+filter.neural.landscape_mixer.name = Isihlanganisi Sendawo Yemvelo
+filter.neural.landscape_mixer.param.bands = Amabhande Wokujula
+filter.neural.landscape_mixer.msg.with_depth = Kuthatha iphalethi eleyeni engaphasi, kufaniswe ibhande ngebhande kusetjenziswa i-Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Kuthatha iphalethi eleyeni engaphasi. Faka i-Depth (Depth Blur) ukufanisa isibhakabhaka nesibhakabhaka nomhlabathi nomhlabathi kunokufanisa isithombe soke.
+
+filter.neural.photo_restoration.name = Ukubuyisela Isithombe
+filter.neural.photo_restoration.param.enhance = Ukuthuthukisa Isithombe
+filter.neural.photo_restoration.param.scratches = Ukunciphisa Imiklwebho
+filter.neural.photo_restoration.param.tone = Buyisela Ithoni
+filter.neural.photo_restoration.msg.no_model = Kuyahlanzwa ngaphandle kwemodeli.
+filter.neural.photo_restoration.msg.using_deblock = Kusetjenziswa i-Deblock · ibandulelwe i-Schist.
+filter.neural.photo_restoration.msg.using_detail = Kusetjenziswa i-Detail · ibandulelwe i-Schist.
+filter.neural.photo_restoration.msg.using_both = Kusetjenziswa i-Deblock ne-Detail · zibandulelwe i-Schist.
+
+filter.neural.photo_to_sketch.name = Isithombe sibe Mdwebo
+filter.neural.photo_to_sketch.param.weight = Ukujiya Komuda
+filter.neural.photo_to_sketch.param.shading = Ukufaka Ithunzi
+
+filter.neural.face_to_caricature.name = Ubuso bube yi-Caricature
+filter.neural.face_to_caricature.param.mouth = Umlomo
+filter.neural.face_to_caricature.param.head = Ihloko
+filter.neural.face_to_caricature.msg.no_model = I-{model} ayikafakwa, ngalokho lokhu akwenzi litho — akunanto engenziwa i-caricature.
+
+filter.neural.smart_portrait.name = Isithombe Somuntu Esihlakaniphileko
+filter.neural.smart_portrait.param.happiness = Ukuthaba
+filter.neural.smart_portrait.param.surprise = Ukumangala
+filter.neural.smart_portrait.param.age = Iminyaka Yobuso
+filter.neural.smart_portrait.param.gaze = Ukuqala
+filter.neural.smart_portrait.param.light = Indlela Yokukhanya
+filter.neural.smart_portrait.msg.no_model = I-{model} ayikafakwa, ngalokho lokhu akwenzi litho — akunabuso engasebenza kibo.
+
+filter.neural.makeup_transfer.name = Ukudlulisa Isimonyo
+filter.neural.makeup_transfer.param.lips = Iindebe
+filter.neural.makeup_transfer.param.skin = Ithoni Yesikhumba
+filter.neural.makeup_transfer.msg.info = Kuthatha isimonyo ebusweni obuseleyeni engaphasi. Umbala, ingasi ukwakheka.
+filter.neural.makeup_transfer.msg.no_model = I-{model} ayikafakwa, ngalokho lokhu akwenzi litho.
+
+filter.neural.sketch_to_portrait.name = Umdwebo ube Sithombe Somuntu
+filter.neural.sketch_to_portrait.param.detail = Gcina Imida
+filter.neural.sketch_to_portrait.msg.with_face = Ibandulelwe ukuzalisa ihlelo leli elizakheleko Isithombe sibe Mdwebo. Isebenza ebusweni ebutholako.
+filter.neural.sketch_to_portrait.msg.no_face = Ibandulelwe ukuzalisa ihlelo leli elizakheleko Isithombe sibe Mdwebo. Faka i-Faces (Skin Smoothing) bese izakusebenza ebusweni kunokukhethiweko koke.

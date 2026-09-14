@@ -1,0 +1,26 @@
+# آزاد تبدیلی، انتخاب کی تبدیلی اور تراش
+tool.transform.name = آزاد تبدیلی
+tool.transform.description = آزاد تبدیلی۔ اسے فعال کرنے سے فعال لیئر کے گرد تبدیلی کا خانہ کھلتا ہے: پیمانہ بدلنے کے لیے کونا، گھمانے کے لیے کونے سے باہر، اور ترچھا کرنے کے لیے کنارہ گھسیٹیں۔ تصدیق (Enter) تک کوئی تبدیلی نہیں لکھی جاتی، اور منسوخ (Escape) کرنے سے لیئر سابق حالت میں واپس آ جاتی ہے۔
+tool.transform.option.interpolation = بین اقداری تخمینہ
+tool.transform.history.transform = آزاد تبدیلی
+tool.transform.history.image_size = تصویر کا سائز
+tool.transform.history.canvas_size = کینوس کا سائز
+
+tool.transform.selection.name = انتخاب تبدیل کریں
+tool.transform.selection.description = انتخاب تبدیل کریں: یہی خانہ اندر کے پکسلز کی بجائے انتخاب کے خاکے کو منتقل کرتا ہے۔ مکمل کرنے کے لیے تصدیق یا منسوخ کریں۔
+tool.transform.selection.history.transform = انتخاب تبدیل کریں
+
+tool.transform.resample.nearest_neighbor = قریب ترین ہمسایہ
+tool.transform.resample.bilinear = دو خطی
+tool.transform.resample.bicubic = بائی کیوبک
+
+tool.crop.name = تراشیں
+tool.crop.description = وہ حصہ گھسیٹ کر بنائیں جسے رکھنا ہے اور اس کے ہینڈل درست کریں؛ تصدیق (Enter) دستاویز کو اس حد تک تراش دیتی ہے، جبکہ منسوخ (Escape) اسے جوں کا توں چھوڑ دیتی ہے۔
+tool.crop.option.ratio = تناسب
+tool.crop.option.delete_cropped = تراشے گئے پکسلز حذف کریں
+tool.crop.choice.unconstrained = بلا پابندی
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = تراشیں

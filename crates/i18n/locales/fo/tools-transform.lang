@@ -1,0 +1,31 @@
+# Free transform, transform selection and crop (plugins/tools-transform).
+
+# Free transform
+tool.transform.name = Frí umskapan
+tool.transform.description = Frí umskapan. Tá hon verður virkjað, kemur ein umskapanarrammi rundan um virka lagið: drag eitt horn fyri at broyta stødd, drag uttan fyri eitt horn fyri at snara, og drag ein kant fyri at skákseta. Einki verður skrivað, fyrr enn broytingin verður góðkend (Enter); verður hon ógildað (Escape), fer lagið aftur sum tað var.
+tool.transform.option.interpolation = Interpolatión
+tool.transform.history.transform = Frí umskapan
+tool.transform.history.image_size = Myndastødd
+tool.transform.history.canvas_size = Løriftsstødd
+
+# Transform selection
+tool.transform.selection.name = Umskapa val
+tool.transform.selection.description = Umskapa val: sami rammi, men hann flytur útlínuna á valinum heldur enn myndadeplarnar innaní. Góðkenn ella ógilda fyri at enda.
+tool.transform.selection.history.transform = Umskapa val
+
+# The classical resampling filters
+tool.transform.resample.nearest_neighbor = Næsti granni
+tool.transform.resample.bilinear = Bilinjurætt
+tool.transform.resample.bicubic = Bikubiskt
+
+# Crop
+tool.crop.name = Sker til
+tool.crop.description = Drag økið, sum skal varðveitast, út og still handtøkini; góðkenning (Enter) sker skjalið til økið, og ógilding (Escape) letur tað vera óbroytt.
+tool.crop.option.ratio = Lutfall
+tool.crop.option.delete_cropped = Strika avskornar myndadeplar
+tool.crop.choice.unconstrained = Óavmarkað
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Sker til

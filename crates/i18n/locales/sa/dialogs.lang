@@ -1,0 +1,253 @@
+# अनेकसंवादेषु साधारणाः पदावल्यः
+dialog.save_ellipsis = सञ्चयतु…
+dialog.use_foreground = अग्रभूमिवर्णं प्रयोजयतु
+dialog.downloading = अवतार्यते…
+dialog.downloading_of = अवतार्यते… {total} मध्ये {got}
+dialog.no_config_dir = (विन्यासपुटः नास्ति)
+
+# स्तरगुणाः
+dialog.layer_props.title = स्तरगुणाः
+
+# निर्यातः
+dialog.export.format = प्रारूपम्
+dialog.export.dither = वर्णमिश्रणम्
+dialog.export.dither_note = ८-बिट्-पर्यन्तं न्यूनीकरणे वर्णमिश्रणं करोतु
+dialog.export.export_ellipsis = निर्यातयतु…
+
+# छायाचित्रप्रक्रिया
+dialog.batch.title = छायाचित्राणि संस्करोतु
+dialog.batch.note_edit.other = छायाचित्रसंख्या: {n} — वीथिकासम्पादनरूपेण सञ्चीयते; मूलानि कदापि न परिवर्त्यन्ते।
+dialog.batch.note_edit_edited.other = छायाचित्रसंख्या: {n}, पूर्वमेव सम्पादितसंख्या: {edited} — विधानं सम्पादनस्योपरि योज्यते, पूर्वसम्पादनं च संस्करणरूपेण रक्ष्यते।
+dialog.batch.note_copies.other = छायाचित्रसंख्या: {n} — समीकृतप्रतिलिपयः; मूलानि कदापि न परिवर्त्यन्ते।
+dialog.batch.note_copies_edited.other = छायाचित्रसंख्या: {n}, पूर्वमेव सम्पादितसंख्या: {edited} — प्रतिलिपयः सम्पादनेभ्यः निर्मीयन्ते।
+dialog.batch.turn = परिवर्तयतु
+dialog.batch.rotate = परिभ्रामयतु
+dialog.batch.flip = विपर्यस्यतु
+dialog.batch.upscale = विवर्धयतु
+dialog.batch.colour = वर्णः
+dialog.batch.add_adjustment = समायोजनम्…
+dialog.batch.output = निर्गमः
+dialog.batch.save_as = एवं सञ्चयतु
+dialog.batch.process = संस्करोतु
+dialog.batch.process_n = {n} संस्करोतु
+dialog.batch.nothing_to_do = कर्तव्यं नास्ति: प्रथमं परिवर्तनं, विवर्धनं वा समायोजनं चिनोतु
+
+# विषयानुगुणपरिमाणपरिवर्तनम्
+dialog.content_aware_scale.title = विषयानुगुणपरिमाणपरिवर्तनम्
+dialog.content_aware_scale.note = अल्पविवरणयुक्ताः सन्धिरेखाः निष्कासयति। चयनं रक्षणीयं प्रदेशं सूचयति।
+
+# रेखाङ्कनम्
+dialog.stroke.title = रेखाङ्कनम्
+dialog.stroke.location = स्थानम्
+dialog.stroke.inside = अन्तः
+dialog.stroke.outside = बहिः
+dialog.stroke.note = चयनम् अग्रभूमिवर्णेन रेखाङ्कयति।
+
+# पूरणम्
+dialog.fill.contents = विषयाः
+
+# वर्णपरासः
+dialog.color_range.title = वर्णपरासः
+dialog.color_range.sampled = नमूनितः
+dialog.color_range.fuzziness = अस्पष्टता
+dialog.color_range.note = सक्रियस्तरे नमूनितवर्णसमीपस्थान् चित्रांशान् चिनोति।
+
+# सञ्चिकाचायकः
+dialog.file_picker.up = ↑ उपरि
+dialog.file_picker.empty = अत्र किमपि नास्ति
+dialog.file_picker.choose_folder = इमं पुटं चिनोतु
+
+# निस्यन्दसंवादाः
+dialog.filter.camera_raw_development = Camera Raw विकासः
+dialog.filter.reset_as_shot = चित्रग्रहणस्थितिं पुनः स्थापयतु
+dialog.filter.raw_note = सक्रियस्तरं तस्य मूलसंवेदकदत्तांशात् पुनर्विकासयति।
+dialog.filter.note = चयनान्तर्गतसक्रियस्तरे प्रयुज्यते।
+
+# अनुपलब्धलिप्यः
+dialog.fonts.title = अनुपलब्धलिप्यः
+dialog.fonts.install_named = {name} संस्थापयतु
+dialog.fonts.no_document = किमपि प्रलेखं न उद्घाटितम्, अतः परीक्षितुं किमपि नास्ति।
+dialog.fonts.all_installed = अस्मिन् प्रलेखे प्रयुक्ताः सर्वाः लिप्यः संस्थापिताः। पाठः विन्याससमये प्रयुक्ताभिरेव लिपिभिः स्थापितः।
+dialog.fonts.missing_intro = अयं प्रलेखः भवतः अनुपलब्धाभिः लिपिभिः स्थापितः। प्रतिस्थापनलिप्या पाठः पठनीयः, किन्तु तस्य विस्ताराः पङ्क्तिविच्छेदाश्च मूलविन्यासवत् न सन्ति।
+dialog.fonts.footer = अवतारणानि Google Fonts इत्यस्य मुक्तसूचीतः आगत्य {dir} मध्ये रक्ष्यन्ते। अमुक्तानुज्ञप्तियुक्ता लिपिः कदापि नानीयते — यत्र समानमापयुक्तं मुक्तरूपं विद्यते तत्र तत् प्रदीयते; अक्षराग्रविस्ताराः समानत्वात् विन्यासः पुनः स्थाप्यते।
+dialog.fonts.user_font_dir = भवतः उपयोक्तृलिपिपुटः
+
+# Neural Filter प्रतिमानानि
+dialog.models.title = Neural Filter प्रतिमानानि
+dialog.models.built_in = अन्तर्निर्मितम् · {size}
+dialog.models.installed = संस्थापितम् · {size}
+dialog.models.not_installed = असंस्थापितम् · {size}
+dialog.models.not_in_browser = जालदर्शके अनुपलब्धम् · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = प्रतिमानानि {dir} मध्ये रक्ष्यन्ते। प्रतिमानरहिताः निस्यन्दाः सङ्केतप्रक्रियां प्रयुञ्जते, तत् च स्पष्टं वदन्ति।
+
+# नूतनप्रलेखः
+dialog.new_doc.title = नूतनप्रलेखः
+dialog.new_doc.picker_title = नूतनसञ्चिका
+dialog.new_doc.custom_ellipsis = स्वेच्छानुसारम्…
+dialog.new_doc.preset = पूर्वविन्यासः
+dialog.new_doc.preset_default = पूर्वनिर्धारितम् (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = वर्गः (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = निर्मातु
+dialog.new_doc.created = नूतनप्रलेखः: {w} × {h} px
+
+# सञ्चिकोद्घाटनम्
+dialog.open.image_title = चित्रम् उद्घाटयतु
+dialog.open.image_prompt = “{name}” नूतनफलके उद्घाटयतु, अथवा वर्तमानप्रलेखे नूतनस्तररूपेण योजयतु?
+dialog.open.new_tab = नूतनफलकम्
+dialog.open.new_layer = नूतनस्तरः
+dialog.open.quoted = “{name}”
+dialog.open.these_files.other = सञ्चिकासंख्या: {n}
+dialog.open.shared_title_one = संविभक्तचित्रम्
+dialog.open.shared_title_many = संविभक्तचित्राणि
+dialog.open.shared_prompt = {what} वीथिकायां योजयतु, अथवा सम्पादके उद्घाटयतु?
+dialog.open.add_to_gallery = वीथिकायां योजयतु
+dialog.open.open_in_editor = सम्पादके उद्घाटयतु
+dialog.open.heic_title = HEIC समर्थनम्
+dialog.open.heic_needs_decoder = “{name}” उद्घाटयितुं HEVC विकूटकः आवश्यकः, स च अस्मिन् तन्त्रे न संस्थापितः।
+dialog.open.heic_offer = Schist, libde265 HEVC विकूटकेन सह libheif {version} इत्यस्य केवलविकूटननिर्माणम् (≈5 MB) अवतारयितुं शक्नोति। उभे LGPL-3.0 अनुज्ञप्तियुक्ते; तयोः अनुज्ञप्तिपाठाः ग्रन्थालयस्य पार्श्वे संस्थाप्यन्ते, स्रोतः परियोजनापृष्ठे उपलब्धः।
+dialog.open.licenses_source = अनुज्ञप्तयः स्रोतश्च
+dialog.open.folders_title = पातितपुटाः
+dialog.open.n_folders.other = पुटसंख्या: {n}
+dialog.open.open_in_tabs = फलकेषु उद्घाटयतु
+dialog.open.open_first_in_tabs = प्रथमसञ्चिकासंख्या {n} फलकेषु उद्घाटयतु
+dialog.open.open_n_in_tabs.other = फलकेषु उद्घाटनीयसञ्चिकासंख्या: {n}
+dialog.open.folder_holds.other = {what} मध्ये Schist-द्वारा उद्घाटनीयचित्रसंख्या {n} अस्ति (उपपुटसहितम्)।
+dialog.open.folders_note = वीथिकायां योजनं पुटान् तेषां स्थाने एव निरीक्षते — किमपि न प्रतिलिप्यते, प्रत्येकस्य छायाचित्रस्य पार्श्वे सम्पादनानि संस्करणरूपेण रक्ष्यन्ते। फलकेषु उद्घाटनं सर्वाणि चित्राणि सम्पादके अधुना आरोपयति।
+
+# प्लग्-इन्
+dialog.plugins.title = प्लग्-इन्
+dialog.plugins.kind_filter = निस्यन्दः
+dialog.plugins.kind_format = प्रारूपम्
+dialog.plugins.kind_unavailable = अनुपलब्धम्
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = प्लग्-इन् {dir} तः आरोप्यन्ते
+dialog.plugins.none = अद्यापि किमपि प्लग्-इन् न संस्थापितम्।
+dialog.plugins.install_ellipsis = संस्थापयतु…
+dialog.plugins.photoshop_heading = Photoshop प्लग्-इन्
+dialog.plugins.loaded_from = {folders} तः आरोपितम्
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# प्राधान्यानि
+dialog.prefs.title = प्राधान्यानि
+dialog.prefs.theme = दृश्यरूपम्
+dialog.prefs.theme_dark = कृष्णम्
+dialog.prefs.theme_light = उज्ज्वलम्
+dialog.prefs.grid_spacing = जालकान्तरम्
+dialog.prefs.snapping = संलग्नता
+dialog.prefs.snap_to = मार्गदर्शिकासु, जालके, चित्रपटसीमासु च संलग्नं करोतु
+dialog.prefs.rendering_intent = वर्णप्रदर्शनाभिप्रायः
+dialog.prefs.intent_perceptual = प्रत्यक्षानुभवात्मकः
+dialog.prefs.intent_relative = सापेक्षवर्णमितीयः
+dialog.prefs.intent_saturation = संतृप्तिः
+dialog.prefs.intent_absolute = निरपेक्षवर्णमितीयः
+dialog.prefs.scrolling = सरणम्
+dialog.prefs.zoom_with_scroll = सरणचक्रेण आवर्धयतु
+dialog.prefs.rendering = प्रदर्शनम्
+dialog.prefs.gpu_compositing = GPU संयोजनम्
+dialog.prefs.diagnostics = निदानम्
+dialog.prefs.crash_reports = विपत्तौ स्थानीयविपत्तिवृत्तान्तं लिखतु
+dialog.prefs.crash_upload = विकासकेभ्योऽपि प्रेषयतु
+dialog.prefs.telemetry = प्रतिदिनम् अनामिकं सङ्केतं प्रेषयतु
+dialog.prefs.diagnostics_note = Schist इत्यस्य अग्रिमारम्भे निदानविन्यासः प्रवर्तते।
+dialog.prefs.updates = अद्यतनानि
+dialog.prefs.check_updates = आरम्भे नूतनप्रकाशनानि परीक्षताम्
+dialog.prefs.keyboard_shortcuts = कीलफलकलघुमार्गाः: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) प्रतिमानम् आवश्यकम् —
+dialog.prefs.nsfw_download_link = प्रतिमानप्रबन्धने तत् अवतारयतु…
+dialog.prefs.hide_flagged = चिह्नितानि छायाचित्राणि गोपयतु
+
+# वर्णरूपरेखा
+dialog.profile.profile = रूपरेखा
+dialog.profile.assign_title = रूपरेखां निर्दिशतु
+dialog.profile.convert_title = रूपरेखायां परिवर्तयतु
+dialog.profile.assign = निर्दिशतु
+dialog.profile.convert = परिवर्तयतु
+dialog.profile.assign_note = विद्यमानचित्रांशमूल्यानि नूतनरूपरेखानुसारं पुनर्व्याख्यायते।
+dialog.profile.convert_note = चित्रांशमूल्यानि पुनर्लिखति येन वर्णानां रूपं तदेव तिष्ठति।
+
+# चित्रं यथा सञ्चयतु
+dialog.save_image.title = चित्रं यथा सञ्चयतु
+dialog.save_image.note = {name} — सम्पादनं यदि विद्यते तत्सहितम्; मूलं कदापि न परिवर्त्यते।
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# चित्रपरिमाणं चित्रपटपरिमाणं च
+dialog.size.image_title = चित्रपरिमाणम्
+dialog.size.canvas_title = चित्रपटपरिमाणम्
+dialog.size.constrain = सीमितं करोतु
+dialog.size.keep_proportions = अनुपातान् रक्षतु
+dialog.size.resample = पुनर्नमूनयतु
+dialog.size.bicubic = द्विघनम्
+dialog.size.bilinear = द्विरेखीयम्
+dialog.size.nearest = निकटतमप्रतिवेशी
+dialog.size.anchor = आधारबिन्दुः
+dialog.size.currently = अधुना {w} × {h} px
+dialog.size.image_size_status = चित्रपरिमाणम्: {w} × {h}
+dialog.size.canvas_size_status = चित्रपटपरिमाणम्: {w} × {h}
+
+# अद्यतनमुपलब्धम्
+dialog.update.title = अद्यतनमुपलब्धम्
+dialog.update.available = Schist {version} उपलब्धम्। इयं प्रतिलिपिः {current} अस्ति।
+dialog.update.installing = अद्यतनं संस्थाप्यते…
+dialog.update.can_install = Schist तत् ({size}) अवतार्य अस्याः प्रतिलिपेरुपरि संस्थापयितुं शक्नोति।
+dialog.update.external = इयं प्रतिलिपिः अन्येन प्रबन्ध्यमानस्थानात् आगता — संवेष्टनप्रबन्धकात्, AppImage इत्यस्मात्, अथवा भवतः स्वनिर्माणात् — अतः यथा संस्थापिता तथैव अद्यतनीक्रियते।
+dialog.update.later = पश्चात्
+dialog.update.release_notes = प्रकाशनविवरणम्
+dialog.update.update_restart = अद्यतनीकृत्य पुनरारभताम्
+dialog.update.open_page = प्रकाशनपृष्ठम् उद्घाटयतु
+
+# स्तरशैली
+dialog.style.title = स्तरशैली
+dialog.style.bevel = तिर्यक्प्रान्तः उन्नताङ्कनं च
+dialog.style.stroke = रेखाङ्कनम्
+dialog.style.inner_shadow = अन्तश्छाया
+dialog.style.inner_glow = अन्तर्दीप्तिः
+dialog.style.satin = साटिन
+dialog.style.color_overlay = वर्णाध्यारोपः
+dialog.style.gradient_overlay = वर्णक्रमाध्यारोपः
+dialog.style.outer_glow = बहिर्दीप्तिः
+dialog.style.drop_shadow = पतितच्छाया
+dialog.style.blur = Gaussian धूमिलता
+dialog.style.gradient_from = वर्णक्रमाध्यारोपस्य आरम्भवर्णः
+dialog.style.gradient_to = वर्णक्रमाध्यारोपस्य अन्तवर्णः
+dialog.style.soften = मृदु करोतु
+dialog.style.depth = गभीरता
+dialog.style.altitude = उन्नतिः
+dialog.style.highlight = प्रकाशांशः
+dialog.style.shadow = छाया
+dialog.style.outer_bevel = बाह्यतिर्यक्प्रान्तः
+dialog.style.inner_bevel = आन्तरतिर्यक्प्रान्तः
+dialog.style.emboss = उन्नताङ्कनम्
+dialog.style.pillow_emboss = उपधानोन्नताङ्कनम्
+dialog.style.linear = रेखीयम्
+dialog.style.radial = त्रिज्यात्मकम्
+dialog.style.reverse = विपरीतम्
+dialog.style.from_to = आरम्भः / अन्तः
+dialog.style.from_fg = आरम्भः = अग्रभूमिः
+dialog.style.to_fg = अन्तः = अग्रभूमिः
+dialog.style.precise = परिशुद्धम्
+dialog.style.knockout = स्तरः पतितच्छायां छिनत्ति
+
+# वर्णचायकः
+dialog.color_picker.title = वर्णचायकः ({what})
+dialog.color_picker.effect_color = {effect} वर्णः
+dialog.color_picker.note_color = टिप्पणीवर्णः
+dialog.color_picker.new = नूतनः
+dialog.color_picker.current = वर्तमानः
+
+# वक्रालेखः
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = मार्गं पुनः स्थापयतु
+dialog.curves.hint = आकाराय कर्षतु · योजनाय क्लिक् करोतु · निष्कासनाय alt-क्लिक् करोतु
+
+# दूरवाण्यां चित्रगुच्छस्य सुरक्षाप्रतिलिपिः
+dialog.prefs.camera_sync = चित्रगुच्छः
+dialog.prefs.camera_sync_enabled = Schist Cloud मध्ये सुरक्षाप्रतिलिपिं करोतु
+dialog.prefs.camera_sync_sign_in = चित्रगुच्छस्य सुरक्षाप्रतिलिप्यर्थं Schist Cloud मध्ये प्रवेशं करोतु।
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = परिवर्तयतु…

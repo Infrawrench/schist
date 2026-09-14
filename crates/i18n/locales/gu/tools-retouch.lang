@@ -1,0 +1,27 @@
+# Patch
+tool.patch.name = પૅચ
+tool.patch.description = ખામીની આસપાસ રૂપરેખા ખેંચો, પછી એ પસંદગીને સ્વચ્છ પિક્સેલ પર ખેંચો: ત્યાંનું ટેક્સ્ચર ખામીમાં બંધબેસાડવામાં આવે છે. જોડીમાંથી કયો છેડો ખેંચવો તે પૅચ મોડ નક્કી કરે છે.
+tool.patch.option.patch = પૅચ
+tool.patch.choice.source = સ્રોત
+tool.patch.choice.destination = ગંતવ્ય
+tool.patch.history.patch = પૅચ
+
+# Content-Aware Move
+tool.content_aware_move.name = કન્ટેન્ટ-અવેર મૂવ
+tool.content_aware_move.description = પસંદ કરેલી વસ્તુને ખેંચીને બીજી જગ્યાએ મૂકો; તે પાછળ છોડે તે ખાલી જગ્યા આસપાસના ભાગમાંથી ભરી દેવામાં આવે છે. Extend મોડમાં વસ્તુને ખસેડવાને બદલે લંબાવવામાં આવે છે.
+tool.content_aware_move.choice.move = ખસેડો
+tool.content_aware_move.choice.extend = લંબાવો
+tool.content_aware_move.history.move = કન્ટેન્ટ-અવેર મૂવ
+
+# Red Eye
+tool.red_eye.name = લાલ આંખ
+tool.red_eye.description = ફ્લૅશને કારણે કીકીમાં આવેલો લાલ રંગ દૂર કરવા તેના પર ક્લિક કરો.
+tool.red_eye.option.pupil_size = કીકીનું કદ
+tool.red_eye.option.darken = ઘાટું કરો
+tool.red_eye.history.red_eye = લાલ આંખ
+
+# Magic Eraser
+tool.magic_eraser.name = મેજિક ઇરેઝર
+tool.magic_eraser.description = પોઇન્ટરની નીચે સમાન રંગ ધરાવતો વિસ્તાર ટૂલની સહનશીલતાની મર્યાદામાં ભૂંસવા ક્લિક કરો — ફક્ત ક્લિક સાથે જોડાયેલો વિસ્તાર, અથવા લેયરમાં આવો દરેક વિસ્તાર.
+tool.magic_eraser.option.contiguous = સળંગ
+tool.magic_eraser.history.erase = મેજિક ઇરેઝર

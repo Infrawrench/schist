@@ -1,0 +1,24 @@
+# Tramuda
+tool.move.name = Tramuda
+tool.move.description = Tràghe su cuntenutu de s'istratu ativu a una positzione noa. Cun Seleção automàtica ativa, cando incarcas est seletzionadu prima s'istratu — o su grupu intreu — chi si agatada suta de su puntadore.
+tool.move.option.auto_select = Seletzione automàtica
+tool.move.history.move_layer = Tramuda s'istratu
+
+# Contagotas
+tool.eyedropper.name = Contagotas
+tool.eyedropper.description = Preleva su colore suta de su puntadore in su campione de primu pianu, o in cussu de fundu si tenes alt incarcadu. Traghende sighit a prelevare.
+tool.eyedropper.option.sample_size = Mannària de su campione
+tool.eyedropper.option.sample = Campione
+tool.eyedropper.choice.point_sample = Campione puntuale
+tool.eyedropper.choice.average_3 = Mèdia 3 pro 3
+tool.eyedropper.choice.average_5 = Mèdia 5 pro 5
+tool.eyedropper.choice.average_11 = Mèdia 11 pro 11
+tool.eyedropper.choice.average_31 = Mèdia 31 pro 31
+tool.eyedropper.choice.all_layers = Totu is stratos
+tool.eyedropper.choice.current_layer = Istratu atuale
+
+# Manu e ingrandimentu
+tool.hand.name = Manu
+tool.hand.description = Ispostat sa visualizatzione. S'àrea visìbile pertenet a sa bentana, duncas chena interfache custu ainas no mudat nudda in su documentu.
+tool.zoom.name = Ingrandimentu
+tool.zoom.description = Ingrandit o minimizat sa visualizatzione. S'àrea visìbile pertenet a sa bentana, duncas chena interfache custu ainas no mudat nudda in su documentu.

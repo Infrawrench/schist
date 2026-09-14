@@ -1,0 +1,31 @@
+# Veglat për elementet ndihmëse të dokumentit: tabelat grafike, sektorët, kornizat, shënimet dhe numërimet.
+
+# Tabela grafike
+tool.artboard.name = Tabelë grafike
+tool.artboard.description = Tërhiqeni për të krijuar një tabelë grafike: një zonë e emërtuar e kanavacës që eksportohet më vete. Tërheqja brenda një tabele ekzistuese e zhvendos atë.
+tool.artboard.default_name = Tabela grafike {n}
+
+# Sektori
+tool.slice.name = Sektor
+tool.slice.description = Tërhiqeni për të krijuar një sektor eksportimi, një drejtkëndësh të emërtuar të kanavacës që eksportohet si imazh më vete. Tërheqja brenda një sektori ekzistues e zhvendos atë.
+tool.slice.default_name = Sektori {n}
+
+# Korniza
+tool.frame.name = Kornizë
+tool.frame.description = Tërhiqeni për të krijuar një kornizë: një shtresë drejtkëndore (ose eliptike) që maskon çdo gjë të vendosur brenda saj.
+tool.frame.default_name = Korniza {n}
+tool.frame.choice.rectangle = Drejtkëndësh
+tool.frame.choice.ellipse = Elips
+tool.frame.history.frame = Kornizë
+
+# Shënimi
+tool.note.name = Shënim
+tool.note.description = Klikoni në një zonë bosh të kanavacës për të fiksuar një shënim atje, të vulosur me autorin dhe ngjyrën nga gjendja e redaktuesit; klikoni mbi një kunj ekzistues për ta përzgjedhur në panelin Shënimet.
+tool.note.history.place = Vendos shënimin
+tool.note.history.move = Zhvendos shënimin
+tool.note.history.delete = Fshi shënimin
+
+# Numërimi
+tool.count.name = Numërim
+tool.count.description = Klikoni për të vendosur shenja numërimi të numërtuara në kanavacë dhe klikoni mbi një shenjë ekzistuese për ta hequr.
+tool.count.default_name = Numërimi {n}

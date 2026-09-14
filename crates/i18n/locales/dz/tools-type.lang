@@ -1,0 +1,20 @@
+# ཡིག་གཟུགས་ལག་ཆས།
+tool.type.name = ཡིག་གཟུགས།
+tool.type.description = ས་གནས་དེ་ཁར་ཚིག་ཡིག་གི་བང་རིམ་ཅིག་འགོ་བཙུགས་ནིའི་དོན་ལུ་ཨེབ་ ཡང་ན་ཡོད་བཞིན་པའི་བང་རིམ་ཅིག་ཞུན་དག་འབད་ནིའི་དོན་ལུ་ཨེབ། འདི་ཁ་ཕྱེ་སྟེ་ཡོདཔ་ད་ ལག་ཆས་ཀྱིས་ལྡེ་མིག་ཐད་ཀར་ལེནམ་ཨིན་ (ཡིག་འབྲུ་ཚུ་ལྡེ་མིག་ཨིན་པུཊ་སྦེ་གཏང་།) ངོས་ལེན་འབད་བ་ཅིན་ཚིག་ཡིག་དེ་བང་རིམ་གུ་པར་རིས་སྦེ་བཟོ་ཞིནམ་ལས་ཞུན་དག་ཁ་བསྡམས་ཨིན།
+tool.type.option.align = ཕྲང་སྒྲིག
+tool.type.option.leading = གྲལ་ཐིག་བར་སྟོང་།
+tool.type.option.tracking = ཡིག་འབྲུའི་བར་སྟོང་།
+tool.type.option.kerning = ཡིག་འབྲུ་ཆའི་བར་སྟོང་།
+tool.type.option.ligatures = ཡིག་འབྲུ་མཐུད་སྦྱོར།
+tool.type.option.discretionary_ligatures = གདམ་ཁ་ཅན་གྱི་ཡིག་འབྲུ་མཐུད་སྦྱོར།
+tool.type.option.small_caps = ཡིག་ཆེན་ཆུང་ཀུ།
+tool.type.option.on_path = ད་ལྟོའི་འགྲུལ་ལམ་གུ།
+tool.type.option.path_offset = འགྲུལ་ལམ་གྱི་གནས་སྤོ།
+tool.type.choice.regular = རྒྱུན་ལྡན།
+tool.type.choice.bold = སྦོམ།
+tool.type.choice.italic = གསེག་ཡིག
+tool.type.choice.bold_italic = སྦོམ་གསེག
+tool.type.history.new_layer = ཚིག་ཡིག་གི་བང་རིམ་གསརཔ།
+tool.type.history.edit = ཚིག་ཡིག་ཞུན་དག
+tool.type.history.discard = ཚིག་ཡིག་བཀོག་བཞག
+tool.type.history.discard_empty = ཚིག་ཡིག་སྟོངམ་བཀོག་བཞག

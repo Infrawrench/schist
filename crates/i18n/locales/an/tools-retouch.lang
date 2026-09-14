@@ -1,0 +1,30 @@
+# Ferramientas de retoque de rechions: Parche, Movimiento sensible a lo
+# conteniu, Güello royo y Borrador machico.
+
+# Parche
+tool.patch.name = Parche
+tool.patch.description = Arrociega un contorno arredol d'un defecto y dimpués arrociega ixa selección dica pixels limpios: a textura d'ixe puesto s'adapta a lo defecto. O modo de parche determina qué cabo d'o parell arrociegar.
+tool.patch.option.patch = Parche
+tool.patch.choice.source = Orichen
+tool.patch.choice.destination = Destino
+tool.patch.history.patch = Parche
+
+# Movimiento sensible a lo conteniu
+tool.content_aware_move.name = Movimiento sensible a lo conteniu
+tool.content_aware_move.description = Arrociega un obchecto trigau enta atro puesto y o forau que deixa se rechele con o suyo entorno. En o modo Extender, l'obchecto s'estira en cuenta de mover-se.
+tool.content_aware_move.choice.move = Mover
+tool.content_aware_move.choice.extend = Extender
+tool.content_aware_move.history.move = Movimiento sensible a lo conteniu
+
+# Güello royo
+tool.red_eye.name = Güello royo
+tool.red_eye.description = Fe clic en una pupila ta sacar-ne o royo d'o flash.
+tool.red_eye.option.pupil_size = Grandaria d'a pupila
+tool.red_eye.option.darken = Enfoscar
+tool.red_eye.history.red_eye = Güello royo
+
+# Borrador machico
+tool.magic_eraser.name = Borrador machico
+tool.magic_eraser.description = Fe clic ta borrar l'aria de color pareixida que ye baixo o puntero, dentro d'a tolerancia d'a ferramienta: contigua a lo punto d'o clic u por toda la capa.
+tool.magic_eraser.option.contiguous = Contiguo
+tool.magic_eraser.history.erase = Borrador machico

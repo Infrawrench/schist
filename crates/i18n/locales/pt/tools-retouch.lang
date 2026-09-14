@@ -1,0 +1,23 @@
+tool.patch.name = Correção
+tool.patch.description = Arraste um contorno à volta de uma imperfeição e depois arraste essa seleção para píxeis sem defeitos: a textura dessa área é ajustada à imperfeição. O modo Correção determina qual das duas áreas é arrastada.
+tool.patch.option.patch = Correção
+tool.patch.choice.source = Origem
+tool.patch.choice.destination = Destino
+tool.patch.history.patch = Correção
+
+tool.content_aware_move.name = Movimento sensível ao conteúdo
+tool.content_aware_move.description = Arraste um objeto selecionado para outro local e o espaço que ele deixa será preenchido a partir da área circundante. No modo Estender, o objeto é esticado em vez de movido.
+tool.content_aware_move.choice.move = Mover
+tool.content_aware_move.choice.extend = Estender
+tool.content_aware_move.history.move = Movimento sensível ao conteúdo
+
+tool.red_eye.name = Olhos vermelhos
+tool.red_eye.description = Clique numa pupila para remover o vermelho causado pelo flash.
+tool.red_eye.option.pupil_size = Tamanho da pupila
+tool.red_eye.option.darken = Escurecer
+tool.red_eye.history.red_eye = Olhos vermelhos
+
+tool.magic_eraser.name = Borracha mágica
+tool.magic_eraser.description = Clique para apagar a área de cor semelhante sob o ponteiro, dentro da tolerância da ferramenta — contígua ao ponto clicado ou em toda a camada.
+tool.magic_eraser.option.contiguous = Contíguo
+tool.magic_eraser.history.erase = Borracha mágica

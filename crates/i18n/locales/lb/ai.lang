@@ -1,0 +1,31 @@
+# Status, Informatiounen a Feeler am KI-Panneau.
+ai.status.panel_shown = KI-Panneau gewisen
+ai.status.panel_hidden = KI-Panneau verstoppt — Usiicht ▸ KI-Panneau ({shortcut}) weist en erëm
+ai.status.tool = KI: {name}
+
+ai.info.connected = {backend} verbonnen
+ai.info.now_in_gallery = Elo an der Galerie.
+ai.info.now_in_editor = Elo am Editeur.
+ai.tool.shell_command = Shell-Befeel
+
+ai.error.cli_missing = D'CLI vu {backend} („{binary}“) ass net am PATH. Installéiert se a mellt Iech fir d'éischt doran un.
+ai.error.endpoint_failed = De MCP-Endpunkt konnt net gestart ginn: {error}
+ai.error.binding_endpoint = De MCP-Endpunkt gëtt gebonnen
+ai.error.spawning_endpoint_thread = Den Thread vum MCP-Endpunkt gëtt gestart
+ai.error.runtime_failed = D'Agent-Lafzäit konnt net gestart ginn: {error}
+ai.error.worker_failed = De Worker vu {backend} konnt net gestart ginn: {error}
+ai.error.did_not_start = {backend} ass net gestart: {error}
+ai.error.switch_model_failed = De Modell konnt net gewiesselt ginn: {error}
+ai.error.send_failed = D'Ufro konnt net geschéckt ginn: {error}
+ai.error.interrupt_failed = D'Ënnerbriechung ass mësslongen: {error}
+ai.error.locating_binary = D'Schist-Binärdatei gëtt gesicht
+ai.error.starting_app_server = De Codex-App-Server gëtt gestart
+ai.error.attaching_app_server = D'Verbindung mam Codex-App-Server gëtt hiergestallt
+ai.error.initializing_app_server = De Codex-App-Server gëtt initialiséiert
+ai.error.resuming_thread = De Codex-Thread gëtt weidergefouert
+ai.error.starting_thread = De Codex-Thread gëtt gestart
+
+ai.model.opus_detail = Leeschtungsfäegst Kategorie
+ai.model.sonnet_detail = Effizient fir alldeeglech Aufgaben
+ai.model.haiku_detail = Am séierste fir kuerz Äntwerten
+ai.model.codex_catalog = Codex-Katalog

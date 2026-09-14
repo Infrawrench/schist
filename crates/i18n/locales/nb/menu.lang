@@ -1,0 +1,155 @@
+# Menylinjen i vinduet og systemmenyen i macOS/iPadOS.
+
+# Fil
+menu.file = Fil
+menu.file.new = Ny
+menu.file.open = Åpne…
+menu.file.open_recent = Åpne sist brukte
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Bla gjennom galleriet…
+menu.file.close = Lukk
+menu.file.save = Lagre
+menu.file.save_as = Lagre som…
+menu.file.export = Eksporter…
+menu.file.export_submenu = Eksporter
+menu.file.export_artboards = Tegnebrett til PNG…
+menu.file.export_slices = Sektorer til PNG…
+menu.file.save_to_photos = Lagre i Bilder
+menu.file.plugins = Programtillegg…
+menu.file.missing_fonts = Manglende skrifter…
+menu.file.check_for_updates = Se etter oppdateringer…
+menu.file.quit = Avslutt
+menu.file.add_folder_to_gallery = Legg til mappe i galleriet…
+menu.file.import_from_photos = Importer fra Bilder…
+menu.file.import_from_camera = Importer fra kamera…
+
+# Rediger
+menu.edit = Rediger
+menu.edit.fill = Fyll…
+menu.edit.stroke = Strøk…
+menu.edit.content_aware_fill = Innholdstilpasset fyll
+menu.edit.content_aware_scale = Innholdstilpasset skalering…
+menu.edit.puppet_warp = Marionettfordreining
+menu.edit.free_transform = Fri transformering
+menu.edit.transform = Transformer
+menu.edit.rotate_180 = Roter 180°
+menu.edit.rotate_90_cw = Roter 90° med klokken
+menu.edit.rotate_90_ccw = Roter 90° mot klokken
+menu.edit.flip_horizontal = Vend vannrett
+menu.edit.flip_vertical = Vend loddrett
+
+# Bilde
+menu.image = Bilde
+menu.image.mode = Modus
+menu.image.adjustments = Justeringer
+menu.image.auto_tone = Automatisk tone
+menu.image.auto_contrast = Automatisk kontrast
+menu.image.auto_color = Automatisk farge
+menu.image.image_size = Bildestørrelse…
+menu.image.canvas_size = Lerretsstørrelse…
+menu.image.image_rotation = Bilderotasjon
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° med klokken
+menu.image.rotate_90_ccw = 90° mot klokken
+menu.image.flip_canvas_horizontal = Vend lerret vannrett
+menu.image.flip_canvas_vertical = Vend lerret loddrett
+menu.image.crop_to_selection = Beskjær til markering
+menu.image.trim = Trim
+menu.image.assign_profile = Tilordne profil…
+menu.image.convert_to_profile = Konverter til profil…
+
+# Marker
+menu.select = Marker
+menu.select.color_range = Fargeområde…
+menu.select.modify = Endre
+menu.select.border = Kant…
+menu.select.smooth = Jevn ut…
+menu.select.expand = Utvid…
+menu.select.contract = Trekk sammen…
+menu.select.feather = Ton ut…
+menu.select.transform_selection = Transformer markering
+
+# Lag
+menu.layer = Lag
+menu.layer.layer_style = Lagstil…
+menu.layer.layer_comps = Lagkomposisjoner
+menu.layer.new_layer_comp = Ny lagkomposisjon
+menu.layer.delete_layer_comp = Slett {name}
+menu.layer.path = Bane
+menu.layer.fill_path = Fyll bane
+menu.layer.stroke_path = Lag strøk langs bane
+menu.layer.make_selection = Lag markering
+menu.layer.delete_path = Slett bane
+
+# Juster
+menu.adjust = Juster
+
+# Filter
+menu.filter = Filter
+menu.filter.filter_gallery = Filtergalleri…
+menu.filter.liquify = Gjør flytende
+menu.filter.vanishing_point = Forsvinningspunkt
+menu.filter.manage_models = Administrer modeller…
+menu.filter.camera_raw_development = Camera Raw-fremkalling…
+
+# Vis
+menu.view = Vis
+menu.view.rotate_view_cw = Roter visningen med klokken
+menu.view.rotate_view_ccw = Roter visningen mot klokken
+menu.view.reset_view = Tilbakestill visning
+menu.view.zoom_in = Zoom inn
+menu.view.zoom_out = Zoom ut
+menu.view.fit_on_screen = Tilpass til skjermen
+menu.view.actual_size = 100 %
+menu.view.rulers = Linjaler
+menu.view.grid = Rutenett
+menu.view.guides = Hjelpelinjer
+menu.view.notes = Merknader
+menu.view.ai_panel = KI-panel
+menu.view.extras = Tillegg
+menu.view.snap = Fest
+menu.view.clear_guides = Fjern hjelpelinjer
+menu.view.clear_notes = Fjern merknader
+menu.view.clear_count = Fjern telling
+menu.view.screen_mode = Skjermmodus
+menu.view.proof_colors = Korrekturfarger
+menu.view.show_rulers = Vis linjaler
+menu.view.hide_rulers = Skjul linjaler
+menu.view.show_grid = Vis rutenett
+menu.view.hide_grid = Skjul rutenett
+menu.view.show_guides = Vis hjelpelinjer
+menu.view.hide_guides = Skjul hjelpelinjer
+menu.view.show_notes = Vis merknader
+menu.view.hide_notes = Skjul merknader
+menu.view.show_extras = Vis tillegg
+menu.view.hide_extras = Skjul tillegg
+menu.view.enable_snapping = Aktiver festing
+menu.view.disable_snapping = Deaktiver festing
+menu.view.enable_proof_colors = Aktiver korrekturfarger
+menu.view.disable_proof_colors = Deaktiver korrekturfarger
+
+# Galleri
+menu.gallery = Galleri
+menu.gallery.edit_selected = Rediger markerte
+menu.gallery.refresh = Oppdater
+menu.gallery.map_filter = Kartfilter…
+menu.gallery.back_to_editor = Tilbake til redigering
+
+# Schist Cloud
+menu.cloud.browse = Bla gjennom Schist Cloud
+menu.cloud.generate = Generer bilder…
+menu.cloud.upload = Last opp dokument til Schist Cloud…
+menu.cloud.sign_out = Logg av Schist Cloud
+menu.cloud.sign_in = Logg på Schist Cloud…
+
+# Programmenyen i macOS
+menu.app.services = Tjenester
+menu.app.hide = Skjul {app}
+menu.app.hide_others = Skjul andre
+menu.app.show_all = Vis alle
+menu.app.quit = Avslutt {app}
+
+# Statusmeldinger for menyvalg som ikke kan utføres
+menu.status.transform_selection_needs_selection = Transformer markering krever en markering
+menu.status.crop_needs_selection = Beskjær til markering krever en markering
+menu.status.select_photo_to_edit = Velg et bilde som skal redigeres

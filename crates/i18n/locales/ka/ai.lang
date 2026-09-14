@@ -1,0 +1,31 @@
+# AI-ის გვერდითი პანელი და აგენტის სტატუსები
+ai.status.panel_shown = AI-პანელი ნაჩვენებია
+ai.status.panel_hidden = AI-პანელი დამალულია — მის დასაბრუნებლად გამოიყენეთ ხედი ▸ AI-პანელი ({shortcut})
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} დაკავშირებულია
+ai.info.now_in_gallery = ახლა გალერეაში ხართ.
+ai.info.now_in_editor = ახლა რედაქტორში ხართ.
+ai.tool.shell_command = გარსის ბრძანება
+
+ai.error.cli_missing = {backend}-ის ბრძანების სტრიქონის პროგრამა („{binary}“) PATH-ში არ არის. ჯერ დააყენეთ და შედით ანგარიშში.
+ai.error.endpoint_failed = MCP-ის საბოლოო წერტილის გაშვება ვერ მოხერხდა: {error}
+ai.error.binding_endpoint = MCP-ის საბოლოო წერტილის მიბმა
+ai.error.spawning_endpoint_thread = MCP-ის საბოლოო წერტილის ნაკადის გაშვება
+ai.error.runtime_failed = აგენტის გარემოს გაშვება ვერ მოხერხდა: {error}
+ai.error.worker_failed = {backend}-ის სამუშაო პროცესის გაშვება ვერ მოხერხდა: {error}
+ai.error.did_not_start = {backend} ვერ გაეშვა: {error}
+ai.error.switch_model_failed = მოდელის გადართვა ვერ მოხერხდა: {error}
+ai.error.send_failed = მოთხოვნის გაგზავნა ვერ მოხერხდა: {error}
+ai.error.interrupt_failed = შეწყვეტა ვერ მოხერხდა: {error}
+ai.error.locating_binary = Schist-ის შესრულებადი ფაილის მოძებნა
+ai.error.starting_app_server = Codex-ის აპის სერვერის გაშვება
+ai.error.attaching_app_server = Codex-ის აპის სერვერთან მიერთება
+ai.error.initializing_app_server = Codex-ის აპის სერვერის ინიციალიზაცია
+ai.error.resuming_thread = Codex-ის საუბრის გაგრძელება
+ai.error.starting_thread = Codex-ის საუბრის დაწყება
+
+ai.model.opus_detail = ყველაზე შესაძლებლობიანი დონე
+ai.model.sonnet_detail = ეფექტური ყოველდღიური ამოცანებისთვის
+ai.model.haiku_detail = უსწრაფესი მოკლე პასუხებისთვის
+ai.model.codex_catalog = Codex-ის კატალოგი

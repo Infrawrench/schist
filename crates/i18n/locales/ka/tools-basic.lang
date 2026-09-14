@@ -1,0 +1,26 @@
+# ძირითადი ხელსაწყოები: გადაადგილება, პიპეტი, ხელი და მასშტაბი.
+
+# გადაადგილება
+tool.move.name = გადაადგილება
+tool.move.description = გადაათრიეთ აქტიური ფენის შიგთავსი ახალ ადგილას. თუ ავტომატური არჩევა ჩართულია, დაჭერისას ჯერ მაჩვენებლის ქვეშ მდებარე ფენა ან მთელი ჯგუფი შეირჩევა.
+tool.move.option.auto_select = ავტომატური არჩევა
+tool.move.history.move_layer = ფენის გადაადგილება
+
+# პიპეტი
+tool.eyedropper.name = პიპეტი
+tool.eyedropper.description = აიღეთ მაჩვენებლის ქვეშ არსებული ფერი წინა პლანის ნიმუშად, ხოლო Alt-ის დაჭერისას — ფონის ნიმუშად. გადათრევისას ფერის აღება გრძელდება.
+tool.eyedropper.option.sample_size = ნიმუშის ზომა
+tool.eyedropper.option.sample = ნიმუში
+tool.eyedropper.choice.point_sample = წერტილოვანი ნიმუში
+tool.eyedropper.choice.average_3 = 3 × 3 საშუალო
+tool.eyedropper.choice.average_5 = 5 × 5 საშუალო
+tool.eyedropper.choice.average_11 = 11 × 11 საშუალო
+tool.eyedropper.choice.average_31 = 31 × 31 საშუალო
+tool.eyedropper.choice.all_layers = ყველა ფენა
+tool.eyedropper.choice.current_layer = მიმდინარე ფენა
+
+# ხელი და მასშტაბი
+tool.hand.name = ხელი
+tool.hand.description = გადაადგილებს ხედს. ხედის არე ფანჯარას ეკუთვნის, ამიტომ უგრაფიკო რეჟიმში ეს ხელსაწყო დოკუმენტს არ ცვლის.
+tool.zoom.name = მასშტაბი
+tool.zoom.description = ცვლის ხედის მასშტაბს. ხედის არე ფანჯარას ეკუთვნის, ამიტომ უგრაფიკო რეჟიმში ეს ხელსაწყო დოკუმენტს არ ცვლის.

@@ -1,0 +1,43 @@
+# Ekkuŋŋaaniro ly'obusengejja
+app.filter_gallery.title = Ekkuŋŋaaniro ly'obusengejja
+app.filter_gallery.stack = Entuumu (eteekebwako okuva wansi okudda waggulu)
+app.filter_gallery.no_settings = Akasengejja kano tekalina nteekateeka.
+
+# Empandiika
+app.fonts.not_open_licensed = terina layisinsi ya bonna · {substitute} ekwatagana n'ebipimo byayo
+app.fonts.missing_substituted = ebuze · ebiwandiiko biteekebwa mu mpandiika egiddawo mu kifo kyayo
+app.fonts.not_in_catalogue = {family} teri mu lukalala lw'empandiika ez'olukusa lwa bonna
+app.fonts.no_faces = tewali nkula ya {family} ewanulibwa
+app.fonts.empty_response = eky'okuddamu tekirina kintu
+
+# Entuukanya
+app.update.unreadable_response = eky'okuddamu tekisomeka: {error}
+app.update.no_temp_dir = tewali tterekero lya kaseera ly'okuwanuliramu
+app.update.asset_has_path = ekifulumiziddwa kituuma fayiro yaakyo erinnya eririmu ekkubo
+app.update.too_big = ebiwanuddwa binene okusinga ekifulumiziddwa bwe kigamba
+app.update.stopped_at = okuwanula kuyimiridde ku bytes {got} ku {total}
+app.update.hash_mismatch = hash y'ebiwanuddwa eri {got}, so si {want}
+app.update.not_in_bundle = koppi eno teri munda mu kitole kya pulogulaamu
+app.update.no_parent_dir = ekitole kya pulogulaamu tekirina tterekero erikirimu
+app.update.cannot_write = tekisobola kuwandiika mu {dir}
+app.update.cannot_move_aside = tekisobola kutambuza {app} kugiggya mu kkubo
+app.update.cannot_move_in = tekisobola kuteeka kitole kiggya mu kifo
+app.update.cannot_run_ditto = tekisobola kukozesa /usr/bin/ditto
+app.update.unpack_failed = okusumulula ebiwanuddwa kulemye: {error}
+app.update.no_app_in_download = ebiwanuddwa tebiriimu Schist.app
+app.update.cannot_run_codesign = tekisobola kukozesa /usr/bin/codesign
+app.update.signature_invalid = omukono gw'ebiwanuddwa tegukakasibwa: {error}
+app.update.download_unsigned = koppi eno eriko omukono naye ebiwanuddwa tebiriko
+app.update.different_developer = ebiwanuddwa byassibwako omukono gw'omukugu omulala
+app.update.cannot_relaunch = tekisobola kutandika pulogulaamu eddamu okutandika
+app.update.not_installed_copy = koppi eno installer si ye yagiteeka wano
+app.update.cannot_start_installer = tekisobola kutandika installer
+app.update.platform_unsupported = entuukanya ku nkola eno ziteekebwamu mu ngeri Schist gye yateekebwamu
+
+# Okukebera Vulkan ku Linux
+app.vulkan.no_loader = schist: tewali loader ya Vulkan ku nkola eno, n'olwekyo tewali kya kukozesa kukuba kifaananyi.\n\nSchist ekuba ebifaananyi ng'eyita mu Vulkan, naye `libvulkan.so.1` teteekeddwamu.\nLoader ne driver byombi byetaagibwa:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: driver ya Vulkan session eno gy'eraga teriiyo.\n\n{var} eteekeddwawo, era okugiteekawo *kudda mu kifo* ky'okunoonya kwa loader\ndrivers mu kifo ky'okwongerako. N'olwekyo fayiro zino ezitaliwo\nze zikola olukalala lwa drivers lwonna — era buli pulogulaamu ya Vulkan mu session eno\ntelaba driver n'emu, ne bwe waba nga nyingi eziteekeddwamu:\n\n{missing}\n    {var}={value}\n\nGirage manifest eriwo — drivers eziteekeddwamu ziteeka ezaazo mu\n/usr/share/vulkan/icd.d — oba giggyewo oleke loader yeenoonyeze.\nSession eteekawo kino okuva mu fayiro y'enteekateeka (Hyprland `env =`,\nfayiro ya systemd environment.d, pulofayiro ya shell) eteekwa okukyusibwa eyo,\nera enkyukakyuka yeetaaga okuyingira obuggya okutuuka ku bintu ebikyakola.\n
+app.vulkan.override_note = \n{var} eteekeddwa ku {value}, era kino kidda mu kifo ky'okunoonya kwa loader:\nmanifest ezo zonna bwe zitaba za kyuma kino, okugiggyawo kye kisooka okugezako.\n
+app.vulkan.no_driver = schist: tewali driver ya Vulkan eteekeddwamu, n'olwekyo tewali kya kukozesa kukuba kifaananyi.\n\nSchist ekuba ebifaananyi ng'eyita mu Vulkan. Loader eteekeddwamu naye egamba nti tewali\ndriver — tewali yawandiisiddwa mu kifo kyonna ku bibiri gye zinoonyezebwa:\n\n{dirs}\n\nLoader ejja ya njawulo ku drivers, kale kino emirundi mingi kiba package emu\nebuze.\n\nTeekamu eya GPU y'ekyuma kino:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver ya NVIDIA ey'obwannannyini erina eyayo (`nvidia-utils` ku Arch,\n`nvidia-driver` ku Debian). Mu kyuma ekikolebwa pulogulaamu, oba wonna awatali\ndriver ya GPU ya kuteekamu, software rasteriser y'ekola:\n`vulkan-swrast` ku Arch, era kitundu kya `mesa-vulkan-drivers` awalala.\nMpola, naye etandika.\n{overridden}
+app.vulkan.no_device = schist: driver ya Vulkan eteekeddwamu naye terina kyuma ky'ewa okukubako ebifaananyi.\n\nDriver eyinza obutawagira GPU eno, oba eyinza obutasobola kugituukako —\nng'oyita ku SSH, oba munda mu container, /dev/dri etera okubula.\n`vulkaninfo --summary` eraga loader ky'eraba.\n\nSoftware rasteriser ekuba ebifaananyi awatali GPU yonna, bwe kiba nti\nekyuma kino bwe kiri: `vulkan-swrast` ku Arch, era kitundu kya `mesa-vulkan-drivers`\nku Debian ne Fedora.\n
+app.vulkan.skip_hint = Okutandika Schist wadde kiri kityo era ogireke eremerwe mu ngeri yaayo, teekawo {var}=1.

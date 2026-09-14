@@ -1,0 +1,26 @@
+# Ferramientas basicas: Mover, Contagotas, Man y Zoom.
+
+# Mover
+tool.move.name = Mover
+tool.move.description = Arrociega o conteniu d'a capa activa enta una posición nueva. Con a selección automatica activada, en pretar se tría primero a capa —u o grupo entero— que ye baixo o puntero.
+tool.move.option.auto_select = Selección automatica
+tool.move.history.move_layer = Mover capa
+
+# Contagotas
+tool.eyedropper.name = Contagotas
+tool.eyedropper.description = Preba a color que ye baixo o puntero y la mete en a muestra frontal, u en a muestra de fondo si se mantiene pretada Alt. En arrocegar, contina prebando colors.
+tool.eyedropper.option.sample_size = Grandaria d'a muestra
+tool.eyedropper.option.sample = Muestra
+tool.eyedropper.choice.point_sample = Muestra puntual
+tool.eyedropper.choice.average_3 = Meya de 3 por 3
+tool.eyedropper.choice.average_5 = Meya de 5 por 5
+tool.eyedropper.choice.average_11 = Meya de 11 por 11
+tool.eyedropper.choice.average_31 = Meya de 31 por 31
+tool.eyedropper.choice.all_layers = Todas as capas
+tool.eyedropper.choice.current_layer = Capa actual
+
+# Man y Zoom
+tool.hand.name = Man
+tool.hand.description = Desplaza a vista. O visor perteneix a la finestra, asinas que, sin interficie grafica, ista ferramienta no fa garra cambio en o documento.
+tool.zoom.name = Zoom
+tool.zoom.description = Cambeya o zoom d'a vista. O visor perteneix a la finestra, asinas que, sin interficie grafica, ista ferramienta no fa garra cambio en o documento.

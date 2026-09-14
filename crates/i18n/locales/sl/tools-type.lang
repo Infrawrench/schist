@@ -1,0 +1,24 @@
+# Orodje za besedilo.
+
+tool.type.name = Besedilo
+tool.type.description = Kliknite, da na tem mestu začnete besedilno plast, ali kliknite obstoječo besedilno plast, da jo uredite. Dokler je odprta, orodje sprejema neposredne pritiske tipk (znake pošljite kot tipkovni vnos); ob potrditvi izriše plast in zapre urejanje.
+
+tool.type.option.align = Poravnava
+tool.type.option.leading = Razmik med vrsticami
+tool.type.option.tracking = Razmik med znaki
+tool.type.option.kerning = Spodsekavanje
+tool.type.option.ligatures = Ligature
+tool.type.option.discretionary_ligatures = Neobvezne ligature
+tool.type.option.small_caps = Pomanjšane velike črke
+tool.type.option.on_path = Na dejavni poti
+tool.type.option.path_offset = Odmik na poti
+
+tool.type.choice.regular = Navadno
+tool.type.choice.bold = Krepko
+tool.type.choice.italic = Ležeče
+tool.type.choice.bold_italic = Krepko ležeče
+
+tool.type.history.new_layer = Nova besedilna plast
+tool.type.history.edit = Uredi besedilo
+tool.type.history.discard = Zavrzi besedilo
+tool.type.history.discard_empty = Zavrzi prazno besedilo

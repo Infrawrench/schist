@@ -1,0 +1,21 @@
+tool.move.name = Жылдыруу
+tool.move.description = Активдүү катмардын мазмунун жаңы орунга сүйрөңүз. Автотандоо күйүп турганда, басканда көрсөткүчтүн астындагы катмар же бүтүндөй топ биринчи тандалат.
+tool.move.option.auto_select = Автотандоо
+tool.move.history.move_layer = Катмарды жылдыруу
+
+tool.eyedropper.name = Пипетка
+tool.eyedropper.description = Көрсөткүчтүн астындагы түстү алдыңкы түс үлгүсүнө, ал эми Alt басылып турса, арткы түс үлгүсүнө алыңыз. Сүйрөгөндө түс үзгүлтүксүз алынат.
+tool.eyedropper.option.sample_size = Үлгүнүн өлчөмү
+tool.eyedropper.option.sample = Үлгү алуу
+tool.eyedropper.choice.point_sample = Бир чекиттен
+tool.eyedropper.choice.average_3 = 3 × 3 орточосу
+tool.eyedropper.choice.average_5 = 5 × 5 орточосу
+tool.eyedropper.choice.average_11 = 11 × 11 орточосу
+tool.eyedropper.choice.average_31 = 31 × 31 орточосу
+tool.eyedropper.choice.all_layers = Бардык катмарлар
+tool.eyedropper.choice.current_layer = Учурдагы катмар
+
+tool.hand.name = Кол
+tool.hand.description = Көрүнүштү жылдырат. Көрүү аймагы терезеге тиешелүү болгондуктан, графикалык интерфейссиз иштегенде бул курал документке эч таасир этпейт.
+tool.zoom.name = Масштаб
+tool.zoom.description = Көрүнүштүн масштабын өзгөртөт. Көрүү аймагы терезеге тиешелүү болгондуктан, графикалык интерфейссиз иштегенде бул курал документке эч таасир этпейт.

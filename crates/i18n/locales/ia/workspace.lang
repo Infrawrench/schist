@@ -1,0 +1,102 @@
+# Spatio de labor: documentos, filtros, exportation e recuperation.
+
+workspace.fill.gray_50 = Gris 50%
+workspace.fill.content_aware = Sensibile al contento
+workspace.modify.expand = Expander selection
+workspace.modify.contract = Contraher selection
+workspace.modify.border = Bordo del selection
+workspace.modify.smooth = Suavificar selection
+workspace.modify.feather = Sfumar selection
+
+workspace.batch.target.edit = Modificationes de galeria (con versiones)
+workspace.batch.target.beside = Copias presso le originales
+workspace.batch.target.folder = Copias in un dossier…
+workspace.modal.image_size.title = Dimension del imagine
+
+workspace.docs.opening = Apertura de {name}…
+workspace.docs.opened = {name} aperite
+workspace.docs.open_failed = Le apertura falleva: {error}
+workspace.docs.no_codec = {name} non es un formato que Schist pote aperir
+workspace.docs.no_exporter = Schist non pote salvar files .{ext}
+workspace.docs.empty_response = Le servitor inviava un responsa vacue
+workspace.docs.heic_not_installed = Le supporto HEIC non es installate
+workspace.docs.heic_downloading = Discargamento del supporto HEIC (libheif {version})…
+workspace.docs.heic_installed = Supporto HEIC installate
+workspace.docs.heic_download_failed = Le discargamento del supporto HEIC falleva: {error}
+workspace.docs.placing = Placemento de {name}…
+workspace.docs.place_image = Placer imagine
+workspace.docs.placed = {name} placiate
+workspace.docs.place_failed = Le placemento falleva: {error}
+workspace.docs.saved = {name} salvate
+workspace.docs.save_failed = Le salvamento falleva: {error}
+
+workspace.adjustment.new_layer = Nove strato {name}
+workspace.adjustment.added = {name} addite
+workspace.adjustment.settings = Parametros de {name}
+workspace.adjustment.updated = {name} actualisate
+workspace.adjustment.no_settings = {name} non ha parametros modificabile
+workspace.comps.name_n = Composition de stratos {n}
+workspace.comps.captured = Composition de stratos capturate
+workspace.comps.apply = Applicar {name}
+workspace.styles.layer_style = Stilo de strato
+workspace.context.rename_layer = Renominar strato
+workspace.commands.tool = Instrumento: {name}
+
+workspace.colormgmt.assign = Assignar {name}
+workspace.colormgmt.assigned = {name} assignate
+workspace.colormgmt.convert_to = Converter a {name}
+workspace.colormgmt.converted_to = Convertite a {name}
+workspace.colormgmt.convert_failed = Le conversion falleva: {error}
+workspace.colormgmt.proof_on = Colores de prova activate
+workspace.colormgmt.proof_off = Colores de prova disactivate
+
+workspace.filters.choose = Seliger
+workspace.filters.select_layer_first = Selige primo un strato
+workspace.filters.needs_pixel_layer = Le filtros require un strato de pixels
+workspace.filters.nothing_to_filter = Nihil a filtrar
+workspace.filters.went_away = Le filtro non es plus disponibile
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: le strato filtrate non existe plus
+workspace.filters.plugin_title = Plug-in de Photoshop
+workspace.filters.running = Execution de {name}
+workspace.filters.plugin_note = Le plug-in se executa in su proprie processo. Si illo aperi un fenestra, responde ibi pro continuar.
+workspace.filters.raw_preview_developing = Developpamento del previsualisation RAW…
+workspace.filters.raw_preview_done = Previsualisation RAW (demosaicage rapide)
+workspace.filters.raw_preview_size_changed = Le dimension del previsualisation RAW cambiava: {w} × {h}
+workspace.filters.raw_preview_failed = Le previsualisation RAW falleva: {error}
+workspace.filters.raw_developing = Developpamento del captura original…
+workspace.filters.raw_developing_note = Usa le melior methodo de demosaicage. Le RAW original e iste parametros remane modificabile post le salvamento como PSD o PSB.
+workspace.filters.raw_document_changed = Le developpamento RAW finiva post que su documento cambiava
+workspace.filters.raw_failed = Le developpamento RAW falleva: {error}
+workspace.filters.raw_too_wide = Le developpamento RAW es troppo large
+workspace.filters.raw_too_tall = Le developpamento RAW es troppo alte
+workspace.filters.raw_size_changed = Le dimension del developpamento RAW cambiava a {w} × {h}; le strato actual es conservate
+workspace.filters.raw_history = Developpamento Camera Raw
+workspace.filters.raw_applied = Developpamento Camera Raw applicate (melior demosaicage)
+
+workspace.image_size.done = Dimension del imagine: {w} × {h}
+workspace.image_size.bicubic_fallback = Dimension del imagine: {w} × {h} — le modello {name} non poteva esser cargate, dunque le interpolation bicubic lo substitueva
+workspace.image_size.upscaling = Augmentation de scala con {name}
+workspace.image_size.upscaling_note = {mp} megapixels trans le rete, alcun secundas cata un. Le documento es retenite usque al fin.
+
+workspace.export.no_slices = Necun section a exportar
+workspace.export.no_artboards = Necun plancha de designo a exportar
+workspace.export.regions.one = {n} region exportate
+workspace.export.regions.other = {n} regiones exportate
+workspace.export.prompt = Exportar como:
+workspace.export.done = {name} exportate
+workspace.export.failed = Le exportation falleva: {error}
+workspace.export.codec_vanished = Le exportator non es plus disponibile
+
+workspace.file_picker.choose_folder = Seliger dossier
+workspace.file_picker.type_a_name = Scribe un nomine pro le file
+workspace.file_picker.exists = {name} existe; pulsa Salvar de novo pro replaciar lo
+workspace.file_picker.tap_a_file = Pulsa un file pro aperir lo
+workspace.file_picker.pictures = Imagines
+workspace.file_picker.camera = Camera
+workspace.file_picker.downloads = Discargamentos
+workspace.file_picker.permission_denied = Schist non ha permission de leger iste dossier
+
+workspace.recovery.recovered_title = {title} (recuperate)
+workspace.recovery.recovered.one = Labor non salvate recuperate ab un session precedente
+workspace.recovery.recovered.other = {n} documentos recuperate ab un session precedente

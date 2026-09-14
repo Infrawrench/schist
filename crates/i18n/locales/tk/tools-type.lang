@@ -1,0 +1,22 @@
+tool.type.name = Tekst
+tool.type.description = Şol ýerde tekst gatlagyny başlatmak üçin basyň ýa-da bar bolan tekst gatlagyny redaktirlemek üçin oňa basyň. Açyk wagty gural gönüden-göni klawiş girişini kabul edýär (nyşanlary klawiş girişi hökmünde iberiň); tassyklamak gatlagy şekillendirýär we redaktirlemegi ýapýar.
+
+tool.type.option.align = Deňlemek
+tool.type.option.leading = Setir aralygy
+tool.type.option.tracking = Harplaryň umumy aralygy
+tool.type.option.kerning = Harp jübütleriniň aralygy
+tool.type.option.ligatures = Ligaturalar
+tool.type.option.discretionary_ligatures = Islege görä ligaturalar
+tool.type.option.small_caps = Kiçi baş harplar
+tool.type.option.on_path = Işjeň ýol boýunça
+tool.type.option.path_offset = Ýoldan süýşme
+
+tool.type.choice.regular = Adaty
+tool.type.choice.bold = Ýogyn
+tool.type.choice.italic = Kursiw
+tool.type.choice.bold_italic = Ýogyn kursiw
+
+tool.type.history.new_layer = Täze tekst gatlagy
+tool.type.history.edit = Teksti redaktirlemek
+tool.type.history.discard = Teksti taşlamak
+tool.type.history.discard_empty = Boş teksti taşlamak

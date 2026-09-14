@@ -1,0 +1,72 @@
+tool.brush.name = Қылқалам
+tool.brush.description = Редактордағы қылқалам өлшемі, қаттылығы және мөлдірсіздігі бойынша алдыңғы түспен жиектері жұмсақ штрих салыңыз.
+tool.brush.history.stroke = Қылқалам
+
+tool.pencil.name = Қарындаш
+tool.pencil.description = Алдыңғы түспен жиектері қатты, тегістелмеген штрих салыңыз.
+tool.pencil.history.stroke = Қарындаш
+
+tool.eraser.name = Өшіргіш
+tool.eraser.description = Штрих бойымен өшіріп, қабатты қайтадан мөлдір күйге келтіріңіз.
+tool.eraser.history.stroke = Өшіргіш
+
+tool.clone.name = Клондау мөрі
+tool.clone.description = Клондау мөрі: бастапқы нүктені белгілеу үшін Alt пернесімен шертіңіз, содан кейін одан берілген ығысумен көшірілген пиксельдерді бояңыз.
+tool.clone.history.stroke = Клондау мөрі
+
+tool.dodge.name = Ағарту
+tool.dodge.description = Штрих өтетін пиксельдерді ағартыңыз.
+tool.dodge.history.stroke = Ағарту
+tool.burn.name = Күйдіру
+tool.burn.description = Штрих өтетін пиксельдерді қараңғылаңыз.
+tool.burn.history.stroke = Күйдіру
+tool.sponge.name = Губка
+tool.sponge.description = Штрих өтетін пиксельдердің қанықтығын арттырыңыз немесе азайтыңыз.
+tool.sponge.history.stroke = Губка
+
+tool.blur.name = Бұлыңғырлау
+tool.blur.description = Штрих өтетін пиксельдерді бұлыңғырлаңыз.
+tool.blur.history.stroke = Бұлыңғырлау
+tool.sharpen.name = Айқындау
+tool.sharpen.description = Штрих өтетін пиксельдерді айқындаңыз.
+tool.sharpen.history.stroke = Айқындау
+tool.smudge.name = Жағу
+tool.smudge.description = Дымқыл бояуды итергендей, түсті штрих бойымен созыңыз.
+tool.smudge.history.stroke = Жағу
+
+tool.heal.name = Қалпына келтіру қылқаламы
+tool.heal.description = Қалпына келтіру қылқаламы: бастапқы аймақты белгілеу үшін Alt пернесімен шертіңіз, содан кейін бояңыз; бастапқы аймақтың текстурасы мақсатты аймақтың өз түсі мен жарығымен араласады.
+tool.heal.history.stroke = Қалпына келтіру қылқаламы
+tool.spot_heal.name = Нүктелік қалпына келтіру қылқаламы
+tool.spot_heal.description = Нүктелік қалпына келтіру қылқаламы: дақтың үстін бояңыз, сонда ол айналасынан алынған текстурамен алмастырылады — бастапқы нүктені белгілеу қажет емес.
+tool.spot_heal.history.stroke = Нүктелік қалпына келтіру қылқаламы
+
+tool.history_brush.name = Тарих қылқаламы
+tool.history_brush.description = Құжат тарихының сақталған күйінен пиксельдерді штрихпен қайта бояп, кейінгі жұмысты біртіндеп болдырмаңыз.
+tool.history_brush.history.stroke = Тарих қылқаламы
+
+tool.background_eraser.name = Фон өшіргіші
+tool.background_eraser.description = Нысанды фоннан бөліп алу үшін қылқалам ортасының астынан алынған түсті өшіріп, одан өзгеше пиксельдерді өзгеріссіз қалдырыңыз.
+tool.background_eraser.history.stroke = Фон өшіргіші
+
+tool.gradient.name = Градиент
+tool.gradient.description = Қабатты — таңдалған аймақ болса, соның ішін — сүйреу бағыты бойынша алдыңғы түстен артқы фон түсіне өтетін сызықтық градиентпен толтырыңыз.
+tool.gradient.radial.name = Радиалдық градиент
+tool.gradient.radial.description = Ортадан сыртқа сүйреп, алдыңғы және артқы фон түстері арасындағы радиалдық градиентпен толтырыңыз.
+tool.gradient.option.gradient = Градиент
+tool.gradient.option.reverse = Кері бағыт
+tool.gradient.option.dither = Дизеринг
+tool.gradient.choice.foreground_to_background = Алдыңғы түстен артқы фонға
+tool.gradient.choice.foreground_to_transparent = Алдыңғы түстен мөлдірлікке
+tool.gradient.choice.linear = Сызықтық
+tool.gradient.choice.radial = Радиалдық
+tool.gradient.choice.angle = Бұрыштық
+tool.gradient.choice.reflected = Шағылысқан
+tool.gradient.choice.diamond = Ромбтық
+tool.gradient.history.gradient = Градиент
+
+tool.bucket.name = Бояу шелегі
+tool.bucket.description = Құралдың төзімділік шегінде меңзер астындағы ұқсас түсті тұтасқан аймақты алдыңғы түспен толтыру үшін шертіңіз.
+tool.bucket.option.contiguous = Тұтасқан
+tool.bucket.option.all_layers = Барлық қабаттар
+tool.bucket.history.fill = Бояу шелегі

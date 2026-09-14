@@ -1,0 +1,27 @@
+# 변형 도구: 픽셀 유동화, 퍼펫 뒤틀기, 소실점.
+
+# 픽셀 유동화
+tool.liquify.name = 픽셀 유동화
+tool.liquify.description = 큰 브러시 아래의 픽셀을 밀거나, 돌리거나, 오므리거나, 부풀립니다. 모드 옵션에서 동작을 선택합니다. 변형은 메시에 누적되고 확정할 때 레이어에 적용됩니다.
+tool.liquify.option.tool = 도구
+tool.liquify.choice.forward_warp = 앞으로 변형
+tool.liquify.choice.reconstruct = 재구성
+tool.liquify.choice.twirl_cw = 시계 방향 돌리기
+tool.liquify.choice.twirl_ccw = 시계 반대 방향 돌리기
+tool.liquify.choice.pucker = 오목 도구
+tool.liquify.choice.bloat = 볼록 도구
+tool.liquify.choice.push_left = 왼쪽 밀기
+tool.liquify.history.liquify = 픽셀 유동화
+
+# 퍼펫 뒤틀기
+tool.puppet_warp.name = 퍼펫 뒤틀기
+tool.puppet_warp.description = 레이어의 몇 지점을 클릭하여 핀으로 고정한 다음 핀 하나를 드래그합니다. 메시는 강성 옵션의 설정에 따라 핀 주위에서 단단하거나 유연하게 휘어집니다. 확정하면 변형이 적용됩니다.
+tool.puppet_warp.option.stiffness = 강성
+tool.puppet_warp.history.puppet_warp = 퍼펫 뒤틀기
+
+# 소실점
+tool.vanishing_point.name = 소실점
+tool.vanishing_point.description = 원근이 있는 대상 위에 드래그하여 평면을 만든 다음 모드를 복제로 바꾸고 칠합니다. 복사된 픽셀은 평면을 따라가며 거리가 멀어질수록 작아집니다.
+tool.vanishing_point.choice.edit_plane = 평면 편집
+tool.vanishing_point.choice.clone = 복제
+tool.vanishing_point.history.vanishing_point = 소실점

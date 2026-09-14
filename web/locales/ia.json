@@ -1,0 +1,9 @@
+{
+  "loading": "Cargamento…",
+  "starting": "Initiation…",
+  "webgpu": "Schist require WebGPU, que iste navigator non offere. Chrome/Edge 113+, Firefox 141+ e Safari 26+ lo offere.",
+  "noticeTitle": "Schist functiona melio como application de scriptorio",
+  "noticeBody": "Tu usa le version web, que es un compilation de software plus legier: illo compone le imagines con le CPU e omitte alcun functiones — plug-ins de Photoshop e plug-ins de tertie partes, le galeria de imagines, le pannello IA, le importation HEIC e le discargamento de typos de litteras — e le files es salvate como discargamentos. Le application de scriptorio gratuite pro macOS, Windows e Linux include toto.",
+  "noticeLink": "Obtener le application de scriptorio.",
+  "ok": "OK"
+}

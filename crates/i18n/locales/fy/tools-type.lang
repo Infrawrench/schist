@@ -1,0 +1,26 @@
+# Tekstark
+tool.type.name = Tekst
+tool.type.description = Klik om dêr in tekstlaach te begjinnen, of klik op in besteande tekstlaach om dy te bewurkjen. Salang't dy iepen is, ûntfangt it ark de toetsen streekrjocht (stjoer tekens as toetsynfier); by befêstigjen wurdt de laach werjûn en de bewurking sletten.
+
+# Opsjebalke
+tool.type.option.align = Rjochtsje
+tool.type.option.leading = Rigelôfstân
+tool.type.option.tracking = Letterspaasjes
+tool.type.option.kerning = Ôfstân tusken letterpearen
+tool.type.option.ligatures = Ligatueren
+tool.type.option.discretionary_ligatures = Opsjonele ligatueren
+tool.type.option.small_caps = Lytse haadletters
+tool.type.option.on_path = Op aktyf paad
+tool.type.option.path_offset = Paadferskowing
+
+# Styl
+tool.type.choice.regular = Gewoan
+tool.type.choice.bold = Fet
+tool.type.choice.italic = Skean
+tool.type.choice.bold_italic = Fet skean
+
+# Skiednis
+tool.type.history.new_layer = Nije tekstlaach
+tool.type.history.edit = Tekst bewurkje
+tool.type.history.discard = Tekst fersmite
+tool.type.history.discard_empty = Lege tekst fersmite

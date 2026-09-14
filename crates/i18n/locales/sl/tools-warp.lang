@@ -1,0 +1,24 @@
+# Orodja Utekočini, Lutkovno preoblikovanje in Točka izginotja.
+
+tool.liquify.name = Utekočini
+tool.liquify.description = Z velikim čopičem potiskajte, vrtinčite, krčite ali napihujte slikovne pike; vrsto učinka določa možnost orodja. Preoblikovanje se zbira v mreži in se ob potrditvi uveljavi na plasti.
+tool.liquify.option.tool = Orodje
+tool.liquify.choice.forward_warp = Potiskanje naprej
+tool.liquify.choice.reconstruct = Obnovitev
+tool.liquify.choice.twirl_cw = Vrtinčenje v desno
+tool.liquify.choice.twirl_ccw = Vrtinčenje v levo
+tool.liquify.choice.pucker = Krčenje
+tool.liquify.choice.bloat = Napihovanje
+tool.liquify.choice.push_left = Potiskanje v levo
+tool.liquify.history.liquify = Utekočini
+
+tool.puppet_warp.name = Lutkovno preoblikovanje
+tool.puppet_warp.description = Kliknite, da plast pripnete na več mestih, nato povlecite eno od njih: mreža se okoli žebljičkov upogne bolj ali manj togo, kot določa možnost Togost. Ob potrditvi se preoblikovanje uveljavi.
+tool.puppet_warp.option.stiffness = Togost
+tool.puppet_warp.history.puppet_warp = Lutkovno preoblikovanje
+
+tool.vanishing_point.name = Točka izginotja
+tool.vanishing_point.description = Povlecite ravnino čez predmet v perspektivi, nato preklopite način na Kloniranje in slikajte: kopirane slikovne pike sledijo ravnini in se z oddaljenostjo manjšajo.
+tool.vanishing_point.choice.edit_plane = Uredi ravnino
+tool.vanishing_point.choice.clone = Kloniranje
+tool.vanishing_point.history.vanishing_point = Točka izginotja

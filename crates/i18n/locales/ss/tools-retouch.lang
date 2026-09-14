@@ -1,0 +1,23 @@
+tool.patch.name = Silungiso
+tool.patch.description = Dvweba umncele lotungeleta liphutsa, bese uhudvulela loko lokukhetsiwe kumaphikseli langenaliphutsa: kwakheka kwebuso lokulapho kulungiselelwa kungena kuleliphutsa. Imodi yeSilungiso ikhetsa kutsi uhudvula ngakuphi kwalokubili.
+tool.patch.option.patch = Silungiso
+tool.patch.choice.source = Umtfombo
+tool.patch.choice.destination = Indzawo Lekuyiwa Kuyo
+tool.patch.history.patch = Silungiso
+
+tool.content_aware_move.name = Hambisa Ngekucaphela Lokucuketfwe
+tool.content_aware_move.description = Hudvulela intfo lekhetsiwe kulenye indzawo, bese umgodzi lewushiya ngemuva ugcwaliswa ngalokuyitungeletile. Kumodi Yekwelula intfo iyelulwa esikhundleni sekutsi ihanjiswe.
+tool.content_aware_move.choice.move = Hambisa
+tool.content_aware_move.choice.extend = Yelula
+tool.content_aware_move.history.move = Hambisa Ngekucaphela Lokucuketfwe
+
+tool.red_eye.name = Liso Lelibhovu
+tool.red_eye.description = Chafata inhlavu yeliso kuze ususe kubovu lokubangwa yifleshi.
+tool.red_eye.option.pupil_size = Bukhulu Benhlavu Yeliso
+tool.red_eye.option.darken = Yenta Kube Mnyama
+tool.red_eye.history.red_eye = Liso Lelibhovu
+
+tool.magic_eraser.name = Sisuli Semlingo
+tool.magic_eraser.description = Chafata kuze usule indzawo yembala lofananako longephansi kwesikhombi, ngekhatsi kwemkhawulo welithuluzi — lehambisana nendzawo lechafatiwe, nobe kuyo yonkhe indzawo yeluhlaka.
+tool.magic_eraser.option.contiguous = Lokuhlanganako
+tool.magic_eraser.history.erase = Sisuli Semlingo

@@ -1,0 +1,36 @@
+app.filter_gallery.title = Gailearaí Scagairí
+app.filter_gallery.stack = Cruach (curtha i bhfeidhm ón mbun aníos)
+app.filter_gallery.no_settings = Níl aon socrú ag an scagaire seo.
+app.fonts.not_open_licensed = níl ceadúnas oscailte aige · meaitseálann {substitute} a mhéadracht
+app.fonts.missing_substituted = ar iarraidh · tá an téacs á chlóchur i gcló ionaid
+app.fonts.not_in_catalogue = níl {family} i gcatalóg na gclónna oscailte
+app.fonts.no_faces = níl aon éadan in-íoslódáilte do {family}
+app.fonts.empty_response = freagra folamh
+app.update.unreadable_response = freagra doléite: {error}
+app.update.no_temp_dir = níl aon chomhadlann shealadach ann don íoslódáil
+app.update.asset_has_path = ainmnítear an tsócmhainn le cosán san eisiúint
+app.update.too_big = tá an íoslódáil níos mó ná mar a deir an eisiúint
+app.update.stopped_at = stop an íoslódáil ag {got} as {total} beart
+app.update.hash_mismatch = is é {got} hais na híoslódála, seachas {want}
+app.update.not_in_bundle = níl an chóip seo taobh istigh de bheart aipe
+app.update.no_parent_dir = níl máthairchomhadlann ag an mbeart aipe
+app.update.cannot_write = ní féidir scríobh chuig {dir}
+app.update.cannot_move_aside = ní féidir {app} a chur ar leataobh
+app.update.cannot_move_in = ní féidir an beart nua a chur ina áit
+app.update.cannot_run_ditto = ní féidir /usr/bin/ditto a rith
+app.update.unpack_failed = theip ar dhíphacáil na híoslódála: {error}
+app.update.no_app_in_download = níl Schist.app san íoslódáil
+app.update.cannot_run_codesign = ní féidir /usr/bin/codesign a rith
+app.update.signature_invalid = ní dheimhnítear síniú na híoslódála: {error}
+app.update.download_unsigned = tá an chóip seo sínithe agus níl an íoslódáil sínithe
+app.update.different_developer = tá an íoslódáil sínithe ag forbróir eile
+app.update.cannot_relaunch = ní féidir an t-athsheoltóir a thosú
+app.update.not_installed_copy = níor chuir an suiteálaí an chóip seo anseo
+app.update.cannot_start_installer = ní féidir an suiteálaí a thosú
+app.update.platform_unsupported = suiteáiltear nuashonruithe ar an ardán seo ar an gcaoi chéanna ar suiteáladh Schist
+app.vulkan.no_loader = schist: níl aon lódálaí Vulkan ar an gcóras seo, mar sin níl aon rud ann lenar féidir tarraingt.\n\nRindreálann Schist trí Vulkan, agus níl `libvulkan.so.1` suiteáilte.\nTá an lódálaí agus tiománaí araon de dhíth:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: níl an tiománaí Vulkan a bhfuil an seisiún seo dírithe air ann.\n\nTá {var} socraithe, agus nuair a shocraítear é, *cuirtear é in ionad* chuardach an lódálaí\nar thiománaithe seachas cur leis. Mar sin, is iad na comhaid seo, nach ann dóibh,\nliosta iomlán na dtiománaithe — agus ní fheiceann aon ríomhchlár Vulkan sa seisiún seo\naon tiománaí ar chor ar bith, is cuma cé mhéad atá suiteáilte:\n\n{missing}\n    {var}={value}\n\nDírigh ar lastliosta atá ann é — cuireann tiománaithe suiteáilte a gcuid lastliostaí in\n/usr/share/vulkan/icd.d — nó díshocraigh é agus lig don lódálaí a cheann féin a aimsiú.\nMá shocraíonn seisiún é seo ó chomhad cumraíochta (`env =` de chuid Hyprland,\nbreiseán environment.d de chuid systemd, próifíl bhlaoisce), ní mór é a athrú ansin,\nagus ní shroichfidh an t-athrú aon rud atá ar siúl cheana go dtí síniú isteach úr.\n
+app.vulkan.override_note = \nTá {var} socraithe mar {value}, agus cuirtear é sin in ionad chuardach\nan lódálaí féin: mura mbaineann aon cheann de na lastliostaí sin leis an meaisín seo,\nis é a dhíshocrú an chéad rud le triail.\n
+app.vulkan.no_driver = schist: níl aon tiománaí Vulkan suiteáilte, mar sin níl aon rud ann le tarraingt air.\n\nRindreálann Schist trí Vulkan. Tá an lódálaí suiteáilte ach ní thuairiscíonn sé aon\ntiománaí — níor chláraigh aon rud tiománaí i gceachtar den dá áit ina lorgaítear iad:\n\n{dirs}\n\nCuirtear an lódálaí ar fáil ar leithligh ó na tiománaithe, mar sin de ghnáth is pacáiste\namháin atá ar iarraidh.\n\nSuiteáil an ceann do GPU an mheaisín seo:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nTá a thiománaí féin ag tiománaí dílsitheach NVIDIA (`nvidia-utils` ar Arch,\n`nvidia-driver` ar Debian). I meaisín fíorúil, nó áit ar bith nach bhfuil tiománaí\nGPU le suiteáil, is é an rasteróir bogearraí a oibríonn: `vulkan-swrast` ar Arch,\nagus é mar chuid de `mesa-vulkan-drivers` in áiteanna eile. Tá sé mall, ach tosaíonn sé.\n{overridden}
+app.vulkan.no_device = schist: tá tiománaí Vulkan suiteáilte ach ní thairgeann sé aon ghléas lenar féidir rindreáil.\n\nSeans nach gcumhdaíonn an tiománaí an GPU seo, nó nach féidir leis é a bhaint amach —\nthar SSH, nó taobh istigh de choimeádán, is minic a bhíonn /dev/dri ar iarraidh.\nTuairiscíonn `vulkaninfo --summary` an méid a fheiceann an lódálaí.\n\nRindreálann an rasteróir bogearraí gan GPU ar bith, más é sin atá ag an meaisín seo:\n`vulkan-swrast` ar Arch, agus é mar chuid de `mesa-vulkan-drivers` ar Debian agus Fedora.\n
+app.vulkan.skip_hint = Chun Schist a thosú ar aon nós agus ligean dó teip ar a bhealach féin, socraigh {var}=1.

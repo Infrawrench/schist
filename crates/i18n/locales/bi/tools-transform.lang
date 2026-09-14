@@ -1,0 +1,25 @@
+tool.transform.name = Fri Transform
+tool.transform.description = Fri Transform. Taem yu aktivetem, wan transform box i open raon long active layer: pulum wan kona blong jenisim saes, pulum aotsaed long kona blong tanem, o pulum wan saed blong mekem i skew. I no raetem eni jenis kasem taem yu komitim (Enter), mo sapos yu cansel (Escape), layer i gobak olsem fastaem.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Fri Transform
+tool.transform.history.image_size = Saes blong Image
+tool.transform.history.canvas_size = Saes blong Kanvas
+
+tool.transform.selection.name = Transformem Selection
+tool.transform.selection.description = Transformem Selection: hem i yusum sem box, be i muvum laen raon long selection mo i no muvum ol pixel insaed. Komitim o cansel blong finisim.
+tool.transform.selection.history.transform = Transformem Selection
+
+tool.transform.resample.nearest_neighbor = Nearest Neighbor
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Katem
+tool.crop.description = Pulum eria we yu wantem holem mo ajastem ol handle blong hem; taem yu komitim (Enter), hem i katem dokumen i fit long eria ya, mo taem yu cansel (Escape), hem i livim olsem nomo.
+tool.crop.option.ratio = Ratio
+tool.crop.option.delete_cropped = Deletem Ol Pixel we Yu Katemaot
+tool.crop.choice.unconstrained = No Gat Limit
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Katem

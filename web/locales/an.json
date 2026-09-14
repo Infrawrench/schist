@@ -1,0 +1,9 @@
+{
+  "loading": "Se ye cargando…",
+  "starting": "Se ye empecipiando…",
+  "webgpu": "Schist ameneste WebGPU, pero iste navegador no en ofreix. Sí que n'ofreixen Chrome/Edge 113+, Firefox 141+ y Safari 26+.",
+  "noticeTitle": "Schist funciona millor como aplicación d'escritorio",
+  "noticeBody": "Yes usando a versión web, que ye una compilación mas lichera: fa a composición en a CPU y no incluye bellas funcions —os complementos de Photoshop y os complementos de tercers, a galería d'imachens, o panel d'IA, a importación HEIC y a descarga de fuents—, y os fichers s'alzan como descargas. L'aplicación gratuita d'escritorio ta macOS, Windows y Linux lo incluye tot.",
+  "noticeLink": "Descarga l'aplicación d'escritorio.",
+  "ok": "Acceptar"
+}

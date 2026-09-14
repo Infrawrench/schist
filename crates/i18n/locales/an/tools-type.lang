@@ -1,0 +1,26 @@
+# Ferramienta de texto.
+tool.type.name = Texto
+tool.type.description = Fe clic ta empecipiar una capa de texto en ixe puesto, u fe clic en una existent ta editar-la. Entre que ye ubierta, a ferramienta recibe as teclas directament (ninvia os caracters como dentrada de teclau); en confirmar, renderiza a capa y zarra a edición.
+
+# Barra d'opcions
+tool.type.option.align = Aliniación
+tool.type.option.leading = Interliniato
+tool.type.option.tracking = Espaciado d'o texto
+tool.type.option.kerning = Espaciado entre un parell de letras
+tool.type.option.ligatures = Ligaduras
+tool.type.option.discretionary_ligatures = Ligaduras discrecionals
+tool.type.option.small_caps = Versaletas
+tool.type.option.on_path = En o trazau activo
+tool.type.option.path_offset = Desplazamiento d'o trazau
+
+# Estilo
+tool.type.choice.regular = Regular
+tool.type.choice.bold = Negreta
+tool.type.choice.italic = Cursiva
+tool.type.choice.bold_italic = Negreta cursiva
+
+# Historial
+tool.type.history.new_layer = Nueva capa de texto
+tool.type.history.edit = Editar texto
+tool.type.history.discard = Descartar texto
+tool.type.history.discard_empty = Descartar texto vuedo

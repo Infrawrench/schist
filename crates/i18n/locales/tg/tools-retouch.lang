@@ -1,0 +1,23 @@
+tool.patch.name = Ямоқ
+tool.patch.description = Дар гирди нуқсон хатти баста кашед, сипас ин интихобро рӯйи пикселҳои тоза бикашед: бофти он ҷо ба нуқсон мутобиқ карда мешавад. Реҷаи ямоқ муайян мекунад, ки кадом тарафи ин ҷуфтро мекашед.
+tool.patch.option.patch = Ямоқ
+tool.patch.choice.source = Манбаъ
+tool.patch.choice.destination = Мақсад
+tool.patch.history.patch = Ямоқ
+
+tool.content_aware_move.name = Ҷойивазкунии бо назардошти муҳтаво
+tool.content_aware_move.description = Объекти интихобшударо ба ҷойи дигар кашед; ҷойи холимондааш аз атроф пур карда мешавад. Дар реҷаи «Васеъкунӣ» объект ба ҷойи кӯчидан дароз карда мешавад.
+tool.content_aware_move.choice.move = Ҷойивазкунӣ
+tool.content_aware_move.choice.extend = Васеъкунӣ
+tool.content_aware_move.history.move = Ҷойивазкунии бо назардошти муҳтаво
+
+tool.red_eye.name = Чашми сурх
+tool.red_eye.description = Мардумаки чашмро зер кунед, то сурхии дурахши чароғ аз он дур шавад.
+tool.red_eye.option.pupil_size = Андозаи мардумак
+tool.red_eye.option.darken = Торик кардан
+tool.red_eye.history.red_eye = Чашми сурх
+
+tool.magic_eraser.name = Поккунаки сеҳрнок
+tool.magic_eraser.description = Зер кунед, то минтақаи дорои ранги монанд дар зери нишоннамо мувофиқи таҳаммулпазирии абзор пок шавад — танҳо қисми пайваста ба нуқтаи пахш ё тамоми чунин минтақаҳои қабат.
+tool.magic_eraser.option.contiguous = Пайваста
+tool.magic_eraser.history.erase = Поккунаки сеҳрнок

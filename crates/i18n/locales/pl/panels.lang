@@ -1,0 +1,95 @@
+# Klawisze modyfikujące
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Pasek stanu
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Karty dokumentów i pasek tytułu
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Nawigator
+panel.navigator.title = Nawigator
+panel.navigator.actual_pixels = Rzeczywiste piksele
+
+# Panel Kolor
+panel.color.picker = Próbnik…
+panel.color.swap = Zamień kolory
+panel.color.reset = Przywróć czerń i biel
+
+# Panel Warstwy
+panel.layers.blending_options = Opcje mieszania…
+panel.layers.properties = Właściwości warstwy…
+panel.layers.show_hide = Pokaż/ukryj warstwę
+panel.layers.toggle_visibility = Przełącz widoczność
+
+# Panel Historia
+panel.history.title = Historia
+panel.history.opened = Otwarto
+
+# Informacje EXIF
+panel.info.title = Informacje
+panel.info.camera = Aparat
+panel.info.lens = Obiektyw
+panel.info.iso = ISO {iso}
+panel.info.bias = Kompensacja ekspozycji
+panel.info.flash_fired = lampa błyskowa użyta
+panel.info.no_flash = bez lampy błyskowej
+panel.info.white_balance = Balans bieli {wb}
+panel.info.metering = pomiar: {metering}
+panel.info.taken = Wykonano
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientacja {o}
+panel.info.software = Oprogramowanie
+panel.info.where = Miejsce
+
+# Panel Notatki
+panel.notes.author = Autor
+panel.notes.clear_all = Wyczyść wszystko
+panel.notes.unattributed = Bez autora
+panel.notes.empty = Kliknij obszar roboczy, aby zostawić notatkę.
+panel.notes.placeholder = Kliknij, aby pisać
+
+# Panel Typografia i opcje narzędzia Tekst
+panel.character.title = Typografia
+panel.character.type_tool = Narzędzie Tekst (T)
+panel.character.align_left = Wyrównaj do lewej
+panel.character.align_center = Wyśrodkuj
+panel.character.align_right = Wyrównaj do prawej
+panel.character.text_color = Kolor tekstu
+panel.character.panel = Panel Typografia
+panel.character.cancel_edit = Anuluj edycję tekstu
+panel.character.commit_edit = Zatwierdź edycję tekstu
+panel.character.number_tip = {label} · Wpisz wartość lub użyj ↑ / ↓ (Shift zwiększa krok)
+panel.character.leading = Interlinia
+panel.character.tracking = Światło
+panel.character.alignment = Wyrównanie
+panel.character.opentype = OpenType
+panel.character.text_on_path = Tekst na ścieżce
+panel.character.straight = Prosty
+panel.character.on_path = Na ścieżce
+panel.character.straight_tip = Użyj zwykłej linii bazowej warstwy tekstowej
+panel.character.on_path_tip = Użyj kopii aktywnej ścieżki
+panel.character.path_offset = Odsunięcie od ścieżki
+
+# Pasek boczny AI
+panel.ai.title = AI
+panel.ai.empty_editor = Poproś o edycję i obserwuj ją na obszarze roboczym. Agent używa tych samych narzędzi, filtrów i poleceń co menu, wykonując każde w jednym kroku historii.
+panel.ai.empty_gallery = Zapytaj o swoje zdjęcia i obserwuj wyniki w galerii: agent może wyszukiwać, oglądać miniatury, zaznaczać, sortować do grup i otwierać zdjęcia w edytorze.
+panel.ai.thinking = myślę…
+panel.ai.placeholder_editor = Zapytaj o ten dokument lub go edytuj
+panel.ai.placeholder_gallery = Zapytaj o swoje zdjęcia
+panel.ai.send = Wyślij
+panel.ai.stop = Zatrzymaj
+panel.ai.fetching_models = Pobieranie listy modeli z CLI…
+panel.ai.no_models = Brak pasujących modeli
+panel.ai.search_models = Szukaj modeli…
+
+# Okna dialogowe plików
+panel.keymap.install_plugin = Zainstaluj wtyczkę
+panel.keymap.save_as_prompt = Zapisz jako — rozszerzenie określa format:

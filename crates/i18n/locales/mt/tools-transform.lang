@@ -1,0 +1,33 @@
+# Trasformazzjoni libera, trasformazzjoni tal-għażla u qtugħ (plugins/tools-transform),
+# flimkien mal-ismijiet tal-kampjunar mill-ġdid li jaqsmu Daqs tal-Immaġni
+# u l-menù Interpolazzjoni, u l-entrati fl-istorja għal Daqs tal-Immaġni u Daqs tal-Kanvas.
+
+# Trasformazzjoni libera
+tool.transform.name = Trasformazzjoni Libera
+tool.transform.description = Trasformazzjoni Libera. Meta tattivaha, tiftaħ kaxxa tat-trasformazzjoni madwar is-saff attiv: iddreggja rokna biex tibdel l-iskala, iddreggja barra minn rokna biex iddawwar, jew iddreggja xifer biex tmejjel. Xejn ma jinkiteb sakemm tapplika (Enter), u jekk tikkanċella (Escape) is-saff jerġa' lura kif kien.
+tool.transform.option.interpolation = Interpolazzjoni
+tool.transform.history.transform = Trasformazzjoni Libera
+tool.transform.history.image_size = Daqs tal-Immaġni
+tool.transform.history.canvas_size = Daqs tal-Kanvas
+
+# Trasformazzjoni tal-għażla
+tool.transform.selection.name = Ittrasforma l-Għażla
+tool.transform.selection.description = Ittrasforma l-Għażla: l-istess kaxxa, iżda tmexxi l-kontorn tal-għażla minflok il-pixels ta' ġo fiha. Applika jew ikkanċella biex tlesti.
+tool.transform.selection.history.transform = Ittrasforma l-Għażla
+
+# Il-filtri klassiċi tal-kampjunar mill-ġdid, bl-ismijiet ta' Daqs tal-Immaġni f'Photoshop
+tool.transform.resample.nearest_neighbor = L-Eqreb Ġar
+tool.transform.resample.bilinear = Bilineari
+tool.transform.resample.bicubic = Bikubiku
+
+# Qtugħ
+tool.crop.name = Aqta'
+tool.crop.description = Iddreggja biex tagħżel iż-żona li trid iżżomm u rranġa l-mankijiet tagħha; meta tapplika (Enter), id-dokument jinqata' magħha, filwaqt li jekk tikkanċella (Escape) jibqa' kif kien.
+tool.crop.option.ratio = Proporzjon
+tool.crop.option.delete_cropped = Ħassar il-Pixels Maqtugħa
+tool.crop.choice.unconstrained = Bla Restrizzjoni
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Qtugħ

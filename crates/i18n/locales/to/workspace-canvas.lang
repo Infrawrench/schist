@@ -1,0 +1,40 @@
+# Kanivā ʻo e ʻētita mo e ngaahi tali tuʻunga
+
+workspace.canvas.rotate_view_degrees = Vilo ʻa e Vakai {degrees}°
+workspace.canvas.view_reset = Kuo toe fokotuʻu ʻa e vakai
+workspace.canvas.notes_on = Kuo fakamoʻui ʻa e ngaahi fakamatala nounou
+workspace.canvas.notes_off = Kuo tamateʻi ʻa e ngaahi fakamatala nounou
+workspace.canvas.rulers_on = Kuo fakamoʻui ʻa e ngaahi meʻafua
+workspace.canvas.rulers_off = Kuo tamateʻi ʻa e ngaahi meʻafua
+workspace.canvas.grid_on = Kuo fakamoʻui ʻa e kupenga
+workspace.canvas.grid_off = Kuo tamateʻi ʻa e kupenga
+workspace.canvas.guides_on = Kuo fakamoʻui ʻa e ngaahi laine tataki
+workspace.canvas.guides_off = Kuo tamateʻi ʻa e ngaahi laine tataki
+workspace.canvas.extras_on = Kuo fakamoʻui ʻa e ngaahi meʻa tānaki
+workspace.canvas.extras_off = Kuo tamateʻi ʻa e ngaahi meʻa tānaki
+workspace.canvas.snap_on = Kuo fakamoʻui ʻa e pikí
+workspace.canvas.snap_off = Kuo tamateʻi ʻa e pikí
+workspace.canvas.guides_cleared = Kuo fakamaʻa ʻa e ngaahi laine tataki
+workspace.canvas.no_path = ʻIkai ha hala ke ngāueʻaki
+workspace.canvas.path_empty = ʻOku ʻataʻatā ʻa e halá
+workspace.canvas.stroke_needs_selection = ʻOku fiemaʻu ʻe he Laine ha feituʻu kuo fili
+workspace.canvas.nothing_to_stroke = ʻIkai ha meʻa ke tā laine ai
+workspace.canvas.content_aware_fill_needs_selection = ʻOku fiemaʻu ʻe he Fakafonu Fakatatau ki he Kakanó ha feituʻu kuo fili
+workspace.canvas.content_aware_fill_needs_pixel_layer = ʻOku fiemaʻu ʻe he Fakafonu Fakatatau ki he Kakanó ha Layer pikisi
+workspace.canvas.color_range_needs_pixel_layer = ʻOku fiemaʻu ʻe he Vahaʻa ʻo e Lanú ha Layer pikisi
+workspace.canvas.nothing_to_adjust = ʻIkai ha meʻa ke liliu
+workspace.canvas.nothing_to_trim = ʻIkai ha meʻa ke tuʻusi
+workspace.canvas.trimmed = Kuo Tuʻusi
+workspace.canvas.indexed_not_supported = ʻOku teʻeki poupouʻi ʻa e Lanu Kuo Fakahokohoko Fika
+workspace.canvas.opacity_percent = Lahi ʻo e ʻUfiʻufi: {n}%
+
+workspace.history.stroke = Laine
+workspace.history.fill = Fakafonu
+workspace.history.content_aware_scale = Liliu Lahi Fakatatau ki he Kakanó
+workspace.history.filter_gallery = Fakahāʻanga Sivi
+workspace.history.color_range = Vahaʻa ʻo e Lanu
+workspace.history.move_layer = ʻUnuʻi ʻa e Layer
+workspace.history.move_layers = ʻUnuʻi ʻa e Ngaahi Layer
+workspace.history.layer_opacity = Lahi ʻo e ʻUfiʻufi ʻo e Layer
+workspace.history.delete_note = Tamateʻi ʻa e Fakamatala Nounou
+workspace.history.edit_note = Fakatonutonu ʻa e Fakamatala Nounou

@@ -1,0 +1,21 @@
+# ಹೊಂದಾಣಿಕೆ ಲೇಯರ್‌ಗಳು ಮತ್ತು Image ▸ Adjustments ಆದೇಶಗಳ ಹೆಸರುಗಳು.
+adjustment.levels.name = ಮಟ್ಟಗಳು
+adjustment.curves.name = ವಕ್ರರೇಖೆಗಳು
+adjustment.hue_saturation.name = ವರ್ಣಛಾಯೆ/ಪರಿಪೂರ್ಣತೆ
+adjustment.brightness_contrast.name = ಪ್ರಕಾಶಮಾನತೆ/ವ್ಯತ್ಯಾಸ
+adjustment.black_white.name = ಕಪ್ಪು ಮತ್ತು ಬಿಳಿ
+adjustment.solid_color.name = ಏಕರೂಪದ ಬಣ್ಣ
+adjustment.gradient_fill.name = ವರ್ಣಕ್ರಮ ತುಂಬುವಿಕೆ
+adjustment.pattern_fill.name = ವಿನ್ಯಾಸ ತುಂಬುವಿಕೆ
+adjustment.invert.name = ವಿಲೋಮಗೊಳಿಸಿ
+adjustment.posterize.name = ಪೋಸ್ಟರೈಸ್
+adjustment.threshold.name = ಮಿತಿ
+adjustment.color_balance.name = ಬಣ್ಣ ಸಮತೋಲನ
+adjustment.vibrance.name = ಬಣ್ಣದ ಚೈತನ್ಯ
+adjustment.exposure.name = ಎಕ್ಸ್‌ಪೋಷರ್
+adjustment.photo_filter.name = ಫೋಟೋ ಫಿಲ್ಟರ್
+adjustment.gradient_map.name = ವರ್ಣಕ್ರಮ ನಕ್ಷೆ
+adjustment.selective_color.name = ಆಯ್ದ ಬಣ್ಣ
+adjustment.channel_mixer.name = ಚಾನಲ್ ಮಿಶ್ರಕ
+# Schist‌ನಲ್ಲಿ ಸಂಪಾದಕವಿಲ್ಲದ PSD ಹೊಂದಾಣಿಕೆಯ ಬಗೆ.
+adjustment.other.name = ಹೊಂದಾಣಿಕೆ

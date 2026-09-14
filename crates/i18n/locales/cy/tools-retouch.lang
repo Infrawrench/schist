@@ -1,0 +1,29 @@
+# Offer ailgyffwrdd ardaloedd: Clwt, Symud sy'n Ystyriol o'r Cynnwys, Llygad Coch a Rhwbiwr Hud.
+
+# Clwt
+tool.patch.name = Clwt
+tool.patch.description = Llusgwch amlinell o amgylch nam, yna llusgwch y detholiad hwnnw dros bicseli glân: caiff y gwead yno ei ffitio i'r nam. Mae'r modd Clwt yn pennu pa ben o'r pâr rydych yn ei lusgo.
+tool.patch.option.patch = Clwt
+tool.patch.choice.source = Ffynhonnell
+tool.patch.choice.destination = Cyrchfan
+tool.patch.history.patch = Clwt
+
+# Symud sy'n Ystyriol o'r Cynnwys
+tool.content_aware_move.name = Symud sy'n Ystyriol o'r Cynnwys
+tool.content_aware_move.description = Llusgwch wrthrych sydd wedi'i ddewis i rywle arall a chaiff y twll a adewir ganddo ei lenwi o'r ardal o'i gwmpas. Yn y modd Ymestyn, caiff y gwrthrych ei ymestyn yn lle ei symud.
+tool.content_aware_move.choice.move = Symud
+tool.content_aware_move.choice.extend = Ymestyn
+tool.content_aware_move.history.move = Symud sy'n Ystyriol o'r Cynnwys
+
+# Llygad Coch
+tool.red_eye.name = Llygad Coch
+tool.red_eye.description = Cliciwch ar gannwyll y llygad i dynnu cochni'r fflach ohoni.
+tool.red_eye.option.pupil_size = Maint Cannwyll y Llygad
+tool.red_eye.option.darken = Tywyllu
+tool.red_eye.history.red_eye = Llygad Coch
+
+# Rhwbiwr Hud
+tool.magic_eraser.name = Rhwbiwr Hud
+tool.magic_eraser.description = Cliciwch i ddileu'r ardal o liw tebyg o dan y pwyntydd, o fewn goddefiant yr offeryn — naill ai'r ardal sy'n gydgysylltiedig â'r man clicio, neu bob ardal o'r fath yn yr haen.
+tool.magic_eraser.option.contiguous = Cydgysylltiedig
+tool.magic_eraser.history.erase = Rhwbiwr Hud

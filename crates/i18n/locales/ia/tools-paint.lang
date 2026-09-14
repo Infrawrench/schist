@@ -1,0 +1,74 @@
+# Instrumentos de pictura.
+
+tool.brush.name = Pincel
+tool.brush.description = Pinge un tracto a bordo suave con le color de prime plano, dimensionate secundo le dimension, duritate e opacitate del pincel del editor.
+tool.brush.history.stroke = Pincel
+
+tool.pencil.name = Crayon
+tool.pencil.description = Pinge un tracto a bordo nette, sin antialiasing, con le color de prime plano.
+tool.pencil.history.stroke = Crayon
+
+tool.eraser.name = Gumma
+tool.eraser.description = Dele al longo del tracto, retornante le strato al transparentia.
+tool.eraser.history.stroke = Gumma
+
+tool.clone.name = Tampon de clonage
+tool.clone.description = Tampon de clonage: clicca con Alt pro definir le puncto de origine, postea pinge le pixels copiate de illo al mesme displaciamento.
+tool.clone.history.stroke = Tampon de clonage
+
+tool.dodge.name = Superexponer
+tool.dodge.description = Clarifica le pixels sur le quales le tracto passa.
+tool.dodge.history.stroke = Superexponer
+tool.burn.name = Subexponer
+tool.burn.description = Obscura le pixels sur le quales le tracto passa.
+tool.burn.history.stroke = Subexponer
+tool.sponge.name = Spongia
+tool.sponge.description = Satura, o desatura, le pixels sur le quales le tracto passa.
+tool.sponge.history.stroke = Spongia
+
+tool.blur.name = Disfocalisar
+tool.blur.description = Reduce le nettitate del pixels sur le quales le tracto passa.
+tool.blur.history.stroke = Disfocalisar
+tool.sharpen.name = Accentuar nettitate
+tool.sharpen.description = Accentua le nettitate del pixels sur le quales le tracto passa.
+tool.sharpen.history.stroke = Accentuar nettitate
+tool.smudge.name = Macular
+tool.smudge.description = Trahe le color al longo del tracto, como si on pulsava pictura humide.
+tool.smudge.history.stroke = Macular
+
+tool.heal.name = Pincel reparator
+tool.heal.description = Pincel reparator: clicca con Alt pro definir le origine, postea pinge; le textura del origine es fusionate con le color e illumination proprie del destination.
+tool.heal.history.stroke = Pincel reparator
+tool.spot_heal.name = Pincel reparator punctual
+tool.spot_heal.description = Pincel reparator punctual: pinge super un defecto e illo es replaciate per textura prendite de su vicinitate — necun puncto de origine debe esser definite.
+tool.spot_heal.history.stroke = Pincel reparator punctual
+
+tool.history_brush.name = Pincel de historia
+tool.history_brush.description = Repinge pixels a partir del instantaneo del historia del documento, disfaciente le labor posterior un tracto al vice.
+tool.history_brush.history.stroke = Pincel de historia
+
+tool.background_eraser.name = Gumma de fundo
+tool.background_eraser.description = Dele le color prelevate sub le centro del pincel e lassa intacte le pixels dissimile, pro separar un subjecto de su fundo.
+tool.background_eraser.history.stroke = Gumma de fundo
+
+tool.gradient.name = Gradiente
+tool.gradient.description = Trahe pro reimplir le strato — a transverso del selection si un existe — con un gradiente linear que va del color de prime plano al color de fundo secundo le traction.
+tool.gradient.radial.name = Gradiente radial
+tool.gradient.radial.description = Trahe ab le centro verso foras pro reimplir con un gradiente radial inter le colores de prime plano e de fundo.
+tool.gradient.option.gradient = Gradiente
+tool.gradient.option.reverse = Inverter
+tool.gradient.option.dither = Tramage
+tool.gradient.choice.foreground_to_background = Prime plano a fundo
+tool.gradient.choice.foreground_to_transparent = Prime plano a transparente
+tool.gradient.choice.linear = Linear
+tool.gradient.choice.radial = Radial
+tool.gradient.choice.angle = Angular
+tool.gradient.choice.reflected = Reflectite
+tool.gradient.choice.diamond = Diamante
+tool.gradient.history.gradient = Gradiente
+
+tool.bucket.name = Situla de pictura
+tool.bucket.description = Clicca pro inundar con le color de prime plano le area connectite de color similar sub le punctator, intra le tolerantia del instrumento.
+tool.bucket.option.contiguous = Contigue
+tool.bucket.option.all_layers = Tote le stratos
+tool.bucket.history.fill = Situla de pictura

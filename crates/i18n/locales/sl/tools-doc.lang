@@ -1,0 +1,26 @@
+# Orodja za risalne površine, rezine, okvirje, opombe in števce.
+
+tool.artboard.name = Risalna površina
+tool.artboard.description = Povlecite, da ustvarite risalno površino: poimenovano območje platna, ki se izvozi samostojno. Če povlečete znotraj obstoječe risalne površine, jo premaknete.
+tool.artboard.default_name = Risalna površina {n}
+
+tool.slice.name = Rezina
+tool.slice.description = Povlecite, da ustvarite izvozno rezino, poimenovan pravokotnik na platnu, ki se izvozi kot samostojna slika. Če povlečete znotraj obstoječe rezine, jo premaknete.
+tool.slice.default_name = Rezina {n}
+
+tool.frame.name = Okvir
+tool.frame.description = Povlecite, da ustvarite okvir: pravokotno (ali eliptično) plast, ki zamaskira vsebino, postavljeno vanjo.
+tool.frame.default_name = Okvir {n}
+tool.frame.choice.rectangle = Pravokotnik
+tool.frame.choice.ellipse = Elipsa
+tool.frame.history.frame = Okvir
+
+tool.note.name = Opomba
+tool.note.description = Kliknite prazno mesto na platnu, da tja pripnete opombo z avtorjem in barvo iz stanja urejevalnika; kliknite obstoječi žebljiček, da ga izberete za ploščo Opombe.
+tool.note.history.place = Dodaj opombo
+tool.note.history.move = Premakni opombo
+tool.note.history.delete = Izbriši opombo
+
+tool.count.name = Števec
+tool.count.description = Kliknite, da na platno dodate oštevilčene oznake štetja, obstoječo oznako pa s klikom odstranite.
+tool.count.default_name = Števec {n}

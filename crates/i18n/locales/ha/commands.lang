@@ -1,0 +1,115 @@
+# Umarnin Gyara, Zaɓa da Shimfiɗa.
+
+# Gyara
+command.edit.undo.title = Warware
+command.edit.undo.description = Koma baya mataki ɗaya a tarihin warwarewa na takardar.
+command.edit.redo.title = Sake Yi
+command.edit.redo.description = Sake yin gyaran da aka warware na ƙarshe.
+command.edit.copy.title = Kwafa
+command.edit.copy.description = Kwafa pixels da aka zaɓa na shimfiɗa mai aiki zuwa allo na ciki (duk shimfiɗar idan ba a zaɓi komai ba).
+command.edit.copy_merged.title = Kwafa Haɗaɗɗe
+command.edit.copy_merged.description = Kwafa zaɓin yadda duk shimfiɗun da ake gani suka haɗa shi, maimakon daga shimfiɗa mai aiki kaɗai.
+command.edit.cut.title = Yanke
+command.edit.cut.description = Kwafa pixels da aka zaɓa zuwa allo sannan goge su daga shimfiɗa mai aiki.
+command.edit.paste.title = Liƙa
+command.edit.paste.description = Liƙa abin da ke allo cikin sabuwar shimfiɗa sama da mai aiki, a tsakiyar wurin zane.
+command.edit.paste.layer_name = Shimfiɗar da Aka Liƙa
+command.edit.paste_in_place.title = Liƙa a Wurinsa
+command.edit.paste_in_place.description = Liƙa abin da ke allo cikin sabuwar shimfiɗa a daidaitattun wuraren da aka kwafe shi daga gare su.
+command.edit.fill_foreground.title = Cika da Launin Gaba
+command.edit.fill_foreground.description = Cika zaɓin (ko duk wurin zane idan ba a zaɓi komai ba) da launin gaba.
+command.edit.fill_background.title = Cika da Launin Baya
+command.edit.fill_background.description = Cika zaɓin (ko duk wurin zane idan ba a zaɓi komai ba) da launin baya.
+
+# Zaɓa
+command.select.all.title = Zaɓi Duka
+command.select.all.description = Zaɓi duk wurin zane.
+command.select.deselect.title = Cire Zaɓi
+command.select.deselect.description = Cire zaɓin domin gyare-gyare su sake aiki a kan duk shimfiɗar.
+command.select.inverse.title = Juya Zaɓi
+command.select.inverse.description = Musanya yankunan da aka zaɓa da waɗanda ba a zaɓa ba.
+command.select.reselect.title = Sake Zaɓa
+command.select.reselect.description = Dawo da zaɓin da aka cire na ƙarshe.
+command.select.reselect.msg.nothing_to_reselect = Babu abin da za a sake zaɓa
+command.select.feather.title = Lauyantar Gefen Zaɓi
+command.select.feather.description = Lauyanta gefen zaɓi da dusashewar pixels biyu domin gyara na gaba ya dusashe a gefen.
+command.select.grow.title = Faɗaɗa
+command.select.grow.description = Faɗaɗa zaɓin zuwa pixels masu taɓa shi da suke kama da abin da aka riga aka zaɓa, gwargwadon haƙurin sandar sihiri.
+command.select.similar.title = Makamanci
+command.select.similar.description = Zaɓi duk pixel a shimfiɗar da yake kama da zaɓin, ko yana taɓa shi ko ba ya taɓawa, gwargwadon haƙurin sandar sihiri.
+command.select.save.title = Ajiye Zaɓi
+command.select.save.description = Ajiye zaɓin yanzu a cikin takardar a matsayin tashar alfa mai suna.
+command.select.save.channel_name = Alfa {n}
+command.select.load.title = Loda Zaɓi
+command.select.load.description = Dawo da zaɓin da aka ajiye kwanan nan.
+
+# Shimfiɗa
+command.layer.new.title = Sabuwar Shimfiɗa
+command.layer.new.description = Ƙara shimfiɗar pixels marar komai sama da mai aiki kuma sanya ta mai aiki.
+command.layer.duplicate.title = Yi Kwafin Shimfiɗa
+command.layer.duplicate.description = Kwafa shimfiɗa mai aiki da duk abin cikinta zuwa sabuwar shimfiɗa a samanta.
+command.layer.smart_object.title = Mayar zuwa Smart Object
+command.layer.smart_object.description = Naɗe pixels na shimfiɗa mai aiki cikin smart object domin sauye-sauye da matata na gaba su sake ɗaukar samfur daga tushen da ba a taɓa ba.
+command.layer.rasterize.title = Mayar da Shimfiɗa Pixels
+command.layer.rasterize.description = Mayar da shimfiɗar siffa, rubutu ko smart object zuwa pixels kawai.
+command.layer.delete.title = Share Shimfiɗa
+command.layer.delete.description = Share shimfiɗun da aka zaɓa.
+command.layer.group.title = Rukunta Shimfiɗu
+command.layer.group.description = Saka shimfiɗun da aka zaɓa cikin sabon rukuni a wurinsu.
+command.layer.raise.title = Kawo Gaba
+command.layer.raise.description = Matsar da shimfiɗa mai aiki wuri ɗaya sama a tarin rukuninta.
+command.layer.lower.title = Tura Baya
+command.layer.lower.description = Matsar da shimfiɗa mai aiki wuri ɗaya ƙasa a tarin rukuninta.
+command.layer.to_front.title = Kawo Gaban Duka
+command.layer.to_front.description = Matsar da shimfiɗa mai aiki zuwa saman rukuninta.
+command.layer.to_back.title = Tura Bayan Duka
+command.layer.to_back.description = Matsar da shimfiɗa mai aiki zuwa ƙasan rukuninta.
+command.layer.clipping_mask.title = Ƙirƙira/Saki Abin Rufe na Datsewa
+command.layer.clipping_mask.description = Datse shimfiɗa mai aiki zuwa wadda ke ƙasanta, ko sake ta idan an riga an datse ta; shimfiɗar da aka datse tana bayyana ne kawai inda tushenta yake da pixels.
+command.layer.cut_to_new.title = Shimfiɗa ta Hanyar Yanke
+command.layer.cut_to_new.description = Cire pixels da aka zaɓa daga shimfiɗa mai aiki zuwa sabuwar shimfiɗa a samanta.
+command.layer.cut_to_new.layer_name = Shimfiɗa ta Hanyar Yanke
+command.layer.add_mask.title = Ƙara Abin Rufe Shimfiɗa
+command.layer.add_mask.description = Ƙara abin rufe shimfiɗa ga shimfiɗa mai aiki, yana nuna zaɓin kaɗai idan akwai.
+command.layer.flatten.title = Shimfiɗa Hoto
+command.layer.flatten.description = Haɗa duk abin da ake gani cikin shimfiɗar Baya guda ɗaya marar bayyanawa, tare da watsar da ɓoyayyun shimfiɗu.
+command.layer.merge_down.title = Haɗa zuwa Ƙasa
+command.layer.merge_down.description = Haɗa shimfiɗa mai aiki cikin shimfiɗar da ke ƙasanta.
+command.layer.merge_down.msg.no_layer_below = Babu shimfiɗa a ƙasa da za a haɗa da ita
+command.layer.merge_visible.title = Haɗa Masu Bayyana
+command.layer.merge_visible.description = Haɗa duk shimfiɗun da ake gani su zama ɗaya, tare da barin ɓoyayyun shimfiɗu yadda suke.
+
+# Dalilin ƙin aiwatar da umarni
+command.msg.nothing_to_copy = Zaɓi shimfiɗar pixels da za a kwafa daga gare ta
+command.msg.clipboard_empty = Babu komai a allo
+
+# Abubuwan falin tarihi
+command.history.grow = Faɗaɗa
+command.history.similar = Makamanci
+command.history.clear = Goge
+command.history.merge_down = Haɗa zuwa Ƙasa
+command.history.flatten_image = Shimfiɗa Hoto
+command.history.merge_visible = Haɗa Masu Bayyana
+command.history.paste = Liƙa
+command.history.fill = Ciko
+command.history.select_all = Zaɓi Duka
+command.history.deselect = Cire Zaɓi
+command.history.select_inverse = Juya Zaɓi
+command.history.new_layer = Sabuwar Shimfiɗa
+command.history.duplicate_layer = Yi Kwafin Shimfiɗa
+command.history.convert_to_smart_object = Mayar zuwa Smart Object
+command.history.rasterize_layer = Mayar da Shimfiɗa Pixels
+command.history.delete_layer = Share Shimfiɗa
+command.history.delete_layers = Share Shimfiɗu
+command.history.group_layer = Rukunta Shimfiɗa
+command.history.group_layers = Rukunta Shimfiɗu
+command.history.reselect = Sake Zaɓa
+command.history.feather = Lauyantar Gefe
+command.history.load_selection = Loda Zaɓi
+command.history.bring_forward = Kawo Gaba
+command.history.send_backward = Tura Baya
+command.history.bring_to_front = Kawo Gaban Duka
+command.history.send_to_back = Tura Bayan Duka
+command.history.clipping_mask = Abin Rufe na Datsewa
+command.history.layer_via_cut = Shimfiɗa ta Hanyar Yanke
+command.history.add_layer_mask = Ƙara Abin Rufe Shimfiɗa

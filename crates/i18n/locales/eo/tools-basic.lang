@@ -1,0 +1,23 @@
+# Bazaj iloj: Movi, Kolorelektilo, Mano kaj Zomi.
+
+tool.move.name = Movi
+tool.move.description = Trenu la enhavon de la aktiva tavolo al nova loko. Kiam Aŭtomata elekto estas ŝaltita, la premo unue elektas la tavolon — aŭ tutan grupon — sub la montrilo.
+tool.move.option.auto_select = Aŭtomata elekto
+tool.move.history.move_layer = Movi tavolon
+
+tool.eyedropper.name = Kolorelektilo
+tool.eyedropper.description = Specimenu la koloron sub la montrilo en la malfonan kolorindikilon, aŭ en la fonan kolorindikilon kiam Alt estas premata. Dum trenado la ilo daŭre specimenumas.
+tool.eyedropper.option.sample_size = Specimena grando
+tool.eyedropper.option.sample = Specimeno
+tool.eyedropper.choice.point_sample = Punkta specimeno
+tool.eyedropper.choice.average_3 = Mezumo de 3 × 3
+tool.eyedropper.choice.average_5 = Mezumo de 5 × 5
+tool.eyedropper.choice.average_11 = Mezumo de 11 × 11
+tool.eyedropper.choice.average_31 = Mezumo de 31 × 31
+tool.eyedropper.choice.all_layers = Ĉiuj tavoloj
+tool.eyedropper.choice.current_layer = Aktuala tavolo
+
+tool.hand.name = Mano
+tool.hand.description = Ŝovas la vidon. La vidujo apartenas al la fenestro, do sen grafika interfaco ĉi tiu ilo neniel ŝanĝas la dokumenton.
+tool.zoom.name = Zomi
+tool.zoom.description = Zomas la vidon. La vidujo apartenas al la fenestro, do sen grafika interfaco ĉi tiu ilo neniel ŝanĝas la dokumenton.

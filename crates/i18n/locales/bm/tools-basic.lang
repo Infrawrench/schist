@@ -1,0 +1,22 @@
+# Baarakɛminɛnw
+tool.move.name = Lamaga
+tool.move.description = I ka kaliki min bɛ baara la, o kɔnɔkow sama ka taa yɔrɔ kura la. Ni Yɛrɛma-sugandili dalen don, i bɛ digi tuma min na, kaliki walima gurupu bɛɛ min bɛ kurukuru fɛ o jukɔrɔ, o de bɛ sugandi fɔlɔ.
+tool.move.option.auto_select = Yɛrɛma-sugandili
+tool.move.history.move_layer = Kaliki lamaga
+
+tool.eyedropper.name = Kulɛri-minɛlan
+tool.eyedropper.description = Kulɛri min bɛ kurukuru fɛ o jukɔrɔ, o ta ka kɛ ɲɛfɛ kulɛri taamasiyɛn na, walima kɔfɛ kulɛri taamasiyɛn na ni alt digilen bɛ yen. Ni i b'a sama, a bɛ kulɛri tali tɛmɛ.
+tool.eyedropper.option.sample_size = Taabolo bonya
+tool.eyedropper.option.sample = Taabolo
+tool.eyedropper.choice.point_sample = Pwen kelen kulɛri
+tool.eyedropper.choice.average_3 = 3 ni 3 cɛmancɛ
+tool.eyedropper.choice.average_5 = 5 ni 5 cɛmancɛ
+tool.eyedropper.choice.average_11 = 11 ni 11 cɛmancɛ
+tool.eyedropper.choice.average_31 = 31 ni 31 cɛmancɛ
+tool.eyedropper.choice.all_layers = Kaliki bɛɛ
+tool.eyedropper.choice.current_layer = Sisan kaliki
+
+tool.hand.name = Bolo
+tool.hand.description = A bɛ lajɛli yɔrɔ lamaga. Lajɛli yɔrɔ ye fenɛtiri ta ye, o la ni fenɛtiri tɛ yen, nin baarakɛminɛn tɛ foyi kɛ sɛbɛn na.
+tool.zoom.name = Bonya
+tool.zoom.description = A bɛ lajɛli bonya walima dɔgɔya. Lajɛli yɔrɔ ye fenɛtiri ta ye, o la ni fenɛtiri tɛ yen, nin baarakɛminɛn tɛ foyi kɛ sɛbɛn na.

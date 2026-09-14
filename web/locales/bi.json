@@ -1,0 +1,9 @@
+{
+  "loading": "I stap lod…",
+  "starting": "I stap stat…",
+  "webgpu": "Schist i nidim WebGPU, be browser ya i no sapotem. Chrome/Edge 113+, Firefox 141+ mo Safari 26+ oli sapotem.",
+  "noticeTitle": "Schist i wok bes olsem wan desktop app",
+  "noticeBody": "Yu stap yusum web version we i no gat plante samting olsem desktop version: hem i miksim ol image long CPU mo i no gat sam feature—ol Photoshop plug-in mo ol plug-in blong narafala kampani, image gallery, AI panel, HEIC import mo font download—mo hem i sevem ol fael olsem download. Fri desktop app blong macOS, Windows mo Linux i gat olgeta samting ya.",
+  "noticeLink": "Karem desktop app.",
+  "ok": "OK"
+}

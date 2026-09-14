@@ -1,0 +1,29 @@
+# නිදහස් පරිණාමනය
+tool.transform.name = නිදහස් පරිණාමනය
+tool.transform.description = නිදහස් පරිණාමනය. එය සක්‍රිය කළ විට සක්‍රිය ස්තරය වටා පරිණාමන කොටුවක් විවෘත වේ: ප්‍රමාණය වෙනස් කිරීමට මුල්ලක්ද, කරකැවීමට මුල්ලකට පිටතින්ද, ඇල කිරීමට දාරයක්ද ඇදගෙන යන්න. තහවුරු කරන තුරු (Enter) කිසිවක් ලියවෙන්නේ නැති අතර අවලංගු කළ විට (Escape) ස්තරය නැවත පෙර තත්ත්වයට පත් වේ.
+tool.transform.option.interpolation = අන්තර්නිවේෂණය
+tool.transform.history.transform = නිදහස් පරිණාමනය
+tool.transform.history.image_size = රූපයේ ප්‍රමාණය
+tool.transform.history.canvas_size = කැන්වසයේ ප්‍රමාණය
+
+# තේරීම පරිණාමනය කිරීම
+tool.transform.selection.name = තේරීම පරිණාමනය කරන්න
+tool.transform.selection.description = තේරීම පරිණාමනය කරන්න: ඇතුළත පික්සල වෙනුවට තේරීමේ මායිම ගෙනයන, එම කොටුවමයි. අවසන් කිරීමට තහවුරු කරන්න හෝ අවලංගු කරන්න.
+tool.transform.selection.history.transform = තේරීම පරිණාමනය කරන්න
+
+# සාම්ප්‍රදායික නැවත සාම්පල කිරීමේ පෙරහන්
+tool.transform.resample.nearest_neighbor = ආසන්නතම අසල්වැසියා
+tool.transform.resample.bilinear = ද්විරේඛීය
+tool.transform.resample.bicubic = ද්විඝනාකාර
+
+# කප්පාදුව
+tool.crop.name = කප්පාදු කරන්න
+tool.crop.description = තබාගත යුතු ප්‍රදේශය ඇඳ එහි හැඬල සකසන්න; තහවුරු කිරීමෙන් (Enter) ලේඛනය එයට ගැළපෙන ලෙස කප්පාදු වන අතර අවලංගු කිරීමෙන් (Escape) එය නොවෙනස්ව පවතී.
+tool.crop.option.ratio = අනුපාතය
+tool.crop.option.delete_cropped = කප්පාදු කළ පික්සල මකන්න
+tool.crop.choice.unconstrained = සීමා රහිත
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = කප්පාදු කරන්න

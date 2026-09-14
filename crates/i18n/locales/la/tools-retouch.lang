@@ -1,0 +1,23 @@
+tool.patch.name = Emendatio
+tool.patch.description = Lineam circum vitium trahe, deinde hanc selectionem super elementa pictoria integra trahe: textura illius loci vitio accommodatur. Modus Emendationis constituit utram partem coniugis trahas.
+tool.patch.option.patch = Emendatio
+tool.patch.choice.source = Fons
+tool.patch.choice.destination = Destinatio
+tool.patch.history.patch = Emendatio
+
+tool.content_aware_move.name = Motus Secundum Contentum
+tool.content_aware_move.description = Rem electam alio trahe, et cavum relictum ex circumstantibus impletur. Modo Extendendi res extenditur potius quam movetur.
+tool.content_aware_move.choice.move = Movere
+tool.content_aware_move.choice.extend = Extendere
+tool.content_aware_move.history.move = Motus Secundum Contentum
+
+tool.red_eye.name = Oculus Ruber
+tool.red_eye.description = Pupillam preme ut ruborem fulguris ex ea tollas.
+tool.red_eye.option.pupil_size = Magnitudo Pupillae
+tool.red_eye.option.darken = Obscurare
+tool.red_eye.history.red_eye = Oculus Ruber
+
+tool.magic_eraser.name = Deletrum Magicum
+tool.magic_eraser.description = Preme ut regio coloris similis sub indice intra tolerantiam instrumenti deleatur — sive tantum regio cum loco presso coniuncta, sive ubique in strato.
+tool.magic_eraser.option.contiguous = Contiguum
+tool.magic_eraser.history.erase = Deletrum Magicum

@@ -1,0 +1,22 @@
+tool.type.name = ޓައިޕް
+tool.type.description = އެތަނުގައި ޓެކްސްޓް ލޭޔަރެއް ފަށަން ކްލިކް ކުރާށެވެ، ނުވަތަ ކުރިން ހުރި ލޭޔަރެއް އެޑިޓް ކުރުމަށް އެއީ ކްލިކް ކުރާށެވެ. ހުޅުވިފައި ހުންނައިރު އާލާތް ރޯ ކީތައް ނަގާނެއެވެ (އަކުރުތައް ކީ އިންޕުޓްގެ ގޮތުގައި ފޮނުވާށެވެ)، ކޮމިޓް ކުރުމުން ލޭޔަރ ރެންޑަރ ކޮށް އެޑިޓް ނިމޭނެއެވެ.
+
+tool.type.option.align = ސީދާ ކުރުން
+tool.type.option.leading = ލީޑިންގ
+tool.type.option.tracking = ޓްރެކިންގ
+tool.type.option.kerning = ކާނިންގ
+tool.type.option.ligatures = ލިގެޗަރތައް
+tool.type.option.discretionary_ligatures = އިހްތިޔާރީ ލިގެޗަރތައް
+tool.type.option.small_caps = ކުޑަ ކެޕް އަކުރުތައް
+tool.type.option.on_path = އެކްޓިވް ޕާތުގައި
+tool.type.option.path_offset = ޕާތުގެ އޮފްސެޓް
+
+tool.type.choice.regular = އާންމު
+tool.type.choice.bold = ބޯލްޑް
+tool.type.choice.italic = އިޓެލިކް
+tool.type.choice.bold_italic = ބޯލްޑް އިޓެލިކް
+
+tool.type.history.new_layer = އާ ޓެކްސްޓް ލޭޔަރ
+tool.type.history.edit = ޓެކްސްޓް އެޑިޓް ކުރުން
+tool.type.history.discard = ޓެކްސްޓް ދޫކޮށްލުން
+tool.type.history.discard_empty = ހުސް ޓެކްސްޓް ދޫކޮށްލުން

@@ -1,0 +1,22 @@
+tool.type.name = Zilembo
+tool.type.description = Dinani kuti muyambe layer ya mawu pamenepo, kapena dinani yomwe ilipo kuti muisinthe. Pamene yatseguka, chidacho chimalandira makiyi mwachindunji (tumizani zilembo ngati zolowetsa za kiyibodi), ndipo kutsimikiza kumajambula layer ndi kutseka kusinthako.
+
+tool.type.option.align = Konzani Mzere
+tool.type.option.leading = Mpata wa Mizere
+tool.type.option.tracking = Mpata wa Zilembo
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Zilembo Zophatikizidwa
+tool.type.option.discretionary_ligatures = Zilembo Zophatikizidwa Mwakufuna
+tool.type.option.small_caps = Zilembo Zazikulu Zing'ono
+tool.type.option.on_path = Pa Path Yogwira Ntchito
+tool.type.option.path_offset = Mpata Kuchokera pa Path
+
+tool.type.choice.regular = Wamba
+tool.type.choice.bold = Zonenepa
+tool.type.choice.italic = Zopendekera
+tool.type.choice.bold_italic = Zonenepa Zopendekera
+
+tool.type.history.new_layer = Layer Yatsopano ya Mawu
+tool.type.history.edit = Sinthani Mawu
+tool.type.history.discard = Taya Mawu
+tool.type.history.discard_empty = Taya Mawu Opanda Kanthu

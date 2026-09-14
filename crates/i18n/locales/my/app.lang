@@ -1,0 +1,43 @@
+# အရောင်စစ် ပြခန်း
+app.filter_gallery.title = အရောင်စစ် ပြခန်း
+app.filter_gallery.stack = အစီအစဉ် (အောက်မှအပေါ်သို့ အသုံးချသည်)
+app.filter_gallery.no_settings = ဤအရောင်စစ်တွင် ဆက်တင်များ မရှိပါ။
+
+# ဖောင့်များ
+app.fonts.not_open_licensed = အများပြည်သူသုံးလိုင်စင် မရှိပါ · {substitute} သည် ၎င်း၏ အတိုင်းအတာများနှင့် ကိုက်ညီသည်
+app.fonts.missing_substituted = ပျောက်နေသည် · စာသားကို အစားထိုးဖောင့်ဖြင့် စီထားသည်
+app.fonts.not_in_catalogue = {family} သည် အခမဲ့ဖောင့်စာရင်းတွင် မရှိပါ
+app.fonts.no_faces = {family} အတွက် ဒေါင်းလုဒ်လုပ်နိုင်သည့် ဖောင့်ပုံစံ မရှိပါ
+app.fonts.empty_response = တုံ့ပြန်ချက်အလွတ်
+
+# ကိုယ်တိုင်အပ်ဒိတ်လုပ်ကိရိယာ
+app.update.unreadable_response = တုံ့ပြန်ချက်ကို ဖတ်၍မရပါ: {error}
+app.update.no_temp_dir = ဒေါင်းလုဒ်ထားရန် ယာယီဖိုင်တွဲ မရှိပါ
+app.update.asset_has_path = ထုတ်ဝေမှုက ပစ္စည်းအမည်တွင် လမ်းကြောင်းတစ်ခု ထည့်ထားသည်
+app.update.too_big = ဒေါင်းလုဒ်သည် ထုတ်ဝေမှုတွင် ဖော်ပြထားသည်ထက် ပိုကြီးသည်
+app.update.stopped_at = ဒေါင်းလုဒ်သည် စုစုပေါင်း {total} ဘိုက်အနက် {got} ဘိုက်တွင် ရပ်သွားသည်
+app.update.hash_mismatch = ဒေါင်းလုဒ်၏ hash သည် မျှော်လင့်ထားသော {want} မဟုတ်ဘဲ {got} ဖြစ်နေသည်
+app.update.not_in_bundle = ဤမိတ္တူသည် အက်ပ်အစုအတွင်း မရှိပါ
+app.update.no_parent_dir = အက်ပ်အစုတွင် မိခင်ဖိုင်တွဲ မရှိပါ
+app.update.cannot_write = {dir} သို့ ရေး၍မရပါ
+app.update.cannot_move_aside = {app} ကို ဘေးသို့ ရွှေ့၍မရပါ
+app.update.cannot_move_in = အစုအသစ်ကို သတ်မှတ်နေရာသို့ ရွှေ့၍မရပါ
+app.update.cannot_run_ditto = /usr/bin/ditto ကို မလုပ်ဆောင်နိုင်ပါ
+app.update.unpack_failed = ဒေါင်းလုဒ်ကို ဖြည်၍မရပါ: {error}
+app.update.no_app_in_download = ဒေါင်းလုဒ်တွင် Schist.app မပါရှိပါ
+app.update.cannot_run_codesign = /usr/bin/codesign ကို မလုပ်ဆောင်နိုင်ပါ
+app.update.signature_invalid = ဒေါင်းလုဒ်၏ လက်မှတ်ကို အတည်ပြု၍မရပါ: {error}
+app.update.download_unsigned = ဤမိတ္တူတွင် လက်မှတ်ပါသော်လည်း ဒေါင်းလုဒ်တွင် မပါပါ
+app.update.different_developer = ဒေါင်းလုဒ်ကို အခြားဆော့ဖ်ဝဲရေးသူက လက်မှတ်ထိုးထားသည်
+app.update.cannot_relaunch = ပြန်လည်ဖွင့်ပေးမည့် ပရိုဂရမ်ကို စတင်၍မရပါ
+app.update.not_installed_copy = ဤမိတ္တူကို ထည့်သွင်းကိရိယာဖြင့် ဤနေရာတွင် မထည့်ထားပါ
+app.update.cannot_start_installer = ထည့်သွင်းကိရိယာကို စတင်၍မရပါ
+app.update.platform_unsupported = ဤပလက်ဖောင်းတွင် အပ်ဒိတ်များကို Schist ထည့်သွင်းခဲ့သည့်နည်းအတိုင်း ထည့်သွင်းရသည်
+
+# Linux ပေါ်ရှိ Vulkan စစ်ဆေးမှု
+app.vulkan.no_loader = schist: ဤစနစ်တွင် Vulkan loader မရှိသောကြောင့် ပုံဖော်ရန် နည်းလမ်းမရှိပါ။\n\nSchist သည် Vulkan မှတစ်ဆင့် ပုံဖော်ပြီး `libvulkan.so.1` ကို မထည့်သွင်းရသေးပါ။\nloader နှင့် driver နှစ်ခုလုံး လိုအပ်သည်-\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ဤ session က ညွှန်းထားသော Vulkan driver သည် ထိုနေရာတွင် မရှိပါ။\n\n{var} ကို သတ်မှတ်ထားပြီး ၎င်းကို သတ်မှတ်ခြင်းက driver များအတွက် loader ၏ ရှာဖွေမှုထဲ ထပ်ပေါင်းခြင်းမဟုတ်ဘဲ အစားထိုးခြင်းဖြစ်သည်။ ထို့ကြောင့် မရှိသော အောက်ပါဖိုင်များသည် driver စာရင်းတစ်ခုလုံး ဖြစ်နေပြီး မည်မျှပင် ထည့်သွင်းထားပါစေ ဤ session ရှိ Vulkan ပရိုဂရမ်အားလုံးက driver တစ်ခုမျှ မတွေ့ရပါ-\n\n{missing}\n    {var}={value}\n\n၎င်းကို အမှန်တကယ်ရှိသော manifest သို့ ညွှန်းပါ — ထည့်သွင်းထားသော driver များက ၎င်းတို့၏ manifest များကို /usr/share/vulkan/icd.d တွင် ထားသည် — သို့မဟုတ် သတ်မှတ်ချက်ကို ဖြုတ်ပြီး loader ကို ကိုယ်တိုင်ရှာခိုင်းပါ။ config ဖိုင် (Hyprland ၏ `env =`၊ systemd environment.d drop-in သို့မဟုတ် shell profile) မှ ဤတန်ဖိုးကို သတ်မှတ်သော session ဖြစ်လျှင် ထိုနေရာတွင် ပြင်ရပြီး လုပ်ဆောင်နေပြီးသား အရာများတွင် ပြောင်းလဲမှု သက်ရောက်ရန် အသစ်ပြန်ဝင်ရမည်။\n
+app.vulkan.override_note = \n{var} ကို {value} ဟု သတ်မှတ်ထားပြီး ၎င်းက loader ၏ ကိုယ်ပိုင်ရှာဖွေမှုကို အစားထိုးထားသည်။ ထို manifest များအနက် ဤစက်အတွက် တစ်ခုမျှ မဟုတ်လျှင် ပထမဆုံး စမ်းသင့်သည်မှာ ယင်းသတ်မှတ်ချက်ကို ဖြုတ်ခြင်းဖြစ်သည်။\n
+app.vulkan.no_driver = schist: Vulkan driver ထည့်သွင်းထားခြင်းမရှိသောကြောင့် ပုံဖော်ရန် နည်းလမ်းမရှိပါ။\n\nSchist သည် Vulkan မှတစ်ဆင့် ပုံဖော်သည်။ loader ကို ထည့်သွင်းထားသော်လည်း driver မတွေ့ကြောင်း ဖော်ပြသည် — ရှာဖွေသည့် အောက်ပါနေရာနှစ်ခုစလုံးတွင် မည်သည့် driver မျှ မှတ်ပုံတင်ထားခြင်းမရှိပါ-\n\n{dirs}\n\nloader နှင့် driver များကို သီးခြားဖြန့်ချိသောကြောင့် များသောအားဖြင့် package တစ်ခုသာ လိုနေခြင်းဖြစ်သည်။\n\nဤစက်၏ GPU အတွက် driver ကို ထည့်သွင်းပါ-\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA ၏ မူပိုင် driver တွင် ၎င်း၏ driver ပါရှိသည် (Arch တွင် `nvidia-utils`၊ Debian တွင် `nvidia-driver`)။ virtual machine သို့မဟုတ် ထည့်သွင်းရန် GPU driver မရှိသော နေရာတွင် software rasteriser ကို အသုံးပြုနိုင်သည်။ Arch တွင် `vulkan-swrast` ဖြစ်ပြီး အခြားစနစ်များတွင် `mesa-vulkan-drivers` ၏ အစိတ်အပိုင်းဖြစ်သည်။ နှေးသော်လည်း စတင်နိုင်သည်။\n{overridden}
+app.vulkan.no_device = schist: Vulkan driver ကို ထည့်သွင်းထားသော်လည်း ပုံဖော်ရန် စက်ပစ္စည်းတစ်ခုမျှ မပေးနိုင်ပါ။\n\ndriver သည် ဤ GPU ကို မပံ့ပိုးခြင်း သို့မဟုတ် ၎င်းကို လက်လှမ်းမမီခြင်း ဖြစ်နိုင်သည် — SSH မှတစ်ဆင့် သို့မဟုတ် container အတွင်းတွင် /dev/dri မရှိခြင်းသည် ဖြစ်လေ့ရှိသည်။ `vulkaninfo --summary` က loader မြင်သည့်အရာကို ဖော်ပြပေးသည်။\n\nဤစက်တွင် GPU မရှိပါက software rasteriser သည် GPU လုံးဝမပါဘဲ ပုံဖော်နိုင်သည်။ Arch တွင် `vulkan-swrast` ဖြစ်ပြီး Debian နှင့် Fedora တွင် `mesa-vulkan-drivers` ၏ အစိတ်အပိုင်းဖြစ်သည်။\n
+app.vulkan.skip_hint = မည်သို့ပင်ဖြစ်စေ Schist ကို စတင်ပြီး ၎င်း၏နည်းအတိုင်း ချို့ယွင်းစေလိုလျှင် {var}=1 ဟု သတ်မှတ်ပါ။

@@ -1,0 +1,25 @@
+# ଅଞ୍ଚଳ ସୁଧାର ଉପକରଣ: Patch, Content-Aware Move, Red Eye ଏବଂ Magic Eraser।
+
+tool.patch.name = ପ୍ୟାଚ୍
+tool.patch.description = ତ୍ରୁଟି ଚାରିପଟେ ଟାଣି ଏକ ସୀମାରେଖା ଆଙ୍କନ୍ତୁ, ତା’ପରେ ସେହି ଚୟନକୁ ପରିଷ୍କାର ପିକ୍ସେଲ୍‌ ଉପରକୁ ଟାଣନ୍ତୁ: ସେଠାର ବିନ୍ୟାସ ତ୍ରୁଟି ଉପରେ ଖାପ ଖାଇବ। ଯୋଡ଼ିର କେଉଁ ପ୍ରାନ୍ତକୁ ଟାଣିବେ, ତାହା ପ୍ୟାଚ୍ ମୋଡ୍ ନିର୍ଦ୍ଧାରଣ କରେ।
+tool.patch.option.patch = ପ୍ୟାଚ୍
+tool.patch.choice.source = ଉତ୍ସ
+tool.patch.choice.destination = ଗନ୍ତବ୍ୟ
+tool.patch.history.patch = ପ୍ୟାଚ୍
+
+tool.content_aware_move.name = ବିଷୟବସ୍ତୁ-ସଚେତନ ଘୁଞ୍ଚାଣ
+tool.content_aware_move.description = ବଛାଯାଇଥିବା ବସ୍ତୁକୁ ଅନ୍ୟ ସ୍ଥାନକୁ ଟାଣନ୍ତୁ; ତାହା ଛାଡ଼ିଥିବା ଖାଲି ସ୍ଥାନ ଆଖପାଖର ବିଷୟବସ୍ତୁରୁ ପୂରଣ ହେବ। ପ୍ରସାରଣ ମୋଡ୍‌ରେ ବସ୍ତୁଟି ଘୁଞ୍ଚିବା ବଦଳରେ ଲମ୍ବିଯାଏ।
+tool.content_aware_move.choice.move = ଘୁଞ୍ଚାନ୍ତୁ
+tool.content_aware_move.choice.extend = ପ୍ରସାରଣ
+tool.content_aware_move.history.move = ବିଷୟବସ୍ତୁ-ସଚେତନ ଘୁଞ୍ଚାଣ
+
+tool.red_eye.name = ଲାଲ୍ ଆଖି
+tool.red_eye.description = ଫ୍ଲାସ୍ ଯୋଗୁଁ ଆଖିର ପୁତଳିରେ ଆସିଥିବା ଲାଲ୍ ରଙ୍ଗ ହଟାଇବାକୁ ସେଥିରେ କ୍ଲିକ୍ କରନ୍ତୁ।
+tool.red_eye.option.pupil_size = ପୁତଳି ଆକାର
+tool.red_eye.option.darken = ଗାଢ଼ କରନ୍ତୁ
+tool.red_eye.history.red_eye = ଲାଲ୍ ଆଖି
+
+tool.magic_eraser.name = ମ୍ୟାଜିକ୍ ଇରେଜର୍
+tool.magic_eraser.description = ଉପକରଣର ସହନଶୀଳତା ସୀମା ମଧ୍ୟରେ ପଏଣ୍ଟର୍ ତଳର ସମାନ ରଙ୍ଗର ଅଞ୍ଚଳ ଲିଭାଇବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ — କ୍ଲିକ୍ ସହ ସଂଲଗ୍ନ ଅଞ୍ଚଳ କିମ୍ବା ସ୍ତରର ସବୁ ସ୍ଥାନରୁ।
+tool.magic_eraser.option.contiguous = ସଂଲଗ୍ନ
+tool.magic_eraser.history.erase = ମ୍ୟାଜିକ୍ ଇରେଜର୍

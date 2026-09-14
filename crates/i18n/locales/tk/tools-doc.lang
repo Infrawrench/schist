@@ -1,0 +1,24 @@
+tool.artboard.name = Çeper tagta
+tool.artboard.description = Özbaşdak eksport edilýän, kanwanyň atlandyrylan bölegi bolan çeper tagtany çekip dörediň. Bar bolan tagtanyň içinden çekmek ony süýşürýär.
+tool.artboard.default_name = Çeper tagta {n}
+
+tool.slice.name = Bölüm
+tool.slice.description = Özbaşdak surat hökmünde eksport edilýän, kanwanyň atlandyrylan gönüburçly bölegini çekip dörediň. Bar bolan bölümiň içinden çekmek ony süýşürýär.
+tool.slice.default_name = Bölüm {n}
+
+tool.frame.name = Çarçuwa
+tool.frame.description = Içine ýerleşdirilen zady maskalaýan gönüburçly ýa-da ellips görnüşli gatlak bolan çarçuwany çekip dörediň.
+tool.frame.default_name = Çarçuwa {n}
+tool.frame.choice.rectangle = Gönüburçluk
+tool.frame.choice.ellipse = Ellips
+tool.frame.history.frame = Çarçuwa
+
+tool.note.name = Bellik
+tool.note.description = Kanwanyň boş ýerinde basyp, redaktoryň ýagdaýynda awtory we reňki görkezilen belligi şol ýere berkidiň; bar bolan belgä basyp, ony Bellikler panelinde saýlaň.
+tool.note.history.place = Bellik ýerleşdirmek
+tool.note.history.move = Belligi süýşürmek
+tool.note.history.delete = Belligi pozmak
+
+tool.count.name = Sanaw
+tool.count.description = Kanwada belgili sanaw belliklerini goýmak üçin basyň; bar bolan belligi aýyrmak üçin oňa basyň.
+tool.count.default_name = Sanaw {n}

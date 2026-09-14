@@ -1,0 +1,23 @@
+# Attrazzi di basa: Spustà, Pipetta, Manu è Zoom.
+
+tool.move.name = Spustà
+tool.move.description = Trascinate u cuntenutu di u stratu attivu in una pusizione nova. Cù Selezzione automatica attivata, quandu appughjate hè sceltu prima u stratu — o u gruppu sanu — chì si trova sottu à u puntatore.
+tool.move.option.auto_select = Selezzione automatica
+tool.move.history.move_layer = Spustà u stratu
+
+tool.eyedropper.name = Pipetta
+tool.eyedropper.description = Pigliate u culore sottu à u puntatore cum'è culore di primu pianu, o cum'è culore di fondu quandu alt hè tenutu appughjatu. Mentre trascinate, u prelevu cuntinueghja.
+tool.eyedropper.option.sample_size = Dimensione di u campione
+tool.eyedropper.option.sample = Campione
+tool.eyedropper.choice.point_sample = Campione puntuale
+tool.eyedropper.choice.average_3 = Media 3 per 3
+tool.eyedropper.choice.average_5 = Media 5 per 5
+tool.eyedropper.choice.average_11 = Media 11 per 11
+tool.eyedropper.choice.average_31 = Media 31 per 31
+tool.eyedropper.choice.all_layers = Tutti i strati
+tool.eyedropper.choice.current_layer = Stratu attuale
+
+tool.hand.name = Manu
+tool.hand.description = Face scorre a vista. A zona di visualizazione appartene à a finestra, dunque senza interfaccia st'attrazzu ùn face nunda à u ducumentu.
+tool.zoom.name = Zoom
+tool.zoom.description = Ingrandisce o riduce a vista. A zona di visualizazione appartene à a finestra, dunque senza interfaccia st'attrazzu ùn face nunda à u ducumentu.

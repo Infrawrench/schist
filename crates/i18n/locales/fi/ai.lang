@@ -1,0 +1,42 @@
+# Tekoälysivupalkin työtilapuoli (crates/app/src/workspace/ai.rs) ja sen
+# taustalla olevat agenttikehykset (crates/app/src/ai/): tilarivit,
+# keskustelun huomautukset ja käyttäjälle näytettävät virheet. Mallille
+# lähetettävät järjestelmäkehotteet, MCP-työkaluluettelo ja JSON-RPC-vastaukset
+# pysyvät englanniksi eivätkä ole tässä tiedostossa. ”Claude Code”, ”Codex” ja
+# mallien nimet ovat tuotenimiä ja säilyvät ennallaan; alla oleva `{backend}`
+# on yksi niistä.
+
+# Tilarivi
+ai.status.panel_shown = Tekoälypaneeli näkyvissä
+ai.status.panel_hidden = Tekoälypaneeli kätketty — Näytä ▸ Tekoälypaneeli ({shortcut}) tuo sen takaisin
+ai.status.tool = Tekoäly: {name}
+
+# Himmeät rivit keskustelussa
+ai.info.connected = {backend} yhdistetty
+ai.info.now_in_gallery = Nyt galleriassa.
+ai.info.now_in_editor = Nyt editorissa.
+ai.tool.shell_command = komentotulkkikomento
+
+# Virheet keskustelussa
+ai.error.cli_missing = Komentorivityökalua {backend} (”{binary}”) ei löydy PATH-muuttujasta. Asenna se ja kirjaudu ensin sisään.
+ai.error.endpoint_failed = MCP-päätepisteen käynnistys epäonnistui: {error}
+ai.error.binding_endpoint = MCP-päätepisteen sidonta
+ai.error.spawning_endpoint_thread = MCP-päätepisteen säikeen käynnistys
+ai.error.runtime_failed = agentin suoritusympäristön käynnistys epäonnistui: {error}
+ai.error.worker_failed = taustaprosessin {backend} käynnistys epäonnistui: {error}
+ai.error.did_not_start = {backend} ei käynnistynyt: {error}
+ai.error.switch_model_failed = mallin vaihto epäonnistui: {error}
+ai.error.send_failed = kehotteen lähetys epäonnistui: {error}
+ai.error.interrupt_failed = keskeytys epäonnistui: {error}
+ai.error.locating_binary = Schist-ohjelmatiedoston etsintä
+ai.error.starting_app_server = Codex-sovelluspalvelimen käynnistys
+ai.error.attaching_app_server = yhdistäminen Codex-sovelluspalvelimeen
+ai.error.initializing_app_server = Codex-sovelluspalvelimen alustus
+ai.error.resuming_thread = Codex-ketjun jatkaminen
+ai.error.starting_thread = Codex-ketjun käynnistys
+
+# Mallivalitsimen varaluettelo, joka näkyy komentorivityökalun vastaukseen asti
+ai.model.opus_detail = Tehokkain taso
+ai.model.sonnet_detail = Tehokas tavallisiin tehtäviin
+ai.model.haiku_detail = Nopein lyhyisiin vastauksiin
+ai.model.codex_catalog = Codex-luettelo

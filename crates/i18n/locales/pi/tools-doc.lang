@@ -1,0 +1,29 @@
+# Artboard
+tool.artboard.name = Kalāphalakaṃ
+tool.artboard.description = Kalāphalakaṃ ākaḍḍhitvā karotha: idaṃ phalakassa nāmayuttaṃ padesaṃ, yaṃ visuṃ nīharīyati. Vijjamānassa kalāphalakassa anto ākaḍḍhiyamānaṃ taṃ cāleti.
+tool.artboard.default_name = Kalāphalakaṃ {n}
+
+# Slice
+tool.slice.name = Chedo
+tool.slice.description = Nīharaṇacchedaṃ ākaḍḍhitvā karotha; so phalakassa nāmayutto caturassapadeso, yo visuṃ chāyārūpena nīharīyati. Vijjamānassa chedassa anto ākaḍḍhiyamānaṃ taṃ cāleti.
+tool.slice.default_name = Chedo {n}
+
+# Frame
+tool.frame.name = Ādhārakoṭṭhako
+tool.frame.description = Ādhārakoṭṭhakaṃ ākaḍḍhitvā karotha: so caturasso (vā aṇḍākāro) santharo, yaṃ kiñci tasmiṃ ṭhapitaṃ tassa ākārena chādeti.
+tool.frame.default_name = Ādhārakoṭṭhako {n}
+tool.frame.choice.rectangle = Dīghacaturassaṃ
+tool.frame.choice.ellipse = Aṇḍākāro
+tool.frame.history.frame = Ādhārakoṭṭhako
+
+# Note
+tool.note.name = Satiyā lekho
+tool.note.description = Suññaphalakaṃ phusitvā tattha satiyā lekhaṃ bandhatha; sampādakassa avatthāyaṃ kattunāmena ceva vaṇṇena ca mudditaṃ hoti. Vijjamānaṃ binduṃ phusitvā Satiyā lekhānaṃ phalake taṃ gaṇhatha.
+tool.note.history.place = Satiyā lekhaṭṭhapanaṃ
+tool.note.history.move = Satiyā lekhacālanaṃ
+tool.note.history.delete = Satiyā lekhanāsanaṃ
+
+# Count
+tool.count.name = Gaṇanā
+tool.count.description = Phusitvā phalake aṅkayutte gaṇanāciṇhāni ṭhapetha; vijjamānaṃ ciṇhaṃ phusitvā taṃ apanetha.
+tool.count.default_name = Gaṇanā {n}

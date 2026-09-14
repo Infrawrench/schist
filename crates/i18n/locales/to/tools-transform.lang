@@ -1,0 +1,27 @@
+# Ngaahi meʻangāue liliu faʻunga mo kosi
+
+tool.transform.name = Liliu Faʻunga Tauʻatāina
+tool.transform.description = Liliu Faʻunga Tauʻatāina. ʻI hono fakamoʻuí ʻoku fakaava ha puha liliu takatakai ʻi he Layer lolotongá: toho ha tuliki ke liliu hono lahí, toho ʻi tuʻa ʻi ha tuliki ke vilo, pea toho ha tapa ke fakahihifi. ʻOku ʻikai hiki ha liliu kae ʻoua kuo fakapapauʻi (Enter), pea ʻe fakafoki ʻa e Layer ʻe he kaniseli (Escape).
+tool.transform.option.interpolation = Fakafuofua Vahaʻa
+tool.transform.history.transform = Liliu Faʻunga Tauʻatāina
+tool.transform.history.image_size = Lahi ʻo e ʻĪmisi
+tool.transform.history.canvas_size = Lahi ʻo e Kanivā
+
+tool.transform.selection.name = Liliu Faʻunga ʻo e Feituʻu Kuo Fili
+tool.transform.selection.description = Liliu Faʻunga ʻo e Feituʻu Kuo Fili: ko e puha tatau, ka ʻoku ne ʻunuʻi ʻa e laine ʻo e feituʻu kuo filí kae ʻikai ko e ngaahi pikiseli ʻi loto aí. Fakapapauʻi pe kaniseli ke fakaʻosi.
+tool.transform.selection.history.transform = Liliu Faʻunga ʻo e Feituʻu Kuo Fili
+
+tool.transform.resample.nearest_neighbor = Pikisi Ofi Taha
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Kosi
+tool.crop.description = Toho ʻa e feituʻu ke tauhi pea feʻunuʻaki hono ngaahi pukeʻangá; ʻe kosi ʻe he fakapapauʻi (Enter) ʻa e fakamatala ʻo fakatatau ki ai, ka ʻe tuku tatau pē ia ʻe he kaniseli (Escape).
+tool.crop.option.ratio = Fika Fakatatau
+tool.crop.option.delete_cropped = Tamateʻi ʻa e Ngaahi Pikisi Kuo Kosi
+tool.crop.choice.unconstrained = ʻIkai Fakangatangata
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Kosi

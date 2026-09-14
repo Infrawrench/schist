@@ -1,0 +1,154 @@
+# მენიუს ზოლი
+
+# ფაილი
+menu.file = ფაილი
+menu.file.new = ახალი
+menu.file.open = გახსნა…
+menu.file.open_recent = ბოლო ფაილის გახსნა
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = გალერეის დათვალიერება…
+menu.file.close = დახურვა
+menu.file.save = შენახვა
+menu.file.save_as = შენახვა როგორც…
+menu.file.export = ექსპორტი…
+menu.file.export_submenu = ექსპორტი
+menu.file.export_artboards = სამონტაჟო არეების PNG-ად ექსპორტი…
+menu.file.export_slices = ფრაგმენტების PNG-ად ექსპორტი…
+menu.file.save_to_photos = ფოტოებში შენახვა
+menu.file.plugins = დამატებები…
+menu.file.missing_fonts = ნაკლული შრიფტები…
+menu.file.check_for_updates = განახლებების შემოწმება…
+menu.file.quit = გამოსვლა
+menu.file.add_folder_to_gallery = საქაღალდის გალერეაში დამატება…
+menu.file.import_from_photos = ფოტოებიდან იმპორტი…
+menu.file.import_from_camera = კამერიდან იმპორტი…
+
+# შესწორება
+menu.edit = შესწორება
+menu.edit.fill = შევსება…
+menu.edit.stroke = შემოვლება…
+menu.edit.content_aware_fill = შიგთავსის გათვალისწინებით შევსება
+menu.edit.content_aware_scale = შიგთავსის გათვალისწინებით მასშტაბირება…
+menu.edit.puppet_warp = მარიონეტული დეფორმაცია
+menu.edit.free_transform = თავისუფალი გარდაქმნა
+menu.edit.transform = გარდაქმნა
+menu.edit.rotate_180 = 180°-ით მობრუნება
+menu.edit.rotate_90_cw = 90°-ით მობრუნება საათის ისრის მიმართულებით
+menu.edit.rotate_90_ccw = 90°-ით მობრუნება საათის ისრის საწინააღმდეგოდ
+menu.edit.flip_horizontal = ჰორიზონტალურად გადაბრუნება
+menu.edit.flip_vertical = ვერტიკალურად გადაბრუნება
+
+# გამოსახულება
+menu.image = გამოსახულება
+menu.image.mode = რეჟიმი
+menu.image.adjustments = კორექციები
+menu.image.auto_tone = ტონის ავტომატური კორექცია
+menu.image.auto_contrast = კონტრასტის ავტომატური კორექცია
+menu.image.auto_color = ფერის ავტომატური კორექცია
+menu.image.image_size = გამოსახულების ზომა…
+menu.image.canvas_size = ტილოს ზომა…
+menu.image.image_rotation = გამოსახულების მობრუნება
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° საათის ისრის მიმართულებით
+menu.image.rotate_90_ccw = 90° საათის ისრის საწინააღმდეგოდ
+menu.image.flip_canvas_horizontal = ტილოს ჰორიზონტალურად გადაბრუნება
+menu.image.flip_canvas_vertical = ტილოს ვერტიკალურად გადაბრუნება
+menu.image.crop_to_selection = მონიშნულ არემდე ჩამოჭრა
+menu.image.trim = კიდეების მოჭრა
+menu.image.assign_profile = პროფილის მინიჭება…
+menu.image.convert_to_profile = პროფილში გარდაქმნა…
+
+# მონიშვნა
+menu.select = მონიშვნა
+menu.select.color_range = ფერთა დიაპაზონი…
+menu.select.modify = შეცვლა
+menu.select.border = საზღვარი…
+menu.select.smooth = მოგლუვება…
+menu.select.expand = გაფართოება…
+menu.select.contract = შეკუმშვა…
+menu.select.feather = კიდეების დარბილება…
+menu.select.transform_selection = მონიშნულის გარდაქმნა
+
+# ფენა
+menu.layer = ფენა
+menu.layer.layer_style = ფენის სტილი…
+menu.layer.layer_comps = ფენათა კომპოზიციები
+menu.layer.new_layer_comp = ახალი ფენათა კომპოზიცია
+menu.layer.delete_layer_comp = {name}-ის წაშლა
+menu.layer.path = კონტური
+menu.layer.fill_path = კონტურის შევსება
+menu.layer.stroke_path = კონტურის შემოვლება
+menu.layer.make_selection = მონიშნული არის შექმნა
+menu.layer.delete_path = კონტურის წაშლა
+
+menu.adjust = კორექცია
+
+# ფილტრი
+menu.filter = ფილტრი
+menu.filter.filter_gallery = ფილტრების გალერეა…
+menu.filter.liquify = გათხევადება
+menu.filter.vanishing_point = პერსპექტიული სიბრტყე
+menu.filter.manage_models = მოდელების მართვა…
+menu.filter.camera_raw_development = Camera Raw-ის დამუშავება…
+
+# ხედი
+menu.view = ხედი
+menu.view.rotate_view_cw = ხედის მობრუნება საათის ისრის მიმართულებით
+menu.view.rotate_view_ccw = ხედის მობრუნება საათის ისრის საწინააღმდეგოდ
+menu.view.reset_view = ხედის საწყისზე დაბრუნება
+menu.view.zoom_in = გადიდება
+menu.view.zoom_out = დაპატარავება
+menu.view.fit_on_screen = ეკრანზე მორგება
+menu.view.actual_size = 100%
+menu.view.rulers = სახაზავები
+menu.view.grid = ბადე
+menu.view.guides = მიმმართველები
+menu.view.notes = შენიშვნები
+menu.view.ai_panel = AI-პანელი
+menu.view.extras = დამხმარე ელემენტები
+menu.view.snap = მიბმა
+menu.view.clear_guides = მიმმართველების გასუფთავება
+menu.view.clear_notes = შენიშვნების გასუფთავება
+menu.view.clear_count = მთვლელების გასუფთავება
+menu.view.screen_mode = ეკრანის რეჟიმი
+menu.view.proof_colors = ფერთა სინჯი
+menu.view.show_rulers = სახაზავების ჩვენება
+menu.view.hide_rulers = სახაზავების დამალვა
+menu.view.show_grid = ბადის ჩვენება
+menu.view.hide_grid = ბადის დამალვა
+menu.view.show_guides = მიმმართველების ჩვენება
+menu.view.hide_guides = მიმმართველების დამალვა
+menu.view.show_notes = შენიშვნების ჩვენება
+menu.view.hide_notes = შენიშვნების დამალვა
+menu.view.show_extras = დამხმარე ელემენტების ჩვენება
+menu.view.hide_extras = დამხმარე ელემენტების დამალვა
+menu.view.enable_snapping = მიბმის ჩართვა
+menu.view.disable_snapping = მიბმის გამორთვა
+menu.view.enable_proof_colors = ფერთა სინჯის ჩართვა
+menu.view.disable_proof_colors = ფერთა სინჯის გამორთვა
+
+# გალერეა
+menu.gallery = გალერეა
+menu.gallery.edit_selected = მონიშნულის რედაქტირება
+menu.gallery.refresh = განახლება
+menu.gallery.map_filter = რუკის ფილტრი…
+menu.gallery.back_to_editor = რედაქტორში დაბრუნება
+
+# Schist Cloud
+menu.cloud.browse = Schist Cloud-ის დათვალიერება
+menu.cloud.generate = გამოსახულებების გენერირება…
+menu.cloud.upload = დოკუმენტის Schist Cloud-ში ატვირთვა…
+menu.cloud.sign_out = Schist Cloud-იდან გამოსვლა
+menu.cloud.sign_in = Schist Cloud-ში შესვლა…
+
+# macOS-ის აპის მენიუ
+menu.app.services = სერვისები
+menu.app.hide = {app}-ის დამალვა
+menu.app.hide_others = სხვების დამალვა
+menu.app.show_all = ყველას ჩვენება
+menu.app.quit = {app}-იდან გამოსვლა
+
+# უმოქმედო ბრძანებების სტატუსი
+menu.status.transform_selection_needs_selection = მონიშნულის გარდაქმნას მონიშნული არე სჭირდება
+menu.status.crop_needs_selection = მონიშნულ არემდე ჩამოჭრას მონიშნული არე სჭირდება
+menu.status.select_photo_to_edit = რედაქტირებისთვის ფოტო აირჩიეთ

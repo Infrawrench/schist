@@ -1,0 +1,21 @@
+tool.move.name = Hambisa
+tool.move.description = Hudvula lokucuketfwe luhlaka lolusebentako ukuyise endzaweni lensha. Nangabe Kutikhetsela kuvuliwe, kucindzetela kucala kukhetse noma nguluphi luhlaka — nobe licembu lonkhe — lolungephansi kwesikhombi.
+tool.move.option.auto_select = Tikhetsele
+tool.move.history.move_layer = Hambisa Luhlaka
+
+tool.eyedropper.name = Sitsatsi-mbala
+tool.eyedropper.description = Tsatsa isampula yembala longephansi kwesikhombi uyifake esikhethweni sembala wangembili, nobe esikhethweni sembala wangemuva nangabe kubanjwe alt. Kuhudvula kuchubeka kutsatsa emasampula.
+tool.eyedropper.option.sample_size = Bukhulu Besampula
+tool.eyedropper.option.sample = Isampula
+tool.eyedropper.choice.point_sample = Isampula Yeliphuzu
+tool.eyedropper.choice.average_3 = Silinganiso sa-3 nga-3
+tool.eyedropper.choice.average_5 = Silinganiso sa-5 nga-5
+tool.eyedropper.choice.average_11 = Silinganiso sa-11 nga-11
+tool.eyedropper.choice.average_31 = Silinganiso sa-31 nga-31
+tool.eyedropper.choice.all_layers = Tonkhe Tinhlaka
+tool.eyedropper.choice.current_layer = Luhlaka Lwamanje
+
+tool.hand.name = Sandla
+tool.hand.description = Sishelelisa umbono. Indzawo yekubuka ingeyelifasitelo, ngako nangabe kusetjentwa ngaphandle kwelifasitelo leli lithuluzi alenti lutfo kudokhumenti.
+tool.zoom.name = Sondeza
+tool.zoom.description = Sondeza nobe ihlehlise umbono. Indzawo yekubuka ingeyelifasitelo, ngako nangabe kusetjentwa ngaphandle kwelifasitelo leli lithuluzi alenti lutfo kudokhumenti.

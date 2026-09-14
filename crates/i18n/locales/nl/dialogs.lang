@@ -1,0 +1,238 @@
+# Modale dialoogvensters.
+dialog.save_ellipsis = Opslaan…
+dialog.use_foreground = Voorgrond gebruiken
+dialog.downloading = Downloaden…
+dialog.downloading_of = Downloaden… {got} van {total}
+dialog.no_config_dir = (geen configuratiemap)
+
+dialog.layer_props.title = Laageigenschappen
+
+dialog.export.format = Indeling
+dialog.export.dither = Dithering
+dialog.export.dither_note = Dithering gebruiken bij omzetting naar 8-bits
+dialog.export.export_ellipsis = Exporteren…
+
+dialog.batch.title = Foto's verwerken
+dialog.batch.note_edit.one = {n} foto — opgeslagen als galeriebewerking; het origineel wordt nooit gewijzigd.
+dialog.batch.note_edit.other = {n} foto's — opgeslagen als galeriebewerkingen; de originelen worden nooit gewijzigd.
+dialog.batch.note_edit_edited.one = {n} foto, {edited} al bewerkt — het recept wordt boven op de bewerking toegepast en de vorige bewerking blijft als versie bewaard.
+dialog.batch.note_edit_edited.other = {n} foto's, {edited} al bewerkt — het recept wordt boven op de bewerkingen toegepast en de vorige bewerkingen blijven als versies bewaard.
+dialog.batch.note_copies.one = {n} foto — samengevoegde kopie; het origineel wordt nooit gewijzigd.
+dialog.batch.note_copies.other = {n} foto's — samengevoegde kopieën; de originelen worden nooit gewijzigd.
+dialog.batch.note_copies_edited.one = {n} foto, {edited} al bewerkt — de kopie wordt van de bewerking gemaakt.
+dialog.batch.note_copies_edited.other = {n} foto's, {edited} al bewerkt — de kopieën worden van de bewerkingen gemaakt.
+dialog.batch.turn = Draaien
+dialog.batch.rotate = Roteren
+dialog.batch.flip = Spiegelen
+dialog.batch.upscale = Opschalen
+dialog.batch.colour = Kleur
+dialog.batch.add_adjustment = Aanpassing…
+dialog.batch.output = Uitvoer
+dialog.batch.save_as = Opslaan als
+dialog.batch.process = Verwerken
+dialog.batch.process_n = {n} verwerken
+dialog.batch.nothing_to_do = Niets te doen: kies eerst een draaiing, opschaling of aanpassing
+
+dialog.content_aware_scale.title = Schalen met behoud van inhoud
+dialog.content_aware_scale.note = Snijdt naden met weinig details weg. Een selectie geeft aan wat moet worden beschermd.
+
+dialog.stroke.title = Omlijnen
+dialog.stroke.location = Locatie
+dialog.stroke.inside = Binnen
+dialog.stroke.outside = Buiten
+dialog.stroke.note = Omlijnt de selectie met de voorgrondkleur.
+
+dialog.fill.contents = Inhoud
+
+dialog.color_range.title = Kleurbereik
+dialog.color_range.sampled = Monster
+dialog.color_range.fuzziness = Tolerantie
+dialog.color_range.note = Selecteert op de actieve laag pixels die dicht bij de opgenomen kleur liggen.
+
+dialog.file_picker.up = ↑ Omhoog
+dialog.file_picker.empty = Niets hier
+dialog.file_picker.choose_folder = Deze map kiezen
+
+dialog.filter.camera_raw_development = Camera Raw-ontwikkeling
+dialog.filter.reset_as_shot = Opname-instellingen herstellen
+dialog.filter.raw_note = Ontwikkelt de actieve laag opnieuw vanuit de oorspronkelijke sensorgegevens.
+dialog.filter.note = Wordt binnen de selectie op de actieve laag toegepast.
+
+dialog.fonts.title = Ontbrekende lettertypen
+dialog.fonts.install_named = {name} installeren
+dialog.fonts.no_document = Er is geen document geopend, dus er valt niets te controleren.
+dialog.fonts.all_installed = Elk lettertype in dit document is geïnstalleerd. De tekst wordt weergegeven in de lettertypen waarmee de lay-out is gemaakt.
+dialog.fonts.missing_intro = Dit document gebruikt lettertypen die je niet hebt. De tekst is leesbaar in een vervangend lettertype, maar de breedten en regeleinden wijken af van de oorspronkelijke lay-out.
+dialog.fonts.footer = Downloads komen uit de open catalogus van Google Fonts en worden bewaard in {dir}. Een lettertype zonder open licentie wordt nooit opgehaald. Als er een vrij ontwerp met dezelfde metriek bestaat, wordt dat als vervanging aangeboden; de gelijke tekenbreedten herstellen de lay-out.
+dialog.fonts.user_font_dir = je persoonlijke lettertypemap
+
+dialog.models.title = Modellen voor neurale filters
+dialog.models.built_in = Ingebouwd · {size}
+dialog.models.installed = Geïnstalleerd · {size}
+dialog.models.not_installed = Niet geïnstalleerd · {size}
+dialog.models.not_in_browser = Niet beschikbaar in de browser · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modellen worden bewaard in {dir}. Filters zonder model vallen terug op signaalverwerking en geven dit aan.
+
+dialog.new_doc.title = Nieuw document
+dialog.new_doc.picker_title = Nieuw bestand
+dialog.new_doc.custom_ellipsis = Aangepast…
+dialog.new_doc.preset = Voorinstelling
+dialog.new_doc.preset_default = Standaard (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Vierkant (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Maken
+dialog.new_doc.created = Nieuw document: {w} × {h} px
+
+dialog.open.image_title = Afbeelding openen
+dialog.open.image_prompt = ‘{name}’ in een nieuw tabblad openen of als nieuwe laag aan het huidige document toevoegen?
+dialog.open.new_tab = Nieuw tabblad
+dialog.open.new_layer = Nieuwe laag
+dialog.open.quoted = ‘{name}’
+dialog.open.these_files.one = dit {n} bestand
+dialog.open.these_files.other = deze {n} bestanden
+dialog.open.shared_title_one = Gedeelde afbeelding
+dialog.open.shared_title_many = Gedeelde afbeeldingen
+dialog.open.shared_prompt = {what} aan de galerie toevoegen of in de editor openen?
+dialog.open.add_to_gallery = Aan galerie toevoegen
+dialog.open.open_in_editor = Openen in editor
+dialog.open.heic_title = HEIC-ondersteuning
+dialog.open.heic_needs_decoder = Voor het openen van ‘{name}’ is een HEVC-decoder nodig die niet op dit systeem is geïnstalleerd.
+dialog.open.heic_offer = Schist kan een build van libheif {version} downloaden die alleen decodeert en de libde265 HEVC-decoder bevat (≈5 MB). Beide hebben een LGPL-3.0-licentie. De licentieteksten worden naast de bibliotheek geïnstalleerd en de bron is beschikbaar op de projectpagina.
+dialog.open.licenses_source = Licenties en bron
+dialog.open.folders_title = Neergezette mappen
+dialog.open.n_folders.one = {n} map
+dialog.open.n_folders.other = {n} mappen
+dialog.open.open_in_tabs = Openen in tabbladen
+dialog.open.open_first_in_tabs = Eerste {n} openen in tabbladen
+dialog.open.open_n_in_tabs.one = {n} openen in een tabblad
+dialog.open.open_n_in_tabs.other = {n} openen in tabbladen
+dialog.open.folder_holds.one = {what} bevat {n} afbeelding die Schist kan openen (inclusief submappen).
+dialog.open.folder_holds.other = {what} bevat {n} afbeeldingen die Schist kan openen (inclusief submappen).
+dialog.open.folders_note = Aan galerie toevoegen houdt de mappen op hun huidige locatie in de gaten. Er wordt niets gekopieerd en bewerkingen worden naast elke foto als versies opgeslagen. Openen in tabbladen laadt alle afbeeldingen nu in de editor.
+
+dialog.plugins.title = Plug-ins
+dialog.plugins.kind_filter = filter
+dialog.plugins.kind_format = indeling
+dialog.plugins.kind_unavailable = niet beschikbaar
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Plug-ins worden geladen uit {dir}
+dialog.plugins.none = Er zijn nog geen plug-ins geïnstalleerd.
+dialog.plugins.install_ellipsis = Installeren…
+dialog.plugins.photoshop_heading = Photoshop-plug-ins
+dialog.plugins.loaded_from = Geladen uit {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Voorkeuren
+dialog.prefs.theme = Thema
+dialog.prefs.theme_dark = Donker
+dialog.prefs.theme_light = Licht
+dialog.prefs.grid_spacing = Rasterafstand
+dialog.prefs.snapping = Magnetisch uitlijnen
+dialog.prefs.snap_to = Uitlijnen op hulplijnen, raster en canvasranden
+dialog.prefs.rendering_intent = Rendering intent
+dialog.prefs.intent_perceptual = Perceptueel
+dialog.prefs.intent_relative = Relatief colorimetrisch
+dialog.prefs.intent_saturation = Verzadiging
+dialog.prefs.intent_absolute = Absoluut colorimetrisch
+dialog.prefs.scrolling = Scrollen
+dialog.prefs.zoom_with_scroll = Zoomen met scrolwiel
+dialog.prefs.rendering = Rendering
+dialog.prefs.gpu_compositing = Compositie door GPU
+dialog.prefs.diagnostics = Diagnostiek
+dialog.prefs.crash_reports = Bij een panic lokaal een crashrapport schrijven
+dialog.prefs.crash_upload = Dit ook naar de ontwikkelaars verzenden
+dialog.prefs.telemetry = Dagelijks een anoniem signaal verzenden
+dialog.prefs.diagnostics_note = Diagnostische wijzigingen worden toegepast wanneer Schist opnieuw wordt gestart.
+dialog.prefs.updates = Updates
+dialog.prefs.check_updates = Bij starten naar nieuwe releases zoeken
+dialog.prefs.keyboard_shortcuts = Sneltoetsen: {path}
+dialog.prefs.nsfw_needs_model = Vereist het model Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = download het via Modellen beheren…
+dialog.prefs.hide_flagged = Gemarkeerde foto's verbergen
+
+dialog.profile.profile = Profiel
+dialog.profile.assign_title = Profiel toewijzen
+dialog.profile.convert_title = Omzetten in profiel
+dialog.profile.assign = Toewijzen
+dialog.profile.convert = Omzetten
+dialog.profile.assign_note = Interpreteert de bestaande pixelwaarden opnieuw onder het nieuwe profiel.
+dialog.profile.convert_note = Herschrijft pixelwaarden zodat de kleuren er hetzelfde blijven uitzien.
+
+dialog.save_image.title = Afbeelding opslaan als
+dialog.save_image.note = {name} — de bewerking, als die er is; het origineel wordt nooit gewijzigd.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Afbeeldingsgrootte
+dialog.size.canvas_title = Canvasgrootte
+dialog.size.constrain = Beperken
+dialog.size.keep_proportions = Verhoudingen behouden
+dialog.size.resample = Nieuwe pixels berekenen
+dialog.size.bicubic = Bicubisch
+dialog.size.bilinear = Bilineair
+dialog.size.nearest = Dichtstbijzijnde buur
+dialog.size.anchor = Anker
+dialog.size.currently = Momenteel {w} × {h} px
+dialog.size.image_size_status = Afbeeldingsgrootte: {w} × {h}
+dialog.size.canvas_size_status = Canvasgrootte: {w} × {h}
+
+dialog.update.title = Update beschikbaar
+dialog.update.available = Schist {version} is beschikbaar. Dit exemplaar is {current}.
+dialog.update.installing = Update installeren…
+dialog.update.can_install = Schist kan deze downloaden ({size}) en over dit exemplaar installeren.
+dialog.update.external = Dit exemplaar kwam van een systeem dat het beheert — een pakketbeheerder, een AppImage of je eigen build — en wordt daarom bijgewerkt op de manier waarop het is geïnstalleerd.
+dialog.update.later = Later
+dialog.update.release_notes = Releaseopmerkingen
+dialog.update.update_restart = Bijwerken en opnieuw starten
+dialog.update.open_page = Releasepagina openen
+
+dialog.style.title = Laagstijl
+dialog.style.bevel = Schuine kant en reliëf
+dialog.style.stroke = Lijn
+dialog.style.inner_shadow = Schaduw binnen
+dialog.style.inner_glow = Gloed binnen
+dialog.style.satin = Satijn
+dialog.style.color_overlay = Kleurbedekking
+dialog.style.gradient_overlay = Verloopbedekking
+dialog.style.outer_glow = Gloed buiten
+dialog.style.drop_shadow = Slagschaduw
+dialog.style.blur = Gaussiaans vervagen
+dialog.style.gradient_from = Begin van verloopbedekking
+dialog.style.gradient_to = Einde van verloopbedekking
+dialog.style.soften = Zachter maken
+dialog.style.depth = Diepte
+dialog.style.altitude = Hoogte
+dialog.style.highlight = Hooglicht
+dialog.style.shadow = Schaduw
+dialog.style.outer_bevel = Schuine kant buiten
+dialog.style.inner_bevel = Schuine kant binnen
+dialog.style.emboss = Reliëf
+dialog.style.pillow_emboss = Kussenreliëf
+dialog.style.linear = Lineair
+dialog.style.radial = Radiaal
+dialog.style.reverse = Omkeren
+dialog.style.from_to = Van / Naar
+dialog.style.from_fg = Van = VG
+dialog.style.to_fg = Naar = VG
+dialog.style.precise = Nauwkeurig
+dialog.style.knockout = Laag spaart slagschaduw uit
+
+dialog.color_picker.title = Kleurkiezer ({what})
+dialog.color_picker.effect_color = Kleur voor {effect}
+dialog.color_picker.note_color = Notitiekleur
+dialog.color_picker.new = nieuw
+dialog.color_picker.current = huidig
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Kanaal herstellen
+dialog.curves.hint = Sleep om te vormen · klik om toe te voegen · Alt-klik om te verwijderen
+
+dialog.prefs.camera_sync = Filmrol
+dialog.prefs.camera_sync_enabled = Back-up maken naar Schist Cloud
+dialog.prefs.camera_sync_sign_in = Meld je aan bij Schist Cloud om een back-up van je filmrol te maken.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Wijzigen…

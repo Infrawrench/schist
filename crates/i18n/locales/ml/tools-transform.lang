@@ -1,0 +1,29 @@
+# Free transform
+tool.transform.name = സ്വതന്ത്ര രൂപാന്തരം
+tool.transform.description = സ്വതന്ത്ര രൂപാന്തരം. ഇത് സജീവമാക്കിയാൽ സജീവ ലെയറിനു ചുറ്റും ഒരു രൂപാന്തരപ്പെട്ടി തുറക്കും: വലുപ്പം മാറ്റാൻ മൂല വലിക്കുക, തിരിക്കാൻ മൂലയ്ക്കു പുറത്തു വലിക്കുക, ചരിക്കാൻ വശം വലിക്കുക. അംഗീകരിക്കുന്നതുവരെ (Enter) മാറ്റം പ്രയോഗിക്കില്ല; റദ്ദാക്കിയാൽ (Escape) ലെയർ പഴയ നിലയിലാകും.
+tool.transform.option.interpolation = ഇന്റർപൊളേഷൻ
+tool.transform.history.transform = സ്വതന്ത്ര രൂപാന്തരം
+tool.transform.history.image_size = ചിത്രത്തിന്റെ വലുപ്പം
+tool.transform.history.canvas_size = ക്യാൻവാസ് വലുപ്പം
+
+# Transform selection
+tool.transform.selection.name = തിരഞ്ഞെടുപ്പ് രൂപാന്തരപ്പെടുത്തുക
+tool.transform.selection.description = തിരഞ്ഞെടുപ്പ് രൂപാന്തരപ്പെടുത്തുക: അതേ പെട്ടിയാണ്, പക്ഷേ അതിനുള്ളിലെ പിക്സലുകൾക്കു പകരം തിരഞ്ഞെടുപ്പിന്റെ രൂപരേഖയാണ് നീക്കുന്നത്. പൂർത്തിയാക്കാൻ അംഗീകരിക്കുകയോ റദ്ദാക്കുകയോ ചെയ്യുക.
+tool.transform.selection.history.transform = തിരഞ്ഞെടുപ്പ് രൂപാന്തരപ്പെടുത്തുക
+
+# Resampling
+tool.transform.resample.nearest_neighbor = ഏറ്റവും അടുത്ത അയൽപിക്സൽ
+tool.transform.resample.bilinear = ബൈലീനിയർ
+tool.transform.resample.bicubic = ബൈക്യൂബിക്
+
+# Crop
+tool.crop.name = മുറിച്ചെടുക്കുക
+tool.crop.description = നിലനിർത്തേണ്ട പ്രദേശം വരച്ച് അതിന്റെ ഹാൻഡിലുകൾ ക്രമീകരിക്കുക; അംഗീകരിച്ചാൽ (Enter) ഡോക്യുമെന്റ് അതിലേക്കു മുറിച്ചൊതുക്കും, റദ്ദാക്കിയാൽ (Escape) മാറ്റമൊന്നുമുണ്ടാകില്ല.
+tool.crop.option.ratio = അനുപാതം
+tool.crop.option.delete_cropped = മുറിച്ചുനീക്കിയ പിക്സലുകൾ ഇല്ലാതാക്കുക
+tool.crop.choice.unconstrained = നിയന്ത്രണമില്ലാതെ
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = മുറിച്ചെടുക്കുക

@@ -1,0 +1,45 @@
+# Attrazzi vetturiali.
+
+tool.pen.name = Penna
+tool.pen.description = Custruite un tracciatu: cliccate per un puntu d'angulu, trascinate per tiranne e maniglie di curva, è cliccate nant'à u primu puntu per chjode. Cunfirmendu, u tracciatu diventa un stratu di forma.
+tool.pen.option.rubber_band = Linea elastica
+tool.pen.history.fill = Riempimentu di u tracciatu
+tool.pen.default_path_name = Tracciatu {n}
+tool.pen.freeform.name = Penna à manu libera
+tool.pen.freeform.description = Trascinate una linea à manu libera è serà adattata à un tracciatu, cù a precisione scelta da l'opzione Adattamentu.
+tool.pen.freeform.option.fit = Adattamentu
+tool.pen.curvature.name = Penna di curvatura
+tool.pen.curvature.description = Cliccate una seria di punti è u tracciatu serà incurvatu lisciamente attraversu elli.
+
+tool.path_select.name = Selezzione di tracciatu
+tool.path_select.description = Cliccate un tracciatu per selezziunallu, è trascinate per spustà u tracciatu sanu.
+tool.direct_select.name = Selezzione diretta
+tool.direct_select.description = Trascinate un puntu d'ancuramentu solu o e so maniglie per rifurmà u tracciatu intornu à ellu.
+
+tool.shape.history.layer = Stratu {name}
+tool.shape.rect.name = Attrazzu Rettangulu
+tool.shape.rect.label = Rettangulu
+tool.shape.rect.description = Trascinate per creà un stratu di forma rettangulare cù u culore di primu pianu; ferma vetturiale è hè rasterizatu torna quandu hè ridimensionatu.
+tool.shape.ellipse.name = Attrazzu Ellissi
+tool.shape.ellipse.label = Ellissi
+tool.shape.ellipse.description = Trascinate per creà un stratu di forma ellittica cù u culore di primu pianu.
+tool.shape.line.name = Attrazzu Linea
+tool.shape.line.label = Linea
+tool.shape.line.description = Trascinate per creà un stratu di forma in linea diritta cù u culore di primu pianu.
+tool.shape.line.option.weight = Spessore
+tool.shape.line.option.arrow_start = Principiu
+tool.shape.line.option.arrow_end = Fine
+tool.shape.polygon.name = Attrazzu Puligonu
+tool.shape.polygon.label = Puligonu
+tool.shape.polygon.description = Trascinate per creà un stratu di forma in puligonu regulare cù u culore di primu pianu è u numeru di lati sceltu in l'opzioni.
+tool.shape.polygon.option.sides = Lati
+
+tool.shape.custom.name = Forma persunalizata
+tool.shape.custom.label = Forma persunalizata
+tool.shape.custom.description = Trascinate per creà una di e forme predefinite integrate, scelta cù l'opzione Forma.
+tool.shape.custom.choice.heart = Core
+tool.shape.custom.choice.star = Stella
+tool.shape.custom.choice.arrow = Freccia
+tool.shape.custom.choice.lightning = Fulmine
+tool.shape.custom.choice.cross = Croce
+tool.shape.custom.choice.speech_bubble = Bolla di dialogu

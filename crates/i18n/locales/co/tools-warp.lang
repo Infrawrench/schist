@@ -1,0 +1,24 @@
+# Attrazzi di deformazione: Liquefà, Deformazione à marionetta è Puntu di fuga.
+
+tool.liquify.name = Liquefà
+tool.liquify.description = Spinghje, vultuleghja, stringhje o gonfia i pixel sottu à una spazzola larga — l'opzione di modu sceglie l'azzione. A deformazione s'accumuleghja in una maglia è hè appiicata à u stratu quand'ella hè cunfirmata.
+tool.liquify.option.tool = Attrazzu
+tool.liquify.choice.forward_warp = Deformazione in avanti
+tool.liquify.choice.reconstruct = Ricustruisce
+tool.liquify.choice.twirl_cw = Vultuleghjà in sensu urariu
+tool.liquify.choice.twirl_ccw = Vultuleghjà in sensu antiurariu
+tool.liquify.choice.pucker = Stringhje
+tool.liquify.choice.bloat = Gunfià
+tool.liquify.choice.push_left = Spinghje à manca
+tool.liquify.history.liquify = Liquefà
+
+tool.puppet_warp.name = Deformazione à marionetta
+tool.puppet_warp.description = Cliccate per fissà u stratu in parechji punti, po trascinatene unu: a maglia si piega ingiru à i punti, in modu rigidu o scioltu secondu l'opzione Rigidità. Cunfirmendu, a deformazione hè appiicata.
+tool.puppet_warp.option.stiffness = Rigidità
+tool.puppet_warp.history.puppet_warp = Deformazione à marionetta
+
+tool.vanishing_point.name = Puntu di fuga
+tool.vanishing_point.description = Trascinate per definisce un pianu nant'à un elementu in perspettiva, po passate u modu à Clunà è pitturate: i pixel cupiati seguitanu u pianu, riducendusi cù a distanza.
+tool.vanishing_point.choice.edit_plane = Mudificà u pianu
+tool.vanishing_point.choice.clone = Clunà
+tool.vanishing_point.history.vanishing_point = Puntu di fuga

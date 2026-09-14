@@ -1,0 +1,27 @@
+# Piranti pilihan.
+tool.select.mode.subtract = Kurangake
+tool.select.mode.intersect = Irisan
+tool.marquee.rect.name = Pilihan Persegi
+tool.marquee.rect.description = Seret kanggo nggawé pilihan persegi. Shift nalika wiwit nyeret bakal nambah pilihan, alt ngurangi, lan loro-loroné nggawé irisan; Shift nalika lagi nyeret bakal nggawé persegi padha sisi. Klik tanpa nyeret mbatalaké pilihan.
+tool.marquee.ellipse.name = Pilihan Elips
+tool.marquee.ellipse.description = Seret kanggo nggawé pilihan elips, kanthi gabungan shift/alt sing padha kaya pilihan persegi.
+tool.lasso.name = Laso
+tool.lasso.description = Seret garis bebas; pilihan bakal nyambungaké pucuk-pucuké nalika seretan rampung. Shift nambah, alt ngurangi.
+tool.lasso.history.select = Pilihan Laso
+tool.lasso.polygonal.name = Laso Poligonal
+tool.lasso.polygonal.description = Klik saben pojok kanggo nggawé pilihan mawa pinggir lurus, banjur klik cedhak titik kapisan kanggo nutup.
+tool.lasso.polygonal.history.select = Laso Poligonal
+tool.lasso.magnetic.name = Laso Magnètik
+tool.lasso.magnetic.description = Tlusuri pinggir kanthi kira-kira lan garis pilihan bakal cèplèk menyang kontras paling kuwat ing cedhak path.
+tool.lasso.magnetic.history.select = Laso Magnètik
+tool.lasso.magnetic.option.frequency = Frekuènsi
+tool.wand.name = Tongkat Ajaib
+tool.wand.description = Klik kanggo milih area nyambung kanthi werna sing padha ing sangisoring panunjuk, miturut pilihan toleransi — toleransi sing uga diwaca Tuwuh, Padha, lan Rentang Werna.
+tool.wand.option.contiguous = Nyambung
+tool.wand.history.select = Tongkat Ajaib
+tool.quick_select.name = Pilihan Cepet
+tool.quick_select.description = Pulas ing ndhuwur sawijining area lan pilihan bakal tuwuh ngliwati piksel sing padha sing diliwati kuas.
+tool.quick_select.history.select = Pilihan Cepet
+tool.object_select.name = Pilihan Obyèk
+tool.object_select.description = Seret kothak ngubengi obyèk lan pilihan bakal cèplèk menyang obyèk sing ditemokaké ing njeroné.
+tool.object_select.history.select = Pilihan Obyèk

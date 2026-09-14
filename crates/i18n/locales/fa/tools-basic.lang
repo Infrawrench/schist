@@ -1,0 +1,20 @@
+# ابزارهای پایه
+tool.move.name = جابه‌جایی
+tool.move.description = محتوای لایهٔ فعال را به موقعیتی جدید بکشید. اگر انتخاب خودکار روشن باشد، با فشردن ابتدا لایه—یا کل گروه—زیر نشانگر انتخاب می‌شود.
+tool.move.option.auto_select = انتخاب خودکار
+tool.move.history.move_layer = جابه‌جایی لایه
+tool.eyedropper.name = قطره‌چکان
+tool.eyedropper.description = رنگ زیر نشانگر را برای نمونهٔ پیش‌زمینه برمی‌گزیند، یا اگر Alt نگه داشته شود برای نمونهٔ پس‌زمینه. با کشیدن، نمونه‌برداری ادامه می‌یابد.
+tool.eyedropper.option.sample_size = اندازهٔ نمونه
+tool.eyedropper.option.sample = نمونه
+tool.eyedropper.choice.point_sample = نمونهٔ نقطه‌ای
+tool.eyedropper.choice.average_3 = میانگین ۳ در ۳
+tool.eyedropper.choice.average_5 = میانگین ۵ در ۵
+tool.eyedropper.choice.average_11 = میانگین ۱۱ در ۱۱
+tool.eyedropper.choice.average_31 = میانگین ۳۱ در ۳۱
+tool.eyedropper.choice.all_layers = همهٔ لایه‌ها
+tool.eyedropper.choice.current_layer = لایهٔ کنونی
+tool.hand.name = دست
+tool.hand.description = نما را جابه‌جا می‌کند. نمای دید به پنجره تعلق دارد، بنابراین در حالت بدون رابط این ابزار سند را تغییر نمی‌دهد.
+tool.zoom.name = بزرگ‌نمایی
+tool.zoom.description = بزرگ‌نمایی نما را تغییر می‌دهد. نمای دید به پنجره تعلق دارد، بنابراین در حالت بدون رابط این ابزار سند را تغییر نمی‌دهد.

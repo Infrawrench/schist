@@ -1,0 +1,21 @@
+tool.move.name = Pindahkeun
+tool.move.description = Séréd eusi lapisan aktif ka posisi anyar. Lamun Pilih Otomatis hurung, waktu dipencét bakal milih lapisan mana waé — atawa sakabéh grup — anu pangheulana aya di handapeun panunjuk.
+tool.move.option.auto_select = Pilih Otomatis
+tool.move.history.move_layer = Pindahkeun Lapisan
+
+tool.eyedropper.name = Pipét
+tool.eyedropper.description = Candak sampel warna di handapeun panunjuk kana swatch latar hareup, atawa kana swatch latar tukang lamun alt ditahan. Sampel terus dicokot salila diséréd.
+tool.eyedropper.option.sample_size = Ukuran Sampel
+tool.eyedropper.option.sample = Sampel
+tool.eyedropper.choice.point_sample = Sampel Titik
+tool.eyedropper.choice.average_3 = Rata-rata 3 ku 3
+tool.eyedropper.choice.average_5 = Rata-rata 5 ku 5
+tool.eyedropper.choice.average_11 = Rata-rata 11 ku 11
+tool.eyedropper.choice.average_31 = Rata-rata 31 ku 31
+tool.eyedropper.choice.all_layers = Kabéh Lapisan
+tool.eyedropper.choice.current_layer = Lapisan Ayeuna
+
+tool.hand.name = Leungeun
+tool.hand.description = Ngagésér pintonan. Viewport mangrupa bagian tina jandéla, jadi dina mode headless alat ieu teu ngarobah dokumén.
+tool.zoom.name = Zum
+tool.zoom.description = Ngagedéan atawa ngaleutikan pintonan. Viewport mangrupa bagian tina jandéla, jadi dina mode headless alat ieu teu ngarobah dokumén.

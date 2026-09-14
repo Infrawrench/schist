@@ -1,0 +1,23 @@
+tool.patch.name = Adabakia
+tool.patch.description = Arrastatu akats baten inguruan ingerada bat marrazteko, eta arrastatu hautapena pixel garbien gainera: hango testura akatsean egokitzen da. Adabaki moduak bikotearen zein mutur arrastatuko duzun zehazten du.
+tool.patch.option.patch = Adabakia
+tool.patch.choice.source = Jatorria
+tool.patch.choice.destination = Helmuga
+tool.patch.history.patch = Adabakia
+
+tool.content_aware_move.name = Edukiaren araberako mugimendua
+tool.content_aware_move.description = Arrastatu hautatutako objektua beste toki batera, eta uzten duen hutsunea inguruko edukiarekin beteko da. Hedatu moduan, objektua luzatu egiten da mugitu beharrean.
+tool.content_aware_move.choice.move = Mugitu
+tool.content_aware_move.choice.extend = Hedatu
+tool.content_aware_move.history.move = Edukiaren araberako mugimendua
+
+tool.red_eye.name = Begi gorriak
+tool.red_eye.description = Egin klik begi-nini batean flashak eragindako gorria kentzeko.
+tool.red_eye.option.pupil_size = Begi-niniaren tamaina
+tool.red_eye.option.darken = Ilundu
+tool.red_eye.history.red_eye = Begi gorriak
+
+tool.magic_eraser.name = Borragoma magikoa
+tool.magic_eraser.description = Egin klik erakuslearen azpian antzeko kolorea duen eremua ezabatzeko, tresnaren tolerantziaren barruan: klikarekiko albokoa den eremua edo geruza osokoa.
+tool.magic_eraser.option.contiguous = Albokoa
+tool.magic_eraser.history.erase = Borragoma magikoa

@@ -1,0 +1,79 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Werklike pixels
+panel.color.picker = Kleurkieser…
+panel.color.swap = Ruil kleure om
+panel.color.reset = Stel terug na swart en wit
+panel.layers.blending_options = Mengopsies…
+panel.layers.properties = Laageienskappe…
+panel.layers.show_hide = Wys/versteek laag
+panel.layers.toggle_visibility = Wissel sigbaarheid
+panel.history.title = Geskiedenis
+panel.history.opened = Oopgemaak
+
+panel.info.title = Inligting
+panel.info.camera = Kamera
+panel.info.lens = Lens
+panel.info.iso = ISO {iso}
+panel.info.bias = Korreksie
+panel.info.flash_fired = flits het afgegaan
+panel.info.no_flash = geen flits nie
+panel.info.white_balance = Witbalans {wb}
+panel.info.metering = {metering}-ligmeting
+panel.info.taken = Geneem
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · oriëntasie {o}
+panel.info.software = Sagteware
+panel.info.where = Ligging
+
+panel.notes.author = Outeur
+panel.notes.clear_all = Vee alles uit
+panel.notes.unattributed = Sonder outeur
+panel.notes.empty = Klik op die doek om 'n nota te laat.
+panel.notes.placeholder = Klik om te skryf
+
+panel.character.title = Karakter
+panel.character.type_tool = Teksgereedskap (T)
+panel.character.align_left = Belyn links
+panel.character.align_center = Belyn middel
+panel.character.align_right = Belyn regs
+panel.character.text_color = Tekskleur
+panel.character.panel = Karakterpaneel
+panel.character.cancel_edit = Kanselleer tekswysiging
+panel.character.commit_edit = Bevestig tekswysiging
+panel.character.number_tip = {label} · Tik 'n waarde, of gebruik ↑ / ↓ (Shift vir groter treë)
+panel.character.leading = Lynspasiëring
+panel.character.tracking = Letterspasiëring
+panel.character.alignment = Belyning
+panel.character.opentype = OpenType
+panel.character.text_on_path = Teks op 'n pad
+panel.character.straight = Reguit
+panel.character.on_path = Op pad
+panel.character.straight_tip = Gebruik die tekslaag se gewone basislyn
+panel.character.on_path_tip = Gebruik 'n kopie van die aktiewe pad
+panel.character.path_offset = Padafset
+
+panel.ai.title = KI
+panel.ai.empty_editor = Vra vir 'n wysiging en kyk hoe dit op die doek gebeur. Die agent beheer dieselfde gereedskap, filters en opdragte as die kieslyste, met een ontdoenstap vir elk.
+panel.ai.empty_gallery = Vra oor jou foto's en kyk hoe dit in die galery gebeur: die agent kan soek, na duimnaels kyk, selekteer, in groepe sorteer en 'n foto in die redigeerder oopmaak.
+panel.ai.thinking = dink tans…
+panel.ai.placeholder_editor = Vra oor of wysig hierdie dokument
+panel.ai.placeholder_gallery = Vra oor jou foto's
+panel.ai.send = Stuur
+panel.ai.stop = Stop
+panel.ai.fetching_models = Vra die CLI vir sy modelle…
+panel.ai.no_models = Geen modelle stem ooreen nie
+panel.ai.search_models = Soek modelle…
+
+panel.keymap.install_plugin = Installeer inprop
+panel.keymap.save_as_prompt = Stoor as — die uitbreiding bepaal die formaat:

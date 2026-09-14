@@ -1,0 +1,21 @@
+tool.move.name = Ҷойивазкунӣ
+tool.move.description = Муҳтавои қабати фаъолро кашида, ба ҷойи нав гузоред. Агар «Интихоби худкор» фаъол бошад, ҳангоми пахш аввал ҳамон қабат ё тамоми гурӯҳе интихоб мешавад, ки зери нишоннамо аст.
+tool.move.option.auto_select = Интихоби худкор
+tool.move.history.move_layer = Ҷойивазкунии қабат
+
+tool.eyedropper.name = Қатрачакон
+tool.eyedropper.description = Ранги зери нишоннаморо ба намунаи ранги пешзамина бигиред; агар alt дошта шавад, он ба намунаи ранги пасзамина меравад. Ҳангоми кашидан намунагирӣ идома меёбад.
+tool.eyedropper.option.sample_size = Андозаи намуна
+tool.eyedropper.option.sample = Намунагирӣ
+tool.eyedropper.choice.point_sample = Намуна аз як нуқта
+tool.eyedropper.choice.average_3 = Миёнаи 3 бар 3
+tool.eyedropper.choice.average_5 = Миёнаи 5 бар 5
+tool.eyedropper.choice.average_11 = Миёнаи 11 бар 11
+tool.eyedropper.choice.average_31 = Миёнаи 31 бар 31
+tool.eyedropper.choice.all_layers = Ҳамаи қабатҳо
+tool.eyedropper.choice.current_layer = Қабати ҷорӣ
+
+tool.hand.name = Даст
+tool.hand.description = Наморо мекӯчонад. Майдони намоиш ба равзана тааллуқ дорад, бинобар ин дар реҷаи бе интерфейс ин абзор ба ҳуҷҷат таъсир намекунад.
+tool.zoom.name = Миқёс
+tool.zoom.description = Миқёси наморо тағйир медиҳад. Майдони намоиш ба равзана тааллуқ дорад, бинобар ин дар реҷаи бе интерфейс ин абзор ба ҳуҷҷат таъсир намекунад.

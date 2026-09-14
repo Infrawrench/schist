@@ -1,0 +1,54 @@
+# The vector tools (plugins/tools-vector): the pens, the two selection
+# arrows, the shapes and the custom shapes. Mode, Shape, Pixels and Path
+# come from common.lang.
+
+# Pens
+tool.pen.name = পেন
+tool.pen.description = এটা পথ গঢ়ক: চুকৰ বিন্দুৰ বাবে ক্লিক কৰক, তাৰ পৰা বক্ৰৰ হেণ্ডেল উলিয়াবলৈ টানক, আৰু বন্ধ কৰিবলৈ প্ৰথম বিন্দুত ক্লিক কৰক। নিশ্চিত কৰিলে পথটো আকৃতিৰ স্তৰলৈ ৰূপান্তৰ হয়।
+tool.pen.option.rubber_band = ৰবৰৰ ফিটা
+tool.pen.history.fill = পথ পূৰণ
+# The name a freeform or curvature pen gives the path it stores
+tool.pen.default_path_name = পথ {n}
+tool.pen.freeform.name = মুক্তহস্ত পেন
+tool.pen.freeform.description = মুক্তহস্তে ৰেখা টানক; খাপ বিকল্প অনুসৰি তাক শিথিলভাৱে বা সঠিকভাৱে এটা পথৰ সৈতে খাপ খুওৱা হয়।
+tool.pen.freeform.option.fit = খাপ
+tool.pen.curvature.name = বক্ৰতা পেন
+tool.pen.curvature.description = এটাৰ পিছত এটা বিন্দুত ক্লিক কৰক; পথটো সেইবোৰৰ মাজেৰে মসৃণভাৱে বেঁকা হয়।
+
+# The arrows
+tool.path_select.name = পথ নিৰ্বাচন
+tool.path_select.description = পথ নিৰ্বাচন কৰিবলৈ তাত ক্লিক কৰক, আৰু গোটেই পথটো স্থানান্তৰ কৰিবলৈ টানক।
+tool.direct_select.name = প্ৰত্যক্ষ নিৰ্বাচন
+tool.direct_select.description = পথটোৰ আকৃতি সলাবলৈ এটা এংকৰ বিন্দু বা তাৰ হেণ্ডেলবোৰ টানক।
+
+# Shapes. Each has a tool name and a label, which names the layer and the
+# path a drag creates; the history entry for a live shape layer is the
+# label filled into tool.shape.history.layer.
+tool.shape.history.layer = {name} স্তৰ
+tool.shape.rect.name = আয়তক্ষেত্ৰ সঁজুলি
+tool.shape.rect.label = আয়তক্ষেত্ৰ
+tool.shape.rect.description = অগ্ৰভূমিৰ ৰঙত এটা আয়তক্ষেত্ৰ আকৃতিৰ স্তৰ টানি আঁকক; ই ভেক্টৰ হৈ থাকে আৰু আকাৰ সলালে পুনৰ ৰেষ্টাৰাইজ হয়।
+tool.shape.ellipse.name = উপবৃত্ত সঁজুলি
+tool.shape.ellipse.label = উপবৃত্ত
+tool.shape.ellipse.description = অগ্ৰভূমিৰ ৰঙত এটা উপবৃত্ত আকৃতিৰ স্তৰ টানি আঁকক।
+tool.shape.line.name = ৰেখা সঁজুলি
+tool.shape.line.label = ৰেখা
+tool.shape.line.description = অগ্ৰভূমিৰ ৰঙত এটা পোন ৰেখা আকৃতিৰ স্তৰ টানি আঁকক।
+tool.shape.line.option.weight = ওজন
+tool.shape.line.option.arrow_start = আৰম্ভণি
+tool.shape.line.option.arrow_end = শেষ
+tool.shape.polygon.name = বহুভুজ সঁজুলি
+tool.shape.polygon.label = বহুভুজ
+tool.shape.polygon.description = বিকল্পত দিয়া বাহুৰ সংখ্যাৰে অগ্ৰভূমিৰ ৰঙত এটা নিয়মীয়া বহুভুজ আকৃতিৰ স্তৰ টানি আঁকক।
+tool.shape.polygon.option.sides = বাহু
+
+# Custom shapes
+tool.shape.custom.name = স্বনিৰ্বাচিত আকৃতি
+tool.shape.custom.label = স্বনিৰ্বাচিত আকৃতি
+tool.shape.custom.description = আকৃতি বিকল্পৰে বাছি লোৱা অন্তৰ্নিৰ্মিত পূৰ্বছেট আকৃতিসমূহৰ এটা টানি আঁকক।
+tool.shape.custom.choice.heart = হৃদয়
+tool.shape.custom.choice.star = তৰা
+tool.shape.custom.choice.arrow = কাঁড়
+tool.shape.custom.choice.lightning = বিজুলী
+tool.shape.custom.choice.cross = ক্ৰছ
+tool.shape.custom.choice.speech_bubble = কথাৰ বেলুন

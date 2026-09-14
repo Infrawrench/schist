@@ -1,0 +1,24 @@
+tool.artboard.name = Plan travay
+tool.artboard.description = Trennen pou trase yon plan travay: yon zòn twal la ki gen non epi ki ekspòte poukont li. Si w trennen anndan youn ki deja la, sa deplase li.
+tool.artboard.default_name = Plan travay {n}
+
+tool.slice.name = Tranch
+tool.slice.description = Trennen pou trase yon tranch ekspòtasyon, yon rektang twal la ki gen non epi ki ekspòte kòm pwòp imaj pa li. Si w trennen anndan youn ki deja la, sa deplase li.
+tool.slice.default_name = Tranch {n}
+
+tool.frame.name = Kad
+tool.frame.description = Trennen pou trase yon kad: yon kouch rektangilè (oswa eliptik) ki maske nenpòt bagay yo mete ladan l.
+tool.frame.default_name = Kad {n}
+tool.frame.choice.rectangle = Rektang
+tool.frame.choice.ellipse = Elips
+tool.frame.history.frame = Kad
+
+tool.note.name = Nòt
+tool.note.description = Klike sou yon pati vid nan twal la pou fikse yon nòt la, avèk otè a ak koulè ki nan eta editè a; klike sou yon makè ki deja la pou chwazi l nan pano Nòt la.
+tool.note.history.place = Mete nòt
+tool.note.history.move = Deplase nòt
+tool.note.history.delete = Efase nòt
+
+tool.count.name = Kontaj
+tool.count.description = Klike pou depoze makè kontaj nimewote sou twal la, epi klike sou youn ki deja la pou retire l.
+tool.count.default_name = Kontaj {n}

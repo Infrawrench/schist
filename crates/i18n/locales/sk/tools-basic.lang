@@ -1,0 +1,21 @@
+tool.move.name = Presun
+tool.move.description = Potiahnutím presuňte obsah aktívnej vrstvy na nové miesto. Keď je zapnutý automatický výber, pri stlačení sa najprv vyberie vrstva alebo celá skupina pod ukazovateľom.
+tool.move.option.auto_select = Automatický výber
+tool.move.history.move_layer = Presunúť vrstvu
+
+tool.eyedropper.name = Kvapkadlo
+tool.eyedropper.description = Odoberie farbu pod ukazovateľom do vzorky farby popredia, prípadne do vzorky farby pozadia, ak držíte Alt. Pri ťahaní sa farba odoberá priebežne.
+tool.eyedropper.option.sample_size = Veľkosť vzorky
+tool.eyedropper.option.sample = Vzorka
+tool.eyedropper.choice.point_sample = Bodová vzorka
+tool.eyedropper.choice.average_3 = Priemer 3 × 3
+tool.eyedropper.choice.average_5 = Priemer 5 × 5
+tool.eyedropper.choice.average_11 = Priemer 11 × 11
+tool.eyedropper.choice.average_31 = Priemer 31 × 31
+tool.eyedropper.choice.all_layers = Všetky vrstvy
+tool.eyedropper.choice.current_layer = Aktuálna vrstva
+
+tool.hand.name = Ruka
+tool.hand.description = Posúva zobrazenie. Zobrazovaná oblasť patrí oknu, preto tento nástroj v režime bez grafického rozhrania dokument nijako nemení.
+tool.zoom.name = Lupa
+tool.zoom.description = Mení mierku zobrazenia. Zobrazovaná oblasť patrí oknu, preto tento nástroj v režime bez grafického rozhrania dokument nijako nemení.

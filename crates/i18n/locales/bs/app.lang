@@ -1,0 +1,39 @@
+app.filter_gallery.title = Galerija filtera
+app.filter_gallery.stack = Niz (primjenjuje se odozdo prema gore)
+app.filter_gallery.no_settings = Ovaj filter nema postavki.
+
+app.fonts.not_open_licensed = nema otvorenu licencu · {substitute} ima jednake metrike
+app.fonts.missing_substituted = nedostaje · tekst se prikazuje zamjenskim fontom
+app.fonts.not_in_catalogue = {family} nije u katalogu otvorenih fontova
+app.fonts.no_faces = nema dostupnih rezova fonta za preuzimanje za {family}
+app.fonts.empty_response = prazan odgovor
+
+app.update.unreadable_response = odgovor nije moguće pročitati: {error}
+app.update.no_temp_dir = nema privremenog direktorija za preuzimanje
+app.update.asset_has_path = naziv resursa u izdanju sadrži putanju
+app.update.too_big = preuzeta datoteka veća je nego što navodi izdanje
+app.update.stopped_at = preuzimanje je zaustavljeno na {got} od {total} bajtova
+app.update.hash_mismatch = sažetak preuzete datoteke je {got}, a ne {want}
+app.update.not_in_bundle = ova kopija nije unutar paketa aplikacije
+app.update.no_parent_dir = paket aplikacije nema nadređeni direktorij
+app.update.cannot_write = nije moguće pisati u {dir}
+app.update.cannot_move_aside = nije moguće premjestiti {app} u stranu
+app.update.cannot_move_in = nije moguće postaviti novi paket na njegovo mjesto
+app.update.cannot_run_ditto = nije moguće pokrenuti /usr/bin/ditto
+app.update.unpack_failed = raspakivanje preuzete datoteke nije uspjelo: {error}
+app.update.no_app_in_download = preuzeta datoteka ne sadrži Schist.app
+app.update.cannot_run_codesign = nije moguće pokrenuti /usr/bin/codesign
+app.update.signature_invalid = potpis preuzete datoteke nije valjan: {error}
+app.update.download_unsigned = ova kopija je potpisana, a preuzeta kopija nije
+app.update.different_developer = preuzetu datoteku potpisao je drugi programer
+app.update.cannot_relaunch = nije moguće pokrenuti program za ponovno pokretanje
+app.update.not_installed_copy = instalacijski program nije postavio ovu kopiju ovdje
+app.update.cannot_start_installer = nije moguće pokrenuti instalacijski program
+app.update.platform_unsupported = ažuriranja na ovoj platformi instaliraju se na način na koji je instaliran Schist
+
+app.vulkan.no_loader = schist: na ovom sistemu nema Vulkan učitavača, pa nema čime iscrtavati.\n\nSchist iscrtava pomoću Vulkana, a `libvulkan.so.1` nije instaliran.\nPotrebni su i učitavač i upravljački program:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan upravljački program na koji ova sesija upućuje ne postoji.\n\nVarijabla {var} je postavljena, a njeno postavljanje *zamjenjuje* pretragu\nupravljačkih programa koju vrši učitavač umjesto da joj dodaje lokacije. Zato su ove\nnepostojeće datoteke cijeli spisak upravljačkih programa — i nijedan Vulkan program\nu ovoj sesiji uopće ne vidi upravljački program, bez obzira koliko ih je instalirano:\n\n{missing}\n    {var}={value}\n\nUsmjerite je na postojeći manifest — instalirani upravljački programi svoje manifeste\nsmještaju u /usr/share/vulkan/icd.d — ili je poništite i prepustite učitavaču da ih pronađe.\nAko sesija ovu vrijednost postavlja iz konfiguracijske datoteke (Hyprlandov `env =`,\nsystemd environment.d dodatak, profil ljuske), treba je promijeniti upravo tamo,\na da bi promjena stigla do već pokrenutih programa, morate se ponovo prijaviti.\n
+app.vulkan.override_note = \nVarijabla {var} postavljena je na {value}, čime se zamjenjuje vlastita pretraga\nučitavača: ako nijedan od tih manifesta nije za ovaj računar, prvo pokušajte\nponištiti tu varijablu.\n
+app.vulkan.no_driver = schist: nijedan Vulkan upravljački program nije instaliran, pa nema čime iscrtavati.\n\nSchist iscrtava pomoću Vulkana. Učitavač je instaliran, ali ne prijavljuje nijedan\nupravljački program — nijedan nije registriran ni na jednoj od lokacija na kojima se traže:\n\n{dirs}\n\nUčitavač se isporučuje odvojeno od upravljačkih programa, pa obično nedostaje samo\njedan paket.\n\nInstalirajte paket za grafički procesor ovog računara:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA vlasnički upravljački program dolazi sa svojim paketom (`nvidia-utils` na Archu,\n`nvidia-driver` na Debianu). U virtualnoj mašini ili bilo gdje gdje nema upravljačkog\nprograma za grafički procesor koji se može instalirati radi softverski rasterizator:\n`vulkan-swrast` na Archu, a drugdje je dio paketa `mesa-vulkan-drivers`. Spor je, ali se pokreće.\n{overridden}
+app.vulkan.no_device = schist: Vulkan upravljački program je instaliran, ali ne nudi uređaj na kojem se može iscrtavati.\n\nUpravljački program možda ne podržava ovaj grafički procesor ili mu ne može pristupiti —\npreko SSH-a ili unutar kontejnera često nedostaje /dev/dri. Naredba\n`vulkaninfo --summary` prikazuje šta učitavač vidi.\n\nSoftverski rasterizator iscrtava i bez grafičkog procesora, ako je to potrebno ovom\nračunaru: `vulkan-swrast` na Archu, a na Debianu i Fedori dio je paketa\n`mesa-vulkan-drivers`.\n
+app.vulkan.skip_hint = Da biste ipak pokrenuli Schist i pustili ga da zakaže na svoj način, postavite {var}=1.

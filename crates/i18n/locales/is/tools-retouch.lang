@@ -1,0 +1,27 @@
+# Bót
+tool.patch.name = Bót
+tool.patch.description = Dragðu útlínu utan um galla og dragðu síðan valið yfir á hreina mynddíla: áferðin þaðan er felld inn í gallann. Bótarhamurinn ræður hvor enda parsins þú dregur.
+tool.patch.option.patch = Bót
+tool.patch.choice.source = Uppruni
+tool.patch.choice.destination = Áfangastaður
+tool.patch.history.patch = Bót
+
+# Innihaldsmeðvituð færsla
+tool.content_aware_move.name = Innihaldsmeðvituð færsla
+tool.content_aware_move.description = Dragðu valinn hlut á annan stað og gatið sem hann skilur eftir er fyllt út frá umhverfinu. Í framlengingarham er hluturinn teygður í stað þess að vera færður.
+tool.content_aware_move.choice.move = Færa
+tool.content_aware_move.choice.extend = Framlengja
+tool.content_aware_move.history.move = Innihaldsmeðvituð færsla
+
+# Rauð augu
+tool.red_eye.name = Rauð augu
+tool.red_eye.description = Smelltu á sjáaldur til að fjarlægja rauðan lit frá leifturljósi.
+tool.red_eye.option.pupil_size = Stærð sjáaldurs
+tool.red_eye.option.darken = Dekkja
+tool.red_eye.history.red_eye = Rauð augu
+
+# Töfrastrokleður
+tool.magic_eraser.name = Töfrastrokleður
+tool.magic_eraser.description = Smelltu til að eyða svæðinu með svipuðum lit undir bendlinum, innan vikmarka verkfærisins — annaðhvort samliggjandi smellinum eða alls staðar í laginu.
+tool.magic_eraser.option.contiguous = Samliggjandi
+tool.magic_eraser.history.erase = Töfrastrokleður

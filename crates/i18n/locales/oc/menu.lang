@@ -1,0 +1,153 @@
+# Fichièr
+menu.file = Fichièr
+menu.file.new = Novèl
+menu.file.open = Dobrir…
+menu.file.open_recent = Dobrir un fichièr recent
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Percórrer la galariá…
+menu.file.close = Tampar
+menu.file.save = Enregistrar
+menu.file.save_as = Enregistrar jos…
+menu.file.export = Exportar…
+menu.file.export_submenu = Exportar
+menu.file.export_artboards = Exportar los plans de trabalh en PNG…
+menu.file.export_slices = Exportar los trencadisses en PNG…
+menu.file.save_to_photos = Enregistrar dins Fòtos
+menu.file.plugins = Moduls extèrnes…
+menu.file.missing_fonts = Poliças mancantas…
+menu.file.check_for_updates = Cercar de mesas a jorn…
+menu.file.quit = Quitar
+menu.file.add_folder_to_gallery = Apondre un dorsièr a la galariá…
+menu.file.import_from_photos = Importar dempuèi Fòtos…
+menu.file.import_from_camera = Importar dempuèi la camera…
+
+# Edicion
+menu.edit = Edicion
+menu.edit.fill = Emplenar…
+menu.edit.stroke = Traçar lo contorn…
+menu.edit.content_aware_fill = Emplenatge adaptat al contengut
+menu.edit.content_aware_scale = Mesa a l'escala adaptada al contengut…
+menu.edit.puppet_warp = Deformacion de marioneta
+menu.edit.free_transform = Transformacion liura
+menu.edit.transform = Transformar
+menu.edit.rotate_180 = Virar de 180°
+menu.edit.rotate_90_cw = Virar de 90° cap a drecha
+menu.edit.rotate_90_ccw = Virar de 90° cap a esquèrra
+menu.edit.flip_horizontal = Revirar orizontalament
+menu.edit.flip_vertical = Revirar verticalament
+
+# Imatge
+menu.image = Imatge
+menu.image.mode = Mòde
+menu.image.adjustments = Ajustaments
+menu.image.auto_tone = Ton automatic
+menu.image.auto_contrast = Contraste automatic
+menu.image.auto_color = Color automatica
+menu.image.image_size = Talha de l'imatge…
+menu.image.canvas_size = Talha de la tela…
+menu.image.image_rotation = Rotacion de l'imatge
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° cap a drecha
+menu.image.rotate_90_ccw = 90° cap a esquèrra
+menu.image.flip_canvas_horizontal = Revirar la tela orizontalament
+menu.image.flip_canvas_vertical = Revirar la tela verticalament
+menu.image.crop_to_selection = Retalhar segon la seleccion
+menu.image.trim = Levar los bòrds
+menu.image.assign_profile = Assignar un perfil…
+menu.image.convert_to_profile = Convertir cap al perfil…
+
+# Seleccion
+menu.select = Seleccion
+menu.select.color_range = Plaja de colors…
+menu.select.modify = Modificar
+menu.select.border = Bordadura…
+menu.select.smooth = Adocir…
+menu.select.expand = Espandir…
+menu.select.contract = Contractar…
+menu.select.feather = Crear un contorn progressiu…
+menu.select.transform_selection = Transformar la seleccion
+
+# Calc
+menu.layer = Calc
+menu.layer.layer_style = Estil de calc…
+menu.layer.layer_comps = Composicions de calques
+menu.layer.new_layer_comp = Composicion de calques novèla
+menu.layer.delete_layer_comp = Suprimir {name}
+menu.layer.path = Camin
+menu.layer.fill_path = Emplenar lo camin
+menu.layer.stroke_path = Traçar lo contorn del camin
+menu.layer.make_selection = Crear una seleccion
+menu.layer.delete_path = Suprimir lo camin
+
+# Ajustar
+menu.adjust = Ajustar
+
+# Filtre
+menu.filter = Filtre
+menu.filter.filter_gallery = Galariá de filtres…
+menu.filter.liquify = Liquefaccion
+menu.filter.vanishing_point = Punt de fugida
+menu.filter.manage_models = Gerir los modèls…
+menu.filter.camera_raw_development = Desvolopament Camera Raw…
+
+# Afichatge
+menu.view = Afichatge
+menu.view.rotate_view_cw = Virar la vista cap a drecha
+menu.view.rotate_view_ccw = Virar la vista cap a esquèrra
+menu.view.reset_view = Reïnicializar la vista
+menu.view.zoom_in = Aumentar lo zoom
+menu.view.zoom_out = Redusir lo zoom
+menu.view.fit_on_screen = Ajustar a l'ecran
+menu.view.actual_size = 100%
+menu.view.rulers = Règlas
+menu.view.grid = Grasilha
+menu.view.guides = Guidas
+menu.view.notes = Nòtas
+menu.view.ai_panel = Panèl d'IA
+menu.view.extras = Suplements
+menu.view.snap = Alinhament automatic
+menu.view.clear_guides = Escafar los guidas
+menu.view.clear_notes = Escafar las nòtas
+menu.view.clear_count = Escafar lo comptatge
+menu.view.screen_mode = Mòde d'ecran
+menu.view.proof_colors = Colors d'espròva
+menu.view.show_rulers = Mostrar las règlas
+menu.view.hide_rulers = Amagar las règlas
+menu.view.show_grid = Mostrar la grasilha
+menu.view.hide_grid = Amagar la grasilha
+menu.view.show_guides = Mostrar los guidas
+menu.view.hide_guides = Amagar los guidas
+menu.view.show_notes = Mostrar las nòtas
+menu.view.hide_notes = Amagar las nòtas
+menu.view.show_extras = Mostrar los suplements
+menu.view.hide_extras = Amagar los suplements
+menu.view.enable_snapping = Activar l'alinhament automatic
+menu.view.disable_snapping = Desactivar l'alinhament automatic
+menu.view.enable_proof_colors = Activar las colors d'espròva
+menu.view.disable_proof_colors = Desactivar las colors d'espròva
+
+# Galariá
+menu.gallery = Galariá
+menu.gallery.edit_selected = Modificar la seleccion
+menu.gallery.refresh = Actualizar
+menu.gallery.map_filter = Filtre de mapa…
+menu.gallery.back_to_editor = Tornar a l'editor
+
+# Schist Cloud
+menu.cloud.browse = Percórrer Schist Cloud
+menu.cloud.generate = Generar d'imatges…
+menu.cloud.upload = Mandar lo document a Schist Cloud…
+menu.cloud.sign_out = Se desconnectar de Schist Cloud
+menu.cloud.sign_in = Se connectar a Schist Cloud…
+
+# Menú de l'aplicacion macOS
+menu.app.services = Servicis
+menu.app.hide = Amagar {app}
+menu.app.hide_others = Amagar los autres
+menu.app.show_all = Mostrar tot
+menu.app.quit = Quitar {app}
+
+# Responsas de la barra d'estat
+menu.status.transform_selection_needs_selection = Transformar la seleccion requerís una seleccion
+menu.status.crop_needs_selection = Retalhar segon la seleccion requerís una seleccion
+menu.status.select_photo_to_edit = Seleccionatz una fòto de modificar

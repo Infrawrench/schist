@@ -1,0 +1,237 @@
+dialog.save_ellipsis = Vhulunga…
+dialog.use_foreground = Shumisa Muvhala wa Phanḓa
+dialog.downloading = I khou dawuniḽoda…
+dialog.downloading_of = I khou dawuniḽoda… {got} kha {total}
+dialog.no_config_dir = (a hu na foḽuda ya nzudzanyo)
+
+dialog.layer_props.title = Zwivhumbeo zwa Ḽeyara
+
+dialog.export.format = Fomathi
+dialog.export.dither = Dither
+dialog.export.dither_note = Shumisa dither musi hu tshi fhungudzwa u ya kha 8-bit
+dialog.export.export_ellipsis = Rumela…
+
+dialog.batch.title = Dzudzanya Zwinepe
+dialog.batch.note_edit.one = Tshinepe {n} — tsho vhulungwa sa nzudzanyo ya gaḽari; tsha u thoma a tshi kwamiwi na luthihi.
+dialog.batch.note_edit.other = Zwinepe {n} — zwo vhulungwa sa nzudzanyo dza gaḽari; zwa u thoma a zwi kwamiwi na luthihi.
+dialog.batch.note_edit_edited.one = Tshinepe {n}; tshivhalo tsho no dzudzanywaho ndi {edited} — risepe i engedzwa nṱha ha nzudzanyo, nahone nzudzanyo ya kale i vhulungwa sa vesheni.
+dialog.batch.note_edit_edited.other = Zwinepe {n}; tshivhalo tsho no dzudzanywaho ndi {edited} — risepe i engedzwa nṱha ha nzudzanyo, nahone nzudzanyo ya kale iṅwe na iṅwe i vhulungwa sa vesheni.
+dialog.batch.note_copies.one = Tshinepe {n} — khophi yo ṱanganyiswaho; tsha u thoma a tshi kwamiwi na luthihi.
+dialog.batch.note_copies.other = Zwinepe {n} — dzikhophi dzo ṱanganyiswaho; zwa u thoma a zwi kwamiwi na luthihi.
+dialog.batch.note_copies_edited.one = Tshinepe {n}; tshivhalo tsho no dzudzanywaho ndi {edited} — khophi i itwa i tshi bva kha nzudzanyo.
+dialog.batch.note_copies_edited.other = Zwinepe {n}; tshivhalo tsho no dzudzanywaho ndi {edited} — dzikhophi dzi itwa dzi tshi bva kha nzudzanyo.
+dialog.batch.turn = Monisa
+dialog.batch.rotate = Monisa
+dialog.batch.flip = Shandukisa
+dialog.batch.upscale = Engedza Saizi
+dialog.batch.colour = Muvhala
+dialog.batch.add_adjustment = Nzudzanyo…
+dialog.batch.output = Mvelelo
+dialog.batch.save_as = Vhulunga sa
+dialog.batch.process = Dzudzanya
+dialog.batch.process_n = Dzudzanya {n}
+dialog.batch.nothing_to_do = A hu na tshine tsha nga itwa: thomani nga u nanga u monisa, u engedza saizi kana nzudzanyo
+
+dialog.content_aware_scale.title = Shandula Saizi u tshi Ṱhogomela zwi re Ngomu
+dialog.content_aware_scale.note = I bvisa zwipiḓa zwi sa vhonaliho nga maanḓa. Zwo nangiwaho zwi sumbedza zwine zwa tea u tsireledzwa.
+
+dialog.stroke.title = Mutalo
+dialog.stroke.location = Fhethu
+dialog.stroke.inside = Ngomu
+dialog.stroke.outside = Nnḓa
+dialog.stroke.note = I ola mutalo kha zwo nangiwaho nga muvhala wa phanḓa.
+
+dialog.fill.contents = Zwi re Ngomu
+
+dialog.color_range.title = Tshikhala tsha Mivhala
+dialog.color_range.sampled = Zwo Dzhiiwaho Tsumbo
+dialog.color_range.fuzziness = U Sa Fhambanyisa
+dialog.color_range.note = I nanga dzipixel dzi re tsini na muvhala wo dzhiiwaho tsumbo kha ḽeyara i shumaho.
+
+dialog.file_picker.up = ↑ Nṱha
+dialog.file_picker.empty = A hu na tshithu hafha
+dialog.file_picker.choose_folder = Nanga Foḽuda iyi
+
+dialog.filter.camera_raw_development = U Bveledza Camera Raw
+dialog.filter.reset_as_shot = Vhuedzedza kha Zwo Farwaho
+dialog.filter.raw_note = I dovha ya bveledza ḽeyara i shumaho u bva kha data ya sensara ya u thoma.
+dialog.filter.note = I shuma kha ḽeyara i shumaho, ngomu ha zwo nangiwaho.
+
+dialog.fonts.title = Dzifonto dzi Siho
+dialog.fonts.install_named = Dzhenisa {name}
+dialog.fonts.no_document = A hu na ḽiṅwalo ḽo vulwaho, ngauralo a hu na tshine tsha nga ṱoliwa.
+dialog.fonts.all_installed = Fonto iṅwe na iṅwe ine ḽiṅwalo iḽi ḽa i shumisa yo dzheniswa. Maṅwalo aḽo o dzudzanywa nga fonto dze a vhewa ngadzo.
+dialog.fonts.missing_intro = Ḽiṅwalo iḽi ḽo dzudzanywa nga dzifonto dzine ni si vhe nadzo. Maṅwalo a a vhalea nga fonto ya vhudzulo, fhedzi vhuphara hao na hune mitalo ya pfuka hone a zwi fani na zwe a dzudzanywa ngazwo.
+dialog.fonts.footer = Zwi dawuniḽodiwa zwi bva kha khaṱalogo yo vuleaho ya Google Fonts nahone zwi vhulungwa kha {dir}. Fonto i si na ḽaisentsi yo vuleaho a i dawuniḽodiwi na luthihi — hune ha vha na tshivhumbeo tsha mbofholowo tshi fanaho nga zwikalo, hu kumedzwa tshenetsho nṱhani hayo; tshi vhuedzedza nzudzanyo ngauri vhuphara ha u sudzulusa maḽeḓere vhu a fana.
+dialog.fonts.user_font_dir = foḽuda yaṋu ya fonto
+
+dialog.models.title = Dzimoḓelo dza Neural Filters
+dialog.models.built_in = Yo dzheniswa ngomu · {size}
+dialog.models.installed = Yo dzheniswa · {size}
+dialog.models.not_installed = A yo ngo dzheniswa · {size}
+dialog.models.not_in_browser = A i wanali kha browser · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Dzimoḓelo dzi vhulungwa kha {dir}. Dzi-fiḽithara dzi si na modele dzi shumisa u dzudzanya masaini nṱhani hayo nahone dzi a zwi amba.
+
+dialog.new_doc.title = Ḽiṅwalo Ḽiswa
+dialog.new_doc.picker_title = Faela Ntswa
+dialog.new_doc.custom_ellipsis = Zwo Dzudzanywaho…
+dialog.new_doc.preset = Zwo Dzudzanywaho Kale
+dialog.new_doc.preset_default = Zwo Ḓoweleaho (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Tshikwea (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Bammbiri ḽa US, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Sika
+dialog.new_doc.created = Ḽiṅwalo ḽiswa: {w} × {h} px
+
+dialog.open.image_title = Vula Tshifanyiso
+dialog.open.image_prompt = Vulani “{name}” kha thebu ntswa, kana ni tshi engedze kha ḽiṅwalo ḽa zwino sa ḽeyara ntswa?
+dialog.open.new_tab = Thebu Ntswa
+dialog.open.new_layer = Ḽeyara Ntswa
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = faela iyi {n}
+dialog.open.these_files.other = dzifaela idzi {n}
+dialog.open.shared_title_one = Tshifanyiso tsho Kovhekanywaho
+dialog.open.shared_title_many = Zwifanyiso zwo Kovhekanywaho
+dialog.open.shared_prompt = Engedza {what} kha gaḽari, kana ni vule kha musengulusi?
+dialog.open.add_to_gallery = Engedza kha Gaḽari
+dialog.open.open_in_editor = Vula kha Musengulusi
+dialog.open.heic_title = Thikhedzo ya HEIC
+dialog.open.heic_needs_decoder = U vula “{name}” zwi ṱoḓa dekhouda ya HEVC, ine ya si vhe yo dzheniswa kha sisiteme iyi.
+dialog.open.heic_offer = Schist i nga dawuniḽoda build ya libheif {version} ya u dekhouda fhedzi ine ya vha na dekhouda ya libde265 HEVC (≈5 MB). Dzoṱhe dzi na ḽaisentsi ya LGPL-3.0; maṅwalo a ḽaisentsi adzo a dzheniswa tsini na laiburari, nahone khoudu ya tshiko i wanala kha siaṱari ḽa thandela.
+dialog.open.licenses_source = Dziḽaisentsi na Tshiko
+dialog.open.folders_title = Dzifoḽuda dzo Wiswaho
+dialog.open.n_folders.one = foḽuda {n}
+dialog.open.n_folders.other = dzifoḽuda {n}
+dialog.open.open_in_tabs = Vula kha Dzithebu
+dialog.open.open_first_in_tabs = Vula dza u Thoma {n} kha Dzithebu
+dialog.open.open_n_in_tabs.one = Vula {n} kha Thebu
+dialog.open.open_n_in_tabs.other = Vula {n} kha Dzithebu
+dialog.open.folder_holds.one = {what} hu na tshifanyiso {n} tshine Schist ya nga tshi vula (na dzifoḽuda dza nga ngomu).
+dialog.open.folder_holds.other = {what} hu na zwifanyiso {n} zwine Schist ya nga zwi vula (na dzifoḽuda dza nga ngomu).
+dialog.open.folders_note = U Engedza kha Gaḽari zwi sedza dzifoḽuda dzi henefho — a hu na tshine tsha kopiwa, nahone nzudzanyo dzi vhulungwa sa dzivesheni tsini na tshinepe tshiṅwe na tshiṅwe. U vula kha dzithebu zwi longela tshifanyiso tshiṅwe na tshiṅwe kha musengulusi zwino.
+
+dialog.plugins.title = Dzi-plug-in
+dialog.plugins.kind_filter = fiḽithara
+dialog.plugins.kind_format = fomathi
+dialog.plugins.kind_unavailable = a i wanali
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Dzi-plug-in dzi longela dzi tshi bva kha {dir}
+dialog.plugins.none = A hu athu dzheniswa plug-in.
+dialog.plugins.install_ellipsis = Dzhenisa…
+dialog.plugins.photoshop_heading = Dzi-plug-in dza Photoshop
+dialog.plugins.loaded_from = Dzo longelwa dzi tshi bva kha {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Zwine na zwi Takalela
+dialog.prefs.theme = Thero
+dialog.prefs.theme_dark = Ya Swiswi
+dialog.prefs.theme_light = Ya Tshedza
+dialog.prefs.grid_spacing = Tshikhala tsha giridi
+dialog.prefs.snapping = U Nambatela
+dialog.prefs.snap_to = Nambatela kha tsumbanḓila, giridi na meme dza khanvasi
+dialog.prefs.rendering_intent = Ndivho ya u sumbedza
+dialog.prefs.intent_perceptual = Ya mbonalo ya vhukuma
+dialog.prefs.intent_relative = Colorimetric i Elanaho
+dialog.prefs.intent_saturation = U Ḓala ha Muvhala
+dialog.prefs.intent_absolute = Colorimetric yo Fhelelaho
+dialog.prefs.scrolling = U Suvha
+dialog.prefs.zoom_with_scroll = Hudza nga luṱinga lwa u suvha
+dialog.prefs.rendering = U Sumbedza
+dialog.prefs.gpu_compositing = U ṱanganyisa nga GPU
+dialog.prefs.diagnostics = U Ṱola Vhukhakhi
+dialog.prefs.crash_reports = Ṅwala muvhigo wa u wa ha app kha khomphyutha musi hu na panic
+dialog.prefs.crash_upload = U dovhe ni u rumele kha vhabveledzi
+dialog.prefs.telemetry = Rumela mulaedza wa ḓuvha na ḓuvha u si na dzina
+dialog.prefs.diagnostics_note = Nzudzanyo dza u ṱola vhukhakhi dzi shuma musi Schist i tshi dovha ya thoma.
+dialog.prefs.updates = Khwiniso
+dialog.prefs.check_updates = Ṱola khwiniso ntswa musi app i tshi thoma
+dialog.prefs.keyboard_shortcuts = Nḓila pfufhi dza khiibodo: {path}
+dialog.prefs.nsfw_needs_model = Zwi ṱoḓa modele wa Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = u dawuniḽodeni kha Langula Dzimoḓelo…
+dialog.prefs.hide_flagged = Dzumba zwinepe zwo swaiwaho
+
+dialog.profile.profile = Phurofaiḽi
+dialog.profile.assign_title = Ṋea Phurofaiḽi
+dialog.profile.convert_title = Shandukisela kha Phurofaiḽi
+dialog.profile.assign = Ṋea
+dialog.profile.convert = Shandukisela
+dialog.profile.assign_note = I dovha ya ṱalutshedza ndeme dza dzipixel dzi re hone fhasi ha phurofaiḽi ntswa.
+dialog.profile.convert_note = I ṅwala ndeme dza dzipixel hafhu uri mivhala i dzule i tshi vhonala nga nḓila yeneyo.
+
+dialog.save_image.title = Vhulunga Tshifanyiso Sa
+dialog.save_image.note = {name} — nzudzanyo, arali i hone; tsha u thoma a tshi kwamiwi na luthihi.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Saizi ya Tshifanyiso
+dialog.size.canvas_title = Saizi ya Khanvasi
+dialog.size.constrain = Vhea Mikano
+dialog.size.keep_proportions = Vhulunga vhushaka ha saizi
+dialog.size.resample = Dovha u vhala dzipixel
+dialog.size.bicubic = Bicubic
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Muhura wa Tsini-tsini
+dialog.size.anchor = Tshifareli
+dialog.size.currently = Zwino ndi {w} × {h} px
+dialog.size.image_size_status = Saizi ya tshifanyiso: {w} × {h}
+dialog.size.canvas_size_status = Saizi ya khanvasi: {w} × {h}
+
+dialog.update.title = Khwiniso i Hone
+dialog.update.available = Schist {version} i hone. Khophi iyi ndi {current}.
+dialog.update.installing = I khou dzhenisa khwiniso…
+dialog.update.can_install = Schist i nga i dawuniḽoda ({size}) ya i dzhenisa nṱha ha khophi iyi.
+dialog.update.external = Khophi iyi yo bva huṅwe hune ha i langa — mulanguli wa phakhethi, AppImage, kana build yaṋu — ngauralo i khwiniswa nga nḓila ye ya dzheniswa ngayo.
+dialog.update.later = Nga Murahu
+dialog.update.release_notes = Notsi dza Vesheni
+dialog.update.update_restart = Khwinisa ni Thome Hafhu
+dialog.update.open_page = Vula Siaṱari ḽa Vesheni
+
+dialog.style.title = Tshitaela tsha Ḽeyara
+dialog.style.bevel = Bevel na Emboss
+dialog.style.stroke = Mutalo
+dialog.style.inner_shadow = Murunzi wa Ngomu
+dialog.style.inner_glow = U Penya ha Ngomu
+dialog.style.satin = Satin
+dialog.style.color_overlay = U Fukedza Muvhala
+dialog.style.gradient_overlay = U Fukedza Gradient
+dialog.style.outer_glow = U Penya ha Nnḓa
+dialog.style.drop_shadow = Murunzi wo Wiswaho
+dialog.style.blur = U Fhungudza u Vhonala Zwavhuḓi ha Gaussian
+dialog.style.gradient_from = U Fukedza Gradient u Bva kha
+dialog.style.gradient_to = U Fukedza Gradient u ya kha
+dialog.style.soften = Tsenzheledza
+dialog.style.depth = Vhudzivha
+dialog.style.altitude = Vhunṱha
+dialog.style.highlight = Tshipiḓa tshi Penyaho
+dialog.style.shadow = Murunzi
+dialog.style.outer_bevel = Bevel ya Nnḓa
+dialog.style.inner_bevel = Bevel ya Ngomu
+dialog.style.emboss = Emboss
+dialog.style.pillow_emboss = Emboss ya Tshisiamelo
+dialog.style.linear = Mutalo wo Tsireledzaho
+dialog.style.radial = U bva Vhukati
+dialog.style.reverse = Humisela Murahu
+dialog.style.from_to = U Bva / U ya
+dialog.style.from_fg = U bva = FG
+dialog.style.to_fg = U ya = FG
+dialog.style.precise = Zwo Teaho
+dialog.style.knockout = Ḽeyara i bvisa murunzi wo wiswaho
+
+dialog.color_picker.title = Munangi wa Muvhala ({what})
+dialog.color_picker.effect_color = Muvhala wa {effect}
+dialog.color_picker.note_color = Muvhala wa Notsi
+dialog.color_picker.new = muswa
+dialog.color_picker.current = wa zwino
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Vhuedzedza Tshanele
+dialog.curves.hint = Kokodza u ita tshivhumbeo · kwama u engedza · kwama no fara alt u bvisa
+
+dialog.prefs.camera_sync = Camera roll
+dialog.prefs.camera_sync_enabled = Ita khophi ya u tsireledza kha Schist Cloud
+dialog.prefs.camera_sync_sign_in = Dzhena kha Schist Cloud uri ni ite khophi ya u tsireledza ya camera roll yaṋu.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Shandula…

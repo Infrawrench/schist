@@ -1,0 +1,102 @@
+# Baara yɔrɔ
+workspace.fill.gray_50 = 50% Bugurinjɛ
+workspace.fill.content_aware = Kɔnɔkow faamuyalen
+
+workspace.modify.expand = Sugandili bonya
+workspace.modify.contract = Sugandili dɔgɔya
+workspace.modify.border = Sugandili kɛrɛ
+workspace.modify.smooth = Sugandili nɔgɔnya
+workspace.modify.feather = Sugandili kɛrɛ nɔgɔnya
+
+workspace.batch.target.edit = Galeri labɛnniw (vɛrisiyɔn maralenw)
+workspace.batch.target.beside = Kopiw bɔyɔrɔlaw dafɛ
+workspace.batch.target.folder = Kopiw fɔldɛri dɔ kɔnɔ…
+
+workspace.modal.image_size.title = Ja bonya
+
+workspace.docs.opening = {name} bɛ dayɛlɛ…
+workspace.docs.opened = {name} dayɛlɛla
+workspace.docs.open_failed = Dayɛlɛli ma se: {error}
+workspace.docs.no_codec = {name} tɛ dosiyɛ cogoya ye min Schist bɛ se ka dayɛlɛ
+workspace.docs.no_exporter = Schist tɛ se ka .{ext} dosiyɛ mara
+workspace.docs.empty_response = Server ye jaabi lankolon ci
+workspace.docs.heic_not_installed = HEIC dɛmɛ ma sigindi
+workspace.docs.heic_downloading = HEIC dɛmɛ bɛ telesarize (libheif {version})…
+workspace.docs.heic_installed = HEIC dɛmɛ sigira
+workspace.docs.heic_download_failed = HEIC dɛmɛ telesarizeli ma se: {error}
+workspace.docs.placing = {name} bɛ bila…
+workspace.docs.place_image = Ja bila
+workspace.docs.placed = {name} bilala
+workspace.docs.place_failed = Bilali ma se: {error}
+workspace.docs.saved = {name} marala
+workspace.docs.save_failed = Marali ma se: {error}
+
+workspace.adjustment.new_layer = {name} kaliki kura
+workspace.adjustment.added = {name} farala
+workspace.adjustment.settings = {name} labɛncogow
+workspace.adjustment.updated = {name} lakurayara
+workspace.adjustment.no_settings = Labɛncogo yɛlɛmata si tɛ {name} la
+
+workspace.comps.name_n = Kaliki labɛnmisali {n}
+workspace.comps.captured = Kaliki labɛnmisali minɛna
+workspace.comps.apply = {name} kɛ
+workspace.styles.layer_style = Kaliki cogoya
+workspace.context.rename_layer = Kaliki tɔgɔ yɛlɛma
+workspace.commands.tool = Baarakɛminɛn: {name}
+
+workspace.colormgmt.assign = {name} kɛ a la
+workspace.colormgmt.assigned = {name} kɛra a la
+workspace.colormgmt.convert_to = Yɛlɛma ka kɛ {name} ye
+workspace.colormgmt.converted_to = Yɛlɛmara ka kɛ {name} ye
+workspace.colormgmt.convert_failed = Yɛlɛmali ma se: {error}
+workspace.colormgmt.proof_on = Kulɛri bɔli lajɛ dalen
+workspace.colormgmt.proof_off = Kulɛri bɔli lajɛ datugulen
+
+workspace.filters.choose = Sugandi
+workspace.filters.select_layer_first = Kaliki sugandi fɔlɔ
+workspace.filters.needs_pixel_layer = Sɛgɛsɛgɛlanw mako bɛ pikisɛli kaliki la
+workspace.filters.nothing_to_filter = Foyi tɛ yen ka sɛgɛsɛgɛ
+workspace.filters.went_away = Sɛgɛsɛgɛlan tununna
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: kaliki min sɛgɛsɛgɛra, o tununna
+workspace.filters.plugin_title = Photoshop plug-in
+workspace.filters.running = {name} bɛ boli
+workspace.filters.plugin_note = Plug-in bɛ boli a yɛrɛ ka processus kɔnɔ. Ni a ye fenɛtiri dɔ dayɛlɛ, o jaabi ka taa ɲɛ.
+workspace.filters.raw_preview_developing = RAW lajɛ fɔlɔ bɛ labɛn…
+workspace.filters.raw_preview_done = RAW lajɛ fɔlɔ (demosaic teliman)
+workspace.filters.raw_preview_size_changed = RAW lajɛ fɔlɔ bonya yɛlɛmara: {w} × {h}
+workspace.filters.raw_preview_failed = RAW lajɛ fɔlɔ ma se: {error}
+workspace.filters.raw_developing = Minɛli bɔyɔrɔla bɛ labɛn…
+workspace.filters.raw_developing_note = Demosaic sira ɲuman bɛ kɛ. RAW bɔyɔrɔla ni nin labɛncogow bɛ to yɛlɛmataw ye hali a maralen kɔ PSD walima PSB na.
+workspace.filters.raw_document_changed = RAW labɛnni banna sɛbɛn yɛlɛmalen kɔ
+workspace.filters.raw_failed = RAW labɛnni ma se: {error}
+workspace.filters.raw_too_wide = RAW labɛnni fiyɛ ka bon kojugu
+workspace.filters.raw_too_tall = RAW labɛnni janya ka bon kojugu
+workspace.filters.raw_size_changed = RAW labɛnni bonya yɛlɛmara ka kɛ {w} × {h} ye; sisan kaliki bɛ mara
+workspace.filters.raw_history = Camera Raw labɛnni
+workspace.filters.raw_applied = Camera Raw labɛnni kɛra (demosaic ɲuman)
+
+workspace.image_size.done = Ja bonya: {w} × {h}
+workspace.image_size.bicubic_fallback = Ja bonya: {w} × {h} — {name} misali ma se ka don, o la bicubic kɛra a nɔ na
+workspace.image_size.upscaling = Bonya bɛ caya ni {name} ye
+workspace.image_size.upscaling_note = Megapikisɛli {mp} bɛ tɛmɛ network fɛ, kelen-kelen bɛ sekondi damadɔ ta. Sɛbɛn bɛ mara fo a ka ban.
+
+workspace.export.no_slices = Tilancɛ tɛ yen ka bɔ
+workspace.export.no_artboards = Dilancogo tabla tɛ yen ka bɔ
+workspace.export.regions.other = Yɔrɔ hakɛ bɔra: {n}
+workspace.export.prompt = Bɔ nin cogoya la:
+workspace.export.done = {name} bɔra
+workspace.export.failed = Bɔli ma se: {error}
+workspace.export.codec_vanished = Bɔlan tɛ sɔrɔ tuguni
+
+workspace.file_picker.choose_folder = Fɔldɛri sugandi
+workspace.file_picker.type_a_name = Tɔgɔ dɔ sɛbɛn dosiyɛ ye
+workspace.file_picker.exists = {name} bɛ yen kaban; Mara digi kokura k'a falen
+workspace.file_picker.tap_a_file = Dosiyɛ dɔ digi k'a dayɛlɛ
+workspace.file_picker.pictures = Jaw
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Telesarizeliw
+workspace.file_picker.permission_denied = Yamaruya tɛ Schist bolo ka nin fɔldɛri kalan
+
+workspace.recovery.recovered_title = {title} (lasɔrɔlen)
+workspace.recovery.recovered.other = Sɛbɛn hakɛ {n} min ma tun mara session kɔrɔlen na, olu lasɔrɔla

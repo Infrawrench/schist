@@ -1,0 +1,36 @@
+app.filter_gallery.title = Gallery blong Filta
+app.filter_gallery.stack = Stak (aplae long botom i go antap)
+app.filter_gallery.no_settings = Filta ya i no gat seting.
+app.fonts.not_open_licensed = laesens blong hem i no open · {substitute} i gat sem mak long saes blong ol leta
+app.fonts.missing_substituted = i lus · text i stap yusum wan narafala font
+app.fonts.not_in_catalogue = {family} i no stap long open font katalog
+app.fonts.no_faces = no gat font face blong {family} we yu save daonlodem
+app.fonts.empty_response = ansa i emti
+app.update.unreadable_response = i no save ridim ansa: {error}
+app.update.no_temp_dir = no gat temporary directory blong daonlodem i go insaed
+app.update.asset_has_path = release i givim nem blong asset wetem wan path
+app.update.too_big = download i bigwan moa long saes we release i talem
+app.update.stopped_at = download i stop long {got} long {total} byte
+app.update.hash_mismatch = hash blong download i {got}, i no {want}
+app.update.not_in_bundle = kopi ya i no stap insaed long wan application bundle
+app.update.no_parent_dir = application bundle i no gat parent directory
+app.update.cannot_write = i no save raet long {dir}
+app.update.cannot_move_aside = i no save muvum {app} i go long saed
+app.update.cannot_move_in = i no save muvum niufala bundle i go long ples blong hem
+app.update.cannot_run_ditto = i no save ronem /usr/bin/ditto
+app.update.unpack_failed = i no save openem paket blong download: {error}
+app.update.no_app_in_download = download i no gat Schist.app
+app.update.cannot_run_codesign = i no save ronem /usr/bin/codesign
+app.update.signature_invalid = signature blong download i no pasem jek: {error}
+app.update.download_unsigned = kopi ya i gat signature be download i no gat
+app.update.different_developer = wan narafala developer i saenem download
+app.update.cannot_relaunch = i no save statem relauncher
+app.update.not_installed_copy = installer i no putum kopi ya long ples ya
+app.update.cannot_start_installer = i no save statem installer
+app.update.platform_unsupported = long platform ya, oli instolem apdet long sem fasin we oli instolem Schist
+app.vulkan.no_loader = schist: no gat Vulkan loader long system ya, taswe i no gat samting blong dro wetem.\n\nSchist i render tru long Vulkan, mo `libvulkan.so.1` i no instol.\nYu nidim loader mo wan driver tugeta:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan driver we session ya i poenem i go long hem i no stap.\n\n{var} i set, mo taem yu setem hem, hem i *riplesem* fasin blong loader blong lukaotem\nol driver; hem i no ademap long hem. Taswe ol fael ya we oli no stap\noli ful list blong driver—mo evri Vulkan program long session ya\ni no luk wan driver nating, nomata hamas driver oli instol:\n\n{missing}\n    {var}={value}\n\nPoenem i go long wan manifest we i stap—ol driver we oli instol oli putum blong olgeta long\n/usr/share/vulkan/icd.d—o tekemaot seting ya mo letem loader i faenem hem wan.\nSipos wan config fael i setem hem long session (Hyprland `env =`, wan\nsystemd environment.d drop-in, o wan shell profile), yu mas jenisim long ples ya,\nmo yu mas saen in bakegen blong jenis i kasem ol samting we oli stap ron finis.\n
+app.vulkan.override_note = \n{var} i set long {value}, mo hemia i riplesem fasin blong loader blong\nlukaot: sipos no wan long ol manifest ya i blong masin ya, fas samting blong traem\nhem i blong tekemaot seting ya.\n
+app.vulkan.no_driver = schist: no gat Vulkan driver i instol, taswe i no gat samting blong dro long hem.\n\nSchist i render tru long Vulkan. Loader i instol be i talem se no gat\ndriver—no wan samting i rejistarem driver long tufala ples we hem i lukaot:\n\n{dirs}\n\nLoader mo ol driver oli kam long defren paket, taswe plante taem wan\npaket nomo i lus.\n\nInstolem driver blong GPU blong masin ya:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nProprietary driver blong NVIDIA i karem blong hem (`nvidia-utils` long Arch,\n`nvidia-driver` long Debian). Long wan virtual machine, hemia wan software masin\ninsaed long wan narafala masin, o long eni ples we no gat GPU driver blong instolem,\nsoftware rasteriser nao i wok: `vulkan-swrast` long Arch, mo hem i pat blong\n`mesa-vulkan-drivers` long ol narafala ples. Hem i slo, be i stat.\n{overridden}
+app.vulkan.no_device = schist: wan Vulkan driver i instol be i no givim wan device blong render long hem.\n\nMaet driver i no wok wetem GPU ya, o i no save kasem—\ntru long SSH, o insaed long wan container, plante taem /dev/dri\ni lus. `vulkaninfo --summary` i talem wanem samting loader i luk.\n\nSoftware rasteriser i save render nomata i no gat GPU, sipos masin ya\ni olsem: `vulkan-swrast` long Arch, mo hem i pat blong `mesa-vulkan-drivers`\nlong Debian mo Fedora.\n
+app.vulkan.skip_hint = Blong statem Schist nomata mo letem hem i fel long fasin blong hem, setem {var}=1.

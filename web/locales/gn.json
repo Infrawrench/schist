@@ -1,0 +1,9 @@
+{
+  "loading": "Ojekargahína…",
+  "starting": "Oñepyrũ…",
+  "webgpu": "Schist oikotevẽ WebGPU rehe, ko kundahára nome'ẽiva. Chrome/Edge 113+, Firefox 141+ ha Safari 26+ ome'ẽ.",
+  "noticeTitle": "Schist omba'apo porãve tembiporu mesa arigua aplicación ramo",
+  "noticeBody": "Reiporu hína web versión, ha'éva peteĩ compilación ivevúiva: ombojoaju CPU-pe ha ndojapói heta mba'e — Photoshop plugin ha ambue apohára plugin, ta'anga renda, AI panel, HEIC jegueru ha tai ysaja ñemboguejy — ha umi vore katu oñeñongatu oñemboguejyháicha. Tembiporu mesa arigua aplicación reigua macOS, Windows ha Linux-pe oguereko opaite mba'e.",
+  "noticeLink": "Egueru tembiporu mesa arigua aplicación.",
+  "ok": "Oĩ porã"
+}

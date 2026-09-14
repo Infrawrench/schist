@@ -1,0 +1,28 @@
+# The warp tools (plugins/tools-warp): Liquify, Puppet Warp, Vanishing
+# Point. Mode, Size and Pressure come from common.lang.
+
+# Liquify
+tool.liquify.name = Cairkan
+tool.liquify.description = Tolak, putar, kerutkan atau kembungkan piksel di bawah berus besar -- pilihan mod menentukan tindakan. Ledingan terkumpul dalam jaringan dan diterapkan pada lapisan apabila disahkan.
+tool.liquify.option.tool = Alat
+tool.liquify.choice.forward_warp = Ledingan Ke Hadapan
+tool.liquify.choice.reconstruct = Bina Semula
+tool.liquify.choice.twirl_cw = Putar Ikut Arah Jam
+tool.liquify.choice.twirl_ccw = Putar Lawan Arah Jam
+tool.liquify.choice.pucker = Kerutkan
+tool.liquify.choice.bloat = Kembungkan
+tool.liquify.choice.push_left = Tolak ke Kiri
+tool.liquify.history.liquify = Cairkan
+
+# Puppet Warp
+tool.puppet_warp.name = Ledingan Boneka
+tool.puppet_warp.description = Klik untuk menyematkan lapisan pada beberapa titik, kemudian seret salah satunya: jaringan melentur di sekeliling pin, sekaku atau selonggar yang ditetapkan oleh pilihan Kekakuan. Terapkan untuk mengesahkannya.
+tool.puppet_warp.option.stiffness = Kekakuan
+tool.puppet_warp.history.puppet_warp = Ledingan Boneka
+
+# Vanishing Point
+tool.vanishing_point.name = Titik Lenyap
+tool.vanishing_point.description = Seret untuk membentuk satah di atas sesuatu yang mempunyai perspektif, kemudian tukar mod kepada Klon dan cat: piksel yang disalin mengikut satah, mengecil mengikut jarak.
+tool.vanishing_point.choice.edit_plane = Sunting Satah
+tool.vanishing_point.choice.clone = Klon
+tool.vanishing_point.history.vanishing_point = Titik Lenyap

@@ -1,0 +1,53 @@
+# Vektorityökalut (plugins/tools-vector): kynät, kaksi valintanuolta, muodot
+# ja mukautetut muodot. Tila, Muoto, Kuvapisteet ja Polku tulevat common.lang-tiedostosta.
+
+# Kynät
+tool.pen.name = Kynä
+tool.pen.description = Muodosta polku: lisää kulmapiste napsauttamalla, vedä siitä kaarikahvat esiin ja sulje polku napsauttamalla ensimmäistä pistettä. Vahvistaminen muuttaa polun muototasoksi.
+tool.pen.option.rubber_band = Kuminauha
+tool.pen.history.fill = Polun täyttö
+# Vapaamuotoisen kynän tai kaarevuuskynän tallentaman polun nimi
+tool.pen.default_path_name = Polku {n}
+tool.pen.freeform.name = Vapaamuotoinen kynä
+tool.pen.freeform.description = Piirrä vapaamuotoinen viiva vetämällä, jolloin se sovitetaan poluksi Sovitus-asetuksen määräämällä väljyydellä.
+tool.pen.freeform.option.fit = Sovitus
+tool.pen.curvature.name = Kaarevuuskynä
+tool.pen.curvature.description = Napsauta pisteiden sarja, jolloin polku kaartuu tasaisesti niiden kautta.
+
+# Nuolet
+tool.path_select.name = Polun valinta
+tool.path_select.description = Valitse polku napsauttamalla ja siirrä koko polkua vetämällä.
+tool.direct_select.name = Suoravalinta
+tool.direct_select.description = Muotoile polkua vetämällä yksittäistä ankkuripistettä tai sen kahvoja.
+
+# Muodot. Jokaisella on työkalun nimi ja nimiö, joka nimeää vetämällä luodun
+# tason ja polun. Elävän muototason historiakirjaus muodostetaan lisäämällä
+# nimiö kohtaan tool.shape.history.layer.
+tool.shape.history.layer = {name}-taso
+tool.shape.rect.name = Suorakulmiotyökalu
+tool.shape.rect.label = Suorakulmio
+tool.shape.rect.description = Tee edustavärinen suorakulmainen muototaso vetämällä; se säilyy vektorina ja rasteroidaan uudelleen kokoa muutettaessa.
+tool.shape.ellipse.name = Ellipsityökalu
+tool.shape.ellipse.label = Ellipsi
+tool.shape.ellipse.description = Tee edustavärinen elliptinen muototaso vetämällä.
+tool.shape.line.name = Viivatyökalu
+tool.shape.line.label = Viiva
+tool.shape.line.description = Tee edustavärinen suora viivamuototaso vetämällä.
+tool.shape.line.option.weight = Paksuus
+tool.shape.line.option.arrow_start = Alku
+tool.shape.line.option.arrow_end = Loppu
+tool.shape.polygon.name = Monikulmiotyökalu
+tool.shape.polygon.label = Monikulmio
+tool.shape.polygon.description = Tee edustavärinen säännöllinen monikulmiomuototaso vetämällä käyttäen asetuksissa määritettyä sivumäärää.
+tool.shape.polygon.option.sides = Sivut
+
+# Mukautetut muodot
+tool.shape.custom.name = Mukautettu muoto
+tool.shape.custom.label = Mukautettu muoto
+tool.shape.custom.description = Tee vetämällä yksi valmiista esiasetusmuodoista, joka valitaan Muoto-asetuksella.
+tool.shape.custom.choice.heart = Sydän
+tool.shape.custom.choice.star = Tähti
+tool.shape.custom.choice.arrow = Nuoli
+tool.shape.custom.choice.lightning = Salama
+tool.shape.custom.choice.cross = Risti
+tool.shape.custom.choice.speech_bubble = Puhekupla

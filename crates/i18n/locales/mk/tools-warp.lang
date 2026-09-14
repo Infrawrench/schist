@@ -1,0 +1,25 @@
+# Ликвификација
+tool.liquify.name = Ликвификација
+tool.liquify.description = Туркајте, вртете, собирајте или надувувајте ги пикселите под голема четка — видот на дејството се избира со опцијата за режим. Искривувањето се натрупува во мрежа и се применува врз слојот при потврдување.
+tool.liquify.option.tool = Алатка
+tool.liquify.choice.forward_warp = Искривување нанапред
+tool.liquify.choice.reconstruct = Реконструирај
+tool.liquify.choice.twirl_cw = Вртење надесно
+tool.liquify.choice.twirl_ccw = Вртење налево
+tool.liquify.choice.pucker = Собирање
+tool.liquify.choice.bloat = Надувување
+tool.liquify.choice.push_left = Туркање налево
+tool.liquify.history.liquify = Ликвификација
+
+# Марионетско искривување
+tool.puppet_warp.name = Марионетско искривување
+tool.puppet_warp.description = Кликнете за да го прицврстите слојот во неколку точки, па повлечете една од нив: мрежата се свиткува околу прицврстувачите, поцврсто или полабаво според опцијата „Крутост“. Со потврдување промената се применува.
+tool.puppet_warp.option.stiffness = Крутост
+tool.puppet_warp.history.puppet_warp = Марионетско искривување
+
+# Исчезнувачка точка
+tool.vanishing_point.name = Исчезнувачка точка
+tool.vanishing_point.description = Со влечење поставете рамнина врз предмет што има перспектива, па сменете го режимот во „Клонирање“ и сликајте: копираните пиксели ја следат рамнината и се намалуваат со оддалечувањето.
+tool.vanishing_point.choice.edit_plane = Уреди рамнина
+tool.vanishing_point.choice.clone = Клонирање
+tool.vanishing_point.history.vanishing_point = Исчезнувачка точка

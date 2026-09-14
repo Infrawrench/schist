@@ -1,0 +1,40 @@
+# Noms dels formats
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Messatges comuns d'importacion
+codec.msg.decoding = decodatge de {name}
+codec.msg.zero_sized = l'imatge conten pas cap de pixèl
+codec.msg.assembling_document = assemblatge del document
+
+# Fichièrs bruts de camera
+codec.raw.msg.decoding = decodatge del fichièr brut
+codec.raw.msg.developing = desvolopament del fichièr brut
+codec.raw.msg.finding_preview = recèrca de l'apercebut integrat
+codec.raw.msg.decoding_preview = decodatge de l'apercebut integrat
+codec.raw.msg.decoder_panicked = lo descodador de fichièrs bruts a fracassat amb aqueste fichièr : {what}
+
+# Affinity
+codec.affinity.import_title = Importacion Affinity
+codec.affinity.flattened_preview_layer = Apercebut aplatit
+codec.affinity.msg.no_preview = Cap d'apercebut integrat utilizabl. Lo format de calques d'Affinity es proprietari ; Schist impòrta l'apercebut aplatit contengut dins lo fichièr. Aqueste fichièr ne conten pas cap — enregistratz-lo tornarmai dins Affinity, o exportatz-lo al format PSD per importar totes los calques.
+
+# HEIF
+codec.heif.msg.no_library = libheif es pas disponibla ({details}). Per dobrir un fichièr HEIC cal la bibliotèca libheif (Linux : installatz libheif1 ; macOS : brew install libheif).
+codec.heif.msg.no_decoder = {what} : {message} — es possible qu'aqueste assemblatge de libheif aja pas de descodador HEVC (sus Debian/Ubuntu, installatz libheif-plugin-libde265)
+codec.heif.msg.unknown_error = error desconeguda
+codec.heif.msg.initialising = inicializacion de libheif
+codec.heif.msg.reading_container = lectura del contenidor HEIF
+codec.heif.msg.finding_primary_image = recèrca de l'imatge principal
+codec.heif.msg.reading_icc_profile = lectura del perfil ICC
+codec.heif.msg.decoding_image = decodatge de l'imatge
+codec.heif.msg.checksum_mismatch = La soma de contraròtle de {name} correspond pas : {expected} esperada, {got} obtenguda
+codec.heif.msg.imageio_cannot_read = ImageIO a pas pogut legir lo contenidor HEIF
+codec.heif.msg.container_empty = lo contenidor HEIF conten pas cap d'imatge
+codec.heif.msg.imageio_cannot_decode = ImageIO a pas pogut descodar l'imatge principal

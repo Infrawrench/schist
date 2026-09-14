@@ -1,0 +1,22 @@
+# Binvioù diazez: Dilec'hiañ, Pipetenn, Dorn, Zoumañ.
+tool.move.name = Dilec'hiañ
+tool.move.description = Riklit endalc'had ar gwiskad oberiant betek ul lec'h nevez. Pa vez EmDiuzañ gweredekaet, e vez diuzet da gentañ ar gwiskad — pe ar strollad a-bezh — a zo dindan ar biz.
+tool.move.option.auto_select = EmDiuzañ
+tool.move.history.move_layer = Dilec'hiañ ar gwiskad
+
+tool.eyedropper.name = Pipetenn
+tool.eyedropper.description = Kemerit ur standilhon eus al liv dindan ar biz evit ar standilhon rakva, pe evit ar standilhon drekva pa vez dalc'het alt. En ur riklañ e kendalc'her da gemer standilhonoù.
+tool.eyedropper.option.sample_size = Ment ar standilhon
+tool.eyedropper.option.sample = Standilhon
+tool.eyedropper.choice.point_sample = Standilhon ur pik
+tool.eyedropper.choice.average_3 = Keidenn 3 dre 3
+tool.eyedropper.choice.average_5 = Keidenn 5 dre 5
+tool.eyedropper.choice.average_11 = Keidenn 11 dre 11
+tool.eyedropper.choice.average_31 = Keidenn 31 dre 31
+tool.eyedropper.choice.all_layers = An holl wiskadoù
+tool.eyedropper.choice.current_layer = Gwiskad bremanel
+
+tool.hand.name = Dorn
+tool.hand.description = Dilec'hiañ a ra ar sell. Perc'hennet eo ar welva gant ar prenestr; er mod hep etrefas ne ra ar benveg-mañ netra d'an teul.
+tool.zoom.name = Zoum
+tool.zoom.description = Zoumañ a ra ar sell. Perc'hennet eo ar welva gant ar prenestr; er mod hep etrefas ne ra ar benveg-mañ netra d'an teul.

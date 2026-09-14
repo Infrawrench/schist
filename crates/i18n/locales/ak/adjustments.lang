@@ -1,0 +1,20 @@
+# Mfonini nsakrae
+adjustment.levels.name = Level ahorow
+adjustment.curves.name = Nsensanee Nkotow
+adjustment.hue_saturation.name = Kɔla/Saturation
+adjustment.brightness_contrast.name = Hann/Abirabɔ
+adjustment.black_white.name = Tuntum ne Fitaa
+adjustment.solid_color.name = Kɔla Baako
+adjustment.gradient_fill.name = Gradient Hyɛ
+adjustment.pattern_fill.name = Nsusuwii Hyɛ
+adjustment.invert.name = Dan Kɔla
+adjustment.posterize.name = Tew Kɔla Dodow So
+adjustment.threshold.name = Akwanside
+adjustment.color_balance.name = Kɔla Kari Pɛ
+adjustment.vibrance.name = Kɔla Hyew
+adjustment.exposure.name = Hann Dodow
+adjustment.photo_filter.name = Mfonini Filter
+adjustment.gradient_map.name = Gradient Map
+adjustment.selective_color.name = Kɔla a Wɔapaw
+adjustment.channel_mixer.name = Channel Fra
+adjustment.other.name = Nsiesiei

@@ -1,0 +1,50 @@
+# plugins/codecs-common: vienti-ikkunassa näkyvät tiedostomuotojen nimet ja
+# tuonnissa mahdollisesti ilmestyvät virheilmoitukset (tilarivillä tekstin
+# ”Avaaminen epäonnistui:” jälkeen). HEIC-latauksen suostumusikkuna kuuluu
+# sovellukselle (dialogs.lang); koodekki kertoo vain virheen syyn.
+
+# Koodekkien rekisteröimät muotojen nimet. Tiedostoikkunoissa käytettävät
+# pitkät muodot ovat common.filetype.*.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Yhteiset tuontiviestit. Nämä tulevat dekooderin oman viestin edelle, joten
+# ne muodostavat lausekkeen, esimerkiksi ”dekoodataan PNG-kuvaa: tiedosto päättyi odottamatta”.
+codec.msg.decoding = dekoodataan kohdetta {name}
+codec.msg.zero_sized = kuvassa ei ole kuvapisteitä
+codec.msg.assembling_document = kootaan dokumenttia
+
+# Kameran raw-tiedostot
+codec.raw.msg.decoding = dekoodataan raw-tiedostoa
+codec.raw.msg.developing = kehitetään raw-tiedostoa
+codec.raw.msg.finding_preview = etsitään upotettua esikatselukuvaa
+codec.raw.msg.decoding_preview = dekoodataan upotettua esikatselukuvaa
+codec.raw.msg.decoder_panicked = raw-dekooderi ei pystynyt käsittelemään tätä tiedostoa: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity-tuonti
+codec.affinity.flattened_preview_layer = Yhdistetty esikatselukuva
+codec.affinity.msg.no_preview = Käyttökelpoista upotettua esikatselukuvaa ei ole. Affinityn tasoja sisältävä tiedostomuoto on suljettu; Schist tuo tiedostoon sisältyvän yhdistetyn esikatselukuvan. Tässä tiedostossa sellaista ei ole — tallenna se uudelleen Affinityssä tai vie se PSD-muodossa, jotta kaikki tasot voidaan tuoda.
+
+# HEIF. `no_library` ja `no_decoder` ovat kaksi tapausta, jotka suostumuksella
+# ladattava libheif korjaa; {details} kertoo kunkin kirjastopolun tuloksen,
+# {what} epäonnistuneen vaiheen ja {message} libheifin oman viestin.
+codec.heif.msg.no_library = libheif ei ole käytettävissä ({details}). HEIC-tiedoston avaaminen vaatii libheif-kirjaston (Linux: asenna libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — tästä libheif-koosteesta saattaa puuttua HEVC-dekooderi (Debian/Ubuntu: asenna libheif-plugin-libde265)
+codec.heif.msg.unknown_error = tuntematon virhe
+codec.heif.msg.initialising = alustetaan libheif
+codec.heif.msg.reading_container = luetaan HEIF-säilöä
+codec.heif.msg.finding_primary_image = etsitään ensisijaista kuvaa
+codec.heif.msg.reading_icc_profile = luetaan ICC-profiilia
+codec.heif.msg.decoding_image = dekoodataan kuvaa
+codec.heif.msg.checksum_mismatch = Kohteen {name} tarkistussumma ei täsmää: odotettiin {expected}, saatiin {got}
+# iOS käyttää HEIC-tiedostojen dekoodaukseen ImageIO:ta
+codec.heif.msg.imageio_cannot_read = ImageIO ei voinut lukea HEIF-säilöä
+codec.heif.msg.container_empty = HEIF-säilössä ei ole kuvaa
+codec.heif.msg.imageio_cannot_decode = ImageIO ei voinut dekoodata ensisijaista kuvaa

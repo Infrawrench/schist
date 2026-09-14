@@ -1,0 +1,43 @@
+# Filtr qalereyası
+app.filter_gallery.title = Filtr qalereyası
+app.filter_gallery.stack = Yığın (aşağıdan yuxarı tətbiq olunur)
+app.filter_gallery.no_settings = Bu filtrin parametrləri yoxdur.
+
+# Şriftlər
+app.fonts.not_open_licensed = açıq lisenziyalı deyil · {substitute} onun metriklərinə uyğundur
+app.fonts.missing_substituted = çatışmır · mətn əvəzedici şriftlə yığılır
+app.fonts.not_in_catalogue = {family} açıq şrift kataloqunda yoxdur
+app.fonts.no_faces = {family} üçün endirilə bilən şrift üzü yoxdur
+app.fonts.empty_response = boş cavab
+
+# Özünü yeniləmə xətaları
+app.update.unreadable_response = cavab oxunmur: {error}
+app.update.no_temp_dir = endirmə üçün müvəqqəti qovluq yoxdur
+app.update.asset_has_path = buraxılış resursunun adında yol göstərilib
+app.update.too_big = endirmə buraxılışda göstəriləndən böyükdür
+app.update.stopped_at = endirmə {total} baytdan {got} baytda dayandı
+app.update.hash_mismatch = endirmənin heşi {want} əvəzinə {got} oldu
+app.update.not_in_bundle = bu nüsxə tətbiq paketinin daxilində deyil
+app.update.no_parent_dir = tətbiq paketinin üst qovluğu yoxdur
+app.update.cannot_write = {dir} qovluğuna yazmaq mümkün deyil
+app.update.cannot_move_aside = {app} kənara köçürülə bilmir
+app.update.cannot_move_in = yeni paket yerinə köçürülə bilmir
+app.update.cannot_run_ditto = /usr/bin/ditto işə salına bilmir
+app.update.unpack_failed = endirməni paketdən çıxarmaq alınmadı: {error}
+app.update.no_app_in_download = endirmədə Schist.app yoxdur
+app.update.cannot_run_codesign = /usr/bin/codesign işə salına bilmir
+app.update.signature_invalid = endirmənin imzası doğrulanmır: {error}
+app.update.download_unsigned = bu nüsxə imzalanıb, endirmə isə imzalanmayıb
+app.update.different_developer = endirmə başqa tərtibatçı tərəfindən imzalanıb
+app.update.cannot_relaunch = yenidən başladıcı işə salına bilmir
+app.update.not_installed_copy = bu nüsxə quraşdırıcı tərəfindən buraya yerləşdirilməyib
+app.update.cannot_start_installer = quraşdırıcı işə salına bilmir
+app.update.platform_unsupported = bu platformada yeniləmələr Schist-in quraşdırıldığı üsulla quraşdırılır
+
+# Linux üçün Vulkan diaqnostikası. Əmrlər və paket adları dəyişdirilmir.
+app.vulkan.no_loader = schist: bu sistemdə Vulkan yükləyicisi yoxdur, ona görə təsviri çəkmək mümkün deyil.\n\nSchist Vulkan vasitəsilə render edir və `libvulkan.so.1` quraşdırılmayıb.\nHəm yükləyici, həm də drayver tələb olunur:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: bu sessiyanın yönəldiyi Vulkan drayveri mövcud deyil.\n\n{var} təyin edilib və onun təyin edilməsi yükləyicinin drayver\naxtarışına əlavə olunmaq əvəzinə həmin axtarışı *əvəz edir*. Buna görə\nmövcud olmayan bu fayllar bütün drayver siyahısını təşkil edir və bu sessiyadakı bütün Vulkan proqramları, nə qədər drayver quraşdırılsa da, heç bir drayver görmür:\n\n{missing}\n    {var}={value}\n\nOnu mövcud manifestə yönəldin — quraşdırılmış drayverlər manifestlərini\n/usr/share/vulkan/icd.d qovluğuna yerləşdirir — və ya dəyişəni ləğv edib\nyükləyicinin özü tapmasına imkan verin. Bunu konfiqurasiya faylında\n(Hyprland `env =`, systemd environment.d əlavəsi və ya qabıq profili)\ntəyin edən sessiyada dəyişiklik elə orada edilməlidir; artıq işləyən proseslərə\nçatması üçün yenidən daxil olmaq lazımdır.\n
+app.vulkan.override_note = \n{var} dəyişəni {value} olaraq təyin edilib və bu, yükləyicinin öz\naxtarışını əvəz edir: manifestlərin heç biri bu maşına uyğun deyilsə,\nilk olaraq dəyişəni ləğv etməyə çalışın.\n
+app.vulkan.no_driver = schist: Vulkan drayveri quraşdırılmayıb, ona görə təsviri çəkmək mümkün deyil.\n\nSchist Vulkan vasitəsilə render edir. Yükləyici quraşdırılıb, lakin heç\nbir drayver bildirmir — axtarılan iki yerin heç birində drayver qeydə\nalınmayıb:\n\n{dirs}\n\nYükləyici drayverlərdən ayrıca təqdim olunur, buna görə adətən yalnız bir\npaket çatışmır.\n\nBu maşının GPU-su üçün uyğun olanı quraşdırın:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-nın xüsusi drayveri öz drayverini ehtiva edir (Arch-da\n`nvidia-utils`, Debian-da `nvidia-driver`). Virtual maşında və ya\nquraşdırılacaq GPU drayveri olmayan yerdə proqram rasterizatoru işləyir:\nArch-da `vulkan-swrast`, digər sistemlərdə `mesa-vulkan-drivers` paketinin tərkibindədir. O, yavaşdır, amma işə düşür.\n{overridden}
+app.vulkan.no_device = schist: Vulkan drayveri quraşdırılıb, lakin render üçün heç bir cihaz təqdim etmir.\n\nDrayver bu GPU-nu dəstəkləməyə və ya ona çıxış əldə etməyə bilər — SSH\nüzərindən və ya konteyner daxilində /dev/dri çox vaxt əlçatan olmur.\n`vulkaninfo --summary` yükləyicinin nə gördüyünü göstərir.\n\nBu maşında GPU yoxdursa, proqram rasterizatoru GPU olmadan render edir:\nArch-da `vulkan-swrast`, Debian və Fedora-da isə `mesa-vulkan-drivers`\npaketinin tərkibindədir.\n
+app.vulkan.skip_hint = Schist-i yenə də başladıb öz qaydasında uğursuz olmasına imkan vermək üçün {var}=1 təyin edin.

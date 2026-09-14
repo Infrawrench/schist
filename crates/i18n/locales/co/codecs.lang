@@ -1,0 +1,37 @@
+# Nomi di furmati è messagi d'impurtazione di i codec.
+
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = RAW di camera
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = decudificazione di {name}
+codec.msg.zero_sized = a maghjina ùn hà nisun pixel
+codec.msg.assembling_document = custruzzione di u ducumentu
+
+codec.raw.msg.decoding = decudificazione di u schedariu RAW
+codec.raw.msg.developing = sviluppu di u schedariu RAW
+codec.raw.msg.finding_preview = ricerca di l'anteprima integrata
+codec.raw.msg.decoding_preview = decudificazione di l'anteprima integrata
+codec.raw.msg.decoder_panicked = u decudificatore RAW hà fiascatu nant'à stu schedariu: {what}
+
+codec.affinity.import_title = Impurtazione Affinity
+codec.affinity.flattened_preview_layer = Anteprima appiattita
+codec.affinity.msg.no_preview = Nisuna anteprima integrata aduprabile. U furmatu à strati d'Affinity hè pruprietariu; Schist impurta l'anteprima appiattita cuntenuta in u schedariu. Stu schedariu ùn ne hà — arregistratelu torna in Affinity, o spurtatelu cum'è PSD per impurtà tutti i strati.
+
+codec.heif.msg.no_library = libheif ùn hè micca dispunibule ({details}). Per apre HEIC ci vole a libreria libheif (Linux: stallate libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — forse sta versione di libheif ùn hà micca un decudificatore HEVC (nant'à Debian/Ubuntu, stallate libheif-plugin-libde265)
+codec.heif.msg.unknown_error = errore scunnisciutu
+codec.heif.msg.initialising = inizializazione di libheif
+codec.heif.msg.reading_container = lettura di u cuntainer HEIF
+codec.heif.msg.finding_primary_image = ricerca di a maghjina principale
+codec.heif.msg.reading_icc_profile = lettura di u prufilu ICC
+codec.heif.msg.decoding_image = decudificazione di a maghjina
+codec.heif.msg.checksum_mismatch = A somma di cuntrollu di {name} ùn currisponde micca: era aspettata {expected}, ma hè stata ottenuta {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ùn hà pussutu leghje u cuntainer HEIF
+codec.heif.msg.container_empty = u cuntainer HEIF ùn cuntene nisuna maghjina
+codec.heif.msg.imageio_cannot_decode = ImageIO ùn hà pussutu decudificà a maghjina principale

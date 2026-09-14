@@ -1,0 +1,36 @@
+app.filter_gallery.title = ແກເລີຣີຟິວເຕີ
+app.filter_gallery.stack = ຊຸດຊ້ອນ (ນຳໃຊ້ຈາກລຸ່ມຂຶ້ນເທິງ)
+app.filter_gallery.no_settings = ຟິວເຕີນີ້ບໍ່ມີການຕັ້ງຄ່າ.
+app.fonts.not_open_licensed = ບໍ່ແມ່ນລິຂະສິດແບບເປີດ · {substitute} ມີສັດສ່ວນຕົວອັກສອນທີ່ກົງກັນ
+app.fonts.missing_substituted = ຂາດຫາຍ · ກຳລັງຈັດຂໍ້ຄວາມດ້ວຍຟອນທົດແທນ
+app.fonts.not_in_catalogue = ບໍ່ມີ {family} ໃນລາຍການຟອນແບບເປີດ
+app.fonts.no_faces = ບໍ່ມີແບບຕົວອັກສອນຂອງ {family} ໃຫ້ດາວໂຫຼດ
+app.fonts.empty_response = ການຕອບກັບວ່າງເປົ່າ
+app.update.unreadable_response = ອ່ານການຕອບກັບບໍ່ໄດ້: {error}
+app.update.no_temp_dir = ບໍ່ມີໂຟນເດີຊົ່ວຄາວສຳລັບດາວໂຫຼດ
+app.update.asset_has_path = ຊຸດລຸ້ນໃໝ່ຕັ້ງຊື່ຊັບສິນໂດຍມີເສັ້ນທາງ
+app.update.too_big = ໄຟລ໌ດາວໂຫຼດໃຫຍ່ກວ່າທີ່ຂໍ້ມູນລຸ້ນລະບຸ
+app.update.stopped_at = ການດາວໂຫຼດຢຸດຢູ່ທີ່ {got} ຈາກ {total} ໄບຕ໌
+app.update.hash_mismatch = ຄ່າແຮັຊຂອງໄຟລ໌ດາວໂຫຼດແມ່ນ {got}, ບໍ່ແມ່ນ {want}
+app.update.not_in_bundle = ສຳເນົານີ້ບໍ່ໄດ້ຢູ່ໃນຊຸດແອັບພລິເຄຊັນ
+app.update.no_parent_dir = ຊຸດແອັບພລິເຄຊັນບໍ່ມີໂຟນເດີແມ່
+app.update.cannot_write = ບໍ່ສາມາດຂຽນໃສ່ {dir}
+app.update.cannot_move_aside = ບໍ່ສາມາດຍ້າຍ {app} ອອກໄປຂ້າງໆ
+app.update.cannot_move_in = ບໍ່ສາມາດຍ້າຍຊຸດໃໝ່ເຂົ້າຕຳແໜ່ງໄດ້
+app.update.cannot_run_ditto = ບໍ່ສາມາດເອີ້ນໃຊ້ /usr/bin/ditto
+app.update.unpack_failed = ແຕກຊຸດໄຟລ໌ດາວໂຫຼດບໍ່ສຳເລັດ: {error}
+app.update.no_app_in_download = ໃນໄຟລ໌ດາວໂຫຼດບໍ່ມີ Schist.app
+app.update.cannot_run_codesign = ບໍ່ສາມາດເອີ້ນໃຊ້ /usr/bin/codesign
+app.update.signature_invalid = ກວດຢືນຢັນລາຍເຊັນຂອງໄຟລ໌ດາວໂຫຼດບໍ່ຜ່ານ: {error}
+app.update.download_unsigned = ສຳເນົານີ້ມີລາຍເຊັນ ແຕ່ໄຟລ໌ດາວໂຫຼດບໍ່ມີ
+app.update.different_developer = ໄຟລ໌ດາວໂຫຼດລົງລາຍເຊັນໂດຍນັກພັດທະນາຄົນອື່ນ
+app.update.cannot_relaunch = ບໍ່ສາມາດເລີ່ມຕົວເປີດແອັບຄືນໃໝ່
+app.update.not_installed_copy = ສຳເນົານີ້ບໍ່ໄດ້ຖືກວາງຢູ່ນີ້ໂດຍຕົວຕິດຕັ້ງ
+app.update.cannot_start_installer = ບໍ່ສາມາດເລີ່ມຕົວຕິດຕັ້ງ
+app.update.platform_unsupported = ການອັບເດດໃນແພລັດຟອມນີ້ຕິດຕັ້ງດ້ວຍວິທີດຽວກັບທີ່ໃຊ້ຕິດຕັ້ງ Schist
+app.vulkan.no_loader = schist: ບໍ່ມີຕົວໂຫຼດ Vulkan ໃນລະບົບນີ້ ຈຶ່ງບໍ່ມີສິ່ງທີ່ໃຊ້ວາດພາບ.\n\nSchist ສະແດງຜົນຜ່ານ Vulkan ແຕ່ບໍ່ໄດ້ຕິດຕັ້ງ `libvulkan.so.1`.\nຈຳເປັນຕ້ອງມີທັງຕົວໂຫຼດ ແລະ ໄດຣເວີ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ບໍ່ພົບໄດຣເວີ Vulkan ທີ່ເຊສຊັນນີ້ຊີ້ໄປ.\n\nມີການຕັ້ງຄ່າ {var}, ແລະ ການຕັ້ງຄ່ານີ້ຈະ *ແທນທີ່* ການຄົ້ນຫາ\nໄດຣເວີຂອງຕົວໂຫຼດ ບໍ່ແມ່ນເພີ່ມໃສ່. ດັ່ງນັ້ນໄຟລ໌ເຫຼົ່ານີ້ທີ່ບໍ່ມີຢູ່\nຈຶ່ງເປັນລາຍການໄດຣເວີທັງໝົດ, ແລະ ທຸກໂປຣແກຣມ Vulkan ໃນເຊສຊັນນີ້\nຈະບໍ່ເຫັນໄດຣເວີໃດໆ ບໍ່ວ່າຈະຕິດຕັ້ງໄວ້ຫຼາຍປານໃດ:\n\n{missing}\n    {var}={value}\n\nຊີ້ມັນໄປຫາໄຟລ໌ manifest ທີ່ມີຢູ່ — ໄດຣເວີທີ່ຕິດຕັ້ງແລ້ວວາງໄຟລ໌ໄວ້ໃນ\n/usr/share/vulkan/icd.d — ຫຼື ຍົກເລີກຄ່ານີ້ແລ້ວໃຫ້ຕົວໂຫຼດຄົ້ນຫາເອງ.\nຖ້າເຊສຊັນຕັ້ງຄ່ານີ້ຈາກໄຟລ໌ກຳນົດຄ່າ (ເຊັ່ນ `env =` ຂອງ Hyprland,\nໄຟລ໌ເພີ່ມໃນ environment.d ຂອງ systemd, ຫຼື ໂປຣໄຟລ໌ເຊວ) ກໍຕ້ອງແກ້ຢູ່ບ່ອນນັ້ນ,\nແລະ ຕ້ອງເຂົ້າລະບົບໃໝ່ເພື່ອໃຫ້ການປ່ຽນແປງໄປຮອດໂປຣແກຣມທີ່ກຳລັງເຮັດວຽກ.\n
+app.vulkan.override_note = \nມີການຕັ້ງ {var} ເປັນ {value}, ເຊິ່ງຈະແທນທີ່ການຄົ້ນຫາຂອງຕົວໂຫຼດເອງ:\nຖ້າບໍ່ມີ manifest ໃດໃນນັ້ນສຳລັບເຄື່ອງນີ້, ສິ່ງທຳອິດທີ່ຄວນລອງແມ່ນຍົກເລີກຄ່ານີ້.\n
+app.vulkan.no_driver = schist: ບໍ່ມີໄດຣເວີ Vulkan ຕິດຕັ້ງຢູ່ ຈຶ່ງບໍ່ມີອຸປະກອນໃຫ້ສະແດງພາບ.\n\nSchist ສະແດງຜົນຜ່ານ Vulkan. ຕົວໂຫຼດຖືກຕິດຕັ້ງແລ້ວ ແຕ່ລາຍງານວ່າບໍ່ມີ\nໄດຣເວີ — ບໍ່ມີໄດຣເວີລົງທະບຽນໃນສອງບ່ອນທີ່ລະບົບຄົ້ນຫາ:\n\n{dirs}\n\nຕົວໂຫຼດແຍກມາຈາກໄດຣເວີ, ດັ່ງນັ້ນສາເຫດສ່ວນໃຫຍ່ແມ່ນຂາດພຽງແພັກເກດດຽວ.\n\nຕິດຕັ້ງແພັກເກດສຳລັບ GPU ຂອງເຄື່ອງນີ້:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nໄດຣເວີລິຂະສິດຂອງ NVIDIA ມີໄດຣເວີຂອງມັນເອງ (`nvidia-utils` ໃນ Arch,\n`nvidia-driver` ໃນ Debian). ໃນເຄື່ອງຈຳລອງ ຫຼື ບ່ອນທີ່ບໍ່ມີ\nໄດຣເວີ GPU ໃຫ້ຕິດຕັ້ງ, ຕົວແປງພາບແບບຊອບແວແມ່ນຕົວທີ່ໃຊ້ໄດ້:\n`vulkan-swrast` ໃນ Arch ແລະ ເປັນສ່ວນໜຶ່ງຂອງ `mesa-vulkan-drivers` ໃນລະບົບອື່ນ. ມັນ\nຊ້າ ແຕ່ສາມາດເລີ່ມໂປຣແກຣມໄດ້.\n{overridden}
+app.vulkan.no_device = schist: ມີໄດຣເວີ Vulkan ຕິດຕັ້ງຢູ່ ແຕ່ບໍ່ມີອຸປະກອນສຳລັບສະແດງພາບ.\n\nໄດຣເວີອາດບໍ່ຮອງຮັບ GPU ນີ້ ຫຼື ອາດເຂົ້າເຖິງບໍ່ໄດ້ —\nເມື່ອໃຊ້ຜ່ານ SSH ຫຼື ຢູ່ໃນຄອນເທນເນີ, /dev/dri ມັກຈະຂາດຫາຍ.\n`vulkaninfo --summary` ລາຍງານສິ່ງທີ່ຕົວໂຫຼດເຫັນ.\n\nຕົວແປງພາບແບບຊອບແວສາມາດສະແດງພາບໂດຍບໍ່ຕ້ອງມີ GPU ເລີຍ ຖ້າເຄື່ອງນີ້ບໍ່ມີ:\n`vulkan-swrast` ໃນ Arch ແລະ ເປັນສ່ວນໜຶ່ງຂອງ `mesa-vulkan-drivers`\nໃນ Debian ແລະ Fedora.\n
+app.vulkan.skip_hint = ເພື່ອເລີ່ມ Schist ຕໍ່ໄປ ແລະ ປ່ອຍໃຫ້ມັນລົ້ມເຫຼວຕາມວິທີຂອງມັນເອງ, ໃຫ້ຕັ້ງ {var}=1.

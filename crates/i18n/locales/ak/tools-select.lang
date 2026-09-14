@@ -1,0 +1,36 @@
+tool.select.mode.subtract = Yi Fi Mu
+tool.select.mode.intersect = Fa Faako a Ɛhyia
+
+# Marquee
+tool.marquee.rect.name = Ahinanan Paw Ade
+tool.marquee.rect.description = Twe ahinanan beae a wobɛpaw. Sɛ wode Shift fi ase twe a, ɛde ka nea woapaw no ho; alt yi fi mu, na sɛ wode abien no nyinaa di dwuma a, ɛpaw faako a ɛhyia. Sɛ wokura shift mu bere a woretwe a, ɛma afã no nyinaa yɛ pɛ. Sɛ womia a woantwe a, eyi paw no fi hɔ.
+tool.marquee.ellipse.name = Kurukuruwa Tenten Paw Ade
+tool.marquee.ellipse.description = Twe kurukuruwa tenten beae a wobɛpaw, na fa shift/alt ka bom te sɛ ahinanan paw ade no.
+
+# Lasso
+tool.lasso.name = Lasso
+tool.lasso.description = Fa wo nsa twe nsensanee; sɛ wugyae twe no a, nea woapaw no ka ano abien no bom. Shift de ka ho, alt yi fi mu.
+tool.lasso.history.select = Lasso Paw
+tool.lasso.polygonal.name = Polygon Lasso
+tool.lasso.polygonal.description = Mia twea biara so ntoatoaso de yɛ beae a woapaw a n'ano yɛ tee, na mia bɛn beae a edi kan no na ka mu.
+tool.lasso.polygonal.history.select = Polygon Lasso
+tool.lasso.magnetic.name = Magnet Lasso
+tool.lasso.magnetic.description = Di ano bi akyi bɛn no, na nsensanee no bɛkɔfam abirabɔ a emu yɛ den paa a ɛbɛn kwan no ho.
+tool.lasso.magnetic.history.select = Magnet Lasso
+tool.lasso.magnetic.option.frequency = Mpɛn Dodow
+
+# Anwanwa Poma
+tool.wand.name = Anwanwa Poma
+tool.wand.description = Mia na paw beae a ɛtoa so na ne kɔla te sɛ nea ɛwɔ pointer no ase no, wɔ tolerance nhyehyɛe no mu — tolerance koro no ara na Grow, Similar ne Color Range kenkan.
+tool.wand.option.contiguous = Ɛtoa So
+tool.wand.history.select = Anwanwa Poma
+
+# Paw Ntɛm
+tool.quick_select.name = Paw Ntɛm
+tool.quick_select.description = Fa brush no fa beae bi so, na nea woapaw no trɛw fa pixels a ɛte sɛ wɔn ho a brush no fa so no mu.
+tool.quick_select.history.select = Paw Ntɛm
+
+# Paw Ade
+tool.object_select.name = Paw Ade
+tool.object_select.description = Twe adaka twa ade bi ho hyia, na nea woapaw no bɛkɔfam ade a wɔahu wɔ mu no ho.
+tool.object_select.history.select = Paw Ade

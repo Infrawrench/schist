@@ -1,0 +1,72 @@
+tool.brush.name = Teptukas
+tool.brush.description = Pieškite švelnių kraštų brūkšnį priekinio plano spalva; jo dydį lemia redaktoriaus teptuko dydžio, kietumo ir nepermatomumo nuostatos.
+tool.brush.history.stroke = Teptukas
+
+tool.pencil.name = Pieštukas
+tool.pencil.description = Pieškite kietų kraštų brūkšnį priekinio plano spalva be kraštų glodinimo.
+tool.pencil.history.stroke = Pieštukas
+
+tool.eraser.name = Trintukas
+tool.eraser.description = Trindami išilgai brūkšnio grąžinkite sluoksnio permatomumą.
+tool.eraser.history.stroke = Trintukas
+
+tool.clone.name = Klonavimo antspaudas
+tool.clone.description = Klonavimo antspaudas: spustelėkite laikydami „Alt“, kad nustatytumėte šaltinio tašką, tada pieškite iš jo nukopijuotais pikseliais išlaikant tą poslinkį.
+tool.clone.history.stroke = Klonavimo antspaudas
+
+tool.dodge.name = Šviesinimas
+tool.dodge.description = Pašviesinkite pikselius, per kuriuos eina brūkšnys.
+tool.dodge.history.stroke = Šviesinimas
+tool.burn.name = Tamsinimas
+tool.burn.description = Patamsinkite pikselius, per kuriuos eina brūkšnys.
+tool.burn.history.stroke = Tamsinimas
+tool.sponge.name = Kempinė
+tool.sponge.description = Sodrinkite arba mažinkite pikselių, per kuriuos eina brūkšnys, spalvų sodrumą.
+tool.sponge.history.stroke = Kempinė
+
+tool.blur.name = Suliejimas
+tool.blur.description = Suliekite pikselius, per kuriuos eina brūkšnys.
+tool.blur.history.stroke = Suliejimas
+tool.sharpen.name = Ryškinimas
+tool.sharpen.description = Padidinkite pikselių, per kuriuos eina brūkšnys, vaizdo ryškumą.
+tool.sharpen.history.stroke = Ryškinimas
+tool.smudge.name = Ištepimas
+tool.smudge.description = Tempkite spalvą išilgai brūkšnio, tarsi stumdami šlapius dažus.
+tool.smudge.history.stroke = Ištepimas
+
+tool.heal.name = Gydomasis teptukas
+tool.heal.description = Gydomasis teptukas: spustelėkite laikydami „Alt“, kad nustatytumėte šaltinį, tada pieškite; šaltinio tekstūra suliejama su paskirties vietos spalva ir apšvietimu.
+tool.heal.history.stroke = Gydomasis teptukas
+tool.spot_heal.name = Taškinis gydomasis teptukas
+tool.spot_heal.description = Taškinis gydomasis teptukas: užpieškite defektą, ir jis bus pakeistas iš aplinkos paimta tekstūra – šaltinio taško nustatyti nereikia.
+tool.spot_heal.history.stroke = Taškinis gydomasis teptukas
+
+tool.history_brush.name = Retrospektyvos teptukas
+tool.history_brush.description = Atkurkite pikselius iš dokumento retrospektyvos momentinės kopijos, brūkšnis po brūkšnio anuliuodami vėlesnį darbą.
+tool.history_brush.history.stroke = Retrospektyvos teptukas
+
+tool.background_eraser.name = Fono trintukas
+tool.background_eraser.description = Trindami teptuko centre paimtą spalvą palikite kitokių spalvų pikselius nepakeistus, kad atskirtumėte objektą nuo jo fono.
+tool.background_eraser.history.stroke = Fono trintukas
+
+tool.gradient.name = Gradientas
+tool.gradient.description = Vilkite, kad sluoksnį – jei yra pažymėta sritis, tik per ją – užpildytumėte tiesiniu gradientu nuo priekinio plano iki fono spalvos vilkimo kryptimi.
+tool.gradient.radial.name = Spindulinis gradientas
+tool.gradient.radial.description = Vilkite nuo centro į išorę, kad užpildytumėte spinduliniu gradientu tarp priekinio plano ir fono spalvų.
+tool.gradient.option.gradient = Gradientas
+tool.gradient.option.reverse = Apgręžti
+tool.gradient.option.dither = Spalvų sklaida
+tool.gradient.choice.foreground_to_background = Nuo priekinio plano iki fono
+tool.gradient.choice.foreground_to_transparent = Nuo priekinio plano iki permatomumo
+tool.gradient.choice.linear = Tiesinis
+tool.gradient.choice.radial = Spindulinis
+tool.gradient.choice.angle = Kampinis
+tool.gradient.choice.reflected = Atspindėtas
+tool.gradient.choice.diamond = Rombinis
+tool.gradient.history.gradient = Gradientas
+
+tool.bucket.name = Dažų kibirėlis
+tool.bucket.description = Spustelėkite, kad pagal įrankio nuokrypį priekinio plano spalva užlietumėte sujungtą panašios spalvos sritį po žymikliu.
+tool.bucket.option.contiguous = Gretima sritis
+tool.bucket.option.all_layers = Visi sluoksniai
+tool.bucket.history.fill = Dažų kibirėlis

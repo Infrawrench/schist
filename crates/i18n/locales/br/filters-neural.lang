@@ -1,0 +1,153 @@
+filter.neural.param.center_x = Kreiz X
+filter.neural.param.center_y = Kreiz Y
+filter.neural.param.direction = Roud
+filter.neural.param.transition = Ardremen
+filter.neural.param.detail = Munud
+filter.neural.param.eyes = Daoulagad
+
+filter.neural.msg.using_model = Oc'h arverañ {model} · {license}.
+filter.neural.msg.get_model = Kavit anezhañ e Sil ▸ Neural Filters ▸ Merañ ar patromoù.
+
+filter.camera_raw.name = Sil Camera Raw
+filter.camera_raw.param.temperature = Gwrezverk
+filter.camera_raw.param.tint = Arliv
+filter.camera_raw.param.highlights = Gouloù kreñv
+filter.camera_raw.param.shadows = Skeudoù
+filter.camera_raw.param.whites = Gwennoù
+filter.camera_raw.param.blacks = Duioù
+filter.camera_raw.param.clarity = Sklaerder
+filter.camera_raw.param.dehaze = Lemel ar vrumenn
+filter.camera_raw.param.vibrance = Bevidigezh
+filter.camera_raw.param.sharpening = Lemmañ
+filter.camera_raw.param.noise = Digreskiñ an trouz
+filter.camera_raw.param.vignette = Vignetenn
+
+filter.lens_correction.name = Reizhañ ar ferenn
+filter.lens_correction.param.distortion = Lemel an distummadur
+filter.lens_correction.param.red = Reizhañ an erien ruz/sian
+filter.lens_correction.param.blue = Reizhañ an erien glas/melen
+filter.lens_correction.param.vignette = Kreñvder ar vignetenn
+filter.lens_correction.param.midpoint = Kreiz ar vignetenn
+filter.lens_correction.param.vertical = Diarsell a-serzh
+filter.lens_correction.param.horizontal = Diarsell a-zremm
+
+filter.adaptive_wide_angle.name = Korn ledan azasaus
+filter.adaptive_wide_angle.param.projection = Reizhadenn
+filter.adaptive_wide_angle.choice.fisheye = Lagad-pesk
+filter.adaptive_wide_angle.choice.perspective = Diarsell
+filter.adaptive_wide_angle.choice.full_spherical = Pellgelc'hiek klok
+filter.adaptive_wide_angle.param.focal = Hirder ar fokalenn
+filter.adaptive_wide_angle.param.crop = Parzh didroc'hañ
+
+filter.field_blur.name = Flou an dachenn
+filter.field_blur.param.position = Lemm e
+filter.iris_blur.name = Flou iris
+filter.iris_blur.param.roundness = Ronded
+filter.tilt_shift.name = Stouiñ-Dilec'hiañ
+filter.tilt_shift.param.position = Kreiz
+filter.tilt_shift.param.band = Bandennaoueg lemm
+filter.spin_blur.name = Flou c'hwelañ
+filter.spin_blur.param.angle = Korn ar flou
+filter.path_blur.name = Flou treug
+filter.path_blur.param.speed = Tizh
+filter.path_blur.param.curve = Krommadur
+filter.path_blur.param.taper = Strishadur
+
+filter.shape_blur.name = Flou stumm
+filter.shape_blur.choice.square = Karrez
+filter.shape_blur.choice.diamond = Diamant
+filter.shape_blur.choice.hexagon = C'hwec'hkorneg
+filter.shape_blur.choice.cross = Kroaz
+filter.shape_blur.choice.ring = Gwalenn
+filter.shape_blur.choice.star = Steredenn
+filter.smart_blur.name = Flou speredek
+filter.smart_blur.choice.normal = Reizh
+filter.smart_blur.choice.edge_only = Riblennoù hepken
+filter.smart_blur.choice.overlay_edge = Gourlec'hiañ ar riblenn
+
+filter.deinterlace.name = Dizetreaceriañ
+filter.deinterlace.param.field = Lemel
+filter.deinterlace.choice.odd_fields = Maeziennoù ampar
+filter.deinterlace.choice.even_fields = Maeziennoù par
+filter.deinterlace.param.fill = Krouiñ maeziennoù nevez dre
+filter.deinterlace.choice.interpolation = Etrelotadur
+filter.deinterlace.choice.duplication = Eilañ
+filter.ntsc_colors.name = Livioù NTSC
+
+filter.neural.skin_smoothing.name = Leurisaat ar c'hroc'hen
+filter.neural.skin_smoothing.param.blur = Leunded
+filter.neural.skin_smoothing.param.detail = Mirout ar munudoù
+filter.neural.skin_smoothing.msg.no_model = N'eo ket staliet {model} — o leurisaat pep tra a liv-kroc'hen e-lec'h an dremmoù.
+
+filter.neural.jpeg_artifacts.name = Lemel artifaktoù JPEG
+filter.neural.jpeg_artifacts.msg.no_model = N'eo ket staliet {model} — o leurisaat ar gael 8 piksel en e lec'h.
+
+filter.neural.colorize.name = Livañ
+filter.neural.colorize.param.warmth = Tommder
+filter.neural.colorize.msg.no_model = N'eo ket staliet {model} — o livañ hervez al luc'husted en e lec'h.
+
+filter.neural.super_zoom.name = Dreist-zoum
+filter.neural.super_zoom.msg.no_model = N'eo ket staliet {model} — oc'h arverañ ul lemmadur heñchet gant ar riblennoù en e lec'h.
+
+filter.neural.style_transfer.name = Treuzkas ar stil
+filter.neural.style_transfer.choice.mosaic = Mozaik
+filter.neural.style_transfer.choice.candy = Madig
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Patrom stil staliet ebet — o treuzkas al liv hepken. Kavit anezho e Sil ▸ Neural Filters ▸ Merañ ar patromoù.
+filter.neural.style_transfer.msg.installed = Staliet: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Treuzkas al liv
+filter.neural.color_transfer.param.hue = Arliv bukenn
+filter.neural.color_transfer.param.contrast = Lakaat an dargemm da glotañ
+filter.neural.color_transfer.msg.info = Kemer a ra e baledenn diwar ar gwiskad dindanañ. Ma n'eus netra dindanañ e vuk d'an arliv bukenn en e lec'h.
+
+filter.neural.depth_blur.name = Flou donder
+filter.neural.depth_blur.param.focus = Hed fokal
+filter.neural.depth_blur.param.blur = Kreñvder ar flou
+filter.neural.depth_blur.msg.no_model = N'eo ket staliet {model} — o lakaat ar fokus hervez al lemmder lec'hel en e lec'h.
+
+filter.neural.harmonization.name = Kendoniañ
+filter.neural.harmonization.param.tone = Lakaat an ton da glotañ
+filter.neural.harmonization.msg.info = Lakaat a ra ar gwiskad-mañ da glotañ gant pezh a zo dindanañ. Ma n'eus netra dindanañ n'eus netra da glotañ gantañ ha ne ra netra.
+
+filter.neural.landscape_mixer.name = Mesker gweledvaoù
+filter.neural.landscape_mixer.param.bands = Bandennoù donder
+filter.neural.landscape_mixer.msg.with_depth = Kemer a ra e baledenn diwar ar gwiskad dindanañ, lakaet da glotañ bandenn-ha-bandenn gant Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Kemer a ra e baledenn diwar ar gwiskad dindanañ. Staliit Depth (Depth Blur) evit lakaat an oabl da glotañ gant an oabl hag an douar gant an douar, e-lec'h ar skeudenn a-bezh.
+
+filter.neural.photo_restoration.name = Assav ul luc'hskeudenn
+filter.neural.photo_restoration.param.enhance = Gwellaat al luc'hskeudenn
+filter.neural.photo_restoration.param.scratches = Digreskiñ ar skrabadennoù
+filter.neural.photo_restoration.param.tone = Assav an ton
+filter.neural.photo_restoration.msg.no_model = O naetaat hep patrom.
+filter.neural.photo_restoration.msg.using_deblock = Oc'h arverañ Deblock · stummet evit Schist.
+filter.neural.photo_restoration.msg.using_detail = Oc'h arverañ Detail · stummet evit Schist.
+filter.neural.photo_restoration.msg.using_both = Oc'h arverañ Deblock ha Detail · stummet evit Schist.
+
+filter.neural.photo_to_sketch.name = Luc'hskeudenn da vrastres
+filter.neural.photo_to_sketch.param.weight = Tevder al linenn
+filter.neural.photo_to_sketch.param.shading = Skeudañ
+
+filter.neural.face_to_caricature.name = Dremm da garrikatur
+filter.neural.face_to_caricature.param.mouth = Genoù
+filter.neural.face_to_caricature.param.head = Penn
+filter.neural.face_to_caricature.msg.no_model = N'eo ket staliet {model}, neuze ne ra netra — n'eus netra da garrikaturañ.
+
+filter.neural.smart_portrait.name = Poltred speredek
+filter.neural.smart_portrait.param.happiness = Eürusted
+filter.neural.smart_portrait.param.surprise = Souezh
+filter.neural.smart_portrait.param.age = Oad an dremm
+filter.neural.smart_portrait.param.gaze = Sell
+filter.neural.smart_portrait.param.light = Roud ar gouloù
+filter.neural.smart_portrait.msg.no_model = N'eo ket staliet {model}, neuze ne ra netra — n'en deus dremm ebet da labourat warnañ.
+
+filter.neural.makeup_transfer.name = Treuzkas ar fard
+filter.neural.makeup_transfer.param.lips = Muzelloù
+filter.neural.makeup_transfer.param.skin = Liv ar c'hroc'hen
+filter.neural.makeup_transfer.msg.info = Kemer a ra ar fard diwar un dremm er gwiskad dindanañ. Al liv, ket ar wiadenn.
+filter.neural.makeup_transfer.msg.no_model = N'eo ket staliet {model}, neuze ne ra netra.
+
+filter.neural.sketch_to_portrait.name = Brastres da boltred
+filter.neural.sketch_to_portrait.param.detail = Mirout al linennoù
+filter.neural.sketch_to_portrait.msg.with_face = Stummet eo bet evit leuniañ Luc'hskeudenn da vrastres an arload-mañ. Labourat a ra war an dremm a gav.
+filter.neural.sketch_to_portrait.msg.no_face = Stummet eo bet evit leuniañ Luc'hskeudenn da vrastres an arload-mañ. Staliit Faces (Skin Smoothing) hag e labouray war an dremm e-lec'h an diuzadenn a-bezh.

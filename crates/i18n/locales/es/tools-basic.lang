@@ -1,0 +1,22 @@
+# Herramientas básicas: Mover, Cuentagotas, Mano y Zoom.
+tool.move.name = Mover
+tool.move.description = Arrastra el contenido de la capa activa hasta una posición nueva. Si Selección automática está activada, al pulsar se elige primero la capa —o el grupo completo— situada bajo el puntero.
+tool.move.option.auto_select = Selección automática
+tool.move.history.move_layer = Mover capa
+
+tool.eyedropper.name = Cuentagotas
+tool.eyedropper.description = Toma una muestra del color situado bajo el puntero para la muestra frontal, o para la muestra de fondo si se mantiene pulsada Alt. Al arrastrar se siguen tomando muestras.
+tool.eyedropper.option.sample_size = Tamaño de muestra
+tool.eyedropper.option.sample = Muestra
+tool.eyedropper.choice.point_sample = Muestra puntual
+tool.eyedropper.choice.average_3 = Promedio de 3 × 3
+tool.eyedropper.choice.average_5 = Promedio de 5 × 5
+tool.eyedropper.choice.average_11 = Promedio de 11 × 11
+tool.eyedropper.choice.average_31 = Promedio de 31 × 31
+tool.eyedropper.choice.all_layers = Todas las capas
+tool.eyedropper.choice.current_layer = Capa actual
+
+tool.hand.name = Mano
+tool.hand.description = Desplaza la vista. El área de visualización pertenece a la ventana, por lo que esta herramienta no modifica el documento en el modo sin interfaz.
+tool.zoom.name = Zoom
+tool.zoom.description = Amplía o reduce la vista. El área de visualización pertenece a la ventana, por lo que esta herramienta no modifica el documento en el modo sin interfaz.

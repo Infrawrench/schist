@@ -1,0 +1,9 @@
+{
+  "loading": "Iyalayisha…",
+  "starting": "Iyaqala…",
+  "webgpu": "I-Schist idinga i-WebGPU, kodwa lesi siphequluli asiyinikezi. I-Chrome/Edge 113+, Firefox 141+ ne-Safari 26+ ziyinikeza.",
+  "noticeTitle": "I-Schist isebenza kahle kakhulu njengohlelo lokusebenza lwedeskithophu",
+  "noticeBody": "Usebenzisa inguqulo yewebhu, ewuhlelo olulula olunezici ezimbalwa: ihlanganisa izingqimba zesithombe ku-CPU futhi ayinazo ezinye izici — ama-plug-in e-Photoshop nama-plug-in ezinkampani zangaphandle, igalari yezithombe, iphaneli ye-AI, ukungenisa i-HEIC nokulanda amafonti — futhi amafayela agcinwa njengokulandiwe. Uhlelo lokusebenza lwedeskithophu lwamahhala lwe-macOS, Windows ne-Linux lunazo zonke lezi zici.",
+  "noticeLink": "Thola uhlelo lokusebenza lwedeskithophu.",
+  "ok": "Kulungile"
+}

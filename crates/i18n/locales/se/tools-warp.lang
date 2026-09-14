@@ -1,0 +1,22 @@
+tool.liquify.name = Liquify
+tool.liquify.description = Hoigga, jorahit, čoahkkádahte dahje bohtte govvačuoggáid stuorra peansala vuolde; modeallaválljen mearrida makkár doaimma. Sojaheapmi čoaggan fierpmádahkii ja heivehuvvo geardái go dohkkeha.
+tool.liquify.option.tool = Reaidu
+tool.liquify.choice.forward_warp = Ovdos sojaheapmi
+tool.liquify.choice.reconstruct = Máhcat
+tool.liquify.choice.twirl_cw = Jorahit diimmu guvlui
+tool.liquify.choice.twirl_ccw = Jorahit diimmu vuostá
+tool.liquify.choice.pucker = Čoahkkádahit
+tool.liquify.choice.bloat = Bohttet
+tool.liquify.choice.push_left = Hoigga gurutguvlui
+tool.liquify.history.liquify = Liquify
+
+tool.puppet_warp.name = Dohkká-sojaheapmi
+tool.puppet_warp.description = Coahkkal vai gidde gearddi moatti čuoggái ja gease de ovtta: fierpmádat sojá giddejuvvon čuoggáid birra garasin dahje luovusin dego Garrasvuohta-válljen mearrida. Dohkkeheapmi heiveha dan.
+tool.puppet_warp.option.stiffness = Garrasvuohta
+tool.puppet_warp.history.puppet_warp = Dohkká-sojaheapmi
+
+tool.vanishing_point.name = Jávkančuokkis
+tool.vanishing_point.description = Gease duolbba perspektiivvalaš objeavtta ala, molsso de modealla Klonii ja Málesteapmái: máŋgejuvvon govvačuoggát čuvvot duolbba ja unnot gaskka lassáneamis.
+tool.vanishing_point.choice.edit_plane = Doaimmat duolbba
+tool.vanishing_point.choice.clone = Klona
+tool.vanishing_point.history.vanishing_point = Jávkančuokkis

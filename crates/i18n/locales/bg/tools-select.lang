@@ -1,0 +1,32 @@
+# Инструменти за селекция.
+tool.select.mode.subtract = Изваждане
+tool.select.mode.intersect = Пресичане
+
+tool.marquee.rect.name = Правоъгълна селекция
+tool.marquee.rect.description = Очертайте с плъзгане правоъгълна селекция. Shift в началото на плъзгането добавя към селекцията, Alt изважда, а двата клавиша оставят сечението; Shift по време на плъзгането я прави квадратна. Щракване без плъзгане премахва селекцията.
+tool.marquee.ellipse.name = Елипсовидна селекция
+tool.marquee.ellipse.description = Очертайте с плъзгане елипсовидна селекция със същото комбиниране чрез Shift и Alt като при правоъгълната селекция.
+
+tool.lasso.name = Ласо
+tool.lasso.description = Очертайте свободно с плъзгане; при завършването му краищата на селекцията се свързват. Shift добавя, а Alt изважда.
+tool.lasso.history.select = Селекция с ласо
+tool.lasso.polygonal.name = Многоъгълно ласо
+tool.lasso.polygonal.description = Щраквайте последователно върху ъглите, за да изградите селекция с прави ръбове, и щракнете близо до първата точка, за да я затворите.
+tool.lasso.polygonal.history.select = Многоъгълно ласо
+tool.lasso.magnetic.name = Магнитно ласо
+tool.lasso.magnetic.description = Проследете приблизително ръб и контурът ще прилепне към най-силния контраст близо до пътя.
+tool.lasso.magnetic.history.select = Магнитно ласо
+tool.lasso.magnetic.option.frequency = Честота
+
+tool.wand.name = Магическа пръчка
+tool.wand.description = Щракнете, за да изберете свързаната област с подобен цвят под показалеца според зададения допуск — същия допуск, който използват „Разрастване“, „Подобни“ и „Цветови диапазон“.
+tool.wand.option.contiguous = Съседни
+tool.wand.history.select = Магическа пръчка
+
+tool.quick_select.name = Бърза селекция
+tool.quick_select.description = Рисувайте върху област и селекцията ще се разрасне през подобните пиксели, върху които минава четката.
+tool.quick_select.history.select = Бърза селекция
+
+tool.object_select.name = Селекция на обект
+tool.object_select.description = Очертайте с плъзгане правоъгълник около обект и селекцията ще прилепне към намерения в него обект.
+tool.object_select.history.select = Селекция на обект

@@ -1,0 +1,152 @@
+# ဖိုင်
+menu.file = ဖိုင်
+menu.file.new = အသစ်
+menu.file.open = ဖွင့်ရန်…
+menu.file.open_recent = မကြာသေးမီက ဖိုင်ကို ဖွင့်ရန်
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = ပုံပြခန်း ရှာဖွေကြည့်ရန်…
+menu.file.close = ပိတ်ရန်
+menu.file.save = သိမ်းရန်
+menu.file.save_as = အမည်ပြောင်းသိမ်းရန်…
+menu.file.export = တင်ပို့ရန်…
+menu.file.export_submenu = တင်ပို့ရန်
+menu.file.export_artboards = ပုံကြမ်းချပ်များကို PNG အဖြစ်…
+menu.file.export_slices = ဖြတ်ပိုင်းများကို PNG အဖြစ်…
+menu.file.save_to_photos = ဓာတ်ပုံများထဲ သိမ်းရန်
+menu.file.plugins = ပလပ်အင်များ…
+menu.file.missing_fonts = ပျောက်နေသော ဖောင့်များ…
+menu.file.check_for_updates = အပ်ဒိတ် ရှိမရှိ စစ်ဆေးရန်…
+menu.file.quit = ထွက်ရန်
+menu.file.add_folder_to_gallery = ပုံပြခန်းသို့ ဖိုင်တွဲ ထည့်ရန်…
+menu.file.import_from_photos = ဓာတ်ပုံများမှ တင်သွင်းရန်…
+menu.file.import_from_camera = ကင်မရာမှ တင်သွင်းရန်…
+
+# တည်းဖြတ်ရန်
+menu.edit = တည်းဖြတ်ရန်
+menu.edit.fill = ဖြည့်စွက်ရန်…
+menu.edit.stroke = မျဉ်းဘောင်ခတ်ရန်…
+menu.edit.content_aware_fill = အကြောင်းအရာသိ ဖြည့်စွက်မှု
+menu.edit.content_aware_scale = အကြောင်းအရာသိ အရွယ်ပြောင်းမှု…
+menu.edit.puppet_warp = ရုပ်သေး ပုံပျက်ပြောင်းရန်
+menu.edit.free_transform = လွတ်လပ်စွာ အသွင်ပြောင်းရန်
+menu.edit.transform = အသွင်ပြောင်းရန်
+menu.edit.rotate_180 = 180° လှည့်ရန်
+menu.edit.rotate_90_cw = နာရီလက်တံအတိုင်း 90° လှည့်ရန်
+menu.edit.rotate_90_ccw = နာရီလက်တံပြန် 90° လှည့်ရန်
+menu.edit.flip_horizontal = အလျားလိုက် လှန်ရန်
+menu.edit.flip_vertical = ဒေါင်လိုက် လှန်ရန်
+
+# ပုံ
+menu.image = ပုံ
+menu.image.mode = စနစ်
+menu.image.adjustments = ချိန်ညှိမှုများ
+menu.image.auto_tone = အလင်းအမှောင် အလိုအလျောက်ညှိရန်
+menu.image.auto_contrast = ခြားနားမှု အလိုအလျောက်ညှိရန်
+menu.image.auto_color = အရောင် အလိုအလျောက်ညှိရန်
+menu.image.image_size = ပုံအရွယ်အစား…
+menu.image.canvas_size = ပုံဖော်ဧရိယာ အရွယ်အစား…
+menu.image.image_rotation = ပုံလှည့်ရန်
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = နာရီလက်တံအတိုင်း 90°
+menu.image.rotate_90_ccw = နာရီလက်တံပြန် 90°
+menu.image.flip_canvas_horizontal = ပုံဖော်ဧရိယာကို အလျားလိုက် လှန်ရန်
+menu.image.flip_canvas_vertical = ပုံဖော်ဧရိယာကို ဒေါင်လိုက် လှန်ရန်
+menu.image.crop_to_selection = ရွေးချယ်မှုအတိုင်း ဖြတ်ညှပ်ရန်
+menu.image.trim = အနားဖြတ်ရန်
+menu.image.assign_profile = ပရိုဖိုင် သတ်မှတ်ရန်…
+menu.image.convert_to_profile = ပရိုဖိုင်သို့ ပြောင်းရန်…
+
+# ရွေးချယ်ရန်
+menu.select = ရွေးချယ်ရန်
+menu.select.color_range = အရောင်အပိုင်းအခြား…
+menu.select.modify = ပြင်ဆင်ရန်
+menu.select.border = အနားသတ်…
+menu.select.smooth = ချောမွေ့စေရန်…
+menu.select.expand = ချဲ့ရန်…
+menu.select.contract = ချုံ့ရန်…
+menu.select.feather = အနားဖျော့ရန်…
+menu.select.transform_selection = ရွေးချယ်မှုကို အသွင်ပြောင်းရန်
+
+# အလွှာ
+menu.layer = အလွှာ
+menu.layer.layer_style = အလွှာပုံစံ…
+menu.layer.layer_comps = အလွှာဖွဲ့စည်းပုံများ
+menu.layer.new_layer_comp = အလွှာဖွဲ့စည်းပုံအသစ်
+menu.layer.delete_layer_comp = {name} ကို ဖျက်ရန်
+menu.layer.path = လမ်းကြောင်း
+menu.layer.fill_path = လမ်းကြောင်းကို ဖြည့်ရန်
+menu.layer.stroke_path = လမ်းကြောင်းကို မျဉ်းခတ်ရန်
+menu.layer.make_selection = ရွေးချယ်မှု ဖန်တီးရန်
+menu.layer.delete_path = လမ်းကြောင်းကို ဖျက်ရန်
+
+menu.adjust = ချိန်ညှိရန်
+
+# အရောင်စစ်
+menu.filter = အရောင်စစ်
+menu.filter.filter_gallery = အရောင်စစ် ပြခန်း…
+menu.filter.liquify = အရည်ပျော်ပုံဖော်ရန်
+menu.filter.vanishing_point = ရှုထောင့်ပျောက်မှတ်
+menu.filter.manage_models = မော်ဒယ်များ စီမံရန်…
+menu.filter.camera_raw_development = Camera Raw ဖြင့် ပုံဖော်ရန်…
+
+# မြင်ကွင်း
+menu.view = မြင်ကွင်း
+menu.view.rotate_view_cw = မြင်ကွင်းကို နာရီလက်တံအတိုင်း လှည့်ရန်
+menu.view.rotate_view_ccw = မြင်ကွင်းကို နာရီလက်တံပြန် လှည့်ရန်
+menu.view.reset_view = မြင်ကွင်းကို မူလအတိုင်း ပြန်ထားရန်
+menu.view.zoom_in = ချဲ့ကြည့်ရန်
+menu.view.zoom_out = ချုံ့ကြည့်ရန်
+menu.view.fit_on_screen = မျက်နှာပြင်နှင့် အံဝင်ခွင်ကျထားရန်
+menu.view.actual_size = 100%
+menu.view.rulers = ပေတံများ
+menu.view.grid = ဇယားကွက်
+menu.view.guides = လမ်းညွှန်မျဉ်းများ
+menu.view.notes = မှတ်စုများ
+menu.view.ai_panel = AI ပန်နယ်
+menu.view.extras = အပိုအရာများ
+menu.view.snap = နေရာတည့်ကပ်မှု
+menu.view.clear_guides = လမ်းညွှန်မျဉ်းများ ရှင်းရန်
+menu.view.clear_notes = မှတ်စုများ ရှင်းရန်
+menu.view.clear_count = ရေတွက်အမှတ်များ ရှင်းရန်
+menu.view.screen_mode = မျက်နှာပြင်စနစ်
+menu.view.proof_colors = အထောက်အထားပြ အရောင်များ
+menu.view.show_rulers = ပေတံများ ပြရန်
+menu.view.hide_rulers = ပေတံများ ဖျောက်ရန်
+menu.view.show_grid = ဇယားကွက် ပြရန်
+menu.view.hide_grid = ဇယားကွက် ဖျောက်ရန်
+menu.view.show_guides = လမ်းညွှန်မျဉ်းများ ပြရန်
+menu.view.hide_guides = လမ်းညွှန်မျဉ်းများ ဖျောက်ရန်
+menu.view.show_notes = မှတ်စုများ ပြရန်
+menu.view.hide_notes = မှတ်စုများ ဖျောက်ရန်
+menu.view.show_extras = အပိုအရာများ ပြရန်
+menu.view.hide_extras = အပိုအရာများ ဖျောက်ရန်
+menu.view.enable_snapping = နေရာတည့်ကပ်မှု ဖွင့်ရန်
+menu.view.disable_snapping = နေရာတည့်ကပ်မှု ပိတ်ရန်
+menu.view.enable_proof_colors = အထောက်အထားပြ အရောင်များ ဖွင့်ရန်
+menu.view.disable_proof_colors = အထောက်အထားပြ အရောင်များ ပိတ်ရန်
+
+# ပုံပြခန်း
+menu.gallery = ပုံပြခန်း
+menu.gallery.edit_selected = ရွေးထားသည်ကို တည်းဖြတ်ရန်
+menu.gallery.refresh = ပြန်လည်စတင်ရန်
+menu.gallery.map_filter = မြေပုံ အရောင်စစ်…
+menu.gallery.back_to_editor = တည်းဖြတ်ကိရိယာသို့ ပြန်သွားရန်
+
+# Schist Cloud
+menu.cloud.browse = Schist Cloud တွင် ရှာဖွေကြည့်ရန်
+menu.cloud.generate = ပုံများ ဖန်တီးရန်…
+menu.cloud.upload = စာတမ်းကို Schist Cloud သို့ အပ်လုဒ်လုပ်ရန်…
+menu.cloud.sign_out = Schist Cloud မှ ထွက်ရန်
+menu.cloud.sign_in = Schist Cloud သို့ ဝင်ရန်…
+
+# macOS အက်ပ်မီနူး
+menu.app.services = ဝန်ဆောင်မှုများ
+menu.app.hide = {app} ကို ဖျောက်ရန်
+menu.app.hide_others = အခြားအရာများကို ဖျောက်ရန်
+menu.app.show_all = အားလုံးကို ပြရန်
+menu.app.quit = {app} မှ ထွက်ရန်
+
+# လုပ်ဆောင်၍မရသည့် မီနူးများ၏ အခြေအနေစာတိုများ
+menu.status.transform_selection_needs_selection = ရွေးချယ်မှုကို အသွင်ပြောင်းရန်အတွက် ဧရိယာတစ်ခု ရွေးထားရမည်
+menu.status.crop_needs_selection = ရွေးချယ်မှုအတိုင်း ဖြတ်ညှပ်ရန်အတွက် ဧရိယာတစ်ခု ရွေးထားရမည်
+menu.status.select_photo_to_edit = တည်းဖြတ်ရန် ဓာတ်ပုံတစ်ပုံ ရွေးပါ

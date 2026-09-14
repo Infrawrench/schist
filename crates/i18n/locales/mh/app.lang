@@ -1,0 +1,36 @@
+app.filter_gallery.title = Gallery in Filter
+app.filter_gallery.stack = Kōlaajrak (jerbal jen lal ñan lōñ)
+app.filter_gallery.no_settings = Ejelọk setting an filter in.
+app.fonts.not_open_licensed = ejjab open licence · {substitute} ej jejjet ippān metric ko an
+app.fonts.missing_substituted = ejako · text eo ej kōjerbal font bar juon
+app.fonts.not_in_catalogue = {family} ejjab ilo catalogue in font open
+app.fonts.no_faces = ejelọk font face ñan download ñan {family}
+app.fonts.empty_response = uwaak eo ejelọk kobban
+app.update.unreadable_response = uwaak eo ejjab maroñ riit: {error}
+app.update.no_temp_dir = ejelọk temporary directory ñan download ñan
+app.update.asset_has_path = release eo ej leļọk etan asset eo ippān juon path
+app.update.too_big = download eo eļapļọk jen joñan eo release eo ej ba
+app.update.stopped_at = download eo ear bōjrak ilo {got} jen {total} byte
+app.update.hash_mismatch = hash in download eo ej {got}, jab {want}
+app.update.not_in_bundle = kōpi in ejjab ilo application bundle
+app.update.no_parent_dir = application bundle eo ejelọk parent directory
+app.update.cannot_write = ejjab maroñ jeje ñan {dir}
+app.update.cannot_move_aside = ejjab maroñ kōṃakūt {app} ñan jikin bar juon
+app.update.cannot_move_in = ejjab maroñ kōṃakūt bundle ekāāl ñan jikin eo
+app.update.cannot_run_ditto = ejjab maroñ kōjerbal /usr/bin/ditto
+app.update.unpack_failed = ejjeļọk tokjān an kajepel download eo: {error}
+app.update.no_app_in_download = ejelọk Schist.app ilo download eo
+app.update.cannot_run_codesign = ejjab maroñ kōjerbal /usr/bin/codesign
+app.update.signature_invalid = signature in download eo ejjab jejjet: {error}
+app.update.download_unsigned = kōpi in eṃōj sign ak download eo ejjab
+app.update.different_developer = developer bar juon ear sign download eo
+app.update.cannot_relaunch = ejjab maroñ jino kein bar jino
+app.update.not_installed_copy = installer eo ear jab likūt kōpi in ijin
+app.update.cannot_start_installer = ejjab maroñ jino installer eo
+app.update.platform_unsupported = update ko ilo platform in rej install ilo wāween eo Schist ear install
+app.vulkan.no_loader = schist: ejelọk Vulkan loader ilo system in, kōn menin ejelọk men ñan draw kaki.\n\nSchist ej render kōn Vulkan, im `libvulkan.so.1` ejjab install.\nLoader im driver jim̧or rej aikuj:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan driver eo session in ej jitōñ ñane ejelọk.\n\n{var} eṃōj set, im men in ej *ukot* bukōt driver an loader eo, jab kobaik ñane. Kōn menin file kein rejako rej aolepen laajrak in driver eo — im aolep program in Vulkan ilo session in rej lo ejelọk driver, jekdoon joñan driver ko rej install:\n\n{missing}\n    {var}={value}\n\nJitōñ ñan juon manifest eo ewōr — driver ko eṃōj install rej likūt aer ilo /usr/share/vulkan/icd.d — ak unset e im kōtlọk loader eo en bukōt make. Ñe session eo ej set men in jen config file (Hyprland `env =`, systemd environment.d drop-in, ak shell profile), kwōj aikuj ukote ijo, im bar deloñ bwe oktak eo en tōpar men ko rej jerbal.\n
+app.vulkan.override_note = \n{var} eṃōj set ñan {value}, im men in ej ukot bukōt an loader eo: ñe ejelọk manifest kein ñan machine in, unset e ej men eo jinoin ñan kajjioñ.\n
+app.vulkan.no_driver = schist: ejelọk Vulkan driver eṃōj install, kōn menin ejelọk device ñan draw ie.\n\nSchist ej render kōn Vulkan. Loader eo eṃōj install ak ej ba ejelọk driver — ejelọk ear register ilo jikin kein ruo rej bukōt ie:\n\n{dirs}\n\nLoader eo ej itok jen package oktak jen driver ko, kōn menin ekkā an juon package wōt jako.\n\nInstall eo ñan GPU in machine in:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver eo an NVIDIA make ej bōktok men ko an (`nvidia-utils` ilo Arch, `nvidia-driver` ilo Debian). Ilo virtual machine, ak jikin eo ejelọk GPU driver ñan install, software rasteriser eo ej jerbal: `vulkan-swrast` ilo Arch, im mōttan `mesa-vulkan-drivers` ilo jikin ko jet. Eṃōkajdik, ak emaroñ jino.\n{overridden}
+app.vulkan.no_device = schist: juon Vulkan driver eṃōj install ak ejjab lewaj device ñan render ie.\n\nDriver eo emaroñ jab jerbal ippān GPU in, ak ejjab maroñ tōpare — ilo SSH ak ilo container, /dev/dri ekkā an jako. `vulkaninfo --summary` ej kwaļọk ta eo loader eo ej loe.\n\nSoftware rasteriser eo emaroñ render ejelọk GPU, ñe ejelọk GPU ilo machine in: `vulkan-swrast` ilo Arch, mōttan `mesa-vulkan-drivers` ilo Debian im Fedora.\n
+app.vulkan.skip_hint = Ñan jino Schist wōt im kōtlọk en likjab ilo wāween eo an, set {var}=1.

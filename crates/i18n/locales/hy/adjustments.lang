@@ -1,0 +1,20 @@
+# Կարգավորման շերտերը և Պատկեր ▸ Կարգավորումներ հրամանները
+adjustment.levels.name = Մակարդակներ
+adjustment.curves.name = Կորեր
+adjustment.hue_saturation.name = Երանգ/Հագեցվածություն
+adjustment.brightness_contrast.name = Պայծառություն/Հակադրություն
+adjustment.black_white.name = Սև և սպիտակ
+adjustment.solid_color.name = Հոծ գույն
+adjustment.gradient_fill.name = Գրադիենտային լցում
+adjustment.pattern_fill.name = Նախշով լցում
+adjustment.invert.name = Հակադարձել
+adjustment.posterize.name = Պոստերիզացիա
+adjustment.threshold.name = Շեմ
+adjustment.color_balance.name = Գունային հավասարակշռություն
+adjustment.vibrance.name = Գունային աշխուժություն
+adjustment.exposure.name = Էքսպոզիցիա
+adjustment.photo_filter.name = Լուսանկարչական զտիչ
+adjustment.gradient_map.name = Գրադիենտային քարտեզ
+adjustment.selective_color.name = Ընտրովի գույն
+adjustment.channel_mixer.name = Կապուղիների խառնիչ
+adjustment.other.name = Կարգավորում

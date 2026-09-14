@@ -1,0 +1,22 @@
+tool.type.name = Taep
+tool.type.description = Klik blong statem wan text layer long ples ya, o klik long wan we i stap finis blong editim. Taem edit i open, tul i tekem stret ol event blong keyboard (sendem ol leta olsem key input), mo taem yu komitim, hem i renderem layer mo i klosem edit.
+
+tool.type.option.align = Alaenem
+tool.type.option.leading = Spes Bitwin Ol Laen (Leading)
+tool.type.option.tracking = Spes blong Evri Leta (Tracking)
+tool.type.option.kerning = Spes Bitwin Tu Leta (Kerning)
+tool.type.option.ligatures = Ligature
+tool.type.option.discretionary_ligatures = Discretionary ligature
+tool.type.option.small_caps = Smol Capital Leta
+tool.type.option.on_path = Long active path
+tool.type.option.path_offset = Path offset
+
+tool.type.choice.regular = Regular
+tool.type.choice.bold = Bold
+tool.type.choice.italic = Italic
+tool.type.choice.bold_italic = Bold Italic
+
+tool.type.history.new_layer = Niufala Text Layer
+tool.type.history.edit = Editim Text
+tool.type.history.discard = Sakemaot Text
+tool.type.history.discard_empty = Sakemaot Emti Text

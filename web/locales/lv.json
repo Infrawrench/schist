@@ -1,0 +1,9 @@
+{
+  "loading": "Notiek ielāde…",
+  "starting": "Notiek palaišana…",
+  "webgpu": "Programmai Schist ir nepieciešams WebGPU, ko šī pārlūkprogramma nepiedāvā. Tas ir pieejams Chrome/Edge 113+, Firefox 141+ un Safari 26+.",
+  "noticeTitle": "Schist vislabāk darbojas kā darbvirsmas lietotne",
+  "noticeBody": "Jūs izmantojat tīmekļa versiju, kas ir vieglāks būvējums: tā veic kompozīciju centrālajā procesorā un neietver dažas iespējas — Photoshop spraudņus un trešo pušu spraudņus, attēlu galeriju, MI paneli, HEIC importēšanu un fontu lejupielādi —, bet faili tiek saglabāti kā lejupielādes. Bezmaksas darbvirsmas lietotnē macOS, Windows un Linux sistēmām tas viss ir pieejams.",
+  "noticeLink": "Iegūt darbvirsmas lietotni.",
+  "ok": "Labi"
+}

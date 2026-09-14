@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Žvalgiklis
+panel.navigator.actual_pixels = Tikrieji pikseliai
+
+panel.color.picker = Spalvų parinkiklis…
+panel.color.swap = Sukeisti spalvas
+panel.color.reset = Atkurti juodą ir baltą
+
+panel.layers.blending_options = Maišymo parinktys…
+panel.layers.properties = Sluoksnio savybės…
+panel.layers.show_hide = Rodyti / slėpti sluoksnį
+panel.layers.toggle_visibility = Perjungti matomumą
+
+panel.history.title = Retrospektyva
+panel.history.opened = Atverta
+
+panel.info.title = Informacija
+panel.info.camera = Fotoaparatas
+panel.info.lens = Objektyvas
+panel.info.iso = ISO {iso}
+panel.info.bias = Ekspozicijos poslinkis
+panel.info.flash_fired = blykstė suveikė
+panel.info.no_flash = be blykstės
+panel.info.white_balance = Baltos spalvos balansas: {wb}
+panel.info.metering = {metering} matavimas
+panel.info.taken = Fotografuota
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientacija {o}
+panel.info.software = Programinė įranga
+panel.info.where = Vieta
+
+panel.notes.author = Autorius
+panel.notes.clear_all = Išvalyti visas
+panel.notes.unattributed = Be autoriaus
+panel.notes.empty = Spustelėkite drobę, kad paliktumėte pastabą.
+panel.notes.placeholder = Spustelėkite ir rašykite
+
+panel.character.title = Rašmuo
+panel.character.type_tool = Teksto įrankis (T)
+panel.character.align_left = Lygiuoti kairėje
+panel.character.align_center = Lygiuoti centre
+panel.character.align_right = Lygiuoti dešinėje
+panel.character.text_color = Teksto spalva
+panel.character.panel = Rašmenų skydelis
+panel.character.cancel_edit = Atšaukti teksto redagavimą
+panel.character.commit_edit = Patvirtinti teksto redagavimą
+panel.character.number_tip = {label} · Įveskite reikšmę arba naudokite ↑ / ↓ („Shift“ – didesniems žingsniams)
+panel.character.leading = Eilučių intervalas
+panel.character.tracking = Tarpai tarp rašmenų
+panel.character.alignment = Lygiuotė
+panel.character.opentype = OpenType
+panel.character.text_on_path = Tekstas ant kontūro
+panel.character.straight = Tiesus
+panel.character.on_path = Ant kontūro
+panel.character.straight_tip = Naudoti įprastą teksto sluoksnio bazinę liniją
+panel.character.on_path_tip = Naudoti aktyvaus kontūro kopiją
+panel.character.path_offset = Poslinkis išilgai kontūro
+
+panel.ai.title = DI
+panel.ai.empty_editor = Paprašykite ką nors paredaguoti ir stebėkite, kaip tai vyksta drobėje. Agentas naudoja tuos pačius įrankius, filtrus ir komandas kaip meniu; kiekvienam veiksmui tenka po vieną anuliavimo žingsnį.
+panel.ai.empty_gallery = Klauskite apie savo nuotraukas ir stebėkite veiksmus galerijoje: agentas gali ieškoti, peržiūrėti miniatiūras, žymėti, rūšiuoti į grupes ir atverti nuotrauką redaktoriuje.
+panel.ai.thinking = mąstoma…
+panel.ai.placeholder_editor = Klauskite apie šį dokumentą arba jį redaguokite
+panel.ai.placeholder_gallery = Klauskite apie savo nuotraukas
+panel.ai.send = Siųsti
+panel.ai.stop = Stabdyti
+panel.ai.fetching_models = Komandų eilutės programos prašoma pateikti modelius…
+panel.ai.no_models = Atitinkančių modelių nėra
+panel.ai.search_models = Ieškoti modelių…
+
+panel.keymap.install_plugin = Įdiegti papildinį
+panel.keymap.save_as_prompt = Įrašyti kaip – formatą nustato plėtinys:

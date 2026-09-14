@@ -1,0 +1,30 @@
+ai.status.panel_shown = ЖИ панели көрсөтүлдү
+ai.status.panel_hidden = ЖИ панели жашырылды — Көрүнүш ▸ ЖИ панели ({shortcut}) аны кайра ачат
+ai.status.tool = ЖИ: {name}
+
+ai.info.connected = {backend} туташты
+ai.info.now_in_gallery = Азыр галереяда.
+ai.info.now_in_editor = Азыр редактордо.
+ai.tool.shell_command = кабык буйругу
+
+ai.error.cli_missing = {backend} CLI («{binary}») PATH ичинде жок. Адегенде аны орнотуп, аккаунтуңузга кириңиз.
+ai.error.endpoint_failed = MCP соңку чекити иштетилген жок: {error}
+ai.error.binding_endpoint = MCP соңку чекитин байланыштыруу
+ai.error.spawning_endpoint_thread = MCP соңку чекитинин агымын иштетүү
+ai.error.runtime_failed = агенттин аткаруу чөйрөсү иштетилген жок: {error}
+ai.error.worker_failed = {backend} жумушчусу иштетилген жок: {error}
+ai.error.did_not_start = {backend} иштеген жок: {error}
+ai.error.switch_model_failed = модель алмаштырылган жок: {error}
+ai.error.send_failed = суроо жөнөтүлгөн жок: {error}
+ai.error.interrupt_failed = үзгүлтүккө учуратуу ишке ашкан жок: {error}
+ai.error.locating_binary = Schist аткарылма файлын издөө
+ai.error.starting_app_server = Codex колдонмо серверин иштетүү
+ai.error.attaching_app_server = Codex колдонмо серверине туташуу
+ai.error.initializing_app_server = Codex колдонмо серверин баштапкы абалга келтирүү
+ai.error.resuming_thread = Codex агымын улантуу
+ai.error.starting_thread = Codex агымын иштетүү
+
+ai.model.opus_detail = Эң кубаттуу деңгээл
+ai.model.sonnet_detail = Күнүмдүк тапшырмалар үчүн натыйжалуу
+ai.model.haiku_detail = Ыкчам жооптор үчүн эң тез
+ai.model.codex_catalog = Codex каталогу

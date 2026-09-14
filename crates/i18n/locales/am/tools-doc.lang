@@ -1,0 +1,31 @@
+# የሰነድ ማደራጃ መሣሪያዎች።
+
+# የሥዕል ሰሌዳ
+tool.artboard.name = የሥዕል ሰሌዳ
+tool.artboard.description = የሥዕል ሰሌዳ ለመፍጠር ይጎትቱ፤ ይህ ስም ያለውና ለብቻው የሚላክ የሸራ ክልል ነው። በነባር ሰሌዳ ውስጥ መጎተት ሰሌዳውን ያንቀሳቅሰዋል።
+tool.artboard.default_name = የሥዕል ሰሌዳ {n}
+
+# ቁራጭ
+tool.slice.name = ቁራጭ
+tool.slice.description = የመላኪያ ቁራጭ ለመፍጠር ይጎትቱ፤ ይህ ስም ያለውና እንደ ራሱ ምስል የሚላክ አራት ማዕዘን የሸራ ክፍል ነው። በነባር ቁራጭ ውስጥ መጎተት ቁራጩን ያንቀሳቅሰዋል።
+tool.slice.default_name = ቁራጭ {n}
+
+# ፍሬም
+tool.frame.name = ፍሬም
+tool.frame.description = ፍሬም ለመፍጠር ይጎትቱ፤ ይህ በውስጡ የተቀመጠውን ሁሉ የሚሸፍን አራት ማዕዘን (ወይም ሞላላ) ንብርብር ነው።
+tool.frame.default_name = ፍሬም {n}
+tool.frame.choice.rectangle = አራት ማዕዘን
+tool.frame.choice.ellipse = ሞላላ
+tool.frame.history.frame = ፍሬም
+
+# ማስታወሻ
+tool.note.name = ማስታወሻ
+tool.note.description = በዚያ ማስታወሻ ለመሰካት ባዶውን ሸራ ጠቅ ያድርጉ፤ ማስታወሻው በአርታዒው ሁኔታ ውስጥ ባለው ደራሲና ቀለም ይመዘገባል። ለማስታወሻዎች ፓነል ለመምረጥ ነባር ምልክትን ጠቅ ያድርጉ።
+tool.note.history.place = ማስታወሻ አስቀምጥ
+tool.note.history.move = ማስታወሻ አንቀሳቅስ
+tool.note.history.delete = ማስታወሻ ሰርዝ
+
+# ቆጠራ
+tool.count.name = ቆጠራ
+tool.count.description = በሸራው ላይ ቁጥር ያላቸው የቆጠራ ምልክቶችን ለማስቀመጥ ጠቅ ያድርጉ፤ ነባር ምልክትን ለማስወገድም ጠቅ ያድርጉት።
+tool.count.default_name = ቆጠራ {n}

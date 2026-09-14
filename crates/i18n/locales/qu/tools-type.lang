@@ -1,0 +1,26 @@
+# Qillqa llamk'ana
+tool.type.name = Qillqa
+tool.type.description = Ñit'ispa chaypi qillqa patata qallariy, utaq kaqña patata ñit'ispa allichay. Kichasqa kachkaptinqa llamk'anaqa teclakunata chiqapta hap'in (sanampakunata tecla yaykuchina hina apachiy); takyachispa patata rikch'ayman tikran, allichaytataq wichq'an.
+
+# Akllanakuna barra
+tool.type.option.align = Siq'ichay
+tool.type.option.leading = Siq'ikuna chawpi karu
+tool.type.option.tracking = Sanampakuna chawpi karu
+tool.type.option.kerning = Sanampa masip chawpi karu
+tool.type.option.ligatures = Sanampa tinkichiykuna
+tool.type.option.discretionary_ligatures = Munasqa sanampa tinkichiykuna
+tool.type.option.small_caps = Huch'uy hatun sanampakuna
+tool.type.option.on_path = Llamk'achkan ñanpi
+tool.type.option.path_offset = Ñanmanta karun
+
+# Rikch'ay
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Yanachasqa
+tool.type.choice.italic = Waq'usqa
+tool.type.choice.bold_italic = Yanachasqa waq'usqa
+
+# Ñawpaq ruwasqakuna
+tool.type.history.new_layer = Musuq qillqa pata
+tool.type.history.edit = Qillqata allichay
+tool.type.history.discard = Qillqata wikch'uy
+tool.type.history.discard_empty = Ch'usaq qillqata wikch'uy

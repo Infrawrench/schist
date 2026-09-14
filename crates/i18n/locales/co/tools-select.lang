@@ -1,0 +1,33 @@
+# Attrazzi di selezzione.
+
+tool.select.mode.subtract = Sottrae
+tool.select.mode.intersect = Intersecà
+
+tool.marquee.rect.name = Selezzione rettangulare
+tool.marquee.rect.description = Trascinate per definisce una selezzione rettangulare. Shift à u principiu di u trascinamentu l'aghjunghje à a selezzione, alt a sottrae, tramindui creanu l'intersezzione; Shift durante u trascinamentu a rende quatrata. Un clic senza trascinamentu deselezziuneghja.
+tool.marquee.ellipse.name = Selezzione ellittica
+tool.marquee.ellipse.description = Trascinate per definisce una selezzione ellittica, cù e listesse cumbinazioni Shift/alt chè per a selezzione rettangulare.
+
+tool.lasso.name = Lazzu
+tool.lasso.description = Trascinate un cuntornu à manu libera; a selezzione si chjode trà e duie estremità à a fine di u trascinamentu. Shift aghjunghje, alt sottrae.
+tool.lasso.history.select = Selezzione cù u lazzu
+tool.lasso.polygonal.name = Lazzu puligunale
+tool.lasso.polygonal.description = Cliccate d'angulu in angulu per custruisce una selezzione à bordi diritti, po cliccate vicinu à u primu puntu per chjudela.
+tool.lasso.polygonal.history.select = Lazzu puligunale
+tool.lasso.magnetic.name = Lazzu magneticu
+tool.lasso.magnetic.description = Seguitate à l'ingrossu un bordu è u cuntornu aderisce à u cuntrastu u più forte vicinu à u tracciatu.
+tool.lasso.magnetic.history.select = Lazzu magneticu
+tool.lasso.magnetic.option.frequency = Frequenza
+
+tool.wand.name = Bacchetta magica
+tool.wand.description = Cliccate per selezziunà a zona cunfinante di culore simile sottu à u puntatore, secondu l'opzione di tullerenza — a listessa tullerenza aduprata da Allargà, Simile è Gamma di culori.
+tool.wand.option.contiguous = Cunfinante
+tool.wand.history.select = Bacchetta magica
+
+tool.quick_select.name = Selezzione rapida
+tool.quick_select.description = Pitturate nant'à una zona è a selezzione s'allarga à traversu i pixel simile attraversati da a spazzola.
+tool.quick_select.history.select = Selezzione rapida
+
+tool.object_select.name = Selezzione d'ogettu
+tool.object_select.description = Trascinate una casella ingiru à un ogettu è a selezzione aderisce à l'ogettu trovu dentru.
+tool.object_select.history.select = Selezzione d'ogettu

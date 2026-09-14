@@ -1,0 +1,132 @@
+# The workspace (crates/app/src/workspace): documents and tabs, the
+# dialogs' shared enums, filters and adjustments, export, colour
+# management, the in-app file picker, crash recovery, and the status-bar
+# messages each of them sets. Keyed by module: workspace.<module>.<what>.
+# The dialogs' own labels are in dialogs.lang; the canvas-side modules
+# (edit_ops, image_ops, layers panel, …) are in workspace-canvas.lang.
+
+# Edit ▸ Fill sources (mod.rs, FillSource); the rest come from common.lang
+workspace.fill.gray_50 = 50% ধূসৰ
+workspace.fill.content_aware = বিষয়বস্তু-সচেতন
+
+# Select ▸ Modify dialog titles (ModifyKind)
+workspace.modify.expand = নিৰ্বাচন প্ৰসাৰিত কৰক
+workspace.modify.contract = নিৰ্বাচন সংকুচিত কৰক
+workspace.modify.border = নিৰ্বাচনৰ সীমা
+workspace.modify.smooth = নিৰ্বাচন মসৃণ কৰক
+workspace.modify.feather = নিৰ্বাচনত ফেদাৰ দিয়ক
+
+
+# The gallery's batch dialog: where the results go (BatchTarget)
+workspace.batch.target.edit = গেলেৰীৰ সম্পাদনাবোৰ (সংস্কৰণযুক্ত)
+workspace.batch.target.beside = মূলবোৰৰ কাষত প্ৰতিলিপি
+workspace.batch.target.folder = এটা ফ'ল্ডাৰত প্ৰতিলিপি…
+
+# Image ▸ Image Size, as the busy dialog titles itself
+workspace.modal.image_size.title = ছবিৰ আকাৰ
+
+# Documents and tabs (docs.rs)
+workspace.docs.opening = {name} খোলা হৈছে…
+workspace.docs.opened = {name} খোলা হ'ল
+workspace.docs.open_failed = খুলিব নোৱাৰিলে: {error}
+workspace.docs.no_codec = {name} Schist-এ খুলিব পৰা ফৰ্মেট নহয়
+workspace.docs.no_exporter = Schist-এ .{ext} ফাইল সংৰক্ষণ কৰিব নোৱাৰে
+workspace.docs.empty_response = ছাৰ্ভাৰে খালী সঁহাৰি পঠিয়ালে
+workspace.docs.heic_not_installed = HEIC সমৰ্থন ইনষ্টল কৰা নাই
+workspace.docs.heic_downloading = HEIC সমৰ্থন (libheif {version}) ডাউনল'ড হৈ আছে…
+workspace.docs.heic_installed = HEIC সমৰ্থন ইনষ্টল হ'ল
+workspace.docs.heic_download_failed = HEIC সমৰ্থন ডাউনল'ড কৰোঁতে বিফল হ'ল: {error}
+workspace.docs.placing = {name} স্থাপন কৰা হৈছে…
+workspace.docs.place_image = ছবি স্থাপন কৰক
+workspace.docs.placed = {name} স্থাপন কৰা হ'ল
+workspace.docs.place_failed = স্থাপন কৰিব নোৱাৰিলে: {error}
+workspace.docs.saved = {name} সংৰক্ষণ কৰা হ'ল
+workspace.docs.save_failed = সংৰক্ষণ কৰিব নোৱাৰিলে: {error}
+
+# Adjustment layers (adjustments.rs); {name} is the adjustment's name
+# from adjustments.lang
+workspace.adjustment.new_layer = নতুন {name} স্তৰ
+workspace.adjustment.added = {name} যোগ কৰা হ'ল
+workspace.adjustment.settings = {name} ছেটিংছ
+workspace.adjustment.updated = {name} আপডেট কৰা হ'ল
+workspace.adjustment.no_settings = {name}-ৰ কোনো সম্পাদনাযোগ্য ছেটিং নাই
+
+# Layer comps (comps.rs)
+workspace.comps.name_n = স্তৰ বিন্যাস {n}
+workspace.comps.captured = স্তৰ বিন্যাস ধৰা হ'ল
+workspace.comps.apply = {name} প্ৰয়োগ কৰক
+
+# Layer Style (styles.rs): the history entry and status
+workspace.styles.layer_style = স্তৰৰ শৈলী
+
+# Layer Properties (context.rs)
+workspace.context.rename_layer = স্তৰৰ পুনৰ নাম দিয়ক
+
+# Tool activation (commands.rs)
+workspace.commands.tool = সঁজুলি: {name}
+
+# Colour management (colormgmt.rs); {name} is a profile's own name
+workspace.colormgmt.assign = {name} নিৰ্ধাৰণ কৰক
+workspace.colormgmt.assigned = {name} নিৰ্ধাৰণ কৰা হ'ল
+workspace.colormgmt.convert_to = {name}-লৈ ৰূপান্তৰ কৰক
+workspace.colormgmt.converted_to = {name}-লৈ ৰূপান্তৰ কৰা হ'ল
+workspace.colormgmt.convert_failed = ৰূপান্তৰ বিফল হ'ল: {error}
+workspace.colormgmt.proof_on = প্ৰুফ ৰং চালু
+workspace.colormgmt.proof_off = প্ৰুফ ৰং বন্ধ
+
+# Running filters (filters.rs); {name} is the filter's name
+workspace.filters.choose = বাছক
+workspace.filters.select_layer_first = প্ৰথমে এটা স্তৰ নিৰ্বাচন কৰক
+workspace.filters.needs_pixel_layer = ফিল্টাৰৰ বাবে এটা পিক্সেল স্তৰ প্ৰয়োজন
+workspace.filters.nothing_to_filter = ফিল্টাৰ কৰিবলৈ একো নাই
+workspace.filters.went_away = ফিল্টাৰটো আঁতৰি গ'ল
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: ই ফিল্টাৰ কৰা স্তৰটো নাই
+workspace.filters.plugin_title = Photoshop প্লাগ-ইন
+workspace.filters.running = {name} চলি আছে
+workspace.filters.plugin_note = প্লাগ-ইনটো নিজা প্ৰক্ৰিয়াত চলে। ই কোনো উইণ্ড' খুলিলে, আগবাঢ়িবলৈ তাত সঁহাৰি দিয়ক।
+workspace.filters.raw_preview_developing = RAW পূৰ্বদৰ্শন বিকশিত কৰা হৈছে…
+workspace.filters.raw_preview_done = RAW পূৰ্বদৰ্শন (দ্ৰুত ডিম'জেইক)
+workspace.filters.raw_preview_size_changed = RAW পূৰ্বদৰ্শনৰ আকাৰ সলনি হ'ল: {w} × {h}
+workspace.filters.raw_preview_failed = RAW পূৰ্বদৰ্শন বিফল হ'ল: {error}
+workspace.filters.raw_developing = মূল কেপচাৰটো বিকশিত কৰা হৈছে…
+workspace.filters.raw_developing_note = সৰ্বোত্তম ডিম'জেইক পথ ব্যৱহাৰ কৰা হৈছে। PSD বা PSB হিচাপে সংৰক্ষণ কৰাৰ পিছতো মূল RAW আৰু এই ছেটিংছ সম্পাদনাযোগ্য হৈ থাকে।
+workspace.filters.raw_document_changed = দস্তাবেজ সলনি হোৱাৰ পিছত RAW বিকাশ শেষ হ'ল
+workspace.filters.raw_failed = RAW বিকাশ বিফল হ'ল: {error}
+workspace.filters.raw_too_wide = RAW বিকাশ অত্যধিক বহল
+workspace.filters.raw_too_tall = RAW বিকাশ অত্যধিক ওখ
+workspace.filters.raw_size_changed = RAW বিকাশৰ আকাৰ {w} × {h}-লৈ সলনি হ'ল; বৰ্তমানৰ স্তৰটো ৰখা হৈছে
+workspace.filters.raw_history = Camera Raw বিকাশ
+workspace.filters.raw_applied = Camera Raw বিকাশ প্ৰয়োগ কৰা হ'ল (সৰ্বোত্তম ডিম'জেইক)
+
+# Image Size through a neural upscaler (filters.rs); {name} is the model
+workspace.image_size.done = ছবিৰ আকাৰ: {w} × {h}
+workspace.image_size.bicubic_fallback = ছবিৰ আকাৰ: {w} × {h} — {name} মডেলটো লোড নহ'ল, সেয়েহে দ্বিঘনীয় পদ্ধতি ব্যৱহাৰ কৰা হ'ল
+workspace.image_size.upscaling = {name}-ৰে আকাৰ বৃদ্ধি কৰা হৈছে
+workspace.image_size.upscaling_note = নেটৱৰ্কৰ মাজেৰে {mp} মেগাপিক্সেল, প্ৰতিটোত কেইছেকেণ্ডমান। শেষ নোহোৱালৈকে দস্তাবেজটো ধৰি ৰখা হয়।
+
+# Export (export.rs)
+workspace.export.no_slices = ৰপ্তানি কৰিবলৈ কোনো স্লাইচ নাই
+workspace.export.no_artboards = ৰপ্তানি কৰিবলৈ কোনো আৰ্টব'ৰ্ড নাই
+workspace.export.regions.one = {n}টা অঞ্চল ৰপ্তানি কৰা হ'ল
+workspace.export.regions.other = {n}টা অঞ্চল ৰপ্তানি কৰা হ'ল
+workspace.export.prompt = এই ৰূপে ৰপ্তানি কৰক:
+workspace.export.done = {name} ৰপ্তানি কৰা হ'ল
+workspace.export.failed = ৰপ্তানি বিফল হ'ল: {error}
+workspace.export.codec_vanished = ৰপ্তানিকাৰীটো আৰু উপলব্ধ নহয়
+
+# Schist's own file picker (file_picker.rs), drawn where the platform
+# has none
+workspace.file_picker.choose_folder = ফ'ল্ডাৰ বাছক
+workspace.file_picker.type_a_name = ফাইলটোৰ বাবে এটা নাম লিখক
+workspace.file_picker.exists = {name} আগৰে পৰা আছে; সলনি কৰিবলৈ সংৰক্ষণ আকৌ টিপক
+workspace.file_picker.tap_a_file = খুলিবলৈ এটা ফাইল টিপক
+workspace.file_picker.pictures = ছবিসমূহ
+workspace.file_picker.camera = কেমেৰা
+workspace.file_picker.downloads = ডাউনল'ডসমূহ
+workspace.file_picker.permission_denied = এই ফ'ল্ডাৰ পঢ়িবলৈ Schist-ৰ অনুমতি নাই
+
+# Crash recovery (recovery.rs)
+workspace.recovery.recovered_title = {title} (পুনৰুদ্ধাৰ কৰা)
+workspace.recovery.recovered.one = আগৰ ছেশ্যনৰ {n}টা অসংৰক্ষিত দস্তাবেজ পুনৰুদ্ধাৰ কৰা হ'ল
+workspace.recovery.recovered.other = আগৰ ছেশ্যনৰ {n}টা দস্তাবেজ পুনৰুদ্ধাৰ কৰা হ'ল

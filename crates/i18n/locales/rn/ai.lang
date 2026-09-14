@@ -1,0 +1,31 @@
+# AI sidebar
+ai.status.panel_shown = Igice ca AI kirerekanwa
+ai.status.panel_hidden = Igice ca AI kirahishijwe — Kwerekana ▸ Igice ca AI ({shortcut}) kiragisubiza
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} irafatanijwe
+ai.info.now_in_gallery = Ubu uri mu bubiko bw'amashusho.
+ai.info.now_in_editor = Ubu uri mu gihindura.
+ai.tool.shell_command = itegeko rya shell
+
+ai.error.cli_missing = CLI ya {backend} (“{binary}”) ntiri kuri PATH. Banza uyishiremwo wongere uyinjiremwo.
+ai.error.endpoint_failed = gutangura iherezo rya MCP vyanse: {error}
+ai.error.binding_endpoint = gufatanya iherezo rya MCP
+ai.error.spawning_endpoint_thread = gutangura urudodo rw'iherezo rya MCP
+ai.error.runtime_failed = gutangura ahakorerwa agent vyanse: {error}
+ai.error.worker_failed = gutangura worker ya {backend} vyanse: {error}
+ai.error.did_not_start = {backend} ntiyatanguye: {error}
+ai.error.switch_model_failed = guhindura moderi vyanse: {error}
+ai.error.send_failed = kurungika ikibazo vyanse: {error}
+ai.error.interrupt_failed = guhagarika vyanse: {error}
+ai.error.locating_binary = kurondera binary ya Schist
+ai.error.starting_app_server = gutangura seriveri ya porogaramu ya Codex
+ai.error.attaching_app_server = kwifatanya na seriveri ya porogaramu ya Codex
+ai.error.initializing_app_server = gutegura seriveri ya porogaramu ya Codex
+ai.error.resuming_thread = gusubukura urudodo rwa Codex
+ai.error.starting_thread = gutangura urudodo rwa Codex
+
+ai.model.opus_detail = Urwego rushoboye vyinshi
+ai.model.sonnet_detail = Ikora neza ibikorwa vya misi yose
+ai.model.haiku_detail = Inyaruka kuruta mu nyishu zihuta
+ai.model.codex_catalog = Urutonde rwa Codex

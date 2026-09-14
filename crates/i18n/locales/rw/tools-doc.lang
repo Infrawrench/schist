@@ -1,0 +1,29 @@
+# Artboard
+tool.artboard.name = Ikibaho cy'igishushanyo
+tool.artboard.description = Kurura ukore ikibaho cy'igishushanyo: agace k'ikibaho gafite izina kabikwa ukwako. Gukurura imbere mu gisanzweho biracyimura.
+tool.artboard.default_name = Ikibaho cy'igishushanyo {n}
+
+# Slice
+tool.slice.name = Igice cyo kubika
+tool.slice.description = Kurura ukore igice cyo kubika, urukiramende rw'ikibaho rufite izina rubikwa nk'ishusho yarwo. Gukurura imbere mu gisanzweho biracyimura.
+tool.slice.default_name = Igice {n}
+
+# Frame
+tool.frame.name = Ikadiri
+tool.frame.description = Kurura ukore ikadiri: urwego rw'urukiramende (cyangwa ellipse) ruhisha ibice by'ibishyizwemo biri hanze y'ikadiri.
+tool.frame.default_name = Ikadiri {n}
+tool.frame.choice.rectangle = Urukiramende
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Ikadiri
+
+# Note
+tool.note.name = Akandiko
+tool.note.description = Kanda ahatanditse ku kibaho ushyireho akandiko gafite umwanditsi n'ibara biri mu miterere y'igihindura; kanda ku kimenyetso gisanzweho ugihitemo mu gice cy'Utwandiko.
+tool.note.history.place = Gushyiraho akandiko
+tool.note.history.move = Kwimura akandiko
+tool.note.history.delete = Gusiba akandiko
+
+# Count
+tool.count.name = Kubara
+tool.count.description = Kanda ushyire ibimenyetso bifite imibare ku kibaho, kandi ukande ku gisanzweho kugira ugikureho.
+tool.count.default_name = Umubare {n}

@@ -1,0 +1,42 @@
+# The AI sidebar's workspace side (crates/app/src/workspace/ai.rs) and
+# the agent harnesses behind it (crates/app/src/ai/): status lines,
+# transcript notes and the errors a person reads there. What is sent
+# to the model — the system prompts, the MCP tool catalog, the JSON-RPC
+# replies — stays English and is not here. "Claude Code", "Codex" and
+# the model names are product names and stay as written; `{backend}`
+# below is one of them.
+
+# Status bar
+ai.status.panel_shown = AI পেনেল দেখুওৱা হৈছে
+ai.status.panel_hidden = AI পেনেল লুকুওৱা হৈছে — দৃশ্য ▸ AI পেনেল ({shortcut})-এ ইয়াক পুনৰ দেখুৱাব
+ai.status.tool = AI: {name}
+
+# Dim rows in the transcript
+ai.info.connected = {backend} সংযুক্ত
+ai.info.now_in_gallery = এতিয়া গেলেৰীত।
+ai.info.now_in_editor = এতিয়া সম্পাদকত।
+ai.tool.shell_command = শ্বেল কমাণ্ড
+
+# Errors in the transcript
+ai.error.cli_missing = {backend} CLI (“{binary}”) PATH-ত নাই। প্ৰথমে ইয়াক ইনষ্টল কৰি লগ ইন কৰক।
+ai.error.endpoint_failed = MCP এণ্ডপইণ্ট আৰম্ভ কৰোঁতে বিফল হ'ল: {error}
+ai.error.binding_endpoint = MCP এণ্ডপইণ্ট বাইণ্ড কৰা হৈছে
+ai.error.spawning_endpoint_thread = MCP এণ্ডপইণ্ট থ্ৰেড আৰম্ভ কৰা হৈছে
+ai.error.runtime_failed = এজেণ্ট ৰানটাইম আৰম্ভ কৰোঁতে বিফল হ'ল: {error}
+ai.error.worker_failed = {backend} কৰ্মী আৰম্ভ কৰোঁতে বিফল হ'ল: {error}
+ai.error.did_not_start = {backend} আৰম্ভ নহ'ল: {error}
+ai.error.switch_model_failed = মডেল সলনি কৰোঁতে বিফল হ'ল: {error}
+ai.error.send_failed = প্ৰম্প্ট পঠিয়াওঁতে বিফল হ'ল: {error}
+ai.error.interrupt_failed = বাধা দিয়াত বিফল হ'ল: {error}
+ai.error.locating_binary = Schist বাইনেৰীৰ অৱস্থান বিচৰা হৈছে
+ai.error.starting_app_server = Codex এপ ছাৰ্ভাৰ আৰম্ভ কৰা হৈছে
+ai.error.attaching_app_server = Codex এপ ছাৰ্ভাৰৰ সৈতে সংযুক্ত কৰা হৈছে
+ai.error.initializing_app_server = Codex এপ ছাৰ্ভাৰ প্ৰাৰম্ভ কৰা হৈছে
+ai.error.resuming_thread = Codex থ্ৰেড পুনৰাৰম্ভ কৰা হৈছে
+ai.error.starting_thread = Codex থ্ৰেড আৰম্ভ কৰা হৈছে
+
+# The model picker's fallback catalog, shown until the CLI answers
+ai.model.opus_detail = সৰ্বাধিক সক্ষম স্তৰ
+ai.model.sonnet_detail = নিয়মীয়া কামৰ বাবে কাৰ্যক্ষম
+ai.model.haiku_detail = দ্ৰুত উত্তৰৰ বাবে আটাইতকৈ দ্ৰুত
+ai.model.codex_catalog = Codex কেটেলগ

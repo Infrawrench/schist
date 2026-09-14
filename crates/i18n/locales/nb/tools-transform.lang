@@ -1,0 +1,31 @@
+# Fri transformering, transformer markering og beskjæring.
+
+# Fri transformering
+tool.transform.name = Fri transformering
+tool.transform.description = Fri transformering. Når verktøyet aktiveres, åpnes en transformeringsramme rundt det aktive laget: dra i et hjørne for å skalere, utenfor et hjørne for å rotere eller i en kant for å skråstille. Ingenting lagres før du bekrefter (Enter), og ved avbryting (Escape) tilbakestilles laget.
+tool.transform.option.interpolation = Interpolering
+tool.transform.history.transform = Fri transformering
+tool.transform.history.image_size = Bildestørrelse
+tool.transform.history.canvas_size = Lerretsstørrelse
+
+# Transformer markering
+tool.transform.selection.name = Transformer markering
+tool.transform.selection.description = Transformer markering: den samme rammen, men den flytter markeringsomrisset i stedet for bildepunktene inni. Bekreft eller avbryt for å fullføre.
+tool.transform.selection.history.transform = Transformer markering
+
+# Klassiske filtre for ny punktberegning
+tool.transform.resample.nearest_neighbor = Nærmeste nabo
+tool.transform.resample.bilinear = Bilineær
+tool.transform.resample.bicubic = Bikubisk
+
+# Beskjæring
+tool.crop.name = Beskjær
+tool.crop.description = Dra ut området som skal beholdes, og juster håndtakene. Når du bekrefter (Enter), beskjæres dokumentet til området. Ved avbryting (Escape) forblir det uendret.
+tool.crop.option.ratio = Proporsjoner
+tool.crop.option.delete_cropped = Slett beskårne bildepunkter
+tool.crop.choice.unconstrained = Ubegrenset
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Beskjær

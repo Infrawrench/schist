@@ -1,0 +1,117 @@
+# Sorgenti di riempimento
+workspace.fill.gray_50 = Grigio 50%
+workspace.fill.content_aware = In base al contenuto
+
+# Modifica selezione
+workspace.modify.expand = Espandi selezione
+workspace.modify.contract = Contrai selezione
+workspace.modify.border = Selezione bordo
+workspace.modify.smooth = Arrotonda selezione
+workspace.modify.feather = Sfuma selezione
+
+# Elaborazione in serie della galleria
+workspace.batch.target.edit = Modifiche della galleria (con versioni)
+workspace.batch.target.beside = Copie accanto agli originali
+workspace.batch.target.folder = Copie in una cartella…
+
+workspace.modal.image_size.title = Dimensione immagine
+
+# Documenti e schede
+workspace.docs.opening = Apertura di {name}…
+workspace.docs.opened = {name} aperto
+workspace.docs.open_failed = Apertura non riuscita: {error}
+workspace.docs.no_codec = {name} non è in un formato che Schist può aprire
+workspace.docs.no_exporter = Schist non può salvare file .{ext}
+workspace.docs.empty_response = Il server ha inviato una risposta vuota
+workspace.docs.heic_not_installed = Il supporto HEIC non è installato
+workspace.docs.heic_downloading = Download del supporto HEIC (libheif {version})…
+workspace.docs.heic_installed = Supporto HEIC installato
+workspace.docs.heic_download_failed = Download del supporto HEIC non riuscito: {error}
+workspace.docs.placing = Inserimento di {name}…
+workspace.docs.place_image = Inserisci immagine
+workspace.docs.placed = {name} inserito
+workspace.docs.place_failed = Inserimento non riuscito: {error}
+workspace.docs.saved = {name} salvato
+workspace.docs.save_failed = Salvataggio non riuscito: {error}
+
+# Livelli di regolazione
+workspace.adjustment.new_layer = Nuovo livello {name}
+workspace.adjustment.added = {name} aggiunto
+workspace.adjustment.settings = Impostazioni {name}
+workspace.adjustment.updated = {name} aggiornato
+workspace.adjustment.no_settings = {name} non ha impostazioni modificabili
+
+# Composizioni livelli
+workspace.comps.name_n = Composizione livelli {n}
+workspace.comps.captured = Composizione livelli acquisita
+workspace.comps.apply = Applica {name}
+workspace.styles.layer_style = Stile livello
+workspace.context.rename_layer = Rinomina livello
+workspace.commands.tool = Strumento: {name}
+
+# Gestione del colore
+workspace.colormgmt.assign = Assegna {name}
+workspace.colormgmt.assigned = {name} assegnato
+workspace.colormgmt.convert_to = Converti in {name}
+workspace.colormgmt.converted_to = Convertito in {name}
+workspace.colormgmt.convert_failed = Conversione non riuscita: {error}
+workspace.colormgmt.proof_on = Prova colori attiva
+workspace.colormgmt.proof_off = Prova colori disattiva
+
+# Filtri
+workspace.filters.choose = Scegli
+workspace.filters.select_layer_first = Seleziona prima un livello
+workspace.filters.needs_pixel_layer = I filtri richiedono un livello pixel
+workspace.filters.nothing_to_filter = Nulla da filtrare
+workspace.filters.went_away = Il filtro non è più disponibile
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: il livello filtrato non esiste più
+workspace.filters.plugin_title = Plugin Photoshop
+workspace.filters.running = Esecuzione di {name}
+workspace.filters.plugin_note = Il plugin viene eseguito in un processo separato. Se apre una finestra, completa l'operazione al suo interno per continuare.
+workspace.filters.raw_preview_developing = Sviluppo anteprima RAW…
+workspace.filters.raw_preview_done = Anteprima RAW (demosaicizzazione rapida)
+workspace.filters.raw_preview_size_changed = Dimensione anteprima RAW modificata: {w} × {h}
+workspace.filters.raw_preview_failed = Anteprima RAW non riuscita: {error}
+workspace.filters.raw_developing = Sviluppo dell'acquisizione originale…
+workspace.filters.raw_developing_note = Viene usato il miglior metodo di demosaicizzazione. Il RAW originale e queste impostazioni restano modificabili dopo il salvataggio come PSD o PSB.
+workspace.filters.raw_document_changed = Lo sviluppo RAW è terminato dopo la modifica del documento
+workspace.filters.raw_failed = Sviluppo RAW non riuscito: {error}
+workspace.filters.raw_too_wide = Lo sviluppo RAW è troppo largo
+workspace.filters.raw_too_tall = Lo sviluppo RAW è troppo alto
+workspace.filters.raw_size_changed = La dimensione dello sviluppo RAW è cambiata in {w} × {h}; il livello corrente viene mantenuto
+workspace.filters.raw_history = Sviluppo Camera Raw
+workspace.filters.raw_applied = Sviluppo Camera Raw applicato (migliore demosaicizzazione)
+
+# Dimensione immagine con upscaler neurale
+workspace.image_size.done = Dimensione immagine: {w} × {h}
+workspace.image_size.bicubic_fallback = Dimensione immagine: {w} × {h} — impossibile caricare il modello {name}; è stata usata l'interpolazione bicubica
+workspace.image_size.upscaling = Aumento risoluzione con {name}
+workspace.image_size.upscaling_note = {mp} megapixel elaborati dalla rete, alcuni secondi ciascuno. Il documento rimane bloccato fino al completamento.
+
+# Esportazione
+workspace.export.no_slices = Nessuna sezione da esportare
+workspace.export.no_artboards = Nessuna tavola da disegno da esportare
+workspace.export.regions.one = {n} area esportata
+workspace.export.regions.many = {n} aree esportate
+workspace.export.regions.other = {n} aree esportate
+workspace.export.prompt = Esporta come:
+workspace.export.done = {name} esportato
+workspace.export.failed = Esportazione non riuscita: {error}
+workspace.export.codec_vanished = Il modulo di esportazione non è più disponibile
+
+# Selettore file
+workspace.file_picker.choose_folder = Scegli cartella
+workspace.file_picker.type_a_name = Digita un nome per il file
+workspace.file_picker.exists = {name} esiste già; tocca di nuovo Salva per sostituirlo
+workspace.file_picker.tap_a_file = Tocca un file da aprire
+workspace.file_picker.pictures = Immagini
+workspace.file_picker.camera = Fotocamera
+workspace.file_picker.downloads = Download
+workspace.file_picker.permission_denied = Schist non dispone dell'autorizzazione per leggere questa cartella
+
+# Ripristino dopo un arresto anomalo
+workspace.recovery.recovered_title = {title} (recuperato)
+workspace.recovery.recovered.one = Recuperato il lavoro non salvato da una sessione precedente
+workspace.recovery.recovered.many = Recuperati {n} documenti da una sessione precedente
+workspace.recovery.recovered.other = Recuperati {n} documenti da una sessione precedente

@@ -1,0 +1,29 @@
+# Tavula de traballu
+tool.artboard.name = Tavula de traballu
+tool.artboard.description = Tràghe pro creare una tavula de traballu: una regione cun nòmine de sa tela chi si esportat a sa sola. Traghende a intro de una chi esistit giai, dda tramudas.
+tool.artboard.default_name = Tavula de traballu {n}
+
+# Setzione
+tool.slice.name = Setzione
+tool.slice.description = Tràghe pro creare una setzione de esportatzione, unu retàngulu cun nòmine de sa tela esportadu comente immàgine separada. Traghende a intro de una chi esistit giai, dda tramudas.
+tool.slice.default_name = Setzione {n}
+
+# Cornice
+tool.frame.name = Cornice
+tool.frame.description = Tràghe pro creare una cornice: un'istratu retangulare (o elìticu) chi impostat una màschera a totu su chi est postu a intro.
+tool.frame.default_name = Cornice {n}
+tool.frame.choice.rectangle = Retàngulu
+tool.frame.choice.ellipse = Elisse
+tool.frame.history.frame = Cornice
+
+# Nota
+tool.note.name = Nota
+tool.note.description = Incarca in una parte bòida de sa tela pro apicare una nota in cue, marcada cun s'autore e su colore de s'istadu de s'editore; incarca unu marcadore chi esistit giai pro ddu seletzionare in su pannellu Notas.
+tool.note.history.place = Pone sa nota
+tool.note.history.move = Tramuda sa nota
+tool.note.history.delete = Cantzella sa nota
+
+# Contu
+tool.count.name = Contu
+tool.count.description = Incarca pro pònnere marcadores de contu numerados in sa tela, e incarca unu chi esistit giai pro ddu bogare.
+tool.count.default_name = Contu {n}

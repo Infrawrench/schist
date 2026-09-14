@@ -1,0 +1,154 @@
+# Ընտրացանկի գոտին
+
+# Ֆայլ
+menu.file = Ֆայլ
+menu.file.new = Նոր
+menu.file.open = Բացել…
+menu.file.open_recent = Բացել վերջիններից
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Զննել պատկերասրահը…
+menu.file.close = Փակել
+menu.file.save = Պահել
+menu.file.save_as = Պահել որպես…
+menu.file.export = Արտահանել…
+menu.file.export_submenu = Արտահանում
+menu.file.export_artboards = Մոնտաժային տիրույթները՝ PNG…
+menu.file.export_slices = Հատվածները՝ PNG…
+menu.file.save_to_photos = Պահել «Լուսանկարներ»-ում
+menu.file.plugins = Հավելումներ…
+menu.file.missing_fonts = Բացակայող տառատեսակներ…
+menu.file.check_for_updates = Ստուգել թարմացումները…
+menu.file.quit = Դուրս գալ
+menu.file.add_folder_to_gallery = Պանակ ավելացնել պատկերասրահին…
+menu.file.import_from_photos = Ներմուծել «Լուսանկարներ»-ից…
+menu.file.import_from_camera = Ներմուծել տեսախցիկից…
+
+# Խմբագրում
+menu.edit = Խմբագրում
+menu.edit.fill = Լցում…
+menu.edit.stroke = Եզրագիծ…
+menu.edit.content_aware_fill = Բովանդակությունը հաշվի առնող լցում
+menu.edit.content_aware_scale = Բովանդակությունը հաշվի առնող մասշտաբավորում…
+menu.edit.puppet_warp = Տիկնիկային դեֆորմացում
+menu.edit.free_transform = Ազատ ձևափոխում
+menu.edit.transform = Ձևափոխում
+menu.edit.rotate_180 = Պտտել 180°
+menu.edit.rotate_90_cw = Պտտել 90° ժամացույցի սլաքի ուղղությամբ
+menu.edit.rotate_90_ccw = Պտտել 90° ժամացույցի սլաքին հակառակ
+menu.edit.flip_horizontal = Արտացոլել հորիզոնական
+menu.edit.flip_vertical = Արտացոլել ուղղահայաց
+
+# Պատկեր
+menu.image = Պատկեր
+menu.image.mode = Ռեժիմ
+menu.image.adjustments = Կարգավորումներ
+menu.image.auto_tone = Ինքնաշխատ տոն
+menu.image.auto_contrast = Ինքնաշխատ հակադրություն
+menu.image.auto_color = Ինքնաշխատ գույն
+menu.image.image_size = Պատկերի չափ…
+menu.image.canvas_size = Կտավի չափ…
+menu.image.image_rotation = Պատկերի պտույտ
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° ժամացույցի սլաքի ուղղությամբ
+menu.image.rotate_90_ccw = 90° ժամացույցի սլաքին հակառակ
+menu.image.flip_canvas_horizontal = Արտացոլել կտավը հորիզոնական
+menu.image.flip_canvas_vertical = Արտացոլել կտավը ուղղահայաց
+menu.image.crop_to_selection = Կտրել ըստ ընտրության
+menu.image.trim = Եզրահատել
+menu.image.assign_profile = Նշանակել պրոֆիլ…
+menu.image.convert_to_profile = Փոխարկել պրոֆիլի…
+
+# Ընտրություն
+menu.select = Ընտրություն
+menu.select.color_range = Գունային տիրույթ…
+menu.select.modify = Փոփոխել
+menu.select.border = Եզրագիծ…
+menu.select.smooth = Հարթեցնել…
+menu.select.expand = Ընդլայնել…
+menu.select.contract = Սեղմել…
+menu.select.feather = Փափկեցնել…
+menu.select.transform_selection = Ձևափոխել ընտրությունը
+
+# Շերտ
+menu.layer = Շերտ
+menu.layer.layer_style = Շերտի ոճ…
+menu.layer.layer_comps = Շերտերի կոմպոզիցիաներ
+menu.layer.new_layer_comp = Նոր շերտային կոմպոզիցիա
+menu.layer.delete_layer_comp = Ջնջել {name}
+menu.layer.path = Ուղեգիծ
+menu.layer.fill_path = Լցնել ուղեգիծը
+menu.layer.stroke_path = Եզրագծել ուղեգիծը
+menu.layer.make_selection = Ստեղծել ընտրություն
+menu.layer.delete_path = Ջնջել ուղեգիծը
+
+menu.adjust = Կարգավորում
+
+# Զտիչ
+menu.filter = Զտիչ
+menu.filter.filter_gallery = Զտիչների պատկերասրահ…
+menu.filter.liquify = Հեղուկացում
+menu.filter.vanishing_point = Հեռանկարային կետ
+menu.filter.manage_models = Կառավարել մոդելները…
+menu.filter.camera_raw_development = Camera Raw մշակում…
+
+# Դիտում
+menu.view = Դիտում
+menu.view.rotate_view_cw = Պտտել դիտումը ժամացույցի սլաքի ուղղությամբ
+menu.view.rotate_view_ccw = Պտտել դիտումը ժամացույցի սլաքին հակառակ
+menu.view.reset_view = Վերակայել դիտումը
+menu.view.zoom_in = Խոշորացնել
+menu.view.zoom_out = Փոքրացնել
+menu.view.fit_on_screen = Տեղավորել էկրանին
+menu.view.actual_size = 100%
+menu.view.rulers = Քանոններ
+menu.view.grid = Ցանց
+menu.view.guides = Ուղեցույցներ
+menu.view.notes = Նշումներ
+menu.view.ai_panel = ԱԲ վահանակ
+menu.view.extras = Լրացուցիչ տարրեր
+menu.view.snap = Կպչում
+menu.view.clear_guides = Մաքրել ուղեցույցները
+menu.view.clear_notes = Մաքրել նշումները
+menu.view.clear_count = Մաքրել հաշվիչները
+menu.view.screen_mode = Էկրանի ռեժիմ
+menu.view.proof_colors = Փորձանմուշային գույներ
+menu.view.show_rulers = Ցուցադրել քանոնները
+menu.view.hide_rulers = Թաքցնել քանոնները
+menu.view.show_grid = Ցուցադրել ցանցը
+menu.view.hide_grid = Թաքցնել ցանցը
+menu.view.show_guides = Ցուցադրել ուղեցույցները
+menu.view.hide_guides = Թաքցնել ուղեցույցները
+menu.view.show_notes = Ցուցադրել նշումները
+menu.view.hide_notes = Թաքցնել նշումները
+menu.view.show_extras = Ցուցադրել լրացուցիչ տարրերը
+menu.view.hide_extras = Թաքցնել լրացուցիչ տարրերը
+menu.view.enable_snapping = Միացնել կպչումը
+menu.view.disable_snapping = Անջատել կպչումը
+menu.view.enable_proof_colors = Միացնել փորձանմուշային գույները
+menu.view.disable_proof_colors = Անջատել փորձանմուշային գույները
+
+# Պատկերասրահ
+menu.gallery = Պատկերասրահ
+menu.gallery.edit_selected = Խմբագրել ընտրվածը
+menu.gallery.refresh = Թարմացնել
+menu.gallery.map_filter = Քարտեզի զտիչ…
+menu.gallery.back_to_editor = Վերադառնալ խմբագրիչ
+
+# Schist Cloud
+menu.cloud.browse = Զննել Schist Cloud-ը
+menu.cloud.generate = Ստեղծել պատկերներ…
+menu.cloud.upload = Փաստաթուղթը վերբեռնել Schist Cloud…
+menu.cloud.sign_out = Դուրս գալ Schist Cloud-ից
+menu.cloud.sign_in = Մուտք գործել Schist Cloud
+
+# macOS հավելվածի ընտրացանկ
+menu.app.services = Ծառայություններ
+menu.app.hide = Թաքցնել {app}-ը
+menu.app.hide_others = Թաքցնել մյուսները
+menu.app.show_all = Ցուցադրել բոլորը
+menu.app.quit = Դուրս գալ {app}-ից
+
+# Չկատարվող ընտրացանկային գործողությունների կարգավիճակի հաղորդագրություններ
+menu.status.transform_selection_needs_selection = Ընտրությունը ձևափոխելու համար ընտրություն է անհրաժեշտ
+menu.status.crop_needs_selection = Ըստ ընտրության կտրելու համար ընտրություն է անհրաժեշտ
+menu.status.select_photo_to_edit = Ընտրեք խմբագրման ենթակա լուսանկար

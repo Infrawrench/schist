@@ -1,0 +1,92 @@
+# Shortcut keys
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigator
+panel.navigator.title = Ɔkwankyerɛ
+panel.navigator.actual_pixels = Pixels Ankasa
+
+# Kɔla
+panel.color.picker = Kɔla Paw Ade…
+panel.color.swap = Sesa Kɔla No Mu
+panel.color.reset = San Yɛ Tuntum ne Fitaa
+
+# Layers
+panel.layers.blending_options = Fra Nhyehyɛe…
+panel.layers.properties = Layer Su…
+panel.layers.show_hide = Kyerɛ/Fa Layer Sie
+panel.layers.toggle_visibility = Sesa Sɛnea Wohu No
+
+# Abakɔsɛm
+panel.history.title = Abakɔsɛm
+panel.history.opened = Wɔabue
+
+# Nsɛm
+panel.info.title = Nsɛm
+panel.info.camera = Kamera
+panel.info.lens = Lens
+panel.info.iso = ISO {iso}
+panel.info.bias = Hann Nsakrae
+panel.info.flash_fired = flash no sɔe
+panel.info.no_flash = flash ansɔ
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering} hann susuw
+panel.info.taken = Bere a Wɔtwee
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · nkyerɛase {o}
+panel.info.software = Software
+panel.info.where = Faako
+
+# Hyɛnsode
+panel.notes.author = Ɔkyerɛwfo
+panel.notes.clear_all = Pa Nyinaa
+panel.notes.unattributed = Wɔmfa Nto Obiara Din
+panel.notes.empty = Mia canvas no so na gyaw hyɛnsode.
+panel.notes.placeholder = Mia na kyerɛw
+
+# Nkyerɛwde
+panel.character.title = Nkyerɛwde
+panel.character.type_tool = Nkyerɛwee adwinnade (T)
+panel.character.align_left = Fa tɔ benkum
+panel.character.align_center = Fa tɔ mfinimfini
+panel.character.align_right = Fa tɔ nifa
+panel.character.text_color = Nkyerɛwee kɔla
+panel.character.panel = Nkyerɛwde panel
+panel.character.cancel_edit = Twa nkyerɛwee nsiesiei mu
+panel.character.commit_edit = Gye nkyerɛwee nsiesiei tom
+panel.character.number_tip = {label} · Kyerɛw bo bi, anaa fa ↑ / ↓ di dwuma (Shift ma anammɔn no yɛ kɛse)
+panel.character.leading = Nkyerɛwee Nsensanee Ntam
+panel.character.tracking = Nkyerɛw Ntam
+panel.character.alignment = Fa Tɔ Daa
+panel.character.opentype = OpenType
+panel.character.text_on_path = Nkyerɛwee wɔ kwan so
+panel.character.straight = Tee
+panel.character.on_path = Wɔ kwan so
+panel.character.straight_tip = Fa nkyerɛwee layer no baseline a wɔtaa de di dwuma no
+panel.character.on_path_tip = Fa kwan a ɛreyɛ adwuma no nsɛso
+panel.character.path_offset = Kwan no ntwea
+
+# AI
+panel.ai.title = AI
+panel.ai.empty_editor = Bisa ma wɔnyɛ nsakrae bi, na hwɛ sɛnea ɛkɔ so wɔ canvas no so. Agent no de nnwinnade, filters ne commands koro a ɛwɔ menus no mu no di dwuma, na adeyɛ biara yɛ undo anammɔn baako.
+panel.ai.empty_gallery = Bisa wo fotos ho asɛm, na hwɛ nea ɛkɔ so wɔ gallery no mu: agent no tumi hwehwɛ, hwɛ thumbnails, paw, hyehyɛ no akuwa mu, na bue foto wɔ editor no mu.
+panel.ai.thinking = ɛredwen…
+panel.ai.placeholder_editor = Bisa document yi ho asɛm anaa siesie no
+panel.ai.placeholder_gallery = Bisa wo fotos ho asɛm
+panel.ai.send = Soma
+panel.ai.stop = Gyae
+panel.ai.fetching_models = Ɛrebisa CLI no ne models…
+panel.ai.no_models = Model biara ne nea wohwehwɛ no nhyia
+panel.ai.search_models = Hwehwɛ models…
+
+# Fael dialogs
+panel.keymap.install_plugin = Fa Plug-in Gu So
+panel.keymap.save_as_prompt = Kora sɛ — extension no na ɛpaw format no:

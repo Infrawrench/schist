@@ -1,0 +1,72 @@
+tool.brush.name = Kwas
+tool.brush.description = Sjilder 'ne streek mit zachte rande in de veurgrondjskleur, mit de kwasgroeëtte, hardheid en dèkking van de bewèrker.
+tool.brush.history.stroke = Kwas
+
+tool.pencil.name = Potloeëd
+tool.pencil.description = Sjilder 'ne streek mit harde rande, zonger anti-aliasing, in de veurgrondjskleur.
+tool.pencil.history.stroke = Potloeëd
+
+tool.eraser.name = Gum
+tool.eraser.description = Gum langs de streek en maak de laog dao weer doorzichtig.
+tool.eraser.history.stroke = Gum
+
+tool.clone.name = Kloonstempel
+tool.clone.description = Kloonstempel: klik mit Alt om 't bronpunt in te stèlle en sjilder daonao pixels die op dae afstandj vanaaf de bron gekopieerd waere.
+tool.clone.history.stroke = Kloonstempel
+
+tool.dodge.name = Tegehouwe
+tool.dodge.description = Maak de pixels wo-euver de streek löp lichter.
+tool.dodge.history.stroke = Tegehouwe
+tool.burn.name = Doordrukke
+tool.burn.description = Maak de pixels wo-euver de streek löp donkerder.
+tool.burn.history.stroke = Doordrukke
+tool.sponge.name = Sjpons
+tool.sponge.description = Verzaodig of óntzaodig de pixels wo-euver de streek löp.
+tool.sponge.history.stroke = Sjpons
+
+tool.blur.name = Vervaoge
+tool.blur.description = Vervaog de pixels wo-euver de streek löp.
+tool.blur.history.stroke = Vervaoge
+tool.sharpen.name = Versjerpe
+tool.sharpen.description = Versjerp de pixels wo-euver de streek löp.
+tool.sharpen.history.stroke = Versjerpe
+tool.smudge.name = Oetsjmiere
+tool.smudge.description = Trèk de kleur mit langs de streek, es-of se natte verf veur uch oet duus.
+tool.smudge.history.stroke = Oetsjmiere
+
+tool.heal.name = Reparatiekwas
+tool.heal.description = Reparatiekwas: klik mit Alt om de bron in te stèlle en sjilder daonao; de textuur van de bron weurt gemèng mit de kleur en belichting van 't doel.
+tool.heal.history.stroke = Reparatiekwas
+tool.spot_heal.name = Snelreparatiekwas
+tool.spot_heal.description = Snelreparatiekwas: sjilder euver 'n vlek en die weurt vervange door textuur oet de ómgeving — gein bronpunt neudig.
+tool.spot_heal.history.stroke = Snelreparatiekwas
+
+tool.history_brush.name = Gesjiedeniskwas
+tool.history_brush.description = Sjilder pixels trök oet de momentopname in de documentgesjiedenis en maak later wirk streek veur streek óngedaon.
+tool.history_brush.history.stroke = Gesjiedeniskwas
+
+tool.background_eraser.name = Achtergrondjgum
+tool.background_eraser.description = Gum de kleur die oonder 't midde van de kwas gemete weurt en laot aafwiekende pixels sjtaon, om 'n oonderwerp van ziene achtergrondj los te make.
+tool.background_eraser.history.stroke = Achtergrondjgum
+
+tool.gradient.name = Kleurverlaop
+tool.gradient.description = Sleip om de laog te völle — door de selectie es die d'r is — mit 'n lineair kleurverlaop van de veurgrondjskleur nao de achtergrondjskleur, in de richting van 't sleipe.
+tool.gradient.radial.name = Radiaal kleurverlaop
+tool.gradient.radial.description = Sleip vanaaf 't midde nao boete om te völle mit 'n radiaal kleurverlaop tösse de veurgrondjs- en achtergrondjskleur.
+tool.gradient.option.gradient = Kleurverlaop
+tool.gradient.option.reverse = Ómdrejje
+tool.gradient.option.dither = Dithere
+tool.gradient.choice.foreground_to_background = Veurgrondj nao achtergrondj
+tool.gradient.choice.foreground_to_transparent = Veurgrondj nao doorzichtig
+tool.gradient.choice.linear = Lineair
+tool.gradient.choice.radial = Radiaal
+tool.gradient.choice.angle = Hook
+tool.gradient.choice.reflected = Gespegeld
+tool.gradient.choice.diamond = Roet
+tool.gradient.history.gradient = Kleurverlaop
+
+tool.bucket.name = Verfemmer
+tool.bucket.description = Klik om 't aaneingeslote gebied mit 'n vergeliekbare kleur oonder de wiezer mit de veurgrondjskleur te euverstreume, binne de tolerantie van 't hulpmiddel.
+tool.bucket.option.contiguous = Aaneingeslote
+tool.bucket.option.all_layers = Alle laoge
+tool.bucket.history.fill = Verfemmer

@@ -1,0 +1,20 @@
+# Stratos de regulatzione e cumandos Immàgine ▸ Regulatziones.
+adjustment.levels.name = Livellos
+adjustment.curves.name = Curvas
+adjustment.hue_saturation.name = Tonalidade/Saturatzione
+adjustment.brightness_contrast.name = Luminosidade/Contrastu
+adjustment.black_white.name = Nieddu e biancu
+adjustment.solid_color.name = Colore unidu
+adjustment.gradient_fill.name = Prentura a gradiente
+adjustment.pattern_fill.name = Prentura cun modellu
+adjustment.invert.name = Inverte
+adjustment.posterize.name = Posteriza
+adjustment.threshold.name = Lìmite
+adjustment.color_balance.name = Echilìbriu de colore
+adjustment.vibrance.name = Vivacidade
+adjustment.exposure.name = Espositzione
+adjustment.photo_filter.name = Filtru fotogràficu
+adjustment.gradient_map.name = Mapa de gradiente
+adjustment.selective_color.name = Colore seletivu
+adjustment.channel_mixer.name = Mischiadore de canales
+adjustment.other.name = Regulatzione

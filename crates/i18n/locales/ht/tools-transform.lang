@@ -1,0 +1,25 @@
+tool.transform.name = Transfòmasyon lib
+tool.transform.description = Transfòmasyon lib. Lè w aktive l, yon bwat transfòmasyon louvri toutotou kouch aktif la: trennen yon kwen pou chanje echèl, trennen deyò yon kwen pou vire, oswa trennen yon bò pou panche. Anyen pa ekri jiskaske ou valide (Antre), epi si w anile (Echap), kouch la retounen jan li te ye a.
+tool.transform.option.interpolation = Entèpolasyon
+tool.transform.history.transform = Transfòmasyon lib
+tool.transform.history.image_size = Gwosè imaj
+tool.transform.history.canvas_size = Gwosè twal
+
+tool.transform.selection.name = Transfòme seleksyon
+tool.transform.selection.description = Transfòme seleksyon: se menm bwat la, men li deplase kontou seleksyon an olye piksèl ki anndan l yo. Valide oswa anile pou fini.
+tool.transform.selection.history.transform = Transfòme seleksyon
+
+tool.transform.resample.nearest_neighbor = Vwazen ki pi pre
+tool.transform.resample.bilinear = Bilineyè
+tool.transform.resample.bicubic = Bikibik
+
+tool.crop.name = Rekadre
+tool.crop.description = Trennen pou delimite zòn pou konsève a epi ajiste manch li yo; lè w valide (Antre), dokiman an koupe selon zòn nan, epi lè w anile (Echap), li rete menm jan an.
+tool.crop.option.ratio = Pwopòsyon
+tool.crop.option.delete_cropped = Efase piksèl ki koupe yo
+tool.crop.choice.unconstrained = San kontrent
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Rekadre

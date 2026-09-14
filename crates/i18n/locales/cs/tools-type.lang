@@ -1,0 +1,24 @@
+# Textový nástroj.
+
+tool.type.name = Text
+tool.type.description = Kliknutím na místo začnete vytvářet textovou vrstvu, kliknutím na existující textovou vrstvu ji upravíte. Dokud je editor otevřený, nástroj přijímá přímé vstupy z klávesnice; potvrzením vrstvu vykreslíte a úpravy zavřete.
+
+tool.type.option.align = Zarovnání
+tool.type.option.leading = Proklad řádků
+tool.type.option.tracking = Prostrkání
+tool.type.option.kerning = Vyrovnání párů
+tool.type.option.ligatures = Slitky
+tool.type.option.discretionary_ligatures = Volitelné slitky
+tool.type.option.small_caps = Kapitálky
+tool.type.option.on_path = Na aktivní cestě
+tool.type.option.path_offset = Posun na cestě
+
+tool.type.choice.regular = Obyčejné
+tool.type.choice.bold = Tučné
+tool.type.choice.italic = Kurzíva
+tool.type.choice.bold_italic = Tučná kurzíva
+
+tool.type.history.new_layer = Nová textová vrstva
+tool.type.history.edit = Upravit text
+tool.type.history.discard = Zahodit text
+tool.type.history.discard_empty = Zahodit prázdný text

@@ -1,0 +1,9 @@
+{
+  "loading": "Laden…",
+  "starting": "Starten…",
+  "webgpu": "Schist heeft WebGPU nodig, maar deze browser biedt dat niet. Chrome/Edge 113+, Firefox 141+ en Safari 26+ doen dat wel.",
+  "noticeTitle": "Schist werkt het beste als desktopapp",
+  "noticeBody": "Je gebruikt de webversie, een lichtere build: deze maakt composities op de CPU en bevat enkele functies niet — plug-ins voor Photoshop en van andere ontwikkelaars, de afbeeldingsgalerie, het AI-deelvenster, HEIC-import en downloads van lettertypen — en bestanden worden als downloads opgeslagen. De gratis desktopapp voor macOS, Windows en Linux bevat al deze functies.",
+  "noticeLink": "Download de desktopapp.",
+  "ok": "OK"
+}

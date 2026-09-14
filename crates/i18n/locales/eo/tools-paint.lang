@@ -1,0 +1,73 @@
+# Pentraj iloj
+tool.brush.name = Peniko
+tool.brush.description = Pentru molrandan strekon per la malfona koloro, kun grando, malmoleco kaj opakeco laŭ la penikaj agordoj de la redaktilo.
+tool.brush.history.stroke = Peniko
+
+tool.pencil.name = Krajono
+tool.pencil.description = Pentru akrarandan strekon sen randglatigo per la malfona koloro.
+tool.pencil.history.stroke = Krajono
+
+tool.eraser.name = Skrapgumo
+tool.eraser.description = Forviŝu laŭ la streko, tiel ke la tavolo tie fariĝas travidebla.
+tool.eraser.history.stroke = Skrapgumo
+
+tool.clone.name = Klona stampilo
+tool.clone.description = Klona stampilo: Alt-alklaku por agordi la fontopunkton, poste pentru per rastrumeroj kopiitaj de tie je la sama deŝovo.
+tool.clone.history.stroke = Klona stampilo
+
+tool.dodge.name = Heligilo
+tool.dodge.description = Heligu la rastrumerojn, super kiuj pasas la streko.
+tool.dodge.history.stroke = Heligilo
+tool.burn.name = Malheligilo
+tool.burn.description = Malheligu la rastrumerojn, super kiuj pasas la streko.
+tool.burn.history.stroke = Malheligilo
+tool.sponge.name = Spongo
+tool.sponge.description = Pliigu aŭ malpliigu la saturecon de la rastrumeroj, super kiuj pasas la streko.
+tool.sponge.history.stroke = Spongo
+
+tool.blur.name = Malklarigilo
+tool.blur.description = Malakrigu la rastrumerojn, super kiuj pasas la streko.
+tool.blur.history.stroke = Malklarigilo
+tool.sharpen.name = Akrigilo
+tool.sharpen.description = Akrigu la rastrumerojn, super kiuj pasas la streko.
+tool.sharpen.history.stroke = Akrigilo
+tool.smudge.name = Ŝmirilo
+tool.smudge.description = Trenu koloron laŭ la streko, kvazaŭ vi puŝus malsekan farbon.
+tool.smudge.history.stroke = Ŝmirilo
+
+tool.heal.name = Ripara peniko
+tool.heal.description = Ripara peniko: Alt-alklaku por agordi la fonton, poste pentru; la teksturo de la fonto kunfandiĝas kun la propraj koloro kaj lumo de la celo.
+tool.heal.history.stroke = Ripara peniko
+tool.spot_heal.name = Makripara peniko
+tool.spot_heal.description = Makripara peniko: pentru super makulo, kaj ĝi estos anstataŭigita per teksturo prenita el la ĉirkaŭaĵo — sen bezono agordi fontopunkton.
+tool.spot_heal.history.stroke = Makripara peniko
+
+tool.history_brush.name = Historia peniko
+tool.history_brush.description = Pentru rastrumerojn el la historia momentfoto reen en la dokumenton, malfarante postajn ŝanĝojn strekon post streko.
+tool.history_brush.history.stroke = Historia peniko
+
+tool.background_eraser.name = Fona skrapgumo
+tool.background_eraser.description = Forviŝu la koloron specimenitan sub la centro de la peniko kaj lasu malsimilajn rastrumerojn netuŝitaj, por apartigi objekton de ĝia fono.
+tool.background_eraser.history.stroke = Fona skrapgumo
+
+tool.gradient.name = Gradiento
+tool.gradient.description = Trenu por plenigi la tavolon — tra la elekto, se ĝi ekzistas — per linia gradiento de la malfona koloro al la fona koloro laŭ la treno.
+tool.gradient.radial.name = Radiala gradiento
+tool.gradient.radial.description = Trenu de la centro eksteren por plenigi per radiala gradiento inter la malfona kaj fona koloroj.
+tool.gradient.option.gradient = Gradiento
+tool.gradient.option.reverse = Inversigi
+tool.gradient.option.dither = Kolorpunktumo
+tool.gradient.choice.foreground_to_background = De malfono al fono
+tool.gradient.choice.foreground_to_transparent = De malfono al travideblo
+tool.gradient.choice.linear = Linia
+tool.gradient.choice.radial = Radiala
+tool.gradient.choice.angle = Angula
+tool.gradient.choice.reflected = Spegulita
+tool.gradient.choice.diamond = Rombo
+tool.gradient.history.gradient = Gradiento
+
+tool.bucket.name = Farbsitelo
+tool.bucket.description = Alklaku por inundi per la malfona koloro la konektitan areon de simila koloro sub la montrilo, ene de la toleremo de la ilo.
+tool.bucket.option.contiguous = Apuda
+tool.bucket.option.all_layers = Ĉiuj tavoloj
+tool.bucket.history.fill = Farbsitelo

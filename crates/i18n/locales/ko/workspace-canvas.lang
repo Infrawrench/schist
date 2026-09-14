@@ -1,0 +1,42 @@
+# 편집기 캔버스와 주변 기능의 상태 메시지 및 작업 내역입니다.
+
+# 상태 표시줄 응답
+workspace.canvas.rotate_view_degrees = 보기 {degrees}° 회전
+workspace.canvas.view_reset = 보기 재설정됨
+workspace.canvas.notes_on = 노트 켜짐
+workspace.canvas.notes_off = 노트 꺼짐
+workspace.canvas.rulers_on = 눈금자 켜짐
+workspace.canvas.rulers_off = 눈금자 꺼짐
+workspace.canvas.grid_on = 격자 켜짐
+workspace.canvas.grid_off = 격자 꺼짐
+workspace.canvas.guides_on = 안내선 켜짐
+workspace.canvas.guides_off = 안내선 꺼짐
+workspace.canvas.extras_on = 기타 항목 켜짐
+workspace.canvas.extras_off = 기타 항목 꺼짐
+workspace.canvas.snap_on = 스냅 켜짐
+workspace.canvas.snap_off = 스냅 꺼짐
+workspace.canvas.guides_cleared = 안내선이 지워졌습니다
+workspace.canvas.no_path = 사용할 패스가 없습니다
+workspace.canvas.path_empty = 패스가 비어 있습니다
+workspace.canvas.stroke_needs_selection = 획을 적용하려면 선택 영역이 필요합니다
+workspace.canvas.nothing_to_stroke = 획을 적용할 항목이 없습니다
+workspace.canvas.content_aware_fill_needs_selection = 내용 인식 채우기를 사용하려면 선택 영역이 필요합니다
+workspace.canvas.content_aware_fill_needs_pixel_layer = 내용 인식 채우기를 사용하려면 픽셀 레이어가 필요합니다
+workspace.canvas.color_range_needs_pixel_layer = 색상 범위를 사용하려면 픽셀 레이어가 필요합니다
+workspace.canvas.nothing_to_adjust = 조정할 항목이 없습니다
+workspace.canvas.nothing_to_trim = 재단할 항목이 없습니다
+workspace.canvas.trimmed = 재단됨
+workspace.canvas.indexed_not_supported = 인덱스 색상은 아직 지원되지 않습니다
+workspace.canvas.opacity_percent = 불투명도: {n}%
+
+# 작업 내역 패널 항목
+workspace.history.stroke = 획
+workspace.history.fill = 채우기
+workspace.history.content_aware_scale = 내용 인식 비율
+workspace.history.filter_gallery = 필터 갤러리
+workspace.history.color_range = 색상 범위
+workspace.history.move_layer = 레이어 이동
+workspace.history.move_layers = 레이어 이동
+workspace.history.layer_opacity = 레이어 불투명도
+workspace.history.delete_note = 노트 삭제
+workspace.history.edit_note = 노트 편집

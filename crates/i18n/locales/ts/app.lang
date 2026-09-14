@@ -1,0 +1,39 @@
+app.filter_gallery.title = Galari ya tifilitara
+app.filter_gallery.stack = Ntlhandlamano (swi tirhisiwa ku suka ehansi ku ya ehenhla)
+app.filter_gallery.no_settings = Filitara leyi a yi na malulamiselo.
+
+app.fonts.not_open_licensed = a yi na layisense leyi pfulekeke · {substitute} yi fambisana ni mimpimo ya yona
+app.fonts.missing_substituted = ya kayivela · tsalwa ri vekiwile hi fonto leyi yi siveleke
+app.fonts.not_in_catalogue = {family} a yi kona eka khathalogu ya tifonto leti pfulekeke
+app.fonts.no_faces = ku hava swivumbeko swa {family} leswi nga dawunilodiwaka
+app.fonts.empty_response = nhlamulo leyi nga riki na chinhu
+
+app.update.unreadable_response = nhlamulo a yi hlayeki: {error}
+app.update.no_temp_dir = ku hava foldara ya xinkarhana yo dawunilodela eka yona
+app.update.asset_has_path = nkandziyiso wu nyika fayili ya wona vito leri nga ni ndlela
+app.update.too_big = leswi dawunilodiweke swi hundza sayizi leyi vuriweke hi nkandziyiso
+app.update.stopped_at = ku dawuniloda ku yime eka tibayiti ta {got} eka {total}
+app.update.hash_mismatch = hash ya leswi dawunilodiweke i {got}, ku nga ri {want}
+app.update.not_in_bundle = kopi leyi a yi le ndzeni ka bundle ya app
+app.update.no_parent_dir = bundle ya app a yi na foldara ya le henhla
+app.update.cannot_write = a swi koteki ku tsala eka {dir}
+app.update.cannot_move_aside = a swi koteki ku susa {app} endleleni
+app.update.cannot_move_in = a swi koteki ku nghenisa bundle leyintshwa endhawini ya yona
+app.update.cannot_run_ditto = a swi koteki ku tirhisa /usr/bin/ditto
+app.update.unpack_failed = ku pfula leswi dawunilodiweke swi tsandzekile: {error}
+app.update.no_app_in_download = leswi dawunilodiweke a swi na Schist.app
+app.update.cannot_run_codesign = a swi koteki ku tirhisa /usr/bin/codesign
+app.update.signature_invalid = nsayino wa leswi dawunilodiweke a wu tiyiseki: {error}
+app.update.download_unsigned = kopi leyi yi sayiniwile kambe leswi dawunilodiweke a swi sayiniwanga
+app.update.different_developer = leswi dawunilodiweke swi sayiniwe hi muendli un'wana
+app.update.cannot_relaunch = a swi koteki ku sungula xitirhisiwa xo pfula app nakambe
+app.update.not_installed_copy = kopi leyi a yi vekiwanga laha hi installer
+app.update.cannot_start_installer = a swi koteki ku sungula installer
+app.update.platform_unsupported = eka pulatifomo leyi, swintshwa swi nghenisiwa hi ndlela leyi Schist yi nghenisiweke ha yona
+
+app.vulkan.no_loader = schist: ku hava loader ya Vulkan eka sisiteme leyi, kutani ku hava lexi nga tirhisiwaka ku dirowa.\n\nSchist yi dirowa hi Vulkan, naswona `libvulkan.so.1` a yi nghenisiwanga.\nKu laveka loader ni driver havumbirhi:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: driver ya Vulkan leyi session leyi yi kongomisiweke eka yona a yi kona.\n\n{var} yi vekiwile, naswona ku yi veka swi *siva* ku lava ka loader\ndriver ematshan'wini yo engetela eka kona. Kutani tifayili leti, leti nga riki kona,\nhi tona nongonoko hinkwawu wa tidriver — naswona phurogireme yin'wana ni yin'wana ya Vulkan eka session leyi\na yi voni driver nikatsongo, hambiloko ku nghenisiwe to tala:\n\n{missing}\n    {var}={value}\n\nYi kongomise eka manifest leyi nga kona — tidriver leti nghenisiweke ti veka ta tona eka\n/usr/share/vulkan/icd.d — kumbe u yi susa kutani u pfumelela loader yi tilavela.\nLoko session yi veka leswi ku suka eka fayili ya config (Hyprland `env =`,\nfayili ya systemd environment.d, kumbe phurofayili ya shell), swi fanele ku cinciwa kwalaho,\nnaswona u fanele u nghena nakambe leswaku ku cinca ku fika eka leswi se swi tirhaka.\n
+app.vulkan.override_note = \n{var} yi vekiwile eka {value}, naswona leswi swi siva ndlela leyi loader yi tilavelaka ha yona:\nloko ku nga ri na manifest ya muchini lowu eka tona, xo sungula ku ringeta i ku yi susa.\n
+app.vulkan.no_driver = schist: ku hava driver ya Vulkan leyi nghenisiweke, kutani ku hava lexi nga tirhisiwaka ku dirowa.\n\nSchist yi dirowa hi Vulkan. Loader yi nghenisiwile kambe yi vika leswaku ku hava\ndriver — ku hava leyi titsariseke eka tindhawu letimbirhi leti lavisisiwaka:\n\n{dirs}\n\nLoader yi fambisiwa yi hambane ni tidriver, kutani hakanyingi ku kayivela package yin'we ntsena.\n\nNghenisa driver ya GPU ya muchini lowu:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver ya NVIDIA ya vini yi ta ni ya yona (`nvidia-utils` eka Arch,\n`nvidia-driver` eka Debian). Eka muchini wa xivirtual, kumbe kun'wana laha ku nga riki\nna driver ya GPU yo nghenisa, rasteriser ya software hi yona yi tirhaka:\n`vulkan-swrast` eka Arch, naswona i xiphemu xa `mesa-vulkan-drivers` kun'wana. Yi\nnonoka, kambe ya sungula.\n{overridden}
+app.vulkan.no_device = schist: driver ya Vulkan yi nghenisiwile kambe a yi nyiki xitirhisiwa xo dirowa ha xona.\n\nDriver yi nga ha va yi nga seketeli GPU leyi, kumbe yi nga koti ku yi fikelela —\nhi SSH kumbe endzeni ka container, /dev/dri hakanyingi ya kayivela.\n`vulkaninfo --summary` yi vika leswi loader yi swi vonaka.\n\nRasteriser ya software yi dirowa handle ka GPU loko muchini lowu wu ri tano:\n`vulkan-swrast` eka Arch, naswona i xiphemu xa `mesa-vulkan-drivers`\neka Debian na Fedora.\n
+app.vulkan.skip_hint = Ku sungula Schist hambiswiritano u yi tshika yi tsandzeka hi ndlela ya yona, veka {var}=1.

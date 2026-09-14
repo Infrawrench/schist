@@ -1,0 +1,24 @@
+# Utensils da deformaziun.
+
+tool.liquify.name = Liquefar
+tool.liquify.description = Stauscha, volva, smatga ensemen u unfla ils pixels sut in grond penel; l'opziun Modus determinescha l'acziun. La deformaziun s'accumulescha en ina rait e vegn applitgada a la stresa cun confermar.
+tool.liquify.option.tool = Utensil
+tool.liquify.choice.forward_warp = Deformar enavant
+tool.liquify.choice.reconstruct = Reconstruir
+tool.liquify.choice.twirl_cw = Volver en il senn da l'ura
+tool.liquify.choice.twirl_ccw = Volver cunter il senn da l'ura
+tool.liquify.choice.pucker = Smatgar ensemen
+tool.liquify.choice.bloat = Unflar
+tool.liquify.choice.push_left = Stauschar a sanestra
+tool.liquify.history.liquify = Liquefar
+
+tool.puppet_warp.name = Deformaziun da marionetta
+tool.puppet_warp.description = Clicca per fixar la stresa en intgins puncts e tira lura in dad els: la rait sa storscha enturn ils puncts fixads, pli rigida u pli libra tenor l'opziun Rigiditad. Cun confermar vegn la deformaziun applitgada.
+tool.puppet_warp.option.stiffness = Rigiditad
+tool.puppet_warp.history.puppet_warp = Deformaziun da marionetta
+
+tool.vanishing_point.name = Punct da svanir
+tool.vanishing_point.description = Tira si in plan sur in object cun perspectiva, mida lura al modus Clonar e malegia: ils pixels copiads suondan il plan e daventan pli pitschens cun la distanza.
+tool.vanishing_point.choice.edit_plane = Modifitgar il plan
+tool.vanishing_point.choice.clone = Clonar
+tool.vanishing_point.history.vanishing_point = Punct da svanir

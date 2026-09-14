@@ -1,0 +1,25 @@
+tool.transform.name = Friddja transformeren
+tool.transform.description = Friddja transformeren. Go dan bidjá johtui, de transformerenbovsa rahpasa aktiivvalaš gearddi birra: gease čiega vai skállet, gease čiega olggobealde vai jorgalat, ja gease ravdda vai skievddat. Ii mihkkege čállojuvvo ovdal go doaimma dohkkeha (Enter), ja gaskkalduhttin (Escape) máhcaha gearddi ruovttoluotta.
+tool.transform.option.interpolation = Interpolášuvdna
+tool.transform.history.transform = Friddja transformeren
+tool.transform.history.image_size = Govva sturrodat
+tool.transform.history.canvas_size = Govvaduolbba sturrodat
+
+tool.transform.selection.name = Transformere válljema
+tool.transform.selection.description = Transformere válljema: seamma bovsa, muhto dat sirdda válljema sárgosa iige dan siste govvačuoggáid. Dohkket dahje gaskkalduhte vai gearggat.
+tool.transform.selection.history.transform = Transformere válljema
+
+tool.transform.resample.nearest_neighbor = Lahkamuš ránnjá
+tool.transform.resample.bilinear = Bilineáralaš
+tool.transform.resample.bicubic = Bikubalaš
+
+tool.crop.name = Čuohpan
+tool.crop.description = Gease guovllu maid háliidat seailluhit ja heivet dan gieđahasaid. Dohkkeheapmi (Enter) čuohpá dokumeantta dan mielde; gaskkalduhttin (Escape) guođđá dokumeantta rievdatkeahttá.
+tool.crop.option.ratio = Gorrelohku
+tool.crop.option.delete_cropped = Sihko eret čuhppojuvvon govvačuoggáid
+tool.crop.choice.unconstrained = Ráddjehaga
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Čuohpan

@@ -1,0 +1,32 @@
+# L-għodod tal-elementi tad-dokument (plugins/tools-doc): żoni tax-xogħol,
+# sezzjonijiet, frejms, noti u għadd. It-tikketta Forma tal-frejm tinsab f'common.lang.
+
+# Żona tax-xogħol
+tool.artboard.name = Żona tax-Xogħol
+tool.artboard.description = Iddreggja biex toħloq żona tax-xogħol: reġjun imsemmi tal-kanvas li jiġi esportat waħdu. Jekk tiddreggja ġewwa żona eżistenti, iċċaqlaqha.
+tool.artboard.default_name = Żona tax-Xogħol {n}
+
+# Sezzjoni
+tool.slice.name = Sezzjoni
+tool.slice.description = Iddreggja biex toħloq sezzjoni għall-esportazzjoni, jiġifieri rettangolu msemmi tal-kanvas li jiġi esportat bħala immaġni għalih. Jekk tiddreggja ġewwa sezzjoni eżistenti, iċċaqlaqha.
+tool.slice.default_name = Sezzjoni {n}
+
+# Frejm
+tool.frame.name = Frejm
+tool.frame.description = Iddreggja biex toħloq frejm: saff rettangolari (jew ellittiku) li jaħbi l-partijiet ta' kull ħaġa mqiegħda fih li joħorġu barra mill-forma tiegħu.
+tool.frame.default_name = Frejm {n}
+tool.frame.choice.rectangle = Rettangolu
+tool.frame.choice.ellipse = Ellissi
+tool.frame.history.frame = Frejm
+
+# Nota
+tool.note.name = Nota
+tool.note.description = Ikklikkja fuq parti vojta tal-kanvas biex twaħħal nota hemm, immarkata bl-awtur u bil-kulur mill-istat tal-editur; ikklikkja marka eżistenti biex tagħżilha għall-pannell tan-Noti.
+tool.note.history.place = Poġġi Nota
+tool.note.history.move = Ċaqlaq in-Nota
+tool.note.history.delete = Ħassar in-Nota
+
+# Għadd
+tool.count.name = Għadd
+tool.count.description = Ikklikkja biex tqiegħed marki nnumerati tal-għadd fuq il-kanvas, u kklikkja marka eżistenti biex tneħħiha.
+tool.count.default_name = Għadd {n}

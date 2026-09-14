@@ -1,0 +1,27 @@
+# Libera transformo, transformo de elekto kaj stucado, kun respecimenaj nomoj.
+
+tool.transform.name = Libera transformo
+tool.transform.description = Libera transformo. Aktivigo malfermas transforman kadron ĉirkaŭ la aktiva tavolo: trenu angulon por skali, trenu ekster angulo por turni, aŭ trenu randon por oblikvigi. Nenio estas skribata ĝis vi konfirmas per Enter; nuligo per Escape restarigas la tavolon.
+tool.transform.option.interpolation = Interpolado
+tool.transform.history.transform = Libera transformo
+tool.transform.history.image_size = Bilda grando
+tool.transform.history.canvas_size = Kanvasa grando
+
+tool.transform.selection.name = Transformi elekton
+tool.transform.selection.description = Transformi elekton: la sama kadro movas la elektokonturon anstataŭ la rastrumerojn ene de ĝi. Konfirmu aŭ nuligu por fini.
+tool.transform.selection.history.transform = Transformi elekton
+
+tool.transform.resample.nearest_neighbor = Plej proksima najbaro
+tool.transform.resample.bilinear = Duliniara
+tool.transform.resample.bicubic = Bikuba
+
+tool.crop.name = Stuci
+tool.crop.description = Trenu por marki la konservotan areon kaj ĝustigu ĝiajn tenilojn; konfirmo per Enter stucas la dokumenton laŭ ĝi, kaj nuligo per Escape lasas la dokumenton netuŝita.
+tool.crop.option.ratio = Proporcio
+tool.crop.option.delete_cropped = Forigi forstucitajn rastrumerojn
+tool.crop.choice.unconstrained = Sen limigo
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Stuci

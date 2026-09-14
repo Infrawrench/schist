@@ -1,0 +1,152 @@
+# Fayiro
+menu.file = Fayiro
+menu.file.new = Kiggya
+menu.file.open = Ggulawo…
+menu.file.open_recent = Ggulawo eyaakakozesebwa
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Noonya mu kkuŋŋaaniro…
+menu.file.close = Ggalawo
+menu.file.save = Tereka
+menu.file.save_as = Tereka Nga…
+menu.file.export = Fulumya…
+menu.file.export_submenu = Fulumya
+menu.file.export_artboards = Fulumya olubaawo lw'emirimu mu PNG…
+menu.file.export_slices = Fulumya ebitundu mu PNG…
+menu.file.save_to_photos = Tereka mu Bifaananyi
+menu.file.plugins = Plug-ins…
+menu.file.missing_fonts = Empandiika ezibulamu…
+menu.file.check_for_updates = Kebera entuukanya…
+menu.file.quit = Fuluma
+menu.file.add_folder_to_gallery = Gatta folda ku kkuŋŋaaniro…
+menu.file.import_from_photos = Yingiza okuva mu Bifaananyi…
+menu.file.import_from_camera = Yingiza okuva mu Kamera…
+
+# Kyusa
+menu.edit = Kyusa
+menu.edit.fill = Jjuza…
+menu.edit.stroke = Siiga omusalaba…
+menu.edit.content_aware_fill = Jjuza ng'otegeera ebirimu
+menu.edit.content_aware_scale = Kyusa obunene ng'otegeera ebirimu…
+menu.edit.puppet_warp = Kyusa ng'akazannyo
+menu.edit.free_transform = Kyusa nga weeroboza
+menu.edit.transform = Kyusa enkula
+menu.edit.rotate_180 = Wetoolooze 180°
+menu.edit.rotate_90_cw = Wetoolooze 90° mu kkubo ly'essaawa
+menu.edit.rotate_90_ccw = Wetoolooze 90° mu kkubo erikontana n'essaawa
+menu.edit.flip_horizontal = Fuula mu bukiika
+menu.edit.flip_vertical = Fuula mu busimba
+
+# Ekifaananyi
+menu.image = Ekifaananyi
+menu.image.mode = Engeri
+menu.image.adjustments = Enkyukakyuka
+menu.image.auto_tone = Emitendera gy'ekitangaala gyetereeze
+menu.image.auto_contrast = Enjawulo yeetereeze
+menu.image.auto_color = Langi yeetereeze
+menu.image.image_size = Obunene bw'ekifaananyi…
+menu.image.canvas_size = Obunene bwa canvas…
+menu.image.image_rotation = Okwetoolooza ekifaananyi
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° mu kkubo ly'essaawa
+menu.image.rotate_90_ccw = 90° mu kkubo erikontana n'essaawa
+menu.image.flip_canvas_horizontal = Fuula canvas mu bukiika
+menu.image.flip_canvas_vertical = Fuula canvas mu busimba
+menu.image.crop_to_selection = Salako okutuuka ku kirondeddwa
+menu.image.trim = Salako embalama
+menu.image.assign_profile = Teekako pulofayiro…
+menu.image.convert_to_profile = Kyusa okudda ku pulofayiro…
+
+# Londa
+menu.select = Londa
+menu.select.color_range = Ekibangirizi kya langi…
+menu.select.modify = Kyusa
+menu.select.border = Olubalama…
+menu.select.smooth = Gonvuya…
+menu.select.expand = Gaziya…
+menu.select.contract = Funza…
+menu.select.feather = Gonvuya embalama…
+menu.select.transform_selection = Kyusa ekirondeddwa
+
+# Layer
+menu.layer = Layer
+menu.layer.layer_style = Omusono gwa layer…
+menu.layer.layer_comps = Enteekateeka za layer
+menu.layer.new_layer_comp = Enteekateeka ya layer empya
+menu.layer.delete_layer_comp = Sangula {name}
+menu.layer.path = Ekkubo
+menu.layer.fill_path = Jjuza ekkubo
+menu.layer.stroke_path = Siiga ekkubo
+menu.layer.make_selection = Kifuule ekirondeddwa
+menu.layer.delete_path = Sangula ekkubo
+
+menu.adjust = Tereeza
+
+# Sengejja
+menu.filter = Sengejja
+menu.filter.filter_gallery = Ekkuŋŋaaniro ly'obusengejja…
+menu.filter.liquify = Fuula ng'amazzi
+menu.filter.vanishing_point = Ensonga ebula
+menu.filter.manage_models = Ddukanya models…
+menu.filter.camera_raw_development = Okukola ku Camera Raw…
+
+# Endabika
+menu.view = Endabika
+menu.view.rotate_view_cw = Wetoolooze endabika mu kkubo ly'essaawa
+menu.view.rotate_view_ccw = Wetoolooze endabika mu kkubo erikontana n'essaawa
+menu.view.reset_view = Zzaawo endabika
+menu.view.zoom_in = Zimbulukusa
+menu.view.zoom_out = Kendeeza
+menu.view.fit_on_screen = Gikwatanye n'olutimbe
+menu.view.actual_size = 100%
+menu.view.rulers = Rula
+menu.view.grid = Akatimba
+menu.view.guides = Enkola z'okulungamya
+menu.view.notes = Ebiwandiiko
+menu.view.ai_panel = Ekipande kya AI
+menu.view.extras = Ebyongerwako
+menu.view.snap = Kwataganya
+menu.view.clear_guides = Jjawo enkola z'okulungamya
+menu.view.clear_notes = Jjawo ebiwandiiko
+menu.view.clear_count = Jjawo okubala
+menu.view.screen_mode = Engeri y'olutimbe
+menu.view.proof_colors = Langi ez'okugezesa
+menu.view.show_rulers = Laga rula
+menu.view.hide_rulers = Kweka rula
+menu.view.show_grid = Laga akatimba
+menu.view.hide_grid = Kweka akatimba
+menu.view.show_guides = Laga enkola z'okulungamya
+menu.view.hide_guides = Kweka enkola z'okulungamya
+menu.view.show_notes = Laga ebiwandiiko
+menu.view.hide_notes = Kweka ebiwandiiko
+menu.view.show_extras = Laga ebyongerwako
+menu.view.hide_extras = Kweka ebyongerwako
+menu.view.enable_snapping = Koleeza okukwataganya
+menu.view.disable_snapping = Komya okukwataganya
+menu.view.enable_proof_colors = Koleeza langi ez'okugezesa
+menu.view.disable_proof_colors = Komya langi ez'okugezesa
+
+# Ekkuŋŋaaniro
+menu.gallery = Ekkuŋŋaaniro
+menu.gallery.edit_selected = Kyusa ebirondeddwa
+menu.gallery.refresh = Zza buggya
+menu.gallery.map_filter = Akasengejja ka maapu…
+menu.gallery.back_to_editor = Ddayo mu mukwanaganya
+
+# Schist Cloud
+menu.cloud.browse = Noonya mu Schist Cloud
+menu.cloud.generate = Tonda ebifaananyi…
+menu.cloud.upload = Teeka ekiwandiiko ku Schist Cloud…
+menu.cloud.sign_out = Fuluma mu Schist Cloud
+menu.cloud.sign_in = Yingira mu Schist Cloud…
+
+# Menyu ya pulogulaamu
+menu.app.services = Empeereza
+menu.app.hide = Kweka {app}
+menu.app.hide_others = Kweka ebirala
+menu.app.show_all = Laga byonna
+menu.app.quit = Fuluma mu {app}
+
+# Obubaka bw'embeera
+menu.status.transform_selection_needs_selection = Kyusa ekirondeddwa kyetaaga okubaako ekirondeddwa
+menu.status.crop_needs_selection = Salako okutuuka ku kirondeddwa kyetaaga okubaako ekirondeddwa
+menu.status.select_photo_to_edit = Londa ekifaananyi ky'ogenda okukyusa

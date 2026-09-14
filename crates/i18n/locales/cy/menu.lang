@@ -1,0 +1,155 @@
+# Y bar dewislenni yn y ffenestr a bar dewislen system macOS/iPadOS.
+
+# Ffeil
+menu.file = Ffeil
+menu.file.new = Newydd
+menu.file.open = Agor…
+menu.file.open_recent = Agor Ffeil Ddiweddar
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Pori'r Oriel…
+menu.file.close = Cau
+menu.file.save = Cadw
+menu.file.save_as = Cadw Fel…
+menu.file.export = Allforio…
+menu.file.export_submenu = Allforio
+menu.file.export_artboards = Byrddau Celf i PNG…
+menu.file.export_slices = Tafelli i PNG…
+menu.file.save_to_photos = Cadw i Ffotograffau
+menu.file.plugins = Ategion…
+menu.file.missing_fonts = Ffontiau Coll…
+menu.file.check_for_updates = Gwirio am Ddiweddariadau…
+menu.file.quit = Gadael
+menu.file.add_folder_to_gallery = Ychwanegu Ffolder at yr Oriel…
+menu.file.import_from_photos = Mewnforio o Ffotograffau…
+menu.file.import_from_camera = Mewnforio o'r Camera…
+
+# Golygu
+menu.edit = Golygu
+menu.edit.fill = Llenwi…
+menu.edit.stroke = Strôc…
+menu.edit.content_aware_fill = Llenwi sy'n Ystyriol o'r Cynnwys
+menu.edit.content_aware_scale = Graddio sy'n Ystyriol o'r Cynnwys…
+menu.edit.puppet_warp = Ystumio Pyped
+menu.edit.free_transform = Trawsnewid Rhydd
+menu.edit.transform = Trawsnewid
+menu.edit.rotate_180 = Cylchdroi 180°
+menu.edit.rotate_90_cw = Cylchdroi 90° gyda'r Cloc
+menu.edit.rotate_90_ccw = Cylchdroi 90° yn erbyn y Cloc
+menu.edit.flip_horizontal = Fflipio'n Llorweddol
+menu.edit.flip_vertical = Fflipio'n Fertigol
+
+# Delwedd
+menu.image = Delwedd
+menu.image.mode = Modd
+menu.image.adjustments = Addasiadau
+menu.image.auto_tone = Tôn Awtomatig
+menu.image.auto_contrast = Cyferbyniad Awtomatig
+menu.image.auto_color = Lliw Awtomatig
+menu.image.image_size = Maint Delwedd…
+menu.image.canvas_size = Maint Cynfas…
+menu.image.image_rotation = Cylchdroi Delwedd
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° gyda'r Cloc
+menu.image.rotate_90_ccw = 90° yn erbyn y Cloc
+menu.image.flip_canvas_horizontal = Fflipio'r Cynfas yn Llorweddol
+menu.image.flip_canvas_vertical = Fflipio'r Cynfas yn Fertigol
+menu.image.crop_to_selection = Tocio i'r Detholiad
+menu.image.trim = Trimio
+menu.image.assign_profile = Neilltuo Proffil…
+menu.image.convert_to_profile = Trosi i Broffil…
+
+# Dewis
+menu.select = Dewis
+menu.select.color_range = Ystod Lliwiau…
+menu.select.modify = Addasu
+menu.select.border = Ymyl…
+menu.select.smooth = Llyfnhau…
+menu.select.expand = Ehangu…
+menu.select.contract = Cywasgu…
+menu.select.feather = Meddalu Ymylon…
+menu.select.transform_selection = Trawsnewid Detholiad
+
+# Haen
+menu.layer = Haen
+menu.layer.layer_style = Arddull Haen…
+menu.layer.layer_comps = Cyfansoddiadau Haenau
+menu.layer.new_layer_comp = Cyfansoddiad Haen Newydd
+menu.layer.delete_layer_comp = Dileu {name}
+menu.layer.path = Llwybr
+menu.layer.fill_path = Llenwi Llwybr
+menu.layer.stroke_path = Strocio Llwybr
+menu.layer.make_selection = Creu Detholiad
+menu.layer.delete_path = Dileu Llwybr
+
+# Addasu
+menu.adjust = Addasu
+
+# Hidlydd
+menu.filter = Hidlydd
+menu.filter.filter_gallery = Oriel Hidlwyr…
+menu.filter.liquify = Hylifo
+menu.filter.vanishing_point = Pwynt Diflannu
+menu.filter.manage_models = Rheoli Modelau…
+menu.filter.camera_raw_development = Datblygu Camera Raw…
+
+# Golwg
+menu.view = Golwg
+menu.view.rotate_view_cw = Cylchdroi'r Olygfa gyda'r Cloc
+menu.view.rotate_view_ccw = Cylchdroi'r Olygfa yn erbyn y Cloc
+menu.view.reset_view = Ailosod yr Olygfa
+menu.view.zoom_in = Chwyddo i Mewn
+menu.view.zoom_out = Chwyddo Allan
+menu.view.fit_on_screen = Ffitio ar y Sgrin
+menu.view.actual_size = 100%
+menu.view.rulers = Pren Mesur
+menu.view.grid = Grid
+menu.view.guides = Canllawiau
+menu.view.notes = Nodiadau
+menu.view.ai_panel = Panel AI
+menu.view.extras = Pethau Ychwanegol
+menu.view.snap = Snapio
+menu.view.clear_guides = Clirio Canllawiau
+menu.view.clear_notes = Clirio Nodiadau
+menu.view.clear_count = Clirio'r Cyfrif
+menu.view.screen_mode = Modd Sgrin
+menu.view.proof_colors = Lliwiau Prawf
+menu.view.show_rulers = Dangos Pren Mesur
+menu.view.hide_rulers = Cuddio Pren Mesur
+menu.view.show_grid = Dangos y Grid
+menu.view.hide_grid = Cuddio'r Grid
+menu.view.show_guides = Dangos Canllawiau
+menu.view.hide_guides = Cuddio Canllawiau
+menu.view.show_notes = Dangos Nodiadau
+menu.view.hide_notes = Cuddio Nodiadau
+menu.view.show_extras = Dangos Pethau Ychwanegol
+menu.view.hide_extras = Cuddio Pethau Ychwanegol
+menu.view.enable_snapping = Galluogi Snapio
+menu.view.disable_snapping = Analluogi Snapio
+menu.view.enable_proof_colors = Galluogi Lliwiau Prawf
+menu.view.disable_proof_colors = Analluogi Lliwiau Prawf
+
+# Oriel
+menu.gallery = Oriel
+menu.gallery.edit_selected = Golygu'r Rhai a Ddewiswyd
+menu.gallery.refresh = Adnewyddu
+menu.gallery.map_filter = Hidlydd Map…
+menu.gallery.back_to_editor = Yn ôl i'r Golygydd
+
+# Is-ddewislen Schist Cloud
+menu.cloud.browse = Pori Schist Cloud
+menu.cloud.generate = Cynhyrchu delweddau…
+menu.cloud.upload = Llwytho dogfen i Schist Cloud…
+menu.cloud.sign_out = Allgofnodi o Schist Cloud
+menu.cloud.sign_in = Mewngofnodi i Schist Cloud…
+
+# Dewislen rhaglen macOS
+menu.app.services = Gwasanaethau
+menu.app.hide = Cuddio {app}
+menu.app.hide_others = Cuddio'r Lleill
+menu.app.show_all = Dangos Popeth
+menu.app.quit = Gadael {app}
+
+# Atebion y bar statws pan na all eitem dewislen weithredu
+menu.status.transform_selection_needs_selection = Mae angen detholiad ar Trawsnewid Detholiad
+menu.status.crop_needs_selection = Mae angen detholiad ar Tocio i'r Detholiad
+menu.status.select_photo_to_edit = Dewiswch ffotograff i'w olygu

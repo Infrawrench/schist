@@ -1,0 +1,54 @@
+# The vector tools (plugins/tools-vector): the pens, the two selection
+# arrows, the shapes and the custom shapes. Mode, Shape, Pixels and Path
+# come from common.lang.
+
+# Pens
+tool.pen.name = Pena
+tool.pen.description = Bina laluan: klik untuk titik penjuru, seret untuk menarik keluar pemegang lengkung daripadanya dan klik titik pertama untuk menutup. Penerapan menukarkan laluan kepada lapisan bentuk.
+tool.pen.option.rubber_band = Jalur Getah
+tool.pen.history.fill = Isian Laluan
+# The name a freeform or curvature pen gives the path it stores
+tool.pen.default_path_name = Laluan {n}
+tool.pen.freeform.name = Pena Bentuk Bebas
+tool.pen.freeform.description = Seret garis bebas dan garis itu disesuaikan menjadi laluan, selonggar yang ditetapkan oleh pilihan Penyesuaian.
+tool.pen.freeform.option.fit = Penyesuaian
+tool.pen.curvature.name = Pena Kelengkungan
+tool.pen.curvature.description = Klik satu siri titik dan laluan dilengkungkan dengan licin melaluinya.
+
+# The arrows
+tool.path_select.name = Pilihan Laluan
+tool.path_select.description = Klik laluan untuk memilihnya dan seret untuk mengalihkan seluruh laluan.
+tool.direct_select.name = Pilihan Terus
+tool.direct_select.description = Seret satu titik penambat atau pemegangnya untuk membentuk semula laluan di sekelilingnya.
+
+# Shapes. Each has a tool name and a label, which names the layer and the
+# path a drag creates; the history entry for a live shape layer is the
+# label filled into tool.shape.history.layer.
+tool.shape.history.layer = Lapisan {name}
+tool.shape.rect.name = Alat Segi Empat Tepat
+tool.shape.rect.label = Segi Empat Tepat
+tool.shape.rect.description = Seret untuk membentuk lapisan bentuk segi empat tepat dalam warna latar depan; bentuk kekal sebagai vektor dan diraster semula apabila saiznya diubah.
+tool.shape.ellipse.name = Alat Elips
+tool.shape.ellipse.label = Elips
+tool.shape.ellipse.description = Seret untuk membentuk lapisan bentuk elips dalam warna latar depan.
+tool.shape.line.name = Alat Garis
+tool.shape.line.label = Garis
+tool.shape.line.description = Seret untuk membentuk lapisan bentuk garis lurus dalam warna latar depan.
+tool.shape.line.option.weight = Ketebalan
+tool.shape.line.option.arrow_start = Mula
+tool.shape.line.option.arrow_end = Tamat
+tool.shape.polygon.name = Alat Poligon
+tool.shape.polygon.label = Poligon
+tool.shape.polygon.description = Seret untuk membentuk lapisan bentuk poligon sekata dalam warna latar depan, dengan bilangan sisi daripada pilihan.
+tool.shape.polygon.option.sides = Sisi
+
+# Custom shapes
+tool.shape.custom.name = Bentuk Tersuai
+tool.shape.custom.label = Bentuk Tersuai
+tool.shape.custom.description = Seret untuk membentuk salah satu bentuk praset terbina dalam yang dipilih melalui pilihan Bentuk.
+tool.shape.custom.choice.heart = Hati
+tool.shape.custom.choice.star = Bintang
+tool.shape.custom.choice.arrow = Anak Panah
+tool.shape.custom.choice.lightning = Kilat
+tool.shape.custom.choice.cross = Palang
+tool.shape.custom.choice.speech_bubble = Belon Dialog

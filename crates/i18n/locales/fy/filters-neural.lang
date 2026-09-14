@@ -1,0 +1,161 @@
+# Mienskiplike labels
+filter.neural.param.center_x = Midden X
+filter.neural.param.center_y = Midden Y
+filter.neural.param.direction = Rjochting
+filter.neural.param.transition = Oergong
+filter.neural.param.detail = Detail
+filter.neural.param.eyes = Eagen
+
+filter.neural.msg.using_model = Brûkt {model} · {license}.
+filter.neural.msg.get_model = Helje it op fia Filter ▸ Neural Filters ▸ Modellen beheare.
+
+# Camera Raw-filter
+filter.camera_raw.name = Camera Raw-filter
+filter.camera_raw.param.temperature = Temperatuer
+filter.camera_raw.param.tint = Tint
+filter.camera_raw.param.highlights = Hege ljochten
+filter.camera_raw.param.shadows = Skaadpartijen
+filter.camera_raw.param.whites = Wytpartijen
+filter.camera_raw.param.blacks = Swartpartijen
+filter.camera_raw.param.clarity = Helderens
+filter.camera_raw.param.dehaze = Dizichheid ferwiderje
+filter.camera_raw.param.vibrance = Libbenens
+filter.camera_raw.param.sharpening = Skerper meitsje
+filter.camera_raw.param.noise = Rûsûnderdrukking
+filter.camera_raw.param.vignette = Vignet
+
+# Linskorreksje
+filter.lens_correction.name = Linskorreksje
+filter.lens_correction.param.distortion = Ferfoarming ferwiderje
+filter.lens_correction.param.red = Reade/syane kleurrâne korrizjearje
+filter.lens_correction.param.blue = Blauwe/giele kleurrâne korrizjearje
+filter.lens_correction.param.vignette = Vignetsterkte
+filter.lens_correction.param.midpoint = Vignetmiddelpunt
+filter.lens_correction.param.vertical = Fertikaal perspektyf
+filter.lens_correction.param.horizontal = Horizontaal perspektyf
+
+# Adaptive wide hoeke
+filter.adaptive_wide_angle.name = Adaptive wide hoeke
+filter.adaptive_wide_angle.param.projection = Korreksje
+filter.adaptive_wide_angle.choice.fisheye = Fiskeach
+filter.adaptive_wide_angle.choice.perspective = Perspektyf
+filter.adaptive_wide_angle.choice.full_spherical = Folslein bolfoarmich
+filter.adaptive_wide_angle.param.focal = Brânpuntsôfstân
+filter.adaptive_wide_angle.param.crop = Bysnijingsfaktor
+
+# Ferwagingsgalery
+filter.field_blur.name = Fjildferwaging
+filter.field_blur.param.position = Skerp by
+filter.iris_blur.name = Irisferwaging
+filter.iris_blur.param.roundness = Rûnens
+filter.tilt_shift.name = Tilt-shift
+filter.tilt_shift.param.position = Midden
+filter.tilt_shift.param.band = Skerpe bân
+filter.spin_blur.name = Draaiferwaging
+filter.spin_blur.param.angle = Ferwagingshoeke
+filter.path_blur.name = Paadferwaging
+filter.path_blur.param.speed = Faasje
+filter.path_blur.param.curve = Kromming
+filter.path_blur.param.taper = Fersmalling
+
+# Ferwaging
+filter.shape_blur.name = Foarmferwaging
+filter.shape_blur.choice.square = Fjouwerkant
+filter.shape_blur.choice.diamond = Diamant
+filter.shape_blur.choice.hexagon = Seishoeke
+filter.shape_blur.choice.cross = Krús
+filter.shape_blur.choice.ring = Ring
+filter.shape_blur.choice.star = Stjer
+filter.smart_blur.name = Tûke ferwaging
+filter.smart_blur.choice.normal = Normaal
+filter.smart_blur.choice.edge_only = Allinnich rânen
+filter.smart_blur.choice.overlay_edge = Rânen oerlaapje
+
+# Fideo
+filter.deinterlace.name = Untflechtsje
+filter.deinterlace.param.field = Fuortsmite
+filter.deinterlace.choice.odd_fields = Uneven fjilden
+filter.deinterlace.choice.even_fields = Even fjilden
+filter.deinterlace.param.fill = Nije fjilden meitsje troch
+filter.deinterlace.choice.interpolation = Ynterpolaasje
+filter.deinterlace.choice.duplication = Duplikaasje
+filter.ntsc_colors.name = NTSC-kleuren
+
+# Neural Filters
+filter.neural.skin_smoothing.name = Hûd glêdmeitsje
+filter.neural.skin_smoothing.param.blur = Glêdens
+filter.neural.skin_smoothing.param.detail = Detail behâlde
+filter.neural.skin_smoothing.msg.no_model = {model} is net ynstallearre — ynstee wurdt alles mei in hûdskleur glêdmakke, net allinnich de gesichten.
+
+filter.neural.jpeg_artifacts.name = JPEG-artefakten ferwiderje
+filter.neural.jpeg_artifacts.msg.no_model = {model} is net ynstallearre — ynstee wurdt it raster fan 8 piksels glêdmakke.
+
+filter.neural.colorize.name = Ynkleurje
+filter.neural.colorize.param.warmth = Waarmte
+filter.neural.colorize.msg.no_model = {model} is net ynstallearre — ynstee wurdt op ljochtsterkte tint.
+
+filter.neural.super_zoom.name = Superzoom
+filter.neural.super_zoom.msg.no_model = {model} is net ynstallearre — ynstee wurde rânen rjochtingsbewust skerper makke.
+
+filter.neural.style_transfer.name = Styloerdracht
+filter.neural.style_transfer.choice.mosaic = Mozaïek
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Gjin stylmodellen ynstallearre — allinnich kleur wurdt oerdroegen. Helje se op fia Filter ▸ Neural Filters ▸ Modellen beheare.
+filter.neural.style_transfer.msg.installed = Ynstallearre: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Kleuroerdracht
+filter.neural.color_transfer.param.hue = Doeltint
+filter.neural.color_transfer.param.contrast = Kontrast oerienkomme litte
+filter.neural.color_transfer.msg.info = Hellet it palet út de laach derûnder. As dêr neat is, wurdt ynstee op de Doeltint rjochte.
+
+filter.neural.depth_blur.name = Djipteferwaging
+filter.neural.depth_blur.param.focus = Fokusôfstân
+filter.neural.depth_blur.param.blur = Ferwagingssterkte
+filter.neural.depth_blur.msg.no_model = {model} is net ynstallearre — ynstee wurdt op pleatslike skerpte fokust.
+
+filter.neural.harmonization.name = Harmonisearring
+filter.neural.harmonization.param.tone = Toan oerienkomme litte
+filter.neural.harmonization.msg.info = Lit dizze laach oerienkomme mei wat derûnder leit. As dêr neat is, is der neat om mei oerienkomme te litten en bart der neat.
+
+filter.neural.landscape_mixer.name = Lânskipsmikser
+filter.neural.landscape_mixer.param.bands = Djiptebannen
+filter.neural.landscape_mixer.msg.with_depth = Hellet it palet út de laach derûnder en lit de bannen ien foar ien oerienkomme mei Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Hellet it palet út de laach derûnder. Ynstallearje Depth (Depth Blur) om loft mei loft en grûn mei grûn oerienkomme te litten yn stee fan de ôfbylding as gehiel.
+
+filter.neural.photo_restoration.name = Fotorestauraasje
+filter.neural.photo_restoration.param.enhance = Fotoferbettering
+filter.neural.photo_restoration.param.scratches = Krassen ferminderje
+filter.neural.photo_restoration.param.tone = Toan weromhelje
+filter.neural.photo_restoration.msg.no_model = Wurdt sûnder model opromme.
+filter.neural.photo_restoration.msg.using_deblock = Brûkt Deblock · traind foar Schist.
+filter.neural.photo_restoration.msg.using_detail = Brûkt Detail · traind foar Schist.
+filter.neural.photo_restoration.msg.using_both = Brûkt Deblock en Detail · traind foar Schist.
+
+filter.neural.photo_to_sketch.name = Foto nei skets
+filter.neural.photo_to_sketch.param.weight = Linedikte
+filter.neural.photo_to_sketch.param.shading = Skaadwurking
+
+filter.neural.face_to_caricature.name = Gesicht nei karikatuer
+filter.neural.face_to_caricature.param.mouth = Mûle
+filter.neural.face_to_caricature.param.head = Holle
+filter.neural.face_to_caricature.msg.no_model = {model} is net ynstallearre, dat dit docht neat — der is neat om te karikaturisearjen.
+
+filter.neural.smart_portrait.name = Tûk portret
+filter.neural.smart_portrait.param.happiness = Bliidskip
+filter.neural.smart_portrait.param.surprise = Ferrassing
+filter.neural.smart_portrait.param.age = Gesichtsalder
+filter.neural.smart_portrait.param.gaze = Blik
+filter.neural.smart_portrait.param.light = Ljochtrjochting
+filter.neural.smart_portrait.msg.no_model = {model} is net ynstallearre, dat dit docht neat — it hat gjin gesicht om oan te wurkjen.
+
+filter.neural.makeup_transfer.name = Make-upoerdracht
+filter.neural.makeup_transfer.param.lips = Lippen
+filter.neural.makeup_transfer.param.skin = Hûdskleur
+filter.neural.makeup_transfer.msg.info = Hellet de make-up fan in gesicht op de laach derûnder. De kleur, net de tekstuer.
+filter.neural.makeup_transfer.msg.no_model = {model} is net ynstallearre, dat dit docht neat.
+
+filter.neural.sketch_to_portrait.name = Skets nei portret
+filter.neural.sketch_to_portrait.param.detail = Linen behâlde
+filter.neural.sketch_to_portrait.msg.with_face = Traind om de eigen Foto nei skets fan dit programma yn te foljen. Wurket op it gesicht dat fûn wurdt.
+filter.neural.sketch_to_portrait.msg.no_face = Traind om de eigen Foto nei skets fan dit programma yn te foljen. Ynstallearje Faces (Skin Smoothing), dan wurket it op it gesicht yn stee fan de hiele seleksje.

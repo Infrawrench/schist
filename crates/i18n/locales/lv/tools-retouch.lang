@@ -1,0 +1,27 @@
+# Ielāps
+tool.patch.name = Ielāps
+tool.patch.description = Apvelciet defektu un pēc tam velciet šo atlasi uz tīriem pikseļiem: to faktūra tiek pielāgota defektam. Ielāpa režīms nosaka, kuru no abiem apgabaliem vilkt.
+tool.patch.option.patch = Ielāps
+tool.patch.choice.source = Avots
+tool.patch.choice.destination = Mērķis
+tool.patch.history.patch = Ielāps
+
+# Saturjutīgā pārvietošana
+tool.content_aware_move.name = Saturjutīgā pārvietošana
+tool.content_aware_move.description = Velciet atlasīto objektu citur, un tā atstātā vieta tiks aizpildīta no apkārtnes. Paplašināšanas režīmā objekts tiek izstiepts, nevis pārvietots.
+tool.content_aware_move.choice.move = Pārvietot
+tool.content_aware_move.choice.extend = Paplašināt
+tool.content_aware_move.history.move = Saturjutīgā pārvietošana
+
+# Sarkano acu efekts
+tool.red_eye.name = Sarkano acu efekts
+tool.red_eye.description = Noklikšķiniet uz zīlītes, lai noņemtu zibspuldzes radīto sarkanumu.
+tool.red_eye.option.pupil_size = Zīlītes lielums
+tool.red_eye.option.darken = Aptumšot
+tool.red_eye.history.red_eye = Sarkano acu efekts
+
+# Maģiskā dzēšgumija
+tool.magic_eraser.name = Maģiskā dzēšgumija
+tool.magic_eraser.description = Noklikšķiniet, lai rīka pielaides robežās izdzēstu zem rādītāja esošo līdzīgas krāsas apgabalu — ar klikšķa vietu savienoto apgabalu vai visus šādas krāsas pikseļus slānī.
+tool.magic_eraser.option.contiguous = Blakusesošs
+tool.magic_eraser.history.erase = Maģiskā dzēšgumija

@@ -1,0 +1,88 @@
+# The painting tools (plugins/tools-paint): the stroke tools, the two
+# gradients and the paint bucket. Each stroke tool's history entry is
+# its own key so a language can name the action rather than the tool.
+# Tolerance, Style, Size come from common.lang.
+
+# Brush
+tool.brush.name = Berus
+tool.brush.description = Cat sapuan bertepi lembut dengan warna latar depan, bersaiz mengikut saiz, kekerasan dan kelegapan berus penyunting.
+tool.brush.history.stroke = Berus
+
+# Pencil
+tool.pencil.name = Pensel
+tool.pencil.description = Cat sapuan bertepi keras tanpa antialias dengan warna latar depan.
+tool.pencil.history.stroke = Pensel
+
+# Eraser
+tool.eraser.name = Pemadam
+tool.eraser.description = Padam sepanjang sapuan sehingga lapisan menjadi telus semula.
+tool.eraser.history.stroke = Pemadam
+
+# Clone Stamp
+tool.clone.name = Cap Klon
+tool.clone.description = Cap Klon: alt-klik untuk menetapkan titik sumber, kemudian cat piksel yang disalin daripadanya pada ofset tersebut.
+tool.clone.history.stroke = Cap Klon
+
+# Dodge, Burn, Sponge
+tool.dodge.name = Cerahkan
+tool.dodge.description = Cerahkan piksel yang dilalui sapuan.
+tool.dodge.history.stroke = Cerahkan
+tool.burn.name = Gelapkan
+tool.burn.description = Gelapkan piksel yang dilalui sapuan.
+tool.burn.history.stroke = Gelapkan
+tool.sponge.name = Span
+tool.sponge.description = Tingkatkan atau kurangkan ketepuan piksel yang dilalui sapuan.
+tool.sponge.history.stroke = Span
+
+# Blur, Sharpen, Smudge
+tool.blur.name = Kabur
+tool.blur.description = Kaburkan piksel yang dilalui sapuan.
+tool.blur.history.stroke = Kabur
+tool.sharpen.name = Tajamkan
+tool.sharpen.description = Tajamkan piksel yang dilalui sapuan.
+tool.sharpen.history.stroke = Tajamkan
+tool.smudge.name = Comot
+tool.smudge.description = Seret warna sepanjang sapuan, seolah-olah menolak cat basah.
+tool.smudge.history.stroke = Comot
+
+# Healing
+tool.heal.name = Berus Pemulihan
+tool.heal.description = Berus Pemulihan: alt-klik untuk menetapkan sumber, kemudian cat; tekstur sumber diadun dengan warna dan pencahayaan destinasi.
+tool.heal.history.stroke = Berus Pemulihan
+tool.spot_heal.name = Berus Pemulihan Tompok
+tool.spot_heal.description = Berus Pemulihan Tompok: cat di atas cela dan ia digantikan dengan tekstur yang diambil dari kawasan sekeliling -- tiada titik sumber perlu ditetapkan.
+tool.spot_heal.history.stroke = Berus Pemulihan Tompok
+
+# History Brush
+tool.history_brush.name = Berus Sejarah
+tool.history_brush.description = Cat semula piksel daripada petikan sejarah dokumen, membatalkan kerja kemudian sapuan demi sapuan.
+tool.history_brush.history.stroke = Berus Sejarah
+
+# Background Eraser
+tool.background_eraser.name = Pemadam Latar Belakang
+tool.background_eraser.description = Padam warna yang disampel di bawah pusat berus dan biarkan piksel yang berbeza, untuk memisahkan subjek daripada latar belakangnya.
+tool.background_eraser.history.stroke = Pemadam Latar Belakang
+
+# Gradient. The radial tool shares the linear one's options and history.
+tool.gradient.name = Kecerunan
+tool.gradient.description = Seret untuk memenuhi lapisan -- melalui pilihan jika ada -- dengan kecerunan linear daripada warna latar depan kepada warna latar belakang mengikut arah seretan.
+tool.gradient.radial.name = Kecerunan Jejari
+tool.gradient.radial.description = Seret dari pusat ke luar untuk memenuhi dengan kecerunan jejari antara warna latar depan dengan warna latar belakang.
+tool.gradient.option.gradient = Kecerunan
+tool.gradient.option.reverse = Songsangkan
+tool.gradient.option.dither = Penditeran
+tool.gradient.choice.foreground_to_background = Latar Depan ke Latar Belakang
+tool.gradient.choice.foreground_to_transparent = Latar Depan ke Telus
+tool.gradient.choice.linear = Linear
+tool.gradient.choice.radial = Jejari
+tool.gradient.choice.angle = Sudut
+tool.gradient.choice.reflected = Pantulan
+tool.gradient.choice.diamond = Berlian
+tool.gradient.history.gradient = Kecerunan
+
+# Paint Bucket
+tool.bucket.name = Baldi Cat
+tool.bucket.description = Klik untuk memenuhi kawasan bersambung yang mempunyai warna serupa di bawah penuding dengan warna latar depan, dalam julat toleransi alat.
+tool.bucket.option.contiguous = Bersambung
+tool.bucket.option.all_layers = Semua Lapisan
+tool.bucket.history.fill = Baldi Cat

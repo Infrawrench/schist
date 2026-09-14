@@ -1,0 +1,27 @@
+# Patch
+tool.patch.name = Tappa
+tool.patch.description = Walula omusalaba okwetooloola ekikyamu, oluvannyuma walula ekitundu ekirondeddwa okitwale ku pixels ennungi: obutonde bw'awo bukwataganyizibwa n'ekikyamu. Engeri ya Tappa eronda ludda ki olw'ebifo ebibiri lw'owalula.
+tool.patch.option.patch = Tappa
+tool.patch.choice.source = Ensibuko
+tool.patch.choice.destination = Ekigendererwa
+tool.patch.history.patch = Tappa
+
+# Content-Aware Move
+tool.content_aware_move.name = Tambuza ng'otegeera ebirimu
+tool.content_aware_move.description = Walula ekintu ekirondeddwa okitwale awalala, era eddibu lye kireka lijjuzibwa okuva ku bikyetoolodde. Mu ngeri ya Gaziya, ekintu kigaziwa mu kifo ky'okutambuzibwa.
+tool.content_aware_move.choice.move = Tambuza
+tool.content_aware_move.choice.extend = Gaziya
+tool.content_aware_move.history.move = Tambuza ng'otegeera ebirimu
+
+# Red Eye
+tool.red_eye.name = Eriiso erimyufu
+tool.red_eye.description = Nyiga ku mmunye y'eriiso okuggyamu obumyufu bwa fulaasi.
+tool.red_eye.option.pupil_size = Obunene bw'emmunye
+tool.red_eye.option.darken = Kendeeza obutangaavu
+tool.red_eye.history.red_eye = Eriiso erimyufu
+
+# Magic Eraser
+tool.magic_eraser.name = Akasangula ak'amagezi
+tool.magic_eraser.description = Nyiga okusangula ekitundu ekirina langi efaanagana eri wansi w'akasonze, okusinziira ku kigero ky'ekikozesebwa eky'okukkiriza enjawulo — ekigatta ku wonyize, oba wonna ku layer.
+tool.magic_eraser.option.contiguous = Ebikwatagana
+tool.magic_eraser.history.erase = Akasangula ak'amagezi

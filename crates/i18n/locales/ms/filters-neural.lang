@@ -1,0 +1,170 @@
+# Neural Filters, Camera Raw, Galeri Kabur dan penapis kanta
+# (plugins/filters-core: neural.rs, camera_raw.rs, blurgallery.rs,
+# lens.rs). Kekunci ialah filter.<id>.name, filter.<id>.param.<key>,
+# filter.<id>.choice.<value> dan filter.<id>.msg.<what>, berdasarkan ID yang
+# didaftarkan oleh pemalam; label yang dikongsi beberapa penapis ini ialah
+# filter.neural.param.<label>. Nama model ("Depth (Depth Blur)") ialah
+# nama yang ditunjukkan oleh Urus Model dan dikekalkan seadanya.
+
+# Label yang dikongsi beberapa penapis
+filter.neural.param.center_x = Pusat X
+filter.neural.param.center_y = Pusat Y
+filter.neural.param.direction = Arah
+filter.neural.param.transition = Peralihan
+filter.neural.param.detail = Perincian
+filter.neural.param.eyes = Mata
+
+# Mesej penapis bersandarkan model dalam dialognya
+filter.neural.msg.using_model = Menggunakan {model} · {license}.
+filter.neural.msg.get_model = Dapatkannya daripada Penapis ▸ Neural Filters ▸ Urus Model.
+
+# Penapis Camera Raw
+filter.camera_raw.name = Penapis Camera Raw
+filter.camera_raw.param.temperature = Suhu
+filter.camera_raw.param.tint = Seri Warna
+filter.camera_raw.param.highlights = Sorotan
+filter.camera_raw.param.shadows = Bayang
+filter.camera_raw.param.whites = Putih
+filter.camera_raw.param.blacks = Hitam
+filter.camera_raw.param.clarity = Kejelasan
+filter.camera_raw.param.dehaze = Nyahkabus
+filter.camera_raw.param.vibrance = Kerancakan
+filter.camera_raw.param.sharpening = Penajaman
+filter.camera_raw.param.noise = Pengurangan Hingar
+filter.camera_raw.param.vignette = Vignet
+
+# Pembetulan Kanta
+filter.lens_correction.name = Pembetulan Kanta
+filter.lens_correction.param.distortion = Buang Herotan
+filter.lens_correction.param.red = Betulkan Pinggir Merah/Sian
+filter.lens_correction.param.blue = Betulkan Pinggir Biru/Kuning
+filter.lens_correction.param.vignette = Amaun Vignet
+filter.lens_correction.param.midpoint = Titik Tengah Vignet
+filter.lens_correction.param.vertical = Perspektif Menegak
+filter.lens_correction.param.horizontal = Perspektif Mendatar
+
+# Sudut Lebar Adaptif
+filter.adaptive_wide_angle.name = Sudut Lebar Adaptif
+filter.adaptive_wide_angle.param.projection = Pembetulan
+filter.adaptive_wide_angle.choice.fisheye = Mata Ikan
+filter.adaptive_wide_angle.choice.perspective = Perspektif
+filter.adaptive_wide_angle.choice.full_spherical = Sfera Penuh
+filter.adaptive_wide_angle.param.focal = Panjang Fokus
+filter.adaptive_wide_angle.param.crop = Faktor Pangkas
+
+# Galeri Kabur
+filter.field_blur.name = Kabur Medan
+filter.field_blur.param.position = Tajam Pada
+filter.iris_blur.name = Kabur Iris
+filter.iris_blur.param.roundness = Kebulatan
+filter.tilt_shift.name = Anjak Condong
+filter.tilt_shift.param.position = Pusat
+filter.tilt_shift.param.band = Jalur Tajam
+filter.spin_blur.name = Kabur Putaran
+filter.spin_blur.param.angle = Sudut Kabur
+filter.path_blur.name = Kabur Laluan
+filter.path_blur.param.speed = Kelajuan
+filter.path_blur.param.curve = Kelengkungan
+filter.path_blur.param.taper = Tirus
+
+# Kabur
+filter.shape_blur.name = Kabur Bentuk
+filter.shape_blur.choice.square = Segi Empat Sama
+filter.shape_blur.choice.diamond = Berlian
+filter.shape_blur.choice.hexagon = Heksagon
+filter.shape_blur.choice.cross = Silang
+filter.shape_blur.choice.ring = Gelang
+filter.shape_blur.choice.star = Bintang
+filter.smart_blur.name = Kabur Pintar
+filter.smart_blur.choice.normal = Normal
+filter.smart_blur.choice.edge_only = Tepi Sahaja
+filter.smart_blur.choice.overlay_edge = Tindih Tepi
+
+# Video
+filter.deinterlace.name = Nyahjalin
+filter.deinterlace.param.field = Singkirkan
+filter.deinterlace.choice.odd_fields = Medan Ganjil
+filter.deinterlace.choice.even_fields = Medan Genap
+filter.deinterlace.param.fill = Cipta Medan Baharu Dengan
+filter.deinterlace.choice.interpolation = Interpolasi
+filter.deinterlace.choice.duplication = Penduaan
+filter.ntsc_colors.name = Warna NTSC
+
+# Neural Filters
+filter.neural.skin_smoothing.name = Pelicinan Kulit
+filter.neural.skin_smoothing.param.blur = Kelicinan
+filter.neural.skin_smoothing.param.detail = Kekalkan Perincian
+filter.neural.skin_smoothing.msg.no_model = {model} tidak dipasang — sebaliknya melicinkan semua bahagian yang berwarna kulit, bukan hanya wajah.
+
+filter.neural.jpeg_artifacts.name = Pembuangan Artifak JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} tidak dipasang — sebaliknya melicinkan grid 8 piksel.
+
+filter.neural.colorize.name = Warnakan
+filter.neural.colorize.param.warmth = Kehangatan
+filter.neural.colorize.msg.no_model = {model} tidak dipasang — sebaliknya mewarnakan berdasarkan kekilauan.
+
+filter.neural.super_zoom.name = Zum Super
+filter.neural.super_zoom.msg.no_model = {model} tidak dipasang — sebaliknya menggunakan penajaman berpandukan tepi.
+
+filter.neural.style_transfer.name = Pemindahan Gaya
+filter.neural.style_transfer.choice.mosaic = Mozek
+filter.neural.style_transfer.choice.candy = Gula-gula
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Tiada model gaya dipasang — hanya memindahkan warna. Dapatkannya daripada Penapis ▸ Neural Filters ▸ Urus Model.
+filter.neural.style_transfer.msg.installed = Dipasang: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Pemindahan Warna
+filter.neural.color_transfer.param.hue = Rona Sasaran
+filter.neural.color_transfer.param.contrast = Padankan Kontras
+filter.neural.color_transfer.msg.info = Mengambil paletnya daripada lapisan di bawah. Jika tiada apa-apa di bawah, Rona Sasaran digunakan sebagai sasaran.
+
+filter.neural.depth_blur.name = Kabur Kedalaman
+filter.neural.depth_blur.param.focus = Jarak Fokus
+filter.neural.depth_blur.param.blur = Kekuatan Kabur
+filter.neural.depth_blur.msg.no_model = {model} tidak dipasang — sebaliknya memfokus berdasarkan ketajaman setempat.
+
+filter.neural.harmonization.name = Pengharmonian
+filter.neural.harmonization.param.tone = Padankan Ton
+filter.neural.harmonization.msg.info = Memadankan lapisan ini dengan apa-apa yang berada di bawahnya. Jika tiada apa-apa di bawah, tiada apa-apa untuk dipadankan dan tindakan ini tidak menghasilkan perubahan.
+
+filter.neural.landscape_mixer.name = Pengadun Landskap
+filter.neural.landscape_mixer.param.bands = Jalur Kedalaman
+filter.neural.landscape_mixer.msg.with_depth = Mengambil paletnya daripada lapisan di bawah, dipadankan jalur demi jalur menggunakan Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Mengambil paletnya daripada lapisan di bawah. Pasang Depth (Depth Blur) untuk memadankan langit dengan langit dan tanah dengan tanah, bukan gambar secara keseluruhan.
+
+filter.neural.photo_restoration.name = Pemulihan Foto
+filter.neural.photo_restoration.param.enhance = Peningkatan Foto
+filter.neural.photo_restoration.param.scratches = Pengurangan Calar
+filter.neural.photo_restoration.param.tone = Pulihkan Ton
+filter.neural.photo_restoration.msg.no_model = Membersihkan tanpa model.
+filter.neural.photo_restoration.msg.using_deblock = Menggunakan Deblock · dilatih untuk Schist.
+filter.neural.photo_restoration.msg.using_detail = Menggunakan Detail · dilatih untuk Schist.
+filter.neural.photo_restoration.msg.using_both = Menggunakan Deblock dan Detail · dilatih untuk Schist.
+
+filter.neural.photo_to_sketch.name = Foto kepada Lakaran
+filter.neural.photo_to_sketch.param.weight = Ketebalan Garis
+filter.neural.photo_to_sketch.param.shading = Lorekan
+
+filter.neural.face_to_caricature.name = Wajah kepada Karikatur
+filter.neural.face_to_caricature.param.mouth = Mulut
+filter.neural.face_to_caricature.param.head = Kepala
+filter.neural.face_to_caricature.msg.no_model = {model} tidak dipasang, jadi tindakan ini tidak menghasilkan perubahan — tiada apa-apa untuk dijadikan karikatur.
+
+filter.neural.smart_portrait.name = Potret Pintar
+filter.neural.smart_portrait.param.happiness = Kegembiraan
+filter.neural.smart_portrait.param.surprise = Kejutan
+filter.neural.smart_portrait.param.age = Umur Wajah
+filter.neural.smart_portrait.param.gaze = Arah Pandangan
+filter.neural.smart_portrait.param.light = Arah Cahaya
+filter.neural.smart_portrait.msg.no_model = {model} tidak dipasang, jadi tindakan ini tidak menghasilkan perubahan — tiada wajah untuk diproses.
+
+filter.neural.makeup_transfer.name = Pemindahan Solekan
+filter.neural.makeup_transfer.param.lips = Bibir
+filter.neural.makeup_transfer.param.skin = Ton Kulit
+filter.neural.makeup_transfer.msg.info = Mengambil solekan daripada wajah pada lapisan di bawah. Warna, bukan tekstur.
+filter.neural.makeup_transfer.msg.no_model = {model} tidak dipasang, jadi tindakan ini tidak menghasilkan perubahan.
+
+filter.neural.sketch_to_portrait.name = Lakaran kepada Potret
+filter.neural.sketch_to_portrait.param.detail = Kekalkan Garis
+filter.neural.sketch_to_portrait.msg.with_face = Dilatih untuk mengisi Photo to Sketch aplikasi ini sendiri. Berfungsi pada wajah yang ditemuinya.
+filter.neural.sketch_to_portrait.msg.no_face = Dilatih untuk mengisi Photo to Sketch aplikasi ini sendiri. Pasang Faces (Skin Smoothing), lalu penapis akan berfungsi pada wajah dan bukannya seluruh pilihan.

@@ -1,0 +1,26 @@
+# የጽሑፍ መሣሪያ።
+tool.type.name = ጽሑፍ
+tool.type.description = በዚያ ቦታ የጽሑፍ ንብርብር ለመጀመር ጠቅ ያድርጉ፣ ወይም ነባሩን ለማርትዕ ጠቅ ያድርጉት። ክፍት በሆነበት ጊዜ መሣሪያው ቀጥተኛ የቁልፍ ግቤትን ይቀበላል (ቁምፊዎችን እንደ ቁልፍ ግቤት ይላኩ)፤ ማጽደቅ ንብርብሩን ይሰራልና አርትዖቱን ይዘጋል።
+
+# የአማራጮች አሞሌ
+tool.type.option.align = አሰልፍ
+tool.type.option.leading = የመስመር ክፍተት
+tool.type.option.tracking = የፊደል ክፍተት
+tool.type.option.kerning = የጥንድ ፊደል ክፍተት
+tool.type.option.ligatures = የተጣመሩ ፊደሎች
+tool.type.option.discretionary_ligatures = አማራጭ የተጣመሩ ፊደሎች
+tool.type.option.small_caps = ትንንሽ አቢይ ፊደሎች
+tool.type.option.on_path = በነቃው መንገድ ላይ
+tool.type.option.path_offset = ከመንገድ ያለው ርቀት
+
+# ቅጥ
+tool.type.choice.regular = መደበኛ
+tool.type.choice.bold = ደማቅ
+tool.type.choice.italic = ዘንበል
+tool.type.choice.bold_italic = ደማቅ ዘንበል
+
+# ታሪክ
+tool.type.history.new_layer = አዲስ የጽሑፍ ንብርብር
+tool.type.history.edit = ጽሑፍ አርትዕ
+tool.type.history.discard = ጽሑፍ ጣል
+tool.type.history.discard_empty = ባዶ ጽሑፍ ጣል

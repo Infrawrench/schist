@@ -1,0 +1,22 @@
+tool.liquify.name = Sungunulani
+tool.liquify.description = Kankhani, zungulizani, finyani kapena futumutsani ma pixel pansi pa burashi yaikulu—njira yosankhidwa imatsimikiza zomwe zichitike. Kupindika kumasonkhanitsidwa mu mesh ndipo kumagwiritsidwa ntchito pa layer mukatsimikiza.
+tool.liquify.option.tool = Chida
+tool.liquify.choice.forward_warp = Pindikani Kutsogolo
+tool.liquify.choice.reconstruct = Mangani Kachiwiri
+tool.liquify.choice.twirl_cw = Zungulizani Motsatira Wotchi
+tool.liquify.choice.twirl_ccw = Zungulizani Mosiyana ndi Wotchi
+tool.liquify.choice.pucker = Finyani
+tool.liquify.choice.bloat = Futumutsani
+tool.liquify.choice.push_left = Kankhani Kumanzere
+tool.liquify.history.liquify = Sungunulani
+
+tool.puppet_warp.name = Kupindika kwa Zidole
+tool.puppet_warp.description = Dinani kuti mukhome layer pa malo angapo, kenako kokani malo amodzi: mesh imapindika mozungulira ma pin, molimba kapena mofewa malinga ndi chosankha cha Kulimba. Kutsimikiza kumagwiritsa ntchito kusinthako.
+tool.puppet_warp.option.stiffness = Kulimba
+tool.puppet_warp.history.puppet_warp = Kupindika kwa Zidole
+
+tool.vanishing_point.name = Malo Othera
+tool.vanishing_point.description = Jambulani pamwamba pathyathyathya pa chinthu chooneka ndi perspective, kenako sinthani njira kukhala Koperani ndi kujambula: ma pixel okopedwa amatsatira pamwambapo ndipo amachepa akamapita patali.
+tool.vanishing_point.choice.edit_plane = Sinthani Pamwamba Pathyathyathya
+tool.vanishing_point.choice.clone = Koperani
+tool.vanishing_point.history.vanishing_point = Malo Othera

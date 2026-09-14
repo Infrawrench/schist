@@ -1,0 +1,9 @@
+{
+  "loading": "Birimo gupakirwa…",
+  "starting": "Birimo gutangira…",
+  "webgpu": "Schist ikenera WebGPU, ariko iyi mushakisha ntayitanga. Chrome/Edge 113+, Firefox 141+ na Safari 26+ zirayitanga.",
+  "noticeTitle": "Schist ikora neza kurushaho nka porogaramu ya mudasobwa",
+  "noticeBody": "Urimo gukoresha verisiyo yo ku rubuga, yubatswe mu buryo bworoheje: ihuriza inzego kuri CPU kandi ntirimo bimwe mu bikoresho — inyongera za Photoshop n'inyongera z'abandi, ububiko bw'amashusho, igice cya AI, kuzana HEIC no kuvana amafonti kuri interineti — kandi amadosiye abikwa nk'ibikururwa. Porogaramu ya mudasobwa y'ubuntu ya macOS, Windows na Linux irimo byose.",
+  "noticeLink": "Shaka porogaramu ya mudasobwa.",
+  "ok": "Yego"
+}

@@ -1,0 +1,20 @@
+# གཞི་རྩའི་ལག་ཆས།
+tool.move.name = སྤོ།
+tool.move.description = ལས་འགུལ་ཅན་གྱི་བང་རིམ་ནང་དོན་དེ་ས་གནས་གསརཔ་ནང་འདྲུད། རང་འགུལ་སེལ་འཐུ་ཨཱོན་འབད་བཞག་པ་ཅིན་ ཨེབ་ད་མདའ་རྟགས་ཀྱི་འོག་ལུ་ཡོད་པའི་བང་རིམ་ ཡང་ན་སྡེ་ཚན་ཧྲིལ་བུ་དེ་དང་པ་རང་སེལཝ་ཨིན།
+tool.move.option.auto_select = རང་འགུལ་སེལ་འཐུ།
+tool.move.history.move_layer = བང་རིམ་སྤོ།
+tool.eyedropper.name = ཚོས་གཞི་ལེན་ཆས།
+tool.eyedropper.description = མདའ་རྟགས་ཀྱི་འོག་གི་ཚོས་གཞི་དེ་གདོང་གཞིའི་ཚོས་དཔེ་ནང་ལེན། alt ཨེབ་བཞགཔ་ད་རྒྱབ་གཞིའི་ཚོས་དཔེ་ནང་ལེནམ་ཨིན། འདྲུད་བཞིན་དུ་ཚོས་གཞི་ལེན་འཕྲོ་མཐུདཔ་ཨིན།
+tool.eyedropper.option.sample_size = དཔེ་ཚད།
+tool.eyedropper.option.sample = དཔེ།
+tool.eyedropper.choice.point_sample = ཚག་གི་དཔེ།
+tool.eyedropper.choice.average_3 = 3 གྱིས་ 3 ཆ་སྙོམས།
+tool.eyedropper.choice.average_5 = 5 གྱིས་ 5 ཆ་སྙོམས།
+tool.eyedropper.choice.average_11 = 11 གིས་ 11 ཆ་སྙོམས།
+tool.eyedropper.choice.average_31 = 31 གིས་ 31 ཆ་སྙོམས།
+tool.eyedropper.choice.all_layers = བང་རིམ་ཆ་མཉམ།
+tool.eyedropper.choice.current_layer = ད་ལྟོའི་བང་རིམ།
+tool.hand.name = ལགཔ།
+tool.hand.description = མཐོང་སྣང་དེ་གཡས་གཡོན་སྤོཝ་ཨིན། མཐོང་ཁུངས་དེ་སྒོ་སྒྲིག་གི་ཨིནམ་ལས་ འཆར་གཞི་མེད་པར་ལག་ཆས་འདི་གིས་ཡིག་ཆ་ལུ་ག་ནི་ཡང་མི་འབད།
+tool.zoom.name = ཆེ་ཆུང་སྒྱུར།
+tool.zoom.description = མཐོང་སྣང་གི་ཆེ་ཆུང་སྒྱུརཝ་ཨིན། མཐོང་ཁུངས་དེ་སྒོ་སྒྲིག་གི་ཨིནམ་ལས་ འཆར་གཞི་མེད་པར་ལག་ཆས་འདི་གིས་ཡིག་ཆ་ལུ་ག་ནི་ཡང་མི་འབད།

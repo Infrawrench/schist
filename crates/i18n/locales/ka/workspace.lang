@@ -1,0 +1,101 @@
+# სამუშაო სივრცე
+workspace.fill.gray_50 = 50% ნაცრისფერი
+workspace.fill.content_aware = შიგთავსის გათვალისწინებით
+workspace.modify.expand = მონიშვნის გაფართოება
+workspace.modify.contract = მონიშვნის შეკუმშვა
+workspace.modify.border = მონიშვნის საზღვარი
+workspace.modify.smooth = მონიშვნის მოგლუვება
+workspace.modify.feather = მონიშვნის კიდეების დარბილება
+
+workspace.batch.target.edit = გალერეის ცვლილებები (ვერსიებით)
+workspace.batch.target.beside = ასლები დედნების გვერდით
+workspace.batch.target.folder = ასლები საქაღალდეში…
+workspace.modal.image_size.title = გამოსახულების ზომა
+
+workspace.docs.opening = იხსნება {name}…
+workspace.docs.opened = გაიხსნა {name}
+workspace.docs.open_failed = გახსნა ვერ მოხერხდა: {error}
+workspace.docs.no_codec = Schist-ს {name} ფორმატის გახსნა არ შეუძლია
+workspace.docs.no_exporter = Schist-ს .{ext} ფაილების შენახვა არ შეუძლია
+workspace.docs.empty_response = სერვერმა ცარიელი პასუხი გამოგზავნა
+workspace.docs.heic_not_installed = HEIC-ის მხარდაჭერა დაყენებული არ არის
+workspace.docs.heic_downloading = იტვირთება HEIC-ის მხარდაჭერა (libheif {version})…
+workspace.docs.heic_installed = HEIC-ის მხარდაჭერა დაყენდა
+workspace.docs.heic_download_failed = HEIC-ის მხარდაჭერის ჩამოტვირთვა ვერ მოხერხდა: {error}
+workspace.docs.placing = თავსდება {name}…
+workspace.docs.place_image = გამოსახულების განთავსება
+workspace.docs.placed = განთავსდა {name}
+workspace.docs.place_failed = განთავსება ვერ მოხერხდა: {error}
+workspace.docs.saved = შენახულია {name}
+workspace.docs.save_failed = შენახვა ვერ მოხერხდა: {error}
+
+workspace.adjustment.new_layer = ახალი ფენა: {name}
+workspace.adjustment.added = დამატებულია {name}
+workspace.adjustment.settings = {name} — პარამეტრები
+workspace.adjustment.updated = {name} განახლდა
+workspace.adjustment.no_settings = {name}-ს შესაცვლელი პარამეტრები არ აქვს
+workspace.comps.name_n = ფენათა კომპოზიცია {n}
+workspace.comps.captured = ფენათა კომპოზიცია აღბეჭდილია
+workspace.comps.apply = {name}-ის გამოყენება
+workspace.styles.layer_style = ფენის სტილი
+workspace.context.rename_layer = ფენისთვის სახელის გადარქმევა
+workspace.commands.tool = ხელსაწყო: {name}
+
+workspace.colormgmt.assign = {name}-ის მინიჭება
+workspace.colormgmt.assigned = მინიჭებულია {name}
+workspace.colormgmt.convert_to = {name}-ში გარდაქმნა
+workspace.colormgmt.converted_to = გარდაიქმნა {name}-ში
+workspace.colormgmt.convert_failed = გარდაქმნა ვერ მოხერხდა: {error}
+workspace.colormgmt.proof_on = ფერთა სინჯი ჩართულია
+workspace.colormgmt.proof_off = ფერთა სინჯი გამორთულია
+
+workspace.filters.choose = არჩევა
+workspace.filters.select_layer_first = ჯერ ფენა აირჩიეთ
+workspace.filters.needs_pixel_layer = ფილტრებს პიქსელური ფენა სჭირდება
+workspace.filters.nothing_to_filter = გასაფილტრი არაფერია
+workspace.filters.went_away = ფილტრი გაქრა
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: გაფილტრული ფენა აღარ არსებობს
+workspace.filters.plugin_title = Photoshop-ის დამატება
+workspace.filters.running = სრულდება {name}
+workspace.filters.plugin_note = დამატება ცალკე პროცესში მუშაობს. თუ იგი ფანჯარას გახსნის, გასაგრძელებლად იქ უპასუხეთ.
+workspace.filters.raw_preview_developing = RAW წინასწარი ხედი მუშავდება…
+workspace.filters.raw_preview_done = RAW წინასწარი ხედი (სწრაფი დემოზაიკაცია)
+workspace.filters.raw_preview_size_changed = RAW წინასწარი ხედის ზომა შეიცვალა: {w} × {h}
+workspace.filters.raw_preview_failed = RAW წინასწარი ხედის დამუშავება ვერ მოხერხდა: {error}
+workspace.filters.raw_developing = საწყისი გადაღება მუშავდება…
+workspace.filters.raw_developing_note = გამოიყენება დემოზაიკაციის საუკეთესო გზა. საწყისი RAW და ეს პარამეტრები PSD-ად ან PSB-ად შენახვის შემდეგაც რედაქტირებადი დარჩება.
+workspace.filters.raw_document_changed = RAW-ის დამუშავება დასრულდა მას შემდეგ, რაც მისი დოკუმენტი შეიცვალა
+workspace.filters.raw_failed = RAW-ის დამუშავება ვერ მოხერხდა: {error}
+workspace.filters.raw_too_wide = RAW-ის დამუშავების შედეგი მეტისმეტად განიერია
+workspace.filters.raw_too_tall = RAW-ის დამუშავების შედეგი მეტისმეტად მაღალია
+workspace.filters.raw_size_changed = RAW-ის დამუშავების ზომა შეიცვალა: {w} × {h}; მიმდინარე ფენა შენარჩუნდება
+workspace.filters.raw_history = Camera Raw-ის დამუშავება
+workspace.filters.raw_applied = Camera Raw-ის დამუშავება გამოყენებულია (საუკეთესო დემოზაიკაცია)
+
+workspace.image_size.done = გამოსახულების ზომა: {w} × {h}
+workspace.image_size.bicubic_fallback = გამოსახულების ზომა: {w} × {h} — {name} მოდელი ვერ ჩაიტვირთა, ამიტომ ბიკუბური მეთოდი გამოიყენება
+workspace.image_size.upscaling = მასშტაბი იზრდება {name}-ის საშუალებით
+workspace.image_size.upscaling_note = ქსელში მუშავდება {mp} მეგაპიქსელი, თითოეულს რამდენიმე წამი სჭირდება. დასრულებამდე დოკუმენტი დაკავებული იქნება.
+
+workspace.export.no_slices = საექსპორტო ფრაგმენტები არ არის
+workspace.export.no_artboards = საექსპორტო სამონტაჟო არეები არ არის
+workspace.export.regions.one = ექსპორტირებულია {n} უბანი
+workspace.export.regions.other = ექსპორტირებულია {n} უბანი
+workspace.export.prompt = ექსპორტის ფორმატი:
+workspace.export.done = ექსპორტირებულია {name}
+workspace.export.failed = ექსპორტი ვერ მოხერხდა: {error}
+workspace.export.codec_vanished = ექსპორტის მოდული აღარ არის ხელმისაწვდომი
+
+workspace.file_picker.choose_folder = საქაღალდის არჩევა
+workspace.file_picker.type_a_name = შეიყვანეთ ფაილის სახელი
+workspace.file_picker.exists = {name} უკვე არსებობს; ჩასანაცვლებლად შენახვას კვლავ შეეხეთ
+workspace.file_picker.tap_a_file = გასახსნელად ფაილს შეეხეთ
+workspace.file_picker.pictures = სურათები
+workspace.file_picker.camera = კამერა
+workspace.file_picker.downloads = ჩამოტვირთვები
+workspace.file_picker.permission_denied = Schist-ს ამ საქაღალდის წაკითხვის ნებართვა არ აქვს
+
+workspace.recovery.recovered_title = {title} (აღდგენილი)
+workspace.recovery.recovered.one = წინა სესიიდან შეუნახავი სამუშაო აღდგა
+workspace.recovery.recovered.other = წინა სესიიდან აღდგა {n} დოკუმენტი

@@ -1,0 +1,32 @@
+# Selectiehulpmiddelen.
+tool.select.mode.subtract = Aftrekken
+tool.select.mode.intersect = Doorsnede
+
+tool.marquee.rect.name = Rechthoekig selectiekader
+tool.marquee.rect.description = Sleep om een rechthoekige selectie te maken. Shift aan het begin voegt aan de selectie toe, Alt trekt ervan af en beide maken de doorsnede. Shift tijdens het slepen maakt er een vierkant van. Klikken zonder slepen heft de selectie op.
+tool.marquee.ellipse.name = Ovaal selectiekader
+tool.marquee.ellipse.description = Sleep om een elliptische selectie te maken, met dezelfde combinatie van Shift en Alt als bij het rechthoekige selectiekader.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Sleep een vrije omtrek; de uiteinden van de selectie worden verbonden wanneer het slepen eindigt. Shift voegt toe en Alt trekt af.
+tool.lasso.history.select = Lassoselectie
+tool.lasso.polygonal.name = Veelhoeklasso
+tool.lasso.polygonal.description = Klik van hoek naar hoek om een selectie met rechte randen op te bouwen en klik dicht bij het eerste punt om deze te sluiten.
+tool.lasso.polygonal.history.select = Veelhoeklasso
+tool.lasso.magnetic.name = Magnetische lasso
+tool.lasso.magnetic.description = Volg een rand bij benadering; de omtrek springt naar het sterkste contrast in de buurt van het pad.
+tool.lasso.magnetic.history.select = Magnetische lasso
+tool.lasso.magnetic.option.frequency = Frequentie
+
+tool.wand.name = Toverstaf
+tool.wand.description = Klik om binnen de tolerantie het aaneengesloten gebied met een vergelijkbare kleur onder de aanwijzer te selecteren. Dezelfde tolerantie wordt gebruikt door Vergroten, Gelijkend en Kleurbereik.
+tool.wand.option.contiguous = Aangrenzend
+tool.wand.history.select = Toverstaf
+
+tool.quick_select.name = Snelle selectie
+tool.quick_select.description = Schilder over een gebied; de selectie groeit door de vergelijkbare pixels waarover het penseel loopt.
+tool.quick_select.history.select = Snelle selectie
+
+tool.object_select.name = Object selecteren
+tool.object_select.description = Sleep een kader rond een object; de selectie springt naar het object dat erin wordt gevonden.
+tool.object_select.history.select = Object selecteren

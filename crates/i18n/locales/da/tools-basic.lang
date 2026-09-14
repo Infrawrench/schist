@@ -1,0 +1,22 @@
+# Grundlæggende værktøjer: Flyt, Pipette, Hånd og Zoom.
+tool.move.name = Flyt
+tool.move.description = Træk indholdet af det aktive lag til en ny placering. Når Vælg automatisk er slået til, vælger det første tryk det lag — eller hele den gruppe — der ligger under markøren.
+tool.move.option.auto_select = Vælg automatisk
+tool.move.history.move_layer = Flyt lag
+
+tool.eyedropper.name = Pipette
+tool.eyedropper.description = Tag en prøve af farven under markøren til forgrundens farvefelt, eller til baggrundens farvefelt, når Alt holdes nede. Der tages løbende prøver, mens du trækker.
+tool.eyedropper.option.sample_size = Prøvestørrelse
+tool.eyedropper.option.sample = Prøve
+tool.eyedropper.choice.point_sample = Punktprøve
+tool.eyedropper.choice.average_3 = Gennemsnit 3 × 3
+tool.eyedropper.choice.average_5 = Gennemsnit 5 × 5
+tool.eyedropper.choice.average_11 = Gennemsnit 11 × 11
+tool.eyedropper.choice.average_31 = Gennemsnit 31 × 31
+tool.eyedropper.choice.all_layers = Alle lag
+tool.eyedropper.choice.current_layer = Aktuelt lag
+
+tool.hand.name = Hånd
+tool.hand.description = Panorerer visningen. Visningsområdet tilhører vinduet, så værktøjet ændrer ikke dokumentet, når programmet kører uden en grafisk brugerflade.
+tool.zoom.name = Zoom
+tool.zoom.description = Zoomer visningen. Visningsområdet tilhører vinduet, så værktøjet ændrer ikke dokumentet, når programmet kører uden en grafisk brugerflade.

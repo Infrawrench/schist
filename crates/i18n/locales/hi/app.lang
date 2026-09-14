@@ -1,0 +1,36 @@
+app.filter_gallery.title = फ़िल्टर गैलरी
+app.filter_gallery.stack = स्टैक (नीचे से ऊपर लागू)
+app.filter_gallery.no_settings = इस फ़िल्टर में कोई सेटिंग नहीं है।
+app.fonts.not_open_licensed = मुक्त लाइसेंस नहीं है · {substitute} की मेट्रिक्स इससे मेल खाती हैं
+app.fonts.missing_substituted = अनुपलब्ध · टेक्स्ट किसी वैकल्पिक फ़ॉन्ट में सेट किया जा रहा है
+app.fonts.not_in_catalogue = {family} मुक्त फ़ॉन्ट कैटलॉग में नहीं है
+app.fonts.no_faces = {family} के लिए डाउनलोड योग्य फ़ेस नहीं हैं
+app.fonts.empty_response = खाली उत्तर
+app.update.unreadable_response = उत्तर पढ़ा नहीं जा सका: {error}
+app.update.no_temp_dir = डाउनलोड के लिए कोई अस्थायी डायरेक्टरी नहीं है
+app.update.asset_has_path = रिलीज़ ने अपने एसेट का नाम पाथ सहित रखा है
+app.update.too_big = डाउनलोड का आकार रिलीज़ में बताए आकार से बड़ा है
+app.update.stopped_at = डाउनलोड {total} बाइट में से {got} बाइट पर रुक गया
+app.update.hash_mismatch = डाउनलोड का हैश {want} के बजाय {got} है
+app.update.not_in_bundle = यह कॉपी किसी अनुप्रयोग बंडल के भीतर नहीं है
+app.update.no_parent_dir = अनुप्रयोग बंडल की कोई मूल डायरेक्टरी नहीं है
+app.update.cannot_write = {dir} में लिखा नहीं जा सकता
+app.update.cannot_move_aside = {app} को एक ओर नहीं हटाया जा सकता
+app.update.cannot_move_in = नया बंडल निर्धारित स्थान पर नहीं लाया जा सकता
+app.update.cannot_run_ditto = /usr/bin/ditto नहीं चलाया जा सकता
+app.update.unpack_failed = डाउनलोड अनपैक करना विफल: {error}
+app.update.no_app_in_download = डाउनलोड में Schist.app नहीं है
+app.update.cannot_run_codesign = /usr/bin/codesign नहीं चलाया जा सकता
+app.update.signature_invalid = डाउनलोड के हस्ताक्षर का सत्यापन विफल: {error}
+app.update.download_unsigned = यह कॉपी हस्ताक्षरित है, लेकिन डाउनलोड हस्ताक्षरित नहीं है
+app.update.different_developer = डाउनलोड पर किसी अलग डेवलपर के हस्ताक्षर हैं
+app.update.cannot_relaunch = फिर से शुरू करने वाला प्रोग्राम चालू नहीं किया जा सकता
+app.update.not_installed_copy = इंस्टॉलर ने यह कॉपी यहाँ नहीं रखी थी
+app.update.cannot_start_installer = इंस्टॉलर शुरू नहीं किया जा सकता
+app.update.platform_unsupported = इस प्लेटफ़ॉर्म पर अपडेट उसी तरीके से इंस्टॉल होते हैं जिससे Schist इंस्टॉल हुआ था
+app.vulkan.no_loader = schist: इस सिस्टम पर कोई Vulkan लोडर नहीं है, इसलिए चित्रित करने के लिए कुछ उपलब्ध नहीं है।\n\nSchist Vulkan के माध्यम से रेंडर करता है और `libvulkan.so.1` इंस्टॉल नहीं है।\nलोडर और ड्राइवर दोनों आवश्यक हैं:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: यह सत्र जिस Vulkan ड्राइवर की ओर संकेत करता है वह मौजूद नहीं है।\n\n{var} सेट है और इसे सेट करने से ड्राइवरों के लिए लोडर की खोज में कुछ जुड़ने के बजाय वह खोज पूरी तरह बदल जाती है। इसलिए नीचे दी गई अनुपलब्ध फ़ाइलें ही ड्राइवरों की पूरी सूची हैं—और इस सत्र का हर Vulkan प्रोग्राम कोई ड्राइवर नहीं देखता, चाहे कितने भी इंस्टॉल हों:\n\n{missing}\n    {var}={value}\n\nइसे किसी मौजूदा मैनिफ़ेस्ट की ओर संकेत कराएँ—इंस्टॉल किए ड्राइवर अपने मैनिफ़ेस्ट /usr/share/vulkan/icd.d में रखते हैं—या इसे अनसेट करके लोडर को स्वयं ड्राइवर खोजने दें।\nयदि सत्र इसे किसी कॉन्फ़िगरेशन फ़ाइल (Hyprland का `env =`, systemd environment.d ड्रॉप-इन या शेल प्रोफ़ाइल) से सेट करता है, तो बदलाव वहीं करना होगा; पहले से चल रही चीज़ों तक बदलाव पहुँचाने के लिए नया लॉगिन आवश्यक है।\n
+app.vulkan.override_note = \n{var} को {value} पर सेट किया गया है और यह लोडर की अपनी खोज को बदल देता है: यदि इनमें से कोई मैनिफ़ेस्ट इस मशीन के लिए नहीं है, तो पहले इसे अनसेट करके देखें।\n
+app.vulkan.no_driver = schist: कोई Vulkan ड्राइवर इंस्टॉल नहीं है, इसलिए चित्रित करने के लिए कुछ उपलब्ध नहीं है।\n\nSchist Vulkan के माध्यम से रेंडर करता है। लोडर इंस्टॉल है और बताता है कि कोई ड्राइवर नहीं है—जिन दोनों स्थानों पर ड्राइवर खोजे जाते हैं, उनमें किसी ने भी स्वयं को पंजीकृत नहीं किया है:\n\n{dirs}\n\nलोडर ड्राइवरों से अलग वितरित होता है, इसलिए आम तौर पर केवल एक पैकेज अनुपलब्ध होता है।\n\nइस मशीन के GPU वाला पैकेज इंस्टॉल करें:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA के मालिकाना ड्राइवर में उसका अपना ड्राइवर शामिल है (Arch पर `nvidia-utils`, Debian पर `nvidia-driver`)। वर्चुअल मशीन में या ऐसी किसी जगह जहाँ इंस्टॉल करने के लिए GPU ड्राइवर न हो, सॉफ़्टवेयर रास्टराइज़र काम करता है: Arch पर `vulkan-swrast`, अन्य जगह `mesa-vulkan-drivers` का हिस्सा। यह धीमा है, लेकिन शुरू हो जाता है।\n{overridden}
+app.vulkan.no_device = schist: Vulkan ड्राइवर इंस्टॉल है, लेकिन रेंडर करने के लिए कोई डिवाइस उपलब्ध नहीं कराता।\n\nहो सकता है ड्राइवर इस GPU का समर्थन न करता हो या उस तक पहुँच न सके—SSH के माध्यम से या कंटेनर के भीतर /dev/dri अक्सर अनुपलब्ध होता है। `vulkaninfo --summary` बताता है कि लोडर को क्या दिखाई देता है।\n\nयदि इस मशीन में GPU नहीं है, तो सॉफ़्टवेयर रास्टराइज़र बिना GPU के भी रेंडर करता है: Arch पर `vulkan-swrast`, Debian और Fedora पर `mesa-vulkan-drivers` का हिस्सा।\n
+app.vulkan.skip_hint = फिर भी Schist शुरू करने और उसे अपने तरीके से विफल होने देने के लिए {var}=1 सेट करें।

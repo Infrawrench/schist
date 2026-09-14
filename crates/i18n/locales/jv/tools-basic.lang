@@ -1,0 +1,26 @@
+# Piranti dhasar: Pindhah, Pipet, Tangan, lan Zum.
+
+# Pindhah
+tool.move.name = Pindhah
+tool.move.description = Seret isi lapisan aktif menyang posisi anyar. Yen Pilih Otomatis urip, nalika dipencet bakal milih lapisan apa wae — utawa saklompok kabèh — sing pisanan ana ing sangisoring panunjuk.
+tool.move.option.auto_select = Pilih Otomatis
+tool.move.history.move_layer = Pindhah Lapisan
+
+# Pipet
+tool.eyedropper.name = Pipet
+tool.eyedropper.description = Jupuk sampel werna ing sangisoring panunjuk menyang swatch latar ngarep, utawa menyang swatch latar mburi nalika alt ditahan. Nalika diseret, sampel bakal terus dijupuk.
+tool.eyedropper.option.sample_size = Ukuran Sampel
+tool.eyedropper.option.sample = Sampel
+tool.eyedropper.choice.point_sample = Sampel Titik
+tool.eyedropper.choice.average_3 = Rata-rata 3 × 3
+tool.eyedropper.choice.average_5 = Rata-rata 5 × 5
+tool.eyedropper.choice.average_11 = Rata-rata 11 × 11
+tool.eyedropper.choice.average_31 = Rata-rata 31 × 31
+tool.eyedropper.choice.all_layers = Kabèh Lapisan
+tool.eyedropper.choice.current_layer = Lapisan Saiki
+
+# Tangan lan Zum
+tool.hand.name = Tangan
+tool.hand.description = Nggeser tampilan. Area tampilan dadi pérangan saka jendhela, mula nalika tanpa antarmuka grafis piranti iki ora ngowahi dokumèn.
+tool.zoom.name = Zum
+tool.zoom.description = Nggedhèkaké utawa nyilikaké tampilan. Area tampilan dadi pérangan saka jendhela, mula nalika tanpa antarmuka grafis piranti iki ora ngowahi dokumèn.

@@ -1,0 +1,43 @@
+tool.pen.name = Plunksna
+tool.pen.description = Kurkite kontūrą: spustelėkite kampiniam taškui sukurti, vilkite kreivės rankenėlėms iš jo ištraukti, o kontūrui uždaryti spustelėkite pirmąjį tašką. Patvirtinus kontūras paverčiamas figūros sluoksniu.
+tool.pen.option.rubber_band = Tampri juosta
+tool.pen.history.fill = Kontūro užpildas
+tool.pen.default_path_name = Kontūras {n}
+tool.pen.freeform.name = Laisvos formos plunksna
+tool.pen.freeform.description = Laisva ranka vilkite liniją, ir ji bus pritaikyta kontūrui tokiu tikslumu, kokį nurodo pritaikymo parinktis.
+tool.pen.freeform.option.fit = Pritaikymas
+tool.pen.curvature.name = Kreivumo plunksna
+tool.pen.curvature.description = Spustelėkite taškų seką, ir kontūras bus tolygiai per juos išlenktas.
+
+tool.path_select.name = Kontūro žymėjimas
+tool.path_select.description = Spustelėkite kontūrą, kad jį pažymėtumėte, o vilkdami perkelkite visą kontūrą.
+tool.direct_select.name = Tiesioginis žymėjimas
+tool.direct_select.description = Vilkite atskirą atraminį tašką arba jo rankenėles, kad pakeistumėte aplink jį esančio kontūro formą.
+
+tool.shape.history.layer = Sluoksnis „{name}“
+tool.shape.rect.name = Stačiakampio įrankis
+tool.shape.rect.label = Stačiakampis
+tool.shape.rect.description = Vilkdami sukurkite priekinio plano spalvos stačiakampio figūros sluoksnį; jis išlieka vektorinis ir pakeitus dydį rastrizuojamas iš naujo.
+tool.shape.ellipse.name = Elipsės įrankis
+tool.shape.ellipse.label = Elipsė
+tool.shape.ellipse.description = Vilkdami sukurkite priekinio plano spalvos elipsės figūros sluoksnį.
+tool.shape.line.name = Linijos įrankis
+tool.shape.line.label = Linija
+tool.shape.line.description = Vilkdami sukurkite priekinio plano spalvos tiesios linijos figūros sluoksnį.
+tool.shape.line.option.weight = Storis
+tool.shape.line.option.arrow_start = Pradžia
+tool.shape.line.option.arrow_end = Pabaiga
+tool.shape.polygon.name = Daugiakampio įrankis
+tool.shape.polygon.label = Daugiakampis
+tool.shape.polygon.description = Vilkdami sukurkite priekinio plano spalvos taisyklingojo daugiakampio figūros sluoksnį, kurio kraštinių skaičius nurodytas parinktyse.
+tool.shape.polygon.option.sides = Kraštinės
+
+tool.shape.custom.name = Pasirinktinė figūra
+tool.shape.custom.label = Pasirinktinė figūra
+tool.shape.custom.description = Vilkdami sukurkite vieną iš įtaisytųjų figūrų ruošinių, pasirinktą figūros parinktimi.
+tool.shape.custom.choice.heart = Širdis
+tool.shape.custom.choice.star = Žvaigždė
+tool.shape.custom.choice.arrow = Rodyklė
+tool.shape.custom.choice.lightning = Žaibas
+tool.shape.custom.choice.cross = Kryžius
+tool.shape.custom.choice.speech_bubble = Kalbos debesėlis

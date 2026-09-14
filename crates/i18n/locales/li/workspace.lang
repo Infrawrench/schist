@@ -1,0 +1,98 @@
+workspace.fill.gray_50 = 50% gries
+workspace.fill.content_aware = Inhaudsgevoelig
+workspace.modify.expand = Selectie oetbreije
+workspace.modify.contract = Selectie inkrimpe
+workspace.modify.border = Selectierandj
+workspace.modify.smooth = Selectie glad make
+workspace.modify.feather = Selectie verzachte
+
+workspace.batch.target.edit = Galeriebewèrkinge (mit versies)
+workspace.batch.target.beside = Kopieën neve de originele
+workspace.batch.target.folder = Kopieën in 'n map…
+workspace.modal.image_size.title = Aafbiljingsgroeëtte
+
+workspace.docs.opening = {name} äöpene…
+workspace.docs.opened = {name} geäöpend
+workspace.docs.open_failed = Äöpene misloek: {error}
+workspace.docs.no_codec = {name} is gei formaat dat Schist kin äöpene
+workspace.docs.no_exporter = Schist kin bestenj mit .{ext} neet opslaon
+workspace.docs.empty_response = De server sjikde 'n laeg antjwaord
+workspace.docs.heic_not_installed = HEIC-oondersteuning is neet geïnstalleerd
+workspace.docs.heic_downloading = HEIC-oondersteuning downloade (libheif {version})…
+workspace.docs.heic_installed = HEIC-oondersteuning geïnstalleerd
+workspace.docs.heic_download_failed = Download van HEIC-oondersteuning is misloek: {error}
+workspace.docs.placing = {name} plaatse…
+workspace.docs.place_image = Aafbiljing plaatse
+workspace.docs.placed = {name} geplaats
+workspace.docs.place_failed = Plaatse misloek: {error}
+workspace.docs.saved = {name} opgeslage
+workspace.docs.save_failed = Opslaon misloek: {error}
+
+workspace.adjustment.new_layer = Nuuje laog {name}
+workspace.adjustment.added = {name} toegeveug
+workspace.adjustment.settings = Instèllinge veur {name}
+workspace.adjustment.updated = {name} biewèrk
+workspace.adjustment.no_settings = {name} haet gein bewèrkbare instèllinge
+workspace.comps.name_n = Laogsamenstèlling {n}
+workspace.comps.captured = Laogsamenstèlling vasgelag
+workspace.comps.apply = {name} toepasse
+workspace.styles.layer_style = Laogsjtiel
+workspace.context.rename_layer = Laog herneume
+workspace.commands.tool = Hulpmiddel: {name}
+
+workspace.colormgmt.assign = {name} toewieze
+workspace.colormgmt.assigned = {name} toegeweze
+workspace.colormgmt.convert_to = Nao {name} convertere
+workspace.colormgmt.converted_to = Nao {name} geconverteerd
+workspace.colormgmt.convert_failed = Convertere misloek: {error}
+workspace.colormgmt.proof_on = Proefkleure aan
+workspace.colormgmt.proof_off = Proefkleure oet
+
+workspace.filters.choose = Keze
+workspace.filters.select_layer_first = Selecteer iers 'n laog
+workspace.filters.needs_pixel_layer = Filters höbbe 'n pixellaog neudig
+workspace.filters.nothing_to_filter = Niks om te filtere
+workspace.filters.went_away = Filter is verdwene
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: de gefilterde laog is weg
+workspace.filters.plugin_title = Photoshop-plug-in
+workspace.filters.running = {name} oetveure
+workspace.filters.plugin_note = De plug-in dreijt in zien eige proses. Es hae 'n vinster äöpent, antjwaord dao dan op om door te gaon.
+workspace.filters.raw_preview_developing = RAW-veurtuin óntwikkelen…
+workspace.filters.raw_preview_done = RAW-veurtuin (snelle demosaicing)
+workspace.filters.raw_preview_size_changed = Groeëtte van RAW-veurtuin verangerd: {w} × {h}
+workspace.filters.raw_preview_failed = RAW-veurtuin misloek: {error}
+workspace.filters.raw_developing = De originele opname óntwikkelen…
+workspace.filters.raw_developing_note = Gebroek 't bèste paad veur demosaicing. De originele RAW en deze instèllinge blieve bewèrkbaar nao 't opslaon es PSD of PSB.
+workspace.filters.raw_document_changed = RAW-óntwikkeling is aafgeroondj nadat 't document verangerd waor
+workspace.filters.raw_failed = RAW-óntwikkeling misloek: {error}
+workspace.filters.raw_too_wide = RAW-óntwikkeling is te breid
+workspace.filters.raw_too_tall = RAW-óntwikkeling is te hoeg
+workspace.filters.raw_size_changed = Groeëtte van RAW-óntwikkeling verangerd nao {w} × {h}; de hujige laog blief behawwe
+workspace.filters.raw_history = Camera Raw-óntwikkeling
+workspace.filters.raw_applied = Camera Raw-óntwikkeling toegepas (bèste demosaicing)
+
+workspace.image_size.done = Aafbiljingsgroeëtte: {w} × {h}
+workspace.image_size.bicubic_fallback = Aafbiljingsgroeëtte: {w} × {h} — 't model {name} wouw neet laje, dus is bicubische interpolatie gebroek
+workspace.image_size.upscaling = Opsjale mit {name}
+workspace.image_size.upscaling_note = {mp} megapixels door 't netwerk, eder mit 'n paar seconde. 't Document weurt vasgehouwe toet dit vaerdig is.
+
+workspace.export.no_slices = Gein segmente om te exportere
+workspace.export.no_artboards = Gein tekengebeej om te exportere
+workspace.export.regions.other = Gebiede geëxporteerd: {n}
+workspace.export.prompt = Exportere es:
+workspace.export.done = {name} geëxporteerd
+workspace.export.failed = Exportere misloek: {error}
+workspace.export.codec_vanished = De exportfunctie is neet mieë besjikbaar
+
+workspace.file_picker.choose_folder = Map keze
+workspace.file_picker.type_a_name = Typ 'ne naam veur 't besjtandj
+workspace.file_picker.exists = {name} besteit; tik nog ins op Opslaon om 't te vervange
+workspace.file_picker.tap_a_file = Tik op 'n besjtandj om 't te äöpene
+workspace.file_picker.pictures = Aafbiljinge
+workspace.file_picker.camera = Camera
+workspace.file_picker.downloads = Downloads
+workspace.file_picker.permission_denied = Schist haet gein toesjtemming om deze map te laeze
+
+workspace.recovery.recovered_title = {title} (herstèld)
+workspace.recovery.recovered.other = Herstèld oet de veurige sessie; aantal documente: {n}

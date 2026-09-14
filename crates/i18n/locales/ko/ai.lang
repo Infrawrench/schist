@@ -1,0 +1,36 @@
+# AI 사이드바의 상태, 기록 안내, 사용자에게 표시되는 오류입니다.
+
+# 상태 표시줄
+ai.status.panel_shown = AI 패널이 표시됨
+ai.status.panel_hidden = AI 패널이 숨겨짐 — 보기 ▸ AI 패널({shortcut})에서 다시 열 수 있습니다
+ai.status.tool = AI: {name}
+
+# 기록의 흐린 행
+ai.info.connected = {backend} 연결됨
+ai.info.now_in_gallery = 갤러리로 이동했습니다.
+ai.info.now_in_editor = 편집기로 이동했습니다.
+ai.tool.shell_command = 셸 명령
+
+# 기록에 표시되는 오류
+ai.error.cli_missing = {backend} CLI(“{binary}”)를 PATH에서 찾을 수 없습니다. 먼저 설치하고 로그인하세요.
+ai.error.endpoint_failed = MCP 엔드포인트를 시작하지 못했습니다: {error}
+ai.error.binding_endpoint = MCP 엔드포인트 바인딩 중
+ai.error.spawning_endpoint_thread = MCP 엔드포인트 스레드 시작 중
+ai.error.runtime_failed = 에이전트 런타임을 시작하지 못했습니다: {error}
+ai.error.worker_failed = {backend} 워커를 시작하지 못했습니다: {error}
+ai.error.did_not_start = {backend} 시작 실패: {error}
+ai.error.switch_model_failed = 모델을 전환하지 못했습니다: {error}
+ai.error.send_failed = 프롬프트를 보내지 못했습니다: {error}
+ai.error.interrupt_failed = 중단하지 못했습니다: {error}
+ai.error.locating_binary = Schist 바이너리 찾는 중
+ai.error.starting_app_server = Codex 앱 서버 시작 중
+ai.error.attaching_app_server = Codex 앱 서버에 연결 중
+ai.error.initializing_app_server = Codex 앱 서버 초기화 중
+ai.error.resuming_thread = Codex 스레드 재개 중
+ai.error.starting_thread = Codex 스레드 시작 중
+
+# CLI 응답 전 모델 선택기에 표시되는 대체 목록
+ai.model.opus_detail = 가장 뛰어난 성능의 등급
+ai.model.sonnet_detail = 일반 작업에 효율적
+ai.model.haiku_detail = 빠른 답변에 가장 신속함
+ai.model.codex_catalog = Codex 카탈로그

@@ -1,0 +1,42 @@
+# Enwau fformatau a negeseuon methiant mewnforio.
+
+# Enwau fformatau
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Delwedd Grai
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Negeseuon mewnforio cyffredin
+codec.msg.decoding = dadgodio {name}
+codec.msg.zero_sized = nid oes picseli yn y ddelwedd
+codec.msg.assembling_document = cydosod y ddogfen
+
+# Ffeil camera grai
+codec.raw.msg.decoding = dadgodio'r ffeil grai
+codec.raw.msg.developing = datblygu'r ffeil grai
+codec.raw.msg.finding_preview = chwilio am y rhagolwg mewnblanedig
+codec.raw.msg.decoding_preview = dadgodio'r rhagolwg mewnblanedig
+codec.raw.msg.decoder_panicked = methodd y dadgodiwr crai ar y ffeil hon: {what}
+
+# Affinity
+codec.affinity.import_title = Mewnforio Affinity
+codec.affinity.flattened_preview_layer = Rhagolwg gwastad
+codec.affinity.msg.no_preview = Dim rhagolwg mewnblanedig y gellir ei ddefnyddio. Mae fformat haenog Affinity yn berchnogol; mae Schist yn mewnforio'r rhagolwg gwastad sydd yn y ffeil. Nid oes un yn y ffeil hon — cadwch hi eto yn Affinity, neu allforiwch hi fel PSD i fewnforio'r holl haenau.
+
+# HEIF
+codec.heif.msg.no_library = Nid yw libheif ar gael ({details}). Mae angen llyfrgell libheif i agor HEIC (Linux: gosodwch libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — efallai nad oes dadgodiwr HEVC yn yr adeiladwaith libheif hwn (ar Debian/Ubuntu, gosodwch libheif-plugin-libde265)
+codec.heif.msg.unknown_error = gwall anhysbys
+codec.heif.msg.initialising = ymgychwyn libheif
+codec.heif.msg.reading_container = darllen y cynhwysydd HEIF
+codec.heif.msg.finding_primary_image = canfod y brif ddelwedd
+codec.heif.msg.reading_icc_profile = darllen proffil ICC
+codec.heif.msg.decoding_image = dadgodio'r ddelwedd
+codec.heif.msg.checksum_mismatch = Nid yw swm gwirio {name} yn cyfateb: disgwylwyd {expected}, cafwyd {got}
+codec.heif.msg.imageio_cannot_read = Nid oedd ImageIO yn gallu darllen y cynhwysydd HEIF
+codec.heif.msg.container_empty = nid oes delwedd yn y cynhwysydd HEIF
+codec.heif.msg.imageio_cannot_decode = Nid oedd ImageIO yn gallu dadgodio'r brif ddelwedd

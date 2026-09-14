@@ -1,0 +1,23 @@
+tool.patch.name = Chigamba
+tool.patch.description = Jambulani malire kuzungulira cholakwika, kenako kokani malo osankhidwawo pa ma pixel abwino: kapangidwe ka pamenepo kamalumikizidwa ndi cholakwikacho. Njira ya Patch imasankha mbali ya awiriwo imene mukoka.
+tool.patch.option.patch = Chigamba
+tool.patch.choice.source = Gwero
+tool.patch.choice.destination = Kopita
+tool.patch.history.patch = Chigamba
+
+tool.content_aware_move.name = Kusuntha Kozindikira Zamkati
+tool.content_aware_move.description = Kokani chinthu chosankhidwa kupita kwina ndipo dzenje limene chasiya limadzazidwa ndi zozungulira. Mu njira ya Extend, chinthucho chimatambasulidwa m'malo mosunthidwa.
+tool.content_aware_move.choice.move = Sunthani
+tool.content_aware_move.choice.extend = Tambasulani
+tool.content_aware_move.history.move = Kusuntha Kozindikira Zamkati
+
+tool.red_eye.name = Diso Lofiira
+tool.red_eye.description = Dinani mwana wa diso kuti muchotse kufiira kwa flash.
+tool.red_eye.option.pupil_size = Kukula kwa Mwana wa Diso
+tool.red_eye.option.darken = Detsetsani
+tool.red_eye.history.red_eye = Diso Lofiira
+
+tool.magic_eraser.name = Chofufutira Chamatsenga
+tool.magic_eraser.description = Dinani kuti mufufute dera la mtundu wofanana pansi pa pointer, malinga ndi tolerance ya chidacho—dera lolumikizana ndi pamene mwadina kapena malo onse mu layer.
+tool.magic_eraser.option.contiguous = Zolumikizana
+tool.magic_eraser.history.erase = Chofufutira Chamatsenga

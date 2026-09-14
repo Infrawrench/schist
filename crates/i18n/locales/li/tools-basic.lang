@@ -1,0 +1,23 @@
+# De basishulpmiddele: Verplaatse, Pipet, Hand en Zoome.
+
+tool.move.name = Verplaatse
+tool.move.description = Trèk de inhaud van de actieve laog nao 'n nuuj plaats. Es Automatisch selectere aan steit, keus de eerste druk de laog — of de ganse groep — oonder de wiezer.
+tool.move.option.auto_select = Automatisch selectere
+tool.move.history.move_layer = Laog verplaatse
+
+tool.eyedropper.name = Pipet
+tool.eyedropper.description = Neem de kleur oonder de wiezer euver in 't veurgrondsstaaltje, of in 't achtergrondsstaaltje es Alt ingedrök is. Bie sleipe blief 't hulpmiddel metinge doon.
+tool.eyedropper.option.sample_size = Metingsgroeëtte
+tool.eyedropper.option.sample = Meting
+tool.eyedropper.choice.point_sample = Puntmeting
+tool.eyedropper.choice.average_3 = Gemiddelde van 3 bie 3
+tool.eyedropper.choice.average_5 = Gemiddelde van 5 bie 5
+tool.eyedropper.choice.average_11 = Gemiddelde van 11 bie 11
+tool.eyedropper.choice.average_31 = Gemiddelde van 31 bie 31
+tool.eyedropper.choice.all_layers = Alle laoge
+tool.eyedropper.choice.current_layer = Hujige laog
+
+tool.hand.name = Hand
+tool.hand.description = Versjuuf de weergaaf. De weergaafhuuk huurt bie 't vinster; zonger vinster deit dit hulpmiddel dus niks mit 't document.
+tool.zoom.name = Zoome
+tool.zoom.description = Zoomt de weergaaf. De weergaafhuuk huurt bie 't vinster; zonger vinster deit dit hulpmiddel dus niks mit 't document.

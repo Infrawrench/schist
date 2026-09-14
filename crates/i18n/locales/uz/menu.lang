@@ -1,0 +1,152 @@
+# Fayl
+menu.file = Fayl
+menu.file.new = Yangi
+menu.file.open = Ochish…
+menu.file.open_recent = Oxirgi fayllarni ochish
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Galereyani ko‘rib chiqish…
+menu.file.close = Yopish
+menu.file.save = Saqlash
+menu.file.save_as = Boshqa nom bilan saqlash…
+menu.file.export = Eksport qilish…
+menu.file.export_submenu = Eksport qilish
+menu.file.export_artboards = Montaj sohalarini PNG formatiga…
+menu.file.export_slices = Bo‘laklarni PNG formatiga…
+menu.file.save_to_photos = Suratlar ichiga saqlash
+menu.file.plugins = Plaginlar…
+menu.file.missing_fonts = Yetishmayotgan shriftlar…
+menu.file.check_for_updates = Yangilanishlarni tekshirish…
+menu.file.quit = Chiqish
+menu.file.add_folder_to_gallery = Galereyaga jild qo‘shish…
+menu.file.import_from_photos = Suratlardan import qilish…
+menu.file.import_from_camera = Kameradan import qilish…
+
+# Tahrirlash
+menu.edit = Tahrirlash
+menu.edit.fill = To‘ldirish…
+menu.edit.stroke = Chiziq bilan o‘rash…
+menu.edit.content_aware_fill = Tarkibni hisobga olib to‘ldirish
+menu.edit.content_aware_scale = Tarkibni hisobga olib masshtablash…
+menu.edit.puppet_warp = Qo‘g‘irchoq deformatsiyasi
+menu.edit.free_transform = Erkin o‘zgartirish
+menu.edit.transform = O‘zgartirish
+menu.edit.rotate_180 = 180° ga aylantirish
+menu.edit.rotate_90_cw = Soat yo‘nalishida 90° ga aylantirish
+menu.edit.rotate_90_ccw = Soat yo‘nalishiga teskari 90° ga aylantirish
+menu.edit.flip_horizontal = Gorizontal akslantirish
+menu.edit.flip_vertical = Vertikal akslantirish
+
+# Tasvir
+menu.image = Tasvir
+menu.image.mode = Rejim
+menu.image.adjustments = Sozlashlar
+menu.image.auto_tone = Avtomatik ton
+menu.image.auto_contrast = Avtomatik kontrast
+menu.image.auto_color = Avtomatik rang
+menu.image.image_size = Tasvir o‘lchami…
+menu.image.canvas_size = Xolst o‘lchami…
+menu.image.image_rotation = Tasvirni aylantirish
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = Soat yo‘nalishida 90°
+menu.image.rotate_90_ccw = Soat yo‘nalishiga teskari 90°
+menu.image.flip_canvas_horizontal = Xolstni gorizontal akslantirish
+menu.image.flip_canvas_vertical = Xolstni vertikal akslantirish
+menu.image.crop_to_selection = Tanlovgacha qirqish
+menu.image.trim = Chetlarini qirqish
+menu.image.assign_profile = Profilni biriktirish…
+menu.image.convert_to_profile = Profilga o‘girish…
+
+# Tanlash
+menu.select = Tanlash
+menu.select.color_range = Rang oralig‘i…
+menu.select.modify = O‘zgartirish
+menu.select.border = Chegara…
+menu.select.smooth = Silliqlash…
+menu.select.expand = Kengaytirish…
+menu.select.contract = Toraytirish…
+menu.select.feather = Chetni yumshatish…
+menu.select.transform_selection = Tanlovni o‘zgartirish
+
+# Qatlam
+menu.layer = Qatlam
+menu.layer.layer_style = Qatlam uslubi…
+menu.layer.layer_comps = Qatlam kompozitsiyalari
+menu.layer.new_layer_comp = Yangi qatlam kompozitsiyasi
+menu.layer.delete_layer_comp = {name} kompozitsiyasini o‘chirish
+menu.layer.path = Kontur
+menu.layer.fill_path = Konturni to‘ldirish
+menu.layer.stroke_path = Kontur bo‘ylab chizish
+menu.layer.make_selection = Tanlov yaratish
+menu.layer.delete_path = Konturni o‘chirish
+
+menu.adjust = Sozlash
+
+# Filtr
+menu.filter = Filtr
+menu.filter.filter_gallery = Filtrlar galereyasi…
+menu.filter.liquify = Suyuqlashtirish
+menu.filter.vanishing_point = Perspektiva tekisligi
+menu.filter.manage_models = Modellarni boshqarish…
+menu.filter.camera_raw_development = Camera Raw ishlovi…
+
+# Ko‘rinish
+menu.view = Ko‘rinish
+menu.view.rotate_view_cw = Ko‘rinishni soat yo‘nalishida aylantirish
+menu.view.rotate_view_ccw = Ko‘rinishni soat yo‘nalishiga teskari aylantirish
+menu.view.reset_view = Ko‘rinishni tiklash
+menu.view.zoom_in = Yaqinlashtirish
+menu.view.zoom_out = Uzoqlashtirish
+menu.view.fit_on_screen = Ekranga sig‘dirish
+menu.view.actual_size = 100%
+menu.view.rulers = Chizg‘ichlar
+menu.view.grid = To‘r
+menu.view.guides = Yo‘naltirgichlar
+menu.view.notes = Qaydlar
+menu.view.ai_panel = AI paneli
+menu.view.extras = Qo‘shimchalar
+menu.view.snap = Yopishtirish
+menu.view.clear_guides = Yo‘naltirgichlarni tozalash
+menu.view.clear_notes = Qaydlarni tozalash
+menu.view.clear_count = Hisoblagichlarni tozalash
+menu.view.screen_mode = Ekran rejimi
+menu.view.proof_colors = Sinov ranglari
+menu.view.show_rulers = Chizg‘ichlarni ko‘rsatish
+menu.view.hide_rulers = Chizg‘ichlarni yashirish
+menu.view.show_grid = To‘rni ko‘rsatish
+menu.view.hide_grid = To‘rni yashirish
+menu.view.show_guides = Yo‘naltirgichlarni ko‘rsatish
+menu.view.hide_guides = Yo‘naltirgichlarni yashirish
+menu.view.show_notes = Qaydlarni ko‘rsatish
+menu.view.hide_notes = Qaydlarni yashirish
+menu.view.show_extras = Qo‘shimchalarni ko‘rsatish
+menu.view.hide_extras = Qo‘shimchalarni yashirish
+menu.view.enable_snapping = Yopishtirishni yoqish
+menu.view.disable_snapping = Yopishtirishni o‘chirish
+menu.view.enable_proof_colors = Sinov ranglarini yoqish
+menu.view.disable_proof_colors = Sinov ranglarini o‘chirish
+
+# Galereya
+menu.gallery = Galereya
+menu.gallery.edit_selected = Tanlanganini tahrirlash
+menu.gallery.refresh = Qayta yuklash
+menu.gallery.map_filter = Xarita filtri…
+menu.gallery.back_to_editor = Tahrirlagichga qaytish
+
+# Schist Cloud
+menu.cloud.browse = Schist Cloud’ni ko‘rib chiqish
+menu.cloud.generate = Tasvirlar yaratish…
+menu.cloud.upload = Hujjatni Schist Cloud’ga yuklash…
+menu.cloud.sign_out = Schist Cloud hisobidan chiqish
+menu.cloud.sign_in = Schist Cloud hisobiga kirish…
+
+# macOS ilova menyusi
+menu.app.services = Xizmatlar
+menu.app.hide = {app} ilovasini yashirish
+menu.app.hide_others = Boshqalarni yashirish
+menu.app.show_all = Barchasini ko‘rsatish
+menu.app.quit = {app} ilovasidan chiqish
+
+# Bajarib bo‘lmaydigan menyu amallari holati
+menu.status.transform_selection_needs_selection = Tanlovni o‘zgartirish uchun tanlov kerak
+menu.status.crop_needs_selection = Tanlovgacha qirqish uchun tanlov kerak
+menu.status.select_photo_to_edit = Tahrirlash uchun surat tanlang

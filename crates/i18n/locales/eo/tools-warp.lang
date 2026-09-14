@@ -1,0 +1,24 @@
+# Misformaj iloj: Likvigi, Pupa misformo kaj Fuĝpunkto.
+
+tool.liquify.name = Likvigi
+tool.liquify.description = Puŝu, kirlu, kuntiru aŭ ŝveligu rastrumerojn sub granda peniko — la reĝima opcio elektas la agon. La misformo akumuliĝas en maŝo kaj estas aplikata al la tavolo kiam vi konfirmas.
+tool.liquify.option.tool = Ilo
+tool.liquify.choice.forward_warp = Antaŭen misformi
+tool.liquify.choice.reconstruct = Rekonstrui
+tool.liquify.choice.twirl_cw = Kirli dekstrume
+tool.liquify.choice.twirl_ccw = Kirli maldekstrume
+tool.liquify.choice.pucker = Kuntiri
+tool.liquify.choice.bloat = Ŝveligi
+tool.liquify.choice.push_left = Puŝi maldekstren
+tool.liquify.history.liquify = Likvigi
+
+tool.puppet_warp.name = Pupa misformo
+tool.puppet_warp.description = Alklaku por fiksi la tavolon ĉe kelkaj punktoj, poste trenu unu el ili: la maŝo fleksiĝas ĉirkaŭ la pingloj, rigide aŭ loze laŭ la opcio Rigideco. Konfirmo aplikas la misformon.
+tool.puppet_warp.option.stiffness = Rigideco
+tool.puppet_warp.history.puppet_warp = Pupa misformo
+
+tool.vanishing_point.name = Fuĝpunkto
+tool.vanishing_point.description = Trenu ebenon super perspektive montrata objekto, poste ŝanĝu la reĝimon al Kloni kaj pentru: la kopiitaj rastrumeroj sekvas la ebenon kaj malgrandiĝas kun la distanco.
+tool.vanishing_point.choice.edit_plane = Redakti ebenon
+tool.vanishing_point.choice.clone = Kloni
+tool.vanishing_point.history.vanishing_point = Fuĝpunkto

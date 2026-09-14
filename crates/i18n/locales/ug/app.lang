@@ -1,0 +1,36 @@
+app.filter_gallery.title = سۈزگۈچ ئامبىرى
+app.filter_gallery.stack = دۆۋە (ئاستىدىن ئۈستىگە قوللىنىلىدۇ)
+app.filter_gallery.no_settings = بۇ سۈزگۈچنىڭ تەڭشىكى يوق.
+app.fonts.not_open_licensed = ئوچۇق ئىجازەتنامىسى يوق · {substitute} نىڭ ئۆلچىمى ئۇنىڭغا ماس كېلىدۇ
+app.fonts.missing_substituted = كەم · تېكىست ئورنىنى باسىدىغان خەت نۇسخىسىدا يېزىلىۋاتىدۇ
+app.fonts.not_in_catalogue = {family} ئوچۇق خەت نۇسخىسى مۇندەرىجىسىدە يوق
+app.fonts.no_faces = {family} ئۈچۈن چۈشۈرگىلى بولىدىغان خەت شەكلى يوق
+app.fonts.empty_response = بوش جاۋاب
+app.update.unreadable_response = جاۋابنى ئوقۇغىلى بولمىدى: {error}
+app.update.no_temp_dir = چۈشۈرۈش ئۈچۈن ۋاقىتلىق مۇندەرىجە يوق
+app.update.asset_has_path = تارقىتىش نەشرىدىكى مەنبە نامىدا يول بار
+app.update.too_big = چۈشۈرۈلمە تارقىتىش نەشرىدە كۆرسىتىلگەندىن چوڭ
+app.update.stopped_at = چۈشۈرۈش {total} بايتنىڭ {got} بايتىدا توختىدى
+app.update.hash_mismatch = چۈشۈرۈلمىنىڭ hash قىممىتى {want} ئەمەس، {got}
+app.update.not_in_bundle = بۇ نۇسخا ئەپ بوغچىسىنىڭ ئىچىدە ئەمەس
+app.update.no_parent_dir = ئەپ بوغچىسىنىڭ ئانا مۇندەرىجىسى يوق
+app.update.cannot_write = {dir} غا يازغىلى بولمايدۇ
+app.update.cannot_move_aside = {app} نى بىر چەتكە يۆتكىگىلى بولمايدۇ
+app.update.cannot_move_in = يېڭى بوغچىنى ئورنىغا يۆتكىگىلى بولمايدۇ
+app.update.cannot_run_ditto = /usr/bin/ditto نى ئىجرا قىلغىلى بولمايدۇ
+app.update.unpack_failed = چۈشۈرۈلمىنى يېشىش مەغلۇپ بولدى: {error}
+app.update.no_app_in_download = چۈشۈرۈلمىدە Schist.app يوق
+app.update.cannot_run_codesign = /usr/bin/codesign نى ئىجرا قىلغىلى بولمايدۇ
+app.update.signature_invalid = چۈشۈرۈلمىنىڭ ئىمزاسى دەلىللەنمىدى: {error}
+app.update.download_unsigned = بۇ نۇسخا ئىمزالانغان، ئەمما چۈشۈرۈلمە ئىمزالانمىغان
+app.update.different_developer = چۈشۈرۈلمىنى باشقا بىر ئىجادكار ئىمزالىغان
+app.update.cannot_relaunch = قايتا قوزغاتقۇچنى قوزغاتقىلى بولمايدۇ
+app.update.not_installed_copy = بۇ نۇسخا ئورناتقۇچ تەرىپىدىن بۇ يەرگە قويۇلمىغان
+app.update.cannot_start_installer = ئورناتقۇچنى قوزغاتقىلى بولمايدۇ
+app.update.platform_unsupported = بۇ سۇپىدىكى يېڭىلانمىلار Schist قانداق ئورنىتىلغان بولسا شۇ ئۇسۇلدا ئورنىتىلىدۇ
+app.vulkan.no_loader = schist: بۇ سىستېمىدا Vulkan يۈكلىگۈچى يوق، شۇڭا سىزىدىغان نەرسە يوق.\n\nSchist ‏Vulkan ئارقىلىق رەسىم ھاسىل قىلىدۇ، ئەمما `libvulkan.so.1` ئورنىتىلمىغان.\nيۈكلىگۈچى ۋە قوزغاتقۇچنىڭ ھەر ئىككىسى كېرەك:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: بۇ سېيىستا كۆرسىتىلگەن Vulkan قوزغاتقۇچ مەۋجۇت ئەمەس.\n\n{var} تەڭشەلگەن؛ ئۇنى تەڭشەش يۈكلىگۈچىنىڭ قوزغاتقۇچ ئىزدەش يولىغا قوشۇلماستىن، بەلكى ئۇنىڭ ئورنىنى ئالىدۇ. شۇڭا مەۋجۇت بولمىغان تۆۋەندىكى ھۆججەتلەر پۈتۈن قوزغاتقۇچ تىزىملىكى بولۇپ قالغان؛ قانچە قوزغاتقۇچ ئورنىتىلغان بولۇشىدىن قەتئىينەزەر، بۇ سېيىستىكى بارلىق Vulkan پروگراممىلىرى ھېچقانداق قوزغاتقۇچنى كۆرەلمەيدۇ:\n\n{missing}\n    {var}={value}\n\nئۇنى مەۋجۇت manifest قا كۆرسىتىڭ — ئورنىتىلغان قوزغاتقۇچلار manifest لىرىنى /usr/share/vulkan/icd.d غا قويىدۇ — ياكى ئۇنىڭ تەڭشىكىنى بىكار قىلىپ، يۈكلىگۈچىگە ئۆزى ئىزدەشكە يول قويۇڭ. بۇ قىممەت سەپلىمە ھۆججىتىدىن (Hyprland نىڭ `env =`، systemd environment.d قىستۇرمىسى ياكى shell ئارخىپىدىن) تەڭشەلسە، شۇ يەردە ئۆزگەرتىش كېرەك؛ ئۆزگەرتىش ئاللىقاچان ئىجرا بولۇۋاتقان پروگراممىلارغا يېتىش ئۈچۈن قايتا كىرىش زۆرۈر.\n
+app.vulkan.override_note = \n{var} نىڭ قىممىتى {value} قىلىپ تەڭشەلگەن، بۇ يۈكلىگۈچىنىڭ ئۆزى ئىزدەيدىغان يولىنى ئالماشتۇرىدۇ: ئەگەر بۇ manifest لارنىڭ ھېچقايسىسى بۇ كومپيۇتېرغا ماس كەلمىسە، ئالدى بىلەن ئۇنىڭ تەڭشىكىنى بىكار قىلىپ سىناڭ.\n
+app.vulkan.no_driver = schist: Vulkan قوزغاتقۇچ ئورنىتىلمىغان، شۇڭا سىزىدىغان نەرسە يوق.\n\nSchist ‏Vulkan ئارقىلىق رەسىم ھاسىل قىلىدۇ. يۈكلىگۈچى ئورنىتىلغان، ئەمما قوزغاتقۇچ يوق دەپ دوكلات قىلدى؛ ئىزدەيدىغان ئىككى ئورۇننىڭ ھېچقايسىسىدا قوزغاتقۇچ تىزىملاتمىغان:\n\n{dirs}\n\nيۈكلىگۈچى قوزغاتقۇچلاردىن ئايرىم تەمىنلىنىدۇ، شۇڭا ئادەتتە پەقەت بىر بوغچا كەم بولىدۇ.\n\nبۇ كومپيۇتېرنىڭ GPU سىغا ماس قوزغاتقۇچنى ئورنىتىڭ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA نىڭ خۇسۇسىي قوزغاتقۇچى ئۆزىنىڭكىنى ئۆز ئىچىگە ئالىدۇ (Arch تا `nvidia-utils`، Debian دا `nvidia-driver`). مەۋھۇم كومپيۇتېردا ياكى GPU قوزغاتقۇچ ئورناتقىلى بولمايدىغان جايدا، يۇمشاق دېتال rasterizer ئىشلەيدۇ: Arch تا `vulkan-swrast`، باشقا سىستېمىلاردا `mesa-vulkan-drivers` نىڭ بىر قىسمى. ئۇ ئاستا، ئەمما قوزغىلىدۇ.\n{overridden}
+app.vulkan.no_device = schist: Vulkan قوزغاتقۇچ ئورنىتىلغان، ئەمما رەسىم ھاسىل قىلىدىغان ئۈسكۈنە تەمىنلىمىدى.\n\nقوزغاتقۇچ بۇ GPU نى قوللىماسلىقى ياكى ئۇنىڭغا يېتەلمەسلىكى مۇمكىن؛ SSH ئارقىلىق ياكى container ئىچىدە /dev/dri نىڭ يوقلۇقى كۆپ ئۇچرايدۇ. `vulkaninfo --summary` يۈكلىگۈچى كۆرگەن نەرسىلەرنى دوكلات قىلىدۇ.\n\nئەگەر بۇ كومپيۇتېردا GPU بولمىسا، يۇمشاق دېتال rasterizer پۈتۈنلەي GPU سىز رەسىم ھاسىل قىلىدۇ: Arch تا `vulkan-swrast`، Debian ۋە Fedora دا `mesa-vulkan-drivers` نىڭ بىر قىسمى.\n
+app.vulkan.skip_hint = Schist نى بەرىبىر قوزغىتىپ ئۆز ئۇسۇلىدا مەغلۇپ بولۇشىغا يول قويۇش ئۈچۈن {var}=1 قىلىپ تەڭشەڭ.

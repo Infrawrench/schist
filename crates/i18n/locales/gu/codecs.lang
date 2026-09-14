@@ -1,0 +1,40 @@
+# Format names
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Shared import messages
+codec.msg.decoding = {name} ડિકોડ કરવામાં
+codec.msg.zero_sized = છબીમાં કોઈ પિક્સેલ નથી
+codec.msg.assembling_document = દસ્તાવેજ તૈયાર કરવામાં
+
+# Camera raw
+codec.raw.msg.decoding = રૉ ફાઇલ ડિકોડ કરવામાં
+codec.raw.msg.developing = રૉ ફાઇલ ડેવલપ કરવામાં
+codec.raw.msg.finding_preview = અંદર સમાયેલું પૂર્વાવલોકન શોધવામાં
+codec.raw.msg.decoding_preview = અંદર સમાયેલું પૂર્વાવલોકન ડિકોડ કરવામાં
+codec.raw.msg.decoder_panicked = આ ફાઇલ પર રૉ ડિકોડર નિષ્ફળ થયું: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity ઇમ્પોર્ટ
+codec.affinity.flattened_preview_layer = સપાટ કરેલું પૂર્વાવલોકન
+codec.affinity.msg.no_preview = ઉપયોગ કરી શકાય એવું કોઈ અંદર સમાયેલું પૂર્વાવલોકન નથી. Affinityનું લેયરવાળું ફોર્મેટ માલિકીનું છે; Schist ફાઇલમાં રહેલું સપાટ કરેલું પૂર્વાવલોકન ઇમ્પોર્ટ કરે છે. આ ફાઇલમાં એવું પૂર્વાવલોકન નથી — તેને Affinityમાં ફરી સાચવો અથવા બધા લેયર સહિત ઇમ્પોર્ટ કરવા PSD તરીકે એક્સપોર્ટ કરો.
+
+# HEIF
+codec.heif.msg.no_library = libheif ઉપલબ્ધ નથી ({details}). HEIC ખોલવા libheif લાઇબ્રેરી જરૂરી છે (Linux: libheif1 ઇન્સ્ટૉલ કરો; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — આ libheif બિલ્ડમાં કદાચ HEVC ડિકોડર નથી (Debian/Ubuntu પર libheif-plugin-libde265 ઇન્સ્ટૉલ કરો)
+codec.heif.msg.unknown_error = અજ્ઞાત ભૂલ
+codec.heif.msg.initialising = libheif આરંભ કરવામાં
+codec.heif.msg.reading_container = HEIF કન્ટેનર વાંચવામાં
+codec.heif.msg.finding_primary_image = મુખ્ય છબી શોધવામાં
+codec.heif.msg.reading_icc_profile = ICC પ્રોફાઇલ વાંચવામાં
+codec.heif.msg.decoding_image = છબી ડિકોડ કરવામાં
+codec.heif.msg.checksum_mismatch = {name} માટે ચેકસમ મેળ ખાતો નથી: {expected} અપેક્ષિત હતો, {got} મળ્યો
+codec.heif.msg.imageio_cannot_read = ImageIO HEIF કન્ટેનર વાંચી શક્યું નહીં
+codec.heif.msg.container_empty = HEIF કન્ટેનરમાં કોઈ છબી નથી
+codec.heif.msg.imageio_cannot_decode = ImageIO મુખ્ય છબી ડિકોડ કરી શક્યું નહીં

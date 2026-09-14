@@ -1,0 +1,30 @@
+ai.status.panel_shown = Phanele ya AI yi kombisiwile
+ai.status.panel_hidden = Phanele ya AI yi tumbetiwile — Xivono ▸ Phanele ya AI ({shortcut}) swi tlhela swi yi vuyisa
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} yi hlanganisiwile
+ai.info.now_in_gallery = Sweswi u le ka galari.
+ai.info.now_in_editor = Sweswi u le ka muhleri.
+ai.tool.shell_command = xileriso xa shell
+
+ai.error.cli_missing = CLI ya {backend} (“{binary}”) a yi kona eka PATH. Sungula hi ku yi nghenisa kutani u nghena eka yona.
+ai.error.endpoint_failed = ku sungula ndhawu yo hlanganisa ya MCP swi tsandzekile: {error}
+ai.error.binding_endpoint = ku boha ndhawu yo hlanganisa ya MCP
+ai.error.spawning_endpoint_thread = ku sungula thread ya ndhawu yo hlanganisa ya MCP
+ai.error.runtime_failed = ku sungula ndhawu yo tirhela ya agent swi tsandzekile: {error}
+ai.error.worker_failed = ku sungula mutirhi wa {backend} swi tsandzekile: {error}
+ai.error.did_not_start = {backend} a yi sungulanga: {error}
+ai.error.switch_model_failed = ku cinca modele swi tsandzekile: {error}
+ai.error.send_failed = ku rhumela xileriso swi tsandzekile: {error}
+ai.error.interrupt_failed = ku kavanyeta swi tsandzekile: {error}
+ai.error.locating_binary = ku lava binary ya Schist
+ai.error.starting_app_server = ku sungula sevha ya app ya Codex
+ai.error.attaching_app_server = ku tihlanganisa ni sevha ya app ya Codex
+ai.error.initializing_app_server = ku lunghiselela sevha ya app ya Codex
+ai.error.resuming_thread = ku ya mahlweni ni thread ya Codex
+ai.error.starting_thread = ku sungula thread ya Codex
+
+ai.model.opus_detail = Xiyimo lexi nga ni vuswikoti byo tala
+ai.model.sonnet_detail = Yi tirha kahle eka mintirho ya ntolovelo
+ai.model.haiku_detail = Yi hatlisa ngopfu eka tinhlamulo ta xihatla
+ai.model.codex_catalog = Khathalogu ya Codex

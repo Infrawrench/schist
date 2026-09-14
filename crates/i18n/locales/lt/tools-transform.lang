@@ -1,0 +1,26 @@
+# Transformavimo ir apkarpymo įrankiai.
+tool.transform.name = Laisvas transformavimas
+tool.transform.description = Laisvas transformavimas. Suaktyvinus aplink aktyvų sluoksnį atveriamas transformavimo rėmelis: vilkite kampą dydžiui keisti, vilkite už kampo, rėmelio išorėje, pasukti, o kraštinę – įžambiai deformuoti. Pakeitimai neįrašomi, kol jų nepatvirtinate („Enter“), o atšaukus („Escape“) atkuriama ankstesnė sluoksnio būsena.
+tool.transform.option.interpolation = Interpoliacija
+tool.transform.history.transform = Laisvas transformavimas
+tool.transform.history.image_size = Vaizdo dydis
+tool.transform.history.canvas_size = Drobės dydis
+
+tool.transform.selection.name = Transformuoti pažymėtą sritį
+tool.transform.selection.description = Transformuokite pažymėtą sritį: tas pats rėmelis perkelia pažymėjimo kontūrą, o ne jame esančius pikselius. Norėdami baigti, patvirtinkite arba atšaukite.
+tool.transform.selection.history.transform = Transformuoti pažymėtą sritį
+
+tool.transform.resample.nearest_neighbor = Artimiausio kaimyno
+tool.transform.resample.bilinear = Dvilinijinis
+tool.transform.resample.bicubic = Dvikubinis
+
+tool.crop.name = Apkarpyti
+tool.crop.description = Vilkdami pažymėkite paliekamą sritį ir sureguliuokite jos rankenėles; patvirtinus („Enter“) dokumentas pagal ją apkarpomas, o atšaukus („Escape“) lieka nepakeistas.
+tool.crop.option.ratio = Proporcija
+tool.crop.option.delete_cropped = Pašalinti apkarpytus pikselius
+tool.crop.choice.unconstrained = Be apribojimų
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Apkarpyti

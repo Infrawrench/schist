@@ -1,0 +1,43 @@
+tool.pen.name = Peanna
+tool.pen.description = Ráhkat bálgá: coahkkal čiegasaji, gease das olggos geavlegieđahasaid ja coahkkal vuosttaš čuozi vai giddejuvvo. Dohkken dahká bálgás hápmegearddi.
+tool.pen.option.rubber_band = Gummebáddi
+tool.pen.history.fill = Bálgá deavdin
+tool.pen.default_path_name = Bálggis {n}
+tool.pen.freeform.name = Friddjahápmepeanna
+tool.pen.freeform.description = Gease gieđain sárgojuvvon linnjá, de dat heivehuvvo bálggisin nu luovusin go Heiveheapmi-válljen mearrida.
+tool.pen.freeform.option.fit = Heiveheapmi
+tool.pen.curvature.name = Geavlipeanna
+tool.pen.curvature.description = Coahkkal čuoggáid ráiddu, de bálggis geavvá daid čađa jalga láhkai.
+
+tool.path_select.name = Bálgáválljen
+tool.path_select.description = Coahkkal bálgá vai válljet dan, ja gease vai sirddát olles bálgá.
+tool.direct_select.name = Njuolggoválljen
+tool.direct_select.description = Gease ovttaskas áŋkorčuozi dahje dan gieđahasaid vai rievdadat bálgá hámi dan birra.
+
+tool.shape.history.layer = {name}-geardi
+tool.shape.rect.name = Njuolggočiegareaidu
+tool.shape.rect.label = Njuolggočiehka
+tool.shape.rect.description = Gease njuolggočiegat hápmegearddi ovdabeale ivnniin; dat bissá vektorin ja rastererejuvvo ođđasit go sturrodat rievdaduvvo.
+tool.shape.ellipse.name = Ellipsareaidu
+tool.shape.ellipse.label = Ellipsa
+tool.shape.ellipse.description = Gease ellipsahámát hápmegearddi ovdabeale ivnniin.
+tool.shape.line.name = Linnjáreaidu
+tool.shape.line.label = Linnjá
+tool.shape.line.description = Gease njuolga linnjá hápmegearddi ovdabeale ivnniin.
+tool.shape.line.option.weight = Assodat
+tool.shape.line.option.arrow_start = Álgu
+tool.shape.line.option.arrow_end = Loahppa
+tool.shape.polygon.name = Moanačiegareaidu
+tool.shape.polygon.label = Moanačiehka
+tool.shape.polygon.description = Gease dábálaš moanačiegat hápmegearddi ovdabeale ivnniin; siidduid logu mearridit válljemat.
+tool.shape.polygon.option.sides = Siiddut
+
+tool.shape.custom.name = Iežas hápmi
+tool.shape.custom.label = Iežas hápmi
+tool.shape.custom.description = Gease ovtta sisahuksejuvvon ovdaásahuvvon hámiin, mii válljejuvvo Hápmi-válljemiin.
+tool.shape.custom.choice.heart = Váibmu
+tool.shape.custom.choice.star = Násti
+tool.shape.custom.choice.arrow = Njuolla
+tool.shape.custom.choice.lightning = Álddagas
+tool.shape.custom.choice.cross = Ruossa
+tool.shape.custom.choice.speech_bubble = Hupmanbulljá

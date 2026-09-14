@@ -1,0 +1,27 @@
+# დეფორმაციის ხელსაწყოები: გათხევადება, მარიონეტული დეფორმაცია და პერსპექტიული სიბრტყე.
+
+# გათხევადება
+tool.liquify.name = გათხევადება
+tool.liquify.description = დიდი ფუნჯის ქვეშ პიქსელები მიწიეთ, დაატრიალეთ, შეკუმშეთ ან გაბერეთ — მოქმედებას რეჟიმის პარამეტრი განსაზღვრავს. დეფორმაცია ბადეში გროვდება და დადასტურებისას ფენას მიესადაგება.
+tool.liquify.option.tool = ხელსაწყო
+tool.liquify.choice.forward_warp = წინ მიმართული დეფორმაცია
+tool.liquify.choice.reconstruct = აღდგენა
+tool.liquify.choice.twirl_cw = საათის ისრის მიმართულებით დატრიალება
+tool.liquify.choice.twirl_ccw = საათის ისრის საწინააღმდეგოდ დატრიალება
+tool.liquify.choice.pucker = შეკუმშვა
+tool.liquify.choice.bloat = გაბერვა
+tool.liquify.choice.push_left = მარცხნივ მიწევა
+tool.liquify.history.liquify = გათხევადება
+
+# მარიონეტული დეფორმაცია
+tool.puppet_warp.name = მარიონეტული დეფორმაცია
+tool.puppet_warp.description = დაწკაპუნებით დაამაგრეთ ფენა რამდენიმე წერტილში, შემდეგ ერთ-ერთი მათგანი გადაათრიეთ: ბადე სამაგრების გარშემო სიმტკიცის პარამეტრის მიხედვით მყარად ან თავისუფლად მოიღუნება. დადასტურება ცვლილებას გამოიყენებს.
+tool.puppet_warp.option.stiffness = სიმტკიცე
+tool.puppet_warp.history.puppet_warp = მარიონეტული დეფორმაცია
+
+# პერსპექტიული სიბრტყე
+tool.vanishing_point.name = პერსპექტიული სიბრტყე
+tool.vanishing_point.description = პერსპექტივის მქონე ობიექტზე შემოხაზეთ სიბრტყე, შემდეგ გადართეთ რეჟიმი კლონირებაზე და დახატეთ: დაკოპირებული პიქსელები სიბრტყეს მიჰყვება და მანძილთან ერთად მცირდება.
+tool.vanishing_point.choice.edit_plane = სიბრტყის შეცვლა
+tool.vanishing_point.choice.clone = კლონირება
+tool.vanishing_point.history.vanishing_point = პერსპექტიული სიბრტყე

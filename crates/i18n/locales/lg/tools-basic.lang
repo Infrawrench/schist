@@ -1,0 +1,24 @@
+# Move
+tool.move.name = Tambuza
+tool.move.description = Walula ebiri ku layer ekola obitwale mu kifo ekipya. Auto-Select bw'eba ekoleezeddwa, bw'onyiga esooka kulonda layer — oba group yonna — eri wansi w'akasonze.
+tool.move.option.auto_select = Weeronde
+tool.move.history.move_layer = Tambuza Layer
+
+# Eyedropper
+tool.eyedropper.name = Akalonda langi
+tool.eyedropper.description = Londa langi eri wansi w'akasonze ogiteeke mu kifo kya langi ey'omu maaso, oba mu kya langi ey'emabega nga alt enyigiriddwa. Bw'owalula, kagenda mu maaso n'okulonda langi.
+tool.eyedropper.option.sample_size = Obunene bw'ekitundu ekirondwa
+tool.eyedropper.option.sample = Londa langi
+tool.eyedropper.choice.point_sample = Londa ku katonnyeze
+tool.eyedropper.choice.average_3 = Avulegi ya 3 ku 3
+tool.eyedropper.choice.average_5 = Avulegi ya 5 ku 5
+tool.eyedropper.choice.average_11 = Avulegi ya 11 ku 11
+tool.eyedropper.choice.average_31 = Avulegi ya 31 ku 31
+tool.eyedropper.choice.all_layers = Layers zonna
+tool.eyedropper.choice.current_layer = Layer eriwo
+
+# Hand and Zoom
+tool.hand.name = Mukono
+tool.hand.description = Kitambuza ekifo ky'otunuulira. Ekifo ekirabibwa kya ddirisa, kale nga tewali kirabika ku lutimbe ekikozesebwa kino tekikyusa kiwandiiko.
+tool.zoom.name = Zimbulukusa
+tool.zoom.description = Kizimbulukusa oba kikendeeza ekifo ky'otunuulira. Ekifo ekirabibwa kya ddirisa, kale nga tewali kirabika ku lutimbe ekikozesebwa kino tekikyusa kiwandiiko.

@@ -1,0 +1,32 @@
+# Pannellu laterale AI è i so agenti.
+
+ai.status.panel_shown = Pannellu AI mustratu
+ai.status.panel_hidden = Pannellu AI piattatu — Vista ▸ Pannellu AI ({shortcut}) u face vede torna
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} cunnessu
+ai.info.now_in_gallery = Avà in a galleria.
+ai.info.now_in_editor = Avà in l'editore.
+ai.tool.shell_command = cumandu di shell
+
+ai.error.cli_missing = U CLI di {backend} («{binary}») ùn hè micca in PATH. Stallatelu è cunnettitevi prima.
+ai.error.endpoint_failed = fiascu à l'avviamentu di u puntu d'accessu MCP: {error}
+ai.error.binding_endpoint = associazione di u puntu d'accessu MCP
+ai.error.spawning_endpoint_thread = avviamentu di u filu di u puntu d'accessu MCP
+ai.error.runtime_failed = fiascu à l'avviamentu di l'ambiente d'esecuzione di l'agente: {error}
+ai.error.worker_failed = fiascu à l'avviamentu di u prucessu {backend}: {error}
+ai.error.did_not_start = {backend} ùn hè micca partutu: {error}
+ai.error.switch_model_failed = fiascu à u cambiamentu di mudellu: {error}
+ai.error.send_failed = fiascu à l'inviu di a dumanda: {error}
+ai.error.interrupt_failed = fiascu di l'interruzzione: {error}
+ai.error.locating_binary = ricerca di l'eseguibile Schist
+ai.error.starting_app_server = avviamentu di u servitore d'app Codex
+ai.error.attaching_app_server = cunnessione à u servitore d'app Codex
+ai.error.initializing_app_server = inizializazione di u servitore d'app Codex
+ai.error.resuming_thread = ripresa di u filu Codex
+ai.error.starting_thread = avviamentu di u filu Codex
+
+ai.model.opus_detail = Livellu u più capace
+ai.model.sonnet_detail = Efficace per i travagli abituali
+ai.model.haiku_detail = U più rapidu per risposte corte
+ai.model.codex_catalog = Catalogu Codex

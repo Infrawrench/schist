@@ -1,0 +1,43 @@
+# Filtrlar galereyasi
+app.filter_gallery.title = Filtrlar galereyasi
+app.filter_gallery.stack = To‘plam (pastdan yuqoriga qo‘llanadi)
+app.filter_gallery.no_settings = Bu filtrda sozlamalar yo‘q.
+
+# Shriftlar
+app.fonts.not_open_licensed = ochiq litsenziyaga ega emas · {substitute} o‘lchovlari mos keladi
+app.fonts.missing_substituted = yetishmaydi · matn o‘rinbosar shriftda terilmoqda
+app.fonts.not_in_catalogue = {family} ochiq shriftlar katalogida yo‘q
+app.fonts.no_faces = {family} uchun yuklab olinadigan shrift ko‘rinishlari yo‘q
+app.fonts.empty_response = bo‘sh javob
+
+# Yangilash xatolari
+app.update.unreadable_response = javobni o‘qib bo‘lmadi: {error}
+app.update.no_temp_dir = yuklab olish uchun vaqtinchalik jild yo‘q
+app.update.asset_has_path = reliz resursi nomida yo‘l ko‘rsatilgan
+app.update.too_big = yuklama hajmi relizda ko‘rsatilganidan katta
+app.update.stopped_at = yuklab olish {total} baytdan {got} baytda to‘xtadi
+app.update.hash_mismatch = yuklama xeshi {want} o‘rniga {got} chiqdi
+app.update.not_in_bundle = bu nusxa ilova to‘plami ichida emas
+app.update.no_parent_dir = ilova to‘plamining yuqori jildi yo‘q
+app.update.cannot_write = {dir} manziliga yozib bo‘lmaydi
+app.update.cannot_move_aside = {app} ilovasini chetga ko‘chirib bo‘lmaydi
+app.update.cannot_move_in = yangi to‘plamni kerakli joyga ko‘chirib bo‘lmaydi
+app.update.cannot_run_ditto = /usr/bin/ditto dasturini ishga tushirib bo‘lmaydi
+app.update.unpack_failed = yuklamani arxivdan chiqarib bo‘lmadi: {error}
+app.update.no_app_in_download = yuklama ichida Schist.app yo‘q
+app.update.cannot_run_codesign = /usr/bin/codesign dasturini ishga tushirib bo‘lmaydi
+app.update.signature_invalid = yuklama imzosini tasdiqlab bo‘lmadi: {error}
+app.update.download_unsigned = bu nusxa imzolangan, yuklama esa imzolanmagan
+app.update.different_developer = yuklama boshqa dasturchi tomonidan imzolangan
+app.update.cannot_relaunch = qayta ishga tushiruvchi dasturni ochib bo‘lmaydi
+app.update.not_installed_copy = bu nusxa o‘rnatuvchi tomonidan bu yerga joylanmagan
+app.update.cannot_start_installer = o‘rnatuvchini ishga tushirib bo‘lmaydi
+app.update.platform_unsupported = bu platformadagi yangilanishlar Schist qanday o‘rnatilgan bo‘lsa, shu usulda o‘rnatiladi
+
+# Linux tizimidagi Vulkan tekshiruvlari; paket nomlari va buyruqlar o‘zgarmaydi.
+app.vulkan.no_loader = schist: bu tizimda Vulkan yuklagichi yo‘q, shu sababli tasvir chizib bo‘lmaydi.\n\nSchist Vulkan orqali tasvirlaydi, ammo `libvulkan.so.1` o‘rnatilmagan.\nYuklagich ham, drayver ham kerak:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: bu seans ko‘rsatgan Vulkan drayveri mavjud emas.\n\n{var} o‘rnatilgan va bu qiymat yuklagichning drayver qidiruviga qo‘shilmaydi,\nbalki uni butunlay almashtiradi. Demak, mavjud bo‘lmagan quyidagi fayllar\ndrayverlarning to‘liq ro‘yxati bo‘lib qolgan va qancha drayver o‘rnatilganidan\nqat’i nazar, bu seansdagi barcha Vulkan dasturlari hech qanday drayverni ko‘rmaydi:\n\n{missing}\n    {var}={value}\n\nUni mavjud manifestga yo‘naltiring — o‘rnatilgan drayverlar manifestlarini\n/usr/share/vulkan/icd.d ichiga qo‘yadi — yoki qiymatni olib tashlab, yuklagichga\no‘zi qidirishga imkon bering. Agar bu qiymat konfiguratsiya faylida (Hyprland’dagi\n`env =`, systemd environment.d qo‘shimchasi yoki qobiq profilida) o‘rnatilgan bo‘lsa,\nuni o‘sha yerda o‘zgartirish va ishlayotgan dasturlarga yetib borishi uchun tizimga\nqayta kirish kerak.\n
+app.vulkan.override_note = \n{var} qiymati {value} ga o‘rnatilgan va u yuklagichning o‘z qidiruvini\nalmashtiradi: manifestlarning hech biri bu kompyuterga mos kelmasa, avval\nshu qiymatni olib tashlab ko‘ring.\n
+app.vulkan.no_driver = schist: Vulkan drayveri o‘rnatilmagan, shu sababli tasvir chizib bo‘lmaydi.\n\nSchist Vulkan orqali tasvirlaydi. Yuklagich o‘rnatilgan, ammo u hech qanday\ndrayver haqida xabar bermadi — qidiriladigan ikki joyning hech birida drayver\nro‘yxatdan o‘tmagan:\n\n{dirs}\n\nYuklagich drayverlardan alohida tarqatiladi, shuning uchun odatda bitta paket\nyetishmayotgan bo‘ladi.\n\nBu kompyuterning GPU qurilmasiga mos paketni o‘rnating:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA’ning xususiy drayveri o‘z drayverini ham o‘z ichiga oladi (Arch’da\n`nvidia-utils`, Debian’da `nvidia-driver`). Virtual mashinada yoki GPU drayverini\no‘rnatishning iloji bo‘lmagan joyda dasturiy rasterizator ishlaydi: Arch’da\n`vulkan-swrast`, boshqa tizimlarda `mesa-vulkan-drivers` tarkibida. U sekin,\nammo ishga tushadi.\n{overridden}
+app.vulkan.no_device = schist: Vulkan drayveri o‘rnatilgan, ammo tasvirlash uchun qurilma taklif qilmayapti.\n\nDrayver bu GPU qurilmasini qo‘llamasligi yoki unga yetib bora olmasligi mumkin —\nSSH orqali yoki konteyner ichida ishlaganda /dev/dri ko‘pincha mavjud bo‘lmaydi.\n`vulkaninfo --summary` yuklagich ko‘rayotgan qurilmalarni ko‘rsatadi.\n\nAgar bu kompyuterda GPU bo‘lmasa, dasturiy rasterizator usiz ham tasvirlaydi:\nArch’da `vulkan-swrast`, Debian va Fedora’da `mesa-vulkan-drivers` tarkibida.\n
+app.vulkan.skip_hint = Schist’ni baribir ishga tushirib, xatoni o‘z holicha ko‘rish uchun {var}=1 qiymatini o‘rnating.

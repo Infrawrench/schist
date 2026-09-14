@@ -1,0 +1,39 @@
+# Kayan aikin zaɓi.
+
+# Yadda sabon zaɓi zai haɗu da wanda yake akwai
+tool.select.mode.subtract = Rage
+tool.select.mode.intersect = Mahaɗa
+
+# Marquee
+tool.marquee.rect.name = Zaɓin Kusurwa Huɗu
+tool.marquee.rect.description = Ja don yin zaɓi mai kusurwa huɗu. Riƙe Shift a farkon ja don ƙara wa zaɓin, alt don ragewa, ko duka biyun don mahaɗa; Shift yayin ja yana mai da shi murabba'i. Dannawa ba tare da ja ba yana cire zaɓin.
+tool.marquee.ellipse.name = Zaɓin Siffar Kwai
+tool.marquee.ellipse.description = Ja don yin zaɓi mai siffar kwai, tare da haɗawar shift/alt iri ɗaya da zaɓin kusurwa huɗu.
+
+# Lasso
+tool.lasso.name = Lasso
+tool.lasso.description = Ja shaci da hannu; zaɓin yana rufe tsakanin ƙarshensa idan an gama ja. Shift yana ƙara, alt yana ragewa.
+tool.lasso.history.select = Zaɓi da Lasso
+tool.lasso.polygonal.name = Lasso Mai Kusurwoyi
+tool.lasso.polygonal.description = Danna kusurwa bayan kusurwa don gina zaɓi mai madaidaitan gefuna, sannan danna kusa da aya ta farko don rufe shi.
+tool.lasso.polygonal.history.select = Lasso Mai Kusurwoyi
+tool.lasso.magnetic.name = Lasso na Maganadisu
+tool.lasso.magnetic.description = Bi gefen abu a kaikaice, sai shacin ya manne da bambancin haske mafi ƙarfi kusa da tafarkin.
+tool.lasso.magnetic.history.select = Lasso na Maganadisu
+tool.lasso.magnetic.option.frequency = Mita
+
+# Sandar sihiri
+tool.wand.name = Sandar Sihiri
+tool.wand.description = Danna don zaɓar yankin launi iri ɗaya da ya haɗu ƙarƙashin manuni, gwargwadon zaɓin haƙuri—haƙuri ɗaya da Faɗaɗa, Makamanci da Yankin Launi suke karantawa.
+tool.wand.option.contiguous = Mai Haɗuwa
+tool.wand.history.select = Sandar Sihiri
+
+# Zaɓi na gaggawa
+tool.quick_select.name = Zaɓi na Gaggawa
+tool.quick_select.description = Yi fenti a kan yanki sai zaɓin ya faɗaɗa ta cikin pixels makamanta da buroshin ya bi kansu.
+tool.quick_select.history.select = Zaɓi na Gaggawa
+
+# Zaɓin abu
+tool.object_select.name = Zaɓin Abu
+tool.object_select.description = Ja akwati kewaye da abu sai zaɓin ya manne da abin da aka samu a cikinsa.
+tool.object_select.history.select = Zaɓin Abu

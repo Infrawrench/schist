@@ -112,7 +112,8 @@ rm "$OUT/pkg/schist_bg.wasm"
 rm -f "$OUT"/pkg/*.d.ts
 
 echo '-- assets'
-cp web/index.html web/loader.js "$OUT/"
+python3 tools/sync-i18n.py --check
+cp web/index.html web/loader.js web/i18n.js web/i18n-data.js "$OUT/"
 cp crates/app/assets/icons/*.svg "$OUT/assets/icons/"
 cp web/fonts/*.ttf web/fonts/*.otf web/fonts/LICENSE-* "$OUT/assets/fonts/"
 cp crates/neural/models/*.onnx "$OUT/assets/models/"
@@ -123,22 +124,18 @@ python3 - "$OUT" <<'EOF'
 import json, os, sys
 out = sys.argv[1]
 def size(p): return os.path.getsize(os.path.join(out, p))
-def cjk_lang(f):
-    """The language a CJK subset is for, by the name it ships under."""
-    return {"NotoSansSC": "zh", "NotoSansJP": "ja"}.get(f.split("-")[0])
+with open("web/fonts/locales.json", encoding="utf-8") as f:
+    font_locales = json.load(f)
 wasm = sorted(f for f in os.listdir(f"{out}/pkg") if ".wasm." in f)
 manifest = {
     "js": "pkg/schist.js",
     "wasm": [{"file": f"pkg/{f}", "bytes": size(f"pkg/{f}")} for f in wasm],
-    # A font with a `lang` is fetched only by that language's readers:
-    # the two CJK faces (tools/web-cjk-font.sh) are 1.5 MB each that
-    # nobody else needs, and no reader needs both. Everything else is
-    # fetched by everyone.
+    # Extra script faces are fetched only for the selected locale.
     "fonts": [
         {
             "file": f"assets/fonts/{f}",
             "bytes": size(f"assets/fonts/{f}"),
-            **({"lang": cjk_lang(f)} if cjk_lang(f) else {}),
+            **({"locales": font_locales[f]} if f in font_locales else {}),
         }
         for f in sorted(os.listdir(f"{out}/assets/fonts"))
         if f.endswith((".ttf", ".otf"))

@@ -1,0 +1,73 @@
+# Schilderhulpmiddelen.
+tool.brush.name = Penseel
+tool.brush.description = Schilder een lijn met zachte randen in de voorgrondkleur, met de penseelgrootte, hardheid en dekking van de editor.
+tool.brush.history.stroke = Penseel
+
+tool.pencil.name = Potlood
+tool.pencil.description = Schilder een lijn met harde randen zonder anti-aliasing in de voorgrondkleur.
+tool.pencil.history.stroke = Potlood
+
+tool.eraser.name = Gummetje
+tool.eraser.description = Wis langs de penseelstreek en maak de laag daar weer transparant.
+tool.eraser.history.stroke = Gummetje
+
+tool.clone.name = Kloonstempel
+tool.clone.description = Kloonstempel: klik met Alt om het bronpunt in te stellen en schilder vervolgens pixels die met die afstand vanaf de bron worden gekopieerd.
+tool.clone.history.stroke = Kloonstempel
+
+tool.dodge.name = Tegenhouden
+tool.dodge.description = Maak de pixels waarover de penseelstreek loopt lichter.
+tool.dodge.history.stroke = Tegenhouden
+tool.burn.name = Doordrukken
+tool.burn.description = Maak de pixels waarover de penseelstreek loopt donkerder.
+tool.burn.history.stroke = Doordrukken
+tool.sponge.name = Spons
+tool.sponge.description = Verzadig of verzadig minder sterk de pixels waarover de penseelstreek loopt.
+tool.sponge.history.stroke = Spons
+
+tool.blur.name = Vervagen
+tool.blur.description = Vervaag de pixels waarover de penseelstreek loopt.
+tool.blur.history.stroke = Vervagen
+tool.sharpen.name = Verscherpen
+tool.sharpen.description = Verscherp de pixels waarover de penseelstreek loopt.
+tool.sharpen.history.stroke = Verscherpen
+tool.smudge.name = Natte vinger
+tool.smudge.description = Sleep kleur langs de penseelstreek alsof je natte verf uitsmeert.
+tool.smudge.history.stroke = Natte vinger
+
+tool.heal.name = Retoucheerpenseel
+tool.heal.description = Retoucheerpenseel: klik met Alt om de bron in te stellen en schilder vervolgens. De textuur van de bron wordt vermengd met de eigen kleur en belichting van het doel.
+tool.heal.history.stroke = Retoucheerpenseel
+tool.spot_heal.name = Snel retoucheerpenseel
+tool.spot_heal.description = Snel retoucheerpenseel: schilder over een oneffenheid en vervang deze door textuur uit de omgeving, zonder eerst een bronpunt in te stellen.
+tool.spot_heal.history.stroke = Snel retoucheerpenseel
+
+tool.history_brush.name = Historiepenseel
+tool.history_brush.description = Schilder pixels terug uit de historieopname van het document en maak later werk penseelstreek voor penseelstreek ongedaan.
+tool.history_brush.history.stroke = Historiepenseel
+
+tool.background_eraser.name = Achtergrondgummetje
+tool.background_eraser.description = Wis de kleur die onder het midden van het penseel wordt opgenomen en laat afwijkende pixels staan, zodat een onderwerp van de achtergrond kan worden losgemaakt.
+tool.background_eraser.history.stroke = Achtergrondgummetje
+
+tool.gradient.name = Verloop
+tool.gradient.description = Sleep om de laag — binnen de selectie als die er is — te vullen met een lineair verloop van de voorgrondkleur naar de achtergrondkleur in de sleeprichting.
+tool.gradient.radial.name = Radiaal verloop
+tool.gradient.radial.description = Sleep vanuit het midden naar buiten om te vullen met een radiaal verloop tussen de voor- en achtergrondkleur.
+tool.gradient.option.gradient = Verloop
+tool.gradient.option.reverse = Omkeren
+tool.gradient.option.dither = Dithering
+tool.gradient.choice.foreground_to_background = Voorgrond naar achtergrond
+tool.gradient.choice.foreground_to_transparent = Voorgrond naar transparant
+tool.gradient.choice.linear = Lineair
+tool.gradient.choice.radial = Radiaal
+tool.gradient.choice.angle = Hoek
+tool.gradient.choice.reflected = Gereflecteerd
+tool.gradient.choice.diamond = Ruit
+tool.gradient.history.gradient = Verloop
+
+tool.bucket.name = Emmertje
+tool.bucket.description = Klik om binnen de tolerantie van het hulpmiddel het aaneengesloten gebied met een vergelijkbare kleur onder de aanwijzer met de voorgrondkleur te vullen.
+tool.bucket.option.contiguous = Aangrenzend
+tool.bucket.option.all_layers = Alle lagen
+tool.bucket.history.fill = Emmertje

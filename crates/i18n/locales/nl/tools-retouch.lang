@@ -1,0 +1,24 @@
+# Hulpmiddelen voor retoucheren van gebieden.
+tool.patch.name = Reparatie
+tool.patch.description = Teken een omtrek rond een fout en sleep die selectie vervolgens naar schone pixels. De textuur daar wordt aan de fout aangepast. De reparatiemodus bepaalt welk uiteinde van het paar je sleept.
+tool.patch.option.patch = Reparatie
+tool.patch.choice.source = Bron
+tool.patch.choice.destination = Doel
+tool.patch.history.patch = Reparatie
+
+tool.content_aware_move.name = Verplaatsen met behoud van inhoud
+tool.content_aware_move.description = Sleep een geselecteerd object naar een andere plaats; het achtergelaten gat wordt vanuit de omgeving gevuld. In de modus Uitbreiden wordt het object uitgerekt in plaats van verplaatst.
+tool.content_aware_move.choice.move = Verplaatsen
+tool.content_aware_move.choice.extend = Uitbreiden
+tool.content_aware_move.history.move = Verplaatsen met behoud van inhoud
+
+tool.red_eye.name = Rode ogen
+tool.red_eye.description = Klik op een pupil om de rode flitskleur eruit te verwijderen.
+tool.red_eye.option.pupil_size = Pupilgrootte
+tool.red_eye.option.darken = Donkerder maken
+tool.red_eye.history.red_eye = Rode ogen
+
+tool.magic_eraser.name = Tovergummetje
+tool.magic_eraser.description = Klik om binnen de tolerantie van het hulpmiddel het gebied met een vergelijkbare kleur onder de aanwijzer te wissen: alleen het aaneengesloten gebied rond de klik, of overal in de laag.
+tool.magic_eraser.option.contiguous = Aangrenzend
+tool.magic_eraser.history.erase = Tovergummetje

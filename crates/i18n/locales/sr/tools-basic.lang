@@ -1,0 +1,22 @@
+# Основне алатке: Померање, Пипета, Рука и Зумирање.
+tool.move.name = Померање
+tool.move.description = Превуците садржај активног слоја на ново место. Када је аутоматски избор укључен, притиском се најпре бира слој — или цела група — испод показивача.
+tool.move.option.auto_select = Аутоматски избор
+tool.move.history.move_layer = Помери слој
+
+tool.eyedropper.name = Пипета
+tool.eyedropper.description = Узоркује боју испод показивача у узорак предње боје, или у узорак позадинске боје док се држи Alt. Узорковање се наставља током превлачења.
+tool.eyedropper.option.sample_size = Величина узорка
+tool.eyedropper.option.sample = Узоркуј
+tool.eyedropper.choice.point_sample = Узорак тачке
+tool.eyedropper.choice.average_3 = Просек 3 × 3
+tool.eyedropper.choice.average_5 = Просек 5 × 5
+tool.eyedropper.choice.average_11 = Просек 11 × 11
+tool.eyedropper.choice.average_31 = Просек 31 × 31
+tool.eyedropper.choice.all_layers = Сви слојеви
+tool.eyedropper.choice.current_layer = Тренутни слој
+
+tool.hand.name = Рука
+tool.hand.description = Помера приказ. Приказна област припада прозору, па у режиму без графичког интерфејса ова алатка не мења документ.
+tool.zoom.name = Зумирање
+tool.zoom.description = Увећава или умањује приказ. Приказна област припада прозору, па у режиму без графичког интерфејса ова алатка не мења документ.

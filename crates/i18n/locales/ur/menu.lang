@@ -1,0 +1,152 @@
+# فائل
+menu.file = فائل
+menu.file.new = نئی
+menu.file.open = کھولیں…
+menu.file.open_recent = حالیہ فائل کھولیں
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = گیلری براؤز کریں…
+menu.file.close = بند کریں
+menu.file.save = محفوظ کریں
+menu.file.save_as = بطور محفوظ کریں…
+menu.file.export = برآمد کریں…
+menu.file.export_submenu = برآمد کریں
+menu.file.export_artboards = آرٹ بورڈز کو PNG میں…
+menu.file.export_slices = سلائسز کو PNG میں…
+menu.file.save_to_photos = تصاویر میں محفوظ کریں
+menu.file.plugins = پلگ انز…
+menu.file.missing_fonts = غائب فونٹس…
+menu.file.check_for_updates = اپ ڈیٹس تلاش کریں…
+menu.file.quit = بند کریں
+menu.file.add_folder_to_gallery = گیلری میں فولڈر شامل کریں…
+menu.file.import_from_photos = تصاویر سے درآمد کریں…
+menu.file.import_from_camera = کیمرے سے درآمد کریں…
+
+# ترمیم
+menu.edit = ترمیم
+menu.edit.fill = بھریں…
+menu.edit.stroke = اسٹروک…
+menu.edit.content_aware_fill = مواد شناس بھرائی
+menu.edit.content_aware_scale = مواد شناس پیمانہ…
+menu.edit.puppet_warp = کٹھ پتلی وارپ
+menu.edit.free_transform = آزاد تبدیلی
+menu.edit.transform = تبدیل کریں
+menu.edit.rotate_180 = 180° گھمائیں
+menu.edit.rotate_90_cw = 90° گھڑی کی سمت گھمائیں
+menu.edit.rotate_90_ccw = 90° گھڑی کے مخالف گھمائیں
+menu.edit.flip_horizontal = افقی طور پر پلٹیں
+menu.edit.flip_vertical = عمودی طور پر پلٹیں
+
+# تصویر
+menu.image = تصویر
+menu.image.mode = موڈ
+menu.image.adjustments = ایڈجسٹمنٹس
+menu.image.auto_tone = خودکار ٹون
+menu.image.auto_contrast = خودکار تضاد
+menu.image.auto_color = خودکار رنگ
+menu.image.image_size = تصویر کا سائز…
+menu.image.canvas_size = کینوس کا سائز…
+menu.image.image_rotation = تصویر کی گردش
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° گھڑی کی سمت
+menu.image.rotate_90_ccw = 90° گھڑی کے مخالف
+menu.image.flip_canvas_horizontal = کینوس افقی طور پر پلٹیں
+menu.image.flip_canvas_vertical = کینوس عمودی طور پر پلٹیں
+menu.image.crop_to_selection = انتخاب کے مطابق تراشیں
+menu.image.trim = کنارے تراشیں
+menu.image.assign_profile = پروفائل مقرر کریں…
+menu.image.convert_to_profile = پروفائل میں تبدیل کریں…
+
+# انتخاب
+menu.select = انتخاب
+menu.select.color_range = رنگوں کی حد…
+menu.select.modify = تبدیل کریں
+menu.select.border = سرحد…
+menu.select.smooth = ہموار کریں…
+menu.select.expand = پھیلائیں…
+menu.select.contract = سکیڑیں…
+menu.select.feather = کنارے نرم کریں…
+menu.select.transform_selection = انتخاب تبدیل کریں
+
+# لیئر
+menu.layer = لیئر
+menu.layer.layer_style = لیئر کا انداز…
+menu.layer.layer_comps = لیئر مرکبات
+menu.layer.new_layer_comp = نیا لیئر مرکب
+menu.layer.delete_layer_comp = {name} حذف کریں
+menu.layer.path = راستہ
+menu.layer.fill_path = راستہ بھریں
+menu.layer.stroke_path = راستے پر اسٹروک لگائیں
+menu.layer.make_selection = انتخاب بنائیں
+menu.layer.delete_path = راستہ حذف کریں
+
+menu.adjust = ایڈجسٹ کریں
+
+# فلٹر
+menu.filter = فلٹر
+menu.filter.filter_gallery = فلٹر گیلری…
+menu.filter.liquify = مائع بنائیں
+menu.filter.vanishing_point = نقطۂ گریز
+menu.filter.manage_models = ماڈلز کا نظم کریں…
+menu.filter.camera_raw_development = Camera Raw ڈیولپمنٹ…
+
+# منظر
+menu.view = منظر
+menu.view.rotate_view_cw = منظر گھڑی کی سمت گھمائیں
+menu.view.rotate_view_ccw = منظر گھڑی کے مخالف گھمائیں
+menu.view.reset_view = منظر ازسرنو ترتیب دیں
+menu.view.zoom_in = بڑا کریں
+menu.view.zoom_out = چھوٹا کریں
+menu.view.fit_on_screen = اسکرین پر موزوں کریں
+menu.view.actual_size = 100%
+menu.view.rulers = پیمانے
+menu.view.grid = جال
+menu.view.guides = رہنما خطوط
+menu.view.notes = نوٹس
+menu.view.ai_panel = AI پینل
+menu.view.extras = اضافی عناصر
+menu.view.snap = چسپاں کریں
+menu.view.clear_guides = رہنما خطوط صاف کریں
+menu.view.clear_notes = نوٹس صاف کریں
+menu.view.clear_count = شمار صاف کریں
+menu.view.screen_mode = اسکرین موڈ
+menu.view.proof_colors = پروف رنگ
+menu.view.show_rulers = پیمانے دکھائیں
+menu.view.hide_rulers = پیمانے چھپائیں
+menu.view.show_grid = جال دکھائیں
+menu.view.hide_grid = جال چھپائیں
+menu.view.show_guides = رہنما خطوط دکھائیں
+menu.view.hide_guides = رہنما خطوط چھپائیں
+menu.view.show_notes = نوٹس دکھائیں
+menu.view.hide_notes = نوٹس چھپائیں
+menu.view.show_extras = اضافی عناصر دکھائیں
+menu.view.hide_extras = اضافی عناصر چھپائیں
+menu.view.enable_snapping = چسپانی فعال کریں
+menu.view.disable_snapping = چسپانی غیر فعال کریں
+menu.view.enable_proof_colors = پروف رنگ فعال کریں
+menu.view.disable_proof_colors = پروف رنگ غیر فعال کریں
+
+# گیلری
+menu.gallery = گیلری
+menu.gallery.edit_selected = منتخب اشیا میں ترمیم کریں
+menu.gallery.refresh = تازہ کریں
+menu.gallery.map_filter = نقشے کا فلٹر…
+menu.gallery.back_to_editor = مدیر پر واپس جائیں
+
+# Schist Cloud
+menu.cloud.browse = Schist Cloud براؤز کریں
+menu.cloud.generate = تصاویر بنائیں…
+menu.cloud.upload = دستاویز Schist Cloud پر اپ لوڈ کریں…
+menu.cloud.sign_out = Schist Cloud سے سائن آؤٹ کریں
+menu.cloud.sign_in = Schist Cloud میں سائن ان کریں…
+
+# macOS ایپلیکیشن مینو
+menu.app.services = خدمات
+menu.app.hide = {app} چھپائیں
+menu.app.hide_others = دیگر چھپائیں
+menu.app.show_all = سب دکھائیں
+menu.app.quit = {app} بند کریں
+
+# غیر فعال مینو افعال کے جوابات
+menu.status.transform_selection_needs_selection = انتخاب تبدیل کرنے کے لیے کوئی انتخاب درکار ہے
+menu.status.crop_needs_selection = انتخاب کے مطابق تراشنے کے لیے کوئی انتخاب درکار ہے
+menu.status.select_photo_to_edit = ترمیم کے لیے تصویر منتخب کریں

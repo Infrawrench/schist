@@ -1,0 +1,73 @@
+# Инструменти за рисуване, градиенти и кофа за запълване.
+tool.brush.name = Четка
+tool.brush.description = Рисувайте щрих с меки краища в цвета на предния план, оразмерен според размера, твърдостта и непрозрачността на четката в редактора.
+tool.brush.history.stroke = Четка
+
+tool.pencil.name = Молив
+tool.pencil.description = Рисувайте щрих с твърди краища без заглаждане в цвета на предния план.
+tool.pencil.history.stroke = Молив
+
+tool.eraser.name = Гума
+tool.eraser.description = Изтривайте по дължината на щриха, като връщате слоя към прозрачност.
+tool.eraser.history.stroke = Гума
+
+tool.clone.name = Печат за клониране
+tool.clone.description = Печат за клониране: щракнете с Alt, за да зададете изходната точка, после рисувайте пикселите, копирани от нея със същото отместване.
+tool.clone.history.stroke = Печат за клониране
+
+tool.dodge.name = Изсветляване
+tool.dodge.description = Изсветлява пикселите, през които минава щрихът.
+tool.dodge.history.stroke = Изсветляване
+tool.burn.name = Затъмняване
+tool.burn.description = Затъмнява пикселите, през които минава щрихът.
+tool.burn.history.stroke = Затъмняване
+tool.sponge.name = Гъба
+tool.sponge.description = Увеличава или намалява наситеността на пикселите, през които минава щрихът.
+tool.sponge.history.stroke = Гъба
+
+tool.blur.name = Замъгляване
+tool.blur.description = Замъглява пикселите, през които минава щрихът.
+tool.blur.history.stroke = Замъгляване
+tool.sharpen.name = Изостряне
+tool.sharpen.description = Изостря пикселите, през които минава щрихът.
+tool.sharpen.history.stroke = Изостряне
+tool.smudge.name = Размазване
+tool.smudge.description = Разнася цвета по дължината на щриха, сякаш избутвате мокра боя.
+tool.smudge.history.stroke = Размазване
+
+tool.heal.name = Възстановяваща четка
+tool.heal.description = Възстановяваща четка: щракнете с Alt, за да зададете източника, после рисувайте; текстурата от източника се смесва със собствения цвят и осветление на местоназначението.
+tool.heal.history.stroke = Възстановяваща четка
+tool.spot_heal.name = Точкова възстановяваща четка
+tool.spot_heal.description = Точкова възстановяваща четка: рисувайте върху дефект и той се заменя с текстура от околността — не е необходимо да задавате изходна точка.
+tool.spot_heal.history.stroke = Точкова възстановяваща четка
+
+tool.history_brush.name = Четка за история
+tool.history_brush.description = Възстановявайте пиксели от моментната снимка в историята на документа, като отменяте по-късните промени щрих по щрих.
+tool.history_brush.history.stroke = Четка за история
+
+tool.background_eraser.name = Гума за фон
+tool.background_eraser.description = Изтрива цвета, взет като проба под центъра на четката, и запазва различните пиксели, за да отдели обект от фона му.
+tool.background_eraser.history.stroke = Гума за фон
+
+tool.gradient.name = Градиент
+tool.gradient.description = Плъзнете, за да запълните слоя — само в селекцията, когато има такава — с линеен градиент от цвета на предния план към цвета на фона по посоката на плъзгането.
+tool.gradient.radial.name = Радиален градиент
+tool.gradient.radial.description = Плъзнете от центъра навън, за да запълните с радиален градиент между цветовете на предния план и фона.
+tool.gradient.option.gradient = Градиент
+tool.gradient.option.reverse = Обръщане
+tool.gradient.option.dither = Разсейване
+tool.gradient.choice.foreground_to_background = От преден план към фон
+tool.gradient.choice.foreground_to_transparent = От преден план към прозрачност
+tool.gradient.choice.linear = Линеен
+tool.gradient.choice.radial = Радиален
+tool.gradient.choice.angle = Ъглов
+tool.gradient.choice.reflected = Огледален
+tool.gradient.choice.diamond = Ромбовиден
+tool.gradient.history.gradient = Градиент
+
+tool.bucket.name = Кофа за боя
+tool.bucket.description = Щракнете, за да залеете свързаната област с подобен цвят под показалеца с цвета на предния план в рамките на допуска на инструмента.
+tool.bucket.option.contiguous = Съседни
+tool.bucket.option.all_layers = Всички слоеве
+tool.bucket.history.fill = Кофа за боя

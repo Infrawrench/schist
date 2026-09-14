@@ -1,0 +1,22 @@
+# Pagrindiniai įrankiai.
+tool.move.name = Perkelti
+tool.move.description = Vilkite aktyvaus sluoksnio turinį į naują vietą. Kai įjungtas automatinis pasirinkimas, paspaudus pirmiausia pasirenkamas po žymikliu esantis sluoksnis arba visa grupė.
+tool.move.option.auto_select = Automatinis pasirinkimas
+tool.move.history.move_layer = Perkelti sluoksnį
+
+tool.eyedropper.name = Pipetė
+tool.eyedropper.description = Paimkite po žymikliu esančios spalvos mėginį į priekinio plano spalvos laukelį, o laikydami „Alt“ – į fono spalvos laukelį. Velkant mėginiai imami nuolat.
+tool.eyedropper.option.sample_size = Mėginio dydis
+tool.eyedropper.option.sample = Imti mėginį
+tool.eyedropper.choice.point_sample = Taškinis mėginys
+tool.eyedropper.choice.average_3 = 3 × 3 vidurkis
+tool.eyedropper.choice.average_5 = 5 × 5 vidurkis
+tool.eyedropper.choice.average_11 = 11 × 11 vidurkis
+tool.eyedropper.choice.average_31 = 31 × 31 vidurkis
+tool.eyedropper.choice.all_layers = Visi sluoksniai
+tool.eyedropper.choice.current_layer = Dabartinis sluoksnis
+
+tool.hand.name = Ranka
+tool.hand.description = Slenka rodinį. Peržiūros sritis priklauso langui, todėl veikiant be grafinės sąsajos šis įrankis dokumento nekeičia.
+tool.zoom.name = Mastelis
+tool.zoom.description = Keičia rodinio mastelį. Peržiūros sritis priklauso langui, todėl veikiant be grafinės sąsajos šis įrankis dokumento nekeičia.

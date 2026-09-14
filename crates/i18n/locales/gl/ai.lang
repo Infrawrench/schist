@@ -1,0 +1,31 @@
+# Panel lateral de IA e mensaxes dos axentes.
+ai.status.panel_shown = Panel de IA visible
+ai.status.panel_hidden = Panel de IA agochado — Ver ▸ Panel de IA ({shortcut}) volve mostralo
+ai.status.tool = IA: {name}
+
+ai.info.connected = {backend} conectado
+ai.info.now_in_gallery = Agora estás na galería.
+ai.info.now_in_editor = Agora estás no editor.
+ai.tool.shell_command = comando da consola
+
+ai.error.cli_missing = A interface de liña de comandos de {backend} («{binary}») non está en PATH. Instálaa e inicia sesión nela primeiro.
+ai.error.endpoint_failed = non se puido iniciar o punto de conexión MCP: {error}
+ai.error.binding_endpoint = asociando o punto de conexión MCP
+ai.error.spawning_endpoint_thread = iniciando o fío do punto de conexión MCP
+ai.error.runtime_failed = non se puido iniciar o contorno de execución do axente: {error}
+ai.error.worker_failed = non se puido iniciar o proceso de traballo de {backend}: {error}
+ai.error.did_not_start = {backend} non se iniciou: {error}
+ai.error.switch_model_failed = non se puido cambiar de modelo: {error}
+ai.error.send_failed = non se puido enviar a instrución: {error}
+ai.error.interrupt_failed = non se puido interromper: {error}
+ai.error.locating_binary = localizando o binario de Schist
+ai.error.starting_app_server = iniciando o servidor de aplicacións de Codex
+ai.error.attaching_app_server = conectando co servidor de aplicacións de Codex
+ai.error.initializing_app_server = inicializando o servidor de aplicacións de Codex
+ai.error.resuming_thread = retomando o fío de Codex
+ai.error.starting_thread = iniciando o fío de Codex
+
+ai.model.opus_detail = Nivel con maior capacidade
+ai.model.sonnet_detail = Eficiente para tarefas habituais
+ai.model.haiku_detail = O máis rápido para respostas breves
+ai.model.codex_catalog = Catálogo de Codex

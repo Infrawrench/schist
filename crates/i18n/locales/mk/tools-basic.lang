@@ -1,0 +1,24 @@
+# Преместување
+tool.move.name = Преместување
+tool.move.description = Повлечете ја содржината на активниот слој на ново место. Кога е вклучено „Автоматско избирање“, со притискањето прво се избира слојот — или целата група — што се наоѓа под покажувачот.
+tool.move.option.auto_select = Автоматско избирање
+tool.move.history.move_layer = Преместување слој
+
+# Пипета
+tool.eyedropper.name = Пипета
+tool.eyedropper.description = Зема примерок од бојата под покажувачот во мострата за преден план, или во мострата за заднина кога е притиснато Alt. При влечење продолжува да зема примероци.
+tool.eyedropper.option.sample_size = Големина на примерок
+tool.eyedropper.option.sample = Примерок
+tool.eyedropper.choice.point_sample = Точкест примерок
+tool.eyedropper.choice.average_3 = Просек 3 на 3
+tool.eyedropper.choice.average_5 = Просек 5 на 5
+tool.eyedropper.choice.average_11 = Просек 11 на 11
+tool.eyedropper.choice.average_31 = Просек 31 на 31
+tool.eyedropper.choice.all_layers = Сите слоеви
+tool.eyedropper.choice.current_layer = Тековен слој
+
+# Рака и зумирање
+tool.hand.name = Рака
+tool.hand.description = Го поместува приказот. Приказното поле му припаѓа на прозорецот, па без графички интерфејс оваа алатка не го менува документот.
+tool.zoom.name = Зумирање
+tool.zoom.description = Го зумира приказот. Приказното поле му припаѓа на прозорецот, па без графички интерфејс оваа алатка не го менува документот.

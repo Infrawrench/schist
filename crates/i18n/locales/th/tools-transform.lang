@@ -1,0 +1,29 @@
+# Free transform
+tool.transform.name = แปลงแบบอิสระ
+tool.transform.description = แปลงแบบอิสระ เมื่อเปิดใช้ กรอบแปลงจะปรากฏรอบเลเยอร์ที่กำลังใช้งาน ลากมุมเพื่อปรับขนาด ลากด้านนอกมุมเพื่อหมุน หรือลากขอบเพื่อเอียง ระบบจะยังไม่บันทึกการเปลี่ยนแปลงจนกว่าจะยืนยัน (Enter) และการยกเลิก (Escape) จะคืนเลเยอร์สู่สภาพเดิม
+tool.transform.option.interpolation = การประมาณค่า
+tool.transform.history.transform = แปลงแบบอิสระ
+tool.transform.history.image_size = ขนาดภาพ
+tool.transform.history.canvas_size = ขนาดผืนผ้าใบ
+
+# Transform selection
+tool.transform.selection.name = แปลงส่วนที่เลือก
+tool.transform.selection.description = แปลงส่วนที่เลือก ใช้กรอบแบบเดียวกัน แต่ย้ายเส้นขอบส่วนที่เลือกแทนพิกเซลภายใน ยืนยันหรือยกเลิกเพื่อเสร็จสิ้น
+tool.transform.selection.history.transform = แปลงส่วนที่เลือก
+
+# Resampling
+tool.transform.resample.nearest_neighbor = จุดใกล้ที่สุด
+tool.transform.resample.bilinear = ไบลิเนียร์
+tool.transform.resample.bicubic = ไบคิวบิก
+
+# Crop
+tool.crop.name = ครอบตัด
+tool.crop.description = ลากกำหนดพื้นที่ที่จะเก็บไว้และปรับจุดจับ เมื่อยืนยัน (Enter) เอกสารจะถูกตัดให้เหลือพื้นที่นั้น ส่วนการยกเลิก (Escape) จะไม่เปลี่ยนแปลงเอกสาร
+tool.crop.option.ratio = อัตราส่วน
+tool.crop.option.delete_cropped = ลบพิกเซลที่ครอบตัด
+tool.crop.choice.unconstrained = ไม่จำกัด
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = ครอบตัด

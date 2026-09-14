@@ -1,0 +1,153 @@
+filter.neural.param.center_x = Katikati X
+filter.neural.param.center_y = Katikati Y
+filter.neural.param.direction = Ngámbo
+filter.neural.param.transition = Mbongwana
+filter.neural.param.detail = Dɛtaye
+filter.neural.param.eyes = Miso
+
+filter.neural.msg.using_model = Ezali kosalela {model} · {license}.
+filter.neural.msg.get_model = Zwá yango na Filtre ▸ Neural Filters ▸ Kokamba ba modɛlɛ.
+
+filter.camera_raw.name = Filtre Camera Raw
+filter.camera_raw.param.temperature = Température
+filter.camera_raw.param.tint = Tintɛ
+filter.camera_raw.param.highlights = Bisika ya pole
+filter.camera_raw.param.shadows = Bisika ya molili
+filter.camera_raw.param.whites = Mpɛmbɛ
+filter.camera_raw.param.blacks = Moindo
+filter.camera_raw.param.clarity = Bopolele
+filter.camera_raw.param.dehaze = Kolongola londende
+filter.camera_raw.param.vibrance = Bokasi ya balangi
+filter.camera_raw.param.sharpening = Koyeisa polele
+filter.camera_raw.param.noise = Kokitisa makelele
+filter.camera_raw.param.vignette = Vignette
+
+filter.lens_correction.name = Kobongisa lantiye
+filter.lens_correction.param.distortion = Kolongola bopengwi
+filter.lens_correction.param.red = Kobongisa ndelo Motane/Siane
+filter.lens_correction.param.blue = Kobongisa ndelo Bule/Jaune
+filter.lens_correction.param.vignette = Motuya ya vignette
+filter.lens_correction.param.midpoint = Katikati ya vignette
+filter.lens_correction.param.vertical = Perspektive na likoló mpe nse
+filter.lens_correction.param.horizontal = Perspektive na mopanzi
+
+filter.adaptive_wide_angle.name = Anglɛ monene oyo emesana
+filter.adaptive_wide_angle.param.projection = Kobongisa
+filter.adaptive_wide_angle.choice.fisheye = Liso ya mbisi
+filter.adaptive_wide_angle.choice.perspective = Perspektive
+filter.adaptive_wide_angle.choice.full_spherical = Sferike mobimba
+filter.adaptive_wide_angle.param.focal = Bolai ya fokale
+filter.adaptive_wide_angle.param.crop = Facteur ya kokata
+
+filter.field_blur.name = Flou ya etando
+filter.field_blur.param.position = Polele na
+filter.iris_blur.name = Flou ya iris
+filter.iris_blur.param.roundness = Bozinga
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Katikati
+filter.tilt_shift.param.band = Bande ya polele
+filter.spin_blur.name = Flou ya kobaluka
+filter.spin_blur.param.angle = Anglɛ ya flou
+filter.path_blur.name = Flou ya nzela
+filter.path_blur.param.speed = Mbangu
+filter.path_blur.param.curve = Bogumbami
+filter.path_blur.param.taper = Kokóma moke mokemoke
+
+filter.shape_blur.name = Flou ya lolenge
+filter.shape_blur.choice.square = Kare
+filter.shape_blur.choice.diamond = Diamá
+filter.shape_blur.choice.hexagon = Hexagone
+filter.shape_blur.choice.cross = Ekulusu
+filter.shape_blur.choice.ring = Lopɛtɛ
+filter.shape_blur.choice.star = Monzoto
+filter.smart_blur.name = Flou ya mayele
+filter.smart_blur.choice.normal = Momesano
+filter.smart_blur.choice.edge_only = Ndelo kaka
+filter.smart_blur.choice.overlay_edge = Kozipisa ndelo likoló
+
+filter.deinterlace.name = Kolongola interlace
+filter.deinterlace.param.field = Kolongola
+filter.deinterlace.choice.odd_fields = Ba field imparɛ
+filter.deinterlace.choice.even_fields = Ba field pɛrɛ
+filter.deinterlace.param.fill = Kosala ba field ya sika na
+filter.deinterlace.choice.interpolation = Interpolasio
+filter.deinterlace.choice.duplication = Kosala kopi
+filter.ntsc_colors.name = Balangi NTSC
+
+filter.neural.skin_smoothing.name = Koyeisa loposo pɛtɛɛ
+filter.neural.skin_smoothing.param.blur = Bopɛtɛɛ
+filter.neural.skin_smoothing.param.detail = Kobatela badɛtaye
+filter.neural.skin_smoothing.msg.no_model = {model} etyami te — ezali koyeisa eloko nyonso ya langi ya loposo pɛtɛɛ na esika ya bilongi.
+
+filter.neural.jpeg_artifacts.name = Kolongola bambeba ya JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} etyami te — ezali koyeisa monyama ya bapiksele 8 pɛtɛɛ na esika na yango.
+
+filter.neural.colorize.name = Kotya balangi
+filter.neural.colorize.param.warmth = Mɔtɔ ya langi
+filter.neural.colorize.msg.no_model = {model} etyami te — ezali kotya tintɛ na kotalela kongɛnga na esika na yango.
+
+filter.neural.super_zoom.name = Super Zoom
+filter.neural.super_zoom.msg.no_model = {model} etyami te — ezali koyeisa bapembeni polele na esika na yango.
+
+filter.neural.style_transfer.name = Kolekisa style
+filter.neural.style_transfer.choice.mosaic = Mosaike
+filter.neural.style_transfer.choice.candy = Bonbon
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Modɛlɛ ya style moko te etyami — ezali kolekisa kaka langi. Zwá yango na Filtre ▸ Neural Filters ▸ Kokamba ba modɛlɛ.
+filter.neural.style_transfer.msg.installed = Etyami: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Kolekisa langi
+filter.neural.color_transfer.param.hue = Lolenge ya langi oyo esengeli
+filter.neural.color_transfer.param.contrast = Kokokanisa bokeseni
+filter.neural.color_transfer.msg.info = Ezwaka palette na yango na kalke ya nse. Soki eloko ezali na nse te, elukaka nde Lolenge ya langi oyo esengeli.
+
+filter.neural.depth_blur.name = Flou ya bozindo
+filter.neural.depth_blur.param.focus = Ntaka ya fokale
+filter.neural.depth_blur.param.blur = Bokasi ya flou
+filter.neural.depth_blur.msg.no_model = {model} etyami te — ezali kotya fokisi na kotalela bopolele ya esika na esika.
+
+filter.neural.harmonization.name = Kokokanisa
+filter.neural.harmonization.param.tone = Kokokanisa tonalite
+filter.neural.harmonization.msg.info = Ekokanisaka kalke oyo na eloko nyonso oyo ezali na nse na yango. Soki eloko ezali na nse te, eloko ya kokokanisa ezali te mpe oyo ekosala eloko te.
+
+filter.neural.landscape_mixer.name = Mosangisi ya paysage
+filter.neural.landscape_mixer.param.bands = Babande ya bozindo
+filter.neural.landscape_mixer.msg.with_depth = Ezwaka palette na yango na kalke ya nse, mpe ekokanisaka bande nsima ya bande na kosalela Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Ezwaka palette na yango na kalke ya nse. Tyá Depth (Depth Blur) mpo likoló ekokana na likoló mpe mabele na mabele, na esika ya kokokanisa elilingi mobimba.
+
+filter.neural.photo_restoration.name = Kozongisa fɔtɔ
+filter.neural.photo_restoration.param.enhance = Kobongisa fɔtɔ
+filter.neural.photo_restoration.param.scratches = Kokitisa ba rayure
+filter.neural.photo_restoration.param.tone = Kozongisa tonalite
+filter.neural.photo_restoration.msg.no_model = Ezali kopɛtola kozanga modɛlɛ.
+filter.neural.photo_restoration.msg.using_deblock = Ezali kosalela Deblock · eteyami mpo na Schist.
+filter.neural.photo_restoration.msg.using_detail = Ezali kosalela Detail · eteyami mpo na Schist.
+filter.neural.photo_restoration.msg.using_both = Ezali kosalela Deblock mpe Detail · eteyami mpo na Schist.
+
+filter.neural.photo_to_sketch.name = Fɔtɔ na desen
+filter.neural.photo_to_sketch.param.weight = Bonene ya molɔngɔ
+filter.neural.photo_to_sketch.param.shading = Ombre
+
+filter.neural.face_to_caricature.name = Elongi na karikatire
+filter.neural.face_to_caricature.param.mouth = Monɔkɔ
+filter.neural.face_to_caricature.param.head = Motó
+filter.neural.face_to_caricature.msg.no_model = {model} etyami te, yango wana oyo ekosala eloko te — eloko ya kosala karikatire ezali te.
+
+filter.neural.smart_portrait.name = Portrait ya mayele
+filter.neural.smart_portrait.param.happiness = Esengo
+filter.neural.smart_portrait.param.surprise = Kokamwa
+filter.neural.smart_portrait.param.age = Mbula ya elongi
+filter.neural.smart_portrait.param.gaze = Kotala
+filter.neural.smart_portrait.param.light = Ngámbo ya pole
+filter.neural.smart_portrait.msg.no_model = {model} etyami te, yango wana oyo ekosala eloko te — ezali na elongi ya kosalela te.
+
+filter.neural.makeup_transfer.name = Kolekisa maquillage
+filter.neural.makeup_transfer.param.lips = Bibɛbu
+filter.neural.makeup_transfer.param.skin = Tonalite ya loposo
+filter.neural.makeup_transfer.msg.info = Ezwaka maquillage uta na elongi oyo ezali na kalke ya nse. Langi, kasi tekstire te.
+filter.neural.makeup_transfer.msg.no_model = {model} etyami te, yango wana oyo ekosala eloko te.
+
+filter.neural.sketch_to_portrait.name = Desen na portrait
+filter.neural.sketch_to_portrait.param.detail = Kobatela milɔngɔ
+filter.neural.sketch_to_portrait.msg.with_face = Eteyamaki mpo na kotondisa Fɔtɔ na desen ya programɛ oyo. Esalaka na elongi oyo ezwi.
+filter.neural.sketch_to_portrait.msg.no_face = Eteyamaki mpo na kotondisa Fɔtɔ na desen ya programɛ oyo. Tyá Faces (Skin Smoothing) mpe ekosala na elongi na esika ya eteni mobimba eponami.

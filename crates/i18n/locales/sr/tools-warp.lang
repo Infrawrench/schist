@@ -1,0 +1,23 @@
+# Алатке за деформисање.
+tool.liquify.name = Ликвификација
+tool.liquify.description = Гурајте, вртите, скупљајте или надувавајте пикселе испод велике четкице — опција режима одређује радњу. Деформација се накупља у мрежи и примењује на слој при потврди.
+tool.liquify.option.tool = Алатка
+tool.liquify.choice.forward_warp = Деформиши унапред
+tool.liquify.choice.reconstruct = Реконструиши
+tool.liquify.choice.twirl_cw = Заврти удесно
+tool.liquify.choice.twirl_ccw = Заврти улево
+tool.liquify.choice.pucker = Скупи
+tool.liquify.choice.bloat = Надувај
+tool.liquify.choice.push_left = Гурни улево
+tool.liquify.history.liquify = Ликвификација
+
+tool.puppet_warp.name = Луткарско деформисање
+tool.puppet_warp.description = Кликните да причврстите слој у неколико тачака, па превуците једну од њих: мрежа се савија око чиода, круто или лабаво, како одређује опција Крутост. Потврда примењује деформацију.
+tool.puppet_warp.option.stiffness = Крутост
+tool.puppet_warp.history.puppet_warp = Луткарско деформисање
+
+tool.vanishing_point.name = Тачка недогледа
+tool.vanishing_point.description = Развуците раван преко нечега приказаног у перспективи, затим промените режим у Клонирај и сликајте: копирани пиксели прате раван и смањују се с удаљеношћу.
+tool.vanishing_point.choice.edit_plane = Уреди раван
+tool.vanishing_point.choice.clone = Клонирај
+tool.vanishing_point.history.vanishing_point = Тачка недогледа

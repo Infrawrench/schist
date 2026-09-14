@@ -1,0 +1,21 @@
+# Vääristystyökalut: Nesteytä, Nukkemuunnos ja Pakopiste.
+tool.liquify.name = Nesteytä
+tool.liquify.description = Työnnä, kierrä, supista tai pullista kuvapisteitä suuren siveltimen alla — tila määrää toiminnon. Vääristymä kerääntyy verkkoon ja otetaan käyttöön tasossa vahvistettaessa.
+tool.liquify.option.tool = Työkalu
+tool.liquify.choice.forward_warp = Työnnä eteenpäin
+tool.liquify.choice.reconstruct = Palauta
+tool.liquify.choice.twirl_cw = Kierrä myötäpäivään
+tool.liquify.choice.twirl_ccw = Kierrä vastapäivään
+tool.liquify.choice.pucker = Supista
+tool.liquify.choice.bloat = Pullista
+tool.liquify.choice.push_left = Työnnä vasemmalle
+tool.liquify.history.liquify = Nesteytä
+tool.puppet_warp.name = Nukkemuunnos
+tool.puppet_warp.description = Kiinnitä taso muutamasta pisteestä napsauttamalla ja vedä sitten yhtä pistettä. Verkko taipuu nastojen ympärillä Jäykkyys-asetuksen mukaisesti jäykästi tai vapaasti. Vahvistaminen ottaa muutoksen käyttöön.
+tool.puppet_warp.option.stiffness = Jäykkyys
+tool.puppet_warp.history.puppet_warp = Nukkemuunnos
+tool.vanishing_point.name = Pakopiste
+tool.vanishing_point.description = Vedä perspektiivisen kohteen päälle taso, vaihda Kloonaus-tilaan ja maalaa. Kopioidut kuvapisteet seuraavat tasoa ja pienenevät etäisyyden kasvaessa.
+tool.vanishing_point.choice.edit_plane = Muokkaa tasoa
+tool.vanishing_point.choice.clone = Kloonaa
+tool.vanishing_point.history.vanishing_point = Pakopiste

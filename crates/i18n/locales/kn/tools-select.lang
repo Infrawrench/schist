@@ -1,0 +1,27 @@
+# ಆಯ್ಕೆ ಪರಿಕರಗಳು.
+tool.select.mode.subtract = ಕಳೆಯಿರಿ
+tool.select.mode.intersect = ಛೇದಿಸಿ
+tool.marquee.rect.name = ಆಯತಾಕಾರದ ಮಾರ್ಕೀ
+tool.marquee.rect.description = ಆಯತಾಕಾರದ ಆಯ್ಕೆಯನ್ನು ಎಳೆದು ರಚಿಸಿ. ಎಳೆಯಲು ಆರಂಭಿಸುವಾಗ Shift ಒತ್ತಿದರೆ ಆಯ್ಕೆಗೆ ಸೇರಿಸುತ್ತದೆ, Alt ಒತ್ತಿದರೆ ಕಳೆಯುತ್ತದೆ, ಎರಡನ್ನೂ ಒತ್ತಿದರೆ ಛೇದಿಸುತ್ತದೆ; ಎಳೆಯುವಾಗ Shift ಒತ್ತಿದರೆ ಅದನ್ನು ಚೌಕವಾಗಿಸುತ್ತದೆ. ಎಳೆಯದೆ ಕ್ಲಿಕ್ ಮಾಡಿದರೆ ಆಯ್ಕೆ ತೆರವಾಗುತ್ತದೆ.
+tool.marquee.ellipse.name = ಅಂಡಾಕಾರದ ಮಾರ್ಕೀ
+tool.marquee.ellipse.description = ಆಯತಾಕಾರದ ಮಾರ್ಕೀಯಲ್ಲಿರುವಂತೆಯೇ Shift/Alt ಸಂಯೋಜನೆಯೊಂದಿಗೆ ಅಂಡಾಕಾರದ ಆಯ್ಕೆಯನ್ನು ಎಳೆದು ರಚಿಸಿ.
+tool.lasso.name = ಲಾಸೊ
+tool.lasso.description = ಸ್ವತಂತ್ರ ಹೊರರೇಖೆಯನ್ನು ಎಳೆಯಿರಿ; ಎಳೆಯುವುದನ್ನು ಮುಗಿಸಿದಾಗ ಅದರ ತುದಿಗಳ ನಡುವೆ ಆಯ್ಕೆ ಮುಚ್ಚಿಕೊಳ್ಳುತ್ತದೆ. Shift ಸೇರಿಸುತ್ತದೆ, Alt ಕಳೆಯುತ್ತದೆ.
+tool.lasso.history.select = ಲಾಸೊ ಆಯ್ಕೆ
+tool.lasso.polygonal.name = ಬಹುಭುಜಾಕಾರದ ಲಾಸೊ
+tool.lasso.polygonal.description = ನೇರ ಅಂಚುಗಳ ಆಯ್ಕೆಯನ್ನು ರಚಿಸಲು ಒಂದಾದ ಮೇಲೊಂದು ಮೂಲೆಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ; ಅದನ್ನು ಮುಚ್ಚಲು ಮೊದಲ ಬಿಂದುವಿನ ಸಮೀಪ ಕ್ಲಿಕ್ ಮಾಡಿ.
+tool.lasso.polygonal.history.select = ಬಹುಭುಜಾಕಾರದ ಲಾಸೊ
+tool.lasso.magnetic.name = ಕಾಂತೀಯ ಲಾಸೊ
+tool.lasso.magnetic.description = ಅಂಚಿನ ಉದ್ದಕ್ಕೂ ಸ್ಥೂಲವಾಗಿ ಗುರುತುಹಾಕಿ; ಹೊರರೇಖೆಯು ಪಥದ ಸಮೀಪದ ಅತ್ಯಂತ ಪ್ರಬಲ ವ್ಯತ್ಯಾಸಕ್ಕೆ ಅಂಟಿಕೊಳ್ಳುತ್ತದೆ.
+tool.lasso.magnetic.history.select = ಕಾಂತೀಯ ಲಾಸೊ
+tool.lasso.magnetic.option.frequency = ಆವರ್ತನ
+tool.wand.name = ಮಾಯಾ ದಂಡ
+tool.wand.description = ಸಹಿಷ್ಣುತೆ ಆಯ್ಕೆಯ ಮಿತಿಯೊಳಗೆ ಪಾಯಿಂಟರ್‌ನ ಕೆಳಗಿನ ಹೋಲುವ ಬಣ್ಣದ ಹೊಂದಿಕೊಂಡ ಪ್ರದೇಶವನ್ನು ಆಯ್ಕೆಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ—Grow, Similar ಮತ್ತು Color Range ಬಳಸುವ ಸಹಿಷ್ಣುತೆಯೇ ಇದೂ ಆಗಿದೆ.
+tool.wand.option.contiguous = ಹೊಂದಿಕೊಂಡಿರುವುದು
+tool.wand.history.select = ಮಾಯಾ ದಂಡ
+tool.quick_select.name = ತ್ವರಿತ ಆಯ್ಕೆ
+tool.quick_select.description = ಒಂದು ಪ್ರದೇಶದ ಮೇಲೆ ಬ್ರಷ್ ಮಾಡಿ; ಬ್ರಷ್ ಹಾದುಹೋಗುವ ಹೋಲುವ ಪಿಕ್ಸೆಲ್‌ಗಳ ಮೂಲಕ ಆಯ್ಕೆ ಬೆಳೆಯುತ್ತದೆ.
+tool.quick_select.history.select = ತ್ವರಿತ ಆಯ್ಕೆ
+tool.object_select.name = ವಸ್ತು ಆಯ್ಕೆ
+tool.object_select.description = ವಸ್ತುವಿನ ಸುತ್ತ ಪೆಟ್ಟಿಗೆಯನ್ನು ಎಳೆಯಿರಿ; ಅದರೊಳಗೆ ಕಂಡುಬರುವ ವಸ್ತುವಿಗೆ ಆಯ್ಕೆ ಅಂಟಿಕೊಳ್ಳುತ್ತದೆ.
+tool.object_select.history.select = ವಸ್ತು ಆಯ್ಕೆ

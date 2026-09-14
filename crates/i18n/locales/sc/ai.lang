@@ -1,0 +1,34 @@
+# Barra de istadu
+ai.status.panel_shown = Pannellu de IA ammustradu
+ai.status.panel_hidden = Pannellu de IA cuadu — Visualiza ▸ Pannellu de IA ({shortcut}) ddu torrat a ammustrare
+ai.status.tool = IA: {name}
+
+# Rigas de informatzione in sa trascritzione
+ai.info.connected = {backend} connètidu
+ai.info.now_in_gallery = Immoe ses in sa galleria.
+ai.info.now_in_editor = Immoe ses in s'editore.
+ai.tool.shell_command = cumandu de shell
+
+# Faddinas in sa trascritzione
+ai.error.cli_missing = Sa CLI de {backend} («{binary}») no est in PATH. Installa·dda e intra in su contu in antis.
+ai.error.endpoint_failed = no est istadu possìbile aviare su puntu terminale MCP: {error}
+ai.error.binding_endpoint = acapiende su puntu terminale MCP
+ai.error.spawning_endpoint_thread = aviende su filu de su puntu terminale MCP
+ai.error.runtime_failed = no est istadu possìbile aviare s'ambiente de esecutzione de s'agente: {error}
+ai.error.worker_failed = no est istadu possìbile aviare su traballadore de {backend}: {error}
+ai.error.did_not_start = {backend} no est aviadu: {error}
+ai.error.switch_model_failed = no est istadu possìbile mudare su modellu: {error}
+ai.error.send_failed = no est istadu possìbile imbiare s'istrutzione: {error}
+ai.error.interrupt_failed = no est istadu possìbile interrompere: {error}
+ai.error.locating_binary = chirchende s'esecutàbile de Schist
+ai.error.starting_app_server = aviende su serbidore de s'aplicatzione Codex
+ai.error.attaching_app_server = connetende·si a su serbidore de s'aplicatzione Codex
+ai.error.initializing_app_server = initzializende su serbidore de s'aplicatzione Codex
+ai.error.resuming_thread = riprendende su filu Codex
+ai.error.starting_thread = aviende su filu Codex
+
+# Catàlogu de riserva de su seletore de modelos
+ai.model.opus_detail = Livellu prus potente
+ai.model.sonnet_detail = Efitziente pro tareas abituales
+ai.model.haiku_detail = Su prus lestru pro rispostas lestras
+ai.model.codex_catalog = Catàlogu Codex

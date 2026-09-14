@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigators
+panel.navigator.actual_pixels = Faktiskie pikseļi
+
+panel.color.picker = Krāsu izvēle…
+panel.color.swap = Samainīt krāsas
+panel.color.reset = Atiestatīt uz melnu un baltu
+
+panel.layers.blending_options = Sajaukšanas opcijas…
+panel.layers.properties = Slāņa rekvizīti…
+panel.layers.show_hide = Rādīt/paslēpt slāni
+panel.layers.toggle_visibility = Pārslēgt redzamību
+
+panel.history.title = Vēsture
+panel.history.opened = Atvērts
+
+panel.info.title = Informācija
+panel.info.camera = Kamera
+panel.info.lens = Objektīvs
+panel.info.iso = ISO {iso}
+panel.info.bias = Ekspozīcijas korekcija
+panel.info.flash_fired = zibspuldze nostrādāja
+panel.info.no_flash = bez zibspuldzes
+panel.info.white_balance = Baltā balanss: {wb}
+panel.info.metering = {metering} mērīšana
+panel.info.taken = Uzņemts
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientācija {o}
+panel.info.software = Programmatūra
+panel.info.where = Vieta
+
+panel.notes.author = Autors
+panel.notes.clear_all = Notīrīt visu
+panel.notes.unattributed = Bez autora
+panel.notes.empty = Noklikšķiniet uz audekla, lai atstātu piezīmi.
+panel.notes.placeholder = Noklikšķiniet, lai rakstītu
+
+panel.character.title = Rakstzīme
+panel.character.type_tool = Teksta rīks (T)
+panel.character.align_left = Līdzināt pa kreisi
+panel.character.align_center = Līdzināt centrā
+panel.character.align_right = Līdzināt pa labi
+panel.character.text_color = Teksta krāsa
+panel.character.panel = Rakstzīmju panelis
+panel.character.cancel_edit = Atcelt teksta rediģēšanu
+panel.character.commit_edit = Apstiprināt teksta rediģēšanu
+panel.character.number_tip = {label} · Ierakstiet vērtību vai izmantojiet ↑/↓ (turiet Shift, lai mainītu lielākos soļos)
+panel.character.leading = Rindstarpa
+panel.character.tracking = Burtstarpa
+panel.character.alignment = Līdzinājums
+panel.character.opentype = OpenType
+panel.character.text_on_path = Teksts uz ceļa
+panel.character.straight = Taisns
+panel.character.on_path = Uz ceļa
+panel.character.straight_tip = Izmantot teksta slāņa parasto bāzes līniju
+panel.character.on_path_tip = Izmantot aktīvā ceļa kopiju
+panel.character.path_offset = Nobīde pa ceļu
+
+panel.ai.title = MI
+panel.ai.empty_editor = Lūdziet veikt labojumu un vērojiet, kā tas parādās uz audekla. Aģents izmanto tos pašus rīkus, filtrus un komandas, ko izvēlnes, un katra darbība ir viens atsaukšanas solis.
+panel.ai.empty_gallery = Jautājiet par saviem fotoattēliem un vērojiet darbības galerijā: aģents var meklēt, apskatīt sīktēlus, atlasīt, sadalīt grupās un atvērt fotoattēlu redaktorā.
+panel.ai.thinking = domā…
+panel.ai.placeholder_editor = Jautājiet par šo dokumentu vai rediģējiet to
+panel.ai.placeholder_gallery = Jautājiet par saviem fotoattēliem
+panel.ai.send = Sūtīt
+panel.ai.stop = Apturēt
+panel.ai.fetching_models = Komandrindas saskarnei tiek pieprasīti modeļi…
+panel.ai.no_models = Nav atbilstošu modeļu
+panel.ai.search_models = Meklēt modeļus…
+
+panel.keymap.install_plugin = Instalēt spraudni
+panel.keymap.save_as_prompt = Saglabāt kā — paplašinājums nosaka formātu:

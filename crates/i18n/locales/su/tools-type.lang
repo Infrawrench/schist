@@ -1,0 +1,22 @@
+tool.type.name = Téks
+tool.type.description = Klik pikeun ngamimitian lapisan téks di dinya, atawa klik lapisan téks anu geus aya pikeun ngéditna. Salila éditan muka, alat narima kenop mentah (kirim karakter minangka input kenop), sarta nalika dikomit, lapisan dirender tuluy éditan ditutup.
+
+tool.type.option.align = Jajarkeun
+tool.type.option.leading = Jarak Antarbaris
+tool.type.option.tracking = Jarak Antaraksara
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligatur
+tool.type.option.discretionary_ligatures = Ligatur opsional
+tool.type.option.small_caps = Hurup kapital leutik
+tool.type.option.on_path = Dina path aktif
+tool.type.option.path_offset = Ofsét path
+
+tool.type.choice.regular = Biasa
+tool.type.choice.bold = Kandel
+tool.type.choice.italic = Dengdek
+tool.type.choice.bold_italic = Kandel Dengdek
+
+tool.type.history.new_layer = Lapisan Téks Anyar
+tool.type.history.edit = Édit Téks
+tool.type.history.discard = Piceun Téks
+tool.type.history.discard_empty = Piceun Téks Kosong

@@ -1,0 +1,23 @@
+tool.patch.name = Lapp
+tool.patch.description = Dra eit omriss rundt ein feil, og dra deretter utvalet over reine pikslar. Teksturen der vert tilpassa feilen. Lappemodusen avgjer kva ende av paret du dreg.
+tool.patch.option.patch = Lapp
+tool.patch.choice.source = Kjelde
+tool.patch.choice.destination = Mål
+tool.patch.history.patch = Lapp
+
+tool.content_aware_move.name = Innhaldstilpassa flytting
+tool.content_aware_move.description = Dra eit valt objekt ein annan stad, så vert holet etter det fylt ut frå omgjevnadene. I Utvid-modus vert objektet strekt i staden for flytta.
+tool.content_aware_move.choice.move = Flytt
+tool.content_aware_move.choice.extend = Utvid
+tool.content_aware_move.history.move = Innhaldstilpassa flytting
+
+tool.red_eye.name = Raude auge
+tool.red_eye.description = Klikk på ein pupill for å fjerna den raude blitsfargen.
+tool.red_eye.option.pupil_size = Pupillstorleik
+tool.red_eye.option.darken = Gjer mørkare
+tool.red_eye.history.red_eye = Raude auge
+
+tool.magic_eraser.name = Magisk viskelêr
+tool.magic_eraser.description = Klikk for å viska ut området med liknande farge under peikaren, innanfor toleransen til verktøyet. Området kan vera samanhengande med klikkpunktet eller liggja kvar som helst i laget.
+tool.magic_eraser.option.contiguous = Samanhengande
+tool.magic_eraser.history.erase = Magisk viskelêr

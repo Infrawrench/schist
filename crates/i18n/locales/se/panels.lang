@@ -1,0 +1,83 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigahtor
+panel.navigator.actual_pixels = Duohta govvačuoggát
+
+panel.color.picker = Ivdneválljen…
+panel.color.swap = Molsso ivnniid
+panel.color.reset = Máhcat čáhppadin ja vielgadin
+
+panel.layers.blending_options = Seaguhanmolssaeavttut…
+panel.layers.properties = Gearddi iešvuođat…
+panel.layers.show_hide = Čájet/čiega gearddi
+panel.layers.toggle_visibility = Molsso oidnosii dahje čihkosis
+
+panel.history.title = Historjá
+panel.history.opened = Rahppojuvvon
+
+panel.info.title = Dieđut
+panel.info.camera = Govvenapparáhta
+panel.info.lens = Leansa
+panel.info.iso = ISO {iso}
+panel.info.bias = Čuvgehusbuhtadus
+panel.info.flash_fired = govvenčuovga geavahuvvui
+panel.info.no_flash = ii govvenčuovga
+panel.info.white_balance = Vielgatbalánsa {wb}
+panel.info.metering = {metering}-mihtideapmi
+panel.info.taken = Govvejuvvon
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orišentereapmi {o}
+panel.info.software = Prográmma
+panel.info.where = Báiki
+
+panel.notes.author = Dahkki
+panel.notes.clear_all = Sálke buot
+panel.notes.unattributed = Namahis
+panel.notes.empty = Coahkkal govvaduolbba vai guođát mearkkašumi.
+panel.notes.placeholder = Coahkkal ja čále
+
+panel.character.title = Bustávamearka
+panel.character.type_tool = Teakstareaidu (T)
+panel.character.align_left = Heivet gurut ravdii
+panel.character.align_center = Heivet guovdui
+panel.character.align_right = Heivet olgeš ravdii
+panel.character.text_color = Teavstta ivdni
+panel.character.panel = Bustávamearkapanela
+panel.character.cancel_edit = Gaskkalduhte teavstta doaimmaheami
+panel.character.commit_edit = Dohkket teavstta doaimmaheami
+panel.character.number_tip = {label} · Čále árvvu, dahje geavat ↑ / ↓ (Shift stuorát lávkiide)
+panel.character.leading = Linnjágaska
+panel.character.tracking = Bustávagaska
+panel.character.alignment = Teakstaheiveheapmi
+panel.character.opentype = OpenType
+panel.character.text_on_path = Teaksta bálgá alde
+panel.character.straight = Njuolga
+panel.character.on_path = Bálgá alde
+panel.character.straight_tip = Geavat teakstagearddi dábálaš vuođđolinnjá
+panel.character.on_path_tip = Geavat aktiivvalaš bálgá máŋgosa
+panel.character.path_offset = Bálgá sirdin
+
+panel.ai.title = AI
+panel.ai.empty_editor = Bivdde doaimmaheami ja geahča go dat dáhpáhuvvá govvaduolbbas. Ageanta stivre seamma reaidduid, silliid ja gohččumiid go menját, okta gomohanlávki háválassii.
+panel.ai.empty_gallery = Jeara govaid birra ja geahča go dat dáhpáhuvvá galleriijas: ageanta sáhttá ohcat, geahčat smávva ovdagovaid, válljet, juohkit joavkkuide ja rahpat gova doaimmaheaddjis.
+panel.ai.thinking = jurddašemin…
+panel.ai.placeholder_editor = Jeara dán dokumeantta birra dahje doaimmat dan
+panel.ai.placeholder_gallery = Jeara iežat govaid birra
+panel.ai.send = Sádde
+panel.ai.stop = Bisset
+panel.ai.fetching_models = Jearramin modeallaid CLI:s…
+panel.ai.no_models = Eai gávdnon heivvolaš modeallat
+panel.ai.search_models = Oza modeallaid…
+
+panel.keymap.install_plugin = Sajáiduhte lassiprográmma
+panel.keymap.save_as_prompt = Vurke namain — loahppu mearrida formáhta:

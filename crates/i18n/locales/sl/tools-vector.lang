@@ -1,0 +1,43 @@
+tool.pen.name = Pero
+tool.pen.description = Ustvarite pot: kliknite za vogalno točko, povlecite, da iz nje izvlečete ročice krivulje, nato kliknite prvo točko, da pot sklenete. Ob potrditvi se pot spremeni v plast oblike.
+tool.pen.option.rubber_band = Elastični trak
+tool.pen.history.fill = Polnilo poti
+tool.pen.default_path_name = Pot {n}
+tool.pen.freeform.name = Prostoročno pero
+tool.pen.freeform.description = Povlecite prostoročno črto, ki se prilagodi poti tako natančno, kot določa možnost Prileganje.
+tool.pen.freeform.option.fit = Prileganje
+tool.pen.curvature.name = Pero za krivulje
+tool.pen.curvature.description = Kliknite zaporedje točk, pot pa bo gladko ukrivljena skozi njih.
+
+tool.path_select.name = Izbor poti
+tool.path_select.description = Kliknite pot, da jo izberete, nato jo povlecite, da premaknete celotno pot.
+tool.direct_select.name = Neposredni izbor
+tool.direct_select.description = Povlecite posamezno sidrno točko ali njene ročice, da preoblikujete pot okoli nje.
+
+tool.shape.history.layer = Plast {name}
+tool.shape.rect.name = Orodje Pravokotnik
+tool.shape.rect.label = Pravokotnik
+tool.shape.rect.description = Z barvo ospredja povlecite pravokotno plast oblike; ostane vektorska in se ob spreminjanju velikosti znova rastrira.
+tool.shape.ellipse.name = Orodje Elipsa
+tool.shape.ellipse.label = Elipsa
+tool.shape.ellipse.description = Z barvo ospredja povlecite eliptično plast oblike.
+tool.shape.line.name = Orodje Črta
+tool.shape.line.label = Črta
+tool.shape.line.description = Z barvo ospredja povlecite plast oblike z ravno črto.
+tool.shape.line.option.weight = Debelina
+tool.shape.line.option.arrow_start = Začetek
+tool.shape.line.option.arrow_end = Konec
+tool.shape.polygon.name = Orodje Mnogokotnik
+tool.shape.polygon.label = Mnogokotnik
+tool.shape.polygon.description = Z barvo ospredja povlecite plast oblike pravilnega mnogokotnika, katerega število stranic določajo možnosti.
+tool.shape.polygon.option.sides = Stranice
+
+tool.shape.custom.name = Oblika po meri
+tool.shape.custom.label = Oblika po meri
+tool.shape.custom.description = Povlecite eno od vgrajenih prednastavljenih oblik, ki jo izberete z možnostjo Oblika.
+tool.shape.custom.choice.heart = Srce
+tool.shape.custom.choice.star = Zvezda
+tool.shape.custom.choice.arrow = Puščica
+tool.shape.custom.choice.lightning = Strela
+tool.shape.custom.choice.cross = Križ
+tool.shape.custom.choice.speech_bubble = Govorni oblaček

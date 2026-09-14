@@ -1,0 +1,22 @@
+tool.type.name = Текст
+tool.type.description = Кликнете за таму да започнете текстуален слој или кликнете на постоечки за да го уредите. Додека е отворен, алатката прима необработени притискања на копчињата (испраќајте ги знаците како внес од тастатура), а со потврдување слојот се исцртува и уредувањето се затвора.
+
+tool.type.option.align = Порамнување
+tool.type.option.leading = Проред меѓу редови
+tool.type.option.tracking = Проред меѓу знаци
+tool.type.option.kerning = Кернинг
+tool.type.option.ligatures = Лигатури
+tool.type.option.discretionary_ligatures = Дополнителни лигатури
+tool.type.option.small_caps = Мали големи букви
+tool.type.option.on_path = На активната патека
+tool.type.option.path_offset = Поместување од патеката
+
+tool.type.choice.regular = Обично
+tool.type.choice.bold = Задебелено
+tool.type.choice.italic = Закосено
+tool.type.choice.bold_italic = Задебелено закосено
+
+tool.type.history.new_layer = Нов текстуален слој
+tool.type.history.edit = Уредување текст
+tool.type.history.discard = Отфрлање текст
+tool.type.history.discard_empty = Отфрлање празен текст

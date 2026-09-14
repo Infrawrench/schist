@@ -1,0 +1,37 @@
+# Il-Gallerija tal-Filtri, it-tipografiji, l-aġġornamenti u l-kontroll ta' Vulkan.
+app.filter_gallery.title = Gallerija tal-Filtri
+app.filter_gallery.stack = Munzell (applikat minn isfel għal fuq)
+app.filter_gallery.no_settings = Dan il-filtru ma għandu ebda ssettjar.
+app.fonts.not_open_licensed = mhix b'liċenzja miftuħa · {substitute} jaqbel mal-qisien tagħha
+app.fonts.missing_substituted = nieqsa · it-test qed jiġi ssettjat b'tipografija sostituta
+app.fonts.not_in_catalogue = {family} mhix fil-katalgu miftuħ tat-tipografiji
+app.fonts.no_faces = ma hemm ebda stil li jista' jitniżżel għal {family}
+app.fonts.empty_response = tweġiba vojta
+app.update.unreadable_response = tweġiba li ma tistax tinqara: {error}
+app.update.no_temp_dir = ma hemm ebda direttorju temporanju fejn jitniżżel
+app.update.asset_has_path = ir-rilaxx semma l-assi tiegħu b'passaġġ
+app.update.too_big = it-tniżżil huwa akbar milli jgħid ir-rilaxx
+app.update.stopped_at = it-tniżżil waqaf f'{got} minn {total} bytes
+app.update.hash_mismatch = il-hash tat-tniżżil huwa {got}, mhux {want}
+app.update.not_in_bundle = din il-kopja mhix ġewwa bundle ta' applikazzjoni
+app.update.no_parent_dir = il-bundle tal-applikazzjoni ma għandux direttorju ġenitur
+app.update.cannot_write = ma jistax jikteb f'{dir}
+app.update.cannot_move_aside = ma jistax iwarrab {app}
+app.update.cannot_move_in = ma jistax iqiegħed il-bundle l-ġdid f'postu
+app.update.cannot_run_ditto = ma jistax iħaddem /usr/bin/ditto
+app.update.unpack_failed = ma setax jinħall it-tniżżil: {error}
+app.update.no_app_in_download = it-tniżżil ma fihx Schist.app
+app.update.cannot_run_codesign = ma jistax iħaddem /usr/bin/codesign
+app.update.signature_invalid = il-firma tat-tniżżil ma tistax tiġi vverifikata: {error}
+app.update.download_unsigned = din il-kopja hija ffirmata iżda t-tniżżil mhuwiex
+app.update.different_developer = it-tniżżil huwa ffirmat minn żviluppatur differenti
+app.update.cannot_relaunch = ma jistax jibda l-programm tat-tnedija mill-ġdid
+app.update.not_installed_copy = din il-kopja ma tqegħditx hawn mill-installatur
+app.update.cannot_start_installer = ma jistax jibda l-installatur
+app.update.platform_unsupported = l-aġġornamenti fuq din il-pjattaforma jiġu installati bl-istess mod li bih ġie installat Schist
+app.vulkan.no_loader = schist: ma hemm ebda loader ta' Vulkan f'din is-sistema, għalhekk ma hemm xejn biex ipinġi bih.\n\nSchist jirrendi permezz ta' Vulkan, u `libvulkan.so.1` mhuwiex installat.\nHuma meħtieġa kemm il-loader kif ukoll driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: id-driver ta' Vulkan li lejh tipponta din is-sessjoni mhuwiex hemm.\n\n{var} huwa ssettjat, u dan l-issettjar *jissostitwixxi* t-tfittxija tal-loader għad-drivers minflok ma jżid magħha. Għalhekk dawn il-fajls, li ma jeżistux, huma l-lista kollha tad-drivers — u kull programm Vulkan f'din is-sessjoni ma jara ebda driver, ikunu kemm ikunu installati:\n\n{missing}\n    {var}={value}\n\nIppuntah lejn manifest li jeżisti — id-drivers installati jqiegħdu tagħhom f'/usr/share/vulkan/icd.d — jew neħħi l-issettjar tiegħu u ħalli l-loader isib tiegħu waħdu.\nSessjoni li tissettja dan minn fajl ta' konfigurazzjoni (`env =` ta' Hyprland, drop-in environment.d ta' systemd, profil tax-shell) trid tiġi mibdula hemmhekk,\nu jkun meħtieġ login ġdid biex il-bidla tilħaq kull ħaġa li diġà qed taħdem.\n
+app.vulkan.override_note = \n{var} huwa ssettjat għal {value}, u dan jissostitwixxi t-tfittxija tal-loader stess:\njekk ebda wieħed minn dawk il-manifests ma huwa għal din il-magna, l-ewwel ħaġa li għandek tipprova hija li tneħħi l-issettjar tiegħu.\n
+app.vulkan.no_driver = schist: ma hemm ebda driver ta' Vulkan installat, għalhekk ma hemm xejn biex ipinġi fuqu.\n\nSchist jirrendi permezz ta' Vulkan. Il-loader huwa installat u jirrapporta li ma hemm ebda driver — xejn ma rreġistra wieħed fl-ebda wieħed miż-żewġ postijiet fejn jitfittxu:\n\n{dirs}\n\nIl-loader jitqassam separatament mid-drivers, għalhekk normalment ikun nieqes pakkett wieħed biss.\n\nInstalla dak għall-GPU ta' din il-magna:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nId-driver proprjetarju ta' NVIDIA jġib tiegħu stess (`nvidia-utils` fuq Arch,\n`nvidia-driver` fuq Debian). F'magna virtwali, jew kull fejn ma hemm ebda\ndriver tal-GPU x'jiġi installat, ir-rasterizzatur tas-softwer huwa dak li jaħdem:\n`vulkan-swrast` fuq Arch, parti minn `mesa-vulkan-drivers` band'oħra. Huwa\nbil-mod, iżda jibda.\n{overridden}
+app.vulkan.no_device = schist: driver ta' Vulkan huwa installat iżda ma joffri ebda apparat biex isir ir-rendering fuqu.\n\nJista' jkun li d-driver ma jkoprix din il-GPU, jew ma jistax jilħaqha —\npermezz ta' SSH, jew ġewwa kontenitur, spiss ikun nieqes /dev/dri.\n`vulkaninfo --summary` jirrapporta dak li jara l-loader.\n\nIr-rasterizzatur tas-softwer jirrendi mingħajr ebda GPU, jekk din il-magna\nma għandhiex waħda: `vulkan-swrast` fuq Arch, parti minn `mesa-vulkan-drivers`\nfuq Debian u Fedora.\n
+app.vulkan.skip_hint = Biex tibda Schist xorta waħda u tħallih ifalli bil-mod tiegħu, issettja {var}=1.

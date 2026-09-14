@@ -1,0 +1,23 @@
+tool.patch.name = Záplata
+tool.patch.description = Obkreslite chybu a potom výber potiahnite na čisté pixely: ich textúra sa prispôsobí chybnému miestu. Režim záplaty určuje, ktorý koniec tejto dvojice sa ťahá.
+tool.patch.option.patch = Záplata
+tool.patch.choice.source = Zdroj
+tool.patch.choice.destination = Cieľ
+tool.patch.history.patch = Záplata
+
+tool.content_aware_move.name = Presun podľa obsahu
+tool.content_aware_move.description = Potiahnite vybratý objekt na iné miesto a prázdne miesto po ňom sa vyplní podľa okolia. V režime Rozšíriť sa objekt namiesto presunutia roztiahne.
+tool.content_aware_move.choice.move = Presunúť
+tool.content_aware_move.choice.extend = Rozšíriť
+tool.content_aware_move.history.move = Presun podľa obsahu
+
+tool.red_eye.name = Červené oči
+tool.red_eye.description = Kliknutím na zrenicu odstránite červené sfarbenie od blesku.
+tool.red_eye.option.pupil_size = Veľkosť zrenice
+tool.red_eye.option.darken = Stmaviť
+tool.red_eye.history.red_eye = Červené oči
+
+tool.magic_eraser.name = Čarovná guma
+tool.magic_eraser.description = Kliknutím vymažete oblasť podobnej farby pod ukazovateľom v rámci tolerancie nástroja — buď súvislú s miestom kliknutia, alebo všade vo vrstve.
+tool.magic_eraser.option.contiguous = Súvislé
+tool.magic_eraser.history.erase = Čarovná guma

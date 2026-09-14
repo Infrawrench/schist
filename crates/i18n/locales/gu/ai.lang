@@ -1,0 +1,34 @@
+# Status bar
+ai.status.panel_shown = AI પેનલ બતાવી
+ai.status.panel_hidden = AI પેનલ છુપાવી — «દૃશ્ય ▸ AI પેનલ» ({shortcut}) વડે તેને પાછી લાવી શકાય છે
+ai.status.tool = AI: {name}
+
+# Transcript information
+ai.info.connected = {backend} જોડાયું
+ai.info.now_in_gallery = હવે ગૅલેરીમાં છો.
+ai.info.now_in_editor = હવે એડિટરમાં છો.
+ai.tool.shell_command = શેલ કમાન્ડ
+
+# Errors
+ai.error.cli_missing = {backend} CLI (“{binary}”) PATH પર નથી. પહેલાં તેને ઇન્સ્ટૉલ કરીને તેમાં લૉગ ઇન કરો.
+ai.error.endpoint_failed = MCP એન્ડપોઇન્ટ શરૂ કરવામાં નિષ્ફળતા: {error}
+ai.error.binding_endpoint = MCP એન્ડપોઇન્ટ બાઇન્ડ કરવામાં
+ai.error.spawning_endpoint_thread = MCP એન્ડપોઇન્ટ થ્રેડ શરૂ કરવામાં
+ai.error.runtime_failed = એજન્ટ રનટાઇમ શરૂ કરવામાં નિષ્ફળતા: {error}
+ai.error.worker_failed = {backend} વર્કર શરૂ કરવામાં નિષ્ફળતા: {error}
+ai.error.did_not_start = {backend} શરૂ થયું નહીં: {error}
+ai.error.switch_model_failed = મૉડલ બદલવામાં નિષ્ફળતા: {error}
+ai.error.send_failed = પ્રોમ્પ્ટ મોકલવામાં નિષ્ફળતા: {error}
+ai.error.interrupt_failed = વિક્ષેપ કરવામાં નિષ્ફળતા: {error}
+ai.error.locating_binary = Schist બાઇનરી શોધવામાં
+ai.error.starting_app_server = Codex ઍપ સર્વર શરૂ કરવામાં
+ai.error.attaching_app_server = Codex ઍપ સર્વર સાથે જોડવામાં
+ai.error.initializing_app_server = Codex ઍપ સર્વર આરંભ કરવામાં
+ai.error.resuming_thread = Codex થ્રેડ ફરી ચાલુ કરવામાં
+ai.error.starting_thread = Codex થ્રેડ શરૂ કરવામાં
+
+# Model catalog
+ai.model.opus_detail = સૌથી સક્ષમ શ્રેણી
+ai.model.sonnet_detail = નિયમિત કાર્યો માટે કાર્યક્ષમ
+ai.model.haiku_detail = ઝડપી જવાબો માટે સૌથી ઝડપી
+ai.model.codex_catalog = Codex કૅટલૉગ

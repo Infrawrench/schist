@@ -1,0 +1,349 @@
+# Sidebar
+library.sidebar.view = દૃશ્ય
+library.sidebar.folders = ફોલ્ડર
+library.sidebar.buckets = બકેટ
+library.sidebar.people = લોકો
+library.sidebar.group_by = આના આધારે ગ્રૂપ કરો
+library.sidebar.all_photos = બધા ફોટા
+library.sidebar.world_map = વિશ્વ નકશો
+library.sidebar.map_filter = નકશો ફિલ્ટર…
+library.sidebar.map_filter_on = નકશો ફિલ્ટર ચાલુ
+library.sidebar.add_folder = + ફોલ્ડર ઉમેરો…
+library.sidebar.new_bucket = + નવું બકેટ
+library.sidebar.stop_watching = આ ફોલ્ડરનું નિરીક્ષણ રોકો
+library.sidebar.unnamed_faces = નામ વિનાના ચહેરા
+library.sidebar.retry_face_model = ચહેરા મૉડલનું ડાઉનલોડ ફરી અજમાવો
+library.sidebar.retry_recognition_model = ઓળખ મૉડલનું ડાઉનલોડ ફરી અજમાવો
+library.sidebar.looking_for_faces = ચહેરા શોધી રહ્યાં છીએ… {looked}/{total}
+library.sidebar.faces_appear = ફોટા અનુક્રમિત થતાં ચહેરા અહીં દેખાશે.
+library.sidebar.downloading_face_models = ચહેરા મૉડલ ડાઉનલોડ થઈ રહ્યાં છે… {total} MBમાંથી {got}
+
+library.group_by.date = તારીખ
+library.group_by.folder = ફોલ્ડર
+library.group_by.place = સ્થળ
+
+# Months
+library.month.january = જાન્યુઆરી
+library.month.february = ફેબ્રુઆરી
+library.month.march = માર્ચ
+library.month.april = એપ્રિલ
+library.month.may = મે
+library.month.june = જૂન
+library.month.july = જુલાઈ
+library.month.august = ઑગસ્ટ
+library.month.september = સપ્ટેમ્બર
+library.month.october = ઑક્ટોબર
+library.month.november = નવેમ્બર
+library.month.december = ડિસેમ્બર
+library.month.title = {month} {year}
+library.month.undated = તારીખ વિનાનું
+
+# Groups
+library.group.person = લોકો · {name}
+library.group.person_in = લોકો · {name} · {scope}માં
+library.group.unnamed = નામ વિનાના ચહેરા
+library.group.unnamed_in = નામ વિનાના ચહેરા · {scope}માં
+library.group.bucket = બકેટ · {name}
+library.group.no_location = સ્થાન નથી
+library.group.not_indexed = હજી અનુક્રમિત નથી
+library.group.detail = {detail} — {n}
+
+# Top strip and search
+library.strip.import = ઇમ્પોર્ટ કરો…
+library.strip.add_folder = ફોલ્ડર ઉમેરો…
+library.strip.settings = સેટિંગ્સ…
+library.strip.new_file = નવી ફાઇલ…
+library.strip.back_to_editing = સંપાદન પર પાછા જાઓ
+library.strip.enable_search = ફોટો શોધ સક્ષમ કરો…
+library.strip.enable_search_menu = ફોટો શોધ સક્ષમ કરો…
+library.strip.map_filter_chip = નકશો ફિલ્ટર: {name}
+library.strip.downloading_search = ફોટો શોધ ડાઉનલોડ થઈ રહી છે… {total} MBમાંથી {got}
+library.search.placeholder = ફોટા શોધો…
+library.search.placeholder_indexing = શોધો ({total}માંથી {indexed} અનુક્રમિત)
+library.search.placeholder_people_places = લોકો અને સ્થળો શોધો…
+library.search.results = શોધ પરિણામો
+library.search.results_in_bucket = બકેટ · {name} · શોધ પરિણામો
+library.search.near = {place}ની નજીક
+library.search.with = {names} સાથે
+
+# Tray and cells
+library.tray.view = જુઓ
+library.tray.edited_note = સંપાદિત — વર્ઝન ફાઇલની બાજુમાં જળવાય છે
+library.tray.n_hidden.one = કન્ટેન્ટ ફિલ્ટરે {n} છુપાવ્યો
+library.tray.n_hidden.other = કન્ટેન્ટ ફિલ્ટરે {n} છુપાવ્યા
+library.cell.no_preview = પૂર્વાવલોકન નથી
+library.cell.edited = સંપાદિત
+library.gallery.loading = ફોટા લોડ થઈ રહ્યા છે…
+
+# Welcome
+library.welcome.title = Schistમાં આપનું સ્વાગત છે
+library.welcome.intro = ફોટાનાં ફોલ્ડરનું નિરીક્ષણ કરો અથવા કૅમેરામાંથી ઇમ્પોર્ટ કરો. ફાઇલો જ્યાં છે ત્યાં જ રહે છે; સંપાદનોનાં વર્ઝન તેમની બાજુમાં રહે છે:
+library.welcome.intro_ios = તમારી લાઇબ્રેરીમાંથી ફોટા ઇમ્પોર્ટ કરો અથવા Filesમાંથી ફોલ્ડર ઉમેરો. દરેક ફોટાની બાજુમાં સંપાદનોનાં વર્ઝન રહે છે:
+library.welcome.or_open = અથવા સંપાદિત કરવા છબી ખોલો:
+library.welcome.shortcut_mac = તમે કંઈ પણ સંપાદિત કરતા હો, ગૅલેરી હંમેશાં ⌘⇧Gથી ખૂલે છે.
+library.welcome.shortcut = તમે કંઈ પણ સંપાદિત કરતા હો, ગૅલેરી હંમેશાં Ctrl+Shift+Gથી ખૂલે છે.
+
+# Empty gallery
+library.gallery.empty_bucket_search = આ બકેટમાં કંઈ શોધ સાથે મેળ ખાતું નથી. Escapeથી શોધ સાફ થાય અને આખું બકેટ દેખાય છે.
+library.gallery.empty_search = કંઈ શોધ સાથે મેળ ખાતું નથી. Escapeથી શોધ સાફ થાય છે.
+library.gallery.empty_smart_bucket = હજી આ બકેટના નિયમ સાથે કંઈ મેળ ખાતું નથી — ફોટા અનુક્રમિત થતાં મેળ દેખાશે. ફોટા ખેંચીને તેમાં મૂકી પણ શકાય છે.
+library.gallery.empty_bucket = આ બકેટ ખાલી છે. ફોટા ઉમેરવા તેમને સાઇડબારમાં તેની પંક્તિ પર ખેંચો.
+library.gallery.empty_person = હજી અહીં કંઈ નથી. ફોટા અનુક્રમિત થતાં ચહેરા દેખાશે; વ્યક્તિ કોણ છે તે જણાવવા ફોટો અને પછી ચહેરા પર ક્લિક કરો.
+library.gallery.scanning = ફોલ્ડર સ્કૅન થઈ રહ્યાં છે…
+library.gallery.empty = નિરીક્ષણ હેઠળના ફોલ્ડરમાં કોઈ ફોટા મળ્યા નથી. Schist ખોલી શકે એવી છબીઓ (PNG, JPEG, WebP, TIFF, HEIC, કૅમેરા રૉ, PSD, Affinity) અહીં દેખાશે; સબફોલ્ડર છ સ્તર સુધી સ્કૅન થાય છે.
+
+# Buckets
+library.bucket.default_name = બકેટ {n}
+library.bucket.rule_matches = “{query}” સાથે મેળ ખાય છે
+library.bucket.rule_taken_in = {name}માં લીધેલા
+library.bucket.new_title = નવું બકેટ
+library.bucket.edit_title = બકેટ સંપાદિત કરો
+library.bucket.new_cloud_title = નવું ક્લાઉડ બકેટ
+library.bucket.edit_cloud_title = ક્લાઉડ બકેટ સંપાદિત કરો
+library.bucket.create = બનાવો
+library.bucket.query_placeholder = દા.ત. દરિયાકિનારે કૂતરો (વૈકલ્પિક)
+library.bucket.the_drawn_area = દોરેલો વિસ્તાર
+library.bucket.area_help = વિસ્તાર ઉમેરવા નકશા પર Shift સાથે ખેંચો (અથવા પૂર્વનિર્ધારિત વિકલ્પ પસંદ કરો); ખૂબ થોડું ખેંચવાથી તે સાફ થાય છે. નિયમો બકેટને આપમેળે ભરેલું રાખે છે.
+library.bucket.rule_none = કોઈ નિયમ નહીં: સામાન્ય બકેટ, જેમાં ફોટા ખેંચીને ઉમેરાય છે.
+library.bucket.rule_query = “{query}” સાથે મેળ ખાતો દરેક ફોટો રાખે છે.
+library.bucket.rule_area = {area}માં લીધેલો દરેક ફોટો રાખે છે.
+library.bucket.rule_query_area = {area}માં લીધેલો અને “{query}” સાથે મેળ ખાતો દરેક ફોટો રાખે છે.
+library.bucket.starts_with.one = શરૂઆતમાં પસંદ કરેલો {n} ફોટો રાખે છે.
+library.bucket.starts_with.other = શરૂઆતમાં પસંદ કરેલા {n} ફોટા રાખે છે.
+
+# World map
+library.map.status = નકશા પર {located} ફોટા · સ્થાન વિનાના {unlocated}
+library.map.reading_locations = સ્થાનો વાંચી રહ્યાં છીએ: {n} બાકી
+library.map.reset_view = દૃશ્ય રીસેટ કરો
+library.map.no_photos = આ દૃશ્યમાં GPS સ્થાનવાળા કોઈ ફોટા નથી. જિયોટૅગ કરેલા ફોટા ઉમેરો અથવા ગૅલેરી ફિલ્ટર બદલો.
+library.map.no_photos_cloud = અહીં GPS સ્થાનવાળા કોઈ ફોટા નથી. બીજું ફોલ્ડર અથવા બકેટ પસંદ કરો અથવા શોધ સાફ કરો.
+library.map.hint = પૅન કરવા ખેંચો · ઝૂમ કરવા સ્ક્રોલ કરો · તેના ફોટા જોવા માર્કર ક્લિક કરો · સંપાદિત કરવા ફોટા પર ડબલ-ક્લિક કરો
+library.map.n_at_marker.one = આ માર્કર પર {n} ફોટો
+library.map.n_at_marker.other = આ માર્કર પર {n} ફોટા
+library.map.n_in_marker.one = આ માર્કરમાં {n} ફોટો
+library.map.n_in_marker.other = આ માર્કરમાં {n} ફોટા
+library.map.attribution = © OpenStreetMap યોગદાનકર્તાઓ
+
+library.map.draw_area = વિસ્તાર દોરો
+library.map.drawing = દોરી રહ્યું છે…
+library.map.clear_boundary = સીમા સાફ કરો
+library.map.editor_hint = ખેંચવાથી પૅન · સ્ક્રોલથી ઝૂમ · Shift સાથે ખેંચવાથી વિસ્તાર દોરાય
+
+# Map filter
+library.map_filter.title = નકશો ફિલ્ટર
+library.map_filter.drawn_area = દોરેલો વિસ્તાર
+library.map_filter.apply_named = લાગુ કરવાથી માત્ર {name}માં લીધેલા ફોટા દેખાશે; EXIF સ્થાન વિનાના ફોટા છુપાશે.
+library.map_filter.apply_drawn = લાગુ કરવાથી માત્ર {south}°, {west}°થી {north}°, {east}°ની અંદર લીધેલા ફોટા દેખાશે; EXIF સ્થાન વિનાના ફોટા છુપાશે.
+library.map_filter.draw_first = સીમા દોરો (Shift સાથે ખેંચો અથવા પૂર્વનિર્ધારિત ચિપ પસંદ કરો), પછી લાગુ કરો. કંઈ દોર્યા વિના લાગુ કરવાથી ફિલ્ટર બંધ થાય છે.
+library.map_filter.turn_off = ફિલ્ટર બંધ કરો
+
+# Camera import setup
+library.import.title = કૅમેરામાંથી ઇમ્પોર્ટ કરો
+library.import.from = {name}માંથી ઇમ્પોર્ટ કરો
+library.import.no_cameras = કોઈ કૅમેરા મળ્યા નથી.
+library.import.no_cameras_help = કૅમેરા, મેમરી કાર્ડ અથવા iPhone જોડો. iPhone તેના ફોટા બતાવે તે પહેલાં તેને અનલૉક કરવો અને Trust This Computerનો જવાબ આપવો જરૂરી છે — એમ કરો, થોડી વાર રાહ જુઓ અને ફરી સ્કૅન કરો દબાવો. DCIM ફોલ્ડર ધરાવતી ડિસ્ક તરીકે માઉન્ટ થતું કોઈ પણ ઉપકરણ પણ ગણાય છે.
+library.import.scan_again = ફરી સ્કૅન કરો
+library.import.pick_source = એક કરતાં વધુ કૅમેરા ઉપલબ્ધ છે. આમાંથી ઇમ્પોર્ટ કરો:
+library.import.via_image_capture = Image Capture દ્વારા
+library.import.boundary_named = સીમા: {name} — જે ફોટાનું EXIF સ્થાન તેની અંદર હોય માત્ર તે ઇમ્પોર્ટ થશે; સ્થાન વિનાના ફોટા કૅમેરામાં જ રહેશે.
+library.import.boundary_drawn = સીમા: {south}°, {west}°થી {north}°, {east}° — જે ફોટાનું EXIF સ્થાન તેની અંદર હોય માત્ર તે ઇમ્પોર્ટ થશે.
+library.import.no_boundary = કોઈ સીમા નહીં — કૅમેરામાંનું બધું ઇમ્પોર્ટ થશે.
+library.import.destination = ~/Pictures/Schist Imports/{name}માં — અગાઉ ઇમ્પોર્ટ થયેલી ફાઇલો છોડવામાં આવે છે, તેથી ફરી ચલાવવું સુરક્ષિત છે.
+library.import.selected_area = પસંદ કરેલો વિસ્તાર
+library.import.locked_help = ઉપકરણ લૉક હોય તો: તેને અનલૉક કરો, પૂછવામાં આવે ત્યારે Trust This Computer પર ટૅપ કરો, તેને જોડેલું રાખો અને ફરી પ્રયાસ કરો.
+library.import.try_again = ફરી પ્રયાસ કરો
+library.import.add_to_gallery = ગૅલેરીમાં ઉમેરો
+
+# Camera import status
+library.import.needs_home = ઇમ્પોર્ટ કરવા માટે નકલ મૂકી શકાય એવી હોમ ડિરેક્ટરી જરૂરી છે
+library.import.importing_from = {source}માંથી ઇમ્પોર્ટ થઈ રહ્યું છે…
+library.import.importing_in_place = {source}માંથી {place}માં લીધેલા ફોટા ઇમ્પોર્ટ થઈ રહ્યા છે…
+library.import.device_macos_only = ઉપકરણમાંથી સીધું ઇમ્પોર્ટ કરવું એ macOSની સુવિધા છે
+library.import.failed = ઇમ્પોર્ટ નિષ્ફળ: {error}
+library.import.from_failed = {name}માંથી ઇમ્પોર્ટ નિષ્ફળ
+library.import.locked = {name} લૉક છે — તેને અનલૉક કરીને ચાલુ રાખવા Trust પર ટૅપ કરો
+library.import.reading_catalog = {name}નો ફોટો કૅટલૉગ વાંચી રહ્યા છીએ…
+library.import.progress_from = {name}માંથી ફોટો {n}/{total} ઇમ્પોર્ટ થઈ રહ્યો છે…
+library.import.progress = ફાઇલ {n}/{total} ઇમ્પોર્ટ થઈ રહી છે…
+library.import.choose_photos = ઇમ્પોર્ટ કરવા ફોટા અને વિડિયો પસંદ કરો…
+library.import.photos_open_failed = ફોટો લાઇબ્રેરી ખોલી શકાઈ નહીં: {error}
+library.import.done.one = {n} ફાઇલ {dest}માં ઇમ્પોર્ટ કરી
+library.import.done.other = {n} ફાઇલો {dest}માં ઇમ્પોર્ટ કરી
+library.import.done_in_place.one = {place}માં લીધેલો {n} ફોટો {dest}માં ઇમ્પોર્ટ કર્યો ({filtered} અન્ય સ્થળના અથવા સ્થાન વિનાના ફોટા કૅમેરામાં રહ્યા)
+library.import.done_in_place.other = {place}માં લીધેલા {n} ફોટા {dest}માં ઇમ્પોર્ટ કર્યા ({filtered} અન્ય સ્થળના અથવા સ્થાન વિનાના ફોટા કૅમેરામાં રહ્યા)
+library.import.n_failed.one = {n} નિષ્ફળ
+library.import.n_failed.other = {n} નિષ્ફળ
+library.import.no_dcim = {source} પર DCIM ફોલ્ડર નથી
+library.import.already_running = ઇમ્પોર્ટ પહેલાંથી ચાલી રહ્યું છે
+library.import.camera_gone = તે કૅમેરા હવે જોડાયેલો નથી
+library.import.camera_disconnected = ઇમ્પોર્ટની વચ્ચે કૅમેરાનું જોડાણ તૂટી ગયું
+library.import.unknown_error = અજ્ઞાત ભૂલ
+library.import.picker_needs_ios14 = ફોટો પિકર માટે iOS 14 અથવા પછીનું વર્ઝન જરૂરી છે
+library.import.picker_unavailable = ફોટો પિકર ઉપલબ્ધ નથી
+library.import.no_window = પિકર બતાવવા માટે કોઈ વિન્ડો નથી
+
+# Volumes and folders
+library.volume.iphone = iPhone અથવા iPad
+library.volume.camera = કૅમેરા
+library.volume.phone = ફોન
+library.open_folder.opened.one = {n} છબી ખોલી
+library.open_folder.opened.other = {n} છબીઓ ખોલી
+library.open_folder.opened_first = {total} છબીઓમાંથી પહેલી {n} ખોલી — બાકીની ગૅલેરીમાં છે
+
+# Search models
+library.search_models.title = ફોટો શોધ
+library.search_models.intro = ફોટામાં શું છે તેના આધારે શોધવા બે મૉડલ જરૂરી છે, જે એક વાર ડાઉનલોડ થઈને આ મશીન પર રહે છે. તે સ્થાનિક રીતે ચાલે છે: કોઈ ફોટો ક્યારેય મશીનની બહાર જતો નથી.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = Appleનું MobileCLIP
+library.search_models.export = Xenovaનું ONNX એક્સપોર્ટ
+library.search_models.license = લાઇસન્સ
+library.search_models.download_note = ડાઉનલોડ કરવાથી બંને મૉડલ (કુલ {mb} MB) ઇન્સ્ટૉલ થાય છે અને તેમનાં લાઇસન્સ સ્વીકારાય છે. «ગૅલેરી ▸ મૉડલ સંચાલિત કરો»… હેઠળથી તેમને ફરી દૂર કરી શકાય છે.
+library.search_models.agree = સંમત થાઓ અને ડાઉનલોડ કરો
+
+# Context menu
+library.menu.add_all_to = બધું {name}માં ઉમેરો
+library.menu.add_all_to_new_bucket = બધું નવા બકેટમાં ઉમેરો…
+library.menu.edit_n_in_tabs = {n}ને ટૅબમાં સંપાદિત કરો
+library.menu.view_name_people = લોકો જુઓ અને નામ આપો
+library.menu.reveal = ફાઇલ મૅનેજરમાં બતાવો
+library.menu.add_to = {name}માં ઉમેરો
+library.menu.add_to_new_bucket = નવા બકેટમાં ઉમેરો
+library.menu.remove_from_bucket = આ બકેટમાંથી દૂર કરો
+library.menu.save_n_as_zip = {n}ને ZIP તરીકે સાચવો…
+library.menu.save_image_as = છબી આ રીતે સાચવો…
+library.menu.process = પ્રક્રિયા કરો…
+library.menu.process_n = {n} ફોટા પર પ્રક્રિયા કરો…
+library.menu.move_to_folder = ફોલ્ડરમાં ખસેડો…
+library.menu.move_n_to_folder = {n}ને ફોલ્ડરમાં ખસેડો…
+library.menu.revert = મૂળ પર પાછું ફેરવો
+library.menu.revert_n = {n}ને મૂળ પર પાછા ફેરવો
+library.menu.upload_to_cloud = Schist Cloud પર અપલોડ કરો…
+library.menu.watch_local_folder = આ કમ્પ્યુટર પરના ફોલ્ડરનું નિરીક્ષણ કરો…
+library.menu.new_cloud_folder = {glyph} નવું Schist Cloud ફોલ્ડર…
+library.menu.new_local_bucket = આ કમ્પ્યુટર પર નવું બકેટ…
+library.menu.new_cloud_bucket = {glyph} નવું Schist Cloud બકેટ…
+library.menu.edit_bucket = બકેટ સંપાદિત કરો…
+library.menu.select_all_n = બધું પસંદ કરો ({n})
+library.menu.save_all_as_zip = બધું ZIP તરીકે સાચવો… ({n})
+library.menu.process_all = બધા પર પ્રક્રિયા કરો… ({n})
+library.menu.move_all_to_folder = બધું ફોલ્ડરમાં ખસેડો…
+library.menu.clear_added = ઉમેરેલા ફોટા સાફ કરો
+library.menu.clear_bucket = બકેટ સાફ કરો
+library.menu.delete_bucket = બકેટ કાઢી નાખો
+library.menu.show_person = {name} બતાવો
+library.menu.rename_person = નામ બદલો…
+library.menu.forget_person.one = વ્યક્તિ ભૂલી જાઓ ({n} ચહેરો)
+library.menu.forget_person.other = વ્યક્તિ ભૂલી જાઓ ({n} ચહેરા)
+
+# Operations
+library.ops.moving.one = {n} ફોટો {dest}માં ખસેડી રહ્યા છીએ…
+library.ops.moving.other = {n} ફોટા {dest}માં ખસેડી રહ્યા છીએ…
+library.ops.moved.one = {n} ફોટો {dest}માં ખસેડ્યો
+library.ops.moved.other = {n} ફોટા {dest}માં ખસેડ્યા
+library.ops.moved_partial = {total} ફોટામાંથી {n}ને {dest}માં ખસેડ્યા — બાકીની માહિતી લૉગમાં છે
+library.ops.move_here = અહીં ખસેડો
+library.ops.no_export_format = અહીંનું કોઈ ફોર્મેટ છબી સાચવી શકતું નથી
+library.ops.saved_size = {name} સાચવ્યું ({w} × {h})
+library.ops.save_failed = સાચવવામાં નિષ્ફળતા: {error}
+library.ops.opening_first = {total} ફોટામાંથી પહેલા {n} ખૂલી રહ્યા છે — બાકીના ગૅલેરીમાં છે
+library.ops.nothing_to_revert = પાછું ફેરવવા માટે કંઈ નથી: એમાંથી કોઈ ફોટામાં સંપાદન નથી
+library.ops.reverted.one = {n} ફોટો તેના મૂળ પર પાછો ફેરવ્યો — સંપાદન versions/ હેઠળ જળવાયું છે
+library.ops.reverted.other = {n} ફોટા તેમના મૂળ પર પાછા ફેરવ્યા — સંપાદનો versions/ હેઠળ જળવાયાં છે
+library.ops.no_file_name = ફાઇલનું કોઈ નામ નથી
+library.zip.nothing_all_held = ZIP બનાવવા માટે કંઈ નથી: કન્ટેન્ટ ફિલ્ટરે એ બધા {n} ફોટા બહાર રાખ્યા છે
+library.zip.failed = ZIP નિષ્ફળ: {error}
+library.zip.progress = ZIP બની રહ્યું છે {n}/{total}…
+library.zip.n_held.one = (કન્ટેન્ટ ફિલ્ટરે {n} બહાર રાખ્યો)
+library.zip.n_held.other = (કન્ટેન્ટ ફિલ્ટરે {n} બહાર રાખ્યા)
+library.zip.done.one = {n} ફોટો ZIP કરીને {dest}માં મૂક્યો
+library.zip.done.other = {n} ફોટા ZIP કરીને {dest}માં મૂક્યા
+library.zip.done_partial = {total} ફોટામાંથી {n}ને ZIP કરીને {dest}માં મૂક્યા — બાકીની માહિતી લૉગમાં છે
+library.zip.nothing_readable = ZIP બનાવવા માટે કંઈ વાંચી શકાયું નહીં
+library.zip.too_large = zip64 વિનાની ZIP માટે ખૂબ મોટું છે
+library.batch.nothing_to_do = કરવા માટે કંઈ નથી: પહેલાં ફેરવવાનું, અપસ્કેલ અથવા ગોઠવણ પસંદ કરો
+library.batch.save_copies_here = નકલો અહીં સાચવો
+library.batch.processing.one = {n} ફોટા પર પ્રક્રિયા થઈ રહી છે…
+library.batch.processing.other = {n} ફોટા પર પ્રક્રિયા થઈ રહી છે…
+library.batch.progress = {n}/{total} પર પ્રક્રિયા થઈ — {name}
+library.batch.failed = પ્રક્રિયા નિષ્ફળ: {error}
+library.batch.done.one = {n} ફોટા પર પ્રક્રિયા કરી
+library.batch.done.other = {n} ફોટા પર પ્રક્રિયા કરી
+library.batch.done_partial = {total} ફોટામાંથી {n} પર પ્રક્રિયા કરી — બાકીની માહિતી લૉગમાં છે
+library.batch.model_would_not_load = {name} મૉડલ લોડ ન થયું
+library.batch.no_psd_writer = કોઈ PSD રાઇટર લોડ થયેલું નથી
+
+# Viewer and People
+library.viewer.back = ‹ ફોટા પર પાછા જાઓ
+library.viewer.could_not_decode = આ ફોટો ડિકોડ કરી શકાયો નહીં.
+library.viewer.label_auto = {name} · સ્વતઃ
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = આ ફોટામાંના લોકો
+library.viewer.faces_intro = ચહેરા એક નાના મૉડલથી શોધાય છે, જે એક વાર ડાઉનલોડ થાય છે. બૉક્સ હાથે પણ દોરી શકાય છે.
+library.viewer.looking_for_faces = ચહેરા શોધી રહ્યા છીએ…
+library.viewer.no_faces = કોઈ ચહેરા મળ્યા નથી. હાથથી વ્યક્તિ ઉમેરવા તેની આસપાસ બૉક્સ ખેંચો.
+library.viewer.help = નામ આપવા ચહેરા પર ક્લિક કરો; Enterથી સાચવો. ડિટેક્ટર ચૂકી ગયેલો ચહેરો ચિહ્નિત કરવા ફોટા પર ખેંચો. ← →થી ફોટા વચ્ચે ખસો, Escથી પાછા જાઓ.
+library.viewer.not_them = આ વ્યક્તિ નથી
+library.viewer.remove_name = નામ દૂર કરો
+library.viewer.not_a_face = ચહેરો નથી
+library.viewer.auto = સ્વતઃ
+library.viewer.is_this = શું આ {name} છે?
+library.viewer.someone_else = બીજી વ્યક્તિ
+library.viewer.add_name = નામ ઉમેરો…
+library.viewer.who_is_this = આ કોણ છે?
+library.people.rename_title = વ્યક્તિનું નામ બદલો
+library.people.merge_warning = કોઈનું નામ પહેલેથી “{name}” છે: સાચવવાથી બંને એક થઈ જશે.
+library.people.merge_note = કોઈ બીજી વ્યક્તિનું નામ પહેલેથી હોય એવા નામ પર બદલવાથી બંને વ્યક્તિ એક થઈ જાય છે.
+library.people.named = {name} નામ આપ્યું
+library.people.named_followed.one = {name} નામ આપ્યું · વધુ {n} ચહેરો આપમેળે મળ્યો
+library.people.named_followed.other = {name} નામ આપ્યું · વધુ {n} ચહેરા આપમેળે મળ્યા
+
+# Photos and shared files
+library.photos.saving = Photosમાં સાચવાઈ રહ્યું છે…
+library.photos.saved = Photosમાં સાચવ્યું
+library.photos.save_failed = Photosમાં સાચવવામાં નિષ્ફળતા: {error}
+library.photos.no_document = કોઈ દસ્તાવેજ ખુલ્લો નથી
+library.photos.no_png_codec = PNG કોડેક લોડ નથી
+library.photos.no_answer = ફોટો લાઇબ્રેરીએ જવાબ આપ્યો નહીં
+library.photos.bad_url = ફાઇલના પાથમાંથી URL બનાવી શકાયું નહીં
+library.photos.unavailable = ફોટો લાઇબ્રેરી ઉપલબ્ધ નથી
+library.photos.declined = ફોટો લાઇબ્રેરીએ નકાર્યું
+library.shared.needs_documents = નકલ મૂકવા માટે ગૅલેરીને Documents ફોલ્ડર જરૂરી છે
+library.shared.added.one = ગૅલેરીમાં {n} ફોટો ઉમેર્યો
+library.shared.added.other = ગૅલેરીમાં {n} ફોટા ઉમેર્યા
+library.shared.open_needs_documents = ખોલવા માટે નકલ મૂકી શકાય એવું Documents ફોલ્ડર જરૂરી છે
+library.shared.could_not_open = {name} ખોલી શકાયું નહીં: {error}
+
+# Video
+video.invalid_file = આ સ્થાનિક વિડિયો ફાઇલ નથી.
+video.install_gstreamer = વિડિયો પૂર્વાવલોકન માટે GStreamer 1.x અને વિડિયો ડિકોડર પ્લગઇન જરૂરી છે. તેમને ઇન્સ્ટૉલ કરીને વિડિયો ફરી ખોલો. તમે હજી પણ બાહ્ય એડિટર પસંદ કરી શકો છો.
+video.decode_failed = આ વિડિયો ફ્રેમ ડિકોડ કરી શકાઈ નહીં.
+video.no_stream = આ ફાઇલમાં વિડિયો સ્ટ્રીમ નથી.
+video.no_duration = વિડિયોની અવધિ વાંચી શકાઈ નહીં.
+video.frame_too_large = આ વિડિયો ફ્રેમ ખોલવા માટે ખૂબ મોટી છે.
+video.first_frame = પહેલાંથી પહેલી ફ્રેમ પર છો.
+video.editor_failed = વિડિયો એડિટર ખોલી શકાયું નહીં: {error}
+video.editor_unavailable = પસંદ કરેલું વિડિયો એડિટર ખોલી શકાયું નહીં. એપ્લિકેશન ફરી પસંદ કરો.
+video.loading = વિડિયો લોડ થઈ રહ્યો છે…
+video.searching = નજીકમાં વધુ તીક્ષ્ણ ફ્રેમ શોધી રહ્યા છીએ…
+video.capturing = પૂર્ણ રિઝોલ્યુશનની ફ્રેમ ખૂલી રહી છે…
+video.frame_title = {name} — ફ્રેમ {time}
+video.frame_layer = વિડિયો ફ્રેમ
+video.already_sharpest = આ પહેલાંથી નજીકની સૌથી તીક્ષ્ણ ફ્રેમ છે.
+video.found_frame = {time} પરની નજીકની સૌથી તીક્ષ્ણ ફ્રેમ પસંદ કરી.
+video.choose_editor = વિડિયો એડિટર પસંદ કરો…
+video.back = ગૅલેરી પર પાછા જાઓ
+video.pause = થોભાવો
+video.play = ચલાવો
+video.previous = અગાઉની ફ્રેમ
+video.next = આગલી ફ્રેમ
+video.sharper = વધુ તીક્ષ્ણ ફ્રેમ શોધો
+video.edit_frame = ફ્રેમ સંપાદિત કરો
+video.open_editor = વિડિયો એડિટરમાં ખોલો
+video.preview_help = અવાજ વિનાનું પૂર્વાવલોકન · Space: ચલાવો/થોભાવો · તીર: એક-એક ફ્રેમ આગળ-પાછળ · બંને બાજુ ½ સેકન્ડની અંદર શોધે છે. સંપાદન અલગ છબી ખોલે છે.
+video.badge = ▶ વિડિયો
+video.view = વિડિયો જુઓ
+video.open_another_app = બીજી ઍપમાં ખોલો…
+video.preview_help_touch = અવાજ વિનાનું પૂર્વાવલોકન · સમયરેખા ખેંચો અથવા એક-એક ફ્રેમ આગળ વધો. વધુ તીક્ષ્ણ ફ્રેમની શોધ બંને બાજુ ½ સેકન્ડની અંદર કરે છે. સંપાદન અલગ છબી ખોલે છે.
+video.importing = ફોટા અને વિડિયો ઇમ્પોર્ટ થઈ રહ્યાં છે…
+video.import_failed = મીડિયા ઇમ્પોર્ટ કરી શકાયું નહીં: {error}
+video.import_failed_simple = આ મીડિયા ઇમ્પોર્ટ અથવા શેર કરી શકાયું નહીં.

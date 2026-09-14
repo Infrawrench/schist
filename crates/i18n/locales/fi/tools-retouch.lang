@@ -1,0 +1,21 @@
+# Alueiden retusointityökalut.
+tool.patch.name = Paikka
+tool.patch.description = Piirrä virheen ympärille ääriviiva ja vedä valinta puhtaiden kuvapisteiden päälle. Niiden pintakuvio sovitetaan virheeseen. Paikka-tila määrää, kumpaa parin päätä vedetään.
+tool.patch.option.patch = Paikka
+tool.patch.choice.source = Lähde
+tool.patch.choice.destination = Kohde
+tool.patch.history.patch = Paikka
+tool.content_aware_move.name = Sisältötietoinen siirto
+tool.content_aware_move.description = Vedä valittu kohde muualle, jolloin sen jättämä aukko täytetään ympäristöstä. Laajenna-tilassa kohdetta venytetään siirtämisen sijasta.
+tool.content_aware_move.choice.move = Siirrä
+tool.content_aware_move.choice.extend = Laajenna
+tool.content_aware_move.history.move = Sisältötietoinen siirto
+tool.red_eye.name = Punasilmäisyys
+tool.red_eye.description = Poista salaman aiheuttama punaisuus napsauttamalla pupillia.
+tool.red_eye.option.pupil_size = Pupillin koko
+tool.red_eye.option.darken = Tummenna
+tool.red_eye.history.red_eye = Punasilmäisyys
+tool.magic_eraser.name = Taikakumi
+tool.magic_eraser.description = Poista napsauttamalla työkalun toleranssin mukainen samanvärinen alue osoittimen alta joko vain yhtenäiseltä alueelta tai kaikkialta tasosta.
+tool.magic_eraser.option.contiguous = Vierekkäinen
+tool.magic_eraser.history.erase = Taikakumi

@@ -1,0 +1,25 @@
+# ද්‍රවීකරණය
+tool.liquify.name = ද්‍රවීකරණය
+tool.liquify.description = විශාල බුරුසුවක් යට ඇති පික්සල තල්ලු කරන්න, කරකවන්න, හකුළන්න හෝ පිම්බෙන්න — කළ යුතු දේ ආකාර විකල්පයෙන් තෝරාගනී. වක්‍ර කිරීම දැලක එකතු වන අතර තහවුරු කළ විට ස්තරයට යෙදේ.
+tool.liquify.option.tool = මෙවලම
+tool.liquify.choice.forward_warp = ඉදිරියට වක්‍ර කරන්න
+tool.liquify.choice.reconstruct = ප්‍රතිනිර්මාණය කරන්න
+tool.liquify.choice.twirl_cw = දක්ෂිණාවර්තව කරකවන්න
+tool.liquify.choice.twirl_ccw = වාමාවර්තව කරකවන්න
+tool.liquify.choice.pucker = හකුළන්න
+tool.liquify.choice.bloat = පිම්බෙන්න
+tool.liquify.choice.push_left = වමට තල්ලු කරන්න
+tool.liquify.history.liquify = ද්‍රවීකරණය
+
+# රූකඩ වක්‍ර කිරීම
+tool.puppet_warp.name = රූකඩ වක්‍ර කිරීම
+tool.puppet_warp.description = ස්තරය ස්ථාන කිහිපයකින් ඇමිණීමට ක්ලික් කර ඉන් එකක් ඇදගෙන යන්න: දෘඩතාව විකල්පයේ සැකසුම අනුව දැල ඇමුණුම් වටා තදින් හෝ ලිහිල්ව නැමේ. තහවුරු කිරීමෙන් එය යෙදේ.
+tool.puppet_warp.option.stiffness = දෘඩතාව
+tool.puppet_warp.history.puppet_warp = රූකඩ වක්‍ර කිරීම
+
+# අතුරුදහන් වීමේ ලක්ෂ්‍යය
+tool.vanishing_point.name = අතුරුදහන් වීමේ ලක්ෂ්‍යය
+tool.vanishing_point.description = දෘශ්‍යකෝණයක් ඇති වස්තුවක් මත තලයක් ඇඳ, පසුව ආකාරය ක්ලෝන කිරීම වෙත මාරු කර පින්තාරු කරන්න: පිටපත් කළ පික්සල තලය අනුව ගමන් කරමින් දුර වැඩි වන විට කුඩා වේ.
+tool.vanishing_point.choice.edit_plane = තලය සංස්කරණය කරන්න
+tool.vanishing_point.choice.clone = ක්ලෝන කරන්න
+tool.vanishing_point.history.vanishing_point = අතුරුදහන් වීමේ ලක්ෂ්‍යය

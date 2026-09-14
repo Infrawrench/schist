@@ -1,0 +1,135 @@
+Noto script fonts
+=================
+
+These unmodified fonts use the SIL Open Font License 1.1.
+The full license is in LICENSE-NotoSansCJK.txt.
+
+NotoSans-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansArabic-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/arabic)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org
+https://openfontlicense.org
+
+NotoSansArmenian-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/armenian)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansAvestan-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/avestan)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansBengali-Regular.ttf
+Copyright 2025 The Noto Project Authors (https://github.com/notofonts/bengali)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://openfontlicense.org
+https://openfontlicense.org/
+
+NotoSansCanadianAboriginal-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/canadian-aboriginal)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansDevanagari-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/devanagari)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansEthiopic-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/ethiopic)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansGeorgian-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/georgian)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansGujarati-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/gujarati)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansGurmukhi-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/gurmukhi)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansHebrew-Regular.ttf
+Copyright 2024 The Noto Project Authors (https://github.com/notofonts/hebrew)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font Software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the SIL Open Font License for the specific language, permissions and limitations governing your use of this Font Software.
+http://scripts.sil.org/OFL
+
+NotoSansKannada-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/kannada)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansKhmer-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/khmer)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansLao-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/lao)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansMalayalam-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/malayalam)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansMyanmar-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/myanmar)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansOriya-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/oriya)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansSinhala-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/sinhala)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansSymbols2-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/symbols)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansTamil-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/tamil)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansTelugu-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/telugu)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansThaana-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/thaana)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansThai-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/thai)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSansYi-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/yi)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL
+
+NotoSerifTibetan-Regular.ttf
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/tibetan)
+This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL
+https://scripts.sil.org/OFL

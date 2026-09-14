@@ -1,0 +1,24 @@
+# 't Tekshulpmiddel.
+
+tool.type.name = Teks
+tool.type.description = Klik om dao 'n tekslaog te beginne of klik op 'n bestaonde laog om ze te bewèrke. Zoelang de bewèrking aope steit, nump 't hulpmiddel rechstreeks toetsinveur aan (sjik teikes es toetsinveur); bie bevestige weurt de laog gerenderd en de bewèrking geslote.
+
+tool.type.option.align = Oetlijne
+tool.type.option.leading = Regelafstandj
+tool.type.option.tracking = Tekeafstandj
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligature
+tool.type.option.discretionary_ligatures = Discretionaire ligature
+tool.type.option.small_caps = Kleinkapitale
+tool.type.option.on_path = Op actief paad
+tool.type.option.path_offset = Paadversjuiving
+
+tool.type.choice.regular = Normaal
+tool.type.choice.bold = Vet
+tool.type.choice.italic = Cursief
+tool.type.choice.bold_italic = Vet cursief
+
+tool.type.history.new_layer = Nuuj tekslaog
+tool.type.history.edit = Teks bewèrke
+tool.type.history.discard = Teks verwerpe
+tool.type.history.discard_empty = Laege teks verwerpe

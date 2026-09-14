@@ -1,0 +1,24 @@
+# Toolys daswul: Palyas, Sewya dre Vedh Content, Lagas Rudh ha Diler Hud.
+tool.patch.name = Palyas
+tool.patch.description = Tenna linen yn-dro dhe nam, ena tenna an dewis war piksellow glan: an tekstur ena a vydh parys orth an nam. Fordh Palyas a dhewis py benn a'n peyr a dennir.
+tool.patch.option.patch = Palyas
+tool.patch.choice.source = Fenten
+tool.patch.choice.destination = Tyller
+tool.patch.history.patch = Palyas
+
+tool.content_aware_move.name = Gwaya Omwodhog a Gontent
+tool.content_aware_move.description = Tenna tra dewisys dhe le aral ha'n toll a wra ev gasa a vydh leunys dhyworth y kerghynnedh. Yn fordh Estenna, an tra a vydh estennys yn le bos sewys.
+tool.content_aware_move.choice.move = Gwaya
+tool.content_aware_move.choice.extend = Estenna
+tool.content_aware_move.history.move = Gwaya Omwodhog a Gontent
+
+tool.red_eye.name = Lagas Rudh
+tool.red_eye.description = Klyckya kannwyll an lagas rag remova'n rudhder dhyworth an flamm.
+tool.red_eye.option.pupil_size = Braster Kannwyll
+tool.red_eye.option.darken = Tywelhe
+tool.red_eye.history.red_eye = Lagas Rudh
+
+tool.magic_eraser.name = Diler Hud
+tool.magic_eraser.description = Klyckya rag dilea an ran a liw hevel yn-dann an poyntyer, a-ji dhe odhomyans an tool — keskelmys orth an klyck, po ymhob le y'n gwisk.
+tool.magic_eraser.option.contiguous = Keskelmys
+tool.magic_eraser.history.erase = Diler Hud

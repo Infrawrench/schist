@@ -1,0 +1,24 @@
+# Lisebelisoa tsa ho sotha: Liquify, Puppet Warp le Vanishing Point.
+
+tool.liquify.name = Liquify
+tool.liquify.description = Sututsa, bilikisa, sosobanya kapa kokomosa lipiksele tse tlas'a borashe bo boholo—khetho ea mokhoa e khetha ketso. Ho sotha ho bokellana letlooeng, ebe ho sebelisoa mokhahlelong ha ho tiisoa.
+tool.liquify.option.tool = Sesebelisoa
+tool.liquify.choice.forward_warp = Sotha ho ea Pele
+tool.liquify.choice.reconstruct = Aha Bocha
+tool.liquify.choice.twirl_cw = Bilikisa ka ho Latela Oache
+tool.liquify.choice.twirl_ccw = Bilikisa Khahlanong le Oache
+tool.liquify.choice.pucker = Sosobanya
+tool.liquify.choice.bloat = Kokomosa
+tool.liquify.choice.push_left = Sutumelletsa ka ho Le Letšehali
+tool.liquify.history.liquify = Liquify
+
+tool.puppet_warp.name = Ho Sotha ka Lipini
+tool.puppet_warp.description = Tobetsa ho tlama mokhahlelo lintlheng tse 'maloa ka lipini, ebe u hula e le 'ngoe: letlooeng le kobeha ho potoloha lipini, ka ho tiea kapa ka ho lokoloha ho latela khetho ea Ho Tiea. Ho tiisa ho sebelisa phetoho.
+tool.puppet_warp.option.stiffness = Ho Tiea
+tool.puppet_warp.history.puppet_warp = Ho Sotha ka Lipini
+
+tool.vanishing_point.name = Ntlha ea ho Nyamela
+tool.vanishing_point.description = Hula ho etsa bokaholimo bo bataletseng holim'a ntho e nang le ponahalo ea botebo, ebe u fetola mokhoa hore e be Kopitsa 'me u pente: lipiksele tse kopilitsoeng li latela bokaholimo boo, li ntse li fokotseha ha sebaka se eketseha.
+tool.vanishing_point.choice.edit_plane = Hlophisa Bokaholimo bo Bataletseng
+tool.vanishing_point.choice.clone = Kopitsa
+tool.vanishing_point.history.vanishing_point = Ntlha ea ho Nyamela

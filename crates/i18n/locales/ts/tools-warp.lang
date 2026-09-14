@@ -1,0 +1,24 @@
+# Switirhisiwa swo gombonyokisa: Liquify, Puppet Warp ni Vanishing Point.
+
+tool.liquify.name = Gombonyokisa xifaniso
+tool.liquify.description = Susumeta, rhendzevutisa, khwanyanisa kumbe kukumuxa tipikseli ehansi ka burachi leyikulu—nhlawulo wa mode wu hlawula leswi endliwaka. Ku gombonyokisa ku hlengeletana eka nete kutani ku tirhisiwa eka leyara loko ku tiyisisiwa.
+tool.liquify.option.tool = Xitirhisiwa
+tool.liquify.choice.forward_warp = Gombonyokisa ku ya mahlweni
+tool.liquify.choice.reconstruct = Aka nakambe
+tool.liquify.choice.twirl_cw = Rhendzevutisa hi tlhelo ra wachi
+tool.liquify.choice.twirl_ccw = Rhendzevutisa ku hambana ni wachi
+tool.liquify.choice.pucker = Khwanyanisa
+tool.liquify.choice.bloat = Kukumuxa
+tool.liquify.choice.push_left = Susumeta eximatsini
+tool.liquify.history.liquify = Gombonyokisa xifaniso
+
+tool.puppet_warp.name = Gombonyokisa hi tiphini
+tool.puppet_warp.description = Tshikilela ku boha leyara etindhawini ti nga ri tingani, kutani u koka yin'wana: nete yi gombonyoka yi rhendzela tiphini, yi tiya kumbe yi olova hi ku ya hi nhlawulo wa Ku tiya. Ku tiyisisa swa swi tirhisa.
+tool.puppet_warp.option.stiffness = Ku tiya
+tool.puppet_warp.history.puppet_warp = Gombonyokisa hi tiphini
+
+tool.vanishing_point.name = Ndhawu yo nyamalala
+tool.vanishing_point.description = Koka u endla pulani ehenhla ka xin'wana lexi nga ni vonelo ra mpfhuka, kutani u cinca mode yi va Clone u penda: tipikseli leti kopiyiweke ti landzela pulani, ti ri karhi ti hunguteka loko mpfhuka wu engeteleka.
+tool.vanishing_point.choice.edit_plane = Hlela pulani
+tool.vanishing_point.choice.clone = Kopa
+tool.vanishing_point.history.vanishing_point = Ndhawu yo nyamalala

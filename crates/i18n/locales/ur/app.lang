@@ -1,0 +1,37 @@
+# ایپ کے عمومی پیغامات
+app.filter_gallery.title = فلٹر گیلری
+app.filter_gallery.stack = ڈھیر (نیچے سے اوپر لاگو ہوتا ہے)
+app.filter_gallery.no_settings = اس فلٹر کی کوئی ترتیبات نہیں۔
+app.fonts.not_open_licensed = کھلا لائسنس نہیں · {substitute} اس کی پیمائش سے میل کھاتا ہے
+app.fonts.missing_substituted = غائب · متن متبادل فونٹ میں لگایا جا رہا ہے
+app.fonts.not_in_catalogue = {family} کھلے فونٹ کی فہرست میں نہیں
+app.fonts.no_faces = {family} کے لیے ڈاؤن لوڈ ہونے والا کوئی طرز نہیں
+app.fonts.empty_response = خالی جواب
+app.update.unreadable_response = جواب پڑھا نہیں جا سکا: {error}
+app.update.no_temp_dir = ڈاؤن لوڈ کے لیے کوئی عارضی ڈائریکٹری نہیں
+app.update.asset_has_path = ریلیز میں اثاثے کا نام راستے کے ساتھ دیا گیا ہے
+app.update.too_big = ڈاؤن لوڈ ریلیز میں بتائے گئے سائز سے بڑا ہے
+app.update.stopped_at = ڈاؤن لوڈ {total} بائٹس میں سے {got} پر رک گیا
+app.update.hash_mismatch = ڈاؤن لوڈ کا ہیش {want} کے بجائے {got} ہے
+app.update.not_in_bundle = یہ نقل کسی ایپلیکیشن بنڈل کے اندر نہیں
+app.update.no_parent_dir = ایپلیکیشن بنڈل کی کوئی اصل ڈائریکٹری نہیں
+app.update.cannot_write = {dir} میں لکھا نہیں جا سکتا
+app.update.cannot_move_aside = {app} کو ایک طرف منتقل نہیں کیا جا سکتا
+app.update.cannot_move_in = نیا بنڈل اپنی جگہ منتقل نہیں کیا جا سکتا
+app.update.cannot_run_ditto = /usr/bin/ditto نہیں چلایا جا سکتا
+app.update.unpack_failed = ڈاؤن لوڈ کھولا نہیں جا سکا: {error}
+app.update.no_app_in_download = ڈاؤن لوڈ میں Schist.app موجود نہیں
+app.update.cannot_run_codesign = /usr/bin/codesign نہیں چلایا جا سکتا
+app.update.signature_invalid = ڈاؤن لوڈ کے دستخط کی تصدیق نہیں ہوئی: {error}
+app.update.download_unsigned = یہ نقل دستخط شدہ ہے مگر ڈاؤن لوڈ نہیں
+app.update.different_developer = ڈاؤن لوڈ پر کسی دوسرے ڈویلپر کے دستخط ہیں
+app.update.cannot_relaunch = دوبارہ چلانے والا شروع نہیں کیا جا سکتا
+app.update.not_installed_copy = یہ نقل انسٹالر نے یہاں نہیں رکھی
+app.update.cannot_start_installer = انسٹالر شروع نہیں کیا جا سکتا
+app.update.platform_unsupported = اس پلیٹ فارم پر اپ ڈیٹس اسی طرح نصب ہوتی ہیں جس طرح Schist نصب ہوا تھا
+app.vulkan.no_loader = schist: اس نظام پر Vulkan لوڈر نہیں، اس لیے تصویر بنانا ممکن نہیں۔\n\nSchist، Vulkan کے ذریعے رینڈر کرتا ہے، اور `libvulkan.so.1` نصب نہیں۔\nلوڈر اور ڈرائیور دونوں درکار ہیں:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: اس نشست کے لیے مقرر کردہ Vulkan ڈرائیور موجود نہیں۔\n\n{var} مقرر ہے، اور اسے مقرر کرنا لوڈر کی ڈرائیور تلاش میں اضافہ کرنے کے بجائے اسے *بدل دیتا* ہے۔ چنانچہ یہ غیر موجود فائلیں ڈرائیوروں کی مکمل فہرست ہیں، اور اس نشست کے ہر Vulkan پروگرام کو کوئی ڈرائیور نظر نہیں آتا، خواہ کتنے ہی نصب ہوں:\n\n{missing}\n    {var}={value}\n\nاسے کسی موجود manifest کی طرف کریں — نصب ڈرائیور اپنے manifest، /usr/share/vulkan/icd.d میں رکھتے ہیں — یا اسے ہٹا کر لوڈر کو خود تلاش کرنے دیں۔\nاگر نشست اسے کسی config فائل (Hyprland کا `env =`، systemd environment.d drop-in، یا shell profile) سے مقرر کرتی ہے تو وہیں تبدیلی کریں؛ پہلے سے چلتی چیزوں تک تبدیلی پہنچانے کے لیے نیا لاگ ان درکار ہے۔\n
+app.vulkan.override_note = \n{var} کو {value} پر مقرر کیا گیا ہے، جو لوڈر کی اپنی تلاش کو بدل دیتا ہے: اگر ان manifests میں سے کوئی اس مشین کے لیے نہیں تو اسے ہٹانا پہلی کوشش ہونی چاہیے۔\n
+app.vulkan.no_driver = schist: کوئی Vulkan ڈرائیور نصب نہیں، اس لیے تصویر بنانا ممکن نہیں۔\n\nSchist، Vulkan کے ذریعے رینڈر کرتا ہے۔ لوڈر نصب ہے مگر کسی ڈرائیور کی اطلاع نہیں دیتا — تلاش کی دونوں جگہوں میں کسی نے ڈرائیور درج نہیں کیا:\n\n{dirs}\n\nلوڈر ڈرائیوروں سے الگ فراہم ہوتا ہے، اس لیے عموماً صرف ایک پیکیج غائب ہوتا ہے۔\n\nاس مشین کے GPU کا ڈرائیور نصب کریں:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA کے ملکیتی ڈرائیور میں اپنا ڈرائیور شامل ہے (Arch پر `nvidia-utils`، Debian پر `nvidia-driver`)۔ مجازی مشین یا ایسی جگہ جہاں GPU ڈرائیور نصب نہ ہو سکے، سافٹ ویئر rasteriser کام کرتا ہے: Arch پر `vulkan-swrast`، دیگر نظاموں پر `mesa-vulkan-drivers` کا حصہ۔ یہ سست ہے مگر شروع ہو جاتا ہے۔\n{overridden}
+app.vulkan.no_device = schist: Vulkan ڈرائیور نصب ہے مگر رینڈرنگ کے لیے کوئی آلہ پیش نہیں کرتا۔\n\nممکن ہے ڈرائیور اس GPU کو نہ سنبھالتا ہو، یا اس تک رسائی نہ پا سکے — SSH یا کنٹینر کے اندر /dev/dri عموماً غائب ہوتا ہے۔ `vulkaninfo --summary` بتاتا ہے کہ لوڈر کو کیا نظر آتا ہے۔\n\nاگر اس مشین میں GPU نہیں تو سافٹ ویئر rasteriser اس کے بغیر رینڈر کرتا ہے: Arch پر `vulkan-swrast`، Debian اور Fedora پر `mesa-vulkan-drivers` کا حصہ۔\n
+app.vulkan.skip_hint = Schist کو پھر بھی شروع کرنے اور اسے اپنے انداز میں ناکام ہونے دینے کے لیے {var}=1 مقرر کریں۔

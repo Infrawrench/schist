@@ -1,0 +1,43 @@
+tool.pen.name = Pero
+tool.pen.description = Vytvorte cestu: kliknutím pridajte rohový bod, potiahnutím z neho vytiahnite úchyty krivky a kliknutím na prvý bod cestu uzavrite. Potvrdením sa cesta zmení na vrstvu tvaru.
+tool.pen.option.rubber_band = Pružný pás
+tool.pen.history.fill = Výplň cesty
+tool.pen.default_path_name = Cesta {n}
+tool.pen.freeform.name = Voľné pero
+tool.pen.freeform.description = Nakreslite voľným ťahom čiaru a tá sa prispôsobí ceste s presnosťou určenou voľbou Prispôsobenie.
+tool.pen.freeform.option.fit = Prispôsobenie
+tool.pen.curvature.name = Zakrivené pero
+tool.pen.curvature.description = Klikaním vytvorte rad bodov a cesta sa cez ne plynulo zakriví.
+
+tool.path_select.name = Výber cesty
+tool.path_select.description = Kliknutím vyberte cestu a potiahnutím presuňte celú cestu.
+tool.direct_select.name = Priamy výber
+tool.direct_select.description = Potiahnutím jednotlivého kotviaceho bodu alebo jeho úchytov zmeníte tvar cesty v jeho okolí.
+
+tool.shape.history.layer = Vrstva {name}
+tool.shape.rect.name = Nástroj Obdĺžnik
+tool.shape.rect.label = Obdĺžnik
+tool.shape.rect.description = Potiahnutím vytvorte obdĺžnikovú vrstvu tvaru vo farbe popredia; zostáva vektorová a pri zmene veľkosti sa znova rasterizuje.
+tool.shape.ellipse.name = Nástroj Elipsa
+tool.shape.ellipse.label = Elipsa
+tool.shape.ellipse.description = Potiahnutím vytvorte eliptickú vrstvu tvaru vo farbe popredia.
+tool.shape.line.name = Nástroj Čiara
+tool.shape.line.label = Čiara
+tool.shape.line.description = Potiahnutím vytvorte vrstvu tvaru s rovnou čiarou vo farbe popredia.
+tool.shape.line.option.weight = Hrúbka
+tool.shape.line.option.arrow_start = Začiatok
+tool.shape.line.option.arrow_end = Koniec
+tool.shape.polygon.name = Nástroj Mnohouholník
+tool.shape.polygon.label = Mnohouholník
+tool.shape.polygon.description = Potiahnutím vytvorte vrstvu tvaru s pravidelným mnohouholníkom vo farbe popredia; počet strán určujú možnosti.
+tool.shape.polygon.option.sides = Strany
+
+tool.shape.custom.name = Vlastný tvar
+tool.shape.custom.label = Vlastný tvar
+tool.shape.custom.description = Potiahnutím vytvorte jeden zo vstavaných predvolených tvarov vybratý voľbou Tvar.
+tool.shape.custom.choice.heart = Srdce
+tool.shape.custom.choice.star = Hviezda
+tool.shape.custom.choice.arrow = Šípka
+tool.shape.custom.choice.lightning = Blesk
+tool.shape.custom.choice.cross = Kríž
+tool.shape.custom.choice.speech_bubble = Rečová bublina

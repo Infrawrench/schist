@@ -1,0 +1,27 @@
+# Trasfurmazione libera, trasfurmazione di a selezzione è ritagliu.
+
+tool.transform.name = Trasfurmazione libera
+tool.transform.description = Trasfurmazione libera. Attivendula, si apre una casella di trasfurmazione ingiru à u stratu attivu: trascinate un angulu per ridimensionà, trascinate fora d'un angulu per girà, o trascinate un bordu per inclinà. Nunda hè scrittu finch'ella ùn hè cunfirmata (Enter), è annullendu (Escape) u stratu hè rimessu cum'ellu era.
+tool.transform.option.interpolation = Interpulazione
+tool.transform.history.transform = Trasfurmazione libera
+tool.transform.history.image_size = Dimensione di a maghjina
+tool.transform.history.canvas_size = Dimensione di a tela
+
+tool.transform.selection.name = Trasfurmà a selezzione
+tool.transform.selection.description = Trasfurmà a selezzione: a listessa casella, ma sposta u cuntornu di a selezzione invece di i pixel ch'ella cuntene. Cunfirmate o annullate per compie.
+tool.transform.selection.history.transform = Trasfurmà a selezzione
+
+tool.transform.resample.nearest_neighbor = Vicinu u più prossimu
+tool.transform.resample.bilinear = Bilineare
+tool.transform.resample.bicubic = Bicubicu
+
+tool.crop.name = Ritaglià
+tool.crop.description = Trascinate per definisce a zona da tene è aghjustate e so maniglie; cunfirmendu (Enter), u ducumentu hè ritagliatu à sta zona, annullendu (Escape), ferma cum'ellu hè.
+tool.crop.option.ratio = Prupurzione
+tool.crop.option.delete_cropped = Sguassà i pixel ritagliati
+tool.crop.choice.unconstrained = Senza vinculu
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Ritaglià

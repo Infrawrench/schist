@@ -1,0 +1,22 @@
+tool.type.name = Tekst
+tool.type.description = Klikk for å byrja på eit tekstlag der, eller klikk på eit eksisterande tekstlag for å redigera det. Medan laget er ope, tek verktøyet imot ubehandla tastetrykk, så du kan senda teikn som tasteinndata. Når du stadfestar, vert laget teikna opp og redigeringa lukka.
+
+tool.type.option.align = Justering
+tool.type.option.leading = Linjeavstand
+tool.type.option.tracking = Teiknavstand
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligaturar
+tool.type.option.discretionary_ligatures = Valfrie ligaturar
+tool.type.option.small_caps = Kapitélar
+tool.type.option.on_path = På aktiv bane
+tool.type.option.path_offset = Forskyving på bane
+
+tool.type.choice.regular = Vanleg
+tool.type.choice.bold = Halvfeit
+tool.type.choice.italic = Kursiv
+tool.type.choice.bold_italic = Halvfeit kursiv
+
+tool.type.history.new_layer = Nytt tekstlag
+tool.type.history.edit = Rediger tekst
+tool.type.history.discard = Forkast tekst
+tool.type.history.discard_empty = Forkast tom tekst

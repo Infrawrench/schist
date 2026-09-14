@@ -1,0 +1,31 @@
+# Панел за вештачку интелигенцију и агентска позадина.
+ai.status.panel_shown = Панел за вештачку интелигенцију је приказан
+ai.status.panel_hidden = Панел за вештачку интелигенцију је сакривен — Приказ ▸ Панел за вештачку интелигенцију ({shortcut}) га поново приказује
+ai.status.tool = Вештачка интелигенција: {name}
+
+ai.info.connected = {backend} је повезан
+ai.info.now_in_gallery = Сада сте у галерији.
+ai.info.now_in_editor = Сада сте у уређивачу.
+ai.tool.shell_command = команда љуске
+
+ai.error.cli_missing = {backend} CLI („{binary}“) није на путањи PATH. Прво га инсталирајте и пријавите се.
+ai.error.endpoint_failed = покретање MCP крајње тачке није успело: {error}
+ai.error.binding_endpoint = повезивање MCP крајње тачке
+ai.error.spawning_endpoint_thread = покретање нити MCP крајње тачке
+ai.error.runtime_failed = покретање окружења агента није успело: {error}
+ai.error.worker_failed = покретање извршиоца {backend} није успело: {error}
+ai.error.did_not_start = {backend} се није покренуо: {error}
+ai.error.switch_model_failed = промена модела није успела: {error}
+ai.error.send_failed = слање упита није успело: {error}
+ai.error.interrupt_failed = прекидање није успело: {error}
+ai.error.locating_binary = проналажење извршне датотеке Schist
+ai.error.starting_app_server = покретање Codex сервера апликације
+ai.error.attaching_app_server = повезивање са Codex сервером апликације
+ai.error.initializing_app_server = иницијализација Codex сервера апликације
+ai.error.resuming_thread = настављање Codex нити
+ai.error.starting_thread = покретање Codex нити
+
+ai.model.opus_detail = Најспособнија класа
+ai.model.sonnet_detail = Ефикасан за уобичајене задатке
+ai.model.haiku_detail = Најбржи за кратке одговоре
+ai.model.codex_catalog = Codex каталог

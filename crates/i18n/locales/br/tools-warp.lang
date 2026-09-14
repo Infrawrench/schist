@@ -1,0 +1,23 @@
+# Binvioù distummañ: Liquify, Distummañ margodenn ha Poent tec'h.
+tool.liquify.name = Lakaat da zour
+tool.liquify.description = Bountañ, treiñ en ur wirenn, strishaat pe c'hwezañ ar pikselioù dindan ur broust bras — an dibarzh mod a zibab petra ober. An distummadur a emsamm en ur rouedad hag a vez arloet ouzh ar gwiskad pa gadarnait.
+tool.liquify.option.tool = Benveg
+tool.liquify.choice.forward_warp = Distummañ war-raok
+tool.liquify.choice.reconstruct = Adsaviñ
+tool.liquify.choice.twirl_cw = Troellañ gant roud ar montre
+tool.liquify.choice.twirl_ccw = Troellañ a-enep roud ar montre
+tool.liquify.choice.pucker = Strishaat
+tool.liquify.choice.bloat = C'hwezañ
+tool.liquify.choice.push_left = Bountañ a-gleiz
+tool.liquify.history.liquify = Lakaat da zour
+
+tool.puppet_warp.name = Distummañ margodenn
+tool.puppet_warp.description = Klikit evit spilhañ ar gwiskad e meur a boent, ha riklit unan anezho: ar rouedad a bleg tro-dro d'ar spilhadoù, gant kaleter pe flourder hervez an dibarzh Kaleter. Kadarnaat a arlo an distummadur.
+tool.puppet_warp.option.stiffness = Kaleter
+tool.puppet_warp.history.puppet_warp = Distummañ margodenn
+
+tool.vanishing_point.name = Poent tec'h
+tool.vanishing_point.description = Riklit evit tresañ ur blaenenn war un dra ennañ ur sell diarsell, neuze cheñchit ar mod da Glonañ ha livet: ar pikselioù eilet a heuilh ar blaenenn hag a vihana gant ar pellder.
+tool.vanishing_point.choice.edit_plane = Embann ar blaenenn
+tool.vanishing_point.choice.clone = Klonañ
+tool.vanishing_point.history.vanishing_point = Poent tec'h

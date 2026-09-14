@@ -1,0 +1,24 @@
+tool.artboard.name = Монтаж өлкәсе
+tool.artboard.description = Аерым экспортлана торган, исемле киндер өлкәсен сызу өчен сөйрәгез. Булган өлкәнең эченнән сөйрәсәгез, ул күчерелә.
+tool.artboard.default_name = Монтаж өлкәсе {n}
+
+tool.slice.name = Кисем
+tool.slice.description = Аерым рәсем итеп экспортлана торган, исемле турыпочмаклы киндер кисемен сызу өчен сөйрәгез. Булган кисемнең эченнән сөйрәсәгез, ул күчерелә.
+tool.slice.default_name = Кисем {n}
+
+tool.frame.name = Кыса
+tool.frame.description = Эченә урнаштырылган һәрнәрсәне битлекли торган турыпочмаклы яки эллипс рәвешендәге катлам-кыса сызу өчен сөйрәгез.
+tool.frame.default_name = Кыса {n}
+tool.frame.choice.rectangle = Турыпочмаклык
+tool.frame.choice.ellipse = Эллипс
+tool.frame.history.frame = Кыса
+
+tool.note.name = Искәрмә
+tool.note.description = Искәрмәне беркетү өчен киндернең буш урынына чиртегез; аңа мөхәррир халәтендәге автор һәм төс билгеләнә. Булган билгегә чиртсәгез, ул «Искәрмәләр» панелендә сайлана.
+tool.note.history.place = Искәрмә урнаштыру
+tool.note.history.move = Искәрмәне күчерү
+tool.note.history.delete = Искәрмәне бетерү
+
+tool.count.name = Санагыч
+tool.count.description = Киндергә номерлы санау билгеләре кую өчен чиртегез; булган билгегә чиртсәгез, ул бетерелә.
+tool.count.default_name = Санагыч {n}

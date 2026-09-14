@@ -1,0 +1,26 @@
+# Testu
+tool.type.name = Testu
+tool.type.description = Incarca pro cumintzare un'istratu de testu in cue, o incarca unu chi esistit giai pro ddu modificare. Cando est abertu, s'aina retzit diretamente is tastos (manda is caràteres comente input de su tecladu), e cunfirmende su testu est renderizadu in s'istratu e sa modìfica est serrada.
+
+# Barra de optziones
+tool.type.option.align = Alliniamentu
+tool.type.option.leading = Interlìnia
+tool.type.option.tracking = Ispatzidadura
+tool.type.option.kerning = Crenadura
+tool.type.option.ligatures = Ligaduras
+tool.type.option.discretionary_ligatures = Ligaduras facultativas
+tool.type.option.small_caps = Maiusculetas
+tool.type.option.on_path = In su percursu ativu
+tool.type.option.path_offset = Isfàsamentu de su percursu
+
+# Istile
+tool.type.choice.regular = Normale
+tool.type.choice.bold = Grassetu
+tool.type.choice.italic = Corsivu
+tool.type.choice.bold_italic = Grassetu corsivu
+
+# Cronologia
+tool.type.history.new_layer = Istratu de testu nou
+tool.type.history.edit = Modìfica su testu
+tool.type.history.discard = Iscarta su testu
+tool.type.history.discard_empty = Iscarta su testu bòidu

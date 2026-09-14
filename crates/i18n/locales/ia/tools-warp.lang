@@ -1,0 +1,24 @@
+# Instrumentos de deformation: Liquefacer, Deformation a marionetta e Puncto de fuga.
+
+tool.liquify.name = Liquefacer
+tool.liquify.description = Pulsa, rola, contrahe o infla le pixels sub un grande pincel — le option de modo determina le action. Le deformation se accumula in un reticulo e es applicate al strato al confirmar.
+tool.liquify.option.tool = Instrumento
+tool.liquify.choice.forward_warp = Deformation avante
+tool.liquify.choice.reconstruct = Reconstruer
+tool.liquify.choice.twirl_cw = Rolar in senso horari
+tool.liquify.choice.twirl_ccw = Rolar in senso antihorari
+tool.liquify.choice.pucker = Contraher
+tool.liquify.choice.bloat = Inflar
+tool.liquify.choice.push_left = Pulsar a sinistra
+tool.liquify.history.liquify = Liquefacer
+
+tool.puppet_warp.name = Deformation a marionetta
+tool.puppet_warp.description = Clicca pro fixar le strato in alcun punctos, postea trahe un de illos: le reticulo se curva circum le punctos fixe, rigidemente o liberemente secundo le option Rigiditate. Confirmar applica le deformation.
+tool.puppet_warp.option.stiffness = Rigiditate
+tool.puppet_warp.history.puppet_warp = Deformation a marionetta
+
+tool.vanishing_point.name = Puncto de fuga
+tool.vanishing_point.description = Trahe pro definir un plano super un objecto con perspectiva, postea cambia le modo a Clonar e pinge: le pixels copiate seque le plano e se reduce con le distantia.
+tool.vanishing_point.choice.edit_plane = Modificar plano
+tool.vanishing_point.choice.clone = Clonar
+tool.vanishing_point.history.vanishing_point = Puncto de fuga

@@ -1,0 +1,83 @@
+# Pędzel
+tool.brush.name = Pędzel
+tool.brush.description = Maluje miękką kreskę kolorem narzędzia, używając rozmiaru, twardości i krycia pędzla ustawionych w edytorze.
+tool.brush.history.stroke = Pędzel
+
+# Ołówek
+tool.pencil.name = Ołówek
+tool.pencil.description = Maluje twardą kreskę bez wygładzania kolorem narzędzia.
+tool.pencil.history.stroke = Ołówek
+
+# Gumka
+tool.eraser.name = Gumka
+tool.eraser.description = Wymazuje wzdłuż kreski, przywracając przezroczystość warstwy.
+tool.eraser.history.stroke = Gumka
+
+# Stempel
+tool.clone.name = Stempel
+tool.clone.description = Stempel: kliknij z klawiszem Alt, aby ustawić punkt źródłowy, a następnie maluj pikselami kopiowanymi z takim samym przesunięciem.
+tool.clone.history.stroke = Stempel
+
+# Rozjaśnianie, Ściemnianie, Gąbka
+tool.dodge.name = Rozjaśnianie
+tool.dodge.description = Rozjaśnia piksele, przez które przechodzi kreska.
+tool.dodge.history.stroke = Rozjaśnianie
+tool.burn.name = Ściemnianie
+tool.burn.description = Przyciemnia piksele, przez które przechodzi kreska.
+tool.burn.history.stroke = Ściemnianie
+tool.sponge.name = Gąbka
+tool.sponge.description = Zwiększa lub zmniejsza nasycenie pikseli, przez które przechodzi kreska.
+tool.sponge.history.stroke = Gąbka
+
+# Rozmywanie, Wyostrzanie, Smużenie
+tool.blur.name = Rozmywanie
+tool.blur.description = Rozmywa piksele, przez które przechodzi kreska.
+tool.blur.history.stroke = Rozmywanie
+tool.sharpen.name = Wyostrzanie
+tool.sharpen.description = Wyostrza piksele, przez które przechodzi kreska.
+tool.sharpen.history.stroke = Wyostrzanie
+tool.smudge.name = Smużenie
+tool.smudge.description = Rozciąga kolor wzdłuż kreski, jak przy przesuwaniu mokrej farby.
+tool.smudge.history.stroke = Smużenie
+
+# Korygowanie
+tool.heal.name = Pędzel korygujący
+tool.heal.description = Pędzel korygujący: kliknij z klawiszem Alt, aby ustawić źródło, a następnie maluj; tekstura źródła zostanie połączona z kolorem i oświetleniem miejsca docelowego.
+tool.heal.history.stroke = Pędzel korygujący
+tool.spot_heal.name = Punktowy pędzel korygujący
+tool.spot_heal.description = Punktowy pędzel korygujący: zamaluj skazę, aby zastąpić ją teksturą pobraną z otoczenia — bez ustawiania punktu źródłowego.
+tool.spot_heal.history.stroke = Punktowy pędzel korygujący
+
+# Pędzel historii
+tool.history_brush.name = Pędzel historii
+tool.history_brush.description = Przywraca piksele z migawki historii dokumentu, cofając późniejsze zmiany kreska po kresce.
+tool.history_brush.history.stroke = Pędzel historii
+
+# Gumka tła
+tool.background_eraser.name = Gumka tła
+tool.background_eraser.description = Wymazuje kolor pobrany pod środkiem pędzla, pozostawiając odmienne piksele bez zmian, co pozwala oddzielić obiekt od tła.
+tool.background_eraser.history.stroke = Gumka tła
+
+# Gradient
+tool.gradient.name = Gradient
+tool.gradient.description = Przeciągnij, aby wypełnić warstwę — przez zaznaczenie, jeśli istnieje — gradientem liniowym od koloru narzędzia do koloru tła, biegnącym w kierunku przeciągnięcia.
+tool.gradient.radial.name = Gradient radialny
+tool.gradient.radial.description = Przeciągnij od środka na zewnątrz, aby wypełnić gradientem radialnym między kolorem narzędzia a kolorem tła.
+tool.gradient.option.gradient = Gradient
+tool.gradient.option.reverse = Odwróć
+tool.gradient.option.dither = Roztrząsanie
+tool.gradient.choice.foreground_to_background = Od koloru narzędzia do koloru tła
+tool.gradient.choice.foreground_to_transparent = Od koloru narzędzia do przezroczystości
+tool.gradient.choice.linear = Liniowy
+tool.gradient.choice.radial = Radialny
+tool.gradient.choice.angle = Kątowy
+tool.gradient.choice.reflected = Lustrzany
+tool.gradient.choice.diamond = Romboidalny
+tool.gradient.history.gradient = Gradient
+
+# Wiadro z farbą
+tool.bucket.name = Wiadro z farbą
+tool.bucket.description = Kliknij, aby zalać połączony obszar o podobnym kolorze pod wskaźnikiem kolorem narzędzia, zgodnie z tolerancją narzędzia.
+tool.bucket.option.contiguous = Ciągłe
+tool.bucket.option.all_layers = Wszystkie warstwy
+tool.bucket.history.fill = Wiadro z farbą

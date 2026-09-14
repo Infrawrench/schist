@@ -1,0 +1,36 @@
+# Dosiyɛ cogoyaw
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Kamera ka raw dosiyɛ
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} kɔdi yɔrɔ bɔli
+codec.msg.zero_sized = Pikisɛli si tɛ ja la
+codec.msg.assembling_document = Sɛbɛn labɛnni
+
+codec.raw.msg.decoding = Raw dosiyɛ kɔdi yɔrɔ bɔli
+codec.raw.msg.developing = Raw dosiyɛ labɛnni
+codec.raw.msg.finding_preview = Lajɛ fɔlɔ donnen ɲinini
+codec.raw.msg.decoding_preview = Lajɛ fɔlɔ donnen kɔdi yɔrɔ bɔli
+codec.raw.msg.decoder_panicked = Raw kɔdi bɔlan ma se nin dosiyɛ la: {what}
+
+codec.affinity.import_title = Affinity donni
+codec.affinity.flattened_preview_layer = Lajɛ fɔlɔ kaliki kelen kɛlen
+codec.affinity.msg.no_preview = Lajɛ fɔlɔ donnen min bɛ se ka kɛ, o tɛ yen. Affinity ka kaliki cogoya mako don a yɛrɛ ye; Schist bɛ lajɛ fɔlɔ kaliki kelen kɛlen min bɛ dosiyɛ kɔnɔ, o de don. O tɛ nin dosiyɛ la — a mara kokura Affinity la, walima a bɔ PSD na walasa kaliki bɛɛ ka don.
+
+codec.heif.msg.no_library = libheif tɛ sɔrɔ ({details}). HEIC dayɛlɛli mako bɛ libheif library la (Linux: libheif1 sigindi; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — HEVC kɔdi bɔlan tɛ se ka kɛ nin libheif build kɔnɔ (Debian/Ubuntu la, libheif-plugin-libde265 sigindi)
+codec.heif.msg.unknown_error = Fili min ma dɔn
+codec.heif.msg.initialising = libheif labɛnni
+codec.heif.msg.reading_container = HEIF container kalanni
+codec.heif.msg.finding_primary_image = Ja fɔlɔ ɲinini
+codec.heif.msg.reading_icc_profile = ICC kunnafoni kalanni
+codec.heif.msg.decoding_image = Ja kɔdi yɔrɔ bɔli
+codec.heif.msg.checksum_mismatch = {name} checksum ma bɛn: {expected} tun bɛ makɔnɔ, {got} de sɔrɔla
+codec.heif.msg.imageio_cannot_read = ImageIO ma se ka HEIF container kalan
+codec.heif.msg.container_empty = Ja si tɛ HEIF container kɔnɔ
+codec.heif.msg.imageio_cannot_decode = ImageIO ma se ka ja fɔlɔ kɔdi yɔrɔ bɔ

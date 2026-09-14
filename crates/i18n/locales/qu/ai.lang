@@ -1,0 +1,34 @@
+# Imayna kachkan
+ai.status.panel_shown = IA panel qhawachisqa
+ai.status.panel_hidden = IA panel pakasqa — Qhaway ▸ IA panel ({shortcut}) wakmanta apamunqa
+ai.status.tool = IA: {name}
+
+# Rimaypi willakuykuna
+ai.info.connected = {backend} tinkisqa
+ai.info.now_in_gallery = Kunanqa galeríapim kachkan.
+ai.info.now_in_editor = Kunanqa allichaqpim kachkan.
+ai.tool.shell_command = shell kamachiy
+
+# Pantaykuna
+ai.error.cli_missing = {backend} CLI (“{binary}”) mana PATH nisqapi kanchu. Ñawpaqta churay, chaymanta yaykuy.
+ai.error.endpoint_failed = MCP tukuna qallariynin mana atikunchu: {error}
+ai.error.binding_endpoint = MCP tukuna tinkichichkan
+ai.error.spawning_endpoint_thread = MCP tukuna qaytu qallariynin
+ai.error.runtime_failed = agente llamk'achiq qallariynin mana atikunchu: {error}
+ai.error.worker_failed = {backend} llamk'aq qallariynin mana atikunchu: {error}
+ai.error.did_not_start = {backend} mana qallarirqanchu: {error}
+ai.error.switch_model_failed = modelota tikray mana atikunchu: {error}
+ai.error.send_failed = mañakuyta apachiy mana atikunchu: {error}
+ai.error.interrupt_failed = sayachiy mana atikunchu: {error}
+ai.error.locating_binary = Schist binariota maskachkan
+ai.error.starting_app_server = Codex aplicación servidor qallariynin
+ai.error.attaching_app_server = Codex aplicación servidorwan tinkichichkan
+ai.error.initializing_app_server = Codex aplicación servidor wakichichkan
+ai.error.resuming_thread = Codex qaytuta qatiykachachkan
+ai.error.starting_thread = Codex qaytuta qallarichichkan
+
+# Modelo akllaqpa waqaychasqa catálogo
+ai.model.opus_detail = Aswan atiyniyuq pata
+ai.model.sonnet_detail = Sapa kuti ruwanakunapaq allin
+ai.model.haiku_detail = Utqay kutichiykunapaq aswan utqay
+ai.model.codex_catalog = Codex catálogo

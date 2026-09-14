@@ -1,0 +1,27 @@
+# Інструменти виділення.
+tool.select.mode.subtract = Відняти
+tool.select.mode.intersect = Перетин
+tool.marquee.rect.name = Прямокутна область
+tool.marquee.rect.description = Протягніть, щоб створити прямокутне виділення. Shift на початку додає до виділення, Alt віднімає, обидві клавіші створюють перетин; Shift під час перетягування утворює квадрат. Клацання без перетягування скасовує виділення.
+tool.marquee.ellipse.name = Еліптична область
+tool.marquee.ellipse.description = Протягніть, щоб створити еліптичне виділення; Shift і Alt поєднують його так само, як прямокутне.
+tool.lasso.name = Ласо
+tool.lasso.description = Намалюйте довільний контур; після завершення перетягування його кінці з'єднаються. Shift додає, Alt віднімає.
+tool.lasso.history.select = Виділення ласо
+tool.lasso.polygonal.name = Прямолінійне ласо
+tool.lasso.polygonal.description = Послідовно клацайте кути, щоб побудувати виділення з прямими краями, а для замикання клацніть біля першої точки.
+tool.lasso.polygonal.history.select = Виділення прямолінійним ласо
+tool.lasso.magnetic.name = Магнітне ласо
+tool.lasso.magnetic.description = Проведіть приблизно вздовж краю, і контур прив'яжеться до найсильнішого контрасту поблизу траєкторії.
+tool.lasso.magnetic.history.select = Виділення магнітним ласо
+tool.lasso.magnetic.option.frequency = Частота
+tool.wand.name = Чарівна паличка
+tool.wand.description = Клацніть, щоб вибрати суміжну ділянку подібного кольору під вказівником у межах допуску — того самого, який використовують «Розширити», «Подібні» та «Колірний діапазон».
+tool.wand.option.contiguous = Суміжні
+tool.wand.history.select = Чарівна паличка
+tool.quick_select.name = Швидке виділення
+tool.quick_select.description = Проведіть по ділянці, і виділення пошириться на подібні пікселі, яких торкнеться пензель.
+tool.quick_select.history.select = Швидке виділення
+tool.object_select.name = Виділення об'єкта
+tool.object_select.description = Окресліть рамкою об'єкт, і виділення прив'яжеться до знайденого всередині об'єкта.
+tool.object_select.history.select = Виділення об'єкта

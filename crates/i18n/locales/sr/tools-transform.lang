@@ -1,0 +1,26 @@
+# Слободно трансформисање, трансформисање избора и опсецање.
+tool.transform.name = Слободно трансформисање
+tool.transform.description = Слободно трансформисање. Активирањем се око активног слоја отвара оквир за трансформисање: превуците угао да промените размеру, превуците изван угла да ротирате, а ивицу да искосите. Ништа се не уписује док не потврдите (Enter), а отказивање (Escape) враћа слој у претходно стање.
+tool.transform.option.interpolation = Интерполација
+tool.transform.history.transform = Слободно трансформисање
+tool.transform.history.image_size = Величина слике
+tool.transform.history.canvas_size = Величина платна
+
+tool.transform.selection.name = Трансформиши избор
+tool.transform.selection.description = Трансформиши избор: исти оквир, али се помера контура избора уместо пиксела у њој. Завршите потврдом или отказивањем.
+tool.transform.selection.history.transform = Трансформиши избор
+
+tool.transform.resample.nearest_neighbor = Најближи сусед
+tool.transform.resample.bilinear = Билинеарно
+tool.transform.resample.bicubic = Бикубно
+
+tool.crop.name = Опсецање
+tool.crop.description = Превуците преко области коју желите да задржите и подесите њене ручице; потврда (Enter) опсеца документ на ту област, а отказивање (Escape) га оставља непромењеним.
+tool.crop.option.ratio = Однос
+tool.crop.option.delete_cropped = Избриши опсечене пикселе
+tool.crop.choice.unconstrained = Без ограничења
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Опсецање

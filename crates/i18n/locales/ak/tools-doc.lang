@@ -1,0 +1,29 @@
+# Artboard
+tool.artboard.name = Artboard
+tool.artboard.description = Twe artboard bi: canvas no fã a wɔato din na wobetumi ayi no afi mu wɔ ne nkutoo mu. Sɛ wotwe artboard bi a ɛwɔ hɔ dedaw no mu a, ɛtu no.
+tool.artboard.default_name = Artboard {n}
+
+# Slice
+tool.slice.name = Twitwa
+tool.slice.description = Twe fã bi a wɔde beyi afi mu; ɛyɛ canvas no ahinanan a wɔato din na woyi no sɛ mfonini soronko. Sɛ wotwe fã a ɛwɔ hɔ dedaw no mu a, ɛtu no.
+tool.slice.default_name = Twitwa {n}
+
+# Frame
+tool.frame.name = Frame
+tool.frame.description = Twe frame bi: layer a ɛyɛ ahinanan (anaa kurukuruwa tenten) a ɛkata biribiara a wɔde hyɛ mu no so.
+tool.frame.default_name = Frame {n}
+tool.frame.choice.rectangle = Ahinanan
+tool.frame.choice.ellipse = Kurukuruwa Tenten
+tool.frame.history.frame = Frame
+
+# Hyɛnsode
+tool.note.name = Hyɛnsode
+tool.note.description = Mia canvas fã a hwee nni so no na fa hyɛnsode si hɔ; wɔde ɔkyerɛwfo ne kɔla a ɛwɔ editor tebea no mu bɛhyɛ no agyirae. Mia pin a ɛwɔ hɔ dedaw no na paw no wɔ Hyɛnsode panel no mu.
+tool.note.history.place = Fa Hyɛnsode Si Hɔ
+tool.note.history.move = Tu Hyɛnsode
+tool.note.history.delete = Pepa Hyɛnsode
+
+# Kan
+tool.count.name = Kan
+tool.count.description = Mia na fa nɔma agyiraehyɛde gu canvas no so, na mia nea ɛwɔ hɔ dedaw no na yi no fi hɔ.
+tool.count.default_name = Kan {n}

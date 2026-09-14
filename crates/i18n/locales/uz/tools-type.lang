@@ -1,0 +1,24 @@
+# Matn vositasi.
+
+tool.type.name = Matn
+tool.type.description = Shu joyda matn qatlamini boshlash uchun bosing yoki mavjud matn qatlamini tahrirlash uchun uning ustiga bosing. Qatlam ochiq turganda vosita bevosita klaviatura tugmalarini qabul qiladi (belgilarni tugma kiritishi sifatida yuboring); tasdiqlash qatlamni tasvirga tushiradi va tahrirlashni yopadi.
+
+tool.type.option.align = Tekislash
+tool.type.option.leading = Satr oralig‘i
+tool.type.option.tracking = Harflar oralig‘i
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligaturalar
+tool.type.option.discretionary_ligatures = Ixtiyoriy ligaturalar
+tool.type.option.small_caps = Kichik kapitellar
+tool.type.option.on_path = Faol kontur bo‘ylab
+tool.type.option.path_offset = Kontur bo‘ylab siljish
+
+tool.type.choice.regular = Oddiy
+tool.type.choice.bold = Qalin
+tool.type.choice.italic = Kursiv
+tool.type.choice.bold_italic = Qalin kursiv
+
+tool.type.history.new_layer = Yangi matn qatlami
+tool.type.history.edit = Matnni tahrirlash
+tool.type.history.discard = Matndan voz kechish
+tool.type.history.discard_empty = Bo‘sh matndan voz kechish

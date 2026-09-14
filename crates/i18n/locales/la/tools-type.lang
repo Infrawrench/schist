@@ -1,0 +1,22 @@
+tool.type.name = Textus
+tool.type.description = Preme ut ibi stratum textus incipias, vel stratum iam exstans preme ut illud emendes. Dum apertum est, instrumentum claves directe accipit (characteres velut pulsus clavium mitte); confirmando stratum depingitur et emendatio clauditur.
+
+tool.type.option.align = Ordinatio
+tool.type.option.leading = Interlineatio
+tool.type.option.tracking = Spatiatio Litterarum
+tool.type.option.kerning = Spatiatio Parium
+tool.type.option.ligatures = Ligaturae
+tool.type.option.discretionary_ligatures = Ligaturae Facultativae
+tool.type.option.small_caps = Capitales Minutae
+tool.type.option.on_path = In Semita Activa
+tool.type.option.path_offset = Distantia a Semita
+
+tool.type.choice.regular = Ordinarius
+tool.type.choice.bold = Crassus
+tool.type.choice.italic = Cursivus
+tool.type.choice.bold_italic = Crassus Cursivus
+
+tool.type.history.new_layer = Novum Stratum Textus
+tool.type.history.edit = Textus Emendatus
+tool.type.history.discard = Textus Reiectus
+tool.type.history.discard_empty = Textus Vacuus Reiectus

@@ -1,0 +1,37 @@
+# Հավելվածի ընդհանուր միջերեսը, տառատեսակները, թարմացումները և Vulkan-ի ստուգումը
+app.filter_gallery.title = Զտիչների պատկերասրահ
+app.filter_gallery.stack = Դարսակ (կիրառվում է ներքևից վերև)
+app.filter_gallery.no_settings = Այս զտիչը կարգավորումներ չունի։
+app.fonts.not_open_licensed = բաց արտոնագիր չունի · {substitute}-ը համապատասխանում է դրա չափաչափերին
+app.fonts.missing_substituted = բացակայում է · տեքստը ցուցադրվում է փոխարինող տառատեսակով
+app.fonts.not_in_catalogue = {family}-ը բաց տառատեսակների կատալոգում չկա
+app.fonts.no_faces = {family}-ի համար ներբեռնելի գծատեսակներ չկան
+app.fonts.empty_response = դատարկ պատասխան
+app.update.unreadable_response = պատասխանը հնարավոր չէ կարդալ՝ {error}
+app.update.no_temp_dir = ներբեռնման համար ժամանակավոր պանակ չկա
+app.update.asset_has_path = թողարկման ռեսուրսի անվան մեջ ուղի կա
+app.update.too_big = ներբեռնումն ավելի մեծ է, քան նշված է թողարկման մեջ
+app.update.stopped_at = ներբեռնումը կանգ առավ {total} բայթից {got}-ի վրա
+app.update.hash_mismatch = ներբեռնման հեշը {got} է՝ սպասվող {want}-ի փոխարեն
+app.update.not_in_bundle = այս օրինակը հավելվածի փաթեթի ներսում չէ
+app.update.no_parent_dir = հավելվածի փաթեթը վերադաս պանակ չունի
+app.update.cannot_write = հնարավոր չէ գրել {dir}-ում
+app.update.cannot_move_aside = հնարավոր չէ {app}-ը մի կողմ տեղափոխել
+app.update.cannot_move_in = հնարավոր չէ նոր փաթեթը տեղափոխել իր տեղը
+app.update.cannot_run_ditto = հնարավոր չէ գործարկել /usr/bin/ditto-ն
+app.update.unpack_failed = չհաջողվեց բացել ներբեռնված փաթեթը՝ {error}
+app.update.no_app_in_download = ներբեռնման մեջ Schist.app չկա
+app.update.cannot_run_codesign = հնարավոր չէ գործարկել /usr/bin/codesign-ը
+app.update.signature_invalid = ներբեռնման ստորագրությունը չի հաստատվում՝ {error}
+app.update.download_unsigned = այս օրինակը ստորագրված է, իսկ ներբեռնումը՝ ոչ
+app.update.different_developer = ներբեռնումն ստորագրված է այլ մշակողի կողմից
+app.update.cannot_relaunch = հնարավոր չէ գործարկել վերագործարկիչը
+app.update.not_installed_copy = այս օրինակն այստեղ չի տեղադրվել տեղադրիչի միջոցով
+app.update.cannot_start_installer = հնարավոր չէ գործարկել տեղադրիչը
+app.update.platform_unsupported = այս հարթակում թարմացումները տեղադրվում են նույն եղանակով, որով տեղադրվել է Schist-ը
+app.vulkan.no_loader = schist. այս համակարգում Vulkan բեռնիչ չկա, ուստի պատկերելու միջոց չկա։\n\nSchist-ը պատկերում է Vulkan-ի միջոցով, իսկ `libvulkan.so.1`-ը տեղադրված չէ։\nԱնհրաժեշտ են և՛ բեռնիչը, և՛ դրայվերը․\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist. Vulkan դրայվերը, որին հղվում է այս աշխատաշրջանը, գոյություն չունի։\n\n{var}-ը սահմանված է, իսկ դրա սահմանումը *փոխարինում է* բեռնիչի կողմից\nդրայվերների որոնումը՝ դրան ավելանալու փոխարեն։ Ուստի գոյություն չունեցող\nայս ֆայլերը դրայվերների ամբողջ ցուցակն են, և այս աշխատաշրջանի Vulkan-ի\nբոլոր ծրագրերը ոչ մի դրայվեր չեն տեսնում՝ անկախ տեղադրվածների քանակից․\n\n{missing}\n    {var}={value}\n\nՆշեք գոյություն ունեցող նկարագրիչի ուղին․ տեղադրված դրայվերներն իրենցը դնում են\n/usr/share/vulkan/icd.d-ում, կամ հանեք փոփոխականի սահմանումը և թողեք, որ բեռնիչն ինքը գտնի։\nԵթե աշխատաշրջանն այն սահմանում է կազմաձևման ֆայլից (Hyprland-ի `env =`,\nsystemd environment.d ներդիր կամ կեղևի պրոֆիլ), փոփոխեք այն այնտեղ։\nԱրդեն աշխատող ծրագրերին փոփոխությունը հասնելու համար հարկավոր է նորից մուտք գործել։\n
+app.vulkan.override_note = \n{var}-ը սահմանված է որպես {value}, և դա փոխարինում է բեռնիչի սեփական\nորոնումը։ Եթե այդ նկարագրիչներից ոչ մեկը այս մեքենայի համար չէ, նախ փորձեք\nհանել փոփոխականի սահմանումը։\n
+app.vulkan.no_driver = schist. Vulkan դրայվեր տեղադրված չէ, ուստի պատկերելու միջոց չկա։\n\nSchist-ը պատկերում է Vulkan-ի միջոցով։ Բեռնիչը տեղադրված է, սակայն դրայվեր\nչի գտնում․ որոնվող երկու վայրերից ոչ մեկում դրայվեր գրանցված չէ․\n\n{dirs}\n\nԲեռնիչը մատակարարվում է դրայվերներից առանձին, ուստի սովորաբար պակասում է մեկ փաթեթ։\n\nՏեղադրեք այս մեքենայի գրաֆիկական պրոցեսորին համապատասխանողը․\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-ի սեփականատիրական դրայվերն ունի իր տարբերակը (`nvidia-utils`՝ Arch-ում,\n`nvidia-driver`՝ Debian-ում)։ Վիրտուալ մեքենայում կամ այնպիսի միջավայրում, որտեղ\nGPU դրայվեր հնարավոր չէ տեղադրել, աշխատում է ծրագրային ռաստերիզատորը՝\n`vulkan-swrast` Arch-ում և `mesa-vulkan-drivers`-ի մաս՝ այլ համակարգերում։ Այն\nդանդաղ է, բայց գործարկվում է։\n{overridden}
+app.vulkan.no_device = schist. Vulkan դրայվերը տեղադրված է, բայց պատկերելու սարք չի տրամադրում։\n\nՀնարավոր է՝ դրայվերը չի աջակցում այս GPU-ն կամ չի կարող հասնել դրան․ SSH-ով\nկամ բեռնարկղի ներսում հաճախ բացակայում է /dev/dri-ն։ `vulkaninfo --summary`-ն\nցույց է տալիս, թե ինչ է տեսնում բեռնիչը։\n\nԵթե այս մեքենան GPU չունի, ծրագրային ռաստերիզատորը կարող է պատկերել առանց դրա՝\n`vulkan-swrast` Arch-ում, իսկ Debian-ում և Fedora-ում՝ `mesa-vulkan-drivers`-ի մաս։\n
+app.vulkan.skip_hint = Schist-ն ամեն դեպքում գործարկելու և իր եղանակով ձախողվելու հնարավորություն տալու համար սահմանեք {var}=1։

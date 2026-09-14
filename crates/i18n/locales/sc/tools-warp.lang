@@ -1,0 +1,25 @@
+# Liquefa
+tool.liquify.name = Liquefa
+tool.liquify.description = Imbùcia, imboligat, istrìnghet o unfat is pixel suta de unu pinnellu mannu: s'optzione de modalidade seletzionat s'atzione. Sa deformadura si acumulat in una retza e est aplicada a s'istratu cando dda cunfirmas.
+tool.liquify.option.tool = Aina
+tool.liquify.choice.forward_warp = Deformatzione in antis
+tool.liquify.choice.reconstruct = Reconstrui
+tool.liquify.choice.twirl_cw = Imboliga in sensu oràriu
+tool.liquify.choice.twirl_ccw = Imboliga in sensu anti-oràriu
+tool.liquify.choice.pucker = Istringhe
+tool.liquify.choice.bloat = Unfa
+tool.liquify.choice.push_left = Imbùcia a manca
+tool.liquify.history.liquify = Liquefa
+
+# Deformatzione a marioneta
+tool.puppet_warp.name = Deformatzione a marioneta
+tool.puppet_warp.description = Incarca pro fissare s'istratu in unos cantos puntos, pustis tràghende·nde unu sa retza si plegat in giru a is puntos, cun prus o mancu rigididade segundu s'optzione Rigididade. Cunfirmende s'aplicat.
+tool.puppet_warp.option.stiffness = Rigididade
+tool.puppet_warp.history.puppet_warp = Deformatzione a marioneta
+
+# Puntu de fuga
+tool.vanishing_point.name = Puntu de fuga
+tool.vanishing_point.description = Tràghe unu pianu subra de carchi cosa cun perspetiva, pustis muda sa modalidade a Clona e pìntura: is pixel copiadu sighint su pianu e si minimizant cun sa distàntzia.
+tool.vanishing_point.choice.edit_plane = Modìfica su pianu
+tool.vanishing_point.choice.clone = Clona
+tool.vanishing_point.history.vanishing_point = Puntu de fuga

@@ -1,0 +1,43 @@
+# Filter Gallery
+app.filter_gallery.title = Ububiko bw'utuyunguruzo
+app.filter_gallery.stack = Urukurikirane (bishirwa kuva hasi bija hejuru)
+app.filter_gallery.no_settings = Aka kayunguruzo nta mategeko gafise.
+
+# Fonts
+app.fonts.not_open_licensed = nta ruhusha rwo gukoreshwa ku mugaragaro · {substitute} ihuye n'ingero zayo
+app.fonts.missing_substituted = irabuze · igisomwa kiriko gikoresha iyisubirira
+app.fonts.not_in_catalogue = {family} ntiri mu rutonde rw'amafonti akoreshwa ku mugaragaro
+app.fonts.no_faces = nta misusire ya {family} ishobora kuvomwa
+app.fonts.empty_response = inyishu irimwo ubusa
+
+# Self-updater
+app.update.unreadable_response = inyishu ntishobora gusomwa: {error}
+app.update.no_temp_dir = nta bubiko bw'imfatakibanza bwo kujamwo ivomwa
+app.update.asset_has_path = ivyasohowe vyise umutungo wabyo hakoreshejwe inzira
+app.update.too_big = ivomwa ni rinini kuruta uko ivyasohowe bivuga
+app.update.stopped_at = ivomwa ryahagaze kuri byte {got} kuri {total}
+app.update.hash_mismatch = hash y'ivomwa ni {got}, aho kuba {want}
+app.update.not_in_bundle = iyi kopi ntiri mu mugwi wa porogaramu
+app.update.no_parent_dir = umugwi wa porogaramu nta bubiko buwubumbatiye ufise
+app.update.cannot_write = ntibishoboka kwandika muri {dir}
+app.update.cannot_move_aside = ntibishoboka kwimura {app} ngo ive mu nzira
+app.update.cannot_move_in = ntibishoboka gushira umugwi mushasha mu kibanza
+app.update.cannot_run_ditto = ntibishoboka gukoresha /usr/bin/ditto
+app.update.unpack_failed = gupakurura ivomwa vyanse: {error}
+app.update.no_app_in_download = ivomwa nta Schist.app ririmo
+app.update.cannot_run_codesign = ntibishoboka gukoresha /usr/bin/codesign
+app.update.signature_invalid = umukono w'ivomwa ntiwemezwa: {error}
+app.update.download_unsigned = iyi kopi irafise umukono ariko ivomwa nta wo rifise
+app.update.different_developer = ivomwa ryashizweko umukono n'umuhinguzi wundi
+app.update.cannot_relaunch = ntibishoboka gutangura igisubira gufungura porogaramu
+app.update.not_installed_copy = iyi kopi ntiyashizwe ngaha n'igishiramwo
+app.update.cannot_start_installer = ntibishoboka gutangura igishiramwo
+app.update.platform_unsupported = kuri uru rubuga, ibishasha bishirwa nk'uko Schist yashizwe
+
+# Vulkan diagnostics
+app.vulkan.no_loader = schist: nta Vulkan loader iri kuri iyi sisitemu, rero nta co gushushanya hakoreshejwe.\n\nSchist ishushanya ikoresheje Vulkan, kandi `libvulkan.so.1` ntishizwemwo.\nLoader na driver vyompi birakenewe:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan driver iki kiringo cerekezako ntiriho.\n\n{var} yarashizweho, kandi kuyishiraho *bisubirira* ukurondera drivers kwa loader\naho kuvyongerako. Rero aya madosiye atariho ni yo rutonde rwose rwa drivers\n— kandi porogaramu yose ya Vulkan muri iki kiringo nta driver n'imwe ibona,\nn'aho hoba harashizwemwo nyinshi:\n\n{missing}\n    {var}={value}\n\nYerekeze kuri manifest iriho — drivers zashizwemwo zishira izazo muri\n/usr/share/vulkan/icd.d — canke uyikureho ureke loader yitorere izayo.\nIkiringo kibishiraho kivanye na dosiye y'imiterere (nk'iya Hyprland `env =`,\ndosiye environment.d ya systemd, canke umwirondoro wa shell) gitegerezwa\nguhindurirwa aho, kandi bisaba kwongera kwinjira kugira ihinduka rishikire\nibintu vyari bisanzwe biriko birakora.\n
+app.vulkan.override_note = \n{var} yashizwe kuri {value}, kandi ivyo bisubirira ukurondera kwa loader:\nnimba ata n'imwe muri izo manifest ijanye n'iyi mashini, kuyikuraho ni co\nca mbere co kugerageza.\n
+app.vulkan.no_driver = schist: nta Vulkan driver yashizwemwo, rero nta co gushushanyako.\n\nSchist ishushanya ikoresheje Vulkan. Loader irashizwemwo ariko ivuga ko ata\ndriver iriho — nta n'imwe yiyandikishije muri kimwe muri ibi bibanza bibiri bironderwamwo:\n\n{dirs}\n\nLoader itangwa ukwayo itandukanye na drivers, rero kenshi haba habuze package imwe gusa.\n\nShiramwo ijanye na GPU y'iyi mashini:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver ya NVIDIA yihariye izana iyayo (`nvidia-utils` kuri Arch,\n`nvidia-driver` kuri Debian). Muri mashini y'inyiganano, canke ahandi hose ata\nGPU driver yo gushiramwo, software rasteriser ni yo ikora:\n`vulkan-swrast` kuri Arch, iri muri `mesa-vulkan-drivers` ahandi. Irateba,\nariko iratangura.\n{overridden}
+app.vulkan.no_device = schist: Vulkan driver irashizwemwo ariko nta gikoresho itanga co gushushanyako.\n\nDriver ishobora kuba idakorana n'iyi GPU, canke idashobora kuyishikira —\nbiciye kuri SSH, canke muri container, akenshi /dev/dri ni co kiba kibuze.\n`vulkaninfo --summary` yerekana ivyo loader ibona.\n\nNimba iyi mashini ata GPU ifise, software rasteriser irashushanya ata GPU\nikoresheje: `vulkan-swrast` kuri Arch, iri muri `mesa-vulkan-drivers`\nkuri Debian na Fedora.\n
+app.vulkan.skip_hint = Kugira utangure Schist uko biri kwose maze uyireke inanirwe mu buryo bwayo, shira {var}=1.

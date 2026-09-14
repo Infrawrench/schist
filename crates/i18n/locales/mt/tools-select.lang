@@ -1,0 +1,27 @@
+# Għodod tal-għażla.
+tool.select.mode.subtract = Naqqas
+tool.select.mode.intersect = Intersezzjoni
+tool.marquee.rect.name = Għażla Rettangolari
+tool.marquee.rect.description = Iddreggja biex toħloq għażla rettangolari. Shift fil-bidu tad-dreggjar iżid mal-għażla, alt inaqqas minnha, u t-tnejn flimkien joħolqu intersezzjoni; shift waqt id-dreggjar jagħmilha kwadra. Klikk mingħajr dreggjar tneħħi l-għażla.
+tool.marquee.ellipse.name = Għażla Ellittika
+tool.marquee.ellipse.description = Iddreggja biex toħloq għażla ellittika, bl-istess taħlit ta' shift/alt bħall-għażla rettangolari.
+tool.lasso.name = Lasso
+tool.lasso.description = Iddreggja kontorn b'id ħielsa; l-għażla tingħalaq bejn iż-żewġt itruf meta jintemm id-dreggjar. Shift iżid, alt inaqqas.
+tool.lasso.history.select = Għażla bil-Lasso
+tool.lasso.polygonal.name = Lasso Poligonali
+tool.lasso.polygonal.description = Ikklikkja rokna wara oħra biex tibni għażla bi truf dritti, u kklikkja qrib l-ewwel punt biex tagħlaqha.
+tool.lasso.polygonal.history.select = Lasso Poligonali
+tool.lasso.magnetic.name = Lasso Manjetiku
+tool.lasso.magnetic.description = Għaddi bejn wieħed u ieħor matul xifer u l-kontorn jeħel mal-aktar kuntrast qawwi qrib il-passaġġ.
+tool.lasso.magnetic.history.select = Lasso Manjetiku
+tool.lasso.magnetic.option.frequency = Frekwenza
+tool.wand.name = Bastun Maġiku
+tool.wand.description = Ikklikkja biex tagħżel iż-żona magħquda ta' kulur simili taħt il-werrej, fil-limitu tat-tolleranza — l-istess tolleranza li jużaw Kabbar, Simili u Firxa ta' Kuluri.
+tool.wand.option.contiguous = Kontigwa
+tool.wand.history.select = Bastun Maġiku
+tool.quick_select.name = Għażla Rapida
+tool.quick_select.description = Żebgħa fuq reġjun u l-għażla tikber tul il-pixels simili li jgħaddi fuqhom il-pinzell.
+tool.quick_select.history.select = Għażla Rapida
+tool.object_select.name = Għażla ta' Oġġett
+tool.object_select.description = Iddreggja kaxxa madwar oġġett u l-għażla teħel mal-oġġett li jinstab ġo fiha.
+tool.object_select.history.select = Għażla ta' Oġġett

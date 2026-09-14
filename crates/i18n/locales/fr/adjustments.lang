@@ -1,0 +1,20 @@
+# Calques de réglage et commandes Image ▸ Réglages : noms.
+adjustment.levels.name = Niveaux
+adjustment.curves.name = Courbes
+adjustment.hue_saturation.name = Teinte/Saturation
+adjustment.brightness_contrast.name = Luminosité/Contraste
+adjustment.black_white.name = Noir et blanc
+adjustment.solid_color.name = Couleur unie
+adjustment.gradient_fill.name = Remplissage en dégradé
+adjustment.pattern_fill.name = Remplissage avec motif
+adjustment.invert.name = Négatif
+adjustment.posterize.name = Isohélie
+adjustment.threshold.name = Seuil
+adjustment.color_balance.name = Balance des couleurs
+adjustment.vibrance.name = Vibrance
+adjustment.exposure.name = Exposition
+adjustment.photo_filter.name = Filtre photo
+adjustment.gradient_map.name = Courbe de transfert de dégradé
+adjustment.selective_color.name = Correction sélective
+adjustment.channel_mixer.name = Mélangeur de couches
+adjustment.other.name = Réglage

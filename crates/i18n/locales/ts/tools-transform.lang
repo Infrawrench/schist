@@ -1,0 +1,27 @@
+# Ku hundzuluxa hi ku ntshunxeka, ku hundzuluxa nhlawulo ni ku tsema.
+
+tool.transform.name = Hundzuluxa hi ku ntshunxeka
+tool.transform.description = Hundzuluxa hi ku ntshunxeka. Loko xi pfuriwa, ku humelela bokisi ro hundzuluxa leri rhendzeleke leyara leyi tirhaka: koka khumbi ku cinca sayizi, koka ehandle ka khumbi ku rhendzevutisa, kutani u koka tlhelo ku voyamisa. A ku tsariwi xo karhi ku kondza u tiyisisa (Enter), naswona ku khansela (Escape) ku tlherisela leyara laha a yi ri kona.
+tool.transform.option.interpolation = Ku pimanisa
+tool.transform.history.transform = Hundzuluxa hi ku ntshunxeka
+tool.transform.history.image_size = Sayizi ya xifaniso
+tool.transform.history.canvas_size = Sayizi ya khanivhasi
+
+tool.transform.selection.name = Hundzuluxa nhlawulo
+tool.transform.selection.description = Hundzuluxa nhlawulo: bokisi leri fanaka, kambe ri fambisa ndzilakana wa nhlawulo ematshan'wini ya tipikseli leti nga endzeni ka wona. Tiyisisa kumbe khansela ku heta.
+tool.transform.selection.history.transform = Hundzuluxa nhlawulo
+
+tool.transform.resample.nearest_neighbor = Muwakelani wa le kusuhi
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Tsema
+tool.crop.description = Koka u hlawula ndhawu leyi faneleke ku sala kutani u lulamisa swikhomo swa yona; ku tiyisisa (Enter) ku tsema dokhumente yi ringana na yona, ku khansela (Escape) ku yi siya yi nga cinciwanga.
+tool.crop.option.ratio = Mpimo
+tool.crop.option.delete_cropped = Susa tipikseli leti tsemiweke
+tool.crop.choice.unconstrained = Ku hava xipimelo
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Tsema

@@ -1,0 +1,36 @@
+# კოდეკების ფორმატები და იმპორტის შეტყობინებები
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name}-ის დეკოდირება
+codec.msg.zero_sized = გამოსახულება პიქსელებს არ შეიცავს
+codec.msg.assembling_document = დოკუმენტის აწყობა
+
+codec.raw.msg.decoding = დაუმუშავებელი ფაილის დეკოდირება
+codec.raw.msg.developing = დაუმუშავებელი ფაილის დამუშავება
+codec.raw.msg.finding_preview = ჩაშენებული წინასწარი ხედის ძიება
+codec.raw.msg.decoding_preview = ჩაშენებული წინასწარი ხედის დეკოდირება
+codec.raw.msg.decoder_panicked = ამ ფაილზე დაუმუშავებელი მონაცემების დეკოდერი ავარიულად დასრულდა: {what}
+
+codec.affinity.import_title = Affinity-ის იმპორტი
+codec.affinity.flattened_preview_layer = გაერთიანებული წინასწარი ხედი
+codec.affinity.msg.no_preview = გამოსაყენებელი ჩაშენებული წინასწარი ხედი არ არის. Affinity-ის ფენებიანი ფორმატი დახურულია; Schist-ს ფაილში ჩართული გაერთიანებული წინასწარი ხედი შემოაქვს. ამ ფაილში ასეთი ხედი არ არის — ხელახლა შეინახეთ Affinity-ში ან სრული ფენებიანი იმპორტისთვის PSD-ად გაიტანეთ.
+
+codec.heif.msg.no_library = libheif მიუწვდომელია ({details}). HEIC-ის გასახსნელად libheif ბიბლიოთეკაა საჭირო (Linux: დააყენეთ libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — libheif-ის ამ ანაწყობს შესაძლოა HEVC დეკოდერი აკლდეს (Debian/Ubuntu-ზე დააყენეთ libheif-plugin-libde265)
+codec.heif.msg.unknown_error = უცნობი შეცდომა
+codec.heif.msg.initialising = libheif-ის ინიციალიზაცია
+codec.heif.msg.reading_container = HEIF კონტეინერის წაკითხვა
+codec.heif.msg.finding_primary_image = ძირითადი გამოსახულების მოძებნა
+codec.heif.msg.reading_icc_profile = ICC პროფილის წაკითხვა
+codec.heif.msg.decoding_image = გამოსახულების დეკოდირება
+codec.heif.msg.checksum_mismatch = {name}-ის საკონტროლო ჯამი არ ემთხვევა: მოსალოდნელი იყო {expected}, მიღებულია {got}
+codec.heif.msg.imageio_cannot_read = ImageIO-მ HEIF კონტეინერი ვერ წაიკითხა
+codec.heif.msg.container_empty = HEIF კონტეინერი გამოსახულებას არ შეიცავს
+codec.heif.msg.imageio_cannot_decode = ImageIO-მ ძირითადი გამოსახულება ვერ დეკოდირა

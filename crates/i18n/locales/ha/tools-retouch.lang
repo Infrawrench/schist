@@ -1,0 +1,29 @@
+# Kayan aikin gyaran yanki: Faci, Matsarwa Mai Fahimtar Abun Ciki, Jan Ido da Gogewa ta Sihiri.
+
+# Faci
+tool.patch.name = Faci
+tool.patch.description = Ja layi kewaye da aibi, sannan ja zaɓin zuwa kan pixels masu kyau: za a dace da fasalin wurin da aibin. Yanayin Faci yana zaɓar wane ƙarshen biyun za ka ja.
+tool.patch.option.patch = Faci
+tool.patch.choice.source = Tushe
+tool.patch.choice.destination = Makoma
+tool.patch.history.patch = Faci
+
+# Matsarwa mai fahimtar abun ciki
+tool.content_aware_move.name = Matsarwa Mai Fahimtar Abun Ciki
+tool.content_aware_move.description = Ja abin da aka zaɓa zuwa wani wuri, sai a cika ramin da ya bari daga abubuwan kewaye. A yanayin Miƙawa, ana miƙa abin ne maimakon a matsar da shi.
+tool.content_aware_move.choice.move = Matsarwa
+tool.content_aware_move.choice.extend = Miƙawa
+tool.content_aware_move.history.move = Matsarwa Mai Fahimtar Abun Ciki
+
+# Jan ido
+tool.red_eye.name = Jan Ido
+tool.red_eye.description = Danna ɗalibin ido don cire jan hasken walƙiya daga cikinsa.
+tool.red_eye.option.pupil_size = Girman Ɗalibin Ido
+tool.red_eye.option.darken = Duhuntar
+tool.red_eye.history.red_eye = Jan Ido
+
+# Gogewa ta sihiri
+tool.magic_eraser.name = Gogewa ta Sihiri
+tool.magic_eraser.description = Danna don goge yankin mai kama da launin da ke ƙarƙashin manuni, gwargwadon haƙurin kayan aikin—ko yankin da yake haɗe da wurin dannawa, ko duk inda yake a shimfiɗar.
+tool.magic_eraser.option.contiguous = Mai Haɗuwa
+tool.magic_eraser.history.erase = Gogewa ta Sihiri

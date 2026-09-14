@@ -1,0 +1,23 @@
+# Алатка за текст.
+tool.type.name = Текст
+tool.type.description = Кликните да на том месту започнете текстуални слој или кликните на постојећи да га уредите. Док је отворена, алатка непосредно прима притиске тастера (шаљите знакове као унос с тастатуре), а потврда исцртава слој и затвара уређивање.
+
+tool.type.option.align = Поравнање
+tool.type.option.leading = Проред
+tool.type.option.tracking = Размак између знакова
+tool.type.option.kerning = Кернинг
+tool.type.option.ligatures = Лигатуре
+tool.type.option.discretionary_ligatures = Необавезне лигатуре
+tool.type.option.small_caps = Мала верзална слова
+tool.type.option.on_path = На активној путањи
+tool.type.option.path_offset = Одмак на путањи
+
+tool.type.choice.regular = Обичан
+tool.type.choice.bold = Подебљан
+tool.type.choice.italic = Курзив
+tool.type.choice.bold_italic = Подебљани курзив
+
+tool.type.history.new_layer = Нови текстуални слој
+tool.type.history.edit = Уреди текст
+tool.type.history.discard = Одбаци текст
+tool.type.history.discard_empty = Одбаци празан текст

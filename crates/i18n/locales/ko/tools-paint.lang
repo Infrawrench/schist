@@ -1,0 +1,85 @@
+# 페인팅 도구와 그레이디언트 및 페인트 통입니다.
+
+# 브러시
+tool.brush.name = 브러시
+tool.brush.description = 편집기의 브러시 크기, 경도, 불투명도 설정에 따라 전경색으로 가장자리가 부드러운 획을 칠합니다.
+tool.brush.history.stroke = 브러시
+
+# 연필
+tool.pencil.name = 연필
+tool.pencil.description = 전경색으로 가장자리가 단단하고 앤티 앨리어싱이 없는 획을 칠합니다.
+tool.pencil.history.stroke = 연필
+
+# 지우개
+tool.eraser.name = 지우개
+tool.eraser.description = 획을 따라 지워 레이어를 투명한 상태로 되돌립니다.
+tool.eraser.history.stroke = 지우개
+
+# 복제 도장
+tool.clone.name = 복제 도장
+tool.clone.description = Alt 키를 누른 채 클릭하여 소스 지점을 지정한 다음 칠하면 해당 오프셋에 맞춰 복사된 픽셀이 적용됩니다.
+tool.clone.history.stroke = 복제 도장
+
+# 닷지, 번, 스폰지
+tool.dodge.name = 닷지
+tool.dodge.description = 획이 지나가는 픽셀을 밝게 합니다.
+tool.dodge.history.stroke = 닷지
+tool.burn.name = 번
+tool.burn.description = 획이 지나가는 픽셀을 어둡게 합니다.
+tool.burn.history.stroke = 번
+tool.sponge.name = 스폰지
+tool.sponge.description = 획이 지나가는 픽셀의 채도를 높이거나 낮춥니다.
+tool.sponge.history.stroke = 스폰지
+
+# 흐림 효과, 선명 효과, 손가락
+tool.blur.name = 흐림 효과
+tool.blur.description = 획이 지나가는 픽셀을 흐리게 합니다.
+tool.blur.history.stroke = 흐림 효과
+tool.sharpen.name = 선명 효과
+tool.sharpen.description = 획이 지나가는 픽셀을 선명하게 합니다.
+tool.sharpen.history.stroke = 선명 효과
+tool.smudge.name = 손가락
+tool.smudge.description = 젖은 물감을 미는 것처럼 획을 따라 색상을 끌어갑니다.
+tool.smudge.history.stroke = 손가락
+
+# 복구
+tool.heal.name = 복구 브러시
+tool.heal.description = Alt 키를 누른 채 클릭하여 소스를 지정한 다음 칠합니다. 소스의 텍스처가 대상 영역 고유의 색상 및 조명과 혼합됩니다.
+tool.heal.history.stroke = 복구 브러시
+tool.spot_heal.name = 스팟 복구 브러시
+tool.spot_heal.description = 결점 위를 칠하면 주변에서 가져온 텍스처로 대체됩니다. 별도의 소스 지점을 지정할 필요가 없습니다.
+tool.spot_heal.history.stroke = 스팟 복구 브러시
+
+# 작업 내역 브러시
+tool.history_brush.name = 작업 내역 브러시
+tool.history_brush.description = 문서의 작업 내역 스냅샷에서 픽셀을 다시 칠해 이후 작업을 획 단위로 되돌립니다.
+tool.history_brush.history.stroke = 작업 내역 브러시
+
+# 배경 지우개
+tool.background_eraser.name = 배경 지우개
+tool.background_eraser.description = 피사체를 배경에서 분리할 수 있도록 브러시 중앙에서 추출한 색상은 지우고 다른 색상의 픽셀은 그대로 둡니다.
+tool.background_eraser.history.stroke = 배경 지우개
+
+# 그레이디언트
+tool.gradient.name = 그레이디언트
+tool.gradient.description = 드래그 방향을 따라 전경색에서 배경색으로 이어지는 선형 그레이디언트로 레이어를 채웁니다. 선택 영역이 있으면 그 안만 채웁니다.
+tool.gradient.radial.name = 방사형 그레이디언트
+tool.gradient.radial.description = 중심에서 바깥쪽으로 드래그하여 전경색과 배경색 사이의 방사형 그레이디언트로 채웁니다.
+tool.gradient.option.gradient = 그레이디언트
+tool.gradient.option.reverse = 반전
+tool.gradient.option.dither = 디더
+tool.gradient.choice.foreground_to_background = 전경색에서 배경색으로
+tool.gradient.choice.foreground_to_transparent = 전경색에서 투명으로
+tool.gradient.choice.linear = 선형
+tool.gradient.choice.radial = 방사형
+tool.gradient.choice.angle = 각도
+tool.gradient.choice.reflected = 반사
+tool.gradient.choice.diamond = 다이아몬드
+tool.gradient.history.gradient = 그레이디언트
+
+# 페인트 통
+tool.bucket.name = 페인트 통
+tool.bucket.description = 클릭하면 도구의 허용치 범위에서 포인터 아래와 색상이 비슷하고 서로 연결된 영역을 전경색으로 채웁니다.
+tool.bucket.option.contiguous = 인접
+tool.bucket.option.all_layers = 모든 레이어
+tool.bucket.history.fill = 페인트 통

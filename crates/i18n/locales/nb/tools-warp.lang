@@ -1,0 +1,27 @@
+# Forvrengningsverktøy: Gjør flytende, Marionettfordreining og Forsvinningspunkt.
+
+# Gjør flytende
+tool.liquify.name = Gjør flytende
+tool.liquify.description = Skyv, drei, trekk sammen eller blås opp bildepunkter under en stor pensel – modusalternativet bestemmer hva som skjer. Fordreiningen bygges opp i et nett og brukes på laget når du bekrefter.
+tool.liquify.option.tool = Verktøy
+tool.liquify.choice.forward_warp = Fordrei fremover
+tool.liquify.choice.reconstruct = Rekonstruer
+tool.liquify.choice.twirl_cw = Drei med klokken
+tool.liquify.choice.twirl_ccw = Drei mot klokken
+tool.liquify.choice.pucker = Trekk sammen
+tool.liquify.choice.bloat = Blås opp
+tool.liquify.choice.push_left = Skyv mot venstre
+tool.liquify.history.liquify = Gjør flytende
+
+# Marionettfordreining
+tool.puppet_warp.name = Marionettfordreining
+tool.puppet_warp.description = Klikk for å feste laget i noen punkter, og dra deretter i ett av dem. Nettet bøyes rundt festepunktene, stivt eller løst slik alternativet Stivhet angir. Bekreft for å bruke fordreiningen.
+tool.puppet_warp.option.stiffness = Stivhet
+tool.puppet_warp.history.puppet_warp = Marionettfordreining
+
+# Forsvinningspunkt
+tool.vanishing_point.name = Forsvinningspunkt
+tool.vanishing_point.description = Dra ut et plan over noe med perspektiv, bytt deretter modus til Klon og mal. De kopierte bildepunktene følger planet og blir mindre med avstanden.
+tool.vanishing_point.choice.edit_plane = Rediger plan
+tool.vanishing_point.choice.clone = Klon
+tool.vanishing_point.history.vanishing_point = Forsvinningspunkt

@@ -1,0 +1,39 @@
+app.filter_gallery.title = Filtergalerie
+app.filter_gallery.stack = Stapel (toegepas van oonder nao baove)
+app.filter_gallery.no_settings = Deze filter haet gein instèllinge.
+
+app.fonts.not_open_licensed = gein aope licentie · {substitute} haet dezelfde maote
+app.fonts.missing_substituted = óntbrik · teks weurt mit 'n vervangend booksjrif gezat
+app.fonts.not_in_catalogue = {family} steit neet in de aope booksjrifcatalogus
+app.fonts.no_faces = gein downloadbare booksjrifvarianten veur {family}
+app.fonts.empty_response = laeg antjwaord
+
+app.update.unreadable_response = ónlaesbaar antjwaord: {error}
+app.update.no_temp_dir = gein tiedelike map om nao te downloade
+app.update.asset_has_path = de oetgaaf gif zien pakket 'ne naam mit 'n paad
+app.update.too_big = de download is groeëter es de oetgaaf aangeuf
+app.update.stopped_at = de download sjtopde bie {got} van {total} bytes
+app.update.hash_mismatch = de hash van de download is {got} in plaats van {want}
+app.update.not_in_bundle = deze kopie steit neet in 'n toepassingsbundel
+app.update.no_parent_dir = de toepassingsbundel haet gein baoveligkende map
+app.update.cannot_write = kin neet nao {dir} sjrieve
+app.update.cannot_move_aside = kin {app} neet aan de kant zètte
+app.update.cannot_move_in = kin de nuuj bundel neet op zien plaats zètte
+app.update.cannot_run_ditto = kin /usr/bin/ditto neet oetveure
+app.update.unpack_failed = 't oetpakke van de download is misloek: {error}
+app.update.no_app_in_download = de download bevat gein Schist.app
+app.update.cannot_run_codesign = kin /usr/bin/codesign neet oetveure
+app.update.signature_invalid = de handjteikening van de download kós neet bevestig waere: {error}
+app.update.download_unsigned = deze kopie is oonderteikend en de download neet
+app.update.different_developer = de download is door 'ne angere óntwikkelaar oonderteikend
+app.update.cannot_relaunch = kin 't herstartprogram neet starte
+app.update.not_installed_copy = deze kopie is neet door 't installatieprogram hie geplaats
+app.update.cannot_start_installer = kin 't installatieprogram neet starte
+app.update.platform_unsupported = biewèrkinge op dit platform waere geïnstalleerd op dezelfde meneer es Schist
+
+app.vulkan.no_loader = schist: gein Vulkan-loader op dit systeem, dus d'r is niks om mit te teikene.\n\nSchist rendert via Vulkan en `libvulkan.so.1` is neet geïnstalleerd.\nZoewaal de loader es 'ne driver zien neudig:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: de Vulkan-driver wo-nao deze sessie verwies besteit neet.\n\n{var} is ingestèld en die instèlling *vervang* de zeukopdrach van de loader\nnao drivers, in plaats van get toe te veuge. Deze bestenj, die neet bestoon,\nzien dus de ganse driverlies — en eder Vulkan-program in deze sessie\nzoot gans zonger driver, ónaafhenkelik van wie väöl d'r geïnstalleerd zien:\n\n{missing}\n    {var}={value}\n\nWies nao 'n bestaond manifest — geïnstalleerde drivers zètte hun manifest in\n/usr/share/vulkan/icd.d — of wis de variabele en laot de loader zelf zeuke.\nEs 'n sessie dit oet 'n configuratiebesjtandj instèlt (Hyprland zien `env =`,\n'n systemd environment.d-drop-in of 'n shellprofiel), mót 't dao verangerd\nwaere. D'r is 'n nuuj aanmeljing neudig veurdat de verangering loupend prosesse bereik.\n
+app.vulkan.override_note = \n{var} is ingestèld op {value}; dat vervang de eige zeukopdrach van de loader.\nEs gein van die manifeste veur deze masjien bedoeld is, perbeer dan iers\nde variabele te wösse.\n
+app.vulkan.no_driver = schist: gein Vulkan-driver geïnstalleerd, dus d'r is niks om op te teikene.\n\nSchist rendert via Vulkan. De loader is geïnstalleerd mer meldt geine\ndriver — d'r is geine geregistreerd op ein van de twee plaatse woe gezeuk weurt:\n\n{dirs}\n\nDe loader weurt los van de drivers geleverd, dus gemeinlik óntbrik mer ein pakket.\n\nInstalleer 't pakket veur de GPU van deze masjien:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDe eige driver van NVIDIA bevat zien eige variant (`nvidia-utils` op Arch,\n`nvidia-driver` op Debian). In 'n virtuele masjien, of örges zonger\nGPU-driver om te installere, wirk de softwarerasteriseerder: `vulkan-swrast`\nop Arch en e deil van `mesa-vulkan-drivers` op angere systeme. Hae is\nlangzaam, mer start waal.\n{overridden}
+app.vulkan.no_device = schist: d'r is 'ne Vulkan-driver geïnstalleerd, mer dae böd gei apparaat aan om op te rendere.\n\nMesjiens oondersteunt de driver deze GPU neet of kin hae d'r neet bie —\neuver SSH of in 'ne container óntbrik /dev/dri döks.\n`vulkaninfo --summary` meldt wat de loader zeen kin.\n\nDe softwarerasteriseerder rendert gans zonger GPU, es deze masjien dao geine\nhaet: `vulkan-swrast` op Arch en e deil van `mesa-vulkan-drivers`\nop Debian en Fedora.\n
+app.vulkan.skip_hint = Om Schist toch te starte en op zien eige meneer te laote mislukke, stel {var}=1 in.

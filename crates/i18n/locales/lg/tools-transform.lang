@@ -1,0 +1,28 @@
+# Free transform
+tool.transform.name = Kyusa nga weeroboza
+tool.transform.description = Kyusa nga weeroboza. Okukikoleeza kiggulawo akabokisi k'enkyukakyuka okwetooloola layer ekola: walula ensonda okukyusa obunene, walulira ebweru w'olusonda okukyetoolooza, era walula olubalama okukisengeka obukyamu. Tewali kiwandiikibwa okutuusa ng'okakasizza (Enter), era okusazaamu (Escape) kuzza layer gye yabadde.
+tool.transform.option.interpolation = Engeri y'okubalirira pixels empya
+tool.transform.history.transform = Kyusa nga weeroboza
+tool.transform.history.image_size = Obunene bw'ekifaananyi
+tool.transform.history.canvas_size = Obunene bwa canvas
+
+# Transform selection
+tool.transform.selection.name = Kyusa ekirondeddwa
+tool.transform.selection.description = Kyusa ekirondeddwa: akabokisi ke kamu, naye katambuza omusalaba gw'ekirondeddwa mu kifo kya pixels eziri munda. Kakasizza oba sazamu okumala.
+tool.transform.selection.history.transform = Kyusa ekirondeddwa
+
+tool.transform.resample.nearest_neighbor = Pixel esinga okuba okumpi
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+# Crop
+tool.crop.name = Salako
+tool.crop.description = Walula ekitundu ky'oyagala okusigaza era otereeze ebikwatirwako byakyo; okukakasa (Enter) kusala ekiwandiiko okutuuka ku kitundu ekyo, ate okusazaamu (Escape) tekikikyusa.
+tool.crop.option.ratio = Omugerageranyo
+tool.crop.option.delete_cropped = Sangula pixels ezisaliddwako
+tool.crop.choice.unconstrained = Tekikugirwa
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Salako

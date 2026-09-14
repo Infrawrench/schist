@@ -1,0 +1,20 @@
+# Couches d' apontiaedje et comandes Imådje ▸ Apontiaedjes.
+adjustment.levels.name = Liveas
+adjustment.curves.name = Coibes
+adjustment.hue_saturation.name = Tinte/Saturaedje
+adjustment.brightness_contrast.name = Rilujhance/Contrasse
+adjustment.black_white.name = Noer et blanc
+adjustment.solid_color.name = Coleur plinne
+adjustment.gradient_fill.name = Rimpliçaedje e fondou
+adjustment.pattern_fill.name = Rimpliçaedje avou on patron
+adjustment.invert.name = Inviertixhaedje
+adjustment.posterize.name = Posterizaedje
+adjustment.threshold.name = Soû
+adjustment.color_balance.name = Balance des coleurs
+adjustment.vibrance.name = Vivité des coleurs
+adjustment.exposure.name = Espôzaedje
+adjustment.photo_filter.name = Passete foto
+adjustment.gradient_map.name = Mape di fondou
+adjustment.selective_color.name = Coleur tchoezeye
+adjustment.channel_mixer.name = Maxheu des canås
+adjustment.other.name = Apontiaedje

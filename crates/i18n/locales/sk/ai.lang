@@ -1,0 +1,30 @@
+ai.status.panel_shown = Panel AI je zobrazený
+ai.status.panel_hidden = Panel AI je skrytý — znovu ho zobrazíte cez Zobraziť ▸ Panel AI ({shortcut})
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} je pripojený
+ai.info.now_in_gallery = Teraz v galérii.
+ai.info.now_in_editor = Teraz v editore.
+ai.tool.shell_command = príkaz shellu
+
+ai.error.cli_missing = Rozhranie CLI pre {backend} („{binary}“) nie je v PATH. Najprv ho nainštalujte a prihláste sa doň.
+ai.error.endpoint_failed = nepodarilo sa spustiť koncový bod MCP: {error}
+ai.error.binding_endpoint = viazanie koncového bodu MCP
+ai.error.spawning_endpoint_thread = spúšťanie vlákna koncového bodu MCP
+ai.error.runtime_failed = nepodarilo sa spustiť beh agenta: {error}
+ai.error.worker_failed = nepodarilo sa spustiť proces {backend}: {error}
+ai.error.did_not_start = {backend} sa nespustil: {error}
+ai.error.switch_model_failed = nepodarilo sa prepnúť model: {error}
+ai.error.send_failed = nepodarilo sa odoslať zadanie: {error}
+ai.error.interrupt_failed = nepodarilo sa prerušiť úlohu: {error}
+ai.error.locating_binary = vyhľadávanie binárneho súboru Schist
+ai.error.starting_app_server = spúšťanie aplikačného servera Codex
+ai.error.attaching_app_server = pripájanie k aplikačnému serveru Codex
+ai.error.initializing_app_server = inicializácia aplikačného servera Codex
+ai.error.resuming_thread = obnovovanie vlákna Codex
+ai.error.starting_thread = spúšťanie vlákna Codex
+
+ai.model.opus_detail = Najvýkonnejšia trieda
+ai.model.sonnet_detail = Efektívny pri bežných úlohách
+ai.model.haiku_detail = Najrýchlejší na stručné odpovede
+ai.model.codex_catalog = Katalóg Codex

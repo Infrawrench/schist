@@ -1,0 +1,22 @@
+tool.type.name = Текст
+tool.type.description = Шул урында текст катламы башлау өчен чиртегез яки булган катламны үзгәртү өчен аңа чиртегез. Катлам ачык чакта корал клавишаларны турыдан-туры кабул итә (хәрефләрне клавиатура кертүе итеп җибәрегез), ә раслаганда катламны күрсәтә һәм үзгәртүне яба.
+
+tool.type.option.align = Тигезләү
+tool.type.option.leading = Юл аралыгы
+tool.type.option.tracking = Хәрефләр аралыгы
+tool.type.option.kerning = Кернинг
+tool.type.option.ligatures = Лигатуралар
+tool.type.option.discretionary_ligatures = Өстәмә лигатуралар
+tool.type.option.small_caps = Кече баш хәрефләр
+tool.type.option.on_path = Актив контурда
+tool.type.option.path_offset = Контур буенча тайпылыш
+
+tool.type.choice.regular = Гадәти
+tool.type.choice.bold = Калын
+tool.type.choice.italic = Курсив
+tool.type.choice.bold_italic = Калын курсив
+
+tool.type.history.new_layer = Яңа текст катламы
+tool.type.history.edit = Текстны үзгәртү
+tool.type.history.discard = Текстны кире кагу
+tool.type.history.discard_empty = Буш текстны кире кагу

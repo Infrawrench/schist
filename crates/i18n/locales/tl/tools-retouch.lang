@@ -1,0 +1,23 @@
+tool.patch.name = Patch
+tool.patch.description = Gumuhit sa paligid ng depekto, pagkatapos ay i-drag ang napiling bahagi papunta sa malilinis na pixel: iaangkop ang texture mula roon sa depekto. Ang mode na Patch ang tumutukoy kung aling dulo ng pares ang ida-drag.
+tool.patch.option.patch = Patch
+tool.patch.choice.source = Pinagmulan
+tool.patch.choice.destination = Destinasyon
+tool.patch.history.patch = Patch
+
+tool.content_aware_move.name = Content-Aware Move
+tool.content_aware_move.description = I-drag ang napiling bagay sa ibang lugar at pupunan mula sa paligid ang butas na iniwan nito. Sa mode na Palawakin, inuunat ang bagay sa halip na ilipat.
+tool.content_aware_move.choice.move = Ilipat
+tool.content_aware_move.choice.extend = Palawakin
+tool.content_aware_move.history.move = Content-Aware Move
+
+tool.red_eye.name = Pulang Mata
+tool.red_eye.description = Mag-click sa pupil upang alisin ang pulang kulay na dulot ng flash.
+tool.red_eye.option.pupil_size = Laki ng Pupil
+tool.red_eye.option.darken = Padilimin
+tool.red_eye.history.red_eye = Pulang Mata
+
+tool.magic_eraser.name = Magic Eraser
+tool.magic_eraser.description = Mag-click upang burahin ang bahagi sa ilalim ng pointer na may kahawig na kulay at pasok sa tolerance ng tool — maaaring magkadikit sa pinindot na bahagi, o nasa kahit saan sa layer.
+tool.magic_eraser.option.contiguous = Magkadikit
+tool.magic_eraser.history.erase = Magic Eraser

@@ -1,0 +1,24 @@
+# Tu
+tool.move.name = Tu
+tool.move.description = Twe layer a ɛreyɛ adwuma no mu nneɛma kɔ beae foforo. Sɛ Auto-Select sɔ a, bere a wobɛmia no, ɛpaw layer biara — anaa kuw no nyinaa — a pointer no di kan wɔ ne so.
+tool.move.option.auto_select = Paw Ankasa
+tool.move.history.move_layer = Tu Layer
+
+# Kɔla paw ade
+tool.eyedropper.name = Kɔla Paw Ade
+tool.eyedropper.description = Fa kɔla a ɛwɔ pointer no ase no hyɛ anim kɔla no mu, anaa sɛ wokura alt mu a, fa hyɛ akyi kɔla no mu. Sɛ wotwe no a, ɛkɔ so paw kɔla.
+tool.eyedropper.option.sample_size = Nhwɛso Kɛse
+tool.eyedropper.option.sample = Nhwɛso
+tool.eyedropper.choice.point_sample = Beae Baako Nhwɛso
+tool.eyedropper.choice.average_3 = 3 fa 3 Kɔla Nyinaa Nkyekyɛmu Bo
+tool.eyedropper.choice.average_5 = 5 fa 5 Kɔla Nyinaa Nkyekyɛmu Bo
+tool.eyedropper.choice.average_11 = 11 fa 11 Kɔla Nyinaa Nkyekyɛmu Bo
+tool.eyedropper.choice.average_31 = 31 fa 31 Kɔla Nyinaa Nkyekyɛmu Bo
+tool.eyedropper.choice.all_layers = Layer Nyinaa
+tool.eyedropper.choice.current_layer = Layer a Ɛwɔ Hɔ Seesei
+
+# Nsa ne Zoom
+tool.hand.name = Nsa
+tool.hand.description = Ɛde hwɛbea no kɔ baabi foforo. Hwɛbea no yɛ window no dea, enti sɛ graphical window bi nni hɔ a, adwinnade yi nyɛ biribiara wɔ document no ho.
+tool.zoom.name = Zoom
+tool.zoom.description = Ɛma hwɛbea no yɛ kɛse anaa ketewa. Hwɛbea no yɛ window no dea, enti sɛ graphical window bi nni hɔ a, adwinnade yi nyɛ biribiara wɔ document no ho.

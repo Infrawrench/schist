@@ -1,0 +1,23 @@
+# Tekstværktøjet.
+tool.type.name = Tekst
+tool.type.description = Klik for at starte et tekstlag dér, eller klik på et eksisterende lag for at redigere det. Mens redigeringen er åben, modtager værktøjet rå tastetryk (send tegn som tastaturinput). Når du bekræfter, gengives laget, og redigeringen lukkes.
+
+tool.type.option.align = Juster
+tool.type.option.leading = Linjeafstand
+tool.type.option.tracking = Knibning
+tool.type.option.kerning = Tegnafstand
+tool.type.option.ligatures = Ligaturer
+tool.type.option.discretionary_ligatures = Skønsmæssige ligaturer
+tool.type.option.small_caps = Kapitæler
+tool.type.option.on_path = På aktiv kurve
+tool.type.option.path_offset = Kurveforskydning
+
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Fed
+tool.type.choice.italic = Kursiv
+tool.type.choice.bold_italic = Fed kursiv
+
+tool.type.history.new_layer = Nyt tekstlag
+tool.type.history.edit = Rediger tekst
+tool.type.history.discard = Kassér tekst
+tool.type.history.discard_empty = Kassér tom tekst

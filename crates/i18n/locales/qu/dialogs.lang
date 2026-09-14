@@ -1,0 +1,225 @@
+# Wakin rimanakuna rakinakusqan
+dialog.save_ellipsis = Waqaychay…
+dialog.use_foreground = Ñawpaq llim'ita llamk'achiy
+dialog.downloading = Uraykachichkan…
+dialog.downloading_of = Uraykachichkan… {total} nisqamanta {got}
+dialog.no_config_dir = (mana configuración karpeta)
+dialog.layer_props.title = Patap kaqninkuna
+
+dialog.export.format = Formato
+dialog.export.dither = Dither
+dialog.export.dither_note = 8-bitman pisiyachispa dither churay
+dialog.export.export_ellipsis = Lluqsichiy…
+
+dialog.batch.title = Fotokunata ruray
+dialog.batch.note_edit.other = {n} foto — galería allichaykuna hina waqaychasqa; qallariqkunataqa hayk'aqpas mana llamikunachu.
+dialog.batch.note_edit_edited.other = {n} foto, {edited} ñawpaqtaña allichasqa — recetaqa allichaypa hawanman churakun, ñawpaq allichaytaq versión hina waqaychakun.
+dialog.batch.note_copies.other = {n} foto — pampachasqa copiakuna; qallariqkunataqa hayk'aqpas mana llamikunachu.
+dialog.batch.note_copies_edited.other = {n} foto, {edited} ñawpaqtaña allichasqa — copiakunaqa allichaykunamanta rurakunku.
+dialog.batch.turn = Tikray
+dialog.batch.rotate = Muyuchiy
+dialog.batch.flip = T'ikray
+dialog.batch.upscale = Hatunyachiy
+dialog.batch.colour = Llimp'i
+dialog.batch.add_adjustment = Allichay…
+dialog.batch.output = Lluqsiynin
+dialog.batch.save_as = Kay hina waqaychay
+dialog.batch.process = Ruway
+dialog.batch.process_n = {n} ruray
+dialog.batch.nothing_to_do = Manam ruwana kanchu: ñawpaqta tikrayta, hatunyachiyta utaq allichayta akllay
+
+dialog.content_aware_scale.title = Ukhunman yachaspa sayanta tikray
+dialog.content_aware_scale.note = Ñut'u kaqniyuq seamkunata k'utun. Akllasqaqa mayqinta amachana kasqanta señalan.
+dialog.stroke.title = Kantu siq'i
+dialog.stroke.location = K'iti
+dialog.stroke.inside = Ukhu
+dialog.stroke.outside = Hawa
+dialog.stroke.note = Akllasqap kantunta ñawpaq llim'iwan siq'in.
+dialog.fill.contents = Ukhunpi kaqkuna
+
+dialog.color_range.title = Llimp'i maymanta maykama
+dialog.color_range.sampled = Rikunasqa
+dialog.color_range.fuzziness = Rikch'akuq kaynin
+dialog.color_range.note = Llamk'achkan patapi rikunasqa llim'ip qayllanpi kaq pixelkunata akllan.
+
+dialog.file_picker.up = ↑ Hanaqman
+dialog.file_picker.empty = Kaypi manam imapas kanchu
+dialog.file_picker.choose_folder = Kay karpetata akllay
+dialog.filter.camera_raw_development = Camera Raw wiñachiy
+dialog.filter.reset_as_shot = Hapisqa kasqanman kutichiy
+dialog.filter.raw_note = Llamk'achkan patata qallariq sensor willakuyninmanta wakmanta wiñachin.
+dialog.filter.note = Llamk'achkan pataman, akllasqa ukhupi churakun.
+
+dialog.fonts.title = Chinkaq sanampa rikch'aykuna
+dialog.fonts.install_named = {name} churay
+dialog.fonts.no_document = Manam qillqa khipu kichasqa kanchu, chayrayku manam qhawana kanchu.
+dialog.fonts.all_installed = Kay qillqa khipup llapan sanampa rikch'aynin churasqam. Qillqanqa mayqin sanampa rikch'aywan wakichisqa karqan chaykunawan churasqam.
+dialog.fonts.missing_intro = Kay qillqa khipuqa mana kapusuqniyki sanampa rikch'aykunawan churasqam. Rantin sanampa rikch'aywan qillqata ñawinchay atikunmi, ichaqa sanampakuna kinrayman purisqan karukuna, siq'i p'akisqakunapas manam qallariq wakichisqa kasqan hinachu.
+dialog.fonts.footer = Uraykachisqakunaqa Google Fonts kichasqa catálogomanta hamunku, {dir} nisqapitaq waqaychakunku. Mana kichasqa licenciayuq sanampa rikch'ayqa hayk'aqpas mana apamusqachu; tupunwan tupaq libre diseño kaptinqa chaymi rantinman haywarikun, sanampakuna kinrayman purisqan karukuna tupasqanrayku qallariq wakichiyta kutichin.
+dialog.fonts.user_font_dir = qampa sanampa rikch'ay karpetayki
+
+dialog.models.title = Neural Filters modelokuna
+dialog.models.built_in = Ukhupi churasqa · {size}
+dialog.models.installed = Churasqa · {size}
+dialog.models.not_installed = Mana churasqa · {size}
+dialog.models.not_in_browser = Maskaqpi mana kanchu · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modelokunaqa {dir} nisqapi waqaychakunku. Mana modeloyuq suysunakunaqa señal procesamientowan rantichinku, chaytataq willanku.
+
+dialog.new_doc.title = Musuq qillqa khipu
+dialog.new_doc.picker_title = Musuq archivo
+dialog.new_doc.custom_ellipsis = Munasqaman hina…
+dialog.new_doc.preset = Ñawpaq wakichisqa
+dialog.new_doc.preset_default = Ñawpaqmanta akllasqa (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Cuadrado (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Ruray
+dialog.new_doc.created = Musuq qillqa khipu: {w} × {h} px
+
+dialog.open.image_title = Rikch'ayta kichay
+dialog.open.image_prompt = “{name}” musuq qhawachiqpi kichaychu, icha kunan qillqa khipuman musuq pata hina yapaychu?
+dialog.open.new_tab = Musuq qhawachiq
+dialog.open.new_layer = Musuq pata
+dialog.open.quoted = “{name}”
+dialog.open.these_files.other = kay {n} archivo
+dialog.open.shared_title_one = Rakinakusqa rikch'ay
+dialog.open.shared_title_many = Rakinakusqa rikch'aykuna
+dialog.open.shared_prompt = {what} galeríaman yapaychu, icha allichaqpi kichaychu?
+dialog.open.add_to_gallery = Galeríaman yapay
+dialog.open.open_in_editor = Allichaqpi kichay
+dialog.open.heic_title = HEIC yanapaynin
+dialog.open.heic_needs_decoder = “{name}” kichanapaqqa HEVC decodificaq kanan tiyan, kay sistemapitaq mana churasqachu.
+dialog.open.heic_offer = Schistqa libheif {version} nisqap decodificanallapaq ruwasqanta, libde265 HEVC decodificaqniyuqta uraykachiyta atin (≈5 MB). Iskayninmi LGPL-3.0 licenciayuq; licencia qillqankuna bibliotecap waqtanpi churakunku, qallariq códigoñataq proyecto qatiq raphipi tarikun.
+dialog.open.licenses_source = Licenciakuna qallariq código ima
+dialog.open.folders_title = Wikch'usqa karpetakuna
+dialog.open.n_folders.other = {n} karpeta
+dialog.open.open_in_tabs = Qhawachiqkunapi kichay
+dialog.open.open_first_in_tabs = Ñawpaq {n} qhawachiqkunapi kichay
+dialog.open.open_n_in_tabs.other = {n} qhawachiqpi kichay
+dialog.open.folder_holds.other = {what} ukhupi Schist kichayta atisqan {n} rikch'ay kachkan (ukhu karpetakunapas yupasqa).
+dialog.open.folders_note = Galeríaman yapayqa karpetakunata k'iti kikillanpi qhawan — manam imapas mirachikunchu, allichaykunataq sapa fotop waqtanpi versiónniyuq kanku. Qhawachiqkunapi kichayqa kunan llapan rikch'ayta allichaqman apan.
+
+dialog.plugins.title = Plug-inkuna
+dialog.plugins.kind_filter = suysuna
+dialog.plugins.kind_format = formato
+dialog.plugins.kind_unavailable = mana kaq
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Plug-inkuna {dir} nisqamanta apamunku
+dialog.plugins.none = Manaraq plug-in churasqachu.
+dialog.plugins.install_ellipsis = Churay…
+dialog.plugins.photoshop_heading = Photoshop plug-inkuna
+dialog.plugins.loaded_from = {folders} nisqamanta apamusqa
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Munasqakuna
+dialog.prefs.theme = Rikch'ay
+dialog.prefs.theme_dark = Tutayaq
+dialog.prefs.theme_light = K'anchaq
+dialog.prefs.grid_spacing = Tawa tawa siq'ikunap karun
+dialog.prefs.snapping = Kikinmanta hap'iy
+dialog.prefs.snap_to = Pusaq siq'ikunaman, tawa tawa siq'ikunaman, lienzop kantunkunaman k'askay
+dialog.prefs.rendering_intent = Llimp'i tikray munaynin
+dialog.prefs.intent_perceptual = Rikusqaman hina
+dialog.prefs.intent_relative = Tupanachisqa colorimétrico
+dialog.prefs.intent_saturation = Saksay
+dialog.prefs.intent_absolute = Chiqap colorimétrico
+dialog.prefs.scrolling = Kuyuchiy
+dialog.prefs.zoom_with_scroll = Ruedawan hatunyachiy
+dialog.prefs.rendering = Rikch'ay ruray
+dialog.prefs.gpu_compositing = GPU-wan huñuy
+dialog.prefs.diagnostics = Pantay qhawariy
+dialog.prefs.crash_reports = Programa urmaykuptin kay maquinapi pantay willakuyta qillqay
+dialog.prefs.crash_upload = Wiñachiqkunamanpas apachiy
+dialog.prefs.telemetry = Sapa p'unchaw mana sutiyuq señalta apachiy
+dialog.prefs.diagnostics_note = Pantay qhawariykunaqa Schist qatiq kutipi qallarispa llamk'ayta qallarin.
+dialog.prefs.updates = Musuqyachiykuna
+dialog.prefs.check_updates = Qallarispa musuq lluqsichiykunata maskay
+dialog.prefs.keyboard_shortcuts = Tecla pisiyachiykuna: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) modelota munan —
+dialog.prefs.nsfw_download_link = Modelokunata kamachiy nisqapi uraykachiy…
+dialog.prefs.hide_flagged = Señalasqa fotokunata pakay
+
+dialog.profile.profile = Perfil
+dialog.profile.assign_title = Perfilta churay
+dialog.profile.convert_title = Perfilman tikray
+dialog.profile.assign = Churay
+dialog.profile.convert = Tikray
+dialog.profile.assign_note = Kaqña pixel chaninkunata musuq perfilwan huk hinamanta ñawinchan.
+dialog.profile.convert_note = Pixel chaninkunata wakmanta qillqan, llimp'ikuna rikch'ayninta waqaychananpaq.
+
+dialog.save_image.title = Rikch'ayta huk hina waqaychay
+dialog.save_image.note = {name} — allichayniyuq kaptinqa allichasqata; qallariqtaqa hayk'aqpas mana llamikunachu.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Rikch'aypa sayaynin
+dialog.size.canvas_title = Lienzopa sayaynin
+dialog.size.constrain = Watay
+dialog.size.keep_proportions = Tupayninkunata waqaychay
+dialog.size.resample = Wakmanta muestreay
+dialog.size.bicubic = Bicúbica
+dialog.size.bilinear = Bilineal
+dialog.size.nearest = Aswan qaylla pixel
+dialog.size.anchor = Watana
+dialog.size.currently = Kunan {w} × {h} px
+dialog.size.image_size_status = Rikch'aypa sayaynin: {w} × {h}
+dialog.size.canvas_size_status = Lienzopa sayaynin: {w} × {h}
+
+dialog.update.title = Musuqyachiy kachkan
+dialog.update.available = Schist {version} kachkanña. Kay copiaqa {current}.
+dialog.update.installing = Musuqyachiyta churachkan…
+dialog.update.can_install = Schistqa uraykachiyta ({size}), kay copiap hawanman churaytapas atin.
+dialog.update.external = Kay copiaqa huk kamachiqmanta hamurqa — paquete kamachiq, AppImage, utaq kikiykip ruwasqayki — chayrayku imayna churasqa karqan chay hinallata musuqyachikun.
+dialog.update.later = Qhipaman
+dialog.update.release_notes = Lluqsichiy willakuykuna
+dialog.update.update_restart = Musuqyachiy, wakmanta qallariy
+dialog.update.open_page = Lluqsichiy rap'hita kichay
+
+dialog.style.title = Pata rikch'ay
+dialog.style.bevel = Waq'usqa kantu, p'ultusqa ima
+dialog.style.stroke = Kantu siq'i
+dialog.style.inner_shadow = Ukhu llanthu
+dialog.style.inner_glow = Ukhu lliphipiy
+dialog.style.satin = Satén
+dialog.style.color_overlay = Hawa churasqa llimp'i
+dialog.style.gradient_overlay = Hawa churasqa gradiente
+dialog.style.outer_glow = Hawa lliphipiy
+dialog.style.drop_shadow = Wikch'usqa llanthu
+dialog.style.blur = Gauss desenfoque
+dialog.style.gradient_from = Hawa churasqa gradiente kaymanta
+dialog.style.gradient_to = Hawa churasqa gradiente kaykama
+dialog.style.soften = Llamp'uyachiy
+dialog.style.depth = Ukhu kaynin
+dialog.style.altitude = Hanaq kaynin
+dialog.style.highlight = K'anchaq
+dialog.style.shadow = Llanthu
+dialog.style.outer_bevel = Hawa waq'usqa kantu
+dialog.style.inner_bevel = Ukhu waq'usqa kantu
+dialog.style.emboss = P'ultuchiy
+dialog.style.pillow_emboss = Almohada p'ultuchiy
+dialog.style.linear = Siqiq
+dialog.style.radial = Radio
+dialog.style.reverse = Tikray
+dialog.style.from_to = Kaymanta / Kaykama
+dialog.style.from_fg = Kaymanta = ñawpaq
+dialog.style.to_fg = Kaykama = ñawpaq
+dialog.style.precise = Chiqap
+dialog.style.knockout = Pataqa wikch'usqa llanthuta t'uqun
+
+dialog.color_picker.title = Llimp'i akllaq ({what})
+dialog.color_picker.effect_color = {effect} llimp'i
+dialog.color_picker.note_color = Willakuypa llimp'in
+dialog.color_picker.new = musuq
+dialog.color_picker.current = kunan
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Kanalta qallariyman kutichiy
+dialog.curves.hint = Formanta tikranapaq aysay · yapanapaq ñit'iy · qichunapaq Alt-ñit'iy
+
+dialog.prefs.camera_sync = Cámara rollo
+dialog.prefs.camera_sync_enabled = Schist Cloudman waqaychay
+dialog.prefs.camera_sync_sign_in = Cámara rollota waqaychanapaq Schist Cloudman yaykuy.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Tikray…

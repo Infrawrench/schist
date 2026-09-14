@@ -1,0 +1,27 @@
+# Patch
+tool.patch.name = Gusana
+tool.patch.description = Kurura umurongo ukikije inenge, hanyuma ukurure iryo hitamo urijyane ku mapikisele meza: texture yaho ihuzwa n'inenge. Uburyo bwo Gusana ni bwo bugena uruhande rw'ibice bibiri ukurura.
+tool.patch.option.patch = Gusana
+tool.patch.choice.source = Inkomoko
+tool.patch.choice.destination = Aho bijya
+tool.patch.history.patch = Gusana
+
+# Content-Aware Move
+tool.content_aware_move.name = Kwimura hitawe ku birimo
+tool.content_aware_move.description = Kurura ikintu cyatoranyijwe ukijyane ahandi maze umwanya gisize wuzuzwe n'ibikikije. Mu buryo bwo Kwagura, ikintu kiraramburwa aho kwimurwa.
+tool.content_aware_move.choice.move = Kwimura
+tool.content_aware_move.choice.extend = Kwagura
+tool.content_aware_move.history.move = Kwimura hitawe ku birimo
+
+# Red Eye
+tool.red_eye.name = Amaso atukura
+tool.red_eye.description = Kanda ku mboni ukuremo umutuku watewe na flash.
+tool.red_eye.option.pupil_size = Ingano y'imboni
+tool.red_eye.option.darken = Kwijimisha
+tool.red_eye.history.red_eye = Amaso atukura
+
+# Magic Eraser
+tool.magic_eraser.name = Igihanagura cy'ubumaji
+tool.magic_eraser.description = Kanda usibe agace gafite ibara risa n'iriri munsi y'ikimenyetso, mu rugero rwemewe rw'igikoresho — agace gafatanye n'aho wakanze, cyangwa hose ku rwego.
+tool.magic_eraser.option.contiguous = Bifatanye
+tool.magic_eraser.history.erase = Igihanagura cy'ubumaji

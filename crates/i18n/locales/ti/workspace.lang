@@ -1,0 +1,104 @@
+workspace.fill.gray_50 = 50% ሓሙኽሽታይ
+workspace.fill.content_aware = ትሕዝቶ ዝርዳእ
+
+workspace.modify.expand = ምርጫ ምስፋሕ
+workspace.modify.contract = ምርጫ ምጭባጥ
+workspace.modify.border = ምርጫ ዶብ ምግባር
+workspace.modify.smooth = ምርጫ ምልስላስ
+workspace.modify.feather = ጫፍ ምርጫ ምልስላስ
+
+workspace.batch.target.edit = ናይ ጋለሪ ምምሕያሻት (ሕታም ዘለዎም)
+workspace.batch.target.beside = ኣብ ጎኒ እቶም መበቆላት ዝቕመጡ ቅዳሓት
+workspace.batch.target.folder = ኣብ ኣቃፊ ዝቕመጡ ቅዳሓት…
+
+workspace.modal.image_size.title = ዓቐን ስእሊ
+
+workspace.docs.opening = {name} ይኽፈት ኣሎ…
+workspace.docs.opened = {name} ተኸፊቱ
+workspace.docs.open_failed = ምኽፋት ኣይተዓወተን፦ {error}
+workspace.docs.no_codec = {name} Schist ክኸፍቶ ዝኽእል ቅርጺ ኣይኮነን
+workspace.docs.no_exporter = Schist ፋይላት .{ext} ክቕምጥ ኣይክእልን
+workspace.docs.empty_response = እቲ ሰርቨር ባዶ መልሲ ሰዲዱ
+workspace.docs.heic_not_installed = ደገፍ HEIC ኣይተተኽለን
+workspace.docs.heic_downloading = ደገፍ HEIC (libheif {version}) ይወርድ ኣሎ…
+workspace.docs.heic_installed = ደገፍ HEIC ተተኺሉ
+workspace.docs.heic_download_failed = ደገፍ HEIC ምውራድ ኣይተዓወተን፦ {error}
+workspace.docs.placing = {name} ይቕመጥ ኣሎ…
+workspace.docs.place_image = ስእሊ ኣቐምጥ
+workspace.docs.placed = {name} ተቐሚጡ
+workspace.docs.place_failed = ምቕማጥ ኣይተዓወተን፦ {error}
+workspace.docs.saved = {name} ተቐሚጡ
+workspace.docs.save_failed = ምቕማጥ ኣይተዓወተን፦ {error}
+
+workspace.adjustment.new_layer = ሓድሽ ንጣፍ {name}
+workspace.adjustment.added = {name} ተወሲኹ
+workspace.adjustment.settings = ቅንብራት {name}
+workspace.adjustment.updated = {name} ተሓዲሱ
+workspace.adjustment.no_settings = {name} ክምሓየሹ ዝኽእሉ ቅንብራት የብሉን
+
+workspace.comps.name_n = ውህደት ንጣፍ {n}
+workspace.comps.captured = ውህደት ንጣፍ ተቐሪጹ
+workspace.comps.apply = {name} ተግብር
+
+workspace.styles.layer_style = ቅዲ ንጣፍ
+workspace.context.rename_layer = ስም ንጣፍ ምቕያር
+workspace.commands.tool = መሳርሒ፦ {name}
+
+workspace.colormgmt.assign = {name} መድብ
+workspace.colormgmt.assigned = {name} ተመዲቡ
+workspace.colormgmt.convert_to = ናብ {name} ቀይር
+workspace.colormgmt.converted_to = ናብ {name} ተቐይሩ
+workspace.colormgmt.convert_failed = ምቕያር ኣይተዓወተን፦ {error}
+workspace.colormgmt.proof_on = መርመራ ሕብሪ ክፉት
+workspace.colormgmt.proof_off = መርመራ ሕብሪ ዕጹው
+
+workspace.filters.choose = ምረጽ
+workspace.filters.select_layer_first = መጀመርታ ንጣፍ ምረጽ
+workspace.filters.needs_pixel_layer = ፊልተራት ንጣፍ ፒክሰል ይደልዩ
+workspace.filters.nothing_to_filter = ዝፍለተር የለን
+workspace.filters.went_away = እቲ ፊልተር ጠፊኡ
+workspace.filters.failed = {name}፦ {error}
+workspace.filters.layer_gone = {name}፦ እቲ ዝፈለተሮ ንጣፍ ጠፊኡ
+workspace.filters.plugin_title = Photoshop ፕላግ-ኢን
+workspace.filters.running = {name} ይሰርሕ ኣሎ
+workspace.filters.plugin_note = እቲ ፕላግ-ኢን ኣብ ናቱ መስርሕ ይሰርሕ። መስኮት እንተኸፊቱ፣ ንምቕጻል ኣብኡ መልሲ ሃብ።
+workspace.filters.raw_preview_developing = ቅድመ-ርእይቶ RAW ይምዕብል ኣሎ…
+workspace.filters.raw_preview_done = ቅድመ-ርእይቶ RAW (ቅልጡፍ ዲሞዛይክ)
+workspace.filters.raw_preview_size_changed = ዓቐን ቅድመ-ርእይቶ RAW ተቐይሩ፦ {w} × {h}
+workspace.filters.raw_preview_failed = ቅድመ-ርእይቶ RAW ኣይተዓወተን፦ {error}
+workspace.filters.raw_developing = እቲ መበቆላዊ ቅረጻ ይምዕብል ኣሎ…
+workspace.filters.raw_developing_note = እቲ ዝበለጸ መንገዲ ዲሞዛይክ ይጥቀም። ከም PSD ወይ PSB ድሕሪ ምቕማጥ፣ እቲ መበቆላዊ RAWን እዞም ቅንብራትን ክምሓየሹ ይኽእሉ።
+workspace.filters.raw_document_changed = ሰነዱ ድሕሪ ምቕያሩ ምምዕባል RAW ተወዲኡ
+workspace.filters.raw_failed = ምምዕባል RAW ኣይተዓወተን፦ {error}
+workspace.filters.raw_too_wide = ምምዕባል RAW ኣዝዩ ጎናዊ እዩ
+workspace.filters.raw_too_tall = ምምዕባል RAW ኣዝዩ ነዊሕ እዩ
+workspace.filters.raw_size_changed = ዓቐን ምምዕባል RAW ናብ {w} × {h} ተቐይሩ፤ እቲ ሕጂ ዘሎ ንጣፍ ይዕቀብ
+workspace.filters.raw_history = ምምዕባል Camera Raw
+workspace.filters.raw_applied = ምምዕባል Camera Raw ተተግቢሩ (ዝበለጸ ዲሞዛይክ)
+
+workspace.image_size.done = ዓቐን ስእሊ፦ {w} × {h}
+workspace.image_size.bicubic_fallback = ዓቐን ስእሊ፦ {w} × {h} — ሞዴል {name} ክጽዕን ኣይከኣለን፣ ስለዚ ቢኩቢክ መተካእታ ኮይኑ
+workspace.image_size.upscaling = ብ{name} ዓቐን ይዓቢ ኣሎ
+workspace.image_size.upscaling_note = {mp} ሜጋፒክሰል ብመርበብ፣ ነፍሲ ወከፎም ገለ ካልኢት ይወስዱ። ክሳዕ ዝውዳእ እቲ ሰነድ ይጽበ።
+
+workspace.export.no_slices = ዝወጽእ ቁራጽ የለን
+workspace.export.no_artboards = ዝወጽእ ሰሌዳ ስእሊ የለን
+workspace.export.regions.one = {n} ከባቢ ወጺኡ
+workspace.export.regions.other = {n} ከባቢታት ወጺኦም
+workspace.export.prompt = ከምዚ ኣውጽእ፦
+workspace.export.done = {name} ወጺኡ
+workspace.export.failed = ምውጻእ ኣይተዓወተን፦ {error}
+workspace.export.codec_vanished = እቲ መውጽኢ ደጊም ኣይርከብን
+
+workspace.file_picker.choose_folder = ኣቃፊ ምረጽ
+workspace.file_picker.type_a_name = ንፋይሉ ስም ጽሓፍ
+workspace.file_picker.exists = {name} ኣሎ፤ ንምትካኡ እንደገና ምቕማጥ ጠውቕ
+workspace.file_picker.tap_a_file = ንምኽፋት ፋይል ጠውቕ
+workspace.file_picker.pictures = ስእልታት
+workspace.file_picker.camera = ካሜራ
+workspace.file_picker.downloads = ዝወረዱ
+workspace.file_picker.permission_denied = Schist ነዚ ኣቃፊ ንምንባብ ፍቓድ የብሉን
+
+workspace.recovery.recovered_title = {title} (ዝተመልሰ)
+workspace.recovery.recovered.one = ካብ ዝሓለፈ ክፍለ ግዜ {n} ዘይተቐመጠ ስራሕ ተመሊሱ
+workspace.recovery.recovered.other = ካብ ዝሓለፈ ክፍለ ግዜ {n} ሰነዳት ተመሊሶም

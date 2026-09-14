@@ -1,0 +1,31 @@
+# Boemo, lintlha le liphoso tsa phanele ea AI.
+ai.status.panel_shown = Phanele ea AI e bontšitsoe
+ai.status.panel_hidden = Phanele ea AI e patiloe — Pono ▸ Phanele ea AI ({shortcut}) e tla e khutlisa
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} e hoketsoe
+ai.info.now_in_gallery = Hona joale o pokellong.
+ai.info.now_in_editor = Hona joale o mohlophising.
+ai.tool.shell_command = taelo ea shell
+
+ai.error.cli_missing = CLI ea {backend} (“{binary}”) ha e eo ho PATH. E kenye 'me u kene ho eona pele.
+ai.error.endpoint_failed = ho qala ntlha ea khokahano ea MCP ho hlotsoe: {error}
+ai.error.binding_endpoint = ho hokela ntlha ea khokahano ea MCP
+ai.error.spawning_endpoint_thread = ho qala thread ea ntlha ea khokahano ea MCP
+ai.error.runtime_failed = ho qala tikoloho ea tšebetso ea moemeli ho hlotsoe: {error}
+ai.error.worker_failed = ho qala mosebetsi oa {backend} ho hlotsoe: {error}
+ai.error.did_not_start = {backend} ha ea qala: {error}
+ai.error.switch_model_failed = ho fetola motlolo ho hlotsoe: {error}
+ai.error.send_failed = ho romela taelo ho hlotsoe: {error}
+ai.error.interrupt_failed = ho emisa ho hlotsoe: {error}
+ai.error.locating_binary = ho batla faele ea lenaneo la Schist
+ai.error.starting_app_server = ho qala seva ea app ea Codex
+ai.error.attaching_app_server = ho hokela ho seva ea app ea Codex
+ai.error.initializing_app_server = ho lokisa seva ea app ea Codex hore e qale
+ai.error.resuming_thread = ho ntšetsa thread ea Codex pele
+ai.error.starting_thread = ho qala thread ea Codex
+
+ai.model.opus_detail = Boemo bo nang le bokhoni bo boholo ka ho fetisisa
+ai.model.sonnet_detail = E sebetsa hantle mesebetsing e tloaelehileng
+ai.model.haiku_detail = E potlakile ka ho fetisisa bakeng sa likarabo tse potlakileng
+ai.model.codex_catalog = Lenane la Codex

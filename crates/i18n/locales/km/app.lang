@@ -1,0 +1,36 @@
+app.filter_gallery.title = វិចិត្រសាលតម្រង
+app.filter_gallery.stack = ជង់ (អនុវត្តពីក្រោមទៅលើ)
+app.filter_gallery.no_settings = តម្រងនេះគ្មានការកំណត់ទេ។
+app.fonts.not_open_licensed = មិនមានអាជ្ញាបណ្ណបើកចំហ · {substitute} មានខ្នាតត្រូវគ្នា
+app.fonts.missing_substituted = បាត់ · អត្ថបទកំពុងប្រើពុម្ពអក្សរជំនួស
+app.fonts.not_in_catalogue = មិនមាន {family} ក្នុងបញ្ជីពុម្ពអក្សរបើកចំហទេ
+app.fonts.no_faces = គ្មានទម្រង់ពុម្ពអក្សរដែលអាចទាញយកសម្រាប់ {family}
+app.fonts.empty_response = ការឆ្លើយតបទទេ
+app.update.unreadable_response = មិនអាចអានការឆ្លើយតប៖ {error}
+app.update.no_temp_dir = គ្មានថតបណ្ដោះអាសន្នសម្រាប់ទាញយក
+app.update.asset_has_path = កំណែចេញផ្សាយបានដាក់ផ្លូវក្នុងឈ្មោះទ្រព្យ
+app.update.too_big = ឯកសារទាញយកធំជាងទំហំដែលកំណែចេញផ្សាយបានបញ្ជាក់
+app.update.stopped_at = ការទាញយកបានឈប់នៅ {got} ក្នុងចំណោម {total} បៃ
+app.update.hash_mismatch = ហាសឯកសារទាញយកគឺ {got} មិនមែន {want}
+app.update.not_in_bundle = ច្បាប់ចម្លងនេះមិនស្ថិតក្នុងកញ្ចប់កម្មវិធីទេ
+app.update.no_parent_dir = កញ្ចប់កម្មវិធីគ្មានថតមេ
+app.update.cannot_write = មិនអាចសរសេរទៅ {dir}
+app.update.cannot_move_aside = មិនអាចផ្លាស់ទី {app} ចេញបាន
+app.update.cannot_move_in = មិនអាចផ្លាស់ទីកញ្ចប់ថ្មីចូលទីតាំងបាន
+app.update.cannot_run_ditto = មិនអាចដំណើរការ /usr/bin/ditto
+app.update.unpack_failed = ការពន្លាឯកសារទាញយកបានបរាជ័យ៖ {error}
+app.update.no_app_in_download = ឯកសារទាញយកមិនមាន Schist.app
+app.update.cannot_run_codesign = មិនអាចដំណើរការ /usr/bin/codesign
+app.update.signature_invalid = មិនអាចផ្ទៀងផ្ទាត់ហត្ថលេខាឯកសារទាញយក៖ {error}
+app.update.download_unsigned = ច្បាប់ចម្លងនេះមានហត្ថលេខា ប៉ុន្តែឯកសារទាញយកគ្មាន
+app.update.different_developer = ឯកសារទាញយកចុះហត្ថលេខាដោយអ្នកអភិវឌ្ឍផ្សេង
+app.update.cannot_relaunch = មិនអាចចាប់ផ្តើមកម្មវិធីបើកឡើងវិញ
+app.update.not_installed_copy = ច្បាប់ចម្លងនេះមិនត្រូវបានដាក់ទីនេះដោយកម្មវិធីដំឡើងទេ
+app.update.cannot_start_installer = មិនអាចចាប់ផ្តើមកម្មវិធីដំឡើង
+app.update.platform_unsupported = បច្ចុប្បន្នភាពលើវេទិកានេះត្រូវដំឡើងតាមវិធីដែលបានដំឡើង Schist
+app.vulkan.no_loader = schist៖ ប្រព័ន្ធនេះគ្មានកម្មវិធីផ្ទុក Vulkan ដូច្នេះគ្មានអ្វីសម្រាប់គូរទេ។\n\nSchist បង្ហាញរូបភាពតាម Vulkan ហើយមិនបានដំឡើង `libvulkan.so.1` ទេ។\nត្រូវការទាំងកម្មវិធីផ្ទុក និងកម្មវិធីបញ្ជា៖\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist៖ មិនមានកម្មវិធីបញ្ជា Vulkan ដែលសម័យនេះចង្អុលទៅទេ។\n\n{var} ត្រូវបានកំណត់ ហើយការកំណត់វា *ជំនួស* ការស្វែងរកកម្មវិធីបញ្ជារបស់កម្មវិធីផ្ទុក\nមិនមែនបន្ថែមទៅវាទេ។ ដូច្នេះឯកសារទាំងនេះដែលមិនមាន\nគឺជាបញ្ជីកម្មវិធីបញ្ជាទាំងមូល ហើយកម្មវិធី Vulkan គ្រប់មុខក្នុងសម័យនេះ\nមិនឃើញកម្មវិធីបញ្ជាឡើយ ទោះបានដំឡើងប៉ុន្មានក៏ដោយ៖\n\n{missing}\n    {var}={value}\n\nចង្អុលវាទៅឯកសារ manifest ដែលមានស្រាប់ — កម្មវិធីបញ្ជាដែលបានដំឡើងដាក់ឯកសារនៅ\n/usr/share/vulkan/icd.d — ឬដកការកំណត់វា ហើយឱ្យកម្មវិធីផ្ទុកស្វែងរកដោយខ្លួនឯង។\nសម័យដែលកំណត់តម្លៃនេះពីឯកសារកំណត់រចនាសម្ព័ន្ធ (Hyprland `env =`,\nឯកសារ systemd environment.d ឬប្រវត្តិរូបសែល) ត្រូវកែតម្រូវនៅទីនោះ\nហើយត្រូវចូលប្រព័ន្ធឡើងវិញ ដើម្បីឱ្យការផ្លាស់ប្តូរទៅដល់កម្មវិធីដែលកំពុងដំណើរការ។\n
+app.vulkan.override_note = \n{var} ត្រូវបានកំណត់ជា {value} ហើយវាជំនួសការស្វែងរករបស់កម្មវិធីផ្ទុក៖\nប្រសិនបើ manifest ទាំងនោះគ្មានមួយណាសម្រាប់ម៉ាស៊ីននេះ ការដកការកំណត់វា\nគឺជាជំហានដំបូងដែលគួរសាកល្បង។\n
+app.vulkan.no_driver = schist៖ មិនបានដំឡើងកម្មវិធីបញ្ជា Vulkan ទេ ដូច្នេះគ្មានអ្វីសម្រាប់គូរទេ។\n\nSchist បង្ហាញរូបភាពតាម Vulkan។ កម្មវិធីផ្ទុកបានដំឡើង ប៉ុន្តែរាយការណ៍ថាគ្មាន\nកម្មវិធីបញ្ជា — គ្មានអ្វីបានចុះបញ្ជីនៅទីតាំងទាំងពីរដែលវាស្វែងរក៖\n\n{dirs}\n\nកម្មវិធីផ្ទុកត្រូវបានចែកចាយដាច់ពីកម្មវិធីបញ្ជា ដូច្នេះជាទូទៅខ្វះតែកញ្ចប់មួយប៉ុណ្ណោះ។\n\nដំឡើងកម្មវិធីបញ្ជាសម្រាប់ GPU របស់ម៉ាស៊ីននេះ៖\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nកម្មវិធីបញ្ជាកម្មសិទ្ធិរបស់ NVIDIA មានរបស់វាផ្ទាល់ (`nvidia-utils` លើ Arch,\n`nvidia-driver` លើ Debian)។ ក្នុងម៉ាស៊ីននិម្មិត ឬកន្លែងដែលគ្មាន\nកម្មវិធីបញ្ជា GPU សម្រាប់ដំឡើង កម្មវិធីបង្ហាញរូបភាពតាមសូហ្វវែរអាចដំណើរការ៖\n`vulkan-swrast` លើ Arch និងជាផ្នែកនៃ `mesa-vulkan-drivers` នៅប្រព័ន្ធផ្សេង។ វាយឺត\nប៉ុន្តែអាចចាប់ផ្តើមបាន។\n{overridden}
+app.vulkan.no_device = schist៖ បានដំឡើងកម្មវិធីបញ្ជា Vulkan ប៉ុន្តែវាមិនផ្តល់ឧបករណ៍សម្រាប់បង្ហាញរូបភាពទេ។\n\nកម្មវិធីបញ្ជាអាចមិនគាំទ្រ GPU នេះ ឬមិនអាចចូលប្រើវា —\nតាម SSH ឬក្នុងកុងតឺន័រ ការបាត់ /dev/dri ជាមូលហេតុទូទៅ។\n`vulkaninfo --summary` រាយការណ៍អ្វីដែលកម្មវិធីផ្ទុកមើលឃើញ។\n\nកម្មវិធីបង្ហាញរូបភាពតាមសូហ្វវែរអាចដំណើរការដោយគ្មាន GPU ប្រសិនបើម៉ាស៊ីននេះត្រូវការវា៖\n`vulkan-swrast` លើ Arch និងជាផ្នែកនៃ `mesa-vulkan-drivers`\nលើ Debian និង Fedora។\n
+app.vulkan.skip_hint = ដើម្បីចាប់ផ្តើម Schist ទោះជាយ៉ាងណា និងឱ្យវាបរាជ័យតាមវិធីរបស់វា សូមកំណត់ {var}=1។

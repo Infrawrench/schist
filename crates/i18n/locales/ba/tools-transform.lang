@@ -1,0 +1,27 @@
+# Ирекле үҙгәртеү, һайланған өлкәне үҙгәртеү һәм ҡырҡыу.
+
+tool.transform.name = Ирекле үҙгәртеү
+tool.transform.description = Ирекле үҙгәртеү. Ҡабыҙғанда әүҙем ҡатлам тирәләй үҙгәртеү ҡумтаһы асыла: масштаблау өсөн мөйөштө, әйләндереү өсөн мөйөш тышындағы урынды, ҡыйшайтыу өсөн ҡырҙы һөйрәгеҙ. Раҫлағанға (Enter) тиклем бер ни ҙә яҙылмай; баш тартыу (Escape) ҡатламды элекке хәленә ҡайтара.
+tool.transform.option.interpolation = Интерполяция
+tool.transform.history.transform = Ирекле үҙгәртеү
+tool.transform.history.image_size = Рәсем үлсәме
+tool.transform.history.canvas_size = Киндер үлсәме
+
+tool.transform.selection.name = Һайланған өлкәне үҙгәртеү
+tool.transform.selection.description = Һайланған өлкәне үҙгәртеү: шул уҡ ҡумта, әммә ул эстендәге пикселдәр урынына һайлау сиктәрен күсерә. Тамамлау өсөн раҫлағыҙ йәки баш тартығыҙ.
+tool.transform.selection.history.transform = Һайланған өлкәне үҙгәртеү
+
+tool.transform.resample.nearest_neighbor = Иң яҡын күрше
+tool.transform.resample.bilinear = Билиней
+tool.transform.resample.bicubic = Бикубик
+
+tool.crop.name = Ҡырҡыу
+tool.crop.description = Ҡалдырыласаҡ өлкәне һөйрәп билдәләгеҙ һәм тотҡаларын көйләгеҙ; раҫлау (Enter) документты шул өлкәгә тиклем ҡырҡа, ә баш тартыу (Escape) уны үҙгәртмәй.
+tool.crop.option.ratio = Нисбәт
+tool.crop.option.delete_cropped = Ҡырҡылған пикселдәрҙе юйыу
+tool.crop.choice.unconstrained = Сикләнмәгән
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Ҡырҡыу

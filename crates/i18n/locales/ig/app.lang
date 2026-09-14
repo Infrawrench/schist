@@ -1,0 +1,36 @@
+app.filter_gallery.title = Ebe ngosi nzacha
+app.filter_gallery.stack = Ngụkọta (a na-etinye site n'ala ruo n'elu)
+app.filter_gallery.no_settings = Nzacha a enweghị ntọala.
+app.fonts.not_open_licensed = enweghị ikikere oghe · {substitute} dabara na nha ya
+app.fonts.missing_substituted = na-efu · a na-eji fọnt nnọchi edepụta ederede
+app.fonts.not_in_catalogue = {family} adịghị na katalọgụ fọnt oghe
+app.fonts.no_faces = enweghị ụdị fọnt {family} a pụrụ ibudata
+app.fonts.empty_response = azịza efu
+app.update.unreadable_response = enweghị ike ịgụ azịza: {error}
+app.update.no_temp_dir = enweghị folda nwa oge a ga-ebudata n'ime ya
+app.update.asset_has_path = aha faịlụ dị na mwepụta ahụ nwere ụzọ faịlụ
+app.update.too_big = ihe a budatara karịrị nha mwepụta ahụ kwuru
+app.update.stopped_at = nbudata kwụsịrị na byte {got} n'ime {total}
+app.update.hash_mismatch = hash nbudata bụ {got}, ọ bụghị {want}
+app.update.not_in_bundle = oyiri a adịghị n'ime ngwugwu ngwa
+app.update.no_parent_dir = ngwugwu ngwa ahụ enweghị folda nne
+app.update.cannot_write = enweghị ike ide na {dir}
+app.update.cannot_move_aside = enweghị ike ibupụ {app} n'akụkụ
+app.update.cannot_move_in = enweghị ike ibubata ngwugwu ọhụrụ n'ọnọdụ ya
+app.update.cannot_run_ditto = enweghị ike ịgba /usr/bin/ditto
+app.update.unpack_failed = enweghị ike ịtọpụ nbudata: {error}
+app.update.no_app_in_download = nbudata ahụ enweghị Schist.app
+app.update.cannot_run_codesign = enweghị ike ịgba /usr/bin/codesign
+app.update.signature_invalid = enweghị ike ịchọpụta na mbinye aka nbudata ahụ ziri ezi: {error}
+app.update.download_unsigned = oyiri a nwere mbinye aka mana nbudata ahụ enweghị ya
+app.update.different_developer = onye nrụpụta ọzọ bịanyere aka na nbudata ahụ
+app.update.cannot_relaunch = enweghị ike ịmalite onye na-emepe ngwa ọzọ
+app.update.not_installed_copy = installer etinyeghị oyiri a ebe a
+app.update.cannot_start_installer = enweghị ike ịmalite installer
+app.update.platform_unsupported = a na-etinye mmelite n'elu sistemụ a n'otu ụzọ e si tinye Schist
+app.vulkan.no_loader = schist: sistemụ a enweghị Vulkan loader, ya mere ọ dịghị ihe eji ese onyonyo.\n\nSchist na-eji Vulkan ese onyonyo, ma awụnyeghị `libvulkan.so.1`.\nA chọrọ ma loader ma driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan driver nke session a na-atụ aka na ya adịghị.\n\nA haziri {var}, ma ịhazi ya *na-anọchi* ọchụchọ loader maka\ndriver kama ịgbakwunye na ya. Ya mere faịlụ ndị a, nke na-adịghị,\nbụ ndepụta driver niile -- mmemme Vulkan ọ bụla na session a\nanaghị ahụ driver ọ bụla, n'agbanyeghị ole awụnyere:\n\n{missing}\n    {var}={value}\n\nTụọ ya aka na manifest dị adị -- driver awụnyere na-etinye nke ha na\n/usr/share/vulkan/icd.d -- ma ọ bụ wepụ ntọala ya ka loader chọta nke ya.\nỌ bụrụ na session na-ahazi nke a site na faịlụ nhazi (Hyprland `env =`,\nsystemd environment.d drop-in, ma ọ bụ profaịlụ shell), a ga-agbanwe ya\nebe ahụ, mgbanwe ahụ ga-achọ nbanye ọhụrụ tupu o ruo ihe ndị na-agba ugbu a.\n
+app.vulkan.override_note = \nA haziri {var} ka ọ bụrụ {value}, nke ahụ na-anọchi ọchụchọ loader\nn'onwe ya: ọ bụrụ na manifest ndị ahụ enweghị nke igwe a, ihe mbụ\na ga-anwale bụ iwepụ ntọala ya.\n
+app.vulkan.no_driver = schist: awụnyeghị Vulkan driver, ya mere ọ dịghị ihe eji ese onyonyo.\n\nSchist na-eji Vulkan ese onyonyo. Awụnyela loader ma ọ naghị ahụ\ndriver -- ọ dịghị nke debanyere aha n'ebe abụọ a na-achọ ha:\n\n{dirs}\n\nA na-ebunye loader iche na driver, ya mere nke a na-abụkarị naanị otu\nngwugwu na-efu.\n\nWụnye nke dabara na GPU igwe a:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver nke NVIDIA nwere nke ya (`nvidia-utils` na Arch,\n`nvidia-driver` na Debian). N'ime igwe virtual, ma ọ bụ ebe ọ bụla\nenweghị GPU driver a ga-etinye, software rasteriser bụ nke na-arụ ọrụ:\n`vulkan-swrast` na Arch, akụkụ `mesa-vulkan-drivers` n'ebe ndị ọzọ. Ọ na-arụ ọrụ\nnwayọ, mana ọ na-amalite.\n{overridden}
+app.vulkan.no_device = schist: awụnyela Vulkan driver mana ọ naghị enye ngwaọrụ a ga-eji ese onyonyo.\n\nO nwere ike ịbụ na driver ahụ anaghị akwado GPU a, ma ọ bụ na ọ naghị\nenweta ya -- site na SSH, ma ọ bụ n'ime container, /dev/dri na-efukarị.\n`vulkaninfo --summary` na-egosi ihe loader na-ahụ.\n\nSoftware rasteriser na-ese onyonyo na-enweghị GPU ma ọlị, ma ọ bụrụ na\nnke ahụ bụ ọnọdụ igwe a: `vulkan-swrast` na Arch, akụkụ nke\n`mesa-vulkan-drivers` na Debian na Fedora.\n
+app.vulkan.skip_hint = Iji malite Schist agbanyeghị ma hapụ ya ka ọ daa n'ụzọ nke ya, hazie {var}=1.

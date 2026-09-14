@@ -1,0 +1,31 @@
+# Transformimi i lirë, transformimi i përzgjedhjes dhe prerja, si dhe emrat e rimostrimit.
+
+# Transformimi i lirë
+tool.transform.name = Transformim i lirë
+tool.transform.description = Transformim i lirë. Aktivizimi hap një kuti transformimi rreth shtresës aktive: tërhiqni një cep për të ndryshuar përmasat, tërhiqni jashtë një cepi për ta rrotulluar dhe tërhiqni një skaj për ta anuar. Asnjë ndryshim nuk shkruhet derisa të zbatohet (Enter), ndërsa anulimi (Escape) e rikthen shtresën.
+tool.transform.option.interpolation = Interpolimi
+tool.transform.history.transform = Transformim i lirë
+tool.transform.history.image_size = Madhësia e imazhit
+tool.transform.history.canvas_size = Madhësia e kanavacës
+
+# Transformimi i përzgjedhjes
+tool.transform.selection.name = Transformo përzgjedhjen
+tool.transform.selection.description = Transformoni përzgjedhjen: e njëjta kuti, por zhvendos konturin e përzgjedhjes në vend të pikselëve brenda saj. Zbatojeni ose anulojeni për të përfunduar.
+tool.transform.selection.history.transform = Transformo përzgjedhjen
+
+# Filtrat klasikë të rimostrimit
+tool.transform.resample.nearest_neighbor = Fqinji më i afërt
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bikubik
+
+# Prerja
+tool.crop.name = Prerje
+tool.crop.description = Tërhiqeni për të përcaktuar zonën që do të mbahet dhe rregulloni dorezat e saj; zbatimi (Enter) e shkurton dokumentin sipas saj, ndërsa anulimi (Escape) e lë të pandryshuar.
+tool.crop.option.ratio = Raporti
+tool.crop.option.delete_cropped = Fshi pikselët e prerë
+tool.crop.choice.unconstrained = Pa kufizim
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Prerje

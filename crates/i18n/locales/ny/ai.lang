@@ -1,0 +1,30 @@
+ai.status.panel_shown = Panel ya AI yaonetsedwa
+ai.status.panel_hidden = Panel ya AI yabisidwa — Onani ▸ Panel ya AI ({shortcut}) imaitsegulanso
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} yalumikizidwa
+ai.info.now_in_gallery = Tsopano muli mu gallery.
+ai.info.now_in_editor = Tsopano muli mu editor.
+ai.tool.shell_command = lamulo la shell
+
+ai.error.cli_missing = CLI ya {backend} (“{binary}”) ilibe pa PATH. Ikani ndipo lowani mu akaunti kaye.
+ai.error.endpoint_failed = kuyambitsa endpoint ya MCP kwalephera: {error}
+ai.error.binding_endpoint = kulumikiza endpoint ya MCP
+ai.error.spawning_endpoint_thread = kuyambitsa thread ya endpoint ya MCP
+ai.error.runtime_failed = kuyambitsa malo ogwirira agent kwalephera: {error}
+ai.error.worker_failed = kuyambitsa worker wa {backend} kwalephera: {error}
+ai.error.did_not_start = {backend} sinayambe: {error}
+ai.error.switch_model_failed = kusintha model kwalephera: {error}
+ai.error.send_failed = kutumiza pempho kwalephera: {error}
+ai.error.interrupt_failed = kuimitsa kwalephera: {error}
+ai.error.locating_binary = kufufuza binary ya Schist
+ai.error.starting_app_server = kuyambitsa seva ya pulogalamu ya Codex
+ai.error.attaching_app_server = kulumikiza ku seva ya pulogalamu ya Codex
+ai.error.initializing_app_server = kukonzekeretsa seva ya pulogalamu ya Codex
+ai.error.resuming_thread = kupitiriza thread ya Codex
+ai.error.starting_thread = kuyambitsa thread ya Codex
+
+ai.model.opus_detail = Gulu lamphamvu kwambiri
+ai.model.sonnet_detail = Yothandiza pa ntchito za tsiku ndi tsiku
+ai.model.haiku_detail = Yachangu kwambiri pa mayankho ofulumira
+ai.model.codex_catalog = Mndandanda wa Codex

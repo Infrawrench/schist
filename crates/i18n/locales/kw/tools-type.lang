@@ -1,0 +1,23 @@
+# Tool tekst.
+tool.type.name = Tekst
+tool.type.description = Klyckya rag dalleth gwisk tekst ena, po klyckya unn kavadow rag y olygi. Ha'y vos ygor, an tool a gemmer alhwedhow kriv (danvon arhesednow avel ynworrans alhwedh), ha komitya a rendra an gwisk hag a dhegea an golygyans.
+
+tool.type.option.align = Kesranna
+tool.type.option.leading = Pellter ynter Linen
+tool.type.option.tracking = Pellter ynter Lytherennow
+tool.type.option.kerning = Kernyans
+tool.type.option.ligatures = Kevrennow
+tool.type.option.discretionary_ligatures = Kevrennow dewisadow
+tool.type.option.small_caps = Pennlytherennow Byghan
+tool.type.option.on_path = War an hyns oberiethek
+tool.type.option.path_offset = Pellans a'n hyns
+
+tool.type.choice.regular = Reyth
+tool.type.choice.bold = Bras
+tool.type.choice.italic = Italek
+tool.type.choice.bold_italic = Bras Italek
+
+tool.type.history.new_layer = Gwisk Tekst Nowydh
+tool.type.history.edit = Golygi Tekst
+tool.type.history.discard = Gasa Tekst
+tool.type.history.discard_empty = Gasa Tekst Gwag

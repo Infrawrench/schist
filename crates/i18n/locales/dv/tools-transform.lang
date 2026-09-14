@@ -1,0 +1,25 @@
+tool.transform.name = ފްރީ ޓްރާންސްފޯމް
+tool.transform.description = ފްރީ ޓްރާންސްފޯމް. އެކްޓިވޭޓް ކުރުމުން އެކްޓިވް ލޭޔަރުގެ ވަށައިގެން ޓްރާންސްފޯމް ފޮށިއެއް ހުޅުވޭނެއެވެ: ސައިޒު ބަދަލު ކުރުމަށް ކަންކޮޅެއް ދަމާށެވެ، ބުރުވާލުމަށް ކަންކޮޅެއްގެ ބޭރުގައި ދަމާށެވެ، އަދި އަޅާލުމަށް ކައިރިއެއް ދަމާށެވެ. ކޮމިޓް (Enter) ނުކުރާ ހިނދަކު އެއްވެސް ބަދަލެއް ނުލިޔެވޭނެއެވެ، ކެންސަލް (Escape) ކުރުމުން ލޭޔަރ ކުރިން ހުރި ގޮތަށް އެނބުރޭނެއެވެ.
+tool.transform.option.interpolation = އިންޓަޕޮލޭޝަން
+tool.transform.history.transform = ފްރީ ޓްރާންސްފޯމް
+tool.transform.history.image_size = ފޮޓޯގެ ސައިޒު
+tool.transform.history.canvas_size = ކެންވަހުގެ ސައިޒު
+
+tool.transform.selection.name = ސެލެކްޝަން ޓްރާންސްފޯމް ކުރުން
+tool.transform.selection.description = ސެލެކްޝަން ޓްރާންސްފޯމް ކުރުން: އެއީ އެ ފޮށިއެވެ، ނަމަވެސް ތެރޭގައި ހުރި ޕިކްސެލްތަކުގެ ބަދަލުގައި ސެލެކްޝަނުގެ ބުރު ބަދަލުވާނެއެވެ. ނިންމުމަށް ކޮމިޓް ނުވަތަ ކެންސަލް ކުރާށެވެ.
+tool.transform.selection.history.transform = ސެލެކްޝަން ޓްރާންސްފޯމް ކުރުން
+
+tool.transform.resample.nearest_neighbor = އެންމެ ކައިރީގެ ނެއިބަރ
+tool.transform.resample.bilinear = ބައިލިނިއަރ
+tool.transform.resample.bicubic = ބައިކިއުބިކް
+
+tool.crop.name = ކްރޮޕް
+tool.crop.description = ބަހައްޓާނެ ދައިރާ ދަމާލައި ހޮވާ، އެއީގެ ހެންޑަލްތައް ރަނގަޅު ކުރާށެވެ؛ ކޮމިޓް (Enter) ކުރުމުން ޑޮކިއުމަންޓް އެ ދައިރާއަށް ކޮށާލެވޭނެއެވެ، ކެންސަލް (Escape) ކުރުމުން އެއީ ބަދަލު ނުވާނެއެވެ.
+tool.crop.option.ratio = ނިސްބަތް
+tool.crop.option.delete_cropped = ކްރޮޕް ކުރި ޕިކްސެލްތައް ފޮހެލުން
+tool.crop.choice.unconstrained = ހަމައެއް ނެތް
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = ކްރޮޕް

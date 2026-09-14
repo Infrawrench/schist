@@ -1,0 +1,22 @@
+tool.liquify.name = Liquify
+tool.liquify.description = Wetem wan bigfala brush, pusum, tantanem, smolem o solwem ol pixel aninit—mode option i jusum aksen. Warp i hivap long wan mesh mo i aplae long layer taem yu komitim.
+tool.liquify.option.tool = Tul
+tool.liquify.choice.forward_warp = Warp i Go Fored
+tool.liquify.choice.reconstruct = Bildimap Bakegen
+tool.liquify.choice.twirl_cw = Tantane folem Han blong Klok
+tool.liquify.choice.twirl_ccw = Tantane agensem Han blong Klok
+tool.liquify.choice.pucker = Smolem i Go In
+tool.liquify.choice.bloat = Solwem i Kam Big
+tool.liquify.choice.push_left = Pusum i Go Lef
+tool.liquify.history.liquify = Liquify
+
+tool.puppet_warp.name = Puppet Warp
+tool.puppet_warp.description = Klik blong pinim layer long sam poen, afta pulum wan: mesh i ben raon long ol pin, i save strong o i save sof folem Strong blong Ben option. Taem yu komitim, hem i aplae jenis.
+tool.puppet_warp.option.stiffness = Strong blong Ben
+tool.puppet_warp.history.puppet_warp = Puppet Warp
+
+tool.vanishing_point.name = Vanishing Point
+tool.vanishing_point.description = Pulum wan flat plane antap long wan samting we i gat perspective, afta jenisim mode i go long Clone mo pentem: ol pixel we yu kopi oli folem plane mo oli kam smol taem oli go longwe.
+tool.vanishing_point.choice.edit_plane = Editim Plane
+tool.vanishing_point.choice.clone = Clone
+tool.vanishing_point.history.vanishing_point = Vanishing Point

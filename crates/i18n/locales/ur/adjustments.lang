@@ -1,0 +1,20 @@
+# ایڈجسٹمنٹ لیئرز اور تصویر ▸ ایڈجسٹمنٹس کمانڈز
+adjustment.levels.name = لیولز
+adjustment.curves.name = منحنی خطوط
+adjustment.hue_saturation.name = رنگت/سیرابی
+adjustment.brightness_contrast.name = چمک/تضاد
+adjustment.black_white.name = سیاہ و سفید
+adjustment.solid_color.name = یکساں رنگ
+adjustment.gradient_fill.name = تدریجی بھرائی
+adjustment.pattern_fill.name = نقش کی بھرائی
+adjustment.invert.name = الٹائیں
+adjustment.posterize.name = پوسٹرائز
+adjustment.threshold.name = حد
+adjustment.color_balance.name = رنگوں کا توازن
+adjustment.vibrance.name = رنگوں کی تازگی
+adjustment.exposure.name = ایکسپوژر
+adjustment.photo_filter.name = فوٹو فلٹر
+adjustment.gradient_map.name = تدریجی نقشہ
+adjustment.selective_color.name = منتخب رنگ
+adjustment.channel_mixer.name = چینل مکسر
+adjustment.other.name = ایڈجسٹمنٹ

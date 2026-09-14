@@ -1,0 +1,9 @@
+{
+  "loading": "Gëtt gelueden…",
+  "starting": "Gëtt gestart…",
+  "webgpu": "Schist brauch WebGPU, wat dëse Browser net ubitt. Chrome/Edge 113+, Firefox 141+ a Safari 26+ ënnerstëtzen et.",
+  "noticeTitle": "Schist funktionéiert am beschten als Desktop-App",
+  "noticeBody": "Dir benotzt d'Webversioun, déi eng méi liicht Versioun ass: Si setzt d'Bild um CPU zesummen a léisst verschidde Funktiounen ewech – Photoshop-Plug-ins a Plug-ins vun Drëttubidder, d'Bildgalerie, den KI-Panneau, den HEIC-Import an d'Schrëft-Downloads – an Dateie ginn als Downloads gespäichert. Déi gratis Desktop-App fir macOS, Windows a Linux huet all dës Funktiounen.",
+  "noticeLink": "Desktop-App eroflueden.",
+  "ok": "OK"
+}

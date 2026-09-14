@@ -1,0 +1,23 @@
+# Вільне трансформування, трансформування виділення та кадрування.
+tool.transform.name = Вільне трансформування
+tool.transform.description = Вільне трансформування. Після ввімкнення навколо активного шару з'являється рамка: тягніть кут, щоб масштабувати, тягніть зовні кута, щоб обертати, або тягніть край, щоб нахиляти. Зміни не записуються до підтвердження (Enter), а скасування (Escape) повертає шар до попереднього стану.
+tool.transform.option.interpolation = Інтерполяція
+tool.transform.history.transform = Вільне трансформування
+tool.transform.history.image_size = Розмір зображення
+tool.transform.history.canvas_size = Розмір полотна
+tool.transform.selection.name = Трансформування виділення
+tool.transform.selection.description = Трансформування виділення: така сама рамка, але вона переміщує контур виділення, а не пікселі всередині. Щоб завершити, підтвердьте або скасуйте дію.
+tool.transform.selection.history.transform = Трансформування виділення
+tool.transform.resample.nearest_neighbor = Найближчий сусід
+tool.transform.resample.bilinear = Білінійна
+tool.transform.resample.bicubic = Бікубічна
+tool.crop.name = Кадрування
+tool.crop.description = Протягніть, щоб окреслити ділянку, яку слід залишити, і відрегулюйте її маркери; підтвердження (Enter) обрізає документ до цієї ділянки, а скасування (Escape) залишає його без змін.
+tool.crop.option.ratio = Співвідношення
+tool.crop.option.delete_cropped = Видалити обрізані пікселі
+tool.crop.choice.unconstrained = Без обмежень
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Кадрування

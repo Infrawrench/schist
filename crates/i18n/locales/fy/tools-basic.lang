@@ -1,0 +1,24 @@
+# Ferpleatse
+tool.move.name = Ferpleatse
+tool.move.description = Sleep de ynhâld fan de aktive laach nei in nij plak. As Automatysk selektearje oan stiet, kiest it yndrukken earst de laach — of de hiele groep — ûnder de oanwizer.
+tool.move.option.auto_select = Automatysk selektearje
+tool.move.history.move_layer = Laach ferpleatse
+
+# Pipet
+tool.eyedropper.name = Pipet
+tool.eyedropper.description = Nim de kleur ûnder de oanwizer oer yn it foargrûnkleurflak, of yn it eftergrûnkleurflak as alt yndrukt is. Under it slepen wurde hieltyd nije kleurmonsters nommen.
+tool.eyedropper.option.sample_size = Monstergrutte
+tool.eyedropper.option.sample = Monster
+tool.eyedropper.choice.point_sample = Puntmonster
+tool.eyedropper.choice.average_3 = Gemiddelde fan 3 by 3
+tool.eyedropper.choice.average_5 = Gemiddelde fan 5 by 5
+tool.eyedropper.choice.average_11 = Gemiddelde fan 11 by 11
+tool.eyedropper.choice.average_31 = Gemiddelde fan 31 by 31
+tool.eyedropper.choice.all_layers = Alle lagen
+tool.eyedropper.choice.current_layer = Aktive laach
+
+# Hân en Zoome
+tool.hand.name = Hân
+tool.hand.description = Ferskoot it sicht. It sichtgebiet heart by it finster; dêrom docht dit ark sûnder grafyske ynterface neat mei it dokumint.
+tool.zoom.name = Zoome
+tool.zoom.description = Zoomt it sicht yn of út. It sichtgebiet heart by it finster; dêrom docht dit ark sûnder grafyske ynterface neat mei it dokumint.

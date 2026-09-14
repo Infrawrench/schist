@@ -1,0 +1,82 @@
+# پینلز، ٹول بار، اسٹیٹس بار اور فائل ڈائیلاگ
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = نیویگیٹر
+panel.navigator.actual_pixels = اصل پکسلز
+panel.color.picker = رنگ چننے والا…
+panel.color.swap = رنگ بدلیں
+panel.color.reset = سیاہ اور سفید پر لوٹائیں
+
+panel.layers.blending_options = آمیزش کے اختیارات…
+panel.layers.properties = لیئر کی خصوصیات…
+panel.layers.show_hide = لیئر دکھائیں/چھپائیں
+panel.layers.toggle_visibility = مرئیت بدلیں
+
+panel.history.title = سرگزشت
+panel.history.opened = کھولا گیا
+
+panel.info.title = معلومات
+panel.info.camera = کیمرا
+panel.info.lens = عدسہ
+panel.info.iso = ISO {iso}
+panel.info.bias = ایکسپوژر جھکاؤ
+panel.info.flash_fired = فلیش چلی
+panel.info.no_flash = فلیش نہیں
+panel.info.white_balance = سفید توازن {wb}
+panel.info.metering = {metering} پیمائش
+panel.info.taken = تصویر لی گئی
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · رخ {o}
+panel.info.software = سافٹ ویئر
+panel.info.where = مقام
+
+panel.notes.author = مصنف
+panel.notes.clear_all = سب صاف کریں
+panel.notes.unattributed = بے نام
+panel.notes.empty = نوٹ چھوڑنے کے لیے کینوس پر کلک کریں۔
+panel.notes.placeholder = لکھنے کے لیے کلک کریں
+
+panel.character.title = حروف
+panel.character.type_tool = متن کا ٹول (T)
+panel.character.align_left = بائیں سیدھ
+panel.character.align_center = وسطی سیدھ
+panel.character.align_right = دائیں سیدھ
+panel.character.text_color = متن کا رنگ
+panel.character.panel = حروف کا پینل
+panel.character.cancel_edit = متن کی ترمیم منسوخ کریں
+panel.character.commit_edit = متن کی ترمیم کی تصدیق کریں
+panel.character.number_tip = {label} · قدر لکھیں، یا ↑ / ↓ استعمال کریں (بڑے قدموں کے لیے Shift)
+panel.character.leading = سطری فاصلہ
+panel.character.tracking = حروف کا مجموعی فاصلہ
+panel.character.alignment = سیدھ
+panel.character.opentype = OpenType
+panel.character.text_on_path = راستے پر متن
+panel.character.straight = سیدھا
+panel.character.on_path = راستے پر
+panel.character.straight_tip = متنی لیئر کی معمول کی بنیادی لکیر استعمال کریں
+panel.character.on_path_tip = فعال راستے کی نقل استعمال کریں
+panel.character.path_offset = راستے سے فاصلہ
+
+panel.ai.title = AI
+panel.ai.empty_editor = ترمیم کا کہیں اور اسے کینوس پر ہوتے دیکھیں۔ ایجنٹ مینو والے ہی ٹولز، فلٹرز اور کمانڈز چلاتا ہے، ہر ایک کے لیے ایک کالعدم قدم۔
+panel.ai.empty_gallery = اپنی تصاویر کے بارے میں کہیں اور کارروائی گیلری میں دیکھیں: ایجنٹ تلاش، تھمب نیل دیکھنے، انتخاب، گروپوں میں ترتیب دینے اور مدیر میں تصویر کھولنے کے قابل ہے۔
+panel.ai.thinking = سوچ رہا ہے…
+panel.ai.placeholder_editor = اس دستاویز کے بارے میں پوچھیں یا اس میں ترمیم کریں
+panel.ai.placeholder_gallery = اپنی تصاویر کے بارے میں پوچھیں
+panel.ai.send = بھیجیں
+panel.ai.stop = روکیں
+panel.ai.fetching_models = CLI سے اس کے ماڈلز پوچھے جا رہے ہیں…
+panel.ai.no_models = کوئی مماثل ماڈل نہیں
+panel.ai.search_models = ماڈلز تلاش کریں…
+
+panel.keymap.install_plugin = پلگ ان نصب کریں
+panel.keymap.save_as_prompt = بطور محفوظ کریں — ایکسٹینشن فارمیٹ منتخب کرتی ہے:

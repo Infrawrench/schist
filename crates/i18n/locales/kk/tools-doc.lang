@@ -1,0 +1,24 @@
+tool.artboard.name = Монтаждық аймақ
+tool.artboard.description = Монтаждық аймақты, яғни кенептің жеке экспортталатын атаулы бөлігін сүйреп жасаңыз. Бұрыннан бар аймақтың ішінде сүйресеңіз, ол жылжиды.
+tool.artboard.default_name = Монтаждық аймақ {n}
+
+tool.slice.name = Фрагмент
+tool.slice.description = Экспорт фрагментін, яғни кенептің жеке кескін ретінде экспортталатын атаулы тіктөртбұрышын сүйреп жасаңыз. Бұрыннан бар фрагменттің ішінде сүйресеңіз, ол жылжиды.
+tool.slice.default_name = Фрагмент {n}
+
+tool.frame.name = Жақтау
+tool.frame.description = Ішіне орналастырылған кез келген нысанды бүркемелейтін тіктөртбұрышты (немесе эллипстік) қабат-жақтауды сүйреп жасаңыз.
+tool.frame.default_name = Жақтау {n}
+tool.frame.choice.rectangle = Тіктөртбұрыш
+tool.frame.choice.ellipse = Эллипс
+tool.frame.history.frame = Жақтау
+
+tool.note.name = Ескертпе
+tool.note.description = Бос кенепті шертіп, редактор күйіндегі авторы мен түсі көрсетілген ескертпені сол жерге бекітіңіз; бар белгіні шертіп, оны «Ескертпелер» панелінде таңдаңыз.
+tool.note.history.place = Ескертпе орналастыру
+tool.note.history.move = Ескертпені жылжыту
+tool.note.history.delete = Ескертпені жою
+
+tool.count.name = Санау
+tool.count.description = Кенепке нөмірленген санау белгілерін қою үшін шертіңіз, ал бар белгіні жою үшін оны шертіңіз.
+tool.count.default_name = Санау {n}

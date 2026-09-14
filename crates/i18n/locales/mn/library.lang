@@ -1,0 +1,358 @@
+# Хажуу самбарын гарчиг ба мөрүүд
+library.sidebar.view = ХАРАХ
+library.sidebar.folders = ХАВТАСНУУД
+library.sidebar.buckets = ЦУГЛУУЛГУУД
+library.sidebar.people = ХҮМҮҮС
+library.sidebar.group_by = БҮЛЭГЛЭХ
+library.sidebar.all_photos = Бүх фото зураг
+library.sidebar.world_map = Дэлхийн газрын зураг
+library.sidebar.map_filter = Газрын зургийн шүүлтүүр…
+library.sidebar.map_filter_on = Газрын зургийн шүүлтүүр асаалттай
+library.sidebar.add_folder = + Хавтас нэмэх…
+library.sidebar.new_bucket = + Шинэ цуглуулга
+library.sidebar.stop_watching = Энэ хавтсыг ажиглахаа болих
+library.sidebar.unnamed_faces = Нэргүй царай
+library.sidebar.retry_face_model = Царайны загварыг дахин татах
+library.sidebar.retry_recognition_model = Таних загварыг дахин татах
+library.sidebar.looking_for_faces = Царай хайж байна… {total}-с {looked}
+library.sidebar.faces_appear = Фото зургуудыг индексжүүлэх явцад царай энд гарч ирнэ.
+library.sidebar.downloading_face_models = Царайны загваруудыг татаж байна… {total} MB-с {got}
+
+# Торны бүлэглэл
+library.group_by.date = Огноо
+library.group_by.folder = Хавтас
+library.group_by.place = Газар
+
+# Сарын гарчгууд
+library.month.january = Нэгдүгээр сар
+library.month.february = Хоёрдугаар сар
+library.month.march = Гуравдугаар сар
+library.month.april = Дөрөвдүгээр сар
+library.month.may = Тавдугаар сар
+library.month.june = Зургадугаар сар
+library.month.july = Долдугаар сар
+library.month.august = Наймдугаар сар
+library.month.september = Есдүгээр сар
+library.month.october = Аравдугаар сар
+library.month.november = Арван нэгдүгээр сар
+library.month.december = Арван хоёрдугаар сар
+library.month.title = {year} оны {month}
+library.month.undated = Огноогүй
+
+# Дотоод сангийн бүлгийн гарчгууд
+library.group.person = Хүмүүс · {name}
+library.group.person_in = Хүмүүс · {name} · {scope} дотор
+library.group.unnamed = Нэргүй царай
+library.group.unnamed_in = Нэргүй царай · {scope} дотор
+library.group.bucket = Цуглуулга · {name}
+library.group.no_location = Байршилгүй
+library.group.not_indexed = Хараахан индексжүүлээгүй
+library.group.detail = {detail} — {n}
+
+# Дээд зурвас
+library.strip.import = Импортлох…
+library.strip.add_folder = Хавтас нэмэх…
+library.strip.settings = Тохиргоо…
+library.strip.new_file = Шинэ файл…
+library.strip.back_to_editing = Засвар руу буцах
+library.strip.enable_search = Фото зураг хайлтыг идэвхжүүлэх…
+library.strip.enable_search_menu = Фото зураг хайлтыг идэвхжүүлэх…
+library.strip.map_filter_chip = Газрын зургийн шүүлтүүр: {name}
+library.strip.downloading_search = Фото зураг хайлтыг татаж байна… {total} MB-с {got}
+
+# Хайлтын талбар
+library.search.placeholder = Фото зураг хайх…
+library.search.placeholder_indexing = Хайх ({total}-с {indexed} индексжсэн)
+library.search.placeholder_people_places = Хүн ба газар хайх…
+library.search.results = Хайлтын үр дүн
+library.search.results_in_bucket = Цуглуулга · {name} · Хайлтын үр дүн
+library.search.near = {place}-ийн ойролцоо
+library.search.with = {names}-тэй хамт
+
+# Тавиур ба нүднүүд
+library.tray.view = Харах
+library.tray.edited_note = зассан — хувилбаруудыг файлын хажууд хадгалсан
+library.tray.n_hidden.one = Агуулгын шүүлтүүр {n}-г нуусан
+library.tray.n_hidden.other = Агуулгын шүүлтүүр {n}-г нуусан
+library.cell.no_preview = урьдчилан харах зураггүй
+library.cell.edited = зассан
+library.gallery.loading = Фото зургуудыг ачаалж байна…
+
+# Хавтас ажиглахаас өмнөх мэндчилгээ
+library.welcome.title = Schist-д тавтай морилно уу
+library.welcome.intro = Фото зургийн хавтаснуудыг ажиглах эсвэл камераас импортлоно уу. Файлууд байрандаа үлдэж, засваруудыг хажууд нь хувилбар болгон хадгална:
+library.welcome.intro_ios = Сангаасаа фото зураг импортлох эсвэл Files-ээс хавтас нэмнэ үү. Засвар бүрийг фото зургийн хажууд хувилбар болгон хадгална:
+library.welcome.or_open = Эсвэл засах зургаа нээнэ үү:
+library.welcome.shortcut_mac = Юу засаж байгаагаас үл хамааран галерей үргэлж ⌘⇧G товчны цаана бий.
+library.welcome.shortcut = Юу засаж байгаагаас үл хамааран галерей үргэлж Ctrl+Shift+G товчны цаана бий.
+
+# Тор хоосон байх шалтгаанууд
+library.gallery.empty_bucket_search = Энэ цуглуулгад хайлттай тохирох зүйл алга. Escape дарвал хайлтыг цэвэрлэж, цуглуулгыг бүхэлд нь харуулна.
+library.gallery.empty_search = Хайлттай тохирох зүйл алга. Escape дарвал хайлтыг цэвэрлэнэ.
+library.gallery.empty_smart_bucket = Энэ цуглуулгын дүрэмтэй хараахан тохирох зүйл алга — фото зургуудыг индексжүүлэх явцад тохирох зургууд гарч ирнэ. Фото зургуудыг чирж оруулж бас болно.
+library.gallery.empty_bucket = Энэ цуглуулга хоосон. Фото зураг нэмэхийн тулд хажуу самбар дахь мөр рүү нь чирнэ үү.
+library.gallery.empty_person = Энд хараахан юу ч алга. Фото зургуудыг индексжүүлэх явцад царай гарч ирнэ; хэн болохыг нь заахдаа фото зураг, дараа нь царайг товшино уу.
+library.gallery.scanning = Хавтаснуудыг шалгаж байна…
+library.gallery.empty = Ажиглаж буй хавтаснуудаас фото зураг олдсонгүй. Schist-ийн нээж чадах зургууд (PNG, JPEG, WebP, TIFF, HEIC, камерын RAW, PSD, Affinity) энд гарна; дэд хавтаснуудыг зургаан түвшин хүртэл шалгана.
+
+# Цуглуулгууд
+library.bucket.default_name = Цуглуулга {n}
+library.bucket.rule_matches = “{query}”-тэй тохирно
+library.bucket.rule_taken_in = {name}-д авсан
+library.bucket.new_title = Шинэ цуглуулга
+library.bucket.edit_title = Цуглуулга засах
+library.bucket.new_cloud_title = Шинэ үүлэн цуглуулга
+library.bucket.edit_cloud_title = Үүлэн цуглуулга засах
+library.bucket.create = Үүсгэх
+library.bucket.query_placeholder = жишээ нь далайн эрэг дээрх нохой (сонголттой)
+library.bucket.the_drawn_area = зурсан бүс
+library.bucket.area_help = Бүс нэмэхдээ газрын зураг дээр Shift дарж чирнэ үү (эсвэл бэлэн сонголт сонгоно уу); маш бага чирвэл бүсийг арилгана. Дүрэм нь цуглуулгыг автоматаар дүүргэнэ.
+library.bucket.rule_none = Дүрэмгүй: фото зураг чирж оруулдаг энгийн цуглуулга.
+library.bucket.rule_query = “{query}”-тэй тохирох бүх фото зургийг хадгална.
+library.bucket.rule_area = {area}-д авсан бүх фото зургийг хадгална.
+library.bucket.rule_query_area = {area}-д авсан бөгөөд “{query}”-тэй тохирох бүх фото зургийг хадгална.
+library.bucket.starts_with.one = Сонгосон фото зургаар эхэлнэ.
+library.bucket.starts_with.other = Сонгосон {n} фото зургаар эхэлнэ.
+
+# Дэлхийн газрын зураг
+library.map.status = Газрын зураг дээр {located} фото зураг · байршилгүй {unlocated}
+library.map.reading_locations = Байршлуудыг уншиж байна: {n} үлдсэн
+library.map.reset_view = Харагдацыг дахин тохируулах
+library.map.no_photos = Энэ харагдацад GPS байршилтай фото зураг алга. Гео тэмдэглэгээтэй фото зураг нэмэх эсвэл галерейн шүүлтүүрийг өөрчилнө үү.
+library.map.no_photos_cloud = Энд GPS байршилтай фото зураг алга. Өөр хавтас эсвэл цуглуулга сонгох, эсвэл хайлтыг цэвэрлэнэ үү.
+library.map.hint = Шилжүүлэхээр чир · Томруулахын тулд гүйлгэ · Тэмдэглэгээг товшиж зургуудыг нь хар · Фото зургийг давхар товшиж зас
+library.map.n_at_marker.one = Энэ тэмдэглэгээнд {n} фото зураг
+library.map.n_at_marker.other = Энэ тэмдэглэгээнд {n} фото зураг
+library.map.n_in_marker.one = Энэ тэмдэглэгээ дотор {n} фото зураг
+library.map.n_in_marker.other = Энэ тэмдэглэгээ дотор {n} фото зураг
+library.map.attribution = © OpenStreetMap-д хувь нэмэр оруулагчид
+
+# Импорт, газрын зургийн шүүлтүүр ба цуглуулгын бүс засварлагч
+library.map.draw_area = Бүс зурах
+library.map.drawing = Зурж байна…
+library.map.clear_boundary = Хилийг арилгах
+library.map.editor_hint = чирж шилжүүл · гүйлгэж томруул · shift дарж чирээд зур
+
+# Газрын зургийн шүүлтүүр
+library.map_filter.title = Газрын зургийн шүүлтүүр
+library.map_filter.drawn_area = зурсан бүс
+library.map_filter.apply_named = Хэрэглэхэд зөвхөн {name}-д авсан фото зургуудыг харуулна; EXIF байршилгүй зургууд нуугдана.
+library.map_filter.apply_drawn = Хэрэглэхэд зөвхөн {south}°, {west}°-с {north}°, {east}° хүртэлх бүсэд авсан фото зургуудыг харуулна; EXIF байршилгүй зургууд нуугдана.
+library.map_filter.draw_first = Хил зурж (Shift дарж чирэх эсвэл бэлэн сонголт сонгох) дараа нь Хэрэглэхийг товшино уу. Юу ч зураагүй үед хэрэглэвэл шүүлтүүр унтарна.
+library.map_filter.turn_off = Шүүлтүүрийг унтраах
+
+# Камераас импортлох: сонголт, тохиргоо, алдааны цонх
+library.import.title = Камераас импортлох
+library.import.from = {name}-с импортлох
+library.import.no_cameras = Камер олдсонгүй.
+library.import.no_cameras_help = Камер, санах ойн карт эсвэл iPhone холбоно уу. iPhone зургаа харуулахын өмнө түгжээг нь тайлж, Энэ компьютерт итгэх асуултад хариулсан байх ёстой — үүнийг хийгээд түр хүлээн, Дахин шалгахыг дарна уу. DCIM хавтастай диск болж холбогддог аливаа төхөөрөмж мөн тооцогдоно.
+library.import.scan_again = Дахин шалгах
+library.import.pick_source = Нэгээс олон камерт хүрэх боломжтой. Импортлох эх үүсвэр:
+library.import.via_image_capture = Image Capture-аар
+library.import.boundary_named = Хил: {name} — EXIF байршил нь дотор нь багтсан фото зургуудыг л импортлоно; байршилгүй зургууд камер дээр үлдэнэ.
+library.import.boundary_drawn = Хил: {south}°, {west}°-с {north}°, {east}° хүртэл — EXIF байршил нь дотор нь багтсан фото зургуудыг л импортлоно.
+library.import.no_boundary = Хилгүй — камер дээрх бүх зүйлийг импортлоно.
+library.import.destination = ~/Pictures/Schist Imports/{name} руу — өмнө импортлосон файлуудыг алгасах тул дахин ажиллуулахад аюулгүй.
+library.import.selected_area = Сонгосон бүс
+library.import.locked_help = Төхөөрөмж түгжээтэй бол: түгжээг тайлж, асуух үед Энэ компьютерт итгэхийг товшоод, холбоотой хэвээр байлгаж дахин оролдоно уу.
+library.import.try_again = Дахин оролдох
+library.import.add_to_gallery = Галерейд нэмэх
+
+# Камераас импортлох үеийн тавиурын төлөв
+library.import.needs_home = Импортлоход хуулах эх хавтас шаардлагатай
+library.import.importing_from = {source}-с импортолж байна…
+library.import.importing_in_place = {source}-с {place}-д авсан фото зургуудыг импортолж байна…
+library.import.device_macos_only = Төхөөрөмжөөс шууд импортлох нь macOS-ийн боломж
+library.import.failed = Импорт амжилтгүй: {error}
+library.import.from_failed = {name}-с импортолж чадсангүй
+library.import.locked = {name} түгжээтэй байна — түгжээг тайлж, үргэлжлүүлэхийн тулд Итгэхийг товшино уу
+library.import.reading_catalog = {name}-ийн фото зургийн каталогийг уншиж байна…
+library.import.progress_from = {name}-с {n}/{total} дэх фото зургийг импортолж байна…
+library.import.progress = {n}/{total} дэх файлыг импортолж байна…
+library.import.choose_photos = Импортлох фото зураг, видеог сонгох…
+library.import.photos_open_failed = Фото зургийн санг нээж чадсангүй: {error}
+library.import.done.one = {n} файлыг {dest} руу импортлов
+library.import.done.other = {n} файлыг {dest} руу импортлов
+library.import.done_in_place.one = {place}-д авсан {n} фото зургийг {dest} руу импортлов ({filtered} зураг өөр газар авсан эсвэл байршилгүй тул камер дээр үлдсэн)
+library.import.done_in_place.other = {place}-д авсан {n} фото зургийг {dest} руу импортлов ({filtered} зураг өөр газар авсан эсвэл байршилгүй тул камер дээр үлдсэн)
+library.import.n_failed.one = {n} амжилтгүй
+library.import.n_failed.other = {n} амжилтгүй
+library.import.no_dcim = {source} дээр DCIM хавтас алга
+library.import.already_running = Импорт аль хэдийн явагдаж байна
+library.import.camera_gone = Тэр камер холбоотой байхаа больсон
+library.import.camera_disconnected = Импортын дундуур камер саллаа
+library.import.unknown_error = Үл мэдэгдэх алдаа
+library.import.picker_needs_ios14 = Фото зураг сонгогчид iOS 14 эсвэл түүнээс хойших хувилбар шаардлагатай
+library.import.picker_unavailable = Фото зураг сонгогч боломжгүй
+library.import.no_window = Сонгогчийг харуулах цонх алга
+
+# Холболтын нэр нь тодорхойгүй камерын нэр
+library.volume.iphone = iPhone эсвэл iPad
+library.volume.camera = Камер
+library.volume.phone = Утас
+
+# Цонх руу чирж табуудаар нээсэн хавтас
+library.open_folder.opened.one = {n} зураг нээлээ
+library.open_folder.opened.other = {n} зураг нээлээ
+library.open_folder.opened_first = {total} зургаас эхний {n}-г нээлээ — үлдсэнийг галерейд хадгаллаа
+
+# Фото зураг хайлтын загварын цонх
+library.search_models.title = Фото зураг хайлт
+library.search_models.intro = Фото зургуудыг агуулгаар нь хайхад хоёр загвар шаардлагатай бөгөөд тэдгээрийг нэг удаа татаж энэ машинд хадгална. Загварууд дотоодод ажилладаг: ямар ч фото зураг машинаас гарахгүй.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = Apple-ийн MobileCLIP
+library.search_models.export = Xenova-гийн ONNX экспорт
+library.search_models.license = Лиценз
+library.search_models.download_note = Татаж авахад хоёуланг нь суулгаж (нийт {mb} MB), лицензүүдийг нь зөвшөөрнө. Дараа нь Галерей ▸ Загварууд удирдах… хэсгээс дахин устгаж болно.
+library.search_models.agree = Зөвшөөрч татах
+
+# Баруун товшилтын цэс
+library.menu.add_all_to = Бүгдийг {name} руу нэмэх
+library.menu.add_all_to_new_bucket = Бүгдийг шинэ цуглуулгад нэмэх…
+library.menu.edit_n_in_tabs = {n}-г табуудаар засах
+library.menu.view_name_people = Хүмүүсийг харж нэрлэх
+library.menu.reveal = Файл менежерт харуулах
+library.menu.add_to = {name} руу нэмэх
+library.menu.add_to_new_bucket = Шинэ цуглуулгад нэмэх
+library.menu.remove_from_bucket = Энэ цуглуулгаас хасах
+library.menu.save_n_as_zip = {n}-г ZIP болгон хадгалах…
+library.menu.save_image_as = Зургийг өөрөөр хадгалах…
+library.menu.process = Боловсруулах…
+library.menu.process_n = {n} фото зураг боловсруулах…
+library.menu.move_to_folder = Хавтас руу зөөх…
+library.menu.move_n_to_folder = {n}-г хавтас руу зөөх…
+library.menu.revert = Эх хувилбарт буцаах
+library.menu.revert_n = {n}-г эх хувилбарт нь буцаах
+library.menu.upload_to_cloud = Schist Cloud руу байршуулах…
+library.menu.watch_local_folder = Энэ компьютерын хавтсыг ажиглах…
+library.menu.new_cloud_folder = {glyph} Шинэ Schist Cloud хавтас…
+library.menu.new_local_bucket = Энэ компьютерт шинэ цуглуулга үүсгэх…
+library.menu.new_cloud_bucket = {glyph} Шинэ Schist Cloud цуглуулга…
+library.menu.edit_bucket = Цуглуулга засах…
+library.menu.select_all_n = Бүгдийг сонгох ({n})
+library.menu.save_all_as_zip = Бүгдийг ZIP болгон хадгалах… ({n})
+library.menu.process_all = Бүгдийг боловсруулах… ({n})
+library.menu.move_all_to_folder = Бүгдийг хавтас руу зөөх…
+library.menu.clear_added = Нэмсэн фото зургуудыг арилгах
+library.menu.clear_bucket = Цуглуулгыг цэвэрлэх
+library.menu.delete_bucket = Цуглуулгыг устгах
+library.menu.show_person = {name}-ийг харуулах
+library.menu.rename_person = Нэр солих…
+library.menu.forget_person.one = Хүнийг мартах ({n} царай)
+library.menu.forget_person.other = Хүнийг мартах ({n} царай)
+
+# Зөөх, ZIP болгох, хадгалах, буцаах, бөөнөөр боловсруулах
+library.ops.moving.one = {n} фото зургийг {dest} руу зөөж байна…
+library.ops.moving.other = {n} фото зургийг {dest} руу зөөж байна…
+library.ops.moved.one = {n} фото зургийг {dest} руу зөөлөө
+library.ops.moved.other = {n} фото зургийг {dest} руу зөөлөө
+library.ops.moved_partial = {total} фото зургаас {n}-г {dest} руу зөөлөө — үлдсэн мэдээлэл журналд бий
+library.ops.move_here = Энд зөөх
+library.ops.no_export_format = Энд зураг хадгалж чадах формат алга
+library.ops.saved_size = {name}-ийг хадгаллаа ({w} × {h})
+library.ops.save_failed = Хадгалж чадсангүй: {error}
+library.ops.opening_first = {total} фото зургаас эхний {n}-г нээж байна — үлдсэнийг галерейд хадгална
+library.ops.nothing_to_revert = Буцаах зүйл алга: эдгээр фото зургийн аль нь ч засваргүй
+library.ops.reverted.one = {n} фото зургийг эх хувилбарт нь буцаалаа — засварыг versions/ дотор хадгалсан
+library.ops.reverted.other = {n} фото зургийг эх хувилбарт нь буцаалаа — засваруудыг versions/ дотор хадгалсан
+library.ops.no_file_name = Файл нэргүй байна
+library.zip.nothing_all_held = ZIP болгох зүйл алга: агуулгын шүүлтүүр эдгээр {n} фото зургийг бүгдийг нь хассан
+library.zip.failed = ZIP амжилтгүй: {error}
+library.zip.progress = ZIP болгож байна {n}/{total}…
+library.zip.n_held.one = (агуулгын шүүлтүүр {n}-г хассан)
+library.zip.n_held.other = (агуулгын шүүлтүүр {n}-г хассан)
+library.zip.done.one = {n} фото зургийг ZIP болгон {dest}-д хадгаллаа
+library.zip.done.other = {n} фото зургийг ZIP болгон {dest}-д хадгаллаа
+library.zip.done_partial = {total} фото зургаас {n}-г ZIP болгон {dest}-д хадгаллаа — үлдсэн мэдээлэл журналд бий
+library.zip.nothing_readable = ZIP болгохоор уншиж чадсан зүйл алга
+library.zip.too_large = zip64-гүй ZIP-д хэт том байна
+library.batch.nothing_to_do = Хийх зүйл алга: эхлээд эргэлт, томруулалт эсвэл тохируулга сонгоно уу
+library.batch.save_copies_here = Хуулбаруудыг энд хадгалах
+library.batch.processing.one = {n} фото зураг боловсруулж байна…
+library.batch.processing.other = {n} фото зураг боловсруулж байна…
+library.batch.progress = {n}/{total}-г боловсруулав — {name}
+library.batch.failed = Боловсруулалт амжилтгүй: {error}
+library.batch.done.one = {n} фото зураг боловсруулав
+library.batch.done.other = {n} фото зураг боловсруулав
+library.batch.done_partial = {total} фото зургаас {n}-г боловсруулав — үлдсэн мэдээлэл журналд бий
+library.batch.model_would_not_load = {name} загвар ачаалагдсангүй
+library.batch.no_psd_writer = PSD бичигч ачаалаагүй
+
+# Үзэгч ба Хүмүүс цомог
+library.viewer.back = ‹ Фото зургууд руу буцах
+library.viewer.could_not_decode = Энэ фото зургийг тайлж чадсангүй.
+library.viewer.label_auto = {name} · автомат
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = ЭНЭ ФОТО ЗУРАГ ДЭЭРХ ХҮМҮҮС
+library.viewer.faces_intro = Нэг удаа татдаг жижиг загвараар царайг олно. Хүрээг гараар мөн зурж болно.
+library.viewer.looking_for_faces = Царай хайж байна…
+library.viewer.no_faces = Царай олдсонгүй. Хүнийг гараар нэмэхийн тулд царайг нь тойруулж хүрээ чирнэ үү.
+library.viewer.help = Царайг товшиж нэрлээд Enter дарж хадгална. Илрүүлэгчийн олоогүй царайг тэмдэглэхийн тулд фото зураг дээр чирнэ үү. ← → товчоор зураг хооронд шилжиж, Esc товчоор буцна.
+library.viewer.not_them = Энэ хүн биш
+library.viewer.remove_name = Нэрийг арилгах
+library.viewer.not_a_face = Царай биш
+library.viewer.auto = автомат
+library.viewer.is_this = Энэ {name} мөн үү?
+library.viewer.someone_else = Өөр хүн
+library.viewer.add_name = Нэр нэмэх…
+library.viewer.who_is_this = Энэ хэн бэ?
+library.people.rename_title = Хүний нэр солих
+library.people.merge_warning = “{name}” нэртэй хүн аль хэдийн байна: хадгалбал хоёрыг нэгтгэнэ.
+library.people.merge_note = Өөр хүнд аль хэдийн өгсөн нэрээр соливол хоёр хүнийг нэгтгэнэ.
+library.people.named = {name} гэж нэрлэлээ
+library.people.named_followed.one = {name} гэж нэрлэлээ · өөр {n} царайг автоматаар тааруулав
+library.people.named_followed.other = {name} гэж нэрлэлээ · өөр {n} царайг автоматаар тааруулав
+
+# Photos-д хадгалах (iOS)
+library.photos.saving = Photos-д хадгалж байна…
+library.photos.saved = Photos-д хадгаллаа
+library.photos.save_failed = Photos-д хадгалж чадсангүй: {error}
+library.photos.no_document = нээлттэй баримт алга
+library.photos.no_png_codec = PNG кодек ачаалаагүй
+library.photos.no_answer = фото зургийн сан хариу өгсөнгүй
+library.photos.bad_url = файлын замыг URL болгож чадсангүй
+library.photos.unavailable = фото зургийн сан боломжгүй
+library.photos.declined = фото зургийн сан татгалзсан
+
+# Апп руу хуваалцсан файлууд (iOS)
+library.shared.needs_documents = Галерейд хуулах Documents хавтас шаардлагатай
+library.shared.added.one = Галерейд {n} фото зураг нэмлээ
+library.shared.added.other = Галерейд {n} фото зураг нэмлээ
+library.shared.open_needs_documents = Нээхэд хуулах Documents хавтас шаардлагатай
+library.shared.could_not_open = {name}-ийг нээж чадсангүй: {error}
+
+# Суурин системийн видео урьдчилан харах ба кадр авах
+video.invalid_file = Энэ дотоод видео файл биш байна.
+video.install_gstreamer = Видеог урьдчилан харахад GStreamer 1.x болон видео тайлагч нэмэлтүүд шаардлагатай. Тэдгээрийг суулгаад видеог дахин нээнэ үү. Гаднын засварлагчийг сонгох боломж хэвээр байна.
+video.decode_failed = Энэ видео кадрыг тайлж чадсангүй.
+video.no_stream = Энэ файл видео урсгалгүй.
+video.no_duration = Видеоны үргэлжлэх хугацааг уншиж чадсангүй.
+video.frame_too_large = Энэ видео кадр нээхэд хэт том байна.
+video.first_frame = Аль хэдийн эхний кадр дээр байна.
+video.editor_failed = Видео засварлагчийг нээж чадсангүй: {error}
+video.editor_unavailable = Сонгосон видео засварлагчийг нээж чадсангүй. Аппыг дахин сонгоно уу.
+video.loading = Видеог ачаалж байна…
+video.searching = Ойролцоох илүү тод кадрыг хайж байна…
+video.capturing = Бүрэн нягтралтай кадрыг нээж байна…
+video.frame_title = {name} — {time} дэх кадр
+video.frame_layer = Видео кадр
+video.already_sharpest = Энэ нь ойролцоох кадруудаас аль хэдийн хамгийн тод нь байна.
+video.found_frame = {time} дэх ойролцоох хамгийн тод кадрыг сонголоо.
+video.choose_editor = Видео засварлагч сонгох…
+video.back = Галерей руу буцах
+video.pause = Түр зогсоох
+video.play = Тоглуулах
+video.previous = Өмнөх кадр
+video.next = Дараах кадр
+video.sharper = Илүү тод кадр олох
+video.edit_frame = Кадр засах
+video.open_editor = Видео засварлагчид нээх
+video.preview_help = Дуугүй урьдчилан харах · Зай: тоглуулах/түр зогсоох · Сум: кадраар алхах · Хоёр талдаа ½ секундын дотор хайна. Засахад тусдаа зураг нээнэ.
+video.badge = ▶ Видео
+video.view = Видео үзэх
+
+video.open_another_app = Өөр аппад нээх…
+video.preview_help_touch = Дуугүй урьдчилан харах · Хугацааны шугамыг чирэх эсвэл кадраар алхана уу. Илүү тод кадр олох нь хоёр талдаа ½ секундын дотор хайна. Засахад тусдаа зураг нээнэ.
+video.importing = Фото зураг, видеог импортолж байна…
+video.import_failed = Медиа импортолж чадсангүй: {error}
+video.import_failed_simple = Энэ медиаг импортолж эсвэл хуваалцаж чадсангүй.

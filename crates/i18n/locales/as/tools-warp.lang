@@ -1,0 +1,28 @@
+# The warp tools (plugins/tools-warp): Liquify, Puppet Warp, Vanishing
+# Point. Mode, Size and Pressure come from common.lang.
+
+# Liquify
+tool.liquify.name = তৰলীকৰণ
+tool.liquify.description = ডাঙৰ ব্ৰাছৰ তলৰ পিক্সেল ঠেলক, পকাওক, কোঁচাওক বা ফুলাই দিয়ক—কোনটো হ'ব মোড বিকল্পই নিৰ্ধাৰণ কৰে। বিকৃতিটো এটা জালিকাত জমা হয় আৰু নিশ্চিত কৰিলে স্তৰটোত প্ৰয়োগ কৰা হয়।
+tool.liquify.option.tool = সঁজুলি
+tool.liquify.choice.forward_warp = সন্মুখলৈ বিকৃতি
+tool.liquify.choice.reconstruct = পুনৰ্গঠন
+tool.liquify.choice.twirl_cw = ঘড়ীৰ কাঁটাৰ দিশে পকাওক
+tool.liquify.choice.twirl_ccw = ঘড়ীৰ কাঁটাৰ বিপৰীত দিশে পকাওক
+tool.liquify.choice.pucker = কোঁচাওক
+tool.liquify.choice.bloat = ফুলাই দিয়ক
+tool.liquify.choice.push_left = বাওঁফালে ঠেলক
+tool.liquify.history.liquify = তৰলীকৰণ
+
+# Puppet Warp
+tool.puppet_warp.name = পুতলা বিকৃতি
+tool.puppet_warp.description = কেইটামান বিন্দুত স্তৰটো পিন কৰিবলৈ ক্লিক কৰক, তাৰ পিছত এটা বিন্দু টানক: কঠিনতা বিকল্প অনুসৰি জালিকাখন পিনবোৰৰ চাৰিওফালে দৃঢ় বা নমনীয়ভাৱে বেঁকা হয়। নিশ্চিত কৰিলে ই প্ৰয়োগ হয়।
+tool.puppet_warp.option.stiffness = কঠিনতা
+tool.puppet_warp.history.puppet_warp = পুতলা বিকৃতি
+
+# Vanishing Point
+tool.vanishing_point.name = বিলুপ্তি বিন্দু
+tool.vanishing_point.description = পাৰ্সপেক্টিভ থকা কোনো বস্তুৰ ওপৰত এখন সমতল টানি আঁকক, তাৰ পিছত মোড ক্লোনলৈ সলাই আঁকক: নকল কৰা পিক্সেলবোৰে সমতলখন অনুসৰণ কৰে আৰু দূৰত্বৰ লগে লগে সৰু হয়।
+tool.vanishing_point.choice.edit_plane = সমতল সম্পাদনা কৰক
+tool.vanishing_point.choice.clone = ক্লোন
+tool.vanishing_point.history.vanishing_point = বিলুপ্তি বিন্দু

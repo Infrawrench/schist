@@ -1,0 +1,20 @@
+# Adjustment layers and the Image ▸ Adjustments commands: the names.
+adjustment.levels.name = Amaleveli
+adjustment.curves.name = Amajika
+adjustment.hue_saturation.name = Umbala/Ukusutha
+adjustment.brightness_contrast.name = Ukukhanya/Umehluko
+adjustment.black_white.name = Okunzima nokumhlophe
+adjustment.solid_color.name = Umbala Ozalisiweko
+adjustment.gradient_fill.name = Ukuzalisa Ngokutjhuguluka Kombala
+adjustment.pattern_fill.name = Ukuzalisa Ngephetheni
+adjustment.invert.name = Phendula Imibala
+adjustment.posterize.name = Hlukanisa Imibala
+adjustment.threshold.name = Umkhawulo
+adjustment.color_balance.name = Ibhalansi Yombala
+adjustment.vibrance.name = Ukuphila Kombala
+adjustment.exposure.name = Ukuvezwa
+adjustment.photo_filter.name = Isihlungi Sesithombe
+adjustment.gradient_map.name = Imebhe Yokutjhuguluka Kombala
+adjustment.selective_color.name = Umbala Okhethiweko
+adjustment.channel_mixer.name = Isihlanganisi Samatjhaneli
+adjustment.other.name = Ukulungisa

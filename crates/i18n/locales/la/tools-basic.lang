@@ -1,0 +1,21 @@
+tool.move.name = Movere
+tool.move.description = Contenta strati activi ad novum locum trahe. Si Electio Automatica activa est, premendo primum eligitur quodlibet stratum — vel totus grex — sub indice positum.
+tool.move.option.auto_select = Electio Automatica
+tool.move.history.move_layer = Stratum Motum
+
+tool.eyedropper.name = Pipetta
+tool.eyedropper.description = Colorem sub indice in specimen anterius cape, vel, dum alt tenetur, in specimen posterius. Trahendo color continuo capitur.
+tool.eyedropper.option.sample_size = Magnitudo Speciminis
+tool.eyedropper.option.sample = Specimen
+tool.eyedropper.choice.point_sample = Specimen Punctuale
+tool.eyedropper.choice.average_3 = Media 3 per 3
+tool.eyedropper.choice.average_5 = Media 5 per 5
+tool.eyedropper.choice.average_11 = Media 11 per 11
+tool.eyedropper.choice.average_31 = Media 31 per 31
+tool.eyedropper.choice.all_layers = Omnia Strata
+tool.eyedropper.choice.current_layer = Stratum Praesens
+
+tool.hand.name = Manus
+tool.hand.description = Prospectum transducit. Area conspicua ad fenestram pertinet, itaque hoc instrumentum sine fenestra documentum non mutat.
+tool.zoom.name = Amplificatio
+tool.zoom.description = Prospectum amplificat aut minuit. Area conspicua ad fenestram pertinet, itaque hoc instrumentum sine fenestra documentum non mutat.

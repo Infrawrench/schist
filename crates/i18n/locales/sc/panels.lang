@@ -1,0 +1,95 @@
+# Tastos modificadores
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Barra de istadu
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Ischedas e tìtulu de sa bentana
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigadore
+panel.navigator.title = Navigadore
+panel.navigator.actual_pixels = Pixel efetivos
+
+# Pannellu de colore
+panel.color.picker = Seletore…
+panel.color.swap = Càmbia is colores
+panel.color.reset = Riprìstina nieddu e biancu
+
+# Pannellu de is istratos
+panel.layers.blending_options = Optziones de mistura…
+panel.layers.properties = Propiedades de s'istratu…
+panel.layers.show_hide = Ammustra/Cua s'istratu
+panel.layers.toggle_visibility = Càmbia sa visibilidade
+
+# Pannellu de sa cronologia
+panel.history.title = Cronologia
+panel.history.opened = Abertu
+
+# Informatziones EXIF
+panel.info.title = Informatziones
+panel.info.camera = Càmera
+panel.info.lens = Obietivu
+panel.info.iso = ISO {iso}
+panel.info.bias = Cumpensatzione
+panel.info.flash_fired = lampu iscattadu
+panel.info.no_flash = chena lampu
+panel.info.white_balance = Echilìbriu de biancu {wb}
+panel.info.metering = Mesura {metering}
+panel.info.taken = Pigada
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientatzione {o}
+panel.info.software = Programa
+panel.info.where = Logu
+
+# Pannellu de is notas
+panel.notes.author = Autore
+panel.notes.clear_all = Isbòida totu
+panel.notes.unattributed = Chena autore
+panel.notes.empty = Incarca sa tela pro lassare una nota.
+panel.notes.placeholder = Incarca pro iscrìere
+
+# Pannellu de is caràteres
+panel.character.title = Caràtere
+panel.character.type_tool = Aina Testu (T)
+panel.character.align_left = Allìnia a manca
+panel.character.align_center = Allìnia a su tzentru
+panel.character.align_right = Allìnia a dereta
+panel.character.text_color = Colore de su testu
+panel.character.panel = Pannellu de is caràteres
+panel.character.cancel_edit = Annulla sa modìfica de su testu
+panel.character.commit_edit = Cunfirma sa modìfica de su testu
+panel.character.number_tip = {label} · Iscrie unu valore, o imprea ↑ / ↓ (Shift pro passos prus mannos)
+panel.character.leading = Interlìnia
+panel.character.tracking = Ispatzidadura
+panel.character.alignment = Alliniamentu
+panel.character.opentype = OpenType
+panel.character.text_on_path = Testu subra unu percursu
+panel.character.straight = Deretu
+panel.character.on_path = Subra su percursu
+panel.character.straight_tip = Imprea sa lìnia de base normale de s'istratu de testu
+panel.character.on_path_tip = Imprea una còpia de su percursu ativu
+panel.character.path_offset = Isfàsamentu de su percursu
+
+# Barra laterale de IA
+panel.ai.title = IA
+panel.ai.empty_editor = Pedi una modìfica e mira comente est fata in sa tela. S'agente manìgiat is matessi ainas, filtros e cumandos de is menùs, una fase de annullamentu pro cada atzione.
+panel.ai.empty_gallery = Pregunta informatziones subra de is fotografias tuas e mira su traballu in sa galleria: s'agente podet chircare, esaminare miniaduras, seletzionare, ordinare in grupos e abèrrere una fotografia in s'editore.
+panel.ai.thinking = pensende…
+panel.ai.placeholder_editor = Pregunta o modìfica custu documentu
+panel.ai.placeholder_gallery = Pregunta subra de is fotografias tuas
+panel.ai.send = Imbia
+panel.ai.stop = Firma
+panel.ai.fetching_models = Pedende is modelos a sa CLI…
+panel.ai.no_models = Perunu modellu currispondet
+panel.ai.search_models = Chirca modelos…
+
+# Diàlogos de archìviu
+panel.keymap.install_plugin = Installa unu cumplementu
+panel.keymap.save_as_prompt = Sarva comente — s'estensione seletzionat su formadu:

@@ -1,0 +1,36 @@
+# Panel lateral d'IA y procesos que i hai dezaga.
+
+# Barra d'estau
+ai.status.panel_shown = Panel d'IA amostrau
+ai.status.panel_hidden = Panel d'IA amagau — Vista ▸ Panel d'IA ({shortcut}) lo torna a amostrar
+ai.status.tool = IA: {name}
+
+# Ringleras atenuadas d'a transcripción
+ai.info.connected = {backend} connectau
+ai.info.now_in_gallery = Agora en a galería.
+ai.info.now_in_editor = Agora en l'editor.
+ai.tool.shell_command = comando d'a terminal
+
+# Errors d'a transcripción
+ai.error.cli_missing = A interficie de linia de comandos de {backend} («{binary}») no ye en PATH. Instala-la y enceta-ie sesión primero.
+ai.error.endpoint_failed = ha fallau l'inicio d'o punto final MCP: {error}
+ai.error.binding_endpoint = se ye vinculando o punto final MCP
+ai.error.spawning_endpoint_thread = se ye iniciando o filo d'o punto final MCP
+ai.error.runtime_failed = ha fallau l'inicio de l'entorno d'execución de l'achent: {error}
+ai.error.worker_failed = ha fallau l'inicio d'o proceso de {backend}: {error}
+ai.error.did_not_start = {backend} no s'ha iniciau: {error}
+ai.error.switch_model_failed = ha fallau o cambio de modelo: {error}
+ai.error.send_failed = ha fallau o ninvio d'a petición: {error}
+ai.error.interrupt_failed = ha fallau a interrupción: {error}
+ai.error.locating_binary = se ye mirando o binario de Schist
+ai.error.starting_app_server = se ye iniciando o servidor d'aplicacions de Codex
+ai.error.attaching_app_server = se ye connectando a lo servidor d'aplicacions de Codex
+ai.error.initializing_app_server = se ye inicializando o servidor d'aplicacions de Codex
+ai.error.resuming_thread = se ye reprenendo o filo de Codex
+ai.error.starting_thread = se ye iniciando o filo de Codex
+
+# Catalogo alternativo d'o selector de modelos
+ai.model.opus_detail = Nivel con mas capacidatz
+ai.model.sonnet_detail = Eficient ta fayenas habituals
+ai.model.haiku_detail = O mas rapido ta respuestas curtas
+ai.model.codex_catalog = Catalogo de Codex

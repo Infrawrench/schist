@@ -1,0 +1,26 @@
+# Nástroje pro prvky dokumentu: kreslicí plátna, řezy, rámečky, poznámky a počítadla.
+
+tool.artboard.name = Kreslicí plátno
+tool.artboard.description = Tažením vytvoří kreslicí plátno: pojmenovanou oblast plátna, která se exportuje samostatně. Tažením uvnitř existujícího plátna je přesunete.
+tool.artboard.default_name = Kreslicí plátno {n}
+
+tool.slice.name = Řez
+tool.slice.description = Tažením vytvoří exportní řez, pojmenovaný obdélník plátna exportovaný jako samostatný obrázek. Tažením uvnitř existujícího řezu jej přesunete.
+tool.slice.default_name = Řez {n}
+
+tool.frame.name = Rámeček
+tool.frame.description = Tažením vytvoří rámeček: obdélníkovou nebo eliptickou vrstvu, která maskuje vše, co do ní umístíte.
+tool.frame.default_name = Rámeček {n}
+tool.frame.choice.rectangle = Obdélník
+tool.frame.choice.ellipse = Elipsa
+tool.frame.history.frame = Rámeček
+
+tool.note.name = Poznámka
+tool.note.description = Kliknutím na prázdné místo plátna tam připnete poznámku s autorem a barvou z nastavení editoru; kliknutím na existující značku ji vyberete pro panel Poznámky.
+tool.note.history.place = Umístit poznámku
+tool.note.history.move = Přesunout poznámku
+tool.note.history.delete = Odstranit poznámku
+
+tool.count.name = Počítadlo
+tool.count.description = Kliknutím umístíte na plátno očíslovanou značku počítadla; kliknutím na existující značku ji odstraníte.
+tool.count.default_name = Počítadlo {n}

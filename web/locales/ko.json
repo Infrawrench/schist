@@ -1,0 +1,9 @@
+{
+  "loading": "불러오는 중…",
+  "starting": "시작하는 중…",
+  "webgpu": "Schist를 사용하려면 WebGPU가 필요하지만 이 브라우저에서는 지원하지 않습니다. Chrome/Edge 113 이상, Firefox 141 이상 또는 Safari 26 이상을 사용하세요.",
+  "noticeTitle": "Schist는 데스크톱 앱에서 가장 원활하게 작동합니다",
+  "noticeBody": "현재 사용 중인 웹 버전은 기능을 줄인 경량 빌드입니다. CPU에서 합성 작업을 처리하며 Photoshop 및 서드파티 플러그인, 이미지 갤러리, AI 패널, HEIC 가져오기, 글꼴 다운로드 등의 기능이 제외되어 있고 파일은 다운로드 방식으로 저장됩니다. macOS, Windows, Linux용 무료 데스크톱 앱에서는 모든 기능을 사용할 수 있습니다.",
+  "noticeLink": "데스크톱 앱 받기",
+  "ok": "확인"
+}

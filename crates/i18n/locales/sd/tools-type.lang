@@ -1,0 +1,22 @@
+tool.type.name = متن
+tool.type.description = اتي متن واري پرت شروع ڪرڻ لاءِ ڪلڪ ڪريو، يا موجود متن واري پرت کي سنوارڻ لاءِ ان تي ڪلڪ ڪريو. سنوارڻ کليل هجي ته اوزار سڌيون ڪيز وٺي ٿو (اکر ڪي-اِن پُٽ طور موڪليو)، ۽ تصديق سان پرت رينڊر ٿئي ٿي ۽ سنوارڻ بند ٿئي ٿو.
+
+tool.type.option.align = سڌائي
+tool.type.option.leading = سٽن جي وٿي
+tool.type.option.tracking = اکرن جي وٿي
+tool.type.option.kerning = ڪيرننگ
+tool.type.option.ligatures = ڳنڍيل اکر
+tool.type.option.discretionary_ligatures = اختياري ڳنڍيل اکر
+tool.type.option.small_caps = ننڍا وڏا اکر
+tool.type.option.on_path = فعال واٽ تي
+tool.type.option.path_offset = واٽ کان وٿي
+
+tool.type.choice.regular = عام
+tool.type.choice.bold = ٿلهو
+tool.type.choice.italic = ترڇو
+tool.type.choice.bold_italic = ٿلهو ترڇو
+
+tool.type.history.new_layer = متن جي نئين پرت
+tool.type.history.edit = متن سنواريو
+tool.type.history.discard = متن رد ڪريو
+tool.type.history.discard_empty = خالي متن رد ڪريو

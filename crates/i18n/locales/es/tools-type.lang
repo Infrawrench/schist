@@ -1,0 +1,20 @@
+# Herramienta Texto.
+tool.type.name = Texto
+tool.type.description = Haz clic para crear una capa de texto en ese punto o en una existente para editarla. Mientras esté abierta, la herramienta acepta pulsaciones sin procesar (envía los caracteres como entrada de teclado); al confirmar, representa la capa y cierra la edición.
+tool.type.option.align = Alineación
+tool.type.option.leading = Interlineado
+tool.type.option.tracking = Interletraje
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligaduras
+tool.type.option.discretionary_ligatures = Ligaduras discrecionales
+tool.type.option.small_caps = Versalitas
+tool.type.option.on_path = En el trazado activo
+tool.type.option.path_offset = Desplazamiento del trazado
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Negrita
+tool.type.choice.italic = Cursiva
+tool.type.choice.bold_italic = Negrita cursiva
+tool.type.history.new_layer = Nueva capa de texto
+tool.type.history.edit = Editar texto
+tool.type.history.discard = Descartar texto
+tool.type.history.discard_empty = Descartar texto vacío

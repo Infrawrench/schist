@@ -1,0 +1,25 @@
+tool.transform.name = Transformazio librea
+tool.transform.description = Transformazio librea. Aktibatzean, transformazio-koadro bat irekitzen da geruza aktiboaren inguruan: arrastatu izkina bat eskalatzeko, arrastatu izkina baten kanpoaldetik biratzeko, eta arrastatu ertz bat okertzeko. Ez da ezer aplikatzen berretsi arte (Sartu), eta bertan behera uztean (Esc) geruza lehengo egoerara itzultzen da.
+tool.transform.option.interpolation = Interpolazioa
+tool.transform.history.transform = Transformazio librea
+tool.transform.history.image_size = Irudiaren tamaina
+tool.transform.history.canvas_size = Mihisearen tamaina
+
+tool.transform.selection.name = Hautapenaren transformazioa
+tool.transform.selection.description = Hautapenaren transformazioa: koadro bera da, baina hautapenaren ingerada mugitzen du, barruko pixelen ordez. Berretsi edo utzi bertan behera amaitzeko.
+tool.transform.selection.history.transform = Hautapenaren transformazioa
+
+tool.transform.resample.nearest_neighbor = Hurbileneko auzokidea
+tool.transform.resample.bilinear = Bilineala
+tool.transform.resample.bicubic = Bikubikoa
+
+tool.crop.name = Moztu
+tool.crop.description = Arrastatu mantendu beharreko eremua zehazteko eta doitu haren heldulekuak; berrestean (Sartu), dokumentua eremu horretara mozten da, eta bertan behera uztean (Esc), bere horretan geratzen da.
+tool.crop.option.ratio = Proportzioa
+tool.crop.option.delete_cropped = Ezabatu moztutako pixelak
+tool.crop.choice.unconstrained = Mugarik gabe
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Moztu

@@ -1,0 +1,43 @@
+# The selection tools (plugins/tools-select): the marquees, the three
+# lassos, the magic wand, quick selection and object selection. Labels
+# they share with the rest of the app -- Mode, Feather, Width, Contrast,
+# Tolerance, Size, New, Add, Select, Deselect -- come from common.lang.
+
+# How a new shape meets the existing selection, in the order Photoshop's
+# buttons sit in. New and Add are common.new and common.add.
+tool.select.mode.subtract = বিয়োগ কৰক
+tool.select.mode.intersect = ছেদ কৰক
+
+# Marquees
+tool.marquee.rect.name = আয়তাকাৰ মাৰ্কি
+tool.marquee.rect.description = আয়তাকাৰ নিৰ্বাচন এটা টানি আঁকক। টনা আৰম্ভ কৰোঁতে Shift-এ নিৰ্বাচনত যোগ কৰে, Alt-এ বিয়োগ কৰে, দুয়োটাই ছেদ কৰে; টানি থকাৰ সময়ত Shift-এ ইয়াক বৰ্গাকাৰ কৰে। নটনাকৈ ক্লিক কৰিলে নিৰ্বাচন আঁতৰে।
+tool.marquee.ellipse.name = উপবৃত্তাকাৰ মাৰ্কি
+tool.marquee.ellipse.description = আয়তাকাৰ মাৰ্কিৰ দৰে একে Shift/Alt সংযোজন ব্যৱহাৰ কৰি এটা উপবৃত্তাকাৰ নিৰ্বাচন টানি আঁকক।
+
+# Lassos
+tool.lasso.name = লাছো
+tool.lasso.description = মুক্তহস্তে সীমাৰেখা টানক; টনা শেষ হ'লে দুয়োটা মূৰৰ মাজেৰে নিৰ্বাচনটো বন্ধ হয়। Shift-এ যোগ কৰে, Alt-এ বিয়োগ কৰে।
+tool.lasso.history.select = লাছো নিৰ্বাচন
+tool.lasso.polygonal.name = বহুভুজ লাছো
+tool.lasso.polygonal.description = পোন কাষৰ নিৰ্বাচন গঢ়িবলৈ এটাৰ পিছত এটা চুকত ক্লিক কৰক, আৰু বন্ধ কৰিবলৈ প্ৰথম বিন্দুটোৰ ওচৰত ক্লিক কৰক।
+tool.lasso.polygonal.history.select = বহুভুজ লাছো
+tool.lasso.magnetic.name = চুম্বকীয় লাছো
+tool.lasso.magnetic.description = কোনো কাষৰ কাষে কাষে আনুমানিকভাৱে টানক; সীমাৰেখাটো পথৰ ওচৰৰ আটাইতকৈ প্ৰবল বৈপৰীত্যত লাগি ধৰে।
+tool.lasso.magnetic.history.select = চুম্বকীয় লাছো
+tool.lasso.magnetic.option.frequency = কম্পাঙ্ক
+
+# Magic wand
+tool.wand.name = যাদুকৰী দণ্ড
+tool.wand.description = সহনসীমা বিকল্পৰ ভিতৰত পইণ্টাৰৰ তলৰ একে ধৰণৰ ৰঙৰ সংলগ্ন অঞ্চল নিৰ্বাচন কৰিবলৈ ক্লিক কৰক—বৃদ্ধি, সদৃশ আৰু ৰঙৰ পৰিসৰেও একে সহনসীমা ব্যৱহাৰ কৰে।
+tool.wand.option.contiguous = সংলগ্ন
+tool.wand.history.select = যাদুকৰী দণ্ড
+
+# Quick selection
+tool.quick_select.name = দ্ৰুত নিৰ্বাচন
+tool.quick_select.description = এটা অঞ্চলৰ ওপৰত আঁকক; ব্ৰাছ যোৱা সদৃশ পিক্সেলবোৰৰ মাজেৰে নিৰ্বাচনটো বাঢ়ি যায়।
+tool.quick_select.history.select = দ্ৰুত নিৰ্বাচন
+
+# Object selection
+tool.object_select.name = বস্তু নিৰ্বাচন
+tool.object_select.description = কোনো বস্তুৰ চাৰিওফালে বাকচ টানক; ভিতৰত পোৱা বস্তুটোত নিৰ্বাচন লাগি ধৰে।
+tool.object_select.history.select = বস্তু নিৰ্বাচন

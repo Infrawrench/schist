@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Gukuramo
+tool.select.mode.intersect = Guhuza aho bihurira
+
+tool.marquee.rect.name = Ihitamo ry'urukiramende
+tool.marquee.rect.description = Kurura ukore ihitamo ry'urukiramende. Gukanda Shift utangira kurura byongera ku byatoranyijwe, Alt ikabikuramo, byombi bigahitamo aho bihurira; gukanda Shift uri gukurura birigira kare. Gukanda udakuruye bikuraho ihitamo.
+tool.marquee.ellipse.name = Ihitamo rya elipse
+tool.marquee.ellipse.description = Kurura ukore ihitamo rya elipse, ukoreshe Shift na Alt mu guhuza nk'uko bikorwa ku ihitamo ry'urukiramende.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Kurura umurongo ukoresheje ukuboko; ihitamo rifunga intera iri hagati y'impera iyo urangije gukurura. Shift irongera, Alt igakuramo.
+tool.lasso.history.select = Guhitamo na Lasso
+tool.lasso.polygonal.name = Lasso y'impande nyinshi
+tool.lasso.polygonal.description = Kanda ku mfuruka imwe ukurikizeho indi kugira ngo ukore ihitamo ry'impande zigororotse, maze ukande hafi y'akadomo ka mbere kugira ngo urifunge.
+tool.lasso.polygonal.history.select = Lasso y'impande nyinshi
+tool.lasso.magnetic.name = Lasso rukuruzi
+tool.lasso.magnetic.description = Kurikiza inkombe mu buryo bugereranyije, umurongo uhite ufata ku tandukaniro rikomeye ryegereye inzira.
+tool.lasso.magnetic.history.select = Lasso rukuruzi
+tool.lasso.magnetic.option.frequency = Inshuro
+
+tool.wand.name = Agakoni k'ubumaji
+tool.wand.description = Kanda uhitemo agace gahujwe k'ibara risa kari munsi y'akadomo, mu rugero rwemewe — ni rwo rugero Gukuza, Ibisa na byo n'Intera y'amabara bisoma.
+tool.wand.option.contiguous = Bihurirana
+tool.wand.history.select = Agakoni k'ubumaji
+
+tool.quick_select.name = Ihitamo ryihuse
+tool.quick_select.description = Siga hejuru y'agace maze ihitamo rikure rinyuze muri pikisele zisa uburoso bunyuraho.
+tool.quick_select.history.select = Ihitamo ryihuse
+
+tool.object_select.name = Guhitamo ikintu
+tool.object_select.description = Kurura agasanduku kazenguruke ikintu, maze ihitamo rifate ku kintu kibonetsemo.
+tool.object_select.history.select = Guhitamo ikintu

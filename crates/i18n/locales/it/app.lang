@@ -1,0 +1,43 @@
+# Galleria filtri
+app.filter_gallery.title = Galleria filtri
+app.filter_gallery.stack = Pila (applicata dal basso verso l'alto)
+app.filter_gallery.no_settings = Questo filtro non ha impostazioni.
+
+# Font
+app.fonts.not_open_licensed = licenza non aperta · {substitute} ha metriche corrispondenti
+app.fonts.missing_substituted = mancante · il testo viene composto con un font sostitutivo
+app.fonts.not_in_catalogue = {family} non è presente nel catalogo dei font aperti
+app.fonts.no_faces = nessuna variante scaricabile per {family}
+app.fonts.empty_response = risposta vuota
+
+# Aggiornamento automatico
+app.update.unreadable_response = risposta illeggibile: {error}
+app.update.no_temp_dir = nessuna directory temporanea in cui scaricare
+app.update.asset_has_path = il nome della risorsa della versione contiene un percorso
+app.update.too_big = il download è più grande di quanto indicato dalla versione
+app.update.stopped_at = il download si è fermato a {got} byte su {total}
+app.update.hash_mismatch = l'hash del download è {got}, anziché {want}
+app.update.not_in_bundle = questa copia non si trova in un bundle applicazione
+app.update.no_parent_dir = il bundle applicazione non ha una directory superiore
+app.update.cannot_write = impossibile scrivere in {dir}
+app.update.cannot_move_aside = impossibile spostare temporaneamente {app}
+app.update.cannot_move_in = impossibile spostare il nuovo bundle nella posizione prevista
+app.update.cannot_run_ditto = impossibile eseguire /usr/bin/ditto
+app.update.unpack_failed = decompressione del download non riuscita: {error}
+app.update.no_app_in_download = il download non contiene Schist.app
+app.update.cannot_run_codesign = impossibile eseguire /usr/bin/codesign
+app.update.signature_invalid = impossibile verificare la firma del download: {error}
+app.update.download_unsigned = questa copia è firmata, ma il download non lo è
+app.update.different_developer = il download è firmato da uno sviluppatore diverso
+app.update.cannot_relaunch = impossibile avviare il programma di riavvio
+app.update.not_installed_copy = questa copia non è stata collocata qui dal programma di installazione
+app.update.cannot_start_installer = impossibile avviare il programma di installazione
+app.update.platform_unsupported = su questa piattaforma, gli aggiornamenti vengono installati nello stesso modo in cui è stato installato Schist
+
+# Controllo Vulkan su Linux. I nomi dei pacchetti e i comandi restano invariati.
+app.vulkan.no_loader = schist: nessun loader Vulkan presente nel sistema, quindi non è possibile disegnare.\n\nSchist esegue il rendering tramite Vulkan e `libvulkan.so.1` non è installato.\nSono necessari sia il loader sia un driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: il driver Vulkan indicato da questa sessione non è presente.\n\n{var} è impostata e questa impostazione *sostituisce* la ricerca dei driver\nda parte del loader, anziché aggiungersi a essa. Questi file inesistenti\nsono quindi l'intero elenco dei driver e nessun programma Vulkan della\nsessione vede alcun driver, indipendentemente da quanti ne siano installati:\n\n{missing}\n    {var}={value}\n\nIndica un manifesto esistente (i driver installati collocano i propri in\n/usr/share/vulkan/icd.d) oppure annulla l'impostazione e lascia che sia il\nloader a trovarli. Se una sessione imposta la variabile in un file di\nconfigurazione (`env =` di Hyprland, un file environment.d di systemd o un\nprofilo della shell), occorre modificarla lì ed effettuare un nuovo accesso\nperché la modifica raggiunga i programmi già in esecuzione.\n
+app.vulkan.override_note = \n{var} è impostata su {value} e questo sostituisce la ricerca del loader:\nse nessuno di questi manifesti è adatto al computer, il primo tentativo\nda fare è annullare l'impostazione.\n
+app.vulkan.no_driver = schist: nessun driver Vulkan installato, quindi non è possibile disegnare.\n\nSchist esegue il rendering tramite Vulkan. Il loader è installato ma non\nsegnala alcun driver: nessun driver si è registrato nelle due posizioni in\ncui viene cercato:\n\n{dirs}\n\nIl loader viene distribuito separatamente dai driver, quindi di solito manca\nun solo pacchetto.\n\nInstalla quello adatto alla GPU di questo computer:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nIl driver proprietario NVIDIA include il proprio (`nvidia-utils` su Arch,\n`nvidia-driver` su Debian). In una macchina virtuale, o se non vi è alcun\ndriver GPU da installare, funziona il rasterizzatore software: `vulkan-swrast`\nsu Arch, incluso in `mesa-vulkan-drivers` altrove. È lento, ma si avvia.\n{overridden}
+app.vulkan.no_device = schist: è installato un driver Vulkan, ma non offre alcun dispositivo per il rendering.\n\nIl driver potrebbe non supportare questa GPU o non riuscire ad accedervi;\ntramite SSH o in un container, spesso manca /dev/dri. `vulkaninfo --summary`\nmostra ciò che vede il loader.\n\nIl rasterizzatore software esegue il rendering anche senza GPU, se questa è\nla situazione del computer: `vulkan-swrast` su Arch, incluso in\n`mesa-vulkan-drivers` su Debian e Fedora.\n
+app.vulkan.skip_hint = Per avviare comunque Schist e lasciare che l'errore si verifichi normalmente, imposta {var}=1.

@@ -1,0 +1,9 @@
+{
+  "loading": "Cargando…",
+  "starting": "Iniciando…",
+  "webgpu": "Schist precisa WebGPU, que este navegador non ofrece. Chrome/Edge 113+, Firefox 141+ e Safari 26+ si o ofrecen.",
+  "noticeTitle": "Schist funciona mellor como aplicación de escritorio",
+  "noticeBody": "Estás a usar a versión web, unha edición máis lixeira: compón as imaxes na CPU e non inclúe algunhas funcións —os complementos de Photoshop e de terceiros, a galería de imaxes, o panel de IA, a importación de HEIC e a descarga de tipos de letra—, e os ficheiros gárdanse como descargas. A aplicación de escritorio gratuíta para macOS, Windows e Linux inclúe todas estas funcións.",
+  "noticeLink": "Obter a aplicación de escritorio.",
+  "ok": "Aceptar"
+}

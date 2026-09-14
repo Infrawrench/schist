@@ -1,0 +1,36 @@
+# ဖော်မတ်အမည်များ
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} ကို ဖော်ထုတ်နေစဉ်
+codec.msg.zero_sized = ပုံတွင် ပစ်ဇယ်မရှိပါ
+codec.msg.assembling_document = စာတမ်းကို စုစည်းနေစဉ်
+
+codec.raw.msg.decoding = မူရင်းဒေတာဖိုင်ကို ဖော်ထုတ်နေစဉ်
+codec.raw.msg.developing = မူရင်းဒေတာဖိုင်ကို ပုံဖော်နေစဉ်
+codec.raw.msg.finding_preview = ထည့်သွင်းထားသော အစမ်းပုံကို ရှာနေစဉ်
+codec.raw.msg.decoding_preview = ထည့်သွင်းထားသော အစမ်းပုံကို ဖော်ထုတ်နေစဉ်
+codec.raw.msg.decoder_panicked = ဤဖိုင်တွင် မူရင်းဒေတာဖော်ထုတ်ကိရိယာ ချို့ယွင်းသွားသည်: {what}
+
+codec.affinity.import_title = Affinity တင်သွင်းမှု
+codec.affinity.flattened_preview_layer = ပြားချပ်ထားသော အစမ်းပုံ
+codec.affinity.msg.no_preview = အသုံးပြုနိုင်သည့် ထည့်သွင်းအစမ်းပုံ မရှိပါ။ Affinity ၏ အလွှာပါဖော်မတ်သည် မူပိုင်ဖြစ်သောကြောင့် Schist က ဖိုင်တွင်ပါသည့် ပြားချပ်ထားသော အစမ်းပုံကိုသာ တင်သွင်းသည်။ ဤဖိုင်တွင် ယင်းပုံမပါပါ — Affinity တွင် ပြန်လည်သိမ်းပါ သို့မဟုတ် အလွှာအားလုံးပါဝင်စွာ တင်သွင်းရန် PSD အဖြစ် တင်ပို့ပါ။
+
+codec.heif.msg.no_library = libheif ကို မရရှိနိုင်ပါ ({details})။ HEIC ဖွင့်ရန် libheif library လိုအပ်သည် (Linux: libheif1 ကို ထည့်သွင်းပါ၊ macOS: brew install libheif)။
+codec.heif.msg.no_decoder = {what}: {message} — ဤ libheif build တွင် HEVC decoder မပါဝင်နိုင်ပါ (Debian/Ubuntu တွင် libheif-plugin-libde265 ကို ထည့်သွင်းပါ)
+codec.heif.msg.unknown_error = အမည်မသိအမှား
+codec.heif.msg.initialising = libheif ကို အစပြုနေစဉ်
+codec.heif.msg.reading_container = HEIF container ကို ဖတ်နေစဉ်
+codec.heif.msg.finding_primary_image = အဓိကပုံကို ရှာနေစဉ်
+codec.heif.msg.reading_icc_profile = ICC ပရိုဖိုင်ကို ဖတ်နေစဉ်
+codec.heif.msg.decoding_image = ပုံကို ဖော်ထုတ်နေစဉ်
+codec.heif.msg.checksum_mismatch = {name} အတွက် checksum မကိုက်ညီပါ: {expected} ကို မျှော်လင့်သော်လည်း {got} ရရှိသည်
+codec.heif.msg.imageio_cannot_read = ImageIO သည် HEIF container ကို ဖတ်၍မရပါ
+codec.heif.msg.container_empty = HEIF container တွင် ပုံမပါပါ
+codec.heif.msg.imageio_cannot_decode = ImageIO သည် အဓိကပုံကို ဖော်ထုတ်၍မရပါ

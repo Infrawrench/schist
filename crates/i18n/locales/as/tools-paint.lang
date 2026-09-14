@@ -1,0 +1,88 @@
+# The painting tools (plugins/tools-paint): the stroke tools, the two
+# gradients and the paint bucket. Each stroke tool's history entry is
+# its own key so a language can name the action rather than the tool.
+# Tolerance, Style, Size come from common.lang.
+
+# Brush
+tool.brush.name = ব্ৰাছ
+tool.brush.description = সম্পাদকৰ ব্ৰাছৰ আকাৰ, কঠিনতা আৰু অস্বচ্ছতা অনুসৰি অগ্ৰভূমিৰ ৰঙত কোমল-কাষৰ ষ্ট্ৰ'ক আঁকক।
+tool.brush.history.stroke = ব্ৰাছ
+
+# Pencil
+tool.pencil.name = পেঞ্চিল
+tool.pencil.description = অগ্ৰভূমিৰ ৰঙত কঠিন-কাষৰ, এণ্টি-এলিয়াছিং নকৰা ষ্ট্ৰ'ক আঁকক।
+tool.pencil.history.stroke = পেঞ্চিল
+
+# Eraser
+tool.eraser.name = ইৰেজাৰ
+tool.eraser.description = ষ্ট্ৰ'কৰ কাষে কাষে মচি স্তৰটো পুনৰ স্বচ্ছ কৰক।
+tool.eraser.history.stroke = ইৰেজাৰ
+
+# Clone Stamp
+tool.clone.name = ক্লোন ষ্টাম্প
+tool.clone.description = ক্লোন ষ্টাম্প: উৎস বিন্দু নিৰ্ধাৰণ কৰিবলৈ Alt-ক্লিক কৰক, তাৰ পিছত সেই অফছেটত তাৰ পৰা নকল কৰা পিক্সেলেৰে আঁকক।
+tool.clone.history.stroke = ক্লোন ষ্টাম্প
+
+# Dodge, Burn, Sponge
+tool.dodge.name = ডজ
+tool.dodge.description = ষ্ট্ৰ'ক যোৱা পিক্সেলবোৰ পাতল কৰক।
+tool.dodge.history.stroke = ডজ
+tool.burn.name = বাৰ্ন
+tool.burn.description = ষ্ট্ৰ'ক যোৱা পিক্সেলবোৰ গাঢ় কৰক।
+tool.burn.history.stroke = বাৰ্ন
+tool.sponge.name = স্পঞ্জ
+tool.sponge.description = ষ্ট্ৰ'ক যোৱা পিক্সেলবোৰৰ সম্পৃক্ততা বঢ়াওক বা কমাওক।
+tool.sponge.history.stroke = স্পঞ্জ
+
+# Blur, Sharpen, Smudge
+tool.blur.name = অস্পষ্টকৰণ
+tool.blur.description = ষ্ট্ৰ'ক যোৱা পিক্সেলবোৰ অস্পষ্ট কৰক।
+tool.blur.history.stroke = অস্পষ্টকৰণ
+tool.sharpen.name = তীক্ষ্ণকৰণ
+tool.sharpen.description = ষ্ট্ৰ'ক যোৱা পিক্সেলবোৰ তীক্ষ্ণ কৰক।
+tool.sharpen.history.stroke = তীক্ষ্ণকৰণ
+tool.smudge.name = লেপন
+tool.smudge.description = তিতা ৰং ঠেলাৰ দৰে ষ্ট্ৰ'কৰ কাষে কাষে ৰং টানি নিয়ক।
+tool.smudge.history.stroke = লেপন
+
+# Healing
+tool.heal.name = হিলিং ব্ৰাছ
+tool.heal.description = হিলিং ব্ৰাছ: উৎস নিৰ্ধাৰণ কৰিবলৈ Alt-ক্লিক কৰি আঁকক; উৎসৰ টেক্সচাৰ গন্তব্যৰ নিজা ৰং আৰু পোহৰৰ সৈতে মিশ্ৰিত কৰা হয়।
+tool.heal.history.stroke = হিলিং ব্ৰাছ
+tool.spot_heal.name = স্পট হিলিং ব্ৰাছ
+tool.spot_heal.description = স্পট হিলিং ব্ৰাছ: দাগৰ ওপৰত আঁকিলে চাৰিওফালৰ পৰা লোৱা টেক্সচাৰেৰে তাক সলনি কৰা হয়—কোনো উৎস বিন্দু নিৰ্ধাৰণ কৰিব নালাগে।
+tool.spot_heal.history.stroke = স্পট হিলিং ব্ৰাছ
+
+# History Brush
+tool.history_brush.name = ইতিহাস ব্ৰাছ
+tool.history_brush.description = দস্তাবেজৰ ইতিহাস স্নেপশ্বটৰ পৰা পিক্সেল পুনৰ আঁকি আনক আৰু পিছৰ কামবোৰ এটাকৈ ষ্ট্ৰ'কত পূৰ্বাৱস্থালৈ নিয়ক।
+tool.history_brush.history.stroke = ইতিহাস ব্ৰাছ
+
+# Background Eraser
+tool.background_eraser.name = পটভূমি ইৰেজাৰ
+tool.background_eraser.description = ব্ৰাছৰ কেন্দ্ৰৰ তলত নমুনা লোৱা ৰংটো মচক আৰু নিমিলা পিক্সেলবোৰ নুচুব; ইয়াৰ সহায়ত বিষয়বস্তুটো পটভূমিৰ পৰা পৃথক কৰিব পাৰি।
+tool.background_eraser.history.stroke = পটভূমি ইৰেজাৰ
+
+# Gradient. The radial tool shares the linear one's options and history.
+tool.gradient.name = গ্ৰেডিয়েণ্ট
+tool.gradient.description = টনাৰ দিশে অগ্ৰভূমিৰ ৰঙৰ পৰা পটভূমিৰ ৰংলৈ যোৱা ৰৈখিক গ্ৰেডিয়েণ্টেৰে স্তৰটো পূৰণ কৰিবলৈ টানক—নিৰ্বাচন থাকিলে তাৰ মাজেৰে পূৰণ কৰা হয়।
+tool.gradient.radial.name = ব্যাসাৰ্ধীয় গ্ৰেডিয়েণ্ট
+tool.gradient.radial.description = অগ্ৰভূমি আৰু পটভূমিৰ ৰঙৰ মাজৰ ব্যাসাৰ্ধীয় গ্ৰেডিয়েণ্টেৰে পূৰণ কৰিবলৈ কেন্দ্ৰৰ পৰা বাহিৰলৈ টানক।
+tool.gradient.option.gradient = গ্ৰেডিয়েণ্ট
+tool.gradient.option.reverse = বিপৰীত কৰক
+tool.gradient.option.dither = ডিথাৰ
+tool.gradient.choice.foreground_to_background = অগ্ৰভূমিৰ পৰা পটভূমিলৈ
+tool.gradient.choice.foreground_to_transparent = অগ্ৰভূমিৰ পৰা স্বচ্ছলৈ
+tool.gradient.choice.linear = ৰৈখিক
+tool.gradient.choice.radial = ব্যাসাৰ্ধীয়
+tool.gradient.choice.angle = কোণ
+tool.gradient.choice.reflected = প্ৰতিফলিত
+tool.gradient.choice.diamond = হীৰা
+tool.gradient.history.gradient = গ্ৰেডিয়েণ্ট
+
+# Paint Bucket
+tool.bucket.name = ৰঙৰ বাল্টি
+tool.bucket.description = সঁজুলিটোৰ সহনসীমাৰ ভিতৰত পইণ্টাৰৰ তলৰ একে ধৰণৰ ৰঙৰ সংলগ্ন অঞ্চলটো অগ্ৰভূমিৰ ৰঙেৰে পূৰাবলৈ ক্লিক কৰক।
+tool.bucket.option.contiguous = সংলগ্ন
+tool.bucket.option.all_layers = সকলো স্তৰ
+tool.bucket.history.fill = ৰঙৰ বাল্টি

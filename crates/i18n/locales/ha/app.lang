@@ -1,0 +1,45 @@
+# Ma'ajiyar Matata, nau'ikan rubutu, sabuntawa da binciken Vulkan.
+
+# Ma'ajiyar Matata
+app.filter_gallery.title = Ma'ajiyar Matata
+app.filter_gallery.stack = Tarin Matata (ana aiwatarwa daga ƙasa zuwa sama)
+app.filter_gallery.no_settings = Wannan matatar ba ta da saituna.
+
+# Nau'ikan rubutu
+app.fonts.not_open_licensed = ba shi da lasisin buɗaɗɗe · {substitute} ya dace da ma'aunansa
+app.fonts.missing_substituted = ya ɓace · ana saita rubutun da wani madadi
+app.fonts.not_in_catalogue = {family} ba ya cikin jerin nau'ikan rubutu na buɗaɗɗe
+app.fonts.no_faces = babu salon {family} da za a iya saukewa
+app.fonts.empty_response = amsa mara komai
+
+# Kurakuran sabuntawa
+app.update.unreadable_response = amsar ba ta karantuwa: {error}
+app.update.no_temp_dir = babu kundin wucin gadi da za a sauke fayil ciki
+app.update.asset_has_path = fitowar ta ambaci fayil ɗinta tare da tafarki
+app.update.too_big = abin da aka sauke ya fi girman da fitowar ta bayyana
+app.update.stopped_at = saukewar ta tsaya a byte {got} cikin {total}
+app.update.hash_mismatch = hash na saukewar {got} ne, ba {want} ba
+app.update.not_in_bundle = wannan kwafin ba ya cikin kunshin manhaja
+app.update.no_parent_dir = kunshin manhajar ba shi da kundin iyaye
+app.update.cannot_write = ba a iya rubutawa zuwa {dir} ba
+app.update.cannot_move_aside = ba a iya matsar da {app} gefe ba
+app.update.cannot_move_in = ba a iya matsar da sabon kunshin zuwa wurinsa ba
+app.update.cannot_run_ditto = ba a iya gudanar da /usr/bin/ditto ba
+app.update.unpack_failed = warware kunshin da aka sauke ya gaza: {error}
+app.update.no_app_in_download = abin da aka sauke ba ya ɗauke da Schist.app
+app.update.cannot_run_codesign = ba a iya gudanar da /usr/bin/codesign ba
+app.update.signature_invalid = ba a iya tabbatar da sa hannun abin da aka sauke ba: {error}
+app.update.download_unsigned = wannan kwafin yana da sa hannu amma abin da aka sauke ba shi da shi
+app.update.different_developer = wani magini dabam ne ya sanya wa abin da aka sauke hannu
+app.update.cannot_relaunch = ba a iya fara mai sake ƙaddamarwa ba
+app.update.not_installed_copy = mai girkawa bai sanya wannan kwafin a nan ba
+app.update.cannot_start_installer = ba a iya fara mai girkawa ba
+app.update.platform_unsupported = ana girka sabuntawa a wannan dandali ta hanyar da aka girka Schist
+
+# Binciken Vulkan a Linux. Sunayen kunshi da umarni ba a fassara su ba.
+app.vulkan.no_loader = schist: babu mai loda Vulkan a wannan tsarin, don haka babu abin da za a yi zane da shi.\n\nSchist yana zane ta hanyar Vulkan, kuma ba a girka `libvulkan.so.1` ba.\nAna buƙatar mai lodawa da kuma direba:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: direban Vulkan da wannan zaman yake nunawa babu shi.\n\nAn saita {var}, kuma saitawa tana *maye gurbin* neman direbobi da mai lodawa yake yi maimakon ƙara masa. Saboda haka waɗannan fayiloli, waɗanda babu su, su ne dukan jerin direbobi—kuma kowace manhajar Vulkan a wannan zaman ba ta ganin ko direba ɗaya, ko da an girka da yawa:\n\n{missing}\n    {var}={value}\n\nNuna masa manifest da yake akwai—direbobin da aka girka suna saka nasu a /usr/share/vulkan/icd.d—ko cire saitin ka bar mai lodawa ya nemo da kansa.\nIdan zaman yana saita wannan daga fayil na tsari (`env =` na Hyprland, ƙarin environment.d na systemd, ko bayanan shell), dole a canza shi a can, kuma sai an sake shiga kafin canjin ya isa ga abubuwan da suke gudana.\n
+app.vulkan.override_note = \nAn saita {var} zuwa {value}, kuma wannan yana maye gurbin binciken da mai lodawa yake yi da kansa: idan babu manifest ɗin da ya dace da wannan na'ura, cire saitin shi ne abin farko da za a gwada.\n
+app.vulkan.no_driver = schist: ba a girka direban Vulkan ba, don haka babu abin da za a yi zane a kai.\n\nSchist yana zane ta hanyar Vulkan. An girka mai lodawa amma ya ba da rahoton cewa babu direba—babu wanda ya yi rajista a ɗayan wurare biyun da ake bincikawa:\n\n{dirs}\n\nAna kawo mai lodawa dabam da direbobi, saboda haka yawanci kunshi ɗaya ne kawai ya ɓace.\n\nGirka wanda ya dace da GPU na wannan na'ura:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDireban NVIDIA na mallaka yana ɗauke da nasa (`nvidia-utils` a Arch, `nvidia-driver` a Debian). A na'ura ta kama-da-wane, ko inda babu direban GPU da za a girka, mai zane na manhaja ne yake aiki: `vulkan-swrast` a Arch, wani sashe na `mesa-vulkan-drivers` a sauran wurare. Yana jinkiri, amma yana farawa.\n{overridden}
+app.vulkan.no_device = schist: an girka direban Vulkan amma bai samar da na'urar yin zane ba.\n\nMai yiwuwa direban bai dace da wannan GPU ba, ko kuma ba zai iya isa gare shi ba—ta SSH, ko cikin kwantena, /dev/dri abu ne da yakan ɓace. `vulkaninfo --summary` yana bayar da rahoton abin da mai lodawa yake gani.\n\nMai zane na manhaja yana zane ba tare da GPU ba idan wannan shi ne halin na'urar: `vulkan-swrast` a Arch, wani sashe na `mesa-vulkan-drivers` a Debian da Fedora.\n
+app.vulkan.skip_hint = Don fara Schist duk da haka ka bar shi ya gaza ta hanyarsa, saita {var}=1.

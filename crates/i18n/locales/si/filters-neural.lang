@@ -1,0 +1,164 @@
+# Neural Filters, Camera Raw, Blur Gallery සහ කාච පෙරහන්
+
+# පෙරහන් කිහිපයකට පොදු ලේබල
+filter.neural.param.center_x = X මධ්‍යය
+filter.neural.param.center_y = Y මධ්‍යය
+filter.neural.param.direction = දිශාව
+filter.neural.param.transition = සංක්‍රමණය
+filter.neural.param.detail = විස්තර
+filter.neural.param.eyes = ඇස්
+
+# මාදිලියක් භාවිත කරන පෙරහනක සංවාදයේ පණිවිඩ
+filter.neural.msg.using_model = {model} භාවිත කරයි · {license}.
+filter.neural.msg.get_model = එය පෙරහන ▸ Neural Filters ▸ මාදිලි කළමනාකරණය කරන්න වෙතින් ලබාගන්න.
+
+# Camera Raw පෙරහන
+filter.camera_raw.name = Camera Raw පෙරහන
+filter.camera_raw.param.temperature = වර්ණ උෂ්ණත්වය
+filter.camera_raw.param.tint = පැහැ ගැන්වීම
+filter.camera_raw.param.highlights = දීප්ත කොටස්
+filter.camera_raw.param.shadows = සෙවණැලි
+filter.camera_raw.param.whites = සුදු කොටස්
+filter.camera_raw.param.blacks = කළු කොටස්
+filter.camera_raw.param.clarity = පැහැදිලි බව
+filter.camera_raw.param.dehaze = මීදුම ඉවත් කිරීම
+filter.camera_raw.param.vibrance = වර්ණ සජීවීතාව
+filter.camera_raw.param.sharpening = තියුණු කිරීම
+filter.camera_raw.param.noise = රූප ඝෝෂාව අඩු කිරීම
+filter.camera_raw.param.vignette = කෙළවර අඳුරු කිරීම
+
+# කාච නිවැරදි කිරීම
+filter.lens_correction.name = කාච නිවැරදි කිරීම
+filter.lens_correction.param.distortion = විකෘතිය ඉවත් කරන්න
+filter.lens_correction.param.red = රතු/සයන් වර්ණ දාරය නිවැරදි කරන්න
+filter.lens_correction.param.blue = නිල්/කහ වර්ණ දාරය නිවැරදි කරන්න
+filter.lens_correction.param.vignette = කෙළවර අඳුරු කිරීමේ ප්‍රමාණය
+filter.lens_correction.param.midpoint = කෙළවර අඳුරු කිරීමේ මධ්‍ය ලක්ෂ්‍යය
+filter.lens_correction.param.vertical = සිරස් දෘෂ්ටිකෝණය
+filter.lens_correction.param.horizontal = තිරස් දෘෂ්ටිකෝණය
+
+# අනුවර්තී පුළුල් කෝණය
+filter.adaptive_wide_angle.name = අනුවර්තී පුළුල් කෝණය
+filter.adaptive_wide_angle.param.projection = නිවැරදි කිරීම
+filter.adaptive_wide_angle.choice.fisheye = මාළු ඇස
+filter.adaptive_wide_angle.choice.perspective = දෘෂ්ටිකෝණය
+filter.adaptive_wide_angle.choice.full_spherical = සම්පූර්ණ ගෝලාකාර
+filter.adaptive_wide_angle.param.focal = නාභි දුර
+filter.adaptive_wide_angle.param.crop = කප්පාදු සාධකය
+
+# බොඳ කිරීම් ගැලරිය
+filter.field_blur.name = ක්ෂේත්‍ර බොඳ කිරීම
+filter.field_blur.param.position = තියුණුව තබන ස්ථානය
+filter.iris_blur.name = අයිරිස් බොඳ කිරීම
+filter.iris_blur.param.roundness = වටකුරු බව
+filter.tilt_shift.name = ඇල-මාරු කිරීම
+filter.tilt_shift.param.position = මධ්‍යය
+filter.tilt_shift.param.band = තියුණු තීරුව
+filter.spin_blur.name = භ්‍රමණ බොඳ කිරීම
+filter.spin_blur.param.angle = බොඳ කිරීමේ කෝණය
+filter.path_blur.name = මාර්ග බොඳ කිරීම
+filter.path_blur.param.speed = වේගය
+filter.path_blur.param.curve = වක්‍රතාව
+filter.path_blur.param.taper = ක්‍රමයෙන් සිහින් කිරීම
+
+# බොඳ කිරීම
+filter.shape_blur.name = හැඩ බොඳ කිරීම
+filter.shape_blur.choice.square = චතුරස්‍රය
+filter.shape_blur.choice.diamond = දියමන්තිය
+filter.shape_blur.choice.hexagon = ෂඩාස්‍රය
+filter.shape_blur.choice.cross = කුරුසය
+filter.shape_blur.choice.ring = වළල්ල
+filter.shape_blur.choice.star = තරුව
+filter.smart_blur.name = ස්මාර්ට් බොඳ කිරීම
+filter.smart_blur.choice.normal = සාමාන්‍ය
+filter.smart_blur.choice.edge_only = දාර පමණි
+filter.smart_blur.choice.overlay_edge = දාරය උඩින් යොදන්න
+
+# වීඩියෝ
+filter.deinterlace.name = අන්තර්පේළි ඉවත් කිරීම
+filter.deinterlace.param.field = ඉවත් කළ යුතු දේ
+filter.deinterlace.choice.odd_fields = ඔත්තේ ක්ෂේත්‍ර
+filter.deinterlace.choice.even_fields = ඉරට්ටේ ක්ෂේත්‍ර
+filter.deinterlace.param.fill = නව ක්ෂේත්‍ර සාදන ආකාරය
+filter.deinterlace.choice.interpolation = අන්තර්නිවේෂණය
+filter.deinterlace.choice.duplication = අනුපිටපත් කිරීම
+filter.ntsc_colors.name = NTSC වර්ණ
+
+# Neural Filters
+filter.neural.skin_smoothing.name = සම සුමට කිරීම
+filter.neural.skin_smoothing.param.blur = සුමට බව
+filter.neural.skin_smoothing.param.detail = විස්තර රඳවාගන්න
+filter.neural.skin_smoothing.msg.no_model = {model} ස්ථාපනය කර නැත — එබැවින් මුහුණු වෙනුවට සමේ වර්ණය ඇති සියල්ල සුමට කරයි.
+
+filter.neural.jpeg_artifacts.name = JPEG දෘශ්‍ය දෝෂ ඉවත් කිරීම
+filter.neural.jpeg_artifacts.msg.no_model = {model} ස්ථාපනය කර නැත — එබැවින් ඒ වෙනුවට පික්සල 8 ජාලකය සුමට කරයි.
+
+filter.neural.colorize.name = වර්ණ ගන්වන්න
+filter.neural.colorize.param.warmth = උණුසුම
+filter.neural.colorize.msg.no_model = {model} ස්ථාපනය කර නැත — එබැවින් ඒ වෙනුවට දීප්තතාව අනුව පැහැ ගන්වයි.
+
+filter.neural.super_zoom.name = අති විශාලනය
+filter.neural.super_zoom.msg.no_model = {model} ස්ථාපනය කර නැත — එබැවින් ඒ වෙනුවට දාරවල දිශාව අනුව තියුණු කරයි.
+
+filter.neural.style_transfer.name = ශෛලි මාරු කිරීම
+filter.neural.style_transfer.choice.mosaic = මොසෙයික්
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = ශෛලි මාදිලි කිසිවක් ස්ථාපනය කර නැත — වර්ණය පමණක් මාරු කරයි. ඒවා පෙරහන ▸ Neural Filters ▸ මාදිලි කළමනාකරණය කරන්න වෙතින් ලබාගන්න.
+filter.neural.style_transfer.msg.installed = ස්ථාපිතයි: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = වර්ණ මාරු කිරීම
+filter.neural.color_transfer.param.hue = ඉලක්ක පැහැය
+filter.neural.color_transfer.param.contrast = වෙනස ගළපන්න
+filter.neural.color_transfer.msg.info = එහි වර්ණ මාලාව පහළින් ඇති ස්තරයෙන් ලබාගනී. පහළින් කිසිවක් නැති විට ඒ වෙනුවට ඉලක්ක පැහැය වෙත යොමු වේ.
+
+filter.neural.depth_blur.name = ගැඹුර අනුව බොඳ කිරීම
+filter.neural.depth_blur.param.focus = නාභි දුර
+filter.neural.depth_blur.param.blur = බොඳ කිරීමේ ප්‍රබලතාව
+filter.neural.depth_blur.msg.no_model = {model} ස්ථාපනය කර නැත — එබැවින් ඒ වෙනුවට අවට තියුණු බව අනුව නාභිගත කරයි.
+
+filter.neural.harmonization.name = සුසංගත කිරීම
+filter.neural.harmonization.param.tone = තානය ගළපන්න
+filter.neural.harmonization.msg.info = මෙම ස්තරය එයට පහළින් ඇති දේට ගළපයි. පහළින් කිසිවක් නැති විට ගැළපීමට දෙයක් නොමැති බැවින් මෙය කිසිවක් නොකරයි.
+
+filter.neural.landscape_mixer.name = භූදර්ශන මිශ්‍රකය
+filter.neural.landscape_mixer.param.bands = ගැඹුරු තීරු
+filter.neural.landscape_mixer.msg.with_depth = එහි වර්ණ මාලාව පහළින් ඇති ස්තරයෙන් ලබාගෙන, Depth (Depth Blur) භාවිතයෙන් තීරුවෙන් තීරුවට ගළපයි.
+filter.neural.landscape_mixer.msg.without_depth = එහි වර්ණ මාලාව පහළින් ඇති ස්තරයෙන් ලබාගනී. සම්පූර්ණ රූපය එකවර ගැළපීම වෙනුවට අහස අහසටත් බිම බිමටත් ගැළපීමට Depth (Depth Blur) ස්ථාපනය කරන්න.
+
+filter.neural.photo_restoration.name = ඡායාරූප ප්‍රතිසාධනය
+filter.neural.photo_restoration.param.enhance = ඡායාරූප වැඩිදියුණු කිරීම
+filter.neural.photo_restoration.param.scratches = සීරීම් අඩු කිරීම
+filter.neural.photo_restoration.param.tone = තානය ප්‍රතිසාධනය කරන්න
+filter.neural.photo_restoration.msg.no_model = මාදිලියක් නොමැතිව පිරිසිදු කරයි.
+filter.neural.photo_restoration.msg.using_deblock = Deblock භාවිත කරයි · Schist සඳහා පුහුණු කර ඇත.
+filter.neural.photo_restoration.msg.using_detail = Detail භාවිත කරයි · Schist සඳහා පුහුණු කර ඇත.
+filter.neural.photo_restoration.msg.using_both = Deblock සහ Detail භාවිත කරයි · Schist සඳහා පුහුණු කර ඇත.
+
+filter.neural.photo_to_sketch.name = ඡායාරූපයෙන් කටුසටහනක්
+filter.neural.photo_to_sketch.param.weight = රේඛා ඝනකම
+filter.neural.photo_to_sketch.param.shading = සෙවණ ගැන්වීම
+
+filter.neural.face_to_caricature.name = මුහුණෙන් විකට රුවක්
+filter.neural.face_to_caricature.param.mouth = මුඛය
+filter.neural.face_to_caricature.param.head = හිස
+filter.neural.face_to_caricature.msg.no_model = {model} ස්ථාපනය කර නැත, එබැවින් මෙය කිසිවක් නොකරයි — විකට රුවකට හැරවීමට දෙයක් නැත.
+
+filter.neural.smart_portrait.name = ස්මාර්ට් ආලේඛ්‍යය
+filter.neural.smart_portrait.param.happiness = සතුට
+filter.neural.smart_portrait.param.surprise = පුදුමය
+filter.neural.smart_portrait.param.age = මුහුණේ වයස
+filter.neural.smart_portrait.param.gaze = බැල්ම
+filter.neural.smart_portrait.param.light = ආලෝක දිශාව
+filter.neural.smart_portrait.msg.no_model = {model} ස්ථාපනය කර නැත, එබැවින් මෙය කිසිවක් නොකරයි — සැකසීමට මුහුණක් එයට නොමැත.
+
+filter.neural.makeup_transfer.name = වේශ නිරූපණ මාරු කිරීම
+filter.neural.makeup_transfer.param.lips = තොල්
+filter.neural.makeup_transfer.param.skin = සමේ වර්ණය
+filter.neural.makeup_transfer.msg.info = පහළින් ඇති ස්තරයේ මුහුණකින් වේශ නිරූපණය ලබාගනී. මාරු කරන්නේ වර්ණය මිස වයනය නොවේ.
+filter.neural.makeup_transfer.msg.no_model = {model} ස්ථාපනය කර නැත, එබැවින් මෙය කිසිවක් නොකරයි.
+
+filter.neural.sketch_to_portrait.name = කටුසටහනෙන් ආලේඛ්‍යයක්
+filter.neural.sketch_to_portrait.param.detail = රේඛා රඳවාගන්න
+filter.neural.sketch_to_portrait.msg.with_face = මෙම යෙදුමේම ඡායාරූපයෙන් කටුසටහනක් විශේෂාංගයෙන් සෑදූ කටුසටහන් පිරවීමට පුහුණු කර ඇත. එය සොයාගන්නා මුහුණ මත ක්‍රියා කරයි.
+filter.neural.sketch_to_portrait.msg.no_face = මෙම යෙදුමේම ඡායාරූපයෙන් කටුසටහනක් විශේෂාංගයෙන් සෑදූ කටුසටහන් පිරවීමට පුහුණු කර ඇත. Faces (Skin Smoothing) ස්ථාපනය කළ විට එය සම්පූර්ණ තේරීම වෙනුවට මුහුණ මත ක්‍රියා කරනු ඇත.

@@ -1,0 +1,245 @@
+dialog.save_ellipsis = Sačuvaj…
+dialog.use_foreground = Koristi boju prednjeg plana
+dialog.downloading = Preuzimanje…
+dialog.downloading_of = Preuzimanje… {got} od {total}
+dialog.no_config_dir = (nema konfiguracijskog direktorija)
+
+dialog.layer_props.title = Svojstva sloja
+
+dialog.export.format = Format
+dialog.export.dither = Ublažavanje prijelaza
+dialog.export.dither_note = Ublaži prijelaze pri smanjivanju na 8 bita
+dialog.export.export_ellipsis = Izvezi…
+
+dialog.batch.title = Obradi fotografije
+dialog.batch.note_edit.one = {n} fotografija — čuva se kao izmjena u galeriji; original se nikad ne mijenja.
+dialog.batch.note_edit.few = {n} fotografije — čuvaju se kao izmjene u galeriji; originali se nikad ne mijenjaju.
+dialog.batch.note_edit.other = {n} fotografija — čuvaju se kao izmjene u galeriji; originali se nikad ne mijenjaju.
+dialog.batch.note_edit_edited.one = {n} fotografija, već uređeno: {edited} — recept se primjenjuje preko izmjene, a prethodna izmjena čuva se kao verzija.
+dialog.batch.note_edit_edited.few = {n} fotografije, već uređeno: {edited} — recept se primjenjuje preko izmjena, a prethodne izmjene čuvaju se kao verzije.
+dialog.batch.note_edit_edited.other = {n} fotografija, već uređeno: {edited} — recept se primjenjuje preko izmjena, a prethodne izmjene čuvaju se kao verzije.
+dialog.batch.note_copies.one = {n} fotografija — sjedinjena kopija; original se nikad ne mijenja.
+dialog.batch.note_copies.few = {n} fotografije — sjedinjene kopije; originali se nikad ne mijenjaju.
+dialog.batch.note_copies.other = {n} fotografija — sjedinjene kopije; originali se nikad ne mijenjaju.
+dialog.batch.note_copies_edited.one = {n} fotografija, već uređeno: {edited} — kopija se pravi iz izmjene.
+dialog.batch.note_copies_edited.few = {n} fotografije, već uređeno: {edited} — kopije se prave iz izmjena.
+dialog.batch.note_copies_edited.other = {n} fotografija, već uređeno: {edited} — kopije se prave iz izmjena.
+dialog.batch.turn = Okretanje
+dialog.batch.rotate = Rotiraj
+dialog.batch.flip = Preokreni
+dialog.batch.upscale = Povećaj
+dialog.batch.colour = Boja
+dialog.batch.add_adjustment = Podešavanje…
+dialog.batch.output = Izlaz
+dialog.batch.save_as = Sačuvaj kao
+dialog.batch.process = Obradi
+dialog.batch.process_n = Obradi: {n}
+dialog.batch.nothing_to_do = Nema radnje: prvo odaberite okretanje, povećavanje ili podešavanje
+
+dialog.content_aware_scale.title = Skaliranje s prepoznavanjem sadržaja
+dialog.content_aware_scale.note = Uklanja spojeve s malo detalja. Odabir označava šta treba zaštititi.
+
+dialog.stroke.title = Obrub
+dialog.stroke.location = Položaj
+dialog.stroke.inside = Unutra
+dialog.stroke.outside = Vani
+dialog.stroke.note = Obrubljuje odabir bojom prednjeg plana.
+
+dialog.fill.contents = Sadržaj
+
+dialog.color_range.title = Raspon boja
+dialog.color_range.sampled = Uzorkovano
+dialog.color_range.fuzziness = Raspršenost
+dialog.color_range.note = Odabire piksele aktivnog sloja čija je boja bliska uzorkovanoj.
+
+dialog.file_picker.up = ↑ Gore
+dialog.file_picker.empty = Ovdje nema ničega
+dialog.file_picker.choose_folder = Odaberi ovu mapu
+
+dialog.filter.camera_raw_development = Obrada pomoću Camera Raw
+dialog.filter.reset_as_shot = Vrati na postavke snimka
+dialog.filter.raw_note = Ponovo razvija aktivni sloj iz izvornih podataka senzora.
+dialog.filter.note = Primjenjuje se na aktivni sloj unutar odabira.
+
+dialog.fonts.title = Fontovi koji nedostaju
+dialog.fonts.install_named = Instaliraj {name}
+dialog.fonts.no_document = Nijedan dokument nije otvoren, pa nema ničega za provjeru.
+dialog.fonts.all_installed = Instalirani su svi fontovi koje ovaj dokument koristi. Njegov tekst prikazuje se fontovima za koje je oblikovan.
+dialog.fonts.missing_intro = Ovaj dokument koristi fontove koje nemate. Tekst je čitljiv u zamjenskom fontu, ali širine znakova i prijelomi redova nisu isti kao pri oblikovanju.
+dialog.fonts.footer = Fontovi se preuzimaju iz otvorenog kataloga Google Fonts i čuvaju u {dir}. Font bez otvorene licence nikada se ne preuzima — ako postoji slobodan dizajn s usklađenim metrikama, nudi se kao zamjena koja vraća raspored jer se širine pomaka podudaraju.
+dialog.fonts.user_font_dir = vaš korisnički direktorij fontova
+
+dialog.models.title = Modeli za Neural Filters
+dialog.models.built_in = Ugrađeno · {size}
+dialog.models.installed = Instalirano · {size}
+dialog.models.not_installed = Nije instalirano · {size}
+dialog.models.not_in_browser = Nije dostupno u pregledniku · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modeli se čuvaju u {dir}. Filteri bez modela koriste obradu signala kao zamjenu i to jasno navode.
+
+dialog.new_doc.title = Novi dokument
+dialog.new_doc.picker_title = Nova datoteka
+dialog.new_doc.custom_ellipsis = Prilagođeno…
+dialog.new_doc.preset = Unaprijed zadano
+dialog.new_doc.preset_default = Zadano (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Kvadrat (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px pri {ppi} ppi · {size}
+dialog.new_doc.create = Napravi
+dialog.new_doc.created = Novi dokument: {w} × {h} px
+
+dialog.open.image_title = Otvori sliku
+dialog.open.image_prompt = Otvoriti „{name}“ u novoj kartici ili je dodati trenutnom dokumentu kao novi sloj?
+dialog.open.new_tab = Nova kartica
+dialog.open.new_layer = Novi sloj
+dialog.open.quoted = „{name}“
+dialog.open.these_files.one = ovu {n} datoteku
+dialog.open.these_files.few = ove {n} datoteke
+dialog.open.these_files.other = ovih {n} datoteka
+dialog.open.shared_title_one = Dijeljena slika
+dialog.open.shared_title_many = Dijeljene slike
+dialog.open.shared_prompt = Dodati {what} u galeriju ili otvoriti u uređivaču?
+dialog.open.add_to_gallery = Dodaj u galeriju
+dialog.open.open_in_editor = Otvori u uređivaču
+dialog.open.heic_title = Podrška za HEIC
+dialog.open.heic_needs_decoder = Za otvaranje datoteke „{name}“ potreban je HEVC dekoder koji nije instaliran na ovom sistemu.
+dialog.open.heic_offer = Schist može preuzeti verziju biblioteke libheif {version} namijenjenu samo dekodiranju, zajedno s HEVC dekoderom libde265 (≈5 MB). Oba su licencirana pod LGPL-3.0; tekstovi njihovih licenci instaliraju se uz biblioteku, a izvorni kod dostupan je na stranici projekta.
+dialog.open.licenses_source = Licence i izvorni kod
+dialog.open.folders_title = Ispuštene mape
+dialog.open.n_folders.one = {n} mapa
+dialog.open.n_folders.few = {n} mape
+dialog.open.n_folders.other = {n} mapa
+dialog.open.open_in_tabs = Otvori u karticama
+dialog.open.open_first_in_tabs = Otvori prvih {n} u karticama
+dialog.open.open_n_in_tabs.one = Otvori {n} datoteku u kartici
+dialog.open.open_n_in_tabs.few = Otvori {n} datoteke u karticama
+dialog.open.open_n_in_tabs.other = Otvori {n} datoteka u karticama
+dialog.open.folder_holds.one = {what} sadrži {n} sliku koju Schist može otvoriti (uključujući podmape).
+dialog.open.folder_holds.few = {what} sadrži {n} slike koje Schist može otvoriti (uključujući podmape).
+dialog.open.folder_holds.other = {what} sadrži {n} slika koje Schist može otvoriti (uključujući podmape).
+dialog.open.folders_note = Dodavanje u galeriju prati mape na njihovoj lokaciji — ništa se ne kopira, a izmjene se čuvaju kao verzije pored svake fotografije. Otvaranjem u karticama sve se slike odmah učitavaju u uređivač.
+
+dialog.plugins.title = Dodaci
+dialog.plugins.kind_filter = filter
+dialog.plugins.kind_format = format
+dialog.plugins.kind_unavailable = nedostupno
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Dodaci se učitavaju iz {dir}
+dialog.plugins.none = Još nije instaliran nijedan dodatak.
+dialog.plugins.install_ellipsis = Instaliraj…
+dialog.plugins.photoshop_heading = Dodaci za Photoshop
+dialog.plugins.loaded_from = Učitano iz {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Postavke
+dialog.prefs.theme = Tema
+dialog.prefs.theme_dark = Tamna
+dialog.prefs.theme_light = Svijetla
+dialog.prefs.grid_spacing = Razmak mreže
+dialog.prefs.snapping = Poravnanje
+dialog.prefs.snap_to = Poravnaj s vodilicama, mrežom i rubovima platna
+dialog.prefs.rendering_intent = Namjena iscrtavanja
+dialog.prefs.intent_perceptual = Perceptivna
+dialog.prefs.intent_relative = Relativna kolorimetrijska
+dialog.prefs.intent_saturation = Zasićenost
+dialog.prefs.intent_absolute = Apsolutna kolorimetrijska
+dialog.prefs.scrolling = Pomicanje
+dialog.prefs.zoom_with_scroll = Zumiraj kotačićem miša
+dialog.prefs.rendering = Iscrtavanje
+dialog.prefs.gpu_compositing = Sastavljanje slike na GPU-u
+dialog.prefs.diagnostics = Dijagnostika
+dialog.prefs.crash_reports = Pri padu zapiši lokalni izvještaj
+dialog.prefs.crash_upload = Pošalji ga i programerima
+dialog.prefs.telemetry = Šalji anonimni dnevni signal
+dialog.prefs.diagnostics_note = Dijagnostičke postavke stupaju na snagu pri sljedećem pokretanju programa Schist.
+dialog.prefs.updates = Ažuriranja
+dialog.prefs.check_updates = Pri pokretanju provjeri ima li novih izdanja
+dialog.prefs.keyboard_shortcuts = Prečice na tastaturi: {path}
+dialog.prefs.nsfw_needs_model = Zahtijeva model Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = preuzmite ga u odjeljku Upravljanje modelima…
+dialog.prefs.hide_flagged = Sakrij označene fotografije
+
+dialog.profile.profile = Profil
+dialog.profile.assign_title = Dodijeli profil
+dialog.profile.convert_title = Pretvori u profil
+dialog.profile.assign = Dodijeli
+dialog.profile.convert = Pretvori
+dialog.profile.assign_note = Ponovo tumači postojeće vrijednosti piksela prema novom profilu.
+dialog.profile.convert_note = Prepisuje vrijednosti piksela tako da boje zadrže svoj izgled.
+
+dialog.save_image.title = Sačuvaj sliku kao
+dialog.save_image.note = {name} — izmjena, ako postoji; original se nikad ne mijenja.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Veličina slike
+dialog.size.canvas_title = Veličina platna
+dialog.size.constrain = Ograniči
+dialog.size.keep_proportions = Zadrži proporcije
+dialog.size.resample = Ponovo uzorkuj
+dialog.size.bicubic = Bikubna
+dialog.size.bilinear = Bilinearna
+dialog.size.nearest = Najbliži susjed
+dialog.size.anchor = Sidro
+dialog.size.currently = Trenutno {w} × {h} px
+dialog.size.image_size_status = Veličina slike: {w} × {h}
+dialog.size.canvas_size_status = Veličina platna: {w} × {h}
+
+dialog.update.title = Dostupno je ažuriranje
+dialog.update.available = Dostupan je Schist {version}. Ova kopija je verzija {current}.
+dialog.update.installing = Instaliranje ažuriranja…
+dialog.update.can_install = Schist ga može preuzeti ({size}) i instalirati preko ove kopije.
+dialog.update.external = Ova kopija potiče iz izvora koji njome upravlja — upravitelja paketa, AppImagea ili vaše vlastite verzije — pa se ažurira na isti način na koji je instalirana.
+dialog.update.later = Kasnije
+dialog.update.release_notes = Napomene o izdanju
+dialog.update.update_restart = Ažuriraj i ponovo pokreni
+dialog.update.open_page = Otvori stranicu izdanja
+
+dialog.style.title = Stil sloja
+dialog.style.bevel = Skošenje i reljef
+dialog.style.stroke = Obrub
+dialog.style.inner_shadow = Unutrašnja sjena
+dialog.style.inner_glow = Unutrašnji sjaj
+dialog.style.satin = Saten
+dialog.style.color_overlay = Prekrivanje bojom
+dialog.style.gradient_overlay = Prekrivanje gradijentom
+dialog.style.outer_glow = Vanjski sjaj
+dialog.style.drop_shadow = Bačena sjena
+dialog.style.blur = Gaussovo zamućenje
+dialog.style.gradient_from = Početak prekrivanja gradijentom
+dialog.style.gradient_to = Kraj prekrivanja gradijentom
+dialog.style.soften = Umekšavanje
+dialog.style.depth = Dubina
+dialog.style.altitude = Visina
+dialog.style.highlight = Svijetli dio
+dialog.style.shadow = Sjena
+dialog.style.outer_bevel = Vanjsko skošenje
+dialog.style.inner_bevel = Unutrašnje skošenje
+dialog.style.emboss = Reljef
+dialog.style.pillow_emboss = Jastučasti reljef
+dialog.style.linear = Linearno
+dialog.style.radial = Radijalno
+dialog.style.reverse = Obrni
+dialog.style.from_to = Od / do
+dialog.style.from_fg = Od = prednji plan
+dialog.style.to_fg = Do = prednji plan
+dialog.style.precise = Precizno
+dialog.style.knockout = Sloj izbacuje bačenu sjenu
+
+dialog.color_picker.title = Birač boje ({what})
+dialog.color_picker.effect_color = Boja efekta {effect}
+dialog.color_picker.note_color = Boja bilješke
+dialog.color_picker.new = nova
+dialog.color_picker.current = trenutna
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Vrati kanal na početno
+dialog.curves.hint = Povucite za oblikovanje · kliknite za dodavanje · kliknite držeći Alt za uklanjanje
+
+dialog.prefs.camera_sync = Snimci kamere
+dialog.prefs.camera_sync_enabled = Sigurnosno kopiraj na Schist Cloud
+dialog.prefs.camera_sync_sign_in = Prijavite se na Schist Cloud da biste sigurnosno kopirali snimke kamere.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Promijeni…

@@ -1,0 +1,20 @@
+# Capas de axuste e comandos Imaxe ▸ Axustes.
+adjustment.levels.name = Niveis
+adjustment.curves.name = Curvas
+adjustment.hue_saturation.name = Ton/Saturación
+adjustment.brightness_contrast.name = Brillo/Contraste
+adjustment.black_white.name = Branco e negro
+adjustment.solid_color.name = Cor uniforme
+adjustment.gradient_fill.name = Recheo de degradado
+adjustment.pattern_fill.name = Recheo de patrón
+adjustment.invert.name = Inverter
+adjustment.posterize.name = Posterizar
+adjustment.threshold.name = Limiar
+adjustment.color_balance.name = Equilibrio de cor
+adjustment.vibrance.name = Intensidade
+adjustment.exposure.name = Exposición
+adjustment.photo_filter.name = Filtro fotográfico
+adjustment.gradient_map.name = Mapa de degradado
+adjustment.selective_color.name = Cor selectiva
+adjustment.channel_mixer.name = Mesturador de canles
+adjustment.other.name = Axuste

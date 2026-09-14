@@ -1,0 +1,20 @@
+# Upassungsebenen an d'Befehler ënner Bild ▸ Upassungen.
+adjustment.levels.name = Tonwäerter
+adjustment.curves.name = Gradatiounskurven
+adjustment.hue_saturation.name = Faarftoun/Saturatioun
+adjustment.brightness_contrast.name = Hellegkeet/Kontrast
+adjustment.black_white.name = Schwaarz-Wäiss
+adjustment.solid_color.name = Vollfaarf
+adjustment.gradient_fill.name = Verlafsfëllung
+adjustment.pattern_fill.name = Musterfëllung
+adjustment.invert.name = Ëmdréinen
+adjustment.posterize.name = Posteriséieren
+adjustment.threshold.name = Schwellwäert
+adjustment.color_balance.name = Faarfbalance
+adjustment.vibrance.name = Dynamik
+adjustment.exposure.name = Beliichtung
+adjustment.photo_filter.name = Fotofilter
+adjustment.gradient_map.name = Verlaufsëmsetzung
+adjustment.selective_color.name = Selektiv Faarfkorrektur
+adjustment.channel_mixer.name = Kanalmixer
+adjustment.other.name = Upassung

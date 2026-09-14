@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigatɛrɛ
+panel.navigator.actual_pixels = Bapiksele ya solosolo
+
+panel.color.picker = Eponeli…
+panel.color.swap = Kobongola bisika ya balangi
+panel.color.reset = Kozongisa na Moindo mpe Mpɛmbɛ
+
+panel.layers.blending_options = Maponi ya kosangisa…
+panel.layers.properties = Bizaleli ya kalke…
+panel.layers.show_hide = Kolakisa/Kobomba kalke
+panel.layers.toggle_visibility = Kobongola komonana
+
+panel.history.title = Lisolo ya misala
+panel.history.opened = Efungolami
+
+panel.info.title = Makambo
+panel.info.camera = Kamera
+panel.info.lens = Lantiye
+panel.info.iso = ISO {iso}
+panel.info.bias = Koreksio
+panel.info.flash_fired = flash epeli
+panel.info.no_flash = flash te
+panel.info.white_balance = Bokatikati ya mpɛmbɛ {wb}
+panel.info.metering = mezire {metering}
+panel.info.taken = Ezwamaki
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · ngámbo {o}
+panel.info.software = Logiciel
+panel.info.where = Esika
+
+panel.notes.author = Mokomi
+panel.notes.clear_all = Kolongola nyonso
+panel.notes.unattributed = Mokomi ayebani te
+panel.notes.empty = Finá kanvasi mpo na kotika note.
+panel.notes.placeholder = Finá mpo na kokoma
+
+panel.character.title = Elembo
+panel.character.type_tool = Esaleli ya makomi (T)
+panel.character.align_left = Kobongisa na lobɔkɔ ya mwasi
+panel.character.align_center = Kobongisa na katikati
+panel.character.align_right = Kobongisa na lobɔkɔ ya mobali
+panel.character.text_color = Langi ya makomi
+panel.character.panel = Pano ya Elembo
+panel.character.cancel_edit = Koboya kobongisa makomi
+panel.character.commit_edit = Kondima kobongisa makomi
+panel.character.number_tip = {label} · Komá motuya, to salelá ↑ / ↓ (Shift mpo na matambe ya minene)
+panel.character.leading = Ntaka kati na milɔngɔ
+panel.character.tracking = Ntaka kati na balɛtrɛ
+panel.character.alignment = Kobongisa na molɔngɔ
+panel.character.opentype = OpenType
+panel.character.text_on_path = Makomi na nzela
+panel.character.straight = Sembo
+panel.character.on_path = Na nzela
+panel.character.straight_tip = Salelá molɔngɔ ya se ya momesano ya kalke ya makomi
+panel.character.on_path_tip = Salelá kopi ya nzela oyo eponami mpe ezali kosalelama
+panel.character.path_offset = Ntaka uta na nzela
+
+panel.ai.title = AI
+panel.ai.empty_editor = Sengá mbongwana mpe talá yango esalema na kanvasi. Agent esalelaka bisaleli, ba filtre mpe bakomande kaka lokola oyo ezali na bamenyu, litambe moko ya kozongisa nsima mpo na mosala mokomoko.
+panel.ai.empty_gallery = Tuná makambo ya bafɔtɔ na yo mpe talá yango esalema na galerie: agent akoki koluka, kotala bililingi ya mike, kopona, kokabola na bituluku mpe kofungola fɔtɔ na editɛrɛ.
+panel.ai.thinking = ezali kokanisa…
+panel.ai.placeholder_editor = Tuná to bongisá dokima oyo
+panel.ai.placeholder_gallery = Tuná makambo ya bafɔtɔ na yo
+panel.ai.send = Kotinda
+panel.ai.stop = Kotɛlɛmisa
+panel.ai.fetching_models = Ezali kotuna CLI mpo na ba modɛlɛ na yango…
+panel.ai.no_models = Modɛlɛ moko te ekokani
+panel.ai.search_models = Koluka ba modɛlɛ…
+
+panel.keymap.install_plugin = Kotya plug-in
+panel.keymap.save_as_prompt = Kobomba lokola — extension nde eponaka formá:

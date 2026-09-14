@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Soustrè
+tool.select.mode.intersect = Entèsekte
+
+tool.marquee.rect.name = Seleksyon rektangilè
+tool.marquee.rect.description = Trennen pou trase yon seleksyon rektangilè. Kenbe Shift nan kòmansman tras la pou ajoute nan seleksyon an, alt pou soustrè, oswa toude pou entèsekte; kenbe Shift pandan tras la pou fè l kare. Yon klik san trennen deseleksyone.
+tool.marquee.ellipse.name = Seleksyon eliptik
+tool.marquee.ellipse.description = Trennen pou trase yon seleksyon eliptik, avèk menm konbinezon Shift/alt ak seleksyon rektangilè a.
+
+tool.lasso.name = Laso
+tool.lasso.description = Trennen yon kontou alamen; seleksyon an fèmen ant de bout yo lè w fin trennen. Shift ajoute, alt soustrè.
+tool.lasso.history.select = Seleksyon ak laso
+tool.lasso.polygonal.name = Laso poligonal
+tool.lasso.polygonal.description = Klike sou chak kwen youn apre lòt pou bati yon seleksyon ak bò dwat, epi klike toupre premye pwen an pou fèmen l.
+tool.lasso.polygonal.history.select = Seleksyon ak laso poligonal
+tool.lasso.magnetic.name = Laso mayetik
+tool.lasso.magnetic.description = Suiv yon bò apwoksimativman epi kontou a kole sou kontras ki pi fò toupre chemen an.
+tool.lasso.magnetic.history.select = Seleksyon ak laso mayetik
+tool.lasso.magnetic.option.frequency = Frekans
+
+tool.wand.name = Bagèt majik
+tool.wand.description = Klike pou seleksyone zòn ki kole epi ki gen koulè sanblab anba pwentè a, selon opsyon tolerans lan — se menm tolerans kòmand Agrandi, Sanblab ak Gam koulè yo itilize.
+tool.wand.option.contiguous = Kole youn ak lòt
+tool.wand.history.select = Bagèt majik
+
+tool.quick_select.name = Seleksyon rapid
+tool.quick_select.description = Pentire sou yon zòn epi seleksyon an elaji atravè piksèl sanblab bwòs la pase sou yo.
+tool.quick_select.history.select = Seleksyon rapid
+
+tool.object_select.name = Seleksyon objè
+tool.object_select.description = Trennen yon bwat toutotou yon objè epi seleksyon an kole sou objè li jwenn anndan an.
+tool.object_select.history.select = Seleksyon objè

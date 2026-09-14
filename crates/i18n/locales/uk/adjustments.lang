@@ -1,0 +1,20 @@
+# Коригувальні шари та команди «Зображення ▸ Коригування».
+adjustment.levels.name = Рівні
+adjustment.curves.name = Криві
+adjustment.hue_saturation.name = Тон/Насиченість
+adjustment.brightness_contrast.name = Яскравість/Контрастність
+adjustment.black_white.name = Чорно-біле
+adjustment.solid_color.name = Суцільний колір
+adjustment.gradient_fill.name = Градієнтна заливка
+adjustment.pattern_fill.name = Заливка візерунком
+adjustment.invert.name = Інверсія
+adjustment.posterize.name = Постеризація
+adjustment.threshold.name = Поріг
+adjustment.color_balance.name = Баланс кольорів
+adjustment.vibrance.name = Соковитість
+adjustment.exposure.name = Експозиція
+adjustment.photo_filter.name = Фотофільтр
+adjustment.gradient_map.name = Карта градієнта
+adjustment.selective_color.name = Вибіркова корекція кольору
+adjustment.channel_mixer.name = Змішувач каналів
+adjustment.other.name = Коригування

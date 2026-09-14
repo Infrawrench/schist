@@ -1,0 +1,20 @@
+# Adjustment layers and commands
+adjustment.levels.name = Inzego
+adjustment.curves.name = Imirongo igoramye
+adjustment.hue_saturation.name = Ibara/Ubukana bw'ibara
+adjustment.brightness_contrast.name = Urumuri/Itandukaniro
+adjustment.black_white.name = Umukara n'Umweru
+adjustment.solid_color.name = Ibara rimwe ryuzuye
+adjustment.gradient_fill.name = Kuzuza urukurikirane rw'amabara
+adjustment.pattern_fill.name = Kuzuza igishushanyo gisubirwamo
+adjustment.invert.name = Guhindukiza
+adjustment.posterize.name = Kugabanya inzego z'amabara
+adjustment.threshold.name = Urugero ntarengwa
+adjustment.color_balance.name = Iringaniza ry'amabara
+adjustment.vibrance.name = Vibrance
+adjustment.exposure.name = Exposure
+adjustment.photo_filter.name = Akayunguruzo k'ifoto
+adjustment.gradient_map.name = Ikarita y'urukurikirane rw'amabara
+adjustment.selective_color.name = Ibara ryatoranyijwe
+adjustment.channel_mixer.name = Ivanga ry'imiyoboro
+adjustment.other.name = Ikosora

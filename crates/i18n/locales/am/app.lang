@@ -1,0 +1,37 @@
+# የማጣሪያ ማዕከለ-ስዕላት፣ ቅርጸ-ቁምፊ፣ ዝማኔና Vulkan መልዕክቶች።
+app.filter_gallery.title = የማጣሪያ ማዕከለ-ስዕላት
+app.filter_gallery.stack = ቁልል (ከታች ወደ ላይ ይተገበራል)
+app.filter_gallery.no_settings = ይህ ማጣሪያ ምንም ቅንብር የለውም።
+app.fonts.not_open_licensed = ክፍት ፈቃድ የለውም · {substitute} ከመለኪያዎቹ ጋር ይዛመዳል
+app.fonts.missing_substituted = ጎድሏል · ጽሑፉ በተተኪ ቅርጸ-ቁምፊ እየተዘጋጀ ነው
+app.fonts.not_in_catalogue = {family} በክፍት ቅርጸ-ቁምፊ ማውጫው ውስጥ የለም
+app.fonts.no_faces = ለ{family} ሊወርድ የሚችል የቅርጸ-ቁምፊ ቅጥ የለም
+app.fonts.empty_response = ባዶ ምላሽ
+app.update.unreadable_response = ሊነበብ የማይችል ምላሽ፦ {error}
+app.update.no_temp_dir = ወደ ውስጡ ለማውረድ ጊዜያዊ ማውጫ የለም
+app.update.asset_has_path = ልቀቱ ንብረቱን ከመንገድ ጋር ሰይሞታል
+app.update.too_big = የወረደው ፋይል ልቀቱ ከሚገልጸው ይበልጣል
+app.update.stopped_at = ማውረዱ ከ{total} ባይት {got} ላይ ቆሟል
+app.update.hash_mismatch = የወረደው ፋይል ሃሽ {got} ነው፣ {want} አይደለም
+app.update.not_in_bundle = ይህ ቅጂ በመተግበሪያ ጥቅል ውስጥ አይደለም
+app.update.no_parent_dir = የመተግበሪያው ጥቅል ወላጅ ማውጫ የለውም
+app.update.cannot_write = ወደ {dir} መጻፍ አይቻልም
+app.update.cannot_move_aside = {app}ን ወደ ጎን ማንቀሳቀስ አይቻልም
+app.update.cannot_move_in = አዲሱን ጥቅል ወደ ቦታው ማንቀሳቀስ አይቻልም
+app.update.cannot_run_ditto = /usr/bin/dittoን ማስኬድ አይቻልም
+app.update.unpack_failed = የወረደውን ፋይል መፍታት አልተሳካም፦ {error}
+app.update.no_app_in_download = የወረደው ፋይል Schist.appን አልያዘም
+app.update.cannot_run_codesign = /usr/bin/codesignን ማስኬድ አይቻልም
+app.update.signature_invalid = የወረደው ፋይል ፊርማ ማረጋገጫውን አላለፈም፦ {error}
+app.update.download_unsigned = ይህ ቅጂ ተፈርሟል፣ የወረደው ግን አልተፈረመም
+app.update.different_developer = የወረደው ፋይል በሌላ ገንቢ ተፈርሟል
+app.update.cannot_relaunch = ዳግም አስጀማሪውን ማስጀመር አይቻልም
+app.update.not_installed_copy = ይህ ቅጂ በጫኚው እዚህ አልተቀመጠም
+app.update.cannot_start_installer = ጫኚውን ማስጀመር አይቻልም
+app.update.platform_unsupported = በዚህ መድረክ ላይ ያሉ ዝማኔዎች Schist በተጫነበት መንገድ ይጫናሉ
+app.vulkan.no_loader = schist፦ በዚህ ስርዓት ላይ የVulkan ጫኚ የለም፣ ስለዚህ ምስል የሚሳልበት ነገር የለም።\n\nSchist በVulkan በኩል ምስል ይሠራል፣ `libvulkan.so.1` ግን አልተጫነም።\nጫኚውም ሆነ ነጂው ያስፈልጋሉ፦\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist፦ ይህ ክፍለ ጊዜ የሚያመለክተው የVulkan ነጂ በቦታው የለም።\n\n{var} ተዋቅሯል፤ እሱን ማዋቀር ጫኚው ነጂዎችን የሚፈልግበትን መንገድ ከመጨመር ይልቅ ይተካዋል። ስለዚህ እነዚህ የማይገኙ ፋይሎች ሙሉው የነጂ ዝርዝር ናቸው፤ ምንም ያህል ነጂዎች ቢጫኑም በዚህ ክፍለ ጊዜ ውስጥ ያለ እያንዳንዱ የVulkan ፕሮግራም ምንም ነጂ አያይም፦\n\n{missing}\n    {var}={value}\n\nወደሚገኝ ማኒፌስት ያመልክቱት — የተጫኑ ነጂዎች ማኒፌስቶቻቸውን በ/usr/share/vulkan/icd.d ያስቀምጣሉ — ወይም ቅንብሩን ያንሱና ጫኚው ራሱ እንዲያገኘው ይተዉት። ይህን ከውቅር ፋይል (የHyprland `env =`፣ የsystemd environment.d drop-in፣ የሼል መገለጫ) የሚያዋቅር ክፍለ ጊዜ በዚያው መለወጥ አለበት፤ ለውጡ ቀድሞ እየሠራ ወዳለ ነገር እንዲደርስ አዲስ መግቢያ ያስፈልጋል።\n
+app.vulkan.override_note = \n{var} ወደ {value} ተዋቅሯል፣ ይህም ጫኚው ራሱ የሚያደርገውን ፍለጋ ይተካል፤ ከእነዚያ ማኒፌስቶች አንዳቸውም ለዚህ ማሽን ካልሆነ፣ ቅንብሩን ማንሳት መጀመሪያ መሞከር ያለበት ነው።\n
+app.vulkan.no_driver = schist፦ ምንም የVulkan ነጂ አልተጫነም፣ ስለዚህ ምስል የሚሳልበት ነገር የለም።\n\nSchist በVulkan በኩል ምስል ይሠራል። ጫኚው ተጭኗል ነገር ግን ምንም ነጂ እንደሌለ ይገልጻል፤ ከሚፈለግባቸው ሁለት ቦታዎች በአንዳቸውም ምንም ነጂ አልተመዘገበም፦\n\n{dirs}\n\nጫኚው ከነጂዎቹ ተለይቶ ይቀርባል፣ ስለዚህ ይህ ብዙውን ጊዜ አንድ የጎደለ ጥቅል ብቻ ነው።\n\nለዚህ ማሽን GPU የሚሆነውን ይጫኑ፦\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nየNVIDIA የግል ንብረት ነጂ የራሱን ይዟል (በArch `nvidia-utils`፣ በDebian `nvidia-driver`)። በምናባዊ ማሽን ወይም የሚጫን GPU ነጂ በሌለበት ቦታ ሁሉ የሚሠራው የሶፍትዌር ራስተራይዘር ነው፦ በArch `vulkan-swrast`፣ በሌሎች ቦታዎች የ`mesa-vulkan-drivers` ክፍል ነው። ዘገምተኛ ነው፣ ግን ይጀምራል።\n{overridden}
+app.vulkan.no_device = schist፦ የVulkan ነጂ ተጭኗል፣ ነገር ግን ምስል ለመሥራት ምንም መሣሪያ አያቀርብም።\n\nነጂው ይህን GPU ላይደግፍ ይችላል፣ ወይም ሊደርስበት አይችል ይሆናል፤ በSSH ላይ ወይም በመያዣ ውስጥ /dev/dri ብዙውን ጊዜ ይጎድላል። `vulkaninfo --summary` ጫኚው የሚያየውን ይዘግባል።\n\nይህ ማሽን GPU ከሌለው የሶፍትዌር ራስተራይዘር ያለ GPU ምስል ይሠራል፦ በArch `vulkan-swrast`፣ በDebian እና Fedora የ`mesa-vulkan-drivers` ክፍል ነው።\n
+app.vulkan.skip_hint = Schistን ለማስጀመርና በራሱ መንገድ እንዲያልተሳካ ለመተው፣ {var}=1 ያዋቅሩ።

@@ -1,0 +1,152 @@
+# Файл
+menu.file = Файл
+menu.file.new = Новы
+menu.file.open = Адкрыць…
+menu.file.open_recent = Нядаўнія файлы
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Агляд галерэі…
+menu.file.close = Закрыць
+menu.file.save = Захаваць
+menu.file.save_as = Захаваць як…
+menu.file.export = Экспартаваць…
+menu.file.export_submenu = Экспарт
+menu.file.export_artboards = Мантажныя вобласці ў PNG…
+menu.file.export_slices = Фрагменты ў PNG…
+menu.file.save_to_photos = Захаваць у «Фота»
+menu.file.plugins = Убудовы…
+menu.file.missing_fonts = Адсутныя шрыфты…
+menu.file.check_for_updates = Праверыць абнаўленні…
+menu.file.quit = Выйсці
+menu.file.add_folder_to_gallery = Дадаць папку ў галерэю…
+menu.file.import_from_photos = Імпартаваць з «Фота»…
+menu.file.import_from_camera = Імпартаваць з камеры…
+
+# Рэдагаванне
+menu.edit = Рэдагаванне
+menu.edit.fill = Заліўка…
+menu.edit.stroke = Абводка…
+menu.edit.content_aware_fill = Заліўка з улікам змесціва
+menu.edit.content_aware_scale = Маштабаванне з улікам змесціва…
+menu.edit.puppet_warp = Марыянеткавая дэфармацыя
+menu.edit.free_transform = Свабоднае трансфармаванне
+menu.edit.transform = Трансфармаванне
+menu.edit.rotate_180 = Павярнуць на 180°
+menu.edit.rotate_90_cw = Павярнуць на 90° па гадзінніку
+menu.edit.rotate_90_ccw = Павярнуць на 90° супраць гадзінніка
+menu.edit.flip_horizontal = Адлюстраваць па гарызанталі
+menu.edit.flip_vertical = Адлюстраваць па вертыкалі
+
+# Відарыс
+menu.image = Відарыс
+menu.image.mode = Рэжым
+menu.image.adjustments = Карэкцыя
+menu.image.auto_tone = Аўтатон
+menu.image.auto_contrast = Аўтакантраст
+menu.image.auto_color = Аўтаколер
+menu.image.image_size = Памер відарыса…
+menu.image.canvas_size = Памер палатна…
+menu.image.image_rotation = Паварот відарыса
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° па гадзінніку
+menu.image.rotate_90_ccw = 90° супраць гадзінніка
+menu.image.flip_canvas_horizontal = Адлюстраваць палатно па гарызанталі
+menu.image.flip_canvas_vertical = Адлюстраваць палатно па вертыкалі
+menu.image.crop_to_selection = Абрэзаць да вылучэння
+menu.image.trim = Падрэзаць
+menu.image.assign_profile = Прызначыць профіль…
+menu.image.convert_to_profile = Пераўтварыць у профіль…
+
+# Вылучэнне
+menu.select = Вылучэнне
+menu.select.color_range = Дыяпазон колераў…
+menu.select.modify = Змяніць
+menu.select.border = Мяжа…
+menu.select.smooth = Згладзіць…
+menu.select.expand = Пашырыць…
+menu.select.contract = Сціснуць…
+menu.select.feather = Растушаваць…
+menu.select.transform_selection = Трансфармаваць вылучэнне
+
+# Пласт
+menu.layer = Пласт
+menu.layer.layer_style = Стыль пласта…
+menu.layer.layer_comps = Кампазіцыі пластоў
+menu.layer.new_layer_comp = Новая кампазіцыя пластоў
+menu.layer.delete_layer_comp = Выдаліць {name}
+menu.layer.path = Контур
+menu.layer.fill_path = Заліць контур
+menu.layer.stroke_path = Абвесці контур
+menu.layer.make_selection = Стварыць вылучэнне
+menu.layer.delete_path = Выдаліць контур
+
+menu.adjust = Карэкцыя
+
+# Фільтр
+menu.filter = Фільтр
+menu.filter.filter_gallery = Галерэя фільтраў…
+menu.filter.liquify = Пластыка
+menu.filter.vanishing_point = Кропка сходу
+menu.filter.manage_models = Кіраванне мадэлямі…
+menu.filter.camera_raw_development = Апрацоўка Camera Raw…
+
+# Прагляд
+menu.view = Прагляд
+menu.view.rotate_view_cw = Павярнуць прагляд па гадзінніку
+menu.view.rotate_view_ccw = Павярнуць прагляд супраць гадзінніка
+menu.view.reset_view = Скінуць прагляд
+menu.view.zoom_in = Павялічыць
+menu.view.zoom_out = Паменшыць
+menu.view.fit_on_screen = Дапасаваць да экрана
+menu.view.actual_size = 100%
+menu.view.rulers = Лінейкі
+menu.view.grid = Сетка
+menu.view.guides = Накіравальныя
+menu.view.notes = Нататкі
+menu.view.ai_panel = Панэль ШІ
+menu.view.extras = Дапаможныя элементы
+menu.view.snap = Прывязванне
+menu.view.clear_guides = Ачысціць накіравальныя
+menu.view.clear_notes = Ачысціць нататкі
+menu.view.clear_count = Ачысціць лічыльнікі
+menu.view.screen_mode = Рэжым экрана
+menu.view.proof_colors = Колерапроба
+menu.view.show_rulers = Паказаць лінейкі
+menu.view.hide_rulers = Схаваць лінейкі
+menu.view.show_grid = Паказаць сетку
+menu.view.hide_grid = Схаваць сетку
+menu.view.show_guides = Паказаць накіравальныя
+menu.view.hide_guides = Схаваць накіравальныя
+menu.view.show_notes = Паказаць нататкі
+menu.view.hide_notes = Схаваць нататкі
+menu.view.show_extras = Паказаць дапаможныя элементы
+menu.view.hide_extras = Схаваць дапаможныя элементы
+menu.view.enable_snapping = Уключыць прывязванне
+menu.view.disable_snapping = Выключыць прывязванне
+menu.view.enable_proof_colors = Уключыць колерапробу
+menu.view.disable_proof_colors = Выключыць колерапробу
+
+# Галерэя
+menu.gallery = Галерэя
+menu.gallery.edit_selected = Рэдагаваць выбранае
+menu.gallery.refresh = Аднавіць
+menu.gallery.map_filter = Фільтр карты…
+menu.gallery.back_to_editor = Назад у рэдактар
+
+# Schist Cloud
+menu.cloud.browse = Агляд Schist Cloud
+menu.cloud.generate = Стварыць відарысы…
+menu.cloud.upload = Запампаваць дакумент у Schist Cloud…
+menu.cloud.sign_out = Выйсці з Schist Cloud
+menu.cloud.sign_in = Увайсці ў Schist Cloud…
+
+# Меню праграмы ў macOS
+menu.app.services = Службы
+menu.app.hide = Схаваць {app}
+menu.app.hide_others = Схаваць астатнія
+menu.app.show_all = Паказаць усе
+menu.app.quit = Выйсці з {app}
+
+# Адказы ў радку стану
+menu.status.transform_selection_needs_selection = Каб трансфармаваць вылучэнне, спачатку стварыце яго
+menu.status.crop_needs_selection = Каб абрэзаць да вылучэння, спачатку стварыце яго
+menu.status.select_photo_to_edit = Выберыце фота для рэдагавання

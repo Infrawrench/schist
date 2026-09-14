@@ -1,0 +1,25 @@
+# Orodja za retuširanje območij.
+
+tool.patch.name = Krpa
+tool.patch.description = Obkrožite napako, nato izbor povlecite na nepoškodovane slikovne pike: njihova tekstura se prilagodi napaki. Način krpanja določa, kateri konec para povlečete.
+tool.patch.option.patch = Krpa
+tool.patch.choice.source = Izvor
+tool.patch.choice.destination = Cilj
+tool.patch.history.patch = Krpa
+
+tool.content_aware_move.name = Vsebinsko prilagojeno premikanje
+tool.content_aware_move.description = Izbrani predmet povlecite drugam, praznina za njim pa se zapolni iz okolice. V načinu Razširi se predmet raztegne, namesto da bi se premaknil.
+tool.content_aware_move.choice.move = Premakni
+tool.content_aware_move.choice.extend = Razširi
+tool.content_aware_move.history.move = Vsebinsko prilagojeno premikanje
+
+tool.red_eye.name = Rdeče oči
+tool.red_eye.description = Kliknite zenico, da odstranite rdečico zaradi bliskavice.
+tool.red_eye.option.pupil_size = Velikost zenice
+tool.red_eye.option.darken = Potemni
+tool.red_eye.history.red_eye = Rdeče oči
+
+tool.magic_eraser.name = Čarobna radirka
+tool.magic_eraser.description = Kliknite, da glede na toleranco orodja izbrišete območje podobne barve pod kazalcem: bodisi območje, povezano s kliknjeno točko, bodisi vsa taka območja v plasti.
+tool.magic_eraser.option.contiguous = Stično
+tool.magic_eraser.history.erase = Čarobna radirka

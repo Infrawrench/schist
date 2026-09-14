@@ -1,0 +1,37 @@
+# Tryb łączenia zaznaczeń
+tool.select.mode.subtract = Odejmij
+tool.select.mode.intersect = Część wspólna
+
+# Zaznaczenia geometryczne
+tool.marquee.rect.name = Zaznaczenie prostokątne
+tool.marquee.rect.description = Przeciągnij, aby utworzyć prostokątne zaznaczenie. Shift naciśnięty na początku przeciągania dodaje do zaznaczenia, Alt odejmuje, a oba klawisze wyznaczają część wspólną; Shift naciśnięty podczas przeciągania tworzy kwadrat. Kliknięcie bez przeciągania usuwa zaznaczenie.
+tool.marquee.ellipse.name = Zaznaczenie eliptyczne
+tool.marquee.ellipse.description = Przeciągnij, aby utworzyć eliptyczne zaznaczenie; Shift i Alt łączą je z istniejącym zaznaczeniem tak samo jak przy zaznaczeniu prostokątnym.
+
+# Lassa
+tool.lasso.name = Lasso
+tool.lasso.description = Przeciągnij odręczny kontur; po zakończeniu przeciągania jego końce zostaną połączone. Shift dodaje, a Alt odejmuje.
+tool.lasso.history.select = Zaznaczenie lassem
+tool.lasso.polygonal.name = Lasso wielokątne
+tool.lasso.polygonal.description = Klikaj kolejne narożniki, aby zbudować zaznaczenie o prostych krawędziach, a następnie kliknij w pobliżu pierwszego punktu, aby je zamknąć.
+tool.lasso.polygonal.history.select = Lasso wielokątne
+tool.lasso.magnetic.name = Lasso magnetyczne
+tool.lasso.magnetic.description = Poprowadź z grubsza wzdłuż krawędzi, a kontur przyciągnie się do najsilniejszego kontrastu w pobliżu ścieżki.
+tool.lasso.magnetic.history.select = Lasso magnetyczne
+tool.lasso.magnetic.option.frequency = Częstotliwość
+
+# Różdżka
+tool.wand.name = Różdżka
+tool.wand.description = Kliknij, aby zaznaczyć połączony obszar o podobnym kolorze pod wskaźnikiem, zgodnie z ustawieniem tolerancji — tym samym, z którego korzystają polecenia Powiększ, Podobne i Zakres kolorów.
+tool.wand.option.contiguous = Ciągłe
+tool.wand.history.select = Różdżka
+
+# Szybkie zaznaczanie
+tool.quick_select.name = Szybkie zaznaczanie
+tool.quick_select.description = Zamaluj obszar, a zaznaczenie rozszerzy się na podobne piksele, przez które przechodzi pędzel.
+tool.quick_select.history.select = Szybkie zaznaczanie
+
+# Zaznaczanie obiektów
+tool.object_select.name = Zaznaczanie obiektów
+tool.object_select.description = Przeciągnij ramkę wokół obiektu, a zaznaczenie dopasuje się do znalezionego w niej obiektu.
+tool.object_select.history.select = Zaznaczanie obiektów

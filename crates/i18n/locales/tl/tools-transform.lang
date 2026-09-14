@@ -1,0 +1,25 @@
+tool.transform.name = Malayang Transform
+tool.transform.description = Malayang Transform. Kapag in-activate, nagbubukas ito ng transform box sa paligid ng aktibong layer: i-drag ang isang sulok upang baguhin ang laki, sa labas ng sulok upang paikutin, at ang isang gilid upang pahilis na baguhin. Walang isinusulat hangga't hindi ito inilalapat gamit ang Enter, at ibinabalik ng pagkansela gamit ang Escape ang layer sa dati.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Malayang Transform
+tool.transform.history.image_size = Laki ng Larawan
+tool.transform.history.canvas_size = Laki ng Canvas
+
+tool.transform.selection.name = I-transform ang Seleksiyon
+tool.transform.selection.description = I-transform ang Seleksiyon: parehong box, ngunit ang balangkas ng seleksiyon ang inililipat sa halip na mga pixel sa loob nito. Ilapat o kanselahin upang tapusin.
+tool.transform.selection.history.transform = I-transform ang Seleksiyon
+
+tool.transform.resample.nearest_neighbor = Pinakamalapit na Neighbor
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = I-crop
+tool.crop.description = I-drag ang bahaging pananatilihin at ayusin ang mga handle nito; kapag inilapat gamit ang Enter, pinuputol ang dokumento ayon dito, at kapag kinansela gamit ang Escape, hindi ito binabago.
+tool.crop.option.ratio = Proporsiyon
+tool.crop.option.delete_cropped = Burahin ang mga Na-crop na Pixel
+tool.crop.choice.unconstrained = Walang Paghihigpit
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = I-crop

@@ -1,0 +1,26 @@
+# መሠረታዊ መሣሪያዎች።
+
+# ማንቀሳቀሻ
+tool.move.name = ማንቀሳቀሻ
+tool.move.description = የነቃውን ንብርብር ይዘት ወደ አዲስ ቦታ ይጎትቱ። ራስ-ምረጥ ከበራ፣ ሲጫኑ ጠቋሚው ሥር ያለው ንብርብር ወይም ሙሉ ቡድን መጀመሪያ ይመረጣል።
+tool.move.option.auto_select = ራስ-ምረጥ
+tool.move.history.move_layer = ንብርብር አንቀሳቅስ
+
+# ቀለም መራጭ
+tool.eyedropper.name = ቀለም መራጭ
+tool.eyedropper.description = በጠቋሚው ሥር ያለውን ቀለም ወደ ፊት ቀለም ናሙና ይውሰዱ፤ Alt ተጭኖ ሲቆይ ደግሞ ወደ ጀርባ ቀለም ናሙና ይወሰዳል። መጎተት ናሙና መውሰዱን ይቀጥላል።
+tool.eyedropper.option.sample_size = የናሙና መጠን
+tool.eyedropper.option.sample = ናሙና ውሰድ
+tool.eyedropper.choice.point_sample = የነጥብ ናሙና
+tool.eyedropper.choice.average_3 = የ3 በ3 አማካይ
+tool.eyedropper.choice.average_5 = የ5 በ5 አማካይ
+tool.eyedropper.choice.average_11 = የ11 በ11 አማካይ
+tool.eyedropper.choice.average_31 = የ31 በ31 አማካይ
+tool.eyedropper.choice.all_layers = ሁሉም ንብርብሮች
+tool.eyedropper.choice.current_layer = የአሁኑ ንብርብር
+
+# እጅ እና ማጉያ
+tool.hand.name = እጅ
+tool.hand.description = እይታውን ያንቀሳቅሳል። የእይታ ክፍሉ የመስኮቱ ስለሆነ፣ ያለ በይነገጽ ሲሠራ ይህ መሣሪያ ሰነዱን አይለውጥም።
+tool.zoom.name = ማጉያ
+tool.zoom.description = እይታውን ያጎላል ወይም ያሳንሳል። የእይታ ክፍሉ የመስኮቱ ስለሆነ፣ ያለ በይነገጽ ሲሠራ ይህ መሣሪያ ሰነዱን አይለውጥም።

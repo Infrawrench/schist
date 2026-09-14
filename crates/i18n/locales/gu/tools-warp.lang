@@ -1,0 +1,25 @@
+# Liquify
+tool.liquify.name = લિક્વિફાઇ
+tool.liquify.description = મોટા બ્રશની નીચેના પિક્સેલને ધકેલો, ઘુમાવો, સંકોચો અથવા ફુલાવો — કઈ ક્રિયા કરવી તે મોડ વિકલ્પ નક્કી કરે છે. વૉર્પ એક મેશમાં ભેગું થાય છે અને કમિટ કરતાં લેયર પર લાગુ થાય છે.
+tool.liquify.option.tool = ટૂલ
+tool.liquify.choice.forward_warp = આગળ વૉર્પ
+tool.liquify.choice.reconstruct = પુનઃરચના
+tool.liquify.choice.twirl_cw = ઘડિયાળની દિશામાં ઘુમાવો
+tool.liquify.choice.twirl_ccw = ઘડિયાળની વિરુદ્ધ દિશામાં ઘુમાવો
+tool.liquify.choice.pucker = સંકોચો
+tool.liquify.choice.bloat = ફુલાવો
+tool.liquify.choice.push_left = ડાબે ધકેલો
+tool.liquify.history.liquify = લિક્વિફાઇ
+
+# Puppet Warp
+tool.puppet_warp.name = પપેટ વૉર્પ
+tool.puppet_warp.description = લેયરને થોડા બિંદુઓએ પિન કરવા ક્લિક કરો, પછી એક પિન ખેંચો: Stiffness વિકલ્પ મુજબ મેશ પિનની આસપાસ કડકાઈથી અથવા ઢીલાશથી વળે છે. કમિટ કરવાથી તે લાગુ થાય છે.
+tool.puppet_warp.option.stiffness = કડકાઈ
+tool.puppet_warp.history.puppet_warp = પપેટ વૉર્પ
+
+# Vanishing Point
+tool.vanishing_point.name = વૅનિશિંગ પોઇન્ટ
+tool.vanishing_point.description = પરિપ્રેક્ષ્ય ધરાવતી વસ્તુ પર સમતલ દોરી કાઢો, પછી મોડને Clone પર ફેરવીને પેઇન્ટ કરો: નકલ કરેલા પિક્સેલ સમતલને અનુસરે છે અને અંતર વધતાં નાના થાય છે.
+tool.vanishing_point.choice.edit_plane = સમતલ સંપાદિત કરો
+tool.vanishing_point.choice.clone = ક્લોન
+tool.vanishing_point.history.vanishing_point = વૅનિશિંગ પોઇન્ટ

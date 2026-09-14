@@ -1,0 +1,29 @@
+# Инструменты ретуширования областей.
+
+# Заплатка
+tool.patch.name = Заплатка
+tool.patch.description = Обведите дефект, затем перетащите выделенную область на чистые пиксели: их текстура будет подогнана под дефект. Режим заплатки определяет, какой конец пары следует перетаскивать.
+tool.patch.option.patch = Заплатка
+tool.patch.choice.source = Источник
+tool.patch.choice.destination = Назначение
+tool.patch.history.patch = Заплатка
+
+# Перемещение с учётом содержимого
+tool.content_aware_move.name = Перемещение с учётом содержимого
+tool.content_aware_move.description = Перетащите выделенный объект в другое место, и оставшееся отверстие будет заполнено с учётом окружения. В режиме расширения объект растягивается вместо перемещения.
+tool.content_aware_move.choice.move = Перемещение
+tool.content_aware_move.choice.extend = Расширение
+tool.content_aware_move.history.move = Перемещение с учётом содержимого
+
+# Красные глаза
+tool.red_eye.name = Красные глаза
+tool.red_eye.description = Щёлкните зрачок, чтобы убрать красный оттенок от вспышки.
+tool.red_eye.option.pupil_size = Размер зрачка
+tool.red_eye.option.darken = Степень затемнения
+tool.red_eye.history.red_eye = Удаление эффекта красных глаз
+
+# Волшебный ластик
+tool.magic_eraser.name = Волшебный ластик
+tool.magic_eraser.description = Щёлкните, чтобы стереть область похожего цвета под указателем в пределах допуска инструмента: смежную с точкой щелчка или по всему слою.
+tool.magic_eraser.option.contiguous = Смежные пиксели
+tool.magic_eraser.history.erase = Волшебный ластик

@@ -1,0 +1,31 @@
+# Blend modes, in the Layers panel's order. The kernel's
+# BlendMode::display_name is the English the PSD format knows; these are
+# what the chrome shows (crates/app/src/ui.rs, blend_mode_name).
+blend.pass_through = মাজেৰে পাৰ হওক
+blend.normal = স্বাভাৱিক
+blend.dissolve = দ্ৰৱীভূত
+blend.darken = গাঢ় কৰক
+blend.multiply = গুণ কৰক
+blend.color_burn = ৰং বাৰ্ন
+blend.linear_burn = ৰৈখিক বাৰ্ন
+blend.darker_color = অধিক গাঢ় ৰং
+blend.lighten = পাতল কৰক
+blend.screen = স্ক্ৰীণ
+blend.color_dodge = ৰং ডজ
+blend.linear_dodge = ৰৈখিক ডজ (যোগ)
+blend.lighter_color = অধিক পাতল ৰং
+blend.overlay = অভাৰলে
+blend.soft_light = কোমল পোহৰ
+blend.hard_light = তীব্ৰ পোহৰ
+blend.vivid_light = প্ৰাণৱন্ত পোহৰ
+blend.linear_light = ৰৈখিক পোহৰ
+blend.pin_light = পিন পোহৰ
+blend.hard_mix = কঠিন মিশ্ৰণ
+blend.difference = পাৰ্থক্য
+blend.exclusion = বৰ্জন
+blend.subtract = বিয়োগ কৰক
+blend.divide = ভাগ কৰক
+blend.hue = ৰংভেদ
+blend.saturation = সম্পৃক্ততা
+blend.color = ৰং
+blend.luminosity = দীপ্তি

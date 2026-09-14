@@ -1,0 +1,31 @@
+# Modi ta' taħlit, fl-ordni tal-pannell tas-Saffi. Il-
+# BlendMode::display_name tal-kernel huwa l-Ingliż magħruf mill-format PSD;
+# dawn huma l-ismijiet li jintwerew fl-interfaċċa (crates/app/src/ui.rs, blend_mode_name).
+blend.pass_through = Għaddi Minn Ġo Fih
+blend.normal = Normali
+blend.dissolve = Dewweb
+blend.darken = Skura
+blend.multiply = Immultiplika
+blend.color_burn = Ħruq tal-Kulur
+blend.linear_burn = Ħruq Lineari
+blend.darker_color = Kulur Aktar Skur
+blend.lighten = Dawwal
+blend.screen = Skrin
+blend.color_dodge = Tiċpir tal-Kulur
+blend.linear_dodge = Tiċpir Lineari (Żid)
+blend.lighter_color = Kulur Aktar Ċar
+blend.overlay = Sovrappożizzjoni
+blend.soft_light = Dawl Artab
+blend.hard_light = Dawl Qawwi
+blend.vivid_light = Dawl Ħaj
+blend.linear_light = Dawl Lineari
+blend.pin_light = Dawl Puntwali
+blend.hard_mix = Taħlita Qawwija
+blend.difference = Differenza
+blend.exclusion = Esklużjoni
+blend.subtract = Naqqas
+blend.divide = Aqsam
+blend.hue = Tonalità
+blend.saturation = Saturazzjoni
+blend.color = Kulur
+blend.luminosity = Luminożità

@@ -1,0 +1,73 @@
+# Lisebelisoa tsa ho penta.
+tool.brush.name = Borashe
+tool.brush.description = Penta mola o nang le mathoko a bonolo ka 'mala oa bokapele, boholo ba oona bo laoloa ke boholo, ho tiea le ho se bonaletse ha borashe mohlophising.
+tool.brush.history.stroke = Borashe
+
+tool.pencil.name = Pensele
+tool.pencil.description = Penta mola o nang le mathoko a thata a sa borelelitsoeng ka 'mala oa bokapele.
+tool.pencil.history.stroke = Pensele
+
+tool.eraser.name = Raba
+tool.eraser.description = Hlakola moo mola o fetang teng, u khutlisetse mokhahlelo boemong ba ho bonaletsa.
+tool.eraser.history.stroke = Raba
+
+tool.clone.name = Setempe sa ho Kopitsa
+tool.clone.description = Setempe sa ho Kopitsa: tobetsa u tšoere alt ho beha ntlha ea mohloli, ebe u penta lipiksele tse kopilitsoeng ho eona ka sebaka seo se tšoanang.
+tool.clone.history.stroke = Setempe sa ho Kopitsa
+
+tool.dodge.name = Sesebelisoa sa ho Khantša
+tool.dodge.description = Khantša lipiksele tseo mola o fetang holim'a tsona.
+tool.dodge.history.stroke = Ho Khantša
+tool.burn.name = Sesebelisoa sa ho Fifatsa
+tool.burn.description = Fifatsa lipiksele tseo mola o fetang holim'a tsona.
+tool.burn.history.stroke = Ho Fifatsa
+tool.sponge.name = Seponche
+tool.sponge.description = Eketsa kapa fokotsa botebo ba 'mala lipikseleng tseo mola o fetang holim'a tsona.
+tool.sponge.history.stroke = Seponche
+
+tool.blur.name = Sesebelisoa sa ho Fokotsa ho Hlaka
+tool.blur.description = Fokotsa ho hlaka ha lipiksele tseo mola o fetang holim'a tsona.
+tool.blur.history.stroke = Ho Fokotsa ho Hlaka
+tool.sharpen.name = Sesebelisoa sa ho Chorisa
+tool.sharpen.description = Chorisa lipiksele tseo mola o fetang holim'a tsona.
+tool.sharpen.history.stroke = Ho Chorisa
+tool.smudge.name = Sesebelisoa sa ho Tlotsa
+tool.smudge.description = Hula 'mala ho latela mola, joalokaha eka u sututsa pente e metsi.
+tool.smudge.history.stroke = Ho Tlotsa
+
+tool.heal.name = Borashe ba ho Lokisa
+tool.heal.description = Borashe ba ho Lokisa: tobetsa u tšoere alt ho beha mohloli, ebe u penta; sebopeho sa bokaholimo ba mohloli se kopanngoa le 'mala le khanya tsa sebaka seo se isoang ho sona.
+tool.heal.history.stroke = Borashe ba ho Lokisa
+tool.spot_heal.name = Borashe ba ho Lokisa Matheba
+tool.spot_heal.description = Borashe ba ho Lokisa Matheba: penta holim'a sekoli, 'me se nkeloe sebaka ke sebopeho sa bokaholimo se nkiloeng tikolohong ea sona—ha ho hlokahale hore u behe ntlha ea mohloli.
+tool.spot_heal.history.stroke = Borashe ba ho Lokisa Matheba
+
+tool.history_brush.name = Borashe ba Nalane
+tool.history_brush.description = Penta lipiksele ho tsoa setšoantšong se bolokiloeng sa nalane ea tokomane, u etsolla mosebetsi o entsoeng hamorao mola ka mola.
+tool.history_brush.history.stroke = Borashe ba Nalane
+
+tool.background_eraser.name = Raba ea Bokamorao
+tool.background_eraser.description = Hlakola 'mala o nkuoeng tlas'a bohareng ba borashe 'me u siee lipiksele tsa mebala e fapaneng, e le hore u ntše ntho bokamoraong ba eona.
+tool.background_eraser.history.stroke = Raba ea Bokamorao
+
+tool.gradient.name = Phetoho ea Mebala
+tool.gradient.description = Hula ho tlatsa mokhahlelo—ka har'a khetho haeba e le teng—ka phetoho ea mebala e otlolohileng ho tloha 'maleng oa bokapele ho ea ho oa bokamorao ka tsela eo u hulang ka eona.
+tool.gradient.radial.name = Phetoho ea Mebala e Tsoang Bohareng
+tool.gradient.radial.description = Hula ho tloha bohareng ho ea kantle ho tlatsa ka phetoho ea mebala e tsoang bohareng pakeng tsa mebala ea bokapele le bokamorao.
+tool.gradient.option.gradient = Phetoho ea Mebala
+tool.gradient.option.reverse = Khutlisetsa Morao
+tool.gradient.option.dither = Hasanya Liphetoho tsa 'Mala
+tool.gradient.choice.foreground_to_background = Bokapele ho ea Bokamorao
+tool.gradient.choice.foreground_to_transparent = Bokapele ho ea ho se Bonaletsang
+tool.gradient.choice.linear = E Otlolohileng
+tool.gradient.choice.radial = E Tsoang Bohareng
+tool.gradient.choice.angle = Sekhutlo
+tool.gradient.choice.reflected = E Bonahalitsoeng
+tool.gradient.choice.diamond = Taemane
+tool.gradient.history.gradient = Phetoho ea Mebala
+
+tool.bucket.name = Bakete ea Pente
+tool.bucket.description = Tobetsa ho tlatsa sebaka se hokahaneng sa 'mala o tšoanang se tlas'a sesupa ka 'mala oa bokapele, ho latela tekanyo ea mamello ea sesebelisoa.
+tool.bucket.option.contiguous = Tse Hokahaneng
+tool.bucket.option.all_layers = Mekhahlelo Eohle
+tool.bucket.history.fill = Bakete ea Pente

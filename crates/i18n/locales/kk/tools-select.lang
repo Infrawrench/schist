@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Азайту
+tool.select.mode.intersect = Қиылыстыру
+
+tool.marquee.rect.name = Тіктөртбұрышты таңдау
+tool.marquee.rect.description = Тіктөртбұрышты таңдау аймағын сүйреп жасаңыз. Сүйреудің басында Shift басылса, аймақ таңдауға қосылады, Alt басылса алынады, екеуі бірге басылса қиылысады; сүйреу кезінде Shift басылса, шаршы жасалады. Сүйремей шерту таңдауды алып тастайды.
+tool.marquee.ellipse.name = Эллипстік таңдау
+tool.marquee.ellipse.description = Тіктөртбұрышты таңдау құралындағыдай Shift/Alt тіркесімдерін пайдаланып, эллипстік таңдау аймағын сүйреп жасаңыз.
+
+tool.lasso.name = Лассо
+tool.lasso.description = Жиекті қолмен сүйреп сызыңыз; сүйреу аяқталғанда таңдау аймағының ұштары қосылады. Shift таңдауға қосады, Alt азайтады.
+tool.lasso.history.select = Лассо арқылы таңдау
+tool.lasso.polygonal.name = Көпбұрышты лассо
+tool.lasso.polygonal.description = Түзу жиекті таңдау аймағын жасау үшін бұрыштарды бірінен соң бірін шертіңіз, ал оны жабу үшін алғашқы нүктенің жанын шертіңіз.
+tool.lasso.polygonal.history.select = Көпбұрышты лассо
+tool.lasso.magnetic.name = Магниттік лассо
+tool.lasso.magnetic.description = Жиектің бойымен шамамен жүргізіңіз, сонда контур жол маңындағы ең күшті контрастқа жабысады.
+tool.lasso.magnetic.history.select = Магниттік лассо
+tool.lasso.magnetic.option.frequency = Жиілік
+
+tool.wand.name = Сиқырлы таяқша
+tool.wand.description = Төзімділік параметрі шегінде меңзер астындағы ұқсас түсті тұтасқан аймақты таңдау үшін шертіңіз — дәл осы төзімділікті «Үлкейту», «Ұқсас» және «Түс ауқымы» пәрмендері қолданады.
+tool.wand.option.contiguous = Тұтасқан
+tool.wand.history.select = Сиқырлы таяқша
+
+tool.quick_select.name = Жылдам таңдау
+tool.quick_select.description = Аймақтың үстін бояңыз, сонда таңдау қылқалам өтетін ұқсас пиксельдерге қарай кеңейеді.
+tool.quick_select.history.select = Жылдам таңдау
+
+tool.object_select.name = Нысанды таңдау
+tool.object_select.description = Нысанның айналасын жақтаумен қоршаңыз, сонда таңдау ішінен табылған нысанға жабысады.
+tool.object_select.history.select = Нысанды таңдау

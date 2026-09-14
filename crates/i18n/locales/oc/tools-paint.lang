@@ -1,0 +1,83 @@
+# Bròssa
+tool.brush.name = Bròssa
+tool.brush.description = Penchena un traç de bòrds suaus amb la color de primièr plan ; sa talha depend de la talha, de la duretat e de l'opacitat de la bròssa definidas dins l'editor.
+tool.brush.history.stroke = Bròssa
+
+# Gredon
+tool.pencil.name = Gredon
+tool.pencil.description = Penchena un traç de bòrds durs, sens anticrenelatge, amb la color de primièr plan.
+tool.pencil.history.stroke = Gredon
+
+# Goma
+tool.eraser.name = Goma
+tool.eraser.description = Escafa sul long del traç e restablís la transparéncia del calc.
+tool.eraser.history.stroke = Goma
+
+# Tampon de clonatge
+tool.clone.name = Tampon de clonatge
+tool.clone.description = Tampon de clonatge : Alt-clic definís lo punt font ; penchenatz puèi amb los pixèls copiats dempuèi aquel punt, al meteis descalatge.
+tool.clone.history.stroke = Tampon de clonatge
+
+# Esclaircir, Escuresir e Esponja
+tool.dodge.name = Esclaircir
+tool.dodge.description = Esclaircís los pixèls traversats pel traç.
+tool.dodge.history.stroke = Esclaircir
+tool.burn.name = Escuresir
+tool.burn.description = Escuresís los pixèls traversats pel traç.
+tool.burn.history.stroke = Escuresir
+tool.sponge.name = Esponja
+tool.sponge.description = Satura o dessatura los pixèls traversats pel traç.
+tool.sponge.history.stroke = Esponja
+
+# Desenfocar, Afenar e Estompar
+tool.blur.name = Desenfocar
+tool.blur.description = Desenfòca los pixèls traversats pel traç.
+tool.blur.history.stroke = Desenfocar
+tool.sharpen.name = Afenar
+tool.sharpen.description = Afena los pixèls traversats pel traç.
+tool.sharpen.history.stroke = Afenar
+tool.smudge.name = Estompar
+tool.smudge.description = Estira la color sul long del traç, coma se butàvetz de pintura banhada.
+tool.smudge.history.stroke = Estompar
+
+# Correccion
+tool.heal.name = Bròssa correctritz
+tool.heal.description = Bròssa correctritz : Alt-clic definís la font, puèi penchenatz ; la textura de la font se fond dins la color e l'esclairatge pròpris de la destinacion.
+tool.heal.history.stroke = Bròssa correctritz
+tool.spot_heal.name = Bròssa de correccion ponctuala
+tool.spot_heal.description = Bròssa de correccion ponctuala : penchenatz sus un defaut e serà remplaçat per una textura presa a l'entorn — cal pas definir cap de punt font.
+tool.spot_heal.history.stroke = Bròssa de correccion ponctuala
+
+# Bròssa d'istoric
+tool.history_brush.name = Bròssa d'istoric
+tool.history_brush.description = Restablís los pixèls a partir de l'instantanèu d'istoric del document e desfà los trabalhs posteriors, traç per traç.
+tool.history_brush.history.stroke = Bròssa d'istoric
+
+# Goma de rèireplan
+tool.background_eraser.name = Goma de rèireplan
+tool.background_eraser.description = Escafa la color escandalhada al centre de la bròssa e daissa intactes los pixèls diferents, per destacar un subjècte de son rèireplan.
+tool.background_eraser.history.stroke = Goma de rèireplan
+
+# Degradats
+tool.gradient.name = Degradat
+tool.gradient.description = Fasètz lisar per emplenar lo calc — a travèrs de la seleccion quand n'i a una — amb un degradat linear de la color de primièr plan cap a la color de rèireplan, dins lo sens del lisament.
+tool.gradient.radial.name = Degradat radial
+tool.gradient.radial.description = Fasètz lisar del centre cap a l'exterior per emplenar amb un degradat radial entre las colors de primièr plan e de rèireplan.
+tool.gradient.option.gradient = Degradat
+tool.gradient.option.reverse = Inversar
+tool.gradient.option.dither = Tramatge
+tool.gradient.choice.foreground_to_background = Primièr plan cap al rèireplan
+tool.gradient.choice.foreground_to_transparent = Primièr plan cap a transparent
+tool.gradient.choice.linear = Linear
+tool.gradient.choice.radial = Radial
+tool.gradient.choice.angle = Angular
+tool.gradient.choice.reflected = Rebatut
+tool.gradient.choice.diamond = Lausange
+tool.gradient.history.gradient = Degradat
+
+# Ferrat de pintura
+tool.bucket.name = Farrat de pintura
+tool.bucket.description = Clicatz per emplenar amb la color de primièr plan la zòna contigua de color semblabla jos lo puntador, dins la tolerància de l'aisina.
+tool.bucket.option.contiguous = Contigú
+tool.bucket.option.all_layers = Totes los calques
+tool.bucket.history.fill = Farrat de pintura

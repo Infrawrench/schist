@@ -1,0 +1,22 @@
+tool.liquify.name = திரவமாக்கு
+tool.liquify.description = பெரிய தூரிகைக்குக் கீழுள்ள படப்புள்ளிகளைத் தள்ளவும், சுழற்றவும், சுருக்கவும் அல்லது வீங்கச்செய்யவும்; எதைச் செய்வது என்பதை முறைத் தேர்வு தீர்மானிக்கும். உருக்குலைவு வலையில் திரண்டு, உறுதிசெய்யும்போது அடுக்கிற்குப் பயன்படுத்தப்படும்.
+tool.liquify.option.tool = கருவி
+tool.liquify.choice.forward_warp = முன்னோக்கி உருக்கு
+tool.liquify.choice.reconstruct = மீளமை
+tool.liquify.choice.twirl_cw = வலஞ்சுழி
+tool.liquify.choice.twirl_ccw = இடஞ்சுழி
+tool.liquify.choice.pucker = சுருக்கு
+tool.liquify.choice.bloat = வீங்கச்செய்
+tool.liquify.choice.push_left = இடப்புறம் தள்ளு
+tool.liquify.history.liquify = திரவமாக்கு
+
+tool.puppet_warp.name = பொம்மை உருக்குலைவு
+tool.puppet_warp.description = அடுக்கின் சில புள்ளிகளில் ஊசிகளைப் பொருத்தச் சொடுக்கி, பின்னர் ஓர் ஊசியை இழுக்கவும்; விறைப்புத் தேர்வு கூறியபடி வலை ஊசிகளைச் சுற்றி இறுக்கமாகவோ தளர்வாகவோ வளையும். உறுதிசெய்ததும் அது பயன்படுத்தப்படும்.
+tool.puppet_warp.option.stiffness = விறைப்பு
+tool.puppet_warp.history.puppet_warp = பொம்மை உருக்குலைவு
+
+tool.vanishing_point.name = மறைவுப் புள்ளி
+tool.vanishing_point.description = தோற்றத் தொலைவு கொண்ட பொருளின் மீது ஒரு தளத்தை இழுத்து உருவாக்கி, முறையை நகலெடுப்புக்கு மாற்றி வண்ணம் தீட்டவும்; நகலெடுக்கப்பட்ட படப்புள்ளிகள் தளத்தைப் பின்பற்றி, தொலைவுக்கேற்ப சிறிதாகும்.
+tool.vanishing_point.choice.edit_plane = தளத்தைத் திருத்து
+tool.vanishing_point.choice.clone = நகலெடு
+tool.vanishing_point.history.vanishing_point = மறைவுப் புள்ளி

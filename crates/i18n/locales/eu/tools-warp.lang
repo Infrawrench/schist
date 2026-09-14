@@ -1,0 +1,22 @@
+tool.liquify.name = Likidotu
+tool.liquify.description = Bultzatu, biratu, uzkurtu edo puztu brotxa handiaren azpiko pixelak; moduaren aukerak ekintza zehazten du. Deformazioa sare batean metatzen da eta geruzari aplikatzen zaio berrestean.
+tool.liquify.option.tool = Tresna
+tool.liquify.choice.forward_warp = Aurrerantz deformatu
+tool.liquify.choice.reconstruct = Berreraiki
+tool.liquify.choice.twirl_cw = Biratu erlojuaren noranzkoan
+tool.liquify.choice.twirl_ccw = Biratu erlojuaren aurkako noranzkoan
+tool.liquify.choice.pucker = Uzkurtu
+tool.liquify.choice.bloat = Puztu
+tool.liquify.choice.push_left = Bultzatu ezkerrera
+tool.liquify.history.liquify = Likidotu
+
+tool.puppet_warp.name = Txotxongilo-deformazioa
+tool.puppet_warp.description = Egin klik geruza zenbait puntutan ainguratzeko, eta arrastatu haietako bat: sarea ainguren inguruan tolesten da, Zurruntasuna aukerak adierazi bezain zurrun edo malgu. Berrestean aplikatzen da.
+tool.puppet_warp.option.stiffness = Zurruntasuna
+tool.puppet_warp.history.puppet_warp = Txotxongilo-deformazioa
+
+tool.vanishing_point.name = Ihes-puntua
+tool.vanishing_point.description = Arrastatu perspektiba duen zerbaiten gainean plano bat zehazteko; ondoren, aldatu modua Klonatu aukerara eta margotu: kopiatutako pixelek planoari jarraituko diote, distantziarekin txikituz.
+tool.vanishing_point.choice.edit_plane = Editatu planoa
+tool.vanishing_point.choice.clone = Klonatu
+tool.vanishing_point.history.vanishing_point = Ihes-puntua

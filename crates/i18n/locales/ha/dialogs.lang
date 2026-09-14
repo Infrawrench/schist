@@ -1,0 +1,244 @@
+# Maganganun manhaja.
+dialog.save_ellipsis = Ajiye…
+dialog.use_foreground = Yi Amfani da Launin Gaba
+dialog.downloading = Ana saukewa…
+dialog.downloading_of = Ana saukewa… {got} cikin {total}
+dialog.no_config_dir = (babu kundin tsari)
+dialog.layer_props.title = Halayen Shimfiɗa
+dialog.export.format = Tsari
+dialog.export.dither = Warwatsa Launi
+dialog.export.dither_note = Warwatsa launi lokacin ragewa zuwa bit 8
+dialog.export.export_ellipsis = Fitar da…
+
+# Sarrafa Hotuna
+dialog.batch.title = Sarrafa Hotuna
+dialog.batch.note_edit.one = hoto {n} — an ajiye a matsayin gyaran ma'ajiyar hotuna; ba a taɓa na asali.
+dialog.batch.note_edit.other = hotuna {n} — an ajiye a matsayin gyaran ma'ajiyar hotuna; ba a taɓa na asali.
+dialog.batch.note_edit_edited.one = hoto {n}, an riga an gyara {edited} — ana ɗora tsarin aikin a kan gyaran, kuma ana riƙe gyaran baya a matsayin siga.
+dialog.batch.note_edit_edited.other = hotuna {n}, an riga an gyara {edited} — ana ɗora tsarin aikin a kan gyaran, kuma ana riƙe gyaran baya a matsayin siga.
+dialog.batch.note_copies.one = hoto {n} — kwafi shimfiɗaɗɗe; ba a taɓa na asali.
+dialog.batch.note_copies.other = hotuna {n} — kwafi shimfiɗaɗɗe; ba a taɓa na asali.
+dialog.batch.note_copies_edited.one = hoto {n}, an riga an gyara {edited} — ana yin kwafin daga gyaran.
+dialog.batch.note_copies_edited.other = hotuna {n}, an riga an gyara {edited} — ana yin kwafin daga gyaran.
+dialog.batch.turn = Juya
+dialog.batch.rotate = Juyawa
+dialog.batch.flip = Jirkita
+dialog.batch.upscale = Ƙara Girma
+dialog.batch.colour = Launi
+dialog.batch.add_adjustment = Daidaitawa…
+dialog.batch.output = Sakamako
+dialog.batch.save_as = Ajiye kamar
+dialog.batch.process = Sarrafa
+dialog.batch.process_n = Sarrafa {n}
+dialog.batch.nothing_to_do = Babu abin yi: da farko zaɓi juyawa, ƙara girma ko daidaitawa
+
+dialog.content_aware_scale.title = Canza Girma Mai Fahimtar Abun Ciki
+dialog.content_aware_scale.note = Yana cire layukan da ba su da cikakken bayani sosai. Zaɓi yana nuna abin da za a kare.
+dialog.stroke.title = Shaci
+dialog.stroke.location = Wuri
+dialog.stroke.inside = Ciki
+dialog.stroke.outside = Waje
+dialog.stroke.note = Yana zana wa zaɓin shaci da launin gaba.
+dialog.fill.contents = Abubuwan Ciki
+dialog.color_range.title = Yankin Launi
+dialog.color_range.sampled = Wanda Aka Ɗauki Samfuri
+dialog.color_range.fuzziness = Faɗin Kama
+dialog.color_range.note = Yana zaɓar pixels kusa da launin da aka ɗauki samfurinsa a shimfiɗa mai aiki.
+dialog.file_picker.up = ↑ Sama
+dialog.file_picker.empty = Babu komai a nan
+dialog.file_picker.choose_folder = Zaɓi Wannan Jakar
+
+dialog.filter.camera_raw_development = Sarrafa Camera Raw
+dialog.filter.reset_as_shot = Sake Saita Kamar Yadda Aka Ɗauka
+dialog.filter.raw_note = Yana sake sarrafa shimfiɗa mai aiki daga bayanan asalin firikwensarta.
+dialog.filter.note = Yana aiki a kan shimfiɗa mai aiki, cikin zaɓin.
+
+# Nau'ikan rubutu da suka ɓace
+dialog.fonts.title = Nau'ikan Rubutu da Suka Ɓace
+dialog.fonts.install_named = Girka {name}
+dialog.fonts.no_document = Babu takarda a buɗe, saboda haka babu abin dubawa.
+dialog.fonts.all_installed = An girka kowane nau'in rubutu da wannan takarda take amfani da shi. An saita rubutunta da nau'ikan rubutun da aka tsara shi da su.
+dialog.fonts.missing_intro = An saita wannan takarda da nau'ikan rubutun da ba ka da su. Ana iya karanta rubutun da madadi, amma faɗinsa da tsagewar layukansa ba su dace da yadda aka tsara shi ba.
+dialog.fonts.footer = Abubuwan saukewa suna fitowa daga buɗaɗɗen jerin Google Fonts kuma ana ajiye su a {dir}. Ba a taɓa sauke nau'in rubutu marar lasisin buɗaɗɗe—idan akwai zane mai 'yanci da ya dace da ma'aunansa, ana bayar da shi a madadi, wanda ke maido da tsari saboda faɗin haruffan ya dace.
+dialog.fonts.user_font_dir = kundin nau'ikan rubutunka
+
+dialog.models.title = Samfuran Neural Filters
+dialog.models.built_in = Na ciki · {size}
+dialog.models.installed = An girka · {size}
+dialog.models.not_installed = Ba a girka ba · {size}
+dialog.models.not_in_browser = Babu a burauza · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Ana ajiye samfura a {dir}. Matatan da ba su da samfuri suna komawa ga sarrafa sigina kuma suna bayyana hakan.
+
+# Sabuwar Takarda
+dialog.new_doc.title = Sabuwar Takarda
+dialog.new_doc.picker_title = Sabon Fayil
+dialog.new_doc.custom_ellipsis = Na Musamman…
+dialog.new_doc.preset = Saitin da Aka Tanada
+dialog.new_doc.preset_default = Na Asali (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Murabba'i (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Takardar US, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Ƙirƙira
+dialog.new_doc.created = Sabuwar takarda: {w} × {h} px
+
+# Buɗe fayiloli
+dialog.open.image_title = Buɗe Hoto
+dialog.open.image_prompt = Buɗe “{name}” a sabon shafi, ko ƙara shi ga takardar yanzu a matsayin sabuwar shimfiɗa?
+dialog.open.new_tab = Sabon Shafi
+dialog.open.new_layer = Sabuwar Shimfiɗa
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = wannan fayil {n}
+dialog.open.these_files.other = waɗannan fayiloli {n}
+dialog.open.shared_title_one = Hoton da Aka Raba
+dialog.open.shared_title_many = Hotunan da Aka Raba
+dialog.open.shared_prompt = Ƙara {what} zuwa ma'ajiyar hotuna, ko buɗe a edita?
+dialog.open.add_to_gallery = Ƙara zuwa Ma'ajiyar Hotuna
+dialog.open.open_in_editor = Buɗe a Edita
+dialog.open.heic_title = Tallafin HEIC
+dialog.open.heic_needs_decoder = Buɗe “{name}” yana buƙatar mai sauya lambar HEVC, wanda ba a girka a wannan tsarin ba.
+dialog.open.heic_offer = Schist zai iya sauke ginin libheif {version} na sauya lamba kawai tare da mai sauya lambar libde265 HEVC (≈5 MB). Dukansu suna da lasisin LGPL-3.0; ana girka rubutun lasisinsu kusa da ma'ajiyar, kuma ana samun lambar tushe a shafin aikin.
+dialog.open.licenses_source = Lasisoshi da Lambar Tushe
+dialog.open.folders_title = Jakunkunan da Aka Sauke
+dialog.open.n_folders.one = jaka {n}
+dialog.open.n_folders.other = jakunkuna {n}
+dialog.open.open_in_tabs = Buɗe a Shafuka
+dialog.open.open_first_in_tabs = Buɗe {n} na Farko a Shafuka
+dialog.open.open_n_in_tabs.one = Buɗe {n} a Shafi
+dialog.open.open_n_in_tabs.other = Buɗe {n} a Shafuka
+dialog.open.folder_holds.one = {what} yana ɗauke da hoto {n} da Schist zai iya buɗewa (har da ƙananan jakunkuna).
+dialog.open.folder_holds.other = {what} yana ɗauke da hotuna {n} da Schist zai iya buɗewa (har da ƙananan jakunkuna).
+dialog.open.folders_note = Ƙara zuwa Ma'ajiyar Hotuna yana sa ido kan jakunkunan a wurinsu—ba a kwafa komai, kuma ana ajiye sigogin gyare-gyare kusa da kowane hoto. Buɗewa a shafuka yana loda kowane hoto cikin edita yanzu.
+
+# Plug-ins
+dialog.plugins.title = Plug-ins
+dialog.plugins.kind_filter = matata
+dialog.plugins.kind_format = tsari
+dialog.plugins.kind_unavailable = babu
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Ana loda plug-ins daga {dir}
+dialog.plugins.none = Ba a girka plug-ins ba tukuna.
+dialog.plugins.install_ellipsis = Girka…
+dialog.plugins.photoshop_heading = Photoshop plug-ins
+dialog.plugins.loaded_from = An loda daga {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Zaɓuɓɓuka
+dialog.prefs.title = Zaɓuɓɓuka
+dialog.prefs.theme = Jigo
+dialog.prefs.theme_dark = Duhu
+dialog.prefs.theme_light = Haske
+dialog.prefs.grid_spacing = Tazarar raga
+dialog.prefs.snapping = Mannewa
+dialog.prefs.snap_to = Manne da jagorori, raga da gefunan wurin zane
+dialog.prefs.rendering_intent = Manufar nuna launi
+dialog.prefs.intent_perceptual = Bisa Gani
+dialog.prefs.intent_relative = Ma'aunin Launi na Dangantaka
+dialog.prefs.intent_saturation = Jikewar Launi
+dialog.prefs.intent_absolute = Cikakken Ma'aunin Launi
+dialog.prefs.scrolling = Gungurawa
+dialog.prefs.zoom_with_scroll = Zuƙowa da ƙafafun gungurawa
+dialog.prefs.rendering = Zane
+dialog.prefs.gpu_compositing = Haɗawa da GPU
+dialog.prefs.diagnostics = Binciken Matsala
+dialog.prefs.crash_reports = Rubuta rahoton durƙushewa na gida idan manhaja ta firgita
+dialog.prefs.crash_upload = Kuma aika shi ga masu haɓakawa
+dialog.prefs.telemetry = Aika sanarwa marar suna kowace rana
+dialog.prefs.diagnostics_note = Binciken matsala zai fara aiki idan Schist ya sake farawa.
+dialog.prefs.updates = Sabuntawa
+dialog.prefs.check_updates = Duba sabbin fitowa lokacin farawa
+dialog.prefs.keyboard_shortcuts = Gajerun hanyoyin madannai: {path}
+dialog.prefs.nsfw_needs_model = Yana buƙatar samfurin Content (NSFW Filter)—
+dialog.prefs.nsfw_download_link = sauke shi a Sarrafa Samfura…
+dialog.prefs.hide_flagged = Ɓoye hotunan da aka yi wa alama
+
+# Bayanan launi
+dialog.profile.profile = Bayanan Launi
+dialog.profile.assign_title = Sanya Bayanan Launi
+dialog.profile.convert_title = Mayar zuwa Bayanan Launi
+dialog.profile.assign = Sanya
+dialog.profile.convert = Mayar
+dialog.profile.assign_note = Yana sake fassara ƙimar pixels da take akwai bisa sabbin bayanan launi.
+dialog.profile.convert_note = Yana sake rubuta ƙimar pixels domin launuka su ci gaba da bayyana yadda suke.
+
+dialog.save_image.title = Ajiye Hoto Kamar
+dialog.save_image.note = {name} — gyaran, idan yana da shi; ba a taɓa na asali.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# Girman Hoto da Wurin Zane
+dialog.size.image_title = Girman Hoto
+dialog.size.canvas_title = Girman Wurin Zane
+dialog.size.constrain = Ƙuntata
+dialog.size.keep_proportions = Riƙe daidaiton rabo
+dialog.size.resample = Sake Ɗaukar Samfuri
+dialog.size.bicubic = Kubik Biyu
+dialog.size.bilinear = Layi Biyu
+dialog.size.nearest = Maƙwabci Mafi Kusa
+dialog.size.anchor = Anga
+dialog.size.currently = Yanzu {w} × {h} px
+dialog.size.image_size_status = Girman hoto: {w} × {h}
+dialog.size.canvas_size_status = Girman wurin zane: {w} × {h}
+
+# Akwai Sabuntawa
+dialog.update.title = Akwai Sabuntawa
+dialog.update.available = Akwai Schist {version}. Wannan kwafin {current} ne.
+dialog.update.installing = Ana girka sabuntawar…
+dialog.update.can_install = Schist zai iya sauke shi ({size}) ya girka shi a kan wannan kwafin.
+dialog.update.external = Wannan kwafin ya fito daga wani wuri da ke sarrafa shi—mai sarrafa kunshi, AppImage ko ginin da ka yi da kanka—saboda haka yana sabuntuwa ta hanyar da aka girka shi.
+dialog.update.later = Daga Baya
+dialog.update.release_notes = Bayanan Fitowa
+dialog.update.update_restart = Sabunta kuma Sake Farawa
+dialog.update.open_page = Buɗe Shafin Fitowa
+
+# Salon Shimfiɗa
+dialog.style.title = Salon Shimfiɗa
+dialog.style.bevel = Karkatar Gefe da Ɗagawa
+dialog.style.stroke = Shaci
+dialog.style.inner_shadow = Inuwar Ciki
+dialog.style.inner_glow = Hasken Ciki
+dialog.style.satin = Satin
+dialog.style.color_overlay = Shimfiɗar Launi
+dialog.style.gradient_overlay = Shimfiɗar Sauyin Launi
+dialog.style.outer_glow = Hasken Waje
+dialog.style.drop_shadow = Inuwar Faɗuwa
+dialog.style.blur = Dusashewar Gaussian
+dialog.style.gradient_from = Shimfiɗar Sauyin Launi Daga
+dialog.style.gradient_to = Shimfiɗar Sauyin Launi Zuwa
+dialog.style.soften = Lauyanta
+dialog.style.depth = Zurfi
+dialog.style.altitude = Tsayin Kusurwa
+dialog.style.highlight = Wurin Haske
+dialog.style.shadow = Inuwa
+dialog.style.outer_bevel = Karkatar Gefen Waje
+dialog.style.inner_bevel = Karkatar Gefen Ciki
+dialog.style.emboss = Ɗagawa
+dialog.style.pillow_emboss = Ɗagawa Irin Matashi
+dialog.style.linear = Na Layi
+dialog.style.radial = Na Da'ira
+dialog.style.reverse = Juya
+dialog.style.from_to = Daga / Zuwa
+dialog.style.from_fg = Daga = Gaba
+dialog.style.to_fg = Zuwa = Gaba
+dialog.style.precise = Daidai
+dialog.style.knockout = Shimfiɗa tana huda inuwar faɗuwa
+
+# Mai Zaɓen Launi
+dialog.color_picker.title = Mai Zaɓen Launi ({what})
+dialog.color_picker.effect_color = Launin {effect}
+dialog.color_picker.note_color = Launin Bayani
+dialog.color_picker.new = sabo
+dialog.color_picker.current = na yanzu
+
+# Jadawalin Lanƙwasassun Layuka
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Sake Saita Tasha
+dialog.curves.hint = Ja don fasaltawa · danna don ƙarawa · danna da alt don cirewa
+
+dialog.prefs.camera_sync = Hotunan kamara
+dialog.prefs.camera_sync_enabled = Ajiye madadi zuwa Schist Cloud
+dialog.prefs.camera_sync_sign_in = Shiga Schist Cloud don ajiye madadin hotunan kamarka.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Canza…

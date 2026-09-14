@@ -1,0 +1,20 @@
+# Корректирующие слои и команды «Изображение ▸ Коррекция».
+adjustment.levels.name = Уровни
+adjustment.curves.name = Кривые
+adjustment.hue_saturation.name = Цветовой тон/Насыщенность
+adjustment.brightness_contrast.name = Яркость/Контрастность
+adjustment.black_white.name = Чёрно-белое
+adjustment.solid_color.name = Цвет
+adjustment.gradient_fill.name = Градиентная заливка
+adjustment.pattern_fill.name = Заливка узором
+adjustment.invert.name = Инверсия
+adjustment.posterize.name = Постеризация
+adjustment.threshold.name = Порог
+adjustment.color_balance.name = Цветовой баланс
+adjustment.vibrance.name = Красочность
+adjustment.exposure.name = Экспозиция
+adjustment.photo_filter.name = Фотофильтр
+adjustment.gradient_map.name = Карта градиента
+adjustment.selective_color.name = Выборочная коррекция цвета
+adjustment.channel_mixer.name = Микширование каналов
+adjustment.other.name = Коррекция

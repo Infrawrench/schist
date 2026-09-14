@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = iqaqa {name}
+codec.msg.zero_sized = isithombe kasilamaphikseli
+codec.msg.assembling_document = ihlanganisa idokhumenti
+
+codec.raw.msg.decoding = iqaqa ifayela lekhamera elingakalungiswa
+codec.raw.msg.developing = ithuthukisa ifayela lekhamera elingakalungiswa
+codec.raw.msg.finding_preview = idinga isiboniso esiphakathi kwefayela
+codec.raw.msg.decoding_preview = iqaqa isiboniso esiphakathi kwefayela
+codec.raw.msg.decoder_panicked = isiqaqi sefayela elingakalungiswa sehlulekile kuleli fayela: {what}
+
+codec.affinity.import_title = Ukungenisa kwe-Affinity
+codec.affinity.flattened_preview_layer = Isiboniso esiyisendlalelo esisodwa
+codec.affinity.msg.no_preview = Akulasiboniso esiphakathi kwefayela esingasetshenziswa. Uhlobo lwe-Affinity olulezendlalelo luyimfihlo yomnikazi; i-Schist ingenisa isiboniso esiyisendlalelo esisodwa esithwelwe lifayela. Leli ifayela kalilaso — ligcine futhi ku-Affinity, kumbe ulithumele njenge-PSD ukuze ungenise zonke izendlalelo.
+
+codec.heif.msg.no_library = I-libheif ayitholakali ({details}). Ukuvula i-HEIC kudinga ilabhulali ye-libheif (Linux: faka i-libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — le nguqulo ye-libheif ingabe ingelasiqaqi se-HEVC (ku-Debian/Ubuntu, faka i-libheif-plugin-libde265)
+codec.heif.msg.unknown_error = iphutha elingaziwayo
+codec.heif.msg.initialising = ilungiselela i-libheif
+codec.heif.msg.reading_container = ibala isiqukathi se-HEIF
+codec.heif.msg.finding_primary_image = idinga isithombe esiyinhloko
+codec.heif.msg.reading_icc_profile = ibala iphrofayili ye-ICC
+codec.heif.msg.decoding_image = iqaqa isithombe
+codec.heif.msg.checksum_mismatch = I-checksum ka-{name} kayihambelani: bekulindelwe {expected}, kwatholakala {got}
+codec.heif.msg.imageio_cannot_read = I-ImageIO yehlulekile ukubala isiqukathi se-HEIF
+codec.heif.msg.container_empty = isiqukathi se-HEIF kasilasithombe
+codec.heif.msg.imageio_cannot_decode = I-ImageIO yehlulekile ukuqaqa isithombe esiyinhloko

@@ -1,0 +1,31 @@
+# Panèl lateral d'IA e errors dels agents.
+ai.status.panel_shown = Panèl d'IA mostrat
+ai.status.panel_hidden = Panèl d'IA amagat — Afichatge ▸ Panèl d'IA ({shortcut}) lo fa tornar
+ai.status.tool = IA : {name}
+
+ai.info.connected = {backend} connectat
+ai.info.now_in_gallery = Ara dins la galariá.
+ai.info.now_in_editor = Ara dins l'editor.
+ai.tool.shell_command = comanda de shell
+
+ai.error.cli_missing = L'interfàcia en linha de comanda de {backend} (« {binary} ») es pas dins PATH. Installatz-la e connectatz-vos-i d'en primièr.
+ai.error.endpoint_failed = fracàs a l'aviada del punt de terminason MCP : {error}
+ai.error.binding_endpoint = ligam del punt de terminason MCP
+ai.error.spawning_endpoint_thread = aviada del fial d'execucion del punt de terminason MCP
+ai.error.runtime_failed = fracàs a l'aviada de l'environament d'execucion de l'agent : {error}
+ai.error.worker_failed = fracàs a l'aviada del processus de trabalh {backend} : {error}
+ai.error.did_not_start = {backend} s'es pas aviat : {error}
+ai.error.switch_model_failed = fracàs al cambiament de modèl : {error}
+ai.error.send_failed = fracàs al mandadís de la demanda : {error}
+ai.error.interrupt_failed = fracàs de l'interrupcion : {error}
+ai.error.locating_binary = recèrca de l'executable Schist
+ai.error.starting_app_server = aviada del servidor d'aplicacion Codex
+ai.error.attaching_app_server = connexion al servidor d'aplicacion Codex
+ai.error.initializing_app_server = inicializacion del servidor d'aplicacion Codex
+ai.error.resuming_thread = represa del fial Codex
+ai.error.starting_thread = aviada del fial Codex
+
+ai.model.opus_detail = Nivèl mai performant
+ai.model.sonnet_detail = Eficient pels prètzfaches corrents
+ai.model.haiku_detail = Lo mai rapid per de responsas cortas
+ai.model.codex_catalog = Catalòg Codex

@@ -1,0 +1,104 @@
+# Werkruimte: documenten, aanpassingen, filters, export en herstel.
+workspace.fill.gray_50 = 50% grijs
+workspace.fill.content_aware = Met behoud van inhoud
+
+workspace.modify.expand = Selectie uitbreiden
+workspace.modify.contract = Selectie slinken
+workspace.modify.border = Rand van selectie
+workspace.modify.smooth = Selectie vloeiend maken
+workspace.modify.feather = Selectie doezelen
+
+workspace.batch.target.edit = Galeriebewerkingen (met versies)
+workspace.batch.target.beside = Kopieën naast de originelen
+workspace.batch.target.folder = Kopieën in een map…
+
+workspace.modal.image_size.title = Afbeeldingsgrootte
+
+workspace.docs.opening = {name} openen…
+workspace.docs.opened = {name} geopend
+workspace.docs.open_failed = Openen mislukt: {error}
+workspace.docs.no_codec = {name} heeft geen indeling die Schist kan openen
+workspace.docs.no_exporter = Schist kan geen .{ext}-bestanden opslaan
+workspace.docs.empty_response = De server heeft een leeg antwoord verzonden
+workspace.docs.heic_not_installed = HEIC-ondersteuning is niet geïnstalleerd
+workspace.docs.heic_downloading = HEIC-ondersteuning downloaden (libheif {version})…
+workspace.docs.heic_installed = HEIC-ondersteuning geïnstalleerd
+workspace.docs.heic_download_failed = Downloaden van HEIC-ondersteuning mislukt: {error}
+workspace.docs.placing = {name} plaatsen…
+workspace.docs.place_image = Afbeelding plaatsen
+workspace.docs.placed = {name} geplaatst
+workspace.docs.place_failed = Plaatsen mislukt: {error}
+workspace.docs.saved = {name} opgeslagen
+workspace.docs.save_failed = Opslaan mislukt: {error}
+
+workspace.adjustment.new_layer = Nieuwe laag {name}
+workspace.adjustment.added = {name} toegevoegd
+workspace.adjustment.settings = Instellingen voor {name}
+workspace.adjustment.updated = {name} bijgewerkt
+workspace.adjustment.no_settings = {name} heeft geen bewerkbare instellingen
+
+workspace.comps.name_n = Laagcompositie {n}
+workspace.comps.captured = Laagcompositie vastgelegd
+workspace.comps.apply = {name} toepassen
+workspace.styles.layer_style = Laagstijl
+workspace.context.rename_layer = Laag hernoemen
+workspace.commands.tool = Hulpmiddel: {name}
+
+workspace.colormgmt.assign = {name} toewijzen
+workspace.colormgmt.assigned = {name} toegewezen
+workspace.colormgmt.convert_to = Omzetten in {name}
+workspace.colormgmt.converted_to = Omgezet in {name}
+workspace.colormgmt.convert_failed = Omzetten mislukt: {error}
+workspace.colormgmt.proof_on = Proefkleuren aan
+workspace.colormgmt.proof_off = Proefkleuren uit
+
+workspace.filters.choose = Kiezen
+workspace.filters.select_layer_first = Selecteer eerst een laag
+workspace.filters.needs_pixel_layer = Voor filters is een pixellaag nodig
+workspace.filters.nothing_to_filter = Niets om te filteren
+workspace.filters.went_away = Filter is verdwenen
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: de gefilterde laag is verdwenen
+workspace.filters.plugin_title = Photoshop-plug-in
+workspace.filters.running = {name} uitvoeren
+workspace.filters.plugin_note = De plug-in wordt in een eigen proces uitgevoerd. Als deze een venster opent, beantwoord je dat om door te gaan.
+workspace.filters.raw_preview_developing = RAW-voorvertoning ontwikkelen…
+workspace.filters.raw_preview_done = RAW-voorvertoning (snelle demosaicing)
+workspace.filters.raw_preview_size_changed = Grootte van RAW-voorvertoning gewijzigd: {w} × {h}
+workspace.filters.raw_preview_failed = RAW-voorvertoning mislukt: {error}
+workspace.filters.raw_developing = Oorspronkelijke opname ontwikkelen…
+workspace.filters.raw_developing_note = De beste methode voor demosaicing wordt gebruikt. De oorspronkelijke RAW en deze instellingen blijven bewerkbaar na opslag als PSD of PSB.
+workspace.filters.raw_document_changed = RAW-ontwikkeling voltooid nadat het document was gewijzigd
+workspace.filters.raw_failed = RAW-ontwikkeling mislukt: {error}
+workspace.filters.raw_too_wide = RAW-ontwikkeling is te breed
+workspace.filters.raw_too_tall = RAW-ontwikkeling is te hoog
+workspace.filters.raw_size_changed = Grootte van RAW-ontwikkeling gewijzigd in {w} × {h}; huidige laag behouden
+workspace.filters.raw_history = Camera Raw-ontwikkeling
+workspace.filters.raw_applied = Camera Raw-ontwikkeling toegepast (beste demosaicing)
+
+workspace.image_size.done = Afbeeldingsgrootte: {w} × {h}
+workspace.image_size.bicubic_fallback = Afbeeldingsgrootte: {w} × {h} — het model {name} kon niet worden geladen, dus bicubisch is als vervanging gebruikt
+workspace.image_size.upscaling = Opschalen met {name}
+workspace.image_size.upscaling_note = {mp} megapixels door het netwerk, elk in enkele seconden. Het document blijft vastgehouden totdat dit klaar is.
+
+workspace.export.no_slices = Geen segmenten om te exporteren
+workspace.export.no_artboards = Geen tekengebieden om te exporteren
+workspace.export.regions.one = {n} gebied geëxporteerd
+workspace.export.regions.other = {n} gebieden geëxporteerd
+workspace.export.prompt = Exporteren als:
+workspace.export.done = {name} geëxporteerd
+workspace.export.failed = Exporteren mislukt: {error}
+workspace.export.codec_vanished = De exporter is niet meer beschikbaar
+
+workspace.file_picker.choose_folder = Map kiezen
+workspace.file_picker.type_a_name = Typ een naam voor het bestand
+workspace.file_picker.exists = {name} bestaat al; tik nogmaals op Opslaan om het te vervangen
+workspace.file_picker.tap_a_file = Tik op een bestand om het te openen
+workspace.file_picker.pictures = Afbeeldingen
+workspace.file_picker.camera = Camera
+workspace.file_picker.downloads = Downloads
+workspace.file_picker.permission_denied = Schist heeft geen toestemming om deze map te lezen
+
+workspace.recovery.recovered_title = {title} (hersteld)
+workspace.recovery.recovered.one = Niet-opgeslagen werk uit een vorige sessie hersteld
+workspace.recovery.recovered.other = {n} documenten uit een vorige sessie hersteld

@@ -1,0 +1,36 @@
+# Format din
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = wɔrekyerɛkyerɛ {name} mu
+codec.msg.zero_sized = mfonini no nni pixel biara
+codec.msg.assembling_document = wɔreboaboa document no ano
+
+codec.raw.msg.decoding = wɔrekyerɛkyerɛ raw fael no mu
+codec.raw.msg.developing = wɔresiesie raw fael no
+codec.raw.msg.finding_preview = wɔrehwehwɛ preview a ɛhyɛ fael no mu no
+codec.raw.msg.decoding_preview = wɔrekyerɛkyerɛ preview a ɛhyɛ fael no mu no mu
+codec.raw.msg.decoder_panicked = raw decoder no dii nkogu wɔ fael yi ho: {what}
+
+codec.affinity.import_title = Fa Affinity bra mu
+codec.affinity.flattened_preview_layer = Preview a wɔaka abom
+codec.affinity.msg.no_preview = Preview a wɔde ahyɛ fael no mu biara nni hɔ a wobetumi de adi dwuma. Affinity layered format no yɛ wɔn ankasa dea; Schist de preview a wɔaka abom a ɛwɔ fael no mu no ba. Fael yi nni bi — san kora no so wɔ Affinity mu, anaa yi no sɛ PSD na ama layers no nyinaa aba.
+
+codec.heif.msg.no_library = libheif nni hɔ ({details}). Sɛ wobɛbue HEIC a, ɛhia libheif library (Linux: fa libheif1 to so; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — ebia libheif build yi nni HEVC decoder (wɔ Debian/Ubuntu so no, fa libheif-plugin-libde265 to so)
+codec.heif.msg.unknown_error = mfomso a wonnim
+codec.heif.msg.initialising = wɔrehyɛ libheif ase
+codec.heif.msg.reading_container = wɔrekenkan HEIF container no
+codec.heif.msg.finding_primary_image = wɔrehwehwɛ mfonini titiriw no
+codec.heif.msg.reading_icc_profile = wɔrekenkan ICC profile no
+codec.heif.msg.decoding_image = wɔrekyerɛkyerɛ mfonini no mu
+codec.heif.msg.checksum_mismatch = {name} checksum no ne nea wɔhwɛ kwan nhyia: wɔhwɛɛ {expected} kwan, nanso wonyaa {got}
+codec.heif.msg.imageio_cannot_read = ImageIO antumi ankenkan HEIF container no
+codec.heif.msg.container_empty = mfonini biara nni HEIF container no mu
+codec.heif.msg.imageio_cannot_decode = ImageIO antumi ankyerɛkyerɛ mfonini titiriw no mu

@@ -1,0 +1,22 @@
+tool.type.name = Мәтін
+tool.type.description = Сол жерде мәтін қабатын бастау үшін шертіңіз немесе бар мәтін қабатын өңдеу үшін оны шертіңіз. Өңдеу ашық тұрғанда құрал пернелерден тікелей енгізуді қабылдайды (таңбаларды перне енгізуі ретінде жіберіңіз), ал растағанда қабат кескінделіп, өңдеу жабылады.
+
+tool.type.option.align = Туралау
+tool.type.option.leading = Жоларалық интервал
+tool.type.option.tracking = Әріпаралық интервал
+tool.type.option.kerning = Кернинг
+tool.type.option.ligatures = Лигатуралар
+tool.type.option.discretionary_ligatures = Қосымша лигатуралар
+tool.type.option.small_caps = Кіші капитель
+tool.type.option.on_path = Белсенді контурда
+tool.type.option.path_offset = Контур ығысуы
+
+tool.type.choice.regular = Қалыпты
+tool.type.choice.bold = Қалың
+tool.type.choice.italic = Көлбеу
+tool.type.choice.bold_italic = Қалың көлбеу
+
+tool.type.history.new_layer = Жаңа мәтін қабаты
+tool.type.history.edit = Мәтінді өңдеу
+tool.type.history.discard = Мәтіннен бас тарту
+tool.type.history.discard_empty = Бос мәтіннен бас тарту

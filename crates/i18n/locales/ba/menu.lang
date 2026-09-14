@@ -1,0 +1,143 @@
+# Меню юлы.
+
+menu.file = Файл
+menu.file.new = Яңы
+menu.file.open = Асыу…
+menu.file.open_recent = Һуңғыларҙы асыу
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Галереяны ҡарау…
+menu.file.close = Ябыу
+menu.file.save = Һаҡлау
+menu.file.save_as = Икенсе исем менән һаҡлау…
+menu.file.export = Экспортлау…
+menu.file.export_submenu = Экспортлау
+menu.file.export_artboards = Артбордтарҙы PNG итеп…
+menu.file.export_slices = Киҫектәрҙе PNG итеп…
+menu.file.save_to_photos = Фотоларға һаҡлау
+menu.file.plugins = Плагиндар…
+menu.file.missing_fonts = Етмәгән шрифттар…
+menu.file.check_for_updates = Яңыртыуҙарҙы тикшереү…
+menu.file.quit = Сығыу
+menu.file.add_folder_to_gallery = Галереяға папка өҫтәү…
+menu.file.import_from_photos = Фотоларҙан импортлау…
+menu.file.import_from_camera = Камеранан импортлау…
+
+menu.edit = Үҙгәртеү
+menu.edit.fill = Тултырыу…
+menu.edit.stroke = Сик һыҙығы…
+menu.edit.content_aware_fill = Эстәлекте иҫәпкә алып тултырыу
+menu.edit.content_aware_scale = Эстәлекте иҫәпкә алып масштаблау…
+menu.edit.puppet_warp = Марионетка деформацияһы
+menu.edit.free_transform = Ирекле үҙгәртеү
+menu.edit.transform = Үҙгәртеү
+menu.edit.rotate_180 = 180°-ҡа әйләндереү
+menu.edit.rotate_90_cw = Сәғәт уғы буйынса 90°-ҡа әйләндереү
+menu.edit.rotate_90_ccw = Сәғәт уғына ҡаршы 90°-ҡа әйләндереү
+menu.edit.flip_horizontal = Горизонталь сағылдырыу
+menu.edit.flip_vertical = Вертикаль сағылдырыу
+
+menu.image = Рәсем
+menu.image.mode = Режим
+menu.image.adjustments = Көйләүҙәр
+menu.image.auto_tone = Тонды автоматик көйләү
+menu.image.auto_contrast = Контрасты автоматик көйләү
+menu.image.auto_color = Төҫтө автоматик көйләү
+menu.image.image_size = Рәсем үлсәме…
+menu.image.canvas_size = Киндер үлсәме…
+menu.image.image_rotation = Рәсемде әйләндереү
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = Сәғәт уғы буйынса 90°
+menu.image.rotate_90_ccw = Сәғәт уғына ҡаршы 90°
+menu.image.flip_canvas_horizontal = Киндерҙе горизонталь сағылдырыу
+menu.image.flip_canvas_vertical = Киндерҙе вертикаль сағылдырыу
+menu.image.crop_to_selection = Һайланған өлкәгә тиклем ҡырҡыу
+menu.image.trim = Ситтәрен ҡырҡыу
+menu.image.assign_profile = Профиль тәғәйенләү…
+menu.image.convert_to_profile = Профилгә әйләндереү…
+
+menu.select = Һайлау
+menu.select.color_range = Төҫ диапазоны…
+menu.select.modify = Үҙгәртеү
+menu.select.border = Сик…
+menu.select.smooth = Шымартыу…
+menu.select.expand = Киңәйтеү…
+menu.select.contract = Тарайтыу…
+menu.select.feather = Йомшартыу…
+menu.select.transform_selection = Һайланған өлкәне үҙгәртеү
+
+menu.layer = Ҡатлам
+menu.layer.layer_style = Ҡатлам стиле…
+menu.layer.layer_comps = Ҡатлам композициялары
+menu.layer.new_layer_comp = Яңы ҡатлам композицияһы
+menu.layer.delete_layer_comp = {name} композицияһын юйыу
+menu.layer.path = Контур
+menu.layer.fill_path = Контурҙы тултырыу
+menu.layer.stroke_path = Контурҙы һыҙыу
+menu.layer.make_selection = Һайланған өлкә яһау
+menu.layer.delete_path = Контурҙы юйыу
+
+menu.adjust = Көйләү
+
+menu.filter = Фильтр
+menu.filter.filter_gallery = Фильтрҙар галереяһы…
+menu.filter.liquify = Шыйыҡландырыу
+menu.filter.vanishing_point = Юғалыу нөктәһе
+menu.filter.manage_models = Моделдәр менән идара итеү…
+menu.filter.camera_raw_development = Camera Raw эшкәртеүе…
+
+menu.view = Күренеш
+menu.view.rotate_view_cw = Күренеште сәғәт уғы буйынса әйләндереү
+menu.view.rotate_view_ccw = Күренеште сәғәт уғына ҡаршы әйләндереү
+menu.view.reset_view = Күренеште башланғыс хәлгә ҡайтарыу
+menu.view.zoom_in = Яҡынайтыу
+menu.view.zoom_out = Алыҫайтыу
+menu.view.fit_on_screen = Экранға һыйҙырыу
+menu.view.actual_size = 100%
+menu.view.rulers = Линейкалар
+menu.view.grid = Селтәр
+menu.view.guides = Йүнәлткестәр
+menu.view.notes = Иҫкәрмәләр
+menu.view.ai_panel = ЯИ панеле
+menu.view.extras = Өҫтәмә элементтар
+menu.view.snap = Йәбешеү
+menu.view.clear_guides = Йүнәлткестәрҙе таҙартыу
+menu.view.clear_notes = Иҫкәрмәләрҙе таҙартыу
+menu.view.clear_count = Һанауҙы таҙартыу
+menu.view.screen_mode = Экран режимы
+menu.view.proof_colors = Төҫтәрҙе һынау
+menu.view.show_rulers = Линейкаларҙы күрһәтеү
+menu.view.hide_rulers = Линейкаларҙы йәшереү
+menu.view.show_grid = Селтәрҙе күрһәтеү
+menu.view.hide_grid = Селтәрҙе йәшереү
+menu.view.show_guides = Йүнәлткестәрҙе күрһәтеү
+menu.view.hide_guides = Йүнәлткестәрҙе йәшереү
+menu.view.show_notes = Иҫкәрмәләрҙе күрһәтеү
+menu.view.hide_notes = Иҫкәрмәләрҙе йәшереү
+menu.view.show_extras = Өҫтәмә элементтарҙы күрһәтеү
+menu.view.hide_extras = Өҫтәмә элементтарҙы йәшереү
+menu.view.enable_snapping = Йәбешеүҙе ҡабыҙыу
+menu.view.disable_snapping = Йәбешеүҙе һүндереү
+menu.view.enable_proof_colors = Төҫтәрҙе һынауҙы ҡабыҙыу
+menu.view.disable_proof_colors = Төҫтәрҙе һынауҙы һүндереү
+
+menu.gallery = Галерея
+menu.gallery.edit_selected = Һайланғанды үҙгәртеү
+menu.gallery.refresh = Яңыртыу
+menu.gallery.map_filter = Карта фильтры…
+menu.gallery.back_to_editor = Мөхәрриргә ҡайтыу
+
+menu.cloud.browse = Schist Cloud-ты ҡарау
+menu.cloud.generate = Рәсемдәр булдырыу…
+menu.cloud.upload = Документты Schist Cloud-ҡа ебәреү…
+menu.cloud.sign_out = Schist Cloud-тан сығыу
+menu.cloud.sign_in = Schist Cloud-ҡа инеү…
+
+menu.app.services = Хеҙмәттәр
+menu.app.hide = {app} ҡушымтаһын йәшереү
+menu.app.hide_others = Ҡалғандарҙы йәшереү
+menu.app.show_all = Барыһын күрһәтеү
+menu.app.quit = {app} ҡушымтаһынан сығыу
+
+menu.status.transform_selection_needs_selection = Һайланған өлкәне үҙгәртеү өсөн һайлау кәрәк
+menu.status.crop_needs_selection = Һайланған өлкәгә тиклем ҡырҡыу өсөн һайлау кәрәк
+menu.status.select_photo_to_edit = Үҙгәртеү өсөн фото һайлағыҙ

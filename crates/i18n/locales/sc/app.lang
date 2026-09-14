@@ -1,0 +1,43 @@
+# Galleria de filtros
+app.filter_gallery.title = Galleria de filtros
+app.filter_gallery.stack = Pila (aplicada dae josso a susu)
+app.filter_gallery.no_settings = Custu filtru no tenet cunfiguratziones.
+
+# Caràteres
+app.fonts.not_open_licensed = chena una lissèntzia aberta · {substitute} tenet is matessi mètricas
+app.fonts.missing_substituted = mancante · su testu est cumpostu cun unu caràtere sostitutivu
+app.fonts.not_in_catalogue = {family} no est in su catàlogu de caràteres abertos
+app.fonts.no_faces = non b'at estilos iscarrigàbiles pro {family}
+app.fonts.empty_response = risposta bòida
+
+# Atualizadore automàticu
+app.update.unreadable_response = risposta chi no si podet lèghere: {error}
+app.update.no_temp_dir = peruna cartella temporànea in ue iscarrigare
+app.update.asset_has_path = sa versione inditat s'elementu cun unu percursu
+app.update.too_big = s'iscarrigamentu est prus mannu de su chi narat sa versione
+app.update.stopped_at = s'iscarrigamentu si est firmadu a {got} byte de {total}
+app.update.hash_mismatch = s'hash de s'iscarrigamentu est {got}, imbetzes de {want}
+app.update.not_in_bundle = custa còpia no est a intro de unu pachete de aplicatzione
+app.update.no_parent_dir = su pachete de aplicatzione no tenet una cartella superiore
+app.update.cannot_write = no si podet iscrìere in {dir}
+app.update.cannot_move_aside = no si podet ispostare {app} a banda
+app.update.cannot_move_in = no si podet pònnere su pachete nou in su logu suo
+app.update.cannot_run_ditto = no si podet esecutare /usr/bin/ditto
+app.update.unpack_failed = no est istadu possìbile iscumpattare s'iscarrigamentu: {error}
+app.update.no_app_in_download = s'iscarrigamentu no cuntenet Schist.app
+app.update.cannot_run_codesign = no si podet esecutare /usr/bin/codesign
+app.update.signature_invalid = sa firma de s'iscarrigamentu no est vàlida: {error}
+app.update.download_unsigned = custa còpia est firmada, ma s'iscarrigamentu no
+app.update.different_developer = s'iscarrigamentu est firmadu dae un'isvilupadore diferente
+app.update.cannot_relaunch = no si podet aviare su riaviadore
+app.update.not_installed_copy = custa còpia no est istada posta inoghe dae s'installadore
+app.update.cannot_start_installer = no si podet aviare s'installadore
+app.update.platform_unsupported = in custa prataforma is atualizatziones s'installant comente est istadu installadu Schist
+
+# Controllu de Vulkan in Linux
+app.vulkan.no_loader = schist: no b'at perunu carrigadore Vulkan in custu sistema, duncas no b'at nudda cun chi disinnare.\n\nSchist renderizat cun Vulkan, e `libvulkan.so.1` no est installadu.\nSerbint siat su carrigadore siat unu driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: su driver Vulkan inditadu dae custa sessione no est in cue.\n\n{var} est impostada, e custa impostatzione *sostituit* sa chirca de driver\nde su carrigadore imbetzes de annànghere·si. Duncas custos archìvios, chi no esistint,\nsunt sa lista intrea de driver — e cada programa Vulkan in custa sessione\nno bidet perunu driver, mancari nde siant installados medas:\n\n{missing}\n    {var}={value}\n\nFaghe·dda puntare a unu manifestu chi esistit — is driver installados ponent is issoro in\n/usr/share/vulkan/icd.d — o boga s'impostatzione e lassa chi su carrigadore ddu agate a sa sola.\nSi una sessione impostat custu dae un'archìviu de cunfiguratzione (`env =` de Hyprland,\nunu frammentu environment.d de systemd, unu profilu de shell), depes mudare·ddu in cue,\ne pro chi sa modìfica lompat a su chi est giai in esecutzione serbit un'atzessu nou.\n
+app.vulkan.override_note = \n{var} est impostada a {value}, e custu sostituit sa chirca pròpia\nde su carrigadore: si perunu de custos manifestos est pro custa màchina,\nsa prima cosa de proare est a bogare s'impostatzione.\n
+app.vulkan.no_driver = schist: perunu driver Vulkan est installadu, duncas no b'at nudda subra de chi disinnare.\n\nSchist renderizat cun Vulkan. Su carrigadore est installadu e no signalat perunu\ndriver — perunu si est registradu in is duos logos in ue est chirchadu:\n\n{dirs}\n\nSu carrigadore est frunidu a banda dae is driver, duncas de sòlitu mancat unu pachete ebbia.\n\nInstalla cussu pro sa GPU de custa màchina:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nSu driver propietàriu de NVIDIA includet su suo (`nvidia-utils` in Arch,\n`nvidia-driver` in Debian). In una màchina virtuale, o in cada logu in ue no b'at\nunu driver GPU de installare, su rasterizadore software est sa solutzione chi funtzionat:\n`vulkan-swrast` in Arch, parte de `mesa-vulkan-drivers` in is àteros sistemas. Est\nlentu, ma s'aviat.\n{overridden}
+app.vulkan.no_device = schist: unu driver Vulkan est installadu, ma no frunit perunu dispositivu pro sa renderizatzione.\n\nPodet èssere chi su driver no siat cumpatìbile cun custa GPU, o chi no potzat atzèdere·bi —\nsubra SSH, o a intro de unu cuntènnidore, est frecuente chi manchet /dev/dri.\n`vulkaninfo --summary` signalat su chi bidet su carrigadore.\n\nSu rasterizadore software renderizat chena peruna GPU, si custa màchina est fata gasi:\n`vulkan-swrast` in Arch, parte de `mesa-vulkan-drivers`\nin Debian e Fedora.\n
+app.vulkan.skip_hint = Pro aviare Schist comente si siat e lassare chi faddat a manera sua, imposta {var}=1.

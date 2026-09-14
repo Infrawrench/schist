@@ -1,0 +1,40 @@
+# Formātu nosaukumi
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Kopīgie importēšanas paziņojumi
+codec.msg.decoding = {name} dekodēšana
+codec.msg.zero_sized = attēlā nav pikseļu
+codec.msg.assembling_document = dokumenta izveidošana
+
+# Kameras jēlfaili
+codec.raw.msg.decoding = jēlfaila dekodēšana
+codec.raw.msg.developing = jēlfaila attīstīšana
+codec.raw.msg.finding_preview = iegultā priekšskatījuma meklēšana
+codec.raw.msg.decoding_preview = iegultā priekšskatījuma dekodēšana
+codec.raw.msg.decoder_panicked = jēlfaila dekodētājam neizdevās apstrādāt šo failu: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity importēšana
+codec.affinity.flattened_preview_layer = Saplacināts priekšskatījums
+codec.affinity.msg.no_preview = Nav izmantojama iegultā priekšskatījuma. Affinity slāņainais formāts ir patentēts; Schist importē failā saglabāto saplacināto priekšskatījumu. Šajā failā tāda nav — vēlreiz saglabājiet failu programmā Affinity vai eksportējiet to PSD formātā, lai importētu visus slāņus.
+
+# HEIF
+codec.heif.msg.no_library = Bibliotēka libheif nav pieejama ({details}). Lai atvērtu HEIC, nepieciešama libheif bibliotēka (Linux: instalējiet libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — iespējams, šajā libheif būvējumā nav HEVC dekodētāja (Debian/Ubuntu sistēmā instalējiet libheif-plugin-libde265)
+codec.heif.msg.unknown_error = nezināma kļūda
+codec.heif.msg.initialising = libheif inicializēšana
+codec.heif.msg.reading_container = HEIF konteinera nolasīšana
+codec.heif.msg.finding_primary_image = primārā attēla meklēšana
+codec.heif.msg.reading_icc_profile = ICC profila nolasīšana
+codec.heif.msg.decoding_image = attēla dekodēšana
+codec.heif.msg.checksum_mismatch = Faila {name} kontrolsumma neatbilst: gaidīta {expected}, saņemta {got}
+codec.heif.msg.imageio_cannot_read = ImageIO nevarēja nolasīt HEIF konteineru
+codec.heif.msg.container_empty = HEIF konteinerā nav attēla
+codec.heif.msg.imageio_cannot_decode = ImageIO nevarēja dekodēt primāro attēlu

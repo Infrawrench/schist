@@ -1,0 +1,154 @@
+# شريط القوائم.
+
+# ملف
+menu.file = ملف
+menu.file.new = جديد
+menu.file.open = فتح…
+menu.file.open_recent = فتح الملفات الأخيرة
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = استعراض المعرض…
+menu.file.close = إغلاق
+menu.file.save = حفظ
+menu.file.save_as = حفظ باسم…
+menu.file.export = تصدير…
+menu.file.export_submenu = تصدير
+menu.file.export_artboards = تصدير لوحات الرسم إلى PNG…
+menu.file.export_slices = تصدير الشرائح إلى PNG…
+menu.file.save_to_photos = حفظ في الصور
+menu.file.plugins = المكونات الإضافية…
+menu.file.missing_fonts = الخطوط المفقودة…
+menu.file.check_for_updates = التحقق من وجود تحديثات…
+menu.file.quit = إنهاء
+menu.file.add_folder_to_gallery = إضافة مجلد إلى المعرض…
+menu.file.import_from_photos = استيراد من الصور…
+menu.file.import_from_camera = استيراد من الكاميرا…
+
+# تحرير
+menu.edit = تحرير
+menu.edit.fill = تعبئة…
+menu.edit.stroke = تخطيط…
+menu.edit.content_aware_fill = تعبئة مع مراعاة المحتوى
+menu.edit.content_aware_scale = تغيير الحجم مع مراعاة المحتوى…
+menu.edit.puppet_warp = التواء الدمية
+menu.edit.free_transform = تحويل حر
+menu.edit.transform = تحويل
+menu.edit.rotate_180 = تدوير 180°
+menu.edit.rotate_90_cw = تدوير 90° مع عقارب الساعة
+menu.edit.rotate_90_ccw = تدوير 90° عكس عقارب الساعة
+menu.edit.flip_horizontal = قلب أفقي
+menu.edit.flip_vertical = قلب رأسي
+
+# صورة
+menu.image = صورة
+menu.image.mode = الصيغة
+menu.image.adjustments = عمليات الضبط
+menu.image.auto_tone = درجات لونية تلقائية
+menu.image.auto_contrast = تباين تلقائي
+menu.image.auto_color = لون تلقائي
+menu.image.image_size = حجم الصورة…
+menu.image.canvas_size = حجم مساحة العمل…
+menu.image.image_rotation = تدوير الصورة
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° مع عقارب الساعة
+menu.image.rotate_90_ccw = 90° عكس عقارب الساعة
+menu.image.flip_canvas_horizontal = قلب مساحة العمل أفقيًا
+menu.image.flip_canvas_vertical = قلب مساحة العمل رأسيًا
+menu.image.crop_to_selection = اقتصاص حسب التحديد
+menu.image.trim = تشذيب
+menu.image.assign_profile = تعيين ملف تعريف…
+menu.image.convert_to_profile = تحويل إلى ملف تعريف…
+
+# تحديد
+menu.select = تحديد
+menu.select.color_range = نطاق الألوان…
+menu.select.modify = تعديل
+menu.select.border = حد…
+menu.select.smooth = تنعيم…
+menu.select.expand = توسيع…
+menu.select.contract = تقليص…
+menu.select.feather = تدرج حدي…
+menu.select.transform_selection = تحويل التحديد
+
+# طبقة
+menu.layer = طبقة
+menu.layer.layer_style = نمط الطبقة…
+menu.layer.layer_comps = تركيبات الطبقات
+menu.layer.new_layer_comp = تركيبة طبقات جديدة
+menu.layer.delete_layer_comp = حذف {name}
+menu.layer.path = مسار
+menu.layer.fill_path = تعبئة المسار
+menu.layer.stroke_path = تخطيط المسار
+menu.layer.make_selection = إنشاء تحديد
+menu.layer.delete_path = حذف المسار
+
+menu.adjust = ضبط
+
+# مرشح
+menu.filter = مرشح
+menu.filter.filter_gallery = معرض المرشحات…
+menu.filter.liquify = تسييل
+menu.filter.vanishing_point = نقطة التلاشي
+menu.filter.manage_models = إدارة النماذج…
+menu.filter.camera_raw_development = معالجة Camera Raw…
+
+# عرض
+menu.view = عرض
+menu.view.rotate_view_cw = تدوير العرض مع عقارب الساعة
+menu.view.rotate_view_ccw = تدوير العرض عكس عقارب الساعة
+menu.view.reset_view = إعادة ضبط العرض
+menu.view.zoom_in = تكبير
+menu.view.zoom_out = تصغير
+menu.view.fit_on_screen = ملاءمة للشاشة
+menu.view.actual_size = 100%
+menu.view.rulers = المساطر
+menu.view.grid = الشبكة
+menu.view.guides = الأدلة
+menu.view.notes = الملاحظات
+menu.view.ai_panel = لوحة الذكاء الاصطناعي
+menu.view.extras = العناصر الإضافية
+menu.view.snap = انطباق
+menu.view.clear_guides = مسح الأدلة
+menu.view.clear_notes = مسح الملاحظات
+menu.view.clear_count = مسح العدّ
+menu.view.screen_mode = وضع الشاشة
+menu.view.proof_colors = ألوان التجربة
+menu.view.show_rulers = إظهار المساطر
+menu.view.hide_rulers = إخفاء المساطر
+menu.view.show_grid = إظهار الشبكة
+menu.view.hide_grid = إخفاء الشبكة
+menu.view.show_guides = إظهار الأدلة
+menu.view.hide_guides = إخفاء الأدلة
+menu.view.show_notes = إظهار الملاحظات
+menu.view.hide_notes = إخفاء الملاحظات
+menu.view.show_extras = إظهار العناصر الإضافية
+menu.view.hide_extras = إخفاء العناصر الإضافية
+menu.view.enable_snapping = تمكين الانطباق
+menu.view.disable_snapping = تعطيل الانطباق
+menu.view.enable_proof_colors = تمكين ألوان التجربة
+menu.view.disable_proof_colors = تعطيل ألوان التجربة
+
+# المعرض
+menu.gallery = المعرض
+menu.gallery.edit_selected = تحرير المحدد
+menu.gallery.refresh = تحديث
+menu.gallery.map_filter = مرشح الخريطة…
+menu.gallery.back_to_editor = الرجوع إلى المحرر
+
+# قائمة Schist Cloud الفرعية
+menu.cloud.browse = استعراض Schist Cloud
+menu.cloud.generate = توليد صور…
+menu.cloud.upload = رفع المستند إلى Schist Cloud…
+menu.cloud.sign_out = تسجيل الخروج من Schist Cloud
+menu.cloud.sign_in = تسجيل الدخول إلى Schist Cloud…
+
+# قائمة تطبيق macOS
+menu.app.services = الخدمات
+menu.app.hide = إخفاء {app}
+menu.app.hide_others = إخفاء البقية
+menu.app.show_all = إظهار الكل
+menu.app.quit = إنهاء {app}
+
+# ردود شريط الحالة
+menu.status.transform_selection_needs_selection = يتطلب تحويل التحديد وجود تحديد
+menu.status.crop_needs_selection = يتطلب الاقتصاص حسب التحديد وجود تحديد
+menu.status.select_photo_to_edit = حدد صورة لتحريرها

@@ -1,0 +1,31 @@
+# የመቀየሪያና የመከርከሚያ መሣሪያዎች።
+
+# ነጻ ለውጥ
+tool.transform.name = ነጻ ለውጥ
+tool.transform.description = ነጻ ለውጥ። ሲያነቁት በነቃው ንብርብር ዙሪያ የለውጥ ሳጥን ይከፈታል፤ መጠኑን ለመቀየር ጥግ ይጎትቱ፣ ለማሽከርከር ከጥጉ ውጭ ይጎትቱ፣ ለማዘንበል ደግሞ ጠርዝ ይጎትቱ። እስኪያጸድቁት (Enter) ድረስ ምንም አይጻፍም፤ መሰረዝ (Escape) ንብርብሩን ወደ ቀድሞ ሁኔታው ይመልሰዋል።
+tool.transform.option.interpolation = መካከለኛ እሴት ስሌት
+tool.transform.history.transform = ነጻ ለውጥ
+tool.transform.history.image_size = የምስል መጠን
+tool.transform.history.canvas_size = የሸራ መጠን
+
+# ምርጫን መቀየር
+tool.transform.selection.name = ምርጫን ቀይር
+tool.transform.selection.description = ምርጫን ቀይር፤ ተመሳሳይ ሳጥን ሲሆን በምርጫው ውስጥ ካሉ ፒክሰሎች ይልቅ የምርጫውን ድንበር ያንቀሳቅሳል። ለመጨረስ ያጽድቁ ወይም ይሰርዙ።
+tool.transform.selection.history.transform = ምርጫን ቀይር
+
+# የዳግም ናሙና ዘዴዎች
+tool.transform.resample.nearest_neighbor = ቅርብ ጎረቤት
+tool.transform.resample.bilinear = ባለሁለት መስመር
+tool.transform.resample.bicubic = ባለሁለት ኩብ
+
+# ከርክም
+tool.crop.name = ከርክም
+tool.crop.description = የሚቀረውን አካባቢ ይጎትቱና መያዣዎቹን ያስተካክሉ፤ ማጽደቅ (Enter) ሰነዱን በዚያ መጠን ይከርክመዋል፣ መሰረዝ (Escape) ሳይቀየር ይተወዋል።
+tool.crop.option.ratio = ምጥጥን
+tool.crop.option.delete_cropped = የተከረከሙ ፒክሰሎችን ሰርዝ
+tool.crop.choice.unconstrained = ያልተገደበ
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = ከርክም

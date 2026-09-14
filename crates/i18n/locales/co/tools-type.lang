@@ -1,0 +1,24 @@
+# Attrazzu di testu.
+
+tool.type.name = Testu
+tool.type.description = Cliccate per principià un stratu di testu à stu locu, o nant'à un stratu esistente per mudificallu. Mentre ch'ellu hè apertu, l'attrazzu riceve direttamente i tasti (mandate i caratteri cum'è input di tastiera); cunfirmendu, rende u stratu è chjode a mudificazione.
+
+tool.type.option.align = Allineamentu
+tool.type.option.leading = Interlinea
+tool.type.option.tracking = Spaziatura
+tool.type.option.kerning = Crenatura
+tool.type.option.ligatures = Ligature
+tool.type.option.discretionary_ligatures = Ligature discrezziunale
+tool.type.option.small_caps = Maiuscule chjuche
+tool.type.option.on_path = Nant'à u tracciatu attivu
+tool.type.option.path_offset = Scartamentu da u tracciatu
+
+tool.type.choice.regular = Nurmale
+tool.type.choice.bold = Grassettu
+tool.type.choice.italic = Cursivu
+tool.type.choice.bold_italic = Grassettu cursivu
+
+tool.type.history.new_layer = Stratu di testu novu
+tool.type.history.edit = Mudificà u testu
+tool.type.history.discard = Abbandunà u testu
+tool.type.history.discard_empty = Abbandunà u testu viotu

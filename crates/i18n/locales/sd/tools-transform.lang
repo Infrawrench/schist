@@ -1,0 +1,25 @@
+tool.transform.name = آزاد تبديلي
+tool.transform.description = آزاد تبديلي. ان کي فعال ڪرڻ سان فعال پرت جي چوڌاري تبديليءَ جو خانو کلي ٿو: ماپ بدلائڻ لاءِ ڪنڊ ڇڪيو، گهمائڻ لاءِ ڪنڊ کان ٻاهر ڇڪيو، ۽ ترڇو ڪرڻ لاءِ پاسو ڇڪيو. تصديق (Enter) تائين ڪا تبديلي لکي نٿي وڃي، ۽ رد ڪرڻ (Escape) سان پرت اڳئين حالت ۾ موٽي ٿي.
+tool.transform.option.interpolation = انٽرپوليشن
+tool.transform.history.transform = آزاد تبديلي
+tool.transform.history.image_size = تصوير جي ماپ
+tool.transform.history.canvas_size = ڪينواس جي ماپ
+
+tool.transform.selection.name = چونڊ جي تبديلي
+tool.transform.selection.description = چونڊ جي تبديلي: ساڳيو خانو، پر اندر وارن پڪسلن بدران چونڊ جو خاڪو منتقل ڪري ٿو. ختم ڪرڻ لاءِ تصديق يا رد ڪريو.
+tool.transform.selection.history.transform = چونڊ جي تبديلي
+
+tool.transform.resample.nearest_neighbor = ويجهي پاڙيسري
+tool.transform.resample.bilinear = بائي لينيئر
+tool.transform.resample.bicubic = بائي ڪيوبڪ
+
+tool.crop.name = ڪراپ
+tool.crop.description = رکڻو علائقو ڇڪي چونڊيو ۽ ان جا هينڊل ترتيب ڏيو؛ تصديق (Enter) سان دستاويز ان حد تائين ڪٽجي ويندو، ۽ رد ڪرڻ (Escape) سان اڻ بدليل رهندو.
+tool.crop.option.ratio = تناسب
+tool.crop.option.delete_cropped = ڪراپ ٿيل پڪسل ڊاهيو
+tool.crop.choice.unconstrained = بنا پابندي
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = ڪراپ

@@ -1,0 +1,25 @@
+# Switirhisiwa swo lunghisa tindhawu: Patch, Content-Aware Move, Red Eye ni Magic Eraser.
+
+tool.patch.name = Lunghisa hi xiphemu
+tool.patch.description = Koka ndzilakana ku rhendzela xihoxo, kutani u koka ndhawu leyi hlawuriweke u yi yisa eka tipikseli leti tengeke: xivumbeko xa kona xi nghenisiwa exihoxweni. Mode ya xiphepherhele yi hlawula leswaku u koka tlhelo rihi ra leswi swimbirhi.
+tool.patch.option.patch = Lunghisa hi xiphemu
+tool.patch.choice.source = Xihlovo
+tool.patch.choice.destination = Laha ku yisiwaka kona
+tool.patch.history.patch = Lunghisa hi xiphemu
+
+tool.content_aware_move.name = Fambisa hi ku tiva leswi nga kona
+tool.content_aware_move.description = Koka chinhu lexi hlawuriweke u xi yisa kun'wana, kutani mbhovo lowu xi wu siyaka wu tatiwa hi leswi xi rhendzeleke. Eka mode ya Ku ndlandlamuxa, chinhu xa ololoxiwa ematshan'wini yo fambisiwa.
+tool.content_aware_move.choice.move = Fambisa
+tool.content_aware_move.choice.extend = Ndlandlamuxa
+tool.content_aware_move.history.move = Fambisa hi ku tiva leswi nga kona
+
+tool.red_eye.name = Tihlo ro tshwuka
+tool.red_eye.description = Tshikilela xanga xa tihlo leswaku u susa ku tshwuka loku vangiwaka hi flash.
+tool.red_eye.option.pupil_size = Sayizi ya xanga xa tihlo
+tool.red_eye.option.darken = Endla munyama
+tool.red_eye.history.red_eye = Tihlo ro tshwuka
+
+tool.magic_eraser.name = Xisusi xa masalamusi
+tool.magic_eraser.description = Tshikilela ku sula ndhawu ya muhlovo lowu fanaka ehansi ka njoho, hi mpimo wa xitirhisiwa—ku nga ha va leyi hlanganeke ni laha ku tshikileriweke, kumbe hinkwako eka leyara.
+tool.magic_eraser.option.contiguous = Swi hlanganile
+tool.magic_eraser.history.erase = Xisusi xa masalamusi

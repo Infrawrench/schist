@@ -1,0 +1,23 @@
+# Nkyerɛwee
+tool.type.name = Nkyerɛwee
+tool.type.description = Mia na fi ase yɛ nkyerɛwee layer wɔ hɔ, anaa mia nea ɛwɔ hɔ dedaw no na siesie no. Bere a abue no, adwinnade no gye keyboard nkyerɛwde ankasa (fa nkyerɛwde mena sɛ key input), na sɛ wugye tom a, ɛyɛ layer no awie na ɛto nsiesiei no mu.
+
+tool.type.option.align = Fa Tɔ Daa
+tool.type.option.leading = Nkyerɛwee Nsensanee Ntam
+tool.type.option.tracking = Nkyerɛw Ntam
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Nkyerɛwde Nkabom
+tool.type.option.discretionary_ligatures = Nkyerɛwde nkabom a wubetumi apaw
+tool.type.option.small_caps = Nkyerɛwde akɛse nketewa
+tool.type.option.on_path = Wɔ kwan a ɛreyɛ adwuma no so
+tool.type.option.path_offset = Kwan no ntwea
+
+tool.type.choice.regular = Daa
+tool.type.choice.bold = Den
+tool.type.choice.italic = Nkyinkyim
+tool.type.choice.bold_italic = Den Nkyinkyim
+
+tool.type.history.new_layer = Nkyerɛwee Layer Foforo
+tool.type.history.edit = Siesie Nkyerɛwee
+tool.type.history.discard = Tow Nkyerɛwee Gu
+tool.type.history.discard_empty = Tow Nkyerɛwee a Hwee Nni Mu Gu

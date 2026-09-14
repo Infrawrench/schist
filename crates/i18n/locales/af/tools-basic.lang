@@ -1,0 +1,21 @@
+tool.move.name = Skuif
+tool.move.description = Sleep die aktiewe laag se inhoud na 'n nuwe posisie. Wanneer Outo-seleksie aan is, kies die aanvanklike druk die laag — of hele groep — wat eerste onder die wyser is.
+tool.move.option.auto_select = Outo-seleksie
+tool.move.history.move_layer = Skuif laag
+
+tool.eyedropper.name = Pipet
+tool.eyedropper.description = Neem 'n monster van die kleur onder die wyser vir die voorgrondkleurvlak, of vir die agtergrondkleurvlak wanneer Alt ingehou word. As jy sleep, word monsters voortdurend geneem.
+tool.eyedropper.option.sample_size = Monstergrootte
+tool.eyedropper.option.sample = Monster
+tool.eyedropper.choice.point_sample = Puntmonster
+tool.eyedropper.choice.average_3 = 3 by 3-gemiddeld
+tool.eyedropper.choice.average_5 = 5 by 5-gemiddeld
+tool.eyedropper.choice.average_11 = 11 by 11-gemiddeld
+tool.eyedropper.choice.average_31 = 31 by 31-gemiddeld
+tool.eyedropper.choice.all_layers = Alle lae
+tool.eyedropper.choice.current_layer = Huidige laag
+
+tool.hand.name = Hand
+tool.hand.description = Verskuif die aansig. Die kykvenster behoort aan die venster; sonder 'n grafiese koppelvlak doen hierdie gereedskap dus niks aan die dokument nie.
+tool.zoom.name = Zoem
+tool.zoom.description = Vergroot of verklein die aansig. Die kykvenster behoort aan die venster; sonder 'n grafiese koppelvlak doen hierdie gereedskap dus niks aan die dokument nie.

@@ -1,0 +1,36 @@
+app.filter_gallery.title = Kuusaa Calaltuu
+app.filter_gallery.stack = Tuulama (jala irraa gara gubbaatti hojii irra oola)
+app.filter_gallery.no_settings = Calaltuun kun qindaa'ina hin qabu.
+app.fonts.not_open_licensed = hayyama banaa hin qabu · {substitute} safartuuwwan isaa waliin walsima
+app.fonts.missing_substituted = badeera · barruun foontii bakka-buutuun qindaa'aa jira
+app.fonts.not_in_catalogue = {family} tarree foontii banaa keessa hin jiru
+app.fonts.no_faces = Bocawwan foontii {family} keessaa buufataman hin jiran
+app.fonts.empty_response = deebii duwwaa
+app.update.unreadable_response = deebii dubbisuu hin dandeenye: {error}
+app.update.no_temp_dir = ukaankaan yeroo muraasaa itti buufatan hin jiru
+app.update.asset_has_path = gad-lakkifamni qabeenya isaa maqaa daandii qabuun moggaaseera
+app.update.too_big = buufatichi hamma gad-lakkifamni jedhu caala
+app.update.stopped_at = buufatichi baayitii {total} keessaa {got} irratti dhaabbate
+app.update.hash_mismatch = haashiin buufataa {want} osoo hin taane {got} ta'e
+app.update.not_in_bundle = garagalchi kun baandilii appii keessa hin jiru
+app.update.no_parent_dir = baandiliin appii ukaankaa isa of keessaa qabu hin qabu
+app.update.cannot_write = {dir} keessatti barreessuu hin danda'u
+app.update.cannot_move_aside = {app} gara cinaatti sochoosuu hin danda'u
+app.update.cannot_move_in = baandilii haaraa bakka isaatti sochoosuu hin danda'u
+app.update.cannot_run_ditto = /usr/bin/ditto hojii irra oolchuu hin danda'u
+app.update.unpack_failed = buufata hiikuun hin milkoofne: {error}
+app.update.no_app_in_download = buufatichi Schist.app hin qabu
+app.update.cannot_run_codesign = /usr/bin/codesign hojii irra oolchuu hin danda'u
+app.update.signature_invalid = mallattoon buufataa hin mirkanoofne: {error}
+app.update.download_unsigned = garagalchi kun mallatteeffameera, buufatichi garuu hin mallatteeffamne
+app.update.different_developer = buufatichi misoomsaa biraatiin mallatteeffameera
+app.update.cannot_relaunch = jalqabsiisaa irra-deebii jalqabuu hin danda'u
+app.update.not_installed_copy = garagalchi kun fe'aa kanaan as hin kaa'amne
+app.update.cannot_start_installer = fe'aa jalqabuu hin danda'u
+app.update.platform_unsupported = haaromsi pilaatfoormii kana irratti akkuma Schist itti fe'ameen fe'ama
+app.vulkan.no_loader = schist: sirna kana irratti loodariin Vulkan hin jiru; kanaaf wanti ittiin fakkii kaasan hin jiru.\n\nSchist Vulkan fayyadamuun fakkii kaasa; `libvulkan.so.1` hin fe'amne.\nLoodarii fi diraayivariin lamaanuu barbaachisu:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: diraayivariin Vulkan kan seshiniin kun itti akeeku hin jiru.\n\n{var} qindaa'eera; qindaa'uun isaa barbaacha diraayivarii loodarii irratti dabaluu\nosoo hin taane bakka buusa. Kanaaf faayiloonni armaan gadii, kan hin jirre,\ntarree diraayivarii guutuu dha -- sagantaan Vulkan hundi seshinii kana keessaa,\ndiraayivaroonni meeqa iyyuu yoo fe'aman, diraayivarii tokko illee hin argu:\n\n{missing}\n    {var}={value}\n\nGara maanifestii jiruutti akeeki -- diraayivaroonni fe'aman kan isaanii\n/usr/share/vulkan/icd.d keessa kaa'u -- yookaan qindaa'ina isaa haqiitii loodariin\nofiin akka barbaadu godhi. Seshiniin faayila qindaa'inaa irraa kana qindeessu\n(`env =` Hyprland, galtee environment.d kan systemd, piroofaayila sheelii) achitti\njijjiiramuu qaba; jijjiiramni sun wantoota duraan hojjechaa jiran bira ga'uuf\ndeebisanii seenuu barbaada.\n
+app.vulkan.override_note = \n{var} gara {value}tti qindaa'eera; kun barbaacha loodarii mataa isaa\nbakka buusa: maanifestiiwwan sana keessaa tokko illee maashinii kanaaf yoo hin taane,\nqindaa'ina isaa haquun waan jalqaba yaalan dha.\n
+app.vulkan.no_driver = schist: diraayivariin Vulkan hin fe'amne; kanaaf wanti irratti fakkii kaasan hin jiru.\n\nSchist Vulkan fayyadamuun fakkii kaasa. Loodariin fe'ameera, garuu diraayivarii\nhin gabaasu -- bakka lamaan itti barbaadaman keessaa tokko irrattillee homtuu\ndiraayivarii hin galmeessine:\n\n{dirs}\n\nLoodariin diraayivaroota irraa adda bahee dhiyaata; kanaaf yeroo baay'ee paakeejii\ntokko qofa dhabameera.\n\nIsa GPU maashinii kanaaf ta'u fe'i:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDiraayivariin dhuunfaa NVIDIA kan ofii qaba (Arch irratti `nvidia-utils`,\nDebian irratti `nvidia-driver`). Maashinii vaartuwaalaa keessatti, yookaan bakka\ndiraayivariin GPU fe'amu hin jirretti, raasteraayizarri sooftiweerii isa hojjetu dha:\nArch irratti `vulkan-swrast`, bakka biraatti qaama `mesa-vulkan-drivers`. Inni\nsuuta dha, garuu ni jalqaba.\n{overridden}
+app.vulkan.no_device = schist: diraayivariin Vulkan fe'ameera, garuu meeshaa fakkii irratti kaasu hin dhiyeessu.\n\nDiraayivarichi GPU kana deeggaruu dhiisuu danda'a, yookaan bira ga'uu hin dandeenye\n-- SSH irratti, yookaan qabduu keessa, /dev/dri dhabamuun baramaa dha.\n`vulkaninfo --summary` waan loodariin argu gabaasa.\n\nMaashiniin kun GPU yoo hin qabne, raasteraayizarri sooftiweerii GPU malee fakkii kaasa:\nArch irratti `vulkan-swrast`, Debian fi Fedora irratti qaama `mesa-vulkan-drivers`.\n
+app.vulkan.skip_hint = Ta'us Schist jalqabsiisuuf, akka karaa isaatiin kufu dhiisiitii {var}=1 qindeessi.

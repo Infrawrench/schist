@@ -1,0 +1,25 @@
+# Unuyachiy
+tool.liquify.name = Unuyachiy
+tool.liquify.description = Hatun pincelpa uranpi pixelkunata tanqay, muyuchiy, k'ichkiy utaq punkichiy; imayna kasqan akllanaqa mayqin ruwanata akllan. Waq'uchisqaqa malla ukhupi huñukun, takyachispa pataman churakun.
+tool.liquify.option.tool = Llamk'ana
+tool.liquify.choice.forward_warp = Ñawpaqman waq'uchiy
+tool.liquify.choice.reconstruct = Musuqmanta ruray
+tool.liquify.choice.twirl_cw = Relojpa puriyninman muyuchiy
+tool.liquify.choice.twirl_ccw = Relojpa puriyninpa contranman muyuchiy
+tool.liquify.choice.pucker = K'ichkiy
+tool.liquify.choice.bloat = Punkichiy
+tool.liquify.choice.push_left = Lloq'eman tanqay
+tool.liquify.history.liquify = Unuyachiy
+
+# Muñeka waq'uchiy
+tool.puppet_warp.name = Muñeka waq'uchiy
+tool.puppet_warp.description = Patata wakin ch'ikukunapi t'ipanapaq ñit'iy, chaymanta hukninta aysay: malla t'ipanakuna muyuriqninpi k'umukun, Rigidez akllana nisqanman hina sinchita utaq llamp'uta. Takyachispa churakun.
+tool.puppet_warp.option.stiffness = Rigidez
+tool.puppet_warp.history.puppet_warp = Muñeka waq'uchiy
+
+# Chinkana ch'iku
+tool.vanishing_point.name = Chinkana ch'iku
+tool.vanishing_point.description = Perspectivayuq imap hawanman pampa geométricata aysaspa ruray, chaymanta imayna kasqanta Clonar nisqaman tikray, pintaytaq: mirachisqa pixelkuna pampaman hina purinku, karuman rispa huch'uyaspa.
+tool.vanishing_point.choice.edit_plane = Pampa geométricata allichay
+tool.vanishing_point.choice.clone = Clonar
+tool.vanishing_point.history.vanishing_point = Chinkana ch'iku

@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = le {name} ƒe code ɖem
+codec.msg.zero_sized = pixel aɖeke mele nɔnɔme la me o
+codec.msg.assembling_document = le agbalẽ la ƒom ƒu
+
+codec.raw.msg.decoding = le raw agbalẽ la ƒe code ɖem
+codec.raw.msg.developing = le raw agbalẽ la wɔm
+codec.raw.msg.finding_preview = le ŋgɔmekpɔkpɔ si le eme la dim
+codec.raw.msg.decoding_preview = le ŋgɔmekpɔkpɔ si le eme la ƒe code ɖem
+codec.raw.msg.decoder_panicked = raw decoder la mekpɔ dzidzedze le agbalẽ sia ŋu o: {what}
+
+codec.affinity.import_title = Affinity agbalẽxɔxɔ
+codec.affinity.flattened_preview_layer = Ŋgɔmekpɔkpɔ si woƒo ƒu
+codec.affinity.msg.no_preview = Ŋgɔmekpɔkpɔ nyui aɖeke mele agbalẽ la me o. Affinity ƒe tata si me layerwo le la nye etɔ ŋutɔ; Schist xɔa ŋgɔmekpɔkpɔ si woƒo ƒu si agbalẽ la tsɔ. Esia tɔ mele afima o — dzra agbalẽ la ɖo ake le Affinity me, alo ɖee ɖe PSD me be nàxɔ layerwo katã.
+
+codec.heif.msg.no_library = libheif mele afima o ({details}). Libheif library hia hafi woate ŋu aʋu HEIC (Linux: ɖo libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — ɖewohĩ HEVC decoder mele libheif tata sia me o (le Debian/Ubuntu dzi, ɖo libheif-plugin-libde265)
+codec.heif.msg.unknown_error = vodada si womanya o
+codec.heif.msg.initialising = le libheif dzram ɖo
+codec.heif.msg.reading_container = le HEIF container la xlẽm
+codec.heif.msg.finding_primary_image = le nɔnɔme gbãtɔ la dim
+codec.heif.msg.reading_icc_profile = le ICC profile la xlẽm
+codec.heif.msg.decoding_image = le nɔnɔme la ƒe code ɖem
+codec.heif.msg.checksum_mismatch = Checksum medze edzi le {name} ŋu o: womɔ kpɔ {expected}, gake wokpɔ {got}
+codec.heif.msg.imageio_cannot_read = ImageIO mete ŋu xlẽ HEIF container la o
+codec.heif.msg.container_empty = nɔnɔme aɖeke mele HEIF container la me o
+codec.heif.msg.imageio_cannot_decode = ImageIO mete ŋu ɖe nɔnɔme gbãtɔ la ƒe code o

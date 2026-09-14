@@ -1,0 +1,43 @@
+# Filter Gallery
+app.filter_gallery.title = ഫിൽട്ടർ ഗാലറി
+app.filter_gallery.stack = സ്റ്റാക്ക് (താഴെനിന്ന് മുകളിലേക്ക് പ്രയോഗിക്കുന്നു)
+app.filter_gallery.no_settings = ഈ ഫിൽട്ടറിന് ക്രമീകരണങ്ങളില്ല.
+
+# Fonts
+app.fonts.not_open_licensed = തുറന്ന ലൈസൻസുള്ളതല്ല · {substitute} അതിന്റെ അളവുകളുമായി പൊരുത്തപ്പെടുന്നു
+app.fonts.missing_substituted = ലഭ്യമല്ല · പകരമുള്ള ഫോണ്ടിലാണ് എഴുത്ത് സജ്ജീകരിക്കുന്നത്
+app.fonts.not_in_catalogue = {family} തുറന്ന ഫോണ്ട് കാറ്റലോഗിൽ ഇല്ല
+app.fonts.no_faces = {family}-ന് ഡൗൺലോഡ് ചെയ്യാവുന്ന ഫോണ്ട് ഫേസുകളില്ല
+app.fonts.empty_response = ഒഴിഞ്ഞ പ്രതികരണം
+
+# Updater
+app.update.unreadable_response = വായിക്കാനാവാത്ത പ്രതികരണം: {error}
+app.update.no_temp_dir = ഡൗൺലോഡ് ചെയ്യാൻ താൽക്കാലിക ഡയറക്ടറിയില്ല
+app.update.asset_has_path = റിലീസ് അതിന്റെ അസറ്റിന് പാത ഉൾപ്പെട്ട പേര് നൽകിയിരിക്കുന്നു
+app.update.too_big = ഡൗൺലോഡിന്റെ വലുപ്പം റിലീസിൽ പറഞ്ഞതിലും കൂടുതലാണ്
+app.update.stopped_at = {total} ബൈറ്റിൽ {got} ബൈറ്റിൽവച്ച് ഡൗൺലോഡ് നിലച്ചു
+app.update.hash_mismatch = ഡൗൺലോഡിന്റെ ഹാഷ് {want} അല്ല, {got} ആണ്
+app.update.not_in_bundle = ഈ പകർപ്പ് ഒരു ആപ്ലിക്കേഷൻ ബണ്ടിലിനുള്ളിലല്ല
+app.update.no_parent_dir = ആപ്ലിക്കേഷൻ ബണ്ടിലിന് പാരന്റ് ഡയറക്ടറിയില്ല
+app.update.cannot_write = {dir}-ലേക്ക് എഴുതാനാവില്ല
+app.update.cannot_move_aside = {app} മാറ്റിവയ്ക്കാനാവില്ല
+app.update.cannot_move_in = പുതിയ ബണ്ടിൽ സ്ഥാനത്തേക്കു നീക്കാനാവില്ല
+app.update.cannot_run_ditto = /usr/bin/ditto പ്രവർത്തിപ്പിക്കാനാവില്ല
+app.update.unpack_failed = ഡൗൺലോഡ് അൺപാക്ക് ചെയ്യാനായില്ല: {error}
+app.update.no_app_in_download = ഡൗൺലോഡിൽ Schist.app ഇല്ല
+app.update.cannot_run_codesign = /usr/bin/codesign പ്രവർത്തിപ്പിക്കാനാവില്ല
+app.update.signature_invalid = ഡൗൺലോഡിന്റെ ഒപ്പ് സ്ഥിരീകരിക്കാനാവുന്നില്ല: {error}
+app.update.download_unsigned = ഈ പകർപ്പ് ഒപ്പിട്ടതാണ്, എന്നാൽ ഡൗൺലോഡ് ഒപ്പിട്ടതല്ല
+app.update.different_developer = ഡൗൺലോഡിൽ മറ്റൊരു ഡെവലപ്പറുടെ ഒപ്പാണുള്ളത്
+app.update.cannot_relaunch = വീണ്ടും പ്രവർത്തിപ്പിക്കുന്ന പ്രോഗ്രാം ആരംഭിക്കാനാവില്ല
+app.update.not_installed_copy = ഇൻസ്റ്റാളർ ഈ പകർപ്പ് ഇവിടെ സ്ഥാപിച്ചതല്ല
+app.update.cannot_start_installer = ഇൻസ്റ്റാളർ ആരംഭിക്കാനാവില്ല
+app.update.platform_unsupported = ഈ പ്ലാറ്റ്‌ഫോമിൽ അപ്ഡേറ്റുകൾ ഇൻസ്റ്റാൾ ചെയ്യുന്നത് Schist ഇൻസ്റ്റാൾ ചെയ്ത അതേ രീതിയിലാണ്
+
+# Vulkan diagnostics
+app.vulkan.no_loader = schist: ഈ സിസ്റ്റത്തിൽ Vulkan ലോഡർ ഇല്ല, അതിനാൽ വരയ്ക്കാൻ ഒന്നുമില്ല.\n\nSchist, Vulkan വഴിയാണ് റെൻഡർ ചെയ്യുന്നത്; `libvulkan.so.1` ഇൻസ്റ്റാൾ ചെയ്തിട്ടില്ല.\nലോഡറും ഡ്രൈവറും രണ്ടും ആവശ്യമാണ്:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ഈ സെഷൻ ചൂണ്ടിക്കാണിക്കുന്ന Vulkan ഡ്രൈവർ അവിടെയില്ല.\n\n{var} സജ്ജമാക്കിയിരിക്കുന്നു; ഇത് ഡ്രൈവറുകൾക്കായുള്ള ലോഡറിന്റെ തിരച്ചിലിലേക്ക് ചേർക്കുന്നതിനുപകരം ആ തിരച്ചിൽ പൂർണമായും മാറ്റിസ്ഥാപിക്കുന്നു. അതിനാൽ നിലവിലില്ലാത്ത ഈ ഫയലുകളാണ് മുഴുവൻ ഡ്രൈവർ പട്ടിക—എത്ര ഡ്രൈവറുകൾ ഇൻസ്റ്റാൾ ചെയ്തിട്ടുണ്ടെങ്കിലും ഈ സെഷനിലെ ഓരോ Vulkan പ്രോഗ്രാമിനും ഒരു ഡ്രൈവറും കാണാനാവില്ല:\n\n{missing}\n    {var}={value}\n\nനിലവിലുള്ള ഒരു മാനിഫെസ്റ്റിലേക്കു ചൂണ്ടിക്കാണിക്കുക—ഇൻസ്റ്റാൾ ചെയ്ത ഡ്രൈവറുകൾ അവയുടെ മാനിഫെസ്റ്റുകൾ /usr/share/vulkan/icd.d-ൽ സ്ഥാപിക്കും—അല്ലെങ്കിൽ ഇത് അൺസെറ്റ് ചെയ്ത് ലോഡറിനെ സ്വന്തമായി കണ്ടെത്താൻ അനുവദിക്കുക.\nഒരു കോൺഫിഗറേഷൻ ഫയലിൽനിന്ന് ഇത് സജ്ജമാക്കുന്ന സെഷനിൽ (Hyprland-ന്റെ `env =`, systemd environment.d drop-in, ഷെൽ പ്രൊഫൈൽ) അവിടെത്തന്നെ മാറ്റണം; ഇതിനകം പ്രവർത്തിക്കുന്നവയിലേക്കു മാറ്റം എത്താൻ പുതുതായി ലോഗിൻ ചെയ്യണം.\n
+app.vulkan.override_note = \n{var}, {value} ആയി സജ്ജമാക്കിയിരിക്കുന്നു; അത് ലോഡറിന്റെ സ്വന്തം തിരച്ചിലിനെ മാറ്റിസ്ഥാപിക്കുന്നു: ആ മാനിഫെസ്റ്റുകളിലൊന്നും ഈ മെഷീനുള്ളതല്ലെങ്കിൽ, ഇത് അൺസെറ്റ് ചെയ്യുകയാണ് ആദ്യം ശ്രമിക്കേണ്ടത്.\n
+app.vulkan.no_driver = schist: Vulkan ഡ്രൈവർ ഇൻസ്റ്റാൾ ചെയ്തിട്ടില്ല, അതിനാൽ വരയ്ക്കാൻ ഒന്നുമില്ല.\n\nSchist, Vulkan വഴിയാണ് റെൻഡർ ചെയ്യുന്നത്. ലോഡർ ഇൻസ്റ്റാൾ ചെയ്തിട്ടുണ്ടെങ്കിലും ഡ്രൈവറൊന്നും റിപ്പോർട്ട് ചെയ്യുന്നില്ല—തിരയുന്ന രണ്ടു സ്ഥാനങ്ങളിലും ഒന്നും രജിസ്റ്റർ ചെയ്തിട്ടില്ല:\n\n{dirs}\n\nലോഡർ ഡ്രൈവറുകളിൽനിന്ന് വേറെയാണ് വിതരണം ചെയ്യുന്നത്, അതിനാൽ സാധാരണയായി ഒരു പാക്കേജ് മാത്രമാണ് ലഭ്യമല്ലാത്തത്.\n\nഈ മെഷീനിലെ GPU-വിനുള്ളത് ഇൻസ്റ്റാൾ ചെയ്യുക:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-യുടെ ഉടമസ്ഥാവകാശ ഡ്രൈവറിൽ സ്വന്തം ഡ്രൈവർ ഉൾപ്പെടുന്നു (Arch-ൽ `nvidia-utils`, Debian-ൽ `nvidia-driver`). വെർച്വൽ മെഷീനിലോ GPU ഡ്രൈവർ ഇൻസ്റ്റാൾ ചെയ്യാനില്ലാത്ത മറ്റിടങ്ങളിലോ സോഫ്റ്റ്‌വെയർ റാസ്റ്ററൈസറാണ് പ്രവർത്തിക്കുക: Arch-ൽ `vulkan-swrast`, മറ്റിടങ്ങളിൽ `mesa-vulkan-drivers`-ന്റെ ഭാഗം. അത് മന്ദഗതിയിലാണ്, പക്ഷേ ആരംഭിക്കും.\n{overridden}
+app.vulkan.no_device = schist: Vulkan ഡ്രൈവർ ഇൻസ്റ്റാൾ ചെയ്തിട്ടുണ്ടെങ്കിലും റെൻഡർ ചെയ്യാനുള്ള ഉപകരണം അത് നൽകുന്നില്ല.\n\nഡ്രൈവർ ഈ GPU-വിനെ പിന്തുണയ്ക്കുന്നില്ലായിരിക്കാം, അല്ലെങ്കിൽ അതിലെത്താൻ കഴിയുന്നില്ലായിരിക്കാം—SSH വഴിയോ കണ്ടെയ്നറിനുള്ളിലോ /dev/dri ലഭ്യമല്ലാത്തത് സാധാരണമാണ്. ലോഡർ കാണുന്നത് എന്തെന്ന് `vulkaninfo --summary` റിപ്പോർട്ട് ചെയ്യും.\n\nഈ മെഷീനിൽ GPU ഇല്ലെങ്കിൽ, സോഫ്റ്റ്‌വെയർ റാസ്റ്ററൈസർ GPU ഇല്ലാതെതന്നെ റെൻഡർ ചെയ്യും: Arch-ൽ `vulkan-swrast`, Debian-ലും Fedora-യിലും `mesa-vulkan-drivers`-ന്റെ ഭാഗം.\n
+app.vulkan.skip_hint = ഏതായാലും Schist ആരംഭിച്ച് അതിന്റേതായ രീതിയിൽ പരാജയപ്പെടാൻ അനുവദിക്കുന്നതിന് {var}=1 സജ്ജമാക്കുക.

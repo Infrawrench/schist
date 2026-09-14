@@ -1,0 +1,32 @@
+# Lisebelisoa tsa ho khetha.
+tool.select.mode.subtract = Ntša
+tool.select.mode.intersect = Moo li Kopanang
+
+tool.marquee.rect.name = Khetho ea Khutlonne
+tool.marquee.rect.description = Hula ho etsa khetho ea khutlonne. Ho tšoara Shift qalong ea ho hula ho eketsa khethong, alt e ntša ho eona, 'me ho tšoara ka bobeli ho khetha moo li kopanang; ho tšoara Shift nakong ea ho hula ho e etsa sekwere. Ho tobetsa feela ntle le ho hula ho tlosa khetho.
+tool.marquee.ellipse.name = Khetho ea Motopo
+tool.marquee.ellipse.description = Hula ho etsa khetho ea motopo, u sebelisa Shift le alt ho kopanya ka tsela e tšoanang le ea khetho ea khutlonne.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Hula moeli ka letsoho; khetho e koala sekheo pakeng tsa lipheletso ha ho hula ho fela. Shift e eketsa, alt e ntša.
+tool.lasso.history.select = Khetho ea Lasso
+tool.lasso.polygonal.name = Lasso ea Mahlakore a Otlolohileng
+tool.lasso.polygonal.description = Tobetsa huku ka mor'a huku ho haha khetho e nang le mathoko a otlolohileng, ebe u tobetsa haufi le ntlha ea pele ho e koala.
+tool.lasso.polygonal.history.select = Khetho ea Lasso ea Mahlakore a Otlolohileng
+tool.lasso.magnetic.name = Lasso ea Makenete
+tool.lasso.magnetic.description = Latela moeli ka kakaretso, 'me mola oa khetho o khomarele phapang e matla ka ho fetisisa e haufi le tsela.
+tool.lasso.magnetic.history.select = Khetho ea Lasso ea Makenete
+tool.lasso.magnetic.option.frequency = Makhetlo
+
+tool.wand.name = Thupa ea Boselamose
+tool.wand.description = Tobetsa ho khetha sebaka se hokahaneng sa 'mala o tšoanang se tlas'a sesupa, ho latela khetho ea mamello—e leng mamello e tšoanang e baloang ke Holisa, Tse Tšoanang le Mefuta ea Mebala.
+tool.wand.option.contiguous = Tse Hokahaneng
+tool.wand.history.select = Thupa ea Boselamose
+
+tool.quick_select.name = Khetho e Potlakileng
+tool.quick_select.description = Penta holim'a sebaka, 'me khetho e hole ka lipiksele tse tšoanang tseo borashe bo fetang holim'a tsona.
+tool.quick_select.history.select = Khetho e Potlakileng
+
+tool.object_select.name = Khetho ea Ntho
+tool.object_select.description = Hula lebokose ho potoloha ntho, 'me khetho e khomarele ntho e fumanoeng ka har'a lona.
+tool.object_select.history.select = Khetho ea Ntho

@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Chotsani
+tool.select.mode.intersect = Dulani Pamodzi
+
+tool.marquee.rect.name = Chisankho cha Rectangle
+tool.marquee.rect.description = Kokani kuti mupange malo osankhidwa a rectangle. Shift ikagwiridwa poyamba kukoka, imawonjezera pa malo osankhidwa; alt imachotsa; zonse ziwiri zimasunga pamene malo awiriwo adutsana. Shift ikagwiridwa mukamakoka imapanga sikweya. Kudina popanda kukoka kumachotsa chisankho.
+tool.marquee.ellipse.name = Chisankho cha Ellipse
+tool.marquee.ellipse.description = Kokani kuti mupange malo osankhidwa a ellipse, pogwiritsa ntchito shift/alt mofanana ndi chisankho cha rectangle.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Kokani malire pamanja; malo osankhidwa amatsekeka pakati pa mathero mukamaliza kukoka. Shift imawonjezera, alt imachotsa.
+tool.lasso.history.select = Kusankha ndi Lasso
+tool.lasso.polygonal.name = Lasso ya Polygon
+tool.lasso.polygonal.description = Dinani kona ndi kona kuti mupange malo osankhidwa a m'mphepete molunjika, ndipo dinani pafupi ndi malo oyamba kuti mutseke.
+tool.lasso.polygonal.history.select = Lasso ya Polygon
+tool.lasso.magnetic.name = Lasso ya Maginito
+tool.lasso.magnetic.description = Tsatirani m'mphepete mosayenera kwenikweni ndipo malire amamatira pa kusiyana kwakukulu pafupi ndi path.
+tool.lasso.magnetic.history.select = Lasso ya Maginito
+tool.lasso.magnetic.option.frequency = Kubwerezabwereza
+
+tool.wand.name = Ndodo Yamatsenga
+tool.wand.description = Dinani kuti musankhe dera lolumikizana la mtundu wofanana pansi pa pointer, malinga ndi tolerance—tolerance yomweyi yomwe Grow, Similar ndi Color Range zimawerenga.
+tool.wand.option.contiguous = Zolumikizana
+tool.wand.history.select = Ndodo Yamatsenga
+
+tool.quick_select.name = Kusankha Mwachangu
+tool.quick_select.description = Pentani pa dera ndipo malo osankhidwa amakula kudzera mu ma pixel ofanana amene burashi imadutsapo.
+tool.quick_select.history.select = Kusankha Mwachangu
+
+tool.object_select.name = Kusankha Chinthu
+tool.object_select.description = Kokani bokosi mozungulira chinthu ndipo malo osankhidwa amamatira pa chinthu chopezeka mkati mwake.
+tool.object_select.history.select = Kusankha Chinthu

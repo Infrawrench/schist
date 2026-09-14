@@ -1,0 +1,27 @@
+# Phetoho e lokolohileng, phetoho ea khetho le ho poma.
+
+tool.transform.name = Phetoho e Lokolohileng
+tool.transform.description = Phetoho e Lokolohileng. Ha e kenya tšebetsong, e bula lebokose la phetoho ho potoloha mokhahlelo o sebetsang: hula huku ho fetola boholo, hula ka ntle ho huku ho potoloha, kapa hula lehlakore ho sekamisa. Ha ho letho le ngoloang ho fihlela phetoho e tiisoa (Enter), 'me ho e hlakola (Escape) ho khutlisetsa mokhahlelo boemong ba pele.
+tool.transform.option.interpolation = Ho Hakanya Lipiksele
+tool.transform.history.transform = Phetoho e Lokolohileng
+tool.transform.history.image_size = Boholo ba Setšoantšo
+tool.transform.history.canvas_size = Boholo ba Seile
+
+tool.transform.selection.name = Fetola Khetho
+tool.transform.selection.description = Fetola Khetho: lebokose le tšoanang le tsamaisa moeli oa khetho ho e-na le lipiksele tse ka hare ho oona. Tiisa kapa u hlakole ho qeta.
+tool.transform.selection.history.transform = Fetola Khetho
+
+tool.transform.resample.nearest_neighbor = Piksele e Haufi ka ho Fetisisa
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Poma
+tool.crop.description = Hula ho tšoaea sebaka se lokelang ho sala 'me u lokise mehele ea sona; ho tiisa (Enter) ho poma tokomane ho latela sebaka seo, athe ho hlakola (Escape) ho e siea e sa fetoha.
+tool.crop.option.ratio = Karo-karolelano
+tool.crop.option.delete_cropped = Hlakola Lipiksele tse Pomiloeng
+tool.crop.choice.unconstrained = Ha e na Moeli
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Poma

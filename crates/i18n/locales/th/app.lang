@@ -1,0 +1,36 @@
+app.filter_gallery.title = แกลเลอรีฟิลเตอร์
+app.filter_gallery.stack = กองซ้อน (ใช้จากล่างขึ้นบน)
+app.filter_gallery.no_settings = ฟิลเตอร์นี้ไม่มีการตั้งค่า
+app.fonts.not_open_licensed = ไม่มีสัญญาอนุญาตแบบเปิด · {substitute} มีเมตริกตรงกัน
+app.fonts.missing_substituted = ขาดหาย · กำลังจัดข้อความด้วยแบบอักษรทดแทน
+app.fonts.not_in_catalogue = ไม่มี {family} ในแค็ตตาล็อกแบบอักษรเปิด
+app.fonts.no_faces = ไม่มีรูปแบบตัวอักษรของ {family} ให้ดาวน์โหลด
+app.fonts.empty_response = การตอบกลับว่างเปล่า
+app.update.unreadable_response = อ่านการตอบกลับไม่ได้: {error}
+app.update.no_temp_dir = ไม่มีไดเรกทอรีชั่วคราวสำหรับดาวน์โหลด
+app.update.asset_has_path = รุ่นที่เผยแพร่ระบุชื่อแอสเซ็ตพร้อมพาธ
+app.update.too_big = ไฟล์ดาวน์โหลดมีขนาดใหญ่กว่าที่รุ่นเผยแพร่ระบุ
+app.update.stopped_at = การดาวน์โหลดหยุดที่ {got} จาก {total} ไบต์
+app.update.hash_mismatch = แฮชของไฟล์ดาวน์โหลดคือ {got} แทนที่จะเป็น {want}
+app.update.not_in_bundle = สำเนานี้ไม่ได้อยู่ภายในบันเดิลแอปพลิเคชัน
+app.update.no_parent_dir = บันเดิลแอปพลิเคชันไม่มีไดเรกทอรีแม่
+app.update.cannot_write = ไม่สามารถเขียนไปยัง {dir}
+app.update.cannot_move_aside = ไม่สามารถย้าย {app} ออกไปด้านข้าง
+app.update.cannot_move_in = ไม่สามารถย้ายบันเดิลใหม่เข้าที่
+app.update.cannot_run_ditto = ไม่สามารถเรียกใช้ /usr/bin/ditto
+app.update.unpack_failed = แตกไฟล์ดาวน์โหลดไม่สำเร็จ: {error}
+app.update.no_app_in_download = ไฟล์ดาวน์โหลดไม่มี Schist.app
+app.update.cannot_run_codesign = ไม่สามารถเรียกใช้ /usr/bin/codesign
+app.update.signature_invalid = ตรวจสอบลายเซ็นของไฟล์ดาวน์โหลดไม่ผ่าน: {error}
+app.update.download_unsigned = สำเนานี้มีลายเซ็น แต่ไฟล์ดาวน์โหลดไม่มีลายเซ็น
+app.update.different_developer = ไฟล์ดาวน์โหลดลงนามโดยนักพัฒนารายอื่น
+app.update.cannot_relaunch = ไม่สามารถเริ่มโปรแกรมเปิดใหม่
+app.update.not_installed_copy = สำเนานี้ไม่ได้ถูกวางไว้ที่นี่โดยโปรแกรมติดตั้ง
+app.update.cannot_start_installer = ไม่สามารถเริ่มโปรแกรมติดตั้ง
+app.update.platform_unsupported = การอัปเดตบนแพลตฟอร์มนี้ติดตั้งด้วยวิธีเดียวกับที่ติดตั้ง Schist
+app.vulkan.no_loader = schist: ระบบนี้ไม่มีตัวโหลด Vulkan จึงไม่มีสิ่งที่ใช้วาดภาพได้\n\nSchist แสดงผลผ่าน Vulkan และยังไม่ได้ติดตั้ง `libvulkan.so.1`\nต้องมีทั้งตัวโหลดและไดรเวอร์:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ไม่พบไดรเวอร์ Vulkan ที่เซสชันนี้ชี้ไป\n\nมีการตั้งค่า {var} และการตั้งค่านี้จะ *แทนที่* การค้นหาไดรเวอร์ของตัวโหลด\nแทนที่จะเพิ่มตำแหน่งค้นหา ดังนั้นไฟล์ที่ไม่มีอยู่เหล่านี้จึงเป็นรายการไดรเวอร์\nทั้งหมด และทุกโปรแกรม Vulkan ในเซสชันนี้จะมองไม่เห็นไดรเวอร์ใดเลย\nไม่ว่าจะติดตั้งไว้กี่ตัวก็ตาม:\n\n{missing}\n    {var}={value}\n\nให้ชี้ไปยังแมนิเฟสต์ที่มีอยู่ ไดรเวอร์ที่ติดตั้งจะวางแมนิเฟสต์ไว้ใน\n/usr/share/vulkan/icd.d หรือยกเลิกการตั้งค่าแล้วให้ตัวโหลดค้นหาเอง\nหากเซสชันตั้งค่านี้จากไฟล์กำหนดค่า (เช่น `env =` ของ Hyprland,\nไฟล์ environment.d ของ systemd หรือโปรไฟล์เชลล์) ต้องแก้ไขที่นั่น\nและต้องเข้าสู่ระบบใหม่เพื่อให้การเปลี่ยนแปลงไปถึงโปรแกรมที่ทำงานอยู่\n
+app.vulkan.override_note = \nมีการตั้งค่า {var} เป็น {value} ซึ่งจะแทนที่การค้นหาของตัวโหลดเอง:\nหากแมนิเฟสต์เหล่านั้นไม่มีรายการสำหรับเครื่องนี้ ให้ลองยกเลิกการตั้งค่าเป็นอันดับแรก\n
+app.vulkan.no_driver = schist: ไม่มีไดรเวอร์ Vulkan ติดตั้งอยู่ จึงไม่มีสิ่งที่ใช้วาดภาพได้\n\nSchist แสดงผลผ่าน Vulkan ตัวโหลดติดตั้งแล้วแต่รายงานว่าไม่มีไดรเวอร์\nกล่าวคือไม่มีสิ่งใดลงทะเบียนไดรเวอร์ไว้ในตำแหน่งค้นหาทั้งสองแห่ง:\n\n{dirs}\n\nตัวโหลดแจกจ่ายแยกจากไดรเวอร์ ปัญหานี้จึงมักเกิดจากแพ็กเกจเดียวที่ขาดหายไป\n\nติดตั้งไดรเวอร์สำหรับ GPU ของเครื่องนี้:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nไดรเวอร์กรรมสิทธิ์ของ NVIDIA มีส่วนนี้ในตัว (`nvidia-utils` บน Arch และ\n`nvidia-driver` บน Debian) ในเครื่องเสมือนหรือระบบที่ไม่มีไดรเวอร์ GPU\nให้ติดตั้ง ซอฟต์แวร์แรสเตอร์ไรเซอร์จะใช้งานได้: `vulkan-swrast` บน Arch\nและเป็นส่วนหนึ่งของ `mesa-vulkan-drivers` บนระบบอื่น แม้จะช้าแต่เริ่มทำงานได้\n{overridden}
+app.vulkan.no_device = schist: มีไดรเวอร์ Vulkan ติดตั้งอยู่แต่ไม่มีอุปกรณ์สำหรับแสดงผล\n\nไดรเวอร์อาจไม่รองรับ GPU นี้หรือไม่สามารถเข้าถึงได้ เช่น ผ่าน SSH หรือ\nภายในคอนเทนเนอร์ มักเกิดจากไม่มี /dev/dri คำสั่ง `vulkaninfo --summary`\nจะแสดงสิ่งที่ตัวโหลดมองเห็น\n\nซอฟต์แวร์แรสเตอร์ไรเซอร์สามารถแสดงผลโดยไม่ใช้ GPU หากเครื่องนี้จำเป็นต้องใช้:\n`vulkan-swrast` บน Arch และเป็นส่วนหนึ่งของ `mesa-vulkan-drivers`\nบน Debian และ Fedora\n
+app.vulkan.skip_hint = หากต้องการเริ่ม Schist ต่อไปและปล่อยให้โปรแกรมรายงานข้อผิดพลาดเอง ให้ตั้งค่า {var}=1

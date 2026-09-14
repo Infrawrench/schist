@@ -1,0 +1,44 @@
+# ვექტორული ხელსაწყოები
+tool.pen.name = კალამი
+tool.pen.description = ააგეთ კონტური: კუთხის წერტილისთვის დაწკაპუნეთ, მრუდის სახელურების გამოსაწევად გადაათრიეთ, დასახურად კი პირველ წერტილზე დაწკაპუნეთ. დადასტურება კონტურს ფიგურის ფენად გარდაქმნის.
+tool.pen.option.rubber_band = რეზინის ზოლი
+tool.pen.history.fill = კონტურის შევსება
+tool.pen.default_path_name = კონტური {n}
+tool.pen.freeform.name = თავისუფალი კალამი
+tool.pen.freeform.description = ხელით გაავლეთ ხაზი და იგი კონტურად მოერგება იმ სიზუსტით, რომელსაც მორგების პარამეტრი განსაზღვრავს.
+tool.pen.freeform.option.fit = მორგება
+tool.pen.curvature.name = მრუდის კალამი
+tool.pen.curvature.description = თანმიმდევრულად დაწკაპუნეთ წერტილებზე და კონტური მათ შორის გლუვად გაიღუნება.
+
+tool.path_select.name = კონტურის მონიშვნა
+tool.path_select.description = კონტურის მოსანიშნად დაწკაპუნეთ, ხოლო მთლიანად გადასაადგილებლად გადაათრიეთ.
+tool.direct_select.name = პირდაპირი მონიშვნა
+tool.direct_select.description = კონტურის ფორმის შესაცვლელად გადაათრიეთ ცალკეული საყრდენი წერტილი ან მისი სახელურები.
+
+tool.shape.history.layer = {name} — ფენა
+tool.shape.rect.name = მართკუთხედის ხელსაწყო
+tool.shape.rect.label = მართკუთხედი
+tool.shape.rect.description = წინა პლანის ფერით შემოხაზეთ მართკუთხა ფიგურის ფენა; იგი ვექტორული დარჩება და ზომის შეცვლისას ხელახლა რასტერიზდება.
+tool.shape.ellipse.name = ელიფსის ხელსაწყო
+tool.shape.ellipse.label = ელიფსი
+tool.shape.ellipse.description = წინა პლანის ფერით შემოხაზეთ ელიფსური ფიგურის ფენა.
+tool.shape.line.name = ხაზის ხელსაწყო
+tool.shape.line.label = ხაზი
+tool.shape.line.description = წინა პლანის ფერით გაავლეთ სწორი ხაზის ფენა.
+tool.shape.line.option.weight = სისქე
+tool.shape.line.option.arrow_start = დასაწყისი
+tool.shape.line.option.arrow_end = დასასრული
+tool.shape.polygon.name = მრავალკუთხედის ხელსაწყო
+tool.shape.polygon.label = მრავალკუთხედი
+tool.shape.polygon.description = წინა პლანის ფერით შემოხაზეთ წესიერი მრავალკუთხედის ფენა, რომლის გვერდების რაოდენობაც პარამეტრებშია მითითებული.
+tool.shape.polygon.option.sides = გვერდები
+
+tool.shape.custom.name = მორგებული ფიგურა
+tool.shape.custom.label = მორგებული ფიგურა
+tool.shape.custom.description = შემოხაზეთ ერთ-ერთი ჩაშენებული მზა ფიგურა, რომელიც ფიგურის პარამეტრითაა არჩეული.
+tool.shape.custom.choice.heart = გული
+tool.shape.custom.choice.star = ვარსკვლავი
+tool.shape.custom.choice.arrow = ისარი
+tool.shape.custom.choice.lightning = ელვა
+tool.shape.custom.choice.cross = ჯვარი
+tool.shape.custom.choice.speech_bubble = საუბრის ღრუბელი

@@ -1,0 +1,22 @@
+tool.liquify.name = Сыекландыру
+tool.liquify.description = Зур пумала астындагы пиксельләрне этегез, әйләндерегез, кысыгыз яки кабартыгыз; гамәлне режим көйләве билгели. Деформация челтәрдә туплана һәм раслаганда катламга кулланыла.
+tool.liquify.option.tool = Корал
+tool.liquify.choice.forward_warp = Алга деформацияләү
+tool.liquify.choice.reconstruct = Торгызу
+tool.liquify.choice.twirl_cw = Сәгать уңаена бөтерү
+tool.liquify.choice.twirl_ccw = Сәгать уңаена каршы бөтерү
+tool.liquify.choice.pucker = Кысу
+tool.liquify.choice.bloat = Кабару
+tool.liquify.choice.push_left = Сулга этү
+tool.liquify.history.liquify = Сыекландыру
+
+tool.puppet_warp.name = Курчак деформациясе
+tool.puppet_warp.description = Катламны берничә ноктада беркетү өчен чиртегез, аннары берсен сөйрәгез: «Катылык» көйләвенә карап, челтәр беркеткечләр тирәли катырак яки иркенрәк бөгелә. Раслаганда үзгәреш кулланыла.
+tool.puppet_warp.option.stiffness = Катылык
+tool.puppet_warp.history.puppet_warp = Курчак деформациясе
+
+tool.vanishing_point.name = Югалу ноктасы
+tool.vanishing_point.description = Перспективасы булган әйбер өстендә яссылык сызу өчен сөйрәгез, аннары режимны «Клон»га күчереп буягыз: күчерелгән пиксельләр яссылыкка иярә һәм ерагайган саен кечерәя.
+tool.vanishing_point.choice.edit_plane = Яссылыкны үзгәртү
+tool.vanishing_point.choice.clone = Клон
+tool.vanishing_point.history.vanishing_point = Югалу ноктасы

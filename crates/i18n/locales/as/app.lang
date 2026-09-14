@@ -1,0 +1,48 @@
+# crates/app outside the panels, workspace and dialogs: the Filter
+# Gallery, the font fetcher, the self-updater's errors (shown in the
+# status line when an update fails) and the Vulkan check's advice.
+
+# Filter Gallery
+app.filter_gallery.title = ফিল্টাৰ গেলেৰী
+app.filter_gallery.stack = স্তূপ (তলৰ পৰা ওপৰলৈ প্ৰয়োগ কৰা হয়)
+app.filter_gallery.no_settings = এই ফিল্টাৰটোৰ কোনো ছেটিং নাই।
+
+# Fonts: the row detail in Missing Fonts, and what a failed fetch says
+app.fonts.not_open_licensed = মুক্ত অনুজ্ঞাপত্ৰ নাই · {substitute}-ৰ মাপ ইয়াৰ সৈতে মিলে
+app.fonts.missing_substituted = অনুপস্থিত · লিখনী বিকল্প ফণ্টত সজোৱা হৈছে
+app.fonts.not_in_catalogue = {family} মুক্ত ফণ্ট কেটেলগত নাই
+app.fonts.no_faces = {family}-ৰ কোনো ডাউনল'ডযোগ্য ফেচ নাই
+app.fonts.empty_response = খালী সঁহাৰি
+
+# The self-updater: why a download or install failed
+app.update.unreadable_response = পঢ়িব নোৱাৰা সঁহাৰি: {error}
+app.update.no_temp_dir = ডাউনল'ড কৰিবলৈ কোনো অস্থায়ী ডাইৰেক্টৰি নাই
+app.update.asset_has_path = ৰিলিজটোৱে তাৰ সম্পদৰ নামত এটা পথ দিছে
+app.update.too_big = ডাউনল'ডটো ৰিলিজে কোৱা আকাৰতকৈ ডাঙৰ
+app.update.stopped_at = ডাউনল'ড {total} বাইটৰ ভিতৰত {got} বাইটত ৰৈ গ'ল
+app.update.hash_mismatch = ডাউনল'ডৰ হেশ {want} নহয়, {got}
+app.update.not_in_bundle = এই প্ৰতিলিপিটো কোনো এপ্লিকেশ্যন বাণ্ডলৰ ভিতৰত নাই
+app.update.no_parent_dir = এপ্লিকেশ্যন বাণ্ডলটোৰ কোনো মূল ডাইৰেক্টৰি নাই
+app.update.cannot_write = {dir}-ত লিখিব নোৱাৰি
+app.update.cannot_move_aside = {app} আঁতৰাই ৰাখিব নোৱাৰি
+app.update.cannot_move_in = নতুন বাণ্ডলটো যথাস্থানলৈ নিব নোৱাৰি
+app.update.cannot_run_ditto = /usr/bin/ditto চলাব নোৱাৰি
+app.update.unpack_failed = ডাউনল'ডটো আনপেক কৰোঁতে বিফল হ'ল: {error}
+app.update.no_app_in_download = ডাউনল'ডত কোনো Schist.app নাই
+app.update.cannot_run_codesign = /usr/bin/codesign চলাব নোৱাৰি
+app.update.signature_invalid = ডাউনল'ডৰ স্বাক্ষৰ সত্যাপন নহ'ল: {error}
+app.update.download_unsigned = এই প্ৰতিলিপিটো স্বাক্ষৰিত, কিন্তু ডাউনল'ডটো নহয়
+app.update.different_developer = ডাউনল'ডটো আন এজন ডেভেলপাৰে স্বাক্ষৰ কৰিছে
+app.update.cannot_relaunch = পুনৰ আৰম্ভকাৰীটো চলাব নোৱাৰি
+app.update.not_installed_copy = এই প্ৰতিলিপিটো ইনষ্টলাৰে ইয়াত ৰখা নাছিল
+app.update.cannot_start_installer = ইনষ্টলাৰ আৰম্ভ কৰিব নোৱাৰি
+app.update.platform_unsupported = এই প্লেটফৰ্মত আপডেটসমূহ Schist ইনষ্টল কৰাৰ একে পদ্ধতিৰে ইনষ্টল কৰা হয়
+
+# The Vulkan check on Linux: printed to the terminal before any window
+# exists. Package names and commands stay as they are in every language.
+app.vulkan.no_loader = schist: এই ছিষ্টেমত কোনো Vulkan ল'ডাৰ নাই, সেয়েহে অংকন কৰিবলৈ একো নাই।\n\nSchist-এ Vulkan-ৰ জৰিয়তে ৰেণ্ডাৰ কৰে, আৰু `libvulkan.so.1` ইনষ্টল কৰা নাই।\nল'ডাৰ আৰু ড্ৰাইভাৰ দুয়োটাই প্ৰয়োজন:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: এই ছেশ্যনে সূচোৱা Vulkan ড্ৰাইভাৰটো তাত নাই।\n\n{var} নিৰ্ধাৰিত আছে, আৰু ইয়াক নিৰ্ধাৰণ কৰিলে ড্ৰাইভাৰৰ বাবে ল'ডাৰে কৰা সন্ধানত যোগ হোৱাৰ সলনি সেই সন্ধানটো *প্ৰতিস্থাপন* কৰে। সেয়েহে অস্তিত্ব নথকা এই ফাইলবোৰেই ড্ৰাইভাৰৰ সম্পূৰ্ণ তালিকা—যিমানেই ড্ৰাইভাৰ ইনষ্টল হৈ নাথাকক কিয়, এই ছেশ্যনৰ প্ৰতিটো Vulkan প্ৰগ্ৰামে কোনো ড্ৰাইভাৰেই দেখা নাপায়:\n\n{missing}\n    {var}={value}\n\nইয়াক অস্তিত্ব থকা কোনো মেনিফেষ্টলৈ সূচাওক—ইনষ্টল কৰা ড্ৰাইভাৰবোৰে নিজৰ মেনিফেষ্ট /usr/share/vulkan/icd.d-ত ৰাখে—অথবা ইয়াক অনিৰ্ধাৰিত কৰি ল'ডাৰক নিজে বিচাৰিবলৈ দিয়ক। কোনো কনফিগ ফাইলৰ পৰা ইয়াক নিৰ্ধাৰণ কৰা ছেশ্যনক (Hyprland-ৰ `env =`, systemd environment.d ড্ৰপ-ইন, বা শ্বেল প্ৰ'ফাইল) তাতেই সলনি কৰিব লাগিব; ইতিমধ্যে চলি থকা বস্তুবোৰলৈ পৰিৱৰ্তনটো পাবলৈ নতুনকৈ লগ ইন কৰিব লাগিব।\n
+app.vulkan.override_note = \n{var}-ক {value} হিচাপে নিৰ্ধাৰণ কৰা আছে, আৰু ই ল'ডাৰৰ নিজা সন্ধান প্ৰতিস্থাপন কৰে: সেই মেনিফেষ্টবোৰৰ এটাও এই মেচিনৰ বাবে নহ'লে, প্ৰথমে ইয়াক অনিৰ্ধাৰিত কৰি চাওক।\n
+app.vulkan.no_driver = schist: কোনো Vulkan ড্ৰাইভাৰ ইনষ্টল কৰা নাই, সেয়েহে অংকন কৰিবলৈ একো নাই।\n\nSchist-এ Vulkan-ৰ জৰিয়তে ৰেণ্ডাৰ কৰে। ল'ডাৰ ইনষ্টল কৰা আছে, কিন্তু ই কোনো ড্ৰাইভাৰৰ খবৰ নিদিয়ে—সন্ধান কৰা দুয়োটা স্থানৰ এটাতো কোনো ড্ৰাইভাৰ পঞ্জীভুক্ত হোৱা নাই:\n\n{dirs}\n\nল'ডাৰ ড্ৰাইভাৰৰ পৰা পৃথকে প্ৰদান কৰা হয়, সেয়েহে সাধাৰণতে কেৱল এটা পেকেজ অনুপস্থিত থাকে।\n\nএই মেচিনৰ GPU-ৰ বাবে উপযুক্তটো ইনষ্টল কৰক:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-ৰ নিজস্ব ড্ৰাইভাৰত নিজৰ ড্ৰাইভাৰ অন্তৰ্ভুক্ত থাকে (Arch-ত `nvidia-utils`, Debian-ত `nvidia-driver`)। ভাৰ্চুৱেল মেচিনত, অথবা ইনষ্টল কৰিবলৈ কোনো GPU ড্ৰাইভাৰ নথকা ঠাইত, ছফ্টৱেৰ ৰেষ্টাৰাইজাৰটোৱেই কাম কৰে: Arch-ত `vulkan-swrast`, আন ছিষ্টেমত `mesa-vulkan-drivers`-ৰ অংশ। ই লেহেমীয়া, কিন্তু আৰম্ভ হয়।\n{overridden}
+app.vulkan.no_device = schist: Vulkan ড্ৰাইভাৰ ইনষ্টল কৰা আছে, কিন্তু ৰেণ্ডাৰ কৰিবলৈ কোনো ডিভাইচ প্ৰদান নকৰে।\n\nড্ৰাইভাৰটোৱে এই GPU সমৰ্থন নকৰিব পাৰে, অথবা ইয়াত প্ৰৱেশ কৰিব নোৱাৰিব পাৰে—SSH-ৰ জৰিয়তে বা কণ্টেইনাৰৰ ভিতৰত /dev/dri প্ৰায়ে অনুপস্থিত থাকে। `vulkaninfo --summary`-এ ল'ডাৰে কি দেখা পায় সেয়া জনায়।\n\nএই মেচিনত GPU নাথাকিলে ছফ্টৱেৰ ৰেষ্টাৰাইজাৰে GPU অবিহনেই ৰেণ্ডাৰ কৰে: Arch-ত `vulkan-swrast`, Debian আৰু Fedora-ত `mesa-vulkan-drivers`-ৰ অংশ।\n
+app.vulkan.skip_hint = Schist যিকোনো প্ৰকাৰে আৰম্ভ কৰি নিজা ধৰণে বিফল হ'বলৈ দিবলৈ {var}=1 নিৰ্ধাৰণ কৰক।

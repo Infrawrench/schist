@@ -1,0 +1,40 @@
+# Tebea nsɛm
+workspace.canvas.rotate_view_degrees = Dannan Hwɛbea {degrees}°
+workspace.canvas.view_reset = Wɔasan ahyɛ hwɛbea ase
+workspace.canvas.notes_on = Hyɛnsode asɔ
+workspace.canvas.notes_off = Hyɛnsode adum
+workspace.canvas.rulers_on = Susudua asɔ
+workspace.canvas.rulers_off = Susudua adum
+workspace.canvas.grid_on = Grid nsensanee asɔ
+workspace.canvas.grid_off = Grid nsensanee adum
+workspace.canvas.guides_on = Akwankyerɛ asɔ
+workspace.canvas.guides_off = Akwankyerɛ adum
+workspace.canvas.extras_on = Nneɛma foforo asɔ
+workspace.canvas.extras_off = Nneɛma foforo adum
+workspace.canvas.snap_on = Nneɛma nkabom asɔ
+workspace.canvas.snap_off = Nneɛma nkabom adum
+workspace.canvas.guides_cleared = Wɔapa akwankyerɛ no
+workspace.canvas.no_path = Kwan biara nni hɔ a wɔde bedi dwuma
+workspace.canvas.path_empty = Biribiara nni kwan no mu
+workspace.canvas.stroke_needs_selection = Nsensanee no hia sɛ wɔpaw beae bi
+workspace.canvas.nothing_to_stroke = Biribiara nni hɔ a wɔde nsensanee bɛfa so
+workspace.canvas.content_aware_fill_needs_selection = Hyɛ Mu a Ɛte Mu Nsɛm Ase no hia sɛ wɔpaw beae bi
+workspace.canvas.content_aware_fill_needs_pixel_layer = Hyɛ Mu a Ɛte Mu Nsɛm Ase no hia pixel layer
+workspace.canvas.color_range_needs_pixel_layer = Kɔla Ahorow Ntam no hia pixel layer
+workspace.canvas.nothing_to_adjust = Biribiara nni hɔ a wɔbɛsiesie
+workspace.canvas.nothing_to_trim = Biribiara nni hɔ a wɔbɛtwitwa ano
+workspace.canvas.trimmed = Wɔatwitwa ano
+workspace.canvas.indexed_not_supported = Wɔmmoa Kɔla a Wɔahyehyɛ no de besi seesei
+workspace.canvas.opacity_percent = Sɛnea ɛkata so: {n}%
+
+# Abakɔsɛm
+workspace.history.stroke = Nsensanee
+workspace.history.fill = Hyɛ Mu
+workspace.history.content_aware_scale = Sesa Kɛse a Ɛte Mu Nsɛm Ase
+workspace.history.filter_gallery = Filter Gallery
+workspace.history.color_range = Kɔla Ahorow Ntam
+workspace.history.move_layer = Tu Layer
+workspace.history.move_layers = Tu Layer Ahorow
+workspace.history.layer_opacity = Sɛnea Layer Kata So
+workspace.history.delete_note = Pepa Hyɛnsode
+workspace.history.edit_note = Siesie Hyɛnsode

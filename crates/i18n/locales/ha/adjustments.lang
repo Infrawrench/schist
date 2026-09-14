@@ -1,0 +1,20 @@
+# Matakan daidaitawa da umarnin Hoto ▸ Daidaitawa.
+adjustment.levels.name = Matakai
+adjustment.curves.name = Lanƙwasassun layuka
+adjustment.hue_saturation.name = Launin haske/Jikewar launi
+adjustment.brightness_contrast.name = Haske/Bambancin haske
+adjustment.black_white.name = Baƙi da Fari
+adjustment.solid_color.name = Launi Ɗaya
+adjustment.gradient_fill.name = Ciko da Sauyin Launi
+adjustment.pattern_fill.name = Ciko da Tsari
+adjustment.invert.name = Juya Launuka
+adjustment.posterize.name = Rage Matakan Launi
+adjustment.threshold.name = Iyakar Haske
+adjustment.color_balance.name = Daidaiton Launi
+adjustment.vibrance.name = Ƙarfin Launi
+adjustment.exposure.name = Fallasa Haske
+adjustment.photo_filter.name = Matatar Hoto
+adjustment.gradient_map.name = Taswirar Sauyin Launi
+adjustment.selective_color.name = Zaɓaɓɓen Launi
+adjustment.channel_mixer.name = Mahaɗin Tashoshi
+adjustment.other.name = Daidaitawa

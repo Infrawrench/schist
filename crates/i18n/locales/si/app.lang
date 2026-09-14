@@ -1,0 +1,43 @@
+# පෙරහන් ගැලරිය
+app.filter_gallery.title = පෙරහන් ගැලරිය
+app.filter_gallery.stack = ගොඩ (පහළ සිට ඉහළට යෙදේ)
+app.filter_gallery.no_settings = මෙම පෙරහනට සැකසුම් නැත.
+
+# අකුරු මුහුණු
+app.fonts.not_open_licensed = විවෘත බලපත්‍රයක් නැත · {substitute} එහි මිනුම්වලට ගැළපේ
+app.fonts.missing_substituted = අස්ථානගතයි · පෙළ ආදේශකයකින් සකසමින් පවතී
+app.fonts.not_in_catalogue = {family} විවෘත අකුරු නාමාවලියේ නැත
+app.fonts.no_faces = {family} සඳහා බාගත කළ හැකි අකුරු මුහුණු නැත
+app.fonts.empty_response = හිස් ප්‍රතිචාරයකි
+
+# ස්වයං යාවත්කාලීනකය
+app.update.unreadable_response = කියවිය නොහැකි ප්‍රතිචාරයකි: {error}
+app.update.no_temp_dir = බාගැනීමට තාවකාලික නාමාවලියක් නැත
+app.update.asset_has_path = නිකුතුව එහි සම්පතට මාර්ගයක් සහිත නමක් දී ඇත
+app.update.too_big = බාගැනීම නිකුතුව සඳහන් කරන ප්‍රමාණයට වඩා විශාලයි
+app.update.stopped_at = බයිට් {total}න් {got} දී බාගැනීම නතර විය
+app.update.hash_mismatch = බාගැනීමේ හැෂ් අගය {want} නොව {got} වේ
+app.update.not_in_bundle = මෙම පිටපත යෙදුම් බණ්ඩලයක් තුළ නැත
+app.update.no_parent_dir = යෙදුම් බණ්ඩලයට මව් නාමාවලියක් නැත
+app.update.cannot_write = {dir} වෙත ලිවිය නොහැක
+app.update.cannot_move_aside = {app} පසෙකට ගෙනයෑමට නොහැක
+app.update.cannot_move_in = නව බණ්ඩලය නියමිත ස්ථානයට ගෙනයෑමට නොහැක
+app.update.cannot_run_ditto = /usr/bin/ditto ධාවනය කළ නොහැක
+app.update.unpack_failed = බාගැනීම දිගහැරීම අසාර්ථකයි: {error}
+app.update.no_app_in_download = බාගැනීම තුළ Schist.app නැත
+app.update.cannot_run_codesign = /usr/bin/codesign ධාවනය කළ නොහැක
+app.update.signature_invalid = බාගැනීමේ අත්සන සත්‍යාපනය නොවේ: {error}
+app.update.download_unsigned = මෙම පිටපත අත්සන් කර ඇති නමුත් බාගැනීම අත්සන් කර නැත
+app.update.different_developer = බාගැනීම වෙනත් සංවර්ධකයකු විසින් අත්සන් කර ඇත
+app.update.cannot_relaunch = නැවත දියත්කිරීමේ වැඩසටහන ආරම්භ කළ නොහැක
+app.update.not_installed_copy = මෙම පිටපත ස්ථාපකය විසින් මෙහි තබන ලද්දක් නොවේ
+app.update.cannot_start_installer = ස්ථාපකය ආරම්භ කළ නොහැක
+app.update.platform_unsupported = මෙම වේදිකාවේ යාවත්කාලීන ස්ථාපනය කරන්නේ Schist ස්ථාපනය කළ ආකාරයටමය
+
+# Linux හි Vulkan පරීක්ෂාව
+app.vulkan.no_loader = schist: මෙම පද්ධතියේ Vulkan පූරකයක් නැති බැවින් ඇඳීමට කිසිවක් නැත.\n\nSchist විදැහුම් කරන්නේ Vulkan හරහා වන අතර `libvulkan.so.1` ස්ථාපනය කර නැත.\nපූරකය සහ ධාවකයක් යන දෙකම අවශ්‍යයි:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: මෙම සැසිය යොමු කරන Vulkan ධාවකය එහි නැත.\n\n{var} සකසා ඇති අතර, එය සැකසීමෙන් පූරකයේ ධාවක සෙවීම වෙත එකතු කිරීම වෙනුවට එම සෙවීම *ප්‍රතිස්ථාපනය* කරයි. එබැවින් නොපවතින මෙම ගොනු සම්පූර්ණ ධාවක ලැයිස්තුව වේ — ධාවක කොපමණ ස්ථාපනය කර තිබුණත් මෙම සැසියේ සෑම Vulkan වැඩසටහනකටම කිසිදු ධාවකයක් නොපෙනේ:\n\n{missing}\n    {var}={value}\n\nඑය පවතින ප්‍රකාශන ගොනුවකට යොමු කරන්න — ස්ථාපිත ධාවක තම ගොනු /usr/share/vulkan/icd.d හි තබයි — නැතහොත් එය ඉවත් කර පූරකයට තමන්ම සොයාගැනීමට ඉඩ දෙන්න. මෙය වින්‍යාස ගොනුවකින් සකසන සැසියකට (Hyprland හි `env =`, systemd environment.d drop-in එකක්, ෂෙල් පැතිකඩක්) එහිදීම උපදෙස් දිය යුතු අතර, දැනටමත් ධාවනය වන දේ වෙත වෙනස ළඟා වීමට අලුතින් පිවිසිය යුතුය.\n
+app.vulkan.override_note = \n{var} {value} ලෙස සකසා ඇති අතර එය පූරකයේම සෙවීම ප්‍රතිස්ථාපනය කරයි: එම ප්‍රකාශන ගොනු කිසිවක් මෙම යන්ත්‍රයට අදාළ නොවේ නම්, එය ඉවත් කිරීම මුලින්ම උත්සාහ කළ යුතු දෙයයි.\n
+app.vulkan.no_driver = schist: Vulkan ධාවකයක් ස්ථාපනය කර නැති බැවින් ඇඳීමට කිසිවක් නැත.\n\nSchist විදැහුම් කරන්නේ Vulkan හරහාය. පූරකය ස්ථාපිත නමුත් එය කිසිදු ධාවකයක් වාර්තා නොකරයි — සොයන ස්ථාන දෙකෙන් එකකවත් කිසිවක් ධාවකයක් ලියාපදිංචි කර නැත:\n\n{dirs}\n\nපූරකය ධාවකවලින් වෙන්ව සපයන බැවින්, සාමාන්‍යයෙන් මෙයට හේතුව එක් අස්ථානගත පැකේජයකි.\n\nමෙම යන්ත්‍රයේ GPU සඳහා වන ධාවකය ස්ථාපනය කරන්න:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA හි හිමිකාරී ධාවකය තමන්ගේම එක රැගෙන එයි (Arch හි `nvidia-utils`, Debian හි `nvidia-driver`). අතථ්‍ය යන්ත්‍රයක හෝ ස්ථාපනය කිරීමට GPU ධාවකයක් නොමැති වෙනත් තැනක ක්‍රියා කරන්නේ මෘදුකාංග රාස්ටරකයයි: Arch හි `vulkan-swrast`, අනෙක් පද්ධතිවල `mesa-vulkan-drivers` හි කොටසකි. එය මන්දගාමී නමුත් ආරම්භ වේ.\n{overridden}
+app.vulkan.no_device = schist: Vulkan ධාවකයක් ස්ථාපනය කර ඇති නමුත් විදැහුම් කිරීමට උපාංගයක් සපයන්නේ නැත.\n\nධාවකය මෙම GPU සඳහා නොවිය හැක, නැතහොත් එයට ළඟා විය නොහැකි විය හැක — SSH හරහා හෝ බහාලුමක් තුළ /dev/dri අස්ථානගත වීම සාමාන්‍ය කරුණකි. පූරකයට පෙනෙන දේ `vulkaninfo --summary` වාර්තා කරයි.\n\nමෙම යන්ත්‍රයේ තත්ත්වය එය නම්, මෘදුකාංග රාස්ටරකය GPU එකක් නොමැතිව වුවද විදැහුම් කරයි: Arch හි `vulkan-swrast`, Debian සහ Fedora හි `mesa-vulkan-drivers` හි කොටසකි.\n
+app.vulkan.skip_hint = කෙසේ හෝ Schist ආරම්භ කර එයට තමන්ගේ ආකාරයට අසාර්ථක වීමට ඉඩ දීමට {var}=1 සකසන්න.

@@ -1,0 +1,357 @@
+# Barra laterale
+library.sidebar.view = VISUALIZATZIONE
+library.sidebar.folders = CARTELLAS
+library.sidebar.buckets = GRUPOS
+library.sidebar.people = PERSONES
+library.sidebar.group_by = AGRUPA PRO
+library.sidebar.all_photos = Totu is fotografias
+library.sidebar.world_map = Mapa mundiale
+library.sidebar.map_filter = Filtru de sa mapa…
+library.sidebar.map_filter_on = Filtru de sa mapa ativu
+library.sidebar.add_folder = + Annanghe una cartella…
+library.sidebar.new_bucket = + Grupu nou
+library.sidebar.stop_watching = Firma su controllu de custa cartella
+library.sidebar.unnamed_faces = Caras chena nòmine
+library.sidebar.retry_face_model = Torra a iscarrigare su modellu de caras
+library.sidebar.retry_recognition_model = Torra a iscarrigare su modellu de reconnoschimentu
+library.sidebar.looking_for_faces = Chirchende caras… {looked}/{total}
+library.sidebar.faces_appear = Is caras ant a apàrrere inoghe a manu a manu chi is fotografias sunt inditzizadas.
+library.sidebar.downloading_face_models = Iscarrighende is modelos de caras… {got} de {total} MB
+
+# Agrupamentu
+library.group_by.date = Data
+library.group_by.folder = Cartella
+library.group_by.place = Logu
+
+# Meses
+library.month.january = Ghennàrgiu
+library.month.february = Freàrgiu
+library.month.march = Martzu
+library.month.april = Abrile
+library.month.may = Maju
+library.month.june = Làmpadas
+library.month.july = Trìulas
+library.month.august = Austu
+library.month.september = Cabudanni
+library.month.october = Santugaine
+library.month.november = Santandria
+library.month.december = Nadale
+library.month.title = {month} {year}
+library.month.undated = Chena data
+
+# Intestatziones de grupos
+library.group.person = Persones · {name}
+library.group.person_in = Persones · {name} · in {scope}
+library.group.unnamed = Caras chena nòmine
+library.group.unnamed_in = Caras chena nòmine · in {scope}
+library.group.bucket = Grupu · {name}
+library.group.no_location = Chena positzione
+library.group.not_indexed = Non inditzizadu ancora
+library.group.detail = {detail} — {n}
+
+# Barra superiore
+library.strip.import = Importa…
+library.strip.add_folder = Annanghe una cartella…
+library.strip.settings = Cunfiguratzione…
+library.strip.new_file = Archìviu nou…
+library.strip.back_to_editing = Torra a sa modìfica
+library.strip.enable_search = Ativa sa chirca de fotografias…
+library.strip.enable_search_menu = Ativa sa chirca de fotografias…
+library.strip.map_filter_chip = Filtru de sa mapa: {name}
+library.strip.downloading_search = Iscarrighende sa chirca de fotografias… {got} de {total} MB
+
+# Chirca
+library.search.placeholder = Chirca fotografias…
+library.search.placeholder_indexing = Chirca ({indexed}/{total} inditzizadas)
+library.search.placeholder_people_places = Chirca persones e logos…
+library.search.results = Resurtados de chirca
+library.search.results_in_bucket = Grupu · {name} · Resurtados de chirca
+library.search.near = acanta de {place}
+library.search.with = cun {names}
+
+# Vassoju e tzellas
+library.tray.view = Visualiza
+library.tray.edited_note = modificada — versiones mantentas acanta de s'archìviu
+library.tray.n_hidden.one = {n} cuada dae su filtru de cuntenutu
+library.tray.n_hidden.other = {n} cuadas dae su filtru de cuntenutu
+library.cell.no_preview = chena antiprima
+library.cell.edited = modificada
+library.gallery.loading = Carrighende is fotografias…
+
+# Benebènnidu
+library.welcome.title = Benebènnidu a Schist
+library.welcome.intro = Controlla cartellas de fotografias, o importa dae una càmera. Is archìvios abarrant in su logu issoro; is modìficas sunt sarvadas comente versiones acanta de issos:
+library.welcome.intro_ios = Importa fotografias dae sa biblioteca tua, o annanghe una cartella dae Archìvios. Is modìficas sunt sarvadas comente versiones acanta de cada fotografia:
+library.welcome.or_open = O aberi un'immàgine de modificare:
+library.welcome.shortcut_mac = Sa galleria est semper a ⌘⇧G de distàntzia, cale si siat su chi ses modifichende.
+library.welcome.shortcut = Sa galleria est semper a Ctrl+Shift+G de distàntzia, cale si siat su chi ses modifichende.
+
+# Galleria bòida
+library.gallery.empty_bucket_search = Nudda in custu grupu currispondet a sa chirca. Escape dda isbòidat pro ammustrare su grupu intreu.
+library.gallery.empty_search = Nudda currispondet a sa chirca. Escape dda isbòidat.
+library.gallery.empty_smart_bucket = Nudda currispondet ancora a sa règula de custu grupu — is currispundèntzias ant a apàrrere a manu a manu chi is fotografias sunt inditzizadas. Podent fintzas èssere tragadas a intro.
+library.gallery.empty_bucket = Custu grupu est bòidu. Tràghe fotografias subra de sa riga sua in sa barra laterale pro ddas annànghere.
+library.gallery.empty_person = Nudda inoghe ancora. Is caras ant a apàrrere a manu a manu chi is fotografias sunt inditzizadas; incarca una fotografia, pustis una cara, pro nàrrere chie est.
+library.gallery.scanning = Esaminende is cartellas…
+library.gallery.empty = Peruna fotografia agatada in is cartellas controlladas. Inoghe aparent is immàgines chi Schist podet abèrrere (PNG, JPEG, WebP, TIFF, HEIC, archìvios raw de càmera, PSD, Affinity); is sutacartellas sunt esaminadas fintzas a ses livellos de profundidade.
+
+# Grupos
+library.bucket.default_name = Grupu {n}
+library.bucket.rule_matches = currispondet a «{query}»
+library.bucket.rule_taken_in = pigada in {name}
+library.bucket.new_title = Grupu nou
+library.bucket.edit_title = Modìfica su grupu
+library.bucket.new_cloud_title = Grupu cloud nou
+library.bucket.edit_cloud_title = Modìfica su grupu cloud
+library.bucket.create = Crea
+library.bucket.query_placeholder = p.es. cane in una marina (optzionale)
+library.bucket.the_drawn_area = s'àrea disinnada
+library.bucket.area_help = Faghe Shift e tràghe in sa mapa (o sèbera unu predefinidu) pro annànghere un'àrea; unu tràghidu minore dda isbòidat. Is règulas mantenent su grupu prenu in automàticu.
+library.bucket.rule_none = Peruna règula: unu grupu normale, prenu traghende·bi fotografias.
+library.bucket.rule_query = Mantenet cada fotografia chi currispondet a «{query}».
+library.bucket.rule_area = Mantenet cada fotografia pigada in {area}.
+library.bucket.rule_query_area = Mantenet cada fotografia pigada in {area} chi currispondet a «{query}».
+library.bucket.starts_with.one = Cumintzat cun sa fotografia seletzionada.
+library.bucket.starts_with.other = Cumintzat cun is {n} fotografias seletzionadas.
+
+# Mapa mundiale
+library.map.status = {located} fotografias in sa mapa · {unlocated} chena positzione
+library.map.reading_locations = Leghende is positziones: nde abarrant {n}
+library.map.reset_view = Riprìstina sa visualizatzione
+library.map.no_photos = Peruna fotografia cun positzione GPS in custa visualizatzione. Annanghe fotografias geolocalizadas o muda is filtros de sa galleria.
+library.map.no_photos_cloud = Peruna fotografia cun positzione GPS inoghe. Sèbera un'àtera cartella o grupu, o isbòida sa chirca.
+library.map.hint = Tràghe pro ispostare · Iscurre pro ingrandire · Incarca unu marcadore pro bìdere is fotografias suas · Dopru incarcu in una fotografia pro dda modificare
+library.map.n_at_marker.one = {n} fotografia in custu marcadore
+library.map.n_at_marker.other = {n} fotografias in custu marcadore
+library.map.n_in_marker.one = {n} fotografia a intro de custu marcadore
+library.map.n_in_marker.other = {n} fotografias a intro de custu marcadore
+library.map.attribution = © colaboradores de OpenStreetMap
+
+# Editore de làcanas
+library.map.draw_area = Disinna un'àrea
+library.map.drawing = Disinnende…
+library.map.clear_boundary = Isbòida sa làcana
+library.map.editor_hint = tràghe pro ispostare · iscurre pro ingrandire · Shift e tràghe pro disinnare
+
+# Filtru de sa mapa
+library.map_filter.title = Filtru de sa mapa
+library.map_filter.drawn_area = àrea disinnada
+library.map_filter.apply_named = Àplica ammustat petzi is fotografias pigadas in {name}; cussas chena positzione EXIF sunt cuadas.
+library.map_filter.apply_drawn = Àplica ammustat petzi is fotografias pigadas intro de {south}°, {west}° e {north}°, {east}°; cussas chena positzione EXIF sunt cuadas.
+library.map_filter.draw_first = Disinna una làcana (Shift e tràghe, o unu predefinidu), pustis Àplica. Aplicare chena nudda disinnadu disativat su filtru.
+library.map_filter.turn_off = Disativa su filtru
+
+# Importatzione dae sa càmera
+library.import.title = Importa dae sa càmera
+library.import.from = Importa dae {name}
+library.import.no_cameras = Peruna càmera agatada.
+library.import.no_cameras_help = Connete una càmera, una carta de memòria o un'iPhone. Un'iPhone depet èssere isblocadu e depes rispòndere Fida·ti de custu elaboradore in antis chi ammustret is fotografias — faghe·ddu, abeta unu pagu e incarca Esamina torra. Fintzas cale si siat dispositivu muntadu comente discu cun una cartella DCIM est reconnotu.
+library.import.scan_again = Esamina torra
+library.import.pick_source = Si podet atzèdere a prus de una càmera. Importa dae:
+library.import.via_image_capture = tràmite Acquisitzione immàgine
+library.import.boundary_named = Làcana: {name} — sunt importadas petzi is fotografias cun sa positzione EXIF a intro; cussas chena positzione abarrant in sa càmera.
+library.import.boundary_drawn = Làcana: dae {south}°, {west}° a {north}°, {east}° — sunt importadas petzi is fotografias cun sa positzione EXIF a intro.
+library.import.no_boundary = Peruna làcana — est importadu totu su chi b'at in sa càmera.
+library.import.destination = In ~/Pictures/Schist Imports/{name} — is archìvios giai importados sunt bricados, duncas si podet torrare a esecutare chena arriscu.
+library.import.selected_area = Àrea seletzionada
+library.import.locked_help = Si su dispositivu est blocadu: isbloca·ddu, toca Fida·ti de custu elaboradore cando ddu preguntat, manteneddu connessu e torra a proare.
+library.import.try_again = Torra a proare
+library.import.add_to_gallery = Annanghe a sa galleria
+
+# Istadu de s'importatzione
+library.import.needs_home = Pro importare serbit una cartella personale in ue copiare
+library.import.importing_from = Importende dae {source}…
+library.import.importing_in_place = Importende dae {source} is fotografias pigadas in {place}…
+library.import.device_macos_only = S'importatzione direta dae dispositivu est una funtzionalidade de macOS
+library.import.failed = Importatzione faddida: {error}
+library.import.from_failed = Importatzione dae {name} faddida
+library.import.locked = {name} est blocadu — isbloca·ddu e toca Fida·ti pro sighire
+library.import.reading_catalog = Leghende su catàlogu de fotografias de {name}…
+library.import.progress_from = Importende sa fotografia {n}/{total} dae {name}…
+library.import.progress = Importende s'archìviu {n}/{total}…
+library.import.choose_photos = Sèbera fotografias e vìdeos de importare…
+library.import.photos_open_failed = No est istadu possìbile abèrrere sa biblioteca de fotografias: {error}
+library.import.done.one = Importadu {n} archìviu in {dest}
+library.import.done.other = Importados {n} archìvios in {dest}
+library.import.done_in_place.one = Importada {n} fotografia pigada in {place} in {dest} (nùmeru lassadu in sa càmera, pro logu diferente o positzione mancante: {filtered})
+library.import.done_in_place.other = Importadas {n} fotografias pigadas in {place} in {dest} (nùmeru lassadu in sa càmera, pro logu diferente o positzione mancante: {filtered})
+library.import.n_failed.one = {n} faddidu
+library.import.n_failed.other = {n} faddidos
+library.import.no_dcim = Peruna cartella DCIM in {source}
+library.import.already_running = Un'importatzione est giai in cursu
+library.import.camera_gone = Cussa càmera no est prus connessa
+library.import.camera_disconnected = Sa càmera si est disconnessa durante s'importatzione
+library.import.unknown_error = Faddina disconnota
+library.import.picker_needs_ios14 = Su seletore de fotografias rechert iOS 14 o prus nou
+library.import.picker_unavailable = Su seletore de fotografias no est a disponimentu
+library.import.no_window = Peruna bentana dae ue presentare su seletore
+
+library.volume.iphone = iPhone o iPad
+library.volume.camera = Càmera
+library.volume.phone = Telèfonu
+
+# Cartella aberta in ischedas
+library.open_folder.opened.one = Aberta {n} immàgine
+library.open_folder.opened.other = Abertas {n} immàgines
+library.open_folder.opened_first = Abertas is primas {n} de {total} immàgines — sa galleria mantenet is àteras
+
+# Modelos de chirca
+library.search_models.title = Chirca de fotografias
+library.search_models.intro = Pro chircare fotografias segundu su cuntenutu issoro serbint duos modelos, iscarrigados una borta ebbia e mantentos in custa màchina. Funtzionant in locale: peruna fotografia lassat mai sa màchina.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = MobileCLIP de Apple
+library.search_models.export = Esportatzione ONNX de Xenova
+library.search_models.license = Lissèntzia
+library.search_models.download_note = Iscarrigare installat ambos ({mb} MB in totu) e atzetat is lissèntzias issoro. Si podent torrare a bogare dae Galleria ▸ Gesti is modellos…
+library.search_models.agree = Atzeta e iscàrriga
+
+# Menù cuntestuale
+library.menu.add_all_to = Annanghe totu a {name}
+library.menu.add_all_to_new_bucket = Annanghe totu a unu grupu nou…
+library.menu.edit_n_in_tabs = Modìfica {n} in ischedas
+library.menu.view_name_people = Visualiza e numena persones
+library.menu.reveal = Ammustra in su gestore de archìvios
+library.menu.add_to = Annanghe a {name}
+library.menu.add_to_new_bucket = Annanghe a unu grupu nou
+library.menu.remove_from_bucket = Boga dae custu grupu
+library.menu.save_n_as_zip = Sarva {n} comente ZIP…
+library.menu.save_image_as = Sarva s'immàgine comente…
+library.menu.process = Elàbora…
+library.menu.process_n = Elàbora {n} fotografias…
+library.menu.move_to_folder = Tramuda a una cartella…
+library.menu.move_n_to_folder = Tramuda {n} a una cartella…
+library.menu.revert = Torra a s'originale
+library.menu.revert_n = Torra {n} a is originales
+library.menu.upload_to_cloud = Càrriga in Schist Cloud…
+library.menu.watch_local_folder = Controlla una cartella in custu elaboradore…
+library.menu.new_cloud_folder = {glyph} Cartella Schist Cloud noa…
+library.menu.new_local_bucket = Grupu nou in custu elaboradore…
+library.menu.new_cloud_bucket = {glyph} Grupu Schist Cloud nou…
+library.menu.edit_bucket = Modìfica su grupu…
+library.menu.select_all_n = Seletziona totu ({n})
+library.menu.save_all_as_zip = Sarva totu comente ZIP… ({n})
+library.menu.process_all = Elàbora totu… ({n})
+library.menu.move_all_to_folder = Tramuda totu a una cartella…
+library.menu.clear_added = Isbòida is fotografias annantas
+library.menu.clear_bucket = Isbòida su grupu
+library.menu.delete_bucket = Cantzella su grupu
+library.menu.show_person = Ammustra {name}
+library.menu.rename_person = Torra a numenare…
+library.menu.forget_person.one = Ismèntiga sa persone ({n} cara)
+library.menu.forget_person.other = Ismèntiga sa persone ({n} caras)
+
+# Operatziones
+library.ops.moving.one = Tramudende {n} fotografia a {dest}…
+library.ops.moving.other = Tramudende {n} fotografias a {dest}…
+library.ops.moved.one = Tramudada {n} fotografia a {dest}
+library.ops.moved.other = Tramudadas {n} fotografias a {dest}
+library.ops.moved_partial = Tramudadas {n} de {total} fotografias a {dest} — su registru tenet is àteras
+library.ops.move_here = Tramuda inoghe
+library.ops.no_export_format = Perunu formadu inoghe podet sarvare un'immàgine
+library.ops.saved_size = Sarvadu {name} ({w} × {h})
+library.ops.save_failed = Sarvamentu faddidu: {error}
+library.ops.opening_first = Aberende is primas {n} de {total} fotografias — sa galleria mantenet is àteras
+library.ops.nothing_to_revert = Nudda de ripristinare: peruna de cussas fotografias tenet una modìfica
+library.ops.reverted.one = Torrada {n} fotografia a s'originale sua — sa modìfica est mantenta in versions/
+library.ops.reverted.other = Torradas {n} fotografias a is originales issoro — is modìficas sunt mantentas in versions/
+library.ops.no_file_name = S'archìviu no tenet nòmine
+library.zip.nothing_all_held = Nudda de cumprimire: su filtru de cuntenutu escludet totu is {n} fotografias
+library.zip.failed = Creazione de ZIP faddida: {error}
+library.zip.progress = Cumprimende {n}/{total}…
+library.zip.n_held.one = ({n} lassada in foras dae su filtru de cuntenutu)
+library.zip.n_held.other = ({n} lassadas in foras dae su filtru de cuntenutu)
+library.zip.done.one = Cumpressa {n} fotografia in {dest}
+library.zip.done.other = Cumpressas {n} fotografias in {dest}
+library.zip.done_partial = Cumpressas {n} de {total} fotografias in {dest} — su registru tenet is àteras
+library.zip.nothing_readable = No est istadu possìbile lèghere nudda de cumprimire
+library.zip.too_large = Tropu mannu pro unu ZIP chena zip64
+library.batch.nothing_to_do = Nudda de fàghere: sèbera prima una girada, un'ingrandimentu o una regulatzione
+library.batch.save_copies_here = Sarva is còpias inoghe
+library.batch.processing.one = Elaborende {n} fotografia…
+library.batch.processing.other = Elaborende {n} fotografias…
+library.batch.progress = Elaboradas {n}/{total} — {name}
+library.batch.failed = Elaboratzione faddida: {error}
+library.batch.done.one = Elaborada {n} fotografia
+library.batch.done.other = Elaboradas {n} fotografias
+library.batch.done_partial = Elaboradas {n} de {total} fotografias — su registru tenet is àteras
+library.batch.model_would_not_load = Su modellu {name} no si podiat carrigare
+library.batch.no_psd_writer = Perunu iscridore PSD est carrigadu
+
+# Visualizadore e àlbum Persones
+library.viewer.back = ‹ Torra a is fotografias
+library.viewer.could_not_decode = No est istadu possìbile decodificare custa fotografia.
+library.viewer.label_auto = {name} · automàticu
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = PERSONES IN CUSTA FOTOGRAFIA
+library.viewer.faces_intro = Is caras sunt agatadas dae unu modellu piticu iscarrigadu una borta ebbia. Si podent semper disinnare càsciallas a manu.
+library.viewer.looking_for_faces = Chirchende caras…
+library.viewer.no_faces = Peruna cara agatada. Tràghe una càscia in giru a una pro annànghere una persone a manu.
+library.viewer.help = Incarca una cara pro dda numenare; Enter sarvat. Tràghe subra de sa fotografia pro marcare una cara chi su rilevadore no at agatadu. ← → si movent intre is fotografias, Esc torrat in segus.
+library.viewer.not_them = No est custa persone
+library.viewer.remove_name = Boga su nòmine
+library.viewer.not_a_face = No est una cara
+library.viewer.auto = automàticu
+library.viewer.is_this = Custa persone est {name}?
+library.viewer.someone_else = Un'àtera persone
+library.viewer.add_name = Annanghe unu nòmine…
+library.viewer.who_is_this = Chie est custa persone?
+library.people.rename_title = Torra a numenare sa persone
+library.people.merge_warning = Calicunu si narat giai «{name}»: sarvende, is duos ant a èssere unidos.
+library.people.merge_note = Si pones unu nòmine chi tenet giai un'àtera persone, is duas persones sunt unidas.
+library.people.named = Numenadu {name}
+library.people.named_followed.one = Numenadu {name} · {n} àtera cara currispondet in automàticu
+library.people.named_followed.other = Numenadu {name} · {n} àteras caras currispondent in automàticu
+
+# Sarva in Fotografias
+library.photos.saving = Sarvende in Fotografias…
+library.photos.saved = Sarvadu in Fotografias
+library.photos.save_failed = Sarvamentu in Fotografias faddidu: {error}
+library.photos.no_document = perunu documentu est abertu
+library.photos.no_png_codec = su codec PNG no est carrigadu
+library.photos.no_answer = sa biblioteca de fotografias no at rispostu
+library.photos.bad_url = no est istadu possìbile cunvertire su percursu de s'archìviu in URL
+library.photos.unavailable = sa biblioteca de fotografias no est a disponimentu
+library.photos.declined = sa biblioteca de fotografias at refudadu
+
+# Archìvios cumpartzidos cun s'aplicatzione
+library.shared.needs_documents = Sa galleria tenet bisòngiu de una cartella Documentos in ue copiare
+library.shared.added.one = Annanta {n} fotografia a sa galleria
+library.shared.added.other = Annantas {n} fotografias a sa galleria
+library.shared.open_needs_documents = Pro abèrrere serbit una cartella Documentos in ue copiare
+library.shared.could_not_open = No est istadu possìbile abèrrere {name}: {error}
+
+# Antiprima de vìdeu
+video.invalid_file = Custu no est un'archìviu vìdeu locale.
+video.install_gstreamer = S'antiprima de vìdeu rechert GStreamer 1.x e cumplementos de decodìfica vìdeu. Installa·ddos e torra a abèrrere su vìdeu. Podes semper seberare un'editore esternu.
+video.decode_failed = No est istadu possìbile decodificare custu fotogramma vìdeu.
+video.no_stream = Custu archìviu no tenet perunu flussu vìdeu.
+video.no_duration = No est istadu possìbile lèghere sa durada de su vìdeu.
+video.frame_too_large = Custu fotogramma vìdeu est tropu mannu pro ddu abèrrere.
+video.first_frame = Ses giai in su primu fotogramma.
+video.editor_failed = No est istadu possìbile abèrrere s'editore de vìdeu: {error}
+video.editor_unavailable = No est istadu possìbile abèrrere s'editore de vìdeu seletzionadu. Sèbera torra s'aplicatzione.
+video.loading = Carrighende su vìdeu…
+video.searching = Chirchende unu fotogramma prus afiladu acanta…
+video.capturing = Aberende su fotogramma a risolutzione intrea…
+video.frame_title = {name} — fotogramma {time}
+video.frame_layer = Fotogramma vìdeu
+video.already_sharpest = Custu est giai su fotogramma prus afiladu de is chi sunt acanta.
+video.found_frame = Seletzionadu su fotogramma prus afiladu acanta a {time}.
+video.choose_editor = Sèbera s'editore de vìdeu…
+video.back = Torra a sa galleria
+video.pause = Pàusa
+video.play = Reprodue
+video.previous = Fotogramma pretzedente
+video.next = Fotogramma imbeniente
+video.sharper = Chirca unu fotogramma prus afiladu
+video.edit_frame = Modìfica su fotogramma
+video.open_editor = Aberi in s'editore de vìdeu
+video.preview_help = Antiprima chena sonu · Ispàtziu: reprodue/pàusa · Frètzias: avatza unu fotogramma · Chircat intro de ½ segundu a cada ala. Sa modìfica aberit un'immàgine separada.
+video.badge = ▶ Vìdeu
+video.view = Visualiza su vìdeu
+
+video.open_another_app = Aberi in un'àtera aplicatzione…
+video.preview_help_touch = Antiprima chena sonu · Tràghe sa lìnia de tempus o avatza unu fotogramma a sa borta. Chirca unu fotogramma prus afiladu esaminat intro de ½ segundu a cada ala. Sa modìfica aberit un'immàgine separada.
+video.importing = Importende fotografias e vìdeos…
+video.import_failed = No est istadu possìbile importare su cuntenutu multimediale: {error}
+video.import_failed_simple = No est istadu possìbile importare o cumpartzire custu cuntenutu multimediale.

@@ -1,0 +1,36 @@
+# Formatoj
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = malkodante {name}
+codec.msg.zero_sized = la bildo enhavas neniujn rastrumerojn
+codec.msg.assembling_document = kunmetante la dokumenton
+
+codec.raw.msg.decoding = malkodante la krudan dosieron
+codec.raw.msg.developing = disvolvante la krudan dosieron
+codec.raw.msg.finding_preview = serĉante la enkorpigitan antaŭrigardon
+codec.raw.msg.decoding_preview = malkodante la enkorpigitan antaŭrigardon
+codec.raw.msg.decoder_panicked = la kruddosiera malkodilo malsukcesis pri ĉi tiu dosiero: {what}
+
+codec.affinity.import_title = Importo el Affinity
+codec.affinity.flattened_preview_layer = Platigita antaŭrigardo
+codec.affinity.msg.no_preview = Neniu uzebla enkorpigita antaŭrigardo. La tavolhava dosierformo de Affinity estas proprieta; Schist importas la platigitan antaŭrigardon portatan de la dosiero. Ĉi tiu dosiero ne havas ĝin — rekonservu ĝin per Affinity, aŭ eksportu ĝin kiel PSD por plena importo de la tavoloj.
+
+codec.heif.msg.no_library = libheif ne disponeblas ({details}). Por malfermi HEIC necesas la biblioteko libheif (Linux: instalu libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — ĉi tiu versio de libheif eble ne enhavas HEVC-malkodilon (en Debian/Ubuntu, instalu libheif-plugin-libde265)
+codec.heif.msg.unknown_error = nekonata eraro
+codec.heif.msg.initialising = pravalorizante libheif
+codec.heif.msg.reading_container = legante la HEIF-ujon
+codec.heif.msg.finding_primary_image = serĉante la ĉefan bildon
+codec.heif.msg.reading_icc_profile = legante la ICC-profilon
+codec.heif.msg.decoding_image = malkodante la bildon
+codec.heif.msg.checksum_mismatch = Kontrolsumo de {name} ne kongruas: atendita {expected}, ricevita {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ne povis legi la HEIF-ujon
+codec.heif.msg.container_empty = la HEIF-ujo enhavas neniun bildon
+codec.heif.msg.imageio_cannot_decode = ImageIO ne povis malkodi la ĉefan bildon

@@ -1,0 +1,43 @@
+tool.pen.name = Pen
+tool.pen.description = Maak 'n paad: klik veur 'n hookpunt, sleip om d'r krommehandgrepe oet te trèkke en klik op 't ierste punt om 't paad te sjloete. Bie bevestige weurt 't paad 'n vormlaog.
+tool.pen.option.rubber_band = Elastieke bandj
+tool.pen.history.fill = Paadvölling
+tool.pen.default_path_name = Paad {n}
+tool.pen.freeform.name = Vrieje pen
+tool.pen.freeform.description = Sleip 'n vriejhandjlien; die weurt zoe los op 'n paad ingepas es de optie Passing aangeuf.
+tool.pen.freeform.option.fit = Passing
+tool.pen.curvature.name = Krommingspen
+tool.pen.curvature.description = Klik 'n reeks punte; 't paad weurt d'r glad doorhèn gekromd.
+
+tool.path_select.name = Paadselectie
+tool.path_select.description = Klik op 'n paad om 't te selectere en sleip om 't ganse paad te verplaatse.
+tool.direct_select.name = Directe selectie
+tool.direct_select.description = Sleip 'n los ankerpunt of zien handgrepe om 't paad dao roondj van vorm te verangere.
+
+tool.shape.history.layer = {name}-laog
+tool.shape.rect.name = Rechthuukhulpmiddel
+tool.shape.rect.label = Rechthuuk
+tool.shape.rect.description = Sleip 'n rechthuukige vormlaog in de veurgrondjskleur; ze blief vectorieel en weurt opnuuj gerasteriseerd es de groeëtte verangert.
+tool.shape.ellipse.name = Ellipshulpmiddel
+tool.shape.ellipse.label = Ellips
+tool.shape.ellipse.description = Sleip 'n elliptische vormlaog in de veurgrondjskleur.
+tool.shape.line.name = Lienhulpmiddel
+tool.shape.line.label = Lien
+tool.shape.line.description = Sleip 'n vormlaog mit 'n rechte lien in de veurgrondjskleur.
+tool.shape.line.option.weight = Dikte
+tool.shape.line.option.arrow_start = Begin
+tool.shape.line.option.arrow_end = Èndj
+tool.shape.polygon.name = Veulhoekhulpmiddel
+tool.shape.polygon.label = Veulhoek
+tool.shape.polygon.description = Sleip 'n regelmaotige veulhoekige vormlaog in de veurgrondjskleur, mit 't aantal kante oet de opties.
+tool.shape.polygon.option.sides = Kante
+
+tool.shape.custom.name = Aangepaste vorm
+tool.shape.custom.label = Aangepaste vorm
+tool.shape.custom.description = Sleip eine van de ingebouwde veuraf ingestèlde vorme, gekaoze mit de optie Vorm.
+tool.shape.custom.choice.heart = Hart
+tool.shape.custom.choice.star = Sjter
+tool.shape.custom.choice.arrow = Piel
+tool.shape.custom.choice.lightning = Bliksem
+tool.shape.custom.choice.cross = Kruuts
+tool.shape.custom.choice.speech_bubble = Praotblaos

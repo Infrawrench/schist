@@ -1,0 +1,9 @@
+{
+  "loading": "Ikutsegula…",
+  "starting": "Ikuyamba…",
+  "webgpu": "Schist imafuna WebGPU, yomwe browser iyi ilibe. Chrome/Edge 113+, Firefox 141+ ndi Safari 26+ zili nayo.",
+  "noticeTitle": "Schist imagwira bwino kwambiri ngati pulogalamu ya pa kompyuta",
+  "noticeBody": "Mukugwiritsa ntchito mtundu wa pawebusayiti, womwe ndi mtundu wopepuka: umaphatikiza zithunzi pogwiritsa ntchito CPU ndipo ulibe zina—ma plug-in a Photoshop ndi ma plug-in a opanga ena, gallery ya zithunzi, panel ya AI, kulowetsa HEIC ndi kutsitsa ma font—ndipo mafayilo amasungidwa ngati zotsitsidwa. Pulogalamu yaulere ya pa kompyuta ya macOS, Windows ndi Linux ili ndi zonsezi.",
+  "noticeLink": "Pezani pulogalamu ya pa kompyuta.",
+  "ok": "Chabwino"
+}

@@ -1,0 +1,39 @@
+app.filter_gallery.title = Igalari Yezisefo
+app.filter_gallery.stack = Inqwaba (isetshenziswa kusukela phansi kusiya phezulu)
+app.filter_gallery.no_settings = Isisefo lesi kasilamasethingi.
+
+app.fonts.not_open_licensed = kayilalayisensi evulekileyo · u-{substitute} uhambelana lezilinganiso zayo
+app.fonts.missing_substituted = ayikho · umbhalo usebenzisa ebambele enye
+app.fonts.not_in_catalogue = U-{family} kakho kukhathalogu yamafonti avulekileyo
+app.fonts.no_faces = akulazimo zefonti ka-{family} ezingadawunilodwa
+app.fonts.empty_response = impendulo engelalutho
+
+app.update.unreadable_response = impendulo ayibaleki: {error}
+app.update.no_temp_dir = akulafolda yesikhatshana okungadawunilodelwa kuyo
+app.update.asset_has_path = ukukhutshwa kuqambe into yako ngomzila
+app.update.too_big = okudawunilodiweyo kukhulu kulalokho okutshiwo yikukhutshwa
+app.update.stopped_at = ukudawuniloda kume kumabhayithi angu-{got} kwangu-{total}
+app.update.hash_mismatch = i-hash yokudawunilodiweyo ngu-{got}, hatshi {want}
+app.update.not_in_bundle = ikhophi le ayikho phakathi kwephakethe lohlelo
+app.update.no_parent_dir = iphakethe lohlelo kalilafolda elikuyo
+app.update.cannot_write = akwenelisi ukubhala ku-{dir}
+app.update.cannot_move_aside = akwenelisi ukususa u-{app} endleleni
+app.update.cannot_move_in = akwenelisi ukufaka iphakethe elitsha endaweni yalo
+app.update.cannot_run_ditto = akwenelisi ukusebenzisa /usr/bin/ditto
+app.update.unpack_failed = ukuqaqa okudawunilodiweyo kwehlulekile: {error}
+app.update.no_app_in_download = okudawunilodiweyo akula-Schist.app
+app.update.cannot_run_codesign = akwenelisi ukusebenzisa /usr/bin/codesign
+app.update.signature_invalid = isiginesha yokudawunilodiweyo ayiqinisekanga: {error}
+app.update.download_unsigned = ikhophi le isayiniwe kodwa okudawunilodiweyo akusayiniwanga
+app.update.different_developer = okudawunilodiweyo kusayinwe ngomunye umakhi
+app.update.cannot_relaunch = akwenelisi ukuqalisa umqalisi otsha
+app.update.not_installed_copy = ikhophi le ayifakwanga lapha ngumfaki
+app.update.cannot_start_installer = akwenelisi ukuqalisa umfaki
+app.update.platform_unsupported = izivuseleli kule inkundla zifakwa ngendlela i-Schist eyafakwa ngayo
+
+app.vulkan.no_loader = schist: akulasilayishi se-Vulkan kulesi isistimu, ngakho akulalutho okungadwetshwa ngalo.\n\nI-Schist idweba nge-Vulkan, njalo i-`libvulkan.so.1` ayifakwanga.\nKudingeka kokubili isilayishi lomshayeli:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: umshayeli we-Vulkan okhonjwe yiseshini le kawukho.\n\nU-{var} usethiwe, njalo ukummisa *kungena esikhundleni* sokudinga\nkwesilayishi abashayeli, hatshi ukungezelela kukho. Ngakho amafayela la, angekhoyo,\nayiwo wodwa aluhlu lwabashayeli — njalo lonke uhlelo lwe-Vulkan kuseshini le\nkaluboni lamunye umshayeli, kungelani lokuthi bangaki abafakiweyo:\n\n{missing}\n    {var}={value}\n\nMkhombe kumanifesti ekhona — abashayeli abafakiweyo bafaka awabo ku-\n/usr/share/vulkan/icd.d — kumbe umsuse uyekele isilayishi sizidingele.\nIseshini emisa lokhu kusuka kufayela lokuhlela (u-`env =` we-Hyprland,\nifayela le-systemd environment.d, iphrofayili ye-shell) kumele ilungiswe khona,\nngemva kwalokho kudingeka ungene kutsha ukuze inguquko ifike kokusivele kusebenza.\n
+app.vulkan.override_note = \nU-{var} usethwe waba ngu-{value}, njalo lokhu kungena esikhundleni sokudinga\nkwesilayishi: nxa kungekho manifesti phakathi kwawo eyalo umtshina, into yokuqala\nongayizama yikususa lokho kusetha.\n
+app.vulkan.no_driver = schist: akulamshayeli we-Vulkan ofakiweyo, ngakho akulalutho okungadwetshwa kulo.\n\nI-Schist idweba nge-Vulkan. Isilayishi sifakiwe kodwa sithi akulamshayeli —\nakulalutho olubhalise umshayeli kuzo zombili indawo esidinga kuzo:\n\n{dirs}\n\nIsilayishi siza sodwa, sehlukene labashayeli, ngakho kuvame ukuba yiphakethe elilodwa\nelingafakwanga.\n\nFaka umshayeli we-GPU yalo umtshina:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nUmshayeli we-NVIDIA ongumnikazi ulewakhe (`nvidia-utils` ku-Arch,\n`nvidia-driver` ku-Debian). Kumtshina wokulingisa, kumbe lapho okungela\nmshayeli we-GPU ongafakwa khona, isidwebo sesofthiwe yiso esisebenzayo:\n`vulkan-swrast` ku-Arch, njalo siyingxenye ye-`mesa-vulkan-drivers` kwezinye indawo. Sisebenza kancane,\nkodwa siyaqalisa.\n{overridden}
+app.vulkan.no_device = schist: umshayeli we-Vulkan ufakiwe kodwa kawuniki idivayisi okungadwetshwa kuyo.\n\nUmshayeli angabe engayisekeli i-GPU le, kumbe engenelisi ukufika kuyo —\nusebenzisa i-SSH, kumbe ngaphakathi kwesiqukathi, kuvame ukusilela i-/dev/dri.\nU-`vulkaninfo --summary` ubika lokho isilayishi esikubonayo.\n\nIsidwebo sesofthiwe sidweba kungela GPU, nxa kunjalo kulo umtshina:\n`vulkan-swrast` ku-Arch, siyingxenye ye-`mesa-vulkan-drivers`\nku-Debian le-Fedora.\n
+app.vulkan.skip_hint = Ukuqalisa i-Schist loba kunjalo uyekele yehluleke ngendlela yayo, setha {var}=1.

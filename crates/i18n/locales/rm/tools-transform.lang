@@ -1,0 +1,27 @@
+# Transfurmaziun libra, transfurmaziun da la selecziun e retagl.
+
+tool.transform.name = Transfurmaziun libra
+tool.transform.description = Transfurmaziun libra. Cun activar quest utensil s'avra ina chascha da transfurmaziun enturn la stresa activa: tira in chantun per midar la grondezza, tira dadora per volver e tira in ur per inclinar. Nagin midament vegn scrit avant la conferma (Enter); cun annullar (Escape) turna la stresa enavos.
+tool.transform.option.interpolation = Interpolaziun
+tool.transform.history.transform = Transfurmaziun libra
+tool.transform.history.image_size = Grondezza dal maletg
+tool.transform.history.canvas_size = Grondezza da la taila
+
+tool.transform.selection.name = Transfurmar la selecziun
+tool.transform.selection.description = Transfurmar la selecziun: la medema chascha, ma ella sposta il contur da la selecziun empè dals pixels al'intern. Conferma u annullescha per terminar.
+tool.transform.selection.history.transform = Transfurmar la selecziun
+
+tool.transform.resample.nearest_neighbor = Proxim vischin
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Tagliar
+tool.crop.description = Tira si la regiun da mantegnair ed adatta ses manigls; cun confermar (Enter) vegn il document reducì a quella regiun, cun annullar (Escape) resta el intact.
+tool.crop.option.ratio = Proporziun
+tool.crop.option.delete_cropped = Stizzar ils pixels tagliads
+tool.crop.choice.unconstrained = Senza restricziun
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Tagliar

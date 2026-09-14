@@ -1,0 +1,23 @@
+# Adjustment layers and the Image ▸ Adjustments commands: the names.
+# Keyed by the ids in crates/app/src/actions.rs (adjustment_id); the
+# parameter labels of each adjustment's dialog are in dialogs.lang.
+adjustment.levels.name = স্তৰসমূহ
+adjustment.curves.name = বক্ৰসমূহ
+adjustment.hue_saturation.name = ৰংভেদ/সম্পৃক্ততা
+adjustment.brightness_contrast.name = উজ্জ্বলতা/বৈপৰীত্য
+adjustment.black_white.name = ক'লা আৰু বগা
+adjustment.solid_color.name = গোটা ৰং
+adjustment.gradient_fill.name = গ্ৰেডিয়েণ্ট পূৰণ
+adjustment.pattern_fill.name = আৰ্হিৰে পূৰণ
+adjustment.invert.name = ওলোটা কৰক
+adjustment.posterize.name = প'ষ্টাৰাইজ কৰক
+adjustment.threshold.name = সীমা
+adjustment.color_balance.name = ৰঙৰ ভাৰসাম্য
+adjustment.vibrance.name = ৰঙৰ সজীৱতা
+adjustment.exposure.name = এক্সপ'জাৰ
+adjustment.photo_filter.name = ফটো ফিল্টাৰ
+adjustment.gradient_map.name = গ্ৰেডিয়েণ্ট মানচিত্ৰ
+adjustment.selective_color.name = নিৰ্বাচিত ৰং
+adjustment.channel_mixer.name = চেনেল মিক্সাৰ
+# A kind read from a PSD that Schist has no editor for.
+adjustment.other.name = সমন্বয়

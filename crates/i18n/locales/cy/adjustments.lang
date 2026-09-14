@@ -1,0 +1,21 @@
+# Haenau addasu a gorchmynion Delwedd ▸ Addasiadau: yr enwau.
+adjustment.levels.name = Lefelau
+adjustment.curves.name = Cromliniau
+adjustment.hue_saturation.name = Arlliw/Dirlawnder
+adjustment.brightness_contrast.name = Disgleirdeb/Cyferbyniad
+adjustment.black_white.name = Du a Gwyn
+adjustment.solid_color.name = Lliw Solet
+adjustment.gradient_fill.name = Llenwad Graddiant
+adjustment.pattern_fill.name = Llenwad Patrwm
+adjustment.invert.name = Gwrthdroi
+adjustment.posterize.name = Postereiddio
+adjustment.threshold.name = Trothwy
+adjustment.color_balance.name = Cydbwysedd Lliw
+adjustment.vibrance.name = Bywiogrwydd
+adjustment.exposure.name = Amlygiad
+adjustment.photo_filter.name = Hidlydd Ffotograffig
+adjustment.gradient_map.name = Map Graddiant
+adjustment.selective_color.name = Lliw Dewisol
+adjustment.channel_mixer.name = Cymysgydd Sianeli
+# Math a ddarllenwyd o PSD nad oes gan Schist olygydd ar ei gyfer.
+adjustment.other.name = Addasiad

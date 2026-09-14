@@ -1,0 +1,43 @@
+tool.pen.name = Pen
+tool.pen.description = Bou 'n pad: klik vir 'n hoekpunt, sleep om kurwehandvatsels daaruit te trek, en klik die eerste punt om dit te sluit. Bevestiging verander die pad in 'n vormlaag.
+tool.pen.option.rubber_band = Rekband
+tool.pen.history.fill = Padvulling
+tool.pen.default_path_name = Pad {n}
+tool.pen.freeform.name = Vryhandpen
+tool.pen.freeform.description = Sleep 'n vryhandlyn; dit word in 'n pad ingepas, so losweg as wat die Pas-opsie bepaal.
+tool.pen.freeform.option.fit = Pas
+tool.pen.curvature.name = Krommingspen
+tool.pen.curvature.description = Klik 'n reeks punte en die pad vorm 'n gladde kurwe daardeur.
+
+tool.path_select.name = Padseleksie
+tool.path_select.description = Klik op 'n pad om dit te selekteer, en sleep om die hele pad te skuif.
+tool.direct_select.name = Direkte seleksie
+tool.direct_select.description = Sleep 'n individuele ankerpunt of sy handvatsels om die pad rondom dit te hervorm.
+
+tool.shape.history.layer = {name}-laag
+tool.shape.rect.name = Reghoekgereedskap
+tool.shape.rect.label = Reghoek
+tool.shape.rect.description = Sleep 'n reghoekige vormlaag in die voorgrondkleur; dit bly 'n vektor en word weer gerasteriseer wanneer die grootte verander.
+tool.shape.ellipse.name = Ellipsgereedskap
+tool.shape.ellipse.label = Ellips
+tool.shape.ellipse.description = Sleep 'n elliptiese vormlaag in die voorgrondkleur.
+tool.shape.line.name = Lyngereedskap
+tool.shape.line.label = Lyn
+tool.shape.line.description = Sleep 'n reguitlyn-vormlaag in die voorgrondkleur.
+tool.shape.line.option.weight = Dikte
+tool.shape.line.option.arrow_start = Begin
+tool.shape.line.option.arrow_end = Einde
+tool.shape.polygon.name = Veelhoekgereedskap
+tool.shape.polygon.label = Veelhoek
+tool.shape.polygon.description = Sleep 'n reëlmatige veelhoek-vormlaag in die voorgrondkleur, met die aantal sye wat in die opsies gestel is.
+tool.shape.polygon.option.sides = Sye
+
+tool.shape.custom.name = Pasgemaakte vorm
+tool.shape.custom.label = Pasgemaakte vorm
+tool.shape.custom.description = Sleep een van die ingeboude voorafbepaalde vorms wat met die Vorm-opsie gekies is.
+tool.shape.custom.choice.heart = Hart
+tool.shape.custom.choice.star = Ster
+tool.shape.custom.choice.arrow = Pyl
+tool.shape.custom.choice.lightning = Weerlig
+tool.shape.custom.choice.cross = Kruis
+tool.shape.custom.choice.speech_bubble = Spraakborrel

@@ -1,0 +1,95 @@
+# Tekla aldatzaileak
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Maius
+panel.keys.alt = Alt
+
+# Egoera-barra
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Dokumentu-fitxak eta leihoaren izenburua
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Nabigatzailea
+panel.navigator.title = Nabigatzailea
+panel.navigator.actual_pixels = Benetako pixelak
+
+# Kolore-panela
+panel.color.picker = Hautatzailea…
+panel.color.swap = Trukatu koloreak
+panel.color.reset = Berrezarri zuri-beltzera
+
+# Geruzak panela
+panel.layers.blending_options = Nahaste-aukerak…
+panel.layers.properties = Geruzaren propietateak…
+panel.layers.show_hide = Erakutsi/Ezkutatu geruza
+panel.layers.toggle_visibility = Aldatu ikusgaitasuna
+
+# Historia-panela
+panel.history.title = Historia
+panel.history.opened = Irekita
+
+# Informazio-fitxa
+panel.info.title = Informazioa
+panel.info.camera = Kamera
+panel.info.lens = Objektiboa
+panel.info.iso = ISO {iso}
+panel.info.bias = Konpentsazioa
+panel.info.flash_fired = flasha piztu da
+panel.info.no_flash = flashik ez
+panel.info.white_balance = Zurien balantzea: {wb}
+panel.info.metering = {metering} neurketa
+panel.info.taken = Hartua
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · {o} orientazioa
+panel.info.software = Softwarea
+panel.info.where = Kokalekua
+
+# Oharrak panela
+panel.notes.author = Egilea
+panel.notes.clear_all = Garbitu dena
+panel.notes.unattributed = Egilerik gabe
+panel.notes.empty = Egin klik mihisean ohar bat uzteko.
+panel.notes.placeholder = Egin klik idazteko
+
+# Karakterea panela
+panel.character.title = Karakterea
+panel.character.type_tool = Testu-tresna (T)
+panel.character.align_left = Lerrokatu ezkerrean
+panel.character.align_center = Lerrokatu erdian
+panel.character.align_right = Lerrokatu eskuinean
+panel.character.text_color = Testuaren kolorea
+panel.character.panel = Karakterea panela
+panel.character.cancel_edit = Utzi testu-edizioa
+panel.character.commit_edit = Berretsi testu-edizioa
+panel.character.number_tip = {label} · Idatzi balio bat edo erabili ↑ / ↓ (Maius urrats handiagoetarako)
+panel.character.leading = Lerroartea
+panel.character.tracking = Letraartea
+panel.character.alignment = Lerrokatzea
+panel.character.opentype = OpenType
+panel.character.text_on_path = Testua bide batean
+panel.character.straight = Zuzena
+panel.character.on_path = Bidearen gainean
+panel.character.straight_tip = Erabili testu-geruzaren oinarri-lerro arrunta
+panel.character.on_path_tip = Erabili bide aktiboaren kopia bat
+panel.character.path_offset = Bidearekiko desplazamendua
+
+# AA alboko barra
+panel.ai.title = AA
+panel.ai.empty_editor = Eskatu aldaketa bat eta ikusi mihisean gauzatzen. Agenteak menuetako tresna, iragazki eta komando berak erabiltzen ditu, bakoitza desegiteko urrats banarekin.
+panel.ai.empty_gallery = Eskatu zure argazkiei buruz eta ikusi galerian gauzatzen: agenteak bilatu, miniaturak ikusi, hautatu, multzotan sailkatu eta argazki bat editorean ireki dezake.
+panel.ai.thinking = pentsatzen…
+panel.ai.placeholder_editor = Galdetu dokumentu honi buruz edo editatu
+panel.ai.placeholder_gallery = Galdetu zure argazkiei buruz
+panel.ai.send = Bidali
+panel.ai.stop = Gelditu
+panel.ai.fetching_models = CLIari bere modeloak eskatzen…
+panel.ai.no_models = Ez dago bat datorren modelorik
+panel.ai.search_models = Bilatu modeloak…
+
+# Fitxategi-elkarrizketa-koadroak
+panel.keymap.install_plugin = Instalatu plug-ina
+panel.keymap.save_as_prompt = Gorde honela — luzapenak formatua aukeratzen du:

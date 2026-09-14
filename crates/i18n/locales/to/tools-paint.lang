@@ -1,0 +1,74 @@
+# Ngaahi meʻangāue vali
+
+tool.brush.name = Polosi
+tool.brush.description = Vali ha laine ngatangata molū ʻaki ʻa e lanu muʻá, ʻo fakatatau hono lahí ki he lahi, fefeka mo e lahi ʻo e ʻufiʻufi ʻo e polosi ʻi he ʻētita.
+tool.brush.history.stroke = Polosi
+
+tool.pencil.name = Penivahevahe
+tool.pencil.description = Vali ha laine ngatangata fefeka ʻoku ʻikai fakaleleiʻi hono ngaahi tapa ʻaki ʻa e lanu muʻá.
+tool.pencil.history.stroke = Penivahevahe
+
+tool.eraser.name = Meʻatamate
+tool.eraser.description = Tamateʻi ʻi he halanga ʻo e lainé, ʻo fakafoki ʻa e Layer ki he transparent.
+tool.eraser.history.stroke = Meʻatamate
+
+tool.clone.name = Sitampi Fakatatau
+tool.clone.description = Sitampi Fakatatau: lomi-alt ke fokotuʻu ʻa e poini tupuʻangá, pea vali ʻa e ngaahi pikisi kuo hiki tatau mei ai ʻi he mamaʻo tatau.
+tool.clone.history.stroke = Sitampi Fakatatau
+
+tool.dodge.name = Dodge
+tool.dodge.description = Fakamaama ʻa e ngaahi pikisi ʻoku kolosi ai ʻa e lainé.
+tool.dodge.history.stroke = Dodge
+tool.burn.name = Burn
+tool.burn.description = Fakapoʻuli ʻa e ngaahi pikisi ʻoku kolosi ai ʻa e lainé.
+tool.burn.history.stroke = Burn
+tool.sponge.name = Sponge
+tool.sponge.description = Fakalahi pe fakasiʻisiʻi ʻa e kakato ʻo e lanu ʻi he ngaahi pikisi ʻoku kolosi ai ʻa e lainé.
+tool.sponge.history.stroke = Sponge
+
+tool.blur.name = Fakamolū ʻo e ʻĪmisi
+tool.blur.description = Fakasiʻisiʻi ʻa e māsila ʻo e ngaahi pikisi ʻoku kolosi ai ʻa e lainé.
+tool.blur.history.stroke = Fakamolū ʻo e ʻĪmisi
+tool.sharpen.name = Fakamāsila
+tool.sharpen.description = Fakamāsila ʻa e ngaahi pikisi ʻoku kolosi ai ʻa e lainé.
+tool.sharpen.history.stroke = Fakamāsila
+tool.smudge.name = Milimili Lanu
+tool.smudge.description = Toho ʻa e lanu ʻi he halanga ʻo e lainé, ʻo hangē ha teke ʻo e vali vivikú.
+tool.smudge.history.stroke = Milimili Lanu
+
+tool.heal.name = Polosi Fakamoʻui
+tool.heal.description = Polosi Fakamoʻui: lomi-alt ke fokotuʻu ʻa e tupuʻangá, pea vali; ʻoku tuifio ʻa e anga ʻo e fukahi meʻa mei he tupuʻangá mo e lanu mo e maama ʻo e feituʻu ʻoku ʻave ki aí.
+tool.heal.history.stroke = Polosi Fakamoʻui
+tool.spot_heal.name = Polosi Fakamoʻui Toti
+tool.spot_heal.description = Polosi Fakamoʻui Toti: vali ʻi ha mele pea ʻe fetongi ʻaki ʻa e anga ʻo e fukahi meʻa mei hono takatakaí — ʻoku ʻikai fiemaʻu ke fokotuʻu ha poini tupuʻanga.
+tool.spot_heal.history.stroke = Polosi Fakamoʻui Toti
+
+tool.history_brush.name = Polosi Hisitōlia
+tool.history_brush.description = Vali fakafoki ʻa e ngaahi pikisi mei he tatau hisitōlia ʻo e fakamatala, ʻo fakafoki tahataha ʻa e ngaahi ngāue kimui angé ʻi he laine takitaha.
+tool.history_brush.history.stroke = Polosi Hisitōlia
+
+tool.background_eraser.name = Meʻatamate Tuʻa
+tool.background_eraser.description = Tamateʻi ʻa e lanu ʻoku fili ʻi he lotoloto ʻo e polosí kae tuku ʻa e ngaahi pikisi ʻoku kehe honau lanú, ke fakamavaheʻi ha meʻa mei hono tuʻá.
+tool.background_eraser.history.stroke = Meʻatamate Tuʻa
+
+tool.gradient.name = Fetongi Lanu Māmālie
+tool.gradient.description = Toho ke fakafonu ʻa e Layer — ʻo fou ʻi he feituʻu kuo filí kapau ʻoku ʻi ai — ʻaki ha fetongi lanu māmālie hangatonu mei he lanu muʻá ki he lanu ki muí ʻi he halanga ʻo e tohó.
+tool.gradient.radial.name = Fetongi Lanu Māmālie Lētiasi
+tool.gradient.radial.description = Toho mei he lotolotó ki tuʻa ke fakafonu ʻaki ha fetongi lanu māmālie lētiasi ʻi he vahaʻa ʻo e lanu muʻá mo e lanu ki muí.
+tool.gradient.option.gradient = Fetongi Lanu Māmālie
+tool.gradient.option.reverse = Fulihi
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Lanu Muʻa ki he Lanu Tuʻa
+tool.gradient.choice.foreground_to_transparent = Lanu Muʻa ki he Transparent
+tool.gradient.choice.linear = Hangatonu
+tool.gradient.choice.radial = Lētiasi
+tool.gradient.choice.angle = Tuliki
+tool.gradient.choice.reflected = Fakaʻata
+tool.gradient.choice.diamond = Taiamoni
+tool.gradient.history.gradient = Fetongi Lanu Māmālie
+
+tool.bucket.name = Pākete Vali
+tool.bucket.description = Lomi ke fakafonu ʻa e feituʻu fehokotaki ʻoku tatau hono lanú ʻi lalo ʻi he tuhu ʻaki ʻa e lanu muʻá, ʻo fakatatau ki he ngofua ʻa e meʻangāué.
+tool.bucket.option.contiguous = Hoko Fakataha
+tool.bucket.option.all_layers = Ngaahi Layer Kotoa
+tool.bucket.history.fill = Pākete Vali

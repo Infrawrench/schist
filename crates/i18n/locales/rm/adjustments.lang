@@ -1,0 +1,20 @@
+# Stresas da correctura e cumonds Maletg ▸ Correcturas.
+adjustment.levels.name = Nivels
+adjustment.curves.name = Curvas
+adjustment.hue_saturation.name = Tonalitad/Saturaziun
+adjustment.brightness_contrast.name = Luminositad/Contrast
+adjustment.black_white.name = Nair ed alv
+adjustment.solid_color.name = Colur unida
+adjustment.gradient_fill.name = Emplenida cun gradient
+adjustment.pattern_fill.name = Emplenida cun muster
+adjustment.invert.name = Inverter
+adjustment.posterize.name = Reducir nivels da colur
+adjustment.threshold.name = Val da sava
+adjustment.color_balance.name = Equiliber da colurs
+adjustment.vibrance.name = Vivacitad
+adjustment.exposure.name = Exposiziun
+adjustment.photo_filter.name = Filter fotografic
+adjustment.gradient_map.name = Charta da gradient
+adjustment.selective_color.name = Colur selectiva
+adjustment.channel_mixer.name = Maschadader da canals
+adjustment.other.name = Correctura

@@ -1,0 +1,20 @@
+# Korekcijas slāņi un komandas Attēls ▸ Korekcijas.
+adjustment.levels.name = Līmeņi
+adjustment.curves.name = Līknes
+adjustment.hue_saturation.name = Nokrāsa/Piesātinājums
+adjustment.brightness_contrast.name = Spilgtums/Kontrasts
+adjustment.black_white.name = Melnbalts
+adjustment.solid_color.name = Vienlaidu krāsa
+adjustment.gradient_fill.name = Gradienta aizpildījums
+adjustment.pattern_fill.name = Raksta aizpildījums
+adjustment.invert.name = Invertēt
+adjustment.posterize.name = Posterizēt
+adjustment.threshold.name = Slieksnis
+adjustment.color_balance.name = Krāsu balanss
+adjustment.vibrance.name = Dzīvīgums
+adjustment.exposure.name = Ekspozīcija
+adjustment.photo_filter.name = Fotofiltrs
+adjustment.gradient_map.name = Gradienta karte
+adjustment.selective_color.name = Selektīvā krāsa
+adjustment.channel_mixer.name = Kanālu mikseris
+adjustment.other.name = Korekcija

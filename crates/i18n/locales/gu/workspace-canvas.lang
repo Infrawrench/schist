@@ -1,0 +1,40 @@
+# Status-bar replies
+workspace.canvas.rotate_view_degrees = દૃશ્યને {degrees}° ફેરવો
+workspace.canvas.view_reset = દૃશ્ય રીસેટ થયું
+workspace.canvas.notes_on = નોંધો ચાલુ
+workspace.canvas.notes_off = નોંધો બંધ
+workspace.canvas.rulers_on = માપપટ્ટીઓ ચાલુ
+workspace.canvas.rulers_off = માપપટ્ટીઓ બંધ
+workspace.canvas.grid_on = ગ્રિડ ચાલુ
+workspace.canvas.grid_off = ગ્રિડ બંધ
+workspace.canvas.guides_on = માર્ગદર્શિકાઓ ચાલુ
+workspace.canvas.guides_off = માર્ગદર્શિકાઓ બંધ
+workspace.canvas.extras_on = વધારાની વસ્તુઓ ચાલુ
+workspace.canvas.extras_off = વધારાની વસ્તુઓ બંધ
+workspace.canvas.snap_on = સ્નૅપ ચાલુ
+workspace.canvas.snap_off = સ્નૅપ બંધ
+workspace.canvas.guides_cleared = માર્ગદર્શિકાઓ સાફ થઈ
+workspace.canvas.no_path = વાપરવા માટે કોઈ પાથ નથી
+workspace.canvas.path_empty = પાથ ખાલી છે
+workspace.canvas.stroke_needs_selection = સ્ટ્રોક માટે પસંદગી જરૂરી છે
+workspace.canvas.nothing_to_stroke = સ્ટ્રોક કરવા માટે કંઈ નથી
+workspace.canvas.content_aware_fill_needs_selection = કન્ટેન્ટ-અવેર ભરણ માટે પસંદગી જરૂરી છે
+workspace.canvas.content_aware_fill_needs_pixel_layer = કન્ટેન્ટ-અવેર ભરણ માટે પિક્સેલ લેયર જરૂરી છે
+workspace.canvas.color_range_needs_pixel_layer = રંગ શ્રેણી માટે પિક્સેલ લેયર જરૂરી છે
+workspace.canvas.nothing_to_adjust = ગોઠવવા માટે કંઈ નથી
+workspace.canvas.nothing_to_trim = ટ્રિમ કરવા માટે કંઈ નથી
+workspace.canvas.trimmed = ટ્રિમ કર્યું
+workspace.canvas.indexed_not_supported = અનુક્રમિત રંગ હજી સપોર્ટ થતો નથી
+workspace.canvas.opacity_percent = અપારદર્શકતા: {n}%
+
+# History
+workspace.history.stroke = સ્ટ્રોક
+workspace.history.fill = ભરણ
+workspace.history.content_aware_scale = કન્ટેન્ટ-અવેર માપ
+workspace.history.filter_gallery = ફિલ્ટર ગૅલેરી
+workspace.history.color_range = રંગ શ્રેણી
+workspace.history.move_layer = લેયર ખસેડ્યું
+workspace.history.move_layers = લેયરો ખસેડ્યાં
+workspace.history.layer_opacity = લેયરની અપારદર્શકતા
+workspace.history.delete_note = નોંધ કાઢી
+workspace.history.edit_note = નોંધ સંપાદિત કરી

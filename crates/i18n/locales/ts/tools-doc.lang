@@ -1,0 +1,26 @@
+# Switirhisiwa swa swiphemu swa dokhumente: swivandla swo tirhela, swiphemu, tifureme, tinotsi ni ku hlayela.
+
+tool.artboard.name = Xivandla xo tirhela
+tool.artboard.description = Koka u endla xivandla xo tirhela: ndhawu ya khanivhasi leyi nga ni vito naswona yi rhumeriwaka yi ri yoxe. Ku koka endzeni ka lexi nga kona swa xi fambisa.
+tool.artboard.default_name = Xivandla xo tirhela {n}
+
+tool.slice.name = Xiphemu
+tool.slice.description = Koka u endla xiphemu xo rhumela, ku nga rekhithengula ya khanivhasi leyi nga ni vito naswona yi rhumeriwaka yi ri xifaniso lexi tiyimeleke. Ku koka endzeni ka lexi nga kona swa xi fambisa.
+tool.slice.default_name = Xiphemu {n}
+
+tool.frame.name = Fureme
+tool.frame.description = Koka u endla fureme: leyara ya rekhithengula (kumbe ya xirhendzevutana) leyi tumbetaka leswi nghenisiwaka eka yona.
+tool.frame.default_name = Fureme {n}
+tool.frame.choice.rectangle = Rekhithengula
+tool.frame.choice.ellipse = Elipisi
+tool.frame.history.frame = Fureme
+
+tool.note.name = Noti
+tool.note.description = Tshikilela khanivhasi leyi nga riki na chinhu u veka noti kwalaho, leyi funghiweke hi mutsari ni muhlovo wa xiyimo xa muhleri; tshikilela phini leyi nga kona ku yi hlawulela phanele ya Tinotsi.
+tool.note.history.place = Veka noti
+tool.note.history.move = Fambisa noti
+tool.note.history.delete = Susa noti
+
+tool.count.name = Nhlayo
+tool.count.description = Tshikilela ku veka swifungho swa nhlayo leswi nga ni tinomboro eka khanivhasi, naswona tshikilela lexi nga kona ku xi susa.
+tool.count.default_name = Nhlayo {n}

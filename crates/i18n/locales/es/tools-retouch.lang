@@ -1,0 +1,24 @@
+# Herramientas de retoque de regiones.
+tool.patch.name = Parche
+tool.patch.description = Traza un contorno alrededor de un defecto y arrastra después la selección hasta píxeles limpios: la textura de esa zona se adapta al defecto. El modo Parche determina cuál de los dos extremos se arrastra.
+tool.patch.option.patch = Parche
+tool.patch.choice.source = Origen
+tool.patch.choice.destination = Destino
+tool.patch.history.patch = Parche
+
+tool.content_aware_move.name = Movimiento con detección de contenido
+tool.content_aware_move.description = Arrastra un objeto seleccionado a otro lugar y el hueco que deja se rellena a partir de su entorno. En el modo Extender, el objeto se estira en vez de desplazarse.
+tool.content_aware_move.choice.move = Mover
+tool.content_aware_move.choice.extend = Extender
+tool.content_aware_move.history.move = Movimiento con detección de contenido
+
+tool.red_eye.name = Ojos rojos
+tool.red_eye.description = Haz clic en una pupila para eliminar el rojo producido por el flash.
+tool.red_eye.option.pupil_size = Tamaño de pupila
+tool.red_eye.option.darken = Oscurecer
+tool.red_eye.history.red_eye = Ojos rojos
+
+tool.magic_eraser.name = Borrador mágico
+tool.magic_eraser.description = Haz clic para borrar el área de color similar situada bajo el puntero, dentro de la tolerancia de la herramienta: puede ser la zona contigua al clic o todas las zonas de la capa.
+tool.magic_eraser.option.contiguous = Contiguo
+tool.magic_eraser.history.erase = Borrador mágico

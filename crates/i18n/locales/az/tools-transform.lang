@@ -1,0 +1,31 @@
+# Sərbəst transformasiya, seçimin transformasiyası və kəsmə alətləri.
+
+# Sərbəst transformasiya
+tool.transform.name = Sərbəst transformasiya
+tool.transform.description = Sərbəst transformasiya. Aktivləşdirildikdə aktiv qatın ətrafında transformasiya çərçivəsi açılır: ölçünü dəyişmək üçün küncü, döndərmək üçün küncün kənarını, əymək üçün isə tərəfi sürükləyin. Təsdiqlənənədək (Enter) heç bir dəyişiklik yazılmır; ləğv etdikdə (Escape) qat əvvəlki vəziyyətinə qayıdır.
+tool.transform.option.interpolation = İnterpolyasiya
+tool.transform.history.transform = Sərbəst transformasiya
+tool.transform.history.image_size = Şəkil ölçüsü
+tool.transform.history.canvas_size = Kətan ölçüsü
+
+# Seçimin transformasiyası
+tool.transform.selection.name = Seçimin transformasiyası
+tool.transform.selection.description = Seçimin transformasiyası: eyni çərçivədir, lakin daxilindəki piksellər əvəzinə seçim konturunu hərəkət etdirir. Bitirmək üçün təsdiqləyin və ya ləğv edin.
+tool.transform.selection.history.transform = Seçimin transformasiyası
+
+# Klassik yenidən nümunələmə filtrləri
+tool.transform.resample.nearest_neighbor = Ən yaxın qonşu
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bikubik
+
+# Kəsmə
+tool.crop.name = Kəsmə
+tool.crop.description = Saxlanacaq sahəni çəkib tutacaqlarını tənzimləyin; təsdiqləmək (Enter) sənədi həmin sahəyə qədər kəsir, ləğv etmək (Escape) isə sənədi dəyişmədən saxlayır.
+tool.crop.option.ratio = Nisbət
+tool.crop.option.delete_cropped = Kəsilmiş pikselləri sil
+tool.crop.choice.unconstrained = Məhdudiyyətsiz
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Kəsmə

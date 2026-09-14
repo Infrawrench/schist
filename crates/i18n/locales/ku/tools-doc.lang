@@ -1,0 +1,31 @@
+# Amûrên belgeyê: tabloyên hunerî, perçe, çarçove, not û hejmar.
+
+# Tabloya hunerî
+tool.artboard.name = Tabloya Hunerî
+tool.artboard.description = Tabloyekê hunerî bi kişandinê çêke: herêmeke navkirî ya kanavayê ye ku bi serê xwe tê derxistin. Bi kişandina hundirê tabloyeke heyî ew tê veguhastin.
+tool.artboard.default_name = Tabloya Hunerî {n}
+
+# Perçe
+tool.slice.name = Perçe
+tool.slice.description = Perçeyekê derxistinê bi kişandinê çêke; ew çargoşeyeke navkirî ya kanavayê ye ku wek wêneyekî serbixwe tê derxistin. Bi kişandina hundirê perçeyeke heyî ew tê veguhastin.
+tool.slice.default_name = Perçe {n}
+
+# Çarçove
+tool.frame.name = Çarçove
+tool.frame.description = Çarçoveyekê bi kişandinê çêke: layereke çargoşe (an elîpsî) ye ku her tiştê têxistine hundirê wê vedişêre.
+tool.frame.default_name = Çarçove {n}
+tool.frame.choice.rectangle = Çargoşe
+tool.frame.choice.ellipse = Elîps
+tool.frame.history.frame = Çarçove
+
+# Not
+tool.note.name = Not
+tool.note.description = Li kanavaya vala bitikîne da ku notekê li wir sabît bikî; navê nivîskar û rengê di rewşa edîtorê de li ser tê tomarkirin. Li ser nîşana heyî bitikîne da ku wê ji bo panela Notan hilbijêrî.
+tool.note.history.place = Notê Bi Cih Bike
+tool.note.history.move = Notê Veguhêze
+tool.note.history.delete = Notê Jê Bibe
+
+# Hejmar
+tool.count.name = Hejmar
+tool.count.description = Bitikîne da ku nîşanên hejmarî li ser kanavayê daynî; li nîşaneke heyî bitikîne da ku wê rakî.
+tool.count.default_name = Hejmar {n}

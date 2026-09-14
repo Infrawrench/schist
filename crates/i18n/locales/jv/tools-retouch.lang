@@ -1,0 +1,29 @@
+# Piranti ndandani pérangan gambar.
+
+# Tambalan
+tool.patch.name = Tambalan
+tool.patch.description = Seret garis ngubengi cacat, banjur seret pilihan kuwi menyang piksel sing resik: tekstur ing kono bakal dicocogaké menyang cacat. Modus Tambalan nemtokaké pucuk endi saka pasangan kuwi sing diseret.
+tool.patch.option.patch = Tambalan
+tool.patch.choice.source = Sumber
+tool.patch.choice.destination = Tujuan
+tool.patch.history.patch = Tambalan
+
+# Pindhah Sadhar Isi
+tool.content_aware_move.name = Pindhah Sadhar Isi
+tool.content_aware_move.description = Seret obyèk sing dipilih menyang papan liya, banjur bolongan sing ditinggal bakal diisi saka sakiwa-tengené. Ing modus Jembarake, obyèk bakal diulur, dudu dipindhah.
+tool.content_aware_move.choice.move = Pindhah
+tool.content_aware_move.choice.extend = Jembarake
+tool.content_aware_move.history.move = Pindhah Sadhar Isi
+
+# Mripat Abang
+tool.red_eye.name = Mripat Abang
+tool.red_eye.description = Klik pupil kanggo ngilangaké werna abang saka lampu kilat.
+tool.red_eye.option.pupil_size = Ukuran Pupil
+tool.red_eye.option.darken = Petengake
+tool.red_eye.history.red_eye = Mripat Abang
+
+# Busakan Ajaib
+tool.magic_eraser.name = Busakan Ajaib
+tool.magic_eraser.description = Klik kanggo mbusak area kanthi werna sing padha ing sangisoring panunjuk, miturut toleransi piranti — mung sing nyambung karo titik klik, utawa kabèh ing lapisan.
+tool.magic_eraser.option.contiguous = Nyambung
+tool.magic_eraser.history.erase = Busakan Ajaib

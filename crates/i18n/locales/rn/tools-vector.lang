@@ -1,0 +1,44 @@
+# Pens
+tool.pen.name = Ikaramu
+tool.pen.description = Kwubaka inzira: kanda ukore akadomo k'imfuruka, kurura ukureko utwuma tugenga umurongo ugoramye, hanyuma ukande akadomo ka mbere kugira uyugare. Kwemeza bihindura inzira urwego rw'ishusho.
+tool.pen.option.rubber_band = Umugozi wa elastike
+tool.pen.history.fill = Kwuzuza inzira
+tool.pen.default_path_name = Inzira {n}
+tool.pen.freeform.name = Ikaramu y'ukwiyagiza
+tool.pen.freeform.description = Kurura umurongo ukoresheje ukuboko maze uhindurwe inzira, ushobora gusigara kure yayo nk'uko ihitamwo Rikwiranye ribitegeka.
+tool.pen.freeform.option.fit = Guhuza
+tool.pen.curvature.name = Ikaramu y'imirongo igoramye
+tool.pen.curvature.description = Kanda utudomo dukurikirana maze inzira igorame neza ibiciyemwo.
+
+tool.path_select.name = Gutoranya inzira
+tool.path_select.description = Kanda inzira kugira uyihitemwo, maze uyikurure uyimure yose.
+tool.direct_select.name = Gutoranya ata guca ku ruhande
+tool.direct_select.description = Kurura akadomo kamwe k'igitsimbatazo canke utwuma twako kugira uhindure imero y'inzira irukikije.
+
+tool.shape.history.layer = Urwego rwa {name}
+tool.shape.rect.name = Igikoresho c'urukiramende
+tool.shape.rect.label = Urukiramende
+tool.shape.rect.description = Kurura ukore urwego rw'ishusho y'urukiramende rufise ibara ry'imbere; ruguma ari vector kandi rusubira guhindurwa pikisele iyo uhinduye ingano.
+tool.shape.ellipse.name = Igikoresho ca ellipse
+tool.shape.ellipse.label = Ellipse
+tool.shape.ellipse.description = Kurura ukore urwego rw'ishusho ya ellipse rufise ibara ry'imbere.
+tool.shape.line.name = Igikoresho c'umurongo
+tool.shape.line.label = Umurongo
+tool.shape.line.description = Kurura ukore urwego rw'ishusho y'umurongo ugororotse rufise ibara ry'imbere.
+tool.shape.line.option.weight = Ubunini
+tool.shape.line.option.arrow_start = Intango
+tool.shape.line.option.arrow_end = Iherezo
+tool.shape.polygon.name = Igikoresho c'ishusho y'impande nyinshi
+tool.shape.polygon.label = Ishusho y'impande nyinshi
+tool.shape.polygon.description = Kurura ukore urwego rw'ishusho y'impande zingana rufise ibara ry'imbere, igitigiri c'impande kigengwa n'amahitamo.
+tool.shape.polygon.option.sides = Impande
+
+tool.shape.custom.name = Ishusho yihariye
+tool.shape.custom.label = Ishusho yihariye
+tool.shape.custom.description = Kurura ukore imwe mu mashusho yatanzwe, yatowe ukoresheje ihitamwo Ishusho.
+tool.shape.custom.choice.heart = Umutima
+tool.shape.custom.choice.star = Inyenyeri
+tool.shape.custom.choice.arrow = Umwampi
+tool.shape.custom.choice.lightning = Umuravyo
+tool.shape.custom.choice.cross = Umusaraba
+tool.shape.custom.choice.speech_bubble = Agasandugu k'amajambo

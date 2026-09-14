@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = dekodeer {name}
+codec.msg.zero_sized = die beeld bevat geen pixels nie
+codec.msg.assembling_document = stel die dokument saam
+
+codec.raw.msg.decoding = dekodeer die rou lêer
+codec.raw.msg.developing = ontwikkel die rou lêer
+codec.raw.msg.finding_preview = soek die ingebedde voorskou
+codec.raw.msg.decoding_preview = dekodeer die ingebedde voorskou
+codec.raw.msg.decoder_panicked = die roudekodeerder het met hierdie lêer misluk: {what}
+
+codec.affinity.import_title = Affinity-invoer
+codec.affinity.flattened_preview_layer = Saamgeplatte voorskou
+codec.affinity.msg.no_preview = Geen bruikbare ingebedde voorskou nie. Affinity se gelaagde formaat is eiendomsregtelik; Schist voer die saamgeplatte voorskou in wat die lêer bevat. Hierdie lêer het nie een nie — stoor dit weer in Affinity, of voer dit as PSD uit om al die lae in te voer.
+
+codec.heif.msg.no_library = libheif is nie beskikbaar nie ({details}). Om HEIC oop te maak, word die libheif-biblioteek vereis (Linux: installeer libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — hierdie libheif-programbou het moontlik nie 'n HEVC-dekodeerder nie (op Debian/Ubuntu, installeer libheif-plugin-libde265)
+codec.heif.msg.unknown_error = onbekende fout
+codec.heif.msg.initialising = inisialiseer libheif
+codec.heif.msg.reading_container = lees die HEIF-houer
+codec.heif.msg.finding_primary_image = soek die primêre beeld
+codec.heif.msg.reading_icc_profile = lees die ICC-profiel
+codec.heif.msg.decoding_image = dekodeer die beeld
+codec.heif.msg.checksum_mismatch = Kontrolesom verskil vir {name}: {expected} verwag, {got} verkry
+codec.heif.msg.imageio_cannot_read = ImageIO kon nie die HEIF-houer lees nie
+codec.heif.msg.container_empty = die HEIF-houer bevat geen beeld nie
+codec.heif.msg.imageio_cannot_decode = ImageIO kon nie die primêre beeld dekodeer nie

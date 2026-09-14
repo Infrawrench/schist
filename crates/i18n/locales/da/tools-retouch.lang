@@ -1,0 +1,24 @@
+# Værktøjer til retouchering af områder.
+tool.patch.name = Lap
+tool.patch.description = Tegn en kontur omkring en fejl, og træk derefter markeringen hen på rene pixels. Teksturen dér tilpasses fejlen. Tilstanden Lap bestemmer, hvilken ende af parret du trækker.
+tool.patch.option.patch = Lap
+tool.patch.choice.source = Kilde
+tool.patch.choice.destination = Mål
+tool.patch.history.patch = Lap
+
+tool.content_aware_move.name = Flyt indholdsbevidst
+tool.content_aware_move.description = Træk et markeret objekt til et andet sted; hullet efter det fyldes ud fra omgivelserne. I tilstanden Udvid strækkes objektet i stedet for at blive flyttet.
+tool.content_aware_move.choice.move = Flyt
+tool.content_aware_move.choice.extend = Udvid
+tool.content_aware_move.history.move = Flyt indholdsbevidst
+
+tool.red_eye.name = Røde øjne
+tool.red_eye.description = Klik på en pupil for at fjerne den røde farve fra blitzen.
+tool.red_eye.option.pupil_size = Pupilstørrelse
+tool.red_eye.option.darken = Gør mørkere
+tool.red_eye.history.red_eye = Røde øjne
+
+tool.magic_eraser.name = Magisk viskelæder
+tool.magic_eraser.description = Klik for inden for værktøjets tolerance at slette området med en lignende farve under markøren — enten sammenhængende med klikket eller overalt i laget.
+tool.magic_eraser.option.contiguous = Sammenhængende
+tool.magic_eraser.history.erase = Magisk viskelæder

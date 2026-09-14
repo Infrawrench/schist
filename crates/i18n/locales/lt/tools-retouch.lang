@@ -1,0 +1,24 @@
+# Sričių retušavimo įrankiai.
+tool.patch.name = Lopas
+tool.patch.description = Apibrėžkite defektą, tada nuvilkite pažymėtą sritį ant švarių pikselių: jų tekstūra bus pritaikyta defektui. Lopo režimas nustato, kurį poros galą reikia vilkti.
+tool.patch.option.patch = Lopas
+tool.patch.choice.source = Šaltinis
+tool.patch.choice.destination = Paskirties vieta
+tool.patch.history.patch = Lopas
+
+tool.content_aware_move.name = Perkėlimas atsižvelgiant į turinį
+tool.content_aware_move.description = Nuvilkite pasirinktą objektą kitur, o jo palikta tuščia vieta bus užpildyta pagal aplinką. Išplėtimo režimu objektas ištempiamas, užuot jį perkėlus.
+tool.content_aware_move.choice.move = Perkelti
+tool.content_aware_move.choice.extend = Išplėsti
+tool.content_aware_move.history.move = Perkėlimas atsižvelgiant į turinį
+
+tool.red_eye.name = Raudonos akys
+tool.red_eye.description = Spustelėkite vyzdį, kad pašalintumėte blykstės sukeltą raudonumą.
+tool.red_eye.option.pupil_size = Vyzdžio dydis
+tool.red_eye.option.darken = Tamsinti
+tool.red_eye.history.red_eye = Raudonos akys
+
+tool.magic_eraser.name = Magiškasis trintukas
+tool.magic_eraser.description = Spustelėkite, kad pagal įrankio nuokrypį ištrintumėte po žymikliu esančią panašios spalvos sritį – besiribojančią su spustelėta vieta arba visame sluoksnyje.
+tool.magic_eraser.option.contiguous = Gretima sritis
+tool.magic_eraser.history.erase = Magiškasis trintukas

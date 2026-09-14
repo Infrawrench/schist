@@ -1,0 +1,36 @@
+app.filter_gallery.title = Síusafn
+app.filter_gallery.stack = Stafli (beitt neðan frá og upp)
+app.filter_gallery.no_settings = Þessi sía hefur engar stillingar.
+app.fonts.not_open_licensed = ekki með opið leyfi · {substitute} hefur sömu hlutföll
+app.fonts.missing_substituted = vantar · textinn er settur með staðgengilsletri
+app.fonts.not_in_catalogue = {family} er ekki í safni opinna leturgerða
+app.fonts.no_faces = engin leturafbrigði til niðurhals fyrir {family}
+app.fonts.empty_response = autt svar
+app.update.unreadable_response = ólesanlegt svar: {error}
+app.update.no_temp_dir = engin bráðabirgðamappa til að sækja í
+app.update.asset_has_path = útgáfan nefnir eignina með slóð
+app.update.too_big = niðurhalið er stærra en útgáfan segir
+app.update.stopped_at = niðurhalið stöðvaðist við {got} af {total} bætum
+app.update.hash_mismatch = tætigildi niðurhalsins er {got}, ekki {want}
+app.update.not_in_bundle = þetta eintak er ekki inni í forritsvöndli
+app.update.no_parent_dir = forritsvöndullinn á enga yfirmöppu
+app.update.cannot_write = get ekki skrifað í {dir}
+app.update.cannot_move_aside = get ekki fært {app} til hliðar
+app.update.cannot_move_in = get ekki fært nýja vöndulinn á sinn stað
+app.update.cannot_run_ditto = get ekki keyrt /usr/bin/ditto
+app.update.unpack_failed = ekki tókst að taka niðurhalið úr umbúðum: {error}
+app.update.no_app_in_download = niðurhalið inniheldur ekkert Schist.app
+app.update.cannot_run_codesign = get ekki keyrt /usr/bin/codesign
+app.update.signature_invalid = undirskrift niðurhalsins stenst ekki sannprófun: {error}
+app.update.download_unsigned = þetta eintak er undirritað en niðurhalið ekki
+app.update.different_developer = niðurhalið er undirritað af öðrum forritara
+app.update.cannot_relaunch = get ekki ræst endurræsiforritið
+app.update.not_installed_copy = uppsetningarforritið setti þetta eintak ekki hér
+app.update.cannot_start_installer = get ekki ræst uppsetningarforritið
+app.update.platform_unsupported = uppfærslur á þessu stýrikerfi eru settar upp á sama hátt og Schist var sett upp
+app.vulkan.no_loader = schist: enginn Vulkan-hleðslari er í kerfinu og því er ekkert hægt að teikna með.\n\nSchist teiknar gegnum Vulkan en `libvulkan.so.1` er ekki uppsett.\nBæði hleðslara og rekil þarf:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan-rekillinn sem þessi seta vísar á er ekki til.\n\n{var} er stillt og sú stilling *kemur í stað* leitar hleðslarans að\nreklum í stað þess að bæta við hana. Þessar skrár, sem eru ekki til,\neru því allur reklalistinn — og öll Vulkan-forrit í þessari setu\nsjá engan rekil, sama hve margir eru uppsettir:\n\n{missing}\n    {var}={value}\n\nBeindu breytunni á fyrirliggjandi manifest-skrá — uppsettir reklar setja sínar í\n/usr/share/vulkan/icd.d — eða fjarlægðu stillinguna og leyfðu hleðslaranum að leita sjálfum.\nEf seta stillir þetta úr grunnstillingaskrá (Hyprland `env =`,\nsystemd environment.d-innskot, skeljasnið) þarf að breyta því þar,\nog skrá þarf sig inn að nýju svo breytingin nái til þess sem þegar er í gangi.\n
+app.vulkan.override_note = \n{var} er stillt á {value}, og það kemur í stað eigin leitar hleðslarans:\nef ekkert þessara manifesta á við þessa vél er fyrsta ráðið að fjarlægja stillinguna.\n
+app.vulkan.no_driver = schist: enginn Vulkan-rekill er uppsettur og því er ekkert hægt að teikna með.\n\nSchist teiknar gegnum Vulkan. Hleðslarinn er uppsettur en tilkynnir engan\nrekil — enginn hefur skráð sig á hvorugum staðnum sem leitað er á:\n\n{dirs}\n\nHleðslarinn kemur í öðrum pakka en reklarnir og því vantar yfirleitt aðeins einn\npakka.\n\nSettu upp rekilinn fyrir skjákort þessarar vélar:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nSéreignarreki NVIDIA inniheldur sinn eigin (`nvidia-utils` á Arch,\n`nvidia-driver` á Debian). Í sýndarvél, eða þar sem engan\nskjákortsrekil er hægt að setja upp, virkar hugbúnaðarrastarinn:\n`vulkan-swrast` á Arch, hluti af `mesa-vulkan-drivers` annars staðar. Hann er\nhægur en ræstist.\n{overridden}
+app.vulkan.no_device = schist: Vulkan-rekill er uppsettur en býður ekkert tæki til að teikna á.\n\nRekillinn styður ef til vill ekki þetta skjákort eða nær ekki sambandi við það —\nyfir SSH eða inni í gámi vantar oft /dev/dri.\n`vulkaninfo --summary` sýnir hvað hleðslarinn sér.\n\nHugbúnaðarrastarinn teiknar án skjákorts ef vélin hefur ekkert slíkt:\n`vulkan-swrast` á Arch, hluti af `mesa-vulkan-drivers`\ná Debian og Fedora.\n
+app.vulkan.skip_hint = Til að ræsa Schist samt og láta það bila á eigin forsendum skaltu stilla {var}=1.

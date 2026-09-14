@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Odštej
+tool.select.mode.intersect = Presekaj
+
+tool.marquee.rect.name = Pravokotni izbor
+tool.marquee.rect.description = Povlecite pravokotni izbor. Tipka Shift na začetku vlečenja izboru dodaja, Alt odšteva, obe pa ustvarita presek; Shift med vlečenjem omeji obliko na kvadrat. Klik brez vlečenja prekliče izbor.
+tool.marquee.ellipse.name = Eliptični izbor
+tool.marquee.ellipse.description = Povlecite eliptični izbor; kombiniranje s tipkama Shift in Alt deluje enako kot pri pravokotnem izboru.
+
+tool.lasso.name = Laso
+tool.lasso.description = Prostoročno povlecite obris; ko vlečenje končate, se konca izbora povežeta. Shift dodaja, Alt odšteva.
+tool.lasso.history.select = Izbor z lasom
+tool.lasso.polygonal.name = Mnogokotni laso
+tool.lasso.polygonal.description = Klikajte zaporedne vogale, da ustvarite izbor z ravnimi robovi, nato kliknite blizu prve točke, da ga sklenete.
+tool.lasso.polygonal.history.select = Mnogokotni laso
+tool.lasso.magnetic.name = Magnetni laso
+tool.lasso.magnetic.description = Sledite približno vzdolž roba, obris pa se pripne na najmočnejši kontrast blizu poti.
+tool.lasso.magnetic.history.select = Magnetni laso
+tool.lasso.magnetic.option.frequency = Pogostost
+
+tool.wand.name = Čarobna paličica
+tool.wand.description = Kliknite, da v okviru tolerance izberete povezano območje podobne barve pod kazalcem — isto toleranco uporabljajo ukazi Povečaj, Podobno in Barvni razpon.
+tool.wand.option.contiguous = Stično
+tool.wand.history.select = Čarobna paličica
+
+tool.quick_select.name = Hitra izbira
+tool.quick_select.description = Slikajte čez območje in izbor se razširi skozi podobne slikovne pike, čez katere poteka čopič.
+tool.quick_select.history.select = Hitra izbira
+
+tool.object_select.name = Izbor predmeta
+tool.object_select.description = Povlecite okvir okoli predmeta in izbor se oprime predmeta, najdenega v njem.
+tool.object_select.history.select = Izbor predmeta

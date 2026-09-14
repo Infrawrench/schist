@@ -6,7 +6,7 @@ contracts*; everything a user can see or click lives in a plugin.
 ```
 crates/app              GPUI shell: window, canvas, panels, dialogs, keymap
 ├── crates/ui           widget kit: palette, buttons, rows, checkboxes, links
-├── crates/i18n         the chrome's strings in four languages, and the OS locale
+├── crates/i18n         the chrome's translated strings, plural rules, and OS locale
 ├── crates/plugin-api   the trait surface every feature implements
 ├── crates/core         kernel: document, COW tiles, layers, history, selection
 ├── crates/color        pixel/colour primitives, depth conversion

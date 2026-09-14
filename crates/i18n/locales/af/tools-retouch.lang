@@ -1,0 +1,23 @@
+tool.patch.name = Lap
+tool.patch.description = Sleep 'n omtrek om 'n fout en sleep dan daardie seleksie na skoon pixels: die tekstuur daar word by die fout ingepas. Die Lap-modus bepaal watter kant van die paar jy sleep.
+tool.patch.option.patch = Lap
+tool.patch.choice.source = Bron
+tool.patch.choice.destination = Bestemming
+tool.patch.history.patch = Lap
+
+tool.content_aware_move.name = Inhoudsbewuste skuif
+tool.content_aware_move.description = Sleep 'n geselekteerde voorwerp elders heen; die gaping wat dit laat, word uit die omgewing ingevul. In Verleng-modus word die voorwerp gerek eerder as geskuif.
+tool.content_aware_move.choice.move = Skuif
+tool.content_aware_move.choice.extend = Verleng
+tool.content_aware_move.history.move = Inhoudsbewuste skuif
+
+tool.red_eye.name = Rooi-oog
+tool.red_eye.description = Klik op 'n pupil om die rooi flitskleur daaruit te verwyder.
+tool.red_eye.option.pupil_size = Pupilgrootte
+tool.red_eye.option.darken = Verdonker
+tool.red_eye.history.red_eye = Rooi-oog
+
+tool.magic_eraser.name = Toweruitveër
+tool.magic_eraser.description = Klik om die gebied met 'n soortgelyke kleur onder die wyser binne die gereedskap se toleransie uit te vee — óf aaneenlopend vanaf die klikpunt óf oral in die laag.
+tool.magic_eraser.option.contiguous = Aaneenlopend
+tool.magic_eraser.history.erase = Toweruitveër

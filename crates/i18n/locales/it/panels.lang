@@ -1,0 +1,93 @@
+# Tasti modificatori
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Maiusc
+panel.keys.alt = Alt
+
+# Barra di stato, schede e titolo
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigatore
+panel.navigator.title = Navigatore
+panel.navigator.actual_pixels = Pixel reali
+
+# Colore
+panel.color.picker = Selettore…
+panel.color.swap = Scambia colori
+panel.color.reset = Ripristina bianco e nero
+
+# Livelli
+panel.layers.blending_options = Opzioni di fusione…
+panel.layers.properties = Proprietà livello…
+panel.layers.show_hide = Mostra/Nascondi livello
+panel.layers.toggle_visibility = Attiva/disattiva visibilità
+
+# Storia
+panel.history.title = Storia
+panel.history.opened = Aperto
+
+# Informazioni EXIF
+panel.info.title = Info
+panel.info.camera = Fotocamera
+panel.info.lens = Obiettivo
+panel.info.iso = ISO {iso}
+panel.info.bias = Compensazione
+panel.info.flash_fired = flash scattato
+panel.info.no_flash = senza flash
+panel.info.white_balance = BB {wb}
+panel.info.metering = misurazione {metering}
+panel.info.taken = Acquisizione
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientamento {o}
+panel.info.software = Software
+panel.info.where = Posizione
+
+# Note
+panel.notes.author = Autore
+panel.notes.clear_all = Cancella tutto
+panel.notes.unattributed = Senza autore
+panel.notes.empty = Fai clic sull'area di lavoro per lasciare una nota.
+panel.notes.placeholder = Fai clic per scrivere
+
+# Carattere e strumento Testo
+panel.character.title = Carattere
+panel.character.type_tool = Strumento Testo (T)
+panel.character.align_left = Allinea a sinistra
+panel.character.align_center = Allinea al centro
+panel.character.align_right = Allinea a destra
+panel.character.text_color = Colore testo
+panel.character.panel = Pannello Carattere
+panel.character.cancel_edit = Annulla modifica testo
+panel.character.commit_edit = Conferma modifica testo
+panel.character.number_tip = {label} · Digita un valore oppure usa ↑ / ↓ (Maiusc per incrementi maggiori)
+panel.character.leading = Interlinea
+panel.character.tracking = Spaziatura
+panel.character.alignment = Allineamento
+panel.character.opentype = OpenType
+panel.character.text_on_path = Testo su tracciato
+panel.character.straight = Rettilineo
+panel.character.on_path = Su tracciato
+panel.character.straight_tip = Usa la linea di base ordinaria del livello di testo
+panel.character.on_path_tip = Usa una copia del tracciato attivo
+panel.character.path_offset = Scostamento tracciato
+
+# Barra laterale IA
+panel.ai.title = IA
+panel.ai.empty_editor = Chiedi una modifica e osservala sull'area di lavoro. L'agente usa gli stessi strumenti, filtri e comandi dei menu, con un passaggio di annullamento per ciascuna operazione.
+panel.ai.empty_gallery = Chiedi informazioni sulle tue foto e osserva le operazioni nella galleria: l'agente può cercare, esaminare miniature, selezionare, ordinare in raccolte e aprire una foto nell'editor.
+panel.ai.thinking = elaborazione…
+panel.ai.placeholder_editor = Chiedi informazioni sul documento o modificalo
+panel.ai.placeholder_gallery = Chiedi informazioni sulle tue foto
+panel.ai.send = Invia
+panel.ai.stop = Interrompi
+panel.ai.fetching_models = Richiesta dei modelli alla CLI…
+panel.ai.no_models = Nessun modello corrispondente
+panel.ai.search_models = Cerca modelli…
+
+# Finestre di dialogo dei file
+panel.keymap.install_plugin = Installa plugin
+panel.keymap.save_as_prompt = Salva con nome — l'estensione determina il formato:

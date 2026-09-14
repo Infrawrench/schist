@@ -1,0 +1,143 @@
+# Bara ea dimenu ea Schist.
+
+menu.file = Faele
+menu.file.new = E Ncha
+menu.file.open = Bula…
+menu.file.open_recent = Bula tsa Haufinyane
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Batla Pokellong…
+menu.file.close = Koala
+menu.file.save = Boloka
+menu.file.save_as = Boloka E le…
+menu.file.export = Romela…
+menu.file.export_submenu = Romela
+menu.file.export_artboards = Romela Liboto tsa Bonono ho PNG…
+menu.file.export_slices = Romela Likarolo ho PNG…
+menu.file.save_to_photos = Boloka ho Lifoto
+menu.file.plugins = Li-plug-in…
+menu.file.missing_fonts = Lifonte tse Sieo…
+menu.file.check_for_updates = Hlahloba Lintlafatso…
+menu.file.quit = Tsoa
+menu.file.add_folder_to_gallery = Kenya Foldara Pokellong…
+menu.file.import_from_photos = Kenya ho tsoa ho Lifoto…
+menu.file.import_from_camera = Kenya ho tsoa Khamereng…
+
+menu.edit = Hlophisa
+menu.edit.fill = Tlatsa…
+menu.edit.stroke = Taka Moeli…
+menu.edit.content_aware_fill = Tlatsa ka ho Lemoha Litaba
+menu.edit.content_aware_scale = Fetola Boholo ka ho Lemoha Litaba…
+menu.edit.puppet_warp = Ho Sotha ka Lipini
+menu.edit.free_transform = Phetoho e Lokolohileng
+menu.edit.transform = Fetola
+menu.edit.rotate_180 = Potoloha ka 180°
+menu.edit.rotate_90_cw = Potoloha ka 90° ho Latela Oache
+menu.edit.rotate_90_ccw = Potoloha ka 90° Khahlanong le Oache
+menu.edit.flip_horizontal = Phetla ka ho Rapama
+menu.edit.flip_vertical = Phetla ka ho Tsepama
+
+menu.image = Setšoantšo
+menu.image.mode = Mokhoa
+menu.image.adjustments = Liphetoho
+menu.image.auto_tone = Lokisa Khanya le Lefifi ka Boiketsetso
+menu.image.auto_contrast = Phapang ka Boiketsetso
+menu.image.auto_color = 'Mala ka Boiketsetso
+menu.image.image_size = Boholo ba Setšoantšo…
+menu.image.canvas_size = Boholo ba Seile…
+menu.image.image_rotation = Potoloho ea Setšoantšo
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° ho Latela Oache
+menu.image.rotate_90_ccw = 90° Khahlanong le Oache
+menu.image.flip_canvas_horizontal = Phetla Seile ka ho Rapama
+menu.image.flip_canvas_vertical = Phetla Seile ka ho Tsepama
+menu.image.crop_to_selection = Poma ho ea ka Khetho
+menu.image.trim = Seha Mathoko
+menu.image.assign_profile = Abela Profaele…
+menu.image.convert_to_profile = Fetolela ho Profaele…
+
+menu.select = Khetha
+menu.select.color_range = Mefuta ea Mebala…
+menu.select.modify = Fetola
+menu.select.border = Moeli…
+menu.select.smooth = Boreleli…
+menu.select.expand = Atolosa…
+menu.select.contract = Honyetsa…
+menu.select.feather = Nolofatsa Moeli…
+menu.select.transform_selection = Fetola Khetho
+
+menu.layer = Mokhahlelo
+menu.layer.layer_style = Setaele sa Mokhahlelo…
+menu.layer.layer_comps = Litlhophiso tsa Mekhahlelo
+menu.layer.new_layer_comp = Tlhophiso e Ncha ea Mekhahlelo
+menu.layer.delete_layer_comp = Hlakola {name}
+menu.layer.path = Tsela
+menu.layer.fill_path = Tlatsa Tsela
+menu.layer.stroke_path = Taka Moeli oa Tsela
+menu.layer.make_selection = Etsa Khetho
+menu.layer.delete_path = Hlakola Tsela
+
+menu.adjust = Lokisa
+
+menu.filter = Sefe
+menu.filter.filter_gallery = Pokello ea Disefo…
+menu.filter.liquify = Liquify
+menu.filter.vanishing_point = Ntlha ea ho Nyamela
+menu.filter.manage_models = Laola Dimotlolo…
+menu.filter.camera_raw_development = Ntlafatso ea Camera Raw…
+
+menu.view = Pono
+menu.view.rotate_view_cw = Potoloha Pono ho Latela Oache
+menu.view.rotate_view_ccw = Potoloha Pono Khahlanong le Oache
+menu.view.reset_view = Khutlisetsa Pono Boemong ba Pele
+menu.view.zoom_in = Atametsa
+menu.view.zoom_out = Suthisetsa Hole
+menu.view.fit_on_screen = Lekanya ho Skrini
+menu.view.actual_size = 100%
+menu.view.rulers = Dirula
+menu.view.grid = Keriti
+menu.view.guides = Ditataiso
+menu.view.notes = Lintlha
+menu.view.ai_panel = Phanele ea AI
+menu.view.extras = Tse Eketsehileng
+menu.view.snap = Khomarela
+menu.view.clear_guides = Hlakola Ditataiso
+menu.view.clear_notes = Hlakola Lintlha
+menu.view.clear_count = Hlakola Palo
+menu.view.screen_mode = Mokhoa oa Skrini
+menu.view.proof_colors = Mebala ea Teko
+menu.view.show_rulers = Bontša Dirula
+menu.view.hide_rulers = Pata Dirula
+menu.view.show_grid = Bontša Keriti
+menu.view.hide_grid = Pata Keriti
+menu.view.show_guides = Bontša Ditataiso
+menu.view.hide_guides = Pata Ditataiso
+menu.view.show_notes = Bontša Lintlha
+menu.view.hide_notes = Pata Lintlha
+menu.view.show_extras = Bontša Tse Eketsehileng
+menu.view.hide_extras = Pata Tse Eketsehileng
+menu.view.enable_snapping = Lumella ho Khomarela
+menu.view.disable_snapping = Thibela ho Khomarela
+menu.view.enable_proof_colors = Lumella Mebala ea Teko
+menu.view.disable_proof_colors = Thibela Mebala ea Teko
+
+menu.gallery = Pokello
+menu.gallery.edit_selected = Hlophisa Tse Khethiloeng
+menu.gallery.refresh = Khatholla
+menu.gallery.map_filter = Sefe ea 'Mapa…
+menu.gallery.back_to_editor = Khutlela ho Mohlophisi
+
+menu.cloud.browse = Batla ho Schist Cloud
+menu.cloud.generate = Hlahisa litšoantšo…
+menu.cloud.upload = Kenya tokomane ho Schist Cloud…
+menu.cloud.sign_out = Tsoa ho Schist Cloud
+menu.cloud.sign_in = Kena ho Schist Cloud…
+
+menu.app.services = Litšebeletso
+menu.app.hide = Pata {app}
+menu.app.hide_others = Pata Tse Ling
+menu.app.show_all = Bontša Tsohle
+menu.app.quit = Tsoa ho {app}
+
+menu.status.transform_selection_needs_selection = Ho Fetola Khetho ho hloka hore ho be le khetho
+menu.status.crop_needs_selection = Ho Poma ho ea ka Khetho ho hloka hore ho be le khetho
+menu.status.select_photo_to_edit = Khetha foto eo u batlang ho e hlophisa

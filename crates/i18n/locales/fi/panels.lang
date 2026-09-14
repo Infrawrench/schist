@@ -1,0 +1,102 @@
+# Piirtoalueen ympärillä oleva käyttöliittymä (crates/app/src/panels): sivupaneelit,
+# työkalurivi asetusriveineen, tilarivi, otsikkorivi, dokumenttivälilehdet,
+# pikavalikot sekä tiedostoikkunat tiedostossa crates/app/src/keymap.rs.
+# Paneelien nimet noudattavat Photoshopin suomennoksia. Muualla jo olevat
+# otsikot — Tasot, Väri, Huomautukset, Peittävyys, Koko — käytetään uudelleen
+# common.lang- ja menu.lang-tiedostoista.
+
+# Muokkausnäppäimet valikon pikanäppäinvihjeessä
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Vaihto
+panel.keys.alt = Alt
+
+# Tilarivi: dokumentin otsikko ja koko sekä piste tallentamattomille muutoksille
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Dokumenttivälilehdet ja ikkunan otsikko
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigointi
+panel.navigator.title = Navigointi
+panel.navigator.actual_pixels = Todelliset kuvapisteet
+
+# Väripaneeli ja sen pikavalikko
+panel.color.picker = Värinvalitsin…
+panel.color.swap = Vaihda värit
+panel.color.reset = Palauta musta ja valkoinen
+
+# Tasot-paneeli: rivin pikavalikko ja näkyvyyssilmän historiakirjaus
+panel.layers.blending_options = Sekoitusasetukset…
+panel.layers.properties = Tason ominaisuudet…
+panel.layers.show_hide = Näytä/kätke taso
+panel.layers.toggle_visibility = Vaihda näkyvyyttä
+
+# Historia-paneeli
+panel.history.title = Historia
+panel.history.opened = Avattu
+
+# Tiedot-välilehti: valokuvan EXIF-tiedot
+panel.info.title = Tiedot
+panel.info.camera = Kamera
+panel.info.lens = Objektiivi
+panel.info.iso = ISO {iso}
+panel.info.bias = Valotuksen korjaus
+panel.info.flash_fired = salama välähti
+panel.info.no_flash = ei salamaa
+panel.info.white_balance = Valkotasapaino {wb}
+panel.info.metering = Mittaus: {metering}
+panel.info.taken = Kuvattu
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · suunta {o}
+panel.info.software = Ohjelmisto
+panel.info.where = Sijainti
+
+# Huomautukset-paneeli ja Huomautus-työkalun asetukset
+panel.notes.author = Tekijä
+panel.notes.clear_all = Tyhjennä kaikki
+panel.notes.unattributed = Tekijätön
+panel.notes.empty = Jätä huomautus napsauttamalla piirtoaluetta.
+panel.notes.placeholder = Kirjoita napsauttamalla
+
+# Merkki-paneeli ja Teksti-työkalun asetusrivi
+panel.character.title = Merkki
+panel.character.type_tool = Tekstityökalu (T)
+panel.character.align_left = Tasaa vasemmalle
+panel.character.align_center = Keskitä
+panel.character.align_right = Tasaa oikealle
+panel.character.text_color = Tekstin väri
+panel.character.panel = Merkki-paneeli
+panel.character.cancel_edit = Peruuta tekstin muokkaus
+panel.character.commit_edit = Vahvista tekstin muokkaus
+panel.character.number_tip = {label} · Kirjoita arvo tai käytä ↑ / ↓ (Vaihto suurentaa askelta)
+panel.character.leading = Riviväli
+panel.character.tracking = Merkkiväli
+panel.character.alignment = Tasaus
+panel.character.opentype = OpenType
+panel.character.text_on_path = Teksti polulla
+panel.character.straight = Suora
+panel.character.on_path = Polulla
+panel.character.straight_tip = Käytä tekstitason tavallista perusviivaa
+panel.character.on_path_tip = Käytä aktiivisen polun kopiota
+panel.character.path_offset = Polun siirtymä
+
+# Tekoälysivupalkki
+panel.ai.title = Tekoäly
+panel.ai.empty_editor = Pyydä muokkausta ja seuraa sen toteutumista piirtoalueella. Agentti käyttää samoja työkaluja, suotimia ja komentoja kuin valikot, kukin omana kumottavana vaiheenaan.
+panel.ai.empty_gallery = Pyydä toimintoja kuville ja seuraa niiden toteutumista galleriassa: agentti voi hakea, tarkastella pienoiskuvia, valita, lajitella ryhmiin ja avata kuvan editorissa.
+panel.ai.thinking = miettii…
+panel.ai.placeholder_editor = Kysy tästä dokumentista tai muokkaa sitä
+panel.ai.placeholder_gallery = Kysy kuvistasi
+panel.ai.send = Lähetä
+panel.ai.stop = Pysäytä
+panel.ai.fetching_models = Pyydetään malliluetteloa komentorivityökalulta…
+panel.ai.no_models = Vastaavia malleja ei ole
+panel.ai.search_models = Hae malleja…
+
+# Tiedostoikkunat (keymap.rs)
+panel.keymap.install_plugin = Asenna liitännäinen
+panel.keymap.save_as_prompt = Tallenna nimellä — tiedostopääte määrää muodon:

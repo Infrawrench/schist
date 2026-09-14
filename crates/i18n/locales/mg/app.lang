@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galerian'ny sivana
+app.filter_gallery.stack = Antontany (ampiharina avy ambany miakatra)
+app.filter_gallery.no_settings = Tsy misy fikirana ity sivana ity.
+app.fonts.not_open_licensed = tsy manana fahazoan-dalana misokatra · mifanaraka amin'ny refin-tsoratra ny {substitute}
+app.fonts.missing_substituted = tsy hita · endritsoratra mpisolo no ampiasaina amin'ny lahatsoratra
+app.fonts.not_in_catalogue = Tsy ao amin'ny katalaogin'ny endritsoratra misokatra ny {family}
+app.fonts.no_faces = Tsy misy endriky ny {family} azo alaina
+app.fonts.empty_response = valiny foana
+app.update.unreadable_response = valiny tsy azo vakina: {error}
+app.update.no_temp_dir = tsy misy lahatahiry vonjimaika handraisana ny fampidinana
+app.update.asset_has_path = misy lalana ao amin'ny anaran'ny rakitra ao amin'ilay kinova
+app.update.too_big = lehibe noho izay voalazan'ilay kinova ny fampidinana
+app.update.stopped_at = nijanona teo amin'ny {got} amin'ny {total} byte ny fampidinana
+app.update.hash_mismatch = {got} ny hash-n'ny fampidinana, fa tsy {want}
+app.update.not_in_bundle = tsy ao anatin'ny fonosan'ny fampiharana ity kopia ity
+app.update.no_parent_dir = tsy manana lahatahiry reny ny fonosan'ny fampiharana
+app.update.cannot_write = tsy afaka manoratra ao amin'ny {dir}
+app.update.cannot_move_aside = tsy afaka mamindra an'i {app} hiala eo
+app.update.cannot_move_in = tsy afaka mametraka ny fonosana vaovao eo amin'ny toerany
+app.update.cannot_run_ditto = tsy afaka mampandeha /usr/bin/ditto
+app.update.unpack_failed = tsy nahomby ny famahana ny fampidinana: {error}
+app.update.no_app_in_download = tsy misy Schist.app ao amin'ny fampidinana
+app.update.cannot_run_codesign = tsy afaka mampandeha /usr/bin/codesign
+app.update.signature_invalid = tsy voamarina ny sonian'ny fampidinana: {error}
+app.update.download_unsigned = misy sonia ity kopia ity fa tsy misy sonia ny fampidinana
+app.update.different_developer = mpamorona hafa no nanao sonia ny fampidinana
+app.update.cannot_relaunch = tsy afaka manomboka ny mpamerina ny fampiharana
+app.update.not_installed_copy = tsy napetraky ny mpametrahana teto ity kopia ity
+app.update.cannot_start_installer = tsy afaka manomboka ny mpametrahana
+app.update.platform_unsupported = apetraka araka ny fomba nametrahana an'i Schist ny fanavaozana amin'ity sehatra ity
+app.vulkan.no_loader = schist: tsy misy mpamatratra Vulkan amin'ity rafitra ity, ka tsy misy azo ampiasaina hanaovana sary.\n\nMampiseho sary amin'ny alalan'ny Vulkan i Schist, ary tsy voapetraka ny `libvulkan.so.1`.\nIlaina ny mpamatratra sy ny mpamily:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: tsy hita ny mpamily Vulkan tondroin'ity session ity.\n\nVoafaritra ny {var}, ary *manolo* ny fikarohan'ny mpamatratra mpamily io fa tsy manampy azy. Noho izany, ireo rakitra tsy misy ireo no lisitry ny mpamily manontolo, ary tsy mahita mpamily mihitsy ny programa Vulkan rehetra ato amin'ity session ity, na firy aza no voapetraka:\n\n{missing}\n    {var}={value}\n\nTondroy manifest misy izy — apetraky ny mpamily ao amin'ny /usr/share/vulkan/icd.d ny azy — na esory ilay sanda mba avela hitady ny mpamatratra. Raha avy amin'ny rakitra fikirana izany (toy ny `env =` an'ny Hyprland, environment.d an'ny systemd, na profil shell), dia ao no ovaina, ary mila miditra indray vao mahatratra ireo programa efa mandeha ny fiovana.\n
+app.vulkan.override_note = \nVoafaritra ho {value} ny {var}, ary manolo ny fikarohan'ny mpamatratra izany: raha tsy misy manifest mifanaraka amin'ity milina ity ao, ny fanesorana io sanda io no andrana voalohany.\n
+app.vulkan.no_driver = schist: tsy misy mpamily Vulkan voapetraka, ka tsy misy fitaovana hanaovana sary.\n\nMampiseho sary amin'ny alalan'ny Vulkan i Schist. Voapetraka ny mpamatratra saingy milaza fa tsy misy mpamily — tsy misy nisoratra anarana amin'ireo toerana roa itadiavana azy:\n\n{dirs}\n\nMisaraka amin'ny mpamily ny mpamatratra, ka fonosana tokana tsy hita matetika no antony.\n\nApetraho izay mifanaraka amin'ny GPU an'ity milina ity:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nMitondra ny azy ny mpamily manokan'ny NVIDIA (`nvidia-utils` amin'ny Arch, `nvidia-driver` amin'ny Debian). Amin'ny milina virtoaly, na toerana tsy misy mpamily GPU azo apetraka, ny mpanova sary rindrankajy no miasa: `vulkan-swrast` amin'ny Arch, ary ampahany amin'ny `mesa-vulkan-drivers` any an-kafa. Miadana izy saingy afaka manomboka.\n{overridden}
+app.vulkan.no_device = schist: misy mpamily Vulkan voapetraka saingy tsy manome fitaovana hanaovana sary.\n\nMety tsy mahazaka ity GPU ity ny mpamily, na tsy afaka manatona azy — amin'ny SSH na ao anaty container dia matetika no tsy hita ny /dev/dri. `vulkaninfo --summary` no milaza izay hitan'ny mpamatratra.\n\nAfaka manao sary tsy misy GPU ny mpanova sary rindrankajy raha izany no ilain'ity milina ity: `vulkan-swrast` amin'ny Arch, ampahany amin'ny `mesa-vulkan-drivers` amin'ny Debian sy Fedora.\n
+app.vulkan.skip_hint = Raha hanomboka an'i Schist ihany ary hamela azy tsy hahomby araka ny fombany, farito ho {var}=1.

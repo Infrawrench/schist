@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Алу
+tool.select.mode.intersect = Кисештерү
+
+tool.marquee.rect.name = Турыпочмаклы сайлау
+tool.marquee.rect.description = Турыпочмаклы өлкә сайлау өчен сөйрәгез. Сөйри башлаганда Shift тотылса, яңа өлкә сайланганга кушыла; Alt тотылса, аннан алына; икесе дә тотылса, кисешкән өлкә кала. Сөйрәгәндә Shift тоту өлкәдән квадрат ясый. Сөйрәмичә чиртү сайлауны ала.
+tool.marquee.ellipse.name = Эллипс рәвешендә сайлау
+tool.marquee.ellipse.description = Эллипс рәвешендәге өлкә сайлау өчен сөйрәгез; Shift һәм Alt аны турыпочмаклы сайлаудагы кебек булган сайлау белән берләштерә.
+
+tool.lasso.name = Лассо
+tool.lasso.description = Чикне кулдан сызу өчен сөйрәгез; сөйрәү тәмамлангач, аның очлары тоташып, сайланган өлкә ябыла. Shift куша, Alt ала.
+tool.lasso.history.select = Лассо белән сайлау
+tool.lasso.polygonal.name = Күппочмаклы лассо
+tool.lasso.polygonal.description = Туры кырыйлы сайлау төзү өчен почмакларга бер-бер артлы чиртегез, аннары аны ябу өчен беренче нокта янында чиртегез.
+tool.lasso.polygonal.history.select = Күппочмаклы лассо
+tool.lasso.magnetic.name = Магнитлы лассо
+tool.lasso.magnetic.description = Якынча кырый буйлап йөртегез, һәм чик контур янындагы иң көчле контрастка ябышачак.
+tool.lasso.magnetic.history.select = Магнитлы лассо
+tool.lasso.magnetic.option.frequency = Ешлык
+
+tool.wand.name = Тылсымлы таякчык
+tool.wand.description = Күрсәткеч астындагы охшаш төстәге тоташ өлкәне, рөхсәт ителгән аерма чикләрендә, сайлау өчен чиртегез. Шул ук аерманы «Үстерү», «Охшаш» һәм «Төс диапазоны» гамәлләре дә куллана.
+tool.wand.option.contiguous = Тоташ
+tool.wand.history.select = Тылсымлы таякчык
+
+tool.quick_select.name = Тиз сайлау
+tool.quick_select.description = Өлкә өстеннән буягыз, һәм сайлау пумала үткән охшаш пиксельләр буйлап киңәячәк.
+tool.quick_select.history.select = Тиз сайлау
+
+tool.object_select.name = Объектны сайлау
+tool.object_select.description = Объект тирәли кыса сызыгыз, һәм сайлау аның эчендә табылган объект чигенә ябышачак.
+tool.object_select.history.select = Объектны сайлау

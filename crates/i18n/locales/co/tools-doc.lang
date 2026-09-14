@@ -1,0 +1,26 @@
+# Attrazzi d'elementi di ducumentu: tavule di travagliu, ritagli, quadri, note è cuntatori.
+
+tool.artboard.name = Tavula di travagliu
+tool.artboard.description = Trascinate per creà una tavula di travagliu: una zona di tela cù un nome chì si sporta da per ella. Trascinendu dentru à una tavula esistente, a si sposta.
+tool.artboard.default_name = Tavula di travagliu {n}
+
+tool.slice.name = Ritagliu
+tool.slice.description = Trascinate per creà un ritagliu da spurtà, un rettangulu di a tela cù un nome chì hè spurtatu cum'è maghjina distinta. Trascinendu dentru à un ritagliu esistente, u si sposta.
+tool.slice.default_name = Ritagliu {n}
+
+tool.frame.name = Quadru
+tool.frame.description = Trascinate per creà un quadru: un stratu rettangulare (o ellitticu) chì maschera tuttu ciò chì ci hè messu dentru.
+tool.frame.default_name = Quadru {n}
+tool.frame.choice.rectangle = Rettangulu
+tool.frame.choice.ellipse = Ellissi
+tool.frame.history.frame = Quadru
+
+tool.note.name = Nota
+tool.note.description = Cliccate nant'à una parte viota di a tela per ficcacci una nota, marcata cù l'autore è u culore definiti in l'editore; cliccate nant'à un segnu esistente per selezziunallu in u pannellu Note.
+tool.note.history.place = Mette a nota
+tool.note.history.move = Spustà a nota
+tool.note.history.delete = Sguassà a nota
+
+tool.count.name = Cuntatore
+tool.count.description = Cliccate per mette segni numerati di cuntatura nant'à a tela, è cliccate nant'à un segnu esistente per cacciallu.
+tool.count.default_name = Cuntatore {n}

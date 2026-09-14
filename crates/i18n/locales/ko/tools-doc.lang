@@ -1,0 +1,31 @@
+# 대지, 분할 영역, 프레임, 노트, 카운트 도구입니다.
+
+# 대지
+tool.artboard.name = 대지
+tool.artboard.description = 드래그하여 대지를 만듭니다. 대지는 캔버스에서 자체적으로 내보낼 수 있는 이름 있는 영역입니다. 기존 대지 안에서 드래그하면 해당 대지가 이동합니다.
+tool.artboard.default_name = 대지 {n}
+
+# 분할 영역
+tool.slice.name = 분할 영역
+tool.slice.description = 드래그하여 내보내기용 분할 영역을 만듭니다. 분할 영역은 캔버스에서 하나의 이미지로 내보내는 이름 있는 사각형입니다. 기존 분할 영역 안에서 드래그하면 해당 영역이 이동합니다.
+tool.slice.default_name = 분할 영역 {n}
+
+# 프레임
+tool.frame.name = 프레임
+tool.frame.description = 드래그하여 프레임을 만듭니다. 프레임은 그 안에 배치된 모든 항목을 마스킹하는 사각형 또는 타원형 레이어입니다.
+tool.frame.default_name = 프레임 {n}
+tool.frame.choice.rectangle = 사각형
+tool.frame.choice.ellipse = 타원
+tool.frame.history.frame = 프레임
+
+# 노트
+tool.note.name = 노트
+tool.note.description = 빈 캔버스를 클릭하면 편집기 상태에 저장된 작성자와 색상이 표시된 노트가 그 위치에 고정됩니다. 기존 핀을 클릭하면 노트 패널에서 해당 노트를 선택합니다.
+tool.note.history.place = 노트 배치
+tool.note.history.move = 노트 이동
+tool.note.history.delete = 노트 삭제
+
+# 카운트
+tool.count.name = 카운트
+tool.count.description = 클릭하여 캔버스에 번호가 매겨진 카운트 마커를 배치하고, 기존 마커를 클릭하여 제거합니다.
+tool.count.default_name = 카운트 {n}

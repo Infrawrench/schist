@@ -1,0 +1,74 @@
+# Attrazzi di pittura.
+
+tool.brush.name = Spazzola
+tool.brush.description = Pitturate una traccia à bordi dolci cù u culore di primu pianu, secondu a dimensione, a durezza è l'opacità di a spazzola di l'editore.
+tool.brush.history.stroke = Spazzola
+
+tool.pencil.name = Matita
+tool.pencil.description = Pitturate una traccia à bordi netti è senza antialiasing cù u culore di primu pianu.
+tool.pencil.history.stroke = Matita
+
+tool.eraser.name = Sguassaghjola
+tool.eraser.description = Sguassate longu à a traccia, rendendu torna u stratu trasparente.
+tool.eraser.history.stroke = Sguassaghjola
+
+tool.clone.name = Stampinu di clunazione
+tool.clone.description = Stampinu di clunazione: fate alt-clic per definisce u puntu surghjente, po pitturate i pixel cupiati da quellu puntu cù u listessu scartamentu.
+tool.clone.history.stroke = Stampinu di clunazione
+
+tool.dodge.name = Schjarisce
+tool.dodge.description = Schjarite i pixel attraversati da a traccia.
+tool.dodge.history.stroke = Schjarisce
+tool.burn.name = Scurisce
+tool.burn.description = Scurite i pixel attraversati da a traccia.
+tool.burn.history.stroke = Scurisce
+tool.sponge.name = Spugna
+tool.sponge.description = Saturate o desaturate i pixel attraversati da a traccia.
+tool.sponge.history.stroke = Spugna
+
+tool.blur.name = Sfucà
+tool.blur.description = Sfucate i pixel attraversati da a traccia.
+tool.blur.history.stroke = Sfucà
+tool.sharpen.name = Accentuà
+tool.sharpen.description = Accentuate i pixel attraversati da a traccia.
+tool.sharpen.history.stroke = Accentuà
+tool.smudge.name = Spalmà
+tool.smudge.description = Trascinate u culore longu à a traccia, cum'è s'è vo spinghjissite pittura fresca.
+tool.smudge.history.stroke = Spalmà
+
+tool.heal.name = Spazzola currettiva
+tool.heal.description = Spazzola currettiva: fate alt-clic per definisce a surghjente, po pitturate; a tessitura di a surghjente hè mischjata cù u culore è a luce di a destinazione.
+tool.heal.history.stroke = Spazzola currettiva
+tool.spot_heal.name = Spazzola currettiva puntuale
+tool.spot_heal.description = Spazzola currettiva puntuale: pitturate nant'à un difettu è serà rimpiazzatu da a tessitura pigliata intornu — ùn ci hè nisun puntu surghjente da definisce.
+tool.spot_heal.history.stroke = Spazzola currettiva puntuale
+
+tool.history_brush.name = Spazzola di cronulugia
+tool.history_brush.description = Ripitturate i pixel da l'istantanea di cronulugia di u ducumentu, disfendu i travagli successivi una traccia dopu l'altra.
+tool.history_brush.history.stroke = Spazzola di cronulugia
+
+tool.background_eraser.name = Sguassaghjola di fondu
+tool.background_eraser.description = Sguassate u culore prelevatu sottu à u centru di a spazzola è lasciate l'altri pixel cum'elli sò, per staccà un sugettu da u so fondu.
+tool.background_eraser.history.stroke = Sguassaghjola di fondu
+
+tool.gradient.name = Degradatu
+tool.gradient.description = Trascinate per riempie u stratu — solu à traversu a selezzione s'ella ci hè — cù un degradatu lineare chì và da u culore di primu pianu à quellu di fondu longu à u trascinamentu.
+tool.gradient.radial.name = Degradatu radiale
+tool.gradient.radial.description = Trascinate da u centru versu u fora per riempie cù un degradatu radiale trà i culori di primu pianu è di fondu.
+tool.gradient.option.gradient = Degradatu
+tool.gradient.option.reverse = Invertisce
+tool.gradient.option.dither = Tramatura
+tool.gradient.choice.foreground_to_background = Da u primu pianu à u fondu
+tool.gradient.choice.foreground_to_transparent = Da u primu pianu à u trasparente
+tool.gradient.choice.linear = Lineare
+tool.gradient.choice.radial = Radiale
+tool.gradient.choice.angle = Angulu
+tool.gradient.choice.reflected = Riflessu
+tool.gradient.choice.diamond = Losanga
+tool.gradient.history.gradient = Degradatu
+
+tool.bucket.name = Sechju di pittura
+tool.bucket.description = Cliccate per innundà di culore di primu pianu a zona cunfinante di culore simile sottu à u puntatore, secondu a tullerenza di l'attrazzu.
+tool.bucket.option.contiguous = Cunfinante
+tool.bucket.option.all_layers = Tutti i strati
+tool.bucket.history.fill = Sechju di pittura

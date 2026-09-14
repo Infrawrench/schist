@@ -1,0 +1,155 @@
+# The menu bar.
+
+# File
+menu.file = Fíla
+menu.file.new = Nýtt
+menu.file.open = Opna…
+menu.file.open_recent = Opna nýliga brúkt
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Leita í myndasavni…
+menu.file.close = Lat aftur
+menu.file.save = Goym
+menu.file.save_as = Goym sum…
+menu.file.export = Flyt út…
+menu.file.export_submenu = Flyt út
+menu.file.export_artboards = Tekniborð til PNG…
+menu.file.export_slices = Útflutningspetti til PNG…
+menu.file.save_to_photos = Goym í Myndir
+menu.file.plugins = Ískoytisforrit…
+menu.file.missing_fonts = Stavsnið, ið mangla…
+menu.file.check_for_updates = Leita eftir dagføringum…
+menu.file.quit = Enda
+menu.file.add_folder_to_gallery = Legg mappu í myndasavnið…
+menu.file.import_from_photos = Flyt inn úr Myndum…
+menu.file.import_from_camera = Flyt inn úr myndatóli…
+
+# Edit
+menu.edit = Rætta
+menu.edit.fill = Fyll…
+menu.edit.stroke = Strika…
+menu.edit.content_aware_fill = Innihaldstilvitað fylli
+menu.edit.content_aware_scale = Innihaldstilvitað støddarbroyting…
+menu.edit.puppet_warp = Dukkuavlaging
+menu.edit.free_transform = Frí umskapan
+menu.edit.transform = Umskapa
+menu.edit.rotate_180 = Snara 180°
+menu.edit.rotate_90_cw = Snara 90° við klokkuni
+menu.edit.rotate_90_ccw = Snara 90° móti klokkuni
+menu.edit.flip_horizontal = Spegla vatnrætt
+menu.edit.flip_vertical = Spegla loddrætt
+
+# Image
+menu.image = Mynd
+menu.image.mode = Háttur
+menu.image.adjustments = Tillagingar
+menu.image.auto_tone = Sjálvvirknir tónar
+menu.image.auto_contrast = Sjálvvirkin kontrastur
+menu.image.auto_color = Sjálvvirkir litir
+menu.image.image_size = Myndastødd…
+menu.image.canvas_size = Løriftsstødd…
+menu.image.image_rotation = Myndasnaring
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° við klokkuni
+menu.image.rotate_90_ccw = 90° móti klokkuni
+menu.image.flip_canvas_horizontal = Spegla lørift vatnrætt
+menu.image.flip_canvas_vertical = Spegla lørift loddrætt
+menu.image.crop_to_selection = Sker til val
+menu.image.trim = Sker kantar
+menu.image.assign_profile = Áset profil…
+menu.image.convert_to_profile = Umbroyt til profil…
+
+# Select
+menu.select = Vel
+menu.select.color_range = Litaøki…
+menu.select.modify = Broyt
+menu.select.border = Kantur…
+menu.select.smooth = Slætta…
+menu.select.expand = Víðka…
+menu.select.contract = Minka…
+menu.select.feather = Mýk…
+menu.select.transform_selection = Umskapa val
+
+# Layer
+menu.layer = Lag
+menu.layer.layer_style = Lagstílur…
+menu.layer.layer_comps = Lagsamansetingar
+menu.layer.new_layer_comp = Nýggj lagsamanseting
+menu.layer.delete_layer_comp = Strika {name}
+menu.layer.path = Rás
+menu.layer.fill_path = Fyll rás
+menu.layer.stroke_path = Strika rás
+menu.layer.make_selection = Ger val
+menu.layer.delete_path = Strika rás
+
+# Adjust
+menu.adjust = Tillaga
+
+# Filter
+menu.filter = Sía
+menu.filter.filter_gallery = Síasavn…
+menu.filter.liquify = Ger flótandi
+menu.filter.vanishing_point = Hvarvpunktur
+menu.filter.manage_models = Umsit myndlar…
+menu.filter.camera_raw_development = Camera Raw-framkalling…
+
+# View
+menu.view = Sýn
+menu.view.rotate_view_cw = Snara sýni við klokkuni
+menu.view.rotate_view_ccw = Snara sýni móti klokkuni
+menu.view.reset_view = Set sýni aftur
+menu.view.zoom_in = Størka
+menu.view.zoom_out = Minka
+menu.view.fit_on_screen = Tillaga til skíggja
+menu.view.actual_size = 100%
+menu.view.rulers = Mátistokkar
+menu.view.grid = Net
+menu.view.guides = Hjálparlinjur
+menu.view.notes = Viðmerkingar
+menu.view.ai_panel = AI-panel
+menu.view.extras = Eykalutir
+menu.view.snap = Fest
+menu.view.clear_guides = Rudda hjálparlinjur
+menu.view.clear_notes = Rudda viðmerkingar
+menu.view.clear_count = Rudda teljing
+menu.view.screen_mode = Skíggjaháttur
+menu.view.proof_colors = Royndarlitir
+menu.view.show_rulers = Vís mátistokkar
+menu.view.hide_rulers = Fjal mátistokkar
+menu.view.show_grid = Vís net
+menu.view.hide_grid = Fjal net
+menu.view.show_guides = Vís hjálparlinjur
+menu.view.hide_guides = Fjal hjálparlinjur
+menu.view.show_notes = Vís viðmerkingar
+menu.view.hide_notes = Fjal viðmerkingar
+menu.view.show_extras = Vís eykalutir
+menu.view.hide_extras = Fjal eykalutir
+menu.view.enable_snapping = Virkja festing
+menu.view.disable_snapping = Óvirkja festing
+menu.view.enable_proof_colors = Virkja royndarlitir
+menu.view.disable_proof_colors = Óvirkja royndarlitir
+
+# Gallery
+menu.gallery = Myndasavn
+menu.gallery.edit_selected = Rætta valdu myndina
+menu.gallery.refresh = Dagfør aftur
+menu.gallery.map_filter = Kortsía…
+menu.gallery.back_to_editor = Aftur til ritilin
+
+# Schist Cloud submenu
+menu.cloud.browse = Leita í Schist Cloud
+menu.cloud.generate = Ger myndir…
+menu.cloud.upload = Send skjal til Schist Cloud…
+menu.cloud.sign_out = Rita út úr Schist Cloud
+menu.cloud.sign_in = Rita inn í Schist Cloud…
+
+# The macOS application menu
+menu.app.services = Tænastur
+menu.app.hide = Fjal {app}
+menu.app.hide_others = Fjal onnur
+menu.app.show_all = Vís alt
+menu.app.quit = Enda {app}
+
+# Status-bar replies
+menu.status.transform_selection_needs_selection = Umskapa val krevur eitt val
+menu.status.crop_needs_selection = Sker til val krevur eitt val
+menu.status.select_photo_to_edit = Vel eina fotomynd at rætta

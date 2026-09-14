@@ -1,0 +1,27 @@
+# Offer ystumio: Hylifo, Ystumio Pyped a Phwynt Diflannu.
+
+# Hylifo
+tool.liquify.name = Hylifo
+tool.liquify.description = Gwthiwch, troellwch, crychwch neu chwyddwch bicseli o dan frwsh mawr — mae'r dewis modd yn pennu pa weithred. Mae'r ystumiad yn cronni mewn rhwyll ac yn cael ei roi ar yr haen wrth gadarnhau.
+tool.liquify.option.tool = Offeryn
+tool.liquify.choice.forward_warp = Ystumio Ymlaen
+tool.liquify.choice.reconstruct = Ail-greu
+tool.liquify.choice.twirl_cw = Troelli gyda'r Cloc
+tool.liquify.choice.twirl_ccw = Troelli yn erbyn y Cloc
+tool.liquify.choice.pucker = Crychu
+tool.liquify.choice.bloat = Chwyddo
+tool.liquify.choice.push_left = Gwthio i'r Chwith
+tool.liquify.history.liquify = Hylifo
+
+# Ystumio Pyped
+tool.puppet_warp.name = Ystumio Pyped
+tool.puppet_warp.description = Cliciwch i binio'r haen mewn ychydig o fannau, yna llusgwch un ohonynt: mae'r rhwyll yn plygu o amgylch y pinnau, yn anhyblyg neu'n llac yn ôl y dewis Anhyblygedd. Mae cadarnhau'n rhoi'r ystumiad ar waith.
+tool.puppet_warp.option.stiffness = Anhyblygedd
+tool.puppet_warp.history.puppet_warp = Ystumio Pyped
+
+# Pwynt Diflannu
+tool.vanishing_point.name = Pwynt Diflannu
+tool.vanishing_point.description = Llusgwch i greu plân dros rywbeth sydd â phersbectif ynddo, yna newidiwch y modd i Glonio a phaentiwch: mae'r picseli a gopïwyd yn dilyn y plân ac yn lleihau gyda phellter.
+tool.vanishing_point.choice.edit_plane = Golygu Plân
+tool.vanishing_point.choice.clone = Clonio
+tool.vanishing_point.history.vanishing_point = Pwynt Diflannu

@@ -1,0 +1,72 @@
+tool.brush.name = Peansal
+tool.brush.description = Mále dipma ravddat sázu ovdabeale ivnniin; sturrodaga, garrasvuođa ja govččadeami mearridit doaimmaheaddji peansalásahusat.
+tool.brush.history.stroke = Peansalsáhcu
+
+tool.pencil.name = Blyánta
+tool.pencil.description = Mále garras ravddat sázu ovdabeale ivnniin almmá ravdajalgadeami haga.
+tool.pencil.history.stroke = Blyántasáhcu
+
+tool.eraser.name = Gummi
+tool.eraser.description = Sihko sázu mielde ja máhcat gearddi čađačuovgin.
+tool.eraser.history.stroke = Gummen
+
+tool.clone.name = Klonensteampal
+tool.clone.description = Klonensteampal: alt-coahkkal vai mearridat gáldočuozi, ja mále de das máŋgejuvvon govvačuoggáiguin seamma sirdimiin.
+tool.clone.history.stroke = Klonensteampal
+
+tool.dodge.name = Čuovgadeapmi
+tool.dodge.description = Čuovgahit govvačuoggáid maid badjel sáhcu manná.
+tool.dodge.history.stroke = Čuovgadeapmi
+tool.burn.name = Boaldin
+tool.burn.description = Sevdnjadit govvačuoggáid maid badjel sáhcu manná.
+tool.burn.history.stroke = Boaldin
+tool.sponge.name = Sponge
+tool.sponge.description = Lasit dahje geahpedat govvačuoggáid saturašuvnna sázu mielde.
+tool.sponge.history.stroke = Sponge
+
+tool.blur.name = Eahpečielggasin dahkan
+tool.blur.description = Daga govvačuoggáid eahpečielggasin sázu mielde.
+tool.blur.history.stroke = Eahpečielggasin dahkan
+tool.sharpen.name = Čielggasin dahkan
+tool.sharpen.description = Daga govvačuoggáid čielggasin sázu mielde.
+tool.sharpen.history.stroke = Čielggasin dahkan
+tool.smudge.name = Njurggodeapmi
+tool.smudge.description = Gease ivnni sázu mielde dego hoiggat njuoska mála.
+tool.smudge.history.stroke = Njurggodeapmi
+
+tool.heal.name = Divodanpeansal
+tool.heal.description = Divodanpeansal: alt-coahkkal vai mearridat gáldu, ja mále de; gáldu teakstuvra seaguhuvvo ulbmila iežas ivnniin ja čuvgehusain.
+tool.heal.history.stroke = Divodanpeansal
+tool.spot_heal.name = Bádjedivodanpeansal
+tool.spot_heal.description = Bádjedivodanpeansal: mále feailla badjel, de dat buhttejuvvo birrasa teakstuvrrain — it dárbbaš mearridit gáldočuozi.
+tool.spot_heal.history.stroke = Bádjedivodanpeansal
+
+tool.history_brush.name = Historjápeansal
+tool.history_brush.description = Mále govvačuoggáid ruovttoluotta dokumeantta historjágovas ja gomoha maŋit barggu sáhcu sázu maŋis.
+tool.history_brush.history.stroke = Historjápeansal
+
+tool.background_eraser.name = Duogášgummi
+tool.background_eraser.description = Sihko peansala guovddáža vuolde váldojuvvon ivnni, muhto guođe eará ivnni govvačuoggáid, vai sáhtát earuhit objeavtta duogážis.
+tool.background_eraser.history.stroke = Duogášgummi
+
+tool.gradient.name = Ivdnerievdan
+tool.gradient.description = Gease deavdin dihte gearddi — válljema čađa go dakkár lea — linnjáivdnerievdamiin mii manná ovdabeale ivnnist duogábeale ivdnái geassima guvlui.
+tool.gradient.radial.name = Radiusivdnerievdan
+tool.gradient.radial.description = Gease guovddážis olggos vai deavddát radiusivdnerievdamiin ovdabeale ja duogábeale ivnniid gaskkas.
+tool.gradient.option.gradient = Ivdnerievdan
+tool.gradient.option.reverse = Nuppástuhte guozuid
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Ovdabealis duogábeallái
+tool.gradient.choice.foreground_to_transparent = Ovdabealis čađačuovgin
+tool.gradient.choice.linear = Linnjá
+tool.gradient.choice.radial = Radiála
+tool.gradient.choice.angle = Čiehka
+tool.gradient.choice.reflected = Speadjaduvvon
+tool.gradient.choice.diamond = Diamánta
+tool.gradient.history.gradient = Ivdnerievdan
+
+tool.bucket.name = Mállebáhčči
+tool.bucket.description = Coahkkal vai deavddát čujuhanáli vuolde oktavuođas sullasaš ivnni guovllu ovdabeale ivnniin reaiddu gierdama siskkobealde.
+tool.bucket.option.contiguous = Oktavuođas
+tool.bucket.option.all_layers = Buot gearddit
+tool.bucket.history.fill = Mállebáhčči

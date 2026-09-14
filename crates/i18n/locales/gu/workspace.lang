@@ -1,0 +1,113 @@
+# Fill and selection modification
+workspace.fill.gray_50 = 50% રાખોડી
+workspace.fill.content_aware = કન્ટેન્ટ-અવેર
+workspace.modify.expand = પસંદગી વિસ્તારો
+workspace.modify.contract = પસંદગી સંકોચો
+workspace.modify.border = પસંદગીની કિનારી
+workspace.modify.smooth = પસંદગી સુંવાળી કરો
+workspace.modify.feather = પસંદગીને ફેધર કરો
+
+# Batch targets
+workspace.batch.target.edit = ગૅલેરી સંપાદનો (વર્ઝનવાળાં)
+workspace.batch.target.beside = મૂળ ફાઇલોની બાજુમાં નકલો
+workspace.batch.target.folder = ફોલ્ડરમાં નકલો…
+
+workspace.modal.image_size.title = છબીનું કદ
+
+# Documents
+workspace.docs.opening = {name} ખૂલી રહ્યું છે…
+workspace.docs.opened = {name} ખોલ્યું
+workspace.docs.open_failed = ખોલવામાં નિષ્ફળતા: {error}
+workspace.docs.no_codec = {name} એવું ફોર્મેટ નથી જે Schist ખોલી શકે
+workspace.docs.no_exporter = Schist .{ext} ફાઇલો સાચવી શકતું નથી
+workspace.docs.empty_response = સર્વરે ખાલી પ્રતિસાદ મોકલ્યો
+workspace.docs.heic_not_installed = HEIC સપોર્ટ ઇન્સ્ટૉલ નથી
+workspace.docs.heic_downloading = HEIC સપોર્ટ (libheif {version}) ડાઉનલોડ થઈ રહ્યો છે…
+workspace.docs.heic_installed = HEIC સપોર્ટ ઇન્સ્ટૉલ થયો
+workspace.docs.heic_download_failed = HEIC સપોર્ટ ડાઉનલોડ કરવામાં નિષ્ફળતા: {error}
+workspace.docs.placing = {name} મૂકવામાં આવી રહ્યું છે…
+workspace.docs.place_image = છબી મૂકો
+workspace.docs.placed = {name} મૂક્યું
+workspace.docs.place_failed = મૂકવામાં નિષ્ફળતા: {error}
+workspace.docs.saved = {name} સાચવ્યું
+workspace.docs.save_failed = સાચવવામાં નિષ્ફળતા: {error}
+
+# Adjustments
+workspace.adjustment.new_layer = નવું {name} લેયર
+workspace.adjustment.added = {name} ઉમેર્યું
+workspace.adjustment.settings = {name} સેટિંગ્સ
+workspace.adjustment.updated = {name} અપડેટ કર્યું
+workspace.adjustment.no_settings = {name}માં સંપાદિત કરી શકાય એવા સેટિંગ્સ નથી
+
+# Layer comps and styles
+workspace.comps.name_n = લેયર કમ્પ {n}
+workspace.comps.captured = લેયર કમ્પ કૅપ્ચર કર્યું
+workspace.comps.apply = {name} લાગુ કરો
+workspace.styles.layer_style = લેયર શૈલી
+workspace.context.rename_layer = લેયરનું નામ બદલો
+workspace.commands.tool = ટૂલ: {name}
+
+# Colour management
+workspace.colormgmt.assign = {name} સોંપો
+workspace.colormgmt.assigned = {name} સોંપ્યું
+workspace.colormgmt.convert_to = {name}માં રૂપાંતરિત કરો
+workspace.colormgmt.converted_to = {name}માં રૂપાંતરિત કર્યું
+workspace.colormgmt.convert_failed = રૂપાંતરણ નિષ્ફળ: {error}
+workspace.colormgmt.proof_on = પ્રૂફ રંગો ચાલુ
+workspace.colormgmt.proof_off = પ્રૂફ રંગો બંધ
+
+# Filters
+workspace.filters.choose = પસંદ કરો
+workspace.filters.select_layer_first = પહેલાં લેયર પસંદ કરો
+workspace.filters.needs_pixel_layer = ફિલ્ટર માટે પિક્સેલ લેયર જરૂરી છે
+workspace.filters.nothing_to_filter = ફિલ્ટર કરવા માટે કંઈ નથી
+workspace.filters.went_away = ફિલ્ટર હવે ઉપલબ્ધ નથી
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: તેણે ફિલ્ટર કરેલું લેયર હવે નથી
+workspace.filters.plugin_title = Photoshop પ્લગઇન
+workspace.filters.running = {name} ચાલી રહ્યું છે
+workspace.filters.plugin_note = પ્લગઇન પોતાની અલગ પ્રક્રિયામાં ચાલે છે. તે વિન્ડો ખોલે તો ચાલુ રાખવા તેમાં જવાબ આપો.
+workspace.filters.raw_preview_developing = RAW પૂર્વાવલોકન ડેવલપ થઈ રહ્યું છે…
+workspace.filters.raw_preview_done = RAW પૂર્વાવલોકન (ઝડપી ડીમોઝેઇક)
+workspace.filters.raw_preview_size_changed = RAW પૂર્વાવલોકનનું કદ બદલાયું: {w} × {h}
+workspace.filters.raw_preview_failed = RAW પૂર્વાવલોકન નિષ્ફળ: {error}
+workspace.filters.raw_developing = મૂળ કૅપ્ચર ડેવલપ થઈ રહ્યું છે…
+workspace.filters.raw_developing_note = શ્રેષ્ઠ ડીમોઝેઇક પાથ વપરાય છે. PSD અથવા PSB તરીકે સાચવ્યા પછી પણ મૂળ RAW અને આ સેટિંગ્સ સંપાદિત કરી શકાય છે.
+workspace.filters.raw_document_changed = દસ્તાવેજ બદલાઈ ગયા પછી RAW ડેવલપમેન્ટ પૂરું થયું
+workspace.filters.raw_failed = RAW ડેવલપમેન્ટ નિષ્ફળ: {error}
+workspace.filters.raw_too_wide = RAW ડેવલપમેન્ટ ખૂબ પહોળું છે
+workspace.filters.raw_too_tall = RAW ડેવલપમેન્ટ ખૂબ ઊંચું છે
+workspace.filters.raw_size_changed = RAW ડેવલપમેન્ટનું કદ {w} × {h} થયું; વર્તમાન લેયર જાળવવામાં આવ્યું
+workspace.filters.raw_history = Camera Raw ડેવલપમેન્ટ
+workspace.filters.raw_applied = Camera Raw ડેવલપમેન્ટ લાગુ થયું (શ્રેષ્ઠ ડીમોઝેઇક)
+
+# Image Size
+workspace.image_size.done = છબીનું કદ: {w} × {h}
+workspace.image_size.bicubic_fallback = છબીનું કદ: {w} × {h} — {name} મૉડલ લોડ ન થયું, તેથી બાઇક્યુબિક વપરાયું
+workspace.image_size.upscaling = {name} વડે અપસ્કેલ થઈ રહ્યું છે
+workspace.image_size.upscaling_note = નેટવર્કમાંથી {mp} મેગાપિક્સેલ પસાર થશે, દરેકમાં થોડી સેકન્ડ લાગશે. પૂરું થાય ત્યાં સુધી દસ્તાવેજ રોકી રાખવામાં આવશે.
+
+# Export
+workspace.export.no_slices = એક્સપોર્ટ કરવા માટે કોઈ સ્લાઇસ નથી
+workspace.export.no_artboards = એક્સપોર્ટ કરવા માટે કોઈ આર્ટબોર્ડ નથી
+workspace.export.regions.one = {n} વિસ્તાર એક્સપોર્ટ કર્યો
+workspace.export.regions.other = {n} વિસ્તારો એક્સપોર્ટ કર્યા
+workspace.export.prompt = આ રીતે એક્સપોર્ટ કરો:
+workspace.export.done = {name} એક્સપોર્ટ કર્યું
+workspace.export.failed = એક્સપોર્ટ નિષ્ફળ: {error}
+workspace.export.codec_vanished = એક્સપોર્ટર હવે ઉપલબ્ધ નથી
+
+# File picker
+workspace.file_picker.choose_folder = ફોલ્ડર પસંદ કરો
+workspace.file_picker.type_a_name = ફાઇલ માટે નામ લખો
+workspace.file_picker.exists = {name} અસ્તિત્વમાં છે; તેને બદલવા ફરીથી સાચવો પર ટૅપ કરો
+workspace.file_picker.tap_a_file = ખોલવા માટે ફાઇલ પર ટૅપ કરો
+workspace.file_picker.pictures = ચિત્રો
+workspace.file_picker.camera = કૅમેરા
+workspace.file_picker.downloads = ડાઉનલોડ
+workspace.file_picker.permission_denied = Schistને આ ફોલ્ડર વાંચવાની પરવાનગી નથી
+
+# Recovery
+workspace.recovery.recovered_title = {title} (પુનઃપ્રાપ્ત)
+workspace.recovery.recovered.one = અગાઉના સત્રમાંથી ન સાચવેલા {n} દસ્તાવેજનું કામ પુનઃપ્રાપ્ત કર્યું
+workspace.recovery.recovered.other = અગાઉના સત્રમાંથી {n} દસ્તાવેજો પુનઃપ્રાપ્ત કર્યા

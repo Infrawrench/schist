@@ -1,0 +1,27 @@
+# Llika allichana
+tool.patch.name = Llika allichana
+tool.patch.description = Pantaypa muyuriqninpi siq'ita aysay, chaymanta akllasqata mana pantayniyuq pixelkunaman aysay: chaypi kaq textura pantayman tupachisqa kanqa. Llika imayna kasqanqa iskayninmanta mayqinta aysasqaykita akllan.
+tool.patch.option.patch = Llika allichana
+tool.patch.choice.source = Qallariynin
+tool.patch.choice.destination = Chayanan
+tool.patch.history.patch = Llikawan allichay
+
+# Ukhunman yachaspa kuyuchiy
+tool.content_aware_move.name = Ukhunman yachaspa kuyuchiy
+tool.content_aware_move.description = Akllasqa imata huk k'itiyman aysay; saqisqan t'uquqa muyuriqninmanta hunt'achisqa kanqa. Mast'ariy imayna kasqanpiqa kuyuchiytaqa, imata mast'arin.
+tool.content_aware_move.choice.move = Kuyuchiy
+tool.content_aware_move.choice.extend = Mast'ariy
+tool.content_aware_move.history.move = Ukhunman yachaspa kuyuchiy
+
+# Puka ñawi
+tool.red_eye.name = Puka ñawi
+tool.red_eye.description = Ñawi ruruta ñit'iy, flashpa puka llimp'inta chinkachinapaq.
+tool.red_eye.option.pupil_size = Ñawi ruru sayaynin
+tool.red_eye.option.darken = Tutayachiy
+tool.red_eye.history.red_eye = Puka ñawi
+
+# Musquy pichana
+tool.magic_eraser.name = Layqa pichana
+tool.magic_eraser.description = Ñit'ispa tupuchiqpa uranpi kaq rikch'akuq llimp'iyuq k'itita, llamk'anap saqisqan tupukama pichay: ñit'isqawan tupasqa k'itillata utaq patapi llapan chay llimp'iyuq k'itita.
+tool.magic_eraser.option.contiguous = Tupanakusqa
+tool.magic_eraser.history.erase = Layqa pichanawan pichay

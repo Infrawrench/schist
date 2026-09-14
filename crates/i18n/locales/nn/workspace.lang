@@ -1,0 +1,104 @@
+workspace.fill.gray_50 = 50 % grå
+workspace.fill.content_aware = Innhaldstilpassa
+
+workspace.modify.expand = Utvid utval
+workspace.modify.contract = Trekk saman utval
+workspace.modify.border = Kant på utval
+workspace.modify.smooth = Jamn ut utval
+workspace.modify.feather = Mjuk kant på utval
+
+workspace.batch.target.edit = Galleriendringar (versjonerte)
+workspace.batch.target.beside = Kopiar ved sida av originalane
+workspace.batch.target.folder = Kopiar i ei mappe …
+
+workspace.modal.image_size.title = Biletstorleik
+
+workspace.docs.opening = Opnar {name} …
+workspace.docs.opened = Opna {name}
+workspace.docs.open_failed = Klarte ikkje å opna: {error}
+workspace.docs.no_codec = {name} er ikkje eit format Schist kan opna
+workspace.docs.no_exporter = Schist kan ikkje lagra .{ext}-filer
+workspace.docs.empty_response = Tenaren sende eit tomt svar
+workspace.docs.heic_not_installed = HEIC-støtte er ikkje installert
+workspace.docs.heic_downloading = Lastar ned HEIC-støtte (libheif {version}) …
+workspace.docs.heic_installed = HEIC-støtte er installert
+workspace.docs.heic_download_failed = Klarte ikkje å lasta ned HEIC-støtte: {error}
+workspace.docs.placing = Plasserer {name} …
+workspace.docs.place_image = Plasser bilete
+workspace.docs.placed = Plasserte {name}
+workspace.docs.place_failed = Klarte ikkje å plassera: {error}
+workspace.docs.saved = Lagra {name}
+workspace.docs.save_failed = Klarte ikkje å lagra: {error}
+
+workspace.adjustment.new_layer = Nytt {name}-lag
+workspace.adjustment.added = La til {name}
+workspace.adjustment.settings = Innstillingar for {name}
+workspace.adjustment.updated = {name} er oppdatert
+workspace.adjustment.no_settings = {name} har ingen innstillingar som kan redigerast
+
+workspace.comps.name_n = Lagkomposisjon {n}
+workspace.comps.captured = Lagkomposisjonen er lagra
+workspace.comps.apply = Bruk {name}
+
+workspace.styles.layer_style = Lagstil
+workspace.context.rename_layer = Gje laget nytt namn
+workspace.commands.tool = Verktøy: {name}
+
+workspace.colormgmt.assign = Tildel {name}
+workspace.colormgmt.assigned = Tildelte {name}
+workspace.colormgmt.convert_to = Konverter til {name}
+workspace.colormgmt.converted_to = Konverterte til {name}
+workspace.colormgmt.convert_failed = Klarte ikkje å konvertera: {error}
+workspace.colormgmt.proof_on = Korrekturfargar er på
+workspace.colormgmt.proof_off = Korrekturfargar er av
+
+workspace.filters.choose = Vel
+workspace.filters.select_layer_first = Vel eit lag først
+workspace.filters.needs_pixel_layer = Filter krev eit piksellag
+workspace.filters.nothing_to_filter = Ingenting å filtrera
+workspace.filters.went_away = Filteret forsvann
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: laget som vart filtrert, er borte
+workspace.filters.plugin_title = Photoshop-programtillegg
+workspace.filters.running = Køyrer {name}
+workspace.filters.plugin_note = Programtillegget køyrer i sin eigen prosess. Dersom det opnar eit vindauge, må du svara der for å halda fram.
+workspace.filters.raw_preview_developing = Framkallar RAW-førehandsvising …
+workspace.filters.raw_preview_done = RAW-førehandsvising (rask demosaikkering)
+workspace.filters.raw_preview_size_changed = RAW-førehandsvisinga endra storleik: {w} × {h}
+workspace.filters.raw_preview_failed = RAW-førehandsvisinga mislukkast: {error}
+workspace.filters.raw_developing = Framkallar originalopptaket …
+workspace.filters.raw_developing_note = Brukar den beste demosaikkeringsmetoden. Den opphavlege RAW-fila og desse innstillingane kan framleis redigerast etter lagring som PSD eller PSB.
+workspace.filters.raw_document_changed = RAW-framkallinga vart ferdig etter at dokumentet hadde endra seg
+workspace.filters.raw_failed = RAW-framkallinga mislukkast: {error}
+workspace.filters.raw_too_wide = RAW-framkallinga er for brei
+workspace.filters.raw_too_tall = RAW-framkallinga er for høg
+workspace.filters.raw_size_changed = RAW-framkallinga endra storleiken til {w} × {h}; held på det gjeldande laget
+workspace.filters.raw_history = Camera Raw-framkalling
+workspace.filters.raw_applied = Camera Raw-framkalling er brukt (beste demosaikkering)
+
+workspace.image_size.done = Biletstorleik: {w} × {h}
+workspace.image_size.bicubic_fallback = Biletstorleik: {w} × {h} – modellen {name} kunne ikkje lastast, så bikubisk skalering vart brukt i staden
+workspace.image_size.upscaling = Skalerer opp med {name}
+workspace.image_size.upscaling_note = {mp} megapikslar går gjennom nettverket, og kvart av dei tek nokre sekund. Dokumentet er låst til prosessen er ferdig.
+
+workspace.export.no_slices = Ingen utsnitt å eksportera
+workspace.export.no_artboards = Ingen teikneflater å eksportera
+workspace.export.regions.one = Eksporterte {n} område
+workspace.export.regions.other = Eksporterte {n} område
+workspace.export.prompt = Eksporter som:
+workspace.export.done = Eksporterte {name}
+workspace.export.failed = Klarte ikkje å eksportera: {error}
+workspace.export.codec_vanished = Eksportverktøyet er ikkje lenger tilgjengeleg
+
+workspace.file_picker.choose_folder = Vel mappe
+workspace.file_picker.type_a_name = Skriv inn eit namn på fila
+workspace.file_picker.exists = {name} finst; trykk på Lagre ein gong til for å erstatta henne
+workspace.file_picker.tap_a_file = Trykk på ei fil for å opna henne
+workspace.file_picker.pictures = Bilete
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Nedlastingar
+workspace.file_picker.permission_denied = Schist har ikkje løyve til å lesa denne mappa
+
+workspace.recovery.recovered_title = {title} (gjenoppretta)
+workspace.recovery.recovered.one = Gjenoppretta ulagret arbeid frå ei tidlegare økt
+workspace.recovery.recovered.other = Gjenoppretta {n} dokument frå ei tidlegare økt

@@ -1,0 +1,22 @@
+tool.type.name = Texti
+tool.type.description = Smelltu til að hefja textalag þar eða smelltu á fyrirliggjandi textalag til að breyta því. Meðan það er opið tekur verkfærið við óunnum lyklainnslætti (sendu stafi sem lyklainnslátt), og staðfesting teiknar lagið og lokar breytingunni.
+
+tool.type.option.align = Jöfnun
+tool.type.option.leading = Línubil
+tool.type.option.tracking = Stafabil
+tool.type.option.kerning = Stafþjöppun
+tool.type.option.ligatures = Staflímingar
+tool.type.option.discretionary_ligatures = Valfrjálsar staflímingar
+tool.type.option.small_caps = Hástafir í lágstafastærð
+tool.type.option.on_path = Á virkum ferli
+tool.type.option.path_offset = Hliðrun á ferli
+
+tool.type.choice.regular = Venjulegt
+tool.type.choice.bold = Feitletrað
+tool.type.choice.italic = Skáletrað
+tool.type.choice.bold_italic = Feit skáletrun
+
+tool.type.history.new_layer = Nýtt textalag
+tool.type.history.edit = Breyta texta
+tool.type.history.discard = Fleygja texta
+tool.type.history.discard_empty = Fleygja auðum texta

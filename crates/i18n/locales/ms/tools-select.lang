@@ -1,0 +1,43 @@
+# The selection tools (plugins/tools-select): the marquees, the three
+# lassos, the magic wand, quick selection and object selection. Labels
+# they share with the rest of the app -- Mode, Feather, Width, Contrast,
+# Tolerance, Size, New, Add, Select, Deselect -- come from common.lang.
+
+# How a new shape meets the existing selection, in the order Photoshop's
+# buttons sit in. New and Add are common.new and common.add.
+tool.select.mode.subtract = Tolak
+tool.select.mode.intersect = Bersilang
+
+# Marquees
+tool.marquee.rect.name = Marquee Segi Empat Tepat
+tool.marquee.rect.description = Seret untuk membentuk pilihan segi empat tepat. Shift pada permulaan seretan menambah kepada pilihan, alt menolak, kedua-duanya menghasilkan persilangan; shift semasa menyeret menjadikannya segi empat sama. Klik tanpa menyeret menyahpilih.
+tool.marquee.ellipse.name = Marquee Elips
+tool.marquee.ellipse.description = Seret untuk membentuk pilihan elips, dengan gabungan shift/alt yang sama seperti marquee segi empat tepat.
+
+# Lassos
+tool.lasso.name = Laso
+tool.lasso.description = Seret garis luar bebas; pilihan ditutup merentasi kedua-dua hujung apabila seretan tamat. Shift menambah, alt menolak.
+tool.lasso.history.select = Pilihan Laso
+tool.lasso.polygonal.name = Laso Poligon
+tool.lasso.polygonal.description = Klik setiap penjuru untuk membina pilihan bertepi lurus dan klik berhampiran titik pertama untuk menutupnya.
+tool.lasso.polygonal.history.select = Laso Poligon
+tool.lasso.magnetic.name = Laso Magnet
+tool.lasso.magnetic.description = Jejak secara kasar di sepanjang tepi dan garis luar akan melekap pada kontras paling kuat berhampiran laluan.
+tool.lasso.magnetic.history.select = Laso Magnet
+tool.lasso.magnetic.option.frequency = Kekerapan
+
+# Magic wand
+tool.wand.name = Tongkat Ajaib
+tool.wand.description = Klik untuk memilih kawasan bersambung berwarna serupa di bawah penuding, dalam pilihan toleransi -- toleransi yang sama digunakan oleh Kembangkan, Serupa dan Julat Warna.
+tool.wand.option.contiguous = Bersambung
+tool.wand.history.select = Tongkat Ajaib
+
+# Quick selection
+tool.quick_select.name = Pilihan Pantas
+tool.quick_select.description = Cat di atas kawasan dan pilihan berkembang merentasi piksel serupa yang dilalui berus.
+tool.quick_select.history.select = Pilihan Pantas
+
+# Object selection
+tool.object_select.name = Pilihan Objek
+tool.object_select.description = Seret kotak mengelilingi objek dan pilihan akan melekap pada objek yang ditemui di dalamnya.
+tool.object_select.history.select = Pilihan Objek

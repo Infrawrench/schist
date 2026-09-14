@@ -1,0 +1,237 @@
+dialog.save_ellipsis = Hlayisa…
+dialog.use_foreground = Tirhisa muhlovo wa le mahlweni
+dialog.downloading = Ya dawuniloda…
+dialog.downloading_of = Ya dawuniloda… {got} eka {total}
+dialog.no_config_dir = (ku hava foldara ya config)
+
+dialog.layer_props.title = Swihlawulekisi swa leyara
+
+dialog.export.format = Fomati
+dialog.export.dither = Hlanganisa mihlovo
+dialog.export.dither_note = Hlanganisa mihlovo loko ku hungutiwa ku ya eka 8-bit
+dialog.export.export_ellipsis = Rhumela…
+
+dialog.batch.title = Endla swifaniso
+dialog.batch.note_edit.one = Xifaniso xin'we ({n}) — xi hlayisiwa xi ri ku hlela ka galari; xo sungula a xi khumbiwi.
+dialog.batch.note_edit.other = Swifaniso swa {n} — swi hlayisiwa swi ri ku hlela ka galari; swo sungula a swi khumbiwi.
+dialog.batch.note_edit_edited.one = Xifaniso xin'we ({n}), {edited} se xi hleriwile — ndlela yo hlela yi vekiwa ehenhla ka ku hlela koloko, naswona ku hlela ka khale ku hlayisiwa ku ri vuhundzuluxi.
+dialog.batch.note_edit_edited.other = Swifaniso swa {n}, {edited} se swi hleriwile — ndlela yo hlela yi vekiwa ehenhla ka ku hlela koloko, naswona ku hlela ka khale ku hlayisiwa ku ri vuhundzuluxi.
+dialog.batch.note_copies.one = Xifaniso xin'we ({n}) — kopi leyi hlanganisiweke; xo sungula a xi khumbiwi.
+dialog.batch.note_copies.other = Swifaniso swa {n} — tikopi leti hlanganisiweke; swo sungula a swi khumbiwi.
+dialog.batch.note_copies_edited.one = Xifaniso xin'we ({n}), {edited} se xi hleriwile — kopi yi endliwa hi ku hlela koloko.
+dialog.batch.note_copies_edited.other = Swifaniso swa {n}, {edited} se swi hleriwile — tikopi ti endliwa hi ku hlela koloko.
+dialog.batch.turn = Hundzuluxa
+dialog.batch.rotate = Rhendzevuta
+dialog.batch.flip = Pfotlosa
+dialog.batch.upscale = Kurisa
+dialog.batch.colour = Muhlovo
+dialog.batch.add_adjustment = Ndzulamiso…
+dialog.batch.output = Vuyelo
+dialog.batch.save_as = Hlayisa tani hi
+dialog.batch.process = Endla
+dialog.batch.process_n = Endla {n}
+dialog.batch.nothing_to_do = Ku hava xo endla: sungula hi ku hlawula ku hundzuluxa, ku kurisa kumbe ku lulamisa
+
+dialog.content_aware_scale.title = Cinca xikalo hi ku tiva leswi nga kona
+dialog.content_aware_scale.note = Yi tsema tindlela leti nga ni vuxokoxoko byitsongo. Nhlawulo wu fungha leswi faneleke ku sirheleriwa.
+
+dialog.stroke.title = Ntila wa le makumu
+dialog.stroke.location = Ndhawu
+dialog.stroke.inside = Endzeni
+dialog.stroke.outside = Ehandle
+dialog.stroke.note = Yi dirowa ntila ematlhelo ka nhlawulo hi muhlovo wa le mahlweni.
+
+dialog.fill.contents = Leswi nga endzeni
+
+dialog.color_range.title = Nxaxamelo wa mihlovo
+dialog.color_range.sampled = Swi tekiwe sampula
+dialog.color_range.fuzziness = Mpimo wo amukela ku hambana
+dialog.color_range.note = Yi hlawula tipikseli leti nga ekusuhi ni muhlovo lowu tekiweke sampula eka leyara leyi tirhaka.
+
+dialog.file_picker.up = ↑ Ehenhla
+dialog.file_picker.empty = Ku hava lexi nga laha
+dialog.file_picker.choose_folder = Hlawula foldara leyi
+
+dialog.filter.camera_raw_development = Ku antswisa Camera Raw
+dialog.filter.reset_as_shot = Tlherisela eka ndlela leyi xi tekiweke ha yona
+dialog.filter.raw_note = Yi tlhela yi antswisa leyara leyi tirhaka hi data ya sensara yo sungula.
+dialog.filter.note = Yi tirha eka leyara leyi tirhaka, endzeni ka nhlawulo.
+
+dialog.fonts.title = Tifonto leti kayivelaka
+dialog.fonts.install_named = Nghenisa {name}
+dialog.fonts.no_document = Ku hava dokhumente leyi pfuriweke, kutani ku hava xo kambela.
+dialog.fonts.all_installed = Fonto yin'wana ni yin'wana leyi tirhisiwaka hi dokhumente leyi yi nghenisiwile. Tsalwa ra yona ri vekiwile hi tifonto leti a ri vekiwile ha tona.
+dialog.fonts.missing_intro = Dokhumente leyi yi tirhisa tifonto leti u nga riki na tona. Tsalwa ra hlayeka hi fonto yo siva, kambe vuanami ni ku aviwa ka tilayini a swi fani ni ndlela leyi a ri vekiwile ha yona.
+dialog.fonts.footer = Tifonto ti dawunilodiwa eka khathalogu leyi pfulekeke ya Google Fonts kutani ti hlayisiwa eka {dir}. Fonto leyi nga riki na layisense leyi pfulekeke a yi dawunilodiwi — loko ku ri na dizayini ya mahala leyi mimpimo ya yona yi fambisanaka, ku nyikiwa yona ematshan'wini ya yona; leswi swi vuyisela malulamiselo ya tsalwa hikuva vuanami bya ku ya mahlweni ka maletere bya fana.
+dialog.fonts.user_font_dir = foldara ya wena ya tifonto
+
+dialog.models.title = Timodeli ta Neural Filters
+dialog.models.built_in = Yi nghenisiwile eka app · {size}
+dialog.models.installed = Yi nghenisiwile · {size}
+dialog.models.not_installed = A yi nghenisiwanga · {size}
+dialog.models.not_in_browser = A yi kumeki eka browser · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Timodeli ti hlayisiwa eka {dir}. Tifilitara leti nga riki na modele ti tirhisa ku lulamisiwa ka signal ematshan'wini ya yona naswona ti vula leswaku ti endla tano.
+
+dialog.new_doc.title = Dokhumente leyintshwa
+dialog.new_doc.picker_title = Fayili leyintshwa
+dialog.new_doc.custom_ellipsis = Lulamisiweke…
+dialog.new_doc.preset = Ku lulamisa loku hlayisiweke
+dialog.new_doc.preset_default = Ntolovelo (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Xikwere (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Papila ra US, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Endla
+dialog.new_doc.created = Dokhumente leyintshwa: {w} × {h} px
+
+dialog.open.image_title = Pfula xifaniso
+dialog.open.image_prompt = Pfula “{name}” eka thebe leyintshwa, kumbe u xi engetela eka dokhumente ya sweswi xi ri leyara leyintshwa?
+dialog.open.new_tab = Thebe leyintshwa
+dialog.open.new_layer = Leyara leyintshwa
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = fayili leyi yin'we ({n})
+dialog.open.these_files.other = tifayili leti ta {n}
+dialog.open.shared_title_one = Xifaniso lexi avelaniweke
+dialog.open.shared_title_many = Swifaniso leswi avelaniweke
+dialog.open.shared_prompt = Engetela {what} eka galari, kumbe u swi pfula eka muhleri?
+dialog.open.add_to_gallery = Engetela eka galari
+dialog.open.open_in_editor = Pfula eka muhleri
+dialog.open.heic_title = Nseketelo wa HEIC
+dialog.open.heic_needs_decoder = Ku pfula “{name}” swi lava decoder ya HEVC, leyi nga nghenisiwangiki eka sisiteme leyi.
+dialog.open.heic_offer = Schist yi nga dawuniloda build ya libheif {version} leyi tirhaka ku dekoda ntsena, yi ri ni decoder ya libde265 HEVC (≈5 MB). Havumbirhi byi na layisense ya LGPL-3.0; matsalwa ya tilayisense ta byona ma nghenisiwa etlhelo ka layiburari, naswona khodi ya xihlovo yi kumeka eka pheji ya phurojeke.
+dialog.open.licenses_source = Tilayisense ni khodi ya xihlovo
+dialog.open.folders_title = Tifoldara leti lahliweke
+dialog.open.n_folders.one = Foldara yin'we ({n})
+dialog.open.n_folders.other = Tifoldara ta {n}
+dialog.open.open_in_tabs = Pfula eka tithebe
+dialog.open.open_first_in_tabs = Pfula swa {n} swo sungula eka tithebe
+dialog.open.open_n_in_tabs.one = Pfula yin'we ({n}) eka thebe
+dialog.open.open_n_in_tabs.other = Pfula swa {n} eka tithebe
+dialog.open.folder_holds.one = {what} yi na xifaniso xin'we ({n}) lexi Schist yi nga xi pfulaka (ku katsiwa tifoldara ta le ndzeni).
+dialog.open.folder_holds.other = {what} yi na swifaniso swa {n} leswi Schist yi nga swi pfulaka (ku katsiwa tifoldara ta le ndzeni).
+dialog.open.folders_note = Ku engetela eka galari swi languta tifoldara etindhawini ta tona — a ku kopiwi chinhu, naswona leswi hleriweke swi hlayisiwa hi vuhundzuluxi etlhelo ka xifaniso xin'wana ni xin'wana. Ku pfula eka tithebe swi layicha xifaniso xin'wana ni xin'wana eka muhleri sweswi.
+
+dialog.plugins.title = Ti-plug-in
+dialog.plugins.kind_filter = filitara
+dialog.plugins.kind_format = fomati
+dialog.plugins.kind_unavailable = a yi kumeki
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Ti-plug-in ti layicha ku suka eka {dir}
+dialog.plugins.none = A ku se nghenisiwa ti-plug-in.
+dialog.plugins.install_ellipsis = Nghenisa…
+dialog.plugins.photoshop_heading = Ti-plug-in ta Photoshop
+dialog.plugins.loaded_from = Ti layichiwe ku suka eka {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Swihlawulekisi
+dialog.prefs.theme = Nkombiso
+dialog.prefs.theme_dark = Munyama
+dialog.prefs.theme_light = Ku vonakala
+dialog.prefs.grid_spacing = Ku hambana ka giridi
+dialog.prefs.snapping = Ku namarhela
+dialog.prefs.snap_to = Namarhela eka tilayini to kongomisa, giridi ni makumu ya khanivhasi
+dialog.prefs.rendering_intent = Xikongomelo xa ku dirowa
+dialog.prefs.intent_perceptual = Hi ndlela leyi tihlo ri swi vonaka ha yona
+dialog.prefs.intent_relative = Ku pima mihlovo hi ku fananisa
+dialog.prefs.intent_saturation = Ndzalo
+dialog.prefs.intent_absolute = Ku pima mihlovo hi ku kongoma
+dialog.prefs.scrolling = Ku fambisa
+dialog.prefs.zoom_with_scroll = Cinca zoom hi vhilwa ro fambisa
+dialog.prefs.rendering = Ku dirowa
+dialog.prefs.gpu_compositing = Ku hlanganisa swifaniso hi GPU
+dialog.prefs.diagnostics = Ku kambela swihoxo
+dialog.prefs.crash_reports = Tsala xiviko xa ku wa eka muchini loko ku ri ni panic
+dialog.prefs.crash_upload = Nakambe xi rhumele eka vaendli
+dialog.prefs.telemetry = Rhumela ping ya siku na siku leyi nga boxiki vito
+dialog.prefs.diagnostics_note = Ku kambela swihoxo ku sungula ku tirha loko Schist yi tlhela yi sungula.
+dialog.prefs.updates = Swintshwa
+dialog.prefs.check_updates = Kambela minkandziyiso leyintshwa loko app yi sungula
+dialog.prefs.keyboard_shortcuts = Tindlela to koma ta khibhodo: {path}
+dialog.prefs.nsfw_needs_model = Swi lava modele wa Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = wu dawunilode eka Lawula timodeli…
+dialog.prefs.hide_flagged = Tumbeta swifaniso leswi funghiweke
+
+dialog.profile.profile = Phurofayili
+dialog.profile.assign_title = Nyika phurofayili
+dialog.profile.convert_title = Hundzuluxela eka phurofayili
+dialog.profile.assign = Nyika
+dialog.profile.convert = Hundzuluxa
+dialog.profile.assign_note = Yi hlamusela nakambe mimpimo ya tipikseli leyi nga kona hi phurofayili leyintshwa.
+dialog.profile.convert_note = Yi tsala mimpimo ya tipikseli nakambe leswaku mihlovo yi hlayisa ndlela leyi yi langutekaka ha yona.
+
+dialog.save_image.title = Hlayisa xifaniso tani hi
+dialog.save_image.note = {name} — leswi hleriweke, loko swi ri kona; xifaniso xo sungula a xi khumbiwi.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Sayizi ya xifaniso
+dialog.size.canvas_title = Sayizi ya khanivhasi
+dialog.size.constrain = Veka xipimelo
+dialog.size.keep_proportions = Hlayisa mimpimo
+dialog.size.resample = Sampula nakambe
+dialog.size.bicubic = Bicubic
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Muwakelani wa le kusuhi
+dialog.size.anchor = Ndhawu yo boha
+dialog.size.currently = Sweswi {w} × {h} px
+dialog.size.image_size_status = Sayizi ya xifaniso: {w} × {h}
+dialog.size.canvas_size_status = Sayizi ya khanivhasi: {w} × {h}
+
+dialog.update.title = Ku ni swintshwa
+dialog.update.available = Schist {version} ya kumeka. Kopi leyi i {current}.
+dialog.update.installing = Ku nghenisiwa swintshwa…
+dialog.update.can_install = Schist yi nga swi dawuniloda ({size}) kutani yi swi nghenisa ehenhla ka kopi leyi.
+dialog.update.external = Kopi leyi yi huma laha yi lawuriwaka kona — eka mufambisi wa tipackage, AppImage kumbe build leyi u tiendleleke — kutani yi pfuxetiwa hi ndlela leyi yi nghenisiweke ha yona.
+dialog.update.later = Endzhaku
+dialog.update.release_notes = Tinotsi ta nkandziyiso
+dialog.update.update_restart = Pfuxeta kutani u sungula nakambe
+dialog.update.open_page = Pfula pheji ya nkandziyiso
+
+dialog.style.title = Xitayili xa leyara
+dialog.style.bevel = Makumu lama voyameke ni ku tlakuka
+dialog.style.stroke = Ntila wa le makumu
+dialog.style.inner_shadow = Ndzhuti wa le ndzeni
+dialog.style.inner_glow = Ku vangama ka le ndzeni
+dialog.style.satin = Satin
+dialog.style.color_overlay = Ku funengeta hi muhlovo
+dialog.style.gradient_overlay = Ku funengeta hi ku cincana ka mihlovo
+dialog.style.outer_glow = Ku vangama ka le handle
+dialog.style.drop_shadow = Ndzhuti lowu weke
+dialog.style.blur = Ku fihla ka Gaussian
+dialog.style.gradient_from = Masungulo ya ku funengeta hi ku cincana ka mihlovo
+dialog.style.gradient_to = Makumu ya ku funengeta hi ku cincana ka mihlovo
+dialog.style.soften = Olovisa
+dialog.style.depth = Vuenti
+dialog.style.altitude = Ku tlakuka
+dialog.style.highlight = Ku voninga
+dialog.style.shadow = Ndzhuti
+dialog.style.outer_bevel = Makumu lama voyameke ya le handle
+dialog.style.inner_bevel = Makumu lama voyameke ya le ndzeni
+dialog.style.emboss = Tlakusa
+dialog.style.pillow_emboss = Ku tlakuka ka mukamelo
+dialog.style.linear = Hi layini
+dialog.style.radial = Hi xirhendzevutana
+dialog.style.reverse = Hundzuluxa
+dialog.style.from_to = Ku suka / Ku ya
+dialog.style.from_fg = Ku suka = FG
+dialog.style.to_fg = Ku ya = FG
+dialog.style.precise = Hi ku kongoma
+dialog.style.knockout = Leyara yi susa ndzhuti lowu weke
+
+dialog.color_picker.title = Xihlawuri xa muhlovo ({what})
+dialog.color_picker.effect_color = Muhlovo wa {effect}
+dialog.color_picker.note_color = Muhlovo wa noti
+dialog.color_picker.new = leyintshwa
+dialog.color_picker.current = ya sweswi
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Tlherisela chanele
+dialog.curves.hint = Koka ku vumba · tshikilela ku engetela · tshikilela hi alt ku susa
+
+dialog.prefs.camera_sync = Swifaniso swa khamera
+dialog.prefs.camera_sync_enabled = Endla kopi yo sirhelela eka Schist Cloud
+dialog.prefs.camera_sync_sign_in = Nghena eka Schist Cloud ku endla kopi yo sirhelela ya swifaniso swa khamera.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Cinca…

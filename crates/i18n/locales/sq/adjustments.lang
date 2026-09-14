@@ -1,0 +1,21 @@
+# Shtresat e rregullimit dhe komandat Imazhi ▸ Rregullimet: emrat.
+adjustment.levels.name = Nivelet
+adjustment.curves.name = Kurbat
+adjustment.hue_saturation.name = Nuanca/Ngopja
+adjustment.brightness_contrast.name = Ndriçimi/Kontrasti
+adjustment.black_white.name = Bardh e zi
+adjustment.solid_color.name = Ngjyrë e njëtrajtshme
+adjustment.gradient_fill.name = Mbushje me gradient
+adjustment.pattern_fill.name = Mbushje me motiv
+adjustment.invert.name = Përmbys
+adjustment.posterize.name = Posterizo
+adjustment.threshold.name = Pragu
+adjustment.color_balance.name = Balanca e ngjyrave
+adjustment.vibrance.name = Gjallëria
+adjustment.exposure.name = Ekspozimi
+adjustment.photo_filter.name = Filtër fotografik
+adjustment.gradient_map.name = Harta e gradientit
+adjustment.selective_color.name = Ngjyra përzgjedhëse
+adjustment.channel_mixer.name = Përzierësi i kanaleve
+# Një lloj i lexuar nga një PSD, për të cilin Schist nuk ka redaktues.
+adjustment.other.name = Rregullim

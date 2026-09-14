@@ -1,0 +1,230 @@
+# Shared
+dialog.save_ellipsis = Kubika…
+dialog.use_foreground = Gukoresha ibara ry'imbere
+dialog.downloading = Biriko biravomwa…
+dialog.downloading_of = Biriko biravomwa… {got} kuri {total}
+dialog.no_config_dir = (nta bubiko bw'imiterere)
+
+dialog.layer_props.title = Ibiranga urwego
+
+dialog.export.format = Ubwoko
+dialog.export.dither = Dither
+dialog.export.dither_note = Gukoresha dither igihe ugabanya ukaja kuri bit 8
+dialog.export.export_ellipsis = Kuvoma…
+
+dialog.batch.title = Gutunganya amafoto
+dialog.batch.note_edit.other = Amafoto: {n} — abikwa nk'amahinduka yo mu bubiko bw'amashusho; inkomoko ntizigera zikorwako.
+dialog.batch.note_edit_edited.other = Amafoto: {n}; ayari yahinduwe: {edited} — uburyo bushirwa hejuru y'ihinduka rya buri foto, kandi ihinduka ryayo rya mbere rikagumizwa nka verisiyo.
+dialog.batch.note_copies.other = Amafoto: {n} — amakopi ahurijwe hamwe; inkomoko ntizigera zikorwako.
+dialog.batch.note_copies_edited.other = Amafoto: {n}; ayari yahinduwe: {edited} — amakopi akorwa hisunzwe amahinduka ya buri foto.
+dialog.batch.turn = Kuzungurutsa
+dialog.batch.rotate = Kuzungurutsa
+dialog.batch.flip = Guhindukiza
+dialog.batch.upscale = Kwagura
+dialog.batch.colour = Ibara
+dialog.batch.add_adjustment = Gukosora…
+dialog.batch.output = Ibisohoka
+dialog.batch.save_as = Kubika nka
+dialog.batch.process = Gutunganya
+dialog.batch.process_n = Gutunganya {n}
+dialog.batch.nothing_to_do = Nta co gukora: banza uhitemwo ukuzungurutsa, ukwagura canke ugukosora
+
+dialog.content_aware_scale.title = Gupima hisunzwe ibirimwo
+dialog.content_aware_scale.note = Bikata imirongo idafise utuntu twinshi. Itoranya ryerekana ivyo gukingira.
+
+dialog.stroke.title = Guca umurongo
+dialog.stroke.location = Ikibanza
+dialog.stroke.inside = Imbere
+dialog.stroke.outside = Hanze
+dialog.stroke.note = Bica umurongo ku vyatoranijwe ukoresheje ibara ry'imbere.
+
+dialog.fill.contents = Ibirimwo
+
+dialog.color_range.title = Urutonde rw'amabara
+dialog.color_range.sampled = Ibara ryafashwe
+dialog.color_range.fuzziness = Urugero rw'ukudahuza
+dialog.color_range.note = Bitoranya amapikisele ari hafi y'ibara ryafashwe ku rwego rukora.
+
+dialog.file_picker.up = ↑ Hejuru
+dialog.file_picker.empty = Nta kiri ngaha
+dialog.file_picker.choose_folder = Guhitamwo ubu bubiko
+
+dialog.filter.camera_raw_development = Gutunganya Camera Raw
+dialog.filter.reset_as_shot = Gusubiza ku vyafashwe
+dialog.filter.raw_note = Bisubira gutunganya urwego rukora bivanye n'amakuru y'inkomoko ya sensor.
+dialog.filter.note = Bikoreshwa ku rwego rukora, imbere mu vyatoranijwe.
+
+dialog.fonts.title = Amafonti abuze
+dialog.fonts.install_named = Gushiramwo {name}
+dialog.fonts.no_document = Nta nyandiko yuguruye, rero nta co gusuzuma.
+dialog.fonts.all_installed = Ifonti yose iyi nyandiko ikoresha irashizwemwo. Igisomwa cayo gikoresha amafonti cari catunganijwemwo.
+dialog.fonts.missing_intro = Iyi nyandiko itunganijwe mu mafonti udafise. Igisomwa kirashobora gusomwa mu yisubirira, ariko ubugari buri nyuguti ifata mu murongo n'aho imirongo icikirira si vyo yari yatunganijwemwo.
+dialog.fonts.footer = Ivomwa riva mu rutonde rw'amafonti akoreshwa ku mugaragaro rwa Google Fonts kandi ribikwa muri {dir}. Ifonti idafise uruhusha rwo gukoreshwa ku mugaragaro ntizigera ivomwa — iyo hariho iyindi yisanzuye ifise ingero zihuye, ni yo itangwa, igasubizaho itunganywa kuko intera buri nyuguti itera imbere mu murongo ihuye.
+dialog.fonts.user_font_dir = ububiko bwawe bw'amafonti
+
+dialog.models.title = Moderi za Neural Filters
+dialog.models.built_in = Iri muri porogaramu · {size}
+dialog.models.installed = Yashizwemwo · {size}
+dialog.models.not_installed = Ntiyashizwemwo · {size}
+dialog.models.not_in_browser = Ntiboneka muri navigateur · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Moderi zibikwa muri {dir}. Utuyunguruzo tudafise moderi dukoresha uburyo bwo gutunganya signal kandi tukabivuga.
+
+dialog.new_doc.title = Inyandiko nshasha
+dialog.new_doc.picker_title = Idosiye nshasha
+dialog.new_doc.custom_ellipsis = Vyihariye…
+dialog.new_doc.preset = Ivyateguwe
+dialog.new_doc.preset_default = Bisanzwe (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Kare (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Urupapuro US, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Kurema
+dialog.new_doc.created = Inyandiko nshasha: {w} × {h} px
+
+dialog.open.image_title = Kwugurura ishusho
+dialog.open.image_prompt = Wugurure “{name}” mu gafishi gashasha, canke uyongere ku nyandiko y'ubu nk'urwego rushasha?
+dialog.open.new_tab = Agafishi gashasha
+dialog.open.new_layer = Urwego rushasha
+dialog.open.quoted = “{name}”
+dialog.open.these_files.other = Aya madosiye: {n}
+dialog.open.shared_title_one = Ishusho yasangiwe
+dialog.open.shared_title_many = Amashusho yasangiwe
+dialog.open.shared_prompt = Wongere {what} mu bubiko bw'amashusho, canke uyugurure mu gihindura?
+dialog.open.add_to_gallery = Kwongera mu bubiko bw'amashusho
+dialog.open.open_in_editor = Kwugurura mu gihindura
+dialog.open.heic_title = Ugushigikira HEIC
+dialog.open.heic_needs_decoder = Kwugurura “{name}” bisaba igisoma HEVC kitashizwe muri iyi sisitemu.
+dialog.open.heic_offer = Schist irashobora kuvoma verisiyo ya libheif {version} yagenewe gusoma gusa, hamwe n'igisoma HEVC libde265 (≈5 MB). Vyompi bifise uruhusha LGPL-3.0; ivyandiko vy'impusha zavyo bishirwa iruhande y'ububiko, kandi source code iraboneka ku rupapuro rw'umugambi.
+dialog.open.licenses_source = Impusha na source code
+dialog.open.folders_title = Ububiko bwajugunywe ngaha
+dialog.open.n_folders.other = Ububiko: {n}
+dialog.open.open_in_tabs = Kwugurura mu dufishi
+dialog.open.open_first_in_tabs = Kwugurura {n} vya mbere mu dufishi
+dialog.open.open_n_in_tabs.other = Kwugurura amadosiye mu dufishi: {n}
+dialog.open.folder_holds.other = {what} harimwo amashusho Schist ishobora kwugurura: {n} (harimwo n'ububiko buri munsi).
+dialog.open.folders_note = Kwongera mu bubiko bw'amashusho bicungera ubwo bubiko aho buri — nta na kimwe gikopwa, kandi amahinduka abikwa nka verisiyo iruhande ya buri foto. Kwugurura mu dufishi bishira amashusho yose mu gihindura ubu.
+
+dialog.plugins.title = Ivyongerwa
+dialog.plugins.kind_filter = akayunguruzo
+dialog.plugins.kind_format = ubwoko
+dialog.plugins.kind_unavailable = ntikaboneka
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Ivyongerwa bishirwa bivuye muri {dir}
+dialog.plugins.none = Nta vyongerwa birashirwamwo.
+dialog.plugins.install_ellipsis = Gushiramwo…
+dialog.plugins.photoshop_heading = Ivyongerwa vya Photoshop
+dialog.plugins.loaded_from = Vyashizwe bivuye muri {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Ivyo ukunda
+dialog.prefs.theme = Insiguro y'amabara
+dialog.prefs.theme_dark = Yijimye
+dialog.prefs.theme_light = Yaka
+dialog.prefs.grid_spacing = Intera y'urusenga
+dialog.prefs.snapping = Ugufatanya neza
+dialog.prefs.snap_to = Gufatanya n'imirongo mfashanyigisho, urusenga n'inkombe z'ikibaho
+dialog.prefs.rendering_intent = Intumbero yo kwerekana amabara
+dialog.prefs.intent_perceptual = Hisunzwe uko amaso abona
+dialog.prefs.intent_relative = Colorimetric igereranywa
+dialog.prefs.intent_saturation = Ubukomezi bw'ibara
+dialog.prefs.intent_absolute = Colorimetric ntabanduka
+dialog.prefs.scrolling = Kuzungurutsa urupapuro
+dialog.prefs.zoom_with_scroll = Kwegera ukoresheje uruziga rwo ku mbeba
+dialog.prefs.rendering = Gushushanya
+dialog.prefs.gpu_compositing = Guhuza amashusho kuri GPU
+dialog.prefs.diagnostics = Isuzuma
+dialog.prefs.crash_reports = Kwandika raporo y'impanuka kuri iyi mashini iyo habaye panic
+dialog.prefs.crash_upload = Kuyirungikira kandi abahinguzi
+dialog.prefs.telemetry = Kurungika ubutumwa bwa misi yose butagira izina
+dialog.prefs.diagnostics_note = Isuzuma ritangura gukora Schist niyongera gutangura.
+dialog.prefs.updates = Ibishasha
+dialog.prefs.check_updates = Gusuzuma verisiyo nshasha igihe porogaramu itanguye
+dialog.prefs.keyboard_shortcuts = Amahinanzira ya clavier: {path}
+dialog.prefs.nsfw_needs_model = Bisaba moderi Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = yivome muri Gucunga moderi…
+dialog.prefs.hide_flagged = Guhisha amafoto yashizweko ikimenyetso
+
+dialog.profile.profile = Umwirondoro
+dialog.profile.assign_title = Gutanga umwirondoro
+dialog.profile.convert_title = Guhindurira ku mwirondoro
+dialog.profile.assign = Gutanga
+dialog.profile.convert = Guhindura
+dialog.profile.assign_note = Bisubira gusobanura agaciro k'amapikisele asanzwe hakurikijwe umwirondoro mushasha.
+dialog.profile.convert_note = Bisubira kwandika agaciro k'amapikisele kugira amabara agumane uko aboneka.
+
+dialog.save_image.title = Kubika ishusho nka
+dialog.save_image.note = {name} — ihinduka ryayo, nimba iriho; inkomoko ntizigera ikorwako.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Ingano y'ishusho
+dialog.size.canvas_title = Ingano y'ikibaho
+dialog.size.constrain = Gushinga imbibe
+dialog.size.keep_proportions = Kugumana ibipimo
+dialog.size.resample = Gusubira gupima amapikisele
+dialog.size.bicubic = Bicubic
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Umubanyi wa hafi
+dialog.size.anchor = Igitsimbatazo
+dialog.size.currently = Ubu ni {w} × {h} px
+dialog.size.image_size_status = Ingano y'ishusho: {w} × {h}
+dialog.size.canvas_size_status = Ingano y'ikibaho: {w} × {h}
+
+dialog.update.title = Verisiyo nshasha iraboneka
+dialog.update.available = Schist {version} iraboneka. Iyi kopi ni {current}.
+dialog.update.installing = Biriko birashiramwo verisiyo nshasha…
+dialog.update.can_install = Schist irashobora kuyivoma ({size}) ikayishira hejuru y'iyi kopi.
+dialog.update.external = Iyi kopi yavuye ahandi hayicunga — igikoresho ca packages, AppImage, canke verisiyo wiyubakiye — rero ihindurwa nk'uko yashizwemwo.
+dialog.update.later = Mu nyuma
+dialog.update.release_notes = Amakuru ya verisiyo
+dialog.update.update_restart = Gushiramwo ibishasha no gusubira gutangura
+dialog.update.open_page = Kwugurura urupapuro rwa verisiyo
+
+dialog.style.title = Imisusire y'urwego
+dialog.style.bevel = Bevel na Emboss
+dialog.style.stroke = Umurongo
+dialog.style.inner_shadow = Igitutu c'imbere
+dialog.style.inner_glow = Ukwaka kw'imbere
+dialog.style.satin = Satin
+dialog.style.color_overlay = Ibara rirenze hejuru
+dialog.style.gradient_overlay = Urukurikirane rw'amabara rurenga hejuru
+dialog.style.outer_glow = Ukwaka kw'inyuma
+dialog.style.drop_shadow = Igitutu kigwa
+dialog.style.blur = Igipfungu Gaussian
+dialog.style.gradient_from = Intango y'urukurikirane rurenga hejuru
+dialog.style.gradient_to = Iherezo ry'urukurikirane rurenga hejuru
+dialog.style.soften = Kworosha
+dialog.style.depth = Ubwimbike
+dialog.style.altitude = Ubuhagarike
+dialog.style.highlight = Ahaka cane
+dialog.style.shadow = Igitutu
+dialog.style.outer_bevel = Bevel y'inyuma
+dialog.style.inner_bevel = Bevel y'imbere
+dialog.style.emboss = Emboss
+dialog.style.pillow_emboss = Pillow Emboss
+dialog.style.linear = Rugororotse
+dialog.style.radial = Ruzunguruka
+dialog.style.reverse = Guhindukiza
+dialog.style.from_to = Kuva / Kuja
+dialog.style.from_fg = Kuva = Imbere
+dialog.style.to_fg = Kuja = Imbere
+dialog.style.precise = Neza na neza
+dialog.style.knockout = Urwego rukuraho igitutu kigwa
+
+dialog.color_picker.title = Agatoranya ibara ({what})
+dialog.color_picker.effect_color = Ibara rya {effect}
+dialog.color_picker.note_color = Ibara ry'akandiko
+dialog.color_picker.new = rishasha
+dialog.color_picker.current = ry'ubu
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Gusubizaho umuyoboro
+dialog.curves.hint = Kurura uhindure imero · kanda wongereko · kanda ufise Alt ukuremwo
+
+dialog.prefs.camera_sync = Amafoto ya kamera
+dialog.prefs.camera_sync_enabled = Gukora kopi muri Schist Cloud
+dialog.prefs.camera_sync_sign_in = Injira muri Schist Cloud kugira ukore kopi y'amafoto ya kamera.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Guhindura…

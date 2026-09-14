@@ -1,0 +1,31 @@
+# AI-sydbalke en agintferbiningen
+ai.status.panel_shown = AI-paniel toand
+ai.status.panel_hidden = AI-paniel ferburgen — Byld ▸ AI-paniel ({shortcut}) bringt it werom
+ai.status.tool = AI: {name}
+
+ai.info.connected = Ferbûn mei {backend}
+ai.info.now_in_gallery = No yn de galery.
+ai.info.now_in_editor = No yn de bewurker.
+ai.tool.shell_command = shell-opdracht
+
+ai.error.cli_missing = De CLI fan {backend} (‘{binary}’) stiet net op PATH. Ynstallearje dy en meld jo dêr earst by oan.
+ai.error.endpoint_failed = starten fan it MCP-einpunt is mislearre: {error}
+ai.error.binding_endpoint = it MCP-einpunt bine
+ai.error.spawning_endpoint_thread = de tried fan it MCP-einpunt starte
+ai.error.runtime_failed = starten fan de agint-runtime is mislearre: {error}
+ai.error.worker_failed = starten fan de {backend}-worker is mislearre: {error}
+ai.error.did_not_start = {backend} is net opstart: {error}
+ai.error.switch_model_failed = wikseljen fan model is mislearre: {error}
+ai.error.send_failed = ferstjoeren fan de prompt is mislearre: {error}
+ai.error.interrupt_failed = ûnderbrekken is mislearre: {error}
+ai.error.locating_binary = it Schist-programmabestân sykje
+ai.error.starting_app_server = de Codex-apptsjinner starte
+ai.error.attaching_app_server = ferbine mei de Codex-apptsjinner
+ai.error.initializing_app_server = de Codex-apptsjinner inisjalisearje
+ai.error.resuming_thread = de Codex-tried ferfetsje
+ai.error.starting_thread = de Codex-tried starte
+
+ai.model.opus_detail = Meast kapabele klasse
+ai.model.sonnet_detail = Effisjint foar deistige taken
+ai.model.haiku_detail = Fluchst foar koarte antwurden
+ai.model.codex_catalog = Codex-katalogus

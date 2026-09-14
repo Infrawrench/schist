@@ -1,0 +1,25 @@
+tool.transform.name = Voľná transformácia
+tool.transform.description = Voľná transformácia. Po aktivovaní sa okolo aktívnej vrstvy zobrazí transformačný rámček: potiahnutím rohu zmeníte mierku, potiahnutím mimo rohu otočíte obsah a potiahnutím okraja ho skosíte. Zmeny sa zapíšu až po potvrdení klávesom Enter; zrušenie klávesom Escape vráti vrstvu do pôvodného stavu.
+tool.transform.option.interpolation = Interpolácia
+tool.transform.history.transform = Voľná transformácia
+tool.transform.history.image_size = Veľkosť obrázka
+tool.transform.history.canvas_size = Veľkosť plátna
+
+tool.transform.selection.name = Transformovať výber
+tool.transform.selection.description = Transformácia výberu používa rovnaký rámček, ale presúva obrys výberu namiesto pixelov v ňom. Operáciu dokončite potvrdením alebo zrušením.
+tool.transform.selection.history.transform = Transformovať výber
+
+tool.transform.resample.nearest_neighbor = Najbližší sused
+tool.transform.resample.bilinear = Bilineárna
+tool.transform.resample.bicubic = Bikubická
+
+tool.crop.name = Orezanie
+tool.crop.description = Potiahnutím označte oblasť, ktorú chcete ponechať, a upravte ju pomocou úchytov. Potvrdením klávesom Enter sa dokument oreže podľa tejto oblasti; zrušením klávesom Escape zostane nezmenený.
+tool.crop.option.ratio = Pomer strán
+tool.crop.option.delete_cropped = Odstrániť orezané pixely
+tool.crop.choice.unconstrained = Bez obmedzenia
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Orezanie

@@ -1,0 +1,25 @@
+# Liquify
+tool.liquify.name = Fuula ng'amazzi
+tool.liquify.description = Sindika, zingazinga, funza oba zimbyeza pixels eziri wansi wa bbulashi ennene — ekirondebwa mu Engeri kye kironda ekikolebwa. Enkyukakyuka yeekuŋŋaanyiza mu katimba era n'eteekebwa ku layer ng'okakasizza.
+tool.liquify.option.tool = Ekikozesebwa
+tool.liquify.choice.forward_warp = Kyusa ng'osindika mu maaso
+tool.liquify.choice.reconstruct = Ddamu okuzimba
+tool.liquify.choice.twirl_cw = Zingazinga mu kkubo ly'essaawa
+tool.liquify.choice.twirl_ccw = Zingazinga mu kkubo erikontana n'essaawa
+tool.liquify.choice.pucker = Funza
+tool.liquify.choice.bloat = Zimbyeza
+tool.liquify.choice.push_left = Sindika ku kkono
+tool.liquify.history.liquify = Fuula ng'amazzi
+
+# Puppet Warp
+tool.puppet_warp.name = Kyusa ng'akazannyo
+tool.puppet_warp.description = Nyiga okusimba layer ku bubonero butono, oluvannyuma walula kamu: akatimba kefunya okwetooloola obubonero obwo, nga kakaluba oba kagonda okusinziira ku kirondebwa mu Bukaluba. Okukakasa kuteeka enkyukakyuka ku layer.
+tool.puppet_warp.option.stiffness = Obukaluba
+tool.puppet_warp.history.puppet_warp = Kyusa ng'akazannyo
+
+# Vanishing Point
+tool.vanishing_point.name = Ensonga ebula
+tool.vanishing_point.description = Walula olupapula ku kintu ekirimu endabika ey'obuwanvu, oluvannyuma kyusa Engeri ebeere Koppa era osiige: pixels ezikoppeddwa zigoberera olupapula nga zikendeera gye zikoma okuba ewala.
+tool.vanishing_point.choice.edit_plane = Kyusa olupapula
+tool.vanishing_point.choice.clone = Koppa
+tool.vanishing_point.history.vanishing_point = Ensonga ebula

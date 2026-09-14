@@ -1,0 +1,21 @@
+tool.move.name = Flytt
+tool.move.description = Dra innhaldet i det aktive laget til ein ny plass. Når Automatisk val er slått på, vel det første trykket laget – eller heile gruppa – under peikaren.
+tool.move.option.auto_select = Automatisk val
+tool.move.history.move_layer = Flytt lag
+
+tool.eyedropper.name = Pipette
+tool.eyedropper.description = Hent fargen under peikaren inn i framgrunnsprøva, eller inn i bakgrunnsprøva når Alt er halden inne. Når du dreg, held verktøyet fram med å hente fargeprøver.
+tool.eyedropper.option.sample_size = Prøvestorleik
+tool.eyedropper.option.sample = Prøve
+tool.eyedropper.choice.point_sample = Punktprøve
+tool.eyedropper.choice.average_3 = Gjennomsnitt av 3 × 3
+tool.eyedropper.choice.average_5 = Gjennomsnitt av 5 × 5
+tool.eyedropper.choice.average_11 = Gjennomsnitt av 11 × 11
+tool.eyedropper.choice.average_31 = Gjennomsnitt av 31 × 31
+tool.eyedropper.choice.all_layers = Alle lag
+tool.eyedropper.choice.current_layer = Gjeldande lag
+
+tool.hand.name = Hand
+tool.hand.description = Panorerer visinga. Visingsområdet høyrer til vindauget, så utan grafisk grensesnitt gjer verktøyet ingenting med dokumentet.
+tool.zoom.name = Zoom
+tool.zoom.description = Zoomar visinga. Visingsområdet høyrer til vindauget, så utan grafisk grensesnitt gjer verktøyet ingenting med dokumentet.

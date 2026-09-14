@@ -1,0 +1,153 @@
+# File
+menu.file = File
+menu.file.new = Nuebu
+menu.file.open = Baba…
+menu.file.open_recent = Baba i hinekkå' na ma'usa
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Egga' i gallery…
+menu.file.close = Huchom
+menu.file.save = Såtba
+menu.file.save_as = Såtba komu…
+menu.file.export = Eksporta…
+menu.file.export_submenu = Eksporta
+menu.file.export_artboards = Artboard siha para PNG…
+menu.file.export_slices = Slice siha para PNG…
+menu.file.save_to_photos = Såtba gi Photos
+menu.file.plugins = Plug-in siha…
+menu.file.missing_fonts = Falta na font siha…
+menu.file.check_for_updates = Aligao update siha…
+menu.file.quit = Dingo
+menu.file.add_folder_to_gallery = Na'hålom folder gi gallery…
+menu.file.import_from_photos = Importa ginen Photos…
+menu.file.import_from_camera = Importa ginen kamera…
+
+# Edit
+menu.edit = Edita
+menu.edit.fill = Omple…
+menu.edit.stroke = Stroke…
+menu.edit.content_aware_fill = Content-Aware Fill
+menu.edit.content_aware_scale = Content-Aware Scale…
+menu.edit.puppet_warp = Puppet Warp
+menu.edit.free_transform = Free Transform
+menu.edit.transform = Transform
+menu.edit.rotate_180 = Bira 180°
+menu.edit.rotate_90_cw = Bira 90° segun i relos
+menu.edit.rotate_90_ccw = Bira 90° kontra i relos
+menu.edit.flip_horizontal = Bira i orisontåt
+menu.edit.flip_vertical = Bira i bettikåt
+
+# Image
+menu.image = Imåhen
+menu.image.mode = Mode
+menu.image.adjustments = Inadilanto siha
+menu.image.auto_tone = Automåtiku na tonu
+menu.image.auto_contrast = Automåtiku na kontråste
+menu.image.auto_color = Automåtiku na kulot
+menu.image.image_size = Mineddong imåhen…
+menu.image.canvas_size = Mineddong canvas…
+menu.image.image_rotation = Birådan imåhen
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° segun i relos
+menu.image.rotate_90_ccw = 90° kontra i relos
+menu.image.flip_canvas_horizontal = Bira i canvas gi orisontåt
+menu.image.flip_canvas_vertical = Bira i canvas gi bettikåt
+menu.image.crop_to_selection = Crop para i selection
+menu.image.trim = Utut i kanton
+menu.image.assign_profile = Po'lo profile…
+menu.image.convert_to_profile = Konbiette para profile…
+
+# Select
+menu.select = Ayek
+menu.select.color_range = Rånggon kulot…
+menu.select.modify = Adilånta
+menu.select.border = Border…
+menu.select.smooth = Na' suåbe…
+menu.select.expand = Na' dångkolo…
+menu.select.contract = Na' dikike'…
+menu.select.feather = Feather…
+menu.select.transform_selection = Transform Selection
+
+# Layer
+menu.layer = Layer
+menu.layer.layer_style = Estilun layer…
+menu.layer.layer_comps = Layer Comp siha
+menu.layer.new_layer_comp = Nuebu na Layer Comp
+menu.layer.delete_layer_comp = Na'suha {name}
+menu.layer.path = Path
+menu.layer.fill_path = Omple i path
+menu.layer.stroke_path = Stroke i path
+menu.layer.make_selection = Fa'tinas selection
+menu.layer.delete_path = Na'suha i path
+
+# Adjust
+menu.adjust = Adilånta
+
+# Filter
+menu.filter = Fitro
+menu.filter.filter_gallery = Gallery fitro…
+menu.filter.liquify = Liquify
+menu.filter.vanishing_point = Vanishing Point
+menu.filter.manage_models = Maneha i model siha…
+menu.filter.camera_raw_development = Camera Raw Development…
+
+# View
+menu.view = View
+menu.view.rotate_view_cw = Bira i view segun i relos
+menu.view.rotate_view_ccw = Bira i view kontra i relos
+menu.view.reset_view = Reset i view
+menu.view.zoom_in = Na' dångkolo
+menu.view.zoom_out = Na' dikike'
+menu.view.fit_on_screen = Na'omlat gi screen
+menu.view.actual_size = 100%
+menu.view.rulers = Regla siha
+menu.view.grid = Grid
+menu.view.guides = Guide siha
+menu.view.notes = Nota siha
+menu.view.ai_panel = AI Panel
+menu.view.extras = Ekstra siha
+menu.view.snap = Snap
+menu.view.clear_guides = Na'suha todu i guide siha
+menu.view.clear_notes = Na'suha todu i nota siha
+menu.view.clear_count = Na'suha todu i kuenta
+menu.view.screen_mode = Screen Mode
+menu.view.proof_colors = Proof Colors
+menu.view.show_rulers = Na' annok i regla siha
+menu.view.hide_rulers = Na'attuk i regla siha
+menu.view.show_grid = Na' annok i grid
+menu.view.hide_grid = Na'attuk i grid
+menu.view.show_guides = Na' annok i guide siha
+menu.view.hide_guides = Na'attuk i guide siha
+menu.view.show_notes = Na' annok i nota siha
+menu.view.hide_notes = Na'attuk i nota siha
+menu.view.show_extras = Na' annok i ekstra siha
+menu.view.hide_extras = Na'attuk i ekstra siha
+menu.view.enable_snapping = Na' aktibu i snapping
+menu.view.disable_snapping = Na' ti aktibu i snapping
+menu.view.enable_proof_colors = Na' aktibu i proof colors
+menu.view.disable_proof_colors = Na' ti aktibu i proof colors
+
+# Gallery
+menu.gallery = Gallery
+menu.gallery.edit_selected = Edita i ma'ayek
+menu.gallery.refresh = Rifreska
+menu.gallery.map_filter = Fitron måpa…
+menu.gallery.back_to_editor = Tåtte para i editor
+
+# Schist Cloud
+menu.cloud.browse = Egga' i Schist Cloud
+menu.cloud.generate = Fa'tinas imåhen siha…
+menu.cloud.upload = Upload i dokumentu para Schist Cloud…
+menu.cloud.sign_out = Sign out ginen Schist Cloud
+menu.cloud.sign_in = Sign in para Schist Cloud…
+
+# Menu app gi macOS
+menu.app.services = Setbisiu siha
+menu.app.hide = Na'attuk {app}
+menu.app.hide_others = Na'attuk i otro siha
+menu.app.show_all = Na' annok todu
+menu.app.quit = Dingo {app}
+
+# Estådus
+menu.status.transform_selection_needs_selection = Ha nisisita i Transform Selection un selection
+menu.status.crop_needs_selection = Ha nisisita i Crop to Selection un selection
+menu.status.select_photo_to_edit = Ayek un litratu para un edita

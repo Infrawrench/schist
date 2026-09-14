@@ -1,0 +1,104 @@
+workspace.fill.gray_50 = 50% çal
+workspace.fill.content_aware = Mazmuna görä
+
+workspace.modify.expand = Saýlawy giňeltmek
+workspace.modify.contract = Saýlawy daraltmak
+workspace.modify.border = Saýlawyň araçägi
+workspace.modify.smooth = Saýlawy tekizlemek
+workspace.modify.feather = Saýlawyň gyrasyny ýumşatmak
+
+workspace.batch.target.edit = Galereýa düzedişleri (wersiýaly)
+workspace.batch.target.beside = Asyllaryň ýanyndaky nusgalar
+workspace.batch.target.folder = Bukjadaky nusgalar…
+
+workspace.modal.image_size.title = Şekiliň ölçegi
+
+workspace.docs.opening = {name} açylýar…
+workspace.docs.opened = {name} açyldy
+workspace.docs.open_failed = Açmak başartmady: {error}
+workspace.docs.no_codec = {name} Schist-iň açyp bilýän formaty däl
+workspace.docs.no_exporter = Schist .{ext} faýllaryny ýazdyryp bilmeýär
+workspace.docs.empty_response = Serwer boş jogap iberdi
+workspace.docs.heic_not_installed = HEIC goldawy gurulmady
+workspace.docs.heic_downloading = HEIC goldawy (libheif {version}) göçürilýär…
+workspace.docs.heic_installed = HEIC goldawy guruldy
+workspace.docs.heic_download_failed = HEIC goldawyny göçürip almak başartmady: {error}
+workspace.docs.placing = {name} ýerleşdirilýär…
+workspace.docs.place_image = Şekili ýerleşdirmek
+workspace.docs.placed = {name} ýerleşdirildi
+workspace.docs.place_failed = Ýerleşdirmek başartmady: {error}
+workspace.docs.saved = {name} ýazdyryldy
+workspace.docs.save_failed = Ýazdyrmak başartmady: {error}
+
+workspace.adjustment.new_layer = Täze {name} gatlagy
+workspace.adjustment.added = {name} goşuldy
+workspace.adjustment.settings = {name} sazlamalary
+workspace.adjustment.updated = {name} täzelendi
+workspace.adjustment.no_settings = {name} üçin üýtgedip bolýan sazlama ýok
+
+workspace.comps.name_n = Gatlak kompozisiýasy {n}
+workspace.comps.captured = Gatlak kompozisiýasy ýazga alyndy
+workspace.comps.apply = {name} ulanmak
+
+workspace.styles.layer_style = Gatlak stili
+workspace.context.rename_layer = Gatlagyň adyny üýtgetmek
+workspace.commands.tool = Gural: {name}
+
+workspace.colormgmt.assign = {name} bellemek
+workspace.colormgmt.assigned = {name} bellendi
+workspace.colormgmt.convert_to = {name} öwürmek
+workspace.colormgmt.converted_to = {name} öwrüldi
+workspace.colormgmt.convert_failed = Öwürmek başartmady: {error}
+workspace.colormgmt.proof_on = Reňk synagy açyk
+workspace.colormgmt.proof_off = Reňk synagy ýapyk
+
+workspace.filters.choose = Saýlamak
+workspace.filters.select_layer_first = Ilki gatlak saýlaň
+workspace.filters.needs_pixel_layer = Süzgüçlere piksel gatlagy gerek
+workspace.filters.nothing_to_filter = Süzmeli zat ýok
+workspace.filters.went_away = Süzgüç ýitdi
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: süzülen gatlak ýok boldy
+workspace.filters.plugin_title = Photoshop plug-ini
+workspace.filters.running = {name} işledilýär
+workspace.filters.plugin_note = Plug-in öz aýratyn prosesinde işleýär. Penjire açsa, dowam etmek üçin şol penjire jogap beriň.
+workspace.filters.raw_preview_developing = RAW deslapky syny işlenýär…
+workspace.filters.raw_preview_done = RAW deslapky syny (çalt demosaika)
+workspace.filters.raw_preview_size_changed = RAW deslapky synynyň ölçegi üýtgedi: {w} × {h}
+workspace.filters.raw_preview_failed = RAW deslapky syny başartmady: {error}
+workspace.filters.raw_developing = Asyl sensor maglumatlary işlenýär…
+workspace.filters.raw_developing_note = Iň gowy demosaika usuly ulanylýar. Asyl RAW we bu sazlamalar PSD ýa-da PSB görnüşinde ýazdyrylandan soň hem üýtgedilip bilner.
+workspace.filters.raw_document_changed = RAW işlenişi resminama üýtgänden soň tamamlandy
+workspace.filters.raw_failed = RAW işlenişi başartmady: {error}
+workspace.filters.raw_too_wide = RAW işlenişi juda giň
+workspace.filters.raw_too_tall = RAW işlenişi juda beýik
+workspace.filters.raw_size_changed = RAW işlenişiniň ölçegi {w} × {h} boldy; häzirki gatlak saklanýar
+workspace.filters.raw_history = Camera Raw işlenişi
+workspace.filters.raw_applied = Camera Raw işlenişi ulanyldy (iň gowy demosaika)
+
+workspace.image_size.done = Şekiliň ölçegi: {w} × {h}
+workspace.image_size.bicubic_fallback = Şekiliň ölçegi: {w} × {h} — {name} modeli ýüklenmedi, şonuň üçin bikubik usul ulanyldy
+workspace.image_size.upscaling = {name} bilen ulaldylýar
+workspace.image_size.upscaling_note = Tor arkaly {mp} megapiksel, hersine birnäçe sekunt. Tamamlanýança resminama saklanýar.
+
+workspace.export.no_slices = Eksport etmeli dilim ýok
+workspace.export.no_artboards = Eksport etmeli iş meýdançasy ýok
+workspace.export.regions.one = {n} sebit eksport edildi
+workspace.export.regions.other = {n} sebit eksport edildi
+workspace.export.prompt = Şu görnüşde eksport etmek:
+workspace.export.done = {name} eksport edildi
+workspace.export.failed = Eksport başartmady: {error}
+workspace.export.codec_vanished = Eksport ediji indi elýeterli däl
+
+workspace.file_picker.choose_folder = Bukja saýlamak
+workspace.file_picker.type_a_name = Faýlyň adyny ýazyň
+workspace.file_picker.exists = {name} bar; çalyşmak üçin Ýazdyr düwmesine ýene basyň
+workspace.file_picker.tap_a_file = Açmak üçin faýla basyň
+workspace.file_picker.pictures = Suratlar
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Göçürilenler
+workspace.file_picker.permission_denied = Schist bu bukjany okamaga rugsatly däl
+
+workspace.recovery.recovered_title = {title} (dikeldildi)
+workspace.recovery.recovered.one = Öňki sessiýadan ýazdyrylmadyk iş dikeldildi
+workspace.recovery.recovered.other = Öňki sessiýadan {n} resminama dikeldildi

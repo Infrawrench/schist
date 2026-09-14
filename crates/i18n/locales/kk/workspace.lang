@@ -1,0 +1,103 @@
+workspace.fill.gray_50 = 50% сұр
+workspace.fill.content_aware = Мазмұнды ескеретін
+
+workspace.modify.expand = Таңдауды кеңейту
+workspace.modify.contract = Таңдауды тарылту
+workspace.modify.border = Таңдау жиегі
+workspace.modify.smooth = Таңдауды тегістеу
+workspace.modify.feather = Таңдауды жұмсарту
+
+workspace.batch.target.edit = Галерея өңдеулері (нұсқаларымен)
+workspace.batch.target.beside = Түпнұсқалар жанындағы көшірмелер
+workspace.batch.target.folder = Қалтадағы көшірмелер…
+
+workspace.modal.image_size.title = Кескін өлшемі
+
+workspace.docs.opening = {name} ашылуда…
+workspace.docs.opened = {name} ашылды
+workspace.docs.open_failed = Ашу сәтсіз аяқталды: {error}
+workspace.docs.no_codec = Schist қолданбасы {name} пішімін аша алмайды
+workspace.docs.no_exporter = Schist .{ext} файлдарын сақтай алмайды
+workspace.docs.empty_response = Сервер бос жауап жіберді
+workspace.docs.heic_not_installed = HEIC қолдауы орнатылмаған
+workspace.docs.heic_downloading = HEIC қолдауы жүктелуде (libheif {version})…
+workspace.docs.heic_installed = HEIC қолдауы орнатылды
+workspace.docs.heic_download_failed = HEIC қолдауын жүктеу сәтсіз аяқталды: {error}
+workspace.docs.placing = {name} орналастырылуда…
+workspace.docs.place_image = Кескін орналастыру
+workspace.docs.placed = {name} орналастырылды
+workspace.docs.place_failed = Орналастыру сәтсіз аяқталды: {error}
+workspace.docs.saved = {name} сақталды
+workspace.docs.save_failed = Сақтау сәтсіз аяқталды: {error}
+
+workspace.adjustment.new_layer = Жаңа «{name}» қабаты
+workspace.adjustment.added = {name} қосылды
+workspace.adjustment.settings = {name} параметрлері
+workspace.adjustment.updated = {name} жаңартылды
+workspace.adjustment.no_settings = {name} үшін өңделетін параметрлер жоқ
+
+workspace.comps.name_n = Қабат композициясы {n}
+workspace.comps.captured = Қабат композициясы жазылды
+workspace.comps.apply = {name} қолдану
+workspace.styles.layer_style = Қабат стилі
+workspace.context.rename_layer = Қабаттың атын өзгерту
+workspace.commands.tool = Құрал: {name}
+
+workspace.colormgmt.assign = {name} тағайындау
+workspace.colormgmt.assigned = {name} тағайындалды
+workspace.colormgmt.convert_to = {name} профиліне түрлендіру
+workspace.colormgmt.converted_to = {name} профиліне түрлендірілді
+workspace.colormgmt.convert_failed = Түрлендіру сәтсіз аяқталды: {error}
+workspace.colormgmt.proof_on = Түстерді сынамалау қосулы
+workspace.colormgmt.proof_off = Түстерді сынамалау өшірулі
+
+workspace.filters.choose = Таңдау
+workspace.filters.select_layer_first = Алдымен қабатты таңдаңыз
+workspace.filters.needs_pixel_layer = Сүзгілерге пиксельдік қабат қажет
+workspace.filters.nothing_to_filter = Сүзгілейтін ештеңе жоқ
+workspace.filters.went_away = Сүзгі жоғалып кетті
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: сүзгі қолданылған қабат жоқ
+workspace.filters.plugin_title = Photoshop плагині
+workspace.filters.running = {name} орындалуда
+workspace.filters.plugin_note = Плагин жеке процесте орындалады. Ол терезе ашса, жалғастыру үшін сол терезедегі сұраққа жауап беріңіз.
+workspace.filters.raw_preview_developing = RAW алдын ала көрінісі өңделуде…
+workspace.filters.raw_preview_done = RAW алдын ала көрінісі (жылдам демозаика)
+workspace.filters.raw_preview_size_changed = RAW алдын ала көрінісінің өлшемі өзгерді: {w} × {h}
+workspace.filters.raw_preview_failed = RAW алдын ала көрінісін өңдеу сәтсіз аяқталды: {error}
+workspace.filters.raw_developing = Бастапқы түсірілім өңделуде…
+workspace.filters.raw_developing_note = Ең сапалы демозаика жолы қолданылуда. Бастапқы RAW файлы мен осы параметрлер PSD немесе PSB түрінде сақталғаннан кейін де өңделе береді.
+workspace.filters.raw_document_changed = RAW өңдеуі құжат өзгергеннен кейін аяқталды
+workspace.filters.raw_failed = RAW өңдеуі сәтсіз аяқталды: {error}
+workspace.filters.raw_too_wide = RAW өңдеуінің ені тым үлкен
+workspace.filters.raw_too_tall = RAW өңдеуінің биіктігі тым үлкен
+workspace.filters.raw_size_changed = RAW өңдеуінің өлшемі {w} × {h} болып өзгерді; ағымдағы қабат сақталады
+workspace.filters.raw_history = Camera Raw өңдеуі
+workspace.filters.raw_applied = Camera Raw өңдеуі қолданылды (ең сапалы демозаика)
+
+workspace.image_size.done = Кескін өлшемі: {w} × {h}
+workspace.image_size.bicubic_fallback = Кескін өлшемі: {w} × {h} — {name} моделі жүктелмегендіктен, бикубтық әдіс қолданылды
+workspace.image_size.upscaling = {name} арқылы үлкейтілуде
+workspace.image_size.upscaling_note = Желі арқылы {mp} мегапиксель өңделеді, әрқайсысына бірнеше секунд кетеді. Құжат аяқталғанша ұсталады.
+
+workspace.export.no_slices = Экспорттайтын фрагменттер жоқ
+workspace.export.no_artboards = Экспорттайтын монтаждық аймақтар жоқ
+workspace.export.regions.one = {n} аймақ экспортталды
+workspace.export.regions.other = {n} аймақ экспортталды
+workspace.export.prompt = Мына пішімде экспорттау:
+workspace.export.done = {name} экспортталды
+workspace.export.failed = Экспорттау сәтсіз аяқталды: {error}
+workspace.export.codec_vanished = Экспорттау құралы енді қолжетімсіз
+
+workspace.file_picker.choose_folder = Қалтаны таңдау
+workspace.file_picker.type_a_name = Файл атауын енгізіңіз
+workspace.file_picker.exists = {name} бар; оны алмастыру үшін «Сақтау» түймесін қайта түртіңіз
+workspace.file_picker.tap_a_file = Ашу үшін файлды түртіңіз
+workspace.file_picker.pictures = Суреттер
+workspace.file_picker.camera = Камера
+workspace.file_picker.downloads = Жүктеп алынғандар
+workspace.file_picker.permission_denied = Schist қолданбасында бұл қалтаны оқуға рұқсат жоқ
+
+workspace.recovery.recovered_title = {title} (қалпына келтірілген)
+workspace.recovery.recovered.one = Алдыңғы сеанстағы сақталмаған жұмыс қалпына келтірілді
+workspace.recovery.recovered.other = Алдыңғы сеанстағы {n} құжат қалпына келтірілді

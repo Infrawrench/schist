@@ -1,0 +1,23 @@
+# Fundamental utensiles: Mover, Pipette, Man e Zoom.
+
+tool.move.name = Mover
+tool.move.description = Trena li contenete del activ strate a un nov position. Con Auto-selection activ, li pression selecte in prim li strate — o li tot gruppe — sub li apuntator.
+tool.move.option.auto_select = Auto-selection
+tool.move.history.move_layer = Mover strate
+
+tool.eyedropper.name = Pipette
+tool.eyedropper.description = Prende li color sub li apuntator in li prova de avan-plan, o in li prova de fund quande Alt es tenet. Durant trenada it continua prender provas.
+tool.eyedropper.option.sample_size = Grandore del prova
+tool.eyedropper.option.sample = Provar
+tool.eyedropper.choice.point_sample = Punctal prova
+tool.eyedropper.choice.average_3 = Medie 3 per 3
+tool.eyedropper.choice.average_5 = Medie 5 per 5
+tool.eyedropper.choice.average_11 = Medie 11 per 11
+tool.eyedropper.choice.average_31 = Medie 31 per 31
+tool.eyedropper.choice.all_layers = Omni strates
+tool.eyedropper.choice.current_layer = Actual strate
+
+tool.hand.name = Man
+tool.hand.description = Move li vise. Li visibil area apartene al fenestre, do sin grafic interfacie ti utensile ne fa alquó al document.
+tool.zoom.name = Zoom
+tool.zoom.description = Change li scale del vise. Li visibil area apartene al fenestre, do sin grafic interfacie ti utensile ne fa alquó al document.

@@ -1,0 +1,27 @@
+# Kayan aikin murɗawa: Liquify, Puppet Warp da Vanishing Point.
+
+# Liquify
+tool.liquify.name = Liquify
+tool.liquify.description = Tura, murɗa, matse ko kumbura pixels da ke ƙarƙashin babban buroshi—zaɓin yanayi ne ke ƙayyade aikin. Murɗawar tana taruwa a raga sannan a yi amfani da ita a kan shimfiɗar lokacin tabbatarwa.
+tool.liquify.option.tool = Kayan Aiki
+tool.liquify.choice.forward_warp = Murɗawa Zuwa Gaba
+tool.liquify.choice.reconstruct = Sake Ginawa
+tool.liquify.choice.twirl_cw = Murɗawa Bisa Agogo
+tool.liquify.choice.twirl_ccw = Murɗawa Saɓanin Agogo
+tool.liquify.choice.pucker = Matsewa
+tool.liquify.choice.bloat = Kumburawa
+tool.liquify.choice.push_left = Tura Hagu
+tool.liquify.history.liquify = Liquify
+
+# Puppet Warp
+tool.puppet_warp.name = Murɗawar 'Yar Tsana
+tool.puppet_warp.description = Danna don kafa shimfiɗa da fil a wurare kaɗan, sannan ja ɗaya: ragar tana tanƙwara kewaye da fil ɗin, da tauri ko sassauci kamar yadda zaɓin Tauri ya nuna. Tabbatarwa tana aiwatar da shi.
+tool.puppet_warp.option.stiffness = Tauri
+tool.puppet_warp.history.puppet_warp = Murɗawar 'Yar Tsana
+
+# Vanishing Point
+tool.vanishing_point.name = Wurin Ɓacewa
+tool.vanishing_point.description = Ja wani fili a kan abin da ke da hangen nesa, sannan sauya yanayin zuwa Kwafi ka yi fenti: pixels da aka kwafa suna bin filin, suna ƙanƙanta da nisa.
+tool.vanishing_point.choice.edit_plane = Gyara Fili
+tool.vanishing_point.choice.clone = Kwafi
+tool.vanishing_point.history.vanishing_point = Wurin Ɓacewa

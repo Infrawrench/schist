@@ -1,0 +1,34 @@
+# Statusa josla
+ai.status.panel_shown = MI panelis parādīts
+ai.status.panel_hidden = MI panelis paslēpts — to var atkal atvērt ar Skats ▸ MI panelis ({shortcut})
+ai.status.tool = MI: {name}
+
+# Blāvās rindas sarunas pierakstā
+ai.info.connected = {backend} savienots
+ai.info.now_in_gallery = Tagad galerijā.
+ai.info.now_in_editor = Tagad redaktorā.
+ai.tool.shell_command = čaulas komanda
+
+# Kļūdas sarunas pierakstā
+ai.error.cli_missing = {backend} komandrindas saskarne (“{binary}”) nav atrodama mainīgajā PATH. Vispirms instalējiet to un piesakieties.
+ai.error.endpoint_failed = neizdevās palaist MCP galapunktu: {error}
+ai.error.binding_endpoint = MCP galapunkta piesaistīšana
+ai.error.spawning_endpoint_thread = MCP galapunkta pavediena palaišana
+ai.error.runtime_failed = neizdevās palaist aģenta izpildvidi: {error}
+ai.error.worker_failed = neizdevās palaist {backend} darbinātāju: {error}
+ai.error.did_not_start = {backend} netika palaists: {error}
+ai.error.switch_model_failed = neizdevās pārslēgt modeli: {error}
+ai.error.send_failed = neizdevās nosūtīt uzvedni: {error}
+ai.error.interrupt_failed = neizdevās pārtraukt: {error}
+ai.error.locating_binary = Schist izpildfaila meklēšana
+ai.error.starting_app_server = Codex lietotnes servera palaišana
+ai.error.attaching_app_server = savienošana ar Codex lietotnes serveri
+ai.error.initializing_app_server = Codex lietotnes servera inicializēšana
+ai.error.resuming_thread = Codex pavediena atsākšana
+ai.error.starting_thread = Codex pavediena palaišana
+
+# Modeļu izvēles rezerves katalogs
+ai.model.opus_detail = Visjaudīgākā pakāpe
+ai.model.sonnet_detail = Efektīvs ikdienas uzdevumiem
+ai.model.haiku_detail = Visātrākais īsām atbildēm
+ai.model.codex_catalog = Codex katalogs

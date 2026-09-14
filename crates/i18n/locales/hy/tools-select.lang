@@ -1,0 +1,27 @@
+# Ընտրության գործիքներ
+tool.select.mode.subtract = Հանել
+tool.select.mode.intersect = Հատել
+tool.marquee.rect.name = Ուղղանկյուն ընտրություն
+tool.marquee.rect.description = Քաշելով ստեղծեք ուղղանկյուն ընտրություն։ Քաշելու սկզբում Shift-ը ավելացնում է ընտրությանը, Alt-ը հանում է, իսկ երկուսը միասին՝ հատում։ Քաշելիս Shift-ը պահելը դարձնում է այն քառակուսի։ Առանց քաշելու սեղմումն ապաընտրում է։
+tool.marquee.ellipse.name = Էլիպսաձև ընտրություն
+tool.marquee.ellipse.description = Քաշելով ստեղծեք էլիպսաձև ընտրություն՝ Shift/Alt ստեղներով նույն կերպ համադրելով, ինչ ուղղանկյուն ընտրության դեպքում։
+tool.lasso.name = Լասո
+tool.lasso.description = Քաշելով ազատ ձեռքով ուրվագիծ գծեք․ քաշելն ավարտելիս ընտրությունը փակվում է ծայրերի միջև։ Shift-ն ավելացնում է, Alt-ը՝ հանում։
+tool.lasso.history.select = Ընտրություն լասոյով
+tool.lasso.polygonal.name = Բազմանկյուն լասո
+tool.lasso.polygonal.description = Հերթով սեղմեք անկյուններին՝ ուղիղ եզրերով ընտրություն կազմելու համար, իսկ փակելու համար սեղմեք առաջին կետի մոտ։
+tool.lasso.polygonal.history.select = Բազմանկյուն լասո
+tool.lasso.magnetic.name = Մագնիսական լասո
+tool.lasso.magnetic.description = Մոտավորապես հետևեք եզրին, և ուրվագիծը կկպչի ուղեգծին մոտ գտնվող ամենաուժեղ հակադրությանը։
+tool.lasso.magnetic.history.select = Մագնիսական լասո
+tool.lasso.magnetic.option.frequency = Հաճախականություն
+tool.wand.name = Կախարդական փայտիկ
+tool.wand.description = Սեղմեք՝ ցուցիչի տակ գտնվող նման գույնի հարակից տարածքն ընտրելու համար՝ թույլատրելի շեղման սահմաններում։ Նույն շեղումն են օգտագործում «Աճեցնել», «Նման» և «Գունային տիրույթ» հրամանները։
+tool.wand.option.contiguous = Հարակից
+tool.wand.history.select = Կախարդական փայտիկ
+tool.quick_select.name = Արագ ընտրություն
+tool.quick_select.description = Ներկեք տարածքի վրայով, և ընտրությունը կընդլայնվի վրձնի տակով անցնող նման փիքսելներով։
+tool.quick_select.history.select = Արագ ընտրություն
+tool.object_select.name = Օբյեկտի ընտրություն
+tool.object_select.description = Օբյեկտի շուրջ ուղղանկյուն քաշեք, և ընտրությունը կհարմարվի դրա ներսում հայտնաբերված օբյեկտին։
+tool.object_select.history.select = Օբյեկտի ընտրություն

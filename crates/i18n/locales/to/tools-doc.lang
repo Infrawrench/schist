@@ -1,0 +1,26 @@
+# Ngaahi meʻangāue ʻo e fakamatala
+
+tool.artboard.name = Papa Tā
+tool.artboard.description = Toho ke faʻu ha papa tā: ko ha konga hingoa ʻo e kanivā ʻoku ʻave makehe. ʻE ʻunu ia kapau ʻe toho ʻi loto ʻi ha papa tā lolotonga.
+tool.artboard.default_name = Papa Tā {n}
+
+tool.slice.name = Konga ʻAve
+tool.slice.description = Toho ke faʻu ha konga ʻave, ko ha tapafā hingoa ʻo e kanivā ʻoku ʻave ko hono ʻīmisi pē. ʻE ʻunu ia kapau ʻe toho ʻi loto ʻi ha konga lolotonga.
+tool.slice.default_name = Konga ʻAve {n}
+
+tool.frame.name = Faʻunga
+tool.frame.description = Toho ke faʻu ha faʻunga: ko ha Layer tapafā (pe fuopotopoto lōloa) ʻoku ne fakapuliki pē ʻa e ngaahi konga ʻo e meʻa ʻoku ʻi tuʻa ʻi hono angá.
+tool.frame.default_name = Faʻunga {n}
+tool.frame.choice.rectangle = Tapafā
+tool.frame.choice.ellipse = Fuopotopoto Lōloa
+tool.frame.history.frame = Faʻunga
+
+tool.note.name = Fakamatala Nounou
+tool.note.description = Lomi ʻi ha feituʻu ʻataʻatā ʻo e kanivā ke fakamaʻu ai ha fakamatala nounou, pea ʻe ʻomi hono hingoa faʻu tohi mo hono lanu mei he tuʻunga lolotonga ʻo e ʻētita; lomi ʻi ha pine lolotonga ke fili ia maʻá e penolo Ngaahi Fakamatala Nounou.
+tool.note.history.place = Tuku ʻa e Fakamatala Nounou
+tool.note.history.move = ʻUnuʻi ʻa e Fakamatala Nounou
+tool.note.history.delete = Tamateʻi ʻa e Fakamatala Nounou
+
+tool.count.name = Lau
+tool.count.description = Lomi ke tuku ha ngaahi fakaʻilonga fika ʻi he kanivā, pea lomi ʻi ha fakaʻilonga lolotonga ke toʻo ia.
+tool.count.default_name = Fakaʻilonga Lau {n}

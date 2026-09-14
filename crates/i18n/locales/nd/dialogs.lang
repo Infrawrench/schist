@@ -1,0 +1,237 @@
+dialog.save_ellipsis = Gcina…
+dialog.use_foreground = Sebenzisa Umbala Wangaphambili
+dialog.downloading = Kuyadawuniloda…
+dialog.downloading_of = Kuyadawuniloda… {got} kokungu-{total}
+dialog.no_config_dir = (akulafolda yokuhlela)
+
+dialog.layer_props.title = Izici Zesendlalelo
+
+dialog.export.format = Uhlobo
+dialog.export.dither = Hlakaza Imibala
+dialog.export.dither_note = Hlakaza imibala nxa usehlisela kumabhithi angu-8
+dialog.export.export_ellipsis = Thumela Ngaphandle…
+
+dialog.batch.title = Lungisa Amafoto
+dialog.batch.note_edit.one = Ifotho engu-{n} — igcinwa njengokuhlela kwegalari; imvelaphi kayithintwa.
+dialog.batch.note_edit.other = Amafoto angu-{n} — agcinwa njengokuhlela kwegalari; imvelaphi kayithintwa.
+dialog.batch.note_edit_edited.one = Ifotho engu-{n}, ukuhlela okukhona kakade kungu-{edited} — indlela yokulungisa ifakwa phezu kokuhlela, njalo ukuhlela kwakuqala kugcinwa njengenguqulo.
+dialog.batch.note_edit_edited.other = Amafoto angu-{n}, asehleliwe kakade angu-{edited} — indlela yokulungisa ifakwa phezu kokuhlela, njalo ukuhlela kwakuqala kugcinwa njengenguqulo.
+dialog.batch.note_copies.one = Ifotho engu-{n} — ikhophi eyisendlalelo esisodwa; imvelaphi kayithintwa.
+dialog.batch.note_copies.other = Amafoto angu-{n} — amakhophi ayizendlalelo ezilodwa; imvelaphi kayithintwa.
+dialog.batch.note_copies_edited.one = Ifotho engu-{n}, ukuhlela okukhona kakade kungu-{edited} — ikhophi yenziwa ngokuhlela.
+dialog.batch.note_copies_edited.other = Amafoto angu-{n}, asehleliwe kakade angu-{edited} — amakhophi enziwa ngokuhlela.
+dialog.batch.turn = Phendula
+dialog.batch.rotate = Phendukisa
+dialog.batch.flip = Guqula
+dialog.batch.upscale = Khulisa
+dialog.batch.colour = Umbala
+dialog.batch.add_adjustment = Ukulungisa…
+dialog.batch.output = Umphumela
+dialog.batch.save_as = Gcina njenge
+dialog.batch.process = Lungisa
+dialog.batch.process_n = Lungisa okungu-{n}
+dialog.batch.nothing_to_do = Akulalutho olungenziwa: qala ukhethe ukuphendula, ukukhulisa kumbe ukulungisa
+
+dialog.content_aware_scale.title = Ukutshintsha Ubukhulu Okuqaphela Okuqukethweyo
+dialog.content_aware_scale.note = Kususa imigqa elemininingwane emilutshwana. Okukhethiweyo kutshengisa okumele kuvikelwe.
+
+dialog.stroke.title = Umugqa
+dialog.stroke.location = Indawo
+dialog.stroke.inside = Ngaphakathi
+dialog.stroke.outside = Ngaphandle
+dialog.stroke.note = Kudweba umphetho wokukhethiweyo ngombala wangaphambili.
+
+dialog.fill.contents = Okuqukethweyo
+
+dialog.color_range.title = Umkhawulo Wemibala
+dialog.color_range.sampled = Okuthathwe Isampula
+dialog.color_range.fuzziness = Ukungacaci Komkhawulo
+dialog.color_range.note = Kukhetha amaphikseli aseduze kombala othathwe isampula kusendlalelo esisebenzayo.
+
+dialog.file_picker.up = ↑ Phezulu
+dialog.file_picker.empty = Akulalutho lapha
+dialog.file_picker.choose_folder = Khetha Ifolda Le
+
+dialog.filter.camera_raw_development = Ukuthuthukisa nge-Camera Raw
+dialog.filter.reset_as_shot = Buyisela Kokuthathwa Kwesithombe
+dialog.filter.raw_note = Kuthuthukisa kutsha isendlalelo esisebenzayo kusukela kudatha yakuqala yomtshina.
+dialog.filter.note = Kusebenza kusendlalelo esisebenzayo, phakathi kokukhethiweyo.
+
+dialog.fonts.title = Amafonti Angekhoyo
+dialog.fonts.install_named = Faka {name}
+dialog.fonts.no_document = Akuladokhumenti evuliweyo, ngakho akulalutho olungahlolwa.
+dialog.fonts.all_installed = Wonke amafonti asetshenziswa yidokhumenti le afakiwe. Umbhalo wayo ubhalwe ngamafonti eyayihlelelwe ngawo.
+dialog.fonts.missing_intro = Idokhumenti le ibhalwe ngamafonti ongelawo. Umbhalo uyafundeka ngefonti ebambeleyo, kodwa ububanzi bawo lokwephuka kwemigqa kakufanani lalokho owawuhlelelwe ngakho.
+dialog.fonts.footer = Okudawunilodwayo kuvela kukhathalogu evulekileyo ye-Google Fonts njalo kugcinwa ku-{dir}. Ifonti engelalayisensi evulekileyo kayidawunilodwa — lapho okukhona enye idizayini ekhululekileyo elesilinganiso esifanayo, kunikelwa yona; ibuyisela indlela umbhalo owawuhlelwe ngayo ngoba ububanzi bezinhlamvu buyafanana.
+dialog.fonts.user_font_dir = ifolda yakho yamafonti omsebenzisi
+
+dialog.models.title = Amamodeli e-Neural Filters
+dialog.models.built_in = Yakhelwe phakathi · {size}
+dialog.models.installed = Ifakiwe · {size}
+dialog.models.not_installed = Ayifakwanga · {size}
+dialog.models.not_in_browser = Ayitholakali kusiphequluli · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Amamodeli agcinwa ku-{dir}. Izisefo ezingelamodeli zibuyela ekulungiseni isignali njalo ziyatsho.
+
+dialog.new_doc.title = Idokhumenti Entsha
+dialog.new_doc.picker_title = Ifayela Elitsha
+dialog.new_doc.custom_ellipsis = Okwakho…
+dialog.new_doc.preset = Okuhleliwe
+dialog.new_doc.preset_default = Okuzenzakalelayo (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Isikwele (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Dala
+dialog.new_doc.created = Idokhumenti entsha: {w} × {h} px
+
+dialog.open.image_title = Vula Isithombe
+dialog.open.image_prompt = Vula u-“{name}” kuthebhu entsha, kumbe umengeze kudokhumenti yamanje njengesendlalelo esitsha?
+dialog.open.new_tab = Ithebhu Entsha
+dialog.open.new_layer = Isendlalelo Esitsha
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = leli fayela elingu-{n}
+dialog.open.these_files.other = amafayela la angu-{n}
+dialog.open.shared_title_one = Isithombe Esabiweyo
+dialog.open.shared_title_many = Izithombe Ezabiweyo
+dialog.open.shared_prompt = Engeza {what} kugalari, kumbe ukuvule kumhleli?
+dialog.open.add_to_gallery = Engeza Egalari
+dialog.open.open_in_editor = Vula Kumhleli
+dialog.open.heic_title = Ukusekelwa kwe-HEIC
+dialog.open.heic_needs_decoder = Ukuvula u-“{name}” kudinga isiqaqi se-HEVC esingafakwanga kulesi isistimu.
+dialog.open.heic_offer = I-Schist ingadawuniloda inguqulo ye-libheif {version} eqaqa kuphela, ilesiqaqi se-libde265 HEVC (≈5 MB). Kokubili kulelayisensi ye-LGPL-3.0; imibhalo yamalayisensi kufakwa eceleni kwelabhulali, njalo ikhodi yomthombo itholakala ekhasini lephrojekthi.
+dialog.open.licenses_source = Amalayisensi Lomthombo
+dialog.open.folders_title = Amafolda Abekiweyo
+dialog.open.n_folders.one = Ifolda engu-{n}
+dialog.open.n_folders.other = Amafolda angu-{n}
+dialog.open.open_in_tabs = Vula Kumathebhu
+dialog.open.open_first_in_tabs = Vula Okokuqala Okungu-{n} Kumathebhu
+dialog.open.open_n_in_tabs.one = Vula okungu-{n} Kuthebhu
+dialog.open.open_n_in_tabs.other = Vula okungu-{n} Kumathebhu
+dialog.open.folder_holds.one = U-{what} ulesithombe esingu-{n} i-Schist engasivula (lamafolda angaphakathi ayabalwa).
+dialog.open.folder_holds.other = U-{what} ulezithombe ezingu-{n} i-Schist engazivula (lamafolda angaphakathi ayabalwa).
+dialog.open.folders_note = Ukwengeza Egalari kugada amafolda lapho akhona — akulalutho olukotshwayo, njalo ukuhlela kulezinguqulo ezibekwa eceleni kwefoto ngayinye. Ukuvula kumathebhu kulayisha zonke izithombe kumhleli khathesi.
+
+dialog.plugins.title = Ama-plugin
+dialog.plugins.kind_filter = isisefo
+dialog.plugins.kind_format = uhlobo
+dialog.plugins.kind_unavailable = akutholakali
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Ama-plugin alayishwa ku-{dir}
+dialog.plugins.none = Akulama-plugin afakiweyo okwamanje.
+dialog.plugins.install_ellipsis = Faka…
+dialog.plugins.photoshop_heading = Ama-plug-in e-Photoshop
+dialog.plugins.loaded_from = Alayishwe ku-{folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Okuthandwayo
+dialog.prefs.theme = Ukubukeka
+dialog.prefs.theme_dark = Okumnyama
+dialog.prefs.theme_light = Okukhanyayo
+dialog.prefs.grid_spacing = Izikhala zegridi
+dialog.prefs.snapping = Ukunamathela
+dialog.prefs.snap_to = Namathisela kumihlahlandlela, igridi lemiphetho yekhanvasi
+dialog.prefs.rendering_intent = Injongo yokudweba imibala
+dialog.prefs.intent_perceptual = Ngokubonakala
+dialog.prefs.intent_relative = Ukulinganisa imibala okuhambelanayo
+dialog.prefs.intent_saturation = Ukugcwala kombala
+dialog.prefs.intent_absolute = Ukulinganisa imibala okupheleleyo
+dialog.prefs.scrolling = Ukwehlisa Lokwenyusa
+dialog.prefs.zoom_with_scroll = Sondeza ngesondo lokwehlisa lokwenyusa
+dialog.prefs.rendering = Ukudweba
+dialog.prefs.gpu_compositing = Ukuhlanganisa nge-GPU
+dialog.prefs.diagnostics = Ukuhlola Amaphutha
+dialog.prefs.crash_reports = Bhala umbiko wendawo nxa uhlelo lufadalala
+dialog.prefs.crash_upload = Wuthumele lakubakhi
+dialog.prefs.telemetry = Thumela umbiko wansuku zonke ongelabizo
+dialog.prefs.diagnostics_note = Ukuhlola amaphutha kuqala ukusebenza lapho i-Schist isiqaliswa futhi.
+dialog.prefs.updates = Izivuseleli
+dialog.prefs.check_updates = Hlola ukukhutshwa okutsha ekuqaliseni
+dialog.prefs.keyboard_shortcuts = Izinqamuleli zekhibhodi: {path}
+dialog.prefs.nsfw_needs_model = Kudinga imodeli ye-Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = yidawunilode ku-Phatha Amamodeli…
+dialog.prefs.hide_flagged = Fihla amafoto aphawuliweyo
+
+dialog.profile.profile = Iphrofayili
+dialog.profile.assign_title = Nika Iphrofayili
+dialog.profile.convert_title = Guqulela Kuphrofayili
+dialog.profile.assign = Nika
+dialog.profile.convert = Guqula
+dialog.profile.assign_note = Kuchaza kutsha amanani amaphikseli akhona ngaphansi kwephrofayili entsha.
+dialog.profile.convert_note = Kubhala kutsha amanani amaphikseli ukuze imibala igcine ukubonakala kwayo.
+
+dialog.save_image.title = Gcina Isithombe Njenge
+dialog.save_image.note = {name} — ukuhlela, nxa kulakho; imvelaphi kayithintwa.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Ubukhulu Besithombe
+dialog.size.canvas_title = Ubukhulu Bekhanvasi
+dialog.size.constrain = Bopha
+dialog.size.keep_proportions = Gcina izilinganiso
+dialog.size.resample = Bala amaphikseli kutsha
+dialog.size.bicubic = I-Bicubic
+dialog.size.bilinear = I-Bilinear
+dialog.size.nearest = Umakhelwane Oseduze
+dialog.size.anchor = Isibopho
+dialog.size.currently = Khathesi {w} × {h} px
+dialog.size.image_size_status = Ubukhulu besithombe: {w} × {h}
+dialog.size.canvas_size_status = Ubukhulu bekhanvasi: {w} × {h}
+
+dialog.update.title = Isivuseleli Siyatholakala
+dialog.update.available = I-Schist {version} iyatholakala. Ikhophi le ngu-{current}.
+dialog.update.installing = Isivuseleli siyafakwa…
+dialog.update.can_install = I-Schist ingasidawuniloda ({size}) ibisifaka phezu kwekhophi le.
+dialog.update.external = Ikhophi le ivela lapho ephethwe khona — ngumphathi wamaphakethe, i-AppImage, kumbe inguqulo owazakhela yona — ngakho ivuselelwa ngendlela eyafakwa ngayo.
+dialog.update.later = Ngemva kwesikhathi
+dialog.update.release_notes = Amanothi Okukhutshwa
+dialog.update.update_restart = Vuselela Uqalise Futhi
+dialog.update.open_page = Vula Ikhasi Lokukhutshwa
+
+dialog.style.title = Isitayela Sesendlalelo
+dialog.style.bevel = Umphetho Ophakemeyo
+dialog.style.stroke = Umugqa
+dialog.style.inner_shadow = Isithunzi Sangaphakathi
+dialog.style.inner_glow = Ukukhanya Kwangaphakathi
+dialog.style.satin = I-satin
+dialog.style.color_overlay = Ukugqizisa Umbala
+dialog.style.gradient_overlay = Ukugqizisa Inguquko Yombala
+dialog.style.outer_glow = Ukukhanya Kwangaphandle
+dialog.style.drop_shadow = Isithunzi Esilahlwayo
+dialog.style.blur = Ukufiphalisa kwe-Gaussian
+dialog.style.gradient_from = Ukugqizisa Inguquko Yombala Kusuka
+dialog.style.gradient_to = Ukugqizisa Inguquko Yombala Kusiya
+dialog.style.soften = Thambisa
+dialog.style.depth = Ukujula
+dialog.style.altitude = Ukuphakama
+dialog.style.highlight = Okukhanya Kakhulu
+dialog.style.shadow = Isithunzi
+dialog.style.outer_bevel = Umphetho Ophakemeyo Wangaphandle
+dialog.style.inner_bevel = Umphetho Ophakemeyo Wangaphakathi
+dialog.style.emboss = Phakamisa
+dialog.style.pillow_emboss = Ukuphakamisa Okunjengomqamelo
+dialog.style.linear = Okuqondileyo
+dialog.style.radial = Okuyindilinga
+dialog.style.reverse = Guqula Indlela
+dialog.style.from_to = Kusuka / Kusiya
+dialog.style.from_fg = Kusuka = Wangaphambili
+dialog.style.to_fg = Kusiya = Wangaphambili
+dialog.style.precise = Okuqondileyo
+dialog.style.knockout = Isendlalelo sisusa isithunzi esilahlwayo
+
+dialog.color_picker.title = Isikhethi Sombala ({what})
+dialog.color_picker.effect_color = Umbala we-{effect}
+dialog.color_picker.note_color = Umbala Wenothi
+dialog.color_picker.new = omutsha
+dialog.color_picker.current = owamanje
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Setha Ishaneli Kutsha
+dialog.curves.hint = Hudula ulungise isimo · chofoza wengeze · chofoza ngo-Alt ususe
+
+dialog.prefs.camera_sync = Iroli yekhamera
+dialog.prefs.camera_sync_enabled = Yenza ikhophi ku-Schist Cloud
+dialog.prefs.camera_sync_sign_in = Ngena ku-Schist Cloud ukuze wenze ikhophi yeroli yekhamera yakho.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Tshintsha…

@@ -1,0 +1,153 @@
+# Fiila
+menu.file = Fiila
+menu.file.new = Ođđa
+menu.file.open = Rahpa…
+menu.file.open_recent = Rahpa maŋimuš
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Bláđe galleriija…
+menu.file.close = Gidde
+menu.file.save = Vurke
+menu.file.save_as = Vurke namain…
+menu.file.export = Olggosfievrrit…
+menu.file.export_submenu = Olggosfievrrit
+menu.file.export_artboards = Dáiddaduolbbat PNG-govvan…
+menu.file.export_slices = Čuohpusat PNG-govvan…
+menu.file.save_to_photos = Vurke Govat-prográmmii
+menu.file.plugins = Lassiprográmmat…
+menu.file.missing_fonts = Váilot fonttat…
+menu.file.check_for_updates = Oza ođasmahttimiid…
+menu.file.quit = Heaitte
+menu.file.add_folder_to_gallery = Lasit máhpa galleriijai…
+menu.file.import_from_photos = Sisafievrrit Govat-prográmmas…
+menu.file.import_from_camera = Sisafievrrit govvenapparáhtas…
+
+# Doaimmat
+menu.edit = Doaimmat
+menu.edit.fill = Deavdin…
+menu.edit.stroke = Sáhcu…
+menu.edit.content_aware_fill = Sisdoallodieđolaš deavdin
+menu.edit.content_aware_scale = Sisdoallodieđolaš skálen…
+menu.edit.puppet_warp = Dohkká-sojaheapmi
+menu.edit.free_transform = Friddja transformeren
+menu.edit.transform = Transformere
+menu.edit.rotate_180 = Jorat 180°
+menu.edit.rotate_90_cw = Jorat 90° diimmu guvlui
+menu.edit.rotate_90_ccw = Jorat 90° diimmu vuostá
+menu.edit.flip_horizontal = Speadjalis lásku
+menu.edit.flip_vertical = Speadjalis ceaggut
+
+# Govva
+menu.image = Govva
+menu.image.mode = Modealla
+menu.image.adjustments = Heivehusat
+menu.image.auto_tone = Automáhtalaš toana
+menu.image.auto_contrast = Automáhtalaš kontrásta
+menu.image.auto_color = Automáhtalaš ivdni
+menu.image.image_size = Govva sturrodat…
+menu.image.canvas_size = Govvaduolbba sturrodat…
+menu.image.image_rotation = Govva jorahus
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° diimmu guvlui
+menu.image.rotate_90_ccw = 90° diimmu vuostá
+menu.image.flip_canvas_horizontal = Speadjalis govvaduolbba lásku
+menu.image.flip_canvas_vertical = Speadjalis govvaduolbba ceaggut
+menu.image.crop_to_selection = Čuoze válljema mielde
+menu.image.trim = Čuoze ravddaid
+menu.image.assign_profile = Mearrit profiilla…
+menu.image.convert_to_profile = Konvertere profiilii…
+
+# Vállje
+menu.select = Vállje
+menu.select.color_range = Ivdneguovlu…
+menu.select.modify = Rievdat
+menu.select.border = Ravda…
+menu.select.smooth = Jalgat…
+menu.select.expand = Viiddit…
+menu.select.contract = Gáržžidit…
+menu.select.feather = Dipmat ravdda…
+menu.select.transform_selection = Transformere válljema
+
+# Geardi
+menu.layer = Geardi
+menu.layer.layer_style = Geardestiila…
+menu.layer.layer_comps = Geardekomposišuvnnat
+menu.layer.new_layer_comp = Ođđa geardekomposišuvdna
+menu.layer.delete_layer_comp = Sihko {name}
+menu.layer.path = Bálggis
+menu.layer.fill_path = Deavdde bálgá
+menu.layer.stroke_path = Sáhco bálgá
+menu.layer.make_selection = Ráhkat válljema
+menu.layer.delete_path = Sihko bálgá
+
+# Heivet
+menu.adjust = Heivet
+
+# Silli
+menu.filter = Silli
+menu.filter.filter_gallery = Sillegalleriija…
+menu.filter.liquify = Liquify
+menu.filter.vanishing_point = Jávkančuokkis
+menu.filter.manage_models = Hálddaš modeallaid…
+menu.filter.camera_raw_development = Camera Raw-ovdánahttin…
+
+# Čájeheapmi
+menu.view = Čájeheapmi
+menu.view.rotate_view_cw = Jorat čájeheami diimmu guvlui
+menu.view.rotate_view_ccw = Jorat čájeheami diimmu vuostá
+menu.view.reset_view = Máhcat čájeheami
+menu.view.zoom_in = Stuorit
+menu.view.zoom_out = Unnit
+menu.view.fit_on_screen = Heivet šearbmái
+menu.view.actual_size = 100%
+menu.view.rulers = Mihttomuorat
+menu.view.grid = Ruvttufierpmádat
+menu.view.guides = Stivrenlinnját
+menu.view.notes = Mearkkašumit
+menu.view.ai_panel = AI-panela
+menu.view.extras = Lassit
+menu.view.snap = Giddejuvvon heiveheapmi
+menu.view.clear_guides = Sálke stivrenlinnjáid
+menu.view.clear_notes = Sálke mearkkašumiid
+menu.view.clear_count = Sálke logu
+menu.view.screen_mode = Šearbmamodealla
+menu.view.proof_colors = Geahččalanivnnit
+menu.view.show_rulers = Čájet mihttomuoraid
+menu.view.hide_rulers = Čiega mihttomuoraid
+menu.view.show_grid = Čájet ruvttufierpmádaga
+menu.view.hide_grid = Čiega ruvttufierpmádaga
+menu.view.show_guides = Čájet stivrenlinnjáid
+menu.view.hide_guides = Čiega stivrenlinnjáid
+menu.view.show_notes = Čájet mearkkašumiid
+menu.view.hide_notes = Čiega mearkkašumiid
+menu.view.show_extras = Čájet lasáhusaid
+menu.view.hide_extras = Čiega lasáhusaid
+menu.view.enable_snapping = Bija giddejuvvon heiveheami doaibmat
+menu.view.disable_snapping = Váldde giddejuvvon heiveheami eret anus
+menu.view.enable_proof_colors = Bija geahččalanivnniid doaibmat
+menu.view.disable_proof_colors = Váldde geahččalanivnniid eret anus
+
+# Galleriija
+menu.gallery = Galleriija
+menu.gallery.edit_selected = Doaimmat válljejuvvon
+menu.gallery.refresh = Ođasmahte
+menu.gallery.map_filter = Kártasilli…
+menu.gallery.back_to_editor = Ruovttoluotta doaimmaheaddjái
+
+# Schist Cloud
+menu.cloud.browse = Bláđe Schist Cloud
+menu.cloud.generate = Ráhkat govaid…
+menu.cloud.upload = Sáddet dokumeantta Schist Cloudii…
+menu.cloud.sign_out = Čálit olggos Schist Cloudas
+menu.cloud.sign_in = Čálit sisa Schist Cloudii…
+
+# macOS-prográmmamenjá
+menu.app.services = Bálvalusat
+menu.app.hide = Čiega {app}
+menu.app.hide_others = Čiega earáid
+menu.app.show_all = Čájet buot
+menu.app.quit = Heaitte {app}
+
+# Menjádoaimmaid stáhtusholggat
+menu.status.transform_selection_needs_selection = Válljema transformeremii dárbbašuvvo válljen
+menu.status.crop_needs_selection = Válljema mielde čuohppamii dárbbašuvvo válljen
+menu.status.select_photo_to_edit = Vállje govva maid doaimmahat

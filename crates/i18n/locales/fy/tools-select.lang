@@ -1,0 +1,37 @@
+# Kombinaasjemodi
+tool.select.mode.subtract = Ôflûke
+tool.select.mode.intersect = Trochsneed
+
+# Seleksjeramen
+tool.marquee.rect.name = Rjochthoekich seleksjeramt
+tool.marquee.rect.description = Sleep in rjochthoekige seleksje út. Shift oan it begjin fan it slepen foeget oan de seleksje ta, alt lûkt derfan ôf en beide meitsje de trochsneed; Shift ûnder it slepen makket de foarm fjouwerkant. In klik sûnder slepen deselektearret.
+tool.marquee.ellipse.name = Elliptysk seleksjeramt
+tool.marquee.ellipse.description = Sleep in elliptyske seleksje út, mei deselde kombinaasje fan Shift en alt as by it rjochthoekige seleksjeramt.
+
+# Lasso's
+tool.lasso.name = Lasso
+tool.lasso.description = Sleep in frije omtrek; as it slepen ophâldt, wurdt de seleksje tusken de einen sletten. Shift foeget ta, alt lûkt ôf.
+tool.lasso.history.select = Lassoseleksje
+tool.lasso.polygonal.name = Mearhoekige lasso
+tool.lasso.polygonal.description = Klik efterinoar op hoekpunten om in seleksje mei rjochte rânen te meitsjen en klik ticht by it earste punt om dy te sluten.
+tool.lasso.polygonal.history.select = Mearhoekige lasso
+tool.lasso.magnetic.name = Magnetyske lasso
+tool.lasso.magnetic.description = Folgje in râne likernôch; de omtrek springt nei it sterkste kontrast ticht by it paad.
+tool.lasso.magnetic.history.select = Magnetyske lasso
+tool.lasso.magnetic.option.frequency = Frekwinsje
+
+# Toverstêf
+tool.wand.name = Toverstêf
+tool.wand.description = Klik om binnen de ynstelde tolerânsje it oanslutende gebiet mei in ferlykbere kleur ûnder de oanwizer te selektearjen — deselde tolerânsje dy't Fergrutsje, Ferlykber en Kleureberik brûke.
+tool.wand.option.contiguous = Oanslutend
+tool.wand.history.select = Toverstêf
+
+# Fluch selektearje
+tool.quick_select.name = Fluch selektearje
+tool.quick_select.description = Skilderje oer in gebiet; de seleksje groeit troch de ferlykbere piksels dêr't de kwast oerhinne giet.
+tool.quick_select.history.select = Fluch selektearje
+
+# Objekt selektearje
+tool.object_select.name = Objekt selektearje
+tool.object_select.description = Sleep in fak om in objekt; de seleksje springt nei it objekt dat dêryn fûn wurdt.
+tool.object_select.history.select = Objekt selektearje

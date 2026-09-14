@@ -1,0 +1,28 @@
+# The basic tools (plugins/tools-basic): Move, Eyedropper, Hand, Zoom.
+# Option labels shared with the rest of the app (Layer, Group) come
+# from common.lang.
+
+# Move
+tool.move.name = Alih
+tool.move.description = Seret kandungan lapisan aktif ke kedudukan baharu. Apabila Pilih Automatik dihidupkan, penekanan mula-mula memilih lapisan -- atau seluruh kumpulan -- yang berada di bawah penuding.
+tool.move.option.auto_select = Pilih Automatik
+tool.move.history.move_layer = Alih Lapisan
+
+# Eyedropper
+tool.eyedropper.name = Penitis Mata
+tool.eyedropper.description = Ambil sampel warna di bawah penuding ke dalam petak warna latar depan, atau ke petak warna latar belakang apabila alt ditekan. Menyeret akan terus mengambil sampel.
+tool.eyedropper.option.sample_size = Saiz Sampel
+tool.eyedropper.option.sample = Sampel
+tool.eyedropper.choice.point_sample = Sampel Titik
+tool.eyedropper.choice.average_3 = Purata 3 kali 3
+tool.eyedropper.choice.average_5 = Purata 5 kali 5
+tool.eyedropper.choice.average_11 = Purata 11 kali 11
+tool.eyedropper.choice.average_31 = Purata 31 kali 31
+tool.eyedropper.choice.all_layers = Semua Lapisan
+tool.eyedropper.choice.current_layer = Lapisan Semasa
+
+# Hand and Zoom
+tool.hand.name = Tangan
+tool.hand.description = Sorot paparan. Port pandang milik tetingkap, jadi dalam mod tanpa antara muka alat ini tidak mengubah dokumen.
+tool.zoom.name = Zum
+tool.zoom.description = Zum paparan. Port pandang milik tetingkap, jadi dalam mod tanpa antara muka alat ini tidak mengubah dokumen.

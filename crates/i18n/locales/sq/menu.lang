@@ -1,0 +1,155 @@
+# Shiriti i menyve.
+
+# Skedari
+menu.file = Skedari
+menu.file.new = I ri
+menu.file.open = Hap…
+menu.file.open_recent = Hap të fundit
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Shfleto galerinë…
+menu.file.close = Mbyll
+menu.file.save = Ruaj
+menu.file.save_as = Ruaj si…
+menu.file.export = Eksporto…
+menu.file.export_submenu = Eksporto
+menu.file.export_artboards = Tabelat grafike në PNG…
+menu.file.export_slices = Sektorët në PNG…
+menu.file.save_to_photos = Ruaj te Fotot
+menu.file.plugins = Shtojcat…
+menu.file.missing_fonts = Shkronjat që mungojnë…
+menu.file.check_for_updates = Kontrollo për përditësime…
+menu.file.quit = Dil
+menu.file.add_folder_to_gallery = Shto dosje në galeri…
+menu.file.import_from_photos = Importo nga Fotot…
+menu.file.import_from_camera = Importo nga kamera…
+
+# Redaktimi
+menu.edit = Redaktimi
+menu.edit.fill = Mbush…
+menu.edit.stroke = Konturo…
+menu.edit.content_aware_fill = Mbushje sipas përmbajtjes
+menu.edit.content_aware_scale = Ndryshim përmasash sipas përmbajtjes…
+menu.edit.puppet_warp = Deformim me kunja
+menu.edit.free_transform = Transformim i lirë
+menu.edit.transform = Transformo
+menu.edit.rotate_180 = Rrotullo 180°
+menu.edit.rotate_90_cw = Rrotullo 90° në drejtim orar
+menu.edit.rotate_90_ccw = Rrotullo 90° në drejtim kundërorar
+menu.edit.flip_horizontal = Pasqyro horizontalisht
+menu.edit.flip_vertical = Pasqyro vertikalisht
+
+# Imazhi
+menu.image = Imazhi
+menu.image.mode = Modaliteti
+menu.image.adjustments = Rregullimet
+menu.image.auto_tone = Ton automatik
+menu.image.auto_contrast = Kontrast automatik
+menu.image.auto_color = Ngjyrë automatike
+menu.image.image_size = Madhësia e imazhit…
+menu.image.canvas_size = Madhësia e kanavacës…
+menu.image.image_rotation = Rrotullimi i imazhit
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° në drejtim orar
+menu.image.rotate_90_ccw = 90° në drejtim kundërorar
+menu.image.flip_canvas_horizontal = Pasqyro kanavacën horizontalisht
+menu.image.flip_canvas_vertical = Pasqyro kanavacën vertikalisht
+menu.image.crop_to_selection = Prit sipas përzgjedhjes
+menu.image.trim = Shkurto
+menu.image.assign_profile = Cakto profilin…
+menu.image.convert_to_profile = Shndërro në profil…
+
+# Përzgjedhja
+menu.select = Përzgjedhja
+menu.select.color_range = Gama e ngjyrave…
+menu.select.modify = Ndrysho
+menu.select.border = Kufiri…
+menu.select.smooth = Lëmo…
+menu.select.expand = Zgjero…
+menu.select.contract = Tkurr…
+menu.select.feather = Zbut skajet…
+menu.select.transform_selection = Transformo përzgjedhjen
+
+# Shtresa
+menu.layer = Shtresa
+menu.layer.layer_style = Stili i shtresës…
+menu.layer.layer_comps = Kompozimet e shtresave
+menu.layer.new_layer_comp = Kompozim i ri shtresash
+menu.layer.delete_layer_comp = Fshi {name}
+menu.layer.path = Shtegu
+menu.layer.fill_path = Mbush shtegun
+menu.layer.stroke_path = Konturo shtegun
+menu.layer.make_selection = Krijo përzgjedhje
+menu.layer.delete_path = Fshi shtegun
+
+# Rregullimi
+menu.adjust = Rregullimi
+
+# Filtri
+menu.filter = Filtri
+menu.filter.filter_gallery = Galeria e filtrave…
+menu.filter.liquify = Lëngëzim
+menu.filter.vanishing_point = Pika e zhdukjes
+menu.filter.manage_models = Menaxho modelet…
+menu.filter.camera_raw_development = Përpunimi Camera Raw…
+
+# Pamja
+menu.view = Pamja
+menu.view.rotate_view_cw = Rrotullo pamjen në drejtim orar
+menu.view.rotate_view_ccw = Rrotullo pamjen në drejtim kundërorar
+menu.view.reset_view = Rivendos pamjen
+menu.view.zoom_in = Zmadho
+menu.view.zoom_out = Zvogëlo
+menu.view.fit_on_screen = Përshtat në ekran
+menu.view.actual_size = 100%
+menu.view.rulers = Vizoret
+menu.view.grid = Rrjeta
+menu.view.guides = Udhëzuesit
+menu.view.notes = Shënimet
+menu.view.ai_panel = Paneli i inteligjencës artificiale
+menu.view.extras = Shtesat
+menu.view.snap = Puthitja
+menu.view.clear_guides = Pastro udhëzuesit
+menu.view.clear_notes = Pastro shënimet
+menu.view.clear_count = Pastro numërimin
+menu.view.screen_mode = Modaliteti i ekranit
+menu.view.proof_colors = Simulimi i ngjyrave
+menu.view.show_rulers = Shfaq vizoret
+menu.view.hide_rulers = Fshih vizoret
+menu.view.show_grid = Shfaq rrjetën
+menu.view.hide_grid = Fshih rrjetën
+menu.view.show_guides = Shfaq udhëzuesit
+menu.view.hide_guides = Fshih udhëzuesit
+menu.view.show_notes = Shfaq shënimet
+menu.view.hide_notes = Fshih shënimet
+menu.view.show_extras = Shfaq shtesat
+menu.view.hide_extras = Fshih shtesat
+menu.view.enable_snapping = Aktivizo puthitjen
+menu.view.disable_snapping = Çaktivizo puthitjen
+menu.view.enable_proof_colors = Aktivizo simulimin e ngjyrave
+menu.view.disable_proof_colors = Çaktivizo simulimin e ngjyrave
+
+# Galeria
+menu.gallery = Galeria
+menu.gallery.edit_selected = Redakto të përzgjedhurat
+menu.gallery.refresh = Rifresko
+menu.gallery.map_filter = Filtri i hartës…
+menu.gallery.back_to_editor = Kthehu te redaktuesi
+
+# Nënmenyja Schist Cloud
+menu.cloud.browse = Shfleto Schist Cloud
+menu.cloud.generate = Gjenero imazhe…
+menu.cloud.upload = Ngarko dokumentin në Schist Cloud…
+menu.cloud.sign_out = Dil nga Schist Cloud
+menu.cloud.sign_in = Hyr në Schist Cloud…
+
+# Menyja e aplikacionit në macOS
+menu.app.services = Shërbimet
+menu.app.hide = Fshih {app}
+menu.app.hide_others = Fshih të tjerat
+menu.app.show_all = Shfaq të gjitha
+menu.app.quit = Dil nga {app}
+
+# Përgjigjet e shiritit të gjendjes
+menu.status.transform_selection_needs_selection = Transformimi i përzgjedhjes kërkon një përzgjedhje
+menu.status.crop_needs_selection = Prerja sipas përzgjedhjes kërkon një përzgjedhje
+menu.status.select_photo_to_edit = Përzgjidhni një foto për ta redaktuar

@@ -1,0 +1,20 @@
+# Koregavimo sluoksniai ir komandos Vaizdas ▸ Koregavimai.
+adjustment.levels.name = Lygiai
+adjustment.curves.name = Kreivės
+adjustment.hue_saturation.name = Atspalvis / sodrumas
+adjustment.brightness_contrast.name = Ryškumas / kontrastas
+adjustment.black_white.name = Juodai balta
+adjustment.solid_color.name = Vientisa spalva
+adjustment.gradient_fill.name = Gradiento užpildas
+adjustment.pattern_fill.name = Rašto užpildas
+adjustment.invert.name = Invertuoti
+adjustment.posterize.name = Sumažinti tonų skaičių
+adjustment.threshold.name = Slenkstis
+adjustment.color_balance.name = Spalvų balansas
+adjustment.vibrance.name = Spalvų gyvumas
+adjustment.exposure.name = Ekspozicija
+adjustment.photo_filter.name = Fotografinis filtras
+adjustment.gradient_map.name = Gradiento žemėlapis
+adjustment.selective_color.name = Atrankinė spalva
+adjustment.channel_mixer.name = Kanalų maišytuvas
+adjustment.other.name = Koregavimas

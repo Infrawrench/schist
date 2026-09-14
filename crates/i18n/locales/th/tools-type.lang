@@ -1,0 +1,25 @@
+tool.type.name = ตัวอักษร
+tool.type.description = คลิกเพื่อเริ่มเลเยอร์ข้อความที่ตำแหน่งนั้น หรือคลิกเลเยอร์ข้อความที่มีอยู่เพื่อแก้ไข ระหว่างที่เปิดอยู่ เครื่องมือจะรับปุ่มกดโดยตรง (ส่งอักขระเป็นอินพุตจากแป้นพิมพ์) และเมื่อยืนยัน ระบบจะแสดงผลเลเยอร์และปิดการแก้ไข
+
+# Options
+tool.type.option.align = จัดแนว
+tool.type.option.leading = ระยะบรรทัด
+tool.type.option.tracking = ระยะห่างตัวอักษร
+tool.type.option.kerning = เคอร์นนิง
+tool.type.option.ligatures = อักษรควบ
+tool.type.option.discretionary_ligatures = อักษรควบทางเลือก
+tool.type.option.small_caps = ตัวพิมพ์ใหญ่ขนาดเล็ก
+tool.type.option.on_path = บนเส้นพาธที่ใช้งาน
+tool.type.option.path_offset = ระยะเยื้องจากพาธ
+
+# Style
+tool.type.choice.regular = ปกติ
+tool.type.choice.bold = ตัวหนา
+tool.type.choice.italic = ตัวเอียง
+tool.type.choice.bold_italic = ตัวหนาเอียง
+
+# History
+tool.type.history.new_layer = เลเยอร์ข้อความใหม่
+tool.type.history.edit = แก้ไขข้อความ
+tool.type.history.discard = ละทิ้งข้อความ
+tool.type.history.discard_empty = ละทิ้งข้อความว่าง

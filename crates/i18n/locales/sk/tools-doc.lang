@@ -1,0 +1,24 @@
+tool.artboard.name = Pracovná plocha
+tool.artboard.description = Potiahnutím vytvorte pracovnú plochu: pomenovanú oblasť plátna, ktorá sa exportuje samostatne. Ťahaním vnútri existujúcej plochy ju presuniete.
+tool.artboard.default_name = Pracovná plocha {n}
+
+tool.slice.name = Výrez
+tool.slice.description = Potiahnutím vytvorte exportný výrez, teda pomenovaný obdĺžnik plátna, ktorý sa exportuje ako samostatný obrázok. Ťahaním vnútri existujúceho výrezu ho presuniete.
+tool.slice.default_name = Výrez {n}
+
+tool.frame.name = Rám
+tool.frame.description = Potiahnutím vytvorte rám: obdĺžnikovú (alebo eliptickú) vrstvu, ktorá maskuje všetko, čo do nej vložíte.
+tool.frame.default_name = Rám {n}
+tool.frame.choice.rectangle = Obdĺžnik
+tool.frame.choice.ellipse = Elipsa
+tool.frame.history.frame = Rám
+
+tool.note.name = Poznámka
+tool.note.description = Kliknutím na prázdne miesto plátna tam pripnete poznámku s autorom a farbou nastavenou v editore; kliknutím na existujúci špendlík ju vyberiete na paneli Poznámky.
+tool.note.history.place = Umiestniť poznámku
+tool.note.history.move = Presunúť poznámku
+tool.note.history.delete = Odstrániť poznámku
+
+tool.count.name = Počítadlo
+tool.count.description = Kliknutím umiestnite na plátno očíslované značky počítadla; kliknutím na existujúcu značku ju odstránite.
+tool.count.default_name = Počítadlo {n}

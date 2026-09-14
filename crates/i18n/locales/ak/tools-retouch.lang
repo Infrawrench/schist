@@ -1,0 +1,27 @@
+# Patch
+tool.patch.name = Siesie Beae
+tool.patch.description = Twe nsensanee twa mfomso bi ho hyia, na twe nea woapaw no kɔ pixels a asɛm biara nni ho no so; wɔde hɔ texture no besiesie mfomso no. Patch mode no na ɛkyerɛ faako wɔ baanu no mu a wobɛtwe.
+tool.patch.option.patch = Siesie Beae
+tool.patch.choice.source = Fibea
+tool.patch.choice.destination = Beae a Ɛrekɔ
+tool.patch.history.patch = Siesie Beae
+
+# Content-Aware Move
+tool.content_aware_move.name = Tu a Ɛte Mu Nsɛm Ase
+tool.content_aware_move.description = Twe ade a woapaw no kɔ baabi foforo, na wɔde nneɛma a atwa ho ahyia bɛhyɛ tokuru a egyaw no ma. Wɔ Extend mode mu no, wɔtwe ade no mu tenten sen sɛ wobetu no.
+tool.content_aware_move.choice.move = Tu
+tool.content_aware_move.choice.extend = Tenten Mu
+tool.content_aware_move.history.move = Tu a Ɛte Mu Nsɛm Ase
+
+# Ani Kɔkɔɔ
+tool.red_eye.name = Ani Kɔkɔɔ
+tool.red_eye.description = Mia aniwa tuntum no so na yi flash kɔkɔɔ no fi mu.
+tool.red_eye.option.pupil_size = Aniwa Tuntum Kɛse
+tool.red_eye.option.darken = Ma Ɛyɛ Tuntum
+tool.red_eye.history.red_eye = Ani Kɔkɔɔ
+
+# Magic Eraser
+tool.magic_eraser.name = Anwanwa Pɛpaade
+tool.magic_eraser.description = Mia na pepa beae a ne kɔla te sɛ nea ɛwɔ pointer no ase no, sɛnea adwinnade no tolerance te — beae a ɛtoa baabi a woamia no so, anaa layer no baabiara.
+tool.magic_eraser.option.contiguous = Ɛtoa So
+tool.magic_eraser.history.erase = Anwanwa Pɛpaade

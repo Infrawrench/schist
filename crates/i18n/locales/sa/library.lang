@@ -1,0 +1,340 @@
+# पार्श्वपट्टिका
+library.sidebar.view = दृश्यम्
+library.sidebar.folders = पुटाः
+library.sidebar.buckets = सङ्ग्रहाः
+library.sidebar.people = जनाः
+library.sidebar.group_by = अनेन समूहीकरोतु
+library.sidebar.all_photos = सर्वाणि छायाचित्राणि
+library.sidebar.world_map = विश्वमानचित्रम्
+library.sidebar.map_filter = मानचित्रनिस्यन्दः…
+library.sidebar.map_filter_on = मानचित्रनिस्यन्दः सक्रियः
+library.sidebar.add_folder = + पुटं योजयतु…
+library.sidebar.new_bucket = + नूतनसङ्ग्रहः
+library.sidebar.stop_watching = अस्य पुटस्य निरीक्षणं स्थगयतु
+library.sidebar.unnamed_faces = अनाममुखानि
+library.sidebar.retry_face_model = मुखप्रतिमानस्य अवतारणं पुनः प्रयतताम्
+library.sidebar.retry_recognition_model = अभिज्ञानप्रतिमानस्य अवतारणं पुनः प्रयतताम्
+library.sidebar.looking_for_faces = मुखानि अन्विष्यन्ते… {looked}/{total}
+library.sidebar.faces_appear = छायाचित्राणां सूचीकरणे मुखानि अत्र दृश्यन्ते।
+library.sidebar.downloading_face_models = मुखप्रतिमानानि अवतार्यन्ते… {total} MB मध्ये {got}
+
+# जालकसमूहीकरणम्
+library.group_by.date = दिनाङ्कः
+library.group_by.folder = पुटः
+library.group_by.place = स्थानम्
+
+# मासशीर्षकाणि
+library.month.january = जनवरी
+library.month.february = फरवरी
+library.month.march = मार्च
+library.month.april = अप्रैल
+library.month.may = मई
+library.month.june = जून
+library.month.july = जुलाई
+library.month.august = अगस्त
+library.month.september = सितम्बर
+library.month.october = अक्टूबर
+library.month.november = नवम्बर
+library.month.december = दिसम्बर
+library.month.title = {month} {year}
+library.month.undated = अदिनाङ्कितम्
+
+# समूहशीर्षकाणि
+library.group.person = जनाः · {name}
+library.group.person_in = जनाः · {name} · {scope} मध्ये
+library.group.unnamed = अनाममुखानि
+library.group.unnamed_in = अनाममुखानि · {scope} मध्ये
+library.group.bucket = सङ्ग्रहः · {name}
+library.group.no_location = स्थानं नास्ति
+library.group.not_indexed = अद्यापि न सूचीकृतम्
+library.group.detail = {detail} — {n}
+
+# ऊर्ध्वपट्टिका
+library.strip.import = आयातयतु…
+library.strip.add_folder = पुटं योजयतु…
+library.strip.settings = विन्यासाः…
+library.strip.new_file = नूतनसञ्चिका…
+library.strip.back_to_editing = सम्पादनं प्रति प्रत्यागच्छतु
+library.strip.enable_search = छायाचित्रान्वेषणं सक्रियं करोतु…
+library.strip.enable_search_menu = छायाचित्रान्वेषणं सक्रियं करोतु…
+library.strip.map_filter_chip = मानचित्रनिस्यन्दः: {name}
+library.strip.downloading_search = छायाचित्रान्वेषणम् अवतार्यते… {total} MB मध्ये {got}
+
+# अन्वेषणम्
+library.search.placeholder = छायाचित्राणि अन्विष्यतु…
+library.search.placeholder_indexing = अन्विष्यतु ({total} मध्ये {indexed} सूचीकृतम्)
+library.search.placeholder_people_places = जनान् स्थानानि च अन्विष्यतु…
+library.search.results = अन्वेषणफलानि
+library.search.results_in_bucket = सङ्ग्रहः · {name} · अन्वेषणफलानि
+library.search.near = {place} समीपे
+library.search.with = {names} सहितम्
+
+# अधःपट्टिका कोशिकाश्च
+library.tray.view = पश्यतु
+library.tray.edited_note = सम्पादितम् — संस्करणानि सञ्चिकायाः पार्श्वे रक्षितानि
+library.tray.n_hidden.other = विषयानिस्यन्देन गोपितछायाचित्रसंख्या: {n}
+library.cell.no_preview = पूर्वदृश्यं नास्ति
+library.cell.edited = सम्पादितम्
+library.gallery.loading = छायाचित्राणि आरोप्यन्ते…
+
+# स्वागतदृश्यम्
+library.welcome.title = Schist मध्ये स्वागतम्
+library.welcome.intro = छायाचित्रपुटान् निरीक्षताम्, अथवा चित्रग्राहकात् आयातयतु। सञ्चिकाः स्वस्थान एव तिष्ठन्ति; तासां पार्श्वे सम्पादनानि संस्करणरूपेण रक्ष्यन्ते:
+library.welcome.intro_ios = स्वचित्रालयात् छायाचित्राणि आयातयतु, अथवा Files तः पुटं योजयतु। प्रत्येकस्य छायाचित्रस्य पार्श्वे सम्पादनानि संस्करणरूपेण रक्ष्यन्ते:
+library.welcome.or_open = अथवा सम्पादनार्थं चित्रम् उद्घाटयतु:
+library.welcome.shortcut_mac = यत् किमपि सम्पाद्यते, वीथिका सर्वदा ⌘⇧G द्वारा प्राप्या।
+library.welcome.shortcut = यत् किमपि सम्पाद्यते, वीथिका सर्वदा Ctrl+Shift+G द्वारा प्राप्या।
+
+# रिक्तजालकम्
+library.gallery.empty_bucket_search = अस्मिन् सङ्ग्रहे अन्वेषणेन किमपि न लब्धम्। सम्पूर्णसङ्ग्रहदर्शनाय Escape अन्वेषणं निरस्यति।
+library.gallery.empty_search = अन्वेषणेन किमपि न लब्धम्। Escape तत् निरस्यति।
+library.gallery.empty_smart_bucket = अद्यापि अस्य सङ्ग्रहस्य नियमेन किमपि न लब्धम् — छायाचित्राणां सूचीकरणे फलानि दृश्यन्ते। अत्र छायाचित्राणां कर्षणमपि कार्यक्षमम्।
+library.gallery.empty_bucket = अयं सङ्ग्रहः रिक्तः। छायाचित्राणि योजयितुं पार्श्वपट्टिकायामस्य पङ्क्तेरुपरि कर्षतु।
+library.gallery.empty_person = अद्यापि अत्र किमपि नास्ति। छायाचित्राणां सूचीकरणे मुखानि दृश्यन्ते; व्यक्तिं ज्ञापयितुं छायाचित्रं ततः मुखं क्लिक् करोतु।
+library.gallery.scanning = पुटाः परीक्ष्यन्ते…
+library.gallery.empty = निरीक्षितपुटेषु छायाचित्राणि न लब्धानि। Schist-द्वारा उद्घाटनीयानि चित्राणि (PNG, JPEG, WebP, TIFF, HEIC, चित्रग्राहक-मूलसञ्चिकाः, PSD, Affinity) अत्र दृश्यन्ते; उपपुटाः षट् स्तरपर्यन्तं परीक्ष्यन्ते।
+
+# सङ्ग्रहाः
+library.bucket.default_name = सङ्ग्रहः {n}
+library.bucket.rule_matches = “{query}” इत्यनेन मेलयति
+library.bucket.rule_taken_in = {name} मध्ये गृहीतम्
+library.bucket.new_title = नूतनसङ्ग्रहः
+library.bucket.edit_title = सङ्ग्रहं सम्पादयतु
+library.bucket.new_cloud_title = नूतनमेघसङ्ग्रहः
+library.bucket.edit_cloud_title = मेघसङ्ग्रहं सम्पादयतु
+library.bucket.create = निर्मातु
+library.bucket.query_placeholder = यथा समुद्रतीरे श्वा (वैकल्पिकम्)
+library.bucket.the_drawn_area = आलेखितप्रदेशः
+library.bucket.area_help = प्रदेशं योजयितुं मानचित्रे Shift-कर्षणं करोतु (अथवा पूर्वविन्यासं चिनोतु); अतिलघुकर्षणं तं निरस्यति। नियमाः सङ्ग्रहं स्वयमेव पूरितं रक्षन्ति।
+library.bucket.rule_none = नियमो नास्ति: सामान्यसङ्ग्रहः, यस्मिन् छायाचित्राणि कर्षणेन योज्यन्ते।
+library.bucket.rule_query = “{query}” इत्यनेन मेलयन्ति तानि सर्वाणि छायाचित्राणि रक्षति।
+library.bucket.rule_area = {area} मध्ये गृहीतानि सर्वाणि छायाचित्राणि रक्षति।
+library.bucket.rule_query_area = {area} मध्ये गृहीतानि “{query}” इत्यनेन मेलयन्ति तानि सर्वाणि छायाचित्राणि रक्षति।
+library.bucket.starts_with.other = आरम्भे धारितानां चयनितछायाचित्राणां संख्या: {n}।
+
+# विश्वमानचित्रम्
+library.map.status = मानचित्रे छायाचित्रसंख्या {located} · स्थानरहितसंख्या {unlocated}
+library.map.reading_locations = स्थानानि पठ्यन्ते: अवशिष्टसंख्या {n}
+library.map.reset_view = दृश्यं पुनः स्थापयतु
+library.map.no_photos = अस्मिन् दृश्ये GPS-स्थानयुक्तानि छायाचित्राणि न सन्ति। भौगोलिकचिह्नयुक्तानि छायाचित्राणि योजयतु अथवा वीथिकानिस्यन्दान् परिवर्तयतु।
+library.map.no_photos_cloud = अत्र GPS-स्थानयुक्तानि छायाचित्राणि न सन्ति। अन्यं पुटं सङ्ग्रहं वा चिनोतु, अथवा अन्वेषणं निरस्यतु।
+library.map.hint = स्थानान्तरणाय कर्षतु · आवर्धनाय सरयतु · तस्य छायाचित्रदर्शनाय चिह्नं क्लिक् करोतु · सम्पादनाय छायाचित्रं द्विवारं क्लिक् करोतु
+library.map.n_at_marker.other = अस्मिन् चिह्ने छायाचित्रसंख्या: {n}
+library.map.n_in_marker.other = अस्य चिह्नस्य अन्तर्गतछायाचित्रसंख्या: {n}
+library.map.attribution = © OpenStreetMap योगदानकर्तारः
+
+# सीमासम्पादकः
+library.map.draw_area = प्रदेशम् आलिखतु
+library.map.drawing = आलेख्यते…
+library.map.clear_boundary = सीमां निरस्यतु
+library.map.editor_hint = कर्षणेन स्थानान्तरणम् · सरणेन आवर्धनम् · Shift-कर्षणेन आलेखनम्
+
+# मानचित्रनिस्यन्दः
+library.map_filter.title = मानचित्रनिस्यन्दः
+library.map_filter.drawn_area = आलेखितप्रदेशः
+library.map_filter.apply_named = प्रयोजनेन केवलं {name} मध्ये गृहीतानि छायाचित्राणि दृश्यन्ते; EXIF-स्थानरहितानि गोप्यन्ते।
+library.map_filter.apply_drawn = प्रयोजनेन केवलं {south}°, {west}° तः {north}°, {east}° पर्यन्तं गृहीतानि छायाचित्राणि दृश्यन्ते; EXIF-स्थानरहितानि गोप्यन्ते।
+library.map_filter.draw_first = प्रथमं सीमाम् आलिखतु (Shift-कर्षणेन अथवा पूर्वविन्यासचिह्नेन), ततः प्रयोजयतु। आलेखनं विना प्रयोजनं निस्यन्दं निष्क्रियं करोति।
+library.map_filter.turn_off = निस्यन्दं निष्क्रियं करोतु
+
+# चित्रग्राहकादायातः
+library.import.title = चित्रग्राहकात् आयातयतु
+library.import.from = {name} तः आयातयतु
+library.import.no_cameras = चित्रग्राहकाः न लब्धाः।
+library.import.no_cameras_help = चित्रग्राहकं, स्मृतिपत्रं वा iPhone योजयतु। छायाचित्रदर्शनात् पूर्वम् iPhone तालरहितः स्यात्, Trust This Computer इति प्रश्नश्च स्वीकृतः स्यात् — तत् कृत्वा क्षणं प्रतीक्ष्य पुनः परीक्षताम्। DCIM पुटयुक्तचक्रिकारूपेण यत् किमपि संयुज्यते तदपि गण्यते।
+library.import.scan_again = पुनः परीक्षताम्
+library.import.pick_source = एकाधिकः चित्रग्राहकः प्राप्यः। अस्मात् आयातयतु:
+library.import.via_image_capture = Image Capture द्वारा
+library.import.boundary_named = सीमा: {name} — यस्य EXIF-स्थानम् अस्यान्तर्गतं केवलं तदेव आयात्यते; स्थानरहितानि चित्रग्राहके तिष्ठन्ति।
+library.import.boundary_drawn = सीमा: {south}°, {west}° तः {north}°, {east}° पर्यन्तम् — यस्य EXIF-स्थानम् अस्यान्तर्गतं केवलं तदेव आयात्यते।
+library.import.no_boundary = सीमा नास्ति — चित्रग्राहके विद्यमानं सर्वम् आयात्यते।
+library.import.destination = ~/Pictures/Schist Imports/{name} मध्ये — पूर्वमायातिताः सञ्चिकाः त्यज्यन्ते, अतः पुनः चालनं सुरक्षितम्।
+library.import.selected_area = चयनितप्रदेशः
+library.import.locked_help = यन्त्रं तालितं चेत्: तालं विमोचयतु, पृष्टे Trust This Computer स्पृशतु, संयोजितं रक्षतु, पुनश्च प्रयतताम्।
+library.import.try_again = पुनः प्रयतताम्
+library.import.add_to_gallery = वीथिकायां योजयतु
+
+# आयातस्थितिः
+library.import.needs_home = आयातार्थं प्रतिलिपिस्थानरूपेण गृहपुटः आवश्यकः
+library.import.importing_from = {source} तः आयात्यते…
+library.import.importing_in_place = {source} तः {place} मध्ये गृहीतानि छायाचित्राणि आयात्यन्ते…
+library.import.device_macos_only = यन्त्रात् साक्षादायातः macOS वैशिष्ट्यम्
+library.import.failed = आयातः विफलः: {error}
+library.import.from_failed = {name} तः आयातः विफलः
+library.import.locked = {name} तालितम् — अनुवर्तनाय तालं विमोच्य Trust स्पृशतु
+library.import.reading_catalog = {name} इत्यस्य छायाचित्रसूची पठ्यते…
+library.import.progress_from = {name} तः छायाचित्रम् आयात्यते: {n}/{total}…
+library.import.progress = सञ्चिका आयात्यते: {n}/{total}…
+library.import.choose_photos = आयातार्थं छायाचित्राणि चलच्चित्राणि च चिनोतु…
+library.import.photos_open_failed = छायाचित्रालयम् उद्घाटयितुं न शक्तम्: {error}
+library.import.done.other = {dest} मध्ये आयातितसञ्चिकासंख्या: {n}
+library.import.done_in_place.other = {place} मध्ये गृहीतानां {dest} मध्ये आयातितछायाचित्रसंख्या: {n} (अन्यत्र वा स्थानरहितत्वेन चित्रग्राहके अवशिष्टसंख्या: {filtered})
+library.import.n_failed.other = विफलसञ्चिकासंख्या: {n}
+library.import.no_dcim = {source} मध्ये DCIM पुटः नास्ति
+library.import.already_running = आयातः पूर्वमेव प्रचलति
+library.import.camera_gone = सः चित्रग्राहकः इदानीं न संयोजितः
+library.import.camera_disconnected = आयातमध्ये चित्रग्राहकस्य सम्पर्कः विच्छिन्नः
+library.import.unknown_error = अज्ञातदोषः
+library.import.picker_needs_ios14 = छायाचित्रचायकाय iOS 14 अथवा उत्तरतरं संस्करणम् आवश्यकम्
+library.import.picker_unavailable = छायाचित्रचायकः अनुपलब्धः
+library.import.no_window = चायकं दर्शयितुं गवाक्षं नास्ति
+
+# यन्त्रनामानि
+library.volume.iphone = iPhone अथवा iPad
+library.volume.camera = चित्रग्राहकः
+library.volume.phone = दूरवाणी
+
+# पुटोद्घाटनम्
+library.open_folder.opened.other = उद्घाटितचित्रसंख्या: {n}
+library.open_folder.opened_first = {total} चित्रेषु प्रथमसंख्या {n} उद्घाटिता — अवशिष्टानि वीथिकायां सन्ति
+
+# छायाचित्रान्वेषणप्रतिमानानि
+library.search_models.title = छायाचित्रान्वेषणम्
+library.search_models.intro = छायाचित्राणां विषयानुसारम् अन्वेषणाय द्वे प्रतिमाने आवश्यके; ते सकृदवतार्य अस्मिन् यन्त्रे रक्ष्येते। ते स्थानीयतया चलतः: किमपि छायाचित्रं यन्त्रात् बहिः न गच्छति।
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = Apple द्वारा MobileCLIP
+library.search_models.export = Xenova द्वारा ONNX निर्यातः
+library.search_models.license = अनुज्ञप्तिः
+library.search_models.download_note = अवतारणेन उभे ({mb} MB समग्रतः) संस्थाप्येते, तयोः अनुज्ञप्तयश्च स्वीक्रियन्ते। वीथिका ▸ प्रतिमानानि प्रबन्धयतु… मध्ये ते पुनः निष्कासयितुं शक्येते।
+library.search_models.agree = स्वीकृत्य अवतारयतु
+
+# दक्षिण-क्लिक्-सूची
+library.menu.add_all_to = सर्वं {name} मध्ये योजयतु
+library.menu.add_all_to_new_bucket = सर्वं नूतनसङ्ग्रहे योजयतु…
+library.menu.edit_n_in_tabs = फलकेषु सम्पादनीयछायाचित्रसंख्या: {n}
+library.menu.view_name_people = जनान् पश्यतु नामानि च ददातु
+library.menu.reveal = सञ्चिकाप्रबन्धके दर्शयतु
+library.menu.add_to = {name} मध्ये योजयतु
+library.menu.add_to_new_bucket = नूतनसङ्ग्रहे योजयतु
+library.menu.remove_from_bucket = अस्मात् सङ्ग्रहात् निष्कासयतु
+library.menu.save_n_as_zip = ZIP रूपेण सञ्चयनीयसञ्चिकासंख्या: {n}…
+library.menu.save_image_as = चित्रम् एवं सञ्चयतु…
+library.menu.process = संस्करोतु…
+library.menu.process_n = संस्कर्तव्यछायाचित्रसंख्या: {n}…
+library.menu.move_to_folder = पुटं प्रति स्थानान्तरयतु…
+library.menu.move_n_to_folder = पुटं प्रति स्थानान्तरणीयछायाचित्रसंख्या: {n}…
+library.menu.revert = मूलं प्रति प्रत्यावर्तयतु
+library.menu.revert_n = मूलानि प्रति प्रत्यावर्तनीयछायाचित्रसंख्या: {n}
+library.menu.upload_to_cloud = Schist Cloud मध्ये आरोपयतु…
+library.menu.watch_local_folder = अस्मिन् सङ्गणके पुटं निरीक्षताम्…
+library.menu.new_cloud_folder = {glyph} नूतनः Schist Cloud पुटः…
+library.menu.new_local_bucket = अस्मिन् सङ्गणके नूतनसङ्ग्रहः…
+library.menu.new_cloud_bucket = {glyph} नूतनः Schist Cloud सङ्ग्रहः…
+library.menu.edit_bucket = सङ्ग्रहं सम्पादयतु…
+library.menu.select_all_n = सर्वं चिनोतु ({n})
+library.menu.save_all_as_zip = सर्वं ZIP रूपेण सञ्चयतु… ({n})
+library.menu.process_all = सर्वं संस्करोतु… ({n})
+library.menu.move_all_to_folder = सर्वं पुटं प्रति स्थानान्तरयतु…
+library.menu.clear_added = योजितछायाचित्राणि निरस्यतु
+library.menu.clear_bucket = सङ्ग्रहं रिक्तं करोतु
+library.menu.delete_bucket = सङ्ग्रहं लोपयतु
+library.menu.show_person = {name} दर्शयतु
+library.menu.rename_person = पुनर्नाम ददातु…
+library.menu.forget_person.other = व्यक्तिं विस्मरतु (मुखसंख्या: {n})
+
+# सञ्चिकाक्रियाः
+library.ops.moving.other = {dest} प्रति स्थानान्तरणीयछायाचित्रसंख्या: {n}…
+library.ops.moved.other = {dest} प्रति स्थानान्तरितछायाचित्रसंख्या: {n}
+library.ops.moved_partial = {total} मध्ये {n} छायाचित्राणि {dest} प्रति स्थानान्तरितानि — अवशिष्टविवरणं वृत्तान्ते अस्ति
+library.ops.move_here = अत्र स्थानान्तरयतु
+library.ops.no_export_format = अत्र किमपि प्रारूपं चित्रं सञ्चयितुं न शक्नोति
+library.ops.saved_size = {name} सञ्चितम् ({w} × {h})
+library.ops.save_failed = सञ्चयः विफलः: {error}
+library.ops.opening_first = {total} छायाचित्रेषु प्रथमसंख्या {n} उद्घाट्यते — अवशिष्टानि वीथिकायां सन्ति
+library.ops.nothing_to_revert = प्रत्यावर्तयितुं किमपि नास्ति: तेषु कस्यापि सम्पादनं नास्ति
+library.ops.reverted.other = मूलानि प्रति प्रत्यावर्तितछायाचित्रसंख्या: {n} — सम्पादनानि versions/ मध्ये रक्षितानि
+library.ops.no_file_name = सञ्चिकायाः नाम नास्ति
+library.zip.nothing_all_held = ZIP कर्तुं किमपि नास्ति: विषयानिस्यन्दः तानि सर्वाणि {n} छायाचित्राणि बहिः स्थापयति
+library.zip.failed = ZIP विफलम्: {error}
+library.zip.progress = ZIP क्रिया: {n}/{total}…
+library.zip.n_held.other = (विषयानिस्यन्देन बहिः स्थापितसंख्या: {n})
+library.zip.done.other = {dest} मध्ये ZIP-कृतछायाचित्रसंख्या: {n}
+library.zip.done_partial = {total} मध्ये {n} छायाचित्राणि {dest} मध्ये ZIP-कृतानि — अवशिष्टविवरणं वृत्तान्ते अस्ति
+library.zip.nothing_readable = ZIP कर्तुं किमपि पठितुं न शक्तम्
+library.zip.too_large = zip64 विना ZIP कृते अतिविशालम्
+library.batch.nothing_to_do = कर्तव्यं नास्ति: प्रथमं परिवर्तनं, विवर्धनं वा समायोजनं चिनोतु
+library.batch.save_copies_here = प्रतिलिपीः अत्र सञ्चयतु
+library.batch.processing.other = संस्क्रियमाणछायाचित्रसंख्या: {n}…
+library.batch.progress = संस्कृतम् {n}/{total} — {name}
+library.batch.failed = संस्कारः विफलः: {error}
+library.batch.done.other = संस्कृतछायाचित्रसंख्या: {n}
+library.batch.done_partial = {total} मध्ये {n} छायाचित्राणि संस्कृतानि — अवशिष्टविवरणं वृत्तान्ते अस्ति
+library.batch.model_would_not_load = {name} प्रतिमानम् आरोपयितुं न शक्तम्
+library.batch.no_psd_writer = कोऽपि PSD लेखकः न आरोपितः
+
+# दर्शकः जनसङ्ग्रहश्च
+library.viewer.back = ‹ छायाचित्राणि प्रति
+library.viewer.could_not_decode = एतत् छायाचित्रं विकूटयितुं न शक्तम्।
+library.viewer.label_auto = {name} · स्वयम्
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = अस्मिन् छायाचित्रे जनाः
+library.viewer.faces_intro = सकृदवतारितेन लघुप्रतिमानेन मुखानि अन्विष्यन्ते। पेटिकाः हस्तेनापि आलेखितुं शक्यन्ते।
+library.viewer.looking_for_faces = मुखानि अन्विष्यन्ते…
+library.viewer.no_faces = मुखानि न लब्धानि। हस्तेन व्यक्तिं योजयितुं मुखस्य परितः पेटिकां कर्षतु।
+library.viewer.help = नाम दातुं मुखं क्लिक् करोतु; Enter सञ्चयति। यत् मुखम् अभिज्ञात्रा न लब्धं तत् चिह्नयितुं छायाचित्रे कर्षतु। ← → छायाचित्राणां मध्ये गच्छतः, Esc प्रत्यागच्छति।
+library.viewer.not_them = सः व्यक्तिः नास्ति
+library.viewer.remove_name = नाम निष्कासयतु
+library.viewer.not_a_face = मुखं नास्ति
+library.viewer.auto = स्वयम्
+library.viewer.is_this = अयं {name} अस्ति किम्?
+library.viewer.someone_else = अन्यः कश्चित्
+library.viewer.add_name = नाम योजयतु…
+library.viewer.who_is_this = अयं कः?
+library.people.rename_title = व्यक्तेः पुनर्नामकरणम्
+library.people.merge_warning = कस्यचित् नाम पूर्वमेव “{name}” अस्ति: सञ्चयेन तौ संयुज्येते।
+library.people.merge_note = अन्यस्य विद्यमाननाम्ना पुनर्नामकरणेन तौ व्यक्ती संयुज्येते।
+library.people.named = {name} इति नाम दत्तम्
+library.people.named_followed.other = {name} इति नाम दत्तम् · स्वयमेव मेलितमुखसंख्या: {n}
+
+# Photos मध्ये सञ्चयः
+library.photos.saving = Photos मध्ये सञ्चीयते…
+library.photos.saved = Photos मध्ये सञ्चितम्
+library.photos.save_failed = Photos मध्ये सञ्चयः विफलः: {error}
+library.photos.no_document = किमपि प्रलेखं न उद्घाटितम्
+library.photos.no_png_codec = PNG कोडेक् न आरोपितः
+library.photos.no_answer = छायाचित्रालयेन उत्तरं न दत्तम्
+library.photos.bad_url = सञ्चिकामार्गं URL रूपेण निर्मातुं न शक्तम्
+library.photos.unavailable = छायाचित्रालयः अनुपलब्धः
+library.photos.declined = छायाचित्रालयेन अनुरोधः अस्वीकृतः
+
+# अनुप्रयोगे संविभक्ताः सञ्चिकाः
+library.shared.needs_documents = प्रतिलिप्यर्थं वीथिकायै Documents पुटः आवश्यकः
+library.shared.added.other = वीथिकायां योजितछायाचित्रसंख्या: {n}
+library.shared.open_needs_documents = उद्घाटनार्थं प्रतिलिपिस्थानरूपेण Documents पुटः आवश्यकः
+library.shared.could_not_open = {name} उद्घाटयितुं न शक्तम्: {error}
+
+# चलच्चित्रपूर्वदृश्यम्
+video.invalid_file = एषा स्थानीयचलच्चित्रसञ्चिका नास्ति।
+video.install_gstreamer = चलच्चित्रपूर्वदृश्याय GStreamer 1.x तथा चलच्चित्रविकूटक-प्लग्-इन् आवश्यकानि। तानि संस्थाप्य चलच्चित्रं पुनः उद्घाटयतु। बाह्यसम्पादकमपि चिनोतु शक्यते।
+video.decode_failed = एतत् चलच्चित्रफलकं विकूटयितुं न शक्तम्।
+video.no_stream = अस्यां सञ्चिकायां चलच्चित्रधारा नास्ति।
+video.no_duration = चलच्चित्रस्य अवधिः पठितुं न शकिता।
+video.frame_too_large = एतत् चलच्चित्रफलकम् उद्घाटयितुम् अतिविशालम्।
+video.first_frame = प्रथमफलके पूर्वमेव स्थितम्।
+video.editor_failed = चलच्चित्रसम्पादकम् उद्घाटयितुं न शक्तम्: {error}
+video.editor_unavailable = चयनितचलच्चित्रसम्पादकम् उद्घाटयितुं न शक्तम्। अनुप्रयोगं पुनः चिनोतु।
+video.loading = चलच्चित्रम् आरोप्यते…
+video.searching = समीपे अधिकस्पष्टं फलकम् अन्विष्यते…
+video.capturing = पूर्णविभेदनयुक्तं फलकम् उद्घाट्यते…
+video.frame_title = {name} — फलकम् {time}
+video.frame_layer = चलच्चित्रफलकम्
+video.already_sharpest = समीपस्थेषु इदमेव सर्वाधिकस्पष्टं फलकम्।
+video.found_frame = {time} समये समीपस्थं सर्वाधिकस्पष्टं फलकं चयनितम्।
+video.choose_editor = चलच्चित्रसम्पादकं चिनोतु…
+video.back = वीथिकां प्रति
+video.pause = विरामः
+video.play = चालयतु
+video.previous = पूर्वफलकम्
+video.next = अग्रिमफलकम्
+video.sharper = अधिकस्पष्टं फलकम् अन्विष्यतु
+video.edit_frame = फलकं सम्पादयतु
+video.open_editor = चलच्चित्रसम्पादके उद्घाटयतु
+video.preview_help = निःशब्दपूर्वदृश्यम् · Space: चालनम्/विरामः · शराः: फलकक्रमेण गमनम् · उभयतः ½ क्षणाभ्यन्तरे अन्विष्यति। सम्पादने पृथक् चित्रम् उद्घाट्यते।
+video.badge = ▶ चलच्चित्रम्
+video.view = चलच्चित्रं पश्यतु
+
+video.open_another_app = अन्यानुप्रयोगे उद्घाटयतु…
+video.preview_help_touch = निःशब्दपूर्वदृश्यम् · समयरेखां कर्षतु अथवा फलकक्रमेण गच्छतु। अधिकस्पष्टफलकान्वेषणम् उभयतः ½ क्षणाभ्यन्तरे अन्विष्यति। सम्पादने पृथक् चित्रम् उद्घाट्यते।
+video.importing = छायाचित्राणि चलच्चित्राणि च आयात्यन्ते…
+video.import_failed = माध्यमम् आयातयितुं न शक्तम्: {error}
+video.import_failed_simple = एतत् माध्यमम् आयातयितुं संविभक्तुं वा न शक्तम्।

@@ -1,0 +1,40 @@
+# مساحة عمل المحرر وما يحيط بها: ردود شريط الحالة ومدخلات السجل.
+
+workspace.canvas.rotate_view_degrees = تدوير العرض {degrees}°
+workspace.canvas.view_reset = تمت إعادة ضبط العرض
+workspace.canvas.notes_on = الملاحظات مفعّلة
+workspace.canvas.notes_off = الملاحظات معطّلة
+workspace.canvas.rulers_on = المساطر مفعّلة
+workspace.canvas.rulers_off = المساطر معطّلة
+workspace.canvas.grid_on = الشبكة مفعّلة
+workspace.canvas.grid_off = الشبكة معطّلة
+workspace.canvas.guides_on = الأدلة مفعّلة
+workspace.canvas.guides_off = الأدلة معطّلة
+workspace.canvas.extras_on = العناصر الإضافية مفعّلة
+workspace.canvas.extras_off = العناصر الإضافية معطّلة
+workspace.canvas.snap_on = الانطباق مفعّل
+workspace.canvas.snap_off = الانطباق معطّل
+workspace.canvas.guides_cleared = تم مسح الأدلة
+workspace.canvas.no_path = لا يوجد مسار للاستخدام
+workspace.canvas.path_empty = المسار فارغ
+workspace.canvas.stroke_needs_selection = يتطلب التخطيط تحديدًا
+workspace.canvas.nothing_to_stroke = لا يوجد شيء لتخطيطه
+workspace.canvas.content_aware_fill_needs_selection = تتطلب التعبئة مع مراعاة المحتوى تحديدًا
+workspace.canvas.content_aware_fill_needs_pixel_layer = تتطلب التعبئة مع مراعاة المحتوى طبقة بكسل
+workspace.canvas.color_range_needs_pixel_layer = يتطلب نطاق الألوان طبقة بكسل
+workspace.canvas.nothing_to_adjust = لا يوجد شيء لضبطه
+workspace.canvas.nothing_to_trim = لا يوجد شيء لتشذيبه
+workspace.canvas.trimmed = تم التشذيب
+workspace.canvas.indexed_not_supported = اللون المفهرس غير مدعوم حتى الآن
+workspace.canvas.opacity_percent = العتامة: {n}%
+
+workspace.history.stroke = تخطيط
+workspace.history.fill = تعبئة
+workspace.history.content_aware_scale = تغيير الحجم مع مراعاة المحتوى
+workspace.history.filter_gallery = معرض المرشحات
+workspace.history.color_range = نطاق الألوان
+workspace.history.move_layer = نقل الطبقة
+workspace.history.move_layers = نقل الطبقات
+workspace.history.layer_opacity = عتامة الطبقة
+workspace.history.delete_note = حذف الملاحظة
+workspace.history.edit_note = تحرير الملاحظة

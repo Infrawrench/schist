@@ -1,0 +1,36 @@
+app.filter_gallery.title = ཚགས་ཆས་མཛོད།
+app.filter_gallery.stack = བརྩེགས་པ། (འོག་ནས་སྟེང་དུ་སྦྱོར།)
+app.filter_gallery.no_settings = ཚགས་ཆས་འདིར་སྒྲིག་འགོད་མེད།
+app.fonts.not_open_licensed = སྒོ་ཕྱེ་ཆོག་མཆན་མེད་པ · {substitute} ཡིས་དེའི་ཚད་གཞི་མཐུན་པར་བྱེད།
+app.fonts.missing_substituted = མེད་པ · ཡི་གེ་ཚབ་བྱེད་ཡིག་གཟུགས་ནང་སྒྲིག་བཞིན་པ།
+app.fonts.not_in_catalogue = {family} སྒོ་ཕྱེ་ཡིག་གཟུགས་དཀར་ཆག་ནང་མེད།
+app.fonts.no_faces = {family} ལ་ཕབ་ལེན་རུང་བའི་ཡིག་གཟུགས་ངོས་མེད།
+app.fonts.empty_response = ལན་སྟོང་པ།
+app.update.unreadable_response = ཀློག་མི་ཐུབ་པའི་ལན། {error}
+app.update.no_temp_dir = ཕབ་ལེན་བྱེད་སའི་གནས་སྐབས་ཡིག་སྣོད་མེད།
+app.update.asset_has_path = ཐོན་རིམ་གསར་པས་རྒྱུ་ཆའི་མིང་ལ་འགྲོ་ལམ་ཞིག་བཀོད་འདུག
+app.update.too_big = ཕབ་ལེན་ནི་ཐོན་རིམ་གསར་པས་བཤད་པ་ལས་ཆེ་བ་འདུག
+app.update.stopped_at = ཕབ་ལེན་བིཊ་ {total} ནས་ {got} ལ་མཚམས་ཆད།
+app.update.hash_mismatch = ཕབ་ལེན་གྱི་ཧེ་ཤི་ནི་ {want} མིན་པར་ {got} ཡིན།
+app.update.not_in_bundle = འདྲ་བཤུས་འདི་ཉེར་སྤྱོད་སྒྲིལ་ཆས་ནང་མེད།
+app.update.no_parent_dir = ཉེར་སྤྱོད་སྒྲིལ་ཆས་ལ་ཕ་ཡིག་སྣོད་མེད།
+app.update.cannot_write = {dir} ལ་འབྲི་མི་ཐུབ།
+app.update.cannot_move_aside = {app} ཟུར་དུ་སྤོ་མི་ཐུབ།
+app.update.cannot_move_in = སྒྲིལ་ཆས་གསར་པ་གནས་སུ་སྤོ་མི་ཐུབ།
+app.update.cannot_run_ditto = /usr/bin/ditto འཁོར་སྐྱོད་མི་ཐུབ།
+app.update.unpack_failed = ཕབ་ལེན་ཁ་འགྲེམ་མ་འགྲུབ། {error}
+app.update.no_app_in_download = ཕབ་ལེན་ནང་ Schist.app མེད།
+app.update.cannot_run_codesign = /usr/bin/codesign འཁོར་སྐྱོད་མི་ཐུབ།
+app.update.signature_invalid = ཕབ་ལེན་གྱི་མིང་རྟགས་བདེན་དཔང་མ་འགྲུབ། {error}
+app.update.download_unsigned = འདྲ་བཤུས་འདིར་མིང་རྟགས་ཡོད་ཀྱང་ཕབ་ལེན་ལ་མེད།
+app.update.different_developer = ཕབ་ལེན་ལ་བཟོ་སྐྲུན་པ་གཞན་ཞིག་གིས་མིང་རྟགས་བཀོད་འདུག
+app.update.cannot_relaunch = བསྐྱར་འགོ་འཛུགས་ཆས་འགོ་འཛུགས་མི་ཐུབ།
+app.update.not_installed_copy = འདྲ་བཤུས་འདི་སྒྲིག་འཇུག་ཆས་ཀྱིས་འདིར་བཞག་པ་མིན།
+app.update.cannot_start_installer = སྒྲིག་འཇུག་ཆས་འགོ་འཛུགས་མི་ཐུབ།
+app.update.platform_unsupported = སྟེགས་བུ་འདིའི་གསར་སྒྱུར་ནི་ Schist སྒྲིག་འཇུག་བྱས་པའི་ཐབས་ལྟར་སྒྲིག་འཇུག་བྱེད།
+app.vulkan.no_loader = schist: མ་ལག་འདིར་ Vulkan loader མེད་པས་རི་མོ་འབྲི་ཐབས་མེད།\n\nSchist ཡིས་ Vulkan བརྒྱུད་རེན་ཌར་བྱེད་ཀྱང་ `libvulkan.so.1` སྒྲིག་འཇུག་བྱས་མེད།\nloader དང་སྒུལ་ཆས་གཉིས་ཀ་དགོས།\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ལས་ཡུན་འདིས་སྟོན་པའི་ Vulkan སྒུལ་ཆས་དེ་མེད།\n\n{var} སྒྲིག་ཡོད། འདི་སྒྲིག་པས་ loader ཡི་སྒུལ་ཆས་འཚོལ་བ་ལ་ཁ་སྣོན་མི་བྱེད་པར་ཚབ་བྱེད། དེས་ན་མེད་པའི་ཡིག་ཆ་འདི་དག་ནི་སྒུལ་ཆས་ཀྱི་ཐོ་ཡིག་ཆ་ཚང་ཡིན། ག་ཚོད་སྒྲིག་འཇུག་བྱས་ཀྱང་ལས་ཡུན་འདིའི་ Vulkan ལས་རིམ་གང་གིས་ཀྱང་སྒུལ་ཆས་མི་མཐོང་།\n\n{missing}\n    {var}={value}\n\nདེ་ཡོད་པའི་མངོན་གསལ་ཡིག་ཆ་ཞིག་ལ་སྟོན། སྒྲིག་འཇུག་ཟིན་པའི་སྒུལ་ཆས་ཀྱི་ཡིག་ཆ་ /usr/share/vulkan/icd.d ནང་ཡོད། ཡང་ན་སྒྲིག་པ་མེད་པར་བྱས་ཏེ་ loader རང་གིས་འཚོལ་དུ་ཆུག\nསྒྲིག་ཡིག་ནས་འདི་སྒྲིག་པའི་ལས་ཡུན་ (Hyprland ཡི་ `env =`། systemd environment.d drop-in ནམ་ shell profile) ལ་དེ་གར་བཅོས་དགོས། འཁོར་བཞིན་པའི་ལས་རིམ་ལ་འགྱུར་བ་སླེབས་པར་བསྐྱར་དུ་ནང་འཛུལ་དགོས།\n
+app.vulkan.override_note = \n{var} ནི་ {value} ལ་སྒྲིག་ཡོད་པས་ loader རང་གི་འཚོལ་བའི་ཚབ་བྱེད། མངོན་གསལ་ཡིག་ཆ་དེ་དག་ནས་འཕྲུལ་ཆས་འདིར་འཚམ་པ་མེད་ན། ཐོག་མར་ཚོད་ལྟ་བྱ་རྒྱུ་ནི་དེ་སྒྲིག་པ་མེད་པར་བྱེད་པ་ཡིན།\n
+app.vulkan.no_driver = schist: Vulkan སྒུལ་ཆས་སྒྲིག་འཇུག་བྱས་མེད་པས་རི་མོ་འབྲི་ཐབས་མེད།\n\nSchist ཡིས་ Vulkan བརྒྱུད་རེན་ཌར་བྱེད། loader སྒྲིག་འཇུག་ཟིན་ཀྱང་སྒུལ་ཆས་མེད་པར་སྙན་ཞུ་བྱས། འཚོལ་ས་གཉིས་ཀར་སྒུལ་ཆས་ཐོ་འགོད་བྱས་མེད།\n\n{dirs}\n\nloader དང་སྒུལ་ཆས་སོ་སོར་སྤེལ་བས། རྒྱུན་དུ་འདི་ནི་ཐུམ་སྒྲིལ་གཅིག་མེད་པ་ཡིན།\n\nའཕྲུལ་ཆས་འདིའི་ GPU ལ་འཚམ་པ་སྒྲིག་འཇུག་བྱོས།\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA ཡི་བདག་དབང་ཅན་གྱི་སྒུལ་ཆས་ལ་རང་གི་སྒུལ་ཆས་ཡོད། (Arch ཐོག་ `nvidia-utils`། Debian ཐོག་ `nvidia-driver`) རྟོག་བཟོའི་འཕྲུལ་ཆས་ནང་ངམ་ GPU སྒུལ་ཆས་སྒྲིག་ཐབས་མེད་སར་མཉེན་ཆས་རེ་སི་ཊར་བྱེད་ཆས་སྤྱོད་ཐུབ། Arch ཐོག་ `vulkan-swrast` དང་གཞན་དུ་ `mesa-vulkan-drivers` ཡི་ཆ་ཤས་ཡིན། དལ་ཡང་འགོ་འཛུགས་ཐུབ།\n{overridden}
+app.vulkan.no_device = schist: Vulkan སྒུལ་ཆས་སྒྲིག་འཇུག་ཟིན་ཀྱང་རེན་ཌར་བྱེད་སའི་སྒྲིག་ཆས་མི་འདོན།\n\nསྒུལ་ཆས་ཀྱིས་ GPU འདི་མི་སྐྱོར་བའམ་དེར་སླེབས་མི་ཐུབ་སྲིད། SSH བརྒྱུད་པའམ་སྣོད་ནང་ /dev/dri མེད་པ་རྒྱུན་ལྡན་ཡིན། `vulkaninfo --summary` ཡིས་ loader ལ་མཐོང་བ་སྙན་ཞུ་བྱེད།\n\nའཕྲུལ་ཆས་འདིར་ GPU མེད་ན་མཉེན་ཆས་རེ་སི་ཊར་བྱེད་ཆས་ཀྱིས་ GPU མེད་པར་རེན་ཌར་བྱེད། Arch ཐོག་ `vulkan-swrast`། Debian དང་ Fedora ཐོག་ `mesa-vulkan-drivers` ཡི་ཆ་ཤས་ཡིན།\n
+app.vulkan.skip_hint = Schist གང་ལྟར་འགོ་བཙུགས་ཏེ་རང་ལུགས་སུ་ཕམ་དུ་འཇུག་པར་ {var}=1 སྒྲིག

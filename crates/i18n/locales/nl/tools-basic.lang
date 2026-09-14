@@ -1,0 +1,22 @@
+# Basishulpmiddelen: Verplaatsen, Pipet, Handje en Zoomen.
+tool.move.name = Verplaatsen
+tool.move.description = Sleep de inhoud van de actieve laag naar een nieuwe positie. Als Automatisch selecteren aanstaat, kiest de eerste druk de laag — of de hele groep — onder de aanwijzer.
+tool.move.option.auto_select = Automatisch selecteren
+tool.move.history.move_layer = Laag verplaatsen
+
+tool.eyedropper.name = Pipet
+tool.eyedropper.description = Neem de kleur onder de aanwijzer over in het voorgrondkleurvak, of in het achtergrondkleurvak als Alt wordt ingedrukt. Tijdens het slepen blijft het hulpmiddel kleuren opnemen.
+tool.eyedropper.option.sample_size = Monstergrootte
+tool.eyedropper.option.sample = Monster
+tool.eyedropper.choice.point_sample = Puntmonster
+tool.eyedropper.choice.average_3 = Gemiddelde 3 bij 3
+tool.eyedropper.choice.average_5 = Gemiddelde 5 bij 5
+tool.eyedropper.choice.average_11 = Gemiddelde 11 bij 11
+tool.eyedropper.choice.average_31 = Gemiddelde 31 bij 31
+tool.eyedropper.choice.all_layers = Alle lagen
+tool.eyedropper.choice.current_layer = Huidige laag
+
+tool.hand.name = Handje
+tool.hand.description = Verschuift de weergave. De viewport hoort bij het venster; zonder grafische omgeving verandert dit hulpmiddel daarom niets aan het document.
+tool.zoom.name = Zoomen
+tool.zoom.description = Zoomt de weergave. De viewport hoort bij het venster; zonder grafische omgeving verandert dit hulpmiddel daarom niets aan het document.

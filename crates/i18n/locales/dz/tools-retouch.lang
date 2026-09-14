@@ -1,0 +1,21 @@
+# ཉམས་བཅོས་ལག་ཆས།
+tool.patch.name = ལྷན་པ།
+tool.patch.description = སྐྱོན་ཅིག་གི་མཐའ་སྐོར་ལུ་ཐིག་འདྲུད་ དེ་ལས་སེལ་འཐུ་དེ་པིག་སེལ་གཙང་མ་གུ་འདྲུད། དེ་ཁའི་རེག་བྱ་དེ་སྐྱོན་ནང་བསྒྲིགཔ་ཨིན། ལྷན་པའི་ཐབས་ལམ་གྱིས་ཆ་གཉིས་ལས་ག་འདི་འདྲུད་ནི་ཨིན་ན་སེལཝ་ཨིན།
+tool.patch.option.patch = ལྷན་པ།
+tool.patch.choice.source = འབྱུང་ཁུངས།
+tool.patch.choice.destination = འགྲོ་ཡུལ།
+tool.patch.history.patch = ལྷན་པ།
+tool.content_aware_move.name = ནང་དོན་ཤེས་པའི་སྤོ་བཤུད།
+tool.content_aware_move.description = སེལ་འཐུ་འབད་མི་དངོས་པོ་དེ་ས་གནས་གཞན་ཁར་འདྲུད་པ་ཅིན་ འདི་གིས་བཞག་པའི་དོང་དེ་མཐའ་འཁོར་ལས་བཀངམ་ཨིན། རྒྱ་བསྐྱེད་ཐབས་ལམ་ནང་དངོས་པོ་དེ་སྤོ་བའི་ཚབ་ལུ་བསྣརཝ་ཨིན།
+tool.content_aware_move.choice.move = སྤོ།
+tool.content_aware_move.choice.extend = རྒྱ་བསྐྱེད།
+tool.content_aware_move.history.move = ནང་དོན་ཤེས་པའི་སྤོ་བཤུད།
+tool.red_eye.name = མིག་ཏོ་དམརཔོ།
+tool.red_eye.description = ཕེལེཤ་གིས་བཟོ་བའི་མིག་ཏོའི་དམར་མདངས་བཏོན་གཏང་ནིའི་དོན་ལུ་མིག་འབྲས་གུ་ཨེབ།
+tool.red_eye.option.pupil_size = མིག་འབྲས་ཀྱི་ཚད།
+tool.red_eye.option.darken = གནག་སུ་བཟོ།
+tool.red_eye.history.red_eye = མིག་ཏོ་དམརཔོ།
+tool.magic_eraser.name = སྒྱུ་མའི་ཀྲེག་ཆས།
+tool.magic_eraser.description = ལག་ཆས་ཀྱི་བཟོད་ཚད་ནང་འཁོད་ མདའ་རྟགས་ཀྱི་འོག་གི་ཚོས་གཞི་འདྲ་བའི་ས་ཁོངས་བསུབ་ནིའི་དོན་ལུ་ཨེབ། ཨེབ་སའི་ས་ཁོངས་དང་འབྲེལ་མཐུད་ཡོད་མི་ ཡང་ན་བང་རིམ་ཧྲིལ་བུ་ནང་གི་ས་ཁོངས་བསུབ་ཚུགས།
+tool.magic_eraser.option.contiguous = འབྲེལ་མཐུད་ཅན།
+tool.magic_eraser.history.erase = སྒྱུ་མའི་ཀྲེག་ཆས།

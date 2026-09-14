@@ -1,0 +1,31 @@
+# Свободное трансформирование, трансформирование выделения и кадрирование.
+
+# Свободное трансформирование
+tool.transform.name = Свободное трансформирование
+tool.transform.description = Свободное трансформирование. После включения вокруг активного слоя появляется рамка: перетащите угол для масштабирования, область за углом — для поворота, а край — для наклона. Изменения применяются только после подтверждения клавишей Enter; Escape возвращает слой в исходное состояние.
+tool.transform.option.interpolation = Интерполяция
+tool.transform.history.transform = Свободное трансформирование
+tool.transform.history.image_size = Размер изображения
+tool.transform.history.canvas_size = Размер холста
+
+# Трансформирование выделения
+tool.transform.selection.name = Трансформировать выделенную область
+tool.transform.selection.description = Трансформирование выделенной области использует ту же рамку, но перемещает контур выделения, а не пиксели внутри него. Для завершения подтвердите или отмените действие.
+tool.transform.selection.history.transform = Трансформирование выделенной области
+
+# Классические методы интерполяции
+tool.transform.resample.nearest_neighbor = По соседним пикселям
+tool.transform.resample.bilinear = Билинейная
+tool.transform.resample.bicubic = Бикубическая
+
+# Рамка
+tool.crop.name = Рамка
+tool.crop.description = Перетащите указатель, чтобы задать сохраняемую область, и скорректируйте её маркеры. Enter обрезает документ по этой области, Escape оставляет документ без изменений.
+tool.crop.option.ratio = Пропорции
+tool.crop.option.delete_cropped = Удалять отсечённые пиксели
+tool.crop.choice.unconstrained = Без ограничений
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Кадрирование

@@ -1,0 +1,36 @@
+app.filter_gallery.title = Thư viện bộ lọc
+app.filter_gallery.stack = Ngăn xếp (áp dụng từ dưới lên)
+app.filter_gallery.no_settings = Bộ lọc này không có cài đặt.
+app.fonts.not_open_licensed = không có giấy phép mở · {substitute} có cùng số đo
+app.fonts.missing_substituted = bị thiếu · văn bản đang dùng phông chữ thay thế
+app.fonts.not_in_catalogue = {family} không có trong danh mục phông chữ mở
+app.fonts.no_faces = không có kiểu chữ tải được cho {family}
+app.fonts.empty_response = phản hồi trống
+app.update.unreadable_response = phản hồi không đọc được: {error}
+app.update.no_temp_dir = không có thư mục tạm để tải xuống
+app.update.asset_has_path = bản phát hành đặt tên tài nguyên bằng một đường dẫn
+app.update.too_big = tệp tải xuống lớn hơn thông tin trong bản phát hành
+app.update.stopped_at = quá trình tải dừng ở {got} trên {total} byte
+app.update.hash_mismatch = hàm băm tệp tải xuống là {got}, không phải {want}
+app.update.not_in_bundle = bản sao này không nằm trong gói ứng dụng
+app.update.no_parent_dir = gói ứng dụng không có thư mục cha
+app.update.cannot_write = không thể ghi vào {dir}
+app.update.cannot_move_aside = không thể chuyển {app} sang bên
+app.update.cannot_move_in = không thể chuyển gói mới vào vị trí
+app.update.cannot_run_ditto = không thể chạy /usr/bin/ditto
+app.update.unpack_failed = không thể giải nén tệp tải xuống: {error}
+app.update.no_app_in_download = tệp tải xuống không chứa Schist.app
+app.update.cannot_run_codesign = không thể chạy /usr/bin/codesign
+app.update.signature_invalid = không thể xác minh chữ ký của tệp tải xuống: {error}
+app.update.download_unsigned = bản sao này có chữ ký nhưng tệp tải xuống thì không
+app.update.different_developer = tệp tải xuống được ký bởi nhà phát triển khác
+app.update.cannot_relaunch = không thể khởi động trình chạy lại
+app.update.not_installed_copy = bản sao này không được trình cài đặt đặt ở đây
+app.update.cannot_start_installer = không thể khởi động trình cài đặt
+app.update.platform_unsupported = các bản cập nhật trên nền tảng này được cài theo cách Schist đã được cài
+app.vulkan.no_loader = schist: hệ thống này không có trình nạp Vulkan nên không thể vẽ.\n\nSchist kết xuất qua Vulkan và `libvulkan.so.1` chưa được cài đặt.\nCần cả trình nạp lẫn trình điều khiển:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: trình điều khiển Vulkan mà phiên này trỏ tới không tồn tại.\n\n{var} đã được đặt, và thiết lập này *thay thế* việc tìm kiếm trình điều khiển của trình nạp thay vì bổ sung vào đó. Vì vậy các tệp không tồn tại sau đây là toàn bộ danh sách trình điều khiển — mọi chương trình Vulkan trong phiên này đều không thấy trình điều khiển nào, dù đã cài bao nhiêu:\n\n{missing}\n    {var}={value}\n\nHãy trỏ biến nó tới một tệp kê khai có thật — trình điều khiển đã cài đặt đặt tệp kê khai trong /usr/share/vulkan/icd.d — hoặc bỏ đặt biến để trình nạp tự tìm. Nếu phiên đặt biến này từ tệp cấu hình (`env =` của Hyprland, tệp bổ sung systemd environment.d hoặc hồ sơ shell), phải sửa tại đó; cần đăng nhập lại để thay đổi đến được các ứng dụng đang chạy.\n
+app.vulkan.override_note = \n{var} được đặt thành {value}, thay thế việc tìm kiếm của trình nạp: nếu không tệp kê khai nào dành cho máy này, hãy thử bỏ đặt biến trước tiên.\n
+app.vulkan.no_driver = schist: chưa cài trình điều khiển Vulkan nên không thể vẽ.\n\nSchist kết xuất qua Vulkan. Trình nạp đã được cài nhưng không báo trình điều khiển nào — không có trình điều khiển đăng ký tại cả hai nơi được tìm kiếm:\n\n{dirs}\n\nTrình nạp được phân phối riêng với trình điều khiển, nên thường chỉ thiếu một gói.\n\nCài gói dành cho GPU của máy này:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nTrình điều khiển độc quyền của NVIDIA đi kèm trình điều khiển riêng (`nvidia-utils` trên Arch, `nvidia-driver` trên Debian). Trong máy ảo hoặc nơi không có trình điều khiển GPU để cài, trình raster hóa phần mềmm là lựa chọn hoạt động được: `vulkan-swrast` trên Arch, thuộc `mesa-vulkan-drivers` ở nơi khác. Nó chậm nhưng vẫn khởi động được.\n{overridden}
+app.vulkan.no_device = schist: đã cài trình điều khiển Vulkan nhưng nó không cung cấp thiết bị để kết xuất.\n\nTrình điều khiển có thể không hỗ trợ GPU này hoặc không truy cập được — qua SSH hoặc trong container, /dev/dri thường bị thiếu. `vulkaninfo --summary` cho biết trình nạp nhìn thấy gì.\n\nNếu máy này không có GPU, trình raster hóa phần mềm có thể kết xuất mà không cần GPU: `vulkan-swrast` trên Arch, thuộc `mesa-vulkan-drivers` trên Debian và Fedora.\n
+app.vulkan.skip_hint = Để vẫn khởi động Schist và cho phép nó tự thất bại, hãy đặt {var}=1.

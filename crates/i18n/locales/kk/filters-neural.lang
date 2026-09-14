@@ -1,0 +1,153 @@
+filter.neural.param.center_x = X орталығы
+filter.neural.param.center_y = Y орталығы
+filter.neural.param.direction = Бағыт
+filter.neural.param.transition = Өту
+filter.neural.param.detail = Егжей-тегжей
+filter.neural.param.eyes = Көздер
+
+filter.neural.msg.using_model = {model} қолданылуда · {license}.
+filter.neural.msg.get_model = Оны Сүзгі ▸ Neural Filters ▸ Модельдерді басқару мәзірінен алыңыз.
+
+filter.camera_raw.name = Camera Raw сүзгісі
+filter.camera_raw.param.temperature = Температура
+filter.camera_raw.param.tint = Реңктеу
+filter.camera_raw.param.highlights = Жарық аймақтар
+filter.camera_raw.param.shadows = Көлеңкелер
+filter.camera_raw.param.whites = Ақ түстер
+filter.camera_raw.param.blacks = Қара түстер
+filter.camera_raw.param.clarity = Айқындық
+filter.camera_raw.param.dehaze = Тұманды кетіру
+filter.camera_raw.param.vibrance = Түс қанықтығы
+filter.camera_raw.param.sharpening = Айқындау
+filter.camera_raw.param.noise = Шуды азайту
+filter.camera_raw.param.vignette = Виньетка
+
+filter.lens_correction.name = Объективті түзету
+filter.lens_correction.param.distortion = Бұрмалануды жою
+filter.lens_correction.param.red = Қызыл/көгілдір жиекті түзету
+filter.lens_correction.param.blue = Көк/сары жиекті түзету
+filter.lens_correction.param.vignette = Виньетка мөлшері
+filter.lens_correction.param.midpoint = Виньетка орта нүктесі
+filter.lens_correction.param.vertical = Тік перспектива
+filter.lens_correction.param.horizontal = Көлденең перспектива
+
+filter.adaptive_wide_angle.name = Бейімделгіш кең бұрыш
+filter.adaptive_wide_angle.param.projection = Түзету
+filter.adaptive_wide_angle.choice.fisheye = Балық көзі
+filter.adaptive_wide_angle.choice.perspective = Перспектива
+filter.adaptive_wide_angle.choice.full_spherical = Толық сфералық
+filter.adaptive_wide_angle.param.focal = Фокус қашықтығы
+filter.adaptive_wide_angle.param.crop = Қию коэффициенті
+
+filter.field_blur.name = Өрістік бұлыңғырлау
+filter.field_blur.param.position = Айқын нүкте
+filter.iris_blur.name = Диафрагмалық бұлыңғырлау
+filter.iris_blur.param.roundness = Дөңгелектік
+filter.tilt_shift.name = Тилт-шифт
+filter.tilt_shift.param.position = Орта
+filter.tilt_shift.param.band = Айқын жолақ
+filter.spin_blur.name = Айналмалы бұлыңғырлау
+filter.spin_blur.param.angle = Бұлыңғырлау бұрышы
+filter.path_blur.name = Контур бойымен бұлыңғырлау
+filter.path_blur.param.speed = Жылдамдық
+filter.path_blur.param.curve = Қисықтық
+filter.path_blur.param.taper = Жіңішкеру
+
+filter.shape_blur.name = Пішіндік бұлыңғырлау
+filter.shape_blur.choice.square = Шаршы
+filter.shape_blur.choice.diamond = Ромб
+filter.shape_blur.choice.hexagon = Алтыбұрыш
+filter.shape_blur.choice.cross = Айқыш
+filter.shape_blur.choice.ring = Сақина
+filter.shape_blur.choice.star = Жұлдыз
+filter.smart_blur.name = Ақылды бұлыңғырлау
+filter.smart_blur.choice.normal = Қалыпты
+filter.smart_blur.choice.edge_only = Тек жиектер
+filter.smart_blur.choice.overlay_edge = Жиекті қабаттау
+
+filter.deinterlace.name = Жоларалық жайманы жою
+filter.deinterlace.param.field = Жою
+filter.deinterlace.choice.odd_fields = Тақ өрістер
+filter.deinterlace.choice.even_fields = Жұп өрістер
+filter.deinterlace.param.fill = Жаңа өрістерді жасау тәсілі
+filter.deinterlace.choice.interpolation = Интерполяция
+filter.deinterlace.choice.duplication = Қайталау
+filter.ntsc_colors.name = NTSC түстері
+
+filter.neural.skin_smoothing.name = Теріні тегістеу
+filter.neural.skin_smoothing.param.blur = Тегістік
+filter.neural.skin_smoothing.param.detail = Егжей-тегжейді сақтау
+filter.neural.skin_smoothing.msg.no_model = {model} орнатылмаған — оның орнына тері түстес аймақтар тегістеледі.
+
+filter.neural.jpeg_artifacts.name = JPEG артефактілерін жою
+filter.neural.jpeg_artifacts.msg.no_model = {model} орнатылмаған — оның орнына 8 пиксельдік тор тегістеледі.
+
+filter.neural.colorize.name = Түстеу
+filter.neural.colorize.param.warmth = Жылылық
+filter.neural.colorize.msg.no_model = {model} орнатылмаған — оның орнына жарықтық бойынша реңктеледі.
+
+filter.neural.super_zoom.name = Супер масштаб
+filter.neural.super_zoom.msg.no_model = {model} орнатылмаған — оның орнына жиек бағыты бойынша айқындау қолданылады.
+
+filter.neural.style_transfer.name = Стиль тасымалдау
+filter.neural.style_transfer.choice.mosaic = Мозаика
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Стиль модельдері орнатылмаған — тек түс тасымалданады. Оларды Сүзгі ▸ Neural Filters ▸ Модельдерді басқару мәзірінен алыңыз.
+filter.neural.style_transfer.msg.installed = Орнатылған: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Түс тасымалдау
+filter.neural.color_transfer.param.hue = Мақсатты реңк
+filter.neural.color_transfer.param.contrast = Контрастты сәйкестендіру
+filter.neural.color_transfer.msg.info = Палитраны астындағы қабаттан алады. Астында ештеңе болмаса, мақсатты реңкке бағытталады.
+
+filter.neural.depth_blur.name = Тереңдік бойынша бұлыңғырлау
+filter.neural.depth_blur.param.focus = Фокус қашықтығы
+filter.neural.depth_blur.param.blur = Бұлыңғырлау күші
+filter.neural.depth_blur.msg.no_model = {model} орнатылмаған — оның орнына жергілікті айқындық бойынша фокусталады.
+
+filter.neural.harmonization.name = Үйлестіру
+filter.neural.harmonization.param.tone = Реңкті сәйкестендіру
+filter.neural.harmonization.msg.info = Бұл қабатты астындағы мазмұнға сәйкестендіреді. Астында ештеңе болмаса, сәйкестендіретін нәрсе жоқ және еш өзгеріс жасалмайды.
+
+filter.neural.landscape_mixer.name = Пейзаж араластырғышы
+filter.neural.landscape_mixer.param.bands = Тереңдік жолақтары
+filter.neural.landscape_mixer.msg.with_depth = Палитраны астындағы қабаттан алып, Depth (Depth Blur) арқылы жолақтарды жеке-жеке сәйкестендіреді.
+filter.neural.landscape_mixer.msg.without_depth = Палитраны астындағы қабаттан алады. Бүкіл кескінді тұтас сәйкестендірудің орнына аспанды аспанмен, жерді жермен сәйкестендіру үшін Depth (Depth Blur) орнатыңыз.
+
+filter.neural.photo_restoration.name = Фотосуретті қалпына келтіру
+filter.neural.photo_restoration.param.enhance = Фотосуретті жақсарту
+filter.neural.photo_restoration.param.scratches = Сызаттарды азайту
+filter.neural.photo_restoration.param.tone = Реңкті қалпына келтіру
+filter.neural.photo_restoration.msg.no_model = Модельсіз тазалануда.
+filter.neural.photo_restoration.msg.using_deblock = Deblock қолданылуда · Schist үшін үйретілген.
+filter.neural.photo_restoration.msg.using_detail = Detail қолданылуда · Schist үшін үйретілген.
+filter.neural.photo_restoration.msg.using_both = Deblock және Detail қолданылуда · Schist үшін үйретілген.
+
+filter.neural.photo_to_sketch.name = Фотосуреттен нобай жасау
+filter.neural.photo_to_sketch.param.weight = Сызық қалыңдығы
+filter.neural.photo_to_sketch.param.shading = Көлеңкелеу
+
+filter.neural.face_to_caricature.name = Беттен карикатура жасау
+filter.neural.face_to_caricature.param.mouth = Ауыз
+filter.neural.face_to_caricature.param.head = Бас
+filter.neural.face_to_caricature.msg.no_model = {model} орнатылмаған, сондықтан еш өзгеріс жасалмайды — карикатура жасайтын дерек жоқ.
+
+filter.neural.smart_portrait.name = Ақылды портрет
+filter.neural.smart_portrait.param.happiness = Қуаныш
+filter.neural.smart_portrait.param.surprise = Таңдану
+filter.neural.smart_portrait.param.age = Бет жасы
+filter.neural.smart_portrait.param.gaze = Көзқарас
+filter.neural.smart_portrait.param.light = Жарық бағыты
+filter.neural.smart_portrait.msg.no_model = {model} орнатылмаған, сондықтан еш өзгеріс жасалмайды — өңдейтін бет жоқ.
+
+filter.neural.makeup_transfer.name = Макияж тасымалдау
+filter.neural.makeup_transfer.param.lips = Еріндер
+filter.neural.makeup_transfer.param.skin = Тері реңкі
+filter.neural.makeup_transfer.msg.info = Макияжды астындағы қабаттағы беттен алады. Текстура емес, түс тасымалданады.
+filter.neural.makeup_transfer.msg.no_model = {model} орнатылмаған, сондықтан еш өзгеріс жасалмайды.
+
+filter.neural.sketch_to_portrait.name = Нобайдан портрет жасау
+filter.neural.sketch_to_portrait.param.detail = Сызықтарды сақтау
+filter.neural.sketch_to_portrait.msg.with_face = Осы қолданбаның «Фотосуреттен нобай жасау» нәтижесін толтыруға үйретілген. Табылған бетке қолданылады.
+filter.neural.sketch_to_portrait.msg.no_face = Осы қолданбаның «Фотосуреттен нобай жасау» нәтижесін толтыруға үйретілген. Faces (Skin Smoothing) моделін орнатсаңыз, ол бүкіл таңдауға емес, бетке қолданылады.

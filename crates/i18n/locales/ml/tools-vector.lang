@@ -1,0 +1,47 @@
+# Pens
+tool.pen.name = പെൻ
+tool.pen.description = ഒരു പാത നിർമ്മിക്കുക: മൂലയിലെ പോയിന്റിനായി ക്ലിക്ക് ചെയ്യുക, അതിൽനിന്ന് കർവ് ഹാൻഡിലുകൾ പുറത്തേക്കു വലിക്കാൻ ഡ്രാഗ് ചെയ്യുക, അടയ്ക്കാൻ ആദ്യ പോയിന്റിൽ ക്ലിക്ക് ചെയ്യുക. അംഗീകരിക്കുമ്പോൾ പാത ഒരു ആകൃതി ലെയറാകും.
+tool.pen.option.rubber_band = റബ്ബർ ബാൻഡ്
+tool.pen.history.fill = പാത നിറയ്ക്കൽ
+tool.pen.default_path_name = പാത {n}
+tool.pen.freeform.name = ഫ്രീഫോം പെൻ
+tool.pen.freeform.description = കൈകൊണ്ട് വരയ്ക്കുന്നതുപോലെ ഒരു രേഖ വലിക്കുക; യോജിപ്പിക്കൽ ഓപ്ഷനിൽ നിശ്ചയിച്ച അയവോടെ അത് ഒരു പാതയുമായി യോജിപ്പിക്കും.
+tool.pen.freeform.option.fit = യോജിപ്പിക്കൽ
+tool.pen.curvature.name = കർവേച്ചർ പെൻ
+tool.pen.curvature.description = തുടർച്ചയായ പോയിന്റുകളിൽ ക്ലിക്ക് ചെയ്താൽ, അവയിലൂടെ പാത മിനുസമായി വളയും.
+
+# Arrows
+tool.path_select.name = പാത തിരഞ്ഞെടുപ്പ്
+tool.path_select.description = ഒരു പാത തിരഞ്ഞെടുക്കാൻ അതിൽ ക്ലിക്ക് ചെയ്യുക; മുഴുവൻ പാതയും നീക്കാൻ വലിക്കുക.
+tool.direct_select.name = നേരിട്ടുള്ള തിരഞ്ഞെടുപ്പ്
+tool.direct_select.description = ഒരു ആങ്കർ പോയിന്റോ അതിന്റെ ഹാൻഡിലുകളോ വലിച്ച് ചുറ്റുമുള്ള പാതയുടെ ആകൃതി മാറ്റുക.
+
+# Shapes
+tool.shape.history.layer = {name} ലെയർ
+tool.shape.rect.name = ചതുരാകൃതി ഉപകരണം
+tool.shape.rect.label = ചതുരാകൃതി
+tool.shape.rect.description = മുൻഭാഗ വർണ്ണത്തിൽ ചതുരാകൃതിയിലുള്ള ആകൃതി ലെയർ വരയ്ക്കുക; അത് വെക്ടറായി നിലനിൽക്കുകയും വലുപ്പം മാറ്റുമ്പോൾ വീണ്ടും റാസ്റ്ററൈസ് ചെയ്യപ്പെടുകയും ചെയ്യും.
+tool.shape.ellipse.name = ദീർഘവൃത്ത ഉപകരണം
+tool.shape.ellipse.label = ദീർഘവൃത്തം
+tool.shape.ellipse.description = മുൻഭാഗ വർണ്ണത്തിൽ ദീർഘവൃത്താകൃതിയിലുള്ള ആകൃതി ലെയർ വരയ്ക്കുക.
+tool.shape.line.name = രേഖ ഉപകരണം
+tool.shape.line.label = രേഖ
+tool.shape.line.description = മുൻഭാഗ വർണ്ണത്തിൽ നേർരേഖയായ ആകൃതി ലെയർ വരയ്ക്കുക.
+tool.shape.line.option.weight = കനം
+tool.shape.line.option.arrow_start = തുടക്കം
+tool.shape.line.option.arrow_end = അവസാനം
+tool.shape.polygon.name = ബഹുഭുജ ഉപകരണം
+tool.shape.polygon.label = ബഹുഭുജം
+tool.shape.polygon.description = ഓപ്ഷനുകളിൽ നൽകിയ വശങ്ങളുടെ എണ്ണത്തോടെ, മുൻഭാഗ വർണ്ണത്തിൽ സമബഹുഭുജ ആകൃതി ലെയർ വരയ്ക്കുക.
+tool.shape.polygon.option.sides = വശങ്ങൾ
+
+# Custom shapes
+tool.shape.custom.name = ഇഷ്ടാനുസൃത ആകൃതി
+tool.shape.custom.label = ഇഷ്ടാനുസൃത ആകൃതി
+tool.shape.custom.description = ആകൃതി ഓപ്ഷനിൽനിന്നു തിരഞ്ഞെടുത്ത, അന്തർനിർമ്മിത മുൻക്രമീകരണ ആകൃതികളിലൊന്ന് വരയ്ക്കുക.
+tool.shape.custom.choice.heart = ഹൃദയം
+tool.shape.custom.choice.star = നക്ഷത്രം
+tool.shape.custom.choice.arrow = അമ്പ്
+tool.shape.custom.choice.lightning = മിന്നൽ
+tool.shape.custom.choice.cross = കുരിശ്
+tool.shape.custom.choice.speech_bubble = സംഭാഷണ കുമിള

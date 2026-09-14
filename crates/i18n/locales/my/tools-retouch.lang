@@ -1,0 +1,24 @@
+# ပြန်လည်ပြုပြင် ကိရိယာများ
+tool.patch.name = ဖာထေးရန်
+tool.patch.description = အပြစ်အနာအဆာပတ်လည်တွင် မျဉ်းဝိုင်းဆွဲပြီး ထိုရွေးချယ်မှုကို အပြစ်အနာအဆာမရှိသော ပစ်ဇယ်များပေါ် ဆွဲရွှေ့ပါ။ ထိုနေရာမှ မျက်နှာပြင်အသွင်ကို အပြစ်အနာအဆာနှင့် ကိုက်ညီအောင် ထည့်ပေးသည်။ ဖာထေးမှုစနစ်က အတွဲ၏ မည်သည့်ဘက်ကို ဆွဲရမည်ကို သတ်မှတ်သည်။
+tool.patch.option.patch = ဖာထေးမှု
+tool.patch.choice.source = မူရင်း
+tool.patch.choice.destination = ဦးတည်ရာ
+tool.patch.history.patch = ဖာထေးမှု
+
+tool.content_aware_move.name = အကြောင်းအရာသိ ရွှေ့ရန်
+tool.content_aware_move.description = ရွေးထားသောအရာကို အခြားနေရာသို့ ဆွဲရွှေ့လျှင် ကျန်ခဲ့သော လွတ်နေရာကို ပတ်ဝန်းကျင်မှ အကြောင်းအရာဖြင့် ဖြည့်ပေးသည်။ ချဲ့ဆန့်စနစ်တွင် အရာကို ရွှေ့မည့်အစား ဆန့်ပေးသည်။
+tool.content_aware_move.choice.move = ရွှေ့ရန်
+tool.content_aware_move.choice.extend = ချဲ့ဆန့်ရန်
+tool.content_aware_move.history.move = အကြောင်းအရာသိ ရွှေ့ရန်
+
+tool.red_eye.name = မျက်လုံးနီ ပြင်ရန်
+tool.red_eye.description = ဖလက်ရှ်ကြောင့် မျက်စိသူငယ်အိမ်တွင် ဖြစ်နေသော အနီရောင်ကို ဖယ်ရှားရန် ၎င်းကို နှိပ်ပါ။
+tool.red_eye.option.pupil_size = မျက်စိသူငယ်အိမ် အရွယ်အစား
+tool.red_eye.option.darken = မှောင်စေ
+tool.red_eye.history.red_eye = မျက်လုံးနီ ပြင်ရန်
+
+tool.magic_eraser.name = မှော်ဖျက်ကိရိယာ
+tool.magic_eraser.description = ကိရိယာ၏ သည်းခံအတိုင်းအတာအတွင်း ညွှန်တံအောက်ရှိ အရောင်နှင့် ဆင်တူသော ဧရိယာကို ဖျက်ရန် နှိပ်ပါ။ နှိပ်သည့်နေရာနှင့် ဆက်စပ်နေသော ဧရိယာကိုဖြစ်စေ၊ အလွှာတစ်လျှောက်လုံးရှိ ဆင်တူအရောင်ကိုဖြစ်စေ ဖျက်နိုင်သည်။
+tool.magic_eraser.option.contiguous = ဆက်စပ်ဧရိယာသာ
+tool.magic_eraser.history.erase = မှော်ဖျက်ကိရိယာ

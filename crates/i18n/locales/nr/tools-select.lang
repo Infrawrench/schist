@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Susa
+tool.select.mode.intersect = Phambana
+
+tool.marquee.rect.name = Ukukhetha Ngesikwere
+tool.marquee.rect.description = Dosa wenze okukhethiweko okusikwere. U-Shift ekuthomeni kokudosa ungeza kokukhethiweko, u-alt uyasusa, bobabili benza ukuphambana; u-shift ngesikhathi sokudosa wenza isikwere esilingene mahlangothi. Ukuqhafaza ngaphandle kokudosa kususa okukhethiweko.
+tool.marquee.ellipse.name = Ukukhetha Ngesiyingi
+tool.marquee.ellipse.description = Dosa wenze okukhethiweko okuyisiyingi, usebenzise ukuhlanganisa okufanako ngo-shift/alt njengokukhetha ngesikwere.
+
+tool.lasso.name = Ilaso
+tool.lasso.description = Dosa umuda ngesandla; okukhethiweko kuyavaleka hlangana neemphetho nakuphela ukudosa. U-Shift uyangeza, u-alt uyasusa.
+tool.lasso.history.select = Ukukhetha Ngelaso
+tool.lasso.polygonal.name = Ilaso Enamahlangothi
+tool.lasso.polygonal.description = Qhafaza ikhona ngemva kwekhona ukwakha okukhethiweko okunemiphetho enqophileko, bese uqhafaza eduze kwephuzu lokuthoma ukukovala.
+tool.lasso.polygonal.history.select = Ilaso Enamahlangothi
+tool.lasso.magnetic.name = Ilaso Yezibuthe
+tool.lasso.magnetic.description = Landela umphetho ngokulinganisa bese umuda unamathela emehlukweni onamandla eduze kwendlela.
+tool.lasso.magnetic.history.select = Ilaso Yezibuthe
+tool.lasso.magnetic.option.frequency = Ibelo Lokuphindaphinda
+
+tool.wand.name = Intonga Yomlingo
+tool.wand.description = Qhafaza ukukhetha indawo ehlangeneko yombala ofanako ongaphasi kwenkomba, ngaphakathi kwekhetho lokubekezelela -- ukubekezelela okufanako okufundwa ngu-Khulisa, Okufanako neBanga Lombala.
+tool.wand.option.contiguous = Okuhlangeneko
+tool.wand.history.select = Intonga Yomlingo
+
+tool.quick_select.name = Ukukhetha Ngokurhaba
+tool.quick_select.description = Penda phezu kwendawo bese okukhethiweko kukhula kudlule emaphikselini afanako ibhratjhi edlula phezu kwawo.
+tool.quick_select.history.select = Ukukhetha Ngokurhaba
+
+tool.object_select.name = Ukukhetha Into
+tool.object_select.description = Dosa ibhoksi lizombeleze into bese okukhethiweko kunamathela entweni etholakala ngaphakathi kwalo.
+tool.object_select.history.select = Ukukhetha Into

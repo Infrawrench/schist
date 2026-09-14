@@ -1,0 +1,24 @@
+# Դեֆորմացման գործիքները՝ Հեղուկացում, Տիկնիկային դեֆորմացում և Հեռանկարային կետ
+
+tool.liquify.name = Հեղուկացում
+tool.liquify.description = Մեծ վրձնի տակ գտնվող փիքսելները հրեք, պտտեք, սեղմեք կամ փքեք․ ռեժիմի ընտրանքը որոշում է գործողությունը։ Դեֆորմացումը կուտակվում է ցանցում և հաստատելիս կիրառվում է շերտի վրա։
+tool.liquify.option.tool = Գործիք
+tool.liquify.choice.forward_warp = Առաջ ուղղված դեֆորմացում
+tool.liquify.choice.reconstruct = Վերականգնում
+tool.liquify.choice.twirl_cw = Պտտել ժամացույցի սլաքի ուղղությամբ
+tool.liquify.choice.twirl_ccw = Պտտել ժամացույցի սլաքին հակառակ
+tool.liquify.choice.pucker = Սեղմել
+tool.liquify.choice.bloat = Փքել
+tool.liquify.choice.push_left = Հրել ձախ
+tool.liquify.history.liquify = Հեղուկացում
+
+tool.puppet_warp.name = Տիկնիկային դեֆորմացում
+tool.puppet_warp.description = Սեղմելով ամրացրեք շերտը մի քանի կետերում, ապա քաշեք կետերից մեկը․ ցանցը կծռվի ամրակների շուրջ՝ կոշտ կամ ազատ՝ ըստ «Կոշտություն» ընտրանքի։ Հաստատելիս փոփոխությունը կիրառվում է։
+tool.puppet_warp.option.stiffness = Կոշտություն
+tool.puppet_warp.history.puppet_warp = Տիկնիկային դեֆորմացում
+
+tool.vanishing_point.name = Հեռանկարային կետ
+tool.vanishing_point.description = Քաշելով հարթություն գծեք հեռանկար ունեցող առարկայի վրա, ապա ռեժիմը փոխեք «Կլոնավորում»-ի և նկարեք․ պատճենված փիքսելները կհետևեն հարթությանը՝ հեռավորության հետ փոքրանալով։
+tool.vanishing_point.choice.edit_plane = Խմբագրել հարթությունը
+tool.vanishing_point.choice.clone = Կլոնավորում
+tool.vanishing_point.history.vanishing_point = Հեռանկարային կետ

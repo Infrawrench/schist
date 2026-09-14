@@ -1,0 +1,9 @@
+{
+  "loading": "Iyalayisha…",
+  "starting": "Iyaqalisa…",
+  "webgpu": "ISchist ifuna iWebGPU, engafumanekiyo kwesi sikhangeli. IChrome/Edge 113+, iFirefox 141+ kunye neSafari 26+ ziyayixhasa.",
+  "noticeTitle": "ISchist isebenza kakuhle kakhulu njenge-app yekhompyutha",
+  "noticeBody": "Usebenzisa inguqulelo yewebhu, eyinguqulelo elula: idibanisa imifanekiso kwi-CPU kwaye ayiquki ezinye iimpawu — ii-plug-in zePhotoshop kunye nee-plug-in zabanye abavelisi, igalari yemifanekiso, iphaneli ye-AI, ukungenisa i-HEIC nokukhuphela iifonti — kwaye iifayile zigcinwa njengezinto ezikhutshelweyo. I-app yasimahla yekhompyutha ye-macOS, Windows neLinux inazo zonke ezi mpawu.",
+  "noticeLink": "Fumana i-app yekhompyutha.",
+  "ok": "Kulungile"
+}

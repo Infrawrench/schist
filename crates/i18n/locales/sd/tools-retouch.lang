@@ -1,0 +1,23 @@
+tool.patch.name = پيچ
+tool.patch.description = عيب جي چوڌاري خاڪو ڇڪيو، پوءِ اها چونڊ صاف پڪسلن تي ڇڪيو: اتان جي بناوت عيب ۾ ٺهڪائي ويندي. پيچ موڊ طئي ڪري ٿو ته جوڙي جي ڪهڙي پاسي کي ڇڪڻو آهي.
+tool.patch.option.patch = پيچ
+tool.patch.choice.source = ذريعو
+tool.patch.choice.destination = منزل
+tool.patch.history.patch = پيچ
+
+tool.content_aware_move.name = مواد کان باخبر منتقلي
+tool.content_aware_move.description = چونڊيل شيءِ کي ڇڪي ٻي جاءِ تي آڻيو؛ ان جي ڇڏيل خال کي چوڌاري مواد مان ڀريو ويندو. وڌائڻ واري موڊ ۾ شيءِ منتقل ٿيڻ بدران ڊگهي ڪئي ويندي.
+tool.content_aware_move.choice.move = منتقل ڪريو
+tool.content_aware_move.choice.extend = وڌايو
+tool.content_aware_move.history.move = مواد کان باخبر منتقلي
+
+tool.red_eye.name = ڳاڙهي اک
+tool.red_eye.description = فليش سبب پُتلي ۾ آيل ڳاڙهاڻ ختم ڪرڻ لاءِ پُتلي تي ڪلڪ ڪريو.
+tool.red_eye.option.pupil_size = پُتلي جي ماپ
+tool.red_eye.option.darken = اونداهو ڪريو
+tool.red_eye.history.red_eye = ڳاڙهي اک
+
+tool.magic_eraser.name = جادوئي رٻڙ
+tool.magic_eraser.description = اوزار جي برداشت اندر پوائنٽر هيٺان ساڳئي رنگ وارو علائقو ڊاهڻ لاءِ ڪلڪ ڪريو—اهو ڪلڪ سان ڳنڍيل علائقو هجي يا پرت ۾ هر هنڌ.
+tool.magic_eraser.option.contiguous = ڳنڍيل
+tool.magic_eraser.history.erase = جادوئي رٻڙ

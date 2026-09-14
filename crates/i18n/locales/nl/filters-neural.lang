@@ -1,0 +1,153 @@
+# Neurale filters, Camera Raw, Vervagingsgalerie en lensfilters.
+filter.neural.param.center_x = Midden X
+filter.neural.param.center_y = Midden Y
+filter.neural.param.direction = Richting
+filter.neural.param.transition = Overgang
+filter.neural.param.detail = Detail
+filter.neural.param.eyes = Ogen
+filter.neural.msg.using_model = {model} wordt gebruikt · {license}.
+filter.neural.msg.get_model = Download dit via Filter ▸ Neural Filters ▸ Modellen beheren.
+
+filter.camera_raw.name = Camera Raw-filter
+filter.camera_raw.param.temperature = Temperatuur
+filter.camera_raw.param.tint = Tint
+filter.camera_raw.param.highlights = Hooglichten
+filter.camera_raw.param.shadows = Schaduwen
+filter.camera_raw.param.whites = Witte tinten
+filter.camera_raw.param.blacks = Zwarte tinten
+filter.camera_raw.param.clarity = Helderheid
+filter.camera_raw.param.dehaze = Nevel verwijderen
+filter.camera_raw.param.vibrance = Levendigheid
+filter.camera_raw.param.sharpening = Verscherpen
+filter.camera_raw.param.noise = Ruisreductie
+filter.camera_raw.param.vignette = Vignet
+
+filter.lens_correction.name = Lenscorrectie
+filter.lens_correction.param.distortion = Vervorming verwijderen
+filter.lens_correction.param.red = Rode/cyaan rand corrigeren
+filter.lens_correction.param.blue = Blauwe/gele rand corrigeren
+filter.lens_correction.param.vignette = Hoeveelheid vignet
+filter.lens_correction.param.midpoint = Middelpunt vignet
+filter.lens_correction.param.vertical = Verticaal perspectief
+filter.lens_correction.param.horizontal = Horizontaal perspectief
+
+filter.adaptive_wide_angle.name = Adaptieve groothoek
+filter.adaptive_wide_angle.param.projection = Correctie
+filter.adaptive_wide_angle.choice.fisheye = Vissenoog
+filter.adaptive_wide_angle.choice.perspective = Perspectief
+filter.adaptive_wide_angle.choice.full_spherical = Volledig bolvormig
+filter.adaptive_wide_angle.param.focal = Brandpuntsafstand
+filter.adaptive_wide_angle.param.crop = Uitsnijfactor
+
+filter.field_blur.name = Veld vervagen
+filter.field_blur.param.position = Scherp op
+filter.iris_blur.name = Iris vervagen
+filter.iris_blur.param.roundness = Ronding
+filter.tilt_shift.name = Tilt-shift
+filter.tilt_shift.param.position = Midden
+filter.tilt_shift.param.band = Scherpe band
+filter.spin_blur.name = Rotatievervaging
+filter.spin_blur.param.angle = Vervagingshoek
+filter.path_blur.name = Pad vervagen
+filter.path_blur.param.speed = Snelheid
+filter.path_blur.param.curve = Kromming
+filter.path_blur.param.taper = Versmalling
+
+filter.shape_blur.name = Vorm vervagen
+filter.shape_blur.choice.square = Vierkant
+filter.shape_blur.choice.diamond = Ruit
+filter.shape_blur.choice.hexagon = Zeshoek
+filter.shape_blur.choice.cross = Kruis
+filter.shape_blur.choice.ring = Ring
+filter.shape_blur.choice.star = Ster
+filter.smart_blur.name = Slim vervagen
+filter.smart_blur.choice.normal = Normaal
+filter.smart_blur.choice.edge_only = Alleen rand
+filter.smart_blur.choice.overlay_edge = Rand bedekken
+
+filter.deinterlace.name = De-interlace
+filter.deinterlace.param.field = Verwijderen
+filter.deinterlace.choice.odd_fields = Oneven velden
+filter.deinterlace.choice.even_fields = Even velden
+filter.deinterlace.param.fill = Nieuwe velden maken door
+filter.deinterlace.choice.interpolation = Interpolatie
+filter.deinterlace.choice.duplication = Duplicatie
+filter.ntsc_colors.name = NTSC-kleuren
+
+filter.neural.skin_smoothing.name = Huid vloeiend maken
+filter.neural.skin_smoothing.param.blur = Vloeiendheid
+filter.neural.skin_smoothing.param.detail = Detail behouden
+filter.neural.skin_smoothing.msg.no_model = {model} is niet geïnstalleerd — in plaats van gezichten wordt alles met een huidskleur vloeiend gemaakt.
+
+filter.neural.jpeg_artifacts.name = JPEG-artefacten verwijderen
+filter.neural.jpeg_artifacts.msg.no_model = {model} is niet geïnstalleerd — in plaats daarvan wordt het raster van 8 pixels vloeiend gemaakt.
+
+filter.neural.colorize.name = Inkleuren
+filter.neural.colorize.param.warmth = Warmte
+filter.neural.colorize.msg.no_model = {model} is niet geïnstalleerd — in plaats daarvan wordt op basis van luminantie getint.
+
+filter.neural.super_zoom.name = Superzoom
+filter.neural.super_zoom.msg.no_model = {model} is niet geïnstalleerd — in plaats daarvan wordt randgerichte verscherping gebruikt.
+
+filter.neural.style_transfer.name = Stijloverdracht
+filter.neural.style_transfer.choice.mosaic = Mozaïek
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Geen stijlmodellen geïnstalleerd — alleen kleur wordt overgedragen. Download ze via Filter ▸ Neural Filters ▸ Modellen beheren.
+filter.neural.style_transfer.msg.installed = Geïnstalleerd: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Kleuroverdracht
+filter.neural.color_transfer.param.hue = Doelkleurtoon
+filter.neural.color_transfer.param.contrast = Contrast afstemmen
+filter.neural.color_transfer.msg.info = Neemt het palet over van de onderliggende laag. Zonder onderliggende laag wordt in plaats daarvan op de Doelkleurtoon gericht.
+
+filter.neural.depth_blur.name = Dieptevervaging
+filter.neural.depth_blur.param.focus = Scherpstelafstand
+filter.neural.depth_blur.param.blur = Vervagingssterkte
+filter.neural.depth_blur.msg.no_model = {model} is niet geïnstalleerd — in plaats daarvan wordt op basis van lokale scherpte scherpgesteld.
+
+filter.neural.harmonization.name = Harmonisatie
+filter.neural.harmonization.param.tone = Tint afstemmen
+filter.neural.harmonization.msg.info = Stemt deze laag af op alles wat eronder ligt. Zonder onderliggende laag is er niets om op af te stemmen en doet dit niets.
+
+filter.neural.landscape_mixer.name = Landschapsmixer
+filter.neural.landscape_mixer.param.bands = Dieptebanden
+filter.neural.landscape_mixer.msg.with_depth = Neemt het palet over van de onderliggende laag en stemt dit band voor band af met Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Neemt het palet over van de onderliggende laag. Installeer Depth (Depth Blur) om lucht op lucht en grond op grond af te stemmen in plaats van de afbeelding als geheel.
+
+filter.neural.photo_restoration.name = Fotorestauratie
+filter.neural.photo_restoration.param.enhance = Foto verbeteren
+filter.neural.photo_restoration.param.scratches = Krassen verminderen
+filter.neural.photo_restoration.param.tone = Tint herstellen
+filter.neural.photo_restoration.msg.no_model = Opschonen zonder model.
+filter.neural.photo_restoration.msg.using_deblock = Deblock wordt gebruikt · getraind voor Schist.
+filter.neural.photo_restoration.msg.using_detail = Detail wordt gebruikt · getraind voor Schist.
+filter.neural.photo_restoration.msg.using_both = Deblock en Detail worden gebruikt · getraind voor Schist.
+
+filter.neural.photo_to_sketch.name = Foto naar schets
+filter.neural.photo_to_sketch.param.weight = Lijndikte
+filter.neural.photo_to_sketch.param.shading = Schaduwwerking
+
+filter.neural.face_to_caricature.name = Gezicht naar karikatuur
+filter.neural.face_to_caricature.param.mouth = Mond
+filter.neural.face_to_caricature.param.head = Hoofd
+filter.neural.face_to_caricature.msg.no_model = {model} is niet geïnstalleerd, dus dit doet niets — er is niets om te karikaturiseren.
+
+filter.neural.smart_portrait.name = Slim portret
+filter.neural.smart_portrait.param.happiness = Blijdschap
+filter.neural.smart_portrait.param.surprise = Verrassing
+filter.neural.smart_portrait.param.age = Gezichtsleeftijd
+filter.neural.smart_portrait.param.gaze = Blik
+filter.neural.smart_portrait.param.light = Lichtrichting
+filter.neural.smart_portrait.msg.no_model = {model} is niet geïnstalleerd, dus dit doet niets — er is geen gezicht om mee te werken.
+
+filter.neural.makeup_transfer.name = Make-upoverdracht
+filter.neural.makeup_transfer.param.lips = Lippen
+filter.neural.makeup_transfer.param.skin = Huidskleur
+filter.neural.makeup_transfer.msg.info = Neemt de make-up over van een gezicht op de onderliggende laag. Alleen de kleur, niet de textuur.
+filter.neural.makeup_transfer.msg.no_model = {model} is niet geïnstalleerd, dus dit doet niets.
+
+filter.neural.sketch_to_portrait.name = Schets naar portret
+filter.neural.sketch_to_portrait.param.detail = Lijnen behouden
+filter.neural.sketch_to_portrait.msg.with_face = Getraind om Foto naar schets van deze toepassing zelf in te vullen. Werkt op het gevonden gezicht.
+filter.neural.sketch_to_portrait.msg.no_face = Getraind om Foto naar schets van deze toepassing zelf in te vullen. Installeer Faces (Skin Smoothing), zodat het op het gezicht werkt in plaats van op de hele selectie.

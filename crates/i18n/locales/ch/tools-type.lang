@@ -1,0 +1,26 @@
+# Type
+tool.type.name = Type
+tool.type.description = Klik para un tutuhon un text layer guihe, pat gi un layer ni gaige esta para un edita. Mientras aktibu i ineditan, i tool ha risibi i direttu na key input (na'hålom i karakter siha komu key input), ya i komit ha render i layer yan ha huchom i ineditan.
+
+# Option siha
+tool.type.option.align = Align
+tool.type.option.leading = Leading
+tool.type.option.tracking = Tracking
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligature siha
+tool.type.option.discretionary_ligatures = Opsionåt na ligature siha
+tool.type.option.small_caps = Dikike' na letra mayuskula
+tool.type.option.on_path = Gi aktibu na path
+tool.type.option.path_offset = Inapåttan path
+
+# Style
+tool.type.choice.regular = Regulåt
+tool.type.choice.bold = Matkilu
+tool.type.choice.italic = Italic
+tool.type.choice.bold_italic = Matkilu Italic
+
+# History
+tool.type.history.new_layer = Nuebu na text layer
+tool.type.history.edit = Edita testu
+tool.type.history.discard = Dingo i testu
+tool.type.history.discard_empty = Dingo i tåya' kontenidon testu

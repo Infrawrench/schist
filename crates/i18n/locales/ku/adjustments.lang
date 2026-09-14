@@ -1,0 +1,20 @@
+# Layerên sererastkirinê û navên fermanên Wêne ▸ Sererastkirin.
+adjustment.levels.name = Ast
+adjustment.curves.name = Kevan
+adjustment.hue_saturation.name = Reng/Têrbûn
+adjustment.brightness_contrast.name = Ronahî/Kontrast
+adjustment.black_white.name = Reş û Spî
+adjustment.solid_color.name = Rengê Yekreng
+adjustment.gradient_fill.name = Dagirtina Gradientê
+adjustment.pattern_fill.name = Dagirtina Motîfê
+adjustment.invert.name = Berevajî Bike
+adjustment.posterize.name = Posterîze Bike
+adjustment.threshold.name = Sînor
+adjustment.color_balance.name = Hevsengiya Rengan
+adjustment.vibrance.name = Zindîbûn
+adjustment.exposure.name = Ekspozîsyon
+adjustment.photo_filter.name = Fîltreya Wêneyê
+adjustment.gradient_map.name = Nexşeya Gradientê
+adjustment.selective_color.name = Rengê Hilbijartî
+adjustment.channel_mixer.name = Tevlîhevkara Kanalan
+adjustment.other.name = Sererastkirin

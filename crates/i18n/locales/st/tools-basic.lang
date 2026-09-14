@@ -1,0 +1,23 @@
+# Lisebelisoa tsa motheo: Ho Tsamaisa, Sesupa-mala, Letsoho le Katametso.
+
+tool.move.name = Tsamaisa
+tool.move.description = Hula litaba tsa mokhahlelo o sebetsang u li ise sebakeng se secha. Ha Khetha ka Boiketsetso e butsoe, ho tobetsa ho qala ka ho khetha mokhahlelo kapa sehlopha sohle se tlas'a sesupa.
+tool.move.option.auto_select = Khetha ka Boiketsetso
+tool.move.history.move_layer = Tsamaisa Mokhahlelo
+
+tool.eyedropper.name = Sesupa-mala
+tool.eyedropper.description = Nka sampole ea 'mala o tlas'a sesupa u e kenye sekwereng sa 'mala o ka pele, kapa sekwereng sa 'mala o ka morao ha alt e tšoeroe. Ha u ntse u hula, sesebelisoa se tsoela pele ho nka lisampole.
+tool.eyedropper.option.sample_size = Boholo ba Sampole
+tool.eyedropper.option.sample = Sampole
+tool.eyedropper.choice.point_sample = Sampole ea Ntlha
+tool.eyedropper.choice.average_3 = Karolelano ea 3 ka 3
+tool.eyedropper.choice.average_5 = Karolelano ea 5 ka 5
+tool.eyedropper.choice.average_11 = Karolelano ea 11 ka 11
+tool.eyedropper.choice.average_31 = Karolelano ea 31 ka 31
+tool.eyedropper.choice.all_layers = Mekhahlelo Eohle
+tool.eyedropper.choice.current_layer = Mokhahlelo oa Hona Joale
+
+tool.hand.name = Letsoho
+tool.hand.description = Se tsamaisa pono ka mahlakoreng. Sebaka se bonoang ke sa fensetere, kahoo ha Schist e sebetsa e se na pontšo sesebelisoa sena ha se fetole tokomane.
+tool.zoom.name = Katametso
+tool.zoom.description = Se atametsa kapa se suthisetsa pono hole. Sebaka se bonoang ke sa fensetere, kahoo ha Schist e sebetsa e se na pontšo sesebelisoa sena ha se fetole tokomane.

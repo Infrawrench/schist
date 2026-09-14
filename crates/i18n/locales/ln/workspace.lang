@@ -1,0 +1,104 @@
+workspace.fill.gray_50 = Putulu 50%
+workspace.fill.content_aware = Kotalela makambo
+
+workspace.modify.expand = Kokólisa boponi
+workspace.modify.contract = Kokómisa boponi moke
+workspace.modify.border = Ndelo ya boponi
+workspace.modify.smooth = Koyeisa boponi pɛtɛɛ
+workspace.modify.feather = Koyeisa ndelo ya boponi pɛtɛɛ
+
+workspace.batch.target.edit = Mbongwana ya galerie (na bavɛrsio)
+workspace.batch.target.beside = Bakopi pembeni ya bafɔtɔ originale
+workspace.batch.target.folder = Bakopi na dosye…
+
+workspace.modal.image_size.title = Bonene ya elilingi
+
+workspace.docs.opening = Ezali kofungola {name}…
+workspace.docs.opened = {name} efungolami
+workspace.docs.open_failed = Kofungola elongi te: {error}
+workspace.docs.no_codec = {name} ezali formá oyo Schist ekoki kofungola te
+workspace.docs.no_exporter = Schist ekoki kobomba bafisye .{ext} te
+workspace.docs.empty_response = Serveur etindi eyano ya mpamba
+workspace.docs.heic_not_installed = Lisungi ya HEIC etyami te
+workspace.docs.heic_downloading = Ezali kozwisa lisungi ya HEIC (libheif {version})…
+workspace.docs.heic_installed = Lisungi ya HEIC etyami
+workspace.docs.heic_download_failed = Kozwisa lisungi ya HEIC elongi te: {error}
+workspace.docs.placing = Ezali kotya {name}…
+workspace.docs.place_image = Kotya elilingi
+workspace.docs.placed = {name} etyami
+workspace.docs.place_failed = Kotya elongi te: {error}
+workspace.docs.saved = {name} ebombami
+workspace.docs.save_failed = Kobomba elongi te: {error}
+
+workspace.adjustment.new_layer = Kalke ya sika ya {name}
+workspace.adjustment.added = {name} ebakisami
+workspace.adjustment.settings = Mabongisi ya {name}
+workspace.adjustment.updated = {name} ezongisami sika
+workspace.adjustment.no_settings = {name} ezali na mabongisi oyo ekoki kobongisama te
+
+workspace.comps.name_n = Ebongiseli ya ba kalke {n}
+workspace.comps.captured = Ebongiseli ya ba kalke ezwami
+workspace.comps.apply = Kosalela {name}
+
+workspace.styles.layer_style = Style ya kalke
+workspace.context.rename_layer = Kopesa kalke nkombo mosusu
+workspace.commands.tool = Esaleli: {name}
+
+workspace.colormgmt.assign = Kopesa {name}
+workspace.colormgmt.assigned = {name} epesami
+workspace.colormgmt.convert_to = Kobongola na {name}
+workspace.colormgmt.converted_to = Ebongolami na {name}
+workspace.colormgmt.convert_failed = Kobongola elongi te: {error}
+workspace.colormgmt.proof_on = Balangi ya komeka efungwami
+workspace.colormgmt.proof_off = Balangi ya komeka ekangami
+
+workspace.filters.choose = Kopona
+workspace.filters.select_layer_first = Poná kalke liboso
+workspace.filters.needs_pixel_layer = Ba filtre esengeli na kalke ya bapiksele
+workspace.filters.nothing_to_filter = Eloko ya kopesa filtre ezali te
+workspace.filters.went_away = Filtre elongwe
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: kalke oyo epesaki filtre elongwe
+workspace.filters.plugin_title = Plug-in ya Photoshop
+workspace.filters.running = Ezali kosalela {name}
+workspace.filters.plugin_note = Plug-in esalaka na processus na yango moko. Soki efungoli lininisa, pesá eyano kuna mpo na kokoba.
+workspace.filters.raw_preview_developing = Ezali kobongisa botali liboso ya RAW…
+workspace.filters.raw_preview_done = Botali liboso ya RAW (demosaic ya mbangu)
+workspace.filters.raw_preview_size_changed = Bonene ya botali liboso ya RAW ebongwani: {w} × {h}
+workspace.filters.raw_preview_failed = Botali liboso ya RAW elongi te: {error}
+workspace.filters.raw_developing = Ezali kobongisa capture originale…
+workspace.filters.raw_developing_note = Ezali kosalela nzela ya demosaic oyo eleki malamu. RAW originale mpe mabongisi oyo ekotikala kobongisama nsima ya kobomba lokola PSD to PSB.
+workspace.filters.raw_document_changed = Kobongisa RAW esili nsima ya mbongwana ya dokima na yango
+workspace.filters.raw_failed = Kobongisa RAW elongi te: {error}
+workspace.filters.raw_too_wide = Elilingi ya RAW ezali na mopanzi monene koleka
+workspace.filters.raw_too_tall = Elilingi ya RAW ezali molai koleka
+workspace.filters.raw_size_changed = Bonene ya RAW ebongwani na {w} × {h}; kalke ya sikoyo ekotikala
+workspace.filters.raw_history = Kobongisa Camera Raw
+workspace.filters.raw_applied = Mbongwana ya Camera Raw esalelami (demosaic oyo eleki malamu)
+
+workspace.image_size.done = Bonene ya elilingi: {w} × {h}
+workspace.image_size.bicubic_fallback = Bonene ya elilingi: {w} × {h} — modɛlɛ {name} ekokaki kokɔta te, yango wana bicubique ezwi esika na yango
+workspace.image_size.upscaling = Ezali kokómisa monene na {name}
+workspace.image_size.upscaling_note = Ba megapiksele {mp} ezali koleka na réseau, mpe moko na moko ezwaka basegɔnde mwa mingi. Dokima ekotikala ekangami tii mosala esila.
+
+workspace.export.no_slices = Eteni ya kobimisa ezali te
+workspace.export.no_artboards = Tablo ya mosala ya kobimisa ezali te
+workspace.export.regions.one = Etando {n} ebimisami
+workspace.export.regions.other = Bitando {n} ebimisami
+workspace.export.prompt = Kobimisa lokola:
+workspace.export.done = {name} ebimisami
+workspace.export.failed = Kobimisa elongi te: {error}
+workspace.export.codec_vanished = Mobimisi azali lisusu te
+
+workspace.file_picker.choose_folder = Kopona dosye
+workspace.file_picker.type_a_name = Komá nkombo mpo na fisye
+workspace.file_picker.exists = {name} ezali; finá Kobomba lisusu mpo na kozwa esika na yango
+workspace.file_picker.tap_a_file = Finá fisye mpo na kofungola
+workspace.file_picker.pictures = Bililingi
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Bafisye oyo ezwami
+workspace.file_picker.permission_denied = Schist ezali na ndingisa ya kotánga dosye oyo te
+
+workspace.recovery.recovered_title = {title} (ezongisami)
+workspace.recovery.recovered.one = Dokima {n} ya mosala oyo ebombamaki te na session oyo eleki ezongisami
+workspace.recovery.recovered.other = Badokima {n} uta na session oyo eleki ezongisami

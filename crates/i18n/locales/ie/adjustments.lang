@@ -1,0 +1,20 @@
+# Strates de ajustation e comandes de ajustation del image.
+adjustment.levels.name = Nivelles
+adjustment.curves.name = Curves
+adjustment.hue_saturation.name = Tint/Saturation
+adjustment.brightness_contrast.name = Luciditá/Contraste
+adjustment.black_white.name = Nigri e blanc
+adjustment.solid_color.name = Solid color
+adjustment.gradient_fill.name = Gradiente-plenament
+adjustment.pattern_fill.name = Patron-plenament
+adjustment.invert.name = Inverter
+adjustment.posterize.name = Posterisar
+adjustment.threshold.name = Límit
+adjustment.color_balance.name = Balancie de colores
+adjustment.vibrance.name = Vibrantie
+adjustment.exposure.name = Exposition
+adjustment.photo_filter.name = Fotografic filtre
+adjustment.gradient_map.name = Carte de gradiente
+adjustment.selective_color.name = Selectiv color
+adjustment.channel_mixer.name = Mixor de canales
+adjustment.other.name = Ajustation

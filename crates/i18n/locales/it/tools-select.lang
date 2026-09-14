@@ -1,0 +1,37 @@
+# Modalità di combinazione della selezione
+tool.select.mode.subtract = Sottrai
+tool.select.mode.intersect = Interseca
+
+# Selezioni
+tool.marquee.rect.name = Selezione rettangolare
+tool.marquee.rect.description = Trascina per creare una selezione rettangolare. Maiusc all'inizio del trascinamento aggiunge alla selezione, Alt sottrae ed entrambi intersecano; Maiusc durante il trascinamento crea un quadrato. Un clic senza trascinare deseleziona.
+tool.marquee.ellipse.name = Selezione ellittica
+tool.marquee.ellipse.description = Trascina per creare una selezione ellittica, con le stesse combinazioni Maiusc/Alt della selezione rettangolare.
+
+# Lazo
+tool.lasso.name = Lazo
+tool.lasso.description = Trascina un contorno a mano libera; al termine del trascinamento, la selezione si chiude collegando le estremità. Maiusc aggiunge, Alt sottrae.
+tool.lasso.history.select = Selezione con lazo
+tool.lasso.polygonal.name = Lazo poligonale
+tool.lasso.polygonal.description = Fai clic su un vertice dopo l'altro per creare una selezione dai bordi rettilinei, quindi fai clic vicino al primo punto per chiuderla.
+tool.lasso.polygonal.history.select = Lazo poligonale
+tool.lasso.magnetic.name = Lazo magnetico
+tool.lasso.magnetic.description = Segui approssimativamente un bordo: il contorno aderisce al contrasto più forte vicino al tracciato.
+tool.lasso.magnetic.history.select = Lazo magnetico
+tool.lasso.magnetic.option.frequency = Frequenza
+
+# Bacchetta magica
+tool.wand.name = Bacchetta magica
+tool.wand.description = Fai clic per selezionare l'area contigua di colore simile sotto il puntatore, entro la tolleranza impostata; è la stessa tolleranza usata da Espandi, Simile e Intervallo colori.
+tool.wand.option.contiguous = Contiguo
+tool.wand.history.select = Bacchetta magica
+
+# Selezione rapida
+tool.quick_select.name = Selezione rapida
+tool.quick_select.description = Dipingi su un'area e la selezione si estende ai pixel simili attraversati dal pennello.
+tool.quick_select.history.select = Selezione rapida
+
+# Selezione oggetto
+tool.object_select.name = Selezione oggetto
+tool.object_select.description = Trascina un riquadro intorno a un oggetto: la selezione aderisce all'oggetto individuato al suo interno.
+tool.object_select.history.select = Selezione oggetto

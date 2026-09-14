@@ -1,0 +1,22 @@
+tool.liquify.name = Ukapljivanje
+tool.liquify.description = Velikim kistom gurajte, vrtložite, skupljajte ili napuhujte piksele ispod njega — opcijom načina rada birate radnju. Izobličenje se nakuplja u mreži i primjenjuje na sloj nakon potvrde.
+tool.liquify.option.tool = Alat
+tool.liquify.choice.forward_warp = Izobliči naprijed
+tool.liquify.choice.reconstruct = Rekonstruiši
+tool.liquify.choice.twirl_cw = Vrtloži u smjeru kazaljke
+tool.liquify.choice.twirl_ccw = Vrtloži suprotno od kazaljke
+tool.liquify.choice.pucker = Skupi
+tool.liquify.choice.bloat = Napuši
+tool.liquify.choice.push_left = Gurni ulijevo
+tool.liquify.history.liquify = Ukapljivanje
+
+tool.puppet_warp.name = Lutkarsko izobličenje
+tool.puppet_warp.description = Kliknite da biste pričvrstili sloj u nekoliko tačaka, a zatim povucite jednu od njih: mreža se savija oko pričvrsnih tačaka, čvrsto ili labavo, zavisno od opcije Čvrstoća. Potvrdom se promjena primjenjuje.
+tool.puppet_warp.option.stiffness = Čvrstoća
+tool.puppet_warp.history.puppet_warp = Lutkarsko izobličenje
+
+tool.vanishing_point.name = Tačka nestajanja
+tool.vanishing_point.description = Povucite ravan preko nečega prikazanog u perspektivi, zatim prebacite način rada na Kloniranje i slikajte: kopirani pikseli prate ravan i smanjuju se s udaljenošću.
+tool.vanishing_point.choice.edit_plane = Uredi ravan
+tool.vanishing_point.choice.clone = Kloniranje
+tool.vanishing_point.history.vanishing_point = Tačka nestajanja

@@ -1,0 +1,164 @@
+# Filtros neuronals, Camera Raw, galería de desenfoques y filtros d'obchectivo.
+
+# Etiquetas compartidas
+filter.neural.param.center_x = Centro X
+filter.neural.param.center_y = Centro Y
+filter.neural.param.direction = Dirección
+filter.neural.param.transition = Transición
+filter.neural.param.detail = Detalle
+filter.neural.param.eyes = Güellos
+
+# Mensaches d'os filtros con modelo
+filter.neural.msg.using_model = Se ye usando {model} · {license}.
+filter.neural.msg.get_model = Descarga-lo dende Filtro ▸ Neural Filters ▸ Chestionar modelos.
+
+# Filtro Camera Raw
+filter.camera_raw.name = Filtro Camera Raw
+filter.camera_raw.param.temperature = Temperatura
+filter.camera_raw.param.tint = Tinte
+filter.camera_raw.param.highlights = Luces
+filter.camera_raw.param.shadows = Uembras
+filter.camera_raw.param.whites = Blancos
+filter.camera_raw.param.blacks = Pretos
+filter.camera_raw.param.clarity = Claridat
+filter.camera_raw.param.dehaze = Eliminar boira
+filter.camera_raw.param.vibrance = Vivacidat
+filter.camera_raw.param.sharpening = Enfoque
+filter.camera_raw.param.noise = Reducción de rudio
+filter.camera_raw.param.vignette = Vinyeta
+
+# Corrección d'obchectivo
+filter.lens_correction.name = Corrección d'obchectivo
+filter.lens_correction.param.distortion = Eliminar distorsión
+filter.lens_correction.param.red = Corregir franja roya/cian
+filter.lens_correction.param.blue = Corregir franja azul/amariella
+filter.lens_correction.param.vignette = Cantidat de vinyeta
+filter.lens_correction.param.midpoint = Punto meyo d'a vinyeta
+filter.lens_correction.param.vertical = Perspectiva vertical
+filter.lens_correction.param.horizontal = Perspectiva horizontal
+
+# Gran angular adaptable
+filter.adaptive_wide_angle.name = Gran angular adaptable
+filter.adaptive_wide_angle.param.projection = Corrección
+filter.adaptive_wide_angle.choice.fisheye = Güello de peix
+filter.adaptive_wide_angle.choice.perspective = Perspectiva
+filter.adaptive_wide_angle.choice.full_spherical = Esferica completa
+filter.adaptive_wide_angle.param.focal = Distancia focal
+filter.adaptive_wide_angle.param.crop = Factor de retalle
+
+# Galería de desenfoques
+filter.field_blur.name = Desenfoque de campo
+filter.field_blur.param.position = Nitido en
+filter.iris_blur.name = Desenfoque d'iris
+filter.iris_blur.param.roundness = Redondez
+filter.tilt_shift.name = Basculamiento y desplazamiento
+filter.tilt_shift.param.position = Centro
+filter.tilt_shift.param.band = Banda nitida
+filter.spin_blur.name = Desenfoque de chiro
+filter.spin_blur.param.angle = Anglo de desenfoque
+filter.path_blur.name = Desenfoque de trazau
+filter.path_blur.param.speed = Velocidat
+filter.path_blur.param.curve = Curvatura
+filter.path_blur.param.taper = Estrechamiento
+
+# Desenfoque
+filter.shape_blur.name = Desenfoque de forma
+filter.shape_blur.choice.square = Quadrau
+filter.shape_blur.choice.diamond = Diamant
+filter.shape_blur.choice.hexagon = Hexagono
+filter.shape_blur.choice.cross = Cruz
+filter.shape_blur.choice.ring = Aniello
+filter.shape_blur.choice.star = Estrela
+filter.smart_blur.name = Desenfoque intelichent
+filter.smart_blur.choice.normal = Normal
+filter.smart_blur.choice.edge_only = Nomás cantos
+filter.smart_blur.choice.overlay_edge = Superponer canto
+
+# Vidio
+filter.deinterlace.name = Desentrelazar
+filter.deinterlace.param.field = Eliminar
+filter.deinterlace.choice.odd_fields = Campos imparz
+filter.deinterlace.choice.even_fields = Campos pars
+filter.deinterlace.param.fill = Crear campos nuevos por
+filter.deinterlace.choice.interpolation = Interpolación
+filter.deinterlace.choice.duplication = Duplicación
+filter.ntsc_colors.name = Colors NTSC
+
+# Filtros neuronals
+filter.neural.skin_smoothing.name = Suavizau d'a piel
+filter.neural.skin_smoothing.param.blur = Suavidat
+filter.neural.skin_smoothing.param.detail = Conservar detalle
+filter.neural.skin_smoothing.msg.no_model = {model} no ye instalau: en cuenta d'as caras, se ye suavizando tot o que tiene color de piel.
+
+filter.neural.jpeg_artifacts.name = Eliminación d'artefactos JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} no ye instalau: en cuenta d'ixo, se ye suavizando a reixeta de 8 pixels.
+
+filter.neural.colorize.name = Coloriar
+filter.neural.colorize.param.warmth = Calidez
+filter.neural.colorize.msg.no_model = {model} no ye instalau: en cuenta d'ixo, se ye tenyindo seguntes a luminancia.
+
+filter.neural.super_zoom.name = Superzoom
+filter.neural.super_zoom.msg.no_model = {model} no ye instalau: en cuenta d'ixo, s'usa enfoque adrezau por cantos.
+
+filter.neural.style_transfer.name = Transferencia d'estilo
+filter.neural.style_transfer.choice.mosaic = Mosaico
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = No i hai garra modelo d'estilo instalau: nomás se transfere a color. Descarga-los dende Filtro ▸ Neural Filters ▸ Chestionar modelos.
+filter.neural.style_transfer.msg.installed = Instalaus: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Transferencia de color
+filter.neural.color_transfer.param.hue = Tonalidat de destino
+filter.neural.color_transfer.param.contrast = Igualar contraste
+filter.neural.color_transfer.msg.info = Pren a paleta d'a capa debaixo. Si no i hai cosa debaixo, apunta enta la Tonalidat de destino.
+
+filter.neural.depth_blur.name = Desenfoque de profundidat
+filter.neural.depth_blur.param.focus = Distancia focal
+filter.neural.depth_blur.param.blur = Intensidat d'o desenfoque
+filter.neural.depth_blur.msg.no_model = {model} no ye instalau: en cuenta d'ixo, enfoca seguntes a nitidez local.
+
+filter.neural.harmonization.name = Harmonización
+filter.neural.harmonization.param.tone = Igualar ton
+filter.neural.harmonization.msg.info = Iguala ista capa con tot o que ye debaixo. Si no i hai cosa debaixo, no i hai con qué igualar-la y no fa garra cambio.
+
+filter.neural.landscape_mixer.name = Mesclador de paisaches
+filter.neural.landscape_mixer.param.bands = Bandas de profundidat
+filter.neural.landscape_mixer.msg.with_depth = Pren a paleta d'a capa debaixo y la iguala banda por banda usando Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Pren a paleta d'a capa debaixo. Instala Depth (Depth Blur) ta igualar o cielo con o cielo y o suelo con o suelo, en cuenta d'a imachen entera.
+
+filter.neural.photo_restoration.name = Restauración de fotos
+filter.neural.photo_restoration.param.enhance = Millora d'a foto
+filter.neural.photo_restoration.param.scratches = Reducción de rayaduras
+filter.neural.photo_restoration.param.tone = Restaurar ton
+filter.neural.photo_restoration.msg.no_model = Se ye limpiando sin garra modelo.
+filter.neural.photo_restoration.msg.using_deblock = Se ye usando Deblock · entrenau ta Schist.
+filter.neural.photo_restoration.msg.using_detail = Se ye usando Detail · entrenau ta Schist.
+filter.neural.photo_restoration.msg.using_both = Se son usando Deblock y Detail · entrenaus ta Schist.
+
+filter.neural.photo_to_sketch.name = De foto a esbozo
+filter.neural.photo_to_sketch.param.weight = Grosor d'a linia
+filter.neural.photo_to_sketch.param.shading = Uembreyau
+
+filter.neural.face_to_caricature.name = De cara a caricatura
+filter.neural.face_to_caricature.param.mouth = Boca
+filter.neural.face_to_caricature.param.head = Capeza
+filter.neural.face_to_caricature.msg.no_model = {model} no ye instalau, asinas que isto no fa garra cambio: no i hai cosa que caricaturizar.
+
+filter.neural.smart_portrait.name = Retrato intelichent
+filter.neural.smart_portrait.param.happiness = Felicidat
+filter.neural.smart_portrait.param.surprise = Sopresa
+filter.neural.smart_portrait.param.age = Edat facial
+filter.neural.smart_portrait.param.gaze = Mirada
+filter.neural.smart_portrait.param.light = Dirección d'a luz
+filter.neural.smart_portrait.msg.no_model = {model} no ye instalau, asinas que isto no fa garra cambio: no tiene garra cara con a qual treballar.
+
+filter.neural.makeup_transfer.name = Transferencia de maquillache
+filter.neural.makeup_transfer.param.lips = Labios
+filter.neural.makeup_transfer.param.skin = Ton d'a piel
+filter.neural.makeup_transfer.msg.info = Pren o maquillache d'una cara en a capa debaixo. A color, no a textura.
+filter.neural.makeup_transfer.msg.no_model = {model} no ye instalau, asinas que isto no fa garra cambio.
+
+filter.neural.sketch_to_portrait.name = D'esbozo a retrato
+filter.neural.sketch_to_portrait.param.detail = Conservar linias
+filter.neural.sketch_to_portrait.msg.with_face = S'ha entrenau ta emplir o filtro De foto a esbozo d'ista aplicación. Treballa sobre a cara que troba.
+filter.neural.sketch_to_portrait.msg.no_face = S'ha entrenau ta emplir o filtro De foto a esbozo d'ista aplicación. Instala Faces (Skin Smoothing) y treballará sobre a cara en cuenta d'a selección entera.

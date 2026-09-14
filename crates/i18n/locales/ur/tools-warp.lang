@@ -1,0 +1,23 @@
+# وارپ ٹولز
+tool.liquify.name = مائع بنائیں
+tool.liquify.description = بڑے برش کے نیچے پکسلز کو دھکیلیں، گھمائیں، سکیڑیں یا پھلائیں؛ موڈ کا اختیار ان میں سے عمل منتخب کرتا ہے۔ وارپ ایک جالی میں جمع ہوتا ہے اور تصدیق پر لیئر پر لاگو ہو جاتا ہے۔
+tool.liquify.option.tool = ٹول
+tool.liquify.choice.forward_warp = آگے کی جانب وارپ
+tool.liquify.choice.reconstruct = دوبارہ تشکیل دیں
+tool.liquify.choice.twirl_cw = گھڑی کی سمت گھمائیں
+tool.liquify.choice.twirl_ccw = گھڑی کے مخالف گھمائیں
+tool.liquify.choice.pucker = سکیڑیں
+tool.liquify.choice.bloat = پھلائیں
+tool.liquify.choice.push_left = بائیں دھکیلیں
+tool.liquify.history.liquify = مائع بنائیں
+
+tool.puppet_warp.name = کٹھ پتلی وارپ
+tool.puppet_warp.description = لیئر کو چند مقامات پر پن کرنے کے لیے کلک کریں، پھر ایک پن گھسیٹیں: سختی کے اختیار کے مطابق جالی پنوں کے گرد سختی یا نرمی سے مڑتی ہے۔ تصدیق سے تبدیلی لاگو ہو جاتی ہے۔
+tool.puppet_warp.option.stiffness = سختی
+tool.puppet_warp.history.puppet_warp = کٹھ پتلی وارپ
+
+tool.vanishing_point.name = نقطۂ گریز
+tool.vanishing_point.description = تناظر والی شے پر سطح گھسیٹ کر بنائیں، پھر موڈ کو کلون پر بدل کر پینٹ کریں: نقل شدہ پکسلز سطح کے مطابق چلتے اور فاصلے کے ساتھ سکڑتے ہیں۔
+tool.vanishing_point.choice.edit_plane = سطح میں ترمیم
+tool.vanishing_point.choice.clone = کلون
+tool.vanishing_point.history.vanishing_point = نقطۂ گریز

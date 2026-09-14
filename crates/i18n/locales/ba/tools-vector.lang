@@ -1,0 +1,44 @@
+# Вектор ҡоралдары.
+tool.pen.name = Перо
+tool.pen.description = Контур төҙөгөҙ: мөйөш нөктәһе өсөн сиртегеҙ, унан кәкре һыҙыҡ тотҡаларын сығарыу өсөн һөйрәгеҙ һәм ябыу өсөн тәүге нөктәгә сиртегеҙ. Раҫлау контурҙы форма ҡатламына әйләндерә.
+tool.pen.option.rubber_band = Һуҙылмалы һыҙыҡ
+tool.pen.history.fill = Контурҙы тултырыу
+tool.pen.default_path_name = Контур {n}
+tool.pen.freeform.name = Ирекле перо
+tool.pen.freeform.description = Ирекле һыҙыҡты һөйрәп һыҙығыҙ, һәм ул Яраҡлаштырыу параметрына ярашлы иркенлек менән контурға туралана.
+tool.pen.freeform.option.fit = Яраҡлаштырыу
+tool.pen.curvature.name = Кәкрелек пероһы
+tool.pen.curvature.description = Бер нисә нөктәгә сиртегеҙ, һәм контур улар аша шыма кәкре булып үтә.
+
+tool.path_select.name = Контурҙы һайлау
+tool.path_select.description = Контурҙы һайлау өсөн уға сиртегеҙ, ә тотош контурҙы күсереү өсөн һөйрәгеҙ.
+tool.direct_select.name = Туранан-тура һайлау
+tool.direct_select.description = Контурҙың формаһын үҙгәртеү өсөн айырым терәк нөктәһен йәки уның тотҡаларын һөйрәгеҙ.
+
+tool.shape.history.layer = {name} ҡатламы
+tool.shape.rect.name = Тура дүртмөйөш ҡоралы
+tool.shape.rect.label = Тура дүртмөйөш
+tool.shape.rect.description = Алғы төҫтәге тура дүртмөйөшлө форма ҡатламын һөйрәп һыҙығыҙ; ул вектор булып ҡала һәм үлсәмен үҙгәрткәндә яңынан растрлана.
+tool.shape.ellipse.name = Эллипс ҡоралы
+tool.shape.ellipse.label = Эллипс
+tool.shape.ellipse.description = Алғы төҫтәге эллипс формаһы ҡатламын һөйрәп һыҙығыҙ.
+tool.shape.line.name = Һыҙыҡ ҡоралы
+tool.shape.line.label = Һыҙыҡ
+tool.shape.line.description = Алғы төҫтәге тура һыҙыҡ формаһы ҡатламын һөйрәп һыҙығыҙ.
+tool.shape.line.option.weight = Ҡалынлыҡ
+tool.shape.line.option.arrow_start = Башы
+tool.shape.line.option.arrow_end = Аҙағы
+tool.shape.polygon.name = Күпмөйөш ҡоралы
+tool.shape.polygon.label = Күпмөйөш
+tool.shape.polygon.description = Параметрҙарҙа бирелгән яҡтар һаны менән алғы төҫтәге төҙөк күпмөйөш формаһы ҡатламын һөйрәп һыҙығыҙ.
+tool.shape.polygon.option.sides = Яҡтар
+
+tool.shape.custom.name = Махсус форма
+tool.shape.custom.label = Махсус форма
+tool.shape.custom.description = Форма параметрында һайланған әҙер формаларҙың береһен һөйрәп һыҙығыҙ.
+tool.shape.custom.choice.heart = Йөрәк
+tool.shape.custom.choice.star = Йондоҙ
+tool.shape.custom.choice.arrow = Уҡ
+tool.shape.custom.choice.lightning = Йәшен
+tool.shape.custom.choice.cross = Тәре
+tool.shape.custom.choice.speech_bubble = Телмәр болотсаһы

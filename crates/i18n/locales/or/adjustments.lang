@@ -1,0 +1,20 @@
+# ଆଡ୍‌ଜଷ୍ଟମେଣ୍ଟ ସ୍ତର ଏବଂ Image ▸ Adjustments କମାଣ୍ଡଗୁଡ଼ିକ।
+adjustment.levels.name = ସ୍ତର
+adjustment.curves.name = ବକ୍ରରେଖା
+adjustment.hue_saturation.name = ବର୍ଣ୍ଣଛଟା/ପରିପୃକ୍ତତା
+adjustment.brightness_contrast.name = ଉଜ୍ଜ୍ୱଳତା/ବୈପରୀତ୍ୟ
+adjustment.black_white.name = କଳା ଓ ଧଳା
+adjustment.solid_color.name = ଏକକ ରଙ୍ଗ
+adjustment.gradient_fill.name = ଗ୍ରେଡିଏଣ୍ଟ ପୂରଣ
+adjustment.pattern_fill.name = ପ୍ୟାଟର୍ନ ପୂରଣ
+adjustment.invert.name = ଓଲଟାନ୍ତୁ
+adjustment.posterize.name = ପୋଷ୍ଟରାଇଜ୍
+adjustment.threshold.name = ସୀମାମାନ
+adjustment.color_balance.name = ରଙ୍ଗ ସନ୍ତୁଳନ
+adjustment.vibrance.name = ରଙ୍ଗ ସଜୀବତା
+adjustment.exposure.name = ଏକ୍ସପୋଜର୍
+adjustment.photo_filter.name = ଫଟୋ ଫିଲ୍ଟର୍
+adjustment.gradient_map.name = ଗ୍ରେଡିଏଣ୍ଟ ମ୍ୟାପ୍
+adjustment.selective_color.name = ଚୟନାତ୍ମକ ରଙ୍ଗ
+adjustment.channel_mixer.name = ଚ୍ୟାନେଲ୍ ମିକ୍ସର୍
+adjustment.other.name = ଆଡ୍‌ଜଷ୍ଟମେଣ୍ଟ

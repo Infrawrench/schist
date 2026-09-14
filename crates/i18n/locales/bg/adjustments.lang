@@ -1,0 +1,20 @@
+# Коригиращи слоеве и командите Изображение ▸ Корекции.
+adjustment.levels.name = Нива
+adjustment.curves.name = Криви
+adjustment.hue_saturation.name = Нюанс/Наситеност
+adjustment.brightness_contrast.name = Яркост/Контраст
+adjustment.black_white.name = Черно-бяло
+adjustment.solid_color.name = Плътен цвят
+adjustment.gradient_fill.name = Градиентно запълване
+adjustment.pattern_fill.name = Запълване с шарка
+adjustment.invert.name = Инвертиране
+adjustment.posterize.name = Постеризация
+adjustment.threshold.name = Праг
+adjustment.color_balance.name = Баланс на цветовете
+adjustment.vibrance.name = Живост
+adjustment.exposure.name = Експонация
+adjustment.photo_filter.name = Фотофилтър
+adjustment.gradient_map.name = Карта на градиента
+adjustment.selective_color.name = Селективен цвят
+adjustment.channel_mixer.name = Смесител на канали
+adjustment.other.name = Корекция

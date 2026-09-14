@@ -1,0 +1,41 @@
+# Polokalama, fakahāʻanga sivi, fakatonutonu foʻou mo e Vulkan
+
+app.filter_gallery.title = Fakahāʻanga Sivi
+app.filter_gallery.stack = Fokotuʻunga (ngāueʻaki mei lalo ki ʻolunga)
+app.filter_gallery.no_settings = ʻOku ʻikai ha fokotuʻutuʻu ʻo e sivi ko ʻení.
+
+app.fonts.not_open_licensed = ʻoku ʻikai ʻi ha laiseni fakaava · ʻoku tatau ʻa e ngaahi fua ʻo e {substitute}
+app.fonts.missing_substituted = ʻoku pulia · ʻoku fokotuʻu ʻa e tohí ʻi ha mataʻitohi fetongi
+app.fonts.not_in_catalogue = ʻoku ʻikai ʻi he katiloki mataʻitohi fakaavá ʻa e {family}
+app.fonts.no_faces = ʻoku ʻikai ha ngaahi mataʻitohi ke download maʻá e {family}
+app.fonts.empty_response = tali ʻataʻatā
+
+app.update.unreadable_response = ʻoku ʻikai lava ke lau ʻa e talí: {error}
+app.update.no_temp_dir = ʻikai ha faile faʻoʻanga fakataimi ke download ki ai
+app.update.asset_has_path = ʻoku fakahingoa ʻe he release ʻa hono asset ʻaki ha hala
+app.update.too_big = ʻoku lahi ange ʻa e download ʻi he meʻa ʻoku tala ʻe he release
+app.update.stopped_at = naʻe tuʻu ʻa e download ʻi he byte {got} mei he {total}
+app.update.hash_mismatch = ko e hash ʻo e download ko e {got}, ka naʻe ʻikai ko e {want}
+app.update.not_in_bundle = ʻoku ʻikai ʻi loto ʻa e tatau ko ʻení ʻi ha bundle polokalama
+app.update.no_parent_dir = ʻoku ʻikai ha faile faʻoʻanga tupuʻanga ʻo e bundle polokalama
+app.update.cannot_write = ʻoku ʻikai lava ke hiki ki he {dir}
+app.update.cannot_move_aside = ʻoku ʻikai lava ke ʻunuʻi ʻa e {app} ki he tafaʻakí
+app.update.cannot_move_in = ʻoku ʻikai lava ke ʻunuʻi ʻa e bundle foʻoú ki hono tuʻuʻangá
+app.update.cannot_run_ditto = ʻoku ʻikai lava ke fakalele ʻa e /usr/bin/ditto
+app.update.unpack_failed = naʻe ʻikai lava ke fakaava ʻa e kofukofu download: {error}
+app.update.no_app_in_download = ʻoku ʻikai ha Schist.app ʻi he download
+app.update.cannot_run_codesign = ʻoku ʻikai lava ke fakalele ʻa e /usr/bin/codesign
+app.update.signature_invalid = ʻoku ʻikai lava ke fakamoʻoniʻi ʻa e signature ʻo e download: {error}
+app.update.download_unsigned = ʻoku maʻu ʻa e signature ʻo e tatau ko ʻení ka ʻoku ʻikai maʻu ia ʻe he download
+app.update.different_developer = ʻoku fakamoʻoniʻi ʻa e download ʻe ha tokotaha fakatupu polokalama kehe
+app.update.cannot_relaunch = ʻoku ʻikai lava ke kamata ʻa e meʻa toe fakalele
+app.update.not_installed_copy = naʻe ʻikai tuku heni ʻa e tatau ko ʻení ʻe he installer
+app.update.cannot_start_installer = ʻoku ʻikai lava ke kamata ʻa e installer
+app.update.platform_unsupported = ʻoku fokotuʻu ʻa e ngaahi fakatonutonu foʻou ʻi he platform ko ʻení ʻi he founga naʻe fokotuʻu ai ʻa Schist
+
+app.vulkan.no_loader = schist: ʻoku ʻikai ha loader Vulkan ʻi he system ko ʻení, ko ia ʻoku ʻikai ha meʻa ke tā ʻaki.\n\nʻOku tā ʻe Schist ʻo fakafou ʻi he Vulkan, pea ʻoku ʻikai fokotuʻu ʻa e `libvulkan.so.1`.\nʻOku fiemaʻu fakatouʻosi ʻa e loader mo ha driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ʻoku ʻikai ʻi ai ʻa e driver Vulkan ʻoku tuhu ki ai ʻa e session ko ʻení.\n\nKuo fokotuʻu ʻa e {var}, pea ko hono fokotuʻú ʻoku ne *fetongi* ʻa e kumi driver ʻa e loader\nkae ʻikai tānaki ki ai. Ko ia ko e ngaahi faile ko ʻeni ʻoku ʻikai maʻú\nko e lisi driver kotoa ia -- pea ʻoku ʻikai sio ha polokalama Vulkan ʻi he session ko ʻení\nki ha driver, tatau ai pē pe ko e hā hono lahi ʻo e ngaahi driver kuo fokotuʻú:\n\n{missing}\n    {var}={value}\n\nTuhu ia ki ha manifest ʻoku ʻi ai -- ʻoku tuku ʻe he ngaahi driver kuo fokotuʻú ʻenau manifest ʻi he\n/usr/share/vulkan/icd.d -- pe taʻefokotuʻu ia pea tuku ki he loader ke ne kumi ʻene driver.\nKapau ʻoku fokotuʻu ʻeni ʻe ha session mei ha faile fokotuʻutuʻu (ko e `env =` ʻa Hyprland, ha\nsystemd environment.d drop-in, pe ha fakamatala shell), kuo pau ke tala ʻa e liliú ʻi ai,\npea ʻoku fiemaʻu ha hū foʻou ke aʻu ʻa e liliú ki ha meʻa kuo ʻosi lele.\n
+app.vulkan.override_note = \nKuo fokotuʻu ʻa e {var} ki he {value}, pea ʻoku ne fetongi ʻa e kumi ʻa e loader:\nkapau ʻoku ʻikai ha taha ʻo e ngaahi manifest ko iá maʻá e mīsini ko ʻení, ko hono taʻefokotuʻú\nʻa e ʻuluaki meʻa ke ʻahiʻahí.\n
+app.vulkan.no_driver = schist: ʻoku ʻikai fokotuʻu ha driver Vulkan, ko ia ʻoku ʻikai ha meʻa ke tā ki ai.\n\nʻOku tā ʻe Schist ʻo fakafou ʻi he Vulkan. Kuo fokotuʻu ʻa e loader pea ʻoku ne lipooti ʻoku ʻikai ha\ndriver -- ʻoku ʻikai ha driver kuo lēsisita ʻi ha taha ʻo e ongo feituʻu ʻoku kumi aí:\n\n{dirs}\n\nʻOku tufaki makehe ʻa e loader mei he ngaahi driver, ko ia ko e meʻa angamahení ko ha\npākete pē ʻe taha ʻoku pulia.\n\nFokotuʻu ʻa e driver maʻá e GPU ʻo e mīsini ko ʻení:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nʻOku ʻi he driver NVIDIA proprietary ʻa ʻene driver Vulkan (`nvidia-utils` ʻi he Arch,\n`nvidia-driver` ʻi he Debian). ʻI ha mīsini virtual, pe ʻi ha feituʻu ʻoku ʻikai\nha driver GPU ke fokotuʻu, ko e software rasteriser ia ʻe ngāué:\n`vulkan-swrast` ʻi he Arch, ko ha konga ʻo e `mesa-vulkan-drivers` ʻi he ngaahi feituʻu kehé. ʻOku\ntuai, ka ʻoku kamata.\n{overridden}
+app.vulkan.no_device = schist: kuo fokotuʻu ha driver Vulkan ka ʻoku ʻikai ʻomi ʻe ia ha device ke tā ai.\n\nMahalo ʻoku ʻikai poupouʻi ʻe he driver ʻa e GPU ko ʻení, pe ʻoku ʻikai lava ke aʻu ki ai --\nʻi he SSH, pe ʻi loto ʻi ha container, ʻoku faʻa pulia ʻa e /dev/dri. ʻOku lipooti ʻe he\n`vulkaninfo --summary` ʻa e meʻa ʻoku sio ki ai ʻa e loader.\n\nʻOku tā ʻa e software rasteriser ʻo ʻikai fiemaʻu ha GPU, kapau ko e tuʻunga ia ʻo e\nmīsini ko ʻení: `vulkan-swrast` ʻi he Arch, ko ha konga ʻo e `mesa-vulkan-drivers`\nʻi he Debian mo e Fedora.\n
+app.vulkan.skip_hint = Ke kamata pē ʻa Schist pea tuku ke ne taʻelava ʻi heʻene founga pē ʻaʻana, fokotuʻu ʻa e {var}=1.

@@ -1,0 +1,20 @@
+# لایه‌های تنظیم و فرمان‌های Image ▸ Adjustments
+adjustment.levels.name = سطوح
+adjustment.curves.name = منحنی‌ها
+adjustment.hue_saturation.name = ته‌رنگ/اشباع
+adjustment.brightness_contrast.name = روشنایی/کنتراست
+adjustment.black_white.name = سیاه‌وسفید
+adjustment.solid_color.name = رنگ یکدست
+adjustment.gradient_fill.name = پرکردن با گرادیان
+adjustment.pattern_fill.name = پرکردن با الگو
+adjustment.invert.name = وارونه‌سازی
+adjustment.posterize.name = پوسترایز
+adjustment.threshold.name = آستانه
+adjustment.color_balance.name = تراز رنگ
+adjustment.vibrance.name = شادابی
+adjustment.exposure.name = نوردهی
+adjustment.photo_filter.name = فیلتر عکس
+adjustment.gradient_map.name = نگاشت گرادیان
+adjustment.selective_color.name = رنگ انتخابی
+adjustment.channel_mixer.name = میکسر کانال
+adjustment.other.name = تنظیم

@@ -1,0 +1,29 @@
+# Aisinas de retòca de regions : Pèça, Desplaçament adaptat al contengut, Uèlhs roges e Goma magica.
+
+# Pèça
+tool.patch.name = Pèça
+tool.patch.description = Fasètz lisar per contornejar un defaut, puèi fasètz lisar aquela seleccion sus de pixèls nets : la textura d'aquel endrech es adaptada al defaut. Lo mòde Pèça determina quin element de la parelha fasètz lisar.
+tool.patch.option.patch = Pèça
+tool.patch.choice.source = Font
+tool.patch.choice.destination = Destinacion
+tool.patch.history.patch = Pèça
+
+# Desplaçament adaptat al contengut
+tool.content_aware_move.name = Desplaçament adaptat al contengut
+tool.content_aware_move.description = Fasètz lisar un objècte seleccionat endacòm mai e lo trauc que daissa es emplenat a partir de son entorn. En mòde Espandir, l'objècte es espandit al luòc d'èsser desplaçat.
+tool.content_aware_move.choice.move = Desplaçar
+tool.content_aware_move.choice.extend = Espandir
+tool.content_aware_move.history.move = Desplaçament adaptat al contengut
+
+# Uèlhs roges
+tool.red_eye.name = Uèlhs roges
+tool.red_eye.description = Clicatz sus una pupilla per ne tirar lo roge del flash.
+tool.red_eye.option.pupil_size = Talha de la pupilla
+tool.red_eye.option.darken = Escuresir
+tool.red_eye.history.red_eye = Uèlhs roges
+
+# Goma magica
+tool.magic_eraser.name = Goma magica
+tool.magic_eraser.description = Clicatz per escafar la zòna de color semblabla jos lo puntador, dins la tolerància de l'aisina : siá la zòna contigua al clic, siá pertot dins lo calc.
+tool.magic_eraser.option.contiguous = Contigú
+tool.magic_eraser.history.erase = Goma magica

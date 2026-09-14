@@ -1,0 +1,22 @@
+tool.liquify.name = Liquefacere
+tool.liquify.description = Elementa pictoria sub penicillo magno pelle, circumage, contrahe aut infla — optio modi constituit quid fiat. Deformatio in reticulo cumulatur et, cum confirmatur, strato applicatur.
+tool.liquify.option.tool = Instrumentum
+tool.liquify.choice.forward_warp = Deformare Antrorsum
+tool.liquify.choice.reconstruct = Restituere
+tool.liquify.choice.twirl_cw = Circumagere Horologice
+tool.liquify.choice.twirl_ccw = Circumagere Contra Horologium
+tool.liquify.choice.pucker = Contrahere
+tool.liquify.choice.bloat = Inflare
+tool.liquify.choice.push_left = Sinistrorsum Pellere
+tool.liquify.history.liquify = Liquefactio
+
+tool.puppet_warp.name = Deformatio Articulata
+tool.puppet_warp.description = Preme ut stratum paucis punctis defigas, deinde unum trahe: reticulum circa clavos flectitur, rigide aut laxe prout optio Rigiditatis indicat. Confirmando applicatur.
+tool.puppet_warp.option.stiffness = Rigiditas
+tool.puppet_warp.history.puppet_warp = Deformatio Articulata
+
+tool.vanishing_point.name = Punctum Fugae
+tool.vanishing_point.description = Planum super rem perspectiva praeditam trahe, deinde modum in Clonare muta et pinge: elementa pictoria exscripta planum sequuntur et distantia minuuntur.
+tool.vanishing_point.choice.edit_plane = Planum Emendare
+tool.vanishing_point.choice.clone = Clonare
+tool.vanishing_point.history.vanishing_point = Punctum Fugae

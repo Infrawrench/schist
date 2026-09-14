@@ -1,0 +1,31 @@
+# AI-panelo kaj agentaj stato- kaj erarmesaĝoj
+ai.status.panel_shown = AI-panelo montrita
+ai.status.panel_hidden = AI-panelo kaŝita — Vido ▸ AI-panelo ({shortcut}) remontras ĝin
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} konektita
+ai.info.now_in_gallery = Nun en la galerio.
+ai.info.now_in_editor = Nun en la redaktilo.
+ai.tool.shell_command = ŝela komando
+
+ai.error.cli_missing = La komandlinia interfaco de {backend} (“{binary}”) ne estas en PATH. Unue instalu ĝin kaj ensalutu per ĝi.
+ai.error.endpoint_failed = malsukcesis startigi la MCP-finpunkton: {error}
+ai.error.binding_endpoint = ligante la MCP-finpunkton
+ai.error.spawning_endpoint_thread = startigante la fadenon de la MCP-finpunkto
+ai.error.runtime_failed = malsukcesis startigi la rultempon de la agento: {error}
+ai.error.worker_failed = malsukcesis startigi la laboranton de {backend}: {error}
+ai.error.did_not_start = {backend} ne startis: {error}
+ai.error.switch_model_failed = malsukcesis ŝanĝi la modelon: {error}
+ai.error.send_failed = malsukcesis sendi la peton: {error}
+ai.error.interrupt_failed = malsukcesis interrompi: {error}
+ai.error.locating_binary = serĉante la programdosieron de Schist
+ai.error.starting_app_server = startigante la aplikaĵservilon de Codex
+ai.error.attaching_app_server = konektante al la aplikaĵservilo de Codex
+ai.error.initializing_app_server = pravalorizante la aplikaĵservilon de Codex
+ai.error.resuming_thread = daŭrigante la fadenon de Codex
+ai.error.starting_thread = startigante la fadenon de Codex
+
+ai.model.opus_detail = Plej kapabla nivelo
+ai.model.sonnet_detail = Efika por rutinaj taskoj
+ai.model.haiku_detail = Plej rapida por tujaj respondoj
+ai.model.codex_catalog = Katalogo de Codex

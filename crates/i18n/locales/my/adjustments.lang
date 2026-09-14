@@ -1,0 +1,20 @@
+# ချိန်ညှိမှုများ
+adjustment.levels.name = အလင်းအမှောင် အဆင့်များ
+adjustment.curves.name = မျဉ်းကွေးများ
+adjustment.hue_saturation.name = အရောင်သွေး/အရောင်ရင့်အား
+adjustment.brightness_contrast.name = လင်းအား/ခြားနားမှု
+adjustment.black_white.name = အဖြူနှင့်အမည်း
+adjustment.solid_color.name = တစ်ရောင်တည်း
+adjustment.gradient_fill.name = အရောင်ပြေး ဖြည့်စွက်မှု
+adjustment.pattern_fill.name = ပုံစံ ဖြည့်စွက်မှု
+adjustment.invert.name = အရောင်ပြန်လှန်ရန်
+adjustment.posterize.name = အရောင်အဆင့် လျှော့ရန်
+adjustment.threshold.name = အပိုင်းအခြားသတ်မှတ်ချက်
+adjustment.color_balance.name = အရောင်ညီမျှမှု
+adjustment.vibrance.name = အရောင်တောက်ပမှု
+adjustment.exposure.name = အလင်းရရှိမှု
+adjustment.photo_filter.name = ဓာတ်ပုံ အရောင်စစ်
+adjustment.gradient_map.name = အရောင်ပြေး မြေပုံ
+adjustment.selective_color.name = ရွေးချယ်အရောင်
+adjustment.channel_mixer.name = ချန်နယ် ရောစပ်ကိရိယာ
+adjustment.other.name = ချိန်ညှိမှု

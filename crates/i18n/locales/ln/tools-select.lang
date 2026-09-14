@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Kokitisa
+tool.select.mode.intersect = Kokutana
+
+tool.marquee.rect.name = Eponeli ya rektangle
+tool.marquee.rect.description = Benda mpo na kopona etando ya rektangle. Soki osimbi Shift na ebandeli ya kobenda, ebakisaka na eteni eponami; alt elongolaka; mpe nyonso mibale etikaka kaka esika oyo ekutani. Soki osimbi Shift ntango ozali kobenda, ekómisaka yango kare. Soki ofini kasi obendi te, boponi elongwaka.
+tool.marquee.ellipse.name = Eponeli ya elipse
+tool.marquee.ellipse.description = Benda mpo na kopona etando ya elipse; Shift mpe alt esangisaka yango ndenge moko na eponeli ya rektangle.
+
+tool.lasso.name = Laso
+tool.lasso.description = Benda molɔngɔ na lobɔkɔ; ntango kobenda esili, boponi ekangamaka kati na bansuka mibale. Shift ebakisaka, alt elongolaka.
+tool.lasso.history.select = Kopona na laso
+tool.lasso.polygonal.name = Laso ya poligone
+tool.lasso.polygonal.description = Finá nsɔngɛ nsima ya nsɔngɛ mpo na kosala boponi ya mindelo ya semba, mpe finá pene na pwɛ ya liboso mpo na kokanga yango.
+tool.lasso.polygonal.history.select = Laso ya poligone
+tool.lasso.magnetic.name = Laso magnetike
+tool.lasso.magnetic.description = Landá ndelo pene mpe molɔngɔ ekokangama na esika ya bokeseni ya makasi koleka pene na nzela.
+tool.lasso.magnetic.history.select = Laso magnetike
+tool.lasso.magnetic.option.frequency = Fréquence
+
+tool.wand.name = Lingenda ya maji
+tool.wand.description = Finá mpo na kopona etando oyo ekangani mpe ezali na langi ekokani na oyo ezali na nse ya elembo, na kati ya toleransi — toleransi kaka oyo Kokólisa, Oyo ekokani mpe Etando ya balangi etángaka.
+tool.wand.option.contiguous = Oyo ekangani
+tool.wand.history.select = Lingenda ya maji
+
+tool.quick_select.name = Boponi ya mbangu
+tool.quick_select.description = Pakolá etando moko mpe boponi ekokóla na kati ya bapiksele oyo ekokani mpe brɔsi ezali kolekela.
+tool.quick_select.history.select = Boponi ya mbangu
+
+tool.object_select.name = Kopona eloko
+tool.object_select.description = Benda sanduku zingazinga ya eloko mpe boponi ekokangama na eloko oyo ezwami na kati.
+tool.object_select.history.select = Kopona eloko

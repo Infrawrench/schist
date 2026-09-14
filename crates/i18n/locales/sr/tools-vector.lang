@@ -1,0 +1,44 @@
+# Векторске алатке.
+tool.pen.name = Перо
+tool.pen.description = Направите путању: кликните за угаону тачку, превуците да извучете ручице криве из ње и кликните на прву тачку да затворите путању. Потврда претвара путању у слој облика.
+tool.pen.option.rubber_band = Еластична трака
+tool.pen.history.fill = Попуна путање
+tool.pen.default_path_name = Путања {n}
+tool.pen.freeform.name = Слободноручно перо
+tool.pen.freeform.description = Превуците слободноручну линију и она ће бити уклопљена у путању, са прецизношћу коју одређује опција Уклапање.
+tool.pen.freeform.option.fit = Уклапање
+tool.pen.curvature.name = Перо за кривине
+tool.pen.curvature.description = Кликните низ тачака и путања ће се глатко закривити кроз њих.
+
+tool.path_select.name = Избор путање
+tool.path_select.description = Кликните на путању да је изаберете, а затим превуците да померите целу путању.
+tool.direct_select.name = Директни избор
+tool.direct_select.description = Превуците појединачну сидрену тачку или њене ручице да преобликујете путању око ње.
+
+tool.shape.history.layer = Слој „{name}“
+tool.shape.rect.name = Алатка Правоугаоник
+tool.shape.rect.label = Правоугаоник
+tool.shape.rect.description = Превуците да направите слој правоугаоног облика у боји предњег плана; остаје векторски и поново се растеризује при промени величине.
+tool.shape.ellipse.name = Алатка Елипса
+tool.shape.ellipse.label = Елипса
+tool.shape.ellipse.description = Превуците да направите слој елиптичног облика у боји предњег плана.
+tool.shape.line.name = Алатка Линија
+tool.shape.line.label = Линија
+tool.shape.line.description = Превуците да направите слој праве линије у боји предњег плана.
+tool.shape.line.option.weight = Дебљина
+tool.shape.line.option.arrow_start = Почетак
+tool.shape.line.option.arrow_end = Крај
+tool.shape.polygon.name = Алатка Полигон
+tool.shape.polygon.label = Полигон
+tool.shape.polygon.description = Превуците да направите слој правилног полигона у боји предњег плана, са бројем страница задатим у опцијама.
+tool.shape.polygon.option.sides = Странице
+
+tool.shape.custom.name = Прилагођени облик
+tool.shape.custom.label = Прилагођени облик
+tool.shape.custom.description = Превуците да направите један од уграђених унапред подешених облика, изабран опцијом Облик.
+tool.shape.custom.choice.heart = Срце
+tool.shape.custom.choice.star = Звезда
+tool.shape.custom.choice.arrow = Стрелица
+tool.shape.custom.choice.lightning = Муња
+tool.shape.custom.choice.cross = Крст
+tool.shape.custom.choice.speech_bubble = Облачић говора

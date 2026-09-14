@@ -1,0 +1,9 @@
+{
+  "loading": "Lastar …",
+  "starting": "Startar …",
+  "webgpu": "Schist treng WebGPU, som denne nettlesaren ikkje tilbyr. Chrome/Edge 113+, Firefox 141+ og Safari 26+ gjer det.",
+  "noticeTitle": "Schist fungerer best som skrivebordsapp",
+  "noticeBody": "Du brukar nettversjonen, som er ei lettare utgåve: Ho set saman biletet på prosessoren og manglar nokre funksjonar – Photoshop-programtillegg og programtillegg frå tredjepartar, biletgalleri, KI-panelet, HEIC-import og nedlasting av skrifter – og filer vert lagra som nedlastingar. Den gratis skrivebordsappen for macOS, Windows og Linux har alt dette.",
+  "noticeLink": "Hent skrivebordsappen.",
+  "ok": "OK"
+}

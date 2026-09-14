@@ -1,0 +1,27 @@
+# Markeringsværktøjer.
+tool.select.mode.subtract = Træk fra
+tool.select.mode.intersect = Gennemskær
+tool.marquee.rect.name = Rektangulær markeringsramme
+tool.marquee.rect.description = Træk en rektangulær markering ud. Skift ved starten føjer til markeringen, Alt trækker fra, og begge laver en gennemskæring. Skift under trækket gør den kvadratisk. Et klik uden træk fravælger.
+tool.marquee.ellipse.name = Elliptisk markeringsramme
+tool.marquee.ellipse.description = Træk en elliptisk markering ud med samme kombination af Skift og Alt som den rektangulære markeringsramme.
+tool.lasso.name = Lasso
+tool.lasso.description = Træk en fri kontur; markeringen lukkes mellem enderne, når trækket slutter. Skift føjer til, og Alt trækker fra.
+tool.lasso.history.select = Lassomarkering
+tool.lasso.polygonal.name = Polygonlasso
+tool.lasso.polygonal.description = Klik fra hjørne til hjørne for at opbygge en markering med lige kanter, og klik nær det første punkt for at lukke den.
+tool.lasso.polygonal.history.select = Polygonlasso
+tool.lasso.magnetic.name = Magnetisk lasso
+tool.lasso.magnetic.description = Følg en kant omtrentligt, så konturen fastgøres til den stærkeste kontrast nær kurven.
+tool.lasso.magnetic.history.select = Magnetisk lasso
+tool.lasso.magnetic.option.frequency = Frekvens
+tool.wand.name = Tryllestav
+tool.wand.description = Klik for inden for tolerancen at vælge det sammenhængende område med en lignende farve under markøren. Samme tolerance bruges af Udvid, Lignende og Farveområde.
+tool.wand.option.contiguous = Sammenhængende
+tool.wand.history.select = Tryllestav
+tool.quick_select.name = Hurtig markering
+tool.quick_select.description = Mal over et område, så markeringen vokser gennem de lignende pixels, penslen passerer.
+tool.quick_select.history.select = Hurtig markering
+tool.object_select.name = Objektmarkering
+tool.object_select.description = Træk en ramme omkring et objekt, så markeringen fastgøres til objektet inden i rammen.
+tool.object_select.history.select = Objektmarkering

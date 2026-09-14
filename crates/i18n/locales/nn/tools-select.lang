@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Trekk frå
+tool.select.mode.intersect = Snitt
+
+tool.marquee.rect.name = Rektangulær markeringsramme
+tool.marquee.rect.description = Dra ut eit rektangulært utval. Held du Shift inne når du byrjar å dra, legg du til i utvalet; Alt trekkjer frå, og begge tastane lagar eit snitt. Shift medan du dreg, gjer utvalet kvadratisk. Eit klikk utan draging opphevar utvalet.
+tool.marquee.ellipse.name = Elliptisk markeringsramme
+tool.marquee.ellipse.description = Dra ut eit elliptisk utval. Shift og Alt kombinerer det med det eksisterande utvalet på same måte som for den rektangulære markeringsramma.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Dra eit omriss på frihand. Utvalet vert lukka mellom endane når du sluttar å dra. Shift legg til, og Alt trekkjer frå.
+tool.lasso.history.select = Lassoutval
+tool.lasso.polygonal.name = Mangekanta lasso
+tool.lasso.polygonal.description = Klikk frå hjørne til hjørne for å byggja eit utval med rette kantar, og klikk nær det første punktet for å lukka det.
+tool.lasso.polygonal.history.select = Mangekanta lasso
+tool.lasso.magnetic.name = Magnetisk lasso
+tool.lasso.magnetic.description = Følg ein kant omtrentleg, så festar omrisset seg til den sterkaste kontrasten nær bana.
+tool.lasso.magnetic.history.select = Magnetisk lasso
+tool.lasso.magnetic.option.frequency = Frekvens
+
+tool.wand.name = Tryllestav
+tool.wand.description = Klikk for å velja det samanhengande området med liknande farge under peikaren, innanfor toleranseinnstillinga. Dette er den same toleransen som Veks, Liknande og Fargeområde brukar.
+tool.wand.option.contiguous = Samanhengande
+tool.wand.history.select = Tryllestav
+
+tool.quick_select.name = Snøggval
+tool.quick_select.description = Mål over eit område, så veks utvalet gjennom dei liknande pikslane penselen går over.
+tool.quick_select.history.select = Snøggval
+
+tool.object_select.name = Objektval
+tool.object_select.description = Dra ei ramme rundt eit objekt, så festar utvalet seg til objektet som vert funne inni.
+tool.object_select.history.select = Objektval

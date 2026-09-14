@@ -1,0 +1,26 @@
+# Kayan aiki na asali: Matsarwa, Mai Ɗaukar Launi, Hannu da Zuƙowa.
+
+# Matsarwa
+tool.move.name = Matsarwa
+tool.move.description = Ja abin da ke cikin shimfiɗa mai aiki zuwa sabon wuri. Idan Zaɓa Kai Tsaye yana kunne, dannawar farko za ta zaɓi duk shimfiɗa ko cikakken rukuni da ke ƙarƙashin manuni.
+tool.move.option.auto_select = Zaɓa Kai Tsaye
+tool.move.history.move_layer = Matsar da Shimfiɗa
+
+# Mai ɗaukar launi
+tool.eyedropper.name = Mai Ɗaukar Launi
+tool.eyedropper.description = Ɗauki samfurin launin da ke ƙarƙashin manuni zuwa akwatin launi na gaba, ko zuwa akwatin launi na baya idan an riƙe alt. Ja don ci gaba da ɗaukar samfurin.
+tool.eyedropper.option.sample_size = Girman Samfuri
+tool.eyedropper.option.sample = Samfuri
+tool.eyedropper.choice.point_sample = Samfurin Aya
+tool.eyedropper.choice.average_3 = Matsakaicin 3 da 3
+tool.eyedropper.choice.average_5 = Matsakaicin 5 da 5
+tool.eyedropper.choice.average_11 = Matsakaicin 11 da 11
+tool.eyedropper.choice.average_31 = Matsakaicin 31 da 31
+tool.eyedropper.choice.all_layers = Duk Shimfiɗu
+tool.eyedropper.choice.current_layer = Shimfiɗa ta Yanzu
+
+# Hannu da Zuƙowa
+tool.hand.name = Hannu
+tool.hand.description = Yana matsar da abin kallo. Filin kallo na taga ne, saboda haka idan babu taga wannan kayan aiki ba ya canza takardar.
+tool.zoom.name = Zuƙowa
+tool.zoom.description = Yana ƙara ko rage girman abin kallo. Filin kallo na taga ne, saboda haka idan babu taga wannan kayan aiki ba ya canza takardar.

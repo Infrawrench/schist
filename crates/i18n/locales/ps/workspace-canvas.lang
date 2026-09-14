@@ -1,0 +1,40 @@
+# د سمونګر د انځورپاڼې حالت ځوابونه او د تاریخ توکي.
+
+workspace.canvas.rotate_view_degrees = لید {degrees}° څرخ
+workspace.canvas.view_reset = لید بیا وټاکل شو
+workspace.canvas.notes_on = یادښتونه چالان دي
+workspace.canvas.notes_off = یادښتونه بند دي
+workspace.canvas.rulers_on = خط‌کشونه چالان دي
+workspace.canvas.rulers_off = خط‌کشونه بند دي
+workspace.canvas.grid_on = جالۍ چالانه ده
+workspace.canvas.grid_off = جالۍ بنده ده
+workspace.canvas.guides_on = لارښودونه چالان دي
+workspace.canvas.guides_off = لارښودونه بند دي
+workspace.canvas.extras_on = اضافي توکي چالان دي
+workspace.canvas.extras_off = اضافي توکي بند دي
+workspace.canvas.snap_on = نښلول چالان دي
+workspace.canvas.snap_off = نښلول بند دي
+workspace.canvas.guides_cleared = لارښودونه پاک شول
+workspace.canvas.no_path = د کارولو لپاره لار نشته
+workspace.canvas.path_empty = لار تشه ده
+workspace.canvas.stroke_needs_selection = کرښه وهل ټاکنې ته اړتیا لري
+workspace.canvas.nothing_to_stroke = د کرښې وهلو لپاره څه نشته
+workspace.canvas.content_aware_fill_needs_selection = له منځپانګې خبر ډکول ټاکنې ته اړتیا لري
+workspace.canvas.content_aware_fill_needs_pixel_layer = له منځپانګې خبر ډکول د پېکسل طبقې ته اړتیا لري
+workspace.canvas.color_range_needs_pixel_layer = د رنګ لړۍ د پېکسل طبقې ته اړتیا لري
+workspace.canvas.nothing_to_adjust = د سمولو لپاره څه نشته
+workspace.canvas.nothing_to_trim = د څنډو پرېکولو لپاره څه نشته
+workspace.canvas.trimmed = څنډې پرې شوې
+workspace.canvas.indexed_not_supported = لړلیک شوی رنګ لا ملاتړ نه لري
+workspace.canvas.opacity_percent = ناتېرېدنه: {n}%
+
+workspace.history.stroke = کرښه وهل
+workspace.history.fill = ډکول
+workspace.history.content_aware_scale = له منځپانګې خبر کچول
+workspace.history.filter_gallery = د چاڼګرو نندارتون
+workspace.history.color_range = د رنګ لړۍ
+workspace.history.move_layer = طبقه لېږدول
+workspace.history.move_layers = طبقې لېږدول
+workspace.history.layer_opacity = د طبقې ناتېرېدنه
+workspace.history.delete_note = یادښت ړنګول
+workspace.history.edit_note = یادښت سمول

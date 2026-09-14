@@ -1,0 +1,23 @@
+# Herramientas de deformación.
+tool.liquify.name = Licuar
+tool.liquify.description = Empuja, gira, contrae o infla los píxeles bajo un pincel grande; la opción de modo determina la operación. La deformación se acumula en una malla y se aplica a la capa al confirmar.
+tool.liquify.option.tool = Herramienta
+tool.liquify.choice.forward_warp = Deformar hacia delante
+tool.liquify.choice.reconstruct = Reconstruir
+tool.liquify.choice.twirl_cw = Molinete a la derecha
+tool.liquify.choice.twirl_ccw = Molinete a la izquierda
+tool.liquify.choice.pucker = Desinflar
+tool.liquify.choice.bloat = Inflar
+tool.liquify.choice.push_left = Empujar a la izquierda
+tool.liquify.history.liquify = Licuar
+
+tool.puppet_warp.name = Deformación de posición libre
+tool.puppet_warp.description = Haz clic para fijar la capa en varios puntos y arrastra uno de ellos: la malla se curva alrededor de los puntos con la rigidez indicada por la opción Rigidez. Al confirmar se aplica la deformación.
+tool.puppet_warp.option.stiffness = Rigidez
+tool.puppet_warp.history.puppet_warp = Deformación de posición libre
+
+tool.vanishing_point.name = Punto de fuga
+tool.vanishing_point.description = Traza un plano sobre un elemento con perspectiva, cambia el modo a Clonar y pinta: los píxeles copiados siguen el plano y se reducen con la distancia.
+tool.vanishing_point.choice.edit_plane = Editar plano
+tool.vanishing_point.choice.clone = Clonar
+tool.vanishing_point.history.vanishing_point = Punto de fuga

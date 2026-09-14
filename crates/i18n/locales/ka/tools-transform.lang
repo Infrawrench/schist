@@ -1,0 +1,31 @@
+# თავისუფალი გარდაქმნა, მონიშნულის გარდაქმნა და ჩამოჭრა, აგრეთვე ინტერპოლაციის სახელები.
+
+# თავისუფალი გარდაქმნა
+tool.transform.name = თავისუფალი გარდაქმნა
+tool.transform.description = თავისუფალი გარდაქმნა. გააქტიურებისას აქტიური ფენის გარშემო გარდაქმნის ჩარჩო იხსნება: მასშტაბის შესაცვლელად კუთხე გადაათრიეთ, მოსაბრუნებლად — კუთხის გარეთ, ხოლო დასახრელად — კიდე. დადასტურებამდე (Enter) არაფერი ჩაიწერება, გაუქმებისას (Escape) კი ფენა საწყის მდგომარეობას დაუბრუნდება.
+tool.transform.option.interpolation = ინტერპოლაცია
+tool.transform.history.transform = თავისუფალი გარდაქმნა
+tool.transform.history.image_size = გამოსახულების ზომა
+tool.transform.history.canvas_size = ტილოს ზომა
+
+# მონიშნულის გარდაქმნა
+tool.transform.selection.name = მონიშნულის გარდაქმნა
+tool.transform.selection.description = მონიშნულის გარდაქმნა: იგივე ჩარჩოა, თუმცა მონიშნული უბნის შიგნით პიქსელების ნაცვლად მონიშვნის კონტური გადაადგილდება. დასასრულებლად დაადასტურეთ ან გააუქმეთ.
+tool.transform.selection.history.transform = მონიშნულის გარდაქმნა
+
+# კლასიკური ხელახალი დისკრეტიზაციის ფილტრები
+tool.transform.resample.nearest_neighbor = უახლოესი მეზობელი
+tool.transform.resample.bilinear = ბილინეური
+tool.transform.resample.bicubic = ბიკუბური
+
+# ჩამოჭრა
+tool.crop.name = ჩამოჭრა
+tool.crop.description = შემოხაზეთ შესანარჩუნებელი უბანი და მოარგეთ მისი სახელურები; დადასტურებისას (Enter) დოკუმენტი ამ უბნამდე ჩამოიჭრება, გაუქმებისას (Escape) კი უცვლელი დარჩება.
+tool.crop.option.ratio = თანაფარდობა
+tool.crop.option.delete_cropped = ჩამოჭრილი პიქსელების წაშლა
+tool.crop.choice.unconstrained = შეუზღუდავი
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = ჩამოჭრა

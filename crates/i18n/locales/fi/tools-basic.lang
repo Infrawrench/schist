@@ -1,0 +1,20 @@
+# Perustyökalut: Siirto, Pipetti, Käsi ja Zoomaus.
+tool.move.name = Siirto
+tool.move.description = Vedä aktiivisen tason sisältö uuteen sijaintiin. Kun Automaattinen valinta on käytössä, ensimmäinen painallus valitsee osoittimen alla olevan tason tai koko ryhmän.
+tool.move.option.auto_select = Automaattinen valinta
+tool.move.history.move_layer = Siirrä tasoa
+tool.eyedropper.name = Pipetti
+tool.eyedropper.description = Poimi osoittimen alla oleva väri edustavärin väriruutuun tai taustavärin ruutuun, kun Alt on painettuna. Väriä poimitaan jatkuvasti vedettäessä.
+tool.eyedropper.option.sample_size = Näytteen koko
+tool.eyedropper.option.sample = Näyte
+tool.eyedropper.choice.point_sample = Pistenäyte
+tool.eyedropper.choice.average_3 = Keskiarvo 3 × 3
+tool.eyedropper.choice.average_5 = Keskiarvo 5 × 5
+tool.eyedropper.choice.average_11 = Keskiarvo 11 × 11
+tool.eyedropper.choice.average_31 = Keskiarvo 31 × 31
+tool.eyedropper.choice.all_layers = Kaikki tasot
+tool.eyedropper.choice.current_layer = Nykyinen taso
+tool.hand.name = Käsi
+tool.hand.description = Panoroi näkymää. Näkymä kuuluu ikkunalle, joten ilman graafista käyttöliittymää työkalu ei muuta dokumenttia.
+tool.zoom.name = Zoomaus
+tool.zoom.description = Zoomaa näkymää. Näkymä kuuluu ikkunalle, joten ilman graafista käyttöliittymää työkalu ei muuta dokumenttia.

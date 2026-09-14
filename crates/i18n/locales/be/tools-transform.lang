@@ -1,0 +1,32 @@
+# Свабоднае трансфармаванне, трансфармаванне вылучэння і кадраванне,
+# а таксама назвы інтэрпаляцыі і запісы гісторыі змены памеру.
+
+# Свабоднае трансфармаванне
+tool.transform.name = Свабоднае трансфармаванне
+tool.transform.description = Свабоднае трансфармаванне. Пасля актывацыі вакол актыўнага пласта з'яўляецца рамка: перацягніце вугал, каб змяніць маштаб, перацягніце па-за рамкай, каб павярнуць, або перацягніце край, каб нахіліць. Змены не запісваюцца да пацвярджэння (Enter), а скасаванне (Escape) вяртае пласт у папярэдні стан.
+tool.transform.option.interpolation = Інтэрпаляцыя
+tool.transform.history.transform = Свабоднае трансфармаванне
+tool.transform.history.image_size = Памер відарыса
+tool.transform.history.canvas_size = Памер палатна
+
+# Трансфармаванне вылучэння
+tool.transform.selection.name = Трансфармаванне вылучэння
+tool.transform.selection.description = Трансфармаванне вылучэння: тая ж рамка, але яна перамяшчае контур вылучэння, а не пікселі ўнутры яго. Каб завяршыць, пацвердзіце або скасуйце дзеянне.
+tool.transform.selection.history.transform = Трансфармаванне вылучэння
+
+# Класічныя фільтры паўторнай дыскрэтызацыі
+tool.transform.resample.nearest_neighbor = Найбліжэйшы сусед
+tool.transform.resample.bilinear = Білінейная
+tool.transform.resample.bicubic = Бікубічная
+
+# Кадраванне
+tool.crop.name = Кадраванне
+tool.crop.description = Перацягваннем пазначце вобласць, якую трэба пакінуць, і адрэгулюйце яе маркеры; пацвярджэнне (Enter) абразае дакумент да гэтай вобласці, а скасаванне (Escape) пакідае яго без змен.
+tool.crop.option.ratio = Суадносіны
+tool.crop.option.delete_cropped = Выдаляць абрэзаныя пікселі
+tool.crop.choice.unconstrained = Без абмежаванняў
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Кадраванне

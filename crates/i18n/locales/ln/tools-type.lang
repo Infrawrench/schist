@@ -1,0 +1,22 @@
+tool.type.name = Makomi
+tool.type.description = Finá mpo na kobanda kalke ya makomi na esika yango, to finá kalke ya makomi oyo ezali mpo na kobongisa yango. Ntango ezali polele, esaleli ezwaka bafungola mbala moko (tindá balɛtrɛ lokola bakɔti ya klavye), mpe soki ondimi, ebimisaka kalke mpe ekangaka kobongisa.
+
+tool.type.option.align = Kobongisa na molɔngɔ
+tool.type.option.leading = Ntaka kati na milɔngɔ
+tool.type.option.tracking = Ntaka kati na balɛtrɛ
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ba ligatire
+tool.type.option.discretionary_ligatures = Ba ligatire ya kopona
+tool.type.option.small_caps = Bakapitale ya mike
+tool.type.option.on_path = Na nzela oyo ezali kosala
+tool.type.option.path_offset = Ntaka uta na nzela
+
+tool.type.choice.regular = Momesano
+tool.type.choice.bold = Makasi
+tool.type.choice.italic = Italike
+tool.type.choice.bold_italic = Makasi italike
+
+tool.type.history.new_layer = Kalke ya sika ya makomi
+tool.type.history.edit = Kobongisa makomi
+tool.type.history.discard = Kobwaka makomi
+tool.type.history.discard_empty = Kobwaka makomi ya mpamba

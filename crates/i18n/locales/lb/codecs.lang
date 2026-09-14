@@ -1,0 +1,36 @@
+# Formatnimm a Feelermeldunge vun den Importcodecs.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} gëtt decodéiert
+codec.msg.zero_sized = D'Bild huet keng Pixel
+codec.msg.assembling_document = D'Dokument gëtt zesummegesat
+
+codec.raw.msg.decoding = D'Raw-Datei gëtt decodéiert
+codec.raw.msg.developing = D'Raw-Datei gëtt entwéckelt
+codec.raw.msg.finding_preview = Déi agebett Virschau gëtt gesicht
+codec.raw.msg.decoding_preview = Déi agebett Virschau gëtt decodéiert
+codec.raw.msg.decoder_panicked = De Raw-Decoder ass bei dëser Datei ausgefall: {what}
+
+codec.affinity.import_title = Affinity-Import
+codec.affinity.flattened_preview_layer = Zesummegefouert Virschau
+codec.affinity.msg.no_preview = Et gëtt keng benotzbar agebett Virschau. Dem Affinity säin Ebenenformat ass proprietär; Schist importéiert déi zesummegefouert Virschau, déi de Fichier enthält. Dëse Fichier huet keng — späichert en nach eng Kéier an Affinity oder exportéiert en als PSD, fir all Ebenen z'importéieren.
+
+codec.heif.msg.no_library = libheif ass net disponibel ({details}). Fir HEIC opzemaachen, ass d'Bibliothéik libheif néideg (Linux: libheif1 installéieren; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — dësem libheif-Build feelt eventuell en HEVC-Decoder (op Debian/Ubuntu libheif-plugin-libde265 installéieren)
+codec.heif.msg.unknown_error = Onbekannte Feeler
+codec.heif.msg.initialising = libheif gëtt initialiséiert
+codec.heif.msg.reading_container = Den HEIF-Container gëtt gelies
+codec.heif.msg.finding_primary_image = D'Haaptbild gëtt gesicht
+codec.heif.msg.reading_icc_profile = Den ICC-Profil gëtt gelies
+codec.heif.msg.decoding_image = D'Bild gëtt decodéiert
+codec.heif.msg.checksum_mismatch = D'Kontrollzomm vu {name} stëmmt net: {expected} erwaart, {got} kritt
+codec.heif.msg.imageio_cannot_read = ImageIO konnt den HEIF-Container net liesen
+codec.heif.msg.container_empty = Den HEIF-Container enthält kee Bild
+codec.heif.msg.imageio_cannot_decode = ImageIO konnt d'Haaptbild net decodéieren

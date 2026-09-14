@@ -1,0 +1,32 @@
+# The document-furniture tools (plugins/tools-doc): artboards, slices,
+# frames, notes and counts. The frame's Shape label is common.shape.
+
+# Artboard
+tool.artboard.name = Papan Seni
+tool.artboard.description = Seret untuk membentuk papan seni: kawasan kanvas bernama yang dieksport secara berasingan. Menyeret di dalam papan seni sedia ada akan mengalihkannya.
+tool.artboard.default_name = Papan Seni {n}
+
+# Slice
+tool.slice.name = Hirisan
+tool.slice.description = Seret untuk membentuk hirisan eksport, iaitu segi empat tepat bernama pada kanvas yang dieksport sebagai imej tersendiri. Menyeret di dalam hirisan sedia ada akan mengalihkannya.
+tool.slice.default_name = Hirisan {n}
+
+# Frame
+tool.frame.name = Bingkai
+tool.frame.description = Seret untuk membentuk bingkai: lapisan segi empat tepat (atau elips) yang menutup apa-apa yang diletakkan di dalamnya.
+tool.frame.default_name = Bingkai {n}
+tool.frame.choice.rectangle = Segi Empat Tepat
+tool.frame.choice.ellipse = Elips
+tool.frame.history.frame = Bingkai
+
+# Note
+tool.note.name = Nota
+tool.note.description = Klik kawasan kosong kanvas untuk menyematkan nota di situ, dengan pengarang dan warna daripada keadaan penyunting; klik pin sedia ada untuk memilihnya dalam panel Nota.
+tool.note.history.place = Letakkan Nota
+tool.note.history.move = Alih Nota
+tool.note.history.delete = Padam Nota
+
+# Count
+tool.count.name = Kiraan
+tool.count.description = Klik untuk meletakkan penanda kiraan bernombor pada kanvas dan klik penanda sedia ada untuk membuangnya.
+tool.count.default_name = Kiraan {n}

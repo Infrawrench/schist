@@ -1,0 +1,47 @@
+# Penne
+tool.pen.name = Penna
+tool.pen.description = Crea un tracciato: fai clic per inserire un punto d'angolo, trascina per estrarne le maniglie della curva e fai clic sul primo punto per chiudere. Confermando, il tracciato diventa un livello forma.
+tool.pen.option.rubber_band = Banda elastica
+tool.pen.history.fill = Riempimento tracciato
+tool.pen.default_path_name = Tracciato {n}
+tool.pen.freeform.name = Penna mano libera
+tool.pen.freeform.description = Trascina una linea a mano libera: viene adattata a un tracciato con la precisione indicata dall'opzione Adattamento.
+tool.pen.freeform.option.fit = Adattamento
+tool.pen.curvature.name = Penna curvatura
+tool.pen.curvature.description = Fai clic su una serie di punti per creare un tracciato che li attraversa con una curva uniforme.
+
+# Frecce di selezione
+tool.path_select.name = Selezione tracciato
+tool.path_select.description = Fai clic su un tracciato per selezionarlo e trascina per spostarlo interamente.
+tool.direct_select.name = Selezione diretta
+tool.direct_select.description = Trascina un singolo punto di ancoraggio o le sue maniglie per modificare la forma del tracciato circostante.
+
+# Forme
+tool.shape.history.layer = Livello {name}
+tool.shape.rect.name = Strumento Rettangolo
+tool.shape.rect.label = Rettangolo
+tool.shape.rect.description = Trascina per creare un livello forma rettangolare con il colore di primo piano; rimane vettoriale e viene rasterizzato nuovamente quando lo si ridimensiona.
+tool.shape.ellipse.name = Strumento Ellisse
+tool.shape.ellipse.label = Ellisse
+tool.shape.ellipse.description = Trascina per creare un livello forma ellittico con il colore di primo piano.
+tool.shape.line.name = Strumento Linea
+tool.shape.line.label = Linea
+tool.shape.line.description = Trascina per creare un livello forma con una linea retta nel colore di primo piano.
+tool.shape.line.option.weight = Spessore
+tool.shape.line.option.arrow_start = Inizio
+tool.shape.line.option.arrow_end = Fine
+tool.shape.polygon.name = Strumento Poligono
+tool.shape.polygon.label = Poligono
+tool.shape.polygon.description = Trascina per creare un livello forma con un poligono regolare nel colore di primo piano, usando il numero di lati impostato nelle opzioni.
+tool.shape.polygon.option.sides = Lati
+
+# Forme personali
+tool.shape.custom.name = Forma personale
+tool.shape.custom.label = Forma personale
+tool.shape.custom.description = Trascina per creare una delle forme predefinite incorporate, scelta con l'opzione Forma.
+tool.shape.custom.choice.heart = Cuore
+tool.shape.custom.choice.star = Stella
+tool.shape.custom.choice.arrow = Freccia
+tool.shape.custom.choice.lightning = Fulmine
+tool.shape.custom.choice.cross = Croce
+tool.shape.custom.choice.speech_bubble = Fumetto

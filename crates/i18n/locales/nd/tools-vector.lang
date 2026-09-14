@@ -1,0 +1,43 @@
+tool.pen.name = Usiba
+tool.pen.description = Yakha umzila: chofoza ukuze udale iphuzu lekhona, hudula ukuze ukhiphe izibambo zamajika kulo, ubusuchofoza iphuzu lokuqala ukuze uvale. Ukwamukela kuguqula umzila ube yisendlalelo sesimo.
+tool.pen.option.rubber_band = Irabha Enwebekayo
+tool.pen.history.fill = Ukugcwalisa Umzila
+tool.pen.default_path_name = Umzila {n}
+tool.pen.freeform.name = Usiba Lwesandla
+tool.pen.freeform.description = Hudula umugqa ngesandla ukuze ulungiswe ube ngumzila, ulandele ngokuxega okutshiwo yinketho Yokulinganisa.
+tool.pen.freeform.option.fit = Linganisa
+tool.pen.curvature.name = Usiba Lwamajika
+tool.pen.curvature.description = Chofoza uchungechunge lwamaphuzu, umzila ugobe phakathi kwawo ngokubushelezi.
+
+tool.path_select.name = Ukukhetha Umzila
+tool.path_select.description = Chofoza umzila ukuze uwukhethe, ubusuhudula ukuze uhambise umzila wonke.
+tool.direct_select.name = Ukukhetha Okuqondileyo
+tool.direct_select.description = Hudula iphuzu lokubophela elilodwa kumbe izibambo zalo ukuze ulungise isimo somzila oseduze kwalo.
+
+tool.shape.history.layer = Isendlalelo se-{name}
+tool.shape.rect.name = Ithuluzi Lomgceke
+tool.shape.rect.label = Umgceke
+tool.shape.rect.description = Hudula udale isendlalelo sesimo esingumgceke ngombala wangaphambili; sihlala siyivektha njalo sidwetshwa kutsha ngamaphikseli nxa ubukhulu butshintshwa.
+tool.shape.ellipse.name = Ithuluzi Lendilinga
+tool.shape.ellipse.label = Indilinga
+tool.shape.ellipse.description = Hudula udale isendlalelo sesimo esiyindilinga ngombala wangaphambili.
+tool.shape.line.name = Ithuluzi Lomugqa
+tool.shape.line.label = Umugqa
+tool.shape.line.description = Hudula udale isendlalelo sesimo esingumugqa oqondileyo ngombala wangaphambili.
+tool.shape.line.option.weight = Ubukhulu
+tool.shape.line.option.arrow_start = Isiqalo
+tool.shape.line.option.arrow_end = Isiphetho
+tool.shape.polygon.name = Ithuluzi Lepholigoni
+tool.shape.polygon.label = Ipholigoni
+tool.shape.polygon.description = Hudula udale isendlalelo sesimo esiyipholigoni elinganayo ngombala wangaphambili, inani lezinhlangothi livela kuzinketho.
+tool.shape.polygon.option.sides = Izinhlangothi
+
+tool.shape.custom.name = Isimo Esikhethwe Nguwe
+tool.shape.custom.label = Isimo Esikhethwe Nguwe
+tool.shape.custom.description = Hudula udale esinye sezimo ezihleliwe ezakhelwe phakathi, esikhethwa ngenketho Yesimo.
+tool.shape.custom.choice.heart = Inhliziyo
+tool.shape.custom.choice.star = Inkanyezi
+tool.shape.custom.choice.arrow = Umtshoko
+tool.shape.custom.choice.lightning = Umbane
+tool.shape.custom.choice.cross = Isiphambano
+tool.shape.custom.choice.speech_bubble = Ibhaluni Yenkulumo

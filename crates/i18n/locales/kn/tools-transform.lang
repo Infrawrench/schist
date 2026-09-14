@@ -1,0 +1,31 @@
+# ಸ್ವತಂತ್ರ ರೂಪಾಂತರ, ಆಯ್ಕೆ ರೂಪಾಂತರ ಮತ್ತು ಕತ್ತರಿಸುವಿಕೆ.
+
+# ಸ್ವತಂತ್ರ ರೂಪಾಂತರ
+tool.transform.name = ಸ್ವತಂತ್ರ ರೂಪಾಂತರ
+tool.transform.description = ಸ್ವತಂತ್ರ ರೂಪಾಂತರ. ಇದನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿದಾಗ ಸಕ್ರಿಯ ಲೇಯರ್‌ನ ಸುತ್ತ ರೂಪಾಂತರ ಪೆಟ್ಟಿಗೆ ತೆರೆಯುತ್ತದೆ: ಗಾತ್ರ ಬದಲಿಸಲು ಮೂಲೆಯನ್ನು ಎಳೆಯಿರಿ, ತಿರುಗಿಸಲು ಮೂಲೆಯ ಹೊರಭಾಗವನ್ನು ಎಳೆಯಿರಿ, ಓರೆಯಾಗಿಸಲು ಅಂಚನ್ನು ಎಳೆಯಿರಿ. ದೃಢೀಕರಿಸುವವರೆಗೆ (Enter) ಏನನ್ನೂ ಬರೆಯಲಾಗುವುದಿಲ್ಲ; ರದ್ದುಗೊಳಿಸಿದರೆ (Escape) ಲೇಯರ್ ಮೊದಲಿನ ಸ್ಥಿತಿಗೆ ಮರಳುತ್ತದೆ.
+tool.transform.option.interpolation = ಮಧ್ಯಪ್ರವೇಶ
+tool.transform.history.transform = ಸ್ವತಂತ್ರ ರೂಪಾಂತರ
+tool.transform.history.image_size = ಚಿತ್ರದ ಗಾತ್ರ
+tool.transform.history.canvas_size = ಕ್ಯಾನ್ವಾಸ್ ಗಾತ್ರ
+
+# ಆಯ್ಕೆ ರೂಪಾಂತರ
+tool.transform.selection.name = ಆಯ್ಕೆ ರೂಪಾಂತರ
+tool.transform.selection.description = ಆಯ್ಕೆ ರೂಪಾಂತರ: ಇದೇ ಪೆಟ್ಟಿಗೆ, ಆದರೆ ಆಯ್ಕೆಯೊಳಗಿನ ಪಿಕ್ಸೆಲ್‌ಗಳ ಬದಲು ಆಯ್ಕೆಯ ಹೊರರೇಖೆಯನ್ನು ಸರಿಸುತ್ತದೆ. ಮುಗಿಸಲು ದೃಢೀಕರಿಸಿ ಅಥವಾ ರದ್ದುಗೊಳಿಸಿ.
+tool.transform.selection.history.transform = ಆಯ್ಕೆ ರೂಪಾಂತರ
+
+# ಸಾಂಪ್ರದಾಯಿಕ ಮರುಮಾದರಿ ಫಿಲ್ಟರ್‌ಗಳು
+tool.transform.resample.nearest_neighbor = ಸಮೀಪದ ನೆರೆಯದು
+tool.transform.resample.bilinear = ದ್ವಿರೇಖೀಯ
+tool.transform.resample.bicubic = ದ್ವಿಘನ
+
+# ಕತ್ತರಿಸು
+tool.crop.name = ಕತ್ತರಿಸು
+tool.crop.description = ಉಳಿಸಬೇಕಾದ ಪ್ರದೇಶವನ್ನು ಎಳೆದು ಅದರ ಹಿಡಿಕೆಗಳನ್ನು ಹೊಂದಿಸಿ; ದೃಢೀಕರಿಸಿದರೆ (Enter) ಡಾಕ್ಯುಮೆಂಟ್ ಅನ್ನು ಅದಕ್ಕೆ ತಕ್ಕಂತೆ ಕತ್ತರಿಸುತ್ತದೆ, ರದ್ದುಗೊಳಿಸಿದರೆ (Escape) ಅದನ್ನು ಹಾಗೆಯೇ ಬಿಡುತ್ತದೆ.
+tool.crop.option.ratio = ಅನುಪಾತ
+tool.crop.option.delete_cropped = ಕತ್ತರಿಸಿದ ಪಿಕ್ಸೆಲ್‌ಗಳನ್ನು ಅಳಿಸಿ
+tool.crop.choice.unconstrained = ನಿರ್ಬಂಧವಿಲ್ಲದೆ
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = ಕತ್ತರಿಸು

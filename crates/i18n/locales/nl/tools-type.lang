@@ -1,0 +1,23 @@
+# Het teksthulpmiddel.
+tool.type.name = Tekst
+tool.type.description = Klik om daar een tekstlaag te beginnen of klik op een bestaande laag om deze te bewerken. Zolang de bewerking openstaat, verwerkt het hulpmiddel onbewerkte toetsen (stuur tekens als toetsinvoer). Bij bevestigen wordt de laag gerenderd en de bewerking gesloten.
+
+tool.type.option.align = Uitlijnen
+tool.type.option.leading = Regelafstand
+tool.type.option.tracking = Letterspatiëring
+tool.type.option.kerning = Tekenspatiëring
+tool.type.option.ligatures = Ligaturen
+tool.type.option.discretionary_ligatures = Discretionaire ligaturen
+tool.type.option.small_caps = Kleinkapitalen
+tool.type.option.on_path = Op actief pad
+tool.type.option.path_offset = Padoffset
+
+tool.type.choice.regular = Normaal
+tool.type.choice.bold = Vet
+tool.type.choice.italic = Cursief
+tool.type.choice.bold_italic = Vet cursief
+
+tool.type.history.new_layer = Nieuwe tekstlaag
+tool.type.history.edit = Tekst bewerken
+tool.type.history.discard = Tekst verwerpen
+tool.type.history.discard_empty = Lege tekst verwerpen

@@ -1,0 +1,25 @@
+# Sɛbɛn yɔrɔ labɛnni baarakɛminɛnw
+tool.artboard.name = Dilancogo tabla
+tool.artboard.description = I ka dilancogo tabla sama ka bɔ: o ye kanvas yɔrɔ tɔgɔlaminen ye min bɛ bɔ a yɛrɛ ma. Ni i b'a sama tabla min kɔnɔ, a bɛ o tabla lamaga.
+tool.artboard.default_name = Dilancogo tabla {n}
+
+tool.slice.name = Tilancɛ
+tool.slice.description = I ka bɔli tilancɛ sama ka bɔ; o ye kanvas tigɛda tɔgɔlaminen ye min bɛ bɔ ja kelen kɛrɛnkɛrɛnnen na. Ni i b'a sama tilancɛ min kɔnɔ, a bɛ o lamaga.
+tool.slice.default_name = Tilancɛ {n}
+
+tool.frame.name = Kadiri
+tool.frame.description = I ka kadiri sama ka bɔ: o ye tigɛda walima birilen kaliki ye min bɛ fen min kɛ a kɔnɔ, a bɛ o datugu.
+tool.frame.default_name = Kadiri {n}
+tool.frame.choice.rectangle = Tigɛda
+tool.frame.choice.ellipse = Birilen
+tool.frame.history.frame = Kadiri
+
+tool.note.name = Kunkan
+tool.note.description = I ka kanvas lankolon digi ka kunkan da yen; sɛbɛnnikɛla ni kulɛri min bɛ sɛbɛnnikɛlan cogoya kɔnɔ, olu bɛ taamasiyɛn bila a la. I ka kunkan kurukuru min bɛ yen o digi k'o sugandi Kunkanw panɛli la.
+tool.note.history.place = Kunkan bila
+tool.note.history.move = Kunkan lamaga
+tool.note.history.delete = Kunkan bɔ
+
+tool.count.name = Jate
+tool.count.description = Digi ka jate taamasiyɛn nimɔrɔlama bila kanvas kan, ka min bɛ yen digi ka bɔ yen.
+tool.count.default_name = Jate {n}

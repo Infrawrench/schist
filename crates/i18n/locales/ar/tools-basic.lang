@@ -1,0 +1,26 @@
+# الأدوات الأساسية: النقل والقطّارة واليد والتكبير/التصغير.
+
+# النقل
+tool.move.name = نقل
+tool.move.description = اسحب محتوى الطبقة النشطة إلى موضع جديد. عند تشغيل التحديد التلقائي، يؤدي الضغط أولًا إلى اختيار الطبقة الواقعة تحت المؤشر، أو المجموعة بأكملها.
+tool.move.option.auto_select = تحديد تلقائي
+tool.move.history.move_layer = نقل الطبقة
+
+# القطّارة
+tool.eyedropper.name = القطّارة
+tool.eyedropper.description = خذ عينة من اللون تحت المؤشر وضعها في عينة المقدمة، أو في عينة الخلفية عند الضغط على Alt. يستمر أخذ العينات أثناء السحب.
+tool.eyedropper.option.sample_size = حجم العينة
+tool.eyedropper.option.sample = أخذ عينة من
+tool.eyedropper.choice.point_sample = عينة نقطة
+tool.eyedropper.choice.average_3 = متوسط 3 × 3
+tool.eyedropper.choice.average_5 = متوسط 5 × 5
+tool.eyedropper.choice.average_11 = متوسط 11 × 11
+tool.eyedropper.choice.average_31 = متوسط 31 × 31
+tool.eyedropper.choice.all_layers = كل الطبقات
+tool.eyedropper.choice.current_layer = الطبقة الحالية
+
+# اليد والتكبير/التصغير
+tool.hand.name = اليد
+tool.hand.description = حرّك العرض أفقيًا أو رأسيًا. تنتمي نافذة العرض إلى النافذة، لذلك لا تغيّر هذه الأداة المستند عند التشغيل بلا واجهة.
+tool.zoom.name = تكبير/تصغير
+tool.zoom.description = كبّر العرض أو صغّره. تنتمي نافذة العرض إلى النافذة، لذلك لا تغيّر هذه الأداة المستند عند التشغيل بلا واجهة.

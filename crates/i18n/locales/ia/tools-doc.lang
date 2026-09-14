@@ -1,0 +1,26 @@
+# Instrumentos auxiliar del documento: planchas, sectiones, quadros, notas e contadores.
+
+tool.artboard.name = Plancha de designo
+tool.artboard.description = Trahe pro crear un plancha de designo: un region nominate del tela que se exporta separatemente. Traher intra un plancha existente lo move.
+tool.artboard.default_name = Plancha de designo {n}
+
+tool.slice.name = Section
+tool.slice.description = Trahe pro crear un section de exportation, un rectangulo nominate del tela que se exporta como imagine separate. Traher intra un section existente lo move.
+tool.slice.default_name = Section {n}
+
+tool.frame.name = Quadro
+tool.frame.description = Trahe pro crear un quadro: un strato rectangular (o elliptic) que masca toto lo que es placiate in illo.
+tool.frame.default_name = Quadro {n}
+tool.frame.choice.rectangle = Rectangulo
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Quadro
+
+tool.note.name = Nota
+tool.note.description = Clicca sur un parte vacue del tela pro fixar ibi un nota, marcate con le autor e le color del stato del editor; clicca sur un marca existente pro seliger lo in le pannello Notas.
+tool.note.history.place = Placer nota
+tool.note.history.move = Mover nota
+tool.note.history.delete = Deler nota
+
+tool.count.name = Contator
+tool.count.description = Clicca pro placiar marcas de conto numerate sur le tela, e clicca sur un marca existente pro remover lo.
+tool.count.default_name = Contator {n}

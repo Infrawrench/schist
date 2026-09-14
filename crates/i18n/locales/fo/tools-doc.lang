@@ -1,0 +1,31 @@
+# The document-furniture tools (plugins/tools-doc).
+
+# Artboard
+tool.artboard.name = Tekniborð
+tool.artboard.description = Drag eitt tekniborð út: eitt navngivið øki á løriftinum, sum verður útflutt fyri seg. Um tú dregur inni í einum verandi tekniborði, verður tað flutt.
+tool.artboard.default_name = Tekniborð {n}
+
+# Slice
+tool.slice.name = Útflutningspetti
+tool.slice.description = Drag eitt útflutningspetti út, ein navngivnan rætthyrning á løriftinum, sum verður útfluttur sum sín egna mynd. Um tú dregur inni í einum verandi petti, verður tað flutt.
+tool.slice.default_name = Útflutningspetti {n}
+
+# Frame
+tool.frame.name = Rammi
+tool.frame.description = Drag ein ramma út: eitt rætthyrnt (ella ellipsulagað) lag, sum maskar alt, ið verður lagt í tað.
+tool.frame.default_name = Rammi {n}
+tool.frame.choice.rectangle = Rætthyrningur
+tool.frame.choice.ellipse = Ellipsa
+tool.frame.history.frame = Rammi
+
+# Note
+tool.note.name = Viðmerking
+tool.note.description = Klikka á tómt lørift fyri at festa eina viðmerking har, merkt við høvundi og litinum í ritstjórastøðuni; klikka á eitt verandi merki fyri at velja tað í Viðmerkingar-panelinum.
+tool.note.history.place = Set viðmerking
+tool.note.history.move = Flyt viðmerking
+tool.note.history.delete = Strika viðmerking
+
+# Count
+tool.count.name = Teljing
+tool.count.description = Klikka fyri at seta talmerkt teljimerki á løriftið, og klikka á eitt verandi merki fyri at taka tað burtur.
+tool.count.default_name = Teljing {n}

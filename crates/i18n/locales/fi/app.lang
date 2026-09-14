@@ -1,0 +1,48 @@
+# crates/app paneelien, työtilan ja valintaikkunoiden ulkopuolella:
+# suodingalleria, fonttien noutaja, päivitysohjelman virheet (näytetään
+# tilarivillä päivityksen epäonnistuessa) ja Vulkan-tarkistuksen neuvot.
+
+# Suodingalleria
+app.filter_gallery.title = Suodingalleria
+app.filter_gallery.stack = Pino (käytetään alhaalta ylöspäin)
+app.filter_gallery.no_settings = Tällä suotimella ei ole asetuksia.
+
+# Fontit: Puuttuvat fontit -ikkunan rivitiedot ja noutovirheet
+app.fonts.not_open_licensed = ei avointa lisenssiä · {substitute} vastaa sen mittoja
+app.fonts.missing_substituted = puuttuu · teksti ladotaan korvaavalla fontilla
+app.fonts.not_in_catalogue = {family} ei ole avoimessa fonttiluettelossa
+app.fonts.no_faces = fonttiperheelle {family} ei ole ladattavia leikkauksia
+app.fonts.empty_response = tyhjä vastaus
+
+# Päivitysohjelma: latauksen tai asennuksen epäonnistumisen syy
+app.update.unreadable_response = vastausta ei voitu lukea: {error}
+app.update.no_temp_dir = lataukselle ei ole väliaikaishakemistoa
+app.update.asset_has_path = julkaisun resurssin nimessä on polku
+app.update.too_big = lataus on julkaisussa ilmoitettua suurempi
+app.update.stopped_at = lataus pysähtyi kohtaan {got}/{total} tavua
+app.update.hash_mismatch = latauksen tiiviste on {got}, ei {want}
+app.update.not_in_bundle = tämä kopio ei ole sovelluspaketin sisällä
+app.update.no_parent_dir = sovelluspaketilla ei ole ylähakemistoa
+app.update.cannot_write = hakemistoon {dir} ei voi kirjoittaa
+app.update.cannot_move_aside = sovellusta {app} ei voi siirtää sivuun
+app.update.cannot_move_in = uutta pakettia ei voi siirtää paikalleen
+app.update.cannot_run_ditto = komentoa /usr/bin/ditto ei voi suorittaa
+app.update.unpack_failed = latauksen purkaminen epäonnistui: {error}
+app.update.no_app_in_download = latauksessa ei ole Schist.app-sovellusta
+app.update.cannot_run_codesign = komentoa /usr/bin/codesign ei voi suorittaa
+app.update.signature_invalid = latauksen allekirjoitusta ei voitu vahvistaa: {error}
+app.update.download_unsigned = tämä kopio on allekirjoitettu mutta lataus ei ole
+app.update.different_developer = latauksen on allekirjoittanut eri kehittäjä
+app.update.cannot_relaunch = uudelleenkäynnistysohjelmaa ei voi käynnistää
+app.update.not_installed_copy = asennusohjelma ei asentanut tätä kopiota tähän sijaintiin
+app.update.cannot_start_installer = asennusohjelmaa ei voi käynnistää
+app.update.platform_unsupported = tämän alustan päivitykset asennetaan samalla tavalla kuin Schist
+
+# Vulkan-tarkistus Linuxissa: tulostetaan päätteeseen ennen ikkunan avaamista.
+# Pakettien nimet ja komennot säilyvät kaikilla kielillä ennallaan.
+app.vulkan.no_loader = schist: järjestelmässä ei ole Vulkan-lataajaa, joten piirtäminen ei onnistu.\n\nSchist renderöi Vulkanin kautta, eikä `libvulkan.so.1` ole asennettu.\nSekä lataaja että ajuri tarvitaan:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: tämän istunnon määrittämää Vulkan-ajuria ei löydy.\n\n{var} on asetettu, ja sen asettaminen *korvaa* lataajan ajurihaun\nsen sijaan, että se täydentäisi sitä. Nämä puuttuvat tiedostot ovat siis\nkoko ajuriluettelo, eikä mikään tämän istunnon Vulkan-ohjelma näe ajuria\nriippumatta siitä, montako niitä on asennettu:\n\n{missing}\n    {var}={value}\n\nOsoita muuttuja olemassa olevaan manifestiin — asennettujen ajurien manifestit\novat hakemistossa /usr/share/vulkan/icd.d — tai poista muuttujan asetus ja anna\nlataajan löytää ajuri itse. Jos istunto asettaa tämän määritystiedostossa\n(Hyprlandin `env =`, systemd:n environment.d-lisätiedosto tai komentotulkin\nprofiili), asetus täytyy muuttaa siellä. Muutos välittyy jo käynnissä oleviin\nohjelmiin vasta uuden sisäänkirjautumisen jälkeen.\n
+app.vulkan.override_note = \n{var} on asetettu arvoon {value}, mikä korvaa lataajan oman haun:\njos mikään näistä manifesteista ei sovi tälle koneelle, kokeile ensin\npoistaa muuttujan asetus.\n
+app.vulkan.no_driver = schist: Vulkan-ajuria ei ole asennettu, joten piirtäminen ei onnistu.\n\nSchist renderöi Vulkanin kautta. Lataaja on asennettu mutta ei ilmoita\nyhtään ajuria — ajuria ei ole rekisteröity kumpaankaan hakusijaintiin:\n\n{dirs}\n\nLataaja toimitetaan erillään ajureista, joten syynä on tavallisesti yksi\npuuttuva paketti.\n\nAsenna tämän koneen näytönohjaimelle sopiva ajuri:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIAn oma ajuri sisältää tarvittavan osan (`nvidia-utils` Archissa,\n`nvidia-driver` Debianissa). Virtuaalikoneessa tai koneessa, johon ei voi\nasentaa näytönohjainajuria, toimiva vaihtoehto on ohjelmistopohjainen rasteroija:\n`vulkan-swrast` Archissa ja muualla osa pakettia `mesa-vulkan-drivers`. Se on\nhidas, mutta sillä ohjelma käynnistyy.\n{overridden}
+app.vulkan.no_device = schist: Vulkan-ajuri on asennettu, mutta se ei tarjoa renderöintilaitetta.\n\nAjuri ei ehkä tue tätä näytönohjainta tai ei saa siihen yhteyttä — SSH-yhteydessä\ntai säilön sisällä /dev/dri puuttuu usein. `vulkaninfo --summary` kertoo, mitä\nlataaja näkee.\n\nOhjelmistopohjainen rasteroija renderöi ilman näytönohjainta, jos koneessa ei\nsellaista ole: `vulkan-swrast` Archissa ja osa pakettia `mesa-vulkan-drivers`\nDebianissa ja Fedorassa.\n
+app.vulkan.skip_hint = Käynnistä Schist tästä huolimatta ja anna sen epäonnistua omalla tavallaan asettamalla {var}=1.

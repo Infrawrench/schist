@@ -1,0 +1,50 @@
+# plugins/codecs-common: the format names an export dialog lists, and
+# the messages an import can fail with (shown on the status line after
+# "Open failed:"). The HEIC download consent dialog itself is the app's
+# (dialogs.lang); the codec only supplies what went wrong.
+
+# Format names, as the codecs register them. The long forms a file
+# dialog wants are common.filetype.*.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Shared import messages. These prefix a decoder's own message, so they
+# read as a clause: "decoding PNG: unexpected end of file".
+codec.msg.decoding = {name} ডিক'ড কৰা হৈছে
+codec.msg.zero_sized = ছবিখনত কোনো পিক্সেল নাই
+codec.msg.assembling_document = দস্তাবেজটো সংযোজন কৰা হৈছে
+
+# Camera raw
+codec.raw.msg.decoding = ৰ' ফাইলটো ডিক'ড কৰা হৈছে
+codec.raw.msg.developing = ৰ' ফাইলটো বিকশিত কৰা হৈছে
+codec.raw.msg.finding_preview = সংলগ্ন পূৰ্বদৰ্শন বিচৰা হৈছে
+codec.raw.msg.decoding_preview = সংলগ্ন পূৰ্বদৰ্শন ডিক'ড কৰা হৈছে
+codec.raw.msg.decoder_panicked = এই ফাইলত ৰ' ডিক'ডাৰ বিফল হ'ল: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity আমদানি
+codec.affinity.flattened_preview_layer = সমতল কৰা পূৰ্বদৰ্শন
+codec.affinity.msg.no_preview = ব্যৱহাৰযোগ্য কোনো সংলগ্ন পূৰ্বদৰ্শন নাই। Affinity-ৰ স্তৰযুক্ত ফৰ্মেট স্বত্বাধিকাৰী; Schist-এ ফাইলত থকা সমতল পূৰ্বদৰ্শনটো আমদানি কৰে। এই ফাইলত তেনে পূৰ্বদৰ্শন নাই—Affinity-ত পুনৰ সংৰক্ষণ কৰক, অথবা সকলো স্তৰসহ আমদানিৰ বাবে PSD হিচাপে ৰপ্তানি কৰক।
+
+# HEIF. `no_library` and `no_decoder` are the two cases the consented
+# libheif download fixes; {details} is what each library path said,
+# {what} the step that failed and {message} libheif's own words.
+codec.heif.msg.no_library = libheif উপলব্ধ নহয় ({details})। HEIC খুলিবলৈ libheif লাইব্ৰেৰী প্ৰয়োজন (Linux: libheif1 ইনষ্টল কৰক; macOS: brew install libheif)।
+codec.heif.msg.no_decoder = {what}: {message} — এই libheif বিল্ডত HEVC ডিক'ডাৰ নাথাকিব পাৰে (Debian/Ubuntu-ত libheif-plugin-libde265 ইনষ্টল কৰক)
+codec.heif.msg.unknown_error = অজ্ঞাত ত্ৰুটি
+codec.heif.msg.initialising = libheif প্ৰাৰম্ভ কৰা হৈছে
+codec.heif.msg.reading_container = HEIF কণ্টেইনাৰ পঢ়া হৈছে
+codec.heif.msg.finding_primary_image = মূল ছবি বিচৰা হৈছে
+codec.heif.msg.reading_icc_profile = ICC প্ৰ'ফাইল পঢ়া হৈছে
+codec.heif.msg.decoding_image = ছবি ডিক'ড কৰা হৈছে
+codec.heif.msg.checksum_mismatch = {name}-ৰ চেকছাম নিমিলিল: {expected} আশা কৰা হৈছিল, {got} পোৱা গ'ল
+# iOS, where ImageIO decodes HEIC instead
+codec.heif.msg.imageio_cannot_read = ImageIO-এ HEIF কণ্টেইনাৰ পঢ়িব নোৱাৰিলে
+codec.heif.msg.container_empty = HEIF কণ্টেইনাৰত কোনো ছবি নাই
+codec.heif.msg.imageio_cannot_decode = ImageIO-এ মূল ছবি ডিক'ড কৰিব নোৱাৰিলে

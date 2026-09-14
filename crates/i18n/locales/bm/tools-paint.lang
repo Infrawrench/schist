@@ -1,0 +1,73 @@
+# Ja bɔli baarakɛminɛnw
+tool.brush.name = Bɔrɔsi
+tool.brush.description = Kɛrɛ nɔgɔn sira bɔ ɲɛfɛ kulɛri la; a bonya bɛ bɛn labɛnnikɛlan ka bɔrɔsi bonya, girinya ani transparanbaliya ma.
+tool.brush.history.stroke = Bɔrɔsi
+
+tool.pencil.name = Kiriyɔn
+tool.pencil.description = Kɛrɛ girin sira bɔ ɲɛfɛ kulɛri la, antialiasing tɛ a la.
+tool.pencil.history.stroke = Kiriyɔn
+
+tool.eraser.name = Bɔlan
+tool.eraser.description = Sira bɔ ka kaliki lasegin transparan na.
+tool.eraser.history.stroke = Bɔlan
+
+tool.clone.name = Kopi tampon
+tool.clone.description = Kopi tampon: alt ni digi kelen kɛ ka bɔyɔrɔ pwen sigi, o kɔ pikisɛli kopilenw bɔrɔsi ka bɔ yen na cɛjan kelen na.
+tool.clone.history.stroke = Kopi tampon
+
+tool.dodge.name = Jɛyalan
+tool.dodge.description = Pikisɛli minnu sira bɛ tɛmɛ u kan, olu jɛya.
+tool.dodge.history.stroke = Jɛyalan
+tool.burn.name = Finyalan
+tool.burn.description = Pikisɛli minnu sira bɛ tɛmɛ u kan, olu finya.
+tool.burn.history.stroke = Finyalan
+tool.sponge.name = Eponzi
+tool.sponge.description = Pikisɛli minnu sira bɛ tɛmɛ u kan, olu kulɛri faalenya caya walima dɔgɔya.
+tool.sponge.history.stroke = Eponzi
+
+tool.blur.name = Flou
+tool.blur.description = Pikisɛli minnu sira bɛ tɛmɛ u kan, olu flouya.
+tool.blur.history.stroke = Flou
+tool.sharpen.name = Ja ɲɛnama
+tool.sharpen.description = Pikisɛli minnu sira bɛ tɛmɛ u kan, olu ɲɛnamaya.
+tool.sharpen.history.stroke = Ja ɲɛnama
+tool.smudge.name = Kulɛri jɛnsɛn
+tool.smudge.description = Kulɛri sama sira fɛ, i n'a fɔ i bɛ pentiri sulen gɛn.
+tool.smudge.history.stroke = Kulɛri jɛnsɛn
+
+tool.heal.name = Yɔrɔ kɛnɛya bɔrɔsi
+tool.heal.description = Yɔrɔ kɛnɛya bɔrɔsi: alt ni digi kelen kɛ ka bɔyɔrɔ sigi, o kɔ bɔrɔsi; bɔyɔrɔ ka tɛksitiri bɛ ɲagami tayɔrɔ yɛrɛ ka kulɛri ni yelen na.
+tool.heal.history.stroke = Yɔrɔ kɛnɛya bɔrɔsi
+tool.spot_heal.name = Tɔ bɔ bɔrɔsi
+tool.spot_heal.description = Tɔ bɔ bɔrɔsi: bɔrɔsi fili dɔ kan, a bɛ falen ni a laminifɛ tɛksitiri ye; bɔyɔrɔ pwen tɛ sigi.
+tool.spot_heal.history.stroke = Tɔ bɔ bɔrɔsi
+
+tool.history_brush.name = Baara kɔrɔlen bɔrɔsi
+tool.history_brush.description = Pikisɛliw lasegin ka bɔ sɛbɛn ka baara kɔrɔlen snapshot kɔnɔ, ka baara nataw lasegin sira kelen-kelen.
+tool.history_brush.history.stroke = Baara kɔrɔlen bɔrɔsi
+
+tool.background_eraser.name = Kɔfɛ bɔlan
+tool.background_eraser.description = Kulɛri min taara bɔrɔsi cɛmancɛ jukɔrɔ, o bɔ, ka pikisɛli kulɛri wɛrɛlamaw to u cogo la, walasa fɛn ɲɛfɛta ka bɔ a kɔfɛ la.
+tool.background_eraser.history.stroke = Kɔfɛ bɔlan
+
+tool.gradient.name = Kulɛri yɛlɛmali
+tool.gradient.description = Sama ka kaliki fa — sugandili bɛ yen ni a bɛ tɛmɛ o fɛ — ni kulɛri yɛlɛmali tilennen ye min bɛ taa ɲɛfɛ kulɛri la ka taa kɔfɛ kulɛri la sama sira fɛ.
+tool.gradient.radial.name = Kulɛri yɛlɛmali cɛmancɛlama
+tool.gradient.radial.description = Sama ka bɔ cɛmancɛ la ka taa kɛrɛ fɛ, ka fa ni kulɛri yɛlɛmali cɛmancɛlama ye ɲɛfɛ ni kɔfɛ kulɛriw cɛ.
+tool.gradient.option.gradient = Kulɛri yɛlɛmali
+tool.gradient.option.reverse = A kɔrɔcɛma
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Ɲɛfɛ ka taa kɔfɛ la
+tool.gradient.choice.foreground_to_transparent = Ɲɛfɛ ka taa transparan na
+tool.gradient.choice.linear = Tilennen
+tool.gradient.choice.radial = Cɛmancɛlama
+tool.gradient.choice.angle = Kulu
+tool.gradient.choice.reflected = Yɛrɛjiralen
+tool.gradient.choice.diamond = Diaman
+tool.gradient.history.gradient = Kulɛri yɛlɛmali
+
+tool.bucket.name = Pentiri bakɛ
+tool.bucket.description = Digi ka yɔrɔ dafalen min bɛ kurukuru jukɔrɔ ani a kulɛri bɛ ɲɔgɔn, o fa ɲɛfɛ kulɛri la baarakɛminɛn ka se hakɛ kɔnɔ.
+tool.bucket.option.contiguous = Da kelen
+tool.bucket.option.all_layers = Kaliki bɛɛ
+tool.bucket.history.fill = Pentiri bakɛ

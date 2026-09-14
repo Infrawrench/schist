@@ -1,0 +1,45 @@
+# Pióra
+tool.pen.name = Pióro
+tool.pen.description = Utwórz ścieżkę: kliknij, aby dodać punkt narożny, przeciągnij, aby wyciągnąć z niego uchwyty krzywej, i kliknij pierwszy punkt, aby zamknąć. Zatwierdzenie przekształca ścieżkę w warstwę kształtu.
+tool.pen.option.rubber_band = Gumowa nić
+tool.pen.history.fill = Wypełnienie ścieżki
+tool.pen.default_path_name = Ścieżka {n}
+tool.pen.freeform.name = Pióro dowolne
+tool.pen.freeform.description = Narysuj odręczną linię, a zostanie do niej dopasowana ścieżka z dokładnością określoną w opcji Dopasowanie.
+tool.pen.freeform.option.fit = Dopasowanie
+tool.pen.curvature.name = Pióro krzywizny
+tool.pen.curvature.description = Kliknij serię punktów, a ścieżka zostanie płynnie przez nie wygięta.
+
+# Strzałki zaznaczania
+tool.path_select.name = Zaznaczanie ścieżek
+tool.path_select.description = Kliknij ścieżkę, aby ją zaznaczyć, i przeciągnij, aby przesunąć całą ścieżkę.
+tool.direct_select.name = Zaznaczanie bezpośrednie
+tool.direct_select.description = Przeciągnij pojedynczy punkt kontrolny lub jego uchwyty, aby zmienić kształt otaczającej go ścieżki.
+
+# Kształty
+tool.shape.history.layer = Warstwa {name}
+tool.shape.rect.name = Prostokąt
+tool.shape.rect.label = Prostokąt
+tool.shape.rect.description = Przeciągnij, aby utworzyć warstwę kształtu prostokąta w kolorze narzędzia; pozostaje wektorowa i jest ponownie rasteryzowana po zmianie rozmiaru.
+tool.shape.ellipse.name = Elipsa
+tool.shape.ellipse.label = Elipsa
+tool.shape.ellipse.description = Przeciągnij, aby utworzyć warstwę kształtu elipsy w kolorze narzędzia.
+tool.shape.line.name = Linia
+tool.shape.line.label = Linia
+tool.shape.line.description = Przeciągnij, aby utworzyć warstwę kształtu prostej linii w kolorze narzędzia.
+tool.shape.line.option.weight = Grubość
+tool.shape.line.option.arrow_start = Początek
+tool.shape.line.option.arrow_end = Koniec
+tool.shape.polygon.name = Wielokąt
+tool.shape.polygon.label = Wielokąt
+tool.shape.polygon.description = Przeciągnij, aby utworzyć warstwę kształtu wielokąta foremnego w kolorze narzędzia, o liczbie boków podanej w opcjach.
+tool.shape.polygon.option.sides = Boki
+tool.shape.custom.name = Kształt własny
+tool.shape.custom.label = Kształt własny
+tool.shape.custom.description = Przeciągnij, aby utworzyć jeden z wbudowanych kształtów wzorcowych, wybrany za pomocą opcji Kształt.
+tool.shape.custom.choice.heart = Serce
+tool.shape.custom.choice.star = Gwiazda
+tool.shape.custom.choice.arrow = Strzałka
+tool.shape.custom.choice.lightning = Błyskawica
+tool.shape.custom.choice.cross = Krzyż
+tool.shape.custom.choice.speech_bubble = Dymek

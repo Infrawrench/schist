@@ -1,0 +1,22 @@
+tool.liquify.name = ލިކުއިފައި
+tool.liquify.description = ބޮޑު ބުރުހުން ދަށުގައި ހުރި ޕިކްސެލްތައް ކުރިއަށް ލުމާއި، ބުރުވާލުމާއި، ކުޑަ ކުރުމާއި ބޮޑު ކުރުން ކުރާށެވެ؛ މޯޑް އޮޕްޝަނުން ކުރާނެ ކަމެއް ހޮވޭނެއެވެ. ވާޕް މެޝެއްގައި ޖަމާވެގެން ގޮސް ކޮމިޓް ކުރާއިރު ލޭޔަރަށް ތަތުބީޤު ކުރެވޭނެއެވެ.
+tool.liquify.option.tool = އާލާތް
+tool.liquify.choice.forward_warp = ކުރިއަށް ވާޕް
+tool.liquify.choice.reconstruct = އަލުން ހެދުން
+tool.liquify.choice.twirl_cw = ގަޑިގެ ދިމާއަށް ބުރުވާލުން
+tool.liquify.choice.twirl_ccw = ގަޑިގެ ދިމާއާ ދެކޮޅަށް ބުރުވާލުން
+tool.liquify.choice.pucker = ކުޑަ ކުރުން
+tool.liquify.choice.bloat = ބޮޑު ކުރުން
+tool.liquify.choice.push_left = ވާތަށް ކުރިއަށް ލުން
+tool.liquify.history.liquify = ލިކުއިފައި
+
+tool.puppet_warp.name = ޕަޕެޓް ވާޕް
+tool.puppet_warp.description = ލޭޔަރ މަދު ޕޮއިންޓެއްގައި ޕިން ކުރުމަށް ކްލިކް ކޮށް، އެއް ޕިން ދަމާށެވެ: ހަރުކަން އޮޕްޝަނުގައި ބުނާ ގޮތަށް މެޝް ޕިންތަކުގެ ވަށައިގެން ހަރުކޮށް ނުވަތަ ލުއިކޮށް ބުރުވާނެއެވެ. ކޮމިޓް ކުރުމުން އެ ބަދަލު ތަތުބީޤު ކުރެވޭނެއެވެ.
+tool.puppet_warp.option.stiffness = ހަރުކަން
+tool.puppet_warp.history.puppet_warp = ޕަޕެޓް ވާޕް
+
+tool.vanishing_point.name = ވެނިޝިންގ ޕޮއިންޓް
+tool.vanishing_point.description = ޕަސްޕެކްޓިވް ހުރި އެއްޗެއް މަތީ ޕްލޭނެއް ދަމާލައި، މޯޑް ކްލޯނަށް ބަދަލު ކޮށް ކުލަލާށެވެ: ކޮޕީ ކުރެވޭ ޕިކްސެލްތައް ޕްލޭން ދިގުން ދާނެއެވެ، ދުރުވާ ވަރަކަށް ކުޑަވެގެން ދާނެއެވެ.
+tool.vanishing_point.choice.edit_plane = ޕްލޭން އެޑިޓް ކުރުން
+tool.vanishing_point.choice.clone = ކްލޯން
+tool.vanishing_point.history.vanishing_point = ވެނިޝިންގ ޕޮއިންޓް

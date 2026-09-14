@@ -1,0 +1,20 @@
+# Capas de ajuste y comandos Imagen ▸ Ajustes.
+adjustment.levels.name = Niveles
+adjustment.curves.name = Curvas
+adjustment.hue_saturation.name = Tono/Saturación
+adjustment.brightness_contrast.name = Brillo/Contraste
+adjustment.black_white.name = Blanco y negro
+adjustment.solid_color.name = Color uniforme
+adjustment.gradient_fill.name = Relleno de degradado
+adjustment.pattern_fill.name = Relleno de motivo
+adjustment.invert.name = Invertir
+adjustment.posterize.name = Posterizar
+adjustment.threshold.name = Umbral
+adjustment.color_balance.name = Equilibrio de color
+adjustment.vibrance.name = Intensidad
+adjustment.exposure.name = Exposición
+adjustment.photo_filter.name = Filtro de fotografía
+adjustment.gradient_map.name = Mapa de degradado
+adjustment.selective_color.name = Corrección selectiva
+adjustment.channel_mixer.name = Mezclador de canales
+adjustment.other.name = Ajuste

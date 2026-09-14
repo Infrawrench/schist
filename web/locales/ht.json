@@ -1,0 +1,9 @@
+{
+  "loading": "Ap chaje…",
+  "starting": "Ap demare…",
+  "webgpu": "Schist bezwen WebGPU, men navigatè sa a pa ofri li. Chrome/Edge 113+, Firefox 141+ ak Safari 26+ ofri li.",
+  "noticeTitle": "Schist mache pi byen kòm yon aplikasyon pou òdinatè",
+  "noticeBody": "W ap itilize vèsyon entènèt la, ki se yon vèsyon pi lejè: li konpoze imaj yo sou CPU a epi li pa gen kèk fonksyon — plòg-in Photoshop ak plòg-in twazyèm pati, galri imaj la, pano AI a, enpòtasyon HEIC ak telechajman polis — epi fichye yo anrejistre kòm telechajman. Aplikasyon gratis pou òdinatè macOS, Windows ak Linux la gen tout fonksyon sa yo.",
+  "noticeLink": "Jwenn aplikasyon pou òdinatè a.",
+  "ok": "Dakò"
+}

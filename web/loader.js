@@ -1,3 +1,6 @@
+import { LOCALES, STRINGS } from "./i18n-data.js";
+import { negotiate, fontMatches } from "./i18n.js";
+
 // Boot Schist in the browser.
 //
 // The app's wasm is served split into fixed-size chunks (tools/web-build.sh
@@ -16,108 +19,13 @@ const overlay = document.getElementById("schist-loading");
 const fill = document.getElementById("schist-loading-fill");
 const status = document.getElementById("schist-loading-status");
 
-// The page's own few strings, in the languages the app's chrome has
-// (crates/i18n). Chosen the way the app chooses: the first of the
-// browser's preferred languages that is here, by language alone, else
-// English. The app reads navigator.languages itself once it is up.
-const STRINGS = {
-  en: {
-    loading: "Loading…",
-    starting: "Starting…",
-    webgpu:
-      "Schist needs WebGPU, which this browser doesn't offer. " +
-      "Chrome/Edge 113+, Firefox 141+ and Safari 26+ do.",
-    noticeTitle: "Schist runs best as a desktop app",
-    noticeBody:
-      "You're using the web version, which is a lighter build: it " +
-      "composites on the CPU and leaves out some features — Photoshop " +
-      "and third-party plug-ins, image gallery, the AI panel, HEIC " +
-      "import and font downloads — and files are saved as downloads. " +
-      "The free desktop app for macOS, Windows and Linux has all of it.",
-    noticeLink: "Get the desktop app.",
-    ok: "OK",
-  },
-  sv: {
-    loading: "Läser in…",
-    starting: "Startar…",
-    webgpu:
-      "Schist behöver WebGPU, som den här webbläsaren inte har. " +
-      "Chrome/Edge 113+, Firefox 141+ och Safari 26+ har det.",
-    noticeTitle: "Schist fungerar bäst som skrivbordsprogram",
-    noticeBody:
-      "Du använder webbversionen, som är en lättare variant: den " +
-      "komponerar på processorn och saknar vissa funktioner – " +
-      "Photoshop- och tredjepartsplugin, bildgalleriet, AI-panelen, " +
-      "HEIC-import och teckensnittshämtning – och filer sparas som " +
-      "hämtningar. Det kostnadsfria skrivbordsprogrammet för macOS, " +
-      "Windows och Linux har allt.",
-    noticeLink: "Hämta skrivbordsprogrammet.",
-    ok: "OK",
-  },
-  de: {
-    loading: "Wird geladen…",
-    starting: "Wird gestartet…",
-    webgpu:
-      "Schist braucht WebGPU, das dieser Browser nicht bietet. " +
-      "Chrome/Edge 113+, Firefox 141+ und Safari 26+ haben es.",
-    noticeTitle: "Schist läuft am besten als Desktop-App",
-    noticeBody:
-      "Du verwendest die Web-Version, eine leichtere Ausgabe: Sie " +
-      "komponiert auf der CPU und lässt einige Funktionen weg – " +
-      "Photoshop- und Drittanbieter-Plug-ins, die Bildgalerie, das " +
-      "KI-Bedienfeld, HEIC-Import und Schrift-Downloads – und Dateien " +
-      "werden als Downloads gesichert. Die kostenlose Desktop-App für " +
-      "macOS, Windows und Linux hat alles davon.",
-    noticeLink: "Desktop-App laden.",
-    ok: "OK",
-  },
-  ja: {
-    loading: "読み込み中…",
-    starting: "起動中…",
-    webgpu:
-      "Schist には WebGPU が必要ですが、このブラウザーは対応していません。" +
-      "Chrome/Edge 113 以降、Firefox 141 以降、Safari 26 以降が対応しています。",
-    noticeTitle: "Schist はデスクトップ版が最適です",
-    noticeBody:
-      "ご覧になっているのはウェブ版で、軽量な構成です。合成を CPU で行い、" +
-      "一部の機能——Photoshop 用およびサードパーティのプラグイン、画像ギャラリー、" +
-      "AI パネル、HEIC の読み込み、フォントのダウンロード——を省いており、" +
-      "ファイルはダウンロードとして保存されます。macOS、Windows、Linux 向けの" +
-      "無料のデスクトップ版にはそのすべてがあります。",
-    noticeLink: "デスクトップ版を入手",
-    ok: "OK",
-  },
-  zh: {
-    loading: "正在载入…",
-    starting: "正在启动…",
-    webgpu:
-      "Schist 需要 WebGPU，而此浏览器不支持。" +
-      "Chrome/Edge 113+、Firefox 141+ 和 Safari 26+ 支持。",
-    noticeTitle: "Schist 在桌面应用中体验最佳",
-    noticeBody:
-      "你正在使用网页版，这是一个精简版本：它在 CPU 上合成，并且缺少部分" +
-      "功能——Photoshop 和第三方增效工具、图库、AI 面板、HEIC 导入和字体" +
-      "下载——文件会以下载方式存储。适用于 macOS、Windows 和 Linux 的免费" +
-      "桌面应用具备全部功能。",
-    noticeLink: "获取桌面应用。",
-    ok: "好",
-  },
-};
-
-function pickLanguage() {
-  const preferred = navigator.languages?.length
-    ? navigator.languages
-    : [navigator.language ?? "en"];
-  for (const tag of preferred) {
-    const language = String(tag).toLowerCase().split(/[-_]/)[0];
-    if (STRINGS[language]) return language;
-  }
-  return "en";
-}
-
-const LANG = pickLanguage();
+const preferred = navigator.languages?.length
+  ? navigator.languages
+  : [navigator.language ?? "en"];
+const LANG = negotiate(preferred);
 const S = STRINGS[LANG];
-document.documentElement.lang = LANG === "zh" ? "zh-Hans" : LANG;
+document.documentElement.lang = LANG;
+document.documentElement.dir = LOCALES[LANG].direction;
 document.getElementById("schist-desktop-notice-title").textContent = S.noticeTitle;
 document.getElementById("schist-desktop-notice-ok").textContent = S.ok;
 {
@@ -220,7 +128,7 @@ async function boot() {
   const manifest = await (await fetch("manifest.json")).json();
   // A font tagged with a language is for that language's readers only:
   // the Chinese face is 1.5 MB nobody else needs.
-  const fontFiles = manifest.fonts.filter((f) => !f.lang || f.lang === LANG);
+  const fontFiles = manifest.fonts.filter((f) => fontMatches(f, LANG));
   totalBytes =
     manifest.wasm.reduce((n, c) => n + c.bytes, 0) +
     fontFiles.reduce((n, f) => n + f.bytes, 0) +

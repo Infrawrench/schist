@@ -1,0 +1,31 @@
+# Kayan aikin abubuwan takarda: allunan zane, yankunan fitarwa, firam, bayanai da ƙirga.
+
+# Allon zane
+tool.artboard.name = Allon Zane
+tool.artboard.description = Ja don ƙirƙirar allon zane: yanki mai suna a kan zane wanda ake fitarwa shi kaɗai. Ja daga cikin wanda yake akwai don matsar da shi.
+tool.artboard.default_name = Allon Zane {n}
+
+# Yankin fitarwa
+tool.slice.name = Yankin Fitarwa
+tool.slice.description = Ja don ƙirƙirar yanki mai suna a kan zane wanda za a fitar a matsayin hoto dabam. Ja daga cikin wanda yake akwai don matsar da shi.
+tool.slice.default_name = Yankin Fitarwa {n}
+
+# Firam
+tool.frame.name = Firam
+tool.frame.description = Ja don ƙirƙirar firam: shimfiɗa mai kusurwa huɗu (ko mai siffar kwai) wadda ke rufe duk abin da aka saka cikinta.
+tool.frame.default_name = Firam {n}
+tool.frame.choice.rectangle = Kusurwa Huɗu
+tool.frame.choice.ellipse = Siffar Kwai
+tool.frame.history.frame = Firam
+
+# Bayani
+tool.note.name = Bayani
+tool.note.description = Danna wurin zane mara komai don liƙa bayani a wurin, tare da sunan marubuci da launin da ke cikin yanayin editan; danna fil ɗin da yake akwai don zaɓarsa a falin Bayanai.
+tool.note.history.place = Sanya Bayani
+tool.note.history.move = Matsar da Bayani
+tool.note.history.delete = Share Bayani
+
+# Ƙirga
+tool.count.name = Ƙirga
+tool.count.description = Danna don ajiye alamomin ƙirga masu lamba a kan zane, sannan danna alamar da take akwai don cire ta.
+tool.count.default_name = Ƙirga {n}

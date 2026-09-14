@@ -1,0 +1,36 @@
+# Namen en importfouten van codecs.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} decoderen
+codec.msg.zero_sized = de afbeelding bevat geen pixels
+codec.msg.assembling_document = het document samenstellen
+
+codec.raw.msg.decoding = het raw-bestand decoderen
+codec.raw.msg.developing = het raw-bestand ontwikkelen
+codec.raw.msg.finding_preview = zoeken naar de ingesloten voorvertoning
+codec.raw.msg.decoding_preview = de ingesloten voorvertoning decoderen
+codec.raw.msg.decoder_panicked = de raw-decoder kon dit bestand niet verwerken: {what}
+
+codec.affinity.import_title = Affinity-import
+codec.affinity.flattened_preview_layer = Samengevoegde voorvertoning
+codec.affinity.msg.no_preview = Geen bruikbare ingesloten voorvertoning. De gelaagde indeling van Affinity is bedrijfseigen; Schist importeert de samengevoegde voorvertoning uit het bestand. Dit bestand bevat er geen — sla het opnieuw op in Affinity of exporteer het als PSD voor een volledige import met lagen.
+
+codec.heif.msg.no_library = libheif is niet beschikbaar ({details}). Voor het openen van HEIC is de libheif-bibliotheek nodig (Linux: installeer libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — deze build van libheif bevat mogelijk geen HEVC-decoder (installeer libheif-plugin-libde265 op Debian/Ubuntu)
+codec.heif.msg.unknown_error = onbekende fout
+codec.heif.msg.initialising = libheif initialiseren
+codec.heif.msg.reading_container = HEIF-container lezen
+codec.heif.msg.finding_primary_image = primaire afbeelding zoeken
+codec.heif.msg.reading_icc_profile = ICC-profiel lezen
+codec.heif.msg.decoding_image = afbeelding decoderen
+codec.heif.msg.checksum_mismatch = Controlesom van {name} komt niet overeen: {expected} verwacht, {got} ontvangen
+codec.heif.msg.imageio_cannot_read = ImageIO kon de HEIF-container niet lezen
+codec.heif.msg.container_empty = de HEIF-container bevat geen afbeelding
+codec.heif.msg.imageio_cannot_decode = ImageIO kon de primaire afbeelding niet decoderen

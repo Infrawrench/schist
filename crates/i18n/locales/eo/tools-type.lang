@@ -1,0 +1,24 @@
+# Tekstilo. Tiparfamiliaj nomoj ne estas tradukataj.
+
+tool.type.name = Teksto
+tool.type.description = Alklaku por tie komenci teksttavolon, aŭ alklaku ekzistantan teksttavolon por redakti ĝin. Dum ĝi estas malfermita, la ilo akceptas rektajn klavpremojn (sendu signojn kiel klavan enigon); konfirmo bildigas la tavolon kaj finas la redaktadon.
+
+tool.type.option.align = Ĝisrandigo
+tool.type.option.leading = Linia interspaco
+tool.type.option.tracking = Literinterspaco
+tool.type.option.kerning = Literpara alĝustigo
+tool.type.option.ligatures = Ligaturoj
+tool.type.option.discretionary_ligatures = Laŭvolaj ligaturoj
+tool.type.option.small_caps = Majuskletoj
+tool.type.option.on_path = Sur aktiva kurbo
+tool.type.option.path_offset = Deŝovo laŭ kurbo
+
+tool.type.choice.regular = Normala
+tool.type.choice.bold = Grasa
+tool.type.choice.italic = Kursiva
+tool.type.choice.bold_italic = Grasa kursiva
+
+tool.type.history.new_layer = Nova teksttavolo
+tool.type.history.edit = Redakti tekston
+tool.type.history.discard = Forĵeti tekston
+tool.type.history.discard_empty = Forĵeti malplenan tekston

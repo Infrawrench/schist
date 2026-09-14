@@ -1,0 +1,93 @@
+# Modifier keys
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Status and titles
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigator
+panel.navigator.title = નૅવિગેટર
+panel.navigator.actual_pixels = વાસ્તવિક પિક્સેલ
+
+# Color panel
+panel.color.picker = પિકર…
+panel.color.swap = રંગોની અદલાબદલી કરો
+panel.color.reset = કાળા અને સફેદ પર રીસેટ કરો
+
+# Layers
+panel.layers.blending_options = બ્લેન્ડિંગ વિકલ્પો…
+panel.layers.properties = લેયરના ગુણધર્મો…
+panel.layers.show_hide = લેયર બતાવો/છુપાવો
+panel.layers.toggle_visibility = દૃશ્યતા બદલો
+
+# History
+panel.history.title = ઇતિહાસ
+panel.history.opened = ખોલ્યું
+
+# Info
+panel.info.title = માહિતી
+panel.info.camera = કૅમેરા
+panel.info.lens = લેન્સ
+panel.info.iso = ISO {iso}
+panel.info.bias = બાયસ
+panel.info.flash_fired = ફ્લૅશ થયો
+panel.info.no_flash = ફ્લૅશ થયો નથી
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering} મીટરિંગ
+panel.info.taken = લીધેલો સમય
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · દિશા {o}
+panel.info.software = સૉફ્ટવેર
+panel.info.where = સ્થાન
+
+# Notes
+panel.notes.author = લેખક
+panel.notes.clear_all = બધું સાફ કરો
+panel.notes.unattributed = લેખક વિનાનું
+panel.notes.empty = નોંધ મૂકવા કેનવાસ પર ક્લિક કરો.
+panel.notes.placeholder = લખવા ક્લિક કરો
+
+# Character
+panel.character.title = અક્ષર
+panel.character.type_tool = ટાઇપ ટૂલ (T)
+panel.character.align_left = ડાબે ગોઠવો
+panel.character.align_center = મધ્યમાં ગોઠવો
+panel.character.align_right = જમણે ગોઠવો
+panel.character.text_color = ટેક્સ્ટનો રંગ
+panel.character.panel = અક્ષર પેનલ
+panel.character.cancel_edit = ટેક્સ્ટ સંપાદન રદ કરો
+panel.character.commit_edit = ટેક્સ્ટ સંપાદન કમિટ કરો
+panel.character.number_tip = {label} · મૂલ્ય લખો અથવા ↑ / ↓ વાપરો (મોટા પગલા માટે Shift)
+panel.character.leading = લીડિંગ
+panel.character.tracking = ટ્રૅકિંગ
+panel.character.alignment = ગોઠવણી
+panel.character.opentype = OpenType
+panel.character.text_on_path = પાથ પર ટેક્સ્ટ
+panel.character.straight = સીધું
+panel.character.on_path = પાથ પર
+panel.character.straight_tip = ટેક્સ્ટ લેયરની સામાન્ય આધારરેખા વાપરો
+panel.character.on_path_tip = સક્રિય પાથની નકલ વાપરો
+panel.character.path_offset = પાથ ઑફસેટ
+
+# AI
+panel.ai.title = AI
+panel.ai.empty_editor = સંપાદન કરવા કહો અને તેને કેનવાસ પર થતું જુઓ. એજન્ટ મેનૂમાંનાં એ જ ટૂલ, ફિલ્ટર અને કમાન્ડ ચલાવે છે; દરેક ક્રિયા એક પૂર્વવત્ પગલું છે.
+panel.ai.empty_gallery = તમારા ફોટા વિશે પૂછો અને ગૅલેરીમાં તેને થતું જુઓ: એજન્ટ શોધી શકે છે, થંબનેલ જોઈ શકે છે, પસંદ કરી શકે છે, બકેટમાં ગોઠવી શકે છે અને ફોટો એડિટરમાં ખોલી શકે છે.
+panel.ai.thinking = વિચારી રહ્યું છે…
+panel.ai.placeholder_editor = આ દસ્તાવેજ વિશે પૂછો અથવા તેને સંપાદિત કરો
+panel.ai.placeholder_gallery = તમારા ફોટા વિશે પૂછો
+panel.ai.send = મોકલો
+panel.ai.stop = રોકો
+panel.ai.fetching_models = CLI પાસેથી તેના મૉડલ પૂછવામાં આવી રહ્યાં છે…
+panel.ai.no_models = કોઈ મૉડલ મેળ ખાતાં નથી
+panel.ai.search_models = મૉડલ શોધો…
+
+# File dialogs
+panel.keymap.install_plugin = પ્લગઇન ઇન્સ્ટૉલ કરો
+panel.keymap.save_as_prompt = આ રીતે સાચવો — એક્સ્ટેન્શન ફોર્મેટ નક્કી કરે છે:

@@ -1,0 +1,26 @@
+# Strumenti di base: Sposta, Contagocce, Mano e Zoom.
+
+# Sposta
+tool.move.name = Sposta
+tool.move.description = Trascina il contenuto del livello attivo in una nuova posizione. Se Selezione automatica è attiva, alla pressione viene selezionato il livello, o l'intero gruppo, che si trova per primo sotto il puntatore.
+tool.move.option.auto_select = Selezione automatica
+tool.move.history.move_layer = Sposta livello
+
+# Contagocce
+tool.eyedropper.name = Contagocce
+tool.eyedropper.description = Campiona il colore sotto il puntatore nel campione di primo piano oppure, tenendo premuto Alt, in quello di sfondo. Trascinando, il campionamento continua.
+tool.eyedropper.option.sample_size = Dimensione campione
+tool.eyedropper.option.sample = Campiona
+tool.eyedropper.choice.point_sample = Campione punto
+tool.eyedropper.choice.average_3 = Media 3 × 3
+tool.eyedropper.choice.average_5 = Media 5 × 5
+tool.eyedropper.choice.average_11 = Media 11 × 11
+tool.eyedropper.choice.average_31 = Media 31 × 31
+tool.eyedropper.choice.all_layers = Tutti i livelli
+tool.eyedropper.choice.current_layer = Livello corrente
+
+# Mano e Zoom
+tool.hand.name = Mano
+tool.hand.description = Sposta la visualizzazione. La finestra di visualizzazione appartiene alla finestra dell'applicazione, pertanto in modalità headless questo strumento non modifica il documento.
+tool.zoom.name = Zoom
+tool.zoom.description = Ingrandisce o riduce la visualizzazione. La finestra di visualizzazione appartiene alla finestra dell'applicazione, pertanto in modalità headless questo strumento non modifica il documento.

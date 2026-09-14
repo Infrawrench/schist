@@ -1,0 +1,43 @@
+tool.pen.name = Plime
+tool.pen.description = Salá nzela: finá mpo na pwɛ ya nsɔngɛ, benda mpo na kobimisa manzaka ya kurbe na pwɛ yango, mpe finá pwɛ ya liboso mpo na kokanga. Soki ondimi, nzela ekómaka kalke ya lolenge.
+tool.pen.option.rubber_band = Elastike
+tool.pen.history.fill = Kotondisa nzela
+tool.pen.default_path_name = Nzela {n}
+tool.pen.freeform.name = Plime ya bonsomi
+tool.pen.freeform.description = Benda molɔngɔ na lobɔkɔ mpe ekobongisama na nzela, na bokasi oyo opsio ya Kokokanisa elobi.
+tool.pen.freeform.option.fit = Kokokanisa
+tool.pen.curvature.name = Plime ya kurbe
+tool.pen.curvature.description = Finá bapwɛ ebele mpe nzela ekogumbama na pɛtɛɛ na kati na yango.
+
+tool.path_select.name = Kopona nzela
+tool.path_select.description = Finá nzela mpo na kopona yango, mpe benda mpo na kotambolisa nzela mobimba.
+tool.direct_select.name = Kopona mbala moko
+tool.direct_select.description = Benda pwɛ moko ya kokanga to manzaka na yango mpo na kobongola lolenge ya nzela zingazinga na yango.
+
+tool.shape.history.layer = Kalke ya {name}
+tool.shape.rect.name = Esaleli ya rektangle
+tool.shape.rect.label = Rektangle
+tool.shape.rect.description = Benda mpo na kosala kalke ya rektangle na langi ya liboso; etikalaka vektɛrɛ mpe esalaka raster lisusu soki bonene ebongwani.
+tool.shape.ellipse.name = Esaleli ya elipse
+tool.shape.ellipse.label = Elipse
+tool.shape.ellipse.description = Benda mpo na kosala kalke ya elipse na langi ya liboso.
+tool.shape.line.name = Esaleli ya molɔngɔ
+tool.shape.line.label = Molɔngɔ
+tool.shape.line.description = Benda mpo na kosala kalke ya molɔngɔ ya semba na langi ya liboso.
+tool.shape.line.option.weight = Bonene ya molɔngɔ
+tool.shape.line.option.arrow_start = Ebandeli
+tool.shape.line.option.arrow_end = Nsuka
+tool.shape.polygon.name = Esaleli ya poligone
+tool.shape.polygon.label = Poligone
+tool.shape.polygon.description = Benda mpo na kosala kalke ya poligone ya mindelo oyo ekokani na langi ya liboso; motángo ya mipanzi eutaka na maponi.
+tool.shape.polygon.option.sides = Mipanzi
+
+tool.shape.custom.name = Lolenge oyo obongisi
+tool.shape.custom.label = Lolenge oyo obongisi
+tool.shape.custom.description = Benda moko ya balolenge oyo esilá kobongisama na kati ya programɛ, oyo eponami na opsio ya Lolenge.
+tool.shape.custom.choice.heart = Motema
+tool.shape.custom.choice.star = Monzoto
+tool.shape.custom.choice.arrow = Flɛshɛ
+tool.shape.custom.choice.lightning = Nkake
+tool.shape.custom.choice.cross = Ekulusu
+tool.shape.custom.choice.speech_bubble = Bulle ya maloba

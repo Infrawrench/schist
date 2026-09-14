@@ -1,0 +1,40 @@
+# Фильтрҙар галереяһы, шрифттар, яңыртҡыс һәм Vulkan тикшереүе.
+app.filter_gallery.title = Фильтрҙар галереяһы
+app.filter_gallery.stack = Стек (аҫтан өҫкә ҡулланыла)
+app.filter_gallery.no_settings = Был фильтрҙың көйләүҙәре юҡ.
+
+app.fonts.not_open_licensed = асыҡ лицензиялы түгел · {substitute} уның метрикаһына тура килә
+app.fonts.missing_substituted = юҡ · текст алмаштырғыс шрифт менән йыйыла
+app.fonts.not_in_catalogue = {family} асыҡ шрифттар каталогында юҡ
+app.fonts.no_faces = {family} өсөн йөкләп алырлыҡ һыҙылыштар юҡ
+app.fonts.empty_response = яуап буш
+
+app.update.unreadable_response = яуапты уҡып булмай: {error}
+app.update.no_temp_dir = йөкләп алыу өсөн ваҡытлыса папка юҡ
+app.update.asset_has_path = сығарылыштағы ресурс исеме юлды үҙ эсенә ала
+app.update.too_big = йөкләмә сығарылышта күрһәтелгәндән ҙурыраҡ
+app.update.stopped_at = йөкләү {total} байттың {got} байтында туҡтаны
+app.update.hash_mismatch = йөкләмәнең хешы {want} урынына {got} булып сыҡты
+app.update.not_in_bundle = был күсермә ҡушымта йыйылмаһы эсендә түгел
+app.update.no_parent_dir = ҡушымта йыйылмаһының төп папкаһы юҡ
+app.update.cannot_write = {dir} эсенә яҙып булмай
+app.update.cannot_move_aside = {app} ситкә күсерелмәй
+app.update.cannot_move_in = яңы йыйылманы урынына күсереп булмай
+app.update.cannot_run_ditto = /usr/bin/ditto ебәреп булмай
+app.update.unpack_failed = йөкләмәне асып булманы: {error}
+app.update.no_app_in_download = йөкләмәлә Schist.app юҡ
+app.update.cannot_run_codesign = /usr/bin/codesign ебәреп булмай
+app.update.signature_invalid = йөкләмәнең ҡултамғаһы раҫланмай: {error}
+app.update.download_unsigned = был күсермәгә ҡултамға ҡуйылған, ә йөкләмәгә ҡуйылмаған
+app.update.different_developer = йөкләмәгә икенсе эшләүсе ҡултамға ҡуйған
+app.update.cannot_relaunch = яңынан ебәргесте эшләтеп булмай
+app.update.not_installed_copy = был күсермә бында урынлаштырғыс менән ҡуйылмаған
+app.update.cannot_start_installer = урынлаштырғысты ебәреп булмай
+app.update.platform_unsupported = был платформала яңыртыуҙар Schist урынлаштырылған ысул менән ҡуйыла
+
+app.vulkan.no_loader = schist: был системала Vulkan йөкләгесе юҡ, шуға күрә рәсем төшөрөрлөк сара юҡ.\n\nSchist Vulkan аша растрлай, ә `libvulkan.so.1` урынлаштырылмаған.\nЙөкләгес тә, драйвер ҙа кәрәк:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: был сеанс күрһәткән Vulkan драйверы урынында юҡ.\n\n{var} бирелгән, һәм был көйләү йөкләгестең драйверҙарҙы эҙләүенә\nөҫтәлмәй, ә уны *алмаштыра*. Шуға күрә булмаған ошо файлдар\nдрайверҙарҙың тулы исемлеге булып тора, һәм нисә драйвер урынлаштырылһа ла,\nбыл сеанстағы һәр Vulkan программаһы бер драйвер ҙа күрмәй:\n\n{missing}\n    {var}={value}\n\nУны булған манифесҡа йүнәлтегеҙ — урынлаштырылған драйверҙар\nманифестарын /usr/share/vulkan/icd.d эсенә ҡуя — йәки көйләүҙе алып,\nйөкләгескә үҙе эҙләргә рөхсәт итегеҙ. Был көйләү конфигурация файлынан\n(Hyprland эсендәге `env =`, systemd environment.d өҫтәмәһе, тышлыҡ профиле)\nбирелһә, уны шунда үҙгәртергә кәрәк; үҙгәреш эшләп торған программаларға\nетһен өсөн яңынан инергә кәрәк.\n
+app.vulkan.override_note = \n{var} ҡиммәте {value} итеп бирелгән, һәм ул йөкләгестең үҙ эҙләүен\nалмаштыра: ошо манифестарҙың береһе лә был машина өсөн булмаһа, тәүҙә\nбыл көйләүҙе алып ҡарағыҙ.\n
+app.vulkan.no_driver = schist: Vulkan драйверы урынлаштырылмаған, шуға күрә рәсем төшөрөрлөк сара юҡ.\n\nSchist Vulkan аша растрлай. Йөкләгес урынлаштырылған, ләкин драйвер\nтапмай — эҙләнгән ике урындың береһендә лә драйвер теркәлмәгән:\n\n{dirs}\n\nЙөкләгес драйверҙарҙан айырым таратыла, шуға күрә ғәҙәттә бер пакет етмәй.\n\nБыл машинаның GPU-һы өсөн драйверҙы урынлаштырығыҙ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-ның ябыҡ драйверы үҙенеке менән килә (Arch-та `nvidia-utils`,\nDebian-да `nvidia-driver`). Виртуаль машинала йәки GPU драйверы\nурынлаштырып булмаған ерҙә программа растрлаусыһы эшләй: Arch-та\n`vulkan-swrast`, башҡа системаларҙа `mesa-vulkan-drivers` эсендә. Ул\nәкрен, әммә эшләп китә.\n{overridden}
+app.vulkan.no_device = schist: Vulkan драйверы урынлаштырылған, ләкин растрлау өсөн ҡоролма тәҡдим итмәй.\n\nДрайвер был GPU-ны хупламаҫҡа йәки уға етә алмаҫҡа мөмкин — SSH аша\nйәки контейнер эсендә /dev/dri йыш ҡына булмай. `vulkaninfo --summary`\nйөкләгес күргәнде күрһәтә.\n\nБыл машинала GPU бөтөнләй булмаһа, программа растрлаусыһы унһыҙ ҙа\nрастрлай: Arch-та `vulkan-swrast`, Debian һәм Fedora системаларында\n`mesa-vulkan-drivers` эсендә.\n
+app.vulkan.skip_hint = Schist программаһын барыбер ебәреп, уға үҙенсә хата менән туҡтарға рөхсәт итеү өсөн {var}=1 бирегеҙ.

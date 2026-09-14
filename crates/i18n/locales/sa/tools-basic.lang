@@ -1,0 +1,21 @@
+tool.move.name = चालनम्
+tool.move.description = सक्रियस्तरस्य विषयं कर्षित्वा नूतनस्थानं नयति। स्वतश्चयनं सक्रियं चेत्, प्रथमं सूचकस्य अधः स्थितं यत्किमपि स्तरं समग्रं समूहं वा नोदनमेव चिनोति।
+tool.move.option.auto_select = स्वतश्चयनम्
+tool.move.history.move_layer = स्तरचालनम्
+
+tool.eyedropper.name = वर्णग्राहिका
+tool.eyedropper.description = सूचकस्य अधः स्थितं वर्णं अग्रभूमिवर्णफलकाय गृह्णाति, अथवा Alt धारिते पृष्ठभूमिवर्णफलकाय। कर्षणे नमूनाग्रहणं निरन्तरं भवति।
+tool.eyedropper.option.sample_size = नमूनापरिमाणम्
+tool.eyedropper.option.sample = नमूना
+tool.eyedropper.choice.point_sample = बिन्दुनमूना
+tool.eyedropper.choice.average_3 = ३ × ३ मध्यमानम्
+tool.eyedropper.choice.average_5 = ५ × ५ मध्यमानम्
+tool.eyedropper.choice.average_11 = ११ × ११ मध्यमानम्
+tool.eyedropper.choice.average_31 = ३१ × ३१ मध्यमानम्
+tool.eyedropper.choice.all_layers = सर्वे स्तराः
+tool.eyedropper.choice.current_layer = वर्तमानस्तरः
+
+tool.hand.name = हस्तः
+tool.hand.description = दृश्यं परिसारयति। दृश्यसीमा गवाक्षस्य अस्ति, अतः शीर्षरहितविधौ एतत् साधनं प्रलेखे किमपि न करोति।
+tool.zoom.name = आवर्धनम्
+tool.zoom.description = दृश्यस्य आवर्धनं परिवर्तयति। दृश्यसीमा गवाक्षस्य अस्ति, अतः शीर्षरहितविधौ एतत् साधनं प्रलेखे किमपि न करोति।

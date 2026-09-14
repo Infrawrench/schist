@@ -1,0 +1,27 @@
+# The warp tools (plugins/tools-warp).
+
+# Liquify
+tool.liquify.name = Yenza kube Manzi
+tool.liquify.description = Sunduza, zombezisa, finyeza namkha khukhumalisa amaphikseli ngaphasi kwebhratjhi ekulu -- ikhetho lemodi likhetha ukuthi ngikuphi. Ukutjhuguluka kuhlanganiswa emetjhini bese kufakwa eleyeni nasekuqinisekiswako.
+tool.liquify.option.tool = Ithulusi
+tool.liquify.choice.forward_warp = Tjhugululela Phambili
+tool.liquify.choice.reconstruct = Yakha Godu
+tool.liquify.choice.twirl_cw = Zombeza Ngokwewatjhi
+tool.liquify.choice.twirl_ccw = Zombeza Ngokuphambana Newatjhi
+tool.liquify.choice.pucker = Finyeza
+tool.liquify.choice.bloat = Khukhumalisa
+tool.liquify.choice.push_left = Sunduzela Ngesinceleni
+tool.liquify.history.liquify = Yenza kube Manzi
+
+# Puppet Warp
+tool.puppet_warp.name = Ukutjhugulula Iphaphethi
+tool.puppet_warp.description = Qhafaza ukunamathisela ileya emaphuzwini ambalwa, bese udosa linye: imetjhi iyagobeka izombeleze amaphini, ngokuqina namkha ngokuthamba njengombana ikhetho Lokuqina litjho. Ukuqinisekisa kuyayifaka.
+tool.puppet_warp.option.stiffness = Ukuqina
+tool.puppet_warp.history.puppet_warp = Ukutjhugulula Iphaphethi
+
+# Vanishing Point
+tool.vanishing_point.name = Iphuzu Lokunyamalala
+tool.vanishing_point.description = Dosa wenze indawo esipara phezu kwento ebonakala ngokujula, bese utjhugululela imodi ku-Kopa upende: amaphikseli akotjiweko alandela indawo leyo, aba mancani ngokuya ngebanga.
+tool.vanishing_point.choice.edit_plane = Hlela Indawo Esipara
+tool.vanishing_point.choice.clone = Kopa
+tool.vanishing_point.history.vanishing_point = Iphuzu Lokunyamalala

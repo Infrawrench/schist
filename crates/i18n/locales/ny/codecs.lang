@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Kamera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = kumasula {name}
+codec.msg.zero_sized = chithunzichi chilibe ma pixel
+codec.msg.assembling_document = kusonkhanitsa chikalata
+
+codec.raw.msg.decoding = kumasula fayilo ya raw
+codec.raw.msg.developing = kukonza fayilo ya raw
+codec.raw.msg.finding_preview = kufufuza chithunzi choonera chomwe chili m'fayilo
+codec.raw.msg.decoding_preview = kumasula chithunzi choonera chomwe chili m'fayilo
+codec.raw.msg.decoder_panicked = decoder ya raw yalephera pa fayiloyi: {what}
+
+codec.affinity.import_title = Kulowetsa Affinity
+codec.affinity.flattened_preview_layer = Chithunzi choonera chophatikizidwa
+codec.affinity.msg.no_preview = Palibe chithunzi choonera chogwiritsidwa ntchito chomwe chili m'fayilo. Mtundu wa Affinity wokhala ndi ma layer ndi wachinsinsi; Schist imalowetsa chithunzi choonera chophatikizidwa chimene fayiloyo ili nacho. Fayiloyi ilibe chithunzicho—sunganinso mu Affinity, kapena tumizani ngati PSD kuti mulowetse ma layer onse.
+
+codec.heif.msg.no_library = libheif palibe ({details}). Kutsegula HEIC kumafuna library ya libheif (Linux: ikani libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — build iyi ya libheif mwina ilibe decoder ya HEVC (pa Debian/Ubuntu, ikani libheif-plugin-libde265)
+codec.heif.msg.unknown_error = cholakwika chosadziwika
+codec.heif.msg.initialising = kukonzekeretsa libheif
+codec.heif.msg.reading_container = kuwerenga container ya HEIF
+codec.heif.msg.finding_primary_image = kufufuza chithunzi chachikulu
+codec.heif.msg.reading_icc_profile = kuwerenga mbiri ya ICC
+codec.heif.msg.decoding_image = kumasula chithunzi
+codec.heif.msg.checksum_mismatch = Checksum ya {name} siyofanana: tinkayembekezera {expected}, koma tapeza {got}
+codec.heif.msg.imageio_cannot_read = ImageIO sinathe kuwerenga container ya HEIF
+codec.heif.msg.container_empty = container ya HEIF ilibe chithunzi
+codec.heif.msg.imageio_cannot_decode = ImageIO sinathe kumasula chithunzi chachikulu

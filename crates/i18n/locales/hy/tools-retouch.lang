@@ -1,0 +1,25 @@
+# Տարածքների շտկման գործիքները՝ Կարկատում, Բովանդակությունը հաշվի առնող տեղափոխում, Կարմիր աչք և Կախարդական ռետին
+
+tool.patch.name = Կարկատում
+tool.patch.description = Քաշելով ուրվագծեք թերությունը, ապա ընտրված հատվածը քաշեք մաքուր փիքսելների վրա․ այնտեղի հյուսվածքը կհարմարեցվի թերությանը։ Կարկատման ռեժիմն ընտրում է, թե զույգի որ ծայրն եք քաշում։
+tool.patch.option.patch = Կարկատում
+tool.patch.choice.source = Աղբյուր
+tool.patch.choice.destination = Նպատակակետ
+tool.patch.history.patch = Կարկատում
+
+tool.content_aware_move.name = Բովանդակությունը հաշվի առնող տեղափոխում
+tool.content_aware_move.description = Ընտրված օբյեկտը քաշեք մեկ այլ տեղ, և դրա թողած բացը կլցվի շրջակա պատկերից։ «Ընդլայնում» ռեժիմում օբյեկտը տեղափոխվելու փոխարեն ձգվում է։
+tool.content_aware_move.choice.move = Տեղափոխում
+tool.content_aware_move.choice.extend = Ընդլայնում
+tool.content_aware_move.history.move = Բովանդակությունը հաշվի առնող տեղափոխում
+
+tool.red_eye.name = Կարմիր աչք
+tool.red_eye.description = Սեղմեք բիբին՝ լուսարձակման առաջացրած կարմրությունը հեռացնելու համար։
+tool.red_eye.option.pupil_size = Բիբի չափ
+tool.red_eye.option.darken = Մգացնել
+tool.red_eye.history.red_eye = Կարմիր աչք
+
+tool.magic_eraser.name = Կախարդական ռետին
+tool.magic_eraser.description = Սեղմեք՝ գործիքի թույլատրելի շեղման սահմաններում ցուցիչի տակ գտնվող նման գույնի տարածքը ջնջելու համար՝ միայն սեղմման կետին հարակից տարածքում կամ ամբողջ շերտում։
+tool.magic_eraser.option.contiguous = Հարակից
+tool.magic_eraser.history.erase = Կախարդական ռետին

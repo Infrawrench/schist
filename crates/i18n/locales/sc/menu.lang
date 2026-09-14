@@ -1,0 +1,153 @@
+# Archìviu
+menu.file = Archìviu
+menu.file.new = Nou
+menu.file.open = Aberi…
+menu.file.open_recent = Aberi reghente
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Esplora sa galleria…
+menu.file.close = Serra
+menu.file.save = Sarva
+menu.file.save_as = Sarva comente…
+menu.file.export = Esporta…
+menu.file.export_submenu = Esporta
+menu.file.export_artboards = Tavulas de traballu in PNG…
+menu.file.export_slices = Setziones in PNG…
+menu.file.save_to_photos = Sarva in Fotografias
+menu.file.plugins = Cumplementos…
+menu.file.missing_fonts = Caràteres chi mancant…
+menu.file.check_for_updates = Chirca atualizatziones…
+menu.file.quit = Essi
+menu.file.add_folder_to_gallery = Annanghe una cartella a sa galleria…
+menu.file.import_from_photos = Importa dae Fotografias…
+menu.file.import_from_camera = Importa dae sa càmera…
+
+# Modìfica
+menu.edit = Modìfica
+menu.edit.fill = Preni…
+menu.edit.stroke = Tratu…
+menu.edit.content_aware_fill = Prentura cun atentzione a su cuntenutu
+menu.edit.content_aware_scale = Iscala cun atentzione a su cuntenutu…
+menu.edit.puppet_warp = Deformatzione a marioneta
+menu.edit.free_transform = Trasformatzione lìbera
+menu.edit.transform = Trasforma
+menu.edit.rotate_180 = Gira de 180°
+menu.edit.rotate_90_cw = Gira de 90° in sensu oràriu
+menu.edit.rotate_90_ccw = Gira de 90° in sensu anti-oràriu
+menu.edit.flip_horizontal = Ribalta in orizontale
+menu.edit.flip_vertical = Ribalta in verticale
+
+# Immàgine
+menu.image = Immàgine
+menu.image.mode = Modalidade
+menu.image.adjustments = Regulatziones
+menu.image.auto_tone = Tonalidade automàtica
+menu.image.auto_contrast = Contrastu automàticu
+menu.image.auto_color = Colore automàticu
+menu.image.image_size = Mannària de s'immàgine…
+menu.image.canvas_size = Mannària de sa tela…
+menu.image.image_rotation = Girada de s'immàgine
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° in sensu oràriu
+menu.image.rotate_90_ccw = 90° in sensu anti-oràriu
+menu.image.flip_canvas_horizontal = Ribalta sa tela in orizontale
+menu.image.flip_canvas_vertical = Ribalta sa tela in verticale
+menu.image.crop_to_selection = Retàllia a sa seletzione
+menu.image.trim = Rifila
+menu.image.assign_profile = Assinna unu profilu…
+menu.image.convert_to_profile = Cunverte a su profilu…
+
+# Seletziona
+menu.select = Seletziona
+menu.select.color_range = Gamma de colores…
+menu.select.modify = Modìfica
+menu.select.border = Màrgine…
+menu.select.smooth = Allìscia…
+menu.select.expand = Ismànnia…
+menu.select.contract = Istringhe…
+menu.select.feather = Isfuma…
+menu.select.transform_selection = Trasforma sa seletzione
+
+# Istratu
+menu.layer = Istratu
+menu.layer.layer_style = Istile de s'istratu…
+menu.layer.layer_comps = Cumpositziones de istratos
+menu.layer.new_layer_comp = Cumpositzione de istratos noa
+menu.layer.delete_layer_comp = Cantzella {name}
+menu.layer.path = Percursu
+menu.layer.fill_path = Preni su percursu
+menu.layer.stroke_path = Tràtzia su percursu
+menu.layer.make_selection = Crea una seletzione
+menu.layer.delete_path = Cantzella su percursu
+
+# Assesta
+menu.adjust = Assesta
+
+# Filtru
+menu.filter = Filtru
+menu.filter.filter_gallery = Galleria de filtros…
+menu.filter.liquify = Liquefa
+menu.filter.vanishing_point = Puntu de fuga
+menu.filter.manage_models = Gesti is modellos…
+menu.filter.camera_raw_development = Isvilupu Camera Raw…
+
+# Visualiza
+menu.view = Visualiza
+menu.view.rotate_view_cw = Gira sa visualizatzione in sensu oràriu
+menu.view.rotate_view_ccw = Gira sa visualizatzione in sensu anti-oràriu
+menu.view.reset_view = Riprìstina sa visualizatzione
+menu.view.zoom_in = Ismànnia
+menu.view.zoom_out = Minimiza
+menu.view.fit_on_screen = Adapta a s'ischermu
+menu.view.actual_size = 100%
+menu.view.rulers = Rigas
+menu.view.grid = Retza
+menu.view.guides = Ghias
+menu.view.notes = Notas
+menu.view.ai_panel = Pannellu de IA
+menu.view.extras = Elementos in prus
+menu.view.snap = Acàpia
+menu.view.clear_guides = Isbòida is ghias
+menu.view.clear_notes = Isbòida is notas
+menu.view.clear_count = Isbòida su contu
+menu.view.screen_mode = Modalidade de ischermu
+menu.view.proof_colors = Proa de colores
+menu.view.show_rulers = Ammustra is rigas
+menu.view.hide_rulers = Cua is rigas
+menu.view.show_grid = Ammustra sa retza
+menu.view.hide_grid = Cua sa retza
+menu.view.show_guides = Ammustra is ghias
+menu.view.hide_guides = Cua is ghias
+menu.view.show_notes = Ammustra is notas
+menu.view.hide_notes = Cua is notas
+menu.view.show_extras = Ammustra is elementos in prus
+menu.view.hide_extras = Cua is elementos in prus
+menu.view.enable_snapping = Ativa s'acapiadura
+menu.view.disable_snapping = Disativa s'acapiadura
+menu.view.enable_proof_colors = Ativa sa proa de colores
+menu.view.disable_proof_colors = Disativa sa proa de colores
+
+# Galleria
+menu.gallery = Galleria
+menu.gallery.edit_selected = Modìfica is elementos seletzionados
+menu.gallery.refresh = Atualiza
+menu.gallery.map_filter = Filtru de sa mapa…
+menu.gallery.back_to_editor = Torra a s'editore
+
+# Schist Cloud
+menu.cloud.browse = Esplora Schist Cloud
+menu.cloud.generate = Gènera immàgines…
+menu.cloud.upload = Càrriga su documentu in Schist Cloud…
+menu.cloud.sign_out = Essi dae Schist Cloud
+menu.cloud.sign_in = Intra in Schist Cloud…
+
+# Menù de s'aplicatzione in macOS
+menu.app.services = Servìtzios
+menu.app.hide = Cua {app}
+menu.app.hide_others = Cua is àteras
+menu.app.show_all = Ammustra totu
+menu.app.quit = Essi dae {app}
+
+# Rispostas de sa barra de istadu
+menu.status.transform_selection_needs_selection = Pro trasformare sa seletzione nde serbit una
+menu.status.crop_needs_selection = Pro retalliare a sa seletzione nde serbit una
+menu.status.select_photo_to_edit = Seletziona una fotografia de modificare

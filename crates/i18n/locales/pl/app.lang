@@ -1,0 +1,43 @@
+# Galeria filtrów
+app.filter_gallery.title = Galeria filtrów
+app.filter_gallery.stack = Stos (stosowany od dołu do góry)
+app.filter_gallery.no_settings = Ten filtr nie ma ustawień.
+
+# Czcionki
+app.fonts.not_open_licensed = brak otwartej licencji · {substitute} ma zgodne metryki
+app.fonts.missing_substituted = brak · tekst jest składany czcionką zastępczą
+app.fonts.not_in_catalogue = Czcionki {family} nie ma w katalogu otwartych czcionek
+app.fonts.no_faces = Brak odmian czcionki {family} do pobrania
+app.fonts.empty_response = pusta odpowiedź
+
+# Aktualizator
+app.update.unreadable_response = nieczytelna odpowiedź: {error}
+app.update.no_temp_dir = brak katalogu tymczasowego do pobrania pliku
+app.update.asset_has_path = nazwa zasobu w wydaniu zawiera ścieżkę
+app.update.too_big = pobrany plik jest większy, niż podano w wydaniu
+app.update.stopped_at = pobieranie zatrzymało się po {got} z {total} bajtów
+app.update.hash_mismatch = skrót pobranego pliku to {got}, a nie {want}
+app.update.not_in_bundle = ta kopia nie znajduje się w pakiecie aplikacji
+app.update.no_parent_dir = pakiet aplikacji nie ma katalogu nadrzędnego
+app.update.cannot_write = nie można zapisać w {dir}
+app.update.cannot_move_aside = nie można przenieść {app} na bok
+app.update.cannot_move_in = nie można umieścić nowego pakietu na właściwym miejscu
+app.update.cannot_run_ditto = nie można uruchomić /usr/bin/ditto
+app.update.unpack_failed = rozpakowywanie pobranego pliku nie powiodło się: {error}
+app.update.no_app_in_download = pobrany plik nie zawiera Schist.app
+app.update.cannot_run_codesign = nie można uruchomić /usr/bin/codesign
+app.update.signature_invalid = nie udało się zweryfikować podpisu pobranego pliku: {error}
+app.update.download_unsigned = ta kopia jest podpisana, a pobrany plik nie
+app.update.different_developer = pobrany plik jest podpisany przez innego dewelopera
+app.update.cannot_relaunch = nie można uruchomić programu ponownie otwierającego aplikację
+app.update.not_installed_copy = ta kopia nie została umieszczona tutaj przez instalator
+app.update.cannot_start_installer = nie można uruchomić instalatora
+app.update.platform_unsupported = aktualizacje na tej platformie instaluje się tak samo jak Schist
+
+# Kontrola Vulkan w systemie Linux
+app.vulkan.no_loader = schist: w tym systemie nie ma programu ładującego Vulkan, więc nie ma czym rysować.\n\nSchist renderuje przez Vulkan, a `libvulkan.so.1` nie jest zainstalowany.\nPotrzebne są zarówno program ładujący, jak i sterownik:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: sterownika Vulkan wskazanego w tej sesji nie ma we wskazanym miejscu.\n\nUstawiono {var}, a jego ustawienie *zastępuje* wyszukiwanie sterowników\nprzez program ładujący, zamiast dodawać do niego nowe miejsca. Dlatego te\nnieistniejące pliki stanowią całą listę sterowników — i żaden program Vulkan\nw tej sesji nie widzi żadnego sterownika, niezależnie od liczby zainstalowanych:\n\n{missing}\n    {var}={value}\n\nWskaż istniejący manifest — zainstalowane sterowniki umieszczają swoje w\n/usr/share/vulkan/icd.d — albo usuń to ustawienie i pozwól programowi ładującemu\nsamodzielnie go znaleźć. Jeśli sesja ustawia je w pliku konfiguracji (`env =`\nw Hyprland, plik environment.d systemd, profil powłoki), trzeba zmienić je tam,\na aby zmiana dotarła do już działających programów, należy zalogować się ponownie.\n
+app.vulkan.override_note = \nUstawiono {var} na {value}, co zastępuje własne wyszukiwanie programu\nładującego: jeśli żaden z tych manifestów nie pasuje do tego komputera,\nnajpierw spróbuj usunąć to ustawienie.\n
+app.vulkan.no_driver = schist: nie zainstalowano sterownika Vulkan, więc nie ma na czym rysować.\n\nSchist renderuje przez Vulkan. Program ładujący jest zainstalowany, ale nie\nzgłasza żadnego sterownika — żaden nie został zarejestrowany w żadnym z dwóch\nprzeszukiwanych miejsc:\n\n{dirs}\n\nProgram ładujący jest dostarczany oddzielnie od sterowników, więc zwykle brakuje\ntylko jednego pakietu.\n\nZainstaluj sterownik procesora graficznego tego komputera:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nWłasnościowy sterownik NVIDIA zawiera własny (`nvidia-utils` w Arch,\n`nvidia-driver` w Debianie). W maszynie wirtualnej lub wszędzie tam, gdzie nie\nma sterownika GPU do zainstalowania, działa rasteryzator programowy:\n`vulkan-swrast` w Arch, a w innych systemach jako część `mesa-vulkan-drivers`.\nJest powolny, ale pozwala uruchomić program.\n{overridden}
+app.vulkan.no_device = schist: sterownik Vulkan jest zainstalowany, ale nie udostępnia urządzenia do renderowania.\n\nSterownik może nie obsługiwać tego procesora graficznego albo nie mieć do niego\ndostępu — przez SSH lub wewnątrz kontenera często brakuje /dev/dri. Polecenie\n`vulkaninfo --summary` pokazuje, co widzi program ładujący.\n\nJeśli ten komputer nie ma GPU, rasteryzator programowy potrafi renderować bez\nniego: `vulkan-swrast` w Arch, a w Debianie i Fedorze jako część\n`mesa-vulkan-drivers`.\n
+app.vulkan.skip_hint = Aby mimo to uruchomić Schist i pozwolić mu zakończyć się własnym błędem, ustaw {var}=1.

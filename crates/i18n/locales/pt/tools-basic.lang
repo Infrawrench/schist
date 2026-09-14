@@ -1,0 +1,21 @@
+tool.move.name = Mover
+tool.move.description = Arraste o conteúdo da camada ativa para uma nova posição. Com a Seleção automática ativada, ao pressionar é selecionada primeiro a camada — ou o grupo inteiro — que estiver sob o ponteiro.
+tool.move.option.auto_select = Seleção automática
+tool.move.history.move_layer = Mover camada
+
+tool.eyedropper.name = Conta-gotas
+tool.eyedropper.description = Recolha uma amostra da cor sob o ponteiro para a amostra de primeiro plano ou, mantendo Alt pressionado, para a amostra de fundo. Ao arrastar, continua a recolher amostras.
+tool.eyedropper.option.sample_size = Tamanho da amostra
+tool.eyedropper.option.sample = Amostra
+tool.eyedropper.choice.point_sample = Amostra pontual
+tool.eyedropper.choice.average_3 = Média de 3 por 3
+tool.eyedropper.choice.average_5 = Média de 5 por 5
+tool.eyedropper.choice.average_11 = Média de 11 por 11
+tool.eyedropper.choice.average_31 = Média de 31 por 31
+tool.eyedropper.choice.all_layers = Todas as camadas
+tool.eyedropper.choice.current_layer = Camada atual
+
+tool.hand.name = Mão
+tool.hand.description = Desloca a vista. A área de visualização pertence à janela, portanto, no modo sem interface, esta ferramenta não altera o documento.
+tool.zoom.name = Zoom
+tool.zoom.description = Altera o zoom da vista. A área de visualização pertence à janela, portanto, no modo sem interface, esta ferramenta não altera o documento.

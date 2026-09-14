@@ -1,0 +1,98 @@
+workspace.fill.gray_50 = 50% uqi
+workspace.fill.content_aware = Ukhunman yachaspa
+workspace.modify.expand = Akllasqata mast'ariy
+workspace.modify.contract = Akllasqata k'ichkiy
+workspace.modify.border = Akllasqap kantunta ruray
+workspace.modify.smooth = Akllasqata llamp'uyachiy
+workspace.modify.feather = Akllasqap kantunta llamp'uyachiy
+
+workspace.batch.target.edit = Galería allichaykuna (versiónniyuq)
+workspace.batch.target.beside = Qallariqkunap waqtanpi copiakuna
+workspace.batch.target.folder = Huk karpetapi copiakuna…
+workspace.modal.image_size.title = Rikch'aypa sayaynin
+
+workspace.docs.opening = {name} kichachkan…
+workspace.docs.opened = {name} kichasqa
+workspace.docs.open_failed = Kichay mana atikunchu: {error}
+workspace.docs.no_codec = {name}qa Schist kichayta atisqan formatom manam
+workspace.docs.no_exporter = Schistqa .{ext} archivokunata mana waqaychayta atinchu
+workspace.docs.empty_response = Servidorqa ch'usaq kutichiyta apachimurqa
+workspace.docs.heic_not_installed = HEIC yanapayninqa mana churasqachu
+workspace.docs.heic_downloading = HEIC yanapayninta uraykachichkan (libheif {version})…
+workspace.docs.heic_installed = HEIC yanapaynin churasqa
+workspace.docs.heic_download_failed = HEIC yanapayninta uraykachiy mana atikunchu: {error}
+workspace.docs.placing = {name} churachkan…
+workspace.docs.place_image = Rikch'ayta churay
+workspace.docs.placed = {name} churasqa
+workspace.docs.place_failed = Churay mana atikunchu: {error}
+workspace.docs.saved = {name} waqaychasqa
+workspace.docs.save_failed = Waqaychay mana atikunchu: {error}
+
+workspace.adjustment.new_layer = Musuq {name} pata
+workspace.adjustment.added = {name} yapasqa
+workspace.adjustment.settings = {name} allichanakuna
+workspace.adjustment.updated = {name} musuqyachisqa
+workspace.adjustment.no_settings = {name}qa manam allichana tikrayniyuqchu
+workspace.comps.name_n = Pata churasqa {n}
+workspace.comps.captured = Pata churasqa hapisqa
+workspace.comps.apply = {name} churay
+workspace.styles.layer_style = Pata rikch'ay
+workspace.context.rename_layer = Patap sutinta tikray
+workspace.commands.tool = Llamk'ana: {name}
+
+workspace.colormgmt.assign = {name} churay
+workspace.colormgmt.assigned = {name} churasqa
+workspace.colormgmt.convert_to = {name} nisqaman tikray
+workspace.colormgmt.converted_to = {name} nisqaman tikrasqa
+workspace.colormgmt.convert_failed = Tikray mana atikunchu: {error}
+workspace.colormgmt.proof_on = Llim'ikunata ñawpaq tupachiy hap'ichisqa
+workspace.colormgmt.proof_off = Llim'ikunata ñawpaq tupachiy wañuchisqa
+
+workspace.filters.choose = Akllay
+workspace.filters.select_layer_first = Ñawpaqta huk patata akllay
+workspace.filters.needs_pixel_layer = Suysunakunaqa pixel patata munanku
+workspace.filters.nothing_to_filter = Manam suysuna imapas kanchu
+workspace.filters.went_away = Suysuna chinkarun
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: suysusqan pata chinkarun
+workspace.filters.plugin_title = Photoshop plug-in
+workspace.filters.running = {name} purichkan
+workspace.filters.plugin_note = Plug-inqa kikin proceso ukhupi purin. T'uquta kichaptinqa, qatinanpaq chaypi kutichiy.
+workspace.filters.raw_preview_developing = RAW ñawpaq qhawanata wiñachichkan…
+workspace.filters.raw_preview_done = RAW ñawpaq qhawana (utqay demosaico)
+workspace.filters.raw_preview_size_changed = RAW ñawpaq qhawanap sayaynin tikrakurqa: {w} × {h}
+workspace.filters.raw_preview_failed = RAW ñawpaq qhawana mana atikunchu: {error}
+workspace.filters.raw_developing = Qallariq hapisqa RAW-ta wiñachichkan…
+workspace.filters.raw_developing_note = Aswan allin demosaico ñanta llamk'achichkan. PSD utaq PSB hina waqaychay qhipamanpas qallariq RAW kay allichanakunapas tikray atisqallam qhipanku.
+workspace.filters.raw_document_changed = RAW wiñachiyqa qillqa khipun tikrakusqan qhipaman tukurqa
+workspace.filters.raw_failed = RAW wiñachiy mana atikunchu: {error}
+workspace.filters.raw_too_wide = RAW wiñachiyqa ancha kinray sayayniyuq
+workspace.filters.raw_too_tall = RAW wiñachiyqa ancha sayayniyuq
+workspace.filters.raw_size_changed = RAW wiñachiypa sayaynin {w} × {h} nisqaman tikrakurqa; kunan patata waqaychachkan
+workspace.filters.raw_history = Camera Raw wiñachiy
+workspace.filters.raw_applied = Camera Raw wiñachiy churasqa (aswan allin demosaico)
+
+workspace.image_size.done = Rikch'aypa sayaynin: {w} × {h}
+workspace.image_size.bicubic_fallback = Rikch'aypa sayaynin: {w} × {h} — {name} modelo mana apamuy atikurqachu, chayrayku bicúbica rantinman churakurqa
+workspace.image_size.upscaling = {name} nisqawan hatunyachichkan
+workspace.image_size.upscaling_note = {mp} megapixel red neuronal ukhunta, sapa hukpaq wakin segundokuna. Tukukunankama qillqa khipu hark'asqa qhipan.
+
+workspace.export.no_slices = Manam lluqsichina rakisqakuna kanchu
+workspace.export.no_artboards = Manam lluqsichina arte pizarrakuna kanchu
+workspace.export.regions.other = {n} k'iti lluqsichisqa
+workspace.export.prompt = Kay hina lluqsichiy:
+workspace.export.done = {name} lluqsichisqa
+workspace.export.failed = Lluqsichiy mana atikunchu: {error}
+workspace.export.codec_vanished = Lluqsichiq manaña kanchu
+
+workspace.file_picker.choose_folder = Karpetata akllay
+workspace.file_picker.type_a_name = Archivopaq sutita qillqay
+workspace.file_picker.exists = {name} kachkanña; rantinman churanapaq Waqaychay wakmanta ñit'iy
+workspace.file_picker.tap_a_file = Kichanapaq archivota ñit'iy
+workspace.file_picker.pictures = Rikch'aykuna
+workspace.file_picker.camera = Cámara
+workspace.file_picker.downloads = Uraykachisqakuna
+workspace.file_picker.permission_denied = Schistqa kay karpetata ñawinchanapaq mana saqisqachu
+
+workspace.recovery.recovered_title = {title} (kutichisqa)
+workspace.recovery.recovered.other = Ñawpaq sesiónmanta mana waqaychasqa {n} qillqa khipu kutichisqa

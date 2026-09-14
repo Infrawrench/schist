@@ -1,0 +1,36 @@
+app.filter_gallery.title = Pinacotheca Filtrorum
+app.filter_gallery.stack = Acervus (ab imo ad summum applicatus)
+app.filter_gallery.no_settings = Hoc filtrum nullas optiones habet.
+app.fonts.not_open_licensed = licentia aperta caret · {substitute} easdem mensuras habet
+app.fonts.missing_substituted = deest · textus forma substituta componitur
+app.fonts.not_in_catalogue = {family} in catalogo formarum litterarum apertarum non est
+app.fonts.no_faces = nullae species {family} descendi possunt
+app.fonts.empty_response = responsum vacuum
+app.update.unreadable_response = responsum legi non potest: {error}
+app.update.no_temp_dir = nulla theca temporaria in quam res descendatur
+app.update.asset_has_path = editio rei suae nomen cum semita praebet
+app.update.too_big = res descensa maior est quam editio indicat
+app.update.stopped_at = descensio ad {got} ex {total} bytes substitit
+app.update.hash_mismatch = summa cryptographica rei descensae est {got}, non {want}
+app.update.not_in_bundle = hoc exemplar intra fasciculum applicationis non est
+app.update.no_parent_dir = fasciculus applicationis nullam thecam parentem habet
+app.update.cannot_write = in {dir} scribi non potest
+app.update.cannot_move_aside = {app} seponi non potest
+app.update.cannot_move_in = novus fasciculus in locum moveri non potest
+app.update.cannot_run_ditto = /usr/bin/ditto exsequi non potest
+app.update.unpack_failed = res descensa extrahi non potuit: {error}
+app.update.no_app_in_download = res descensa nullum Schist.app continet
+app.update.cannot_run_codesign = /usr/bin/codesign exsequi non potest
+app.update.signature_invalid = subscriptio rei descensae comprobari non potest: {error}
+app.update.download_unsigned = hoc exemplar subscriptum est, res descensa non est
+app.update.different_developer = res descensa ab alio programmatore subscripta est
+app.update.cannot_relaunch = programma ad iterum incipiendum incipi non potest
+app.update.not_installed_copy = hoc exemplar ab installatore hic positum non est
+app.update.cannot_start_installer = installator incipi non potest
+app.update.platform_unsupported = renovationes in hac platforma eodem modo installantur quo Schist
+app.vulkan.no_loader = schist: nullus onerator Vulkan in hoc systemate est, ergo nihil est quo imago depingatur.\n\nSchist per Vulkan imagines depingit, sed `libvulkan.so.1` installatum non est.\nEt onerator et agitator requiruntur:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: agitator Vulkan ad quem haec sessio refert non adest.\n\n{var} statutum est; eo statuto, quaestio agitatorum ab oneratore facta *substituitur*\nnec augetur. Hi igitur fasciculi, qui non exstant, totum indicem agitatorum\nconstituunt — et omne programma Vulkan in hac sessione nullum agitatorum videt,\nquotcumque installati sint:\n\n{missing}\n    {var}={value}\n\nAd indicem manifestum exstantem id dirige — agitatores installati suos in\n/usr/share/vulkan/icd.d ponunt — vel id remove et oneratori permitte ut suos\nreperiat. Si sessio hunc valorem ex fasciculo configurationis statuit (ex\n`env =` Hyprland, additamento environment.d systemd, vel forma interpretis),\nibi mutandus est, et nova initio sessionis requiritur ut mutatio ad programmata\niam currentia perveniat.\n
+app.vulkan.override_note = \n{var} ad {value} statutum est, quod propriam quaestionem oneratoris\nsubstituit: si nullus ex illis indicibus manifestis huic machinae convenit,\nprimum conare hunc valorem removere.\n
+app.vulkan.no_driver = schist: nullus agitator Vulkan installatus est, ergo nulla imago depingi potest.\n\nSchist per Vulkan imagines depingit. Onerator installatus est sed nullum\nagitatorum refert — nullus agitator in alterutro loco ubi quaeruntur se descripsit:\n\n{dirs}\n\nOnerator separatim ab agitatoribus distribuitur, itaque plerumque unum\ninvolucrum tantum deest.\n\nInstalla illum qui GPU huius machinae convenit:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nAgitator proprietarius NVIDIA suum secum fert (`nvidia-utils` in Arch,\n`nvidia-driver` in Debian). In machina virtuali, vel ubicumque nullus agitator\nGPU installari potest, rasterizator programmaticus operatur: `vulkan-swrast`\nin Arch, pars `mesa-vulkan-drivers` alibi. Tardus est, sed incipit.\n{overridden}
+app.vulkan.no_device = schist: agitator Vulkan installatus est sed nullum instrumentum ad imaginem depingendam praebet.\n\nAgitator fortasse huic GPU non convenit, vel ad eam pervenire non potest —\nper SSH, vel intra continens, /dev/dri saepe deest. `vulkaninfo --summary`\nrefert quid onerator videat.\n\nRasterizator programmaticus omnino sine GPU imagines depingit, si haec machina\neum requirit: `vulkan-swrast` in Arch, pars `mesa-vulkan-drivers`\nin Debian et Fedora.\n
+app.vulkan.skip_hint = Ut Schist nihilominus incipias et suo modo deficere sinas, statue {var}=1.

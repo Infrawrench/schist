@@ -1,0 +1,33 @@
+# Ngaahi meʻangāue fili
+
+tool.select.mode.subtract = Toʻo
+tool.select.mode.intersect = Fili Pē ʻa e Feituʻu ʻOku Fepakí
+
+tool.marquee.rect.name = Fakaʻilonga Tapafā
+tool.marquee.rect.description = Toho ha feituʻu fili tapafā. Ko e Shift ʻi he kamataʻanga ʻo e tohó ʻoku tānaki ki he feituʻu kuo filí, ko e alt ʻoku toʻo, pea ko kinaua fakatouʻosi ʻoku fili pē ʻa e feituʻu ʻoku fepaki fakatouʻosi aí; ko e Shift ʻi he lolotonga ʻo e tohó ʻoku ʻai ia ke tapafā tatau. Ko ha lomi taʻe toho ʻoku toʻo ʻa e filí.
+tool.marquee.ellipse.name = Fakaʻilonga Fuopotopoto Lōloa
+tool.marquee.ellipse.description = Toho ha feituʻu fili fuopotopoto lōloa, ʻo ngāueʻaki ʻa e Shift/alt tatau mo e fakaʻilonga tapafā ke fakatahaʻi ʻa e ngaahi feituʻu kuo filí.
+
+tool.lasso.name = Laso
+tool.lasso.description = Toho ha laine tauʻatāina; ʻe tāpuni ʻa e feituʻu kuo filí ʻi he vahaʻa ʻo e ongo ngataʻangá ʻi he ʻosi ʻa e tohó. Ko e Shift ʻoku tānaki, pea ko e alt ʻoku toʻo.
+tool.lasso.history.select = Fili ʻaki ʻa e Laso
+tool.lasso.polygonal.name = Laso Polikoni
+tool.lasso.polygonal.description = Lomi ʻi he tuliki takitaha ke faʻu ha feituʻu fili tapa hangatonu, pea lomi ofi ki he poini ʻuluakí ke tāpuni ia.
+tool.lasso.polygonal.history.select = Laso Polikoni
+tool.lasso.magnetic.name = Laso Makinēti
+tool.lasso.magnetic.description = Muimui fakafuofua ʻi ha tapa pea ʻe piki ʻa e lainé ki he kehekehe mālohi taha ʻoku ofi ki he halá.
+tool.lasso.magnetic.history.select = Laso Makinēti
+tool.lasso.magnetic.option.frequency = Tuʻo Lahi
+
+tool.wand.name = Vaʻakau Mana
+tool.wand.description = Lomi ke fili ʻa e feituʻu fehokotaki ʻoku tatau hono lanú ʻi lalo ʻi he tuhu, ʻo fakatatau ki he meʻa fili Ngofua — ko e ngofua tatau ia ʻoku lau ʻe he Fakatupu, Tatau mo e Vahaʻa ʻo e Lanu.
+tool.wand.option.contiguous = Hoko Fakataha
+tool.wand.history.select = Vaʻakau Mana
+
+tool.quick_select.name = Fili Vave
+tool.quick_select.description = Vali ʻi ha feituʻu pea ʻe tupu ʻa e feituʻu kuo filí ʻi he ngaahi pikisi tatau ʻoku kolosi ai ʻa e polosí.
+tool.quick_select.history.select = Fili Vave
+
+tool.object_select.name = Fili Meʻa
+tool.object_select.description = Toho ha puha takatakai ʻi ha meʻa pea ʻe piki ʻa e feituʻu kuo filí ki he meʻa ʻoku maʻu ʻi lotó.
+tool.object_select.history.select = Fili Meʻa

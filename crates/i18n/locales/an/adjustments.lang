@@ -1,0 +1,20 @@
+# Capas d'achuste y comandos Imachen ▸ Achustes.
+adjustment.levels.name = Nivels
+adjustment.curves.name = Curvas
+adjustment.hue_saturation.name = Tonalidat/Saturación
+adjustment.brightness_contrast.name = Brilo/Contraste
+adjustment.black_white.name = Preto y blanco
+adjustment.solid_color.name = Color solida
+adjustment.gradient_fill.name = Recheleno degradau
+adjustment.pattern_fill.name = Recheleno con patrón
+adjustment.invert.name = Invertir
+adjustment.posterize.name = Posterizar
+adjustment.threshold.name = Branquil
+adjustment.color_balance.name = Equilibrio de color
+adjustment.vibrance.name = Vivacidat
+adjustment.exposure.name = Exposición
+adjustment.photo_filter.name = Filtro fotografico
+adjustment.gradient_map.name = Mapa de degradau
+adjustment.selective_color.name = Color selectiva
+adjustment.channel_mixer.name = Mesclador de canals
+adjustment.other.name = Achuste

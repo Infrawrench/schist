@@ -1,0 +1,22 @@
+tool.type.name = உரை
+tool.type.description = அந்த இடத்தில் உரை அடுக்கைத் தொடங்கச் சொடுக்கவும்; ஏற்கெனவே உள்ள உரை அடுக்கைத் திருத்த அதைச் சொடுக்கவும். திருத்தம் திறந்திருக்கும்போது கருவி நேரடி விசை உள்ளீட்டை ஏற்கும் (எழுத்துகளை விசை உள்ளீடாக அனுப்பவும்); உறுதிசெய்ததும் அடுக்கு படமாக்கப்பட்டு திருத்தம் மூடப்படும்.
+
+tool.type.option.align = சீரமைப்பு
+tool.type.option.leading = வரி இடைவெளி
+tool.type.option.tracking = எழுத்து இடைவெளி
+tool.type.option.kerning = எழுத்திணை இடைவெளி
+tool.type.option.ligatures = எழுத்திணைப்புகள்
+tool.type.option.discretionary_ligatures = விருப்ப எழுத்திணைப்புகள்
+tool.type.option.small_caps = சிறிய பேரெழுத்துகள்
+tool.type.option.on_path = செயலில் உள்ள பாதையில்
+tool.type.option.path_offset = பாதை விலக்கம்
+
+tool.type.choice.regular = இயல்பு
+tool.type.choice.bold = தடித்த
+tool.type.choice.italic = சாய்வு
+tool.type.choice.bold_italic = தடித்த சாய்வு
+
+tool.type.history.new_layer = புதிய உரை அடுக்கு
+tool.type.history.edit = உரையைத் திருத்து
+tool.type.history.discard = உரையைத் துற
+tool.type.history.discard_empty = காலி உரையைத் துற

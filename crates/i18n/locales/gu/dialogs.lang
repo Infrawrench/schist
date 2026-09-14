@@ -1,0 +1,247 @@
+# Shared
+dialog.save_ellipsis = સાચવો…
+dialog.use_foreground = અગ્રભૂમિ વાપરો
+dialog.downloading = ડાઉનલોડ થઈ રહ્યું છે…
+dialog.downloading_of = ડાઉનલોડ થઈ રહ્યું છે… {total}માંથી {got}
+dialog.no_config_dir = (કોઈ કૉન્ફિગ ડિરેક્ટરી નથી)
+dialog.layer_props.title = લેયરના ગુણધર્મો
+
+# Export
+dialog.export.format = ફોર્મેટ
+dialog.export.dither = ડિધર
+dialog.export.dither_note = 8-બિટમાં ઘટાડતી વખતે ડિધર કરો
+dialog.export.export_ellipsis = એક્સપોર્ટ કરો…
+
+# Process Photos
+dialog.batch.title = ફોટા પર પ્રક્રિયા કરો
+dialog.batch.note_edit.one = {n} ફોટો — ગૅલેરી સંપાદન તરીકે સાચવાશે; મૂળ ફાઇલને ક્યારેય સ્પર્શ કરાતો નથી.
+dialog.batch.note_edit.other = {n} ફોટા — ગૅલેરી સંપાદનો તરીકે સાચવાશે; મૂળ ફાઇલોને ક્યારેય સ્પર્શ કરાતો નથી.
+dialog.batch.note_edit_edited.one = {n} ફોટો, {edited} પહેલાંથી સંપાદિત — રેસિપી સંપાદન પર લાગશે અને અગાઉનું સંપાદન વર્ઝન તરીકે જળવાશે.
+dialog.batch.note_edit_edited.other = {n} ફોટા, {edited} પહેલાંથી સંપાદિત — રેસિપી સંપાદનો પર લાગશે અને અગાઉનાં સંપાદનો વર્ઝન તરીકે જળવાશે.
+dialog.batch.note_copies.one = {n} ફોટો — સપાટ નકલ; મૂળ ફાઇલને ક્યારેય સ્પર્શ કરાતો નથી.
+dialog.batch.note_copies.other = {n} ફોટા — સપાટ નકલો; મૂળ ફાઇલોને ક્યારેય સ્પર્શ કરાતો નથી.
+dialog.batch.note_copies_edited.one = {n} ફોટો, {edited} પહેલાંથી સંપાદિત — નકલ સંપાદનમાંથી બનાવવામાં આવશે.
+dialog.batch.note_copies_edited.other = {n} ફોટા, {edited} પહેલાંથી સંપાદિત — નકલો સંપાદનોમાંથી બનાવવામાં આવશે.
+dialog.batch.turn = ફેરવો
+dialog.batch.rotate = પરિભ્રમણ
+dialog.batch.flip = પલટાવો
+dialog.batch.upscale = અપસ્કેલ
+dialog.batch.colour = રંગ
+dialog.batch.add_adjustment = ગોઠવણ…
+dialog.batch.output = આઉટપુટ
+dialog.batch.save_as = આ રીતે સાચવો
+dialog.batch.process = પ્રક્રિયા કરો
+dialog.batch.process_n = {n} પર પ્રક્રિયા કરો
+dialog.batch.nothing_to_do = કરવા માટે કંઈ નથી: પહેલાં ફેરવવાનું, અપસ્કેલ અથવા ગોઠવણ પસંદ કરો
+
+# Editing dialogs
+dialog.content_aware_scale.title = કન્ટેન્ટ-અવેર માપ
+dialog.content_aware_scale.note = ઓછી વિગતોવાળા સીમ કાપે છે. પસંદગી સુરક્ષિત રાખવાનો ભાગ દર્શાવે છે.
+dialog.stroke.title = સ્ટ્રોક
+dialog.stroke.location = સ્થાન
+dialog.stroke.inside = અંદર
+dialog.stroke.outside = બહાર
+dialog.stroke.note = પસંદગી પર અગ્રભૂમિના રંગનો સ્ટ્રોક કરે છે.
+dialog.fill.contents = સામગ્રી
+dialog.color_range.title = રંગ શ્રેણી
+dialog.color_range.sampled = નમૂનો લીધેલો
+dialog.color_range.fuzziness = અસ્પષ્ટતા
+dialog.color_range.note = સક્રિય લેયર પર નમૂના લીધેલા રંગની નજીકના પિક્સેલ પસંદ કરે છે.
+
+# File picker and filters
+dialog.file_picker.up = ↑ ઉપર
+dialog.file_picker.empty = અહીં કંઈ નથી
+dialog.file_picker.choose_folder = આ ફોલ્ડર પસંદ કરો
+dialog.filter.camera_raw_development = Camera Raw ડેવલપમેન્ટ
+dialog.filter.reset_as_shot = કૅમેરાથી લીધેલી સ્થિતિ પર રીસેટ કરો
+dialog.filter.raw_note = સક્રિય લેયરને તેના મૂળ સેન્સર ડેટામાંથી ફરી ડેવલપ કરે છે.
+dialog.filter.note = પસંદગીની અંદર સક્રિય લેયર પર લાગુ થાય છે.
+
+# Fonts
+dialog.fonts.title = ખૂટતા ફોન્ટ
+dialog.fonts.install_named = {name} ઇન્સ્ટૉલ કરો
+dialog.fonts.no_document = કોઈ દસ્તાવેજ ખુલ્લો નથી, એટલે તપાસવા માટે કંઈ નથી.
+dialog.fonts.all_installed = આ દસ્તાવેજમાં વપરાતા બધા ફોન્ટ ઇન્સ્ટૉલ છે. તેનો ટેક્સ્ટ જે ફોન્ટ સાથે ગોઠવાયો હતો તેમાં જ દેખાય છે.
+dialog.fonts.missing_intro = આ દસ્તાવેજમાં એવા ફોન્ટ વપરાયા છે જે તમારી પાસે નથી. અવેજી ફોન્ટમાં ટેક્સ્ટ વાંચી શકાય છે, પરંતુ તેની પહોળાઈ અને પંક્તિ-વિરામ મૂળ ગોઠવણી જેવા નથી.
+dialog.fonts.footer = ડાઉનલોડ Google Fontsના મુક્ત કૅટલૉગમાંથી આવે છે અને {dir}માં રાખવામાં આવે છે. મુક્ત લાઇસન્સ ન ધરાવતો ફોન્ટ ક્યારેય લાવવામાં આવતો નથી — માપ સાથે મેળ ખાતી મુક્ત ડિઝાઇન મળે તો તેના બદલે તે આપવામાં આવે છે; અક્ષરની પહોળાઈ મળતી હોવાથી મૂળ ગોઠવણી પાછી મળે છે.
+dialog.fonts.user_font_dir = તમારી વપરાશકર્તા ફોન્ટ ડિરેક્ટરી
+
+# Models
+dialog.models.title = Neural Filter મૉડલ
+dialog.models.built_in = બિલ્ટ-ઇન · {size}
+dialog.models.installed = ઇન્સ્ટૉલ થયેલું · {size}
+dialog.models.not_installed = ઇન્સ્ટૉલ નથી · {size}
+dialog.models.not_in_browser = બ્રાઉઝરમાં ઉપલબ્ધ નથી · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = મૉડલ {dir}માં રાખવામાં આવે છે. મૉડલ વિનાનાં ફિલ્ટર સિગ્નલ પ્રોસેસિંગનો વિકલ્પ વાપરે છે અને તે જણાવે છે.
+
+# New Document
+dialog.new_doc.title = નવો દસ્તાવેજ
+dialog.new_doc.picker_title = નવી ફાઇલ
+dialog.new_doc.custom_ellipsis = કસ્ટમ…
+dialog.new_doc.preset = પૂર્વનિર્ધારિત
+dialog.new_doc.preset_default = મૂળભૂત (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = ચોરસ (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = બનાવો
+dialog.new_doc.created = નવો દસ્તાવેજ: {w} × {h} px
+
+# Opening files
+dialog.open.image_title = છબી ખોલો
+dialog.open.image_prompt = “{name}”ને નવા ટૅબમાં ખોલવી છે કે વર્તમાન દસ્તાવેજમાં નવા લેયર તરીકે ઉમેરવી છે?
+dialog.open.new_tab = નવું ટૅબ
+dialog.open.new_layer = નવું લેયર
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = આ {n} ફાઇલ
+dialog.open.these_files.other = આ {n} ફાઇલો
+dialog.open.shared_title_one = શેર કરેલી છબી
+dialog.open.shared_title_many = શેર કરેલી છબીઓ
+dialog.open.shared_prompt = {what}ને ગૅલેરીમાં ઉમેરવી છે કે એડિટરમાં ખોલવી છે?
+dialog.open.add_to_gallery = ગૅલેરીમાં ઉમેરો
+dialog.open.open_in_editor = એડિટરમાં ખોલો
+dialog.open.heic_title = HEIC સપોર્ટ
+dialog.open.heic_needs_decoder = “{name}” ખોલવા માટે HEVC ડિકોડર જરૂરી છે, જે આ સિસ્ટમ પર ઇન્સ્ટૉલ નથી.
+dialog.open.heic_offer = Schist libde265 HEVC ડિકોડર સાથે libheif {version}નું માત્ર-ડિકોડ બિલ્ડ (લગભગ 5 MB) ડાઉનલોડ કરી શકે છે. બંને LGPL-3.0 લાઇસન્સવાળાં છે; તેમનાં લાઇસન્સ લખાણ લાઇબ્રેરીની બાજુમાં ઇન્સ્ટૉલ થાય છે અને સ્રોત પ્રોજેક્ટ પેજ પર ઉપલબ્ધ છે.
+dialog.open.licenses_source = લાઇસન્સ અને સ્રોત
+dialog.open.folders_title = છોડેલાં ફોલ્ડર
+dialog.open.n_folders.one = {n} ફોલ્ડર
+dialog.open.n_folders.other = {n} ફોલ્ડર
+dialog.open.open_in_tabs = ટૅબમાં ખોલો
+dialog.open.open_first_in_tabs = પહેલાંની {n} છબીઓ ટૅબમાં ખોલો
+dialog.open.open_n_in_tabs.one = {n} છબી ટૅબમાં ખોલો
+dialog.open.open_n_in_tabs.other = {n} છબીઓ ટૅબમાં ખોલો
+dialog.open.folder_holds.one = {what}માં Schist ખોલી શકે એવી {n} છબી છે (સબફોલ્ડર સહિત).
+dialog.open.folder_holds.other = {what}માં Schist ખોલી શકે એવી {n} છબીઓ છે (સબફોલ્ડર સહિત).
+dialog.open.folders_note = ગૅલેરીમાં ઉમેરવાથી ફોલ્ડરનું એ જ જગ્યાએ નિરીક્ષણ થાય છે — કંઈ કૉપી થતું નથી અને દરેક ફોટાની બાજુમાં સંપાદનનાં વર્ઝન રહે છે. ટૅબમાં ખોલવાથી બધી છબીઓ હમણાં એડિટરમાં લોડ થાય છે.
+
+# Plugins
+dialog.plugins.title = પ્લગઇન
+dialog.plugins.kind_filter = ફિલ્ટર
+dialog.plugins.kind_format = ફોર્મેટ
+dialog.plugins.kind_unavailable = ઉપલબ્ધ નથી
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = પ્લગઇન {dir}માંથી લોડ થાય છે
+dialog.plugins.none = હજી કોઈ પ્લગઇન ઇન્સ્ટૉલ નથી.
+dialog.plugins.install_ellipsis = ઇન્સ્ટૉલ કરો…
+dialog.plugins.photoshop_heading = Photoshop પ્લગઇન
+dialog.plugins.loaded_from = {folders}માંથી લોડ કરેલું
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Preferences
+dialog.prefs.title = પસંદગીઓ
+dialog.prefs.theme = થીમ
+dialog.prefs.theme_dark = ઘેરી
+dialog.prefs.theme_light = આછી
+dialog.prefs.grid_spacing = ગ્રિડ અંતરાલ
+dialog.prefs.snapping = સ્નૅપિંગ
+dialog.prefs.snap_to = માર્ગદર્શિકા, ગ્રિડ અને કેનવાસની ધાર સાથે સ્નૅપ કરો
+dialog.prefs.rendering_intent = રેન્ડરિંગ ઇન્ટેન્ટ
+dialog.prefs.intent_perceptual = પ્રત્યક્ષ અનુભવ મુજબ
+dialog.prefs.intent_relative = સાપેક્ષ કલરિમેટ્રિક
+dialog.prefs.intent_saturation = સંતૃપ્તિ
+dialog.prefs.intent_absolute = નિરપેક્ષ કલરિમેટ્રિક
+dialog.prefs.scrolling = સ્ક્રોલિંગ
+dialog.prefs.zoom_with_scroll = સ્ક્રોલ વ્હીલથી ઝૂમ કરો
+dialog.prefs.rendering = રેન્ડરિંગ
+dialog.prefs.gpu_compositing = GPU કમ્પોઝિટિંગ
+dialog.prefs.diagnostics = નિદાન
+dialog.prefs.crash_reports = પૅનિક વખતે સ્થાનિક ક્રૅશ રિપોર્ટ લખો
+dialog.prefs.crash_upload = તે ડેવલપરને પણ મોકલો
+dialog.prefs.telemetry = અનામી દૈનિક પિંગ મોકલો
+dialog.prefs.diagnostics_note = Schist ફરી શરૂ થાય ત્યારે નિદાન સેટિંગ્સ અમલમાં આવે છે.
+dialog.prefs.updates = અપડેટ
+dialog.prefs.check_updates = શરૂ કરતી વખતે નવી રિલીઝ તપાસો
+dialog.prefs.keyboard_shortcuts = કીબોર્ડ શૉર્ટકટ: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) મૉડલ જરૂરી છે —
+dialog.prefs.nsfw_download_link = તેને Manage Modelsમાં ડાઉનલોડ કરો…
+dialog.prefs.hide_flagged = ફ્લૅગ કરેલા ફોટા છુપાવો
+
+# Profiles and Save Image
+dialog.profile.profile = પ્રોફાઇલ
+dialog.profile.assign_title = પ્રોફાઇલ સોંપો
+dialog.profile.convert_title = પ્રોફાઇલમાં રૂપાંતરિત કરો
+dialog.profile.assign = સોંપો
+dialog.profile.convert = રૂપાંતરિત કરો
+dialog.profile.assign_note = હાલના પિક્સેલ મૂલ્યોનું નવી પ્રોફાઇલ હેઠળ ફરી અર્થઘટન કરે છે.
+dialog.profile.convert_note = રંગોનો દેખાવ જળવાય તે રીતે પિક્સેલ મૂલ્યો ફરી લખે છે.
+dialog.save_image.title = છબી આ રીતે સાચવો
+dialog.save_image.note = {name} — સંપાદન હોય તો તે; મૂળને ક્યારેય સ્પર્શ કરાતો નથી.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# Sizes
+dialog.size.image_title = છબીનું કદ
+dialog.size.canvas_title = કેનવાસનું કદ
+dialog.size.constrain = મર્યાદિત કરો
+dialog.size.keep_proportions = પ્રમાણ જાળવો
+dialog.size.resample = ફરી નમૂના લો
+dialog.size.bicubic = બાઇક્યુબિક
+dialog.size.bilinear = બિલિનિયર
+dialog.size.nearest = સૌથી નજીકનો પડોશી
+dialog.size.anchor = ઍન્કર
+dialog.size.currently = હાલમાં {w} × {h} px
+dialog.size.image_size_status = છબીનું કદ: {w} × {h}
+dialog.size.canvas_size_status = કેનવાસનું કદ: {w} × {h}
+
+# Update
+dialog.update.title = અપડેટ ઉપલબ્ધ
+dialog.update.available = Schist {version} ઉપલબ્ધ છે. આ નકલ {current} છે.
+dialog.update.installing = અપડેટ ઇન્સ્ટૉલ થઈ રહ્યું છે…
+dialog.update.can_install = Schist તેને ({size}) ડાઉનલોડ કરીને આ નકલ પર ઇન્સ્ટૉલ કરી શકે છે.
+dialog.update.external = આ નકલ તેના સંચાલક સ્ત્રોતમાંથી આવી છે — પૅકેજ મૅનેજર, AppImage અથવા તમારું પોતાનું બિલ્ડ — તેથી જે રીતે ઇન્સ્ટૉલ થઈ હતી એ જ રીતે અપડેટ થાય છે.
+dialog.update.later = પછીથી
+dialog.update.release_notes = રિલીઝ નોંધો
+dialog.update.update_restart = અપડેટ કરીને ફરી શરૂ કરો
+dialog.update.open_page = રિલીઝ પેજ ખોલો
+
+# Layer Style
+dialog.style.title = લેયર શૈલી
+dialog.style.bevel = બેવલ અને એમ્બૉસ
+dialog.style.stroke = સ્ટ્રોક
+dialog.style.inner_shadow = અંદરનો પડછાયો
+dialog.style.inner_glow = અંદરની ચમક
+dialog.style.satin = સૅટિન
+dialog.style.color_overlay = રંગ ઓવરલે
+dialog.style.gradient_overlay = ગ્રેડિયન્ટ ઓવરલે
+dialog.style.outer_glow = બહારની ચમક
+dialog.style.drop_shadow = પડતો પડછાયો
+dialog.style.blur = ગૌસિયન બ્લર
+dialog.style.gradient_from = ગ્રેડિયન્ટ ઓવરલે અહીંથી
+dialog.style.gradient_to = ગ્રેડિયન્ટ ઓવરલે અહીં સુધી
+dialog.style.soften = નરમ કરો
+dialog.style.depth = ઊંડાઈ
+dialog.style.altitude = ઊંચાઈ
+dialog.style.highlight = હાઇલાઇટ
+dialog.style.shadow = પડછાયો
+dialog.style.outer_bevel = બહારનો બેવલ
+dialog.style.inner_bevel = અંદરનો બેવલ
+dialog.style.emboss = એમ્બૉસ
+dialog.style.pillow_emboss = પિલો એમ્બૉસ
+dialog.style.linear = રેખીય
+dialog.style.radial = ત્રિજ્ય
+dialog.style.reverse = ઉલટાવો
+dialog.style.from_to = અહીંથી / અહીં સુધી
+dialog.style.from_fg = અહીંથી = FG
+dialog.style.to_fg = અહીં સુધી = FG
+dialog.style.precise = ચોક્કસ
+dialog.style.knockout = લેયર પડતા પડછાયાને નૉક આઉટ કરે છે
+
+# Color Picker and Curves
+dialog.color_picker.title = રંગ પિકર ({what})
+dialog.color_picker.effect_color = {effect} રંગ
+dialog.color_picker.note_color = નોંધનો રંગ
+dialog.color_picker.new = નવો
+dialog.color_picker.current = વર્તમાન
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = ચેનલ રીસેટ કરો
+dialog.curves.hint = આકાર આપવા ખેંચો · ઉમેરવા ક્લિક કરો · દૂર કરવા Alt-ક્લિક કરો
+
+# Camera roll backup
+dialog.prefs.camera_sync = કૅમેરા રોલ
+dialog.prefs.camera_sync_enabled = Schist Cloud પર બૅકઅપ લો
+dialog.prefs.camera_sync_sign_in = તમારા કૅમેરા રોલનો બૅકઅપ લેવા Schist Cloudમાં સાઇન ઇન કરો.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = બદલો…

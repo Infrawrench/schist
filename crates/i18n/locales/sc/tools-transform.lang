@@ -1,0 +1,29 @@
+# Trasformatzione lìbera
+tool.transform.name = Trasformatzione lìbera
+tool.transform.description = Trasformatzione lìbera. Ativende·dda si aberit una càscia de trasformatzione in giru a s'istratu ativu: tràghe unu càntaru pro iscalare, tràghe in foras de unu pro girare, tràghe unu màrgine pro inclinare. No est iscritu nudda fintzas chi no dda cunfirmas (Enter), e annullende (Escape) s'istratu torrat a comente fit.
+tool.transform.option.interpolation = Interpolatzione
+tool.transform.history.transform = Trasformatzione lìbera
+tool.transform.history.image_size = Mannària de s'immàgine
+tool.transform.history.canvas_size = Mannària de sa tela
+
+# Trasforma sa seletzione
+tool.transform.selection.name = Trasforma sa seletzione
+tool.transform.selection.description = Trasforma sa seletzione: sa matessi càscia, ma tramudat su cuntornu de sa seletzione imbetzes de is pixel a intro. Cunfirma o annulla pro agabbare.
+tool.transform.selection.history.transform = Trasforma sa seletzione
+
+# Filtros clàssicos de ricampionamentu
+tool.transform.resample.nearest_neighbor = Bighinu prus acanta
+tool.transform.resample.bilinear = Bilineare
+tool.transform.resample.bicubic = Bicùbicu
+
+# Retàlliu
+tool.crop.name = Retàlliu
+tool.crop.description = Tràghe pro definire s'àrea de mantènnere e assesta is manìgias; cunfirmende (Enter) su documentu est retalliau a cussa àrea, annullende (Escape) no est mudadu.
+tool.crop.option.ratio = Proportzione
+tool.crop.option.delete_cropped = Cantzella is pixel retalliados
+tool.crop.choice.unconstrained = Chena vìncùlos
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Retàlliu

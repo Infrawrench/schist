@@ -1,0 +1,29 @@
+# The region retouching tools (plugins/tools-retouch).
+
+# Patch
+tool.patch.name = Bøting
+tool.patch.description = Drag eina útlínu rundan um ein feil, og drag síðani valda økið yvir á reinir myndadeplar: yvirflatubygnaðurin haðani verður lagaður inn í feilin. Bøtingarhátturin avger, hvønn enda á parinum tú dregur.
+tool.patch.option.patch = Bøting
+tool.patch.choice.source = Kelda
+tool.patch.choice.destination = Mál
+tool.patch.history.patch = Bøting
+
+# Content-Aware Move
+tool.content_aware_move.name = Innihaldstilvitað flyting
+tool.content_aware_move.description = Drag ein valdan lut aðrastaðni, og holið, hann letur eftir seg, verður fylt úr umhvørvinum. Í Leingja-hátti verður luturin strektur í staðin fyri fluttur.
+tool.content_aware_move.choice.move = Flyt
+tool.content_aware_move.choice.extend = Leing
+tool.content_aware_move.history.move = Innihaldstilvitað flyting
+
+# Red Eye
+tool.red_eye.name = Reyð eygu
+tool.red_eye.description = Klikka á ein eygnastein fyri at taka reyða blitzlitin úr honum.
+tool.red_eye.option.pupil_size = Stødd á eygnasteini
+tool.red_eye.option.darken = Ger myrkari
+tool.red_eye.history.red_eye = Reyð eygu
+
+# Magic Eraser
+tool.magic_eraser.name = Gandaviskileður
+tool.magic_eraser.description = Klikka fyri at strika økið við líknandi liti undir vísaranum, innan vikamarkið hjá amboðnum — samanhangandi við klikkið ella allastaðni í lagnum.
+tool.magic_eraser.option.contiguous = Samanhangandi
+tool.magic_eraser.history.erase = Gandaviskileður

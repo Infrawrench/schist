@@ -1,0 +1,26 @@
+# Свободно трансформиране, трансформиране на селекцията и изрязване.
+tool.transform.name = Свободно трансформиране
+tool.transform.description = Свободно трансформиране. При задействане около активния слой се отваря рамка за трансформиране: плъзнете ъгъл за мащабиране, извън ъгъл — за завъртане, а ръб — за накланяне. Промените се записват едва при потвърждаване (Enter), а отказът (Escape) възстановява слоя.
+tool.transform.option.interpolation = Интерполация
+tool.transform.history.transform = Свободно трансформиране
+tool.transform.history.image_size = Размер на изображението
+tool.transform.history.canvas_size = Размер на платното
+
+tool.transform.selection.name = Трансформиране на селекцията
+tool.transform.selection.description = Трансформиране на селекцията: същата рамка, но тя премества контура на селекцията вместо пикселите в него. Завършете чрез потвърждаване или отказ.
+tool.transform.selection.history.transform = Трансформиране на селекцията
+
+tool.transform.resample.nearest_neighbor = Най-близък съсед
+tool.transform.resample.bilinear = Билинейна
+tool.transform.resample.bicubic = Бикубична
+
+tool.crop.name = Изрязване
+tool.crop.description = Очертайте с плъзгане областта, която да остане, и нагласете манипулаторите ѝ; потвърждаването (Enter) изрязва документа до нея, а отказът (Escape) го оставя непроменен.
+tool.crop.option.ratio = Съотношение
+tool.crop.option.delete_cropped = Изтриване на изрязаните пиксели
+tool.crop.choice.unconstrained = Без ограничения
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Изрязване

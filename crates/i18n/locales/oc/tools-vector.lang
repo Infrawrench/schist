@@ -1,0 +1,47 @@
+# Plumas
+tool.pen.name = Pluma
+tool.pen.description = Bastissètz un camin : clicatz per crear un punt d'angle, fasètz lisar per ne tirar las ponhadas de corba, e clicatz sul primièr punt per tampar. En validar, lo camin ven un calc de forma.
+tool.pen.option.rubber_band = Cordon elastic
+tool.pen.history.fill = Emplenatge del camin
+tool.pen.default_path_name = Camin {n}
+tool.pen.freeform.name = Pluma a man levada
+tool.pen.freeform.description = Fasètz lisar per traçar una linha a man levada ; serà ajustada a un camin amb la precision definida per l'opcion Ajustament.
+tool.pen.freeform.option.fit = Ajustament
+tool.pen.curvature.name = Pluma de corbadura
+tool.pen.curvature.description = Clicatz sus una seria de punts e lo camin se corba suaument en los traversant.
+
+# Sagetas de seleccion
+tool.path_select.name = Seleccion de camin
+tool.path_select.description = Clicatz sus un camin per lo seleccionar, e fasètz lisar per desplaçar lo camin entièr.
+tool.direct_select.name = Seleccion dirècta
+tool.direct_select.description = Fasètz lisar un punt d'ancoratge individual o sas ponhadas per remodelar lo camin a l'entorn.
+
+# Formas
+tool.shape.history.layer = Calc {name}
+tool.shape.rect.name = Aisina Rectangle
+tool.shape.rect.label = Rectangle
+tool.shape.rect.description = Fasètz lisar per traçar un calc de forma rectangular amb la color de primièr plan ; demòra vectorial e es rasterizat tornarmai quand sa talha càmbia.
+tool.shape.ellipse.name = Aisina Ellipsa
+tool.shape.ellipse.label = Ellipsa
+tool.shape.ellipse.description = Fasètz lisar per traçar un calc de forma elliptica amb la color de primièr plan.
+tool.shape.line.name = Aisina Linha
+tool.shape.line.label = Linha
+tool.shape.line.description = Fasètz lisar per traçar un calc de forma en linha drecha amb la color de primièr plan.
+tool.shape.line.option.weight = Espessor
+tool.shape.line.option.arrow_start = Començament
+tool.shape.line.option.arrow_end = Fin
+tool.shape.polygon.name = Aisina Poligòn
+tool.shape.polygon.label = Poligòn
+tool.shape.polygon.description = Fasètz lisar per traçar un calc de forma poligonala regulara amb la color de primièr plan e lo nombre de costats definit dins las opcions.
+tool.shape.polygon.option.sides = Costats
+
+# Formas personalizadas
+tool.shape.custom.name = Forma personalizada
+tool.shape.custom.label = Forma personalizada
+tool.shape.custom.description = Fasètz lisar per traçar una de las formas predefinidas integradas, causida amb l'opcion Forma.
+tool.shape.custom.choice.heart = Còr
+tool.shape.custom.choice.star = Estela
+tool.shape.custom.choice.arrow = Sageta
+tool.shape.custom.choice.lightning = Liuç
+tool.shape.custom.choice.cross = Crotz
+tool.shape.custom.choice.speech_bubble = Balon de dialòg

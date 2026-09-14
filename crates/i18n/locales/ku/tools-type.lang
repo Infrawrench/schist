@@ -1,0 +1,27 @@
+# Amûra nivîsê.
+
+tool.type.name = Nivîs
+tool.type.description = Li wir bitikîne da ku layereke nivîsê dest pê bike, an li ser layereke heyî bitikîne da ku wê sererast bikî. Dema vekirî be, amûr bişkojkên xav distîne (tîpan wek têketina bişkojkê bişîne); pejirandin layerê dixe dîmenê û sererastkirinê digire.
+
+# Darika vebijarkan
+tool.type.option.align = Rêzkirin
+tool.type.option.leading = Navbera Rêzan
+tool.type.option.tracking = Navbera Tîpan
+tool.type.option.kerning = Kernkirin
+tool.type.option.ligatures = Girêdanên Tîpan
+tool.type.option.discretionary_ligatures = Girêdanên tîpan ên bijarteyî
+tool.type.option.small_caps = Tîpên mezin ên biçûk
+tool.type.option.on_path = Li ser rêça çalak
+tool.type.option.path_offset = Veguhezandina rêçê
+
+# Lîsteya şêwazê
+tool.type.choice.regular = Asayî
+tool.type.choice.bold = Qelew
+tool.type.choice.italic = Xwar
+tool.type.choice.bold_italic = Qelew û Xwar
+
+# Dîrok
+tool.type.history.new_layer = Layera Nivîsê ya Nû
+tool.type.history.edit = Nivîsê Sererast Bike
+tool.type.history.discard = Nivîsê Biavêje
+tool.type.history.discard_empty = Nivîsa Vala Biavêje

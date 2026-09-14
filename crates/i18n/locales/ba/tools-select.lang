@@ -1,0 +1,33 @@
+# Һайлау ҡоралдары.
+
+tool.select.mode.subtract = Алып ташлау
+tool.select.mode.intersect = Киҫешеү
+
+tool.marquee.rect.name = Тура дүртмөйөшлө һайлау
+tool.marquee.rect.description = Тура дүртмөйөшлө һайлау өлкәһен һөйрәп билдәләгеҙ. Һөйрәй башлағанда Shift тотоу өлкәгә өҫтәй, alt алып ташлай, икеһе бергә киҫешкән өлөшөн ҡалдыра; һөйрәгәндә Shift тотоу квадрат яһай. Һөйрәмәй сиртеү һайлауҙы бөтөрә.
+tool.marquee.ellipse.name = Эллипс рәүешендәге һайлау
+tool.marquee.ellipse.description = Эллипс рәүешендәге һайлау өлкәһен һөйрәп билдәләгеҙ; Shift һәм alt уны тура дүртмөйөшлө һайлауҙағы кеүек берләштерә.
+
+tool.lasso.name = Лассо
+tool.lasso.description = Ирекле контурҙы һөйрәп һыҙығыҙ; һөйрәү тамамланғас, һайлауҙың остары тоташтырыла. Shift өҫтәй, alt алып ташлай.
+tool.lasso.history.select = Лассо менән һайлау
+tool.lasso.polygonal.name = Күпмөйөшлө лассо
+tool.lasso.polygonal.description = Тура ҡырлы һайлау төҙөү өсөн мөйөштән мөйөшкә сиртегеҙ, ә ябыу өсөн тәүге нөктә янында сиртегеҙ.
+tool.lasso.polygonal.history.select = Күпмөйөшлө лассо
+tool.lasso.magnetic.name = Магнитлы лассо
+tool.lasso.magnetic.description = Сик буйлап яҡынса үткәрегеҙ, һәм контур юл янындағы иң көслө контрастҡа йәбешә.
+tool.lasso.magnetic.history.select = Магнитлы лассо
+tool.lasso.magnetic.option.frequency = Йышлыҡ
+
+tool.wand.name = Тылсымлы таяҡ
+tool.wand.description = Күрһәткән урындағы оҡшаш төҫлө тоташ өлкәне рөхсәт ителгән айырма сиктәрендә һайлау өсөн сиртегеҙ — шул уҡ ҡиммәтте Үҫтереү, Оҡшаш һәм Төҫ диапазоны ҡуллана.
+tool.wand.option.contiguous = Тоташ
+tool.wand.history.select = Тылсымлы таяҡ
+
+tool.quick_select.name = Тиҙ һайлау
+tool.quick_select.description = Өлкә өҫтөнән буяғыҙ, һәм һайлау бумала үткән оҡшаш пикселдәр буйлап киңәйә.
+tool.quick_select.history.select = Тиҙ һайлау
+
+tool.object_select.name = Объектты һайлау
+tool.object_select.description = Объект тирәләй ҡумта һөйрәп һыҙығыҙ, һәм һайлау уның эсендә табылған объект сиктәренә йәбешә.
+tool.object_select.history.select = Объектты һайлау

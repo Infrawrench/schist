@@ -1,0 +1,101 @@
+workspace.fill.gray_50 = 50% Okungwevu
+workspace.fill.content_aware = Okuzwisisa Okumumethweko
+
+workspace.modify.expand = Khulisa Okukhethiweko
+workspace.modify.contract = Nciphisa Okukhethiweko
+workspace.modify.border = Umkhawulo Wokukhethiweko
+workspace.modify.smooth = Yenza Okukhethiweko Butjhelelezi
+workspace.modify.feather = Thambisa Okukhethiweko
+
+workspace.batch.target.edit = Amatjhuguluko wegalari (aneenguqulo)
+workspace.batch.target.beside = Amakhophi eduze neenthombe zokuthoma
+workspace.batch.target.folder = Amakhophi kufolda…
+workspace.modal.image_size.title = Ubukhulu Besithombe
+
+workspace.docs.opening = Kuvulwa {name}…
+workspace.docs.opened = Kuvulwe {name}
+workspace.docs.open_failed = Ukuvula kuhlulekile: {error}
+workspace.docs.no_codec = I-{name} ayisiyo ifomethi i-Schist engayivula
+workspace.docs.no_exporter = I-Schist ayikghoni ukubulunga amafayela we-.{ext}
+workspace.docs.empty_response = Iseva ithumele ipendulo enganalitho
+workspace.docs.heic_not_installed = Ukusekelwa kwe-HEIC akukafakwa
+workspace.docs.heic_downloading = Kudawunilodwa ukusekelwa kwe-HEIC (libheif {version})…
+workspace.docs.heic_installed = Ukusekelwa kwe-HEIC kufakiwe
+workspace.docs.heic_download_failed = Ukudawuniloda ukusekelwa kwe-HEIC kuhlulekile: {error}
+workspace.docs.placing = Kubekwa {name}…
+workspace.docs.place_image = Beka Isithombe
+workspace.docs.placed = Kubekwe {name}
+workspace.docs.place_failed = Ukubeka kuhlulekile: {error}
+workspace.docs.saved = Kubulungwe {name}
+workspace.docs.save_failed = Ukubulunga kuhlulekile: {error}
+
+workspace.adjustment.new_layer = Ileya Etja ye-{name}
+workspace.adjustment.added = Kungezwe {name}
+workspace.adjustment.settings = Amasethingi we-{name}
+workspace.adjustment.updated = I-{name} ibuyekeziwe
+workspace.adjustment.no_settings = I-{name} ayinamasethingi ahlelekako
+workspace.comps.name_n = Ukuhlanganiswa Kwamaleya {n}
+workspace.comps.captured = Ukuhlanganiswa kwamaleya kuthathiwe
+workspace.comps.apply = Sebenzisa {name}
+workspace.styles.layer_style = Isitayela Seleya
+workspace.context.rename_layer = Thiya Ileya Ngobutjha
+workspace.commands.tool = Ithulusi: {name}
+
+workspace.colormgmt.assign = Yabela {name}
+workspace.colormgmt.assigned = Kwabelwe {name}
+workspace.colormgmt.convert_to = Tjhugululela ku-{name}
+workspace.colormgmt.converted_to = Kutjhugululelwe ku-{name}
+workspace.colormgmt.convert_failed = Ukutjhugulula kuhlulekile: {error}
+workspace.colormgmt.proof_on = Imibala yokuhlola ivuliwe
+workspace.colormgmt.proof_off = Imibala yokuhlola ivaliwe
+
+workspace.filters.choose = Khetha
+workspace.filters.select_layer_first = Thoma ngokukhetha ileya
+workspace.filters.needs_pixel_layer = Iinhlungi zitlhoga ileya yamaphikseli
+workspace.filters.nothing_to_filter = Akukho okungahlungwa
+workspace.filters.went_away = Isihlungi asisatholakali
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: ileya ehlungiweko ayisekho
+workspace.filters.plugin_title = I-plug-in ye-Photoshop
+workspace.filters.running = Kusetjenziswa {name}
+workspace.filters.plugin_note = I-plug-in isebenza kukambiso yayo. Nayivula ifesidere, yiphendule ukuze uragele phambili.
+workspace.filters.raw_preview_developing = Kulungiswa isiboniso sangaphambili se-RAW…
+workspace.filters.raw_preview_done = Isiboniso sangaphambili se-RAW (i-demosaic erhabako)
+workspace.filters.raw_preview_size_changed = Ubukhulu besiboniso sangaphambili se-RAW butjhugulukile: {w} × {h}
+workspace.filters.raw_preview_failed = Isiboniso sangaphambili se-RAW sihlulekile: {error}
+workspace.filters.raw_developing = Kulungiswa isithombe sokuthoma esathathwako…
+workspace.filters.raw_developing_note = Kusetjenziswa indlela ehle khulu ye-demosaic. Ifayela le-RAW lokuthoma namasethingi la kuhlala kuhleleka ngemva kokubulunga njenge-PSD namkha i-PSB.
+workspace.filters.raw_document_changed = Ukulungiswa kwe-RAW kuqede ngemva kokutjhuguluka kwedokhumenti yayo
+workspace.filters.raw_failed = Ukulungiswa kwe-RAW kuhlulekile: {error}
+workspace.filters.raw_too_wide = Ukulungiswa kwe-RAW kubanzi khulu
+workspace.filters.raw_too_tall = Ukulungiswa kwe-RAW kuphakeme khulu
+workspace.filters.raw_size_changed = Ubukhulu bokulungiswa kwe-RAW butjhugulukele ku-{w} × {h}; kugcinwa ileya yanje
+workspace.filters.raw_history = Ukulungiswa kwe-Camera Raw
+workspace.filters.raw_applied = Ukulungiswa kwe-Camera Raw kusetjenzisiwe (i-demosaic ehle khulu)
+
+workspace.image_size.done = Ubukhulu besithombe: {w} × {h}
+workspace.image_size.bicubic_fallback = Ubukhulu besithombe: {w} × {h} — imodeli ye-{name} ayikghonakali ukulayitjha, ngalokho kusetjenziswe i-bicubic
+workspace.image_size.upscaling = Kukhuliswa nge-{name}
+workspace.image_size.upscaling_note = Ama-megapixel angu-{mp} adlula enethwekhini, kuthatha imizuzwana embalwa ngalinye. Idokhumenti iyabanjwa bekuphele.
+
+workspace.export.no_slices = Akunaziquntu ezingathunyelwa ngaphandle
+workspace.export.no_artboards = Akunamabhodi wobuciko angathunyelwa ngaphandle
+workspace.export.regions.one = Kuthunyelwe ngaphandle {n} indawo
+workspace.export.regions.other = Kuthunyelwe ngaphandle {n} iindawo
+workspace.export.prompt = Thumela ngaphandle njenge:
+workspace.export.done = Kuthunyelwe ngaphandle {name}
+workspace.export.failed = Ukuthumela ngaphandle kuhlulekile: {error}
+workspace.export.codec_vanished = Isithumeli sangaphandle asisatholakali
+
+workspace.file_picker.choose_folder = Khetha Ifolda
+workspace.file_picker.type_a_name = Tlola igama lefayela
+workspace.file_picker.exists = I-{name} ikhona; thinta u-Bulunga godu ukuyijamiselela
+workspace.file_picker.tap_a_file = Thinta ifayela ukuze ulivule
+workspace.file_picker.pictures = Iinthombe
+workspace.file_picker.camera = Ikhamera
+workspace.file_picker.downloads = Okudawunilodiweko
+workspace.file_picker.permission_denied = I-Schist ayinayo imvumo yokufunda ifolda le
+
+workspace.recovery.recovered_title = {title} (kubuyiselwe)
+workspace.recovery.recovered.one = Kubuyiselwe umsebenzi ongakabulungwa kusuka eseshini edlulileko
+workspace.recovery.recovered.other = Kubuyiselwe amadokhumenti angu-{n} kusuka eseshini edlulileko

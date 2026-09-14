@@ -1,0 +1,42 @@
+# Wurin zane na edita da abubuwan da ke kewaye da shi.
+
+# Amsoshin sandar matsayi
+workspace.canvas.rotate_view_degrees = Juya Abin Kallo {degrees}°
+workspace.canvas.view_reset = An sake saita abin kallo
+workspace.canvas.notes_on = An kunna bayanai
+workspace.canvas.notes_off = An kashe bayanai
+workspace.canvas.rulers_on = An kunna ma'aunan layi
+workspace.canvas.rulers_off = An kashe ma'aunan layi
+workspace.canvas.grid_on = An kunna raga
+workspace.canvas.grid_off = An kashe raga
+workspace.canvas.guides_on = An kunna jagorori
+workspace.canvas.guides_off = An kashe jagorori
+workspace.canvas.extras_on = An kunna ƙarin abubuwa
+workspace.canvas.extras_off = An kashe ƙarin abubuwa
+workspace.canvas.snap_on = An kunna mannewa
+workspace.canvas.snap_off = An kashe mannewa
+workspace.canvas.guides_cleared = An goge jagorori
+workspace.canvas.no_path = Babu tafarkin da za a yi amfani da shi
+workspace.canvas.path_empty = Tafarkin babu komai
+workspace.canvas.stroke_needs_selection = Shaci yana buƙatar a yi zaɓi
+workspace.canvas.nothing_to_stroke = Babu abin da za a zana wa shaci
+workspace.canvas.content_aware_fill_needs_selection = Ciko Mai Fahimtar Abun Ciki yana buƙatar a yi zaɓi
+workspace.canvas.content_aware_fill_needs_pixel_layer = Ciko Mai Fahimtar Abun Ciki yana buƙatar shimfiɗar pixels
+workspace.canvas.color_range_needs_pixel_layer = Yankin Launi yana buƙatar shimfiɗar pixels
+workspace.canvas.nothing_to_adjust = Babu abin da za a daidaita
+workspace.canvas.nothing_to_trim = Babu abin da za a yanke gefensa
+workspace.canvas.trimmed = An Yanke Gefuna
+workspace.canvas.indexed_not_supported = Ba a tallafa wa Launi Mai Fihirisa ba tukuna
+workspace.canvas.opacity_percent = Rashin Bayyanawa: {n}%
+
+# Abubuwan falin tarihi
+workspace.history.stroke = Shaci
+workspace.history.fill = Ciko
+workspace.history.content_aware_scale = Canza Girma Mai Fahimtar Abun Ciki
+workspace.history.filter_gallery = Ma'ajiyar Matata
+workspace.history.color_range = Yankin Launi
+workspace.history.move_layer = Matsar da Shimfiɗa
+workspace.history.move_layers = Matsar da Shimfiɗu
+workspace.history.layer_opacity = Rashin Bayyanar Shimfiɗa
+workspace.history.delete_note = Share Bayani
+workspace.history.edit_note = Gyara Bayani

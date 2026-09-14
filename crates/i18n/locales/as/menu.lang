@@ -1,0 +1,160 @@
+# The menu bar: the in-window one and the macOS/iPadOS system one, which
+# are built from the same model (crates/app/src/panels/menus.rs). Items
+# that are plugin commands take their titles from commands.lang; filters
+# from filters.lang; adjustments from adjustments.lang.
+
+# File
+menu.file = ফাইল
+menu.file.new = নতুন
+menu.file.open = খোলক…
+menu.file.open_recent = শেহতীয়াবোৰ খোলক
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = গেলেৰী ব্ৰাউজ কৰক…
+menu.file.close = বন্ধ কৰক
+menu.file.save = সংৰক্ষণ কৰক
+menu.file.save_as = এই ৰূপে সংৰক্ষণ কৰক…
+menu.file.export = ৰপ্তানি কৰক…
+menu.file.export_submenu = ৰপ্তানি কৰক
+menu.file.export_artboards = আৰ্টব'ৰ্ডসমূহ PNG-লৈ…
+menu.file.export_slices = স্লাইচসমূহ PNG-লৈ…
+menu.file.save_to_photos = ফটোসমূহত সংৰক্ষণ কৰক
+menu.file.plugins = প্লাগ-ইনসমূহ…
+menu.file.missing_fonts = অনুপস্থিত ফণ্টসমূহ…
+menu.file.check_for_updates = আপডেটৰ বাবে পৰীক্ষা কৰক…
+menu.file.quit = প্ৰস্থান কৰক
+menu.file.add_folder_to_gallery = গেলেৰীত ফ'ল্ডাৰ যোগ কৰক…
+menu.file.import_from_photos = ফটোসমূহৰ পৰা আমদানি কৰক…
+menu.file.import_from_camera = কেমেৰাৰ পৰা আমদানি কৰক…
+
+# Edit
+menu.edit = সম্পাদনা
+menu.edit.fill = পূৰণ কৰক…
+menu.edit.stroke = ষ্ট্ৰ'ক…
+menu.edit.content_aware_fill = বিষয়বস্তু-সচেতন পূৰণ
+menu.edit.content_aware_scale = বিষয়বস্তু-সচেতন মাপ…
+menu.edit.puppet_warp = পুতলা বিকৃতি
+menu.edit.free_transform = মুক্ত ৰূপান্তৰ
+menu.edit.transform = ৰূপান্তৰ
+menu.edit.rotate_180 = 180° ঘূৰাওক
+menu.edit.rotate_90_cw = ঘড়ীৰ কাঁটাৰ দিশে 90° ঘূৰাওক
+menu.edit.rotate_90_ccw = ঘড়ীৰ কাঁটাৰ বিপৰীত দিশে 90° ঘূৰাওক
+menu.edit.flip_horizontal = অনুভূমিকভাৱে ওলোটাওক
+menu.edit.flip_vertical = উলম্বভাৱে ওলোটাওক
+
+# Image
+menu.image = ছবি
+menu.image.mode = মোড
+menu.image.adjustments = সমন্বয়সমূহ
+menu.image.auto_tone = স্বয়ংক্ৰিয় টোন
+menu.image.auto_contrast = স্বয়ংক্ৰিয় বৈপৰীত্য
+menu.image.auto_color = স্বয়ংক্ৰিয় ৰং
+menu.image.image_size = ছবিৰ আকাৰ…
+menu.image.canvas_size = কেনভাছৰ আকাৰ…
+menu.image.image_rotation = ছবি ঘূৰ্ণন
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = ঘড়ীৰ কাঁটাৰ দিশে 90°
+menu.image.rotate_90_ccw = ঘড়ীৰ কাঁটাৰ বিপৰীত দিশে 90°
+menu.image.flip_canvas_horizontal = কেনভাছ অনুভূমিকভাৱে ওলোটাওক
+menu.image.flip_canvas_vertical = কেনভাছ উলম্বভাৱে ওলোটাওক
+menu.image.crop_to_selection = নিৰ্বাচনলৈ ক্ৰপ কৰক
+menu.image.trim = ছাঁটক
+menu.image.assign_profile = প্ৰ'ফাইল নিৰ্ধাৰণ কৰক…
+menu.image.convert_to_profile = প্ৰ'ফাইললৈ ৰূপান্তৰ কৰক…
+
+# Select
+menu.select = নিৰ্বাচন
+menu.select.color_range = ৰঙৰ পৰিসৰ…
+menu.select.modify = সলনি কৰক
+menu.select.border = সীমা…
+menu.select.smooth = মসৃণ কৰক…
+menu.select.expand = প্ৰসাৰিত কৰক…
+menu.select.contract = সংকুচিত কৰক…
+menu.select.feather = ফেদাৰ…
+menu.select.transform_selection = নিৰ্বাচন ৰূপান্তৰ কৰক
+
+# Layer
+menu.layer = স্তৰ
+menu.layer.layer_style = স্তৰৰ শৈলী…
+menu.layer.layer_comps = স্তৰ বিন্যাসসমূহ
+menu.layer.new_layer_comp = নতুন স্তৰ বিন্যাস
+menu.layer.delete_layer_comp = {name} মচক
+menu.layer.path = পথ
+menu.layer.fill_path = পথ পূৰণ কৰক
+menu.layer.stroke_path = পথত ষ্ট্ৰ'ক দিয়ক
+menu.layer.make_selection = নিৰ্বাচন সৃষ্টি কৰক
+menu.layer.delete_path = পথ মচক
+
+# Adjust
+menu.adjust = সমন্বয়
+
+# Filter
+menu.filter = ফিল্টাৰ
+menu.filter.filter_gallery = ফিল্টাৰ গেলেৰী…
+menu.filter.liquify = তৰলীকৰণ
+menu.filter.vanishing_point = বিলুপ্তি বিন্দু
+menu.filter.manage_models = মডেলসমূহ পৰিচালনা কৰক…
+menu.filter.camera_raw_development = Camera Raw বিকাশ…
+
+# View
+menu.view = দৃশ্য
+menu.view.rotate_view_cw = দৃশ্য ঘড়ীৰ কাঁটাৰ দিশে ঘূৰাওক
+menu.view.rotate_view_ccw = দৃশ্য ঘড়ীৰ কাঁটাৰ বিপৰীত দিশে ঘূৰাওক
+menu.view.reset_view = দৃশ্য পুনঃস্থাপন কৰক
+menu.view.zoom_in = ডাঙৰ কৰক
+menu.view.zoom_out = সৰু কৰক
+menu.view.fit_on_screen = স্ক্ৰীণত খাপ খুৱাওক
+menu.view.actual_size = 100%
+menu.view.rulers = ৰুলাৰসমূহ
+menu.view.grid = গ্ৰীড
+menu.view.guides = সহায়ক ৰেখাসমূহ
+menu.view.notes = টোকাসমূহ
+menu.view.ai_panel = AI পেনেল
+menu.view.extras = অতিৰিক্তসমূহ
+menu.view.snap = স্নেপ
+menu.view.clear_guides = সহায়ক ৰেখা আঁতৰাওক
+menu.view.clear_notes = টোকা আঁতৰাওক
+menu.view.clear_count = গণনা আঁতৰাওক
+menu.view.screen_mode = স্ক্ৰীণ মোড
+menu.view.proof_colors = প্ৰুফ ৰং
+# The system menu bar has no check marks, so a toggle says what the
+# click will do, as Finder's "Hide Sidebar" / "Show Sidebar" does.
+menu.view.show_rulers = ৰুলাৰসমূহ দেখুৱাওক
+menu.view.hide_rulers = ৰুলাৰসমূহ লুকুৱাওক
+menu.view.show_grid = গ্ৰীড দেখুৱাওক
+menu.view.hide_grid = গ্ৰীড লুকুৱাওক
+menu.view.show_guides = সহায়ক ৰেখা দেখুৱাওক
+menu.view.hide_guides = সহায়ক ৰেখা লুকুৱাওক
+menu.view.show_notes = টোকাসমূহ দেখুৱাওক
+menu.view.hide_notes = টোকাসমূহ লুকুৱাওক
+menu.view.show_extras = অতিৰিক্তসমূহ দেখুৱাওক
+menu.view.hide_extras = অতিৰিক্তসমূহ লুকুৱাওক
+menu.view.enable_snapping = স্নেপিং সক্ষম কৰক
+menu.view.disable_snapping = স্নেপিং অক্ষম কৰক
+menu.view.enable_proof_colors = প্ৰুফ ৰং সক্ষম কৰক
+menu.view.disable_proof_colors = প্ৰুফ ৰং অক্ষম কৰক
+
+# Gallery (the bar while the gallery is showing)
+menu.gallery = গেলেৰী
+menu.gallery.edit_selected = নিৰ্বাচিতবোৰ সম্পাদনা কৰক
+menu.gallery.refresh = সতেজ কৰক
+menu.gallery.map_filter = মানচিত্ৰ ফিল্টাৰ…
+menu.gallery.back_to_editor = সম্পাদকলৈ ঘূৰি যাওক
+
+# Schist Cloud submenu
+menu.cloud.browse = Schist Cloud ব্ৰাউজ কৰক
+menu.cloud.generate = ছবি সৃষ্টি কৰক…
+menu.cloud.upload = দস্তাবেজ Schist Cloud-লৈ আপল'ড কৰক…
+menu.cloud.sign_out = Schist Cloud-ৰ পৰা ছাইন আউট কৰক
+menu.cloud.sign_in = Schist Cloud-ত ছাইন ইন কৰক…
+
+# The macOS application menu
+menu.app.services = সেৱাসমূহ
+menu.app.hide = {app} লুকুৱাওক
+menu.app.hide_others = আনবোৰ লুকুৱাওক
+menu.app.show_all = সকলো দেখুৱাওক
+menu.app.quit = {app}-ৰ পৰা প্ৰস্থান কৰক
+
+# Status-bar replies to menu items that cannot act
+menu.status.transform_selection_needs_selection = নিৰ্বাচন ৰূপান্তৰৰ বাবে এটা নিৰ্বাচন প্ৰয়োজন
+menu.status.crop_needs_selection = নিৰ্বাচনলৈ ক্ৰপ কৰিবলৈ এটা নিৰ্বাচন প্ৰয়োজন
+menu.status.select_photo_to_edit = সম্পাদনা কৰিবলৈ এখন ফটো নিৰ্বাচন কৰক

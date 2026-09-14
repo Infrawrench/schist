@@ -1,0 +1,9 @@
+{
+  "loading": "Ladataan…",
+  "starting": "Käynnistetään…",
+  "webgpu": "Schist tarvitsee WebGPU:n, jota tämä selain ei tarjoa. Sitä tukevat Chrome/Edge 113+, Firefox 141+ ja Safari 26+.",
+  "noticeTitle": "Schist toimii parhaiten työpöytäsovelluksena",
+  "noticeBody": "Käytät verkkoversiota, joka on ominaisuuksiltaan suppeampi kooste: se yhdistää kuvan suorittimella eikä sisällä kaikkia ominaisuuksia — Photoshop- ja muiden valmistajien liitännäisiä, kuvagalleriaa, tekoälypaneelia, HEIC-tuontia ja fonttien latausta — ja tiedostot tallennetaan latauksina. Ilmainen työpöytäsovellus macOS:lle, Windowsille ja Linuxille sisältää kaikki ominaisuudet.",
+  "noticeLink": "Hanki työpöytäsovellus.",
+  "ok": "OK"
+}

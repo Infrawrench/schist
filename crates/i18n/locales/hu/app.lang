@@ -1,0 +1,36 @@
+app.filter_gallery.title = Szűrőgaléria
+app.filter_gallery.stack = Verem (alkalmazás alulról felfelé)
+app.filter_gallery.no_settings = Ennek a szűrőnek nincsenek beállításai.
+app.fonts.not_open_licensed = nem nyílt licencű · a(z) {substitute} metrikái egyeznek vele
+app.fonts.missing_substituted = hiányzik · a szöveg helyettesítő betűtípussal van szedve
+app.fonts.not_in_catalogue = A(z) {family} nem szerepel a nyílt betűtípusok katalógusában
+app.fonts.no_faces = a(z) {family} családhoz nincs letölthető betűváltozat
+app.fonts.empty_response = üres válasz
+app.update.unreadable_response = olvashatatlan válasz: {error}
+app.update.no_temp_dir = nincs ideiglenes mappa a letöltéshez
+app.update.asset_has_path = a kiadás útvonalat tartalmazó nevet adott az elemnek
+app.update.too_big = a letöltés nagyobb a kiadásban megadottnál
+app.update.stopped_at = a letöltés {got}/{total} bájtnál leállt
+app.update.hash_mismatch = a letöltés ellenőrzőösszege {got}, nem {want}
+app.update.not_in_bundle = ez a példány nincs alkalmazáscsomagban
+app.update.no_parent_dir = az alkalmazáscsomagnak nincs szülőmappája
+app.update.cannot_write = nem lehet írni ide: {dir}
+app.update.cannot_move_aside = a(z) {app} nem helyezhető félre
+app.update.cannot_move_in = az új csomag nem helyezhető a helyére
+app.update.cannot_run_ditto = a /usr/bin/ditto nem futtatható
+app.update.unpack_failed = a letöltés kicsomagolása sikertelen: {error}
+app.update.no_app_in_download = a letöltés nem tartalmaz Schist.app alkalmazást
+app.update.cannot_run_codesign = a /usr/bin/codesign nem futtatható
+app.update.signature_invalid = a letöltés aláírása nem ellenőrizhető: {error}
+app.update.download_unsigned = ez a példány aláírt, a letöltés viszont nem
+app.update.different_developer = a letöltést másik fejlesztő írta alá
+app.update.cannot_relaunch = az újraindító nem indítható
+app.update.not_installed_copy = ezt a példányt nem a telepítő helyezte ide
+app.update.cannot_start_installer = a telepítő nem indítható
+app.update.platform_unsupported = ezen a platformon a frissítések a Schist telepítési módjával azonos módon települnek
+app.vulkan.no_loader = schist: nincs Vulkan-betöltő ezen a rendszeren, ezért nincs mivel rajzolni.\n\nA Schist Vulkanon keresztül jelenít meg, és a `libvulkan.so.1` nincs telepítve.\nA betöltőre és egy illesztőprogramra egyaránt szükség van:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: nem létezik a Vulkan-illesztőprogram, amelyre ez a munkamenet mutat.\n\nA(z) {var} be van állítva, és ez *lecseréli* a betöltő\nillesztőprogram-keresését, nem pedig kiegészíti. Így ezek a nem létező fájlok\nalkotják az illesztőprogramok teljes listáját — és ebben a munkamenetben minden Vulkan-program\negyetlen illesztőprogramot sem lát, bármennyi is legyen telepítve:\n\n{missing}\n    {var}={value}\n\nÁllítsa egy létező leírófájlra — a telepített illesztőprogramok a sajátjukat a\n/usr/share/vulkan/icd.d mappába helyezik —, vagy törölje a beállítását, és hagyja, hogy a betöltő maga keressen.\nHa a munkamenet ezt konfigurációs fájlból állítja be (a Hyprland `env =` sora, egy\nsystemd environment.d bejegyzés vagy egy parancsértelmező-profil), ott kell módosítani,\nés új bejelentkezés szükséges ahhoz, hogy a változás a már futó folyamatokat is elérje.\n
+app.vulkan.override_note = \nA(z) {var} értéke {value}, és ez lecseréli a betöltő saját keresését:\nha egyik leírófájl sem ehhez a géphez való, elsőként érdemes törölni a változó beállítását.\n
+app.vulkan.no_driver = schist: nincs Vulkan-illesztőprogram telepítve, ezért nincs mivel megjeleníteni.\n\nA Schist Vulkanon keresztül jelenít meg. A betöltő telepítve van, és nem jelent\nillesztőprogramot — egyik keresési helyen sincs regisztrálva egy sem:\n\n{dirs}\n\nA betöltő az illesztőprogramoktól külön csomagban érkezik, ezért általában egyetlen\ncsomag hiányzik.\n\nTelepítse a gép grafikus vezérlőjéhez valót:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nAz NVIDIA saját illesztőprogramja tartalmazza a maga változatát (`nvidia-utils` Arch alatt,\n`nvidia-driver` Debian alatt). Virtuális gépen, vagy ahol nincs telepíthető GPU-illesztőprogram,\na szoftveres raszterizáló működik: `vulkan-swrast` Arch alatt, máshol a\n`mesa-vulkan-drivers` része. Lassú, de elindul.\n{overridden}
+app.vulkan.no_device = schist: telepítve van Vulkan-illesztőprogram, de nem kínál eszközt a megjelenítéshez.\n\nLehet, hogy az illesztőprogram nem támogatja ezt a GPU-t, vagy nem fér hozzá —\nSSH-n keresztül vagy konténerben gyakran a /dev/dri hiányzik. A `vulkaninfo --summary`\nmegmutatja, mit lát a betöltő.\n\nHa a gépben nincs GPU, a szoftveres raszterizáló GPU nélkül is megjelenít:\n`vulkan-swrast` Arch alatt, a `mesa-vulkan-drivers` része\nDebian és Fedora alatt.\n
+app.vulkan.skip_hint = A Schist mindenképp történő elindításához és a saját módján való meghiúsulás engedéséhez állítsa be: {var}=1.

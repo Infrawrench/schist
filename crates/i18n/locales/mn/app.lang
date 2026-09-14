@@ -1,0 +1,36 @@
+app.filter_gallery.title = Шүүлтүүрийн галерей
+app.filter_gallery.stack = Давхарга (доороос дээш хэрэглэнэ)
+app.filter_gallery.no_settings = Энэ шүүлтүүрт тохиргоо байхгүй.
+app.fonts.not_open_licensed = нээлттэй лицензгүй · {substitute} хэмжээсээрээ таарна
+app.fonts.missing_substituted = дутуу · бичвэрийг орлуулах фонтоор өрж байна
+app.fonts.not_in_catalogue = {family} нээлттэй фонтын каталогт байхгүй
+app.fonts.no_faces = {family}-д татаж авах үсгийн дүрс алга
+app.fonts.empty_response = хоосон хариу
+app.update.unreadable_response = унших боломжгүй хариу: {error}
+app.update.no_temp_dir = татан авалтыг хадгалах түр хавтас алга
+app.update.asset_has_path = хувилбар хөрөнгөө зам агуулсан нэрээр нэрлэсэн
+app.update.too_big = татан авалт хувилбарын заасан хэмжээнээс том байна
+app.update.stopped_at = татан авалт {total} байтын {got} дээр зогслоо
+app.update.hash_mismatch = татан авалтын хэш {want} биш {got} байна
+app.update.not_in_bundle = энэ хуулбар аппын багц дотор биш байна
+app.update.no_parent_dir = аппын багц эх хавтасгүй байна
+app.update.cannot_write = {dir} руу бичиж чадсангүй
+app.update.cannot_move_aside = {app}-ийг хажуу тийш зөөж чадсангүй
+app.update.cannot_move_in = шинэ багцыг байранд нь зөөж чадсангүй
+app.update.cannot_run_ditto = /usr/bin/ditto-г ажиллуулж чадсангүй
+app.update.unpack_failed = татан авалтыг задлахад алдаа гарлаа: {error}
+app.update.no_app_in_download = татан авалтад Schist.app алга
+app.update.cannot_run_codesign = /usr/bin/codesign-г ажиллуулж чадсангүй
+app.update.signature_invalid = татан авалтын гарын үсгийг баталгаажуулж чадсангүй: {error}
+app.update.download_unsigned = энэ хуулбар гарын үсэгтэй боловч татан авалт гарын үсэггүй
+app.update.different_developer = татан авалтад өөр хөгжүүлэгч гарын үсэг зурсан
+app.update.cannot_relaunch = дахин эхлүүлэгчийг ажиллуулж чадсангүй
+app.update.not_installed_copy = энэ хуулбарыг суулгагч энд байрлуулаагүй
+app.update.cannot_start_installer = суулгагчийг эхлүүлж чадсангүй
+app.update.platform_unsupported = энэ платформын шинэчлэлийг Schist суулгасан аргаар нь суулгана
+app.vulkan.no_loader = schist: энэ системд Vulkan ачаалагч байхгүй тул дүрслэх зүйл алга.\n\nSchist Vulkan-аар дүрсэлдэг бөгөөд `libvulkan.so.1` суулгагдаагүй байна.\nАчаалагч болон драйвер хоёул шаардлагатай:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: энэ сешний заасан Vulkan драйвер байхгүй байна.\n\n{var} тохируулагдсан бөгөөд энэ тохиргоо ачаалагчийн драйвер хайлтад нэмэх бус, хайлтыг бүхэлд нь орлоно. Тиймээс байхгүй эдгээр файл нь драйверын бүрэн жагсаалт болж, хэдэн драйвер суулгасан ч энэ сешний бүх Vulkan программ драйвер огт харахгүй:\n\n{missing}\n    {var}={value}\n\nБайгаа манифест руу заана уу — суулгасан драйверууд манифестаа /usr/share/vulkan/icd.d-д байрлуулдаг — эсвэл тохиргоог болиулж ачаалагчаар өөрөөр нь хайлгаарай.\nҮүнийг тохиргооны файлаас (Hyprland-ийн `env =`, systemd environment.d нэмэлт, бүрхүүлийн профайл) өгдөг бол тэнд нь өөрчлөх ёстой бөгөөд аль хэдийн ажиллаж буй зүйлд хүргэхийн тулд шинээр нэвтрэх шаардлагатай.\n
+app.vulkan.override_note = \n{var} нь {value} гэж тохируулагдсан бөгөөд ачаалагчийн өөрийн хайлтыг орлож байна: эдгээр манифестын аль нь ч энэ машинд тохирохгүй бол тохиргоог болиулах нь эхний оролдлого юм.\n
+app.vulkan.no_driver = schist: Vulkan драйвер суулгагдаагүй тул дүрслэх зүйл алга.\n\nSchist Vulkan-аар дүрсэлдэг. Ачаалагч суулгагдсан боловч драйвер мэдээлэхгүй байна — хайдаг хоёр байршлын алинд нь ч драйвер бүртгэгдээгүй:\n\n{dirs}\n\nАчаалагч драйвераас тусдаа ирдэг тул ихэнхдээ ганц багц дутсан байдаг.\n\nЭнэ машины GPU-д тохирох драйверыг суулгана уу:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-ийн өмчийн драйвер өөрийн драйвертай (`nvidia-utils` Arch дээр, `nvidia-driver` Debian дээр). Виртуал машинд эсвэл GPU драйвер суулгах боломжгүй газар программын растеризатор ажиллана: Arch дээр `vulkan-swrast`, бусад системд `mesa-vulkan-drivers`-ын хэсэг. Удаан боловч асна.\n{overridden}
+app.vulkan.no_device = schist: Vulkan драйвер суулгагдсан боловч дүрслэх төхөөрөмж санал болгохгүй байна.\n\nДрайвер энэ GPU-г дэмжихгүй эсвэл түүнд хүрч чадахгүй байж болно — SSH-ээр эсвэл контейнер дотор /dev/dri байхгүй байх нь элбэг. `vulkaninfo --summary` ачаалагч юу харж байгааг мэдээлнэ.\n\nЭнэ машин GPU-гүй бол программын растеризатор GPU огт ашиглахгүйгээр дүрсэлнэ: Arch дээр `vulkan-swrast`, Debian болон Fedora дээр `mesa-vulkan-drivers`-ын хэсэг.\n
+app.vulkan.skip_hint = Ямартай ч Schist-ийг эхлүүлж өөрийнхөөр нь алдаа гаргуулахын тулд {var}=1 гэж тохируулна уу.

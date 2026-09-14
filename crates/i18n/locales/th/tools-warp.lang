@@ -1,0 +1,25 @@
+# Liquify
+tool.liquify.name = ทำให้เป็นของเหลว
+tool.liquify.description = ดัน หมุน บีบ หรือขยายพิกเซลใต้แปรงขนาดใหญ่ โดยตัวเลือกโหมดจะกำหนดการทำงาน การบิดจะสะสมในตาข่ายและนำไปใช้กับเลเยอร์เมื่อยืนยัน
+tool.liquify.option.tool = เครื่องมือ
+tool.liquify.choice.forward_warp = บิดไปข้างหน้า
+tool.liquify.choice.reconstruct = สร้างใหม่
+tool.liquify.choice.twirl_cw = หมุนตามเข็มนาฬิกา
+tool.liquify.choice.twirl_ccw = หมุนทวนเข็มนาฬิกา
+tool.liquify.choice.pucker = บีบเข้า
+tool.liquify.choice.bloat = ขยายออก
+tool.liquify.choice.push_left = ดันไปทางซ้าย
+tool.liquify.history.liquify = ทำให้เป็นของเหลว
+
+# Puppet Warp
+tool.puppet_warp.name = บิดแบบหุ่นเชิด
+tool.puppet_warp.description = คลิกเพื่อปักหมุดเลเยอร์ไว้หลายจุด แล้วลากหมุดหนึ่งจุด ตาข่ายจะโค้งรอบหมุดอย่างแข็งหรือยืดหยุ่นตามตัวเลือกความแข็ง ยืนยันเพื่อนำไปใช้
+tool.puppet_warp.option.stiffness = ความแข็ง
+tool.puppet_warp.history.puppet_warp = บิดแบบหุ่นเชิด
+
+# Vanishing Point
+tool.vanishing_point.name = จุดรวมสายตา
+tool.vanishing_point.description = ลากสร้างระนาบเหนือสิ่งที่มีมุมมองเพอร์สเปคทีฟ แล้วเปลี่ยนโหมดเป็นโคลนและระบาย พิกเซลที่คัดลอกจะเคลื่อนไปตามระนาบและเล็กลงตามระยะทาง
+tool.vanishing_point.choice.edit_plane = แก้ไขระนาบ
+tool.vanishing_point.choice.clone = โคลน
+tool.vanishing_point.history.vanishing_point = จุดรวมสายตา

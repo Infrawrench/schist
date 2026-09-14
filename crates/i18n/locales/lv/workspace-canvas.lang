@@ -1,0 +1,40 @@
+# Statusa joslas paziņojumi
+workspace.canvas.rotate_view_degrees = Pagriezt skatu par {degrees}°
+workspace.canvas.view_reset = Skats atiestatīts
+workspace.canvas.notes_on = Piezīmes ieslēgtas
+workspace.canvas.notes_off = Piezīmes izslēgtas
+workspace.canvas.rulers_on = Lineāli ieslēgti
+workspace.canvas.rulers_off = Lineāli izslēgti
+workspace.canvas.grid_on = Režģis ieslēgts
+workspace.canvas.grid_off = Režģis izslēgts
+workspace.canvas.guides_on = Palīglīnijas ieslēgtas
+workspace.canvas.guides_off = Palīglīnijas izslēgtas
+workspace.canvas.extras_on = Papildelementi ieslēgti
+workspace.canvas.extras_off = Papildelementi izslēgti
+workspace.canvas.snap_on = Piesaistīšana ieslēgta
+workspace.canvas.snap_off = Piesaistīšana izslēgta
+workspace.canvas.guides_cleared = Palīglīnijas notīrītas
+workspace.canvas.no_path = Nav izmantojama ceļa
+workspace.canvas.path_empty = Ceļš ir tukšs
+workspace.canvas.stroke_needs_selection = Lai apvilktu, nepieciešama atlase
+workspace.canvas.nothing_to_stroke = Nav nekā, ko apvilkt
+workspace.canvas.content_aware_fill_needs_selection = Saturjutīgajai aizpildīšanai nepieciešama atlase
+workspace.canvas.content_aware_fill_needs_pixel_layer = Saturjutīgajai aizpildīšanai nepieciešams pikseļu slānis
+workspace.canvas.color_range_needs_pixel_layer = Krāsu diapazonam nepieciešams pikseļu slānis
+workspace.canvas.nothing_to_adjust = Nav nekā, ko koriģēt
+workspace.canvas.nothing_to_trim = Nav nekā, ko apgriezt
+workspace.canvas.trimmed = Malas apgrieztas
+workspace.canvas.indexed_not_supported = Indeksēta krāsa vēl netiek atbalstīta
+workspace.canvas.opacity_percent = Necaurredzamība: {n}%
+
+# Vēstures paneļa ieraksti
+workspace.history.stroke = Apvilkšana
+workspace.history.fill = Aizpildīšana
+workspace.history.content_aware_scale = Saturjutīgā mērogošana
+workspace.history.filter_gallery = Filtru galerija
+workspace.history.color_range = Krāsu diapazons
+workspace.history.move_layer = Pārvietot slāni
+workspace.history.move_layers = Pārvietot slāņus
+workspace.history.layer_opacity = Slāņa necaurredzamība
+workspace.history.delete_note = Dzēst piezīmi
+workspace.history.edit_note = Rediģēt piezīmi

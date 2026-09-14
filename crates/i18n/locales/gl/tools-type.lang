@@ -1,0 +1,24 @@
+# Ferramenta Texto.
+
+tool.type.name = Texto
+tool.type.description = Preme para iniciar alí unha capa de texto ou preme nunha xa existente para editala. Mentres estea aberta, a ferramenta acepta directamente as teclas (envía os caracteres como entrada de teclado); ao confirmar, represéntase a capa e péchase a edición.
+
+tool.type.option.align = Aliñar
+tool.type.option.leading = Interliñado
+tool.type.option.tracking = Espazamento entre caracteres
+tool.type.option.kerning = Axuste entre pares
+tool.type.option.ligatures = Ligaduras
+tool.type.option.discretionary_ligatures = Ligaduras discrecionais
+tool.type.option.small_caps = Versaletas
+tool.type.option.on_path = Sobre o trazado activo
+tool.type.option.path_offset = Desprazamento no trazado
+
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Negra
+tool.type.choice.italic = Cursiva
+tool.type.choice.bold_italic = Negra cursiva
+
+tool.type.history.new_layer = Nova capa de texto
+tool.type.history.edit = Editar texto
+tool.type.history.discard = Descartar texto
+tool.type.history.discard_empty = Descartar texto baleiro

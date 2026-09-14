@@ -1,0 +1,43 @@
+# Suysuna galería
+app.filter_gallery.title = Suysuna galería
+app.filter_gallery.stack = Qutu (uramanta hanaqman churakun)
+app.filter_gallery.no_settings = Kay suysunaqa manam allichanayuqchu.
+
+# Sanampa rikch'aykuna
+app.fonts.not_open_licensed = mana kichasqa licenciayuqchu · {substitute} tupunkunawan tupachkan
+app.fonts.missing_substituted = chinkachkan · qillqaqa rantin sanampa rikch'aywan churasqa kachkan
+app.fonts.not_in_catalogue = {family} mana kichasqa sanampa rikch'ay catálogo ukhupi kanchu
+app.fonts.no_faces = {family} nisqapaq mana uraykachina rikch'ay kanchu
+app.fonts.empty_response = ch'usaq kutichiy
+
+# Kikinmanta musuqyachiq
+app.update.unreadable_response = mana ñawinchay atisqa kutichiy: {error}
+app.update.no_temp_dir = uraykachinapaq mana mit'alla karpeta kanchu
+app.update.asset_has_path = lluqsichisqaqa imataqa ñanniyuq sutichan
+app.update.too_big = uraykachisqaqa lluqsichisqa nisqanmanta aswan hatunmi
+app.update.stopped_at = uraykachiyqa {total} byte nisqamanta {got} nisqapi sayarun
+app.update.hash_mismatch = uraykachisqap hash yupayninqa {got}, mana {want}chu
+app.update.not_in_bundle = kay copiaqa mana aplicación paquete ukhupi kanchu
+app.update.no_parent_dir = aplicación paqueteqa mana tayta karpetayuqchu
+app.update.cannot_write = {dir} nisqaman mana qillqay atikunchu
+app.update.cannot_move_aside = {app} huk ladoman mana kuyuchiy atikunchu
+app.update.cannot_move_in = musuq paqueteta k'itinman mana kuyuchiy atikunchu
+app.update.cannot_run_ditto = /usr/bin/ditto mana purichiy atikunchu
+app.update.unpack_failed = uraykachisqata kichay mana atikunchu: {error}
+app.update.no_app_in_download = uraykachisqa ukhupi mana Schist.app kanchu
+app.update.cannot_run_codesign = /usr/bin/codesign mana purichiy atikunchu
+app.update.signature_invalid = uraykachisqap firman mana chiqapchasqachu: {error}
+app.update.download_unsigned = kay copiaqa firmayuqmi, uraykachisqataq mana firmayuqchu
+app.update.different_developer = uraykachisqaqa huk wiñachiqpa firmayuqmi
+app.update.cannot_relaunch = wakmanta qallarichiqta mana qallariy atikunchu
+app.update.not_installed_copy = kay copiataqa churaq mana kayman churarqanchu
+app.update.cannot_start_installer = churaqta mana qallariy atikunchu
+app.update.platform_unsupported = kay plataforma musuqyachiykunaqa Schist churasqa kasqan hinam churakunku
+
+# Linuxpi Vulkan qhawariy
+app.vulkan.no_loader = schist: kay sistemapi mana Vulkan loader kanchu; chayrayku manam imawanpas siq'iy atikunchu.\n\nSchistqa Vulkanwan rikch'aykunata ruran, ichaqa `libvulkan.so.1` mana churasqachu.\nLoaderpas driverpas iskayninmi kanan:						\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: kay sesión mayqin Vulkan driverman rikuchisqanqa manam chaypi kanchu.\n\n{var} churasqam kachkan; chayta churayqa loaderpa driverkunata maskasqanta\nyapananmantaqa rantinman churakun. Chayrayku kay mana kaq archivokunalla\nllapan driver lista kanku; kay sesiónpi llapan Vulkan programaqa\nmay achka churasqa driver kaptinpas manam mayqintapas rikunchu:\n\n{missing}\n    {var}={value}\n\nKaq manifestoman rikuchiy — churasqa driverkuna paykunaqta\n/usr/share/vulkan/icd.d ukhupi churanku — utaq qichuy, loader kikinpa driver\nmaskayninta ruwananpaq. Configuración archivomanta kayta churaq sesiónqa\n(Hyprland `env =`, systemd environment.d drop-in, shell perfil) chaypim\nwillakunan; ruwachkaq imakunaman tikray chayananpaqqa musuqmanta yaykuyta munan.\n
+app.vulkan.override_note = \n{var}qa {value} nisqaman churasqam kachkan, chaytaq loaderpa kikin\nmaskayninta rantinman churakun: chay manifestokunamanta mana mayqinpas kay\nmaquinapaq kaptinqa, qichuyqa ñawpaq kallpachakuymi.\n
+app.vulkan.no_driver = schist: mana Vulkan driver churasqachu; chayrayku manam imapipas siq'iy atikunchu.\n\nSchistqa Vulkanwan rikch'aykunata ruran. Loader churasqam, ichaqa mana driver\nkasqanta willan; maskasqan iskay k'itimanta mana mayqinmanpas driver qillqakusqachu:\n\n{dirs}\n\nLoaderqa driverkunamanta sapallanmi hamun; chayrayku kayqa aswan achka kuti\nhuk paquete mana kaqllam.\n\nKay maquinap GPU-ninpaq kaqta churay:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIApa sapanchasqa driverninqa kikinpaqmi apamun (Archpi `nvidia-utils`,\nDebianpi `nvidia-driver`). Máquina virtualpi utaq GPU driver mana churana\nmaypipas software rasterizador llamk'anqa: Archpi `vulkan-swrast`, huk\nsistemakunapitaq `mesa-vulkan-drivers`pa huknin. Pisi pisi purinmi, ichaqa qallarinmi.\n{overridden}
+app.vulkan.no_device = schist: Vulkan driver churasqam, ichaqa rikch'ay ruranapaq mana dispositivota qunchu.\n\nDriverqa kay GPU-ta mana yanapanmanchu, utaq mana haykuyta atinmanchu; SSH\nukhunta utaq contenedor ukhupiqa /dev/dri mana kaymi sapa kuti rikukun.\n`vulkaninfo --summary` loaderpa rikusqanta willan.\n\nKay maquina mana GPU-yuq kaptinqa software rasterizador mana GPU-wanpas\nrikch'ayta ruran: Archpi `vulkan-swrast`, Debian Fedora ima nisqapitaq\n`mesa-vulkan-drivers`pa huknin.\n
+app.vulkan.skip_hint = Schist imayna kasqanpi qallarichinapaq, kikinpa ñanninpi pantananpaq, {var}=1 churay.

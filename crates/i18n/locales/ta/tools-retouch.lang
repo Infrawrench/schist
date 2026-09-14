@@ -1,0 +1,23 @@
+tool.patch.name = ஒட்டு
+tool.patch.description = குறைபாட்டைச் சுற்றி ஓர் எல்லைக்கோட்டை இழுத்து, அந்தத் தேர்வைத் தூய படப்புள்ளிகளின் மீது இழுக்கவும்; அங்குள்ள இழைநயம் குறைபாட்டில் பொருத்தப்படும். இணையின் எந்த முனையை இழுக்க வேண்டும் என்பதை ஒட்டு முறை தீர்மானிக்கும்.
+tool.patch.option.patch = ஒட்டு
+tool.patch.choice.source = மூலம்
+tool.patch.choice.destination = இலக்கு
+tool.patch.history.patch = ஒட்டு
+
+tool.content_aware_move.name = உள்ளடக்கமறிந்த நகர்த்தல்
+tool.content_aware_move.description = தேர்ந்தெடுத்த பொருளை வேறிடத்துக்கு இழுக்கவும்; அது விட்டுச்செல்லும் வெற்றிடம் சுற்றுப்பகுதியிலிருந்து நிரப்பப்படும். நீட்டிப்பு முறையில் பொருள் நகர்த்தப்படாமல் நீட்டிக்கப்படும்.
+tool.content_aware_move.choice.move = நகர்த்து
+tool.content_aware_move.choice.extend = நீட்டு
+tool.content_aware_move.history.move = உள்ளடக்கமறிந்த நகர்த்தல்
+
+tool.red_eye.name = சிவப்புக் கண்
+tool.red_eye.description = ஒளிப்படக் கருவி மின்னொளியால் விழியில் தோன்றிய சிவப்பை நீக்க, கண்மணியைச் சொடுக்கவும்.
+tool.red_eye.option.pupil_size = கண்மணி அளவு
+tool.red_eye.option.darken = கருமையாக்கு
+tool.red_eye.history.red_eye = சிவப்புக் கண்
+
+tool.magic_eraser.name = மாய அழிப்பான்
+tool.magic_eraser.description = கருவியின் சகிப்புத்தன்மை வரம்புக்குள், சுட்டியின் கீழுள்ள ஒத்த வண்ணப் பகுதியை அழிக்கச் சொடுக்கவும்; சொடுக்கிய இடத்துடன் தொடர்ச்சியான பகுதியையோ அடுக்கில் உள்ள அத்தகைய எல்லாப் பகுதிகளையோ அழிக்கலாம்.
+tool.magic_eraser.option.contiguous = தொடர்ச்சியானவை
+tool.magic_eraser.history.erase = மாய அழிப்பான்

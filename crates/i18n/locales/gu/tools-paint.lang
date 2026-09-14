@@ -1,0 +1,83 @@
+# Brush
+tool.brush.name = બ્રશ
+tool.brush.description = એડિટરમાં નક્કી કરેલા બ્રશના કદ, કઠિનતા અને અપારદર્શકતા પ્રમાણે અગ્રભૂમિના રંગમાં નરમ ધારવાળો સ્ટ્રોક પેઇન્ટ કરો.
+tool.brush.history.stroke = બ્રશ
+
+# Pencil
+tool.pencil.name = પેન્સિલ
+tool.pencil.description = અગ્રભૂમિના રંગમાં કઠોર ધારવાળો, ઍન્ટિ-એલિયાસિંગ વિનાનો સ્ટ્રોક પેઇન્ટ કરો.
+tool.pencil.history.stroke = પેન્સિલ
+
+# Eraser
+tool.eraser.name = ઇરેઝર
+tool.eraser.description = સ્ટ્રોકની સાથે ભૂંસીને લેયરને ફરી પારદર્શક બનાવો.
+tool.eraser.history.stroke = ઇરેઝર
+
+# Clone Stamp
+tool.clone.name = ક્લોન સ્ટૅમ્પ
+tool.clone.description = ક્લોન સ્ટૅમ્પ: સ્રોત બિંદુ નક્કી કરવા Alt-ક્લિક કરો, પછી તે ઑફસેટ પર ત્યાંથી કૉપી થયેલા પિક્સેલ પેઇન્ટ કરો.
+tool.clone.history.stroke = ક્લોન સ્ટૅમ્પ
+
+# Dodge, Burn, Sponge
+tool.dodge.name = ડૉજ
+tool.dodge.description = સ્ટ્રોક જે પિક્સેલ પરથી પસાર થાય તેને આછા કરો.
+tool.dodge.history.stroke = ડૉજ
+tool.burn.name = બર્ન
+tool.burn.description = સ્ટ્રોક જે પિક્સેલ પરથી પસાર થાય તેને ઘાટા કરો.
+tool.burn.history.stroke = બર્ન
+tool.sponge.name = સ્પંજ
+tool.sponge.description = સ્ટ્રોક જે પિક્સેલ પરથી પસાર થાય તેની સંતૃપ્તિ વધારો અથવા ઘટાડો.
+tool.sponge.history.stroke = સ્પંજ
+
+# Blur, Sharpen, Smudge
+tool.blur.name = બ્લર
+tool.blur.description = સ્ટ્રોક જે પિક્સેલ પરથી પસાર થાય તેને ધૂંધળા કરો.
+tool.blur.history.stroke = બ્લર
+tool.sharpen.name = શાર્પન
+tool.sharpen.description = સ્ટ્રોક જે પિક્સેલ પરથી પસાર થાય તેને વધુ તીક્ષ્ણ કરો.
+tool.sharpen.history.stroke = શાર્પન
+tool.smudge.name = સ્મજ
+tool.smudge.description = જાણે ભીનો રંગ ધકેલી રહ્યા હો તેમ સ્ટ્રોકની સાથે રંગ ખેંચો.
+tool.smudge.history.stroke = સ્મજ
+
+# Healing
+tool.heal.name = હીલિંગ બ્રશ
+tool.heal.description = હીલિંગ બ્રશ: સ્રોત નક્કી કરવા Alt-ક્લિક કરો, પછી પેઇન્ટ કરો; સ્રોતનું ટેક્સ્ચર ગંતવ્યના પોતાના રંગ અને પ્રકાશ સાથે ભળે છે.
+tool.heal.history.stroke = હીલિંગ બ્રશ
+tool.spot_heal.name = સ્પૉટ હીલિંગ બ્રશ
+tool.spot_heal.description = સ્પૉટ હીલિંગ બ્રશ: ડાઘ પર પેઇન્ટ કરો અને તેની આસપાસથી લીધેલું ટેક્સ્ચર તેનું સ્થાન લે છે — સ્રોત બિંદુ નક્કી કરવાની જરૂર નથી.
+tool.spot_heal.history.stroke = સ્પૉટ હીલિંગ બ્રશ
+
+# History Brush
+tool.history_brush.name = હિસ્ટરી બ્રશ
+tool.history_brush.description = દસ્તાવેજના ઇતિહાસ સ્નૅપશૉટમાંથી પિક્સેલ પાછા પેઇન્ટ કરીને પછીનું કામ એક-એક સ્ટ્રોક કરીને પૂર્વવત્ કરો.
+tool.history_brush.history.stroke = હિસ્ટરી બ્રશ
+
+# Background Eraser
+tool.background_eraser.name = બૅકગ્રાઉન્ડ ઇરેઝર
+tool.background_eraser.description = બ્રશના મધ્ય નીચે નમૂના તરીકે લેવાયેલો રંગ ભૂંસો અને જુદા રંગના પિક્સેલને રહેવા દો, જેથી વિષયને તેની પૃષ્ઠભૂમિથી અલગ કરી શકાય.
+tool.background_eraser.history.stroke = બૅકગ્રાઉન્ડ ઇરેઝર
+
+# Gradient
+tool.gradient.name = ગ્રેડિયન્ટ
+tool.gradient.description = ખેંચવાની દિશામાં અગ્રભૂમિના રંગથી પૃષ્ઠભૂમિના રંગ સુધીના રેખીય ગ્રેડિયન્ટથી લેયર ભરો — પસંદગી હોય ત્યારે તેની અંદર જ ભરો.
+tool.gradient.radial.name = ત્રિજ્ય ગ્રેડિયન્ટ
+tool.gradient.radial.description = અગ્રભૂમિ અને પૃષ્ઠભૂમિના રંગો વચ્ચેનો ત્રિજ્ય ગ્રેડિયન્ટ ભરવા મધ્યમાંથી બહારની તરફ ખેંચો.
+tool.gradient.option.gradient = ગ્રેડિયન્ટ
+tool.gradient.option.reverse = ઉલટાવો
+tool.gradient.option.dither = ડિધર
+tool.gradient.choice.foreground_to_background = અગ્રભૂમિથી પૃષ્ઠભૂમિ
+tool.gradient.choice.foreground_to_transparent = અગ્રભૂમિથી પારદર્શક
+tool.gradient.choice.linear = રેખીય
+tool.gradient.choice.radial = ત્રિજ્ય
+tool.gradient.choice.angle = કોણ
+tool.gradient.choice.reflected = પ્રતિબિંબિત
+tool.gradient.choice.diamond = હીરો
+tool.gradient.history.gradient = ગ્રેડિયન્ટ
+
+# Paint Bucket
+tool.bucket.name = પેઇન્ટ બકેટ
+tool.bucket.description = ટૂલની સહનશીલતાની મર્યાદામાં, પોઇન્ટરની નીચે સમાન રંગ ધરાવતા સળંગ વિસ્તારને અગ્રભૂમિના રંગથી ભરવા ક્લિક કરો.
+tool.bucket.option.contiguous = સળંગ
+tool.bucket.option.all_layers = બધા લેયર
+tool.bucket.history.fill = પેઇન્ટ બકેટ

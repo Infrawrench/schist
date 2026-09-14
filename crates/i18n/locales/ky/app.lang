@@ -1,0 +1,39 @@
+app.filter_gallery.title = Фильтрлер галереясы
+app.filter_gallery.stack = Топтом (ылдыйдан өйдө колдонулат)
+app.filter_gallery.no_settings = Бул фильтрдин жөндөөлөрү жок.
+
+app.fonts.not_open_licensed = ачык лицензияда эмес · {substitute} анын өлчөмдөрүнө дал келет
+app.fonts.missing_substituted = жок · текст ордун басуучу арип менен терилүүдө
+app.fonts.not_in_catalogue = {family} ачык ариптер каталогунда жок
+app.fonts.no_faces = {family} үчүн жүктөп алууга боло турган сызылыштар жок
+app.fonts.empty_response = бош жооп
+
+app.update.unreadable_response = жооп окулбайт: {error}
+app.update.no_temp_dir = жүктөп алуу үчүн убактылуу папка жок
+app.update.asset_has_path = чыгарылыштагы ресурстун аталышында жол камтылган
+app.update.too_big = жүктөлгөн файл чыгарылышта көрсөтүлгөндөн чоң
+app.update.stopped_at = жүктөө {total} байттын {got} байтында токтоду
+app.update.hash_mismatch = жүктөмдүн хэши {want} эмес, {got} болуп чыкты
+app.update.not_in_bundle = бул көчүрмө колдонмо топтомунун ичинде эмес
+app.update.no_parent_dir = колдонмо топтомунун аталык папкасы жок
+app.update.cannot_write = {dir} ичине жазууга болбойт
+app.update.cannot_move_aside = {app} колдонмосун четке жылдырууга болбойт
+app.update.cannot_move_in = жаңы топтомду ордуна жылдырууга болбойт
+app.update.cannot_run_ditto = /usr/bin/ditto иштетүүгө болбойт
+app.update.unpack_failed = жүктөм таңгактан чыгарылган жок: {error}
+app.update.no_app_in_download = жүктөмдө Schist.app жок
+app.update.cannot_run_codesign = /usr/bin/codesign иштетүүгө болбойт
+app.update.signature_invalid = жүктөмдүн кол тамгасы ырасталган жок: {error}
+app.update.download_unsigned = бул көчүрмөгө кол коюлган, ал эми жүктөмгө коюлган эмес
+app.update.different_developer = жүктөмгө башка иштеп чыгуучу кол койгон
+app.update.cannot_relaunch = кайра иштетүүчү программаны жүргүзүүгө болбойт
+app.update.not_installed_copy = бул көчүрмөнү бул жерге орноткуч жайгаштырган эмес
+app.update.cannot_start_installer = орноткучту иштетүүгө болбойт
+app.update.platform_unsupported = бул платформадагы жаңыртуулар Schist кандай орнотулган болсо, ошол жол менен орнотулат
+
+app.vulkan.no_loader = schist: бул тутумда Vulkan жүктөгүчү жок, ошондуктан сүрөт тарта турган каражат жок.\n\nSchist Vulkan аркылуу тартат, бирок `libvulkan.so.1` орнотулган эмес.\nЖүктөгүч да, драйвер да керек:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: бул сеанс көрсөткөн Vulkan драйвери табылган жок.\n\n{var} коюлган жана анын маанисин коюу драйверлерди жүктөгүчтүн издөөсүнө кошпостон, издөөнү толугу менен *алмаштырат*. Демек, жок болгон бул файлдар драйверлердин толук тизмеси болуп калат жана канча драйвер орнотулбасын, бул сеанстагы ар бир Vulkan программасы эч бир драйверди көрбөйт:\n\n{missing}\n    {var}={value}\n\nАны бар болгон манифестке багыттаңыз — орнотулган драйверлер манифесттерин /usr/share/vulkan/icd.d ичине жайгаштырат — же өзгөрмөнү алып салып, жүктөгүчкө драйверди өзү таптырыңыз. Бул маанини конфигурация файлынан (Hyprland'дагы `env =`, systemd environment.d кошумча файлы же кабык профили) койгон сеансты ошол жерден оңдоо керек; өзгөртүү иштеп турган программаларга жетиши үчүн аккаунттан чыгып, кайра кирүү зарыл.\n
+app.vulkan.override_note = \n{var} өзгөрмөсү {value} болуп коюлган жана бул жүктөгүчтүн өз алдынча издөөсүн алмаштырат: ошол манифесттердин эч бири бул компьютерге туура келбесе, адегенде өзгөрмөнү алып салып көрүңүз.\n
+app.vulkan.no_driver = schist: Vulkan драйвери орнотулган эмес, ошондуктан сүрөт тарта турган каражат жок.\n\nSchist Vulkan аркылуу тартат. Жүктөгүч орнотулган, бирок драйвер жок экенин билдирүүдө — издөө жүргүзүлгөн эки жердин биринде да драйвер катталган эмес:\n\n{dirs}\n\nЖүктөгүч драйверлерден өзүнчө таратылат, андыктан адатта бир гана топтом жетишпейт.\n\nБул компьютердин GPU'суна ылайыктуусун орнотуңуз:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA'нын жабык драйвери өзүнүкүн камтыйт (Arch'та `nvidia-utils`, Debian'да `nvidia-driver`). Виртуалдык машинада же GPU драйверин орнотууга болбогон башка чөйрөдө программалык растрлагыч иштейт: Arch'та `vulkan-swrast`, башка тутумдарда `mesa-vulkan-drivers` курамында. Ал жай иштейт, бирок программаны жүргүзөт.\n{overridden}
+app.vulkan.no_device = schist: Vulkan драйвери орнотулган, бирок сүрөт тартууга түзмөк сунуштабайт.\n\nДрайвер бул GPU'ну колдобошу же ага жете албашы мүмкүн — SSH аркылуу же контейнердин ичинде иштегенде /dev/dri көп учурда жеткиликсиз болот. `vulkaninfo --summary` жүктөгүч эмнени көрүп жатканын көрсөтөт.\n\nБул компьютерде GPU жок болсо, программалык растрлагыч GPU'суз эле тартат: Arch'та `vulkan-swrast`, Debian жана Fedora'да `mesa-vulkan-drivers` курамында.\n
+app.vulkan.skip_hint = Schist'ти баары бир иштетип, катаны өз жолу менен чыгарсын десеңиз, {var}=1 деп коюңуз.

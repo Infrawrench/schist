@@ -1,0 +1,20 @@
+# Bazala utensili.
+tool.move.name = Movar
+tool.move.description = Trenez la kontenajo di la aktiva strato a nova poziciono. Kun Automata selekto, la preso selektas unesme la strato — o tota grupo — sub la indikilo.
+tool.move.option.auto_select = Automata selekto
+tool.move.history.move_layer = Movar strato
+tool.eyedropper.name = Pipeto
+tool.eyedropper.description = Specimenez la koloro sub la indikilo en la avanplana koloruyo, o en la dopplana koloruyo kande Alt es tenata. Trenado durigas la specimeno.
+tool.eyedropper.option.sample_size = Specimengrando
+tool.eyedropper.option.sample = Specimeno
+tool.eyedropper.choice.point_sample = Punkta specimeno
+tool.eyedropper.choice.average_3 = Moyeno 3 × 3
+tool.eyedropper.choice.average_5 = Moyeno 5 × 5
+tool.eyedropper.choice.average_11 = Moyeno 11 × 11
+tool.eyedropper.choice.average_31 = Moyeno 31 × 31
+tool.eyedropper.choice.all_layers = Omna strati
+tool.eyedropper.choice.current_layer = Nuna strato
+tool.hand.name = Mano
+tool.hand.description = Panoramas la vido. La vidfenestro apartenas a la fenestro, do sen grafika interfaco ca utensilo ne modifikas la dokumento.
+tool.zoom.name = Zumo
+tool.zoom.description = Zumas la vido. La vidfenestro apartenas a la fenestro, do sen grafika interfaco ca utensilo ne modifikas la dokumento.

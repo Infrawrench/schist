@@ -1,0 +1,27 @@
+# أدوات الالتواء: التسييل والتواء الدمية ونقطة التلاشي.
+
+# التسييل
+tool.liquify.name = تسييل
+tool.liquify.description = ادفع وحدات البكسل أو أدرها أو اقبضها أو انفخها تحت فرشاة كبيرة؛ يحدد خيار الوضع العملية. يتراكم الالتواء في شبكة ويُطبّق على الطبقة عند الاعتماد.
+tool.liquify.option.tool = الأداة
+tool.liquify.choice.forward_warp = التواء أمامي
+tool.liquify.choice.reconstruct = إعادة إنشاء
+tool.liquify.choice.twirl_cw = تدوير مع عقارب الساعة
+tool.liquify.choice.twirl_ccw = تدوير عكس عقارب الساعة
+tool.liquify.choice.pucker = قبض
+tool.liquify.choice.bloat = نفخ
+tool.liquify.choice.push_left = دفع إلى اليسار
+tool.liquify.history.liquify = تسييل
+
+# التواء الدمية
+tool.puppet_warp.name = التواء الدمية
+tool.puppet_warp.description = انقر لتثبيت الطبقة عند بضع نقاط، ثم اسحب إحداها؛ تنثني الشبكة حول الدبابيس بصلابة أو بمرونة وفق خيار الصلابة. يؤدي الاعتماد إلى تطبيق الالتواء.
+tool.puppet_warp.option.stiffness = الصلابة
+tool.puppet_warp.history.puppet_warp = التواء الدمية
+
+# نقطة التلاشي
+tool.vanishing_point.name = نقطة التلاشي
+tool.vanishing_point.description = اسحب مستوى فوق عنصر ذي منظور، ثم بدّل الوضع إلى الاستنساخ وارسم؛ تتبع وحدات البكسل المنسوخة المستوى وتصغر مع البعد.
+tool.vanishing_point.choice.edit_plane = تحرير المستوى
+tool.vanishing_point.choice.clone = استنساخ
+tool.vanishing_point.history.vanishing_point = نقطة التلاشي

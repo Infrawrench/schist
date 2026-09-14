@@ -1,0 +1,153 @@
+filter.neural.param.center_x = Xivindzi xa X
+filter.neural.param.center_y = Xivindzi xa Y
+filter.neural.param.direction = Tlhelo
+filter.neural.param.transition = Ku hundza
+filter.neural.param.detail = Vuxokoxoko
+filter.neural.param.eyes = Mahlo
+
+filter.neural.msg.using_model = Ku tirhisiwa {model} · {license}.
+filter.neural.msg.get_model = Yi kume eka Filitara ▸ Neural Filters ▸ Lawula timodeli.
+
+filter.camera_raw.name = Filitara ya Camera Raw
+filter.camera_raw.param.temperature = Mahiselo
+filter.camera_raw.param.tint = Tint
+filter.camera_raw.param.highlights = Tindhawu leti voningeke
+filter.camera_raw.param.shadows = Mindzhuti
+filter.camera_raw.param.whites = Mihlovo yo basa
+filter.camera_raw.param.blacks = Mihlovo ya ntema
+filter.camera_raw.param.clarity = Ku vonaka kahle
+filter.camera_raw.param.dehaze = Susa hunguva
+filter.camera_raw.param.vibrance = Ku hanya ka mihlovo
+filter.camera_raw.param.sharpening = Ku tiyisa vuxokoxoko
+filter.camera_raw.param.noise = Ku hunguta pongo
+filter.camera_raw.param.vignette = Ku nyamisa makumu
+
+filter.lens_correction.name = Ku lulamisa lenzi
+filter.lens_correction.param.distortion = Susa ku soholoka
+filter.lens_correction.param.red = Lulamisa makumu yo tshwuka/Cyan
+filter.lens_correction.param.blue = Lulamisa makumu ya wasi/xitshopana
+filter.lens_correction.param.vignette = Mpimo wo nyamisa makumu
+filter.lens_correction.param.midpoint = Xivindzi xo nyamisa makumu
+filter.lens_correction.param.vertical = Vonelo ra ku yima
+filter.lens_correction.param.horizontal = Vonelo ra ku hingakanya
+
+filter.adaptive_wide_angle.name = Engele yo anama leyi tilulamisaka
+filter.adaptive_wide_angle.param.projection = Ndzulamiso
+filter.adaptive_wide_angle.choice.fisheye = Tihlo ra nhlampfi
+filter.adaptive_wide_angle.choice.perspective = Vonelo ra mpfhuka
+filter.adaptive_wide_angle.choice.full_spherical = Xirhendzevutana hinkwaxo
+filter.adaptive_wide_angle.param.focal = Vulehi bya focal
+filter.adaptive_wide_angle.param.crop = Mpimo wo tsema
+
+filter.field_blur.name = Ku fihla ndhawu
+filter.field_blur.param.position = Ku tiyile eka
+filter.iris_blur.name = Ku fihla hi iris
+filter.iris_blur.param.roundness = Ku va xirhendzevutana
+filter.tilt_shift.name = Voyamisa-Fambisa
+filter.tilt_shift.param.position = Exikarhini
+filter.tilt_shift.param.band = Xiphemu lexi tiyeke
+filter.spin_blur.name = Ku fihla hi ku rhendzevuta
+filter.spin_blur.param.angle = Engele yo fihla
+filter.path_blur.name = Ku fihla hi ndlela
+filter.path_blur.param.speed = Rivilo
+filter.path_blur.param.curve = Khevhu
+filter.path_blur.param.taper = Hunguta hakatsongo
+
+filter.shape_blur.name = Ku fihla hi xivumbeko
+filter.shape_blur.choice.square = Xikwere
+filter.shape_blur.choice.diamond = Dayimani
+filter.shape_blur.choice.hexagon = Hexagoni
+filter.shape_blur.choice.cross = Xihambano
+filter.shape_blur.choice.ring = Xirhendzevutana
+filter.shape_blur.choice.star = Nyeleti
+filter.smart_blur.name = Ku fihla ka vutlhari
+filter.smart_blur.choice.normal = Ntolovelo
+filter.smart_blur.choice.edge_only = Makumu ntsena
+filter.smart_blur.choice.overlay_edge = Funengeta makumu
+
+filter.deinterlace.name = Susa ku tlapanisiwa ka tilayini
+filter.deinterlace.param.field = Susa
+filter.deinterlace.choice.odd_fields = Tifilidi ta tinomboro leti nga avanyisekiki hi mbirhi
+filter.deinterlace.choice.even_fields = Tifilidi ta tinomboro leti avanyisekaka hi mbirhi
+filter.deinterlace.param.fill = Endla tifilidi letintshwa hi
+filter.deinterlace.choice.interpolation = Ku pimanisa
+filter.deinterlace.choice.duplication = Ku endla kopi
+filter.ntsc_colors.name = Mihlovo ya NTSC
+
+filter.neural.skin_smoothing.name = Ku ririsa nhlonge
+filter.neural.skin_smoothing.param.blur = Ku rhetela
+filter.neural.skin_smoothing.param.detail = Hlayisa vuxokoxoko
+filter.neural.skin_smoothing.msg.no_model = {model} a yi nghenisiwanga — ku ri na ku vona swikandza, ku ririsiwa xin'wana ni xin'wana xa muhlovo wa nhlonge.
+
+filter.neural.jpeg_artifacts.name = Ku susa swihoxo swa JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} a yi nghenisiwanga — ku ririsiwa giridi ya tipikseli ta 8 ematshan'wini ya yona.
+
+filter.neural.colorize.name = Engetela muhlovo
+filter.neural.colorize.param.warmth = Ku kufumela
+filter.neural.colorize.msg.no_model = {model} a yi nghenisiwanga — ku tirhisiwa tint hi ku ya hi ku vangama ematshan'wini ya yona.
+
+filter.neural.super_zoom.name = Zoom leyikulu
+filter.neural.super_zoom.msg.no_model = {model} a yi nghenisiwanga — ku tirhisiwa ku tiyisa vuxokoxoko loku landzelaka makumu ematshan'wini ya yona.
+
+filter.neural.style_transfer.name = Ku hundzisela xitayili
+filter.neural.style_transfer.choice.mosaic = Mosayiki
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Ku hava timodeli ta xitayili leti nghenisiweke — ku hundzisiwa muhlovo ntsena. Ti kume eka Filitara ▸ Neural Filters ▸ Lawula timodeli.
+filter.neural.style_transfer.msg.installed = Swi nghenisiwile: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Ku hundzisela muhlovo
+filter.neural.color_transfer.param.hue = Muhlovo lowu kongomiweke
+filter.neural.color_transfer.param.contrast = Fananisa ku hambana
+filter.neural.color_transfer.msg.info = Yi teka ntlawa wa mihlovo eka leyara leyi nga ehansi. Loko ku nga ri na lexi nga ehansi, yi kongoma eka Muhlovo lowu kongomiweke ematshan'wini ya swona.
+
+filter.neural.depth_blur.name = Ku fihla hi vuenti
+filter.neural.depth_blur.param.focus = Mpfhuka wa focal
+filter.neural.depth_blur.param.blur = Matimba yo fihla
+filter.neural.depth_blur.msg.no_model = {model} a yi nghenisiwanga — ku kongomisiwa hi ku tiya ka vuxokoxoko bya le kusuhi ematshan'wini ya yona.
+
+filter.neural.harmonization.name = Ku fambisanisa
+filter.neural.harmonization.param.tone = Fananisa thoni
+filter.neural.harmonization.msg.info = Yi fambisanisa leyara leyi ni xin'wana ni xin'wana lexi nga ehansi ka yona. Loko ku nga ri na lexi nga ehansi, ku hava xo fananisa na xona naswona leswi a swi endli chinhu.
+
+filter.neural.landscape_mixer.name = Xihlanganisi xa swifaniso swa ndhawu
+filter.neural.landscape_mixer.param.bands = Swiphemu swa vuenti
+filter.neural.landscape_mixer.msg.with_depth = Yi teka ntlawa wa mihlovo eka leyara leyi nga ehansi, yi fananisa xiphemu hi xiphemu hi ku tirhisa Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Yi teka ntlawa wa mihlovo eka leyara leyi nga ehansi. Nghenisa Depth (Depth Blur) leswaku yi fananisa tilo ni tilo ni misava ni misava ematshan'wini yo fananisa xifaniso hinkwaxo.
+
+filter.neural.photo_restoration.name = Ku pfuxeta xifaniso
+filter.neural.photo_restoration.param.enhance = Ku antswisa xifaniso
+filter.neural.photo_restoration.param.scratches = Ku hunguta mikrwelo
+filter.neural.photo_restoration.param.tone = Vuyisa thoni
+filter.neural.photo_restoration.msg.no_model = Ku basisiwa handle ka modele.
+filter.neural.photo_restoration.msg.using_deblock = Ku tirhisiwa Deblock · leyi leteriweke Schist.
+filter.neural.photo_restoration.msg.using_detail = Ku tirhisiwa Detail · leyi leteriweke Schist.
+filter.neural.photo_restoration.msg.using_both = Ku tirhisiwa Deblock na Detail · leti leteriweke Schist.
+
+filter.neural.photo_to_sketch.name = Xifaniso xi va xifaniso xa pensele
+filter.neural.photo_to_sketch.param.weight = Vukulu bya layini
+filter.neural.photo_to_sketch.param.shading = Ku endla ndzhuti
+
+filter.neural.face_to_caricature.name = Xikandza xi va xifaniso xo hlekisa
+filter.neural.face_to_caricature.param.mouth = Nomu
+filter.neural.face_to_caricature.param.head = Nhloko
+filter.neural.face_to_caricature.msg.no_model = {model} a yi nghenisiwanga, kutani leswi a swi endli chinhu — ku hava xo endla xifaniso xo hlekisa ha xona.
+
+filter.neural.smart_portrait.name = Xifaniso xa munhu xa vutlhari
+filter.neural.smart_portrait.param.happiness = Ntsako
+filter.neural.smart_portrait.param.surprise = Ku hlamala
+filter.neural.smart_portrait.param.age = Malembe ya xikandza
+filter.neural.smart_portrait.param.gaze = Laha mahlo ma langutaka kona
+filter.neural.smart_portrait.param.light = Tlhelo ra ku vonakala
+filter.neural.smart_portrait.msg.no_model = {model} a yi nghenisiwanga, kutani leswi a swi endli chinhu — a yi na xikandza xo tirha eka xona.
+
+filter.neural.makeup_transfer.name = Ku hundzisela makeup
+filter.neural.makeup_transfer.param.lips = Milomu
+filter.neural.makeup_transfer.param.skin = Thoni ya nhlonge
+filter.neural.makeup_transfer.msg.info = Yi teka makeup eka xikandza lexi nga eka leyara leyi nga ehansi. Muhlovo ntsena, ku nga ri xivumbeko.
+filter.neural.makeup_transfer.msg.no_model = {model} a yi nghenisiwanga, kutani leswi a swi endli chinhu.
+
+filter.neural.sketch_to_portrait.name = Xifaniso xa pensele xi va xifaniso xa munhu
+filter.neural.sketch_to_portrait.param.detail = Hlayisa tilayini
+filter.neural.sketch_to_portrait.msg.with_face = Yi leteriwile ku tata Xifaniso xi va xifaniso xa pensele xa app leyi. Yi tirha eka xikandza lexi yi xi kumaka.
+filter.neural.sketch_to_portrait.msg.no_face = Yi leteriwile ku tata Xifaniso xi va xifaniso xa pensele xa app leyi. Nghenisa Faces (Skin Smoothing) kutani yi ta tirha eka xikandza ematshan'wini ya nhlawulo hinkwawu.

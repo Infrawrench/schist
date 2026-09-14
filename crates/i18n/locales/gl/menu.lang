@@ -1,0 +1,143 @@
+# Barra de menús.
+
+menu.file = Ficheiro
+menu.file.new = Novo
+menu.file.open = Abrir…
+menu.file.open_recent = Abrir recentes
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Explorar a galería…
+menu.file.close = Pechar
+menu.file.save = Gardar
+menu.file.save_as = Gardar como…
+menu.file.export = Exportar…
+menu.file.export_submenu = Exportar
+menu.file.export_artboards = Mesas de traballo a PNG…
+menu.file.export_slices = Sectores a PNG…
+menu.file.save_to_photos = Gardar en Fotos
+menu.file.plugins = Complementos…
+menu.file.missing_fonts = Tipos de letra ausentes…
+menu.file.check_for_updates = Buscar actualizacións…
+menu.file.quit = Saír
+menu.file.add_folder_to_gallery = Engadir cartafol á galería…
+menu.file.import_from_photos = Importar desde Fotos…
+menu.file.import_from_camera = Importar desde a cámara…
+
+menu.edit = Editar
+menu.edit.fill = Encher…
+menu.edit.stroke = Trazo…
+menu.edit.content_aware_fill = Recheo segundo o contido
+menu.edit.content_aware_scale = Escala segundo o contido…
+menu.edit.puppet_warp = Deformación de marioneta
+menu.edit.free_transform = Transformación libre
+menu.edit.transform = Transformar
+menu.edit.rotate_180 = Xirar 180°
+menu.edit.rotate_90_cw = Xirar 90° á dereita
+menu.edit.rotate_90_ccw = Xirar 90° á esquerda
+menu.edit.flip_horizontal = Voltear horizontalmente
+menu.edit.flip_vertical = Voltear verticalmente
+
+menu.image = Imaxe
+menu.image.mode = Modo
+menu.image.adjustments = Axustes
+menu.image.auto_tone = Ton automático
+menu.image.auto_contrast = Contraste automático
+menu.image.auto_color = Cor automática
+menu.image.image_size = Tamaño da imaxe…
+menu.image.canvas_size = Tamaño do lenzo…
+menu.image.image_rotation = Rotación da imaxe
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° á dereita
+menu.image.rotate_90_ccw = 90° á esquerda
+menu.image.flip_canvas_horizontal = Voltear o lenzo horizontalmente
+menu.image.flip_canvas_vertical = Voltear o lenzo verticalmente
+menu.image.crop_to_selection = Recortar á selección
+menu.image.trim = Recortar
+menu.image.assign_profile = Asignar perfil…
+menu.image.convert_to_profile = Converter ao perfil…
+
+menu.select = Seleccionar
+menu.select.color_range = Intervalo de cores…
+menu.select.modify = Modificar
+menu.select.border = Bordo…
+menu.select.smooth = Suavizar…
+menu.select.expand = Expandir…
+menu.select.contract = Contraer…
+menu.select.feather = Esvaecer…
+menu.select.transform_selection = Transformar selección
+
+menu.layer = Capa
+menu.layer.layer_style = Estilo de capa…
+menu.layer.layer_comps = Composicións de capas
+menu.layer.new_layer_comp = Nova composición de capas
+menu.layer.delete_layer_comp = Eliminar {name}
+menu.layer.path = Trazado
+menu.layer.fill_path = Encher trazado
+menu.layer.stroke_path = Trazar o contorno do trazado
+menu.layer.make_selection = Crear selección
+menu.layer.delete_path = Eliminar trazado
+
+menu.adjust = Axustar
+
+menu.filter = Filtro
+menu.filter.filter_gallery = Galería de filtros…
+menu.filter.liquify = Licuar
+menu.filter.vanishing_point = Punto de fuga
+menu.filter.manage_models = Xestionar modelos…
+menu.filter.camera_raw_development = Revelado de Camera Raw…
+
+menu.view = Ver
+menu.view.rotate_view_cw = Xirar a vista á dereita
+menu.view.rotate_view_ccw = Xirar a vista á esquerda
+menu.view.reset_view = Restablecer a vista
+menu.view.zoom_in = Ampliar
+menu.view.zoom_out = Reducir
+menu.view.fit_on_screen = Axustar á pantalla
+menu.view.actual_size = 100%
+menu.view.rulers = Regras
+menu.view.grid = Grade
+menu.view.guides = Guías
+menu.view.notes = Notas
+menu.view.ai_panel = Panel de IA
+menu.view.extras = Extras
+menu.view.snap = Axustar
+menu.view.clear_guides = Borrar guías
+menu.view.clear_notes = Borrar notas
+menu.view.clear_count = Borrar reconto
+menu.view.screen_mode = Modo de pantalla
+menu.view.proof_colors = Proba de cores
+menu.view.show_rulers = Mostrar regras
+menu.view.hide_rulers = Agochar regras
+menu.view.show_grid = Mostrar grade
+menu.view.hide_grid = Agochar grade
+menu.view.show_guides = Mostrar guías
+menu.view.hide_guides = Agochar guías
+menu.view.show_notes = Mostrar notas
+menu.view.hide_notes = Agochar notas
+menu.view.show_extras = Mostrar extras
+menu.view.hide_extras = Agochar extras
+menu.view.enable_snapping = Activar o axuste
+menu.view.disable_snapping = Desactivar o axuste
+menu.view.enable_proof_colors = Activar a proba de cores
+menu.view.disable_proof_colors = Desactivar a proba de cores
+
+menu.gallery = Galería
+menu.gallery.edit_selected = Editar a selección
+menu.gallery.refresh = Actualizar
+menu.gallery.map_filter = Filtro de mapa…
+menu.gallery.back_to_editor = Volver ao editor
+
+menu.cloud.browse = Explorar Schist Cloud
+menu.cloud.generate = Xerar imaxes…
+menu.cloud.upload = Subir o documento a Schist Cloud…
+menu.cloud.sign_out = Pechar sesión en Schist Cloud
+menu.cloud.sign_in = Iniciar sesión en Schist Cloud…
+
+menu.app.services = Servizos
+menu.app.hide = Agochar {app}
+menu.app.hide_others = Agochar os demais
+menu.app.show_all = Mostrar todo
+menu.app.quit = Saír de {app}
+
+menu.status.transform_selection_needs_selection = Transformar selección precisa dunha selección
+menu.status.crop_needs_selection = Recortar á selección precisa dunha selección
+menu.status.select_photo_to_edit = Selecciona unha foto para editala

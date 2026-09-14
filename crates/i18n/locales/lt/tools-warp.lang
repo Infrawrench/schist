@@ -1,0 +1,23 @@
+# Deformavimo įrankiai.
+tool.liquify.name = Suskystinti
+tool.liquify.description = Didele teptuko galvute stumkite, sukite, įtraukite arba išpūskite pikselius – veiksmą nustato režimo parinktis. Deformacija kaupiama tinklelyje ir patvirtinus pritaikoma sluoksniui.
+tool.liquify.option.tool = Įrankis
+tool.liquify.choice.forward_warp = Stumiamoji deformacija
+tool.liquify.choice.reconstruct = Atkurti
+tool.liquify.choice.twirl_cw = Sukti pagal laikrodžio rodyklę
+tool.liquify.choice.twirl_ccw = Sukti prieš laikrodžio rodyklę
+tool.liquify.choice.pucker = Įtraukti
+tool.liquify.choice.bloat = Išpūsti
+tool.liquify.choice.push_left = Stumti kairėn
+tool.liquify.history.liquify = Suskystinti
+
+tool.puppet_warp.name = Lėlinė deformacija
+tool.puppet_warp.description = Spustelėdami pritvirtinkite sluoksnį keliuose taškuose, tada vieną jų vilkite: tinklelis lankstosi aplink smeiges standžiai arba laisvai, kaip nurodyta standumo parinktyje. Patvirtinus deformacija pritaikoma.
+tool.puppet_warp.option.stiffness = Standumas
+tool.puppet_warp.history.puppet_warp = Lėlinė deformacija
+
+tool.vanishing_point.name = Išnykimo taškas
+tool.vanishing_point.description = Virš perspektyvinio objekto vilkdami nubrėžkite plokštumą, tada perjunkite režimą į klonavimą ir pieškite: nukopijuoti pikseliai seks plokštuma ir tolstant mažės.
+tool.vanishing_point.choice.edit_plane = Redaguoti plokštumą
+tool.vanishing_point.choice.clone = Klonuoti
+tool.vanishing_point.history.vanishing_point = Išnykimo taškas

@@ -1,0 +1,37 @@
+# Galeria e filtrave, shkronjat, përditësuesi dhe kontrolli i Vulkan-it.
+app.filter_gallery.title = Galeria e filtrave
+app.filter_gallery.stack = Grumbulli (zbatohet nga poshtë lart)
+app.filter_gallery.no_settings = Ky filtër nuk ka cilësime.
+app.fonts.not_open_licensed = nuk ka licencë të hapur · {substitute} përputhet me metrikat e saj
+app.fonts.missing_substituted = mungon · teksti po vendoset me një shkronjë zëvendësuese
+app.fonts.not_in_catalogue = {family} nuk është në katalogun e shkronjave të hapura
+app.fonts.no_faces = nuk ka variante të shkarkueshme për {family}
+app.fonts.empty_response = përgjigje e zbrazët
+app.update.unreadable_response = përgjigje e palexueshme: {error}
+app.update.no_temp_dir = nuk ka dosje të përkohshme ku të shkarkohet
+app.update.asset_has_path = versioni e emërton paketën me një shteg
+app.update.too_big = shkarkimi është më i madh se sa thotë versioni
+app.update.stopped_at = shkarkimi u ndal te {got} nga {total} bajte
+app.update.hash_mismatch = hashi i shkarkimit është {got}, jo {want}
+app.update.not_in_bundle = kjo kopje nuk ndodhet brenda një pakete aplikacioni
+app.update.no_parent_dir = paketa e aplikacionit nuk ka dosje mëmë
+app.update.cannot_write = nuk mund të shkruhet në {dir}
+app.update.cannot_move_aside = nuk mund të zhvendoset mënjanë {app}
+app.update.cannot_move_in = paketa e re nuk mund të vendoset në vend
+app.update.cannot_run_ditto = nuk mund të ekzekutohet /usr/bin/ditto
+app.update.unpack_failed = shpaketimi i shkarkimit dështoi: {error}
+app.update.no_app_in_download = shkarkimi nuk përmban Schist.app
+app.update.cannot_run_codesign = nuk mund të ekzekutohet /usr/bin/codesign
+app.update.signature_invalid = nënshkrimi i shkarkimit nuk verifikohet: {error}
+app.update.download_unsigned = kjo kopje është e nënshkruar, ndërsa shkarkimi jo
+app.update.different_developer = shkarkimi është nënshkruar nga një zhvillues tjetër
+app.update.cannot_relaunch = rinisësi nuk mund të niset
+app.update.not_installed_copy = kjo kopje nuk është vendosur këtu nga instaluesi
+app.update.cannot_start_installer = instaluesi nuk mund të niset
+app.update.platform_unsupported = përditësimet në këtë platformë instalohen në të njëjtën mënyrë si Schist
+app.vulkan.no_loader = schist: në këtë sistem nuk ka ngarkues Vulkan, prandaj nuk ka me çfarë të vizatohet.\n\nSchist paraqet përmes Vulkan-it dhe `libvulkan.so.1` nuk është instaluar.\nNevojiten si ngarkuesi, ashtu edhe një drejtues:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: drejtuesi Vulkan ku drejtohet ky sesion nuk gjendet.\n\n{var} është caktuar dhe caktimi i tij *zëvendëson* kërkimin e ngarkuesit për\ndrejtues, në vend që t'i shtohet atij. Prandaj këta skedarë, që nuk ekzistojnë,\npërbëjnë të gjithë listën e drejtuesve — dhe çdo program Vulkan në këtë sesion\nnuk sheh fare drejtues, pavarësisht sa janë instaluar:\n\n{missing}\n    {var}={value}\n\nDrejtojeni te një manifest që ekziston — drejtuesit e instaluar i vendosin manifestet në\n/usr/share/vulkan/icd.d — ose hiqeni caktimin dhe lëreni ngarkuesin t'i gjejë vetë.\nNjë sesion që e cakton këtë nga një skedar konfigurimi (rreshti `env =` i Hyprland-it,\nnjë shtesë environment.d e systemd-së apo profil shell-i) duhet ndryshuar atje,\ndhe duhet hyrë sërish që ndryshimi të arrijë proceset që po ekzekutohen.\n
+app.vulkan.override_note = \n{var} është caktuar në {value} dhe kjo zëvendëson kërkimin e vetë\nngarkuesit: nëse asnjë nga ato manifeste nuk i përket kësaj makine,\nhapi i parë është të hiqni caktimin.\n
+app.vulkan.no_driver = schist: nuk ka drejtues Vulkan të instaluar, prandaj nuk ka me çfarë të vizatohet.\n\nSchist paraqet përmes Vulkan-it. Ngarkuesi është instaluar, por nuk raporton asnjë\ndrejtues — asgjë nuk ka regjistruar një të tillë në asnjërin nga vendet ku kërkohet:\n\n{dirs}\n\nNgarkuesi shpërndahet veçmas nga drejtuesit, ndaj zakonisht mungon vetëm një paketë.\n\nInstaloni atë që i përket GPU-së së kësaj makine:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDrejtuesi pronësor i NVIDIA-s përmban të vetin (`nvidia-utils` në Arch,\n`nvidia-driver` në Debian). Në një makinë virtuale ose kudo ku nuk mund të\ninstalohet drejtues GPU-je, funksionon rasterizuesi softuerik: `vulkan-swrast`\nnë Arch, pjesë e `mesa-vulkan-drivers` gjetkë. Është i ngadaltë, por niset.\n{overridden}
+app.vulkan.no_device = schist: është instaluar një drejtues Vulkan, por ai nuk ofron pajisje ku të paraqitet.\n\nDrejtuesi mund të mos e mbështetë këtë GPU ose mund të mos ketë qasje tek ajo —\npërmes SSH-së ose brenda një kontejneri, shpesh mungon /dev/dri.\n`vulkaninfo --summary` raporton çfarë sheh ngarkuesi.\n\nRasterizuesi softuerik paraqet edhe pa GPU, nëse kjo makinë nuk ka të tillë:\n`vulkan-swrast` në Arch, pjesë e `mesa-vulkan-drivers` në Debian dhe Fedora.\n
+app.vulkan.skip_hint = Për ta nisur Schist gjithsesi dhe për ta lënë të dështojë në mënyrën e vet, caktoni {var}=1.

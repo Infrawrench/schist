@@ -1,0 +1,40 @@
+# Галерија филтера, фонтови, ажурирање и Vulkan дијагностика.
+app.filter_gallery.title = Галерија филтера
+app.filter_gallery.stack = Низ (примењује се одоздо нагоре)
+app.filter_gallery.no_settings = Овај филтер нема подешавања.
+
+app.fonts.not_open_licensed = нема отворену лиценцу · {substitute} има исте метрике
+app.fonts.missing_substituted = недостаје · текст се приказује заменским фонтом
+app.fonts.not_in_catalogue = {family} није у каталогу отворених фонтова
+app.fonts.no_faces = нема облика фонта {family} доступних за преузимање
+app.fonts.empty_response = празан одговор
+
+app.update.unreadable_response = одговор није читљив: {error}
+app.update.no_temp_dir = нема привремене фасцикле за преузимање
+app.update.asset_has_path = назив ресурса у издању садржи путању
+app.update.too_big = преузета датотека је већа него што наводи издање
+app.update.stopped_at = преузимање се зауставило на {got} од {total} бајтова
+app.update.hash_mismatch = хеш преузете датотеке је {got}, а не {want}
+app.update.not_in_bundle = ова копија није у пакету апликације
+app.update.no_parent_dir = пакет апликације нема надређену фасциклу
+app.update.cannot_write = није могуће писати у {dir}
+app.update.cannot_move_aside = није могуће склонити {app}
+app.update.cannot_move_in = није могуће поставити нови пакет на његово место
+app.update.cannot_run_ditto = није могуће покренути /usr/bin/ditto
+app.update.unpack_failed = распакивање преузете датотеке није успело: {error}
+app.update.no_app_in_download = преузета датотека не садржи Schist.app
+app.update.cannot_run_codesign = није могуће покренути /usr/bin/codesign
+app.update.signature_invalid = потпис преузете датотеке није важећи: {error}
+app.update.download_unsigned = ова копија је потписана, а преузета није
+app.update.different_developer = преузета датотека је потписана од стране другог програмера
+app.update.cannot_relaunch = није могуће покренути програм за поновно покретање
+app.update.not_installed_copy = инсталатер није поставио ову копију овде
+app.update.cannot_start_installer = није могуће покренути инсталатер
+app.update.platform_unsupported = ажурирања на овој платформи инсталирају се на исти начин на који је инсталиран Schist
+
+app.vulkan.no_loader = schist: на овом систему нема Vulkan учитавача, па нема чиме да се исцртава.\n\nSchist исцртава помоћу технологије Vulkan, а `libvulkan.so.1` није инсталиран.\nПотребни су и учитавач и управљачки програм:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan управљачки програм на који ова сесија указује не постоји.\n\nПроменљива {var} је постављена, а њено постављање *замењује* претрагу учитавача за\nуправљачким програмима уместо да јој додаје локације. Зато су ове непостојеће датотеке\nцела листа управљачких програма — и ниједан Vulkan програм у овој сесији\nне види управљачки програм, без обзира на то колико их је инсталирано:\n\n{missing}\n    {var}={value}\n\nУсмерите је на постојећи манифест — инсталирани управљачки програми смештају своје у\n/usr/share/vulkan/icd.d — или је уклоните и пустите учитавач да сам пронађе програм.\nАко је сесија поставља из конфигурационе датотеке (Hyprland `env =`,\nsystemd environment.d додатак, профил љуске), мора се изменити тамо,\nа да би измена стигла до већ покренутих програма потребно је поново се пријавити.\n
+app.vulkan.override_note = \nПроменљива {var} је постављена на {value}, што замењује сопствену\nпретрагу учитавача: ако ниједан од тих манифеста није за овај рачунар,\nпрво покушајте да уклоните ту променљиву.\n
+app.vulkan.no_driver = schist: нема инсталираног Vulkan управљачког програма, па нема чиме да се исцртава.\n\nSchist исцртава помоћу технологије Vulkan. Учитавач је инсталиран и пријављује да нема\nуправљачког програма — ниједан није регистрован ни на једном месту на ком се тражи:\n\n{dirs}\n\nУчитавач се испоручује одвојено од управљачких програма, па обично недостаје само\nједан пакет.\n\nИнсталирајте онај за графички процесор овог рачунара:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nВласнички NVIDIA управљачки програм садржи сопствени (`nvidia-utils` на систему Arch,\n`nvidia-driver` на систему Debian). У виртуелној машини или тамо где нема\nуправљачког програма за графички процесор, ради софтверски растеризатор:\n`vulkan-swrast` на систему Arch, а другде је део пакета `mesa-vulkan-drivers`.\nСпор је, али се покреће.\n{overridden}
+app.vulkan.no_device = schist: Vulkan управљачки програм је инсталиран, али не нуди уређај на ком се може исцртавати.\n\nУправљачки програм можда не подржава овај графички процесор или не може да му приступи —\nпреко SSH везе или у контејнеру често недостаје /dev/dri. Команда\n`vulkaninfo --summary` приказује шта учитавач види.\n\nСофтверски растеризатор исцртава и без графичког процесора, ако овај рачунар\nнема ниједан: `vulkan-swrast` на систему Arch, а на системима Debian и Fedora\nдео је пакета `mesa-vulkan-drivers`.\n
+app.vulkan.skip_hint = Да бисте ипак покренули Schist и пустили га да сам пријави грешку, поставите {var}=1.

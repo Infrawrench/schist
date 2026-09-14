@@ -1,0 +1,36 @@
+# فائل فارمیٹس اور درآمدی پیغامات
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} کو ڈی کوڈ کیا جا رہا ہے
+codec.msg.zero_sized = تصویر میں کوئی پکسل نہیں
+codec.msg.assembling_document = دستاویز تیار کی جا رہی ہے
+
+codec.raw.msg.decoding = raw فائل کو ڈی کوڈ کیا جا رہا ہے
+codec.raw.msg.developing = raw فائل تیار کی جا رہی ہے
+codec.raw.msg.finding_preview = شامل شدہ پیش منظر تلاش کیا جا رہا ہے
+codec.raw.msg.decoding_preview = شامل شدہ پیش منظر ڈی کوڈ کیا جا رہا ہے
+codec.raw.msg.decoder_panicked = raw ڈی کوڈر اس فائل پر ناکام ہو گیا: {what}
+
+codec.affinity.import_title = Affinity درآمد
+codec.affinity.flattened_preview_layer = مسطح پیش منظر
+codec.affinity.msg.no_preview = کوئی قابل استعمال شامل شدہ پیش منظر نہیں۔ Affinity کا تہہ دار فارمیٹ ملکیتی ہے؛ Schist فائل میں شامل مسطح پیش منظر درآمد کرتا ہے۔ اس فائل میں ایسا پیش منظر نہیں — اسے Affinity میں دوبارہ محفوظ کریں، یا مکمل تہہ دار درآمد کے لیے PSD کے طور پر برآمد کریں۔
+
+codec.heif.msg.no_library = libheif دستیاب نہیں ({details})۔ HEIC کھولنے کے لیے libheif لائبریری درکار ہے (Linux: libheif1 نصب کریں؛ macOS: brew install libheif)۔
+codec.heif.msg.no_decoder = {what}: {message} — ممکن ہے اس libheif بلڈ میں HEVC ڈی کوڈر نہ ہو (Debian/Ubuntu پر libheif-plugin-libde265 نصب کریں)
+codec.heif.msg.unknown_error = نامعلوم خرابی
+codec.heif.msg.initialising = libheif کی ابتدا ہو رہی ہے
+codec.heif.msg.reading_container = HEIF کنٹینر پڑھا جا رہا ہے
+codec.heif.msg.finding_primary_image = بنیادی تصویر تلاش کی جا رہی ہے
+codec.heif.msg.reading_icc_profile = ICC پروفائل پڑھا جا رہا ہے
+codec.heif.msg.decoding_image = تصویر ڈی کوڈ کی جا رہی ہے
+codec.heif.msg.checksum_mismatch = {name} کا چیک سم مختلف ہے: متوقع {expected}، ملا {got}
+codec.heif.msg.imageio_cannot_read = ImageIO، HEIF کنٹینر نہیں پڑھ سکا
+codec.heif.msg.container_empty = HEIF کنٹینر میں کوئی تصویر نہیں
+codec.heif.msg.imageio_cannot_decode = ImageIO بنیادی تصویر ڈی کوڈ نہیں کر سکا

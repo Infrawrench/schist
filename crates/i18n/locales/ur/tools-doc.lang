@@ -1,0 +1,25 @@
+# دستاویز سے متعلق ٹولز
+tool.artboard.name = آرٹ بورڈ
+tool.artboard.description = آرٹ بورڈ بنانے کے لیے گھسیٹیں: کینوس کا ایک نام زد خطہ جو الگ برآمد ہوتا ہے۔ موجودہ آرٹ بورڈ کے اندر گھسیٹنے سے وہ منتقل ہوتا ہے۔
+tool.artboard.default_name = آرٹ بورڈ {n}
+
+tool.slice.name = سلائس
+tool.slice.description = برآمدی سلائس بنانے کے لیے گھسیٹیں، یعنی کینوس کا ایک نام زد مستطیل جو الگ تصویر کے طور پر برآمد ہوتا ہے۔ موجودہ سلائس کے اندر گھسیٹنے سے وہ منتقل ہوتا ہے۔
+tool.slice.default_name = سلائس {n}
+
+tool.frame.name = فریم
+tool.frame.description = فریم بنانے کے لیے گھسیٹیں: ایک مستطیل یا بیضوی لیئر جو اپنے اندر رکھی ہر چیز کو ماسک کرتی ہے۔
+tool.frame.default_name = فریم {n}
+tool.frame.choice.rectangle = مستطیل
+tool.frame.choice.ellipse = بیضوی
+tool.frame.history.frame = فریم
+
+tool.note.name = نوٹ
+tool.note.description = خالی کینوس پر کلک کرکے وہاں نوٹ ثبت کریں، جس پر تدوینی حالت میں مصنف اور رنگ کی مہر لگتی ہے؛ موجودہ پن پر کلک کرکے اسے نوٹس پینل کے لیے منتخب کریں۔
+tool.note.history.place = نوٹ رکھیں
+tool.note.history.move = نوٹ منتقل کریں
+tool.note.history.delete = نوٹ حذف کریں
+
+tool.count.name = شمار
+tool.count.description = کینوس پر نمبر والے شمار کے نشانات رکھنے کے لیے کلک کریں، اور موجودہ نشان ہٹانے کے لیے اس پر کلک کریں۔
+tool.count.default_name = شمار {n}

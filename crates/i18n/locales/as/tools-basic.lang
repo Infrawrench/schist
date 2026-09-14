@@ -1,0 +1,28 @@
+# The basic tools (plugins/tools-basic): Move, Eyedropper, Hand, Zoom.
+# Option labels shared with the rest of the app (Layer, Group) come
+# from common.lang.
+
+# Move
+tool.move.name = স্থানান্তৰ
+tool.move.description = সক্ৰিয় স্তৰটোৰ বিষয়বস্তু নতুন স্থানলৈ টানি নিয়ক। স্বয়ং-নিৰ্বাচন চালু থাকিলে, টিপিলেই পইণ্টাৰৰ তলত প্ৰথমে থকা স্তৰটো — অথবা সমগ্ৰ গোটটো — নিৰ্বাচিত হয়।
+tool.move.option.auto_select = স্বয়ং-নিৰ্বাচন
+tool.move.history.move_layer = স্তৰ স্থানান্তৰ কৰক
+
+# Eyedropper
+tool.eyedropper.name = আইড্ৰপাৰ
+tool.eyedropper.description = পইণ্টাৰৰ তলৰ ৰঙৰ নমুনা লৈ অগ্ৰভূমিৰ ৰং নমুনাত ৰাখক, অথবা Alt ধৰি ৰাখিলে পটভূমিৰ ৰং নমুনাত ৰাখক। টানি থাকিলে একেৰাহে নমুনা লোৱা হয়।
+tool.eyedropper.option.sample_size = নমুনাৰ আকাৰ
+tool.eyedropper.option.sample = নমুনা
+tool.eyedropper.choice.point_sample = বিন্দু নমুনা
+tool.eyedropper.choice.average_3 = 3 × 3 গড়
+tool.eyedropper.choice.average_5 = 5 × 5 গড়
+tool.eyedropper.choice.average_11 = 11 × 11 গড়
+tool.eyedropper.choice.average_31 = 31 × 31 গড়
+tool.eyedropper.choice.all_layers = সকলো স্তৰ
+tool.eyedropper.choice.current_layer = বৰ্তমানৰ স্তৰ
+
+# Hand and Zoom
+tool.hand.name = হাত
+tool.hand.description = দৃশ্যটো স্থানান্তৰ কৰে। দৃশ্যক্ষেত্ৰটো উইণ্ড'ৰ অধীন, সেয়েহে হেডলেছ অৱস্থাত এই সঁজুলিয়ে দস্তাবেজত একো নকৰে।
+tool.zoom.name = জুম
+tool.zoom.description = দৃশ্যটো জুম কৰে। দৃশ্যক্ষেত্ৰটো উইণ্ড'ৰ অধীন, সেয়েহে হেডলেছ অৱস্থাত এই সঁজুলিয়ে দস্তাবেজত একো নকৰে।

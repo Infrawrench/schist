@@ -1,0 +1,29 @@
+# Artboard
+tool.artboard.name = ആർട്ട്ബോർഡ്
+tool.artboard.description = ആർട്ട്ബോർഡ് വരച്ച് സൃഷ്ടിക്കുക: ക്യാൻവാസിലെ പേരുള്ള ഈ പ്രദേശം തനിയെ എക്സ്പോർട്ട് ചെയ്യാം. നിലവിലുള്ള ആർട്ട്ബോർഡിനുള്ളിൽ വലിച്ചാൽ അത് നീങ്ങും.
+tool.artboard.default_name = ആർട്ട്ബോർഡ് {n}
+
+# Slice
+tool.slice.name = സ്ലൈസ്
+tool.slice.description = എക്സ്പോർട്ട് സ്ലൈസ് വരച്ച് സൃഷ്ടിക്കുക; ക്യാൻവാസിലെ പേരുള്ള ഈ ചതുരപ്രദേശം തനിയെ ഒരു ചിത്രമായി എക്സ്പോർട്ട് ചെയ്യപ്പെടും. നിലവിലുള്ള സ്ലൈസിനുള്ളിൽ വലിച്ചാൽ അത് നീങ്ങും.
+tool.slice.default_name = സ്ലൈസ് {n}
+
+# Frame
+tool.frame.name = ഫ്രെയിം
+tool.frame.description = ഫ്രെയിം വരച്ച് സൃഷ്ടിക്കുക: അതിനുള്ളിൽ ചേർക്കുന്നതെന്തും മാസ്ക് ചെയ്യുന്ന ചതുരാകൃതിയിലുള്ള (അല്ലെങ്കിൽ ദീർഘവൃത്താകൃതിയിലുള്ള) ലെയർ.
+tool.frame.default_name = ഫ്രെയിം {n}
+tool.frame.choice.rectangle = ചതുരം
+tool.frame.choice.ellipse = ദീർഘവൃത്തം
+tool.frame.history.frame = ഫ്രെയിം
+
+# Note
+tool.note.name = കുറിപ്പ്
+tool.note.description = ക്യാൻവാസിലെ ഒഴിഞ്ഞ ഒരു സ്ഥലത്ത് ക്ലിക്ക് ചെയ്ത് അവിടെ കുറിപ്പ് പിൻ ചെയ്യുക; എഡിറ്റർ നിലയിലുള്ള രചയിതാവും വർണ്ണവും അതിൽ പതിയും. നിലവിലുള്ള പിൻ ക്ലിക്ക് ചെയ്താൽ കുറിപ്പുകൾ പാനലിൽ അത് തിരഞ്ഞെടുക്കാം.
+tool.note.history.place = കുറിപ്പ് സ്ഥാപിക്കുക
+tool.note.history.move = കുറിപ്പ് നീക്കുക
+tool.note.history.delete = കുറിപ്പ് ഇല്ലാതാക്കുക
+
+# Count
+tool.count.name = എണ്ണം
+tool.count.description = ക്യാൻവാസിൽ അക്കമിട്ട എണ്ണൽ അടയാളങ്ങൾ ഇടാൻ ക്ലിക്ക് ചെയ്യുക; നിലവിലുള്ള അടയാളം നീക്കംചെയ്യാൻ അതിൽ ക്ലിക്ക് ചെയ്യുക.
+tool.count.default_name = എണ്ണം {n}

@@ -1,0 +1,21 @@
+tool.move.name = Mugitu
+tool.move.description = Arrastatu geruza aktiboaren edukia kokaleku berri batera. Hautapen automatikoa aktibatuta dagoenean, sakatzean erakuslearen azpian dagoen geruza —edo talde osoa— hautatzen da lehenik.
+tool.move.option.auto_select = Hautapen automatikoa
+tool.move.history.move_layer = Mugitu geruza
+
+tool.eyedropper.name = Tanta-kontagailua
+tool.eyedropper.description = Hartu erakuslearen azpiko kolorearen lagina aurreko planoko kolore-laukian, edo atzeko planokoan Alt sakatuta badago. Arrastatzean laginak etengabe hartzen dira.
+tool.eyedropper.option.sample_size = Laginaren tamaina
+tool.eyedropper.option.sample = Lagindu
+tool.eyedropper.choice.point_sample = Puntu-lagina
+tool.eyedropper.choice.average_3 = 3 × 3ko batezbestekoa
+tool.eyedropper.choice.average_5 = 5 × 5eko batezbestekoa
+tool.eyedropper.choice.average_11 = 11 × 11ko batezbestekoa
+tool.eyedropper.choice.average_31 = 31 × 31ko batezbestekoa
+tool.eyedropper.choice.all_layers = Geruza guztiak
+tool.eyedropper.choice.current_layer = Uneko geruza
+
+tool.hand.name = Eskua
+tool.hand.description = Ikuspegia desplazatzen du. Ikuspegia leihoarena denez, interfaze grafikorik gabeko moduan tresna honek ez dio dokumentuari eragiten.
+tool.zoom.name = Zooma
+tool.zoom.description = Ikuspegiaren zooma aldatzen du. Ikuspegia leihoarena denez, interfaze grafikorik gabeko moduan tresna honek ez dio dokumentuari eragiten.

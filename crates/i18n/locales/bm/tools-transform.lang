@@ -1,0 +1,26 @@
+# Yɛlɛmali baarakɛminɛnw
+tool.transform.name = Yɛlɛmali hɔrɔnya
+tool.transform.description = Yɛlɛmali hɔrɔnya. Ni a dalen don, yɛlɛmali kutu bɛ da kaliki min bɛ baara la o lamini: sama kulu dɔ la ka bonya yɛlɛma, sama kulu kɔfɛ ka munumunu, sama dafɛ dɔ la ka a kɔngɔ. Foyi tɛ sɛbɛn fo i ka a sɔn (Enter); ni i bɔra a la (Escape), kaliki bɛ segin a yɔrɔ la.
+tool.transform.option.interpolation = Cɛfaali
+tool.transform.history.transform = Yɛlɛmali hɔrɔnya
+tool.transform.history.image_size = Ja bonya
+tool.transform.history.canvas_size = Kanvas bonya
+
+tool.transform.selection.name = Sugandili yɛlɛma
+tool.transform.selection.description = Sugandili yɛlɛma: kutu kelen de don, nka a bɛ sugandili kɛrɛ lamaga, a kɔnɔ pikisɛliw tɛ lamaga. Sɔn a ma walima bɔ a la ka ban.
+tool.transform.selection.history.transform = Sugandili yɛlɛma
+
+tool.transform.resample.nearest_neighbor = Sigida min ka surun
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Ja tigɛ
+tool.crop.description = Yɔrɔ min i b’a fɛ ka mara, o sama ka bɔ ka a bolominɛnw labɛn; ni i sɔnna a ma (Enter), sɛbɛn bɛ tigɛ ka bɛn a ma, ni i bɔra a la (Escape), foyi tɛ yɛlɛma.
+tool.crop.option.ratio = Nisɔngɔ
+tool.crop.option.delete_cropped = Pikisɛli tigɛlenw bɔ
+tool.crop.choice.unconstrained = Dan tɛ a la
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Ja tigɛ

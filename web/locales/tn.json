@@ -1,0 +1,9 @@
+{
+  "loading": "E a laisa…",
+  "starting": "E a simolola…",
+  "webgpu": "Schist e tlhoka WebGPU, mme browser eno ga e e tshegetse. Chrome/Edge 113+, Firefox 141+ le Safari 26+ di a e tshegetsa.",
+  "noticeTitle": "Schist e dira sentle thata e le desktop app",
+  "noticeBody": "O dirisa mofuta wa web, e leng software build e e fokoditsweng: e kopanya dillaga tsa ditshwantsho mo CPU mme ga e akaretse dikarolo dingwe — di-plug-in tsa Photoshop le di-plug-in tsa batho ba bangwe, gallery ya ditshwantsho, panel ya AI, go import-a HEIC le go download-a difont — mme difaele di bolokwa jaaka download. Desktop app ya mahala ya macOS, Windows le Linux e na le tsotlhe.",
+  "noticeLink": "Bona desktop app.",
+  "ok": "Go siame"
+}

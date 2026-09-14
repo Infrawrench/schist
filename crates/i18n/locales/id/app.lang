@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galeri Filter
+app.filter_gallery.stack = Tumpukan (diterapkan dari bawah ke atas)
+app.filter_gallery.no_settings = Filter ini tidak memiliki pengaturan.
+app.fonts.not_open_licensed = tidak berlisensi terbuka · {substitute} memiliki metrik yang sama
+app.fonts.missing_substituted = tidak ada · teks sedang ditampilkan dengan font pengganti
+app.fonts.not_in_catalogue = {family} tidak ada dalam katalog font terbuka
+app.fonts.no_faces = tidak ada rupa font yang dapat diunduh untuk {family}
+app.fonts.empty_response = respons kosong
+app.update.unreadable_response = respons tidak dapat dibaca: {error}
+app.update.no_temp_dir = tidak ada direktori sementara untuk menyimpan unduhan
+app.update.asset_has_path = nama aset dalam rilis menyertakan jalur
+app.update.too_big = ukuran unduhan melebihi yang dinyatakan dalam rilis
+app.update.stopped_at = unduhan berhenti pada {got} dari {total} byte
+app.update.hash_mismatch = hash unduhan adalah {got}, bukan {want}
+app.update.not_in_bundle = salinan ini tidak berada di dalam bundel aplikasi
+app.update.no_parent_dir = bundel aplikasi tidak memiliki direktori induk
+app.update.cannot_write = tidak dapat menulis ke {dir}
+app.update.cannot_move_aside = tidak dapat memindahkan {app}
+app.update.cannot_move_in = tidak dapat menempatkan bundel baru
+app.update.cannot_run_ditto = tidak dapat menjalankan /usr/bin/ditto
+app.update.unpack_failed = gagal mengekstrak unduhan: {error}
+app.update.no_app_in_download = unduhan tidak berisi Schist.app
+app.update.cannot_run_codesign = tidak dapat menjalankan /usr/bin/codesign
+app.update.signature_invalid = tanda tangan unduhan tidak dapat diverifikasi: {error}
+app.update.download_unsigned = salinan ini ditandatangani, tetapi unduhannya tidak
+app.update.different_developer = unduhan ditandatangani oleh pengembang lain
+app.update.cannot_relaunch = tidak dapat memulai peluncur ulang
+app.update.not_installed_copy = salinan ini tidak ditempatkan di sini oleh penginstal
+app.update.cannot_start_installer = tidak dapat memulai penginstal
+app.update.platform_unsupported = pembaruan pada platform ini dipasang dengan cara yang sama seperti Schist
+app.vulkan.no_loader = schist: tidak ada loader Vulkan di sistem ini, sehingga tidak ada yang dapat digunakan untuk menggambar.\n\nSchist merender melalui Vulkan, tetapi `libvulkan.so.1` belum terpasang.\nLoader dan driver sama-sama diperlukan:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: driver Vulkan yang dituju oleh sesi ini tidak ada.\n\n{var} telah diatur, dan pengaturan ini *menggantikan* pencarian driver oleh\nloader, bukan menambahkannya. Jadi berkas-berkas yang tidak ada berikut\nmerupakan seluruh daftar driver—dan setiap program Vulkan dalam sesi ini\ntidak melihat driver apa pun, sebanyak apa pun driver yang terpasang:\n\n{missing}\n    {var}={value}\n\nArahkan ke manifes yang ada—driver yang terpasang menaruh manifesnya di\n/usr/share/vulkan/icd.d—atau hapus pengaturan tersebut dan biarkan loader mencarinya.\nJika sesi mengaturnya dari berkas konfigurasi (`env =` milik Hyprland, sisipan\nenvironment.d systemd, atau profil shell), pengaturan harus diubah di sana,\nlalu login kembali agar perubahan menjangkau semua proses yang sudah berjalan.\n
+app.vulkan.override_note = \n{var} diatur ke {value}, dan ini menggantikan pencarian loader\nsendiri: jika tidak ada manifes tersebut yang sesuai dengan mesin ini,\nmenghapus pengaturan itu adalah langkah pertama yang patut dicoba.\n
+app.vulkan.no_driver = schist: tidak ada driver Vulkan yang terpasang, sehingga tidak ada yang dapat digunakan untuk menggambar.\n\nSchist merender melalui Vulkan. Loader sudah terpasang, tetapi melaporkan tidak\nada driver—tidak ada driver yang terdaftar di kedua lokasi pencarian:\n\n{dirs}\n\nLoader didistribusikan terpisah dari driver, jadi biasanya hanya satu paket\nyang belum terpasang.\n\nInstal driver untuk GPU mesin ini:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver proprieter NVIDIA menyertakan drivernya sendiri (`nvidia-utils` di Arch,\n`nvidia-driver` di Debian). Dalam mesin virtual atau tempat tanpa driver GPU\nyang dapat dipasang, gunakan perender raster perangkat lunak:\n`vulkan-swrast` di Arch, bagian dari `mesa-vulkan-drivers` di tempat lain.\nKinerjanya lambat, tetapi dapat dijalankan.\n{overridden}
+app.vulkan.no_device = schist: driver Vulkan sudah terpasang, tetapi tidak menyediakan perangkat untuk merender.\n\nDriver mungkin tidak mendukung GPU ini atau tidak dapat mengaksesnya—\nmelalui SSH atau di dalam kontainer, /dev/dri sering kali tidak\ntersedia. `vulkaninfo --summary` melaporkan apa yang dilihat loader.\n\nPerender raster perangkat lunak dapat merender tanpa GPU jika mesin ini\nmemerlukannya: `vulkan-swrast` di Arch, bagian dari `mesa-vulkan-drivers`\ndi Debian dan Fedora.\n
+app.vulkan.skip_hint = Untuk tetap memulai Schist dan membiarkannya gagal dengan caranya sendiri, atur {var}=1.

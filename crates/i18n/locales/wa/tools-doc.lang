@@ -1,0 +1,29 @@
+# Årtisse
+tool.artboard.name = Årtisse
+tool.artboard.description = Saetchîz po fé ene årtisse: ene redjon lomêye del tåvlea ki s' expôre tote seule. Saetchî dins ene årtisse k' egzistêye dedja el bodje.
+tool.artboard.default_name = Årtisse {n}
+
+# Côpe
+tool.slice.name = Côpe
+tool.slice.description = Saetchîz po fé ene côpe d' espôrtaedje, on rectangue lomé del tåvlea k' est espôrté come ene imådje a pårt. Saetchî dins ene côpe k' egzistêye dedja el bodje.
+tool.slice.default_name = Côpe {n}
+
+# Cåde
+tool.frame.name = Cåde
+tool.frame.description = Saetchîz po fé on câde: ene coûtche rectangulaire (oudon-bén elitike) ki catchêye tot çou k' est metou dvins.
+tool.frame.default_name = Cåde {n}
+tool.frame.choice.rectangle = Rectangue
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Cåde
+
+# Note
+tool.note.name = Note
+tool.note.description = Clitchîz so ene plaece vude del tåvlea po-z î aclawer ene note, avou l' oteur et l' coleur di l' estat do candjeu; clitchîz so ene aclawete k' egzistêye dedja pol tchoezi dins l' panea des notes.
+tool.note.history.place = Mete ene note
+tool.note.history.move = Bodjî l' note
+tool.note.history.delete = Disfacer l' note
+
+# Contaedje
+tool.count.name = Contaedje
+tool.count.description = Clitchîz po mete des markes di contaedje limerotêyes sol tåvlea; clitchîz so ene marke k' egzistêye dedja pol oister.
+tool.count.default_name = Contaedje {n}

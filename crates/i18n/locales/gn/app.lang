@@ -1,0 +1,36 @@
+app.filter_gallery.title = Mboguaha renda
+app.filter_gallery.stack = Aty (oñemoĩ iguýgui yvate gotyo)
+app.filter_gallery.no_settings = Ko mboguaha ndoguerekói ñemboheko.
+app.fonts.not_open_licensed = ndoguerekói licencia ijurujáva · {substitute} ojogua imedídape
+app.fonts.missing_substituted = ndaipóri · jehaipyre oiporu hína peteĩ myengoviaha
+app.fonts.not_in_catalogue = {family} ndaipóri tai ysaja catálogo ijurujávape
+app.fonts.no_faces = ndaipóri tai ysaja oñemboguejykuaáva {family}-pe g̃uarã
+app.fonts.empty_response = ñembohovái nandi
+app.update.unreadable_response = ñembohovái ndaikatúiva oñemoñe'ẽ: {error}
+app.update.no_temp_dir = ndaipóri ñongatuha sapy'agua oñemboguejy hag̃ua
+app.update.asset_has_path = versión ombohéra imba'e peteĩ tape reheve
+app.update.too_big = ñemboguejy tuichave versión he'ívagui
+app.update.stopped_at = ñemboguejy opyta {got} byte-pe {total}-gui
+app.update.hash_mismatch = ñemboguejy hash ha'e {got}, ndaha'éi {want}
+app.update.not_in_bundle = ko monguatia noĩri peteĩ aplicación paquete ryepýpe
+app.update.no_parent_dir = aplicación paquete ndoguerekói ñongatuha tuichavéva
+app.update.cannot_write = ndaikatúi ojehai {dir}-pe
+app.update.cannot_move_aside = ndaikatúi oñemomombyry {app}
+app.update.cannot_move_in = ndaikatúi oñemoĩ paquete pyahu hendápe
+app.update.cannot_run_ditto = ndaikatúi oñemomba'apo /usr/bin/ditto
+app.update.unpack_failed = ñemboguejy jepe'a ndoikói: {error}
+app.update.no_app_in_download = ñemboguejýpe ndaipóri Schist.app
+app.update.cannot_run_codesign = ndaikatúi oñemomba'apo /usr/bin/codesign
+app.update.signature_invalid = ñemboguejy firma ndaikatúi oñemboaje: {error}
+app.update.download_unsigned = ko monguatia oguereko firma ha ñemboguejy nahániri
+app.update.different_developer = ñemboguejy oguereko ambue apohára firma
+app.update.cannot_relaunch = ndaikatúi oñepyrũ ñepyrũjeýha
+app.update.not_installed_copy = mohendaha nomoĩri ko monguatia ko'ápe
+app.update.cannot_start_installer = ndaikatúi oñepyrũ mohendaha
+app.update.platform_unsupported = ko plataforma ñembopyahu oñemohenda Schist oñemohenda haguéicha
+app.vulkan.no_loader = schist: ndaipóri Vulkan loader ko sistémape, upévare ndaipóri mba'eve oñemoha'anga hag̃ua.\n\nSchist omoha'anga Vulkan rupive, ha `libvulkan.so.1` noñemohendái.\nOñeikotevẽ loader ha dráiver rehe:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan dráiver ko tembiapo oñemoĩhápe ndaipóri.\n\n{var} oñemboheko, ha oñembohekóvo *omyengovia* loader jeheka\ndráiver rehegua ombojoapy rangue. Upévare ko'ã vore ndaipóriva\nha'e opaite dráiver rysýi — ha opa Vulkan programa ko tembiapópe\nndohechái mba'eveichagua dráiver, hetáramo jepe oñemohendáva:\n\n{missing}\n    {var}={value}\n\nEhechauka chupe peteĩ manifest oĩva — dráiver oñemohendáva omoĩ imba'e\n/usr/share/vulkan/icd.d-pe — térã eipe'a ñemboheko ha eheja loader tojuhu imba'e.\nPeteĩ tembiapo omoĩva kóva config vore guive (Hyprland `env =`, peteĩ\nsystemd environment.d drop-in, térã shell perfil) oñemoambueva'erã upépe,\nha tekotevẽ eike jey pyahu ohupyty hag̃ua opa mba'e omba'apómava.\n
+app.vulkan.override_note = \n{var} oñemboheko {value}-pe, ha upéva omyengovia loader jeheka tee:\numi manifest apytépe ndaipóriramo ko mákinape g̃uarã, eipe'a ko ñemboheko raẽ.\n
+app.vulkan.no_driver = schist: ndaipóri Vulkan dráiver oñemohendáva, upévare ndaipóri mba'eve oñemoha'anga hag̃ua.\n\nSchist omoha'anga Vulkan rupive. Loader oñemohendáma ha he'i ndaiporiha\ndráiver — avave nomboheraguapýi mba'eve umi mokõi tenda ojehekahápe:\n\n{dirs}\n\nLoader oñeme'ẽ dráiver-gui aparte, upévare jepivegua ndaipóri peteĩ paquete.\n\nEmohenda ko mákina GPU rehegua:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA dráiver tee ogueru imba'e (`nvidia-utils` Arch-pe,\n`nvidia-driver` Debian-pe). Peteĩ mákina virtual-pe, térã ndaiporihápe\nGPU dráiver oñemohenda hag̃ua, rasterizador software rehegua la omba'apóva:\n`vulkan-swrast` Arch-pe, `mesa-vulkan-drivers` pehẽngue ambue hendápe.\nImbegue, hákatu oñepyrũ.\n{overridden}
+app.vulkan.no_device = schist: peteĩ Vulkan dráiver oñemohendáma, hákatu nome'ẽi dispositivo oñemoha'anga hag̃ua.\n\nDráiver ikatu ndojokupytýi ko GPU ndive, térã ndaikatúi ohupyty chupe —\nSSH rupive, térã container ryepýpe, /dev/dri py'ỹi ndaipóri.\n`vulkaninfo --summary` omombe'u mba'épa loader ohecha.\n\nRasterizador software rehegua omoha'anga GPU'ỹre, ko mákina upéicha ramo:\n`vulkan-swrast` Arch-pe, `mesa-vulkan-drivers` pehẽngue Debian ha Fedora-pe.\n
+app.vulkan.skip_hint = Eñepyrũ hag̃ua Schist upéicharõ jepe ha eheja tojavy hekópe, emboheko {var}=1.

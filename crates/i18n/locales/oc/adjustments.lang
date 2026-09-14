@@ -1,0 +1,20 @@
+# Calques d'ajustament e comandas Imatge ▸ Ajustaments.
+adjustment.levels.name = Nivèls
+adjustment.curves.name = Corbas
+adjustment.hue_saturation.name = Tinta/Saturacion
+adjustment.brightness_contrast.name = Luminositat/Contraste
+adjustment.black_white.name = Negre e blanc
+adjustment.solid_color.name = Color unida
+adjustment.gradient_fill.name = Emplenatge degradat
+adjustment.pattern_fill.name = Emplenatge amb motiu
+adjustment.invert.name = Inversar
+adjustment.posterize.name = Posterizar
+adjustment.threshold.name = Sulhet
+adjustment.color_balance.name = Balança de las colors
+adjustment.vibrance.name = Vibrància
+adjustment.exposure.name = Exposicion
+adjustment.photo_filter.name = Filtre fotografic
+adjustment.gradient_map.name = Mapa de degradat
+adjustment.selective_color.name = Color selectiva
+adjustment.channel_mixer.name = Mesclador de canals
+adjustment.other.name = Ajustament

@@ -1,0 +1,103 @@
+# Fill sources
+workspace.fill.gray_50 = Ikijuju 50%
+workspace.fill.content_aware = Hisunzwe ibirimwo
+
+workspace.modify.expand = Kwagura itoranya
+workspace.modify.contract = Kwegeranya itoranya
+workspace.modify.border = Urubibe rw'itoranya
+workspace.modify.smooth = Kunyorosha itoranya
+workspace.modify.feather = Kworosha inkombe z'itoranya
+
+workspace.batch.target.edit = Amahinduka yo mu bubiko bw'amashusho (afise verisiyo)
+workspace.batch.target.beside = Amakopi iruhande y'inkomoko
+workspace.batch.target.folder = Amakopi mu bubiko…
+
+workspace.modal.image_size.title = Ingano y'ishusho
+
+workspace.docs.opening = Biriko vyugurura {name}…
+workspace.docs.opened = {name} yaruguruwe
+workspace.docs.open_failed = Kwugurura vyanse: {error}
+workspace.docs.no_codec = {name} si ubwoko Schist ishobora kwugurura
+workspace.docs.no_exporter = Schist ntishobora kubika amadosiye .{ext}
+workspace.docs.empty_response = Seriveri yarungitse inyishu irimwo ubusa
+workspace.docs.heic_not_installed = Ugushigikira HEIC ntikwashizwemwo
+workspace.docs.heic_downloading = Biriko bivoma ugushigikira HEIC (libheif {version})…
+workspace.docs.heic_installed = Ugushigikira HEIC kwashizwemwo
+workspace.docs.heic_download_failed = Kuvoma ugushigikira HEIC vyanse: {error}
+workspace.docs.placing = Biriko bishira {name}…
+workspace.docs.place_image = Gushira ishusho
+workspace.docs.placed = {name} yashizwe
+workspace.docs.place_failed = Gushira vyanse: {error}
+workspace.docs.saved = {name} yabitswe
+workspace.docs.save_failed = Kubika vyanse: {error}
+
+workspace.adjustment.new_layer = Urwego rushasha rwa {name}
+workspace.adjustment.added = {name} yongeweko
+workspace.adjustment.settings = Amategeko ya {name}
+workspace.adjustment.updated = {name} yahinduwe
+workspace.adjustment.no_settings = {name} nta mategeko ashobora guhindurwa ifise
+
+workspace.comps.name_n = Imiterere y'inzego {n}
+workspace.comps.captured = Imiterere y'inzego yafashwe
+workspace.comps.apply = Gukoresha {name}
+
+workspace.styles.layer_style = Imisusire y'urwego
+workspace.context.rename_layer = Guhindura izina ry'urwego
+workspace.commands.tool = Igikoresho: {name}
+
+workspace.colormgmt.assign = Gutanga {name}
+workspace.colormgmt.assigned = {name} yatanzwe
+workspace.colormgmt.convert_to = Guhindurira kuri {name}
+workspace.colormgmt.converted_to = Vyahinduriwe kuri {name}
+workspace.colormgmt.convert_failed = Guhindura vyanse: {error}
+workspace.colormgmt.proof_on = Igeragezwa ry'amabara riraka
+workspace.colormgmt.proof_off = Igeragezwa ry'amabara rirazimye
+
+workspace.filters.choose = Guhitamwo
+workspace.filters.select_layer_first = Banza uhitemwo urwego
+workspace.filters.needs_pixel_layer = Utuyunguruzo dusaba urwego rwa pikisele
+workspace.filters.nothing_to_filter = Nta co kuyungurura
+workspace.filters.went_away = Akayunguruzo ntikakiboneka
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: urwego kayunguruye ntirukiriho
+workspace.filters.plugin_title = Icongerwa ca Photoshop
+workspace.filters.running = Biriko bikoresha {name}
+workspace.filters.plugin_note = Icongerwa gikorera mu nzira yaco. Ni cugurura idirisha, cishure kugira gikomeze.
+workspace.filters.raw_preview_developing = Biriko bitunganya akarorero RAW…
+workspace.filters.raw_preview_done = Akarorero RAW (demosaic yihuta)
+workspace.filters.raw_preview_size_changed = Ingano y'akarorero RAW yahindutse: {w} × {h}
+workspace.filters.raw_preview_failed = Akarorero RAW kananiwe: {error}
+workspace.filters.raw_developing = Biriko bitunganya ifoto y'inkomoko yafashwe…
+workspace.filters.raw_developing_note = Biriko bikoresha uburyo bwiza kuruta bwa demosaic. RAW y'inkomoko n'aya mategeko biguma bishobora guhindurwa n'inyuma yo kubika nka PSD canke PSB.
+workspace.filters.raw_document_changed = Gutunganya RAW vyaheze inyandiko yayo imaze guhinduka
+workspace.filters.raw_failed = Gutunganya RAW vyanse: {error}
+workspace.filters.raw_too_wide = Gutunganya RAW biragutse birenze
+workspace.filters.raw_too_tall = Gutunganya RAW birebire birenze
+workspace.filters.raw_size_changed = Ingano ya RAW yahindutse iba {w} × {h}; urwego rw'ubu ruragumijwe
+workspace.filters.raw_history = Gutunganya Camera Raw
+workspace.filters.raw_applied = Gutunganya Camera Raw kwakoreshejwe (demosaic nziza kuruta)
+
+workspace.image_size.done = Ingano y'ishusho: {w} × {h}
+workspace.image_size.bicubic_fallback = Ingano y'ishusho: {w} × {h} — moderi {name} ntiyashoboye gushirwa, rero hakoreshejwe bicubic
+workspace.image_size.upscaling = Biriko vyagura hakoreshejwe {name}
+workspace.image_size.upscaling_note = Megapikisele {mp} zica muri réseau, imwe imwe igafata amasegonda makeyi. Inyandiko iragumizwa gushika biheze.
+
+workspace.export.no_slices = Nta bice vyo kuvoma
+workspace.export.no_artboards = Nta mbaho z'ibishushanyo zo kuvoma
+workspace.export.regions.other = Uturere twavomwe: {n}
+workspace.export.prompt = Kuvoma nka:
+workspace.export.done = {name} yavomwe
+workspace.export.failed = Kuvoma vyanse: {error}
+workspace.export.codec_vanished = Igikoresho co kuvoma ntikikiboneka
+
+workspace.file_picker.choose_folder = Guhitamwo ububiko
+workspace.file_picker.type_a_name = Andika izina ry'idosiye
+workspace.file_picker.exists = {name} irahari; subira ukande Kubika kugira uyisubirire
+workspace.file_picker.tap_a_file = Kanda idosiye kugira uyugurure
+workspace.file_picker.pictures = Amashusho
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Ivyo wavomye
+workspace.file_picker.permission_denied = Schist nta ruhusha ifise rwo gusoma ubu bubiko
+
+workspace.recovery.recovered_title = {title} (vyagarukanywe)
+workspace.recovery.recovered.other = Inyandiko zagarukanywe zivuye mu kiringo ca mbere: {n}

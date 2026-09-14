@@ -1,0 +1,32 @@
+# Ferramientas d'elementos d'o documento: mesas de treballo, talladas,
+# marcos, notas y contadors.
+
+# Mesa de treballo
+tool.artboard.name = Mesa de treballo
+tool.artboard.description = Arrociega ta crear una mesa de treballo: una rechión con nombre d'o lenzo que s'exporta por deseparau. Si s'arrociega dentro d'una existent, se mueve.
+tool.artboard.default_name = Mesa de treballo {n}
+
+# Tallada
+tool.slice.name = Tallada
+tool.slice.description = Arrociega ta crear una tallada d'exportación, un rectanglo con nombre d'o lenzo que s'exporta como una imachen independient. Si s'arrociega dentro d'una existent, se mueve.
+tool.slice.default_name = Tallada {n}
+
+# Marco
+tool.frame.name = Marco
+tool.frame.description = Arrociega ta crear un marco: una capa rectangular (u eliptica) que enmascara tot o que se mete adintro.
+tool.frame.default_name = Marco {n}
+tool.frame.choice.rectangle = Rectanglo
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Marco
+
+# Nota
+tool.note.name = Nota
+tool.note.description = Fe clic en una parti vueda d'o lenzo ta clavar-ie una nota, marcada con l'autor y a color d'o estau de l'editor; fe clic en un marcador existent ta triar-lo en o panel de Notas.
+tool.note.history.place = Meter nota
+tool.note.history.move = Mover nota
+tool.note.history.delete = Borrar nota
+
+# Contador
+tool.count.name = Contador
+tool.count.description = Fe clic ta meter marcadors de contador numerados en o lenzo, y fe clic en un d'ells ta sacar-lo.
+tool.count.default_name = Contador {n}

@@ -1,0 +1,20 @@
+# Ĝustigaj tavoloj kaj la komandoj Bildo ▸ Ĝustigoj.
+adjustment.levels.name = Niveloj
+adjustment.curves.name = Kurboj
+adjustment.hue_saturation.name = Nuanco/Satureco
+adjustment.brightness_contrast.name = Heleco/Kontrasto
+adjustment.black_white.name = Nigra kaj blanka
+adjustment.solid_color.name = Unukolora plenigo
+adjustment.gradient_fill.name = Gradienta plenigo
+adjustment.pattern_fill.name = Desegnaĵa plenigo
+adjustment.invert.name = Inversigi
+adjustment.posterize.name = Posterizi
+adjustment.threshold.name = Sojlo
+adjustment.color_balance.name = Kolorekvilibro
+adjustment.vibrance.name = Vigleco
+adjustment.exposure.name = Ekspono
+adjustment.photo_filter.name = Fotofiltrilo
+adjustment.gradient_map.name = Gradienta mapo
+adjustment.selective_color.name = Selektema koloro
+adjustment.channel_mixer.name = Kanalmiksilo
+adjustment.other.name = Ĝustigo

@@ -1,0 +1,30 @@
+ai.status.panel_shown = DI skydelis parodytas
+ai.status.panel_hidden = DI skydelis paslėptas – jį grąžinsite pasirinkę Rodymas ▸ DI skydelis ({shortcut})
+ai.status.tool = DI: {name}
+
+ai.info.connected = {backend} prijungta
+ai.info.now_in_gallery = Dabar rodoma galerija.
+ai.info.now_in_editor = Dabar rodomas redaktorius.
+ai.tool.shell_command = apvalkalo komanda
+
+ai.error.cli_missing = {backend} komandų eilutės programa („{binary}“) neįtraukta į PATH. Pirmiausia ją įdiekite ir prisijunkite.
+ai.error.endpoint_failed = nepavyko paleisti MCP galinio taško: {error}
+ai.error.binding_endpoint = susiejamas MCP galinis taškas
+ai.error.spawning_endpoint_thread = paleidžiama MCP galinio taško gija
+ai.error.runtime_failed = nepavyko paleisti agento vykdymo aplinkos: {error}
+ai.error.worker_failed = nepavyko paleisti {backend} darbinio proceso: {error}
+ai.error.did_not_start = {backend} nepasileido: {error}
+ai.error.switch_model_failed = nepavyko pakeisti modelio: {error}
+ai.error.send_failed = nepavyko išsiųsti užklausos: {error}
+ai.error.interrupt_failed = nepavyko nutraukti: {error}
+ai.error.locating_binary = ieškoma Schist vykdomojo failo
+ai.error.starting_app_server = paleidžiamas Codex programos serveris
+ai.error.attaching_app_server = jungiamasi prie Codex programos serverio
+ai.error.initializing_app_server = inicijuojamas Codex programos serveris
+ai.error.resuming_thread = tęsiama Codex gija
+ai.error.starting_thread = paleidžiama Codex gija
+
+ai.model.opus_detail = Pajėgiausia pakopa
+ai.model.sonnet_detail = Veiksmingas įprastoms užduotims
+ai.model.haiku_detail = Greičiausias trumpiems atsakymams
+ai.model.codex_catalog = Codex katalogas

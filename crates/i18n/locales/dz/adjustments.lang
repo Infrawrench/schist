@@ -1,0 +1,20 @@
+# བཟོ་བཅོས།
+adjustment.levels.name = གནས་རིམ།
+adjustment.curves.name = གུག་ཐིག
+adjustment.hue_saturation.name = ཚོས་གཞི་/མཐུག་ཚད།
+adjustment.brightness_contrast.name = དཀར་མདངས་/ཁྱད་པར།
+adjustment.black_white.name = གནགཔོ་དང་དཀརཔོ།
+adjustment.solid_color.name = ཚོས་གཞི་གཅིག་རྐྱང་།
+adjustment.gradient_fill.name = ཚོས་རིམ་བཀང་།
+adjustment.pattern_fill.name = དཔེ་རིས་བཀང་།
+adjustment.invert.name = ལོག་སྒྱུར།
+adjustment.posterize.name = ཚོས་རིམ་ཉུང་སུ་བཟོ།
+adjustment.threshold.name = ཚད་མཚམས།
+adjustment.color_balance.name = ཚོས་གཞིའི་ཚད་སྙོམས།
+adjustment.vibrance.name = ཚོས་མདངས།
+adjustment.exposure.name = འོད་ཕོག་ཚད།
+adjustment.photo_filter.name = པར་གྱི་ཚགས་མ།
+adjustment.gradient_map.name = ཚོས་རིམ་ས་ཁྲ།
+adjustment.selective_color.name = སེལ་འཐུའི་ཚོས་གཞི།
+adjustment.channel_mixer.name = རྒྱུ་ལམ་སྲེ་སྦྱོར།
+adjustment.other.name = བཟོ་བཅོས།

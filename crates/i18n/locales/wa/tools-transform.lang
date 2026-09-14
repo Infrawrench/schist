@@ -1,0 +1,28 @@
+# Candjaedje libe
+tool.transform.name = Candjaedje libe
+tool.transform.description = Candjaedje libe. L' enondaedje droûve ene boesse di candjaedje åtoû del coûtche en alaedje: saetchîz on coine pol mete al schåle, saetchîz foû d' on coine pol tourner, ou saetchîz on boird pol clintchî. Rén n' est scrît divant l' confirmaedje (Intrêye); rinoncî (Escape) rimete li coûtche come divant.
+tool.transform.option.interpolation = Interpolåcion
+tool.transform.history.transform = Candjaedje libe
+tool.transform.history.image_size = Grandeu di l' imådje
+tool.transform.history.canvas_size = Grandeu do tåvlea
+
+# Candjî l' tchoezixhaedje
+tool.transform.selection.name = Candjî l' tchoezixhaedje
+tool.transform.selection.description = Candjî l' tchoezixhaedje: c' est l' minme boesse, mins ele bodje li cotoû do tchoezixhaedje al plaece des picsels k' i gn a dvins. Confirmez ou rinoncez po fini.
+tool.transform.selection.history.transform = Candjî l' tchoezixhaedje
+
+tool.transform.resample.nearest_neighbor = Vijhin l' pus près
+tool.transform.resample.bilinear = Bilineyå
+tool.transform.resample.bicubic = Bicubike
+
+# Ricôpaedje
+tool.crop.name = Ricôper
+tool.crop.description = Saetchîz l' redjon a wårder et apontyîz ses pougneus; confirmer (Intrêye) ricôpe li documint sol redjon, et rinoncî (Escape) nel candje nén.
+tool.crop.option.ratio = Proporcion
+tool.crop.option.delete_cropped = Disfacer les picsels ricôpés
+tool.crop.choice.unconstrained = Sins contrwinte
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Ricôper

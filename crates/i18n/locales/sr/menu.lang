@@ -1,0 +1,143 @@
+# Трака менија.
+
+menu.file = Датотека
+menu.file.new = Ново
+menu.file.open = Отвори…
+menu.file.open_recent = Отвори недавне
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Прегледај галерију…
+menu.file.close = Затвори
+menu.file.save = Сачувај
+menu.file.save_as = Сачувај као…
+menu.file.export = Извези…
+menu.file.export_submenu = Извези
+menu.file.export_artboards = Извези радне површине у PNG…
+menu.file.export_slices = Извези исечке у PNG…
+menu.file.save_to_photos = Сачувај у Фотографије
+menu.file.plugins = Додаци…
+menu.file.missing_fonts = Недостајући фонтови…
+menu.file.check_for_updates = Провери да ли постоје ажурирања…
+menu.file.quit = Изађи
+menu.file.add_folder_to_gallery = Додај фасциклу у галерију…
+menu.file.import_from_photos = Увези из Фотографија…
+menu.file.import_from_camera = Увези са камере…
+
+menu.edit = Уређивање
+menu.edit.fill = Попуни…
+menu.edit.stroke = Исцртај контуру…
+menu.edit.content_aware_fill = Попуна с обзиром на садржај
+menu.edit.content_aware_scale = Промена размере с обзиром на садржај…
+menu.edit.puppet_warp = Луткарско деформисање
+menu.edit.free_transform = Слободно трансформисање
+menu.edit.transform = Трансформисање
+menu.edit.rotate_180 = Ротирај за 180°
+menu.edit.rotate_90_cw = Ротирај за 90° удесно
+menu.edit.rotate_90_ccw = Ротирај за 90° улево
+menu.edit.flip_horizontal = Обрни водоравно
+menu.edit.flip_vertical = Обрни усправно
+
+menu.image = Слика
+menu.image.mode = Режим
+menu.image.adjustments = Подешавања
+menu.image.auto_tone = Аутоматски тон
+menu.image.auto_contrast = Аутоматски контраст
+menu.image.auto_color = Аутоматска боја
+menu.image.image_size = Величина слике…
+menu.image.canvas_size = Величина платна…
+menu.image.image_rotation = Ротација слике
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° удесно
+menu.image.rotate_90_ccw = 90° улево
+menu.image.flip_canvas_horizontal = Обрни платно водоравно
+menu.image.flip_canvas_vertical = Обрни платно усправно
+menu.image.crop_to_selection = Опсеци на избор
+menu.image.trim = Скресивање
+menu.image.assign_profile = Додели профил…
+menu.image.convert_to_profile = Претвори у профил…
+
+menu.select = Избор
+menu.select.color_range = Опсег боја…
+menu.select.modify = Измени
+menu.select.border = Ивица…
+menu.select.smooth = Углади…
+menu.select.expand = Прошири…
+menu.select.contract = Скупи…
+menu.select.feather = Умекшај ивицу…
+menu.select.transform_selection = Трансформиши избор
+
+menu.layer = Слој
+menu.layer.layer_style = Стил слоја…
+menu.layer.layer_comps = Комбинације слојева
+menu.layer.new_layer_comp = Нова комбинација слојева
+menu.layer.delete_layer_comp = Избриши {name}
+menu.layer.path = Путања
+menu.layer.fill_path = Попуни путању
+menu.layer.stroke_path = Исцртај контуру путање
+menu.layer.make_selection = Направи избор
+menu.layer.delete_path = Избриши путању
+
+menu.adjust = Подеси
+
+menu.filter = Филтер
+menu.filter.filter_gallery = Галерија филтера…
+menu.filter.liquify = Ликвификација
+menu.filter.vanishing_point = Тачка недогледа
+menu.filter.manage_models = Управљај моделима…
+menu.filter.camera_raw_development = Развијање Camera Raw датотеке…
+
+menu.view = Приказ
+menu.view.rotate_view_cw = Ротирај приказ удесно
+menu.view.rotate_view_ccw = Ротирај приказ улево
+menu.view.reset_view = Ресетуј приказ
+menu.view.zoom_in = Увећај
+menu.view.zoom_out = Умањи
+menu.view.fit_on_screen = Уклопи у екран
+menu.view.actual_size = 100%
+menu.view.rulers = Лењири
+menu.view.grid = Мрежа
+menu.view.guides = Вођице
+menu.view.notes = Белешке
+menu.view.ai_panel = Панел за вештачку интелигенцију
+menu.view.extras = Додаци приказа
+menu.view.snap = Приањање
+menu.view.clear_guides = Обриши вођице
+menu.view.clear_notes = Обриши белешке
+menu.view.clear_count = Обриши бројаче
+menu.view.screen_mode = Режим екрана
+menu.view.proof_colors = Пробне боје
+menu.view.show_rulers = Прикажи лењире
+menu.view.hide_rulers = Сакриј лењире
+menu.view.show_grid = Прикажи мрежу
+menu.view.hide_grid = Сакриј мрежу
+menu.view.show_guides = Прикажи вођице
+menu.view.hide_guides = Сакриј вођице
+menu.view.show_notes = Прикажи белешке
+menu.view.hide_notes = Сакриј белешке
+menu.view.show_extras = Прикажи додатке приказа
+menu.view.hide_extras = Сакриј додатке приказа
+menu.view.enable_snapping = Омогући приањање
+menu.view.disable_snapping = Онемогући приањање
+menu.view.enable_proof_colors = Омогући пробне боје
+menu.view.disable_proof_colors = Онемогући пробне боје
+
+menu.gallery = Галерија
+menu.gallery.edit_selected = Уреди изабрано
+menu.gallery.refresh = Освежи
+menu.gallery.map_filter = Филтер мапе…
+menu.gallery.back_to_editor = Назад у уређивач
+
+menu.cloud.browse = Прегледај Schist Cloud
+menu.cloud.generate = Генериши слике…
+menu.cloud.upload = Отпреми документ на Schist Cloud…
+menu.cloud.sign_out = Одјави се са услуге Schist Cloud
+menu.cloud.sign_in = Пријави се на Schist Cloud…
+
+menu.app.services = Услуге
+menu.app.hide = Сакриј {app}
+menu.app.hide_others = Сакриј остале
+menu.app.show_all = Прикажи све
+menu.app.quit = Изађи из апликације {app}
+
+menu.status.transform_selection_needs_selection = За трансформисање избора потребан је избор
+menu.status.crop_needs_selection = За опсецање на избор потребан је избор
+menu.status.select_photo_to_edit = Изаберите фотографију за уређивање

@@ -1,0 +1,36 @@
+app.filter_gallery.title = फिल्टर गॅलरी
+app.filter_gallery.stack = रास (खालून वर लागू)
+app.filter_gallery.no_settings = या फिल्टरला सेटिंग्ज नाहीत.
+app.fonts.not_open_licensed = मुक्त परवाना नाही · {substitute} चे माप जुळते
+app.fonts.missing_substituted = गहाळ · मजकूर पर्यायी फॉन्टमध्ये मांडला जात आहे
+app.fonts.not_in_catalogue = {family} मुक्त फॉन्ट सूचीमध्ये नाही
+app.fonts.no_faces = {family} साठी डाउनलोडयोग्य अक्षररूपे नाहीत
+app.fonts.empty_response = रिकामा प्रतिसाद
+app.update.unreadable_response = वाचता न येणारा प्रतिसाद: {error}
+app.update.no_temp_dir = डाउनलोडसाठी तात्पुरती निर्देशिका नाही
+app.update.asset_has_path = प्रकाशनाने मालमत्तेला मार्गासह नाव दिले आहे
+app.update.too_big = डाउनलोडचा आकार प्रकाशनात दिलेल्यापेक्षा मोठा आहे
+app.update.stopped_at = डाउनलोड {total} पैकी {got} बाइटवर थांबले
+app.update.hash_mismatch = डाउनलोडचा हॅश {want} ऐवजी {got} आहे
+app.update.not_in_bundle = ही प्रत अनुप्रयोग बंडलमध्ये नाही
+app.update.no_parent_dir = अनुप्रयोग बंडलला मूळ निर्देशिका नाही
+app.update.cannot_write = {dir} मध्ये लिहिता येत नाही
+app.update.cannot_move_aside = {app} बाजूला हलवता येत नाही
+app.update.cannot_move_in = नवीन बंडल जागेवर हलवता येत नाही
+app.update.cannot_run_ditto = /usr/bin/ditto चालवता येत नाही
+app.update.unpack_failed = डाउनलोड उघडण्यात अपयश: {error}
+app.update.no_app_in_download = डाउनलोडमध्ये Schist.app नाही
+app.update.cannot_run_codesign = /usr/bin/codesign चालवता येत नाही
+app.update.signature_invalid = डाउनलोडची स्वाक्षरी पडताळता आली नाही: {error}
+app.update.download_unsigned = ही प्रत स्वाक्षरीत आहे, पण डाउनलोड नाही
+app.update.different_developer = डाउनलोडवर वेगळ्या विकसकाची स्वाक्षरी आहे
+app.update.cannot_relaunch = पुनर्प्रारंभक सुरू करता येत नाही
+app.update.not_installed_copy = ही प्रत इंस्टॉलरने येथे ठेवलेली नाही
+app.update.cannot_start_installer = इंस्टॉलर सुरू करता येत नाही
+app.update.platform_unsupported = या मंचावरील अद्यतने Schist ज्या पद्धतीने स्थापित झाले त्याच पद्धतीने स्थापित होतात
+app.vulkan.no_loader = schist: या प्रणालीवर Vulkan लोडर नाही, म्हणून चित्र काढण्यासाठी काहीही नाही.\n\nSchist Vulkan द्वारे प्रस्तुत करते आणि `libvulkan.so.1` स्थापित नाही.\nलोडर आणि ड्रायव्हर दोन्ही आवश्यक आहेत:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: या सत्राने निर्देशित केलेला Vulkan ड्रायव्हर अस्तित्वात नाही.\n\n{var} सेट आहे; ते सेट केल्याने लोडरच्या ड्रायव्हर शोधात भर पडत नाही, तर तो शोध बदलला जातो. त्यामुळे अस्तित्वात नसलेल्या या फाइलच संपूर्ण ड्रायव्हर सूची आहेत — आणि कितीही ड्रायव्हर स्थापित असले तरी या सत्रातील प्रत्येक Vulkan प्रोग्रामला एकही ड्रायव्हर दिसत नाही:\n\n{missing}\n    {var}={value}\n\nअस्तित्वात असलेल्या मॅनिफेस्टकडे ते निर्देशित करा — स्थापित ड्रायव्हर त्यांचे मॅनिफेस्ट /usr/share/vulkan/icd.d मध्ये ठेवतात — किंवा ते अनसेट करून लोडरला स्वतः शोधू द्या.\nकॉन्फिगरेशन फाइलमधून हे सेट करणाऱ्या सत्रात (Hyprland चे `env =`, systemd environment.d ड्रॉप-इन, शेल प्रोफाइल) बदल तेथेच करावा लागतो आणि आधीच चालू असलेल्या गोष्टींपर्यंत पोहोचण्यासाठी नव्याने लॉग इन करावे लागते.\n
+app.vulkan.override_note = \n{var} चे मूल्य {value} आहे आणि ते लोडरचा स्वतःचा शोध बदलते: त्यांपैकी कोणतेही मॅनिफेस्ट या मशीनसाठी नसल्यास, ते अनसेट करणे हा पहिला प्रयत्न असावा.\n
+app.vulkan.no_driver = schist: Vulkan ड्रायव्हर स्थापित नाही, म्हणून चित्र काढण्यासाठी काहीही नाही.\n\nSchist Vulkan द्वारे प्रस्तुत करते. लोडर स्थापित आहे, पण कोणताही ड्रायव्हर नोंदवत नाही — शोधल्या जाणाऱ्या दोन्ही ठिकाणी काहीही नोंदणीकृत नाही:\n\n{dirs}\n\nलोडर ड्रायव्हरपासून वेगळा पुरवला जातो, त्यामुळे सहसा एकच पॅकेज गहाळ असते.\n\nया मशीनच्या GPU साठीचा ड्रायव्हर स्थापित करा:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA च्या मालकीच्या ड्रायव्हरमध्ये स्वतःचा ड्रायव्हर असतो (Arch वर `nvidia-utils`, Debian वर `nvidia-driver`). आभासी मशीनमध्ये किंवा GPU ड्रायव्हर स्थापित करता येत नसल्यास, सॉफ्टवेअर रास्टरायझर उपयोगी पडतो: Arch वर `vulkan-swrast`, इतरत्र `mesa-vulkan-drivers` चा भाग. तो संथ आहे, पण सुरू होतो.\n{overridden}
+app.vulkan.no_device = schist: Vulkan ड्रायव्हर स्थापित आहे, पण प्रस्तुत करण्यासाठी उपकरण उपलब्ध करत नाही.\n\nड्रायव्हर या GPU ला समर्थित नसेल किंवा त्याच्यापर्यंत पोहोचू शकत नसेल — SSH वर किंवा कंटेनरमध्ये /dev/dri गहाळ असणे सामान्य आहे. `vulkaninfo --summary` लोडरला काय दिसते ते सांगते.\n\nया मशीनमध्ये GPU नसल्यास सॉफ्टवेअर रास्टरायझर GPU शिवाय प्रस्तुत करते: Arch वर `vulkan-swrast`, Debian आणि Fedora वर `mesa-vulkan-drivers` चा भाग.\n
+app.vulkan.skip_hint = तरीही Schist सुरू करून त्याला स्वतःच्या पद्धतीने अपयशी होऊ द्यायचे असल्यास {var}=1 सेट करा.

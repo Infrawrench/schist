@@ -1,0 +1,20 @@
+# Textutensilo.
+tool.type.name = Texto
+tool.type.description = Kliktez por komencar textostrato ibe, o kliktez existanta por redaktar ol. Dum ol esas apertita, la utensilo aceptas kruda klavi (sendez literi kom klavinputo), e konfirmo renderas la strato e klozas la redakto.
+tool.type.option.align = Aliniar
+tool.type.option.leading = Interlineo
+tool.type.option.tracking = Literinterspaco
+tool.type.option.kerning = Kernado
+tool.type.option.ligatures = Ligaturi
+tool.type.option.discretionary_ligatures = Fakultativa ligaturi
+tool.type.option.small_caps = Minuskla majuskuli
+tool.type.option.on_path = Sur aktiva traco
+tool.type.option.path_offset = Traco-deplaso
+tool.type.choice.regular = Reguloza
+tool.type.choice.bold = Grasa
+tool.type.choice.italic = Kursiva
+tool.type.choice.bold_italic = Grasa kursiva
+tool.type.history.new_layer = Nova textostrato
+tool.type.history.edit = Redaktar texto
+tool.type.history.discard = Forjetar texto
+tool.type.history.discard_empty = Forjetar vakua texto

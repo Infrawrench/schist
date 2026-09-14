@@ -1,0 +1,23 @@
+# စာသားကိရိယာ
+tool.type.name = စာသား
+tool.type.description = ထိုနေရာတွင် စာသားအလွှာ စတင်ရန် နှိပ်ပါ သို့မဟုတ် ရှိပြီးသား စာသားအလွှာကို တည်းဖြတ်ရန် နှိပ်ပါ။ ဖွင့်ထားစဉ် ကိရိယာက ကီးခလုတ်ရိုက်ချက်များကို တိုက်ရိုက်လက်ခံပြီး စာလုံးများကို ကီးထည့်သွင်းမှုအဖြစ် ပို့ပေးရမည်။ အတည်ပြုလိုက်လျှင် အလွှာကို ပုံဖော်ပြီး တည်းဖြတ်မှုကို ပိတ်သည်။
+
+tool.type.option.align = ညှိရန်
+tool.type.option.leading = စာကြောင်းအကွာ
+tool.type.option.tracking = စာလုံးအကွာ
+tool.type.option.kerning = စာလုံးတွဲအကွာ
+tool.type.option.ligatures = စာလုံးဆက်များ
+tool.type.option.discretionary_ligatures = ရွေးချယ်သုံး စာလုံးဆက်များ
+tool.type.option.small_caps = အရွယ်သေး စာလုံးကြီးများ
+tool.type.option.on_path = အသုံးပြုနေသော လမ်းကြောင်းပေါ်တွင်
+tool.type.option.path_offset = လမ်းကြောင်း အကွာအဝေး
+
+tool.type.choice.regular = ပုံမှန်
+tool.type.choice.bold = စာလုံးထူ
+tool.type.choice.italic = စာလုံးစောင်း
+tool.type.choice.bold_italic = စာလုံးထူ စာလုံးစောင်း
+
+tool.type.history.new_layer = စာသားအလွှာသစ်
+tool.type.history.edit = စာသားတည်းဖြတ်ရန်
+tool.type.history.discard = စာသားကို စွန့်ပစ်ရန်
+tool.type.history.discard_empty = ဗလာစာသားကို စွန့်ပစ်ရန်

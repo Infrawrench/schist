@@ -1,0 +1,31 @@
+# Piranti dokumèn: artboard, irisan, bingkai, cathetan, lan cacah.
+
+# Artboard
+tool.artboard.name = Artboard
+tool.artboard.description = Seret kanggo nggawé artboard: pérangan kanvas mawa jeneng sing bisa diekspor dhéwé. Nyeret ing njero artboard sing wis ana bakal mindhah artboard kuwi.
+tool.artboard.default_name = Artboard {n}
+
+# Irisan
+tool.slice.name = Irisan
+tool.slice.description = Seret kanggo nggawé irisan ekspor, yaiku persegi mawa jeneng ing kanvas sing diekspor dadi gambar dhéwé. Nyeret ing njero irisan sing wis ana bakal mindhah irisan kuwi.
+tool.slice.default_name = Irisan {n}
+
+# Bingkai
+tool.frame.name = Bingkai
+tool.frame.description = Seret kanggo nggawé bingkai: lapisan persegi (utawa elips) sing masangi topèng marang apa wae sing dilebokaké ing njeroné.
+tool.frame.default_name = Bingkai {n}
+tool.frame.choice.rectangle = Persegi
+tool.frame.choice.ellipse = Elips
+tool.frame.history.frame = Bingkai
+
+# Cathetan
+tool.note.name = Cathetan
+tool.note.description = Klik kanvas kosong kanggo masang cathetan ing kono, kanthi cap panganggit lan werna saka status panyunting; klik pin sing wis ana kanggo milih ing panel Cathetan.
+tool.note.history.place = Pasang Cathetan
+tool.note.history.move = Pindhah Cathetan
+tool.note.history.delete = Busak Cathetan
+
+# Cacah
+tool.count.name = Cacah
+tool.count.description = Klik kanggo masang tandha cacah mawa nomer ing kanvas, lan klik tandha sing wis ana kanggo mbusak.
+tool.count.default_name = Cacah {n}

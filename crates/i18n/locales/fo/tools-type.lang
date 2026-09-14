@@ -1,0 +1,27 @@
+# The type tool (plugins/tools-type).
+
+tool.type.name = Tekstur
+tool.type.description = Klikka fyri at byrja eitt tekstlag har, ella klikka á eitt verandi tekstlag fyri at rætta tað. Meðan lagið er opið, tekur amboðið beinleiðis ímóti knappasløgum (send tekn sum knappainntak), og tá tú góðkennir, verður lagið teknað og rættingin latin aftur.
+
+# The options bar
+tool.type.option.align = Stilla upp
+tool.type.option.leading = Reglumillumbil
+tool.type.option.tracking = Teknamillumbil
+tool.type.option.kerning = Bókstavjavning
+tool.type.option.ligatures = Samandráttartekn
+tool.type.option.discretionary_ligatures = Valfrí samandráttartekn
+tool.type.option.small_caps = Smáir kapitálar
+tool.type.option.on_path = Á virkna rásinum
+tool.type.option.path_offset = Frástøða frá rási
+
+# The Style dropdown
+tool.type.choice.regular = Vanligt
+tool.type.choice.bold = Feitt
+tool.type.choice.italic = Skráskrift
+tool.type.choice.bold_italic = Feit skráskrift
+
+# History
+tool.type.history.new_layer = Nýtt tekstlag
+tool.type.history.edit = Rætta tekst
+tool.type.history.discard = Kasta tekst burtur
+tool.type.history.discard_empty = Kasta tóman tekst burtur

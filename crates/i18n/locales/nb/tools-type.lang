@@ -1,0 +1,27 @@
+# Tekstverktøyet.
+
+tool.type.name = Tekst
+tool.type.description = Klikk for å opprette et tekstlag der, eller klikk på et eksisterende tekstlag for å redigere det. Mens laget er åpent, tar verktøyet imot tastetrykk direkte (send tegn som tastaturinndata). Når du bekrefter, gjengis laget og redigeringen lukkes.
+
+# Alternativlinjen
+tool.type.option.align = Justering
+tool.type.option.leading = Linjeavstand
+tool.type.option.tracking = Tegnavstand
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligaturer
+tool.type.option.discretionary_ligatures = Skjønnsmessige ligaturer
+tool.type.option.small_caps = Kapitéler
+tool.type.option.on_path = På aktiv bane
+tool.type.option.path_offset = Baneforskyvning
+
+# Stil
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Halvfet
+tool.type.choice.italic = Kursiv
+tool.type.choice.bold_italic = Halvfet kursiv
+
+# Historikk
+tool.type.history.new_layer = Nytt tekstlag
+tool.type.history.edit = Rediger tekst
+tool.type.history.discard = Forkast tekst
+tool.type.history.discard_empty = Forkast tom tekst

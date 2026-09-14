@@ -1,0 +1,9 @@
+{
+  "loading": "Betöltés…",
+  "starting": "Indítás…",
+  "webgpu": "A Schist WebGPU-t igényel, amelyet ez a böngésző nem biztosít. A Chrome/Edge 113+, a Firefox 141+ és a Safari 26+ támogatja.",
+  "noticeTitle": "A Schist asztali alkalmazásként működik a legjobban",
+  "noticeBody": "A webes verziót használja, amely egy könnyebb változat: a CPU-n kompozitál, és kihagy néhány funkciót — a Photoshop-bővítményeket és a külső fejlesztők bővítményeit, a képgalériát, az MI-panelt, a HEIC-importálást és a betűtípusok letöltését —, a fájlokat pedig letöltésként menti. A macOS, Windows és Linux rendszerre készült ingyenes asztali alkalmazás mindezeket tartalmazza.",
+  "noticeLink": "Az asztali alkalmazás letöltése.",
+  "ok": "OK"
+}

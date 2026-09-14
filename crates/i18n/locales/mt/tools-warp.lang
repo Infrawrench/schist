@@ -1,0 +1,28 @@
+# L-għodod tat-tgħawwiġ (plugins/tools-warp): Likwifika, Tgħawwiġ tal-Pupazz,
+# Punt ta' Għajbien. Mod, Daqs u Pressjoni jiġu minn common.lang.
+
+# Likwifika
+tool.liquify.name = Likwifika
+tool.liquify.description = Imbotta, dawwar, ċekken jew onfoħ il-pixels taħt pinzell kbir — l-għażla tal-mod tiddetermina liema azzjoni ssir. It-tgħawwiġ jinġema' f'xibka u jiġi applikat lis-saff meta tapplika.
+tool.liquify.option.tool = Għodda
+tool.liquify.choice.forward_warp = Tgħawwiġ 'il Quddiem
+tool.liquify.choice.reconstruct = Ibni Mill-Ġdid
+tool.liquify.choice.twirl_cw = Dawwar Lejn il-Lemin
+tool.liquify.choice.twirl_ccw = Dawwar Lejn ix-Xellug
+tool.liquify.choice.pucker = Ċekken
+tool.liquify.choice.bloat = Onfoħ
+tool.liquify.choice.push_left = Imbotta lejn ix-Xellug
+tool.liquify.history.liquify = Likwifika
+
+# Tgħawwiġ tal-Pupazz
+tool.puppet_warp.name = Tgħawwiġ tal-Pupazz
+tool.puppet_warp.description = Ikklikkja biex twaħħal is-saff f'għadd ta' punti, imbagħad iddreggja wieħed minnhom: ix-xibka titgħawweġ madwar il-labar, b'mod riġidu jew laxk skont l-għażla Ebusija. Meta tapplika, it-tgħawwiġ jidħol fis-seħħ.
+tool.puppet_warp.option.stiffness = Ebusija
+tool.puppet_warp.history.puppet_warp = Tgħawwiġ tal-Pupazz
+
+# Punt ta' Għajbien
+tool.vanishing_point.name = Punt ta' Għajbien
+tool.vanishing_point.description = Iddreggja biex toħloq pjan fuq xi ħaġa bil-perspettiva, imbagħad aqleb il-mod għal Ikkopja u żebgħa: il-pixels ikkupjati jimxu mal-pjan u jiċkienu mad-distanza.
+tool.vanishing_point.choice.edit_plane = Editja l-Pjan
+tool.vanishing_point.choice.clone = Ikkopja
+tool.vanishing_point.history.vanishing_point = Punt ta' Għajbien

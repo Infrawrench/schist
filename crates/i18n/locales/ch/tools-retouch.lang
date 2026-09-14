@@ -1,0 +1,27 @@
+# Patch
+tool.patch.name = Patch
+tool.patch.description = Arrastra un outline gi uriyan i dåño, ya despues arrastra enao na selection para i maolek na pixel siha: i texture guihe ma'adapta para i dåño. I Patch mode ha ayek månu gi dos na bånda un arrastra.
+tool.patch.option.patch = Patch
+tool.patch.choice.source = Source
+tool.patch.choice.destination = Destinasion
+tool.patch.history.patch = Patch
+
+# Content-Aware Move
+tool.content_aware_move.name = Content-Aware Move
+tool.content_aware_move.description = Arrastra i ma'ayek na oheto para otro na lugåt, ya i hoyu ni ha dingo ma'omple ginen i uriyan-ña. Gi Extend mode, ma'estira i oheto en lugåt di makalamten.
+tool.content_aware_move.choice.move = Move
+tool.content_aware_move.choice.extend = Estira
+tool.content_aware_move.history.move = Content-Aware Move
+
+# Red Eye
+tool.red_eye.name = Agaga' na mata
+tool.red_eye.description = Klik gi pupil para un na'suha i agaga' ginen i flash.
+tool.red_eye.option.pupil_size = Mineddong pupil
+tool.red_eye.option.darken = Na' homhom
+tool.red_eye.history.red_eye = Agaga' na mata
+
+# Magic Eraser
+tool.magic_eraser.name = Magic Eraser
+tool.magic_eraser.description = Klik para un na'suha i lugåt ni parehu kulot gi papa' i pointer, gi halom i toleransian i tool — solu i chetton na lugåt gi pine'chon, pat todu i parehu na kulot gi layer.
+tool.magic_eraser.option.contiguous = Chetton
+tool.magic_eraser.history.erase = Magic Eraser

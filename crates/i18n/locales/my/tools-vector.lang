@@ -1,0 +1,44 @@
+# ဗက်တာကိရိယာများ
+tool.pen.name = ဘောပင်
+tool.pen.description = လမ်းကြောင်းတစ်ခု ဖန်တီးပါ။ ထောင့်အမှတ်အတွက် နှိပ်ပါ၊ မျဉ်းကွေးလက်ကိုင်များ ဆွဲထုတ်ရန် ဖိဆွဲပါ၊ ပိတ်ရန် ပထမအမှတ်ကို နှိပ်ပါ။ အတည်ပြုလျှင် လမ်းကြောင်းကို ပုံသဏ္ဌာန်အလွှာအဖြစ် ပြောင်းသည်။
+tool.pen.option.rubber_band = ရာဘာကြိုး
+tool.pen.history.fill = လမ်းကြောင်းဖြည့်စွက်မှု
+tool.pen.default_path_name = လမ်းကြောင်း {n}
+tool.pen.freeform.name = လက်လွတ်ဘောပင်
+tool.pen.freeform.description = လက်လွတ်မျဉ်းတစ်ကြောင်း ဆွဲလျှင် ကိုက်ညီမှုရွေးချယ်ချက် သတ်မှတ်ထားသည့်အတိုင်း လမ်းကြောင်းတစ်ခုနှင့် အနီးစပ်ဆုံး ကိုက်ညီအောင် ပြုလုပ်ပေးသည်။
+tool.pen.freeform.option.fit = ကိုက်ညီမှု
+tool.pen.curvature.name = မျဉ်းကွေးဘောပင်
+tool.pen.curvature.description = အမှတ်များကို ဆက်တိုက်နှိပ်လျှင် ယင်းအမှတ်များကို ဖြတ်၍ လမ်းကြောင်း ချောမွေ့စွာ ကွေးသွားသည်။
+
+tool.path_select.name = လမ်းကြောင်း ရွေးချယ်မှု
+tool.path_select.description = လမ်းကြောင်းတစ်ခုကို ရွေးရန် နှိပ်ပြီး လမ်းကြောင်းတစ်ခုလုံး ရွှေ့ရန် ဆွဲပါ။
+tool.direct_select.name = တိုက်ရိုက်ရွေးချယ်မှု
+tool.direct_select.description = လမ်းကြောင်းပုံသဏ္ဌာန်ကို ပြောင်းရန် ချိတ်အမှတ်တစ်ခု သို့မဟုတ် ၎င်း၏လက်ကိုင်များကို ဆွဲပါ။
+
+tool.shape.history.layer = {name} အလွှာ
+tool.shape.rect.name = ထောင့်မှန်စတုဂံ ကိရိယာ
+tool.shape.rect.label = ထောင့်မှန်စတုဂံ
+tool.shape.rect.description = ရှေ့ခံအရောင်ဖြင့် ထောင့်မှန်စတုဂံ ပုံသဏ္ဌာန်အလွှာကို ဆွဲပါ။ ၎င်းသည် ဗက်တာအဖြစ် ဆက်ရှိပြီး အရွယ်ပြောင်းသည့်အခါ ပစ်ဇယ်ပုံအဖြစ် ပြန်ဖော်သည်။
+tool.shape.ellipse.name = ဘဲဥပုံ ကိရိယာ
+tool.shape.ellipse.label = ဘဲဥပုံ
+tool.shape.ellipse.description = ရှေ့ခံအရောင်ဖြင့် ဘဲဥပုံ ပုံသဏ္ဌာန်အလွှာကို ဆွဲပါ။
+tool.shape.line.name = မျဉ်း ကိရိယာ
+tool.shape.line.label = မျဉ်း
+tool.shape.line.description = ရှေ့ခံအရောင်ဖြင့် မျဉ်းဖြောင့် ပုံသဏ္ဌာန်အလွှာကို ဆွဲပါ။
+tool.shape.line.option.weight = မျဉ်းအထူ
+tool.shape.line.option.arrow_start = အစ
+tool.shape.line.option.arrow_end = အဆုံး
+tool.shape.polygon.name = ဗဟုဂံ ကိရိယာ
+tool.shape.polygon.label = ဗဟုဂံ
+tool.shape.polygon.description = ရွေးချယ်စရာများတွင် သတ်မှတ်ထားသည့် အနားအရေအတွက်အတိုင်း ရှေ့ခံအရောင်ဖြင့် အနားညီဗဟုဂံ ပုံသဏ္ဌာန်အလွှာကို ဆွဲပါ။
+tool.shape.polygon.option.sides = အနားများ
+
+tool.shape.custom.name = စိတ်ကြိုက် ပုံသဏ္ဌာန်
+tool.shape.custom.label = စိတ်ကြိုက် ပုံသဏ္ဌာန်
+tool.shape.custom.description = ပုံသဏ္ဌာန်ရွေးချယ်ချက်ဖြင့် ရွေးထားသော အသင့်ပါ ပုံသဏ္ဌာန်တစ်ခုကို ဆွဲပါ။
+tool.shape.custom.choice.heart = နှလုံးပုံ
+tool.shape.custom.choice.star = ကြယ်ပုံ
+tool.shape.custom.choice.arrow = မြားပုံ
+tool.shape.custom.choice.lightning = လျှပ်စီးပုံ
+tool.shape.custom.choice.cross = ကြက်ခြေခတ်ပုံ
+tool.shape.custom.choice.speech_bubble = စကားပြောပူဖောင်း

@@ -1,0 +1,21 @@
+# དབྱིབས་སྒྱུར་ལག་ཆས།
+tool.liquify.name = གཤེར་སྒྱུར།
+tool.liquify.description = པིག་སེལ་ཚུ་སྨྱུག་རྩེ་སྦོམ་གྱི་འོག་ལུ་འཕུལ་ སྐོར་ བསྡུམ་ ཡང་ན་སྦོ་སུ་བཟོ། ག་འབད་ནི་ཨིན་ན་ཐབས་ལམ་གྱི་གདམ་ཁ་གིས་སེལཝ་ཨིན། དབྱིབས་སྒྱུར་དེ་དྲྭ་མིག་ནང་གསོག་སྟེ་ ངོས་ལེན་འབདཝ་ད་བང་རིམ་གུ་འཇུགཔ་ཨིན།
+tool.liquify.option.tool = ལག་ཆས།
+tool.liquify.choice.forward_warp = གདོང་ཕྱོགས་དབྱིབས་སྒྱུར།
+tool.liquify.choice.reconstruct = ལོག་བཟོ།
+tool.liquify.choice.twirl_cw = ཆུ་ཚོད་ཁ་ཕྱོགས་སྐོར།
+tool.liquify.choice.twirl_ccw = ཆུ་ཚོད་ཁ་ཕྱོགས་ལས་ལྡོག་སྐོར།
+tool.liquify.choice.pucker = བསྡུམ།
+tool.liquify.choice.bloat = སྦོ་སུ་བཟོ།
+tool.liquify.choice.push_left = གཡོན་ལུ་འཕུལ།
+tool.liquify.history.liquify = གཤེར་སྒྱུར།
+tool.puppet_warp.name = འབག་འགུལ་དབྱིབས་སྒྱུར།
+tool.puppet_warp.description = བང་རིམ་དེ་ས་ཚིགས་དག་པ་ཅིག་ཁར་འཛེར་ནིའི་དོན་ལུ་ཨེབ་ དེ་ལས་འཛེར་གཅིག་འདྲུད། དྲྭ་མིག་དེ་མཁྲེགས་ཚད་གདམ་ཁ་གིས་བཀོད་དོ་བཟུམ་ འཛེར་ཚུ་གི་མཐའ་སྐོར་ལུ་མཁྲེགས་པོ་ ཡང་ན་འཇམ་པོ་སྦེ་གུགཔ་ཨིན། ངོས་ལེན་གྱིས་འཇུགཔ་ཨིན།
+tool.puppet_warp.option.stiffness = མཁྲེགས་ཚད།
+tool.puppet_warp.history.puppet_warp = འབག་འགུལ་དབྱིབས་སྒྱུར།
+tool.vanishing_point.name = ཡལ་སའི་ཚག
+tool.vanishing_point.description = མཐོང་སྣང་གི་རྒྱང་ཐག་ཡོད་པའི་དངོས་པོ་གུ་ལེབ་ངོས་ཅིག་འདྲུད་དེ་བཟོ་ དེ་ལས་ཐབས་ལམ་དེ་ངོ་བཤུས་ལུ་སྒྱུར་ཏེ་ཚོས་གཏང་། ངོ་བཤུས་པིག་སེལ་ཚུ་ལེབ་ངོས་དང་བསྟུན་ཏེ་ རྒྱང་ཐག་རིང་སར་ཆུང་ཀུ་འགྱོཝ་ཨིན།
+tool.vanishing_point.choice.edit_plane = ལེབ་ངོས་ཞུན་དག
+tool.vanishing_point.choice.clone = ངོ་བཤུས།
+tool.vanishing_point.history.vanishing_point = ཡལ་སའི་ཚག

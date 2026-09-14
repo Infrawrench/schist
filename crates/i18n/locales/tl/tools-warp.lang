@@ -1,0 +1,22 @@
+tool.liquify.name = Liquify
+tool.liquify.description = Itulak, paikutin, paliitin, o palakihin ang mga pixel sa ilalim ng malaking brush — ang opsiyon na mode ang pumipili ng gagawin. Naiipon ang warp sa isang mesh at inilalapat sa layer kapag kinumpirma.
+tool.liquify.option.tool = Tool
+tool.liquify.choice.forward_warp = Pasulong na Warp
+tool.liquify.choice.reconstruct = Buuing Muli
+tool.liquify.choice.twirl_cw = Paikutin Pakanan
+tool.liquify.choice.twirl_ccw = Paikutin Pakaliwa
+tool.liquify.choice.pucker = Paliitin
+tool.liquify.choice.bloat = Palakihin
+tool.liquify.choice.push_left = Itulak Pakaliwa
+tool.liquify.history.liquify = Liquify
+
+tool.puppet_warp.name = Puppet Warp
+tool.puppet_warp.description = Mag-click upang i-pin ang layer sa ilang punto, pagkatapos ay i-drag ang isa: bumabaluktot ang mesh sa paligid ng mga pin, nang matigas o maluwag ayon sa opsiyong Katigasan. Inilalapat ito kapag kinumpirma.
+tool.puppet_warp.option.stiffness = Katigasan
+tool.puppet_warp.history.puppet_warp = Puppet Warp
+
+tool.vanishing_point.name = Vanishing Point
+tool.vanishing_point.description = Mag-drag upang maglatag ng patag na heometrikong plane sa isang bagay na may perspektiba, pagkatapos ay ilipat ang mode sa I-clone at magpinta: susunod sa plane ang mga kinopyang pixel at liliit habang lumalayo.
+tool.vanishing_point.choice.edit_plane = I-edit ang Plane
+tool.vanishing_point.choice.clone = I-clone
+tool.vanishing_point.history.vanishing_point = Vanishing Point

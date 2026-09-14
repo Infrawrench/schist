@@ -1,0 +1,85 @@
+# Kayan aikin fenti.
+
+# Buroshi
+tool.brush.name = Buroshi
+tool.brush.description = Zana shaci mai laushin gefe da launin gaba, gwargwadon girman buroshi, tauri da rashin bayyanawa na editan.
+tool.brush.history.stroke = Buroshi
+
+# Fensir
+tool.pencil.name = Fensir
+tool.pencil.description = Zana shaci mai kaifin gefe ba tare da sulɓanta gefuna ba da launin gaba.
+tool.pencil.history.stroke = Fensir
+
+# Gogewa
+tool.eraser.name = Gogewa
+tool.eraser.description = Goge a kan shacin, yana mayar da shimfiɗar ta zama mai bayyanawa.
+tool.eraser.history.stroke = Gogewa
+
+# Hatimin kwafi
+tool.clone.name = Hatimin Kwafi
+tool.clone.description = Hatimin Kwafi: danna tare da alt don saita wurin tushe, sannan yi fenti da pixels da aka kwafa daga wurin a wannan tazara.
+tool.clone.history.stroke = Hatimin Kwafi
+
+# Haskakawa, duhuntarwa da soso
+tool.dodge.name = Haskakawa
+tool.dodge.description = Haskaka pixels da shacin ya bi ta kansu.
+tool.dodge.history.stroke = Haskakawa
+tool.burn.name = Duhuntarwa
+tool.burn.description = Duhuntar da pixels da shacin ya bi ta kansu.
+tool.burn.history.stroke = Duhuntarwa
+tool.sponge.name = Soso
+tool.sponge.description = Ƙara ko rage jikewar launin pixels da shacin ya bi ta kansu.
+tool.sponge.history.stroke = Soso
+
+# Dusashewa, kaifafa da gogawa
+tool.blur.name = Dusashewa
+tool.blur.description = Dusashe pixels da shacin ya bi ta kansu.
+tool.blur.history.stroke = Dusashewa
+tool.sharpen.name = Kaifafawa
+tool.sharpen.description = Kaifafa pixels da shacin ya bi ta kansu.
+tool.sharpen.history.stroke = Kaifafawa
+tool.smudge.name = Gogawa
+tool.smudge.description = Ja launi tare da shacin, kamar ana tura rigar fenti.
+tool.smudge.history.stroke = Gogawa
+
+# Warkarwa
+tool.heal.name = Burushin Warkarwa
+tool.heal.description = Burushin Warkarwa: danna tare da alt don saita tushe, sannan yi fenti; ana haɗa fasalin tushe da launi da hasken wurin makoma.
+tool.heal.history.stroke = Burushin Warkarwa
+tool.spot_heal.name = Burushin Warkar da Tabo
+tool.spot_heal.description = Burushin Warkar da Tabo: yi fenti a kan aibi sai a maye gurbinsa da fasalin da aka ɗauko daga kewaye—ba sai an saita wurin tushe ba.
+tool.spot_heal.history.stroke = Burushin Warkar da Tabo
+
+# Burushin tarihi
+tool.history_brush.name = Burushin Tarihi
+tool.history_brush.description = Mayar da pixels daga hoton tarihin takardar, yana warware ayyukan baya shaci bayan shaci.
+tool.history_brush.history.stroke = Burushin Tarihi
+
+# Gogewar baya
+tool.background_eraser.name = Gogewar Baya
+tool.background_eraser.description = Goge launin da aka ɗauka a tsakiyar buroshi, ka bar pixels masu launi dabam, domin cire wani abu daga bayansa.
+tool.background_eraser.history.stroke = Gogewar Baya
+
+# Sauyin launi
+tool.gradient.name = Sauyin Launi
+tool.gradient.description = Ja don cika shimfiɗar—ta cikin zaɓi idan akwai—da sauyin launi a layi daga launin gaba zuwa launin baya bisa inda aka ja.
+tool.gradient.radial.name = Sauyin Launi na Da'ira
+tool.gradient.radial.description = Ja daga tsakiya zuwa waje don cika da sauyin launi na da'ira tsakanin launin gaba da na baya.
+tool.gradient.option.gradient = Sauyin Launi
+tool.gradient.option.reverse = Juya
+tool.gradient.option.dither = Warwatsa Launi
+tool.gradient.choice.foreground_to_background = Gaba zuwa Baya
+tool.gradient.choice.foreground_to_transparent = Gaba zuwa Bayyananne
+tool.gradient.choice.linear = Na Layi
+tool.gradient.choice.radial = Na Da'ira
+tool.gradient.choice.angle = Kusurwa
+tool.gradient.choice.reflected = Mai Nuna Madubi
+tool.gradient.choice.diamond = Lu'u-lu'u
+tool.gradient.history.gradient = Sauyin Launi
+
+# Bokitin fenti
+tool.bucket.name = Bokitin Fenti
+tool.bucket.description = Danna don mamaye yankin launi iri ɗaya da ya haɗu ƙarƙashin manuni da launin gaba, gwargwadon haƙurin kayan aikin.
+tool.bucket.option.contiguous = Mai Haɗuwa
+tool.bucket.option.all_layers = Duk Shimfiɗu
+tool.bucket.history.fill = Bokitin Fenti

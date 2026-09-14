@@ -1,0 +1,23 @@
+# Utensils fundamentals: Spustar, Pipetta, Maun e Zoom.
+
+tool.move.name = Spustar
+tool.move.description = Tira il cuntegn da la stresa activa en ina nova posiziun. Sche la selecziun automatica è activada, tscherna la smatgada l'emprim la stresa u l'entira gruppa sut il punctader.
+tool.move.option.auto_select = Selecziun automatica
+tool.move.history.move_layer = Spustar la stresa
+
+tool.eyedropper.name = Pipetta
+tool.eyedropper.description = Prenda la colur sut il punctader per il champ da colur davant u, cun Alt smatgà, per quel davos. Cun trair vegn la colur prendida cuntinuadamain.
+tool.eyedropper.option.sample_size = Grondezza da l'emprova
+tool.eyedropper.option.sample = Emprova
+tool.eyedropper.choice.point_sample = Emprova punctuala
+tool.eyedropper.choice.average_3 = Media 3 sin 3
+tool.eyedropper.choice.average_5 = Media 5 sin 5
+tool.eyedropper.choice.average_11 = Media 11 sin 11
+tool.eyedropper.choice.average_31 = Media 31 sin 31
+tool.eyedropper.choice.all_layers = Tut las stresas
+tool.eyedropper.choice.current_layer = Stresa actuala
+
+tool.hand.name = Maun
+tool.hand.description = Sposta la vista. Il champ visibel appartegna a la fanestra; senza interfatscha grafica na mida quest utensil perquai nagut vi dal document.
+tool.zoom.name = Zoom
+tool.zoom.description = Engrondescha u reducescha la vista. Il champ visibel appartegna a la fanestra; senza interfatscha grafica na mida quest utensil perquai nagut vi dal document.

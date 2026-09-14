@@ -1,0 +1,29 @@
+# Free Transform
+tool.transform.name = Free Transform
+tool.transform.description = Free Transform. Yanggen un aktiba, mababa un transform box gi uriyan i aktibu na layer: arrastra un esquina para un eskåla, arrastra gi sanhiyong un esquina para un bira, yan arrastra un kanton para un skew. Tåya' ma'eskrebe asta un komit (Enter), yan i kanselasion (Escape) ha na' tåtte i layer.
+tool.transform.option.interpolation = Interpolasion
+tool.transform.history.transform = Free Transform
+tool.transform.history.image_size = Mineddong imåhen
+tool.transform.history.canvas_size = Mineddong canvas
+
+# Transform Selection
+tool.transform.selection.name = Transform Selection
+tool.transform.selection.description = Transform Selection: parehu na kahon, lao ha na'kalamten i outline i selection en lugåt di i pixel siha gi halom-ña. Komit pat kansela para un munhåyan.
+tool.transform.selection.history.transform = Transform Selection
+
+# Resampling
+tool.transform.resample.nearest_neighbor = Mås hihot na bisinu
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+# Crop
+tool.crop.name = Crop
+tool.crop.description = Arrastra i lugåt ni para u saga ya adilånta i handle siha; i komit (Enter) ha utut i dokumentu para enao, i kanselasion (Escape) ti ha tulaika.
+tool.crop.option.ratio = Proporsion
+tool.crop.option.delete_cropped = Na'suha i ma-crop na pixel siha
+tool.crop.choice.unconstrained = Tåya' limita
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Crop

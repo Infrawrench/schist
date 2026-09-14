@@ -1,0 +1,25 @@
+# Liquify
+tool.liquify.name = Davīkaraṇaṃ
+tool.liquify.description = Mahātūlikāya heṭṭhā piksele pīḷetha, āvaṭṭetha, saṅkocetha vā uddhumāyetha vā; vidhivikappo kataraṃ kammaṃ hoti taṃ gaṇhāti. Vikati jāle sañcīyati, niṭṭhāpiyamāne santhare payujjati.
+tool.liquify.option.tool = Karaṇaṃ
+tool.liquify.choice.forward_warp = Purato vikati
+tool.liquify.choice.reconstruct = Punaracanaṃ
+tool.liquify.choice.twirl_cw = Dakkhiṇāvaṭṭanaṃ
+tool.liquify.choice.twirl_ccw = Vāmāvaṭṭanaṃ
+tool.liquify.choice.pucker = Saṅkocanaṃ
+tool.liquify.choice.bloat = Uddhumāyanaṃ
+tool.liquify.choice.push_left = Vāmaṃ pīḷanaṃ
+tool.liquify.history.liquify = Davīkaraṇaṃ
+
+# Puppet Warp
+tool.puppet_warp.name = Kaṭṭhaputtalikāvikati
+tool.puppet_warp.description = Katipayesu bindūsu santharaṃ bandhitvā ekaṃ binduṃ ākaḍḍhatha; Daḷhatāvikappena vuttaṃ viya jālaṃ bandhanānaṃ samantā daḷhaṃ vā sithilaṃ vā namati. Niṭṭhāpanaṃ taṃ payojeti.
+tool.puppet_warp.option.stiffness = Daḷhatā
+tool.puppet_warp.history.puppet_warp = Kaṭṭhaputtalikāvikati
+
+# Vanishing Point
+tool.vanishing_point.name = Antaradhānabindu
+tool.vanishing_point.description = Dūradassanayuttaṃ vatthuṃ paṭicca samatalaṃ ākaḍḍhitvā karotha, tato vidhiṃ Paṭirūpakaraṇaṃ katvā limpatha; gahitapikselā samatalaṃ anugacchanti, dūratāya khuddakā honti.
+tool.vanishing_point.choice.edit_plane = Samatalasampādanaṃ
+tool.vanishing_point.choice.clone = Paṭirūpakaraṇaṃ
+tool.vanishing_point.history.vanishing_point = Antaradhānabindu

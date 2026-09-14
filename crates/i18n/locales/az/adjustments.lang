@@ -1,0 +1,20 @@
+# Tənzimləmə qatları və Şəkil ▸ Tənzimləmələr əmrlərinin adları.
+adjustment.levels.name = Səviyyələr
+adjustment.curves.name = Əyrilər
+adjustment.hue_saturation.name = Çalar/Doyma
+adjustment.brightness_contrast.name = Parlaqlıq/Kontrast
+adjustment.black_white.name = Qara və ağ
+adjustment.solid_color.name = Bütöv rəng
+adjustment.gradient_fill.name = Qradient dolğusu
+adjustment.pattern_fill.name = Naxış dolğusu
+adjustment.invert.name = İnversiya
+adjustment.posterize.name = Posterizasiya
+adjustment.threshold.name = Hədd
+adjustment.color_balance.name = Rəng balansı
+adjustment.vibrance.name = Canlılıq
+adjustment.exposure.name = Ekspozisiya
+adjustment.photo_filter.name = Foto filtri
+adjustment.gradient_map.name = Qradient xəritəsi
+adjustment.selective_color.name = Seçimli rəng
+adjustment.channel_mixer.name = Kanal qarışdırıcısı
+adjustment.other.name = Tənzimləmə

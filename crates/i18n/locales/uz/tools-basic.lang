@@ -1,0 +1,23 @@
+# Asosiy vositalar: Ko‘chirish, Pipetka, Qo‘l va Masshtab.
+
+tool.move.name = Ko‘chirish
+tool.move.description = Faol qatlam tarkibini yangi joyga sudrang. Avtomatik tanlash yoqilgan bo‘lsa, bosilganda ko‘rsatkich ostidagi qatlam yoki butun guruh avval tanlanadi.
+tool.move.option.auto_select = Avtomatik tanlash
+tool.move.history.move_layer = Qatlamni ko‘chirish
+
+tool.eyedropper.name = Pipetka
+tool.eyedropper.description = Ko‘rsatkich ostidagi rangni old plan rang namunasi sifatida oling; Alt bosib turilsa, u fon rang namunasi sifatida olinadi. Sudrash davomida rang qayta-qayta olinadi.
+tool.eyedropper.option.sample_size = Namuna o‘lchami
+tool.eyedropper.option.sample = Namuna olish
+tool.eyedropper.choice.point_sample = Nuqtadan namuna
+tool.eyedropper.choice.average_3 = 3 × 3 o‘rtacha
+tool.eyedropper.choice.average_5 = 5 × 5 o‘rtacha
+tool.eyedropper.choice.average_11 = 11 × 11 o‘rtacha
+tool.eyedropper.choice.average_31 = 31 × 31 o‘rtacha
+tool.eyedropper.choice.all_layers = Barcha qatlamlar
+tool.eyedropper.choice.current_layer = Joriy qatlam
+
+tool.hand.name = Qo‘l
+tool.hand.description = Ko‘rinishni siljitadi. Ko‘rish sohasi oynaga tegishli bo‘lgani uchun oynasiz rejimda bu vosita hujjatga ta’sir qilmaydi.
+tool.zoom.name = Masshtab
+tool.zoom.description = Ko‘rinish masshtabini o‘zgartiradi. Ko‘rish sohasi oynaga tegishli bo‘lgani uchun oynasiz rejimda bu vosita hujjatga ta’sir qilmaydi.

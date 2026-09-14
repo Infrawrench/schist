@@ -1,0 +1,45 @@
+# Ngaahi meʻangāue vector
+
+tool.pen.name = Peni
+tool.pen.description = Faʻu ha hala: lomi ke fokotuʻu ha poini tuliki, toho ke toho mai hono ngaahi pukeʻanga piʻó, pea lomi ʻi he poini ʻuluakí ke tāpuni. ʻI hono fakapapauʻí ʻe liliu ʻa e halá ko ha Layer anga.
+tool.pen.option.rubber_band = Letapā
+tool.pen.history.fill = Fakafonu Hala
+tool.pen.default_path_name = Hala {n}
+tool.pen.freeform.name = Peni Tauʻatāina
+tool.pen.freeform.description = Toho ha laine tauʻatāina pea ʻe fakafeʻungaʻi ia ki ha hala, ʻo fakatatau ʻene molū ki he meʻa fili Fakafeʻungá.
+tool.pen.freeform.option.fit = Fakafeʻunga
+tool.pen.curvature.name = Peni Piʻo
+tool.pen.curvature.description = Lomi ʻi ha ngaahi poini pea ʻe piʻo molū ʻa e halá ʻo fou ʻiate kinautolu.
+
+tool.path_select.name = Fili Hala
+tool.path_select.description = Lomi ʻi ha hala ke fili ia, pea toho ke ʻunuʻi ʻa e hala kotoa.
+tool.direct_select.name = Fili Hangatonu
+tool.direct_select.description = Toho ha poini fakamaʻu pē ko hono ngaahi pukeʻangá ke toe liliu ʻa e anga ʻo e halá takatakai ai.
+
+tool.shape.history.layer = Layer {name}
+tool.shape.rect.name = Meʻangāue Tapafā
+tool.shape.rect.label = Tapafā
+tool.shape.rect.description = Toho ha Layer anga tapafā ʻi he lanu muʻá; ʻe kei hoko ko e vector pea toe liliu ki he raster ʻi hono liliu hono lahí.
+tool.shape.ellipse.name = Meʻangāue Fuopotopoto Lōloa
+tool.shape.ellipse.label = Fuopotopoto Lōloa
+tool.shape.ellipse.description = Toho ha Layer anga fuopotopoto lōloa ʻi he lanu muʻá.
+tool.shape.line.name = Meʻangāue Laine
+tool.shape.line.label = Laine
+tool.shape.line.description = Toho ha Layer anga laine hangatonu ʻi he lanu muʻá.
+tool.shape.line.option.weight = Matolu
+tool.shape.line.option.arrow_start = Kamata
+tool.shape.line.option.arrow_end = Ngataʻanga
+tool.shape.polygon.name = Meʻangāue Polikoni
+tool.shape.polygon.label = Polikoni
+tool.shape.polygon.description = Toho ha Layer anga polygon ʻoku tatau hono ngaahi tapá mo hono ngaahi tulikí ʻi he lanu muʻá, ʻo maʻu ʻa e fika ʻo e ngaahi tapá mei he ngaahi meʻa filí.
+tool.shape.polygon.option.sides = Ngaahi Tapa
+
+tool.shape.custom.name = Anga Fakafoʻituitui
+tool.shape.custom.label = Anga Fakafoʻituitui
+tool.shape.custom.description = Toho ha taha ʻo e ngaahi anga kuo ʻosi faʻu ʻi he polokalamá, ʻa ia ʻoku fili ʻaki ʻa e meʻa fili Angá.
+tool.shape.custom.choice.heart = Maʻafu
+tool.shape.custom.choice.star = Fetuʻu
+tool.shape.custom.choice.arrow = Ngahau
+tool.shape.custom.choice.lightning = ʻUhila
+tool.shape.custom.choice.cross = Kolosi
+tool.shape.custom.choice.speech_bubble = Puha Lea

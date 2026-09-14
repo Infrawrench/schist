@@ -1,0 +1,31 @@
+# ЯИ панеленең эш өлкәһендәге яҙыуҙар.
+ai.status.panel_shown = ЯИ панеле күрһәтелде
+ai.status.panel_hidden = ЯИ панеле йәшерелде — Күренеш ▸ ЯИ панеле ({shortcut}) уны кире аса
+ai.status.tool = ЯИ: {name}
+
+ai.info.connected = {backend} тоташты
+ai.info.now_in_gallery = Хәҙер галереяла.
+ai.info.now_in_editor = Хәҙер мөхәррирҙә.
+ai.tool.shell_command = командалар тышлығы командаһы
+
+ai.error.cli_missing = {backend} CLI ҡоралы (“{binary}”) PATH эсендә юҡ. Тәүҙә уны урынлаштырығыҙ һәм ундағы иҫәпкә инегеҙ.
+ai.error.endpoint_failed = MCP ос нөктәһен ебәреп булманы: {error}
+ai.error.binding_endpoint = MCP ос нөктәһен бәйләү
+ai.error.spawning_endpoint_thread = MCP ос нөктәһе ағымын ебәреү
+ai.error.runtime_failed = агенттың башҡарыу мөхитен ебәреп булманы: {error}
+ai.error.worker_failed = {backend} эшкәрткесен ебәреп булманы: {error}
+ai.error.did_not_start = {backend} ебәрелмәне: {error}
+ai.error.switch_model_failed = моделде алмаштырып булманы: {error}
+ai.error.send_failed = күрһәтмәне ебәреп булманы: {error}
+ai.error.interrupt_failed = өҙөп булманы: {error}
+ai.error.locating_binary = Schist башҡарылма файлын эҙләү
+ai.error.starting_app_server = Codex ҡушымта серверын ебәреү
+ai.error.attaching_app_server = Codex ҡушымта серверына тоташыу
+ai.error.initializing_app_server = Codex ҡушымта серверын әҙерләү
+ai.error.resuming_thread = Codex ағымын дауам итеү
+ai.error.starting_thread = Codex ағымын ебәреү
+
+ai.model.opus_detail = Иң ҡеүәтле кимәл
+ai.model.sonnet_detail = Көндәлек эштәр өсөн һөҙөмтәле
+ai.model.haiku_detail = Тиҙ яуаптар өсөн иң етеҙ
+ai.model.codex_catalog = Codex каталогы

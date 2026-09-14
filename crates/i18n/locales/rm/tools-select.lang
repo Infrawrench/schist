@@ -1,0 +1,27 @@
+# Utensils da selecziun.
+tool.select.mode.subtract = Subtrahar
+tool.select.mode.intersect = Intersectar
+tool.marquee.rect.name = Selecziun rectangulara
+tool.marquee.rect.description = Tira si ina selecziun rectangulara. Shift al cumenzament dal tratg agiunta a la selecziun, Alt subtraha ed omadus intersecteschan; Shift durant il tratg la renda quadratica. In clic senza trair deselecziunescha.
+tool.marquee.ellipse.name = Selecziun elliptica
+tool.marquee.ellipse.description = Tira si ina selecziun elliptica cun las medemas cumbinaziuns da Shift ed Alt sco per la selecziun rectangulara.
+tool.lasso.name = Lasso
+tool.lasso.description = Tira in contur a maun liber; la selecziun vegn serrada tranter las duas fins cura ch'il tratg è finì. Shift agiunta, Alt subtraha.
+tool.lasso.history.select = Selecziun cun lasso
+tool.lasso.polygonal.name = Lasso poligonal
+tool.lasso.polygonal.description = Clicca in chantun suenter l'auter per construir ina selecziun cun urs gulivs e clicca datiers da l'emprim punct per la serrar.
+tool.lasso.polygonal.history.select = Selecziun cun lasso poligonal
+tool.lasso.magnetic.name = Lasso magnetic
+tool.lasso.magnetic.description = Suonda approximativamain in ur; il contur sa fixa al contrast il pli ferm en vischinanza dal trutg.
+tool.lasso.magnetic.history.select = Selecziun cun lasso magnetic
+tool.lasso.magnetic.option.frequency = Frequenza
+tool.wand.name = Festa magica
+tool.wand.description = Clicca per selecziunar la regiun colliada da colur sumeglianta sut il punctader, entaifer la toleranza definida — la medema toleranza che Crescher, Sumegliant e Sectur da colurs utiliseschan.
+tool.wand.option.contiguous = Regiun colliada
+tool.wand.history.select = Festa magica
+tool.quick_select.name = Selecziun svelta
+tool.quick_select.description = Malegia sur ina regiun e la selecziun crescha tras ils pixels sumegliants sur ils quals passa il penel.
+tool.quick_select.history.select = Selecziun svelta
+tool.object_select.name = Selecziun d'objects
+tool.object_select.description = Tira ina chascha enturn in object e la selecziun sa fixescha a l'object chattà al'intern.
+tool.object_select.history.select = Selecziun d'objects

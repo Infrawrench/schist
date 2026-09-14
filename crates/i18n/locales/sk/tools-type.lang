@@ -1,0 +1,22 @@
+tool.type.name = Text
+tool.type.description = Kliknutím vytvoríte na danom mieste textovú vrstvu alebo začnete upravovať existujúcu. Kým je otvorená, nástroj prijíma priamo stlačenia klávesov (znaky posielajte ako klávesový vstup); potvrdením sa vrstva vykreslí a úprava sa ukončí.
+
+tool.type.option.align = Zarovnanie
+tool.type.option.leading = Riadkovanie
+tool.type.option.tracking = Prestrkávanie
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligatúry
+tool.type.option.discretionary_ligatures = Voliteľné ligatúry
+tool.type.option.small_caps = Kapitálky
+tool.type.option.on_path = Na aktívnej ceste
+tool.type.option.path_offset = Posun na ceste
+
+tool.type.choice.regular = Obyčajné
+tool.type.choice.bold = Tučné
+tool.type.choice.italic = Kurzíva
+tool.type.choice.bold_italic = Tučná kurzíva
+
+tool.type.history.new_layer = Nová textová vrstva
+tool.type.history.edit = Upraviť text
+tool.type.history.discard = Zahodiť text
+tool.type.history.discard_empty = Zahodiť prázdny text
