@@ -280,10 +280,11 @@ pub(super) fn canvas_size(
                 cx,
             ),
         ))
-        .child(ui::field_row(
-            t("dialog.size.anchor"),
-            anchor_grid(anchor, cx),
-        ))
+        .child(
+            FieldRow::new(t("dialog.size.anchor"))
+                .top_aligned()
+                .child(anchor_grid(anchor, cx)),
+        )
         .child(
             div()
                 .text_size(px(11.0))
