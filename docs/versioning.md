@@ -66,12 +66,14 @@ changing it there ends self-updating silently, so keep the two together.
 
 ## Releasing
 
-1. Update the version in the root `Cargo.toml`, `packaging/macos/Info.plist`
+1. Update the version in the root `Cargo.toml`, `packaging/macos/Info.plist`,
+   `packaging/ios/Info.plist`, `packaging/windows/installer.nsi`
    and both `packaging/macos/quicklook/*-Info.plist` (an app extension
    carries its own version, and macOS re-registers one whose version
-   moved).
+   moved). Refresh the workspace and example-plugin `Cargo.lock` files.
 2. `cargo test --workspace` and `cargo clippy --workspace --all-targets -- -D warnings`.
-3. Tag: `git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`.
+3. Commit and push the version bump to `main`, confirm CI is green, then
+   tag that commit: `git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`.
 4. The release workflow builds, for x86_64 and aarch64, a Linux AppImage
    plus the native packages `packaging/linux/packages.sh` emits (`.deb`,
    `.rpm` and a binary `.pkg.tar.zst` — the last one is a convenience
@@ -80,7 +82,7 @@ changing it there ends self-updating silently, so keep the two together.
    `Schist.zip` (both signed and notarized when the secrets below exist
    — the disk image is the one to point people at, the zip is for
    anything that unpacks a download itself), and a Windows installer,
-   then drafts the release. Each
+   then publishes the release with generated release notes. Each
    platform also ships the `schist-mcp` server from the same build: a
    loose arch-suffixed binary on Linux (`schist-mcp-linux-x86_64`,
    `schist-mcp-linux-aarch64`), a loose binary on Windows, and on macOS
@@ -104,7 +106,7 @@ changing it there ends self-updating silently, so keep the two together.
      `clang`/`mold` in `makedepends` for the linker settings in
      `.cargo/config.toml` — don't drop either when touching it.
    * `schist-bin/PKGBUILD` re-wraps the `.pkg.tar.zst` release assets, so
-     its `updpkgsums` only works once step 4's draft is published. Its
+     its `updpkgsums` only works once step 4's release is published. Its
      `_relver` mirrors the `release=` in `packages.sh` (part of the asset
      name), and its dependency lists have to stay in step with that
      script's — which in turn mirror `schist/PKGBUILD`'s.
