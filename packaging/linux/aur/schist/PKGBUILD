@@ -1,6 +1,6 @@
 # Maintainer: Infrawrench LLC <astrid@infrawrench.com>
 pkgname=schist
-pkgver=0.12.0
+pkgver=0.13.0
 pkgrel=1
 pkgdesc="Layered image editor with PSD and Affinity support"
 arch=(x86_64 aarch64)
@@ -22,7 +22,7 @@ makedepends=(cargo clang mold)
 # that the clang-driven link cannot read.
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('4ccef1ff37f777a5718649287aefd2323b7cd13671dd924b1d7634d8969dcf6c')
+sha256sums=('3e23a81f371a145506e533876eebcb010680d55d3a3633cb01ae91e05f525344')
 
 prepare() {
   cd "$pkgname-$pkgver"
