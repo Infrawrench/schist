@@ -1,5 +1,11 @@
 # Schist Cloud
 
+Schist Cloud is disabled by default behind the `schist-cloud` feature flag,
+including its UI and camera backup settings. On native builds, launch with
+`SCHIST_FEATURE_FLAGS='{"schist-cloud":true}'`. In the browser, set
+`localStorage.setItem("schist.feature_flags", '{"schist-cloud":true}')` and
+reload. See [feature-flags.md](feature-flags.md) for override behaviour.
+
 In the desktop app, choose **File → Schist Cloud → Sign into Schist Cloud…**,
 or use the welcome screen button. The domain prompt starts with `schist.app`.
 Enter another provider domain if needed; Continue opens its sign-in page in the

@@ -76,7 +76,6 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
             vec![
                 App(t("menu.file.new"), New, Some("cmd-n")),
                 App(t("menu.file.open"), Open, Some("cmd-o")),
-                Sub(t("menu.file.schist_cloud"), cloud_entries(ws)),
                 App(
                     t("menu.file.browse_gallery"),
                     OpenGallery,
@@ -298,6 +297,12 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
             ],
         ),
     ];
+    if let Some(cloud) = cloud_menu(
+        crate::feature_enabled("schist-cloud"),
+        ws.cloud.account.is_some(),
+    ) {
+        menus[0].1.insert(2, cloud);
+    }
     // Open Recent, after Open…. Desktop only: browser paths are invented
     // per session, so a recents list would be a list of nothing.
     #[cfg(not(target_arch = "wasm32"))]
@@ -389,8 +394,13 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     let mut file = vec![
         App(t("menu.file.new"), New, Some("cmd-n")),
         App(t("menu.file.open"), Open, Some("cmd-o")),
-        Sub(t("menu.file.schist_cloud"), cloud_entries(ws)),
     ];
+    if let Some(cloud) = cloud_menu(
+        crate::feature_enabled("schist-cloud"),
+        ws.cloud.account.is_some(),
+    ) {
+        file.push(cloud);
+    }
     let recents = recent_entries(ws);
     if !recents.is_empty() {
         file.push(Sub(t("menu.file.open_recent"), recents));
@@ -761,10 +771,13 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
         ],
     ),
 ];
-fn cloud_entries(ws: &Workspace) -> Vec<MenuEntry> {
+fn cloud_menu(enabled: bool, signed_in: bool) -> Option<MenuEntry> {
     use AppItem::*;
     use MenuEntry::*;
-    if ws.cloud.account.is_some() {
+    if !enabled {
+        return None;
+    }
+    let entries = if signed_in {
         vec![
             App(t("menu.cloud.browse"), CloudBrowse, None),
             App(t("menu.cloud.generate"), CloudGenerate, None),
@@ -773,5 +786,40 @@ fn cloud_entries(ws: &Workspace) -> Vec<MenuEntry> {
         ]
     } else {
         vec![App(t("menu.cloud.sign_in"), CloudSignIn, None)]
+    };
+    Some(Sub(t("menu.file.schist_cloud"), entries))
+}
+
+#[cfg(test)]
+mod feature_flag_tests {
+    use super::*;
+
+    #[test]
+    fn cloud_menu_is_absent_when_disabled_even_with_a_saved_account() {
+        assert!(cloud_menu(false, false).is_none());
+        assert!(cloud_menu(false, true).is_none());
+    }
+
+    #[test]
+    fn cloud_menu_restores_sign_in_and_account_actions_when_enabled() {
+        let Some(MenuEntry::Sub(_, signed_out)) = cloud_menu(true, false) else {
+            panic!("missing Cloud menu");
+        };
+        assert!(matches!(
+            signed_out.as_slice(),
+            [MenuEntry::App(_, AppItem::CloudSignIn, _)]
+        ));
+        let Some(MenuEntry::Sub(_, signed_in)) = cloud_menu(true, true) else {
+            panic!("missing Cloud menu");
+        };
+        assert!(matches!(
+            signed_in.as_slice(),
+            [
+                MenuEntry::App(_, AppItem::CloudBrowse, _),
+                MenuEntry::App(_, AppItem::CloudGenerate, _),
+                MenuEntry::App(_, AppItem::CloudUpload, _),
+                MenuEntry::App(_, AppItem::CloudSignOut, _),
+            ]
+        ));
     }
 }

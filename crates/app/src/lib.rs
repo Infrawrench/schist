@@ -221,6 +221,9 @@ pub fn main() {
         .skip(1)
         .find(|arg| arg.starts_with("schist://"))
     {
+        if !feature_enabled("schist-cloud") {
+            return;
+        }
         let dir = schist_gallery::state_dir()
             .unwrap_or_else(std::env::temp_dir)
             .join("schist/cloud");
@@ -342,6 +345,9 @@ pub fn main() {
         move |urls| {
             #[cfg(not(target_arch = "wasm32"))]
             for callback in urls.iter().filter(|url| url.starts_with("schist://")) {
+                if !feature_enabled("schist-cloud") {
+                    continue;
+                }
                 let dir = schist_gallery::state_dir()
                     .unwrap_or_else(std::env::temp_dir)
                     .join("schist/cloud");

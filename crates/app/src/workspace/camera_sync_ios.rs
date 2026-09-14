@@ -485,6 +485,12 @@ pub(crate) fn register_background_task() {
         };
         let scheduler: *mut AnyObject = msg_send![scheduler_class, sharedScheduler];
         let handler = RcBlock::new(move |task: *mut AnyObject| {
+            // An older build may have scheduled this launch. Complete it
+            // without opening an account or scheduling another backup.
+            if !crate::feature_enabled("schist-cloud") {
+                let _: () = msg_send![task, setTaskCompletedWithSuccess: Bool::YES];
+                return;
+            }
             // retain returns id; a void result fails objc2's debug signature check.
             let _: *mut AnyObject = msg_send![task, retain];
             let cancel = background()

@@ -7,6 +7,14 @@ impl Workspace {
     // ----- modals and numeric fields -----
 
     pub fn open_modal(&mut self, modal: Modal, cx: &mut Context<Self>) {
+        if !crate::feature_enabled("schist-cloud")
+            && matches!(
+                modal,
+                Modal::Cloud { .. } | Modal::CloudGenerate | Modal::BucketName { cloud: true, .. }
+            )
+        {
+            return;
+        }
         // A dialog opened from the menus replaces whatever was up,
         // suspended parents included; only `open_color_picker_on` stacks.
         self.modal_stack.clear();

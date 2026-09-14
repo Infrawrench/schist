@@ -389,7 +389,12 @@ impl Workspace {
                 candidates.push(photo_result(path));
             }
         }
-        for asset in &self.cloud.assets {
+        for asset in self
+            .cloud
+            .assets
+            .iter()
+            .filter(|_| crate::feature_enabled("schist-cloud"))
+        {
             let mut detail = vec![t("menu.file.schist_cloud").to_string()];
             detail.extend(asset.place_name.iter().cloned());
             detail.extend(asset.tags.iter().cloned());
@@ -538,7 +543,7 @@ impl Workspace {
                 Category::Photos,
                 Target::SearchPhotos,
             ));
-            if self.cloud.account.is_some() {
+            if crate::feature_enabled("schist-cloud") && self.cloud.account.is_some() {
                 results.push(SearchResult::new(
                     query,
                     t("menu.file.schist_cloud"),

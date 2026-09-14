@@ -797,6 +797,9 @@ pub(crate) fn folder_rows(
     cx: &mut Context<Workspace>,
 ) -> Vec<gpui::AnyElement> {
     let mut rows: Vec<gpui::AnyElement> = Vec::new();
+    if !crate::feature_enabled("schist-cloud") {
+        return rows;
+    }
     if ws.cloud.account.is_none() {
         rows.push(
             sidebar_link(
@@ -913,7 +916,7 @@ pub(crate) fn bucket_rows(
     cx: &mut Context<Workspace>,
 ) -> Vec<gpui::AnyElement> {
     let mut rows: Vec<gpui::AnyElement> = Vec::new();
-    if ws.cloud.account.is_none() {
+    if !crate::feature_enabled("schist-cloud") || ws.cloud.account.is_none() {
         return rows;
     }
     let showing = ws.cloud.show;
@@ -1286,6 +1289,9 @@ pub(crate) fn context_menu(
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
 ) -> Option<gpui::AnyElement> {
+    if !crate::feature_enabled("schist-cloud") {
+        return None;
+    }
     let (position, target) = ws.cloud.context.clone()?;
     let dismiss: fn(&mut Workspace) = |ws| ws.cloud.context = None;
     let mut rows: Vec<gpui::AnyElement> = Vec::new();

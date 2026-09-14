@@ -75,6 +75,9 @@ impl Drop for GenerationState {
 }
 impl Workspace {
     pub(crate) fn cloud_generate_open(&mut self, cx: &mut Context<Self>) {
+        if !crate::feature_enabled("schist-cloud") {
+            return;
+        }
         let Some(account) = self.cloud.account.clone() else {
             self.cloud_sign_in(cx);
             return;

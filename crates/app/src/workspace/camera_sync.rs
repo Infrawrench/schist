@@ -610,13 +610,20 @@ impl Default for SyncState {
 }
 
 /// Whether this build asks about the camera roll at all.
-pub(crate) const fn offered() -> bool {
-    cfg!(any(target_os = "ios", target_os = "android"))
+pub(crate) fn offered() -> bool {
+    crate::feature_enabled("schist-cloud") && cfg!(any(target_os = "ios", target_os = "android"))
 }
 
 impl Workspace {
     /// Reconcile OS scheduling after startup, a preference change, or sign-out.
     pub(crate) fn camera_sync_update_background(&mut self) {
+        if !crate::feature_enabled("schist-cloud") {
+            #[cfg(target_os = "android")]
+            super::camera_sync_android::cancel_job();
+            #[cfg(target_os = "ios")]
+            super::camera_sync_ios::set_enabled(false);
+            return;
+        }
         let enabled = self.view.camera_sync.enabled && self.cloud.account.is_some();
         #[cfg(target_os = "android")]
         if enabled {
@@ -756,7 +763,7 @@ impl Workspace {
     }
     /// Start a run now, if one can.
     pub(crate) fn camera_sync_start(&mut self, cx: &mut Context<Self>) {
-        if self.cloud.sync.running {
+        if !crate::feature_enabled("schist-cloud") || self.cloud.sync.running {
             return;
         }
         let Some(client) = &self.cloud.client else {
@@ -902,6 +909,9 @@ impl Workspace {
     /// The prompt: which photos, into which cloud folder. Also the way
     /// to change the rule later, from Preferences or the cloud row's menu.
     pub(crate) fn camera_sync_prompt(&mut self, cx: &mut Context<Self>) {
+        if !crate::feature_enabled("schist-cloud") {
+            return;
+        }
         if self.cloud.account.is_none() {
             self.cloud_sign_in(cx);
             return;
@@ -1100,6 +1110,9 @@ impl Workspace {
     }
     /// Preferences' switch.
     pub(crate) fn camera_sync_set_enabled(&mut self, enabled: bool, cx: &mut Context<Self>) {
+        if !crate::feature_enabled("schist-cloud") {
+            return;
+        }
         if enabled && self.view.camera_sync.source.is_none() {
             self.keep_preferences();
             self.camera_sync_prompt(cx);

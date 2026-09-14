@@ -10,7 +10,7 @@ use std::sync::OnceLock;
 
 /// Register each flag here, with its shipping default. Names are exact and
 /// case-sensitive; an override cannot enable an unregistered flag.
-const DEFAULTS: &[(&str, bool)] = &[("gpu-compositing", true)];
+const DEFAULTS: &[(&str, bool)] = &[("gpu-compositing", true), ("schist-cloud", false)];
 
 static OVERRIDES: OnceLock<HashMap<String, bool>> = OnceLock::new();
 
@@ -80,6 +80,18 @@ mod tests {
     #[test]
     fn explicit_true_is_enabled() {
         let overrides = parse_overrides(Some(r#"{"gpu-compositing": true}"#));
+        assert!(evaluate("gpu-compositing", &overrides));
+    }
+
+    #[test]
+    fn cloud_is_opt_in_and_independent_of_gpu_compositing() {
+        assert!(!evaluate("schist-cloud", &parse_overrides(None)));
+        let overrides =
+            parse_overrides(Some(r#"{"schist-cloud": true, "gpu-compositing": false}"#));
+        assert!(evaluate("schist-cloud", &overrides));
+        assert!(!evaluate("gpu-compositing", &overrides));
+        let overrides = parse_overrides(Some(r#"{"schist-cloud": false}"#));
+        assert!(!evaluate("schist-cloud", &overrides));
         assert!(evaluate("gpu-compositing", &overrides));
     }
 

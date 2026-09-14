@@ -25,6 +25,17 @@ pub(crate) fn run_app_item(
     window: &mut Window,
     cx: &mut Context<Workspace>,
 ) {
+    if matches!(
+        item,
+        AppItem::CloudSignIn
+            | AppItem::CloudGenerate
+            | AppItem::CloudBrowse
+            | AppItem::CloudSignOut
+            | AppItem::CloudUpload
+    ) && !crate::feature_enabled("schist-cloud")
+    {
+        return;
+    }
     match item {
         AppItem::Search => ws.show_spotlight(window, cx),
         AppItem::CloudGenerate => {

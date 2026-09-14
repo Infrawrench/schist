@@ -301,6 +301,7 @@ check-cloud-browser:
 .PHONY: check-feature-flags
 check-feature-flags:
 	$(CARGO) test -p schist-app --lib feature_flags::
+	$(CARGO) test -p schist-app --lib feature_flag_tests::
 	$(CARGO) test -p schist-app --test feature_flags
 
 .PHONY: lint-cloud

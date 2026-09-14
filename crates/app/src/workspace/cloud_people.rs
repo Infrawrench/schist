@@ -17,7 +17,7 @@ pub(crate) fn rows(
     caption: bool,
     cx: &mut Context<Workspace>,
 ) -> Vec<gpui::AnyElement> {
-    if ws.cloud.account.is_none() {
+    if !crate::feature_enabled("schist-cloud") || ws.cloud.account.is_none() {
         return vec![];
     }
     let Some(people) = ws.cloud.people.clone() else {

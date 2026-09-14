@@ -237,6 +237,9 @@ pub(super) fn preferences(
 /// anything, so without one it says that instead.
 #[cfg(any(target_os = "ios", target_os = "android"))]
 fn camera_sync_row(ws: &Workspace, cx: &mut Context<Workspace>) -> Option<impl IntoElement> {
+    if !crate::workspace::camera_sync::offered() {
+        return None;
+    }
     let rule = &ws.view.camera_sync;
     let mut control = div().flex().flex_col().gap_1().max_w(px(260.0));
     if ws.cloud.account.is_none() {

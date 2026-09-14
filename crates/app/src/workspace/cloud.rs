@@ -269,25 +269,27 @@ impl Default for CloudState {
         let recovery = {
             let (recovery, tasks) = mpsc::channel();
             let errors = sender.clone();
-            std::thread::spawn(move || {
-                while let Ok(task) = tasks.recv() {
-                    match task {
-                        RecoveryTask::Write { epoch, files } => {
-                            for (path, bytes) in files {
-                                if let Err(e) = remote::auth::private_write(&path, &bytes) {
-                                    let _ = errors.send(Job::Error {
-                                        epoch,
-                                        error: tf!("cloud.error.recovery_failed", error = e),
-                                    });
+            if crate::feature_enabled("schist-cloud") {
+                std::thread::spawn(move || {
+                    while let Ok(task) = tasks.recv() {
+                        match task {
+                            RecoveryTask::Write { epoch, files } => {
+                                for (path, bytes) in files {
+                                    if let Err(e) = remote::auth::private_write(&path, &bytes) {
+                                        let _ = errors.send(Job::Error {
+                                            epoch,
+                                            error: tf!("cloud.error.recovery_failed", error = e),
+                                        });
+                                    }
                                 }
                             }
-                        }
-                        RecoveryTask::Remove(path) => {
-                            let _ = std::fs::remove_file(path);
+                            RecoveryTask::Remove(path) => {
+                                let _ = std::fs::remove_file(path);
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
             recovery
         };
         Self {
@@ -420,6 +422,13 @@ impl CloudState {
 }
 impl Workspace {
     pub(crate) fn cloud_start(&mut self, cx: &mut Context<Self>) {
+        if !crate::feature_enabled("schist-cloud") {
+            // Retire scheduled mobile backups without changing the saved
+            // account or rule, which can be used again when Cloud is enabled.
+            #[cfg(not(target_arch = "wasm32"))]
+            self.camera_sync_update_background();
+            return;
+        }
         #[cfg(not(target_arch = "wasm32"))]
         {
             #[cfg(target_os = "android")]
@@ -470,6 +479,9 @@ impl Workspace {
         self.cloud.message = error;
     }
     pub(crate) fn cloud_sign_in(&mut self, cx: &mut Context<Self>) {
+        if !crate::feature_enabled("schist-cloud") {
+            return;
+        }
         #[cfg(target_arch = "wasm32")]
         {
             self.cloud_login("https://schist.app".into(), cx);
@@ -491,6 +503,9 @@ impl Workspace {
         }
     }
     fn cloud_login(&mut self, domain: String, cx: &mut Context<Self>) {
+        if !crate::feature_enabled("schist-cloud") {
+            return;
+        }
         self.cloud.epoch += 1;
         let epoch = self.cloud.epoch;
         self.cloud.cancel.store(true, Ordering::Relaxed);
@@ -552,6 +567,9 @@ impl Workspace {
         cx.notify();
     }
     fn cloud_connect(&mut self, account: Account, cx: &mut Context<Self>) {
+        if !crate::feature_enabled("schist-cloud") {
+            return;
+        }
         self.cloud.library_total = None;
         self.cloud.client = Some(Client::start(account.clone()));
         self.cloud.account = Some(account.clone());
@@ -618,6 +636,9 @@ impl Workspace {
         cx.notify();
     }
     pub(crate) fn cloud_set_visible(&mut self, visible: bool) {
+        if visible && !crate::feature_enabled("schist-cloud") {
+            return;
+        }
         self.cloud.show = visible;
         #[cfg(not(target_arch = "wasm32"))]
         {
@@ -625,6 +646,9 @@ impl Workspace {
         }
     }
     pub(crate) fn cloud_browse(&mut self, scope: Scope, cx: &mut Context<Self>) {
+        if !crate::feature_enabled("schist-cloud") {
+            return;
+        }
         if self.cloud.account.is_none() {
             self.cloud_sign_in(cx);
             return;

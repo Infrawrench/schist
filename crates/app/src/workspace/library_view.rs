@@ -177,7 +177,8 @@ impl Workspace {
             }))
             .child(chrome::top_strip(self, cx))
             .children(
-                (self.cloud.account.is_none()
+                (crate::feature_enabled("schist-cloud")
+                    && self.cloud.account.is_none()
                     && self.cloud.message != schist_i18n::t("cloud.msg.not_signed_in"))
                 .then(|| {
                     div()
@@ -474,12 +475,14 @@ fn gallery_empty_state(cx: &mut Context<Workspace>) -> impl IntoElement {
                 .child(t("library.welcome.title")),
         )
         .child(div().h(px(12.0)))
-        .child(crate::ui::button(
-            t("menu.cloud.sign_in"),
-            false,
-            |ws, _, cx| ws.cloud_sign_in(cx),
-            cx,
-        ))
+        .children(crate::feature_enabled("schist-cloud").then(|| {
+            crate::ui::button(
+                t("menu.cloud.sign_in"),
+                false,
+                |ws, _, cx| ws.cloud_sign_in(cx),
+                cx,
+            )
+        }))
         .child(caption(if cfg!(target_os = "ios") {
             t("library.welcome.intro_ios")
         } else {
@@ -699,7 +702,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             |ws, at, window, cx| {
                 // With a cloud signed in there are two kinds of folder
                 // to add; without one there is only the local kind.
-                if ws.cloud.account.is_some() {
+                if crate::feature_enabled("schist-cloud") && ws.cloud.account.is_some() {
                     ws.library.context = Some((at, super::library::GalleryContext::AddFolder));
                     ws.cloud.context = None;
                     cx.notify();
@@ -735,7 +738,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         .child(chrome::sidebar_menu_link(
             t("library.sidebar.new_bucket"),
             |ws, at, _window, cx| {
-                if ws.cloud.account.is_some() {
+                if crate::feature_enabled("schist-cloud") && ws.cloud.account.is_some() {
                     ws.library.context = Some((at, super::library::GalleryContext::NewBucket));
                     ws.cloud.context = None;
                     cx.notify();
@@ -2986,7 +2989,7 @@ fn gallery_context_menu(
             }
         }
         GalleryContext::LocalFolder(root) => {
-            if ws.cloud.account.is_some() {
+            if crate::feature_enabled("schist-cloud") && ws.cloud.account.is_some() {
                 let upload = root.clone();
                 row(
                     t("library.menu.upload_to_cloud").into(),

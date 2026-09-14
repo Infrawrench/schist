@@ -101,7 +101,8 @@ the gallery’s people, place and content matches when indexed; cloud photos
 on the current page appear by name and tag, with a search action for the full
 cloud library. Content search uses the gallery’s installed Search models.
 
-**Schist Cloud.** Sign in from the welcome screen or File menu, with
+**Schist Cloud.** Enable the `schist-cloud` [feature flag](docs/feature-flags.md),
+then sign in from the welcome screen or File menu, with
 `schist.app` as the default provider. Live remote folders, searchable buckets,
 filters, uploads and collaborative editing share a MessagePack WebSocket.
 See [docs/cloud.md](docs/cloud.md) for setup and the provider contract.

@@ -224,24 +224,26 @@ pub(crate) fn cancel_job() {
         .lock()
         .unwrap_or_else(|e| e.into_inner())
         .store(true, Ordering::Relaxed);
-    let _ = with_activity(|env, activity| {
-        let name = env.new_string("jobscheduler")?;
-        let scheduler = env
-            .call_method(
-                activity,
-                jni_str!("getSystemService"),
-                jni_sig!((name: JString) -> JObject),
-                &[JValue::Object(&name)],
-            )?
-            .l()?;
-        env.call_method(
-            &scheduler,
-            jni_str!("cancel"),
-            jni_sig!((id: int)),
-            &[JValue::Int(JOB_ID)],
-        )?;
-        Ok(())
-    });
+    let _ = with_activity(cancel_scheduled_job);
+}
+
+fn cancel_scheduled_job(env: &mut Env<'_>, context: &JObject<'_>) -> jni::errors::Result<()> {
+    let name = env.new_string("jobscheduler")?;
+    let scheduler = env
+        .call_method(
+            context,
+            jni_str!("getSystemService"),
+            jni_sig!((name: JString) -> JObject),
+            &[JValue::Object(&name)],
+        )?
+        .l()?;
+    env.call_method(
+        &scheduler,
+        jni_str!("cancel"),
+        jni_sig!((id: int)),
+        &[JValue::Int(JOB_ID)],
+    )?;
+    Ok(())
 }
 
 fn crypt(env: &mut Env<'_>, class: &JClass<'_>, encrypt: bool, bytes: &[u8]) -> Result<Vec<u8>> {
@@ -313,6 +315,10 @@ pub(crate) fn restore_status(rule: &mut CameraSync) {
 }
 
 fn run_job(env: &mut Env<'_>, class: &JClass<'_>, context: &JObject<'_>) -> Result<bool> {
+    if !crate::feature_enabled("schist-cloud") {
+        cancel_scheduled_job(env, context)?;
+        return Ok(true);
+    }
     // The open app already owns a cloud connection and drives this rule.
     if gpui::android::app().is_some() {
         return Ok(true);
