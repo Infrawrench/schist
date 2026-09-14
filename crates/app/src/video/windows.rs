@@ -383,7 +383,14 @@ mod tests {
         let mut rgba = Vec::new();
         unsafe { copy_rows(pixels.as_ptr(), 20, [1, 1, 2, 2], &mut rgba).unwrap() };
         assert_eq!(rgba, expected);
-        let reversed: Vec<_> = pixels.chunks_exact(20).rev().flatten().copied().collect();
+        let reversed: Vec<_> = pixels
+            .as_chunks::<20>()
+            .0
+            .iter()
+            .rev()
+            .flatten()
+            .copied()
+            .collect();
         rgba.clear();
         unsafe {
             copy_rows(reversed.as_ptr().add(60), -20, [1, 1, 2, 2], &mut rgba).unwrap();
