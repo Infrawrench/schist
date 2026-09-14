@@ -47,7 +47,8 @@ impl Workspace {
         // canvas it paints, pans or drags a tool instead, and two fingers
         // do the scrolling and zooming.
         window.claim_touch_drag();
-        if self.type_field_option().is_some() {
+        if self.type_field_option().is_some() || self.focused_field == Some(palettes::SEARCH_FIELD)
+        {
             self.commit_focused_field();
         }
         // Clicking the canvas ends an inline layer rename or an open

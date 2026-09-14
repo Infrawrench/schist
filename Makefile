@@ -308,6 +308,15 @@ check-feature-flags:
 lint-cloud:
 	$(CARGO) clippy -p schist-cloud -p schist-app -p schist-document -p schist-people-worker --all-targets -- -D warnings
 
+# Photoshop palette readers, workspace integration, and browser compilation.
+.PHONY: check-palettes check-palettes-wasm
+check-palettes:
+	$(CARGO) test -p schist-color
+	$(CARGO) test -p schist-app --lib workspace::palettes::tests
+	$(CARGO) test -p schist-i18n
+check-palettes-wasm:
+	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
+
 # Native video decoding, gallery invariants, and catalogs.
 .PHONY: check-video format-video
 check-video:

@@ -39,6 +39,7 @@ pub(super) fn top_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui
             Chip::new(id, label)
                 .selected(on)
                 .on_click(cx.listener(move |ws, _e, _w, cx| {
+                    ws.commit_focused_field();
                     ws.side_tab = Some(which);
                     cx.notify();
                 }))

@@ -621,6 +621,7 @@ impl Render for Workspace {
             "Workspace modal"
         } else if self.tool_captures_keys()
             || self.type_field_option().is_some()
+            || self.focused_field == Some(palettes::SEARCH_FIELD)
             || self.dropdown_open()
             || self.layer_rename.is_some()
             || self.note_edit.is_some()

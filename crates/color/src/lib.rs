@@ -7,6 +7,8 @@
 
 use serde::{Deserialize, Serialize};
 
+pub mod palette;
+
 /// Bits per channel of a document.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum Depth {
@@ -294,6 +296,22 @@ pub mod convert {
             from_linear(r).clamp(0.0, 1.0),
             from_linear(g).clamp(0.0, 1.0),
             from_linear(b).clamp(0.0, 1.0),
+            alpha,
+        )
+    }
+
+    /// D50 CIELAB to sRGB, for Adobe swatches and color books. The matrix
+    /// includes Bradford adaptation from D50 to sRGB's D65 white point.
+    /// Keep this separate from the D65 Lab used by document conversion.
+    pub fn lab_d50_to_rgb(lab: [f32; 3], alpha: f32) -> Rgba {
+        let fy = (lab[0] + 16.0) / 116.0;
+        let x = lab_f_inv(fy + lab[1] / 500.0) * 0.96422;
+        let y = lab_f_inv(fy);
+        let z = lab_f_inv(fy - lab[2] / 200.0) * 0.82521;
+        Rgba::new(
+            from_linear(3.133856 * x - 1.616867 * y - 0.490615 * z).clamp(0.0, 1.0),
+            from_linear(-0.978769 * x + 1.916142 * y + 0.033454 * z).clamp(0.0, 1.0),
+            from_linear(0.071945 * x - 0.228991 * y + 1.405243 * z).clamp(0.0, 1.0),
             alpha,
         )
     }
