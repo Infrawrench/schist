@@ -181,15 +181,16 @@ impl Decoder {
                     .GetUINT64(&MF_MT_PIXEL_ASPECT_RATIO)
                     .unwrap_or((1 << 32) | 1);
                 let aspect = (aspect >> 32) as f64 / (aspect as u32).max(1) as f64;
-                // MF expresses rotation counter-clockwise. Preserve the
-                // source metadata if RGB conversion omits that attribute.
+                // MF describes the stored image's counter-clockwise rotation.
+                // Undo it for display, preserving the source metadata if RGB
+                // conversion omits that attribute.
                 let matrix = match format
                     .GetUINT32(&MF_MT_VIDEO_ROTATION)
                     .unwrap_or(self.source_rotation)
                 {
-                    90 => [0, -1, 1, 0],
+                    90 => [0, 1, -1, 0],
                     180 => [-1, 0, 0, -1],
-                    270 => [0, 1, -1, 0],
+                    270 => [0, -1, 1, 0],
                     _ => [1, 0, 0, 1],
                 };
                 let buffer = sample.ConvertToContiguousBuffer()?;
