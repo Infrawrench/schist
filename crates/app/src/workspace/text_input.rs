@@ -29,7 +29,8 @@ impl Workspace {
     /// Whether something is taking typing right now: what should have
     /// the keyboard up.
     fn wants_text_input(&mut self) -> bool {
-        self.focused_field.is_some()
+        self.spotlight.open
+            || self.focused_field.is_some()
             || self.gallery_typing()
             || self.layer_rename.is_some()
             || self.note_edit.is_some()
@@ -43,7 +44,11 @@ impl Workspace {
         if !self.wants_text_input() {
             return None;
         }
-        let focus = self.focus.clone();
+        let focus = if self.spotlight.open {
+            self.spotlight.focus.clone()
+        } else {
+            self.focus.clone()
+        };
         let entity = cx.entity();
         Some(
             gpui::canvas(
@@ -62,6 +67,10 @@ impl Workspace {
     /// that keep a plain buffer; the type tool's text stays with the
     /// tool.
     fn focused_text(&self) -> Option<(&str, Range<usize>)> {
+        if self.spotlight.open {
+            let edit = &self.spotlight.input;
+            return Some((&edit.text, edit.selection()));
+        }
         if self.focused_field.is_some() {
             return Some((&self.field_buffer, self.field_selection()));
         }

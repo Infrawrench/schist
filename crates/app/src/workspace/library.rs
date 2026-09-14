@@ -3302,8 +3302,23 @@ impl Workspace {
             cx.notify();
             return;
         }
+        self.search_photo_query(query, seq, false, cx);
+    }
+
+    /// Shared ranking engine, with independent result ownership for Spotlight.
+    pub(super) fn search_photo_query(
+        &mut self,
+        query: String,
+        seq: u64,
+        spotlight: bool,
+        cx: &mut Context<Self>,
+    ) {
         let cached = self.library.query_cache.get(&query).cloned();
-        let scope = self.library.search_scope();
+        let scope = if spotlight {
+            None
+        } else {
+            self.library.search_scope()
+        };
         let snapshot = self.library.search_snapshot();
         // The third reading of the query: who it names. A person's
         // photos are pulled in whole, above anything the towers rank.
@@ -3386,6 +3401,9 @@ impl Workspace {
                 .await;
             this.update(cx, |ws, cx| {
                 let Some((ranked, place_name, names, fresh)) = ranked else {
+                    if spotlight {
+                        ws.spotlight_photos_ready(seq, Vec::new(), cx);
+                    }
                     return;
                 };
                 if let Some((query, answer)) = fresh {
@@ -3396,7 +3414,9 @@ impl Workspace {
                     ws.library.query_cache.insert(query, answer);
                 }
                 // A newer keystroke owns the results now.
-                if ws.library.search_seq == seq {
+                if spotlight {
+                    ws.spotlight_photos_ready(seq, ranked, cx);
+                } else if ws.library.search_seq == seq {
                     ws.library.search_results = Some(ranked);
                     ws.library.search_place = place_name;
                     ws.library.search_people = names;

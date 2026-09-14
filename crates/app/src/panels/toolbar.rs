@@ -122,7 +122,9 @@ pub fn tool_options_bar(
             .children(ui::touch().then(|| save_to_photos_button(ws, cx)))
             .child(side_panels_toggle(ws, window, cx));
     }
-    bar.into_any_element()
+    bar.child(div().flex_grow())
+        .child(crate::workspace::spotlight::search_button(cx))
+        .into_any_element()
 }
 
 /// The touch chrome's panel button. On an iPad it folds the panel column

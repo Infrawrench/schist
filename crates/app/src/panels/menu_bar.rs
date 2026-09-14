@@ -26,6 +26,7 @@ pub(crate) fn run_app_item(
     cx: &mut Context<Workspace>,
 ) {
     match item {
+        AppItem::Search => ws.show_spotlight(window, cx),
         AppItem::CloudGenerate => {
             ws.cloud_generate_open(cx);
         }

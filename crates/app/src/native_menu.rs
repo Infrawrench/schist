@@ -189,6 +189,7 @@ fn action_for(item: AppItem) -> Option<Box<dyn Action>> {
         // application menu a finger can reach (the iPadOS menu bar only
         // comes with a hardware keyboard), so View keeps it there.
         AppItem::Preferences if !cfg!(target_os = "ios") => return None,
+        AppItem::Search => Box::new(ShowSearch),
         AppItem::New => Box::new(NewFile),
         AppItem::Open => Box::new(OpenFile),
         AppItem::Close => Box::new(CloseTab),

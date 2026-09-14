@@ -1136,7 +1136,8 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyEl
             strip_actions::refresh,
             cx,
         ))
-        .child(div().flex_grow());
+        .child(div().flex_grow())
+        .child(super::spotlight::search_button(cx));
     let strip = if cloud {
         strip
             .children(super::cloud_view::filter_chip(ws, cx))
@@ -1228,6 +1229,7 @@ fn touch_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElem
     };
     strip
         .child(div().flex_grow())
+        .child(super::spotlight::search_button(cx))
         .child(
             Button::new("gallery-more", "\u{22ef}")
                 .colors(ButtonColors {

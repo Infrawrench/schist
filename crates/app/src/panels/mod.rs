@@ -90,7 +90,7 @@ impl<T: Styled> ActiveExt for T {}
 
 // ===== menu bar =====
 
-fn keybind_hint(kb: Option<&str>) -> String {
+pub(crate) fn keybind_hint(kb: Option<&str>) -> String {
     let Some(kb) = kb else { return String::new() };
     let kb = if cfg!(any(target_os = "macos", target_os = "ios")) {
         kb.to_string()

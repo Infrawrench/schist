@@ -89,6 +89,14 @@ file, never its output.
 
 ## What it does
 
+**Spotlight search.** Press ⌘⇧P on Mac or Ctrl+Shift+P elsewhere, or use
+File ▸ Search, to find tools, commands, filters, open documents, layers and
+photos. Type to filter, use ↑/↓ and Enter to choose a result, Tab to switch
+categories, and Escape to dismiss. Local photo results include filenames and
+the gallery’s people, place and content matches when indexed; cloud photos
+on the current page appear by name and tag, with a search action for the full
+cloud library. Content search uses the gallery’s installed Search models.
+
 **Schist Cloud.** Sign in from the welcome screen or File menu, with
 `schist.app` as the default provider. Live remote folders, searchable buckets,
 filters, uploads and collaborative editing share a MessagePack WebSocket.
