@@ -1,0 +1,20 @@
+# Adjustment layers and the Image ▸ Adjustments commands: the names.
+adjustment.levels.name = લેવલ્સ
+adjustment.curves.name = કર્વ્સ
+adjustment.hue_saturation.name = હ્યુ/સંતૃપ્તિ
+adjustment.brightness_contrast.name = તેજસ્વિતા/કોન્ટ્રાસ્ટ
+adjustment.black_white.name = કાળું અને સફેદ
+adjustment.solid_color.name = ઘન રંગ
+adjustment.gradient_fill.name = ગ્રેડિયન્ટ ભરણ
+adjustment.pattern_fill.name = પેટર્ન ભરણ
+adjustment.invert.name = ઉલટાવો
+adjustment.posterize.name = પોસ્ટરાઇઝ
+adjustment.threshold.name = થ્રેશોલ્ડ
+adjustment.color_balance.name = રંગ સંતુલન
+adjustment.vibrance.name = વાઇબ્રન્સ
+adjustment.exposure.name = એક્સપોઝર
+adjustment.photo_filter.name = ફોટો ફિલ્ટર
+adjustment.gradient_map.name = ગ્રેડિયન્ટ મેપ
+adjustment.selective_color.name = પસંદગીનો રંગ
+adjustment.channel_mixer.name = ચેનલ મિક્સર
+adjustment.other.name = ગોઠવણ

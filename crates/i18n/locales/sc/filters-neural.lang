@@ -1,0 +1,162 @@
+# Etichetas cumpartzidas
+filter.neural.param.center_x = Tzentru X
+filter.neural.param.center_y = Tzentru Y
+filter.neural.param.direction = Diretzione
+filter.neural.param.transition = Transitzione
+filter.neural.param.detail = Detàlliu
+filter.neural.param.eyes = Ogos
+
+# Messàgios de is modelos
+filter.neural.msg.using_model = Impreende {model} · {license}.
+filter.neural.msg.get_model = Otene·ddu dae Filtru ▸ Neural Filters ▸ Gesti is modellos.
+
+# Filtru Camera Raw
+filter.camera_raw.name = Filtru Camera Raw
+filter.camera_raw.param.temperature = Temperadura
+filter.camera_raw.param.tint = Tinta
+filter.camera_raw.param.highlights = Lughes artas
+filter.camera_raw.param.shadows = Umbras
+filter.camera_raw.param.whites = Biancos
+filter.camera_raw.param.blacks = Nieddos
+filter.camera_raw.param.clarity = Craresa
+filter.camera_raw.param.dehaze = Boga sa calìgine
+filter.camera_raw.param.vibrance = Vivacidade
+filter.camera_raw.param.sharpening = Afiladura
+filter.camera_raw.param.noise = Redutzione de su rumore
+filter.camera_raw.param.vignette = Vinetadura
+
+# Curretzione de s'obietivu
+filter.lens_correction.name = Curretzione de s'obietivu
+filter.lens_correction.param.distortion = Boga sa distorsione
+filter.lens_correction.param.red = Currege s'oru ruju/tzianu
+filter.lens_correction.param.blue = Currege s'oru biaitu/grogu
+filter.lens_correction.param.vignette = Cantidade de vinetadura
+filter.lens_correction.param.midpoint = Puntu mesanu de sa vinetadura
+filter.lens_correction.param.vertical = Perspetiva verticale
+filter.lens_correction.param.horizontal = Perspetiva orizontale
+
+# Grandàngulu adatativu
+filter.adaptive_wide_angle.name = Grandàngulu adatativu
+filter.adaptive_wide_angle.param.projection = Curretzione
+filter.adaptive_wide_angle.choice.fisheye = Ogu de pische
+filter.adaptive_wide_angle.choice.perspective = Perspetiva
+filter.adaptive_wide_angle.choice.full_spherical = Isfèrica intrea
+filter.adaptive_wide_angle.param.focal = Distàntzia focale
+filter.adaptive_wide_angle.param.crop = Fatare de retàlliu
+
+# Galleria de isfocaduras
+filter.field_blur.name = Isfocadura de campu
+filter.field_blur.param.position = Afiladu in
+filter.iris_blur.name = Isfocadura de ìride
+filter.iris_blur.param.roundness = Tundesa
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Tzentru
+filter.tilt_shift.param.band = Fàscia afilada
+filter.spin_blur.name = Isfocadura girada
+filter.spin_blur.param.angle = Àngulu de isfocadura
+filter.path_blur.name = Isfocadura de percursu
+filter.path_blur.param.speed = Lestresa
+filter.path_blur.param.curve = Curvatura
+filter.path_blur.param.taper = Assutziadura
+
+# Isfocadura
+filter.shape_blur.name = Isfocadura de forma
+filter.shape_blur.choice.square = Cuadradu
+filter.shape_blur.choice.diamond = Diamante
+filter.shape_blur.choice.hexagon = Esàgonu
+filter.shape_blur.choice.cross = Rughe
+filter.shape_blur.choice.ring = Aneddu
+filter.shape_blur.choice.star = Istella
+filter.smart_blur.name = Isfocadura inteligente
+filter.smart_blur.choice.normal = Normale
+filter.smart_blur.choice.edge_only = Oros ebbia
+filter.smart_blur.choice.overlay_edge = Subrapone is oros
+
+# Vìdeu
+filter.deinterlace.name = Disinterlàtzia
+filter.deinterlace.param.field = Elìmina
+filter.deinterlace.choice.odd_fields = Campos dìsparis
+filter.deinterlace.choice.even_fields = Campos paris
+filter.deinterlace.param.fill = Crea campos noos tràmite
+filter.deinterlace.choice.interpolation = Interpolatzione
+filter.deinterlace.choice.duplication = Duplicatzione
+filter.ntsc_colors.name = Colores NTSC
+
+# Neural Filters
+filter.neural.skin_smoothing.name = Allisciadura de sa pedde
+filter.neural.skin_smoothing.param.blur = Lisciura
+filter.neural.skin_smoothing.param.detail = Mantene su detàlliu
+filter.neural.skin_smoothing.msg.no_model = {model} no est installadu — in su logu suo est allischiadu totu su chi tenet colore de pedde, imbetzes de is caras.
+
+filter.neural.jpeg_artifacts.name = Bogadura de artefatos JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} no est installadu — in su logu suo est allisciada sa retza de 8 pixel.
+
+filter.neural.colorize.name = Colora
+filter.neural.colorize.param.warmth = Calore
+filter.neural.colorize.msg.no_model = {model} no est installadu — in su logu suo est aplicada una tinta segundu sa luminàntzia.
+
+filter.neural.super_zoom.name = Super Zoom
+filter.neural.super_zoom.msg.no_model = {model} no est installadu — in su logu suo est impreada un'afiladura orientada dae is oros.
+
+filter.neural.style_transfer.name = Trasferimentu de istile
+filter.neural.style_transfer.choice.mosaic = Mosàicu
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Perunu modellu de istile est installadu — est trasferidu su colore ebbia. Otene·ddos dae Filtru ▸ Neural Filters ▸ Gesti is modellos.
+filter.neural.style_transfer.msg.installed = Installados: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Trasferimentu de colore
+filter.neural.color_transfer.param.hue = Tonalidade de destinatzione
+filter.neural.color_transfer.param.contrast = Adatamentu de su contrastu
+filter.neural.color_transfer.msg.info = Preat sa paleta dae s'istratu de suta. Si non b'at nudda in suta, puntat imbetzes a sa Tonalidade de destinatzione.
+
+filter.neural.depth_blur.name = Isfocadura de profundidade
+filter.neural.depth_blur.param.focus = Distàntzia focale
+filter.neural.depth_blur.param.blur = Fortza de s'isfocadura
+filter.neural.depth_blur.msg.no_model = {model} no est installadu — in su logu suo est postu a focu segundu s'afiladura locale.
+
+filter.neural.harmonization.name = Armonizatzione
+filter.neural.harmonization.param.tone = Adatamentu de sa tonalidade
+filter.neural.harmonization.msg.info = Adatat custu istratu a su chi b'at in suta. Si non b'at nudda in suta, no b'at cun chi ddu adatare e custu no faghet nudda.
+
+filter.neural.landscape_mixer.name = Mischiadore de paisàgios
+filter.neural.landscape_mixer.param.bands = Fàscias de profundidade
+filter.neural.landscape_mixer.msg.with_depth = Preat sa paleta dae s'istratu de suta, adatada fàscia pro fàscia impreende Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Preat sa paleta dae s'istratu de suta. Installa Depth (Depth Blur) pro adatare chelu cun chelu e terra cun terra, imbetzes de s'immàgine intrea.
+
+filter.neural.photo_restoration.name = Restauratzione de fotografias
+filter.neural.photo_restoration.param.enhance = Megioramentu de sa fotografia
+filter.neural.photo_restoration.param.scratches = Redutzione de iscosaduras
+filter.neural.photo_restoration.param.tone = Riprìstina sa tonalidade
+filter.neural.photo_restoration.msg.no_model = Pulende chena unu modellu.
+filter.neural.photo_restoration.msg.using_deblock = Impreende Deblock · istruidu pro Schist.
+filter.neural.photo_restoration.msg.using_detail = Impreende Detail · istruidu pro Schist.
+filter.neural.photo_restoration.msg.using_both = Impreende Deblock e Detail · istruidos pro Schist.
+
+filter.neural.photo_to_sketch.name = Fotografia a disinnu
+filter.neural.photo_to_sketch.param.weight = Grussària de sa lìnia
+filter.neural.photo_to_sketch.param.shading = Umbradura
+
+filter.neural.face_to_caricature.name = Cara a caricatura
+filter.neural.face_to_caricature.param.mouth = Buca
+filter.neural.face_to_caricature.param.head = Conca
+filter.neural.face_to_caricature.msg.no_model = {model} no est installadu, duncas custu no faghet nudda — no b'at nudda de caricaturare.
+
+filter.neural.smart_portrait.name = Ritratu inteligente
+filter.neural.smart_portrait.param.happiness = Felitzidade
+filter.neural.smart_portrait.param.surprise = Ispantu
+filter.neural.smart_portrait.param.age = Edade de sa cara
+filter.neural.smart_portrait.param.gaze = Abbaidadura
+filter.neural.smart_portrait.param.light = Diretzione de sa lughe
+filter.neural.smart_portrait.msg.no_model = {model} no est installadu, duncas custu no faghet nudda — no tenet una cara cun chi traballare.
+
+filter.neural.makeup_transfer.name = Trasferimentu de trùccu
+filter.neural.makeup_transfer.param.lips = Lavras
+filter.neural.makeup_transfer.param.skin = Tonalidade de sa pedde
+filter.neural.makeup_transfer.msg.info = Preat su trùccu dae una cara in s'istratu de suta. Su colore, no sa trama.
+filter.neural.makeup_transfer.msg.no_model = {model} no est installadu, duncas custu no faghet nudda.
+
+filter.neural.sketch_to_portrait.name = Disinnu a ritratu
+filter.neural.sketch_to_portrait.param.detail = Mantene is lìnias
+filter.neural.sketch_to_portrait.msg.with_face = Istruiu pro prènnere su filtru Fotografia a disinnu de custa aplicatzione. Traballat subra de sa cara chi agatat.
+filter.neural.sketch_to_portrait.msg.no_face = Istruiu pro prènnere su filtru Fotografia a disinnu de custa aplicatzione. Installa Faces (Skin Smoothing) e at a traballare subra de sa cara imbetzes de subra de sa seletzione intrea.

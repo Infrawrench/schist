@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Aaftrekke
+tool.select.mode.intersect = Doorsnee
+
+tool.marquee.rect.name = Rechthuukige selectie
+tool.marquee.rect.description = Sleip 'n rechthuukige selectie. Shift aan 't begin van 't sleipe veug ze aan de selectie toe, Alt trèk ze d'rvanaaf en allebei make de doorsnee; Shift tiedes 't sleipe maak d'r 'n veerkant van. 'Ne klik zonger sleipe huf de selectie op.
+tool.marquee.ellipse.name = Elliptische selectie
+tool.marquee.ellipse.description = Sleip 'n elliptische selectie, mit dezelfde combinatie mit Shift en Alt es bie de rechthuukige selectie.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Sleip 'ne vriejhandjrandj; de selectie weurt tösse de oetènj geslote es 't sleipe vaerdig is. Shift veug toe, Alt trèk aaf.
+tool.lasso.history.select = Lassoselectie
+tool.lasso.polygonal.name = Veulhoeklasso
+tool.lasso.polygonal.description = Klik hook nao hook om 'n selectie mit rechte rande te make en klik kort bie 't ierste punt om ze te sjloete.
+tool.lasso.polygonal.history.select = Veulhoeklasso
+tool.lasso.magnetic.name = Magnetische lasso
+tool.lasso.magnetic.description = Volg grofweg 'ne randj; de omliening klikt vas aan 't sterkste contras kort bie 't gevolgde paad.
+tool.lasso.magnetic.history.select = Magnetische lasso
+tool.lasso.magnetic.option.frequency = Frequentie
+
+tool.wand.name = Toeverstaf
+tool.wand.description = Klik om 't aaneingeslote gebied mit 'n vergeliekbare kleur oonder de wiezer te selectere, binne de ingestèlde tolerantie — dezelfde tolerantie die Groeie, Vergeliekbaar en Kleurbereik gebroeke.
+tool.wand.option.contiguous = Aaneingeslote
+tool.wand.history.select = Toeverstaf
+
+tool.quick_select.name = Snelselectie
+tool.quick_select.description = Sjilder euver 'n gebied en de selectie greujt door de vergeliekbare pixels wo-euver de kwas löp.
+tool.quick_select.history.select = Snelselectie
+
+tool.object_select.name = Objectselectie
+tool.object_select.description = Sleip 'n kader roondj 'n object; de selectie klikt vas aan 't object dat d'rbinne gevoonge weurt.
+tool.object_select.history.select = Objectselectie

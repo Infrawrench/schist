@@ -1,0 +1,188 @@
+# ISO 639-1 language registry. English must remain first (startup fallback).
+# tag	Rust variant	native name	direction	default script
+# Language codes: pycountry ISO 639-3 database (alpha_2 entries, includes sh).
+# Native names and scripts: Unicode CLDR 48; names absent there supplied explicitly.
+en	En	English	ltr	Latn
+sv	Sv	svenska	ltr	Latn
+de	De	Deutsch	ltr	Latn
+zh-Hans	ZhHans	简体中文	ltr	Hans
+ja	Ja	日本語	ltr	Jpan
+aa	Aa	Qafar	ltr	Latn
+ab	Ab	Аԥсшәа	ltr	Cyrl
+ae	Ae	Avesta	rtl	Avst
+af	Af	Afrikaans	ltr	Latn
+ak	Ak	Akan	ltr	Latn
+am	Am	አማርኛ	ltr	Ethi
+an	An	aragonés	ltr	Latn
+ar	Ar	العربية	rtl	Arab
+as	As	অসমীয়া	ltr	Beng
+av	Av	Авар мацӀ	ltr	Cyrl
+ay	Ay	Aymar aru	ltr	Latn
+az	Az	azərbaycan	ltr	Latn
+ba	Ba	башҡорт	ltr	Cyrl
+be	Be	беларуская	ltr	Cyrl
+bg	Bg	български	ltr	Cyrl
+bi	Bi	Bislama	ltr	Latn
+bm	Bm	bamanakan	ltr	Latn
+bn	Bn	বাংলা	ltr	Beng
+bo	Bo	བོད་སྐད་	ltr	Tibt
+br	Br	brezhoneg	ltr	Latn
+bs	Bs	bosanski	ltr	Latn
+ca	Ca	català	ltr	Latn
+ce	Ce	нохчийн	ltr	Cyrl
+ch	Ch	Chamoru	ltr	Latn
+co	Co	corsu	ltr	Latn
+cr	Cr	ᓀᐦᐃᔭᐍᐏᐣ	ltr	Cans
+cs	Cs	čeština	ltr	Latn
+cu	Cu	церковнослове́нскїй	ltr	Cyrl
+cv	Cv	чӑваш чӗлхи	ltr	Cyrl
+cy	Cy	Cymraeg	ltr	Latn
+da	Da	dansk	ltr	Latn
+dv	Dv	ދިވެހިބަސް	rtl	Thaa
+dz	Dz	རྫོང་ཁ	ltr	Tibt
+ee	Ee	eʋegbe	ltr	Latn
+el	El	Ελληνικά	ltr	Grek
+eo	Eo	Esperanto	ltr	Latn
+es	Es	español	ltr	Latn
+et	Et	eesti	ltr	Latn
+eu	Eu	euskara	ltr	Latn
+fa	Fa	فارسی	rtl	Arab
+ff	Ff	Pulaar	ltr	Latn
+fi	Fi	suomi	ltr	Latn
+fj	Fj	Na Vosa Vakaviti	ltr	Latn
+fo	Fo	føroyskt	ltr	Latn
+fr	Fr	français	ltr	Latn
+fy	Fy	Frysk	ltr	Latn
+ga	Ga	Gaeilge	ltr	Latn
+gd	Gd	Gàidhlig	ltr	Latn
+gl	Gl	galego	ltr	Latn
+gn	Gn	avañe’ẽ	ltr	Latn
+gu	Gu	ગુજરાતી	ltr	Gujr
+gv	Gv	Gaelg	ltr	Latn
+ha	Ha	Hausa	ltr	Latn
+he	He	עברית	rtl	Hebr
+hi	Hi	हिन्दी	ltr	Deva
+ho	Ho	Hiri Motu	ltr	Latn
+hr	Hr	hrvatski	ltr	Latn
+ht	Ht	Kreyòl Ayisyen	ltr	Latn
+hu	Hu	magyar	ltr	Latn
+hy	Hy	հայերեն	ltr	Armn
+hz	Hz	Otjiherero	ltr	Latn
+ia	Ia	interlingua	ltr	Latn
+id	Id	Indonesia	ltr	Latn
+ie	Ie	Interlingue	ltr	Latn
+ig	Ig	Igbo	ltr	Latn
+ii	Ii	ꆈꌠꉙ	ltr	Yiii
+ik	Ik	Iñupiatun	ltr	Latn
+io	Io	Ido	ltr	Latn
+is	Is	íslenska	ltr	Latn
+it	It	italiano	ltr	Latn
+iu	Iu	ᐃᓄᒃᑎᑐᑦ	ltr	Cans
+jv	Jv	Jawa	ltr	Latn
+ka	Ka	ქართული	ltr	Geor
+kg	Kg	Kikongo	ltr	Latn
+ki	Ki	Gikuyu	ltr	Latn
+kj	Kj	Kuanyama	ltr	Latn
+kk	Kk	қазақ тілі	ltr	Cyrl
+kl	Kl	kalaallisut	ltr	Latn
+km	Km	ខ្មែរ	ltr	Khmr
+kn	Kn	ಕನ್ನಡ	ltr	Knda
+ko	Ko	한국어	ltr	Kore
+kr	Kr	Kanuri	ltr	Latn
+ks	Ks	کٲشُر	rtl	Arab
+ku	Ku	kurdî (kurmancî)	ltr	Latn
+kv	Kv	Коми кыв	ltr	Cyrl
+kw	Kw	kernewek	ltr	Latn
+ky	Ky	кыргызча	ltr	Cyrl
+la	La	Latina	ltr	Latn
+lb	Lb	Lëtzebuergesch	ltr	Latn
+lg	Lg	Luganda	ltr	Latn
+li	Li	Limburgs	ltr	Latn
+ln	Ln	lingála	ltr	Latn
+lo	Lo	ລາວ	ltr	Laoo
+lt	Lt	lietuvių	ltr	Latn
+lu	Lu	Tshiluba	ltr	Latn
+lv	Lv	latviešu	ltr	Latn
+mg	Mg	Malagasy	ltr	Latn
+mh	Mh	Kajin M̧ajeļ	ltr	Latn
+mi	Mi	Māori	ltr	Latn
+mk	Mk	македонски	ltr	Cyrl
+ml	Ml	മലയാളം	ltr	Mlym
+mn	Mn	монгол	ltr	Cyrl
+mr	Mr	मराठी	ltr	Deva
+ms	Ms	Melayu	ltr	Latn
+mt	Mt	Malti	ltr	Latn
+my	My	မြန်မာ	ltr	Mymr
+na	Na	Dorerin Naoero	ltr	Latn
+nb	Nb	Norsk bokmål	ltr	Latn
+nd	Nd	isiNdebele	ltr	Latn
+ne	Ne	नेपाली	ltr	Deva
+ng	Ng	Oshindonga	ltr	Latn
+nl	Nl	Nederlands	ltr	Latn
+nn	Nn	Norsk nynorsk	ltr	Latn
+no	No	norsk	ltr	Latn
+nr	Nr	isiNdebele	ltr	Latn
+nv	Nv	Diné Bizaad	ltr	Latn
+ny	Ny	Nyanja	ltr	Latn
+oc	Oc	occitan	ltr	Latn
+oj	Oj	Anishinaabemowin	ltr	Cans
+om	Om	Oromoo	ltr	Latn
+or	Or	ଓଡ଼ିଆ	ltr	Orya
+os	Os	ирон	ltr	Cyrl
+pa	Pa	ਪੰਜਾਬੀ	ltr	Guru
+pi	Pi	Pāḷi	ltr	Latn
+pl	Pl	polski	ltr	Latn
+ps	Ps	پښتو	rtl	Arab
+pt	Pt	português	ltr	Latn
+qu	Qu	Runasimi	ltr	Latn
+rm	Rm	rumantsch	ltr	Latn
+rn	Rn	Ikirundi	ltr	Latn
+ro	Ro	română	ltr	Latn
+ru	Ru	русский	ltr	Cyrl
+rw	Rw	Ikinyarwanda	ltr	Latn
+sa	Sa	संस्कृत भाषा	ltr	Deva
+sc	Sc	sardu	ltr	Latn
+sd	Sd	سنڌي	rtl	Arab
+se	Se	davvisámegiella	ltr	Latn
+sg	Sg	Sängö	ltr	Latn
+sh	Sh	Srpskohrvatski	ltr	Latn
+si	Si	සිංහල	ltr	Sinh
+sk	Sk	slovenčina	ltr	Latn
+sl	Sl	slovenščina	ltr	Latn
+sm	Sm	Gagana Sāmoa	ltr	Latn
+sn	Sn	chiShona	ltr	Latn
+so	So	Soomaali	ltr	Latn
+sq	Sq	shqip	ltr	Latn
+sr	Sr	српски	ltr	Cyrl
+ss	Ss	siSwati	ltr	Latn
+st	St	Sesotho	ltr	Latn
+su	Su	Basa Sunda	ltr	Latn
+sw	Sw	Kiswahili	ltr	Latn
+ta	Ta	தமிழ்	ltr	Taml
+te	Te	తెలుగు	ltr	Telu
+tg	Tg	тоҷикӣ	ltr	Cyrl
+th	Th	ไทย	ltr	Thai
+ti	Ti	ትግርኛ	ltr	Ethi
+tk	Tk	türkmen dili	ltr	Latn
+tl	Tl	Tagalog	ltr	Latn
+tn	Tn	Setswana	ltr	Latn
+to	To	lea fakatonga	ltr	Latn
+tr	Tr	Türkçe	ltr	Latn
+ts	Ts	Xitsonga	ltr	Latn
+tt	Tt	татар	ltr	Cyrl
+tw	Tw	Twi	ltr	Latn
+ty	Ty	Reo Tahiti	ltr	Latn
+ug	Ug	ئۇيغۇرچە	rtl	Arab
+uk	Uk	українська	ltr	Cyrl
+ur	Ur	اردو	rtl	Arab
+uz	Uz	o‘zbek	ltr	Latn
+ve	Ve	Tshivenḓa	ltr	Latn
+vi	Vi	Tiếng Việt	ltr	Latn
+vo	Vo	Volapük	ltr	Latn
+wa	Wa	walon	ltr	Latn
+wo	Wo	Wolof	ltr	Latn
+xh	Xh	IsiXhosa	ltr	Latn
+yi	Yi	ייִדיש	rtl	Hebr
+yo	Yo	Èdè Yorùbá	ltr	Latn
+za	Za	Vahcuengh	ltr	Latn
+zu	Zu	isiZulu	ltr	Latn

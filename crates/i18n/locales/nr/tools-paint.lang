@@ -1,0 +1,83 @@
+# Brush
+tool.brush.name = Ibhratjhi
+tool.brush.description = Penda umuda onomphetho othambileko ngombala wangaphambili, ubukhulu bawo bulawulwa bubukhulu bebhratjhi, ukuqina nokusitheka komhleli.
+tool.brush.history.stroke = Ibhratjhi
+
+# Pencil
+tool.pencil.name = Ipeniseli
+tool.pencil.description = Penda umuda onomphetho oqinileko ongathanjiswako ngombala wangaphambili.
+tool.pencil.history.stroke = Ipeniseli
+
+# Eraser
+tool.eraser.name = Isisuli
+tool.eraser.description = Sula ngokulandela umuda, ubuyisele ileya ekubonakaleni ngale.
+tool.eraser.history.stroke = Isisuli
+
+# Clone Stamp
+tool.clone.name = Isitembu Sokukopa
+tool.clone.description = Isitembu Sokukopa: qhafaza ngo-alt ukubeka iphuzu lomthombo, bese upenda amaphikseli akotjwe kilo ebangeni lelo.
+tool.clone.history.stroke = Isitembu Sokukopa
+
+# Dodge, Burn, Sponge
+tool.dodge.name = Khanyisa
+tool.dodge.description = Yenza amaphikseli umuda odlula phezu kwawo akhanye.
+tool.dodge.history.stroke = Khanyisa
+tool.burn.name = Nzimisa
+tool.burn.description = Yenza amaphikseli umuda odlula phezu kwawo abe nzima.
+tool.burn.history.stroke = Nzimisa
+tool.sponge.name = Isipontji
+tool.sponge.description = Suthisa, namkha unciphise ukusutha, kwamaphikseli umuda odlula phezu kwawo.
+tool.sponge.history.stroke = Isipontji
+
+# Blur, Sharpen, Smudge
+tool.blur.name = Fifiyela
+tool.blur.description = Fifiyelisa amaphikseli umuda odlula phezu kwawo.
+tool.blur.history.stroke = Fifiyela
+tool.sharpen.name = Lolisa
+tool.sharpen.description = Lolisa amaphikseli umuda odlula phezu kwawo.
+tool.sharpen.history.stroke = Lolisa
+tool.smudge.name = Sindliza
+tool.smudge.description = Dosa umbala ngokulandela umuda, njengokungathi usunduza ipende emanzi.
+tool.smudge.history.stroke = Sindliza
+
+# Healing
+tool.heal.name = Ibhratjhi Yokulungisa
+tool.heal.description = Ibhratjhi Yokulungisa: qhafaza ngo-alt ukubeka umthombo, bese upenda; ukwakheka komthombo kuhlanganiswa nombala nokukhanya kwendawo okuya kiyo.
+tool.heal.history.stroke = Ibhratjhi Yokulungisa
+tool.spot_heal.name = Ibhratjhi Yokulungisa Amabala
+tool.spot_heal.description = Ibhratjhi Yokulungisa Amabala: penda phezu kwesici bese sijanyiselelwa ngokwakheka okuthathwe endaweni esizombelezileko -- akunaphuzu lomthombo ekufanele libekwe.
+tool.spot_heal.history.stroke = Ibhratjhi Yokulungisa Amabala
+
+# History Brush
+tool.history_brush.name = Ibhratjhi Yomlando
+tool.history_brush.description = Penda ubuyise amaphikseli esithombeni esigcinwe emlandweni wedokhumenti, ubuyisela emuva umsebenzi wakamuva umuda ngomuda.
+tool.history_brush.history.stroke = Ibhratjhi Yomlando
+
+# Background Eraser
+tool.background_eraser.name = Isisuli Sangemuva
+tool.background_eraser.description = Sula umbala othathwe ngaphasi kwesentha yebhratjhi bese utjhiya amaphikseli angafani nawo, ukuze ukhuphe into engemuva layo.
+tool.background_eraser.history.stroke = Isisuli Sangemuva
+
+# Gradient
+tool.gradient.name = Ukutjhuguluka Kombala
+tool.gradient.description = Dosa ukuzalisa ileya -- udlule kokukhethiweko nakukhona -- ngokutjhuguluka kombala okunqophileko okusuka kumbala wangaphambili kuye kumbala wangemuva ngendlela yokudosa.
+tool.gradient.radial.name = Ukutjhuguluka Kombala Okuzombeleza Isentha
+tool.gradient.radial.description = Dosa ukusuka esentha uye ngaphandle ukuzalisa ngokutjhuguluka kombala okuzombeleza isentha phakathi kombala wangaphambili nowangemuva.
+tool.gradient.option.gradient = Ukutjhuguluka Kombala
+tool.gradient.option.reverse = Phendula
+tool.gradient.option.dither = Hlanganisa Amachaphaza
+tool.gradient.choice.foreground_to_background = Ngaphambili kuye Ngemuva
+tool.gradient.choice.foreground_to_transparent = Ngaphambili kuye Ekubonakaleni Ngale
+tool.gradient.choice.linear = Okuqondileko
+tool.gradient.choice.radial = Okuzombeleza Isentha
+tool.gradient.choice.angle = I-engela
+tool.gradient.choice.reflected = Okubuyiselweko
+tool.gradient.choice.diamond = Idayimani
+tool.gradient.history.gradient = Ukutjhuguluka Kombala
+
+# Paint Bucket
+tool.bucket.name = Ibhakede Lepende
+tool.bucket.description = Qhafaza ukuzalisa indawo ehlangeneko yombala ofanako ongaphasi kwenkomba ngombala wangaphambili, ngaphakathi kokubekezelela kwethulusi.
+tool.bucket.option.contiguous = Okuhlangeneko
+tool.bucket.option.all_layers = Woke Amaleya
+tool.bucket.history.fill = Ibhakede Lepende

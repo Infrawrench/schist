@@ -1,0 +1,25 @@
+tool.transform.name = Vrye transformasie
+tool.transform.description = Vrye transformasie. Wanneer dit geaktiveer word, verskyn 'n transformasiekassie om die aktiewe laag: sleep 'n hoek om te skaal, sleep buite 'n hoek om te draai, of sleep 'n rand om skeef te trek. Niks word geskryf totdat jy dit bevestig (Enter) nie, en kansellering (Escape) herstel die laag.
+tool.transform.option.interpolation = Interpolasie
+tool.transform.history.transform = Vrye transformasie
+tool.transform.history.image_size = Beeldgrootte
+tool.transform.history.canvas_size = Doekgrootte
+
+tool.transform.selection.name = Transformeer seleksie
+tool.transform.selection.description = Transformeer seleksie: dieselfde kassie, maar dit skuif die seleksieomtrek in plaas van die pixels daarin. Bevestig of kanselleer om te voltooi.
+tool.transform.selection.history.transform = Transformeer seleksie
+
+tool.transform.resample.nearest_neighbor = Naaste buur
+tool.transform.resample.bilinear = Bilineêr
+tool.transform.resample.bicubic = Bikubies
+
+tool.crop.name = Sny
+tool.crop.description = Sleep om die gebied wat behou moet word te merk en verstel die handvatsels; bevestiging (Enter) sny die dokument daarvolgens, terwyl kansellering (Escape) dit onveranderd laat.
+tool.crop.option.ratio = Verhouding
+tool.crop.option.delete_cropped = Skrap afgesnyde pixels
+tool.crop.choice.unconstrained = Onbeperk
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Sny

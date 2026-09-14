@@ -1,0 +1,23 @@
+# བསྒྱུར་བཅོས་ལག་ཆས།
+tool.transform.name = རང་དབང་བསྒྱུར་བཅོས།
+tool.transform.description = རང་དབང་བསྒྱུར་བཅོས། ལས་འགུལ་ཅན་བཟོཝ་ད་ད་ལྟོའི་བང་རིམ་གྱི་མཐའ་སྐོར་ལུ་བསྒྱུར་བཅོས་སྒྲོམ་ཅིག་ཁ་ཕྱེཝ་ཨིན། ཟུར་ཅིག་འདྲུད་དེ་ཆེ་ཆུང་སྒྱུར་ ཟུར་ཅིག་གི་ཕྱི་ཁར་འདྲུད་དེ་བསྒྱིར་ དང་མཐའ་མཚམས་ཅིག་འདྲུད་དེ་གསེག་སྒྱུར་འབད། ངོས་ལེན་ (Enter) མ་འབད་ཚུན་ཚོད་ག་ནི་ཡང་མི་བྲིས། ཆ་མེད་ (Escape) འབད་བ་ཅིན་བང་རིམ་དེ་ཧེ་མའི་གནས་སྟངས་ནང་ལོགཔ་ཨིན།
+tool.transform.option.interpolation = བར་སྒྲིག
+tool.transform.history.transform = རང་དབང་བསྒྱུར་བཅོས།
+tool.transform.history.image_size = པར་གྱི་ཚད།
+tool.transform.history.canvas_size = རས་གཞིའི་ཚད།
+tool.transform.selection.name = སེལ་འཐུ་བསྒྱུར་བཅོས།
+tool.transform.selection.description = སེལ་འཐུ་བསྒྱུར་བཅོས་ནི་ སྒྲོམ་གཅིག་ཨིན་རུང་ འདི་གིས་ནང་གི་པིག་སེལ་ཚུ་མེན་པར་སེལ་འཐུའི་མཐའ་ཐིག་སྤོཝ་ཨིན། མཇུག་བསྡུ་ནིའི་དོན་ལུ་ངོས་ལེན་ ཡང་ན་ཆ་མེད་འབད།
+tool.transform.selection.history.transform = སེལ་འཐུ་བསྒྱུར་བཅོས།
+tool.transform.resample.nearest_neighbor = ཁྱིམ་མཚེས་ཉེ་ཤོས།
+tool.transform.resample.bilinear = Bilinear བར་སྒྲིག
+tool.transform.resample.bicubic = Bicubic བར་སྒྲིག
+tool.crop.name = བཏོག
+tool.crop.description = བཞག་ནིའི་ས་ཁོངས་དེ་འདྲུད་དེ་བཟོ་ཞིནམ་ལས་ དེའི་བཟུང་ཆས་ཚུ་སྒྲིག ངོས་ལེན་ (Enter) འབད་བ་ཅིན་ཡིག་ཆ་དེ་ས་ཁོངས་དེ་ཚུན་བཏོགཔ་ཨིན། ཆ་མེད་ (Escape) འབད་བ་ཅིན་ཡིག་ཆ་ལུ་ག་ནི་ཡང་མི་འབད།
+tool.crop.option.ratio = ཆ་ཚད།
+tool.crop.option.delete_cropped = བཏོགས་ཡོད་པའི་པིག་སེལ་བཏོན་གཏང་།
+tool.crop.choice.unconstrained = བཀག་འཛིན་མེདཔ།
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = བཏོག

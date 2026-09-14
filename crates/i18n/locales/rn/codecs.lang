@@ -1,0 +1,36 @@
+# Format names
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Dosiye mbisi ya kamera
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = gusoma {name}
+codec.msg.zero_sized = ishusho nta pikisele ifise
+codec.msg.assembling_document = guteranya inyandiko
+
+codec.raw.msg.decoding = gusoma dosiye mbisi
+codec.raw.msg.developing = gutunganya dosiye mbisi
+codec.raw.msg.finding_preview = kurondera akarorero kari muri dosiye
+codec.raw.msg.decoding_preview = gusoma akarorero kari muri dosiye
+codec.raw.msg.decoder_panicked = igisoma dosiye mbisi cananiwe kuri iyi dosiye: {what}
+
+codec.affinity.import_title = Kuzana Affinity
+codec.affinity.flattened_preview_layer = Akarorero kahurijwe hamwe
+codec.affinity.msg.no_preview = Nta karorero kari muri dosiye gashobora gukoreshwa. Ubwoko bwa Affinity bugumana inzego ni ubwayo; Schist izana akarorero kahurijwe hamwe kari muri dosiye. Iyi dosiye nta ko ifise — yongere uyibike muri Affinity, canke uyivome nka PSD kugira uzane inzego zose.
+
+codec.heif.msg.no_library = libheif ntiboneka ({details}). Kwugurura HEIC bisaba ububiko libheif (Linux: shiramwo libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — iyi verisiyo ya libheif ishobora kuba idafise igisoma HEVC (kuri Debian/Ubuntu, shiramwo libheif-plugin-libde265)
+codec.heif.msg.unknown_error = ikosa ritazwi
+codec.heif.msg.initialising = gutegura libheif
+codec.heif.msg.reading_container = gusoma igikoresho HEIF
+codec.heif.msg.finding_primary_image = kurondera ishusho nyamukuru
+codec.heif.msg.reading_icc_profile = gusoma umwirondoro ICC
+codec.heif.msg.decoding_image = gusoma ishusho
+codec.heif.msg.checksum_mismatch = Checksum ya {name} ntihuye: hari hitezwe {expected}, habonetse {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ntiyashoboye gusoma igikoresho HEIF
+codec.heif.msg.container_empty = igikoresho HEIF nta shusho kirimwo
+codec.heif.msg.imageio_cannot_decode = ImageIO ntiyashoboye gusoma ishusho nyamukuru

@@ -1,0 +1,25 @@
+tool.transform.name = Gucula Ngalokukhululekile
+tool.transform.description = Gucula Ngalokukhululekile. Kucalisa loku kuvula libhokisi lekugucula lelitungelete luhlaka lolusebentako: hudvula likhona kuze ukhulise nobe unciphise, hudvula ngaphandle kwelikona kuze ujikeletise, bese uhudvula luphetfo kuze utshekise. Kute lokubhalwako kuze kwemukelwe (Enter), futsi kukhansela (Escape) kubuyisela luhlaka esimeni salo.
+tool.transform.option.interpolation = Kulinganisela Emkhatsini
+tool.transform.history.transform = Gucula Ngalokukhululekile
+tool.transform.history.image_size = Bukhulu Besitfombe
+tool.transform.history.canvas_size = Bukhulu Bekhanvasi
+
+tool.transform.selection.name = Gucula Lokukhetsiwe
+tool.transform.selection.description = Gucula Lokukhetsiwe: libhokisi lelifananako, lelihambisa umncele walokukhetsiwe kunemaphikseli langekhatsi kwawo. Yemukela nobe ukhansele kuze ucedze.
+tool.transform.selection.history.transform = Gucula Lokukhetsiwe
+
+tool.transform.resample.nearest_neighbor = Makhelwane Losedvute
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Sika
+tool.crop.description = Hudvula ukhetse indzawo lotayigcina bese ulungisa tibambo tayo; kwemukela (Enter) kusika idokhumenti kulendzawo, kukhansela (Escape) kuyishiya ingakagucuki.
+tool.crop.option.ratio = Silinganiso
+tool.crop.option.delete_cropped = Susa Emaphikseli Lasikiwe
+tool.crop.choice.unconstrained = Akukhawulelwanga
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Sika

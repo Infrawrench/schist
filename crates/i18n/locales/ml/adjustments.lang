@@ -1,0 +1,20 @@
+# Adjustment layers and Image adjustments.
+adjustment.levels.name = ലെവലുകൾ
+adjustment.curves.name = കർവുകൾ
+adjustment.hue_saturation.name = വർണ്ണഭാവം/സാച്ചുറേഷൻ
+adjustment.brightness_contrast.name = തെളിച്ചം/കോൺട്രാസ്റ്റ്
+adjustment.black_white.name = കറുപ്പും വെളുപ്പും
+adjustment.solid_color.name = ഏകവർണ്ണം
+adjustment.gradient_fill.name = ഗ്രേഡിയന്റ് നിറയ്ക്കൽ
+adjustment.pattern_fill.name = പാറ്റേൺ നിറയ്ക്കൽ
+adjustment.invert.name = വിപരീതമാക്കുക
+adjustment.posterize.name = പോസ്റ്ററൈസ്
+adjustment.threshold.name = പരിധിമൂല്യം
+adjustment.color_balance.name = വർണ്ണസന്തുലനം
+adjustment.vibrance.name = വൈബ്രൻസ്
+adjustment.exposure.name = എക്സ്പോഷർ
+adjustment.photo_filter.name = ഫോട്ടോ ഫിൽട്ടർ
+adjustment.gradient_map.name = ഗ്രേഡിയന്റ് മാപ്പ്
+adjustment.selective_color.name = തിരഞ്ഞെടുത്ത വർണ്ണം
+adjustment.channel_mixer.name = ചാനൽ മിക്സർ
+adjustment.other.name = ക്രമീകരണം

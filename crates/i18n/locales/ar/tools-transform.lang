@@ -1,0 +1,31 @@
+# التحويل الحر وتحويل التحديد والاقتصاص، وأسماء طرق إعادة التشكيل.
+
+# التحويل الحر
+tool.transform.name = تحويل حر
+tool.transform.description = التحويل الحر. يؤدي تنشيطه إلى فتح مربع تحويل حول الطبقة النشطة: اسحب زاوية لتغيير الحجم، أو اسحب خارج زاوية للتدوير، أو اسحب حافة للإمالة. لا يُكتب أي تغيير حتى اعتماده (Enter)، ويعيد الإلغاء (Escape) الطبقة إلى حالتها السابقة.
+tool.transform.option.interpolation = الاستيفاء
+tool.transform.history.transform = تحويل حر
+tool.transform.history.image_size = حجم الصورة
+tool.transform.history.canvas_size = حجم مساحة العمل
+
+# تحويل التحديد
+tool.transform.selection.name = تحويل التحديد
+tool.transform.selection.description = تحويل التحديد: المربع نفسه، لكنه ينقل حدود التحديد بدلًا من وحدات البكسل داخله. اعتمد العملية أو ألغها للإنهاء.
+tool.transform.selection.history.transform = تحويل التحديد
+
+# مرشحات إعادة التشكيل التقليدية، وفق تسميات حجم الصورة في Photoshop
+tool.transform.resample.nearest_neighbor = أقرب مجاور
+tool.transform.resample.bilinear = ثنائي الخطية
+tool.transform.resample.bicubic = ثنائي التكعيب
+
+# الاقتصاص
+tool.crop.name = اقتصاص
+tool.crop.description = اسحب لتحديد المنطقة المراد الاحتفاظ بها واضبط مقابضها؛ يؤدي الاعتماد (Enter) إلى قص المستند وفقها، بينما يتركه الإلغاء (Escape) كما هو.
+tool.crop.option.ratio = النسبة
+tool.crop.option.delete_cropped = حذف وحدات البكسل المقصوصة
+tool.crop.choice.unconstrained = بلا قيود
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = اقتصاص

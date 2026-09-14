@@ -1,0 +1,23 @@
+tool.patch.name = पट्टिका
+tool.patch.description = दोषस्य परितः सीमां कर्षयतु, ततः तच्चयनं निर्दोषपिक्सेलानाम् उपरि कर्षयतु; तत्रत्यं गठनं दोषे योज्यते। पट्टिकाविधिः युग्मस्य कतमं भागं कर्षणीयमिति चिनोति।
+tool.patch.option.patch = पट्टिका
+tool.patch.choice.source = स्रोतः
+tool.patch.choice.destination = गन्तव्यम्
+tool.patch.history.patch = पट्टिका
+
+tool.content_aware_move.name = विषयबोधि चालनम्
+tool.content_aware_move.description = चयनितं वस्तु अन्यत्र कर्षयतु; तेन त्यक्तं रन्ध्रं परितः स्थितैः पिक्सेलैः पूर्यते। विस्तारणविधौ वस्तु चालनस्य स्थाने प्रसार्यते।
+tool.content_aware_move.choice.move = चालनम्
+tool.content_aware_move.choice.extend = विस्तारणम्
+tool.content_aware_move.history.move = विषयबोधि चालनम्
+
+tool.red_eye.name = रक्तनेत्रम्
+tool.red_eye.description = स्फुरणदीपजनितं रक्तवर्णं निष्कासयितुं नेत्रतारायां नोदयतु।
+tool.red_eye.option.pupil_size = नेत्रतारापरिमाणम्
+tool.red_eye.option.darken = गाढीकरणम्
+tool.red_eye.history.red_eye = रक्तनेत्रम्
+
+tool.magic_eraser.name = मायामार्जनी
+tool.magic_eraser.description = साधनस्य सहिष्णुतायाः अन्तः सूचकाधः स्थितसदृशवर्णप्रदेशं मार्जयितुं नोदयतु—नोदनस्थानसम्बद्धं प्रदेशं वा स्तरे सर्वत्र वा।
+tool.magic_eraser.option.contiguous = संलग्नम्
+tool.magic_eraser.history.erase = मायामार्जनी

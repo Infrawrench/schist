@@ -1,0 +1,36 @@
+app.filter_gallery.title = פֿילטער־גאַלעריע
+app.filter_gallery.stack = שיכטונג (ווערט אָנגעווענדט פֿון אונטן אַרויף)
+app.filter_gallery.no_settings = דער פֿילטער האָט נישט קיין אײַנשטעלונגען.
+app.fonts.not_open_licensed = נישט אָפֿן ליצענצירט · {substitute} שטימט מיט זײַנע מעטריקן
+app.fonts.missing_substituted = פֿעלט · דער טעקסט ווערט געזעצט אין אַן ערזאַץ־שריפֿט
+app.fonts.not_in_catalogue = {family} איז נישט אינעם אָפֿענעם שריפֿטן־קאַטאַלאָג
+app.fonts.no_faces = קיין אַראָפּלאָדלעכע שריפֿט־סטילן פֿאַר {family}
+app.fonts.empty_response = ליידיקער ענטפֿער
+app.update.unreadable_response = אומלייענבאַרער ענטפֿער: {error}
+app.update.no_temp_dir = קיין צײַטווײַליקע פּאַפּקע צו אַראָפּלאָדן אין איר
+app.update.asset_has_path = די ווערסיע גיט איר מיטל אַ נאָמען מיט אַ טעקע־דרך
+app.update.too_big = דאָס אַראָפּלאָד איז גרעסער ווי די ווערסיע זאָגט
+app.update.stopped_at = דאָס אַראָפּלאָד האָט זיך אָפּגעשטעלט בײַ {got} פֿון {total} בײַט
+app.update.hash_mismatch = דער האַש פֿונעם אַראָפּלאָד איז {got}, נישט {want}
+app.update.not_in_bundle = די קאָפּיע איז נישט אין אַן אַפּליקאַציע־פּעקל
+app.update.no_parent_dir = דער אַפּליקאַציע־פּעקל האָט נישט קיין מוטער־פּאַפּקע
+app.update.cannot_write = מע קען נישט שרײַבן אין {dir}
+app.update.cannot_move_aside = מע קען נישט אָפּשטעלן {app} אין אַ זײַט
+app.update.cannot_move_in = מע קען נישט אַרײַנרירן דאָס נײַע פּעקל אויפֿן אָרט
+app.update.cannot_run_ditto = מע קען נישט לויפֿן /usr/bin/ditto
+app.update.unpack_failed = אויספּאַקן דאָס אַראָפּלאָד איז דורכגעפֿאַלן: {error}
+app.update.no_app_in_download = דאָס אַראָפּלאָד האָט נישט קיין Schist.app
+app.update.cannot_run_codesign = מע קען נישט לויפֿן /usr/bin/codesign
+app.update.signature_invalid = די חתימה פֿונעם אַראָפּלאָד באַשטעטיקט זיך נישט: {error}
+app.update.download_unsigned = די קאָפּיע איז אונטערגעשריבן און דאָס אַראָפּלאָד נישט
+app.update.different_developer = דאָס אַראָפּלאָד איז אונטערגעשריבן פֿון אַן אַנדערן אַנטוויקלער
+app.update.cannot_relaunch = מע קען נישט אָנהייבן דעם ווידער־אָנהייבער
+app.update.not_installed_copy = די קאָפּיע איז נישט אַהער געשטעלט געוואָרן דורך דעם אינסטאַלירער
+app.update.cannot_start_installer = מע קען נישט אָנהייבן דעם אינסטאַלירער
+app.update.platform_unsupported = דערהײַנטיקונגען אויף דער פּלאַטפֿאָרמע ווערן אינסטאַלירט אַזוי ווי Schist איז אינסטאַלירט געוואָרן
+app.vulkan.no_loader = schist: אויף דער סיסטעם איז נישטאָ קיין Vulkan־לאָודער, דעריבער איז נישטאָ מיט וואָס צו צייכענען.\n\nSchist רענדערט דורך Vulkan, און `libvulkan.so.1` איז נישט אינסטאַלירט.\nמע דאַרף סײַ דעם לאָודער סײַ אַ דרײַווער:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: דער Vulkan־דרײַווער אויף וועלכן די סעסיע ווײַזט איז נישטאָ.\n\n{var} איז באַשטימט, און דאָס באַשטימען *פֿאַרבײַט* דעם לאָודערס זוכן נאָך\nדרײַווערס אַנשטאָט צוצוגעבן דערצו. די נישט־עקזיסטירנדיקע טעקעס זענען דעריבער\nדי גאַנצע דרײַווער־רשימה — און קיין Vulkan־פּראָגראַם אין דער סעסיע זעט נישט\nקיין דרײַווער, וויפֿל עס זאָלן נישט זײַן אינסטאַלירט:\n\n{missing}\n    {var}={value}\n\nווײַז עס אויף אַן עקזיסטירנדיקן manifest — אינסטאַלירטע דרײַווערס שטעלן זייערע אין\n/usr/share/vulkan/icd.d — אָדער נעם אַוועק די באַשטימונג און לאָז דעם לאָודער אַליין זוכן.\nאַ סעסיע וואָס באַשטימט דאָס פֿון אַ קאָנפֿיגוראַציע־טעקע (Hyprlandס `env =`, אַן\nsystemd environment.d־אײַנלייג, אַ shell־פּראָפֿיל) מוז מען דאָרטן טוישן,\nאון מע דאַרף זיך נײַ אַרײַנלאָגן כּדי די ענדערונג זאָל דערגרייכן פּראָגראַמען וואָס לויפֿן שוין.\n
+app.vulkan.override_note = \n{var} איז באַשטימט אויף {value}, און דאָס פֿאַרבײַט דעם לאָודערס אייגענע\nזוכונג: אויב קיין manifest דערפֿון איז נישט פֿאַר דער מאַשין, פּרוּוו ערשט\nאַוועקצונעמען די באַשטימונג.\n
+app.vulkan.no_driver = schist: קיין Vulkan־דרײַווער איז נישט אינסטאַלירט, דעריבער איז נישטאָ אויף וואָס צו צייכענען.\n\nSchist רענדערט דורך Vulkan. דער לאָודער איז אינסטאַלירט אָבער באַריכט נישט קיין\nדרײַווער — קיינער איז נישט רעגיסטרירט געוואָרן אין קיינעם פֿון די צוויי ערטער וווּ מע זוכט:\n\n{dirs}\n\nדער לאָודער קומט באַזונדער פֿון די דרײַווערס, דעריבער פֿעלט געוויינטלעך נאָר איין\nפּעקל.\n\nאינסטאַליר דעם פֿאַר דער מאַשינס GPU:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIAס פּראָפּריעטאַרער דרײַווער ברענגט זײַנעם (`nvidia-utils` אויף Arch,\n`nvidia-driver` אויף Debian). אין אַ ווירטועלער מאַשין, אָדער ערגעץ אָן קיין\nGPU־דרײַווער צו אינסטאַלירן, אַרבעט דער ווייכוואַרג־ראַסטעריזירער:\n`vulkan-swrast` אויף Arch, אַ טייל פֿון `mesa-vulkan-drivers` אַנדערשוווּ. ער איז\nפּאַמעלעך, אָבער הייבט זיך אָן.\n{overridden}
+app.vulkan.no_device = schist: אַ Vulkan־דרײַווער איז אינסטאַלירט אָבער גיט נישט קיין מיטל אויף וועלכן צו רענדערן.\n\nדער דרײַווער שטיצט אפֿשר נישט דעם GPU, אָדער קען אים נישט דערגרייכן —\nאיבער SSH, אָדער אין אַ קאַנטיינער, פֿעלט אָפֿט /dev/dri.\n`vulkaninfo --summary` באַריכט וואָס דער לאָודער זעט.\n\nאויב די מאַשין האָט נישט קיין GPU, קען דער ווייכוואַרג־ראַסטעריזירער רענדערן\nגאָר אָן איינעם: `vulkan-swrast` אויף Arch, אַ טייל פֿון `mesa-vulkan-drivers`\nאויף Debian און Fedora.\n
+app.vulkan.skip_hint = כּדי סײַ ווי אָנצוהייבן Schist און לאָזן אים דורכפֿאַלן אויף זײַן אופֿן, באַשטימט {var}=1.

@@ -1,0 +1,24 @@
+# خطے کی اصلاح کے ٹولز
+tool.patch.name = پیوند
+tool.patch.description = نقص کے گرد خاکہ گھسیٹیں، پھر اس انتخاب کو صاف پکسلز پر لے جائیں: وہاں کی بناوٹ نقص میں ہم آہنگ کی جاتی ہے۔ پیوند موڈ طے کرتا ہے کہ جوڑے کا کون سا سرا گھسیٹا جائے۔
+tool.patch.option.patch = پیوند
+tool.patch.choice.source = ماخذ
+tool.patch.choice.destination = منزل
+tool.patch.history.patch = پیوند
+
+tool.content_aware_move.name = مواد شناس منتقلی
+tool.content_aware_move.description = منتخب شے کو دوسری جگہ گھسیٹیں تو اس کی چھوڑی ہوئی جگہ اردگرد کے مواد سے بھر جاتی ہے۔ توسیعی موڈ میں شے کو منتقل کرنے کے بجائے پھیلایا جاتا ہے۔
+tool.content_aware_move.choice.move = منتقل کریں
+tool.content_aware_move.choice.extend = پھیلائیں
+tool.content_aware_move.history.move = مواد شناس منتقلی
+
+tool.red_eye.name = سرخ آنکھ
+tool.red_eye.description = پتلی پر کلک کرکے فلیش کی سرخی دور کریں۔
+tool.red_eye.option.pupil_size = پتلی کا سائز
+tool.red_eye.option.darken = گہرا کریں
+tool.red_eye.history.red_eye = سرخ آنکھ
+
+tool.magic_eraser.name = جادوئی مٹانے والا
+tool.magic_eraser.description = پوائنٹر کے نیچے ملتے جلتے رنگ کا حصہ ٹول کی برداشت کے اندر مٹانے کے لیے کلک کریں؛ یہ حصہ کلک سے متصل ہو سکتا ہے یا پوری لیئر میں موجود ہو سکتا ہے۔
+tool.magic_eraser.option.contiguous = متصل
+tool.magic_eraser.history.erase = جادوئی مٹانے والا

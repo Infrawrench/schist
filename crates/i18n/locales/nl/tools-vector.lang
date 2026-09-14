@@ -1,0 +1,44 @@
+# Pen-, padselectie- en vormhulpmiddelen.
+tool.pen.name = Pen
+tool.pen.description = Bouw een pad: klik voor een hoekpunt, sleep om de curvegrepen eruit te trekken en klik op het eerste punt om het pad te sluiten. Bij bevestigen wordt het pad een vormlaag.
+tool.pen.option.rubber_band = Elastisch
+tool.pen.history.fill = Pad vullen
+tool.pen.default_path_name = Pad {n}
+tool.pen.freeform.name = Pen voor vrije vorm
+tool.pen.freeform.description = Sleep een vrije lijn; deze wordt zo losjes als de optie Passend aangeeft op een pad aangesloten.
+tool.pen.freeform.option.fit = Passend
+tool.pen.curvature.name = Krommingspen
+tool.pen.curvature.description = Klik op een reeks punten; het pad wordt er vloeiend doorheen gebogen.
+
+tool.path_select.name = Padselectie
+tool.path_select.description = Klik op een pad om het te selecteren en sleep om het hele pad te verplaatsen.
+tool.direct_select.name = Direct selecteren
+tool.direct_select.description = Sleep een afzonderlijk ankerpunt of de grepen ervan om het omliggende pad van vorm te veranderen.
+
+tool.shape.history.layer = Laag {name}
+tool.shape.rect.name = Rechthoek
+tool.shape.rect.label = Rechthoek
+tool.shape.rect.description = Sleep een rechthoekige vormlaag in de voorgrondkleur. Deze blijft vectorgebaseerd en wordt bij elke formaatwijziging opnieuw gerasterd.
+tool.shape.ellipse.name = Ellips
+tool.shape.ellipse.label = Ellips
+tool.shape.ellipse.description = Sleep een elliptische vormlaag in de voorgrondkleur.
+tool.shape.line.name = Lijn
+tool.shape.line.label = Lijn
+tool.shape.line.description = Sleep een vormlaag met een rechte lijn in de voorgrondkleur.
+tool.shape.line.option.weight = Dikte
+tool.shape.line.option.arrow_start = Begin
+tool.shape.line.option.arrow_end = Einde
+tool.shape.polygon.name = Veelhoek
+tool.shape.polygon.label = Veelhoek
+tool.shape.polygon.description = Sleep een regelmatige veelhoek als vormlaag in de voorgrondkleur, met het aantal zijden uit de opties.
+tool.shape.polygon.option.sides = Zijden
+
+tool.shape.custom.name = Aangepaste vorm
+tool.shape.custom.label = Aangepaste vorm
+tool.shape.custom.description = Sleep een van de ingebouwde voorinstellingsvormen, gekozen met de optie Vorm.
+tool.shape.custom.choice.heart = Hart
+tool.shape.custom.choice.star = Ster
+tool.shape.custom.choice.arrow = Pijl
+tool.shape.custom.choice.lightning = Bliksem
+tool.shape.custom.choice.cross = Kruis
+tool.shape.custom.choice.speech_bubble = Tekstballon

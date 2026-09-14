@@ -1,0 +1,22 @@
+tool.liquify.name = ليڪويفاءِ
+tool.liquify.description = وڏي برش هيٺان پڪسلن کي ڌڪيو، ڦيرايو، اندر سڪوڙيو يا ٻاهر ڦوڪيو—موڊ جو اختيار عمل چونڊي ٿو. وڪڙ ميش ۾ گڏ ٿيندو رهي ٿو ۽ تصديق تي پرت تي لاڳو ٿئي ٿو.
+tool.liquify.option.tool = اوزار
+tool.liquify.choice.forward_warp = اڳتي وڪڙ
+tool.liquify.choice.reconstruct = ٻيهر ٺاهيو
+tool.liquify.choice.twirl_cw = ساڄي رخ ڦيرو
+tool.liquify.choice.twirl_ccw = کاٻي رخ ڦيرو
+tool.liquify.choice.pucker = اندر سڪوڙيو
+tool.liquify.choice.bloat = ٻاهر ڦوڪيو
+tool.liquify.choice.push_left = کاٻي پاسي ڌڪيو
+tool.liquify.history.liquify = ليڪويفاءِ
+
+tool.puppet_warp.name = پپٽ وڪڙ
+tool.puppet_warp.description = پرت کي ڪجهه نقطن تي پن ڪرڻ لاءِ ڪلڪ ڪريو، پوءِ هڪ پن کي ڇڪيو: ميش پنن جي چوڌاري وڪڙجي ٿي، سختيءَ جي اختيار موجب سخت يا ڍري نموني. تصديق سان تبديلي لاڳو ٿئي ٿي.
+tool.puppet_warp.option.stiffness = سختي
+tool.puppet_warp.history.puppet_warp = پپٽ وڪڙ
+
+tool.vanishing_point.name = گم ٿيندڙ نقطو
+tool.vanishing_point.description = پرسپيڪٽو واري شيءِ مٿان هڪ هموار هندسي سطح ڇڪي ٺاهيو، پوءِ موڊ کي ڪلون تي آڻي رنگيو: نقل ٿيل پڪسل سطح جي رخ تي هلندا ۽ فاصلي سان ننڍا ٿيندا.
+tool.vanishing_point.choice.edit_plane = سطح سنواريو
+tool.vanishing_point.choice.clone = ڪلون
+tool.vanishing_point.history.vanishing_point = گم ٿيندڙ نقطو

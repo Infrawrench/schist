@@ -1,0 +1,27 @@
+# Piranti warp: Liquify, Puppet Warp, lan Vanishing Point.
+
+# Liquify
+tool.liquify.name = Liquify
+tool.liquify.description = Dorong, ulir, ciutaké, utawa gembungaké piksel ing sangisoring kuas gedhé — pilihan modus nemtokaké tumindaké. Owah-owahan warp bakal nglumpuk ing jejaring lan ditrapaké menyang lapisan nalika dikomit.
+tool.liquify.option.tool = Piranti
+tool.liquify.choice.forward_warp = Warp Maju
+tool.liquify.choice.reconstruct = Rekonstruksi
+tool.liquify.choice.twirl_cw = Ulir Saarah Jarum Jam
+tool.liquify.choice.twirl_ccw = Ulir Kosok Baliné Jarum Jam
+tool.liquify.choice.pucker = Ciutaké
+tool.liquify.choice.bloat = Gembungaké
+tool.liquify.choice.push_left = Dorong Ngiwa
+tool.liquify.history.liquify = Liquify
+
+# Puppet Warp
+tool.puppet_warp.name = Puppet Warp
+tool.puppet_warp.description = Klik kanggo masang pin ing sawatara titik lapisan, banjur seret salah siji: jejaring bakal mlengkung ngubengi pin, kanthi kaku utawa longgar manut pilihan Kakuné. Komit bakal ngetrapaké asilé.
+tool.puppet_warp.option.stiffness = Kakuné
+tool.puppet_warp.history.puppet_warp = Puppet Warp
+
+# Vanishing Point
+tool.vanishing_point.name = Vanishing Point
+tool.vanishing_point.description = Seret bidang ing ndhuwur samubarang sing nduwèni perspektif, banjur ganti modus dadi Klon lan pulasaké: piksel sing disalin bakal manut bidang lan saya cilik kanthi saya adoh.
+tool.vanishing_point.choice.edit_plane = Sunting Bidang
+tool.vanishing_point.choice.clone = Klon
+tool.vanishing_point.history.vanishing_point = Vanishing Point

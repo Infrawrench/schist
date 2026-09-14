@@ -1,0 +1,226 @@
+# Ngaahi puha talanoa
+
+dialog.save_ellipsis = Seivi…
+dialog.use_foreground = Ngāueʻaki ʻa e Lanu Muʻa
+dialog.downloading = ʻOku download…
+dialog.downloading_of = ʻOku download… {got} mei he {total}
+dialog.no_config_dir = (ʻikai ha faile faʻoʻanga fokotuʻutuʻu)
+dialog.layer_props.title = Ngaahi Koloa ʻo e Layer
+
+dialog.export.format = Faʻunga
+dialog.export.dither = Dither
+dialog.export.dither_note = Dither ʻi hono fakasiʻisiʻi ki he 8-bit
+dialog.export.export_ellipsis = ʻAve Ki Tuʻa…
+
+dialog.batch.title = Ngāue ki he Ngaahi Tā
+dialog.batch.note_edit.other = Fika ʻo e tā: {n} — ʻoku seivi ʻa e ola ki he tā takitaha ko hono fakatonutonu fakahāʻanga ʻīmisi; ʻoku ʻikai ʻaupito ala ki hono tupuʻangá.
+dialog.batch.note_edit_edited.other = Fika ʻo e tā: {n}; kuo ʻosi fakatonutonu: {edited} — ki he tā takitaha kuo fakatonutonu, ʻoku tānaki ʻa e founga ngāué ʻi ʻolunga ʻi hono fakatonutonú pea tauhi ʻa e fakatonutonu kimuʻá ko ha tatau kehe.
+dialog.batch.note_copies.other = Fika ʻo e tā: {n} — ʻoku faʻu ha tatau papatahi ki he tā takitaha; ʻoku ʻikai ʻaupito ala ki hono tupuʻangá.
+dialog.batch.note_copies_edited.other = Fika ʻo e tā: {n}; kuo ʻosi fakatonutonu: {edited} — ʻoku faʻu ʻa e tatau ʻo e tā takitaha mei hono fakatonutonú.
+dialog.batch.turn = Tafoki
+dialog.batch.rotate = Vilo
+dialog.batch.flip = Fulihi
+dialog.batch.upscale = Fakalahi
+dialog.batch.colour = Lanu
+dialog.batch.add_adjustment = Liliu…
+dialog.batch.output = Ola
+dialog.batch.save_as = Seivi ko e
+dialog.batch.process = Fakahoko
+dialog.batch.process_n = Fakahoko ʻa e {n}
+dialog.batch.nothing_to_do = ʻIkai ha meʻa ke fai: tomuʻa fili ha tafoki, fakalahi pe liliu
+
+dialog.content_aware_scale.title = Liliu Lahi Fakatatau ki he Kakanó
+dialog.content_aware_scale.note = ʻOku toʻo ʻa e ngaahi laine ʻoku siʻi hono fakaikiikí. ʻOku fakaʻilongaʻi ʻe ha feituʻu kuo fili ʻa e meʻa ke maluʻí.
+dialog.stroke.title = Laine
+dialog.stroke.location = Tuʻuʻanga
+dialog.stroke.inside = ʻI Loto
+dialog.stroke.outside = ʻI Tuʻa
+dialog.stroke.note = Tā ha laine takatakai ʻi he feituʻu kuo filí ʻaki ʻa e lanu muʻá.
+dialog.fill.contents = Kakano
+
+dialog.color_range.title = Vahaʻa ʻo e Lanu
+dialog.color_range.sampled = Kuo Fili ko e Sīpinga
+dialog.color_range.fuzziness = Mafola ʻo e Filí
+dialog.color_range.note = Fili ʻa e ngaahi pikisi ʻoku ofi honau lanú ki he lanu sīpingá ʻi he Layer lolotongá.
+dialog.file_picker.up = ↑ Ki ʻOlunga
+dialog.file_picker.empty = ʻIkai ha meʻa ʻi heni
+dialog.file_picker.choose_folder = Fili ʻa e Faile Faʻoʻanga Ko ʻEní
+
+dialog.filter.camera_raw_development = Fakatupulekina ʻo e Camera Raw
+dialog.filter.reset_as_shot = Toe Fokotuʻu ki he Taimi Naʻe Tā Aí
+dialog.filter.raw_note = Toe fakatupulekina ʻa e Layer lolotongá mei hono fakamatala sensor tupuʻangá.
+dialog.filter.note = Ngāue ki he Layer lolotongá, ʻi loto ʻi he feituʻu kuo filí.
+
+dialog.fonts.title = Ngaahi Mataʻitohi ʻOku Pulia
+dialog.fonts.install_named = Fokotuʻu ʻa e {name}
+dialog.fonts.no_document = ʻOku ʻikai fakaava ha fakamatala, ko ia ʻoku ʻikai ha meʻa ke vakaiʻi.
+dialog.fonts.all_installed = Kuo fokotuʻu ʻa e font kotoa ʻoku ngāueʻaki ʻe he fakamatala ko ʻení. ʻOku fokotuʻu hono tohí ʻi he ngaahi font naʻe fokotuʻutuʻu ʻaki ia.
+dialog.fonts.missing_intro = ʻOku fokotuʻu ʻa e fakamatala ko ʻení ʻi ha ngaahi font ʻoku ʻikai te ke maʻu. ʻOku lava ke lau ʻa e tohí ʻi ha font fetongi, ka ʻoku ʻikai tatau hono fālahí mo e ngaahi motu laine mo e fokotuʻutuʻu tupuʻangá.
+dialog.fonts.footer = ʻOku haʻu ʻa e ngaahi download mei he katiloki font fakaava ʻa Google Fonts pea tauhi ʻi he {dir}. ʻOku ʻikai ʻaupito download ha font ʻoku ʻikai laiseni tauʻatāina mo fakaava — kapau ʻoku ʻi ai ha font libre ʻoku tatau hono ngaahi fuá, ʻoku tuʻuaki ia ko e fetongi; ʻoku toe fakafoki ai ʻa e fokotuʻutuʻú koeʻuhi ʻoku tatau ʻa e mamaʻo fakalava ʻoku laka ki ai ʻa e glyph takitaha.
+dialog.fonts.user_font_dir = hoʻo faile faʻoʻanga font fakafoʻituitui
+
+dialog.models.title = Ngaahi Mōtolo Neural Filter
+dialog.models.built_in = ʻI loto ʻi he polokalama · {size}
+dialog.models.installed = Kuo fokotuʻu · {size}
+dialog.models.not_installed = ʻOku teeki fokotuʻu · {size}
+dialog.models.not_in_browser = ʻOku ʻikai maʻu ʻi he polokalama vakaí · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = ʻOku tauhi ʻa e ngaahi mōtoló ʻi he {dir}. Ko e ngaahi sivi ʻoku ʻikai hano mōtoló ʻoku foki ki he signal processing pea tala ia.
+
+dialog.new_doc.title = Fakamatala Foʻou
+dialog.new_doc.picker_title = Faile Foʻou
+dialog.new_doc.custom_ellipsis = Fakafoʻituitui…
+dialog.new_doc.preset = Fokotuʻu Tomuʻa
+dialog.new_doc.preset_default = Tuʻunga Angamaheni (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Tapafā Tatau (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Faʻu
+dialog.new_doc.created = Fakamatala foʻou: {w} × {h} px
+
+dialog.open.image_title = Fakaava ʻa e ʻĪmisi
+dialog.open.image_prompt = Fakaava ʻa e “{name}” ʻi ha tab foʻou, pe tānaki ia ki he fakamatala lolotongá ko ha Layer foʻou?
+dialog.open.new_tab = Tab Foʻou
+dialog.open.new_layer = Layer Foʻou
+dialog.open.quoted = “{name}”
+dialog.open.these_files.other = faile ko ʻení, fika: {n}
+dialog.open.shared_title_one = ʻĪmisi Kuo Vahevahe
+dialog.open.shared_title_many = Ngaahi ʻĪmisi Kuo Vahevahe
+dialog.open.shared_prompt = Tānaki ʻa e {what} ki he fakahāʻanga ʻīmisi, pe fakaava ʻi he ʻētita?
+dialog.open.add_to_gallery = Tānaki ki he Fakahāʻanga ʻĪmisi
+dialog.open.open_in_editor = Fakaava ʻi he ʻĒtita
+dialog.open.heic_title = Poupou HEIC
+dialog.open.heic_needs_decoder = ʻOku fiemaʻu ha decoder HEVC ke fakaava ʻa e “{name}”, pea ʻoku ʻikai fokotuʻu ia ʻi he system ko ʻení.
+dialog.open.heic_offer = ʻE lava ʻe Schist ʻo download ha build libheif {version} maʻá e decode pē mo e decoder HEVC libde265 (≈5 MB). ʻOku laiseni fakatouʻosi kinaua ʻaki ʻa e LGPL-3.0; ʻoku fokotuʻu ʻena ngaahi fakamatala laisení ʻi he tafaʻaki ʻo e library, pea ʻoku maʻu ʻa e source ʻi he peesi ʻo e project.
+dialog.open.licenses_source = Ngaahi Laiseni mo e Source
+dialog.open.folders_title = Ngaahi Faile Faʻoʻanga Kuo Tuku Hifo
+dialog.open.n_folders.other = Fika ʻo e faile faʻoʻanga: {n}
+dialog.open.open_in_tabs = Fakaava ʻi he Ngaahi Tab
+dialog.open.open_first_in_tabs = Fakaava ʻa e ʻUluaki {n} ʻi he Ngaahi Tab
+dialog.open.open_n_in_tabs.other = Fakaava ʻa e faile ʻe {n} ʻi he tab
+dialog.open.folder_holds.other = ʻOku maʻu ʻi he {what} ʻa e ʻīmisi ʻe {n} ʻe lava ʻe Schist ʻo fakaava (kau ai ʻa e ngaahi faile faʻoʻanga ʻi lotó).
+dialog.open.folders_note = Ko e Tānaki ki he Fakahāʻanga ʻĪmisi ʻoku ne siofi ʻa e ngaahi faile faʻoʻangá ʻi honau tuʻuʻanga — ʻoku ʻikai hiki tatau ha meʻa, pea ʻoku tauhi ʻa e ngaahi fakatonutonú ko e ngaahi tatau ʻi he tafaʻaki ʻo e tā takitaha. Ko e fakaava ʻi he ngaahi tab ʻoku fakaheka ʻa e ʻīmisi kotoa ki he ʻētita he taimí ni.
+
+dialog.plugins.title = Ngaahi Plug-in
+dialog.plugins.kind_filter = sivi
+dialog.plugins.kind_format = faʻunga
+dialog.plugins.kind_unavailable = ʻikai maʻu
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = ʻOku fakaheka ʻa e ngaahi plug-in mei he {dir}
+dialog.plugins.none = ʻOku teeki fokotuʻu ha plug-in.
+dialog.plugins.install_ellipsis = Fokotuʻu…
+dialog.plugins.photoshop_heading = Ngaahi plug-in Photoshop
+dialog.plugins.loaded_from = Kuo fakaheka mei he {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Preferences
+dialog.prefs.theme = Kaveinga
+dialog.prefs.theme_dark = Fakapoʻuli
+dialog.prefs.theme_light = Maama
+dialog.prefs.grid_spacing = Vahaʻa ʻo e kupenga
+dialog.prefs.snapping = Piki
+dialog.prefs.snap_to = Piki ki he ngaahi laine tataki, kupenga mo e ngaahi tapa ʻo e kanivā
+dialog.prefs.rendering_intent = Taumuʻa ʻo e rendering
+dialog.prefs.intent_perceptual = Fakatatau ki he Sio
+dialog.prefs.intent_relative = Relative Colorimetric
+dialog.prefs.intent_saturation = Kakato ʻo e Lanu
+dialog.prefs.intent_absolute = Absolute Colorimetric
+dialog.prefs.scrolling = Scroll
+dialog.prefs.zoom_with_scroll = Fakalahi mo e veʻeteka scroll
+dialog.prefs.rendering = Rendering
+dialog.prefs.gpu_compositing = Fakatahaʻi ʻaki ʻa e GPU
+dialog.prefs.diagnostics = Vakaiʻi Palopalema
+dialog.prefs.crash_reports = Hiki ha lipooti crash ʻi he mīsini ko ʻení ʻi ha panic
+dialog.prefs.crash_upload = ʻAve foki ia ki he kau fakatupu polokalama
+dialog.prefs.telemetry = ʻAve ha ping fakaʻaho ʻoku ʻikai fakahā hingoa
+dialog.prefs.diagnostics_note = ʻE kamata ngāue ʻa e ngaahi vakaiʻi palopalemá ʻi he toe kamata ʻa Schist.
+dialog.prefs.updates = Ngaahi Fakatonutonu Foʻou
+dialog.prefs.check_updates = Vakaiʻi ha release foʻou ʻi he kamata
+dialog.prefs.keyboard_shortcuts = Ngaahi founga tuʻusi kīpooti: {path}
+dialog.prefs.nsfw_needs_model = ʻOku fiemaʻu ʻa e mōtolo Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = download ia ʻi he Puleʻi ʻa e Ngaahi Mōtolo…
+dialog.prefs.hide_flagged = Fufū ʻa e ngaahi tā kuo fakaʻilongaʻi
+
+dialog.profile.profile = Fakamatala Lanu
+dialog.profile.assign_title = Vaheʻi ʻa e Fakamatala Lanu
+dialog.profile.convert_title = Liliu ki he Fakamatala Lanu
+dialog.profile.assign = Vaheʻi
+dialog.profile.convert = Liliu
+dialog.profile.assign_note = Toe fakaʻuhingaʻi ʻa e ngaahi mahuʻinga pikisi lolotongá ʻi he fakamatala lanu foʻoú.
+dialog.profile.convert_note = Toe hiki ʻa e ngaahi mahuʻinga pikisí ke tauhi ʻa e hā mai ʻa e ngaahi lanú.
+
+dialog.save_image.title = Seivi ʻa e ʻĪmisi Ko e
+dialog.save_image.note = {name} — ʻa e fakatonutonú, kapau ʻoku ʻi ai; ʻoku ʻikai ʻaupito ala ki he tupuʻangá.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Lahi ʻo e ʻĪmisi
+dialog.size.canvas_title = Lahi ʻo e Kanivā
+dialog.size.constrain = Fakangatangata
+dialog.size.keep_proportions = Tauhi ʻa e ngaahi fua fakatatau
+dialog.size.resample = Toe Fakafuofua
+dialog.size.bicubic = Bicubic
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Pikisi Ofi Taha
+dialog.size.anchor = Fakamaʻuʻanga
+dialog.size.currently = Lolotonga ní {w} × {h} px
+dialog.size.image_size_status = Lahi ʻo e ʻīmisi: {w} × {h}
+dialog.size.canvas_size_status = Lahi ʻo e kanivā: {w} × {h}
+
+dialog.update.title = ʻOku Maʻu ha Fakatonutonu Foʻou
+dialog.update.available = ʻOku maʻu ʻa e Schist {version}. Ko e tatau ko ʻení ko e {current}.
+dialog.update.installing = ʻOku fokotuʻu ʻa e fakatonutonu foʻoú…
+dialog.update.can_install = ʻE lava ʻe Schist ʻo download ia ({size}) pea fokotuʻu ʻi ʻolunga ʻi he tatau ko ʻení.
+dialog.update.external = Naʻe haʻu ʻa e tatau ko ʻení mei ha feituʻu ʻoku ne puleʻi ia — ha pule pākete, AppImage, pe ha build ʻaʻau — ko ia ʻoku fakafoʻou ʻi he founga naʻe fokotuʻu ai.
+dialog.update.later = Kimui Ange
+dialog.update.release_notes = Ngaahi Fakamatala ʻo e Release
+dialog.update.update_restart = Fakafoʻou pea Toe Kamata
+dialog.update.open_page = Fakaava ʻa e Peesi Release
+
+dialog.style.title = Sīpinga ʻo e Layer
+dialog.style.bevel = Bevel & Emboss
+dialog.style.stroke = Laine
+dialog.style.inner_shadow = ʻAta ʻi Loto
+dialog.style.inner_glow = Ulo ʻi Loto
+dialog.style.satin = Satin
+dialog.style.color_overlay = ʻUfiʻufi Lanu
+dialog.style.gradient_overlay = ʻUfiʻufi Fetongi Lanu Māmālie
+dialog.style.outer_glow = Ulo ʻi Tuʻa
+dialog.style.drop_shadow = ʻAta Hinga
+dialog.style.blur = Fakamolū Gaussian
+dialog.style.gradient_from = Kamataʻanga ʻo e ʻUfiʻufi Fetongi Lanu Māmālie
+dialog.style.gradient_to = Ngataʻanga ʻo e ʻUfiʻufi Fetongi Lanu Māmālie
+dialog.style.soften = Fakamolū
+dialog.style.depth = Loloto
+dialog.style.altitude = Māʻolunga
+dialog.style.highlight = Feituʻu Maama
+dialog.style.shadow = ʻAta
+dialog.style.outer_bevel = Bevel ʻi Tuʻa
+dialog.style.inner_bevel = Bevel ʻi Loto
+dialog.style.emboss = Emboss
+dialog.style.pillow_emboss = Pillow Emboss
+dialog.style.linear = Hangatonu
+dialog.style.radial = Lētiasi
+dialog.style.reverse = Fulihi
+dialog.style.from_to = Mei / Ki
+dialog.style.from_fg = Mei = FG
+dialog.style.to_fg = Ki = FG
+dialog.style.precise = Tonu
+dialog.style.knockout = ʻOku toʻo ʻe he Layer ʻa e ʻata hingá
+
+dialog.color_picker.title = Meʻafili Lanu ({what})
+dialog.color_picker.effect_color = Lanu ʻo e {effect}
+dialog.color_picker.note_color = Lanu ʻo e Fakamatala Nounou
+dialog.color_picker.new = foʻou
+dialog.color_picker.current = lolotonga
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Toe Fokotuʻu ʻa e Sēnolo
+dialog.curves.hint = Toho ke faʻu ʻa e angá · lomi ke tānaki · lomi-alt ke toʻo
+
+dialog.prefs.camera_sync = Ngaahi tā ʻo e meʻafaitā
+dialog.prefs.camera_sync_enabled = Tauhi tatau ki he Schist Cloud
+dialog.prefs.camera_sync_sign_in = Hū ki he Schist Cloud ke tauhi tatau hoʻo ngaahi tā meʻafaitā.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Liliu…

@@ -1,0 +1,143 @@
+# Bara ya menyu.
+
+menu.file = Fayili
+menu.file.new = Leswintshwa
+menu.file.open = Pfula…
+menu.file.open_recent = Pfula swa sweswinyana
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Languta galari…
+menu.file.close = Pfala
+menu.file.save = Hlayisa
+menu.file.save_as = Hlayisa tani hi…
+menu.file.export = Rhumela…
+menu.file.export_submenu = Rhumela
+menu.file.export_artboards = Rhumela swivandla swo tirhela eka PNG…
+menu.file.export_slices = Rhumela swiphemu eka PNG…
+menu.file.save_to_photos = Hlayisa eka Swifaniso
+menu.file.plugins = Ti-plug-in…
+menu.file.missing_fonts = Tifonto leti kayivelaka…
+menu.file.check_for_updates = Kambela leswi pfuxetiweke…
+menu.file.quit = Huma
+menu.file.add_folder_to_gallery = Engetela foldara eka galari…
+menu.file.import_from_photos = Nghenisa ku suka eka Swifaniso…
+menu.file.import_from_camera = Nghenisa ku suka eka khamera…
+
+menu.edit = Hlela
+menu.edit.fill = Tata…
+menu.edit.stroke = Ntila wa le makumu…
+menu.edit.content_aware_fill = Tata hi ku tiva leswi nga kona
+menu.edit.content_aware_scale = Cinca xikalo hi ku tiva leswi nga kona…
+menu.edit.puppet_warp = Gombonyokisa hi tiphini
+menu.edit.free_transform = Hundzuluxa hi ku ntshunxeka
+menu.edit.transform = Hundzuluxa
+menu.edit.rotate_180 = Rhendzevuta 180°
+menu.edit.rotate_90_cw = Rhendzevuta 90° hi tlhelo ra wachi
+menu.edit.rotate_90_ccw = Rhendzevuta 90° ku hambana ni wachi
+menu.edit.flip_horizontal = Hundzuluxa hi ku hingakanya
+menu.edit.flip_vertical = Hundzuluxa hi ku yima
+
+menu.image = Xifaniso
+menu.image.mode = Mode
+menu.image.adjustments = Mindzulamiso
+menu.image.auto_tone = Thoni ya ku tisungulela
+menu.image.auto_contrast = Ku hambana ka ku tisungulela
+menu.image.auto_color = Muhlovo wa ku tisungulela
+menu.image.image_size = Sayizi ya xifaniso…
+menu.image.canvas_size = Sayizi ya khanivhasi…
+menu.image.image_rotation = Ku rhendzevuta xifaniso
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° hi tlhelo ra wachi
+menu.image.rotate_90_ccw = 90° ku hambana ni wachi
+menu.image.flip_canvas_horizontal = Hundzuluxa khanivhasi hi ku hingakanya
+menu.image.flip_canvas_vertical = Hundzuluxa khanivhasi hi ku yima
+menu.image.crop_to_selection = Tsema u landzela nhlawulo
+menu.image.trim = Tsema makumu
+menu.image.assign_profile = Nyika phurofayili…
+menu.image.convert_to_profile = Hundzuluxela eka phurofayili…
+
+menu.select = Hlawula
+menu.select.color_range = Nxaxamelo wa mihlovo…
+menu.select.modify = Cinca
+menu.select.border = Ndzilakana…
+menu.select.smooth = Ririsa…
+menu.select.expand = Ndlandlamuxa…
+menu.select.contract = Khwanyanisa…
+menu.select.feather = Olovisa makumu…
+menu.select.transform_selection = Hundzuluxa nhlawulo
+
+menu.layer = Leyara
+menu.layer.layer_style = Xitayili xa leyara…
+menu.layer.layer_comps = Swivumbeko swa maleyara
+menu.layer.new_layer_comp = Xivumbeko lexintshwa xa maleyara
+menu.layer.delete_layer_comp = Susa {name}
+menu.layer.path = Ndlela
+menu.layer.fill_path = Tata ndlela
+menu.layer.stroke_path = Dirowa ntila wa ndlela
+menu.layer.make_selection = Endla nhlawulo
+menu.layer.delete_path = Susa ndlela
+
+menu.adjust = Lulamisa
+
+menu.filter = Filitara
+menu.filter.filter_gallery = Galari ya tifilitara…
+menu.filter.liquify = Gombonyokisa xifaniso
+menu.filter.vanishing_point = Ndhawu yo nyamalala
+menu.filter.manage_models = Lawula timodeli…
+menu.filter.camera_raw_development = Ku antswisa Camera Raw…
+
+menu.view = Xivono
+menu.view.rotate_view_cw = Rhendzevuta xivono hi tlhelo ra wachi
+menu.view.rotate_view_ccw = Rhendzevuta xivono ku hambana ni wachi
+menu.view.reset_view = Tlherisela xivono
+menu.view.zoom_in = Kurisa xivono
+menu.view.zoom_out = Hunguta xivono
+menu.view.fit_on_screen = Ringanisa ni xikirini
+menu.view.actual_size = 100%
+menu.view.rulers = Swipimelo
+menu.view.grid = Giridi
+menu.view.guides = Tilayini to kongomisa
+menu.view.notes = Tinotsi
+menu.view.ai_panel = Phanele ya AI
+menu.view.extras = Swin'wana
+menu.view.snap = Namarhela
+menu.view.clear_guides = Susa tilayini to kongomisa
+menu.view.clear_notes = Susa tinotsi
+menu.view.clear_count = Susa nhlayo
+menu.view.screen_mode = Mode ya xikirini
+menu.view.proof_colors = Mihlovo ya vumbhoni
+menu.view.show_rulers = Kombisa swipimelo
+menu.view.hide_rulers = Tumbeta swipimelo
+menu.view.show_grid = Kombisa giridi
+menu.view.hide_grid = Tumbeta giridi
+menu.view.show_guides = Kombisa tilayini to kongomisa
+menu.view.hide_guides = Tumbeta tilayini to kongomisa
+menu.view.show_notes = Kombisa tinotsi
+menu.view.hide_notes = Tumbeta tinotsi
+menu.view.show_extras = Kombisa swin'wana
+menu.view.hide_extras = Tumbeta swin'wana
+menu.view.enable_snapping = Pfumelela ku namarhela
+menu.view.disable_snapping = Sivela ku namarhela
+menu.view.enable_proof_colors = Pfumelela mihlovo ya vumbhoni
+menu.view.disable_proof_colors = Sivela mihlovo ya vumbhoni
+
+menu.gallery = Galari
+menu.gallery.edit_selected = Hlela leswi hlawuriweke
+menu.gallery.refresh = Pfuxeta
+menu.gallery.map_filter = Filitara ya mepe…
+menu.gallery.back_to_editor = Tlhela eka muhleri
+
+menu.cloud.browse = Languta Schist Cloud
+menu.cloud.generate = Endla swifaniso…
+menu.cloud.upload = Layicha dokhumente eka Schist Cloud…
+menu.cloud.sign_out = Huma eka Schist Cloud
+menu.cloud.sign_in = Nghena eka Schist Cloud…
+
+menu.app.services = Vukorhokeri
+menu.app.hide = Tumbeta {app}
+menu.app.hide_others = Tumbeta swin'wana
+menu.app.show_all = Kombisa hinkwaswo
+menu.app.quit = Huma eka {app}
+
+menu.status.transform_selection_needs_selection = Ku hundzuluxa nhlawulo swi lava leswaku ku va ni leswi hlawuriweke
+menu.status.crop_needs_selection = Ku tsema u landzela nhlawulo swi lava leswaku ku va ni leswi hlawuriweke
+menu.status.select_photo_to_edit = Hlawula xifaniso lexi u lavaka ku xi hlela

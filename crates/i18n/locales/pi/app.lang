@@ -1,0 +1,36 @@
+app.filter_gallery.title = Sodhakasaṅgaho
+app.filter_gallery.stack = Rāsi (heṭṭhato upari payojīyati)
+app.filter_gallery.no_settings = Imassa sodhakassa ṭhapanāni natthi.
+app.fonts.not_open_licensed = vivaṭānuññā natthi · {substitute} tassa akkharamānāni samāneti
+app.fonts.missing_substituted = na laddho · akkharāni paṭinidhi-akkharākārena ṭhapīyanti
+app.fonts.not_in_catalogue = {family} vivaṭa-akkharākāranāmāvaliyaṃ natthi
+app.fonts.no_faces = {family} atthāya āharitabbā typeface-rūpāni natthi
+app.fonts.empty_response = suññapaṭivacanaṃ
+app.update.unreadable_response = appaṭhitabbapaṭivacanaṃ: {error}
+app.update.no_temp_dir = āharaṇatthāya tāvakālika-sañcikādhārako natthi
+app.update.asset_has_path = mocanaṃ asset-aṃ maggayuttena nāmena vadati
+app.update.too_big = āharaṇaṃ mocanena vuttappamāṇato mahantaraṃ
+app.update.stopped_at = āharaṇaṃ {total} byṭesu {got}mhi ṭhitaṃ
+app.update.hash_mismatch = āharaṇassa hash {got}, na {want}
+app.update.not_in_bundle = ayaṃ paṭirūpo app-puñjassa anto natthi
+app.update.no_parent_dir = app-puñjassa uparisañcikādhārako natthi
+app.update.cannot_write = {dir}mhi likhituṃ na sakkā
+app.update.cannot_move_aside = {app} passato cāletuṃ na sakkā
+app.update.cannot_move_in = navaṃ puñjaṃ ṭhānaṃ cāletuṃ na sakkā
+app.update.cannot_run_ditto = /usr/bin/ditto pavattetuṃ na sakkā
+app.update.unpack_failed = āharaṇapuñjavivaraṇaṃ na sampannaṃ: {error}
+app.update.no_app_in_download = āharaṇe Schist.app natthi
+app.update.cannot_run_codesign = /usr/bin/codesign pavattetuṃ na sakkā
+app.update.signature_invalid = āharaṇassa muddaṃ pamāṇetuṃ na sakkā: {error}
+app.update.download_unsigned = ayaṃ paṭirūpo muddito, āharaṇaṃ pana amudditaṃ
+app.update.different_developer = āharaṇaṃ aññena programmakārakena mudditaṃ
+app.update.cannot_relaunch = punārambhakaṃ ārabhetuṃ na sakkā
+app.update.not_installed_copy = ayaṃ paṭirūpo patiṭṭhāpakena idha na ṭhapito
+app.update.cannot_start_installer = patiṭṭhāpakaṃ ārabhetuṃ na sakkā
+app.update.platform_unsupported = imasmiṃ platform-mhi navīkaraṇāni Schist-patiṭṭhāpananayeneva patiṭṭhāpīyanti
+app.vulkan.no_loader = schist: imasmiṃ yante Vulkan-loader natthi; tasmā tena kiñci chāyārūpaṃ racituṃ na sakkā.\n\nSchist Vulkan-dvāraṃ chāyārūpaṃ racati, `libvulkan.so.1` ca na patiṭṭhāpitaṃ.\nLoader ceva driver ca ubho avassakā:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: imassa session-assa niddiṭṭho Vulkan-driver tattha natthi.\n\n{var} ṭhapitaṃ; tassa ṭhapanaṃ loader-assa driver-gavesanaṃ vaḍḍhetuṃ na, api tu taṃ apanetvā sayameva patiṭṭhāti. Tasmā imā avijjamānā sañcikāyo sakala-driver-nāmāvali honti; kati pi driverā patiṭṭhāpitā hontu, imasmiṃ session-mhi sabbaṃ Vulkan-programaṃ driveraṃ na passati:\n\n{missing}\n    {var}={value}\n\nTaṃ vijjamāna-manifestaṃ niddisāpetha—patiṭṭhāpitā driverā attano manifestāni /usr/share/vulkan/icd.d-mhi ṭhapenti—atha vā taṃ apanāmetvā loader-aṃ attano driveraṃ gavesituṃ detha.\nYadi config-sañcikā (Hyprland-assa `env =`, systemd environment.d drop-in, shell-profile) {var} ṭhapeti, vikati tassā sañcikāyaṃ kātabbā. Vikatiyā pubbe āraddhaprogramāni pāpuṇituṃ puna pavesitabbaṃ.\n
+app.vulkan.override_note = \n{var} {value}ti ṭhapitaṃ; taṃ loader-assa attano gavesanaṃ apanetvā patiṭṭhāti. Tesu koci manifest imassa yantassa na hoti ce, taṃ apanāmanaṃ paṭhamaṃ payogo hotu.\n
+app.vulkan.no_driver = schist: Vulkan-driver na patiṭṭhāpito; tasmā tena kiñci chāyārūpaṃ racituṃ na sakkā.\n\nSchist Vulkan-dvāraṃ chāyārūpaṃ racati. Loader patiṭṭhāpito, driver pana tena na ñāpito—yāsu dvīsu ṭhānesu gavesīyati tesu ekasmim-pi koci attānaṃ na likhāpesi:\n\n{dirs}\n\nLoader driverehi visuṃ āgacchati; tasmā pāyena ekameva aladdha-package avassakaṃ.\n\nImassa yantassa GPU-anurūpaṃ patiṭṭhāpetha:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-ya sāmika-driver attano driveraṃ āharati (Arch-mhi `nvidia-utils`, Debian-mhi `nvidia-driver`). Virtual-yante vā yattha GPU-driver patiṭṭhāpetuṃ natthi tattha software-rasteriser kammaṃ karoti: Arch-mhi `vulkan-swrast`, aññattha `mesa-vulkan-drivers`-assa bhāgo. So dandho, atha kho ārabhati.\n{overridden}
+app.vulkan.no_device = schist: Vulkan-driver patiṭṭhāpito, chāyārūparacanatthāya pana upakaraṇaṃ na deti.\n\nDriver imaṃ GPU na saṅgaṇheyya, vā taṃ pāpuṇituṃ na sakkuṇeyya—SSH-upari vā container-anto vā /dev/dri bahulaṃ aladdhaṃ hoti. `vulkaninfo --summary` loader-ena diṭṭhaṃ vadati.\n\nImasmiṃ yante GPU natthi ce software-rasteriser GPU vināpi chāyārūpaṃ racati: Arch-mhi `vulkan-swrast`, Debian-Fedora-mhi `mesa-vulkan-drivers`-assa bhāgo.\n
+app.vulkan.skip_hint = Schist tathāpi ārabhetvā yathāsakaṃ vipajjituṃ detukāmo ce, {var}=1 ṭhapetha.

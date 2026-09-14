@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Susa
+tool.select.mode.intersect = Hlanganisa Lapho Kuhlangana Khona
+
+tool.marquee.rect.name = Kukhetsa Ngecalandze
+tool.marquee.rect.description = Hudvula wakhe lokukhetsiwe lokucalandze. Shift ekucaleni kwekuhudvula iyengeta kulokukhetsiwe, alt iyasusa, totimbili tikhetsa lapho kuhlangana khona; Shift ngesikhatsi uhudvula ikwenta kube sikwele. Kuchafata ngaphandle kwekuhudvula kuyekela kukhetsa.
+tool.marquee.ellipse.name = Kukhetsa Ngendilinga Lelulekile
+tool.marquee.ellipse.description = Hudvula wakhe lokukhetsiwe lokuyindilinga lelulekile, ngekuhlanganisa kwa-Shift/alt lokufana nekwekukhetsa ngecalandze.
+
+tool.lasso.name = Ilaso
+tool.lasso.description = Hudvula umncele ngesandla; lokukhetsiwe kuyavaleka emkhatsini wetiphetfo nakuphela kuhudvula. Shift iyengeta, alt iyasusa.
+tool.lasso.history.select = Khetsa Ngelaso
+tool.lasso.polygonal.name = Ilaso Yemacala Lamanyenti
+tool.lasso.polygonal.description = Chafata likhona ngalinye kuze wakhe lokukhetsiwe lokunemiphetfo lecondzile, bese uchafata edvute neliphuzu lekucala kuze ukuvale.
+tool.lasso.polygonal.history.select = Ilaso Yemacala Lamanyenti
+tool.lasso.magnetic.name = Ilaso Yezibuthe
+tool.lasso.magnetic.description = Landzelela edvute kweliphetfo bese umncele unamatsela ekwehlukaneni lokukhulu lokusedvute nendlela.
+tool.lasso.magnetic.history.select = Ilaso Yezibuthe
+tool.lasso.magnetic.option.frequency = Kuvama
+
+tool.wand.name = Indvuku Yemlingo
+tool.wand.description = Chafata kuze ukhetse indzawo lehlanganako yembala lofananako longephansi kwesikhombi, ngekhatsi kwenkhetselo yemkhawulo -- wona lowo mkhawulo lofundvwa nguKhulisa, Lokufananako neLibanga Lembala.
+tool.wand.option.contiguous = Lokuhlanganako
+tool.wand.history.select = Indvuku Yemlingo
+
+tool.quick_select.name = Kukhetsa Ngekushesha
+tool.quick_select.description = Penda etikwendzawo bese lokukhetsiwe kukhula kudlule kumaphikseli lafananako ladlulwe libhulashi.
+tool.quick_select.history.select = Kukhetsa Ngekushesha
+
+tool.object_select.name = Kukhetsa Intfo
+tool.object_select.description = Hudvula libhokisi litungelete intfo bese lokukhetsiwe kunamatsela entfweni letfolakele ngekhatsi kwalo.
+tool.object_select.history.select = Kukhetsa Intfo

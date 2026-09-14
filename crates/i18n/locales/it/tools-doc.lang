@@ -1,0 +1,32 @@
+# Strumenti per gli elementi del documento: tavole da disegno, sezioni,
+# cornici, note e conteggi.
+
+# Tavola da disegno
+tool.artboard.name = Tavola da disegno
+tool.artboard.description = Trascina per creare una tavola da disegno: un'area con nome dell'area di lavoro che può essere esportata autonomamente. Trascinando all'interno di una tavola esistente, la si sposta.
+tool.artboard.default_name = Tavola da disegno {n}
+
+# Sezione
+tool.slice.name = Sezione
+tool.slice.description = Trascina per creare una sezione di esportazione, cioè un rettangolo con nome dell'area di lavoro esportato come immagine autonoma. Trascinando all'interno di una sezione esistente, la si sposta.
+tool.slice.default_name = Sezione {n}
+
+# Cornice
+tool.frame.name = Cornice
+tool.frame.description = Trascina per creare una cornice: un livello rettangolare (o ellittico) che maschera qualsiasi elemento inserito al suo interno.
+tool.frame.default_name = Cornice {n}
+tool.frame.choice.rectangle = Rettangolo
+tool.frame.choice.ellipse = Ellisse
+tool.frame.history.frame = Cornice
+
+# Nota
+tool.note.name = Nota
+tool.note.description = Fai clic su un'area vuota dell'area di lavoro per fissarvi una nota, contrassegnata con l'autore e il colore impostati nell'editor; fai clic su un indicatore esistente per selezionarlo nel pannello Note.
+tool.note.history.place = Inserisci nota
+tool.note.history.move = Sposta nota
+tool.note.history.delete = Elimina nota
+
+# Conteggio
+tool.count.name = Conteggio
+tool.count.description = Fai clic per collocare indicatori di conteggio numerati sull'area di lavoro; fai clic su un indicatore esistente per rimuoverlo.
+tool.count.default_name = Conteggio {n}

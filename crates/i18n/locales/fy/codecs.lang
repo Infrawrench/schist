@@ -1,0 +1,36 @@
+# Formaatnammen
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} dekodearje
+codec.msg.zero_sized = de ôfbylding hat gjin piksels
+codec.msg.assembling_document = it dokumint gearstalle
+
+codec.raw.msg.decoding = it raw-bestân dekodearje
+codec.raw.msg.developing = it raw-bestân ûntwikkelje
+codec.raw.msg.finding_preview = it ynsletten foarbyld sykje
+codec.raw.msg.decoding_preview = it ynsletten foarbyld dekodearje
+codec.raw.msg.decoder_panicked = de raw-dekoder is op dit bestân mislearre: {what}
+
+codec.affinity.import_title = Affinity-ymport
+codec.affinity.flattened_preview_layer = Platrastere foarbyld
+codec.affinity.msg.no_preview = Gjin brûkber ynsletten foarbyld. It laachformaat fan Affinity is proprietêr; Schist ymportearret it platrastere foarbyld dat yn it bestân sit. Dit bestân hat sa'n foarbyld net — bewarje it opnij yn Affinity, of eksportearje it as PSD foar in folsleine ymport mei lagen.
+
+codec.heif.msg.no_library = libheif is net beskikber ({details}). Foar it iepenjen fan HEIC is de libheif-bibleteek nedich (Linux: ynstallearje libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — mooglik ûntbrekt in HEVC-dekoder yn dizze libheif-build (ynstallearje op Debian/Ubuntu libheif-plugin-libde265)
+codec.heif.msg.unknown_error = ûnbekende flater
+codec.heif.msg.initialising = libheif inisjalisearje
+codec.heif.msg.reading_container = de HEIF-container lêze
+codec.heif.msg.finding_primary_image = de primêre ôfbylding sykje
+codec.heif.msg.reading_icc_profile = it ICC-profyl lêze
+codec.heif.msg.decoding_image = de ôfbylding dekodearje
+codec.heif.msg.checksum_mismatch = Kontrôlesom fan {name} komt net oerien: {expected} ferwachte, {got} krigen
+codec.heif.msg.imageio_cannot_read = ImageIO koe de HEIF-container net lêze
+codec.heif.msg.container_empty = de HEIF-container befettet gjin ôfbylding
+codec.heif.msg.imageio_cannot_decode = ImageIO koe de primêre ôfbylding net dekodearje

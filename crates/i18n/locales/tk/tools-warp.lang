@@ -1,0 +1,22 @@
+tool.liquify.name = Suwuklandyrmak
+tool.liquify.description = Uly çotganyň aşagyndaky pikselleri itekläň, towlaň, ýygryň ýa-da çişiriň; haýsynyň ulanyljakdygyny režim saýlaýar. Özgertme torda ýygnanýar we tassyklananda gatlaga ulanylýar.
+tool.liquify.option.tool = Gural
+tool.liquify.choice.forward_warp = Öňe egmek
+tool.liquify.choice.reconstruct = Dikeltmek
+tool.liquify.choice.twirl_cw = Sagat ugruna towlamak
+tool.liquify.choice.twirl_ccw = Sagat ugrunyň tersine towlamak
+tool.liquify.choice.pucker = Ýygyrmak
+tool.liquify.choice.bloat = Çişirmek
+tool.liquify.choice.push_left = Çepe iteklemek
+tool.liquify.history.liquify = Suwuklandyrmak
+
+tool.puppet_warp.name = Gurjak görnüşinde egmek
+tool.puppet_warp.description = Gatlagy birnäçe nokatda berkitmek üçin basyň, soňra olaryň birini çekiň: tor berkitmeleriň daşynda Gatylyk sazlamasyna görä gaty ýa-da erkin egilýär. Tassyklamak özgertmäni ulanýar.
+tool.puppet_warp.option.stiffness = Gatylyk
+tool.puppet_warp.history.puppet_warp = Gurjak görnüşinde egmek
+
+tool.vanishing_point.name = Ýitme nokady
+tool.vanishing_point.description = Perspektiwaly zadyň üstünde tekiz geometrik meýdany çekip belläň, soňra režimi Klon görnüşine geçirip reňkläň: göçürilen pikseller şol meýdanyň ugruna eýerip, uzaklaşdygyça kiçelýär.
+tool.vanishing_point.choice.edit_plane = Tekiz meýdany redaktirlemek
+tool.vanishing_point.choice.clone = Klon
+tool.vanishing_point.history.vanishing_point = Ýitme nokady

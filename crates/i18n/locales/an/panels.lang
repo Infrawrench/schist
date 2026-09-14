@@ -1,0 +1,97 @@
+# Panels, barras, pestanyas y dialogos de fichero.
+
+# Teclas modificaderas
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Mayús
+panel.keys.alt = Alt
+
+# Barra d'estau
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Pestanyas y titol d'a finestra
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navegador
+panel.navigator.title = Navegador
+panel.navigator.actual_pixels = Pixels reals
+
+# Panel de color
+panel.color.picker = Selector…
+panel.color.swap = Intercambiar colors
+panel.color.reset = Restablir a preto y blanco
+
+# Panel de capas
+panel.layers.blending_options = Opcions de fusión…
+panel.layers.properties = Propiedatz d'a capa…
+panel.layers.show_hide = Amostrar/amagar capa
+panel.layers.toggle_visibility = Cambiar visibilidat
+
+# Panel d'historial
+panel.history.title = Historial
+panel.history.opened = Ubierto
+
+# Pestanya d'información
+panel.info.title = Información
+panel.info.camera = Camera
+panel.info.lens = Obchectivo
+panel.info.iso = ISO {iso}
+panel.info.bias = Compensación
+panel.info.flash_fired = flash disparau
+panel.info.no_flash = sin flash
+panel.info.white_balance = Balance de blancos {wb}
+panel.info.metering = medición {metering}
+panel.info.taken = Presa
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientación {o}
+panel.info.software = Software
+panel.info.where = Puesto
+
+# Panel de notas
+panel.notes.author = Autor
+panel.notes.clear_all = Borrar-las todas
+panel.notes.unattributed = Sin autor
+panel.notes.empty = Fe clic en o lenzo ta deixar una nota.
+panel.notes.placeholder = Fe clic ta escribir
+
+# Panel de caracters
+panel.character.title = Caracter
+panel.character.type_tool = Ferramienta de texto (T)
+panel.character.align_left = Aliniar a la cucha
+panel.character.align_center = Aliniar a lo centro
+panel.character.align_right = Aliniar a la dreita
+panel.character.text_color = Color d'o texto
+panel.character.panel = Panel de caracters
+panel.character.cancel_edit = Cancelar a edición d'o texto
+panel.character.commit_edit = Confirmar a edición d'o texto
+panel.character.number_tip = {label} · Escribe un valor u usa ↑ / ↓ (Mayús ta pasos mas grans)
+panel.character.leading = Interliniato
+panel.character.tracking = Espaciado d'o texto
+panel.character.alignment = Aliniación
+panel.character.opentype = OpenType
+panel.character.text_on_path = Texto sobre un trazau
+panel.character.straight = Dreito
+panel.character.on_path = Sobre o trazau
+panel.character.straight_tip = Usa a linia de base normal d'a capa de texto
+panel.character.on_path_tip = Usa una copia d'o trazau activo
+panel.character.path_offset = Desplazamiento d'o trazau
+
+# Panel lateral d'IA
+panel.ai.title = IA
+panel.ai.empty_editor = Pide una edición y veye cómo se fa en o lenzo. L'achent controla as mesmas ferramientas, filtros y comandos que os menús, con un paso de desfer por cada acción.
+panel.ai.empty_gallery = Pregunta por as tuyas fotos y veye cómo actúa en a galería: l'achent puede mirar, examinar miniaturas, trigar, ordenar en grupos y ubrir una foto en l'editor.
+panel.ai.thinking = pensando…
+panel.ai.placeholder_editor = Pregunta por iste documento u edita-lo
+panel.ai.placeholder_gallery = Pregunta por as tuyas fotos
+panel.ai.send = Ninviar
+panel.ai.stop = Aturar
+panel.ai.fetching_models = Se ye preguntando a la interficie de linia de comandos por os suyos modelos…
+panel.ai.no_models = Garra modelo coincide
+panel.ai.search_models = Mirar modelos…
+
+# Dialogos de fichero
+panel.keymap.install_plugin = Instalar complemento
+panel.keymap.save_as_prompt = Alzar como — a extensión determina o formato:

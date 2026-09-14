@@ -1,0 +1,27 @@
+# Ferramientas de deformación: Licuar, Deformación de monyaco y Punto de fuga.
+
+# Licuar
+tool.liquify.name = Licuar
+tool.liquify.description = Empenta, fa chirar, contraye u infla os pixels baixo un pinzell gran; a opción de modo determina qué operación se fa. A deformación s'acumula en una malla y s'aplica a la capa en confirmar.
+tool.liquify.option.tool = Ferramienta
+tool.liquify.choice.forward_warp = Deformación enta debant
+tool.liquify.choice.reconstruct = Reconstruir
+tool.liquify.choice.twirl_cw = Chirar en sentiu horario
+tool.liquify.choice.twirl_ccw = Chirar en sentiu antihorario
+tool.liquify.choice.pucker = Contrayer
+tool.liquify.choice.bloat = Inflar
+tool.liquify.choice.push_left = Empentar enta la cucha
+tool.liquify.history.liquify = Licuar
+
+# Deformación de monyaco
+tool.puppet_warp.name = Deformación de monyaco
+tool.puppet_warp.description = Fe clic ta clavar a capa en bels puntos y dimpués arrociega-ne un: a malla se dobla arredol d'os clavillos con mas u menos rixidez, seguntes a opción Rixidez. En confirmar s'aplica.
+tool.puppet_warp.option.stiffness = Rixidez
+tool.puppet_warp.history.puppet_warp = Deformación de monyaco
+
+# Punto de fuga
+tool.vanishing_point.name = Punto de fuga
+tool.vanishing_point.description = Arrociega ta establir un plano sobre bella cosa con perspectiva, dimpués cambia lo modo a Clonar y pinta: os pixels copiaus siguen o plano y se fan mas chicotz con a distancia.
+tool.vanishing_point.choice.edit_plane = Editar plano
+tool.vanishing_point.choice.clone = Clonar
+tool.vanishing_point.history.vanishing_point = Punto de fuga

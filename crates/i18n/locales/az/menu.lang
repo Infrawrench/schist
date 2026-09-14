@@ -1,0 +1,153 @@
+# Fayl
+menu.file = Fayl
+menu.file.new = Yeni
+menu.file.open = Aç…
+menu.file.open_recent = Son istifadə olunanı aç
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Qalereyaya bax…
+menu.file.close = Bağla
+menu.file.save = Saxla
+menu.file.save_as = Fərqli saxla…
+menu.file.export = İxrac et…
+menu.file.export_submenu = İxrac et
+menu.file.export_artboards = Montaj sahələrini PNG-yə ixrac et…
+menu.file.export_slices = Dilimləri PNG-yə ixrac et…
+menu.file.save_to_photos = Photos-da saxla
+menu.file.plugins = Plaginlər…
+menu.file.missing_fonts = Çatışmayan şriftlər…
+menu.file.check_for_updates = Yeniləmələri yoxla…
+menu.file.quit = Çıx
+menu.file.add_folder_to_gallery = Qalereyaya qovluq əlavə et…
+menu.file.import_from_photos = Photos-dan idxal et…
+menu.file.import_from_camera = Kameradan idxal et…
+
+# Redaktə
+menu.edit = Redaktə
+menu.edit.fill = Doldur…
+menu.edit.stroke = Kontur çək…
+menu.edit.content_aware_fill = Məzmundan asılı dolğu
+menu.edit.content_aware_scale = Məzmundan asılı miqyaslama…
+menu.edit.puppet_warp = Kukla əyməsi
+menu.edit.free_transform = Sərbəst transformasiya
+menu.edit.transform = Transformasiya
+menu.edit.rotate_180 = 180° döndər
+menu.edit.rotate_90_cw = Saat istiqamətində 90° döndər
+menu.edit.rotate_90_ccw = Saat istiqamətinin əksinə 90° döndər
+menu.edit.flip_horizontal = Üfüqi çevir
+menu.edit.flip_vertical = Şaquli çevir
+
+# Şəkil
+menu.image = Şəkil
+menu.image.mode = Rejim
+menu.image.adjustments = Tənzimləmələr
+menu.image.auto_tone = Avtomatik ton
+menu.image.auto_contrast = Avtomatik kontrast
+menu.image.auto_color = Avtomatik rəng
+menu.image.image_size = Şəkil ölçüsü…
+menu.image.canvas_size = Kətan ölçüsü…
+menu.image.image_rotation = Şəklin fırladılması
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = Saat istiqamətində 90°
+menu.image.rotate_90_ccw = Saat istiqamətinin əksinə 90°
+menu.image.flip_canvas_horizontal = Kətanı üfüqi çevir
+menu.image.flip_canvas_vertical = Kətanı şaquli çevir
+menu.image.crop_to_selection = Seçimə görə kəs
+menu.image.trim = Kənarları kəs
+menu.image.assign_profile = Profil təyin et…
+menu.image.convert_to_profile = Profilə çevir…
+
+# Seçim
+menu.select = Seçim
+menu.select.color_range = Rəng diapazonu…
+menu.select.modify = Dəyişdir
+menu.select.border = Sərhəd…
+menu.select.smooth = Hamarla…
+menu.select.expand = Genişləndir…
+menu.select.contract = Daralt…
+menu.select.feather = Yumşalt…
+menu.select.transform_selection = Seçimin transformasiyası
+
+# Qat
+menu.layer = Qat
+menu.layer.layer_style = Qat üslubu…
+menu.layer.layer_comps = Qat kompozisiyaları
+menu.layer.new_layer_comp = Yeni qat kompozisiyası
+menu.layer.delete_layer_comp = {name} sil
+menu.layer.path = Kontur
+menu.layer.fill_path = Konturu doldur
+menu.layer.stroke_path = Konturu çək
+menu.layer.make_selection = Seçim yarat
+menu.layer.delete_path = Konturu sil
+
+# Tənzimlə
+menu.adjust = Tənzimlə
+
+# Filtr
+menu.filter = Filtr
+menu.filter.filter_gallery = Filtr qalereyası…
+menu.filter.liquify = Mayeləşdirmə
+menu.filter.vanishing_point = Perspektiv nöqtəsi
+menu.filter.manage_models = Modelləri idarə et…
+menu.filter.camera_raw_development = Camera Raw emalı…
+
+# Görünüş
+menu.view = Görünüş
+menu.view.rotate_view_cw = Görünüşü saat istiqamətində döndər
+menu.view.rotate_view_ccw = Görünüşü saat istiqamətinin əksinə döndər
+menu.view.reset_view = Görünüşü sıfırla
+menu.view.zoom_in = Yaxınlaşdır
+menu.view.zoom_out = Uzaqlaşdır
+menu.view.fit_on_screen = Ekrana sığdır
+menu.view.actual_size = 100%
+menu.view.rulers = Xətkeşlər
+menu.view.grid = Tor
+menu.view.guides = Bələdçilər
+menu.view.notes = Qeydlər
+menu.view.ai_panel = AI paneli
+menu.view.extras = Əlavələr
+menu.view.snap = Yapışdırma
+menu.view.clear_guides = Bələdçiləri təmizlə
+menu.view.clear_notes = Qeydləri təmizlə
+menu.view.clear_count = Sayğacı təmizlə
+menu.view.screen_mode = Ekran rejimi
+menu.view.proof_colors = Sınaq rəngləri
+menu.view.show_rulers = Xətkeşləri göstər
+menu.view.hide_rulers = Xətkeşləri gizlət
+menu.view.show_grid = Toru göstər
+menu.view.hide_grid = Toru gizlət
+menu.view.show_guides = Bələdçiləri göstər
+menu.view.hide_guides = Bələdçiləri gizlət
+menu.view.show_notes = Qeydləri göstər
+menu.view.hide_notes = Qeydləri gizlət
+menu.view.show_extras = Əlavələri göstər
+menu.view.hide_extras = Əlavələri gizlət
+menu.view.enable_snapping = Yapışdırmanı aktivləşdir
+menu.view.disable_snapping = Yapışdırmanı deaktivləşdir
+menu.view.enable_proof_colors = Sınaq rənglərini aktivləşdir
+menu.view.disable_proof_colors = Sınaq rənglərini deaktivləşdir
+
+# Qalereya
+menu.gallery = Qalereya
+menu.gallery.edit_selected = Seçilənləri redaktə et
+menu.gallery.refresh = Təzələ
+menu.gallery.map_filter = Xəritə filtri…
+menu.gallery.back_to_editor = Redaktora qayıt
+
+# Schist Cloud alt menyusu
+menu.cloud.browse = Schist Cloud-a bax
+menu.cloud.generate = Şəkillər yarat…
+menu.cloud.upload = Sənədi Schist Cloud-a yüklə…
+menu.cloud.sign_out = Schist Cloud-dan çıx
+menu.cloud.sign_in = Schist Cloud-a daxil ol…
+
+# macOS tətbiq menyusu
+menu.app.services = Xidmətlər
+menu.app.hide = {app} tətbiqini gizlət
+menu.app.hide_others = Digərlərini gizlət
+menu.app.show_all = Hamısını göstər
+menu.app.quit = {app} tətbiqindən çıx
+
+# İcra oluna bilməyən menyu əmrləri üçün status mesajları
+menu.status.transform_selection_needs_selection = Seçimin transformasiyası üçün seçim tələb olunur
+menu.status.crop_needs_selection = Seçimə görə kəsmək üçün seçim tələb olunur
+menu.status.select_photo_to_edit = Redaktə etmək üçün foto seçin

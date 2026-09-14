@@ -1,0 +1,21 @@
+# Інструменти деформації.
+tool.liquify.name = Пластика
+tool.liquify.description = Зсувайте, закручуйте, стягуйте або роздувайте пікселі під великим пензлем — дію визначає параметр режиму. Деформація накопичується в сітці й застосовується до шару після підтвердження.
+tool.liquify.option.tool = Інструмент
+tool.liquify.choice.forward_warp = Деформація вперед
+tool.liquify.choice.reconstruct = Реконструкція
+tool.liquify.choice.twirl_cw = Закручування за годинниковою стрілкою
+tool.liquify.choice.twirl_ccw = Закручування проти годинникової стрілки
+tool.liquify.choice.pucker = Стягування
+tool.liquify.choice.bloat = Роздування
+tool.liquify.choice.push_left = Зсув ліворуч
+tool.liquify.history.liquify = Пластика
+tool.puppet_warp.name = Маріонеткова деформація
+tool.puppet_warp.description = Клацніть кілька точок, щоб закріпити шар, а потім перетягніть одну з них: сітка згинатиметься навколо опор жорстко або вільно, як задано параметром жорсткості. Підтвердження застосовує зміни.
+tool.puppet_warp.option.stiffness = Жорсткість
+tool.puppet_warp.history.puppet_warp = Маріонеткова деформація
+tool.vanishing_point.name = Точка сходження
+tool.vanishing_point.description = Окресліть площину поверх об'єкта з перспективою, потім перемкніть режим на клонування й малюйте: скопійовані пікселі слідуватимуть площині та зменшуватимуться з відстанню.
+tool.vanishing_point.choice.edit_plane = Редагувати площину
+tool.vanishing_point.choice.clone = Клонування
+tool.vanishing_point.history.vanishing_point = Точка сходження

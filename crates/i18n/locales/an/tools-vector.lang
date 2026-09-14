@@ -1,0 +1,49 @@
+# Ferramientas vectorials: plumas, selectors, formas y formas personalizadas.
+
+# Plumas
+tool.pen.name = Pluma
+tool.pen.description = Construye un trazau: fe clic ta crear un punto de cantonada, arrociega ta sacar-ne tiradors de curva y fe clic en o primer punto ta zarrar. En confirmar, o trazau se convierte en una capa de forma.
+tool.pen.option.rubber_band = Banda elastica
+tool.pen.history.fill = Recheleno d'o trazau
+tool.pen.default_path_name = Trazau {n}
+tool.pen.freeform.name = Pluma libre
+tool.pen.freeform.description = Arrociega una linia a man alzada y s'achusta a un trazau con a precisión indicada por a opción Achuste.
+tool.pen.freeform.option.fit = Achuste
+tool.pen.curvature.name = Pluma de curvatura
+tool.pen.curvature.description = Fe clic en una serie de puntos y o trazau forma una curva suau que los traviesa.
+
+# Flechas de selección
+tool.path_select.name = Selección de trazau
+tool.path_select.description = Fe clic en un trazau ta trigar-lo, y arrociega ta mover o trazau entero.
+tool.direct_select.name = Selección directa
+tool.direct_select.description = Arrociega un punto d'ancorache individual u os suyos tiradors ta cambiar a forma d'o trazau arredol d'ell.
+
+# Formas
+tool.shape.history.layer = Capa de {name}
+tool.shape.rect.name = Ferramienta Rectanglo
+tool.shape.rect.label = Rectanglo
+tool.shape.rect.description = Arrociega ta crear una capa de forma rectangular en a color d'o primer plano; se mantiene vectorial y se torna a rasterizar quan se redimensiona.
+tool.shape.ellipse.name = Ferramienta Elipse
+tool.shape.ellipse.label = Elipse
+tool.shape.ellipse.description = Arrociega ta crear una capa de forma eliptica en a color d'o primer plano.
+tool.shape.line.name = Ferramienta Linia
+tool.shape.line.label = Linia
+tool.shape.line.description = Arrociega ta crear una capa de forma de linia dreita en a color d'o primer plano.
+tool.shape.line.option.weight = Grosor
+tool.shape.line.option.arrow_start = Inicio
+tool.shape.line.option.arrow_end = Fin
+tool.shape.polygon.name = Ferramienta Poligono
+tool.shape.polygon.label = Poligono
+tool.shape.polygon.description = Arrociega ta crear una capa de forma poligonal regular en a color d'o primer plano, con o numero de costaus indicau en as opcions.
+tool.shape.polygon.option.sides = Costaus
+
+# Formas personalizadas
+tool.shape.custom.name = Forma personalizada
+tool.shape.custom.label = Forma personalizada
+tool.shape.custom.description = Arrociega ta crear una d'as formas predefinidas incluidas, trigada con a opción Forma.
+tool.shape.custom.choice.heart = Corazón
+tool.shape.custom.choice.star = Estrela
+tool.shape.custom.choice.arrow = Flecha
+tool.shape.custom.choice.lightning = Relampau
+tool.shape.custom.choice.cross = Cruz
+tool.shape.custom.choice.speech_bubble = Bafolla de dialogo

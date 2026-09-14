@@ -1,0 +1,21 @@
+tool.move.name = منتقل ڪريو
+tool.move.description = فعال پرت جي مواد کي ڇڪي نئين جاءِ تي آڻيو. خودڪار چونڊ هلندڙ هجي ته دٻائڻ سان پهرين پوائنٽر هيٺان آيل پرت، يا سڄو گروپ، چونڊجي ٿو.
+tool.move.option.auto_select = خودڪار چونڊ
+tool.move.history.move_layer = پرت منتقل ڪريو
+
+tool.eyedropper.name = آئي ڊراپر
+tool.eyedropper.description = پوائنٽر هيٺان رنگ جو نمونو اڳئين رنگ جي خاني ۾ وٺو، يا Alt دٻايل هجي ته پوئين رنگ جي خاني ۾. ڇڪڻ دوران نمونا وٺڻ جاري رهندو.
+tool.eyedropper.option.sample_size = نموني جي ماپ
+tool.eyedropper.option.sample = نمونو
+tool.eyedropper.choice.point_sample = نقطي جو نمونو
+tool.eyedropper.choice.average_3 = 3 × 3 سراسري
+tool.eyedropper.choice.average_5 = 5 × 5 سراسري
+tool.eyedropper.choice.average_11 = 11 × 11 سراسري
+tool.eyedropper.choice.average_31 = 31 × 31 سراسري
+tool.eyedropper.choice.all_layers = سڀ پرت
+tool.eyedropper.choice.current_layer = هاڻوڪي پرت
+
+tool.hand.name = هٿ
+tool.hand.description = ڏيک کي سرڪائي ٿو. ڏيک وارو حصو ونڊو سان لاڳاپيل آهي، تنهنڪري بنا ونڊو جي هي اوزار دستاويز ۾ ڪا تبديلي نٿو ڪري.
+tool.zoom.name = زوم
+tool.zoom.description = ڏيک کي وڏو يا ننڍو ڪري ٿو. ڏيک وارو حصو ونڊو سان لاڳاپيل آهي، تنهنڪري بنا ونڊو جي هي اوزار دستاويز ۾ ڪا تبديلي نٿو ڪري.

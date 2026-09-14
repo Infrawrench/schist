@@ -1,0 +1,22 @@
+tool.type.name = Матн
+tool.type.description = Барои оғоз кардани қабати матнӣ дар он ҷо зер кунед ё қабати мавҷударо зер карда таҳрир намоед. Ҳангоми кушода будан абзор тугмаҳои хомро қабул мекунад (аломатҳоро ҳамчун вуруди тугма фиристед); тасдиқ кардан қабатро тасвир карда, таҳрирро мебандад.
+
+tool.type.option.align = Ҳамворкунӣ
+tool.type.option.leading = Фосилаи сатрҳо
+tool.type.option.tracking = Фосилаи умумии ҳарфҳо
+tool.type.option.kerning = Фосилаи ҷуфти ҳарфҳо
+tool.type.option.ligatures = Лигатураҳо
+tool.type.option.discretionary_ligatures = Лигатураҳои ихтиёрӣ
+tool.type.option.small_caps = Ҳарфҳои хурди калоншакл
+tool.type.option.on_path = Рӯйи масири фаъол
+tool.type.option.path_offset = Фосила аз масир
+
+tool.type.choice.regular = Муқаррарӣ
+tool.type.choice.bold = Ғафс
+tool.type.choice.italic = Моил
+tool.type.choice.bold_italic = Ғафси моил
+
+tool.type.history.new_layer = Қабати нави матнӣ
+tool.type.history.edit = Таҳрири матн
+tool.type.history.discard = Рад кардани матн
+tool.type.history.discard_empty = Рад кардани матни холӣ

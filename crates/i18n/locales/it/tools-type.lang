@@ -1,0 +1,27 @@
+# Strumento Testo. I nomi delle famiglie di font non vengono tradotti.
+
+tool.type.name = Testo
+tool.type.description = Fai clic per creare un livello di testo in quel punto oppure fai clic su un livello esistente per modificarlo. Finché l'editor è aperto, lo strumento acquisisce i tasti direttamente (invia i caratteri come input da tastiera); confermando, il livello viene renderizzato e la modifica si chiude.
+
+# Barra delle opzioni
+tool.type.option.align = Allineamento
+tool.type.option.leading = Interlinea
+tool.type.option.tracking = Spaziatura
+tool.type.option.kerning = Crenatura
+tool.type.option.ligatures = Legature
+tool.type.option.discretionary_ligatures = Legature discrezionali
+tool.type.option.small_caps = Maiuscoletto
+tool.type.option.on_path = Sul tracciato attivo
+tool.type.option.path_offset = Scostamento tracciato
+
+# Menu Stile, nell'ordine usato da Photoshop
+tool.type.choice.regular = Normale
+tool.type.choice.bold = Grassetto
+tool.type.choice.italic = Corsivo
+tool.type.choice.bold_italic = Grassetto corsivo
+
+# Cronologia
+tool.type.history.new_layer = Nuovo livello di testo
+tool.type.history.edit = Modifica testo
+tool.type.history.discard = Annulla testo
+tool.type.history.discard_empty = Annulla testo vuoto

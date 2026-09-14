@@ -1,0 +1,26 @@
+# Yr offer sylfaenol: Symud, Pipedydd, Llaw a Chwyddo.
+
+# Symud
+tool.move.name = Symud
+tool.move.description = Llusgwch gynnwys yr haen weithredol i safle newydd. Pan fo Awto-ddewis ymlaen, mae'r gwasgiad yn dewis pa haen — neu grŵp cyfan — bynnag sydd o dan y pwyntydd yn gyntaf.
+tool.move.option.auto_select = Awto-ddewis
+tool.move.history.move_layer = Symud Haen
+
+# Pipedydd
+tool.eyedropper.name = Pipedydd
+tool.eyedropper.description = Samplwch y lliw o dan y pwyntydd i'r sampl lliw blaendir, neu i'r sampl lliw cefndir pan gedwir Alt i lawr. Mae llusgo'n parhau i samplu.
+tool.eyedropper.option.sample_size = Maint y Sampl
+tool.eyedropper.option.sample = Samplu
+tool.eyedropper.choice.point_sample = Sampl Pwynt
+tool.eyedropper.choice.average_3 = Cyfartaledd 3 wrth 3
+tool.eyedropper.choice.average_5 = Cyfartaledd 5 wrth 5
+tool.eyedropper.choice.average_11 = Cyfartaledd 11 wrth 11
+tool.eyedropper.choice.average_31 = Cyfartaledd 31 wrth 31
+tool.eyedropper.choice.all_layers = Pob Haen
+tool.eyedropper.choice.current_layer = Haen Gyfredol
+
+# Llaw a Chwyddo
+tool.hand.name = Llaw
+tool.hand.description = Mae'n panio'r olygfa. Mae'r porth gwylio'n perthyn i'r ffenestr, felly wrth redeg heb ryngwyneb graffigol nid yw'r offeryn hwn yn gwneud dim i'r ddogfen.
+tool.zoom.name = Chwyddo
+tool.zoom.description = Mae'n chwyddo'r olygfa. Mae'r porth gwylio'n perthyn i'r ffenestr, felly wrth redeg heb ryngwyneb graffigol nid yw'r offeryn hwn yn gwneud dim i'r ddogfen.

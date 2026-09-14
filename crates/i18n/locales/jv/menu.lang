@@ -1,0 +1,155 @@
+# Bilah menu aplikasi.
+
+# Berkas
+menu.file = Berkas
+menu.file.new = Anyar
+menu.file.open = Bukak…
+menu.file.open_recent = Bukak Anyar-anyar Iki
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Jlajah Galèri…
+menu.file.close = Tutup
+menu.file.save = Simpen
+menu.file.save_as = Simpen Minangka…
+menu.file.export = Ekspor…
+menu.file.export_submenu = Ekspor
+menu.file.export_artboards = Artboard menyang PNG…
+menu.file.export_slices = Irisan menyang PNG…
+menu.file.save_to_photos = Simpen menyang Foto
+menu.file.plugins = Plugin…
+menu.file.missing_fonts = Font sing Ilang…
+menu.file.check_for_updates = Priksa Anyaran…
+menu.file.quit = Metu
+menu.file.add_folder_to_gallery = Tambah Folder menyang Galèri…
+menu.file.import_from_photos = Impor saka Foto…
+menu.file.import_from_camera = Impor saka Kamera…
+
+# Sunting
+menu.edit = Sunting
+menu.edit.fill = Isen…
+menu.edit.stroke = Guratan…
+menu.edit.content_aware_fill = Isen Sadhar Isi
+menu.edit.content_aware_scale = Skala Sadhar Isi…
+menu.edit.puppet_warp = Puppet Warp
+menu.edit.free_transform = Transformasi Bebas
+menu.edit.transform = Transformasi
+menu.edit.rotate_180 = Puter 180°
+menu.edit.rotate_90_cw = Puter 90° Saarah Jarum Jam
+menu.edit.rotate_90_ccw = Puter 90° Kosok Baliné Jarum Jam
+menu.edit.flip_horizontal = Walik Horisontal
+menu.edit.flip_vertical = Walik Vertikal
+
+# Gambar
+menu.image = Gambar
+menu.image.mode = Modus
+menu.image.adjustments = Pangaturan
+menu.image.auto_tone = Nada Otomatis
+menu.image.auto_contrast = Kontras Otomatis
+menu.image.auto_color = Werna Otomatis
+menu.image.image_size = Ukuran Gambar…
+menu.image.canvas_size = Ukuran Kanvas…
+menu.image.image_rotation = Rotasi Gambar
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° Saarah Jarum Jam
+menu.image.rotate_90_ccw = 90° Kosok Baliné Jarum Jam
+menu.image.flip_canvas_horizontal = Walik Kanvas Horisontal
+menu.image.flip_canvas_vertical = Walik Kanvas Vertikal
+menu.image.crop_to_selection = Potong manut Pilihan
+menu.image.trim = Pangkas
+menu.image.assign_profile = Temtokaké Profil…
+menu.image.convert_to_profile = Konvèrsi menyang Profil…
+
+# Pilih
+menu.select = Pilih
+menu.select.color_range = Rentang Werna…
+menu.select.modify = Owahi
+menu.select.border = Wates…
+menu.select.smooth = Alusaké…
+menu.select.expand = Jembarake…
+menu.select.contract = Ciutaké…
+menu.select.feather = Feather…
+menu.select.transform_selection = Transformasi Pilihan
+
+# Lapisan
+menu.layer = Lapisan
+menu.layer.layer_style = Gaya Lapisan…
+menu.layer.layer_comps = Komposisi Lapisan
+menu.layer.new_layer_comp = Komposisi Lapisan Anyar
+menu.layer.delete_layer_comp = Busak {name}
+menu.layer.path = Path
+menu.layer.fill_path = Isèni Path
+menu.layer.stroke_path = Gurat Path
+menu.layer.make_selection = Gawé Pilihan
+menu.layer.delete_path = Busak Path
+
+# Atur
+menu.adjust = Atur
+
+# Filter
+menu.filter = Filter
+menu.filter.filter_gallery = Galèri Filter…
+menu.filter.liquify = Liquify
+menu.filter.vanishing_point = Vanishing Point
+menu.filter.manage_models = Atur Modèl…
+menu.filter.camera_raw_development = Pangembangan Camera Raw…
+
+# Tampilan
+menu.view = Tampilan
+menu.view.rotate_view_cw = Puter Tampilan Saarah Jarum Jam
+menu.view.rotate_view_ccw = Puter Tampilan Kosok Baliné Jarum Jam
+menu.view.reset_view = Reset Tampilan
+menu.view.zoom_in = Gedhèkaké
+menu.view.zoom_out = Cilikaké
+menu.view.fit_on_screen = Pas ing Layar
+menu.view.actual_size = 100%
+menu.view.rulers = Penggaris
+menu.view.grid = Kothak-kothak
+menu.view.guides = Pandhu
+menu.view.notes = Cathetan
+menu.view.ai_panel = Panel AI
+menu.view.extras = Tambahan
+menu.view.snap = Cèplèk
+menu.view.clear_guides = Resiki Pandhu
+menu.view.clear_notes = Resiki Cathetan
+menu.view.clear_count = Resiki Cacah
+menu.view.screen_mode = Modus Layar
+menu.view.proof_colors = Simulasi Werna
+menu.view.show_rulers = Tuduhaké Penggaris
+menu.view.hide_rulers = Delikaké Penggaris
+menu.view.show_grid = Tuduhaké Kothak-kothak
+menu.view.hide_grid = Delikaké Kothak-kothak
+menu.view.show_guides = Tuduhaké Pandhu
+menu.view.hide_guides = Delikaké Pandhu
+menu.view.show_notes = Tuduhaké Cathetan
+menu.view.hide_notes = Delikaké Cathetan
+menu.view.show_extras = Tuduhaké Tambahan
+menu.view.hide_extras = Delikaké Tambahan
+menu.view.enable_snapping = Aktifaké Cèplèkan
+menu.view.disable_snapping = Patèni Cèplèkan
+menu.view.enable_proof_colors = Aktifaké Simulasi Werna
+menu.view.disable_proof_colors = Patèni Simulasi Werna
+
+# Galèri
+menu.gallery = Galèri
+menu.gallery.edit_selected = Sunting sing Dipilih
+menu.gallery.refresh = Segeraké
+menu.gallery.map_filter = Filter Péta…
+menu.gallery.back_to_editor = Bali menyang Panyunting
+
+# Submenu Schist Cloud
+menu.cloud.browse = Jlajah Schist Cloud
+menu.cloud.generate = Gawé gambar…
+menu.cloud.upload = Unggah dokumèn menyang Schist Cloud…
+menu.cloud.sign_out = Metu saka Schist Cloud
+menu.cloud.sign_in = Mlebu menyang Schist Cloud…
+
+# Menu aplikasi macOS
+menu.app.services = Layanan
+menu.app.hide = Delikaké {app}
+menu.app.hide_others = Delikaké Liyane
+menu.app.show_all = Tuduhaké Kabèh
+menu.app.quit = Metu saka {app}
+
+# Wangsulan bilah status
+menu.status.transform_selection_needs_selection = Transformasi Pilihan mbutuhaké pilihan
+menu.status.crop_needs_selection = Potong manut Pilihan mbutuhaké pilihan
+menu.status.select_photo_to_edit = Pilih foto sing arep disunting

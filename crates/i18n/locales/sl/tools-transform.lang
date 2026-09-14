@@ -1,0 +1,27 @@
+# Prosto preoblikovanje, preoblikovanje izbora in obrezovanje.
+
+tool.transform.name = Prosto preoblikovanje
+tool.transform.description = Prosto preoblikovanje. Ko ga vključite, se okoli dejavne plasti odpre okvir za preoblikovanje: povlecite vogal za spreminjanje velikosti, zunaj vogala za vrtenje ali rob za poševno preoblikovanje. Spremembe se ne zapišejo, dokler jih ne potrdite (Enter); ob preklicu (Escape) se plast povrne v prejšnje stanje.
+tool.transform.option.interpolation = Interpolacija
+tool.transform.history.transform = Prosto preoblikovanje
+tool.transform.history.image_size = Velikost slike
+tool.transform.history.canvas_size = Velikost platna
+
+tool.transform.selection.name = Preoblikovanje izbora
+tool.transform.selection.description = Preoblikovanje izbora: isti okvir premika obris izbora namesto slikovnih pik v njem. Za konec preoblikovanje potrdite ali prekličite.
+tool.transform.selection.history.transform = Preoblikovanje izbora
+
+tool.transform.resample.nearest_neighbor = Najbližji sosed
+tool.transform.resample.bilinear = Bilinearno
+tool.transform.resample.bicubic = Bikubično
+
+tool.crop.name = Obrezovanje
+tool.crop.description = Povlecite čez območje, ki ga želite ohraniti, in prilagodite njegove ročice; s potrditvijo (Enter) dokument obrežete na to območje, s preklicem (Escape) pa ga pustite nespremenjenega.
+tool.crop.option.ratio = Razmerje
+tool.crop.option.delete_cropped = Izbriši obrezane slikovne pike
+tool.crop.choice.unconstrained = Brez omejitev
+tool.crop.choice.ratio_1_1 = 1 : 1
+tool.crop.choice.ratio_4_3 = 4 : 3
+tool.crop.choice.ratio_3_2 = 3 : 2
+tool.crop.choice.ratio_16_9 = 16 : 9
+tool.crop.history.crop = Obreži

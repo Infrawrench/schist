@@ -1,0 +1,360 @@
+# Galería de fotos.
+
+# Barra lateral
+library.sidebar.view = VISTA
+library.sidebar.folders = CARPETAS
+library.sidebar.buckets = COLECCIONS
+library.sidebar.people = PERSONAS
+library.sidebar.group_by = AGRUPAR POR
+library.sidebar.all_photos = Todas as fotos
+library.sidebar.world_map = Mapa d'o mundo
+library.sidebar.map_filter = Filtro d'o mapa…
+library.sidebar.map_filter_on = Filtro d'o mapa activau
+library.sidebar.add_folder = + Anyadir carpeta…
+library.sidebar.new_bucket = + Nueva colección
+library.sidebar.stop_watching = Deixar d'observar ista carpeta
+library.sidebar.unnamed_faces = Caras sin nombre
+library.sidebar.retry_face_model = Tornar a descargar o modelo de caras
+library.sidebar.retry_recognition_model = Tornar a descargar o modelo de reconoiximiento
+library.sidebar.looking_for_faces = Se son mirando caras… {looked}/{total}
+library.sidebar.faces_appear = As caras amaneixen aquí entre que s'indexan as fotos.
+library.sidebar.downloading_face_models = Se son descargando os modelos de caras… {got} de {total} MB
+
+# Agrupación d'a quadricula
+library.group_by.date = Calendata
+library.group_by.folder = Carpeta
+library.group_by.place = Puesto
+
+# Meses
+library.month.january = Chinero
+library.month.february = Febrero
+library.month.march = Marzo
+library.month.april = Abril
+library.month.may = Mayo
+library.month.june = Chunio
+library.month.july = Chulio
+library.month.august = Agosto
+library.month.september = Setiembre
+library.month.october = Octubre
+library.month.november = Noviembre
+library.month.december = Aviento
+library.month.title = {month} de {year}
+library.month.undated = Sin calendata
+
+# Capçaleras de grupo
+library.group.person = Personas · {name}
+library.group.person_in = Personas · {name} · en {scope}
+library.group.unnamed = Caras sin nombre
+library.group.unnamed_in = Caras sin nombre · en {scope}
+library.group.bucket = Colección · {name}
+library.group.no_location = Sin posición
+library.group.not_indexed = Encara sin indexar
+library.group.detail = {detail} — {n}
+
+# Barra superior
+library.strip.import = Importar…
+library.strip.add_folder = Anyadir carpeta…
+library.strip.settings = Configuración…
+library.strip.new_file = Fichero nuevo…
+library.strip.back_to_editing = Tornar a la edición
+library.strip.enable_search = Activar a busca de fotos…
+library.strip.enable_search_menu = Activar a busca de fotos…
+library.strip.map_filter_chip = Filtro d'o mapa: {name}
+library.strip.downloading_search = Se ye descargando a busca de fotos… {got} de {total} MB
+
+# Caixa de busca
+library.search.placeholder = Mirar fotos…
+library.search.placeholder_indexing = Mirar ({indexed}/{total} indexadas)
+library.search.placeholder_people_places = Mirar personas y puestos…
+library.search.results = Resultaus d'a busca
+library.search.results_in_bucket = Colección · {name} · Resultaus d'a busca
+library.search.near = amán de {place}
+library.search.with = con {names}
+
+# Bandeixa y celulas
+library.tray.view = Veyer
+library.tray.edited_note = editada — as versions se conservan chunto a lo fichero
+library.tray.n_hidden.one = {n} amagada por o filtro de conteniu
+library.tray.n_hidden.other = {n} amagadas por o filtro de conteniu
+library.cell.no_preview = sin vista previa
+library.cell.edited = editada
+library.gallery.loading = Se son cargando as fotos…
+
+# Pantalla de bienvenida
+library.welcome.title = Bienveniu a Schist
+library.welcome.intro = Observa carpetas de fotos u importa dende una camera. Os fichers se quedan an son; as edicions se conservan como versions chunto a ells:
+library.welcome.intro_ios = Importa fotos d'a tuya fototeca u anyade una carpeta dende Fichers. As edicions se conservan como versions chunto a cada foto:
+library.welcome.or_open = U abre una imachen ta editar-la:
+library.welcome.shortcut_mac = A galería ye siempre a un ⌘⇧G, sigas editando o que sigas.
+library.welcome.shortcut = A galería ye siempre a un Ctrl+Mayús+G, sigas editando o que sigas.
+
+# Motivos por os quals a quadricula ye vueda
+library.gallery.empty_bucket_search = Garra elemento d'ista colección coincide con a busca. Escape la borra y amuestra a colección entera.
+library.gallery.empty_search = Garra elemento coincide con a busca. Escape la borra.
+library.gallery.empty_smart_bucket = Encara no i hai garra elemento que coincida con a regla d'ista colección; os resultaus amaneixen entre que s'indexan as fotos. Tamién puetz arrocegar-ie fotos.
+library.gallery.empty_bucket = Ista colección ye vueda. Arrociega fotos sobre a suya ringlera en a barra lateral ta anyadir-las.
+library.gallery.empty_person = Encara no i hai cosa aquí. As caras amaneixen entre que s'indexan as fotos; fe clic en una foto y dimpués en una cara ta decir qui ye.
+library.gallery.scanning = Se son escaniando as carpetas…
+library.gallery.empty = No s'ha trobau garra foto en as carpetas observadas. Aquí amaneixen as imachens que Schist puet ubrir (PNG, JPEG, WebP, TIFF, HEIC, fichers RAW de camera, PSD y Affinity); s'escanean as subcarpetas dica seis nivels de profundidat.
+
+# Coleccions
+library.bucket.default_name = Colección {n}
+library.bucket.rule_matches = coincide con «{query}»
+library.bucket.rule_taken_in = presa en {name}
+library.bucket.new_title = Nueva colección
+library.bucket.edit_title = Editar colección
+library.bucket.new_cloud_title = Nueva colección en o nuvol
+library.bucket.edit_cloud_title = Editar colección d'o nuvol
+library.bucket.create = Crear
+library.bucket.query_placeholder = p. eix., can en una placha (opcional)
+library.bucket.the_drawn_area = l'aria dibuixada
+library.bucket.area_help = Arrociega o mapa con Mayús (u tría un valor predefiniu) ta anyadir una aria; un arrocegue muit chicot la borra. As reglas mantienen a colección plena automaticament.
+library.bucket.rule_none = Sin regla: una colección ordinaria, que s'emple arrocegando-ie fotos.
+library.bucket.rule_query = Conserva todas as fotos que coinciden con «{query}».
+library.bucket.rule_area = Conserva todas as fotos presas en {area}.
+library.bucket.rule_query_area = Conserva todas as fotos que coinciden con «{query}» y que se prenioron en {area}.
+library.bucket.starts_with.one = Prencipia con a foto trigada.
+library.bucket.starts_with.other = Prencipia con as {n} fotos trigadas.
+
+# Mapa d'o mundo
+library.map.status = {located} fotos en o mapa · {unlocated} sin posición
+library.map.reading_locations = Se son leyendo posicions: en quedan {n}
+library.map.reset_view = Restablir vista
+library.map.no_photos = No i hai garra foto con posición GPS en ista vista. Anyade fotos cheolocalizadas u cambia os filtros d'a galería.
+library.map.no_photos_cloud = No i hai garra foto con posición GPS aquí. Tría unatra carpeta u colección, u borra a busca.
+library.map.hint = Arrociega ta desplazar · desplaza ta cambiar o zoom · fe clic en un marcador ta veyer as fotos · fe doble clic en una foto ta editar-la
+library.map.n_at_marker.one = {n} foto en iste marcador
+library.map.n_at_marker.other = {n} fotos en iste marcador
+library.map.n_in_marker.one = {n} foto dentro d'iste marcador
+library.map.n_in_marker.other = {n} fotos dentro d'iste marcador
+library.map.attribution = © colaboradors d'OpenStreetMap
+
+# Editor de limites
+library.map.draw_area = Dibuixar aria
+library.map.drawing = Se ye dibuixando…
+library.map.clear_boundary = Borrar limite
+library.map.editor_hint = arrocegar desplaza · desplazar cambia o zoom · Mayús+arrocegar dibuixa
+
+# Filtro d'o mapa
+library.map_filter.title = Filtro d'o mapa
+library.map_filter.drawn_area = aria dibuixada
+library.map_filter.apply_named = Aplicar amuestra nomás as fotos presas en {name}; as fotos sin posición EXIF s'amagan.
+library.map_filter.apply_drawn = Aplicar amuestra nomás as fotos presas dentro de {south}°, {west}° a {north}°, {east}°; as fotos sin posición EXIF s'amagan.
+library.map_filter.draw_first = Dibuixa un limite (Mayús+arrocegar u un botón predefiniu) y dimpués aplica-lo. Aplicar sin haber dibuixau cosa desactiva o filtro.
+library.map_filter.turn_off = Desactivar filtro
+
+# Importación dende camera
+library.import.title = Importar dende a camera
+library.import.from = Importar dende {name}
+library.import.no_cameras = No s'ha trobau garra camera.
+library.import.no_cameras_help = Connecta una camera, tarcheta de memoria u iPhone. Un iPhone ha d'estar desbloquiau y has d'haber respondiu a Confiar en iste ordinador antes que amuestre as suyas fotos; fe-lo, aguarda un inte y preta Escaniar atra vegada. Tamién vale qualsiquier dispositivo que se monte como disco con una carpeta DCIM.
+library.import.scan_again = Escaniar atra vegada
+library.import.pick_source = Se puet accedir a mas d'una camera. Importar dende:
+library.import.via_image_capture = por medio de Captura d'imachen
+library.import.boundary_named = Limite: {name} — nomás s'importan as fotos que tienen a posición EXIF adintro; as fotos sin posición se quedan en a camera.
+library.import.boundary_drawn = Limite: {south}°, {west}° a {north}°, {east}° — nomás s'importan as fotos que tienen a posición EXIF adintro; as fotos sin posición se quedan en a camera.
+library.import.no_boundary = Sin limite — s'importa tot o que i hai en a camera.
+library.import.destination = Enta ~/Pictures/Schist Imports/{name} — os fichers ya importaus se saltan, asinas que repetir a importación ye seguro.
+library.import.selected_area = Aria trigada
+library.import.locked_help = Si o dispositivo ye blocau: desbloquia-lo, toca Confiar en iste ordinador quan te lo pregunte, deixa-lo connectau y torna a prebar.
+library.import.try_again = Tornar a prebar
+library.import.add_to_gallery = Anyadir a la galería
+
+# Estau d'a importación dende camera
+library.import.needs_home = A importación ameneste un directorio personal an copiar
+library.import.importing_from = Se ye importando dende {source}…
+library.import.importing_in_place = Se son importando fotos presas en {place} dende {source}…
+library.import.device_macos_only = A importación directa dende dispositivos ye una función de macOS
+library.import.failed = Ha fallau a importación: {error}
+library.import.from_failed = Ha fallau a importación dende {name}
+library.import.locked = {name} ye blocau — desbloquia-lo y toca Confiar ta continar
+library.import.reading_catalog = Se ye leyendo o catalogo de fotos de {name}…
+library.import.progress_from = Se ye importando a foto {n}/{total} dende {name}…
+library.import.progress = Se ye importando o fichero {n}/{total}…
+library.import.choose_photos = Tría fotos y vidios ta importar…
+library.import.photos_open_failed = No s'ha puesto ubrir a fototeca: {error}
+library.import.done.one = S'ha importau {n} fichero en {dest}
+library.import.done.other = S'han importau {n} fichers en {dest}
+library.import.done_in_place.one = S'ha importau {n} foto presa en {place} enta {dest} ({filtered} d'atro puesto u sin posición s'ha deixau en a camera)
+library.import.done_in_place.other = S'han importau {n} fotos presas en {place} enta {dest} ({filtered} d'atros puestos u sin posición s'han deixau en a camera)
+library.import.n_failed.one = N'ha fallau {n}
+library.import.n_failed.other = N'han fallau {n}
+library.import.no_dcim = No i hai garra carpeta DCIM en {source}
+library.import.already_running = Ya i hai una importación en curso
+library.import.camera_gone = Ixa camera ya no ye connectada
+library.import.camera_disconnected = A camera s'ha desconnectau en plena importación
+library.import.unknown_error = Error desconoixiu
+library.import.picker_needs_ios14 = O selector de fotos ameneste iOS 14 u posterior
+library.import.picker_unavailable = O selector de fotos no ye disponible
+library.import.no_window = No i hai garra finestra dende an presentar o selector
+
+# Nombre d'os volúmens de camera
+library.volume.iphone = iPhone u iPad
+library.volume.camera = Camera
+library.volume.phone = Telefono
+
+# Carpeta ubierta en pestanyas
+library.open_folder.opened.one = S'ha ubierto {n} imachen
+library.open_folder.opened.other = S'han ubierto {n} imachens
+library.open_folder.opened_first = S'han ubierto as primeras {n} de {total} imachens; a galería conserva as atras
+
+# Modelos de busca de fotos
+library.search_models.title = Busca de fotos
+library.search_models.intro = Ta mirar fotos por o que contienen calen dos modelos, que se descargan una sola vegada y se conservan en ista maquina. S'executan localment: garra foto no sale nunca d'ella.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = MobileCLIP d'Apple
+library.search_models.export = Exportación ONNX de Xenova
+library.search_models.license = Licencia
+library.search_models.download_note = A descarga instala os dos ({mb} MB en total) y accepta as suyas licencias. Se pueden sacar dimpués en Galería ▸ Chestionar modelos…
+library.search_models.agree = Acceptar y descargar
+
+# Menú contextual
+library.menu.add_all_to = Anyadir-lo tot a {name}
+library.menu.add_all_to_new_bucket = Anyadir-lo tot a una colección nueva…
+library.menu.edit_n_in_tabs = Editar {n} en pestanyas
+library.menu.view_name_people = Veyer y nombrar personas
+library.menu.reveal = Amostrar en o chestor de fichers
+library.menu.add_to = Anyadir a {name}
+library.menu.add_to_new_bucket = Anyadir a una colección nueva
+library.menu.remove_from_bucket = Sacar d'ista colección
+library.menu.save_n_as_zip = Alzar {n} como ZIP…
+library.menu.save_image_as = Alzar imachen como…
+library.menu.process = Procesar…
+library.menu.process_n = Procesar {n} fotos…
+library.menu.move_to_folder = Mover enta una carpeta…
+library.menu.move_n_to_folder = Mover {n} enta una carpeta…
+library.menu.revert = Tornar a l'orichinal
+library.menu.revert_n = Tornar {n} a los orichinals
+library.menu.upload_to_cloud = Puyar a Schist Cloud…
+library.menu.watch_local_folder = Observar una carpeta d'iste ordinador…
+library.menu.new_cloud_folder = {glyph} Nueva carpeta de Schist Cloud…
+library.menu.new_local_bucket = Nueva colección en iste ordinador…
+library.menu.new_cloud_bucket = {glyph} Nueva colección de Schist Cloud…
+library.menu.edit_bucket = Editar colección…
+library.menu.select_all_n = Trigar-lo tot ({n})
+library.menu.save_all_as_zip = Alzar-lo tot como ZIP… ({n})
+library.menu.process_all = Procesar-lo tot… ({n})
+library.menu.move_all_to_folder = Mover-lo tot enta una carpeta…
+library.menu.clear_added = Borrar as fotos anyadidas
+library.menu.clear_bucket = Vuedar colección
+library.menu.delete_bucket = Borrar colección
+library.menu.show_person = Amostrar {name}
+library.menu.rename_person = Renombrar…
+library.menu.forget_person.one = Oblidar a persona ({n} cara)
+library.menu.forget_person.other = Oblidar a persona ({n} caras)
+
+# Mover, comprimir, alzar, revertir y procesar
+library.ops.moving.one = Se ye movendo {n} foto enta {dest}…
+library.ops.moving.other = Se son movendo {n} fotos enta {dest}…
+library.ops.moved.one = S'ha moviu {n} foto enta {dest}
+library.ops.moved.other = S'han moviu {n} fotos enta {dest}
+library.ops.moved_partial = S'han moviu {n} de {total} fotos enta {dest}; o rechistro contiene a resta
+library.ops.move_here = Mover aquí
+library.ops.no_export_format = Garra formato d'iste puesto puet alzar una imachen
+library.ops.saved_size = S'ha alzau {name} ({w} × {h})
+library.ops.save_failed = Ha fallau l'alzau: {error}
+library.ops.opening_first = Se son ubrindo as primeras {n} de {total} fotos; a galería conserva as atras
+library.ops.nothing_to_revert = No i hai cosa que revertir: garra d'ixas fotos tiene una edición
+library.ops.reverted.one = S'ha tornau {n} foto a lo suyo orichinal; a edición se conserva en versions/
+library.ops.reverted.other = S'han tornau {n} fotos a los suyos orichinals; as edicions se conservan en versions/
+library.ops.no_file_name = O fichero no tiene nombre
+library.zip.nothing_all_held = No i hai cosa que comprimir: o filtro de conteniu excluye as {n} fotos
+library.zip.failed = Ha fallau o ZIP: {error}
+library.zip.progress = Se ye comprimindo {n}/{total}…
+library.zip.n_held.one = ({n} excluida por o filtro de conteniu)
+library.zip.n_held.other = ({n} excluidas por o filtro de conteniu)
+library.zip.done.one = S'ha comprimiu {n} foto en {dest}
+library.zip.done.other = S'han comprimiu {n} fotos en {dest}
+library.zip.done_partial = S'han comprimiu {n} de {total} fotos en {dest}; o rechistro contiene a resta
+library.zip.nothing_readable = No s'ha puesto leyer cosa ta comprimir
+library.zip.too_large = Masa gran ta un ZIP sin zip64
+library.batch.nothing_to_do = No i hai cosa que fer: tría primero un chiro, un aumento d'escala u un achuste
+library.batch.save_copies_here = Alzar copias aquí
+library.batch.processing.one = Se ye procesando {n} foto…
+library.batch.processing.other = Se son procesando {n} fotos…
+library.batch.progress = S'han procesau {n}/{total} — {name}
+library.batch.failed = Ha fallau o procesau: {error}
+library.batch.done.one = S'ha procesau {n} foto
+library.batch.done.other = S'han procesau {n} fotos
+library.batch.done_partial = S'han procesau {n} de {total} fotos; o rechistro contiene a resta
+library.batch.model_would_not_load = O modelo {name} no s'ha puesto cargar
+library.batch.no_psd_writer = No i hai garra escritor de PSD cargau
+
+# Visor y album de Personas
+library.viewer.back = ‹ Tornar a las fotos
+library.viewer.could_not_decode = No s'ha puesto decodificar ista foto.
+library.viewer.label_auto = {name} · automatico
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = PERSONAS EN ISTA FOTO
+library.viewer.faces_intro = As caras se troban con un modelo chicot que se descarga una sola vegada. Tamién se pueden dibuixar as caixas a man.
+library.viewer.looking_for_faces = Se son mirando caras…
+library.viewer.no_faces = No s'ha trobau garra cara. Arrociega una caixa arredol d'una ta anyadir una persona a man.
+library.viewer.help = Fe clic en una cara ta dar-le nombre; Intro alza. Arrociega sobre a foto ta marcar una cara que o detector no ha trobau. ← → cambeyan de foto y Esc torna dezaga.
+library.viewer.not_them = No ye ixa persona
+library.viewer.remove_name = Sacar nombre
+library.viewer.not_a_face = No ye una cara
+library.viewer.auto = automatico
+library.viewer.is_this = Ye {name}?
+library.viewer.someone_else = Unatra persona
+library.viewer.add_name = Anyadir un nombre…
+library.viewer.who_is_this = Qui ye?
+library.people.rename_title = Renombrar persona
+library.people.merge_warning = Ya i hai una persona que se diz «{name}»: en alzar se fusionarán as dos.
+library.people.merge_note = Si la renombras con un nombre que ya tiene unatra persona, as dos se fusionarán.
+library.people.named = S'ha nombrau {name}
+library.people.named_followed.one = S'ha nombrau {name} · {n} cara mas ha coincidiu automaticament
+library.people.named_followed.other = S'ha nombrau {name} · {n} caras mas han coincidiu automaticament
+
+# Alzar en Fotos
+library.photos.saving = Se ye alzando en Fotos…
+library.photos.saved = S'ha alzau en Fotos
+library.photos.save_failed = Ha fallau l'alzau en Fotos: {error}
+library.photos.no_document = no i hai garra documento ubierto
+library.photos.no_png_codec = o codec PNG no ye cargau
+library.photos.no_answer = a fototeca no ha respondiu
+library.photos.bad_url = no s'ha puesto convertir a rota d'o fichero en una URL
+library.photos.unavailable = a fototeca no ye disponible
+library.photos.declined = a fototeca ha refusau
+
+# Fichers compartius con l'aplicación
+library.shared.needs_documents = A galería ameneste una carpeta Documentos an copiar
+library.shared.added.one = S'ha anyadiu {n} foto a la galería
+library.shared.added.other = S'han anyadiu {n} fotos a la galería
+library.shared.open_needs_documents = Ta ubrir cal una carpeta Documentos an copiar
+library.shared.could_not_open = No s'ha puesto ubrir {name}: {error}
+
+# Vista previa de vidio y captura de fotogramas
+video.invalid_file = Isto no ye un fichero de vidio local.
+video.install_gstreamer = A vista previa de vidio ameneste GStreamer 1.x y complementos de decodificación de vidio. Instala-los y torna a ubrir o vidio. Encara puetz trigar un editor externo.
+video.decode_failed = No s'ha puesto decodificar iste fotograma de vidio.
+video.no_stream = Iste fichero no tiene garra pista de vidio.
+video.no_duration = No s'ha puesto leyer a duración d'o vidio.
+video.frame_too_large = Iste fotograma ye masa gran ta ubrir-lo.
+video.first_frame = Ya yes en o primer fotograma.
+video.editor_failed = No s'ha puesto ubrir l'editor de vidio: {error}
+video.editor_unavailable = No s'ha puesto ubrir l'editor de vidio trigau. Tría atra vegada l'aplicación.
+video.loading = Se ye cargando o vidio…
+video.searching = Se ye mirando un fotograma mas nitido amán…
+video.capturing = Se ye ubrindo o fotograma a resolución completa…
+video.frame_title = {name} — fotograma {time}
+video.frame_layer = Fotograma de vidio
+video.already_sharpest = Iste ya ye o fotograma mas nitido d'os que son amán.
+video.found_frame = S'ha trigau o fotograma mas nitido d'os que son amán, en {time}.
+video.choose_editor = Trigar editor de vidio…
+video.back = Tornar a la galería
+video.pause = Pausa
+video.play = Reproducir
+video.previous = Fotograma anterior
+video.next = Fotograma siguient
+video.sharper = Mirar un fotograma mas nitido
+video.edit_frame = Editar fotograma
+video.open_editor = Ubrir en l'editor de vidio
+video.preview_help = Vista previa sin son · Espacio: reproducir/pausar · Flechas: avanzar por fotogramas · Busca dentro de ½ segundo a cada costau. Editar ubre una imachen deseparada.
+video.badge = ▶ Vidio
+video.view = Veyer vidio
+
+video.open_another_app = Ubrir en unatra aplicación…
+video.preview_help_touch = Vista previa sin son · Arrociega a linia de tiempo u avanza por fotogramas. Mirar un fotograma mas nitido busca dentro de ½ segundo a cada costau. Editar ubre una imachen deseparada.
+video.importing = Se son importando fotos y vidios…
+video.import_failed = No s'han puesto importar os elementos multimedia: {error}
+video.import_failed_simple = No s'han puesto importar u compartir istos elementos multimedia.

@@ -1,0 +1,24 @@
+# Bodjî
+tool.move.name = Bodjî
+tool.move.description = Hossez çou k' i gn a sol coûtche en alaedje viè ene novele plaece. Si Tchoezi otomaticmint est metou, li tchôcaedje tchoezi l' coûtche — ou l' groupe etir — k' est al prumire plaece pa dzo l' pwinteu.
+tool.move.option.auto_select = Tchoezi otomaticmint
+tool.move.history.move_layer = Bodjî l' coûtche
+
+# Pipete
+tool.eyedropper.name = Pipete
+tool.eyedropper.description = Prinde on eshantiyon del coleur pa dzo l' pwinteu pol mete dins l' coleur di dvant, ou dins l' coleur di drî si Alt est tchôcî. Tant k' vos saetchîz, l' eshantiyonaedje continouwe.
+tool.eyedropper.option.sample_size = Grandeu di l' eshantiyon
+tool.eyedropper.option.sample = Eshantiyon
+tool.eyedropper.choice.point_sample = Eshantiyon d' on pont
+tool.eyedropper.choice.average_3 = Moyene 3 so 3
+tool.eyedropper.choice.average_5 = Moyene 5 so 5
+tool.eyedropper.choice.average_11 = Moyene 11 so 11
+tool.eyedropper.choice.average_31 = Moyene 31 so 31
+tool.eyedropper.choice.all_layers = Totes les coûtches
+tool.eyedropper.choice.current_layer = Coûtche do moumint
+
+# Mwin et zoumaedje
+tool.hand.name = Mwin
+tool.hand.description = Hosse li vuwe. Li camp veyou apårtént al finièsse; sins eterface grafike, ciste usteye ni candje rén e documint.
+tool.zoom.name = Zoumaedje
+tool.zoom.description = Agrandi ou rapetixhe li vuwe. Li camp veyou apårtént al finièsse; sins eterface grafike, ciste usteye ni candje rén e documint.

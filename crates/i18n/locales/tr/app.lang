@@ -1,0 +1,36 @@
+app.filter_gallery.title = Filtre Galerisi
+app.filter_gallery.stack = Yığın (alttan üste uygulanır)
+app.filter_gallery.no_settings = Bu filtrenin ayarı yok.
+app.fonts.not_open_licensed = açık lisanslı değil · {substitute} ölçüleriyle eşleşiyor
+app.fonts.missing_substituted = eksik · metin başka bir yazı tipiyle diziliyor
+app.fonts.not_in_catalogue = {family} açık yazı tipi kataloğunda yok
+app.fonts.no_faces = {family} için indirilebilir yazı tipi biçimi yok
+app.fonts.empty_response = boş yanıt
+app.update.unreadable_response = okunamayan yanıt: {error}
+app.update.no_temp_dir = indirilecek geçici dizin yok
+app.update.asset_has_path = sürüm, varlığını bir yol ile adlandırıyor
+app.update.too_big = indirme, sürümde belirtilenden daha büyük
+app.update.stopped_at = indirme {total} baytın {got} baytında durdu
+app.update.hash_mismatch = indirmenin karması {want} yerine {got}
+app.update.not_in_bundle = bu kopya bir uygulama paketinin içinde değil
+app.update.no_parent_dir = uygulama paketinin üst dizini yok
+app.update.cannot_write = {dir} dizinine yazılamıyor
+app.update.cannot_move_aside = {app} kenara taşınamıyor
+app.update.cannot_move_in = yeni paket yerine taşınamıyor
+app.update.cannot_run_ditto = /usr/bin/ditto çalıştırılamıyor
+app.update.unpack_failed = indirme açılamadı: {error}
+app.update.no_app_in_download = indirmede Schist.app yok
+app.update.cannot_run_codesign = /usr/bin/codesign çalıştırılamıyor
+app.update.signature_invalid = indirmenin imzası doğrulanamadı: {error}
+app.update.download_unsigned = bu kopya imzalı ancak indirme imzasız
+app.update.different_developer = indirme farklı bir geliştirici tarafından imzalanmış
+app.update.cannot_relaunch = yeniden başlatıcı çalıştırılamıyor
+app.update.not_installed_copy = bu kopya buraya yükleyici tarafından yerleştirilmemiş
+app.update.cannot_start_installer = yükleyici başlatılamıyor
+app.update.platform_unsupported = bu platformdaki güncellemeler Schist'in yüklendiği yöntemle yüklenir
+app.vulkan.no_loader = schist: bu sistemde Vulkan yükleyicisi yok, dolayısıyla çizim yapılamıyor.\n\nSchist Vulkan üzerinden işler ve `libvulkan.so.1` yüklü değil.\nHem yükleyici hem de bir sürücü gereklidir:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: bu oturumun işaret ettiği Vulkan sürücüsü mevcut değil.\n\n{var} ayarlanmış; bu ayar, yükleyicinin sürücü aramasına ekleme yapmak yerine aramanın *yerini alır*. Dolayısıyla mevcut olmayan şu dosyalar sürücü listesinin tamamıdır ve kaç sürücü yüklü olursa olsun bu oturumdaki hiçbir Vulkan programı sürücü göremez:\n\n{missing}\n    {var}={value}\n\nDeğişkeni mevcut bir bildirime yönlendirin (yüklü sürücüler bildirimlerini /usr/share/vulkan/icd.d içine koyar) veya değişkeni kaldırıp yükleyicinin sürücüyü bulmasına izin verin. Bunu bir yapılandırma dosyasından (Hyprland'in `env =` ayarı, bir systemd environment.d ek dosyası veya kabuk profili) ayarlayan oturumda değişiklik orada yapılmalıdır; değişikliğin çalışan uygulamalara ulaşması için yeniden oturum açmak gerekir.\n
+app.vulkan.override_note = \n{var}, {value} olarak ayarlanmış ve bu, yükleyicinin kendi aramasının yerini alıyor: bu bildirimlerin hiçbiri bu makineye ait değilse ilk olarak bu ayarı kaldırmayı deneyin.\n
+app.vulkan.no_driver = schist: Vulkan sürücüsü yüklü değil, dolayısıyla çizim yapılamıyor.\n\nSchist Vulkan üzerinden işler. Yükleyici kurulu ancak sürücü bildirmiyor; aradığı iki konumda da kayıtlı bir sürücü yok:\n\n{dirs}\n\nYükleyici sürücülerden ayrı dağıtıldığından genellikle yalnızca tek bir paket eksiktir.\n\nBu makinenin GPU'suna uygun olanı yükleyin:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA'nın özel sürücüsü kendi sürücüsünü içerir (Arch'ta `nvidia-utils`, Debian'da `nvidia-driver`). Sanal makinede veya yüklenecek GPU sürücüsü olmayan bir yerde yazılımsal tarama çalışır: Arch'ta `vulkan-swrast`, diğerlerinde `mesa-vulkan-drivers` paketinin bir parçasıdır. Yavaştır ama uygulamayı başlatır.\n{overridden}
+app.vulkan.no_device = schist: bir Vulkan sürücüsü yüklü ancak işleme yapacak aygıt sunmuyor.\n\nSürücü bu GPU'yu desteklemiyor veya GPU'ya erişemiyor olabilir; SSH üzerinden ya da bir kapsayıcı içindeyken /dev/dri çoğu zaman eksik olur. `vulkaninfo --summary`, yükleyicinin gördüklerini bildirir.\n\nBu makinede GPU yoksa yazılımsal tarama GPU olmadan işler: Arch'ta `vulkan-swrast`, Debian ve Fedora'da `mesa-vulkan-drivers` paketinin bir parçasıdır.\n
+app.vulkan.skip_hint = Schist'i yine de başlatıp kendi yöntemiyle başarısız olmasına izin vermek için {var}=1 ayarlayın.

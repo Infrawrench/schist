@@ -1,0 +1,72 @@
+tool.brush.name = Kist
+tool.brush.description = Naslikajte potez mekih rubova bojom prednjeg plana, čiju veličinu određuju veličina, tvrdoća i neprozirnost kista u uređivaču.
+tool.brush.history.stroke = Kist
+
+tool.pencil.name = Olovka
+tool.pencil.description = Naslikajte potez tvrdih rubova bez zaglađivanja bojom prednjeg plana.
+tool.pencil.history.stroke = Olovka
+
+tool.eraser.name = Gumica
+tool.eraser.description = Brišite duž poteza i vratite taj dio sloja u prozirno stanje.
+tool.eraser.history.stroke = Gumica
+
+tool.clone.name = Pečat za kloniranje
+tool.clone.description = Pečat za kloniranje: kliknite držeći Alt da postavite izvornu tačku, a zatim slikajte pikselima kopiranim iz nje uz isti pomak.
+tool.clone.history.stroke = Pečat za kloniranje
+
+tool.dodge.name = Posvjetljivanje
+tool.dodge.description = Posvijetlite piksele preko kojih prelazi potez.
+tool.dodge.history.stroke = Posvjetljivanje
+tool.burn.name = Potamnjivanje
+tool.burn.description = Zatamnite piksele preko kojih prelazi potez.
+tool.burn.history.stroke = Potamnjivanje
+tool.sponge.name = Spužva
+tool.sponge.description = Povećajte ili smanjite zasićenost piksela preko kojih prelazi potez.
+tool.sponge.history.stroke = Spužva
+
+tool.blur.name = Zamućivanje
+tool.blur.description = Zamutite piksele preko kojih prelazi potez.
+tool.blur.history.stroke = Zamućivanje
+tool.sharpen.name = Izoštravanje
+tool.sharpen.description = Izoštrite piksele preko kojih prelazi potez.
+tool.sharpen.history.stroke = Izoštravanje
+tool.smudge.name = Razmazivanje
+tool.smudge.description = Povlačite boju duž poteza kao da gurate mokru boju.
+tool.smudge.history.stroke = Razmazivanje
+
+tool.heal.name = Kist za popravke
+tool.heal.description = Kist za popravke: kliknite držeći Alt da postavite izvor, a zatim slikajte; tekstura izvora stapa se s bojom i osvjetljenjem odredišta.
+tool.heal.history.stroke = Kist za popravke
+tool.spot_heal.name = Kist za tačkaste popravke
+tool.spot_heal.description = Kist za tačkaste popravke: pređite preko nedostatka i on će biti zamijenjen teksturom iz okoline — nije potrebno postaviti izvornu tačku.
+tool.spot_heal.history.stroke = Kist za tačkaste popravke
+
+tool.history_brush.name = Kist historije
+tool.history_brush.description = Vratite piksele iz snimka historije dokumenta, poništavajući kasnije izmjene potez po potez.
+tool.history_brush.history.stroke = Kist historije
+
+tool.background_eraser.name = Gumica za pozadinu
+tool.background_eraser.description = Izbrišite boju uzorkovanu ispod sredine kista, a različite piksele ostavite netaknutim kako biste izdvojili subjekt iz pozadine.
+tool.background_eraser.history.stroke = Gumica za pozadinu
+
+tool.gradient.name = Gradijent
+tool.gradient.description = Povucite da ispunite sloj — kroz odabir ako postoji — linearnim gradijentom od boje prednjeg plana do boje pozadine u smjeru povlačenja.
+tool.gradient.radial.name = Radijalni gradijent
+tool.gradient.radial.description = Povucite od sredine prema van da ispunite područje radijalnim gradijentom između boje prednjeg plana i boje pozadine.
+tool.gradient.option.gradient = Gradijent
+tool.gradient.option.reverse = Obrni
+tool.gradient.option.dither = Ublaži prijelaze
+tool.gradient.choice.foreground_to_background = Od prednjeg plana do pozadine
+tool.gradient.choice.foreground_to_transparent = Od prednjeg plana do prozirnog
+tool.gradient.choice.linear = Linearni
+tool.gradient.choice.radial = Radijalni
+tool.gradient.choice.angle = Ugaoni
+tool.gradient.choice.reflected = Reflektirani
+tool.gradient.choice.diamond = Romb
+tool.gradient.history.gradient = Gradijent
+
+tool.bucket.name = Kanta s bojom
+tool.bucket.description = Kliknite da biste bojom prednjeg plana preplavili povezano područje slične boje ispod pokazivača, unutar tolerancije alata.
+tool.bucket.option.contiguous = Susjedno
+tool.bucket.option.all_layers = Svi slojevi
+tool.bucket.history.fill = Kanta s bojom

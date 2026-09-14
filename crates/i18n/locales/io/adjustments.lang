@@ -1,0 +1,20 @@
+# Ajusto-strati e komandi.
+adjustment.levels.name = Niveli
+adjustment.curves.name = Kurbi
+adjustment.hue_saturation.name = Kolornuanco/Satureso
+adjustment.brightness_contrast.name = Lumozeso/Kontrasto
+adjustment.black_white.name = Nigra e blanka
+adjustment.solid_color.name = Solida koloro
+adjustment.gradient_fill.name = Gradienta plenigo
+adjustment.pattern_fill.name = Motiva plenigo
+adjustment.invert.name = Inversigar
+adjustment.posterize.name = Posterigar
+adjustment.threshold.name = Sojo
+adjustment.color_balance.name = Kolorbalanco
+adjustment.vibrance.name = Viveso di koloro
+adjustment.exposure.name = Expono
+adjustment.photo_filter.name = Fotofiltrilo
+adjustment.gradient_map.name = Gradienta mapo
+adjustment.selective_color.name = Selektiva koloro
+adjustment.channel_mixer.name = Kanalmixilo
+adjustment.other.name = Ajusto

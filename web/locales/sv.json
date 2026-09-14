@@ -1,0 +1,9 @@
+{
+  "loading": "Läser in…",
+  "starting": "Startar…",
+  "webgpu": "Schist behöver WebGPU, som den här webbläsaren inte har. Chrome/Edge 113+, Firefox 141+ och Safari 26+ har det.",
+  "noticeTitle": "Schist fungerar bäst som skrivbordsprogram",
+  "noticeBody": "Du använder webbversionen, som är en lättare variant: den komponerar på processorn och saknar vissa funktioner – Photoshop- och tredjepartsplugin, bildgalleriet, AI-panelen, HEIC-import och teckensnittshämtning – och filer sparas som hämtningar. Det kostnadsfria skrivbordsprogrammet för macOS, Windows och Linux har allt.",
+  "noticeLink": "Hämta skrivbordsprogrammet.",
+  "ok": "OK"
+}

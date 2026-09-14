@@ -1,0 +1,110 @@
+workspace.fill.gray_50 = Loued 50%
+workspace.fill.content_aware = Diouzh an endalc'had
+
+workspace.modify.expand = Astenn an diuzadenn
+workspace.modify.contract = Strishaat an diuzadenn
+workspace.modify.border = Bevenniñ an diuzadenn
+workspace.modify.smooth = Leurisaat an diuzadenn
+workspace.modify.feather = Pluñvañ an diuzadenn
+
+workspace.batch.target.edit = Kemmoù er skeudennaoueg (gant handelvoù)
+workspace.batch.target.beside = Eiladoù e-kichen ar re orin
+workspace.batch.target.folder = Eiladoù en ur c'havlec'h…
+
+workspace.modal.image_size.title = Ment ar skeudenn
+
+workspace.docs.opening = O tigeriñ {name}…
+workspace.docs.opened = Digoret {name}
+workspace.docs.open_failed = C'hwitet eo an digeriñ: {error}
+workspace.docs.no_codec = N'eo ket {name} ur mentrezh a c'hall Schist digeriñ
+workspace.docs.no_exporter = N'hall ket Schist enrollañ restroù .{ext}
+workspace.docs.empty_response = Ur respont goullo en deus kaset ar servijer
+workspace.docs.heic_not_installed = N'eo ket staliet ar skor HEIC
+workspace.docs.heic_downloading = O pellgargañ ar skor HEIC (libheif {version})…
+workspace.docs.heic_installed = Skor HEIC staliet
+workspace.docs.heic_download_failed = C'hwitet eo pellgargañ ar skor HEIC: {error}
+workspace.docs.placing = O lec'hiañ {name}…
+workspace.docs.place_image = Lec'hiañ ur skeudenn
+workspace.docs.placed = Lec'hiet {name}
+workspace.docs.place_failed = C'hwitet eo al lec'hiañ: {error}
+workspace.docs.saved = Enrollet {name}
+workspace.docs.save_failed = C'hwitet eo an enrollañ: {error}
+
+workspace.adjustment.new_layer = Gwiskad {name} nevez
+workspace.adjustment.added = Ouzhpennet {name}
+workspace.adjustment.settings = Arventennoù {name}
+workspace.adjustment.updated = Hizivaet {name}
+workspace.adjustment.no_settings = N'eus arventenn gemmus ebet gant {name}
+
+workspace.comps.name_n = Kenaozadur gwiskadoù {n}
+workspace.comps.captured = Kenaozadur gwiskadoù paket
+workspace.comps.apply = Arloañ {name}
+
+workspace.styles.layer_style = Stil gwiskad
+workspace.context.rename_layer = Adenvel ar gwiskad
+workspace.commands.tool = Benveg: {name}
+
+workspace.colormgmt.assign = Deverkañ {name}
+workspace.colormgmt.assigned = Deverket {name}
+workspace.colormgmt.convert_to = Amdreiñ da {name}
+workspace.colormgmt.converted_to = Amdroet da {name}
+workspace.colormgmt.convert_failed = C'hwitet eo an amdreiñ: {error}
+workspace.colormgmt.proof_on = Livioù amprouiñ gweredekaet
+workspace.colormgmt.proof_off = Livioù amprouiñ diweredekaet
+
+workspace.filters.choose = Dibab
+workspace.filters.select_layer_first = Diuzit ur gwiskad da gentañ
+workspace.filters.needs_pixel_layer = Ur gwiskad piksel a zo ret evit ar siloù
+workspace.filters.nothing_to_filter = Netra da silañ
+workspace.filters.went_away = Aet eo ar sil kuit
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: aet eo kuit ar gwiskad bet silet gantañ
+workspace.filters.plugin_title = Enlugellad Photoshop
+workspace.filters.running = Oc'h erounit {name}
+workspace.filters.plugin_note = En e argerzh dezhañ e vez erounet an enlugellad. Ma tiger ur prenestr, respontit ennañ evit kenderc'hel.
+workspace.filters.raw_preview_developing = O tiorren an alberz RAW…
+workspace.filters.raw_preview_done = Alberz RAW (dizmozaikaat prim)
+workspace.filters.raw_preview_size_changed = Kemmet eo ment an alberz RAW: {w} × {h}
+workspace.filters.raw_preview_failed = C'hwitet eo an alberz RAW: {error}
+workspace.filters.raw_developing = O tiorren ar pakad orin…
+workspace.filters.raw_developing_note = Oc'h arverañ an hent dizmozaikaat gwellañ. Ar RAW orin hag an arventennoù-mañ a chom kemmus goude enrollañ e PSD pe PSB.
+workspace.filters.raw_document_changed = Echu eo diorren ar RAW goude ma voe kemmet e deul
+workspace.filters.raw_failed = C'hwitet eo diorren ar RAW: {error}
+workspace.filters.raw_too_wide = Re ledan eo diorren ar RAW
+workspace.filters.raw_too_tall = Re uhel eo diorren ar RAW
+workspace.filters.raw_size_changed = Kemmet eo ment diorren ar RAW da {w} × {h}; miret e vo ar gwiskad vremanel
+workspace.filters.raw_history = Diorren Camera Raw
+workspace.filters.raw_applied = Diorren Camera Raw arloet (dizmozaikaat gwellañ)
+
+workspace.image_size.done = Ment ar skeudenn: {w} × {h}
+workspace.image_size.bicubic_fallback = Ment ar skeudenn: {w} × {h} — n'eo ket bet karget ar patrom {name}, neuze ez eo bet arveret an etrelotadur daouc'harrdi en e lec'h
+workspace.image_size.upscaling = O kreskiñ ar skeul gant {name}
+workspace.image_size.upscaling_note = {mp} megapiksel dre ar rouedad, un nebeud eilennoù pep hini. Dalc'het eo an teul betek ma vo echu.
+
+workspace.export.no_slices = Troc'h ebet da ezporzhiañ
+workspace.export.no_artboards = Steuenn-labour ebet da ezporzhiañ
+workspace.export.regions.one = Ezporzhiet {n} takad
+workspace.export.regions.two = Ezporzhiet {n} dakad
+workspace.export.regions.few = Ezporzhiet {n} zakad
+workspace.export.regions.many = Ezporzhiet {n} a dakadoù
+workspace.export.regions.other = Ezporzhiet {n} takad
+workspace.export.prompt = Ezporzhiañ evel:
+workspace.export.done = Ezporzhiet {name}
+workspace.export.failed = C'hwitet eo an ezporzhiañ: {error}
+workspace.export.codec_vanished = N'eo ket hegerz an ezporzhier ken
+
+workspace.file_picker.choose_folder = Dibab ur c'havlec'h
+workspace.file_picker.type_a_name = Bizskrivit un anv evit ar restr
+workspace.file_picker.exists = Bez ez eus eus {name}; pouezit war Enrollañ en-dro evit erlec'hiañ anezhañ
+workspace.file_picker.tap_a_file = Pouezit war ur restr evit he digeriñ
+workspace.file_picker.pictures = Skeudennoù
+workspace.file_picker.camera = Benveg luc'hskeudenniñ
+workspace.file_picker.downloads = Pellgargadennoù
+workspace.file_picker.permission_denied = N'en deus ket Schist an aotre da lenn ar c'havlec'h-mañ
+
+workspace.recovery.recovered_title = {title} (assavet)
+workspace.recovery.recovered.one = Assavet eo bet {n} teul dienroll eus un estez kent
+workspace.recovery.recovered.two = Assavet eo bet {n} deul eus un estez kent
+workspace.recovery.recovered.few = Assavet eo bet {n} zeul eus un estez kent
+workspace.recovery.recovered.many = Assavet eo bet {n} a deulioù eus un estez kent
+workspace.recovery.recovered.other = Assavet eo bet {n} teul eus un estez kent

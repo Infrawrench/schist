@@ -1,0 +1,26 @@
+# بنسټیزې وسیلې: لېږد، رنګ رااخیستونکی، لاس او لوډېرول.
+
+# لېږد
+tool.move.name = لېږد
+tool.move.description = د فعالې طبقې منځپانګه نوي ځای ته راکاږئ. که خپلکار ټاکنه چالانه وي، په کېکاږلو سره هغه طبقه ــ یا بشپړه ډله ــ لومړی ټاکل کېږي چې د نښې لاندې وي.
+tool.move.option.auto_select = خپلکار ټاکنه
+tool.move.history.move_layer = طبقه لېږدول
+
+# رنګ رااخیستونکی
+tool.eyedropper.name = رنګ رااخیستونکی
+tool.eyedropper.description = د نښې لاندې رنګ د مخکیني رنګ په بېلګه کې واخلئ؛ که Alt نیول شوی وي، د شالید په بېلګه کې یې واخلئ. د راکاږلو پر مهال رنګ اخیستل دوام کوي.
+tool.eyedropper.option.sample_size = د بېلګې کچه
+tool.eyedropper.option.sample = بېلګه
+tool.eyedropper.choice.point_sample = د یوه ټکي بېلګه
+tool.eyedropper.choice.average_3 = د ۳ په ۳ منځنی
+tool.eyedropper.choice.average_5 = د ۵ په ۵ منځنی
+tool.eyedropper.choice.average_11 = د ۱۱ په ۱۱ منځنی
+tool.eyedropper.choice.average_31 = د ۳۱ په ۳۱ منځنی
+tool.eyedropper.choice.all_layers = ټولې طبقې
+tool.eyedropper.choice.current_layer = اوسنۍ طبقه
+
+# لاس او لوډېرول
+tool.hand.name = لاس
+tool.hand.description = لید خوځوي. د لید چوکاټ په کړکۍ پورې تړلی دی، نو بې له ښودنیزې کړکۍ دا وسیله په سند کې هېڅ بدلون نه راولي.
+tool.zoom.name = لوډېرول
+tool.zoom.description = لید لوی یا کوچنی کوي. د لید چوکاټ په کړکۍ پورې تړلی دی، نو بې له ښودنیزې کړکۍ دا وسیله په سند کې هېڅ بدلون نه راولي.

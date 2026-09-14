@@ -1,0 +1,23 @@
+# Switirhisiwa swa masungulo: Ku fambisa, Xikumi xa muhlovo, Voko ni Zoom.
+
+tool.move.name = Fambisa
+tool.move.description = Koka leswi nga eka leyara leyi tirhaka u swi yisa endhawini leyintshwa. Loko Ku tihlawulela ku pfuriwile, ku tshikilela ku hlawula leyara kumbe ntlawa hinkwawu lowu kumekaka ehansi ka njoho ku sungula.
+tool.move.option.auto_select = Tihlawulele
+tool.move.history.move_layer = Fambisa leyara
+
+tool.eyedropper.name = Xikumi xa muhlovo
+tool.eyedropper.description = Teka muhlovo lowu nga ehansi ka njoho u wu nghenisa eka sampula ya le mahlweni, kumbe eka sampula ya le ndzhaku loko ku khomiwe alt. Ku koka ku ya mahlweni ku teka mihlovo.
+tool.eyedropper.option.sample_size = Sayizi ya sampula
+tool.eyedropper.option.sample = Sampula
+tool.eyedropper.choice.point_sample = Sampula ya ndhawu yin'we
+tool.eyedropper.choice.average_3 = Avhareji ya 3 hi 3
+tool.eyedropper.choice.average_5 = Avhareji ya 5 hi 5
+tool.eyedropper.choice.average_11 = Avhareji ya 11 hi 11
+tool.eyedropper.choice.average_31 = Avhareji ya 31 hi 31
+tool.eyedropper.choice.all_layers = Maleyara hinkwawo
+tool.eyedropper.choice.current_layer = Leyara ya sweswi
+
+tool.hand.name = Voko
+tool.hand.description = Fambisa xivono. Xivono xi lawuriwa hi fasitere, kutani loko ku nga ri na fasitere xitirhisiwa lexi a xi cinci dokhumente.
+tool.zoom.name = Zoom
+tool.zoom.description = Kurisa kumbe hunguta xivono. Xivono xi lawuriwa hi fasitere, kutani loko ku nga ri na fasitere xitirhisiwa lexi a xi cinci dokhumente.

@@ -1,0 +1,154 @@
+# Trav da menus da l'applicaziun.
+
+# Datoteca
+menu.file = Datoteca
+menu.file.new = Nov
+menu.file.open = Avrir…
+menu.file.open_recent = Avrir datotecas recentas
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Percurrer la gallaria…
+menu.file.close = Serrar
+menu.file.save = Memorisar
+menu.file.save_as = Memorisar sco…
+menu.file.export = Exportar…
+menu.file.export_submenu = Exportar
+menu.file.export_artboards = Exportar surfatschas da lavur sco PNG…
+menu.file.export_slices = Exportar tagls sco PNG…
+menu.file.save_to_photos = Memorisar en Fotografias
+menu.file.plugins = Plug-ins…
+menu.file.missing_fonts = Scrittiras mancantas…
+menu.file.check_for_updates = Tschertgar actualisaziuns…
+menu.file.quit = Terminar
+menu.file.add_folder_to_gallery = Agiuntar in ordinatur a la gallaria…
+menu.file.import_from_photos = Importar da Fotografias…
+menu.file.import_from_camera = Importar da la camera…
+
+# Modifitgar
+menu.edit = Modifitgar
+menu.edit.fill = Emplenir…
+menu.edit.stroke = Contur…
+menu.edit.content_aware_fill = Emplenir tenor il cuntegn
+menu.edit.content_aware_scale = Midar la grondezza tenor il cuntegn…
+menu.edit.puppet_warp = Deformaziun da marionetta
+menu.edit.free_transform = Transfurmaziun libra
+menu.edit.transform = Transfurmar
+menu.edit.rotate_180 = Volver per 180°
+menu.edit.rotate_90_cw = Volver per 90° en il senn da l'ura
+menu.edit.rotate_90_ccw = Volver per 90° cunter il senn da l'ura
+menu.edit.flip_horizontal = Reflectar orizontalmain
+menu.edit.flip_vertical = Reflectar verticalmain
+
+# Maletg
+menu.image = Maletg
+menu.image.mode = Modus
+menu.image.adjustments = Correcturas
+menu.image.auto_tone = Tonalitad automatica
+menu.image.auto_contrast = Contrast automatic
+menu.image.auto_color = Colur automatica
+menu.image.image_size = Grondezza dal maletg…
+menu.image.canvas_size = Grondezza da la taila…
+menu.image.image_rotation = Rotaziun dal maletg
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° en il senn da l'ura
+menu.image.rotate_90_ccw = 90° cunter il senn da l'ura
+menu.image.flip_canvas_horizontal = Reflectar la taila orizontalmain
+menu.image.flip_canvas_vertical = Reflectar la taila verticalmain
+menu.image.crop_to_selection = Tagliar tenor la selecziun
+menu.image.trim = Tagliar urs
+menu.image.assign_profile = Attribuir in profil…
+menu.image.convert_to_profile = Converter en in profil…
+
+# Selecziunar
+menu.select = Selecziunar
+menu.select.color_range = Sectur da colurs…
+menu.select.modify = Modifitgar
+menu.select.border = Ur…
+menu.select.smooth = Glischnar…
+menu.select.expand = Extender…
+menu.select.contract = Reducir…
+menu.select.feather = Far l'ur lom…
+menu.select.transform_selection = Transfurmar la selecziun
+
+# Stresa
+menu.layer = Stresa
+menu.layer.layer_style = Stil da stresa…
+menu.layer.layer_comps = Cumposiziuns da stresas
+menu.layer.new_layer_comp = Nova cumposiziun da stresas
+menu.layer.delete_layer_comp = Stizzar {name}
+menu.layer.path = Trutg
+menu.layer.fill_path = Emplenir il trutg
+menu.layer.stroke_path = Conturar il trutg
+menu.layer.make_selection = Crear ina selecziun
+menu.layer.delete_path = Stizzar il trutg
+
+menu.adjust = Adattar
+
+# Filter
+menu.filter = Filter
+menu.filter.filter_gallery = Gallaria da filters…
+menu.filter.liquify = Liquefar
+menu.filter.vanishing_point = Punct da svanir
+menu.filter.manage_models = Administrar models…
+menu.filter.camera_raw_development = Sviluppar cun Camera Raw…
+
+# Vista
+menu.view = Vista
+menu.view.rotate_view_cw = Volver la vista en il senn da l'ura
+menu.view.rotate_view_ccw = Volver la vista cunter il senn da l'ura
+menu.view.reset_view = Redefinir la vista
+menu.view.zoom_in = Engrondir
+menu.view.zoom_out = Reducir
+menu.view.fit_on_screen = Adattar a l'ecran
+menu.view.actual_size = 100%
+menu.view.rulers = Lineals
+menu.view.grid = Giatter
+menu.view.guides = Lingias auxiliaras
+menu.view.notes = Notizias
+menu.view.ai_panel = Champ dad IA
+menu.view.extras = Elements supplementars
+menu.view.snap = Fixar
+menu.view.clear_guides = Stizzar las lingias auxiliaras
+menu.view.clear_notes = Stizzar las notizias
+menu.view.clear_count = Stizzar ils dumbraders
+menu.view.screen_mode = Modus da visualisaziun
+menu.view.proof_colors = Colurs d'emprova
+menu.view.show_rulers = Mussar ils lineals
+menu.view.hide_rulers = Zuppentar ils lineals
+menu.view.show_grid = Mussar il giatter
+menu.view.hide_grid = Zuppentar il giatter
+menu.view.show_guides = Mussar las lingias auxiliaras
+menu.view.hide_guides = Zuppentar las lingias auxiliaras
+menu.view.show_notes = Mussar las notizias
+menu.view.hide_notes = Zuppentar las notizias
+menu.view.show_extras = Mussar ils elements supplementars
+menu.view.hide_extras = Zuppentar ils elements supplementars
+menu.view.enable_snapping = Activar la fixaziun
+menu.view.disable_snapping = Deactivar la fixaziun
+menu.view.enable_proof_colors = Activar las colurs d'emprova
+menu.view.disable_proof_colors = Deactivar las colurs d'emprova
+
+# Gallaria
+menu.gallery = Gallaria
+menu.gallery.edit_selected = Modifitgar la selecziun
+menu.gallery.refresh = Actualisar
+menu.gallery.map_filter = Filter da charta…
+menu.gallery.back_to_editor = Enavos a l'editur
+
+# Schist Cloud
+menu.cloud.browse = Percurrer Schist Cloud
+menu.cloud.generate = Generar maletgs…
+menu.cloud.upload = Chargiar il document sin Schist Cloud…
+menu.cloud.sign_out = Sortir da Schist Cloud
+menu.cloud.sign_in = S'annunziar a Schist Cloud…
+
+# Menu da l'applicaziun macOS
+menu.app.services = Servetschs
+menu.app.hide = Zuppentar {app}
+menu.app.hide_others = Zuppentar las autras applicaziuns
+menu.app.show_all = Mussar tut
+menu.app.quit = Terminar {app}
+
+# Respostas da la trav da status
+menu.status.transform_selection_needs_selection = Transfurmar la selecziun dovra ina selecziun
+menu.status.crop_needs_selection = Tagliar tenor la selecziun dovra ina selecziun
+menu.status.select_photo_to_edit = Selecziunescha ina fotografia per la modifitgar

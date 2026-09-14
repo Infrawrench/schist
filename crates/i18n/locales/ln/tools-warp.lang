@@ -1,0 +1,22 @@
+tool.liquify.name = Liquify
+tool.liquify.description = Tindá, balusá, kɔtisá to vimbisá bapiksele na nse ya brɔsi ya monene — mode nde eponaka oyo ekosalema. Mbongwana eyanganaka na monyama ya milɔngɔ oyo ekangani mpe esalelamaka na kalke ntango ondimi.
+tool.liquify.option.tool = Esaleli
+tool.liquify.choice.forward_warp = Kopengolisa liboso
+tool.liquify.choice.reconstruct = Kotonga lisusu
+tool.liquify.choice.twirl_cw = Kobalusa na ngámbo ya montre
+tool.liquify.choice.twirl_ccw = Kobalusa na ngámbo mosusu ya montre
+tool.liquify.choice.pucker = Kokɔtisa
+tool.liquify.choice.bloat = Kovimbisa
+tool.liquify.choice.push_left = Kotinda na lobɔkɔ ya mwasi
+tool.liquify.history.liquify = Liquify
+
+tool.puppet_warp.name = Kopengolisa lokola pupɛ
+tool.puppet_warp.description = Finá mpo na kokanga kalke na bapwɛ mosusu, na nsima benda moko: monyama ya milɔngɔ oyo ekangani egumbamaka zingazinga ya bapwɛ oyo ekangami, na makasi to na pɛtɛɛ ndenge opsio ya Bokasi elobi. Soki ondimi, mbongwana esalelamaka.
+tool.puppet_warp.option.stiffness = Bokasi
+tool.puppet_warp.history.puppet_warp = Kopengolisa lokola pupɛ
+
+tool.vanishing_point.name = Pwɛ ya kolimwa
+tool.vanishing_point.description = Benda etando ya patatalu likoló ya eloko oyo ezali na perspektive, na nsima bongolá mode na Klonɛ mpe pakolá: bapiksele oyo ekopiami elandaka etando yango mpe ekómaka mike ntango ntaka ezali kobakisama.
+tool.vanishing_point.choice.edit_plane = Kobongisa etando ya patatalu
+tool.vanishing_point.choice.clone = Klonɛ
+tool.vanishing_point.history.vanishing_point = Pwɛ ya kolimwa

@@ -1,0 +1,23 @@
+# ମୌଳିକ ଉପକରଣ: Move, Eyedropper, Hand ଏବଂ Zoom।
+
+tool.move.name = ଘୁଞ୍ଚାନ୍ତୁ
+tool.move.description = ସକ୍ରିୟ ସ୍ତରର ବିଷୟବସ୍ତୁକୁ ଟାଣି ନୂଆ ସ୍ଥାନକୁ ନିଅନ୍ତୁ। ସ୍ୱତଃ-ଚୟନ ଚାଲୁ ଥିଲେ, ଚାପିବା ମାତ୍ରେ ପଏଣ୍ଟର୍ ତଳେ ଥିବା ସ୍ତର — କିମ୍ବା ସମ୍ପୂର୍ଣ୍ଣ ଗୋଷ୍ଠୀ — ପ୍ରଥମେ ବଛାଯାଏ।
+tool.move.option.auto_select = ସ୍ୱତଃ-ଚୟନ
+tool.move.history.move_layer = ସ୍ତର ଘୁଞ୍ଚାନ୍ତୁ
+
+tool.eyedropper.name = ଆଇଡ୍ରପର୍
+tool.eyedropper.description = ପଏଣ୍ଟର୍ ତଳର ରଙ୍ଗକୁ ଅଗ୍ରଭାଗ ନମୁନାରେ ନିଅନ୍ତୁ; Alt ଧରିଥିଲେ ତାହା ପୃଷ୍ଠଭାଗ ନମୁନାକୁ ଯାଏ। ଟାଣିବା ସମୟରେ ଲଗାତାର ନମୁନା ନିଆଯାଏ।
+tool.eyedropper.option.sample_size = ନମୁନା ଆକାର
+tool.eyedropper.option.sample = ନମୁନା
+tool.eyedropper.choice.point_sample = ବିନ୍ଦୁ ନମୁନା
+tool.eyedropper.choice.average_3 = 3 × 3 ହାରାହାରି
+tool.eyedropper.choice.average_5 = 5 × 5 ହାରାହାରି
+tool.eyedropper.choice.average_11 = 11 × 11 ହାରାହାରି
+tool.eyedropper.choice.average_31 = 31 × 31 ହାରାହାରି
+tool.eyedropper.choice.all_layers = ସମସ୍ତ ସ୍ତର
+tool.eyedropper.choice.current_layer = ବର୍ତ୍ତମାନର ସ୍ତର
+
+tool.hand.name = ହାତ
+tool.hand.description = ଦୃଶ୍ୟକୁ ସରାଏ। ଭ୍ୟୁପୋର୍ଟଟି ୱିଣ୍ଡୋର ଅଂଶ, ତେଣୁ ହେଡ୍‌ଲେସ୍ ଅବସ୍ଥାରେ ଏହି ଉପକରଣ ଡକ୍ୟୁମେଣ୍ଟରେ କୌଣସି ପରିବର୍ତ୍ତନ କରେ ନାହିଁ।
+tool.zoom.name = ଜୁମ୍
+tool.zoom.description = ଦୃଶ୍ୟକୁ ବଡ଼ କିମ୍ବା ଛୋଟ କରେ। ଭ୍ୟୁପୋର୍ଟଟି ୱିଣ୍ଡୋର ଅଂଶ, ତେଣୁ ହେଡ୍‌ଲେସ୍ ଅବସ୍ଥାରେ ଏହି ଉପକରଣ ଡକ୍ୟୁମେଣ୍ଟରେ କୌଣସି ପରିବର୍ତ୍ତନ କରେ ନାହିଁ।

@@ -1,0 +1,43 @@
+tool.pen.name = Cholembera
+tool.pen.description = Pangani path: dinani kuti muike mfundo ya kona, kokani kuti mutulutse zogwirira zokhotakhota, ndipo dinani mfundo yoyamba kuti mutseke. Kutsimikiza kumasintha path kukhala layer ya mawonekedwe.
+tool.pen.option.rubber_band = Labala
+tool.pen.history.fill = Kudzaza Path
+tool.pen.default_path_name = Path {n}
+tool.pen.freeform.name = Cholembera Chamanja
+tool.pen.freeform.description = Kokani mzere pamanja ndipo umakonzedwa kukhala path, momasuka malinga ndi chosankha cha Fit.
+tool.pen.freeform.option.fit = Kwaniritsani
+tool.pen.curvature.name = Cholembera Chokhotakhota
+tool.pen.curvature.description = Dinani mfundo zingapo ndipo path imakhotakhota bwino kudzera m'mfundomo.
+
+tool.path_select.name = Kusankha Path
+tool.path_select.description = Dinani path kuti muisankhe, ndipo kokani kuti musunthe path yonse.
+tool.direct_select.name = Kusankha Mwachindunji
+tool.direct_select.description = Kokani mfundo imodzi yomangira kapena zogwirira zake kuti musinthe mawonekedwe a path yozungulira mfundoyo.
+
+tool.shape.history.layer = Layer ya {name}
+tool.shape.rect.name = Chida cha Rectangle
+tool.shape.rect.label = Rectangle
+tool.shape.rect.description = Kokani kuti mupange layer ya rectangle ya mtundu wakutsogolo; imakhalabe vector ndipo imapangidwanso kukhala ma pixel ikasintha kukula.
+tool.shape.ellipse.name = Chida cha Ellipse
+tool.shape.ellipse.label = Ellipse
+tool.shape.ellipse.description = Kokani kuti mupange layer ya ellipse ya mtundu wakutsogolo.
+tool.shape.line.name = Chida cha Mzere
+tool.shape.line.label = Mzere
+tool.shape.line.description = Kokani kuti mupange layer ya mzere wolunjika wa mtundu wakutsogolo.
+tool.shape.line.option.weight = Makulidwe
+tool.shape.line.option.arrow_start = Poyambira
+tool.shape.line.option.arrow_end = Pothera
+tool.shape.polygon.name = Chida cha Polygon
+tool.shape.polygon.label = Polygon
+tool.shape.polygon.description = Kokani kuti mupange layer ya polygon yofanana mbali za mtundu wakutsogolo, yokhala ndi chiwerengero cha mbali chochokera m'zosankha.
+tool.shape.polygon.option.sides = Mbali
+
+tool.shape.custom.name = Mawonekedwe Mwakufuna
+tool.shape.custom.label = Mawonekedwe Mwakufuna
+tool.shape.custom.description = Kokani kuti mupange amodzi mwa mawonekedwe okonzedwa kale, osankhidwa ndi chosankha cha Mawonekedwe.
+tool.shape.custom.choice.heart = Mtima
+tool.shape.custom.choice.star = Nyenyezi
+tool.shape.custom.choice.arrow = Muvi
+tool.shape.custom.choice.lightning = Mphenzi
+tool.shape.custom.choice.cross = Mtanda
+tool.shape.custom.choice.speech_bubble = Thovu la Mawu

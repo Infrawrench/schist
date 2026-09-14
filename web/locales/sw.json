@@ -1,0 +1,9 @@
+{
+  "loading": "Inapakia…",
+  "starting": "Inaanza…",
+  "webgpu": "Schist inahitaji WebGPU, ambayo kivinjari hiki hakitoi. Chrome/Edge 113+, Firefox 141+ na Safari 26+ zinaitumia.",
+  "noticeTitle": "Schist hufanya kazi vizuri zaidi kama programu ya kompyuta",
+  "noticeBody": "Unatumia toleo la wavuti, ambalo ni jepesi: huunganisha picha kwenye CPU na halina baadhi ya vipengele — programu-jalizi za Photoshop na za wengine, matunzio ya picha, paneli ya AI, uletaji wa HEIC na upakuaji wa fonti — na faili huhifadhiwa kama vipakuliwa. Programu ya kompyuta isiyolipishwa ya macOS, Windows na Linux ina vipengele vyote.",
+  "noticeLink": "Pata programu ya kompyuta.",
+  "ok": "Sawa"
+}

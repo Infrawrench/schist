@@ -1,0 +1,36 @@
+app.filter_gallery.title = Ibi àkójọ àlẹ̀mọ́
+app.filter_gallery.stack = Àkójọ (a ń lò ó láti ìsàlẹ̀ dé òkè)
+app.filter_gallery.no_settings = Àlẹ̀mọ́ yìí kò ní ààtò.
+app.fonts.not_open_licensed = kò ní ìwé-àṣẹ ṣíṣí · {substitute} bá àwọn ìwọ̀n rẹ̀ mu
+app.fonts.missing_substituted = kò sí · a ń fi fọ́ǹtì àfidípò ṣètò ọ̀rọ̀ náà
+app.fonts.not_in_catalogue = {family} kò sí nínú àkójọ fọ́ǹtì ṣíṣí
+app.fonts.no_faces = kò sí ẹ̀yà fọ́ǹtì {family} tí a lè gbà sílẹ̀
+app.fonts.empty_response = èsì òfo
+app.update.unreadable_response = a kò lè ka èsì: {error}
+app.update.no_temp_dir = kò sí fódà ìgbà díẹ̀ láti gbà á sí
+app.update.asset_has_path = ìtújáde náà fi ipa kan sínú orúkọ ohun-ìní rẹ̀
+app.update.too_big = ohun tí a gbà sílẹ̀ tóbi ju bí ìtújáde náà ṣe sọ
+app.update.stopped_at = gbígba sílẹ̀ dúró ní báìtì {got} nínú {total}
+app.update.hash_mismatch = háṣì ohun tí a gbà sílẹ̀ jẹ́ {got}, kì í ṣe {want}
+app.update.not_in_bundle = ẹ̀dà yìí kò sí nínú àkójọpọ̀ ápù
+app.update.no_parent_dir = àkójọpọ̀ ápù náà kò ní fódà òbí
+app.update.cannot_write = a kò lè kọ sínú {dir}
+app.update.cannot_move_aside = a kò lè gbé {app} sí ẹ̀gbẹ́
+app.update.cannot_move_in = a kò lè gbé àkójọpọ̀ tuntun sí ipò rẹ̀
+app.update.cannot_run_ditto = a kò lè ṣiṣẹ́ /usr/bin/ditto
+app.update.unpack_failed = ṣíṣí àkójọpọ̀ ohun tí a gbà sílẹ̀ kùnà: {error}
+app.update.no_app_in_download = kò sí Schist.app nínú ohun tí a gbà sílẹ̀
+app.update.cannot_run_codesign = a kò lè ṣiṣẹ́ /usr/bin/codesign
+app.update.signature_invalid = a kò lè fìdí ìfọwọ́sí ohun tí a gbà sílẹ̀ múlẹ̀: {error}
+app.update.download_unsigned = ẹ̀dà yìí ní ìfọwọ́sí, ṣùgbọ́n ohun tí a gbà sílẹ̀ kò ní
+app.update.different_developer = olùgbéjáde mìíràn ló fọwọ́ sí ohun tí a gbà sílẹ̀
+app.update.cannot_relaunch = a kò lè bẹ̀rẹ̀ olùtú-ápù-ṣí
+app.update.not_installed_copy = olùfi-sórí-ẹ̀rọ kọ́ ló fi ẹ̀dà yìí síbí
+app.update.cannot_start_installer = a kò lè bẹ̀rẹ̀ olùfi-sórí-ẹ̀rọ
+app.update.platform_unsupported = a ń fi àwọn àfikún tuntun sórí ẹ̀rọ yìí ní ọ̀nà kan náà tí a fi Schist sí i
+app.vulkan.no_loader = schist: kò sí loader Vulkan lórí ẹ̀rọ yìí, nítorí náà kò sí ohun tí a lè fi ya àwòrán.\n\nSchist ń ṣe àwòrán nípasẹ̀ Vulkan, a kò sì fi `libvulkan.so.1` sí ẹ̀rọ.\nLoader Vulkan àti awakọ̀ ni a nílò: \n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: awakọ̀ Vulkan tí sáà yìí ń tọ́ka sí kò sí níbẹ̀.\n\nA ti ṣètò {var}, ṣíṣètò rẹ̀ sì ń *rọ́pò* ìṣàwárí awakọ̀ ti loader Vulkan\ndípò fífikún sí i. Nítorí náà àwọn fáìlì wọ̀nyí, tí kò sí,\nni gbogbo àkójọ awakọ̀ — gbogbo ètò Vulkan nínú sáà yìí kò sì rí awakọ̀ rárá,\nbó ti wù kí awakọ̀ tí a fi sí ẹ̀rọ pọ̀ tó:\n\n{missing}\n    {var}={value}\n\nTọ́ka rẹ̀ sí fáìlì àfihàn kan tó wà — àwọn awakọ̀ tí a fi sí ẹ̀rọ fi tiwọn sí\n/usr/share/vulkan/icd.d — tàbí yọ ààtò rẹ̀ kúrò kí loader Vulkan wá tirẹ̀.\nSáà tó ń ṣètò èyí láti inú fáìlì ààtò (Hyprland `env =`, fáìlì\nsystemd environment.d, prófáìlì shell) gbọ́dọ̀ ṣe àtúnṣe níbẹ̀,\na sì nílò iwọlé tuntun kí àyípadà náà tó dé ọ̀dọ̀ ohun tó ti ń ṣiṣẹ́.\n
+app.vulkan.override_note = \nA ti ṣètò {var} sí {value}, èyí sì ń rọ́pò ìṣàwárí ti loader Vulkan fúnra rẹ̀:\ntí kò bá sí èyíkéyìí nínú àwọn fáìlì àfihàn náà tó jẹ́ ti ẹ̀rọ yìí, yíyọ ààtò rẹ̀ kúrò\nni ohun àkọ́kọ́ láti gbìyànjú.\n
+app.vulkan.no_driver = schist: kò sí awakọ̀ Vulkan tí a fi sí ẹ̀rọ, nítorí náà kò sí ohun tí a lè fi ya àwòrán.\n\nSchist ń ṣe àwòrán nípasẹ̀ Vulkan. Loader Vulkan ti wà lórí ẹ̀rọ, ó sì ròyìn pé kò sí\nawakọ̀ — kò sí ohun tó forúkọ awakọ̀ sílẹ̀ ní èyíkéyìí nínú ibi méjèèjì tí a ti ń wá a:\n\n{dirs}\n\nA ń pín loader Vulkan lọ́tọ̀ kúrò lọ́dọ̀ àwọn awakọ̀, nítorí náà àkójọpọ̀ kan ṣoṣo tí kò sí\nló sábà máa ń fa èyí.\n\nFi èyí tó jẹ́ fún GPU ẹ̀rọ yìí sí ẹ̀rọ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nAwakọ̀ aládàáni NVIDIA ní awakọ̀ Vulkan tirẹ̀ (`nvidia-utils` lórí Arch,\n`nvidia-driver` lórí Debian). Nínú ẹ̀rọ àròtọ́, tàbí níbikíbi tí kò sí\nawakọ̀ GPU láti fi sí ẹ̀rọ, rasterizer sọ́fítíwẹ́ẹ̀ ló máa ṣiṣẹ́:\n`vulkan-swrast` lórí Arch, ó sì jẹ́ apá kan `mesa-vulkan-drivers` níbòmíràn. Ó\nlọ́ra, ṣùgbọ́n ó máa bẹ̀rẹ̀.\n{overridden}
+app.vulkan.no_device = schist: awakọ̀ Vulkan kan wà lórí ẹ̀rọ ṣùgbọ́n kò pèsè ẹ̀rọ kankan láti fi ya àwòrán.\n\nÓ ṣeé ṣe kí awakọ̀ náà má ṣe àtìlẹ́yìn fún GPU yìí, tàbí kó má lè dé ọ̀dọ̀ rẹ̀ —\nnípasẹ̀ SSH, tàbí nínú container, /dev/dri sábà máa ń jẹ́ ohun tí kò sí.\n`vulkaninfo --summary` ń ròyìn ohun tí loader Vulkan rí.\n\nRasterizer sọ́fítíwẹ́ẹ̀ máa ń ya àwòrán láìlo GPU rárá, tí ohun tí ẹ̀rọ yìí ní bá jẹ́ nìyẹn:\n`vulkan-swrast` lórí Arch, ó sì jẹ́ apá kan `mesa-vulkan-drivers`\nlórí Debian àti Fedora.\n
+app.vulkan.skip_hint = Láti bẹ̀rẹ̀ Schist láìka èyí sí kí o sì jẹ́ kó kùnà ní ọ̀nà tirẹ̀, ṣètò {var}=1.

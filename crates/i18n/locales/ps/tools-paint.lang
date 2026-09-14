@@ -1,0 +1,72 @@
+# د رنګولو، تدریج او رنګ سطل وسیلې.
+
+tool.brush.name = برس
+tool.brush.description = په مخکیني رنګ نرمه څنډه لرونکې کرښه رنګوي؛ کچه یې د سمونګر د برس کچه، کلکوالی او ناتېرېدنه ټاکي.
+tool.brush.history.stroke = برس
+tool.pencil.name = پنسل
+tool.pencil.description = په مخکیني رنګ کلکه څنډه لرونکې، بې څنډه‌هوارونې کرښه رنګوي.
+tool.pencil.history.stroke = پنسل
+tool.eraser.name = پاکوونکی
+tool.eraser.description = د کرښې په اوږدو کې پاکوي او طبقه بېرته روڼوالي ته وړي.
+tool.eraser.history.stroke = پاکوونکی
+
+tool.clone.name = د نقل ټاپه
+tool.clone.description = د نقل ټاپه: د سرچینې ټکي ټاکلو لپاره Alt-کېکاږئ، بیا رنګ ووهئ؛ له سرچینې نقل شوي پېکسلونه په هماغه واټن کې رنګېږي.
+tool.clone.history.stroke = د نقل ټاپه
+
+tool.dodge.name = روښانوونکی
+tool.dodge.description = هغه پېکسلونه روښانوي چې کرښه پرې تېرېږي.
+tool.dodge.history.stroke = روښانوونکی
+tool.burn.name = سوځوونکی
+tool.burn.description = هغه پېکسلونه تیاره کوي چې کرښه پرې تېرېږي.
+tool.burn.history.stroke = سوځوونکی
+tool.sponge.name = سفنج
+tool.sponge.description = د هغو پېکسلونو مړښت زیاتوي یا کموي چې کرښه پرې تېرېږي.
+tool.sponge.history.stroke = سفنج
+
+tool.blur.name = تتوونکی
+tool.blur.description = هغه پېکسلونه تتوي چې کرښه پرې تېرېږي.
+tool.blur.history.stroke = تتوونکی
+tool.sharpen.name = تېزوونکی
+tool.sharpen.description = هغه پېکسلونه تېزوي چې کرښه پرې تېرېږي.
+tool.sharpen.history.stroke = تېزوونکی
+tool.smudge.name = رنګ موښونکی
+tool.smudge.description = رنګ د کرښې په اوږدو کې راکاږي، لکه لوند رنګ چې ورټېل وهل شي.
+tool.smudge.history.stroke = رنګ موښونکی
+
+tool.heal.name = رغوونکی برس
+tool.heal.description = رغوونکی برس: د سرچینې ټاکلو لپاره Alt-کېکاږئ، بیا رنګ ووهئ؛ د سرچینې جوړښت د موخې له خپل رنګ او رڼا سره ګډېږي.
+tool.heal.history.stroke = رغوونکی برس
+tool.spot_heal.name = داغ رغوونکی برس
+tool.spot_heal.description = داغ رغوونکی برس: پر داغ رنګ ووهئ؛ د شاوخوا اخیستل شوی جوړښت یې ځای نیسي او د سرچینې ټکی ټاکلو ته اړتیا نشته.
+tool.spot_heal.history.stroke = داغ رغوونکی برس
+
+tool.history_brush.name = د تاریخ برس
+tool.history_brush.description = د سند د تاریخ له ساتل شوي انځور څخه پېکسلونه بېرته رنګوي او وروستی کار کرښه په کرښه ناکوي.
+tool.history_brush.history.stroke = د تاریخ برس
+
+tool.background_eraser.name = د شالید پاکوونکی
+tool.background_eraser.description = د برس د منځ لاندې اخیستل شوی رنګ پاکوي او بېل رنګ پېکسلونه پرېږدي، څو څیز له خپل شالید څخه جلا شي.
+tool.background_eraser.history.stroke = د شالید پاکوونکی
+
+tool.gradient.name = تدریج
+tool.gradient.description = راکاږئ چې طبقه — او که ټاکنه وي، د هغې له لارې — له مخکیني رنګ څخه د شالید تر رنګه په خطي تدریج ډکه شي.
+tool.gradient.radial.name = وړانګیز تدریج
+tool.gradient.radial.description = له منځه دباندې راکاږئ چې د مخکیني او شالید رنګونو ترمنځ وړانګیز تدریج ډک شي.
+tool.gradient.option.gradient = تدریج
+tool.gradient.option.reverse = سرچپه
+tool.gradient.option.dither = رنګ خورول
+tool.gradient.choice.foreground_to_background = له مخکیني رنګه تر شالید
+tool.gradient.choice.foreground_to_transparent = له مخکیني رنګه تر روڼوالي
+tool.gradient.choice.linear = خطي
+tool.gradient.choice.radial = وړانګیز
+tool.gradient.choice.angle = زاویه
+tool.gradient.choice.reflected = انعکاسي
+tool.gradient.choice.diamond = الماسي
+tool.gradient.history.gradient = تدریج
+
+tool.bucket.name = د رنګ سطل
+tool.bucket.description = کېکاږئ چې د وسیلې د زغم په کچه د نښې لاندې د ورته رنګ نښتې سیمه په مخکیني رنګ ډکه شي.
+tool.bucket.option.contiguous = سره نښتی
+tool.bucket.option.all_layers = ټولې طبقې
+tool.bucket.history.fill = د رنګ سطل

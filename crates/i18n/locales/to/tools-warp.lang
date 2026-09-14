@@ -1,0 +1,24 @@
+# Ngaahi meʻangāue mioʻi
+
+tool.liquify.name = Fakavaia
+tool.liquify.description = Teke, takai, fakatahatahaʻi pe fakafufula ʻa e ngaahi pikiseli ʻi lalo ʻi ha polosi lahi—ʻoku fili ʻe he meʻa fili ki he foungá ʻa e ngāue. ʻOku tānaki ʻa e mioʻí ʻi ha kupenga pea ngāueʻaki ki he Layer ʻi hono fakapapauʻí.
+tool.liquify.option.tool = Meʻangāue
+tool.liquify.choice.forward_warp = Mioʻi Ki Muʻa
+tool.liquify.choice.reconstruct = Toe Faʻu
+tool.liquify.choice.twirl_cw = Takai Fakatatau ki he Uasi
+tool.liquify.choice.twirl_ccw = Takai Fehangahangai mo e Uasi
+tool.liquify.choice.pucker = Fakatahatahaʻi
+tool.liquify.choice.bloat = Fakafufula
+tool.liquify.choice.push_left = Teke Ki Hema
+tool.liquify.history.liquify = Fakavaia
+
+tool.puppet_warp.name = Mioʻi Papeti
+tool.puppet_warp.description = Lomi ke fakamaʻu ʻa e Layer ʻi ha ngaahi poini, pea toho ha poini ʻe taha: ʻe piʻo ʻa e kupengá takatakai ʻi he ngaahi pine, ʻo fefeka pe molū ʻo hangē ko e meʻa fili Fefeká. ʻE ngāueʻaki ia ʻi hono fakapapauʻí.
+tool.puppet_warp.option.stiffness = Fefeka
+tool.puppet_warp.history.puppet_warp = Mioʻi Papeti
+
+tool.vanishing_point.name = Poini Pulia
+tool.vanishing_point.description = Toho ha fukahi tokalelei ʻi ha meʻa ʻoku ʻi ai ha sio mamaʻo, pea liliu ʻa e foungá ki he Fakatatau mo vali: ʻe muimui ʻa e ngaahi pikiseli kuo hiki tatau ki he fukahi tokaleleí, ʻo fakasiʻisiʻi ʻi he fakaʻau ke mamaʻó.
+tool.vanishing_point.choice.edit_plane = Fakatonutonu Fukahi Tokalelei
+tool.vanishing_point.choice.clone = Fakatatau
+tool.vanishing_point.history.vanishing_point = Poini Pulia

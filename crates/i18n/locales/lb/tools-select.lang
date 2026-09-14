@@ -1,0 +1,32 @@
+# Auswielwierkzeugen.
+tool.select.mode.subtract = Ofzéien
+tool.select.mode.intersect = Schnëttmenge
+
+tool.marquee.rect.name = Rechteckeg Auswiel
+tool.marquee.rect.description = Zitt eng rechteckeg Auswiel op. Shift um Ufank vum Zéie setzt se bei d'Auswiel dobäi, Alt zitt se of, a béid zesumme bilden d'Schnëttmenge; Shift wärend dem Zéie mécht se quadratesch. E Klick ouni ze zéien hieft d'Auswiel op.
+tool.marquee.ellipse.name = Elliptesch Auswiel
+tool.marquee.ellipse.description = Zitt eng elliptesch Auswiel op; mat Shift an Alt gëtt se genee wéi déi rechteckeg Auswiel kombinéiert.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Zitt fräihänneg eng Kontur; wann Dir ophält ze zéien, ginn hir Endpunkte verbonnen an d'Auswiel zougemaach. Shift setzt dobäi, Alt zitt of.
+tool.lasso.history.select = Lasso-Auswiel
+tool.lasso.polygonal.name = Polygon-Lasso
+tool.lasso.polygonal.description = Klickt een Eckpunkt nom aneren, fir eng Auswiel mat riichte Kanten ze erstellen, a klickt no beim éischte Punkt, fir se zouzemaachen.
+tool.lasso.polygonal.history.select = Polygon-Lasso
+tool.lasso.magnetic.name = Magnéitesche Lasso
+tool.lasso.magnetic.description = Fuert ongeféier laanscht e Rand; d'Kontur heft sech un de stäerkste Kontrast no beim Pad.
+tool.lasso.magnetic.history.select = Magnéitesche Lasso
+tool.lasso.magnetic.option.frequency = Frequenz
+
+tool.wand.name = Zauberstaaf
+tool.wand.description = Klickt, fir de verbonne Beräich mat änlecher Faarf ënner dem Mauszeiger bannent der Toleranz auszewielen — därselwechter Toleranz, déi Vergréisseren, Änlech a Faarfberäich benotzen.
+tool.wand.option.contiguous = Zesummenhängend
+tool.wand.history.select = Zauberstaaf
+
+tool.quick_select.name = Schnellauswiel
+tool.quick_select.description = Moolt iwwer e Beräich; d'Auswiel wiisst duerch déi änlech Pixel, iwwer déi de Pinsel geet.
+tool.quick_select.history.select = Schnellauswiel
+
+tool.object_select.name = Objektauswiel
+tool.object_select.description = Zitt eng Këscht ëm en Objet; d'Auswiel heft sech un den Objet, deen doran erkannt gëtt.
+tool.object_select.history.select = Objektauswiel

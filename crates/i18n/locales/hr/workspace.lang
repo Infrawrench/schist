@@ -1,0 +1,106 @@
+workspace.fill.gray_50 = 50% sive
+workspace.fill.content_aware = S prepoznavanjem sadržaja
+
+workspace.modify.expand = Proširi odabir
+workspace.modify.contract = Sažmi odabir
+workspace.modify.border = Obrubi odabir
+workspace.modify.smooth = Zagladi odabir
+workspace.modify.feather = Umekšaj rub odabira
+
+workspace.batch.target.edit = Uređivanja u galeriji (s verzijama)
+workspace.batch.target.beside = Kopije pokraj izvornika
+workspace.batch.target.folder = Kopije u mapi…
+
+workspace.modal.image_size.title = Veličina slike
+
+workspace.docs.opening = Otvaranje datoteke {name}…
+workspace.docs.opened = Otvoreno: {name}
+workspace.docs.open_failed = Otvaranje nije uspjelo: {error}
+workspace.docs.no_codec = Schist ne može otvoriti format datoteke {name}
+workspace.docs.no_exporter = Schist ne može spremiti datoteke .{ext}
+workspace.docs.empty_response = Poslužitelj je poslao prazan odgovor
+workspace.docs.heic_not_installed = Podrška za HEIC nije instalirana
+workspace.docs.heic_downloading = Preuzimanje podrške za HEIC (libheif {version})…
+workspace.docs.heic_installed = Podrška za HEIC instalirana
+workspace.docs.heic_download_failed = Preuzimanje podrške za HEIC nije uspjelo: {error}
+workspace.docs.placing = Postavljanje datoteke {name}…
+workspace.docs.place_image = Postavi sliku
+workspace.docs.placed = Postavljeno: {name}
+workspace.docs.place_failed = Postavljanje nije uspjelo: {error}
+workspace.docs.saved = Spremljeno: {name}
+workspace.docs.save_failed = Spremanje nije uspjelo: {error}
+
+workspace.adjustment.new_layer = Novi sloj {name}
+workspace.adjustment.added = Dodano: {name}
+workspace.adjustment.settings = Postavke: {name}
+workspace.adjustment.updated = Ažurirano: {name}
+workspace.adjustment.no_settings = {name} nema postavki koje se mogu uređivati
+
+workspace.comps.name_n = Kompozicija slojeva {n}
+workspace.comps.captured = Kompozicija slojeva snimljena
+workspace.comps.apply = Primijeni {name}
+
+workspace.styles.layer_style = Stil sloja
+workspace.context.rename_layer = Preimenuj sloj
+workspace.commands.tool = Alat: {name}
+
+workspace.colormgmt.assign = Dodijeli {name}
+workspace.colormgmt.assigned = Dodijeljeno: {name}
+workspace.colormgmt.convert_to = Pretvori u {name}
+workspace.colormgmt.converted_to = Pretvoreno u {name}
+workspace.colormgmt.convert_failed = Pretvaranje nije uspjelo: {error}
+workspace.colormgmt.proof_on = Probne boje uključene
+workspace.colormgmt.proof_off = Probne boje isključene
+
+workspace.filters.choose = Odaberi
+workspace.filters.select_layer_first = Najprije odaberite sloj
+workspace.filters.needs_pixel_layer = Filtri zahtijevaju pikselni sloj
+workspace.filters.nothing_to_filter = Nema ničega za filtriranje
+workspace.filters.went_away = Filtar više nije dostupan
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: sloj na koji je primijenjen više ne postoji
+workspace.filters.plugin_title = Dodatak za Photoshop
+workspace.filters.running = Pokretanje filtra {name}
+workspace.filters.plugin_note = Dodatak se izvodi u zasebnom procesu. Ako otvori prozor, odgovorite u njemu kako biste nastavili.
+workspace.filters.raw_preview_developing = Obrada RAW pretpregleda…
+workspace.filters.raw_preview_done = RAW pretpregled (brzo uklanjanje mozaika)
+workspace.filters.raw_preview_size_changed = Promijenila se veličina RAW pretpregleda: {w} × {h}
+workspace.filters.raw_preview_failed = RAW pretpregled nije uspio: {error}
+workspace.filters.raw_developing = Obrada izvorne snimke…
+workspace.filters.raw_developing_note = Upotrebljava se najbolji postupak uklanjanja mozaika. Izvorni RAW i ove postavke mogu se uređivati i nakon spremanja kao PSD ili PSB.
+workspace.filters.raw_document_changed = Obrada RAW datoteke završila je nakon promjene njezina dokumenta
+workspace.filters.raw_failed = Obrada RAW datoteke nije uspjela: {error}
+workspace.filters.raw_too_wide = Rezultat obrade RAW datoteke preširok je
+workspace.filters.raw_too_tall = Rezultat obrade RAW datoteke previsok je
+workspace.filters.raw_size_changed = Veličina obrađene RAW datoteke promijenila se na {w} × {h}; trenutačni sloj ostaje
+workspace.filters.raw_history = Obrada u Camera Raw
+workspace.filters.raw_applied = Primijenjena obrada u Camera Raw (najbolje uklanjanje mozaika)
+
+workspace.image_size.done = Veličina slike: {w} × {h}
+workspace.image_size.bicubic_fallback = Veličina slike: {w} × {h} — model {name} nije se mogao učitati pa je upotrijebljena bikubična interpolacija
+workspace.image_size.upscaling = Povećavanje s pomoću modela {name}
+workspace.image_size.upscaling_note = {mp} megapiksela prolazi kroz mrežu, po nekoliko sekundi svaki. Dokument ostaje zauzet do završetka.
+
+workspace.export.no_slices = Nema isječaka za izvoz
+workspace.export.no_artboards = Nema radnih ploča za izvoz
+workspace.export.regions.one = Izvezena je {n} regija
+workspace.export.regions.few = Izvezene su {n} regije
+workspace.export.regions.other = Izvezeno je {n} regija
+workspace.export.prompt = Izvezi kao:
+workspace.export.done = Izvezeno: {name}
+workspace.export.failed = Izvoz nije uspio: {error}
+workspace.export.codec_vanished = Izvoznik više nije dostupan
+
+workspace.file_picker.choose_folder = Odaberi mapu
+workspace.file_picker.type_a_name = Upišite naziv datoteke
+workspace.file_picker.exists = {name} postoji; ponovno dodirnite Spremi kako biste je zamijenili
+workspace.file_picker.tap_a_file = Dodirnite datoteku koju želite otvoriti
+workspace.file_picker.pictures = Slike
+workspace.file_picker.camera = Fotoaparat
+workspace.file_picker.downloads = Preuzimanja
+workspace.file_picker.permission_denied = Schist nema dopuštenje za čitanje ove mape
+
+workspace.recovery.recovered_title = {title} (oporavljeno)
+workspace.recovery.recovered.one = Oporavljen je {n} nespremljeni dokument iz prethodne sesije
+workspace.recovery.recovered.few = Oporavljena su {n} nespremljena dokumenta iz prethodne sesije
+workspace.recovery.recovered.other = Oporavljeno je {n} nespremljenih dokumenata iz prethodne sesije

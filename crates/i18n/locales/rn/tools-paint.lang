@@ -1,0 +1,83 @@
+# Brush
+tool.brush.name = Igisigisho
+tool.brush.description = Siga umurongo ufise inkombe zoroshe mw'ibara ry'imbere, ubunini bwawo bugengwa n'ingano, ugukomera n'ukutubonerana vy'igisigisho vyo mu gihindura.
+tool.brush.history.stroke = Igisigisho
+
+# Pencil
+tool.pencil.name = Ikaramu y'igiti
+tool.pencil.description = Siga umurongo ufise inkombe zikomeye, zitaringanijwe, mw'ibara ry'imbere.
+tool.pencil.history.stroke = Ikaramu y'igiti
+
+# Eraser
+tool.eraser.name = Igihanagura
+tool.eraser.description = Hanagura ukurikije umurongo, usubize urwego ku kubonerana.
+tool.eraser.history.stroke = Igihanagura
+
+# Clone Stamp
+tool.clone.name = Kashe yo gukopa
+tool.clone.description = Kashe yo gukopa: kanda ufise Alt kugira ushinge akadomo k'inkomoko, hanyuma usige amapikisele akopowe kuri ko ku ntera nyene.
+tool.clone.history.stroke = Kashe yo gukopa
+
+# Dodge, Burn, Sponge
+tool.dodge.name = Dodge
+tool.dodge.description = Komeza umuco w'amapikisele umurongo ucako.
+tool.dodge.history.stroke = Dodge
+tool.burn.name = Burn
+tool.burn.description = Gabanya umuco w'amapikisele umurongo ucako.
+tool.burn.history.stroke = Burn
+tool.sponge.name = Eponje
+tool.sponge.description = Kongera canke kugabanya ubukomezi bw'ibara ry'amapikisele umurongo ucako.
+tool.sponge.history.stroke = Eponje
+
+# Blur, Sharpen, Smudge
+tool.blur.name = Gusiga igipfungu
+tool.blur.description = Siga igipfungu ku mapikisele umurongo ucako kugira ishusho ntiyongere gutomoka aho umurongo uca.
+tool.blur.history.stroke = Gusiga igipfungu
+tool.sharpen.name = Gukarisha
+tool.sharpen.description = Karisha amapikisele umurongo ucako.
+tool.sharpen.history.stroke = Gukarisha
+tool.smudge.name = Gusiga
+tool.smudge.description = Kurura ibara ukurikije umurongo nk'aho uriko usunika irangi ribisi.
+tool.smudge.history.stroke = Gusiga
+
+# Healing
+tool.heal.name = Igisigisho gikiza
+tool.heal.description = Igisigisho gikiza: kanda ufise Alt kugira ushinge inkomoko, hanyuma usige; texture y'inkomoko ivangwa n'ibara n'umuco vy'aho uyijanye.
+tool.heal.history.stroke = Igisigisho gikiza
+tool.spot_heal.name = Igisigisho gikiza utunenge
+tool.spot_heal.description = Igisigisho gikiza utunenge: siga hejuru y'akanenge maze gasubirizwe texture ivuye hafi yako — nta kadomo k'inkomoko ko gushinga.
+tool.spot_heal.history.stroke = Igisigisho gikiza utunenge
+
+# History Brush
+tool.history_brush.name = Igisigisho ca kahise
+tool.history_brush.description = Siga amapikisele uyagarukane avuye mw'ifoto ya kahise k'inyandiko, usubize inyuma ibikorwa vyakurikiye umurongo ku wundi.
+tool.history_brush.history.stroke = Igisigisho ca kahise
+
+# Background Eraser
+tool.background_eraser.name = Igihanagura c'inyuma
+tool.background_eraser.description = Hanagura ibara ryafashwe munsi y'ikigo c'igisigisho, usige amapikisele adasa na ryo, kugira ukure ikintu ku nyuma yaco.
+tool.background_eraser.history.stroke = Igihanagura c'inyuma
+
+# Gradient
+tool.gradient.name = Urukurikirane rw'amabara
+tool.gradient.description = Kurura wuzuze urwego — ucishije mu vyatoranijwe iyo bihari — urukurikirane rw'amabara rugororotse ruva mw'ibara ry'imbere ruja mw'ibara ry'inyuma rukurikije aho wakuruye.
+tool.gradient.radial.name = Urukurikirane ruzunguruka
+tool.gradient.radial.description = Kurura uva hagati uja hanze kugira wuzuze urukurikirane ruzunguruka hagati y'ibara ry'imbere n'iry'inyuma.
+tool.gradient.option.gradient = Urukurikirane rw'amabara
+tool.gradient.option.reverse = Guhindukiza
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Kuva mw'ibara ry'imbere kuja mw'ibara ry'inyuma
+tool.gradient.choice.foreground_to_transparent = Kuva mw'ibara ry'imbere kuja ku kubonerana
+tool.gradient.choice.linear = Rugororotse
+tool.gradient.choice.radial = Ruzunguruka
+tool.gradient.choice.angle = Inguni
+tool.gradient.choice.reflected = Rugarutse
+tool.gradient.choice.diamond = Diyama
+tool.gradient.history.gradient = Urukurikirane rw'amabara
+
+# Paint Bucket
+tool.bucket.name = Indobo y'irangi
+tool.bucket.description = Kanda wuzuze akarere gafatanye gafise ibara risa n'iriri munsi y'erekana n'ibara ry'imbere, mu rugero rwemewe rw'igikoresho.
+tool.bucket.option.contiguous = Bifatanye
+tool.bucket.option.all_layers = Inzego zose
+tool.bucket.history.fill = Indobo y'irangi

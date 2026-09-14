@@ -1,0 +1,23 @@
+# Adjustment layers and the Image ▸ Adjustments commands: the names.
+# Keyed by the ids in crates/app/src/actions.rs (adjustment_id); the
+# parameter labels of each adjustment's dialog are in dialogs.lang.
+adjustment.levels.name = स्तरहरू
+adjustment.curves.name = वक्रहरू
+adjustment.hue_saturation.name = रंगछटा/संतृप्ति
+adjustment.brightness_contrast.name = चमक/कन्ट्रास्ट
+adjustment.black_white.name = कालो र सेतो
+adjustment.solid_color.name = ठोस रङ
+adjustment.gradient_fill.name = ग्रेडियन्ट भराइ
+adjustment.pattern_fill.name = ढाँचा भराइ
+adjustment.invert.name = उल्ट्याउनुहोस्
+adjustment.posterize.name = पोस्टराइज
+adjustment.threshold.name = थ्रेसहोल्ड
+adjustment.color_balance.name = रङ सन्तुलन
+adjustment.vibrance.name = जीवन्तता
+adjustment.exposure.name = एक्सपोजर
+adjustment.photo_filter.name = फोटो फिल्टर
+adjustment.gradient_map.name = ग्रेडियन्ट नक्सा
+adjustment.selective_color.name = चयनात्मक रङ
+adjustment.channel_mixer.name = च्यानल मिश्रक
+# A kind read from a PSD that Schist has no editor for.
+adjustment.other.name = समायोजन

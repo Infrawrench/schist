@@ -1,0 +1,37 @@
+# ಫಿಲ್ಟರ್ ಗ್ಯಾಲರಿ, ಫಾಂಟ್‌ಗಳು, ನವೀಕರಣ ಮತ್ತು Vulkan ಸಂದೇಶಗಳು.
+app.filter_gallery.title = ಫಿಲ್ಟರ್ ಗ್ಯಾಲರಿ
+app.filter_gallery.stack = ರಾಶಿ (ಕೆಳಗಿನಿಂದ ಮೇಲಕ್ಕೆ ಅನ್ವಯಿಸಲಾಗಿದೆ)
+app.filter_gallery.no_settings = ಈ ಫಿಲ್ಟರ್‌ಗೆ ಯಾವುದೇ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಲ್ಲ.
+app.fonts.not_open_licensed = ಮುಕ್ತ ಪರವಾನಗಿ ಇಲ್ಲ · {substitute} ಇದರ ಅಳತೆಗಳಿಗೆ ಹೊಂದುತ್ತದೆ
+app.fonts.missing_substituted = ಕಾಣೆಯಾಗಿದೆ · ಪಠ್ಯವನ್ನು ಬದಲಿ ಫಾಂಟ್‌ನಲ್ಲಿ ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ
+app.fonts.not_in_catalogue = {family} ಮುಕ್ತ ಫಾಂಟ್ ಪಟ್ಟಿಯಲ್ಲಿಲ್ಲ
+app.fonts.no_faces = {family}ಗಾಗಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಬಹುದಾದ ಫಾಂಟ್ ಮುಖಗಳಿಲ್ಲ
+app.fonts.empty_response = ಖಾಲಿ ಪ್ರತಿಕ್ರಿಯೆ
+app.update.unreadable_response = ಓದಲಾಗದ ಪ್ರತಿಕ್ರಿಯೆ: {error}
+app.update.no_temp_dir = ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ತಾತ್ಕಾಲಿಕ ಡೈರೆಕ್ಟರಿ ಇಲ್ಲ
+app.update.asset_has_path = ಬಿಡುಗಡೆಯು ತನ್ನ ಆಸ್ತಿಯ ಹೆಸರಿನಲ್ಲಿ ಪಥವನ್ನು ಹೊಂದಿದೆ
+app.update.too_big = ಬಿಡುಗಡೆಯು ತಿಳಿಸಿದ ಗಾತ್ರಕ್ಕಿಂತ ಡೌನ್‌ಲೋಡ್ ದೊಡ್ಡದಾಗಿದೆ
+app.update.stopped_at = {total} ಬೈಟ್‌ಗಳಲ್ಲಿ {got} ಬೈಟ್‌ಗಳಲ್ಲಿ ಡೌನ್‌ಲೋಡ್ ನಿಂತಿದೆ
+app.update.hash_mismatch = ಡೌನ್‌ಲೋಡ್‌ನ ಹ್ಯಾಶ್ {want} ಬದಲು {got} ಆಗಿದೆ
+app.update.not_in_bundle = ಈ ಪ್ರತಿ ಅಪ್ಲಿಕೇಶನ್ ಬಂಡಲ್‌ನ ಒಳಗಿಲ್ಲ
+app.update.no_parent_dir = ಅಪ್ಲಿಕೇಶನ್ ಬಂಡಲ್‌ಗೆ ಮೂಲ ಡೈರೆಕ್ಟರಿ ಇಲ್ಲ
+app.update.cannot_write = {dir}ಗೆ ಬರೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ
+app.update.cannot_move_aside = {app} ಅನ್ನು ಪಕ್ಕಕ್ಕೆ ಸರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ
+app.update.cannot_move_in = ಹೊಸ ಬಂಡಲ್ ಅನ್ನು ಅದರ ಸ್ಥಾನಕ್ಕೆ ಸರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ
+app.update.cannot_run_ditto = /usr/bin/ditto ಚಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ
+app.update.unpack_failed = ಡೌನ್‌ಲೋಡ್ ಅನ್ನು ಅನ್‌ಪ್ಯಾಕ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ: {error}
+app.update.no_app_in_download = ಡೌನ್‌ಲೋಡ್‌ನಲ್ಲಿ Schist.app ಇಲ್ಲ
+app.update.cannot_run_codesign = /usr/bin/codesign ಚಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ
+app.update.signature_invalid = ಡೌನ್‌ಲೋಡ್‌ನ ಸಹಿ ಪರಿಶೀಲನೆಯಾಗಲಿಲ್ಲ: {error}
+app.update.download_unsigned = ಈ ಪ್ರತಿಗೆ ಸಹಿಯಿದೆ, ಆದರೆ ಡೌನ್‌ಲೋಡ್‌ಗೆ ಸಹಿಯಿಲ್ಲ
+app.update.different_developer = ಡೌನ್‌ಲೋಡ್‌ಗೆ ಬೇರೆ ಡೆವಲಪರ್ ಸಹಿ ಮಾಡಿದ್ದಾರೆ
+app.update.cannot_relaunch = ಮರುಪ್ರಾರಂಭಕವನ್ನು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ
+app.update.not_installed_copy = ಈ ಪ್ರತಿಯನ್ನು ಸ್ಥಾಪಕವು ಇಲ್ಲಿ ಇರಿಸಿಲ್ಲ
+app.update.cannot_start_installer = ಸ್ಥಾಪಕವನ್ನು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ
+app.update.platform_unsupported = ಈ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್‌ನ ನವೀಕರಣಗಳು Schist ಅನ್ನು ಸ್ಥಾಪಿಸಿದ ರೀತಿಯಲ್ಲೇ ಸ್ಥಾಪನೆಯಾಗುತ್ತವೆ
+app.vulkan.no_loader = schist: ಈ ಸಿಸ್ಟಮ್‌ನಲ್ಲಿ Vulkan ಲೋಡರ್ ಇಲ್ಲ, ಆದ್ದರಿಂದ ಚಿತ್ರಿಸಲು ಏನೂ ಇಲ್ಲ.\n\nSchist, Vulkan ಮೂಲಕ ರೆಂಡರ್ ಮಾಡುತ್ತದೆ ಮತ್ತು `libvulkan.so.1` ಸ್ಥಾಪಿತವಾಗಿಲ್ಲ.\nಲೋಡರ್ ಮತ್ತು ಡ್ರೈವರ್ ಎರಡೂ ಅಗತ್ಯವಿದೆ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ಈ ಸೆಷನ್ ಸೂಚಿಸುವ Vulkan ಡ್ರೈವರ್ ಅಲ್ಲಿಲ್ಲ.\n\n{var} ಅನ್ನು ಹೊಂದಿಸಲಾಗಿದೆ; ಇದನ್ನು ಹೊಂದಿಸುವುದು ಡ್ರೈವರ್‌ಗಳಿಗಾಗಿ ಲೋಡರ್ ನಡೆಸುವ ಹುಡುಕಾಟಕ್ಕೆ ಸೇರಿಸುವ ಬದಲು ಅದನ್ನೇ *ಬದಲಿಸುತ್ತದೆ*. ಆದ್ದರಿಂದ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲದ ಈ ಕಡತಗಳೇ ಸಂಪೂರ್ಣ ಡ್ರೈವರ್ ಪಟ್ಟಿ—ಮತ್ತು ಎಷ್ಟೇ ಡ್ರೈವರ್‌ಗಳನ್ನು ಸ್ಥಾಪಿಸಿದ್ದರೂ ಈ ಸೆಷನ್‌ನ ಪ್ರತಿಯೊಂದು Vulkan ಪ್ರೋಗ್ರಾಮ್‌ಗೂ ಯಾವ ಡ್ರೈವರ್ ಸಹ ಕಾಣುವುದಿಲ್ಲ:\n\n{missing}\n    {var}={value}\n\nಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಮ್ಯಾನಿಫೆಸ್ಟ್‌ಗೆ ಅದನ್ನು ಸೂಚಿಸಿ—ಸ್ಥಾಪಿತ ಡ್ರೈವರ್‌ಗಳು ತಮ್ಮ ಮ್ಯಾನಿಫೆಸ್ಟ್‌ಗಳನ್ನು /usr/share/vulkan/icd.dನಲ್ಲಿ ಇಡುತ್ತವೆ—ಅಥವಾ ಅದನ್ನು ಹೊಂದಿಸದೆ ಬಿಟ್ಟು ಲೋಡರ್ ತಾನೇ ಹುಡುಕಲು ಬಿಡಿ. ಇದನ್ನು ಕಾನ್ಫಿಗರೇಶನ್ ಕಡತದಿಂದ ಹೊಂದಿಸುವ ಸೆಷನ್‌ನಲ್ಲಿ (Hyprlandನ `env =`, systemd environment.d ಡ್ರಾಪ್-ಇನ್, ಶೆಲ್ ಪ್ರೊಫೈಲ್) ಅಲ್ಲಿಯೇ ಬದಲಿಸಬೇಕು; ಈಗಾಗಲೇ ಚಲಿಸುತ್ತಿರುವ ಎಲ್ಲದಕ್ಕೂ ಬದಲಾವಣೆ ತಲುಪಲು ಹೊಸದಾಗಿ ಲಾಗಿನ್ ಮಾಡಬೇಕು.\n
+app.vulkan.override_note = \n{var} ಅನ್ನು {value}ಗೆ ಹೊಂದಿಸಲಾಗಿದೆ; ಅದು ಲೋಡರ್‌ನ ಸ್ವಂತ ಹುಡುಕಾಟವನ್ನು ಬದಲಿಸುತ್ತದೆ: ಆ ಮ್ಯಾನಿಫೆಸ್ಟ್‌ಗಳಲ್ಲಿ ಯಾವುದೂ ಈ ಯಂತ್ರಕ್ಕೆ ಹೊಂದದಿದ್ದರೆ, ಅದನ್ನು ಹೊಂದಿಸದೆ ಬಿಡುವುದು ಮೊದಲು ಪ್ರಯತ್ನಿಸಬೇಕಾದದ್ದು.\n
+app.vulkan.no_driver = schist: ಯಾವುದೇ Vulkan ಡ್ರೈವರ್ ಸ್ಥಾಪಿತವಾಗಿಲ್ಲ, ಆದ್ದರಿಂದ ಚಿತ್ರಿಸಲು ಏನೂ ಇಲ್ಲ.\n\nSchist, Vulkan ಮೂಲಕ ರೆಂಡರ್ ಮಾಡುತ್ತದೆ. ಲೋಡರ್ ಸ್ಥಾಪಿತವಾಗಿದೆ ಆದರೆ ಯಾವ ಡ್ರೈವರ್ ಅನ್ನೂ ವರದಿ ಮಾಡುತ್ತಿಲ್ಲ—ಅದು ಹುಡುಕುವ ಎರಡೂ ಸ್ಥಳಗಳಲ್ಲಿ ಯಾವುದೂ ನೋಂದಾಯಿತವಾಗಿಲ್ಲ:\n\n{dirs}\n\nಲೋಡರ್ ಡ್ರೈವರ್‌ಗಳಿಂದ ಪ್ರತ್ಯೇಕವಾಗಿ ಒದಗಿಸಲಾಗುತ್ತದೆ, ಆದ್ದರಿಂದ ಸಾಮಾನ್ಯವಾಗಿ ಒಂದೇ ಪ್ಯಾಕೇಜ್ ಕಾಣೆಯಾಗಿರುತ್ತದೆ.\n\nಈ ಯಂತ್ರದ GPUಗೆ ಹೊಂದುವ ಪ್ಯಾಕೇಜ್ ಸ್ಥಾಪಿಸಿ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIAಯ ಸ್ವಾಮ್ಯದ ಡ್ರೈವರ್ ತನ್ನದೇ ಡ್ರೈವರ್ ಅನ್ನು ಒಳಗೊಂಡಿದೆ (Archನಲ್ಲಿ `nvidia-utils`, Debianನಲ್ಲಿ `nvidia-driver`). ವರ್ಚುವಲ್ ಯಂತ್ರದಲ್ಲಿ ಅಥವಾ ಸ್ಥಾಪಿಸಲು GPU ಡ್ರೈವರ್ ಇಲ್ಲದ ಕಡೆ ಸಾಫ್ಟ್‌ವೇರ್ ರಾಸ್ಟರೈಸರ್ ಕೆಲಸ ಮಾಡುತ್ತದೆ: Archನಲ್ಲಿ `vulkan-swrast`, ಇತರೆಡೆ `mesa-vulkan-drivers`ನ ಭಾಗ. ಅದು ನಿಧಾನ, ಆದರೆ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ.\n{overridden}
+app.vulkan.no_device = schist: Vulkan ಡ್ರೈವರ್ ಸ್ಥಾಪಿತವಾಗಿದೆ, ಆದರೆ ರೆಂಡರ್ ಮಾಡಲು ಯಾವುದೇ ಸಾಧನವನ್ನು ಒದಗಿಸುತ್ತಿಲ್ಲ.\n\nಡ್ರೈವರ್ ಈ GPUಗೆ ಬೆಂಬಲ ನೀಡದಿರಬಹುದು ಅಥವಾ ಅದನ್ನು ತಲುಪಲು ಸಾಧ್ಯವಾಗದಿರಬಹುದು—SSH ಮೂಲಕ ಅಥವಾ ಕಂಟೈನರ್ ಒಳಗೆ /dev/dri ಸಾಮಾನ್ಯವಾಗಿ ಕಾಣೆಯಾಗಿರುತ್ತದೆ. ಲೋಡರ್‌ಗೆ ಕಾಣುವುದನ್ನು `vulkaninfo --summary` ವರದಿ ಮಾಡುತ್ತದೆ.\n\nಈ ಯಂತ್ರದಲ್ಲಿ GPU ಇಲ್ಲದಿದ್ದರೆ, ಸಾಫ್ಟ್‌ವೇರ್ ರಾಸ್ಟರೈಸರ್ GPU ಇಲ್ಲದೆಯೇ ರೆಂಡರ್ ಮಾಡುತ್ತದೆ: Archನಲ್ಲಿ `vulkan-swrast`, Debian ಮತ್ತು Fedoraದಲ್ಲಿ `mesa-vulkan-drivers`ನ ಭಾಗ.\n
+app.vulkan.skip_hint = ಆದರೂ Schist ಅನ್ನು ಪ್ರಾರಂಭಿಸಿ ಅದು ತನ್ನ ರೀತಿಯಲ್ಲಿ ವಿಫಲವಾಗಲು ಬಿಡಲು {var}=1 ಹೊಂದಿಸಿ.

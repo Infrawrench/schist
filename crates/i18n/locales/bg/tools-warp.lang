@@ -1,0 +1,23 @@
+# Инструменти за деформиране: Втечняване, Марионетно деформиране и Изчезваща точка.
+tool.liquify.name = Втечняване
+tool.liquify.description = Избутвайте, завихряйте, свивайте или издувайте пикселите под голяма четка — избраният режим определя действието. Деформацията се натрупва в мрежа и се прилага към слоя при потвърждаване.
+tool.liquify.option.tool = Инструмент
+tool.liquify.choice.forward_warp = Деформиране напред
+tool.liquify.choice.reconstruct = Възстановяване
+tool.liquify.choice.twirl_cw = Завихряне по часовниковата стрелка
+tool.liquify.choice.twirl_ccw = Завихряне обратно на часовниковата стрелка
+tool.liquify.choice.pucker = Свиване
+tool.liquify.choice.bloat = Издуване
+tool.liquify.choice.push_left = Избутване наляво
+tool.liquify.history.liquify = Втечняване
+
+tool.puppet_warp.name = Марионетно деформиране
+tool.puppet_warp.description = Щракнете, за да закрепите слоя в няколко точки, след което плъзнете една от тях: мрежата се огъва около щифтовете по-твърдо или по-свободно според настройката „Твърдост“. Потвърждаването прилага деформацията.
+tool.puppet_warp.option.stiffness = Твърдост
+tool.puppet_warp.history.puppet_warp = Марионетно деформиране
+
+tool.vanishing_point.name = Изчезваща точка
+tool.vanishing_point.description = Очертайте с плъзгане равнина върху обект с перспектива, после сменете режима на „Клониране“ и рисувайте: копираните пиксели следват равнината и се смаляват с разстоянието.
+tool.vanishing_point.choice.edit_plane = Редактиране на равнина
+tool.vanishing_point.choice.clone = Клониране
+tool.vanishing_point.history.vanishing_point = Изчезваща точка

@@ -1,0 +1,33 @@
+# Free transform, transform selection and crop (plugins/tools-transform),
+# plus the resampling names Image Size and the Interpolation dropdown
+# share, and the history entries of Image Size and Canvas Size.
+
+# Free transform
+tool.transform.name = মুক্ত ৰূপান্তৰ
+tool.transform.description = মুক্ত ৰূপান্তৰ। সক্ৰিয় কৰিলে সক্ৰিয় স্তৰটোৰ চাৰিওফালে এটা ৰূপান্তৰ বাকচ খোল খায়: আকাৰ সলাবলৈ চুক টানক, ঘূৰাবলৈ চুকৰ বাহিৰফালে টানক, হেলনীয়া কৰিবলৈ কাষ টানক। নিশ্চিত (Enter) নকৰালৈকে কোনো পৰিৱৰ্তন লিখা নহয়; বাতিল (Escape) কৰিলে স্তৰটো আগৰ অৱস্থালৈ ঘূৰি যায়।
+tool.transform.option.interpolation = অন্তৰ্বেশন
+tool.transform.history.transform = মুক্ত ৰূপান্তৰ
+tool.transform.history.image_size = ছবিৰ আকাৰ
+tool.transform.history.canvas_size = কেনভাছৰ আকাৰ
+
+# Transform selection
+tool.transform.selection.name = নিৰ্বাচন ৰূপান্তৰ কৰক
+tool.transform.selection.description = নিৰ্বাচন ৰূপান্তৰ কৰক: একেটা বাকচেই, কিন্তু ই ভিতৰৰ পিক্সেলৰ সলনি নিৰ্বাচনৰ সীমাৰেখা স্থানান্তৰ কৰে। শেষ কৰিবলৈ নিশ্চিত বা বাতিল কৰক।
+tool.transform.selection.history.transform = নিৰ্বাচন ৰূপান্তৰ কৰক
+
+# The classical resampling filters, as Photoshop's Image Size names them
+tool.transform.resample.nearest_neighbor = নিকটতম প্ৰতিবেশী
+tool.transform.resample.bilinear = দ্বিৰৈখিক
+tool.transform.resample.bicubic = দ্বিঘনীয়
+
+# Crop
+tool.crop.name = ক্ৰপ
+tool.crop.description = ৰাখিবলগীয়া অঞ্চলটো টানি আঁকি তাৰ হেণ্ডেলবোৰ ঠিক কৰক; নিশ্চিত (Enter) কৰিলে দস্তাবেজটো সেই অঞ্চললৈ ছাঁটা হয়, বাতিল (Escape) কৰিলে অপৰিৱৰ্তিত থাকে।
+tool.crop.option.ratio = অনুপাত
+tool.crop.option.delete_cropped = ক্ৰপ কৰা পিক্সেল মচক
+tool.crop.choice.unconstrained = বাধাহীন
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = ক্ৰপ

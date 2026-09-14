@@ -1,0 +1,20 @@
+# Justeringslag og kommandoene under Bilde ▸ Justeringer.
+adjustment.levels.name = Nivåer
+adjustment.curves.name = Kurver
+adjustment.hue_saturation.name = Kulør/metning
+adjustment.brightness_contrast.name = Lysstyrke/kontrast
+adjustment.black_white.name = Svart-hvitt
+adjustment.solid_color.name = Heldekkende farge
+adjustment.gradient_fill.name = Forløpningsfyll
+adjustment.pattern_fill.name = Mønsterfyll
+adjustment.invert.name = Inverter
+adjustment.posterize.name = Posteriser
+adjustment.threshold.name = Terskel
+adjustment.color_balance.name = Fargebalanse
+adjustment.vibrance.name = Glød
+adjustment.exposure.name = Eksponering
+adjustment.photo_filter.name = Fotofilter
+adjustment.gradient_map.name = Forløpningskart
+adjustment.selective_color.name = Selektiv farge
+adjustment.channel_mixer.name = Kanalmikser
+adjustment.other.name = Justering

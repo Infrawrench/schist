@@ -1,0 +1,39 @@
+# 선택 도구: 선택 윤곽, 세 가지 올가미, 자동 선택, 빠른 선택, 개체 선택.
+
+# 새 도형과 기존 선택 영역을 결합하는 방식
+tool.select.mode.subtract = 빼기
+tool.select.mode.intersect = 교차
+
+# 선택 윤곽
+tool.marquee.rect.name = 사각형 선택 윤곽
+tool.marquee.rect.description = 드래그하여 사각형 선택 영역을 만듭니다. 드래그를 시작할 때 Shift 키를 누르면 선택 영역에 추가되고 Alt 키를 누르면 빠지며 두 키를 모두 누르면 교차 영역이 선택됩니다. 드래그하는 동안 Shift 키를 누르면 정사각형이 됩니다. 드래그하지 않고 클릭하면 선택이 해제됩니다.
+tool.marquee.ellipse.name = 원형 선택 윤곽
+tool.marquee.ellipse.description = 드래그하여 타원형 선택 영역을 만듭니다. Shift 키와 Alt 키로 선택 영역을 결합하는 방식은 사각형 선택 윤곽과 같습니다.
+
+# 올가미
+tool.lasso.name = 올가미
+tool.lasso.description = 자유롭게 윤곽을 드래그하면 드래그를 마칠 때 양 끝이 이어져 선택 영역이 닫힙니다. Shift 키를 누르면 추가되고 Alt 키를 누르면 빠집니다.
+tool.lasso.history.select = 올가미 선택
+tool.lasso.polygonal.name = 다각형 올가미
+tool.lasso.polygonal.description = 모퉁이를 차례로 클릭하여 직선 가장자리의 선택 영역을 만들고 첫 번째 점 근처를 클릭하여 닫습니다.
+tool.lasso.polygonal.history.select = 다각형 올가미
+tool.lasso.magnetic.name = 자석 올가미
+tool.lasso.magnetic.description = 가장자리를 따라 대략적으로 이동하면 윤곽이 경로 주변에서 대비가 가장 강한 곳에 달라붙습니다.
+tool.lasso.magnetic.history.select = 자석 올가미
+tool.lasso.magnetic.option.frequency = 빈도
+
+# 자동 선택
+tool.wand.name = 자동 선택
+tool.wand.description = 클릭하면 허용치 옵션의 범위에서 포인터 아래와 색상이 비슷하고 서로 연결된 영역을 선택합니다. 이 허용치는 선택 영역 확대, 유사 영역 선택, 색상 범위에서도 함께 사용됩니다.
+tool.wand.option.contiguous = 인접
+tool.wand.history.select = 자동 선택
+
+# 빠른 선택
+tool.quick_select.name = 빠른 선택
+tool.quick_select.description = 영역을 칠하면 브러시가 지나가는 비슷한 픽셀을 따라 선택 영역이 확장됩니다.
+tool.quick_select.history.select = 빠른 선택
+
+# 개체 선택
+tool.object_select.name = 개체 선택
+tool.object_select.description = 개체 주위에 상자를 드래그하면 그 안에서 감지된 개체의 경계에 선택 영역이 맞춰집니다.
+tool.object_select.history.select = 개체 선택

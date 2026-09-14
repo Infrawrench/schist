@@ -1,0 +1,152 @@
+# File
+menu.file = ફાઇલ
+menu.file.new = નવું
+menu.file.open = ખોલો…
+menu.file.open_recent = તાજેતરનું ખોલો
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = ગૅલેરી બ્રાઉઝ કરો…
+menu.file.close = બંધ કરો
+menu.file.save = સાચવો
+menu.file.save_as = આ રીતે સાચવો…
+menu.file.export = એક્સપોર્ટ કરો…
+menu.file.export_submenu = એક્સપોર્ટ કરો
+menu.file.export_artboards = આર્ટબોર્ડને PNGમાં…
+menu.file.export_slices = સ્લાઇસને PNGમાં…
+menu.file.save_to_photos = Photosમાં સાચવો
+menu.file.plugins = પ્લગઇન…
+menu.file.missing_fonts = ખૂટતા ફોન્ટ…
+menu.file.check_for_updates = અપડેટ તપાસો…
+menu.file.quit = બહાર નીકળો
+menu.file.add_folder_to_gallery = ગૅલેરીમાં ફોલ્ડર ઉમેરો…
+menu.file.import_from_photos = Photosમાંથી ઇમ્પોર્ટ કરો…
+menu.file.import_from_camera = કૅમેરામાંથી ઇમ્પોર્ટ કરો…
+
+# Edit
+menu.edit = સંપાદિત કરો
+menu.edit.fill = ભરો…
+menu.edit.stroke = સ્ટ્રોક…
+menu.edit.content_aware_fill = કન્ટેન્ટ-અવેર ભરણ
+menu.edit.content_aware_scale = કન્ટેન્ટ-અવેર માપ…
+menu.edit.puppet_warp = પપેટ વૉર્પ
+menu.edit.free_transform = મુક્ત રૂપાંતરણ
+menu.edit.transform = રૂપાંતરણ
+menu.edit.rotate_180 = 180° ફેરવો
+menu.edit.rotate_90_cw = ઘડિયાળની દિશામાં 90° ફેરવો
+menu.edit.rotate_90_ccw = ઘડિયાળની વિરુદ્ધ દિશામાં 90° ફેરવો
+menu.edit.flip_horizontal = આડું પલટાવો
+menu.edit.flip_vertical = ઊભું પલટાવો
+
+# Image
+menu.image = છબી
+menu.image.mode = મોડ
+menu.image.adjustments = ગોઠવણો
+menu.image.auto_tone = સ્વચાલિત ટોન
+menu.image.auto_contrast = સ્વચાલિત કોન્ટ્રાસ્ટ
+menu.image.auto_color = સ્વચાલિત રંગ
+menu.image.image_size = છબીનું કદ…
+menu.image.canvas_size = કેનવાસનું કદ…
+menu.image.image_rotation = છબીનું પરિભ્રમણ
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = ઘડિયાળની દિશામાં 90°
+menu.image.rotate_90_ccw = ઘડિયાળની વિરુદ્ધ દિશામાં 90°
+menu.image.flip_canvas_horizontal = કેનવાસ આડું પલટાવો
+menu.image.flip_canvas_vertical = કેનવાસ ઊભું પલટાવો
+menu.image.crop_to_selection = પસંદગી સુધી ક્રૉપ કરો
+menu.image.trim = ટ્રિમ કરો
+menu.image.assign_profile = પ્રોફાઇલ સોંપો…
+menu.image.convert_to_profile = પ્રોફાઇલમાં રૂપાંતરિત કરો…
+
+# Select
+menu.select = પસંદ કરો
+menu.select.color_range = રંગ શ્રેણી…
+menu.select.modify = ફેરફાર કરો
+menu.select.border = કિનારી…
+menu.select.smooth = સુંવાળું કરો…
+menu.select.expand = વિસ્તારો…
+menu.select.contract = સંકોચો…
+menu.select.feather = ફેધર…
+menu.select.transform_selection = પસંદગીનું રૂપાંતરણ
+
+# Layer
+menu.layer = લેયર
+menu.layer.layer_style = લેયર શૈલી…
+menu.layer.layer_comps = લેયર કમ્પ
+menu.layer.new_layer_comp = નવું લેયર કમ્પ
+menu.layer.delete_layer_comp = {name} કાઢી નાખો
+menu.layer.path = પાથ
+menu.layer.fill_path = પાથ ભરો
+menu.layer.stroke_path = પાથ પર સ્ટ્રોક કરો
+menu.layer.make_selection = પસંદગી બનાવો
+menu.layer.delete_path = પાથ કાઢી નાખો
+
+menu.adjust = ગોઠવો
+
+# Filter
+menu.filter = ફિલ્ટર
+menu.filter.filter_gallery = ફિલ્ટર ગૅલેરી…
+menu.filter.liquify = લિક્વિફાઇ
+menu.filter.vanishing_point = વૅનિશિંગ પોઇન્ટ
+menu.filter.manage_models = મૉડલ સંચાલિત કરો…
+menu.filter.camera_raw_development = Camera Raw ડેવલપમેન્ટ…
+
+# View
+menu.view = દૃશ્ય
+menu.view.rotate_view_cw = દૃશ્યને ઘડિયાળની દિશામાં ફેરવો
+menu.view.rotate_view_ccw = દૃશ્યને ઘડિયાળની વિરુદ્ધ દિશામાં ફેરવો
+menu.view.reset_view = દૃશ્ય રીસેટ કરો
+menu.view.zoom_in = ઝૂમ ઇન
+menu.view.zoom_out = ઝૂમ આઉટ
+menu.view.fit_on_screen = સ્ક્રીન પર બંધબેસાડો
+menu.view.actual_size = 100%
+menu.view.rulers = માપપટ્ટીઓ
+menu.view.grid = ગ્રિડ
+menu.view.guides = માર્ગદર્શિકાઓ
+menu.view.notes = નોંધો
+menu.view.ai_panel = AI પેનલ
+menu.view.extras = વધારાની વસ્તુઓ
+menu.view.snap = સ્નૅપ
+menu.view.clear_guides = માર્ગદર્શિકાઓ સાફ કરો
+menu.view.clear_notes = નોંધો સાફ કરો
+menu.view.clear_count = ગણતરી સાફ કરો
+menu.view.screen_mode = સ્ક્રીન મોડ
+menu.view.proof_colors = પ્રૂફ રંગો
+menu.view.show_rulers = માપપટ્ટીઓ બતાવો
+menu.view.hide_rulers = માપપટ્ટીઓ છુપાવો
+menu.view.show_grid = ગ્રિડ બતાવો
+menu.view.hide_grid = ગ્રિડ છુપાવો
+menu.view.show_guides = માર્ગદર્શિકાઓ બતાવો
+menu.view.hide_guides = માર્ગદર્શિકાઓ છુપાવો
+menu.view.show_notes = નોંધો બતાવો
+menu.view.hide_notes = નોંધો છુપાવો
+menu.view.show_extras = વધારાની વસ્તુઓ બતાવો
+menu.view.hide_extras = વધારાની વસ્તુઓ છુપાવો
+menu.view.enable_snapping = સ્નૅપિંગ સક્ષમ કરો
+menu.view.disable_snapping = સ્નૅપિંગ અક્ષમ કરો
+menu.view.enable_proof_colors = પ્રૂફ રંગો સક્ષમ કરો
+menu.view.disable_proof_colors = પ્રૂફ રંગો અક્ષમ કરો
+
+# Gallery
+menu.gallery = ગૅલેરી
+menu.gallery.edit_selected = પસંદ કરેલું સંપાદિત કરો
+menu.gallery.refresh = રિફ્રેશ કરો
+menu.gallery.map_filter = નકશો ફિલ્ટર…
+menu.gallery.back_to_editor = એડિટર પર પાછા જાઓ
+
+# Schist Cloud submenu
+menu.cloud.browse = Schist Cloud બ્રાઉઝ કરો
+menu.cloud.generate = છબીઓ બનાવો…
+menu.cloud.upload = દસ્તાવેજ Schist Cloud પર અપલોડ કરો…
+menu.cloud.sign_out = Schist Cloudમાંથી સાઇન આઉટ કરો
+menu.cloud.sign_in = Schist Cloudમાં સાઇન ઇન કરો…
+
+# The macOS application menu
+menu.app.services = સેવાઓ
+menu.app.hide = {app} છુપાવો
+menu.app.hide_others = અન્યને છુપાવો
+menu.app.show_all = બધું બતાવો
+menu.app.quit = {app}માંથી બહાર નીકળો
+
+# Status-bar replies
+menu.status.transform_selection_needs_selection = પસંદગીનું રૂપાંતરણ કરવા પસંદગી જરૂરી છે
+menu.status.crop_needs_selection = પસંદગી સુધી ક્રૉપ કરવા પસંદગી જરૂરી છે
+menu.status.select_photo_to_edit = સંપાદિત કરવા ફોટો પસંદ કરો

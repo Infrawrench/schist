@@ -1,0 +1,155 @@
+# ናይ Neural Filters፣ Camera Raw፣ ጋለሪ ትኹረት ምንካይን ሌንስን ፊልተራት
+
+filter.neural.param.center_x = ማእከል X
+filter.neural.param.center_y = ማእከል Y
+filter.neural.param.direction = ኣንፈት
+filter.neural.param.transition = ምስግጋር
+filter.neural.param.detail = ዝርዝር
+filter.neural.param.eyes = ኣዒንቲ
+
+filter.neural.msg.using_model = {model} · {license} ይጥቀም ኣሎ።
+filter.neural.msg.get_model = ካብ ፊልተር ▸ Neural Filters ▸ ሞዴላት ምምሕዳር ውሰዶ።
+
+filter.camera_raw.name = ፊልተር Camera Raw
+filter.camera_raw.param.temperature = ሙቐት ሕብሪ
+filter.camera_raw.param.tint = ቅልም
+filter.camera_raw.param.highlights = ድሙቓት ክፋላት
+filter.camera_raw.param.shadows = ጽላሎት
+filter.camera_raw.param.whites = ጻዕዳታት
+filter.camera_raw.param.blacks = ጸሊማት
+filter.camera_raw.param.clarity = ንጹርነት
+filter.camera_raw.param.dehaze = ግመ ምእላይ
+filter.camera_raw.param.vibrance = ህያውነት ሕብሪ
+filter.camera_raw.param.sharpening = ትኹረት ምውሳኽ
+filter.camera_raw.param.noise = ረብሻ ምንካይ
+filter.camera_raw.param.vignette = ጽልመት ወሰን
+
+filter.lens_correction.name = መእረምታ ሌንስ
+filter.lens_correction.param.distortion = ምዝባዕ ኣወግድ
+filter.lens_correction.param.red = ቀይሕ/ሳያን ወሰን ኣርም
+filter.lens_correction.param.blue = ሰማያዊ/ብጫ ወሰን ኣርም
+filter.lens_correction.param.vignette = መጠን ጽልመት ወሰን
+filter.lens_correction.param.midpoint = ማእከላይ ነጥቢ ጽልመት ወሰን
+filter.lens_correction.param.vertical = ቁማዊ ፐርስፔክቲቭ
+filter.lens_correction.param.horizontal = ኣግድማዊ ፐርስፔክቲቭ
+
+filter.adaptive_wide_angle.name = ተላማዲ ሰፊሕ ኩርናዕ
+filter.adaptive_wide_angle.param.projection = መእረምታ
+filter.adaptive_wide_angle.choice.fisheye = ዓይኒ ዓሳ
+filter.adaptive_wide_angle.choice.perspective = ፐርስፔክቲቭ
+filter.adaptive_wide_angle.choice.full_spherical = ምሉእ ክብ
+filter.adaptive_wide_angle.param.focal = ርሕቀት ትኹረት
+filter.adaptive_wide_angle.param.crop = ረቛሒ ምቑራጽ
+
+filter.field_blur.name = ትኹረት ምንካይ ዓውዲ
+filter.field_blur.param.position = ትኹረት ዘለዎ ቦታ
+filter.iris_blur.name = ትኹረት ምንካይ ኣይሪስ
+filter.iris_blur.param.roundness = ክብነት
+filter.tilt_shift.name = ምድናን-ምንቅስቓስ
+filter.tilt_shift.param.position = ማእከል
+filter.tilt_shift.param.band = ትኹረት ዘለዎ መስመር
+filter.spin_blur.name = ናይ ምሽክርካር ትኹረት ምንካይ
+filter.spin_blur.param.angle = ኩርናዕ ትኹረት ምንካይ
+filter.path_blur.name = ናይ መስመር ትኹረት ምንካይ
+filter.path_blur.param.speed = ፍጥነት
+filter.path_blur.param.curve = ምዕጻፍ
+filter.path_blur.param.taper = ቀስ እናጸበበ ምኻድ
+
+filter.shape_blur.name = ብቅርጺ ትኹረት ምንካይ
+filter.shape_blur.choice.square = ትርብዒት
+filter.shape_blur.choice.diamond = ኣልማዝ
+filter.shape_blur.choice.hexagon = ሽዱሽተ ኩርናዕ
+filter.shape_blur.choice.cross = መስቀል
+filter.shape_blur.choice.ring = ቀለበት
+filter.shape_blur.choice.star = ኮኾብ
+filter.smart_blur.name = ብልሒ ዘለዎ ትኹረት ምንካይ
+filter.smart_blur.choice.normal = ንቡር
+filter.smart_blur.choice.edge_only = ወሰን ጥራይ
+filter.smart_blur.choice.overlay_edge = ወሰን ልዕሊ ምድራብ
+
+filter.deinterlace.name = ምትሕልላፍ መስመራት ምእላይ
+filter.deinterlace.param.field = ዝውገድ
+filter.deinterlace.choice.odd_fields = ዘይጽምዲ ዓውድታት
+filter.deinterlace.choice.even_fields = ጽምዲ ዓውድታት
+filter.deinterlace.param.fill = ሓደስቲ ዓውድታት ዝፍጠሩሉ
+filter.deinterlace.choice.interpolation = ምግመት መንጎ ዋጋታት
+filter.deinterlace.choice.duplication = ምድጋም
+filter.ntsc_colors.name = NTSC ሕብርታት
+
+filter.neural.skin_smoothing.name = ቆርበት ምልስላስ
+filter.neural.skin_smoothing.param.blur = ልስሉስነት
+filter.neural.skin_smoothing.param.detail = ዝርዝር ዓቅብ
+filter.neural.skin_smoothing.msg.no_model = {model} ኣይተተኽለን — ኣብ ክንዲ ገጻት፣ ሕብሪ ቆርበት ዘለዎ ኩሉ የልስልስ።
+
+filter.neural.jpeg_artifacts.name = ጕድለታት JPEG ምእላይ
+filter.neural.jpeg_artifacts.msg.no_model = {model} ኣይተተኽለን — ኣብ ክንድኡ ነቲ ናይ 8-ፒክሰል መርበብ የልስልስ።
+
+filter.neural.colorize.name = ሕብሪ ምሃብ
+filter.neural.colorize.param.warmth = ሙቐት ሕብሪ
+filter.neural.colorize.msg.no_model = {model} ኣይተተኽለን — ኣብ ክንድኡ ብድምቀት ቅልም ይህብ።
+
+filter.neural.super_zoom.name = ልዑል ምዕባይ
+filter.neural.super_zoom.msg.no_model = {model} ኣይተተኽለን — ኣብ ክንድኡ ብኣንፈት ወሰን ትኹረት ይውስኽ።
+
+filter.neural.style_transfer.name = ቅዲ ምትሕልላፍ
+filter.neural.style_transfer.choice.mosaic = ሞዛይክ
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = ዝተተኽሉ ሞዴላት ቅዲ የለዉን — ሕብሪ ጥራይ የሰጋግር። ካብ ፊልተር ▸ Neural Filters ▸ ሞዴላት ምምሕዳር ውሰዶም።
+filter.neural.style_transfer.msg.installed = ዝተተኽሉ፦ {styles} (ONNX Model Zoo፣ Apache-2.0)።
+
+filter.neural.color_transfer.name = ሕብሪ ምትሕልላፍ
+filter.neural.color_transfer.param.hue = ዝድለ ዓይነት ሕብሪ
+filter.neural.color_transfer.param.contrast = ንጽጽር ኣሰማምዕ
+filter.neural.color_transfer.msg.info = ስብስብ ሕብሩ ካብቲ ኣብ ታሕቲኡ ዘሎ ንጣፍ ይወስድ። ኣብ ታሕቲኡ ዋላ ሓንቲ እንተዘይሃልዩ፣ ኣብ ክንድኡ ናብቲ ዝድለ ዓይነት ሕብሪ የነጻጽር።
+
+filter.neural.depth_blur.name = ብዕምቆት ትኹረት ምንካይ
+filter.neural.depth_blur.param.focus = ርሕቀት ትኹረት
+filter.neural.depth_blur.param.blur = ሓይሊ ትኹረት ምንካይ
+filter.neural.depth_blur.msg.no_model = {model} ኣይተተኽለን — ኣብ ክንድኡ ብናይ ከባቢ ትኹረት የተኵር።
+
+filter.neural.harmonization.name = ምስምማዕ
+filter.neural.harmonization.param.tone = ድምጺ ሕብሪ ኣሰማምዕ
+filter.neural.harmonization.msg.info = ነዚ ንጣፍ ምስቲ ኣብ ታሕቲኡ ዘሎ የሰማምዖ። ኣብ ታሕቲኡ ዋላ ሓንቲ እንተዘይሃልዩ፣ ዝሰማማዕ ነገር ስለዘየለ ዋላ ሓንቲ ኣይገብርን።
+
+filter.neural.landscape_mixer.name = መዋሃሃዲ መልክዓ ምድሪ
+filter.neural.landscape_mixer.param.bands = ደረጃታት ዕምቆት
+filter.neural.landscape_mixer.msg.with_depth = ስብስብ ሕብሩ ካብቲ ኣብ ታሕቲኡ ዘሎ ንጣፍ ይወስድ፣ Depth (Depth Blur) ተጠቒሙ ድማ ደረጃ ብደረጃ የሰማምዖ።
+filter.neural.landscape_mixer.msg.without_depth = ስብስብ ሕብሩ ካብቲ ኣብ ታሕቲኡ ዘሎ ንጣፍ ይወስድ። ምሉእ ስእሊ ብሓንሳብ ኣብ ክንዲ ምስምማዕ፣ ሰማይ ምስ ሰማይን መሬት ምስ መሬትን ንምስምማዕ Depth (Depth Blur) ተኸል።
+
+filter.neural.photo_restoration.name = ስእሊ ምሕዳስ
+filter.neural.photo_restoration.param.enhance = ስእሊ ምምሕያሽ
+filter.neural.photo_restoration.param.scratches = ፍሕፋሕ ምንካይ
+filter.neural.photo_restoration.param.tone = ድምጺ ሕብሪ ምሕዳስ
+filter.neural.photo_restoration.msg.no_model = ብዘይ ሞዴል የጽሪ ኣሎ።
+filter.neural.photo_restoration.msg.using_deblock = Deblock · ንSchist ዝሰልጠነ ይጥቀም ኣሎ።
+filter.neural.photo_restoration.msg.using_detail = Detail · ንSchist ዝሰልጠነ ይጥቀም ኣሎ።
+filter.neural.photo_restoration.msg.using_both = Deblockን Detailን · ንSchist ዝሰልጠኑ ይጥቀም ኣሎ።
+
+filter.neural.photo_to_sketch.name = ስእሊ ናብ ንድፊ
+filter.neural.photo_to_sketch.param.weight = ርጉድነት መስመር
+filter.neural.photo_to_sketch.param.shading = ምጽላል
+
+filter.neural.face_to_caricature.name = ገጽ ናብ ካሪካቸር
+filter.neural.face_to_caricature.param.mouth = ኣፍ
+filter.neural.face_to_caricature.param.head = ርእሲ
+filter.neural.face_to_caricature.msg.no_model = {model} ኣይተተኽለን፣ ስለዚ እዚ ዋላ ሓንቲ ኣይገብርን — ናብ ካሪካቸር ዝቕየር ነገር የለን።
+
+filter.neural.smart_portrait.name = ብልሒ ዘለዎ ፖርትሬት
+filter.neural.smart_portrait.param.happiness = ሓጎስ
+filter.neural.smart_portrait.param.surprise = ምግራም
+filter.neural.smart_portrait.param.age = ዕድመ ገጽ
+filter.neural.smart_portrait.param.gaze = ኣተኩሮ ዓይኒ
+filter.neural.smart_portrait.param.light = ኣንፈት ብርሃን
+filter.neural.smart_portrait.msg.no_model = {model} ኣይተተኽለን፣ ስለዚ እዚ ዋላ ሓንቲ ኣይገብርን — ዝሰርሓሉ ገጽ የብሉን።
+
+filter.neural.makeup_transfer.name = መመላኽዒ ምትሕልላፍ
+filter.neural.makeup_transfer.param.lips = ከናፍር
+filter.neural.makeup_transfer.param.skin = ድምጺ ሕብሪ ቆርበት
+filter.neural.makeup_transfer.msg.info = መመላኽዒ ካብ ገጽ ናይቲ ኣብ ታሕቲኡ ዘሎ ንጣፍ ይወስድ። ሕብሪ እዩ፣ ቅዲ ገጽ ኣይኮነን።
+filter.neural.makeup_transfer.msg.no_model = {model} ኣይተተኽለን፣ ስለዚ እዚ ዋላ ሓንቲ ኣይገብርን።
+
+filter.neural.sketch_to_portrait.name = ንድፊ ናብ ፖርትሬት
+filter.neural.sketch_to_portrait.param.detail = መስመራት ዓቅብ
+filter.neural.sketch_to_portrait.msg.with_face = ነቲ ናይዚ መተግበሪ ስእሊ ናብ ንድፊ ዝመልእ ኮይኑ ሰልጢኑ። ኣብቲ ዝረኸቦ ገጽ ይሰርሕ።
+filter.neural.sketch_to_portrait.msg.no_face = ነቲ ናይዚ መተግበሪ ስእሊ ናብ ንድፊ ዝመልእ ኮይኑ ሰልጢኑ። ኣብ ምሉእ ምርጫ ኣብ ክንዲ ምስራሕ ኣብ ገጽ ንኽሰርሕ Faces (Skin Smoothing) ተኸል።

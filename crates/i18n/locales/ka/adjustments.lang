@@ -1,0 +1,21 @@
+# კორექციის ფენებისა და გამოსახულება ▸ კორექციები ბრძანებების სახელები.
+adjustment.levels.name = დონეები
+adjustment.curves.name = მრუდები
+adjustment.hue_saturation.name = ტონი/გაჯერება
+adjustment.brightness_contrast.name = სიკაშკაშე/კონტრასტი
+adjustment.black_white.name = შავ-თეთრი
+adjustment.solid_color.name = ერთგვაროვანი ფერი
+adjustment.gradient_fill.name = გრადიენტული შევსება
+adjustment.pattern_fill.name = ორნამენტით შევსება
+adjustment.invert.name = ინვერსია
+adjustment.posterize.name = პოსტერიზაცია
+adjustment.threshold.name = ზღვრული მნიშვნელობა
+adjustment.color_balance.name = ფერთა ბალანსი
+adjustment.vibrance.name = ფერთა ინტენსივობა
+adjustment.exposure.name = ექსპოზიცია
+adjustment.photo_filter.name = ფოტოფილტრი
+adjustment.gradient_map.name = გრადიენტის რუკა
+adjustment.selective_color.name = შერჩევითი ფერი
+adjustment.channel_mixer.name = არხების მიქსერი
+# PSD-დან წაკითხული ტიპი, რომლის რედაქტორიც Schist-ს არ აქვს.
+adjustment.other.name = კორექცია

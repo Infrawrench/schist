@@ -1,0 +1,36 @@
+app.filter_gallery.title = வடிகட்டிப் படத்தொகுப்பு
+app.filter_gallery.stack = அடுக்கு (கீழிருந்து மேலாகப் பயன்படுத்தப்படும்)
+app.filter_gallery.no_settings = இந்த வடிகட்டிக்கு அமைப்புகள் இல்லை.
+app.fonts.not_open_licensed = திறந்த உரிமம் பெறாதது · {substitute} அதன் அளவீடுகளுடன் பொருந்துகிறது
+app.fonts.missing_substituted = காணவில்லை · மாற்று எழுத்துருவில் உரை அமைக்கப்படுகிறது
+app.fonts.not_in_catalogue = திறந்த எழுத்துருப் பட்டியலில் {family} இல்லை
+app.fonts.no_faces = {family} க்குப் பதிவிறக்கக்கூடிய எழுத்துரு முகப்புகள் இல்லை
+app.fonts.empty_response = காலியான பதில்
+app.update.unreadable_response = படிக்க முடியாத பதில்: {error}
+app.update.no_temp_dir = பதிவிறக்கத் தற்காலிகக் கோப்புறை இல்லை
+app.update.asset_has_path = வெளியீடு அதன் வளத்துக்குப் பாதையுடன் பெயரிட்டுள்ளது
+app.update.too_big = வெளியீடு குறிப்பிட்டதைவிடப் பதிவிறக்கம் பெரிதாக உள்ளது
+app.update.stopped_at = {total} பைட்டுகளில் {got} இல் பதிவிறக்கம் நின்றது
+app.update.hash_mismatch = பதிவிறக்கத்தின் சிதறல் {want} ஆக இல்லாமல் {got} ஆக உள்ளது
+app.update.not_in_bundle = இந்த நகல் பயன்பாட்டுத் தொகுப்பிற்குள் இல்லை
+app.update.no_parent_dir = பயன்பாட்டுத் தொகுப்புக்குப் பெற்றோர் கோப்புறை இல்லை
+app.update.cannot_write = {dir} இல் எழுத முடியவில்லை
+app.update.cannot_move_aside = {app} ஐ ஒதுக்கி நகர்த்த முடியவில்லை
+app.update.cannot_move_in = புதிய தொகுப்பை உரிய இடத்துக்கு நகர்த்த முடியவில்லை
+app.update.cannot_run_ditto = /usr/bin/ditto ஐ இயக்க முடியவில்லை
+app.update.unpack_failed = பதிவிறக்கத்தைப் பிரித்தெடுக்க முடியவில்லை: {error}
+app.update.no_app_in_download = பதிவிறக்கத்தில் Schist.app இல்லை
+app.update.cannot_run_codesign = /usr/bin/codesign ஐ இயக்க முடியவில்லை
+app.update.signature_invalid = பதிவிறக்கத்தின் கையொப்பத்தைச் சரிபார்க்க முடியவில்லை: {error}
+app.update.download_unsigned = இந்த நகல் கையொப்பமிடப்பட்டது, பதிவிறக்கம் கையொப்பமிடப்படவில்லை
+app.update.different_developer = பதிவிறக்கம் வேறொரு உருவாக்குநரால் கையொப்பமிடப்பட்டுள்ளது
+app.update.cannot_relaunch = மறுதொடக்கியைத் தொடங்க முடியவில்லை
+app.update.not_installed_copy = இந்த நகல் நிறுவியால் இங்கே வைக்கப்படவில்லை
+app.update.cannot_start_installer = நிறுவியைத் தொடங்க முடியவில்லை
+app.update.platform_unsupported = இந்தத் தளத்தில் Schist நிறுவப்பட்ட அதே முறையில் புதுப்பிப்புகளும் நிறுவப்படும்
+app.vulkan.no_loader = schist: இந்தக் கணினியில் Vulkan ஏற்றி இல்லை; எனவே வரைவதற்கு எதுவுமில்லை.\n\nSchist, Vulkan வழியாக வரைகிறது; `libvulkan.so.1` நிறுவப்படவில்லை.\nஏற்றியும் இயக்கியும் இரண்டும் தேவை:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: இந்த அமர்வு சுட்டும் Vulkan இயக்கி அங்கு இல்லை.\n\n{var} அமைக்கப்பட்டுள்ளது; அதை அமைப்பது இயக்கிகளைத் தேடும் ஏற்றியின் பட்டியலில்\nசேர்ப்பதற்குப் பதிலாக அந்தத் தேடலையே *மாற்றியமைக்கிறது*. எனவே இல்லாத இந்தக் கோப்புகளே\nமுழு இயக்கிப் பட்டியல் — எத்தனை இயக்கிகள் நிறுவப்பட்டிருந்தாலும் இந்த அமர்விலுள்ள\nஒவ்வொரு Vulkan நிரலும் எந்த இயக்கியையும் காணாது:\n\n{missing}\n    {var}={value}\n\nஇருக்கும் manifest கோப்பைச் சுட்டுமாறு அமைக்கவும் — நிறுவப்பட்ட இயக்கிகள் தமது கோப்புகளை\n/usr/share/vulkan/icd.d இல் வைக்கும் — அல்லது அதை நீக்கி ஏற்றி தானே கண்டறிய விடவும்.\nஅமைவுக் கோப்பிலிருந்து இதை அமைக்கும் அமர்வில் (Hyprland இன் `env =`, ஒரு\nsystemd environment.d drop-in, ஒரு shell profile) அங்கேயே மாற்ற வேண்டும்;\nஏற்கெனவே இயங்குபவற்றுக்கு மாற்றம் சென்றடையப் புதிதாக உள்நுழைய வேண்டும்.\n
+app.vulkan.override_note = \n{var}, {value} ஆக அமைக்கப்பட்டுள்ளது; இது ஏற்றியின் சொந்தத்\nதேடலை மாற்றுகிறது: அந்த manifest கோப்புகளில் எதுவும் இந்தக் கணினிக்கானது இல்லை என்றால்,\nஅதை நீக்குவது முதலில் முயல வேண்டியது.\n
+app.vulkan.no_driver = schist: Vulkan இயக்கி நிறுவப்படவில்லை; எனவே வரைவதற்கு எதுவுமில்லை.\n\nSchist, Vulkan வழியாக வரைகிறது. ஏற்றி நிறுவப்பட்டிருந்தும் எந்த இயக்கியையும்\nஅறிவிக்கவில்லை — தேடப்படும் இரு இடங்களிலும் எதுவும் பதிவு செய்யப்படவில்லை:\n\n{dirs}\n\nஏற்றி இயக்கிகளிலிருந்து தனியாக வழங்கப்படுவதால், பொதுவாக ஒரு தொகுப்பு மட்டும்\nகாணாமல் இருக்கும்.\n\nஇந்தக் கணினியின் GPU க்கானதை நிறுவவும்:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA வின் தனியுரிம இயக்கியில் அதற்கானது உள்ளது (Arch இல் `nvidia-utils`,\nDebian இல் `nvidia-driver`). மெய்நிகர் கணினியிலோ GPU இயக்கி நிறுவ இயலாத\nவேறிடத்திலோ மென்பொருள் படப்புள்ளியாக்கியே இயங்கும்: Arch இல் `vulkan-swrast`,\nமற்றவற்றில் `mesa-vulkan-drivers` இன் ஒரு பகுதி. அது மெதுவானது, ஆனால் தொடங்கும்.\n{overridden}
+app.vulkan.no_device = schist: Vulkan இயக்கி நிறுவப்பட்டுள்ளது, ஆனால் வரைவதற்கான சாதனத்தை அது வழங்கவில்லை.\n\nஇந்த GPU ஐ இயக்கி ஆதரிக்காமல் இருக்கலாம் அல்லது அதை அணுக முடியாமல் இருக்கலாம் —\nSSH வழியாகவோ கொள்கலனுக்குள்ளோ இயங்கும்போது /dev/dri காணாமல் இருப்பது வழக்கம்.\nஏற்றி காண்பதை `vulkaninfo --summary` அறிவிக்கும்.\n\nஇந்தக் கணினியில் GPU இல்லையெனில் மென்பொருள் படப்புள்ளியாக்கி GPU இல்லாமலேயே வரையும்:\nArch இல் `vulkan-swrast`, Debian மற்றும் Fedora இல் `mesa-vulkan-drivers` இன் ஒரு பகுதி.\n
+app.vulkan.skip_hint = எப்படியாவது Schist ஐத் தொடங்கி அதன் வழியில் தோல்வியடைய விட, {var}=1 என அமைக்கவும்.

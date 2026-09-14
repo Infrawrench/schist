@@ -1,0 +1,266 @@
+# Elementi condivisi
+dialog.save_ellipsis = Salva…
+dialog.use_foreground = Usa primo piano
+dialog.downloading = Download…
+dialog.downloading_of = Download… {got} di {total}
+dialog.no_config_dir = (nessuna directory di configurazione)
+
+dialog.layer_props.title = Proprietà livello
+
+# Esportazione
+dialog.export.format = Formato
+dialog.export.dither = Dithering
+dialog.export.dither_note = Applica il dithering durante la riduzione a 8 bit
+dialog.export.export_ellipsis = Esporta…
+
+# Elaborazione foto
+dialog.batch.title = Elabora foto
+dialog.batch.note_edit.one = {n} foto — salvata come modifica della galleria; l'originale non viene mai alterato.
+dialog.batch.note_edit.many = {n} foto — salvate come modifiche della galleria; gli originali non vengono mai alterati.
+dialog.batch.note_edit.other = {n} foto — salvate come modifiche della galleria; gli originali non vengono mai alterati.
+dialog.batch.note_edit_edited.one = {n} foto, {edited} già modificata — la ricetta viene applicata sopra la modifica, che viene conservata come versione.
+dialog.batch.note_edit_edited.many = {n} foto, {edited} già modificate — la ricetta viene applicata sopra le modifiche, che vengono conservate come versioni.
+dialog.batch.note_edit_edited.other = {n} foto, {edited} già modificate — la ricetta viene applicata sopra le modifiche, che vengono conservate come versioni.
+dialog.batch.note_copies.one = {n} foto — copia a livelli uniti; l'originale non viene mai alterato.
+dialog.batch.note_copies.many = {n} foto — copie a livelli uniti; gli originali non vengono mai alterati.
+dialog.batch.note_copies.other = {n} foto — copie a livelli uniti; gli originali non vengono mai alterati.
+dialog.batch.note_copies_edited.one = {n} foto, {edited} già modificata — la copia viene creata dalla modifica.
+dialog.batch.note_copies_edited.many = {n} foto, {edited} già modificate — le copie vengono create dalle modifiche.
+dialog.batch.note_copies_edited.other = {n} foto, {edited} già modificate — le copie vengono create dalle modifiche.
+dialog.batch.turn = Ruota
+dialog.batch.rotate = Rotazione
+dialog.batch.flip = Rifletti
+dialog.batch.upscale = Aumenta risoluzione
+dialog.batch.colour = Colore
+dialog.batch.add_adjustment = Regolazione…
+dialog.batch.output = Destinazione
+dialog.batch.save_as = Salva come
+dialog.batch.process = Elabora
+dialog.batch.process_n = Elabora {n}
+dialog.batch.nothing_to_do = Nessuna operazione da eseguire: scegli prima una rotazione, un aumento di risoluzione o una regolazione
+
+# Scala in base al contenuto
+dialog.content_aware_scale.title = Scala in base al contenuto
+dialog.content_aware_scale.note = Rimuove le giunture con pochi dettagli. Una selezione indica l'area da proteggere.
+
+# Traccia e riempimento
+dialog.stroke.title = Traccia
+dialog.stroke.location = Posizione
+dialog.stroke.inside = Interno
+dialog.stroke.outside = Esterno
+dialog.stroke.note = Traccia la selezione con il colore di primo piano.
+dialog.fill.contents = Contenuto
+
+# Intervallo colori
+dialog.color_range.title = Intervallo colori
+dialog.color_range.sampled = Campionati
+dialog.color_range.fuzziness = Tolleranza
+dialog.color_range.note = Seleziona sul livello attivo i pixel simili al colore campionato.
+
+# Selettore file
+dialog.file_picker.up = ↑ Su
+dialog.file_picker.empty = Nessun elemento
+dialog.file_picker.choose_folder = Scegli questa cartella
+
+# Filtri
+dialog.filter.camera_raw_development = Sviluppo Camera Raw
+dialog.filter.reset_as_shot = Ripristina come scattato
+dialog.filter.raw_note = Sviluppa nuovamente il livello attivo dai dati originali del sensore.
+dialog.filter.note = Applica al livello attivo, all'interno della selezione.
+
+# Font mancanti
+dialog.fonts.title = Font mancanti
+dialog.fonts.install_named = Installa {name}
+dialog.fonts.no_document = Nessun documento aperto, quindi non vi è nulla da controllare.
+dialog.fonts.all_installed = Tutti i font usati dal documento sono installati. Il testo è composto con i font usati per definirne l'impaginazione.
+dialog.fonts.missing_intro = Questo documento usa font che non sono presenti. Il testo rimane leggibile grazie a un font sostitutivo, ma la larghezza e le interruzioni di riga differiscono dall'impaginazione originale.
+dialog.fonts.footer = I download provengono dal catalogo aperto Google Fonts e vengono conservati in {dir}. I font privi di licenza aperta non vengono mai scaricati; quando esiste un'alternativa libera con metriche compatibili, viene proposta al suo posto e ripristina l'impaginazione grazie alla corrispondenza delle larghezze di avanzamento.
+dialog.fonts.user_font_dir = directory dei font dell'utente
+
+# Modelli Neural Filters
+dialog.models.title = Modelli Neural Filters
+dialog.models.built_in = Incorporato · {size}
+dialog.models.installed = Installato · {size}
+dialog.models.not_installed = Non installato · {size}
+dialog.models.not_in_browser = Non disponibile nel browser · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = I modelli vengono conservati in {dir}. I filtri privi di modello ricorrono all'elaborazione del segnale e lo segnalano.
+
+# Nuovo documento
+dialog.new_doc.title = Nuovo documento
+dialog.new_doc.picker_title = Nuovo file
+dialog.new_doc.custom_ellipsis = Personale…
+dialog.new_doc.preset = Predefinito
+dialog.new_doc.preset_default = Predefinito (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Quadrato (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Lettera USA, 300 ppi
+dialog.new_doc.summary = {w} × {h} px a {ppi} ppi · {size}
+dialog.new_doc.create = Crea
+dialog.new_doc.created = Nuovo documento: {w} × {h} px
+
+# Apertura di file
+dialog.open.image_title = Apri immagine
+dialog.open.image_prompt = Aprire “{name}” in una nuova scheda oppure aggiungerlo al documento corrente come nuovo livello?
+dialog.open.new_tab = Nuova scheda
+dialog.open.new_layer = Nuovo livello
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = questo {n} file
+dialog.open.these_files.many = questi {n} file
+dialog.open.these_files.other = questi {n} file
+dialog.open.shared_title_one = Immagine condivisa
+dialog.open.shared_title_many = Immagini condivise
+dialog.open.shared_prompt = Aggiungere {what} alla galleria oppure aprire nell'editor?
+dialog.open.add_to_gallery = Aggiungi alla galleria
+dialog.open.open_in_editor = Apri nell'editor
+dialog.open.heic_title = Supporto HEIC
+dialog.open.heic_needs_decoder = Per aprire “{name}” è necessario un decoder HEVC, che non è installato nel sistema.
+dialog.open.heic_offer = Schist può scaricare una versione di libheif {version} destinata alla sola decodifica, con il decoder HEVC libde265 (≈5 MB). Entrambi sono concessi con licenza LGPL-3.0; i testi delle licenze vengono installati accanto alla libreria e il codice sorgente è disponibile nella pagina del progetto.
+dialog.open.licenses_source = Licenze e codice sorgente
+dialog.open.folders_title = Cartelle trascinate
+dialog.open.n_folders.one = {n} cartella
+dialog.open.n_folders.many = {n} cartelle
+dialog.open.n_folders.other = {n} cartelle
+dialog.open.open_in_tabs = Apri in schede
+dialog.open.open_first_in_tabs = Apri i primi {n} in schede
+dialog.open.open_n_in_tabs.one = Apri {n} in una scheda
+dialog.open.open_n_in_tabs.many = Apri {n} in schede
+dialog.open.open_n_in_tabs.other = Apri {n} in schede
+dialog.open.folder_holds.one = {what} contiene {n} immagine che Schist può aprire (incluse le sottocartelle).
+dialog.open.folder_holds.many = {what} contiene {n} immagini che Schist può aprire (incluse le sottocartelle).
+dialog.open.folder_holds.other = {what} contiene {n} immagini che Schist può aprire (incluse le sottocartelle).
+dialog.open.folders_note = Aggiungi alla galleria sorveglia le cartelle nella loro posizione: nulla viene copiato e le versioni delle modifiche vengono salvate accanto a ogni foto. Apri in schede carica subito tutte le immagini nell'editor.
+
+# Plugin
+dialog.plugins.title = Plugin
+dialog.plugins.kind_filter = filtro
+dialog.plugins.kind_format = formato
+dialog.plugins.kind_unavailable = non disponibile
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = I plugin vengono caricati da {dir}
+dialog.plugins.none = Nessun plugin installato.
+dialog.plugins.install_ellipsis = Installa…
+dialog.plugins.photoshop_heading = Plugin Photoshop
+dialog.plugins.loaded_from = Caricati da {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Preferenze
+dialog.prefs.title = Preferenze
+dialog.prefs.theme = Tema
+dialog.prefs.theme_dark = Scuro
+dialog.prefs.theme_light = Chiaro
+dialog.prefs.grid_spacing = Spaziatura griglia
+dialog.prefs.snapping = Allineamento
+dialog.prefs.snap_to = Allinea a guide, griglia e bordi del quadro
+dialog.prefs.rendering_intent = Intento di rendering
+dialog.prefs.intent_perceptual = Percettivo
+dialog.prefs.intent_relative = Colorimetrico relativo
+dialog.prefs.intent_saturation = Saturazione
+dialog.prefs.intent_absolute = Colorimetrico assoluto
+dialog.prefs.scrolling = Scorrimento
+dialog.prefs.zoom_with_scroll = Zoom con rotellina di scorrimento
+dialog.prefs.rendering = Rendering
+dialog.prefs.gpu_compositing = Composizione GPU
+dialog.prefs.diagnostics = Diagnostica
+dialog.prefs.crash_reports = Scrivi un rapporto locale in caso di arresto anomalo
+dialog.prefs.crash_upload = Invialo anche agli sviluppatori
+dialog.prefs.telemetry = Invia un ping anonimo giornaliero
+dialog.prefs.diagnostics_note = Le impostazioni di diagnostica diventano effettive al successivo avvio di Schist.
+dialog.prefs.updates = Aggiornamenti
+dialog.prefs.check_updates = Controlla la presenza di nuove versioni all'avvio
+dialog.prefs.keyboard_shortcuts = Scelte rapide da tastiera: {path}
+dialog.prefs.nsfw_needs_model = Richiede il modello Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = scaricalo in Gestisci modelli…
+dialog.prefs.hide_flagged = Nascondi foto contrassegnate
+
+# Profili colore
+dialog.profile.profile = Profilo
+dialog.profile.assign_title = Assegna profilo
+dialog.profile.convert_title = Converti in profilo
+dialog.profile.assign = Assegna
+dialog.profile.convert = Converti
+dialog.profile.assign_note = Reinterpreta i valori dei pixel esistenti secondo il nuovo profilo.
+dialog.profile.convert_note = Riscrive i valori dei pixel affinché i colori conservino il loro aspetto.
+
+# Salva immagine con nome
+dialog.save_image.title = Salva immagine con nome
+dialog.save_image.note = {name} — la modifica, se presente; l'originale non viene mai alterato.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# Dimensioni
+dialog.size.image_title = Dimensione immagine
+dialog.size.canvas_title = Dimensione quadro
+dialog.size.constrain = Vincola
+dialog.size.keep_proportions = Mantieni proporzioni
+dialog.size.resample = Ricampiona
+dialog.size.bicubic = Bicubica
+dialog.size.bilinear = Bilineare
+dialog.size.nearest = Vicino più prossimo
+dialog.size.anchor = Ancoraggio
+dialog.size.currently = Attualmente {w} × {h} px
+dialog.size.image_size_status = Dimensione immagine: {w} × {h}
+dialog.size.canvas_size_status = Dimensione quadro: {w} × {h}
+
+# Aggiornamento disponibile
+dialog.update.title = Aggiornamento disponibile
+dialog.update.available = Schist {version} è disponibile. Questa copia è la versione {current}.
+dialog.update.installing = Installazione dell'aggiornamento…
+dialog.update.can_install = Schist può scaricarlo ({size}) e installarlo sopra questa copia.
+dialog.update.external = Questa copia proviene da un sistema che ne gestisce l'installazione, come un gestore pacchetti, un'AppImage o una build personale; viene quindi aggiornata con lo stesso metodo con cui è stata installata.
+dialog.update.later = Più tardi
+dialog.update.release_notes = Note sulla versione
+dialog.update.update_restart = Aggiorna e riavvia
+dialog.update.open_page = Apri pagina della versione
+
+# Stile livello
+dialog.style.title = Stile livello
+dialog.style.bevel = Smusso ed effetto rilievo
+dialog.style.stroke = Traccia
+dialog.style.inner_shadow = Ombra interna
+dialog.style.inner_glow = Bagliore interno
+dialog.style.satin = Finitura lucida
+dialog.style.color_overlay = Sovrapposizione colore
+dialog.style.gradient_overlay = Sovrapposizione sfumatura
+dialog.style.outer_glow = Bagliore esterno
+dialog.style.drop_shadow = Ombra esterna
+dialog.style.blur = Controllo sfocatura
+dialog.style.gradient_from = Inizio sovrapposizione sfumatura
+dialog.style.gradient_to = Fine sovrapposizione sfumatura
+dialog.style.soften = Attenua
+dialog.style.depth = Profondità
+dialog.style.altitude = Altitudine
+dialog.style.highlight = Luce
+dialog.style.shadow = Ombra
+dialog.style.outer_bevel = Smusso esterno
+dialog.style.inner_bevel = Smusso interno
+dialog.style.emboss = Effetto rilievo
+dialog.style.pillow_emboss = Effetto cuscino
+dialog.style.linear = Lineare
+dialog.style.radial = Radiale
+dialog.style.reverse = Inverti
+dialog.style.from_to = Da / A
+dialog.style.from_fg = Da = PP
+dialog.style.to_fg = A = PP
+dialog.style.precise = Preciso
+dialog.style.knockout = Il livello fora l'ombra esterna
+
+# Selettore colore
+dialog.color_picker.title = Selettore colore ({what})
+dialog.color_picker.effect_color = Colore {effect}
+dialog.color_picker.note_color = Colore nota
+dialog.color_picker.new = nuovo
+dialog.color_picker.current = corrente
+
+# Curve
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Ripristina canale
+dialog.curves.hint = Trascina per modellare · fai clic per aggiungere · Alt-clic per rimuovere
+
+# Backup rullino fotocamera
+dialog.prefs.camera_sync = Rullino foto
+dialog.prefs.camera_sync_enabled = Backup su Schist Cloud
+dialog.prefs.camera_sync_sign_in = Accedi a Schist Cloud per eseguire il backup del rullino foto.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Modifica…

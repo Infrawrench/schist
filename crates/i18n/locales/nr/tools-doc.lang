@@ -1,0 +1,31 @@
+# The document-furniture tools (plugins/tools-doc).
+
+# Artboard
+tool.artboard.name = Ibhodi Yobuciko
+tool.artboard.description = Dosa wenze ibhodi yobuciko: indawo yekhanvasi enegama ethunyelwa ngaphandle iyodwa. Ukudosa ngaphakathi kwesele ikhona kuyayikhambisa.
+tool.artboard.default_name = Ibhodi Yobuciko {n}
+
+# Slice
+tool.slice.name = Isiquntu
+tool.slice.description = Dosa wenze isiquntu sokuthumela ngaphandle, isikwere sekhanvasi esinegama esithunyelwa ngaphandle njengesithombe esizijameleko. Ukudosa ngaphakathi kwesesele sikhona kuyasikhambisa.
+tool.slice.default_name = Isiquntu {n}
+
+# Frame
+tool.frame.name = Ifremu
+tool.frame.description = Dosa wenze ifremu: ileya esikwere (namkha eyisiyingi) efihla koke okufakwa ngaphakathi kwayo.
+tool.frame.default_name = Ifremu {n}
+tool.frame.choice.rectangle = Isikwere
+tool.frame.choice.ellipse = Isiyingi
+tool.frame.history.frame = Ifremu
+
+# Note
+tool.note.name = Iphuzu
+tool.note.description = Qhafaza ikhanvasi engananto ukunamathisela iphuzu lapho, liphawulwe ngomtloli nangombala ebujameni bomhleli; qhafaza iphini elikhona ukuze ulikhethele iphaneli YamaPhuzu.
+tool.note.history.place = Beka Iphuzu
+tool.note.history.move = Khambisa Iphuzu
+tool.note.history.delete = Sula Iphuzu
+
+# Count
+tool.count.name = Ukubala
+tool.count.description = Qhafaza ukubeka amatshwayo wokubala aneenomboro ekhanvasini, bese uqhafaza elikhona ukuze ulisuse.
+tool.count.default_name = Ukubala {n}

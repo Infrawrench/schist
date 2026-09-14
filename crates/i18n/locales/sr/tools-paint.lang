@@ -1,0 +1,73 @@
+# Алатке за сликање.
+tool.brush.name = Четкица
+tool.brush.description = Слика потез меких ивица бојом предњег плана, са величином, тврдоћом и непрозирношћу четкице подешеним у уређивачу.
+tool.brush.history.stroke = Четкица
+
+tool.pencil.name = Оловка
+tool.pencil.description = Слика потез оштрих ивица без умекшавања бојом предњег плана.
+tool.pencil.history.stroke = Оловка
+
+tool.eraser.name = Гумица
+tool.eraser.description = Брише дуж потеза и враћа тај део слоја у провидно стање.
+tool.eraser.history.stroke = Гумица
+
+tool.clone.name = Печат за клонирање
+tool.clone.description = Печат за клонирање: кликните држећи Alt да поставите изворну тачку, па сликајте пикселима који се копирају одатле са истим одмаком.
+tool.clone.history.stroke = Печат за клонирање
+
+tool.dodge.name = Посветљивање
+tool.dodge.description = Посветљује пикселе преко којих прелази потез.
+tool.dodge.history.stroke = Посветљивање
+tool.burn.name = Потамњивање
+tool.burn.description = Потамњује пикселе преко којих прелази потез.
+tool.burn.history.stroke = Потамњивање
+tool.sponge.name = Сунђер
+tool.sponge.description = Повећава или смањује засићеност пиксела преко којих прелази потез.
+tool.sponge.history.stroke = Сунђер
+
+tool.blur.name = Замућивање
+tool.blur.description = Замућује пикселе преко којих прелази потез.
+tool.blur.history.stroke = Замућивање
+tool.sharpen.name = Изоштравање
+tool.sharpen.description = Изоштрава пикселе преко којих прелази потез.
+tool.sharpen.history.stroke = Изоштравање
+tool.smudge.name = Размазивање
+tool.smudge.description = Развлачи боју дуж потеза као да гурате влажну боју.
+tool.smudge.history.stroke = Размазивање
+
+tool.heal.name = Четкица за поправљање
+tool.heal.description = Четкица за поправљање: кликните држећи Alt да поставите извор, па сликајте; текстура извора се стапа са бојом и осветљењем одредишта.
+tool.heal.history.stroke = Четкица за поправљање
+tool.spot_heal.name = Четкица за локално поправљање
+tool.spot_heal.description = Четкица за локално поправљање: пређите преко недостатка и он ће бити замењен текстуром из околине — без постављања изворне тачке.
+tool.spot_heal.history.stroke = Четкица за локално поправљање
+
+tool.history_brush.name = Четкица историје
+tool.history_brush.description = Враћа пикселе из снимка историје документа, поништавајући касније измене потез по потез.
+tool.history_brush.history.stroke = Четкица историје
+
+tool.background_eraser.name = Гумица позадине
+tool.background_eraser.description = Брише боју узорковану испод средишта четкице, а различите пикселе оставља нетакнутим, како би се субјекат издвојио из позадине.
+tool.background_eraser.history.stroke = Гумица позадине
+
+tool.gradient.name = Градијент
+tool.gradient.description = Превуците да попуните слој — кроз избор, ако постоји — линеарним градијентом који се дуж превлачења протеже од боје предњег плана до боје позадине.
+tool.gradient.radial.name = Радијални градијент
+tool.gradient.radial.description = Превуците од средишта ка споља да попуните радијалним градијентом између боја предњег плана и позадине.
+tool.gradient.option.gradient = Градијент
+tool.gradient.option.reverse = Обрни
+tool.gradient.option.dither = Дитеровање
+tool.gradient.choice.foreground_to_background = Од предњег плана до позадине
+tool.gradient.choice.foreground_to_transparent = Од предњег плана до провидног
+tool.gradient.choice.linear = Линеарно
+tool.gradient.choice.radial = Радијално
+tool.gradient.choice.angle = Угаоно
+tool.gradient.choice.reflected = Одражено
+tool.gradient.choice.diamond = Ромб
+tool.gradient.history.gradient = Градијент
+
+tool.bucket.name = Канта са бојом
+tool.bucket.description = Кликните да бојом предњег плана попуните повезану област сличне боје испод показивача, унутар толеранције алатке.
+tool.bucket.option.contiguous = Суседно
+tool.bucket.option.all_layers = Сви слојеви
+tool.bucket.history.fill = Канта са бојом

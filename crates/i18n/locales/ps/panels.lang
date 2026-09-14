@@ -1,0 +1,84 @@
+# د انځورپاڼې چاپېر چوکاټونه، وسیلپټه، د حالت پټه، سرلیک او دوتنې کړکۍ.
+
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = لارموندونکی
+panel.navigator.actual_pixels = اصلي پېکسلونه
+
+panel.color.picker = رنګ ټاکونکی…
+panel.color.swap = رنګونه بدلول
+panel.color.reset = تور او سپین ته بیا ټاکل
+
+panel.layers.blending_options = د ګډولو غوراوي…
+panel.layers.properties = د طبقې ځانګړنې…
+panel.layers.show_hide = طبقه ښودل/پټول
+panel.layers.toggle_visibility = ښکارېدنه بدلول
+
+panel.history.title = تاریخ
+panel.history.opened = پرانیستل شو
+
+panel.info.title = مالومات
+panel.info.camera = کامره
+panel.info.lens = عدسیه
+panel.info.iso = ISO {iso}
+panel.info.bias = جبران
+panel.info.flash_fired = فلش بل شوی
+panel.info.no_flash = فلش نشته
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering} رڼا سنجونه
+panel.info.taken = اخیستل شوی
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · لوری {o}
+panel.info.software = ساوتری
+panel.info.where = ځای
+
+panel.notes.author = لیکوال
+panel.notes.clear_all = ټول پاکول
+panel.notes.unattributed = بې لیکواله
+panel.notes.empty = د یادښت پرېښودو لپاره پر انځورپاڼه کېکاږئ.
+panel.notes.placeholder = د لیکلو لپاره کېکاږئ
+
+panel.character.title = توری
+panel.character.type_tool = د متن وسیله (T)
+panel.character.align_left = چپ ته برابرول
+panel.character.align_center = منځ ته برابرول
+panel.character.align_right = ښي ته برابرول
+panel.character.text_color = د متن رنګ
+panel.character.panel = د تورو چوکاټ
+panel.character.cancel_edit = د متن سمون لغوه کول
+panel.character.commit_edit = د متن سمون منل
+panel.character.number_tip = {label} · ارزښت ولیکئ، یا ↑ / ↓ وکاروئ (د لویو پړاوونو لپاره Shift)
+panel.character.leading = د کرښو واټن
+panel.character.tracking = د تورو ټولیز واټن
+panel.character.alignment = برابرونه
+panel.character.opentype = OpenType
+panel.character.text_on_path = پر لار متن
+panel.character.straight = نېغ
+panel.character.on_path = پر لار
+panel.character.straight_tip = د متن طبقې عادي بنسټکرښه وکاروئ
+panel.character.on_path_tip = د فعالې لارې یو نقل وکاروئ
+panel.character.path_offset = له لارې واټن
+
+panel.ai.title = AI
+panel.ai.empty_editor = د یوه سمون غوښتنه وکړئ او پر انځورپاڼه یې ترسره کېدل وګورئ. استازی د غورنۍ هماغه وسیلې، چاڼګرونه او قوماندې چلوي؛ هره کړنه د ناکولو یو پړاو لري.
+panel.ai.empty_gallery = د خپلو انځورونو په اړه پوښتنه وکړئ او په نندارتون کې یې پایله وګورئ: استازی لټون کولی شي، وړوکي انځورونه کتلی شي، ټاکنه کولی شي، په ډلو کې یې وېشلی شي او یو انځور په سمونګر کې پرانیستلی شي.
+panel.ai.thinking = فکر کوي…
+panel.ai.placeholder_editor = د دې سند په اړه وپوښتئ یا یې سم کړئ
+panel.ai.placeholder_gallery = د خپلو انځورونو په اړه وپوښتئ
+panel.ai.send = لېږل
+panel.ai.stop = درول
+panel.ai.fetching_models = له CLI څخه د موډلونو پوښتنه کېږي…
+panel.ai.no_models = هېڅ موډل سمون نه خوري
+panel.ai.search_models = موډلونه لټول…
+
+panel.keymap.install_plugin = پلګ‌این لګول
+panel.keymap.save_as_prompt = په بل نوم ساتل — وروستاړی بڼه ټاکي:

@@ -1,0 +1,153 @@
+# File
+menu.file = Ifayela
+menu.file.new = Okutjha
+menu.file.open = Vula…
+menu.file.open_recent = Vula Kwamuva
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Phequlula Igalari…
+menu.file.close = Vala
+menu.file.save = Bulunga
+menu.file.save_as = Bulunga njenge…
+menu.file.export = Thumela ngaphandle…
+menu.file.export_submenu = Thumela ngaphandle
+menu.file.export_artboards = Amabhodi Wobuciko abe yi-PNG…
+menu.file.export_slices = Iinquntu zibe yi-PNG…
+menu.file.save_to_photos = Bulunga EeThombeni
+menu.file.plugins = Ama-plug-in…
+menu.file.missing_fonts = Amafonti Angekhoyo…
+menu.file.check_for_updates = Hlola Iimbuyekezo…
+menu.file.quit = Phuma
+menu.file.add_folder_to_gallery = Engeza Ifolda Egalari…
+menu.file.import_from_photos = Ngenisa EeThombeni…
+menu.file.import_from_camera = Ngenisa Ekhamerani…
+
+# Edit
+menu.edit = Hlela
+menu.edit.fill = Zalisa…
+menu.edit.stroke = Umuda…
+menu.edit.content_aware_fill = Ukuzalisa Okuzwisisa Okumumethweko
+menu.edit.content_aware_scale = Ukutjhugulula Ubukhulu Okuzwisisa Okumumethweko…
+menu.edit.puppet_warp = Ukutjhugulula Iphaphethi
+menu.edit.free_transform = Tjhugulula Ngokutjhaphulukileko
+menu.edit.transform = Tjhugulula
+menu.edit.rotate_180 = Zombezisa 180°
+menu.edit.rotate_90_cw = Zombezisa 90° Ngokwewatjhi
+menu.edit.rotate_90_ccw = Zombezisa 90° Ngokuphambana Newatjhi
+menu.edit.flip_horizontal = Phendula Ngokuvundlileko
+menu.edit.flip_vertical = Phendula Ngokujamileko
+
+# Image
+menu.image = Isithombe
+menu.image.mode = Imodi
+menu.image.adjustments = Ukulungisa
+menu.image.auto_tone = Ithoni Ezenzakalelako
+menu.image.auto_contrast = Umehluko Ozenzakalelako
+menu.image.auto_color = Umbala Ozenzakalelako
+menu.image.image_size = Ubukhulu Besithombe…
+menu.image.canvas_size = Ubukhulu Bekhanvasi…
+menu.image.image_rotation = Ukuzombezisa Isithombe
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° Ngokwewatjhi
+menu.image.rotate_90_ccw = 90° Ngokuphambana Newatjhi
+menu.image.flip_canvas_horizontal = Phendula Ikhanvasi Ngokuvundlileko
+menu.image.flip_canvas_vertical = Phendula Ikhanvasi Ngokujamileko
+menu.image.crop_to_selection = Sika Ngokukhethiweko
+menu.image.trim = Pungula
+menu.image.assign_profile = Yabela Iphrofayili…
+menu.image.convert_to_profile = Tjhugululela Ephrofayilini…
+
+# Select
+menu.select = Khetha
+menu.select.color_range = Ibanga Lombala…
+menu.select.modify = Lungisa
+menu.select.border = Umkhawulo…
+menu.select.smooth = Yenza Butjhelelezi…
+menu.select.expand = Khulisa…
+menu.select.contract = Nciphisa…
+menu.select.feather = Thambisa Umphetho…
+menu.select.transform_selection = Tjhugulula Okukhethiweko
+
+# Layer
+menu.layer = Ileya
+menu.layer.layer_style = Isitayela Seleya…
+menu.layer.layer_comps = Ukuhlanganiswa Kwamaleya
+menu.layer.new_layer_comp = Ukuhlanganiswa Okutjha Kwamaleya
+menu.layer.delete_layer_comp = Sula {name}
+menu.layer.path = Indlela
+menu.layer.fill_path = Zalisa Indlela
+menu.layer.stroke_path = Dweba Umuda Endleleni
+menu.layer.make_selection = Yenza Okukhethiweko
+menu.layer.delete_path = Sula Indlela
+
+# Adjust
+menu.adjust = Lungisa
+
+# Filter
+menu.filter = Isihlungi
+menu.filter.filter_gallery = Igalari Yeenthlungi…
+menu.filter.liquify = Yenza kube Manzi
+menu.filter.vanishing_point = Iphuzu Lokunyamalala
+menu.filter.manage_models = Lawula Amamodeli…
+menu.filter.camera_raw_development = Ukulungiswa kwe-Camera Raw…
+
+# View
+menu.view = Ukubona
+menu.view.rotate_view_cw = Zombezisa Okubonwako Ngokwewatjhi
+menu.view.rotate_view_ccw = Zombezisa Okubonwako Ngokuphambana Newatjhi
+menu.view.reset_view = Setha Okubonwako Ngobutjha
+menu.view.zoom_in = Sondeza
+menu.view.zoom_out = Hlehlisa
+menu.view.fit_on_screen = Linganisa Esikrinini
+menu.view.actual_size = 100%
+menu.view.rulers = Amarula
+menu.view.grid = Igridi
+menu.view.guides = Iinkombandlela
+menu.view.notes = Amaphuzu
+menu.view.ai_panel = Iphaneli ye-AI
+menu.view.extras = Okungeziweko
+menu.view.snap = Namathisela
+menu.view.clear_guides = Sula Iinkombandlela
+menu.view.clear_notes = Sula Amaphuzu
+menu.view.clear_count = Sula Ukubala
+menu.view.screen_mode = Imodi Yesikrini
+menu.view.proof_colors = Imibala Yokuhlola
+menu.view.show_rulers = Tjengisa Amarula
+menu.view.hide_rulers = Fihla Amarula
+menu.view.show_grid = Tjengisa Igridi
+menu.view.hide_grid = Fihla Igridi
+menu.view.show_guides = Tjengisa Iinkombandlela
+menu.view.hide_guides = Fihla Iinkombandlela
+menu.view.show_notes = Tjengisa Amaphuzu
+menu.view.hide_notes = Fihla Amaphuzu
+menu.view.show_extras = Tjengisa Okungeziweko
+menu.view.hide_extras = Fihla Okungeziweko
+menu.view.enable_snapping = Vumela Ukunamathisela
+menu.view.disable_snapping = Khubaza Ukunamathisela
+menu.view.enable_proof_colors = Vumela Imibala Yokuhlola
+menu.view.disable_proof_colors = Khubaza Imibala Yokuhlola
+
+# Gallery
+menu.gallery = Igalari
+menu.gallery.edit_selected = Hlela Okukhethiweko
+menu.gallery.refresh = Vuselela
+menu.gallery.map_filter = Isihlungi Semebhe…
+menu.gallery.back_to_editor = Buyela Kumhleli
+
+# Schist Cloud submenu
+menu.cloud.browse = Phequlula i-Schist Cloud
+menu.cloud.generate = Yenza iinthombe…
+menu.cloud.upload = Layitjhela idokhumenti ku-Schist Cloud…
+menu.cloud.sign_out = Phuma ku-Schist Cloud
+menu.cloud.sign_in = Ngena ku-Schist Cloud…
+
+# Application menu
+menu.app.services = Imisebenzi
+menu.app.hide = Fihla {app}
+menu.app.hide_others = Fihla Amanye
+menu.app.show_all = Tjengisa Koke
+menu.app.quit = Phuma ku-{app}
+
+# Status replies
+menu.status.transform_selection_needs_selection = Ukutjhugulula okukhethiweko kutlhoga okukhethiweko
+menu.status.crop_needs_selection = Ukusika ngokukhethiweko kutlhoga okukhethiweko
+menu.status.select_photo_to_edit = Khetha isithombe ozosihlela

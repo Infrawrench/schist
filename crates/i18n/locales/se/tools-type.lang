@@ -1,0 +1,22 @@
+tool.type.name = Teaksta
+tool.type.description = Coahkkal vai álggahat teakstagearddi das, dahje coahkkal dálá teakstagearddi vai doaimmahat dan. Go doaimmaheapmi lea rabas, de reaidu váldá vuostá njuolggobustávaid (sádde bustávaid boallobeallin), ja dohkkeheapmi renderastá gearddi ja gidde doaimmaheami.
+
+tool.type.option.align = Teakstaheiveheapmi
+tool.type.option.leading = Linnjágaska
+tool.type.option.tracking = Bustávagaska
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligatuvrat
+tool.type.option.discretionary_ligatures = Eaktodáhtolaš ligatuvrat
+tool.type.option.small_caps = Smávva stuorra bustávat
+tool.type.option.on_path = Aktiivvalaš bálgá alde
+tool.type.option.path_offset = Bálgá sirdin
+
+tool.type.choice.regular = Dábálaš
+tool.type.choice.bold = Buoiddesčála
+tool.type.choice.italic = Kursiiva
+tool.type.choice.bold_italic = Buoiddesčála kursiiva
+
+tool.type.history.new_layer = Ođđa teakstageardi
+tool.type.history.edit = Doaimmat teavstta
+tool.type.history.discard = Hilggo teakstta
+tool.type.history.discard_empty = Hilggo guoros teavstta

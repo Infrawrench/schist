@@ -1,0 +1,153 @@
+filter.neural.param.center_x = Маркази X
+filter.neural.param.center_y = Маркази Y
+filter.neural.param.direction = Самт
+filter.neural.param.transition = Гузариш
+filter.neural.param.detail = Ҷузъиёт
+filter.neural.param.eyes = Чашмҳо
+
+filter.neural.msg.using_model = Истифодаи {model} · {license}.
+filter.neural.msg.get_model = Онро аз Филтр ▸ Neural Filters ▸ Идоракунии моделҳо дастрас кунед.
+
+filter.camera_raw.name = Филтри Camera Raw
+filter.camera_raw.param.temperature = Ҳарорат
+filter.camera_raw.param.tint = Тобиши ранг
+filter.camera_raw.param.highlights = Қисмҳои равшан
+filter.camera_raw.param.shadows = Сояҳо
+filter.camera_raw.param.whites = Сафедҳо
+filter.camera_raw.param.blacks = Сиёҳҳо
+filter.camera_raw.param.clarity = Возеҳӣ
+filter.camera_raw.param.dehaze = Бартараф кардани тирагӣ
+filter.camera_raw.param.vibrance = Зиндагии ранг
+filter.camera_raw.param.sharpening = Тезкунӣ
+filter.camera_raw.param.noise = Кам кардани ғавғо
+filter.camera_raw.param.vignette = Винйетка
+
+filter.lens_correction.name = Ислоҳи линза
+filter.lens_correction.param.distortion = Бартараф кардани таҳриф
+filter.lens_correction.param.red = Ислоҳи ҳошияи сурх/кабуди осмонӣ
+filter.lens_correction.param.blue = Ислоҳи ҳошияи кабуд/зард
+filter.lens_correction.param.vignette = Миқдори винйетка
+filter.lens_correction.param.midpoint = Нуқтаи миёнаи винйетка
+filter.lens_correction.param.vertical = Перспективаи амудӣ
+filter.lens_correction.param.horizontal = Перспективаи уфуқӣ
+
+filter.adaptive_wide_angle.name = Кунҷи васеи мутобиқшаванда
+filter.adaptive_wide_angle.param.projection = Ислоҳ
+filter.adaptive_wide_angle.choice.fisheye = Чашми моҳӣ
+filter.adaptive_wide_angle.choice.perspective = Перспектива
+filter.adaptive_wide_angle.choice.full_spherical = Тамоми курашакл
+filter.adaptive_wide_angle.param.focal = Масофаи фокусӣ
+filter.adaptive_wide_angle.param.crop = Коэффисиенти буриш
+
+filter.field_blur.name = Хиракунии майдон
+filter.field_blur.param.position = Тез дар
+filter.iris_blur.name = Хиракунии диафрагмавӣ
+filter.iris_blur.param.roundness = Гирдагӣ
+filter.tilt_shift.name = Тилт-шифт
+filter.tilt_shift.param.position = Марказ
+filter.tilt_shift.param.band = Навори тез
+filter.spin_blur.name = Хиракунии чархишӣ
+filter.spin_blur.param.angle = Кунҷи хиракунӣ
+filter.path_blur.name = Хиракунии масир
+filter.path_blur.param.speed = Суръат
+filter.path_blur.param.curve = Каҷӣ
+filter.path_blur.param.taper = Борикшавӣ
+
+filter.shape_blur.name = Хиракунии шакл
+filter.shape_blur.choice.square = Мураббаъ
+filter.shape_blur.choice.diamond = Лозанҷ
+filter.shape_blur.choice.hexagon = Шашкунҷа
+filter.shape_blur.choice.cross = Салиб
+filter.shape_blur.choice.ring = Ҳалқа
+filter.shape_blur.choice.star = Ситора
+filter.smart_blur.name = Хиракунии ҳушманд
+filter.smart_blur.choice.normal = Муқаррарӣ
+filter.smart_blur.choice.edge_only = Танҳо канор
+filter.smart_blur.choice.overlay_edge = Ҳампӯшонии канор
+
+filter.deinterlace.name = Бартараф кардани байнисатрӣ
+filter.deinterlace.param.field = Бартараф кардан
+filter.deinterlace.choice.odd_fields = Майдонҳои тоқ
+filter.deinterlace.choice.even_fields = Майдонҳои ҷуфт
+filter.deinterlace.param.fill = Сохтани майдонҳои нав бо
+filter.deinterlace.choice.interpolation = Интерполятсия
+filter.deinterlace.choice.duplication = Такроркунӣ
+filter.ntsc_colors.name = Рангҳои NTSC
+
+filter.neural.skin_smoothing.name = Ҳамворкунии пӯст
+filter.neural.skin_smoothing.param.blur = Ҳамворӣ
+filter.neural.skin_smoothing.param.detail = Нигоҳ доштани ҷузъиёт
+filter.neural.skin_smoothing.msg.no_model = {model} насб нашудааст — ба ҷои чеҳраҳо ҳама чизи ҳамранги пӯстро ҳамвор мекунад.
+
+filter.neural.jpeg_artifacts.name = Бартараф кардани нуқсонҳои JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} насб нашудааст — ба ҷояш тӯри 8-пикселиро ҳамвор мекунад.
+
+filter.neural.colorize.name = Рангин кардан
+filter.neural.colorize.param.warmth = Гармӣ
+filter.neural.colorize.msg.no_model = {model} насб нашудааст — ба ҷояш мувофиқи равшаноӣ тобиши ранг медиҳад.
+
+filter.neural.super_zoom.name = Калонкунии фавқулода
+filter.neural.super_zoom.msg.no_model = {model} насб нашудааст — ба ҷояш тезкунии самтгирифта аз канорҳоро истифода мебарад.
+
+filter.neural.style_transfer.name = Интиқоли сабк
+filter.neural.style_transfer.choice.mosaic = Мозаика
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Ягон модели сабк насб нашудааст — танҳо ранг интиқол меёбад. Онҳоро аз Филтр ▸ Neural Filters ▸ Идоракунии моделҳо дастрас кунед.
+filter.neural.style_transfer.msg.installed = Насбшуда: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Интиқоли ранг
+filter.neural.color_transfer.param.hue = Тобиши ранги ҳадаф
+filter.neural.color_transfer.param.contrast = Мутобиқ кардани тазод
+filter.neural.color_transfer.msg.info = Палитраро аз қабати поёнӣ мегирад. Агар дар поён чизе набошад, ба ҷояш ба тобиши ранги ҳадаф меравад.
+
+filter.neural.depth_blur.name = Хиракунии амиқӣ
+filter.neural.depth_blur.param.focus = Масофаи фокусӣ
+filter.neural.depth_blur.param.blur = Қувваи хиракунӣ
+filter.neural.depth_blur.msg.no_model = {model} насб нашудааст — ба ҷояш мувофиқи тезии маҳаллӣ фокус мекунад.
+
+filter.neural.harmonization.name = Ҳамоҳангсозӣ
+filter.neural.harmonization.param.tone = Мутобиқ кардани тоб
+filter.neural.harmonization.msg.info = Ин қабатро ба ҳар чизе, ки зери он аст, мутобиқ мекунад. Агар дар поён чизе набошад, чизе барои мутобиқ кардан нест ва ин амал натиҷае намедиҳад.
+
+filter.neural.landscape_mixer.name = Омезандаи манзара
+filter.neural.landscape_mixer.param.bands = Наворҳои амиқӣ
+filter.neural.landscape_mixer.msg.with_depth = Палитраро аз қабати поёнӣ гирифта, бо истифода аз Depth (Depth Blur) ҳар наворро алоҳида мутобиқ мекунад.
+filter.neural.landscape_mixer.msg.without_depth = Палитраро аз қабати поёнӣ мегирад. Depth (Depth Blur)-ро насб кунед, то осмон ба осмон ва замин ба замин мутобиқ шаванд, на ин ки тасвир дар маҷмӯъ мутобиқ карда шавад.
+
+filter.neural.photo_restoration.name = Барқарорсозии акс
+filter.neural.photo_restoration.param.enhance = Беҳтарсозии акс
+filter.neural.photo_restoration.param.scratches = Кам кардани харошҳо
+filter.neural.photo_restoration.param.tone = Барқарор кардани тоб
+filter.neural.photo_restoration.msg.no_model = Поккорӣ бе модел анҷом меёбад.
+filter.neural.photo_restoration.msg.using_deblock = Истифодаи Deblock · барои Schist омӯзонида шудааст.
+filter.neural.photo_restoration.msg.using_detail = Истифодаи Detail · барои Schist омӯзонида шудааст.
+filter.neural.photo_restoration.msg.using_both = Истифодаи Deblock ва Detail · барои Schist омӯзонида шудаанд.
+
+filter.neural.photo_to_sketch.name = Акс ба тарҳ
+filter.neural.photo_to_sketch.param.weight = Ғафсии хат
+filter.neural.photo_to_sketch.param.shading = Соягузорӣ
+
+filter.neural.face_to_caricature.name = Чеҳра ба карикатура
+filter.neural.face_to_caricature.param.mouth = Даҳон
+filter.neural.face_to_caricature.param.head = Сар
+filter.neural.face_to_caricature.msg.no_model = {model} насб нашудааст, бинобар ин ин амал натиҷае намедиҳад — чизе барои карикатура кардан нест.
+
+filter.neural.smart_portrait.name = Портрети ҳушманд
+filter.neural.smart_portrait.param.happiness = Хушҳолӣ
+filter.neural.smart_portrait.param.surprise = Тааҷҷуб
+filter.neural.smart_portrait.param.age = Синни чеҳра
+filter.neural.smart_portrait.param.gaze = Нигоҳ
+filter.neural.smart_portrait.param.light = Самти рӯшноӣ
+filter.neural.smart_portrait.msg.no_model = {model} насб нашудааст, бинобар ин ин амал натиҷае намедиҳад — чеҳрае барои коркард надорад.
+
+filter.neural.makeup_transfer.name = Интиқоли ороиш
+filter.neural.makeup_transfer.param.lips = Лабҳо
+filter.neural.makeup_transfer.param.skin = Тоби пӯст
+filter.neural.makeup_transfer.msg.info = Ороишро аз чеҳраи қабати поёнӣ мегирад. Рангро, на бофтаро.
+filter.neural.makeup_transfer.msg.no_model = {model} насб нашудааст, бинобар ин ин амал натиҷае намедиҳад.
+
+filter.neural.sketch_to_portrait.name = Тарҳ ба портрет
+filter.neural.sketch_to_portrait.param.detail = Нигоҳ доштани хатҳо
+filter.neural.sketch_to_portrait.msg.with_face = Барои пурра кардани «Акс ба тарҳ»-и худи ин барнома омӯзонида шудааст. Рӯйи чеҳрае, ки меёбад, кор мекунад.
+filter.neural.sketch_to_portrait.msg.no_face = Барои пурра кардани «Акс ба тарҳ»-и худи ин барнома омӯзонида шудааст. Faces (Skin Smoothing)-ро насб кунед, то он ба ҷойи тамоми интихоб рӯйи чеҳра кор кунад.

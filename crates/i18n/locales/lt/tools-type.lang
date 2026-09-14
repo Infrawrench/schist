@@ -1,0 +1,23 @@
+# Teksto įrankis.
+tool.type.name = Tekstas
+tool.type.description = Spustelėkite, kad toje vietoje pradėtumėte teksto sluoksnį, arba spustelėkite esamą sluoksnį, kad jį redaguotumėte. Kol jis atvertas, įrankis priima neapdorotus klavišų įvykius (siųskite simbolius kaip klavišų įvestį), o patvirtinus sluoksnis atvaizduojamas ir redagavimas baigiamas.
+
+tool.type.option.align = Lygiuotė
+tool.type.option.leading = Eilučių intervalas
+tool.type.option.tracking = Tarpai tarp rašmenų
+tool.type.option.kerning = Kerningas
+tool.type.option.ligatures = Ligatūros
+tool.type.option.discretionary_ligatures = Pasirenkamosios ligatūros
+tool.type.option.small_caps = Mažosios kapitalės
+tool.type.option.on_path = Ant aktyvaus kontūro
+tool.type.option.path_offset = Poslinkis išilgai kontūro
+
+tool.type.choice.regular = Įprastas
+tool.type.choice.bold = Pusjuodis
+tool.type.choice.italic = Kursyvas
+tool.type.choice.bold_italic = Pusjuodis kursyvas
+
+tool.type.history.new_layer = Naujas teksto sluoksnis
+tool.type.history.edit = Redaguoti tekstą
+tool.type.history.discard = Atmesti tekstą
+tool.type.history.discard_empty = Atmesti tuščią tekstą

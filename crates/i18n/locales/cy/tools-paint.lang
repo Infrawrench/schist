@@ -1,0 +1,85 @@
+# Offer paentio: offer strôc, graddiannau a bwced paent.
+
+# Brwsh
+tool.brush.name = Brwsh
+tool.brush.description = Paentiwch strôc ag ymyl meddal yn lliw'r blaendir, gyda maint, caledwch a didreiddedd brwsh y golygydd.
+tool.brush.history.stroke = Brwsh
+
+# Pensil
+tool.pencil.name = Pensil
+tool.pencil.description = Paentiwch strôc ag ymyl caled, heb wrth-aliasu, yn lliw'r blaendir.
+tool.pencil.history.stroke = Pensil
+
+# Rhwbiwr
+tool.eraser.name = Rhwbiwr
+tool.eraser.description = Dilëwch ar hyd y strôc, gan ddychwelyd yr haen i dryloywder.
+tool.eraser.history.stroke = Rhwbiwr
+
+# Stamp Clonio
+tool.clone.name = Stamp Clonio
+tool.clone.description = Stamp Clonio: Alt-gliciwch i osod y pwynt ffynhonnell, yna paentiwch bicseli a gopïwyd ohono ar yr atred hwnnw.
+tool.clone.history.stroke = Stamp Clonio
+
+# Ysgafnhau, Llosgi, Sbwng
+tool.dodge.name = Ysgafnhau
+tool.dodge.description = Goleuwch y picseli y mae'r strôc yn mynd drostynt.
+tool.dodge.history.stroke = Ysgafnhau
+tool.burn.name = Llosgi
+tool.burn.description = Tywyllwch y picseli y mae'r strôc yn mynd drostynt.
+tool.burn.history.stroke = Llosgi
+tool.sponge.name = Sbwng
+tool.sponge.description = Dirlawnwch, neu ddad-ddirlawnwch, y picseli y mae'r strôc yn mynd drostynt.
+tool.sponge.history.stroke = Sbwng
+
+# Cymylu, Miniogi, Smwtsio
+tool.blur.name = Cymylu
+tool.blur.description = Cymylwch y picseli y mae'r strôc yn mynd drostynt.
+tool.blur.history.stroke = Cymylu
+tool.sharpen.name = Miniogi
+tool.sharpen.description = Miniogwch y picseli y mae'r strôc yn mynd drostynt.
+tool.sharpen.history.stroke = Miniogi
+tool.smudge.name = Smwtsio
+tool.smudge.description = Llusgwch liw ar hyd y strôc, fel pe baech yn gwthio paent gwlyb.
+tool.smudge.history.stroke = Smwtsio
+
+# Iacháu
+tool.heal.name = Brwsh Iacháu
+tool.heal.description = Brwsh Iacháu: Alt-gliciwch i osod y ffynhonnell, yna paentiwch; caiff gwead y ffynhonnell ei gyfuno â lliw a golau'r gyrchfan ei hun.
+tool.heal.history.stroke = Brwsh Iacháu
+tool.spot_heal.name = Brwsh Iacháu Smotiau
+tool.spot_heal.description = Brwsh Iacháu Smotiau: paentiwch dros nam a chaiff ei ddisodli gan wead o'r ardal o'i gwmpas — nid oes angen gosod pwynt ffynhonnell.
+tool.spot_heal.history.stroke = Brwsh Iacháu Smotiau
+
+# Brwsh Hanes
+tool.history_brush.name = Brwsh Hanes
+tool.history_brush.description = Paentiwch bicseli'n ôl o giplun hanes y ddogfen, gan ddadwneud gwaith diweddarach strôc wrth strôc.
+tool.history_brush.history.stroke = Brwsh Hanes
+
+# Rhwbiwr Cefndir
+tool.background_eraser.name = Rhwbiwr Cefndir
+tool.background_eraser.description = Dilëwch y lliw a samplwyd o dan ganol y brwsh gan adael picseli o liw gwahanol heb eu newid, er mwyn codi gwrthrych oddi ar ei gefndir.
+tool.background_eraser.history.stroke = Rhwbiwr Cefndir
+
+# Graddiant
+tool.gradient.name = Graddiant
+tool.gradient.description = Llusgwch i lenwi'r haen — drwy'r detholiad pan fo un — â graddiant llinol sy'n rhedeg o liw'r blaendir i liw'r cefndir ar hyd y llusgiad.
+tool.gradient.radial.name = Graddiant Rheiddiol
+tool.gradient.radial.description = Llusgwch o'r canol tuag allan i lenwi â graddiant rheiddiol rhwng lliwiau'r blaendir a'r cefndir.
+tool.gradient.option.gradient = Graddiant
+tool.gradient.option.reverse = Gwrthdroi
+tool.gradient.option.dither = Britho
+tool.gradient.choice.foreground_to_background = Blaendir i Gefndir
+tool.gradient.choice.foreground_to_transparent = Blaendir i Dryloyw
+tool.gradient.choice.linear = Llinol
+tool.gradient.choice.radial = Rheiddiol
+tool.gradient.choice.angle = Ongl
+tool.gradient.choice.reflected = Adlewyrchedig
+tool.gradient.choice.diamond = Diemwnt
+tool.gradient.history.gradient = Graddiant
+
+# Bwced Paent
+tool.bucket.name = Bwced Paent
+tool.bucket.description = Cliciwch i lenwi'r ardal gydgysylltiedig o liw tebyg o dan y pwyntydd â lliw'r blaendir, o fewn goddefiant yr offeryn.
+tool.bucket.option.contiguous = Cydgysylltiedig
+tool.bucket.option.all_layers = Pob Haen
+tool.bucket.history.fill = Bwced Paent

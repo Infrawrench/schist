@@ -1,0 +1,83 @@
+# Pennello
+tool.brush.name = Pennello
+tool.brush.description = Dipinge una pennellata dai bordi morbidi con il colore di primo piano, usando dimensione, durezza e opacità del pennello impostate nell'editor.
+tool.brush.history.stroke = Pennello
+
+# Matita
+tool.pencil.name = Matita
+tool.pencil.description = Dipinge una pennellata dai bordi netti, senza antialias, con il colore di primo piano.
+tool.pencil.history.stroke = Matita
+
+# Gomma
+tool.eraser.name = Gomma
+tool.eraser.description = Cancella lungo la pennellata, riportando il livello alla trasparenza.
+tool.eraser.history.stroke = Gomma
+
+# Timbro clone
+tool.clone.name = Timbro clone
+tool.clone.description = Timbro clone: fai clic tenendo premuto Alt per impostare il punto di origine, quindi dipingi i pixel copiati da quel punto mantenendo la stessa distanza.
+tool.clone.history.stroke = Timbro clone
+
+# Scherma, Brucia, Spugna
+tool.dodge.name = Scherma
+tool.dodge.description = Schiarisce i pixel attraversati dalla pennellata.
+tool.dodge.history.stroke = Scherma
+tool.burn.name = Brucia
+tool.burn.description = Scurisce i pixel attraversati dalla pennellata.
+tool.burn.history.stroke = Brucia
+tool.sponge.name = Spugna
+tool.sponge.description = Satura o desatura i pixel attraversati dalla pennellata.
+tool.sponge.history.stroke = Spugna
+
+# Sfoca, Contrasta, Sfumino
+tool.blur.name = Sfoca
+tool.blur.description = Sfoca i pixel attraversati dalla pennellata.
+tool.blur.history.stroke = Sfoca
+tool.sharpen.name = Contrasta
+tool.sharpen.description = Aumenta la nitidezza dei pixel attraversati dalla pennellata.
+tool.sharpen.history.stroke = Contrasta
+tool.smudge.name = Sfumino
+tool.smudge.description = Trascina il colore lungo la pennellata, come se si spingesse vernice fresca.
+tool.smudge.history.stroke = Sfumino
+
+# Correzione
+tool.heal.name = Pennello correttivo
+tool.heal.description = Pennello correttivo: fai clic tenendo premuto Alt per impostare l'origine, quindi dipingi; la texture dell'origine si fonde con il colore e l'illuminazione della destinazione.
+tool.heal.history.stroke = Pennello correttivo
+tool.spot_heal.name = Pennello correttivo al volo
+tool.spot_heal.description = Pennello correttivo al volo: dipingi su un'imperfezione per sostituirla con la texture dell'area circostante, senza impostare un punto di origine.
+tool.spot_heal.history.stroke = Pennello correttivo al volo
+
+# Pennello storia
+tool.history_brush.name = Pennello storia
+tool.history_brush.description = Ripristina i pixel dall'istantanea della storia del documento, annullando le modifiche successive una pennellata alla volta.
+tool.history_brush.history.stroke = Pennello storia
+
+# Gomma per sfondo
+tool.background_eraser.name = Gomma per sfondo
+tool.background_eraser.description = Cancella il colore campionato sotto il centro del pennello e lascia intatti i pixel di colore diverso, per separare un soggetto dallo sfondo.
+tool.background_eraser.history.stroke = Gomma per sfondo
+
+# Sfumatura
+tool.gradient.name = Sfumatura
+tool.gradient.description = Trascina per riempire il livello, limitatamente alla selezione se presente, con una sfumatura lineare dal colore di primo piano a quello di sfondo nella direzione del trascinamento.
+tool.gradient.radial.name = Sfumatura radiale
+tool.gradient.radial.description = Trascina dal centro verso l'esterno per riempire con una sfumatura radiale tra i colori di primo piano e di sfondo.
+tool.gradient.option.gradient = Sfumatura
+tool.gradient.option.reverse = Inverti
+tool.gradient.option.dither = Dithering
+tool.gradient.choice.foreground_to_background = Da primo piano a sfondo
+tool.gradient.choice.foreground_to_transparent = Da primo piano a trasparente
+tool.gradient.choice.linear = Lineare
+tool.gradient.choice.radial = Radiale
+tool.gradient.choice.angle = Angolare
+tool.gradient.choice.reflected = Riflessa
+tool.gradient.choice.diamond = Rombo
+tool.gradient.history.gradient = Sfumatura
+
+# Secchiello
+tool.bucket.name = Secchiello
+tool.bucket.description = Fai clic per riempire con il colore di primo piano l'area contigua di colore simile sotto il puntatore, entro la tolleranza dello strumento.
+tool.bucket.option.contiguous = Contiguo
+tool.bucket.option.all_layers = Tutti i livelli
+tool.bucket.history.fill = Secchiello

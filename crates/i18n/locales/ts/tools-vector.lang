@@ -1,0 +1,43 @@
+tool.pen.name = Peni
+tool.pen.description = Aka ndlela: tshikilela ku endla ndhawu ya khumbi, koka ku humesa swikhomo swa khevhu eka yona, kutani u tshikilela ndhawu yo sungula ku pfala. Ku tiyisisa swi hundzula ndlela yi va leyara ya xivumbeko.
+tool.pen.option.rubber_band = Bandhi ya rhaba
+tool.pen.history.fill = Ku tata ndlela
+tool.pen.default_path_name = Ndlela {n}
+tool.pen.freeform.name = Peni ya voko
+tool.pen.freeform.description = Koka layini hi voko kutani yi lulamisiwa yi va ndlela, hi ku olova loku vuriwaka hi nhlawulo wa Ku ringanisa.
+tool.pen.freeform.option.fit = Ringanisa
+tool.pen.curvature.name = Peni ya khevhu
+tool.pen.curvature.description = Tshikilela tindhawu to hlayanyana kutani ndlela yi gombonyoka kahle yi hundza eka tona.
+
+tool.path_select.name = Nhlawulo wa ndlela
+tool.path_select.description = Tshikilela ndlela ku yi hlawula, kutani u koka ku fambisa ndlela hinkwawu.
+tool.direct_select.name = Nhlawulo wo kongoma
+tool.direct_select.description = Koka ndhawu yin'we yo boha kumbe swikhomo swa yona ku cinca xivumbeko xa ndlela leyi yi rhendzeleke.
+
+tool.shape.history.layer = Leyara ya {name}
+tool.shape.rect.name = Xitirhisiwa xa rekhithengula
+tool.shape.rect.label = Rekhithengula
+tool.shape.rect.description = Koka u endla leyara ya xivumbeko xa rekhithengula hi muhlovo wa le mahlweni; yi sala yi ri vector naswona yi tlhela yi endliwa raster loko sayizi yi cinciwa.
+tool.shape.ellipse.name = Xitirhisiwa xa elipisi
+tool.shape.ellipse.label = Elipisi
+tool.shape.ellipse.description = Koka u endla leyara ya xivumbeko xa elipisi hi muhlovo wa le mahlweni.
+tool.shape.line.name = Xitirhisiwa xa layini
+tool.shape.line.label = Layini
+tool.shape.line.description = Koka u endla leyara ya xivumbeko xa layini yo lulama hi muhlovo wa le mahlweni.
+tool.shape.line.option.weight = Vukulu
+tool.shape.line.option.arrow_start = Masungulo
+tool.shape.line.option.arrow_end = Makumu
+tool.shape.polygon.name = Xitirhisiwa xa pholigoni
+tool.shape.polygon.label = Pholigoni
+tool.shape.polygon.description = Koka u endla leyara ya xivumbeko xa pholigoni leyi ringanaka hi muhlovo wa le mahlweni, yi ri ni nhlayo ya matlhelo leyi hlawuriweke.
+tool.shape.polygon.option.sides = Matlhelo
+
+tool.shape.custom.name = Xivumbeko lexi lulamisiweke
+tool.shape.custom.label = Xivumbeko lexi lulamisiweke
+tool.shape.custom.description = Koka u endla xin'wana xa swivumbeko leswi nghenisiweke, lexi hlawuriweke hi nhlawulo wa Xivumbeko.
+tool.shape.custom.choice.heart = Mbilu
+tool.shape.custom.choice.star = Nyeleti
+tool.shape.custom.choice.arrow = Nseve
+tool.shape.custom.choice.lightning = Rihati
+tool.shape.custom.choice.cross = Xihambano
+tool.shape.custom.choice.speech_bubble = Bulubulu ya marito

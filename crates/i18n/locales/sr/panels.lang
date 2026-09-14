@@ -1,0 +1,83 @@
+# Панели, трака алатки, статусна трака и дијалози датотека.
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Навигатор
+panel.navigator.actual_pixels = Стварни пиксели
+
+panel.color.picker = Бирач боја…
+panel.color.swap = Замени боје
+panel.color.reset = Врати на црну и белу
+
+panel.layers.blending_options = Опције мешања…
+panel.layers.properties = Својства слоја…
+panel.layers.show_hide = Прикажи/сакриј слој
+panel.layers.toggle_visibility = Промени видљивост
+
+panel.history.title = Историја
+panel.history.opened = Отворено
+
+panel.info.title = Информације
+panel.info.camera = Камера
+panel.info.lens = Објектив
+panel.info.iso = ISO {iso}
+panel.info.bias = Компензација
+panel.info.flash_fired = блиц је активиран
+panel.info.no_flash = без блица
+panel.info.white_balance = Баланс белог {wb}
+panel.info.metering = мерење: {metering}
+panel.info.taken = Снимљено
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · оријентација {o}
+panel.info.software = Софтвер
+panel.info.where = Место
+
+panel.notes.author = Аутор
+panel.notes.clear_all = Обриши све
+panel.notes.unattributed = Без аутора
+panel.notes.empty = Кликните на платно да оставите белешку.
+panel.notes.placeholder = Кликните да пишете
+
+panel.character.title = Знак
+panel.character.type_tool = Алатка за текст (T)
+panel.character.align_left = Поравнај лево
+panel.character.align_center = Поравнај по средини
+panel.character.align_right = Поравнај десно
+panel.character.text_color = Боја текста
+panel.character.panel = Панел Знак
+panel.character.cancel_edit = Откажи уређивање текста
+panel.character.commit_edit = Потврди уређивање текста
+panel.character.number_tip = {label} · Унесите вредност или користите ↑ / ↓ (Shift за веће кораке)
+panel.character.leading = Проред
+panel.character.tracking = Размак између знакова
+panel.character.alignment = Поравнање
+panel.character.opentype = OpenType
+panel.character.text_on_path = Текст на путањи
+panel.character.straight = Право
+panel.character.on_path = На путањи
+panel.character.straight_tip = Користи уобичајену основну линију текстуалног слоја
+panel.character.on_path_tip = Користи копију активне путање
+panel.character.path_offset = Одмак на путањи
+
+panel.ai.title = Вештачка интелигенција
+panel.ai.empty_editor = Затражите измену и посматрајте како се појављује на платну. Агент управља истим алаткама, филтерима и командама као менији, при чему свака радња чини један корак опозива.
+panel.ai.empty_gallery = Питајте нешто о својим фотографијама и посматрајте рад у галерији: агент може да претражује, прегледа сличице, бира, разврстава у групе и отвара фотографије у уређивачу.
+panel.ai.thinking = размишљање…
+panel.ai.placeholder_editor = Питајте нешто о овом документу или га измените
+panel.ai.placeholder_gallery = Питајте нешто о својим фотографијама
+panel.ai.send = Пошаљи
+panel.ai.stop = Заустави
+panel.ai.fetching_models = Тражење листе модела од CLI алатке…
+panel.ai.no_models = Ниједан модел се не подудара
+panel.ai.search_models = Претражи моделе…
+
+panel.keymap.install_plugin = Инсталирај додатак
+panel.keymap.save_as_prompt = Сачувај као — ознака типа датотеке одређује формат:

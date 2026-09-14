@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galerie de filtres
+app.filter_gallery.stack = Pile (application de bas en haut)
+app.filter_gallery.no_settings = Ce filtre ne comporte aucun réglage.
+app.fonts.not_open_licensed = licence non libre · {substitute} possède les mêmes métriques
+app.fonts.missing_substituted = manquante · le texte utilise une police de substitution
+app.fonts.not_in_catalogue = {family} ne figure pas dans le catalogue de polices libres
+app.fonts.no_faces = aucune variante téléchargeable pour {family}
+app.fonts.empty_response = réponse vide
+app.update.unreadable_response = réponse illisible : {error}
+app.update.no_temp_dir = aucun dossier temporaire disponible pour le téléchargement
+app.update.asset_has_path = la ressource de la version comporte un chemin d’accès
+app.update.too_big = le téléchargement est plus volumineux que ne l’indique la version
+app.update.stopped_at = le téléchargement s’est arrêté à {got} octets sur {total}
+app.update.hash_mismatch = le condensat du téléchargement est {got} au lieu de {want}
+app.update.not_in_bundle = cette copie ne se trouve pas dans un paquet d’application
+app.update.no_parent_dir = le paquet de l’application n’a pas de dossier parent
+app.update.cannot_write = impossible d’écrire dans {dir}
+app.update.cannot_move_aside = impossible de déplacer {app} à l’écart
+app.update.cannot_move_in = impossible de mettre le nouveau paquet en place
+app.update.cannot_run_ditto = impossible d’exécuter /usr/bin/ditto
+app.update.unpack_failed = échec de la décompression du téléchargement : {error}
+app.update.no_app_in_download = le téléchargement ne contient pas Schist.app
+app.update.cannot_run_codesign = impossible d’exécuter /usr/bin/codesign
+app.update.signature_invalid = impossible de vérifier la signature du téléchargement : {error}
+app.update.download_unsigned = cette copie est signée, mais le téléchargement ne l’est pas
+app.update.different_developer = le téléchargement est signé par un autre développeur
+app.update.cannot_relaunch = impossible de démarrer l’utilitaire de relance
+app.update.not_installed_copy = cette copie n’a pas été placée ici par le programme d’installation
+app.update.cannot_start_installer = impossible de démarrer le programme d’installation
+app.update.platform_unsupported = sur cette plateforme, les mises à jour s’installent de la même manière que Schist
+app.vulkan.no_loader = schist : aucun chargeur Vulkan n’est présent sur ce système ; rien ne permet donc d’effectuer le rendu.\n\nSchist utilise Vulkan pour le rendu et `libvulkan.so.1` n’est pas installé.\nLe chargeur et un pilote sont tous deux nécessaires :\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist : le pilote Vulkan indiqué pour cette session est introuvable.\n\n{var} est défini et ce réglage *remplace* la recherche de pilotes du chargeur au lieu de la compléter. Les fichiers suivants, qui n’existent pas, constituent donc toute la liste de pilotes ; aucun programme Vulkan de cette session ne détecte de pilote, quel que soit le nombre de pilotes installés :\n\n{missing}\n    {var}={value}\n\nIndiquez un manifeste existant — les pilotes installés placent les leurs dans /usr/share/vulkan/icd.d — ou supprimez ce réglage et laissez le chargeur effectuer sa propre recherche. Si une session définit cette variable dans un fichier de configuration (`env =` de Hyprland, fichier environment.d de systemd ou profil shell), modifiez-la à cet endroit ; une nouvelle connexion est nécessaire pour que le changement atteigne les programmes déjà lancés.\n
+app.vulkan.override_note = \n{var} est défini sur {value}, ce qui remplace la recherche du chargeur : si aucun de ces manifestes ne correspond à cet ordinateur, commencez par supprimer ce réglage.\n
+app.vulkan.no_driver = schist : aucun pilote Vulkan n’est installé ; rien ne permet donc d’effectuer le rendu.\n\nSchist utilise Vulkan pour le rendu. Le chargeur est installé, mais ne signale aucun pilote : aucun pilote n’est enregistré dans les deux emplacements examinés :\n\n{dirs}\n\nLe chargeur est distribué séparément des pilotes ; il manque donc généralement un seul paquet.\n\nInstallez celui qui correspond au processeur graphique de cet ordinateur :\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nLe pilote propriétaire NVIDIA fournit le sien (`nvidia-utils` sous Arch, `nvidia-driver` sous Debian). Dans une machine virtuelle, ou lorsqu’aucun pilote graphique ne peut être installé, utilisez le moteur de rendu logiciel : `vulkan-swrast` sous Arch, inclus dans `mesa-vulkan-drivers` ailleurs. Il est lent, mais il démarre.\n{overridden}
+app.vulkan.no_device = schist : un pilote Vulkan est installé, mais ne propose aucun périphérique de rendu.\n\nLe pilote ne prend peut-être pas ce processeur graphique en charge, ou ne peut pas y accéder — via SSH ou dans un conteneur, /dev/dri est souvent absent. `vulkaninfo --summary` indique ce que voit le chargeur.\n\nLe moteur de rendu logiciel fonctionne sans processeur graphique : `vulkan-swrast` sous Arch, inclus dans `mesa-vulkan-drivers` sous Debian et Fedora.\n
+app.vulkan.skip_hint = Pour démarrer Schist malgré tout et le laisser échouer à sa manière, définissez {var}=1.

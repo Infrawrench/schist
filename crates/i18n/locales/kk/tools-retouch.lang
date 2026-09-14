@@ -1,0 +1,23 @@
+tool.patch.name = Жамау
+tool.patch.description = Ақаудың айналасын жиектеп сүйреңіз, содан кейін сол таңдауды таза пиксельдердің үстіне сүйреңіз: ондағы текстура ақауға бейімделеді. «Жамау» режимі жұптың қай ұшын сүйрейтініңізді анықтайды.
+tool.patch.option.patch = Жамау
+tool.patch.choice.source = Бастапқы аймақ
+tool.patch.choice.destination = Мақсатты аймақ
+tool.patch.history.patch = Жамау
+
+tool.content_aware_move.name = Мазмұнды ескеріп жылжыту
+tool.content_aware_move.description = Таңдалған нысанды басқа жерге сүйреңіз, сонда одан қалған бос орын айналасындағы мазмұнмен толтырылады. «Кеңейту» режимінде нысан жылжытылмай, созылады.
+tool.content_aware_move.choice.move = Жылжыту
+tool.content_aware_move.choice.extend = Кеңейту
+tool.content_aware_move.history.move = Мазмұнды ескеріп жылжыту
+
+tool.red_eye.name = Қызыл көз
+tool.red_eye.description = Жарқылдан пайда болған қызыл түсті кетіру үшін қарашықты шертіңіз.
+tool.red_eye.option.pupil_size = Қарашық өлшемі
+tool.red_eye.option.darken = Қараңғылау
+tool.red_eye.history.red_eye = Қызыл көз
+
+tool.magic_eraser.name = Сиқырлы өшіргіш
+tool.magic_eraser.description = Құралдың төзімділік шегінде меңзер астындағы ұқсас түсті аймақты өшіру үшін шертіңіз: шертілген жермен тұтасқан аймақты немесе қабаттың барлық жерін.
+tool.magic_eraser.option.contiguous = Тұтасқан
+tool.magic_eraser.history.erase = Сиқырлы өшіргіш

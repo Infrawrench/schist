@@ -1,0 +1,20 @@
+# Prilagoditvene plasti in ukazi Slika ▸ Prilagoditve.
+adjustment.levels.name = Ravni
+adjustment.curves.name = Krivulje
+adjustment.hue_saturation.name = Odtenek/nasičenost
+adjustment.brightness_contrast.name = Svetlost/kontrast
+adjustment.black_white.name = Črno-belo
+adjustment.solid_color.name = Enobarvno polnilo
+adjustment.gradient_fill.name = Prelivno polnilo
+adjustment.pattern_fill.name = Polnilo z vzorcem
+adjustment.invert.name = Obrni
+adjustment.posterize.name = Posteriziraj
+adjustment.threshold.name = Prag
+adjustment.color_balance.name = Barvno ravnovesje
+adjustment.vibrance.name = Živahnost
+adjustment.exposure.name = Osvetlitev
+adjustment.photo_filter.name = Fotografski filter
+adjustment.gradient_map.name = Preslikava preliva
+adjustment.selective_color.name = Selektivna barva
+adjustment.channel_mixer.name = Mešalnik kanalov
+adjustment.other.name = Prilagoditev

@@ -1,0 +1,45 @@
+# Editorin piirtoalue ja sen ympäristö (crates/app/src/workspace: viewport,
+# view_options, notes, edit_ops, image_ops, layers_panel, chrome, render):
+# tilarivin vastaukset ja historiakirjaukset. Valikkokomentoa täsmälleen vastaavat
+# englanninkieliset merkinnät käyttävät menu.lang-tiedoston avainta.
+
+# Tilarivin vastaukset
+workspace.canvas.rotate_view_degrees = Kierrä näkymää {degrees}°
+workspace.canvas.view_reset = Näkymä palautettu
+workspace.canvas.notes_on = Huomautukset käytössä
+workspace.canvas.notes_off = Huomautukset poissa käytöstä
+workspace.canvas.rulers_on = Viivaimet käytössä
+workspace.canvas.rulers_off = Viivaimet poissa käytöstä
+workspace.canvas.grid_on = Ruudukko käytössä
+workspace.canvas.grid_off = Ruudukko poissa käytöstä
+workspace.canvas.guides_on = Apuviivat käytössä
+workspace.canvas.guides_off = Apuviivat poissa käytöstä
+workspace.canvas.extras_on = Lisäosat käytössä
+workspace.canvas.extras_off = Lisäosat poissa käytöstä
+workspace.canvas.snap_on = Kohdistus käytössä
+workspace.canvas.snap_off = Kohdistus poissa käytöstä
+workspace.canvas.guides_cleared = Apuviivat tyhjennetty
+workspace.canvas.no_path = Käytettävää polkua ei ole
+workspace.canvas.path_empty = Polku on tyhjä
+workspace.canvas.stroke_needs_selection = Reunaviivan piirtäminen vaatii valinnan
+workspace.canvas.nothing_to_stroke = Ei mitään, mihin piirtää reunaviiva
+workspace.canvas.content_aware_fill_needs_selection = Sisältötietoinen täyttö vaatii valinnan
+workspace.canvas.content_aware_fill_needs_pixel_layer = Sisältötietoinen täyttö vaatii kuvapistetason
+workspace.canvas.color_range_needs_pixel_layer = Värialue vaatii kuvapistetason
+workspace.canvas.nothing_to_adjust = Ei mitään säädettävää
+workspace.canvas.nothing_to_trim = Ei mitään siistittävää
+workspace.canvas.trimmed = Siistitty
+workspace.canvas.indexed_not_supported = Indeksoitua väriä ei vielä tueta
+workspace.canvas.opacity_percent = Peittävyys: {n} %
+
+# Historia-paneelin merkinnät
+workspace.history.stroke = Reunaviiva
+workspace.history.fill = Täyttö
+workspace.history.content_aware_scale = Sisältötietoinen skaalaus
+workspace.history.filter_gallery = Suodingalleria
+workspace.history.color_range = Värialue
+workspace.history.move_layer = Siirrä tasoa
+workspace.history.move_layers = Siirrä tasoja
+workspace.history.layer_opacity = Tason peittävyys
+workspace.history.delete_note = Poista huomautus
+workspace.history.edit_note = Muokkaa huomautusta

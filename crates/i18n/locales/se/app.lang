@@ -1,0 +1,39 @@
+app.filter_gallery.title = Sillegalleriija
+app.filter_gallery.stack = Čopma (heivehuvvo vuolimusas bajimusii)
+app.filter_gallery.no_settings = Dán sillis eai leat ásahusat.
+
+app.fonts.not_open_licensed = ii leat rabas liseanssain · {substitute} heive dan mihtuidda
+app.fonts.missing_substituted = váilu · teaksta čállojuvvo buhtadanfonttain
+app.fonts.not_in_catalogue = {family} ii leat rabas fontakatalogas
+app.fonts.no_faces = {family}: ii leat viežžamis fontahámit
+app.fonts.empty_response = guoros vástádus
+
+app.update.unreadable_response = lohkameahttun vástádus: {error}
+app.update.no_temp_dir = ii leat gaskaboddosaš máhppa gosa sáhttá viežžat
+app.update.asset_has_path = almmuhus nammada resurssa bálggiin
+app.update.too_big = viežžos lea stuorát go almmuhus dadjá
+app.update.stopped_at = viežžan bisánii {got}/{total} stávvalis
+app.update.hash_mismatch = viežžosa hašša lea {got}, ii {want}
+app.update.not_in_bundle = dát máŋggus ii leat prográmmapáhka siste
+app.update.no_parent_dir = prográmmapáhkas ii leat váhnenmáhppa
+app.update.cannot_write = ii sáhte čállit máhppii {dir}
+app.update.cannot_move_aside = ii sáhte sirdit {app} eret luottas
+app.update.cannot_move_in = ii sáhte sirdit ođđa páhka sadjái
+app.update.cannot_run_ditto = ii sáhte vuodjit /usr/bin/ditto
+app.update.unpack_failed = viežžosa rahpan filtii: {error}
+app.update.no_app_in_download = viežžosis ii leat Schist.app
+app.update.cannot_run_codesign = ii sáhte vuodjit /usr/bin/codesign
+app.update.signature_invalid = viežžosa vuolláičála ii dohkke: {error}
+app.update.download_unsigned = dát máŋggus lea vuolláičállojuvvon, muhto viežžos ii leat
+app.update.different_developer = viežžosa lea vuolláičállán eará ovdánahtti
+app.update.cannot_relaunch = ii sáhte álggahit ođđasitálggaheaddji
+app.update.not_installed_copy = sajáiduhtti ii leat bidjan dán máŋgosa deike
+app.update.cannot_start_installer = ii sáhte álggahit sajáiduhtti
+app.update.platform_unsupported = dán vuogádagas ođasmahttimat sajáiduhttojuvvojit seamma láhkai go Schist
+
+app.vulkan.no_loader = schist: dán vuogádagas ii leat Vulkan-viežžanprográmma, nu ahte ii leat mainna sárgut.\n\nSchist renderastá Vulkan bokte, ja `libvulkan.so.1` ii leat sajáiduhtton.\nSihke viežžanprográmma ja stivrranprográmma dárbbašuvvojit:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan-stivrranprográmma masa dát bargovuorru čujuha ii gávdno.\n\n{var} lea ásahuvvon, ja dan ásahus *buhtte* viežžanprográmma stivrranprográmmaohcama\neai ge lasit dasa. Nuba dát fiillat, mat eai gávdno, leat olles\nstivrranprográmmalistu — ja juohke Vulkan-prográmma dán bargovuorus\nii oainne ovttage stivrranprográmma, beroškeahttá man olu leat sajáiduhtton:\n\n{missing}\n    {var}={value}\n\nČujut dan manifistii mii gávdno — sajáiduhtton stivrranprográmmat bidjet iežaset deike:\n/usr/share/vulkan/icd.d — dahje váldde ásahusa eret ja diktte viežžanprográmma gávdnat iežas.\nBargovuorru mii oažžu dán ásahusa konfigurerenfiillas (Hyprland:a `env =`,\nsystemd environment.d-fiila, skálžoprofiila) ferte rievdaduvvot doppe,\nja rievdadus dárbbaša ođđa sisačállima ovdal go dat olaha juo jođus prográmmaid.\n
+app.vulkan.override_note = \n{var} lea ásahuvvon árvui {value}, ja dat buhtte viežžanprográmma iežas\nohcama: jus ii oktage dain manifisttain leat dán dihtora várás, geahččal\nvuos váldit ásahusa eret.\n
+app.vulkan.no_driver = schist: Vulkan-stivrranprográmma ii leat sajáiduhtton, nu ahte ii leat mainna sárgut.\n\nSchist renderastá Vulkan bokte. Viežžanprográmma lea sajáiduhtton, muhto ii almmut\novttage stivrranprográmma — ii mihkkege leat registrerejuvvon goabbáge báikái gos ohccojuvvo:\n\n{dirs}\n\nViežžanprográmma boahtá sierra stivrranprográmmain, nu ahte dábálaččat váilu dušše okta\npáhkka.\n\nSajáiduhte dán dihtora GPU:i heivvolaš:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA opmodatstivrranprográmmas lea iežas (`nvidia-utils` Arch:s,\n`nvidia-driver` Debian:s). Virtuálamašiinnas, dahje gos ii leat\nGPU-stivrranprográmma maid sajáiduhttit, prográmmalaš rastereren doaibmá:\n`vulkan-swrast` Arch:s ja `mesa-vulkan-drivers` oassin eará sajis. Dat lea\nhidjis, muhto álggaha.\n{overridden}
+app.vulkan.no_device = schist: Vulkan-stivrranprográmma lea sajáiduhtton, muhto ii fála renderengaskaomi.\n\nStivrranprográmma ii soaitte doarjut dán GPU, dahje ii beasa dasa —\nSSH bokte dahje konteainara siste /dev/dri dávjá váilu.\n`vulkaninfo --summary` čájeha maid viežžanprográmma oaidná.\n\nPrográmmalaš rastereren renderastá almmá GPU haga, jus dán dihtoris ii leat GPU:\n`vulkan-swrast` Arch:s ja `mesa-vulkan-drivers` oassin Debian:s ja Fedora:s.\n
+app.vulkan.skip_hint = Jus hálidat goittot álggahit Schist ja diktit dan filtet iežas láhkai, ásat {var}=1.

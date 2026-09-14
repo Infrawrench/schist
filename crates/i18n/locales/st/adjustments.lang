@@ -1,0 +1,20 @@
+# Mekhahlelo ea liphetoho le litaelo tsa Setšoantšo ▸ Liphetoho.
+adjustment.levels.name = Maemo
+adjustment.curves.name = Mela e kobehileng
+adjustment.hue_saturation.name = Mofuta oa 'Mala/Botebo ba 'Mala
+adjustment.brightness_contrast.name = Khanya/Phapang
+adjustment.black_white.name = Botšo le Bosoeu
+adjustment.solid_color.name = 'Mala o le Mong
+adjustment.gradient_fill.name = Ho Tlatsa ka Phetoho ea Mebala
+adjustment.pattern_fill.name = Ho Tlatsa ka Paterone
+adjustment.invert.name = Fetola Mebala
+adjustment.posterize.name = Fokotsa Maemo a Mebala
+adjustment.threshold.name = Moeli
+adjustment.color_balance.name = Tekano ea Mebala
+adjustment.vibrance.name = Phatsimo ea Mebala
+adjustment.exposure.name = Ho Pepesetsoa Leseli
+adjustment.photo_filter.name = Sefe ea Foto
+adjustment.gradient_map.name = 'Mapa oa Phetoho ea Mebala
+adjustment.selective_color.name = 'Mala o Khethiloeng
+adjustment.channel_mixer.name = Motsoaki oa Dikanale
+adjustment.other.name = Phetoho

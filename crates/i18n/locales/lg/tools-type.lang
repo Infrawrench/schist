@@ -1,0 +1,23 @@
+# Type
+tool.type.name = Biwandiiko
+tool.type.description = Nyiga okutandika layer y'ebiwandiiko awo, oba nyiga ku eriwo okugikyusa. Ng'ekyali nggule ekikozesebwa kikkiriza obubonero bw'amapeesa obutakyusiddwa (weereza ennukuta ng'ebiyingizibwa okuva ku mapeesa), era okukakasa kukola layer n'eggalawo okukyusa.
+
+tool.type.option.align = Sengeka
+tool.type.option.leading = Ebanga wakati w'ennyiriri
+tool.type.option.tracking = Ebanga wakati w'ennukuta
+tool.type.option.kerning = Okutereeza ebanga ly'ennukuta ebbiri
+tool.type.option.ligatures = Ennukuta ezigattiddwa
+tool.type.option.discretionary_ligatures = Ennukuta ezigattiddwa ez'okweroboza
+tool.type.option.small_caps = Ennukuta ennene entono
+tool.type.option.on_path = Ku kkubo erikola
+tool.type.option.path_offset = Ebanga okuva ku kkubo
+
+tool.type.choice.regular = Ya bulijjo
+tool.type.choice.bold = Nziggumivu
+tool.type.choice.italic = Nsurike
+tool.type.choice.bold_italic = Nziggumivu ensurike
+
+tool.type.history.new_layer = Layer y'ebiwandiiko empya
+tool.type.history.edit = Kyusa ebiwandiiko
+tool.type.history.discard = Suula ebiwandiiko
+tool.type.history.discard_empty = Suula ebiwandiiko ebitaliimu kintu

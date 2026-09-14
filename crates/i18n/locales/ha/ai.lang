@@ -1,0 +1,36 @@
+# Bangaren aikin falin AI da saƙonnin kurakuran wakili.
+
+# Sandar matsayi
+ai.status.panel_shown = An nuna falin AI
+ai.status.panel_hidden = An ɓoye falin AI — Duba ▸ Falin AI ({shortcut}) zai dawo da shi
+ai.status.tool = AI: {name}
+
+# Layukan bayani a rubutaccen tarihin tattaunawa
+ai.info.connected = An haɗa {backend}
+ai.info.now_in_gallery = Yanzu ana ma'ajiyar hotuna.
+ai.info.now_in_editor = Yanzu ana cikin edita.
+ai.tool.shell_command = umarnin shell
+
+# Kurakurai a rubutaccen tarihin tattaunawa
+ai.error.cli_missing = CLI na {backend} (“{binary}”) ba ya cikin PATH. Da farko ka girka shi kuma ka shiga cikinsa.
+ai.error.endpoint_failed = fara tashar MCP ya gaza: {error}
+ai.error.binding_endpoint = ana ɗaura tashar MCP
+ai.error.spawning_endpoint_thread = ana fara zaren tashar MCP
+ai.error.runtime_failed = fara tsarin aikin wakili ya gaza: {error}
+ai.error.worker_failed = fara ma'aikacin {backend} ya gaza: {error}
+ai.error.did_not_start = {backend} bai fara ba: {error}
+ai.error.switch_model_failed = sauya samfuri ya gaza: {error}
+ai.error.send_failed = aika umarnin ya gaza: {error}
+ai.error.interrupt_failed = katsewa ya gaza: {error}
+ai.error.locating_binary = ana neman fayil ɗin shirin Schist
+ai.error.starting_app_server = ana fara sabar manhajar Codex
+ai.error.attaching_app_server = ana haɗawa da sabar manhajar Codex
+ai.error.initializing_app_server = ana ƙaddamar da sabar manhajar Codex
+ai.error.resuming_thread = ana ci gaba da zaren Codex
+ai.error.starting_thread = ana fara zaren Codex
+
+# Jerin madadin mai zaɓen samfuri
+ai.model.opus_detail = Matsayi mafi ƙwarewa
+ai.model.sonnet_detail = Mai inganci don ayyukan yau da kullum
+ai.model.haiku_detail = Mafi sauri don amsoshi na gaggawa
+ai.model.codex_catalog = Jerin Codex

@@ -1,0 +1,93 @@
+# Modifier keys
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Status and title bars
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigator
+panel.navigator.title = നാവിഗേറ്റർ
+panel.navigator.actual_pixels = യഥാർഥ പിക്സലുകൾ
+
+# Color
+panel.color.picker = വർണ്ണ തിരഞ്ഞെടുപ്പുപകരണം…
+panel.color.swap = വർണ്ണങ്ങൾ പരസ്പരം മാറ്റുക
+panel.color.reset = കറുപ്പും വെളുപ്പുമായി പുനഃസജ്ജമാക്കുക
+
+# Layers
+panel.layers.blending_options = ബ്ലെൻഡിങ് ഓപ്ഷനുകൾ…
+panel.layers.properties = ലെയർ ഗുണവിശേഷങ്ങൾ…
+panel.layers.show_hide = ലെയർ കാണിക്കുക/മറയ്ക്കുക
+panel.layers.toggle_visibility = ദൃശ്യത മാറ്റുക
+
+# History
+panel.history.title = പ്രവർത്തനചരിത്രം
+panel.history.opened = തുറന്നു
+
+# Info
+panel.info.title = വിവരങ്ങൾ
+panel.info.camera = ക്യാമറ
+panel.info.lens = ലെൻസ്
+panel.info.iso = ISO {iso}
+panel.info.bias = എക്സ്പോഷർ ബയസ്
+panel.info.flash_fired = ഫ്ലാഷ് പ്രവർത്തിച്ചു
+panel.info.no_flash = ഫ്ലാഷ് ഇല്ല
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering} മീറ്ററിങ്
+panel.info.taken = എടുത്തത്
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · ദിശ {o}
+panel.info.software = സോഫ്റ്റ്‌വെയർ
+panel.info.where = സ്ഥലം
+
+# Notes
+panel.notes.author = രചയിതാവ്
+panel.notes.clear_all = എല്ലാം മായ്ക്കുക
+panel.notes.unattributed = രചയിതാവില്ലാത്തത്
+panel.notes.empty = ഒരു കുറിപ്പ് ചേർക്കാൻ ക്യാൻവാസിൽ ക്ലിക്ക് ചെയ്യുക.
+panel.notes.placeholder = എഴുതാൻ ക്ലിക്ക് ചെയ്യുക
+
+# Character
+panel.character.title = ക്യാരക്ടർ
+panel.character.type_tool = എഴുത്ത് ഉപകരണം (T)
+panel.character.align_left = ഇടത്തേക്ക് വിന്യസിക്കുക
+panel.character.align_center = മധ്യത്തിലേക്ക് വിന്യസിക്കുക
+panel.character.align_right = വലത്തേക്ക് വിന്യസിക്കുക
+panel.character.text_color = എഴുത്തിന്റെ വർണ്ണം
+panel.character.panel = ക്യാരക്ടർ പാനൽ
+panel.character.cancel_edit = എഴുത്ത് തിരുത്തൽ റദ്ദാക്കുക
+panel.character.commit_edit = എഴുത്ത് തിരുത്തൽ അംഗീകരിക്കുക
+panel.character.number_tip = {label} · ഒരു മൂല്യം ടൈപ്പ് ചെയ്യുക, അല്ലെങ്കിൽ ↑ / ↓ ഉപയോഗിക്കുക (വലിയ ചുവടുകൾക്ക് Shift)
+panel.character.leading = വരിയിടവ്
+panel.character.tracking = അക്ഷരാന്തര ക്രമീകരണം
+panel.character.alignment = വിന്യാസം
+panel.character.opentype = OpenType
+panel.character.text_on_path = പാതയിലെ എഴുത്ത്
+panel.character.straight = നേരെ
+panel.character.on_path = പാതയിൽ
+panel.character.straight_tip = ടെക്സ്റ്റ് ലെയറിന്റെ സാധാരണ അടിസ്ഥാനരേഖ ഉപയോഗിക്കുക
+panel.character.on_path_tip = സജീവ പാതയുടെ ഒരു പകർപ്പ് ഉപയോഗിക്കുക
+panel.character.path_offset = പാതയിൽനിന്നുള്ള അകലം
+
+# AI
+panel.ai.title = AI
+panel.ai.empty_editor = ഒരു തിരുത്തൽ ആവശ്യപ്പെട്ട് അത് ക്യാൻവാസിൽ നടക്കുന്നത് കാണുക. മെനുകളിലുള്ള അതേ ഉപകരണങ്ങളും ഫിൽട്ടറുകളും കമാൻഡുകളും ഏജന്റ് ഉപയോഗിക്കുന്നു; ഓരോന്നും ഓരോ പഴയപടിയാക്കൽ ഘട്ടമാണ്.
+panel.ai.empty_gallery = നിങ്ങളുടെ ഫോട്ടോകളെക്കുറിച്ച് ആവശ്യപ്പെട്ട് ഗാലറിയിൽ അത് നടക്കുന്നത് കാണുക: ഏജന്റിന് തിരയാനും ലഘുചിത്രങ്ങൾ കാണാനും തിരഞ്ഞെടുക്കാനും വിഭാഗങ്ങളായി ക്രമപ്പെടുത്താനും എഡിറ്ററിൽ ഫോട്ടോ തുറക്കാനും കഴിയും.
+panel.ai.thinking = ചിന്തിക്കുന്നു…
+panel.ai.placeholder_editor = ഈ ഡോക്യുമെന്റിനെക്കുറിച്ച് ചോദിക്കുകയോ തിരുത്തുകയോ ചെയ്യുക
+panel.ai.placeholder_gallery = നിങ്ങളുടെ ഫോട്ടോകളെക്കുറിച്ച് ചോദിക്കുക
+panel.ai.send = അയയ്ക്കുക
+panel.ai.stop = നിർത്തുക
+panel.ai.fetching_models = CLI-യോട് അതിന്റെ മോഡലുകൾ ചോദിക്കുന്നു…
+panel.ai.no_models = പൊരുത്തപ്പെടുന്ന മോഡലുകളില്ല
+panel.ai.search_models = മോഡലുകൾ തിരയുക…
+
+# File dialogs
+panel.keymap.install_plugin = പ്ലഗ്-ഇൻ ഇൻസ്റ്റാൾ ചെയ്യുക
+panel.keymap.save_as_prompt = ഇങ്ങനെ സംരക്ഷിക്കുക — എക്സ്റ്റൻഷനാണ് ഫോർമാറ്റ് നിശ്ചയിക്കുന്നത്:

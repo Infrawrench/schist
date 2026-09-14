@@ -1,0 +1,32 @@
+# Trasformazione libera, trasformazione della selezione e ritaglio,
+# oltre ai nomi dei metodi di ricampionamento e alle voci della cronologia.
+
+# Trasformazione libera
+tool.transform.name = Trasformazione libera
+tool.transform.description = Trasformazione libera. Quando viene attivata, apre un riquadro di trasformazione intorno al livello attivo: trascina un angolo per ridimensionare, trascina all'esterno di un angolo per ruotare oppure trascina un bordo per inclinare. Nessuna modifica viene applicata finché non viene confermata (Invio); annullando (Esc), il livello torna allo stato precedente.
+tool.transform.option.interpolation = Interpolazione
+tool.transform.history.transform = Trasformazione libera
+tool.transform.history.image_size = Dimensione immagine
+tool.transform.history.canvas_size = Dimensione quadro
+
+# Trasforma selezione
+tool.transform.selection.name = Trasforma selezione
+tool.transform.selection.description = Trasforma selezione: usa lo stesso riquadro, ma sposta il contorno della selezione anziché i pixel al suo interno. Conferma o annulla per terminare.
+tool.transform.selection.history.transform = Trasforma selezione
+
+# Filtri di ricampionamento classici, con i nomi usati da Photoshop
+tool.transform.resample.nearest_neighbor = Vicino più prossimo
+tool.transform.resample.bilinear = Bilineare
+tool.transform.resample.bicubic = Bicubica
+
+# Ritaglia
+tool.crop.name = Ritaglia
+tool.crop.description = Trascina per delimitare l'area da conservare e regolane le maniglie; confermando (Invio), il documento viene rifilato in base a essa, mentre annullando (Esc) rimane invariato.
+tool.crop.option.ratio = Proporzioni
+tool.crop.option.delete_cropped = Elimina pixel ritagliati
+tool.crop.choice.unconstrained = Senza vincoli
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Ritaglia

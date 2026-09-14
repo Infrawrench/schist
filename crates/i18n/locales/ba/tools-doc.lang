@@ -1,0 +1,26 @@
+# Документ элементтары ҡоралдары: артбордтар, киҫектәр, рамдар, иҫкәрмәләр һәм һанауҙар.
+
+tool.artboard.name = Артборд
+tool.artboard.description = Артбордты һөйрәп һыҙығыҙ: ул киндерҙең үҙаллы экспортланған, исемле өлкәһе. Булған артборд эсендә һөйрәү уны күсерә.
+tool.artboard.default_name = Артборд {n}
+
+tool.slice.name = Экспорт киҫеге
+tool.slice.description = Экспорт киҫеген һөйрәп һыҙығыҙ: ул киндерҙең айырым рәсем итеп экспортланған исемле тура дүртмөйөшө. Булған киҫек эсендә һөйрәү уны күсерә.
+tool.slice.default_name = Киҫек {n}
+
+tool.frame.name = Рам
+tool.frame.description = Рамды һөйрәп һыҙығыҙ: ул эсенә урынлаштырылғанды битлек менән ҡаплаған тура дүртмөйөшлө (йәки эллипс рәүешендәге) ҡатлам.
+tool.frame.default_name = Рам {n}
+tool.frame.choice.rectangle = Тура дүртмөйөш
+tool.frame.choice.ellipse = Эллипс
+tool.frame.history.frame = Рам
+
+tool.note.name = Иҫкәрмә
+tool.note.description = Буш киндерҙә сиртеп, шул урынға авторы һәм мөхәррир торошондағы төҫө менән билдәләнгән иҫкәрмә беркетегеҙ; булған билдәгә сиртһәгеҙ, ул Иҫкәрмәләр панеле өсөн һайлана.
+tool.note.history.place = Иҫкәрмә урынлаштырыу
+tool.note.history.move = Иҫкәрмәне күсереү
+tool.note.history.delete = Иҫкәрмәне юйыу
+
+tool.count.name = Һанау
+tool.count.description = Киндергә номерлы һанау билдәләрен ҡуйыу өсөн сиртегеҙ; булған билдәгә сиртеү уны юя.
+tool.count.default_name = Һанау {n}

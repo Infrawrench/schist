@@ -1,0 +1,34 @@
+# Barra di stato
+ai.status.panel_shown = Pannello IA mostrato
+ai.status.panel_hidden = Pannello IA nascosto — Visualizza ▸ Pannello IA ({shortcut}) per mostrarlo di nuovo
+ai.status.tool = IA: {name}
+
+# Righe informative nella trascrizione
+ai.info.connected = {backend} connesso
+ai.info.now_in_gallery = Ora nella galleria.
+ai.info.now_in_editor = Ora nell'editor.
+ai.tool.shell_command = comando shell
+
+# Errori nella trascrizione
+ai.error.cli_missing = La CLI di {backend} (“{binary}”) non è presente in PATH. Installala ed effettua prima l'accesso.
+ai.error.endpoint_failed = avvio dell'endpoint MCP non riuscito: {error}
+ai.error.binding_endpoint = associazione dell'endpoint MCP
+ai.error.spawning_endpoint_thread = avvio del thread dell'endpoint MCP
+ai.error.runtime_failed = avvio del runtime dell'agente non riuscito: {error}
+ai.error.worker_failed = avvio del worker {backend} non riuscito: {error}
+ai.error.did_not_start = {backend} non si è avviato: {error}
+ai.error.switch_model_failed = cambio del modello non riuscito: {error}
+ai.error.send_failed = invio della richiesta non riuscito: {error}
+ai.error.interrupt_failed = interruzione non riuscita: {error}
+ai.error.locating_binary = individuazione del file binario di Schist
+ai.error.starting_app_server = avvio del server dell'app Codex
+ai.error.attaching_app_server = connessione al server dell'app Codex
+ai.error.initializing_app_server = inizializzazione del server dell'app Codex
+ai.error.resuming_thread = ripresa del thread Codex
+ai.error.starting_thread = avvio del thread Codex
+
+# Catalogo alternativo del selettore di modelli
+ai.model.opus_detail = Fascia con le capacità più avanzate
+ai.model.sonnet_detail = Efficiente per le attività di routine
+ai.model.haiku_detail = Il più veloce per risposte rapide
+ai.model.codex_catalog = Catalogo Codex

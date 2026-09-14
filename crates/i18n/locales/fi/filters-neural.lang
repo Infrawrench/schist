@@ -1,0 +1,165 @@
+# Neural Filters, Camera Raw, Sumennusgalleria ja linssisuotimet
+# (plugins/filters-core). Mallien nimet, kuten ”Depth (Depth Blur)”, pysyvät ennallaan.
+
+# Useiden suotimien yhteiset nimet
+filter.neural.param.center_x = Keskikohta X
+filter.neural.param.center_y = Keskikohta Y
+filter.neural.param.direction = Suunta
+filter.neural.param.transition = Siirtymä
+filter.neural.param.detail = Yksityiskohdat
+filter.neural.param.eyes = Silmät
+
+# Mallia käyttävän suotimen viestit
+filter.neural.msg.using_model = Käytössä {model} · {license}.
+filter.neural.msg.get_model = Hae se kohdasta Suodin ▸ Neural Filters ▸ Hallitse malleja.
+
+# Camera Raw -suodin
+filter.camera_raw.name = Camera Raw -suodin
+filter.camera_raw.param.temperature = Lämpötila
+filter.camera_raw.param.tint = Sävytys
+filter.camera_raw.param.highlights = Huippuvalot
+filter.camera_raw.param.shadows = Varjot
+filter.camera_raw.param.whites = Valkoiset
+filter.camera_raw.param.blacks = Mustat
+filter.camera_raw.param.clarity = Selkeys
+filter.camera_raw.param.dehaze = Poista usva
+filter.camera_raw.param.vibrance = Eloisuus
+filter.camera_raw.param.sharpening = Terävöitys
+filter.camera_raw.param.noise = Kohinan vähennys
+filter.camera_raw.param.vignette = Vinjetointi
+
+# Linssikorjaus
+filter.lens_correction.name = Linssikorjaus
+filter.lens_correction.param.distortion = Poista vääristymä
+filter.lens_correction.param.red = Korjaa punainen/syaani reunus
+filter.lens_correction.param.blue = Korjaa sininen/keltainen reunus
+filter.lens_correction.param.vignette = Vinjetoinnin määrä
+filter.lens_correction.param.midpoint = Vinjetoinnin keskipiste
+filter.lens_correction.param.vertical = Pystyperspektiivi
+filter.lens_correction.param.horizontal = Vaakaperspektiivi
+
+# Mukautuva laajakulma
+filter.adaptive_wide_angle.name = Mukautuva laajakulma
+filter.adaptive_wide_angle.param.projection = Korjaus
+filter.adaptive_wide_angle.choice.fisheye = Kalansilmä
+filter.adaptive_wide_angle.choice.perspective = Perspektiivi
+filter.adaptive_wide_angle.choice.full_spherical = Täysi pallomainen
+filter.adaptive_wide_angle.param.focal = Polttoväli
+filter.adaptive_wide_angle.param.crop = Rajauskerroin
+
+# Sumennusgalleria
+filter.field_blur.name = Kenttäsumennus
+filter.field_blur.param.position = Terävä kohta
+filter.iris_blur.name = Iirissumennus
+filter.iris_blur.param.roundness = Pyöreys
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Keskikohta
+filter.tilt_shift.param.band = Terävä kaista
+filter.spin_blur.name = Kiertosumennus
+filter.spin_blur.param.angle = Sumennuskulma
+filter.path_blur.name = Polkusumennus
+filter.path_blur.param.speed = Nopeus
+filter.path_blur.param.curve = Kaarevuus
+filter.path_blur.param.taper = Kapeneminen
+
+# Sumennus
+filter.shape_blur.name = Muotosumennus
+filter.shape_blur.choice.square = Neliö
+filter.shape_blur.choice.diamond = Vinoneliö
+filter.shape_blur.choice.hexagon = Kuusikulmio
+filter.shape_blur.choice.cross = Risti
+filter.shape_blur.choice.ring = Rengas
+filter.shape_blur.choice.star = Tähti
+filter.smart_blur.name = Älykäs sumennus
+filter.smart_blur.choice.normal = Normaali
+filter.smart_blur.choice.edge_only = Vain reunat
+filter.smart_blur.choice.overlay_edge = Peittokuvareuna
+
+# Video
+filter.deinterlace.name = Lomituksen poisto
+filter.deinterlace.param.field = Poista
+filter.deinterlace.choice.odd_fields = Parittomat kentät
+filter.deinterlace.choice.even_fields = Parilliset kentät
+filter.deinterlace.param.fill = Luo uudet kentät
+filter.deinterlace.choice.interpolation = Interpoloinnilla
+filter.deinterlace.choice.duplication = Monistamalla
+filter.ntsc_colors.name = NTSC-värit
+
+# Neural Filters
+filter.neural.skin_smoothing.name = Ihon tasoitus
+filter.neural.skin_smoothing.param.blur = Sileys
+filter.neural.skin_smoothing.param.detail = Säilytä yksityiskohdat
+filter.neural.skin_smoothing.msg.no_model = Mallia {model} ei ole asennettu — tasoitetaan kasvojen sijasta kaikki ihonvärinen.
+
+filter.neural.jpeg_artifacts.name = JPEG-pakkausvirheiden poisto
+filter.neural.jpeg_artifacts.msg.no_model = Mallia {model} ei ole asennettu — tasoitetaan sen sijaan 8 kuvapisteen ruudukkoa.
+
+filter.neural.colorize.name = Väritä
+filter.neural.colorize.param.warmth = Lämpö
+filter.neural.colorize.msg.no_model = Mallia {model} ei ole asennettu — sävytetään sen sijaan luminanssin mukaan.
+
+filter.neural.super_zoom.name = Super Zoom
+filter.neural.super_zoom.msg.no_model = Mallia {model} ei ole asennettu — käytetään sen sijaan reunojen suuntaista terävöitystä.
+
+filter.neural.style_transfer.name = Tyylinsiirto
+filter.neural.style_transfer.choice.mosaic = Mosaiikki
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Tyylimalleja ei ole asennettu — siirretään vain väri. Hae ne kohdasta Suodin ▸ Neural Filters ▸ Hallitse malleja.
+filter.neural.style_transfer.msg.installed = Asennettu: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Värinsiirto
+filter.neural.color_transfer.param.hue = Kohdesävy
+filter.neural.color_transfer.param.contrast = Sovita kontrasti
+filter.neural.color_transfer.msg.info = Ottaa väripalettinsa alapuoliselta tasolta. Jos alapuolella ei ole mitään, tavoitteena käytetään kohdesävyä.
+
+filter.neural.depth_blur.name = Syvyyssumennus
+filter.neural.depth_blur.param.focus = Tarkennusetäisyys
+filter.neural.depth_blur.param.blur = Sumennuksen voimakkuus
+filter.neural.depth_blur.msg.no_model = Mallia {model} ei ole asennettu — tarkennetaan sen sijaan paikallisen terävyyden mukaan.
+
+filter.neural.harmonization.name = Harmonisointi
+filter.neural.harmonization.param.tone = Sovita sävy
+filter.neural.harmonization.msg.info = Sovittaa tämän tason sen alla olevaan sisältöön. Jos alapuolella ei ole mitään, sovitettavaa ei ole eikä toiminto tee mitään.
+
+filter.neural.landscape_mixer.name = Maisemasekoitin
+filter.neural.landscape_mixer.param.bands = Syvyyskaistat
+filter.neural.landscape_mixer.msg.with_depth = Ottaa väripalettinsa alapuoliselta tasolta ja sovittaa kaistat yksitellen käyttäen mallia Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Ottaa väripalettinsa alapuoliselta tasolta. Asenna Depth (Depth Blur), jotta taivas sovitetaan taivaaseen ja maa maahan koko kuvan sijasta.
+
+filter.neural.photo_restoration.name = Valokuvan entisöinti
+filter.neural.photo_restoration.param.enhance = Valokuvan parannus
+filter.neural.photo_restoration.param.scratches = Naarmujen vähennys
+filter.neural.photo_restoration.param.tone = Palauta sävy
+filter.neural.photo_restoration.msg.no_model = Siistitään ilman mallia.
+filter.neural.photo_restoration.msg.using_deblock = Käytössä Deblock · koulutettu Schistiä varten.
+filter.neural.photo_restoration.msg.using_detail = Käytössä Detail · koulutettu Schistiä varten.
+filter.neural.photo_restoration.msg.using_both = Käytössä Deblock ja Detail · koulutettu Schistiä varten.
+
+filter.neural.photo_to_sketch.name = Valokuvasta luonnokseksi
+filter.neural.photo_to_sketch.param.weight = Viivan paksuus
+filter.neural.photo_to_sketch.param.shading = Varjostus
+
+filter.neural.face_to_caricature.name = Kasvoista karikatyyriksi
+filter.neural.face_to_caricature.param.mouth = Suu
+filter.neural.face_to_caricature.param.head = Pää
+filter.neural.face_to_caricature.msg.no_model = Mallia {model} ei ole asennettu, joten tämä ei tee mitään — karikatyrisoitavaa ei ole.
+
+filter.neural.smart_portrait.name = Älykäs muotokuva
+filter.neural.smart_portrait.param.happiness = Iloisuus
+filter.neural.smart_portrait.param.surprise = Yllättyneisyys
+filter.neural.smart_portrait.param.age = Kasvojen ikä
+filter.neural.smart_portrait.param.gaze = Katse
+filter.neural.smart_portrait.param.light = Valon suunta
+filter.neural.smart_portrait.msg.no_model = Mallia {model} ei ole asennettu, joten tämä ei tee mitään — käsiteltäviä kasvoja ei ole.
+
+filter.neural.makeup_transfer.name = Meikinsiirto
+filter.neural.makeup_transfer.param.lips = Huulet
+filter.neural.makeup_transfer.param.skin = Ihon sävy
+filter.neural.makeup_transfer.msg.info = Ottaa meikin alapuolisen tason kasvoista. Väri siirtyy, pintakuvio ei.
+filter.neural.makeup_transfer.msg.no_model = Mallia {model} ei ole asennettu, joten tämä ei tee mitään.
+
+filter.neural.sketch_to_portrait.name = Luonnoksesta muotokuvaksi
+filter.neural.sketch_to_portrait.param.detail = Säilytä viivat
+filter.neural.sketch_to_portrait.msg.with_face = Koulutettu täyttämään tämän sovelluksen Valokuvasta luonnokseksi -toiminnon tuloksia. Käsittelee löytämänsä kasvot.
+filter.neural.sketch_to_portrait.msg.no_face = Koulutettu täyttämään tämän sovelluksen Valokuvasta luonnokseksi -toiminnon tuloksia. Asenna Faces (Skin Smoothing), niin toiminto käsittelee kasvot koko valinnan sijasta.

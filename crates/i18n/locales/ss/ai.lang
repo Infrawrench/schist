@@ -1,0 +1,30 @@
+ai.status.panel_shown = Liphaneli le-AI liyakhonjiswa
+ai.status.panel_hidden = Liphaneli le-AI lifihliwe — Buka ▸ Liphaneli le-AI ({shortcut}) ulibuyisa
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} ixhunyiwe
+ai.info.now_in_gallery = Nyalo usegalari.
+ai.info.now_in_editor = Nyalo usemhlelini.
+ai.tool.shell_command = umyalo we-shell
+
+ai.error.cli_missing = I-CLI ye-{backend} (“{binary}”) ayikho ku-PATH. Yifake bese ungena kuyo kucala.
+ai.error.endpoint_failed = kwehlulekile kucalisa liphuzu lekugcina le-MCP: {error}
+ai.error.binding_endpoint = kuhlanganiswa liphuzu lekugcina le-MCP
+ai.error.spawning_endpoint_thread = kucaliswa intambo yeliphuzu lekugcina le-MCP
+ai.error.runtime_failed = kwehlulekile kucalisa sikhatsi sekusebenta se-ejenti: {error}
+ai.error.worker_failed = kwehlulekile kucalisa sisebenti se-{backend}: {error}
+ai.error.did_not_start = {backend} ayikacalanga: {error}
+ai.error.switch_model_failed = kwehlulekile kushintja imodeli: {error}
+ai.error.send_failed = kwehlulekile kutfumela sicelo: {error}
+ai.error.interrupt_failed = kwehlulekile kuphazamisa: {error}
+ai.error.locating_binary = kufunwa ifayela lelinambambili le-Schist
+ai.error.starting_app_server = kucaliswa siphakeli seluhlelo lwe-Codex
+ai.error.attaching_app_server = kuchunywa kusiphakeli seluhlelo lwe-Codex
+ai.error.initializing_app_server = kulungiselelwa siphakeli seluhlelo lwe-Codex
+ai.error.resuming_thread = kuchutjekiswa intambo ye-Codex
+ai.error.starting_thread = kucaliswa intambo ye-Codex
+
+ai.model.opus_detail = Lizinga lelikwati kakhulu
+ai.model.sonnet_detail = Kusebenta kahle emisebentini levamile
+ai.model.haiku_detail = Kushesha kakhulu etimphendvulweni letisheshako
+ai.model.codex_catalog = Ikhathalogi ye-Codex

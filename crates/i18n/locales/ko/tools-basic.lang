@@ -1,0 +1,26 @@
+# 기본 도구: 이동, 스포이드, 손 도구, 돋보기.
+
+# 이동
+tool.move.name = 이동
+tool.move.description = 활성 레이어의 내용을 드래그하여 새 위치로 옮깁니다. 자동 선택을 켜면 포인터 아래에서 가장 먼저 감지되는 레이어 또는 전체 그룹이 마우스를 누를 때 선택됩니다.
+tool.move.option.auto_select = 자동 선택
+tool.move.history.move_layer = 레이어 이동
+
+# 스포이드
+tool.eyedropper.name = 스포이드
+tool.eyedropper.description = 포인터 아래의 색상을 전경색 견본으로 추출하며, Alt 키를 누른 상태에서는 배경색 견본으로 추출합니다. 드래그하는 동안 계속 색상을 추출합니다.
+tool.eyedropper.option.sample_size = 샘플 크기
+tool.eyedropper.option.sample = 샘플
+tool.eyedropper.choice.point_sample = 포인트 샘플
+tool.eyedropper.choice.average_3 = 3×3 평균
+tool.eyedropper.choice.average_5 = 5×5 평균
+tool.eyedropper.choice.average_11 = 11×11 평균
+tool.eyedropper.choice.average_31 = 31×31 평균
+tool.eyedropper.choice.all_layers = 모든 레이어
+tool.eyedropper.choice.current_layer = 현재 레이어
+
+# 손 도구와 돋보기
+tool.hand.name = 손 도구
+tool.hand.description = 보기를 이동합니다. 뷰포트는 창에 속하므로 헤드리스 환경에서는 문서에 아무런 영향을 주지 않습니다.
+tool.zoom.name = 돋보기
+tool.zoom.description = 보기를 확대하거나 축소합니다. 뷰포트는 창에 속하므로 헤드리스 환경에서는 문서에 아무런 영향을 주지 않습니다.

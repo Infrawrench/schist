@@ -1,0 +1,25 @@
+# Hulpmiddelen voor documentelementen: tekengebieden, segmenten, kaders, notities en tellingen.
+tool.artboard.name = Tekengebied
+tool.artboard.description = Sleep om een tekengebied te maken: een benoemd deel van het canvas dat afzonderlijk wordt geëxporteerd. Sleep binnen een bestaand tekengebied om het te verplaatsen.
+tool.artboard.default_name = Tekengebied {n}
+
+tool.slice.name = Segment
+tool.slice.description = Sleep om een exportsegment te maken: een benoemde rechthoek op het canvas die als afzonderlijke afbeelding wordt geëxporteerd. Sleep binnen een bestaand segment om het te verplaatsen.
+tool.slice.default_name = Segment {n}
+
+tool.frame.name = Kader
+tool.frame.description = Sleep om een kader te maken: een rechthoekige (of elliptische) laag die alles maskeert wat erin wordt geplaatst.
+tool.frame.default_name = Kader {n}
+tool.frame.choice.rectangle = Rechthoek
+tool.frame.choice.ellipse = Ellips
+tool.frame.history.frame = Kader
+
+tool.note.name = Notitie
+tool.note.description = Klik op een leeg deel van het canvas om daar een notitie vast te zetten, voorzien van de auteur en kleur uit de editorstatus. Klik op een bestaande speld om deze voor het deelvenster Notities te selecteren.
+tool.note.history.place = Notitie plaatsen
+tool.note.history.move = Notitie verplaatsen
+tool.note.history.delete = Notitie verwijderen
+
+tool.count.name = Telling
+tool.count.description = Klik om genummerde telmarkeringen op het canvas te plaatsen en klik op een bestaande markering om deze te verwijderen.
+tool.count.default_name = Telling {n}

@@ -1,0 +1,31 @@
+# Verktøy for tegnebrett, sektorer, rammer, merknader og telling.
+
+# Tegnebrett
+tool.artboard.name = Tegnebrett
+tool.artboard.description = Dra ut et tegnebrett: et navngitt område på lerretet som eksporteres for seg. Du kan flytte et eksisterende tegnebrett ved å dra inni det.
+tool.artboard.default_name = Tegnebrett {n}
+
+# Sektor
+tool.slice.name = Sektor
+tool.slice.description = Dra ut en eksportsektor, et navngitt rektangel på lerretet som eksporteres som et eget bilde. Du kan flytte en eksisterende sektor ved å dra inni den.
+tool.slice.default_name = Sektor {n}
+
+# Ramme
+tool.frame.name = Ramme
+tool.frame.description = Dra ut en ramme: et rektangulært (eller elliptisk) lag som maskerer alt som plasseres i det.
+tool.frame.default_name = Ramme {n}
+tool.frame.choice.rectangle = Rektangel
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Ramme
+
+# Merknad
+tool.note.name = Merknad
+tool.note.description = Klikk på et tomt område av lerretet for å feste en merknad der, merket med forfatteren og fargen fra redigeringsstatusen. Klikk på en eksisterende nål for å velge den i Merknader-panelet.
+tool.note.history.place = Plasser merknad
+tool.note.history.move = Flytt merknad
+tool.note.history.delete = Slett merknad
+
+# Telling
+tool.count.name = Telling
+tool.count.description = Klikk for å plassere nummererte tellemarkører på lerretet, og klikk på en eksisterende markør for å fjerne den.
+tool.count.default_name = Telling {n}

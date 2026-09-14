@@ -1,0 +1,25 @@
+# Hulpmiddele veur 't retouchere van gebiede.
+
+tool.patch.name = Reparatie
+tool.patch.description = Trèk 'ne rand roondj 'n fout en sleip die selectie daonao nao sjone pixels. De textuur dao weurt in de fout ingepas. De reparatiemodus bepaolt welk oetèndj van 't paar se versjuufs.
+tool.patch.option.patch = Reparatie
+tool.patch.choice.source = Bron
+tool.patch.choice.destination = Doel
+tool.patch.history.patch = Reparatie
+
+tool.content_aware_move.name = Inhaudsgevoelig verplaatse
+tool.content_aware_move.description = Sleip 'n geselecteerd object örges anges hèn; 't gaat dat achterblief weurt vanaaf de ómgeving gevöld. In de modus Oetbreije weurt 't object oetgerèk in plaats van verplaats.
+tool.content_aware_move.choice.move = Verplaatse
+tool.content_aware_move.choice.extend = Oetbreije
+tool.content_aware_move.history.move = Inhaudsgevoelig verplaatse
+
+tool.red_eye.name = Roeëd oug
+tool.red_eye.description = Klik op 'ne pupil om 't roeëd van de flits eweg te hole.
+tool.red_eye.option.pupil_size = Pupilgroeëtte
+tool.red_eye.option.darken = Donkerder make
+tool.red_eye.history.red_eye = Roeëd oug
+
+tool.magic_eraser.name = Toevergum
+tool.magic_eraser.description = Klik om 't gebied mit 'n vergeliekbare kleur oonder de wiezer, binne de tolerantie van 't hulpmiddel, oet te gumme: allein 't aaneingeslote gebied roondj de klik of euveral in de laog.
+tool.magic_eraser.option.contiguous = Aaneingeslote
+tool.magic_eraser.history.erase = Toevergum

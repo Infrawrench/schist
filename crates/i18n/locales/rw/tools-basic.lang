@@ -1,0 +1,24 @@
+# Move
+tool.move.name = Kwimura
+tool.move.description = Kurura ibiri mu rwego rukora ubijyane ahandi. Iyo Kwitoranyiriza byafunguwe, gukanda bihitamo urwego — cyangwa itsinda ryose — ruri munsi y'ikimenyetso.
+tool.move.option.auto_select = Kwitoranyiriza
+tool.move.history.move_layer = Kwimura urwego
+
+# Eyedropper
+tool.eyedropper.name = Agatoranya ibara
+tool.eyedropper.description = Fata urugero rw'ibara riri munsi y'ikimenyetso urushyire mu ibara ry'imbere, cyangwa mu ibara ry'inyuma iyo Alt ifashwe. Gukurura bikomeza gufata ingero.
+tool.eyedropper.option.sample_size = Ingano y'urugero
+tool.eyedropper.option.sample = Urugero
+tool.eyedropper.choice.point_sample = Urugero rw'akadomo
+tool.eyedropper.choice.average_3 = Impuzandengo ya 3 kuri 3
+tool.eyedropper.choice.average_5 = Impuzandengo ya 5 kuri 5
+tool.eyedropper.choice.average_11 = Impuzandengo ya 11 kuri 11
+tool.eyedropper.choice.average_31 = Impuzandengo ya 31 kuri 31
+tool.eyedropper.choice.all_layers = Inzego zose
+tool.eyedropper.choice.current_layer = Urwego ruriho
+
+# Hand and Zoom
+tool.hand.name = Ukuboko
+tool.hand.description = Bimura aho ureba. Aho ureba ni ah'idirishya, bityo iyo nta dirishya rihari iki gikoresho nta cyo gihindura ku nyandiko.
+tool.zoom.name = Kwegera
+tool.zoom.description = Byegereza cyangwa bikigiza kure aho ureba. Aho ureba ni ah'idirishya, bityo iyo nta dirishya rihari iki gikoresho nta cyo gihindura ku nyandiko.

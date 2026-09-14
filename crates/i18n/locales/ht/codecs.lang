@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = ap dekode {name}
+codec.msg.zero_sized = imaj la pa gen piksèl
+codec.msg.assembling_document = ap rasanble dokiman an
+
+codec.raw.msg.decoding = ap dekode fichye anvan tretman an
+codec.raw.msg.developing = ap devlope fichye anvan tretman an
+codec.raw.msg.finding_preview = ap chèche apèsi entegre a
+codec.raw.msg.decoding_preview = ap dekode apèsi entegre a
+codec.raw.msg.decoder_panicked = dekodè fichye anvan tretman an echwe sou fichye sa a: {what}
+
+codec.affinity.import_title = Enpòtasyon Affinity
+codec.affinity.flattened_preview_layer = Apèsi aplati
+codec.affinity.msg.no_preview = Pa gen okenn apèsi entegre ki ka sèvi. Fòma Affinity ki gen kouch la se yon fòma pwopriyetè; Schist enpòte apèsi aplati ki nan fichye a. Fichye sa a pa gen youn — anrejistre l ankò nan Affinity, oswa ekspòte l kòm PSD pou enpòte tout kouch yo.
+
+codec.heif.msg.no_library = libheif pa disponib ({details}). Pou louvri HEIC, bibliyotèk libheif la nesesè (Linux: enstale libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — vèsyon libheif sa a ka pa gen yon dekodè HEVC (sou Debian/Ubuntu, enstale libheif-plugin-libde265)
+codec.heif.msg.unknown_error = erè enkoni
+codec.heif.msg.initialising = ap inisyalize libheif
+codec.heif.msg.reading_container = ap li kontenè HEIF la
+codec.heif.msg.finding_primary_image = ap chèche imaj prensipal la
+codec.heif.msg.reading_icc_profile = ap li pwofil ICC a
+codec.heif.msg.decoding_image = ap dekode imaj la
+codec.heif.msg.checksum_mismatch = Sòm kontwòl pou {name} pa koresponn: yo te atann {expected}, men yo jwenn {got}
+codec.heif.msg.imageio_cannot_read = ImageIO pa t kapab li kontenè HEIF la
+codec.heif.msg.container_empty = kontenè HEIF la pa gen imaj
+codec.heif.msg.imageio_cannot_decode = ImageIO pa t kapab dekode imaj prensipal la

@@ -1,0 +1,29 @@
+# The region retouching tools (plugins/tools-retouch).
+
+# Patch
+tool.patch.name = Isichibi
+tool.patch.description = Dosa umuda uzombeleze isici, bese udosela lokho okukhethiweko phezu kwamaphikseli ahlanzekileko: ukwakheka kwakhona kufakwa esicini. Imodi yesichibi ikhetha ukuthi udosa ngiliphi ihlangothi lalokhu okubili.
+tool.patch.option.patch = Isichibi
+tool.patch.choice.source = Umthombo
+tool.patch.choice.destination = Indawo okuya kiyo
+tool.patch.history.patch = Isichibi
+
+# Content-Aware Move
+tool.content_aware_move.name = Ukukhambisa Okuzwisisa Okumumethweko
+tool.content_aware_move.description = Dosela into ekhethiweko kwenye indawo, bese isikhala esitjhiyako sizaliswa ngokusuka kokuyizombelezileko. Ngemodi Yokwelula, into iyanwetjwa kunokuthi ikhanjiswe.
+tool.content_aware_move.choice.move = Khambisa
+tool.content_aware_move.choice.extend = Yelula
+tool.content_aware_move.history.move = Ukukhambisa Okuzwisisa Okumumethweko
+
+# Red Eye
+tool.red_eye.name = Ilihlo Elibomvu
+tool.red_eye.description = Qhafaza ihlamvu lelihlo ukuze ususe ububomvu bokuphazima kilo.
+tool.red_eye.option.pupil_size = Ubukhulu Behlamvu Lelihlo
+tool.red_eye.option.darken = Yenza kube Nzima
+tool.red_eye.history.red_eye = Ilihlo Elibomvu
+
+# Magic Eraser
+tool.magic_eraser.name = Isisuli Somlingo
+tool.magic_eraser.description = Qhafaza ukusula indawo yombala ofanako ongaphasi kwenkomba, ngaphakathi komkhawulo wethulusi -- ehlangene nalapho kuqhafazwe khona, namkha kiyo yoke ileya.
+tool.magic_eraser.option.contiguous = Okuhlangeneko
+tool.magic_eraser.history.erase = Isisuli Somlingo

@@ -1,0 +1,24 @@
+tool.artboard.name = Ibhodi Lomsebenzi
+tool.artboard.description = Hudula udale ibhodi lomsebenzi: indawo yekhanvasi elebizo ezithunyelwa ngaphandle iyodwa. Ukuhudula phakathi kwaleyo esivele ikhona kuyayihambisa.
+tool.artboard.default_name = Ibhodi Lomsebenzi {n}
+
+tool.slice.name = Isiqephu
+tool.slice.description = Hudula udale isiqephu sokuthumela ngaphandle, umgceke wekhanvasi olebizo othunyelwa ngaphandle njengesithombe esizimeleyo. Ukuhudula phakathi kwaleso esivele sikhona kuyasihambisa.
+tool.slice.default_name = Isiqephu {n}
+
+tool.frame.name = Uhlaka
+tool.frame.description = Hudula udale uhlaka: isendlalelo esingumgceke (kumbe esiyindilinga) esisitha loba yini efakwa phakathi kwaso.
+tool.frame.default_name = Uhlaka {n}
+tool.frame.choice.rectangle = Umgceke
+tool.frame.choice.ellipse = Indilinga
+tool.frame.history.frame = Uhlaka
+
+tool.note.name = Inothi
+tool.note.description = Chofoza ikhanvasi engelalutho ukuze unamathisele inothi lapho, ibhalwe umlobi lombala ogcinwe kumhleli; chofoza iphini eselikhona ukuze ulikhethe kuphaneli Yamanothi.
+tool.note.history.place = Beka Inothi
+tool.note.history.move = Hambisa Inothi
+tool.note.history.delete = Susa Inothi
+
+tool.count.name = Ukubala
+tool.count.description = Chofoza ukuze ubeke izimpawu zokubala ezilezinombolo kukhanvasi, njalo uchofoze uphawu olukhona ukuze ulususe.
+tool.count.default_name = Ukubala {n}

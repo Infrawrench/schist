@@ -1,0 +1,22 @@
+tool.liquify.name = Vervloei
+tool.liquify.description = Druk, warrel, knyp of blaas pixels onder 'n groot kwas op — die modusopsie bepaal watter bewerking gebruik word. Die vervorming versamel in 'n maas en word by bevestiging op die laag toegepas.
+tool.liquify.option.tool = Gereedskap
+tool.liquify.choice.forward_warp = Voorwaartse vervorming
+tool.liquify.choice.reconstruct = Herkonstrueer
+tool.liquify.choice.twirl_cw = Warrel kloksgewys
+tool.liquify.choice.twirl_ccw = Warrel antikloksgewys
+tool.liquify.choice.pucker = Knyp
+tool.liquify.choice.bloat = Blaas op
+tool.liquify.choice.push_left = Druk links
+tool.liquify.history.liquify = Vervloei
+
+tool.puppet_warp.name = Marionetvervorming
+tool.puppet_warp.description = Klik om die laag op 'n paar punte vas te pen en sleep dan een: die maas buig om die penne, styf of los volgens die Styfheid-opsie. Bevestiging pas dit toe.
+tool.puppet_warp.option.stiffness = Styfheid
+tool.puppet_warp.history.puppet_warp = Marionetvervorming
+
+tool.vanishing_point.name = Verdwynpunt
+tool.vanishing_point.description = Sleep 'n vlak oor iets met perspektief en skakel dan die modus na Kloon en verf: die gekopieerde pixels volg die vlak en word met afstand kleiner.
+tool.vanishing_point.choice.edit_plane = Wysig vlak
+tool.vanishing_point.choice.clone = Kloon
+tool.vanishing_point.history.vanishing_point = Verdwynpunt

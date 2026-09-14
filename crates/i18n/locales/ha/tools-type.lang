@@ -1,0 +1,27 @@
+# Kayan aikin rubutu. Ba a fassara sunayen iyalan rubutu.
+
+tool.type.name = Rubutu
+tool.type.description = Danna don fara shimfiɗar rubutu a wurin, ko danna wadda take akwai don gyara ta. Yayin da take buɗe, kayan aikin yana karɓar maɓallan kai tsaye (aika haruffa a matsayin shigarwar maɓalli), kuma tabbatarwa tana zana shimfiɗar ta rufe gyaran.
+
+# Sandar zaɓuɓɓuka
+tool.type.option.align = Jeri
+tool.type.option.leading = Tazarar Layuka
+tool.type.option.tracking = Tazarar Haruffa
+tool.type.option.kerning = Daidaita Tazarar Haruffa
+tool.type.option.ligatures = Haɗaɗɗun Haruffa
+tool.type.option.discretionary_ligatures = Haɗaɗɗun haruffa na zaɓi
+tool.type.option.small_caps = Ƙananan manyan haruffa
+tool.type.option.on_path = A kan tafarki mai aiki
+tool.type.option.path_offset = Kaucewar tafarki
+
+# Salon rubutu
+tool.type.choice.regular = Na Al'ada
+tool.type.choice.bold = Mai Kauri
+tool.type.choice.italic = Mai Karkata
+tool.type.choice.bold_italic = Mai Kauri da Karkata
+
+# Tarihi
+tool.type.history.new_layer = Sabuwar Shimfiɗar Rubutu
+tool.type.history.edit = Gyara Rubutu
+tool.type.history.discard = Watsar da Rubutu
+tool.type.history.discard_empty = Watsar da Rubutu Mara Komai

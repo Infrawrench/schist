@@ -1,0 +1,259 @@
+# Cumpartzidu
+dialog.save_ellipsis = Sarva…
+dialog.use_foreground = Imprea su primu pianu
+dialog.downloading = Iscarrighende…
+dialog.downloading_of = Iscarrighende… {got} de {total}
+dialog.no_config_dir = (peruna cartella de cunfiguratzione)
+
+dialog.layer_props.title = Propiedades de s'istratu
+
+# Esportatzione
+dialog.export.format = Formadu
+dialog.export.dither = Tramadura
+dialog.export.dither_note = Àplica sa tramadura cando redutzis a 8 bit
+dialog.export.export_ellipsis = Esporta…
+
+# Elàbora fotografias
+dialog.batch.title = Elàbora fotografias
+dialog.batch.note_edit.one = {n} fotografia — sarvada comente modìfica de galleria; s'originale no est tocadu mai.
+dialog.batch.note_edit.other = {n} fotografias — sarvadas comente modìficas de galleria; is originales no sunt tocados mai.
+dialog.batch.note_edit_edited.one = {n} fotografia; nùmeru de fotografias giai modificadas: {edited} — sa retzeta est aplicada subra de sa modìfica, e sa modìfica pretzedente est mantenta comente versione.
+dialog.batch.note_edit_edited.other = {n} fotografias; nùmeru de fotografias giai modificadas: {edited} — sa retzeta est aplicada subra de is modìficas, e is modìficas pretzedentes sunt mantentas comente versiones.
+dialog.batch.note_copies.one = {n} fotografia — còpia aplanada; s'originale no est tocadu mai.
+dialog.batch.note_copies.other = {n} fotografias — còpias aplanadas; is originales no sunt tocados mai.
+dialog.batch.note_copies_edited.one = {n} fotografia; nùmeru de fotografias giai modificadas: {edited} — sa còpia est creada dae sa modìfica.
+dialog.batch.note_copies_edited.other = {n} fotografias; nùmeru de fotografias giai modificadas: {edited} — is còpias sunt creadas dae is modìficas.
+dialog.batch.turn = Borta
+dialog.batch.rotate = Gira
+dialog.batch.flip = Ribalta
+dialog.batch.upscale = Ismànnia
+dialog.batch.colour = Colore
+dialog.batch.add_adjustment = Regulatzione…
+dialog.batch.output = Essida
+dialog.batch.save_as = Sarva comente
+dialog.batch.process = Elàbora
+dialog.batch.process_n = Elàbora {n}
+dialog.batch.nothing_to_do = Nudda de fàghere: sèbera prima una girada, un'ingrandimentu o una regulatzione
+
+# Iscala cun atentzione a su cuntenutu
+dialog.content_aware_scale.title = Iscala cun atentzione a su cuntenutu
+dialog.content_aware_scale.note = Iscavat is costuras cun pagu detàlliu. Una seletzione marcat su chi depet èssere amparadu.
+
+# Tratu
+dialog.stroke.title = Tratu
+dialog.stroke.location = Positzione
+dialog.stroke.inside = A intro
+dialog.stroke.outside = A foras
+dialog.stroke.note = Tràtziat sa seletzione cun su colore de primu pianu.
+
+dialog.fill.contents = Cuntenutu
+
+# Gamma de colores
+dialog.color_range.title = Gamma de colores
+dialog.color_range.sampled = Prelevadu
+dialog.color_range.fuzziness = Toleràntzia isfumada
+dialog.color_range.note = Seletzionat is pixel acanta de su colore prelevadu in s'istratu ativu.
+
+# Seletore de archìvios
+dialog.file_picker.up = ↑ A susu
+dialog.file_picker.empty = Nudda inoghe
+dialog.file_picker.choose_folder = Sèbera custa cartella
+
+# Diàlogos de filtros
+dialog.filter.camera_raw_development = Isvilupu Camera Raw
+dialog.filter.reset_as_shot = Riprìstina a comente est iscattadu
+dialog.filter.raw_note = Isvilupat torra s'istratu ativu dae is datos originales de su sensore.
+dialog.filter.note = S'aplicat a s'istratu ativu, a intro de sa seletzione.
+
+# Caràteres chi mancant
+dialog.fonts.title = Caràteres chi mancant
+dialog.fonts.install_named = Installa {name}
+dialog.fonts.no_document = Perunu documentu est abertu, duncas no b'at nudda de controllare.
+dialog.fonts.all_installed = Totu is caràteres impreados dae custu documentu sunt installados. Su testu est cumpostu cun is caràteres cun is cales est istadu impaginadu.
+dialog.fonts.missing_intro = Custu documentu est cumpostu cun caràteres chi no tenes. Su testu si podet lèghere cun unu sostitutivu, ma is larghesas e is sèchidas de lìnia no sunt cussas de s'impaginatzione originale.
+dialog.fonts.footer = Is iscarrigamentos benint dae su catàlogu abertu de Google Fonts e sunt mantentos in {dir}. Unu caràtere chi no tenet una lissèntzia aberta no est iscarrigadu mai — cando esistit unu disinnu lìberu cumpatìbile in is mètricas, est frunidu in su logu suo; custu riprìstinat s'impaginatzione ca currispondent is larghesas de avantzamentu.
+dialog.fonts.user_font_dir = sa cartella de caràteres de s'utente
+
+# Modelos de Neural Filters
+dialog.models.title = Modelos de Neural Filters
+dialog.models.built_in = Incorporadu · {size}
+dialog.models.installed = Installadu · {size}
+dialog.models.not_installed = No installadu · {size}
+dialog.models.not_in_browser = No a disponimentu in su navigadore · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Is modelos sunt mantentos in {dir}. Is filtros chena modellu impreant comente alternativa s'elaboratzione de sinnale e ddu narant.
+
+# Documentu nou
+dialog.new_doc.title = Documentu nou
+dialog.new_doc.picker_title = Archìviu nou
+dialog.new_doc.custom_ellipsis = Personalizadu…
+dialog.new_doc.preset = Predefinidu
+dialog.new_doc.preset_default = Predefinidu (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Cuadradu (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Lìtera USA, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Crea
+dialog.new_doc.created = Documentu nou: {w} × {h} px
+
+# Aberidura de archìvios
+dialog.open.image_title = Aberi un'immàgine
+dialog.open.image_prompt = Boles abèrrere «{name}» in un'ischeda noa, o ddu annànghere a su documentu atuale comente istratu nou?
+dialog.open.new_tab = Ischeda noa
+dialog.open.new_layer = Istratu nou
+dialog.open.quoted = «{name}»
+dialog.open.these_files.one = custu {n} archìviu
+dialog.open.these_files.other = custos {n} archìvios
+dialog.open.shared_title_one = Immàgine cumpartzida
+dialog.open.shared_title_many = Immàgines cumpartzidas
+dialog.open.shared_prompt = Boles annànghere {what} a sa galleria, o abèrrere in s'editore?
+dialog.open.add_to_gallery = Annanghe a sa galleria
+dialog.open.open_in_editor = Aberi in s'editore
+dialog.open.heic_title = Cumpatibilidade cun HEIC
+dialog.open.heic_needs_decoder = Pro abèrrere «{name}» serbit unu decodificadore HEVC, chi no est installadu in custu sistema.
+dialog.open.heic_offer = Schist podet iscarrigare una versione de libheif {version} dedicada a sa decodìfica, cun su decodificadore HEVC libde265 (≈5 MB). Ambos tenent lissèntzia LGPL-3.0; is testos de is lissèntzias sunt installados acanta de sa biblioteca, e su còdighe mitza est a disponimentu in sa pàgina de su progetu.
+dialog.open.licenses_source = Lissèntzias e còdighe mitza
+dialog.open.folders_title = Cartellas lassadas
+dialog.open.n_folders.one = {n} cartella
+dialog.open.n_folders.other = {n} cartellas
+dialog.open.open_in_tabs = Aberi in ischedas
+dialog.open.open_first_in_tabs = Aberi is primos {n} in ischedas
+dialog.open.open_n_in_tabs.one = Aberi {n} in un'ischeda
+dialog.open.open_n_in_tabs.other = Aberi {n} in ischedas
+dialog.open.folder_holds.one = {what} cuntenet {n} immàgine chi Schist podet abèrrere (incluende is sutacartellas).
+dialog.open.folder_holds.other = {what} cuntenet {n} immàgines chi Schist podet abèrrere (incluende is sutacartellas).
+dialog.open.folders_note = Annanghe a sa galleria controllat is cartellas in su logu issoro — no est copiadu nudda, e is modìficas sunt sarvadas comente versiones acanta de cada fotografia. Aberende in ischedas, immoe sunt carrigadas totu is immàgines in s'editore.
+
+# Cumplementos
+dialog.plugins.title = Cumplementos
+dialog.plugins.kind_filter = filtru
+dialog.plugins.kind_format = formadu
+dialog.plugins.kind_unavailable = no a disponimentu
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Is cumplementos sunt carrigados dae {dir}
+dialog.plugins.none = Perunu cumplementu installadu ancora.
+dialog.plugins.install_ellipsis = Installa…
+dialog.plugins.photoshop_heading = Cumplementos de Photoshop
+dialog.plugins.loaded_from = Carrigados dae {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Preferèntzias
+dialog.prefs.title = Preferèntzias
+dialog.prefs.theme = Tema
+dialog.prefs.theme_dark = Iscuru
+dialog.prefs.theme_light = Craru
+dialog.prefs.grid_spacing = Ispatziadura de sa retza
+dialog.prefs.snapping = Acapiadura
+dialog.prefs.snap_to = Acàpia a is ghias, a sa retza e a is oros de sa tela
+dialog.prefs.rendering_intent = Intèntzidu de renderizatzione
+dialog.prefs.intent_perceptual = Pertzetivu
+dialog.prefs.intent_relative = Colorimètricu relativu
+dialog.prefs.intent_saturation = Saturatzione
+dialog.prefs.intent_absolute = Colorimètricu assolutu
+dialog.prefs.scrolling = Iscurrimentu
+dialog.prefs.zoom_with_scroll = Ingrandimentu cun sa roda de iscurrimentu
+dialog.prefs.rendering = Renderizatzione
+dialog.prefs.gpu_compositing = Cumpositzione cun sa GPU
+dialog.prefs.diagnostics = Diagnòsticos
+dialog.prefs.crash_reports = Iscrie unu raportu locale de faddina in casu de panic
+dialog.prefs.crash_upload = Imbia·ddu fintzas a is isvilupadores
+dialog.prefs.telemetry = Imbia unu ping anònimu cada die
+dialog.prefs.diagnostics_note = Is diagnòsticos s'aplicant a s'àviu imbeniente de Schist.
+dialog.prefs.updates = Atualizatziones
+dialog.prefs.check_updates = Chirca versiones noas a s'àviu
+dialog.prefs.keyboard_shortcuts = Iscurtzaduras de tecladu: {path}
+dialog.prefs.nsfw_needs_model = Rechert su modellu Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = iscàrriga·ddu in Gesti is modellos…
+dialog.prefs.hide_flagged = Cua is fotografias marcadas
+
+# Assinna/Cunverte profilu
+dialog.profile.profile = Profilu
+dialog.profile.assign_title = Assinna unu profilu
+dialog.profile.convert_title = Cunverte a unu profilu
+dialog.profile.assign = Assinna
+dialog.profile.convert = Cunverte
+dialog.profile.assign_note = Reinterpretat is valores de pixel chi esistint cun su profilu nou.
+dialog.profile.convert_note = Torra a iscrìere is valores de pixel pro mantènnere s'aspetu de is colores.
+
+# Sarva s'immàgine comente
+dialog.save_image.title = Sarva s'immàgine comente
+dialog.save_image.note = {name} — sa modìfica, si nde tenet una; s'originale no est tocadu mai.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# Mannària de immàgine e tela
+dialog.size.image_title = Mannària de s'immàgine
+dialog.size.canvas_title = Mannària de sa tela
+dialog.size.constrain = Lìmita
+dialog.size.keep_proportions = Mantene is proportziones
+dialog.size.resample = Ricampiona
+dialog.size.bicubic = Bicùbica
+dialog.size.bilinear = Bilineare
+dialog.size.nearest = Bighinu prus acanta
+dialog.size.anchor = Ancoràgiu
+dialog.size.currently = Immoe {w} × {h} px
+dialog.size.image_size_status = Mannària de s'immàgine: {w} × {h}
+dialog.size.canvas_size_status = Mannària de sa tela: {w} × {h}
+
+# Atualizatzione a disponimentu
+dialog.update.title = Atualizatzione a disponimentu
+dialog.update.available = Schist {version} est a disponimentu. Custa còpia est {current}.
+dialog.update.installing = Installende s'atualizatzione…
+dialog.update.can_install = Schist dda podet iscarrigare ({size}) e installare subra de custa còpia.
+dialog.update.external = Custa còpia benit dae calicunu chi dda gestit — unu gestore de pachetes, un'AppImage, una cumpilatzione tua — duncas s'atualizat comente est istada installada.
+dialog.update.later = A pustis
+dialog.update.release_notes = Notas de sa versione
+dialog.update.update_restart = Atualiza e torra a aviare
+dialog.update.open_page = Aberi sa pàgina de sa versione
+
+# Istile de s'istratu
+dialog.style.title = Istile de s'istratu
+dialog.style.bevel = Ismussadura e rilievu
+dialog.style.stroke = Tratu
+dialog.style.inner_shadow = Umbra interna
+dialog.style.inner_glow = Lughe interna
+dialog.style.satin = Sàtinu
+dialog.style.color_overlay = Subrapositzione de colore
+dialog.style.gradient_overlay = Subrapositzione de gradiente
+dialog.style.outer_glow = Lughe esterna
+dialog.style.drop_shadow = Umbra proietada
+dialog.style.blur = Isfocadura gaussiana
+dialog.style.gradient_from = Origine de sa subrapositzione de gradiente
+dialog.style.gradient_to = Destinatzione de sa subrapositzione de gradiente
+dialog.style.soften = Ammòddia
+dialog.style.depth = Profundidade
+dialog.style.altitude = Altitudine
+dialog.style.highlight = Lughe arta
+dialog.style.shadow = Umbra
+dialog.style.outer_bevel = Ismussadura esterna
+dialog.style.inner_bevel = Ismussadura interna
+dialog.style.emboss = Rilievu
+dialog.style.pillow_emboss = Rilievu a cuscinu
+dialog.style.linear = Lineare
+dialog.style.radial = Radiale
+dialog.style.reverse = Inverte
+dialog.style.from_to = Dae / A
+dialog.style.from_fg = Dae = PP
+dialog.style.to_fg = A = PP
+dialog.style.precise = Pretzisu
+dialog.style.knockout = S'istratu bogat s'umbra proietada
+
+# Seletore de colore
+dialog.color_picker.title = Seletore de colore ({what})
+dialog.color_picker.effect_color = Colore de {effect}
+dialog.color_picker.note_color = Colore de sa nota
+dialog.color_picker.new = nou
+dialog.color_picker.current = atuale
+
+# Gràficu de is curvas
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Riprìstina su canale
+dialog.curves.hint = Tràghe pro modellare · incarca pro annànghere · faghe alt+incarcu pro bogare
+
+# Còpia de seguresa de su rollinu de sa càmera
+dialog.prefs.camera_sync = Rollinu de sa càmera
+dialog.prefs.camera_sync_enabled = Faghe una còpia de seguresa in Schist Cloud
+dialog.prefs.camera_sync_sign_in = Intra in Schist Cloud pro fàghere una còpia de seguresa de su rollinu de sa càmera.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Muda…

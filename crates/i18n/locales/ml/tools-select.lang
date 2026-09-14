@@ -1,0 +1,37 @@
+# Selection modes
+tool.select.mode.subtract = കുറയ്ക്കുക
+tool.select.mode.intersect = ഛേദിക്കുക
+
+# Marquees
+tool.marquee.rect.name = ചതുരാകൃതിയിലുള്ള മാർക്കി
+tool.marquee.rect.description = ചതുരാകൃതിയിലുള്ള തിരഞ്ഞെടുപ്പ് വരയ്ക്കുക. വലിച്ചുതുടങ്ങുമ്പോൾ Shift അമർത്തിയാൽ നിലവിലെ തിരഞ്ഞെടുപ്പിലേക്കു ചേർക്കും, Alt അമർത്തിയാൽ കുറയ്ക്കും, രണ്ടും അമർത്തിയാൽ ഛേദഭാഗം എടുക്കും; വലിക്കുമ്പോൾ Shift അമർത്തിയാൽ സമചതുരമാകും. വലിക്കാതെ ക്ലിക്ക് ചെയ്താൽ തിരഞ്ഞെടുപ്പ് ഒഴിവാകും.
+tool.marquee.ellipse.name = ദീർഘവൃത്ത മാർക്കി
+tool.marquee.ellipse.description = ചതുരാകൃതിയിലുള്ള മാർക്കിയിലെ അതേ Shift/Alt സംയോജനരീതിയിൽ ദീർഘവൃത്താകൃതിയിലുള്ള തിരഞ്ഞെടുപ്പ് വരയ്ക്കുക.
+
+# Lassos
+tool.lasso.name = ലാസോ
+tool.lasso.description = കൈകൊണ്ട് വരയ്ക്കുന്നതുപോലെ ഒരു രൂപരേഖ വലിക്കുക; വലിക്കൽ പൂർത്തിയാകുമ്പോൾ അറ്റങ്ങൾ തമ്മിൽ ചേർത്ത് തിരഞ്ഞെടുപ്പ് അടയ്ക്കും. Shift ചേർക്കും, Alt കുറയ്ക്കും.
+tool.lasso.history.select = ലാസോ തിരഞ്ഞെടുപ്പ്
+tool.lasso.polygonal.name = ബഹുഭുജ ലാസോ
+tool.lasso.polygonal.description = നേർ അരികുകളുള്ള തിരഞ്ഞെടുപ്പ് നിർമ്മിക്കാൻ ഓരോ മൂലയിലും ക്ലിക്ക് ചെയ്യുക; അടയ്ക്കാൻ ആദ്യ പോയിന്റിനടുത്ത് ക്ലിക്ക് ചെയ്യുക.
+tool.lasso.polygonal.history.select = ബഹുഭുജ ലാസോ
+tool.lasso.magnetic.name = മാഗ്നറ്റിക് ലാസോ
+tool.lasso.magnetic.description = ഒരു അരികിനോട് ചേർന്ന് ഏകദേശമായി വരയ്ക്കുക; പാതയ്ക്കടുത്തുള്ള ഏറ്റവും ശക്തമായ കോൺട്രാസ്റ്റിലേക്ക് രൂപരേഖ സ്നാപ്പ് ചെയ്യും.
+tool.lasso.magnetic.history.select = മാഗ്നറ്റിക് ലാസോ
+tool.lasso.magnetic.option.frequency = ആവൃത്തി
+
+# Magic wand
+tool.wand.name = മാന്ത്രിക ദണ്ഡ്
+tool.wand.description = സഹിഷ്ണുതാ ഓപ്ഷന്റെ പരിധിയിൽ, പോയിന്ററിനു കീഴിലുള്ള സമാന വർണ്ണമുള്ള ചേർന്ന പ്രദേശം തിരഞ്ഞെടുക്കാൻ ക്ലിക്ക് ചെയ്യുക—വികസിപ്പിക്കുക, സമാനമായവ, വർണ്ണ പരിധി എന്നിവ വായിക്കുന്ന അതേ സഹിഷ്ണുതയാണിത്.
+tool.wand.option.contiguous = ചേർന്നിരിക്കുന്നവ
+tool.wand.history.select = മാന്ത്രിക ദണ്ഡ്
+
+# Quick selection
+tool.quick_select.name = ദ്രുത തിരഞ്ഞെടുപ്പ്
+tool.quick_select.description = ഒരു പ്രദേശത്തിനു മുകളിൽ പെയിന്റ് ചെയ്താൽ, ബ്രഷ് കടന്നുപോകുന്ന സമാന പിക്സലുകളിലൂടെ തിരഞ്ഞെടുപ്പ് വികസിക്കും.
+tool.quick_select.history.select = ദ്രുത തിരഞ്ഞെടുപ്പ്
+
+# Object selection
+tool.object_select.name = വസ്തു തിരഞ്ഞെടുപ്പ്
+tool.object_select.description = ഒരു വസ്തുവിനു ചുറ്റും പെട്ടി വരച്ചാൽ, അതിനുള്ളിൽ കണ്ടെത്തിയ വസ്തുവിലേക്ക് തിരഞ്ഞെടുപ്പ് ചേർന്നുനിൽക്കും.
+tool.object_select.history.select = വസ്തു തിരഞ്ഞെടുപ്പ്

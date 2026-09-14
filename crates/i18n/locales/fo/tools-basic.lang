@@ -1,0 +1,26 @@
+# The basic tools (plugins/tools-basic): Move, Eyedropper, Hand, Zoom.
+
+# Move
+tool.move.name = Flyt
+tool.move.description = Drag innihaldið á virka lagnum á ein nýggjan stað. Tá Sjálvvirkið val er tendrað, velur trýstið fyrst tað lagið — ella allan bólkin — sum er undir vísaranum.
+tool.move.option.auto_select = Sjálvvirkið val
+tool.move.history.move_layer = Flyt lag
+
+# Eyedropper
+tool.eyedropper.name = Litpipetta
+tool.eyedropper.description = Tak litin undir vísaranum inn í forgrundarlitin, ella inn í bakgrundarlitin meðan Alt verður hildin niðri. Meðan drigið verður, heldur litroyndin fram.
+tool.eyedropper.option.sample_size = Stødd á litroynd
+tool.eyedropper.option.sample = Litroynd
+tool.eyedropper.choice.point_sample = Punktroynd
+tool.eyedropper.choice.average_3 = 3 × 3 miðal
+tool.eyedropper.choice.average_5 = 5 × 5 miðal
+tool.eyedropper.choice.average_11 = 11 × 11 miðal
+tool.eyedropper.choice.average_31 = 31 × 31 miðal
+tool.eyedropper.choice.all_layers = Øll løg
+tool.eyedropper.choice.current_layer = Núverandi lag
+
+# Hand and Zoom
+tool.hand.name = Hond
+tool.hand.description = Flytur sýnið. Sýnisgluggin hoyrir til vindeygað, so uttan grafiskt brúkaramót broytir hetta amboðið einki í skjalinum.
+tool.zoom.name = Størkan
+tool.zoom.description = Størkar ella minkar sýnið. Sýnisgluggin hoyrir til vindeygað, so uttan grafiskt brúkaramót broytir hetta amboðið einki í skjalinum.

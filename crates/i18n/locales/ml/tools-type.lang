@@ -1,0 +1,25 @@
+tool.type.name = എഴുത്ത്
+tool.type.description = അവിടെ ഒരു ടെക്സ്റ്റ് ലെയർ തുടങ്ങാൻ ക്ലിക്ക് ചെയ്യുക, അല്ലെങ്കിൽ നിലവിലുള്ളത് തിരുത്താൻ അതിൽ ക്ലിക്ക് ചെയ്യുക. തിരുത്തൽ തുറന്നിരിക്കുമ്പോൾ ഉപകരണം നേരിട്ടുള്ള കീ ഇൻപുട്ട് സ്വീകരിക്കും (അക്ഷരങ്ങൾ കീ ഇൻപുട്ടായി അയയ്ക്കുക); അംഗീകരിക്കുമ്പോൾ ലെയർ റെൻഡർ ചെയ്ത് തിരുത്തൽ അടയ്ക്കും.
+
+# Options
+tool.type.option.align = വിന്യസിക്കുക
+tool.type.option.leading = വരിയിടവ്
+tool.type.option.tracking = അക്ഷരാന്തര ക്രമീകരണം
+tool.type.option.kerning = കെർണിങ്
+tool.type.option.ligatures = സംയുക്താക്ഷരങ്ങൾ
+tool.type.option.discretionary_ligatures = ഐച്ഛിക സംയുക്താക്ഷരങ്ങൾ
+tool.type.option.small_caps = ചെറിയ വലിയക്ഷരങ്ങൾ
+tool.type.option.on_path = സജീവ പാതയിൽ
+tool.type.option.path_offset = പാതയിൽനിന്നുള്ള അകലം
+
+# Style
+tool.type.choice.regular = സാധാരണം
+tool.type.choice.bold = കട്ടിയക്ഷരം
+tool.type.choice.italic = ചരിഞ്ഞക്ഷരം
+tool.type.choice.bold_italic = കട്ടിയുള്ള ചരിഞ്ഞക്ഷരം
+
+# History
+tool.type.history.new_layer = പുതിയ ടെക്സ്റ്റ് ലെയർ
+tool.type.history.edit = എഴുത്ത് തിരുത്തുക
+tool.type.history.discard = എഴുത്ത് ഉപേക്ഷിക്കുക
+tool.type.history.discard_empty = ഒഴിഞ്ഞ എഴുത്ത് ഉപേക്ഷിക്കുക

@@ -1,0 +1,31 @@
+# Transformacion liura, transformacion de la seleccion e retalhatge.
+
+# Transformacion liura
+tool.transform.name = Transformacion liura
+tool.transform.description = Transformacion liura. En l'activant, una bóstia de transformacion s'obrís a l'entorn del calc actiu : fasètz lisar un canton per cambiar l'escala, fasètz lisar en defòra d'un canton per virar, o fasètz lisar un bòrd per inclinar. Cap de cambiament es pas escrich abans la validacion (Entrada), e l'anullacion (Escap) restablís lo calc.
+tool.transform.option.interpolation = Interpolacion
+tool.transform.history.transform = Transformacion liura
+tool.transform.history.image_size = Talha de l'imatge
+tool.transform.history.canvas_size = Talha de la tela
+
+# Transformacion de la seleccion
+tool.transform.selection.name = Transformar la seleccion
+tool.transform.selection.description = Transformar la seleccion : la meteissa bóstia desplaça lo contorn de la seleccion puslèu que los pixèls qu'es dins. Validatz o anullatz per acabar.
+tool.transform.selection.history.transform = Transformar la seleccion
+
+# Filtres classics de reescandalhatge
+tool.transform.resample.nearest_neighbor = Vesin mai pròche
+tool.transform.resample.bilinear = Bilineara
+tool.transform.resample.bicubic = Bicubica
+
+# Retalhatge
+tool.crop.name = Retalhar
+tool.crop.description = Fasètz lisar per traçar la zòna de conservar e ajustatz sas ponhadas ; la validacion (Entrada) retalha lo document segon aquela zòna, e l'anullacion (Escap) lo daissa intacte.
+tool.crop.option.ratio = Proporcion
+tool.crop.option.delete_cropped = Suprimir los pixèls retalhats
+tool.crop.choice.unconstrained = Sens constrencha
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Retalhar

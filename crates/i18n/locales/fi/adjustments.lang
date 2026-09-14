@@ -1,0 +1,20 @@
+# Säätötasot ja Kuva ▸ Säädöt -komennot.
+adjustment.levels.name = Tasot
+adjustment.curves.name = Käyrät
+adjustment.hue_saturation.name = Sävy/kylläisyys
+adjustment.brightness_contrast.name = Kirkkaus/kontrasti
+adjustment.black_white.name = Mustavalkoinen
+adjustment.solid_color.name = Tasainen väri
+adjustment.gradient_fill.name = Liukuväritäyttö
+adjustment.pattern_fill.name = Kuviotäyttö
+adjustment.invert.name = Käänteinen
+adjustment.posterize.name = Porrastus
+adjustment.threshold.name = Kynnys
+adjustment.color_balance.name = Väritasapaino
+adjustment.vibrance.name = Eloisuus
+adjustment.exposure.name = Valotus
+adjustment.photo_filter.name = Valokuvasuodin
+adjustment.gradient_map.name = Liukuvärikartta
+adjustment.selective_color.name = Valikoiva väri
+adjustment.channel_mixer.name = Kanavasekoitin
+adjustment.other.name = Säätö

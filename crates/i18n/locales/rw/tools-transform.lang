@@ -1,0 +1,29 @@
+# Free transform
+tool.transform.name = Guhindura uko ushaka
+tool.transform.description = Guhindura uko ushaka. Kubifungura bizana agasanduku gakikije urwego rukora: kurura inguni uhindure ingano, kurura hanze y'inguni uruzengurutse, cyangwa ukurure inkombe uruhengeke. Nta gihinduka mbere yo kubyemeza (Enter), kandi kubihagarika (Escape) bisubiza urwego uko rwari.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Guhindura uko ushaka
+tool.transform.history.image_size = Ingano y'ishusho
+tool.transform.history.canvas_size = Ingano y'ikibaho
+
+# Transform selection
+tool.transform.selection.name = Guhindura ibyatoranyijwe
+tool.transform.selection.description = Guhindura ibyatoranyijwe: agasanduku kamwe, ariko kimura umurongo w'ihitamo aho kwimura amapikisele arimo. Emeza cyangwa uhagarike kugira urangize.
+tool.transform.selection.history.transform = Guhindura ibyatoranyijwe
+
+# Resampling
+tool.transform.resample.nearest_neighbor = Umuturanyi wa hafi
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+# Crop
+tool.crop.name = Gukata
+tool.crop.description = Kurura agace ko kugumana maze uhindure udufashi twako; kwemeza (Enter) bikata inyandiko ikangana na ko, guhagarika (Escape) ntibigire icyo biyikoraho.
+tool.crop.option.ratio = Ikigereranyo
+tool.crop.option.delete_cropped = Gusiba amapikisele yakaswe
+tool.crop.choice.unconstrained = Nta kigereranyo gihamye
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Gukata

@@ -1,0 +1,37 @@
+# Галерея фільтрів, шрифти, оновлення та Vulkan.
+app.filter_gallery.title = Галерея фільтрів
+app.filter_gallery.stack = Стос (застосовується знизу вгору)
+app.filter_gallery.no_settings = Цей фільтр не має параметрів.
+app.fonts.not_open_licensed = немає відкритої ліцензії · {substitute} має такі самі метрики
+app.fonts.missing_substituted = відсутній · текст набирається шрифтом-замінником
+app.fonts.not_in_catalogue = {family} відсутній у каталозі відкритих шрифтів
+app.fonts.no_faces = Для {family} немає накреслень, доступних для завантаження
+app.fonts.empty_response = порожня відповідь
+app.update.unreadable_response = не вдалося прочитати відповідь: {error}
+app.update.no_temp_dir = немає тимчасової папки для завантаження
+app.update.asset_has_path = назва ресурсу випуску містить шлях
+app.update.too_big = завантаження більше, ніж зазначено у випуску
+app.update.stopped_at = завантаження зупинилося на {got} із {total} байтів
+app.update.hash_mismatch = хеш завантаження — {got}, очікувався {want}
+app.update.not_in_bundle = ця копія не міститься в пакеті застосунку
+app.update.no_parent_dir = пакет застосунку не має батьківської папки
+app.update.cannot_write = не вдалося записати до {dir}
+app.update.cannot_move_aside = не вдалося перемістити {app}
+app.update.cannot_move_in = не вдалося помістити новий пакет на місце
+app.update.cannot_run_ditto = не вдалося запустити /usr/bin/ditto
+app.update.unpack_failed = не вдалося розпакувати завантаження: {error}
+app.update.no_app_in_download = завантаження не містить Schist.app
+app.update.cannot_run_codesign = не вдалося запустити /usr/bin/codesign
+app.update.signature_invalid = підпис завантаження не пройшов перевірку: {error}
+app.update.download_unsigned = ця копія підписана, а завантаження — ні
+app.update.different_developer = завантаження підписав інший розробник
+app.update.cannot_relaunch = не вдалося запустити засіб перезапуску
+app.update.not_installed_copy = цю копію не було розміщено тут інсталятором
+app.update.cannot_start_installer = не вдалося запустити інсталятор
+app.update.platform_unsupported = на цій платформі оновлення встановлюються так само, як Schist
+app.vulkan.no_loader = schist: у системі немає завантажувача Vulkan, тому немає чим виводити зображення.\n\nSchist відтворює графіку через Vulkan, але `libvulkan.so.1` не встановлено.\nПотрібні і завантажувач, і драйвер:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: драйвера Vulkan, указаного для цього сеансу, немає.\n\nЗмінну {var} задано, і її значення *замінює* пошук драйверів\nзавантажувачем, а не доповнює його. Тому ці відсутні файли\nстановлять увесь список драйверів, і жодна програма Vulkan у цьому\nсеансі не бачить драйвера, хоч скільки їх установлено:\n\n{missing}\n    {var}={value}\n\nУкажіть наявний маніфест — установлені драйвери розміщують їх у\n/usr/share/vulkan/icd.d — або вилучіть змінну й дозвольте завантажувачу\nзнайти драйвери. Якщо змінну задає файл конфігурації (рядок `env =` у\nHyprland, файл environment.d systemd або профіль оболонки), змініть її\nтам. Щоб зміна дійшла до запущених програм, слід увійти в систему заново.\n
+app.vulkan.override_note = \nЗмінну {var} задано як {value}, і це замінює власний пошук\nзавантажувача. Якщо жоден із маніфестів не підходить цій машині,\nспершу спробуйте вилучити змінну.\n
+app.vulkan.no_driver = schist: драйвер Vulkan не встановлено, тому немає чим виводити зображення.\n\nSchist відтворює графіку через Vulkan. Завантажувач установлено, але він не\nповідомляє про жоден драйвер — нічого не зареєстровано в місцях пошуку:\n\n{dirs}\n\nЗавантажувач постачається окремо від драйверів, тому зазвичай бракує одного\nпакета.\n\nУстановіть драйвер для графічного процесора цієї машини:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nВласницький драйвер NVIDIA містить свій (`nvidia-utils` в Arch,\n`nvidia-driver` у Debian). У віртуальній машині або без драйвера GPU\nпрацює програмний растеризатор: `vulkan-swrast` в Arch і частина\n`mesa-vulkan-drivers` в інших системах. Він повільний, але запускається.\n{overridden}
+app.vulkan.no_device = schist: драйвер Vulkan установлено, але він не надає пристрою для відтворення.\n\nМожливо, драйвер не підтримує цей GPU або не має до нього доступу —\nчерез SSH чи в контейнері часто бракує /dev/dri. Команда\n`vulkaninfo --summary` показує, що бачить завантажувач.\n\nПрограмний растеризатор працює без GPU: `vulkan-swrast` в Arch і частина\n`mesa-vulkan-drivers` у Debian та Fedora.\n
+app.vulkan.skip_hint = Щоб усе одно запустити Schist і дати йому завершитися з власною помилкою, задайте {var}=1.

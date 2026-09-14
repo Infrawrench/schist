@@ -1,0 +1,43 @@
+tool.pen.name = Қалам
+tool.pen.description = Контур құрыңыз: бұрыштық нүкте қою үшін шертіңіз, одан қисықтың тұтқаларын шығару үшін сүйреңіз, ал тұйықтау үшін алғашқы нүктені шертіңіз. Растағанда контур пішін қабатына айналады.
+tool.pen.option.rubber_band = Серпімді сызық
+tool.pen.history.fill = Контурды толтыру
+tool.pen.default_path_name = Контур {n}
+tool.pen.freeform.name = Еркін қалам
+tool.pen.freeform.description = Сызықты қолмен сүйреп салыңыз, сонда ол «Сәйкестік» параметріне сай дәлдікпен контурға келтіріледі.
+tool.pen.freeform.option.fit = Сәйкестік
+tool.pen.curvature.name = Қисықтық қаламы
+tool.pen.curvature.description = Бірнеше нүктені ретімен шертіңіз, сонда контур олардың арасымен бірқалыпты иіледі.
+
+tool.path_select.name = Контурды таңдау
+tool.path_select.description = Контурды таңдау үшін оны шертіңіз, ал бүкіл контурды жылжыту үшін сүйреңіз.
+tool.direct_select.name = Тікелей таңдау
+tool.direct_select.description = Контурдың пішінін өзгерту үшін жеке тірек нүктесін немесе оның тұтқаларын сүйреңіз.
+
+tool.shape.history.layer = {name} қабаты
+tool.shape.rect.name = Тіктөртбұрыш құралы
+tool.shape.rect.label = Тіктөртбұрыш
+tool.shape.rect.description = Алдыңғы түспен тіктөртбұрышты пішін қабатын сүйреп жасаңыз; ол векторлық күйде қалып, өлшемі өзгерген сайын қайта растрланады.
+tool.shape.ellipse.name = Эллипс құралы
+tool.shape.ellipse.label = Эллипс
+tool.shape.ellipse.description = Алдыңғы түспен эллипстік пішін қабатын сүйреп жасаңыз.
+tool.shape.line.name = Сызық құралы
+tool.shape.line.label = Сызық
+tool.shape.line.description = Алдыңғы түспен түзу сызық пішін қабатын сүйреп жасаңыз.
+tool.shape.line.option.weight = Қалыңдық
+tool.shape.line.option.arrow_start = Басы
+tool.shape.line.option.arrow_end = Соңы
+tool.shape.polygon.name = Көпбұрыш құралы
+tool.shape.polygon.label = Көпбұрыш
+tool.shape.polygon.description = Параметрлерде көрсетілген қабырғалар санымен алдыңғы түстегі дұрыс көпбұрыш пішін қабатын сүйреп жасаңыз.
+tool.shape.polygon.option.sides = Қабырғалар
+
+tool.shape.custom.name = Арнаулы пішін
+tool.shape.custom.label = Арнаулы пішін
+tool.shape.custom.description = «Пішін» параметрі арқылы таңдалған кірістірілген дайын пішіндердің бірін сүйреп жасаңыз.
+tool.shape.custom.choice.heart = Жүрек
+tool.shape.custom.choice.star = Жұлдыз
+tool.shape.custom.choice.arrow = Көрсеткі
+tool.shape.custom.choice.lightning = Найзағай
+tool.shape.custom.choice.cross = Айқыш
+tool.shape.custom.choice.speech_bubble = Сөйлеу бұлты

@@ -1,0 +1,22 @@
+tool.type.name = Tèks
+tool.type.description = Klike pou kòmanse yon kouch tèks nan kote sa a, oswa klike sou youn ki deja la pou modifye l. Pandan li louvri, zouti a resevwa frap klavye dirèkteman (voye karaktè kòm antre klavye), epi lè w valide, li rann kouch la epi li fèmen modifikasyon an.
+
+tool.type.option.align = Aliyman
+tool.type.option.leading = Entèliy
+tool.type.option.tracking = Espasman lèt
+tool.type.option.kerning = Ajisteman pè lèt
+tool.type.option.ligatures = Ligati
+tool.type.option.discretionary_ligatures = Ligati opsyonèl
+tool.type.option.small_caps = Ti majiskil
+tool.type.option.on_path = Sou chemen aktif la
+tool.type.option.path_offset = Dekalaj sou chemen an
+
+tool.type.choice.regular = Nòmal
+tool.type.choice.bold = Gra
+tool.type.choice.italic = Italik
+tool.type.choice.bold_italic = Gra italik
+
+tool.type.history.new_layer = Nouvo kouch tèks
+tool.type.history.edit = Modifye tèks
+tool.type.history.discard = Abandone tèks
+tool.type.history.discard_empty = Abandone tèks vid

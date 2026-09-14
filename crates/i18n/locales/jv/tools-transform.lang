@@ -1,0 +1,31 @@
+# Transformasi bebas, transformasi pilihan, potong, lan jeneng resampling.
+
+# Transformasi bebas
+tool.transform.name = Transformasi Bebas
+tool.transform.description = Transformasi Bebas. Nalika diaktifaké, kothak transformasi bakal mbungkus lapisan aktif: seret pojok kanggo ngowahi ukuran, seret ing njabané pojok kanggo muter, lan seret pinggir kanggo ménggokaké. Ora ana owah-owahan sing ditulis sadurungé ditrapaké (Enter), lan mbatalaké (Escape) bakal mbalèkaké lapisan.
+tool.transform.option.interpolation = Interpolasi
+tool.transform.history.transform = Transformasi Bebas
+tool.transform.history.image_size = Ukuran Gambar
+tool.transform.history.canvas_size = Ukuran Kanvas
+
+# Transformasi pilihan
+tool.transform.selection.name = Transformasi Pilihan
+tool.transform.selection.description = Transformasi Pilihan: nganggo kothak sing padha kanggo mindhah garis pilihan, dudu piksel ing njeroné. Trapaké utawa batalaké kanggo ngrampungaké.
+tool.transform.selection.history.transform = Transformasi Pilihan
+
+# Filter resampling klasik
+tool.transform.resample.nearest_neighbor = Tangga Paling Cedhak
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bikubik
+
+# Potong
+tool.crop.name = Potong
+tool.crop.description = Seret area sing arep disimpen lan atur gagangé; nalika ditrapaké (Enter), dokumèn bakal dipotong manut area kuwi, déné mbatalaké (Escape) ora bakal ngowahi apa-apa.
+tool.crop.option.ratio = Rasio
+tool.crop.option.delete_cropped = Busak Piksel sing Kapotong
+tool.crop.choice.unconstrained = Tanpa Watesan
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Potong

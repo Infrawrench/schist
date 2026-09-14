@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} декодлау
+codec.msg.zero_sized = рәсемдә пиксельләр юк
+codec.msg.assembling_document = документны җыю
+
+codec.raw.msg.decoding = чимал файлны декодлау
+codec.raw.msg.developing = чимал файлны эшкәртү
+codec.raw.msg.finding_preview = эченә кертелгән алдан карау рәсемен эзләү
+codec.raw.msg.decoding_preview = эченә кертелгән алдан карау рәсемен декодлау
+codec.raw.msg.decoder_panicked = чимал файл декодеры бу файлны эшкәртә алмады: {what}
+
+codec.affinity.import_title = Affinity импортлау
+codec.affinity.flattened_preview_layer = Яссыландырылган алдан карау рәсеме
+codec.affinity.msg.no_preview = Кулланып булырлык эчке алдан карау рәсеме юк. Affinity-нең катламлы форматы ябык; Schist файл эчендәге яссыландырылган алдан карау рәсемен импортлый. Бу файлда андый рәсем юк — аны Affinity-дә яңадан саклагыз яки барлык катламнарны импортлау өчен PSD итеп экспортлагыз.
+
+codec.heif.msg.no_library = libheif мөмкин түгел ({details}). HEIC ачу өчен libheif китапханәсе кирәк (Linux: libheif1 урнаштырыгыз; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — бу libheif җыелмасында HEVC декодеры булмаска мөмкин (Debian/Ubuntu-да libheif-plugin-libde265 урнаштырыгыз)
+codec.heif.msg.unknown_error = билгесез хата
+codec.heif.msg.initialising = libheif-ны әзерләү
+codec.heif.msg.reading_container = HEIF контейнерын уку
+codec.heif.msg.finding_primary_image = төп рәсемне эзләү
+codec.heif.msg.reading_icc_profile = ICC профилен уку
+codec.heif.msg.decoding_image = рәсемне декодлау
+codec.heif.msg.checksum_mismatch = {name} өчен тикшерү суммасы туры килми: {expected} көтелде, {got} алынды
+codec.heif.msg.imageio_cannot_read = ImageIO HEIF контейнерын укый алмады
+codec.heif.msg.container_empty = HEIF контейнерында рәсем юк
+codec.heif.msg.imageio_cannot_decode = ImageIO төп рәсемне декодлый алмады

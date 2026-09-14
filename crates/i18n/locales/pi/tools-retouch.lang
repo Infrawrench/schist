@@ -1,0 +1,27 @@
+# Patch
+tool.patch.name = Paṭikammakhaṇḍaṃ
+tool.patch.description = Dosassa samantā paricchedalekhaṃ ākaḍḍhitvā, taṃ gahaṇaṃ suddhapikselesu ākaḍḍhatha; tattha vijjamānā racanā dose samānīyati. Paṭikammavidhinā yugalassa kataraṃ antaṃ ākaḍḍhitabbaṃ taṃ niyamīyati.
+tool.patch.option.patch = Paṭikammakhaṇḍaṃ
+tool.patch.choice.source = Mūlaṃ
+tool.patch.choice.destination = Gantabbaṭṭhānaṃ
+tool.patch.history.patch = Paṭikammakhaṇḍaṃ
+
+# Content-Aware Move
+tool.content_aware_move.name = Atthaññū-cālanaṃ
+tool.content_aware_move.description = Gahitaṃ vatthu aññattha ākaḍḍhatha; tena chaḍḍitaṃ chiddaṃ samantato pūrīyati. Vitthāravidhimhi vatthu acālitaṃ vitthārīyati.
+tool.content_aware_move.choice.move = Cālanaṃ
+tool.content_aware_move.choice.extend = Vitthāranaṃ
+tool.content_aware_move.history.move = Atthaññū-cālanaṃ
+
+# Red Eye
+tool.red_eye.name = Rattakkhi
+tool.red_eye.description = Akkhitārakaṃ phusitvā vijjujotiyā uppannaṃ rattavaṇṇaṃ tato apanetha.
+tool.red_eye.option.pupil_size = Akkhitārakappamāṇaṃ
+tool.red_eye.option.darken = Andhakaraṇaṃ
+tool.red_eye.history.red_eye = Rattakkhi
+
+# Magic Eraser
+tool.magic_eraser.name = Iddhimaya-apamajjakaṃ
+tool.magic_eraser.description = Phusitvā niddesakassa heṭṭhā samānavaṇṇaṃ padesaṃ, karaṇassa sahanasīmāya anto, apamajjatha; phusitaṭṭhānena sambaddhaṃ vā santharamhi sabbattha vā.
+tool.magic_eraser.option.contiguous = Sambaddhaṃ
+tool.magic_eraser.history.erase = Iddhimaya-apamajjanaṃ

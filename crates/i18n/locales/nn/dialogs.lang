@@ -1,0 +1,237 @@
+dialog.save_ellipsis = Lagre …
+dialog.use_foreground = Bruk framgrunn
+dialog.downloading = Lastar ned …
+dialog.downloading_of = Lastar ned … {got} av {total}
+dialog.no_config_dir = (inga oppsettsmappe)
+
+dialog.layer_props.title = Lageigenskapar
+
+dialog.export.format = Format
+dialog.export.dither = Fargeutjamning
+dialog.export.dither_note = Jamn ut fargane ved reduksjon til 8 bit
+dialog.export.export_ellipsis = Eksporter …
+
+dialog.batch.title = Handsam foto
+dialog.batch.note_edit.one = {n} foto – vert lagra som galleriendring; originalen vert aldri rørt.
+dialog.batch.note_edit.other = {n} foto – vert lagra som galleriendringar; originalane vert aldri rørte.
+dialog.batch.note_edit_edited.one = {n} foto, med {edited} eksisterande redigering – oppskrifta vert lagd oppå redigeringa, og den førre redigeringa vert lagra som ein versjon.
+dialog.batch.note_edit_edited.other = {n} foto, med {edited} eksisterande redigeringar – oppskrifta vert lagd oppå redigeringane, og dei førre redigeringane vert lagra som versjonar.
+dialog.batch.note_copies.one = {n} foto – samanslegen kopi; originalen vert aldri rørt.
+dialog.batch.note_copies.other = {n} foto – samanslegne kopiar; originalane vert aldri rørte.
+dialog.batch.note_copies_edited.one = {n} foto, med {edited} eksisterande redigering – kopien vert laga frå redigeringa.
+dialog.batch.note_copies_edited.other = {n} foto, med {edited} eksisterande redigeringar – kopiane vert laga frå redigeringane.
+dialog.batch.turn = Snu
+dialog.batch.rotate = Roter
+dialog.batch.flip = Vend
+dialog.batch.upscale = Skaler opp
+dialog.batch.colour = Farge
+dialog.batch.add_adjustment = Justering …
+dialog.batch.output = Utdata
+dialog.batch.save_as = Lagre som
+dialog.batch.process = Handsam
+dialog.batch.process_n = Handsam {n}
+dialog.batch.nothing_to_do = Ingenting å gjera: Vel først ei vending, ei oppskalering eller ei justering
+
+dialog.content_aware_scale.title = Innhaldstilpassa skalering
+dialog.content_aware_scale.note = Skjer bort saumar med få detaljar. Eit utval merkjer det som skal vernast.
+
+dialog.stroke.title = Strek
+dialog.stroke.location = Plassering
+dialog.stroke.inside = Innanfor
+dialog.stroke.outside = Utanfor
+dialog.stroke.note = Strekar opp utvalet i framgrunnsfargen.
+
+dialog.fill.contents = Innhald
+
+dialog.color_range.title = Fargeområde
+dialog.color_range.sampled = Fargeprøve
+dialog.color_range.fuzziness = Spreiing
+dialog.color_range.note = Vel pikslar nær prøvefargen på det aktive laget.
+
+dialog.file_picker.up = ↑ Opp
+dialog.file_picker.empty = Ingenting her
+dialog.file_picker.choose_folder = Vel denne mappa
+
+dialog.filter.camera_raw_development = Camera Raw-framkalling
+dialog.filter.reset_as_shot = Tilbakestill til opptaket
+dialog.filter.raw_note = Framkallar det aktive laget på nytt frå dei opphavlege sensordataa.
+dialog.filter.note = Vert brukt på det aktive laget innanfor utvalet.
+
+dialog.fonts.title = Manglande skrifter
+dialog.fonts.install_named = Installer {name}
+dialog.fonts.no_document = Inkje dokument er ope, så det finst ingenting å kontrollera.
+dialog.fonts.all_installed = Alle skriftene dokumentet brukar, er installerte. Teksten er sett med dei same skriftene som i den opphavlege utforminga.
+dialog.fonts.missing_intro = Dette dokumentet er sett med skrifter du ikkje har. Teksten kan lesast med ei mellombels erstatningsskrift, men breiddene og linjeskifta samsvarar ikkje med den opphavlege utforminga.
+dialog.fonts.footer = Nedlastingane kjem frå den opne Google Fonts-katalogen og vert lagra i {dir}. Ei skrift som ikkje har open lisens, vert aldri henta. Dersom det finst ei fri utforming med dei same skriftmåla, vert ho tilbodd i staden. Då kjem oppsettet tilbake fordi teiknbreiddene er dei same.
+dialog.fonts.user_font_dir = den personlege skriftmappa di
+
+dialog.models.title = Modellar for Neural Filters
+dialog.models.built_in = Innebygd · {size}
+dialog.models.installed = Installert · {size}
+dialog.models.not_installed = Ikkje installert · {size}
+dialog.models.not_in_browser = Ikkje tilgjengeleg i nettlesaren · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modellane vert lagra i {dir}. Filter utan modell fell tilbake på signalhandsaming og opplyser om det.
+
+dialog.new_doc.title = Nytt dokument
+dialog.new_doc.picker_title = Ny fil
+dialog.new_doc.custom_ellipsis = Eigendefinert …
+dialog.new_doc.preset = Førehandsinnstilling
+dialog.new_doc.preset_default = Standard (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Kvadrat (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px ved {ppi} ppi · {size}
+dialog.new_doc.create = Opprett
+dialog.new_doc.created = Nytt dokument: {w} × {h} px
+
+dialog.open.image_title = Opna bilete
+dialog.open.image_prompt = Vil du opna «{name}» i ei ny fane eller leggja det til i det gjeldande dokumentet som eit nytt lag?
+dialog.open.new_tab = Ny fane
+dialog.open.new_layer = Nytt lag
+dialog.open.quoted = «{name}»
+dialog.open.these_files.one = denne {n} fila
+dialog.open.these_files.other = desse {n} filene
+dialog.open.shared_title_one = Delt bilete
+dialog.open.shared_title_many = Delte bilete
+dialog.open.shared_prompt = Vil du leggja {what} til i galleriet eller opna i redigeringa?
+dialog.open.add_to_gallery = Legg til i galleriet
+dialog.open.open_in_editor = Opna i redigeringa
+dialog.open.heic_title = HEIC-støtte
+dialog.open.heic_needs_decoder = For å opna «{name}» trengst ein HEVC-dekodar som ikkje er installert på dette systemet.
+dialog.open.heic_offer = Schist kan lasta ned ei utgåve av libheif {version} som berre dekodar, med HEVC-dekodaren libde265 (om lag 5 MB). Begge har LGPL-3.0-lisens. Lisenstekstane vert installerte ved sida av biblioteket, og kjeldekoden er tilgjengeleg på prosjektsida.
+dialog.open.licenses_source = Lisensar og kjeldekode
+dialog.open.folders_title = Sleppte mapper
+dialog.open.n_folders.one = {n} mappe
+dialog.open.n_folders.other = {n} mapper
+dialog.open.open_in_tabs = Opna i faner
+dialog.open.open_first_in_tabs = Opna dei første {n} i faner
+dialog.open.open_n_in_tabs.one = Opna {n} i ei fane
+dialog.open.open_n_in_tabs.other = Opna {n} i faner
+dialog.open.folder_holds.one = {what} inneheld {n} bilete som Schist kan opna, medrekna undermapper.
+dialog.open.folder_holds.other = {what} inneheld {n} bilete som Schist kan opna, medrekna undermapper.
+dialog.open.folders_note = Legg til i galleriet overvaker mappene der dei ligg. Ingenting vert kopiert, og redigeringar vert versjonerte ved sida av kvart foto. Opning i faner lastar alle bileta inn i redigeringa no.
+
+dialog.plugins.title = Programtillegg
+dialog.plugins.kind_filter = filter
+dialog.plugins.kind_format = format
+dialog.plugins.kind_unavailable = utilgjengeleg
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Programtillegg vert lasta frå {dir}
+dialog.plugins.none = Ingen programtillegg er installerte enno.
+dialog.plugins.install_ellipsis = Installer …
+dialog.plugins.photoshop_heading = Photoshop-programtillegg
+dialog.plugins.loaded_from = Lasta frå {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Innstillingar
+dialog.prefs.theme = Drakt
+dialog.prefs.theme_dark = Mørk
+dialog.prefs.theme_light = Lys
+dialog.prefs.grid_spacing = Avstand i rutenett
+dialog.prefs.snapping = Festing
+dialog.prefs.snap_to = Fest til hjelpelinjer, rutenett og lerretskantar
+dialog.prefs.rendering_intent = Fargetilpassing
+dialog.prefs.intent_perceptual = Perseptuell
+dialog.prefs.intent_relative = Relativ kolorimetrisk
+dialog.prefs.intent_saturation = Metning
+dialog.prefs.intent_absolute = Absolutt kolorimetrisk
+dialog.prefs.scrolling = Rulling
+dialog.prefs.zoom_with_scroll = Zoom med rullehjulet
+dialog.prefs.rendering = Teikning
+dialog.prefs.gpu_compositing = GPU-samansetjing
+dialog.prefs.diagnostics = Diagnostikk
+dialog.prefs.crash_reports = Skriv ein lokal krasjrapport ved panikk
+dialog.prefs.crash_upload = Send han òg til utviklarane
+dialog.prefs.telemetry = Send eit anonymt dagleg livsteikn
+dialog.prefs.diagnostics_note = Diagnostikkinnstillingane tek til å gjelda neste gong Schist startar.
+dialog.prefs.updates = Oppdateringar
+dialog.prefs.check_updates = Sjå etter nye utgjevingar ved oppstart
+dialog.prefs.keyboard_shortcuts = Snøggtastar: {path}
+dialog.prefs.nsfw_needs_model = Treng modellen Content (NSFW Filter) –
+dialog.prefs.nsfw_download_link = last han ned under Handsam modellar …
+dialog.prefs.hide_flagged = Gøym flagga foto
+
+dialog.profile.profile = Profil
+dialog.profile.assign_title = Tildel profil
+dialog.profile.convert_title = Konverter til profil
+dialog.profile.assign = Tildel
+dialog.profile.convert = Konverter
+dialog.profile.assign_note = Tolkar dei eksisterande pikselverdiane på nytt etter den nye profilen.
+dialog.profile.convert_note = Skriv om pikselverdiane slik at fargane held på utsjånaden.
+
+dialog.save_image.title = Lagre bilete som
+dialog.save_image.note = {name} – redigeringa dersom det finst ei; originalen vert aldri rørt.
+dialog.save_image.scale_to = {percent} % → {w} × {h}
+
+dialog.size.image_title = Biletstorleik
+dialog.size.canvas_title = Lerretsstorleik
+dialog.size.constrain = Avgrens
+dialog.size.keep_proportions = Behald proporsjonar
+dialog.size.resample = Skaler pikslar
+dialog.size.bicubic = Bikubisk
+dialog.size.bilinear = Bilineær
+dialog.size.nearest = Næraste nabo
+dialog.size.anchor = Anker
+dialog.size.currently = No {w} × {h} px
+dialog.size.image_size_status = Biletstorleik: {w} × {h}
+dialog.size.canvas_size_status = Lerretsstorleik: {w} × {h}
+
+dialog.update.title = Oppdatering tilgjengeleg
+dialog.update.available = Schist {version} er tilgjengeleg. Denne kopien er {current}.
+dialog.update.installing = Installerer oppdateringa …
+dialog.update.can_install = Schist kan lasta henne ned ({size}) og installera henne over denne kopien.
+dialog.update.external = Denne kopien kom frå noko som eig han – ein pakkehandsamar, eit AppImage eller ditt eige bygg – så han vert oppdatert på same måte som han vart installert.
+dialog.update.later = Seinare
+dialog.update.release_notes = Utgåvemerknader
+dialog.update.update_restart = Oppdater og start på nytt
+dialog.update.open_page = Opna utgjevingssida
+
+dialog.style.title = Lagstil
+dialog.style.bevel = Fas og relieff
+dialog.style.stroke = Strek
+dialog.style.inner_shadow = Indre skugge
+dialog.style.inner_glow = Indre glød
+dialog.style.satin = Sateng
+dialog.style.color_overlay = Fargeoverlegg
+dialog.style.gradient_overlay = Forløpingsoverlegg
+dialog.style.outer_glow = Ytre glød
+dialog.style.drop_shadow = Slagskugge
+dialog.style.blur = Gaussisk uskarpleik
+dialog.style.gradient_from = Forløpingsoverlegg frå
+dialog.style.gradient_to = Forløpingsoverlegg til
+dialog.style.soften = Mjuk opp
+dialog.style.depth = Djupn
+dialog.style.altitude = Høgd
+dialog.style.highlight = Høglys
+dialog.style.shadow = Skugge
+dialog.style.outer_bevel = Ytre fas
+dialog.style.inner_bevel = Indre fas
+dialog.style.emboss = Relieff
+dialog.style.pillow_emboss = Puterelieff
+dialog.style.linear = Lineær
+dialog.style.radial = Radiell
+dialog.style.reverse = Snu
+dialog.style.from_to = Frå/til
+dialog.style.from_fg = Frå = framgrunn
+dialog.style.to_fg = Til = framgrunn
+dialog.style.precise = Nøyaktig
+dialog.style.knockout = Laget stansar ut slagskuggen
+
+dialog.color_picker.title = Fargeveljar ({what})
+dialog.color_picker.effect_color = Farge for {effect}
+dialog.color_picker.note_color = Merknadsfarge
+dialog.color_picker.new = ny
+dialog.color_picker.current = gjeldande
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Tilbakestill kanal
+dialog.curves.hint = Dra for å forma · klikk for å leggja til · Alt-klikk for å fjerna
+
+dialog.prefs.camera_sync = Kamerarull
+dialog.prefs.camera_sync_enabled = Ta tryggleikskopi til Schist Cloud
+dialog.prefs.camera_sync_sign_in = Logg inn på Schist Cloud for å ta tryggleikskopi av kamerarullen.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Endre …

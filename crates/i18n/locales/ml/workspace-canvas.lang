@@ -1,0 +1,40 @@
+# Status bar
+workspace.canvas.rotate_view_degrees = കാഴ്ച {degrees}° തിരിക്കുക
+workspace.canvas.view_reset = കാഴ്ച പുനഃസജ്ജമാക്കി
+workspace.canvas.notes_on = കുറിപ്പുകൾ ഓൺ
+workspace.canvas.notes_off = കുറിപ്പുകൾ ഓഫ്
+workspace.canvas.rulers_on = അളവുകോലുകൾ ഓൺ
+workspace.canvas.rulers_off = അളവുകോലുകൾ ഓഫ്
+workspace.canvas.grid_on = ഗ്രിഡ് ഓൺ
+workspace.canvas.grid_off = ഗ്രിഡ് ഓഫ്
+workspace.canvas.guides_on = സഹായരേഖകൾ ഓൺ
+workspace.canvas.guides_off = സഹായരേഖകൾ ഓഫ്
+workspace.canvas.extras_on = അധിക ഘടകങ്ങൾ ഓൺ
+workspace.canvas.extras_off = അധിക ഘടകങ്ങൾ ഓഫ്
+workspace.canvas.snap_on = സ്നാപ്പ് ഓൺ
+workspace.canvas.snap_off = സ്നാപ്പ് ഓഫ്
+workspace.canvas.guides_cleared = സഹായരേഖകൾ മായ്ച്ചു
+workspace.canvas.no_path = ഉപയോഗിക്കാൻ പാതയില്ല
+workspace.canvas.path_empty = പാത ഒഴിഞ്ഞതാണ്
+workspace.canvas.stroke_needs_selection = സ്ട്രോക്കിന് ഒരു തിരഞ്ഞെടുപ്പ് ആവശ്യമാണ്
+workspace.canvas.nothing_to_stroke = സ്ട്രോക്ക് ചെയ്യാൻ ഒന്നുമില്ല
+workspace.canvas.content_aware_fill_needs_selection = ഉള്ളടക്കം തിരിച്ചറിഞ്ഞുള്ള നിറയ്ക്കലിന് ഒരു തിരഞ്ഞെടുപ്പ് ആവശ്യമാണ്
+workspace.canvas.content_aware_fill_needs_pixel_layer = ഉള്ളടക്കം തിരിച്ചറിഞ്ഞുള്ള നിറയ്ക്കലിന് ഒരു പിക്സൽ ലെയർ ആവശ്യമാണ്
+workspace.canvas.color_range_needs_pixel_layer = വർണ്ണ പരിധിക്ക് ഒരു പിക്സൽ ലെയർ ആവശ്യമാണ്
+workspace.canvas.nothing_to_adjust = ക്രമീകരിക്കാൻ ഒന്നുമില്ല
+workspace.canvas.nothing_to_trim = അരികുകൾ മുറിക്കാൻ ഒന്നുമില്ല
+workspace.canvas.trimmed = അരികുകൾ മുറിച്ചു
+workspace.canvas.indexed_not_supported = ഇൻഡെക്സ്ഡ് വർണ്ണത്തിന് ഇതുവരെ പിന്തുണയില്ല
+workspace.canvas.opacity_percent = അതാര്യത: {n}%
+
+# History
+workspace.history.stroke = സ്ട്രോക്ക്
+workspace.history.fill = നിറയ്ക്കൽ
+workspace.history.content_aware_scale = ഉള്ളടക്കം തിരിച്ചറിഞ്ഞുള്ള വലുപ്പമാറ്റം
+workspace.history.filter_gallery = ഫിൽട്ടർ ഗാലറി
+workspace.history.color_range = വർണ്ണ പരിധി
+workspace.history.move_layer = ലെയർ നീക്കുക
+workspace.history.move_layers = ലെയറുകൾ നീക്കുക
+workspace.history.layer_opacity = ലെയർ അതാര്യത
+workspace.history.delete_note = കുറിപ്പ് ഇല്ലാതാക്കുക
+workspace.history.edit_note = കുറിപ്പ് തിരുത്തുക

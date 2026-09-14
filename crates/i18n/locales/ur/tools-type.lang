@@ -1,0 +1,23 @@
+# متن کا ٹول
+tool.type.name = متن
+tool.type.description = یہاں نئی متنی لیئر شروع کرنے کے لیے کلک کریں، یا موجودہ لیئر میں ترمیم کے لیے اس پر کلک کریں۔ کھلا ہونے کے دوران ٹول براہ راست کلیدیں لیتا ہے (حروف کو کلیدی ان پٹ کے طور پر بھیجیں)، اور تصدیق کرنے پر لیئر رینڈر ہو کر تدوین بند ہو جاتی ہے۔
+
+tool.type.option.align = سیدھ
+tool.type.option.leading = سطری فاصلہ
+tool.type.option.tracking = حروف کا مجموعی فاصلہ
+tool.type.option.kerning = حروف کا جوڑی فاصلہ
+tool.type.option.ligatures = مرکب حروف
+tool.type.option.discretionary_ligatures = اختیاری مرکب حروف
+tool.type.option.small_caps = چھوٹے بڑے حروف
+tool.type.option.on_path = فعال راستے پر
+tool.type.option.path_offset = راستے سے فاصلہ
+
+tool.type.choice.regular = معمول
+tool.type.choice.bold = جلی
+tool.type.choice.italic = ترچھا
+tool.type.choice.bold_italic = جلی ترچھا
+
+tool.type.history.new_layer = نئی متنی لیئر
+tool.type.history.edit = متن میں ترمیم
+tool.type.history.discard = متن مسترد کریں
+tool.type.history.discard_empty = خالی متن مسترد کریں

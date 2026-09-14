@@ -1,0 +1,153 @@
+# File
+menu.file = ഫയൽ
+menu.file.new = പുതിയത്
+menu.file.open = തുറക്കുക…
+menu.file.open_recent = അടുത്തിടെ തുറന്നവ
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = ഗാലറി ബ്രൗസ് ചെയ്യുക…
+menu.file.close = അടയ്ക്കുക
+menu.file.save = സംരക്ഷിക്കുക
+menu.file.save_as = ഇങ്ങനെ സംരക്ഷിക്കുക…
+menu.file.export = കയറ്റുമതി ചെയ്യുക…
+menu.file.export_submenu = കയറ്റുമതി ചെയ്യുക
+menu.file.export_artboards = ആർട്ട്ബോർഡുകൾ PNG-യിലേക്ക്…
+menu.file.export_slices = സ്ലൈസുകൾ PNG-യിലേക്ക്…
+menu.file.save_to_photos = ഫോട്ടോകളിലേക്ക് സംരക്ഷിക്കുക
+menu.file.plugins = പ്ലഗ്-ഇനുകൾ…
+menu.file.missing_fonts = ലഭ്യമല്ലാത്ത ഫോണ്ടുകൾ…
+menu.file.check_for_updates = അപ്ഡേറ്റുകൾ പരിശോധിക്കുക…
+menu.file.quit = പുറത്തുകടക്കുക
+menu.file.add_folder_to_gallery = ഗാലറിയിലേക്ക് ഫോൾഡർ ചേർക്കുക…
+menu.file.import_from_photos = ഫോട്ടോകളിൽനിന്ന് ഇറക്കുമതി ചെയ്യുക…
+menu.file.import_from_camera = ക്യാമറയിൽനിന്ന് ഇറക്കുമതി ചെയ്യുക…
+
+# Edit
+menu.edit = തിരുത്തുക
+menu.edit.fill = നിറയ്ക്കുക…
+menu.edit.stroke = സ്ട്രോക്ക്…
+menu.edit.content_aware_fill = ഉള്ളടക്കം തിരിച്ചറിഞ്ഞുള്ള നിറയ്ക്കൽ
+menu.edit.content_aware_scale = ഉള്ളടക്കം തിരിച്ചറിഞ്ഞുള്ള വലുപ്പമാറ്റം…
+menu.edit.puppet_warp = പപ്പറ്റ് വാർപ്പ്
+menu.edit.free_transform = സ്വതന്ത്ര രൂപാന്തരം
+menu.edit.transform = രൂപാന്തരപ്പെടുത്തുക
+menu.edit.rotate_180 = 180° തിരിക്കുക
+menu.edit.rotate_90_cw = ഘടികാരദിശയിൽ 90° തിരിക്കുക
+menu.edit.rotate_90_ccw = ഘടികാരവിരുദ്ധദിശയിൽ 90° തിരിക്കുക
+menu.edit.flip_horizontal = തിരശ്ചീനമായി മറിക്കുക
+menu.edit.flip_vertical = ലംബമായി മറിക്കുക
+
+# Image
+menu.image = ചിത്രം
+menu.image.mode = മോഡ്
+menu.image.adjustments = ക്രമീകരണങ്ങൾ
+menu.image.auto_tone = സ്വയം ടോൺ
+menu.image.auto_contrast = സ്വയം കോൺട്രാസ്റ്റ്
+menu.image.auto_color = സ്വയം വർണ്ണം
+menu.image.image_size = ചിത്രത്തിന്റെ വലുപ്പം…
+menu.image.canvas_size = ക്യാൻവാസ് വലുപ്പം…
+menu.image.image_rotation = ചിത്രം തിരിക്കൽ
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = ഘടികാരദിശയിൽ 90°
+menu.image.rotate_90_ccw = ഘടികാരവിരുദ്ധദിശയിൽ 90°
+menu.image.flip_canvas_horizontal = ക്യാൻവാസ് തിരശ്ചീനമായി മറിക്കുക
+menu.image.flip_canvas_vertical = ക്യാൻവാസ് ലംബമായി മറിക്കുക
+menu.image.crop_to_selection = തിരഞ്ഞെടുത്ത ഭാഗത്തിലേക്ക് മുറിച്ചൊതുക്കുക
+menu.image.trim = അരികുകൾ മുറിക്കുക
+menu.image.assign_profile = പ്രൊഫൈൽ നിർണ്ണയിക്കുക…
+menu.image.convert_to_profile = പ്രൊഫൈലിലേക്ക് പരിവർത്തനം ചെയ്യുക…
+
+# Select
+menu.select = തിരഞ്ഞെടുക്കുക
+menu.select.color_range = വർണ്ണ പരിധി…
+menu.select.modify = മാറ്റം വരുത്തുക
+menu.select.border = അതിർത്തി…
+menu.select.smooth = മിനുസപ്പെടുത്തുക…
+menu.select.expand = വികസിപ്പിക്കുക…
+menu.select.contract = ചുരുക്കുക…
+menu.select.feather = അരികു മൃദുവാക്കുക…
+menu.select.transform_selection = തിരഞ്ഞെടുപ്പ് രൂപാന്തരപ്പെടുത്തുക
+
+# Layer
+menu.layer = ലെയർ
+menu.layer.layer_style = ലെയർ ശൈലി…
+menu.layer.layer_comps = ലെയർ കോമ്പുകൾ
+menu.layer.new_layer_comp = പുതിയ ലെയർ കോമ്പ്
+menu.layer.delete_layer_comp = {name} ഇല്ലാതാക്കുക
+menu.layer.path = പാത
+menu.layer.fill_path = പാത നിറയ്ക്കുക
+menu.layer.stroke_path = പാതയിൽ സ്ട്രോക്ക് ചെയ്യുക
+menu.layer.make_selection = തിരഞ്ഞെടുപ്പാക്കുക
+menu.layer.delete_path = പാത ഇല്ലാതാക്കുക
+
+# Adjust
+menu.adjust = ക്രമീകരിക്കുക
+
+# Filter
+menu.filter = ഫിൽട്ടർ
+menu.filter.filter_gallery = ഫിൽട്ടർ ഗാലറി…
+menu.filter.liquify = ലിക്വിഫൈ
+menu.filter.vanishing_point = വാനിഷിങ് പോയിന്റ്
+menu.filter.manage_models = മോഡലുകൾ കൈകാര്യം ചെയ്യുക…
+menu.filter.camera_raw_development = Camera Raw ഡെവലപ്മെന്റ്…
+
+# View
+menu.view = കാഴ്ച
+menu.view.rotate_view_cw = കാഴ്ച ഘടികാരദിശയിൽ തിരിക്കുക
+menu.view.rotate_view_ccw = കാഴ്ച ഘടികാരവിരുദ്ധദിശയിൽ തിരിക്കുക
+menu.view.reset_view = കാഴ്ച പുനഃസജ്ജമാക്കുക
+menu.view.zoom_in = വലുതാക്കുക
+menu.view.zoom_out = ചെറുതാക്കുക
+menu.view.fit_on_screen = സ്ക്രീനിൽ ഒതുക്കുക
+menu.view.actual_size = 100%
+menu.view.rulers = അളവുകോലുകൾ
+menu.view.grid = ഗ്രിഡ്
+menu.view.guides = സഹായരേഖകൾ
+menu.view.notes = കുറിപ്പുകൾ
+menu.view.ai_panel = AI പാനൽ
+menu.view.extras = അധിക ഘടകങ്ങൾ
+menu.view.snap = സ്നാപ്പ്
+menu.view.clear_guides = സഹായരേഖകൾ മായ്ക്കുക
+menu.view.clear_notes = കുറിപ്പുകൾ മായ്ക്കുക
+menu.view.clear_count = എണ്ണൽ അടയാളങ്ങൾ മായ്ക്കുക
+menu.view.screen_mode = സ്ക്രീൻ മോഡ്
+menu.view.proof_colors = പ്രൂഫ് വർണ്ണങ്ങൾ
+menu.view.show_rulers = അളവുകോലുകൾ കാണിക്കുക
+menu.view.hide_rulers = അളവുകോലുകൾ മറയ്ക്കുക
+menu.view.show_grid = ഗ്രിഡ് കാണിക്കുക
+menu.view.hide_grid = ഗ്രിഡ് മറയ്ക്കുക
+menu.view.show_guides = സഹായരേഖകൾ കാണിക്കുക
+menu.view.hide_guides = സഹായരേഖകൾ മറയ്ക്കുക
+menu.view.show_notes = കുറിപ്പുകൾ കാണിക്കുക
+menu.view.hide_notes = കുറിപ്പുകൾ മറയ്ക്കുക
+menu.view.show_extras = അധിക ഘടകങ്ങൾ കാണിക്കുക
+menu.view.hide_extras = അധിക ഘടകങ്ങൾ മറയ്ക്കുക
+menu.view.enable_snapping = സ്നാപ്പിങ് പ്രവർത്തനക്ഷമമാക്കുക
+menu.view.disable_snapping = സ്നാപ്പിങ് പ്രവർത്തനരഹിതമാക്കുക
+menu.view.enable_proof_colors = പ്രൂഫ് വർണ്ണങ്ങൾ പ്രവർത്തനക്ഷമമാക്കുക
+menu.view.disable_proof_colors = പ്രൂഫ് വർണ്ണങ്ങൾ പ്രവർത്തനരഹിതമാക്കുക
+
+# Gallery
+menu.gallery = ഗാലറി
+menu.gallery.edit_selected = തിരഞ്ഞെടുത്തവ തിരുത്തുക
+menu.gallery.refresh = റിഫ്രഷ് ചെയ്യുക
+menu.gallery.map_filter = മാപ്പ് ഫിൽട്ടർ…
+menu.gallery.back_to_editor = എഡിറ്ററിലേക്കു മടങ്ങുക
+
+# Schist Cloud
+menu.cloud.browse = Schist Cloud ബ്രൗസ് ചെയ്യുക
+menu.cloud.generate = ചിത്രങ്ങൾ സൃഷ്ടിക്കുക…
+menu.cloud.upload = ഡോക്യുമെന്റ് Schist Cloud-ലേക്ക് അപ്‌ലോഡ് ചെയ്യുക…
+menu.cloud.sign_out = Schist Cloud-ൽനിന്ന് സൈൻ ഔട്ട് ചെയ്യുക
+menu.cloud.sign_in = Schist Cloud-ലേക്ക് സൈൻ ഇൻ ചെയ്യുക…
+
+# Application
+menu.app.services = സേവനങ്ങൾ
+menu.app.hide = {app} മറയ്ക്കുക
+menu.app.hide_others = മറ്റുള്ളവ മറയ്ക്കുക
+menu.app.show_all = എല്ലാം കാണിക്കുക
+menu.app.quit = {app}-ൽനിന്ന് പുറത്തുകടക്കുക
+
+# Status
+menu.status.transform_selection_needs_selection = തിരഞ്ഞെടുപ്പ് രൂപാന്തരപ്പെടുത്താൻ ഒരു തിരഞ്ഞെടുപ്പ് ആവശ്യമാണ്
+menu.status.crop_needs_selection = തിരഞ്ഞെടുത്ത ഭാഗത്തിലേക്ക് മുറിച്ചൊതുക്കാൻ ഒരു തിരഞ്ഞെടുപ്പ് ആവശ്യമാണ്
+menu.status.select_photo_to_edit = തിരുത്താൻ ഒരു ഫോട്ടോ തിരഞ്ഞെടുക്കുക

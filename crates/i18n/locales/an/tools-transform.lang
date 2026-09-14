@@ -1,0 +1,32 @@
+# Transformación libre, transformación d'a selección y retalle, amás
+# d'os nombres de remuestreyo y as dentradas de l'historial.
+
+# Transformación libre
+tool.transform.name = Transformación libre
+tool.transform.description = Transformación libre. En activar-la s'ubre una caixa de transformación arredol d'a capa activa: arrociega una cantonada ta cambiar a escala, arrociega por defuera ta chirar y arrociega un canto ta inclinar. No s'escribe cosa dica confirmar (Intro), y cancelar (Escape) torna a capa a lo suyo estau anterior.
+tool.transform.option.interpolation = Interpolación
+tool.transform.history.transform = Transformación libre
+tool.transform.history.image_size = Grandaria d'a imachen
+tool.transform.history.canvas_size = Grandaria d'o lenzo
+
+# Transformar selección
+tool.transform.selection.name = Transformar selección
+tool.transform.selection.description = Transformar selección: a mesma caixa, pero movendo o contorno d'a selección en cuenta d'os pixels que i hai adintro. Confirma u cancela ta rematar.
+tool.transform.selection.history.transform = Transformar selección
+
+# Filtros clasicos de remuestreyo
+tool.transform.resample.nearest_neighbor = Vecín mas amanau
+tool.transform.resample.bilinear = Bilinial
+tool.transform.resample.bicubic = Bicubico
+
+# Retalle
+tool.crop.name = Retallar
+tool.crop.description = Arrociega ta marcar l'aria que se conservará y achusta-ne os tiradors; en confirmar (Intro), o documento se retalla a ixa aria, y en cancelar (Escape) no se modifica.
+tool.crop.option.ratio = Proporción
+tool.crop.option.delete_cropped = Borrar pixels retallaus
+tool.crop.choice.unconstrained = Sin restriccions
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Retallar

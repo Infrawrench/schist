@@ -1,0 +1,45 @@
+# Oriel Hidlwyr, ffontiau, diweddariadau a chyngor Vulkan.
+
+# Oriel Hidlwyr
+app.filter_gallery.title = Oriel Hidlwyr
+app.filter_gallery.stack = Pentwr (rhoddir ar waith o'r gwaelod i'r brig)
+app.filter_gallery.no_settings = Nid oes gosodiadau gan yr hidlydd hwn.
+
+# Ffontiau
+app.fonts.not_open_licensed = heb drwydded agored · mae {substitute} yn cyfateb i'w fetrigau
+app.fonts.missing_substituted = ar goll · mae'r testun yn cael ei osod mewn ffont amgen
+app.fonts.not_in_catalogue = nid yw {family} yn y catalog ffontiau agored
+app.fonts.no_faces = dim wynebau i'w lawrlwytho ar gyfer {family}
+app.fonts.empty_response = ymateb gwag
+
+# Gwallau'r hunan-ddiweddarwr
+app.update.unreadable_response = ymateb annarllenadwy: {error}
+app.update.no_temp_dir = dim cyfeiriadur dros dro i lawrlwytho iddo
+app.update.asset_has_path = mae'r datganiad yn enwi ei ased gyda llwybr
+app.update.too_big = mae'r lawrlwythiad yn fwy nag y dywed y datganiad
+app.update.stopped_at = stopiodd y lawrlwythiad ar {got} o {total} beit
+app.update.hash_mismatch = hash y lawrlwythiad yw {got}, nid {want}
+app.update.not_in_bundle = nid yw'r copi hwn y tu mewn i fwndel rhaglen
+app.update.no_parent_dir = nid oes gan fwndel y rhaglen gyfeiriadur rhiant
+app.update.cannot_write = methu ysgrifennu i {dir}
+app.update.cannot_move_aside = methu symud {app} o'r neilltu
+app.update.cannot_move_in = methu symud y bwndel newydd i'w le
+app.update.cannot_run_ditto = methu rhedeg /usr/bin/ditto
+app.update.unpack_failed = methwyd dadbacio'r lawrlwythiad: {error}
+app.update.no_app_in_download = nid yw'r lawrlwythiad yn cynnwys Schist.app
+app.update.cannot_run_codesign = methu rhedeg /usr/bin/codesign
+app.update.signature_invalid = ni ellir dilysu llofnod y lawrlwythiad: {error}
+app.update.download_unsigned = mae'r copi hwn wedi'i lofnodi ond nid yw'r lawrlwythiad
+app.update.different_developer = mae'r lawrlwythiad wedi'i lofnodi gan ddatblygwr gwahanol
+app.update.cannot_relaunch = methu cychwyn yr ail-lansiwr
+app.update.not_installed_copy = ni osodwyd y copi hwn yma gan y gosodwr
+app.update.cannot_start_installer = methu cychwyn y gosodwr
+app.update.platform_unsupported = caiff diweddariadau ar y platfform hwn eu gosod yn yr un ffordd ag y gosodwyd Schist
+
+# Gwiriad Vulkan ar Linux
+app.vulkan.no_loader = schist: nid oes llwythwr Vulkan ar y system hon, felly nid oes modd lluniadu dim.\n\nMae Schist yn rendro drwy Vulkan, ac nid yw `libvulkan.so.1` wedi'i osod.\nMae angen y llwythwr a gyrrwr fel ei gilydd:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: nid yw'r gyrrwr Vulkan y mae'r sesiwn hon yn pwyntio ato yno.\n\nMae {var} wedi'i osod, ac mae ei osod yn *disodli* chwiliad y llwythwr am\nyrwyr yn hytrach nag ychwanegu ato. Felly'r ffeiliau hyn, nad ydynt yn bodoli,\nyw'r rhestr gyrwyr gyfan — ac nid yw unrhyw raglen Vulkan yn y sesiwn hon\nyn gweld gyrrwr o gwbl, ni waeth faint sydd wedi'u gosod:\n\n{missing}\n    {var}={value}\n\nPwyntiwch ef at faniffest sy'n bodoli — mae gyrwyr wedi'u gosod yn rhoi eu rhai nhw yn\n/usr/share/vulkan/icd.d — neu dad-osodwch ef a gadewch i'r llwythwr ganfod ei rai ei hun.\nRhaid newid sesiwn sy'n gosod hwn o ffeil ffurfweddu (`env =` Hyprland,\nmewnosodiad systemd environment.d, proffil plisgyn) yn y fan honno,\nac mae angen mewngofnodi o'r newydd er mwyn i'r newid gyrraedd unrhyw beth sydd eisoes yn rhedeg.\n
+app.vulkan.override_note = \nMae {var} wedi'i osod i {value}, ac mae hynny'n disodli chwiliad y llwythwr\nei hun: os nad yw'r un o'r maniffestau hynny ar gyfer y peiriant hwn, dad-osod\ny newidyn yw'r peth cyntaf i roi cynnig arno.\n
+app.vulkan.no_driver = schist: nid oes gyrrwr Vulkan wedi'i osod, felly nid oes modd lluniadu dim.\n\nMae Schist yn rendro drwy Vulkan. Mae'r llwythwr wedi'i osod ac yn adrodd nad oes\ngyrrwr — nid oes yr un wedi'i gofrestru yn y naill le na'r llall lle chwilir amdano:\n\n{dirs}\n\nCaiff y llwythwr ei ddosbarthu ar wahân i'r gyrwyr, felly un pecyn coll\nsy'n gyfrifol am hyn fel arfer.\n\nGosodwch yr un ar gyfer GPU y peiriant hwn:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nMae gyrrwr perchnogol NVIDIA yn cynnwys ei un ei hun (`nvidia-utils` ar Arch,\n`nvidia-driver` ar Debian). Mewn peiriant rhithwir, neu unrhyw le nad oes\ngyrrwr GPU i'w osod, y rasteirydd meddalwedd yw'r un sy'n gweithio:\n`vulkan-swrast` ar Arch, ac mae'n rhan o `mesa-vulkan-drivers` mewn mannau eraill. Mae'n\naraf, ond mae'n cychwyn.\n{overridden}
+app.vulkan.no_device = schist: mae gyrrwr Vulkan wedi'i osod ond nid yw'n cynnig dyfais i rendro arni.\n\nEfallai nad yw'r gyrrwr yn cefnogi'r GPU hwn, neu efallai na all ei gyrraedd —\ndros SSH, neu y tu mewn i gynhwysydd, mae /dev/dri yn aml ar goll. Mae\n`vulkaninfo --summary` yn adrodd yr hyn y mae'r llwythwr yn ei weld.\n\nMae'r rasteirydd meddalwedd yn rendro heb GPU o gwbl, os dyna sydd gan y\npeiriant hwn: `vulkan-swrast` ar Arch, ac mae'n rhan o `mesa-vulkan-drivers`\nar Debian a Fedora.\n
+app.vulkan.skip_hint = I gychwyn Schist beth bynnag a gadael iddo fethu yn ei ffordd ei hun, gosodwch {var}=1.

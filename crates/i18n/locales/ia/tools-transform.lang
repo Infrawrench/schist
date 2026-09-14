@@ -1,0 +1,27 @@
+# Transformation libere, transformation del selection e recision.
+
+tool.transform.name = Transformation libere
+tool.transform.description = Transformation libere. Activar lo aperi un quadro de transformation circum le strato active: trahe un angulo pro cambiar le scala, trahe foras de un angulo pro rotar, e trahe un bordo pro inclinar. Nihil es scribite usque al confirmation (Enter), e cancellar (Escape) restitue le strato.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Transformation libere
+tool.transform.history.image_size = Dimension del imagine
+tool.transform.history.canvas_size = Dimension del tela
+
+tool.transform.selection.name = Transformar selection
+tool.transform.selection.description = Transformar selection: le mesme quadro, ma illo move le contorno del selection in loco del pixels intra illo. Confirma o cancella pro finir.
+tool.transform.selection.history.transform = Transformar selection
+
+tool.transform.resample.nearest_neighbor = Vicino le plus proxime
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Recider
+tool.crop.description = Trahe pro definir le area a conservar e adjusta su ansas; confirmar (Enter) recide le documento a iste area, e cancellar (Escape) lo lassa intacte.
+tool.crop.option.ratio = Proportion
+tool.crop.option.delete_cropped = Deler pixels recidite
+tool.crop.choice.unconstrained = Sin restriction
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Recider

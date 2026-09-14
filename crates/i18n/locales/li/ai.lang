@@ -1,0 +1,30 @@
+ai.status.panel_shown = AI-paneel getuind
+ai.status.panel_hidden = AI-paneel verborge — Beeld ▸ AI-paneel ({shortcut}) brink 't trök
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} verbonje
+ai.info.now_in_gallery = Noe in de galerie.
+ai.info.now_in_editor = Noe in de bewèrker.
+ai.tool.shell_command = shell-opdrach
+
+ai.error.cli_missing = De CLI van {backend} (“{binary}”) steit neet op PATH. Installeer häöm en meldj uch iers aan.
+ai.error.endpoint_failed = 't starte van 't MCP-eindpunt is misloek: {error}
+ai.error.binding_endpoint = 't MCP-eindpunt koppele
+ai.error.spawning_endpoint_thread = de MCP-eindpuntthread starte
+ai.error.runtime_failed = 't starte van de agentruntime is misloek: {error}
+ai.error.worker_failed = 't starte van de {backend}-worker is misloek: {error}
+ai.error.did_not_start = {backend} is neet gestart: {error}
+ai.error.switch_model_failed = euversjakele nao 'n anger model is misloek: {error}
+ai.error.send_failed = de prompt sjikke is misloek: {error}
+ai.error.interrupt_failed = oonderbraeke is misloek: {error}
+ai.error.locating_binary = 't Schist-program besjtandj zeuke
+ai.error.starting_app_server = de Codex-appserver starte
+ai.error.attaching_app_server = mit de Codex-appserver verbènje
+ai.error.initializing_app_server = de Codex-appserver initialisere
+ai.error.resuming_thread = de Codex-thread hervatte
+ai.error.starting_thread = de Codex-thread starte
+
+ai.model.opus_detail = Meis krachtige klasse
+ai.model.sonnet_detail = Efficiënt veur gewäöne take
+ai.model.haiku_detail = 't Snelst veur korte antjwaorde
+ai.model.codex_catalog = Codex-catalogus

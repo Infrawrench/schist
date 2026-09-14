@@ -1,0 +1,44 @@
+# Vektorwierkzeugen: Stëfter, Auswielpfeiler a Formen.
+tool.pen.name = Zeechestëft
+tool.pen.description = Erstellt e Pad: Klickt fir en Eckpunkt, zitt fir Kurvegrëffer doraus erauszezéien a klickt op den éischte Punkt, fir de Pad zouzemaachen. Beim Bestätege gëtt aus dem Pad eng Formeben.
+tool.pen.option.rubber_band = Gummiband
+tool.pen.history.fill = Padfëllung
+tool.pen.default_path_name = Pad {n}
+tool.pen.freeform.name = Fräihandstëft
+tool.pen.freeform.description = Zitt fräihänneg eng Linn; se gëtt mat der Genauegkeet vun der Optioun Upassung un e Pad ugepasst.
+tool.pen.freeform.option.fit = Upassung
+tool.pen.curvature.name = Këmmungsstëft
+tool.pen.curvature.description = Klickt eng Rei Punkten; de Pad verleeft glat gekëmmt duerch si.
+
+tool.path_select.name = Padauswiel
+tool.path_select.description = Klickt op e Pad, fir en auszewielen, an zitt, fir de ganze Pad ze verréckelen.
+tool.direct_select.name = Direktauswiel
+tool.direct_select.description = Zitt un engem eenzelen Ankerpunkt oder u senge Grëffer, fir de Pad ronderëm ëmzeformen.
+
+tool.shape.history.layer = {name}-Eben
+tool.shape.rect.name = Rechteckwierkzeug
+tool.shape.rect.label = Rechteck
+tool.shape.rect.description = Zitt eng rechteckeg Formeben an der Virdergrondfaarf op; si bleift e Vektor a gëtt bei enger Gréisstenännerung nei rasteriséiert.
+tool.shape.ellipse.name = Ellipsewierkzeug
+tool.shape.ellipse.label = Ellips
+tool.shape.ellipse.description = Zitt eng elliptesch Formeben an der Virdergrondfaarf op.
+tool.shape.line.name = Linnewierkzeug
+tool.shape.line.label = Linn
+tool.shape.line.description = Zitt eng Formeben mat enger riichter Linn an der Virdergrondfaarf op.
+tool.shape.line.option.weight = Déckt
+tool.shape.line.option.arrow_start = Ufank
+tool.shape.line.option.arrow_end = Enn
+tool.shape.polygon.name = Polygonwierkzeug
+tool.shape.polygon.label = Polygon
+tool.shape.polygon.description = Zitt eng Formeben mat engem reegelméissege Polygon an der Virdergrondfaarf op; d'Zuel vun de Säite kënnt aus den Optiounen.
+tool.shape.polygon.option.sides = Säiten
+
+tool.shape.custom.name = Benotzerdefinéiert Form
+tool.shape.custom.label = Benotzerdefinéiert Form
+tool.shape.custom.description = Zitt eng vun den agebaute virdefinéierte Formen op, déi mat der Optioun Form ausgewielt gëtt.
+tool.shape.custom.choice.heart = Häerz
+tool.shape.custom.choice.star = Stär
+tool.shape.custom.choice.arrow = Feil
+tool.shape.custom.choice.lightning = Blëtz
+tool.shape.custom.choice.cross = Kräiz
+tool.shape.custom.choice.speech_bubble = Riedsblos

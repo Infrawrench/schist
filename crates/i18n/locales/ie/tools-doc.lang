@@ -1,0 +1,26 @@
+# Utensiles auxiliari del document.
+
+tool.artboard.name = Desegn-planche
+tool.artboard.description = Trena por crear un desegn-planche: un nominat region del canevas quel es exportat separatmen. Trenar intra un existent planche move it.
+tool.artboard.default_name = Desegn-planche {n}
+
+tool.slice.name = Section
+tool.slice.description = Trena por crear un section de export, un nominat rectangul del canevas exportat quam propri image. Trenar intra un existent section move it.
+tool.slice.default_name = Section {n}
+
+tool.frame.name = Cadre
+tool.frame.description = Trena por crear un cadre: un rectangular (o elliptic) strate quel masca omnicos mettet in it.
+tool.frame.default_name = Cadre {n}
+tool.frame.choice.rectangle = Rectangul
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Cadre
+
+tool.note.name = Nota
+tool.note.description = Clicca sur un vacui parte del canevas por fixar ta un nota, marcat per li autor e color del statu del editor; clicca un existent signe por selecter it in li panel Notas.
+tool.note.history.place = Plazzar nota
+tool.note.history.move = Mover nota
+tool.note.history.delete = Deleter nota
+
+tool.count.name = Numerator
+tool.count.description = Clicca por plazzar numerat signes de conta sur li canevas, e clicca un existent signe por remover it.
+tool.count.default_name = Numerator {n}

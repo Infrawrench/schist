@@ -1,0 +1,27 @@
+# Vegla e tekstit.
+
+tool.type.name = Tekst
+tool.type.description = Klikoni për të nisur një shtresë teksti në atë vend ose klikoni mbi një ekzistuese për ta redaktuar. Kur është e hapur, vegla merr drejtpërdrejt tastet (dërgojini shkronjat si hyrje nga tastiera); zbatimi e paraqet shtresën dhe mbyll redaktimin.
+
+# Shiriti i opsioneve
+tool.type.option.align = Rreshtimi
+tool.type.option.leading = Hapësira mes rreshtave
+tool.type.option.tracking = Hapësira mes shkronjave
+tool.type.option.kerning = Çiftimi i shkronjave
+tool.type.option.ligatures = Ligaturat
+tool.type.option.discretionary_ligatures = Ligaturat fakultative
+tool.type.option.small_caps = Kapitale të vogla
+tool.type.option.on_path = Në shtegun aktiv
+tool.type.option.path_offset = Zhvendosja nga shtegu
+
+# Lista e stileve
+tool.type.choice.regular = E rregullt
+tool.type.choice.bold = E trashë
+tool.type.choice.italic = E pjerrët
+tool.type.choice.bold_italic = E trashë e pjerrët
+
+# Historiku
+tool.type.history.new_layer = Shtresë e re teksti
+tool.type.history.edit = Redakto tekstin
+tool.type.history.discard = Hidh tekstin
+tool.type.history.discard_empty = Hidh tekstin bosh

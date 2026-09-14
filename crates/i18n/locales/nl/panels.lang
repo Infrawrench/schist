@@ -1,0 +1,83 @@
+# Deelvensters, werkbalk, statusbalk, tabbladen en bestandsdialogen.
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Werkelijke pixels
+
+panel.color.picker = Kiezer…
+panel.color.swap = Kleuren verwisselen
+panel.color.reset = Zwart-wit herstellen
+
+panel.layers.blending_options = Overvloeiopties…
+panel.layers.properties = Laageigenschappen…
+panel.layers.show_hide = Laag tonen/verbergen
+panel.layers.toggle_visibility = Zichtbaarheid omschakelen
+
+panel.history.title = Historie
+panel.history.opened = Geopend
+
+panel.info.title = Info
+panel.info.camera = Camera
+panel.info.lens = Objectief
+panel.info.iso = ISO {iso}
+panel.info.bias = Belichtingscompensatie
+panel.info.flash_fired = flitser gebruikt
+panel.info.no_flash = geen flits
+panel.info.white_balance = Witbalans {wb}
+panel.info.metering = {metering}-lichtmeting
+panel.info.taken = Opnamedatum
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · stand {o}
+panel.info.software = Software
+panel.info.where = Locatie
+
+panel.notes.author = Auteur
+panel.notes.clear_all = Alles wissen
+panel.notes.unattributed = Zonder auteur
+panel.notes.empty = Klik op het canvas om een notitie achter te laten.
+panel.notes.placeholder = Klik om te schrijven
+
+panel.character.title = Teken
+panel.character.type_tool = Tekstgereedschap (T)
+panel.character.align_left = Links uitlijnen
+panel.character.align_center = Centreren
+panel.character.align_right = Rechts uitlijnen
+panel.character.text_color = Tekstkleur
+panel.character.panel = Deelvenster Teken
+panel.character.cancel_edit = Tekstbewerking annuleren
+panel.character.commit_edit = Tekstbewerking bevestigen
+panel.character.number_tip = {label} · Typ een waarde of gebruik ↑ / ↓ (Shift voor grotere stappen)
+panel.character.leading = Regelafstand
+panel.character.tracking = Letterspatiëring
+panel.character.alignment = Uitlijning
+panel.character.opentype = OpenType
+panel.character.text_on_path = Tekst op een pad
+panel.character.straight = Recht
+panel.character.on_path = Op pad
+panel.character.straight_tip = De normale basislijn van de tekstlaag gebruiken
+panel.character.on_path_tip = Een kopie van het actieve pad gebruiken
+panel.character.path_offset = Padoffset
+
+panel.ai.title = AI
+panel.ai.empty_editor = Vraag om een bewerking en zie deze op het canvas verschijnen. De agent bedient dezelfde hulpmiddelen, filters en opdrachten als de menu's, elk als één stap voor Ongedaan maken.
+panel.ai.empty_gallery = Stel een vraag over je foto's en zie het resultaat in de galerie: de agent kan zoeken, miniaturen bekijken, selecteren, in verzamelingen indelen en een foto in de editor openen.
+panel.ai.thinking = nadenken…
+panel.ai.placeholder_editor = Vraag iets over dit document of bewerk het
+panel.ai.placeholder_gallery = Vraag iets over je foto's
+panel.ai.send = Verzenden
+panel.ai.stop = Stoppen
+panel.ai.fetching_models = De CLI om beschikbare modellen vragen…
+panel.ai.no_models = Geen overeenkomende modellen
+panel.ai.search_models = Modellen zoeken…
+
+panel.keymap.install_plugin = Plug-in installeren
+panel.keymap.save_as_prompt = Opslaan als — de extensie bepaalt de indeling:

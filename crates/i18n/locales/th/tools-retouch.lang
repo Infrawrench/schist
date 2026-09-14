@@ -1,0 +1,27 @@
+# Patch
+tool.patch.name = ปะ
+tool.patch.description = ลากเส้นรอบตำหนิ แล้วลากส่วนที่เลือกนั้นไปยังพิกเซลที่สะอาด พื้นผิวจากบริเวณนั้นจะถูกปรับให้เข้ากับตำหนิ โหมดปะกำหนดว่าจะลากจากปลายใดของคู่นี้
+tool.patch.option.patch = ปะ
+tool.patch.choice.source = ต้นทาง
+tool.patch.choice.destination = ปลายทาง
+tool.patch.history.patch = ปะ
+
+# Content-Aware Move
+tool.content_aware_move.name = ย้ายตามเนื้อหา
+tool.content_aware_move.description = ลากวัตถุที่เลือกไปยังตำแหน่งอื่น แล้วช่องว่างที่เหลือจะถูกเติมจากบริเวณรอบข้าง ในโหมดขยาย วัตถุจะถูกยืดแทนการย้าย
+tool.content_aware_move.choice.move = ย้าย
+tool.content_aware_move.choice.extend = ขยาย
+tool.content_aware_move.history.move = ย้ายตามเนื้อหา
+
+# Red Eye
+tool.red_eye.name = ตาแดง
+tool.red_eye.description = คลิกรูม่านตาเพื่อลบสีแดงจากแฟลช
+tool.red_eye.option.pupil_size = ขนาดรูม่านตา
+tool.red_eye.option.darken = ทำให้มืดลง
+tool.red_eye.history.red_eye = ตาแดง
+
+# Magic Eraser
+tool.magic_eraser.name = ยางลบวิเศษ
+tool.magic_eraser.description = คลิกเพื่อลบพื้นที่สีคล้ายกันใต้ตัวชี้ภายในค่าความคลาดเคลื่อนของเครื่องมือ โดยลบเฉพาะส่วนที่ต่อเนื่องกับจุดที่คลิกหรือทุกส่วนในเลเยอร์
+tool.magic_eraser.option.contiguous = ต่อเนื่อง
+tool.magic_eraser.history.erase = ยางลบวิเศษ

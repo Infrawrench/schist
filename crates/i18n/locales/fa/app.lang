@@ -1,0 +1,36 @@
+app.filter_gallery.title = گالری فیلتر
+app.filter_gallery.stack = پشته (اعمال از پایین به بالا)
+app.filter_gallery.no_settings = این فیلتر تنظیماتی ندارد.
+app.fonts.not_open_licensed = مجوز آزاد ندارد · {substitute} با معیارهای آن همخوان است
+app.fonts.missing_substituted = موجود نیست · متن با قلم جایگزین چیده می‌شود
+app.fonts.not_in_catalogue = {family} در فهرست قلم‌های آزاد نیست
+app.fonts.no_faces = گونهٔ قابل‌بارگیری برای {family} وجود ندارد
+app.fonts.empty_response = پاسخ خالی
+app.update.unreadable_response = پاسخ خواندنی نیست: {error}
+app.update.no_temp_dir = پوشهٔ موقتی برای بارگیری وجود ندارد
+app.update.asset_has_path = نام دارایی در نسخه شامل مسیر است
+app.update.too_big = اندازهٔ فایل بارگیری‌شده از مقدار اعلام‌شده در نسخه بیشتر است
+app.update.stopped_at = بارگیری در {got} از {total} بایت متوقف شد
+app.update.hash_mismatch = هش بارگیری {got} است، نه {want}
+app.update.not_in_bundle = این نسخه درون یک بستهٔ برنامه نیست
+app.update.no_parent_dir = بستهٔ برنامه پوشهٔ والد ندارد
+app.update.cannot_write = نوشتن در {dir} ممکن نیست
+app.update.cannot_move_aside = کنارگذاشتن {app} ممکن نیست
+app.update.cannot_move_in = انتقال بستهٔ جدید به جای خود ممکن نیست
+app.update.cannot_run_ditto = اجرای /usr/bin/ditto ممکن نیست
+app.update.unpack_failed = بازکردن بستهٔ بارگیری‌شده ناموفق بود: {error}
+app.update.no_app_in_download = فایل بارگیری‌شده Schist.app ندارد
+app.update.cannot_run_codesign = اجرای /usr/bin/codesign ممکن نیست
+app.update.signature_invalid = امضای فایل بارگیری‌شده تأیید نمی‌شود: {error}
+app.update.download_unsigned = این نسخه امضا شده است اما فایل بارگیری‌شده امضا ندارد
+app.update.different_developer = فایل بارگیری‌شده را توسعه‌دهندهٔ دیگری امضا کرده است
+app.update.cannot_relaunch = راه‌اندازی برنامهٔ اجرای دوباره ممکن نیست
+app.update.not_installed_copy = این نسخه به‌وسیلهٔ نصب‌کننده در اینجا قرار نگرفته است
+app.update.cannot_start_installer = راه‌اندازی نصب‌کننده ممکن نیست
+app.update.platform_unsupported = به‌روزرسانی‌ها در این پلتفرم به همان روشی نصب می‌شوند که Schist نصب شده است
+app.vulkan.no_loader = schist: بارگذار Vulkan در این سیستم وجود ندارد، پس چیزی برای ترسیم نیست.\n\nSchist با Vulkan رندر می‌کند و `libvulkan.so.1` نصب نیست.\nهم بارگذار و هم درایور لازم‌اند:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: درایور Vulkan که این نشست به آن اشاره می‌کند وجود ندارد.\n\n{var} تنظیم شده است و تنظیم آن، جست‌وجوی بارگذار برای درایورها را *جایگزین* می‌کند؛ چیزی به آن نمی‌افزاید. بنابراین این فایل‌های ناموجود کل فهرست درایورها هستند و همهٔ برنامه‌های Vulkan در این نشست، هرچند درایورهای دیگری نصب باشند، هیچ درایوری نمی‌بینند:\n\n{missing}\n    {var}={value}\n\nآن را به مانیفستی موجود هدایت کنید—درایورهای نصب‌شده مانیفست خود را در /usr/share/vulkan/icd.d می‌گذارند—یا تنظیمش را بردارید تا بارگذار خودش جست‌وجو کند. اگر نشست این مقدار را از فایل پیکربندی (گزینهٔ `env =` در Hyprland، فایل environment.d در systemd یا نمایهٔ پوسته) می‌گیرد، باید همان‌جا تغییر کند و برای رسیدن تغییر به برنامه‌های درحال اجرا باید دوباره وارد نشست شوید.\n
+app.vulkan.override_note = \n{var} روی {value} تنظیم است و جست‌وجوی خود بارگذار را جایگزین می‌کند؛ اگر هیچ‌یک از این مانیفست‌ها مناسب این دستگاه نیست، نخست تنظیم آن را بردارید.\n
+app.vulkan.no_driver = schist: هیچ درایور Vulkan نصب نیست، پس چیزی برای ترسیم وجود ندارد.\n\nSchist با Vulkan رندر می‌کند. بارگذار نصب است اما درایوری گزارش نمی‌کند؛ در هیچ‌یک از دو محل جست‌وجو، درایوری ثبت نشده است:\n\n{dirs}\n\nبارگذار جدا از درایورها عرضه می‌شود، بنابراین معمولاً تنها یک بسته موجود نیست.\n\nبستهٔ مناسب GPU این دستگاه را نصب کنید:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nدرایور اختصاصی NVIDIA درایور Vulkan خودش را دارد (`nvidia-utils` در Arch و `nvidia-driver` در Debian). در ماشین مجازی یا هر محیطی که درایور GPU برای نصب ندارد، رسترساز نرم‌افزاری کار می‌کند: `vulkan-swrast` در Arch و بخشی از `mesa-vulkan-drivers` در سیستم‌های دیگر. کند است، اما اجرا می‌شود.\n{overridden}
+app.vulkan.no_device = schist: درایور Vulkan نصب است اما دستگاهی برای رندر ارائه نمی‌کند.\n\nممکن است درایور این GPU را پوشش ندهد یا به آن دسترسی نداشته باشد؛ در اتصال SSH یا درون کانتینر، نبودن /dev/dri رایج است. فرمان `vulkaninfo --summary` آنچه بارگذار می‌بیند گزارش می‌کند.\n\nاگر این دستگاه GPU ندارد، رسترساز نرم‌افزاری بدون GPU رندر می‌کند: `vulkan-swrast` در Arch و بخشی از `mesa-vulkan-drivers` در Debian و Fedora.\n
+app.vulkan.skip_hint = برای راه‌اندازی Schist با وجود این مشکل و واگذاری خطا به خود برنامه، {var}=1 را تنظیم کنید.

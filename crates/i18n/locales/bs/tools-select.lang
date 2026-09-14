@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Oduzmi
+tool.select.mode.intersect = Presjek
+
+tool.marquee.rect.name = Pravougaoni odabir
+tool.marquee.rect.description = Povucite pravougaoni odabir. Shift na početku povlačenja dodaje odabiru, Alt oduzima, a obje tipke ostavljaju presjek; Shift tokom povlačenja daje kvadrat. Klik bez povlačenja poništava odabir.
+tool.marquee.ellipse.name = Eliptični odabir
+tool.marquee.ellipse.description = Povucite eliptični odabir uz iste kombinacije tipki Shift/Alt kao kod pravougaonog odabira.
+
+tool.lasso.name = Laso
+tool.lasso.description = Povucite obris slobodnom rukom; kada završite povlačenje, odabir se zatvara linijom između krajeva. Shift dodaje, a Alt oduzima.
+tool.lasso.history.select = Odabir lasom
+tool.lasso.polygonal.name = Poligonalni laso
+tool.lasso.polygonal.description = Kliknite redom na uglove da napravite odabir ravnih rubova, a zatim kliknite blizu prve tačke da ga zatvorite.
+tool.lasso.polygonal.history.select = Poligonalni laso
+tool.lasso.magnetic.name = Magnetni laso
+tool.lasso.magnetic.description = Približno pratite rub, a obris će prionuti uz najjači kontrast u blizini putanje.
+tool.lasso.magnetic.history.select = Magnetni laso
+tool.lasso.magnetic.option.frequency = Učestalost
+
+tool.wand.name = Čarobni štapić
+tool.wand.description = Kliknite da odaberete povezano područje slične boje ispod pokazivača, unutar zadane tolerancije — iste tolerancije koju koriste Proširi, Slično i Raspon boja.
+tool.wand.option.contiguous = Susjedno
+tool.wand.history.select = Čarobni štapić
+
+tool.quick_select.name = Brzi odabir
+tool.quick_select.description = Pređite kistom preko područja i odabir će se proširiti kroz slične piksele preko kojih kist prelazi.
+tool.quick_select.history.select = Brzi odabir
+
+tool.object_select.name = Odabir objekta
+tool.object_select.description = Povucite okvir oko objekta i odabir će prionuti uz objekt pronađen unutar njega.
+tool.object_select.history.select = Odabir objekta

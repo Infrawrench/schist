@@ -1,0 +1,30 @@
+# Інструменты рэтушы абласцей: латка, перамяшчэнне з улікам змесціва,
+# чырвоныя вочы і чароўная гумка.
+
+# Латка
+tool.patch.name = Латка
+tool.patch.description = Абвядзіце дэфект, а затым перацягніце вылучаную вобласць на чыстыя пікселі: іх тэкстура будзе дапасавана да дэфекту. Рэжым латкі вызначае, які канец гэтай пары трэба перацягваць.
+tool.patch.option.patch = Латка
+tool.patch.choice.source = Крыніца
+tool.patch.choice.destination = Прызначэнне
+tool.patch.history.patch = Латка
+
+# Перамяшчэнне з улікам змесціва
+tool.content_aware_move.name = Перамяшчэнне з улікам змесціва
+tool.content_aware_move.description = Перацягніце вылучаны аб'ект у іншае месца, і пакінутая ім пустая вобласць запоўніцца на аснове наваколля. У рэжыме пашырэння аб'ект расцягваецца замест перамяшчэння.
+tool.content_aware_move.choice.move = Перамяшчэнне
+tool.content_aware_move.choice.extend = Пашырэнне
+tool.content_aware_move.history.move = Перамяшчэнне з улікам змесціва
+
+# Чырвоныя вочы
+tool.red_eye.name = Чырвоныя вочы
+tool.red_eye.description = Пстрыкніце па зрэнцы, каб прыбраць з яе чырвоны водбліск успышкі.
+tool.red_eye.option.pupil_size = Памер зрэнкі
+tool.red_eye.option.darken = Зацямненне
+tool.red_eye.history.red_eye = Чырвоныя вочы
+
+# Чароўная гумка
+tool.magic_eraser.name = Чароўная гумка
+tool.magic_eraser.description = Пстрыкніце, каб сцерці вобласць пад указальнікам з падобным колерам у межах допуску інструмента — сумежную з месцам націску або ва ўсім пласце.
+tool.magic_eraser.option.contiguous = Сумежныя
+tool.magic_eraser.history.erase = Чароўная гумка

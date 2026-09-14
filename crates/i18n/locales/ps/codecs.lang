@@ -1,0 +1,37 @@
+# د کوډک بڼو نومونه او د واردولو د ناکامۍ پیغامونه.
+
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} کوډسپړل کېږي
+codec.msg.zero_sized = انځور هېڅ پېکسل نه لري
+codec.msg.assembling_document = سند جوړېږي
+
+codec.raw.msg.decoding = خامه دوتنه کوډسپړل کېږي
+codec.raw.msg.developing = خامه دوتنه پراخېږي
+codec.raw.msg.finding_preview = دنننۍ مخکتنه لټول کېږي
+codec.raw.msg.decoding_preview = دنننۍ مخکتنه کوډسپړل کېږي
+codec.raw.msg.decoder_panicked = د خامې دوتنې کوډسپړونکی پر دې دوتنه ناکام شو: {what}
+
+codec.affinity.import_title = له Affinity څخه راوړل
+codec.affinity.flattened_preview_layer = هواره شوې مخکتنه
+codec.affinity.msg.no_preview = د کار وړ دنننۍ مخکتنه نشته. د Affinity طبقوي بڼه ځانګړې او تړلې ده؛ Schist د دوتنې هواره شوې مخکتنه راوړي. په دې دوتنه کې هغه نشته — دوتنه په Affinity کې بیا وساتئ، یا یې د بشپړ طبقوي واردولو لپاره د PSD په توګه صادره کړئ.
+
+codec.heif.msg.no_library = libheif نشته ({details}). د HEIC پرانیستلو لپاره د libheif کتابتون پکار دی (Linux: libheif1 ولګوئ؛ macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — کېدای شي د libheif دا جوړښت د HEVC کوډسپړونکی ونه لري (په Debian/Ubuntu کې libheif-plugin-libde265 ولګوئ)
+codec.heif.msg.unknown_error = ناپېژندل شوې تېروتنه
+codec.heif.msg.initialising = libheif چمتو کېږي
+codec.heif.msg.reading_container = د HEIF لوښی لوستل کېږي
+codec.heif.msg.finding_primary_image = اصلي انځور موندل کېږي
+codec.heif.msg.reading_icc_profile = د ICC پېژنیال لوستل کېږي
+codec.heif.msg.decoding_image = انځور کوډسپړل کېږي
+codec.heif.msg.checksum_mismatch = د {name} د پلټ‌مجموعې توپیر: {expected} تمه کېده، {got} ترلاسه شو
+codec.heif.msg.imageio_cannot_read = ImageIO د HEIF لوښی نشي لوستلی
+codec.heif.msg.container_empty = د HEIF لوښی هېڅ انځور نه لري
+codec.heif.msg.imageio_cannot_decode = ImageIO اصلي انځور نشي کوډسپړلی

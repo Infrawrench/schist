@@ -1,0 +1,21 @@
+# Інструменти ретушування ділянок.
+tool.patch.name = Латка
+tool.patch.description = Обведіть дефект, а потім перетягніть виділення на чисті пікселі: їхню текстуру буде пристосовано до дефекту. Режим латки визначає, який кінець цієї пари слід перетягувати.
+tool.patch.option.patch = Латка
+tool.patch.choice.source = Джерело
+tool.patch.choice.destination = Призначення
+tool.patch.history.patch = Латка
+tool.content_aware_move.name = Переміщення з урахуванням вмісту
+tool.content_aware_move.description = Перетягніть виділений об'єкт в інше місце, і залишений ним отвір буде заповнено з навколишньої ділянки. У режимі розширення об'єкт розтягується замість переміщення.
+tool.content_aware_move.choice.move = Перемістити
+tool.content_aware_move.choice.extend = Розширити
+tool.content_aware_move.history.move = Переміщення з урахуванням вмісту
+tool.red_eye.name = Червоні очі
+tool.red_eye.description = Клацніть зіницю, щоб прибрати червоне світло спалаху.
+tool.red_eye.option.pupil_size = Розмір зіниці
+tool.red_eye.option.darken = Затемнення
+tool.red_eye.history.red_eye = Усунення червоних очей
+tool.magic_eraser.name = Чарівна гумка
+tool.magic_eraser.description = Клацніть, щоб стерти ділянку подібного кольору під вказівником у межах допуску інструмента — суміжну з місцем клацання або всюди в шарі.
+tool.magic_eraser.option.contiguous = Суміжні
+tool.magic_eraser.history.erase = Чарівна гумка

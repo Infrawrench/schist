@@ -1,0 +1,32 @@
+# Penolo AI mo hono ngaahi tuʻunga mo e fehālaaki
+
+ai.status.panel_shown = Kuo fakahā ʻa e penolo AI
+ai.status.panel_hidden = Kuo fufū ʻa e penolo AI — ʻe toe ʻomi ia ʻe he Vakai ▸ Penolo AI ({shortcut})
+ai.status.tool = AI: {name}
+
+ai.info.connected = Kuo fehokotaki ʻa e {backend}
+ai.info.now_in_gallery = ʻOku ʻi he fakahāʻanga ʻīmisi he taimí ni.
+ai.info.now_in_editor = ʻOku ʻi he ʻētita he taimí ni.
+ai.tool.shell_command = fekau shell
+
+ai.error.cli_missing = ʻOku ʻikai ʻi he PATH ʻa e CLI {backend} (“{binary}”). Tomuʻa fokotuʻu ia pea hū ki ai.
+ai.error.endpoint_failed = naʻe ʻikai lava ke kamata ʻa e ngataʻanga MCP: {error}
+ai.error.binding_endpoint = ʻoku fakamaʻu ʻa e ngataʻanga MCP
+ai.error.spawning_endpoint_thread = ʻoku kamata ʻa e filo ʻo e ngataʻanga MCP
+ai.error.runtime_failed = naʻe ʻikai lava ke kamata ʻa e runtime ʻo e agent: {error}
+ai.error.worker_failed = naʻe ʻikai lava ke kamata ʻa e worker {backend}: {error}
+ai.error.did_not_start = naʻe ʻikai kamata ʻa e {backend}: {error}
+ai.error.switch_model_failed = naʻe ʻikai lava ke fetongi ʻa e mōtolo: {error}
+ai.error.send_failed = naʻe ʻikai lava ke ʻave ʻa e prompt: {error}
+ai.error.interrupt_failed = naʻe ʻikai lava ʻa e taʻofi: {error}
+ai.error.locating_binary = ʻoku kumi ʻa e binary Schist
+ai.error.starting_app_server = ʻoku kamata ʻa e server polokalama Codex
+ai.error.attaching_app_server = ʻoku fakafehokotaki ki he server polokalama Codex
+ai.error.initializing_app_server = ʻoku teuteu ʻa e server polokalama Codex
+ai.error.resuming_thread = ʻoku hoko atu ʻa e filo Codex
+ai.error.starting_thread = ʻoku kamata ʻa e filo Codex
+
+ai.model.opus_detail = Tuʻunga ʻoku malava lahi tahá
+ai.model.sonnet_detail = Ola lelei ki he ngaahi ngāue angamahení
+ai.model.haiku_detail = Vave taha ki he ngaahi tali vavé
+ai.model.codex_catalog = Katiloki Codex

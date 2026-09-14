@@ -1,0 +1,21 @@
+# د سمون طبقې او د انځور ▸ سمونونه قوماندې: نومونه.
+adjustment.levels.name = کچې
+adjustment.curves.name = منحني ګانې
+adjustment.hue_saturation.name = رنګ/مړښت
+adjustment.brightness_contrast.name = روښانتیا/توپیر
+adjustment.black_white.name = تور او سپین
+adjustment.solid_color.name = یو رنګ
+adjustment.gradient_fill.name = تدریجي ډکول
+adjustment.pattern_fill.name = بېلګه ډکول
+adjustment.invert.name = سرچپه کول
+adjustment.posterize.name = د رنګ کچې کمول
+adjustment.threshold.name = حد
+adjustment.color_balance.name = د رنګ انډول
+adjustment.vibrance.name = د رنګ ځلا
+adjustment.exposure.name = نور اخیستنه
+adjustment.photo_filter.name = د انځور چاڼګر
+adjustment.gradient_map.name = تدریجي نقشه
+adjustment.selective_color.name = ټاکنیز رنګ
+adjustment.channel_mixer.name = د کانال ګډوونکی
+# د PSD یو ډول چې Schist یې د سمون وسیله نه لري.
+adjustment.other.name = سمون

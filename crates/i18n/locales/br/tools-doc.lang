@@ -1,0 +1,25 @@
+# Taolennoù arz, troc'hadoù, sternioù, notennoù ha kontoù.
+tool.artboard.name = Taolenn arz
+tool.artboard.description = Riklit evit tresañ un daolenn arz: ur rann anvet eus ar steuñvenn a vez ezporzhiet hec'h-unan. Riklañ e-barzh unan anezho a zilec'h anezhi.
+tool.artboard.default_name = Taolenn arz {n}
+
+tool.slice.name = Troc'had
+tool.slice.description = Riklit evit tresañ un troc'had ezporzhiañ, ur reizhkorn anvet eus ar steuñvenn a vez ezporzhiet evel ur skeudenn dizalc'h. Riklañ e-barzh unan anezho a zilec'h anezhañ.
+tool.slice.default_name = Troc'had {n}
+
+tool.frame.name = Stern
+tool.frame.description = Riklit evit tresañ ur stern: ur gwiskad reizhkornek (pe elipsek) a wisk kement tra a vez lakaet ennañ.
+tool.frame.default_name = Stern {n}
+tool.frame.choice.rectangle = Reizhkorn
+tool.frame.choice.ellipse = Elipsenn
+tool.frame.history.frame = Stern
+
+tool.note.name = Notenn
+tool.note.description = Klikit war ul lodenn c'houllo eus ar steuñvenn evit spilhañ un notenn eno, merket gant an aozer hag al liv e stad ar c'hemmerezh; klikit war ur spilhadenn a zo anezhi evit he diuzañ e penel an Notennoù.
+tool.note.history.place = Lakaat un notenn
+tool.note.history.move = Dilec'hiañ an notenn
+tool.note.history.delete = Dilemel an notenn
+
+tool.count.name = Kont
+tool.count.description = Klikit evit lakaat merkerioù kont niverennet war ar steuñvenn, ha klikit war unan anezho evit e zilemel.
+tool.count.default_name = Kont {n}

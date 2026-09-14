@@ -1,0 +1,99 @@
+# Эш өлкәһендәге документтар, фильтрҙар, экспорт һәм тергеҙеү яҙыуҙары.
+workspace.fill.gray_50 = 50% һоро
+workspace.fill.content_aware = Эстәлекте иҫәпкә алып
+workspace.modify.expand = Һайлауҙы киңәйтеү
+workspace.modify.contract = Һайлауҙы тарайтыу
+workspace.modify.border = Һайлау сиге
+workspace.modify.smooth = Һайлауҙы шымартыу
+workspace.modify.feather = Һайлау ситен йомшартыу
+
+workspace.batch.target.edit = Галерея үҙгәртеүҙәре (версиялы)
+workspace.batch.target.beside = Төп нөсхәләр янындағы күсермәләр
+workspace.batch.target.folder = Папкалағы күсермәләр…
+workspace.modal.image_size.title = Рәсем үлсәме
+
+workspace.docs.opening = {name} асыла…
+workspace.docs.opened = {name} асылды
+workspace.docs.open_failed = Асып булманы: {error}
+workspace.docs.no_codec = Schist {name} форматын аса алмай
+workspace.docs.no_exporter = Schist .{ext} файлдарын һаҡлай алмай
+workspace.docs.empty_response = Сервер буш яуап ебәрҙе
+workspace.docs.heic_not_installed = HEIC ярҙамы урынлаштырылмаған
+workspace.docs.heic_downloading = HEIC ярҙамы йөкләп алына (libheif {version})…
+workspace.docs.heic_installed = HEIC ярҙамы урынлаштырылды
+workspace.docs.heic_download_failed = HEIC ярҙамын йөкләп алып булманы: {error}
+workspace.docs.placing = {name} урынлаштырыла…
+workspace.docs.place_image = Рәсем урынлаштырыу
+workspace.docs.placed = {name} урынлаштырылды
+workspace.docs.place_failed = Урынлаштырып булманы: {error}
+workspace.docs.saved = {name} һаҡланды
+workspace.docs.save_failed = Һаҡлап булманы: {error}
+
+workspace.adjustment.new_layer = Яңы {name} ҡатламы
+workspace.adjustment.added = {name} өҫтәлде
+workspace.adjustment.settings = {name} көйләүҙәре
+workspace.adjustment.updated = {name} яңыртылды
+workspace.adjustment.no_settings = {name} өсөн үҙгәртерлек көйләүҙәр юҡ
+workspace.comps.name_n = Ҡатлам композицияһы {n}
+workspace.comps.captured = Ҡатлам композицияһы һаҡланды
+workspace.comps.apply = {name} ҡулланыу
+workspace.styles.layer_style = Ҡатлам стиле
+workspace.context.rename_layer = Ҡатлам исемен үҙгәртеү
+workspace.commands.tool = Ҡорал: {name}
+
+workspace.colormgmt.assign = {name} тәғәйенләү
+workspace.colormgmt.assigned = {name} тәғәйенләнде
+workspace.colormgmt.convert_to = {name} профиленә әйләндереү
+workspace.colormgmt.converted_to = {name} профиленә әйләндерелде
+workspace.colormgmt.convert_failed = Әйләндереп булманы: {error}
+workspace.colormgmt.proof_on = Төҫтәрҙе һынау ҡабыҙылды
+workspace.colormgmt.proof_off = Төҫтәрҙе һынау һүндерелде
+
+workspace.filters.choose = Һайлау
+workspace.filters.select_layer_first = Тәүҙә ҡатлам һайлағыҙ
+workspace.filters.needs_pixel_layer = Фильтрҙарға пикселле ҡатлам кәрәк
+workspace.filters.nothing_to_filter = Фильтрларлыҡ бер ни ҙә юҡ
+workspace.filters.went_away = Фильтр юҡҡа сыҡты
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: ул эшкәрткән ҡатлам юҡҡа сыҡҡан
+workspace.filters.plugin_title = Photoshop плагины
+workspace.filters.running = {name} башҡарыла
+workspace.filters.plugin_note = Плагин айырым процеста эшләй. Тәҙрә асһа, дауам итеү өсөн ундағы һорауға яуап бирегеҙ.
+workspace.filters.raw_preview_developing = RAW алдан ҡарау рәсеме эшкәртелә…
+workspace.filters.raw_preview_done = RAW алдан ҡарау рәсеме (тиҙ демозаика)
+workspace.filters.raw_preview_size_changed = RAW алдан ҡарау рәсеменең үлсәме үҙгәрҙе: {w} × {h}
+workspace.filters.raw_preview_failed = RAW алдан ҡарау рәсемен эшкәртеп булманы: {error}
+workspace.filters.raw_developing = Төп төшөрөлгән мәғлүмәт эшкәртелә…
+workspace.filters.raw_developing_note = Иң яҡшы демозаика ысулы ҡулланыла. PSD йәки PSB итеп һаҡлағандан һуң да төп RAW файлын һәм был көйләүҙәрҙе үҙгәртеп була.
+workspace.filters.raw_document_changed = RAW эшкәртеүе документ үҙгәргәндән һуң тамамланды
+workspace.filters.raw_failed = RAW эшкәртеүе уңышһыҙ: {error}
+workspace.filters.raw_too_wide = RAW эшкәртеү һөҙөмтәһе артыҡ киң
+workspace.filters.raw_too_tall = RAW эшкәртеү һөҙөмтәһе артыҡ бейек
+workspace.filters.raw_size_changed = RAW эшкәртеү үлсәме {w} × {h} булды; әлеге ҡатлам һаҡлана
+workspace.filters.raw_history = Camera Raw эшкәртеүе
+workspace.filters.raw_applied = Camera Raw эшкәртеүе ҡулланылды (иң яҡшы демозаика)
+
+workspace.image_size.done = Рәсем үлсәме: {w} × {h}
+workspace.image_size.bicubic_fallback = Рәсем үлсәме: {w} × {h} — {name} моделе йөкләнмәне, шуға бикубик интерполяция ҡулланылды
+workspace.image_size.upscaling = {name} менән ҙурайтыла
+workspace.image_size.upscaling_note = Нейрон селтәре аша {mp} мегапиксель, һәр береһенә бер нисә секунд. Тамамланғанға тиклем документ тотоп торола.
+
+workspace.export.no_slices = Экспортларлыҡ киҫектәр юҡ
+workspace.export.no_artboards = Экспортларлыҡ артбордтар юҡ
+workspace.export.regions.other = Экспортланған өлкәләр һаны: {n}
+workspace.export.prompt = Ошолай экспортлау:
+workspace.export.done = {name} экспортланды
+workspace.export.failed = Экспортлап булманы: {error}
+workspace.export.codec_vanished = Экспортлағыс хәҙер мөмкин түгел
+
+workspace.file_picker.choose_folder = Папка һайлау
+workspace.file_picker.type_a_name = Файл исемен индерегеҙ
+workspace.file_picker.exists = {name} бар; алмаштырыу өсөн Һаҡлауҙы тағы баҫығыҙ
+workspace.file_picker.tap_a_file = Асыу өсөн файлға ҡағылығыҙ
+workspace.file_picker.pictures = Рәсемдәр
+workspace.file_picker.camera = Камера
+workspace.file_picker.downloads = Йөкләмәләр
+workspace.file_picker.permission_denied = Schist-тың был папканы уҡырға рөхсәте юҡ
+
+workspace.recovery.recovered_title = {title} (тергеҙелгән)
+workspace.recovery.recovered.other = Алдағы сеанстан һаҡланмаған эш тергеҙелде; документтар һаны: {n}

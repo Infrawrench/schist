@@ -1,0 +1,40 @@
+# Pokello ea Disefo, lifonte, lintlafatso le tlhahlobo ea Vulkan.
+app.filter_gallery.title = Pokello ea Disefo
+app.filter_gallery.stack = Mokgobo (e sebelisoa ho tloha tlase ho ea holimo)
+app.filter_gallery.no_settings = Sefe ena ha e na litlhophiso.
+
+app.fonts.not_open_licensed = ha e na laesense e bulehileng · {substitute} e lumellana le litekanyo tsa eona
+app.fonts.missing_substituted = e sieo · mongolo o ntse o behoa ka fonte e nkelang sebaka
+app.fonts.not_in_catalogue = {family} ha e eo lenaneng la lifonte tse bulehileng
+app.fonts.no_faces = ha ho mefuta ea fonte ea {family} e ka jarolloang
+app.fonts.empty_response = karabo e se nang letho
+
+app.update.unreadable_response = karabo ha e balehe: {error}
+app.update.no_temp_dir = ha ho foldara ea nakoana eo ho ka jarolleloang ho eona
+app.update.asset_has_path = tokollo e rehile letlotlo la eona ka tsela ea faele
+app.update.too_big = faele e jarolloang e kholo ho feta kamoo tokollo e bolelang
+app.update.stopped_at = ho jarolla ho emisitse ho li-byte tse {got} ho tse {total}
+app.update.hash_mismatch = hash ea faele e jarollotsoeng ke {got}, eseng {want}
+app.update.not_in_bundle = kopi ena ha e ka har'a ngata ea app
+app.update.no_parent_dir = ngata ea app ha e na foldara e e tšetseng
+app.update.cannot_write = ha ho khonehe ho ngola ho {dir}
+app.update.cannot_move_aside = ha ho khonehe ho suthisetsa {app} ka thōko
+app.update.cannot_move_in = ha ho khonehe ho beha ngata e ncha sebakeng sa eona
+app.update.cannot_run_ditto = ha ho khonehe ho tsamaisa /usr/bin/ditto
+app.update.unpack_failed = ho pakolla faele e jarollotsoeng ho hlotsoe: {error}
+app.update.no_app_in_download = faele e jarollotsoeng ha e na Schist.app
+app.update.cannot_run_codesign = ha ho khonehe ho tsamaisa /usr/bin/codesign
+app.update.signature_invalid = tshaeno ea faele e jarollotsoeng ha e netefatsoe: {error}
+app.update.download_unsigned = kopi ena e saennoe empa faele e jarollotsoeng ha ea saennoa
+app.update.different_developer = faele e jarollotsoeng e saennoe ke moetsi e mong
+app.update.cannot_relaunch = ha ho khonehe ho qala seqalisi sa ho qala hape
+app.update.not_installed_copy = kopi ena ha ea behoa mona ke sekenyi
+app.update.cannot_start_installer = ha ho khonehe ho qala sekenyi
+app.update.platform_unsupported = lintlafatso sethaleng sena li kenngoa ka tsela eo Schist e kentsoeng ka eona
+
+app.vulkan.no_loader = schist: ha ho loader ea Vulkan tsamaisong ena, kahoo ha ho letho leo ho ka takuoang ka lona.\n\nSchist e taka ka Vulkan, 'me `libvulkan.so.1` ha ea kengoa.\nLoader le driver lia hlokahala ka bobeli:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: driver ea Vulkan eo nako ena ea tšebetso e supang ho eona ha e eo.\n\n{var} e setiloe, 'me ho e seta ho *nkela sebaka* ho batla ha loader\nbakeng sa li-driver, ha ho e kenyeletse ho hona. Ka hona lifaele tsena tse sieo\nke tsona lenane lohle la li-driver—'me lenaneo le leng le le leng la Vulkan le sebetsang mona\nha le bone driver ho hang, ho sa tsotellehe hore na ho kentsoe tse kae:\n\n{missing}\n    {var}={value}\n\nE supe ho manifest e teng—li-driver tse kentsoeng li beha tsa tsona ho\n/usr/share/vulkan/icd.d—kapa u tlose tlhophiso ena 'me u lumelle loader ho ipatlela.\nHa nako ea tšebetso e e seta faeleng ea tlhophiso (Hyprland `env =`, faele ea\nsystemd environment.d, profaele ea shell), e tlameha ho fetoloa teng,\n'me ho hlokahala hore u kene bocha hore phetoho e fihle ho tsohle tse seng li sebetsa.\n
+app.vulkan.override_note = \n{var} e setiloe ho {value}, 'me sena se nkela sebaka ho batla ha loader:\nha ho le e 'ngoe ea li-manifest tseo e leng ea mochini ona, ntho ea pele eo u ka e lekang\nke ho tlosa tlhophiso eo.\n
+app.vulkan.no_driver = schist: ha ho driver ea Vulkan e kentsoeng, kahoo ha ho letho leo ho ka takuoang holim'a lona.\n\nSchist e taka ka Vulkan. Loader e kentsoe empa e tlaleha hore ha ho\ndriver—ha ho letho le ngolisitseng driver libakeng tsena tse peli tseo ho batloang ho tsona:\n\n{dirs}\n\nLoader e ajoa ka thōko ho li-driver, kahoo hangata bothata ke pakete e le 'ngoe\ne sieo.\n\nKenya e etselitsoeng GPU ea mochini ona:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver ea NVIDIA ea mong'a software e tla le ea eona (`nvidia-utils` ho Arch,\n`nvidia-driver` ho Debian). Mochining oa boiketsiso, kapa kae kapa kae moo ho se nang\ndriver ea GPU e ka kenngoang, rasteriser ea software ke eona e sebetsang:\n`vulkan-swrast` ho Arch, 'me e le karolo ea `mesa-vulkan-drivers` libakeng tse ling. E\na lieha, empa ea qala.\n{overridden}
+app.vulkan.no_device = schist: driver ea Vulkan e kentsoe empa ha e fane ka sesebelisoa seo ho ka takuoang ka sona.\n\nMohlomong driver ha e tšehetse GPU ena, kapa ha e khone ho fihla ho eona—\nka SSH, kapa ka har'a container, hangata /dev/dri ke eona e sieo.\n`vulkaninfo --summary` e tlaleha seo loader e se bonang.\n\nRasteriser ea software e taka ntle le GPU ho hang, haeba ke sona seo\nmochini ona o nang le sona: `vulkan-swrast` ho Arch, karolo ea `mesa-vulkan-drivers`\nho Debian le Fedora.\n
+app.vulkan.skip_hint = Ho qala Schist leha ho le joalo le ho e tlohela hore e hlolehe ka tsela ea eona, seta {var}=1.

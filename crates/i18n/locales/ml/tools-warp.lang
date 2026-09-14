@@ -1,0 +1,25 @@
+# Liquify
+tool.liquify.name = ലിക്വിഫൈ
+tool.liquify.description = വലിയ ബ്രഷിനു കീഴിലുള്ള പിക്സലുകൾ തള്ളുകയോ ചുഴറ്റുകയോ അകത്തേക്കു ചുരുക്കുകയോ പുറത്തേക്കു വീർപ്പിക്കുകയോ ചെയ്യുക—ഏതാണ് വേണ്ടതെന്ന് മോഡ് ഓപ്ഷൻ നിശ്ചയിക്കും. രൂപവക്രത ഒരു മെഷിൽ ശേഖരിച്ച് അംഗീകരിക്കുമ്പോൾ ലെയറിൽ പ്രയോഗിക്കും.
+tool.liquify.option.tool = ഉപകരണം
+tool.liquify.choice.forward_warp = മുന്നോട്ടുള്ള വക്രണം
+tool.liquify.choice.reconstruct = പുനർനിർമ്മിക്കുക
+tool.liquify.choice.twirl_cw = ഘടികാരദിശയിൽ ചുഴറ്റുക
+tool.liquify.choice.twirl_ccw = ഘടികാരവിരുദ്ധദിശയിൽ ചുഴറ്റുക
+tool.liquify.choice.pucker = അകത്തേക്കു ചുരുക്കുക
+tool.liquify.choice.bloat = പുറത്തേക്കു വീർപ്പിക്കുക
+tool.liquify.choice.push_left = ഇടത്തേക്കു തള്ളുക
+tool.liquify.history.liquify = ലിക്വിഫൈ
+
+# Puppet Warp
+tool.puppet_warp.name = പപ്പറ്റ് വാർപ്പ്
+tool.puppet_warp.description = ലെയറിലെ ഏതാനും പോയിന്റുകളിൽ ക്ലിക്ക് ചെയ്ത് പിൻ ചെയ്യുക, തുടർന്ന് ഒരു പിൻ വലിക്കുക: ദൃഢത ഓപ്ഷനിൽ പറഞ്ഞതുപോലെ മെഷ് പിന്നുകൾക്കു ചുറ്റും മുറുകിയോ അയഞ്ഞോ വളയും. അംഗീകരിക്കുമ്പോൾ മാറ്റം പ്രയോഗിക്കും.
+tool.puppet_warp.option.stiffness = ദൃഢത
+tool.puppet_warp.history.puppet_warp = പപ്പറ്റ് വാർപ്പ്
+
+# Vanishing Point
+tool.vanishing_point.name = വാനിഷിങ് പോയിന്റ്
+tool.vanishing_point.description = ദൃശ്യകോണുള്ള ഒരു വസ്തുവിനു മുകളിൽ ഒരു ജ്യാമിതീയ തലം വരയ്ക്കുക, തുടർന്ന് മോഡ് ക്ലോൺ എന്നതിലേക്കു മാറ്റി പെയിന്റ് ചെയ്യുക: പകർത്തിയ പിക്സലുകൾ ആ തലത്തെ പിന്തുടർന്ന് ദൂരത്തിനനുസരിച്ച് ചെറുതാകും.
+tool.vanishing_point.choice.edit_plane = തലം തിരുത്തുക
+tool.vanishing_point.choice.clone = ക്ലോൺ
+tool.vanishing_point.history.vanishing_point = വാനിഷിങ് പോയിന്റ്

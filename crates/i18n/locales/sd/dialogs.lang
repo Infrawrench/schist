@@ -1,0 +1,263 @@
+# موڊل ڊائلاگ
+
+# ڪيترن ڊائلاگن جا گڏيل لفظ
+dialog.save_ellipsis = محفوظ ڪريو…
+dialog.use_foreground = اڳيون رنگ استعمال ڪريو
+dialog.downloading = ڊائون لوڊ ٿي رهيو آهي…
+dialog.downloading_of = ڊائون لوڊ ٿي رهيو آهي… {total} مان {got}
+dialog.no_config_dir = (ڪا ترتيب ڊائريڪٽري ناهي)
+
+# پرت جون خاصيتون
+dialog.layer_props.title = پرت جون خاصيتون
+
+# برآمد
+dialog.export.format = فارميٽ
+dialog.export.dither = ڊِدر
+dialog.export.dither_note = 8-bit تائين گهٽائڻ وقت ڊِدر ڪريو
+dialog.export.export_ellipsis = برآمد ڪريو…
+
+# تصويرن تي گڏيل عمل
+dialog.batch.title = تصويرن تي عمل ڪريو
+dialog.batch.note_edit.one = {n} تصوير — گيلري جي ترميم طور محفوظ ٿيندي؛ اصل تصوير کي ڪڏهن به هٿ نه لڳندو.
+dialog.batch.note_edit.other = {n} تصويرون — گيلري جي ترميمن طور محفوظ ٿينديون؛ اصل تصويرن کي ڪڏهن به هٿ نه لڳندو.
+dialog.batch.note_edit_edited.one = {n} تصوير؛ اڳ ۾ ترميم ٿيل تصويرن جو انگ: {edited} — نسخو هر ترميم ٿيل تصوير جي موجوده ترميم مٿان لاڳو ٿيندو، ۽ ان جي اڳوڻي ترميم هڪ ورزن طور رهندي.
+dialog.batch.note_edit_edited.other = {n} تصويرون؛ اڳ ۾ ترميم ٿيل تصويرن جو انگ: {edited} — نسخو هر ترميم ٿيل تصوير جي موجوده ترميم مٿان لاڳو ٿيندو، ۽ ان جي اڳوڻي ترميم هڪ ورزن طور رهندي.
+dialog.batch.note_copies.one = {n} تصوير — هڪ پرت ۾ گڏ ڪيل ڪاپي؛ اصل تصوير کي ڪڏهن به هٿ نه لڳندو.
+dialog.batch.note_copies.other = {n} تصويرون — هڪ پرت ۾ گڏ ڪيل ڪاپيون؛ اصل تصويرن کي ڪڏهن به هٿ نه لڳندو.
+dialog.batch.note_copies_edited.one = {n} تصوير؛ اڳ ۾ ترميم ٿيل تصويرن جو انگ: {edited} — هر ترميم ٿيل تصوير جي ڪاپي ان جي ترميم مان ٺهندي.
+dialog.batch.note_copies_edited.other = {n} تصويرون؛ اڳ ۾ ترميم ٿيل تصويرن جو انگ: {edited} — هر ترميم ٿيل تصوير جي ڪاپي ان جي ترميم مان ٺهندي.
+dialog.batch.turn = ڦيرايو
+dialog.batch.rotate = گهمايو
+dialog.batch.flip = اٿلايو
+dialog.batch.upscale = وڏو ڪريو
+dialog.batch.colour = رنگ
+dialog.batch.add_adjustment = ترتيب…
+dialog.batch.output = نتيجو
+dialog.batch.save_as = هن طور محفوظ ڪريو
+dialog.batch.process = عمل ڪريو
+dialog.batch.process_n = {n} تي عمل ڪريو
+dialog.batch.nothing_to_do = ڪرڻ لاءِ ڪجهه ناهي: پهرين ڦيرو، وڏو ڪرڻ يا ڪا ترتيب چونڊيو
+
+# مواد کان باخبر ماپ
+dialog.content_aware_scale.title = مواد کان باخبر ماپ
+dialog.content_aware_scale.note = گهٽ تفصيل وارا جوڙ ڪٽي ٿو. چونڊ ٻڌائي ٿي ته ڇا بچائڻو آهي.
+
+# اسٽروڪ
+dialog.stroke.title = اسٽروڪ
+dialog.stroke.location = هنڌ
+dialog.stroke.inside = اندر
+dialog.stroke.outside = ٻاهر
+dialog.stroke.note = چونڊ تي اڳئين رنگ سان اسٽروڪ ٺاهي ٿو.
+
+# ڀرڻ
+dialog.fill.contents = مواد
+
+# رنگ جي حد
+dialog.color_range.title = رنگ جي حد
+dialog.color_range.sampled = نموني مان ورتل
+dialog.color_range.fuzziness = رنگي ڦهلاءُ
+dialog.color_range.note = فعال پرت تي نموني واري رنگ جي ويجهن پڪسلن کي چونڊي ٿو.
+
+# فائيل چونڊيندڙ
+dialog.file_picker.up = ↑ مٿي
+dialog.file_picker.empty = هتي ڪجهه ناهي
+dialog.file_picker.choose_folder = هي فولڊر چونڊيو
+
+# فلٽر ڊائلاگ
+dialog.filter.camera_raw_development = Camera Raw ڊولپمينٽ
+dialog.filter.reset_as_shot = جيئن ورتل تي موٽايو
+dialog.filter.raw_note = فعال پرت کي ان جي اصل سينسر ڊيٽا مان ٻيهر تيار ڪري ٿو.
+dialog.filter.note = چونڊ جي اندر فعال پرت تي لاڳو ٿئي ٿو.
+
+# گم ٿيل فونٽ
+dialog.fonts.title = گم ٿيل فونٽ
+dialog.fonts.install_named = {name} انسٽال ڪريو
+dialog.fonts.no_document = ڪو دستاويز کليل ناهي، تنهنڪري جاچڻ لاءِ ڪجهه ناهي.
+dialog.fonts.all_installed = هن دستاويز ۾ استعمال ٿيل هر فونٽ انسٽال ٿيل آهي. ان جو متن انهن ئي فونٽن ۾ رکيل آهي جن سان ان جي بيهڪ ٺاهي وئي هئي.
+dialog.fonts.missing_intro = هي دستاويز اهڙن فونٽن ۾ رکيل آهي جيڪي توهان وٽ ناهن. متبادل فونٽ ۾ متن پڙهڻ جوڳو آهي، پر ان جون ويڪرون ۽ سٽن جا ٽٽڻ اصل بيهڪ جهڙا ناهن.
+dialog.fonts.footer = ڊائون لوڊ Google Fonts جي کليل فهرست مان اچن ٿا ۽ {dir} ۾ رکجن ٿا. جيڪو فونٽ کليل لائسنس هيٺ نه هجي، اهو ڪڏهن به نٿو آندو وڃي — جتي ماپن سان موافق، کليل لائسنس وارو آزاد متبادل فونٽ موجود هجي، اتي اهو ڏنو وڃي ٿو؛ ان سان بيهڪ بحال ٿئي ٿي، ڇاڪاڻ ته هر گلف جي افقي اڳڀرائيءَ جي ويڪر ملي ٿي.
+dialog.fonts.user_font_dir = توهان جي يوزر فونٽ ڊائريڪٽري
+
+# Neural Filter ماڊل
+dialog.models.title = Neural Filter ماڊل
+dialog.models.built_in = اندر شامل · {size}
+dialog.models.installed = انسٽال ٿيل · {size}
+dialog.models.not_installed = انسٽال ٿيل ناهي · {size}
+dialog.models.not_in_browser = برائوزر ۾ موجود ناهي · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = ماڊل {dir} ۾ رکجن ٿا. جن فلٽرن وٽ ماڊل ناهي، اهي سگنل پروسيسنگ استعمال ڪن ٿا ۽ اها ڳالهه ٻڌائين ٿا.
+
+# نئون دستاويز
+dialog.new_doc.title = نئون دستاويز
+dialog.new_doc.picker_title = نئون فائيل
+dialog.new_doc.custom_ellipsis = مرضيءَ موجب…
+dialog.new_doc.preset = اڳواٽ جوڙ
+dialog.new_doc.preset_default = ڊيفالٽ (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = چورس (1080 × 1080)
+dialog.new_doc.preset_a4 = A4، 300 ppi
+dialog.new_doc.preset_us_letter = US Letter، 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = ٺاهيو
+dialog.new_doc.created = نئون دستاويز: {w} × {h} px
+
+# فائيل کولڻ
+dialog.open.image_title = تصوير کوليو
+dialog.open.image_prompt = “{name}” کي نئين ٽيب ۾ کوليو، يا موجوده دستاويز ۾ نئين پرت طور شامل ڪريو؟
+dialog.open.new_tab = نئين ٽيب
+dialog.open.new_layer = نئين پرت
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = هي {n} فائيل
+dialog.open.these_files.other = هي {n} فائيل
+dialog.open.shared_title_one = ونڊيل تصوير
+dialog.open.shared_title_many = ونڊيل تصويرون
+dialog.open.shared_prompt = {what} کي گيلري ۾ شامل ڪريو، يا ايڊيٽر ۾ کوليو؟
+dialog.open.add_to_gallery = گيلري ۾ شامل ڪريو
+dialog.open.open_in_editor = ايڊيٽر ۾ کوليو
+dialog.open.heic_title = HEIC سپورٽ
+dialog.open.heic_needs_decoder = “{name}” کولڻ لاءِ HEVC ڊيڪوڊر گهربل آهي، جيڪو هن سسٽم تي انسٽال ٿيل ناهي.
+dialog.open.heic_offer = Schist، libde265 HEVC ڊيڪوڊر سان libheif {version} جو رڳو ڊيڪوڊ ڪرڻ وارو بِلڊ (لڳ ڀڳ 5 MB) ڊائون لوڊ ڪري سگهي ٿو. ٻئي LGPL-3.0 لائسنس هيٺ آهن؛ انهن جي لائسنسن جا متن لائبريريءَ جي ڀرسان انسٽال ٿين ٿا، ۽ سورس پروجيڪٽ جي صفحي تي موجود آهي.
+dialog.open.licenses_source = لائسنس ۽ سورس
+dialog.open.folders_title = ڇڏيل فولڊر
+dialog.open.n_folders.one = {n} فولڊر
+dialog.open.n_folders.other = {n} فولڊر
+dialog.open.open_in_tabs = ٽيبن ۾ کوليو
+dialog.open.open_first_in_tabs = پهريان {n} ٽيبن ۾ کوليو
+dialog.open.open_n_in_tabs.one = {n} کي هڪ ٽيب ۾ کوليو
+dialog.open.open_n_in_tabs.other = {n} کي ٽيبن ۾ کوليو
+dialog.open.folder_holds.one = {what} ۾ {n} تصوير آهي جيڪا Schist کولي سگهي ٿو (ذيلي فولڊرن سميت).
+dialog.open.folder_holds.other = {what} ۾ {n} تصويرون آهن جيڪي Schist کولي سگهي ٿو (ذيلي فولڊرن سميت).
+dialog.open.folders_note = گيلري ۾ شامل ڪرڻ سان انهن فولڊرن تي سندن جاءِ تي نظر رکي وڃي ٿي — ڪا شيءِ نقل نٿي ٿئي، ۽ ترميمون هر تصوير جي ڀرسان ورزنن طور رکجن ٿيون. ٽيبن ۾ کولڻ سان سڀ تصويرون هاڻي ايڊيٽر ۾ لوڊ ٿين ٿيون.
+
+# پلگ-اِن
+dialog.plugins.title = پلگ-اِن
+dialog.plugins.kind_filter = فلٽر
+dialog.plugins.kind_format = فارميٽ
+dialog.plugins.kind_unavailable = دستياب ناهي
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = پلگ-اِن {dir} مان لوڊ ٿين ٿا
+dialog.plugins.none = اڃا ڪو پلگ-اِن انسٽال ٿيل ناهي.
+dialog.plugins.install_ellipsis = انسٽال ڪريو…
+dialog.plugins.photoshop_heading = Photoshop پلگ-اِن
+dialog.plugins.loaded_from = {folders} مان لوڊ ٿيل
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# ترجيحون
+dialog.prefs.title = ترجيحون
+dialog.prefs.theme = ٿيم
+dialog.prefs.theme_dark = اونداهو
+dialog.prefs.theme_light = روشن
+dialog.prefs.grid_spacing = گرڊ جو فاصلو
+dialog.prefs.snapping = چنبڙڻ
+dialog.prefs.snap_to = گائيڊن، گرڊ ۽ ڪينواس جي ڪنارن سان چنبڙايو
+dialog.prefs.rendering_intent = رينڊرنگ جو مقصد
+dialog.prefs.intent_perceptual = ڏسڻ موجب
+dialog.prefs.intent_relative = نسبتي رنگ ماپي
+dialog.prefs.intent_saturation = رنگ جي ڀرپوريت
+dialog.prefs.intent_absolute = مطلق رنگ ماپي
+dialog.prefs.scrolling = اسڪرول ڪرڻ
+dialog.prefs.zoom_with_scroll = اسڪرول ڦيٿي سان زوم ڪريو
+dialog.prefs.rendering = رينڊرنگ
+dialog.prefs.gpu_compositing = GPU سان پرت گڏ ڪرڻ
+dialog.prefs.diagnostics = تشخيص
+dialog.prefs.crash_reports = اوچتي بندش تي مقامي رپورٽ لکو
+dialog.prefs.crash_upload = اها ڊولپرن ڏانهن به موڪليو
+dialog.prefs.telemetry = روزانو هڪ گمنام پِنگ موڪليو
+dialog.prefs.diagnostics_note = تشخيصي تبديليون Schist جي ايندڙ شروعات تي لاڳو ٿينديون.
+dialog.prefs.updates = تازه ڪاريون
+dialog.prefs.check_updates = شروع ٿيڻ وقت نوان رليز جاچيو
+dialog.prefs.keyboard_shortcuts = ڪي بورڊ شارٽ ڪٽ: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) ماڊل گهربل آهي —
+dialog.prefs.nsfw_download_link = ان کي ماڊل سنڀاليو… ۾ ڊائون لوڊ ڪريو
+dialog.prefs.hide_flagged = نشان لڳل تصويرون لڪايو
+
+# پروفائيل مقرر ڪرڻ / پروفائيل ۾ بدلائڻ
+dialog.profile.profile = پروفائيل
+dialog.profile.assign_title = پروفائيل مقرر ڪريو
+dialog.profile.convert_title = پروفائيل ۾ بدلايو
+dialog.profile.assign = مقرر ڪريو
+dialog.profile.convert = بدلايو
+dialog.profile.assign_note = موجوده پڪسل قدرن کي نئين پروفائيل هيٺ نئين معنيٰ ڏئي ٿو.
+dialog.profile.convert_note = پڪسل قدر ٻيهر لکي ٿو ته جيئن رنگن جو ڏيک قائم رهي.
+
+# تصوير هن نالي سان محفوظ ڪريو
+dialog.save_image.title = تصوير هن نالي سان محفوظ ڪريو
+dialog.save_image.note = {name} — جيڪڏهن ڪا ترميم آهي ته اها؛ اصل تصوير کي ڪڏهن به هٿ نٿو لڳي.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# تصوير ۽ ڪينواس جي ماپ
+dialog.size.image_title = تصوير جي ماپ
+dialog.size.canvas_title = ڪينواس جي ماپ
+dialog.size.constrain = پابند رکو
+dialog.size.keep_proportions = تناسب قائم رکو
+dialog.size.resample = ٻيهر نمونو وٺو
+dialog.size.bicubic = بائي ڪيوبڪ
+dialog.size.bilinear = بائي لينيئر
+dialog.size.nearest = ويجهو پاڙيسري
+dialog.size.anchor = لنگر
+dialog.size.currently = هن وقت {w} × {h} px
+dialog.size.image_size_status = تصوير جي ماپ: {w} × {h}
+dialog.size.canvas_size_status = ڪينواس جي ماپ: {w} × {h}
+
+# تازه ڪاري موجود
+dialog.update.title = تازه ڪاري موجود آهي
+dialog.update.available = Schist {version} موجود آهي. هيءَ ڪاپي {current} آهي.
+dialog.update.installing = تازه ڪاري انسٽال ٿي رهي آهي…
+dialog.update.can_install = Schist ان کي ({size}) ڊائون لوڊ ڪري هن ڪاپيءَ مٿان انسٽال ڪري سگهي ٿو.
+dialog.update.external = هيءَ ڪاپي اهڙي هنڌان آئي آهي جيڪو ان کي سنڀالي ٿو — پيڪيج مئنيجر، AppImage يا توهان جو پنهنجو بِلڊ — تنهنڪري اها ساڳئي طريقي سان تازه ٿئي ٿي جنهن طريقي سان انسٽال ٿي هئي.
+dialog.update.later = پوءِ
+dialog.update.release_notes = رليز جا نوٽ
+dialog.update.update_restart = تازه ڪري ٻيهر شروع ڪريو
+dialog.update.open_page = رليز جو صفحو کوليو
+
+# پرت جو انداز
+dialog.style.title = پرت جو انداز
+dialog.style.bevel = ڪٽيل ڪنارو ۽ اڀار
+dialog.style.stroke = اسٽروڪ
+dialog.style.inner_shadow = اندريون پاڇو
+dialog.style.inner_glow = اندرين چمڪ
+dialog.style.satin = ساٽن
+dialog.style.color_overlay = رنگ جي مٿاڇري
+dialog.style.gradient_overlay = گريڊيئنٽ جي مٿاڇري
+dialog.style.outer_glow = ٻاهرين چمڪ
+dialog.style.drop_shadow = هيٺ ڪرندڙ پاڇو
+dialog.style.blur = گائوسين ڌنڌلائپ
+dialog.style.gradient_from = گريڊيئنٽ جي مٿاڇري هتان
+dialog.style.gradient_to = گريڊيئنٽ جي مٿاڇري هتي
+dialog.style.soften = نرم ڪريو
+dialog.style.depth = اونهائي
+dialog.style.altitude = اوچائي
+dialog.style.highlight = روشن حصو
+dialog.style.shadow = پاڇو
+dialog.style.outer_bevel = ٻاهريون ڪٽيل ڪنارو
+dialog.style.inner_bevel = اندريون ڪٽيل ڪنارو
+dialog.style.emboss = اڀار
+dialog.style.pillow_emboss = وهاڻي جهڙو اڀار
+dialog.style.linear = سڌي ليڪ وارو
+dialog.style.radial = مرڪز کان پکڙيل
+dialog.style.reverse = ابتو
+dialog.style.from_to = کان / تائين
+dialog.style.from_fg = کان = اڳيون رنگ
+dialog.style.to_fg = تائين = اڳيون رنگ
+dialog.style.precise = صحيح
+dialog.style.knockout = پرت هيٺ ڪرندڙ پاڇو ڪٽي ٿي
+
+# رنگ چونڊيندڙ
+dialog.color_picker.title = رنگ چونڊيندڙ ({what})
+dialog.color_picker.effect_color = {effect} جو رنگ
+dialog.color_picker.note_color = نوٽ جو رنگ
+dialog.color_picker.new = نئون
+dialog.color_picker.current = موجوده
+
+# وڪڙن جو گراف
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = چينل موٽايو
+dialog.curves.hint = شڪل ڏيڻ لاءِ ڇڪيو · شامل ڪرڻ لاءِ ڪلڪ ڪريو · هٽائڻ لاءِ alt-click ڪريو
+
+# فونن تي ڪئميرا رول بيڪ اپ
+dialog.prefs.camera_sync = ڪئميرا رول
+dialog.prefs.camera_sync_enabled = Schist Cloud تي بيڪ اپ ڪريو
+dialog.prefs.camera_sync_sign_in = پنهنجي ڪئميرا رول جو بيڪ اپ ڪرڻ لاءِ Schist Cloud ۾ سائن اِن ڪريو.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = بدلايو…

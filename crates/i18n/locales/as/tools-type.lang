@@ -1,0 +1,29 @@
+# The type tool (plugins/tools-type). Font, Style, Size, Left, Center,
+# Right and the "Text" a new layer is named come from common.lang; font
+# family names are never translated.
+
+tool.type.name = লিখনী
+tool.type.description = সেই ঠাইত লিখনীৰ স্তৰ আৰম্ভ কৰিবলৈ ক্লিক কৰক, অথবা আগৰে পৰা থকা স্তৰ সম্পাদনা কৰিবলৈ তাত ক্লিক কৰক। খোলা থকা সময়ত সঁজুলিটোৱে পোনপটীয়া কী গ্ৰহণ কৰে (আখৰবোৰ কী ইনপুট হিচাপে পঠিয়াওক); নিশ্চিত কৰিলে স্তৰটো ৰেণ্ডাৰ হয় আৰু সম্পাদনা বন্ধ হয়।
+
+# The options bar
+tool.type.option.align = সংৰেখণ
+tool.type.option.leading = শাৰী-ব্যৱধান
+tool.type.option.tracking = আখৰ-ব্যৱধান
+tool.type.option.kerning = কাৰ্নিং
+tool.type.option.ligatures = যুক্তাক্ষৰ
+tool.type.option.discretionary_ligatures = ঐচ্ছিক যুক্তাক্ষৰ
+tool.type.option.small_caps = সৰু ডাঙৰ আখৰ
+tool.type.option.on_path = সক্ৰিয় পথত
+tool.type.option.path_offset = পথৰ অফছেট
+
+# The Style dropdown, in the order Photoshop lists them
+tool.type.choice.regular = নিয়মীয়া
+tool.type.choice.bold = ডাঠ
+tool.type.choice.italic = ইটালিক
+tool.type.choice.bold_italic = ডাঠ ইটালিক
+
+# History
+tool.type.history.new_layer = নতুন লিখনী স্তৰ
+tool.type.history.edit = লিখনী সম্পাদনা কৰক
+tool.type.history.discard = লিখনী বাদ দিয়ক
+tool.type.history.discard_empty = খালী লিখনী বাদ দিয়ক

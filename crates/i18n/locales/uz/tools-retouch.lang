@@ -1,0 +1,25 @@
+# Sohalarni retushlash vositalari.
+
+tool.patch.name = Yamoq
+tool.patch.description = Nuqson atrofini chizib tanlang, so‘ng tanlangan joyni toza piksellar ustiga sudrang: u yerdagi tekstura nuqsonli joyga moslashtiriladi. Yamoq rejimi juftlikning qaysi uchini sudrashingizni belgilaydi.
+tool.patch.option.patch = Yamoq
+tool.patch.choice.source = Manba
+tool.patch.choice.destination = Mo‘ljal
+tool.patch.history.patch = Yamoq
+
+tool.content_aware_move.name = Tarkibni hisobga olib ko‘chirish
+tool.content_aware_move.description = Tanlangan obyektni boshqa joyga sudrang, shunda undan qolgan bo‘shliq atrofidagi tasvir asosida to‘ldiriladi. Kengaytirish rejimida obyekt ko‘chirilmaydi, balki cho‘ziladi.
+tool.content_aware_move.choice.move = Ko‘chirish
+tool.content_aware_move.choice.extend = Kengaytirish
+tool.content_aware_move.history.move = Tarkibni hisobga olib ko‘chirish
+
+tool.red_eye.name = Qizil ko‘z
+tool.red_eye.description = Chaqnoq tufayli paydo bo‘lgan qizillikni yo‘qotish uchun qorachiq ustiga bosing.
+tool.red_eye.option.pupil_size = Qorachiq o‘lchami
+tool.red_eye.option.darken = To‘qroq qilish
+tool.red_eye.history.red_eye = Qizil ko‘z
+
+tool.magic_eraser.name = Sehrli o‘chirg‘ich
+tool.magic_eraser.description = Ko‘rsatkich ostidagi o‘xshash rangli sohani vosita joizlik darajasi doirasida o‘chirish uchun bosing; bunda faqat bosilgan joyga tutash soha yoki qatlamdagi barcha mos joylar o‘chiriladi.
+tool.magic_eraser.option.contiguous = Tutash
+tool.magic_eraser.history.erase = Sehrli o‘chirg‘ich

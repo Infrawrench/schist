@@ -1,0 +1,36 @@
+# Mabitso a dibopeho le melaetsa ea ho kenya lifaele.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Faele e Tala ea Khamera
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = ho manolla {name}
+codec.msg.zero_sized = setšoantšo ha se na lipiksele
+codec.msg.assembling_document = ho kopanya tokomane
+
+codec.raw.msg.decoding = ho manolla faele e tala
+codec.raw.msg.developing = ho lokisa faele e tala hore e be setšoantšo
+codec.raw.msg.finding_preview = ho batla ponelopele e kentsoeng
+codec.raw.msg.decoding_preview = ho manolla ponelopele e kentsoeng
+codec.raw.msg.decoder_panicked = semanolli sa faele e tala se hlotsoe faeleng ena: {what}
+
+codec.affinity.import_title = Ho kenya Affinity
+codec.affinity.flattened_preview_layer = Ponelopele e batalalitsoeng
+codec.affinity.msg.no_preview = Ha ho ponelopele e kentsoeng e ka sebelisoang. Sebopeho sa Affinity se nang le mekhahlelo ke sa mong'a sona; Schist e kenya ponelopele e batalalitsoeng e ka faeleng. Faele ena ha e na eona—e boloke hape ho Affinity, kapa u e romele e le PSD hore mekhahlelo eohle e kenngoe.
+
+codec.heif.msg.no_library = libheif ha e fumanehe ({details}). Ho bula HEIC ho hloka laebrari ea libheif (Linux: kenya libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — mohlomong mofuta ona oa libheif ha o na semanolli sa HEVC (ho Debian/Ubuntu, kenya libheif-plugin-libde265)
+codec.heif.msg.unknown_error = phoso e sa tsejoeng
+codec.heif.msg.initialising = ho qala libheif
+codec.heif.msg.reading_container = ho bala setshelo sa HEIF
+codec.heif.msg.finding_primary_image = ho batla setšoantšo se seholo
+codec.heif.msg.reading_icc_profile = ho bala profaele ea ICC
+codec.heif.msg.decoding_image = ho manolla setšoantšo
+codec.heif.msg.checksum_mismatch = Checksum ea {name} ha e lumellane: ho ne ho lebelletsoe {expected}, empa ho fumanoe {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ha ea khona ho bala setshelo sa HEIF
+codec.heif.msg.container_empty = setshelo sa HEIF ha se na setšoantšo
+codec.heif.msg.imageio_cannot_decode = ImageIO ha ea khona ho manolla setšoantšo se seholo

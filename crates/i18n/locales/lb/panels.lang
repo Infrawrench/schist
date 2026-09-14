@@ -1,0 +1,83 @@
+# Panneauen, Statusleescht, Tabs an Dialoger ronderëm de Canvas.
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Tatsächlech Pixel
+
+panel.color.picker = Faarfwieler…
+panel.color.swap = Faarwen tauschen
+panel.color.reset = Op Schwaarz a Wäiss zerécksetzen
+
+panel.layers.blending_options = Mëschoptiounen…
+panel.layers.properties = Ebeneneegenschaften…
+panel.layers.show_hide = Eben weisen/verstoppen
+panel.layers.toggle_visibility = Siichtbarkeet ëmschalten
+
+panel.history.title = Verlaf
+panel.history.opened = Opgemaach
+
+panel.info.title = Info
+panel.info.camera = Kamera
+panel.info.lens = Objektiv
+panel.info.iso = ISO {iso}
+panel.info.bias = Beliichtungskorrektur
+panel.info.flash_fired = Blëtz ausgeléist
+panel.info.no_flash = Kee Blëtz
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering}-Beliichtungsmiessung
+panel.info.taken = Opgeholl
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · Ausriichtung {o}
+panel.info.software = Software
+panel.info.where = Plaz
+
+panel.notes.author = Auteur
+panel.notes.clear_all = All läschen
+panel.notes.unattributed = Ouni Auteur
+panel.notes.empty = Klickt op de Canvas, fir eng Notiz ze hannerloossen.
+panel.notes.placeholder = Klickt fir ze schreiwen
+
+panel.character.title = Zeechen
+panel.character.type_tool = Textwierkzeug (T)
+panel.character.align_left = Lénks ausriichten
+panel.character.align_center = Zentéiert ausriichten
+panel.character.align_right = Riets ausriichten
+panel.character.text_color = Textfaarf
+panel.character.panel = Zeechepanneau
+panel.character.cancel_edit = Textännerung ofbriechen
+panel.character.commit_edit = Textännerung bestätegen
+panel.character.number_tip = {label} · Gitt e Wäert an oder benotzt ↑ / ↓ (Shift fir méi grouss Schrëtt)
+panel.character.leading = Zeilenofstand
+panel.character.tracking = Zeechenofstand
+panel.character.alignment = Ausriichtung
+panel.character.opentype = OpenType
+panel.character.text_on_path = Text op engem Pad
+panel.character.straight = Riicht
+panel.character.on_path = Um Pad
+panel.character.straight_tip = Déi normal Basislinn vun der Texteben benotzen
+panel.character.on_path_tip = Eng Kopie vum aktive Pad benotzen
+panel.character.path_offset = Padversaz
+
+panel.ai.title = KI
+panel.ai.empty_editor = Frot no enger Ännerung a kuckt, wéi se um Canvas geschitt. Den Agent benotzt déiselwecht Wierkzeugen, Filteren a Befehler wéi d'Menüen, jeeweils als een eenzege Schrëtt, deen Dir réckgängeg maache kënnt.
+panel.ai.empty_gallery = Stellt eng Fro iwwer Är Fotoen a kuckt, wéi d'Äntwert an der Galerie ëmgesat gëtt: Den Agent ka sichen, Miniaturbiller ukucken, auswielen, a Gruppen sortéieren an eng Foto am Editeur opmaachen.
+panel.ai.thinking = denkt no…
+panel.ai.placeholder_editor = Stellt eng Fro iwwer dëst Dokument oder ännert et
+panel.ai.placeholder_gallery = Stellt eng Fro iwwer Är Fotoen
+panel.ai.send = Schécken
+panel.ai.stop = Stoppen
+panel.ai.fetching_models = D'CLI gëtt no hire Modeller gefrot…
+panel.ai.no_models = Keng passend Modeller
+panel.ai.search_models = Modeller sichen…
+
+panel.keymap.install_plugin = Plug-in installéieren
+panel.keymap.save_as_prompt = Späicheren als — d'Endung bestëmmt d'Format:

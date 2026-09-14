@@ -1,0 +1,36 @@
+app.filter_gallery.title = Gallery fitro
+app.filter_gallery.stack = Stack (ma'aplika ginen papa' para hilo')
+app.filter_gallery.no_settings = Tåya' setten este na fitro.
+app.fonts.not_open_licensed = ti gai open license · {substitute} ha parehu i metrics-ña
+app.fonts.missing_substituted = måppla' · ma'usa substitute para i testu
+app.fonts.not_in_catalogue = Tåya' {family} gi open font catalogue
+app.fonts.no_faces = Tåya' siña ma-download na face para {family}
+app.fonts.empty_response = tåya' kontenidon i ineppi'
+app.update.unreadable_response = ti siña mabasa na ineppi': {error}
+app.update.no_temp_dir = tåya' temporåriu na directory para i download
+app.update.asset_has_path = i release ha nå'ån i asset-ña yan un path
+app.update.too_big = mås dångkolo i download ki i ilek-ña i release
+app.update.stopped_at = para i download gi {got} ginen {total} byte
+app.update.hash_mismatch = i hash nu i download {got}, ti {want}
+app.update.not_in_bundle = ti gaige este na kopia gi halom un application bundle
+app.update.no_parent_dir = tåya' parent directory nu i application bundle
+app.update.cannot_write = ti siña matuge' para {dir}
+app.update.cannot_move_aside = ti siña mana'kalamten {app} para i sanhiyong
+app.update.cannot_move_in = ti siña mana'kalamten i nuebu na bundle para i lugåt-ña
+app.update.cannot_run_ditto = ti siña machocho'gue /usr/bin/ditto
+app.update.unpack_failed = ti måfunhåyan i unpack nu i download: {error}
+app.update.no_app_in_download = tåya' Schist.app gi download
+app.update.cannot_run_codesign = ti siña machocho'gue /usr/bin/codesign
+app.update.signature_invalid = ti siña maberifika i signature nu i download: {error}
+app.update.download_unsigned = gai signature este na kopia, lao tåya' gi download
+app.update.different_developer = otro na developer fuma'tinas i signature nu i download
+app.update.cannot_relaunch = ti siña matutuhon i relauncher
+app.update.not_installed_copy = ti mapo'lo este na kopia guini ni installer
+app.update.cannot_start_installer = ti siña matutuhon i installer
+app.update.platform_unsupported = i update siha gi este na platform ma-install parehu yan i manera ni ma-install i Schist
+app.vulkan.no_loader = schist: tåya' Vulkan loader gi este na sisteman, pues tåya' para madibuha.\n\nHa render i Schist gi Vulkan, yan ti ma-install i `libvulkan.so.1`.\nNisisåriu i loader yan un driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: tåya' i Vulkan driver ni pine'lo este na session.\n\nMa-set i {var}, yan i sinetten-ña ha tulaika i inaliligao nu i loader para driver siha, ti ha na'hålom gi inaliligao. Pues este siha na file, ni tåya', ayo ha' todu i driver list — yan todu i Vulkan program gi este na session tåya' ha li'e' na driver, achokka' kuåntu ma-install:\n\n{missing}\n    {var}={value}\n\nPo'lo para un manifest ni gaige — i ma-install na driver siha ha po'lo i manifest-ñiha gi /usr/share/vulkan/icd.d — pat na'suha i setting ya sedi i loader para u sodda' i propio. Yanggen un config file ha set este para i session (i `env =` nu i Hyprland, un systemd environment.d drop-in, pat shell profile), debi matulaika guihe, yan nisisåriu un nuebu na login para u fåtto i tinilaika gi håfa ni chumocho'cho' esta.\n
+app.vulkan.override_note = \nMa-set i {var} para {value}, yan enao ha tulaika i propio na inaliligao nu i loader: yanggen tåya' enao siha na manifest para este na makina, fine'nina chagi na un na'suha i setting.\n
+app.vulkan.no_driver = schist: tåya' ma-install na Vulkan driver, pues tåya' para madibuha.\n\nHa render i Schist gi Vulkan. Ma-install i loader lao tåya' driver ha ripot — tåya' ha regista gi maseha månu gi dos na lugåt ni ma'aliligao:\n\n{dirs}\n\nSeparåo i paketen i loader yan i driver siha, pues sesso un måppla' na pakete ha' este.\n\nInståla i para i GPU nu este na makina:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nI pribådu na driver nu i NVIDIA ha chuchule' i propio (`nvidia-utils` gi Arch, `nvidia-driver` gi Debian). Gi virtual machine, pat månu na tåya' GPU driver para ma-install, i software rasteriser i machocho'gue: `vulkan-swrast` gi Arch, yan påtte gi `mesa-vulkan-drivers` gi otro. Despåsiu, lao matutuhon.\n{overridden}
+app.vulkan.no_device = schist: guaha ma-install na Vulkan driver lao tåya' device ha ofrese para i render.\n\nSiña ti ha suporta i driver este na GPU, pat ti siña ha aksesa — gi SSH pat gi halom container, sesso måppla' i /dev/dri. Ha ripot i `vulkaninfo --summary` håfa ha li'e' i loader.\n\nYanggen tåya' GPU gi este na makina, i software rasteriser ha render sin GPU: `vulkan-swrast` gi Arch, yan påtte gi `mesa-vulkan-drivers` gi Debian yan Fedora.\n
+app.vulkan.skip_hint = Para un tutuhon i Schist maseha ya sedi para u låchi gi propio na manera-ña, set {var}=1.

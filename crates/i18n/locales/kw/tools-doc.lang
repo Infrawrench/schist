@@ -1,0 +1,25 @@
+# Toolys skrifen: bordow art, rannow, framys, notennow ha niverow.
+tool.artboard.name = Bord Art
+tool.artboard.description = Tenna bord art: ran henwys a'n lien a vydh esperthys y honan. Dre denna yn unn kavadow a wra'y waya.
+tool.artboard.default_name = Bord Art {n}
+
+tool.slice.name = Rann
+tool.slice.description = Tenna rann esperthi, hirgornel henwys a'n lien a vydh esperthys avel delwenn y honan. Dre denna yn unn kavadow a wra'y waya.
+tool.slice.default_name = Rann {n}
+
+tool.frame.name = Fram
+tool.frame.description = Tenna fram: gwisk hirgornel (po hirgylgh) a wra maskya peub tra a vydh gorres ynno.
+tool.frame.default_name = Fram {n}
+tool.frame.choice.rectangle = Hirgornel
+tool.frame.choice.ellipse = Hirgylgh
+tool.frame.history.frame = Fram
+
+tool.note.name = Noten
+tool.note.description = Klyckya lien gwag rag festya noten ena, merkys gans an awtour ha'n liw yn studh an golygyas; klyckya pyn kavadow rag y dhewis rag panel an Notennow.
+tool.note.history.place = Gorra Noten
+tool.note.history.move = Gwaya Noten
+tool.note.history.delete = Dilea Noten
+
+tool.count.name = Niver
+tool.count.description = Klyckya rag gorra merkoryon niverennys war an lien, ha klyckya unn kavadow rag y dhilea.
+tool.count.default_name = Niver {n}

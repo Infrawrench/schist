@@ -1,0 +1,43 @@
+# Filter Gallery
+app.filter_gallery.title = Filter Gallery
+app.filter_gallery.stack = Stack (wɔde fi ase kɔ soro)
+app.filter_gallery.no_settings = Filter yi nni nhyehyɛe biara.
+
+# Font
+app.fonts.not_open_licensed = enni tumi krataa a obiara betumi de adi dwuma · {substitute} ne ne susudua yɛ pɛ
+app.fonts.missing_substituted = wɔanhu · wɔde font foforo a esi ananmu rekyerɛ nkyerɛwee no
+app.fonts.not_in_catalogue = {family} nni open font catalogue no mu
+app.fonts.no_faces = {family} nni font face biara a wobetumi atwe aba
+app.fonts.empty_response = mmuae no mu da hɔ
+
+# Foforoyɛ
+app.update.unreadable_response = wontumi nkenkan mmuae no: {error}
+app.update.no_temp_dir = temporary directory biara nni hɔ a wɔde bɛtwe aba mu
+app.update.asset_has_path = release no de kwan bi ka asset no din ho
+app.update.too_big = ade a wɔatwe aba no sõ sen sɛnea release no ka
+app.update.stopped_at = ade a wɔretwe aba no gyinaa byte {got} wɔ {total} mu
+app.update.hash_mismatch = ade a wɔatwe aba no hash yɛ {got}, na ɛnyɛ {want}
+app.update.not_in_bundle = copy yi nni application bundle mu
+app.update.no_parent_dir = application bundle no nni parent directory
+app.update.cannot_write = wontumi nkyerɛw nkɔ {dir}
+app.update.cannot_move_aside = wontumi nyi {app} nsi nkyɛn
+app.update.cannot_move_in = wontumi mfa bundle foforo no nsi beae no
+app.update.cannot_run_ditto = wontumi mmɔ /usr/bin/ditto
+app.update.unpack_failed = wɔantumi annyi nea wɔatwe aba no amfi ne kotoku mu: {error}
+app.update.no_app_in_download = Schist.app biara nni ade a wɔatwe aba no mu
+app.update.cannot_run_codesign = wontumi mmɔ /usr/bin/codesign
+app.update.signature_invalid = wɔantumi annyɛ ade a wɔatwe aba no signature no nokware: {error}
+app.update.download_unsigned = wɔde signature ahyɛ copy yi agyirae, nanso nea wɔatwe aba no nni bi
+app.update.different_developer = developer foforo na ɔde signature ahyɛ nea wɔatwe aba no agyirae
+app.update.cannot_relaunch = wontumi mfi relauncher no ase
+app.update.not_installed_copy = ɛnyɛ installer no na ɛde copy yi baa ha
+app.update.cannot_start_installer = wontumi mfi installer no ase
+app.update.platform_unsupported = wɔde ɔkwan a wɔde Schist baa platform yi so no ara na ɛde updates ba
+
+# Vulkan ho nhwehwɛmu
+app.vulkan.no_loader = schist: Vulkan loader biara nni system yi so, enti biribiara nni hɔ a wɔde bɛyɛ mfonini.\n\nSchist nam Vulkan so na ɛyɛ mfonini, na wɔmfa `libvulkan.so.1` ntoo so.\nLoader ne driver no nyinaa ho hia:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan driver a session yi kyerɛ no nni hɔ.\n\nWɔahyɛ {var}, na sɛ wɔhyɛ no a, ɛde nea ɛkyerɛ no *si loader no ankasa driver hwehwɛ ananmu* sen sɛ ɛde bɛka ho. Enti fael yi a enni hɔ no nko ara ne driver ahorow no nyinaa — na Vulkan program biara wɔ session yi mu nhu driver biako mpo, ɛmfa ho sɛ wɔde pii ato so:\n\n{missing}\n    {var}={value}\n\nMa ɛnkyerɛ manifest a ɛwɔ hɔ — driver a wɔde ato so de wɔn de gu /usr/share/vulkan/icd.d — anaa yi nhyehyɛe no na ma loader no ankasa nhu ne de.\nSɛ session bi fi config file mu hyɛ eyi (Hyprland `env =`, systemd environment.d drop-in, anaa shell profile) a, ɛsɛ sɛ wosesa wɔ hɔ, na ɛsɛ sɛ wokɔ akontaabu no mu foforo ansa na nsakrae no adu biribi a ɛreyɛ adwuma dedaw ho.\n
+app.vulkan.override_note = \nWɔde {var} ahyɛ {value}, na eyi si loader no ankasa hwehwɛ ananmu: sɛ manifest ahorow no mu biara nyɛ mfiri yi dea a, ade a edi kan a ɛsɛ sɛ wosɔ hwɛ ne sɛ wubeyi nhyehyɛe no.\n
+app.vulkan.no_driver = schist: wɔmfa Vulkan driver biara ntoo so, enti biribiara nni hɔ a wɔde bɛyɛ mfonini.\n\nSchist nam Vulkan so na ɛyɛ mfonini. Wɔde loader no ato so, nanso ɛka sɛ driver biara nni hɔ — driver biara ankyerɛw ne din wɔ mmeae abien a wɔhwehwɛ mu no mu:\n\n{dirs}\n\nWɔde loader no ne driver ahorow no ba soronko, enti mpɛn pii no package baako na ɛnni hɔ.\n\nFa nea ɛyɛ mfiri yi GPU no dea no to so:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA proprietary driver no kura ne de (`nvidia-utils` wɔ Arch, `nvidia-driver` wɔ Debian). Wɔ virtual machine mu, anaa baabi a GPU driver biara nni hɔ a wobetumi de ato so no, software rasteriser no na ɛyɛ adwuma: `vulkan-swrast` wɔ Arch, na ɛyɛ `mesa-vulkan-drivers` fã wɔ mmeae foforo. Ɛyɛ nyaa, nanso efi ase.\n{overridden}
+app.vulkan.no_device = schist: wɔde Vulkan driver bi ato so, nanso enni device biara a wɔde bɛyɛ mfonini.\n\nEbia driver no mmoa GPU yi, anaa entumi nnya ho kwan — wɔ SSH so anaa container mu no, /dev/dri taa yɛ nea ɛnni hɔ. `vulkaninfo --summary` kyerɛ nea loader no hu.\n\nSɛ mfiri yi nni GPU koraa a, software rasteriser no tumi yɛ mfonini: `vulkan-swrast` wɔ Arch, na ɛyɛ `mesa-vulkan-drivers` fã wɔ Debian ne Fedora.\n
+app.vulkan.skip_hint = Sɛ wopɛ sɛ wufi Schist ase ara na woma no di ne ho nkogu wɔ n'ankasa kwan so a, hyɛ {var}=1.

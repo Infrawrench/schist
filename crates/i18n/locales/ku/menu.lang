@@ -1,0 +1,155 @@
+# Darika menûyê ya sepanê.
+
+# Pel
+menu.file = Pel
+menu.file.new = Nû
+menu.file.open = Veke…
+menu.file.open_recent = Yên Dawî Veke
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Li Galeriyê Bigere…
+menu.file.close = Bigire
+menu.file.save = Tomar Bike
+menu.file.save_as = Tomar Bike Wek…
+menu.file.export = Derxe…
+menu.file.export_submenu = Derxe
+menu.file.export_artboards = Tabloyên Hunerî Wek PNG Derxe…
+menu.file.export_slices = Perçeyan Wek PNG Derxe…
+menu.file.save_to_photos = Li Fotografan Tomar Bike
+menu.file.plugins = Pêvek…
+menu.file.missing_fonts = Tîpên Winda…
+menu.file.check_for_updates = Li Rojanekirinan Bigere…
+menu.file.quit = Derkeve
+menu.file.add_folder_to_gallery = Peldankê Li Galeriyê Zêde Bike…
+menu.file.import_from_photos = Ji Fotografan Bîne Hundir…
+menu.file.import_from_camera = Ji Kamerayê Bîne Hundir…
+
+# Sererastkirin
+menu.edit = Sererast Bike
+menu.edit.fill = Dagire…
+menu.edit.stroke = Xêz Bike…
+menu.edit.content_aware_fill = Dagirtina Li Gorî Naverokê
+menu.edit.content_aware_scale = Pîvana Li Gorî Naverokê…
+menu.edit.puppet_warp = Teşedankirina Kukla
+menu.edit.free_transform = Veguherandina Azad
+menu.edit.transform = Veguherandin
+menu.edit.rotate_180 = 180° Bizivirîne
+menu.edit.rotate_90_cw = 90° Li Aliyê Saetê Bizivirîne
+menu.edit.rotate_90_ccw = 90° Berevajî Aliyê Saetê Bizivirîne
+menu.edit.flip_horizontal = Berwarî Berevajî Bike
+menu.edit.flip_vertical = Tîkane Berevajî Bike
+
+# Wêne
+menu.image = Wêne
+menu.image.mode = Mod
+menu.image.adjustments = Sererastkirin
+menu.image.auto_tone = Tona Xweber
+menu.image.auto_contrast = Kontrasta Xweber
+menu.image.auto_color = Rengê Xweber
+menu.image.image_size = Mezinahiya Wêneyê…
+menu.image.canvas_size = Mezinahiya Kanavayê…
+menu.image.image_rotation = Zivirandina Wêneyê
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° Li Aliyê Saetê
+menu.image.rotate_90_ccw = 90° Berevajî Aliyê Saetê
+menu.image.flip_canvas_horizontal = Kanavayê Berwarî Berevajî Bike
+menu.image.flip_canvas_vertical = Kanavayê Tîkane Berevajî Bike
+menu.image.crop_to_selection = Li Gorî Hilbijartinê Qut Bike
+menu.image.trim = Kêlek Jê Bike
+menu.image.assign_profile = Profîlê Tayin Bike…
+menu.image.convert_to_profile = Veguherîne Profîlê…
+
+# Hilbijartin
+menu.select = Hilbijêre
+menu.select.color_range = Berfirehiya Rengê…
+menu.select.modify = Biguherîne
+menu.select.border = Sînor…
+menu.select.smooth = Nerm Bike…
+menu.select.expand = Berfireh Bike…
+menu.select.contract = Teng Bike…
+menu.select.feather = Keviyan Nerm Bike…
+menu.select.transform_selection = Hilbijartinê Veguherîne
+
+# Layer
+menu.layer = Layer
+menu.layer.layer_style = Şêwaza Layerê…
+menu.layer.layer_comps = Pêkhateyên Layerê
+menu.layer.new_layer_comp = Pêkhateya Layerê ya Nû
+menu.layer.delete_layer_comp = {name} Jê Bibe
+menu.layer.path = Rêç
+menu.layer.fill_path = Rêçê Dagire
+menu.layer.stroke_path = Li Rêçê Xêz Bike
+menu.layer.make_selection = Hilbijartinê Çêke
+menu.layer.delete_path = Rêçê Jê Bibe
+
+# Eyar
+menu.adjust = Eyar Bike
+
+# Fîltre
+menu.filter = Fîltre
+menu.filter.filter_gallery = Galerîya Fîltreyan…
+menu.filter.liquify = Teşedankirina Şilî
+menu.filter.vanishing_point = Xala Jibirdar
+menu.filter.manage_models = Modelan Birêve Bibe…
+menu.filter.camera_raw_development = Pêşxistina Camera Raw…
+
+# Dîtin
+menu.view = Dîtin
+menu.view.rotate_view_cw = Dîtinê Li Aliyê Saetê Bizivirîne
+menu.view.rotate_view_ccw = Dîtinê Berevajî Aliyê Saetê Bizivirîne
+menu.view.reset_view = Dîtinê Vegerîne Destpêkê
+menu.view.zoom_in = Nêzîk Bike
+menu.view.zoom_out = Dûr Bike
+menu.view.fit_on_screen = Li Ekranê Bihewîne
+menu.view.actual_size = 100%
+menu.view.rulers = Rastek
+menu.view.grid = Tor
+menu.view.guides = Rêber
+menu.view.notes = Not
+menu.view.ai_panel = Panela AI
+menu.view.extras = Zêdek
+menu.view.snap = Girêdan
+menu.view.clear_guides = Rêberan Paqij Bike
+menu.view.clear_notes = Notan Paqij Bike
+menu.view.clear_count = Hejmaran Paqij Bike
+menu.view.screen_mode = Moda Ekranê
+menu.view.proof_colors = Rengên Ceribandinê
+menu.view.show_rulers = Rastekan Nîşan Bide
+menu.view.hide_rulers = Rastekan Veşêre
+menu.view.show_grid = Torê Nîşan Bide
+menu.view.hide_grid = Torê Veşêre
+menu.view.show_guides = Rêberan Nîşan Bide
+menu.view.hide_guides = Rêberan Veşêre
+menu.view.show_notes = Notan Nîşan Bide
+menu.view.hide_notes = Notan Veşêre
+menu.view.show_extras = Zêdekan Nîşan Bide
+menu.view.hide_extras = Zêdekan Veşêre
+menu.view.enable_snapping = Girêdanê Çalak Bike
+menu.view.disable_snapping = Girêdanê Neçalak Bike
+menu.view.enable_proof_colors = Rengên Ceribandinê Çalak Bike
+menu.view.disable_proof_colors = Rengên Ceribandinê Neçalak Bike
+
+# Galerî
+menu.gallery = Galerî
+menu.gallery.edit_selected = Yên Hilbijartî Sererast Bike
+menu.gallery.refresh = Nû Bike
+menu.gallery.map_filter = Fîltreya Nexşeyê…
+menu.gallery.back_to_editor = Vegere Edîtorê
+
+# Binmenûya Schist Cloud
+menu.cloud.browse = Li Schist Cloud Bigere
+menu.cloud.generate = Wêneyan Çêke…
+menu.cloud.upload = Belgeyê Bar Bike Schist Cloud…
+menu.cloud.sign_out = Ji Schist Cloud Derkeve
+menu.cloud.sign_in = Têkeve Schist Cloud…
+
+# Menûya sepana macOS
+menu.app.services = Xizmet
+menu.app.hide = {app} Veşêre
+menu.app.hide_others = Yên Din Veşêre
+menu.app.show_all = Hemûyan Nîşan Bide
+menu.app.quit = Ji {app} Derkeve
+
+# Bersivên darika rewşê
+menu.status.transform_selection_needs_selection = Veguherandina Hilbijartinê hewcedarê hilbijartinekê ye
+menu.status.crop_needs_selection = Qutkirina Li Gorî Hilbijartinê hewcedarê hilbijartinekê ye
+menu.status.select_photo_to_edit = Fotografa ku dê were sererastkirin hilbijêre

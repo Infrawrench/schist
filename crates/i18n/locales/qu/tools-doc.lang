@@ -1,0 +1,29 @@
+# Arte pizarra
+tool.artboard.name = Arte pizarra
+tool.artboard.description = Arte pizarrata aysaspa ruray: lienzopi sutichasqa k'iti, sapallan lluqsichisqa kanqa. Kaqña arte pizarrapa ukhunpi aysaspa kuyuchinki.
+tool.artboard.default_name = Arte pizarra {n}
+
+# Rakisqa
+tool.slice.name = Lluqsichina rakisqa
+tool.slice.description = Lienzopi sutichasqa tawa kuchu rakisqata aysaspa ruray, sapallan rikch'ay hina lluqsichinapaq. Kaqña rakisqapa ukhunpi aysaspa kuyuchinki.
+tool.slice.default_name = Rakisqa {n}
+
+# Marco
+tool.frame.name = Marco
+tool.frame.description = Marcota aysaspa ruray: tawa kuchu (utaq elipse) pata, ukhuman churasqa imatapas maskawan pakaykuq.
+tool.frame.default_name = Marco {n}
+tool.frame.choice.rectangle = Tawa kuchu
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Marco
+
+# Willakuy
+tool.note.name = Willakuy
+tool.note.description = Ch'usaq lienzota ñit'ispa chaypi willakuyta t'ipay; qillqaqpa sutiyuq, editorninpi kaq llimp'iyuqmi kanqa. Kaqña t'ipanata ñit'ispa Willakuykuna panelpaq akllay.
+tool.note.history.place = Willakuyta churay
+tool.note.history.move = Willakuyta kuyuchiy
+tool.note.history.delete = Willakuyta qulluy
+
+# Yupay
+tool.count.name = Yupay
+tool.count.description = Ñit'ispa lienzopi yupayniyuq yupana señalkunata churay; kaqña señalta ñit'ispa qichuy.
+tool.count.default_name = Yupay {n}

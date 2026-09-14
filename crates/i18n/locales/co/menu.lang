@@ -1,0 +1,143 @@
+# Barra di menu.
+
+menu.file = Schedariu
+menu.file.new = Novu
+menu.file.open = Apre…
+menu.file.open_recent = Apre un schedariu recente
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Sfuglià a galleria…
+menu.file.close = Chjode
+menu.file.save = Arregistrà
+menu.file.save_as = Arregistrà cù u nome…
+menu.file.export = Spurtà…
+menu.file.export_submenu = Spurtà
+menu.file.export_artboards = Tavule di travagliu in PNG…
+menu.file.export_slices = Ritagli in PNG…
+menu.file.save_to_photos = Arregistrà in Fotò
+menu.file.plugins = Plug-in…
+menu.file.missing_fonts = Caratteri mancanti…
+menu.file.check_for_updates = Circà l'aghjurnamenti…
+menu.file.quit = Esce
+menu.file.add_folder_to_gallery = Aghjunghje un cartulare à a galleria…
+menu.file.import_from_photos = Impurtà da Fotò…
+menu.file.import_from_camera = Impurtà da a camera…
+
+menu.edit = Mudificà
+menu.edit.fill = Riempie…
+menu.edit.stroke = Cuntornu…
+menu.edit.content_aware_fill = Riempimentu sensibile à u cuntenutu
+menu.edit.content_aware_scale = Scala sensibile à u cuntenutu…
+menu.edit.puppet_warp = Deformazione à marionetta
+menu.edit.free_transform = Trasfurmazione libera
+menu.edit.transform = Trasfurmà
+menu.edit.rotate_180 = Girà di 180°
+menu.edit.rotate_90_cw = Girà di 90° in sensu urariu
+menu.edit.rotate_90_ccw = Girà di 90° in sensu antiurariu
+menu.edit.flip_horizontal = Rivultà in orizuntale
+menu.edit.flip_vertical = Rivultà in verticale
+
+menu.image = Maghjina
+menu.image.mode = Modu
+menu.image.adjustments = Regulazioni
+menu.image.auto_tone = Tonu automaticu
+menu.image.auto_contrast = Cuntrastu automaticu
+menu.image.auto_color = Culore automaticu
+menu.image.image_size = Dimensione di a maghjina…
+menu.image.canvas_size = Dimensione di a tela…
+menu.image.image_rotation = Rutazione di a maghjina
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° in sensu urariu
+menu.image.rotate_90_ccw = 90° in sensu antiurariu
+menu.image.flip_canvas_horizontal = Rivultà a tela in orizuntale
+menu.image.flip_canvas_vertical = Rivultà a tela in verticale
+menu.image.crop_to_selection = Ritaglià à a selezzione
+menu.image.trim = Rifilà
+menu.image.assign_profile = Assignà un prufilu…
+menu.image.convert_to_profile = Cunvertisce in prufilu…
+
+menu.select = Selezziunà
+menu.select.color_range = Gamma di culori…
+menu.select.modify = Mudificà
+menu.select.border = Bordu…
+menu.select.smooth = Liscià…
+menu.select.expand = Allargà…
+menu.select.contract = Stringhje…
+menu.select.feather = Sfumà i bordi…
+menu.select.transform_selection = Trasfurmà a selezzione
+
+menu.layer = Stratu
+menu.layer.layer_style = Stile di stratu…
+menu.layer.layer_comps = Cumpusizioni di strati
+menu.layer.new_layer_comp = Cumpusizione di strati nova
+menu.layer.delete_layer_comp = Sguassà {name}
+menu.layer.path = Tracciatu
+menu.layer.fill_path = Riempie u tracciatu
+menu.layer.stroke_path = Appiicà un cuntornu à u tracciatu
+menu.layer.make_selection = Creà una selezzione
+menu.layer.delete_path = Sguassà u tracciatu
+
+menu.adjust = Regulà
+
+menu.filter = Filtru
+menu.filter.filter_gallery = Galleria di filtri…
+menu.filter.liquify = Liquefà
+menu.filter.vanishing_point = Puntu di fuga
+menu.filter.manage_models = Gestisce i mudelli…
+menu.filter.camera_raw_development = Sviluppu Camera Raw…
+
+menu.view = Vista
+menu.view.rotate_view_cw = Girà a vista in sensu urariu
+menu.view.rotate_view_ccw = Girà a vista in sensu antiurariu
+menu.view.reset_view = Rimette a vista
+menu.view.zoom_in = Ingrandisce
+menu.view.zoom_out = Riduce
+menu.view.fit_on_screen = Adattà à u screnu
+menu.view.actual_size = 100%
+menu.view.rulers = Righelli
+menu.view.grid = Griglia
+menu.view.guides = Guide
+menu.view.notes = Note
+menu.view.ai_panel = Pannellu AI
+menu.view.extras = Elementi in più
+menu.view.snap = Aderenza
+menu.view.clear_guides = Caccià e guide
+menu.view.clear_notes = Caccià e note
+menu.view.clear_count = Viutà u cuntatore
+menu.view.screen_mode = Modu di screnu
+menu.view.proof_colors = Culori di prova
+menu.view.show_rulers = Mustrà i righelli
+menu.view.hide_rulers = Piattà i righelli
+menu.view.show_grid = Mustrà a griglia
+menu.view.hide_grid = Piattà a griglia
+menu.view.show_guides = Mustrà e guide
+menu.view.hide_guides = Piattà e guide
+menu.view.show_notes = Mustrà e note
+menu.view.hide_notes = Piattà e note
+menu.view.show_extras = Mustrà l'elementi in più
+menu.view.hide_extras = Piattà l'elementi in più
+menu.view.enable_snapping = Attivà l'aderenza
+menu.view.disable_snapping = Disattivà l'aderenza
+menu.view.enable_proof_colors = Attivà i culori di prova
+menu.view.disable_proof_colors = Disattivà i culori di prova
+
+menu.gallery = Galleria
+menu.gallery.edit_selected = Mudificà l'elementi selezziunati
+menu.gallery.refresh = Rinfrescà
+menu.gallery.map_filter = Filtru di carta…
+menu.gallery.back_to_editor = Riturnà à l'editore
+
+menu.cloud.browse = Sfuglià Schist Cloud
+menu.cloud.generate = Generà maghjine…
+menu.cloud.upload = Mandà u ducumentu à Schist Cloud…
+menu.cloud.sign_out = Scunnettese da Schist Cloud
+menu.cloud.sign_in = Cunnettese à Schist Cloud…
+
+menu.app.services = Servizii
+menu.app.hide = Piattà {app}
+menu.app.hide_others = Piattà l'altri
+menu.app.show_all = Mustrà tuttu
+menu.app.quit = Esce da {app}
+
+menu.status.transform_selection_needs_selection = Per trasfurmà a selezzione, ci vole una selezzione
+menu.status.crop_needs_selection = Per ritaglià à a selezzione, ci vole una selezzione
+menu.status.select_photo_to_edit = Selezziunate una fotò da mudificà

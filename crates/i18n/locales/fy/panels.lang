@@ -1,0 +1,83 @@
+# Sneltoetsen
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Werklike piksels
+
+panel.color.picker = Kleurkiezer…
+panel.color.swap = Kleuren wikselje
+panel.color.reset = Weromsette op swart en wyt
+
+panel.layers.blending_options = Mingopsjes…
+panel.layers.properties = Laacheigenskippen…
+panel.layers.show_hide = Laach toane/ferbergje
+panel.layers.toggle_visibility = Sichtberens omskeakelje
+
+panel.history.title = Skiednis
+panel.history.opened = Iepene
+
+panel.info.title = Ynformaasje
+panel.info.camera = Kamera
+panel.info.lens = Lins
+panel.info.iso = ISO {iso}
+panel.info.bias = Beljochtingskorreksje
+panel.info.flash_fired = flitser ôfgyng
+panel.info.no_flash = gjin flits
+panel.info.white_balance = Wytbalâns {wb}
+panel.info.metering = {metering}-ljochtmjitting
+panel.info.taken = Makke op
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · oriïntaasje {o}
+panel.info.software = Software
+panel.info.where = Plak
+
+panel.notes.author = Skriuwer
+panel.notes.clear_all = Alles wiskje
+panel.notes.unattributed = Sûnder namme
+panel.notes.empty = Klik op it kanvas om in notysje efter te litten.
+panel.notes.placeholder = Klik om te skriuwen
+
+panel.character.title = Teken
+panel.character.type_tool = Tekstark (T)
+panel.character.align_left = Lofts rjochtsje
+panel.character.align_center = Sintraal rjochtsje
+panel.character.align_right = Rjochts rjochtsje
+panel.character.text_color = Tekstkleur
+panel.character.panel = Tekenpaniel
+panel.character.cancel_edit = Tekstbewurking annulearje
+panel.character.commit_edit = Tekstbewurking befêstigje
+panel.character.number_tip = {label} · Typ in wearde of brûk ↑ / ↓ (Shift foar gruttere stappen)
+panel.character.leading = Rigelôfstân
+panel.character.tracking = Letterspaasjes
+panel.character.alignment = Utlining
+panel.character.opentype = OpenType
+panel.character.text_on_path = Tekst op in paad
+panel.character.straight = Rjocht
+panel.character.on_path = Op paad
+panel.character.straight_tip = Brûk de gewoane basisline fan de tekstlaach
+panel.character.on_path_tip = Brûk in kopy fan it aktive paad
+panel.character.path_offset = Paadferskowing
+
+panel.ai.title = AI
+panel.ai.empty_editor = Freegje om in bewurking en sjoch dy op it kanvas barre. De agint betsjinnet deselde ark, filters en opdrachten as de menu's, elk as ien stap foar Ungedien meitsje.
+panel.ai.empty_gallery = Stel in fraach oer jo foto's en sjoch it yn de galery barre: de agint kin sykje, miniatueren besjen, selektearje, yn groepen yndiele en in foto yn de bewurker iepenje.
+panel.ai.thinking = oan it neitinken…
+panel.ai.placeholder_editor = Freegje nei dit dokumint of bewurkje it
+panel.ai.placeholder_gallery = Freegje nei jo foto's
+panel.ai.send = Ferstjoere
+panel.ai.stop = Stopje
+panel.ai.fetching_models = Modellen opfreegje by de CLI…
+panel.ai.no_models = Gjin oerienkommende modellen
+panel.ai.search_models = Modellen sykje…
+
+panel.keymap.install_plugin = Ynstekker ynstallearje
+panel.keymap.save_as_prompt = Bewarje as — de taheaksel bepaalt it formaat:

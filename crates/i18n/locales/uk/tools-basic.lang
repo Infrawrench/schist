@@ -1,0 +1,20 @@
+# Основні інструменти.
+tool.move.name = Переміщення
+tool.move.description = Перетягує вміст активного шару в нове положення. Якщо ввімкнено автовибір, натискання спочатку вибирає шар або цілу групу під вказівником.
+tool.move.option.auto_select = Автовибір
+tool.move.history.move_layer = Переміщення шару
+tool.eyedropper.name = Піпетка
+tool.eyedropper.description = Бере зразок кольору під вказівником для кольору переднього плану, а коли затиснуто Alt — для кольору тла. Під час перетягування зразки беруться безперервно.
+tool.eyedropper.option.sample_size = Розмір зразка
+tool.eyedropper.option.sample = Зразок
+tool.eyedropper.choice.point_sample = Точковий зразок
+tool.eyedropper.choice.average_3 = Середнє 3 × 3
+tool.eyedropper.choice.average_5 = Середнє 5 × 5
+tool.eyedropper.choice.average_11 = Середнє 11 × 11
+tool.eyedropper.choice.average_31 = Середнє 31 × 31
+tool.eyedropper.choice.all_layers = Усі шари
+tool.eyedropper.choice.current_layer = Поточний шар
+tool.hand.name = Рука
+tool.hand.description = Пересуває область перегляду. Вона належить вікну, тому без графічного інтерфейсу цей інструмент не змінює документ.
+tool.zoom.name = Масштаб
+tool.zoom.description = Змінює масштаб перегляду. Область перегляду належить вікну, тому без графічного інтерфейсу цей інструмент не змінює документ.

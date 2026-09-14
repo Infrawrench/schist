@@ -1,0 +1,152 @@
+# Fael
+menu.file = Fael
+menu.file.new = Foforo
+menu.file.open = Bue…
+menu.file.open_recent = Bue Nea Wɔde Dii Dwuma Nnansa Yi
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Hwehwɛ Gallery Mu…
+menu.file.close = To Mu
+menu.file.save = Kora So
+menu.file.save_as = Kora Sɛ…
+menu.file.export = Yi Kɔ Akyiri…
+menu.file.export_submenu = Yi Kɔ Akyiri
+menu.file.export_artboards = Yi Artboard Kɔ PNG…
+menu.file.export_slices = Yi Twitwa Kɔ PNG…
+menu.file.save_to_photos = Kora Wɔ Fotos Mu
+menu.file.plugins = Plug-ins…
+menu.file.missing_fonts = Font Ahorow a Wɔanhu…
+menu.file.check_for_updates = Hwehwɛ Foforoyɛ…
+menu.file.quit = Fi Mu
+menu.file.add_folder_to_gallery = Fa Folda Ka Gallery Ho…
+menu.file.import_from_photos = Fa Fi Fotos Mu Bra…
+menu.file.import_from_camera = Fa Fi Kamera Mu Bra…
+
+# Siesie
+menu.edit = Siesie
+menu.edit.fill = Hyɛ Mu…
+menu.edit.stroke = Fa Nsensanee Twa Ho…
+menu.edit.content_aware_fill = Hyɛ Mu a Ɛte Mu Nsɛm Ase
+menu.edit.content_aware_scale = Sesa Kɛse a Ɛte Mu Nsɛm Ase…
+menu.edit.puppet_warp = Puppet Kyinkyim
+menu.edit.free_transform = Sesa Sɛnea Wopɛ
+menu.edit.transform = Sesa
+menu.edit.rotate_180 = Dannan 180°
+menu.edit.rotate_90_cw = Dannan 90° Kɔ Nifa
+menu.edit.rotate_90_ccw = Dannan 90° Kɔ Benkum
+menu.edit.flip_horizontal = Dannan Da Hɔ
+menu.edit.flip_vertical = Dannan Gyina Hɔ
+
+# Mfonini
+menu.image = Mfonini
+menu.image.mode = Ɔkwan
+menu.image.adjustments = Nsiesiei
+menu.image.auto_tone = Tone Ankasa
+menu.image.auto_contrast = Abirabɔ Ankasa
+menu.image.auto_color = Kɔla Ankasa
+menu.image.image_size = Mfonini Kɛse…
+menu.image.canvas_size = Canvas Kɛse…
+menu.image.image_rotation = Mfonini Ndan
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° Kɔ Nifa
+menu.image.rotate_90_ccw = 90° Kɔ Benkum
+menu.image.flip_canvas_horizontal = Dannan Canvas Da Hɔ
+menu.image.flip_canvas_vertical = Dannan Canvas Gyina Hɔ
+menu.image.crop_to_selection = Twitwa Kɔ Nea Woapaw No So
+menu.image.trim = Twitwa Ano
+menu.image.assign_profile = Fa Profile Ma…
+menu.image.convert_to_profile = Dan Kɔ Profile…
+
+# Paw
+menu.select = Paw
+menu.select.color_range = Kɔla Ahorow Ntam…
+menu.select.modify = Sesa
+menu.select.border = Ano…
+menu.select.smooth = Yɛ Torɔtorɔ…
+menu.select.expand = Trɛw Mu…
+menu.select.contract = Tew Mu…
+menu.select.feather = Yɛ Ano Bɔkɔɔ…
+menu.select.transform_selection = Sesa Nea Woapaw
+
+# Layer
+menu.layer = Layer
+menu.layer.layer_style = Layer Sɛso…
+menu.layer.layer_comps = Layer Comps
+menu.layer.new_layer_comp = Layer Comp Foforo
+menu.layer.delete_layer_comp = Pepa {name}
+menu.layer.path = Kwan
+menu.layer.fill_path = Hyɛ Kwan Mu
+menu.layer.stroke_path = Fa Nsensanee Fa Kwan So
+menu.layer.make_selection = Yɛ Nea Woapaw
+menu.layer.delete_path = Pepa Kwan
+
+menu.adjust = Siesie
+
+# Filter
+menu.filter = Filter
+menu.filter.filter_gallery = Filter Gallery…
+menu.filter.liquify = Ma Ɛnyɛ Nsu
+menu.filter.vanishing_point = Beae a Ɛyera
+menu.filter.manage_models = Hwɛ Models So…
+menu.filter.camera_raw_development = Camera Raw Nsiesiei…
+
+# Hwɛ
+menu.view = Hwɛ
+menu.view.rotate_view_cw = Dannan Hwɛbea Kɔ Nifa
+menu.view.rotate_view_ccw = Dannan Hwɛbea Kɔ Benkum
+menu.view.reset_view = San Hyɛ Hwɛbea Ase
+menu.view.zoom_in = Yɛ Kɛse
+menu.view.zoom_out = Yɛ Ketewa
+menu.view.fit_on_screen = Ma Ɛnhyɛ Screen No Mu
+menu.view.actual_size = 100%
+menu.view.rulers = Susudua
+menu.view.grid = Grid Nsensanee
+menu.view.guides = Akwankyerɛ
+menu.view.notes = Hyɛnsode
+menu.view.ai_panel = AI Panel
+menu.view.extras = Nneɛma Foforo
+menu.view.snap = Ma Nneɛma Nkabom
+menu.view.clear_guides = Pa Akwankyerɛ
+menu.view.clear_notes = Pa Hyɛnsode
+menu.view.clear_count = Pa Kan
+menu.view.screen_mode = Screen Ɔkwan
+menu.view.proof_colors = Kɔla Sɔhwɛ
+menu.view.show_rulers = Kyerɛ Susudua
+menu.view.hide_rulers = Fa Susudua Sie
+menu.view.show_grid = Kyerɛ Grid Nsensanee
+menu.view.hide_grid = Fa Grid Nsensanee Sie
+menu.view.show_guides = Kyerɛ Akwankyerɛ
+menu.view.hide_guides = Fa Akwankyerɛ Sie
+menu.view.show_notes = Kyerɛ Hyɛnsode
+menu.view.hide_notes = Fa Hyɛnsode Sie
+menu.view.show_extras = Kyerɛ Nneɛma Foforo
+menu.view.hide_extras = Fa Nneɛma Foforo Sie
+menu.view.enable_snapping = Ma Nneɛma Nkabom Nyɛ Adwuma
+menu.view.disable_snapping = Gyae Nneɛma Nkabom
+menu.view.enable_proof_colors = Ma Kɔla Sɔhwɛ Nyɛ Adwuma
+menu.view.disable_proof_colors = Gyae Kɔla Sɔhwɛ
+
+# Gallery
+menu.gallery = Gallery
+menu.gallery.edit_selected = Siesie Nea Woapaw
+menu.gallery.refresh = Yɛ No Foforo
+menu.gallery.map_filter = Map Filter…
+menu.gallery.back_to_editor = San Kɔ Editor No Mu
+
+# Schist Cloud
+menu.cloud.browse = Hwehwɛ Schist Cloud Mu
+menu.cloud.generate = Yɛ mfonini…
+menu.cloud.upload = Fa document kɔ Schist Cloud…
+menu.cloud.sign_out = Fi Schist Cloud akontaabu mu
+menu.cloud.sign_in = Kɔ Schist Cloud akontaabu mu…
+
+# App menu
+menu.app.services = Nnwuma
+menu.app.hide = Fa {app} Sie
+menu.app.hide_others = Fa Afoforo Sie
+menu.app.show_all = Kyerɛ Nyinaa
+menu.app.quit = Fi {app} Mu
+
+# Tebea nsɛm
+menu.status.transform_selection_needs_selection = Sɛ wobɛsesa nea woapaw a, ɛsɛ sɛ wopaw biribi
+menu.status.crop_needs_selection = Sɛ wobɛtwitwa akɔ nea woapaw no so a, ɛsɛ sɛ wopaw biribi
+menu.status.select_photo_to_edit = Paw foto a wobɛsiesie

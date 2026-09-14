@@ -1,0 +1,26 @@
+# Montaj sohalari, bo‘laklar, ramkalar, qaydlar va hisoblagichlar.
+
+tool.artboard.name = Montaj sohasi
+tool.artboard.description = Montaj sohasini sudrab chizing: bu xolstning nomlangan, alohida eksport qilinadigan qismidir. Mavjud soha ichida sudrash uni ko‘chiradi.
+tool.artboard.default_name = Montaj sohasi {n}
+
+tool.slice.name = Bo‘lak
+tool.slice.description = Eksport bo‘lagini sudrab chizing: bu xolstning nomlangan, alohida tasvir sifatida eksport qilinadigan to‘rtburchak qismidir. Mavjud bo‘lak ichida sudrash uni ko‘chiradi.
+tool.slice.default_name = Bo‘lak {n}
+
+tool.frame.name = Ramka
+tool.frame.description = Ramkani sudrab chizing: bu ichiga joylangan narsani niqoblaydigan to‘rtburchak (yoki ellipssimon) qatlamdir.
+tool.frame.default_name = Ramka {n}
+tool.frame.choice.rectangle = To‘rtburchak
+tool.frame.choice.ellipse = Ellips
+tool.frame.history.frame = Ramka
+
+tool.note.name = Qayd
+tool.note.description = Bo‘sh xolst ustiga bosib qaydni o‘sha joyga mahkamlang; unga tahrirlovchi holatidagi muallif va rang biriktiriladi. Mavjud belgini bossangiz, u Qaydlar panelida tanlanadi.
+tool.note.history.place = Qayd joylash
+tool.note.history.move = Qaydni ko‘chirish
+tool.note.history.delete = Qaydni o‘chirish
+
+tool.count.name = Hisoblagich
+tool.count.description = Xolstga raqamlangan hisob belgilarini qo‘yish uchun bosing; mavjud belgini olib tashlash uchun uning ustiga bosing.
+tool.count.default_name = Hisob {n}

@@ -1,0 +1,104 @@
+workspace.fill.gray_50 = Museṱha wa 50%
+workspace.fill.content_aware = U Ṱhogomela zwi re Ngomu
+
+workspace.modify.expand = Engedza Zwo Nangiwaho
+workspace.modify.contract = Kwanyeledza Zwo Nangiwaho
+workspace.modify.border = Mukano wa Zwo Nangiwaho
+workspace.modify.smooth = Tsenzheledza Zwo Nangiwaho
+workspace.modify.feather = Lembeledza Meme dza Zwo Nangiwaho
+
+workspace.batch.target.edit = Nzudzanyo dza gaḽari (dzi na vesheni)
+workspace.batch.target.beside = Dzikhophi tsini na zwa u thoma
+workspace.batch.target.folder = Dzikhophi kha foḽuda…
+
+workspace.modal.image_size.title = Saizi ya Tshifanyiso
+
+workspace.docs.opening = I khou vula {name}…
+workspace.docs.opened = Ho vulwa {name}
+workspace.docs.open_failed = U vula zwo kundwa: {error}
+workspace.docs.no_codec = {name} a si fomathi ine Schist ya nga i vula
+workspace.docs.no_exporter = Schist a i koni u vhulunga dzifaela dza .{ext}
+workspace.docs.empty_response = Seva yo rumela phindulo i si na tshithu
+workspace.docs.heic_not_installed = Thikhedzo ya HEIC a yo ngo dzheniswa
+workspace.docs.heic_downloading = I khou dawuniḽoda thikhedzo ya HEIC (libheif {version})…
+workspace.docs.heic_installed = Thikhedzo ya HEIC yo dzheniswa
+workspace.docs.heic_download_failed = U dawuniḽoda thikhedzo ya HEIC zwo kundwa: {error}
+workspace.docs.placing = I khou vhea {name}…
+workspace.docs.place_image = Vhea Tshifanyiso
+workspace.docs.placed = Ho vhewa {name}
+workspace.docs.place_failed = U vhea zwo kundwa: {error}
+workspace.docs.saved = Ho vhulungwa {name}
+workspace.docs.save_failed = U vhulunga zwo kundwa: {error}
+
+workspace.adjustment.new_layer = Ḽeyara Ntswa ya {name}
+workspace.adjustment.added = Ho engedzwa {name}
+workspace.adjustment.settings = Nzudzanyo dza {name}
+workspace.adjustment.updated = {name} yo khwiniswa
+workspace.adjustment.no_settings = {name} a i na nzudzanyo dzine dza nga dzudzanywa
+
+workspace.comps.name_n = Mbonalo ya Ḽeyara {n}
+workspace.comps.captured = Mbonalo ya ḽeyara yo farwa
+workspace.comps.apply = Shumisa {name}
+
+workspace.styles.layer_style = Tshitaela tsha Ḽeyara
+workspace.context.rename_layer = Ira Ḽeyara Dzina Hafhu
+workspace.commands.tool = Tshishumiswa: {name}
+
+workspace.colormgmt.assign = Ṋea {name}
+workspace.colormgmt.assigned = Ho ṋewa {name}
+workspace.colormgmt.convert_to = Shandukisela kha {name}
+workspace.colormgmt.converted_to = Ho shandukiselwa kha {name}
+workspace.colormgmt.convert_failed = U shandukisela zwo kundwa: {error}
+workspace.colormgmt.proof_on = Mivhala ya vhuṱanzi yo fungwa
+workspace.colormgmt.proof_off = Mivhala ya vhuṱanzi yo tsimiwa
+
+workspace.filters.choose = Nanga
+workspace.filters.select_layer_first = Thomani nga u nanga ḽeyara
+workspace.filters.needs_pixel_layer = Dzi-fiḽithara dzi ṱoḓa ḽeyara ya dzipixel
+workspace.filters.nothing_to_filter = A hu na tshine tsha nga fiḽithariwa
+workspace.filters.went_away = Fiḽithara yo ṱuwa
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: ḽeyara ye ya i fiḽithara a i tsheeho
+workspace.filters.plugin_title = Plug-in ya Photoshop
+workspace.filters.running = I khou shumisa {name}
+workspace.filters.plugin_note = Plug-in i shuma kha phurosesi yayo. Arali ya vula fasitere, fhindulani henefho uri ni bvele phanḓa.
+workspace.filters.raw_preview_developing = I khou bveledza mbonalo ya phanḓa ya RAW…
+workspace.filters.raw_preview_done = Mbonalo ya phanḓa ya RAW (demosaic ya u ṱavhanya)
+workspace.filters.raw_preview_size_changed = Saizi ya mbonalo ya phanḓa ya RAW yo shanduka: {w} × {h}
+workspace.filters.raw_preview_failed = Mbonalo ya phanḓa ya RAW yo kundwa: {error}
+workspace.filters.raw_developing = I khou bveledza zwe khamera ya zwi fara zwa u thoma…
+workspace.filters.raw_developing_note = I khou shumisa nḓila ya khwine ya demosaic. RAW ya u thoma na hedzi nzudzanyo zwi dzula zwi tshi nga dzudzanywa nga murahu ha u vhulunga sa PSD kana PSB.
+workspace.filters.raw_document_changed = U bveledza RAW ho fhela musi ḽiṅwalo ḽayo ḽo no shanduka
+workspace.filters.raw_failed = U bveledza RAW zwo kundwa: {error}
+workspace.filters.raw_too_wide = Zwo bveledzwaho zwa RAW zwo aṱesa nga vhuphara
+workspace.filters.raw_too_tall = Zwo bveledzwaho zwa RAW zwo lapfesa
+workspace.filters.raw_size_changed = Saizi ya zwo bveledzwaho zwa RAW yo shanduka ya vha {w} × {h}; hu khou vhulungwa ḽeyara ya zwino
+workspace.filters.raw_history = U Bveledza Camera Raw
+workspace.filters.raw_applied = U bveledza Camera Raw ho shumiswa (demosaic ya khwine)
+
+workspace.image_size.done = Saizi ya tshifanyiso: {w} × {h}
+workspace.image_size.bicubic_fallback = Saizi ya tshifanyiso: {w} × {h} — modele wa {name} a wo ngo kona u longela, ngauralo ho shumiswa bicubic
+workspace.image_size.upscaling = I khou engedza saizi nga {name}
+workspace.image_size.upscaling_note = {mp} megapixels dzi khou fhira kha netiweke, iṅwe na iṅwe i tshi dzhia mithethe i si gathi. Ḽiṅwalo ḽi farwa u swika zwi tshi fhela.
+
+workspace.export.no_slices = A hu na zwipiḓa zwa u rumela
+workspace.export.no_artboards = A hu na bodo dza vhutsila dza u rumela
+workspace.export.regions.one = Ho rumelwa fhethu {n}
+workspace.export.regions.other = Ho rumelwa fhethu {n}
+workspace.export.prompt = Rumela sa:
+workspace.export.done = Ho rumelwa {name}
+workspace.export.failed = U rumela zwo kundwa: {error}
+workspace.export.codec_vanished = Tshirumeli a tshi tsha wanala
+
+workspace.file_picker.choose_folder = Nanga Foḽuda
+workspace.file_picker.type_a_name = Thaiphani dzina ḽa faela
+workspace.file_picker.exists = {name} i hone; kwambani Vhulunga hafhu uri ni i dzhiele vhudzulo
+workspace.file_picker.tap_a_file = Kwambani faela uri ni i vule
+workspace.file_picker.pictures = Zwifanyiso
+workspace.file_picker.camera = Khamera
+workspace.file_picker.downloads = Zwo Dawuniḽodiwaho
+workspace.file_picker.permission_denied = Schist a i na thendelo ya u vhala foḽuda iyi
+
+workspace.recovery.recovered_title = {title} (ḽo vhuedzedzwa)
+workspace.recovery.recovered.one = Ho vhuedzedzwa mushumo u songo vhulungwaho wa sesheni yo fhiraho
+workspace.recovery.recovered.other = Ho vhuedzedzwa maṅwalo {n} a sesheni yo fhiraho

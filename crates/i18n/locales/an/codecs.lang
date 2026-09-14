@@ -1,0 +1,43 @@
+# Nombres de formatos y errors d'importación.
+
+# Formatos
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = RAW de camera
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Mensaches comuns d'importación
+codec.msg.decoding = se ye decodificando {name}
+codec.msg.zero_sized = a imachen no tiene pixels
+codec.msg.assembling_document = se ye montando o documento
+
+# Fichers RAW de camera
+codec.raw.msg.decoding = se ye decodificando o fichero RAW
+codec.raw.msg.developing = se ye revelando o fichero RAW
+codec.raw.msg.finding_preview = se ye mirando a vista previa incrustada
+codec.raw.msg.decoding_preview = se ye decodificando a vista previa incrustada
+codec.raw.msg.decoder_panicked = o decodificador RAW ha fallau con iste fichero: {what}
+
+# Affinity
+codec.affinity.import_title = Importación d'Affinity
+codec.affinity.flattened_preview_layer = Vista previa aplanada
+codec.affinity.msg.no_preview = No i hai garra vista previa incrustada que se pueda usar. O formato con capas d'Affinity ye privativo; Schist importa a vista previa aplanada que leva o fichero. Iste fichero no en tiene: torna a alzar-lo en Affinity u exporta-lo como PSD ta importar-lo con todas as capas.
+
+# HEIF
+codec.heif.msg.no_library = libheif no ye disponible ({details}). Ta ubrir HEIC cal a biblioteca libheif (Linux: instala libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — puede que ista compilación de libheif no incluiga garra decodificador HEVC (en Debian/Ubuntu, instala libheif-plugin-libde265)
+codec.heif.msg.unknown_error = error desconoixiu
+codec.heif.msg.initialising = se ye inicializando libheif
+codec.heif.msg.reading_container = se ye leyendo o contenedor HEIF
+codec.heif.msg.finding_primary_image = se ye mirando a imachen principal
+codec.heif.msg.reading_icc_profile = se ye leyendo o perfil ICC
+codec.heif.msg.decoding_image = se ye decodificando a imachen
+codec.heif.msg.checksum_mismatch = A suma de verificación de {name} no coincide: s'asperaba {expected} y s'ha obteniu {got}
+# En iOS, ImageIO decodifica HEIC
+codec.heif.msg.imageio_cannot_read = ImageIO no ha puesto leyer o contenedor HEIF
+codec.heif.msg.container_empty = o contenedor HEIF no contiene garra imachen
+codec.heif.msg.imageio_cannot_decode = ImageIO no ha puesto decodificar a imachen principal

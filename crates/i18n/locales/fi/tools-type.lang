@@ -1,0 +1,20 @@
+# Tekstityökalu.
+tool.type.name = Teksti
+tool.type.description = Aloita tekstitaso napsauttamalla tai muokkaa olemassa olevaa tasoa napsauttamalla sitä. Kun muokkaus on avoinna, työkalu vastaanottaa käsittelemättömät näppäinpainallukset (lähetä merkit näppäinsyötteenä). Vahvistaminen renderöi tason ja sulkee muokkauksen.
+tool.type.option.align = Tasaus
+tool.type.option.leading = Riviväli
+tool.type.option.tracking = Merkkiväli
+tool.type.option.kerning = Välistys
+tool.type.option.ligatures = Ligatuurit
+tool.type.option.discretionary_ligatures = Harkinnanvaraiset ligatuurit
+tool.type.option.small_caps = Kapiteelit
+tool.type.option.on_path = Aktiivisella polulla
+tool.type.option.path_offset = Polun siirtymä
+tool.type.choice.regular = Normaali
+tool.type.choice.bold = Lihavoitu
+tool.type.choice.italic = Kursivoitu
+tool.type.choice.bold_italic = Lihavoitu kursiivi
+tool.type.history.new_layer = Uusi tekstitaso
+tool.type.history.edit = Muokkaa tekstiä
+tool.type.history.discard = Hylkää teksti
+tool.type.history.discard_empty = Hylkää tyhjä teksti

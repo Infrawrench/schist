@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Lifayela Lekhamera Lelingakacutshungulwa
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = kucatululwa {name}
+codec.msg.zero_sized = umfanekiso ute emaphikseli
+codec.msg.assembling_document = kuhlanganiswa idokhumenti
+
+codec.raw.msg.decoding = kucatululwa lifayela lelingakacutshungulwa
+codec.raw.msg.developing = kucutshungulwa lifayela lelingakacutshungulwa
+codec.raw.msg.finding_preview = kufunwa sibonisi lesifakwe ekhatsi
+codec.raw.msg.decoding_preview = kucatululwa sibonisi lesifakwe ekhatsi
+codec.raw.msg.decoder_panicked = sicatululi selifayela lelingakacutshungulwa sehlulekile kulelifayela: {what}
+
+codec.affinity.import_title = Kungenisa kwe-Affinity
+codec.affinity.flattened_preview_layer = Sibonisi Lesentiwe Saba Sicaba
+codec.affinity.msg.no_preview = Kute sibonisi lesifakwe ekhatsi lesisebentisekako. Ifomethi ye-Affinity lenetinhlaka iphatsekile; Schist ingenisa sibonisi lesentiwe saba sicaba lesihamba nelifayela. Lelifayela alinaso — ligcine kabusha ku-Affinity, nobe ulitfumele njenge-PSD kuze ungenise tonkhe tinhlaka.
+
+codec.heif.msg.no_library = libheif ayitfolakali ({details}). Kuvula i-HEIC kudzinga lilabhulali le-libheif (Linux: faka libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — kungenteka lokwakhiwa kwe-libheif kute sicatululi se-HEVC (ku-Debian/Ubuntu, faka libheif-plugin-libde265)
+codec.heif.msg.unknown_error = liphutsa lelingatiwa
+codec.heif.msg.initialising = kulungiselelwa libheif
+codec.heif.msg.reading_container = kufundvwa sitja se-HEIF
+codec.heif.msg.finding_primary_image = kufunwa umfanekiso loyinhloko
+codec.heif.msg.reading_icc_profile = kufundvwa iphrofayela ye-ICC
+codec.heif.msg.decoding_image = kucatululwa umfanekiso
+codec.heif.msg.checksum_mismatch = I-checksum ya-{name} ayihambisani: bekulindzelwe {expected}, kwatfolakala {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ayikwatanga kufundza sitja se-HEIF
+codec.heif.msg.container_empty = sitja se-HEIF site umfanekiso
+codec.heif.msg.imageio_cannot_decode = ImageIO ayikwatanga kucatulula umfanekiso loyinhloko

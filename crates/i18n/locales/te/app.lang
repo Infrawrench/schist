@@ -1,0 +1,36 @@
+app.filter_gallery.title = ఫిల్టర్ గ్యాలరీ
+app.filter_gallery.stack = స్టాక్ (దిగువ నుండి పైకి వర్తిస్తుంది)
+app.filter_gallery.no_settings = ఈ ఫిల్టర్‌కు సెట్టింగ్‌లు లేవు.
+app.fonts.not_open_licensed = స్వేచ్ఛా లైసెన్స్ లేదు · {substitute} దాని కొలతలకు సరిపోతుంది
+app.fonts.missing_substituted = అందుబాటులో లేదు · ప్రత్యామ్నాయ ఫాంట్‌లో టెక్స్ట్ అమర్చబడుతోంది
+app.fonts.not_in_catalogue = ఓపెన్ ఫాంట్ కేటలాగ్‌లో {family} లేదు
+app.fonts.no_faces = {family} కోసం డౌన్‌లోడ్ చేయగల ఫాంట్ రూపాలు లేవు
+app.fonts.empty_response = ఖాళీ ప్రతిస్పందన
+app.update.unreadable_response = చదవలేని ప్రతిస్పందన: {error}
+app.update.no_temp_dir = డౌన్‌లోడ్ చేయడానికి తాత్కాలిక డైరెక్టరీ లేదు
+app.update.asset_has_path = విడుదలలో అసెట్‌కు పథంతో కూడిన పేరు ఉంది
+app.update.too_big = విడుదల పేర్కొన్నదానికంటే డౌన్‌లోడ్ పెద్దగా ఉంది
+app.update.stopped_at = {total} బైట్‌లలో {got} వద్ద డౌన్‌లోడ్ ఆగిపోయింది
+app.update.hash_mismatch = డౌన్‌లోడ్ హాష్ {want}కు బదులుగా {got}గా వచ్చింది
+app.update.not_in_bundle = ఈ కాపీ అప్లికేషన్ బండిల్‌లో లేదు
+app.update.no_parent_dir = అప్లికేషన్ బండిల్‌కు పేరెంట్ డైరెక్టరీ లేదు
+app.update.cannot_write = {dir}లో రాయడం సాధ్యం కాదు
+app.update.cannot_move_aside = {app}ను పక్కకు తరలించడం సాధ్యం కాదు
+app.update.cannot_move_in = కొత్త బండిల్‌ను సరైన స్థానానికి తరలించడం సాధ్యం కాదు
+app.update.cannot_run_ditto = /usr/bin/dittoను అమలు చేయడం సాధ్యం కాదు
+app.update.unpack_failed = డౌన్‌లోడ్‌ను అన్‌ప్యాక్ చేయడం విఫలమైంది: {error}
+app.update.no_app_in_download = డౌన్‌లోడ్‌లో Schist.app లేదు
+app.update.cannot_run_codesign = /usr/bin/codesignను అమలు చేయడం సాధ్యం కాదు
+app.update.signature_invalid = డౌన్‌లోడ్ సంతకం ధృవీకరణ కాలేదు: {error}
+app.update.download_unsigned = ఈ కాపీకి సంతకం ఉంది, డౌన్‌లోడ్‌కు లేదు
+app.update.different_developer = డౌన్‌లోడ్‌పై వేరే డెవలపర్ సంతకం ఉంది
+app.update.cannot_relaunch = పునఃప్రారంభ సాధనాన్ని ప్రారంభించడం సాధ్యం కాదు
+app.update.not_installed_copy = ఈ కాపీని ఇన్‌స్టాలర్ ఇక్కడ ఉంచలేదు
+app.update.cannot_start_installer = ఇన్‌స్టాలర్‌ను ప్రారంభించడం సాధ్యం కాదు
+app.update.platform_unsupported = ఈ ప్లాట్‌ఫారమ్‌లో నవీకరణలు Schistను ఇన్‌స్టాల్ చేసిన పద్ధతిలోనే ఇన్‌స్టాల్ అవుతాయి
+app.vulkan.no_loader = schist: ఈ సిస్టమ్‌లో Vulkan లోడర్ లేదు, కాబట్టి దేనినీ గీయడం సాధ్యం కాదు.\n\nSchist Vulkan ద్వారా రెండర్ చేస్తుంది, కానీ `libvulkan.so.1` ఇన్‌స్టాల్ కాలేదు.\nలోడర్, డ్రైవర్ రెండూ అవసరం:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ఈ సెషన్ సూచిస్తున్న Vulkan డ్రైవర్ అక్కడ లేదు.\n\n{var} సెట్ చేయబడింది; దాన్ని సెట్ చేయడం వల్ల డ్రైవర్ల కోసం లోడర్ చేసే శోధనకు అదనంగా చేరదు, దాన్నే పూర్తిగా భర్తీ చేస్తుంది. కాబట్టి ఉనికిలో లేని ఈ ఫైళ్లే మొత్తం డ్రైవర్ జాబితా — ఎన్ని డ్రైవర్లు ఇన్‌స్టాల్ చేసినా ఈ సెషన్‌లోని ప్రతి Vulkan ప్రోగ్రామ్‌కు డ్రైవర్ కనిపించదు:\n\n{missing}\n    {var}={value}\n\nఉనికిలో ఉన్న మానిఫెస్ట్‌ను సూచించండి — ఇన్‌స్టాల్ చేసిన డ్రైవర్లు వాటిని /usr/share/vulkan/icd.dలో ఉంచుతాయి — లేదా దాన్ని అన్‌సెట్ చేసి లోడర్ స్వయంగా వెతకనివ్వండి.\nకాన్ఫిగరేషన్ ఫైల్ (Hyprlandలోని `env =`, systemd environment.d డ్రాప్-ఇన్, షెల్ ప్రొఫైల్) ద్వారా దీన్ని సెట్ చేసే సెషన్‌లో అక్కడే మార్చాలి; ఇప్పటికే నడుస్తున్న వాటికి మార్పు చేరాలంటే కొత్తగా లాగిన్ అవ్వాలి.\n
+app.vulkan.override_note = \n{var} విలువ {value}గా సెట్ చేయబడింది; అది లోడర్ స్వంత శోధనను భర్తీ చేస్తుంది: ఆ మానిఫెస్ట్‌లలో ఏదీ ఈ యంత్రానికి సరిపోకపోతే, దాన్ని అన్‌సెట్ చేయడం మొదట ప్రయత్నించాల్సిన పని.\n
+app.vulkan.no_driver = schist: Vulkan డ్రైవర్ ఇన్‌స్టాల్ కాలేదు, కాబట్టి దేనిపైనా గీయడం సాధ్యం కాదు.\n\nSchist Vulkan ద్వారా రెండర్ చేస్తుంది. లోడర్ ఇన్‌స్టాల్ అయి ఉంది, కానీ డ్రైవర్ లేదని నివేదిస్తోంది — శోధించే రెండు చోట్లలోనూ ఏ డ్రైవర్ నమోదు కాలేదు:\n\n{dirs}\n\nలోడర్ డ్రైవర్లకు విడిగా అందుతుంది, కాబట్టి సాధారణంగా ఒక ప్యాకేజీ లేకపోవడమే కారణం.\n\nఈ యంత్రంలోని GPUకు సరిపోయేదాన్ని ఇన్‌స్టాల్ చేయండి:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA యాజమాన్య డ్రైవర్‌లో దాని సొంత డ్రైవర్ ఉంటుంది (Archలో `nvidia-utils`, Debianలో `nvidia-driver`). వర్చువల్ మెషీన్‌లో లేదా GPU డ్రైవర్‌ను ఇన్‌స్టాల్ చేయలేని చోట సాఫ్ట్‌వేర్ రాస్టరైజర్ పనిచేస్తుంది: Archలో `vulkan-swrast`, మిగతా చోట్ల `mesa-vulkan-drivers`లో భాగం. ఇది నెమ్మదిగా ఉంటుంది, కానీ ప్రారంభమవుతుంది.\n{overridden}
+app.vulkan.no_device = schist: Vulkan డ్రైవర్ ఇన్‌స్టాల్ అయి ఉంది, కానీ రెండర్ చేయడానికి ఏ పరికరాన్నీ అందించడం లేదు.\n\nడ్రైవర్ ఈ GPUకు మద్దతు ఇవ్వకపోవచ్చు లేదా దాన్ని చేరుకోలేకపోవచ్చు — SSH ద్వారా లేదా కంటైనర్‌లో ఉన్నప్పుడు /dev/dri లేకపోవడం సాధారణం. లోడర్‌కు కనిపించేది ఏమిటో `vulkaninfo --summary` నివేదిస్తుంది.\n\nఈ యంత్రంలో GPU లేకపోతే, సాఫ్ట్‌వేర్ రాస్టరైజర్ GPU లేకుండానే రెండర్ చేస్తుంది: Archలో `vulkan-swrast`, Debian మరియు Fedoraలో `mesa-vulkan-drivers`లో భాగం.\n
+app.vulkan.skip_hint = అయినప్పటికీ Schistను ప్రారంభించి దాని పద్ధతిలోనే విఫలమయ్యేలా చూడటానికి {var}=1గా సెట్ చేయండి.

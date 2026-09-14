@@ -1,0 +1,83 @@
+# Bbulashi
+tool.brush.name = Bbulashi
+tool.brush.description = Siiga omukululo ogw'embalama engonvu mu langi ey'omu maaso, ng'obunene bwagwo bugoberera obunene bwa bbulashi, obukaluba n'obutalabikaamu eby'omukwanaganya.
+tool.brush.history.stroke = Bbulashi
+
+# Pensulo
+tool.pencil.name = Pensulo
+tool.pencil.description = Siiga omukululo ogw'embalama enkakali ogutalina kugonvuya kwa pixels, mu langi ey'omu maaso.
+tool.pencil.history.stroke = Pensulo
+
+# Akasangula
+tool.eraser.name = Akasangula
+tool.eraser.description = Sangula okuyita ku mukululo, ozze layer mu mbeera erabikaamu.
+tool.eraser.history.stroke = Akasangula
+
+# Sitampu ekoppa
+tool.clone.name = Sitampu ekoppa
+tool.clone.description = Sitampu ekoppa: nyiga alt n'onyiga okuteekawo ensonga ensibuko, oluvannyuma osiige pixels ezikoppeddwa okuva awo nga ziri ku bbanga lye limu.
+tool.clone.history.stroke = Sitampu ekoppa
+
+# Okwongera n'okukendeeza obutangaavu, n'ekyangu
+tool.dodge.name = Tangaza
+tool.dodge.description = Yongera obutangaavu bwa pixels omukululo kwe guyita.
+tool.dodge.history.stroke = Tangaza
+tool.burn.name = Yokya
+tool.burn.description = Kendeeza obutangaavu bwa pixels omukululo kwe guyita.
+tool.burn.history.stroke = Yokya
+tool.sponge.name = Sponji
+tool.sponge.description = Yongera oba kendeeza obungi bwa langi mu pixels omukululo kwe guyita.
+tool.sponge.history.stroke = Sponji
+
+# Okufuukuusa, okusaza n'okusiiga
+tool.blur.name = Fuukuusa
+tool.blur.description = Fuukuusa pixels omukululo kwe guyita.
+tool.blur.history.stroke = Fuukuusa
+tool.sharpen.name = Saza
+tool.sharpen.description = Saza pixels omukululo kwe guyita.
+tool.sharpen.history.stroke = Saza
+tool.smudge.name = Siiga
+tool.smudge.description = Walula langi okuyita ku mukululo, ng'osindika langi embisi.
+tool.smudge.history.stroke = Siiga
+
+# Okuwonya
+tool.heal.name = Bbulashi ewonya
+tool.heal.description = Bbulashi ewonya: nyiga alt n'onyiga okuteekawo ensibuko, oluvannyuma osiige; obutonde bw'ensibuko butabulwa mu langi n'ekitangaala eby'ekigendererwa.
+tool.heal.history.stroke = Bbulashi ewonya
+tool.spot_heal.name = Bbulashi ewonya obutonnyeze
+tool.spot_heal.description = Bbulashi ewonya obutonnyeze: siiga ku kamogo era kadda mu kifo ky'obutonde obuggiddwa ku kakyetoolodde — tewali nsonga ya nsibuko ya kuteekawo.
+tool.spot_heal.history.stroke = Bbulashi ewonya obutonnyeze
+
+# Bbulashi y'ebyafaayo
+tool.history_brush.name = Bbulashi y'ebyafaayo
+tool.history_brush.description = Ddamu osiige pixels okuva mu kifaananyi ky'ekiwandiiko ekyaterekebwa mu byafaayo, ng'osazaamu emirimu egyaddirira mukululo ku mukululo.
+tool.history_brush.history.stroke = Bbulashi y'ebyafaayo
+
+# Akasangula emabega
+tool.background_eraser.name = Akasangula emabega
+tool.background_eraser.description = Sangula langi elondeddwa wansi wakati wa bbulashi era oleke pixels ezitali nga yo, okusobola okwawula ekintu ku biri emabega waakyo.
+tool.background_eraser.history.stroke = Akasangula emabega
+
+# Enkyukakyuka ya langi
+tool.gradient.name = Enkyukakyuka ya langi
+tool.gradient.description = Walula okujjuza layer — ng'oyita mu kirondeddwa bwe kibaawo — n'enkyukakyuka ya langi ey'omusittale okuva ku langi ey'omu maaso okudda ku y'emabega mu kkubo ly'owalulamu.
+tool.gradient.radial.name = Enkyukakyuka ya langi eyeetooloola
+tool.gradient.radial.description = Walula okuva wakati okudda ebweru okujjuza n'enkyukakyuka ya langi eyeetooloola wakati wa langi ey'omu maaso n'ey'emabega.
+tool.gradient.option.gradient = Enkyukakyuka ya langi
+tool.gradient.option.reverse = Kyusa ebifo
+tool.gradient.option.dither = Tabula obutonnyeze bwa langi
+tool.gradient.choice.foreground_to_background = Mu maaso okudda emabega
+tool.gradient.choice.foreground_to_transparent = Mu maaso okudda mu kirabikaamu
+tool.gradient.choice.linear = Y'omusittale
+tool.gradient.choice.radial = Eyeetooloola
+tool.gradient.choice.angle = Y'enkoona
+tool.gradient.choice.reflected = Ekyeyoleka
+tool.gradient.choice.diamond = Dayimanda
+tool.gradient.history.gradient = Enkyukakyuka ya langi
+
+# Bbakeeti ya langi
+tool.bucket.name = Bbakeeti ya langi
+tool.bucket.description = Nyiga okujjuza ekitundu ekikwatagana ekya langi efaanagana eri wansi w'akasonze ne langi ey'omu maaso, okusinziira ku kigero ky'ekikozesebwa eky'okukkiriza enjawulo.
+tool.bucket.option.contiguous = Ebikwatagana
+tool.bucket.option.all_layers = Layers zonna
+tool.bucket.history.fill = Bbakeeti ya langi

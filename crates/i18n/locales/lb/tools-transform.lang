@@ -1,0 +1,26 @@
+# Fräi Transformatioun, Auswiel transforméieren an Zouschneiden.
+tool.transform.name = Fräi transforméieren
+tool.transform.description = Fräi transforméieren. Beim Aktivéiere gëtt eng Transformatiounskëscht ëm déi aktiv Eben opgemaach: zitt un engem Eck fir ze skaléieren, baussent engem Eck fir ze dréinen oder un engem Rand fir schif ze stellen. Bis zum Bestätegen (Enter) gëtt näischt geschriwwen; beim Ofbriechen (Escape) gëtt d'Eben zeréckgesat.
+tool.transform.option.interpolation = Interpolatioun
+tool.transform.history.transform = Fräi transforméieren
+tool.transform.history.image_size = Bildgréisst
+tool.transform.history.canvas_size = Canvasgréisst
+
+tool.transform.selection.name = Auswiel transforméieren
+tool.transform.selection.description = Auswiel transforméieren: déiselwecht Këscht verréckelt d'Kontur vun der Auswiel amplaz vun de Pixel dobannen. Bestätegt oder briecht of, fir ofzeschléissen.
+tool.transform.selection.history.transform = Auswiel transforméieren
+
+tool.transform.resample.nearest_neighbor = Noosten Noper
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bikubesch
+
+tool.crop.name = Zouschneiden
+tool.crop.description = Zitt de Beräich op, deen erhale bleiwe soll, a passt seng Grëffer un; beim Bestätegen (Enter) gëtt d'Dokument dorop zougeschnidden, beim Ofbriechen (Escape) bleift et onverännert.
+tool.crop.option.ratio = Verhältnis
+tool.crop.option.delete_cropped = Ofgeschnidde Pixel läschen
+tool.crop.choice.unconstrained = Ouni Aschränkung
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Zouschneiden

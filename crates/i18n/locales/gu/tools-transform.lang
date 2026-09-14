@@ -1,0 +1,28 @@
+# Free transform
+tool.transform.name = મુક્ત રૂપાંતરણ
+tool.transform.description = મુક્ત રૂપાંતરણ. તેને સક્રિય કરતાં સક્રિય લેયરની આસપાસ રૂપાંતરણ બૉક્સ ખૂલે છે: માપ બદલવા ખૂણો ખેંચો, ફેરવવા ખૂણાની બહારથી ખેંચો અને ત્રાંસું કરવા ધાર ખેંચો. કમિટ (Enter) ન કરો ત્યાં સુધી કોઈ ફેરફાર લખાતો નથી, અને રદ કરવાથી (Escape) લેયર પાછું મૂળ સ્થિતિમાં આવે છે.
+tool.transform.option.interpolation = ઇન્ટરપોલેશન
+tool.transform.history.transform = મુક્ત રૂપાંતરણ
+tool.transform.history.image_size = છબીનું કદ
+tool.transform.history.canvas_size = કેનવાસનું કદ
+
+# Transform selection
+tool.transform.selection.name = પસંદગીનું રૂપાંતરણ
+tool.transform.selection.description = પસંદગીનું રૂપાંતરણ: એ જ બૉક્સ, પરંતુ તે અંદરના પિક્સેલને બદલે પસંદગીની રૂપરેખા ખસેડે છે. પૂર્ણ કરવા કમિટ કરો અથવા રદ કરો.
+tool.transform.selection.history.transform = પસંદગીનું રૂપાંતરણ
+
+tool.transform.resample.nearest_neighbor = સૌથી નજીકનો પડોશી
+tool.transform.resample.bilinear = બિલિનિયર
+tool.transform.resample.bicubic = બાઇક્યુબિક
+
+# Crop
+tool.crop.name = ક્રૉપ
+tool.crop.description = રાખવાનો વિસ્તાર દોરીને તેના હૅન્ડલ ગોઠવો; કમિટ કરવાથી (Enter) દસ્તાવેજ એ વિસ્તાર સુધી કપાય છે, જ્યારે રદ કરવાથી (Escape) તેમાં ફેરફાર થતો નથી.
+tool.crop.option.ratio = ગુણોત્તર
+tool.crop.option.delete_cropped = ક્રૉપ કરેલા પિક્સેલ કાઢી નાખો
+tool.crop.choice.unconstrained = નિયંત્રણ વિનાનું
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = ક્રૉપ

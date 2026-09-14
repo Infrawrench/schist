@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Kamera-råformat
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = dekodar {name}
+codec.msg.zero_sized = biletet har ingen pikslar
+codec.msg.assembling_document = set saman dokumentet
+
+codec.raw.msg.decoding = dekodar råfila
+codec.raw.msg.developing = framkallar råfila
+codec.raw.msg.finding_preview = leitar etter den innebygde førehandsvisinga
+codec.raw.msg.decoding_preview = dekodar den innebygde førehandsvisinga
+codec.raw.msg.decoder_panicked = rådekodaren klarte ikkje å dekoda denne fila: {what}
+
+codec.affinity.import_title = Affinity-import
+codec.affinity.flattened_preview_layer = Samanslegen førehandsvising
+codec.affinity.msg.no_preview = Fila har inga innebygd førehandsvising som kan brukast. Lagformatet til Affinity er proprietært; Schist importerer den samanslegne førehandsvisinga i fila. Denne fila har inga slik førehandsvising. Lagre henne på nytt i Affinity, eller eksporter henne som PSD for å importera alle laga.
+
+codec.heif.msg.no_library = libheif er ikkje tilgjengeleg ({details}). For å opna HEIC trengst libheif-biblioteket (Linux: installer libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} – denne libheif-utgåva manglar kanskje ein HEVC-dekodar (på Debian/Ubuntu: installer libheif-plugin-libde265)
+codec.heif.msg.unknown_error = ukjend feil
+codec.heif.msg.initialising = klargjer libheif
+codec.heif.msg.reading_container = les HEIF-behaldaren
+codec.heif.msg.finding_primary_image = finn hovudbiletet
+codec.heif.msg.reading_icc_profile = les ICC-profilen
+codec.heif.msg.decoding_image = dekodar biletet
+codec.heif.msg.checksum_mismatch = Kontrollsummen for {name} stemmer ikkje: venta {expected}, fekk {got}
+codec.heif.msg.imageio_cannot_read = ImageIO klarte ikkje å lesa HEIF-behaldaren
+codec.heif.msg.container_empty = HEIF-behaldaren inneheld ikkje noko bilete
+codec.heif.msg.imageio_cannot_decode = ImageIO klarte ikkje å dekoda hovudbiletet

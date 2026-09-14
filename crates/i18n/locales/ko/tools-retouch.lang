@@ -1,0 +1,29 @@
+# 영역 보정 도구: 패치, 내용 인식 이동, 적목 현상, 자동 지우개.
+
+# 패치
+tool.patch.name = 패치
+tool.patch.description = 결함 주위를 드래그하여 윤곽을 만든 다음 선택 영역을 깨끗한 픽셀 위로 드래그하면 해당 위치의 텍스처가 결함 영역에 맞게 적용됩니다. 패치 모드에서 두 영역 중 어느 쪽을 드래그할지 선택합니다.
+tool.patch.option.patch = 패치
+tool.patch.choice.source = 소스
+tool.patch.choice.destination = 대상
+tool.patch.history.patch = 패치
+
+# 내용 인식 이동
+tool.content_aware_move.name = 내용 인식 이동
+tool.content_aware_move.description = 선택한 개체를 다른 위치로 드래그하면 원래 자리에 남은 빈 공간이 주변 내용으로 채워집니다. 확장 모드에서는 개체를 이동하지 않고 늘립니다.
+tool.content_aware_move.choice.move = 이동
+tool.content_aware_move.choice.extend = 확장
+tool.content_aware_move.history.move = 내용 인식 이동
+
+# 적목 현상
+tool.red_eye.name = 적목 현상
+tool.red_eye.description = 동공을 클릭하여 플래시 때문에 생긴 붉은색을 제거합니다.
+tool.red_eye.option.pupil_size = 동공 크기
+tool.red_eye.option.darken = 어둡게 하기
+tool.red_eye.history.red_eye = 적목 현상
+
+# 자동 지우개
+tool.magic_eraser.name = 자동 지우개
+tool.magic_eraser.description = 클릭하면 도구의 허용치 범위에서 포인터 아래와 비슷한 색상의 영역을 지웁니다. 클릭 지점에 인접한 영역만 지우거나 레이어 전체에서 일치하는 영역을 지울 수 있습니다.
+tool.magic_eraser.option.contiguous = 인접
+tool.magic_eraser.history.erase = 자동 지우개

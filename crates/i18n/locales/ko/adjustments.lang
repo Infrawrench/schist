@@ -1,0 +1,21 @@
+# 조정 레이어와 이미지 ▸ 조정 명령의 이름입니다.
+adjustment.levels.name = 레벨
+adjustment.curves.name = 곡선
+adjustment.hue_saturation.name = 색조/채도
+adjustment.brightness_contrast.name = 명도/대비
+adjustment.black_white.name = 흑백
+adjustment.solid_color.name = 단색
+adjustment.gradient_fill.name = 그레이디언트 채우기
+adjustment.pattern_fill.name = 패턴 채우기
+adjustment.invert.name = 반전
+adjustment.posterize.name = 포스터화
+adjustment.threshold.name = 한계값
+adjustment.color_balance.name = 색상 균형
+adjustment.vibrance.name = 활기
+adjustment.exposure.name = 노출
+adjustment.photo_filter.name = 포토 필터
+adjustment.gradient_map.name = 그레이디언트 맵
+adjustment.selective_color.name = 선택 색상
+adjustment.channel_mixer.name = 채널 혼합
+# Schist에서 편집할 수 없는 PSD 조정 유형입니다.
+adjustment.other.name = 조정

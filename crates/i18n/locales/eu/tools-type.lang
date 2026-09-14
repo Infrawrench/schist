@@ -1,0 +1,22 @@
+tool.type.name = Testua
+tool.type.description = Egin klik bertan testu-geruza bat hasteko, edo egin klik lehendik dagoen batean hura editatzeko. Irekita dagoen bitartean, tresnak tekla-sarrera gordinak jasotzen ditu (bidali karaktereak tekla-sarrera gisa), eta berrestean geruza errendatu eta edizioa ixten du.
+
+tool.type.option.align = Lerrokatu
+tool.type.option.leading = Lerroartea
+tool.type.option.tracking = Letraartea
+tool.type.option.kerning = Karaktere-pareen tartea
+tool.type.option.ligatures = Ligaturak
+tool.type.option.discretionary_ligatures = Aukerako ligaturak
+tool.type.option.small_caps = Maiuskula txikiak
+tool.type.option.on_path = Bide aktiboan
+tool.type.option.path_offset = Bidearekiko desplazamendua
+
+tool.type.choice.regular = Arrunta
+tool.type.choice.bold = Lodia
+tool.type.choice.italic = Etzana
+tool.type.choice.bold_italic = Lodi etzana
+
+tool.type.history.new_layer = Testu-geruza berria
+tool.type.history.edit = Editatu testua
+tool.type.history.discard = Baztertu testua
+tool.type.history.discard_empty = Baztertu testu hutsa

@@ -1,0 +1,31 @@
+# Tebea
+ai.status.panel_shown = Wɔakyerɛ AI panel no
+ai.status.panel_hidden = Wɔde AI panel no asie — Hwɛ ▸ AI Panel ({shortcut}) bɛsan de aba
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} anya nkitahodi
+ai.info.now_in_gallery = Seesei wowɔ gallery no mu.
+ai.info.now_in_editor = Seesei wowɔ editor no mu.
+ai.tool.shell_command = shell command
+
+ai.error.cli_missing = {backend} CLI (“{binary}”) no nni PATH so. Di kan fa gu so na kɔ mu.
+ai.error.endpoint_failed = wɔantumi anfi MCP endpoint no ase: {error}
+ai.error.binding_endpoint = wɔrekyekyere MCP endpoint no
+ai.error.spawning_endpoint_thread = wɔrefi MCP endpoint thread no ase
+ai.error.runtime_failed = wɔantumi anfi agent runtime no ase: {error}
+ai.error.worker_failed = wɔantumi anfi {backend} worker no ase: {error}
+ai.error.did_not_start = {backend} anfi ase: {error}
+ai.error.switch_model_failed = wɔantumi ansesa model no: {error}
+ai.error.send_failed = wɔantumi amfa prompt no ankɔ: {error}
+ai.error.interrupt_failed = wɔantumi antwa adwuma no mu: {error}
+ai.error.locating_binary = wɔrehwehwɛ Schist binary no
+ai.error.starting_app_server = wɔrefi Codex app server no ase
+ai.error.attaching_app_server = wɔde rekɔka Codex app server no ho
+ai.error.initializing_app_server = wɔrehyɛ Codex app server no ase
+ai.error.resuming_thread = wɔreto Codex thread no so
+ai.error.starting_thread = wɔrefi Codex thread no ase
+
+ai.model.opus_detail = Ɔfã a etumi yɛ pii sen biara
+ai.model.sonnet_detail = Etumi yɛ daa nnwuma yiye
+ai.model.haiku_detail = Ɛyɛ ntɛm sen biara ma mmuae tiawa
+ai.model.codex_catalog = Codex catalogue

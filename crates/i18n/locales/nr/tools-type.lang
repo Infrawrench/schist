@@ -1,0 +1,27 @@
+# The type tool (plugins/tools-type).
+
+tool.type.name = Umtlolo
+tool.type.description = Qhafaza ukuze uthome ileya yomtlolo lapho, namkha uqhafaze esele ikhona ukuze uyihlele. Nayivulekileko, ithulusi lamukela iinkhiya ezingakatjhugululwa (thumela amatshwayo njengeenkhiya ezifakiweko), begodu ukuqinisekisa kuveza ileya bese kuvala ukuhlela.
+
+# The options bar
+tool.type.option.align = Linganisa
+tool.type.option.leading = Isikhala Phakathi Kwemida
+tool.type.option.tracking = Isikhala Phakathi Kwamaledere
+tool.type.option.kerning = Ukulungisa Isikhala Samaledere
+tool.type.option.ligatures = Amaledere Ahlanganisiweko
+tool.type.option.discretionary_ligatures = Amaledere wokuzikhethela ahlanganisiweko
+tool.type.option.small_caps = Amagabhadlhela amancani
+tool.type.option.on_path = Endleleni esebenzako
+tool.type.option.path_offset = Ukusuka endleleni
+
+# The Style dropdown
+tool.type.choice.regular = Okujayelekileko
+tool.type.choice.bold = Okunzima
+tool.type.choice.italic = Okutjhigamileko
+tool.type.choice.bold_italic = Okunzima Okutjhigamileko
+
+# History
+tool.type.history.new_layer = Ileya Etja Yomtlolo
+tool.type.history.edit = Hlela Umtlolo
+tool.type.history.discard = Lahla Umtlolo
+tool.type.history.discard_empty = Lahla Umtlolo Onganalitho

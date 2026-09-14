@@ -1,0 +1,28 @@
+# L-għodod bażiċi (plugins/tools-basic): Ċaqlaq, Pipetta, Id, Żum.
+# It-tikketti tal-għażliet komuni mal-bqija tal-applikazzjoni (Saff, Grupp)
+# jiġu minn common.lang.
+
+# Ċaqlaq
+tool.move.name = Ċaqlaq
+tool.move.description = Iddreggja l-kontenut tas-saff attiv għal pożizzjoni ġdida. Meta l-Għażla Awtomatika tkun mixgħula, mal-għafsa jintgħażel l-ewwel is-saff — jew il-grupp sħiħ — li jkun taħt il-werrej.
+tool.move.option.auto_select = Għażla Awtomatika
+tool.move.history.move_layer = Ċaqlaq is-Saff
+
+# Pipetta
+tool.eyedropper.name = Pipetta
+tool.eyedropper.description = Ħu kampjun tal-kulur taħt il-werrej fil-kampjun ta' quddiem, jew fil-kampjun tal-isfond meta żżomm alt magħfus. Waqt li tiddreggja jibqgħu jittieħdu l-kampjuni.
+tool.eyedropper.option.sample_size = Daqs tal-Kampjun
+tool.eyedropper.option.sample = Kampjun
+tool.eyedropper.choice.point_sample = Kampjun ta' Punt
+tool.eyedropper.choice.average_3 = Medja ta' 3 b'3
+tool.eyedropper.choice.average_5 = Medja ta' 5 b'5
+tool.eyedropper.choice.average_11 = Medja ta' 11 bi 11
+tool.eyedropper.choice.average_31 = Medja ta' 31 b'31
+tool.eyedropper.choice.all_layers = Is-Saffi Kollha
+tool.eyedropper.choice.current_layer = Is-Saff Attwali
+
+# Id u Żum
+tool.hand.name = Id
+tool.hand.description = Iċaqlaq il-veduta. Iż-żona viżibbli tappartjeni lit-tieqa, għalhekk mingħajr interfaċċa grafika din l-għodda ma tagħmel xejn lid-dokument.
+tool.zoom.name = Żum
+tool.zoom.description = Tkattar jew iċċekken il-veduta. Iż-żona viżibbli tappartjeni lit-tieqa, għalhekk mingħajr interfaċċa grafika din l-għodda ma tagħmel xejn lid-dokument.

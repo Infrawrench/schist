@@ -1,0 +1,31 @@
+# The region retouching tools (plugins/tools-retouch): Patch,
+# Content-Aware Move, Red Eye, Magic Eraser. Mode and Tolerance come
+# from common.lang.
+
+# Patch
+tool.patch.name = Tampalan
+tool.patch.description = Seret garis luar mengelilingi kecacatan, kemudian seret pilihan itu ke atas piksel yang bersih: tekstur di situ disesuaikan ke dalam kecacatan. Mod Tampalan menentukan hujung pasangan yang diseret.
+tool.patch.option.patch = Tampalan
+tool.patch.choice.source = Sumber
+tool.patch.choice.destination = Destinasi
+tool.patch.history.patch = Tampalan
+
+# Content-Aware Move
+tool.content_aware_move.name = Alih Sedar Kandungan
+tool.content_aware_move.description = Seret objek yang dipilih ke tempat lain dan ruang yang ditinggalkannya diisi daripada persekitarannya. Dalam mod Lanjutkan, objek diregangkan dan bukannya dialihkan.
+tool.content_aware_move.choice.move = Alih
+tool.content_aware_move.choice.extend = Lanjutkan
+tool.content_aware_move.history.move = Alih Sedar Kandungan
+
+# Red Eye
+tool.red_eye.name = Mata Merah
+tool.red_eye.description = Klik anak mata untuk menyingkirkan warna merah akibat denyar.
+tool.red_eye.option.pupil_size = Saiz Anak Mata
+tool.red_eye.option.darken = Gelapkan
+tool.red_eye.history.red_eye = Mata Merah
+
+# Magic Eraser
+tool.magic_eraser.name = Pemadam Ajaib
+tool.magic_eraser.description = Klik untuk memadam kawasan berwarna serupa di bawah penuding, dalam julat toleransi alat -- sama ada bersambung dengan titik klik atau di seluruh lapisan.
+tool.magic_eraser.option.contiguous = Bersambung
+tool.magic_eraser.history.erase = Pemadam Ajaib

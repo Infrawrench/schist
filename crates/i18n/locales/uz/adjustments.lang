@@ -1,0 +1,20 @@
+# Sozlash qatlamlari va Tasvir ▸ Sozlashlar buyruqlari.
+adjustment.levels.name = Darajalar
+adjustment.curves.name = Egri chiziqlar
+adjustment.hue_saturation.name = Tus/To‘yinganlik
+adjustment.brightness_contrast.name = Yorqinlik/Kontrast
+adjustment.black_white.name = Oq-qora
+adjustment.solid_color.name = Yaxlit rang
+adjustment.gradient_fill.name = Gradient bilan to‘ldirish
+adjustment.pattern_fill.name = Naqsh bilan to‘ldirish
+adjustment.invert.name = Ranglarni teskarilash
+adjustment.posterize.name = Posterizatsiya
+adjustment.threshold.name = Chegara qiymati
+adjustment.color_balance.name = Ranglar muvozanati
+adjustment.vibrance.name = Ranglar jonliligi
+adjustment.exposure.name = Ekspozitsiya
+adjustment.photo_filter.name = Fotofiltr
+adjustment.gradient_map.name = Gradient xaritasi
+adjustment.selective_color.name = Tanlab rang berish
+adjustment.channel_mixer.name = Kanallar mikseri
+adjustment.other.name = Sozlash

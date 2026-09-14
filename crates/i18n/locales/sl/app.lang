@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galerija filtrov
+app.filter_gallery.stack = Sklad (uveljavljen od spodaj navzgor)
+app.filter_gallery.no_settings = Ta filter nima nastavitev.
+app.fonts.not_open_licensed = nima odprte licence · {substitute} ima enake mere
+app.fonts.missing_substituted = manjka · besedilo uporablja nadomestno pisavo
+app.fonts.not_in_catalogue = Pisave {family} ni v katalogu odprtih pisav
+app.fonts.no_faces = Za pisavo {family} ni različic, ki jih je mogoče prenesti
+app.fonts.empty_response = prazen odgovor
+app.update.unreadable_response = odgovora ni mogoče prebrati: {error}
+app.update.no_temp_dir = ni začasne mape za prenos
+app.update.asset_has_path = ime sredstva v izdaji vsebuje pot
+app.update.too_big = prenesena datoteka je večja, kot navaja izdaja
+app.update.stopped_at = prenos se je ustavil pri {got} od {total} bajtov
+app.update.hash_mismatch = zgoščena vrednost prenosa je {got} namesto {want}
+app.update.not_in_bundle = ta kopija ni v paketu aplikacije
+app.update.no_parent_dir = paket aplikacije nima nadrejene mape
+app.update.cannot_write = ni mogoče pisati v {dir}
+app.update.cannot_move_aside = aplikacije {app} ni mogoče umakniti
+app.update.cannot_move_in = novega paketa ni mogoče premakniti na njegovo mesto
+app.update.cannot_run_ditto = programa /usr/bin/ditto ni mogoče zagnati
+app.update.unpack_failed = razširjanje prenosa ni uspelo: {error}
+app.update.no_app_in_download = prenos ne vsebuje Schist.app
+app.update.cannot_run_codesign = programa /usr/bin/codesign ni mogoče zagnati
+app.update.signature_invalid = podpisa prenosa ni mogoče preveriti: {error}
+app.update.download_unsigned = ta kopija je podpisana, prenos pa ni
+app.update.different_developer = prenos je podpisal drug razvijalec
+app.update.cannot_relaunch = programa za ponovni zagon ni mogoče zagnati
+app.update.not_installed_copy = te kopije ni namestil namestitveni program
+app.update.cannot_start_installer = namestitvenega programa ni mogoče zagnati
+app.update.platform_unsupported = posodobitve se na tej platformi namestijo enako kot Schist
+app.vulkan.no_loader = schist: v tem sistemu ni nalagalnika Vulkan, zato ni mogoče ničesar izrisati.\n\nSchist izrisuje prek tehnologije Vulkan, knjižnica `libvulkan.so.1` pa ni nameščena.\nPotrebujete nalagalnik in gonilnik:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: gonilnika Vulkan, na katerega kaže ta seja, ni.\n\nSpremenljivka {var} je nastavljena; njena nastavitev *nadomesti* iskanje\ngonilnikov, ki ga izvaja nalagalnik, in ga ne dopolni. Te neobstoječe\ndatoteke so zato celoten seznam gonilnikov — noben program Vulkan v tej\nseji ne vidi niti enega gonilnika, ne glede na število nameščenih:\n\n{missing}\n    {var}={value}\n\nNastavite jo na obstoječi manifest — nameščeni gonilniki svoje shranijo v\n/usr/share/vulkan/icd.d — ali jo odstranite in prepustite iskanje nalagalniku.\nČe se spremenljivka seje nastavi v nastavitveni datoteki (Hyprlandov `env =`,\ndodatek environment.d za systemd ali profil lupine), jo morate spremeniti tam;\nda sprememba doseže že zagnane programe, se morate znova prijaviti.\n
+app.vulkan.override_note = \nSpremenljivka {var} je nastavljena na {value}, kar nadomesti nalagalnikovo\nlastno iskanje. Če nobeden od teh manifestov ni namenjen temu računalniku,\nnajprej poskusite odstraniti nastavitev spremenljivke.\n
+app.vulkan.no_driver = schist: nameščen ni noben gonilnik Vulkan, zato ni mogoče ničesar izrisati.\n\nSchist izrisuje prek tehnologije Vulkan. Nalagalnik je nameščen, vendar ne\nzazna nobenega gonilnika — noben gonilnik se ni registriral na nobenem od\nmest, kjer jih išče:\n\n{dirs}\n\nNalagalnik je na voljo ločeno od gonilnikov, zato navadno manjka en sam paket.\n\nNamestite gonilnik za grafični procesor tega računalnika:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-jev lastniški gonilnik vključuje svojega (`nvidia-utils` v Archu,\n`nvidia-driver` v Debianu). V navideznem računalniku ali drugje, kjer ni\nmogoče namestiti gonilnika za grafični procesor, uporabite programski\nrastrirnik: `vulkan-swrast` v Archu oziroma del paketa\n`mesa-vulkan-drivers` drugje. Je počasen, vendar se zažene.\n{overridden}
+app.vulkan.no_device = schist: gonilnik Vulkan je nameščen, vendar ne ponuja naprave za izrisovanje.\n\nGonilnik morda ne podpira tega grafičnega procesorja ali pa do njega nima\ndostopa — pri povezavi SSH ali znotraj vsebnika pogosto manjka /dev/dri.\nUkaz `vulkaninfo --summary` pokaže, kaj vidi nalagalnik.\n\nČe ta računalnik nima grafičnega procesorja, lahko brez njega izrisuje\nprogramski rastrirnik: `vulkan-swrast` v Archu oziroma del paketa\n`mesa-vulkan-drivers` v Debianu in Fedori.\n
+app.vulkan.skip_hint = Če želite kljub temu zagnati Schist in pustiti, da odpove po svoje, nastavite {var}=1.

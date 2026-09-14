@@ -1,0 +1,170 @@
+# The Neural Filters, Camera Raw, the Blur Gallery and the lens filters
+# (plugins/filters-core: neural.rs, camera_raw.rs, blurgallery.rs,
+# lens.rs). Keys are filter.<id>.name, filter.<id>.param.<key>,
+# filter.<id>.choice.<value> and filter.<id>.msg.<what>, after the ids
+# the plugins register; a label several of these filters share is
+# filter.neural.param.<label>. Model names ("Depth (Depth Blur)") are
+# the ones Manage Models shows and stay as they are.
+
+# Labels several filters share
+filter.neural.param.center_x = X কেন্দ্ৰ
+filter.neural.param.center_y = Y কেন্দ্ৰ
+filter.neural.param.direction = দিশ
+filter.neural.param.transition = ৰূপান্তৰ
+filter.neural.param.detail = বিৱৰণ
+filter.neural.param.eyes = চকু
+
+# What a model-backed filter says in its dialog
+filter.neural.msg.using_model = {model} · {license} ব্যৱহাৰ কৰা হৈছে।
+filter.neural.msg.get_model = ফিল্টাৰ ▸ Neural Filters ▸ মডেলসমূহ পৰিচালনা কৰক-ৰ পৰা ইয়াক লওক।
+
+# Camera Raw Filter
+filter.camera_raw.name = Camera Raw ফিল্টাৰ
+filter.camera_raw.param.temperature = তাপমাত্ৰা
+filter.camera_raw.param.tint = ৰঙৰ আভা
+filter.camera_raw.param.highlights = উজ্জ্বল অংশ
+filter.camera_raw.param.shadows = ছাঁ
+filter.camera_raw.param.whites = বগা অংশ
+filter.camera_raw.param.blacks = ক'লা অংশ
+filter.camera_raw.param.clarity = স্পষ্টতা
+filter.camera_raw.param.dehaze = কুঁৱলী আঁতৰাওক
+filter.camera_raw.param.vibrance = ৰঙৰ সজীৱতা
+filter.camera_raw.param.sharpening = তীক্ষ্ণকৰণ
+filter.camera_raw.param.noise = সোঁ-সোঁৱনি হ্ৰাস
+filter.camera_raw.param.vignette = ভিনিয়েট
+
+# Lens Correction
+filter.lens_correction.name = লেন্স সংশোধন
+filter.lens_correction.param.distortion = বিকৃতি আঁতৰাওক
+filter.lens_correction.param.red = ৰঙা/ছায়ান কাষ সংশোধন
+filter.lens_correction.param.blue = নীলা/হালধীয়া কাষ সংশোধন
+filter.lens_correction.param.vignette = ভিনিয়েটৰ পৰিমাণ
+filter.lens_correction.param.midpoint = ভিনিয়েটৰ মধ্যবিন্দু
+filter.lens_correction.param.vertical = উলম্ব পাৰ্সপেক্টিভ
+filter.lens_correction.param.horizontal = অনুভূমিক পাৰ্সপেক্টিভ
+
+# Adaptive Wide Angle
+filter.adaptive_wide_angle.name = অভিযোজিত ৱাইড এংগল
+filter.adaptive_wide_angle.param.projection = সংশোধন
+filter.adaptive_wide_angle.choice.fisheye = ফিছআই
+filter.adaptive_wide_angle.choice.perspective = পাৰ্সপেক্টিভ
+filter.adaptive_wide_angle.choice.full_spherical = সম্পূৰ্ণ গোলকীয়
+filter.adaptive_wide_angle.param.focal = ফ'কেল দৈৰ্ঘ্য
+filter.adaptive_wide_angle.param.crop = ক্ৰপ গুণক
+
+# Blur Gallery
+filter.field_blur.name = ক্ষেত্ৰ অস্পষ্টকৰণ
+filter.field_blur.param.position = ইয়াত তীক্ষ্ণ
+filter.iris_blur.name = আইৰিছ অস্পষ্টকৰণ
+filter.iris_blur.param.roundness = গোলাকাৰতা
+filter.tilt_shift.name = টিল্ট-শ্বিফ্ট
+filter.tilt_shift.param.position = কেন্দ্ৰ
+filter.tilt_shift.param.band = তীক্ষ্ণ বেণ্ড
+filter.spin_blur.name = ঘূৰ্ণন অস্পষ্টকৰণ
+filter.spin_blur.param.angle = অস্পষ্টকৰণ কোণ
+filter.path_blur.name = পথ অস্পষ্টকৰণ
+filter.path_blur.param.speed = গতি
+filter.path_blur.param.curve = বক্ৰতা
+filter.path_blur.param.taper = ক্ৰমে সৰু কৰা
+
+# Blur
+filter.shape_blur.name = আকৃতি অস্পষ্টকৰণ
+filter.shape_blur.choice.square = বৰ্গ
+filter.shape_blur.choice.diamond = হীৰা
+filter.shape_blur.choice.hexagon = ষড়ভুজ
+filter.shape_blur.choice.cross = ক্ৰছ
+filter.shape_blur.choice.ring = আঙঠি
+filter.shape_blur.choice.star = তৰা
+filter.smart_blur.name = স্মাৰ্ট অস্পষ্টকৰণ
+filter.smart_blur.choice.normal = স্বাভাৱিক
+filter.smart_blur.choice.edge_only = কেৱল কাষ
+filter.smart_blur.choice.overlay_edge = অভাৰলে কাষ
+
+# Video
+filter.deinterlace.name = ডি-ইণ্টাৰলেচ
+filter.deinterlace.param.field = আঁতৰাওক
+filter.deinterlace.choice.odd_fields = অযুগ্ম ক্ষেত্ৰ
+filter.deinterlace.choice.even_fields = যুগ্ম ক্ষেত্ৰ
+filter.deinterlace.param.fill = নতুন ক্ষেত্ৰ সৃষ্টিৰ পদ্ধতি
+filter.deinterlace.choice.interpolation = অন্তৰ্বেশন
+filter.deinterlace.choice.duplication = প্ৰতিলিপি
+filter.ntsc_colors.name = NTSC ৰং
+
+# Neural Filters
+filter.neural.skin_smoothing.name = ছাল মসৃণকৰণ
+filter.neural.skin_smoothing.param.blur = মসৃণতা
+filter.neural.skin_smoothing.param.detail = বিৱৰণ ৰাখক
+filter.neural.skin_smoothing.msg.no_model = {model} ইনষ্টল কৰা নাই—মুখৰ সলনি ছালৰ ৰং থকা সকলো অংশ মসৃণ কৰা হৈছে।
+
+filter.neural.jpeg_artifacts.name = JPEG আৰ্টিফেক্ট আঁতৰোৱা
+filter.neural.jpeg_artifacts.msg.no_model = {model} ইনষ্টল কৰা নাই—তাৰ সলনি 8-পিক্সেল গ্ৰীড মসৃণ কৰা হৈছে।
+
+filter.neural.colorize.name = ৰঙীন কৰক
+filter.neural.colorize.param.warmth = উষ্ণতা
+filter.neural.colorize.msg.no_model = {model} ইনষ্টল কৰা নাই—তাৰ সলনি দীপ্তি অনুসৰি ৰঙৰ আভা দিয়া হৈছে।
+
+filter.neural.super_zoom.name = ছুপাৰ জুম
+filter.neural.super_zoom.msg.no_model = {model} ইনষ্টল কৰা নাই—তাৰ সলনি কাষ-নিৰ্দেশিত তীক্ষ্ণকৰণ ব্যৱহাৰ কৰা হৈছে।
+
+filter.neural.style_transfer.name = শৈলী স্থানান্তৰ
+filter.neural.style_transfer.choice.mosaic = মোজাইক
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = কোনো শৈলী মডেল ইনষ্টল কৰা নাই—কেৱল ৰং স্থানান্তৰ কৰা হৈছে। ফিল্টাৰ ▸ Neural Filters ▸ মডেলসমূহ পৰিচালনা কৰক-ৰ পৰা সেইবোৰ লওক।
+filter.neural.style_transfer.msg.installed = ইনষ্টল কৰা: {styles} (ONNX Model Zoo, Apache-2.0)।
+
+filter.neural.color_transfer.name = ৰং স্থানান্তৰ
+filter.neural.color_transfer.param.hue = লক্ষ্য ৰংভেদ
+filter.neural.color_transfer.param.contrast = বৈপৰীত্য মিলাওক
+filter.neural.color_transfer.msg.info = ই তলৰ স্তৰৰ পৰা ৰংসমষ্টি লয়। তলত একো নাথাকিলে ইয়াৰ লক্ষ্য তাৰ সলনি লক্ষ্য ৰংভেদ হয়।
+
+filter.neural.depth_blur.name = গভীৰতা অস্পষ্টকৰণ
+filter.neural.depth_blur.param.focus = ফ'কেল দূৰত্ব
+filter.neural.depth_blur.param.blur = অস্পষ্টকৰণৰ শক্তি
+filter.neural.depth_blur.msg.no_model = {model} ইনষ্টল কৰা নাই—তাৰ সলনি স্থানীয় তীক্ষ্ণতা অনুসৰি ফ'কাছ কৰা হৈছে।
+
+filter.neural.harmonization.name = সামঞ্জস্যকৰণ
+filter.neural.harmonization.param.tone = টোন মিলাওক
+filter.neural.harmonization.msg.info = এই স্তৰটো তলত থকা বস্তুৰ সৈতে মিলায়। তলত একো নাথাকিলে মিলাবলৈ একো নাথাকে আৰু ই একো নকৰে।
+
+filter.neural.landscape_mixer.name = ভূদৃশ্য মিক্সাৰ
+filter.neural.landscape_mixer.param.bands = গভীৰতাৰ বেণ্ডসমূহ
+filter.neural.landscape_mixer.msg.with_depth = Depth (Depth Blur) ব্যৱহাৰ কৰি বেণ্ডে বেণ্ডে মিলাই তলৰ স্তৰৰ পৰা ৰংসমষ্টি লয়।
+filter.neural.landscape_mixer.msg.without_depth = তলৰ স্তৰৰ পৰা ৰংসমষ্টি লয়। গোটেই ছবিখন মিলোৱাৰ সলনি আকাশৰ সৈতে আকাশ আৰু মাটিৰ সৈতে মাটি মিলাবলৈ Depth (Depth Blur) ইনষ্টল কৰক।
+
+filter.neural.photo_restoration.name = ফটো পুনৰুদ্ধাৰ
+filter.neural.photo_restoration.param.enhance = ফটো উন্নতকৰণ
+filter.neural.photo_restoration.param.scratches = আঁচোৰ হ্ৰাস
+filter.neural.photo_restoration.param.tone = টোন পুনৰুদ্ধাৰ
+filter.neural.photo_restoration.msg.no_model = মডেল অবিহনে পৰিষ্কাৰ কৰা হৈছে।
+filter.neural.photo_restoration.msg.using_deblock = Deblock ব্যৱহাৰ কৰা হৈছে · Schist-ৰ বাবে প্ৰশিক্ষিত।
+filter.neural.photo_restoration.msg.using_detail = Detail ব্যৱহাৰ কৰা হৈছে · Schist-ৰ বাবে প্ৰশিক্ষিত।
+filter.neural.photo_restoration.msg.using_both = Deblock আৰু Detail ব্যৱহাৰ কৰা হৈছে · Schist-ৰ বাবে প্ৰশিক্ষিত।
+
+filter.neural.photo_to_sketch.name = ফটোৰ পৰা স্কেচ
+filter.neural.photo_to_sketch.param.weight = ৰেখাৰ ওজন
+filter.neural.photo_to_sketch.param.shading = ছায়াকৰণ
+
+filter.neural.face_to_caricature.name = মুখৰ পৰা ব্যংগচিত্ৰ
+filter.neural.face_to_caricature.param.mouth = মুখ
+filter.neural.face_to_caricature.param.head = মূৰ
+filter.neural.face_to_caricature.msg.no_model = {model} ইনষ্টল কৰা নাই, সেয়েহে ই একো নকৰে—ব্যংগচিত্ৰ কৰিবলৈ একো নাই।
+
+filter.neural.smart_portrait.name = স্মাৰ্ট প'ৰ্ট্ৰেইট
+filter.neural.smart_portrait.param.happiness = আনন্দ
+filter.neural.smart_portrait.param.surprise = বিস্ময়
+filter.neural.smart_portrait.param.age = মুখৰ বয়স
+filter.neural.smart_portrait.param.gaze = দৃষ্টি
+filter.neural.smart_portrait.param.light = পোহৰৰ দিশ
+filter.neural.smart_portrait.msg.no_model = {model} ইনষ্টল কৰা নাই, সেয়েহে ই একো নকৰে—কাম কৰিবলৈ ইয়াৰ কোনো মুখ নাই।
+
+filter.neural.makeup_transfer.name = মেকআপ স্থানান্তৰ
+filter.neural.makeup_transfer.param.lips = ওঁঠ
+filter.neural.makeup_transfer.param.skin = ছালৰ টোন
+filter.neural.makeup_transfer.msg.info = তলৰ স্তৰত থকা মুখৰ পৰা মেকআপ লয়। ৰং, টেক্সচাৰ নহয়।
+filter.neural.makeup_transfer.msg.no_model = {model} ইনষ্টল কৰা নাই, সেয়েহে ই একো নকৰে।
+
+filter.neural.sketch_to_portrait.name = স্কেচৰ পৰা প'ৰ্ট্ৰেইট
+filter.neural.sketch_to_portrait.param.detail = ৰেখা ৰাখক
+filter.neural.sketch_to_portrait.msg.with_face = এই এপ্লিকেশ্যনৰ নিজা ফটোৰ পৰা স্কেচ পূৰণ কৰিবলৈ প্ৰশিক্ষিত। ই বিচাৰি পোৱা মুখত কাম কৰে।
+filter.neural.sketch_to_portrait.msg.no_face = এই এপ্লিকেশ্যনৰ নিজা ফটোৰ পৰা স্কেচ পূৰণ কৰিবলৈ প্ৰশিক্ষিত। Faces (Skin Smoothing) ইনষ্টল কৰিলে ই গোটেই নিৰ্বাচনৰ সলনি মুখত কাম কৰিব।

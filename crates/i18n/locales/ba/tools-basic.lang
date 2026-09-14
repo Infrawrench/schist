@@ -1,0 +1,23 @@
+# Төп ҡоралдар: Күсереү, Пипетка, Ҡул, Масштаб.
+
+tool.move.name = Күсереү
+tool.move.description = Әүҙем ҡатламдың эсендәгеһен яңы урынға һөйрәгеҙ. Автоматик һайлау ҡабыҙылғанда, баҫҡас күрһәткес аҫтындағы ҡатлам йәки тотош төркөм тәүҙә һайлана.
+tool.move.option.auto_select = Автоматик һайлау
+tool.move.history.move_layer = Ҡатламды күсереү
+
+tool.eyedropper.name = Пипетка
+tool.eyedropper.description = Күрһәткән урындағы төҫ өлгөһөн алғы төҫкә алығыҙ; alt тотолһа, артҡы төҫкә алына. Һөйрәгәндә өлгө алыу дауам итә.
+tool.eyedropper.option.sample_size = Өлгө үлсәме
+tool.eyedropper.option.sample = Өлгө
+tool.eyedropper.choice.point_sample = Нөктә өлгөһө
+tool.eyedropper.choice.average_3 = 3 × 3 уртасаһы
+tool.eyedropper.choice.average_5 = 5 × 5 уртасаһы
+tool.eyedropper.choice.average_11 = 11 × 11 уртасаһы
+tool.eyedropper.choice.average_31 = 31 × 31 уртасаһы
+tool.eyedropper.choice.all_layers = Барлыҡ ҡатламдар
+tool.eyedropper.choice.current_layer = Әлеге ҡатлам
+
+tool.hand.name = Ҡул
+tool.hand.description = Күренеште шылдыра. Күренеш өлкәһе тәҙрәгә ҡарай, шуға күрә график интерфейсһыҙ был ҡорал документҡа тәьҫир итмәй.
+tool.zoom.name = Масштаб
+tool.zoom.description = Күренештең масштабын үҙгәртә. Күренеш өлкәһе тәҙрәгә ҡарай, шуға күрә график интерфейсһыҙ был ҡорал документҡа тәьҫир итмәй.

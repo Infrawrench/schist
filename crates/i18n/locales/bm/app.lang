@@ -1,0 +1,43 @@
+# Sɛgɛsɛgɛlan galeri
+app.filter_gallery.title = Sɛgɛsɛgɛlan galeri
+app.filter_gallery.stack = Stack (a bɛ kɛ ka bɔ duguma ka taa sanfɛ)
+app.filter_gallery.no_settings = Labɛncogo si tɛ nin sɛgɛsɛgɛlan na.
+
+# Sɛbɛnni-fɔntiw
+app.fonts.not_open_licensed = A lisansi tɛ hɔrɔnya la · {substitute} bɛ bɛn a hakɛw ma
+app.fonts.missing_substituted = A tununnen don · sɛbɛn bɛ sigi fɔnti wɛrɛ la
+app.fonts.not_in_catalogue = {family} tɛ fɔnti hɔrɔnya katalogi kɔnɔ
+app.fonts.no_faces = {family} siyali si tɛ se ka telesarize
+app.fonts.empty_response = Jaabi lankolon
+
+# Lakurayali
+app.update.unreadable_response = Jaabi tɛ se ka kalan: {error}
+app.update.no_temp_dir = Waati dɔrɔn fɔldɛri tɛ yen ka telesarizeli don a kɔnɔ
+app.update.asset_has_path = Bɔli b'a ka fɛn tɔgɔ la ni sira ye
+app.update.too_big = Telesarizeli ka bon ni bɔli ko tɛ
+app.update.stopped_at = Telesarizeli jɔra {got} la ka bɔ bayiti {total} la
+app.update.hash_mismatch = Telesarizeli hash ye {got} ye, a ma kɛ {want} ye
+app.update.not_in_bundle = Nin kopi tɛ porogaramu bundle kɔnɔ
+app.update.no_parent_dir = Porogaramu bundle bangebɔ fɔldɛri tɛ yen
+app.update.cannot_write = A tɛ se ka sɛbɛn {dir} kɔnɔ
+app.update.cannot_move_aside = A tɛ se ka {app} bɔ yɔrɔ la
+app.update.cannot_move_in = A tɛ se ka bundle kura bila a yɔrɔ la
+app.update.cannot_run_ditto = A tɛ se ka /usr/bin/ditto boli
+app.update.unpack_failed = Telesarizeli dayɛlɛli ma se: {error}
+app.update.no_app_in_download = Schist.app tɛ telesarizeli kɔnɔ
+app.update.cannot_run_codesign = A tɛ se ka /usr/bin/codesign boli
+app.update.signature_invalid = Telesarizeli bolonɔ tɛ se ka tiɲɛ: {error}
+app.update.download_unsigned = Nin kopi bolonɔlen don, nka telesarizeli bolonɔlen tɛ
+app.update.different_developer = Telesarizeli bolonɔlen don ni dilannikɛla wɛrɛ ye
+app.update.cannot_relaunch = A tɛ se ka porogaramu laseginnan daminɛ
+app.update.not_installed_copy = Sigindilan ma nin kopi bila yan
+app.update.cannot_start_installer = A tɛ se ka sigindilan daminɛ
+app.update.platform_unsupported = Nin plateforme kan, Schist sigincogo de bɛ lakurayaliw sigindi
+
+# Vulkan lajɛli Linux kan
+app.vulkan.no_loader = schist: Vulkan loader tɛ nin sistemu kan, o la foyi tɛ yen ka ja bɔ ni a ye.\n\nSchist bɛ ja bɔ Vulkan fɛ, nka `libvulkan.so.1` ma sigindi.\nLoader ni driver fila bɛɛ ka kan ka kɛ yen:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: nin session bɛ jira Vulkan driver min na, o tɛ yen.\n\n{var} labɛnnen don; o labɛnni bɛ loader ka driver ɲinini *falen*, a tɛ fara a kan. O la nin dosiyɛ minnu tɛ yen, olu de ye driver lisiti bɛɛ ye — Vulkan porogaramu bɛɛ nin session kɔnɔ tɛ driver si ye, hali caman sigilennen bɛ yen:\n\n{missing}\n    {var}={value}\n\nA jira manifest min bɛ yen o la — driver sigilennenw b'u taw bila /usr/share/vulkan/icd.d kɔnɔ — walima a labɛnni bɔ walasa loader yɛrɛ k'a ta sɔrɔ.\nNi session bɛ nin sɔrɔ labɛnni dosiyɛ dɔ la (Hyprland ka `env =`, systemd environment.d drop-in, shell profile), a ka kan ka yɛlɛma yen; donni kura ka kan ka kɛ sani yɛlɛma ka se porogaramu minnu bɛ boli kaban ma.\n
+app.vulkan.override_note = \n{var} labɛnnen don ka kɛ {value} ye; o bɛ loader yɛrɛ ka ɲinini falen: ni manifest si tɛ nin masin ta ye, a labɛnni bɔli ye fɛn fɔlɔ ye ka lajɛ.\n
+app.vulkan.no_driver = schist: Vulkan driver si ma sigindi, o la foyi tɛ yen ka ja bɔ a kan.\n\nSchist bɛ ja bɔ Vulkan fɛ. Loader sigilennen don, nka a ko driver si tɛ yen — foyi ma a tɔgɔ sɛbɛn yɔrɔ fila si la minnu bɛ lajɛ:\n\n{dirs}\n\nLoader bɛ bɔ driverw kɔrɔcɛma, o la a ka ca a la package kelen dɔrɔn de tununnen don.\n\nNin masin GPU ta sigindi:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA ka driver mako bɛ a yɛrɛ ta la (`nvidia-utils` Arch kan, `nvidia-driver` Debian kan). Virtual masin kɔnɔ, walima GPU driver si tɛ se ka sigindi yɔrɔ min na, software rasterizer de bɛ baara kɛ: `vulkan-swrast` Arch kan, ka kɛ `mesa-vulkan-drivers` fan dɔ ye yɔrɔ tɔw la. A ka suma, nka a bɛ daminɛ.\n{overridden}
+app.vulkan.no_device = schist: Vulkan driver sigilennen don, nka a tɛ minɛn si di ka ja bɔ a kan.\n\nDriver bɛ se ka kɛ ko a tɛ nin GPU ta ye, walima a tɛ se ka se a ma — SSH fɛ walima container kɔnɔ, /dev/dri ka tunun ka ca. `vulkaninfo --summary` bɛ loader ka filɛta jira.\n\nSoftware rasterizer bɛ ja bɔ GPU tɛ yen hali, ni nin masin cogoya ye o ye: `vulkan-swrast` Arch kan, ka kɛ `mesa-vulkan-drivers` fan dɔ ye Debian ni Fedora kan.\n
+app.vulkan.skip_hint = Ka Schist daminɛ hali o cogo la ka a to a yɛrɛ ka fili, {var}=1 labɛn.

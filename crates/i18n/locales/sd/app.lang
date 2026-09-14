@@ -1,0 +1,36 @@
+app.filter_gallery.title = فلٽر گيلري
+app.filter_gallery.stack = ڍير (هيٺان کان مٿي لاڳو ٿيندو)
+app.filter_gallery.no_settings = هن فلٽر جون سيٽنگون ناهن.
+app.fonts.not_open_licensed = کليل لائسنس ناهي · {substitute} جا ماپا ساڳيا آهن
+app.fonts.missing_substituted = گم ٿيل · متن متبادل فونٽ ۾ رکجي رهيو آهي
+app.fonts.not_in_catalogue = {family} کليل فونٽ فهرست ۾ ناهي
+app.fonts.no_faces = {family} لاءِ ڊائون لوڊ لائق فونٽ چهرا ناهن
+app.fonts.empty_response = خالي جواب
+app.update.unreadable_response = اڻ پڙهڻ جوڳو جواب: {error}
+app.update.no_temp_dir = ڊائون لوڊ لاءِ ڪابه عارضي ڊائريڪٽري ناهي
+app.update.asset_has_path = رليز پنهنجي اثاثي جي نالي ۾ واٽ ڏني آهي
+app.update.too_big = ڊائون لوڊ رليز ۾ ڄاڻايل ماپ کان وڏو آهي
+app.update.stopped_at = ڊائون لوڊ {total} بائيٽن مان {got} تي رڪجي ويو
+app.update.hash_mismatch = ڊائون لوڊ جو هيش {got} آهي، {want} ناهي
+app.update.not_in_bundle = هي نقل ايپليڪيشن بنڊل جي اندر ناهي
+app.update.no_parent_dir = ايپليڪيشن بنڊل جي مٿين ڊائريڪٽري ناهي
+app.update.cannot_write = {dir} ۾ لکي نٿو سگهجي
+app.update.cannot_move_aside = {app} کي پاسي نٿو ڪري سگهجي
+app.update.cannot_move_in = نئون بنڊل هن جاءِ تي نٿو آڻي سگهجي
+app.update.cannot_run_ditto = /usr/bin/ditto هلائي نٿو سگهجي
+app.update.unpack_failed = ڊائون لوڊ کولڻ ناڪام ٿيو: {error}
+app.update.no_app_in_download = ڊائون لوڊ ۾ Schist.app ناهي
+app.update.cannot_run_codesign = /usr/bin/codesign هلائي نٿو سگهجي
+app.update.signature_invalid = ڊائون لوڊ جي ڊجيٽل دستخط جي تصديق نٿي ٿئي: {error}
+app.update.download_unsigned = هي نقل ڊجيٽل دستخط ٿيل آهي، پر ڊائون لوڊ بنا دستخط جي آهي
+app.update.different_developer = ڊائون لوڊ تي ڪنهن ٻئي ڊولپر جو ڊجيٽل دستخط آهي
+app.update.cannot_relaunch = ٻيهر هلائيندڙ شروع نٿو ڪري سگهجي
+app.update.not_installed_copy = هي نقل انسٽالر هن جاءِ تي نه رکيو هو
+app.update.cannot_start_installer = انسٽالر شروع نٿو ڪري سگهجي
+app.update.platform_unsupported = هن پليٽفارم تي تازه ڪاريون Schist جي انسٽاليشن واري طريقي سان لڳن ٿيون
+app.vulkan.no_loader = schist: هن سسٽم تي Vulkan لوڊر ناهي، تنهنڪري ڊرائنگ لاءِ ڪجهه ناهي.\n\nSchist، Vulkan وسيلي رينڊر ڪري ٿو، ۽ `libvulkan.so.1` انسٽال ٿيل ناهي.\nلوڊر ۽ ڊرائيور ٻئي گهربل آهن:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: هن سيشن جنهن Vulkan ڊرائيور ڏانهن اشارو ڪيو آهي، اهو موجود ناهي.\n\n{var} مقرر ٿيل آهي، ۽ اها سيٽنگ لوڊر جي ڊرائيورن واري ڳولا ۾ اضافو ڪرڻ بدران ان کي *بدلائي* ٿي. تنهنڪري اهي غير موجود فائيل ئي ڊرائيورن جي مڪمل فهرست آهن—۽ هن سيشن جو هر Vulkan پروگرام ڪوبه ڊرائيور نٿو ڏسي، ڀلي ڪيترا به انسٽال ٿيل هجن:\n\n{missing}\n    {var}={value}\n\nان کي موجود manifest ڏانهن موڪليو—انسٽال ٿيل ڊرائيور پنهنجا manifest هتي رکن ٿا: /usr/share/vulkan/icd.d—يا سيٽنگ هٽائي لوڊر کي پاڻ ڳولڻ ڏيو. جيڪو سيشن هي قدر config فائيل مان مقرر ڪري ٿو (Hyprland جو `env =`، systemd environment.d drop-in، يا shell profile)، تنهن کي اتي ئي بدلائڻو پوندو؛ ۽ اڳ ۾ هلندڙ شين تائين تبديلي پهچائڻ لاءِ نئون login ڪرڻو پوندو.\n
+app.vulkan.override_note = \n{var} جو قدر {value} مقرر آهي، ۽ اهو لوڊر جي پنهنجي ڳولا کي بدلائي ٿو: جيڪڏهن انهن manifest مان ڪوبه هن مشين لاءِ ناهي، ته پهرين اها سيٽنگ هٽائي آزمايو.\n
+app.vulkan.no_driver = schist: ڪوبه Vulkan ڊرائيور انسٽال ٿيل ناهي، تنهنڪري رينڊر ڪرڻ لاءِ ڪجهه ناهي.\n\nSchist، Vulkan وسيلي رينڊر ڪري ٿو. لوڊر انسٽال ٿيل آهي پر ٻڌائي ٿو ته ڪوبه ڊرائيور ناهي—انهن ٻنهي ڳولا وارين جاين مان ڪنهن ۾ به ڊرائيور رجسٽر ٿيل ناهي:\n\n{dirs}\n\nلوڊر ڊرائيورن کان الڳ ورهايو وڃي ٿو، تنهنڪري عام طور رڳو هڪ پيڪيج گم هوندو آهي.\n\nهن مشين جي GPU لاءِ ڊرائيور انسٽال ڪريو:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA جو ملڪيت وارو ڊرائيور پنهنجو Vulkan جزو کڻي اچي ٿو (Arch تي `nvidia-utils`، Debian تي `nvidia-driver`). ورچوئل مشين ۾، يا جتي انسٽال ڪرڻ لاءِ GPU ڊرائيور نه هجي، سافٽ ويئر راسٽرائيزر ڪم ڪندو آهي: Arch تي `vulkan-swrast`، ۽ ٻين هنڌن تي `mesa-vulkan-drivers` جو حصو. اهو آهستي هلي ٿو، پر شروع ٿي وڃي ٿو.\n{overridden}
+app.vulkan.no_device = schist: Vulkan ڊرائيور انسٽال ٿيل آهي پر رينڊر ڪرڻ لاءِ ڪوبه ڊوائيس نٿو ڏئي.\n\nشايد ڊرائيور هن GPU کي سپورٽ نه ڪري، يا ان تائين پهچي نه سگهي—SSH وسيلي يا ڪنٽينر اندر /dev/dri عام طور گم هوندو آهي. `vulkaninfo --summary` ٻڌائي ٿو ته لوڊر ڇا ڏسي ٿو.\n\nجيڪڏهن هن مشين ۾ GPU بلڪل ناهي ته سافٽ ويئر راسٽرائيزر بنا GPU جي رينڊر ڪري ٿو: Arch تي `vulkan-swrast`، ۽ Debian ۽ Fedora تي `mesa-vulkan-drivers` جو حصو.\n
+app.vulkan.skip_hint = Schist کي پوءِ به شروع ڪري پنهنجي نموني ناڪام ٿيڻ ڏيڻ لاءِ {var}=1 مقرر ڪريو.

@@ -1,0 +1,21 @@
+# طبقات الضبط وأوامر الصورة ▸ عمليات الضبط: الأسماء.
+adjustment.levels.name = المستويات
+adjustment.curves.name = المنحنيات
+adjustment.hue_saturation.name = الصبغة/التشبع
+adjustment.brightness_contrast.name = السطوع/التباين
+adjustment.black_white.name = أبيض وأسود
+adjustment.solid_color.name = لون خالص
+adjustment.gradient_fill.name = تعبئة متدرجة
+adjustment.pattern_fill.name = تعبئة بنمط
+adjustment.invert.name = عكس
+adjustment.posterize.name = تقليل الدرجات اللونية
+adjustment.threshold.name = العتبة
+adjustment.color_balance.name = توازن الألوان
+adjustment.vibrance.name = الحيوية
+adjustment.exposure.name = التعريض
+adjustment.photo_filter.name = مرشح الصور
+adjustment.gradient_map.name = خريطة التدرج
+adjustment.selective_color.name = لون انتقائي
+adjustment.channel_mixer.name = مازج القنوات
+# نوع مقروء من ملف PSD لا يوفر Schist محررًا له.
+adjustment.other.name = ضبط

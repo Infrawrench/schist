@@ -1,0 +1,130 @@
+# The workspace (crates/app/src/workspace): documents and tabs, the
+# dialogs' shared enums, filters and adjustments, export, colour
+# management, the in-app file picker, crash recovery, and the status-bar
+# messages each of them sets. Keyed by module: workspace.<module>.<what>.
+# The dialogs' own labels are in dialogs.lang; the canvas-side modules
+# (edit_ops, image_ops, layers panel, …) are in workspace-canvas.lang.
+
+# Edit ▸ Fill sources (mod.rs, FillSource); the rest come from common.lang
+workspace.fill.gray_50 = Kelabu 50%
+workspace.fill.content_aware = Sedar Kandungan
+
+# Select ▸ Modify dialog titles (ModifyKind)
+workspace.modify.expand = Kembangkan Pilihan
+workspace.modify.contract = Kecilkan Pilihan
+workspace.modify.border = Sempadan Pilihan
+workspace.modify.smooth = Licinkan Pilihan
+workspace.modify.feather = Lembutkan Pilihan
+
+
+# The gallery's batch dialog: where the results go (BatchTarget)
+workspace.batch.target.edit = Suntingan galeri (berversi)
+workspace.batch.target.beside = Salinan di sebelah fail asal
+workspace.batch.target.folder = Salinan dalam folder…
+
+# Image ▸ Image Size, as the busy dialog titles itself
+workspace.modal.image_size.title = Saiz Imej
+
+# Documents and tabs (docs.rs)
+workspace.docs.opening = Membuka {name}…
+workspace.docs.opened = {name} dibuka
+workspace.docs.open_failed = Gagal membuka: {error}
+workspace.docs.no_codec = {name} bukan format yang boleh dibuka oleh Schist
+workspace.docs.no_exporter = Schist tidak dapat menyimpan fail .{ext}
+workspace.docs.empty_response = Pelayan menghantar respons kosong
+workspace.docs.heic_not_installed = Sokongan HEIC tidak dipasang
+workspace.docs.heic_downloading = Memuat turun sokongan HEIC (libheif {version})…
+workspace.docs.heic_installed = Sokongan HEIC dipasang
+workspace.docs.heic_download_failed = Gagal memuat turun sokongan HEIC: {error}
+workspace.docs.placing = Meletakkan {name}…
+workspace.docs.place_image = Letakkan Imej
+workspace.docs.placed = {name} diletakkan
+workspace.docs.place_failed = Gagal meletakkan: {error}
+workspace.docs.saved = {name} disimpan
+workspace.docs.save_failed = Gagal menyimpan: {error}
+
+# Adjustment layers (adjustments.rs); {name} is the adjustment's name
+# from adjustments.lang
+workspace.adjustment.new_layer = Lapisan {name} Baharu
+workspace.adjustment.added = {name} ditambahkan
+workspace.adjustment.settings = Tetapan {name}
+workspace.adjustment.updated = {name} dikemas kini
+workspace.adjustment.no_settings = {name} tiada tetapan yang boleh disunting
+
+# Layer comps (comps.rs)
+workspace.comps.name_n = Komposisi Lapisan {n}
+workspace.comps.captured = Komposisi lapisan dirakam
+workspace.comps.apply = Terapkan {name}
+
+# Layer Style (styles.rs): the history entry and status
+workspace.styles.layer_style = Gaya Lapisan
+
+# Layer Properties (context.rs)
+workspace.context.rename_layer = Namakan Semula Lapisan
+
+# Tool activation (commands.rs)
+workspace.commands.tool = Alat: {name}
+
+# Colour management (colormgmt.rs); {name} is a profile's own name
+workspace.colormgmt.assign = Tetapkan {name}
+workspace.colormgmt.assigned = {name} ditetapkan
+workspace.colormgmt.convert_to = Tukar kepada {name}
+workspace.colormgmt.converted_to = Ditukar kepada {name}
+workspace.colormgmt.convert_failed = Penukaran gagal: {error}
+workspace.colormgmt.proof_on = Pruf warna dihidupkan
+workspace.colormgmt.proof_off = Pruf warna dimatikan
+
+# Running filters (filters.rs); {name} is the filter's name
+workspace.filters.choose = Pilih
+workspace.filters.select_layer_first = Pilih lapisan dahulu
+workspace.filters.needs_pixel_layer = Penapis memerlukan lapisan piksel
+workspace.filters.nothing_to_filter = Tiada apa-apa untuk ditapis
+workspace.filters.went_away = Penapis sudah tiada
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: lapisan yang ditapis sudah tiada
+workspace.filters.plugin_title = Pemalam Photoshop
+workspace.filters.running = Menjalankan {name}
+workspace.filters.plugin_note = Pemalam berjalan dalam prosesnya sendiri. Jika tetingkap dibuka, berikan respons di situ untuk meneruskan.
+workspace.filters.raw_preview_developing = Memproses pratonton RAW…
+workspace.filters.raw_preview_done = Pratonton RAW (penyahmozekan pantas)
+workspace.filters.raw_preview_size_changed = Saiz pratonton RAW berubah: {w} × {h}
+workspace.filters.raw_preview_failed = Pratonton RAW gagal: {error}
+workspace.filters.raw_developing = Memproses tangkapan asal…
+workspace.filters.raw_developing_note = Menggunakan kaedah penyahmozekan terbaik. Fail RAW asal dan tetapan ini kekal boleh disunting selepas disimpan sebagai PSD atau PSB.
+workspace.filters.raw_document_changed = Pemprosesan RAW selesai selepas dokumennya berubah
+workspace.filters.raw_failed = Pemprosesan RAW gagal: {error}
+workspace.filters.raw_too_wide = Hasil pemprosesan RAW terlalu lebar
+workspace.filters.raw_too_tall = Hasil pemprosesan RAW terlalu tinggi
+workspace.filters.raw_size_changed = Saiz hasil pemprosesan RAW berubah kepada {w} × {h}; lapisan semasa dikekalkan
+workspace.filters.raw_history = Pemprosesan Camera Raw
+workspace.filters.raw_applied = Pemprosesan Camera Raw diterapkan (penyahmozekan terbaik)
+
+# Image Size through a neural upscaler (filters.rs); {name} is the model
+workspace.image_size.done = Saiz imej: {w} × {h}
+workspace.image_size.bicubic_fallback = Saiz imej: {w} × {h} — model {name} gagal dimuatkan, jadi kaedah bikubik digunakan
+workspace.image_size.upscaling = Meningkatkan resolusi dengan {name}
+workspace.image_size.upscaling_note = {mp} megapiksel melalui rangkaian, beberapa saat bagi setiap satu. Dokumen ditahan sehingga proses selesai.
+
+# Export (export.rs)
+workspace.export.no_slices = Tiada hirisan untuk dieksport
+workspace.export.no_artboards = Tiada papan seni untuk dieksport
+workspace.export.regions.other = {n} kawasan dieksport
+workspace.export.prompt = Eksport sebagai:
+workspace.export.done = {name} dieksport
+workspace.export.failed = Eksport gagal: {error}
+workspace.export.codec_vanished = Pengeksport tidak lagi tersedia
+
+# Schist's own file picker (file_picker.rs), drawn where the platform
+# has none
+workspace.file_picker.choose_folder = Pilih Folder
+workspace.file_picker.type_a_name = Taip nama fail
+workspace.file_picker.exists = {name} sudah wujud; ketik Simpan sekali lagi untuk menggantikannya
+workspace.file_picker.tap_a_file = Ketik fail untuk membukanya
+workspace.file_picker.pictures = Gambar
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Muat Turun
+workspace.file_picker.permission_denied = Schist tidak mempunyai kebenaran untuk membaca folder ini
+
+# Crash recovery (recovery.rs)
+workspace.recovery.recovered_title = {title} (dipulihkan)
+workspace.recovery.recovered.other = {n} dokumen daripada sesi sebelumnya dipulihkan

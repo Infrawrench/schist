@@ -1,0 +1,24 @@
+# Utensiles de deformation.
+
+tool.liquify.name = Liquefar
+tool.liquify.description = Press, torna spiralmen, contrae o infla li pixeles sub un grand pincel — li option de mode selecte li action. Li deformation acumula in un rete e es aplicat al strate quande confirmat.
+tool.liquify.option.tool = Utensile
+tool.liquify.choice.forward_warp = Deformation adavan
+tool.liquify.choice.reconstruct = Reconstruer
+tool.liquify.choice.twirl_cw = Torder in sens horari
+tool.liquify.choice.twirl_ccw = Torder in sens antihorari
+tool.liquify.choice.pucker = Contraher
+tool.liquify.choice.bloat = Inflar
+tool.liquify.choice.push_left = Pressar a levul
+tool.liquify.history.liquify = Liquefar
+
+tool.puppet_warp.name = Marionette-deformation
+tool.puppet_warp.description = Clicca por fixar li strate in quelc punctus, poy trena un: li rete curva circum li fix punctus, rigidmen o flexibilmen secun li option Rigiditá. Confirmar aplica it.
+tool.puppet_warp.option.stiffness = Rigiditá
+tool.puppet_warp.history.puppet_warp = Marionette-deformation
+
+tool.vanishing_point.name = Punctu de fuga
+tool.vanishing_point.description = Trena por definir un plan sur alquó con perspective, poy change li mode a Clonar e picte: li copiat pixeles seque li plan e deveni plu micri con li distantie.
+tool.vanishing_point.choice.edit_plane = Redacter plan
+tool.vanishing_point.choice.clone = Clonar
+tool.vanishing_point.history.vanishing_point = Punctu de fuga

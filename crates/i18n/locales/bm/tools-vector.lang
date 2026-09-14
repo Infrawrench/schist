@@ -1,0 +1,44 @@
+# Vɛkitɛri baarakɛminɛnw
+tool.pen.name = Plumi
+tool.pen.description = Sira dilan: digi ka kulu pwen kɛ, sama ka kuruɲɛli bolominɛnw bɔ a la, ka pwen fɔlɔ digi k'a datugu. Sɔnni bɛ sira kɛ siyali kaliki ye.
+tool.pen.option.rubber_band = Elastiki sira
+tool.pen.history.fill = Sira faali
+tool.pen.default_path_name = Sira {n}
+tool.pen.freeform.name = Bolo hɔrɔnya plumi
+tool.pen.freeform.description = Sira sama ni bolo ye, a bɛ labɛn ka bɛn sira ma, Fit sugandili ka nɔgɔnya hakɛ la.
+tool.pen.freeform.option.fit = Bɛn
+tool.pen.curvature.name = Kuruɲɛ plumi
+tool.pen.curvature.description = Pwenw digi kelen-kelen; sira bɛ kuruɲɛ ka nɔgɔn ka tɛmɛ u fɛ.
+
+tool.path_select.name = Sira sugandili
+tool.path_select.description = Sira digi k'a sugandi, ka a sama ka sira bɛɛ lamaga.
+tool.direct_select.name = Sugandili tilennen
+tool.direct_select.description = Datugupwen kelen walima a bolominɛnw sama ka sira siyali yɛlɛma a lamini.
+
+tool.shape.history.layer = {name} kaliki
+tool.shape.rect.name = Tigɛda baarakɛminɛn
+tool.shape.rect.label = Tigɛda
+tool.shape.rect.description = Sama ka tigɛda siyali kaliki dilan ɲɛfɛ kulɛri la; a bɛ to vɛkitɛri ye ka rasterize kokura ni a bonya yɛlɛmara.
+tool.shape.ellipse.name = Birilen baarakɛminɛn
+tool.shape.ellipse.label = Birilen
+tool.shape.ellipse.description = Sama ka birilen siyali kaliki dilan ɲɛfɛ kulɛri la.
+tool.shape.line.name = Sira baarakɛminɛn
+tool.shape.line.label = Sira
+tool.shape.line.description = Sama ka sira tilennen siyali kaliki dilan ɲɛfɛ kulɛri la.
+tool.shape.line.option.weight = Sira girinya
+tool.shape.line.option.arrow_start = Daminɛ
+tool.shape.line.option.arrow_end = Laban
+tool.shape.polygon.name = Poligɔni baarakɛminɛn
+tool.shape.polygon.label = Poligɔni
+tool.shape.polygon.description = Sama ka poligɔni labɛnnen siyali kaliki dilan ɲɛfɛ kulɛri la; dafɛ hakɛ bɛ bɔ suganditaw la.
+tool.shape.polygon.option.sides = Dafɛ hakɛ
+
+tool.shape.custom.name = I yɛrɛ ka siyali
+tool.shape.custom.label = I yɛrɛ ka siyali
+tool.shape.custom.description = Siyali labɛnnenw dɔ sama ka bɔ; Siyali sugandili bɛ min kɛ o jira.
+tool.shape.custom.choice.heart = Dusukun
+tool.shape.custom.choice.star = Lolo
+tool.shape.custom.choice.arrow = Pɛrɛn
+tool.shape.custom.choice.lightning = Sanfɛrɛ
+tool.shape.custom.choice.cross = Nɔgɔmada
+tool.shape.custom.choice.speech_bubble = Kuma bulu

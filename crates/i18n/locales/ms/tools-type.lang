@@ -1,0 +1,29 @@
+# The type tool (plugins/tools-type). Font, Style, Size, Left, Center,
+# Right and the "Text" a new layer is named come from common.lang; font
+# family names are never translated.
+
+tool.type.name = Teks
+tool.type.description = Klik untuk memulakan lapisan teks di situ atau klik lapisan sedia ada untuk menyuntingnya. Semasa terbuka, alat menerima kekunci mentah (hantar aksara sebagai input kekunci), dan penerapan memaparkan lapisan lalu menutup suntingan.
+
+# The options bar
+tool.type.option.align = Jajar
+tool.type.option.leading = Jarak Baris
+tool.type.option.tracking = Jarak Aksara
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligatur
+tool.type.option.discretionary_ligatures = Ligatur pilihan
+tool.type.option.small_caps = Huruf besar kecil
+tool.type.option.on_path = Pada laluan aktif
+tool.type.option.path_offset = Ofset laluan
+
+# The Style dropdown, in the order Photoshop lists them
+tool.type.choice.regular = Biasa
+tool.type.choice.bold = Tebal
+tool.type.choice.italic = Condong
+tool.type.choice.bold_italic = Tebal Condong
+
+# History
+tool.type.history.new_layer = Lapisan Teks Baharu
+tool.type.history.edit = Sunting Teks
+tool.type.history.discard = Buang Teks
+tool.type.history.discard_empty = Buang Teks Kosong

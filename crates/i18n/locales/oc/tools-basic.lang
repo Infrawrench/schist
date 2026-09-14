@@ -1,0 +1,26 @@
+# Aisinas de basa : Desplaçar, Pipeta, Man e Zoom.
+
+# Desplaçar
+tool.move.name = Desplaçar
+tool.move.description = Fasètz lisar lo contengut del calc actiu cap a una posicion novèla. Amb Seleccion automatica activada, quand quichatz, l'aisina causís d'en primièr lo calc — o lo grop entièr — que se tròba jos lo puntador.
+tool.move.option.auto_select = Seleccion automatica
+tool.move.history.move_layer = Desplaçar lo calc
+
+# Pipeta
+tool.eyedropper.name = Pipeta
+tool.eyedropper.description = Prenètz la color jos lo puntador coma escandalh de primièr plan, o coma escandalh de rèireplan quand Alt es quichat. En fasent lisar, l'escandalhatge contunha.
+tool.eyedropper.option.sample_size = Talha de l'escandalh
+tool.eyedropper.option.sample = Escandalh
+tool.eyedropper.choice.point_sample = Escandalh ponctual
+tool.eyedropper.choice.average_3 = Mejana 3 × 3
+tool.eyedropper.choice.average_5 = Mejana 5 × 5
+tool.eyedropper.choice.average_11 = Mejana 11 × 11
+tool.eyedropper.choice.average_31 = Mejana 31 × 31
+tool.eyedropper.choice.all_layers = Totes los calques
+tool.eyedropper.choice.current_layer = Calc actual
+
+# Man e Zoom
+tool.hand.name = Man
+tool.hand.description = Desplaça la vista. La zòna d'afichatge aparten a la fenèstra ; sens interfàcia grafica, aquesta aisina modifica pas lo document.
+tool.zoom.name = Zoom
+tool.zoom.description = Aumenta o redusís la vista. La zòna d'afichatge aparten a la fenèstra ; sens interfàcia grafica, aquesta aisina modifica pas lo document.

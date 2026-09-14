@@ -1,0 +1,30 @@
+ai.status.panel_shown = KI-paneel gewys
+ai.status.panel_hidden = KI-paneel versteek — Aansig ▸ KI-paneel ({shortcut}) bring dit terug
+ai.status.tool = KI: {name}
+
+ai.info.connected = {backend} gekoppel
+ai.info.now_in_gallery = Nou in die galery.
+ai.info.now_in_editor = Nou in die redigeerder.
+ai.tool.shell_command = dopopdrag
+
+ai.error.cli_missing = Die {backend}-CLI (“{binary}”) is nie op PATH nie. Installeer dit en meld eers daarby aan.
+ai.error.endpoint_failed = kon nie die MCP-eindpunt begin nie: {error}
+ai.error.binding_endpoint = bind die MCP-eindpunt
+ai.error.spawning_endpoint_thread = begin die MCP-eindpuntdraad
+ai.error.runtime_failed = kon nie die agentlooptyd begin nie: {error}
+ai.error.worker_failed = kon nie die {backend}-werker begin nie: {error}
+ai.error.did_not_start = {backend} het nie begin nie: {error}
+ai.error.switch_model_failed = kon nie van model verander nie: {error}
+ai.error.send_failed = kon nie die instruksie stuur nie: {error}
+ai.error.interrupt_failed = onderbreking het misluk: {error}
+ai.error.locating_binary = soek die Schist-programlêer
+ai.error.starting_app_server = begin die Codex-toepassingbediener
+ai.error.attaching_app_server = heg aan die Codex-toepassingbediener
+ai.error.initializing_app_server = inisialiseer die Codex-toepassingbediener
+ai.error.resuming_thread = hervat die Codex-draad
+ai.error.starting_thread = begin die Codex-draad
+
+ai.model.opus_detail = Bekwaamste vlak
+ai.model.sonnet_detail = Doeltreffend vir roetinetake
+ai.model.haiku_detail = Vinnigste vir kort antwoorde
+ai.model.codex_catalog = Codex-katalogus

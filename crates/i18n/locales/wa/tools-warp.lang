@@ -1,0 +1,25 @@
+# Licefiyî
+tool.liquify.name = Licefiyî
+tool.liquify.description = Boutez, toûrnez, racrapotez ou rinflez les picsels pa dzo ene grosse broke; l' opcion Môde tchoezi l' accion. Les candjmints si radjoutèt dins ene maye, ki s' mete sol coûtche å confirmaedje.
+tool.liquify.option.tool = Usteye
+tool.liquify.choice.forward_warp = Distronner viè l' divant
+tool.liquify.choice.reconstruct = Ricostrure
+tool.liquify.choice.twirl_cw = Toûrner come l' ôrlodje
+tool.liquify.choice.twirl_ccw = Toûrner å rvier del ôrlodje
+tool.liquify.choice.pucker = Racrapoter
+tool.liquify.choice.bloat = Rinfler
+tool.liquify.choice.push_left = Bouter a hintche
+tool.liquify.history.liquify = Licefiyî
+
+# Distronnaedje marionete
+tool.puppet_warp.name = Distronnaedje marionete
+tool.puppet_warp.description = Clitchîz po-z aclawer l' coûtche a sacwantès plaeces, poy saetchîz ene aclawete: li maye si ploye åtoû des aclawetes, pus deur ou pus mol sorlon l' opcion Roidixhaedje. Li confirmaedje mete li candjmint.
+tool.puppet_warp.option.stiffness = Roidixhaedje
+tool.puppet_warp.history.puppet_warp = Distronnaedje marionete
+
+# Pont di fwait
+tool.vanishing_point.name = Pont di fwait
+tool.vanishing_point.description = Saetchîz on plan so ene sacwè k' a del porspeckive, poy metoz l' môde so Cloner et pondez: les picsels copyîs shuvèt l' plan et divnèt pus ptits avou l' distance.
+tool.vanishing_point.choice.edit_plane = Candjî l' plan
+tool.vanishing_point.choice.clone = Cloner
+tool.vanishing_point.history.vanishing_point = Pont di fwait

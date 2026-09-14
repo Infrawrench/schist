@@ -1,0 +1,27 @@
+# د کږولو وسیلې: مایع کول، ګوډاګي کږول او د ورکېدو ټکی.
+
+# مایع کول
+tool.liquify.name = مایع کول
+tool.liquify.description = د لوی برس لاندې پېکسلونه ورټېل وهئ، وڅرخوئ، ورټول یا وپړسوئ؛ د حالت غوراوی کار ټاکي. کوږوالی په جالۍ کې راټولېږي او د منلو پر مهال پر طبقه پلي کېږي.
+tool.liquify.option.tool = وسیله
+tool.liquify.choice.forward_warp = مخته کږول
+tool.liquify.choice.reconstruct = بیا رغول
+tool.liquify.choice.twirl_cw = ساعت‌لوري ته څرخ
+tool.liquify.choice.twirl_ccw = د ساعت خلاف څرخ
+tool.liquify.choice.pucker = ورټولول
+tool.liquify.choice.bloat = پړسول
+tool.liquify.choice.push_left = چپ لوري ته ټېل وهل
+tool.liquify.history.liquify = مایع کول
+
+# ګوډاګي کږول
+tool.puppet_warp.name = ګوډاګي کږول
+tool.puppet_warp.description = کېکاږئ چې طبقه په څو ټکو کې ټینګه کړئ، بیا یو ټکی راکاږئ: جالۍ د ټینګو ټکو چاپېر، د کلکوالي د غوراوي له مخې، کلکه یا نرمه کږېږي. منل یې پلي کوي.
+tool.puppet_warp.option.stiffness = کلکوالی
+tool.puppet_warp.history.puppet_warp = ګوډاګي کږول
+
+# د ورکېدو ټکی
+tool.vanishing_point.name = د ورکېدو ټکی
+tool.vanishing_point.description = پر هغه څه یوه سطحه راکاږئ چې ژورلید لري، بیا حالت «نقل» ته واړوئ او رنګول پیل کړئ: نقل شوي پېکسلونه سطحه تعقیبوي او له واټن سره کوچني کېږي.
+tool.vanishing_point.choice.edit_plane = سطحه سمول
+tool.vanishing_point.choice.clone = نقل
+tool.vanishing_point.history.vanishing_point = د ورکېدو ټکی

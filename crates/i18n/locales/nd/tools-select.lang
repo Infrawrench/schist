@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Susa
+tool.select.mode.intersect = Hlanganisa Lapho Okuphambana Khona
+
+tool.marquee.rect.name = Ukukhetha Okungumgceke
+tool.marquee.rect.description = Hudula udale okukhethiweyo okungumgceke. Ukubamba u-Shift uqala ukuhudula kwengeza kokukhethiweyo, u-Alt uyasusa, ukubamba bobabili kukhetha lapho okuphambana khona; ukubamba u-Shift ngesikhathi uhudula kwenza kube zikwele. Ukuchofoza ungahudulanga kuyekela ukukhetha.
+tool.marquee.ellipse.name = Ukukhetha Okuyindilinga
+tool.marquee.ellipse.description = Hudula udale okukhethiweyo okuyindilinga, usebenzisa u-Shift lo-Alt ukuhlanganisa ngendlela efanana leyokukhetha okungumgceke.
+
+tool.lasso.name = I-Lasso
+tool.lasso.description = Hudula umngcele ngesandla; okukhethiweyo kuvaleka phakathi kwemikhawulo nxa uqeda ukuhudula. U-Shift uyengeza, u-Alt uyasusa.
+tool.lasso.history.select = Ukukhetha Nge-Lasso
+tool.lasso.polygonal.name = I-Lasso Yezinhlangothi
+tool.lasso.polygonal.description = Chofoza ikhona lilandelwa ngelinye ukuze wakhe ukukhetha okulomngcele oqondileyo, ubusuvala ngokuchofoza eduze kwephuzu lokuqala.
+tool.lasso.polygonal.history.select = I-Lasso Yezinhlangothi
+tool.lasso.magnetic.name = I-Lasso Elomazibuthe
+tool.lasso.magnetic.description = Landela umphetho eduze, umngcele unamathele kumehluko oqine kakhulu eduze komzila.
+tool.lasso.magnetic.history.select = I-Lasso Elomazibuthe
+tool.lasso.magnetic.option.frequency = Ukuphindaphinda
+
+tool.wand.name = Intonga Yomlingo
+tool.wand.description = Chofoza ukuze ukhethe indawo exhumanayo elombala ofananayo ngaphansi kwesikhombi, phakathi kwenani lenketho yokubekezelela — yikubekezelela okufananayo okubalwa ngu-Khulisa, Okufananayo loMkhawulo Wemibala.
+tool.wand.option.contiguous = Okuxhumanayo
+tool.wand.history.select = Intonga Yomlingo
+
+tool.quick_select.name = Ukukhetha Ngokuphangisa
+tool.quick_select.description = Penda phezu kwendawo, okukhethiweyo kukhule kudlule kumaphikseli afananayo ibhulashi elidlula phezu kwawo.
+tool.quick_select.history.select = Ukukhetha Ngokuphangisa
+
+tool.object_select.name = Ukukhetha Into
+tool.object_select.description = Hudula ibhokisi uzingelezele into, okukhethiweyo kunamathele entweni etholakale phakathi kwalo.
+tool.object_select.history.select = Ukukhetha Into

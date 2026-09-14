@@ -1,0 +1,29 @@
+# Free transform
+tool.transform.name = Yathicchitaparivattanaṃ
+tool.transform.description = Yathicchitaparivattanaṃ. Pavattiyamāne kammakārakasantharassa samantā parivattanakoṭṭhakaṃ vivarati: koṇaṃ ākaḍḍhitvā pamāṇaṃ parivattetha, koṇato bahi ākaḍḍhitvā āvaṭṭetha, passaṃ ākaḍḍhitvā tiriyaṃ karotha. Yāva Enter-dvāraṃ niṭṭhāpīyati tāva kiñci na likhīyati; Escape-dvāraṃ paṭikkhipiyamāne santharo pubbaṭṭhānaṃ paccāgacchati.
+tool.transform.option.interpolation = Antaramānapūraṇaṃ
+tool.transform.history.transform = Yathicchitaparivattanaṃ
+tool.transform.history.image_size = Chāyārūpappamāṇaṃ
+tool.transform.history.canvas_size = Phalakappamāṇaṃ
+
+# Transform selection
+tool.transform.selection.name = Gahaṇaparivattanaṃ
+tool.transform.selection.description = Gahaṇaparivattanaṃ: ayam-eva koṭṭhako, gahaṇassa anto piksele acāletvā tassa paricchedameva cāleti. Niṭṭhāpetvā vā paṭikkhipitvā vā samāpetha.
+tool.transform.selection.history.transform = Gahaṇaparivattanaṃ
+
+# Resampling
+tool.transform.resample.nearest_neighbor = Āsannatamabindumānanaṃ
+tool.transform.resample.bilinear = Dviujulekhā-antaramānaṃ
+tool.transform.resample.bicubic = Bicubic-antaramānapūraṇaṃ
+
+# Crop
+tool.crop.name = Chedanaṃ
+tool.crop.description = Rakkhitabbaṃ padesaṃ ākaḍḍhitvā tassa gaṇhanāni sādhukaṃ karotha; Enter-dvāraṃ niṭṭhāpiyamāne potthako tattakameva chijjati, Escape-dvāraṃ paṭikkhipiyamāne yathāṭhito tiṭṭhati.
+tool.crop.option.ratio = Anupātaṃ
+tool.crop.option.delete_cropped = Chinnapikselānaṃ nāsanaṃ
+tool.crop.choice.unconstrained = Anibaddhaṃ
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Chedanaṃ

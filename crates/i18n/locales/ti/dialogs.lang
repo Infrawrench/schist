@@ -1,0 +1,237 @@
+dialog.save_ellipsis = ምቕማጥ…
+dialog.use_foreground = ሕብሪ ቅድሚት ተጠቐም
+dialog.downloading = ይወርድ ኣሎ…
+dialog.downloading_of = ይወርድ ኣሎ… {got} ካብ {total}
+dialog.no_config_dir = (ኣቃፊ ውቅር የለን)
+
+dialog.layer_props.title = ባህርያት ንጣፍ
+
+dialog.export.format = ቅርጺ
+dialog.export.dither = ዲዘር
+dialog.export.dither_note = ናብ 8-ቢት ክንከ ከሎ ዲዘር ግበር
+dialog.export.export_ellipsis = ምውጻእ…
+
+dialog.batch.title = ስእልታት ኣሰላስል
+dialog.batch.note_edit.one = {n} ስእሊ — ከም ናይ ጋለሪ ምምሕያሽ ይቕመጥ፤ እቲ መበቆል ፈጺሙ ኣይትንከፍን።
+dialog.batch.note_edit.other = {n} ስእልታት — ከም ናይ ጋለሪ ምምሕያሻት ይቕመጡ፤ እቶም መበቆላት ፈጺሞም ኣይትንከፉን።
+dialog.batch.note_edit_edited.one = {n} ስእሊ፣ ብዝሒ እቶም ድሮ ዝተመሓየሹ፦ {edited} — እቲ ኣገባብ ኣብ ልዕሊ እቲ ምምሕያሽ ይውሰኽ፣ እቲ ቀዳማይ ምምሕያሽ ድማ ከም ሕታም ይዕቀብ።
+dialog.batch.note_edit_edited.other = {n} ስእልታት፣ ብዝሒ እቶም ድሮ ዝተመሓየሹ፦ {edited} — ኣብ ነፍሲ ወከፍ ዝተመሓየሸ ስእሊ እቲ ኣገባብ ኣብ ልዕሊ ምምሕያሹ ይውሰኽ፣ እቲ ቀዳማይ ምምሕያሽ ድማ ከም ሕታም ይዕቀብ።
+dialog.batch.note_copies.one = {n} ስእሊ — ዝተዋሃሃደ ቅዳሕ፤ እቲ መበቆል ፈጺሙ ኣይትንከፍን።
+dialog.batch.note_copies.other = {n} ስእልታት — ዝተዋሃሃዱ ቅዳሓት፤ እቶም መበቆላት ፈጺሞም ኣይትንከፉን።
+dialog.batch.note_copies_edited.one = {n} ስእሊ፣ ብዝሒ እቶም ድሮ ዝተመሓየሹ፦ {edited} — እቲ ቅዳሕ ካብቲ ምምሕያሽ ይፍጠር።
+dialog.batch.note_copies_edited.other = {n} ስእልታት፣ ብዝሒ እቶም ድሮ ዝተመሓየሹ፦ {edited} — ናይ ነፍሲ ወከፍ ዝተመሓየሸ ስእሊ ቅዳሕ ካብ ምምሕያሹ ይፍጠር።
+dialog.batch.turn = ምዝዋር
+dialog.batch.rotate = ምሽክርካር
+dialog.batch.flip = ምግልባጥ
+dialog.batch.upscale = ዓቐን ምዕባይ
+dialog.batch.colour = ሕብሪ
+dialog.batch.add_adjustment = ምትዕርራይ…
+dialog.batch.output = ውጽኢት
+dialog.batch.save_as = ከምዚ ምቕማጥ
+dialog.batch.process = ምስልሳል
+dialog.batch.process_n = {n} ኣሰላስል
+dialog.batch.nothing_to_do = ዝግበር የለን፦ መጀመርታ ምዝዋር፣ ዓቐን ምዕባይ ወይ ምትዕርራይ ምረጽ
+
+dialog.content_aware_scale.title = ትሕዝቶ ዝርዳእ ምዕቃን
+dialog.content_aware_scale.note = ውሑድ ዝርዝር ዘለዎም መጋጠሚታት ይቖርጽ። ምርጫ ነቲ ክዕቀብ ዘለዎ ይምልክት።
+
+dialog.stroke.title = ምስኣል ወሰን
+dialog.stroke.location = ቦታ
+dialog.stroke.inside = ውሽጢ
+dialog.stroke.outside = ደገ
+dialog.stroke.note = ኣብ ዙርያ እቲ ምርጫ ብሕብሪ ቅድሚት ይስእል።
+
+dialog.fill.contents = ትሕዝቶ
+
+dialog.color_range.title = ወሰን ሕብሪ
+dialog.color_range.sampled = ዝተወስደ ናሙና
+dialog.color_range.fuzziness = ስፍሓት ተመሳሳልነት
+dialog.color_range.note = ኣብቲ ንጡፍ ንጣፍ ናብቲ ናሙና ሕብሪ ዝቐረቡ ፒክሰላት ይመርጽ።
+
+dialog.file_picker.up = ↑ ንላዕሊ
+dialog.file_picker.empty = ኣብዚ ዋላ ሓንቲ የለን
+dialog.file_picker.choose_folder = ነዚ ኣቃፊ ምረጽ
+
+dialog.filter.camera_raw_development = ምምዕባል Camera Raw
+dialog.filter.reset_as_shot = ናብቲ ከም ዝተሳእለ መልስ
+dialog.filter.raw_note = ነቲ ንጡፍ ንጣፍ ካብ መበቆላዊ ዳታ ሰንሰር እንደገና የማዕብሎ።
+dialog.filter.note = ኣብ ውሽጢ እቲ ምርጫ፣ ኣብቲ ንጡፍ ንጣፍ ይትግበር።
+
+dialog.fonts.title = ዝጎደሉ ቅርጽታት ፊደል
+dialog.fonts.install_named = {name} ተኸል
+dialog.fonts.no_document = ክፉት ሰነድ የለን፣ ስለዚ ዝምርመር የለን።
+dialog.fonts.all_installed = እዚ ሰነድ ዝጥቀመሎም ኩሎም ቅርጽታት ፊደል ተተኺሎም ኣለዉ። ጽሑፉ በቶም ኣብ ኣቀማምጣኡ ዝተጠቕመሎም ቅርጽታት ፊደል ተዘርጊሑ ኣሎ።
+dialog.fonts.missing_intro = እዚ ሰነድ ብዘይብልካ ቅርጽታት ፊደል ተዘርጊሑ እዩ። እቲ ጽሑፍ ብመተካእታ ይንበብ፣ ስፍሓት ፊደላቱን መበተኒ መስመራቱን ግን ከምቲ መጀመርታ ዝተዘርግሓሉ ኣይኮኑን።
+dialog.fonts.footer = ዝወርዱ ካብ ክፉት ካታሎግ Google Fonts ይመጹ፣ ኣብ {dir} ድማ ይቕመጡ። ክፉት ፍቓድ ዘይብሉ ቅርጺ ፊደል ፈጺሙ ኣይወርድን — ብመለክዒ ዝሰማማዕ ነጻ ንድፊ እንተሎ ኣብ ክንድኡ ይቐርብ፤ ርሕቀት ምስጓም ፊደላቱ ስለዝሰማማዕ ነቲ ኣቀማምጣ ይመልሶ።
+dialog.fonts.user_font_dir = ናይ ተጠቃሚ ኣቃፊ ቅርጺ ፊደልካ
+
+dialog.models.title = ሞዴላት Neural Filters
+dialog.models.built_in = ኣብ ውሽጢ ዘሎ · {size}
+dialog.models.installed = ዝተተኽለ · {size}
+dialog.models.not_installed = ዘይተተኽለ · {size}
+dialog.models.not_in_browser = ኣብ መርበብ ሓሳስ ዘይርከብ · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = ሞዴላት ኣብ {dir} ይቕመጡ። ሞዴል ዘይብሎም ፊልተራት ናብ ምስልሳል ምልክት ይምለሱ፣ ከምኡ ከም ዝገበሩ ድማ ይገልጹ።
+
+dialog.new_doc.title = ሓድሽ ሰነድ
+dialog.new_doc.picker_title = ሓድሽ ፋይል
+dialog.new_doc.custom_ellipsis = ብዓል ዋና…
+dialog.new_doc.preset = ቅድመ-ቅንብር
+dialog.new_doc.preset_default = ነባሪ (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = ትርብዒት (1080 × 1080)
+dialog.new_doc.preset_a4 = A4፣ 300 ppi
+dialog.new_doc.preset_us_letter = US Letter፣ 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = ፍጠር
+dialog.new_doc.created = ሓድሽ ሰነድ፦ {w} × {h} px
+
+dialog.open.image_title = ስእሊ ምኽፋት
+dialog.open.image_prompt = “{name}” ኣብ ሓድሽ ትር ይከፈት፣ ወይ ከም ሓድሽ ንጣፍ ናብቲ ሕጂ ዘሎ ሰነድ ይወሰኽ?
+dialog.open.new_tab = ሓድሽ ትር
+dialog.open.new_layer = ሓድሽ ንጣፍ
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = እዚ {n} ፋይል
+dialog.open.these_files.other = እዞም {n} ፋይላት
+dialog.open.shared_title_one = ዝተካፈለ ስእሊ
+dialog.open.shared_title_many = ዝተካፈሉ ስእልታት
+dialog.open.shared_prompt = {what} ናብ ጋለሪ ይወሰኽ፣ ወይ ኣብ ኣርታዒ ይከፈት?
+dialog.open.add_to_gallery = ናብ ጋለሪ ወስኽ
+dialog.open.open_in_editor = ኣብ ኣርታዒ ክፈት
+dialog.open.heic_title = ደገፍ HEIC
+dialog.open.heic_needs_decoder = “{name}” ንምኽፋት ዲኮደር HEVC የድሊ፣ ንሱ ድማ ኣብዚ ስርዓት ኣይተተኽለን።
+dialog.open.heic_offer = Schist ናይ libheif {version} ንምፍታሕ ጥራይ ዝተሃንጸ ሕታም ምስ ዲኮደር libde265 HEVC (≈5 MB) ከውርድ ይኽእል። ክልቲኦም ብLGPL-3.0 ፍቓድ ዝተፈቕዱ እዮም፤ ጽሑፋት ፍቓዶም ኣብ ጎኒ እቲ ላይብረሪ ይትከሉ፣ ምንጪ ኮዶም ድማ ኣብ ገጽ ፕሮጀክት ይርከብ።
+dialog.open.licenses_source = ፍቓዳትን ምንጪ ኮድን
+dialog.open.folders_title = ዝተደርበዩ ኣቃፊታት
+dialog.open.n_folders.one = {n} ኣቃፊ
+dialog.open.n_folders.other = {n} ኣቃፊታት
+dialog.open.open_in_tabs = ኣብ ትራት ክፈት
+dialog.open.open_first_in_tabs = ቀዳሞት {n} ኣብ ትራት ክፈት
+dialog.open.open_n_in_tabs.one = {n} ኣብ ትር ክፈት
+dialog.open.open_n_in_tabs.other = {n} ኣብ ትራት ክፈት
+dialog.open.folder_holds.one = {what}፣ Schist ክኸፍቶ ዝኽእል {n} ስእሊ ሒዙ ኣሎ (ንኡሳን ኣቃፊታት ሓዊሱ)።
+dialog.open.folder_holds.other = {what}፣ Schist ክኸፍቶም ዝኽእል {n} ስእልታት ሒዙ ኣሎ (ንኡሳን ኣቃፊታት ሓዊሱ)።
+dialog.open.folders_note = ናብ ጋለሪ ወስኽ ነቶም ኣቃፊታት ኣብ ቦታኦም ይከታተሎም — ዝቕዳሕ የለን፣ ምምሕያሻት ድማ ኣብ ጎኒ ነፍሲ ወከፍ ስእሊ ብሕታማት ይዕቀቡ። ኣብ ትራት ምኽፋት ሕጂ ንኹሉ ስእሊ ናብ ኣርታዒ ይጽዕኖ።
+
+dialog.plugins.title = ፕላግ-ኢናት
+dialog.plugins.kind_filter = ፊልተር
+dialog.plugins.kind_format = ቅርጺ
+dialog.plugins.kind_unavailable = ዘይርከብ
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = ፕላግ-ኢናት ካብ {dir} ይጽዕኑ
+dialog.plugins.none = ክሳዕ ሕጂ ዝተተኽሉ ፕላግ-ኢናት የለዉን።
+dialog.plugins.install_ellipsis = ምትካል…
+dialog.plugins.photoshop_heading = Photoshop ፕላግ-ኢናት
+dialog.plugins.loaded_from = ካብ {folders} ተጽዒኖም
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = ምርጫታት
+dialog.prefs.theme = መልክዕ
+dialog.prefs.theme_dark = ጸልማት
+dialog.prefs.theme_light = ብሩህ
+dialog.prefs.grid_spacing = ርሕቀት መርበብ
+dialog.prefs.snapping = ምጥባቕ
+dialog.prefs.snap_to = ናብ መምርሒታት፣ መርበብን ወሰናት ሸራን ኣጣብቕ
+dialog.prefs.rendering_intent = ዕላማ ምርኣይ ሕብሪ
+dialog.prefs.intent_perceptual = ብርድኢት ዓይኒ
+dialog.prefs.intent_relative = ተዛማዲ መለክዒ ሕብሪ
+dialog.prefs.intent_saturation = ጽጋብ ሕብሪ
+dialog.prefs.intent_absolute = ፍጹም መለክዒ ሕብሪ
+dialog.prefs.scrolling = ምንሽርታት
+dialog.prefs.zoom_with_scroll = ብመንኰርኰር ምንሽርታት ኣዕብይ
+dialog.prefs.rendering = ምርኣይ
+dialog.prefs.gpu_compositing = ብGPU ምውህሃድ
+dialog.prefs.diagnostics = ምርመራ ጸገም
+dialog.prefs.crash_reports = ክበላሾ ከሎ ናይ ከባቢ ጸብጻብ ብልሽት ጽሓፍ
+dialog.prefs.crash_upload = ናብ ኣማዕበልቲ እውን ስደዶ
+dialog.prefs.telemetry = ስም ዘይብሉ መዓልታዊ ምልክት ስደድ
+dialog.prefs.diagnostics_note = ምርመራ ጸገም Schist ኣብ ዝቕጽል ክጅምር ከሎ ይትግበር።
+dialog.prefs.updates = ሓደስቲ ሕታማት
+dialog.prefs.check_updates = ክጅምር ከሎ ሓደስቲ ሕታማት መርምር
+dialog.prefs.keyboard_shortcuts = ኣቋራጭ መፍትሕታት፦ {path}
+dialog.prefs.nsfw_needs_model = ሞዴል Content (NSFW Filter) የድሊ —
+dialog.prefs.nsfw_download_link = ኣብ ሞዴላት ምምሕዳር ኣውርዶ…
+dialog.prefs.hide_flagged = ምልክት ዝተገብረሎም ስእልታት ሕባእ
+
+dialog.profile.profile = ፕሮፋይል
+dialog.profile.assign_title = ፕሮፋይል ምምዳብ
+dialog.profile.convert_title = ናብ ፕሮፋይል ምቕያር
+dialog.profile.assign = መድብ
+dialog.profile.convert = ቀይር
+dialog.profile.assign_note = ነቶም ዘለዉ ዋጋታት ፒክሰል ብመሰረት እቲ ሓድሽ ፕሮፋይል እንደገና ይትርጉሞም።
+dialog.profile.convert_note = ሕብርታት መልክዖም ምእንቲ ክዕቅቡ ዋጋታት ፒክሰል እንደገና ይጽሕፍ።
+
+dialog.save_image.title = ስእሊ ከምዚ ምቕማጥ
+dialog.save_image.note = {name} — ምምሕያሽ እንተለዎ ምስኡ፤ እቲ መበቆል ፈጺሙ ኣይትንከፍን።
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = ዓቐን ስእሊ
+dialog.size.canvas_title = ዓቐን ሸራ
+dialog.size.constrain = ገድብ
+dialog.size.keep_proportions = ምጥጥን ዓቅብ
+dialog.size.resample = እንደገና ናሙና ውሰድ
+dialog.size.bicubic = ቢኩቢክ
+dialog.size.bilinear = ባይሊነር
+dialog.size.nearest = ዝቐረበ ጎረቤት
+dialog.size.anchor = መልህቕ
+dialog.size.currently = ሕጂ {w} × {h} px
+dialog.size.image_size_status = ዓቐን ስእሊ፦ {w} × {h}
+dialog.size.canvas_size_status = ዓቐን ሸራ፦ {w} × {h}
+
+dialog.update.title = ሓድሽ ሕታም ኣሎ
+dialog.update.available = Schist {version} ኣሎ። እዚ ቅዳሕ {current} እዩ።
+dialog.update.installing = እቲ ሓድሽ ሕታም ይትከል ኣሎ…
+dialog.update.can_install = Schist ከውርዶ ({size})ን ኣብ ልዕሊ እዚ ቅዳሕ ክተኽሎን ይኽእል።
+dialog.update.external = እዚ ቅዳሕ ካብ ዝውንኖ ካልእ ምንጪ መጺኡ — ኣመሓዳሪ ፓኬጅ፣ AppImage፣ ወይ ባዕልኻ ዝሃነጽካዮ — ስለዚ በቲ ዝተተኽለሉ መንገዲ ይሕደስ።
+dialog.update.later = ጸኒሑ
+dialog.update.release_notes = መዘኻኸሪ ሕታም
+dialog.update.update_restart = ኣሐድስን ዳግማይ ጀምርን
+dialog.update.open_page = ገጽ ሕታም ክፈት
+
+dialog.style.title = ቅዲ ንጣፍ
+dialog.style.bevel = ዝተዓደመ ወሰንን ምብራዝን
+dialog.style.stroke = ምስኣል ወሰን
+dialog.style.inner_shadow = ውሽጣዊ ጽላሎት
+dialog.style.inner_glow = ውሽጣዊ ብርሃን
+dialog.style.satin = ሳቲን
+dialog.style.color_overlay = ልዕሊ ምድራብ ሕብሪ
+dialog.style.gradient_overlay = ልዕሊ ምድራብ ቀስታዊ ሕብሪ
+dialog.style.outer_glow = ደጋዊ ብርሃን
+dialog.style.drop_shadow = ዝወደቐ ጽላሎት
+dialog.style.blur = ጋውሲያን ትኹረት ምንካይ
+dialog.style.gradient_from = መበገሲ ልዕሊ ምድራብ ቀስታዊ ሕብሪ
+dialog.style.gradient_to = መወዳእታ ልዕሊ ምድራብ ቀስታዊ ሕብሪ
+dialog.style.soften = ኣለስልስ
+dialog.style.depth = ዕምቆት
+dialog.style.altitude = ቁመት
+dialog.style.highlight = ድሙቕ ክፋል
+dialog.style.shadow = ጽላሎት
+dialog.style.outer_bevel = ደጋዊ ዝተዓደመ ወሰን
+dialog.style.inner_bevel = ውሽጣዊ ዝተዓደመ ወሰን
+dialog.style.emboss = ምብራዝ
+dialog.style.pillow_emboss = ናይ መተርኣስ ምብራዝ
+dialog.style.linear = መስመራዊ
+dialog.style.radial = ራድያላዊ
+dialog.style.reverse = ምግልባጥ
+dialog.style.from_to = ካብ / ናብ
+dialog.style.from_fg = ካብ = ቅድሚት
+dialog.style.to_fg = ናብ = ቅድሚት
+dialog.style.precise = ልክዕ
+dialog.style.knockout = ንጣፍ ነቲ ዝወደቐ ጽላሎት ይቖርጾ
+
+dialog.color_picker.title = መራጺ ሕብሪ ({what})
+dialog.color_picker.effect_color = ሕብሪ {effect}
+dialog.color_picker.note_color = ሕብሪ መዘኻኸሪ
+dialog.color_picker.new = ሓድሽ
+dialog.color_picker.current = ሕጂ ዘሎ
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = ቻነል ዳግማይ ኣተዓራሪ
+dialog.curves.hint = ንምቕራጽ ጎትት · ንምውሳኽ ጠውቕ · ንምእላይ alt-ጠውቕ
+
+dialog.prefs.camera_sync = ጥቕላል ስእልታት ካሜራ
+dialog.prefs.camera_sync_enabled = ናብ Schist Cloud ምትሕልላፊ ቅዳሕ ዓቅብ
+dialog.prefs.camera_sync_sign_in = ናይ ጥቕላል ስእልታት ካሜራኻ ምትሕልላፊ ቅዳሕ ንምዕቃብ ናብ Schist Cloud እቶ።
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = ምቕያር…

@@ -1,0 +1,95 @@
+# Tòcas modificadoras
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Maj
+panel.keys.alt = Alt
+
+# Barra d'estat
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Onglets e barra de títol
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigator
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Pixèls reals
+
+# Panèl Color
+panel.color.picker = Selector…
+panel.color.swap = Escambiar las colors
+panel.color.reset = Restablir lo negre e blanc
+
+# Panèl Calques
+panel.layers.blending_options = Opcions de fusion…
+panel.layers.properties = Proprietats del calc…
+panel.layers.show_hide = Mostrar/amagar lo calc
+panel.layers.toggle_visibility = Bascular la visibilitat
+
+# Panèl Istoric
+panel.history.title = Istoric
+panel.history.opened = Dobèrt
+
+# Informacions EXIF
+panel.info.title = Informacions
+panel.info.camera = Camera
+panel.info.lens = Objectiu
+panel.info.iso = ISO {iso}
+panel.info.bias = Correccion d'exposicion
+panel.info.flash_fired = flash desenclavat
+panel.info.no_flash = sens flash
+panel.info.white_balance = Balança dels blancs {wb}
+panel.info.metering = mesura {metering}
+panel.info.taken = Presa
+panel.info.size = {w} × {h} · {mp} Mpx
+panel.info.size_oriented = {w} × {h} · {mp} Mpx · orientacion {o}
+panel.info.software = Logicial
+panel.info.where = Luòc
+
+# Panèl Nòtas
+panel.notes.author = Autor
+panel.notes.clear_all = Escafar tot
+panel.notes.unattributed = Sens autor
+panel.notes.empty = Clicatz sus la tela per daissar una nòta.
+panel.notes.placeholder = Clicatz per escriure
+
+# Panèl Caractèr
+panel.character.title = Caractèr
+panel.character.type_tool = Aisina Tèxte (T)
+panel.character.align_left = Alinhar a esquèrra
+panel.character.align_center = Centrar
+panel.character.align_right = Alinhar a drecha
+panel.character.text_color = Color del tèxte
+panel.character.panel = Panèl Caractèr
+panel.character.cancel_edit = Anullar la modificacion del tèxte
+panel.character.commit_edit = Validar la modificacion del tèxte
+panel.character.number_tip = {label} · Picatz una valor, o utilizatz ↑ / ↓ (Maj per de passes mai grands)
+panel.character.leading = Interlinhatge
+panel.character.tracking = Aprochament
+panel.character.alignment = Alinhament
+panel.character.opentype = OpenType
+panel.character.text_on_path = Tèxte sus un camin
+panel.character.straight = Drech
+panel.character.on_path = Sul camin
+panel.character.straight_tip = Utilizar la linha de basa ordinària del calc de tèxte
+panel.character.on_path_tip = Utilizar una còpia del camin actiu
+panel.character.path_offset = Descalatge sul camin
+
+# Panèl lateral d'IA
+panel.ai.title = IA
+panel.ai.empty_editor = Demandatz una modificacion e agachatz-la se realizar sus la tela. L'agent utiliza las meteissas aisinas, filtres e comandas que los menús, amb una etapa d'anullacion per accion.
+panel.ai.empty_gallery = Demandatz quicòm sus vòstras fòtos e agachatz l'accion dins la galariá : l'agent pòt cercar, examinar las vinhetas, seleccionar, classar dins de categorias e dobrir una fòto dins l'editor.
+panel.ai.thinking = reflexion en cors…
+panel.ai.placeholder_editor = Demandatz quicòm sus aqueste document o modificatz-lo
+panel.ai.placeholder_gallery = Demandatz quicòm sus vòstras fòtos
+panel.ai.send = Mandar
+panel.ai.stop = Arrestar
+panel.ai.fetching_models = Demanda dels modèls a l'interfàcia en linha de comanda…
+panel.ai.no_models = Cap de modèl correspond
+panel.ai.search_models = Cercar de modèls…
+
+# Bóstias de fichièrs
+panel.keymap.install_plugin = Installar un modul extèrne
+panel.keymap.save_as_prompt = Enregistrar jos — l'extension determina lo format :

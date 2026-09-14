@@ -1,0 +1,23 @@
+# Textwierkzeug.
+tool.type.name = Text
+tool.type.description = Klickt, fir do eng Texteben unzefänken, oder klickt op eng bestoend, fir se z'änneren. Soulaang se op ass, iwwerhëlt d'Wierkzeug déi direkt Tastenaschléi (schéckt Zeechen als Tastenaschléi); beim Bestätege gëtt d'Eben gerendert an d'Ännerung zougemaach.
+
+tool.type.option.align = Ausriichten
+tool.type.option.leading = Zeilenofstand
+tool.type.option.tracking = Zeechenofstand
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligaturen
+tool.type.option.discretionary_ligatures = Optional Ligaturen
+tool.type.option.small_caps = Kapitälchen
+tool.type.option.on_path = Um aktive Pad
+tool.type.option.path_offset = Padversaz
+
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Fett
+tool.type.choice.italic = Kursiv
+tool.type.choice.bold_italic = Fett kursiv
+
+tool.type.history.new_layer = Nei Texteben
+tool.type.history.edit = Text änneren
+tool.type.history.discard = Text verwerfen
+tool.type.history.discard_empty = Eidelen Text verwerfen

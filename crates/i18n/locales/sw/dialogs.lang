@@ -1,0 +1,237 @@
+dialog.save_ellipsis = Hifadhi…
+dialog.use_foreground = Tumia Rangi ya Mbele
+dialog.downloading = Inapakua…
+dialog.downloading_of = Inapakua… {got} kati ya {total}
+dialog.no_config_dir = (hakuna saraka ya usanidi)
+
+dialog.layer_props.title = Sifa za Safu
+
+dialog.export.format = Umbizo
+dialog.export.dither = Changanya Pikseli
+dialog.export.dither_note = Changanya pikseli unapopunguza hadi biti 8
+dialog.export.export_ellipsis = Hamisha…
+
+dialog.batch.title = Chakata Picha
+dialog.batch.note_edit.one = Picha {n} — imehifadhiwa kama hariri ya matunzio; picha asili haiguswi kamwe.
+dialog.batch.note_edit.other = Picha {n} — zimehifadhiwa kama hariri za matunzio; picha asili haziguswi kamwe.
+dialog.batch.note_edit_edited.one = Picha {n}, {edited} tayari imehaririwa — mchakato unawekwa juu ya hariri hiyo, na hariri iliyotangulia huhifadhiwa kama toleo.
+dialog.batch.note_edit_edited.other = Picha {n}, {edited} tayari zimehaririwa — mchakato unawekwa juu ya hariri hizo, na hariri zilizotangulia huhifadhiwa kama matoleo.
+dialog.batch.note_copies.one = Picha {n} — nakala bapa; picha asili haiguswi kamwe.
+dialog.batch.note_copies.other = Picha {n} — nakala bapa; picha asili haziguswi kamwe.
+dialog.batch.note_copies_edited.one = Picha {n}, {edited} tayari imehaririwa — nakala inatengenezwa kutoka kwenye hariri hiyo.
+dialog.batch.note_copies_edited.other = Picha {n}, {edited} tayari zimehaririwa — nakala zinatengenezwa kutoka kwenye hariri hizo.
+dialog.batch.turn = Geuza
+dialog.batch.rotate = Zungusha
+dialog.batch.flip = Pindua
+dialog.batch.upscale = Ongeza Ubora na Ukubwa
+dialog.batch.colour = Rangi
+dialog.batch.add_adjustment = Marekebisho…
+dialog.batch.output = Tokeo
+dialog.batch.save_as = Hifadhi kama
+dialog.batch.process = Chakata
+dialog.batch.process_n = Chakata {n}
+dialog.batch.nothing_to_do = Hakuna cha kufanya: kwanza chagua ugeuzaji, uongezaji wa ubora na ukubwa, au rekebisho
+
+dialog.content_aware_scale.title = Badili Ukubwa kwa Kutambua Maudhui
+dialog.content_aware_scale.note = Huondoa mishono yenye maelezo machache. Uteuzi huonyesha sehemu ya kulinda.
+
+dialog.stroke.title = Mstari
+dialog.stroke.location = Mahali
+dialog.stroke.inside = Ndani
+dialog.stroke.outside = Nje
+dialog.stroke.note = Huchora mstari kwenye uteuzi kwa rangi ya mbele.
+
+dialog.fill.contents = Maudhui
+
+dialog.color_range.title = Masafa ya Rangi
+dialog.color_range.sampled = Iliyotolewa Sampuli
+dialog.color_range.fuzziness = Ulegevu wa Masafa
+dialog.color_range.note = Huchagua pikseli zilizo karibu na rangi iliyotolewa sampuli kwenye safu inayotumika.
+
+dialog.file_picker.up = ↑ Juu
+dialog.file_picker.empty = Hakuna chochote hapa
+dialog.file_picker.choose_folder = Chagua Folda Hii
+
+dialog.filter.camera_raw_development = Uendelezaji wa Camera Raw
+dialog.filter.reset_as_shot = Rejesha Hali ya Upigaji
+dialog.filter.raw_note = Hutengeneza upya safu inayotumika kutoka kwenye data asili ya sensa.
+dialog.filter.note = Hutumika kwenye safu inayotumika, ndani ya uteuzi.
+
+dialog.fonts.title = Fonti Zinazokosekana
+dialog.fonts.install_named = Sakinisha {name}
+dialog.fonts.no_document = Hakuna hati iliyofunguliwa, kwa hivyo hakuna cha kukagua.
+dialog.fonts.all_installed = Kila fonti inayotumiwa na hati hii imesakinishwa. Maandishi yake yametumia fonti zilizotumiwa katika mpangilio wake.
+dialog.fonts.missing_intro = Hati hii imetumia fonti ambazo huna. Maandishi yanaweza kusomeka kwa fonti mbadala, lakini upana na migawanyo ya mistari si kama ilivyopangwa awali.
+dialog.fonts.footer = Vipakuliwa hutoka kwenye katalogi huria ya Google Fonts na huhifadhiwa katika {dir}. Fonti isiyo na leseni huria haipakuliwi kamwe — ikiwa kuna fonti huria yenye vipimo sawia, inapendekezwa badala yake; hii hurejesha mpangilio kwa sababu upana wa herufi unalingana.
+dialog.fonts.user_font_dir = saraka yako ya fonti za mtumiaji
+
+dialog.models.title = Miundo ya Neural Filters
+dialog.models.built_in = Imejengewa ndani · {size}
+dialog.models.installed = Imesakinishwa · {size}
+dialog.models.not_installed = Haijasakinishwa · {size}
+dialog.models.not_in_browser = Haipatikani kwenye kivinjari · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Miundo huhifadhiwa katika {dir}. Vichujio visivyo na muundo hutumia uchakataji wa ishara kama mbadala na hueleza hivyo.
+
+dialog.new_doc.title = Hati Mpya
+dialog.new_doc.picker_title = Faili Mpya
+dialog.new_doc.custom_ellipsis = Maalum…
+dialog.new_doc.preset = Mpangilio Tayari
+dialog.new_doc.preset_default = Chaguomsingi (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Mraba (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, ppi 300
+dialog.new_doc.preset_us_letter = US Letter, ppi 300
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Unda
+dialog.new_doc.created = Hati mpya: {w} × {h} px
+
+dialog.open.image_title = Fungua Picha
+dialog.open.image_prompt = Fungua “{name}” kwenye kichupo kipya, au iongeze kwenye hati ya sasa kama safu mpya?
+dialog.open.new_tab = Kichupo Kipya
+dialog.open.new_layer = Safu Mpya
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = faili hii {n}
+dialog.open.these_files.other = faili hizi {n}
+dialog.open.shared_title_one = Picha Iliyoshirikiwa
+dialog.open.shared_title_many = Picha Zilizoshirikiwa
+dialog.open.shared_prompt = Ongeza {what} kwenye matunzio, au ufungue katika kihariri?
+dialog.open.add_to_gallery = Ongeza kwenye Matunzio
+dialog.open.open_in_editor = Fungua katika Kihariri
+dialog.open.heic_title = Usaidizi wa HEIC
+dialog.open.heic_needs_decoder = Kufungua “{name}” kunahitaji kisimbuzi cha HEVC, ambacho hakijasakinishwa kwenye mfumo huu.
+dialog.open.heic_offer = Schist inaweza kupakua toleo la libheif {version} la kusimbua pekee pamoja na kisimbuzi cha HEVC cha libde265 (≈MB 5). Vyote vina leseni ya LGPL-3.0; maandishi ya leseni zao husakinishwa kando ya maktaba, na msimbo chanzo unapatikana kwenye ukurasa wa mradi.
+dialog.open.licenses_source = Leseni na Msimbo Chanzo
+dialog.open.folders_title = Folda Zilizodondoshwa
+dialog.open.n_folders.one = folda {n}
+dialog.open.n_folders.other = folda {n}
+dialog.open.open_in_tabs = Fungua katika Vichupo
+dialog.open.open_first_in_tabs = Fungua {n} za Kwanza katika Vichupo
+dialog.open.open_n_in_tabs.one = Fungua {n} katika Kichupo
+dialog.open.open_n_in_tabs.other = Fungua {n} katika Vichupo
+dialog.open.folder_holds.one = {what} ina picha {n} ambayo Schist inaweza kufungua (pamoja na folda ndogo).
+dialog.open.folder_holds.other = {what} ina picha {n} ambazo Schist inaweza kufungua (pamoja na folda ndogo).
+dialog.open.folders_note = Ongeza kwenye Matunzio hufuatilia folda palepale — hakuna kinachonakiliwa, na hariri huwekewa matoleo kando ya kila picha. Kufungua katika vichupo hupakia kila picha kwenye kihariri sasa.
+
+dialog.plugins.title = Programu-jalizi
+dialog.plugins.kind_filter = kichujio
+dialog.plugins.kind_format = umbizo
+dialog.plugins.kind_unavailable = haipatikani
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Programu-jalizi hupakiwa kutoka {dir}
+dialog.plugins.none = Bado hakuna programu-jalizi zilizosakinishwa.
+dialog.plugins.install_ellipsis = Sakinisha…
+dialog.plugins.photoshop_heading = Programu-jalizi za Photoshop
+dialog.plugins.loaded_from = Zimepakiwa kutoka {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Mapendeleo
+dialog.prefs.theme = Mandhari
+dialog.prefs.theme_dark = Nyeusi
+dialog.prefs.theme_light = Angavu
+dialog.prefs.grid_spacing = Nafasi za gridi
+dialog.prefs.snapping = Unasaji
+dialog.prefs.snap_to = Nasa kwenye miongozo, gridi na kingo za turubai
+dialog.prefs.rendering_intent = Kusudi la uonyeshaji
+dialog.prefs.intent_perceptual = Kimtazamo
+dialog.prefs.intent_relative = Kolorimetriki Linganishi
+dialog.prefs.intent_saturation = Uenevu
+dialog.prefs.intent_absolute = Kolorimetriki Kamili
+dialog.prefs.scrolling = Usogezaji
+dialog.prefs.zoom_with_scroll = Kuza kwa gurudumu la kusogeza
+dialog.prefs.rendering = Uonyeshaji
+dialog.prefs.gpu_compositing = Uunganishaji kwa GPU
+dialog.prefs.diagnostics = Uchunguzi
+dialog.prefs.crash_reports = Andika ripoti ya hitilafu ya ndani programu ikivurugika
+dialog.prefs.crash_upload = Pia itume kwa wasanidi programu
+dialog.prefs.telemetry = Tuma taarifa fiche ya kila siku
+dialog.prefs.diagnostics_note = Mipangilio ya uchunguzi itaanza kutumika Schist itakapoanzishwa tena.
+dialog.prefs.updates = Masasisho
+dialog.prefs.check_updates = Tafuta matoleo mapya wakati wa kuanzisha
+dialog.prefs.keyboard_shortcuts = Njia za mkato za kibodi: {path}
+dialog.prefs.nsfw_needs_model = Inahitaji muundo wa Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = ipakue katika Dhibiti Miundo…
+dialog.prefs.hide_flagged = Ficha picha zilizotiwa alama
+
+dialog.profile.profile = Wasifu
+dialog.profile.assign_title = Teua Wasifu
+dialog.profile.convert_title = Geuza kuwa Wasifu
+dialog.profile.assign = Teua
+dialog.profile.convert = Geuza
+dialog.profile.assign_note = Hutafsiri upya thamani zilizopo za pikseli kwa kutumia wasifu mpya.
+dialog.profile.convert_note = Huandika upya thamani za pikseli ili rangi zidumishe mwonekano wake.
+
+dialog.save_image.title = Hifadhi Picha Kama
+dialog.save_image.note = {name} — hariri yake, ikiwa ipo; picha asili haiguswi kamwe.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Ukubwa wa Picha
+dialog.size.canvas_title = Ukubwa wa Turubai
+dialog.size.constrain = Weka Kikomo
+dialog.size.keep_proportions = Dumisha uwiano
+dialog.size.resample = Sampulisha Upya
+dialog.size.bicubic = Bicubic
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Jirani ya Karibu
+dialog.size.anchor = Nanga
+dialog.size.currently = Kwa sasa {w} × {h} px
+dialog.size.image_size_status = Ukubwa wa picha: {w} × {h}
+dialog.size.canvas_size_status = Ukubwa wa turubai: {w} × {h}
+
+dialog.update.title = Sasisho Linapatikana
+dialog.update.available = Schist {version} inapatikana. Toleo hili ni {current}.
+dialog.update.installing = Inasakinisha sasisho…
+dialog.update.can_install = Schist inaweza kulipakua ({size}) na kulisakinisha juu ya toleo hili.
+dialog.update.external = Toleo hili limetoka mahali panapolisimamia — kidhibiti cha vifurushi, AppImage, au toleo ulilounda mwenyewe — kwa hivyo linasasishwa kwa njia ileile lilivyosakinishwa.
+dialog.update.later = Baadaye
+dialog.update.release_notes = Maelezo ya Toleo
+dialog.update.update_restart = Sasisha na Uanzishe Upya
+dialog.update.open_page = Fungua Ukurasa wa Toleo
+
+dialog.style.title = Mtindo wa Safu
+dialog.style.bevel = Mteremko na Mwinuko
+dialog.style.stroke = Mstari
+dialog.style.inner_shadow = Kivuli cha Ndani
+dialog.style.inner_glow = Mng'ao wa Ndani
+dialog.style.satin = Satini
+dialog.style.color_overlay = Uwekeleaji wa Rangi
+dialog.style.gradient_overlay = Uwekeleaji wa Mwangaza Taratibu
+dialog.style.outer_glow = Mng'ao wa Nje
+dialog.style.drop_shadow = Kivuli Angushi
+dialog.style.blur = Ukungu wa Gaussian
+dialog.style.gradient_from = Uwekeleaji wa Mwangaza Taratibu Kutoka
+dialog.style.gradient_to = Uwekeleaji wa Mwangaza Taratibu Hadi
+dialog.style.soften = Lainisha
+dialog.style.depth = Kina
+dialog.style.altitude = Mwinuko
+dialog.style.highlight = Sehemu Angavu
+dialog.style.shadow = Kivuli
+dialog.style.outer_bevel = Mteremko wa Nje
+dialog.style.inner_bevel = Mteremko wa Ndani
+dialog.style.emboss = Mwinuko
+dialog.style.pillow_emboss = Mwinuko wa Mto
+dialog.style.linear = Mstari
+dialog.style.radial = Miale
+dialog.style.reverse = Geuza
+dialog.style.from_to = Kutoka / Hadi
+dialog.style.from_fg = Kutoka = Rangi ya Mbele
+dialog.style.to_fg = Hadi = Rangi ya Mbele
+dialog.style.precise = Sahihi
+dialog.style.knockout = Safu huondoa kivuli angushi
+
+dialog.color_picker.title = Kiteua Rangi ({what})
+dialog.color_picker.effect_color = Rangi ya {effect}
+dialog.color_picker.note_color = Rangi ya Dokezo
+dialog.color_picker.new = mpya
+dialog.color_picker.current = ya sasa
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Rejesha Chaneli
+dialog.curves.hint = Buruta kuunda umbo · bofya kuongeza · bofya huku ukibonyeza Alt kuondoa
+
+dialog.prefs.camera_sync = Mkusanyiko wa picha za kamera
+dialog.prefs.camera_sync_enabled = Hifadhi nakala kwenye Schist Cloud
+dialog.prefs.camera_sync_sign_in = Ingia katika Schist Cloud ili kuhifadhi nakala za picha zako za kamera.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Badilisha…

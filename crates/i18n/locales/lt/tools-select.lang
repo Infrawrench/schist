@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Atimti
+tool.select.mode.intersect = Sankirta
+
+tool.marquee.rect.name = Stačiakampis žymėjimas
+tool.marquee.rect.description = Vilkdami pažymėkite stačiakampę sritį. Jei pradėdami vilkti laikote „Shift“, sritis pridedama prie pažymėjimo, jei laikote „Alt“ – atimama, o laikant abu klavišus paliekama sankirta; jei „Shift“ laikote vilkdami, sukuriamas kvadratas. Spustelėjus nevelkant žymėjimas panaikinamas.
+tool.marquee.ellipse.name = Elipsinis žymėjimas
+tool.marquee.ellipse.description = Vilkdami pažymėkite elipsinę sritį; ją su esamu žymėjimu galima jungti tais pačiais „Shift“ ir „Alt“ deriniais kaip stačiakampio žymėjimo įrankiu.
+
+tool.lasso.name = Lasas
+tool.lasso.description = Vilkdami laisva ranka nubrėžkite kontūrą; baigus vilkti jo galai sujungiami ir sritis uždaroma. „Shift“ prideda, o „Alt“ atima.
+tool.lasso.history.select = Žymėjimas lasu
+tool.lasso.polygonal.name = Daugiakampis lasas
+tool.lasso.polygonal.description = Spustelėkite kampą po kampo, kad sukurtumėte tiesių kraštinių pažymėtą sritį, tada spustelėkite netoli pirmojo taško jai uždaryti.
+tool.lasso.polygonal.history.select = Daugiakampis lasas
+tool.lasso.magnetic.name = Magnetinis lasas
+tool.lasso.magnetic.description = Apytiksliai brėžkite išilgai krašto, ir kontūras prikibs prie didžiausio kontrasto šalia brėžiamo kelio.
+tool.lasso.magnetic.history.select = Magnetinis lasas
+tool.lasso.magnetic.option.frequency = Dažnis
+
+tool.wand.name = Magiškoji lazdelė
+tool.wand.description = Spustelėkite, kad pagal nuokrypio parinktį pažymėtumėte po žymikliu esančią sujungtą panašios spalvos sritį – tą patį nuokrypį naudoja komandos „Didinti“, „Panašūs“ ir „Spalvų diapazonas“.
+tool.wand.option.contiguous = Gretima sritis
+tool.wand.history.select = Magiškoji lazdelė
+
+tool.quick_select.name = Spartusis žymėjimas
+tool.quick_select.description = Pieškite per sritį, ir pažymėjimas plėsis per panašius pikselius, virš kurių slenka teptukas.
+tool.quick_select.history.select = Spartusis žymėjimas
+
+tool.object_select.name = Objekto žymėjimas
+tool.object_select.description = Apibrėžkite objektą stačiakampiu, ir pažymėjimas prikibs prie jo viduje aptikto objekto.
+tool.object_select.history.select = Objekto žymėjimas

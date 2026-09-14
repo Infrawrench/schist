@@ -1,0 +1,153 @@
+# File
+menu.file = Idosiye
+menu.file.new = Gishya
+menu.file.open = Gufungura…
+menu.file.open_recent = Gufungura ibya vuba
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Gushakisha mu bubiko bw'amashusho…
+menu.file.close = Gufunga
+menu.file.save = Kubika
+menu.file.save_as = Kubika nka…
+menu.file.export = Kubika hanze…
+menu.file.export_submenu = Kubika hanze
+menu.file.export_artboards = Kubika ibibaho by'ibishushanyo nka PNG…
+menu.file.export_slices = Kubika ibice nka PNG…
+menu.file.save_to_photos = Kubika mu Mafoto
+menu.file.plugins = Inyongera…
+menu.file.missing_fonts = Imyandikire ibura…
+menu.file.check_for_updates = Kugenzura ibishya…
+menu.file.quit = Gusohoka
+menu.file.add_folder_to_gallery = Kongera ububiko mu bubiko bw'amashusho…
+menu.file.import_from_photos = Kuzana bivuye mu Mafoto…
+menu.file.import_from_camera = Kuzana bivuye muri kamera…
+
+# Edit
+menu.edit = Guhindura
+menu.edit.fill = Kuzuza…
+menu.edit.stroke = Guca umurongo…
+menu.edit.content_aware_fill = Kuzuza hitawe ku birimo
+menu.edit.content_aware_scale = Guhindura ingano hitawe ku birimo…
+menu.edit.puppet_warp = Kugonda nk'igipupe
+menu.edit.free_transform = Guhindura uko ushaka
+menu.edit.transform = Guhindura
+menu.edit.rotate_180 = Kuzengurutsa 180°
+menu.edit.rotate_90_cw = Kuzengurutsa 90° iburyo
+menu.edit.rotate_90_ccw = Kuzengurutsa 90° ibumoso
+menu.edit.flip_horizontal = Guhindukiza mu bugari
+menu.edit.flip_vertical = Guhindukiza mu buhagarike
+
+# Image
+menu.image = Ishusho
+menu.image.mode = Uburyo
+menu.image.adjustments = Amakosora
+menu.image.auto_tone = Gukosora amatoni byikora
+menu.image.auto_contrast = Gukosora itandukaniro byikora
+menu.image.auto_color = Gukosora ibara byikora
+menu.image.image_size = Ingano y'ishusho…
+menu.image.canvas_size = Ingano y'ikibaho…
+menu.image.image_rotation = Kuzengurutsa ishusho
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° iburyo
+menu.image.rotate_90_ccw = 90° ibumoso
+menu.image.flip_canvas_horizontal = Guhindukiza ikibaho mu bugari
+menu.image.flip_canvas_vertical = Guhindukiza ikibaho mu buhagarike
+menu.image.crop_to_selection = Gukata ku byatoranyijwe
+menu.image.trim = Gukata ku nkengero
+menu.image.assign_profile = Gutanga umwirondoro…
+menu.image.convert_to_profile = Guhindurira ku mwirondoro…
+
+# Select
+menu.select = Guhitamo
+menu.select.color_range = Intera y'amabara…
+menu.select.modify = Guhindura
+menu.select.border = Urubibi…
+menu.select.smooth = Kunoza…
+menu.select.expand = Kwagura…
+menu.select.contract = Kwegeranya…
+menu.select.feather = Koroshya inkombe…
+menu.select.transform_selection = Guhindura ibyatoranyijwe
+
+# Layer
+menu.layer = Urwego
+menu.layer.layer_style = Imisusire y'urwego…
+menu.layer.layer_comps = Imiterere y'inzego
+menu.layer.new_layer_comp = Imiterere mishya y'inzego
+menu.layer.delete_layer_comp = Gusiba {name}
+menu.layer.path = Inzira
+menu.layer.fill_path = Kuzuza inzira
+menu.layer.stroke_path = Guca umurongo ku nzira
+menu.layer.make_selection = Gukora ihitamo
+menu.layer.delete_path = Gusiba inzira
+
+# Adjust
+menu.adjust = Gukosora
+
+# Filter
+menu.filter = Akayunguruzo
+menu.filter.filter_gallery = Ububiko bw'utuyunguruzo…
+menu.filter.liquify = Guhindura nk'amazi
+menu.filter.vanishing_point = Akadomo ko kuzimiriramo
+menu.filter.manage_models = Gucunga moderi…
+menu.filter.camera_raw_development = Gutunganya Camera Raw…
+
+# View
+menu.view = Kureba
+menu.view.rotate_view_cw = Kuzengurutsa ibirebwa iburyo
+menu.view.rotate_view_ccw = Kuzengurutsa ibirebwa ibumoso
+menu.view.reset_view = Gusubizaho ibirebwa
+menu.view.zoom_in = Kwegera
+menu.view.zoom_out = Kwigiza kure
+menu.view.fit_on_screen = Gukwiza kuri ecran
+menu.view.actual_size = 100%
+menu.view.rulers = Imirongo gipimo
+menu.view.grid = Urusobe
+menu.view.guides = Imirongo iyobora
+menu.view.notes = Utwandiko
+menu.view.ai_panel = Igice cya AI
+menu.view.extras = Ibindi
+menu.view.snap = Gufatanya neza
+menu.view.clear_guides = Gukuraho imirongo iyobora
+menu.view.clear_notes = Gukuraho utwandiko
+menu.view.clear_count = Gukuraho imibare
+menu.view.screen_mode = Uburyo bwa ecran
+menu.view.proof_colors = Kugerageza amabara
+menu.view.show_rulers = Kwerekana imirongo gipimo
+menu.view.hide_rulers = Guhisha imirongo gipimo
+menu.view.show_grid = Kwerekana urusobe
+menu.view.hide_grid = Guhisha urusobe
+menu.view.show_guides = Kwerekana imirongo iyobora
+menu.view.hide_guides = Guhisha imirongo iyobora
+menu.view.show_notes = Kwerekana utwandiko
+menu.view.hide_notes = Guhisha utwandiko
+menu.view.show_extras = Kwerekana ibindi
+menu.view.hide_extras = Guhisha ibindi
+menu.view.enable_snapping = Gufungura gufatanya neza
+menu.view.disable_snapping = Gufunga gufatanya neza
+menu.view.enable_proof_colors = Gufungura igerageza ry'amabara
+menu.view.disable_proof_colors = Gufunga igerageza ry'amabara
+
+# Gallery
+menu.gallery = Ububiko bw'amashusho
+menu.gallery.edit_selected = Guhindura ibyatoranyijwe
+menu.gallery.refresh = Kuvugurura
+menu.gallery.map_filter = Akayunguruzo k'ikarita…
+menu.gallery.back_to_editor = Gusubira mu gihindura
+
+# Cloud
+menu.cloud.browse = Gushakisha muri Schist Cloud
+menu.cloud.generate = Guhanga amashusho…
+menu.cloud.upload = Kohereza inyandiko muri Schist Cloud…
+menu.cloud.sign_out = Gusohoka muri Schist Cloud
+menu.cloud.sign_in = Kwinjira muri Schist Cloud…
+
+# Application
+menu.app.services = Serivisi
+menu.app.hide = Guhisha {app}
+menu.app.hide_others = Guhisha ibindi
+menu.app.show_all = Kwerekana byose
+menu.app.quit = Gusohoka muri {app}
+
+# Status replies
+menu.status.transform_selection_needs_selection = Guhindura ibyatoranyijwe bisaba ko haba ibyatoranyijwe
+menu.status.crop_needs_selection = Gukata ku byatoranyijwe bisaba ko haba ibyatoranyijwe
+menu.status.select_photo_to_edit = Hitamo ifoto yo guhindura

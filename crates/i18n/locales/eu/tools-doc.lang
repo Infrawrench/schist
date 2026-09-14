@@ -1,0 +1,24 @@
+tool.artboard.name = Lan-mahaia
+tool.artboard.description = Arrastatu lan-mahai bat sortzeko: bereiz esportatzen den mihisearen eskualde izendun bat. Lehendik dagoen baten barruan arrastatuz gero, mugitu egiten da.
+tool.artboard.default_name = {n}. lan-mahaia
+
+tool.slice.name = Zatia
+tool.slice.description = Arrastatu esportatzeko zati bat sortzeko, hau da, berezko irudi gisa esportatzen den mihisearen laukizuzen izendun bat. Lehendik dagoen baten barruan arrastatuz gero, mugitu egiten da.
+tool.slice.default_name = {n}. zatia
+
+tool.frame.name = Markoa
+tool.frame.description = Arrastatu marko bat sortzeko: barruan jartzen den guztia maskaratzen duen geruza laukizuzen (edo eliptiko) bat.
+tool.frame.default_name = {n}. markoa
+tool.frame.choice.rectangle = Laukizuzena
+tool.frame.choice.ellipse = Elipsea
+tool.frame.history.frame = Markoa
+
+tool.note.name = Oharra
+tool.note.description = Egin klik mihisearen eremu huts batean ohar bat bertan ainguratzeko, editorearen egoeran zehaztutako egilearekin eta kolorearekin; egin klik lehendik dagoen marka batean Oharrak panelean hautatzeko.
+tool.note.history.place = Jarri oharra
+tool.note.history.move = Mugitu oharra
+tool.note.history.delete = Ezabatu oharra
+
+tool.count.name = Zenbaketa
+tool.count.description = Egin klik mihisean zenbakidun zenbaketa-markak jartzeko, eta egin klik lehendik dagoen batean hura kentzeko.
+tool.count.default_name = {n}. zenbaketa

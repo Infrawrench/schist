@@ -1,0 +1,155 @@
+# Sandar menu ta cikin taga da ta tsarin macOS/iPadOS.
+
+# Fayil
+menu.file = Fayil
+menu.file.new = Sabo
+menu.file.open = Buɗe…
+menu.file.open_recent = Buɗe na Kwanan Nan
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Bincika Ma'ajiyar Hotuna…
+menu.file.close = Rufe
+menu.file.save = Ajiye
+menu.file.save_as = Ajiye Kamar…
+menu.file.export = Fitar da…
+menu.file.export_submenu = Fitar da
+menu.file.export_artboards = Fitar da Allunan Zane zuwa PNG…
+menu.file.export_slices = Fitar da Yankuna zuwa PNG…
+menu.file.save_to_photos = Ajiye zuwa Hotuna
+menu.file.plugins = Plug-ins…
+menu.file.missing_fonts = Nau'ikan Rubutu da Suka Ɓace…
+menu.file.check_for_updates = Duba Sabuntawa…
+menu.file.quit = Fita
+menu.file.add_folder_to_gallery = Ƙara Jaka zuwa Ma'ajiyar Hotuna…
+menu.file.import_from_photos = Shigo da daga Hotuna…
+menu.file.import_from_camera = Shigo da daga Kamara…
+
+# Gyara
+menu.edit = Gyara
+menu.edit.fill = Ciko…
+menu.edit.stroke = Shaci…
+menu.edit.content_aware_fill = Ciko Mai Fahimtar Abun Ciki
+menu.edit.content_aware_scale = Canza Girma Mai Fahimtar Abun Ciki…
+menu.edit.puppet_warp = Murɗawar 'Yar Tsana
+menu.edit.free_transform = Sauyawa Kyauta
+menu.edit.transform = Sauyawa
+menu.edit.rotate_180 = Juya 180°
+menu.edit.rotate_90_cw = Juya 90° Bisa Agogo
+menu.edit.rotate_90_ccw = Juya 90° Saɓanin Agogo
+menu.edit.flip_horizontal = Jirkita a Kwance
+menu.edit.flip_vertical = Jirkita a Tsaye
+
+# Hoto
+menu.image = Hoto
+menu.image.mode = Yanayi
+menu.image.adjustments = Daidaitawa
+menu.image.auto_tone = Daidaita Sautin Launi Kai Tsaye
+menu.image.auto_contrast = Daidaita Bambancin Haske Kai Tsaye
+menu.image.auto_color = Daidaita Launi Kai Tsaye
+menu.image.image_size = Girman Hoto…
+menu.image.canvas_size = Girman Wurin Zane…
+menu.image.image_rotation = Juyawar Hoto
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° Bisa Agogo
+menu.image.rotate_90_ccw = 90° Saɓanin Agogo
+menu.image.flip_canvas_horizontal = Jirkita Wurin Zane a Kwance
+menu.image.flip_canvas_vertical = Jirkita Wurin Zane a Tsaye
+menu.image.crop_to_selection = Datse zuwa Zaɓi
+menu.image.trim = Yanke Gefuna
+menu.image.assign_profile = Sanya Bayanan Launi…
+menu.image.convert_to_profile = Mayar zuwa Bayanan Launi…
+
+# Zaɓa
+menu.select = Zaɓa
+menu.select.color_range = Yankin Launi…
+menu.select.modify = Sauya
+menu.select.border = Iyaka…
+menu.select.smooth = Sulɓanta…
+menu.select.expand = Faɗaɗa…
+menu.select.contract = Ƙanƙanta…
+menu.select.feather = Lauyantar Gefe…
+menu.select.transform_selection = Sauya Zaɓi
+
+# Shimfiɗa
+menu.layer = Shimfiɗa
+menu.layer.layer_style = Salon Shimfiɗa…
+menu.layer.layer_comps = Haɗe-haɗen Shimfiɗa
+menu.layer.new_layer_comp = Sabon Haɗin Shimfiɗa
+menu.layer.delete_layer_comp = Share {name}
+menu.layer.path = Tafarki
+menu.layer.fill_path = Cika Tafarki
+menu.layer.stroke_path = Zana Shacin Tafarki
+menu.layer.make_selection = Yi Zaɓi
+menu.layer.delete_path = Share Tafarki
+
+# Daidaita
+menu.adjust = Daidaita
+
+# Matata
+menu.filter = Matata
+menu.filter.filter_gallery = Ma'ajiyar Matata…
+menu.filter.liquify = Liquify
+menu.filter.vanishing_point = Wurin Ɓacewa
+menu.filter.manage_models = Sarrafa Samfura…
+menu.filter.camera_raw_development = Sarrafa Camera Raw…
+
+# Duba
+menu.view = Duba
+menu.view.rotate_view_cw = Juya Abin Kallo Bisa Agogo
+menu.view.rotate_view_ccw = Juya Abin Kallo Saɓanin Agogo
+menu.view.reset_view = Sake Saita Abin Kallo
+menu.view.zoom_in = Ƙara Girma
+menu.view.zoom_out = Rage Girma
+menu.view.fit_on_screen = Daidaita da Allo
+menu.view.actual_size = 100%
+menu.view.rulers = Ma'aunan Layi
+menu.view.grid = Raga
+menu.view.guides = Jagorori
+menu.view.notes = Bayanai
+menu.view.ai_panel = Falin AI
+menu.view.extras = Ƙarin Abubuwa
+menu.view.snap = Mannewa
+menu.view.clear_guides = Goge Jagorori
+menu.view.clear_notes = Goge Bayanai
+menu.view.clear_count = Goge Ƙirga
+menu.view.screen_mode = Yanayin Allo
+menu.view.proof_colors = Launukan Gwaji
+menu.view.show_rulers = Nuna Ma'aunan Layi
+menu.view.hide_rulers = Ɓoye Ma'aunan Layi
+menu.view.show_grid = Nuna Raga
+menu.view.hide_grid = Ɓoye Raga
+menu.view.show_guides = Nuna Jagorori
+menu.view.hide_guides = Ɓoye Jagorori
+menu.view.show_notes = Nuna Bayanai
+menu.view.hide_notes = Ɓoye Bayanai
+menu.view.show_extras = Nuna Ƙarin Abubuwa
+menu.view.hide_extras = Ɓoye Ƙarin Abubuwa
+menu.view.enable_snapping = Kunna Mannewa
+menu.view.disable_snapping = Kashe Mannewa
+menu.view.enable_proof_colors = Kunna Launukan Gwaji
+menu.view.disable_proof_colors = Kashe Launukan Gwaji
+
+# Ma'ajiyar hotuna
+menu.gallery = Ma'ajiyar Hotuna
+menu.gallery.edit_selected = Gyara Waɗanda Aka Zaɓa
+menu.gallery.refresh = Wartsake
+menu.gallery.map_filter = Matatar Taswira…
+menu.gallery.back_to_editor = Koma Edita
+
+# Ƙaramin menu na Schist Cloud
+menu.cloud.browse = Bincika Schist Cloud
+menu.cloud.generate = Ƙirƙiri hotuna…
+menu.cloud.upload = Loda takarda zuwa Schist Cloud…
+menu.cloud.sign_out = Fita daga Schist Cloud
+menu.cloud.sign_in = Shiga Schist Cloud…
+
+# Menu na manhajar macOS
+menu.app.services = Ayyuka
+menu.app.hide = Ɓoye {app}
+menu.app.hide_others = Ɓoye Sauran
+menu.app.show_all = Nuna Duka
+menu.app.quit = Fita daga {app}
+
+# Amsoshin sandar matsayi ga abubuwan menu da ba za su iya aiki ba
+menu.status.transform_selection_needs_selection = Sauya Zaɓi yana buƙatar a yi zaɓi
+menu.status.crop_needs_selection = Datse zuwa Zaɓi yana buƙatar a yi zaɓi
+menu.status.select_photo_to_edit = Zaɓi hoto da za a gyara

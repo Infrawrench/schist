@@ -1,0 +1,31 @@
+# AI-zijbalk: statusregels, transcriptnotities en leesbare fouten.
+ai.status.panel_shown = AI-deelvenster getoond
+ai.status.panel_hidden = AI-deelvenster verborgen — Weergave ▸ AI-deelvenster ({shortcut}) brengt het terug
+ai.status.tool = AI: {name}
+
+ai.info.connected = Verbonden met {backend}
+ai.info.now_in_gallery = Nu in de galerie.
+ai.info.now_in_editor = Nu in de editor.
+ai.tool.shell_command = shellopdracht
+
+ai.error.cli_missing = De CLI van {backend} (‘{binary}’) staat niet op PATH. Installeer deze en meld je eerst aan.
+ai.error.endpoint_failed = starten van het MCP-eindpunt mislukt: {error}
+ai.error.binding_endpoint = MCP-eindpunt koppelen
+ai.error.spawning_endpoint_thread = thread van MCP-eindpunt starten
+ai.error.runtime_failed = starten van de agentruntime mislukt: {error}
+ai.error.worker_failed = starten van de {backend}-worker mislukt: {error}
+ai.error.did_not_start = {backend} is niet gestart: {error}
+ai.error.switch_model_failed = wisselen van model mislukt: {error}
+ai.error.send_failed = verzenden van de prompt mislukt: {error}
+ai.error.interrupt_failed = onderbreken mislukt: {error}
+ai.error.locating_binary = binair bestand van Schist zoeken
+ai.error.starting_app_server = Codex-appserver starten
+ai.error.attaching_app_server = verbinding maken met Codex-appserver
+ai.error.initializing_app_server = Codex-appserver initialiseren
+ai.error.resuming_thread = Codex-thread hervatten
+ai.error.starting_thread = Codex-thread starten
+
+ai.model.opus_detail = Krachtigste niveau
+ai.model.sonnet_detail = Efficiënt voor routinetaken
+ai.model.haiku_detail = Snelst voor korte antwoorden
+ai.model.codex_catalog = Codex-catalogus

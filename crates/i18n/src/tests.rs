@@ -1,6 +1,6 @@
 //! The catalogs are data, and these are the checks that keep the data
 //! honest: every language has every key, placeholders agree, plurals
-//! come in pairs, and nothing in the source tree asks for a key that is
+//! include the required categories, and nothing in the source tree asks for a key that is
 //! not there.
 
 use super::*;
@@ -26,7 +26,7 @@ fn with_locale(locale: Locale) -> EnglishAgain {
 }
 
 fn keys(locale: Locale) -> BTreeSet<&'static str> {
-    catalogs()[locale.index()].keys().copied().collect()
+    catalog(locale).keys().copied().collect()
 }
 
 /// Placeholders in a string, as a set: `{n}` and `{name}`.
@@ -119,14 +119,24 @@ fn every_translation_has_exactly_the_english_keys() {
             continue;
         }
         let theirs = keys(locale);
-        // A language with no singular is not asked for `.one` strings.
-        let wanted: BTreeSet<&str> = english
+        let stems = plural_stems();
+        let mut wanted: BTreeSet<String> = english
             .iter()
-            .copied()
-            .filter(|k| locale.has_singular() || !k.ends_with(".one"))
+            .filter(|key| {
+                !stems
+                    .iter()
+                    .any(|stem| **key == format!("{stem}.one") || **key == format!("{stem}.other"))
+            })
+            .map(|key| key.to_string())
             .collect();
-        let missing: Vec<&&str> = wanted.difference(&theirs).collect();
-        let extra: Vec<&&str> = theirs.difference(&wanted).collect();
+        for stem in stems {
+            for category in locale.plural_categories() {
+                wanted.insert(format!("{stem}.{category}"));
+            }
+        }
+        let theirs: BTreeSet<String> = theirs.iter().map(|key| key.to_string()).collect();
+        let missing: Vec<_> = wanted.difference(&theirs).collect();
+        let extra: Vec<_> = theirs.difference(&wanted).collect();
         assert!(
             missing.is_empty(),
             "{} is missing {} keys, e.g. {:?}",
@@ -145,15 +155,32 @@ fn every_translation_has_exactly_the_english_keys() {
 
 #[test]
 fn translations_keep_the_placeholders() {
-    let english = &catalogs()[Locale::En.index()];
+    let english = catalog(Locale::En);
     for locale in Locale::ALL {
-        for (key, value) in &catalogs()[locale.index()] {
-            let Some(source) = english.get(key) else {
-                continue;
-            };
+        for (key, value) in catalog(locale) {
+            let alternate = key.rsplit_once('.').and_then(|(stem, category)| {
+                (locale.plural_categories().contains(&category)
+                    && english.contains_key(format!("{stem}.one").as_str()))
+                .then(|| format!("{stem}.other"))
+            });
+            let source = english
+                .get(key)
+                .or_else(|| alternate.as_ref().and_then(|key| english.get(key.as_str())))
+                .expect("every translated key has an English source");
+            let supplied = placeholders(value);
+            let mut expected = placeholders(source);
+            // English can leave the count implicit for one item, while a
+            // translated `one` form also covers counts such as Russian 21.
+            if key
+                .strip_suffix(".one")
+                .is_some_and(|stem| english.contains_key(format!("{stem}.other").as_str()))
+                && supplied.contains("n")
+            {
+                expected.insert("n".into());
+            }
             assert_eq!(
-                placeholders(value),
-                placeholders(source),
+                supplied,
+                expected,
                 "{}: {key} has different placeholders from English",
                 locale.tag()
             );
@@ -161,34 +188,31 @@ fn translations_keep_the_placeholders() {
     }
 }
 
+fn plural_stems() -> BTreeSet<&'static str> {
+    catalog(Locale::En)
+        .keys()
+        .filter_map(|key| key.strip_suffix(".one"))
+        .filter(|stem| catalog(Locale::En).contains_key(format!("{stem}.other").as_str()))
+        .collect()
+}
+
 #[test]
-fn plural_strings_come_in_pairs() {
+fn plural_strings_have_all_required_categories_and_counts() {
     for locale in Locale::ALL {
-        let theirs = keys(locale);
-        for key in &theirs {
-            if let Some(stem) = key.strip_suffix(".one") {
+        // A singular-looking form can represent 0, 21, 101, etc. Use all
+        // vendored CLDR integer examples to catch hidden counts as new
+        // languages are registered, including cases beyond small integers.
+        let one_requires_number = plurals::INTEGER_SAMPLES
+            .iter()
+            .any(|(_, n, _)| *n != 1 && locale.plural_category(*n) == "one");
+        for stem in plural_stems() {
+            for category in locale.plural_categories() {
+                let key = format!("{stem}.{category}");
+                let value = catalog(locale)
+                    .get(key.as_str())
+                    .unwrap_or_else(|| panic!("{}: missing {key}", locale.tag()));
                 assert!(
-                    theirs.contains(format!("{stem}.other").as_str()),
-                    "{}: {key} has no .other",
-                    locale.tag()
-                );
-            }
-            // `.other` is a plural only when English has the `.one` beside
-            // it: `filter.category.other` is a heading, not a count.
-            let english = keys(Locale::En);
-            if let Some(stem) = key
-                .strip_suffix(".other")
-                .filter(|stem| english.contains(format!("{stem}.one").as_str()))
-            {
-                if locale.has_singular() {
-                    assert!(
-                        theirs.contains(format!("{stem}.one").as_str()),
-                        "{}: {key} has no .one",
-                        locale.tag()
-                    );
-                }
-                assert!(
-                    catalogs()[locale.index()][key].contains("{n}"),
+                    value.contains("{n}") || (*category == "one" && !one_requires_number),
                     "{}: {key} does not show the count",
                     locale.tag()
                 );
@@ -200,7 +224,7 @@ fn plural_strings_come_in_pairs() {
 #[test]
 fn no_value_is_empty() {
     for locale in Locale::ALL {
-        for (key, value) in &catalogs()[locale.index()] {
+        for (key, value) in catalog(locale) {
             assert!(!value.is_empty(), "{}: {key} is empty", locale.tag());
         }
     }
@@ -319,7 +343,10 @@ fn language_tags_negotiate_by_language_alone() {
     assert_eq!(Locale::from_tag("ja-JP"), Some(Locale::Ja));
     assert_eq!(Locale::from_tag("ja_JP.UTF-8"), Some(Locale::Ja));
     assert_eq!(Locale::from_tag("en-GB"), Some(Locale::En));
-    assert_eq!(Locale::from_tag("fr-FR"), None);
+    assert_eq!(Locale::from_tag("fr-FR"), Some(Locale::Fr));
+    assert_eq!(Locale::from_tag("es_MX.UTF-8"), Some(Locale::Es));
+    assert_eq!(Locale::from_tag("ru-RU"), Some(Locale::Ru));
+    assert_eq!(Locale::from_tag("zz-ZZ"), None);
     assert_eq!(Locale::from_tag("C"), None);
     assert_eq!(Locale::from_tag("POSIX"), None);
     assert_eq!(Locale::from_tag(""), None);
@@ -327,12 +354,12 @@ fn language_tags_negotiate_by_language_alone() {
 
 #[test]
 fn the_first_language_we_have_wins() {
-    assert_eq!(Locale::negotiate(["fr-FR", "sv-SE", "en"]), Locale::Sv);
+    assert_eq!(Locale::negotiate(["fr-FR", "sv-SE", "en"]), Locale::Fr);
     // Nothing on the list is a language Schist has.
-    assert_eq!(Locale::negotiate(["fr-FR", "ko"]), Locale::En);
+    assert_eq!(Locale::negotiate(["zz-ZZ", "qaa"]), Locale::En);
     assert_eq!(Locale::negotiate(Vec::<String>::new()), Locale::En);
     assert_eq!(Locale::negotiate(["de", "sv"]), Locale::De);
-    assert_eq!(Locale::negotiate(["fr", "ja", "en"]), Locale::Ja);
+    assert_eq!(Locale::negotiate(["zz", "ja", "en"]), Locale::Ja);
 }
 
 #[test]
@@ -386,6 +413,81 @@ fn counts_pick_the_singular_where_the_language_has_one() {
 }
 
 #[test]
+fn new_locales_choose_non_english_cardinal_categories() {
+    let _guard = with_locale(Locale::Fr);
+    assert_eq!(Locale::Fr.plural_category(0), "one");
+    assert_eq!(Locale::Fr.plural_category(1_000_000), "many");
+    assert_eq!(tn("common.n_layers", 0), "0 calque");
+    set_locale(Locale::Es);
+    assert_eq!(Locale::Es.plural_category(0), "other");
+    assert_eq!(Locale::Es.plural_category(1_000_000), "many");
+    set_locale(Locale::Ru);
+    for (n, suffix) in [
+        (1, "слой"),
+        (2, "слоя"),
+        (5, "слоёв"),
+        (11, "слоёв"),
+        (21, "слой"),
+        (22, "слоя"),
+        (25, "слоёв"),
+        (u64::MAX, "слоёв"),
+    ] {
+        assert_eq!(tn("common.n_layers", n), format!("{n} {suffix}"));
+    }
+    // These English `one` forms omit {n}; Russian still needs the count
+    // when the same category describes 21 selected photos or documents.
+    assert_eq!(
+        tn("library.bucket.starts_with", 21),
+        "В подборку будет добавлена 21 выбранная фотография."
+    );
+    assert_eq!(
+        tn("workspace.recovery.recovered", 21),
+        "Восстановлен 21 документ из предыдущего сеанса"
+    );
+}
+
+#[test]
+fn arabic_counts_cover_six_categories_and_keep_the_displayed_number() {
+    let _guard = with_locale(Locale::Ar);
+    assert!(Locale::Ar.is_rtl());
+    assert_eq!(Locale::Ar.script(), "Arab");
+    assert_eq!(Locale::from_tag("ar_SA.UTF-8"), Some(Locale::Ar));
+    for (n, category, rendered) in [
+        (0, "zero", "0 طبقة"),
+        (1, "one", "طبقة واحدة (1)"),
+        (2, "two", "طبقتان (2)"),
+        (3, "few", "3 طبقات"),
+        (10, "few", "10 طبقات"),
+        (11, "many", "11 طبقة"),
+        (99, "many", "99 طبقة"),
+        (100, "other", "100 طبقة"),
+        (102, "other", "102 طبقة"),
+        (103, "few", "103 طبقات"),
+    ] {
+        assert_eq!(Locale::Ar.plural_category(n), category);
+        assert_eq!(tn("common.n_layers", n), rendered);
+    }
+}
+
+#[test]
+fn every_registered_locale_round_trips_and_has_metadata() {
+    let mut tags = BTreeSet::new();
+    for locale in Locale::ALL {
+        assert!(tags.insert(locale.tag()), "duplicate locale tag");
+        assert_eq!(Locale::from_tag(locale.tag()), Some(locale));
+        assert_eq!(
+            Locale::from_tag(&locale.tag().to_ascii_uppercase()),
+            Some(locale)
+        );
+        assert!(!locale.native_name().is_empty());
+        assert_eq!(locale.script().len(), 4);
+        assert!(locale
+            .plural_categories()
+            .contains(&locale.plural_category(u64::MAX)));
+    }
+}
+
+#[test]
 fn choice_lists_are_translated_and_memoised() {
     let _guard = with_locale(Locale::De);
     static KEYS: &[&str] = &["common.yes", "common.no"];
@@ -406,35 +508,77 @@ fn the_macros_name_their_arguments() {
     assert_eq!(tn!("common.n_layers", 3), "3 layers");
 }
 
-/// The browser build draws Chinese and Japanese with subsets of Noto
-/// Sans CJK (`tools/web-cjk-font.sh`), and a character a subset lacks
-/// draws as a box. So: every character those catalogs use is in the
-/// face that will be asked to draw it.
+/// Check the same locale-to-font mapping the browser manifest uses. Every
+/// visible catalog character must be drawable by one of the fetched faces.
 #[test]
 fn the_web_fonts_cover_their_catalogs() {
     let fonts = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../web/fonts");
-    for (locale, file) in [
-        (Locale::ZhHans, "NotoSansSC-Schist.otf"),
-        (Locale::Ja, "NotoSansJP-Schist.otf"),
-    ] {
-        let path = fonts.join(file);
-        let bytes = std::fs::read(&path)
-            .unwrap_or_else(|err| panic!("{}: {err}; run tools/web-cjk-font.sh", path.display()));
-        let face = ttf_parser::Face::parse(&bytes, 0).expect("a parseable font");
-        // Only the CJK characters: Latin, arrows and the like come from
-        // the Latin face, for these readers as for everyone else.
-        let cjk = |c: char| matches!(c as u32, 0x2E80..=0x9FFF | 0xF900..=0xFAFF | 0xFF00..=0xFFEF);
-        let mut missing: BTreeSet<char> = BTreeSet::new();
-        for value in catalogs()[locale.index()].values() {
+    let mapping: BTreeMap<String, Vec<String>> =
+        serde_json::from_str(&std::fs::read_to_string(fonts.join("locales.json")).unwrap())
+            .unwrap();
+    let buffers: Vec<_> = std::fs::read_dir(&fonts)
+        .unwrap()
+        .map(|entry| entry.unwrap().path())
+        .filter(|path| {
+            path.extension()
+                .is_some_and(|ext| ext == "ttf" || ext == "otf")
+        })
+        .map(|path| {
+            let name = path.file_name().unwrap().to_str().unwrap().to_owned();
+            assert!(
+                name == "IBMPlexSans-Regular.ttf" || mapping.contains_key(&name),
+                "{name} is missing its font locale mapping"
+            );
+            (name, std::fs::read(path).unwrap())
+        })
+        .collect();
+    for file in mapping.keys() {
+        assert!(
+            fonts.join(file).is_file(),
+            "missing {file}; run tools/web-i18n-fonts.py"
+        );
+    }
+    let faces: Vec<_> = buffers
+        .iter()
+        .map(|(name, bytes)| {
+            (
+                name,
+                ttf_parser::Face::parse(bytes, 0).expect("a parseable font"),
+            )
+        })
+        .collect();
+    for locale in Locale::ALL {
+        let selected: Vec<_> = faces
+            .iter()
+            .filter(|(name, _)| {
+                mapping
+                    .get(name.as_str())
+                    .is_none_or(|tags| tags.iter().any(|tag| tag == locale.tag()))
+            })
+            .collect();
+        assert!(!selected.is_empty(), "{} has no web fonts", locale.tag());
+        let mut missing = BTreeSet::new();
+        for value in catalog(locale).values() {
             for c in value.chars() {
-                if cjk(c) && face.glyph_index(c).is_none() {
+                // Whitespace, bidi controls, joiners, and variation selectors
+                // influence layout but don't need their own visible glyph.
+                let invisible = c.is_whitespace()
+                    || matches!(c as u32,
+                    0x00AD | 0x200B..=0x200F | 0x202A..=0x202E | 0x2060..=0x206F |
+                    0xFE00..=0xFE0F | 0xFEFF | 0xE0100..=0xE01EF);
+                if !invisible
+                    && !selected
+                        .iter()
+                        .any(|(_, face)| face.glyph_index(c).is_some())
+                {
                     missing.insert(c);
                 }
             }
         }
         assert!(
             missing.is_empty(),
-            "{file} lacks {}; re-run tools/web-cjk-font.sh",
+            "{}: web fonts lack {}",
+            locale.tag(),
             missing.iter().collect::<String>()
         );
     }

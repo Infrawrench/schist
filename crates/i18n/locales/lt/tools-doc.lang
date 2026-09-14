@@ -1,0 +1,25 @@
+# Dokumento objektų įrankiai.
+tool.artboard.name = Maketo sritis
+tool.artboard.description = Vilkdami sukurkite maketo sritį – pavadintą drobės dalį, kuri eksportuojama atskirai. Vilkdami esamos srities viduje ją perkelsite.
+tool.artboard.default_name = Maketo sritis {n}
+
+tool.slice.name = Iškarpa
+tool.slice.description = Vilkdami sukurkite eksportavimo iškarpą – pavadintą stačiakampę drobės dalį, eksportuojamą kaip atskirą vaizdą. Vilkdami esamos iškarpos viduje ją perkelsite.
+tool.slice.default_name = Iškarpa {n}
+
+tool.frame.name = Rėmelis
+tool.frame.description = Vilkdami sukurkite rėmelį – stačiakampį (arba elipsinį) sluoksnį, kuris maskuoja viską, kas į jį įdedama.
+tool.frame.default_name = Rėmelis {n}
+tool.frame.choice.rectangle = Stačiakampis
+tool.frame.choice.ellipse = Elipsė
+tool.frame.history.frame = Rėmelis
+
+tool.note.name = Pastaba
+tool.note.description = Spustelėkite tuščioje drobės vietoje, kad prisegtumėte pastabą su redaktoriaus būsenoje nurodytu autoriumi ir spalva; spustelėkite esamą žymeklį, kad pasirinktumėte jį pastabų skydelyje.
+tool.note.history.place = Įdėti pastabą
+tool.note.history.move = Perkelti pastabą
+tool.note.history.delete = Pašalinti pastabą
+
+tool.count.name = Skaitiklis
+tool.count.description = Spustelėkite, kad drobėje padėtumėte sunumeruotus skaičiavimo žymeklius, o norėdami pašalinti esamą žymeklį, spustelėkite jį.
+tool.count.default_name = Skaitiklis {n}

@@ -1,0 +1,20 @@
+# Інструмент «Текст».
+tool.type.name = Текст
+tool.type.description = Клацніть, щоб створити в цьому місці текстовий шар, або клацніть наявний шар, щоб редагувати його. Поки редагування відкрите, інструмент приймає безпосереднє введення клавіш; після підтвердження шар відтворюється, а редагування завершується.
+tool.type.option.align = Вирівнювання
+tool.type.option.leading = Інтерліньяж
+tool.type.option.tracking = Трекінг
+tool.type.option.kerning = Кернінг
+tool.type.option.ligatures = Лігатури
+tool.type.option.discretionary_ligatures = Додаткові лігатури
+tool.type.option.small_caps = Капітель
+tool.type.option.on_path = На активному контурі
+tool.type.option.path_offset = Зсув уздовж контуру
+tool.type.choice.regular = Звичайний
+tool.type.choice.bold = Напівжирний
+tool.type.choice.italic = Курсив
+tool.type.choice.bold_italic = Напівжирний курсив
+tool.type.history.new_layer = Новий текстовий шар
+tool.type.history.edit = Редагування тексту
+tool.type.history.discard = Відкидання тексту
+tool.type.history.discard_empty = Відкидання порожнього тексту

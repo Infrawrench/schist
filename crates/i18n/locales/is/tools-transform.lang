@@ -1,0 +1,28 @@
+# Frjáls umbreyting
+tool.transform.name = Frjáls umbreyting
+tool.transform.description = Frjáls umbreyting. Þegar hún er virkjuð opnast umbreytingarrammi utan um virka lagið: dragðu horn til að kvarða, dragðu utan við horn til að snúa og dragðu brún til að skekkja. Ekkert er skráð fyrr en breytingin er staðfest (Enter), og ef hætt er við (Escape) fer lagið aftur í fyrra horf.
+tool.transform.option.interpolation = Brúun
+tool.transform.history.transform = Frjáls umbreyting
+tool.transform.history.image_size = Stærð myndar
+tool.transform.history.canvas_size = Stærð myndflatar
+
+# Umbreyta vali
+tool.transform.selection.name = Umbreyta vali
+tool.transform.selection.description = Umbreyta vali: sami rammi, en útlína valsins er færð í stað mynddílanna innan hennar. Staðfestu eða hættu við til að ljúka.
+tool.transform.selection.history.transform = Umbreyta vali
+
+tool.transform.resample.nearest_neighbor = Næsti granni
+tool.transform.resample.bilinear = Tvílínulegt
+tool.transform.resample.bicubic = Tvíteningslegt
+
+# Utanskurður
+tool.crop.name = Skera utan af
+tool.crop.description = Dragðu út svæðið sem á að halda og stilltu handföng þess; þegar staðfest er (Enter) er skjalið skorið að svæðinu, en ef hætt er við (Escape) helst það óbreytt.
+tool.crop.option.ratio = Hlutfall
+tool.crop.option.delete_cropped = Eyða afskornum mynddílum
+tool.crop.choice.unconstrained = Ótakmarkað
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Skera utan af

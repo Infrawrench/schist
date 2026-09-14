@@ -1,0 +1,27 @@
+# The warp tools (plugins/tools-warp).
+
+# Liquify
+tool.liquify.name = Ger flótandi
+tool.liquify.description = Skumpa, snara, klemma ella blása myndadeplar undir einum stórum pensli — hátturin avger hvat. Avlagingin savnast í einum neti og verður sett á lagið, tá hon verður góðkend.
+tool.liquify.option.tool = Amboð
+tool.liquify.choice.forward_warp = Skump fram
+tool.liquify.choice.reconstruct = Endurskapa
+tool.liquify.choice.twirl_cw = Snara við klokkuni
+tool.liquify.choice.twirl_ccw = Snara móti klokkuni
+tool.liquify.choice.pucker = Klem saman
+tool.liquify.choice.bloat = Blás upp
+tool.liquify.choice.push_left = Skump til vinstru
+tool.liquify.history.liquify = Ger flótandi
+
+# Puppet Warp
+tool.puppet_warp.name = Dukkuavlaging
+tool.puppet_warp.description = Klikka fyri at festa lagið í nøkrum punktum, og drag síðani eitt teirra: netið bendist rundan um festini, stívt ella leyst eftir stillingini Stívleiki. Góðkenning setur avlagingina í verk.
+tool.puppet_warp.option.stiffness = Stívleiki
+tool.puppet_warp.history.puppet_warp = Dukkuavlaging
+
+# Vanishing Point
+tool.vanishing_point.name = Hvarvpunktur
+tool.vanishing_point.description = Drag eina flata yvir okkurt við perspektivi, skift síðani háttin til Klona og mála: avritaðu myndadeplarnir fylgja flatuni og minka við fjarstøðuni.
+tool.vanishing_point.choice.edit_plane = Rætta flatu
+tool.vanishing_point.choice.clone = Klona
+tool.vanishing_point.history.vanishing_point = Hvarvpunktur

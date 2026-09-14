@@ -1,0 +1,161 @@
+# Shared labels
+filter.neural.param.center_x = Hagati X
+filter.neural.param.center_y = Hagati Y
+filter.neural.param.direction = Intumbero
+filter.neural.param.transition = Ihinduka
+filter.neural.param.detail = Utuntu dutoduto
+filter.neural.param.eyes = Amaso
+
+filter.neural.msg.using_model = Biriko bikoresha {model} · {license}.
+filter.neural.msg.get_model = Yironke muri Akayunguruzo ▸ Neural Filters ▸ Gucunga moderi.
+
+# Camera Raw Filter
+filter.camera_raw.name = Akayunguruzo ka Camera Raw
+filter.camera_raw.param.temperature = Ubushuhe
+filter.camera_raw.param.tint = Tint
+filter.camera_raw.param.highlights = Ahaka cane
+filter.camera_raw.param.shadows = Ibitutu
+filter.camera_raw.param.whites = Imyera
+filter.camera_raw.param.blacks = Imikara
+filter.camera_raw.param.clarity = Ugutomoka
+filter.camera_raw.param.dehaze = Gukuraho igipfungu
+filter.camera_raw.param.vibrance = Vibrance
+filter.camera_raw.param.sharpening = Gukarisha
+filter.camera_raw.param.noise = Kugabanya urwamo
+filter.camera_raw.param.vignette = Vignette
+
+# Lens Correction
+filter.lens_correction.name = Gukosora lentille
+filter.lens_correction.param.distortion = Gukuraho ukugoreka
+filter.lens_correction.param.red = Gukosora urubibe rutukura/Cyan
+filter.lens_correction.param.blue = Gukosora urubibe rw'ubururu/Umuhondo
+filter.lens_correction.param.vignette = Ingero ya vignette
+filter.lens_correction.param.midpoint = Hagati ya vignette
+filter.lens_correction.param.vertical = Perspective yo mu buhagarike
+filter.lens_correction.param.horizontal = Perspective yo mu bugari
+
+# Adaptive Wide Angle
+filter.adaptive_wide_angle.name = Inguni yagutse yihindura
+filter.adaptive_wide_angle.param.projection = Ikosora
+filter.adaptive_wide_angle.choice.fisheye = Ijisho ry'ifi
+filter.adaptive_wide_angle.choice.perspective = Perspective
+filter.adaptive_wide_angle.choice.full_spherical = Umubumbe wose
+filter.adaptive_wide_angle.param.focal = Uburebure focal
+filter.adaptive_wide_angle.param.crop = Igipimo co gukata
+
+# Blur Gallery
+filter.field_blur.name = Igipfungu c'akarere
+filter.field_blur.param.position = Hatomoye kuri
+filter.iris_blur.name = Igipfungu ca iris
+filter.iris_blur.param.roundness = Ukuzunguruka
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Hagati
+filter.tilt_shift.param.band = Umukanda utomoye
+filter.spin_blur.name = Igipfungu kizunguruka
+filter.spin_blur.param.angle = Inguni y'igipfungu
+filter.path_blur.name = Igipfungu c'inzira
+filter.path_blur.param.speed = Umuvuduko
+filter.path_blur.param.curve = Ukugorama
+filter.path_blur.param.taper = Kugenda bigabanuka
+
+# Blur
+filter.shape_blur.name = Igipfungu c'ishusho
+filter.shape_blur.choice.square = Kare
+filter.shape_blur.choice.diamond = Diyama
+filter.shape_blur.choice.hexagon = Ishusho y'impande zitandatu
+filter.shape_blur.choice.cross = Umusaraba
+filter.shape_blur.choice.ring = Impeta
+filter.shape_blur.choice.star = Inyenyeri
+filter.smart_blur.name = Igipfungu c'ubwenge
+filter.smart_blur.choice.normal = Bisanzwe
+filter.smart_blur.choice.edge_only = Inkombe gusa
+filter.smart_blur.choice.overlay_edge = Kurenzako inkombe
+
+# Video
+filter.deinterlace.name = Gukuraho interlace
+filter.deinterlace.param.field = Gukuraho
+filter.deinterlace.choice.odd_fields = Imirongo y'ibiharuro bitagabanyika na kabiri
+filter.deinterlace.choice.even_fields = Imirongo y'ibiharuro bigabanyika na kabiri
+filter.deinterlace.param.fill = Gukora imirongo mishasha ukoresheje
+filter.deinterlace.choice.interpolation = Interpolation
+filter.deinterlace.choice.duplication = Gukopa
+filter.ntsc_colors.name = Amabara NTSC
+
+# Neural Filters
+filter.neural.skin_smoothing.name = Kunyorosha urukoba
+filter.neural.skin_smoothing.param.blur = Ukunyoroka
+filter.neural.skin_smoothing.param.detail = Kugumana utuntu dutoduto
+filter.neural.skin_smoothing.msg.no_model = {model} ntishizwemwo — hariko hanoroshwa ikintu cose gifise ibara ry'urukoba aho kunyorosha mu maso.
+
+filter.neural.jpeg_artifacts.name = Gukuraho utunenge twa JPEG
+filter.neural.jpeg_artifacts.msg.no_model = {model} ntishizwemwo — hariko hanoroshwa urusenga rwa pikisele 8 mu kibanza cavyo.
+
+filter.neural.colorize.name = Gushiramwo amabara
+filter.neural.colorize.param.warmth = Ubushuhe bw'ibara
+filter.neural.colorize.msg.no_model = {model} ntishizwemwo — hariko hashirwamwo ibara hisunzwe urumuri.
+
+filter.neural.super_zoom.name = Kwegera cane
+filter.neural.super_zoom.msg.no_model = {model} ntishizwemwo — hariko hakoreshwa gukarisha gukurikira inkombe.
+
+filter.neural.style_transfer.name = Kwimura imisusire
+filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Nta moderi z'imisusire zashizwemwo — hariko himurwa ibara gusa. Zironke muri Akayunguruzo ▸ Neural Filters ▸ Gucunga moderi.
+filter.neural.style_transfer.msg.installed = Zashizwemwo: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Kwimura ibara
+filter.neural.color_transfer.param.hue = Ibara rigenewe
+filter.neural.color_transfer.param.contrast = Guhuza itandukaniro
+filter.neural.color_transfer.msg.info = Ifata urutonde rw'amabara ku rwego ruri munsi. Iyo ata kiri munsi, ikoresha Ibara rigenewe.
+
+filter.neural.depth_blur.name = Igipfungu c'ubwimbike
+filter.neural.depth_blur.param.focus = Intera focal
+filter.neural.depth_blur.param.blur = Ubukomezi bw'igipfungu
+filter.neural.depth_blur.msg.no_model = {model} ntishizwemwo — hariko hibandwa hisunzwe ugutomoka kw'aho hantu.
+
+filter.neural.harmonization.name = Guhuza
+filter.neural.harmonization.param.tone = Guhuza itoni
+filter.neural.harmonization.msg.info = Ihuza uru rwego n'ikiri munsi yarwo. Iyo ata kiri munsi, nta co guhuza kiba gihari kandi nta co ikora.
+
+filter.neural.landscape_mixer.name = Kuvanga ibibanza
+filter.neural.landscape_mixer.param.bands = Imikanda y'ubwimbike
+filter.neural.landscape_mixer.msg.with_depth = Ifata urutonde rw'amabara ku rwego ruri munsi, igahuza umukanda ku wundi ikoresheje Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Ifata urutonde rw'amabara ku rwego ruri munsi. Shiramwo Depth (Depth Blur) kugira ihuze ijuru n'ijuru n'isi n'isi, aho guhuza ishusho yose hamwe.
+
+filter.neural.photo_restoration.name = Gusubizaho ifoto
+filter.neural.photo_restoration.param.enhance = Kuryohora ifoto
+filter.neural.photo_restoration.param.scratches = Kugabanya imikwaruzo
+filter.neural.photo_restoration.param.tone = Gusubizaho itoni
+filter.neural.photo_restoration.msg.no_model = Biriko birasukurwa ata moderi.
+filter.neural.photo_restoration.msg.using_deblock = Biriko bikoresha Deblock · yamenyerejwe Schist.
+filter.neural.photo_restoration.msg.using_detail = Biriko bikoresha Detail · yamenyerejwe Schist.
+filter.neural.photo_restoration.msg.using_both = Biriko bikoresha Deblock na Detail · zamenyerejwe Schist.
+
+filter.neural.photo_to_sketch.name = Guhindura ifoto igicapo
+filter.neural.photo_to_sketch.param.weight = Ubunini bw'umurongo
+filter.neural.photo_to_sketch.param.shading = Ibitutu
+
+filter.neural.face_to_caricature.name = Guhindura mu maso caricature
+filter.neural.face_to_caricature.param.mouth = Umunwa
+filter.neural.face_to_caricature.param.head = Umutwe
+filter.neural.face_to_caricature.msg.no_model = {model} ntishizwemwo, rero nta co ibi bikora — nta co guhindura caricature kiriho.
+
+filter.neural.smart_portrait.name = Portrait y'ubwenge
+filter.neural.smart_portrait.param.happiness = Umunezero
+filter.neural.smart_portrait.param.surprise = Ugutangara
+filter.neural.smart_portrait.param.age = Imyaka yo mu maso
+filter.neural.smart_portrait.param.gaze = Aho amaso araba
+filter.neural.smart_portrait.param.light = Intumbero y'umuco
+filter.neural.smart_portrait.msg.no_model = {model} ntishizwemwo, rero nta co ibi bikora — nta maso bifise yo gukorerako.
+
+filter.neural.makeup_transfer.name = Kwimura maquillage
+filter.neural.makeup_transfer.param.lips = Iminwa
+filter.neural.makeup_transfer.param.skin = Itambi ry'urukoba
+filter.neural.makeup_transfer.msg.info = Ifata maquillage yo mu maso ku rwego ruri munsi. Ibara gusa, si texture.
+filter.neural.makeup_transfer.msg.no_model = {model} ntishizwemwo, rero nta co ibi bikora.
+
+filter.neural.sketch_to_portrait.name = Guhindura igicapo portrait
+filter.neural.sketch_to_portrait.param.detail = Kugumana imirongo
+filter.neural.sketch_to_portrait.msg.with_face = Yamenyerejwe kwuzuza Guhindura ifoto igicapo y'iyi porogaramu. Ikorera ku maso ibonye.
+filter.neural.sketch_to_portrait.msg.no_face = Yamenyerejwe kwuzuza Guhindura ifoto igicapo y'iyi porogaramu. Shiramwo Faces (Skin Smoothing) maze ikorere ku maso aho gukorera ku vyatoranijwe vyose.

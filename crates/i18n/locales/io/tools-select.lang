@@ -1,0 +1,27 @@
+# Selektutensili.
+tool.select.mode.subtract = Sustracionar
+tool.select.mode.intersect = Intersekar
+tool.marquee.rect.name = Rektangula selektokadro
+tool.marquee.rect.description = Trenez rektangula selekto. Shift ye la komenco dil treno adjuntas a la selekto, Alt sustractionas, amba intersekas; Shift dum la treno igas ol quadrata. Kliko sen treno deselektas.
+tool.marquee.ellipse.name = Elipsala selektokadro
+tool.marquee.ellipse.description = Trenez elipsala selekto, kun la sama kombino per Shift/Alt kam la rektangula selektokadro.
+tool.lasso.name = Laso
+tool.lasso.description = Trenez libera konturo; la selekto klozas inter la extremi kande la treno finas. Shift adjuntas, Alt sustractionas.
+tool.lasso.history.select = Lasoselekto
+tool.lasso.polygonal.name = Poligonala laso
+tool.lasso.polygonal.description = Kliktez angulo pos angulo por konstruktar selekto kun rekta bordi, e kliktez apud la unesma punto por klozar ol.
+tool.lasso.polygonal.history.select = Poligonala laso
+tool.lasso.magnetic.name = Magnetala laso
+tool.lasso.magnetic.description = Tracez proxime along bordo e la konturo adheras a la maxim forta kontrasto apud la traco.
+tool.lasso.magnetic.history.select = Magnetala laso
+tool.lasso.magnetic.option.frequency = Frequeso
+tool.wand.name = Magika vergo
+tool.wand.description = Kliktez por selektar la konektita areo di simila koloro sub la indikilo, segun la toleroparametro -- la sama tolero uzata da Kreskigar, Simila e Kolorintervalo.
+tool.wand.option.contiguous = Kontigua
+tool.wand.history.select = Magika vergo
+tool.quick_select.name = Rapida selekto
+tool.quick_select.description = Piktez sur regiono e la selekto kreskas tra la simila pixeli tra qui la pinselo pasas.
+tool.quick_select.history.select = Rapida selekto
+tool.object_select.name = Objektoselekto
+tool.object_select.description = Trenez kadro cirkum objekto e la selekto adheras a la objekto trovita interne.
+tool.object_select.history.select = Objektoselekto

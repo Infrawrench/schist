@@ -1,0 +1,29 @@
+# أدوات تنقيح المناطق: الرقعة والنقل مع مراعاة المحتوى والعين الحمراء والممحاة السحرية.
+
+# الرقعة
+tool.patch.name = رقعة
+tool.patch.description = اسحب مخططًا حول العيب، ثم اسحب ذلك التحديد إلى وحدات بكسل سليمة؛ يُلائم النسيج هناك موضع العيب. يحدد وضع الرقعة أي طرف من الزوج تسحبه.
+tool.patch.option.patch = رقعة
+tool.patch.choice.source = المصدر
+tool.patch.choice.destination = الوجهة
+tool.patch.history.patch = تطبيق الرقعة
+
+# النقل مع مراعاة المحتوى
+tool.content_aware_move.name = نقل مع مراعاة المحتوى
+tool.content_aware_move.description = اسحب كائنًا محددًا إلى مكان آخر، فتُملأ الفجوة التي يتركها من محيطها. في وضع التمديد، يتمدد الكائن بدلًا من نقله.
+tool.content_aware_move.choice.move = نقل
+tool.content_aware_move.choice.extend = تمديد
+tool.content_aware_move.history.move = نقل مع مراعاة المحتوى
+
+# العين الحمراء
+tool.red_eye.name = العين الحمراء
+tool.red_eye.description = انقر بؤبؤ العين لإزالة الاحمرار الناتج عن ضوء الفلاش.
+tool.red_eye.option.pupil_size = حجم البؤبؤ
+tool.red_eye.option.darken = مقدار التغميق
+tool.red_eye.history.red_eye = إزالة العين الحمراء
+
+# الممحاة السحرية
+tool.magic_eraser.name = الممحاة السحرية
+tool.magic_eraser.description = انقر لمسح منطقة اللون المشابه تحت المؤشر ضمن تفاوت الأداة، سواء كانت متصلة بنقطة النقر أو موجودة في أي مكان من الطبقة.
+tool.magic_eraser.option.contiguous = متجاور
+tool.magic_eraser.history.erase = المسح بالممحاة السحرية

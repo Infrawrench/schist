@@ -1,0 +1,26 @@
+# အသွင်ပြောင်း ကိရိယာများ
+tool.transform.name = လွတ်လပ်စွာ အသွင်ပြောင်းရန်
+tool.transform.description = လွတ်လပ်စွာ အသွင်ပြောင်းပါ။ ဖွင့်လိုက်လျှင် အသုံးပြုနေသော အလွှာပတ်လည်တွင် အသွင်ပြောင်းဘောင် ပေါ်လာသည်။ အရွယ်ပြောင်းရန် ထောင့်ကို ဆွဲပါ၊ လှည့်ရန် ထောင့်အပြင်ဘက်ကို ဆွဲပါ၊ စောင်းရန် အနားတစ်ဖက်ကို ဆွဲပါ။ အတည်ပြု (Enter) မလုပ်မချင်း မည်သည့်ပြောင်းလဲမှုမျှ ရေးသွင်းမည်မဟုတ်ဘဲ ပယ်ဖျက် (Escape) လုပ်လျှင် အလွှာကို မူလအတိုင်း ပြန်ထားသည်။
+tool.transform.option.interpolation = ကြားတန်ဖိုးတွက်နည်း
+tool.transform.history.transform = လွတ်လပ်စွာ အသွင်ပြောင်းရန်
+tool.transform.history.image_size = ပုံအရွယ်အစား
+tool.transform.history.canvas_size = ပုံဖော်ဧရိယာ အရွယ်အစား
+
+tool.transform.selection.name = ရွေးချယ်မှုကို အသွင်ပြောင်းရန်
+tool.transform.selection.description = ရွေးချယ်မှုကို အသွင်ပြောင်းပါ။ တူညီသောဘောင်ကို အသုံးပြုသော်လည်း အတွင်းရှိ ပစ်ဇယ်များအစား ရွေးချယ်မှုနယ်နိမိတ်ကို ရွှေ့သည်။ ပြီးဆုံးရန် အတည်ပြု သို့မဟုတ် ပယ်ဖျက်ပါ။
+tool.transform.selection.history.transform = ရွေးချယ်မှုကို အသွင်ပြောင်းရန်
+
+tool.transform.resample.nearest_neighbor = အနီးဆုံး အိမ်နီးချင်း
+tool.transform.resample.bilinear = မျဉ်းနှစ်ထပ်
+tool.transform.resample.bicubic = ကုဗနှစ်ထပ်
+
+tool.crop.name = ဖြတ်ညှပ်ရန်
+tool.crop.description = သိမ်းထားလိုသည့် ဧရိယာကို ဆွဲရွေးပြီး လက်ကိုင်များဖြင့် ချိန်ညှိပါ။ အတည်ပြု (Enter) လုပ်လျှင် စာတမ်းကို ထိုဧရိယာအတိုင်း ဖြတ်ညှပ်ပြီး ပယ်ဖျက် (Escape) လုပ်လျှင် မပြောင်းလဲပါ။
+tool.crop.option.ratio = အချိုး
+tool.crop.option.delete_cropped = ဖြတ်ထုတ်ထားသော ပစ်ဇယ်များကို ဖျက်ရန်
+tool.crop.choice.unconstrained = ကန့်သတ်ချက်မရှိ
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = ဖြတ်ညှပ်ရန်

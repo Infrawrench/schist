@@ -1,0 +1,32 @@
+# Инструменты выделения.
+tool.select.mode.subtract = Вычесть
+tool.select.mode.intersect = Пересечение
+
+tool.marquee.rect.name = Прямоугольная область
+tool.marquee.rect.description = Перетащите указатель, чтобы создать прямоугольное выделение. Shift в начале перетаскивания добавляет область, Alt вычитает её, а обе клавиши оставляют пересечение; Shift во время перетаскивания создаёт квадрат. Щелчок без перетаскивания снимает выделение.
+tool.marquee.ellipse.name = Овальная область
+tool.marquee.ellipse.description = Перетащите указатель, чтобы создать овальное выделение. Shift и Alt объединяют его с существующим выделением так же, как для прямоугольной области.
+
+tool.lasso.name = Лассо
+tool.lasso.description = Нарисуйте произвольный контур; после завершения перетаскивания его концы соединятся. Shift добавляет область, Alt вычитает.
+tool.lasso.history.select = Выделение лассо
+tool.lasso.polygonal.name = Прямолинейное лассо
+tool.lasso.polygonal.description = Последовательно щёлкайте угловые точки, чтобы построить выделение из прямых отрезков, затем щёлкните рядом с первой точкой, чтобы замкнуть его.
+tool.lasso.polygonal.history.select = Прямолинейное лассо
+tool.lasso.magnetic.name = Магнитное лассо
+tool.lasso.magnetic.description = Приблизительно проведите вдоль края, и контур привяжется к самому сильному перепаду контраста рядом с траекторией.
+tool.lasso.magnetic.history.select = Магнитное лассо
+tool.lasso.magnetic.option.frequency = Частота
+
+tool.wand.name = Волшебная палочка
+tool.wand.description = Щёлкните, чтобы выделить связанную область похожего цвета под указателем в пределах допуска — того же значения, которое используют команды «Расширить», «Подобные оттенки» и «Цветовой диапазон».
+tool.wand.option.contiguous = Смежные пиксели
+tool.wand.history.select = Волшебная палочка
+
+tool.quick_select.name = Быстрое выделение
+tool.quick_select.description = Проведите кистью по области, и выделение распространится на похожие пиксели, через которые проходит кисть.
+tool.quick_select.history.select = Быстрое выделение
+
+tool.object_select.name = Выделение объектов
+tool.object_select.description = Обведите объект прямоугольником, и выделение привяжется к найденному внутри объекту.
+tool.object_select.history.select = Выделение объектов

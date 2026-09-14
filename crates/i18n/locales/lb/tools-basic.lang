@@ -1,0 +1,23 @@
+# Grondwierkzeechen: Verréckelen, Pipett, Hand a Zoom.
+
+tool.move.name = Verréckelen
+tool.move.description = Zitt den Inhalt vun der aktiver Eben op eng nei Positioun. Wann Automatesch auswielen aktiv ass, wielt den éischten Drock déi Eben – oder de ganze Grupp – ënner dem Mauszeiger aus.
+tool.move.option.auto_select = Automatesch auswielen
+tool.move.history.move_layer = Eben verréckelen
+
+tool.eyedropper.name = Pipett
+tool.eyedropper.description = Iwwerhëlt d'Faarf ënner dem Mauszeiger an d'Virdergrondfaarffeld, oder an d'Hannergrondfaarffeld wann Alt gedréckt ass. Beim Zéie gëtt d'Faarf weider iwwerholl.
+tool.eyedropper.option.sample_size = Proufgréisst
+tool.eyedropper.option.sample = Prouf
+tool.eyedropper.choice.point_sample = Punktprouf
+tool.eyedropper.choice.average_3 = 3 × 3 Duerchschnëtt
+tool.eyedropper.choice.average_5 = 5 × 5 Duerchschnëtt
+tool.eyedropper.choice.average_11 = 11 × 11 Duerchschnëtt
+tool.eyedropper.choice.average_31 = 31 × 31 Duerchschnëtt
+tool.eyedropper.choice.all_layers = All Ebenen
+tool.eyedropper.choice.current_layer = Aktuell Eben
+
+tool.hand.name = Hand
+tool.hand.description = Verréckelt d'Usiicht. Den Usichtsberäich gehéiert zur Fënster; ouni grafesch Uewerfläch ännert dëst Wierkzeug dofir näischt um Dokument.
+tool.zoom.name = Zoom
+tool.zoom.description = Vergréissert oder verklengert d'Usiicht. Den Usichtsberäich gehéiert zur Fënster; ouni grafesch Uewerfläch ännert dëst Wierkzeug dofir näischt um Dokument.

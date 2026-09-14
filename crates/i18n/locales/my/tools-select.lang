@@ -1,0 +1,32 @@
+# ရွေးချယ်ကိရိယာများ
+tool.select.mode.subtract = နုတ်ရန်
+tool.select.mode.intersect = ဆုံမှတ်ယူရန်
+
+tool.marquee.rect.name = ထောင့်မှန်စတုဂံ ရွေးချယ်ဘောင်
+tool.marquee.rect.description = ထောင့်မှန်စတုဂံ ရွေးချယ်မှုတစ်ခု ဆွဲပါ။ စဆွဲချိန်တွင် Shift ကို ဖိထားလျှင် ရွေးချယ်မှုထဲ ပေါင်းထည့်ပြီး Alt က နုတ်သည်၊ နှစ်ခုလုံးက ဆုံမှတ်ကိုယူသည်။ ဆွဲနေစဉ် Shift ကို ဖိထားလျှင် စတုရန်းပုံဖြစ်စေသည်။ မဆွဲဘဲ နှိပ်လျှင် ရွေးချယ်မှုကို ဖြုတ်သည်။
+tool.marquee.ellipse.name = ဘဲဥပုံ ရွေးချယ်ဘောင်
+tool.marquee.ellipse.description = ထောင့်မှန်စတုဂံ ရွေးချယ်ဘောင်ကဲ့သို့ Shift/Alt ဖြင့် ပေါင်းစပ်နိုင်သော ဘဲဥပုံရွေးချယ်မှုကို ဆွဲပါ။
+
+tool.lasso.name = လက်လွတ်ကြိုးဝိုင်း
+tool.lasso.description = လက်လွတ်နယ်နိမိတ်ကို ဆွဲပါ။ ဆွဲခြင်းပြီးဆုံးချိန်တွင် အစနှင့်အဆုံးကို ဆက်ပြီး ရွေးချယ်မှုကို ပိတ်ပေးသည်။ Shift က ပေါင်းထည့်ပြီး Alt က နုတ်သည်။
+tool.lasso.history.select = လက်လွတ်ကြိုးဝိုင်း ရွေးချယ်မှု
+tool.lasso.polygonal.name = အနားဖြောင့်ကြိုးဝိုင်း
+tool.lasso.polygonal.description = အနားဖြောင့်ရွေးချယ်မှု ဖန်တီးရန် ထောင့်တစ်ခုပြီးတစ်ခု နှိပ်၍ ပထမအမှတ်အနီးကို နှိပ်ကာ ပိတ်ပါ။
+tool.lasso.polygonal.history.select = အနားဖြောင့်ကြိုးဝိုင်း
+tool.lasso.magnetic.name = သံလိုက်ကြိုးဝိုင်း
+tool.lasso.magnetic.description = အနားတစ်လျှောက် အကြမ်းဖျင်းဆွဲလျှင် နယ်နိမိတ်သည် လမ်းကြောင်းအနီးရှိ ခြားနားမှုအပြင်းဆုံးနေရာသို့ ကပ်သည်။
+tool.lasso.magnetic.history.select = သံလိုက်ကြိုးဝိုင်း
+tool.lasso.magnetic.option.frequency = အကြိမ်နှုန်း
+
+tool.wand.name = မှော်တံ
+tool.wand.description = ညွှန်တံအောက်ရှိ ဆင်တူအရောင်နှင့် ဆက်စပ်သော ဧရိယာကို သည်းခံအတိုင်းအတာအတွင်း ရွေးရန် နှိပ်ပါ။ ဤသည်မှာ ချဲ့ရန်၊ ဆင်တူမှုနှင့် အရောင်အပိုင်းအခြားတို့ အသုံးပြုသည့် တူညီသော သည်းခံအတိုင်းအတာဖြစ်သည်။
+tool.wand.option.contiguous = ဆက်စပ်ဧရိယာသာ
+tool.wand.history.select = မှော်တံ
+
+tool.quick_select.name = အမြန်ရွေးချယ်မှု
+tool.quick_select.description = ဧရိယာတစ်ခုပေါ် ဆေးခြယ်လျှင် စုတ်တံ ဖြတ်သွားသော ဆင်တူပစ်ဇယ်များတစ်လျှောက် ရွေးချယ်မှု ကျယ်လာသည်။
+tool.quick_select.history.select = အမြန်ရွေးချယ်မှု
+
+tool.object_select.name = အရာဝတ္ထု ရွေးချယ်မှု
+tool.object_select.description = အရာဝတ္ထုပတ်လည်တွင် ဘောင်တစ်ခု ဆွဲလျှင် အတွင်း၌ တွေ့သည့် အရာဝတ္ထုနှင့် ကိုက်ညီအောင် ရွေးချယ်ပေးသည်။
+tool.object_select.history.select = အရာဝတ္ထု ရွေးချယ်မှု

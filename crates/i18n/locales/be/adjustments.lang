@@ -1,0 +1,20 @@
+# Карэкціруючыя пласты і каманды «Відарыс ▸ Карэкцыя»: назвы.
+adjustment.levels.name = Узроўні
+adjustment.curves.name = Крывыя
+adjustment.hue_saturation.name = Адценне/Насычанасць
+adjustment.brightness_contrast.name = Яркасць/Кантраст
+adjustment.black_white.name = Чорна-белае
+adjustment.solid_color.name = Суцэльны колер
+adjustment.gradient_fill.name = Градыентная заліўка
+adjustment.pattern_fill.name = Заліўка ўзорам
+adjustment.invert.name = Інверсія
+adjustment.posterize.name = Пастэрызацыя
+adjustment.threshold.name = Парог
+adjustment.color_balance.name = Баланс колераў
+adjustment.vibrance.name = Сакавітасць
+adjustment.exposure.name = Экспазіцыя
+adjustment.photo_filter.name = Фотафільтр
+adjustment.gradient_map.name = Карта градыента
+adjustment.selective_color.name = Выбарачная карэкцыя колеру
+adjustment.channel_mixer.name = Змешванне каналаў
+adjustment.other.name = Карэкцыя

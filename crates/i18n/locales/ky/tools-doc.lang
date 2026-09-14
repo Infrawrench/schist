@@ -1,0 +1,24 @@
+tool.artboard.name = Монтаждык аймак
+tool.artboard.description = Монтаждык аймакты — кенептин өзүнчө экспорттолуучу, аталышы бар бөлүгүн — сүйрөп түзүңүз. Учурдагы аймактын ичин сүйрөсөңүз, ал жылат.
+tool.artboard.default_name = Монтаждык аймак {n}
+
+tool.slice.name = Тилме
+tool.slice.description = Экспорттук тилмени — кенептин өзүнчө сүрөт болуп экспорттолуучу, аталышы бар тик бурчтуу бөлүгүн — сүйрөп түзүңүз. Учурдагы тилменин ичин сүйрөсөңүз, ал жылат.
+tool.slice.default_name = Тилме {n}
+
+tool.frame.name = Алкак
+tool.frame.description = Алкакты — ичине жайгашкан нерсенин көрүнүшүн чектеген тик бурчтуу (же эллипс сымал) катмарды — сүйрөп түзүңүз.
+tool.frame.default_name = Алкак {n}
+tool.frame.choice.rectangle = Тик бурчтук
+tool.frame.choice.ellipse = Эллипс
+tool.frame.history.frame = Алкак
+
+tool.note.name = Эскертме
+tool.note.description = Бош кенепти басып, редактордун абалындагы автору жана түсү көрсөтүлгөн эскертмени ошол жерге кадаңыз; учурдагы белгини басып, аны «Эскертмелер» панелинен тандаңыз.
+tool.note.history.place = Эскертме коюу
+tool.note.history.move = Эскертмени жылдыруу
+tool.note.history.delete = Эскертмени өчүрүү
+
+tool.count.name = Эсептегич
+tool.count.description = Басып, кенепке номерленген эсеп белгилерин коюңуз; учурдагы белгини бассаңыз, ал өчүрүлөт.
+tool.count.default_name = Эсеп {n}

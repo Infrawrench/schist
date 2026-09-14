@@ -1,0 +1,9 @@
+{
+  "loading": "Nalaganje …",
+  "starting": "Zaganjanje …",
+  "webgpu": "Schist potrebuje WebGPU, ki ga ta brskalnik ne podpira. Podpirajo ga Chrome/Edge 113+, Firefox 141+ in Safari 26+.",
+  "noticeTitle": "Schist najbolje deluje kot namizna aplikacija",
+  "noticeBody": "Uporabljate spletno različico, ki je lažja različica programa: sestavljanje slike izvaja s procesorjem in ne vključuje nekaterih možnosti — vtičnikov za Photoshop in vtičnikov drugih ponudnikov, galerije slik, plošče za umetno inteligenco, uvoza HEIC ter prenosa pisav — datoteke pa se shranijo kot prenosi. Brezplačna namizna aplikacija za macOS, Windows in Linux vključuje vse te možnosti.",
+  "noticeLink": "Prenesite namizno aplikacijo.",
+  "ok": "V redu"
+}

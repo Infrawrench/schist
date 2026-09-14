@@ -1,0 +1,25 @@
+tool.transform.name = Fri transformering
+tool.transform.description = Fri transformering opnar ei transformeringsramme rundt det aktive laget. Dra i eit hjørne for å skalera, utanfor eit hjørne for å rotera, eller i ein kant for å skråstilla. Ingenting vert skrive før du stadfestar med Enter. Avbryt du med Escape, vert laget sett tilbake.
+tool.transform.option.interpolation = Interpolering
+tool.transform.history.transform = Fri transformering
+tool.transform.history.image_size = Biletstorleik
+tool.transform.history.canvas_size = Lerretsstorleik
+
+tool.transform.selection.name = Transformer utval
+tool.transform.selection.description = Transformer utval brukar den same ramma, men flyttar omrisset av utvalet i staden for pikslane inni. Stadfest eller avbryt for å fullføra.
+tool.transform.selection.history.transform = Transformer utval
+
+tool.transform.resample.nearest_neighbor = Næraste nabo
+tool.transform.resample.bilinear = Bilineær
+tool.transform.resample.bicubic = Bikubisk
+
+tool.crop.name = Skjer til
+tool.crop.description = Dra ut området du vil behalda, og juster handtaka. Når du stadfestar med Enter, vert dokumentet skore ned til området. Avbryt du med Escape, vert det ikkje endra.
+tool.crop.option.ratio = Sidehøve
+tool.crop.option.delete_cropped = Slett bortskorne pikslar
+tool.crop.choice.unconstrained = Utan avgrensingar
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Skjer til

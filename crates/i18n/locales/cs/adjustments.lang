@@ -1,0 +1,20 @@
+# Vrstvy úprav a příkazy Obraz ▸ Přizpůsobení: názvy.
+adjustment.levels.name = Úrovně
+adjustment.curves.name = Křivky
+adjustment.hue_saturation.name = Odstín a sytost
+adjustment.brightness_contrast.name = Jas a kontrast
+adjustment.black_white.name = Černobílý
+adjustment.solid_color.name = Plná barva
+adjustment.gradient_fill.name = Výplň přechodem
+adjustment.pattern_fill.name = Výplň vzorkem
+adjustment.invert.name = Invertovat
+adjustment.posterize.name = Posterizovat
+adjustment.threshold.name = Práh
+adjustment.color_balance.name = Vyvážení barev
+adjustment.vibrance.name = Živost
+adjustment.exposure.name = Expozice
+adjustment.photo_filter.name = Fotografický filtr
+adjustment.gradient_map.name = Mapa přechodu
+adjustment.selective_color.name = Selektivní barva
+adjustment.channel_mixer.name = Míchání kanálů
+adjustment.other.name = Úprava

@@ -1,0 +1,27 @@
+# ରୂପାନ୍ତର, ଚୟନ ରୂପାନ୍ତର ଏବଂ କ୍ରପ୍ ଉପକରଣ।
+
+tool.transform.name = ମୁକ୍ତ ରୂପାନ୍ତର
+tool.transform.description = ମୁକ୍ତ ରୂପାନ୍ତର। ଏହାକୁ ସକ୍ରିୟ କଲେ ସକ୍ରିୟ ସ୍ତର ଚାରିପଟେ ଏକ ରୂପାନ୍ତର ବାକ୍ସ ଖୋଲେ: ଆକାର ବଦଳାଇବାକୁ କୋଣ ଟାଣନ୍ତୁ, ଘୂରାଇବାକୁ କୋଣର ବାହାରେ ଟାଣନ୍ତୁ ଏବଂ ତେରଛା କରିବାକୁ ଧାର ଟାଣନ୍ତୁ। ନିଶ୍ଚିତ (Enter) ନ କରିବା ପର୍ଯ୍ୟନ୍ତ କୌଣସି ପରିବର୍ତ୍ତନ ଲେଖାଯାଏ ନାହିଁ; ବାତିଲ୍ (Escape) କଲେ ସ୍ତରଟି ପୂର୍ବ ଅବସ୍ଥାକୁ ଫେରେ।
+tool.transform.option.interpolation = ଇଣ୍ଟର୍‌ପୋଲେସନ୍
+tool.transform.history.transform = ମୁକ୍ତ ରୂପାନ୍ତର
+tool.transform.history.image_size = ଛବି ଆକାର
+tool.transform.history.canvas_size = କ୍ୟାନଭାସ୍ ଆକାର
+
+tool.transform.selection.name = ଚୟନ ରୂପାନ୍ତର
+tool.transform.selection.description = ଚୟନ ରୂପାନ୍ତର: ସେହି ଏକା ବାକ୍ସ, କିନ୍ତୁ ଏହା ଭିତର ପିକ୍ସେଲ୍‌ ବଦଳରେ ଚୟନ ସୀମାରେଖାକୁ ଘୁଞ୍ଚାଏ। ଶେଷ କରିବାକୁ ନିଶ୍ଚିତ କିମ୍ବା ବାତିଲ୍ କରନ୍ତୁ।
+tool.transform.selection.history.transform = ଚୟନ ରୂପାନ୍ତର
+
+tool.transform.resample.nearest_neighbor = ନିକଟତମ ପଡ଼ୋଶୀ
+tool.transform.resample.bilinear = ଦ୍ୱିରୈଖିକ
+tool.transform.resample.bicubic = ଦ୍ୱିଘନ
+
+tool.crop.name = କ୍ରପ୍
+tool.crop.description = ରଖିବାକୁ ଥିବା ଅଞ୍ଚଳକୁ ଟାଣି ଚିହ୍ନଟ କରନ୍ତୁ ଏବଂ ତାହାର ହ୍ୟାଣ୍ଡଲ୍‌ଗୁଡ଼ିକ ସଜାଡ଼ନ୍ତୁ; ନିଶ୍ଚିତ (Enter) କଲେ ଡକ୍ୟୁମେଣ୍ଟଟି ସେହି ଅଞ୍ଚଳ ଅନୁସାରେ କଟିଯାଏ, ବାତିଲ୍ (Escape) କଲେ ଅପରିବର୍ତ୍ତିତ ରହେ।
+tool.crop.option.ratio = ଅନୁପାତ
+tool.crop.option.delete_cropped = କଟାଯାଇଥିବା ପିକ୍ସେଲ୍ ବିଲୋପ କରନ୍ତୁ
+tool.crop.choice.unconstrained = ଅବାଧ
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = କ୍ରପ୍

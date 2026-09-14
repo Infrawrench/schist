@@ -1,0 +1,43 @@
+# Galariá de filtres
+app.filter_gallery.title = Galariá de filtres
+app.filter_gallery.stack = Pila (aplicada de bas cap a naut)
+app.filter_gallery.no_settings = Aqueste filtre a pas cap de paramètre.
+
+# Poliças
+app.fonts.not_open_licensed = pas jos licéncia liura · {substitute} a las meteissas metricas
+app.fonts.missing_substituted = absenta · lo tèxte utiliza una poliça de substitucion
+app.fonts.not_in_catalogue = {family} es pas dins lo catalòg de poliças liuras
+app.fonts.no_faces = cap de varianta telecargabla per {family}
+app.fonts.empty_response = responsa voida
+
+# Mesa a jorn automatica
+app.update.unreadable_response = responsa illegibla : {error}
+app.update.no_temp_dir = cap de dorsièr temporari ont telecargar
+app.update.asset_has_path = la version publicada nomena son ressorsa amb un camin
+app.update.too_big = lo telecargament es mai grand que la talha indicada per la version
+app.update.stopped_at = lo telecargament s'es arrestat a {got} octets sus {total}
+app.update.hash_mismatch = l'emprenta del telecargament es {got} al luòc de {want}
+app.update.not_in_bundle = aquesta còpia es pas dins un paquet d'aplicacion
+app.update.no_parent_dir = lo paquet d'aplicacion a pas de dorsièr parent
+app.update.cannot_write = impossible d'escriure dins {dir}
+app.update.cannot_move_aside = impossible de metre {app} de costat
+app.update.cannot_move_in = impossible de metre lo paquet novèl a sa plaça
+app.update.cannot_run_ditto = impossible d'executar /usr/bin/ditto
+app.update.unpack_failed = fracàs a la descompression del telecargament : {error}
+app.update.no_app_in_download = lo telecargament conten pas Schist.app
+app.update.cannot_run_codesign = impossible d'executar /usr/bin/codesign
+app.update.signature_invalid = la signatura del telecargament es pas validada : {error}
+app.update.download_unsigned = aquesta còpia es signada, mas lo telecargament o es pas
+app.update.different_developer = lo telecargament es signat per un desvolopaire diferent
+app.update.cannot_relaunch = impossible d'aviar lo programa de reaviada
+app.update.not_installed_copy = aquesta còpia es pas estada plaçada aicí per l'installador
+app.update.cannot_start_installer = impossible d'aviar l'installador
+app.update.platform_unsupported = sus aquesta plataforma, las mesas a jorn s'installan del meteis biais que Schist
+
+# Verificacion de Vulkan sus Linux
+app.vulkan.no_loader = schist: i a pas cap de cargador Vulkan sus aqueste sistèma, doncas i a pas res per dessenhar.\n\nSchist fa lo rendut amb Vulkan, e `libvulkan.so.1` es pas installat.\nCal tant lo cargador coma un pilòt :\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: lo pilòt Vulkan indicat per aquesta session existís pas.\n\n{var} es definida, e sa definicion *remplaça* la recèrca de pilòts del cargador al luòc de la completar.\nAquestes fichièrs, qu'existisson pas, constituïsson doncas la lista entièra dels pilòts\n— e totes los programas Vulkan d'aquesta session veson pas cap de pilòt,\nquin que siá lo nombre de pilòts installats :\n\n{missing}\n    {var}={value}\n\nIndicatz un manifèst existent — los pilòts installats meton los sieus dins\n/usr/share/vulkan/icd.d — o suprimissètz la definicion e daissatz lo cargador trobar los sieus.\nSe la session definís aquò dempuèi un fichièr de configuracion (`env =` de Hyprland, un\nfichièr environment.d de systemd, un perfil de shell), cal cambiar la valor aquí ;\nuna connexion novèla es necessària per que lo cambiament atenhe çò qu'es ja en cors d'execucion.\n
+app.vulkan.override_note = \n{var} es definida a {value}, çò que remplaça la recèrca pròpria del\ncargador : se cap d'aquestes manifèstes correspond pas a aquesta maquina,\nsuprimir aquela definicion es la primièra causa d'ensajar.\n
+app.vulkan.no_driver = schist: cap de pilòt Vulkan es pas installat, doncas i a pas res per dessenhar.\n\nSchist fa lo rendut amb Vulkan. Lo cargador es installat e senhala pas cap de\npilòt — degun n'es estat enregistrat dins los dos emplaçaments ont son cercats :\n\n{dirs}\n\nLo cargador es distribuit separadament dels pilòts ; en general, manca doncas\nun sol paquet.\n\nInstallatz lo pilòt del processor grafic d'aquesta maquina :\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nLo pilòt proprietari d'NVIDIA inclutz lo sieu (`nvidia-utils` sus Arch,\n`nvidia-driver` sus Debian). Dins una maquina virtuala, o quand i a pas cap\nde pilòt grafic d'installar, lo rasterizador logicial es la solucion que fonciona :\n`vulkan-swrast` sus Arch, e una partida de `mesa-vulkan-drivers` endacòm mai.\nEs lent, mas s'avia.\n{overridden}
+app.vulkan.no_device = schist: un pilòt Vulkan es installat, mas prepausa pas cap de periferic pel rendut.\n\nEs possible que lo pilòt prenga pas en carga aqueste processor grafic, o que lo\npòsca pas aténher — per SSH o dins un contenidor, /dev/dri manca sovent.\n`vulkaninfo --summary` indica çò que lo cargador vei.\n\nLo rasterizador logicial pòt far lo rendut sens cap de processor grafic, se\naquesta maquina n'a pas : `vulkan-swrast` sus Arch, e una partida de\n`mesa-vulkan-drivers` sus Debian e Fedora.\n
+app.vulkan.skip_hint = Per aviar Schist malgrat tot e lo daissar fracassar a son biais, definissètz {var}=1.

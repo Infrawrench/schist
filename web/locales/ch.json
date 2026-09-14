@@ -1,0 +1,9 @@
+{
+  "loading": "Makåkarga…",
+  "starting": "Tutuhon…",
+  "webgpu": "Ha nisisita i Schist i WebGPU, lao ti ha suporta este na browser. Ma suporta i Chrome/Edge 113+, Firefox 141+ yan Safari 26+.",
+  "noticeTitle": "Mås måolik macho'cho' i Schist komu desktop app",
+  "noticeBody": "Un u'usa i web version, ni mas dikike' na build: ha komposi i imåhen siha gi CPU yan ti mana'hålom palo na feature — i Photoshop plug-in siha yan i third-party plug-in siha, i image gallery, i AI panel, i HEIC import yan i font download siha — ya mañåsave i file siha komu download. Guaha todu este gi dibåtde na desktop app para macOS, Windows yan Linux.",
+  "noticeLink": "Chule' i desktop app.",
+  "ok": "OK"
+}

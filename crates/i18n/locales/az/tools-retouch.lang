@@ -1,0 +1,29 @@
+# Sahə retuşu alətləri: Yamaq, Məzmundan asılı köçürmə, Qırmızı göz və Sehrli pozan.
+
+# Yamaq
+tool.patch.name = Yamaq
+tool.patch.description = Qüsurun ətrafında kontur çəkin, sonra seçimi təmiz piksellərin üzərinə sürükləyin: oradakı tekstura qüsura uyğunlaşdırılır. Yamaq rejimi cütün hansı ucunu sürükləyəcəyinizi müəyyən edir.
+tool.patch.option.patch = Yamaq
+tool.patch.choice.source = Mənbə
+tool.patch.choice.destination = Təyinat
+tool.patch.history.patch = Yamaq
+
+# Məzmundan asılı köçürmə
+tool.content_aware_move.name = Məzmundan asılı köçürmə
+tool.content_aware_move.description = Seçilmiş obyekti başqa yerə sürükləyin; onun yerində qalan boşluq ətrafdakı məzmunla doldurulur. Genişləndirmə rejimində obyekt köçürülmək əvəzinə uzadılır.
+tool.content_aware_move.choice.move = Köçür
+tool.content_aware_move.choice.extend = Genişləndir
+tool.content_aware_move.history.move = Məzmundan asılı köçürmə
+
+# Qırmızı göz
+tool.red_eye.name = Qırmızı göz
+tool.red_eye.description = Flaşın yaratdığı qırmızılığı aradan qaldırmaq üçün göz bəbəyinə klikləyin.
+tool.red_eye.option.pupil_size = Göz bəbəyinin ölçüsü
+tool.red_eye.option.darken = Tündləşdir
+tool.red_eye.history.red_eye = Qırmızı göz
+
+# Sehrli pozan
+tool.magic_eraser.name = Sehrli pozan
+tool.magic_eraser.description = Alətin dözümlülük həddi daxilində göstəricinin altındakı oxşar rəngli sahəni silmək üçün klikləyin; ya kliklənmiş yerə bitişik sahə, ya da qatdakı bütün uyğun sahələr silinir.
+tool.magic_eraser.option.contiguous = Bitişik
+tool.magic_eraser.history.erase = Sehrli pozan

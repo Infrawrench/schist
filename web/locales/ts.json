@@ -1,0 +1,9 @@
+{
+  "loading": "Ya layicha…",
+  "starting": "Ya sungula…",
+  "webgpu": "Schist yi lava WebGPU, leyi browser leyi yi nga riki na yona. Chrome/Edge 113+, Firefox 141+ na Safari 26+ ti na yona.",
+  "noticeTitle": "Schist yi tirha kahle ngopfu yi ri app ya desktop",
+  "noticeBody": "U tirhisa vuhundzuluxi bya webu, ku nga build yo vevuka: yi hlanganisa swifaniso hi CPU naswona a yi katsi swihlawulekisi swin'wana—ti-plug-in ta Photoshop ni ti-plug-in ta vanhu van'wana, galari ya swifaniso, phanele ya AI, ku nghenisa HEIC ni ku dawuniloda tifonto—naswona tifayili ti hlayisiwa ti ri leswi dawunilodiwaka. App ya mahala ya desktop ya macOS, Windows na Linux yi na swona hinkwato.",
+  "noticeLink": "Kuma app ya desktop.",
+  "ok": "Swi lulamile"
+}

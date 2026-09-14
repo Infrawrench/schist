@@ -1,0 +1,47 @@
+# Spalvas
+tool.pen.name = Spalva
+tool.pen.description = Veidojiet ceļu: noklikšķiniet, lai izveidotu stūra punktu, velciet, lai no tā izvilktu līknes turus, un noklikšķiniet uz pirmā punkta, lai ceļu noslēgtu. Apstiprinot ceļš tiek pārvērsts formas slānī.
+tool.pen.option.rubber_band = Gumijas lente
+tool.pen.history.fill = Ceļa aizpildījums
+tool.pen.default_path_name = Ceļš {n}
+tool.pen.freeform.name = Brīvrokas spalva
+tool.pen.freeform.description = Velciet brīvrokas līniju, un tā tiks pielāgota ceļam ar opcijā Pielāgošana norādīto precizitāti.
+tool.pen.freeform.option.fit = Pielāgošana
+tool.pen.curvature.name = Liekuma spalva
+tool.pen.curvature.description = Noklikšķiniet vairākos punktos, un ceļš tiks vienmērīgi izliekts caur tiem.
+
+# Atlases bultiņas
+tool.path_select.name = Ceļa atlase
+tool.path_select.description = Noklikšķiniet uz ceļa, lai to atlasītu, un velciet, lai pārvietotu visu ceļu.
+tool.direct_select.name = Tiešā atlase
+tool.direct_select.description = Velciet atsevišķu enkurpunktu vai tā turus, lai mainītu ceļa formu ap šo punktu.
+
+# Formas
+tool.shape.history.layer = Slānis {name}
+tool.shape.rect.name = Taisnstūra rīks
+tool.shape.rect.label = Taisnstūris
+tool.shape.rect.description = Velkot izveidojiet priekšplāna krāsas taisnstūra formas slāni; tas paliek vektoru formā un pēc lieluma maiņas tiek rastrēts no jauna.
+tool.shape.ellipse.name = Elipses rīks
+tool.shape.ellipse.label = Elipse
+tool.shape.ellipse.description = Velkot izveidojiet priekšplāna krāsas elipses formas slāni.
+tool.shape.line.name = Līnijas rīks
+tool.shape.line.label = Līnija
+tool.shape.line.description = Velkot izveidojiet priekšplāna krāsas taisnas līnijas formas slāni.
+tool.shape.line.option.weight = Biezums
+tool.shape.line.option.arrow_start = Sākums
+tool.shape.line.option.arrow_end = Beigas
+tool.shape.polygon.name = Daudzstūra rīks
+tool.shape.polygon.label = Daudzstūris
+tool.shape.polygon.description = Velkot izveidojiet priekšplāna krāsas regulāra daudzstūra formas slāni; malu skaitu nosaka opcijās.
+tool.shape.polygon.option.sides = Malas
+
+# Pielāgotas formas
+tool.shape.custom.name = Pielāgota forma
+tool.shape.custom.label = Pielāgota forma
+tool.shape.custom.description = Velkot izveidojiet kādu no iebūvētajām sagatavotajām formām, kas izvēlēta ar opciju Forma.
+tool.shape.custom.choice.heart = Sirds
+tool.shape.custom.choice.star = Zvaigzne
+tool.shape.custom.choice.arrow = Bulta
+tool.shape.custom.choice.lightning = Zibens
+tool.shape.custom.choice.cross = Krusts
+tool.shape.custom.choice.speech_bubble = Runas burbulis

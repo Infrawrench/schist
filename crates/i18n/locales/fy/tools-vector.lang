@@ -1,0 +1,47 @@
+# Pinnen
+tool.pen.name = Pinne
+tool.pen.description = Meitsje in paad: klik foar in hoekpunt, sleep om der krommehânsels út te lûken en klik op it earste punt om it paad te sluten. By befêstigjen wurdt it paad in foarmlaach.
+tool.pen.option.rubber_band = Elastyske line
+tool.pen.history.fill = Paadfolling
+tool.pen.default_path_name = Paad {n}
+tool.pen.freeform.name = Frije pinne
+tool.pen.freeform.description = Sleep in frije line; dy wurdt neffens de opsje Passend mear of minder strak yn in paad past.
+tool.pen.freeform.option.fit = Passend
+tool.pen.curvature.name = Krommepinne
+tool.pen.curvature.description = Klik op in rige punten; it paad wurdt dêr glêd trochhinne bûgd.
+
+# Seleksjepylken
+tool.path_select.name = Paadseleksje
+tool.path_select.description = Klik op in paad om it te selektearjen en sleep om it hiele paad te ferpleatsen.
+tool.direct_select.name = Direkte seleksje
+tool.direct_select.description = Sleep in apart ankerpunt of de hânsels dêrfan om it paad deromhinne in oare foarm te jaan.
+
+# Foarmen
+tool.shape.history.layer = {name}-laach
+tool.shape.rect.name = Rjochthoeke-ark
+tool.shape.rect.label = Rjochthoeke
+tool.shape.rect.description = Sleep in rjochthoekige foarmlaach yn de foargrûnkleur út; dy bliuwt in fektor en wurdt by feroarjen fan grutte opnij rastere.
+tool.shape.ellipse.name = Ellipsark
+tool.shape.ellipse.label = Ellips
+tool.shape.ellipse.description = Sleep in elliptyske foarmlaach yn de foargrûnkleur út.
+tool.shape.line.name = Line-ark
+tool.shape.line.label = Line
+tool.shape.line.description = Sleep in foarmlaach mei in rjochte line yn de foargrûnkleur út.
+tool.shape.line.option.weight = Dikte
+tool.shape.line.option.arrow_start = Begjin
+tool.shape.line.option.arrow_end = Ein
+tool.shape.polygon.name = Mearhoeke-ark
+tool.shape.polygon.label = Mearhoeke
+tool.shape.polygon.description = Sleep in foarmlaach mei in regelmjittige mearhoeke yn de foargrûnkleur út, mei it tal siden út de opsjes.
+tool.shape.polygon.option.sides = Siden
+
+# Oanpaste foarmen
+tool.shape.custom.name = Oanpaste foarm
+tool.shape.custom.label = Oanpaste foarm
+tool.shape.custom.description = Sleep ien fan de ynboude foarynstellingen foar foarmen út, keazen mei de opsje Foarm.
+tool.shape.custom.choice.heart = Hert
+tool.shape.custom.choice.star = Stjer
+tool.shape.custom.choice.arrow = Pylk
+tool.shape.custom.choice.lightning = Wjerljocht
+tool.shape.custom.choice.cross = Krús
+tool.shape.custom.choice.speech_bubble = Tekstballon

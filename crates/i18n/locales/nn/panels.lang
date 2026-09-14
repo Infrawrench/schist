@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigatør
+panel.navigator.actual_pixels = Faktiske pikslar
+
+panel.color.picker = Fargeveljar …
+panel.color.swap = Byt fargar
+panel.color.reset = Tilbakestill til svart og kvitt
+
+panel.layers.blending_options = Fletteinnstillingar …
+panel.layers.properties = Lageigenskapar …
+panel.layers.show_hide = Vis/gøym lag
+panel.layers.toggle_visibility = Byt synlegheit
+
+panel.history.title = Historikk
+panel.history.opened = Opna
+
+panel.info.title = Info
+panel.info.camera = Kamera
+panel.info.lens = Objektiv
+panel.info.iso = ISO {iso}
+panel.info.bias = Eksponeringskompensasjon
+panel.info.flash_fired = blitsen vart utløyst
+panel.info.no_flash = ingen blits
+panel.info.white_balance = Kvitbalanse {wb}
+panel.info.metering = {metering}-lysmåling
+panel.info.taken = Teke
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · retning {o}
+panel.info.software = Programvare
+panel.info.where = Stad
+
+panel.notes.author = Forfattar
+panel.notes.clear_all = Fjern alle
+panel.notes.unattributed = Utan forfattar
+panel.notes.empty = Klikk på lerretet for å leggja att ein merknad.
+panel.notes.placeholder = Klikk for å skriva
+
+panel.character.title = Teikn
+panel.character.type_tool = Tekstverktøy (T)
+panel.character.align_left = Venstrejuster
+panel.character.align_center = Midtstill
+panel.character.align_right = Høgrejuster
+panel.character.text_color = Tekstfarge
+panel.character.panel = Teiknpanel
+panel.character.cancel_edit = Avbryt tekstredigering
+panel.character.commit_edit = Stadfest tekstredigering
+panel.character.number_tip = {label} · Skriv inn ein verdi, eller bruk ↑/↓ (Shift gjev større steg)
+panel.character.leading = Linjeavstand
+panel.character.tracking = Teiknavstand
+panel.character.alignment = Justering
+panel.character.opentype = OpenType
+panel.character.text_on_path = Tekst på bane
+panel.character.straight = Rett
+panel.character.on_path = På bane
+panel.character.straight_tip = Bruk den vanlege grunnlinja til tekstlaget
+panel.character.on_path_tip = Bruk ein kopi av den aktive bana
+panel.character.path_offset = Forskyving på bane
+
+panel.ai.title = KI
+panel.ai.empty_editor = Be om ei endring og sjå henne skje på lerretet. Agenten styrer dei same verktøya, filtera og kommandoane som menyane, med eitt angresteg for kvar handling.
+panel.ai.empty_gallery = Spør om fotografia dine og sjå svaret i galleriet. Agenten kan søkja, sjå på miniatyrar, velja, sortera i grupper og opna eit foto i redigeringa.
+panel.ai.thinking = tenkjer …
+panel.ai.placeholder_editor = Spør om eller rediger dette dokumentet
+panel.ai.placeholder_gallery = Spør om fotografia dine
+panel.ai.send = Send
+panel.ai.stop = Stopp
+panel.ai.fetching_models = Spør kommandolinjeverktøyet etter modellane …
+panel.ai.no_models = Ingen modellar passar
+panel.ai.search_models = Søk etter modellar …
+
+panel.keymap.install_plugin = Installer programtillegg
+panel.keymap.save_as_prompt = Lagre som – filetternamnet avgjer formatet:

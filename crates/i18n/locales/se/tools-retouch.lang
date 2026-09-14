@@ -1,0 +1,23 @@
+tool.patch.name = Láhppi
+tool.patch.description = Gease sárgosa feailla birra ja gease de válljejuvvon guovllu buhtes govvačuoggáid ala: doppe lea teakstuvra heivehuvvon feaillai. Láhppemodealla mearrida goappá geaži párras don geasát.
+tool.patch.option.patch = Láhppi
+tool.patch.choice.source = Gáldu
+tool.patch.choice.destination = Ulbmil
+tool.patch.history.patch = Láhppi
+
+tool.content_aware_move.name = Sisdoallodieđolaš sirdin
+tool.content_aware_move.description = Gease válljejuvvon objeavtta eará sadjái, ja ráigi maid dat guođđá deavdá birrasa sisdoaluin. Viiddidanmodeallas objeakta geasihuvvo guhkit iige sirdojuvvo.
+tool.content_aware_move.choice.move = Sirdde
+tool.content_aware_move.choice.extend = Viiddit
+tool.content_aware_move.history.move = Sisdoallodieđolaš sirdin
+
+tool.red_eye.name = Rukses čalbmi
+tool.red_eye.description = Coahkkal čalbmegolláža vai válddát eret govvenčuovgga rukses ivnni.
+tool.red_eye.option.pupil_size = Čalbmegolláža sturrodat
+tool.red_eye.option.darken = Sevdnjadit
+tool.red_eye.history.red_eye = Rukses čalbmi
+
+tool.magic_eraser.name = Noaidegumme
+tool.magic_eraser.description = Coahkkal vai sihkkot čujuhanáli vuolde sullasaš ivnni guovllu reaiddu gierdama siskkobealde, juogo oktavuođas coahkkalansajiin dahje miehtá gearddi.
+tool.magic_eraser.option.contiguous = Oktavuođas
+tool.magic_eraser.history.erase = Noaidegumme

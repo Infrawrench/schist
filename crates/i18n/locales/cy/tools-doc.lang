@@ -1,0 +1,31 @@
+# Offer elfennau dogfen: byrddau celf, tafelli, fframiau, nodiadau a chyfrifon.
+
+# Bwrdd celf
+tool.artboard.name = Bwrdd Celf
+tool.artboard.description = Llusgwch i greu bwrdd celf: ardal o'r cynfas sydd ag enw ac sy'n cael ei hallforio ar ei phen ei hun. Mae llusgo y tu mewn i un sy'n bodoli eisoes yn ei symud.
+tool.artboard.default_name = Bwrdd Celf {n}
+
+# Tafell
+tool.slice.name = Tafell
+tool.slice.description = Llusgwch i greu tafell allforio, sef petryal o'r cynfas sydd ag enw ac sy'n cael ei allforio fel delwedd ar ei phen ei hun. Mae llusgo y tu mewn i un sy'n bodoli eisoes yn ei symud.
+tool.slice.default_name = Tafell {n}
+
+# Ffrâm
+tool.frame.name = Ffrâm
+tool.frame.description = Llusgwch i greu ffrâm: haen betryalog (neu eliptig) sy'n masgio popeth a osodir ynddi.
+tool.frame.default_name = Ffrâm {n}
+tool.frame.choice.rectangle = Petryal
+tool.frame.choice.ellipse = Elips
+tool.frame.history.frame = Ffrâm
+
+# Nodyn
+tool.note.name = Nodyn
+tool.note.description = Cliciwch ar ran wag o'r cynfas i binio nodyn yno, wedi'i stampio ag enw'r awdur a'r lliw sydd yng nghyflwr y golygydd; cliciwch bin sy'n bodoli eisoes i'w ddewis ar gyfer y panel Nodiadau.
+tool.note.history.place = Gosod Nodyn
+tool.note.history.move = Symud Nodyn
+tool.note.history.delete = Dileu Nodyn
+
+# Cyfrif
+tool.count.name = Cyfrif
+tool.count.description = Cliciwch i osod marcwyr cyfrif wedi'u rhifo ar y cynfas, a chliciwch ar farciwr sy'n bodoli eisoes i'w dynnu.
+tool.count.default_name = Cyfrif {n}

@@ -1,0 +1,23 @@
+# Usteye di scrijhaedje
+tool.type.name = Scrijhaedje
+tool.type.description = Clitchîz po cmincî ene coûtche di scrijhaedje a ç' plaece la, ou so ene coûtche k' egzistêye dedja pol candjî. Tant k' ele est droviète, l' usteye prind les tapes brutes (evoyîz les caracteres come tapes); l' confirmaedje rind l' coûtche et clô l' candjaedje.
+
+tool.type.option.align = Aroyî
+tool.type.option.leading = Eterligne
+tool.type.option.tracking = Espåçmint des letes
+tool.type.option.kerning = Aproetchaedje des letes
+tool.type.option.ligatures = Ligateures
+tool.type.option.discretionary_ligatures = Ligateures opcioneles
+tool.type.option.small_caps = Pitites capitelès
+tool.type.option.on_path = Sol tchimin en alaedje
+tool.type.option.path_offset = Dismetaedje do tchimin
+
+tool.type.choice.regular = Normå
+tool.type.choice.bold = Crås
+tool.type.choice.italic = Clintchî
+tool.type.choice.bold_italic = Crås clintchî
+
+tool.type.history.new_layer = Novele coûtche di scrijhaedje
+tool.type.history.edit = Candjî l' scrijhaedje
+tool.type.history.discard = Abandner l' scrijhaedje
+tool.type.history.discard_empty = Abandner l' scrijhaedje vude

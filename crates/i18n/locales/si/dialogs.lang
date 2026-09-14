@@ -1,0 +1,263 @@
+# සංවාද කවුළු
+
+# සංවාද කිහිපයකට පොදු දෑ
+dialog.save_ellipsis = සුරකින්න…
+dialog.use_foreground = පෙරබිම් වර්ණය භාවිත කරන්න
+dialog.downloading = බාගනිමින්…
+dialog.downloading_of = බාගනිමින්… {total}න් {got}
+dialog.no_config_dir = (වින්‍යාස ෆෝල්ඩරයක් නැත)
+
+# ස්තර ගුණාංග
+dialog.layer_props.title = ස්තර ගුණාංග
+
+# අපනයනය
+dialog.export.format = ආකෘතිය
+dialog.export.dither = වර්ණ මිශ්‍ර අනුකරණය
+dialog.export.dither_note = බිට් 8ට අඩු කරන විට වර්ණ මිශ්‍ර අනුකරණය කරන්න
+dialog.export.export_ellipsis = අපනයනය කරන්න…
+
+# ඡායාරූප සමූහයක් සැකසීම
+dialog.batch.title = ඡායාරූප සකසන්න
+dialog.batch.note_edit.one = ඡායාරූප {n}ක් — ගැලරි සංස්කරණ ලෙස සුරකියි; මුල් ගොනු කිසිදා වෙනස් නොකරයි.
+dialog.batch.note_edit.other = ඡායාරූප {n}ක් — ගැලරි සංස්කරණ ලෙස සුරකියි; මුල් ගොනු කිසිදා වෙනස් නොකරයි.
+dialog.batch.note_edit_edited.one = ඡායාරූප {n}ක්, දැනටමත් සංස්කරණය කළ {edited}ක් — වට්ටෝරුව වත්මන් සංස්කරණයට උඩින් යොදන අතර පෙර සංස්කරණය අනුවාදයක් ලෙස තබාගනී.
+dialog.batch.note_edit_edited.other = ඡායාරූප {n}ක්, දැනටමත් සංස්කරණය කළ {edited}ක් — වට්ටෝරුව වත්මන් සංස්කරණයට උඩින් යොදන අතර පෙර සංස්කරණය අනුවාදයක් ලෙස තබාගනී.
+dialog.batch.note_copies.one = ඡායාරූප {n}ක් — සමතලා පිටපත්; මුල් ගොනු කිසිදා වෙනස් නොකරයි.
+dialog.batch.note_copies.other = ඡායාරූප {n}ක් — සමතලා පිටපත්; මුල් ගොනු කිසිදා වෙනස් නොකරයි.
+dialog.batch.note_copies_edited.one = ඡායාරූප {n}ක්, දැනටමත් සංස්කරණය කළ {edited}ක් — පිටපත් සාදන්නේ සංස්කරණය කළ රූපවලිනි.
+dialog.batch.note_copies_edited.other = ඡායාරූප {n}ක්, දැනටමත් සංස්කරණය කළ {edited}ක් — පිටපත් සාදන්නේ සංස්කරණය කළ රූපවලිනි.
+dialog.batch.turn = හරවන්න
+dialog.batch.rotate = කරකවන්න
+dialog.batch.flip = පෙරළන්න
+dialog.batch.upscale = විශාල කරන්න
+dialog.batch.colour = වර්ණය
+dialog.batch.add_adjustment = ගැළපුම…
+dialog.batch.output = ප්‍රතිදානය
+dialog.batch.save_as = සුරකින ආකාරය
+dialog.batch.process = සකසන්න
+dialog.batch.process_n = {n}ක් සකසන්න
+dialog.batch.nothing_to_do = කිරීමට දෙයක් නැත: පළමුව හැරවීමක්, විශාල කිරීමක් හෝ ගැළපුමක් තෝරන්න
+
+# අන්තර්ගතයට අනුව පරිමාණය
+dialog.content_aware_scale.title = අන්තර්ගතයට අනුව පරිමාණය
+dialog.content_aware_scale.note = අඩු විස්තර ඇති සන්ධි ඉවත් කරයි. තේරීමකින් ආරක්ෂා කළ යුතු දේ සලකුණු කරයි.
+
+# ඉර ඇඳීම
+dialog.stroke.title = ඉර ඇඳීම
+dialog.stroke.location = පිහිටීම
+dialog.stroke.inside = ඇතුළත
+dialog.stroke.outside = පිටත
+dialog.stroke.note = පෙරබිම් වර්ණයෙන් තේරීම වටා ඉරක් අඳියි.
+
+# පිරවුම
+dialog.fill.contents = අන්තර්ගතය
+
+# වර්ණ පරාසය
+dialog.color_range.title = වර්ණ පරාසය
+dialog.color_range.sampled = නියැදිගත කළ
+dialog.color_range.fuzziness = වර්ණ පරාස පළල
+dialog.color_range.note = සක්‍රිය ස්තරයේ නියැදිගත කළ වර්ණයට ආසන්න පික්සල තෝරයි.
+
+# Schist විසින් අඳින ගොනු තේරීමේ කවුළුව
+dialog.file_picker.up = ↑ ඉහළට
+dialog.file_picker.empty = මෙහි කිසිවක් නැත
+dialog.file_picker.choose_folder = මෙම ෆෝල්ඩරය තෝරන්න
+
+# පෙරහන් සංවාද
+dialog.filter.camera_raw_development = Camera Raw සංවර්ධනය
+dialog.filter.reset_as_shot = ගත් අවස්ථාවේ අගයන්ට යළි සකසන්න
+dialog.filter.raw_note = මුල් සංවේදක දත්තවලින් සක්‍රිය ස්තරය නැවත සංවර්ධනය කරයි.
+dialog.filter.note = තේරීම ඇතුළත සක්‍රිය ස්තරයට යොදයි.
+
+# අස්ථානගත අකුරු මුහුණු
+dialog.fonts.title = අස්ථානගත අකුරු මුහුණු
+dialog.fonts.install_named = {name} ස්ථාපනය කරන්න
+dialog.fonts.no_document = කිසිදු ලේඛනයක් විවෘත කර නැති බැවින් පරීක්ෂා කිරීමට දෙයක් නැත.
+dialog.fonts.all_installed = මෙම ලේඛනය භාවිත කරන සෑම අකුරු මුහුණතක්ම ස්ථාපනය කර ඇත. එහි පෙළ සැලසුම් කළ අකුරු මුහුණුවලින්ම පෙන්වයි.
+dialog.fonts.missing_intro = මෙම ලේඛනයේ ඔබ සතුව නැති අකුරු මුහුණු භාවිත කර ඇත. ආදේශකයකින් පෙළ කියවිය හැකි නමුත් එහි පළල සහ පේළි බෙදීම් මුල් සැලසුමට සමාන නොවේ.
+dialog.fonts.footer = බාගැනීම් Google Fonts විවෘත නාමාවලියෙන් ලබාගෙන {dir} හි තබයි. විවෘත බලපත්‍රයක් නැති අකුරු මුහුණතක් කිසිදා ලබා නොගනී — මිනුම්වලට ගැළපෙන නිදහස් නිර්මාණයක් තිබේ නම් ඒ වෙනුවට එය පිරිනමයි; අකුරු ඉදිරි පළල ගැළපෙන බැවින් එයින් සැලැස්ම යථා තත්ත්වයට පත් වේ.
+dialog.fonts.user_font_dir = ඔබගේ පරිශීලක අකුරු මුහුණු ෆෝල්ඩරය
+
+# Neural Filter මාදිලි
+dialog.models.title = Neural Filter මාදිලි
+dialog.models.built_in = ඇතුළත් කර ඇත · {size}
+dialog.models.installed = ස්ථාපිතයි · {size}
+dialog.models.not_installed = ස්ථාපනය කර නැත · {size}
+dialog.models.not_in_browser = බ්‍රවුසරයේ ලබාගත නොහැක · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = මාදිලි {dir} හි තබයි. මාදිලියක් නැති පෙරහන් සංඥා සැකසීම භාවිත කරන අතර ඒ බව දන්වයි.
+
+# නව ලේඛනය
+dialog.new_doc.title = නව ලේඛනය
+dialog.new_doc.picker_title = නව ගොනුව
+dialog.new_doc.custom_ellipsis = අභිරුචි…
+dialog.new_doc.preset = පෙරසැකසුම
+dialog.new_doc.preset_default = පෙරනිමි (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = චතුරස්‍රය (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = සාදන්න
+dialog.new_doc.created = නව ලේඛනය: {w} × {h} px
+
+# ගොනු විවෘත කිරීම
+dialog.open.image_title = රූපය විවෘත කරන්න
+dialog.open.image_prompt = “{name}” නව පටිත්තක විවෘත කරන්නද, නැතහොත් වත්මන් ලේඛනයට නව ස්තරයක් ලෙස එක් කරන්නද?
+dialog.open.new_tab = නව පටිත්ත
+dialog.open.new_layer = නව ස්තරය
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = මෙම ගොනුව {n}
+dialog.open.these_files.other = මෙම ගොනු {n}
+dialog.open.shared_title_one = බෙදාගත් රූපය
+dialog.open.shared_title_many = බෙදාගත් රූප
+dialog.open.shared_prompt = {what} ගැලරියට එක් කරන්නද, නැතහොත් සංස්කාරකයේ විවෘත කරන්නද?
+dialog.open.add_to_gallery = ගැලරියට එක් කරන්න
+dialog.open.open_in_editor = සංස්කාරකයේ විවෘත කරන්න
+dialog.open.heic_title = HEIC සහාය
+dialog.open.heic_needs_decoder = “{name}” විවෘත කිරීමට HEVC විකේතකයක් අවශ්‍ය නමුත් එය මෙම පද්ධතියේ ස්ථාපනය කර නැත.
+dialog.open.heic_offer = Schist හට libde265 HEVC විකේතකය සහිත, විකේතනය සඳහා පමණක් වූ libheif {version} ගොඩනැගීමක් (≈5 MB) බාගත හැක. දෙකම LGPL-3.0 බලපත්‍ර සහිතය; ඒවායේ බලපත්‍ර පෙළ පුස්තකාලය අසල ස්ථාපනය වන අතර මූලාශ්‍ර කේතය ව්‍යාපෘති පිටුවෙන් ලබාගත හැක.
+dialog.open.licenses_source = බලපත්‍ර සහ මූලාශ්‍රය
+dialog.open.folders_title = ඇද දැමූ ෆෝල්ඩර
+dialog.open.n_folders.one = ෆෝල්ඩර {n}ක්
+dialog.open.n_folders.other = ෆෝල්ඩර {n}ක්
+dialog.open.open_in_tabs = පටිතිවල විවෘත කරන්න
+dialog.open.open_first_in_tabs = පළමු {n} පටිතිවල විවෘත කරන්න
+dialog.open.open_n_in_tabs.one = {n}ක් පටිත්තක විවෘත කරන්න
+dialog.open.open_n_in_tabs.other = {n}ක් පටිතිවල විවෘත කරන්න
+dialog.open.folder_holds.one = {what} තුළ Schist හට විවෘත කළ හැකි රූප {n}ක් ඇත (උප ෆෝල්ඩරද ඇතුළුව).
+dialog.open.folder_holds.other = {what} තුළ Schist හට විවෘත කළ හැකි රූප {n}ක් ඇත (උප ෆෝල්ඩරද ඇතුළුව).
+dialog.open.folders_note = ගැලරියට එක් කිරීම ෆෝල්ඩර තිබෙන තැනම නිරීක්ෂණය කරයි — කිසිවක් පිටපත් නොකරන අතර සෑම ඡායාරූපයක් අසලම සංස්කරණ අනුවාදගත කරයි. පටිතිවල විවෘත කිරීම දැන් සෑම රූපයක්ම සංස්කාරකයට පූරණය කරයි.
+
+# ප්ලග්-ඉන්
+dialog.plugins.title = ප්ලග්-ඉන්
+dialog.plugins.kind_filter = පෙරහන
+dialog.plugins.kind_format = ආකෘතිය
+dialog.plugins.kind_unavailable = ලබාගත නොහැක
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = ප්ලග්-ඉන් {dir} වෙතින් පූරණය වේ
+dialog.plugins.none = තවම ප්ලග්-ඉන් කිසිවක් ස්ථාපනය කර නැත.
+dialog.plugins.install_ellipsis = ස්ථාපනය කරන්න…
+dialog.plugins.photoshop_heading = Photoshop ප්ලග්-ඉන්
+dialog.plugins.loaded_from = {folders} වෙතින් පූරණය කර ඇත
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# අභිරුචි
+dialog.prefs.title = අභිරුචි
+dialog.prefs.theme = තේමාව
+dialog.prefs.theme_dark = අඳුරු
+dialog.prefs.theme_light = ආලෝකමත්
+dialog.prefs.grid_spacing = ජාලක පරතරය
+dialog.prefs.snapping = ස්ථාන ඇලවීම
+dialog.prefs.snap_to = මාර්ගෝපදේශ, ජාලකය සහ කැන්වස් දාරවලට අලවන්න
+dialog.prefs.rendering_intent = විදැහුම් අභිප්‍රාය
+dialog.prefs.intent_perceptual = සංජානනීය
+dialog.prefs.intent_relative = සාපේක්ෂ වර්ණමිතික
+dialog.prefs.intent_saturation = සන්තෘප්තිය
+dialog.prefs.intent_absolute = නිරපේක්ෂ වර්ණමිතික
+dialog.prefs.scrolling = අනුචලනය
+dialog.prefs.zoom_with_scroll = අනුචලන රෝදයෙන් විශාලනය කරන්න
+dialog.prefs.rendering = විදැහුම්කරණය
+dialog.prefs.gpu_compositing = GPU සංයුක්ත කිරීම
+dialog.prefs.diagnostics = රෝග විනිශ්චය
+dialog.prefs.crash_reports = බිඳවැටීමකදී දේශීය බිඳවැටීම් වාර්තාවක් ලියන්න
+dialog.prefs.crash_upload = එය සංවර්ධකයන්ටද යවන්න
+dialog.prefs.telemetry = දිනපතා නිර්නාමික සංඥාවක් යවන්න
+dialog.prefs.diagnostics_note = Schist ඊළඟ වර ආරම්භ වන විට රෝග විනිශ්චය සැකසුම් ක්‍රියාත්මක වේ.
+dialog.prefs.updates = යාවත්කාලීන
+dialog.prefs.check_updates = ආරම්භයේදී නව නිකුතු සඳහා පරීක්ෂා කරන්න
+dialog.prefs.keyboard_shortcuts = යතුරුපුවරු කෙටිමං: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) මාදිලිය අවශ්‍යයි —
+dialog.prefs.nsfw_download_link = එය මාදිලි කළමනාකරණයෙන් බාගන්න…
+dialog.prefs.hide_flagged = සලකුණු කළ ඡායාරූප සඟවන්න
+
+# පැතිකඩ පැවරීම / පැතිකඩට පරිවර්තනය කිරීම
+dialog.profile.profile = පැතිකඩ
+dialog.profile.assign_title = පැතිකඩ පවරන්න
+dialog.profile.convert_title = පැතිකඩට පරිවර්තනය කරන්න
+dialog.profile.assign = පවරන්න
+dialog.profile.convert = පරිවර්තනය කරන්න
+dialog.profile.assign_note = නව පැතිකඩ යටතේ පවතින පික්සල අගයන් නැවත අර්ථකථනය කරයි.
+dialog.profile.convert_note = වර්ණවල පෙනුම රැකෙන පරිදි පික්සල අගයන් නැවත ලියයි.
+
+# රූපය වෙනත් නමකින් සුරැකීම
+dialog.save_image.title = රූපය වෙනත් නමකින් සුරකින්න
+dialog.save_image.note = {name} — සංස්කරණයක් තිබේ නම් එය; මුල් ගොනුව කිසිදා වෙනස් නොකරයි.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# රූපයේ සහ කැන්වසයේ ප්‍රමාණය
+dialog.size.image_title = රූපයේ ප්‍රමාණය
+dialog.size.canvas_title = කැන්වසයේ ප්‍රමාණය
+dialog.size.constrain = සීමා කරන්න
+dialog.size.keep_proportions = අනුපාත රඳවාගන්න
+dialog.size.resample = යළි නියැදිගත කරන්න
+dialog.size.bicubic = ද්විඝන
+dialog.size.bilinear = ද්විරේඛීය
+dialog.size.nearest = ළඟම අසල්වැසියා
+dialog.size.anchor = නැංගුරම
+dialog.size.currently = දැනට {w} × {h} px
+dialog.size.image_size_status = රූපයේ ප්‍රමාණය: {w} × {h}
+dialog.size.canvas_size_status = කැන්වසයේ ප්‍රමාණය: {w} × {h}
+
+# යාවත්කාලීනයක් තිබේ
+dialog.update.title = යාවත්කාලීනයක් තිබේ
+dialog.update.available = Schist {version} ලබාගත හැක. මෙම පිටපත {current} වේ.
+dialog.update.installing = යාවත්කාලීනය ස්ථාපනය කරමින්…
+dialog.update.can_install = Schist හට එය ({size}) බාගත කර මෙම පිටපත මත ස්ථාපනය කළ හැක.
+dialog.update.external = මෙම පිටපත එය පාලනය කරන වෙනත් මූලාශ්‍රයකින් ලැබුණි — පැකේජ කළමනාකරුවෙකු, AppImage එකක් හෝ ඔබ විසින්ම සෑදූ ගොඩනැගීමක් — එබැවින් එය ස්ථාපනය කළ ආකාරයටම යාවත්කාලීන වේ.
+dialog.update.later = පසුව
+dialog.update.release_notes = නිකුතු සටහන්
+dialog.update.update_restart = යාවත්කාලීන කර නැවත අරඹන්න
+dialog.update.open_page = නිකුතු පිටුව විවෘත කරන්න
+
+# ස්තර ශෛලිය
+dialog.style.title = ස්තර ශෛලිය
+dialog.style.bevel = ඇල දාරය සහ උන්නත කිරීම
+dialog.style.stroke = ඉර
+dialog.style.inner_shadow = ඇතුළත සෙවණැල්ල
+dialog.style.inner_glow = ඇතුළත දිදුලීම
+dialog.style.satin = සැටින්
+dialog.style.color_overlay = වර්ණ උඩුතලය
+dialog.style.gradient_overlay = අනුක්‍රමික වර්ණ උඩුතලය
+dialog.style.outer_glow = පිටත දිදුලීම
+dialog.style.drop_shadow = වැටෙන සෙවණැල්ල
+dialog.style.blur = ගවුසීය බොඳ කිරීම
+dialog.style.gradient_from = අනුක්‍රමික වර්ණ උඩුතලයේ ආරම්භය
+dialog.style.gradient_to = අනුක්‍රමික වර්ණ උඩුතලයේ අවසානය
+dialog.style.soften = මෘදු කරන්න
+dialog.style.depth = ගැඹුර
+dialog.style.altitude = උන්නතාංශය
+dialog.style.highlight = දීප්ත කොටස
+dialog.style.shadow = සෙවණැල්ල
+dialog.style.outer_bevel = පිටත ඇල දාරය
+dialog.style.inner_bevel = ඇතුළත ඇල දාරය
+dialog.style.emboss = උන්නත කිරීම
+dialog.style.pillow_emboss = කොට්ටාකාර උන්නත කිරීම
+dialog.style.linear = රේඛීය
+dialog.style.radial = අරීය
+dialog.style.reverse = ප්‍රතිලෝම කරන්න
+dialog.style.from_to = සිට / දක්වා
+dialog.style.from_fg = ආරම්භය = පෙරබිම
+dialog.style.to_fg = අවසානය = පෙරබිම
+dialog.style.precise = නිවැරදි
+dialog.style.knockout = ස්තරය වැටෙන සෙවණැල්ල කපා ඉවත් කරයි
+
+# වර්ණ තේරීම
+dialog.color_picker.title = වර්ණ තේරීම ({what})
+dialog.color_picker.effect_color = {effect} වර්ණය
+dialog.color_picker.note_color = සටහන් වර්ණය
+dialog.color_picker.new = නව
+dialog.color_picker.current = වත්මන්
+
+# වක්‍ර ප්‍රස්තාරය
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = නාලිකාව යළි සකසන්න
+dialog.curves.hint = හැඩගැන්වීමට ඇදගෙන යන්න · එක් කිරීමට ක්ලික් කරන්න · ඉවත් කිරීමට alt-ක්ලික් කරන්න
+
+# දුරකථන අභිරුචිවල කැමරා රෝල් උපස්ථය
+dialog.prefs.camera_sync = කැමරා රෝල
+dialog.prefs.camera_sync_enabled = Schist Cloud වෙත උපස්ථ කරන්න
+dialog.prefs.camera_sync_sign_in = ඔබගේ කැමරා රෝල උපස්ථ කිරීමට Schist Cloud වෙත පිවිසෙන්න.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = වෙනස් කරන්න…

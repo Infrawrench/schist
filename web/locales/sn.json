@@ -1,0 +1,9 @@
+{
+  "loading": "Kuri kurodha…",
+  "starting": "Kuri kutanga…",
+  "webgpu": "Schist inoda WebGPU, iyo isingawanikwi mubhurawuza iri. Inowanikwa muChrome/Edge 113+, Firefox 141+ uye Safari 26+.",
+  "noticeTitle": "Schist inoshanda zvakanaka zvikuru sechishandiso chepadesktop",
+  "noticeBody": "Uri kushandisa vhezheni yewebhu, iri vhezheni yakareruka: inosanganisa mifananidzo ichishandisa CPU uye haina zvimwe zvinhu — mapulagini ePhotoshop nemapulagini evamwe vagadziri, garari yemifananidzo, panera reAI, kupinza HEIC uye kudhaunirodha mafonti — uye mafaira anochengetwa sezvinhu zvakadhaunirodhwa. Shanduro yepadesktop yemahara ye macOS, Windows neLinux ine zvose izvi.",
+  "noticeLink": "Wana shanduro yepadesktop.",
+  "ok": "Zvakanaka"
+}

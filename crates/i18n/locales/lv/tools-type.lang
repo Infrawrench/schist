@@ -1,0 +1,22 @@
+tool.type.name = Teksts
+tool.type.description = Noklikšķiniet, lai šajā vietā sāktu teksta slāni, vai noklikšķiniet uz esoša teksta slāņa, lai to rediģētu. Kamēr rediģēšana ir atvērta, rīks saņem neapstrādātus taustiņsitienus (rakstzīmes jānosūta kā taustiņu ievade); apstiprinot teksts tiek renderēts slānī un rediģēšana tiek aizvērta.
+
+tool.type.option.align = Līdzinājums
+tool.type.option.leading = Rindstarpa
+tool.type.option.tracking = Burtstarpa
+tool.type.option.kerning = Rakstsavirze
+tool.type.option.ligatures = Ligatūras
+tool.type.option.discretionary_ligatures = Izvēles ligatūras
+tool.type.option.small_caps = Mazie kapiteļi
+tool.type.option.on_path = Uz aktīvā ceļa
+tool.type.option.path_offset = Nobīde pa ceļu
+
+tool.type.choice.regular = Parasts
+tool.type.choice.bold = Treknraksts
+tool.type.choice.italic = Slīpraksts
+tool.type.choice.bold_italic = Trekns slīpraksts
+
+tool.type.history.new_layer = Jauns teksta slānis
+tool.type.history.edit = Rediģēt tekstu
+tool.type.history.discard = Atmest tekstu
+tool.type.history.discard_empty = Atmest tukšu tekstu

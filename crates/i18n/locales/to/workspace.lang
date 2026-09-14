@@ -1,0 +1,100 @@
+# Ngaahi ngāue ʻo e workspace
+
+workspace.fill.gray_50 = Kulei 50%
+workspace.fill.content_aware = Fakatatau ki he Kakanó
+workspace.modify.expand = Fakalahi ʻa e Feituʻu Kuo Fili
+workspace.modify.contract = Fakasiʻisiʻi ʻa e Feituʻu Kuo Fili
+workspace.modify.border = Kauʻā ʻo e Feituʻu Kuo Fili
+workspace.modify.smooth = Fakatokalelei ʻa e Feituʻu Kuo Fili
+workspace.modify.feather = Fakamolū Ngataʻanga ʻo e Feituʻu Kuo Fili
+
+workspace.batch.target.edit = Ngaahi fakatonutonu ʻi he fakahāʻanga ʻīmisi (tauhi tatau kehekehe)
+workspace.batch.target.beside = Ngaahi tatau ʻi he tafaʻaki ʻo e ngaahi tupuʻangá
+workspace.batch.target.folder = Ngaahi tatau ʻi ha faile faʻoʻanga…
+workspace.modal.image_size.title = Lahi ʻo e ʻĪmisi
+
+workspace.docs.opening = ʻOku fakaava ʻa e {name}…
+workspace.docs.opened = Kuo fakaava ʻa e {name}
+workspace.docs.open_failed = Naʻe ʻikai lava ke fakaava: {error}
+workspace.docs.no_codec = ʻOku ʻikai ko ha faʻunga ʻe lava ʻe Schist ʻo fakaava ʻa e {name}
+workspace.docs.no_exporter = ʻOku ʻikai lava ʻe Schist ʻo seivi ʻa e ngaahi faile .{ext}
+workspace.docs.empty_response = Naʻe ʻave ʻe he server ha tali ʻataʻatā
+workspace.docs.heic_not_installed = ʻOku ʻikai fokotuʻu ʻa e poupou HEIC
+workspace.docs.heic_downloading = ʻOku download ʻa e poupou HEIC (libheif {version})…
+workspace.docs.heic_installed = Kuo fokotuʻu ʻa e poupou HEIC
+workspace.docs.heic_download_failed = Naʻe ʻikai lava ʻa e download poupou HEIC: {error}
+workspace.docs.placing = ʻOku tuku ʻa e {name}…
+workspace.docs.place_image = Tuku ʻa e ʻĪmisi
+workspace.docs.placed = Kuo tuku ʻa e {name}
+workspace.docs.place_failed = Naʻe ʻikai lava ke tuku: {error}
+workspace.docs.saved = Kuo seivi ʻa e {name}
+workspace.docs.save_failed = Naʻe ʻikai lava ke seivi: {error}
+
+workspace.adjustment.new_layer = Layer {name} Foʻou
+workspace.adjustment.added = Kuo tānaki ʻa e {name}
+workspace.adjustment.settings = Ngaahi Fokotuʻutuʻu {name}
+workspace.adjustment.updated = Kuo fakafoʻou ʻa e {name}
+workspace.adjustment.no_settings = ʻOku ʻikai ha fokotuʻutuʻu ʻo e {name} ʻe lava ʻo fakatonutonu
+workspace.comps.name_n = Tuʻunga Layer {n}
+workspace.comps.captured = Kuo puke ʻa e tuʻunga Layer
+workspace.comps.apply = Ngāueʻaki ʻa e {name}
+workspace.styles.layer_style = Sīpinga ʻo e Layer
+workspace.context.rename_layer = Toe Fakahingoa ʻa e Layer
+workspace.commands.tool = Meʻangāue: {name}
+
+workspace.colormgmt.assign = Vaheʻi ʻa e {name}
+workspace.colormgmt.assigned = Kuo vaheʻi ʻa e {name}
+workspace.colormgmt.convert_to = Liliu ki he {name}
+workspace.colormgmt.converted_to = Kuo liliu ki he {name}
+workspace.colormgmt.convert_failed = Naʻe ʻikai lava ke liliu: {error}
+workspace.colormgmt.proof_on = Kuo fakamoʻui ʻa e Proof Colors
+workspace.colormgmt.proof_off = Kuo tamateʻi ʻa e Proof Colors
+
+workspace.filters.choose = Fili
+workspace.filters.select_layer_first = Tomuʻa fili ha Layer
+workspace.filters.needs_pixel_layer = ʻOku fiemaʻu ʻe he ngaahi siví ha Layer pikisi
+workspace.filters.nothing_to_filter = ʻIkai ha meʻa ke sivi
+workspace.filters.went_away = Kuo mole ʻa e siví
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: kuo mole ʻa e Layer naʻe sivi aí
+workspace.filters.plugin_title = Plug-in Photoshop
+workspace.filters.running = ʻOku fakalele ʻa e {name}
+workspace.filters.plugin_note = ʻOku lele ʻa e plug-in ʻi heʻene process pē ʻaʻana. Kapau ʻe fakaava ʻe ia ha matapā, tali ʻi ai ke hoko atu.
+workspace.filters.raw_preview_developing = ʻOku fakatupulekina ʻa e tomuʻa vakai RAW…
+workspace.filters.raw_preview_done = Tomuʻa vakai RAW (demosaic vave)
+workspace.filters.raw_preview_size_changed = Kuo liliu ʻa e lahi ʻo e tomuʻa vakai RAW: {w} × {h}
+workspace.filters.raw_preview_failed = Naʻe ʻikai lava ʻa e tomuʻa vakai RAW: {error}
+workspace.filters.raw_developing = ʻOku fakatupulekina ʻa e tā tupuʻanga…
+workspace.filters.raw_developing_note = ʻOku ngāueʻaki ʻa e hala demosaic lelei tahá. ʻE kei lava ʻo fakatonutonu ʻa e RAW tupuʻangá mo e ngaahi fokotuʻutuʻu ko ʻení hili hono seivi ko e PSD pe PSB.
+workspace.filters.raw_document_changed = Naʻe ʻosi ʻa e fakatupulekina RAW hili ʻa e liliu ʻa hono fakamatala
+workspace.filters.raw_failed = Naʻe ʻikai lava ʻa e fakatupulekina RAW: {error}
+workspace.filters.raw_too_wide = ʻOku fuʻu fālahi ʻa e fakatupulekina RAW
+workspace.filters.raw_too_tall = ʻOku fuʻu māʻolunga ʻa e fakatupulekina RAW
+workspace.filters.raw_size_changed = Kuo liliu ʻa e lahi ʻo e fakatupulekina RAW ki he {w} × {h}; ʻoku tauhi ʻa e Layer lolotongá
+workspace.filters.raw_history = Fakatupulekina ʻo e Camera Raw
+workspace.filters.raw_applied = Kuo ngāueʻaki ʻa e fakatupulekina Camera Raw (demosaic lelei taha)
+
+workspace.image_size.done = Lahi ʻo e ʻīmisi: {w} × {h}
+workspace.image_size.bicubic_fallback = Lahi ʻo e ʻīmisi: {w} × {h} — naʻe ʻikai load ʻa e mōtolo {name}, ko ia naʻe fetongi ia ʻe he bicubic
+workspace.image_size.upscaling = ʻOku fakalahi ʻaki ʻa e {name}
+workspace.image_size.upscaling_note = Megapixel ʻe {mp} ʻoku fou ʻi he netiueka, ʻo sekoni siʻi ki he takitaha. ʻOku taʻofi ʻa e fakamatala kae ʻoua kuo ʻosi.
+
+workspace.export.no_slices = ʻIkai ha konga ʻave ke ʻave ki tuʻa
+workspace.export.no_artboards = ʻIkai ha papa tā ke ʻave ki tuʻa
+workspace.export.regions.other = Kuo ʻave ki tuʻa ʻa e ngaahi feituʻu, fika: {n}
+workspace.export.prompt = ʻAve ki tuʻa ko e:
+workspace.export.done = Kuo ʻave ki tuʻa ʻa e {name}
+workspace.export.failed = Naʻe ʻikai lava ke ʻave ki tuʻa: {error}
+workspace.export.codec_vanished = ʻOku ʻikai toe maʻu ʻa e meʻa ʻave ki tuʻá
+
+workspace.file_picker.choose_folder = Fili ʻa e Faile Faʻoʻanga
+workspace.file_picker.type_a_name = Taipeʻi ha hingoa ki he failé
+workspace.file_picker.exists = ʻOku ʻi ai ʻa e {name}; toe lomi ʻi he Seivi ke fetongi ia
+workspace.file_picker.tap_a_file = Lomi ʻi ha faile ke fakaava
+workspace.file_picker.pictures = Ngaahi ʻĪmisi
+workspace.file_picker.camera = Meʻafaitā
+workspace.file_picker.downloads = Ngaahi Download
+workspace.file_picker.permission_denied = ʻOku ʻikai maʻu ʻe Schist ha ngofua ke lau ʻa e faile faʻoʻanga ko ʻení
+
+workspace.recovery.recovered_title = {title} (kuo toe fakafoki)
+workspace.recovery.recovered.other = Kuo toe fakafoki ʻa e ngāue naʻe teʻeki seivi mei he session kimuʻá; fika ʻo e fakamatala: {n}

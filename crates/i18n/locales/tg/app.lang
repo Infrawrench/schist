@@ -1,0 +1,36 @@
+app.filter_gallery.title = Нигористони филтрҳо
+app.filter_gallery.stack = Анбора (аз поён ба боло татбиқ мешавад)
+app.filter_gallery.no_settings = Ин филтр танзим надорад.
+app.fonts.not_open_licensed = иҷозатномаи кушода надорад · {substitute} ба андозаҳояш мувофиқ аст
+app.fonts.missing_substituted = нест · матн бо ҳуруфи ивазкунанда чида мешавад
+app.fonts.not_in_catalogue = {family} дар феҳристи ҳуруфҳои кушода нест
+app.fonts.no_faces = барои {family} сабки боргиришаванда нест
+app.fonts.empty_response = ҷавоби холӣ
+app.update.unreadable_response = ҷавоб хонда намешавад: {error}
+app.update.no_temp_dir = ҷузвдони муваққатӣ барои боргирӣ нест
+app.update.asset_has_path = номи дороии нашр масир дорад
+app.update.too_big = боргирӣ аз андозаи эълоншудаи нашр калонтар аст
+app.update.stopped_at = боргирӣ дар {got} аз {total} байт қатъ шуд
+app.update.hash_mismatch = ҳеши боргирӣ {got} аст, на {want}
+app.update.not_in_bundle = ин нусха дар бастаи барнома нест
+app.update.no_parent_dir = бастаи барнома ҷузвдони волидайн надорад
+app.update.cannot_write = ба {dir} навишта намешавад
+app.update.cannot_move_aside = {app} ба канор кӯчонида намешавад
+app.update.cannot_move_in = бастаи нав ба ҷойи худ кӯчонида намешавад
+app.update.cannot_run_ditto = /usr/bin/ditto иҷро намешавад
+app.update.unpack_failed = кушодани боргирӣ ноком шуд: {error}
+app.update.no_app_in_download = боргирӣ Schist.app надорад
+app.update.cannot_run_codesign = /usr/bin/codesign иҷро намешавад
+app.update.signature_invalid = имзои боргирӣ тасдиқ нашуд: {error}
+app.update.download_unsigned = ин нусха имзо дорад, аммо боргирӣ надорад
+app.update.different_developer = боргириро таҳиягари дигар имзо кардааст
+app.update.cannot_relaunch = бозоғозкунанда оғоз намешавад
+app.update.not_installed_copy = ин нусхаро насбкунанда дар ин ҷо нагузоштааст
+app.update.cannot_start_installer = насбкунанда оғоз намешавад
+app.update.platform_unsupported = навсозиҳо дар ин платформа ҳамон тавре насб мешаванд, ки Schist насб шуда буд
+app.vulkan.no_loader = schist: дар ин низом боркунандаи Vulkan нест, бинобар ин чизе барои тасвир кардан вуҷуд надорад.\n\nSchist тавассути Vulkan тасвир мекунад ва `libvulkan.so.1` насб нашудааст.\nҲам боркунанда ва ҳам драйвер лозиманд:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: драйвери Vulkan, ки ин нишаст ба он ишора мекунад, вуҷуд надорад.\n\n{var} таъин шудааст ва таъйини он ҷустуҷӯи драйверҳои боркунандаро иваз мекунад, на ин ки ба он чизе илова кунад. Пас ин файлҳои номавҷуд тамоми рӯйхати драйверҳоянд ва ҳар барномаи Vulkan дар ин нишаст ягон драйвер намебинад:\n\n{missing}\n    {var}={value}\n\nОнро ба манифести мавҷудбуда равона кунед — драйверҳо манифестҳоро дар /usr/share/vulkan/icd.d мегузоранд — ё онро бекор карда, ҷустуҷӯро ба боркунанда вогузоред. Агар ин аз файли танзимот (Hyprland `env =`, systemd environment.d ё профили shell) таъин шавад, онро ҳамон ҷо тағйир диҳед; барои расидани тағйирот ба барномаҳои иҷрошуда воридшавии нав лозим аст.\n
+app.vulkan.override_note = \n{var} ба {value} таъин шудааст ва ҷустуҷӯи худи боркунандаро иваз мекунад; агар ҳеҷ яке аз ин манифестҳо барои ин мошин набошад, аввал бекор кардани он санҷида шавад.\n
+app.vulkan.no_driver = schist: драйвери Vulkan насб нест, бинобар ин чизе барои тасвир кардан вуҷуд надорад.\n\nSchist тавассути Vulkan тасвир мекунад. Боркунанда насб аст, аммо драйвере намеёбад — дар ҳеҷ яке аз ҷойҳои ҷустуҷӯ драйвер сабт нашудааст:\n\n{dirs}\n\nБоркунанда аз драйверҳо ҷудо меояд, бинобар ин одатан танҳо як баста намерасад.\n\nДрайвери GPU-и ин мошинро насб кунед:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nДрайвери хусусии NVIDIA драйвери Vulkan-и худро дорад (`nvidia-utils` дар Arch, `nvidia-driver` дар Debian). Дар мошини маҷозӣ ё ҷое, ки драйвери GPU насб намешавад, растеризатори нармафзор кор мекунад: `vulkan-swrast` дар Arch ва қисми `mesa-vulkan-drivers` дар дигар низомҳо. Он суст аст, вале оғоз мешавад.\n{overridden}
+app.vulkan.no_device = schist: драйвери Vulkan насб аст, аммо дастгоҳе барои тасвир пешниҳод намекунад.\n\nШояд драйвер ин GPU-ро фаро нагирад ё ба он дастрасӣ надошта бошад — тавассути SSH ё дар контейнер, набудани /dev/dri маъмул аст. `vulkaninfo --summary` чизи дидаи боркунандаро гузориш медиҳад.\n\nАгар ин мошин GPU надошта бошад, растеризатори нармафзор бе GPU кор мекунад: `vulkan-swrast` дар Arch ва қисми `mesa-vulkan-drivers` дар Debian ва Fedora.\n
+app.vulkan.skip_hint = Барои ба ҳар ҳол оғоз кардани Schist ва гузоштани он ки ба тарзи худ ноком шавад, {var}=1-ро таъин кунед.

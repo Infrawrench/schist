@@ -1,0 +1,27 @@
+# Aisina de tèxte.
+
+tool.type.name = Tèxte
+tool.type.description = Clicatz per començar un calc de tèxte a aquel endrech, o clicatz sus un calc existent per lo modificar. Mentre qu'es dobèrt, l'aisina receb dirèctament las tòcas (mandatz los caractèrs coma entradas de clavièr) ; la validacion rend lo calc e tampa l'edicion.
+
+# Barra d'opcions
+tool.type.option.align = Alinhament
+tool.type.option.leading = Interlinhatge
+tool.type.option.tracking = Aprochament
+tool.type.option.kerning = Crenatge
+tool.type.option.ligatures = Ligaduras
+tool.type.option.discretionary_ligatures = Ligaduras facultativas
+tool.type.option.small_caps = Pichonas capitalas
+tool.type.option.on_path = Sul camin actiu
+tool.type.option.path_offset = Descalatge sul camin
+
+# Estil
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Gras
+tool.type.choice.italic = Italic
+tool.type.choice.bold_italic = Gras italic
+
+# Istoric
+tool.type.history.new_layer = Calc de tèxte novèl
+tool.type.history.edit = Modificar lo tèxte
+tool.type.history.discard = Abandonar lo tèxte
+tool.type.history.discard_empty = Abandonar lo tèxte void

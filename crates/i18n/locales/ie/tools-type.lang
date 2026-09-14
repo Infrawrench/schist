@@ -1,0 +1,24 @@
+# Utensile de textu.
+
+tool.type.name = Textu
+tool.type.description = Clicca por iniciar ta un strate de textu, o clicca un existent un por redacter it. Durante que it es apert, li utensile prende crud tast-pressiones (invia caracteres quam intrada de tastatura), e confirmar renderisa li strate e clude li redaction.
+
+tool.type.option.align = Alineament
+tool.type.option.leading = Interlinie
+tool.type.option.tracking = Litter-spacie
+tool.type.option.kerning = Crenament
+tool.type.option.ligatures = Ligaturas
+tool.type.option.discretionary_ligatures = Discretionari ligaturas
+tool.type.option.small_caps = Micri majuscules
+tool.type.option.on_path = Sur li activ tracie
+tool.type.option.path_offset = Deplazzament sur li tracie
+
+tool.type.choice.regular = Regulari
+tool.type.choice.bold = Grass
+tool.type.choice.italic = Cursiv
+tool.type.choice.bold_italic = Grass cursiv
+
+tool.type.history.new_layer = Nov strate de textu
+tool.type.history.edit = Redacter textu
+tool.type.history.discard = Abandonar textu
+tool.type.history.discard_empty = Abandonar vacui textu

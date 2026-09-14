@@ -1,0 +1,25 @@
+tool.transform.name = கட்டற்ற உருமாற்றம்
+tool.transform.description = கட்டற்ற உருமாற்றம். இதைச் செயல்படுத்தினால் செயலில் உள்ள அடுக்கைச் சுற்றி உருமாற்றப் பெட்டி திறக்கும்: அளவை மாற்ற மூலையை இழுக்கவும், சுழற்ற மூலைக்கு வெளியே இழுக்கவும், சாய்க்க விளிம்பை இழுக்கவும். உறுதிசெய்யும் வரை (Enter) எதுவும் பதியாது; ரத்துசெய்தால் (Escape) அடுக்கு பழைய நிலைக்குத் திரும்பும்.
+tool.transform.option.interpolation = இடைமதிப்பீடு
+tool.transform.history.transform = கட்டற்ற உருமாற்றம்
+tool.transform.history.image_size = பட அளவு
+tool.transform.history.canvas_size = திரைப்பரப்பு அளவு
+
+tool.transform.selection.name = தேர்வை உருமாற்று
+tool.transform.selection.description = தேர்வை உருமாற்று: அதே பெட்டி, அதற்குள் உள்ள படப்புள்ளிகளுக்குப் பதிலாகத் தேர்வின் எல்லைக்கோட்டை நகர்த்தும். முடிக்க உறுதிசெய்யவும் அல்லது ரத்துசெய்யவும்.
+tool.transform.selection.history.transform = தேர்வை உருமாற்று
+
+tool.transform.resample.nearest_neighbor = அருகிலுள்ள அண்டை
+tool.transform.resample.bilinear = இருநேரியல்
+tool.transform.resample.bicubic = இருமுப்படி
+
+tool.crop.name = வெட்டு
+tool.crop.description = வைத்திருக்க வேண்டிய பகுதியை இழுத்து வரைந்து அதன் கைப்பிடிகளைச் சரிசெய்யவும்; உறுதிசெய்தால் (Enter) ஆவணம் அந்தப் பகுதிக்கு வெட்டப்படும், ரத்துசெய்தால் (Escape) மாற்றமின்றி இருக்கும்.
+tool.crop.option.ratio = விகிதம்
+tool.crop.option.delete_cropped = வெட்டப்பட்ட படப்புள்ளிகளை நீக்கு
+tool.crop.choice.unconstrained = கட்டுப்பாடற்றது
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = வெட்டு

@@ -1,0 +1,23 @@
+tool.patch.name = Isichibi
+tool.patch.description = Dweba umngcele uhudula uzingelezele isici, ubusuhudulela lokho okukhethiweyo kumaphikseli angelasici: ukuthungwa kwalapho kufakwa esicini. Imodi yesichibi ikhetha ukuthi uhudula kuluphi uhlangothi lwalezi zindawo ezimbili.
+tool.patch.option.patch = Isichibi
+tool.patch.choice.source = Umthombo
+tool.patch.choice.destination = Indawo Okuya Kuyo
+tool.patch.history.patch = Isichibi
+
+tool.content_aware_move.name = Ukuhambisa Okuqaphela Okuqukethweyo
+tool.content_aware_move.description = Hudulela into ekhethiweyo kwenye indawo, imbobo eyitshiyayo igcwaliswe ngokuthathwe endaweni eyizingelezeleyo. Kumodi Yokwelula, into iyelulwa esikhundleni sokuhanjiswa.
+tool.content_aware_move.choice.move = Hambisa
+tool.content_aware_move.choice.extend = Yelula
+tool.content_aware_move.history.move = Ukuhambisa Okuqaphela Okuqukethweyo
+
+tool.red_eye.name = Ilihlo Elibomvu
+tool.red_eye.description = Chofoza inhlamvu yelihlo ukuze ususe ububomvu befuleshi kuyo.
+tool.red_eye.option.pupil_size = Ubukhulu Benhlamvu Yelihlo
+tool.red_eye.option.darken = Yenza Kube Mnyama
+tool.red_eye.history.red_eye = Ilihlo Elibomvu
+
+tool.magic_eraser.name = Isesuli Esilomlingo
+tool.magic_eraser.description = Chofoza ukuze wesule indawo elombala ofananayo ngaphansi kwesikhombi, ngokulingana lokubekezelela kwethuluzi — kungaba indawo exhumene lalapho ochofoze khona, kumbe yonke indawo kusendlalelo.
+tool.magic_eraser.option.contiguous = Okuxhumanayo
+tool.magic_eraser.history.erase = Isesuli Esilomlingo

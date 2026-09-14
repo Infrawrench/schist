@@ -1,0 +1,27 @@
+# أداة الكتابة. لا تُترجم أسماء عائلات الخطوط.
+
+tool.type.name = كتابة
+tool.type.description = انقر لبدء طبقة نص في ذلك الموضع، أو انقر طبقة نص موجودة لتحريرها. أثناء فتحها تستقبل الأداة ضغطات المفاتيح الأولية (أرسل الأحرف كإدخال مفاتيح)، ويؤدي الاعتماد إلى تصيير الطبقة وإغلاق التحرير.
+
+# شريط الخيارات
+tool.type.option.align = محاذاة
+tool.type.option.leading = تباعد الأسطر
+tool.type.option.tracking = تباعد الأحرف
+tool.type.option.kerning = تقنين الأحرف
+tool.type.option.ligatures = الحروف المركبة
+tool.type.option.discretionary_ligatures = الحروف المركبة الاختيارية
+tool.type.option.small_caps = أحرف كبيرة صغيرة الحجم
+tool.type.option.on_path = على المسار النشط
+tool.type.option.path_offset = إزاحة المسار
+
+# قائمة النمط، وفق ترتيب Photoshop
+tool.type.choice.regular = عادي
+tool.type.choice.bold = عريض
+tool.type.choice.italic = مائل
+tool.type.choice.bold_italic = عريض مائل
+
+# السجل
+tool.type.history.new_layer = طبقة نص جديدة
+tool.type.history.edit = تحرير النص
+tool.type.history.discard = تجاهل النص
+tool.type.history.discard_empty = تجاهل النص الفارغ

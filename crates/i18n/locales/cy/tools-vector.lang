@@ -1,0 +1,49 @@
+# Offer fector: ysgrifbinnau, saethau dewis, siapiau a siapiau personol.
+
+# Ysgrifbinnau
+tool.pen.name = Ysgrifbin
+tool.pen.description = Crëwch lwybr: cliciwch i osod pwynt cornel, llusgwch i dynnu dolenni cromlin ohono, a chliciwch y pwynt cyntaf i gau. Mae cadarnhau'n troi'r llwybr yn haen siâp.
+tool.pen.option.rubber_band = Band Rwber
+tool.pen.history.fill = Llenwad Llwybr
+tool.pen.default_path_name = Llwybr {n}
+tool.pen.freeform.name = Ysgrifbin Llawrydd
+tool.pen.freeform.description = Llusgwch linell â llawrydd a chaiff ei ffitio i lwybr, mor llac ag y pennir gan y dewis Ffitio.
+tool.pen.freeform.option.fit = Ffitio
+tool.pen.curvature.name = Ysgrifbin Crymedd
+tool.pen.curvature.description = Cliciwch gyfres o bwyntiau ac mae'r llwybr yn crymu'n llyfn drwyddynt.
+
+# Saethau
+tool.path_select.name = Dewis Llwybr
+tool.path_select.description = Cliciwch lwybr i'w ddewis, a llusgwch i symud y llwybr cyfan.
+tool.direct_select.name = Dewis Uniongyrchol
+tool.direct_select.description = Llusgwch bwynt angori unigol neu ei ddolenni i ail-lunio'r llwybr o'i amgylch.
+
+# Siapiau
+tool.shape.history.layer = Haen {name}
+tool.shape.rect.name = Offeryn Petryal
+tool.shape.rect.label = Petryal
+tool.shape.rect.description = Llusgwch i greu haen siâp petryal yn lliw'r blaendir; mae'n aros yn fector ac yn cael ei rasteirio eto wrth newid ei maint.
+tool.shape.ellipse.name = Offeryn Elips
+tool.shape.ellipse.label = Elips
+tool.shape.ellipse.description = Llusgwch i greu haen siâp elips yn lliw'r blaendir.
+tool.shape.line.name = Offeryn Llinell
+tool.shape.line.label = Llinell
+tool.shape.line.description = Llusgwch i greu haen siâp llinell syth yn lliw'r blaendir.
+tool.shape.line.option.weight = Trwch
+tool.shape.line.option.arrow_start = Dechrau
+tool.shape.line.option.arrow_end = Diwedd
+tool.shape.polygon.name = Offeryn Polygon
+tool.shape.polygon.label = Polygon
+tool.shape.polygon.description = Llusgwch i greu haen siâp polygon rheolaidd yn lliw'r blaendir, gyda nifer yr ochrau o'r dewisiadau.
+tool.shape.polygon.option.sides = Ochrau
+
+# Siapiau personol
+tool.shape.custom.name = Siâp Personol
+tool.shape.custom.label = Siâp Personol
+tool.shape.custom.description = Llusgwch i greu un o'r siapiau rhagosodedig mewnol, wedi'i ddewis â'r dewis Siâp.
+tool.shape.custom.choice.heart = Calon
+tool.shape.custom.choice.star = Seren
+tool.shape.custom.choice.arrow = Saeth
+tool.shape.custom.choice.lightning = Mellten
+tool.shape.custom.choice.cross = Croes
+tool.shape.custom.choice.speech_bubble = Swigen Siarad

@@ -1,0 +1,25 @@
+tool.transform.name = स्वतन्त्ररूपान्तरणम्
+tool.transform.description = स्वतन्त्ररूपान्तरणम्। सक्रियकरणे सक्रियस्तरस्य परितः रूपान्तरणपेटिका उद्घाट्यते—मापनाय कोणं कर्षयतु, भ्रमणाय कोणस्य बहिः कर्षयतु, तिर्यक्करणाय धारं कर्षयतु। प्रतिबद्धकरणपर्यन्तं (Enter) किमपि न लिख्यते; निरसनेन (Escape) स्तरः पूर्वस्थितिं प्रत्यापद्यते।
+tool.transform.option.interpolation = अन्तर्वेशनम्
+tool.transform.history.transform = स्वतन्त्ररूपान्तरणम्
+tool.transform.history.image_size = चित्रपरिमाणम्
+tool.transform.history.canvas_size = चित्रपटपरिमाणम्
+
+tool.transform.selection.name = चयनरूपान्तरणम्
+tool.transform.selection.description = चयनरूपान्तरणम्—सैव पेटिका, किन्तु तदन्तः पिक्सेलानां स्थाने चयनसीमां चालयति। समापनाय प्रतिबद्धं करोतु निरस्यतु वा।
+tool.transform.selection.history.transform = चयनरूपान्तरणम्
+
+tool.transform.resample.nearest_neighbor = निकटतमप्रतिवेशी
+tool.transform.resample.bilinear = द्विरेखीयम्
+tool.transform.resample.bicubic = द्विघनम्
+
+tool.crop.name = कर्तनम्
+tool.crop.description = रक्षणीयप्रदेशं कर्षित्वा तस्य हस्तकान् समायोजयतु; प्रतिबद्धकरणेन (Enter) प्रलेखः तदनुसारं कर्त्यते, निरसनेन (Escape) अपरिवर्तितः तिष्ठति।
+tool.crop.option.ratio = अनुपातः
+tool.crop.option.delete_cropped = कर्तितपिक्सेलविलोपनम्
+tool.crop.choice.unconstrained = अनिर्बद्धम्
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = कर्तनम्

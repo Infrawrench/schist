@@ -1,0 +1,24 @@
+# Xitirhisiwa xa tsalwa.
+
+tool.type.name = Tsalwa
+tool.type.description = Tshikilela ku sungula leyara ya tsalwa kwalaho, kumbe tshikilela leyi nga kona ku yi hlela. Loko yi pfulekile, xitirhisiwa xi amukela swilotlelo leswi nga hundzuluxiwangiki (rhumela swihlawulekisi swa tsalwa swi ri leswi nghenisiwaka hi khiyi), naswona ku tiyisisa ku dirowa leyara kutani ku pfala ku hlela.
+
+tool.type.option.align = Lulamisela
+tool.type.option.leading = Xivandla xa tilayini
+tool.type.option.tracking = Ku hambana ka maletere
+tool.type.option.kerning = Ku lulamisa xivandla xa maletere
+tool.type.option.ligatures = Maletere lama hlanganisiweke
+tool.type.option.discretionary_ligatures = Maletere yo hlanganisiwa loko swi laveka
+tool.type.option.small_caps = Maletere lamakulu lamatsongo
+tool.type.option.on_path = Eka ndlela leyi tirhaka
+tool.type.option.path_offset = Ku suka endleleni
+
+tool.type.choice.regular = Ntolovelo
+tool.type.choice.bold = Ntima
+tool.type.choice.italic = Voyamile
+tool.type.choice.bold_italic = Ntima yi voyamile
+
+tool.type.history.new_layer = Leyara leyintshwa ya tsalwa
+tool.type.history.edit = Hlela tsalwa
+tool.type.history.discard = Tshika tsalwa
+tool.type.history.discard_empty = Tshika tsalwa leri nga riki na chinhu

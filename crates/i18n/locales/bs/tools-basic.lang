@@ -1,0 +1,21 @@
+tool.move.name = Premještanje
+tool.move.description = Povucite sadržaj aktivnog sloja na novi položaj. Kada je uključen automatski odabir, pritiskom se najprije bira sloj — ili cijela grupa — ispod pokazivača.
+tool.move.option.auto_select = Automatski odabir
+tool.move.history.move_layer = Premještanje sloja
+
+tool.eyedropper.name = Kapaljka
+tool.eyedropper.description = Uzmite uzorak boje ispod pokazivača za uzorak prednje boje ili, dok držite Alt, za uzorak pozadinske boje. Uzorkovanje se nastavlja tokom povlačenja.
+tool.eyedropper.option.sample_size = Veličina uzorka
+tool.eyedropper.option.sample = Uzorak
+tool.eyedropper.choice.point_sample = Uzorak tačke
+tool.eyedropper.choice.average_3 = Prosjek 3 × 3
+tool.eyedropper.choice.average_5 = Prosjek 5 × 5
+tool.eyedropper.choice.average_11 = Prosjek 11 × 11
+tool.eyedropper.choice.average_31 = Prosjek 31 × 31
+tool.eyedropper.choice.all_layers = Svi slojevi
+tool.eyedropper.choice.current_layer = Trenutni sloj
+
+tool.hand.name = Ruka
+tool.hand.description = Pomjera prikaz. Prikazno područje pripada prozoru, pa ovaj alat u radu bez grafičkog sučelja ne mijenja dokument.
+tool.zoom.name = Zumiranje
+tool.zoom.description = Zumira prikaz. Prikazno područje pripada prozoru, pa ovaj alat u radu bez grafičkog sučelja ne mijenja dokument.

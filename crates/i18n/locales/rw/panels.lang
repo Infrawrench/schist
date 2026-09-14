@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Pikisele nyazo
+
+panel.color.picker = Igikoresho cy'amabara…
+panel.color.swap = Guhinduranya amabara
+panel.color.reset = Gusubiza ku mukara n'umweru
+
+panel.layers.blending_options = Amahitamo yo kuvanga…
+panel.layers.properties = Ibiranga urwego…
+panel.layers.show_hide = Kwerekana/Guhisha urwego
+panel.layers.toggle_visibility = Guhindura ukugaragara
+
+panel.history.title = Amateka
+panel.history.opened = Byafunguwe
+
+panel.info.title = Amakuru
+panel.info.camera = Kamera
+panel.info.lens = Lenzi
+panel.info.iso = ISO {iso}
+panel.info.bias = Ikosora ry'urumuri
+panel.info.flash_fired = furashi yakoreshejwe
+panel.info.no_flash = nta furashi
+panel.info.white_balance = Iringaniza ry'umweru {wb}
+panel.info.metering = ipima ry'urumuri rya {metering}
+panel.info.taken = Yafotowe
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · icyerekezo {o}
+panel.info.software = Porogaramu
+panel.info.where = Aho yafotorewe
+
+panel.notes.author = Umwanditsi
+panel.notes.clear_all = Gusukura byose
+panel.notes.unattributed = Nta mwanditsi
+panel.notes.empty = Kanda ku kibaho usige akandiko.
+panel.notes.placeholder = Kanda wandike
+
+panel.character.title = Inyuguti
+panel.character.type_tool = Igikoresho cy'inyandiko (T)
+panel.character.align_left = Gutondeka ibumoso
+panel.character.align_center = Gutondeka hagati
+panel.character.align_right = Gutondeka iburyo
+panel.character.text_color = Ibara ry'inyandiko
+panel.character.panel = Igice cy'inyuguti
+panel.character.cancel_edit = Kureka guhindura inyandiko
+panel.character.commit_edit = Kwemeza ihindurwa ry'inyandiko
+panel.character.number_tip = {label} · Andika agaciro, cyangwa ukoreshe ↑ / ↓ (Shift ku ntambwe nini)
+panel.character.leading = Intera y'imirongo
+panel.character.tracking = Intera y'inyuguti
+panel.character.alignment = Gutondeka
+panel.character.opentype = OpenType
+panel.character.text_on_path = Inyandiko ku nzira
+panel.character.straight = Igororotse
+panel.character.on_path = Ku nzira
+panel.character.straight_tip = Koresha umurongo shingiro usanzwe w'urwego rw'inyandiko
+panel.character.on_path_tip = Koresha kopi y'inzira iri gukora
+panel.character.path_offset = Kwimura ku nzira
+
+panel.ai.title = AI
+panel.ai.empty_editor = Saba ihindurwa maze urebe rikorerwa ku kibaho. Umukozi akoresha ibikoresho, utuyunguruzo n'amategeko amwe n'ayo muri menu, buri kimwe kikaba intambwe imwe yo gusubiza inyuma.
+panel.ai.empty_gallery = Baza ibijyanye n'amafoto yawe maze urebe bikorwa mu bubiko bw'amashusho: umukozi ashobora gushakisha, kureba amashusho mato, guhitamo, gushyira mu byiciro no gufungura ifoto mu gihindura.
+panel.ai.thinking = iri gutekereza…
+panel.ai.placeholder_editor = Baza cyangwa uhindure iyi nyandiko
+panel.ai.placeholder_gallery = Baza ibijyanye n'amafoto yawe
+panel.ai.send = Kohereza
+panel.ai.stop = Guhagarika
+panel.ai.fetching_models = Kubaza CLI moderi zayo…
+panel.ai.no_models = Nta moderi zihuye
+panel.ai.search_models = Gushakisha moderi…
+
+panel.keymap.install_plugin = Gushyiramo inyongera
+panel.keymap.save_as_prompt = Kubika nka — umugereka w'izina uhitamo ubwoko:

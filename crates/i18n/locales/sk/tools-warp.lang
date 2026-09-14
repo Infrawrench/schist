@@ -1,0 +1,22 @@
+tool.liquify.name = Skvapalnenie
+tool.liquify.description = Veľkým štetcom posúvajte, vírte, sťahujte alebo nafukujte pixely — konkrétnu činnosť určuje voľba režimu. Deformácia sa priebežne ukladá do siete a po potvrdení sa použije na vrstvu.
+tool.liquify.option.tool = Nástroj
+tool.liquify.choice.forward_warp = Deformovať dopredu
+tool.liquify.choice.reconstruct = Rekonštruovať
+tool.liquify.choice.twirl_cw = Vír v smere hodinových ručičiek
+tool.liquify.choice.twirl_ccw = Vír proti smeru hodinových ručičiek
+tool.liquify.choice.pucker = Stiahnuť
+tool.liquify.choice.bloat = Nafúknuť
+tool.liquify.choice.push_left = Posunúť doľava
+tool.liquify.history.liquify = Skvapalnenie
+
+tool.puppet_warp.name = Bábková deformácia
+tool.puppet_warp.description = Kliknutím pripnite vrstvu v niekoľkých bodoch a potom jeden z nich potiahnite: sieť sa ohne okolo kolíkov, pevne alebo voľne podľa voľby Tuhosť. Potvrdením sa deformácia použije.
+tool.puppet_warp.option.stiffness = Tuhosť
+tool.puppet_warp.history.puppet_warp = Bábková deformácia
+
+tool.vanishing_point.name = Úbežný bod
+tool.vanishing_point.description = Vytvorte potiahnutím rovinu nad objektom s perspektívou, potom prepnite režim na Klonovať a maľujte: kopírované pixely sledujú rovinu a so vzdialenosťou sa zmenšujú.
+tool.vanishing_point.choice.edit_plane = Upraviť rovinu
+tool.vanishing_point.choice.clone = Klonovať
+tool.vanishing_point.history.vanishing_point = Úbežný bod

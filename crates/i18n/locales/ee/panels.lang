@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Pixel ŋutɔwo
+
+panel.color.picker = Amati…
+panel.color.swap = Trɔ amadedeawo
+panel.color.reset = Gbugbɔ ɖe Yibɔ kple Ɣi dzi
+
+panel.layers.blending_options = Blending ƒe Ɖoɖowo…
+panel.layers.properties = Layer ƒe Nɔnɔmewo…
+panel.layers.show_hide = Fia/Ɣla Layer
+panel.layers.toggle_visibility = Trɔ Kpɔkpɔ ƒe Nɔnɔme
+
+panel.history.title = Ŋutinya
+panel.history.opened = Woʋui
+
+panel.info.title = Nyatakakawo
+panel.info.camera = Kamera
+panel.info.lens = Lens
+panel.info.iso = ISO {iso}
+panel.info.bias = Bias
+panel.info.flash_fired = flash dze
+panel.info.no_flash = flash medze o
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering} dzidzedze
+panel.info.taken = Wota
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · nɔƒe {o}
+panel.info.software = Software
+panel.info.where = Afisi
+
+panel.notes.author = Ŋɔŋlɔla
+panel.notes.clear_all = Kɔ wo Katã
+panel.notes.unattributed = Wometsɔe na ame aɖeke o
+panel.notes.empty = Zi canvas la dzi be nàgblẽ nuŋlɔɖi aɖe ɖi.
+panel.notes.placeholder = Zi be nàŋlɔ nu
+
+panel.character.title = Nuŋɔŋlɔdzesi
+panel.character.type_tool = Nuŋɔŋlɔ dɔwɔnu (T)
+panel.character.align_left = Ɖo ɖe miame
+panel.character.align_center = Ɖo ɖe titina
+panel.character.align_right = Ɖo ɖe ɖusime
+panel.character.text_color = Nuŋɔŋlɔ ƒe amadede
+panel.character.panel = Nuŋɔŋlɔdzesi ƒe panel
+panel.character.cancel_edit = Tsi nuŋɔŋlɔ ƒe trɔtrɔ
+panel.character.commit_edit = De asi nuŋɔŋlɔ ƒe trɔtrɔ dzi
+panel.character.number_tip = {label} · Ŋlɔ asixɔxɔ aɖe, alo zã ↑ / ↓ (Shift na afɔɖeɖe gãwo)
+panel.character.leading = Fliwo dome ƒe didi
+panel.character.tracking = Nuŋɔŋlɔdzesiwo dome ƒe didi
+panel.character.alignment = Ɖoɖo ɖe fli dzi
+panel.character.opentype = OpenType
+panel.character.text_on_path = Nuŋɔŋlɔ le mɔ dzi
+panel.character.straight = Dzɔdzɔe
+panel.character.on_path = Le mɔ dzi
+panel.character.straight_tip = Zã nuŋɔŋlɔ ƒe layer la ƒe anyigbafli bɔbɔe
+panel.character.on_path_tip = Zã mɔ si le dɔ wɔm la ƒe kɔpi
+panel.character.path_offset = Mɔ ƒe didi tso teƒe gbãtɔ
+
+panel.ai.title = AI
+panel.ai.empty_editor = Bia be woatrɔ nu aɖe eye nàkpɔ ale si wòdzɔna le canvas la dzi. Agent la zãa dɔwɔnuwo, nɔnɔmetatawo kple sewo abe menuwo ene, eye ɖe sia ɖe nye megbeɖeɖe ƒe afɔɖeɖe ɖeka.
+panel.ai.empty_gallery = Bia nya tso wò fotoawo ŋu eye nàkpɔ ale si wòdzɔna le gallery la me: agent la ate ŋu adi nu, akpɔ nɔnɔme suewo, atia, aɖo wo ɖe hatsotsowo me, eye wòaʋu foto aɖe le trɔlawo me.
+panel.ai.thinking = le susu wɔm…
+panel.ai.placeholder_editor = Bia nya tso agbalẽ sia ŋu alo trɔe
+panel.ai.placeholder_gallery = Bia nya tso wò fotoawo ŋu
+panel.ai.send = Ɖo ɖa
+panel.ai.stop = Tsi
+panel.ai.fetching_models = Le CLI la biam be wòana eƒe modelwo…
+panel.ai.no_models = Model aɖeke mesɔ o
+panel.ai.search_models = Di modelwo…
+
+panel.keymap.install_plugin = Ɖo Plugin
+panel.keymap.save_as_prompt = Dzra ɖo abe — agbalẽ ƒe nugbɔɖodi la tia tata la ene:

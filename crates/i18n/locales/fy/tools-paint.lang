@@ -1,0 +1,83 @@
+# Kwast
+tool.brush.name = Kwast
+tool.brush.description = Skilderje in streek mei sêfte rânen yn de foargrûnkleur, mei de kwastgrutte, hurdens en dekking fan de bewurker.
+tool.brush.history.stroke = Kwast
+
+# Potlead
+tool.pencil.name = Potlead
+tool.pencil.description = Skilderje in streek mei hurde rânen sûnder kartelglêding yn de foargrûnkleur.
+tool.pencil.history.stroke = Potlead
+
+# Gum
+tool.eraser.name = Gum
+tool.eraser.description = Wiskje lâns de streek en meitsje de laach dêr wer trochsichtich.
+tool.eraser.history.stroke = Gum
+
+# Kloanestimpel
+tool.clone.name = Kloanestimpel
+tool.clone.description = Kloanestimpel: alt-klik om it boarnepunt yn te stellen en skilderje dêrnei mei piksels dy't mei deselde ôfstân fan dat punt kopiearre wurde.
+tool.clone.history.stroke = Kloanestimpel
+
+# Tsjinhelderje, tsjusterder drukke en spûns
+tool.dodge.name = Tsjinhelderje
+tool.dodge.description = Meitsje de piksels dêr't de streek oerhinne giet ljochter.
+tool.dodge.history.stroke = Tsjinhelderje
+tool.burn.name = Tsjusterder drukke
+tool.burn.description = Meitsje de piksels dêr't de streek oerhinne giet donkerder.
+tool.burn.history.stroke = Tsjusterder drukke
+tool.sponge.name = Spûns
+tool.sponge.description = Fersêdzje of ûntsêdzje de piksels dêr't de streek oerhinne giet.
+tool.sponge.history.stroke = Spûns
+
+# Ferwazje, skerper meitsje en útsmarre
+tool.blur.name = Ferwazje
+tool.blur.description = Ferwazje de piksels dêr't de streek oerhinne giet.
+tool.blur.history.stroke = Ferwazje
+tool.sharpen.name = Skerper meitsje
+tool.sharpen.description = Meitsje de piksels dêr't de streek oerhinne giet skerper.
+tool.sharpen.history.stroke = Skerper meitsje
+tool.smudge.name = Utsmarre
+tool.smudge.description = Sleep kleur mei de streek mei, as wie it wiete ferve.
+tool.smudge.history.stroke = Utsmarre
+
+# Reparaasjekwasten
+tool.heal.name = Reparaasjekwast
+tool.heal.description = Reparaasjekwast: alt-klik om de boarne yn te stellen en skilderje dêrnei; de tekstuer fan de boarne wurdt mingd mei de eigen kleur en beljochting fan de bestimming.
+tool.heal.history.stroke = Reparaasjekwast
+tool.spot_heal.name = Plakreparaasjekwast
+tool.spot_heal.description = Plakreparaasjekwast: skilderje oer in plakje en it wurdt ferfongen troch tekstuer út de omjouwing — der hoecht gjin boarnepunt ynsteld te wurden.
+tool.spot_heal.history.stroke = Plakreparaasjekwast
+
+# Skiedniskwast
+tool.history_brush.name = Skiedniskwast
+tool.history_brush.description = Skilderje piksels werom út de momintopname yn de dokumintskiednis en meitsje letter wurk streek foar streek ûngedien.
+tool.history_brush.history.stroke = Skiedniskwast
+
+# Eftergrûngum
+tool.background_eraser.name = Eftergrûngum
+tool.background_eraser.description = Wiskje de kleur dy't ûnder it midden fan de kwast bemonstere wurdt en lit ôfwikende piksels stean, om in ûnderwerp fan de eftergrûn los te meitsjen.
+tool.background_eraser.history.stroke = Eftergrûngum
+
+# Ferrin
+tool.gradient.name = Ferrin
+tool.gradient.description = Sleep om de laach — binnen de seleksje as dy der is — te foljen mei in lineêr ferrin fan de foargrûnkleur nei de eftergrûnkleur yn de sleeprjochting.
+tool.gradient.radial.name = Radiaal ferrin
+tool.gradient.radial.description = Sleep fan it middelpunt nei bûten ta om mei in radiaal ferrin tusken de foar- en eftergrûnkleur te foljen.
+tool.gradient.option.gradient = Ferrin
+tool.gradient.option.reverse = Omkeare
+tool.gradient.option.dither = Rasterje
+tool.gradient.choice.foreground_to_background = Foargrûn nei eftergrûn
+tool.gradient.choice.foreground_to_transparent = Foargrûn nei trochsichtich
+tool.gradient.choice.linear = Lineêr
+tool.gradient.choice.radial = Radiaal
+tool.gradient.choice.angle = Hoeke
+tool.gradient.choice.reflected = Spegele
+tool.gradient.choice.diamond = Diamant
+tool.gradient.history.gradient = Ferrin
+
+# Ferve-emmer
+tool.bucket.name = Ferve-emmer
+tool.bucket.description = Klik om binnen de tolerânsje fan it ark it oanslutende gebiet mei in ferlykbere kleur ûnder de oanwizer mei de foargrûnkleur te foljen.
+tool.bucket.option.contiguous = Oanslutend
+tool.bucket.option.all_layers = Alle lagen
+tool.bucket.history.fill = Ferve-emmer

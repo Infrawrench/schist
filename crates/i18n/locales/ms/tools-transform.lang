@@ -1,0 +1,33 @@
+# Free transform, transform selection and crop (plugins/tools-transform),
+# plus the resampling names Image Size and the Interpolation dropdown
+# share, and the history entries of Image Size and Canvas Size.
+
+# Free transform
+tool.transform.name = Transformasi Bebas
+tool.transform.description = Transformasi Bebas. Mengaktifkannya membuka kotak transformasi di sekeliling lapisan aktif: seret penjuru untuk menskalakan, seret di luar penjuru untuk memutar, seret tepi untuk memesongkan. Tiada perubahan ditulis sehingga diterapkan (Enter), dan pembatalan (Escape) mengembalikan lapisan kepada keadaan asal.
+tool.transform.option.interpolation = Interpolasi
+tool.transform.history.transform = Transformasi Bebas
+tool.transform.history.image_size = Saiz Imej
+tool.transform.history.canvas_size = Saiz Kanvas
+
+# Transform selection
+tool.transform.selection.name = Transformasi Pilihan
+tool.transform.selection.description = Transformasi Pilihan: kotak yang sama, tetapi mengalihkan garis luar pilihan dan bukannya piksel di dalamnya. Terapkan atau batalkan untuk selesai.
+tool.transform.selection.history.transform = Transformasi Pilihan
+
+# The classical resampling filters, as Photoshop's Image Size names them
+tool.transform.resample.nearest_neighbor = Jiran Terdekat
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bikubik
+
+# Crop
+tool.crop.name = Pangkas
+tool.crop.description = Seret untuk menentukan kawasan yang hendak dikekalkan dan laraskan pemegangnya; menerapkan (Enter) memangkas dokumen kepada kawasan itu, manakala membatalkan (Escape) membiarkannya seperti asal.
+tool.crop.option.ratio = Nisbah
+tool.crop.option.delete_cropped = Padam Piksel yang Dipangkas
+tool.crop.choice.unconstrained = Tanpa Kekangan
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Pangkas

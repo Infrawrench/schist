@@ -1,0 +1,41 @@
+# Galeria de filtros, typos de litteras, actualisation e diagnostico Vulkan.
+
+app.filter_gallery.title = Galeria de filtros
+app.filter_gallery.stack = Pila (applicate de basso a alto)
+app.filter_gallery.no_settings = Iste filtro non ha parametros.
+
+app.fonts.not_open_licensed = sin licentia aperte · {substitute} ha le mesme metricas
+app.fonts.missing_substituted = mancante · le texto usa un typo de litteras substitutive
+app.fonts.not_in_catalogue = {family} non es in le catalogo aperte de typos de litteras
+app.fonts.no_faces = necun variante discargabile pro {family}
+app.fonts.empty_response = responsa vacue
+
+app.update.unreadable_response = responsa illegibile: {error}
+app.update.no_temp_dir = necun directorio temporari ubi discargar
+app.update.asset_has_path = le version nomina su recurso con un percurso
+app.update.too_big = le discargamento es plus grande que indicate per le version
+app.update.stopped_at = le discargamento se stoppava a {got} de {total} bytes
+app.update.hash_mismatch = le hash del discargamento es {got}, non {want}
+app.update.not_in_bundle = iste copia non es intra un pacchetto de application
+app.update.no_parent_dir = le pacchetto de application non ha directorio genitor
+app.update.cannot_write = impossibile scriber in {dir}
+app.update.cannot_move_aside = impossibile displaciar {app}
+app.update.cannot_move_in = impossibile placiar le nove pacchetto
+app.update.cannot_run_ditto = impossibile executar /usr/bin/ditto
+app.update.unpack_failed = le extraction del discargamento falleva: {error}
+app.update.no_app_in_download = le discargamento non contine Schist.app
+app.update.cannot_run_codesign = impossibile executar /usr/bin/codesign
+app.update.signature_invalid = le signatura del discargamento non pote esser verificate: {error}
+app.update.download_unsigned = iste copia es signate ma le discargamento non lo es
+app.update.different_developer = le discargamento es signate per un altere disveloppator
+app.update.cannot_relaunch = impossibile initiar le relanciator
+app.update.not_installed_copy = iste copia non ha essite placiate hic per le installator
+app.update.cannot_start_installer = impossibile initiar le installator
+app.update.platform_unsupported = le actualisationes sur iste platteforma es installate del mesme maniera que Schist
+
+app.vulkan.no_loader = schist: necun cargator Vulkan existe sur iste systema, dunque nihil es disponibile pro designar.\n\nSchist renderisa via Vulkan, e `libvulkan.so.1` non es installate.\nLe cargator e un driver es ambe necessari:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: le driver Vulkan indicate per iste session non existe.\n\n{var} es definite, e definir lo *reimplacia* le cerca de drivers per le\ncargator in vice de adder a illo. Dunque iste files, que non existe,\nforma le lista integre de drivers — e cata programma Vulkan in iste session\nnon vide alcun driver, non importa quantes es installate:\n\n{missing}\n    {var}={value}\n\nDirige lo verso un manifesto existente — le drivers installate pone le lor in\n/usr/share/vulkan/icd.d — o elimina su definition e lassa le cargator cercar.\nSi un session defini isto in un file de configuration (`env =` de Hyprland,\nun file environment.d de systemd, un profilo de shell), le cambio debe esser\nfacite ibi, e un nove apertura de session es necessari pro attinger toto\nlo que jam es in execution.\n
+app.vulkan.override_note = \n{var} es definite como {value}, e isto reimplacia le proprie cerca del\ncargator: si necun de iste manifestos corresponde a iste machina, eliminar\nsu definition es le prime cosa a tentar.\n
+app.vulkan.no_driver = schist: necun driver Vulkan es installate, dunque nihil es disponibile pro designar.\n\nSchist renderisa via Vulkan. Le cargator es installate e reporta necun\ndriver — nihil ha registrate un in le duo locos ubi illos es cercate:\n\n{dirs}\n\nLe cargator es distribuite separatemente del drivers, dunque normalmente il\nmanca solmente un pacchetto.\n\nInstalla le driver pro le GPU de iste machina:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nLe driver proprietari de NVIDIA include le sue (`nvidia-utils` sur Arch,\n`nvidia-driver` sur Debian). In un machina virtual, o ubique il non ha un\ndriver GPU a installar, le rasterisator software es le option functional:\n`vulkan-swrast` sur Arch, parte de `mesa-vulkan-drivers` alterubi. Illo es\nlente, ma illo se initia.\n{overridden}
+app.vulkan.no_device = schist: un driver Vulkan es installate ma non offere alcun dispositivo pro renderisar.\n\nLe driver pote non supportar iste GPU, o pote non poter acceder a illo —\nvia SSH, o intra un contentor, /dev/dri es frequentemente absente.\n`vulkaninfo --summary` reporta lo que le cargator vide.\n\nLe rasterisator software renderisa sin alcun GPU, si isto es lo que\niste machina require: `vulkan-swrast` sur Arch, parte de `mesa-vulkan-drivers`\nsur Debian e Fedora.\n
+app.vulkan.skip_hint = Pro initiar Schist nonobstante e lassar lo faller a su proprie maniera, defini {var}=1.

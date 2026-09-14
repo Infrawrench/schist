@@ -1,0 +1,30 @@
+# Strumenti di ritocco delle aree: Toppa, Spostamento in base al contenuto,
+# Occhi rossi e Gomma magica.
+
+# Toppa
+tool.patch.name = Toppa
+tool.patch.description = Traccia un contorno intorno a un difetto, quindi trascina la selezione su pixel puliti: la texture di quell'area viene adattata al difetto. La modalità Toppa determina quale estremo della coppia trascinare.
+tool.patch.option.patch = Toppa
+tool.patch.choice.source = Origine
+tool.patch.choice.destination = Destinazione
+tool.patch.history.patch = Toppa
+
+# Spostamento in base al contenuto
+tool.content_aware_move.name = Spostamento in base al contenuto
+tool.content_aware_move.description = Trascina altrove un oggetto selezionato e il vuoto lasciato viene riempito in base all'area circostante. In modalità Estendi, l'oggetto viene esteso anziché spostato.
+tool.content_aware_move.choice.move = Sposta
+tool.content_aware_move.choice.extend = Estendi
+tool.content_aware_move.history.move = Spostamento in base al contenuto
+
+# Occhi rossi
+tool.red_eye.name = Occhi rossi
+tool.red_eye.description = Fai clic su una pupilla per eliminare il rosso causato dal flash.
+tool.red_eye.option.pupil_size = Dimensione pupilla
+tool.red_eye.option.darken = Scurisci
+tool.red_eye.history.red_eye = Occhi rossi
+
+# Gomma magica
+tool.magic_eraser.name = Gomma magica
+tool.magic_eraser.description = Fai clic per cancellare l'area di colore simile sotto il puntatore, entro la tolleranza dello strumento: solo l'area contigua al punto selezionato oppure tutte le aree del livello.
+tool.magic_eraser.option.contiguous = Contiguo
+tool.magic_eraser.history.erase = Gomma magica

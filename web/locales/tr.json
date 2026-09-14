@@ -1,0 +1,9 @@
+{
+  "loading": "Yükleniyor…",
+  "starting": "Başlatılıyor…",
+  "webgpu": "Schist, bu tarayıcının sunmadığı WebGPU'ya ihtiyaç duyar. Chrome/Edge 113+, Firefox 141+ ve Safari 26+ bunu destekler.",
+  "noticeTitle": "Schist en iyi masaüstü uygulaması olarak çalışır",
+  "noticeBody": "Web sürümünü kullanıyorsunuz. Bu daha hafif bir yapıdır: birleştirme işlemini CPU'da yapar; Photoshop ve üçüncü taraf eklentileri, görüntü galerisi, AI paneli, HEIC içe aktarma ve yazı tipi indirme gibi bazı özellikleri içermez; dosyalar da indirme olarak kaydedilir. macOS, Windows ve Linux için ücretsiz masaüstü uygulaması bunların tümünü içerir.",
+  "noticeLink": "Masaüstü uygulamasını edinin.",
+  "ok": "Tamam"
+}

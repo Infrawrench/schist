@@ -1,0 +1,31 @@
+# 자유 변형, 선택 영역 변형, 자르기와 리샘플링 방식입니다.
+
+# 자유 변형
+tool.transform.name = 자유 변형
+tool.transform.description = 자유 변형을 활성화하면 활성 레이어 주위에 변형 상자가 열립니다. 모서리를 드래그하면 크기가 조정되고, 모서리 바깥을 드래그하면 회전하며, 가장자리를 드래그하면 기울어집니다. Enter 키로 확정하기 전에는 변경 사항이 적용되지 않으며 Escape 키로 취소하면 레이어가 원래 상태로 돌아갑니다.
+tool.transform.option.interpolation = 보간
+tool.transform.history.transform = 자유 변형
+tool.transform.history.image_size = 이미지 크기
+tool.transform.history.canvas_size = 캔버스 크기
+
+# 선택 영역 변형
+tool.transform.selection.name = 선택 영역 변형
+tool.transform.selection.description = 선택 영역 변형은 같은 변형 상자를 사용하지만 선택 영역 안의 픽셀이 아니라 선택 윤곽을 이동합니다. 확정하거나 취소하여 작업을 마칩니다.
+tool.transform.selection.history.transform = 선택 영역 변형
+
+# Photoshop의 이미지 크기에서 사용하는 고전적인 리샘플링 필터 이름
+tool.transform.resample.nearest_neighbor = 최단입점
+tool.transform.resample.bilinear = 쌍선형
+tool.transform.resample.bicubic = 쌍입방
+
+# 자르기
+tool.crop.name = 자르기
+tool.crop.description = 드래그하여 남길 영역을 지정하고 핸들을 조정합니다. Enter 키로 확정하면 문서가 해당 영역에 맞게 잘리고, Escape 키로 취소하면 변경되지 않습니다.
+tool.crop.option.ratio = 비율
+tool.crop.option.delete_cropped = 잘린 픽셀 삭제
+tool.crop.choice.unconstrained = 제한 없음
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = 자르기

@@ -1,0 +1,36 @@
+app.filter_gallery.title = Gallery ng Filter
+app.filter_gallery.stack = Stack (inilalapat mula ibaba pataas)
+app.filter_gallery.no_settings = Walang setting ang filter na ito.
+app.fonts.not_open_licensed = walang bukas na lisensiya · tugma ang mga sukat ng {substitute}
+app.fonts.missing_substituted = nawawala · gumagamit ang teksto ng pamalit
+app.fonts.not_in_catalogue = Wala ang {family} sa catalog ng mga bukas na font
+app.fonts.no_faces = walang mada-download na font face para sa {family}
+app.fonts.empty_response = walang-lamang tugon
+app.update.unreadable_response = hindi mabasang tugon: {error}
+app.update.no_temp_dir = walang pansamantalang directory na paglalagyan ng download
+app.update.asset_has_path = may kasamang path ang pangalan ng asset sa release
+app.update.too_big = mas malaki ang download kaysa sa nakasaad sa release
+app.update.stopped_at = huminto ang download sa {got} sa {total} byte
+app.update.hash_mismatch = {got} ang hash ng download, hindi {want}
+app.update.not_in_bundle = wala sa application bundle ang kopyang ito
+app.update.no_parent_dir = walang parent directory ang application bundle
+app.update.cannot_write = hindi makasulat sa {dir}
+app.update.cannot_move_aside = hindi maitabi ang {app}
+app.update.cannot_move_in = hindi mailagay ang bagong bundle
+app.update.cannot_run_ditto = hindi mapatakbo ang /usr/bin/ditto
+app.update.unpack_failed = nabigong i-unpack ang download: {error}
+app.update.no_app_in_download = walang Schist.app sa download
+app.update.cannot_run_codesign = hindi mapatakbo ang /usr/bin/codesign
+app.update.signature_invalid = hindi mapatunayan ang lagda ng download: {error}
+app.update.download_unsigned = may lagda ang kopyang ito ngunit wala ang download
+app.update.different_developer = ibang developer ang lumagda sa download
+app.update.cannot_relaunch = hindi masimulan ang relauncher
+app.update.not_installed_copy = hindi inilagay rito ng installer ang kopyang ito
+app.update.cannot_start_installer = hindi masimulan ang installer
+app.update.platform_unsupported = ini-install ang mga update sa platform na ito ayon sa paraan ng pagkaka-install ng Schist
+app.vulkan.no_loader = schist: walang Vulkan loader sa system na ito, kaya walang magagamit sa pagguhit.\n\nNagre-render ang Schist sa pamamagitan ng Vulkan, at hindi naka-install ang `libvulkan.so.1`.\nKailangan ang loader at driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: wala ang Vulkan driver na tinutukoy ng session na ito.\n\nNaka-set ang {var}, at *pinapalitan* nito ang paghahanap ng loader sa mga\ndriver sa halip na dagdagan iyon. Kaya ang mga file na ito, na hindi umiiral,\nang buong listahan ng driver — at walang nakikitang driver ang lahat ng Vulkan\nprogram sa session na ito, gaano man karami ang naka-install:\n\n{missing}\n    {var}={value}\n\nIturo ito sa umiiral na manifest — inilalagay ng mga naka-install na driver ang\nkanila sa /usr/share/vulkan/icd.d — o alisin ang pagkaka-set nito at hayaang\nhanapin ng loader ang sarili nitong driver. Kung mula sa config file itinakda\nito ng session (ang `env =` ng Hyprland, systemd environment.d drop-in, o shell\nprofile), doon ito dapat baguhin, at kailangan ng bagong login bago umabot ang\npagbabago sa anumang tumatakbo na.\n
+app.vulkan.override_note = \nNaka-set ang {var} sa {value}, at pinapalitan nito ang sariling paghahanap ng\nloader: kung wala sa mga manifest na iyon ang para sa makinang ito, unang\nsubukang alisin ang pagkaka-set nito.\n
+app.vulkan.no_driver = schist: walang naka-install na Vulkan driver, kaya walang mapagguguhitan.\n\nNagre-render ang Schist sa pamamagitan ng Vulkan. Naka-install ang loader ngunit\nwalang iniulat na driver — walang nagrehistro nito sa alinman sa dalawang lugar:\n\n{dirs}\n\nHiwalay ang package ng loader sa mga driver, kaya karaniwan ay iisang package\nlamang ang nawawala.\n\nI-install ang para sa GPU ng makinang ito:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nKasama sa proprietary package ng NVIDIA ang sarili nitong Vulkan component\n(`nvidia-utils` sa Arch, `nvidia-driver` sa Debian). Sa virtual machine, o\nsaanmang walang GPU driver na mai-install, software rasteriser ang gumagana:\n`vulkan-swrast` sa Arch, bahagi ng `mesa-vulkan-drivers` sa iba. Mabagal ito,\nngunit nagsisimula.\n{overridden}
+app.vulkan.no_device = schist: may naka-install na Vulkan driver ngunit wala itong device na mapagre-render-an.\n\nMaaaring hindi saklaw ng driver ang GPU na ito, o hindi nito ito maabot — sa SSH\no sa loob ng container, karaniwang nawawala ang /dev/dri. Iniuulat ng\n`vulkaninfo --summary` ang nakikita ng loader.\n\nKayang mag-render ng software rasteriser nang walang anumang GPU, kung ganoon\nang makinang ito: `vulkan-swrast` sa Arch, bahagi ng `mesa-vulkan-drivers` sa\nDebian at Fedora.\n
+app.vulkan.skip_hint = Upang simulan pa rin ang Schist at hayaang mabigo ito sa sarili nitong paraan, i-set ang {var}=1.

@@ -1,0 +1,119 @@
+# plugins/commands-core: the Edit, Select and Layer commands. A command's
+# title is its menu label; its description is also the tool description
+# the MCP server publishes (which pins English). The history entries are
+# what the History panel shows for an edit the command made.
+
+# Edit
+command.edit.undo.title = পূৰ্বাৱস্থালৈ নিয়ক
+command.edit.undo.description = দস্তাবেজৰ পূৰ্বাৱস্থা ইতিহাসত এটা পদক্ষেপ পিছলৈ যাওক।
+command.edit.redo.title = পুনৰ কৰক
+command.edit.redo.description = শেষবাৰ পূৰ্বাৱস্থালৈ নিয়া সম্পাদনাটো পুনৰ কৰক।
+command.edit.copy.title = নকল কৰক
+command.edit.copy.description = সক্ৰিয় স্তৰৰ নিৰ্বাচিত পিক্সেলবোৰ আভ্যন্তৰীণ ক্লিপব'ৰ্ডলৈ নকল কৰক (একো নিৰ্বাচিত নাথাকিলে গোটেই স্তৰটো)।
+command.edit.copy_merged.title = একত্ৰিত ৰূপ নকল কৰক
+command.edit.copy_merged.description = কেৱল সক্ৰিয় স্তৰৰ পৰা নহয়, সকলো দৃশ্যমান স্তৰ একত্ৰিত হোৱাৰ দৰে নিৰ্বাচনটো নকল কৰক।
+command.edit.cut.title = কাটক
+command.edit.cut.description = নিৰ্বাচিত পিক্সেলবোৰ ক্লিপব'ৰ্ডলৈ নকল কৰি সক্ৰিয় স্তৰৰ পৰা মচক।
+command.edit.paste.title = পেষ্ট কৰক
+command.edit.paste.description = ক্লিপব'ৰ্ডৰ বিষয়বস্তু কেনভাছৰ মাজত, সক্ৰিয় স্তৰৰ ওপৰৰ এটা নতুন স্তৰত পেষ্ট কৰক।
+command.edit.paste.layer_name = পেষ্ট কৰা স্তৰ
+command.edit.paste_in_place.title = যথাস্থানত পেষ্ট কৰক
+command.edit.paste_in_place.description = ক্লিপব'ৰ্ডৰ বিষয়বস্তু যি স্থানাংকৰ পৰা নকল কৰা হৈছিল, তাতেই এটা নতুন স্তৰত পেষ্ট কৰক।
+command.edit.fill_foreground.title = অগ্ৰভূমিৰে পূৰণ কৰক
+command.edit.fill_foreground.description = নিৰ্বাচনটো (বা একো নিৰ্বাচিত নাথাকিলে গোটেই কেনভাছ) অগ্ৰভূমিৰ ৰঙেৰে পূৰণ কৰক।
+command.edit.fill_background.title = পটভূমিৰে পূৰণ কৰক
+command.edit.fill_background.description = নিৰ্বাচনটো (বা একো নিৰ্বাচিত নাথাকিলে গোটেই কেনভাছ) পটভূমিৰ ৰঙেৰে পূৰণ কৰক।
+
+# Select
+command.select.all.title = সকলো নিৰ্বাচন কৰক
+command.select.all.description = গোটেই কেনভাছ নিৰ্বাচন কৰক।
+command.select.deselect.title = নিৰ্বাচন আঁতৰাওক
+command.select.deselect.description = নিৰ্বাচনটো আঁতৰাওক, যাতে সম্পাদনাবোৰ পুনৰ গোটেই স্তৰত প্ৰয়োগ হয়।
+command.select.inverse.title = নিৰ্বাচন ওলোটাওক
+command.select.inverse.description = নিৰ্বাচিত আৰু অনিৰ্বাচিত অঞ্চল অদল-বদল কৰক।
+command.select.reselect.title = পুনৰ নিৰ্বাচন কৰক
+command.select.reselect.description = শেষবাৰ আঁতৰোৱা নিৰ্বাচনটো পুনৰ আনক।
+command.select.reselect.msg.nothing_to_reselect = পুনৰ নিৰ্বাচন কৰিবলৈ একো নাই
+command.select.feather.title = নিৰ্বাচনত ফেদাৰ দিয়ক
+command.select.feather.description = দুই পিক্সেল অস্পষ্টকৰণেৰে নিৰ্বাচনৰ কাষ কোমল কৰক, যাতে পৰৱৰ্তী সম্পাদনাটো তাৰ মাজেৰে ক্ৰমে মিলি যায়।
+command.select.grow.title = বৃদ্ধি কৰক
+command.select.grow.description = যাদুকৰী দণ্ডৰ সহনসীমাৰ ভিতৰত ইতিমধ্যে নিৰ্বাচিত অংশৰ সৈতে মিলা সংলগ্ন পিক্সেললৈ নিৰ্বাচনটো প্ৰসাৰিত কৰক।
+command.select.similar.title = সদৃশ
+command.select.similar.description = যাদুকৰী দণ্ডৰ সহনসীমাৰ ভিতৰত নিৰ্বাচনৰ সৈতে মিলা স্তৰটোৰ প্ৰতিটো পিক্সেল নিৰ্বাচন কৰক, সেয়া সংলগ্ন হওক বা নহওক।
+command.select.save.title = নিৰ্বাচন সংৰক্ষণ কৰক
+command.select.save.description = বৰ্তমানৰ নিৰ্বাচনটো দস্তাবেজত এটা নামযুক্ত আলফা চেনেল হিচাপে ৰাখক।
+command.select.save.channel_name = আলফা {n}
+command.select.load.title = নিৰ্বাচন লোড কৰক
+command.select.load.description = সৰ্বশেষ সংৰক্ষিত নিৰ্বাচনটো পুনৰুদ্ধাৰ কৰক।
+
+# Layer
+command.layer.new.title = নতুন স্তৰ
+command.layer.new.description = সক্ৰিয় স্তৰৰ ওপৰত এটা খালী ৰেষ্টাৰ স্তৰ যোগ কৰি তাক সক্ৰিয় কৰক।
+command.layer.duplicate.title = স্তৰৰ প্ৰতিলিপি কৰক
+command.layer.duplicate.description = সক্ৰিয় স্তৰটো তাৰ সকলো বিষয়বস্তুসহ ওপৰৰ এটা নতুন স্তৰলৈ নকল কৰক।
+command.layer.smart_object.title = স্মাৰ্ট অবজেক্টলৈ ৰূপান্তৰ কৰক
+command.layer.smart_object.description = সক্ৰিয় ৰেষ্টাৰ স্তৰৰ পিক্সেলবোৰ এটা স্মাৰ্ট অবজেক্টত মেৰিয়াওক, যাতে পিছৰ ৰূপান্তৰ আৰু ফিল্টাৰবোৰে অক্ষত উৎসটো পুনৰ নমুনা লয়।
+command.layer.rasterize.title = স্তৰ ৰেষ্টাৰাইজ কৰক
+command.layer.rasterize.description = আকৃতি, লিখনী বা স্মাৰ্ট অবজেক্ট স্তৰ এটা সাধাৰণ পিক্সেললৈ স্থায়ীভাৱে ৰূপান্তৰ কৰক।
+command.layer.delete.title = স্তৰ মচক
+command.layer.delete.description = নিৰ্বাচিত স্তৰবোৰ মচক।
+command.layer.group.title = স্তৰবোৰ গোট কৰক
+command.layer.group.description = নিৰ্বাচিত স্তৰবোৰক যথাস্থানতে এটা নতুন গোটত মেৰিয়াওক।
+command.layer.raise.title = আগলৈ আনক
+command.layer.raise.description = সক্ৰিয় স্তৰটো তাৰ গোটৰ স্তূপত এঠাই ওপৰলৈ নিয়ক।
+command.layer.lower.title = পিছলৈ পঠিয়াওক
+command.layer.lower.description = সক্ৰিয় স্তৰটো তাৰ গোটৰ স্তূপত এঠাই তললৈ নিয়ক।
+command.layer.to_front.title = একেবাৰে আগলৈ আনক
+command.layer.to_front.description = সক্ৰিয় স্তৰটো তাৰ গোটৰ ওপৰলৈ নিয়ক।
+command.layer.to_back.title = একেবাৰে পিছলৈ পঠিয়াওক
+command.layer.to_back.description = সক্ৰিয় স্তৰটো তাৰ গোটৰ তললৈ নিয়ক।
+command.layer.clipping_mask.title = ক্লিপিং মাস্ক সৃষ্টি/মুক্ত কৰক
+command.layer.clipping_mask.description = সক্ৰিয় স্তৰটো তলৰ স্তৰৰ সৈতে ক্লিপ কৰক, বা ইতিমধ্যে ক্লিপ কৰা থাকিলে মুক্ত কৰক; ক্লিপ কৰা স্তৰ কেৱল তাৰ ভিত্তিত পিক্সেল থকা ঠাইতহে দেখা যায়।
+command.layer.cut_to_new.title = কাটি নতুন স্তৰ
+command.layer.cut_to_new.description = নিৰ্বাচিত পিক্সেলবোৰ সক্ৰিয় স্তৰৰ পৰা উলিয়াই তাৰ ওপৰৰ এটা নতুন স্তৰলৈ নিয়ক।
+command.layer.cut_to_new.layer_name = কাটি নতুন স্তৰ
+command.layer.add_mask.title = স্তৰ মাস্ক যোগ কৰক
+command.layer.add_mask.description = সক্ৰিয় স্তৰত এটা স্তৰ মাস্ক যোগ কৰক; নিৰ্বাচন থাকিলে কেৱল সেই অংশহে উন্মোচিত হয়।
+command.layer.flatten.title = ছবি সমতল কৰক
+command.layer.flatten.description = সকলো দৃশ্যমান বস্তু এটা অস্বচ্ছ পটভূমি স্তৰত একত্ৰিত কৰি লুকুওৱা স্তৰবোৰ বাদ দিয়ক।
+command.layer.merge_down.title = তলৰ সৈতে একত্ৰিত কৰক
+command.layer.merge_down.description = সক্ৰিয় স্তৰটো তাৰ তলৰ স্তৰৰ সৈতে একত্ৰিত কৰক।
+command.layer.merge_down.msg.no_layer_below = একত্ৰিত কৰিবলৈ তলত কোনো স্তৰ নাই
+command.layer.merge_visible.title = দৃশ্যমানবোৰ একত্ৰিত কৰক
+command.layer.merge_visible.description = সকলো দৃশ্যমান স্তৰ এটাত একত্ৰিত কৰি লুকুওৱা স্তৰবোৰ অপৰিৱৰ্তিত ৰাখক।
+
+# Why a command declined, shown on the status line (shared by more
+# than one command)
+command.msg.nothing_to_copy = নকল কৰিবলৈ এটা পিক্সেল স্তৰ নিৰ্বাচন কৰক
+command.msg.clipboard_empty = ক্লিপব'ৰ্ডত একো নাই
+
+# History panel entries
+command.history.grow = বৃদ্ধি
+command.history.similar = সদৃশ
+command.history.clear = পৰিষ্কাৰ
+command.history.merge_down = তলৰ সৈতে একত্ৰিত
+command.history.flatten_image = ছবি সমতলকৰণ
+command.history.merge_visible = দৃশ্যমানবোৰ একত্ৰিত
+command.history.paste = পেষ্ট
+command.history.fill = পূৰণ
+command.history.select_all = সকলো নিৰ্বাচন
+command.history.deselect = নিৰ্বাচন আঁতৰোৱা
+command.history.select_inverse = নিৰ্বাচন ওলোটোৱা
+command.history.new_layer = নতুন স্তৰ
+command.history.duplicate_layer = স্তৰৰ প্ৰতিলিপি
+command.history.convert_to_smart_object = স্মাৰ্ট অবজেক্টলৈ ৰূপান্তৰ
+command.history.rasterize_layer = স্তৰ ৰেষ্টাৰাইজ
+command.history.delete_layer = স্তৰ মচা
+command.history.delete_layers = স্তৰবোৰ মচা
+command.history.group_layer = স্তৰ গোট কৰা
+command.history.group_layers = স্তৰবোৰ গোট কৰা
+command.history.reselect = পুনৰ নিৰ্বাচন
+command.history.feather = ফেদাৰ
+command.history.load_selection = নিৰ্বাচন লোড
+command.history.bring_forward = আগলৈ অনা
+command.history.send_backward = পিছলৈ পঠিওৱা
+command.history.bring_to_front = একেবাৰে আগলৈ অনা
+command.history.send_to_back = একেবাৰে পিছলৈ পঠিওৱা
+command.history.clipping_mask = ক্লিপিং মাস্ক
+command.history.layer_via_cut = কাটি নতুন স্তৰ
+command.history.add_layer_mask = স্তৰ মাস্ক যোগ

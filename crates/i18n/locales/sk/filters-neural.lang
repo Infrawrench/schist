@@ -1,0 +1,153 @@
+filter.neural.param.center_x = Stred X
+filter.neural.param.center_y = Stred Y
+filter.neural.param.direction = Smer
+filter.neural.param.transition = Prechod
+filter.neural.param.detail = Detaily
+filter.neural.param.eyes = Oči
+
+filter.neural.msg.using_model = Používa sa {model} · {license}.
+filter.neural.msg.get_model = Získate ho cez Filter ▸ Neural Filters ▸ Spravovať modely.
+
+filter.camera_raw.name = Filter Camera Raw
+filter.camera_raw.param.temperature = Teplota
+filter.camera_raw.param.tint = Odtieň
+filter.camera_raw.param.highlights = Svetlá
+filter.camera_raw.param.shadows = Tiene
+filter.camera_raw.param.whites = Biele
+filter.camera_raw.param.blacks = Čierne
+filter.camera_raw.param.clarity = Zreteľnosť
+filter.camera_raw.param.dehaze = Odstránenie oparu
+filter.camera_raw.param.vibrance = Živosť
+filter.camera_raw.param.sharpening = Zaostrenie
+filter.camera_raw.param.noise = Redukcia šumu
+filter.camera_raw.param.vignette = Vinetácia
+
+filter.lens_correction.name = Korekcia objektívu
+filter.lens_correction.param.distortion = Odstrániť skreslenie
+filter.lens_correction.param.red = Opraviť červené/azúrové lemovanie
+filter.lens_correction.param.blue = Opraviť modré/žlté lemovanie
+filter.lens_correction.param.vignette = Miera vinetácie
+filter.lens_correction.param.midpoint = Stred vinetácie
+filter.lens_correction.param.vertical = Zvislá perspektíva
+filter.lens_correction.param.horizontal = Vodorovná perspektíva
+
+filter.adaptive_wide_angle.name = Adaptívny široký uhol
+filter.adaptive_wide_angle.param.projection = Korekcia
+filter.adaptive_wide_angle.choice.fisheye = Rybie oko
+filter.adaptive_wide_angle.choice.perspective = Perspektíva
+filter.adaptive_wide_angle.choice.full_spherical = Úplná sférická
+filter.adaptive_wide_angle.param.focal = Ohnisková vzdialenosť
+filter.adaptive_wide_angle.param.crop = Faktor orezania
+
+filter.field_blur.name = Rozmazanie poľa
+filter.field_blur.param.position = Ostré miesto
+filter.iris_blur.name = Rozmazanie clony
+filter.iris_blur.param.roundness = Zaoblenie
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Stred
+filter.tilt_shift.param.band = Ostré pásmo
+filter.spin_blur.name = Kruhové rozmazanie
+filter.spin_blur.param.angle = Uhol rozmazania
+filter.path_blur.name = Rozmazanie po ceste
+filter.path_blur.param.speed = Rýchlosť
+filter.path_blur.param.curve = Zakrivenie
+filter.path_blur.param.taper = Zúženie
+
+filter.shape_blur.name = Rozmazanie tvarom
+filter.shape_blur.choice.square = Štvorec
+filter.shape_blur.choice.diamond = Kosoštvorec
+filter.shape_blur.choice.hexagon = Šesťuholník
+filter.shape_blur.choice.cross = Kríž
+filter.shape_blur.choice.ring = Prstenec
+filter.shape_blur.choice.star = Hviezda
+filter.smart_blur.name = Inteligentné rozmazanie
+filter.smart_blur.choice.normal = Normálne
+filter.smart_blur.choice.edge_only = Iba okraje
+filter.smart_blur.choice.overlay_edge = Prekrytie okrajov
+
+filter.deinterlace.name = Odstrániť prekladanie
+filter.deinterlace.param.field = Odstrániť
+filter.deinterlace.choice.odd_fields = Nepárne polsnímky
+filter.deinterlace.choice.even_fields = Párne polsnímky
+filter.deinterlace.param.fill = Vytvoriť nové polsnímky pomocou
+filter.deinterlace.choice.interpolation = Interpolácia
+filter.deinterlace.choice.duplication = Duplikovanie
+filter.ntsc_colors.name = Farby NTSC
+
+filter.neural.skin_smoothing.name = Vyhladenie pokožky
+filter.neural.skin_smoothing.param.blur = Hladkosť
+filter.neural.skin_smoothing.param.detail = Zachovať detaily
+filter.neural.skin_smoothing.msg.no_model = Model {model} nie je nainštalovaný — namiesto tvárí sa vyhladí všetko vo farbe pokožky.
+
+filter.neural.jpeg_artifacts.name = Odstránenie artefaktov JPEG
+filter.neural.jpeg_artifacts.msg.no_model = Model {model} nie je nainštalovaný — namiesto toho sa vyhladí 8-pixelová mriežka.
+
+filter.neural.colorize.name = Kolorovanie
+filter.neural.colorize.param.warmth = Teplota farieb
+filter.neural.colorize.msg.no_model = Model {model} nie je nainštalovaný — namiesto toho sa obraz tónuje podľa svetlosti.
+
+filter.neural.super_zoom.name = Super priblíženie
+filter.neural.super_zoom.msg.no_model = Model {model} nie je nainštalovaný — namiesto toho sa použije zaostrenie podľa hrán.
+
+filter.neural.style_transfer.name = Prenos štýlu
+filter.neural.style_transfer.choice.mosaic = Mozaika
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Nie sú nainštalované žiadne modely štýlov — prenesie sa iba farba. Získate ich cez Filter ▸ Neural Filters ▸ Spravovať modely.
+filter.neural.style_transfer.msg.installed = Nainštalované: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Prenos farieb
+filter.neural.color_transfer.param.hue = Cieľový odtieň
+filter.neural.color_transfer.param.contrast = Zladiť kontrast
+filter.neural.color_transfer.msg.info = Paletu prevezme z vrstvy pod aktívnou vrstvou. Ak pod ňou nič nie je, zameria sa na cieľový odtieň.
+
+filter.neural.depth_blur.name = Rozmazanie podľa hĺbky
+filter.neural.depth_blur.param.focus = Vzdialenosť zaostrenia
+filter.neural.depth_blur.param.blur = Sila rozmazania
+filter.neural.depth_blur.msg.no_model = Model {model} nie je nainštalovaný — namiesto toho sa zaostrí podľa miestnej ostrosti.
+
+filter.neural.harmonization.name = Harmonizácia
+filter.neural.harmonization.param.tone = Zladiť tón
+filter.neural.harmonization.msg.info = Zladí túto vrstvu s obsahom pod ňou. Ak pod ňou nič nie je, nemá ju s čím zladiť a nič sa nezmení.
+
+filter.neural.landscape_mixer.name = Zmiešavač krajiny
+filter.neural.landscape_mixer.param.bands = Hĺbkové pásma
+filter.neural.landscape_mixer.msg.with_depth = Paletu prevezme z vrstvy pod aktívnou vrstvou a jednotlivé pásma zladí pomocou modelu Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Paletu prevezme z vrstvy pod aktívnou vrstvou. Nainštalujte Depth (Depth Blur), aby sa obloha zladila s oblohou a zem so zemou namiesto obrazu ako celku.
+
+filter.neural.photo_restoration.name = Obnova fotografie
+filter.neural.photo_restoration.param.enhance = Vylepšenie fotografie
+filter.neural.photo_restoration.param.scratches = Redukcia škrabancov
+filter.neural.photo_restoration.param.tone = Obnoviť tón
+filter.neural.photo_restoration.msg.no_model = Čistenie bez modelu.
+filter.neural.photo_restoration.msg.using_deblock = Používa sa Deblock · vytrénované pre Schist.
+filter.neural.photo_restoration.msg.using_detail = Používa sa Detail · vytrénované pre Schist.
+filter.neural.photo_restoration.msg.using_both = Používajú sa Deblock a Detail · vytrénované pre Schist.
+
+filter.neural.photo_to_sketch.name = Fotografia na skicu
+filter.neural.photo_to_sketch.param.weight = Hrúbka čiary
+filter.neural.photo_to_sketch.param.shading = Tieňovanie
+
+filter.neural.face_to_caricature.name = Tvár na karikatúru
+filter.neural.face_to_caricature.param.mouth = Ústa
+filter.neural.face_to_caricature.param.head = Hlava
+filter.neural.face_to_caricature.msg.no_model = Model {model} nie je nainštalovaný, takže sa nič nezmení — nie je čo karikovať.
+
+filter.neural.smart_portrait.name = Inteligentný portrét
+filter.neural.smart_portrait.param.happiness = Radosť
+filter.neural.smart_portrait.param.surprise = Prekvapenie
+filter.neural.smart_portrait.param.age = Vek tváre
+filter.neural.smart_portrait.param.gaze = Pohľad
+filter.neural.smart_portrait.param.light = Smer svetla
+filter.neural.smart_portrait.msg.no_model = Model {model} nie je nainštalovaný, takže sa nič nezmení — filter nemá tvár, s ktorou by mohol pracovať.
+
+filter.neural.makeup_transfer.name = Prenos líčenia
+filter.neural.makeup_transfer.param.lips = Pery
+filter.neural.makeup_transfer.param.skin = Tón pokožky
+filter.neural.makeup_transfer.msg.info = Prevezme líčenie z tváre vo vrstve pod aktívnou vrstvou. Prenesie farbu, nie textúru.
+filter.neural.makeup_transfer.msg.no_model = Model {model} nie je nainštalovaný, takže sa nič nezmení.
+
+filter.neural.sketch_to_portrait.name = Skica na portrét
+filter.neural.sketch_to_portrait.param.detail = Zachovať čiary
+filter.neural.sketch_to_portrait.msg.with_face = Model je vytrénovaný na dopĺňanie výstupu filtra Fotografia na skicu tejto aplikácie. Pracuje s tvárou, ktorú nájde.
+filter.neural.sketch_to_portrait.msg.no_face = Model je vytrénovaný na dopĺňanie výstupu filtra Fotografia na skicu tejto aplikácie. Nainštalujte Faces (Skin Smoothing), aby pracoval s tvárou namiesto celého výberu.

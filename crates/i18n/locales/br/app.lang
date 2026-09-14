@@ -1,0 +1,39 @@
+app.filter_gallery.title = Skeudennaoueg ar siloù
+app.filter_gallery.stack = Bern (arloet eus an traoñ d'ar c'hrec'h)
+app.filter_gallery.no_settings = N'eus arventenn ebet gant ar sil-mañ.
+
+app.fonts.not_open_licensed = n'eo ket dindan un aotre frank · {substitute} a glot gant e ventoù
+app.fonts.missing_substituted = diank · an destenn a vez savet gant un erlec'hiad
+app.fonts.not_in_catalogue = N'emañ ket {family} e katalog an nodrezhioù frank
+app.fonts.no_faces = neuz nodrezh pellgargadus ebet evit {family}
+app.fonts.empty_response = respont goullo
+
+app.update.unreadable_response = respont dilennadus: {error}
+app.update.no_temp_dir = kavlec'h padennek ebet evit pellgargañ
+app.update.asset_has_path = an embannadur a envel e danvez gant un treug
+app.update.too_big = brasoc'h eo ar pellgargadenn eget ar pezh a lavar an embannadur
+app.update.stopped_at = paouezet eo ar pellgargadenn da {got} diwar {total} eizhbit
+app.update.hash_mismatch = riñvet eo sammad ar pellgargadenn da {got}, ha n'eo ket {want}
+app.update.not_in_bundle = n'emañ ket an eilad-mañ en un dastumad arload
+app.update.no_parent_dir = n'eus kavlec'h kar ebet gant dastumad an arload
+app.update.cannot_write = n'haller ket skrivañ e {dir}
+app.update.cannot_move_aside = n'haller ket dilec'hiañ {app} a-gostez
+app.update.cannot_move_in = n'haller ket lakaat an dastumad nevez en e lec'h
+app.update.cannot_run_ditto = n'haller ket erounit /usr/bin/ditto
+app.update.unpack_failed = c'hwitet eo dibakañ ar pellgargadenn: {error}
+app.update.no_app_in_download = n'eus Schist.app ebet er pellgargadenn
+app.update.cannot_run_codesign = n'haller ket erounit /usr/bin/codesign
+app.update.signature_invalid = ne c'haller ket gwiriañ sinadur ar pellgargadenn: {error}
+app.update.download_unsigned = sinet eo an eilad-mañ ha n'eo ket ar pellgargadenn
+app.update.different_developer = sinet eo ar pellgargadenn gant un diorroer all
+app.update.cannot_relaunch = n'haller ket loc'hañ an adloc'her
+app.update.not_installed_copy = n'eo ket bet lakaet an eilad-mañ amañ gant ar stalier
+app.update.cannot_start_installer = n'haller ket loc'hañ ar stalier
+app.update.platform_unsupported = hizivadurioù ar savenn-mañ a vez staliet evel ma voe Schist
+
+app.vulkan.no_loader = schist: n'eus karger Vulkan ebet war ar reizhiad-mañ, neuze n'eus netra da dresañ gantañ.\n\nSchist a zaskor dre Vulkan, ha n'eo ket staliet `libvulkan.so.1`.\nRet eo kaout ar c'harger hag ur sturier: \n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: n'emañ ket amañ ar sturier Vulkan a zo meneget gant an estez-mañ.\n\nArventennet eo {var}, hag e arventennañ a *erlec'hia* klask ar c'harger\nevit sturierioù e-lec'h ouzhpennañ dezhañ. Ar restroù-mañ, nad eus ket anezho,\neo neuze roll klok ar sturierioù — ha pep goulev Vulkan en estez-mañ\nne wel sturier ebet, forzh pet a zo staliet:\n\n{missing}\n    {var}={value}\n\nMirit anezhañ war ur manifest a zo anezhañ — ar sturierioù staliet a laka o re e\n/usr/share/vulkan/icd.d — pe diweredekait anezhañ ha laoskit ar c'harger da gavout e re.\nUn estez a arventenn an dra-mañ diwar ur restr kefluniañ (`env =` Hyprland,\nun enankad systemd environment.d, un aelad shell) a rank bezañ kemmet eno,\nha ret eo kevreañ en-dro evit ma tizhfe ar c'hemm pezh a zo o vont en-dro dija.\n
+app.vulkan.override_note = \nArventennet eo {var} da {value}, hag e-se e vez erlec'hiet\nklask ar c'harger: ma ne glot hini ebet eus ar manifestoù-se gant an urzhiataer-mañ,\ndiweredekaat anezhañ eo an dra gentañ da glask.\n
+app.vulkan.no_driver = schist: n'eus sturier Vulkan staliet ebet, neuze n'eus netra da dresañ warnañ.\n\nSchist a zaskor dre Vulkan. Staliet eo ar c'harger met ne ziskouez sturier\nebet — hini ebet n'eo bet enrollet en daou lec'h ma vezont klasket:\n\n{dirs}\n\nDasparzhet eo ar c'harger disparti diouzh ar sturierioù, neuze ur pakad\nmankout hepken eo peurliesañ.\n\nStaliit an hini evit GPU an urzhiataer-mañ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nSturier perc'hennet NVIDIA en deus e hini (`nvidia-utils` war Arch,\n`nvidia-driver` war Debian). En un ardivink galloudel, pe e pep lec'h ma n'eus\nsturier GPU ebet da staliañ, ar rasteraer meziantel eo an hini a ya en-dro:\n`vulkan-swrast` war Arch, ul lodenn eus `mesa-vulkan-drivers` e lec'h all. Gorrek\neo, met loc'hañ a ra.\n{overridden}
+app.vulkan.no_device = schist: staliet eo ur sturier Vulkan met ne ginnig ardivink ebet da zaskoriñ warnañ.\n\nMarteze ne skor ket ar sturier ar GPU-mañ, pe ne c'hall ket tizout anezhañ —\ndre SSH, pe en ur c'hronnad, /dev/dri a vank alies. `vulkaninfo --summary`\na ziskouez ar pezh a wel ar c'harger.\n\nAr rasteraer meziantel a zaskor hep GPU ebet, ma'z eo se stad an urzhiataer-mañ:\n`vulkan-swrast` war Arch, ul lodenn eus `mesa-vulkan-drivers` war Debian ha Fedora.\n
+app.vulkan.skip_hint = Evit loc'hañ Schist memes tra ha lezel anezhañ da c'hwitañ en e zoare, arventennit {var}=1.

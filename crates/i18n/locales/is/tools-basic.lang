@@ -1,0 +1,24 @@
+# Færa
+tool.move.name = Færa
+tool.move.description = Dragðu innihald virka lagsins á nýjan stað. Þegar sjálfvirkt val er virkt velur upphafspunkturinn það lag — eða allan hópinn — sem er fyrst undir bendlinum.
+tool.move.option.auto_select = Sjálfvirkt val
+tool.move.history.move_layer = Færa lag
+
+# Litapípa
+tool.eyedropper.name = Litapípa
+tool.eyedropper.description = Sæktu litinn undir bendlinum í forgrunnslitinn, eða í bakgrunnslitinn þegar alt er haldið niðri. Litir eru sóttir samfellt meðan dregið er.
+tool.eyedropper.option.sample_size = Stærð sýnis
+tool.eyedropper.option.sample = Sýni
+tool.eyedropper.choice.point_sample = Punktsýni
+tool.eyedropper.choice.average_3 = 3 × 3 meðaltal
+tool.eyedropper.choice.average_5 = 5 × 5 meðaltal
+tool.eyedropper.choice.average_11 = 11 × 11 meðaltal
+tool.eyedropper.choice.average_31 = 31 × 31 meðaltal
+tool.eyedropper.choice.all_layers = Öll lög
+tool.eyedropper.choice.current_layer = Núverandi lag
+
+# Hönd og aðdráttur
+tool.hand.name = Hönd
+tool.hand.description = Hliðrar sýninni. Sýnisvæðið tilheyrir glugganum og því breytir þetta verkfæri skjalinu engu þegar það er keyrt án viðmóts.
+tool.zoom.name = Aðdráttur
+tool.zoom.description = Stækkar eða minnkar sýnina. Sýnisvæðið tilheyrir glugganum og því breytir þetta verkfæri skjalinu engu þegar það er keyrt án viðmóts.

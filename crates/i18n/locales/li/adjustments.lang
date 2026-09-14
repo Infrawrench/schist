@@ -1,0 +1,20 @@
+# Aanpassingslaoge en de opdrachte oonder Aafbiljing ▸ Aanpassinge.
+adjustment.levels.name = Niveaus
+adjustment.curves.name = Krommes
+adjustment.hue_saturation.name = Tint/Verzaodiging
+adjustment.brightness_contrast.name = Helderheid/Contras
+adjustment.black_white.name = Zwart-wit
+adjustment.solid_color.name = Effen kleur
+adjustment.gradient_fill.name = Kleurverlaopvölling
+adjustment.pattern_fill.name = Patroenvölling
+adjustment.invert.name = Invertere
+adjustment.posterize.name = Posterizere
+adjustment.threshold.name = Drempel
+adjustment.color_balance.name = Kleurbalans
+adjustment.vibrance.name = Levendigheid
+adjustment.exposure.name = Belichting
+adjustment.photo_filter.name = Fotofilter
+adjustment.gradient_map.name = Kleurverlaoptoewiezing
+adjustment.selective_color.name = Selectieve kleur
+adjustment.channel_mixer.name = Kanaalmenger
+adjustment.other.name = Aanpassing

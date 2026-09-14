@@ -1,0 +1,27 @@
+# ტექსტის ხელსაწყო.
+
+tool.type.name = ტექსტი
+tool.type.description = დაწკაპუნებით შექმენით ამ ადგილას ტექსტური ფენა, ან არსებული ფენის ტექსტის შესასწორებლად მასზე დაწკაპუნეთ. რედაქტირებისას ხელსაწყო კლავიატურის დაუმუშავებელ სიგნალებს იღებს (სიმბოლოები კლავიშთა შეყვანის სახით გაგზავნეთ), დადასტურება კი ფენას ასახავს და რედაქტირებას ასრულებს.
+
+# პარამეტრების ზოლი
+tool.type.option.align = გასწორება
+tool.type.option.leading = სტრიქონთაშორისი ინტერვალი
+tool.type.option.tracking = ასოთაშორისი ინტერვალი
+tool.type.option.kerning = კერნინგი
+tool.type.option.ligatures = ლიგატურები
+tool.type.option.discretionary_ligatures = არჩევითი ლიგატურები
+tool.type.option.small_caps = მცირე მთავრული
+tool.type.option.on_path = აქტიურ კონტურზე
+tool.type.option.path_offset = კონტურიდან წანაცვლება
+
+# სტილის ჩამოსაშლელი სია
+tool.type.choice.regular = ჩვეულებრივი
+tool.type.choice.bold = მსხვილი
+tool.type.choice.italic = კურსივი
+tool.type.choice.bold_italic = მსხვილი კურსივი
+
+# ისტორია
+tool.type.history.new_layer = ახალი ტექსტური ფენა
+tool.type.history.edit = ტექსტის შეცვლა
+tool.type.history.discard = ტექსტის გაუქმება
+tool.type.history.discard_empty = ცარიელი ტექსტის გაუქმება

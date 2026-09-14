@@ -1,0 +1,40 @@
+# Nomi dei formati
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Messaggi di importazione condivisi
+codec.msg.decoding = decodifica di {name}
+codec.msg.zero_sized = l'immagine non contiene pixel
+codec.msg.assembling_document = composizione del documento
+
+# File raw della fotocamera
+codec.raw.msg.decoding = decodifica del file raw
+codec.raw.msg.developing = sviluppo del file raw
+codec.raw.msg.finding_preview = ricerca dell'anteprima incorporata
+codec.raw.msg.decoding_preview = decodifica dell'anteprima incorporata
+codec.raw.msg.decoder_panicked = il decoder raw non è riuscito a elaborare il file: {what}
+
+# Affinity
+codec.affinity.import_title = Importazione Affinity
+codec.affinity.flattened_preview_layer = Anteprima a livelli uniti
+codec.affinity.msg.no_preview = Nessuna anteprima incorporata utilizzabile. Il formato a livelli di Affinity è proprietario; Schist importa l'anteprima a livelli uniti contenuta nel file. Questo file non ne contiene una: salvalo di nuovo in Affinity oppure esportalo come PSD per importare tutti i livelli.
+
+# HEIF
+codec.heif.msg.no_library = libheif non è disponibile ({details}). Per aprire file HEIC è necessaria la libreria libheif (Linux: installa libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — questa versione di libheif potrebbe non includere un decoder HEVC (su Debian/Ubuntu, installa libheif-plugin-libde265)
+codec.heif.msg.unknown_error = errore sconosciuto
+codec.heif.msg.initialising = inizializzazione di libheif
+codec.heif.msg.reading_container = lettura del contenitore HEIF
+codec.heif.msg.finding_primary_image = ricerca dell'immagine principale
+codec.heif.msg.reading_icc_profile = lettura del profilo ICC
+codec.heif.msg.decoding_image = decodifica dell'immagine
+codec.heif.msg.checksum_mismatch = Checksum non corrispondente per {name}: previsto {expected}, ottenuto {got}
+codec.heif.msg.imageio_cannot_read = ImageIO non ha potuto leggere il contenitore HEIF
+codec.heif.msg.container_empty = il contenitore HEIF non contiene immagini
+codec.heif.msg.imageio_cannot_decode = ImageIO non ha potuto decodificare l'immagine principale

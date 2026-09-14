@@ -1,0 +1,27 @@
+# Erkin o‘zgartirish, tanlovni o‘zgartirish va qirqish vositalari.
+
+tool.transform.name = Erkin o‘zgartirish
+tool.transform.description = Erkin o‘zgartirish. Faollashtirilganda faol qatlam atrofida o‘zgartirish ramkasi ochiladi: masshtablash uchun burchakni, aylantirish uchun ramka tashqarisini, qiyshaytirish uchun chetini sudrang. Tasdiqlanmaguncha (Enter) hech qanday o‘zgarish yozilmaydi; bekor qilish (Escape) qatlamni oldingi holatiga qaytaradi.
+tool.transform.option.interpolation = Interpolatsiya
+tool.transform.history.transform = Erkin o‘zgartirish
+tool.transform.history.image_size = Tasvir o‘lchami
+tool.transform.history.canvas_size = Xolst o‘lchami
+
+tool.transform.selection.name = Tanlovni o‘zgartirish
+tool.transform.selection.description = Tanlovni o‘zgartirish: xuddi shu ramka tanlov ichidagi piksellar o‘rniga uning chegarasini siljitadi. Tugatish uchun tasdiqlang yoki bekor qiling.
+tool.transform.selection.history.transform = Tanlovni o‘zgartirish
+
+tool.transform.resample.nearest_neighbor = Eng yaqin qo‘shni
+tool.transform.resample.bilinear = Ikki chiziqli
+tool.transform.resample.bicubic = Bikubik
+
+tool.crop.name = Qirqish
+tool.crop.description = Saqlanadigan sohani sudrab belgilang va uning tutqichlarini sozlang; tasdiqlash (Enter) hujjatni shu sohagacha qirqadi, bekor qilish (Escape) esa uni o‘zgartirmaydi.
+tool.crop.option.ratio = Nisbat
+tool.crop.option.delete_cropped = Qirqilgan piksellarni o‘chirish
+tool.crop.choice.unconstrained = Cheklanmagan
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Qirqish

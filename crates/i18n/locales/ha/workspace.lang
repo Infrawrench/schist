@@ -1,0 +1,118 @@
+# Takardu, maganganu, matata, fitarwa da dawo da aiki a filin aiki.
+
+# Tushen Ciko
+workspace.fill.gray_50 = Toka 50%
+workspace.fill.content_aware = Mai Fahimtar Abun Ciki
+
+# Sunayen maganganun sauya zaɓi
+workspace.modify.expand = Faɗaɗa Zaɓi
+workspace.modify.contract = Ƙanƙanta Zaɓi
+workspace.modify.border = Iyakar Zaɓi
+workspace.modify.smooth = Sulɓanta Zaɓi
+workspace.modify.feather = Lauyantar Gefen Zaɓi
+
+# Makomar sarrafa hotuna rukuni-rukuni
+workspace.batch.target.edit = Gyaran ma'ajiyar hotuna (mai sigogi)
+workspace.batch.target.beside = Kwafi kusa da na asali
+workspace.batch.target.folder = Kwafi a cikin jaka…
+
+workspace.modal.image_size.title = Girman Hoto
+
+# Takardu da shafuka
+workspace.docs.opening = Ana buɗe {name}…
+workspace.docs.opened = An buɗe {name}
+workspace.docs.open_failed = Buɗewa ya gaza: {error}
+workspace.docs.no_codec = {name} ba tsari ne da Schist zai iya buɗewa ba
+workspace.docs.no_exporter = Schist ba zai iya ajiye fayilolin .{ext} ba
+workspace.docs.empty_response = Sabar ta aika amsa mara komai
+workspace.docs.heic_not_installed = Ba a girka tallafin HEIC ba
+workspace.docs.heic_downloading = Ana sauke tallafin HEIC (libheif {version})…
+workspace.docs.heic_installed = An girka tallafin HEIC
+workspace.docs.heic_download_failed = Sauke tallafin HEIC ya gaza: {error}
+workspace.docs.placing = Ana sanya {name}…
+workspace.docs.place_image = Sanya Hoto
+workspace.docs.placed = An sanya {name}
+workspace.docs.place_failed = Sanyawa ya gaza: {error}
+workspace.docs.saved = An ajiye {name}
+workspace.docs.save_failed = Ajiyewa ya gaza: {error}
+
+# Shimfiɗun daidaitawa
+workspace.adjustment.new_layer = Sabuwar Shimfiɗar {name}
+workspace.adjustment.added = An ƙara {name}
+workspace.adjustment.settings = Saitunan {name}
+workspace.adjustment.updated = An sabunta {name}
+workspace.adjustment.no_settings = {name} ba shi da saitunan da za a iya gyarawa
+
+# Haɗe-haɗen shimfiɗa
+workspace.comps.name_n = Haɗin Shimfiɗa {n}
+workspace.comps.captured = An ɗauki haɗin shimfiɗa
+workspace.comps.apply = Aiwatar da {name}
+
+workspace.styles.layer_style = Salon Shimfiɗa
+workspace.context.rename_layer = Sake Sunan Shimfiɗa
+workspace.commands.tool = Kayan aiki: {name}
+
+# Sarrafa launi
+workspace.colormgmt.assign = Sanya {name}
+workspace.colormgmt.assigned = An sanya {name}
+workspace.colormgmt.convert_to = Mayar zuwa {name}
+workspace.colormgmt.converted_to = An mayar zuwa {name}
+workspace.colormgmt.convert_failed = Mayarwa ya gaza: {error}
+workspace.colormgmt.proof_on = An kunna launukan gwaji
+workspace.colormgmt.proof_off = An kashe launukan gwaji
+
+# Gudanar da matata
+workspace.filters.choose = Zaɓa
+workspace.filters.select_layer_first = Da farko zaɓi shimfiɗa
+workspace.filters.needs_pixel_layer = Matata suna buƙatar shimfiɗar pixels
+workspace.filters.nothing_to_filter = Babu abin da za a tace
+workspace.filters.went_away = Matatar ta ɓace
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: shimfiɗar da ta tace ta ɓace
+workspace.filters.plugin_title = Photoshop plug-in
+workspace.filters.running = Ana gudanar da {name}
+workspace.filters.plugin_note = Plug-in ɗin yana gudana a tsarin aikinsa dabam. Idan ya buɗe taga, amsa a can don ci gaba.
+workspace.filters.raw_preview_developing = Ana sarrafa samfotin RAW…
+workspace.filters.raw_preview_done = Samfotin RAW (demosaic mai sauri)
+workspace.filters.raw_preview_size_changed = Girman samfotin RAW ya canza: {w} × {h}
+workspace.filters.raw_preview_failed = Samfotin RAW ya gaza: {error}
+workspace.filters.raw_developing = Ana sarrafa hoton asali…
+workspace.filters.raw_developing_note = Ana amfani da mafi kyawun hanyar demosaic. RAW na asali da waɗannan saituna za su ci gaba da kasancewa masu gyaruwa bayan ajiye su a matsayin PSD ko PSB.
+workspace.filters.raw_document_changed = An gama sarrafa RAW bayan takardarsa ta canza
+workspace.filters.raw_failed = Sarrafa RAW ya gaza: {error}
+workspace.filters.raw_too_wide = Sakamakon sarrafa RAW ya yi faɗi sosai
+workspace.filters.raw_too_tall = Sakamakon sarrafa RAW ya yi tsawo sosai
+workspace.filters.raw_size_changed = Girman RAW ya canza zuwa {w} × {h}; ana riƙe shimfiɗar yanzu
+workspace.filters.raw_history = Sarrafa Camera Raw
+workspace.filters.raw_applied = An aiwatar da sarrafa Camera Raw (mafi kyawun demosaic)
+
+# Girman hoto da na'urar ƙara girma
+workspace.image_size.done = Girman hoto: {w} × {h}
+workspace.image_size.bicubic_fallback = Girman hoto: {w} × {h} — samfurin {name} bai loda ba, don haka an yi amfani da bicubic
+workspace.image_size.upscaling = Ana ƙara girma da {name}
+workspace.image_size.upscaling_note = megapixels {mp} suna ratsa hanyar sadarwa, da 'yan daƙiƙu ga kowane ɗaya. Ana riƙe takardar har sai an gama.
+
+# Fitarwa
+workspace.export.no_slices = Babu yankunan da za a fitar
+workspace.export.no_artboards = Babu allunan zane da za a fitar
+workspace.export.regions.one = An fitar da yanki {n}
+workspace.export.regions.other = An fitar da yankuna {n}
+workspace.export.prompt = Fitar a matsayin:
+workspace.export.done = An fitar da {name}
+workspace.export.failed = Fitarwa ta gaza: {error}
+workspace.export.codec_vanished = Babu mai fitarwar yanzu
+
+# Mai zaɓen fayil na Schist
+workspace.file_picker.choose_folder = Zaɓi Jaka
+workspace.file_picker.type_a_name = Rubuta suna ga fayil
+workspace.file_picker.exists = {name} yana akwai; sake taɓa Ajiye don maye gurbinsa
+workspace.file_picker.tap_a_file = Taɓa fayil don buɗewa
+workspace.file_picker.pictures = Hotuna
+workspace.file_picker.camera = Kamara
+workspace.file_picker.downloads = Abubuwan Saukewa
+workspace.file_picker.permission_denied = Schist ba shi da izinin karanta wannan jaka
+
+# Dawo da aiki bayan durƙushewa
+workspace.recovery.recovered_title = {title} (an dawo da shi)
+workspace.recovery.recovered.one = An dawo da aikin da ba a ajiye ba daga zaman baya
+workspace.recovery.recovered.other = An dawo da takardu {n} daga zaman baya

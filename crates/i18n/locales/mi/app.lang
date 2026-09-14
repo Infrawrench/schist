@@ -1,0 +1,36 @@
+app.filter_gallery.title = Taiwhanga Tātari
+app.filter_gallery.stack = Tāpae (ka hoatu mai i raro ki runga)
+app.filter_gallery.no_settings = Kāore he tautuhinga o tēnei tātari.
+app.fonts.not_open_licensed = kāore i raihanatia tūwhera · he ōrite ngā inenga o {substitute}
+app.fonts.missing_substituted = kua ngaro · e tāngia ana te kuputuhi ki tētahi momotuhi whakakapi
+app.fonts.not_in_catalogue = Kāore a {family} i te rārangi momotuhi tūwhera
+app.fonts.no_faces = kāore he momo momotuhi mō {family} hei tikiake
+app.fonts.empty_response = urupare pātea
+app.update.unreadable_response = urupare kāore e taea te pānui: {error}
+app.update.no_temp_dir = kāore he whaiaronga rangitahi hei tikiake ki roto
+app.update.asset_has_path = kua whakaurua he ara ki te ingoa rawa o te putanga
+app.update.too_big = he nui ake te tikiake i tā te putanga i kī ai
+app.update.stopped_at = i mutu te tikiake i te {got} o ngā paita {total}
+app.update.hash_mismatch = ko te hash o te tikiake ko {got}, ehara i te {want}
+app.update.not_in_bundle = kāore tēnei tārua i roto i tētahi paihere taupānga
+app.update.no_parent_dir = kāore he whaiaronga matua o te paihere taupānga
+app.update.cannot_write = kāore e taea te tuhi ki {dir}
+app.update.cannot_move_aside = kāore e taea te neke i a {app} ki tahaki
+app.update.cannot_move_in = kāore e taea te neke i te paihere hou ki tōna wāhi
+app.update.cannot_run_ditto = kāore e taea te whakahaere /usr/bin/ditto
+app.update.unpack_failed = i rahua te wetewete i te tikiake: {error}
+app.update.no_app_in_download = kāore he Schist.app i te tikiake
+app.update.cannot_run_codesign = kāore e taea te whakahaere /usr/bin/codesign
+app.update.signature_invalid = kāore te waitohu o te tikiake i manatoko: {error}
+app.update.download_unsigned = kua waitohua tēnei tārua, engari kāore te tikiake i waitohua
+app.update.different_developer = nā tētahi kaiwhakawhanake kē te tikiake i waitohu
+app.update.cannot_relaunch = kāore e taea te tīmata i te kaiwhakarewa anō
+app.update.not_installed_copy = kāore te pūtāuta i whakatakoto i tēnei tārua ki konei
+app.update.cannot_start_installer = kāore e taea te tīmata i te pūtāuta
+app.update.platform_unsupported = ki tēnei tūāpapa, ka tāutahia ngā whakahōunga mā te ara i tāutahia ai a Schist
+app.vulkan.no_loader = schist: kāore he pūuta Vulkan i tēnei pūnaha, nō reira kāore he mea hei tā pikitia.\n\nKa tā pikitia a Schist mā Vulkan, ā, kāore anō a `libvulkan.so.1` kia tāutahia.\nMe whai te pūuta me tētahi atekōkiri:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: kāore i reira te atekōkiri Vulkan e tohungia ana e tēnei wātū.\n\nKua tautuhia a {var}, ā, mā te tautuhi ka *whakakapi* i te rapunga a te pūuta\nmo ngā atekōkiri, kāore e tāpiri ki taua rapunga. Nō reira ko ēnei kōnae kāore\ne tīariari ana te rārangi atekōkiri katoa — ā, kāore rawa he atekōkiri e kitea\ne ngā papatono Vulkan katoa o tēnei wātū, ahakoa te maha kua tāutahia:\n\n{missing}\n    {var}={value}\n\nTohua tētahi whakapuakitanga e tīariari ana — ka waiho e ngā atekōkiri tāuta ā rātou\nki /usr/share/vulkan/icd.d — wetohia rānei taua tautuhinga kia rapu ai te pūuta.\nMēnā nā tētahi kōnae whirihoranga tēnei i tautuhi (te `env =` a Hyprland, tētahi\ntāpiritanga systemd environment.d, tētahi kōtaha anga rānei), me whakarerekē ki reira,\nā, me takiuru hou kia tae te panoni ki ngā mea e whakahaere kē ana.\n
+app.vulkan.override_note = \nKua tautuhia a {var} ki {value}, ā, ka whakakapi tēnā i tā te pūuta ake\nrapunga: ki te kore tētahi o aua whakapuakitanga mō tēnei mīhini, ko te wete\ni taua tautuhinga te mahi tuatahi hei whakamātau.\n
+app.vulkan.no_driver = schist: kāore he atekōkiri Vulkan kua tāutahia, nō reira kāore he mea hei tā pikitia ki runga.\n\nKa tā pikitia a Schist mā Vulkan. Kua tāutahia te pūuta, engari e kī ana kāore\nhe atekōkiri — kāore tētahi i rēhita ki ngā wāhi e rua e rapua ana:\n\n{dirs}\n\nHe mea tuku motuhake te pūuta i ngā atekōkiri, nō reira ko te nuinga he mōkī kotahi\ne ngaro ana.\n\nTāutahia te mea mō te GPU o tēnei mīhini:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nKei te atekōkiri rangatōpū a NVIDIA tōna ake (`nvidia-utils` ki Arch,\n`nvidia-driver` ki Debian). Ki tētahi mīhini mariko, ki tētahi wāhi rānei kāore\nhe atekōkiri GPU hei tāuta, ko te pūtā pika ā-pūmanawa te mea ka mahi:\n`vulkan-swrast` ki Arch, he wāhanga o `mesa-vulkan-drivers` ki wāhi kē. He\npuhoi, engari ka tīmata.\n{overridden}
+app.vulkan.no_device = schist: kua tāutahia tētahi atekōkiri Vulkan, engari kāore e tuku pūrere hei tā pikitia ki runga.\n\nTērā pea kāore te atekōkiri e tautoko i tēnei GPU, kāore rānei e taea te toro atu —\nmā SSH, i roto rānei i tētahi ipu, he mea ngaro auau a /dev/dri. Mā\n`vulkaninfo --summary` e whakaatu ngā mea e kitea ana e te pūuta.\n\nKi te kore rawa he GPU o tēnei mīhini, ka taea e te pūtā pika ā-pūmanawa te tā\npikitia: `vulkan-swrast` ki Arch, he wāhanga o `mesa-vulkan-drivers`\nki Debian me Fedora.\n
+app.vulkan.skip_hint = Hei tīmata tonu i a Schist kia rahua i tōna ake ara, tautuhia {var}=1.

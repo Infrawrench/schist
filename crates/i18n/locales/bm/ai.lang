@@ -1,0 +1,31 @@
+# AI panɛli
+ai.status.panel_shown = AI panɛli jiralen don
+ai.status.panel_hidden = AI panɛli dogolen don — Lajɛ ▸ AI panɛli ({shortcut}) b'a lasegin
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} jɛlen don
+ai.info.now_in_gallery = Sisan a bɛ galeri la.
+ai.info.now_in_editor = Sisan a bɛ labɛnnikɛlan na.
+ai.tool.shell_command = shell komandi
+
+ai.error.cli_missing = {backend} CLI (“{binary}”) tɛ PATH kan. A sigindi ka don a la fɔlɔ.
+ai.error.endpoint_failed = MCP endpoint daminɛli ma se: {error}
+ai.error.binding_endpoint = MCP endpoint sirili
+ai.error.spawning_endpoint_thread = MCP endpoint thread daminɛli
+ai.error.runtime_failed = Agent baara-waati daminɛli ma se: {error}
+ai.error.worker_failed = {backend} baarakɛla daminɛli ma se: {error}
+ai.error.did_not_start = {backend} ma daminɛ: {error}
+ai.error.switch_model_failed = Misali yɛlɛmali ma se: {error}
+ai.error.send_failed = Ɲininkali cili ma se: {error}
+ai.error.interrupt_failed = Bolokoli ma se: {error}
+ai.error.locating_binary = Schist binary yɔrɔ ɲinini
+ai.error.starting_app_server = Codex porogaramu server daminɛli
+ai.error.attaching_app_server = Jɛli Codex porogaramu server la
+ai.error.initializing_app_server = Codex porogaramu server labɛnni
+ai.error.resuming_thread = Codex thread taali ɲɛ
+ai.error.starting_thread = Codex thread daminɛli
+
+ai.model.opus_detail = Fanga ka bon bɛɛ hakɛ
+ai.model.sonnet_detail = A ka ɲi tile bɛɛ baaraw la
+ai.model.haiku_detail = A ka teli jaabi telimanw la
+ai.model.codex_catalog = Codex katalogi

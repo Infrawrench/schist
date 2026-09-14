@@ -1,0 +1,83 @@
+# Brush
+tool.brush.name = ബ്രഷ്
+tool.brush.description = എഡിറ്ററിലെ ബ്രഷ് വലുപ്പം, കാഠിന്യം, അതാര്യത എന്നിവ അനുസരിച്ച് മുൻഭാഗ വർണ്ണത്തിൽ മൃദുവായ അരികുകളുള്ള സ്ട്രോക്ക് പെയിന്റ് ചെയ്യുക.
+tool.brush.history.stroke = ബ്രഷ്
+
+# Pencil
+tool.pencil.name = പെൻസിൽ
+tool.pencil.description = മുൻഭാഗ വർണ്ണത്തിൽ മൂർച്ചയുള്ള അരികുകളോടെയും ആന്റിഅലിയാസിങ് ഇല്ലാതെയും സ്ട്രോക്ക് പെയിന്റ് ചെയ്യുക.
+tool.pencil.history.stroke = പെൻസിൽ
+
+# Eraser
+tool.eraser.name = മായ്ക്കൽ
+tool.eraser.description = സ്ട്രോക്കിലൂടെ മായ്ച്ച് ലെയറിനെ സുതാര്യതയിലേക്കു മടക്കുക.
+tool.eraser.history.stroke = മായ്ക്കൽ
+
+# Clone Stamp
+tool.clone.name = ക്ലോൺ സ്റ്റാമ്പ്
+tool.clone.description = ക്ലോൺ സ്റ്റാമ്പ്: ഉറവിട പോയിന്റ് സജ്ജമാക്കാൻ Alt-ക്ലിക്ക് ചെയ്യുക, തുടർന്ന് അതിൽനിന്ന് ആ അകലത്തിൽ പകർത്തിയ പിക്സലുകൾ പെയിന്റ് ചെയ്യുക.
+tool.clone.history.stroke = ക്ലോൺ സ്റ്റാമ്പ്
+
+# Dodge, Burn, Sponge
+tool.dodge.name = ഡോഡ്ജ്
+tool.dodge.description = സ്ട്രോക്ക് കടന്നുപോകുന്ന പിക്സലുകൾ തെളിച്ചമുള്ളതാക്കുക.
+tool.dodge.history.stroke = ഡോഡ്ജ്
+tool.burn.name = ബേൺ
+tool.burn.description = സ്ട്രോക്ക് കടന്നുപോകുന്ന പിക്സലുകൾ ഇരുണ്ടതാക്കുക.
+tool.burn.history.stroke = ബേൺ
+tool.sponge.name = സ്പോഞ്ച്
+tool.sponge.description = സ്ട്രോക്ക് കടന്നുപോകുന്ന പിക്സലുകളുടെ സാച്ചുറേഷൻ കൂട്ടുകയോ കുറയ്ക്കുകയോ ചെയ്യുക.
+tool.sponge.history.stroke = സ്പോഞ്ച്
+
+# Blur, Sharpen, Smudge
+tool.blur.name = മങ്ങൽ
+tool.blur.description = സ്ട്രോക്ക് കടന്നുപോകുന്ന പിക്സലുകളുടെ മൂർച്ച കുറയ്ക്കുക.
+tool.blur.history.stroke = മങ്ങൽ
+tool.sharpen.name = മൂർച്ച കൂട്ടുക
+tool.sharpen.description = സ്ട്രോക്ക് കടന്നുപോകുന്ന പിക്സലുകളുടെ മൂർച്ച കൂട്ടുക.
+tool.sharpen.history.stroke = മൂർച്ച കൂട്ടുക
+tool.smudge.name = സ്മഡ്ജ്
+tool.smudge.description = നനഞ്ഞ പെയിന്റ് തള്ളുന്നതുപോലെ സ്ട്രോക്കിലൂടെ വർണ്ണം വലിച്ചുനീക്കുക.
+tool.smudge.history.stroke = സ്മഡ്ജ്
+
+# Healing
+tool.heal.name = ഹീലിങ് ബ്രഷ്
+tool.heal.description = ഹീലിങ് ബ്രഷ്: ഉറവിടം സജ്ജമാക്കാൻ Alt-ക്ലിക്ക് ചെയ്ത് പെയിന്റ് ചെയ്യുക; ഉറവിടത്തിലെ ടെക്സ്ചർ ലക്ഷ്യസ്ഥാനത്തിന്റെ സ്വന്തം വർണ്ണത്തിലും പ്രകാശത്തിലും ലയിപ്പിക്കും.
+tool.heal.history.stroke = ഹീലിങ് ബ്രഷ്
+tool.spot_heal.name = സ്പോട്ട് ഹീലിങ് ബ്രഷ്
+tool.spot_heal.description = സ്പോട്ട് ഹീലിങ് ബ്രഷ്: ഒരു കളങ്കത്തിനു മുകളിൽ പെയിന്റ് ചെയ്താൽ ചുറ്റുമുള്ള ടെക്സ്ചർകൊണ്ട് അത് മാറ്റിസ്ഥാപിക്കും—ഉറവിട പോയിന്റ് സജ്ജമാക്കേണ്ടതില്ല.
+tool.spot_heal.history.stroke = സ്പോട്ട് ഹീലിങ് ബ്രഷ്
+
+# History Brush
+tool.history_brush.name = ഹിസ്റ്ററി ബ്രഷ്
+tool.history_brush.description = ഡോക്യുമെന്റിന്റെ ചരിത്ര സ്നാപ്പ്ഷോട്ടിൽനിന്നുള്ള പിക്സലുകൾ വീണ്ടും പെയിന്റ് ചെയ്ത് പിന്നീടുള്ള പ്രവർത്തനം ഓരോ സ്ട്രോക്കായും പഴയപടിയാക്കുക.
+tool.history_brush.history.stroke = ഹിസ്റ്ററി ബ്രഷ്
+
+# Background Eraser
+tool.background_eraser.name = പശ്ചാത്തല മായ്ക്കൽ
+tool.background_eraser.description = ബ്രഷിന്റെ മധ്യത്തിനു കീഴിൽ സാമ്പിളെടുത്ത വർണ്ണം മായ്ക്കുകയും വ്യത്യസ്ത പിക്സലുകൾ മാറ്റമില്ലാതെ വിടുകയും ചെയ്യുക; ഇതിലൂടെ ഒരു വിഷയത്തെ പശ്ചാത്തലത്തിൽനിന്ന് വേർതിരിക്കാം.
+tool.background_eraser.history.stroke = പശ്ചാത്തല മായ്ക്കൽ
+
+# Gradient
+tool.gradient.name = ഗ്രേഡിയന്റ്
+tool.gradient.description = വലിച്ച ദിശയിൽ മുൻഭാഗ വർണ്ണത്തിൽനിന്ന് പശ്ചാത്തല വർണ്ണത്തിലേക്കുള്ള ലീനിയർ ഗ്രേഡിയന്റുകൊണ്ട് ലെയർ നിറയ്ക്കാൻ വലിക്കുക—തിരഞ്ഞെടുപ്പ് ഉണ്ടെങ്കിൽ അതിനുള്ളിൽ മാത്രം നിറയും.
+tool.gradient.radial.name = റേഡിയൽ ഗ്രേഡിയന്റ്
+tool.gradient.radial.description = മുൻഭാഗ, പശ്ചാത്തല വർണ്ണങ്ങൾക്കിടയിലുള്ള റേഡിയൽ ഗ്രേഡിയന്റ് നിറയ്ക്കാൻ മധ്യത്തിൽനിന്ന് പുറത്തേക്കു വലിക്കുക.
+tool.gradient.option.gradient = ഗ്രേഡിയന്റ്
+tool.gradient.option.reverse = വിപരീതമാക്കുക
+tool.gradient.option.dither = ഡിതർ
+tool.gradient.choice.foreground_to_background = മുൻഭാഗത്തിൽനിന്ന് പശ്ചാത്തലത്തിലേക്ക്
+tool.gradient.choice.foreground_to_transparent = മുൻഭാഗത്തിൽനിന്ന് സുതാര്യതയിലേക്ക്
+tool.gradient.choice.linear = ലീനിയർ
+tool.gradient.choice.radial = റേഡിയൽ
+tool.gradient.choice.angle = കോൺ
+tool.gradient.choice.reflected = പ്രതിഫലിച്ചത്
+tool.gradient.choice.diamond = വജ്രാകൃതി
+tool.gradient.history.gradient = ഗ്രേഡിയന്റ്
+
+# Paint Bucket
+tool.bucket.name = പെയിന്റ് ബക്കറ്റ്
+tool.bucket.description = ഉപകരണത്തിന്റെ സഹിഷ്ണുതാപരിധിക്കുള്ളിൽ, പോയിന്ററിനു കീഴിലുള്ള സമാന വർണ്ണമുള്ള ചേർന്ന പ്രദേശം മുൻഭാഗ വർണ്ണംകൊണ്ട് നിറയ്ക്കാൻ ക്ലിക്ക് ചെയ്യുക.
+tool.bucket.option.contiguous = ചേർന്നിരിക്കുന്നവ
+tool.bucket.option.all_layers = എല്ലാ ലെയറുകളും
+tool.bucket.history.fill = പെയിന്റ് ബക്കറ്റ്

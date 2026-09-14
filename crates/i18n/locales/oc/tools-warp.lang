@@ -1,0 +1,27 @@
+# Aisinas de deformacion : Liquefaccion, Deformacion de marioneta e Punt de fugida.
+
+# Liquefaccion
+tool.liquify.name = Liquefaccion
+tool.liquify.description = Amb una bròssa larga, butatz, tornejatz, pincetz o conflatz los pixèls que son jos ela ; l'opcion de mòde determina l'operacion. La deformacion s'acumula dins un malhum e s'aplica al calc al moment de la validacion.
+tool.liquify.option.tool = Aisina
+tool.liquify.choice.forward_warp = Deformar cap avant
+tool.liquify.choice.reconstruct = Reconstituir
+tool.liquify.choice.twirl_cw = Virar cap a drecha
+tool.liquify.choice.twirl_ccw = Virar cap a esquèrra
+tool.liquify.choice.pucker = Pincar
+tool.liquify.choice.bloat = Conflar
+tool.liquify.choice.push_left = Butar cap a esquèrra
+tool.liquify.history.liquify = Liquefaccion
+
+# Deformacion de marioneta
+tool.puppet_warp.name = Deformacion de marioneta
+tool.puppet_warp.description = Clicatz per espillar lo calc en qualques punts, puèi fasètz-ne lisar un : lo malhum se corba a l'entorn de las espinglas, d'un biais rigid o flexible segon l'opcion Rigiditat. La validacion aplica la deformacion.
+tool.puppet_warp.option.stiffness = Rigiditat
+tool.puppet_warp.history.puppet_warp = Deformacion de marioneta
+
+# Punt de fugida
+tool.vanishing_point.name = Punt de fugida
+tool.vanishing_point.description = Fasètz lisar per traçar un plan sus un element en perspectiva, puèi passatz al mòde Clonar e penchenatz : los pixèls copiats seguisson lo plan e venon mai pichons amb la distància.
+tool.vanishing_point.choice.edit_plane = Modificar lo plan
+tool.vanishing_point.choice.clone = Clonar
+tool.vanishing_point.history.vanishing_point = Punt de fugida

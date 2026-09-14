@@ -1,0 +1,40 @@
+# Filtergalerie, lettertypen, zelfupdate en Vulkan-controle.
+app.filter_gallery.title = Filtergalerie
+app.filter_gallery.stack = Stapel (van onder naar boven toegepast)
+app.filter_gallery.no_settings = Dit filter heeft geen instellingen.
+
+app.fonts.not_open_licensed = niet onder een open licentie · {substitute} heeft dezelfde metriek
+app.fonts.missing_substituted = ontbreekt · tekst wordt met een vervangend lettertype gezet
+app.fonts.not_in_catalogue = {family} staat niet in de catalogus met open lettertypen
+app.fonts.no_faces = geen downloadbare varianten voor {family}
+app.fonts.empty_response = leeg antwoord
+
+app.update.unreadable_response = onleesbaar antwoord: {error}
+app.update.no_temp_dir = geen tijdelijke map om naar te downloaden
+app.update.asset_has_path = de assetnaam in de release bevat een pad
+app.update.too_big = de download is groter dan in de release is opgegeven
+app.update.stopped_at = de download stopte bij {got} van {total} bytes
+app.update.hash_mismatch = de hash van de download is {got}, niet {want}
+app.update.not_in_bundle = dit exemplaar bevindt zich niet in een appbundel
+app.update.no_parent_dir = de appbundel heeft geen bovenliggende map
+app.update.cannot_write = kan niet schrijven naar {dir}
+app.update.cannot_move_aside = kan {app} niet opzijzetten
+app.update.cannot_move_in = kan de nieuwe bundel niet op zijn plaats zetten
+app.update.cannot_run_ditto = kan /usr/bin/ditto niet uitvoeren
+app.update.unpack_failed = uitpakken van de download mislukt: {error}
+app.update.no_app_in_download = de download bevat geen Schist.app
+app.update.cannot_run_codesign = kan /usr/bin/codesign niet uitvoeren
+app.update.signature_invalid = de handtekening van de download kan niet worden geverifieerd: {error}
+app.update.download_unsigned = dit exemplaar is ondertekend, maar de download niet
+app.update.different_developer = de download is door een andere ontwikkelaar ondertekend
+app.update.cannot_relaunch = kan het herstartprogramma niet starten
+app.update.not_installed_copy = dit exemplaar is hier niet door het installatieprogramma geplaatst
+app.update.cannot_start_installer = kan het installatieprogramma niet starten
+app.update.platform_unsupported = updates op dit platform worden geïnstalleerd op dezelfde manier als Schist
+
+app.vulkan.no_loader = schist: er is geen Vulkan-loader op dit systeem, dus er kan niets worden getekend.\n\nSchist rendert via Vulkan en `libvulkan.so.1` is niet geïnstalleerd.\nZowel de loader als een stuurprogramma zijn nodig:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: het Vulkan-stuurprogramma waarnaar deze sessie verwijst, bestaat niet.\n\n{var} is ingesteld. Die instelling *vervangt* de zoekopdracht van de loader\nnaar stuurprogramma's in plaats van er iets aan toe te voegen. Deze niet-bestaande\nbestanden vormen dus de volledige lijst met stuurprogramma's. Geen enkel Vulkan-programma\nin deze sessie ziet een stuurprogramma, hoeveel er ook geïnstalleerd zijn:\n\n{missing}\n    {var}={value}\n\nVerwijs naar een bestaand manifest — geïnstalleerde stuurprogramma's plaatsen hun\nmanifest in /usr/share/vulkan/icd.d — of verwijder de instelling en laat de loader zelf zoeken.\nAls een configuratiebestand dit voor de sessie instelt (Hyprlands `env =`, een\nsystemd environment.d-drop-in of een shellprofiel), moet het daar worden gewijzigd.\nOpnieuw aanmelden is nodig voordat de wijziging actieve programma's bereikt.\n
+app.vulkan.override_note = \n{var} is ingesteld op {value} en vervangt daarmee de eigen\nzoekopdracht van de loader. Als geen van die manifesten voor deze machine bestemd is,\nprobeer dan eerst de instelling te verwijderen.\n
+app.vulkan.no_driver = schist: er is geen Vulkan-stuurprogramma geïnstalleerd, dus er kan niets worden getekend.\n\nSchist rendert via Vulkan. De loader is geïnstalleerd maar meldt geen\nstuurprogramma: op geen van de twee locaties waarin wordt gezocht, is er een geregistreerd:\n\n{dirs}\n\nDe loader wordt afzonderlijk van de stuurprogramma's geleverd; meestal ontbreekt dus één pakket.\n\nInstalleer het pakket voor de GPU in deze machine:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nHet eigen stuurprogramma van NVIDIA bevat er zelf een (`nvidia-utils` op Arch,\n`nvidia-driver` op Debian). In een virtuele machine, of als er geen\nGPU-stuurprogramma kan worden geïnstalleerd, werkt de softwarerasteraar:\n`vulkan-swrast` op Arch en onderdeel van `mesa-vulkan-drivers` elders. Deze is\nlangzaam, maar start wel.\n{overridden}
+app.vulkan.no_device = schist: er is een Vulkan-stuurprogramma geïnstalleerd, maar het biedt geen apparaat om mee te renderen.\n\nHet stuurprogramma ondersteunt deze GPU mogelijk niet of kan deze niet bereiken —\nvia SSH of in een container ontbreekt /dev/dri bijvoorbeeld vaak.\n`vulkaninfo --summary` toont wat de loader ziet.\n\nDe softwarerasteraar rendert geheel zonder GPU als deze machine er geen heeft:\n`vulkan-swrast` op Arch en onderdeel van `mesa-vulkan-drivers` op Debian en Fedora.\n
+app.vulkan.skip_hint = Stel {var}=1 in om Schist toch te starten en op zijn eigen manier te laten mislukken.

@@ -1,0 +1,27 @@
+# የምርጫ መሣሪያዎች።
+tool.select.mode.subtract = ቀንስ
+tool.select.mode.intersect = አቋርጥ
+tool.marquee.rect.name = አራት ማዕዘን ምርጫ
+tool.marquee.rect.description = አራት ማዕዘን ምርጫ ለመፍጠር ይጎትቱ። መጎተት ሲጀምር Shift ምርጫው ላይ ይጨምራል፣ Alt ይቀንሳል፣ ሁለቱም ያቋርጣሉ፤ በመጎተት ጊዜ Shift መጫን ፍጹም ካሬ ያደርገዋል። ሳይጎትቱ ጠቅ ማድረግ ምርጫውን ያነሳል።
+tool.marquee.ellipse.name = ሞላላ ምርጫ
+tool.marquee.ellipse.description = እንደ አራት ማዕዘኑ ምርጫ በShift/Alt እየተዋሃደ ሞላላ ምርጫ ለመፍጠር ይጎትቱ።
+tool.lasso.name = ላሶ
+tool.lasso.description = የእጅ ነጻ ድንበር ይጎትቱ፤ መጎተቱ ሲያበቃ ምርጫው ጫፎቹን በማገናኘት ይዘጋል። Shift ይጨምራል፣ Alt ይቀንሳል።
+tool.lasso.history.select = በላሶ ምረጥ
+tool.lasso.polygonal.name = ባለብዙ ጎን ላሶ
+tool.lasso.polygonal.description = ቀጥተኛ ጠርዞች ያሉትን ምርጫ ለመፍጠር ጥግ በጥግ ጠቅ ያድርጉ፣ ለመዝጋትም ከመጀመሪያው ነጥብ አጠገብ ጠቅ ያድርጉ።
+tool.lasso.polygonal.history.select = ባለብዙ ጎን ላሶ
+tool.lasso.magnetic.name = መግነጢሳዊ ላሶ
+tool.lasso.magnetic.description = በአንድ ጠርዝ አካባቢ በግምት ይከታተሉ፤ ድንበሩ በመንገዱ አቅራቢያ ካለው ከፍተኛው ንፅፅር ጋር ይጣበቃል።
+tool.lasso.magnetic.history.select = መግነጢሳዊ ላሶ
+tool.lasso.magnetic.option.frequency = ድግግሞሽ
+tool.wand.name = አስማታዊ ዘንግ
+tool.wand.description = በልዩነት ገደቡ ውስጥ በጠቋሚው ሥር ያለውን ተያያዥ ተመሳሳይ ቀለም አካባቢ ለመምረጥ ጠቅ ያድርጉ፤ ይህንኑ ገደብ አሳድግ፣ ተመሳሳይ እና የቀለም ክልልም ይጠቀሙበታል።
+tool.wand.option.contiguous = ተያያዥ
+tool.wand.history.select = አስማታዊ ዘንግ
+tool.quick_select.name = ፈጣን ምርጫ
+tool.quick_select.description = በአንድ ክልል ላይ ይሳሉ፤ ምርጫው ብሩሹ በሚያልፍባቸው ተመሳሳይ ፒክሰሎች ውስጥ ይስፋፋል።
+tool.quick_select.history.select = ፈጣን ምርጫ
+tool.object_select.name = የነገር ምርጫ
+tool.object_select.description = በአንድ ነገር ዙሪያ ሳጥን ይጎትቱ፤ ምርጫው በውስጡ ከተገኘው ነገር ጋር ይጣበቃል።
+tool.object_select.history.select = የነገር ምርጫ

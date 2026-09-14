@@ -1,0 +1,21 @@
+tool.move.name = Sunthani
+tool.move.description = Kokani zomwe zili mu layer yogwira ntchito kupita pamalo atsopano. Auto-Select ikayatsidwa, kukanikiza kumasankha kaye layer iliyonse kapena gulu lonse lomwe lili pansi pa pointer.
+tool.move.option.auto_select = Sankhani Yokha
+tool.move.history.move_layer = Sunthani Layer
+
+tool.eyedropper.name = Chotengera Mtundu
+tool.eyedropper.description = Tengani mtundu womwe uli pansi pa pointer n'kuuika pa swatch yakutsogolo, kapena pa swatch yakumbuyo ngati alt yagwiridwa. Mukamakoka, imapitiriza kutenga mtundu.
+tool.eyedropper.option.sample_size = Kukula kwa Chitsanzo
+tool.eyedropper.option.sample = Tengani Chitsanzo
+tool.eyedropper.choice.point_sample = Chitsanzo cha Malo Amodzi
+tool.eyedropper.choice.average_3 = Avareji ya 3 ndi 3
+tool.eyedropper.choice.average_5 = Avareji ya 5 ndi 5
+tool.eyedropper.choice.average_11 = Avareji ya 11 ndi 11
+tool.eyedropper.choice.average_31 = Avareji ya 31 ndi 31
+tool.eyedropper.choice.all_layers = Ma Layer Onse
+tool.eyedropper.choice.current_layer = Layer Yamakono
+
+tool.hand.name = Dzanja
+tool.hand.description = Imasuntha momwe chithunzi chikuonekera. Malo oonera ndi a zenera, choncho pulogalamu ikamayenda popanda zenera, chida ichi sichisintha chikalata.
+tool.zoom.name = Kwezerani Kapena Chepetsani
+tool.zoom.description = Imakulitsa kapena kuchepetsa momwe chithunzi chikuonekera. Malo oonera ndi a zenera, choncho pulogalamu ikamayenda popanda zenera, chida ichi sichisintha chikalata.

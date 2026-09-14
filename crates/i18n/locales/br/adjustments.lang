@@ -1,0 +1,20 @@
+# Gwiskadoù reizhañ hag arc'hadoù Skeudenn ▸ Reizhañ.
+adjustment.levels.name = Liveoù
+adjustment.curves.name = Krommennoù
+adjustment.hue_saturation.name = Arliv/Saturadur
+adjustment.brightness_contrast.name = Sked/Kemm-dremm
+adjustment.black_white.name = Du & Gwenn
+adjustment.solid_color.name = Liv unvan
+adjustment.gradient_fill.name = Leuniañ dre zigareziñ
+adjustment.pattern_fill.name = Leuniañ dre batrom
+adjustment.invert.name = Eilpennañ
+adjustment.posterize.name = Posteraat
+adjustment.threshold.name = Gwehin
+adjustment.color_balance.name = Kempouez al livioù
+adjustment.vibrance.name = Buhezegezh
+adjustment.exposure.name = Eksposadur luc'h
+adjustment.photo_filter.name = Sil luc'hskeudennoù
+adjustment.gradient_map.name = Kartenn zigareziñ
+adjustment.selective_color.name = Liv diuzet
+adjustment.channel_mixer.name = Mesker ar sanelloù
+adjustment.other.name = Reizhadur

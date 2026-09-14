@@ -1,0 +1,25 @@
+tool.transform.name = Erkin özgertmek
+tool.transform.description = Erkin özgertmek. Işjeňleşdirilende işjeň gatlagyň daşynda özgertme gutusy açylýar: ölçegini üýtgetmek üçin burçuny, aýlamak üçin burçuň daşyny, gyşartmak üçin gyrasyny çekiň. Enter bilen tassyklanýança hiç zat ýazylmaýar; Escape bilen ýatyrylanda gatlak öňki ýagdaýyna gelýär.
+tool.transform.option.interpolation = Interpolýasiýa
+tool.transform.history.transform = Erkin özgertmek
+tool.transform.history.image_size = Suratyň ölçegi
+tool.transform.history.canvas_size = Kanwanyň ölçegi
+
+tool.transform.selection.name = Saýlanan meýdany özgertmek
+tool.transform.selection.description = Saýlanan meýdany özgertmek: şol bir guty, emma içindäki pikselleriň ýerine saýlama araçägini süýşürýär. Tamamlamak üçin tassyklaň ýa-da ýatyryň.
+tool.transform.selection.history.transform = Saýlanan meýdany özgertmek
+
+tool.transform.resample.nearest_neighbor = Iň ýakyn goňşy
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bikubik
+
+tool.crop.name = Kesmek
+tool.crop.description = Saklanmaly meýdany çekip görkeziň we tutawaçlaryny sazlaň; Enter bilen tassyklamak resminamany şol meýdana çenli kesýär, Escape bilen ýatyrmak bolsa oňa täsir etmeýär.
+tool.crop.option.ratio = Gatnaşyk
+tool.crop.option.delete_cropped = Kesilen pikselleri pozmak
+tool.crop.choice.unconstrained = Çäklendirilmedik
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Kesmek

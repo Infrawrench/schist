@@ -1,0 +1,261 @@
+# Sameiginlegt fyrir nokkra glugga
+dialog.save_ellipsis = Vista…
+dialog.use_foreground = Nota forgrunnslit
+dialog.downloading = Sæki…
+dialog.downloading_of = Sæki… {got} af {total}
+dialog.no_config_dir = (engin stillingamappa)
+
+# Eiginleikar lags
+dialog.layer_props.title = Eiginleikar lags
+
+# Flytja út
+dialog.export.format = Snið
+dialog.export.dither = Litflökt
+dialog.export.dither_note = Nota litflökt þegar fækkað er í 8 bita
+dialog.export.export_ellipsis = Flytja út…
+
+# Vinna myndir
+dialog.batch.title = Vinna myndir
+dialog.batch.note_edit.one = {n} mynd — vistuð sem breyting í myndasafni; frumritið er aldrei snert.
+dialog.batch.note_edit.other = {n} myndir — vistaðar sem breytingar í myndasafni; frumritin eru aldrei snert.
+dialog.batch.note_edit_edited.one = {n} mynd, {edited} þegar breytt — uppskriftin leggst ofan á breytinguna og fyrri breytingin er varðveitt sem útgáfa.
+dialog.batch.note_edit_edited.other = {n} myndir, {edited} þegar breytt — uppskriftin leggst ofan á breytingarnar og fyrri breytingar eru varðveittar sem útgáfur.
+dialog.batch.note_copies.one = {n} mynd — flatt afrit; frumritið er aldrei snert.
+dialog.batch.note_copies.other = {n} myndir — flöt afrit; frumritin eru aldrei snert.
+dialog.batch.note_copies_edited.one = {n} mynd, {edited} þegar breytt — afritið er gert úr breytingunni.
+dialog.batch.note_copies_edited.other = {n} myndir, {edited} þegar breytt — afritin eru gerð úr breytingunum.
+dialog.batch.turn = Snúa
+dialog.batch.rotate = Snúa
+dialog.batch.flip = Spegla
+dialog.batch.upscale = Stækka upplausn
+dialog.batch.colour = Litur
+dialog.batch.add_adjustment = Aðlögun…
+dialog.batch.output = Úttak
+dialog.batch.save_as = Vista sem
+dialog.batch.process = Vinna
+dialog.batch.process_n = Vinna {n}
+dialog.batch.nothing_to_do = Ekkert að gera: veldu fyrst snúning, upplausnarstækkun eða aðlögun
+
+# Efnisnæm kvörðun
+dialog.content_aware_scale.title = Efnisnæm kvörðun
+dialog.content_aware_scale.note = Fjarlægir sauma með litlum smáatriðum. Val afmarkar það sem á að vernda.
+
+# Útlína
+dialog.stroke.title = Útlína
+dialog.stroke.location = Staðsetning
+dialog.stroke.inside = Innan
+dialog.stroke.outside = Utan
+dialog.stroke.note = Dregur útlínu um valið með forgrunnslitnum.
+
+# Fylling
+dialog.fill.contents = Innihald
+
+# Litasvið
+dialog.color_range.title = Litasvið
+dialog.color_range.sampled = Sýnataka
+dialog.color_range.fuzziness = Vikmörk
+dialog.color_range.note = Velur mynddíla á virka laginu sem eru nálægt sýnalitnum.
+
+# Skráaval
+dialog.file_picker.up = ↑ Upp
+dialog.file_picker.empty = Ekkert hér
+dialog.file_picker.choose_folder = Velja þessa möppu
+
+# Síugluggar
+dialog.filter.camera_raw_development = Camera Raw-framköllun
+dialog.filter.reset_as_shot = Endurstilla eins og tekið
+dialog.filter.raw_note = Framkallar virka lagið aftur úr upprunalegum skynjaragögnum þess.
+dialog.filter.note = Beitir síunni á virka lagið innan valsins.
+
+# Leturgerðir vantar
+dialog.fonts.title = Leturgerðir vantar
+dialog.fonts.install_named = Setja upp {name}
+dialog.fonts.no_document = Ekkert skjal er opið og því er ekkert að athuga.
+dialog.fonts.all_installed = Allar leturgerðir sem skjalið notar eru uppsettar. Textinn birtist með leturgerðunum sem hann var settur með.
+dialog.fonts.missing_intro = Skjalið er sett með leturgerðum sem þú ert ekki með. Textinn er læsilegur með staðgengli en breidd hans og línuskipting eru ekki eins og í upprunalegu uppsetningunni.
+dialog.fonts.footer = Niðurhal kemur úr opnu safni Google Fonts og er geymt í {dir}. Leturgerð sem er ekki með opið leyfi er aldrei sótt — ef til er frjáls hönnun með sömu málum er hún boðin í staðinn og endurheimtir umbrotin því stafbreiddirnar passa.
+dialog.fonts.user_font_dir = notandaletursmöppunni þinni
+
+# Líkön fyrir Neural Filters
+dialog.models.title = Líkön fyrir Neural Filters
+dialog.models.built_in = Innbyggt · {size}
+dialog.models.installed = Uppsett · {size}
+dialog.models.not_installed = Ekki uppsett · {size}
+dialog.models.not_in_browser = Ekki tiltækt í vafranum · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Líkön eru geymd í {dir}. Síur án líkans nota merkjavinnslu í staðinn og taka það fram.
+
+# Nýtt skjal
+dialog.new_doc.title = Nýtt skjal
+dialog.new_doc.picker_title = Ný skrá
+dialog.new_doc.custom_ellipsis = Sérsniðið…
+dialog.new_doc.preset = Forstilling
+dialog.new_doc.preset_default = Sjálfgefið (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Ferningur (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 pát
+dialog.new_doc.preset_us_letter = US Letter, 300 pát
+dialog.new_doc.summary = {w} × {h} px @ {ppi} pát · {size}
+dialog.new_doc.create = Búa til
+dialog.new_doc.created = Nýtt skjal: {w} × {h} px
+
+# Opna skrár
+dialog.open.image_title = Opna mynd
+dialog.open.image_prompt = Opna „{name}“ á nýjum flipa eða bæta henni við núverandi skjal sem nýju lagi?
+dialog.open.new_tab = Nýr flipi
+dialog.open.new_layer = Nýtt lag
+dialog.open.quoted = „{name}“
+dialog.open.these_files.one = þessa {n} skrá
+dialog.open.these_files.other = þessar {n} skrár
+dialog.open.shared_title_one = Deild mynd
+dialog.open.shared_title_many = Deildar myndir
+dialog.open.shared_prompt = Bæta {what} við myndasafnið eða opna í ritlinum?
+dialog.open.add_to_gallery = Bæta við myndasafn
+dialog.open.open_in_editor = Opna í ritli
+dialog.open.heic_title = HEIC-stuðningur
+dialog.open.heic_needs_decoder = Til að opna „{name}“ þarf HEVC-afkóðara sem er ekki uppsettur á þessu kerfi.
+dialog.open.heic_offer = Schist getur sótt afkóðunarútgáfu af libheif {version} með libde265 HEVC-afkóðaranum (≈5 MB). Hvort tveggja er með LGPL-3.0-leyfi; leyfistextarnir eru settir upp við hlið safnsins og frumkóðinn er tiltækur á verkefnissíðunni.
+dialog.open.licenses_source = Leyfi og frumkóði
+dialog.open.folders_title = Mappur sem var sleppt
+dialog.open.n_folders.one = {n} mappa
+dialog.open.n_folders.other = {n} möppur
+dialog.open.open_in_tabs = Opna í flipum
+dialog.open.open_first_in_tabs = Opna fyrstu {n} í flipum
+dialog.open.open_n_in_tabs.one = Opna {n} í flipa
+dialog.open.open_n_in_tabs.other = Opna {n} í flipum
+dialog.open.folder_holds.one = {what} inniheldur {n} mynd sem Schist getur opnað (undirmöppur meðtaldar).
+dialog.open.folder_holds.other = {what} inniheldur {n} myndir sem Schist getur opnað (undirmöppur meðtaldar).
+dialog.open.folders_note = Bæta við myndasafn fylgist með möppunum á sínum stað — ekkert er afritað og breytingar eru vistaðar í útgáfum við hlið hverrar myndar. Opnun í flipum hleður öllum myndunum inn í ritilinn núna.
+
+# Viðbætur
+dialog.plugins.title = Viðbætur
+dialog.plugins.kind_filter = sía
+dialog.plugins.kind_format = snið
+dialog.plugins.kind_unavailable = ekki tiltækt
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Viðbætur hlaðast úr {dir}
+dialog.plugins.none = Engar viðbætur uppsettar enn.
+dialog.plugins.install_ellipsis = Setja upp…
+dialog.plugins.photoshop_heading = Photoshop-viðbætur
+dialog.plugins.loaded_from = Hlaðið úr {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Kjörstillingar
+dialog.prefs.title = Kjörstillingar
+dialog.prefs.theme = Þema
+dialog.prefs.theme_dark = Dökkt
+dialog.prefs.theme_light = Ljóst
+dialog.prefs.grid_spacing = Bil í hnitaneti
+dialog.prefs.snapping = Grip
+dialog.prefs.snap_to = Grípa í stoðlínur, hnitanet og jaðra strigans
+dialog.prefs.rendering_intent = Litvarpun
+dialog.prefs.intent_perceptual = Skynræn
+dialog.prefs.intent_relative = Afstæð litmæling
+dialog.prefs.intent_saturation = Litmettunarvarðveisla
+dialog.prefs.intent_absolute = Algild litmæling
+dialog.prefs.scrolling = Skrun
+dialog.prefs.zoom_with_scroll = Aðdráttur með skrunhjóli
+dialog.prefs.rendering = Myndgerð
+dialog.prefs.gpu_compositing = Samsetning með GPU
+dialog.prefs.diagnostics = Greining
+dialog.prefs.crash_reports = Skrifa staðbundna hrunskýrslu við alvarlega villu
+dialog.prefs.crash_upload = Senda hana einnig til þróunaraðila
+dialog.prefs.telemetry = Senda nafnlaust daglegt merki
+dialog.prefs.diagnostics_note = Greiningarstillingar taka gildi næst þegar Schist ræsist.
+dialog.prefs.updates = Uppfærslur
+dialog.prefs.check_updates = Leita að nýjum útgáfum við ræsingu
+dialog.prefs.keyboard_shortcuts = Flýtilyklar: {path}
+dialog.prefs.nsfw_needs_model = Krefst líkansins Innihald (NSFW-sía) —
+dialog.prefs.nsfw_download_link = sæktu það í Stjórna líkönum…
+dialog.prefs.hide_flagged = Fela merktar myndir
+
+# Úthluta sniði / Umbreyta í snið
+dialog.profile.profile = Snið
+dialog.profile.assign_title = Úthluta sniði
+dialog.profile.convert_title = Umbreyta í snið
+dialog.profile.assign = Úthluta
+dialog.profile.convert = Umbreyta
+dialog.profile.assign_note = Túlkar núverandi mynddílagildi að nýju samkvæmt nýja sniðinu.
+dialog.profile.convert_note = Endurskrifar mynddílagildi svo litir haldi útliti sínu.
+
+# Vista mynd sem
+dialog.save_image.title = Vista mynd sem
+dialog.save_image.note = {name} — breytingin, ef hún er til; frumritið er aldrei snert.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# Myndstærð og strigastærð
+dialog.size.image_title = Myndstærð
+dialog.size.canvas_title = Strigastærð
+dialog.size.constrain = Takmarka
+dialog.size.keep_proportions = Halda hlutföllum
+dialog.size.resample = Endurúrtaka
+dialog.size.bicubic = Tvítenings
+dialog.size.bilinear = Tvílínuleg
+dialog.size.nearest = Næsti granni
+dialog.size.anchor = Akkeri
+dialog.size.currently = Nú {w} × {h} px
+dialog.size.image_size_status = Myndstærð: {w} × {h}
+dialog.size.canvas_size_status = Strigastærð: {w} × {h}
+
+# Uppfærsla tiltæk
+dialog.update.title = Uppfærsla tiltæk
+dialog.update.available = Schist {version} er tiltækt. Þetta eintak er {current}.
+dialog.update.installing = Set upp uppfærsluna…
+dialog.update.can_install = Schist getur sótt hana ({size}) og sett hana upp yfir þetta eintak.
+dialog.update.external = Þetta eintak kom frá kerfi sem sér um það — pakkastjóra, AppImage eða eigin smíði — og uppfærist því með sama hætti og það var sett upp.
+dialog.update.later = Síðar
+dialog.update.release_notes = Útgáfuupplýsingar
+dialog.update.update_restart = Uppfæra og endurræsa
+dialog.update.open_page = Opna útgáfusíðu
+
+# Lagstíll
+dialog.style.title = Lagstíll
+dialog.style.bevel = Flái og upphleypt
+dialog.style.stroke = Útlína
+dialog.style.inner_shadow = Innri skuggi
+dialog.style.inner_glow = Innri ljómi
+dialog.style.satin = Satín
+dialog.style.color_overlay = Litayfirlag
+dialog.style.gradient_overlay = Litstigullsyfirlag
+dialog.style.outer_glow = Ytri ljómi
+dialog.style.drop_shadow = Fallskuggi
+dialog.style.blur = Gaussísk móða
+dialog.style.gradient_from = Litstigullsyfirlag frá
+dialog.style.gradient_to = Litstigullsyfirlag til
+dialog.style.soften = Mýkja
+dialog.style.depth = Dýpt
+dialog.style.altitude = Hæð
+dialog.style.highlight = Háljós
+dialog.style.shadow = Skuggi
+dialog.style.outer_bevel = Ytri flái
+dialog.style.inner_bevel = Innri flái
+dialog.style.emboss = Upphleypt
+dialog.style.pillow_emboss = Koddaupphleypt
+dialog.style.linear = Línulegt
+dialog.style.radial = Geislað
+dialog.style.reverse = Snúa við
+dialog.style.from_to = Frá / Til
+dialog.style.from_fg = Frá = FG
+dialog.style.to_fg = Til = FG
+dialog.style.precise = Nákvæmt
+dialog.style.knockout = Lagið slær út fallskuggann
+
+# Litaval
+dialog.color_picker.title = Litaval ({what})
+dialog.color_picker.effect_color = Litur: {effect}
+dialog.color_picker.note_color = Litur athugasemdar
+dialog.color_picker.new = nýr
+dialog.color_picker.current = núverandi
+
+# Línurit ferla
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Endurstilla rás
+dialog.curves.hint = Dragðu til að móta · smelltu til að bæta við · Alt-smelltu til að fjarlægja
+
+# Afritun myndavélarrúllu
+dialog.prefs.camera_sync = Myndavélarrúlla
+dialog.prefs.camera_sync_enabled = Afrita í Schist Cloud
+dialog.prefs.camera_sync_sign_in = Skráðu þig inn í Schist Cloud til að afrita myndavélarrúlluna.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Breyta…

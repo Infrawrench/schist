@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Merdeer
+panel.navigator.actual_pixels = Pikselioù gwir
+
+panel.color.picker = Dibaber…
+panel.color.swap = Eskemm al livioù
+panel.color.reset = Adderaouekaat e du ha gwenn
+
+panel.layers.blending_options = Dibarzhioù meskañ…
+panel.layers.properties = Perzhioù ar gwiskad…
+panel.layers.show_hide = Diskouez/Kuzhat ar gwiskad
+panel.layers.toggle_visibility = Gwintañ ar gweled
+
+panel.history.title = Roll istor
+panel.history.opened = Digoret
+
+panel.info.title = Titouroù
+panel.info.camera = Benveg luc'hskeudenniñ
+panel.info.lens = Ferenn
+panel.info.iso = ISO {iso}
+panel.info.bias = Digoll
+panel.info.flash_fired = luc'h luc'het
+panel.info.no_flash = luc'h ebet
+panel.info.white_balance = Kempouez ar gwenn {wb}
+panel.info.metering = Muzuliañ {metering}
+panel.info.taken = Kemeret
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · reteradur {o}
+panel.info.software = Meziant
+panel.info.where = Lec'h
+
+panel.notes.author = Aozer
+panel.notes.clear_all = Diverkañ pep tra
+panel.notes.unattributed = Hep aozer
+panel.notes.empty = Klikit war ar steuenn evit lezel un notenn.
+panel.notes.placeholder = Klikit evit skrivañ
+
+panel.character.title = Arouezenn
+panel.character.type_tool = Benveg testenn (T)
+panel.character.align_left = Steudañ a-gleiz
+panel.character.align_center = Steudañ e-kreiz
+panel.character.align_right = Steudañ a-zehou
+panel.character.text_color = Liv an destenn
+panel.character.panel = Panell an arouezenn
+panel.character.cancel_edit = Nullañ kemmañ an destenn
+panel.character.commit_edit = Kadarnaat kemmañ an destenn
+panel.character.number_tip = {label} · Bizskrivit ur werzh, pe arverit ↑ / ↓ (Shift evit kammedoù brasoc'h)
+panel.character.leading = Etrelinennañ
+panel.character.tracking = Etrelizherenniñ
+panel.character.alignment = Steudadur
+panel.character.opentype = OpenType
+panel.character.text_on_path = Testenn war un treug
+panel.character.straight = Eeun
+panel.character.on_path = War an treug
+panel.character.straight_tip = Arverañ linenn diazez ordinal gwiskad an destenn
+panel.character.on_path_tip = Arverañ un eilad eus an treug oberiant
+panel.character.path_offset = Linkadur an treug
+
+panel.ai.title = AI
+panel.ai.empty_editor = Goulennit ur c'hemm ha sellit outañ o c'hoarvezout war ar steuenn. An ajan a gas ar memes binvioù, siloù hag arc'hadoù hag al lañserioù, ur bazenn dizober pep hini.
+panel.ai.empty_gallery = Goulennit diwar-benn ho luc'hskeudennoù ha sellit outañ o c'hoarvezout er skeudennaoueg: an ajan a c'hall klask, sellout ouzh ar skeudennig vihan, diuzañ, rummañ e podoù ha digeriñ ul luc'hskeudenn er c'hemmer.
+panel.ai.thinking = o prederiañ…
+panel.ai.placeholder_editor = Goulenn diwar-benn an teul-mañ pe kemmañ anezhañ
+panel.ai.placeholder_gallery = Goulenn diwar-benn ho luc'hskeudennoù
+panel.ai.send = Kas
+panel.ai.stop = Paouez
+panel.ai.fetching_models = O c'houlenn e batromoù digant ar CLI…
+panel.ai.no_models = Patrom klotañ ebet
+panel.ai.search_models = Klask patromoù…
+
+panel.keymap.install_plugin = Staliañ un enlugellad
+panel.keymap.save_as_prompt = Enrollañ evel — an askouezhadenn a zibab ar mentrezh:

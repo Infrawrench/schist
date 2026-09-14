@@ -1,0 +1,22 @@
+# Toolys avel Sewya, Dewiser Liw, Dorn ha Brashe.
+tool.move.name = Gwaya
+tool.move.description = Tenna dalgh an gwisk oberiethek dhe le nowydh. Gans Dewis Awtomatek yn fyw, an gwask a dhewis kynsa neb gwisk — po bagas dien — a vydh yn-dann an poyntyer.
+tool.move.option.auto_select = Dewis Awtomatek
+tool.move.history.move_layer = Gwaya Gwisk
+
+tool.eyedropper.name = Dewiser Liw
+tool.eyedropper.description = Kemmer skantlyn an liw yn-dann an poyntyer dhe'n skath ragorek, po dhe'n skath kilorek pan vydh alt synsys. Dre denna, skantlynnow a vydh kemerys heb hedhi.
+tool.eyedropper.option.sample_size = Braster Skantlyn
+tool.eyedropper.option.sample = Skantlyn
+tool.eyedropper.choice.point_sample = Skantlyn Poynt
+tool.eyedropper.choice.average_3 = Kresek 3 dre 3
+tool.eyedropper.choice.average_5 = Kresek 5 dre 5
+tool.eyedropper.choice.average_11 = Kresek 11 dre 11
+tool.eyedropper.choice.average_31 = Kresek 31 dre 31
+tool.eyedropper.choice.all_layers = Oll an Gwiskow
+tool.eyedropper.choice.current_layer = Gwisk A-lemmyn
+
+tool.hand.name = Dorn
+tool.hand.description = Panhe an gwel. An fenester a berghen an gwelva, hag ytho heb ynterfas grafek an daffar ma ny wra tra vyth dhe'n skrifen.
+tool.zoom.name = Brashe
+tool.zoom.description = Brashe po byghanhe an gwel. An fenester a berghen an gwelva, hag ytho heb ynterfas grafek an daffar ma ny wra tra vyth dhe'n skrifen.

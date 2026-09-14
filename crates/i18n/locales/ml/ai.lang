@@ -1,0 +1,34 @@
+# Status bar
+ai.status.panel_shown = AI പാനൽ കാണിച്ചു
+ai.status.panel_hidden = AI പാനൽ മറച്ചു — കാഴ്ച ▸ AI പാനൽ ({shortcut}) ഉപയോഗിച്ച് വീണ്ടും തുറക്കാം
+ai.status.tool = AI: {name}
+
+# Transcript information
+ai.info.connected = {backend} കണക്റ്റായി
+ai.info.now_in_gallery = ഇപ്പോൾ ഗാലറിയിലാണ്.
+ai.info.now_in_editor = ഇപ്പോൾ എഡിറ്ററിലാണ്.
+ai.tool.shell_command = ഷെൽ കമാൻഡ്
+
+# Errors
+ai.error.cli_missing = {backend} CLI (“{binary}”) PATH-ൽ ഇല്ല. ആദ്യം അത് ഇൻസ്റ്റാൾ ചെയ്ത് ലോഗിൻ ചെയ്യുക.
+ai.error.endpoint_failed = MCP എൻഡ്‌പോയിന്റ് ആരംഭിക്കാനായില്ല: {error}
+ai.error.binding_endpoint = MCP എൻഡ്‌പോയിന്റ് ബൈൻഡ് ചെയ്യുന്നു
+ai.error.spawning_endpoint_thread = MCP എൻഡ്‌പോയിന്റ് ത്രെഡ് ആരംഭിക്കുന്നു
+ai.error.runtime_failed = ഏജന്റ് റൺടൈം ആരംഭിക്കാനായില്ല: {error}
+ai.error.worker_failed = {backend} വർക്കർ ആരംഭിക്കാനായില്ല: {error}
+ai.error.did_not_start = {backend} ആരംഭിച്ചില്ല: {error}
+ai.error.switch_model_failed = മോഡൽ മാറ്റാനായില്ല: {error}
+ai.error.send_failed = പ്രോംപ്റ്റ് അയയ്ക്കാനായില്ല: {error}
+ai.error.interrupt_failed = തടസ്സപ്പെടുത്താനായില്ല: {error}
+ai.error.locating_binary = Schist ബൈനറി കണ്ടെത്തുന്നു
+ai.error.starting_app_server = Codex ആപ്പ് സെർവർ ആരംഭിക്കുന്നു
+ai.error.attaching_app_server = Codex ആപ്പ് സെർവറുമായി ബന്ധിപ്പിക്കുന്നു
+ai.error.initializing_app_server = Codex ആപ്പ് സെർവർ പ്രാരംഭീകരിക്കുന്നു
+ai.error.resuming_thread = Codex ത്രെഡ് പുനരാരംഭിക്കുന്നു
+ai.error.starting_thread = Codex ത്രെഡ് ആരംഭിക്കുന്നു
+
+# Models
+ai.model.opus_detail = ഏറ്റവും ശേഷിയുള്ള നിര
+ai.model.sonnet_detail = പതിവ് ജോലികൾക്ക് കാര്യക്ഷമം
+ai.model.haiku_detail = പെട്ടെന്നുള്ള ഉത്തരങ്ങൾക്ക് ഏറ്റവും വേഗം
+ai.model.codex_catalog = Codex കാറ്റലോഗ്

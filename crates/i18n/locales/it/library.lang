@@ -1,0 +1,374 @@
+# Barra laterale
+library.sidebar.view = VISTA
+library.sidebar.folders = CARTELLE
+library.sidebar.buckets = RACCOLTE
+library.sidebar.people = PERSONE
+library.sidebar.group_by = RAGGRUPPA PER
+library.sidebar.all_photos = Tutte le foto
+library.sidebar.world_map = Mappa mondiale
+library.sidebar.map_filter = Filtro mappa…
+library.sidebar.map_filter_on = Filtro mappa attivo
+library.sidebar.add_folder = + Aggiungi cartella…
+library.sidebar.new_bucket = + Nuova raccolta
+library.sidebar.stop_watching = Smetti di sorvegliare questa cartella
+library.sidebar.unnamed_faces = Volti senza nome
+library.sidebar.retry_face_model = Riprova il download del modello per i volti
+library.sidebar.retry_recognition_model = Riprova il download del modello di riconoscimento
+library.sidebar.looking_for_faces = Ricerca dei volti… {looked}/{total}
+library.sidebar.faces_appear = I volti appariranno qui durante l'indicizzazione delle foto.
+library.sidebar.downloading_face_models = Download dei modelli per i volti… {got} di {total} MB
+
+# Raggruppamento
+library.group_by.date = Data
+library.group_by.folder = Cartella
+library.group_by.place = Luogo
+
+# Mesi
+library.month.january = Gennaio
+library.month.february = Febbraio
+library.month.march = Marzo
+library.month.april = Aprile
+library.month.may = Maggio
+library.month.june = Giugno
+library.month.july = Luglio
+library.month.august = Agosto
+library.month.september = Settembre
+library.month.october = Ottobre
+library.month.november = Novembre
+library.month.december = Dicembre
+library.month.title = {month} {year}
+library.month.undated = Senza data
+
+# Intestazioni gruppi
+library.group.person = Persone · {name}
+library.group.person_in = Persone · {name} · in {scope}
+library.group.unnamed = Volti senza nome
+library.group.unnamed_in = Volti senza nome · in {scope}
+library.group.bucket = Raccolta · {name}
+library.group.no_location = Nessuna posizione
+library.group.not_indexed = Non ancora indicizzate
+library.group.detail = {detail} — {n}
+
+# Barra superiore
+library.strip.import = Importa…
+library.strip.add_folder = Aggiungi cartella…
+library.strip.settings = Impostazioni…
+library.strip.new_file = Nuovo file…
+library.strip.back_to_editing = Torna alla modifica
+library.strip.enable_search = Attiva ricerca foto…
+library.strip.enable_search_menu = Attiva ricerca foto…
+library.strip.map_filter_chip = Filtro mappa: {name}
+library.strip.downloading_search = Download della ricerca foto… {got} di {total} MB
+
+# Ricerca
+library.search.placeholder = Cerca foto…
+library.search.placeholder_indexing = Cerca ({indexed}/{total} indicizzate)
+library.search.placeholder_people_places = Cerca persone e luoghi…
+library.search.results = Risultati della ricerca
+library.search.results_in_bucket = Raccolta · {name} · Risultati della ricerca
+library.search.near = vicino a {place}
+library.search.with = con {names}
+
+# Vassoio e celle
+library.tray.view = Visualizza
+library.tray.edited_note = modificata — versioni conservate accanto al file
+library.tray.n_hidden.one = {n} nascosta dal filtro dei contenuti
+library.tray.n_hidden.many = {n} nascoste dal filtro dei contenuti
+library.tray.n_hidden.other = {n} nascoste dal filtro dei contenuti
+library.cell.no_preview = nessuna anteprima
+library.cell.edited = modificata
+library.gallery.loading = Caricamento foto…
+
+# Schermata iniziale
+library.welcome.title = Benvenuto in Schist
+library.welcome.intro = Sorveglia cartelle di foto oppure importa da una fotocamera. I file restano dove si trovano; le versioni delle modifiche vengono salvate accanto a essi:
+library.welcome.intro_ios = Importa foto dalla libreria oppure aggiungi una cartella da File. Le versioni delle modifiche vengono salvate accanto a ogni foto:
+library.welcome.or_open = Oppure apri un'immagine da modificare:
+library.welcome.shortcut_mac = La galleria è sempre raggiungibile con ⌘⇧G, qualunque elemento tu stia modificando.
+library.welcome.shortcut = La galleria è sempre raggiungibile con Ctrl+Shift+G, qualunque elemento tu stia modificando.
+
+# Galleria vuota
+library.gallery.empty_bucket_search = Nessun elemento della raccolta corrisponde alla ricerca. Premi Esc per cancellarla e mostrare l'intera raccolta.
+library.gallery.empty_search = Nessun elemento corrisponde alla ricerca. Premi Esc per cancellarla.
+library.gallery.empty_smart_bucket = Nessun elemento corrisponde ancora alla regola della raccolta; le corrispondenze appariranno durante l'indicizzazione. Puoi anche trascinarvi le foto.
+library.gallery.empty_bucket = Questa raccolta è vuota. Trascina le foto sulla sua riga nella barra laterale per aggiungerle.
+library.gallery.empty_person = Ancora nessun elemento. I volti appariranno durante l'indicizzazione; fai clic su una foto e poi su un volto per assegnargli un nome.
+library.gallery.scanning = Analisi delle cartelle…
+library.gallery.empty = Nessuna foto trovata nelle cartelle sorvegliate. Qui appaiono le immagini che Schist può aprire (PNG, JPEG, WebP, TIFF, HEIC, file raw della fotocamera, PSD, Affinity); le sottocartelle vengono analizzate fino a sei livelli di profondità.
+
+# Raccolte
+library.bucket.default_name = Raccolta {n}
+library.bucket.rule_matches = corrisponde a “{query}”
+library.bucket.rule_taken_in = scattata in {name}
+library.bucket.new_title = Nuova raccolta
+library.bucket.edit_title = Modifica raccolta
+library.bucket.new_cloud_title = Nuova raccolta cloud
+library.bucket.edit_cloud_title = Modifica raccolta cloud
+library.bucket.create = Crea
+library.bucket.query_placeholder = ad es. cane su una spiaggia (facoltativo)
+library.bucket.the_drawn_area = l'area tracciata
+library.bucket.area_help = Trascina sulla mappa tenendo premuto Maiusc (oppure scegli un'impostazione predefinita) per aggiungere un'area; un trascinamento minimo la cancella. Le regole mantengono aggiornata automaticamente la raccolta.
+library.bucket.rule_none = Nessuna regola: una raccolta ordinaria, riempita trascinandovi le foto.
+library.bucket.rule_query = Conserva tutte le foto corrispondenti a “{query}”.
+library.bucket.rule_area = Conserva tutte le foto scattate in {area}.
+library.bucket.rule_query_area = Conserva tutte le foto corrispondenti a “{query}” scattate in {area}.
+library.bucket.starts_with.one = Inizialmente contiene la foto selezionata.
+library.bucket.starts_with.many = Inizialmente contiene le {n} foto selezionate.
+library.bucket.starts_with.other = Inizialmente contiene le {n} foto selezionate.
+
+# Mappa mondiale
+library.map.status = {located} foto sulla mappa · {unlocated} senza posizione
+library.map.reading_locations = Lettura posizioni: {n} rimanenti
+library.map.reset_view = Ripristina vista
+library.map.no_photos = Nessuna foto con posizione GPS in questa vista. Aggiungi foto georeferenziate oppure modifica i filtri della galleria.
+library.map.no_photos_cloud = Nessuna foto con posizione GPS. Scegli un'altra cartella o raccolta oppure cancella la ricerca.
+library.map.hint = Trascina per spostare · Scorri per zoomare · Fai clic su un indicatore per vederne le foto · Fai doppio clic su una foto per modificarla
+library.map.n_at_marker.one = {n} foto in questo indicatore
+library.map.n_at_marker.many = {n} foto in questo indicatore
+library.map.n_at_marker.other = {n} foto in questo indicatore
+library.map.n_in_marker.one = {n} foto in questo indicatore
+library.map.n_in_marker.many = {n} foto in questo indicatore
+library.map.n_in_marker.other = {n} foto in questo indicatore
+library.map.attribution = © collaboratori OpenStreetMap
+
+# Editor dei confini
+library.map.draw_area = Traccia area
+library.map.drawing = Tracciamento…
+library.map.clear_boundary = Cancella confine
+library.map.editor_hint = trascina per spostare · scorri per zoomare · Maiusc-trascina per tracciare
+
+# Filtro mappa
+library.map_filter.title = Filtro mappa
+library.map_filter.drawn_area = area tracciata
+library.map_filter.apply_named = Applica mostra solo le foto scattate in {name}; quelle prive di posizione EXIF vengono nascoste.
+library.map_filter.apply_drawn = Applica mostra solo le foto scattate tra {south}°, {west}° e {north}°, {east}°; quelle prive di posizione EXIF vengono nascoste.
+library.map_filter.draw_first = Traccia un confine (Maiusc-trascina oppure un'impostazione predefinita), quindi scegli Applica. Applicando senza alcun confine, il filtro viene disattivato.
+library.map_filter.turn_off = Disattiva filtro
+
+# Importazione da fotocamera
+library.import.title = Importa da fotocamera
+library.import.from = Importa da {name}
+library.import.no_cameras = Nessuna fotocamera trovata.
+library.import.no_cameras_help = Collega una fotocamera, una scheda di memoria o un iPhone. Per mostrare le foto di un iPhone, sbloccalo e rispondi Autorizza alla richiesta di autorizzazione del computer; quindi attendi un momento e premi Analizza di nuovo. È valida anche qualsiasi unità montata come disco e contenente una cartella DCIM.
+library.import.scan_again = Analizza di nuovo
+library.import.pick_source = Sono disponibili più fotocamere. Importa da:
+library.import.via_image_capture = tramite Acquisizione Immagine
+library.import.boundary_named = Confine: {name} — vengono importate solo le foto la cui posizione EXIF ricade al suo interno; quelle senza posizione restano sulla fotocamera.
+library.import.boundary_drawn = Confine: da {south}°, {west}° a {north}°, {east}° — vengono importate solo le foto la cui posizione EXIF ricade al suo interno.
+library.import.no_boundary = Nessun confine — viene importato tutto il contenuto della fotocamera.
+library.import.destination = In ~/Immagini/Importazioni Schist/{name} — i file già importati vengono ignorati, quindi è possibile ripetere l'operazione senza rischi.
+library.import.selected_area = Area selezionata
+library.import.locked_help = Se il dispositivo è bloccato, sbloccalo, tocca Autorizza quando richiesto, lascialo collegato e riprova.
+library.import.try_again = Riprova
+library.import.add_to_gallery = Aggiungi alla galleria
+
+library.import.needs_home = Per importare è necessaria una directory home in cui copiare i file
+library.import.importing_from = Importazione da {source}…
+library.import.importing_in_place = Importazione delle foto scattate in {place} da {source}…
+library.import.device_macos_only = L'importazione diretta da un dispositivo è una funzione di macOS
+library.import.failed = Importazione non riuscita: {error}
+library.import.from_failed = Importazione da {name} non riuscita
+library.import.locked = {name} è bloccato — sbloccalo e tocca Autorizza per continuare
+library.import.reading_catalog = Lettura del catalogo fotografico di {name}…
+library.import.progress_from = Importazione foto {n}/{total} da {name}…
+library.import.progress = Importazione file {n}/{total}…
+library.import.choose_photos = Scegli foto e video da importare…
+library.import.photos_open_failed = Impossibile aprire la libreria foto: {error}
+library.import.done.one = {n} file importato in {dest}
+library.import.done.many = {n} file importati in {dest}
+library.import.done.other = {n} file importati in {dest}
+library.import.done_in_place.one = {n} foto scattata in {place} importata in {dest} ({filtered} scattate altrove o senza posizione lasciate sulla fotocamera)
+library.import.done_in_place.many = {n} foto scattate in {place} importate in {dest} ({filtered} scattate altrove o senza posizione lasciate sulla fotocamera)
+library.import.done_in_place.other = {n} foto scattate in {place} importate in {dest} ({filtered} scattate altrove o senza posizione lasciate sulla fotocamera)
+library.import.n_failed.one = {n} non riuscito
+library.import.n_failed.many = {n} non riusciti
+library.import.n_failed.other = {n} non riusciti
+library.import.no_dcim = Nessuna cartella DCIM in {source}
+library.import.already_running = È già in corso un'importazione
+library.import.camera_gone = La fotocamera non è più collegata
+library.import.camera_disconnected = La fotocamera si è scollegata durante l'importazione
+library.import.unknown_error = Errore sconosciuto
+library.import.picker_needs_ios14 = Il selettore foto richiede iOS 14 o versioni successive
+library.import.picker_unavailable = Il selettore foto non è disponibile
+library.import.no_window = Nessuna finestra da cui presentare il selettore
+
+# Nomi generici dei volumi
+library.volume.iphone = iPhone o iPad
+library.volume.camera = Fotocamera
+library.volume.phone = Telefono
+
+# Cartelle aperte come schede
+library.open_folder.opened.one = {n} immagine aperta
+library.open_folder.opened.many = {n} immagini aperte
+library.open_folder.opened.other = {n} immagini aperte
+library.open_folder.opened_first = Aperte le prime {n} di {total} immagini — le altre restano nella galleria
+
+# Modelli di ricerca foto
+library.search_models.title = Ricerca foto
+library.search_models.intro = Per cercare le foto in base al loro contenuto sono necessari due modelli, scaricati una sola volta e conservati su questo computer. Vengono eseguiti localmente: nessuna foto lascia mai il dispositivo.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = MobileCLIP di Apple
+library.search_models.export = Esportazione ONNX di Xenova
+library.search_models.license = Licenza
+library.search_models.download_note = Il download installa entrambi i modelli ({mb} MB complessivi) e ne accetta le licenze. È possibile rimuoverli da Galleria ▸ Gestisci modelli…
+library.search_models.agree = Accetta e scarica
+
+# Menu contestuale
+library.menu.add_all_to = Aggiungi tutto a {name}
+library.menu.add_all_to_new_bucket = Aggiungi tutto a una nuova raccolta…
+library.menu.edit_n_in_tabs = Modifica {n} in schede
+library.menu.view_name_people = Visualizza e assegna nomi alle persone
+library.menu.reveal = Mostra nel gestore file
+library.menu.add_to = Aggiungi a {name}
+library.menu.add_to_new_bucket = Aggiungi a una nuova raccolta
+library.menu.remove_from_bucket = Rimuovi da questa raccolta
+library.menu.save_n_as_zip = Salva {n} come ZIP…
+library.menu.save_image_as = Salva immagine con nome…
+library.menu.process = Elabora…
+library.menu.process_n = Elabora {n} foto…
+library.menu.move_to_folder = Sposta nella cartella…
+library.menu.move_n_to_folder = Sposta {n} nella cartella…
+library.menu.revert = Ripristina originale
+library.menu.revert_n = Ripristina gli originali di {n}
+library.menu.upload_to_cloud = Carica su Schist Cloud…
+library.menu.watch_local_folder = Sorveglia una cartella su questo computer…
+library.menu.new_cloud_folder = {glyph} Nuova cartella Schist Cloud…
+library.menu.new_local_bucket = Nuova raccolta su questo computer…
+library.menu.new_cloud_bucket = {glyph} Nuova raccolta Schist Cloud…
+library.menu.edit_bucket = Modifica raccolta…
+library.menu.select_all_n = Seleziona tutto ({n})
+library.menu.save_all_as_zip = Salva tutto come ZIP… ({n})
+library.menu.process_all = Elabora tutto… ({n})
+library.menu.move_all_to_folder = Sposta tutto nella cartella…
+library.menu.clear_added = Cancella foto aggiunte
+library.menu.clear_bucket = Svuota raccolta
+library.menu.delete_bucket = Elimina raccolta
+library.menu.show_person = Mostra {name}
+library.menu.rename_person = Rinomina…
+library.menu.forget_person.one = Dimentica persona ({n} volto)
+library.menu.forget_person.many = Dimentica persona ({n} volti)
+library.menu.forget_person.other = Dimentica persona ({n} volti)
+
+# Spostamento, compressione, salvataggio e ripristino
+library.ops.moving.one = Spostamento di {n} foto in {dest}…
+library.ops.moving.many = Spostamento di {n} foto in {dest}…
+library.ops.moving.other = Spostamento di {n} foto in {dest}…
+library.ops.moved.one = {n} foto spostata in {dest}
+library.ops.moved.many = {n} foto spostate in {dest}
+library.ops.moved.other = {n} foto spostate in {dest}
+library.ops.moved_partial = Spostate {n} foto su {total} in {dest} — le altre sono indicate nel registro
+library.ops.move_here = Sposta qui
+library.ops.no_export_format = Nessun formato disponibile può salvare un'immagine
+library.ops.saved_size = {name} salvato ({w} × {h})
+library.ops.save_failed = Salvataggio non riuscito: {error}
+library.ops.opening_first = Apertura delle prime {n} di {total} foto — le altre restano nella galleria
+library.ops.nothing_to_revert = Nulla da ripristinare: nessuna di queste foto contiene modifiche
+library.ops.reverted.one = {n} foto ripristinata all'originale — la modifica è conservata in versions/
+library.ops.reverted.many = {n} foto ripristinate agli originali — le modifiche sono conservate in versions/
+library.ops.reverted.other = {n} foto ripristinate agli originali — le modifiche sono conservate in versions/
+library.ops.no_file_name = Il file non ha un nome
+library.zip.nothing_all_held = Nulla da comprimere: il filtro dei contenuti esclude tutte queste {n} foto
+library.zip.failed = Creazione ZIP non riuscita: {error}
+library.zip.progress = Compressione di {n}/{total}…
+library.zip.n_held.one = ({n} esclusa dal filtro dei contenuti)
+library.zip.n_held.many = ({n} escluse dal filtro dei contenuti)
+library.zip.n_held.other = ({n} escluse dal filtro dei contenuti)
+library.zip.done.one = {n} foto compressa in {dest}
+library.zip.done.many = {n} foto compresse in {dest}
+library.zip.done.other = {n} foto compresse in {dest}
+library.zip.done_partial = Compresse {n} foto su {total} in {dest} — le altre sono indicate nel registro
+library.zip.nothing_readable = Impossibile leggere qualsiasi elemento da comprimere
+library.zip.too_large = Dimensioni eccessive per un archivio ZIP senza zip64
+library.batch.nothing_to_do = Nessuna operazione da eseguire: scegli prima una rotazione, un aumento di risoluzione o una regolazione
+library.batch.save_copies_here = Salva qui le copie
+library.batch.processing.one = Elaborazione di {n} foto…
+library.batch.processing.many = Elaborazione di {n} foto…
+library.batch.processing.other = Elaborazione di {n} foto…
+library.batch.progress = Elaborate {n}/{total} — {name}
+library.batch.failed = Elaborazione non riuscita: {error}
+library.batch.done.one = {n} foto elaborata
+library.batch.done.many = {n} foto elaborate
+library.batch.done.other = {n} foto elaborate
+library.batch.done_partial = Elaborate {n} foto su {total} — le altre sono indicate nel registro
+library.batch.model_would_not_load = Impossibile caricare il modello {name}
+library.batch.no_psd_writer = Nessun modulo di scrittura PSD caricato
+
+# Visualizzatore e album Persone
+library.viewer.back = ‹ Torna alle foto
+library.viewer.could_not_decode = Impossibile decodificare questa foto.
+library.viewer.label_auto = {name} · automatico
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = PERSONE IN QUESTA FOTO
+library.viewer.faces_intro = I volti vengono individuati da un piccolo modello scaricato una sola volta. È comunque possibile tracciare manualmente i riquadri.
+library.viewer.looking_for_faces = Ricerca dei volti…
+library.viewer.no_faces = Nessun volto trovato. Traccia un riquadro intorno a un volto per aggiungere manualmente una persona.
+library.viewer.help = Fai clic su un volto per assegnargli un nome; Invio salva. Trascina sulla foto per contrassegnare un volto non rilevato. ← → passa da una foto all'altra, Esc torna indietro.
+library.viewer.not_them = Non è questa persona
+library.viewer.remove_name = Rimuovi nome
+library.viewer.not_a_face = Non è un volto
+library.viewer.auto = automatico
+library.viewer.is_this = È {name}?
+library.viewer.someone_else = Un'altra persona
+library.viewer.add_name = Aggiungi un nome…
+library.viewer.who_is_this = Chi è?
+library.people.rename_title = Rinomina persona
+library.people.merge_warning = Esiste già una persona chiamata “{name}”: salvando, le due persone verranno unite.
+library.people.merge_note = Se assegni il nome di una persona già esistente, le due persone verranno unite.
+library.people.named = Nome assegnato: {name}
+library.people.named_followed.one = Nome assegnato: {name} · {n} altro volto trovato automaticamente
+library.people.named_followed.many = Nome assegnato: {name} · altri {n} volti trovati automaticamente
+library.people.named_followed.other = Nome assegnato: {name} · altri {n} volti trovati automaticamente
+
+# Salva in Foto
+library.photos.saving = Salvataggio in Foto…
+library.photos.saved = Salvato in Foto
+library.photos.save_failed = Salvataggio in Foto non riuscito: {error}
+library.photos.no_document = nessun documento aperto
+library.photos.no_png_codec = il codec PNG non è caricato
+library.photos.no_answer = la libreria foto non ha risposto
+library.photos.bad_url = impossibile convertire il percorso del file in un URL
+library.photos.unavailable = la libreria foto non è disponibile
+library.photos.declined = la libreria foto ha rifiutato l'operazione
+
+# File condivisi con l'app
+library.shared.needs_documents = La galleria richiede una cartella Documenti in cui eseguire la copia
+library.shared.added.one = {n} foto aggiunta alla galleria
+library.shared.added.many = {n} foto aggiunte alla galleria
+library.shared.added.other = {n} foto aggiunte alla galleria
+library.shared.open_needs_documents = Per aprire è necessaria una cartella Documenti in cui eseguire la copia
+library.shared.could_not_open = Impossibile aprire {name}: {error}
+
+# Anteprima video e acquisizione fotogrammi
+video.invalid_file = Questo non è un file video locale.
+video.install_gstreamer = L'anteprima video richiede GStreamer 1.x e i plugin per la decodifica video. Installali, quindi riapri il video. Puoi comunque scegliere un editor esterno.
+video.decode_failed = Impossibile decodificare questo fotogramma video.
+video.no_stream = Questo file non contiene un flusso video.
+video.no_duration = Impossibile leggere la durata del video.
+video.frame_too_large = Questo fotogramma video è troppo grande per essere aperto.
+video.first_frame = Sei già al primo fotogramma.
+video.editor_failed = Impossibile aprire l'editor video: {error}
+video.editor_unavailable = Impossibile aprire l'editor video scelto. Scegli di nuovo l'applicazione.
+video.loading = Caricamento video…
+video.searching = Ricerca di un fotogramma vicino più nitido…
+video.capturing = Apertura del fotogramma a piena risoluzione…
+video.frame_title = {name} — fotogramma {time}
+video.frame_layer = Fotogramma video
+video.already_sharpest = Questo è già il fotogramma vicino più nitido.
+video.found_frame = Selezionato il fotogramma vicino più nitido a {time}.
+video.choose_editor = Scegli editor video…
+video.back = Torna alla galleria
+video.pause = Pausa
+video.play = Riproduci
+video.previous = Fotogramma precedente
+video.next = Fotogramma successivo
+video.sharper = Trova fotogramma più nitido
+video.edit_frame = Modifica fotogramma
+video.open_editor = Apri nell'editor video
+video.preview_help = Anteprima senza audio · Spazio: riproduci/pausa · Frecce: avanza per fotogrammi · Cerca entro ½ secondo in entrambe le direzioni. La modifica apre un'immagine separata.
+video.badge = ▶ Video
+video.view = Visualizza video
+video.open_another_app = Apri in un'altra app…
+video.preview_help_touch = Anteprima senza audio · Trascina la timeline oppure avanza per fotogrammi. Trova fotogramma più nitido cerca entro ½ secondo in entrambe le direzioni. La modifica apre un'immagine separata.
+video.importing = Importazione di foto e video…
+video.import_failed = Impossibile importare i contenuti multimediali: {error}
+video.import_failed_simple = Impossibile importare o condividere questi contenuti multimediali.

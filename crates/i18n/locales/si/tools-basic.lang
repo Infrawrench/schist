@@ -1,0 +1,24 @@
+# ගෙනයෑම
+tool.move.name = ගෙනයන්න
+tool.move.description = සක්‍රිය ස්තරයේ අන්තර්ගතය නව ස්ථානයකට ඇදගෙන යන්න. ස්වයංක්‍රීය තේරීම සක්‍රිය විට, ඔබ ඔබන තැන දර්ශකයට යටින් මුලින්ම ඇති ස්තරය හෝ සම්පූර්ණ සමූහය තෝරා ගැනේ.
+tool.move.option.auto_select = ස්වයංක්‍රීයව තෝරන්න
+tool.move.history.move_layer = ස්තරය ගෙනයන්න
+
+# අක්ෂි බිංදුකය
+tool.eyedropper.name = අක්ෂි බිංදුකය
+tool.eyedropper.description = දර්ශකයට යටින් ඇති වර්ණය පෙරබිම් වර්ණ සාම්පලයට ගන්න; alt යතුර ඔබාගෙන සිටින විට එය පසුබිම් වර්ණ සාම්පලයට ගැනේ. ඇදගෙන යන තුරු සාම්පල ගැනීම දිගටම සිදු වේ.
+tool.eyedropper.option.sample_size = සාම්පල ප්‍රමාණය
+tool.eyedropper.option.sample = සාම්පලය
+tool.eyedropper.choice.point_sample = ලක්ෂ්‍ය සාම්පලය
+tool.eyedropper.choice.average_3 = 3 × 3 සාමාන්‍යය
+tool.eyedropper.choice.average_5 = 5 × 5 සාමාන්‍යය
+tool.eyedropper.choice.average_11 = 11 × 11 සාමාන්‍යය
+tool.eyedropper.choice.average_31 = 31 × 31 සාමාන්‍යය
+tool.eyedropper.choice.all_layers = සියලු ස්තර
+tool.eyedropper.choice.current_layer = වත්මන් ස්තරය
+
+# අත සහ විශාලනය
+tool.hand.name = අත
+tool.hand.description = දසුන එහා මෙහා ගෙනයයි. දර්ශන කවුළුව අයත් වන්නේ කවුළුවට බැවින්, චිත්‍රක අතුරුමුහුණතක් නොමැතිව මෙම මෙවලම ලේඛනයට කිසිවක් නොකරයි.
+tool.zoom.name = විශාලනය
+tool.zoom.description = දසුන විශාල හෝ කුඩා කරයි. දර්ශන කවුළුව අයත් වන්නේ කවුළුවට බැවින්, චිත්‍රක අතුරුමුහුණතක් නොමැතිව මෙම මෙවලම ලේඛනයට කිසිවක් නොකරයි.

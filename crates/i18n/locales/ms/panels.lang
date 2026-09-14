@@ -1,0 +1,104 @@
+# The chrome around the canvas (crates/app/src/panels): the side
+# panels, the toolbar and its options bar, the status bar, the title
+# bar, the document tabs and the right-click menus; and the file
+# dialogs in crates/app/src/keymap.rs. Panel names follow Photoshop's
+# own localisations. Titles that another area already has — Layers,
+# Color, Notes, Opacity, Size — are reused from common.lang and
+# menu.lang rather than repeated here.
+
+# The modifier keys as a menu's shortcut hint spells them
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Status bar: the document's title and size, with a dot when unsaved
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Document tabs and the window title
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigator
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Piksel Sebenar
+
+# Color panel and its right-click menu
+panel.color.picker = Pemilih…
+panel.color.swap = Tukar Warna
+panel.color.reset = Tetapkan Semula kepada Hitam dan Putih
+
+# Layers panel: the row's right-click menu and the history entry the
+# visibility eye writes
+panel.layers.blending_options = Pilihan Adunan…
+panel.layers.properties = Sifat Lapisan…
+panel.layers.show_hide = Tunjukkan/Sembunyikan Lapisan
+panel.layers.toggle_visibility = Togol Keterlihatan
+
+# History panel
+panel.history.title = Sejarah
+panel.history.opened = Dibuka
+
+# Info tab: what the photo's EXIF says
+panel.info.title = Maklumat
+panel.info.camera = Kamera
+panel.info.lens = Kanta
+panel.info.iso = ISO {iso}
+panel.info.bias = Bias
+panel.info.flash_fired = denyar digunakan
+panel.info.no_flash = tanpa denyar
+panel.info.white_balance = Imbangan putih {wb}
+panel.info.metering = pemeteran {metering}
+panel.info.taken = Diambil
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientasi {o}
+panel.info.software = Perisian
+panel.info.where = Lokasi
+
+# Notes panel and the Note tool's options
+panel.notes.author = Pengarang
+panel.notes.clear_all = Kosongkan Semua
+panel.notes.unattributed = Tanpa Pengarang
+panel.notes.empty = Klik kanvas untuk meninggalkan nota.
+panel.notes.placeholder = Klik untuk menulis
+
+# Character panel and the Type tool's options bar
+panel.character.title = Aksara
+panel.character.type_tool = Alat Teks (T)
+panel.character.align_left = Jajar kiri
+panel.character.align_center = Jajar tengah
+panel.character.align_right = Jajar kanan
+panel.character.text_color = Warna teks
+panel.character.panel = Panel Aksara
+panel.character.cancel_edit = Batalkan suntingan teks
+panel.character.commit_edit = Terapkan suntingan teks
+panel.character.number_tip = {label} · Taip nilai atau gunakan ↑ / ↓ (Shift untuk langkah lebih besar)
+panel.character.leading = Jarak baris
+panel.character.tracking = Jarak aksara
+panel.character.alignment = Penjajaran
+panel.character.opentype = OpenType
+panel.character.text_on_path = Teks pada laluan
+panel.character.straight = Lurus
+panel.character.on_path = Pada laluan
+panel.character.straight_tip = Gunakan garis dasar biasa lapisan teks
+panel.character.on_path_tip = Gunakan salinan laluan aktif
+panel.character.path_offset = Ofset laluan
+
+# AI sidebar
+panel.ai.title = AI
+panel.ai.empty_editor = Minta suntingan dan lihat hasilnya pada kanvas. Ejen menggunakan alat, penapis dan perintah yang sama seperti menu, satu langkah buat asal bagi setiap tindakan.
+panel.ai.empty_gallery = Tanya tentang foto anda dan lihat hasilnya dalam galeri: ejen boleh mencari, melihat imej kecil, memilih, mengisih ke dalam kumpulan dan membuka foto dalam penyunting.
+panel.ai.thinking = sedang berfikir…
+panel.ai.placeholder_editor = Tanya tentang atau sunting dokumen ini
+panel.ai.placeholder_gallery = Tanya tentang foto anda
+panel.ai.send = Hantar
+panel.ai.stop = Henti
+panel.ai.fetching_models = Meminta senarai model daripada CLI…
+panel.ai.no_models = Tiada model yang sepadan
+panel.ai.search_models = Cari model…
+
+# File dialogs (keymap.rs)
+panel.keymap.install_plugin = Pasang Pemalam
+panel.keymap.save_as_prompt = Simpan sebagai — sambungan menentukan format:

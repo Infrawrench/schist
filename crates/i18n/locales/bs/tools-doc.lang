@@ -1,0 +1,24 @@
+tool.artboard.name = Radna ploča
+tool.artboard.description = Povucite da biste napravili radnu ploču: imenovano područje platna koje se zasebno izvozi. Povlačenjem unutar postojeće ploče ona se premješta.
+tool.artboard.default_name = Radna ploča {n}
+
+tool.slice.name = Isječak
+tool.slice.description = Povucite da biste napravili isječak za izvoz, imenovani pravougaonik platna koji se izvozi kao zasebna slika. Povlačenjem unutar postojećeg isječka on se premješta.
+tool.slice.default_name = Isječak {n}
+
+tool.frame.name = Okvir
+tool.frame.description = Povucite da biste napravili okvir: pravougaoni (ili eliptični) sloj koji maskira sve što se u njega postavi.
+tool.frame.default_name = Okvir {n}
+tool.frame.choice.rectangle = Pravougaonik
+tool.frame.choice.ellipse = Elipsa
+tool.frame.history.frame = Okvir
+
+tool.note.name = Bilješka
+tool.note.description = Kliknite na prazno platno da biste tamo pričvrstili bilješku označenu autorom i bojom iz stanja uređivača; kliknite na postojeću oznaku da biste je odabrali za panel Bilješke.
+tool.note.history.place = Postavljanje bilješke
+tool.note.history.move = Premještanje bilješke
+tool.note.history.delete = Brisanje bilješke
+
+tool.count.name = Brojanje
+tool.count.description = Kliknite da biste na platno postavili numerisane oznake za brojanje, a kliknite na postojeću oznaku da biste je uklonili.
+tool.count.default_name = Brojanje {n}

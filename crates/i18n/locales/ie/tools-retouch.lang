@@ -1,0 +1,25 @@
+# Utensiles de regional retuche.
+
+tool.patch.name = Pette
+tool.patch.description = Trena un contur circum un defecte, poy trena ti selection sur intact pixeles: li textura ta es adaptat al defecte. Li mode Pette selecte quel extrem del pare tu trena.
+tool.patch.option.patch = Pette
+tool.patch.choice.source = Fonte
+tool.patch.choice.destination = Destination
+tool.patch.history.patch = Pette
+
+tool.content_aware_move.name = Contenete-sensibil motion
+tool.content_aware_move.description = Trena un selectet object a un altri loc e li fore quel it lassa es plenat ex su circumité. In li mode Extender li object es alongat vice movet.
+tool.content_aware_move.choice.move = Mover
+tool.content_aware_move.choice.extend = Extender
+tool.content_aware_move.history.move = Contenete-sensibil motion
+
+tool.red_eye.name = Rubi ocul
+tool.red_eye.description = Clicca un pupille por remover li rubore causat per li flash.
+tool.red_eye.option.pupil_size = Grandore del pupille
+tool.red_eye.option.darken = Obscurar
+tool.red_eye.history.red_eye = Rubi ocul
+
+tool.magic_eraser.name = Magic gomme
+tool.magic_eraser.description = Clicca por effaciar li area de simil color sub li apuntator, intra li tolerantie del utensile — contigui al cliccat punctu o partú in li strate.
+tool.magic_eraser.option.contiguous = Contigui
+tool.magic_eraser.history.erase = Magic gomme

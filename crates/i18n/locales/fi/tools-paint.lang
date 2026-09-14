@@ -1,0 +1,88 @@
+# Maalaustyökalut (plugins/tools-paint): sivellintyökalut, kaksi liukuväriä
+# ja maalikannu. Jokaisella sivellintyökalulla on oma historia-avain, jotta
+# kieli voi nimetä toiminnon työkalun sijasta. Toleranssi, Tyyli ja Koko ovat
+# common.lang-tiedostossa.
+
+# Sivellin
+tool.brush.name = Sivellin
+tool.brush.description = Maalaa pehmeäreunainen veto edustavärillä käyttäen editorin siveltimen kokoa, kovuutta ja peittävyyttä.
+tool.brush.history.stroke = Sivellin
+
+# Kynä
+tool.pencil.name = Kynä
+tool.pencil.description = Maalaa kovareunainen, reunapehmentämätön veto edustavärillä.
+tool.pencil.history.stroke = Kynä
+
+# Pyyhekumi
+tool.eraser.name = Pyyhekumi
+tool.eraser.description = Pyyhi vedon kohdalta ja palauta taso läpinäkyväksi.
+tool.eraser.history.stroke = Pyyhekumi
+
+# Kloonausleimasin
+tool.clone.name = Kloonausleimasin
+tool.clone.description = Kloonausleimasin: määritä lähdepiste Alt-napsautuksella ja maalaa sitten siitä samalla siirtymällä kopioiduilla kuvapisteillä.
+tool.clone.history.stroke = Kloonausleimasin
+
+# Varjostus, lisävalotus ja pesusieni
+tool.dodge.name = Varjostus
+tool.dodge.description = Vaalenna vedon alle jääviä kuvapisteitä.
+tool.dodge.history.stroke = Varjostus
+tool.burn.name = Lisävalotus
+tool.burn.description = Tummenna vedon alle jääviä kuvapisteitä.
+tool.burn.history.stroke = Lisävalotus
+tool.sponge.name = Pesusieni
+tool.sponge.description = Lisää tai vähennä vedon alle jäävien kuvapisteiden kylläisyyttä.
+tool.sponge.history.stroke = Pesusieni
+
+# Sumennus, terävöitys ja tuhrinta
+tool.blur.name = Sumennus
+tool.blur.description = Sumenna vedon alle jääviä kuvapisteitä.
+tool.blur.history.stroke = Sumennus
+tool.sharpen.name = Terävöitys
+tool.sharpen.description = Terävöitä vedon alle jääviä kuvapisteitä.
+tool.sharpen.history.stroke = Terävöitys
+tool.smudge.name = Tuhrinta
+tool.smudge.description = Vedä väriä vedon mukana kuin märkää maalia työntäen.
+tool.smudge.history.stroke = Tuhrinta
+
+# Korjaus
+tool.heal.name = Korjaussivellin
+tool.heal.description = Korjaussivellin: määritä lähde Alt-napsautuksella ja maalaa sitten; lähteen pintakuvio sekoitetaan kohteen omaan väriin ja valaistukseen.
+tool.heal.history.stroke = Korjaussivellin
+tool.spot_heal.name = Pistekorjaussivellin
+tool.spot_heal.description = Pistekorjaussivellin: maalaa virheen päälle, jolloin se korvataan ympäristöstä otetulla pintakuviolla — lähdepistettä ei tarvitse määrittää.
+tool.spot_heal.history.stroke = Pistekorjaussivellin
+
+# Historiasivellin
+tool.history_brush.name = Historiasivellin
+tool.history_brush.description = Palauta kuvapisteitä dokumentin historiavedoksesta ja kumoa myöhempiä töitä veto kerrallaan.
+tool.history_brush.history.stroke = Historiasivellin
+
+# Taustan pyyhekumi
+tool.background_eraser.name = Taustan pyyhekumi
+tool.background_eraser.description = Pyyhi siveltimen keskikohdan alta poimittu väri mutta jätä poikkeavat kuvapisteet ennalleen, jotta kohteen voi irrottaa taustastaan.
+tool.background_eraser.history.stroke = Taustan pyyhekumi
+
+# Liukuväri. Säteittäinen työkalu käyttää lineaarisen työkalun asetuksia ja historiaa.
+tool.gradient.name = Liukuväri
+tool.gradient.description = Täytä taso vetämällä — mahdollisen valinnan läpi — lineaarisella liukuvärillä, joka kulkee vedon suunnassa edustaväristä taustaväriin.
+tool.gradient.radial.name = Säteittäinen liukuväri
+tool.gradient.radial.description = Täytä säteittäisellä liukuvärillä edusta- ja taustavärin välillä vetämällä keskeltä ulospäin.
+tool.gradient.option.gradient = Liukuväri
+tool.gradient.option.reverse = Käännä
+tool.gradient.option.dither = Rasteroi
+tool.gradient.choice.foreground_to_background = Edustaväristä taustaväriin
+tool.gradient.choice.foreground_to_transparent = Edustaväristä läpinäkyvään
+tool.gradient.choice.linear = Lineaarinen
+tool.gradient.choice.radial = Säteittäinen
+tool.gradient.choice.angle = Kulma
+tool.gradient.choice.reflected = Heijastettu
+tool.gradient.choice.diamond = Vinoneliö
+tool.gradient.history.gradient = Liukuväri
+
+# Maalikannu
+tool.bucket.name = Maalikannu
+tool.bucket.description = Täytä osoittimen alla oleva yhtenäinen samanvärinen alue edustavärillä napsauttamalla työkalun toleranssin rajoissa.
+tool.bucket.option.contiguous = Vierekkäinen
+tool.bucket.option.all_layers = Kaikki tasot
+tool.bucket.history.fill = Maalikannu

@@ -1,0 +1,22 @@
+tool.liquify.name = Gjer flytande
+tool.liquify.description = Skyv, drei, knip eller blås opp pikslane under ein stor pensel. Modusvalet avgjer kva som skjer. Forvrenginga samlar seg opp i eit nett og vert lagd på laget når du stadfestar.
+tool.liquify.option.tool = Verktøy
+tool.liquify.choice.forward_warp = Foroverforvrenging
+tool.liquify.choice.reconstruct = Bygg opp att
+tool.liquify.choice.twirl_cw = Drei med klokka
+tool.liquify.choice.twirl_ccw = Drei mot klokka
+tool.liquify.choice.pucker = Knip
+tool.liquify.choice.bloat = Blås opp
+tool.liquify.choice.push_left = Skyv mot venstre
+tool.liquify.history.liquify = Gjer flytande
+
+tool.puppet_warp.name = Marionettforvrenging
+tool.puppet_warp.description = Klikk for å festa laget i nokre punkt, og dra deretter i eitt av dei. Nettet bøyer seg rundt festepunkta, stivt eller mjukt etter innstillinga Stivleik. Stadfest for å ta endringa i bruk.
+tool.puppet_warp.option.stiffness = Stivleik
+tool.puppet_warp.history.puppet_warp = Marionettforvrenging
+
+tool.vanishing_point.name = Forsvinningspunkt
+tool.vanishing_point.description = Dra ut eit plan over noko som har perspektiv, byt deretter til Klon-modus og mål. Dei kopierte pikslane følgjer planet og vert mindre med avstanden.
+tool.vanishing_point.choice.edit_plane = Rediger plan
+tool.vanishing_point.choice.clone = Klon
+tool.vanishing_point.history.vanishing_point = Forsvinningspunkt

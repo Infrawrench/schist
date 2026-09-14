@@ -1,0 +1,44 @@
+# Herramientas vectoriales.
+tool.pen.name = Pluma
+tool.pen.description = Crea un trazado: haz clic para añadir un punto de esquina, arrastra para sacar sus manejadores de curva y haz clic en el primer punto para cerrar. Al confirmar, el trazado se convierte en una capa de forma.
+tool.pen.option.rubber_band = Banda elástica
+tool.pen.history.fill = Relleno de trazado
+tool.pen.default_path_name = Trazado {n}
+tool.pen.freeform.name = Pluma de forma libre
+tool.pen.freeform.description = Dibuja una línea a mano alzada y se ajustará a un trazado con la precisión indicada por la opción Ajuste.
+tool.pen.freeform.option.fit = Ajuste
+tool.pen.curvature.name = Pluma de curvatura
+tool.pen.curvature.description = Haz clic para colocar una serie de puntos; el trazado se curva suavemente a través de ellos.
+
+tool.path_select.name = Selección de trazado
+tool.path_select.description = Haz clic en un trazado para seleccionarlo y arrástralo para desplazarlo entero.
+tool.direct_select.name = Selección directa
+tool.direct_select.description = Arrastra un punto de ancla o sus manejadores para modificar la forma del trazado a su alrededor.
+
+tool.shape.history.layer = Capa de {name}
+tool.shape.rect.name = Herramienta Rectángulo
+tool.shape.rect.label = Rectángulo
+tool.shape.rect.description = Arrastra para crear una capa de forma rectangular con el color frontal; permanece vectorial y se rasteriza de nuevo al cambiar su tamaño.
+tool.shape.ellipse.name = Herramienta Elipse
+tool.shape.ellipse.label = Elipse
+tool.shape.ellipse.description = Arrastra para crear una capa de forma elíptica con el color frontal.
+tool.shape.line.name = Herramienta Línea
+tool.shape.line.label = Línea
+tool.shape.line.description = Arrastra para crear una capa de forma con una línea recta del color frontal.
+tool.shape.line.option.weight = Grosor
+tool.shape.line.option.arrow_start = Inicio
+tool.shape.line.option.arrow_end = Fin
+tool.shape.polygon.name = Herramienta Polígono
+tool.shape.polygon.label = Polígono
+tool.shape.polygon.description = Arrastra para crear una capa de forma poligonal regular con el color frontal y el número de lados indicado en las opciones.
+tool.shape.polygon.option.sides = Lados
+
+tool.shape.custom.name = Forma personalizada
+tool.shape.custom.label = Forma personalizada
+tool.shape.custom.description = Arrastra para crear una de las formas preestablecidas incluidas, elegida mediante la opción Forma.
+tool.shape.custom.choice.heart = Corazón
+tool.shape.custom.choice.star = Estrella
+tool.shape.custom.choice.arrow = Flecha
+tool.shape.custom.choice.lightning = Rayo
+tool.shape.custom.choice.cross = Cruz
+tool.shape.custom.choice.speech_bubble = Bocadillo

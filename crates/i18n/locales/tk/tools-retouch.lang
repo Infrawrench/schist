@@ -1,0 +1,23 @@
+tool.patch.name = Ýama
+tool.patch.description = Kemçiligiň daşyndan araçäk çyzyň, soňra şol saýlanan ýeri arassa pikselleriň üstüne süýşüriň: ol ýerdäki ýüz nagyşy kemçilige uýgunlaşdyrylýar. Ýama režimi jübütiň haýsy ujuny süýşürjekdigiňizi saýlaýar.
+tool.patch.option.patch = Ýama
+tool.patch.choice.source = Çeşme
+tool.patch.choice.destination = Niýetlenen ýer
+tool.patch.history.patch = Ýama
+
+tool.content_aware_move.name = Mazmuny nazara alyp süýşürmek
+tool.content_aware_move.description = Saýlanan obýekti başga ýere süýşüriň; onuň galdyran boşlugy töweregindäki mazmun bilen doldurylýar. Giňeltmek režiminde obýekt süýşürilmän uzaldylýar.
+tool.content_aware_move.choice.move = Süýşürmek
+tool.content_aware_move.choice.extend = Giňeltmek
+tool.content_aware_move.history.move = Mazmuny nazara alyp süýşürmek
+
+tool.red_eye.name = Gyzyl göz
+tool.red_eye.description = Fleşden galan gyzyl reňki aýyrmak üçin göreje basyň.
+tool.red_eye.option.pupil_size = Görejiň ölçegi
+tool.red_eye.option.darken = Garaltmak
+tool.red_eye.history.red_eye = Gyzyl göz
+
+tool.magic_eraser.name = Jadyly pozguç
+tool.magic_eraser.description = Görkezijiniň aşagyndaky meňzeş reňkli meýdany guralyň ýol berilýän tapawudynyň çäginde pozmak üçin basyň; diňe basylan ýere sepleşikli meýdan ýa-da gatlagyň ähli ýerindäki meňzeş reňk pozulyp biler.
+tool.magic_eraser.option.contiguous = Sepleşikli
+tool.magic_eraser.history.erase = Jadyly pozguç

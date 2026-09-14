@@ -1,0 +1,40 @@
+# Imayna kachkan barra
+workspace.canvas.rotate_view_degrees = Qhawasqata {degrees}° muyuchiy
+workspace.canvas.view_reset = Qhawasqa qallariyman kutichisqa
+workspace.canvas.notes_on = Willakuykuna hap'ichisqa
+workspace.canvas.notes_off = Willakuykuna wañuchisqa
+workspace.canvas.rulers_on = Tupuna kaspikuna hap'ichisqa
+workspace.canvas.rulers_off = Tupuna kaspikuna wañuchisqa
+workspace.canvas.grid_on = Tawa tawa siq'ikuna hap'ichisqa
+workspace.canvas.grid_off = Tawa tawa siq'ikuna wañuchisqa
+workspace.canvas.guides_on = Pusaq siq'ikuna hap'ichisqa
+workspace.canvas.guides_off = Pusaq siq'ikuna wañuchisqa
+workspace.canvas.extras_on = Yapanakuna hap'ichisqa
+workspace.canvas.extras_off = Yapanakuna wañuchisqa
+workspace.canvas.snap_on = Kikinmanta hap'iy hap'ichisqa
+workspace.canvas.snap_off = Kikinmanta hap'iy wañuchisqa
+workspace.canvas.guides_cleared = Pusaq siq'ikuna qullusqa
+workspace.canvas.no_path = Llamk'achinapaq manam ñan kanchu
+workspace.canvas.path_empty = Ñanqa ch'usaqmi
+workspace.canvas.stroke_needs_selection = Kantunta siq'inapaqqa imapas akllasqa kanan tiyan
+workspace.canvas.nothing_to_stroke = Manam kantunta siq'ina imapas kanchu
+workspace.canvas.content_aware_fill_needs_selection = Ukhunman yachaspa hunt'achinapaqqa imapas akllasqa kanan tiyan
+workspace.canvas.content_aware_fill_needs_pixel_layer = Ukhunman yachaspa hunt'achinapaqqa pixel pata kanan tiyan
+workspace.canvas.color_range_needs_pixel_layer = Llimp'i maymanta maykama akllanapaqqa pixel pata kanan tiyan
+workspace.canvas.nothing_to_adjust = Manam allichana imapas kanchu
+workspace.canvas.nothing_to_trim = Manam kantumanta k'utuna imapas kanchu
+workspace.canvas.trimmed = Kantunkuna k'utusqa
+workspace.canvas.indexed_not_supported = Índiceyuq llimp'i manaraq llamk'achiy atisqachu
+workspace.canvas.opacity_percent = Mana rikukuq kaynin: {n}%
+
+# Ñawpaq ruwasqakuna
+workspace.history.stroke = Kantunta siq'iy
+workspace.history.fill = Hunt'achiy
+workspace.history.content_aware_scale = Ukhunman yachaspa sayanta tikray
+workspace.history.filter_gallery = Suysuna galería
+workspace.history.color_range = Llimp'i maymanta maykama
+workspace.history.move_layer = Patata kuyuchiy
+workspace.history.move_layers = Patakunata kuyuchiy
+workspace.history.layer_opacity = Patap mana rikukuq kaynin
+workspace.history.delete_note = Willakuyta qulluy
+workspace.history.edit_note = Willakuyta allichay

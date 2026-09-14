@@ -1,0 +1,26 @@
+# Iloj por dokumentaj elementoj: desegnotabuloj, tranĉaĵoj, kadroj, notoj kaj nombriloj.
+
+tool.artboard.name = Desegnotabulo
+tool.artboard.description = Trenu por krei desegnotabulon: nomitan regionon de la kanvaso, kiu estas aparte eksportata. Trenado ene de ekzistanta desegnotabulo movas ĝin.
+tool.artboard.default_name = Desegnotabulo {n}
+
+tool.slice.name = Tranĉaĵo
+tool.slice.description = Trenu por krei eksportan tranĉaĵon, nomitan rektangulon de la kanvaso eksportatan kiel apartan bildon. Trenado ene de ekzistanta tranĉaĵo movas ĝin.
+tool.slice.default_name = Tranĉaĵo {n}
+
+tool.frame.name = Kadro
+tool.frame.description = Trenu por krei kadron: rektangulan (aŭ elipsan) tavolon, kiu maskas ĉion metitan en ĝin.
+tool.frame.default_name = Kadro {n}
+tool.frame.choice.rectangle = Rektangulo
+tool.frame.choice.ellipse = Elipso
+tool.frame.history.frame = Kadro
+
+tool.note.name = Noto
+tool.note.description = Alklaku malplenan kanvason por fiksi tie noton kun la aŭtoro kaj koloro el la redaktila stato; alklaku ekzistantan pinglon por elekti ĝin por la panelo Notoj.
+tool.note.history.place = Meti noton
+tool.note.history.move = Movi noton
+tool.note.history.delete = Forigi noton
+
+tool.count.name = Nombrilo
+tool.count.description = Alklaku por meti numeritajn nombrilajn markojn sur la kanvason, kaj alklaku ekzistantan markon por forigi ĝin.
+tool.count.default_name = Nombrilo {n}

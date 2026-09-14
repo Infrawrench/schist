@@ -1,0 +1,22 @@
+# အခြေခံကိရိယာများ
+tool.move.name = ရွှေ့ရန်
+tool.move.description = အသုံးပြုနေသော အလွှာရှိအရာများကို နေရာသစ်သို့ ဆွဲရွှေ့ပါ။ အလိုအလျောက်ရွေးချယ်မှု ဖွင့်ထားလျှင် ညွှန်တံအောက်တွင် ဦးစွာရှိသည့် အလွှာ သို့မဟုတ် အုပ်စုတစ်ခုလုံးကို နှိပ်လိုက်သည့်အခါ ရွေးချယ်ပေးသည်။
+tool.move.option.auto_select = အလိုအလျောက်ရွေးချယ်
+tool.move.history.move_layer = အလွှာကို ရွှေ့ရန်
+
+tool.eyedropper.name = အရောင်စုပ်ကိရိယာ
+tool.eyedropper.description = ညွှန်တံအောက်ရှိ အရောင်ကို နမူနာယူပြီး ရှေ့ခံအရောင်ကွက်ထဲ ထည့်ပါ၊ သို့မဟုတ် Alt ကို ဖိထားလျှင် နောက်ခံအရောင်ကွက်ထဲ ထည့်ပါ။ ဆွဲနေစဉ် အရောင်ကို ဆက်တိုက်နမူနာယူသည်။
+tool.eyedropper.option.sample_size = နမူနာအရွယ်အစား
+tool.eyedropper.option.sample = နမူနာယူရန်
+tool.eyedropper.choice.point_sample = တစ်မှတ် နမူနာ
+tool.eyedropper.choice.average_3 = 3 × 3 ပျမ်းမျှ
+tool.eyedropper.choice.average_5 = 5 × 5 ပျမ်းမျှ
+tool.eyedropper.choice.average_11 = 11 × 11 ပျမ်းမျှ
+tool.eyedropper.choice.average_31 = 31 × 31 ပျမ်းမျှ
+tool.eyedropper.choice.all_layers = အလွှာအားလုံး
+tool.eyedropper.choice.current_layer = လက်ရှိအလွှာ
+
+tool.hand.name = လက်ကိရိယာ
+tool.hand.description = မြင်ကွင်းကို ဘေးတိုက်ရွှေ့သည်။ မြင်ကွင်းဘောင်သည် ဝင်းဒိုးနှင့်သက်ဆိုင်သောကြောင့် မျက်နှာပြင်မပါဘဲ အသုံးပြုသည့်အခါ ဤကိရိယာက စာတမ်းကို မပြောင်းလဲပါ။
+tool.zoom.name = ချဲ့ကြည့်ရန်
+tool.zoom.description = မြင်ကွင်းကို ချဲ့ သို့မဟုတ် ချုံ့သည်။ မြင်ကွင်းဘောင်သည် ဝင်းဒိုးနှင့်သက်ဆိုင်သောကြောင့် မျက်နှာပြင်မပါဘဲ အသုံးပြုသည့်အခါ ဤကိရိယာက စာတမ်းကို မပြောင်းလဲပါ။

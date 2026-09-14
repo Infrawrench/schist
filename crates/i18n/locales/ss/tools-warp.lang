@@ -1,0 +1,22 @@
+tool.liquify.name = Yenta Kube Lulwetsi
+tool.liquify.description = Dvudvula, songeleta, nciphisa nobe khukhumalisa emaphikseli langephansi kwebhulashi lelikhulu — inkhetselo yemodi ikhetsa kutsi kwentiwe ngukuphi. Kugobeka kubutsana kunethi bese kusetjentiswa eluhlakeni nakwemukelwa.
+tool.liquify.option.tool = Lithuluzi
+tool.liquify.choice.forward_warp = Gobela Embili
+tool.liquify.choice.reconstruct = Yakha Kabusha
+tool.liquify.choice.twirl_cw = Songeleta Ngekulandzela Liwashi
+tool.liquify.choice.twirl_ccw = Songeleta Ngekuphambana Neliwashi
+tool.liquify.choice.pucker = Nciphisa Ngekhatsi
+tool.liquify.choice.bloat = Khukhumalisa
+tool.liquify.choice.push_left = Dvudvulela Ngesencele
+tool.liquify.history.liquify = Yenta Kube Lulwetsi
+
+tool.puppet_warp.name = Kugobisa Ngemaphini
+tool.puppet_warp.description = Chafata kuze unamatsisele luhlaka emaphuzwini lambalwa, bese uhudvula linye: inethi iyagobeka emaphinini, icine nobe ikhululeke ngendlela inkhetselo Yekucina lesho ngayo. Kwemukela kusebentisa lugucuko.
+tool.puppet_warp.option.stiffness = Kucina
+tool.puppet_warp.history.puppet_warp = Kugobisa Ngemaphini
+
+tool.vanishing_point.name = Liphuzu Lekushabalala
+tool.vanishing_point.description = Hudvula wakhe indzawo leyisicaba ngetulu kwentfo lenembono wekushona ekujuleni, bese ushintja imodi ibe nguKopisha upende: emaphikseli lakopishiwe alandzela lendzawo, abe mancane nakaya khashane.
+tool.vanishing_point.choice.edit_plane = Hlela Indzawo Leyisicaba
+tool.vanishing_point.choice.clone = Kopisha
+tool.vanishing_point.history.vanishing_point = Liphuzu Lekushabalala

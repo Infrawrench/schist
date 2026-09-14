@@ -1,0 +1,25 @@
+tool.transform.name = Еркін түрлендіру
+tool.transform.description = Еркін түрлендіру. Оны іске қосқанда белсенді қабаттың айналасында түрлендіру жақтауы ашылады: масштабтау үшін бұрышын, бұру үшін бұрыштың сыртындағы аймақты, қисайту үшін жиегін сүйреңіз. Растағанша (Enter) ештеңе жазылмайды, ал бас тарту (Escape) қабатты бастапқы күйіне қайтарады.
+tool.transform.option.interpolation = Интерполяция
+tool.transform.history.transform = Еркін түрлендіру
+tool.transform.history.image_size = Кескін өлшемі
+tool.transform.history.canvas_size = Кенеп өлшемі
+
+tool.transform.selection.name = Таңдауды түрлендіру
+tool.transform.selection.description = Таңдауды түрлендіру: дәл сол жақтау, бірақ ол ішіндегі пиксельдерді емес, таңдау жиегін жылжытады. Аяқтау үшін растаңыз немесе бас тартыңыз.
+tool.transform.selection.history.transform = Таңдауды түрлендіру
+
+tool.transform.resample.nearest_neighbor = Ең жақын көрші
+tool.transform.resample.bilinear = Билинейлік
+tool.transform.resample.bicubic = Бикубтық
+
+tool.crop.name = Қию
+tool.crop.description = Қалдырылатын аймақты сүйреп белгілеңіз де, оның тұтқаларын реттеңіз; растағанда (Enter) құжат сол аймаққа дейін қиылады, ал бас тартқанда (Escape) өзгеріссіз қалады.
+tool.crop.option.ratio = Қатынас
+tool.crop.option.delete_cropped = Қиылған пиксельдерді жою
+tool.crop.choice.unconstrained = Шектеусіз
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Қию

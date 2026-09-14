@@ -1,0 +1,27 @@
+# Líber transformation, transformation del selection e recision.
+
+tool.transform.name = Líber transformation
+tool.transform.description = Líber transformation. Activar it aperte un cadre de transformation circum li activ strate: trena un angul por cambiar li scale, trena extra un angul por rotar, e trena un borde por inclinar. Nequó es scrit til confirmation (Enter), e anullar (Escape) restitue li strate.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Líber transformation
+tool.transform.history.image_size = Grandore del image
+tool.transform.history.canvas_size = Grandore del canevas
+
+tool.transform.selection.name = Transformar selection
+tool.transform.selection.description = Transformar selection: li sam cadre, ma it move li contur del selection vice li pixeles in it. Confirma o anulla por finir.
+tool.transform.selection.history.transform = Transformar selection
+
+tool.transform.resample.nearest_neighbor = Max proxim vicin
+tool.transform.resample.bilinear = Bilineari
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Reciser
+tool.crop.description = Trena por definir li area a conservar e ajusta su anses; confirmar (Enter) recise li document a it, e anullar (Escape) lassa it intact.
+tool.crop.option.ratio = Proportion
+tool.crop.option.delete_cropped = Deleter reciset pixeles
+tool.crop.choice.unconstrained = Sin restriction
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Reciser

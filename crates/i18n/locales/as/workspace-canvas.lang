@@ -1,0 +1,45 @@
+# The editor's canvas and its surroundings (crates/app/src/workspace:
+# viewport, view_options, notes, edit_ops, image_ops, layers_panel,
+# chrome, render): status-bar replies and history entries. Entries that
+# share a menu item's exact English reuse the menu.lang key instead.
+
+# Status-bar replies
+workspace.canvas.rotate_view_degrees = দৃশ্য {degrees}° ঘূৰাওক
+workspace.canvas.view_reset = দৃশ্য পুনঃস্থাপন কৰা হ'ল
+workspace.canvas.notes_on = টোকা চালু
+workspace.canvas.notes_off = টোকা বন্ধ
+workspace.canvas.rulers_on = ৰুলাৰ চালু
+workspace.canvas.rulers_off = ৰুলাৰ বন্ধ
+workspace.canvas.grid_on = গ্ৰীড চালু
+workspace.canvas.grid_off = গ্ৰীড বন্ধ
+workspace.canvas.guides_on = সহায়ক ৰেখা চালু
+workspace.canvas.guides_off = সহায়ক ৰেখা বন্ধ
+workspace.canvas.extras_on = অতিৰিক্তসমূহ চালু
+workspace.canvas.extras_off = অতিৰিক্তসমূহ বন্ধ
+workspace.canvas.snap_on = স্নেপ চালু
+workspace.canvas.snap_off = স্নেপ বন্ধ
+workspace.canvas.guides_cleared = সহায়ক ৰেখা আঁতৰোৱা হ'ল
+workspace.canvas.no_path = ব্যৱহাৰ কৰিবলৈ কোনো পথ নাই
+workspace.canvas.path_empty = পথটো খালী
+workspace.canvas.stroke_needs_selection = ষ্ট্ৰ'কৰ বাবে এটা নিৰ্বাচন প্ৰয়োজন
+workspace.canvas.nothing_to_stroke = ষ্ট্ৰ'ক দিবলৈ একো নাই
+workspace.canvas.content_aware_fill_needs_selection = বিষয়বস্তু-সচেতন পূৰণৰ বাবে এটা নিৰ্বাচন প্ৰয়োজন
+workspace.canvas.content_aware_fill_needs_pixel_layer = বিষয়বস্তু-সচেতন পূৰণৰ বাবে এটা পিক্সেল স্তৰ প্ৰয়োজন
+workspace.canvas.color_range_needs_pixel_layer = ৰঙৰ পৰিসৰৰ বাবে এটা পিক্সেল স্তৰ প্ৰয়োজন
+workspace.canvas.nothing_to_adjust = সমন্বয় কৰিবলৈ একো নাই
+workspace.canvas.nothing_to_trim = ছাঁটিবলৈ একো নাই
+workspace.canvas.trimmed = ছাঁটা হ'ল
+workspace.canvas.indexed_not_supported = সূচীবদ্ধ ৰং এতিয়াও সমৰ্থিত নহয়
+workspace.canvas.opacity_percent = অস্বচ্ছতা: {n}%
+
+# History panel entries
+workspace.history.stroke = ষ্ট্ৰ'ক
+workspace.history.fill = পূৰণ
+workspace.history.content_aware_scale = বিষয়বস্তু-সচেতন মাপ
+workspace.history.filter_gallery = ফিল্টাৰ গেলেৰী
+workspace.history.color_range = ৰঙৰ পৰিসৰ
+workspace.history.move_layer = স্তৰ স্থানান্তৰ
+workspace.history.move_layers = স্তৰসমূহ স্থানান্তৰ
+workspace.history.layer_opacity = স্তৰৰ অস্বচ্ছতা
+workspace.history.delete_note = টোকা মচক
+workspace.history.edit_note = টোকা সম্পাদনা কৰক

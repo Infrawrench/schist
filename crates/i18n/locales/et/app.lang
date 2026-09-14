@@ -1,0 +1,36 @@
+app.filter_gallery.title = Filtrigalerii
+app.filter_gallery.stack = Virn (rakendatakse alt üles)
+app.filter_gallery.no_settings = Sellel filtril pole sätteid.
+app.fonts.not_open_licensed = puudub avatud litsents · {substitute} vastab selle mõõdikutele
+app.fonts.missing_substituted = puudub · tekst laotakse asendusfondiga
+app.fonts.not_in_catalogue = Fonti {family} pole avatud fontide kataloogis
+app.fonts.no_faces = Fondil {family} pole allalaaditavaid kirjalaade
+app.fonts.empty_response = tühi vastus
+app.update.unreadable_response = loetamatu vastus: {error}
+app.update.no_temp_dir = allalaadimiseks puudub ajutine kaust
+app.update.asset_has_path = väljalase nimetab vara koos teega
+app.update.too_big = allalaaditu on suurem, kui väljalase väidab
+app.update.stopped_at = allalaadimine peatus {got} baidil {total}-st
+app.update.hash_mismatch = allalaaditu räsi on {got}, mitte {want}
+app.update.not_in_bundle = see koopia pole rakendusepaketi sees
+app.update.no_parent_dir = rakendusepaketil pole ülemkausta
+app.update.cannot_write = kausta {dir} ei saa kirjutada
+app.update.cannot_move_aside = rakendust {app} ei saa kõrvale tõsta
+app.update.cannot_move_in = uut paketti ei saa kohale tõsta
+app.update.cannot_run_ditto = programmi /usr/bin/ditto ei saa käivitada
+app.update.unpack_failed = allalaaditu lahtipakkimine nurjus: {error}
+app.update.no_app_in_download = allalaaditu ei sisalda faili Schist.app
+app.update.cannot_run_codesign = programmi /usr/bin/codesign ei saa käivitada
+app.update.signature_invalid = allalaaditu allkirja ei saa kinnitada: {error}
+app.update.download_unsigned = see koopia on allkirjastatud, allalaaditu mitte
+app.update.different_developer = allalaaditu on allkirjastanud teine arendaja
+app.update.cannot_relaunch = taaskäivitajat ei saa käivitada
+app.update.not_installed_copy = paigaldaja ei pannud seda koopiat siia
+app.update.cannot_start_installer = paigaldajat ei saa käivitada
+app.update.platform_unsupported = sellel platvormil paigaldatakse uuendused samal viisil nagu Schist
+app.vulkan.no_loader = schist: selles süsteemis pole Vulkani laadijat, seega pole millegagi joonistada.\n\nSchist renderdab Vulkani kaudu ja `libvulkan.so.1` pole paigaldatud.\nVaja on nii laadijat kui ka draiverit:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkani draiverit, millele see seanss osutab, pole olemas.\n\n{var} on määratud ning selle määramine *asendab* laadija draiveriotsingu,\nmitte ei täienda seda. Seega moodustavad need olematud failid kogu\ndraiveriloendi ja ükski selle seansi Vulkani programm ei näe ühtegi\ndraiverit, olenemata paigaldatud draiverite arvust:\n\n{missing}\n    {var}={value}\n\nOsuta olemasolevale manifestile — paigaldatud draiverid panevad enda omad\nkausta /usr/share/vulkan/icd.d — või tühista muutuja ja lase laadijal ise\notsida. Kui seanss määrab selle konfiguratsioonifailis (Hyprlandi `env =`,\nsystemd environment.d lisand või kestaprofiil), tuleb seda muuta seal ning\njuba töötavate programmideni jõudmiseks on vaja uuesti sisse logida.\n
+app.vulkan.override_note = \n{var} väärtus on {value} ja see asendab laadija enda otsingu: kui ükski\nneist manifestidest ei sobi sellele masinale, proovi esmalt muutuja tühistada.\n
+app.vulkan.no_driver = schist: ühtegi Vulkani draiverit pole paigaldatud, seega pole millegagi joonistada.\n\nSchist renderdab Vulkani kaudu. Laadija on paigaldatud, kuid ei teata\nühestki draiverist — kumbagi otsitavasse kohta pole midagi registreeritud:\n\n{dirs}\n\nLaadijat tarnitakse draiveritest eraldi, seega puudub tavaliselt üks pakett.\n\nPaigalda selle masina graafikaprotsessorile sobiv:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA suletud draiver sisaldab enda oma (`nvidia-utils` Archis,\n`nvidia-driver` Debianis). Virtuaalmasinas või mujal, kus pole GPU draiverit\npaigaldada, toimib tarkvaraline rasterdaja: `vulkan-swrast` Archis ja mujal\npaketi `mesa-vulkan-drivers` osa. See on aeglane, kuid käivitub.\n{overridden}
+app.vulkan.no_device = schist: Vulkani draiver on paigaldatud, kuid ei paku renderdamiseks seadet.\n\nDraiver ei pruugi seda GPU-d toetada või sellele ligi pääseda — SSH kaudu\nvõi konteineris puudub sageli /dev/dri. `vulkaninfo --summary` näitab, mida\nlaadija näeb.\n\nKui selles masinas GPU-d polegi, renderdab tarkvaraline rasterdaja ilma\nselleta: `vulkan-swrast` Archis ning paketi `mesa-vulkan-drivers` osa\nDebianis ja Fedoras.\n
+app.vulkan.skip_hint = Schisti käivitamiseks ja sellel omal viisil nurjuda laskmiseks määra {var}=1.

@@ -1,0 +1,21 @@
+tool.move.name = நகர்த்தல்
+tool.move.description = செயலில் உள்ள அடுக்கின் உள்ளடக்கத்தைப் புதிய இடத்துக்கு இழுக்கவும். தானியங்குத் தேர்வு இயக்கப்பட்டிருந்தால், சுட்டியின் கீழ் முதலில் இருக்கும் அடுக்கையோ முழுக் குழுவையோ அழுத்தும்போது தேர்ந்தெடுக்கும்.
+tool.move.option.auto_select = தானியங்குத் தேர்வு
+tool.move.history.move_layer = அடுக்கை நகர்த்து
+
+tool.eyedropper.name = வண்ணத் துளிப்பான்
+tool.eyedropper.description = சுட்டியின் கீழுள்ள வண்ணத்தை முன்புல வண்ண மாதிரியில் எடுக்கவும்; Alt அழுத்தியிருந்தால் பின்னணி வண்ண மாதிரியில் எடுக்கவும். இழுத்துக்கொண்டே செல்லும்போது தொடர்ந்து மாதிரி எடுக்கப்படும்.
+tool.eyedropper.option.sample_size = மாதிரி அளவு
+tool.eyedropper.option.sample = மாதிரி
+tool.eyedropper.choice.point_sample = புள்ளி மாதிரி
+tool.eyedropper.choice.average_3 = 3 × 3 சராசரி
+tool.eyedropper.choice.average_5 = 5 × 5 சராசரி
+tool.eyedropper.choice.average_11 = 11 × 11 சராசரி
+tool.eyedropper.choice.average_31 = 31 × 31 சராசரி
+tool.eyedropper.choice.all_layers = அனைத்து அடுக்குகளும்
+tool.eyedropper.choice.current_layer = தற்போதைய அடுக்கு
+
+tool.hand.name = கை
+tool.hand.description = காட்சியை நகர்த்தும். காட்சிப்பகுதி சாளரத்துக்குரியது என்பதால், வரைகலை இடைமுகமின்றி இந்தக் கருவி ஆவணத்தில் எந்த மாற்றமும் செய்யாது.
+tool.zoom.name = உருப்பெருக்கம்
+tool.zoom.description = காட்சியைப் பெரிதாக்கவோ சிறிதாக்கவோ செய்கிறது. காட்சிப்பகுதி சாளரத்துக்குரியது என்பதால், வரைகலை இடைமுகமின்றி இந்தக் கருவி ஆவணத்தில் எந்த மாற்றமும் செய்யாது.

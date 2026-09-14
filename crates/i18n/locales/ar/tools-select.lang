@@ -1,0 +1,33 @@
+# أدوات التحديد: الأطر وحبال التحديد والعصا السحرية والتحديد السريع وتحديد الكائن.
+
+tool.select.mode.subtract = طرح
+tool.select.mode.intersect = تقاطع
+
+tool.marquee.rect.name = إطار تحديد مستطيل
+tool.marquee.rect.description = اسحب لإنشاء تحديد مستطيل. يضيف Shift عند بدء السحب إلى التحديد، ويطرح Alt منه، ويُنشئ الاثنان تقاطعًا؛ ويجعل Shift أثناء السحب الشكل مربعًا. تؤدي نقرة بلا سحب إلى إلغاء التحديد.
+tool.marquee.ellipse.name = إطار تحديد بيضاوي
+tool.marquee.ellipse.description = اسحب لإنشاء تحديد بيضاوي، باستخدام Shift وAlt لدمج التحديد بالطريقة نفسها المستخدمة مع الإطار المستطيل.
+
+tool.lasso.name = حبل التحديد
+tool.lasso.description = اسحب مخططًا حرًا؛ يُغلق التحديد بين الطرفين عند انتهاء السحب. يضيف Shift ويطرح Alt.
+tool.lasso.history.select = تحديد بحبل التحديد
+tool.lasso.polygonal.name = حبل تحديد مضلع
+tool.lasso.polygonal.description = انقر زاوية تلو الأخرى لإنشاء تحديد بحواف مستقيمة، ثم انقر قرب النقطة الأولى لإغلاقه.
+tool.lasso.polygonal.history.select = تحديد بحبل مضلع
+tool.lasso.magnetic.name = حبل تحديد مغناطيسي
+tool.lasso.magnetic.description = تتبع حافة بصورة تقريبية، فينجذب المخطط إلى أقوى تباين قرب المسار.
+tool.lasso.magnetic.history.select = تحديد بحبل مغناطيسي
+tool.lasso.magnetic.option.frequency = التردد
+
+tool.wand.name = العصا السحرية
+tool.wand.description = انقر لتحديد المنطقة المتصلة ذات اللون المشابه تحت المؤشر ضمن خيار التفاوت، وهو التفاوت نفسه الذي تقرؤه أوامر التوسيع والمتشابه ونطاق الألوان.
+tool.wand.option.contiguous = متجاور
+tool.wand.history.select = تحديد بالعصا السحرية
+
+tool.quick_select.name = تحديد سريع
+tool.quick_select.description = ارسم فوق منطقة فيمتد التحديد عبر وحدات البكسل المتشابهة التي تمر فوقها الفرشاة.
+tool.quick_select.history.select = تحديد سريع
+
+tool.object_select.name = تحديد الكائن
+tool.object_select.description = اسحب مربعًا حول كائن فينجذب التحديد إلى الكائن الموجود داخله.
+tool.object_select.history.select = تحديد الكائن

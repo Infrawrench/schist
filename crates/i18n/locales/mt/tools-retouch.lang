@@ -1,0 +1,31 @@
+# L-għodod għall-irtokk ta' reġjun (plugins/tools-retouch): Garża,
+# Ċaqliq Konxju tal-Kontenut, Għajn Ħamra, Gomma Maġika. Mod u Tolleranza
+# jiġu minn common.lang.
+
+# Garża
+tool.patch.name = Garża
+tool.patch.description = Iddreggja kontorn madwar difett, imbagħad iddreggja dik l-għażla fuq pixels nodfa: in-nisġa ta' hemmhekk tiġi adattata għad-difett. Il-mod Garża jagħżel liema tarf mill-par għandek tiddreggja.
+tool.patch.option.patch = Garża
+tool.patch.choice.source = Sors
+tool.patch.choice.destination = Destinazzjoni
+tool.patch.history.patch = Garża
+
+# Ċaqliq Konxju tal-Kontenut
+tool.content_aware_move.name = Ċaqliq Konxju tal-Kontenut
+tool.content_aware_move.description = Iddreggja oġġett magħżul għal post ieħor u l-vojt li jħalli jimtela mill-inħawi tiegħu. Fil-mod Estendi, l-oġġett jiġġebbed minflok jiċċaqlaq.
+tool.content_aware_move.choice.move = Ċaqlaq
+tool.content_aware_move.choice.extend = Estendi
+tool.content_aware_move.history.move = Ċaqliq Konxju tal-Kontenut
+
+# Għajn Ħamra
+tool.red_eye.name = Għajn Ħamra
+tool.red_eye.description = Ikklikkja ħabba tal-għajn biex tneħħilha l-ħmura tal-flash.
+tool.red_eye.option.pupil_size = Daqs tal-Ħabba tal-Għajn
+tool.red_eye.option.darken = Skura
+tool.red_eye.history.red_eye = Għajn Ħamra
+
+# Gomma Maġika
+tool.magic_eraser.name = Gomma Maġika
+tool.magic_eraser.description = Ikklikkja biex tħassar iż-żona ta' kulur simili taħt il-werrej, skont it-tolleranza tal-għodda — jew iż-żona magħquda mal-punt magħfus, jew kull fejn tidher fis-saff.
+tool.magic_eraser.option.contiguous = Kontigwa
+tool.magic_eraser.history.erase = Gomma Maġika

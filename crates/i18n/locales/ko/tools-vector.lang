@@ -1,0 +1,49 @@
+# 펜, 패스 선택, 도형을 포함한 벡터 도구입니다.
+
+# 펜
+tool.pen.name = 펜
+tool.pen.description = 클릭하여 모퉁이점을 만들고 드래그하여 곡선 핸들을 끌어낸 뒤 첫 번째 점을 클릭하여 패스를 닫습니다. 확정하면 패스가 도형 레이어로 바뀝니다.
+tool.pen.option.rubber_band = 고무 밴드
+tool.pen.history.fill = 패스 채우기
+tool.pen.default_path_name = 패스 {n}
+tool.pen.freeform.name = 자유 형태 펜
+tool.pen.freeform.description = 자유롭게 선을 드래그하면 맞춤 옵션의 설정에 따라 선에 느슨하거나 정밀하게 맞춘 패스가 만들어집니다.
+tool.pen.freeform.option.fit = 맞춤
+tool.pen.curvature.name = 곡률 펜
+tool.pen.curvature.description = 여러 점을 차례로 클릭하면 해당 점을 부드럽게 통과하는 곡선 패스가 만들어집니다.
+
+# 선택 화살표
+tool.path_select.name = 패스 선택
+tool.path_select.description = 패스를 클릭하여 선택하고 드래그하여 패스 전체를 이동합니다.
+tool.direct_select.name = 직접 선택
+tool.direct_select.description = 개별 기준점이나 그 핸들을 드래그하여 주변 패스의 모양을 바꿉니다.
+
+# 도형
+tool.shape.history.layer = {name} 레이어
+tool.shape.rect.name = 사각형 도구
+tool.shape.rect.label = 사각형
+tool.shape.rect.description = 전경색으로 채워진 사각형 도형 레이어를 드래그하여 만듭니다. 벡터 상태로 유지되며 크기를 조정하면 다시 래스터화됩니다.
+tool.shape.ellipse.name = 타원 도구
+tool.shape.ellipse.label = 타원
+tool.shape.ellipse.description = 전경색으로 채워진 타원 도형 레이어를 드래그하여 만듭니다.
+tool.shape.line.name = 선 도구
+tool.shape.line.label = 선
+tool.shape.line.description = 전경색으로 된 직선 도형 레이어를 드래그하여 만듭니다.
+tool.shape.line.option.weight = 두께
+tool.shape.line.option.arrow_start = 시작
+tool.shape.line.option.arrow_end = 끝
+tool.shape.polygon.name = 다각형 도구
+tool.shape.polygon.label = 다각형
+tool.shape.polygon.description = 옵션에서 지정한 변 수를 사용하여 전경색으로 채워진 정다각형 도형 레이어를 드래그해 만듭니다.
+tool.shape.polygon.option.sides = 변
+
+# 사용자 정의 도형
+tool.shape.custom.name = 사용자 정의 도형
+tool.shape.custom.label = 사용자 정의 도형
+tool.shape.custom.description = 도형 옵션에서 선택한 기본 제공 사전 설정 도형을 드래그하여 만듭니다.
+tool.shape.custom.choice.heart = 하트
+tool.shape.custom.choice.star = 별
+tool.shape.custom.choice.arrow = 화살표
+tool.shape.custom.choice.lightning = 번개
+tool.shape.custom.choice.cross = 십자
+tool.shape.custom.choice.speech_bubble = 말풍선

@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Odčítať
+tool.select.mode.intersect = Prienik
+
+tool.marquee.rect.name = Obdĺžnikový výber
+tool.marquee.rect.description = Potiahnutím vytvorte obdĺžnikový výber. Kláves Shift stlačený na začiatku ťahu pridáva k výberu, Alt odčíta a oba vytvoria prienik; Shift počas ťahu obmedzí tvar na štvorec. Kliknutie bez potiahnutia zruší výber.
+tool.marquee.ellipse.name = Eliptický výber
+tool.marquee.ellipse.description = Potiahnutím vytvorte eliptický výber; klávesy Shift a Alt ho kombinujú s existujúcim výberom rovnako ako pri obdĺžnikovom výbere.
+
+tool.lasso.name = Laso
+tool.lasso.description = Voľným ťahom nakreslite obrys; po dokončení ťahu sa jeho konce spoja a výber sa uzavrie. Shift pridáva, Alt odčíta.
+tool.lasso.history.select = Výber lasom
+tool.lasso.polygonal.name = Mnohouholníkové laso
+tool.lasso.polygonal.description = Postupným klikaním na rohy vytvorte výber s rovnými okrajmi a kliknutím pri prvom bode ho uzavrite.
+tool.lasso.polygonal.history.select = Mnohouholníkové laso
+tool.lasso.magnetic.name = Magnetické laso
+tool.lasso.magnetic.description = Veďte obrys približne pozdĺž okraja a ten sa prichytí k najsilnejšiemu kontrastu v blízkosti trasy.
+tool.lasso.magnetic.history.select = Magnetické laso
+tool.lasso.magnetic.option.frequency = Frekvencia
+
+tool.wand.name = Čarovná palička
+tool.wand.description = Kliknutím vyberiete súvislú oblasť podobnej farby pod ukazovateľom v rámci nastavenej tolerancie — rovnakej, akú používajú príkazy Zväčšiť, Podobné a Rozsah farieb.
+tool.wand.option.contiguous = Súvislé
+tool.wand.history.select = Čarovná palička
+
+tool.quick_select.name = Rýchly výber
+tool.quick_select.description = Maľujte po oblasti a výber sa rozšíri cez podobné pixely, ponad ktoré štetec prejde.
+tool.quick_select.history.select = Rýchly výber
+
+tool.object_select.name = Výber objektu
+tool.object_select.description = Potiahnite rámček okolo objektu a výber sa prichytí k objektu nájdenému vnútri.
+tool.object_select.history.select = Výber objektu

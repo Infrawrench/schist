@@ -1,0 +1,27 @@
+# Veglat e përzgjedhjes.
+tool.select.mode.subtract = Zbrit
+tool.select.mode.intersect = Ndërprit
+tool.marquee.rect.name = Përzgjedhje drejtkëndore
+tool.marquee.rect.description = Tërhiqeni për të krijuar një përzgjedhje drejtkëndore. Shift në fillim të tërheqjes i shton përzgjedhjes, Alt heq prej saj dhe të dy së bashku e ndërpresin; Shift gjatë tërheqjes e bën katrore. Një klikim pa tërheqje e çpërzgjedh.
+tool.marquee.ellipse.name = Përzgjedhje eliptike
+tool.marquee.ellipse.description = Tërhiqeni për të krijuar një përzgjedhje eliptike, me të njëjtin kombinim Shift/Alt si te përzgjedhja drejtkëndore.
+tool.lasso.name = Lako
+tool.lasso.description = Tërhiqni me dorë të lirë një kontur; përzgjedhja mbyllet mes skajeve kur tërheqja përfundon. Shift shton, Alt heq.
+tool.lasso.history.select = Përzgjedhje me lako
+tool.lasso.polygonal.name = Lako poligonale
+tool.lasso.polygonal.description = Klikoni cep pas cepi për të ndërtuar një përzgjedhje me skaje të drejta dhe klikoni pranë pikës së parë për ta mbyllur.
+tool.lasso.polygonal.history.select = Lako poligonale
+tool.lasso.magnetic.name = Lako magnetike
+tool.lasso.magnetic.description = Ndiqni përafërsisht një skaj dhe konturi puthitet te kontrasti më i fortë pranë shtegut.
+tool.lasso.magnetic.history.select = Lako magnetike
+tool.lasso.magnetic.option.frequency = Shpeshtësia
+tool.wand.name = Shkop magjik
+tool.wand.description = Klikoni për të përzgjedhur zonën e bashkëlidhur me ngjyrë të ngjashme nën tregues, brenda tolerancës — të njëjtën tolerancë që lexojnë Zmadhimi, Të ngjashmet dhe Gama e ngjyrave.
+tool.wand.option.contiguous = E bashkëlidhur
+tool.wand.history.select = Shkop magjik
+tool.quick_select.name = Përzgjedhje e shpejtë
+tool.quick_select.description = Pikturoni mbi një zonë dhe përzgjedhja zgjerohet nëpër pikselët e ngjashëm mbi të cilët kalon furça.
+tool.quick_select.history.select = Përzgjedhje e shpejtë
+tool.object_select.name = Përzgjedhje objekti
+tool.object_select.description = Tërhiqni një kuti rreth një objekti dhe përzgjedhja puthitet me objektin e gjetur brenda saj.
+tool.object_select.history.select = Përzgjedhje objekti

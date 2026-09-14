@@ -1,0 +1,20 @@
+# Слојеви за подешавање и команде Слика ▸ Подешавања.
+adjustment.levels.name = Нивои
+adjustment.curves.name = Криве
+adjustment.hue_saturation.name = Нијанса/Засићеност
+adjustment.brightness_contrast.name = Осветљеност/Контраст
+adjustment.black_white.name = Црно-бело
+adjustment.solid_color.name = Пуна боја
+adjustment.gradient_fill.name = Попуна градијентом
+adjustment.pattern_fill.name = Попуна шаром
+adjustment.invert.name = Обрни
+adjustment.posterize.name = Постеризација
+adjustment.threshold.name = Праг
+adjustment.color_balance.name = Баланс боја
+adjustment.vibrance.name = Живост
+adjustment.exposure.name = Експозиција
+adjustment.photo_filter.name = Фото-филтер
+adjustment.gradient_map.name = Мапа градијента
+adjustment.selective_color.name = Селективна боја
+adjustment.channel_mixer.name = Миксер канала
+adjustment.other.name = Подешавање

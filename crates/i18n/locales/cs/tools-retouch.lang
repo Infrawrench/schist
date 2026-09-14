@@ -1,0 +1,25 @@
+# Nástroje pro retušování oblastí: Záplata, Přesun podle obsahu, Červené oči a Kouzelná guma.
+
+tool.patch.name = Záplata
+tool.patch.description = Obkreslete tažením vadu a potom přetáhněte výběr na čisté obrazové body; jejich textura se přizpůsobí vadnému místu. Režim záplaty určuje, který konec této dvojice se přetahuje.
+tool.patch.option.patch = Záplata
+tool.patch.choice.source = Zdroj
+tool.patch.choice.destination = Cíl
+tool.patch.history.patch = Záplata
+
+tool.content_aware_move.name = Přesun podle obsahu
+tool.content_aware_move.description = Přetáhněte vybraný objekt jinam a otvor, který po něm zůstane, se vyplní podle okolí. V režimu Rozšířit se objekt místo přesunutí protáhne.
+tool.content_aware_move.choice.move = Přesunout
+tool.content_aware_move.choice.extend = Rozšířit
+tool.content_aware_move.history.move = Přesun podle obsahu
+
+tool.red_eye.name = Červené oči
+tool.red_eye.description = Kliknutím na zornici z ní odstraníte červené zbarvení způsobené bleskem.
+tool.red_eye.option.pupil_size = Velikost zornice
+tool.red_eye.option.darken = Ztmavit
+tool.red_eye.history.red_eye = Červené oči
+
+tool.magic_eraser.name = Kouzelná guma
+tool.magic_eraser.description = Kliknutím vymažete pod ukazatelem oblast podobné barvy v rámci tolerance nástroje, buď souvislou s bodem kliknutí, nebo v celé vrstvě.
+tool.magic_eraser.option.contiguous = Sousedící
+tool.magic_eraser.history.erase = Kouzelná guma

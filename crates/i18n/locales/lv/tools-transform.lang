@@ -1,0 +1,28 @@
+# Brīvā transformēšana
+tool.transform.name = Brīvā transformēšana
+tool.transform.description = Brīvā transformēšana. Aktivizējot šo rīku, ap aktīvo slāni tiek atvērts transformēšanas ietvars: velciet stūri, lai mērogotu, velciet ārpus stūra, lai pagrieztu, vai velciet malu, lai sašķiebtu. Nekas netiek ierakstīts, līdz izmaiņas apstiprina ar Enter; atceļot ar Escape, slānis tiek atjaunots.
+tool.transform.option.interpolation = Interpolācija
+tool.transform.history.transform = Brīvā transformēšana
+tool.transform.history.image_size = Attēla lielums
+tool.transform.history.canvas_size = Audekla lielums
+
+# Atlases transformēšana
+tool.transform.selection.name = Transformēt atlasi
+tool.transform.selection.description = Transformējiet atlasi ar to pašu ietvaru, pārvietojot atlases kontūru, nevis tajā esošos pikseļus. Lai pabeigtu, apstipriniet vai atceliet izmaiņas.
+tool.transform.selection.history.transform = Transformēt atlasi
+
+tool.transform.resample.nearest_neighbor = Tuvākais kaimiņš
+tool.transform.resample.bilinear = Bilineāra
+tool.transform.resample.bicubic = Bikubiska
+
+# Apgriešana
+tool.crop.name = Apgriešana
+tool.crop.description = Velkot iezīmējiet saglabājamo apgabalu un pielāgojiet tā turus; apstiprinot ar Enter, dokuments tiek apgriezts līdz šim apgabalam, bet atceļot ar Escape, dokuments paliek nemainīts.
+tool.crop.option.ratio = Proporcija
+tool.crop.option.delete_cropped = Dzēst apgrieztos pikseļus
+tool.crop.choice.unconstrained = Neierobežots
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Apgriešana

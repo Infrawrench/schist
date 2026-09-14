@@ -1,0 +1,20 @@
+# Outils de base : déplacement, pipette, main et zoom.
+tool.move.name = Déplacement
+tool.move.description = Faites glisser le contenu du calque actif vers une nouvelle position. Lorsque la sélection automatique est activée, le premier calque — ou groupe entier — situé sous le pointeur est sélectionné au clic.
+tool.move.option.auto_select = Sélection automatique
+tool.move.history.move_layer = Déplacement du calque
+tool.eyedropper.name = Pipette
+tool.eyedropper.description = Prélevez la couleur sous le pointeur dans l’échantillon de premier plan, ou dans celui d’arrière-plan en maintenant Alt. Faites glisser pour prélever la couleur en continu.
+tool.eyedropper.option.sample_size = Taille d’échantillon
+tool.eyedropper.option.sample = Échantillon
+tool.eyedropper.choice.point_sample = Échantillon ponctuel
+tool.eyedropper.choice.average_3 = Moyenne 3 × 3
+tool.eyedropper.choice.average_5 = Moyenne 5 × 5
+tool.eyedropper.choice.average_11 = Moyenne 11 × 11
+tool.eyedropper.choice.average_31 = Moyenne 31 × 31
+tool.eyedropper.choice.all_layers = Tous les calques
+tool.eyedropper.choice.current_layer = Calque actif
+tool.hand.name = Main
+tool.hand.description = Déplace la vue. La zone d’affichage appartient à la fenêtre ; en mode sans interface, cet outil ne modifie donc pas le document.
+tool.zoom.name = Zoom
+tool.zoom.description = Modifie le zoom de la vue. La zone d’affichage appartient à la fenêtre ; en mode sans interface, cet outil ne modifie donc pas le document.

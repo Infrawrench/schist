@@ -1,0 +1,21 @@
+tool.move.name = Muvum
+tool.move.description = Pulum ol samting blong active layer i go long wan niufala ples. Sipos Jusum Otomatik i on, taem yu pres, hem i jusum fastaem layer o ful grup we i stap aninit long poenta.
+tool.move.option.auto_select = Jusum Otomatik
+tool.move.history.move_layer = Muvum Layer
+
+tool.eyedropper.name = Eyedropper
+tool.eyedropper.description = Tekem wan sample blong kala aninit long poenta i go long foregraon swatch, o i go long bakgraon swatch taem yu holem alt. Taem yu pulum poenta, hem i gohed blong tekem sample.
+tool.eyedropper.option.sample_size = Saes blong Sample
+tool.eyedropper.option.sample = Sample
+tool.eyedropper.choice.point_sample = Sample long Wan Poen
+tool.eyedropper.choice.average_3 = Averej 3 long 3
+tool.eyedropper.choice.average_5 = Averej 5 long 5
+tool.eyedropper.choice.average_11 = Averej 11 long 11
+tool.eyedropper.choice.average_31 = Averej 31 long 31
+tool.eyedropper.choice.all_layers = Evri Layer
+tool.eyedropper.choice.current_layer = Layer Naoia
+
+tool.hand.name = Han
+tool.hand.description = Muvum lukluk blong yu i krosem kanvas. Viewport i blong windo, taswe sapos i no gat windo tul ya i no jenisim dokumen.
+tool.zoom.name = Zoom
+tool.zoom.description = Mekem lukluk i kam bigwan o smolwan. Viewport i blong windo, taswe sapos i no gat windo tul ya i no jenisim dokumen.

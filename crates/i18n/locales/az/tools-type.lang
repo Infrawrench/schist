@@ -1,0 +1,27 @@
+# Mətn aləti.
+
+tool.type.name = Mətn
+tool.type.description = Həmin yerdə mətn qatı yaratmaq üçün klikləyin və ya mövcud mətn qatını redaktə etmək üçün ona klikləyin. Redaktə açıq olduqda alət birbaşa düymə girişini qəbul edir (simvolları düymə girişi kimi göndərin); təsdiqləmə qatı render edir və redaktəni bağlayır.
+
+# Seçimlər paneli
+tool.type.option.align = Düzləndirmə
+tool.type.option.leading = Sətirarası məsafə
+tool.type.option.tracking = Hərflərarası məsafə
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Liqaturalar
+tool.type.option.discretionary_ligatures = İxtiyari liqaturalar
+tool.type.option.small_caps = Kiçik kapitallar
+tool.type.option.on_path = Aktiv kontur üzərində
+tool.type.option.path_offset = Kontur üzrə sürüşmə
+
+# Üslub siyahısı
+tool.type.choice.regular = Adi
+tool.type.choice.bold = Qalın
+tool.type.choice.italic = Kursiv
+tool.type.choice.bold_italic = Qalın kursiv
+
+# Tarixçə
+tool.type.history.new_layer = Yeni mətn qatı
+tool.type.history.edit = Mətni redaktə et
+tool.type.history.discard = Mətni ləğv et
+tool.type.history.discard_empty = Boş mətni ləğv et

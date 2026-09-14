@@ -1,0 +1,27 @@
+# ಲಿಕ್ವಿಫೈ, ಪಪೆಟ್ ವಾರ್ಪ್ ಮತ್ತು ವ್ಯಾನಿಶಿಂಗ್ ಪಾಯಿಂಟ್ ಪರಿಕರಗಳು.
+
+# ಲಿಕ್ವಿಫೈ
+tool.liquify.name = ಲಿಕ್ವಿಫೈ
+tool.liquify.description = ದೊಡ್ಡ ಬ್ರಷ್‌ನ ಕೆಳಗಿನ ಪಿಕ್ಸೆಲ್‌ಗಳನ್ನು ತಳ್ಳಿ, ಸುತ್ತಿಸಿ, ಒಳಕ್ಕೆ ಕುಗ್ಗಿಸಿ ಅಥವಾ ಉಬ್ಬಿಸಿ—ಯಾವ ಕ್ರಿಯೆ ಎಂಬುದನ್ನು ವಿಧಾನ ಆಯ್ಕೆ ನಿರ್ಧರಿಸುತ್ತದೆ. ವಾರ್ಪ್ ಜಾಲರಿಯಲ್ಲಿ ಕೂಡಿಕೊಳ್ಳುತ್ತದೆ ಮತ್ತು ದೃಢೀಕರಿಸಿದಾಗ ಲೇಯರ್‌ಗೆ ಅನ್ವಯವಾಗುತ್ತದೆ.
+tool.liquify.option.tool = ಪರಿಕರ
+tool.liquify.choice.forward_warp = ಮುಂದಕ್ಕೆ ವಾರ್ಪ್
+tool.liquify.choice.reconstruct = ಮರುರಚಿಸು
+tool.liquify.choice.twirl_cw = ಪ್ರದಕ್ಷಿಣವಾಗಿ ಸುತ್ತಿಸು
+tool.liquify.choice.twirl_ccw = ಅಪ್ರದಕ್ಷಿಣವಾಗಿ ಸುತ್ತಿಸು
+tool.liquify.choice.pucker = ಒಳಕ್ಕೆ ಕುಗ್ಗಿಸು
+tool.liquify.choice.bloat = ಉಬ್ಬಿಸು
+tool.liquify.choice.push_left = ಎಡಕ್ಕೆ ತಳ್ಳು
+tool.liquify.history.liquify = ಲಿಕ್ವಿಫೈ
+
+# ಪಪೆಟ್ ವಾರ್ಪ್
+tool.puppet_warp.name = ಪಪೆಟ್ ವಾರ್ಪ್
+tool.puppet_warp.description = ಲೇಯರ್‌ನ ಕೆಲವು ಬಿಂದುಗಳಲ್ಲಿ ಪಿನ್ ಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ, ನಂತರ ಒಂದನ್ನು ಎಳೆಯಿರಿ: ಗಡಸುತನ ಆಯ್ಕೆ ಸೂಚಿಸುವಂತೆ ಜಾಲರಿಯು ಪಿನ್‌ಗಳ ಸುತ್ತ ಗಟ್ಟಿಯಾಗಿ ಅಥವಾ ಸಡಿಲವಾಗಿ ಬಾಗುತ್ತದೆ. ದೃಢೀಕರಿಸಿದಾಗ ಅದು ಅನ್ವಯವಾಗುತ್ತದೆ.
+tool.puppet_warp.option.stiffness = ಗಡಸುತನ
+tool.puppet_warp.history.puppet_warp = ಪಪೆಟ್ ವಾರ್ಪ್
+
+# ವ್ಯಾನಿಶಿಂಗ್ ಪಾಯಿಂಟ್
+tool.vanishing_point.name = ವ್ಯಾನಿಶಿಂಗ್ ಪಾಯಿಂಟ್
+tool.vanishing_point.description = ಪರ್ಸ್ಪೆಕ್ಟಿವ್ ಇರುವ ವಸ್ತುವಿನ ಮೇಲೆ ಸಮತಲವನ್ನು ಎಳೆದು ರಚಿಸಿ, ನಂತರ ವಿಧಾನವನ್ನು ಕ್ಲೋನ್‌ಗೆ ಬದಲಿಸಿ ಬಣ್ಣ ಹಚ್ಚಿ: ನಕಲಿಸಿದ ಪಿಕ್ಸೆಲ್‌ಗಳು ಸಮತಲವನ್ನು ಅನುಸರಿಸಿ, ದೂರವಾದಂತೆ ಕುಗ್ಗುತ್ತವೆ.
+tool.vanishing_point.choice.edit_plane = ಸಮತಲ ಸಂಪಾದಿಸಿ
+tool.vanishing_point.choice.clone = ಕ್ಲೋನ್
+tool.vanishing_point.history.vanishing_point = ವ್ಯಾನಿಶಿಂಗ್ ಪಾಯಿಂಟ್

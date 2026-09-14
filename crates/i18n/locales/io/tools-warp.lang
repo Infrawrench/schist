@@ -1,0 +1,21 @@
+# Deformutensili.
+tool.liquify.name = Likvigar
+tool.liquify.description = Pusez, vorticez, kunpremez o inflez pixeli sub granda pinselo — la modo selektas la ago. La deformo akumulesas en reto e aplikesas a la strato ye konfirmo.
+tool.liquify.option.tool = Utensilo
+tool.liquify.choice.forward_warp = Avana deformo
+tool.liquify.choice.reconstruct = Rekonstruktar
+tool.liquify.choice.twirl_cw = Vorticar horlojdirekte
+tool.liquify.choice.twirl_ccw = Vorticar kontre-horlojdirekte
+tool.liquify.choice.pucker = Kunpremer
+tool.liquify.choice.bloat = Inflar
+tool.liquify.choice.push_left = Pusar sinistre
+tool.liquify.history.liquify = Likvigar
+tool.puppet_warp.name = Marionetdeformo
+tool.puppet_warp.description = Kliktez por fixigar la strato ye kelka punti, pose trenez unu: la reto kurbesas cirkum la punti, rigide o flexeble segun la opcio Rigideso. Konfirmo aplikas ol.
+tool.puppet_warp.option.stiffness = Rigideso
+tool.puppet_warp.history.puppet_warp = Marionetdeformo
+tool.vanishing_point.name = Fuyopunto
+tool.vanishing_point.description = Trenez plano sur objekto kun perspektivo, pose chanjez la modo a Klonar e piktez: la kopiita pixeli sequas la geometriala plano, diminutante kun disto.
+tool.vanishing_point.choice.edit_plane = Redaktar plano
+tool.vanishing_point.choice.clone = Klonar
+tool.vanishing_point.history.vanishing_point = Fuyopunto

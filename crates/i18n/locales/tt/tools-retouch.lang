@@ -1,0 +1,23 @@
+tool.patch.name = Ямау
+tool.patch.description = Кимчелек тирәли чик сызыгыз, аннары шул сайланган өлкәне чиста пиксельләр өстенә сөйрәгез: андагы текстура кимчелеккә яраклаштырыла. «Ямау» режимы парның кайсы очын сөйрәргә икәнен билгели.
+tool.patch.option.patch = Ямау
+tool.patch.choice.source = Чыганак
+tool.patch.choice.destination = Билгеләнгән урын
+tool.patch.history.patch = Ямау
+
+tool.content_aware_move.name = Эчтәлекне исәпкә алып күчерү
+tool.content_aware_move.description = Сайланган объектны башка урынга сөйрәгез, ә аңардан калган бушлык тирә-яктагы эчтәлек белән тутырыла. «Озайту» режимында объект күчерелми, ә сузыла.
+tool.content_aware_move.choice.move = Күчерү
+tool.content_aware_move.choice.extend = Озайту
+tool.content_aware_move.history.move = Эчтәлекне исәпкә алып күчерү
+
+tool.red_eye.name = Кызыл күз
+tool.red_eye.description = Фотовспышкадан калган кызыл төсне бетерү өчен күз карасына чиртегез.
+tool.red_eye.option.pupil_size = Күз карасы зурлыгы
+tool.red_eye.option.darken = Караңгылату
+tool.red_eye.history.red_eye = Кызыл күз
+
+tool.magic_eraser.name = Тылсымлы бетергеч
+tool.magic_eraser.description = Коралның рөхсәт ителгән аермасы чикләрендә күрсәткеч астындагы охшаш төстәге өлкәне бетерү өчен чиртегез: ул чиртелгән ноктага тоташ өлкә генә дә, катламдагы барлык шундый урыннар да була ала.
+tool.magic_eraser.option.contiguous = Тоташ
+tool.magic_eraser.history.erase = Тылсымлы бетергеч

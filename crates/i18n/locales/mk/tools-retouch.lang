@@ -1,0 +1,27 @@
+# Закрпа
+tool.patch.name = Закрпа
+tool.patch.description = Повлечете контура околу недостатокот, па повлечете го тој избор врз чисти пиксели: текстурата оттаму ќе се вклопи во недостатокот. Режимот на закрпата одредува кој крај од парот го влечете.
+tool.patch.option.patch = Закрпа
+tool.patch.choice.source = Извор
+tool.patch.choice.destination = Одредиште
+tool.patch.history.patch = Закрпа
+
+# Преместување според содржината
+tool.content_aware_move.name = Преместување според содржината
+tool.content_aware_move.description = Повлечете избран објект на друго место, а празнината што ќе ја остави ќе се пополни според околината. Во режимот „Проширување“, објектот се растегнува наместо да се премести.
+tool.content_aware_move.choice.move = Премести
+tool.content_aware_move.choice.extend = Прошири
+tool.content_aware_move.history.move = Преместување според содржината
+
+# Црвени очи
+tool.red_eye.name = Црвени очи
+tool.red_eye.description = Кликнете на зеница за да го отстраните црвенилото од блицот.
+tool.red_eye.option.pupil_size = Големина на зеница
+tool.red_eye.option.darken = Затемнување
+tool.red_eye.history.red_eye = Црвени очи
+
+# Магична гума
+tool.magic_eraser.name = Магична гума
+tool.magic_eraser.description = Кликнете за да ја избришете областа со слична боја под покажувачот, во рамките на толеранцијата на алатката — само поврзаната област околу кликнатото место или насекаде во слојот.
+tool.magic_eraser.option.contiguous = Поврзано
+tool.magic_eraser.history.erase = Магична гума

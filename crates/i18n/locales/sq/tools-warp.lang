@@ -1,0 +1,27 @@
+# Veglat e deformimit: Lëngëzimi, Deformimi me kunja dhe Pika e zhdukjes.
+
+# Lëngëzimi
+tool.liquify.name = Lëngëzim
+tool.liquify.description = Shtyni, rrotulloni, rrudhni ose fryni pikselët nën një furçë të madhe — opsioni i modalitetit përcakton veprimin. Deformimi grumbullohet në një rrjetë dhe zbatohet mbi shtresën kur konfirmohet.
+tool.liquify.option.tool = Vegla
+tool.liquify.choice.forward_warp = Deformim përpara
+tool.liquify.choice.reconstruct = Rindërtim
+tool.liquify.choice.twirl_cw = Rrotullim orar
+tool.liquify.choice.twirl_ccw = Rrotullim kundërorar
+tool.liquify.choice.pucker = Rrudhje
+tool.liquify.choice.bloat = Fryrje
+tool.liquify.choice.push_left = Shty majtas
+tool.liquify.history.liquify = Lëngëzim
+
+# Deformimi me kunja
+tool.puppet_warp.name = Deformim me kunja
+tool.puppet_warp.description = Klikoni për ta fiksuar shtresën në disa pika, pastaj tërhiqni njërën: rrjeta përkulet rreth kunjave, në mënyrë të ngurtë ose të lirshme, sipas opsionit Ngurtësia. Konfirmimi e zbaton ndryshimin.
+tool.puppet_warp.option.stiffness = Ngurtësia
+tool.puppet_warp.history.puppet_warp = Deformim me kunja
+
+# Pika e zhdukjes
+tool.vanishing_point.name = Pika e zhdukjes
+tool.vanishing_point.description = Tërhiqeni për të krijuar një plan mbi diçka me perspektivë, pastaj kalojeni modalitetin te Klonimi dhe pikturoni: pikselët e kopjuar ndjekin planin dhe zvogëlohen me largësinë.
+tool.vanishing_point.choice.edit_plane = Redakto planin
+tool.vanishing_point.choice.clone = Klonim
+tool.vanishing_point.history.vanishing_point = Pika e zhdukjes

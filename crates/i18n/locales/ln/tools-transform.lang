@@ -1,0 +1,25 @@
+tool.transform.name = Kobongola na bonsomi
+tool.transform.description = Kobongola na bonsomi. Soki ofungoli yango, sanduku ya kobongola ezinga kalke esalaka: benda nsɔngɛ mpo na kobakisa to kokitisa bonene, benda libándá ya nsɔngɛ mpo na kobalusa, mpe benda mopanzi mpo na kopengolisa. Eloko moko te ekokomama tii ondimi (Enter); soki oboyi (Escape), kalke ekozonga ndenge ezalaki.
+tool.transform.option.interpolation = Interpolasio
+tool.transform.history.transform = Kobongola na bonsomi
+tool.transform.history.image_size = Bonene ya elilingi
+tool.transform.history.canvas_size = Bonene ya kanvasi
+
+tool.transform.selection.name = Kobongola eteni eponami
+tool.transform.selection.description = Kobongola eteni eponami: sanduku kaka wana, kasi ezali kotambolisa molɔngɔ ya eteni eponami na esika ya bapiksele oyo ezali na kati. Ndima to boya mpo na kosilisa.
+tool.transform.selection.history.transform = Kobongola eteni eponami
+
+tool.transform.resample.nearest_neighbor = Piksele ya pembeni koleka
+tool.transform.resample.bilinear = Bilineaire
+tool.transform.resample.bicubic = Bicubique
+
+tool.crop.name = Kokata
+tool.crop.description = Benda mpo na kopona etando oyo ekotikala mpe bongisa bilembo na yango; soki ondimi (Enter), dokima ekokatama na etando yango, mpe soki oboyi (Escape), ekotikala ndenge ezalaki.
+tool.crop.option.ratio = Rapɔr
+tool.crop.option.delete_cropped = Kolongola bapiksele oyo ekatami
+tool.crop.choice.unconstrained = Ndelo te
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Kokata

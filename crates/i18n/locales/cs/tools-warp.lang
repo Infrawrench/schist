@@ -1,0 +1,24 @@
+# Deformační nástroje: Zkapalnění, Pokřivení loutky a Úběžný bod.
+
+tool.liquify.name = Zkapalnění
+tool.liquify.description = Velkým štětcem posouvá, víří, smršťuje nebo nafukuje obrazové body; konkrétní účinek určuje režim. Deformace se hromadí v mřížce a při potvrzení se použije na vrstvu.
+tool.liquify.option.tool = Nástroj
+tool.liquify.choice.forward_warp = Deformovat dopředu
+tool.liquify.choice.reconstruct = Rekonstruovat
+tool.liquify.choice.twirl_cw = Vířit doprava
+tool.liquify.choice.twirl_ccw = Vířit doleva
+tool.liquify.choice.pucker = Smrštit
+tool.liquify.choice.bloat = Nafouknout
+tool.liquify.choice.push_left = Posunout doleva
+tool.liquify.history.liquify = Zkapalnění
+
+tool.puppet_warp.name = Pokřivení loutky
+tool.puppet_warp.description = Kliknutím připněte vrstvu v několika bodech a potom jeden z nich přetáhněte. Mřížka se kolem připínáčků ohne volněji či pevněji podle nastavení Tuhost. Potvrzením deformaci použijete.
+tool.puppet_warp.option.stiffness = Tuhost
+tool.puppet_warp.history.puppet_warp = Pokřivení loutky
+
+tool.vanishing_point.name = Úběžný bod
+tool.vanishing_point.description = Tažením vyznačte rovinu nad objektem v perspektivě, potom přepněte režim na Klonovat a malujte. Kopírované obrazové body sledují rovinu a se vzdáleností se zmenšují.
+tool.vanishing_point.choice.edit_plane = Upravit rovinu
+tool.vanishing_point.choice.clone = Klonovat
+tool.vanishing_point.history.vanishing_point = Úběžný bod

@@ -1,0 +1,37 @@
+# Akllasqawan tupachiy
+tool.select.mode.subtract = Qichuy
+tool.select.mode.intersect = Tupanachiy
+
+# Tawa kuchu, elipse akllanakuna
+tool.marquee.rect.name = Tawa kuchu akllana
+tool.marquee.rect.description = Tawa kuchu akllasqata aysaspa ruray. Aysay qallariypi Shift ñit'ispa akllasqaman yapan, Alt qichun, iskaynin tupanachin; aysachkaspa Shift ñit'ispa tawa kaqlla ruran. Mana aysaspa ñit'iyqa akllasqata qichun.
+tool.marquee.ellipse.name = Elipse akllana
+tool.marquee.ellipse.description = Elipse akllasqata aysaspa ruray; Shift/Alt nisqawan tupanachiyqa tawa kuchu akllanawan kikillanmi.
+
+# Lazokuna
+tool.lasso.name = Lazo
+tool.lasso.description = Makiwan munasqayki siq'ita aysay; aysay tukukuptinqa akllasqaqa iskay tukunan chawpita wichq'akun. Shift yapan, Alt qichun.
+tool.lasso.history.select = Lazowan akllay
+tool.lasso.polygonal.name = Polígono lazo
+tool.lasso.polygonal.description = Huk k'uchumanta qatiqnin k'uchuman ñit'ispa chiqap kantuyuq akllasqata ruray; wichq'anapaq ñawpaq ch'ikupa qayllanpi ñit'iy.
+tool.lasso.polygonal.history.select = Polígono lazowan akllay
+tool.lasso.magnetic.name = Imán lazo
+tool.lasso.magnetic.description = Huk kantuta qayllanta qatipay; siq'iqa ñanpa qayllanpi aswan sinchi kutinnaqman kikinmanta k'askakun.
+tool.lasso.magnetic.history.select = Imán lazowan akllay
+tool.lasso.magnetic.option.frequency = Kutikipu
+
+# Layqa k'aspi
+tool.wand.name = Layqa k'aspi
+tool.wand.description = Ñit'ispa tupuchiqpa uranpi kaq rikch'akuq llimp'iyuq tupanakusqa k'itita akllay, saqisqan tupu ukhukama; Wiñachiy, Rikch'akuq, Llimp'i maymanta maykama ima kikillantam kay tupunta ñawinchan.
+tool.wand.option.contiguous = Tupanakusqa
+tool.wand.history.select = Layqa k'aspiwan akllay
+
+# Utqay akllay
+tool.quick_select.name = Utqay akllay
+tool.quick_select.description = Huk k'itip hawanpi pintay; akllasqaqa pincelpa pasan rikch'akuq pixelkunanta wiñan.
+tool.quick_select.history.select = Utqay akllay
+
+# Imata akllay
+tool.object_select.name = Imata akllay
+tool.object_select.description = Imap muyuriqninpi kahata aysay; akllasqaqa ukhunpi tarisqa imaman kikinmanta k'askakun.
+tool.object_select.history.select = Imata akllay

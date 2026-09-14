@@ -1,0 +1,29 @@
+# Teikniborð
+tool.artboard.name = Teikniborð
+tool.artboard.description = Dragðu út teikniborð: nafngreint svæði á myndfletinum sem er flutt út sjálfstætt. Ef dregið er innan fyrirliggjandi teikniborðs færist það.
+tool.artboard.default_name = Teikniborð {n}
+
+# Sneið
+tool.slice.name = Sneið
+tool.slice.description = Dragðu út útflutningssneið, nafngreindan rétthyrning á myndfletinum sem er fluttur út sem sjálfstæð mynd. Ef dregið er innan fyrirliggjandi sneiðar færist hún.
+tool.slice.default_name = Sneið {n}
+
+# Rammi
+tool.frame.name = Rammi
+tool.frame.description = Dragðu út ramma: rétthyrnt (eða sporöskjulaga) lag sem hylur það sem sett er í það.
+tool.frame.default_name = Rammi {n}
+tool.frame.choice.rectangle = Rétthyrningur
+tool.frame.choice.ellipse = Sporbaugur
+tool.frame.history.frame = Rammi
+
+# Athugasemd
+tool.note.name = Athugasemd
+tool.note.description = Smelltu á auðan myndflöt til að festa þar athugasemd, merkta höfundi og lit úr stöðu ritilsins; smelltu á fyrirliggjandi merki til að velja athugasemdina á athugasemdaspjaldinu.
+tool.note.history.place = Setja athugasemd
+tool.note.history.move = Færa athugasemd
+tool.note.history.delete = Eyða athugasemd
+
+# Talning
+tool.count.name = Talning
+tool.count.description = Smelltu til að setja númeruð talningarmerki á myndflötinn og smelltu á fyrirliggjandi merki til að fjarlægja það.
+tool.count.default_name = Talning {n}

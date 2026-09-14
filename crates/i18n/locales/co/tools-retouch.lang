@@ -1,0 +1,25 @@
+# Attrazzi di ritoccu di zone: Pezza, Spustamentu sensibile à u cuntenutu, Ochji rossi è Sguassaghjola magica.
+
+tool.patch.name = Pezza
+tool.patch.description = Tracciate un cuntornu ingiru à un difettu, po trascinate sta selezzione nant'à pixel puliti: a tessitura di quellu locu hè adattata à u difettu. U modu Pezza determina quale estremità di a coppia si trascina.
+tool.patch.option.patch = Pezza
+tool.patch.choice.source = Surghjente
+tool.patch.choice.destination = Destinazione
+tool.patch.history.patch = Pezza
+
+tool.content_aware_move.name = Spustamentu sensibile à u cuntenutu
+tool.content_aware_move.description = Trascinate un ogettu selezziunatu altrò è u biotu ch'ellu lascia hè empiutu à partesi da ciò chì l'ingira. In modu Stende, l'ogettu hè stesu invece d'esse spustatu.
+tool.content_aware_move.choice.move = Spustà
+tool.content_aware_move.choice.extend = Stende
+tool.content_aware_move.history.move = Spustamentu sensibile à u cuntenutu
+
+tool.red_eye.name = Ochji rossi
+tool.red_eye.description = Cliccate nant'à una pupilla per caccialli u rossu di u lampu.
+tool.red_eye.option.pupil_size = Dimensione di a pupilla
+tool.red_eye.option.darken = Scurisce
+tool.red_eye.history.red_eye = Ochji rossi
+
+tool.magic_eraser.name = Sguassaghjola magica
+tool.magic_eraser.description = Cliccate per sguassà a zona di culore simile sottu à u puntatore, secondu a tullerenza di l'attrazzu — sia quella cunfinante cù u puntu cliccatu, sia tutte e zone simile di u stratu.
+tool.magic_eraser.option.contiguous = Cunfinante
+tool.magic_eraser.history.erase = Sguassaghjola magica

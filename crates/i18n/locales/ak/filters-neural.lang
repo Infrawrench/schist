@@ -1,0 +1,145 @@
+filter.neural.param.center_x = Mfinimfini X
+filter.neural.param.center_y = Mfinimfini Y
+filter.neural.param.direction = Ɔkwan
+filter.neural.param.transition = Nsakrae
+filter.neural.param.detail = Nkyerɛmu
+filter.neural.param.eyes = Ani
+filter.neural.msg.using_model = Ɛde {model} redi dwuma · {license}.
+filter.neural.msg.get_model = Gye fi Filter ▸ Neural Filters ▸ Hwɛ Models So.
+
+filter.camera_raw.name = Camera Raw Filter
+filter.camera_raw.param.temperature = Ɔhyew
+filter.camera_raw.param.tint = Kɔla Kakra
+filter.camera_raw.param.highlights = Mmeae a Ɛyɛ Hann
+filter.camera_raw.param.shadows = Sunsuma
+filter.camera_raw.param.whites = Fitaa
+filter.camera_raw.param.blacks = Tuntum
+filter.camera_raw.param.clarity = Pefee
+filter.camera_raw.param.dehaze = Yi Mununkum
+filter.camera_raw.param.vibrance = Kɔla Hyew
+filter.camera_raw.param.sharpening = Ma Ɛyɛ Nam
+filter.camera_raw.param.noise = Tew Noise So
+filter.camera_raw.param.vignette = Vignette
+
+filter.lens_correction.name = Lens Nsiesiei
+filter.lens_correction.param.distortion = Yi Sɛso Kyinkyim
+filter.lens_correction.param.red = Siesie Kɔkɔɔ/Cyan Ano
+filter.lens_correction.param.blue = Siesie Bibiri/Akokɔsrade Ano
+filter.lens_correction.param.vignette = Vignette Dodow
+filter.lens_correction.param.midpoint = Vignette Mfinimfini
+filter.lens_correction.param.vertical = Perspective Gyina Hɔ
+filter.lens_correction.param.horizontal = Perspective Da Hɔ
+
+filter.adaptive_wide_angle.name = Wide Angle a Ɛsesa Ne Ho
+filter.adaptive_wide_angle.param.projection = Nsiesiei
+filter.adaptive_wide_angle.choice.fisheye = Mpataa Aniwa
+filter.adaptive_wide_angle.choice.perspective = Perspective
+filter.adaptive_wide_angle.choice.full_spherical = Kurukuruwa Nyinaa
+filter.adaptive_wide_angle.param.focal = Focal Tenten
+filter.adaptive_wide_angle.param.crop = Twitwa Nkyekyɛmu
+
+filter.field_blur.name = Beae Kusuu
+filter.field_blur.param.position = Nam Wɔ
+filter.iris_blur.name = Iris Kusuu
+filter.iris_blur.param.roundness = Kurukuruwayɛ
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Mfinimfini
+filter.tilt_shift.param.band = Fã a Ɛyɛ Nam
+filter.spin_blur.name = Ndan Kusuu
+filter.spin_blur.param.angle = Kusuu Twea
+filter.path_blur.name = Kwan Kusuu
+filter.path_blur.param.speed = Ahoɔhare
+filter.path_blur.param.curve = Sɛnea Kwan no Kotow
+filter.path_blur.param.taper = Tew Ano
+
+filter.shape_blur.name = Sɛso Kusuu
+filter.shape_blur.choice.square = Ahinanan a Afã Yɛ Pɛ
+filter.shape_blur.choice.diamond = Diamond
+filter.shape_blur.choice.hexagon = Afãasia
+filter.shape_blur.choice.cross = Mmeamudua
+filter.shape_blur.choice.ring = Mpɛtea
+filter.shape_blur.choice.star = Nsoromma
+filter.smart_blur.name = Smart Kusuu
+filter.smart_blur.choice.normal = Sɛnea Ɛte Daa
+filter.smart_blur.choice.edge_only = Ano Nkutoo
+filter.smart_blur.choice.overlay_edge = Kata Ano So
+
+filter.deinterlace.name = Yi Interlace
+filter.deinterlace.param.field = Yi Fi Hɔ
+filter.deinterlace.choice.odd_fields = Fields a Wɔn Dodow Yɛ Ankonam
+filter.deinterlace.choice.even_fields = Fields a Wɔn Dodow Yɛ Mmienu-mmienu
+filter.deinterlace.param.fill = Fa Eyi Yɛ Fields Foforo
+filter.deinterlace.choice.interpolation = Interpolation
+filter.deinterlace.choice.duplication = Yɛ Nsɛso
+filter.ntsc_colors.name = NTSC Kɔla Ahorow
+
+filter.neural.skin_smoothing.name = Yɛ Honam Torɔtorɔ
+filter.neural.skin_smoothing.param.blur = Torɔtorɔyɛ
+filter.neural.skin_smoothing.param.detail = Kora Nkyerɛmu
+filter.neural.skin_smoothing.msg.no_model = Wɔmfa {model} ntoo so — enti ɛreyɛ biribiara a ne kɔla te sɛ honam no torɔtorɔ sen anim.
+filter.neural.jpeg_artifacts.name = Yi JPEG Nkekae
+filter.neural.jpeg_artifacts.msg.no_model = Wɔmfa {model} ntoo so — enti ɛreyɛ pixel-8 grid no torɔtorɔ.
+filter.neural.colorize.name = Fa Kɔla Gu So
+filter.neural.colorize.param.warmth = Ɔhyew
+filter.neural.colorize.msg.no_model = Wɔmfa {model} ntoo so — enti ɛde luminance rema kɔla kakra.
+filter.neural.super_zoom.name = Super Zoom
+filter.neural.super_zoom.msg.no_model = Wɔmfa {model} ntoo so — enti ɛde sharpening a di ano no akyi redi dwuma.
+
+filter.neural.style_transfer.name = Fa Sɛso Kɔ So
+filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Wɔmfa style models biara ntoo so — kɔla nkutoo na wɔde rekɔ so. Gye fi Filter ▸ Neural Filters ▸ Hwɛ Models So.
+filter.neural.style_transfer.msg.installed = Wɔde ato so: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Fa Kɔla Kɔ So
+filter.neural.color_transfer.param.hue = Kɔla Su a Wɔrehwehwɛ
+filter.neural.color_transfer.param.contrast = Ma Abirabɔ Nhyia
+filter.neural.color_transfer.msg.info = Ɛfa ne kɔla nhyehyɛe fi layer a ɛwɔ ase no. Sɛ biribiara nni ase a, ɛde n'ani si Kɔla Su a Wɔrehwehwɛ no so.
+filter.neural.depth_blur.name = Emu Dɔ Kusuu
+filter.neural.depth_blur.param.focus = Focal Ntam
+filter.neural.depth_blur.param.blur = Kusuu Ahoɔden
+filter.neural.depth_blur.msg.no_model = Wɔmfa {model} ntoo so — enti ɛde beae biara namyɛ na ɛrepaw baabi a ɛbɛyɛ nam.
+filter.neural.harmonization.name = Ma Ɛnhyia
+filter.neural.harmonization.param.tone = Ma Tone Nhyia
+filter.neural.harmonization.msg.info = Ɛma layer yi ne biribiara a ɛwɔ ase no hyia. Sɛ biribiara nni ase a, biribi nni hɔ a ɛne no bɛhyia, enti ennyɛ hwee.
+
+filter.neural.landscape_mixer.name = Asaase Mfonini Fra
+filter.neural.landscape_mixer.param.bands = Emu Dɔ Afã
+filter.neural.landscape_mixer.msg.with_depth = Ɛfa ne kɔla nhyehyɛe fi layer a ɛwɔ ase no, na ɛde Depth (Depth Blur) ma afã biara ne ne yɔnko hyia.
+filter.neural.landscape_mixer.msg.without_depth = Ɛfa ne kɔla nhyehyɛe fi layer a ɛwɔ ase no. Fa Depth (Depth Blur) to so na ama wim ne wim, na fam ne fam ahyia, sen sɛ mfonini no nyinaa bɛyɛ ade baako.
+
+filter.neural.photo_restoration.name = San Siesie Foto
+filter.neural.photo_restoration.param.enhance = Ma Foto Yɛ Yiye
+filter.neural.photo_restoration.param.scratches = Tew Nsensanee So
+filter.neural.photo_restoration.param.tone = San De Tone Bra
+filter.neural.photo_restoration.msg.no_model = Ɛresiesie a model biara nka ho.
+filter.neural.photo_restoration.msg.using_deblock = Ɛde Deblock redi dwuma · wɔtetee no maa Schist.
+filter.neural.photo_restoration.msg.using_detail = Ɛde Detail redi dwuma · wɔtetee no maa Schist.
+filter.neural.photo_restoration.msg.using_both = Ɛde Deblock ne Detail redi dwuma · wɔtetee wɔn maa Schist.
+
+filter.neural.photo_to_sketch.name = Dan Foto Yɛ Mfonini-twe
+filter.neural.photo_to_sketch.param.weight = Nsensanee Mu Duru
+filter.neural.photo_to_sketch.param.shading = Sunsuma
+filter.neural.face_to_caricature.name = Dan Anim Yɛ Caricature
+filter.neural.face_to_caricature.param.mouth = Ano
+filter.neural.face_to_caricature.param.head = Ti
+filter.neural.face_to_caricature.msg.no_model = Wɔmfa {model} ntoo so, enti ennyɛ hwee — anim biara nni hɔ a wɔbɛdan caricature.
+
+filter.neural.smart_portrait.name = Smart Portrait
+filter.neural.smart_portrait.param.happiness = Anigye
+filter.neural.smart_portrait.param.surprise = Ahodwiriw
+filter.neural.smart_portrait.param.age = Anim Mfe
+filter.neural.smart_portrait.param.gaze = Hwɛbea
+filter.neural.smart_portrait.param.light = Hann Ɔkwan
+filter.neural.smart_portrait.msg.no_model = Wɔmfa {model} ntoo so, enti ennyɛ hwee — enni anim biara a ɛde bɛyɛ adwuma.
+
+filter.neural.makeup_transfer.name = Fa Anim Ahosiesie Kɔ So
+filter.neural.makeup_transfer.param.lips = Ano
+filter.neural.makeup_transfer.param.skin = Honam Kɔla
+filter.neural.makeup_transfer.msg.info = Ɛfa anim ahosiesie fi anim a ɛwɔ layer a ɛwɔ ase no so. Kɔla, ɛnyɛ texture.
+filter.neural.makeup_transfer.msg.no_model = Wɔmfa {model} ntoo so, enti ennyɛ hwee.
+filter.neural.sketch_to_portrait.name = Dan Mfonini-twe Yɛ Portrait
+filter.neural.sketch_to_portrait.param.detail = Kora Nsensanee
+filter.neural.sketch_to_portrait.msg.with_face = Wɔtetee no sɛ ɛnhyɛ app yi ankasa Foto kɔ Mfonini-twe mu. Ɛyɛ adwuma wɔ anim a ehu no so.
+filter.neural.sketch_to_portrait.msg.no_face = Wɔtetee no sɛ ɛnhyɛ app yi ankasa Foto kɔ Mfonini-twe mu. Fa Faces (Skin Smoothing) to so, na ɛbɛyɛ adwuma wɔ anim no so sen nea woapaw no nyinaa.

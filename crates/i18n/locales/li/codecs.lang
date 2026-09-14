@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} decodere
+codec.msg.zero_sized = de aafbiljing haet gein pixels
+codec.msg.assembling_document = 't document samebouwe
+
+codec.raw.msg.decoding = 't rawbesjtandj decodere
+codec.raw.msg.developing = 't rawbesjtandj óntwikkelen
+codec.raw.msg.finding_preview = nao de ingebedde veurtuin zeuke
+codec.raw.msg.decoding_preview = de ingebedde veurtuin decodere
+codec.raw.msg.decoder_panicked = de rawdecoder leep vas op dit besjtandj: {what}
+
+codec.affinity.import_title = Affinity-import
+codec.affinity.flattened_preview_layer = Samegevoegde veurtuin
+codec.affinity.msg.no_preview = Gein bruukbare ingebedde veurtuin. 't Laogformaat van Affinity is neet aopebaar; Schist importeert de samegevoegde veurtuin die 't besjtandj bevat. Dit besjtandj haet d'r gein — slaon 't opnuuj op in Affinity of exporteer 't es PSD veur 'ne volledige import mit laoge.
+
+codec.heif.msg.no_library = libheif is neet besjikbaar ({details}). Om HEIC te äöpene is de libheif-bibliotheek neudig (Linux: installeer libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — deze libheif-build haet mesjiens geine HEVC-decoder (op Debian/Ubuntu: installeer libheif-plugin-libde265)
+codec.heif.msg.unknown_error = ónbekènde fout
+codec.heif.msg.initialising = libheif initialisere
+codec.heif.msg.reading_container = de HEIF-container laeze
+codec.heif.msg.finding_primary_image = de primaire aafbiljing zeuke
+codec.heif.msg.reading_icc_profile = 't ICC-profiel laeze
+codec.heif.msg.decoding_image = de aafbiljing decodere
+codec.heif.msg.checksum_mismatch = Controlesom van {name} kump neet euverein: {expected} verwacht, {got} gekrege
+codec.heif.msg.imageio_cannot_read = ImageIO kós de HEIF-container neet laeze
+codec.heif.msg.container_empty = de HEIF-container bevat gein aafbiljing
+codec.heif.msg.imageio_cannot_decode = ImageIO kós de primaire aafbiljing neet decodere

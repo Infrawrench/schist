@@ -1,0 +1,84 @@
+# Ngaahi penolo mo e ngaahi tapa ʻo e kanivā
+
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Ngaahi Pikisi Moʻoní
+
+panel.color.picker = Meʻafili…
+panel.color.swap = Fetongi ʻa e Ongo Lanu
+panel.color.reset = Toe Fokotuʻu ki he ʻUli mo e Hinehina
+
+panel.layers.blending_options = Ngaahi Meʻa Fili Tuifio…
+panel.layers.properties = Ngaahi Koloa ʻo e Layer…
+panel.layers.show_hide = Fakahā/Fufū ʻa e Layer
+panel.layers.toggle_visibility = Fetongi ʻa e Hā Maí
+
+panel.history.title = Hisitōlia
+panel.history.opened = Kuo Fakaava
+
+panel.info.title = Fakamatala
+panel.info.camera = Meʻafaitā
+panel.info.lens = Lenisi
+panel.info.iso = ISO {iso}
+panel.info.bias = Liliu Fua
+panel.info.flash_fired = naʻe ulo ʻa e flash
+panel.info.no_flash = ʻikai ha flash
+panel.info.white_balance = WB {wb}
+panel.info.metering = fua maama {metering}
+panel.info.taken = Taimi Naʻe Tā Aí
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · tuʻuʻanga {o}
+panel.info.software = Polokalama
+panel.info.where = Feituʻu
+
+panel.notes.author = Faʻutohi
+panel.notes.clear_all = Fakamaʻa Kotoa
+panel.notes.unattributed = ʻIkai ha Faʻutohi
+panel.notes.empty = Lomi ʻi he kanivā ke tuku ha fakamatala nounou.
+panel.notes.placeholder = Lomi ke tohi
+
+panel.character.title = Mataʻitohi
+panel.character.type_tool = Meʻangāue Tohi (T)
+panel.character.align_left = Fakatonutonu ki he hemá
+panel.character.align_center = Fakatonutonu ki he lotolotó
+panel.character.align_right = Fakatonutonu ki he toʻomataʻú
+panel.character.text_color = Lanu ʻo e tohí
+panel.character.panel = Penolo Mataʻitohi
+panel.character.cancel_edit = Kaniseli ʻa e fakatonutonu tohí
+panel.character.commit_edit = Fakapapauʻi ʻa e fakatonutonu tohí
+panel.character.number_tip = {label} · Taipeʻi ha mahuʻinga, pe ngāueʻaki ʻa e ↑ / ↓ (Shift ki he ngaahi laka lalahi ange)
+panel.character.leading = Vahaʻa Laine
+panel.character.tracking = Vahaʻa Mataʻitohi
+panel.character.alignment = Fakatonutonu Tuʻunga
+panel.character.opentype = OpenType
+panel.character.text_on_path = Tohi ʻi ha hala
+panel.character.straight = Hangatonu
+panel.character.on_path = ʻI he hala
+panel.character.straight_tip = Ngāueʻaki ʻa e laine tefito angamaheni ʻo e Layer tohí
+panel.character.on_path_tip = Ngāueʻaki ha tatau ʻo e hala lolotongá
+panel.character.path_offset = Mamaʻo mei he hala
+
+panel.ai.title = AI
+panel.ai.empty_editor = Kole ha fakatonutonu pea sio ki hono fakahoko ʻi he kanivā. ʻOku puleʻi ʻe he agent ʻa e ngaahi meʻangāue, sivi mo e fekau tatau mo ia ʻi he ngaahi menu, ʻo taha ʻa e laka fakafoki ki he ngāue takitaha.
+panel.ai.empty_gallery = Fehuʻi fekauʻaki mo hoʻo ngaahi tā pea sio ki hono fakahoko ʻi he fakahāʻanga ʻīmisi: ʻe lava ʻa e agent ʻo kumi, vakai ki he fanga kiʻi ʻīmisi, fili, fokotuʻutuʻu ki ha ngaahi kulupu, pea fakaava ha tā ʻi he ʻētita.
+panel.ai.thinking = ʻoku fakakaukau…
+panel.ai.placeholder_editor = Fehuʻi fekauʻaki mo e fakamatala ko ʻení pe fakatonutonu ia
+panel.ai.placeholder_gallery = Fehuʻi fekauʻaki mo hoʻo ngaahi tā
+panel.ai.send = ʻAve
+panel.ai.stop = Taʻofi
+panel.ai.fetching_models = ʻOku kole ki he CLI ʻa hono ngaahi mōtolo…
+panel.ai.no_models = ʻIkai ha mōtolo ʻoku tatau
+panel.ai.search_models = Kumi mōtolo…
+
+panel.keymap.install_plugin = Fokotuʻu ʻa e Plug-in
+panel.keymap.save_as_prompt = Seivi ko e — ʻoku fili ʻe he fakalahi ʻo e hingoa failé ʻa e faʻungá:

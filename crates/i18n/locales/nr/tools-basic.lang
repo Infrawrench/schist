@@ -1,0 +1,26 @@
+# The basic tools (plugins/tools-basic): Move, Eyedropper, Hand, Zoom.
+
+# Move
+tool.move.name = Khambisa
+tool.move.description = Dosa okumumethwe yileya esebenzako ukubeke endaweni etja. Nakuvulwe ukuzikhethela, ukugandelela kuthoma ngokukhetha nanyana ngiyiphi ileya -- namkha isiqhema soke -- esingaphasi kwenkomba.
+tool.move.option.auto_select = Zikhethele
+tool.move.history.move_layer = Khambisa Ileya
+
+# Eyedropper
+tool.eyedropper.name = Isithathi-mbala
+tool.eyedropper.description = Thatha isampula yombala ongaphasi kwenkomba uwufake esibonelweni sombala wangaphambili, namkha esibonelweni sangemuva nakubanjwe u-alt. Ukudosa kuragela phambili kuthatha amasampula.
+tool.eyedropper.option.sample_size = Ubukhulu Besampula
+tool.eyedropper.option.sample = Isampula
+tool.eyedropper.choice.point_sample = Isampula Yephuzu
+tool.eyedropper.choice.average_3 = I-avareji ka-3 ngo-3
+tool.eyedropper.choice.average_5 = I-avareji ka-5 ngo-5
+tool.eyedropper.choice.average_11 = I-avareji ka-11 ngo-11
+tool.eyedropper.choice.average_31 = I-avareji ka-31 ngo-31
+tool.eyedropper.choice.all_layers = Woke Amaleya
+tool.eyedropper.choice.current_layer = Ileya Yanje
+
+# Hand and Zoom
+tool.hand.name = Isandla
+tool.hand.description = Sikhambisa okubonwako. Indawo yokubona ingeyefesidere, ngalokho leli thulusi alenzi litho kudokhumenti nalisetjenziswa ngaphandle kwefesidere.
+tool.zoom.name = Sondeza
+tool.zoom.description = Sisondeza namkha sihlukanise okubonwako. Indawo yokubona ingeyefesidere, ngalokho leli thulusi alenzi litho kudokhumenti nalisetjenziswa ngaphandle kwefesidere.

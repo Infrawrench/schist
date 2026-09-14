@@ -1,0 +1,23 @@
+tool.patch.name = Pyès
+tool.patch.description = Trase yon kontou toutotou yon defo, epi trennen seleksyon sa a sou piksèl ki pwòp: teksti ki la a adapte ak defo a. Mòd Pyès la detèmine ki bout nan pè a ou trennen.
+tool.patch.option.patch = Pyès
+tool.patch.choice.source = Sous
+tool.patch.choice.destination = Destinasyon
+tool.patch.history.patch = Pyès
+
+tool.content_aware_move.name = Deplasman ki pran kontni an an konsiderasyon
+tool.content_aware_move.description = Trennen yon objè ki seleksyone yon lòt kote, epi espas li kite a ranpli apati sa ki antoure l. Nan mòd Pwolonje, objè a lonje olye li deplase.
+tool.content_aware_move.choice.move = Deplase
+tool.content_aware_move.choice.extend = Pwolonje
+tool.content_aware_move.history.move = Deplasman ki pran kontni an an konsiderasyon
+
+tool.red_eye.name = Je wouj
+tool.red_eye.description = Klike sou yon pipiy pou retire koulè wouj flach la ladan l.
+tool.red_eye.option.pupil_size = Gwosè pipiy
+tool.red_eye.option.darken = Fè pi fonse
+tool.red_eye.history.red_eye = Je wouj
+
+tool.magic_eraser.name = Gòm majik
+tool.magic_eraser.description = Klike pou efase zòn ki gen koulè sanblab anba pwentè a, selon tolerans zouti a — swa zòn ki kole ak kote ou klike a, swa tout kote nan kouch la.
+tool.magic_eraser.option.contiguous = Kole youn ak lòt
+tool.magic_eraser.history.erase = Gòm majik

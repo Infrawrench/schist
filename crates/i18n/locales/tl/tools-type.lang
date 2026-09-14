@@ -1,0 +1,22 @@
+tool.type.name = Teksto
+tool.type.description = Mag-click upang magsimula roon ng text layer, o mag-click sa dati nang text layer upang i-edit ito. Habang bukas ito, tumatanggap ang tool ng mga direktang keystroke (ipadala ang mga character bilang key input), at kapag inilapat, nire-render nito ang layer at isinasara ang pag-edit.
+
+tool.type.option.align = Pagkakahanay
+tool.type.option.leading = Leading
+tool.type.option.tracking = Tracking
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Mga Ligature
+tool.type.option.discretionary_ligatures = Mga opsiyonal na ligature
+tool.type.option.small_caps = Maliliit na malaking titik
+tool.type.option.on_path = Sa aktibong path
+tool.type.option.path_offset = Offset ng path
+
+tool.type.choice.regular = Regular
+tool.type.choice.bold = Bold
+tool.type.choice.italic = Italic
+tool.type.choice.bold_italic = Bold Italic
+
+tool.type.history.new_layer = Bagong Text Layer
+tool.type.history.edit = I-edit ang Teksto
+tool.type.history.discard = Itapon ang Teksto
+tool.type.history.discard_empty = Itapon ang Walang-lamang Teksto

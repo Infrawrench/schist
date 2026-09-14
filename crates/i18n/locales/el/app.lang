@@ -1,0 +1,36 @@
+app.filter_gallery.title = Συλλογή φίλτρων
+app.filter_gallery.stack = Στοίβα (εφαρμογή από κάτω προς τα πάνω)
+app.filter_gallery.no_settings = Αυτό το φίλτρο δεν έχει ρυθμίσεις.
+app.fonts.not_open_licensed = δεν έχει ανοικτή άδεια · η {substitute} έχει ίδιες μετρικές
+app.fonts.missing_substituted = λείπει · το κείμενο στοιχειοθετείται με υποκατάστατη γραμματοσειρά
+app.fonts.not_in_catalogue = Η {family} δεν υπάρχει στον κατάλογο ανοικτών γραμματοσειρών
+app.fonts.no_faces = δεν υπάρχουν διαθέσιμες για λήψη παραλλαγές της {family}
+app.fonts.empty_response = κενή απόκριση
+app.update.unreadable_response = μη αναγνώσιμη απόκριση: {error}
+app.update.no_temp_dir = δεν υπάρχει προσωρινός κατάλογος για τη λήψη
+app.update.asset_has_path = το στοιχείο της έκδοσης έχει όνομα που περιλαμβάνει διαδρομή
+app.update.too_big = η λήψη είναι μεγαλύτερη από ό,τι αναφέρει η έκδοση
+app.update.stopped_at = η λήψη σταμάτησε στα {got} από {total} byte
+app.update.hash_mismatch = ο κατακερματισμός της λήψης είναι {got} αντί για {want}
+app.update.not_in_bundle = αυτό το αντίγραφο δεν βρίσκεται μέσα σε πακέτο εφαρμογής
+app.update.no_parent_dir = το πακέτο εφαρμογής δεν έχει γονικό κατάλογο
+app.update.cannot_write = δεν είναι δυνατή η εγγραφή στο {dir}
+app.update.cannot_move_aside = δεν είναι δυνατή η μετακίνηση του {app} στην άκρη
+app.update.cannot_move_in = δεν είναι δυνατή η τοποθέτηση του νέου πακέτου στη θέση του
+app.update.cannot_run_ditto = δεν είναι δυνατή η εκτέλεση του /usr/bin/ditto
+app.update.unpack_failed = απέτυχε η αποσυσκευασία της λήψης: {error}
+app.update.no_app_in_download = η λήψη δεν περιέχει Schist.app
+app.update.cannot_run_codesign = δεν είναι δυνατή η εκτέλεση του /usr/bin/codesign
+app.update.signature_invalid = η υπογραφή της λήψης δεν επαληθεύεται: {error}
+app.update.download_unsigned = αυτό το αντίγραφο είναι υπογεγραμμένο, αλλά η λήψη όχι
+app.update.different_developer = η λήψη είναι υπογεγραμμένη από διαφορετικό προγραμματιστή
+app.update.cannot_relaunch = δεν είναι δυνατή η εκκίνηση του προγράμματος επανεκκίνησης
+app.update.not_installed_copy = αυτό το αντίγραφο δεν τοποθετήθηκε εδώ από το πρόγραμμα εγκατάστασης
+app.update.cannot_start_installer = δεν είναι δυνατή η εκκίνηση του προγράμματος εγκατάστασης
+app.update.platform_unsupported = οι ενημερώσεις σε αυτή την πλατφόρμα εγκαθίστανται με τον ίδιο τρόπο που εγκαταστάθηκε το Schist
+app.vulkan.no_loader = schist: δεν υπάρχει φορτωτής Vulkan σε αυτό το σύστημα, επομένως δεν υπάρχει τρόπος σχεδίασης.\n\nΤο Schist αποδίδει μέσω Vulkan και το `libvulkan.so.1` δεν είναι εγκατεστημένο.\nΧρειάζονται τόσο ο φορτωτής όσο και ένα πρόγραμμα οδήγησης:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: το πρόγραμμα οδήγησης Vulkan στο οποίο παραπέμπει αυτή η συνεδρία δεν υπάρχει.\n\nΗ μεταβλητή {var} έχει οριστεί και η ρύθμισή της *αντικαθιστά* την αναζήτηση\nπρογραμμάτων οδήγησης από τον φορτωτή αντί να προσθέτει σε αυτήν. Επομένως αυτά τα αρχεία, που δεν υπάρχουν,\nαποτελούν ολόκληρη τη λίστα προγραμμάτων οδήγησης — και κανένα πρόγραμμα Vulkan σε αυτή τη συνεδρία\nδεν βλέπει πρόγραμμα οδήγησης, όσα κι αν είναι εγκατεστημένα:\n\n{missing}\n    {var}={value}\n\nΚατευθύνετέ τη σε ένα υπαρκτό αρχείο δήλωσης — τα εγκατεστημένα προγράμματα οδήγησης τοποθετούν τα δικά τους στο\n/usr/share/vulkan/icd.d — ή καταργήστε τη ρύθμιση και αφήστε τον φορτωτή να τα εντοπίσει.\nΑν μια συνεδρία τη ρυθμίζει από αρχείο διαμόρφωσης (το `env =` του Hyprland, μια\nκαταχώριση systemd environment.d ή ένα προφίλ κελύφους), η αλλαγή πρέπει να γίνει εκεί\nκαι απαιτεί νέα σύνδεση για να φτάσει σε οτιδήποτε εκτελείται ήδη.\n
+app.vulkan.override_note = \nΗ μεταβλητή {var} έχει οριστεί σε {value} και αυτό αντικαθιστά την αναζήτηση\nτου ίδιου του φορτωτή: αν κανένα από αυτά τα αρχεία δήλωσης δεν αντιστοιχεί σε αυτό το μηχάνημα,\nδοκιμάστε πρώτα να καταργήσετε τη ρύθμισή της.\n
+app.vulkan.no_driver = schist: δεν έχει εγκατασταθεί πρόγραμμα οδήγησης Vulkan, επομένως δεν υπάρχει μέσο απόδοσης.\n\nΤο Schist αποδίδει μέσω Vulkan. Ο φορτωτής είναι εγκατεστημένος και αναφέρει ότι δεν υπάρχει\nπρόγραμμα οδήγησης — κανένα δεν έχει καταχωριστεί σε καμία από τις δύο τοποθεσίες αναζήτησης:\n\n{dirs}\n\nΟ φορτωτής διανέμεται ξεχωριστά από τα προγράμματα οδήγησης, οπότε συνήθως λείπει ένα μόνο πακέτο.\n\nΕγκαταστήστε εκείνο που αντιστοιχεί στη GPU αυτού του μηχανήματος:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nΤο ιδιόκτητο πρόγραμμα οδήγησης της NVIDIA περιλαμβάνει το δικό του (`nvidia-utils` στο Arch,\n`nvidia-driver` στο Debian). Σε εικονικό μηχάνημα ή όπου δεν υπάρχει\nπρόγραμμα οδήγησης GPU προς εγκατάσταση, λειτουργεί ο ραστεροποιητής λογισμικού:\n`vulkan-swrast` στο Arch, μέρος του `mesa-vulkan-drivers` αλλού. Είναι\nαργός, αλλά ξεκινά.\n{overridden}
+app.vulkan.no_device = schist: έχει εγκατασταθεί πρόγραμμα οδήγησης Vulkan, αλλά δεν παρέχει συσκευή για απόδοση.\n\nΤο πρόγραμμα οδήγησης ίσως δεν υποστηρίζει αυτή τη GPU ή δεν μπορεί να την προσπελάσει —\nμέσω SSH ή μέσα σε κοντέινερ, συχνά λείπει το /dev/dri. Η εντολή `vulkaninfo --summary`\nαναφέρει τι βλέπει ο φορτωτής.\n\nΟ ραστεροποιητής λογισμικού αποδίδει χωρίς καθόλου GPU, αν το μηχάνημα δεν διαθέτει GPU:\n`vulkan-swrast` στο Arch, μέρος του `mesa-vulkan-drivers`\nστο Debian και το Fedora.\n
+app.vulkan.skip_hint = Για να ξεκινήσετε το Schist ούτως ή άλλως και να το αφήσετε να αποτύχει με τον δικό του τρόπο, ορίστε {var}=1.

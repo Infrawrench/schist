@@ -1,0 +1,27 @@
+# Selection tools.
+tool.select.mode.subtract = Drag frá
+tool.select.mode.intersect = Skering
+tool.marquee.rect.name = Rætthyrnt val
+tool.marquee.rect.description = Drag eitt rætthyrnt val út. Shift í byrjanini av draginum leggur afturat valinum, Alt dregur frá, og bæði geva skering; Shift meðan drigið verður ger tað ferningslagað. Eitt klikk uttan drag tekur valið burtur.
+tool.marquee.ellipse.name = Ellipsulagað val
+tool.marquee.ellipse.description = Drag eitt ellipsulagað val út við somu samanlegging við Shift/Alt sum fyri rætthyrnda valið.
+tool.lasso.name = Lasso
+tool.lasso.description = Drag eina fríhondsútlínu; valið verður latið aftur millum endarnar, tá dragið endar. Shift leggur afturat, Alt dregur frá.
+tool.lasso.history.select = Lassoval
+tool.lasso.polygonal.name = Marghyrningslasso
+tool.lasso.polygonal.description = Klikka horn fyri horn fyri at gera eitt val við beinum kantum, og klikka nær fyrsta punktinum fyri at lata tað aftur.
+tool.lasso.polygonal.history.select = Marghyrningslasso
+tool.lasso.magnetic.name = Magnetlasso
+tool.lasso.magnetic.description = Fylg einum kanti leysliga, so festir útlínan seg at sterkasta kontrastinum nær ferlinum.
+tool.lasso.magnetic.history.select = Magnetlasso
+tool.lasso.magnetic.option.frequency = Títtleiki
+tool.wand.name = Gandastavur
+tool.wand.description = Klikka fyri at velja samanhangandi økið við líknandi liti undir vísaranum, innan vikamarkið — sama vikamark sum Víðka, Líknandi og Litaøki lesa.
+tool.wand.option.contiguous = Samanhangandi
+tool.wand.history.select = Gandastavur
+tool.quick_select.name = Skjótval
+tool.quick_select.description = Mála yvir eitt øki, so veksur valið gjøgnum líknandi myndadeplar, ið pensilin fer yvir.
+tool.quick_select.history.select = Skjótval
+tool.object_select.name = Lutaval
+tool.object_select.description = Drag ein kassa rundan um ein lut, so festir valið seg at lutinum, sum verður funnin inni í honum.
+tool.object_select.history.select = Lutaval

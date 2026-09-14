@@ -1,0 +1,40 @@
+# Responsas de la barra d'estat
+workspace.canvas.rotate_view_degrees = Virar la vista de {degrees}°
+workspace.canvas.view_reset = Vista reïnicializada
+workspace.canvas.notes_on = Nòtas activadas
+workspace.canvas.notes_off = Nòtas desactivadas
+workspace.canvas.rulers_on = Règlas activadas
+workspace.canvas.rulers_off = Règlas desactivadas
+workspace.canvas.grid_on = Grasilha activada
+workspace.canvas.grid_off = Grasilha desactivada
+workspace.canvas.guides_on = Guidas activats
+workspace.canvas.guides_off = Guidas desactivats
+workspace.canvas.extras_on = Suplements activats
+workspace.canvas.extras_off = Suplements desactivats
+workspace.canvas.snap_on = Alinhament automatic activat
+workspace.canvas.snap_off = Alinhament automatic desactivat
+workspace.canvas.guides_cleared = Guidas escafats
+workspace.canvas.no_path = Cap de camin d'utilizar
+workspace.canvas.path_empty = Lo camin es void
+workspace.canvas.stroke_needs_selection = Lo traçat de contorn requerís una seleccion
+workspace.canvas.nothing_to_stroke = Pas res que se pòsca contornejar
+workspace.canvas.content_aware_fill_needs_selection = L'emplenatge adaptat al contengut requerís una seleccion
+workspace.canvas.content_aware_fill_needs_pixel_layer = L'emplenatge adaptat al contengut requerís un calc de pixèls
+workspace.canvas.color_range_needs_pixel_layer = La plaja de colors requerís un calc de pixèls
+workspace.canvas.nothing_to_adjust = Pas res d'ajustar
+workspace.canvas.nothing_to_trim = Pas cap de bòrd de levar
+workspace.canvas.trimmed = Bòrds levats
+workspace.canvas.indexed_not_supported = La color indexada es pas encara presa en carga
+workspace.canvas.opacity_percent = Opacitat : {n}%
+
+# Entradas del panèl Istoric
+workspace.history.stroke = Traçat
+workspace.history.fill = Emplenatge
+workspace.history.content_aware_scale = Mesa a l'escala adaptada al contengut
+workspace.history.filter_gallery = Galariá de filtres
+workspace.history.color_range = Plaja de colors
+workspace.history.move_layer = Desplaçar lo calc
+workspace.history.move_layers = Desplaçar los calques
+workspace.history.layer_opacity = Opacitat del calc
+workspace.history.delete_note = Suprimir la nòta
+workspace.history.edit_note = Modificar la nòta

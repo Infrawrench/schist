@@ -1,0 +1,72 @@
+tool.brush.name = Uburoso
+tool.brush.description = Siga umurongo woroshye ku nkengero mu ibara ry'imbere, ufite ingano, ugukomera no kutabonerana by'uburoso bw'igihindura.
+tool.brush.history.stroke = Uburoso
+
+tool.pencil.name = Ikaramu y'igiti
+tool.pencil.description = Siga umurongo ukomeye ku nkengero kandi udanojejwe mu ibara ry'imbere.
+tool.pencil.history.stroke = Ikaramu y'igiti
+
+tool.eraser.name = Igihanagura
+tool.eraser.description = Siba unyuze ku murongo, usubize urwego ku kubonerana.
+tool.eraser.history.stroke = Igihanagura
+
+tool.clone.name = Kashe yigana
+tool.clone.description = Kashe yigana: kanda ukoresheje Alt ushyireho akadomo k'inkomoko, hanyuma usige pikisele zikoporowe kuri ko kadomo ziri kuri iyo ntera.
+tool.clone.history.stroke = Kashe yigana
+
+tool.dodge.name = Kumurika
+tool.dodge.description = Murika pikisele umurongo unyuraho.
+tool.dodge.history.stroke = Kumurika
+tool.burn.name = Kwijimisha
+tool.burn.description = Jimisha pikisele umurongo unyuraho.
+tool.burn.history.stroke = Kwijimisha
+tool.sponge.name = Siponji
+tool.sponge.description = Ongera cyangwa ugabanye ubukana bw'ibara rya pikisele umurongo unyuraho.
+tool.sponge.history.stroke = Siponji
+
+tool.blur.name = Gupfubya ubutyare
+tool.blur.description = Pfubya ubutyare bwa pikisele umurongo unyuraho.
+tool.blur.history.stroke = Gupfubya ubutyare
+tool.sharpen.name = Gutyaza
+tool.sharpen.description = Tyaza pikisele umurongo unyuraho.
+tool.sharpen.history.stroke = Gutyaza
+tool.smudge.name = Gusiga ukurura
+tool.smudge.description = Kurura ibara ukurikije umurongo nk'aho usunika irangi ritose.
+tool.smudge.history.stroke = Gusiga ukurura
+
+tool.heal.name = Uburoso busana
+tool.heal.description = Uburoso busana: kanda ukoresheje Alt ushyireho inkomoko, hanyuma usige; imiterere y'inkomoko ivangwa n'ibara n'urumuri by'aho usiga.
+tool.heal.history.stroke = Uburoso busana
+tool.spot_heal.name = Uburoso busana utunenge
+tool.spot_heal.description = Uburoso busana utunenge: siga hejuru y'inenge, maze risimbuzwe imiterere yakuwe hafi yaryo — nta kadomo k'inkomoko ugomba gushyiraho.
+tool.spot_heal.history.stroke = Uburoso busana utunenge
+
+tool.history_brush.name = Uburoso bw'amateka
+tool.history_brush.description = Siga pikisele uzikure mu ishusho yabitswe mu mateka y'inyandiko, usubize inyuma ibyakozwe nyuma umurongo ku wundi.
+tool.history_brush.history.stroke = Uburoso bw'amateka
+
+tool.background_eraser.name = Igihanagura inyuma
+tool.background_eraser.description = Siba ibara ryafashwe munsi ya hagati y'uburoso, usige pikisele zidasa na ryo, kugira ngo ukure ikintu ku ibara ry'inyuma.
+tool.background_eraser.history.stroke = Igihanagura inyuma
+
+tool.gradient.name = Urukurikirane rw'amabara
+tool.gradient.description = Kurura wuzuze urwego — unyuze mu byatoranyijwe iyo bihari — urukurikirane rugororotse ruva ku ibara ry'imbere rukagera ku ibara ry'inyuma mu cyerekezo cyo gukurura.
+tool.gradient.radial.name = Urukurikirane rw'amabara ruzengurutse
+tool.gradient.radial.description = Kurura uhereye hagati ujya hanze kugira ngo wuzuze urukurikirane ruzengurutse hagati y'ibara ry'imbere n'iry'inyuma.
+tool.gradient.option.gradient = Urukurikirane rw'amabara
+tool.gradient.option.reverse = Guhindukiza
+tool.gradient.option.dither = Kuvanga utudomo tw'amabara
+tool.gradient.choice.foreground_to_background = Ibara ry'imbere rijya ku ry'inyuma
+tool.gradient.choice.foreground_to_transparent = Ibara ry'imbere rijya ku bibonerana
+tool.gradient.choice.linear = Rugororotse
+tool.gradient.choice.radial = Ruzengurutse
+tool.gradient.choice.angle = Inguni
+tool.gradient.choice.reflected = Rugaruka
+tool.gradient.choice.diamond = Diyama
+tool.gradient.history.gradient = Urukurikirane rw'amabara
+
+tool.bucket.name = Indobo y'irangi
+tool.bucket.description = Kanda wuzuze agace gahujwe k'ibara risa kari munsi y'akadomo ukoresheje ibara ry'imbere, mu rugero igikoresho cyemera.
+tool.bucket.option.contiguous = Bihurirana
+tool.bucket.option.all_layers = Inzego zose
+tool.bucket.history.fill = Indobo y'irangi

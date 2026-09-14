@@ -1,0 +1,25 @@
+tool.transform.name = Kusintha Momasuka
+tool.transform.description = Kusintha Momasuka. Mukachiyambitsa, bokosi losinthira limatseguka kuzungulira layer yogwira ntchito: kokani kona kuti musinthe kukula, kokani kunja kwa kona kuti mutembenuze, ndipo kokani m'mphepete kuti mupendeketse. Palibe chomwe chimalembedwa mpaka mutsimikize (Enter), ndipo mukaletsa (Escape) layer imabwerera mmene inalili.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Kusintha Momasuka
+tool.transform.history.image_size = Kukula kwa Chithunzi
+tool.transform.history.canvas_size = Kukula kwa Canvas
+
+tool.transform.selection.name = Sinthani Malo Osankhidwa
+tool.transform.selection.description = Sinthani Malo Osankhidwa: bokosi lomwelo limasuntha malire a malo osankhidwa m'malo mwa ma pixel amene ali mkati mwake. Tsimikizani kapena letsani kuti mumalize.
+tool.transform.selection.history.transform = Sinthani Malo Osankhidwa
+
+tool.transform.resample.nearest_neighbor = Nearest Neighbor
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+tool.crop.name = Dulani
+tool.crop.description = Kokani kuti musankhe dera losunga ndi kusintha zogwirira zake; kutsimikiza (Enter) kumadula chikalata kuti chikhale deralo, ndipo kuletsa (Escape) kumachisiya mmene chilili.
+tool.crop.option.ratio = Chiŵerengero
+tool.crop.option.delete_cropped = Chotsani Ma Pixel Odulidwa
+tool.crop.choice.unconstrained = Yopanda Malire
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Dulani

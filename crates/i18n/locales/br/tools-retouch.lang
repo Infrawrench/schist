@@ -1,0 +1,24 @@
+# Binvioù adtouchañ rannvroioù.
+tool.patch.name = Pezh
+tool.patch.description = Tresit un dro-linenn en ur riklañ tro-dro d'un defot, ha riklit an diuzadenn war pikselioù glan: gwiad ar re-se a vez azasaet d'an defot. Mod ar Pezh a zibab peseurt penn eus ar re zaou a riklit.
+tool.patch.option.patch = Pezh
+tool.patch.choice.source = Tarzh
+tool.patch.choice.destination = Pal
+tool.patch.history.patch = Pezh
+
+tool.content_aware_move.name = Dilec'hiañ hervez an endalc'had
+tool.content_aware_move.description = Riklit un dra diuzet betek ul lec'h all hag an toull lezet gantañ a vez leuniet diwar e endro. Er mod Astenn e vez astennet an dra e-lec'h bezañ dilec'hiet.
+tool.content_aware_move.choice.move = Dilec'hiañ
+tool.content_aware_move.choice.extend = Astenn
+tool.content_aware_move.history.move = Dilec'hiañ hervez an endalc'had
+
+tool.red_eye.name = Lagad ruz
+tool.red_eye.description = Klikit war ur mab-lagad evit lemel ar ruz degaset gant ar flash.
+tool.red_eye.option.pupil_size = Ment ar mab-lagad
+tool.red_eye.option.darken = Teñvalaat
+tool.red_eye.history.red_eye = Lagad ruz
+
+tool.magic_eraser.name = Diverker hud
+tool.magic_eraser.description = Klikit evit diverkañ ar rann o deus ul liv heñvel dindan ar biz, e-barzh gouzañv ar benveg — kenstag ouzh ar c'hlik, pe e pep lec'h er gwiskad.
+tool.magic_eraser.option.contiguous = Kenstag
+tool.magic_eraser.history.erase = Diverkañ hud

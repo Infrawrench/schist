@@ -1,0 +1,360 @@
+# تصويرن جي گيلري
+
+# پاسي واري پٽي
+library.sidebar.view = ڏيک
+library.sidebar.folders = فولڊر
+library.sidebar.buckets = بڪيٽ
+library.sidebar.people = ماڻهو
+library.sidebar.group_by = هن موجب گروپ ڪريو
+library.sidebar.all_photos = سڀ تصويرون
+library.sidebar.world_map = دنيا جو نقشو
+library.sidebar.map_filter = نقشي جو فلٽر…
+library.sidebar.map_filter_on = نقشي جو فلٽر چالو
+library.sidebar.add_folder = + فولڊر شامل ڪريو…
+library.sidebar.new_bucket = + نئون بڪيٽ
+library.sidebar.stop_watching = هن فولڊر تي نظر رکڻ بند ڪريو
+library.sidebar.unnamed_faces = بنا نالي چهرا
+library.sidebar.retry_face_model = چهري جو ماڊل ٻيهر ڊائون لوڊ ڪريو
+library.sidebar.retry_recognition_model = سڃاڻپ جو ماڊل ٻيهر ڊائون لوڊ ڪريو
+library.sidebar.looking_for_faces = چهرا ڳوليا پيا وڃن… {looked}/{total}
+library.sidebar.faces_appear = تصويرن جي فهرست ٺهڻ سان چهرا هتي ظاهر ٿيندا.
+library.sidebar.downloading_face_models = چهري جا ماڊل ڊائون لوڊ ٿي رهيا آهن… {total} MB مان {got}
+
+# گرڊ جي گروپ بندي
+library.group_by.date = تاريخ
+library.group_by.folder = فولڊر
+library.group_by.place = هنڌ
+
+# مهينن جا عنوان
+library.month.january = جنوري
+library.month.february = فيبروري
+library.month.march = مارچ
+library.month.april = اپريل
+library.month.may = مئي
+library.month.june = جون
+library.month.july = جولاءِ
+library.month.august = آگسٽ
+library.month.september = سيپٽمبر
+library.month.october = آڪٽوبر
+library.month.november = نومبر
+library.month.december = ڊسمبر
+library.month.title = {month} {year}
+library.month.undated = بنا تاريخ
+
+# گروپ جا عنوان
+library.group.person = ماڻهو · {name}
+library.group.person_in = ماڻهو · {name} · {scope} ۾
+library.group.unnamed = بنا نالي چهرا
+library.group.unnamed_in = بنا نالي چهرا · {scope} ۾
+library.group.bucket = بڪيٽ · {name}
+library.group.no_location = ڪو هنڌ ناهي
+library.group.not_indexed = اڃا فهرست ۾ شامل ناهي
+library.group.detail = {detail} — {n}
+
+# مٿين پٽي
+library.strip.import = درآمد ڪريو…
+library.strip.add_folder = فولڊر شامل ڪريو…
+library.strip.settings = ترتيبون…
+library.strip.new_file = نئون فائيل…
+library.strip.back_to_editing = سنوارڻ ڏانهن واپس
+library.strip.enable_search = تصويرن جي ڳولا چالو ڪريو…
+library.strip.enable_search_menu = تصويرن جي ڳولا چالو ڪريو…
+library.strip.map_filter_chip = نقشي جو فلٽر: {name}
+library.strip.downloading_search = تصويرن جي ڳولا ڊائون لوڊ ٿي رهي آهي… {total} MB مان {got}
+
+# ڳولا خانو
+library.search.placeholder = تصويرون ڳوليو…
+library.search.placeholder_indexing = ڳولا ({total} مان {indexed} فهرست ۾)
+library.search.placeholder_people_places = ماڻهو ۽ هنڌ ڳوليو…
+library.search.results = ڳولا جا نتيجا
+library.search.results_in_bucket = بڪيٽ · {name} · ڳولا جا نتيجا
+library.search.near = {place} جي ويجهو
+library.search.with = {names} سان
+
+# ٽري ۽ خانا
+library.tray.view = ڏسو
+library.tray.edited_note = سنواريل — ورزن فائيل جي ڀرسان رکيل
+library.tray.n_hidden.one = مواد جي فلٽر سبب {n} لڪل
+library.tray.n_hidden.other = مواد جي فلٽر سبب {n} لڪل
+library.cell.no_preview = ڪا اڳ ڏيک ناهي
+library.cell.edited = سنواريل
+library.gallery.loading = تصويرون لوڊ ٿي رهيون آهن…
+
+# ڀليڪار اسڪرين
+library.welcome.title = Schist ۾ ڀليڪار
+library.welcome.intro = تصويرن جي فولڊرن تي نظر رکو، يا ڪئميرا مان درآمد ڪريو. فائيل پنهنجي جاءِ تي رهن ٿا؛ ترميمون انهن جي ڀرسان ورزنن طور رکجن ٿيون:
+library.welcome.intro_ios = پنهنجي لائبريري مان تصويرون درآمد ڪريو، يا Files مان فولڊر شامل ڪريو. ترميمون هر تصوير جي ڀرسان ورزنن طور رکجن ٿيون:
+library.welcome.or_open = يا سنوارڻ لاءِ تصوير کوليو:
+library.welcome.shortcut_mac = توهان جيڪو به سنواري رهيا هجو، گيلري هميشه ⌘⇧G سان کلي ٿي.
+library.welcome.shortcut = توهان جيڪو به سنواري رهيا هجو، گيلري هميشه Ctrl+Shift+G سان کلي ٿي.
+
+# خالي گرڊ جا سبب
+library.gallery.empty_bucket_search = هن بڪيٽ ۾ ڪا شيءِ ڳولا سان نٿي ملي. Escape سان ڳولا صاف ڪري سڄو بڪيٽ ڏيکاريو.
+library.gallery.empty_search = ڪا شيءِ ڳولا سان نٿي ملي. Escape سان ڳولا صاف ڪريو.
+library.gallery.empty_smart_bucket = اڃا ڪا شيءِ هن بڪيٽ جي قاعدي سان نٿي ملي — تصويرن جي فهرست ٺهڻ سان ملندڙ تصويرون ظاهر ٿينديون. تصويرون ڇڪي وجهڻ سان به شامل ٿين ٿيون.
+library.gallery.empty_bucket = هي بڪيٽ خالي آهي. تصويرون شامل ڪرڻ لاءِ انهن کي پاسي واري پٽي ۾ ان جي قطار تي ڇڪي ڇڏيو.
+library.gallery.empty_person = هتي اڃا ڪجهه ناهي. تصويرن جي فهرست ٺهڻ سان چهرا ظاهر ٿيندا؛ ڪنهن تصوير ۽ پوءِ چهري تي ڪلڪ ڪري ٻڌايو ته اهو ڪير آهي.
+library.gallery.scanning = فولڊر اسڪين ٿي رهيا آهن…
+library.gallery.empty = نظر هيٺ فولڊرن ۾ ڪا تصوير نه ملي. Schist جيڪي تصويرون کولي سگهي ٿو (PNG، JPEG، WebP، TIFF، HEIC، ڪئميرا را، PSD، Affinity) سي هتي ظاهر ٿينديون؛ ذيلي فولڊر ڇهن درجن تائين اسڪين ٿين ٿا.
+
+# بڪيٽ
+library.bucket.default_name = بڪيٽ {n}
+library.bucket.rule_matches = “{query}” سان ملي ٿو
+library.bucket.rule_taken_in = {name} ۾ ورتل
+library.bucket.new_title = نئون بڪيٽ
+library.bucket.edit_title = بڪيٽ سنواريو
+library.bucket.new_cloud_title = نئون ڪلائوڊ بڪيٽ
+library.bucket.edit_cloud_title = ڪلائوڊ بڪيٽ سنواريو
+library.bucket.create = ٺاهيو
+library.bucket.query_placeholder = مثال: سمنڊ ڪناري ڪتو (اختياري)
+library.bucket.the_drawn_area = ٺاهيل علائقو
+library.bucket.area_help = علائقو شامل ڪرڻ لاءِ نقشي تي Shift سان ڇڪيو (يا اڳواٽ چونڊيو)؛ تمام ننڍو ڇڪڻ ان کي صاف ڪري ٿو. قاعدا بڪيٽ کي پاڻمرادو ڀريل رکن ٿا.
+library.bucket.rule_none = ڪو قاعدو ناهي: عام بڪيٽ، جنهن ۾ تصويرون ڇڪي ڀريون وڃن ٿيون.
+library.bucket.rule_query = “{query}” سان ملندڙ هر تصوير رکي ٿو.
+library.bucket.rule_area = {area} ۾ ورتل هر تصوير رکي ٿو.
+library.bucket.rule_query_area = {area} ۾ ورتل، “{query}” سان ملندڙ هر تصوير رکي ٿو.
+library.bucket.starts_with.one = شروعات ۾ چونڊيل تصوير رکي ٿو.
+library.bucket.starts_with.other = شروعات ۾ چونڊيل {n} تصويرون رکي ٿو.
+
+# دنيا جو نقشو
+library.map.status = نقشي تي {located} تصويرون · {unlocated} بنا هنڌ
+library.map.reading_locations = هنڌ پڙهيا پيا وڃن: {n} باقي
+library.map.reset_view = ڏيک موٽايو
+library.map.no_photos = هن ڏيک ۾ GPS هنڌ واري ڪا تصوير ناهي. جيوٽيگ ٿيل تصويرون شامل ڪريو يا گيلري جا فلٽر بدلايو.
+library.map.no_photos_cloud = هتي GPS هنڌ واري ڪا تصوير ناهي. ٻيو فولڊر يا بڪيٽ چونڊيو، يا ڳولا صاف ڪريو.
+library.map.hint = چرڻ لاءِ ڇڪيو · زوم لاءِ اسڪرول ڪريو · تصويرون ڏسڻ لاءِ نشان تي ڪلڪ ڪريو · سنوارڻ لاءِ تصوير تي ٻيڻو ڪلڪ ڪريو
+library.map.n_at_marker.one = هن نشان وٽ {n} تصوير
+library.map.n_at_marker.other = هن نشان وٽ {n} تصويرون
+library.map.n_in_marker.one = هن نشان ۾ {n} تصوير
+library.map.n_in_marker.other = هن نشان ۾ {n} تصويرون
+library.map.attribution = © OpenStreetMap ڀاڱيدار
+
+# حد جو ايڊيٽر
+library.map.draw_area = علائقو ٺاهيو
+library.map.drawing = ٺاهيو پيو وڃي…
+library.map.clear_boundary = حد صاف ڪريو
+library.map.editor_hint = ڇڪڻ سان نقشو چري ٿو · اسڪرول سان زوم ٿئي ٿو · shift سان ڇڪڻ علائقو ٺاهي ٿو
+
+# نقشي جو فلٽر
+library.map_filter.title = نقشي جو فلٽر
+library.map_filter.drawn_area = ٺاهيل علائقو
+library.map_filter.apply_named = لاڳو ڪريو سان رڳو {name} ۾ ورتل تصويرون ڏيکارجن ٿيون؛ EXIF هنڌ کان سواءِ تصويرون لڪي وڃن ٿيون.
+library.map_filter.apply_drawn = لاڳو ڪريو سان رڳو {south}°، {west}° کان {north}°، {east}° جي اندر ورتل تصويرون ڏيکارجن ٿيون؛ EXIF هنڌ کان سواءِ تصويرون لڪي وڃن ٿيون.
+library.map_filter.draw_first = حد ٺاهيو (Shift سان ڇڪيو يا اڳواٽ چِپ چونڊيو)، پوءِ لاڳو ڪريو. ڪجهه ٺاهڻ کان سواءِ لاڳو ڪرڻ سان فلٽر بند ٿئي ٿو.
+library.map_filter.turn_off = فلٽر بند ڪريو
+
+# ڪئميرا مان درآمد
+library.import.title = ڪئميرا مان درآمد ڪريو
+library.import.from = {name} مان درآمد ڪريو
+library.import.no_cameras = ڪا ڪئميرا نه ملي.
+library.import.no_cameras_help = ڪئميرا، ميموري ڪارڊ يا iPhone لڳايو. iPhone جون تصويرون ظاهر ٿيڻ کان اڳ اهو کليل هجي ۽ Trust This Computer جو جواب ڏنل هجي — ائين ڪري ٿورو ترسو ۽ ٻيهر اسڪين ڪريو دٻايو. ڊسڪ طور لڳندڙ DCIM فولڊر واري هر شيءِ به ڳڻجي ٿي.
+library.import.scan_again = ٻيهر اسڪين ڪريو
+library.import.pick_source = هڪ کان وڌيڪ ڪئميرائون دستياب آهن. هن مان درآمد ڪريو:
+library.import.via_image_capture = Image Capture وسيلي
+library.import.boundary_named = حد: {name} — رڳو اهي تصويرون درآمد ٿينديون جن جو EXIF هنڌ ان جي اندر اچي؛ بنا هنڌ تصويرون ڪئميرا تي رهنديون.
+library.import.boundary_drawn = حد: {south}°، {west}° کان {north}°، {east}° — رڳو اهي تصويرون درآمد ٿينديون جن جو EXIF هنڌ ان جي اندر اچي؛ بنا هنڌ تصويرون ڪئميرا تي رهنديون.
+library.import.no_boundary = ڪا حد ناهي — ڪئميرا تي موجود هر شيءِ درآمد ٿيندي.
+library.import.destination = ~/Pictures/Schist Imports/{name} ۾ — اڳ درآمد ٿيل فائيل ڇڏيا وڃن ٿا، تنهنڪري ٻيهر هلائڻ محفوظ آهي.
+library.import.selected_area = چونڊيل علائقو
+library.import.locked_help = جيڪڏهن ڊوائيس لاڪ آهي: ان کي کوليو، پڇڻ تي Trust This Computer تي ٽيپ ڪريو، لڳل رهڻ ڏيو ۽ ٻيهر ڪوشش ڪريو.
+library.import.try_again = ٻيهر ڪوشش ڪريو
+library.import.add_to_gallery = گيلري ۾ شامل ڪريو
+
+# درآمد جي حالت
+library.import.needs_home = درآمد لاءِ نقل ڪرڻ واسطي هوم ڊائريڪٽري گهرجي
+library.import.importing_from = {source} مان درآمد ٿي رهيو آهي…
+library.import.importing_in_place = {source} مان {place} ۾ ورتل تصويرون درآمد ٿي رهيون آهن…
+library.import.device_macos_only = ڊوائيس مان سڌي درآمد رڳو macOS ۾ آهي
+library.import.failed = درآمد ناڪام: {error}
+library.import.from_failed = {name} مان درآمد ناڪام
+library.import.locked = {name} لاڪ ٿيل آهي — ان کي کوليو ۽ جاري رکڻ لاءِ Trust تي ٽيپ ڪريو
+library.import.reading_catalog = {name} جي تصويرن جي فهرست پڙهي پئي وڃي…
+library.import.progress_from = {name} مان تصوير {n}/{total} درآمد ٿي رهي آهي…
+library.import.progress = فائيل {n}/{total} درآمد ٿي رهيو آهي…
+library.import.choose_photos = درآمد لاءِ تصويرون ۽ وڊيو چونڊيو…
+library.import.photos_open_failed = تصويرن جي لائبريري کولي نه سگهي: {error}
+library.import.done.one = {n} فائيل {dest} ۾ درآمد ٿيو
+library.import.done.other = {n} فائيل {dest} ۾ درآمد ٿيا
+library.import.done_in_place.one = {place} ۾ ورتل {n} تصوير {dest} ۾ درآمد ٿي؛ ڪئميرا تي رهندڙ، ٻئي هنڌ ورتل يا بنا EXIF هنڌ تصويرن جو انگ: {filtered}
+library.import.done_in_place.other = {place} ۾ ورتل {n} تصويرون {dest} ۾ درآمد ٿيون؛ ڪئميرا تي رهندڙ، ٻئي هنڌ ورتل يا بنا EXIF هنڌ تصويرن جو انگ: {filtered}
+library.import.n_failed.one = {n} ناڪام
+library.import.n_failed.other = {n} ناڪام
+library.import.no_dcim = {source} تي DCIM فولڊر ناهي
+library.import.already_running = درآمد اڳ ئي هلي رهي آهي
+library.import.camera_gone = اها ڪئميرا هاڻي ڳنڍيل ناهي
+library.import.camera_disconnected = درآمد جي وچ ۾ ڪئميرا ڌار ٿي وئي
+library.import.unknown_error = اڻڄاتل غلطي
+library.import.picker_needs_ios14 = تصوير چونڊيندڙ لاءِ iOS 14 يا پوءِ وارو نسخو گهرجي
+library.import.picker_unavailable = تصوير چونڊيندڙ دستياب ناهي
+library.import.no_window = چونڊيندڙ ڏيکارڻ لاءِ ڪا ونڊو ناهي
+
+# ڪئميرا واليوم جا نالا
+library.volume.iphone = iPhone يا iPad
+library.volume.camera = ڪئميرا
+library.volume.phone = فون
+
+# فولڊر ٽيبن ۾ کولڻ
+library.open_folder.opened.one = {n} تصوير کولي وئي
+library.open_folder.opened.other = {n} تصويرون کوليون ويون
+library.open_folder.opened_first = {total} تصويرن مان پهريون {n} کوليون ويون — باقي گيلري ۾ آهن
+
+# تصوير ڳولڻ جا ماڊل
+library.search_models.title = تصويرن جي ڳولا
+library.search_models.intro = تصويرن ۾ موجود شين موجب ڳولڻ لاءِ ٻه ماڊل گهربل آهن، جيڪي هڪ ڀيرو ڊائون لوڊ ٿي هن مشين تي رهن ٿا. اهي مقامي طور هلن ٿا: ڪا به تصوير هن مشين کان ٻاهر ڪڏهن نٿي وڃي.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = Apple جو MobileCLIP
+library.search_models.export = Xenova جي ONNX برآمد
+library.search_models.license = لائسنس
+library.search_models.download_note = ڊائون لوڊ ڪرڻ سان ٻئي ماڊل انسٽال ٿين ٿا (ڪل {mb} MB) ۽ انهن ٻنهي جا الڳ لائسنس قبول ٿين ٿا. انهن کي وري گيلري ▸ ماڊل سنڀاليو… مان هٽائي سگهجي ٿو.
+library.search_models.agree = قبول ڪري ڊائون لوڊ ڪريو
+
+# ساڄي ڪلڪ وارو مينيو
+library.menu.add_all_to = سڀ {name} ۾ شامل ڪريو
+library.menu.add_all_to_new_bucket = سڀ نئين بڪيٽ ۾ شامل ڪريو…
+library.menu.edit_n_in_tabs = {n} کي ٽيبن ۾ سنواريو
+library.menu.view_name_people = ماڻهو ڏسو ۽ نالا ڏيو
+library.menu.reveal = فائيل مئنيجر ۾ ڏيکاريو
+library.menu.add_to = {name} ۾ شامل ڪريو
+library.menu.add_to_new_bucket = نئين بڪيٽ ۾ شامل ڪريو
+library.menu.remove_from_bucket = هن بڪيٽ مان هٽايو
+library.menu.save_n_as_zip = {n} کي ZIP طور محفوظ ڪريو…
+library.menu.save_image_as = تصوير هن نالي سان محفوظ ڪريو…
+library.menu.process = عمل ڪريو…
+library.menu.process_n = {n} تصويرن تي عمل ڪريو…
+library.menu.move_to_folder = فولڊر ڏانهن منتقل ڪريو…
+library.menu.move_n_to_folder = {n} کي فولڊر ڏانهن منتقل ڪريو…
+library.menu.revert = اصل ڏانهن موٽايو
+library.menu.revert_n = {n} کي سندن اصل ڏانهن موٽايو
+library.menu.upload_to_cloud = Schist Cloud تي اپ لوڊ ڪريو…
+library.menu.watch_local_folder = هن ڪمپيوٽر تي فولڊر تي نظر رکو…
+library.menu.new_cloud_folder = {glyph} نئون Schist Cloud فولڊر…
+library.menu.new_local_bucket = هن ڪمپيوٽر تي نئون بڪيٽ…
+library.menu.new_cloud_bucket = {glyph} نئون Schist Cloud بڪيٽ…
+library.menu.edit_bucket = بڪيٽ سنواريو…
+library.menu.select_all_n = سڀ چونڊيو ({n})
+library.menu.save_all_as_zip = سڀ ZIP طور محفوظ ڪريو… ({n})
+library.menu.process_all = سڀني تي عمل ڪريو… ({n})
+library.menu.move_all_to_folder = سڀ فولڊر ڏانهن منتقل ڪريو…
+library.menu.clear_added = شامل ڪيل تصويرون صاف ڪريو
+library.menu.clear_bucket = بڪيٽ صاف ڪريو
+library.menu.delete_bucket = بڪيٽ ڊاهي ڇڏيو
+library.menu.show_person = {name} ڏيکاريو
+library.menu.rename_person = نالو بدلايو…
+library.menu.forget_person.one = ماڻهو وساريو ({n} چهرو)
+library.menu.forget_person.other = ماڻهو وساريو ({n} چهرا)
+
+# منتقل ڪرڻ، ZIP، محفوظ ڪرڻ ۽ عمل
+library.ops.moving.one = {n} تصوير {dest} ڏانهن منتقل ٿي رهي آهي…
+library.ops.moving.other = {n} تصويرون {dest} ڏانهن منتقل ٿي رهيون آهن…
+library.ops.moved.one = {n} تصوير {dest} ڏانهن منتقل ٿي
+library.ops.moved.other = {n} تصويرون {dest} ڏانهن منتقل ٿيون
+library.ops.moved_partial = {total} تصويرن مان {n}، {dest} ڏانهن منتقل ٿيون — باقي لاگ ۾ آهن
+library.ops.move_here = هتي منتقل ڪريو
+library.ops.no_export_format = هتي ڪو فارميٽ تصوير محفوظ نٿو ڪري سگهي
+library.ops.saved_size = {name} محفوظ ٿي ({w} × {h})
+library.ops.save_failed = محفوظ ڪرڻ ناڪام: {error}
+library.ops.opening_first = {total} تصويرن مان پهريون {n} کوليون پيون وڃن — باقي گيلري ۾ آهن
+library.ops.nothing_to_revert = موٽائڻ لاءِ ڪجهه ناهي: انهن مان ڪنهن تصوير ۾ ترميم ناهي
+library.ops.reverted.one = {n} تصوير پنهنجي اصل ڏانهن موٽي — ترميم versions/ هيٺ رکيل آهي
+library.ops.reverted.other = {n} تصويرون پنهنجن اصل ڏانهن موٽيون — هر تصوير جي ترميم versions/ هيٺ رکيل آهي
+library.ops.no_file_name = فائيل جو نالو ناهي
+library.zip.nothing_all_held = ZIP ڪرڻ لاءِ ڪجهه ناهي: مواد جو فلٽر انهن سڀني {n} تصويرن کي ٻاهر رکي ٿو
+library.zip.failed = ZIP ناڪام: {error}
+library.zip.progress = ZIP ٺهي رهي آهي {n}/{total}…
+library.zip.n_held.one = (مواد جي فلٽر سبب {n} ٻاهر رهيل)
+library.zip.n_held.other = (مواد جي فلٽر سبب {n} ٻاهر رهيل)
+library.zip.done.one = {n} تصوير کي ZIP ڪري {dest} ۾ رکيو ويو
+library.zip.done.other = {n} تصويرن کي ZIP ڪري {dest} ۾ رکيو ويو
+library.zip.done_partial = {total} تصويرن مان {n} کي ZIP ڪري {dest} ۾ رکيو ويو — باقي لاگ ۾ آهن
+library.zip.nothing_readable = ZIP ڪرڻ لاءِ ڪجهه به پڙهي نه سگهيو
+library.zip.too_large = zip64 کان سواءِ ZIP لاءِ تمام وڏو آهي
+library.batch.nothing_to_do = ڪرڻ لاءِ ڪجهه ناهي: پهرين ڦيرو، وڏو ڪرڻ يا ڪا ترتيب چونڊيو
+library.batch.save_copies_here = ڪاپيون هتي محفوظ ڪريو
+library.batch.processing.one = {n} تصوير تي عمل ٿي رهيو آهي…
+library.batch.processing.other = {n} تصويرن تي عمل ٿي رهيو آهي…
+library.batch.progress = {n}/{total} تي عمل ٿيو — {name}
+library.batch.failed = عمل ناڪام: {error}
+library.batch.done.one = {n} تصوير تي عمل ٿيو
+library.batch.done.other = {n} تصويرن تي عمل ٿيو
+library.batch.done_partial = {total} تصويرن مان {n} تي عمل ٿيو — باقي لاگ ۾ آهن
+library.batch.model_would_not_load = {name} ماڊل لوڊ نه ٿيو
+library.batch.no_psd_writer = ڪو PSD لکندڙ لوڊ ٿيل ناهي
+
+# ڏسندڙ ۽ ماڻهن جو البم
+library.viewer.back = ‹ تصويرن ڏانهن واپس
+library.viewer.could_not_decode = هي تصوير ڊيڪوڊ نه ٿي سگهي.
+library.viewer.label_auto = {name} · پاڻمرادو
+library.viewer.label_guess = {name}؟
+library.viewer.people_heading = هن تصوير ۾ ماڻهو
+library.viewer.faces_intro = چهرا هڪ ننڍڙي ماڊل سان ڳولجن ٿا جيڪو هڪ ڀيرو ڊائون لوڊ ٿئي ٿو. خانا هٿ سان به ٺاهي سگهجن ٿا.
+library.viewer.looking_for_faces = چهرا ڳوليا پيا وڃن…
+library.viewer.no_faces = ڪو چهرو نه مليو. ڪنهن جي چوڌاري خانو ڇڪي ان کي هٿ سان شامل ڪريو.
+library.viewer.help = نالو ڏيڻ لاءِ چهري تي ڪلڪ ڪريو؛ Enter محفوظ ڪري ٿو. ڊٽيڪٽر کان رهجي ويل چهري کي نشان ڏيڻ لاءِ تصوير تي ڇڪيو. ← → تصويرن وچ ۾ هلن ٿا، Esc واپس وڃي ٿو.
+library.viewer.not_them = هي اهو ماڻهو ناهي
+library.viewer.remove_name = نالو هٽايو
+library.viewer.not_a_face = چهرو ناهي
+library.viewer.auto = پاڻمرادو
+library.viewer.is_this = ڇا هي {name} آهي؟
+library.viewer.someone_else = ڪو ٻيو
+library.viewer.add_name = نالو شامل ڪريو…
+library.viewer.who_is_this = هي ڪير آهي؟
+library.people.rename_title = ماڻهوءَ جو نالو بدلايو
+library.people.merge_warning = ڪنهن جو نالو اڳ ئي “{name}” آهي: محفوظ ڪرڻ سان ٻئي گڏ ٿي ويندا.
+library.people.merge_note = اهڙو نالو رکڻ جيڪو اڳ ڪنهن ٻئي جو آهي، ٻنهي ماڻهن کي گڏ ڪري ٿو.
+library.people.named = نالو {name} رکيو ويو
+library.people.named_followed.one = نالو {name} رکيو ويو · وڌيڪ {n} چهرو پاڻمرادو مليو
+library.people.named_followed.other = نالو {name} رکيو ويو · وڌيڪ {n} چهرا پاڻمرادو مليا
+
+# Photos ۾ محفوظ ڪرڻ
+library.photos.saving = Photos ۾ محفوظ ٿي رهيو آهي…
+library.photos.saved = Photos ۾ محفوظ ٿيو
+library.photos.save_failed = Photos ۾ محفوظ ڪرڻ ناڪام: {error}
+library.photos.no_document = ڪو دستاويز کليل ناهي
+library.photos.no_png_codec = PNG ڪوڊيڪ لوڊ ٿيل ناهي
+library.photos.no_answer = تصويرن جي لائبريري جواب نه ڏنو
+library.photos.bad_url = فائيل جي واٽ کي URL بڻائي نه سگهيو
+library.photos.unavailable = تصويرن جي لائبريري دستياب ناهي
+library.photos.declined = تصويرن جي لائبريري انڪار ڪيو
+
+# ايپ ۾ ونڊيل فائيل
+library.shared.needs_documents = گيلري کي نقل ڪرڻ لاءِ Documents فولڊر گهرجي
+library.shared.added.one = {n} تصوير گيلري ۾ شامل ٿي
+library.shared.added.other = {n} تصويرون گيلري ۾ شامل ٿيون
+library.shared.open_needs_documents = کولڻ لاءِ نقل ڪرڻ واسطي Documents فولڊر گهرجي
+library.shared.could_not_open = {name} کولي نه سگهيو: {error}
+
+# ڊيسڪٽاپ وڊيو اڳ ڏيک ۽ فريم وٺڻ
+video.invalid_file = هي مقامي وڊيو فائيل ناهي.
+video.install_gstreamer = وڊيو اڳ ڏيک لاءِ GStreamer 1.x ۽ وڊيو ڊيڪوڊر پلگ-اِن گهربل آهن. اهي انسٽال ڪري وڊيو ٻيهر کوليو. توهان اڃا به ٻاهريون ايڊيٽر چونڊي سگهو ٿا.
+video.decode_failed = هي وڊيو فريم ڊيڪوڊ نه ٿي سگهيو.
+video.no_stream = هن فائيل ۾ وڊيو اسٽريم ناهي.
+video.no_duration = وڊيو جو مدو پڙهي نه سگهيو.
+video.frame_too_large = هي وڊيو فريم کولڻ لاءِ تمام وڏو آهي.
+video.first_frame = اڳ ئي پهرين فريم تي آهي.
+video.editor_failed = وڊيو ايڊيٽر کولي نه سگهيو: {error}
+video.editor_unavailable = چونڊيل وڊيو ايڊيٽر کولي نه سگهيو. ايپليڪيشن ٻيهر چونڊيو.
+video.loading = وڊيو لوڊ ٿي رهي آهي…
+video.searching = ڀرسان وڌيڪ تيز فريم ڳوليو پيو وڃي…
+video.capturing = مڪمل ريزوليوشن وارو فريم کوليو پيو وڃي…
+video.frame_title = {name} — فريم {time}
+video.frame_layer = وڊيو فريم
+video.already_sharpest = هي اڳ ئي ڀرسان سڀ کان تيز فريم آهي.
+video.found_frame = {time} تي ڀرسان سڀ کان تيز فريم چونڊيو ويو.
+video.choose_editor = وڊيو ايڊيٽر چونڊيو…
+video.back = گيلري ڏانهن واپس
+video.pause = روڪيو
+video.play = هلايو
+video.previous = پويون فريم
+video.next = ايندڙ فريم
+video.sharper = وڌيڪ تيز فريم ڳوليو
+video.edit_frame = فريم سنواريو
+video.open_editor = وڊيو ايڊيٽر ۾ کوليو
+video.preview_help = بنا آواز اڳ ڏيک · Space: هلائڻ/روڪڻ · تير: فريم فريم هلڻ · هر پاسي اڌ سيڪنڊ جي اندر ڳولي ٿو. سنوارڻ سان الڳ تصوير کلي ٿي.
+video.badge = ▶ وڊيو
+video.view = وڊيو ڏسو
+
+video.open_another_app = ٻي ايپ ۾ کوليو…
+video.preview_help_touch = بنا آواز اڳ ڏيک · ٽائيم لائين ڇڪيو يا فريم فريم هلو. وڌيڪ تيز فريم جي ڳولا هر پاسي اڌ سيڪنڊ جي اندر ٿئي ٿي. سنوارڻ سان الڳ تصوير کلي ٿي.
+video.importing = تصويرون ۽ وڊيو درآمد ٿي رهيا آهن…
+video.import_failed = ميڊيا درآمد نه ٿي سگهي: {error}
+video.import_failed_simple = هي ميڊيا درآمد يا ونڊجي نه سگهي.

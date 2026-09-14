@@ -1,0 +1,23 @@
+# Verformungswierkzeugen: Verflëssegen, Marionetteverformung a Fluchtpunkt.
+tool.liquify.name = Verflëssegen
+tool.liquify.description = Dréckt, verdréint, zitt zesummen oder bléist Pixel ënner enger grousser Pinselspëtzt op – d'Modusoptioun bestëmmt d'Aart. D'Verformung sammelt sech an engem Netz a gëtt beim Bestätegen op d'Eben ugewannt.
+tool.liquify.option.tool = Wierkzeug
+tool.liquify.choice.forward_warp = No vir verformen
+tool.liquify.choice.reconstruct = Rekonstruéieren
+tool.liquify.choice.twirl_cw = Mat der Auer verdréinen
+tool.liquify.choice.twirl_ccw = Géint d'Auer verdréinen
+tool.liquify.choice.pucker = Zesummenzéien
+tool.liquify.choice.bloat = Opblosen
+tool.liquify.choice.push_left = No lénks drécken
+tool.liquify.history.liquify = Verflëssegen
+
+tool.puppet_warp.name = Marionetteverformung
+tool.puppet_warp.description = Klickt, fir d'Eben op e puer Punkten ze fixéieren, an zitt dann un engem dovun: d'Netz béit sech ëm d'Fixéierpunkten, steif oder flexibel, jee no der Optioun Steifheet. Beim Bestätege gëtt d'Verformung ugewannt.
+tool.puppet_warp.option.stiffness = Steifheet
+tool.puppet_warp.history.puppet_warp = Marionetteverformung
+
+tool.vanishing_point.name = Fluchtpunkt
+tool.vanishing_point.description = Zitt eng Fläch iwwer eppes mat Perspektiv op, wiesselt dann an de Modus Klonen a molt: déi kopéiert Pixel verfollegen d'Fläch a gi mat der Distanz méi kleng.
+tool.vanishing_point.choice.edit_plane = Fläch änneren
+tool.vanishing_point.choice.clone = Klonen
+tool.vanishing_point.history.vanishing_point = Fluchtpunkt

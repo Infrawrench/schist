@@ -1,0 +1,25 @@
+# Vökvun
+tool.liquify.name = Vökvun
+tool.liquify.description = Ýttu, hvirflaðu, klemdu eða þanddu mynddíla undir stórum pensli — hamvalkosturinn ræður aðgerðinni. Aflögunin safnast upp í möskva og er beitt á lagið við staðfestingu.
+tool.liquify.option.tool = Verkfæri
+tool.liquify.choice.forward_warp = Aflaga áfram
+tool.liquify.choice.reconstruct = Endurbyggja
+tool.liquify.choice.twirl_cw = Hvirfla réttsælis
+tool.liquify.choice.twirl_ccw = Hvirfla rangsælis
+tool.liquify.choice.pucker = Klemma
+tool.liquify.choice.bloat = Þenja
+tool.liquify.choice.push_left = Ýta til vinstri
+tool.liquify.history.liquify = Vökvun
+
+# Brúðubögun
+tool.puppet_warp.name = Brúðubögun
+tool.puppet_warp.description = Smelltu til að festa lagið á nokkrum punktum og dragðu síðan einn þeirra: möskvinn bognar umhverfis festipunktana, stíft eða laust eftir stillingu stífleikans. Staðfesting beitir breytingunni.
+tool.puppet_warp.option.stiffness = Stífleiki
+tool.puppet_warp.history.puppet_warp = Brúðubögun
+
+# Hvarfpunktur
+tool.vanishing_point.name = Hvarfpunktur
+tool.vanishing_point.description = Dragðu út flöt yfir hlut með fjarvídd og skiptu síðan yfir í klónunarham og málaðu: afrituðu mynddílarnir fylgja fletinum og minnka með fjarlægð.
+tool.vanishing_point.choice.edit_plane = Breyta fleti
+tool.vanishing_point.choice.clone = Klóna
+tool.vanishing_point.history.vanishing_point = Hvarfpunktur

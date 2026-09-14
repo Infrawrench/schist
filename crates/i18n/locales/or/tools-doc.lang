@@ -1,0 +1,26 @@
+# ଆର୍ଟବୋର୍ଡ, ସ୍ଲାଇସ୍, ଫ୍ରେମ୍, ଟିପ୍ପଣୀ ଏବଂ ଗଣନା ଉପକରଣ।
+
+tool.artboard.name = ଆର୍ଟବୋର୍ଡ
+tool.artboard.description = ଟାଣି ଏକ ଆର୍ଟବୋର୍ଡ ତିଆରି କରନ୍ତୁ: ଏହା କ୍ୟାନଭାସ୍‌ର ଏକ ନାମିତ ଅଞ୍ଚଳ, ଯାହା ସ୍ୱତନ୍ତ୍ର ଭାବେ ରପ୍ତାନି ହୁଏ। ଥିବା ଆର୍ଟବୋର୍ଡ ଭିତରେ ଟାଣିଲେ ତାହା ଘୁଞ୍ଚେ।
+tool.artboard.default_name = ଆର୍ଟବୋର୍ଡ {n}
+
+tool.slice.name = ସ୍ଲାଇସ୍
+tool.slice.description = ଟାଣି ଏକ ରପ୍ତାନି ସ୍ଲାଇସ୍ ତିଆରି କରନ୍ତୁ; ଏହା କ୍ୟାନଭାସ୍‌ର ଏକ ନାମିତ ଆୟତକ୍ଷେତ୍ର, ଯାହା ସ୍ୱତନ୍ତ୍ର ଛବି ଭାବେ ରପ୍ତାନି ହୁଏ। ଥିବା ସ୍ଲାଇସ୍ ଭିତରେ ଟାଣିଲେ ତାହା ଘୁଞ୍ଚେ।
+tool.slice.default_name = ସ୍ଲାଇସ୍ {n}
+
+tool.frame.name = ଫ୍ରେମ୍
+tool.frame.description = ଟାଣି ଏକ ଫ୍ରେମ୍ ତିଆରି କରନ୍ତୁ: ଏହା ଏକ ଆୟତାକାର (କିମ୍ବା ଅଣ୍ଡାକାର) ସ୍ତର, ଯାହା ତାହା ଭିତରେ ରଖାଯାଇଥିବା ସବୁକୁ ମାସ୍କ କରେ।
+tool.frame.default_name = ଫ୍ରେମ୍ {n}
+tool.frame.choice.rectangle = ଆୟତକ୍ଷେତ୍ର
+tool.frame.choice.ellipse = ଅଣ୍ଡାକାର
+tool.frame.history.frame = ଫ୍ରେମ୍
+
+tool.note.name = ଟିପ୍ପଣୀ
+tool.note.description = ଖାଲି କ୍ୟାନଭାସ୍‌ରେ କ୍ଲିକ୍ କରି ସେଠାରେ ଏକ ଟିପ୍ପଣୀ ପିନ୍ କରନ୍ତୁ; ସମ୍ପାଦକ ସ୍ଥିତିରେ ଥିବା ଲେଖକ ଓ ରଙ୍ଗ ଏଥିରେ ଲାଗିବ। ଥିବା ପିନ୍‌ରେ କ୍ଲିକ୍ କଲେ ତାହା Notes ପ୍ୟାନେଲ୍ ପାଇଁ ବଛାଯାଏ।
+tool.note.history.place = ଟିପ୍ପଣୀ ରଖନ୍ତୁ
+tool.note.history.move = ଟିପ୍ପଣୀ ଘୁଞ୍ଚାନ୍ତୁ
+tool.note.history.delete = ଟିପ୍ପଣୀ ବିଲୋପ କରନ୍ତୁ
+
+tool.count.name = ଗଣନା
+tool.count.description = କ୍ୟାନଭାସ୍‌ରେ କ୍ରମିକ ସଂଖ୍ୟାଯୁକ୍ତ ଗଣନା ଚିହ୍ନ ରଖିବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ; ଥିବା ଚିହ୍ନରେ କ୍ଲିକ୍ କଲେ ତାହା ହଟିଯାଏ।
+tool.count.default_name = ଗଣନା {n}

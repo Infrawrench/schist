@@ -1,0 +1,27 @@
+# Utensiles de selection.
+tool.select.mode.subtract = Subtraer
+tool.select.mode.intersect = Intersecter
+tool.marquee.rect.name = Rectangular selection
+tool.marquee.rect.description = Trena un rectangular selection. Shift al comensa del trenada adjunte al selection, Alt subtrae, ambi intersecte; Shift durante li trenada fa it quadrat. Un clic sin trenada deselecte.
+tool.marquee.ellipse.name = Elliptic selection
+tool.marquee.ellipse.description = Trena un elliptic selection, con li sam combination per Shift/Alt quam li rectangular selection.
+tool.lasso.name = Lasso
+tool.lasso.description = Trena un líber contur; li selection clude inter li extremitás quande li trenada fini. Shift adjunte, Alt subtrae.
+tool.lasso.history.select = Selection per lasso
+tool.lasso.polygonal.name = Poligonal lasso
+tool.lasso.polygonal.description = Clicca angul pos angul por constructer un selection con rect bordes, e clicca proxim li unesim punctu por cluder it.
+tool.lasso.polygonal.history.select = Poligonal lasso
+tool.lasso.magnetic.name = Magnetic lasso
+tool.lasso.magnetic.description = Seque aproximativmen un borde e li contur es atraet al maxim fort contraste proxim li tracie.
+tool.lasso.magnetic.history.select = Magnetic lasso
+tool.lasso.magnetic.option.frequency = Frequentie
+tool.wand.name = Magic verge
+tool.wand.description = Clicca por selecter li conex area de simil color sub li apuntator, intra li option Tolerantie — li sam tolerantie usat de Crescer, Simil e Range de colores.
+tool.wand.option.contiguous = Contigui
+tool.wand.history.select = Magic verge
+tool.quick_select.name = Rapid selection
+tool.quick_select.description = Picte sur un region e li selection cresce tra li simil pixeles quel li pincel passa.
+tool.quick_select.history.select = Rapid selection
+tool.object_select.name = Selection de object
+tool.object_select.description = Trena un cadre circum un object e li selection adapta se al object trovat in it.
+tool.object_select.history.select = Selection de object

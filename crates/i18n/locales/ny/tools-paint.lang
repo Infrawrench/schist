@@ -1,0 +1,72 @@
+tool.brush.name = Burashi
+tool.brush.description = Jambulani mzere wa m'mphepete mofewa ndi mtundu wakutsogolo, wokhala ndi kukula kwa burashi, kulimba ndi kusawonekera kupyolera zomwe zaikidwa mu editor.
+tool.brush.history.stroke = Burashi
+
+tool.pencil.name = Pensulo
+tool.pencil.description = Jambulani mzere wa m'mphepete molimba, wopanda antialias, ndi mtundu wakutsogolo.
+tool.pencil.history.stroke = Pensulo
+
+tool.eraser.name = Chofufutira
+tool.eraser.description = Fufutani motsatira mzere, kubwezeretsa layer kuti izioneka kupyolera.
+tool.eraser.history.stroke = Chofufutira
+
+tool.clone.name = Sitampu Yokopera
+tool.clone.description = Sitampu Yokopera: dinani ndi alt kuti muike malo a gwero, kenako pentani ma pixel okopedwa kuchokera pamenepo ndi mpata womwewo.
+tool.clone.history.stroke = Sitampu Yokopera
+
+tool.dodge.name = Walitsani
+tool.dodge.description = Walitsani ma pixel amene mzere ukudutsapo.
+tool.dodge.history.stroke = Walitsani
+tool.burn.name = Detsetsani
+tool.burn.description = Detsetsani ma pixel amene mzere ukudutsapo.
+tool.burn.history.stroke = Detsetsani
+tool.sponge.name = Siponji
+tool.sponge.description = Khutitsani kapena chepetsani kukhuta kwa mtundu wa ma pixel amene mzere ukudutsapo.
+tool.sponge.history.stroke = Siponji
+
+tool.blur.name = Sawoneketsani Bwino
+tool.blur.description = Pangitsani ma pixel amene mzere ukudutsapo kuti asawoneke bwino.
+tool.blur.history.stroke = Kusawoneka Bwino
+tool.sharpen.name = Onetsani Bwino
+tool.sharpen.description = Onetsani bwino ma pixel amene mzere ukudutsapo.
+tool.sharpen.history.stroke = Kuonetsa Bwino
+tool.smudge.name = Pakani
+tool.smudge.description = Kokani mtundu motsatira mzere ngati mukukankha penti yonyowa.
+tool.smudge.history.stroke = Kupaka
+
+tool.heal.name = Burashi Yokonza
+tool.heal.description = Burashi Yokonza: dinani ndi alt kuti muike gwero, kenako pentani; kapangidwe ka gwero kamasakanizidwa ndi mtundu ndi kuwala kwa malo amene mukupitako.
+tool.heal.history.stroke = Burashi Yokonza
+tool.spot_heal.name = Burashi Yokonza Malo
+tool.spot_heal.description = Burashi Yokonza Malo: pentani pa chilema ndipo chimasinthidwa ndi kapangidwe kotengedwa m'malo ozungulira—palibe malo a gwero oti muike.
+tool.spot_heal.history.stroke = Burashi Yokonza Malo
+
+tool.history_brush.name = Burashi ya Mbiri
+tool.history_brush.description = Jambulani ma pixel kuchokera mu chithunzi chosungidwa cha mbiri ya chikalata, kubweza ntchito yapambuyo mzere ndi mzere.
+tool.history_brush.history.stroke = Burashi ya Mbiri
+
+tool.background_eraser.name = Chofufutira Chakumbuyo
+tool.background_eraser.description = Fufutani mtundu wotengedwa pansi pa pakati pa burashi ndipo siyani ma pixel a mitundu yosiyana, kuti muchotse chinthu pa maziko ake.
+tool.background_eraser.history.stroke = Chofufutira Chakumbuyo
+
+tool.gradient.name = Mitundu Yosakanikirana
+tool.gradient.description = Kokani kuti mudzaze layer—kudzera m'malo osankhidwa ngati alipo—ndi mitundu yosakanikirana ya mzere kuyambira mtundu wakutsogolo kufika wakumbuyo motsatira kukokako.
+tool.gradient.radial.name = Mitundu Yosakanikirana Yozungulira
+tool.gradient.radial.description = Kokani kuchokera pakati kupita kunja kuti mudzaze ndi mitundu yosakanikirana yozungulira pakati pa mtundu wakutsogolo ndi wakumbuyo.
+tool.gradient.option.gradient = Mitundu Yosakanikirana
+tool.gradient.option.reverse = Bwezerani Mosiyana
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Wakutsogolo Kupita Wakumbuyo
+tool.gradient.choice.foreground_to_transparent = Wakutsogolo Kupita Koonekera Kupyolera
+tool.gradient.choice.linear = Wa Mzere
+tool.gradient.choice.radial = Wozungulira
+tool.gradient.choice.angle = Wa Ngodya
+tool.gradient.choice.reflected = Wobwezedwa Ngati Galasi
+tool.gradient.choice.diamond = Dayamondi
+tool.gradient.history.gradient = Mitundu Yosakanikirana
+
+tool.bucket.name = Chidebe cha Penti
+tool.bucket.description = Dinani kuti mudzaze dera lolumikizana la mtundu wofanana pansi pa pointer ndi mtundu wakutsogolo, malinga ndi tolerance ya chidacho.
+tool.bucket.option.contiguous = Zolumikizana
+tool.bucket.option.all_layers = Ma Layer Onse
+tool.bucket.history.fill = Chidebe cha Penti

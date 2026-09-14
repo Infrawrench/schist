@@ -1,0 +1,23 @@
+# Osnovna orodja: Premikanje, Kapalka, Roka in Povečava.
+
+tool.move.name = Premikanje
+tool.move.description = Povlecite vsebino dejavne plasti na nov položaj. Če je vključena samodejna izbira, pritisk najprej izbere plast ali celotno skupino pod kazalcem.
+tool.move.option.auto_select = Samodejna izbira
+tool.move.history.move_layer = Premakni plast
+
+tool.eyedropper.name = Kapalka
+tool.eyedropper.description = Vzorčite barvo pod kazalcem kot barvo ospredja oziroma kot barvo ozadja, če držite tipko Alt. Med vlečenjem se vzorčenje nadaljuje.
+tool.eyedropper.option.sample_size = Velikost vzorca
+tool.eyedropper.option.sample = Vzorči
+tool.eyedropper.choice.point_sample = Točkovni vzorec
+tool.eyedropper.choice.average_3 = Povprečje 3 × 3
+tool.eyedropper.choice.average_5 = Povprečje 5 × 5
+tool.eyedropper.choice.average_11 = Povprečje 11 × 11
+tool.eyedropper.choice.average_31 = Povprečje 31 × 31
+tool.eyedropper.choice.all_layers = Vse plasti
+tool.eyedropper.choice.current_layer = Trenutna plast
+
+tool.hand.name = Roka
+tool.hand.description = Premika pogled. Vidno polje pripada oknu, zato to orodje brez grafičnega vmesnika ne vpliva na dokument.
+tool.zoom.name = Povečava
+tool.zoom.description = Poveča ali pomanjša pogled. Vidno polje pripada oknu, zato to orodje brez grafičnega vmesnika ne vpliva na dokument.

@@ -1,0 +1,20 @@
+# Inadilanto siha
+adjustment.levels.name = Nibel siha
+adjustment.curves.name = Kurba siha
+adjustment.hue_saturation.name = Kulot/Saturasion
+adjustment.brightness_contrast.name = Inina/Kontråste
+adjustment.black_white.name = Åttilong yan Å'paka'
+adjustment.solid_color.name = Un kulot
+adjustment.gradient_fill.name = Gradient na rinieno
+adjustment.pattern_fill.name = Patron na rinieno
+adjustment.invert.name = Inbiette
+adjustment.posterize.name = Posterisa
+adjustment.threshold.name = Umbral
+adjustment.color_balance.name = Balansian kulot
+adjustment.vibrance.name = Kinalamten kulot
+adjustment.exposure.name = Eksposision
+adjustment.photo_filter.name = Fitron litratu
+adjustment.gradient_map.name = Måpan gradient
+adjustment.selective_color.name = Pine'lon kulot
+adjustment.channel_mixer.name = Channet na mezcladot
+adjustment.other.name = Inadilanto

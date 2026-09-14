@@ -1,0 +1,83 @@
+# ကီးပြင်ဆင်ခလုတ်များ
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = လမ်းညွှန်
+panel.navigator.actual_pixels = မူလပစ်ဇယ်များ
+
+panel.color.picker = အရောင်ရွေးကိရိယာ…
+panel.color.swap = အရောင်များ လဲရန်
+panel.color.reset = အဖြူနှင့်အမည်းသို့ ပြန်ထားရန်
+
+panel.layers.blending_options = ရောစပ်မှု ရွေးချယ်စရာများ…
+panel.layers.properties = အလွှာ ဂုဏ်သတ္တိများ…
+panel.layers.show_hide = အလွှာ ပြရန်/ဖျောက်ရန်
+panel.layers.toggle_visibility = မြင်နိုင်မှု ပြောင်းရန်
+
+panel.history.title = မှတ်တမ်း
+panel.history.opened = ဖွင့်ခဲ့သည်
+
+panel.info.title = အချက်အလက်
+panel.info.camera = ကင်မရာ
+panel.info.lens = မှန်ဘီလူး
+panel.info.iso = ISO {iso}
+panel.info.bias = အလင်းပြင်ဆင်မှု
+panel.info.flash_fired = ဖလက်ရှ် အသုံးပြုခဲ့သည်
+panel.info.no_flash = ဖလက်ရှ် မသုံးခဲ့ပါ
+panel.info.white_balance = အဖြူရောင်ချိန်ညှိမှု {wb}
+panel.info.metering = {metering} အလင်းတိုင်းတာမှု
+panel.info.taken = ရိုက်ကူးချိန်
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · အနေအထား {o}
+panel.info.software = ဆော့ဖ်ဝဲ
+panel.info.where = နေရာ
+
+panel.notes.author = စာရေးသူ
+panel.notes.clear_all = အားလုံး ရှင်းရန်
+panel.notes.unattributed = စာရေးသူမသတ်မှတ်ထား
+panel.notes.empty = မှတ်စုထားရန် ပုံဖော်ဧရိယာကို နှိပ်ပါ။
+panel.notes.placeholder = ရေးရန် နှိပ်ပါ
+
+panel.character.title = စာလုံး
+panel.character.type_tool = စာသားကိရိယာ (T)
+panel.character.align_left = ဘယ်ဘက်ညှိရန်
+panel.character.align_center = အလယ်ညှိရန်
+panel.character.align_right = ညာဘက်ညှိရန်
+panel.character.text_color = စာသားအရောင်
+panel.character.panel = စာလုံးပန်နယ်
+panel.character.cancel_edit = စာသားတည်းဖြတ်မှု ပယ်ဖျက်ရန်
+panel.character.commit_edit = စာသားတည်းဖြတ်မှု အတည်ပြုရန်
+panel.character.number_tip = {label} · တန်ဖိုးတစ်ခု ရိုက်ထည့်ပါ သို့မဟုတ် ↑ / ↓ ကို သုံးပါ (ပိုကြီးသော အဆင့်များအတွက် Shift)
+panel.character.leading = စာကြောင်းအကွာ
+panel.character.tracking = စာလုံးအကွာ
+panel.character.alignment = ညှိမှု
+panel.character.opentype = OpenType
+panel.character.text_on_path = လမ်းကြောင်းပေါ်ရှိ စာသား
+panel.character.straight = မျဉ်းဖြောင့်
+panel.character.on_path = လမ်းကြောင်းပေါ်တွင်
+panel.character.straight_tip = စာသားအလွှာ၏ ပုံမှန်အခြေခံမျဉ်းကို သုံးရန်
+panel.character.on_path_tip = အသုံးပြုနေသော လမ်းကြောင်း၏ မိတ္တူကို သုံးရန်
+panel.character.path_offset = လမ်းကြောင်း အကွာအဝေး
+
+panel.ai.title = AI
+panel.ai.empty_editor = တည်းဖြတ်မှုတစ်ခု တောင်းဆိုပြီး ပုံဖော်ဧရိယာပေါ်တွင် လုပ်ဆောင်သွားပုံကို ကြည့်ပါ။ အေးဂျင့်က မီနူးများရှိ ကိရိယာ၊ အရောင်စစ်နှင့် အမိန့်များကိုပင် အသုံးပြုပြီး တစ်ကြိမ်လျှင် ပြန်ဖျက်နိုင်သည့် အဆင့်တစ်ဆင့်စီ လုပ်ဆောင်သည်။
+panel.ai.empty_gallery = သင်၏ဓာတ်ပုံများအကြောင်း မေးပြီး ပုံပြခန်းတွင် လုပ်ဆောင်သွားပုံကို ကြည့်ပါ။ အေးဂျင့်သည် ရှာဖွေခြင်း၊ ပုံငယ်များကြည့်ခြင်း၊ ရွေးချယ်ခြင်း၊ အုပ်စုများထဲ စီခြင်းနှင့် ဓာတ်ပုံကို တည်းဖြတ်ကိရိယာတွင် ဖွင့်ခြင်းတို့ လုပ်နိုင်သည်။
+panel.ai.thinking = စဉ်းစားနေသည်…
+panel.ai.placeholder_editor = ဤစာတမ်းအကြောင်း မေးပါ သို့မဟုတ် တည်းဖြတ်ပါ
+panel.ai.placeholder_gallery = သင်၏ဓာတ်ပုံများအကြောင်း မေးပါ
+panel.ai.send = ပို့ရန်
+panel.ai.stop = ရပ်ရန်
+panel.ai.fetching_models = CLI ထံမှ မော်ဒယ်များကို တောင်းနေသည်…
+panel.ai.no_models = ကိုက်ညီသော မော်ဒယ်မရှိပါ
+panel.ai.search_models = မော်ဒယ်များ ရှာရန်…
+
+panel.keymap.install_plugin = ပလပ်အင် ထည့်သွင်းရန်
+panel.keymap.save_as_prompt = အမည်ပြောင်းသိမ်းရန် — ဖိုင်အဆက်က ဖော်မတ်ကို သတ်မှတ်သည်-

@@ -1,0 +1,25 @@
+# Ngaahi meʻangāue toe fakalelei feituʻu
+
+tool.patch.name = Fakapipiki
+tool.patch.description = Toho ha laine takatakai ʻi ha mele, pea toho ʻa e feituʻu kuo filí ki ha ngaahi pikiseli maʻa: ʻe fakafeʻungaʻi ʻa e anga ʻo e fukahi meʻa ʻi aí ki he melé. ʻOku fili ʻe he founga Fakapipikí ʻa e ngataʻanga ʻo e hoa ʻokú ke tohó.
+tool.patch.option.patch = Fakapipiki
+tool.patch.choice.source = Tupuʻanga
+tool.patch.choice.destination = Feituʻu ʻAve Ki Ai
+tool.patch.history.patch = Fakapipiki
+
+tool.content_aware_move.name = ʻUnuʻi Fakatatau ki he Kakanó
+tool.content_aware_move.description = Toho ha meʻa kuo fili ki ha feituʻu kehe pea ʻe fakafonu ʻa e ava ʻoku tuku aí mei hono takatakaí. ʻI he founga Fakalōloá, ʻoku fakalōloa ʻa e meʻá kae ʻikai ʻunuʻi.
+tool.content_aware_move.choice.move = ʻUnu
+tool.content_aware_move.choice.extend = Fakalōloa
+tool.content_aware_move.history.move = ʻUnuʻi Fakatatau ki he Kakanó
+
+tool.red_eye.name = Mata Kulokula
+tool.red_eye.description = Lomi ʻi ha tamaʻimata ke toʻo mei ai ʻa e kulokula ʻo e hulu tā.
+tool.red_eye.option.pupil_size = Lahi ʻo e Tamaʻimata
+tool.red_eye.option.darken = ʻAi Ke Fakapoʻuli Ange
+tool.red_eye.history.red_eye = Mata Kulokula
+
+tool.magic_eraser.name = Meʻatamate Mana
+tool.magic_eraser.description = Lomi ke tamateʻi ʻa e feituʻu ʻoku tatau hono lanú ʻi lalo ʻi he tuhu, ʻo fakatatau ki he ngofua ʻa e meʻangāué—ʻo hoko pē ki he feituʻu naʻe lomí, pe ʻi he Layer kotoa.
+tool.magic_eraser.option.contiguous = Hoko Fakataha
+tool.magic_eraser.history.erase = Tamateʻi ʻaki ʻa e Meʻatamate Mana

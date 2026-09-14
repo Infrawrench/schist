@@ -1,0 +1,29 @@
+# የአካባቢ ማረሚያ መሣሪያዎች።
+
+# ጥገና
+tool.patch.name = ጥገና
+tool.patch.description = በእንከን ዙሪያ ድንበር ይሳሉ፣ ከዚያም ምርጫውን ወደ ንጹሕ ፒክሰሎች ይጎትቱ፤ የዚያ ሸካራነት ከእንከኑ ጋር ይስማማል። የጥገና ሁነታው ከሁለቱ ጫፎች የትኛውን እንደሚጎትቱ ይወስናል።
+tool.patch.option.patch = ጥገና
+tool.patch.choice.source = ምንጭ
+tool.patch.choice.destination = መድረሻ
+tool.patch.history.patch = ጥገና
+
+# ይዘትን የሚገነዘብ ማንቀሳቀሻ
+tool.content_aware_move.name = ይዘትን የሚገነዘብ ማንቀሳቀሻ
+tool.content_aware_move.description = የተመረጠውን ነገር ወደ ሌላ ቦታ ይጎትቱ፤ የተወው ክፍተት ከዙሪያው ይሞላል። በማራዘሚያ ሁነታ ነገሩ ከመንቀሳቀስ ይልቅ ይለጠጣል።
+tool.content_aware_move.choice.move = አንቀሳቅስ
+tool.content_aware_move.choice.extend = አራዝም
+tool.content_aware_move.history.move = ይዘትን የሚገነዘብ ማንቀሳቀሻ
+
+# ቀይ ዓይን
+tool.red_eye.name = ቀይ ዓይን
+tool.red_eye.description = የፍላሹን ቀይ ቀለም ለማስወገድ የዓይኑን ብሌን ጠቅ ያድርጉ።
+tool.red_eye.option.pupil_size = የብሌን መጠን
+tool.red_eye.option.darken = አጨልም
+tool.red_eye.history.red_eye = ቀይ ዓይን
+
+# አስማታዊ ማጥፊያ
+tool.magic_eraser.name = አስማታዊ ማጥፊያ
+tool.magic_eraser.description = በመሣሪያው የልዩነት ገደብ ውስጥ በጠቋሚው ሥር ያለውን ተመሳሳይ ቀለም አካባቢ ለማጥፋት ጠቅ ያድርጉ፤ ከተጫነበት ቦታ ጋር የተያያዘውን ወይም በንብርብሩ ውስጥ ያለውን ሁሉ ማጥፋት ይችላሉ።
+tool.magic_eraser.option.contiguous = ተያያዥ
+tool.magic_eraser.history.erase = አስማታዊ ማጥፊያ

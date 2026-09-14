@@ -1,0 +1,36 @@
+app.filter_gallery.title = ጋለሪ ፊልተር
+app.filter_gallery.stack = ቁልል (ካብ ታሕቲ ናብ ላዕሊ ይትግበር)
+app.filter_gallery.no_settings = እዚ ፊልተር ቅንብር የብሉን።
+app.fonts.not_open_licensed = ክፉት ፍቓድ የብሉን · {substitute} ንመለክዒታቱ ይሰማማዕ
+app.fonts.missing_substituted = ጎዲሉ · ጽሑፍ ብመተካእታ ቅርጺ ፊደል ይቕመጥ ኣሎ
+app.fonts.not_in_catalogue = {family} ኣብ ክፉት ካታሎግ ቅርጺ ፊደል የለን
+app.fonts.no_faces = ን{family} ዝወርድ ቅዲ ቅርጺ ፊደል የለን
+app.fonts.empty_response = ባዶ መልሲ
+app.update.unreadable_response = ዘይንበብ መልሲ: {error}
+app.update.no_temp_dir = ንምውራድ ግዝያዊ ኣቃፊ የለን
+app.update.asset_has_path = እቲ ሕታም ንንብረቱ ምስ መስመር ይሰምዮ
+app.update.too_big = እቲ ዝወረደ ካብቲ ሕታም ዝበሎ ይዓቢ
+app.update.stopped_at = ምውራድ ካብ {total} ባይት ኣብ {got} ደው ኢሉ
+app.update.hash_mismatch = ሃሽ ናይቲ ዝወረደ {got} እዩ፣ {want} ኣይኮነን
+app.update.not_in_bundle = እዚ ቅዳሕ ኣብ ውሽጢ ጥቕላል መተግበሪ የለን
+app.update.no_parent_dir = ጥቕላል መተግበሪ ናይ ወላዲ ኣቃፊ የብሉን
+app.update.cannot_write = ናብ {dir} ክጽሕፍ ኣይክእልን
+app.update.cannot_move_aside = {app} ንጎኒ ከንቀሳቕስ ኣይክእልን
+app.update.cannot_move_in = ነቲ ሓድሽ ጥቕላል ናብ ቦታኡ ከእቱ ኣይክእልን
+app.update.cannot_run_ditto = /usr/bin/ditto ከስርሕ ኣይክእልን
+app.update.unpack_failed = ነቲ ዝወረደ ምፍታሕ ኣይተዓወተን: {error}
+app.update.no_app_in_download = እቲ ዝወረደ Schist.app የብሉን
+app.update.cannot_run_codesign = /usr/bin/codesign ከስርሕ ኣይክእልን
+app.update.signature_invalid = ፊርማ ናይቲ ዝወረደ ኣይረጋገጽን: {error}
+app.update.download_unsigned = እዚ ቅዳሕ ተፈሪሙ እዩ፣ እቲ ዝወረደ ግን ኣይተፈረመን
+app.update.different_developer = እቲ ዝወረደ ብካልእ ኣማዕባሊ ተፈሪሙ
+app.update.cannot_relaunch = ዳግማይ ጀማሪ ከስርሕ ኣይክእልን
+app.update.not_installed_copy = እዚ ቅዳሕ ብተካሊ ኣብዚ ኣይተቐመጠን
+app.update.cannot_start_installer = ተካሊ ክጅምር ኣይክእልን
+app.update.platform_unsupported = ኣብዚ መድረኽ ዘለዉ ሓድሽ ሕታማት ከምቲ Schist ዝተተኽለሉ ይትከሉ
+app.vulkan.no_loader = schist: ኣብዚ ስርዓት Vulkan loader የለን፣ ስለዚ መሳእሊ የለን።\n\nSchist ብVulkan ይስእል፣ `libvulkan.so.1` ድማ ኣይተተኽለን።\nloaderን driverን ክልቲኦም የድልዩ፦\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: እቲ እዚ session ዘመልክቶ Vulkan driver ኣብኡ የለን።\n\n{var} ተቐሚጡ ኣሎ፣ ምቕማጡ ድማ ኣብ ክንዲ ምውሳኽ ንናይ loader\ndriver ምድላይ *ይትክኦ*። ስለዚ እዞም ዘየለዉ ፋይላት\nምሉእ ዝርዝር driver እዮም፤ ኣብዚ session ዘሎ ኩሉ Vulkan ፕሮግራም\nክንደይ ዝተተኽሉ driver ይሃልዉ ብዘየገድስ driver ኣይርእን፦\n\n{missing}\n    {var}={value}\n\nናብ ዘሎ manifest ኣመልክቶ — ዝተተኽሉ driver ናቶም ኣብ\n/usr/share/vulkan/icd.d የቐምጡ — ወይ ኣልዕሎን loader ባዕሉ ይድለን።\nእዚ ካብ config ፋይል (Hyprland `env =`፣ systemd environment.d drop-in፣\nshell profile) ዘቐምጥ session ኣብኡ ክቕየር ኣለዎ፤ እቲ ለውጢ ናብ\nድሮ ዝሰርሕ ዘሎ ንምብጻሕ ሓድሽ login የድልዮ።\n
+app.vulkan.override_note = \n{var} ናብ {value} ተቐሚጡ ኣሎ፣ እዚ ድማ ንናይ loader ምድላይ\nይትክኦ፤ ካብቶም manifest ንዚ ማሽን ዝኸውን እንተዘይሃልዩ፣ ምእላዩ\nእቲ ቀዳማይ ክፍተን ዘለዎ እዩ።\n
+app.vulkan.no_driver = schist: Vulkan driver ኣይተተኽለን፣ ስለዚ ኣብ ልዕሊኡ መሳእሊ የለን።\n\nSchist ብVulkan ይስእል። loader ተተኺሉ እዩ፣ driver ከምዘየለ ድማ\nይሕብር — ኣብቶም ዝድለየሎም ክልተ ቦታታት ሓደ driver እኳ ኣይተመዝገበን፦\n\n{dirs}\n\nloader ካብ driver ተፈልዩ ይዕደል፣ ስለዚ መብዛሕትኡ ግዜ ሓደ ፓኬጅ እዩ ጎዲሉ።\n\nናይ እዚ GPU ማሽን driver ተኸል፦\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nናይ NVIDIA ውልቃዊ driver ናቱ የምጽእ (`nvidia-utils` ኣብ Arch፣\n`nvidia-driver` ኣብ Debian)። ኣብ virtual machine፣ ወይ GPU driver\nዘይትከለሉ ቦታ፣ software rasteriser እዩ ዝሰርሕ፦\n`vulkan-swrast` ኣብ Arch፣ ኣብ ካልእ ክፋል `mesa-vulkan-drivers`። ደንጓዪ እዩ፣ ግን ይጅምር።\n{overridden}
+app.vulkan.no_device = schist: Vulkan driver ተተኺሉ እዩ፣ ግን ንምስኣል device ኣየቕርብን።\n\nእቲ driver ነዚ GPU ኣይሽፍኖን ይኸውን፣ ወይ ክበጽሖ ኣይክእልን —\nብSSH ወይ ኣብ container ውሽጢ፣ /dev/dri ክጎድል ልሙድ እዩ።\n`vulkaninfo --summary` እቲ loader ዝርእዮ ይሕብር።\n\nእዚ ማሽን GPU ዘይብሉ እንተኾይኑ፣ software rasteriser ብዘይ GPU ይስእል፦\n`vulkan-swrast` ኣብ Arch፣ ክፋል `mesa-vulkan-drivers` ኣብ Debianን Fedoraን።\n
+app.vulkan.skip_hint = ብዝኾነ መንገዲ Schist ንምጅማርን ብናቱ መንገዲ ክፈሽል ንምግዳፍን {var}=1 ኣቐምጥ።

@@ -1,0 +1,152 @@
+# Failas
+menu.file = Failas
+menu.file.new = Naujas
+menu.file.open = Atverti…
+menu.file.open_recent = Atverti paskiausius
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Naršyti galeriją…
+menu.file.close = Uždaryti
+menu.file.save = Įrašyti
+menu.file.save_as = Įrašyti kaip…
+menu.file.export = Eksportuoti…
+menu.file.export_submenu = Eksportuoti
+menu.file.export_artboards = Eksportuoti maketo sritis į PNG…
+menu.file.export_slices = Eksportuoti iškarpas į PNG…
+menu.file.save_to_photos = Įrašyti į nuotraukas
+menu.file.plugins = Papildiniai…
+menu.file.missing_fonts = Trūkstami šriftai…
+menu.file.check_for_updates = Tikrinti, ar yra naujinių…
+menu.file.quit = Baigti darbą
+menu.file.add_folder_to_gallery = Pridėti aplanką prie galerijos…
+menu.file.import_from_photos = Importuoti iš nuotraukų…
+menu.file.import_from_camera = Importuoti iš fotoaparato…
+
+# Taisa
+menu.edit = Taisa
+menu.edit.fill = Užpildyti…
+menu.edit.stroke = Apvesti…
+menu.edit.content_aware_fill = Užpildyti atsižvelgiant į turinį
+menu.edit.content_aware_scale = Keisti mastelį atsižvelgiant į turinį…
+menu.edit.puppet_warp = Lėlinė deformacija
+menu.edit.free_transform = Laisvas transformavimas
+menu.edit.transform = Transformuoti
+menu.edit.rotate_180 = Pasukti 180°
+menu.edit.rotate_90_cw = Pasukti 90° pagal laikrodžio rodyklę
+menu.edit.rotate_90_ccw = Pasukti 90° prieš laikrodžio rodyklę
+menu.edit.flip_horizontal = Apversti horizontaliai
+menu.edit.flip_vertical = Apversti vertikaliai
+
+# Vaizdas
+menu.image = Vaizdas
+menu.image.mode = Režimas
+menu.image.adjustments = Koregavimai
+menu.image.auto_tone = Automatinis tonas
+menu.image.auto_contrast = Automatinis kontrastas
+menu.image.auto_color = Automatinė spalva
+menu.image.image_size = Vaizdo dydis…
+menu.image.canvas_size = Drobės dydis…
+menu.image.image_rotation = Vaizdo pasukimas
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° pagal laikrodžio rodyklę
+menu.image.rotate_90_ccw = 90° prieš laikrodžio rodyklę
+menu.image.flip_canvas_horizontal = Apversti drobę horizontaliai
+menu.image.flip_canvas_vertical = Apversti drobę vertikaliai
+menu.image.crop_to_selection = Apkarpyti pagal pažymėtą sritį
+menu.image.trim = Apkirpti
+menu.image.assign_profile = Priskirti profilį…
+menu.image.convert_to_profile = Konvertuoti į profilį…
+
+# Žymėjimas
+menu.select = Žymėjimas
+menu.select.color_range = Spalvų diapazonas…
+menu.select.modify = Keisti
+menu.select.border = Kraštinė…
+menu.select.smooth = Glodinti…
+menu.select.expand = Išplėsti…
+menu.select.contract = Sutraukti…
+menu.select.feather = Sulieti kraštus…
+menu.select.transform_selection = Transformuoti pažymėtą sritį
+
+# Sluoksnis
+menu.layer = Sluoksnis
+menu.layer.layer_style = Sluoksnio stilius…
+menu.layer.layer_comps = Sluoksnių kompozicijos
+menu.layer.new_layer_comp = Nauja sluoksnių kompozicija
+menu.layer.delete_layer_comp = Ištrinti {name}
+menu.layer.path = Kontūras
+menu.layer.fill_path = Užpildyti kontūrą
+menu.layer.stroke_path = Apvesti kontūrą
+menu.layer.make_selection = Sukurti pažymėtą sritį
+menu.layer.delete_path = Ištrinti kontūrą
+
+menu.adjust = Koregavimas
+
+# Filtras
+menu.filter = Filtras
+menu.filter.filter_gallery = Filtrų galerija…
+menu.filter.liquify = Suskystinti
+menu.filter.vanishing_point = Išnykimo taškas
+menu.filter.manage_models = Tvarkyti modelius…
+menu.filter.camera_raw_development = Camera Raw apdorojimas…
+
+# Rodymas
+menu.view = Rodymas
+menu.view.rotate_view_cw = Pasukti rodinį pagal laikrodžio rodyklę
+menu.view.rotate_view_ccw = Pasukti rodinį prieš laikrodžio rodyklę
+menu.view.reset_view = Atkurti rodinį
+menu.view.zoom_in = Didinti
+menu.view.zoom_out = Mažinti
+menu.view.fit_on_screen = Sutalpinti ekrane
+menu.view.actual_size = 100%
+menu.view.rulers = Liniuotės
+menu.view.grid = Tinklelis
+menu.view.guides = Kreipiamosios
+menu.view.notes = Pastabos
+menu.view.ai_panel = DI skydelis
+menu.view.extras = Papildomi elementai
+menu.view.snap = Kibimas
+menu.view.clear_guides = Pašalinti kreipiamąsias
+menu.view.clear_notes = Pašalinti pastabas
+menu.view.clear_count = Pašalinti skaičiavimo žymeklius
+menu.view.screen_mode = Ekrano režimas
+menu.view.proof_colors = Spalvų peržiūra
+menu.view.show_rulers = Rodyti liniuotes
+menu.view.hide_rulers = Slėpti liniuotes
+menu.view.show_grid = Rodyti tinklelį
+menu.view.hide_grid = Slėpti tinklelį
+menu.view.show_guides = Rodyti kreipiamąsias
+menu.view.hide_guides = Slėpti kreipiamąsias
+menu.view.show_notes = Rodyti pastabas
+menu.view.hide_notes = Slėpti pastabas
+menu.view.show_extras = Rodyti papildomus elementus
+menu.view.hide_extras = Slėpti papildomus elementus
+menu.view.enable_snapping = Įjungti kibimą
+menu.view.disable_snapping = Išjungti kibimą
+menu.view.enable_proof_colors = Įjungti spalvų peržiūrą
+menu.view.disable_proof_colors = Išjungti spalvų peržiūrą
+
+# Galerija
+menu.gallery = Galerija
+menu.gallery.edit_selected = Redaguoti pažymėtas
+menu.gallery.refresh = Atnaujinti
+menu.gallery.map_filter = Žemėlapio filtras…
+menu.gallery.back_to_editor = Grįžti į redaktorių
+
+# Schist Cloud
+menu.cloud.browse = Naršyti Schist Cloud
+menu.cloud.generate = Generuoti vaizdus…
+menu.cloud.upload = Įkelti dokumentą į Schist Cloud…
+menu.cloud.sign_out = Atsijungti nuo Schist Cloud
+menu.cloud.sign_in = Prisijungti prie Schist Cloud…
+
+# Programos meniu
+menu.app.services = Paslaugos
+menu.app.hide = Slėpti {app}
+menu.app.hide_others = Slėpti kitas
+menu.app.show_all = Rodyti visas
+menu.app.quit = Baigti „{app}“ darbą
+
+# Būsenos pranešimai
+menu.status.transform_selection_needs_selection = Norint transformuoti pažymėtą sritį, reikia ką nors pažymėti
+menu.status.crop_needs_selection = Norint apkarpyti pagal pažymėtą sritį, reikia ką nors pažymėti
+menu.status.select_photo_to_edit = Pasirinkite redaguojamą nuotrauką

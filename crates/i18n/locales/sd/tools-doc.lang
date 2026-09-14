@@ -1,0 +1,24 @@
+tool.artboard.name = آرٽ بورڊ
+tool.artboard.description = ڇڪي آرٽ بورڊ ٺاهيو: ڪينواس جو نالي وارو علائقو، جيڪو الڳ برآمد ٿئي ٿو. موجود آرٽ بورڊ جي اندر ڇڪڻ سان اهو منتقل ٿيندو.
+tool.artboard.default_name = آرٽ بورڊ {n}
+
+tool.slice.name = سلائس
+tool.slice.description = ڇڪي برآمدي سلائس ٺاهيو، يعني ڪينواس جو نالي وارو مستطيل جيڪو الڳ تصوير طور برآمد ٿئي ٿو. موجود سلائس جي اندر ڇڪڻ سان اهو منتقل ٿيندو.
+tool.slice.default_name = سلائس {n}
+
+tool.frame.name = فريم
+tool.frame.description = ڇڪي فريم ٺاهيو: مستطيل (يا بيضوي) پرت، جيڪا پنهنجي اندر رکيل هر شيءِ کي ماسڪ ڪري ٿي.
+tool.frame.default_name = فريم {n}
+tool.frame.choice.rectangle = مستطيل
+tool.frame.choice.ellipse = بيضوي
+tool.frame.history.frame = فريم
+
+tool.note.name = نوٽ
+tool.note.description = ڪينواس جي خالي جاءِ تي ڪلڪ ڪري اتي نوٽ جي پن لڳايو، جنهن تي ايڊيٽر جي حالت مان ورتل ليکڪ ۽ رنگ درج ٿيندا؛ موجود پن تي ڪلڪ ڪري ان کي نوٽس پينل لاءِ چونڊيو.
+tool.note.history.place = نوٽ رکو
+tool.note.history.move = نوٽ منتقل ڪريو
+tool.note.history.delete = نوٽ ڊاهيو
+
+tool.count.name = ڳڻپ
+tool.count.description = ڪينواس تي انگ وارا ڳڻپ نشان رکڻ لاءِ ڪلڪ ڪريو، ۽ موجود نشان هٽائڻ لاءِ ان تي ڪلڪ ڪريو.
+tool.count.default_name = ڳڻپ {n}

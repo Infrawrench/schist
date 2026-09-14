@@ -1,0 +1,20 @@
+# Strati di regulazione è cumandi Immagine ▸ Regulazioni.
+adjustment.levels.name = Livelli
+adjustment.curves.name = Curve
+adjustment.hue_saturation.name = Tinta/Saturazione
+adjustment.brightness_contrast.name = Luminosità/Cuntrastu
+adjustment.black_white.name = Neru è biancu
+adjustment.solid_color.name = Culore unitu
+adjustment.gradient_fill.name = Riempimentu degradatu
+adjustment.pattern_fill.name = Riempimentu à mutivu
+adjustment.invert.name = Invertisce
+adjustment.posterize.name = Posterizà
+adjustment.threshold.name = Soglia
+adjustment.color_balance.name = Equilibriu di i culori
+adjustment.vibrance.name = Vivacità
+adjustment.exposure.name = Espusizione
+adjustment.photo_filter.name = Filtru fotograficu
+adjustment.gradient_map.name = Carta di degradatu
+adjustment.selective_color.name = Culore selettivu
+adjustment.channel_mixer.name = Mischjadore di canali
+adjustment.other.name = Regulazione

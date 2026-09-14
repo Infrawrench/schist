@@ -1,0 +1,27 @@
+# පැච්
+tool.patch.name = පැච්
+tool.patch.description = දෝෂයක් වටා මායිමක් ඇඳ, එම තේරීම පිරිසිදු පික්සල මතට ඇදගෙන යන්න: එහි වයනය දෝෂයට ගළපනු ලැබේ. යුගලයේ ඇදගෙන යන්නේ කුමන අන්තයද යන්න පැච් ආකාරයෙන් තීරණය වේ.
+tool.patch.option.patch = පැච්
+tool.patch.choice.source = මූලාශ්‍රය
+tool.patch.choice.destination = ගමනාන්තය
+tool.patch.history.patch = පැච්
+
+# අන්තර්ගතයට අනුව ගෙනයෑම
+tool.content_aware_move.name = අන්තර්ගතයට අනුව ගෙනයන්න
+tool.content_aware_move.description = තෝරාගත් වස්තුවක් වෙනත් තැනකට ඇදගෙන යන විට එය ඉතිරි කරන හිඩැස අවට අන්තර්ගතයෙන් පුරවයි. දිගු කිරීමේ ආකාරයේදී වස්තුව ගෙනයෑම වෙනුවට දිගු කරයි.
+tool.content_aware_move.choice.move = ගෙනයන්න
+tool.content_aware_move.choice.extend = දිගු කරන්න
+tool.content_aware_move.history.move = අන්තර්ගතයට අනුව ගෙනයන්න
+
+# රතු ඇස
+tool.red_eye.name = රතු ඇස
+tool.red_eye.description = ෆ්ලෑෂ් ආලෝකයෙන් ඇති වූ රතු පැහැය ඉවත් කිරීමට ඇසේ කළු ඉංගිරියාව ක්ලික් කරන්න.
+tool.red_eye.option.pupil_size = කළු ඉංගිරියාවේ ප්‍රමාණය
+tool.red_eye.option.darken = අඳුරු කරන්න
+tool.red_eye.history.red_eye = රතු ඇස
+
+# මැජික් මකනය
+tool.magic_eraser.name = මැජික් මකනය
+tool.magic_eraser.description = මෙවලමේ ඉවසීමේ සීමාව තුළ, දර්ශකයට යටින් සමාන වර්ණ ඇති ප්‍රදේශය මැකීමට ක්ලික් කරන්න — ක්ලික් කළ තැනට සම්බන්ධ ප්‍රදේශය පමණක් හෝ ස්තරය පුරාම.
+tool.magic_eraser.option.contiguous = යාබද
+tool.magic_eraser.history.erase = මැජික් මකනය

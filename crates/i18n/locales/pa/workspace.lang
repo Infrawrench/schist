@@ -1,0 +1,100 @@
+workspace.fill.gray_50 = 50% ਸਲੇਟੀ
+workspace.fill.content_aware = ਸਮੱਗਰੀ-ਸਚੇਤ
+workspace.modify.expand = ਚੋਣ ਫੈਲਾਓ
+workspace.modify.contract = ਚੋਣ ਸੁੰਗੇੜੋ
+workspace.modify.border = ਚੋਣ ਦਾ ਹਾਸ਼ੀਆ
+workspace.modify.smooth = ਚੋਣ ਮੁਲਾਇਮ ਕਰੋ
+workspace.modify.feather = ਚੋਣ ਦੇ ਕਿਨਾਰੇ ਨਰਮ ਕਰੋ
+
+workspace.batch.target.edit = ਗੈਲਰੀ ਸੰਪਾਦਨ (ਵਰਜਨਬੱਧ)
+workspace.batch.target.beside = ਮੂਲਾਂ ਦੇ ਨਾਲ ਕਾਪੀਆਂ
+workspace.batch.target.folder = ਫੋਲਡਰ ਵਿੱਚ ਕਾਪੀਆਂ…
+workspace.modal.image_size.title = ਚਿੱਤਰ ਆਕਾਰ
+
+workspace.docs.opening = {name} ਖੋਲ੍ਹਿਆ ਜਾ ਰਿਹਾ ਹੈ…
+workspace.docs.opened = {name} ਖੋਲ੍ਹਿਆ
+workspace.docs.open_failed = ਖੋਲ੍ਹਣਾ ਅਸਫਲ: {error}
+workspace.docs.no_codec = {name} ਅਜਿਹਾ ਫਾਰਮੈਟ ਨਹੀਂ ਹੈ ਜਿਸਨੂੰ Schist ਖੋਲ੍ਹ ਸਕੇ
+workspace.docs.no_exporter = Schist .{ext} ਫਾਈਲਾਂ ਸੰਭਾਲ ਨਹੀਂ ਸਕਦਾ
+workspace.docs.empty_response = ਸਰਵਰ ਨੇ ਖਾਲੀ ਜਵਾਬ ਭੇਜਿਆ
+workspace.docs.heic_not_installed = HEIC ਸਹਾਇਤਾ ਇੰਸਟਾਲ ਨਹੀਂ ਹੈ
+workspace.docs.heic_downloading = HEIC ਸਹਾਇਤਾ (libheif {version}) ਡਾਊਨਲੋਡ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ…
+workspace.docs.heic_installed = HEIC ਸਹਾਇਤਾ ਇੰਸਟਾਲ ਹੋ ਗਈ
+workspace.docs.heic_download_failed = HEIC ਸਹਾਇਤਾ ਡਾਊਨਲੋਡ ਅਸਫਲ: {error}
+workspace.docs.placing = {name} ਰੱਖਿਆ ਜਾ ਰਿਹਾ ਹੈ…
+workspace.docs.place_image = ਚਿੱਤਰ ਰੱਖੋ
+workspace.docs.placed = {name} ਰੱਖਿਆ
+workspace.docs.place_failed = ਰੱਖਣਾ ਅਸਫਲ: {error}
+workspace.docs.saved = {name} ਸੰਭਾਲਿਆ
+workspace.docs.save_failed = ਸੰਭਾਲਣਾ ਅਸਫਲ: {error}
+
+workspace.adjustment.new_layer = ਨਵੀਂ {name} ਪਰਤ
+workspace.adjustment.added = {name} ਜੋੜਿਆ
+workspace.adjustment.settings = {name} ਸੈਟਿੰਗਾਂ
+workspace.adjustment.updated = {name} ਅੱਪਡੇਟ ਕੀਤਾ
+workspace.adjustment.no_settings = {name} ਵਿੱਚ ਸੰਪਾਦਨਯੋਗ ਸੈਟਿੰਗਾਂ ਨਹੀਂ ਹਨ
+workspace.comps.name_n = ਪਰਤ ਕੰਪ {n}
+workspace.comps.captured = ਪਰਤ ਕੰਪ ਕੈਪਚਰ ਕੀਤਾ
+workspace.comps.apply = {name} ਲਾਗੂ ਕਰੋ
+workspace.styles.layer_style = ਪਰਤ ਸ਼ੈਲੀ
+workspace.context.rename_layer = ਪਰਤ ਦਾ ਨਾਂ ਬਦਲੋ
+workspace.commands.tool = ਔਜ਼ਾਰ: {name}
+
+workspace.colormgmt.assign = {name} ਨਿਰਧਾਰਤ ਕਰੋ
+workspace.colormgmt.assigned = {name} ਨਿਰਧਾਰਤ ਕੀਤਾ
+workspace.colormgmt.convert_to = {name} ਵਿੱਚ ਬਦਲੋ
+workspace.colormgmt.converted_to = {name} ਵਿੱਚ ਬਦਲਿਆ
+workspace.colormgmt.convert_failed = ਬਦਲਣਾ ਅਸਫਲ: {error}
+workspace.colormgmt.proof_on = ਪਰੂਫ਼ ਰੰਗ ਚਾਲੂ
+workspace.colormgmt.proof_off = ਪਰੂਫ਼ ਰੰਗ ਬੰਦ
+
+workspace.filters.choose = ਚੁਣੋ
+workspace.filters.select_layer_first = ਪਹਿਲਾਂ ਇੱਕ ਪਰਤ ਚੁਣੋ
+workspace.filters.needs_pixel_layer = ਫਿਲਟਰਾਂ ਨੂੰ ਪਿਕਸਲ ਪਰਤ ਚਾਹੀਦੀ ਹੈ
+workspace.filters.nothing_to_filter = ਫਿਲਟਰ ਕਰਨ ਲਈ ਕੁਝ ਨਹੀਂ
+workspace.filters.went_away = ਫਿਲਟਰ ਗਾਇਬ ਹੋ ਗਿਆ
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: ਜਿਸ ਪਰਤ ਨੂੰ ਇਸਨੇ ਫਿਲਟਰ ਕੀਤਾ ਸੀ ਉਹ ਗਾਇਬ ਹੈ
+workspace.filters.plugin_title = Photoshop ਪਲੱਗ-ਇਨ
+workspace.filters.running = {name} ਚੱਲ ਰਿਹਾ ਹੈ
+workspace.filters.plugin_note = ਪਲੱਗ-ਇਨ ਆਪਣੀ ਵੱਖਰੀ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਚੱਲਦਾ ਹੈ। ਜੇ ਇਹ ਵਿੰਡੋ ਖੋਲ੍ਹੇ ਤਾਂ ਜਾਰੀ ਰੱਖਣ ਲਈ ਉਸਦਾ ਜਵਾਬ ਦਿਓ।
+workspace.filters.raw_preview_developing = RAW ਝਲਕ ਤਿਆਰ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ…
+workspace.filters.raw_preview_done = RAW ਝਲਕ (ਤੇਜ਼ ਡੀਮੋਜ਼ੇਕ)
+workspace.filters.raw_preview_size_changed = RAW ਝਲਕ ਦਾ ਆਕਾਰ ਬਦਲਿਆ: {w} × {h}
+workspace.filters.raw_preview_failed = RAW ਝਲਕ ਅਸਫਲ: {error}
+workspace.filters.raw_developing = ਮੂਲ ਕੈਪਚਰ ਤਿਆਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…
+workspace.filters.raw_developing_note = ਸਭ ਤੋਂ ਵਧੀਆ ਡੀਮੋਜ਼ੇਕ ਮਾਰਗ ਵਰਤਿਆ ਜਾ ਰਿਹਾ ਹੈ। PSD ਜਾਂ PSB ਵਜੋਂ ਸੰਭਾਲਣ ਮਗਰੋਂ ਵੀ ਮੂਲ RAW ਅਤੇ ਇਹ ਸੈਟਿੰਗਾਂ ਸੰਪਾਦਨਯੋਗ ਰਹਿਣਗੀਆਂ।
+workspace.filters.raw_document_changed = ਦਸਤਾਵੇਜ਼ ਬਦਲਣ ਮਗਰੋਂ RAW ਤਿਆਰੀ ਪੂਰੀ ਹੋਈ
+workspace.filters.raw_failed = RAW ਤਿਆਰੀ ਅਸਫਲ: {error}
+workspace.filters.raw_too_wide = RAW ਤਿਆਰੀ ਬਹੁਤ ਚੌੜੀ ਹੈ
+workspace.filters.raw_too_tall = RAW ਤਿਆਰੀ ਬਹੁਤ ਉੱਚੀ ਹੈ
+workspace.filters.raw_size_changed = RAW ਤਿਆਰੀ ਦਾ ਆਕਾਰ {w} × {h} ਹੋ ਗਿਆ; ਮੌਜੂਦਾ ਪਰਤ ਰੱਖੀ ਜਾ ਰਹੀ ਹੈ
+workspace.filters.raw_history = Camera Raw ਤਿਆਰੀ
+workspace.filters.raw_applied = Camera Raw ਤਿਆਰੀ ਲਾਗੂ ਕੀਤੀ (ਸਭ ਤੋਂ ਵਧੀਆ ਡੀਮੋਜ਼ੇਕ)
+
+workspace.image_size.done = ਚਿੱਤਰ ਆਕਾਰ: {w} × {h}
+workspace.image_size.bicubic_fallback = ਚਿੱਤਰ ਆਕਾਰ: {w} × {h} — {name} ਮਾਡਲ ਲੋਡ ਨਾ ਹੋ ਸਕਿਆ, ਇਸ ਲਈ ਬਾਈਕਿਊਬਿਕ ਵਰਤਿਆ ਗਿਆ
+workspace.image_size.upscaling = {name} ਨਾਲ ਵੱਡਾ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ
+workspace.image_size.upscaling_note = ਨੈੱਟਵਰਕ ਰਾਹੀਂ {mp} ਮੈਗਾਪਿਕਸਲ, ਹਰ ਇੱਕ ਨੂੰ ਕੁਝ ਸਕਿੰਟ। ਮੁਕੰਮਲ ਹੋਣ ਤੱਕ ਦਸਤਾਵੇਜ਼ ਰੋਕਿਆ ਰਹੇਗਾ।
+
+workspace.export.no_slices = ਨਿਰਯਾਤ ਕਰਨ ਲਈ ਕੋਈ ਸਲਾਈਸ ਨਹੀਂ
+workspace.export.no_artboards = ਨਿਰਯਾਤ ਕਰਨ ਲਈ ਕੋਈ ਆਰਟਬੋਰਡ ਨਹੀਂ
+workspace.export.regions.one = {n} ਖੇਤਰ ਨਿਰਯਾਤ ਕੀਤਾ
+workspace.export.regions.other = {n} ਖੇਤਰ ਨਿਰਯਾਤ ਕੀਤੇ
+workspace.export.prompt = ਇਸ ਤਰ੍ਹਾਂ ਨਿਰਯਾਤ ਕਰੋ:
+workspace.export.done = {name} ਨਿਰਯਾਤ ਕੀਤਾ
+workspace.export.failed = ਨਿਰਯਾਤ ਅਸਫਲ: {error}
+workspace.export.codec_vanished = ਨਿਰਯਾਤਕਾਰ ਹੁਣ ਉਪਲਬਧ ਨਹੀਂ ਹੈ
+
+workspace.file_picker.choose_folder = ਫੋਲਡਰ ਚੁਣੋ
+workspace.file_picker.type_a_name = ਫਾਈਲ ਲਈ ਨਾਂ ਲਿਖੋ
+workspace.file_picker.exists = {name} ਮੌਜੂਦ ਹੈ; ਇਸਨੂੰ ਬਦਲਣ ਲਈ ਮੁੜ ਸੰਭਾਲੋ ਦਬਾਓ
+workspace.file_picker.tap_a_file = ਖੋਲ੍ਹਣ ਲਈ ਫਾਈਲ ਉੱਤੇ ਟੈਪ ਕਰੋ
+workspace.file_picker.pictures = ਤਸਵੀਰਾਂ
+workspace.file_picker.camera = ਕੈਮਰਾ
+workspace.file_picker.downloads = ਡਾਊਨਲੋਡ
+workspace.file_picker.permission_denied = Schist ਕੋਲ ਇਹ ਫੋਲਡਰ ਪੜ੍ਹਨ ਦੀ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈ
+
+workspace.recovery.recovered_title = {title} (ਬਹਾਲ ਕੀਤਾ)
+workspace.recovery.recovered.one = ਪਿਛਲੇ ਸੈਸ਼ਨ ਦਾ {n} ਨਾ ਸੰਭਾਲਿਆ ਦਸਤਾਵੇਜ਼ ਬਹਾਲ ਕੀਤਾ
+workspace.recovery.recovered.other = ਪਿਛਲੇ ਸੈਸ਼ਨ ਦੇ {n} ਦਸਤਾਵੇਜ਼ ਬਹਾਲ ਕੀਤੇ

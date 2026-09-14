@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galreye des passetes
+app.filter_gallery.stack = Trosse (metowe do fond al copete)
+app.filter_gallery.no_settings = Cisse passete n' a pont d' apontiaedje.
+app.fonts.not_open_licensed = nén dizo licince libe · {substitute} a les minmes grandeus
+app.fonts.missing_substituted = manke · li scrijhaedje eploye ene fonte di replaeçmint
+app.fonts.not_in_catalogue = {family} n' est nén e catalogue des fontes libes
+app.fonts.no_faces = nou vizådje di fonte aberwetåve po {family}
+app.fonts.empty_response = response vude
+app.update.unreadable_response = response nén lejhåve: {error}
+app.update.no_temp_dir = nou ridant timporaire po-z î aberweter
+app.update.asset_has_path = li modêye dine on tchimin come no å fitchî
+app.update.too_big = l' aberwetaedje est pus grand ki çou k' li modêye dit
+app.update.stopped_at = l' aberwetaedje s' a-st aresté a {got} di {total} octets
+app.update.hash_mismatch = li hash di l' aberwetaedje est {got}, nén {want}
+app.update.not_in_bundle = cisse copeye n' est nén dins on paket d' aplicåcion
+app.update.no_parent_dir = li paket d' aplicåcion n' a nou ridant parint
+app.update.cannot_write = dji n' sai scrire dins {dir}
+app.update.cannot_move_aside = dji n' sai mete {app} so costé
+app.update.cannot_move_in = dji n' sai mete li novea paket al boune plaece
+app.update.cannot_run_ditto = dji n' sai enonder /usr/bin/ditto
+app.update.unpack_failed = li dispaktaedje di l' aberwetaedje a fwait berwete: {error}
+app.update.no_app_in_download = l' aberwetaedje ni contént nou Schist.app
+app.update.cannot_run_codesign = dji n' sai enonder /usr/bin/codesign
+app.update.signature_invalid = l' sinateure di l' aberwetaedje n' est nén valide: {error}
+app.update.download_unsigned = cisse copeye est sinêye et l' aberwetaedje nel est nén
+app.update.different_developer = l' aberwetaedje est siné pa on ôte diswalpeu
+app.update.cannot_relaunch = dji n' sai enonder li renondeu
+app.update.not_installed_copy = cisse copeye n' a nén stî metowe chal pa l' astaleu
+app.update.cannot_start_installer = dji n' sai enonder l' astaleu
+app.update.platform_unsupported = so cisse platfôme, les metaedjes a djoû s' astalèt del minme manire ki Schist
+app.vulkan.no_loader = schist: i gn a nou tcherdjeu Vulkan so ç' sistinme-ci, don i gn a rén po dessiner.\n\nSchist rind avou Vulkan, et `libvulkan.so.1` n' est nén astalé.\nI fåt li tcherdjeu et on mineu: \n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: li mineu Vulkan apontyî po cisse session n' est nén la.\n\n{var} est defini, et l' defini *replaece* li cweraedje des mineus do tcherdjeu\nal plaece del radjouter. Ces fitchîs ki n' egzistèt nén sont don tote li djivêye\ndes mineus, et tos les programes Vulkan di cisse session ni veyèt nou mineu:\n\n{missing}\n    {var}={value}\n\nFijhoz-l' mostrer on manifesse k' egzistêye — les mineus astalés metèt les leus dins\n/usr/share/vulkan/icd.d — oudon-bén oistez-l' et leyîz l' tcherdjeu cweri lu-minme.\nSi l' session el define dins on fitchî d' apontiaedje (l' `env =` di Hyprland,\non fitchî systemd environment.d, ou on profil shell), candjîz-l' la;\ni fåt si dislodjî et si rlodjî pol candjmint ariver ås programes dedja en alaedje.\n
+app.vulkan.override_note = \n{var} est defini come {value}, et çoula replaece li cweraedje do tcherdjeu:\nsi nouk di ces manifestes n' est po cisse éndjole, sayîz aprume di l' oister.\n
+app.vulkan.no_driver = schist: i gn a nou mineu Vulkan astalé, don i gn a rén po dessiner.\n\nSchist rind avou Vulkan. Li tcherdjeu est astalé mins ni trove nou mineu —\nnouk ni s' a-st eredjistré dins les deus plaeces k' il louke:\n\n{dirs}\n\nLi tcherdjeu et les mineus sont dins des pakets diferins; c' est do côp on seu\npaket ki manke.\n\nAstalez l' mineu pol GPU di ciste éndjole:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nLi mineu prôpe da NVIDIA a l' cién avou lu (`nvidia-utils` so Arch,\n`nvidia-driver` so Debian). Dins ene éndjole forveyowe, ou wice k' i gn a\nnou mineu GPU a-z astaler, li rasterizeu programe est çou k' rote:\n`vulkan-swrast` so Arch, ene pårt di `mesa-vulkan-drivers` ôte pårt.\nIl est londjin, mins i s' enonde.\n{overridden}
+app.vulkan.no_device = schist: on mineu Vulkan est astalé mins n' ofere nou éndjin po rinde.\n\nLi mineu n' pout motoit nén eployî ç' GPU-ci, ou n' pout nén l' ariver — pa SSH,\nou dins on contneu, /dev/dri est sovint çou k' manke. `vulkaninfo --summary`\ndit çou k' li tcherdjeu vey.\n\nLi rasterizeu programe rind sins GPU, si c' est çou k' ciste éndjole a:\n`vulkan-swrast` so Arch, ene pårt di `mesa-vulkan-drivers` so Debian et Fedora.\n
+app.vulkan.skip_hint = Po-z enonder Schist tot l' minme et l' leyî fé berwete a s' manire, metoz {var}=1.

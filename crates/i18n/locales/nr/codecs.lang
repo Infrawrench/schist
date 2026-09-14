@@ -1,0 +1,40 @@
+# Format names
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Shared import messages
+codec.msg.decoding = kukhishwa ikhodi ye-{name}
+codec.msg.zero_sized = isithombe asinawo amaphikseli
+codec.msg.assembling_document = kuhlanganiswa idokhumenti
+
+# Camera raw
+codec.raw.msg.decoding = kukhishwa ikhodi yefayela elingakalungiswa
+codec.raw.msg.developing = kulungiswa ifayela elingakalungiswa
+codec.raw.msg.finding_preview = kufunwa isiboniso sangaphambili esifakiweko
+codec.raw.msg.decoding_preview = kukhishwa ikhodi yesiboniso sangaphambili esifakiweko
+codec.raw.msg.decoder_panicked = isikhuphi sekhodi yefayela elingakalungiswa sihlulekile kileli fayela: {what}
+
+# Affinity
+codec.affinity.import_title = Ukungenisa kwe-Affinity
+codec.affinity.flattened_preview_layer = Isiboniso sangaphambili esihlanganisiweko
+codec.affinity.msg.no_preview = Akunasiboniso sangaphambili esifakiweko esisebenzisekako. Ifomethi ye-Affinity enamaleya iyipahla yayo; i-Schist ingenisa isiboniso sangaphambili esihlanganisiweko esithwelwe lifayela. Ifayela leli alinaso — libulunge godu ku-Affinity, namkha ulithumele ngaphandle njenge-PSD ukuze ungenise woke amaleya.
+
+# HEIF
+codec.heif.msg.no_library = I-libheif ayitholakali ({details}). Ukuvula i-HEIC kutlhoga ilabhulali ye-libheif (Linux: faka i-libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — ukwakhiwa kwe-libheif lokhu kungenzeka kungabi nesikhuphi sekhodi se-HEVC (ku-Debian/Ubuntu, faka i-libheif-plugin-libde265)
+codec.heif.msg.unknown_error = iphoso engaziwako
+codec.heif.msg.initialising = kulungiselelwa i-libheif
+codec.heif.msg.reading_container = kufundwa isitja se-HEIF
+codec.heif.msg.finding_primary_image = kufunwa isithombe esikhulu
+codec.heif.msg.reading_icc_profile = kufundwa iphrofayili ye-ICC
+codec.heif.msg.decoding_image = kukhishwa ikhodi yesithombe
+codec.heif.msg.checksum_mismatch = I-checksum ye-{name} ayifani: bekulindelwe {expected}, kwatholakala {got}
+codec.heif.msg.imageio_cannot_read = I-ImageIO ayikghoni ukufunda isitja se-HEIF
+codec.heif.msg.container_empty = isitja se-HEIF asinasithombe
+codec.heif.msg.imageio_cannot_decode = I-ImageIO ayikghoni ukukhipha ikhodi yesithombe esikhulu

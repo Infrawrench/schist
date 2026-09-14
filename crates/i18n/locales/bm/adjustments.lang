@@ -1,0 +1,20 @@
+# Jaabi labɛnni
+adjustment.levels.name = Hakɛw
+adjustment.curves.name = Kuruɲɛw
+adjustment.hue_saturation.name = Kulɛri/Saturation
+adjustment.brightness_contrast.name = Jɛya/Farabɔ
+adjustment.black_white.name = Fin ani Jɛ
+adjustment.solid_color.name = Kulɛri kelen
+adjustment.gradient_fill.name = Kulɛri yɛlɛmali faali
+adjustment.pattern_fill.name = Misali faali
+adjustment.invert.name = Yɛlɛma a kɔrɔcɛma
+adjustment.posterize.name = Kulɛri hakɛ dɔgɔya
+adjustment.threshold.name = Dan
+adjustment.color_balance.name = Kulɛriw bɛɲɔgɔnya
+adjustment.vibrance.name = Kulɛri manamaya
+adjustment.exposure.name = Yelen sɔrɔli
+adjustment.photo_filter.name = Foto sɛgɛsɛgɛlan
+adjustment.gradient_map.name = Kulɛri yɛlɛmali karti
+adjustment.selective_color.name = Kulɛri sugandilen
+adjustment.channel_mixer.name = Kanalaw ɲagaminen
+adjustment.other.name = Labɛnni

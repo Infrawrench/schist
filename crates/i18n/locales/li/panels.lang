@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Werkelike pixels
+
+panel.color.picker = Kleurkezer…
+panel.color.swap = Kleure verwissele
+panel.color.reset = Trök nao zwart en wit
+
+panel.layers.blending_options = Mengopties…
+panel.layers.properties = Laogeigesjappe…
+panel.layers.show_hide = Laog tuine/verberge
+panel.layers.toggle_visibility = Zichbaarheid ómsjakele
+
+panel.history.title = Gesjiedenis
+panel.history.opened = Geäöpend
+
+panel.info.title = Informatie
+panel.info.camera = Camera
+panel.info.lens = Lens
+panel.info.iso = ISO {iso}
+panel.info.bias = Belichtingscorrectie
+panel.info.flash_fired = flits aafgegaon
+panel.info.no_flash = geine flits
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering}-meting
+panel.info.taken = Genome
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · oriëntatie {o}
+panel.info.software = Software
+panel.info.where = Woe
+
+panel.notes.author = Auteur
+panel.notes.clear_all = Alles wösse
+panel.notes.unattributed = Zonger auteur
+panel.notes.empty = Klik op 't canvas om 'n notitie achter te laote.
+panel.notes.placeholder = Klik om te sjrieve
+
+panel.character.title = Teke
+panel.character.type_tool = Tekshulpmiddel (T)
+panel.character.align_left = Links oetlijne
+panel.character.align_center = Centrere
+panel.character.align_right = Rechts oetlijne
+panel.character.text_color = Tekskleur
+panel.character.panel = Tekepaneel
+panel.character.cancel_edit = Teksbewèrking annulere
+panel.character.commit_edit = Teksbewèrking bevestige
+panel.character.number_tip = {label} · Typ 'n wäörd of gebroek ↑ / ↓ (Shift veur groeëtere sjtappe)
+panel.character.leading = Regelafstandj
+panel.character.tracking = Tekeafstandj
+panel.character.alignment = Oetlijning
+panel.character.opentype = OpenType
+panel.character.text_on_path = Teks op 'n paad
+panel.character.straight = Rech
+panel.character.on_path = Op paad
+panel.character.straight_tip = Gebroek de gewäöne basislien van de tekslaog
+panel.character.on_path_tip = Gebroek 'n kopie van 't actieve paad
+panel.character.path_offset = Paadversjuiving
+
+panel.ai.title = AI
+panel.ai.empty_editor = Vraog om 'n bewèrking en bekiek wie die op 't canvas gebäört. De agent gebroek dezelfde hulpmiddele, filters en opdrachte es de menu's, eder es 'ne aparte stap om óngedaon te make.
+panel.ai.empty_gallery = Vraog get euver eur foto's en bekiek wie 't in de galerie gebäört: de agent kin zeuke, miniatuuraafbiljinge bekieke, selectere, in groepkes sortere en 'n foto in de bewèrker äöpene.
+panel.ai.thinking = aan 't dinke…
+panel.ai.placeholder_editor = Vraog euver dit document of bewèrk 't
+panel.ai.placeholder_gallery = Vraog get euver eur foto's
+panel.ai.send = Sjikke
+panel.ai.stop = Sjtoppe
+panel.ai.fetching_models = Modelle opvraoge bie de CLI…
+panel.ai.no_models = Gein euvereinkómmende modelle
+panel.ai.search_models = Modelle zeuke…
+
+panel.keymap.install_plugin = Plug-in installere
+panel.keymap.save_as_prompt = Opslaon es — de extensie bepaolt 't formaat:

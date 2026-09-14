@@ -1,0 +1,356 @@
+# Ma'ajiyar hotuna: sandar gefe, raga, taswira da shigo da hotuna.
+
+# Sandar gefe
+library.sidebar.view = DUBAWA
+library.sidebar.folders = JAKUNKUNA
+library.sidebar.buckets = TARIN HOTUNA
+library.sidebar.people = MUTANE
+library.sidebar.group_by = RUKUNTA BISA
+library.sidebar.all_photos = Duk Hotuna
+library.sidebar.world_map = Taswirar Duniya
+library.sidebar.map_filter = Matatar taswira…
+library.sidebar.map_filter_on = Matatar taswira tana kunne
+library.sidebar.add_folder = + Ƙara jaka…
+library.sidebar.new_bucket = + Sabon tarin hotuna
+library.sidebar.stop_watching = Daina sa ido kan wannan jaka
+library.sidebar.unnamed_faces = Fuskoki marasa suna
+library.sidebar.retry_face_model = Sake gwada sauke samfurin fuska
+library.sidebar.retry_recognition_model = Sake gwada sauke samfurin ganewa
+library.sidebar.looking_for_faces = Ana neman fuskoki… {looked}/{total}
+library.sidebar.faces_appear = Fuskoki za su bayyana a nan yayin da ake sanya hotuna a fihirisa.
+library.sidebar.downloading_face_models = Ana sauke samfuran fuska… {got} cikin {total} MB
+
+library.group_by.date = Kwanan Wata
+library.group_by.folder = Jaka
+library.group_by.place = Wuri
+
+# Watanni
+library.month.january = Janairu
+library.month.february = Fabrairu
+library.month.march = Maris
+library.month.april = Afirilu
+library.month.may = Mayu
+library.month.june = Yuni
+library.month.july = Yuli
+library.month.august = Agusta
+library.month.september = Satumba
+library.month.october = Oktoba
+library.month.november = Nuwamba
+library.month.december = Disamba
+library.month.title = {month} {year}
+library.month.undated = Babu Kwanan Wata
+
+# Taken rukuni
+library.group.person = Mutane · {name}
+library.group.person_in = Mutane · {name} · a {scope}
+library.group.unnamed = Fuskoki marasa suna
+library.group.unnamed_in = Fuskoki marasa suna · a {scope}
+library.group.bucket = Tarin hotuna · {name}
+library.group.no_location = Babu wuri
+library.group.not_indexed = Ba a sanya a fihirisa ba tukuna
+library.group.detail = {detail} — {n}
+
+# Sandar sama
+library.strip.import = Shigo da…
+library.strip.add_folder = Ƙara Jaka…
+library.strip.settings = Saituna…
+library.strip.new_file = Sabon Fayil…
+library.strip.back_to_editing = Koma Gyara
+library.strip.enable_search = Kunna neman hotuna…
+library.strip.enable_search_menu = Kunna Neman Hotuna…
+library.strip.map_filter_chip = Matatar taswira: {name}
+library.strip.downloading_search = Ana sauke neman hotuna… {got} cikin {total} MB
+
+# Akwatin nema
+library.search.placeholder = Nemi hotuna…
+library.search.placeholder_indexing = Nema (an sanya {indexed}/{total} a fihirisa)
+library.search.placeholder_people_places = Nemi mutane da wurare…
+library.search.results = Sakamakon nema
+library.search.results_in_bucket = Tarin hotuna · {name} · Sakamakon nema
+library.search.near = kusa da {place}
+library.search.with = tare da {names}
+
+# Tire da sel
+library.tray.view = Duba
+library.tray.edited_note = an gyara — ana riƙe sigogi kusa da fayil
+library.tray.n_hidden.one = matatar abun ciki ta ɓoye {n}
+library.tray.n_hidden.other = matatar abun ciki ta ɓoye {n}
+library.cell.no_preview = babu samfoti
+library.cell.edited = an gyara
+library.gallery.loading = Ana loda hotuna…
+
+# Maraba
+library.welcome.title = Barka da zuwa Schist
+library.welcome.intro = Sa ido kan jakunkunan hotuna, ko shigo da su daga kamara. Fayiloli suna nan a wurinsu; ana ajiye sigogin gyare-gyare kusa da su:
+library.welcome.intro_ios = Shigo da hotuna daga ma'ajiyarka, ko ƙara jaka daga Files. Ana ajiye sigogin gyare-gyare kusa da kowane hoto:
+library.welcome.or_open = Ko buɗe hoto don gyarawa:
+library.welcome.shortcut_mac = Ma'ajiyar hotuna kullum tana nesa da ⌘⇧G, ko mene ne kake gyarawa.
+library.welcome.shortcut = Ma'ajiyar hotuna kullum tana nesa da Ctrl+Shift+G, ko mene ne kake gyarawa.
+
+# Dalilin rashin hotuna a raga
+library.gallery.empty_bucket_search = Babu abin da ya dace da neman a wannan tarin hotuna. Escape yana goge neman don nuna duk tarin.
+library.gallery.empty_search = Babu abin da ya dace da neman. Escape yana goge shi.
+library.gallery.empty_smart_bucket = Babu abin da ya dace da dokar wannan tarin tukuna—za su bayyana yayin da ake sanya hotuna a fihirisa. Ja hotuna zuwa ciki ma yana aiki.
+library.gallery.empty_bucket = Wannan tarin hotuna babu komai. Ja hotuna zuwa layinsa a sandar gefe don ƙara su.
+library.gallery.empty_person = Babu komai a nan tukuna. Fuskoki suna bayyana yayin sanya hotuna a fihirisa; danna hoto, sannan fuska, don faɗin ko wane ne.
+library.gallery.scanning = Ana binciken jakunkuna…
+library.gallery.empty = Ba a sami hotuna a jakunkunan da ake sa ido ba. Hotunan da Schist zai iya buɗewa (PNG, JPEG, WebP, TIFF, HEIC, fayilolin kamara na asali, PSD, Affinity) suna bayyana a nan; ana binciken ƙananan jakunkuna zuwa matakai shida.
+
+# Tarin hotuna
+library.bucket.default_name = Tarin Hotuna {n}
+library.bucket.rule_matches = ya dace da “{query}”
+library.bucket.rule_taken_in = an ɗauka a {name}
+library.bucket.new_title = Sabon Tarin Hotuna
+library.bucket.edit_title = Gyara Tarin Hotuna
+library.bucket.new_cloud_title = Sabon Tarin Hotuna na Cloud
+library.bucket.edit_cloud_title = Gyara Tarin Hotuna na Cloud
+library.bucket.create = Ƙirƙira
+library.bucket.query_placeholder = misali kare a bakin teku (na zaɓi)
+library.bucket.the_drawn_area = yankin da aka zana
+library.bucket.area_help = Ja taswirar tare da Shift (ko zaɓi saitin da aka tanada) don ƙara yanki; ɗan gajeren ja yana goge shi. Dokoki suna ci gaba da cika tarin kai tsaye.
+library.bucket.rule_none = Babu doka: tarin hotuna na al'ada, ana cika shi ta hanyar jan hotuna ciki.
+library.bucket.rule_query = Yana riƙe kowane hoto da ya dace da “{query}”.
+library.bucket.rule_area = Yana riƙe kowane hoto da aka ɗauka a {area}.
+library.bucket.rule_query_area = Yana riƙe kowane hoto da ya dace da “{query}” wanda aka ɗauka a {area}.
+library.bucket.starts_with.one = Yana farawa da hoton da aka zaɓa.
+library.bucket.starts_with.other = Yana farawa da hotuna {n} da aka zaɓa.
+
+# Taswirar duniya
+library.map.status = hotuna {located} a taswira · {unlocated} babu wuri
+library.map.reading_locations = Ana karanta wurare: saura {n}
+library.map.reset_view = Sake saita dubawa
+library.map.no_photos = Babu hotuna masu wurin GPS a wannan dubawar. Ƙara hotuna masu alamar wuri ko canza matatan ma'ajiyar hotuna.
+library.map.no_photos_cloud = Babu hotuna masu wurin GPS a nan. Zaɓi wata jaka ko tarin hotuna, ko goge neman.
+library.map.hint = Ja don matsarwa · Gungura don zuƙowa · Danna alama don ganin hotunanta · Danna hoto sau biyu don gyarawa
+library.map.n_at_marker.one = hoto {n} a wannan alama
+library.map.n_at_marker.other = hotuna {n} a wannan alama
+library.map.n_in_marker.one = hoto {n} cikin wannan alama
+library.map.n_in_marker.other = hotuna {n} cikin wannan alama
+library.map.attribution = © Masu ba da gudummawar OpenStreetMap
+
+# Editan iyaka
+library.map.draw_area = Zana yanki
+library.map.drawing = Ana zanawa…
+library.map.clear_boundary = Goge iyaka
+library.map.editor_hint = ja yana matsarwa · gungura yana zuƙowa · ja da shift yana zana
+
+# Matatar taswira
+library.map_filter.title = Matatar Taswira
+library.map_filter.drawn_area = yankin da aka zana
+library.map_filter.apply_named = Aiwatar yana nuna hotunan da aka ɗauka a {name} kaɗai; hotunan da ba su da matsayin EXIF suna ɓoyewa.
+library.map_filter.apply_drawn = Aiwatar yana nuna hotunan da aka ɗauka tsakanin {south}°, {west}° da {north}°, {east}° kaɗai; hotunan da ba su da matsayin EXIF suna ɓoyewa.
+library.map_filter.draw_first = Zana iyaka (ja da Shift, ko saitin da aka tanada), sannan Aiwatar. Aiwatarwa ba tare da an zana komai ba yana kashe matatar.
+library.map_filter.turn_off = Kashe Matata
+
+# Shigo da daga kamara
+library.import.title = Shigo da daga Kamara
+library.import.from = Shigo da daga {name}
+library.import.no_cameras = Ba a sami kamara ba.
+library.import.no_cameras_help = Haɗa kamara, katin ƙwaƙwalwa ko iPhone. Dole a buɗe iPhone kuma a amsa Amince da Wannan Kwamfutar kafin hotunansa su bayyana—yi haka, jira kaɗan, sannan danna Sake Bincikawa. Duk abin da aka haɗa a matsayin faifai mai jakar DCIM ma ya dace.
+library.import.scan_again = Sake Bincikawa
+library.import.pick_source = Ana iya isa ga kamara fiye da ɗaya. Shigo da daga:
+library.import.via_image_capture = ta Image Capture
+library.import.boundary_named = Iyaka: {name} — hotunan da matsayin EXIF ɗinsu yake cikinta kaɗai ake shigo da su; marasa matsayi suna kasancewa a kamara.
+library.import.boundary_drawn = Iyaka: {south}°, {west}° zuwa {north}°, {east}° — hotunan da matsayin EXIF ɗinsu yake cikinta kaɗai ake shigo da su.
+library.import.no_boundary = Babu iyaka — ana shigo da duk abin da ke kamara.
+library.import.destination = Zuwa ~/Pictures/Schist Imports/{name} — ana tsallake fayilolin da aka riga aka shigo da su, saboda haka sake gudanarwa ba ya da illa.
+library.import.selected_area = Yankin da Aka Zaɓa
+library.import.locked_help = Idan an kulle na'urar: buɗe ta, taɓa Amince da Wannan Kwamfutar idan ta tambaya, bar ta a haɗe, sannan sake gwadawa.
+library.import.try_again = Sake Gwadawa
+library.import.add_to_gallery = Ƙara zuwa Ma'ajiyar Hotuna
+
+# Saƙonnin shigo da kamara
+library.import.needs_home = Shigo da fayil yana buƙatar kundin gida da za a kwafa ciki
+library.import.importing_from = Ana shigo da daga {source}…
+library.import.importing_in_place = Ana shigo da hotunan da aka ɗauka a {place} daga {source}…
+library.import.device_macos_only = Shigo da kai tsaye daga na'ura fasalin macOS ne
+library.import.failed = Shigo da fayil ya gaza: {error}
+library.import.from_failed = Shigo da daga {name} ya gaza
+library.import.locked = An kulle {name} — buɗe shi kuma taɓa Amince don ci gaba
+library.import.reading_catalog = Ana karanta jerin hotunan {name}…
+library.import.progress_from = Ana shigo da hoto {n}/{total} daga {name}…
+library.import.progress = Ana shigo da fayil {n}/{total}…
+library.import.choose_photos = Zaɓi hotuna da bidiyoyi da za a shigo da su…
+library.import.photos_open_failed = Ba a iya buɗe ma'ajiyar hotuna ba: {error}
+library.import.done.one = An shigo da fayil {n} zuwa {dest}
+library.import.done.other = An shigo da fayiloli {n} zuwa {dest}
+library.import.done_in_place.one = An shigo da hoto {n} da aka ɗauka a {place} zuwa {dest} ({filtered} da ke wani wuri ko marasa matsayi sun rage a kamara)
+library.import.done_in_place.other = An shigo da hotuna {n} da aka ɗauka a {place} zuwa {dest} ({filtered} da ke wani wuri ko marasa matsayi sun rage a kamara)
+library.import.n_failed.one = {n} ya gaza
+library.import.n_failed.other = {n} sun gaza
+library.import.no_dcim = Babu jakar DCIM a {source}
+library.import.already_running = Ana gudanar da wani shigo da fayil yanzu
+library.import.camera_gone = Wannan kamarar ba ta haɗe yanzu
+library.import.camera_disconnected = Kamarar ta cire haɗi yayin shigo da fayil
+library.import.unknown_error = Kuskuren da ba a sani ba
+library.import.picker_needs_ios14 = Mai zaɓen hotuna yana buƙatar iOS 14 ko sabo
+library.import.picker_unavailable = Babu mai zaɓen hotuna
+library.import.no_window = Babu taga da za a nuna mai zaɓen daga gare ta
+
+library.volume.iphone = iPhone ko iPad
+library.volume.camera = Kamara
+library.volume.phone = Waya
+
+library.open_folder.opened.one = An buɗe hoto {n}
+library.open_folder.opened.other = An buɗe hotuna {n}
+library.open_folder.opened_first = An buɗe {n} na farkon hotuna {total} — ma'ajiyar hotuna tana riƙe da sauran
+
+# Samfuran neman hotuna
+library.search_models.title = Neman Hotuna
+library.search_models.intro = Neman hotuna bisa abin da ke cikinsu yana buƙatar samfura biyu, waɗanda ake saukewa sau ɗaya a ajiye a wannan na'ura. Suna aiki a cikin na'urar: babu hoto da yake fita daga gare ta.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = MobileCLIP na Apple
+library.search_models.export = Fitarwar ONNX ta Xenova
+library.search_models.license = Lasisi
+library.search_models.download_note = Saukewa yana girka dukansu biyu (jimilla {mb} MB) kuma yana amincewa da lasisoshinsu. Za a iya sake cire su a Ma'ajiyar Hotuna ▸ Sarrafa Samfura…
+library.search_models.agree = Amince kuma Sauke
+
+# Menu na danna dama
+library.menu.add_all_to = Ƙara duka zuwa {name}
+library.menu.add_all_to_new_bucket = Ƙara duka zuwa sabon tarin hotuna…
+library.menu.edit_n_in_tabs = Gyara {n} a shafuka
+library.menu.view_name_people = Duba kuma sanya wa mutane suna
+library.menu.reveal = Nuna a mai sarrafa fayil
+library.menu.add_to = Ƙara zuwa {name}
+library.menu.add_to_new_bucket = Ƙara zuwa sabon tarin hotuna
+library.menu.remove_from_bucket = Cire daga wannan tarin hotuna
+library.menu.save_n_as_zip = Ajiye {n} a matsayin ZIP…
+library.menu.save_image_as = Ajiye hoto kamar…
+library.menu.process = Sarrafa…
+library.menu.process_n = Sarrafa hotuna {n}…
+library.menu.move_to_folder = Matsar zuwa jaka…
+library.menu.move_n_to_folder = Matsar da {n} zuwa jaka…
+library.menu.revert = Mayar zuwa na asali
+library.menu.revert_n = Mayar da {n} zuwa na asali
+library.menu.upload_to_cloud = Loda zuwa Schist Cloud…
+library.menu.watch_local_folder = Sa ido kan jaka a wannan kwamfutar…
+library.menu.new_cloud_folder = {glyph} Sabuwar jakar Schist Cloud…
+library.menu.new_local_bucket = Sabon tarin hotuna a wannan kwamfutar…
+library.menu.new_cloud_bucket = {glyph} Sabon tarin hotuna na Schist Cloud…
+library.menu.edit_bucket = Gyara tarin hotuna…
+library.menu.select_all_n = Zaɓi duka ({n})
+library.menu.save_all_as_zip = Ajiye duka a matsayin ZIP… ({n})
+library.menu.process_all = Sarrafa duka… ({n})
+library.menu.move_all_to_folder = Matsar da duka zuwa jaka…
+library.menu.clear_added = Goge hotunan da aka ƙara
+library.menu.clear_bucket = Goge tarin hotuna
+library.menu.delete_bucket = Share tarin hotuna
+library.menu.show_person = Nuna {name}
+library.menu.rename_person = Sake suna…
+library.menu.forget_person.one = Manta da mutumin (fuska {n})
+library.menu.forget_person.other = Manta da mutumin (fuskoki {n})
+
+# Matsarwa, ZIP, ajiyewa da sarrafa rukuni
+library.ops.moving.one = Ana matsar da hoto {n} zuwa {dest}…
+library.ops.moving.other = Ana matsar da hotuna {n} zuwa {dest}…
+library.ops.moved.one = An matsar da hoto {n} zuwa {dest}
+library.ops.moved.other = An matsar da hotuna {n} zuwa {dest}
+library.ops.moved_partial = An matsar da hotuna {n} cikin {total} zuwa {dest} — kundin bayanai yana da sauran
+library.ops.move_here = Matsar a Nan
+library.ops.no_export_format = Babu tsarin nan da zai iya ajiye hoto
+library.ops.saved_size = An ajiye {name} ({w} × {h})
+library.ops.save_failed = Ajiyewa ya gaza: {error}
+library.ops.opening_first = Ana buɗe {n} na farkon hotuna {total} — ma'ajiyar hotuna tana riƙe da sauran
+library.ops.nothing_to_revert = Babu abin mayarwa: babu ɗaya daga cikin hotunan da yake da gyara
+library.ops.reverted.one = An mayar da hoto {n} zuwa na asali — ana riƙe gyaran a versions/
+library.ops.reverted.other = An mayar da hotuna {n} zuwa na asali — ana riƙe gyare-gyaren a versions/
+library.ops.no_file_name = Fayil ɗin ba shi da suna
+library.zip.nothing_all_held = Babu abin da za a saka ZIP: matatar abun ciki ta hana duk hotuna {n}
+library.zip.failed = ZIP ya gaza: {error}
+library.zip.progress = Ana yin ZIP {n}/{total}…
+library.zip.n_held.one = (matatar abun ciki ta bar {n} a waje)
+library.zip.n_held.other = (matatar abun ciki ta bar {n} a waje)
+library.zip.done.one = An saka hoto {n} cikin ZIP zuwa {dest}
+library.zip.done.other = An saka hotuna {n} cikin ZIP zuwa {dest}
+library.zip.done_partial = An saka hotuna {n} cikin {total} a ZIP zuwa {dest} — kundin bayanai yana da sauran
+library.zip.nothing_readable = Babu abin da aka iya karantawa don saka ZIP
+library.zip.too_large = Ya yi girma fiye da ZIP marar zip64
+library.batch.nothing_to_do = Babu abin yi: da farko zaɓi juyawa, ƙara girma ko daidaitawa
+library.batch.save_copies_here = Ajiye Kwafi a Nan
+library.batch.processing.one = Ana sarrafa hoto {n}…
+library.batch.processing.other = Ana sarrafa hotuna {n}…
+library.batch.progress = An sarrafa {n}/{total} — {name}
+library.batch.failed = Sarrafawa ta gaza: {error}
+library.batch.done.one = An sarrafa hoto {n}
+library.batch.done.other = An sarrafa hotuna {n}
+library.batch.done_partial = An sarrafa hotuna {n} cikin {total} — kundin bayanai yana da sauran
+library.batch.model_would_not_load = Samfurin {name} bai loda ba
+library.batch.no_psd_writer = Ba a loda mai rubuta PSD ba
+
+# Mai kallon hoto da kundin Mutane
+library.viewer.back = ‹ Koma hotuna
+library.viewer.could_not_decode = Ba a iya sauya lambar wannan hoton ba.
+library.viewer.label_auto = {name} · kai tsaye
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = MUTANEN DA KE WANNAN HOTON
+library.viewer.faces_intro = Ana gano fuskoki da ƙaramin samfuri da ake saukewa sau ɗaya. Har yanzu ana iya zana akwatuna da hannu.
+library.viewer.looking_for_faces = Ana neman fuskoki…
+library.viewer.no_faces = Ba a sami fuskoki ba. Ja akwati kewaye da fuska don ƙara mutum da hannu.
+library.viewer.help = Danna fuska don sanya mata suna; Enter yana ajiye. Ja a kan hoto don yi wa fuskar da mai gano bai gani ba alama. ← → suna matsawa tsakanin hotuna, Esc yana komawa baya.
+library.viewer.not_them = Ba shi ba ne
+library.viewer.remove_name = Cire suna
+library.viewer.not_a_face = Ba fuska ba ce
+library.viewer.auto = kai tsaye
+library.viewer.is_this = Wannan {name} ne?
+library.viewer.someone_else = Wani dabam
+library.viewer.add_name = Ƙara suna…
+library.viewer.who_is_this = Wane ne wannan?
+library.people.rename_title = Sake Sunan Mutum
+library.people.merge_warning = An riga an kira wani “{name}”: ajiyewa zai haɗa mutanen biyu.
+library.people.merge_note = Sake suna zuwa sunan da wani yake da shi zai haɗa mutanen biyu.
+library.people.named = An sanya suna {name}
+library.people.named_followed.one = An sanya suna {name} · an daidaita ƙarin fuska {n} kai tsaye
+library.people.named_followed.other = An sanya suna {name} · an daidaita ƙarin fuskoki {n} kai tsaye
+
+# Ajiye zuwa Photos
+library.photos.saving = Ana ajiye zuwa Photos…
+library.photos.saved = An ajiye zuwa Photos
+library.photos.save_failed = Ajiyewa zuwa Photos ya gaza: {error}
+library.photos.no_document = babu takarda a buɗe
+library.photos.no_png_codec = ba a loda codec na PNG ba
+library.photos.no_answer = ma'ajiyar hotuna ba ta amsa ba
+library.photos.bad_url = ba a iya mayar da tafarkin fayil URL ba
+library.photos.unavailable = babu ma'ajiyar hotuna
+library.photos.declined = ma'ajiyar hotuna ta ƙi
+
+# Fayilolin da aka raba zuwa manhajar
+library.shared.needs_documents = Ma'ajiyar hotuna tana buƙatar jakar Documents da za a kwafa ciki
+library.shared.added.one = An ƙara hoto {n} zuwa ma'ajiyar hotuna
+library.shared.added.other = An ƙara hotuna {n} zuwa ma'ajiyar hotuna
+library.shared.open_needs_documents = Buɗewa yana buƙatar jakar Documents da za a kwafa ciki
+library.shared.could_not_open = Ba a iya buɗe {name} ba: {error}
+
+# Samfotin bidiyo da ɗaukar firam
+video.invalid_file = Wannan ba fayil ɗin bidiyo na gida ba ne.
+video.install_gstreamer = Samfotin bidiyo yana buƙatar GStreamer 1.x da plug-ins na sauya lambar bidiyo. Girka su, sannan sake buɗe bidiyon. Har yanzu za ka iya zaɓar edita na waje.
+video.decode_failed = Ba a iya sauya lambar wannan firam ɗin bidiyo ba.
+video.no_stream = Wannan fayil ɗin ba shi da rafin bidiyo.
+video.no_duration = Ba a iya karanta tsawon bidiyon ba.
+video.frame_too_large = Wannan firam ɗin bidiyo ya yi girma fiye da a buɗe shi.
+video.first_frame = Tuni ana firam na farko.
+video.editor_failed = Ba a iya buɗe editan bidiyo ba: {error}
+video.editor_unavailable = Ba a iya buɗe editan bidiyon da aka zaɓa ba. Sake zaɓar manhajar.
+video.loading = Ana loda bidiyo…
+video.searching = Ana neman firam mafi kaifi a kusa…
+video.capturing = Ana buɗe firam mai cikakken ƙuduri…
+video.frame_title = {name} — firam {time}
+video.frame_layer = Firam ɗin bidiyo
+video.already_sharpest = Wannan shi ne firam mafi kaifi a kusa tuni.
+video.found_frame = An zaɓi firam mafi kaifi a kusa a {time}.
+video.choose_editor = Zaɓi editan bidiyo…
+video.back = Koma ma'ajiyar hotuna
+video.pause = Ɗan Dakata
+video.play = Kunna
+video.previous = Firam na baya
+video.next = Firam na gaba
+video.sharper = Nemi firam mafi kaifi
+video.edit_frame = Gyara firam
+video.open_editor = Buɗe a editan bidiyo
+video.preview_help = Samfoti marar sauti · Space: kunna/ɗan dakata · Kibiyoyi: matsa firam-firam · Yana nema cikin ½ daƙiƙa a kowane gefe. Gyara yana buɗe hoto dabam.
+video.badge = ▶ Bidiyo
+video.view = Duba bidiyo
+video.open_another_app = Buɗe a wata manhaja…
+video.preview_help_touch = Samfoti marar sauti · Ja layin lokaci ko matsa firam-firam. Neman firam mafi kaifi yana bincika cikin ½ daƙiƙa a kowane gefe. Gyara yana buɗe hoto dabam.
+video.importing = Ana shigo da hotuna da bidiyoyi…
+video.import_failed = Ba a iya shigo da kafofi ba: {error}
+video.import_failed_simple = Ba a iya shigo da ko raba wannan kafofin ba.

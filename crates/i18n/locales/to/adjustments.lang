@@ -1,0 +1,20 @@
+# Ngaahi liliu ki he 'īmisi
+adjustment.levels.name = Ngaahi Lēvolo
+adjustment.curves.name = Ngaahi Pi'o
+adjustment.hue_saturation.name = Lanu/Kakato ʻo e Lanu
+adjustment.brightness_contrast.name = Maama/Kehekehe
+adjustment.black_white.name = ʻUli mo Hinehina
+adjustment.solid_color.name = Lanu Taha
+adjustment.gradient_fill.name = Fakafonu Lanu Fetongi Māmālie
+adjustment.pattern_fill.name = Fakafonu Sīpinga
+adjustment.invert.name = Fulihi ʻa e Ngaahi Lanu
+adjustment.posterize.name = Fakasiʻisiʻi ʻa e Ngaahi Tuʻunga Lanu
+adjustment.threshold.name = Ngataʻanga
+adjustment.color_balance.name = Palanisi Lanu
+adjustment.vibrance.name = Mālohi ʻo e Lanu
+adjustment.exposure.name = Lahi ʻo e Maama ʻo e Tā
+adjustment.photo_filter.name = Sivi Tā
+adjustment.gradient_map.name = Mape Lanu Fetongi Māmālie
+adjustment.selective_color.name = Lanu Fili
+adjustment.channel_mixer.name = Tuifioʻanga Sēnolo
+adjustment.other.name = Liliu

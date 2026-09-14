@@ -1,0 +1,153 @@
+# Bestân
+menu.file = Bestân
+menu.file.new = Nij
+menu.file.open = Iepenje…
+menu.file.open_recent = Resinte iepenje
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Troch galery blêdzje…
+menu.file.close = Slute
+menu.file.save = Bewarje
+menu.file.save_as = Bewarje as…
+menu.file.export = Eksportearje…
+menu.file.export_submenu = Eksportearje
+menu.file.export_artboards = Tekengebieten nei PNG…
+menu.file.export_slices = Utsnijingen nei PNG…
+menu.file.save_to_photos = Bewarje yn Foto's
+menu.file.plugins = Ynstekkers…
+menu.file.missing_fonts = Untbrekkende lettertypen…
+menu.file.check_for_updates = Kontrolearje op fernijingen…
+menu.file.quit = Ofslute
+menu.file.add_folder_to_gallery = Map oan galery tafoegje…
+menu.file.import_from_photos = Ut Foto's ymportearje…
+menu.file.import_from_camera = Fan kamera ymportearje…
+
+# Bewurkje
+menu.edit = Bewurkje
+menu.edit.fill = Folje…
+menu.edit.stroke = Streek…
+menu.edit.content_aware_fill = Ynhâldsbewust folje
+menu.edit.content_aware_scale = Ynhâldsbewust skaalje…
+menu.edit.puppet_warp = Poppetransformaasje
+menu.edit.free_transform = Frij transformearje
+menu.edit.transform = Transformearje
+menu.edit.rotate_180 = 180° draaie
+menu.edit.rotate_90_cw = 90° mei de klok mei draaie
+menu.edit.rotate_90_ccw = 90° tsjin de klok yn draaie
+menu.edit.flip_horizontal = Horizontaal spegelje
+menu.edit.flip_vertical = Fertikaal spegelje
+
+# Ofbylding
+menu.image = Ofbylding
+menu.image.mode = Modus
+menu.image.adjustments = Oanpassingen
+menu.image.auto_tone = Automatyske toan
+menu.image.auto_contrast = Automatysk kontrast
+menu.image.auto_color = Automatyske kleur
+menu.image.image_size = Ofbyldingsgrutte…
+menu.image.canvas_size = Kanvasgrutte…
+menu.image.image_rotation = Ofbylding draaie
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° mei de klok mei
+menu.image.rotate_90_ccw = 90° tsjin de klok yn
+menu.image.flip_canvas_horizontal = Kanvas horizontaal spegelje
+menu.image.flip_canvas_vertical = Kanvas fertikaal spegelje
+menu.image.crop_to_selection = Bysnije ta seleksje
+menu.image.trim = Rânen bysnije
+menu.image.assign_profile = Profyl tawize…
+menu.image.convert_to_profile = Nei profyl omsette…
+
+# Selektearje
+menu.select = Selektearje
+menu.select.color_range = Kleureberik…
+menu.select.modify = Wizigje
+menu.select.border = Râne…
+menu.select.smooth = Glêdmeitsje…
+menu.select.expand = Utwreidzje…
+menu.select.contract = Ynlûke…
+menu.select.feather = Sêfte râne…
+menu.select.transform_selection = Seleksje transformearje
+
+# Laach
+menu.layer = Laach
+menu.layer.layer_style = Laachstyl…
+menu.layer.layer_comps = Laachkomposysjes
+menu.layer.new_layer_comp = Nije laachkomposysje
+menu.layer.delete_layer_comp = {name} wiskje
+menu.layer.path = Paad
+menu.layer.fill_path = Paad folje
+menu.layer.stroke_path = Paad omlûke
+menu.layer.make_selection = Seleksje meitsje
+menu.layer.delete_path = Paad wiskje
+
+# Oanpasse
+menu.adjust = Oanpasse
+
+# Filter
+menu.filter = Filter
+menu.filter.filter_gallery = Filtergalery…
+menu.filter.liquify = Floeiber meitsje
+menu.filter.vanishing_point = Ferdwynpunt
+menu.filter.manage_models = Modellen beheare…
+menu.filter.camera_raw_development = Camera Raw-ûntwikkeling…
+
+# Byld
+menu.view = Byld
+menu.view.rotate_view_cw = Byld mei de klok mei draaie
+menu.view.rotate_view_ccw = Byld tsjin de klok yn draaie
+menu.view.reset_view = Byld weromsette
+menu.view.zoom_in = Ynzoome
+menu.view.zoom_out = Utzoome
+menu.view.fit_on_screen = Passend op skerm
+menu.view.actual_size = 100%
+menu.view.rulers = Linialen
+menu.view.grid = Raster
+menu.view.guides = Hulplinen
+menu.view.notes = Notysjes
+menu.view.ai_panel = AI-paniel
+menu.view.extras = Ekstra's
+menu.view.snap = Magnetysk útlyne
+menu.view.clear_guides = Hulplinen wiskje
+menu.view.clear_notes = Notysjes wiskje
+menu.view.clear_count = Tellers wiskje
+menu.view.screen_mode = Skermmodus
+menu.view.proof_colors = Proefkleuren
+menu.view.show_rulers = Linialen toane
+menu.view.hide_rulers = Linialen ferbergje
+menu.view.show_grid = Raster toane
+menu.view.hide_grid = Raster ferbergje
+menu.view.show_guides = Hulplinen toane
+menu.view.hide_guides = Hulplinen ferbergje
+menu.view.show_notes = Notysjes toane
+menu.view.hide_notes = Notysjes ferbergje
+menu.view.show_extras = Ekstra's toane
+menu.view.hide_extras = Ekstra's ferbergje
+menu.view.enable_snapping = Magnetysk útlynjen ynskeakelje
+menu.view.disable_snapping = Magnetysk útlynjen útskeakelje
+menu.view.enable_proof_colors = Proefkleuren ynskeakelje
+menu.view.disable_proof_colors = Proefkleuren útskeakelje
+
+# Galery
+menu.gallery = Galery
+menu.gallery.edit_selected = Selektearre bewurkje
+menu.gallery.refresh = Fernije
+menu.gallery.map_filter = Kaartfilter…
+menu.gallery.back_to_editor = Werom nei bewurker
+
+# Schist Cloud
+menu.cloud.browse = Troch Schist Cloud blêdzje
+menu.cloud.generate = Ofbyldingen generearje…
+menu.cloud.upload = Dokumint nei Schist Cloud oplade…
+menu.cloud.sign_out = Ofmelde by Schist Cloud
+menu.cloud.sign_in = Oanmelde by Schist Cloud…
+
+# macOS-programmamenu
+menu.app.services = Tsjinsten
+menu.app.hide = {app} ferbergje
+menu.app.hide_others = Oaren ferbergje
+menu.app.show_all = Alles toane
+menu.app.quit = {app} ôfslute
+
+# Statusmeldingen
+menu.status.transform_selection_needs_selection = Seleksje transformearje hat in seleksje nedich
+menu.status.crop_needs_selection = Bysnije ta seleksje hat in seleksje nedich
+menu.status.select_photo_to_edit = Selektearje in foto om te bewurkjen

@@ -1,0 +1,21 @@
+tool.move.name = Süýşürmek
+tool.move.description = Işjeň gatlagyň mazmunyny täze ýere süýşürmek üçin çekip eltiň. Awtomatik saýlama açyk bolsa, basylan nokadyň aşagyndaky gatlak ýa-da tutuş topar ilki saýlanýar.
+tool.move.option.auto_select = Awtomatik saýlama
+tool.move.history.move_layer = Gatlagy süýşürmek
+
+tool.eyedropper.name = Pipetka
+tool.eyedropper.description = Görkezijiniň aşagyndaky reňkden nusga alyp, ony öň plan reňk nusgasyna geçiriň; Alt basylgy bolsa, yzky plan reňk nusgasyna geçiriler. Çekip baranyňyzda nusga almak dowam edýär.
+tool.eyedropper.option.sample_size = Nusga ölçegi
+tool.eyedropper.option.sample = Nusga
+tool.eyedropper.choice.point_sample = Nokat nusgasy
+tool.eyedropper.choice.average_3 = 3 × 3 ortaça
+tool.eyedropper.choice.average_5 = 5 × 5 ortaça
+tool.eyedropper.choice.average_11 = 11 × 11 ortaça
+tool.eyedropper.choice.average_31 = 31 × 31 ortaça
+tool.eyedropper.choice.all_layers = Ähli gatlaklar
+tool.eyedropper.choice.current_layer = Häzirki gatlak
+
+tool.hand.name = El
+tool.hand.description = Görnüş meýdanyny süýşürýär. Görnüş meýdany penjirä degişlidir, şonuň üçin grafiki interfeýs bolmasa bu gural resminama hiç hili täsir etmeýär.
+tool.zoom.name = Masştab
+tool.zoom.description = Görnüşiň masştabyny üýtgedýär. Görnüş meýdany penjirä degişlidir, şonuň üçin grafiki interfeýs bolmasa bu gural resminama hiç hili täsir etmeýär.

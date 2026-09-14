@@ -1,0 +1,31 @@
+# AI ဘေးဘောင်
+ai.status.panel_shown = AI ပန်နယ်ကို ပြထားသည်
+ai.status.panel_hidden = AI ပန်နယ်ကို ဖျောက်ထားသည် — မြင်ကွင်း ▸ AI ပန်နယ် ({shortcut}) ဖြင့် ပြန်ဖွင့်နိုင်သည်
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} ချိတ်ဆက်ပြီးပါပြီ
+ai.info.now_in_gallery = ယခု ပုံပြခန်းတွင် ရှိနေသည်။
+ai.info.now_in_editor = ယခု တည်းဖြတ်ကိရိယာတွင် ရှိနေသည်။
+ai.tool.shell_command = shell အမိန့်
+
+ai.error.cli_missing = {backend} CLI (“{binary}”) သည် PATH တွင် မရှိပါ။ ၎င်းကို ဦးစွာထည့်သွင်းပြီး အကောင့်ဝင်ပါ။
+ai.error.endpoint_failed = MCP အဆုံးမှတ်ကို စတင်၍မရပါ: {error}
+ai.error.binding_endpoint = MCP အဆုံးမှတ်ကို ချိတ်ဆက်နေစဉ်
+ai.error.spawning_endpoint_thread = MCP အဆုံးမှတ် thread ကို စတင်နေစဉ်
+ai.error.runtime_failed = အေးဂျင့် runtime ကို စတင်၍မရပါ: {error}
+ai.error.worker_failed = {backend} worker ကို စတင်၍မရပါ: {error}
+ai.error.did_not_start = {backend} မစတင်နိုင်ပါ: {error}
+ai.error.switch_model_failed = မော်ဒယ်ပြောင်း၍မရပါ: {error}
+ai.error.send_failed = ညွှန်ကြားချက်ကို ပို့၍မရပါ: {error}
+ai.error.interrupt_failed = ကြားဖြတ်၍မရပါ: {error}
+ai.error.locating_binary = Schist binary ကို ရှာနေစဉ်
+ai.error.starting_app_server = Codex အက်ပ်ဆာဗာကို စတင်နေစဉ်
+ai.error.attaching_app_server = Codex အက်ပ်ဆာဗာသို့ ချိတ်ဆက်နေစဉ်
+ai.error.initializing_app_server = Codex အက်ပ်ဆာဗာကို အစပြုနေစဉ်
+ai.error.resuming_thread = Codex thread ကို ပြန်လည်ဆက်လုပ်နေစဉ်
+ai.error.starting_thread = Codex thread ကို စတင်နေစဉ်
+
+ai.model.opus_detail = စွမ်းဆောင်ရည် အမြင့်ဆုံးအဆင့်
+ai.model.sonnet_detail = ပုံမှန်လုပ်ငန်းများအတွက် ထိရောက်သည်
+ai.model.haiku_detail = အမြန်အဖြေများအတွက် အမြန်ဆုံး
+ai.model.codex_catalog = Codex စာရင်း

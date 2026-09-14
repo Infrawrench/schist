@@ -1,0 +1,22 @@
+tool.liquify.name = Суюлтуу
+tool.liquify.description = Чоң кылкалемдин астындагы пикселдерди түртүңүз, айлантыңыз, ичкери тартыңыз же көптүрүңүз; аткарылчу аракетти режим параметри аныктайт. Майышуу тордо топтолуп, ырасталганда катмарга колдонулат.
+tool.liquify.option.tool = Курал
+tool.liquify.choice.forward_warp = Алга майыштыруу
+tool.liquify.choice.reconstruct = Калыбына келтирүү
+tool.liquify.choice.twirl_cw = Саат жебеси боюнча айлантуу
+tool.liquify.choice.twirl_ccw = Саат жебесине каршы айлантуу
+tool.liquify.choice.pucker = Ичкери тартуу
+tool.liquify.choice.bloat = Көптүрүү
+tool.liquify.choice.push_left = Солго түртүү
+tool.liquify.history.liquify = Суюлтуу
+
+tool.puppet_warp.name = Марионеткалык майыштыруу
+tool.puppet_warp.description = Катмарды бир нече чекиттен кадаңыз да, алардын бирин сүйрөңүз: тор «Катуулук» параметрине жараша кадалган чекиттердин тегерегинде катуу же жумшак ийилет. Ырастаганда өзгөртүү колдонулат.
+tool.puppet_warp.option.stiffness = Катуулук
+tool.puppet_warp.history.puppet_warp = Марионеткалык майыштыруу
+
+tool.vanishing_point.name = Жоголуу чекити
+tool.vanishing_point.description = Перспективасы бар нерсенин үстүнө тегиздикти сүйрөп түзүп, режимди «Клондоо» кылып өзгөртүп боёңуз: көчүрүлгөн пикселдер тегиздикти ээрчип, алыстаган сайын кичирейет.
+tool.vanishing_point.choice.edit_plane = Тегиздикти түзөтүү
+tool.vanishing_point.choice.clone = Клондоо
+tool.vanishing_point.history.vanishing_point = Жоголуу чекити

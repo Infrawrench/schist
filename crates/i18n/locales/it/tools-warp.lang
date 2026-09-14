@@ -1,0 +1,27 @@
+# Strumenti di alterazione: Fluidifica, Alterazione marionetta e Fuoco prospettico.
+
+# Fluidifica
+tool.liquify.name = Fluidifica
+tool.liquify.description = Spingi, ruota, contrai o gonfia i pixel sotto un pennello grande; l'opzione Modalità determina l'operazione. L'alterazione si accumula in una trama e viene applicata al livello al momento della conferma.
+tool.liquify.option.tool = Strumento
+tool.liquify.choice.forward_warp = Altera avanti
+tool.liquify.choice.reconstruct = Ricostruisci
+tool.liquify.choice.twirl_cw = Ruota in senso orario
+tool.liquify.choice.twirl_ccw = Ruota in senso antiorario
+tool.liquify.choice.pucker = Contrai
+tool.liquify.choice.bloat = Gonfia
+tool.liquify.choice.push_left = Spingi a sinistra
+tool.liquify.history.liquify = Fluidifica
+
+# Alterazione marionetta
+tool.puppet_warp.name = Alterazione marionetta
+tool.puppet_warp.description = Fai clic per fissare il livello in alcuni punti, quindi trascinane uno: la trama si piega intorno ai perni in modo più o meno rigido, secondo l'opzione Rigidità. La conferma applica la modifica.
+tool.puppet_warp.option.stiffness = Rigidità
+tool.puppet_warp.history.puppet_warp = Alterazione marionetta
+
+# Fuoco prospettico
+tool.vanishing_point.name = Fuoco prospettico
+tool.vanishing_point.description = Trascina per tracciare un piano sopra un elemento in prospettiva, quindi imposta la modalità su Clona e dipingi: i pixel copiati seguono il piano e si rimpiccioliscono con la distanza.
+tool.vanishing_point.choice.edit_plane = Modifica piano
+tool.vanishing_point.choice.clone = Clona
+tool.vanishing_point.history.vanishing_point = Fuoco prospettico

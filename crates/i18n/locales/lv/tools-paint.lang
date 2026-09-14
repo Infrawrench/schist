@@ -1,0 +1,80 @@
+# Ota
+tool.brush.name = Ota
+tool.brush.description = Zīmējiet priekšplāna krāsas triepienu ar mīkstām malām; tā lielumu nosaka redaktora otas lielums, cietība un necaurredzamība.
+tool.brush.history.stroke = Ota
+
+# Zīmulis
+tool.pencil.name = Zīmulis
+tool.pencil.description = Zīmējiet priekšplāna krāsas triepienu ar asām malām bez kropļojumnovēršanas.
+tool.pencil.history.stroke = Zīmulis
+
+# Dzēšgumija
+tool.eraser.name = Dzēšgumija
+tool.eraser.description = Dzēsiet gar triepienu, atjaunojot slāņa caurspīdīgumu.
+tool.eraser.history.stroke = Dzēšgumija
+
+# Klonēšanas spiedogs
+tool.clone.name = Klonēšanas spiedogs
+tool.clone.description = Klonēšanas spiedogs: noklikšķiniet, turot Alt, lai iestatītu avota punktu, un pēc tam zīmējiet ar no tā kopētiem pikseļiem tādā pašā nobīdē.
+tool.clone.history.stroke = Klonēšanas spiedogs
+
+# Izgaismošana, aptumšošana un sūklis
+tool.dodge.name = Izgaismošana
+tool.dodge.description = Izgaismo pikseļus, pār kuriem iet triepiens.
+tool.dodge.history.stroke = Izgaismošana
+tool.burn.name = Aptumšošana
+tool.burn.description = Aptumšo pikseļus, pār kuriem iet triepiens.
+tool.burn.history.stroke = Aptumšošana
+tool.sponge.name = Sūklis
+tool.sponge.description = Palielina vai samazina piesātinājumu pikseļiem, pār kuriem iet triepiens.
+tool.sponge.history.stroke = Sūklis
+
+# Aizmiglošana, asināšana un izsmērēšana
+tool.blur.name = Aizmiglošana
+tool.blur.description = Samazina pikseļu attēla asumu vietās, pār kurām iet triepiens.
+tool.blur.history.stroke = Aizmiglošana
+tool.sharpen.name = Asināšana
+tool.sharpen.description = Palielina pikseļu attēla asumu vietās, pār kurām iet triepiens.
+tool.sharpen.history.stroke = Asināšana
+tool.smudge.name = Izsmērēšana
+tool.smudge.description = Velk krāsu līdzi triepienam, it kā stumtu mitru krāsu.
+tool.smudge.history.stroke = Izsmērēšana
+
+# Retušēšana
+tool.heal.name = Retušēšanas ota
+tool.heal.description = Retušēšanas ota: noklikšķiniet, turot Alt, lai iestatītu avotu, un tad krāsojiet; avota faktūra tiek sapludināta ar mērķa krāsu un apgaismojumu.
+tool.heal.history.stroke = Retušēšanas ota
+tool.spot_heal.name = Punktveida retušēšanas ota
+tool.spot_heal.description = Punktveida retušēšanas ota: pārkrāsojiet defektu, un tas tiks aizstāts ar apkārtnes faktūru; avota punkts nav jāiestata.
+tool.spot_heal.history.stroke = Punktveida retušēšanas ota
+
+tool.history_brush.name = Vēstures ota
+tool.history_brush.description = Atjaunojiet pikseļus no dokumenta vēstures momentuzņēmuma, triepiens pēc triepiena atsaucot vēlākās izmaiņas.
+tool.history_brush.history.stroke = Vēstures ota
+
+tool.background_eraser.name = Fona dzēšgumija
+tool.background_eraser.description = Dzēsiet zem otas centra paņemto krāsu, atšķirīgos pikseļus atstājot neskartus, lai atdalītu objektu no fona.
+tool.background_eraser.history.stroke = Fona dzēšgumija
+
+# Gradients
+tool.gradient.name = Gradients
+tool.gradient.description = Velciet, lai aizpildītu slāni — atlases robežās, ja tāda ir — ar lineāru gradientu no priekšplāna krāsas līdz fona krāsai vilkšanas virzienā.
+tool.gradient.radial.name = Radiāls gradients
+tool.gradient.radial.description = Velciet no centra uz āru, lai aizpildītu ar radiālu gradientu starp priekšplāna un fona krāsu.
+tool.gradient.option.gradient = Gradients
+tool.gradient.option.reverse = Apgriezt
+tool.gradient.option.dither = Krāsu rastrēšana
+tool.gradient.choice.foreground_to_background = No priekšplāna uz fonu
+tool.gradient.choice.foreground_to_transparent = No priekšplāna uz caurspīdīgu
+tool.gradient.choice.linear = Lineārs
+tool.gradient.choice.radial = Radiāls
+tool.gradient.choice.angle = Leņķis
+tool.gradient.choice.reflected = Atspoguļots
+tool.gradient.choice.diamond = Rombs
+tool.gradient.history.gradient = Gradients
+
+tool.bucket.name = Krāsas spainis
+tool.bucket.description = Noklikšķiniet, lai rīka pielaides robežās aizpildītu zem rādītāja esošo savienoto līdzīgas krāsas apgabalu ar priekšplāna krāsu.
+tool.bucket.option.contiguous = Blakusesošs
+tool.bucket.option.all_layers = Visi slāņi
+tool.bucket.history.fill = Krāsas spainis

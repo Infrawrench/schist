@@ -1,0 +1,27 @@
+# Reparaasje
+tool.patch.name = Reparaasje
+tool.patch.description = Sleep in omtrek om in ûnfolsleinheid en sleep dy seleksje dêrnei nei skjinne piksels: de tekstuer dêre wurdt yn de ûnfolsleinheid past. De reparaasjemodus bepaalt hokker ein fan it pear jo slepe.
+tool.patch.option.patch = Reparaasje
+tool.patch.choice.source = Boarne
+tool.patch.choice.destination = Bestimming
+tool.patch.history.patch = Reparaasje
+
+# Ynhâldsbewust ferpleatse
+tool.content_aware_move.name = Ynhâldsbewust ferpleatse
+tool.content_aware_move.description = Sleep in selektearre objekt nei in oar plak; it gat dat efterbliuwt wurdt út de omjouwing opfolle. Yn de modus Utwreidzje wurdt it objekt útrekt yn stee fan ferpleatst.
+tool.content_aware_move.choice.move = Ferpleatse
+tool.content_aware_move.choice.extend = Utwreidzje
+tool.content_aware_move.history.move = Ynhâldsbewust ferpleatse
+
+# Reade eagen
+tool.red_eye.name = Reade eagen
+tool.red_eye.description = Klik op in pupil om it reade flitsljocht derút te heljen.
+tool.red_eye.option.pupil_size = Pupilgrutte
+tool.red_eye.option.darken = Donkerder meitsje
+tool.red_eye.history.red_eye = Reade eagen
+
+# Magysk wiskje
+tool.magic_eraser.name = Magyske gum
+tool.magic_eraser.description = Klik om binnen de tolerânsje fan it ark it gebiet mei in ferlykbere kleur ûnder de oanwizer te wiskjen — allinnich it oanslutende gebiet om de klik hinne, of oeral yn de laach.
+tool.magic_eraser.option.contiguous = Oanslutend
+tool.magic_eraser.history.erase = Magyske gum

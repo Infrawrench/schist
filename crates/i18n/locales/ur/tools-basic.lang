@@ -1,0 +1,22 @@
+# بنیادی ٹولز
+tool.move.name = منتقل کریں
+tool.move.description = فعال لیئر کے مواد کو گھسیٹ کر نئی جگہ پر لے جائیں۔ خودکار انتخاب فعال ہو تو دبانے سے پہلے پوائنٹر کے نیچے موجود لیئر یا پورا گروپ منتخب ہوتا ہے۔
+tool.move.option.auto_select = خودکار انتخاب
+tool.move.history.move_layer = لیئر منتقل کریں
+
+tool.eyedropper.name = رنگ چننے والا
+tool.eyedropper.description = پوائنٹر کے نیچے کا رنگ پیش منظر کے نمونے میں لیں، یا Alt دبائے رکھنے پر پس منظر کے نمونے میں۔ گھسیٹتے رہنے سے مسلسل نمونے لیے جاتے ہیں۔
+tool.eyedropper.option.sample_size = نمونے کا سائز
+tool.eyedropper.option.sample = نمونہ
+tool.eyedropper.choice.point_sample = نقطے کا نمونہ
+tool.eyedropper.choice.average_3 = 3 ضرب 3 اوسط
+tool.eyedropper.choice.average_5 = 5 ضرب 5 اوسط
+tool.eyedropper.choice.average_11 = 11 ضرب 11 اوسط
+tool.eyedropper.choice.average_31 = 31 ضرب 31 اوسط
+tool.eyedropper.choice.all_layers = تمام لیئرز
+tool.eyedropper.choice.current_layer = موجودہ لیئر
+
+tool.hand.name = ہاتھ
+tool.hand.description = منظر کو سرکاتا ہے۔ دیدگاہ ونڈو کا حصہ ہے، اس لیے بغیر بصری انٹرفیس کے یہ ٹول دستاویز پر کوئی اثر نہیں ڈالتا۔
+tool.zoom.name = زوم
+tool.zoom.description = منظر کو بڑا یا چھوٹا کرتا ہے۔ دیدگاہ ونڈو کا حصہ ہے، اس لیے بغیر بصری انٹرفیس کے یہ ٹول دستاویز پر کوئی اثر نہیں ڈالتا۔

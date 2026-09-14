@@ -1,0 +1,152 @@
+# Dosiyɛ
+menu.file = Dosiyɛ
+menu.file.new = Kura
+menu.file.open = Dayɛlɛ…
+menu.file.open_recent = Kɔrɔlen dayɛlɛ
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Galeri ɲini…
+menu.file.close = Datugu
+menu.file.save = Mara
+menu.file.save_as = Mara tɔgɔ wɛrɛ la…
+menu.file.export = Bɔ…
+menu.file.export_submenu = Bɔ
+menu.file.export_artboards = Dilancogo tablaw bɔ PNG na…
+menu.file.export_slices = Tilancɛw bɔ PNG na…
+menu.file.save_to_photos = Mara Fotow kɔnɔ
+menu.file.plugins = Plug-inw…
+menu.file.missing_fonts = Sɛbɛnni-fɔnti tununnenw…
+menu.file.check_for_updates = Lakurayali lajɛ…
+menu.file.quit = Bɔ
+menu.file.add_folder_to_gallery = Fɔldɛri fara galeri kan…
+menu.file.import_from_photos = Don ka bɔ Fotow kɔnɔ…
+menu.file.import_from_camera = Don ka bɔ kamera la…
+
+# Labɛn
+menu.edit = Labɛn
+menu.edit.fill = Fa…
+menu.edit.stroke = Kɛrɛsira…
+menu.edit.content_aware_fill = Kɔnɔkow faamuyalen faali
+menu.edit.content_aware_scale = Kɔnɔkow faamuyalen bonya yɛlɛmali…
+menu.edit.puppet_warp = Marionɛti kuruɲɛ
+menu.edit.free_transform = Yɛlɛmali hɔrɔnya
+menu.edit.transform = Yɛlɛma
+menu.edit.rotate_180 = Munumunu 180°
+menu.edit.rotate_90_cw = Munumunu 90° lɛri boli cogo la
+menu.edit.rotate_90_ccw = Munumunu 90° lɛri boli kɔrɔcɛma
+menu.edit.flip_horizontal = Lawuli dafɛla
+menu.edit.flip_vertical = Lawuli sanfɛ-duguma
+
+# Ja
+menu.image = Ja
+menu.image.mode = Cogoya
+menu.image.adjustments = Labɛnniw
+menu.image.auto_tone = Ton yɛrɛma
+menu.image.auto_contrast = Farabɔ yɛrɛma
+menu.image.auto_color = Kulɛri yɛrɛma
+menu.image.image_size = Ja bonya…
+menu.image.canvas_size = Kanvas bonya…
+menu.image.image_rotation = Ja munumunuli
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° lɛri boli cogo la
+menu.image.rotate_90_ccw = 90° lɛri boli kɔrɔcɛma
+menu.image.flip_canvas_horizontal = Kanvas lawuli dafɛla
+menu.image.flip_canvas_vertical = Kanvas lawuli sanfɛ-duguma
+menu.image.crop_to_selection = Tigɛ ka bɛn sugandili ma
+menu.image.trim = Kɛrɛ tigɛ
+menu.image.assign_profile = Kunnafoni kɛ a la…
+menu.image.convert_to_profile = Yɛlɛma ka kɛ kunnafoni ye…
+
+# Sugandili
+menu.select = Sugandi
+menu.select.color_range = Kulɛri dan…
+menu.select.modify = Yɛlɛma
+menu.select.border = Kɛrɛ…
+menu.select.smooth = Nɔgɔnya…
+menu.select.expand = Bonya…
+menu.select.contract = Dɔgɔya…
+menu.select.feather = Kɛrɛ nɔgɔnya…
+menu.select.transform_selection = Sugandili yɛlɛma
+
+# Lasɛgɛsɛgɛli
+menu.layer = Kaliki
+menu.layer.layer_style = Kaliki cogoya…
+menu.layer.layer_comps = Kaliki labɛnmisaliw
+menu.layer.new_layer_comp = Kaliki labɛnmisali kura
+menu.layer.delete_layer_comp = {name} bɔ
+menu.layer.path = Sira
+menu.layer.fill_path = Sira fa
+menu.layer.stroke_path = Sira kɛrɛsira kɛ
+menu.layer.make_selection = Sugandili kɛ
+menu.layer.delete_path = Sira bɔ
+
+menu.adjust = Labɛn
+
+# Sɛgɛsɛgɛlan
+menu.filter = Sɛgɛsɛgɛlan
+menu.filter.filter_gallery = Sɛgɛsɛgɛlan galeri…
+menu.filter.liquify = Jiyalen
+menu.filter.vanishing_point = Tununyɔrɔ
+menu.filter.manage_models = Misaliw ɲɛnabɔ…
+menu.filter.camera_raw_development = Camera Raw labɛnni…
+
+# Lajɛ
+menu.view = Lajɛ
+menu.view.rotate_view_cw = Lajɛli munumunu lɛri boli cogo la
+menu.view.rotate_view_ccw = Lajɛli munumunu lɛri boli kɔrɔcɛma
+menu.view.reset_view = Lajɛli lasegin
+menu.view.zoom_in = Lajɛli bonya
+menu.view.zoom_out = Lajɛli dɔgɔya
+menu.view.fit_on_screen = Bɛn ekran ma
+menu.view.actual_size = 100%
+menu.view.rulers = Sumannikɛlanw
+menu.view.grid = Ja-filɛ
+menu.view.guides = Sirajiralanw
+menu.view.notes = Kunkanw
+menu.view.ai_panel = AI panɛli
+menu.view.extras = Fɛn faramaw
+menu.view.snap = Datugu yɔrɔ la
+menu.view.clear_guides = Sirajiralanw bɔ
+menu.view.clear_notes = Kunkanw bɔ
+menu.view.clear_count = Jatew bɔ
+menu.view.screen_mode = Ekran cogoya
+menu.view.proof_colors = Kulɛri bɔli lajɛ
+menu.view.show_rulers = Sumannikɛlanw jira
+menu.view.hide_rulers = Sumannikɛlanw dogo
+menu.view.show_grid = Ja-filɛ jira
+menu.view.hide_grid = Ja-filɛ dogo
+menu.view.show_guides = Sirajiralanw jira
+menu.view.hide_guides = Sirajiralanw dogo
+menu.view.show_notes = Kunkanw jira
+menu.view.hide_notes = Kunkanw dogo
+menu.view.show_extras = Fɛn faramaw jira
+menu.view.hide_extras = Fɛn faramaw dogo
+menu.view.enable_snapping = Datuguli da
+menu.view.disable_snapping = Datuguli datugu
+menu.view.enable_proof_colors = Kulɛri bɔli lajɛli da
+menu.view.disable_proof_colors = Kulɛri bɔli lajɛli datugu
+
+# Galeri
+menu.gallery = Galeri
+menu.gallery.edit_selected = Sugandilen labɛn
+menu.gallery.refresh = Lakura
+menu.gallery.map_filter = Karti sɛgɛsɛgɛlan…
+menu.gallery.back_to_editor = Segin labɛnnikɛlan na
+
+# Schist Cloud
+menu.cloud.browse = Schist Cloud ɲini
+menu.cloud.generate = Jaw dilan…
+menu.cloud.upload = Sɛbɛn telesarize ka taa Schist Cloud la…
+menu.cloud.sign_out = Bɔ Schist Cloud la
+menu.cloud.sign_in = Don Schist Cloud la…
+
+# Porogaramu
+menu.app.services = Baaraw
+menu.app.hide = {app} dogo
+menu.app.hide_others = Tɔw dogo
+menu.app.show_all = Bɛɛ jira
+menu.app.quit = Bɔ {app} la
+
+# Menu kunnafoniw
+menu.status.transform_selection_needs_selection = Sugandili ka kan ka kɛ yen sani Sugandili yɛlɛma ka kɛ
+menu.status.crop_needs_selection = Sugandili ka kan ka kɛ yen sani Tigɛ ka bɛn sugandili ma ka kɛ
+menu.status.select_photo_to_edit = Foto dɔ sugandi k'a labɛn

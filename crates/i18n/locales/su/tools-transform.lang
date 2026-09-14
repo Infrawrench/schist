@@ -1,0 +1,25 @@
+tool.transform.name = Transformasi Bébas
+tool.transform.description = Transformasi Bébas. Ngaktipkeunana muka kotak transformasi sabudeureun lapisan aktif: séréd juru pikeun ngarobah skala, séréd di luareun juru pikeun muterkeun, séréd sisi pikeun ngadéngdékeun. Euweuh parobahan anu ditulis nepi ka dikomit (Enter), sarta ngabatalkeun (Escape) mulangkeun lapisan kana kaayaan saméméhna.
+tool.transform.option.interpolation = Interpolasi
+tool.transform.history.transform = Transformasi Bébas
+tool.transform.history.image_size = Ukuran Gambar
+tool.transform.history.canvas_size = Ukuran Kanvas
+
+tool.transform.selection.name = Transformasi Pilihan
+tool.transform.selection.description = Transformasi Pilihan: kotak anu sarua, tapi mindahkeun gurat pilihan lain piksel di jerona. Komit atawa batalkeun pikeun ngaréngsékeun.
+tool.transform.selection.history.transform = Transformasi Pilihan
+
+tool.transform.resample.nearest_neighbor = Tatangga Pangdeukeutna
+tool.transform.resample.bilinear = Bilinier
+tool.transform.resample.bicubic = Bikubik
+
+tool.crop.name = Potong
+tool.crop.description = Séréd wewengkon anu rék dipertahankeun tuluy saluyukeun gagangna; nalika dikomit (Enter), dokumén dipotong nepi ka éta wewengkon, sedengkeun ngabatalkeun (Escape) moal ngarobahna.
+tool.crop.option.ratio = Rasio
+tool.crop.option.delete_cropped = Pupus Piksel anu Kapotong
+tool.crop.choice.unconstrained = Tanpa Watesan
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Potong

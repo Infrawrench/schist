@@ -1,0 +1,23 @@
+tool.patch.name = Жамаачы
+tool.patch.description = Кемтикти айланта чийип, андан соң тандалган жерди таза пикселдердин үстүнө сүйрөңүз: ал жердеги текстура кемтикке ылайыкташтырылат. «Жамаачы» режими жуптун кайсы учун сүйрөй турганыңызды аныктайт.
+tool.patch.option.patch = Жамаачы
+tool.patch.choice.source = Булак
+tool.patch.choice.destination = Көздөгөн жер
+tool.patch.history.patch = Жамаачы
+
+tool.content_aware_move.name = Мазмунду эске алып жылдыруу
+tool.content_aware_move.description = Тандалган объектти башка жерге сүйрөсөңүз, ал калтырган боштук тегерегиндеги мазмун менен толтурулат. «Узартуу» режиминде объект жылдырылбай, созулат.
+tool.content_aware_move.choice.move = Жылдыруу
+tool.content_aware_move.choice.extend = Узартуу
+tool.content_aware_move.history.move = Мазмунду эске алып жылдыруу
+
+tool.red_eye.name = Кызыл көз
+tool.red_eye.description = Жарк эткен жарыктан кызарып калган каректи басып, кызылдыгын кетириңиз.
+tool.red_eye.option.pupil_size = Каректин өлчөмү
+tool.red_eye.option.darken = Караңгылатуу
+tool.red_eye.history.red_eye = Кызыл көз
+
+tool.magic_eraser.name = Сыйкырдуу өчүргүч
+tool.magic_eraser.description = Көрсөткүчтүн астындагы өңү окшош аймакты куралдын жол берилген айырмасынын чегинде өчүрүү үчүн басыңыз: басылган чекитке туташ аймак же катмардын бардык жериндеги окшош түс өчөт.
+tool.magic_eraser.option.contiguous = Туташ
+tool.magic_eraser.history.erase = Сыйкырдуу өчүргүч

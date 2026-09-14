@@ -1,0 +1,43 @@
+# Valintatyökalut (plugins/tools-select): valintakehykset, kolme lassoa,
+# taikasauva, pikavalinta ja kohteen valinta. Sovelluksen muiden osien kanssa
+# yhteiset nimet — Tila, Häivytys, Leveys, Kontrasti, Toleranssi, Koko, Uusi,
+# Lisää, Valitse, Poista valinta — tulevat common.lang-tiedostosta.
+
+# Miten uusi muoto yhdistetään nykyiseen valintaan Photoshopin painikejärjestyksessä.
+# Uusi ja Lisää ovat common.new ja common.add.
+tool.select.mode.subtract = Vähennä
+tool.select.mode.intersect = Leikkaa
+
+# Valintakehykset
+tool.marquee.rect.name = Suorakulmainen valintakehys
+tool.marquee.rect.description = Tee suorakulmainen valinta vetämällä. Vaihto vedon alussa lisää valintaan, Alt vähentää ja molemmat yhdessä leikkaavat; Vaihto vedon aikana tekee muodosta neliön. Napsautus vetämättä poistaa valinnan.
+tool.marquee.ellipse.name = Soikea valintakehys
+tool.marquee.ellipse.description = Tee soikea valinta vetämällä. Vaihto- ja Alt-näppäimet yhdistävät valintoja samoin kuin suorakulmaisessa valintakehyksessä.
+
+# Lassot
+tool.lasso.name = Lasso
+tool.lasso.description = Piirrä vapaamuotoinen ääriviiva vetämällä; valinta sulkeutuu päätepisteiden väliltä, kun veto päättyy. Vaihto lisää ja Alt vähentää.
+tool.lasso.history.select = Lassovalinta
+tool.lasso.polygonal.name = Monikulmiolasso
+tool.lasso.polygonal.description = Muodosta suorareunainen valinta napsauttamalla kulma toisensa jälkeen ja sulje se napsauttamalla ensimmäisen pisteen lähellä.
+tool.lasso.polygonal.history.select = Monikulmiolasso
+tool.lasso.magnetic.name = Magneettilasso
+tool.lasso.magnetic.description = Seuraa reunaa suurpiirteisesti, jolloin ääriviiva kohdistuu polun lähellä olevaan voimakkaimpaan kontrastiin.
+tool.lasso.magnetic.history.select = Magneettilasso
+tool.lasso.magnetic.option.frequency = Taajuus
+
+# Taikasauva
+tool.wand.name = Taikasauva
+tool.wand.description = Valitse osoittimen alla oleva yhtenäinen samanvärinen alue napsauttamalla toleranssiasetuksen rajoissa — samaa toleranssia käyttävät Laajenna, Samankaltainen ja Värialue.
+tool.wand.option.contiguous = Vierekkäinen
+tool.wand.history.select = Taikasauva
+
+# Pikavalinta
+tool.quick_select.name = Pikavalinta
+tool.quick_select.description = Maalaa alueen yli, jolloin valinta laajenee siveltimen alle jääviin samankaltaisiin kuvapisteisiin.
+tool.quick_select.history.select = Pikavalinta
+
+# Kohteen valinta
+tool.object_select.name = Kohteen valinta
+tool.object_select.description = Vedä kehys kohteen ympärille, jolloin valinta kohdistuu kehyksen sisältä löytyvään kohteeseen.
+tool.object_select.history.select = Kohteen valinta

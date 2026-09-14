@@ -1,0 +1,36 @@
+app.filter_gallery.title = ଫିଲ୍ଟର୍ ଗ୍ୟାଲେରୀ
+app.filter_gallery.stack = ଷ୍ଟାକ୍ (ତଳରୁ ଉପରକୁ ପ୍ରୟୋଗ ହୁଏ)
+app.filter_gallery.no_settings = ଏହି ଫିଲ୍ଟର୍‌ର କୌଣସି ସେଟିଂ ନାହିଁ।
+app.fonts.not_open_licensed = ଖୋଲା ଲାଇସେନ୍ସ ନାହିଁ · {substitute}ର ମାପ ଏହା ସହ ମେଳ ଖାଏ
+app.fonts.missing_substituted = ନିଖୋଜ · ପାଠ୍ୟ ପାଇଁ ଏକ ବିକଳ୍ପ ଫଣ୍ଟ ବ୍ୟବହାର ହେଉଛି
+app.fonts.not_in_catalogue = {family} ଖୋଲା ଫଣ୍ଟ କ୍ୟାଟାଲଗ୍‌ରେ ନାହିଁ
+app.fonts.no_faces = {family} ପାଇଁ ଡାଉନଲୋଡ୍‌ଯୋଗ୍ୟ ଫଣ୍ଟ ରୂପ ନାହିଁ
+app.fonts.empty_response = ଖାଲି ପ୍ରତିକ୍ରିୟା
+app.update.unreadable_response = ପଢ଼ିହେଉ ନଥିବା ପ୍ରତିକ୍ରିୟା: {error}
+app.update.no_temp_dir = ଡାଉନଲୋଡ୍ ପାଇଁ କୌଣସି ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରି ନାହିଁ
+app.update.asset_has_path = ରିଲିଜ୍‌ରେ ଆସେଟ୍‌ର ନାମ ସହିତ ପଥ ଦିଆଯାଇଛି
+app.update.too_big = ଡାଉନଲୋଡ୍‌ଟି ରିଲିଜ୍‌ରେ ଉଲ୍ଲେଖିତ ଆକାରଠାରୁ ବଡ଼
+app.update.stopped_at = ଡାଉନଲୋଡ୍ {total} ବାଇଟ୍‌ରୁ {got}ରେ ଅଟକିଗଲା
+app.update.hash_mismatch = ଡାଉନଲୋଡ୍‌ର ହ୍ୟାସ୍ {got}, {want} ନୁହେଁ
+app.update.not_in_bundle = ଏହି କପିଟି ଏକ ଆପ୍ଲିକେସନ୍ ବଣ୍ଡଲ୍ ଭିତରେ ନାହିଁ
+app.update.no_parent_dir = ଆପ୍ଲିକେସନ୍ ବଣ୍ଡଲ୍‌ର କୌଣସି ପ୍ୟାରେଣ୍ଟ ଡିରେକ୍ଟୋରି ନାହିଁ
+app.update.cannot_write = {dir}ରେ ଲେଖିହେଉ ନାହିଁ
+app.update.cannot_move_aside = {app}କୁ ପାଖକୁ ସରାଇହେଉ ନାହିଁ
+app.update.cannot_move_in = ନୂଆ ବଣ୍ଡଲ୍‌କୁ ନିର୍ଦ୍ଧାରିତ ସ୍ଥାନକୁ ନେଇହେଉ ନାହିଁ
+app.update.cannot_run_ditto = /usr/bin/ditto ଚଳାଇହେଉ ନାହିଁ
+app.update.unpack_failed = ଡାଉନଲୋଡ୍ ଅନ୍‌ପ୍ୟାକ୍ କରିବା ବିଫଳ ହେଲା: {error}
+app.update.no_app_in_download = ଡାଉନଲୋଡ୍‌ରେ Schist.app ନାହିଁ
+app.update.cannot_run_codesign = /usr/bin/codesign ଚଳାଇହେଉ ନାହିଁ
+app.update.signature_invalid = ଡାଉନଲୋଡ୍‌ର ସ୍ୱାକ୍ଷର ଯାଞ୍ଚ ହେଉନାହିଁ: {error}
+app.update.download_unsigned = ଏହି କପିଟି ସ୍ୱାକ୍ଷରିତ, କିନ୍ତୁ ଡାଉନଲୋଡ୍‌ଟି ନୁହେଁ
+app.update.different_developer = ଡାଉନଲୋଡ୍‌ଟି ଅନ୍ୟ ଡେଭଲପର୍‌ଙ୍କ ଦ୍ୱାରା ସ୍ୱାକ୍ଷରିତ
+app.update.cannot_relaunch = ପୁନଃଚାଳକ ଆରମ୍ଭ କରିହେଉ ନାହିଁ
+app.update.not_installed_copy = ଏହି କପିଟି ଇନ୍‌ଷ୍ଟଲର୍ ଦ୍ୱାରା ଏଠାରେ ରଖାଯାଇ ନଥିଲା
+app.update.cannot_start_installer = ଇନ୍‌ଷ୍ଟଲର୍ ଆରମ୍ଭ କରିହେଉ ନାହିଁ
+app.update.platform_unsupported = ଏହି ପ୍ଲାଟଫର୍ମରେ Schist ଯେପରି ଇନ୍‌ଷ୍ଟଲ୍ ହୋଇଥିଲା, ସେହିପରି ଅପଡେଟ୍ ଇନ୍‌ଷ୍ଟଲ୍ ହୁଏ
+app.vulkan.no_loader = schist: ଏହି ସିଷ୍ଟମ୍‌ରେ Vulkan ଲୋଡର୍ ନାହିଁ, ତେଣୁ ଚିତ୍ରଣ କରିବାକୁ କିଛି ନାହିଁ।\n\nSchist Vulkan ମାଧ୍ୟମରେ ରେଣ୍ଡର୍ କରେ, ଏବଂ `libvulkan.so.1` ଇନ୍‌ଷ୍ଟଲ୍ ହୋଇନାହିଁ।\nଲୋଡର୍ ଓ ଡ୍ରାଇଭର୍ ଉଭୟ ଆବଶ୍ୟକ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ଏହି ସେସନ୍ ଯେଉଁ Vulkan ଡ୍ରାଇଭର୍‌କୁ ଦର୍ଶାଉଛି, ତାହା ସେଠାରେ ନାହିଁ।\n\n{var} ସେଟ୍ ହୋଇଛି, ଏବଂ ଏହାକୁ ସେଟ୍ କଲେ ଡ୍ରାଇଭର୍ ପାଇଁ ଲୋଡର୍‌ର ସନ୍ଧାନରେ ଯୋଗ ହେବା ପରିବର୍ତ୍ତେ ସେହି ସନ୍ଧାନ ସମ୍ପୂର୍ଣ୍ଣ ବଦଳିଯାଏ। ତେଣୁ ନଥିବା ଏହି ଫାଇଲ୍‌ଗୁଡ଼ିକ ହିଁ ସମ୍ପୂର୍ଣ୍ଣ ଡ୍ରାଇଭର୍ ତାଲିକା — ଯେତେ ଡ୍ରାଇଭର୍ ଇନ୍‌ଷ୍ଟଲ୍ ଥାଉନା କାହିଁକି, ଏହି ସେସନ୍‌ର ପ୍ରତ୍ୟେକ Vulkan ପ୍ରୋଗ୍ରାମ୍ କୌଣସି ଡ୍ରାଇଭର୍ ଦେଖିପାରେ ନାହିଁ:\n\n{missing}\n    {var}={value}\n\nଏହାକୁ ଏକ ଥିବା ମାନିଫେଷ୍ଟକୁ ଦର୍ଶାନ୍ତୁ — ଇନ୍‌ଷ୍ଟଲ୍ ଡ୍ରାଇଭର୍‌ଗୁଡ଼ିକ ସେମାନଙ୍କ ମାନିଫେଷ୍ଟ /usr/share/vulkan/icd.dରେ ରଖନ୍ତି — କିମ୍ବା ଏହାକୁ ଅନ୍‌ସେଟ୍ କରି ଲୋଡର୍‌କୁ ନିଜେ ଖୋଜିବାକୁ ଦିଅନ୍ତୁ। କୌଣସି କନ୍‌ଫିଗ୍ ଫାଇଲ୍‌ରୁ ଏହା ସେଟ୍ କରୁଥିବା ସେସନ୍‌କୁ (Hyprlandର `env =`, systemd environment.d drop-in, କିମ୍ବା ସେଲ୍ ପ୍ରୋଫାଇଲ୍) ସେଠାରେ ହିଁ ପରିବର୍ତ୍ତନ କରିବାକୁ ପଡ଼ିବ; ଚାଲୁଥିବା ସବୁ ପ୍ରୋଗ୍ରାମ୍‌ରେ ପରିବର୍ତ୍ତନ ପହଞ୍ଚିବା ପାଇଁ ପୁଣି ଲଗ୍ ଇନ୍ କରିବା ଆବଶ୍ୟକ।\n
+app.vulkan.override_note = \n{var}ରେ {value} ସେଟ୍ ହୋଇଛି, ଏବଂ ତାହା ଲୋଡର୍‌ର ନିଜସ୍ୱ ସନ୍ଧାନକୁ ବଦଳାଏ: ସେହି ମାନିଫେଷ୍ଟଗୁଡ଼ିକ ମଧ୍ୟରୁ କୌଣସିଟି ଏହି ମେସିନ୍ ପାଇଁ ନ ଥିଲେ, ଏହାକୁ ଅନ୍‌ସେଟ୍ କରିବା ପ୍ରଥମ ପ୍ରୟାସ ହେବା ଉଚିତ।\n
+app.vulkan.no_driver = schist: କୌଣସି Vulkan ଡ୍ରାଇଭର୍ ଇନ୍‌ଷ୍ଟଲ୍ ହୋଇନାହିଁ, ତେଣୁ ଚିତ୍ରଣ କରିବାକୁ କିଛି ନାହିଁ।\n\nSchist Vulkan ମାଧ୍ୟମରେ ରେଣ୍ଡର୍ କରେ। ଲୋଡର୍ ଇନ୍‌ଷ୍ଟଲ୍ ହୋଇଛି, କିନ୍ତୁ କୌଣସି ଡ୍ରାଇଭର୍ ଦେଖାଉନାହିଁ — ଖୋଜାଯାଉଥିବା ଦୁଇଟି ସ୍ଥାନ ମଧ୍ୟରୁ କୌଣସିଠାରେ ଡ୍ରାଇଭର୍ ପଞ୍ଜୀକୃତ ହୋଇନାହିଁ:\n\n{dirs}\n\nଲୋଡର୍‌ଟି ଡ୍ରାଇଭର୍‌ଗୁଡ଼ିକଠାରୁ ଅଲଗା ଭାବେ ଯୋଗାଯାଏ, ତେଣୁ ସାଧାରଣତଃ ଏହା ଗୋଟିଏ ପ୍ୟାକେଜ୍ ନିଖୋଜ ଥିବାର ସୂଚନା।\n\nଏହି ମେସିନ୍‌ର GPU ପାଇଁ ଉପଯୁକ୍ତଟି ଇନ୍‌ଷ୍ଟଲ୍ କରନ୍ତୁ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIAର ମାଲିକାନାଧୀନ ଡ୍ରାଇଭର୍‌ରେ ନିଜସ୍ୱ ଡ୍ରାଇଭର୍ ଥାଏ (Archରେ `nvidia-utils`, Debianରେ `nvidia-driver`)। ଭର୍ଚୁଆଲ୍ ମେସିନ୍‌ରେ, କିମ୍ବା ଯେଉଁଠାରେ ଇନ୍‌ଷ୍ଟଲ୍ କରିବାକୁ GPU ଡ୍ରାଇଭର୍ ନାହିଁ, ସଫ୍ଟୱେର୍ ରାଷ୍ଟରାଇଜର୍ କାମ କରେ: Archରେ `vulkan-swrast`, ଅନ୍ୟତ୍ର `mesa-vulkan-drivers`ର ଅଂଶ। ଏହା ଧୀର, କିନ୍ତୁ ଆରମ୍ଭ ହୁଏ।\n{overridden}
+app.vulkan.no_device = schist: Vulkan ଡ୍ରାଇଭର୍ ଇନ୍‌ଷ୍ଟଲ୍ ହୋଇଛି, କିନ୍ତୁ ରେଣ୍ଡର୍ କରିବାକୁ କୌଣସି ଡିଭାଇସ୍ ପ୍ରଦାନ କରୁନାହିଁ।\n\nଡ୍ରାଇଭର୍‌ଟି ଏହି GPUକୁ ସମର୍ଥନ ନ କରିପାରେ, କିମ୍ବା ଏଥିରେ ପହଞ୍ଚି ନ ପାରିପାରେ — SSH ମାଧ୍ୟମରେ କିମ୍ବା କଣ୍ଟେନର୍ ଭିତରେ /dev/dri ସାଧାରଣତଃ ନିଖୋଜ ଥାଏ। `vulkaninfo --summary` ଲୋଡର୍ କ’ଣ ଦେଖୁଛି ତାହା ଜଣାଏ।\n\nଏହି ମେସିନ୍‌ରେ GPU ନ ଥିଲେ ମଧ୍ୟ ସଫ୍ଟୱେର୍ ରାଷ୍ଟରାଇଜର୍ ରେଣ୍ଡର୍ କରେ: Archରେ `vulkan-swrast`, Debian ଏବଂ Fedoraରେ `mesa-vulkan-drivers`ର ଅଂଶ।\n
+app.vulkan.skip_hint = ଯେକୌଣସି ପରିସ୍ଥିତିରେ Schist ଆରମ୍ଭ କରି ତାହାକୁ ନିଜ ପଦ୍ଧତିରେ ବିଫଳ ହେବାକୁ ଦେବା ପାଇଁ {var}=1 ସେଟ୍ କରନ୍ତୁ।

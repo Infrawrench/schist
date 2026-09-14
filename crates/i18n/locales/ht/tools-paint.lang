@@ -1,0 +1,72 @@
+tool.brush.name = Bwòs
+tool.brush.description = Pentire yon tras ak bò mou nan koulè premye plan an, avèk gwosè, dite ak opasite bwòs editè a.
+tool.brush.history.stroke = Bwòs
+
+tool.pencil.name = Kreyon
+tool.pencil.description = Pentire yon tras ak bò di, san antialiasing, nan koulè premye plan an.
+tool.pencil.history.stroke = Kreyon
+
+tool.eraser.name = Gòm
+tool.eraser.description = Efase sou tras la epi fè kouch la retounen transparan.
+tool.eraser.history.stroke = Gòm
+
+tool.clone.name = Tanpon klonaj
+tool.clone.description = Tanpon klonaj: klike pandan w kenbe alt pou fikse pwen sous la, epi pentire ak piksèl ki kopye soti nan sous la ak menm dekalaj la.
+tool.clone.history.stroke = Tanpon klonaj
+
+tool.dodge.name = Eklèsi
+tool.dodge.description = Eklèsi piksèl tras la pase sou yo.
+tool.dodge.history.stroke = Eklèsi
+tool.burn.name = Boule
+tool.burn.description = Fè piksèl tras la pase sou yo pi fonse.
+tool.burn.history.stroke = Boule
+tool.sponge.name = Eponj
+tool.sponge.description = Ogmante oswa redui satirasyon piksèl tras la pase sou yo.
+tool.sponge.history.stroke = Eponj
+
+tool.blur.name = Flou
+tool.blur.description = Fè piksèl tras la pase sou yo vin flou.
+tool.blur.history.stroke = Flou
+tool.sharpen.name = File
+tool.sharpen.description = Fè piksèl tras la pase sou yo vin pi file.
+tool.sharpen.history.stroke = File
+tool.smudge.name = Bale
+tool.smudge.description = Trennen koulè sou tras la, tankou lè w ap pouse penti mouye.
+tool.smudge.history.stroke = Bale
+
+tool.heal.name = Bwòs reparasyon
+tool.heal.description = Bwòs reparasyon: klike pandan w kenbe alt pou fikse sous la, epi pentire; teksti sous la melanje ak koulè ak limyè ki deja nan destinasyon an.
+tool.heal.history.stroke = Bwòs reparasyon
+tool.spot_heal.name = Bwòs reparasyon tach
+tool.spot_heal.description = Bwòs reparasyon tach: pentire sou yon defo epi teksti ki soti nan zòn ki antoure l ranplase l — pa gen pwen sous pou fikse.
+tool.spot_heal.history.stroke = Bwòs reparasyon tach
+
+tool.history_brush.name = Bwòs istorik
+tool.history_brush.description = Pentire piksèl ki soti nan sovgad istorik dokiman an pou retabli yo, epi defè travay ki te fèt apre a tras pa tras.
+tool.history_brush.history.stroke = Bwòs istorik
+
+tool.background_eraser.name = Gòm aryèplan
+tool.background_eraser.description = Efase koulè yo pran kòm echantiyon anba sant bwòs la epi kite piksèl ki diferan yo, pou detache yon sijè ak aryèplan li.
+tool.background_eraser.history.stroke = Gòm aryèplan
+
+tool.gradient.name = Gradyan
+tool.gradient.description = Trennen pou ranpli kouch la — atravè seleksyon an si gen youn — ak yon gradyan lineyè ki soti nan koulè premye plan an pou rive nan koulè aryèplan an nan direksyon tras la.
+tool.gradient.radial.name = Gradyan radyal
+tool.gradient.radial.description = Trennen soti nan sant lan ale deyò pou ranpli ak yon gradyan radyal ant koulè premye plan an ak koulè aryèplan an.
+tool.gradient.option.gradient = Gradyan
+tool.gradient.option.reverse = Envèse
+tool.gradient.option.dither = Ditray
+tool.gradient.choice.foreground_to_background = Premye plan rive nan aryèplan
+tool.gradient.choice.foreground_to_transparent = Premye plan rive nan transparan
+tool.gradient.choice.linear = Lineyè
+tool.gradient.choice.radial = Radyal
+tool.gradient.choice.angle = Ang
+tool.gradient.choice.reflected = Reflete
+tool.gradient.choice.diamond = Lozanj
+tool.gradient.history.gradient = Gradyan
+
+tool.bucket.name = Bokit penti
+tool.bucket.description = Klike pou kouvri zòn ki kole epi ki gen koulè sanblab anba pwentè a ak koulè premye plan an, selon tolerans zouti a.
+tool.bucket.option.contiguous = Kole youn ak lòt
+tool.bucket.option.all_layers = Tout kouch yo
+tool.bucket.history.fill = Bokit penti

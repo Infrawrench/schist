@@ -1,0 +1,43 @@
+tool.pen.name = Pero
+tool.pen.description = Izradite putanju: kliknite za kutnu točku, povucite kako biste izvukli ručke krivulje iz nje i kliknite prvu točku kako biste zatvorili putanju. Potvrdom se putanja pretvara u sloj oblika.
+tool.pen.option.rubber_band = Elastična traka
+tool.pen.history.fill = Ispuna putanje
+tool.pen.default_path_name = Putanja {n}
+tool.pen.freeform.name = Prostoručno pero
+tool.pen.freeform.description = Povucite prostoručnu crtu i ona će se prilagoditi putanji, s preciznošću zadanom mogućnošću Prilagodba.
+tool.pen.freeform.option.fit = Prilagodba
+tool.pen.curvature.name = Pero zakrivljenosti
+tool.pen.curvature.description = Kliknite niz točaka i putanja će se glatko zakriviti kroz njih.
+
+tool.path_select.name = Odabir putanje
+tool.path_select.description = Kliknite putanju kako biste je odabrali i povucite kako biste premjestili cijelu putanju.
+tool.direct_select.name = Izravni odabir
+tool.direct_select.description = Povucite pojedinačnu sidrišnu točku ili njezine ručke kako biste preoblikovali putanju oko nje.
+
+tool.shape.history.layer = Sloj {name}
+tool.shape.rect.name = Alat Pravokutnik
+tool.shape.rect.label = Pravokutnik
+tool.shape.rect.description = Povucite sloj pravokutnog oblika u boji prednjeg plana; ostaje vektorski i ponovno se rasterizira pri promjeni veličine.
+tool.shape.ellipse.name = Alat Elipsa
+tool.shape.ellipse.label = Elipsa
+tool.shape.ellipse.description = Povucite sloj eliptičnog oblika u boji prednjeg plana.
+tool.shape.line.name = Alat Crta
+tool.shape.line.label = Crta
+tool.shape.line.description = Povucite sloj oblika ravne crte u boji prednjeg plana.
+tool.shape.line.option.weight = Debljina
+tool.shape.line.option.arrow_start = Početak
+tool.shape.line.option.arrow_end = Kraj
+tool.shape.polygon.name = Alat Poligon
+tool.shape.polygon.label = Poligon
+tool.shape.polygon.description = Povucite sloj oblika pravilnog poligona u boji prednjeg plana, s brojem stranica određenim u mogućnostima.
+tool.shape.polygon.option.sides = Stranice
+
+tool.shape.custom.name = Prilagođeni oblik
+tool.shape.custom.label = Prilagođeni oblik
+tool.shape.custom.description = Povucite jedan od ugrađenih zadanih oblika odabranih u mogućnosti Oblik.
+tool.shape.custom.choice.heart = Srce
+tool.shape.custom.choice.star = Zvijezda
+tool.shape.custom.choice.arrow = Strelica
+tool.shape.custom.choice.lightning = Munja
+tool.shape.custom.choice.cross = Križ
+tool.shape.custom.choice.speech_bubble = Govorni oblačić

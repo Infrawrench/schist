@@ -1,0 +1,155 @@
+# ಮೆನು ಪಟ್ಟಿ.
+
+# ಕಡತ
+menu.file = ಕಡತ
+menu.file.new = ಹೊಸದು
+menu.file.open = ತೆರೆಯಿರಿ…
+menu.file.open_recent = ಇತ್ತೀಚಿನದನ್ನು ತೆರೆಯಿರಿ
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = ಗ್ಯಾಲರಿ ವೀಕ್ಷಿಸಿ…
+menu.file.close = ಮುಚ್ಚಿ
+menu.file.save = ಉಳಿಸಿ
+menu.file.save_as = ಹೀಗೆ ಉಳಿಸಿ…
+menu.file.export = ರಫ್ತುಮಾಡಿ…
+menu.file.export_submenu = ರಫ್ತುಮಾಡಿ
+menu.file.export_artboards = ಆರ್ಟ್‌ಬೋರ್ಡ್‌ಗಳನ್ನು PNGಗೆ…
+menu.file.export_slices = ಸ್ಲೈಸ್‌ಗಳನ್ನು PNGಗೆ…
+menu.file.save_to_photos = ಫೋಟೋಗಳಿಗೆ ಉಳಿಸಿ
+menu.file.plugins = ಪ್ಲಗ್-ಇನ್‌ಗಳು…
+menu.file.missing_fonts = ಕಾಣೆಯಾದ ಫಾಂಟ್‌ಗಳು…
+menu.file.check_for_updates = ನವೀಕರಣಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸಿ…
+menu.file.quit = ನಿರ್ಗಮಿಸಿ
+menu.file.add_folder_to_gallery = ಗ್ಯಾಲರಿಗೆ ಫೋಲ್ಡರ್ ಸೇರಿಸಿ…
+menu.file.import_from_photos = ಫೋಟೋಗಳಿಂದ ಆಮದುಮಾಡಿ…
+menu.file.import_from_camera = ಕ್ಯಾಮೆರಾದಿಂದ ಆಮದುಮಾಡಿ…
+
+# ಸಂಪಾದನೆ
+menu.edit = ಸಂಪಾದಿಸಿ
+menu.edit.fill = ತುಂಬಿಸಿ…
+menu.edit.stroke = ಹೊರರೇಖೆ…
+menu.edit.content_aware_fill = ವಿಷಯ-ಅರಿತ ತುಂಬುವಿಕೆ
+menu.edit.content_aware_scale = ವಿಷಯ-ಅರಿತ ಗಾತ್ರ ಬದಲಾವಣೆ…
+menu.edit.puppet_warp = ಪಪೆಟ್ ವಾರ್ಪ್
+menu.edit.free_transform = ಸ್ವತಂತ್ರ ರೂಪಾಂತರ
+menu.edit.transform = ರೂಪಾಂತರ
+menu.edit.rotate_180 = 180° ತಿರುಗಿಸಿ
+menu.edit.rotate_90_cw = ಪ್ರದಕ್ಷಿಣವಾಗಿ 90° ತಿರುಗಿಸಿ
+menu.edit.rotate_90_ccw = ಅಪ್ರದಕ್ಷಿಣವಾಗಿ 90° ತಿರುಗಿಸಿ
+menu.edit.flip_horizontal = ಅಡ್ಡವಾಗಿ ಮಗುಚಿ
+menu.edit.flip_vertical = ಲಂಬವಾಗಿ ಮಗುಚಿ
+
+# ಚಿತ್ರ
+menu.image = ಚಿತ್ರ
+menu.image.mode = ವಿಧಾನ
+menu.image.adjustments = ಹೊಂದಾಣಿಕೆಗಳು
+menu.image.auto_tone = ಸ್ವಯಂ ಟೋನ್
+menu.image.auto_contrast = ಸ್ವಯಂ ವ್ಯತ್ಯಾಸ
+menu.image.auto_color = ಸ್ವಯಂ ಬಣ್ಣ
+menu.image.image_size = ಚಿತ್ರದ ಗಾತ್ರ…
+menu.image.canvas_size = ಕ್ಯಾನ್ವಾಸ್ ಗಾತ್ರ…
+menu.image.image_rotation = ಚಿತ್ರ ತಿರುಗುವಿಕೆ
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = ಪ್ರದಕ್ಷಿಣವಾಗಿ 90°
+menu.image.rotate_90_ccw = ಅಪ್ರದಕ್ಷಿಣವಾಗಿ 90°
+menu.image.flip_canvas_horizontal = ಕ್ಯಾನ್ವಾಸ್ ಅನ್ನು ಅಡ್ಡವಾಗಿ ಮಗುಚಿ
+menu.image.flip_canvas_vertical = ಕ್ಯಾನ್ವಾಸ್ ಅನ್ನು ಲಂಬವಾಗಿ ಮಗುಚಿ
+menu.image.crop_to_selection = ಆಯ್ಕೆಗೆ ತಕ್ಕಂತೆ ಕತ್ತರಿಸಿ
+menu.image.trim = ಅಂಚು ಕತ್ತರಿಸಿ
+menu.image.assign_profile = ಪ್ರೊಫೈಲ್ ನಿಯೋಜಿಸಿ…
+menu.image.convert_to_profile = ಪ್ರೊಫೈಲ್‌ಗೆ ಪರಿವರ್ತಿಸಿ…
+
+# ಆಯ್ಕೆ
+menu.select = ಆಯ್ಕೆಮಾಡಿ
+menu.select.color_range = ಬಣ್ಣ ವ್ಯಾಪ್ತಿ…
+menu.select.modify = ಮಾರ್ಪಡಿಸಿ
+menu.select.border = ಗಡಿ…
+menu.select.smooth = ನಯಗೊಳಿಸಿ…
+menu.select.expand = ವಿಸ್ತರಿಸಿ…
+menu.select.contract = ಕುಗ್ಗಿಸಿ…
+menu.select.feather = ಅಂಚು ಮೃದುಗೊಳಿಸಿ…
+menu.select.transform_selection = ಆಯ್ಕೆ ರೂಪಾಂತರ
+
+# ಲೇಯರ್
+menu.layer = ಲೇಯರ್
+menu.layer.layer_style = ಲೇಯರ್ ಶೈಲಿ…
+menu.layer.layer_comps = ಲೇಯರ್ ಸಂಯೋಜನೆಗಳು
+menu.layer.new_layer_comp = ಹೊಸ ಲೇಯರ್ ಸಂಯೋಜನೆ
+menu.layer.delete_layer_comp = {name} ಅಳಿಸಿ
+menu.layer.path = ಪಥ
+menu.layer.fill_path = ಪಥ ತುಂಬಿಸಿ
+menu.layer.stroke_path = ಪಥಕ್ಕೆ ಹೊರರೇಖೆ ಹಾಕಿ
+menu.layer.make_selection = ಆಯ್ಕೆ ರಚಿಸಿ
+menu.layer.delete_path = ಪಥ ಅಳಿಸಿ
+
+# ಹೊಂದಾಣಿಕೆ
+menu.adjust = ಹೊಂದಿಸಿ
+
+# ಫಿಲ್ಟರ್
+menu.filter = ಫಿಲ್ಟರ್
+menu.filter.filter_gallery = ಫಿಲ್ಟರ್ ಗ್ಯಾಲರಿ…
+menu.filter.liquify = ಲಿಕ್ವಿಫೈ
+menu.filter.vanishing_point = ವ್ಯಾನಿಶಿಂಗ್ ಪಾಯಿಂಟ್
+menu.filter.manage_models = ಮಾದರಿಗಳನ್ನು ನಿರ್ವಹಿಸಿ…
+menu.filter.camera_raw_development = Camera Raw ವಿಕಸನ…
+
+# ನೋಟ
+menu.view = ನೋಟ
+menu.view.rotate_view_cw = ನೋಟವನ್ನು ಪ್ರದಕ್ಷಿಣವಾಗಿ ತಿರುಗಿಸಿ
+menu.view.rotate_view_ccw = ನೋಟವನ್ನು ಅಪ್ರದಕ್ಷಿಣವಾಗಿ ತಿರುಗಿಸಿ
+menu.view.reset_view = ನೋಟ ಮರುಹೊಂದಿಸಿ
+menu.view.zoom_in = ಹಿಗ್ಗಿಸಿ
+menu.view.zoom_out = ಕುಗ್ಗಿಸಿ
+menu.view.fit_on_screen = ಪರದೆಗೆ ಹೊಂದಿಸಿ
+menu.view.actual_size = 100%
+menu.view.rulers = ಮಾಪಕಪಟ್ಟಿಗಳು
+menu.view.grid = ಜಾಲರಿ
+menu.view.guides = ಮಾರ್ಗದರ್ಶಿಗಳು
+menu.view.notes = ಟಿಪ್ಪಣಿಗಳು
+menu.view.ai_panel = AI ಫಲಕ
+menu.view.extras = ಹೆಚ್ಚುವರಿಗಳು
+menu.view.snap = ಸೆಳೆತ
+menu.view.clear_guides = ಮಾರ್ಗದರ್ಶಿಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ
+menu.view.clear_notes = ಟಿಪ್ಪಣಿಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ
+menu.view.clear_count = ಎಣಿಕೆ ತೆರವುಗೊಳಿಸಿ
+menu.view.screen_mode = ಪರದೆ ವಿಧಾನ
+menu.view.proof_colors = ಪ್ರೂಫ್ ಬಣ್ಣಗಳು
+menu.view.show_rulers = ಮಾಪಕಪಟ್ಟಿಗಳನ್ನು ತೋರಿಸಿ
+menu.view.hide_rulers = ಮಾಪಕಪಟ್ಟಿಗಳನ್ನು ಮರೆಮಾಡಿ
+menu.view.show_grid = ಜಾಲರಿ ತೋರಿಸಿ
+menu.view.hide_grid = ಜಾಲರಿ ಮರೆಮಾಡಿ
+menu.view.show_guides = ಮಾರ್ಗದರ್ಶಿಗಳನ್ನು ತೋರಿಸಿ
+menu.view.hide_guides = ಮಾರ್ಗದರ್ಶಿಗಳನ್ನು ಮರೆಮಾಡಿ
+menu.view.show_notes = ಟಿಪ್ಪಣಿಗಳನ್ನು ತೋರಿಸಿ
+menu.view.hide_notes = ಟಿಪ್ಪಣಿಗಳನ್ನು ಮರೆಮಾಡಿ
+menu.view.show_extras = ಹೆಚ್ಚುವರಿಗಳನ್ನು ತೋರಿಸಿ
+menu.view.hide_extras = ಹೆಚ್ಚುವರಿಗಳನ್ನು ಮರೆಮಾಡಿ
+menu.view.enable_snapping = ಸೆಳೆತವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ
+menu.view.disable_snapping = ಸೆಳೆತವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ
+menu.view.enable_proof_colors = ಪ್ರೂಫ್ ಬಣ್ಣಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ
+menu.view.disable_proof_colors = ಪ್ರೂಫ್ ಬಣ್ಣಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ
+
+# ಗ್ಯಾಲರಿ
+menu.gallery = ಗ್ಯಾಲರಿ
+menu.gallery.edit_selected = ಆಯ್ಕೆಮಾಡಿದ್ದನ್ನು ಸಂಪಾದಿಸಿ
+menu.gallery.refresh = ಪುನಶ್ಚೇತನಗೊಳಿಸಿ
+menu.gallery.map_filter = ನಕ್ಷೆ ಫಿಲ್ಟರ್…
+menu.gallery.back_to_editor = ಸಂಪಾದಕಕ್ಕೆ ಹಿಂತಿರುಗಿ
+
+# Schist Cloud ಉಪಮೆನು
+menu.cloud.browse = Schist Cloud ವೀಕ್ಷಿಸಿ
+menu.cloud.generate = ಚಿತ್ರಗಳನ್ನು ರಚಿಸಿ…
+menu.cloud.upload = ಡಾಕ್ಯುಮೆಂಟ್ ಅನ್ನು Schist Cloudಗೆ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ…
+menu.cloud.sign_out = Schist Cloudನಿಂದ ಸೈನ್ ಔಟ್ ಮಾಡಿ
+menu.cloud.sign_in = Schist Cloudಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ…
+
+# macOS ಅಪ್ಲಿಕೇಶನ್ ಮೆನು
+menu.app.services = ಸೇವೆಗಳು
+menu.app.hide = {app} ಮರೆಮಾಡಿ
+menu.app.hide_others = ಇತರವನ್ನು ಮರೆಮಾಡಿ
+menu.app.show_all = ಎಲ್ಲವನ್ನೂ ತೋರಿಸಿ
+menu.app.quit = {app}ನಿಂದ ನಿರ್ಗಮಿಸಿ
+
+# ಕಾರ್ಯನಿರ್ವಹಿಸಲಾಗದ ಮೆನು ಅಂಶಗಳಿಗೆ ಸ್ಥಿತಿ ಪಟ್ಟಿಯ ಉತ್ತರಗಳು
+menu.status.transform_selection_needs_selection = ಆಯ್ಕೆ ರೂಪಾಂತರಕ್ಕೆ ಒಂದು ಆಯ್ಕೆ ಅಗತ್ಯವಿದೆ
+menu.status.crop_needs_selection = ಆಯ್ಕೆಗೆ ತಕ್ಕಂತೆ ಕತ್ತರಿಸಲು ಒಂದು ಆಯ್ಕೆ ಅಗತ್ಯವಿದೆ
+menu.status.select_photo_to_edit = ಸಂಪಾದಿಸಲು ಒಂದು ಫೋಟೋ ಆಯ್ಕೆಮಾಡಿ

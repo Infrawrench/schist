@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galeria de filtres
+app.filter_gallery.stack = Pila (s'aplica de baix a dalt)
+app.filter_gallery.no_settings = Aquest filtre no té cap paràmetre.
+app.fonts.not_open_licensed = sense llicència oberta · {substitute} té mètriques equivalents
+app.fonts.missing_substituted = absent · el text utilitza un substitut
+app.fonts.not_in_catalogue = {family} no és al catàleg obert de tipus de lletra
+app.fonts.no_faces = no hi ha variants baixables per a {family}
+app.fonts.empty_response = resposta buida
+app.update.unreadable_response = resposta il·legible: {error}
+app.update.no_temp_dir = no hi ha cap directori temporal on baixar
+app.update.asset_has_path = la versió dona un camí al recurs
+app.update.too_big = la baixada és més gran del que indica la versió
+app.update.stopped_at = la baixada s'ha aturat a {got} de {total} bytes
+app.update.hash_mismatch = el resum de la baixada és {got}, no {want}
+app.update.not_in_bundle = aquesta còpia no és dins d'un paquet d'aplicació
+app.update.no_parent_dir = el paquet de l'aplicació no té directori pare
+app.update.cannot_write = no es pot escriure a {dir}
+app.update.cannot_move_aside = no es pot apartar {app}
+app.update.cannot_move_in = no es pot col·locar el paquet nou
+app.update.cannot_run_ditto = no es pot executar /usr/bin/ditto
+app.update.unpack_failed = no s'ha pogut desempaquetar la baixada: {error}
+app.update.no_app_in_download = la baixada no conté Schist.app
+app.update.cannot_run_codesign = no es pot executar /usr/bin/codesign
+app.update.signature_invalid = no s'ha pogut validar la signatura de la baixada: {error}
+app.update.download_unsigned = aquesta còpia està signada però la baixada no
+app.update.different_developer = la baixada està signada per un desenvolupador diferent
+app.update.cannot_relaunch = no es pot iniciar el rellançador
+app.update.not_installed_copy = aquesta còpia no l'ha col·locada aquí l'instal·lador
+app.update.cannot_start_installer = no es pot iniciar l'instal·lador
+app.update.platform_unsupported = les actualitzacions d'aquesta plataforma s'instal·len de la mateixa manera que el Schist
+app.vulkan.no_loader = schist: no hi ha cap carregador Vulkan en aquest sistema i, per tant, no hi ha res amb què dibuixar.\n\nEl Schist renderitza mitjançant Vulkan i `libvulkan.so.1` no està instal·lat.\nCalen tant el carregador com un controlador:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: el controlador Vulkan que indica aquesta sessió no hi és.\n\n{var} està definida, i definir-la *substitueix* la cerca de controladors\ndel carregador en lloc d'afegir-s'hi. Per tant, aquests fitxers inexistents\nsón tota la llista de controladors, i cap programa Vulkan d'aquesta sessió\nveu cap controlador, per molts que n'hi hagi d'instal·lats:\n\n{missing}\n    {var}={value}\n\nIndiqueu un manifest existent —els controladors instal·lats els posen a\n/usr/share/vulkan/icd.d— o elimineu la variable i deixeu que el carregador\nels trobi. Si la sessió ho defineix des d'un fitxer de configuració (l'`env =`\ndel Hyprland, un fitxer environment.d del systemd o un perfil de l'intèrpret),\ncal canviar-ho allà i tornar a iniciar la sessió perquè arribi als processos oberts.\n
+app.vulkan.override_note = \n{var} està definida com a {value}, cosa que substitueix la cerca del\ncarregador: si cap d'aquests manifests correspon a aquesta màquina,\nel primer que cal provar és eliminar la variable.\n
+app.vulkan.no_driver = schist: no hi ha cap controlador Vulkan instal·lat i, per tant, no hi ha res amb què dibuixar.\n\nEl Schist renderitza mitjançant Vulkan. El carregador està instal·lat però no informa\nde cap controlador: no n'hi ha cap registrat en cap dels llocs on se'n cerquen:\n\n{dirs}\n\nEl carregador es distribueix per separat dels controladors, per això normalment\nnomés falta un paquet.\n\nInstal·leu el corresponent a la GPU d'aquesta màquina:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nEl controlador privatiu d'NVIDIA inclou el seu propi (`nvidia-utils` a Arch,\n`nvidia-driver` a Debian). En una màquina virtual, o quan no hi ha cap controlador\nde GPU per instal·lar, funciona el rasteritzador per programari: `vulkan-swrast`\na Arch, inclòs a `mesa-vulkan-drivers` als altres sistemes. És lent, però s'inicia.\n{overridden}
+app.vulkan.no_device = schist: hi ha un controlador Vulkan instal·lat però no ofereix cap dispositiu on renderitzar.\n\nPotser el controlador no és compatible amb aquesta GPU o no hi pot accedir;\nper SSH o dins d'un contenidor és habitual que falti /dev/dri.\n`vulkaninfo --summary` mostra què veu el carregador.\n\nEl rasteritzador per programari funciona sense GPU, si aquesta màquina no en té:\n`vulkan-swrast` a Arch, inclòs a `mesa-vulkan-drivers` a Debian i Fedora.\n
+app.vulkan.skip_hint = Per iniciar el Schist igualment i deixar que falli a la seva manera, definiu {var}=1.

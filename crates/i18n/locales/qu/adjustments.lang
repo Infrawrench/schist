@@ -1,0 +1,20 @@
+# Allichay patakuna, hinallataq Rikch'ay ▸ Allichaykuna kamachiykuna.
+adjustment.levels.name = Patakuna
+adjustment.curves.name = K'umukuna
+adjustment.hue_saturation.name = Llimp'i/Saksay
+adjustment.brightness_contrast.name = K'anchaq/Kutinnaq
+adjustment.black_white.name = Yana yuraq
+adjustment.solid_color.name = Hukllachasqa llimp'i
+adjustment.gradient_fill.name = Gradiente hunt'achiy
+adjustment.pattern_fill.name = Rikch'ana hunt'achiy
+adjustment.invert.name = Tikray
+adjustment.posterize.name = Llimp'i patakunaman pisiyachiy
+adjustment.threshold.name = Tupu
+adjustment.color_balance.name = Llimp'i kuskachay
+adjustment.vibrance.name = Kawsay llimp'i
+adjustment.exposure.name = K'anchaman churay
+adjustment.photo_filter.name = Foto suysuna
+adjustment.gradient_map.name = Gradiente mapa
+adjustment.selective_color.name = Akllasqa llimp'i
+adjustment.channel_mixer.name = Kanal chaqruq
+adjustment.other.name = Allichay

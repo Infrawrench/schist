@@ -1,0 +1,27 @@
+# Ազատ ձևափոխում, ընտրության ձևափոխում, կտրում և վերանմուշառում
+
+tool.transform.name = Ազատ ձևափոխում
+tool.transform.description = Ազատ ձևափոխում։ Գործիքն ակտիվացնելիս ակտիվ շերտի շուրջ բացվում է ձևափոխման շրջանակ․ քաշեք անկյունը՝ չափափոխելու, անկյունից դուրս՝ պտտելու, իսկ եզրը՝ թեքելու համար։ Մինչև հաստատելը (Enter) ոչ մի փոփոխություն չի գրվում, իսկ չեղարկելը (Escape) վերականգնում է շերտը։
+tool.transform.option.interpolation = Միջարկում
+tool.transform.history.transform = Ազատ ձևափոխում
+tool.transform.history.image_size = Պատկերի չափ
+tool.transform.history.canvas_size = Կտավի չափ
+
+tool.transform.selection.name = Ընտրության ձևափոխում
+tool.transform.selection.description = Ընտրության ձևափոխում․ նույն շրջանակը, որը տեղափոխում է ընտրության ուրվագիծը, ոչ թե դրա ներսի փիքսելները։ Ավարտելու համար հաստատեք կամ չեղարկեք։
+tool.transform.selection.history.transform = Ընտրության ձևափոխում
+
+tool.transform.resample.nearest_neighbor = Մոտակա հարևան
+tool.transform.resample.bilinear = Երկգծային
+tool.transform.resample.bicubic = Երկխորանարդային
+
+tool.crop.name = Կտրում
+tool.crop.description = Քաշելով ընտրեք պահպանվող տարածքը և կարգավորեք դրա բռնակները։ Հաստատելը (Enter) փաստաթուղթը կտրում է ըստ այդ տարածքի, իսկ չեղարկելը (Escape) այն թողնում է անփոփոխ։
+tool.crop.option.ratio = Հարաբերակցություն
+tool.crop.option.delete_cropped = Ջնջել կտրված փիքսելները
+tool.crop.choice.unconstrained = Առանց սահմանափակման
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Կտրում

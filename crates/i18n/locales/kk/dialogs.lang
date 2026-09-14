@@ -1,0 +1,237 @@
+dialog.save_ellipsis = Сақтау…
+dialog.use_foreground = Алдыңғы түсті пайдалану
+dialog.downloading = Жүктелуде…
+dialog.downloading_of = Жүктелуде… {total} ішінен {got}
+dialog.no_config_dir = (конфигурация каталогы жоқ)
+
+dialog.layer_props.title = Қабат сипаттары
+
+dialog.export.format = Пішім
+dialog.export.dither = Дизеринг
+dialog.export.dither_note = 8 битке азайтқанда дизеринг қолдану
+dialog.export.export_ellipsis = Экспорттау…
+
+dialog.batch.title = Фотосуреттерді өңдеу
+dialog.batch.note_edit.one = {n} фотосурет — галерея өңдеуі ретінде сақталады; түпнұсқаларға өзгеріс енгізілмейді.
+dialog.batch.note_edit.other = {n} фотосурет — галерея өңдеуі ретінде сақталады; түпнұсқаларға өзгеріс енгізілмейді.
+dialog.batch.note_edit_edited.one = {n} фотосурет, оның {edited} бұрын өңделген — рецепт өңдеудің үстіне қолданылады, ал алдыңғы өңдеу нұсқа ретінде сақталады.
+dialog.batch.note_edit_edited.other = {n} фотосурет, оның {edited} бұрын өңделген — рецепт өңдеудің үстіне қолданылады, ал алдыңғы өңдеу нұсқа ретінде сақталады.
+dialog.batch.note_copies.one = {n} фотосурет — біріктірілген көшірме жасалады; түпнұсқаларға өзгеріс енгізілмейді.
+dialog.batch.note_copies.other = {n} фотосурет — біріктірілген көшірмелер жасалады; түпнұсқаларға өзгеріс енгізілмейді.
+dialog.batch.note_copies_edited.one = {n} фотосурет, оның {edited} бұрын өңделген — көшірме өңделген нұсқадан жасалады.
+dialog.batch.note_copies_edited.other = {n} фотосурет, оның {edited} бұрын өңделген — көшірмелер өңделген нұсқалардан жасалады.
+dialog.batch.turn = Бұру
+dialog.batch.rotate = Айналдыру
+dialog.batch.flip = Аудару
+dialog.batch.upscale = Үлкейту
+dialog.batch.colour = Түс
+dialog.batch.add_adjustment = Реттеу…
+dialog.batch.output = Шығыс
+dialog.batch.save_as = Сақтау пішімі
+dialog.batch.process = Өңдеу
+dialog.batch.process_n = {n} нысанды өңдеу
+dialog.batch.nothing_to_do = Орындалатын әрекет жоқ: алдымен бұруды, үлкейтуді немесе реттеуді таңдаңыз
+
+dialog.content_aware_scale.title = Мазмұнды ескеріп масштабтау
+dialog.content_aware_scale.note = Егжей-тегжейі аз жіктерді алып тастайды. Таңдау қорғалатын аймақты белгілейді.
+
+dialog.stroke.title = Жиектеу
+dialog.stroke.location = Орналасуы
+dialog.stroke.inside = Ішінде
+dialog.stroke.outside = Сыртында
+dialog.stroke.note = Таңдауды алдыңғы түспен жиектейді.
+
+dialog.fill.contents = Мазмұны
+
+dialog.color_range.title = Түс ауқымы
+dialog.color_range.sampled = Алынған түс
+dialog.color_range.fuzziness = Шашыраңқылық
+dialog.color_range.note = Белсенді қабаттан алынған түске жақын пиксельдерді таңдайды.
+
+dialog.file_picker.up = ↑ Жоғары
+dialog.file_picker.empty = Мұнда ештеңе жоқ
+dialog.file_picker.choose_folder = Осы қалтаны таңдау
+
+dialog.filter.camera_raw_development = Camera Raw өңдеуі
+dialog.filter.reset_as_shot = Түсірілген күйге ысыру
+dialog.filter.raw_note = Белсенді қабатты бастапқы сенсор деректерінен қайта өңдейді.
+dialog.filter.note = Белсенді қабатқа, таңдалған аймақтың ішінде қолданылады.
+
+dialog.fonts.title = Жоқ қаріптер
+dialog.fonts.install_named = {name} орнату
+dialog.fonts.no_document = Ашық құжат жоқ, сондықтан тексеретін ештеңе жоқ.
+dialog.fonts.all_installed = Осы құжат қолданатын барлық қаріп орнатылған. Мәтін бастапқы беттелімде қолданылған қаріптермен терілген.
+dialog.fonts.missing_intro = Бұл құжат сізде жоқ қаріптермен терілген. Мәтін алмастырушы қаріппен оқылады, бірақ оның ені мен жол тасымалдары бастапқы беттелімге сәйкес келмейді.
+dialog.fonts.footer = Жүктемелер Google Fonts ашық каталогынан алынып, {dir} ішінде сақталады. Ашық лицензиясы жоқ қаріп ешқашан жүктелмейді — метрикалары үйлесімді еркін қаріп бар болса, оның орнына сол ұсынылады; таңбалардың ілгерілеу ені сәйкес болғандықтан, беттелім қалпына келеді.
+dialog.fonts.user_font_dir = пайдаланушы қаріптерінің каталогы
+
+dialog.models.title = Neural Filter модельдері
+dialog.models.built_in = Кірістірілген · {size}
+dialog.models.installed = Орнатылған · {size}
+dialog.models.not_installed = Орнатылмаған · {size}
+dialog.models.not_in_browser = Браузерде қолжетімсіз · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Модельдер {dir} ішінде сақталады. Моделі жоқ сүзгілер сигналдарды өңдеу әдісіне көшіп, бұл туралы хабарлайды.
+
+dialog.new_doc.title = Жаңа құжат
+dialog.new_doc.picker_title = Жаңа файл
+dialog.new_doc.custom_ellipsis = Арнаулы…
+dialog.new_doc.preset = Дайын өлшем
+dialog.new_doc.preset_default = Әдепкі (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Шаршы (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} пикс. @ {ppi} ppi · {size}
+dialog.new_doc.create = Жасау
+dialog.new_doc.created = Жаңа құжат: {w} × {h} пикс.
+
+dialog.open.image_title = Кескінді ашу
+dialog.open.image_prompt = «{name}» кескінін жаңа қойындыда ашу керек пе, әлде ағымдағы құжатқа жаңа қабат ретінде қосу керек пе?
+dialog.open.new_tab = Жаңа қойынды
+dialog.open.new_layer = Жаңа қабат
+dialog.open.quoted = «{name}»
+dialog.open.these_files.one = осы {n} файл
+dialog.open.these_files.other = осы {n} файл
+dialog.open.shared_title_one = Ортақ кескін
+dialog.open.shared_title_many = Ортақ кескіндер
+dialog.open.shared_prompt = {what} галереяға қосу керек пе, әлде редакторда ашу керек пе?
+dialog.open.add_to_gallery = Галереяға қосу
+dialog.open.open_in_editor = Редакторда ашу
+dialog.open.heic_title = HEIC қолдауы
+dialog.open.heic_needs_decoder = «{name}» файлын ашу үшін осы жүйеде орнатылмаған HEVC декодері қажет.
+dialog.open.heic_offer = Schist libde265 HEVC декодері бар, тек декодтауға арналған libheif {version} жинағын (≈5 МБ) жүктей алады. Екеуі де LGPL-3.0 лицензиясымен таратылады; лицензия мәтіндері кітапхананың жанына орнатылады, ал бастапқы код жоба бетінде қолжетімді.
+dialog.open.licenses_source = Лицензиялар және бастапқы код
+dialog.open.folders_title = Тасталған қалталар
+dialog.open.n_folders.one = {n} қалта
+dialog.open.n_folders.other = {n} қалта
+dialog.open.open_in_tabs = Қойындыларда ашу
+dialog.open.open_first_in_tabs = Алғашқы {n} нысанды қойындыларда ашу
+dialog.open.open_n_in_tabs.one = {n} файлды қойындыда ашу
+dialog.open.open_n_in_tabs.other = {n} файлды қойындыларда ашу
+dialog.open.folder_holds.one = {what} ішінде Schist аша алатын {n} кескін бар (ішкі қалталарымен бірге).
+dialog.open.folder_holds.other = {what} ішінде Schist аша алатын {n} кескін бар (ішкі қалталарымен бірге).
+dialog.open.folders_note = «Галереяға қосу» қалталарды орнында бақылайды — ештеңе көшірілмейді, ал өңдеулер әр фотосуреттің жанында нұсқаларымен сақталады. Қойындыларда ашу барлық кескінді қазір редакторға жүктейді.
+
+dialog.plugins.title = Плагиндер
+dialog.plugins.kind_filter = сүзгі
+dialog.plugins.kind_format = пішім
+dialog.plugins.kind_unavailable = қолжетімсіз
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Плагиндер жүктелетін орын: {dir}
+dialog.plugins.none = Әлі ешбір плагин орнатылмаған.
+dialog.plugins.install_ellipsis = Орнату…
+dialog.plugins.photoshop_heading = Photoshop плагиндері
+dialog.plugins.loaded_from = Жүктелген қалталар: {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Параметрлер
+dialog.prefs.theme = Тақырып
+dialog.prefs.theme_dark = Қараңғы
+dialog.prefs.theme_light = Ашық
+dialog.prefs.grid_spacing = Тор аралығы
+dialog.prefs.snapping = Жабыстыру
+dialog.prefs.snap_to = Бағыттауыштарға, торға және кенеп жиектеріне жабыстыру
+dialog.prefs.rendering_intent = Түстерді түрлендіру тәсілі
+dialog.prefs.intent_perceptual = Перцепциялық
+dialog.prefs.intent_relative = Салыстырмалы колориметриялық
+dialog.prefs.intent_saturation = Қанықтық
+dialog.prefs.intent_absolute = Абсолютті колориметриялық
+dialog.prefs.scrolling = Айналдыру
+dialog.prefs.zoom_with_scroll = Айналдыру дөңгелегімен масштабтау
+dialog.prefs.rendering = Кескіндеу
+dialog.prefs.gpu_compositing = GPU арқылы композициялау
+dialog.prefs.diagnostics = Диагностика
+dialog.prefs.crash_reports = Апат кезінде жергілікті есеп жазу
+dialog.prefs.crash_upload = Оны әзірлеушілерге де жіберу
+dialog.prefs.telemetry = Күн сайын анонимді сигнал жіберу
+dialog.prefs.diagnostics_note = Диагностика Schist келесі рет іске қосылғанда күшіне енеді.
+dialog.prefs.updates = Жаңартулар
+dialog.prefs.check_updates = Іске қосылғанда жаңа шығарылымдарды тексеру
+dialog.prefs.keyboard_shortcuts = Пернетақта тіркесімдері: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) моделі қажет —
+dialog.prefs.nsfw_download_link = оны «Модельдерді басқару» бөлімінен жүктеңіз…
+dialog.prefs.hide_flagged = Белгіленген фотосуреттерді жасыру
+
+dialog.profile.profile = Профиль
+dialog.profile.assign_title = Профиль тағайындау
+dialog.profile.convert_title = Профильге түрлендіру
+dialog.profile.assign = Тағайындау
+dialog.profile.convert = Түрлендіру
+dialog.profile.assign_note = Бар пиксель мәндерін жаңа профиль бойынша қайта түсіндіреді.
+dialog.profile.convert_note = Түстердің көрінісін сақтау үшін пиксель мәндерін қайта жазады.
+
+dialog.save_image.title = Кескінді басқаша сақтау
+dialog.save_image.note = {name} — өңделген нұсқасы болса, сол сақталады; түпнұсқаға өзгеріс енгізілмейді.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Кескін өлшемі
+dialog.size.canvas_title = Кенеп өлшемі
+dialog.size.constrain = Шектеу
+dialog.size.keep_proportions = Пропорцияларды сақтау
+dialog.size.resample = Қайта үлгілеу
+dialog.size.bicubic = Бикубтық
+dialog.size.bilinear = Билинейлік
+dialog.size.nearest = Ең жақын көрші
+dialog.size.anchor = Тірек
+dialog.size.currently = Қазір {w} × {h} пикс.
+dialog.size.image_size_status = Кескін өлшемі: {w} × {h}
+dialog.size.canvas_size_status = Кенеп өлшемі: {w} × {h}
+
+dialog.update.title = Жаңарту қолжетімді
+dialog.update.available = Schist {version} қолжетімді. Ағымдағы көшірме — {current}.
+dialog.update.installing = Жаңарту орнатылуда…
+dialog.update.can_install = Schist оны ({size}) жүктеп алып, осы көшірменің үстіне орната алады.
+dialog.update.external = Бұл көшірме оны басқаратын сыртқы көзден алынған — пакет менеджері, AppImage немесе өз жинағыңыз — сондықтан ол орнатылған тәсілмен жаңартылады.
+dialog.update.later = Кейінірек
+dialog.update.release_notes = Шығарылым ескертпелері
+dialog.update.update_restart = Жаңарту және қайта іске қосу
+dialog.update.open_page = Шығарылым бетін ашу
+
+dialog.style.title = Қабат стилі
+dialog.style.bevel = Қиғаш жиек және бедер
+dialog.style.stroke = Жиектеу
+dialog.style.inner_shadow = Ішкі көлеңке
+dialog.style.inner_glow = Ішкі жарқыл
+dialog.style.satin = Атлас
+dialog.style.color_overlay = Түсті қабаттау
+dialog.style.gradient_overlay = Градиентті қабаттау
+dialog.style.outer_glow = Сыртқы жарқыл
+dialog.style.drop_shadow = Түсетін көлеңке
+dialog.style.blur = Гаусстық бұлыңғырлау
+dialog.style.gradient_from = Градиентті қабаттау басы
+dialog.style.gradient_to = Градиентті қабаттау соңы
+dialog.style.soften = Жұмсарту
+dialog.style.depth = Тереңдік
+dialog.style.altitude = Биіктік
+dialog.style.highlight = Жарық аймақ
+dialog.style.shadow = Көлеңке
+dialog.style.outer_bevel = Сыртқы қиғаш жиек
+dialog.style.inner_bevel = Ішкі қиғаш жиек
+dialog.style.emboss = Бедер
+dialog.style.pillow_emboss = Жастықша бедері
+dialog.style.linear = Сызықтық
+dialog.style.radial = Радиалдық
+dialog.style.reverse = Кері бағыт
+dialog.style.from_to = Басы / Соңы
+dialog.style.from_fg = Басы = алдыңғы түс
+dialog.style.to_fg = Соңы = алдыңғы түс
+dialog.style.precise = Дәл
+dialog.style.knockout = Қабат түсетін көлеңкені тесіп өтеді
+
+dialog.color_picker.title = Түс таңдау ({what})
+dialog.color_picker.effect_color = {effect} түсі
+dialog.color_picker.note_color = Ескертпе түсі
+dialog.color_picker.new = жаңа
+dialog.color_picker.current = ағымдағы
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Арнаны ысыру
+dialog.curves.hint = Пішіндеу үшін сүйреңіз · қосу үшін шертіңіз · жою үшін Alt пернесімен шертіңіз
+
+dialog.prefs.camera_sync = Камера фотолары
+dialog.prefs.camera_sync_enabled = Schist Cloud қызметіне сақтық көшірме жасау
+dialog.prefs.camera_sync_sign_in = Камера фотоларының сақтық көшірмесін жасау үшін Schist Cloud жүйесіне кіріңіз.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Өзгерту…

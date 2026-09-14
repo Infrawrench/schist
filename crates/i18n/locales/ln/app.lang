@@ -1,0 +1,39 @@
+app.filter_gallery.title = Galerie ya ba filtre
+app.filter_gallery.stack = Molɔngɔ (esalelami uta na nse kino likoló)
+app.filter_gallery.no_settings = Filtre oyo ezali na mabongisi te.
+
+app.fonts.not_open_licensed = licence na yango ezali ya polele te · {substitute} ekokani na bamezire na yango
+app.fonts.missing_substituted = ezangi · makomi ezali kosalela lolenge mosusu ya bilembo
+app.fonts.not_in_catalogue = {family} ezali na katalogɛ ya polele ya mitindo ya bilembo te
+app.fonts.no_faces = lolenge moko te ya {family} ekoki kozwisama
+app.fonts.empty_response = eyano ya mpamba
+
+app.update.unreadable_response = eyano ekoki kotángama te: {error}
+app.update.no_temp_dir = dosye ya ntango mokuse mpo na kozwisa ezali te
+app.update.asset_has_path = vɛrsio ebimi epesi eloko na yango nkombo oyo ezali na nzela
+app.update.too_big = fisye oyo ezwami ezali monene koleka ndenge vɛrsio ebimi elobi
+app.update.stopped_at = kozwisa etɛlɛmaki na byte {got} kati na {total}
+app.update.hash_mismatch = hash ya fisye oyo ezwami ezali {got}, kasi esengeli {want}
+app.update.not_in_bundle = kopi oyo ezali na kati ya liboke ya programɛ te
+app.update.no_parent_dir = liboke ya programɛ ezali na dosye mokonzi te
+app.update.cannot_write = ekoki kokoma na {dir} te
+app.update.cannot_move_aside = ekoki kotindika {app} pembeni te
+app.update.cannot_move_in = ekoki kotya liboke ya sika na esika na yango te
+app.update.cannot_run_ditto = ekoki kosala /usr/bin/ditto te
+app.update.unpack_failed = kofungola fisye oyo ezwami elongi te: {error}
+app.update.no_app_in_download = fisye oyo ezwami ezali na Schist.app te
+app.update.cannot_run_codesign = ekoki kosala /usr/bin/codesign te
+app.update.signature_invalid = sinyatire ya fisye oyo ezwami endimami te: {error}
+app.update.download_unsigned = kopi oyo ezali na sinyatire kasi fisye oyo ezwami ezali na yango te
+app.update.different_developer = fisye oyo ezwami ezali na sinyatire ya mobongisi mosusu
+app.update.cannot_relaunch = ekoki kobanda programɛ ya kofungola lisusu te
+app.update.not_installed_copy = kopi oyo etyamaki awa na instalatɛrɛ te
+app.update.cannot_start_installer = ekoki kobanda instalatɛrɛ te
+app.update.platform_unsupported = ba mise à jour ya plateforme oyo etyamaka ndenge Schist etyamaki
+
+app.vulkan.no_loader = schist: chargeur ya Vulkan ezali na sistɛme oyo te, yango wana eloko ya kosalela mpo na kosala elilingi ezali te.\n\nSchist esalaka bililingi na Vulkan, mpe `libvulkan.so.1` etyami te.\nChargeur mpe pilote esengeli ezala nyonso mibale:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: pilote ya Vulkan oyo session oyo ezali kolakisa ezali wana te.\n\n{var} ebongisami, mpe kobongisa yango *ezwaka esika* ya boluki ya\nba pilote oyo chargeur esalaka, ebakisaka yango te. Yango wana bafisye oyo, oyo\nezali te, nde liste mobimba ya ba pilote -- mpe programɛ nyonso ya Vulkan na session\noyo ezali komona pilote moko te, ata ba pilote boni etyami:\n\n{missing}\n    {var}={value}\n\nLakisa yango manifeste oyo ezali -- ba pilote oyo etyami etyaka manifeste na\n/usr/share/vulkan/icd.d -- to longolá ebongiseli yango mpe tiká chargeur eluka yango moko.\nSoki session ebongisaka oyo na fisye ya konfiguratio (Hyprland `env =`, fisye\nya systemd environment.d, profil ya shell), esengeli kobongola yango kuna,\nmpe esengeli kokɔta lisusu mpo mbongwana ekóma na oyo esilaki kobanda.\n
+app.vulkan.override_note = \n{var} ebongisami na {value}, mpe yango ezwaka esika ya boluki\nya chargeur: soki manifeste moko te kati na yango ezali mpo na masini oyo,\nkolongola ebongiseli yango nde komeka ya liboso.\n
+app.vulkan.no_driver = schist: pilote ya Vulkan etyami te, yango wana eloko ya kosalela mpo na kosala elilingi ezali te.\n\nSchist esalaka bililingi na Vulkan. Chargeur etyami kasi elobi ete\npilote ezali te -- eloko moko te ekomisi pilote na bisika nyonso mibale oyo elukamaka:\n\n{dirs}\n\nChargeur epesamaka ekeseni na ba pilote, yango wana mbala mingi kaka paquet\nmoko nde ezangi.\n\nTyá oyo ebongi na GPU ya masini oyo:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nPilote propriétaire ya NVIDIA ezali na oyo ya yango moko (`nvidia-utils` na Arch,\n`nvidia-driver` na Debian). Na masini virtuelle, to esika nyonso oyo pilote ya\nGPU ekoki kotyama te, rasteriseur ya logiciel nde esalaka:\n`vulkan-swrast` na Arch, mpe ezali eteni ya `mesa-vulkan-drivers` na bisika mosusu.\nEzali malɛmbɛ, kasi ebandaka.\n{overridden}
+app.vulkan.no_device = schist: pilote ya Vulkan etyami kasi epesi aparɛyi moko te mpo na kosala elilingi.\n\nEkoki kozala ete pilote esimbaka GPU oyo te, to ekoki kokóma na yango te --\nna nzela ya SSH, to na kati ya container, mbala mingi /dev/dri nde ezangaka.\n`vulkaninfo --summary` elakisaka oyo chargeur ezali komona.\n\nRasteriseur ya logiciel esalaka elilingi ata GPU ezali te, soki masini oyo\nezali bongo: `vulkan-swrast` na Arch, mpe eteni ya `mesa-vulkan-drivers`\nna Debian mpe Fedora.\n
+app.vulkan.skip_hint = Mpo na kobanda Schist kaka mpe kotika yango elonga te na ndenge na yango, bongisá {var}=1.

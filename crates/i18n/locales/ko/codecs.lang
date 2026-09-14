@@ -1,0 +1,43 @@
+# 내보내기 형식 이름과 가져오기 오류 메시지입니다.
+
+# 형식 이름
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# 공통 가져오기 메시지
+codec.msg.decoding = {name} 디코딩 중
+codec.msg.zero_sized = 이미지에 픽셀이 없습니다
+codec.msg.assembling_document = 문서 구성 중
+
+# Camera Raw
+codec.raw.msg.decoding = Raw 파일 디코딩 중
+codec.raw.msg.developing = Raw 파일 현상 중
+codec.raw.msg.finding_preview = 포함된 미리보기 찾는 중
+codec.raw.msg.decoding_preview = 포함된 미리보기 디코딩 중
+codec.raw.msg.decoder_panicked = 이 파일을 처리하는 동안 Raw 디코더가 실패했습니다: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity 가져오기
+codec.affinity.flattened_preview_layer = 병합된 미리보기
+codec.affinity.msg.no_preview = 사용할 수 있는 포함된 미리보기가 없습니다. Affinity의 레이어 형식은 독점 형식이므로 Schist는 파일에 포함된 병합 미리보기를 가져옵니다. 이 파일에는 미리보기가 없습니다. Affinity에서 다시 저장하거나, 전체 레이어를 가져오려면 PSD로 내보내세요.
+
+# HEIF
+codec.heif.msg.no_library = libheif를 사용할 수 없습니다({details}). HEIC를 열려면 libheif 라이브러리가 필요합니다(Linux: libheif1 설치, macOS: brew install libheif 실행).
+codec.heif.msg.no_decoder = {what}: {message} — 이 libheif 빌드에는 HEVC 디코더가 없을 수 있습니다(Debian/Ubuntu에서는 libheif-plugin-libde265를 설치하세요)
+codec.heif.msg.unknown_error = 알 수 없는 오류
+codec.heif.msg.initialising = libheif 초기화 중
+codec.heif.msg.reading_container = HEIF 컨테이너 읽는 중
+codec.heif.msg.finding_primary_image = 기본 이미지 찾는 중
+codec.heif.msg.reading_icc_profile = ICC 프로필 읽는 중
+codec.heif.msg.decoding_image = 이미지 디코딩 중
+codec.heif.msg.checksum_mismatch = {name}의 체크섬이 일치하지 않습니다. 예상값: {expected}, 실제값: {got}
+# HEIC를 ImageIO로 디코딩하는 iOS
+codec.heif.msg.imageio_cannot_read = ImageIO가 HEIF 컨테이너를 읽지 못했습니다
+codec.heif.msg.container_empty = HEIF 컨테이너에 이미지가 없습니다
+codec.heif.msg.imageio_cannot_decode = ImageIO가 기본 이미지를 디코딩하지 못했습니다

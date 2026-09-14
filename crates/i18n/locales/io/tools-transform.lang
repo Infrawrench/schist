@@ -1,0 +1,23 @@
+# Transformo, selekto e ektondo.
+tool.transform.name = Libera transformo
+tool.transform.description = Libera transformo. Aktivigo apertas transformokadro cirkum la aktiva strato: trenez angulo por skaligar, trenez extere angulo por rotacar, trenez latero por oblikvigar. Nulo skribesas ante konfirmo (Enter), e anulo (Escape) retro-pozas la strato.
+tool.transform.option.interpolation = Interpolo
+tool.transform.history.transform = Libera transformo
+tool.transform.history.image_size = Imajo-grando
+tool.transform.history.canvas_size = Kanvaso-grando
+tool.transform.selection.name = Transformar selekto
+tool.transform.selection.description = Transformar selekto: la sama kadro, movanta la selektokonturo vice la pixeli en ol. Konfirmez o anulez por finar.
+tool.transform.selection.history.transform = Transformar selekto
+tool.transform.resample.nearest_neighbor = Maxim proxima vicino
+tool.transform.resample.bilinear = Bilineara
+tool.transform.resample.bicubic = Bikubala
+tool.crop.name = Ektondar
+tool.crop.description = Trenez la areo konservenda e ajustez lua tenili; konfirmo (Enter) tondas la dokumento ad ol, anulo (Escape) lasas ol sen chanjo.
+tool.crop.option.ratio = Proporciono
+tool.crop.option.delete_cropped = Efacar ektondita pixeli
+tool.crop.choice.unconstrained = Sen restrikto
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Ektondar

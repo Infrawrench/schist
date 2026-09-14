@@ -1,0 +1,152 @@
+# Fails
+menu.file = Fails
+menu.file.new = Jauns
+menu.file.open = Atvērt…
+menu.file.open_recent = Atvērt nesenu
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Pārlūkot galeriju…
+menu.file.close = Aizvērt
+menu.file.save = Saglabāt
+menu.file.save_as = Saglabāt kā…
+menu.file.export = Eksportēt…
+menu.file.export_submenu = Eksportēt
+menu.file.export_artboards = Eksportēt montāžas laukumus PNG formātā…
+menu.file.export_slices = Eksportēt šķēlumus PNG formātā…
+menu.file.save_to_photos = Saglabāt lietotnē Fotoattēli
+menu.file.plugins = Spraudņi…
+menu.file.missing_fonts = Trūkstošie fonti…
+menu.file.check_for_updates = Pārbaudīt atjauninājumus…
+menu.file.quit = Iziet
+menu.file.add_folder_to_gallery = Pievienot mapi galerijai…
+menu.file.import_from_photos = Importēt no lietotnes Fotoattēli…
+menu.file.import_from_camera = Importēt no kameras…
+
+# Rediģēšana
+menu.edit = Rediģēt
+menu.edit.fill = Aizpildīt…
+menu.edit.stroke = Apvilkt…
+menu.edit.content_aware_fill = Saturjutīgā aizpildīšana
+menu.edit.content_aware_scale = Saturjutīgā mērogošana…
+menu.edit.puppet_warp = Leļļu deformācija
+menu.edit.free_transform = Brīvā transformēšana
+menu.edit.transform = Transformēt
+menu.edit.rotate_180 = Pagriezt par 180°
+menu.edit.rotate_90_cw = Pagriezt par 90° pulksteņrādītāja virzienā
+menu.edit.rotate_90_ccw = Pagriezt par 90° pretēji pulksteņrādītāja virzienam
+menu.edit.flip_horizontal = Apvērst horizontāli
+menu.edit.flip_vertical = Apvērst vertikāli
+
+# Attēls
+menu.image = Attēls
+menu.image.mode = Režīms
+menu.image.adjustments = Korekcijas
+menu.image.auto_tone = Automātisks tonis
+menu.image.auto_contrast = Automātisks kontrasts
+menu.image.auto_color = Automātiska krāsa
+menu.image.image_size = Attēla lielums…
+menu.image.canvas_size = Audekla lielums…
+menu.image.image_rotation = Attēla pagriešana
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° pulksteņrādītāja virzienā
+menu.image.rotate_90_ccw = 90° pretēji pulksteņrādītāja virzienam
+menu.image.flip_canvas_horizontal = Apvērst audeklu horizontāli
+menu.image.flip_canvas_vertical = Apvērst audeklu vertikāli
+menu.image.crop_to_selection = Apgriezt līdz atlasei
+menu.image.trim = Apgriezt malas
+menu.image.assign_profile = Piešķirt profilu…
+menu.image.convert_to_profile = Konvertēt profilā…
+
+# Atlase
+menu.select = Atlasīt
+menu.select.color_range = Krāsu diapazons…
+menu.select.modify = Modificēt
+menu.select.border = Apmale…
+menu.select.smooth = Izlīdzināt…
+menu.select.expand = Paplašināt…
+menu.select.contract = Sašaurināt…
+menu.select.feather = Izpludināt malas…
+menu.select.transform_selection = Transformēt atlasi
+
+# Slānis
+menu.layer = Slānis
+menu.layer.layer_style = Slāņa stils…
+menu.layer.layer_comps = Slāņu kompozīcijas
+menu.layer.new_layer_comp = Jauna slāņu kompozīcija
+menu.layer.delete_layer_comp = Dzēst {name}
+menu.layer.path = Ceļš
+menu.layer.fill_path = Aizpildīt ceļu
+menu.layer.stroke_path = Apvilkt ceļu
+menu.layer.make_selection = Izveidot atlasi
+menu.layer.delete_path = Dzēst ceļu
+
+menu.adjust = Pielāgot
+
+# Filtrs
+menu.filter = Filtrs
+menu.filter.filter_gallery = Filtru galerija…
+menu.filter.liquify = Sašķidrināšana
+menu.filter.vanishing_point = Satekpunkts
+menu.filter.manage_models = Pārvaldīt modeļus…
+menu.filter.camera_raw_development = Camera Raw attīstīšana…
+
+# Skats
+menu.view = Skats
+menu.view.rotate_view_cw = Pagriezt skatu pulksteņrādītāja virzienā
+menu.view.rotate_view_ccw = Pagriezt skatu pretēji pulksteņrādītāja virzienam
+menu.view.reset_view = Atiestatīt skatu
+menu.view.zoom_in = Tuvināt
+menu.view.zoom_out = Tālināt
+menu.view.fit_on_screen = Ietilpināt ekrānā
+menu.view.actual_size = 100%
+menu.view.rulers = Lineāli
+menu.view.grid = Režģis
+menu.view.guides = Palīglīnijas
+menu.view.notes = Piezīmes
+menu.view.ai_panel = MI panelis
+menu.view.extras = Papildelementi
+menu.view.snap = Piesaistīšana
+menu.view.clear_guides = Notīrīt palīglīnijas
+menu.view.clear_notes = Notīrīt piezīmes
+menu.view.clear_count = Notīrīt skaitīšanas marķierus
+menu.view.screen_mode = Ekrāna režīms
+menu.view.proof_colors = Krāsu priekšskatījums
+menu.view.show_rulers = Rādīt lineālus
+menu.view.hide_rulers = Paslēpt lineālus
+menu.view.show_grid = Rādīt režģi
+menu.view.hide_grid = Paslēpt režģi
+menu.view.show_guides = Rādīt palīglīnijas
+menu.view.hide_guides = Paslēpt palīglīnijas
+menu.view.show_notes = Rādīt piezīmes
+menu.view.hide_notes = Paslēpt piezīmes
+menu.view.show_extras = Rādīt papildelementus
+menu.view.hide_extras = Paslēpt papildelementus
+menu.view.enable_snapping = Iespējot piesaistīšanu
+menu.view.disable_snapping = Atspējot piesaistīšanu
+menu.view.enable_proof_colors = Iespējot krāsu priekšskatījumu
+menu.view.disable_proof_colors = Atspējot krāsu priekšskatījumu
+
+# Galerija
+menu.gallery = Galerija
+menu.gallery.edit_selected = Rediģēt atlasītos
+menu.gallery.refresh = Atsvaidzināt
+menu.gallery.map_filter = Kartes filtrs…
+menu.gallery.back_to_editor = Atpakaļ uz redaktoru
+
+# Schist Cloud
+menu.cloud.browse = Pārlūkot Schist Cloud
+menu.cloud.generate = Ģenerēt attēlus…
+menu.cloud.upload = Augšupielādēt dokumentu pakalpojumā Schist Cloud…
+menu.cloud.sign_out = Izrakstīties no Schist Cloud
+menu.cloud.sign_in = Pierakstīties Schist Cloud…
+
+# macOS lietotnes izvēlne
+menu.app.services = Pakalpojumi
+menu.app.hide = Paslēpt {app}
+menu.app.hide_others = Paslēpt pārējās
+menu.app.show_all = Rādīt visas
+menu.app.quit = Iziet no {app}
+
+# Statusa joslas paziņojumi
+menu.status.transform_selection_needs_selection = Lai transformētu atlasi, vispirms kaut kas jāatlasa
+menu.status.crop_needs_selection = Lai apgrieztu līdz atlasei, vispirms kaut kas jāatlasa
+menu.status.select_photo_to_edit = Atlasiet rediģējamo fotoattēlu

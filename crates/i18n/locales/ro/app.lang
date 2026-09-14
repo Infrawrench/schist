@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galerie de filtre
+app.filter_gallery.stack = Stivă (aplicată de jos în sus)
+app.filter_gallery.no_settings = Acest filtru nu are configurări.
+app.fonts.not_open_licensed = fără licență deschisă · {substitute} are metrici corespunzătoare
+app.fonts.missing_substituted = lipsește · textul folosește un înlocuitor
+app.fonts.not_in_catalogue = {family} nu se află în catalogul deschis de fonturi
+app.fonts.no_faces = nu există variante descărcabile pentru {family}
+app.fonts.empty_response = răspuns gol
+app.update.unreadable_response = răspuns ilizibil: {error}
+app.update.no_temp_dir = nu există un dosar temporar pentru descărcare
+app.update.asset_has_path = versiunea atribuie o cale resursei
+app.update.too_big = descărcarea este mai mare decât indică versiunea
+app.update.stopped_at = descărcarea s-a oprit la {got} din {total} octeți
+app.update.hash_mismatch = suma descărcării este {got}, nu {want}
+app.update.not_in_bundle = această copie nu se află într-un pachet de aplicație
+app.update.no_parent_dir = pachetul aplicației nu are dosar părinte
+app.update.cannot_write = nu se poate scrie în {dir}
+app.update.cannot_move_aside = {app} nu poate fi mutat deoparte
+app.update.cannot_move_in = pachetul nou nu poate fi pus la loc
+app.update.cannot_run_ditto = nu se poate executa /usr/bin/ditto
+app.update.unpack_failed = despachetarea descărcării a eșuat: {error}
+app.update.no_app_in_download = descărcarea nu conține Schist.app
+app.update.cannot_run_codesign = nu se poate executa /usr/bin/codesign
+app.update.signature_invalid = semnătura descărcării nu poate fi validată: {error}
+app.update.download_unsigned = această copie este semnată, dar descărcarea nu
+app.update.different_developer = descărcarea este semnată de alt dezvoltator
+app.update.cannot_relaunch = programul de repornire nu poate fi pornit
+app.update.not_installed_copy = această copie nu a fost amplasată aici de programul de instalare
+app.update.cannot_start_installer = programul de instalare nu poate fi pornit
+app.update.platform_unsupported = actualizările pe această platformă se instalează în același mod ca Schist
+app.vulkan.no_loader = schist: pe acest sistem nu există un încărcător Vulkan, deci nu există nimic cu care să se deseneze.\n\nSchist randează prin Vulkan, iar `libvulkan.so.1` nu este instalat.\nSunt necesare atât încărcătorul, cât și un driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: driverul Vulkan indicat de această sesiune nu există.\n\n{var} este setată, iar setarea ei *înlocuiește* căutarea de drivere\na încărcătorului, în loc să o completeze. Prin urmare, aceste fișiere inexistente\nreprezintă întreaga listă de drivere și niciun program Vulkan din această sesiune\nnu vede vreun driver, indiferent câte sunt instalate:\n\n{missing}\n    {var}={value}\n\nIndicați un manifest existent — driverele instalate le plasează în\n/usr/share/vulkan/icd.d — sau eliminați variabila și lăsați încărcătorul să caute.\nDacă sesiunea o setează dintr-un fișier de configurare (`env =` din Hyprland,\nun fișier environment.d systemd sau un profil shell), modificarea trebuie făcută\nacolo și necesită o autentificare nouă pentru a ajunge la procesele deja pornite.\n
+app.vulkan.override_note = \n{var} este setată la {value}, ceea ce înlocuiește căutarea proprie\na încărcătorului: dacă niciun manifest nu corespunde acestei mașini,\nprima încercare trebuie să fie eliminarea variabilei.\n
+app.vulkan.no_driver = schist: nu este instalat niciun driver Vulkan, deci nu există nimic cu care să se deseneze.\n\nSchist randează prin Vulkan. Încărcătorul este instalat, dar nu raportează\nniciun driver — nimic nu a înregistrat unul în locurile unde sunt căutate:\n\n{dirs}\n\nÎncărcătorul este livrat separat de drivere, așa că de obicei lipsește\nun singur pachet.\n\nInstalați-l pe cel potrivit pentru placa grafică a acestei mașini:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriverul proprietar NVIDIA îl include pe al său (`nvidia-utils` pe Arch,\n`nvidia-driver` pe Debian). Într-o mașină virtuală sau acolo unde nu există\nun driver GPU de instalat, rasterizatorul software este soluția funcțională:\n`vulkan-swrast` pe Arch, inclus în `mesa-vulkan-drivers` în celelalte sisteme.\nEste lent, dar pornește.\n{overridden}
+app.vulkan.no_device = schist: este instalat un driver Vulkan, dar acesta nu oferă niciun dispozitiv pentru randare.\n\nEste posibil ca driverul să nu accepte această placă grafică sau să nu o poată accesa —\nprin SSH sau într-un container, /dev/dri lipsește adesea.\n`vulkaninfo --summary` arată ce vede încărcătorul.\n\nRasterizatorul software funcționează fără nicio placă grafică, dacă aceasta este\nsituația mașinii: `vulkan-swrast` pe Arch, inclus în `mesa-vulkan-drivers`\npe Debian și Fedora.\n
+app.vulkan.skip_hint = Pentru a porni Schist oricum și a-l lăsa să eșueze în felul său, setați {var}=1.

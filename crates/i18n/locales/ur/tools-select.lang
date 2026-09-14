@@ -1,0 +1,27 @@
+# انتخاب کے ٹولز
+tool.select.mode.subtract = منہا کریں
+tool.select.mode.intersect = تقاطع
+tool.marquee.rect.name = مستطیل انتخاب
+tool.marquee.rect.description = مستطیل انتخاب بنانے کے لیے گھسیٹیں۔ گھسیٹنا شروع کرتے وقت Shift انتخاب میں اضافہ، Alt تفریق، اور دونوں تقاطع کرتے ہیں؛ گھسیٹتے وقت Shift اسے مربع بناتا ہے۔ بغیر گھسیٹے کلک کرنے سے انتخاب ختم ہو جاتا ہے۔
+tool.marquee.ellipse.name = بیضوی انتخاب
+tool.marquee.ellipse.description = بیضوی انتخاب بنانے کے لیے گھسیٹیں؛ Shift/Alt کا امتزاج مستطیل انتخاب کی طرح کام کرتا ہے۔
+tool.lasso.name = لاسو
+tool.lasso.description = آزاد ہاتھ سے خاکہ گھسیٹیں؛ گھسیٹنا ختم ہونے پر انتخاب دونوں سروں کے درمیان بند ہو جاتا ہے۔ Shift اضافہ اور Alt تفریق کرتا ہے۔
+tool.lasso.history.select = لاسو انتخاب
+tool.lasso.polygonal.name = کثیرالاضلاع لاسو
+tool.lasso.polygonal.description = سیدھے کناروں والا انتخاب بنانے کے لیے یکے بعد دیگرے کونوں پر کلک کریں، اور اسے بند کرنے کے لیے پہلے نقطے کے قریب کلک کریں۔
+tool.lasso.polygonal.history.select = کثیرالاضلاع لاسو
+tool.lasso.magnetic.name = مقناطیسی لاسو
+tool.lasso.magnetic.description = کسی کنارے کے ساتھ اندازاً نشان بنائیں تو خاکہ راستے کے قریب سب سے مضبوط تضاد سے چپک جاتا ہے۔
+tool.lasso.magnetic.history.select = مقناطیسی لاسو
+tool.lasso.magnetic.option.frequency = تعدد
+tool.wand.name = جادوئی چھڑی
+tool.wand.description = پوائنٹر کے نیچے ملتے جلتے رنگ کا متصل حصہ، برداشت کی مقررہ حد کے اندر، منتخب کرنے کے لیے کلک کریں؛ یہی برداشت بڑھائیں، مشابہ اور رنگوں کی حد بھی استعمال کرتے ہیں۔
+tool.wand.option.contiguous = متصل
+tool.wand.history.select = جادوئی چھڑی
+tool.quick_select.name = فوری انتخاب
+tool.quick_select.description = کسی خطے پر پینٹ کریں تو انتخاب برش کے نیچے آنے والے ملتے جلتے پکسلز میں پھیلتا جاتا ہے۔
+tool.quick_select.history.select = فوری انتخاب
+tool.object_select.name = شے کا انتخاب
+tool.object_select.description = کسی شے کے گرد خانہ گھسیٹیں تو انتخاب اندر ملنے والی شے سے چپک جاتا ہے۔
+tool.object_select.history.select = شے کا انتخاب

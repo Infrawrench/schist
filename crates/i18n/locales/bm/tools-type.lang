@@ -1,0 +1,23 @@
+# Sɛbɛnni baarakɛminɛn
+tool.type.name = Sɛbɛn
+tool.type.description = Yɔrɔ digi ka sɛbɛn kaliki daminɛ yen, walima min bɛ yen kaban o digi k’a labɛn. A dayɛlɛlen tuma, baarakɛminɛn bɛ klaviyɛ kilisiw minɛ u cogoya la (karakteriw ci kilisi donda la); ni i sɔnna a ma, a bɛ sɛbɛn jira kaliki kan ka labɛnni datugu.
+
+tool.type.option.align = Jɔcogo
+tool.type.option.leading = Sɛbɛn siraw cɛjan
+tool.type.option.tracking = Harfu cɛjan
+tool.type.option.kerning = Harfu fila cɛjan
+tool.type.option.ligatures = Harfu ɲagaminenw
+tool.type.option.discretionary_ligatures = Harfu ɲagaminen suganditaw
+tool.type.option.small_caps = Majisikili dɔgɔmanw
+tool.type.option.on_path = Sira min bɛ baara la o kan
+tool.type.option.path_offset = Sira bɔli
+
+tool.type.choice.regular = A ka c'a la
+tool.type.choice.bold = Sɛbɛn girin
+tool.type.choice.italic = Sɛbɛn birilen
+tool.type.choice.bold_italic = Sɛbɛn girin birilen
+
+tool.type.history.new_layer = Sɛbɛn kaliki kura
+tool.type.history.edit = Sɛbɛn labɛn
+tool.type.history.discard = Sɛbɛn bila
+tool.type.history.discard_empty = Sɛbɛn lankolon bila

@@ -1,0 +1,22 @@
+tool.liquify.name = Liquify
+tool.liquify.description = Dorong, pulas, picekkeun, atawa gembungkeun piksel di handapeun kuas gedé — pilihan mode nangtukeun tindakanna. Distorsi ngumpul dina mesh sarta diterapkeun kana lapisan nalika dikomit.
+tool.liquify.option.tool = Alat
+tool.liquify.choice.forward_warp = Distorsi Maju
+tool.liquify.choice.reconstruct = Rekonstruksi
+tool.liquify.choice.twirl_cw = Pulas Searah Jarum Jam
+tool.liquify.choice.twirl_ccw = Pulas Ngalawan Jarum Jam
+tool.liquify.choice.pucker = Picekkeun
+tool.liquify.choice.bloat = Gembungkeun
+tool.liquify.choice.push_left = Dorong ka Kénca
+tool.liquify.history.liquify = Liquify
+
+tool.puppet_warp.name = Distorsi Bonéka
+tool.puppet_warp.description = Klik pikeun masang pin dina sababaraha titik lapisan, tuluy séréd salah sahijina: mesh ngabengkok sabudeureun pin, kaku atawa lemes saluyu jeung pilihan Kakakuan. Komit bakal nerapkeunana.
+tool.puppet_warp.option.stiffness = Kakakuan
+tool.puppet_warp.history.puppet_warp = Distorsi Bonéka
+
+tool.vanishing_point.name = Titik Lenyap
+tool.vanishing_point.description = Séréd hiji bidang datar dina objék anu boga perspéktif, tuluy ganti mode kana Klon sarta cet: piksel salinan nuturkeun bidang éta sarta ngaleutikan beuki jauh jarakna.
+tool.vanishing_point.choice.edit_plane = Édit Bidang
+tool.vanishing_point.choice.clone = Klon
+tool.vanishing_point.history.vanishing_point = Titik Lenyap

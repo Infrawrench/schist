@@ -1,0 +1,37 @@
+# Gallaria da filters, scrittiras, actualisaziuns e controlla da Vulkan.
+app.filter_gallery.title = Gallaria da filters
+app.filter_gallery.stack = Mantun (applitgà da sut ensi)
+app.filter_gallery.no_settings = Quest filter n'ha nagins parameters.
+app.fonts.not_open_licensed = betg licenziada avertamain · {substitute} ha las medemas dimensiuns
+app.fonts.missing_substituted = manca · il text vegn cumponì cun ina scrittira substitutiva
+app.fonts.not_in_catalogue = {family} n'è betg en il catalog avert da scrittiras
+app.fonts.no_faces = nagins stils telechargiabels per {family}
+app.fonts.empty_response = resposta vida
+app.update.unreadable_response = resposta illegibla: {error}
+app.update.no_temp_dir = nagin ordinatur temporar per telechargiar
+app.update.asset_has_path = la versiun specifitgescha il num da ses element cun ina via
+app.update.too_big = la telechargiada è pli gronda che quai che la versiun inditgescha
+app.update.stopped_at = la telechargiada è sa fermada suenter {got} da {total} bytes
+app.update.hash_mismatch = la summa da controlla da la telechargiada è {got} empè da {want}
+app.update.not_in_bundle = questa copia n'è betg en in pachet d'applicaziun
+app.update.no_parent_dir = il pachet d'applicaziun n'ha nagin ordinatur surordinà
+app.update.cannot_write = impussibel da scriver en {dir}
+app.update.cannot_move_aside = impussibel da spustar {app} d'ina vart
+app.update.cannot_move_in = impussibel da plazzar il nov pachet
+app.update.cannot_run_ditto = impussibel d'exequir /usr/bin/ditto
+app.update.unpack_failed = betg reussì da decompattar la telechargiada: {error}
+app.update.no_app_in_download = la telechargiada na cuntegna nagin Schist.app
+app.update.cannot_run_codesign = impussibel d'exequir /usr/bin/codesign
+app.update.signature_invalid = la signatura da la telechargiada n'è betg valida: {error}
+app.update.download_unsigned = questa copia è signada, ma la telechargiada betg
+app.update.different_developer = la telechargiada è signada d'in auter sviluppader
+app.update.cannot_relaunch = impussibel da lantschar il program da relantschada
+app.update.not_installed_copy = questa copia n'è betg vegnida plazzada qua tras l'installader
+app.update.cannot_start_installer = impussibel da lantschar l'installader
+app.update.platform_unsupported = actualisaziuns sin questa plattafurma vegnan installadas sco Schist è vegnì installà
+app.vulkan.no_loader = schist: nagin chargiader Vulkan sin quest sistem, uschia ch'i na dat nagut da dissegnar.\n\nSchist renderisescha via Vulkan, e `libvulkan.so.1` n'è betg installà.\nI dovra tant il chargiader sco in driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: il driver Vulkan inditgà da questa sessiun n'exista betg.\n\n{var} è definì; definir questa variabla *remplazza* la tschertga dal chargiader\ntenor drivers empè da la cumplettar. Questas datotecas inexistentas èn pia\nl'entira glista da drivers — e mintga program Vulkan da questa sessiun\nna vesa insumma nagin driver, independentamain da quant blers ch'èn installads:\n\n{missing}\n    {var}={value}\n\nInditgescha in manifest existent — ils drivers installads mettan lur manifests en\n/usr/share/vulkan/icd.d — u stizza la variabla e lascha il chargiader tschertgar sez.\nSche ina datoteca da configuraziun definescha quai per ina sessiun (cun `env =` da\nHyprland, in element environment.d da systemd u in profil da shell), sto la midada\nvegnir fatga là; ina nova annunzia è necessaria per ch'ella cuntanschia programs\nche curran gia.\n
+app.vulkan.override_note = \n{var} è definì sco {value}, e quai remplazza l'atgna tschertga dal\nchargiader: sche nagin da quests manifests è per questa maschina, emprova\nl'emprim da stizzar la variabla.\n
+app.vulkan.no_driver = schist: nagin driver Vulkan installà, uschia ch'i na dat nagut da dissegnar.\n\nSchist renderisescha via Vulkan. Il chargiader è installà, ma n'annunzia nagin\ndriver — nagut n'ha registrà in driver en ils dus lieus nua ch'el vegn tschertgà:\n\n{dirs}\n\nIl chargiader vegn furnì separadamain dals drivers; perquai manca per ordinari mo\nin singul pachet.\n\nInstallescha il driver per la GPU da questa maschina:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nIl driver proprietar da NVIDIA porta ses agen (sin Arch `nvidia-utils`, sin\nDebian `nvidia-driver`). En ina maschina virtuala u nua ch'i na dat nagin driver\nda GPU d'installar, funcziuna il rasterisader da software: `vulkan-swrast` sin\nArch ed ina part da `mesa-vulkan-drivers` sin auters sistems. El è plaun, ma\nel sa lantscha.\n{overridden}
+app.vulkan.no_device = schist: in driver Vulkan è installà, ma na porscha nagin apparat per renderisar.\n\nIl driver na sustegna eventualmain betg questa GPU u na po betg l'acceder — via\nSSH u entaifer in container manca savens /dev/dri. `vulkaninfo --summary`\ninditgescha quai ch'il chargiader vesa.\n\nIl rasterisader da software renderisescha dal tuttafatg senza GPU, sche quai è\nnecessari sin questa maschina: `vulkan-swrast` sin Arch ed ina part da\n`mesa-vulkan-drivers` sin Debian e Fedora.\n
+app.vulkan.skip_hint = Per tuttina lantschar Schist e laschar ch'el crodia a sia moda, definescha {var}=1.

@@ -1,0 +1,20 @@
+# Oanpassingslagen en de opdrachten ûnder Ofbylding ▸ Oanpassingen.
+adjustment.levels.name = Nivo's
+adjustment.curves.name = Krommen
+adjustment.hue_saturation.name = Tint/Fersêding
+adjustment.brightness_contrast.name = Helderheid/Kontrast
+adjustment.black_white.name = Swart-wyt
+adjustment.solid_color.name = Effen kleur
+adjustment.gradient_fill.name = Ferrinfolling
+adjustment.pattern_fill.name = Patroanfolling
+adjustment.invert.name = Omkeare
+adjustment.posterize.name = Posterizearje
+adjustment.threshold.name = Drompelwearde
+adjustment.color_balance.name = Kleurbalâns
+adjustment.vibrance.name = Libbenens
+adjustment.exposure.name = Beljochting
+adjustment.photo_filter.name = Fotofilter
+adjustment.gradient_map.name = Ferrinsskema
+adjustment.selective_color.name = Selektive kleur
+adjustment.channel_mixer.name = Kanaalmikser
+adjustment.other.name = Oanpassing

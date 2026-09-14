@@ -52,6 +52,8 @@ cloud.error.wait_for_connection = Wait for the cloud connection
 cloud.error.bucket_empty = This bucket is empty
 cloud.error.rating_range = Rating must be between 0 and 5
 cloud.error.invalid_content_filter = Invalid content filter
+# Keep the accepted input values any/yes/no and all/safe/flagged literal in
+# translations: workspace/cloud.rs::parse_filters parses these exact words.
 cloud.error.edited_filter = Edited must be any, yes or no
 cloud.error.content_filter = Content must be all, safe or flagged
 cloud.error.invalid_bounds = Enter valid south, west, north, east coordinates

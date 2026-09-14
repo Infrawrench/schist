@@ -1,0 +1,39 @@
+app.filter_gallery.title = Galri filtè
+app.filter_gallery.stack = Pil (aplike depi anba rive anwo)
+app.filter_gallery.no_settings = Filtè sa a pa gen paramèt.
+
+app.fonts.not_open_licensed = lisans lan pa ouvè · {substitute} gen menm mezi yo
+app.fonts.missing_substituted = manke · tèks la ap itilize yon polis ranplasman
+app.fonts.not_in_catalogue = {family} pa nan katalòg polis ouvè a
+app.fonts.no_faces = pa gen estil polis ki ka telechaje pou {family}
+app.fonts.empty_response = repons vid
+
+app.update.unreadable_response = repons lan pa ka li: {error}
+app.update.no_temp_dir = pa gen dosye tanporè pou resevwa telechajman an
+app.update.asset_has_path = non resous vèsyon an gen yon chemen ladan l
+app.update.too_big = telechajman an pi gwo pase sa vèsyon an deklare
+app.update.stopped_at = telechajman an kanpe nan {got} sou {total} oktè
+app.update.hash_mismatch = achaj telechajman an se {got}, se pa {want}
+app.update.not_in_bundle = kopi sa a pa anndan yon pakè aplikasyon
+app.update.no_parent_dir = pakè aplikasyon an pa gen dosye paran
+app.update.cannot_write = pa kapab ekri nan {dir}
+app.update.cannot_move_aside = pa kapab deplase {app} sou kote
+app.update.cannot_move_in = pa kapab mete nouvo pakè a nan plas li
+app.update.cannot_run_ditto = pa kapab lanse /usr/bin/ditto
+app.update.unpack_failed = dekonpresyon telechajman an echwe: {error}
+app.update.no_app_in_download = telechajman an pa gen Schist.app
+app.update.cannot_run_codesign = pa kapab lanse /usr/bin/codesign
+app.update.signature_invalid = siyati telechajman an pa valide: {error}
+app.update.download_unsigned = kopi sa a siyen men telechajman an pa siyen
+app.update.different_developer = yon lòt devlopè siyen telechajman an
+app.update.cannot_relaunch = pa kapab demare pwogram relansman an
+app.update.not_installed_copy = enstalatè a pa t mete kopi sa a isit la
+app.update.cannot_start_installer = pa kapab demare enstalatè a
+app.update.platform_unsupported = mizajou sou platfòm sa a enstale menm jan ak Schist
+
+app.vulkan.no_loader = schist: pa gen okenn chajè Vulkan sou sistèm sa a, kidonk pa gen mwayen pou desinen.\n\nSchist rann atravè Vulkan, epi `libvulkan.so.1` pa enstale.\nChajè a ak yon pilòt nesesè:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: pilòt Vulkan sesyon sa a deziyen an pa la.\n\n{var} defini, epi lè li defini, li *ranplase* rechèch chajè a pou\npilòt olye li ajoute sou li. Kidonk fichye sa yo, ki pa egziste,\nse tout lis pilòt la — epi okenn pwogram Vulkan nan sesyon sa a\npa wè okenn pilòt ditou, kèlkeswa kantite ki enstale:\n\n{missing}\n    {var}={value}\n\nFè l deziyen yon manifès ki egziste — pilòt enstale yo mete pa yo nan\n/usr/share/vulkan/icd.d — oswa retire valè li epi kite chajè a jwenn pilòt la poukont li.\nSi yon sesyon defini sa nan yon fichye konfigirasyon (`env =` Hyprland, yon\nfichye environment.d systemd, yon pwofil koki), se la pou chanje l,\nepi fòk ou konekte ankò pou chanjman an rive nan sa ki deja ap fonksyone.\n
+app.vulkan.override_note = \n{var} defini kòm {value}, e sa ranplase pwòp\nrechèch chajè a: si okenn nan manifès sa yo pa pou machin sa a,\npremye bagay pou eseye se retire valè li.\n
+app.vulkan.no_driver = schist: pa gen okenn pilòt Vulkan enstale, kidonk pa gen mwayen pou desinen.\n\nSchist rann atravè Vulkan. Chajè a enstale men li pa rapòte okenn\npilòt — pa gen anyen ki anrejistre youn nan okenn nan kote li chèche yo:\n\n{dirs}\n\nYo distribye chajè a apa ak pilòt yo, kidonk anjeneral se yon sèl\npakè ki manke.\n\nEnstale sa ki pou GPU machin sa a:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nPilòt pwopriyetè NVIDIA a vini ak pa li (`nvidia-utils` sou Arch,\n`nvidia-driver` sou Debian). Nan yon machin vityèl, oswa nenpòt kote\nki pa gen pilòt GPU pou enstale, rasterizè lojisyèl an ap mache:\n`vulkan-swrast` sou Arch, li fè pati `mesa-vulkan-drivers` lòt kote. Li\nlan, men li demare.\n{overridden}
+app.vulkan.no_device = schist: yon pilòt Vulkan enstale men li pa ofri okenn aparèy pou rann sou li.\n\nPilòt la ka pa sipòte GPU sa a, oswa li ka pa kapab jwenn aksè ladan l —\nsou SSH, oswa anndan yon kontenè, /dev/dri souvan konn manke.\n`vulkaninfo --summary` rapòte sa chajè a wè.\n\nRasterizè lojisyèl an rann san okenn GPU, si se sa\nmachin sa a genyen: `vulkan-swrast` sou Arch, li fè pati `mesa-vulkan-drivers`\nsou Debian ak Fedora.\n
+app.vulkan.skip_hint = Pou demare Schist kanmenm epi kite l echwe jan pa li, defini {var}=1.

@@ -1,0 +1,23 @@
+tool.patch.name = Tambalan
+tool.patch.description = Séréd gurat sabudeureun cacad, tuluy séréd pilihan éta kana piksel anu beresih: tékstur ti dinya disaluyukeun kana cacad. Mode Tambalan nangtukeun tungtung mana tina pasangan éta anu diséréd.
+tool.patch.option.patch = Tambalan
+tool.patch.choice.source = Sumber
+tool.patch.choice.destination = Tujuan
+tool.patch.history.patch = Tambalan
+
+tool.content_aware_move.name = Pindah Sadar-Eusi
+tool.content_aware_move.description = Séréd objék anu dipilih ka tempat séjén sarta liang urutna bakal dieusian tina wewengkon sabudeureunana. Dina mode Manjangkeun, objékna dipanjangkeun tibatan dipindahkeun.
+tool.content_aware_move.choice.move = Pindahkeun
+tool.content_aware_move.choice.extend = Manjangkeun
+tool.content_aware_move.history.move = Pindah Sadar-Eusi
+
+tool.red_eye.name = Panon Beureum
+tool.red_eye.description = Klik pupil pikeun ngaleungitkeun warna beureum akibat lampu kilat.
+tool.red_eye.option.pupil_size = Ukuran Pupil
+tool.red_eye.option.darken = Poékkeun
+tool.red_eye.history.red_eye = Panon Beureum
+
+tool.magic_eraser.name = Panghapus Ajaib
+tool.magic_eraser.description = Klik pikeun mupus wewengkon anu warnana sarupa di handapeun panunjuk, saluyu jeung toléransi alat — ngan anu nyambung jeung titik klik, atawa di sakuliah lapisan.
+tool.magic_eraser.option.contiguous = Nyambung
+tool.magic_eraser.history.erase = Panghapus Ajaib

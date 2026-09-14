@@ -1,0 +1,28 @@
+# Free Transform
+tool.transform.name = Sesa Sɛnea Wopɛ
+tool.transform.description = Sesa Sɛnea Wopɛ. Sɛ wosɔ no a, ɛbue adaka a wɔde sesa ade twa layer a ɛreyɛ adwuma no ho hyia: twe twea bi na sesa ne kɛse, twe nkyɛn baabi na dannan no, na twe ano bi na kyinkyim no. Wɔnkyerɛw nsakrae biara kosi sɛ wobɛgye atom (Enter), na sɛ wotwa mu (Escape) a, layer no san kɔ tebea dedaw no mu.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Sesa Sɛnea Wopɛ
+tool.transform.history.image_size = Mfonini Kɛse
+tool.transform.history.canvas_size = Canvas Kɛse
+
+# Sesa nea woapaw
+tool.transform.selection.name = Sesa Nea Woapaw
+tool.transform.selection.description = Sesa Nea Woapaw: adaka koro no ara, nanso ɛtu nsensanee a ɛtwa nea woapaw no ho hyia sen pixels a ɛwɔ mu no. Gye tom anaa twa mu na wie.
+tool.transform.selection.history.transform = Sesa Nea Woapaw
+
+tool.transform.resample.nearest_neighbor = Ɔyɔnko a Ɔbɛn Paa
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicubic
+
+# Twitwa
+tool.crop.name = Twitwa Mfonini
+tool.crop.description = Twe beae a wobɛkora so no na siesie ne nsa no; sɛ wugye tom (Enter) a, ɛtwitwa document no ma ɛne saa beae no yɛ pɛ, na sɛ wotwa mu (Escape) a, biribiara nsesa.
+tool.crop.option.ratio = Nkyekyɛmu
+tool.crop.option.delete_cropped = Pepa Pixels a Wɔatwitwa No
+tool.crop.choice.unconstrained = Anohyeto Biara Nni Ho
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Twitwa Mfonini

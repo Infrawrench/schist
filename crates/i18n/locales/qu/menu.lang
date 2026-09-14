@@ -1,0 +1,153 @@
+# Archivo
+menu.file = Archivo
+menu.file.new = Musuq
+menu.file.open = Kichay…
+menu.file.open_recent = Chayraq kichasqata kichay
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Galeríata maskay…
+menu.file.close = Wichq'ay
+menu.file.save = Waqaychay
+menu.file.save_as = Huk hina waqaychay…
+menu.file.export = Lluqsichiy…
+menu.file.export_submenu = Lluqsichiy
+menu.file.export_artboards = Arte pizarrakunata PNG-man lluqsichiy…
+menu.file.export_slices = Rakisqakunata PNG-man lluqsichiy…
+menu.file.save_to_photos = Fotokunaman waqaychay
+menu.file.plugins = Plug-inkuna…
+menu.file.missing_fonts = Chinkaq sanampa rikch'aykuna…
+menu.file.check_for_updates = Musuqyachiykunata maskay…
+menu.file.quit = Lluqsiy
+menu.file.add_folder_to_gallery = Galeríaman karpetata yapay…
+menu.file.import_from_photos = Fotokunamanta yaykuchiy…
+menu.file.import_from_camera = Cámaramanta yaykuchiy…
+
+# Allichay
+menu.edit = Allichay
+menu.edit.fill = Hunt'achiy…
+menu.edit.stroke = Kantun siq'ita ruray…
+menu.edit.content_aware_fill = Ukhunman yachaspa hunt'achiy
+menu.edit.content_aware_scale = Ukhunman yachaspa sayanta tikray…
+menu.edit.puppet_warp = Muñeka waq'uchiy
+menu.edit.free_transform = Munasqaykiman tikray
+menu.edit.transform = Tikray
+menu.edit.rotate_180 = 180° muyuchiy
+menu.edit.rotate_90_cw = Relojpa puriyninman 90° muyuchiy
+menu.edit.rotate_90_ccw = Relojpa puriyninpa contranman 90° muyuchiy
+menu.edit.flip_horizontal = Kinrayman t'ikray
+menu.edit.flip_vertical = Sayayman t'ikray
+
+# Rikch'ay
+menu.image = Rikch'ay
+menu.image.mode = Imayna kaynin
+menu.image.adjustments = Allichaykuna
+menu.image.auto_tone = Kikinmanta tono
+menu.image.auto_contrast = Kikinmanta kutinnaq
+menu.image.auto_color = Kikinmanta llimp'i
+menu.image.image_size = Rikch'aypa sayaynin…
+menu.image.canvas_size = Lienzopa sayaynin…
+menu.image.image_rotation = Rikch'ay muyuchiy
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = Relojpa puriyninman 90°
+menu.image.rotate_90_ccw = Relojpa puriyninpa contranman 90°
+menu.image.flip_canvas_horizontal = Lienzota kinrayman t'ikray
+menu.image.flip_canvas_vertical = Lienzota sayayman t'ikray
+menu.image.crop_to_selection = Akllasqakama k'utuy
+menu.image.trim = Kantunkunata k'utuy
+menu.image.assign_profile = Perfilta churay…
+menu.image.convert_to_profile = Perfilman tikray…
+
+# Akllay
+menu.select = Akllay
+menu.select.color_range = Llimp'i maymanta maykama…
+menu.select.modify = Tikray
+menu.select.border = Kantu…
+menu.select.smooth = Llamp'uyachiy…
+menu.select.expand = Mast'ariy…
+menu.select.contract = K'ichkiy…
+menu.select.feather = Kantunta llamp'uyachiy…
+menu.select.transform_selection = Akllasqata tikray
+
+# Pata
+menu.layer = Pata
+menu.layer.layer_style = Pata rikch'ay…
+menu.layer.layer_comps = Pata churasqakuna
+menu.layer.new_layer_comp = Musuq pata churasqa
+menu.layer.delete_layer_comp = {name} qulluy
+menu.layer.path = Ñan
+menu.layer.fill_path = Ñanta hunt'achiy
+menu.layer.stroke_path = Ñan kantunta siq'iy
+menu.layer.make_selection = Akllasqata ruray
+menu.layer.delete_path = Ñanta qulluy
+
+# Allichay
+menu.adjust = Allichay
+
+# Suysuna
+menu.filter = Suysuna
+menu.filter.filter_gallery = Suysuna galería…
+menu.filter.liquify = Unuyachiy
+menu.filter.vanishing_point = Chinkana ch'iku
+menu.filter.manage_models = Modelokunata kamachiy…
+menu.filter.camera_raw_development = Camera Raw wiñachiy…
+
+# Qhaway
+menu.view = Qhaway
+menu.view.rotate_view_cw = Qhawasqata relojpa puriyninman muyuchiy
+menu.view.rotate_view_ccw = Qhawasqata relojpa puriyninpa contranman muyuchiy
+menu.view.reset_view = Qhawasqata qallariyman kutichiy
+menu.view.zoom_in = Hatunyachiy
+menu.view.zoom_out = Huch'uyachiy
+menu.view.fit_on_screen = Pantallaman tupachiy
+menu.view.actual_size = 100%
+menu.view.rulers = Tupuna kaspikuna
+menu.view.grid = Tawa tawa siq'ikuna
+menu.view.guides = Pusaq siq'ikuna
+menu.view.notes = Willakuykuna
+menu.view.ai_panel = IA panel
+menu.view.extras = Yapanakuna
+menu.view.snap = Kikinmanta hap'ichiy
+menu.view.clear_guides = Pusaq siq'ikunata qulluy
+menu.view.clear_notes = Willakuykunata qulluy
+menu.view.clear_count = Yupay señalkunata qulluy
+menu.view.screen_mode = Pantalla imayna kasqan
+menu.view.proof_colors = Llimp'ikunata ñawpaqta tupachiy
+menu.view.show_rulers = Tupuna kaspikunata qhawachiy
+menu.view.hide_rulers = Tupuna kaspikunata pakay
+menu.view.show_grid = Tawa tawa siq'ikunata qhawachiy
+menu.view.hide_grid = Tawa tawa siq'ikunata pakay
+menu.view.show_guides = Pusaq siq'ikunata qhawachiy
+menu.view.hide_guides = Pusaq siq'ikunata pakay
+menu.view.show_notes = Willakuykunata qhawachiy
+menu.view.hide_notes = Willakuykunata pakay
+menu.view.show_extras = Yapanakunata qhawachiy
+menu.view.hide_extras = Yapanakunata pakay
+menu.view.enable_snapping = Kikinmanta hap'ichiyta qallariy
+menu.view.disable_snapping = Kikinmanta hap'ichiyta wañuchiy
+menu.view.enable_proof_colors = Llimp'ikunata ñawpaqta tupachiyta hap'ichiy
+menu.view.disable_proof_colors = Llimp'ikunata ñawpaqta tupachiyta wañuchiy
+
+# Galería
+menu.gallery = Galería
+menu.gallery.edit_selected = Akllasqata allichay
+menu.gallery.refresh = Wakmanta apamuy
+menu.gallery.map_filter = Mapa suysuna…
+menu.gallery.back_to_editor = Allichaqman kutiy
+
+# Schist Cloud
+menu.cloud.browse = Schist Cloudpi maskay
+menu.cloud.generate = Rikch'aykunata paqarichiy…
+menu.cloud.upload = Qillqa khiputa Schist Cloudman wichaykachiy…
+menu.cloud.sign_out = Schist Cloudmanta lluqsiy
+menu.cloud.sign_in = Schist Cloudman yaykuy…
+
+# macOS aplicación menú
+menu.app.services = Yanapakuykuna
+menu.app.hide = {app} pakay
+menu.app.hide_others = Hukkunata pakay
+menu.app.show_all = Llapanta qhawachiy
+menu.app.quit = {app}manta lluqsiy
+
+# Mana ruwakuy atiq menú imakuna
+menu.status.transform_selection_needs_selection = Akllasqata tikranapaqqa imapas akllasqa kanan tiyan
+menu.status.crop_needs_selection = Akllasqakama k'utunapaqqa imapas akllasqa kanan tiyan
+menu.status.select_photo_to_edit = Allichanapaq huk fotota akllay

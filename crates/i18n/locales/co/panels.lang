@@ -1,0 +1,84 @@
+# Pannelli, barra d'attrazzi, barra di statu è dialoghi di schedarii.
+
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigatore
+panel.navigator.actual_pixels = Pixel veri
+
+panel.color.picker = Selezzione di culore…
+panel.color.swap = Scambià i culori
+panel.color.reset = Rimette à neru è biancu
+
+panel.layers.blending_options = Opzioni di mischju…
+panel.layers.properties = Pruprietà di u stratu…
+panel.layers.show_hide = Mustrà/Piattà u stratu
+panel.layers.toggle_visibility = Cambià a visibilità
+
+panel.history.title = Cronulugia
+panel.history.opened = Apertu
+
+panel.info.title = Infurmazione
+panel.info.camera = Camera
+panel.info.lens = Obbiettivu
+panel.info.iso = ISO {iso}
+panel.info.bias = Cumpensazione
+panel.info.flash_fired = lampu scattatu
+panel.info.no_flash = senza lampu
+panel.info.white_balance = BB {wb}
+panel.info.metering = misurazione {metering}
+panel.info.taken = Scattata
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientazione {o}
+panel.info.software = Lugiziale
+panel.info.where = Locu
+
+panel.notes.author = Autore
+panel.notes.clear_all = Sguassà tuttu
+panel.notes.unattributed = Senza autore
+panel.notes.empty = Cliccate nant'à a tela per lascià una nota.
+panel.notes.placeholder = Cliccate per scrive
+
+panel.character.title = Caratteru
+panel.character.type_tool = Attrazzu Testu (T)
+panel.character.align_left = Allineà à manca
+panel.character.align_center = Allineà à u centru
+panel.character.align_right = Allineà à diritta
+panel.character.text_color = Culore di u testu
+panel.character.panel = Pannellu Caratteru
+panel.character.cancel_edit = Annullà a mudificazione di u testu
+panel.character.commit_edit = Cunfirmà a mudificazione di u testu
+panel.character.number_tip = {label} · Scrivite un valore, o aduprate ↑ / ↓ (Shift per passi più grandi)
+panel.character.leading = Interlinea
+panel.character.tracking = Spaziatura
+panel.character.alignment = Allineamentu
+panel.character.opentype = OpenType
+panel.character.text_on_path = Testu nant'à un tracciatu
+panel.character.straight = Dirittu
+panel.character.on_path = Nant'à u tracciatu
+panel.character.straight_tip = Aduprà a linea di basa urdinaria di u stratu di testu
+panel.character.on_path_tip = Aduprà una copia di u tracciatu attivu
+panel.character.path_offset = Scartamentu da u tracciatu
+
+panel.ai.title = AI
+panel.ai.empty_editor = Dumandate una mudificazione è fighjulatela cumparisce nant'à a tela. L'agente cummanda i listessi attrazzi, filtri è cumandi chè i menu, cù una tappa d'annullamentu per ognunu.
+panel.ai.empty_gallery = Fate una dumanda nant'à e vostre fotò è fighjate u risultatu in a galleria: l'agente pò circà, guardà e miniature, selezziunà, urganizà in gruppi è apre una fotò in l'editore.
+panel.ai.thinking = riflessione…
+panel.ai.placeholder_editor = Fate una dumanda o mudificate stu ducumentu
+panel.ai.placeholder_gallery = Fate una dumanda nant'à e vostre fotò
+panel.ai.send = Mandà
+panel.ai.stop = Firmà
+panel.ai.fetching_models = Dumanda di i mudelli à u CLI…
+panel.ai.no_models = Nisun mudellu currisponde
+panel.ai.search_models = Circà mudelli…
+
+panel.keymap.install_plugin = Stallà un plug-in
+panel.keymap.save_as_prompt = Arregistrà cù u nome — l'estensione sceglie u furmatu:

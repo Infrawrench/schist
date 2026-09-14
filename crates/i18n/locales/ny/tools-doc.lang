@@ -1,0 +1,24 @@
+tool.artboard.name = Bolodi la Zojambula
+tool.artboard.description = Kokani kuti mupange bolodi la zojambula: dera lotchulidwa dzina pa canvas lomwe limatumizidwa palokha. Kukoka mkati mwa bolodi lomwe lilipo kumalisuntha.
+tool.artboard.default_name = Bolodi la Zojambula {n}
+
+tool.slice.name = Gawo
+tool.slice.description = Kokani kuti mupange gawo lotumizidwa, rectangle yotchulidwa dzina pa canvas yomwe imatumizidwa ngati chithunzi chapadera. Kukoka mkati mwa gawo lomwe lilipo kumalisuntha.
+tool.slice.default_name = Gawo {n}
+
+tool.frame.name = Furemu
+tool.frame.description = Kokani kuti mupange furemu: layer ya rectangle kapena ellipse imene imabisa mbali za chilichonse choikidwa mmenemo.
+tool.frame.default_name = Furemu {n}
+tool.frame.choice.rectangle = Rectangle
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Furemu
+
+tool.note.name = Cholemba
+tool.note.description = Dinani pamalo opanda kanthu pa canvas kuti mukhome cholemba pamenepo, chokhala ndi dzina la wolemba ndi mtundu wosungidwa mu editor; dinani pin yomwe ilipo kuti musankhe cholembacho mu panel ya Zolemba.
+tool.note.history.place = Ikani Cholemba
+tool.note.history.move = Sunthani Cholemba
+tool.note.history.delete = Chotsani Cholemba
+
+tool.count.name = Kuwerengera
+tool.count.description = Dinani kuti muike zizindikiro zowerengera zokhala ndi manambala pa canvas, ndipo dinani chizindikiro chomwe chilipo kuti muchichotse.
+tool.count.default_name = Kuwerengera {n}

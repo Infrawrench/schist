@@ -1,0 +1,9 @@
+{
+  "loading": "Kargatzen…",
+  "starting": "Abiarazten…",
+  "webgpu": "Schist aplikazioak WebGPU behar du, baina arakatzaile honek ez du eskaintzen. Chrome/Edge 113 edo berriagoek, Firefox 141 edo berriagoek eta Safari 26 edo berriagoek bai.",
+  "noticeTitle": "Schist hobeto dabil mahaigaineko aplikazio gisa",
+  "noticeBody": "Web-bertsioa erabiltzen ari zara; bertsio arinagoa da: konposizioa PUZean egiten du eta ez ditu zenbait eginbide barne hartzen —Photoshop plug-inak eta hirugarrenen plug-inak, irudi-galeria, AA panela, HEIC inportazioa eta letra-tipoen deskargak—, eta fitxategiak deskarga gisa gordetzen dira. macOS, Windows eta Linuxerako doako mahaigaineko aplikazioak dena dauka.",
+  "noticeLink": "Eskuratu mahaigaineko aplikazioa.",
+  "ok": "Ados"
+}

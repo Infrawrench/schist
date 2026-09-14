@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galeri Ségal yi
+app.filter_gallery.stack = Toftale (jëfe ko dale ci suuf jëm kaw)
+app.filter_gallery.no_settings = Ségal bii amul ayar.
+app.fonts.not_open_licensed = amul lisaasu ubbeeku · {substitute} méngoo na ak nattukaayam
+app.fonts.missing_substituted = ñàkk na · dañuy bind mbind mi ak wuutukaay
+app.fonts.not_in_catalogue = {family} nekkul ci katalogu font yu ubbeeku bi
+app.fonts.no_faces = amul benn melokaanu font bu ñu man a yeb ngir {family}
+app.fonts.empty_response = tontu bi neenal na
+app.update.unreadable_response = mëneesul jàng tontu bi: {error}
+app.update.no_temp_dir = amul wayndare bu ñu man a yeb ci biir ab diir
+app.update.asset_has_path = génne gi tudde na jumtukaayam ak ab yoon
+app.update.too_big = li ñu yeb gën na a réy li génne gi wax
+app.update.stopped_at = yeb gi taxaw na ci {got} ci {total} oktet
+app.update.hash_mismatch = hash li ñu yeb mooy {got}, te du {want}
+app.update.not_in_bundle = duppi bii nekkul ci biir benn paquet aplikaasioŋ
+app.update.no_parent_dir = paquet aplikaasioŋ bi amul wayndare bu ko ëmb
+app.update.cannot_write = mëneesul bind ci {dir}
+app.update.cannot_move_aside = mëneesul toxal {app} ci wet
+app.update.cannot_move_in = mëneesul teg paquet bu bees bi ci barabam
+app.update.cannot_run_ditto = mëneesul doxal /usr/bin/ditto
+app.update.unpack_failed = ubbi li ñu yeb antuwul: {error}
+app.update.no_app_in_download = li ñu yeb amul Schist.app
+app.update.cannot_run_codesign = mëneesul doxal /usr/bin/codesign
+app.update.signature_invalid = mëneesul dëggal siñatiir li ñu yeb: {error}
+app.update.download_unsigned = duppi bii am na siñatiir waaye li ñu yeb amul
+app.update.different_developer = keneen ku defar moo siñ li ñu yeb
+app.update.cannot_relaunch = mëneesul tambaliwaatukaay bi
+app.update.not_installed_copy = sampukaay bi moo tegul duppi bii fii
+app.update.cannot_start_installer = mëneesul tambali sampukaay bi
+app.update.platform_unsupported = yeesal yi ci platform bii dañuy samp ni ñu sampe woon Schist
+app.vulkan.no_loader = schist: benn yebukaayu Vulkan nekkul ci sistem bii, kon amul lu ñuy nataale.\n\nSchist dafay render jaarale ko ci Vulkan, te `libvulkan.so.1` sampuwul.\nYebukaay bi ak driver bi ñaar ñépp dañu war a am:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: driver Vulkan bi sesioŋ bii jublu amul.\n\n{var} dañu ko tëral, te bu ñu ko tëralee dafay *wuutu* seetug driver yi\nbu yebukaay bi te du yokku ci moom. Kon dencukaay yii, yu amul,\nñoo doon limu driver yépp — te porogaraamu Vulkan yépp ci sesioŋ bii\ndu gis benn driver, lu mu mëna bari ñu samp:\n\n{missing}\n    {var}={value}\n\nJublul ko ci ab manifeste bu am — driver yi ñu samp dañuy teg seen bos ci\n/usr/share/vulkan/icd.d — walla nga dindi ko te bàyyi yebukaay bi mu seet boppam.\nSesioŋ bu ko tëral ci dencukaayu ayar (Hyprland `env =`, dugalukaayu\nsystemd environment.d, porofilu shell) dañu koo soppi foofa,\nte coppite bi soxla na nga génn dugg ci sesioŋ bi ngir jot ci lépp luy dox ba noppi.\n
+app.vulkan.override_note = \n{var} dañu ko tëral ci {value}, te loolu dafay wuutu seetug yebukaay bi\nboppam: bu benn ci manifeste yooyu dul bu masin bii, li nga wara njëkk a jéem\nmooy dindi tëralin wi.\n
+app.vulkan.no_driver = schist: benn driver Vulkan sampuwul, kon amul lu ñuy nataale.\n\nSchist dafay render jaarale ko ci Vulkan. Yebukaay bi sampu na waaye nee na\nbenn driver amul — kenn bindul benn ci ñaari barab yi ñu leen di seet:\n\n{dirs}\n\nYebukaay bi ak driver yi dañuy ñëw ci paquet yu wuute, kon lii lu ëpp benn\npaquet rekk moo ñàkk.\n\nSampal bi dëppook GPU masin bii:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver NVIDIA bi ñuy jaay yore na bosam (`nvidia-utils` ci Arch,\n`nvidia-driver` ci Debian). Ci masin virtuel, walla fu amul driver GPU\nbu ñu man a samp, rasterizeru porogaraam bi mooy dox:\n`vulkan-swrast` ci Arch, di xaaj ci `mesa-vulkan-drivers` ci yeneen barab yi.\nDafay yeex, waaye dina tàmbali.\n{overridden}
+app.vulkan.no_device = schist: driver Vulkan sampu na waaye joxe wul benn jumtukaay bu ñu man a render ci kawam.\n\nDriver bi man naa bañ a jàpp GPU bii, walla mënu koo jot —\njaar ci SSH, walla ci biir konteneer, /dev/dri dafay faral di\nñàkk. `vulkaninfo --summary` day wax li yebukaay bi gis.\n\nRasterizeru porogaraam bi man naa render te soxlawul benn GPU, su masin bii\nnoonu la mel: `vulkan-swrast` ci Arch, di xaaj ci `mesa-vulkan-drivers`\nci Debian ak Fedora.\n
+app.vulkan.skip_hint = Ngir tambali Schist te bàyyi ko mu antuwul ci anamam, tëralal {var}=1.

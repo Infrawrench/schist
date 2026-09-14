@@ -1,0 +1,42 @@
+# Cynfas y golygydd a'r elfennau o'i amgylch.
+
+# Atebion y bar statws
+workspace.canvas.rotate_view_degrees = Cylchdroi'r Olygfa {degrees}°
+workspace.canvas.view_reset = Golwg wedi'i hailosod
+workspace.canvas.notes_on = Nodiadau ymlaen
+workspace.canvas.notes_off = Nodiadau i ffwrdd
+workspace.canvas.rulers_on = Pren mesur ymlaen
+workspace.canvas.rulers_off = Pren mesur i ffwrdd
+workspace.canvas.grid_on = Grid ymlaen
+workspace.canvas.grid_off = Grid i ffwrdd
+workspace.canvas.guides_on = Canllawiau ymlaen
+workspace.canvas.guides_off = Canllawiau i ffwrdd
+workspace.canvas.extras_on = Pethau ychwanegol ymlaen
+workspace.canvas.extras_off = Pethau ychwanegol i ffwrdd
+workspace.canvas.snap_on = Snapio ymlaen
+workspace.canvas.snap_off = Snapio i ffwrdd
+workspace.canvas.guides_cleared = Canllawiau wedi'u clirio
+workspace.canvas.no_path = Dim llwybr i'w ddefnyddio
+workspace.canvas.path_empty = Mae'r llwybr yn wag
+workspace.canvas.stroke_needs_selection = Mae angen detholiad ar Strôc
+workspace.canvas.nothing_to_stroke = Dim i'w strocio
+workspace.canvas.content_aware_fill_needs_selection = Mae angen detholiad ar Lenwi sy'n Ystyriol o'r Cynnwys
+workspace.canvas.content_aware_fill_needs_pixel_layer = Mae angen haen bicseli ar Lenwi sy'n Ystyriol o'r Cynnwys
+workspace.canvas.color_range_needs_pixel_layer = Mae angen haen bicseli ar Ystod Lliwiau
+workspace.canvas.nothing_to_adjust = Dim i'w addasu
+workspace.canvas.nothing_to_trim = Dim i'w drimio
+workspace.canvas.trimmed = Wedi trimio
+workspace.canvas.indexed_not_supported = Nid yw Lliw Mynegeiedig yn cael ei gefnogi eto
+workspace.canvas.opacity_percent = Didreiddedd: {n}%
+
+# Cofnodion y panel Hanes
+workspace.history.stroke = Strôc
+workspace.history.fill = Llenwi
+workspace.history.content_aware_scale = Graddio sy'n Ystyriol o'r Cynnwys
+workspace.history.filter_gallery = Oriel Hidlwyr
+workspace.history.color_range = Ystod Lliwiau
+workspace.history.move_layer = Symud Haen
+workspace.history.move_layers = Symud Haenau
+workspace.history.layer_opacity = Didreiddedd Haen
+workspace.history.delete_note = Dileu Nodyn
+workspace.history.edit_note = Golygu Nodyn

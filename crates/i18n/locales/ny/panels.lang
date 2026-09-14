@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigator
+panel.navigator.actual_pixels = Ma Pixel Enieni
+
+panel.color.picker = Chosankhira Mtundu…
+panel.color.swap = Sinthanitsani Mitundu
+panel.color.reset = Bwezeretsani ku Yakuda ndi Yoyera
+
+panel.layers.blending_options = Zosankha Zosakanizira…
+panel.layers.properties = Makhalidwe a Layer…
+panel.layers.show_hide = Onetsani/Bisani Layer
+panel.layers.toggle_visibility = Sinthani Kuoneka
+
+panel.history.title = Mbiri
+panel.history.opened = Chatsegulidwa
+
+panel.info.title = Zambiri
+panel.info.camera = Kamera
+panel.info.lens = Lens
+panel.info.iso = ISO {iso}
+panel.info.bias = Kusintha Kuwala
+panel.info.flash_fired = flash inayaka
+panel.info.no_flash = popanda flash
+panel.info.white_balance = WB {wb}
+panel.info.metering = kuyeza kwa {metering}
+panel.info.taken = Chinatengedwa
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · kayendedwe {o}
+panel.info.software = Pulogalamu
+panel.info.where = Malo
+
+panel.notes.author = Wolemba
+panel.notes.clear_all = Chotsani Zonse
+panel.notes.unattributed = Wolemba Sakudziwika
+panel.notes.empty = Dinani pa canvas kuti musiye cholemba.
+panel.notes.placeholder = Dinani kuti mulembe
+
+panel.character.title = Zilembo
+panel.character.type_tool = Chida cha zilembo (T)
+panel.character.align_left = Konzani kumanzere
+panel.character.align_center = Konzani pakati
+panel.character.align_right = Konzani kumanja
+panel.character.text_color = Mtundu wa mawu
+panel.character.panel = Panel ya Zilembo
+panel.character.cancel_edit = Letsani kusintha mawu
+panel.character.commit_edit = Tsimikizani kusintha mawu
+panel.character.number_tip = {label} · Lembani mtengo, kapena gwiritsani ntchito ↑ / ↓ (Shift kuti mudumphe kwambiri)
+panel.character.leading = Mpata wa Mizere
+panel.character.tracking = Mpata wa Zilembo
+panel.character.alignment = Kapangidwe ka Mzere
+panel.character.opentype = OpenType
+panel.character.text_on_path = Mawu pa path
+panel.character.straight = Molunjika
+panel.character.on_path = Pa path
+panel.character.straight_tip = Gwiritsani ntchito mzere wapansi wamba wa layer ya mawu
+panel.character.on_path_tip = Gwiritsani ntchito kope la path yogwira ntchito
+panel.character.path_offset = Mpata Kuchokera pa Path
+
+panel.ai.title = AI
+panel.ai.empty_editor = Pemphani kuti chikalata chisinthe ndipo muone kusinthako pa canvas. Agent amagwiritsa ntchito zida, masefa ndi malamulo omwewo a m'mamenu, sitepe imodzi yobwezera pa chilichonse.
+panel.ai.empty_gallery = Funsani za zithunzi zanu za kamera ndipo muone zotsatira mu gallery: agent akhoza kusaka, kuona zithunzi zazing'ono, kusankha, kuika m'magulu ndi kutsegula chithunzi cha kamera mu editor.
+panel.ai.thinking = ikuganiza…
+panel.ai.placeholder_editor = Funsani za chikalatachi kapena chisinthe
+panel.ai.placeholder_gallery = Funsani za zithunzi zanu za kamera
+panel.ai.send = Tumizani
+panel.ai.stop = Imani
+panel.ai.fetching_models = Ikupempha CLI mndandanda wa ma model ake…
+panel.ai.no_models = Palibe ma model ofanana
+panel.ai.search_models = Sakani ma model…
+
+panel.keymap.install_plugin = Ikani Plug-in
+panel.keymap.save_as_prompt = Sungani monga — extension imasankha mtundu wa fayilo:

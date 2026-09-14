@@ -1,0 +1,49 @@
+# Kayan aikin vector.
+
+# Alƙaluma
+tool.pen.name = Alƙalami
+tool.pen.description = Gina tafarki: danna don aya mai kusurwa, ja don fito da hannayen lanƙwasa daga gare ta, sannan danna aya ta farko don rufewa. Tabbatarwa tana mayar da tafarkin shimfiɗar siffa.
+tool.pen.option.rubber_band = Igiyar Roba
+tool.pen.history.fill = Cika Tafarki
+tool.pen.default_path_name = Tafarki {n}
+tool.pen.freeform.name = Alƙalamin Zane da Hannu
+tool.pen.freeform.description = Ja layi da hannu sai a dace da shi zuwa tafarki, da sassauci gwargwadon zaɓin Dacewa.
+tool.pen.freeform.option.fit = Dacewa
+tool.pen.curvature.name = Alƙalamin Lanƙwasa
+tool.pen.curvature.description = Danna jerin ayoyi sai a lanƙwasa tafarkin cikin sulɓi ta cikinsu.
+
+# Kibiyoyin zaɓi
+tool.path_select.name = Zaɓin Tafarki
+tool.path_select.description = Danna tafarki don zaɓarsa, sannan ja don matsar da duk tafarkin.
+tool.direct_select.name = Zaɓi Kai Tsaye
+tool.direct_select.description = Ja aya ta anga ɗaya ko hannayenta don sake fasalta tafarkin da ke kewaye da ita.
+
+# Siffofi
+tool.shape.history.layer = Shimfiɗar {name}
+tool.shape.rect.name = Kayan Aikin Kusurwa Huɗu
+tool.shape.rect.label = Kusurwa Huɗu
+tool.shape.rect.description = Ja shimfiɗa mai siffar kusurwa huɗu da launin gaba; tana kasancewa vector kuma tana sake zama pixels idan an canza girmanta.
+tool.shape.ellipse.name = Kayan Aikin Siffar Kwai
+tool.shape.ellipse.label = Siffar Kwai
+tool.shape.ellipse.description = Ja shimfiɗa mai siffar kwai da launin gaba.
+tool.shape.line.name = Kayan Aikin Layi
+tool.shape.line.label = Layi
+tool.shape.line.description = Ja shimfiɗa mai siffar madaidaicin layi da launin gaba.
+tool.shape.line.option.weight = Kauri
+tool.shape.line.option.arrow_start = Farko
+tool.shape.line.option.arrow_end = Ƙarshe
+tool.shape.polygon.name = Kayan Aikin Mai Kusurwoyi
+tool.shape.polygon.label = Mai Kusurwoyi
+tool.shape.polygon.description = Ja shimfiɗa mai siffar kusurwoyi daidai da launin gaba, tare da yawan gefuna daga zaɓuɓɓuka.
+tool.shape.polygon.option.sides = Gefuna
+
+# Siffofi na musamman
+tool.shape.custom.name = Siffa ta Musamman
+tool.shape.custom.label = Siffa ta Musamman
+tool.shape.custom.description = Ja ɗaya daga cikin siffofin da aka tanada, wanda aka zaɓa da zaɓin Siffa.
+tool.shape.custom.choice.heart = Zuciya
+tool.shape.custom.choice.star = Tauraro
+tool.shape.custom.choice.arrow = Kibiya
+tool.shape.custom.choice.lightning = Walƙiya
+tool.shape.custom.choice.cross = Gicciye
+tool.shape.custom.choice.speech_bubble = Kumfar Magana

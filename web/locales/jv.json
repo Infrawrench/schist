@@ -1,0 +1,9 @@
+{
+  "loading": "Ngamot…",
+  "starting": "Miwiti…",
+  "webgpu": "Schist mbutuhaké WebGPU, nanging browser iki ora nyedhiyakaké. Chrome/Edge 113+, Firefox 141+, lan Safari 26+ nyedhiyakaké.",
+  "noticeTitle": "Schist lumaku paling apik minangka aplikasi desktop",
+  "noticeBody": "Kowé lagi nganggo vèrsi web sing luwih entheng: vèrsi iki nyusun gambar nganggo CPU lan ora nyakup sawatara fitur — plugin Photoshop lan plugin pihak katelu, galèri gambar, panel AI, impor HEIC, lan undhuhan font — déné berkas disimpen minangka undhuhan. Aplikasi desktop gratis kanggo macOS, Windows, lan Linux nyakup kabèh fitur mau.",
+  "noticeLink": "Undhuh aplikasi desktop.",
+  "ok": "OK"
+}

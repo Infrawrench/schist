@@ -1,0 +1,24 @@
+# Move
+tool.move.name = Move
+tool.move.description = Arrastra i kontenidon i aktibu na layer para un nuebu na lugåt. Yanggen aktibu i Auto-Select, i pine'chon ha ayek i layer — pat i enteru na group — ni finenena gaige gi papa' i pointer.
+tool.move.option.auto_select = Auto-Select
+tool.move.history.move_layer = Move Layer
+
+# Eyedropper
+tool.eyedropper.name = Eyedropper
+tool.eyedropper.description = Chule' i kulot gi papa' i pointer para i foreground swatch, pat para i background swatch yanggen mapupulan i alt. Yanggen un arrastra, kontinua i chinule' kulot.
+tool.eyedropper.option.sample_size = Mineddong sample
+tool.eyedropper.option.sample = Sample
+tool.eyedropper.choice.point_sample = Un puntu na sample
+tool.eyedropper.choice.average_3 = Promediu 3 gi 3
+tool.eyedropper.choice.average_5 = Promediu 5 gi 5
+tool.eyedropper.choice.average_11 = Promediu 11 gi 11
+tool.eyedropper.choice.average_31 = Promediu 31 gi 31
+tool.eyedropper.choice.all_layers = Todu i layer siha
+tool.eyedropper.choice.current_layer = På'go na layer
+
+# Hand yan Zoom
+tool.hand.name = Kannai
+tool.hand.description = Ha na'kalamten i view. I viewport para i bentåna, pues yanggen tåya' bentåna, este na tool ti ha tulaika i dokumentu.
+tool.zoom.name = Zoom
+tool.zoom.description = Ha dåkkolo pat ha dikike' i view. I viewport para i bentåna, pues yanggen tåya' bentåna, este na tool ti ha tulaika i dokumentu.

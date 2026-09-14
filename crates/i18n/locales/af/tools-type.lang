@@ -1,0 +1,22 @@
+tool.type.name = Teks
+tool.type.description = Klik om daar 'n tekslaag te begin, of klik op 'n bestaande een om dit te wysig. Terwyl dit oop is, ontvang die gereedskap rou toetsaanslae (stuur karakters as sleutelinvoer); bevestiging lewer die laag en sluit die wysiging.
+
+tool.type.option.align = Belyn
+tool.type.option.leading = Lynspasiëring
+tool.type.option.tracking = Letterspasiëring
+tool.type.option.kerning = Spasiëring tussen letterpare
+tool.type.option.ligatures = Ligature
+tool.type.option.discretionary_ligatures = Opsionele ligature
+tool.type.option.small_caps = Kleinkapitale
+tool.type.option.on_path = Op aktiewe pad
+tool.type.option.path_offset = Padafset
+
+tool.type.choice.regular = Normaal
+tool.type.choice.bold = Vet
+tool.type.choice.italic = Kursief
+tool.type.choice.bold_italic = Vet kursief
+
+tool.type.history.new_layer = Nuwe tekslaag
+tool.type.history.edit = Wysig teks
+tool.type.history.discard = Verwerp teks
+tool.type.history.discard_empty = Verwerp leë teks

@@ -1,0 +1,38 @@
+# Filtrilogalerio, tipari e aktualigilo.
+app.filter_gallery.title = Filtrilogalerio
+app.filter_gallery.stack = Staplo (aplikata de infre adsupre)
+app.filter_gallery.no_settings = Ca filtrilo havas nula parametro.
+app.fonts.not_open_licensed = sen libera licenco · {substitute} korespondas a lua metrici
+app.fonts.missing_substituted = mankanta · la texto kompozesas per substituto
+app.fonts.not_in_catalogue = {family} ne esas en la libera tiparokatalogo
+app.fonts.no_faces = nula deskargebla tiparstilo por {family}
+app.fonts.empty_response = vakua respondo
+app.update.unreadable_response = nelektebla respondo: {error}
+app.update.no_temp_dir = nula temporala dokumentuyo por la deskargo
+app.update.asset_has_path = la versio nomizas sua resurso per traco
+app.update.too_big = la deskargo esas plu granda kam la versio dicas
+app.update.stopped_at = la deskargo haltis ye {got} de {total} biti
+app.update.hash_mismatch = la hash-valoro dil deskargo esas {got}, ne {want}
+app.update.not_in_bundle = ca kopio ne esas interne aplikpako
+app.update.no_parent_dir = la aplikpako havas nula parenta dokumentuyo
+app.update.cannot_write = ne povas skribar en {dir}
+app.update.cannot_move_aside = ne povas movar {app} adlatere
+app.update.cannot_move_in = ne povas movar la nova pako en lua loko
+app.update.cannot_run_ditto = ne povas executar /usr/bin/ditto
+app.update.unpack_failed = extrakto dil deskargo faliis: {error}
+app.update.no_app_in_download = la deskargo inkluzas nula Schist.app
+app.update.cannot_run_codesign = ne povas executar /usr/bin/codesign
+app.update.signature_invalid = la signaturo dil deskargo ne verifikesas: {error}
+app.update.download_unsigned = ca kopio esas signatita ma la deskargo ne
+app.update.different_developer = la deskargo esas signatita da altra developisto
+app.update.cannot_relaunch = ne povas startar la ristartilo
+app.update.not_installed_copy = ca kopio ne pozesis hike dal instalilo
+app.update.cannot_start_installer = ne povas startar la instalilo
+app.update.platform_unsupported = aktualigi en ca platformo instalesas quale Schist esis instalita
+
+app.vulkan.no_loader = schist: nula Vulkan-kargilo existas en ca sistemo, do esas nulo per quo desegnar.\n\nSchist renderas per Vulkan, e `libvulkan.so.1` ne esas instalita.\nLa kargilo e drivilo esas amba necesa:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: la Vulkan-drivilo indikata da ca sesiono ne existas.\n\n{var} esas definita, e definir ol *remplasas* la sercho di drivili\ndal kargilo vice adjuntar a lu. Do ca dosieri, qui ne existas, esas\nla tota listo di drivili -- e omna Vulkan-programo en ca sesiono\nvidas nula drivilo, irga quanto esas instalita:\n\n{missing}\n    {var}={value}\n\nIndikez existanta manifesto -- instalita drivili pozas sui en\n/usr/share/vulkan/icd.d -- o desdefinez ol e lasez la kargilo trovar\nsua propra. Se sesiono definis to en konfigurodosiero (`env =` di\nHyprland, environment.d-dosiero di systemd, shell-profilo), on devas\nchanjar ol ibe, e nova sesiono necesesas por afektar irgo ja rulanta.\n
+app.vulkan.override_note = \n{var} esas definita kom {value}, e to remplasas la propra sercho dil\nkargilo: se nula de ca manifesti esas por ca mashino, desdefinar ol\nesas la unesma kozo probenda.\n
+app.vulkan.no_driver = schist: nula Vulkan-drivilo esas instalita, do esas nulo sur quo desegnar.\n\nSchist renderas per Vulkan. La kargilo esas instalita e raportas nula\ndrivilo -- nulo registris un en irga del du loki ube on serchas li:\n\n{dirs}\n\nLa kargilo distribuesas aparte del drivili, do co ordinare esas un\nsingla mankanta pako.\n\nInstalez la drivilo por la GPU di ca mashino:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nLa proprietala drivilo di NVIDIA inkluzas sua propra (`nvidia-utils` en\nArch, `nvidia-driver` en Debian). En virtuala mashino, o irgaloke ube\nesas nula GPU-drivilo instalebla, la programala rasterizilo funcionas:\n`vulkan-swrast` en Arch, parto di `mesa-vulkan-drivers` altraloke. Ol\nesas lenta, ma ol startas.\n{overridden}
+app.vulkan.no_device = schist: Vulkan-drivilo esas instalita ma ofertas nula aparato por renderar.\n\nLa drivilo forsan ne suportas ca GPU, o ne povas atingar ol -- per SSH,\no interne kontenilo, /dev/dri ofte mankas. `vulkaninfo --summary`\nraportas quo la kargilo vidas.\n\nLa programala rasterizilo renderas tote sen GPU, se to esas quo ca\nmashino havas: `vulkan-swrast` en Arch, parto di `mesa-vulkan-drivers`\nen Debian e Fedora.\n
+app.vulkan.skip_hint = Por startar Schist tamen e lasar ol faliar ye sua propra maniero, definez {var}=1.

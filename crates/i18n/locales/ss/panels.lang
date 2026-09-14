@@ -1,0 +1,83 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Umcondzisi
+panel.navigator.actual_pixels = Emaphikseli Langempela
+
+panel.color.picker = Sikhetsi…
+panel.color.swap = Shintjanisa Imibala
+panel.color.reset = Setha Kabusha Kube Mnyama Nalokumhlophe
+
+panel.layers.blending_options = Tinkhetselo Tekuhlanganisa…
+panel.layers.properties = Timphawu Teluhlaka…
+panel.layers.show_hide = Khombisa/Fihla Luhlaka
+panel.layers.toggle_visibility = Gucula Kubonakala
+
+panel.history.title = Umlandvo
+panel.history.opened = Kuvuliwe
+
+panel.info.title = Imininingwane
+panel.info.camera = Ikhamera
+panel.info.lens = Ilensi
+panel.info.iso = ISO {iso}
+panel.info.bias = Kuphambuka
+panel.info.flash_fired = ifleshi ikhanyile
+panel.info.no_flash = kute ifleshi
+panel.info.white_balance = WB {wb}
+panel.info.metering = kukalwa kwe-{metering}
+panel.info.taken = Sitsatfwe
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · kuma kwaso {o}
+panel.info.software = Isofthiwe
+panel.info.where = Lapho
+
+panel.notes.author = Umbhali
+panel.notes.clear_all = Sula Konkhe
+panel.notes.unattributed = Akukhonjwanga Umbhali
+panel.notes.empty = Chafata ikhanvasi kuze ushiye inothi.
+panel.notes.placeholder = Chafata kuze ubhale
+
+panel.character.title = Luhlavu
+panel.character.type_tool = Lithuluzi lembhalo (T)
+panel.character.align_left = Condzanisa ngesencele
+panel.character.align_center = Condzanisa emkhatsini
+panel.character.align_right = Condzanisa ngesekudla
+panel.character.text_color = Umbala wembhalo
+panel.character.panel = Liphaneli letinhlavu
+panel.character.cancel_edit = Khansela kuhlela umbhalo
+panel.character.commit_edit = Yemukela kuhlela umbhalo
+panel.character.number_tip = {label} · Thayipha linani, nobe usebentise ↑ / ↓ (Shift isetjentiselwa tinyatselo letinkhulu)
+panel.character.leading = Sikhala Semigca
+panel.character.tracking = Sikhala Sembhalo Sonkhe
+panel.character.alignment = Kucondzanisa
+panel.character.opentype = OpenType
+panel.character.text_on_path = Umbhalo endleleni
+panel.character.straight = Kucondzile
+panel.character.on_path = Endleleni
+panel.character.straight_tip = Sebentisa umugca losisekelo lovamile weluhlaka lwembhalo
+panel.character.on_path_tip = Sebentisa ikhophi yendlela lesebentako
+panel.character.path_offset = Kuphambuka endleleni
+
+panel.ai.title = AI
+panel.ai.empty_editor = Cela kuhlelwa bese ukubukela kwenteka kukhanvasi. I-ejenti isebentisa emathuluzi, tihlungi nemiyalo lefana neyemamenyu, sinyatselo sinye sekuhlehlisa ngasinye.
+panel.ai.empty_gallery = Buta ngetitfombe takho bese ubukela kwenteka egalari: i-ejenti ingasesha, ibuke titfombe letincane, ikhetse, ihlele ngemacembu, futsi ivule sitfombe kumhleli.
+panel.ai.thinking = iyacabanga…
+panel.ai.placeholder_editor = Buta ngaledokhumenti nobe uyihlele
+panel.ai.placeholder_gallery = Buta ngetitfombe takho
+panel.ai.send = Tfumela
+panel.ai.stop = Misa
+panel.ai.fetching_models = Kubutwa i-CLI ngemamodeli ayo…
+panel.ai.no_models = Kute emamodeli lahambisanako
+panel.ai.search_models = Sesha emamodeli…
+
+panel.keymap.install_plugin = Faka I-plug-in
+panel.keymap.save_as_prompt = Gcina njenge — sijobelelo sikhetsa ifomethi:

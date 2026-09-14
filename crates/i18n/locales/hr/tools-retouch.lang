@@ -1,0 +1,23 @@
+tool.patch.name = Zakrpa
+tool.patch.description = Povucite obris oko nedostatka, a zatim taj odabir povucite na čiste piksele: njihova će se tekstura uklopiti u nedostatak. Način Zakrpa određuje koji kraj tog para povlačite.
+tool.patch.option.patch = Zakrpa
+tool.patch.choice.source = Izvor
+tool.patch.choice.destination = Odredište
+tool.patch.history.patch = Zakrpa
+
+tool.content_aware_move.name = Premještanje s prepoznavanjem sadržaja
+tool.content_aware_move.description = Povucite odabrani objekt na drugo mjesto, a praznina koju ostavi ispunit će se iz njegove okoline. U načinu Proširi objekt se rasteže umjesto da se premjesti.
+tool.content_aware_move.choice.move = Premjesti
+tool.content_aware_move.choice.extend = Proširi
+tool.content_aware_move.history.move = Premještanje s prepoznavanjem sadržaja
+
+tool.red_eye.name = Crvene oči
+tool.red_eye.description = Kliknite zjenicu kako biste iz nje uklonili crvenilo uzrokovano bljeskalicom.
+tool.red_eye.option.pupil_size = Veličina zjenice
+tool.red_eye.option.darken = Zatamni
+tool.red_eye.history.red_eye = Crvene oči
+
+tool.magic_eraser.name = Čarobna gumica
+tool.magic_eraser.description = Kliknite kako biste izbrisali područje slične boje ispod pokazivača unutar tolerancije alata — samo područje povezano s mjestom klika ili sva takva područja na sloju.
+tool.magic_eraser.option.contiguous = Susjedno
+tool.magic_eraser.history.erase = Čarobna gumica

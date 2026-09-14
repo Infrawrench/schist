@@ -1,0 +1,24 @@
+# Instrumento de texto.
+
+tool.type.name = Texto
+tool.type.description = Clicca pro initiar ibi un strato de texto, o clicca sur un strato existente pro modificar lo. Durante que illo es aperte, le instrumento accepta claves brute (invia le characteres como entrata de claviero), e confirmar renderisa le strato e claude le modification.
+
+tool.type.option.align = Alineamento
+tool.type.option.leading = Interlinea
+tool.type.option.tracking = Spatiamento
+tool.type.option.kerning = Crenatura
+tool.type.option.ligatures = Ligaturas
+tool.type.option.discretionary_ligatures = Ligaturas discretionari
+tool.type.option.small_caps = Majusculas parve
+tool.type.option.on_path = Sur le percurso active
+tool.type.option.path_offset = Displaciamento sur le percurso
+
+tool.type.choice.regular = Regular
+tool.type.choice.bold = Grasse
+tool.type.choice.italic = Italic
+tool.type.choice.bold_italic = Grasse italic
+
+tool.type.history.new_layer = Nove strato de texto
+tool.type.history.edit = Modificar texto
+tool.type.history.discard = Abandonar texto
+tool.type.history.discard_empty = Abandonar texto vacue

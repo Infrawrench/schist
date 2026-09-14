@@ -1,0 +1,23 @@
+# Benveg an destenn.
+tool.type.name = Testenn
+tool.type.description = Klikit evit kregiñ ur gwiskad testenn eno, pe klikit war unan a zo anezhañ evit e embann. E-pad m'emañ digor e kemer ar benveg ar stokelloù kriz (kasit arouezennoù evel enankad stokelloù), ha pa gadarnait e vez rentet ar gwiskad hag e serr an embann.
+
+tool.type.option.align = Steudañ
+tool.type.option.leading = Etrelinennañ
+tool.type.option.tracking = Etrelizherennañ
+tool.type.option.kerning = Krennañ etre lizherennoù
+tool.type.option.ligatures = Ereadoù
+tool.type.option.discretionary_ligatures = Ereadoù diret
+tool.type.option.small_caps = Pennlizherennoù bihan
+tool.type.option.on_path = War an treug oberiant
+tool.type.option.path_offset = Linkañ diouzh an treug
+
+tool.type.choice.regular = Reizh
+tool.type.choice.bold = Tev
+tool.type.choice.italic = Stouet
+tool.type.choice.bold_italic = Tev stouet
+
+tool.type.history.new_layer = Gwiskad testenn nevez
+tool.type.history.edit = Embann an destenn
+tool.type.history.discard = Dilezel an destenn
+tool.type.history.discard_empty = Dilezel an destenn c'houllo

@@ -1,0 +1,26 @@
+# Veglat bazë: Zhvendosja, Pikatorja, Dora dhe Zmadhimi.
+
+# Zhvendosja
+tool.move.name = Zhvendosje
+tool.move.description = Tërhiqeni përmbajtjen e shtresës aktive në një pozicion të ri. Kur Përzgjedhja automatike është aktive, shtypja zgjedh fillimisht shtresën — ose të gjithë grupin — që ndodhet nën tregues.
+tool.move.option.auto_select = Përzgjedhje automatike
+tool.move.history.move_layer = Zhvendos shtresën
+
+# Pikatorja
+tool.eyedropper.name = Pikatore
+tool.eyedropper.description = Merrni ngjyrën nën tregues në mostrën e ngjyrës së planit të parë, ose në mostrën e sfondit kur mbahet shtypur Alt. Gjatë tërheqjes, marrja e mostrës vazhdon.
+tool.eyedropper.option.sample_size = Madhësia e mostrës
+tool.eyedropper.option.sample = Mostra
+tool.eyedropper.choice.point_sample = Mostër pikësore
+tool.eyedropper.choice.average_3 = Mesatare 3 me 3
+tool.eyedropper.choice.average_5 = Mesatare 5 me 5
+tool.eyedropper.choice.average_11 = Mesatare 11 me 11
+tool.eyedropper.choice.average_31 = Mesatare 31 me 31
+tool.eyedropper.choice.all_layers = Të gjitha shtresat
+tool.eyedropper.choice.current_layer = Shtresa aktuale
+
+# Dora dhe Zmadhimi
+tool.hand.name = Dorë
+tool.hand.description = Zhvendos pamjen. Zona e shikimit i përket dritares, prandaj, në modalitetin pa ndërfaqe grafike, kjo vegël nuk bën asnjë ndryshim në dokument.
+tool.zoom.name = Zmadhim
+tool.zoom.description = Zmadhon ose zvogëlon pamjen. Zona e shikimit i përket dritares, prandaj, në modalitetin pa ndërfaqe grafike, kjo vegël nuk bën asnjë ndryshim në dokument.

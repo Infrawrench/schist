@@ -1,0 +1,26 @@
+# ಪಠ್ಯ ಪರಿಕರ.
+tool.type.name = ಪಠ್ಯ
+tool.type.description = ಅಲ್ಲಿ ಪಠ್ಯ ಲೇಯರ್ ಆರಂಭಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ, ಅಥವಾ ಈಗಿರುವ ಪಠ್ಯ ಲೇಯರ್ ಅನ್ನು ಸಂಪಾದಿಸಲು ಅದರ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ. ಅದು ತೆರೆದಿರುವಾಗ ಪರಿಕರವು ನೇರ ಕೀಲಿಗಳನ್ನು ಸ್ವೀಕರಿಸುತ್ತದೆ (ಅಕ್ಷರಗಳನ್ನು ಕೀಲಿಯ ಇನ್‌ಪುಟ್ ಆಗಿ ಕಳುಹಿಸಿ); ದೃಢೀಕರಿಸಿದಾಗ ಲೇಯರ್ ಅನ್ನು ರೆಂಡರ್ ಮಾಡಿ ಸಂಪಾದನೆಯನ್ನು ಮುಚ್ಚುತ್ತದೆ.
+
+# ಆಯ್ಕೆಗಳ ಪಟ್ಟಿ
+tool.type.option.align = ಜೋಡಣೆ
+tool.type.option.leading = ಸಾಲು ಅಂತರ
+tool.type.option.tracking = ಅಕ್ಷರ ಅಂತರ
+tool.type.option.kerning = ಕೆರ್ನಿಂಗ್
+tool.type.option.ligatures = ಸಂಯುಕ್ತಾಕ್ಷರಗಳು
+tool.type.option.discretionary_ligatures = ಐಚ್ಛಿಕ ಸಂಯುಕ್ತಾಕ್ಷರಗಳು
+tool.type.option.small_caps = ಸಣ್ಣ ದೊಡ್ಡಕ್ಷರಗಳು
+tool.type.option.on_path = ಸಕ್ರಿಯ ಪಥದ ಮೇಲೆ
+tool.type.option.path_offset = ಪಥದ ಸ್ಥಳಾಂತರ
+
+# ಶೈಲಿ
+tool.type.choice.regular = ಸಾಮಾನ್ಯ
+tool.type.choice.bold = ದಪ್ಪ
+tool.type.choice.italic = ಓರೆ
+tool.type.choice.bold_italic = ದಪ್ಪ ಓರೆ
+
+# ಇತಿಹಾಸ
+tool.type.history.new_layer = ಹೊಸ ಪಠ್ಯ ಲೇಯರ್
+tool.type.history.edit = ಪಠ್ಯ ಸಂಪಾದಿಸಿ
+tool.type.history.discard = ಪಠ್ಯ ತ್ಯಜಿಸಿ
+tool.type.history.discard_empty = ಖಾಲಿ ಪಠ್ಯ ತ್ಯಜಿಸಿ

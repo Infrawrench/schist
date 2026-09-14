@@ -1,0 +1,9 @@
+{
+  "loading": "Etikka…",
+  "starting": "Etandika…",
+  "webgpu": "Schist yeetaaga WebGPU, naye bbulawuza eno tegirina. Chrome/Edge 113+, Firefox 141+ ne Safari 26+ bazirina.",
+  "noticeTitle": "Schist esinga okukola obulungi nga pulogulaamu ya ku kompyuta",
+  "noticeBody": "Okozesa Schist ey'oku mutimbagano, era eno nkola nnyangu: egatta ebifaananyi ku CPU era terina bimu ku bikolwa — plug-ins za Photoshop ne plug-ins ez'abakola abalala, ekkuŋŋaaniro ly'ebifaananyi, ekipande kya AI, okuyingiza HEIC n'okuwanula empandiika — era fayiro ziterekebwa ng'ebuwanulwa. Pulogulaamu ya ku kompyuta ey'obwereere ku macOS, Windows ne Linux erina byonna.",
+  "noticeLink": "Funa pulogulaamu ya ku kompyuta.",
+  "ok": "Kale"
+}

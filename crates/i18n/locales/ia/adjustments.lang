@@ -1,0 +1,20 @@
+# Stratos de adjustamento e commandos Imagine ▸ Adjustamentos.
+adjustment.levels.name = Nivellos
+adjustment.curves.name = Curvas
+adjustment.hue_saturation.name = Tinta/Saturation
+adjustment.brightness_contrast.name = Luminositate/Contrasto
+adjustment.black_white.name = Nigre e blanc
+adjustment.solid_color.name = Color solide
+adjustment.gradient_fill.name = Reimplimento a gradiente
+adjustment.pattern_fill.name = Reimplimento a patrono
+adjustment.invert.name = Inverter
+adjustment.posterize.name = Posterisar
+adjustment.threshold.name = Limine
+adjustment.color_balance.name = Balancia de colores
+adjustment.vibrance.name = Vibrantia
+adjustment.exposure.name = Exposition
+adjustment.photo_filter.name = Filtro photographic
+adjustment.gradient_map.name = Mappa de gradiente
+adjustment.selective_color.name = Color selective
+adjustment.channel_mixer.name = Miscitor de canales
+adjustment.other.name = Adjustamento

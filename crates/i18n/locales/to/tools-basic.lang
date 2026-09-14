@@ -1,0 +1,23 @@
+# Ngaahi meʻangāue tefito
+
+tool.move.name = ʻUnu
+tool.move.description = Toho ʻa e kakano ʻo e Layer lolotongá ki ha tuʻuʻanga foʻou. Kapau ʻoku fakamoʻui ʻa e Fili ʻOtometiki, ʻe tomuʻa fili ʻe he lomí ʻa e Layer pē kulupu kakato ʻoku ʻi lalo ʻi he tuhu.
+tool.move.option.auto_select = Fili ʻOtometiki
+tool.move.history.move_layer = ʻUnuʻi ʻa e Layer
+
+tool.eyedropper.name = Meʻafili Lanu
+tool.eyedropper.description = Fili ʻa e lanu ʻi lalo ʻi he tuhu ki he sipinga lanu muʻá, pe ki he sipinga lanu ki muí ʻi he taimi ʻoku puke ai ʻa e alt. ʻOku hokohoko atu ʻa e filí ʻi he lolotonga ʻo e tohó.
+tool.eyedropper.option.sample_size = Lahi ʻo e Sīpinga
+tool.eyedropper.option.sample = Sīpinga
+tool.eyedropper.choice.point_sample = Sīpinga Tefito Taha
+tool.eyedropper.choice.average_3 = ʻAvalisi 3 ki he 3
+tool.eyedropper.choice.average_5 = ʻAvalisi 5 ki he 5
+tool.eyedropper.choice.average_11 = ʻAvalisi 11 ki he 11
+tool.eyedropper.choice.average_31 = ʻAvalisi 31 ki he 31
+tool.eyedropper.choice.all_layers = Ngaahi Layer Kotoa
+tool.eyedropper.choice.current_layer = Layer Lolotonga
+
+tool.hand.name = Nima
+tool.hand.description = ʻOku ʻunuʻi ʻa e vakai. ʻOku kau ʻa e feituʻu ʻoku hā ki he matapā sioʻatá, ko ia ʻoku ʻikai fai ʻe he meʻangāué ha meʻa ki he fakamatala ʻi he ngāue taʻe ʻi ai ha matapā sioʻata.
+tool.zoom.name = Fakalahi
+tool.zoom.description = ʻOku fakalahi pe fakasiʻisiʻi ʻa e vakai. ʻOku kau ʻa e feituʻu ʻoku hā ki he matapā sioʻatá, ko ia ʻoku ʻikai fai ʻe he meʻangāué ha meʻa ki he fakamatala ʻi he ngāue taʻe ʻi ai ha matapā sioʻata.

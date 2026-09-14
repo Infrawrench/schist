@@ -1,0 +1,32 @@
+# The document-furniture tools (plugins/tools-doc): artboards, slices,
+# frames, notes and counts. The frame's Shape label is common.shape.
+
+# Artboard
+tool.artboard.name = আৰ্টব'ৰ্ড
+tool.artboard.description = এটা আৰ্টব'ৰ্ড টানি আঁকক: কেনভাছৰ এটা নামযুক্ত অঞ্চল, যিটো সুকীয়াকৈ ৰপ্তানি হয়। আগৰে পৰা থকা আৰ্টব'ৰ্ডৰ ভিতৰত টানিলে তাক স্থানান্তৰ কৰা হয়।
+tool.artboard.default_name = আৰ্টব'ৰ্ড {n}
+
+# Slice
+tool.slice.name = স্লাইচ
+tool.slice.description = ৰপ্তানিৰ বাবে এটা স্লাইচ টানি আঁকক—কেনভাছৰ এটা নামযুক্ত আয়তক্ষেত্ৰ, যিটো নিজা ছবি হিচাপে ৰপ্তানি হয়। আগৰে পৰা থকা স্লাইচৰ ভিতৰত টানিলে তাক স্থানান্তৰ কৰা হয়।
+tool.slice.default_name = স্লাইচ {n}
+
+# Frame
+tool.frame.name = ফ্ৰেম
+tool.frame.description = এটা ফ্ৰেম টানি আঁকক: আয়তাকাৰ (বা উপবৃত্তাকাৰ) স্তৰ, যিয়ে তাৰ ভিতৰত ৰখা যিকোনো বস্তু মাস্ক কৰে।
+tool.frame.default_name = ফ্ৰেম {n}
+tool.frame.choice.rectangle = আয়তক্ষেত্ৰ
+tool.frame.choice.ellipse = উপবৃত্ত
+tool.frame.history.frame = ফ্ৰেম
+
+# Note
+tool.note.name = টোকা
+tool.note.description = খালী কেনভাছত ক্লিক কৰি তাত এখন টোকা পিন কৰক; টোকাত সম্পাদকৰ অৱস্থাত থকা লেখক আৰু ৰং সংলগ্ন হয়। আগৰে পৰা থকা পিনত ক্লিক কৰি তাক টোকা পেনেলৰ বাবে নিৰ্বাচন কৰক।
+tool.note.history.place = টোকা স্থাপন কৰক
+tool.note.history.move = টোকা স্থানান্তৰ কৰক
+tool.note.history.delete = টোকা মচক
+
+# Count
+tool.count.name = গণনা
+tool.count.description = কেনভাছত সংখ্যাযুক্ত গণনা-চিহ্ন ৰাখিবলৈ ক্লিক কৰক, আৰু আগৰে পৰা থকা চিহ্ন আঁতৰাবলৈ তাত ক্লিক কৰক।
+tool.count.default_name = গণনা {n}

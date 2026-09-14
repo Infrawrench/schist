@@ -1,0 +1,36 @@
+app.filter_gallery.title = Maktabadda Shaandhaynta
+app.filter_gallery.stack = Isdulsaar (hoose ilaa kore ayaa loo dabaqaa)
+app.filter_gallery.no_settings = Shaandhahani dejimo ma leh.
+app.fonts.not_open_licensed = ma laha ruqsad furan · {substitute} ayaa la mid ah cabbirradiisa
+app.fonts.missing_substituted = waa maqan yahay · qoraalka waxaa lagu qorayaa far beddel ah
+app.fonts.not_in_catalogue = {family} kuma jiro liiska faraha furan
+app.fonts.no_faces = {family} ma laha qaabab far oo la soo dejisan karo
+app.fonts.empty_response = jawaab madhan
+app.update.unreadable_response = jawaab aan la akhriyi karin: {error}
+app.update.no_temp_dir = ma jiro gal ku-meelgaar ah oo wax lagu soo dejiyo
+app.update.asset_has_path = sii-dayntu waxay hantideeda ku magacawday dariiq
+app.update.too_big = waxa la soo dejiyey wuu ka weyn yahay cabbirka sii-dayntu sheegtay
+app.update.stopped_at = soo dejintu waxay ku joogsatay {got} oo ka mid ah {total} bayt
+app.update.hash_mismatch = xashiiska soo dejintu waa {got}, halkii uu ka ahaan lahaa {want}
+app.update.not_in_bundle = nuqulkani kuma jiro xirmo ab
+app.update.no_parent_dir = xirmada abku ma laha gal waalid ah
+app.update.cannot_write = wax laguma qori karo {dir}
+app.update.cannot_move_aside = {app} dhinac looma dhaqaajin karo
+app.update.cannot_move_in = xirmada cusub meesheeda looma dhaqaajin karo
+app.update.cannot_run_ditto = lama fulin karo /usr/bin/ditto
+app.update.unpack_failed = furfuridda soo dejintu way fashilantay: {error}
+app.update.no_app_in_download = waxa la soo dejiyey kuma jiro Schist.app
+app.update.cannot_run_codesign = lama fulin karo /usr/bin/codesign
+app.update.signature_invalid = saxeexa soo dejinta lama xaqiijin karo: {error}
+app.update.download_unsigned = nuqulkani waa saxeexan yahay, waxa la soo dejiyeyna ma saxeexna
+app.update.different_developer = waxa la soo dejiyey waxaa saxeexay horumariye kale
+app.update.cannot_relaunch = dib-u-bilaabaha lama bilaabi karo
+app.update.not_installed_copy = nuqulkan rakibuhu halkan ma dhigin
+app.update.cannot_start_installer = rakibaha lama bilaabi karo
+app.update.platform_unsupported = cusboonaysiinta madalkan waxaa loo rakibaa sidii Schist loo rakibay
+app.vulkan.no_loader = schist: nidaamkan kuma jiro raaraha Vulkan, sidaas darteed wax lagu sawiro ma jiro.\n\nSchist wuxuu wax ku sawiraa Vulkan, `libvulkan.so.1`-na lama rakibin.\nRaaraha iyo darawalkaba waa loo baahan yahay:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: darawalka Vulkan ee fadhigani tilmaamayo meeshaas kuma jiro.\n\n{var} waa la dejiyey, dejintiisuna waxay *beddelaysaa* raadinta darawallada\nee raaraha halkii ay wax ugu dari lahayd. Sidaas darteed faylashan aan jirin\nayaa ah liiska darawallada oo dhan — barnaamij kasta oo Vulkan ah oo fadhigan ku\njirana haba yaraatee darawal ma arko, si kasta oo darawallo loo rakibay:\n\n{missing}\n    {var}={value}\n\nU tilmaam manifest jira — darawallada la rakibay waxay ku kaydiyaan kuwooda\n/usr/share/vulkan/icd.d — ama dejinta ka saar oo raaruhu ha iskii u raadiyo.\nFadhi tan ka dejiya fayl habayn ah (`env =` ee Hyprland, gelin\nsystemd environment.d ah, ama profile shell) waa in halkaas wax looga beddelaa,\nisbeddelkuna wuxuu u baahan yahay gelitaan cusub si uu u gaadho wax hore u shaqaynaya.\n
+app.vulkan.override_note = \n{var} waxaa loo dejiyey {value}, taasina waxay beddelaysaa raadinta raaraha:\nhaddii manifest-yadaas midkoodna aanu mashiinkan ku habboonayn, dejinta ka saariddeedu\nwaa waxa ugu horreeya ee la isku dayo.\n
+app.vulkan.no_driver = schist: darawal Vulkan ah lama rakibin, sidaas darteed wax lagu sawiro ma jiro.\n\nSchist wuxuu wax ku sawiraa Vulkan. Raaruhu waa rakiban yahay wuxuuna sheegayaa inaanu\ndarawal jirin — wax darawal ah iskama diiwaangelin labada meelood ee laga raadiyo:\n\n{dirs}\n\nRaaraha iyo darawallada si kala gaar ah ayaa loo keenaa, markaa tani badanaa waa\nhal xirmo oo maqan.\n\nRakib midka GPU-ga mashiinkan ku habboon:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDarawalka gaarka ah ee NVIDIA wuxuu wataa kiisii (`nvidia-utils` ee Arch,\n`nvidia-driver` ee Debian). Mashiin dalwad ah, ama meel kasta oo aan lahayn\ndarawal GPU oo la rakibo, sawiraha softiweerku waa kan shaqeeya:\n`vulkan-swrast` ee Arch, waana qayb ka mid ah `mesa-vulkan-drivers` meelaha kale.\nWuu gaabiyaa, laakiin wuu bilaabmaa.\n{overridden}
+app.vulkan.no_device = schist: darawal Vulkan ah waa rakiban yahay, laakiin ma bixiyo qalab wax lagu sawiro.\n\nDarawalku waxa laga yaabaa inaanu daboolin GPU-gan ama aanu gaadhi karin —\nmarka SSH la adeegsado ama gudaha container, /dev/dri ayaa inta badan\nmaqan. `vulkaninfo --summary` wuxuu sheegayaa waxa raaruhu arko.\n\nSawiraha softiweerku gebi ahaanba GPU la'aan ayuu wax u sawiraa, haddii mashiinkani\nsidaas yahay: `vulkan-swrast` ee Arch, waana qayb ka mid ah `mesa-vulkan-drivers`\nee Debian iyo Fedora.\n
+app.vulkan.skip_hint = Si aad Schist haddana u bilowdo oo ugu oggolaato inuu habkiisa u fashilmo, deji {var}=1.

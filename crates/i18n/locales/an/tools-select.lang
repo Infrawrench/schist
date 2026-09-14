@@ -1,0 +1,39 @@
+# Ferramientas de selección.
+
+# Combinación con a selección existent
+tool.select.mode.subtract = Restar
+tool.select.mode.intersect = Intersecar
+
+# Marcos de selección
+tool.marquee.rect.name = Marco rectangular
+tool.marquee.rect.description = Arrociega ta crear una selección rectangular. Mayús a lo prencipio de l'arrocegue anyade a la selección, Alt resta y as dos teclas intersecan; Mayús entre que arrociega la fa quadrada. Un clic sin arrocegar deselecciona.
+tool.marquee.ellipse.name = Marco eliptico
+tool.marquee.ellipse.description = Arrociega ta crear una selección eliptica, con as mesmas combinacions de Mayús y Alt que o marco rectangular.
+
+# Lazos
+tool.lasso.name = Lazo
+tool.lasso.description = Arrociega un contorno a man alzada; a selección une os dos cabos quan remata l'arrocegue. Mayús anyade y Alt resta.
+tool.lasso.history.select = Selección con lazo
+tool.lasso.polygonal.name = Lazo poligonal
+tool.lasso.polygonal.description = Fe clic en cada cantonada ta formar una selección de cantos dreitos, y fe clic amán d'o primer punto ta zarrar-la.
+tool.lasso.polygonal.history.select = Lazo poligonal
+tool.lasso.magnetic.name = Lazo magnetico
+tool.lasso.magnetic.description = Sigue aproximadament un canto y o contorno s'achusta a lo contraste mas fuerte amán d'o trazau.
+tool.lasso.magnetic.history.select = Lazo magnetico
+tool.lasso.magnetic.option.frequency = Freqüencia
+
+# Barita machica
+tool.wand.name = Barita machica
+tool.wand.description = Fe clic ta trigar l'aria connectada de color pareixida que ye baixo o puntero, dentro d'a tolerancia establida: a mesma tolerancia que usan Creixer, Pareixida y Rango de colors.
+tool.wand.option.contiguous = Contiguo
+tool.wand.history.select = Barita machica
+
+# Selección rapida
+tool.quick_select.name = Selección rapida
+tool.quick_select.description = Pinta sobre una rechión y a selección creix a traviés d'os pixels pareixius por an pasa o pinzell.
+tool.quick_select.history.select = Selección rapida
+
+# Selección d'obchectos
+tool.object_select.name = Selección d'obchectos
+tool.object_select.description = Arrociega una caixa arredol d'un obchecto y a selección s'achusta a l'obchecto trobau adintro.
+tool.object_select.history.select = Selección d'obchectos

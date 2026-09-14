@@ -1,0 +1,30 @@
+ai.status.panel_shown = Penel AI diskouezet
+ai.status.panel_hidden = Penel AI kuzhet — Gwel ▸ Penel AI ({shortcut}) evit e ziskouez en-dro
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} kevreet
+ai.info.now_in_gallery = Er skeudennaoueg bremañ.
+ai.info.now_in_editor = Er c'hemmer bremañ.
+ai.tool.shell_command = arc'had shell
+
+ai.error.cli_missing = N'emañ ket CLI {backend} (“{binary}”) war PATH. Staliit anezhañ ha kevreit ennañ da gentañ.
+ai.error.endpoint_failed = n'eus ket bet gallet loc'hañ ar poent dibenn MCP: {error}
+ai.error.binding_endpoint = o liammañ ar poent dibenn MCP
+ai.error.spawning_endpoint_thread = o loc'hañ neudenn ar poent dibenn MCP
+ai.error.runtime_failed = n'eus ket bet gallet loc'hañ endro an ajan: {error}
+ai.error.worker_failed = n'eus ket bet gallet loc'hañ labourer {backend}: {error}
+ai.error.did_not_start = N'eo ket bet loc'het {backend}: {error}
+ai.error.switch_model_failed = n'eus ket bet gallet cheñch patrom: {error}
+ai.error.send_failed = n'eus ket bet gallet kas ar goulenn: {error}
+ai.error.interrupt_failed = c'hwitet eo an ehan: {error}
+ai.error.locating_binary = o klask binarel Schist
+ai.error.starting_app_server = o loc'hañ servijer arload Codex
+ai.error.attaching_app_server = o stagañ ouzh servijer arload Codex
+ai.error.initializing_app_server = o teraouiñ servijer arload Codex
+ai.error.resuming_thread = oc'h adkemer neudenn Codex
+ai.error.starting_thread = o loc'hañ neudenn Codex
+
+ai.model.opus_detail = Live barrekañ
+ai.model.sonnet_detail = Efedus evit an trevelloù boas
+ai.model.haiku_detail = An hini herrekañ evit respontoù prim
+ai.model.codex_catalog = Katalog Codex

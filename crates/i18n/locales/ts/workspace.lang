@@ -1,0 +1,104 @@
+workspace.fill.gray_50 = Mpunga wa 50%
+workspace.fill.content_aware = Ku tiva leswi nga kona
+
+workspace.modify.expand = Ndlandlamuxa nhlawulo
+workspace.modify.contract = Khwanyanisa nhlawulo
+workspace.modify.border = Ndzilakana wa nhlawulo
+workspace.modify.smooth = Ririsa nhlawulo
+workspace.modify.feather = Olovisa makumu ya nhlawulo
+
+workspace.batch.target.edit = Ku hlela ka galari (ku hlayisiwa hi vuhundzuluxi)
+workspace.batch.target.beside = Tikopi etlhelo ka swo sungula
+workspace.batch.target.folder = Tikopi eka foldara…
+
+workspace.modal.image_size.title = Sayizi ya xifaniso
+
+workspace.docs.opening = Ku pfuriwa {name}…
+workspace.docs.opened = Ku pfuriwe {name}
+workspace.docs.open_failed = Ku pfula swi tsandzekile: {error}
+workspace.docs.no_codec = {name} a hi fomati leyi Schist yi nga yi pfulaka
+workspace.docs.no_exporter = Schist a yi koti ku hlayisa tifayili ta .{ext}
+workspace.docs.empty_response = Sevha yi rhumele nhlamulo leyi nga riki na chinhu
+workspace.docs.heic_not_installed = Nseketelo wa HEIC a wu nghenisiwanga
+workspace.docs.heic_downloading = Ku dawunilodiwa nseketelo wa HEIC (libheif {version})…
+workspace.docs.heic_installed = Nseketelo wa HEIC wu nghenisiwile
+workspace.docs.heic_download_failed = Ku dawuniloda nseketelo wa HEIC swi tsandzekile: {error}
+workspace.docs.placing = Ku vekiwa {name}…
+workspace.docs.place_image = Veka xifaniso
+workspace.docs.placed = Ku vekiwile {name}
+workspace.docs.place_failed = Ku veka swi tsandzekile: {error}
+workspace.docs.saved = Ku hlayisiwe {name}
+workspace.docs.save_failed = Ku hlayisa swi tsandzekile: {error}
+
+workspace.adjustment.new_layer = Leyara leyintshwa ya {name}
+workspace.adjustment.added = Ku engeteriwe {name}
+workspace.adjustment.settings = Malulamiselo ya {name}
+workspace.adjustment.updated = {name} yi pfuxetiwile
+workspace.adjustment.no_settings = {name} a yi na malulamiselo lama nga hleriwaka
+
+workspace.comps.name_n = Xivumbeko xa maleyara {n}
+workspace.comps.captured = Xivumbeko xa maleyara xi tekiwile
+workspace.comps.apply = Tirhisa {name}
+
+workspace.styles.layer_style = Xitayili xa leyara
+workspace.context.rename_layer = Cinca vito ra leyara
+workspace.commands.tool = Xitirhisiwa: {name}
+
+workspace.colormgmt.assign = Nyika {name}
+workspace.colormgmt.assigned = Ku nyikiwe {name}
+workspace.colormgmt.convert_to = Hundzuluxela eka {name}
+workspace.colormgmt.converted_to = Ku hundzuluxeriwe eka {name}
+workspace.colormgmt.convert_failed = Ku hundzuluxa swi tsandzekile: {error}
+workspace.colormgmt.proof_on = Mihlovo ya vumbhoni yi pfuriwile
+workspace.colormgmt.proof_off = Mihlovo ya vumbhoni yi pfariwile
+
+workspace.filters.choose = Hlawula
+workspace.filters.select_layer_first = Sungula hi ku hlawula leyara
+workspace.filters.needs_pixel_layer = Tifilitara ti lava leyara ya tipikseli
+workspace.filters.nothing_to_filter = Ku hava xo tirhisa filitara eka xona
+workspace.filters.went_away = Filitara a ya ha ri kona
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: leyara leyi yi yi tirhiseke a ya ha ri kona
+workspace.filters.plugin_title = Plug-in ya Photoshop
+workspace.filters.running = Ku tirhisiwa {name}
+workspace.filters.plugin_note = Plug-in yi tirha eka process ya yona. Loko yi pfula fasitere, hlamula eka rona leswaku u ya mahlweni.
+workspace.filters.raw_preview_developing = Ku antswisiwa xivombiso xa RAW…
+workspace.filters.raw_preview_done = Xivombiso xa RAW (demosaic ya xihatla)
+workspace.filters.raw_preview_size_changed = Sayizi ya xivombiso xa RAW yi cincile: {w} × {h}
+workspace.filters.raw_preview_failed = Xivombiso xa RAW xi tsandzekile: {error}
+workspace.filters.raw_developing = Ku antswisiwa xifaniso xo sungula lexi tekiweke…
+workspace.filters.raw_developing_note = Ku tirhisiwa ndlela ya demosaic leyinene ngopfu. RAW yo sungula ni malulamiselo lawa swi sala swi ri leswi nga hleriwaka endzhaku ko hlayisa tani hi PSD kumbe PSB.
+workspace.filters.raw_document_changed = Ku antswisa RAW ku herile endzhaku ka loko dokhumente ya yona yi cincile
+workspace.filters.raw_failed = Ku antswisa RAW swi tsandzekile: {error}
+workspace.filters.raw_too_wide = RAW leyi antswisiwaka yi aname ngopfu
+workspace.filters.raw_too_tall = RAW leyi antswisiwaka yi lehile ngopfu
+workspace.filters.raw_size_changed = Sayizi ya RAW leyi antswisiwaka yi cince yi va {w} × {h}; ku hlayisiwa leyara ya sweswi
+workspace.filters.raw_history = Ku antswisa Camera Raw
+workspace.filters.raw_applied = Ku antswisa Camera Raw ku tirhisiwile (demosaic leyinene ngopfu)
+
+workspace.image_size.done = Sayizi ya xifaniso: {w} × {h}
+workspace.image_size.bicubic_fallback = Sayizi ya xifaniso: {w} × {h} — modele wa {name} a wu layichanga, kutani ku tirhisiwe bicubic
+workspace.image_size.upscaling = Ku kurisiwa hi {name}
+workspace.image_size.upscaling_note = Timegapikseli ta {mp} ti hundza eka netiweke, rin'wana ni rin'wana ri teka tisekondi ti nga ri tingani. Dokhumente yi khomiwa ku kondza swi hela.
+
+workspace.export.no_slices = Ku hava swiphemu swo rhumela
+workspace.export.no_artboards = Ku hava swivandla swo tirhela swo rhumela
+workspace.export.regions.one = Ku rhumeriwe ndhawu yin'we ({n})
+workspace.export.regions.other = Ku rhumeriwe tindhawu ta {n}
+workspace.export.prompt = Rhumela tani hi:
+workspace.export.done = Ku rhumeriwe {name}
+workspace.export.failed = Ku rhumela swi tsandzekile: {error}
+workspace.export.codec_vanished = Xirhumeli a xa ha kumeki
+
+workspace.file_picker.choose_folder = Hlawula foldara
+workspace.file_picker.type_a_name = Tsala vito ra fayili
+workspace.file_picker.exists = {name} yi kona; tshikilela Hlayisa nakambe ku yi siva
+workspace.file_picker.tap_a_file = Tshikilela fayili ku yi pfula
+workspace.file_picker.pictures = Swifaniso
+workspace.file_picker.camera = Khamera
+workspace.file_picker.downloads = Swa ku dawuniloda
+workspace.file_picker.permission_denied = Schist a yi na mpfumelelo wo hlaya foldara leyi
+
+workspace.recovery.recovered_title = {title} (yi vuyiseriwile)
+workspace.recovery.recovered.one = Ku vuyiseriwe mintirho leyi nga hlayisiwangiki eka session leyi hundzeke ({n})
+workspace.recovery.recovered.other = Ku vuyiseriwe tidokhumente ta {n} eka session leyi hundzeke

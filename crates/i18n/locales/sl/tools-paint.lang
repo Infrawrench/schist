@@ -1,0 +1,72 @@
+tool.brush.name = Čopič
+tool.brush.description = Z barvo ospredja naslikajte potezo z mehkimi robovi, katere velikost določajo velikost, trdota in prekrivnost čopiča v urejevalniku.
+tool.brush.history.stroke = Čopič
+
+tool.pencil.name = Svinčnik
+tool.pencil.description = Z barvo ospredja naslikajte potezo s trdimi robovi brez glajenja.
+tool.pencil.history.stroke = Svinčnik
+
+tool.eraser.name = Radirka
+tool.eraser.description = Brišite vzdolž poteze in plast povrnite v prosojnost.
+tool.eraser.history.stroke = Radirka
+
+tool.clone.name = Žig za kloniranje
+tool.clone.description = Žig za kloniranje: s tipko Alt kliknite, da določite izvorno točko, nato slikajte slikovne pike, kopirane iz nje z enakim odmikom.
+tool.clone.history.stroke = Žig za kloniranje
+
+tool.dodge.name = Posvetljevanje
+tool.dodge.description = Posvetlite slikovne pike, čez katere poteka poteza.
+tool.dodge.history.stroke = Posvetljevanje
+tool.burn.name = Potemnjevanje
+tool.burn.description = Potemnite slikovne pike, čez katere poteka poteza.
+tool.burn.history.stroke = Potemnjevanje
+tool.sponge.name = Goba
+tool.sponge.description = Povečajte ali zmanjšajte nasičenost slikovnih pik, čez katere poteka poteza.
+tool.sponge.history.stroke = Goba
+
+tool.blur.name = Zameglitev
+tool.blur.description = Zameglite slikovne pike, čez katere poteka poteza.
+tool.blur.history.stroke = Zameglitev
+tool.sharpen.name = Ostrenje
+tool.sharpen.description = Izostrite slikovne pike, čez katere poteka poteza.
+tool.sharpen.history.stroke = Ostrenje
+tool.smudge.name = Razmazovanje
+tool.smudge.description = Vlecite barvo vzdolž poteze, kot bi potiskali mokro barvo.
+tool.smudge.history.stroke = Razmazovanje
+
+tool.heal.name = Korekturni čopič
+tool.heal.description = Korekturni čopič: s tipko Alt kliknite, da določite izvor, nato slikajte; tekstura izvora se zlije z barvo in osvetlitvijo cilja.
+tool.heal.history.stroke = Korekturni čopič
+tool.spot_heal.name = Točkovni korekturni čopič
+tool.spot_heal.description = Točkovni korekturni čopič: prebarvajte nepravilnost, da jo nadomesti tekstura iz okolice; izvorne točke ni treba določiti.
+tool.spot_heal.history.stroke = Točkovni korekturni čopič
+
+tool.history_brush.name = Čopič zgodovine
+tool.history_brush.description = Slikovne pike slikajte iz posnetka zgodovine dokumenta in tako potezo za potezo razveljavite poznejše delo.
+tool.history_brush.history.stroke = Čopič zgodovine
+
+tool.background_eraser.name = Radirka ozadja
+tool.background_eraser.description = Izbrišite barvo, vzorčeno pod sredino čopiča, druge slikovne pike pa pustite pri miru, da predmet ločite od ozadja.
+tool.background_eraser.history.stroke = Radirka ozadja
+
+tool.gradient.name = Preliv
+tool.gradient.description = Povlecite, da plast — skozi izbor, če obstaja — zapolnite z linearnim prelivom od barve ospredja do barve ozadja v smeri vlečenja.
+tool.gradient.radial.name = Krožni preliv
+tool.gradient.radial.description = Povlecite od sredine navzven, da zapolnite območje s krožnim prelivom med barvama ospredja in ozadja.
+tool.gradient.option.gradient = Preliv
+tool.gradient.option.reverse = Obrni
+tool.gradient.option.dither = Stresanje
+tool.gradient.choice.foreground_to_background = Od ospredja do ozadja
+tool.gradient.choice.foreground_to_transparent = Od ospredja do prosojnosti
+tool.gradient.choice.linear = Linearno
+tool.gradient.choice.radial = Krožno
+tool.gradient.choice.angle = Kotno
+tool.gradient.choice.reflected = Zrcaljeno
+tool.gradient.choice.diamond = Rombasto
+tool.gradient.history.gradient = Preliv
+
+tool.bucket.name = Vedro za barvo
+tool.bucket.description = Kliknite, da v okviru tolerance orodja povezano območje podobne barve pod kazalcem zalijete z barvo ospredja.
+tool.bucket.option.contiguous = Stično
+tool.bucket.option.all_layers = Vse plasti
+tool.bucket.history.fill = Vedro za barvo

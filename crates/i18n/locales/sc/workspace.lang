@@ -1,0 +1,116 @@
+# Orìgines de sa prentura
+workspace.fill.gray_50 = Murru 50%
+workspace.fill.content_aware = Cun atentzione a su cuntenutu
+
+# Seletzione ▸ Modìfica
+workspace.modify.expand = Ismànnia sa seletzione
+workspace.modify.contract = Istringhe sa seletzione
+workspace.modify.border = Màrgine de sa seletzione
+workspace.modify.smooth = Allìscia sa seletzione
+workspace.modify.feather = Isfuma sa seletzione
+
+# Destinatzione de s'elaboratzione in grupu
+workspace.batch.target.edit = Modìficas de galleria (cun versiones)
+workspace.batch.target.beside = Còpias acanta de is originales
+workspace.batch.target.folder = Còpias in una cartella…
+
+workspace.modal.image_size.title = Mannària de s'immàgine
+
+# Documentos e ischedas
+workspace.docs.opening = Aberende {name}…
+workspace.docs.opened = Abertu {name}
+workspace.docs.open_failed = Aberidura faddida: {error}
+workspace.docs.no_codec = {name} no est in unu formadu chi Schist potzat abèrrere
+workspace.docs.no_exporter = Schist no podet sarvare archìvios .{ext}
+workspace.docs.empty_response = Su serbidore at imbiadu una risposta bòida
+workspace.docs.heic_not_installed = Sa cumpatibilidade cun HEIC no est installada
+workspace.docs.heic_downloading = Iscarrighende sa cumpatibilidade cun HEIC (libheif {version})…
+workspace.docs.heic_installed = Cumpatibilidade cun HEIC installada
+workspace.docs.heic_download_failed = Iscarrigamentu de sa cumpatibilidade cun HEIC faddidu: {error}
+workspace.docs.placing = Ponende {name}…
+workspace.docs.place_image = Pone s'immàgine
+workspace.docs.placed = Postu {name}
+workspace.docs.place_failed = Positzionamentu faddidu: {error}
+workspace.docs.saved = Sarvadu {name}
+workspace.docs.save_failed = Sarvamentu faddidu: {error}
+
+# Istratos de regulatzione
+workspace.adjustment.new_layer = Istratu {name} nou
+workspace.adjustment.added = Annantu {name}
+workspace.adjustment.settings = Cunfiguratzione de {name}
+workspace.adjustment.updated = {name} atualizadu
+workspace.adjustment.no_settings = {name} no tenet cunfiguratziones chi si potzant modificare
+
+# Cumpositziones de istratos
+workspace.comps.name_n = Cumpositzione de istratos {n}
+workspace.comps.captured = Cumpositzione de istratos registrada
+workspace.comps.apply = Àplica {name}
+
+workspace.styles.layer_style = Istile de s'istratu
+workspace.context.rename_layer = Torra a numenare s'istratu
+workspace.commands.tool = Aina: {name}
+
+# Gestione de su colore
+workspace.colormgmt.assign = Assinna {name}
+workspace.colormgmt.assigned = Assinnadu {name}
+workspace.colormgmt.convert_to = Cunverte a {name}
+workspace.colormgmt.converted_to = Cunvertidu a {name}
+workspace.colormgmt.convert_failed = Cunversione faddida: {error}
+workspace.colormgmt.proof_on = Proa de colores ativa
+workspace.colormgmt.proof_off = Proa de colores disativada
+
+# Esecutzione de filtros
+workspace.filters.choose = Sèbera
+workspace.filters.select_layer_first = Seletziona prima un'istratu
+workspace.filters.needs_pixel_layer = Is filtros rechirint un'istratu de pixel
+workspace.filters.nothing_to_filter = Nudda de filtrare
+workspace.filters.went_away = Su filtru no est prus a disponimentu
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: s'istratu filtradu non esistit prus
+workspace.filters.plugin_title = Cumplementu de Photoshop
+workspace.filters.running = Esecutende {name}
+workspace.filters.plugin_note = Su cumplementu est esecutadu in unu protzessu suo. Si aberit una bentana, responde in cue pro sighire.
+workspace.filters.raw_preview_developing = Isvilupende s'antiprima RAW…
+workspace.filters.raw_preview_done = Antiprima RAW (demosaicizatzione lestra)
+workspace.filters.raw_preview_size_changed = Sa mannària de s'antiprima RAW est mudada: {w} × {h}
+workspace.filters.raw_preview_failed = Antiprima RAW faddida: {error}
+workspace.filters.raw_developing = Isvilupende sa càptura originale…
+workspace.filters.raw_developing_note = Impreende su percursu de demosaicizatzione mègius. S'originale RAW e custas cunfiguratziones abarrant modificàbiles a pustis de sarvare comente PSD o PSB.
+workspace.filters.raw_document_changed = S'isvilupu RAW est agabbadu a pustis chi su documentu suo est mudadu
+workspace.filters.raw_failed = Isvilupu RAW faddidu: {error}
+workspace.filters.raw_too_wide = S'isvilupu RAW est tropu largu
+workspace.filters.raw_too_tall = S'isvilupu RAW est tropu artu
+workspace.filters.raw_size_changed = Sa mannària de s'isvilupu RAW est mudada a {w} × {h}; est mantènnidu s'istratu atuale
+workspace.filters.raw_history = Isvilupu Camera Raw
+workspace.filters.raw_applied = Isvilupu Camera Raw aplicadu (demosaicizatzione mègius)
+
+# Mannària de s'immàgine cun ampliadore neurale
+workspace.image_size.done = Mannària de s'immàgine: {w} × {h}
+workspace.image_size.bicubic_fallback = Mannària de s'immàgine: {w} × {h} — su modellu {name} no si podiat carrigare, duncas est istada impreada s'interpolatzione bicùbica
+workspace.image_size.upscaling = Ismanniende cun {name}
+workspace.image_size.upscaling_note = {mp} megapixel tràmite sa retza, unos cantos segundos pro cada unu. Su documentu abarrat blocadu fintzas chi non agabbat.
+
+# Esportatzione
+workspace.export.no_slices = Peruna setzione de esportare
+workspace.export.no_artboards = Peruna tavula de traballu de esportare
+workspace.export.regions.one = Esportada {n} regione
+workspace.export.regions.other = Esportadas {n} regiones
+workspace.export.prompt = Esporta comente:
+workspace.export.done = Esportadu {name}
+workspace.export.failed = Esportatzione faddida: {error}
+workspace.export.codec_vanished = S'esportadore no est prus a disponimentu
+
+# Seletore de archìvios
+workspace.file_picker.choose_folder = Sèbera una cartella
+workspace.file_picker.type_a_name = Iscrie unu nòmine pro s'archìviu
+workspace.file_picker.exists = {name} esistit; toca torra Sarva pro ddu sostituire
+workspace.file_picker.tap_a_file = Toca un'archìviu pro ddu abèrrere
+workspace.file_picker.pictures = Immàgines
+workspace.file_picker.camera = Càmera
+workspace.file_picker.downloads = Iscarrigamentos
+workspace.file_picker.permission_denied = Schist no tenet su permissu de lèghere custa cartella
+
+# Recùperu a pustis de un'arrestu
+workspace.recovery.recovered_title = {title} (recuperadu)
+workspace.recovery.recovered.one = Recuperadu su traballu non sarvadu dae una sessione pretzedente
+workspace.recovery.recovered.other = Recuperados {n} documentos dae una sessione pretzedente

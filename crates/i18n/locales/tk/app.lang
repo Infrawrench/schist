@@ -1,0 +1,36 @@
+app.filter_gallery.title = Süzgüç galereýasy
+app.filter_gallery.stack = Toplum (aşakdan ýokara ulanylýar)
+app.filter_gallery.no_settings = Bu süzgüjiň sazlamasy ýok.
+app.fonts.not_open_licensed = açyk ygtyýarnamaly däl · {substitute} ölçeglerine gabat gelýär
+app.fonts.missing_substituted = ýetmeýär · tekst çalşyjy şrift bilen düzülýär
+app.fonts.not_in_catalogue = {family} açyk şrift katalogynda ýok
+app.fonts.no_faces = {family} üçin ýüklenip boljak şrift stili ýok
+app.fonts.empty_response = boş jogap
+app.update.unreadable_response = okap bolmaýan jogap: {error}
+app.update.no_temp_dir = ýüklemek üçin wagtlaýyn papka ýok
+app.update.asset_has_path = çykarylyş öz aktiwine ýol bilen at berýär
+app.update.too_big = ýüklenen zat çykarylyşda görkezilenden uly
+app.update.stopped_at = ýükleme {total} baýtdan {got} baýt alanda durdy
+app.update.hash_mismatch = ýüklemäniň heşi {want} däl-de, {got}
+app.update.not_in_bundle = bu nusga programma toplumynyň içinde däl
+app.update.no_parent_dir = programma toplumynyň esasy papkasy ýok
+app.update.cannot_write = {dir} içine ýazyp bolmaýar
+app.update.cannot_move_aside = {app} gyra süýşürilip bilinmeýär
+app.update.cannot_move_in = täze toplum ýerine geçirilip bilinmeýär
+app.update.cannot_run_ditto = /usr/bin/ditto işledilip bilinmeýär
+app.update.unpack_failed = ýüklemäni açmak başartmady: {error}
+app.update.no_app_in_download = ýüklemäniň içinde Schist.app ýok
+app.update.cannot_run_codesign = /usr/bin/codesign işledilip bilinmeýär
+app.update.signature_invalid = ýüklemäniň goly tassyklanmady: {error}
+app.update.download_unsigned = bu nusga gol çekilen, ýüklemä bolsa gol çekilmedik
+app.update.different_developer = ýüklemä başga işläp düzüji gol çekipdir
+app.update.cannot_relaunch = gaýtadan başladyjy işledilip bilinmeýär
+app.update.not_installed_copy = bu nusgany bu ýere gurnaýjy goýmady
+app.update.cannot_start_installer = gurnaýjy başladylyp bilinmeýär
+app.update.platform_unsupported = bu platformadaky täzelenmeler Schist-iň gurnalyş usuly bilen gurnalýar
+app.vulkan.no_loader = schist: bu ulgamda Vulkan loader ýok, şonuň üçin çyzmaga serişde ýok.\n\nSchist Vulkan arkaly şekillendirýär, emma `libvulkan.so.1` gurulmadyk.\nLoader hem-de draýwer gerek:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: bu sessiýanyň görkezýän Vulkan draýweri ol ýerde ýok.\n\n{var} düzülen we onuň düzülmegi loader-iň draýwer gözlegine goşulman,\nony *çalyşýar*. Şonuň üçin ýok bolan şu faýllar draýwerleriň doly\nsanawydyr; näçe draýwer gurlan hem bolsa, bu sessiýadaky ähli Vulkan\nprogrammasy hiç bir draýwer görmeýär:\n\n{missing}\n    {var}={value}\n\nOny bar bolan manifeste gönükdiriň — gurnalan draýwerler manifestlerini\n/usr/share/vulkan/icd.d içinde goýýar — ýa-da sazlamany aýryp, loader-iň\nözüne tapdyryň. Muny konfigurasiýa faýlyndan (Hyprland `env =`, systemd\nenvironment.d goşundysy, gabyk profili) düzýän sessiýa şol ýerde üýtgedilmeli;\nüýtgeşmäniň işleýän programmalara ýetmegi üçin täzeden ulgama girmek gerek.\n
+app.vulkan.override_note = \n{var} bahasy {value} edip düzülen we bu loader-iň öz gözlegini çalyşýar;\nmanifestleriň hiç biri bu enjam üçin däl bolsa, sazlamany aýyrmak ilkinji\nsynanyşmaly zatdyr.\n
+app.vulkan.no_driver = schist: Vulkan draýweri gurulmadyk, şonuň üçin çyzyljak enjam ýok.\n\nSchist Vulkan arkaly şekillendirýär. Loader gurlan, emma draýwer ýokdugyny\nhabar berýär — gözlenýän iki ýeriň hiç birinde draýwer hasaba alynmandyr:\n\n{dirs}\n\nLoader draýwerlerden aýratyn paýlanýar, şonuň üçin köplenç bir paket ýetmeýär.\n\nBu enjamyň GPU-sy üçin draýweri guruň:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-nyň eýeçilik draýweri öz üpjünçiligini getirýär (Arch-da `nvidia-utils`,\nDebian-da `nvidia-driver`). Wirtual enjamda ýa-da GPU draýwerini gurup bolmaýan\nýerde programma rasterizatory işleýär: Arch-da `vulkan-swrast`, beýleki ýerlerde\n`mesa-vulkan-drivers` paketiniň bölegi. Ol haýal, emma işe başlaýar.\n{overridden}
+app.vulkan.no_device = schist: Vulkan draýweri gurlan, emma şekillendirmek üçin enjam hödürlemeýär.\n\nDraýwer bu GPU-ny goldamaýan ýa-da oňa ýetip bilmeýän bolmagy mümkin — SSH\narkaly ýa-da konteýneriň içinde /dev/dri köplenç ýok bolýar. `vulkaninfo --summary`\nloader-iň görýän zadyny habar berýär.\n\nBu enjamda GPU ýok bolsa, programma rasterizatory GPU-syz şekillendirýär:\nArch-da `vulkan-swrast`, Debian we Fedora-da `mesa-vulkan-drivers` paketiniň bölegi.\n
+app.vulkan.skip_hint = Schist-i barybir başlatmak we öz ýoluna görä säwlik bermäge goýbermek üçin {var}=1 düzüň.

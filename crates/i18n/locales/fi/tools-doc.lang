@@ -1,0 +1,21 @@
+# Dokumenttityökalut: piirtoalueet, ositukset, kehykset, huomautukset ja laskenta.
+tool.artboard.name = Piirtoalue
+tool.artboard.description = Luo piirtoalue vetämällä: nimetty piirtoalueen osa, joka viedään erikseen. Siirrä olemassa olevaa piirtoaluetta vetämällä sen sisältä.
+tool.artboard.default_name = Piirtoalue {n}
+tool.slice.name = Ositus
+tool.slice.description = Luo vientiositus vetämällä: nimetty suorakulmio piirtoalueella, joka viedään omana kuvanaan. Siirrä olemassa olevaa ositusta vetämällä sen sisältä.
+tool.slice.default_name = Ositus {n}
+tool.frame.name = Kehys
+tool.frame.description = Luo kehys vetämällä: suorakulmainen (tai elliptinen) taso, joka peittää kaiken siihen sijoitetun.
+tool.frame.default_name = Kehys {n}
+tool.frame.choice.rectangle = Suorakulmio
+tool.frame.choice.ellipse = Ellipsi
+tool.frame.history.frame = Kehys
+tool.note.name = Huomautus
+tool.note.description = Kiinnitä huomautus tyhjään kohtaan napsauttamalla. Huomautukseen merkitään tekijä ja muokkaustilan väri. Valitse olemassa oleva nasta Huomautukset-paneeliin napsauttamalla sitä.
+tool.note.history.place = Sijoita huomautus
+tool.note.history.move = Siirrä huomautusta
+tool.note.history.delete = Poista huomautus
+tool.count.name = Laskenta
+tool.count.description = Lisää numeroituja laskentamerkkejä piirtoalueelle napsauttamalla ja poista olemassa oleva merkki napsauttamalla sitä.
+tool.count.default_name = Laskenta {n}

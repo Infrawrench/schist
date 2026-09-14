@@ -1,0 +1,24 @@
+# Vervormingshulpmiddele: Vloeibaar make, Marionetvervorming en Verdwinpunt.
+
+tool.liquify.name = Vloeibaar make
+tool.liquify.description = Duw, drej, kniep of blaos pixels oonder 'ne groeëte kwas op; de modusoptie bepaolt wat gebäört. De vervorming weurt in 'n maas opgespaord en bie 't bevestige op de laog toegepas.
+tool.liquify.option.tool = Hulpmiddel
+tool.liquify.choice.forward_warp = Veurwaarts vervorme
+tool.liquify.choice.reconstruct = Herstelle
+tool.liquify.choice.twirl_cw = Rechtsóm drejje
+tool.liquify.choice.twirl_ccw = Linksóm drejje
+tool.liquify.choice.pucker = Ineinkniepe
+tool.liquify.choice.bloat = Opblaoze
+tool.liquify.choice.push_left = Links duje
+tool.liquify.history.liquify = Vloeibaar make
+
+tool.puppet_warp.name = Marionetvervorming
+tool.puppet_warp.description = Klik om de laog op 'n paar punte vas te pinne en sleip daonao ein pin: de maas boog roondj de pinne, sjtief of los volgens de optie Sjtiefheid. Bevestige pas de vervorming toe.
+tool.puppet_warp.option.stiffness = Sjtiefheid
+tool.puppet_warp.history.puppet_warp = Marionetvervorming
+
+tool.vanishing_point.name = Verdwinpunt
+tool.vanishing_point.description = Trèk 'n vlak euver get mit perspectief en sjakel daonao de modus euver nao Klone om te sjildere: de gekopieerde pixels volge 't vlak en waere kleiner mit de afstandj.
+tool.vanishing_point.choice.edit_plane = Vlak bewèrke
+tool.vanishing_point.choice.clone = Klone
+tool.vanishing_point.history.vanishing_point = Verdwinpunt

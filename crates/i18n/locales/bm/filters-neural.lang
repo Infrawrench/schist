@@ -1,0 +1,154 @@
+# Neural Filters ani ja sɛgɛsɛgɛlanw
+filter.neural.param.center_x = Cɛmancɛ X
+filter.neural.param.center_y = Cɛmancɛ Y
+filter.neural.param.direction = Fan
+filter.neural.param.transition = Yɛlɛmali
+filter.neural.param.detail = Faranfansi
+filter.neural.param.eyes = Ɲɛw
+
+filter.neural.msg.using_model = A bɛ baara kɛ ni {model} ye · {license}.
+filter.neural.msg.get_model = A sɔrɔ Sɛgɛsɛgɛlan ▸ Neural Filters ▸ Misaliw ɲɛnabɔ kɔnɔ.
+
+filter.camera_raw.name = Camera Raw sɛgɛsɛgɛlan
+filter.camera_raw.param.temperature = Funteni
+filter.camera_raw.param.tint = Kulɛri farama
+filter.camera_raw.param.highlights = Yelen yɔrɔw
+filter.camera_raw.param.shadows = Dibiw
+filter.camera_raw.param.whites = Jɛw
+filter.camera_raw.param.blacks = Finw
+filter.camera_raw.param.clarity = Ɲɛnamaya
+filter.camera_raw.param.dehaze = Dusukun bɔ
+filter.camera_raw.param.vibrance = Kulɛri manamaya
+filter.camera_raw.param.sharpening = Ɲɛnamayali
+filter.camera_raw.param.noise = Ja mankan dɔgɔyali
+filter.camera_raw.param.vignette = Viɲɛti
+
+filter.lens_correction.name = Lantiyɛri labɛnni
+filter.lens_correction.param.distortion = Siyali fili bɔ
+filter.lens_correction.param.red = Wulen/Siyan kɛrɛ labɛn
+filter.lens_correction.param.blue = Bulama/Nɛrɛmuguman kɛrɛ labɛn
+filter.lens_correction.param.vignette = Viɲɛti hakɛ
+filter.lens_correction.param.midpoint = Viɲɛti cɛmancɛ
+filter.lens_correction.param.vertical = Sanfɛ-duguma peresipɛktivi
+filter.lens_correction.param.horizontal = Dafɛla peresipɛktivi
+
+filter.adaptive_wide_angle.name = Kulu belebele bɛnnikɛla
+filter.adaptive_wide_angle.param.projection = Labɛnni
+filter.adaptive_wide_angle.choice.fisheye = Jɛgɛɲɛ
+filter.adaptive_wide_angle.choice.perspective = Peresipɛktivi
+filter.adaptive_wide_angle.choice.full_spherical = Sferiki dafalen
+filter.adaptive_wide_angle.param.focal = Fokal cɛjan
+filter.adaptive_wide_angle.param.crop = Tigɛli hakɛ
+
+filter.field_blur.name = Yɔrɔ flou
+filter.field_blur.param.position = Ɲɛnama yan
+filter.iris_blur.name = Iris flou
+filter.iris_blur.param.roundness = Birilenya
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Cɛmancɛ
+filter.tilt_shift.param.band = Sira ɲɛnama
+filter.spin_blur.name = Munumunuli flou
+filter.spin_blur.param.angle = Flou kulu
+filter.path_blur.name = Sira flou
+filter.path_blur.param.speed = Teliya
+filter.path_blur.param.curve = Kuruɲɛli
+filter.path_blur.param.taper = Dɔgɔyali laban na
+
+filter.shape_blur.name = Siyali flou
+filter.shape_blur.choice.square = Kare
+filter.shape_blur.choice.diamond = Diaman
+filter.shape_blur.choice.hexagon = Dafɛ wɔɔrɔ
+filter.shape_blur.choice.cross = Kuruwɛ
+filter.shape_blur.choice.ring = Bagaw
+filter.shape_blur.choice.star = Lolo
+filter.smart_blur.name = Flou hakiliman
+filter.smart_blur.choice.normal = A ka c'a la
+filter.smart_blur.choice.edge_only = Kɛrɛ dɔrɔn
+filter.smart_blur.choice.overlay_edge = Kɛrɛ kanbila
+
+filter.deinterlace.name = Interlace bɔ
+filter.deinterlace.param.field = Bɔ
+filter.deinterlace.choice.odd_fields = Field tɛgɛlenw
+filter.deinterlace.choice.even_fields = Field bɛnnenw
+filter.deinterlace.param.fill = Field kuraw dilan nin fɛ
+filter.deinterlace.choice.interpolation = Cɛfaali
+filter.deinterlace.choice.duplication = Kopi kɛli
+filter.ntsc_colors.name = NTSC kulɛriw
+
+filter.neural.skin_smoothing.name = Woloma nɔgɔnya
+filter.neural.skin_smoothing.param.blur = Nɔgɔnya
+filter.neural.skin_smoothing.param.detail = Faranfansi mara
+filter.neural.skin_smoothing.msg.no_model = {model} ma sigindi — a bɛ woloma kulɛri bɛɛ nɔgɔnya ɲɛda nɔgɔnyali nɔ na.
+
+filter.neural.jpeg_artifacts.name = JPEG nɔ bɔli
+filter.neural.jpeg_artifacts.msg.no_model = {model} ma sigindi — a bɛ pikisɛli 8 ja-filɛ nɔgɔnya o nɔ na.
+
+filter.neural.colorize.name = Kulɛri kɛ
+filter.neural.colorize.param.warmth = Funteniya
+filter.neural.colorize.msg.no_model = {model} ma sigindi — a bɛ kulɛri farama kɛ ka bɛn yelen hakɛ ma o nɔ na.
+
+filter.neural.super_zoom.name = Bonya kosɛbɛ
+filter.neural.super_zoom.msg.no_model = {model} ma sigindi — a bɛ kɛrɛ fɛ ɲɛnamayali kɛ o nɔ na.
+
+filter.neural.style_transfer.name = Cogoya donni
+filter.neural.style_transfer.choice.mosaic = Mozayiki
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Cogoya misali si ma sigindi — kulɛri dɔrɔn de bɛ don. U sɔrɔ Sɛgɛsɛgɛlan ▸ Neural Filters ▸ Misaliw ɲɛnabɔ kɔnɔ.
+filter.neural.style_transfer.msg.installed = Sigilennen: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Kulɛri donni
+filter.neural.color_transfer.param.hue = Kulɛri sugu kuntaala
+filter.neural.color_transfer.param.contrast = Farabɔ bɛn
+filter.neural.color_transfer.msg.info = A bɛ a ka kulɛriw ta a jukɔrɔ kaliki la. Ni foyi tɛ jukɔrɔ, a bɛ Kulɛri sugu kuntaala de ta.
+
+filter.neural.depth_blur.name = Janya flou
+filter.neural.depth_blur.param.focus = Fokal cɛjan
+filter.neural.depth_blur.param.blur = Flou fanga
+filter.neural.depth_blur.msg.no_model = {model} ma sigindi — a bɛ fokusi kɛ ni yɔrɔ ɲɛnamaya ye o nɔ na.
+
+filter.neural.harmonization.name = Bɛnɲɔgɔnya
+filter.neural.harmonization.param.tone = Ton bɛn
+filter.neural.harmonization.msg.info = A bɛ nin kaliki bɛn fɛn min bɛ a jukɔrɔ o ma. Ni foyi tɛ jukɔrɔ, foyi tɛ yen ka bɛn a ma, o la nin tɛ foyi kɛ.
+
+filter.neural.landscape_mixer.name = Manzara ɲagaminen
+filter.neural.landscape_mixer.param.bands = Janya siraw
+filter.neural.landscape_mixer.msg.with_depth = A bɛ a ka kulɛriw ta a jukɔrɔ kaliki la, ka sira kelen-kelen bɛn ni Depth (Depth Blur) ye.
+filter.neural.landscape_mixer.msg.without_depth = A bɛ a ka kulɛriw ta a jukɔrɔ kaliki la. Depth (Depth Blur) sigindi ka sankolo bɛn sankolo ma ani duguma bɛn duguma ma, ja bɛɛ bɛnnibaliya la.
+
+filter.neural.photo_restoration.name = Foto laseginni
+filter.neural.photo_restoration.param.enhance = Foto ɲɛnamayali
+filter.neural.photo_restoration.param.scratches = Nɔ tigɛlenw dɔgɔyali
+filter.neural.photo_restoration.param.tone = Ton lasegin
+filter.neural.photo_restoration.msg.no_model = A bɛ saniya misali tɛ a bolo.
+filter.neural.photo_restoration.msg.using_deblock = A bɛ baara kɛ ni Deblock ye · a kalanɛna Schist kama.
+filter.neural.photo_restoration.msg.using_detail = A bɛ baara kɛ ni Detail ye · a kalanɛna Schist kama.
+filter.neural.photo_restoration.msg.using_both = A bɛ baara kɛ ni Deblock ani Detail ye · u kalanɛna Schist kama.
+
+filter.neural.photo_to_sketch.name = Foto kɛ desɛni ye
+filter.neural.photo_to_sketch.param.weight = Sira girinya
+filter.neural.photo_to_sketch.param.shading = Dibi kɛli
+
+filter.neural.face_to_caricature.name = Ɲɛda kɛ karikatiri ye
+filter.neural.face_to_caricature.param.mouth = Da
+filter.neural.face_to_caricature.param.head = Kun
+filter.neural.face_to_caricature.msg.no_model = {model} ma sigindi, o la nin tɛ foyi kɛ — ɲɛda si tɛ yen ka kɛ karikatiri ye.
+
+filter.neural.smart_portrait.name = Porɛtiri hakiliman
+filter.neural.smart_portrait.param.happiness = Nisɔndiya
+filter.neural.smart_portrait.param.surprise = Kabakoya
+filter.neural.smart_portrait.param.age = Ɲɛda si hakɛ
+filter.neural.smart_portrait.param.gaze = Filɛcogo
+filter.neural.smart_portrait.param.light = Yelen fan
+filter.neural.smart_portrait.msg.no_model = {model} ma sigindi, o la nin tɛ foyi kɛ — ɲɛda tɛ a bolo ka baara kɛ a la.
+
+filter.neural.makeup_transfer.name = Ɲɛda labɛnni donni
+filter.neural.makeup_transfer.param.lips = Da labanw
+filter.neural.makeup_transfer.param.skin = Woloma ton
+filter.neural.makeup_transfer.msg.info = A bɛ ɲɛda labɛnni ta ɲɛda min bɛ a jukɔrɔ kaliki la o la. Kulɛri de, tɛksitiri tɛ.
+filter.neural.makeup_transfer.msg.no_model = {model} ma sigindi, o la nin tɛ foyi kɛ.
+
+filter.neural.sketch_to_portrait.name = Desɛni kɛ porɛtiri ye
+filter.neural.sketch_to_portrait.param.detail = Siraw mara
+filter.neural.sketch_to_portrait.msg.with_face = A kalanɛna ka nin porogaramu yɛrɛ ka Foto kɛ desɛni ye o fa. A bɛ baara kɛ ɲɛda min sɔrɔla o kan.
+filter.neural.sketch_to_portrait.msg.no_face = A kalanɛna ka nin porogaramu yɛrɛ ka Foto kɛ desɛni ye o fa. Faces (Skin Smoothing) sigindi, a bɛ baara kɛ ɲɛda kan sugandili bɛɛ nɔ na.

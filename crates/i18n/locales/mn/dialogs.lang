@@ -1,0 +1,261 @@
+# Хэд хэдэн харилцах цонхонд нийтлэг
+dialog.save_ellipsis = Хадгалах…
+dialog.use_foreground = Урд өнгийг ашиглах
+dialog.downloading = Татаж байна…
+dialog.downloading_of = Татаж байна… {total}-с {got}
+dialog.no_config_dir = (тохиргооны хавтас алга)
+
+# Давхаргын шинж чанар
+dialog.layer_props.title = Давхаргын шинж чанар
+
+# Экспорт
+dialog.export.format = Формат
+dialog.export.dither = Дитер
+dialog.export.dither_note = 8 бит болгон бууруулахдаа дитер хэрэглэх
+dialog.export.export_ellipsis = Экспортлох…
+
+# Фото зураг боловсруулах
+dialog.batch.title = Фото зургууд боловсруулах
+dialog.batch.note_edit.one = {n} фото зураг — галерейн засвар болгон хадгална; эх зурагт хэзээ ч хүрэхгүй.
+dialog.batch.note_edit.other = {n} фото зураг — галерейн засвар болгон хадгална; эх зургуудын алинд ч хүрэхгүй.
+dialog.batch.note_edit_edited.one = {n} фото зураг, {edited} нь аль хэдийн засагдсан — жорыг засвар дээр нэмж, өмнөх засварыг хувилбар болгон хадгална.
+dialog.batch.note_edit_edited.other = {n} фото зураг, {edited} нь аль хэдийн засагдсан — жорыг засварууд дээр нэмж, өмнөх засваруудыг хувилбар болгон хадгална.
+dialog.batch.note_copies.one = {n} фото зураг — нэгтгэсэн хуулбар; эх зурагт хэзээ ч хүрэхгүй.
+dialog.batch.note_copies.other = {n} фото зураг — нэгтгэсэн хуулбарууд; эх зургуудын алинд ч хүрэхгүй.
+dialog.batch.note_copies_edited.one = {n} фото зураг, {edited} нь аль хэдийн засагдсан — хуулбарыг засвараас үүсгэнэ.
+dialog.batch.note_copies_edited.other = {n} фото зураг, {edited} нь аль хэдийн засагдсан — хуулбаруудыг засваруудаас үүсгэнэ.
+dialog.batch.turn = Эргүүлэх
+dialog.batch.rotate = Эргэлт
+dialog.batch.flip = Тонгорох
+dialog.batch.upscale = Томруулах
+dialog.batch.colour = Өнгө
+dialog.batch.add_adjustment = Тохируулга…
+dialog.batch.output = Гаралт
+dialog.batch.save_as = Хадгалах төрөл
+dialog.batch.process = Боловсруулах
+dialog.batch.process_n = {n}-г боловсруулах
+dialog.batch.nothing_to_do = Хийх зүйл алга: эхлээд эргэлт, томруулалт эсвэл тохируулга сонгоно уу
+
+# Агуулгад нийцүүлэн масштаблах
+dialog.content_aware_scale.title = Агуулгад нийцүүлэн масштаблах
+dialog.content_aware_scale.note = Деталь багатай заадлуудыг сийлнэ. Сонголтоор хамгаалах хэсгийг тэмдэглэнэ.
+
+# Хүрээлэх
+dialog.stroke.title = Хүрээлэх
+dialog.stroke.location = Байрлал
+dialog.stroke.inside = Дотор
+dialog.stroke.outside = Гадна
+dialog.stroke.note = Сонголтыг урд өнгөөр хүрээлнэ.
+
+# Дүүргэлт
+dialog.fill.contents = Агуулга
+
+# Өнгөний муж
+dialog.color_range.title = Өнгөний муж
+dialog.color_range.sampled = Дээж авсан
+dialog.color_range.fuzziness = Ойролцоо байдал
+dialog.color_range.note = Идэвхтэй давхарга дээр дээж авсан өнгөтэй ойролцоо пикселүүдийг сонгоно.
+
+# Файл сонгогч
+dialog.file_picker.up = ↑ Дээш
+dialog.file_picker.empty = Энд юу ч алга
+dialog.file_picker.choose_folder = Энэ хавтсыг сонгох
+
+# Шүүлтүүрийн харилцах цонхнууд
+dialog.filter.camera_raw_development = Camera Raw боловсруулалт
+dialog.filter.reset_as_shot = Зураг авсан төлөвт нь буцаах
+dialog.filter.raw_note = Идэвхтэй давхаргыг мэдрэгчийн эх өгөгдлөөс нь дахин боловсруулна.
+dialog.filter.note = Сонголтын доторх идэвхтэй давхаргад хэрэглэнэ.
+
+# Дутуу фонтууд
+dialog.fonts.title = Дутуу фонтууд
+dialog.fonts.install_named = {name}-ийг суулгах
+dialog.fonts.no_document = Нээлттэй баримт байхгүй тул шалгах зүйл алга.
+dialog.fonts.all_installed = Энэ баримтад ашигласан бүх фонт суусан байна. Бичвэрийг анх өрсөн фонтоор нь харуулж байна.
+dialog.fonts.missing_intro = Энэ баримтад танд байхгүй фонт ашигласан байна. Орлуулах фонтоор бичвэрийг уншиж болох ч өргөн болон мөр шилжилт нь анх өрсөнтэй адилгүй.
+dialog.fonts.footer = Таталтыг Google Fonts-ийн нээлттэй каталогоос авч {dir}-д хадгална. Нээлттэй лицензгүй фонтыг огт татахгүй — хэмжээсээр нийцэх чөлөөт загвар байвал оронд нь санал болгож, тэмдэгтийн өргөн таардаг тул эх өрөлтийг сэргээнэ.
+dialog.fonts.user_font_dir = таны хэрэглэгчийн фонтын хавтас
+
+# Neural Filters-ийн загварууд
+dialog.models.title = Neural Filters-ийн загварууд
+dialog.models.built_in = Дагалдаж ирсэн · {size}
+dialog.models.installed = Суулгасан · {size}
+dialog.models.not_installed = Суулгаагүй · {size}
+dialog.models.not_in_browser = Хөтөчид боломжгүй · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Загваруудыг {dir}-д хадгална. Загваргүй шүүлтүүрүүд дохио боловсруулалт ашиглаж, үүнийгээ мэдэгдэнэ.
+
+# Шинэ баримт
+dialog.new_doc.title = Шинэ баримт
+dialog.new_doc.picker_title = Шинэ файл
+dialog.new_doc.custom_ellipsis = Тусгай…
+dialog.new_doc.preset = Урьдчилсан тохиргоо
+dialog.new_doc.preset_default = Өгөгдмөл (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Дөрвөлжин (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Үүсгэх
+dialog.new_doc.created = Шинэ баримт: {w} × {h} px
+
+# Файл нээх
+dialog.open.image_title = Зураг нээх
+dialog.open.image_prompt = “{name}”-ийг шинэ табд нээх үү, эсвэл одоогийн баримтад шинэ давхарга болгон нэмэх үү?
+dialog.open.new_tab = Шинэ таб
+dialog.open.new_layer = Шинэ давхарга
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = энэ {n} файл
+dialog.open.these_files.other = эдгээр {n} файл
+dialog.open.shared_title_one = Хуваалцсан зураг
+dialog.open.shared_title_many = Хуваалцсан зургууд
+dialog.open.shared_prompt = {what}-г галерейд нэмэх үү, эсвэл засварлагчид нээх үү?
+dialog.open.add_to_gallery = Галерейд нэмэх
+dialog.open.open_in_editor = Засварлагчид нээх
+dialog.open.heic_title = HEIC дэмжлэг
+dialog.open.heic_needs_decoder = “{name}”-ийг нээхэд энэ системд суулгаагүй HEVC тайлагч шаардлагатай.
+dialog.open.heic_offer = Schist нь libde265 HEVC тайлагчтай, зөвхөн тайлах зориулалтын libheif {version} хувилбарыг (≈5 MB) татаж чадна. Хоёулаа LGPL-3.0 лицензтэй; лицензийн бичвэрүүдийг сангийн хажууд суулгах бөгөөд эх кодыг төслийн хуудаснаас авч болно.
+dialog.open.licenses_source = Лиценз ба эх код
+dialog.open.folders_title = Чирж оруулсан хавтаснууд
+dialog.open.n_folders.one = {n} хавтас
+dialog.open.n_folders.other = {n} хавтас
+dialog.open.open_in_tabs = Табуудад нээх
+dialog.open.open_first_in_tabs = Эхний {n}-г табуудад нээх
+dialog.open.open_n_in_tabs.one = {n}-г табд нээх
+dialog.open.open_n_in_tabs.other = {n}-г табуудад нээх
+dialog.open.folder_holds.one = {what} нь Schist-ийн нээж чадах {n} зураг агуулж байна (дэд хавтаснуудыг оролцуулсан).
+dialog.open.folder_holds.other = {what} нь Schist-ийн нээж чадах {n} зураг агуулж байна (дэд хавтаснуудыг оролцуулсан).
+dialog.open.folders_note = Галерейд нэмэхэд хавтаснуудыг байгаа байранд нь ажиглана — юу ч хуулахгүй бөгөөд засвар бүрийг фото зургийн хажууд хувилбар болгон хадгална. Табуудад нээвэл бүх зургийг засварлагчид одоо ачаална.
+
+# Нэмэлтүүд
+dialog.plugins.title = Нэмэлтүүд
+dialog.plugins.kind_filter = шүүлтүүр
+dialog.plugins.kind_format = формат
+dialog.plugins.kind_unavailable = боломжгүй
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Нэмэлтүүдийг {dir}-с ачаална
+dialog.plugins.none = Одоогоор нэмэлт суулгаагүй.
+dialog.plugins.install_ellipsis = Суулгах…
+dialog.plugins.photoshop_heading = Photoshop нэмэлтүүд
+dialog.plugins.loaded_from = {folders}-с ачаалсан
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Тохиргоо
+dialog.prefs.title = Тохиргоо
+dialog.prefs.theme = Загвар
+dialog.prefs.theme_dark = Бараан
+dialog.prefs.theme_light = Цайвар
+dialog.prefs.grid_spacing = Торны зай
+dialog.prefs.snapping = Татаж наалдуулах
+dialog.prefs.snap_to = Чиглүүлэгч, тор болон канвасын ирмэгт наалдуулах
+dialog.prefs.rendering_intent = Дүрслэлийн зорилго
+dialog.prefs.intent_perceptual = Харагдацын
+dialog.prefs.intent_relative = Харьцангуй колориметрийн
+dialog.prefs.intent_saturation = Ханалтын
+dialog.prefs.intent_absolute = Үнэмлэхүй колориметрийн
+dialog.prefs.scrolling = Гүйлгэх
+dialog.prefs.zoom_with_scroll = Гүйлгэх хүрдээр томруулах
+dialog.prefs.rendering = Дүрслэл
+dialog.prefs.gpu_compositing = GPU нэгтгэл
+dialog.prefs.diagnostics = Оношилгоо
+dialog.prefs.crash_reports = Гацах үед дотоод эвдрэлийн тайлан бичих
+dialog.prefs.crash_upload = Мөн хөгжүүлэгчдэд илгээх
+dialog.prefs.telemetry = Өдөр тутмын нэргүй дохио илгээх
+dialog.prefs.diagnostics_note = Оношилгооны тохиргоо Schist-ийг дараагийн удаа эхлүүлэхэд үйлчилнэ.
+dialog.prefs.updates = Шинэчлэлтүүд
+dialog.prefs.check_updates = Эхлэхдээ шинэ хувилбар шалгах
+dialog.prefs.keyboard_shortcuts = Гарын товчлолууд: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) загвар шаардлагатай —
+dialog.prefs.nsfw_download_link = Загваруудыг удирдах… хэсгээс татна уу
+dialog.prefs.hide_flagged = Сэжигтэй гэж тэмдэглэсэн фото зургуудыг нуух
+
+# Профайл оноох / профайл руу хөрвүүлэх
+dialog.profile.profile = Профайл
+dialog.profile.assign_title = Профайл оноох
+dialog.profile.convert_title = Профайл руу хөрвүүлэх
+dialog.profile.assign = Оноох
+dialog.profile.convert = Хөрвүүлэх
+dialog.profile.assign_note = Одоо байгаа пикселийн утгуудыг шинэ профайлын дагуу дахин тайлбарлана.
+dialog.profile.convert_note = Өнгөний харагдах байдлыг хадгалахын тулд пикселийн утгуудыг дахин бичнэ.
+
+# Зургийг өөрөөр хадгалах
+dialog.save_image.title = Зургийг өөрөөр хадгалах
+dialog.save_image.note = {name} — засвартай бол засварыг нь хадгална; эх зурагт хэзээ ч хүрэхгүй.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# Зургийн хэмжээ ба канвасын хэмжээ
+dialog.size.image_title = Зургийн хэмжээ
+dialog.size.canvas_title = Канвасын хэмжээ
+dialog.size.constrain = Хязгаарлах
+dialog.size.keep_proportions = Харьцааг хадгалах
+dialog.size.resample = Дахин түүвэрлэх
+dialog.size.bicubic = Хоёр куб
+dialog.size.bilinear = Хоёр шугаман
+dialog.size.nearest = Хамгийн ойр хөрш
+dialog.size.anchor = Тулгуур
+dialog.size.currently = Одоо {w} × {h} px
+dialog.size.image_size_status = Зургийн хэмжээ: {w} × {h}
+dialog.size.canvas_size_status = Канвасын хэмжээ: {w} × {h}
+
+# Шинэчлэлт бэлэн
+dialog.update.title = Шинэчлэлт бэлэн
+dialog.update.available = Schist {version} бэлэн байна. Энэ хуулбар {current} хувилбартай.
+dialog.update.installing = Шинэчлэлтийг суулгаж байна…
+dialog.update.can_install = Schist үүнийг ({size}) татаж, энэ хуулбарын дээр суулгаж чадна.
+dialog.update.external = Энэ хуулбарыг багцын менежер, AppImage эсвэл таны өөрийн бүтээл зэрэг гаднын хэрэгсэл удирддаг тул суулгасан аргаар нь шинэчилнэ.
+dialog.update.later = Дараа
+dialog.update.release_notes = Хувилбарын тэмдэглэл
+dialog.update.update_restart = Шинэчлээд дахин эхлүүлэх
+dialog.update.open_page = Хувилбарын хуудсыг нээх
+
+# Давхаргын загвар
+dialog.style.title = Давхаргын загвар
+dialog.style.bevel = Ирмэг налуулах ба товойлгох
+dialog.style.stroke = Хүрээ
+dialog.style.inner_shadow = Дотор сүүдэр
+dialog.style.inner_glow = Дотор гэрэлтэлт
+dialog.style.satin = Торгон
+dialog.style.color_overlay = Өнгөөр давхарлах
+dialog.style.gradient_overlay = Градиентаар давхарлах
+dialog.style.outer_glow = Гадна гэрэлтэлт
+dialog.style.drop_shadow = Унах сүүдэр
+dialog.style.blur = Гауссын бүдгэрэл
+dialog.style.gradient_from = Давхарлах градиентийн эхлэл
+dialog.style.gradient_to = Давхарлах градиентийн төгсгөл
+dialog.style.soften = Зөөлрүүлэх
+dialog.style.depth = Гүн
+dialog.style.altitude = Өндрийн өнцөг
+dialog.style.highlight = Гэрэлтэй хэсэг
+dialog.style.shadow = Сүүдэр
+dialog.style.outer_bevel = Гадна налуу ирмэг
+dialog.style.inner_bevel = Дотор налуу ирмэг
+dialog.style.emboss = Товойлгох
+dialog.style.pillow_emboss = Дэрэн товойлголт
+dialog.style.linear = Шугаман
+dialog.style.radial = Радиал
+dialog.style.reverse = Урвуулах
+dialog.style.from_to = Эхлэл / Төгсгөл
+dialog.style.from_fg = Эхлэл = урд өнгө
+dialog.style.to_fg = Төгсгөл = урд өнгө
+dialog.style.precise = Нарийвчилсан
+dialog.style.knockout = Давхарга унах сүүдрийг нэвт цоолно
+
+# Өнгө сонгогч
+dialog.color_picker.title = Өнгө сонгогч ({what})
+dialog.color_picker.effect_color = {effect}-ийн өнгө
+dialog.color_picker.note_color = Тэмдэглэлийн өнгө
+dialog.color_picker.new = шинэ
+dialog.color_picker.current = одоогийн
+
+# Муруйн график
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Сувгийг дахин тохируулах
+dialog.curves.hint = Хэлбэржүүлэхээр чир · нэмэхээр товш · арилгахдаа alt-товш
+
+# Утасны тохиргоон дахь камерын хуулбар
+dialog.prefs.camera_sync = Камерын зураг
+dialog.prefs.camera_sync_enabled = Schist Cloud-д нөөцлөх
+dialog.prefs.camera_sync_sign_in = Камерын зургаа нөөцлөхийн тулд Schist Cloud-д нэвтэрнэ үү.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Өөрчлөх…

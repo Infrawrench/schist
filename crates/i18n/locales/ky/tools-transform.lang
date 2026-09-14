@@ -1,0 +1,25 @@
+tool.transform.name = Эркин өзгөртүү
+tool.transform.description = Эркин өзгөртүү. Иштеткенде активдүү катмардын тегерегинде өзгөртүү алкагы ачылат: масштабдоо үчүн бурчун, буруу үчүн бурчтун сыртындагы жерди, кыйшайтуу үчүн кырын сүйрөңүз. Ырастамайынча (Enter) өзгөртүү жазылбайт, ал эми жокко чыгарсаңыз (Escape), катмар мурунку абалына келет.
+tool.transform.option.interpolation = Интерполяция
+tool.transform.history.transform = Эркин өзгөртүү
+tool.transform.history.image_size = Сүрөттүн өлчөмү
+tool.transform.history.canvas_size = Кенептин өлчөмү
+
+tool.transform.selection.name = Тандалган аймакты өзгөртүү
+tool.transform.selection.description = Тандалган аймакты өзгөртүү: ошол эле алкак колдонулат, бирок ичиндеги пикселдердин ордуна тандоонун чеги жылат. Бүтүрүү үчүн ырастап же жокко чыгарыңыз.
+tool.transform.selection.history.transform = Тандалган аймакты өзгөртүү
+
+tool.transform.resample.nearest_neighbor = Эң жакын коңшу
+tool.transform.resample.bilinear = Билиниялык
+tool.transform.resample.bicubic = Бикубдук
+
+tool.crop.name = Кесүү
+tool.crop.description = Калтыра турган аймакты сүйрөп белгилеп, кармагычтарын тууралаңыз; ырастаганда (Enter) документ ошол аймакка чейин кесилет, ал эми жокко чыгарганда (Escape) өзгөрүүсүз калат.
+tool.crop.option.ratio = Катыш
+tool.crop.option.delete_cropped = Кесилген пикселдерди өчүрүү
+tool.crop.choice.unconstrained = Чектөөсүз
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Кесүү

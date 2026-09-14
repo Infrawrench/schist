@@ -1,0 +1,21 @@
+# ابزارهای ساختاری سند
+tool.artboard.name = آرت‌بورد
+tool.artboard.description = آرت‌بوردی بکشید: ناحیه‌ای نام‌دار از بوم که جداگانه صادر می‌شود. کشیدن درون آرت‌بورد موجود آن را جابه‌جا می‌کند.
+tool.artboard.default_name = آرت‌بورد {n}
+tool.slice.name = برش
+tool.slice.description = برشی برای صدور بکشید؛ مستطیلی نام‌دار از بوم که به‌صورت تصویر جداگانه صادر می‌شود. کشیدن درون برش موجود آن را جابه‌جا می‌کند.
+tool.slice.default_name = برش {n}
+tool.frame.name = قاب
+tool.frame.description = قابی بکشید: لایه‌ای مستطیلی (یا بیضوی) که هرچه درونش قرار گیرد را ماسک می‌کند.
+tool.frame.default_name = قاب {n}
+tool.frame.choice.rectangle = مستطیل
+tool.frame.choice.ellipse = بیضی
+tool.frame.history.frame = قاب
+tool.note.name = یادداشت
+tool.note.description = روی بخش خالی بوم کلیک کنید تا یادداشتی با نویسنده و رنگ ثبت‌شده در وضعیت ویرایشگر سنجاق شود؛ برای انتخاب در پنل یادداشت‌ها روی سنجاق موجود کلیک کنید.
+tool.note.history.place = گذاشتن یادداشت
+tool.note.history.move = جابه‌جایی یادداشت
+tool.note.history.delete = حذف یادداشت
+tool.count.name = شمارش
+tool.count.description = برای گذاشتن نشانگرهای شماره‌دار روی بوم کلیک کنید؛ برای برداشتن نشانگر موجود روی آن کلیک کنید.
+tool.count.default_name = شمارش {n}

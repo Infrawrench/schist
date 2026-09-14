@@ -1,0 +1,27 @@
+# Volná transformace, transformace výběru, oříznutí a převzorkování.
+
+tool.transform.name = Volná transformace
+tool.transform.description = Volná transformace. Aktivací se kolem aktivní vrstvy otevře transformační rámeček: tažením za roh měníte velikost, tažením vně rohu otáčíte a tažením za hranu zkoseně deformujete. Dokud změnu nepotvrdíte klávesou Enter, nic se nezapíše; zrušením klávesou Escape vrátíte vrstvu do původního stavu.
+tool.transform.option.interpolation = Interpolace
+tool.transform.history.transform = Volná transformace
+tool.transform.history.image_size = Velikost obrazu
+tool.transform.history.canvas_size = Velikost plátna
+
+tool.transform.selection.name = Transformovat výběr
+tool.transform.selection.description = Transformovat výběr: stejný rámeček přesouvá obrys výběru místo obrazových bodů uvnitř. Akci dokončete potvrzením nebo zrušením.
+tool.transform.selection.history.transform = Transformovat výběr
+
+tool.transform.resample.nearest_neighbor = Nejbližší soused
+tool.transform.resample.bilinear = Bilineární
+tool.transform.resample.bicubic = Bikubická
+
+tool.crop.name = Oříznutí
+tool.crop.description = Tažením vyznačte oblast, která má zůstat, a upravte ji pomocí úchytů. Potvrzením klávesou Enter dokument oříznete podle této oblasti; zrušením klávesou Escape jej ponecháte beze změny.
+tool.crop.option.ratio = Poměr
+tool.crop.option.delete_cropped = Odstranit oříznuté obrazové body
+tool.crop.choice.unconstrained = Bez omezení
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Oříznutí

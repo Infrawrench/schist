@@ -331,7 +331,7 @@ mod native_tests {
     )]
     fn capture_seek_sharpness_and_cancellation() {
         let dir = tempfile::tempdir().unwrap();
-        let path = dir.path().join("a clip with spaces.mp4");
+        let path = dir.path().join("a clip with spaces #50% café.mp4");
         std::fs::copy(clip("sharp.mp4"), &path).unwrap();
         let original = std::fs::read(&path).unwrap();
         let info = probe(&path, job()).unwrap();

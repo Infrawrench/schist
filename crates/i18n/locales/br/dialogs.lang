@@ -1,0 +1,261 @@
+dialog.save_ellipsis = Enrollañ…
+dialog.use_foreground = Arverañ ar rakleur
+dialog.downloading = O pellgargañ…
+dialog.downloading_of = O pellgargañ… {got} diwar {total}
+dialog.no_config_dir = (kavlec'h kefluniañ ebet)
+
+dialog.layer_props.title = Perzhioù ar gwiskad
+
+dialog.export.format = Mentrezh
+dialog.export.dither = Darvanañ livioù
+dialog.export.dither_note = Darvanañ al livioù pa vezont bihanaet da 8 bit
+dialog.export.export_ellipsis = Ezporzhiañ…
+
+dialog.batch.title = Tretiñ al luc'hskeudennoù
+dialog.batch.note_edit.one = {n} luc'hskeudenn — enrollet evel kemmoù er skeudennaoueg; ne vez ket stoket ouzh an orin morse.
+dialog.batch.note_edit.two = {n} luc'hskeudenn — enrollet evel kemmoù er skeudennaoueg; ne vez ket stoket ouzh ar re orin morse.
+dialog.batch.note_edit.few = {n} luc'hskeudenn — enrollet evel kemmoù er skeudennaoueg; ne vez ket stoket ouzh ar re orin morse.
+dialog.batch.note_edit.many = {n} a luc'hskeudennoù — enrollet evel kemmoù er skeudennaoueg; ne vez ket stoket ouzh ar re orin morse.
+dialog.batch.note_edit.other = {n} luc'hskeudenn — enrollet evel kemmoù er skeudennaoueg; ne vez ket stoket ouzh ar re orin morse.
+dialog.batch.note_edit_edited.one = {n} luc'hskeudenn, {edited} kemmet dija — lakaet e vez ar rekipe a-us d'ar c'hemm, ha miret e vez ar c'hemm kent evel un handelv.
+dialog.batch.note_edit_edited.two = {n} luc'hskeudenn, {edited} kemmet dija — lakaet e vez ar rekipe a-us d'ar c'hemmoù, ha miret e vez pep kemm kent evel un handelv.
+dialog.batch.note_edit_edited.few = {n} luc'hskeudenn, {edited} kemmet dija — lakaet e vez ar rekipe a-us d'ar c'hemmoù, ha miret e vez pep kemm kent evel un handelv.
+dialog.batch.note_edit_edited.many = {n} a luc'hskeudennoù, {edited} kemmet dija — lakaet e vez ar rekipe a-us d'ar c'hemmoù, ha miret e vez pep kemm kent evel un handelv.
+dialog.batch.note_edit_edited.other = {n} luc'hskeudenn, {edited} kemmet dija — lakaet e vez ar rekipe a-us d'ar c'hemmoù, ha miret e vez pep kemm kent evel un handelv.
+dialog.batch.note_copies.one = {n} luc'hskeudenn — eilad plaen; ne vez ket stoket ouzh an orin morse.
+dialog.batch.note_copies.two = {n} luc'hskeudenn — eiladoù plaen; ne vez ket stoket ouzh ar re orin morse.
+dialog.batch.note_copies.few = {n} luc'hskeudenn — eiladoù plaen; ne vez ket stoket ouzh ar re orin morse.
+dialog.batch.note_copies.many = {n} a luc'hskeudennoù — eiladoù plaen; ne vez ket stoket ouzh ar re orin morse.
+dialog.batch.note_copies.other = {n} luc'hskeudenn — eiladoù plaen; ne vez ket stoket ouzh ar re orin morse.
+dialog.batch.note_copies_edited.one = {n} luc'hskeudenn, {edited} kemmet dija — graet e vez an eilad diwar ar c'hemm.
+dialog.batch.note_copies_edited.two = {n} luc'hskeudenn, {edited} kemmet dija — graet e vez an eiladoù diwar ar c'hemmoù.
+dialog.batch.note_copies_edited.few = {n} luc'hskeudenn, {edited} kemmet dija — graet e vez an eiladoù diwar ar c'hemmoù.
+dialog.batch.note_copies_edited.many = {n} a luc'hskeudennoù, {edited} kemmet dija — graet e vez an eiladoù diwar ar c'hemmoù.
+dialog.batch.note_copies_edited.other = {n} luc'hskeudenn, {edited} kemmet dija — graet e vez an eiladoù diwar ar c'hemmoù.
+dialog.batch.turn = Treiñ
+dialog.batch.rotate = C'hwelañ
+dialog.batch.flip = Gwintañ
+dialog.batch.upscale = Kreskiñ ar skeul
+dialog.batch.colour = Liv
+dialog.batch.add_adjustment = Kempenn…
+dialog.batch.output = Ec'hankad
+dialog.batch.save_as = Enrollañ evel
+dialog.batch.process = Tretiñ
+dialog.batch.process_n = Tretiñ {n}
+dialog.batch.nothing_to_do = Netra da ober: dibabit da gentañ un dro, ur c'hresk skeul pe ur c'hempenn
+
+dialog.content_aware_scale.title = Skeulaat diouzh an endalc'had
+dialog.content_aware_scale.note = Kleuziañ a ra junioù izel o munudoù. Un diuzadenn a verk ar pezh da wareziñ.
+
+dialog.stroke.title = Tres
+dialog.stroke.location = Lec'hiadur
+dialog.stroke.inside = Diabarzh
+dialog.stroke.outside = Diavaez
+dialog.stroke.note = Tresañ a ra an diuzadenn gant liv ar rakleur.
+
+dialog.fill.contents = Endalc'had
+
+dialog.color_range.title = Ledad livioù
+dialog.color_range.sampled = Standilhonet
+dialog.color_range.fuzziness = Souplder
+dialog.color_range.note = Diuzañ a ra ar pikselioù tost d'al liv standilhonet war ar gwiskad oberiant.
+
+dialog.file_picker.up = ↑ Krec'h
+dialog.file_picker.empty = Netra amañ
+dialog.file_picker.choose_folder = Dibab ar c'havlec'h-mañ
+
+dialog.filter.camera_raw_development = Diorren Camera Raw
+dialog.filter.reset_as_shot = Adderaouekaat evel ma voe tennet
+dialog.filter.raw_note = Ad-diorren a ra ar gwiskad oberiant diwar roadennoù orin e zinoer.
+dialog.filter.note = Arloet e vez d'ar gwiskad oberiant, en diuzadenn.
+
+dialog.fonts.title = Nodrezhioù diank
+dialog.fonts.install_named = Staliañ {name}
+dialog.fonts.no_document = N'eus teul digor ebet, neuze n'eus netra da wiriañ.
+dialog.fonts.all_installed = Staliet eo pep nodrezh arveret gant an teul-mañ. Savet eo e destenn gant an nodrezhioù a voe arveret evit he fajennaozañ.
+dialog.fonts.missing_intro = Pajennaozet eo an teul-mañ gant nodrezhioù n'ho peus ket. Lennadus eo an destenn gant un erlec'hiad, met ne glot ket he ledanderioù nag he lammennoù linenn gant ar pajennaozadur orin.
+dialog.fonts.footer = Ar pellgargadennoù a zeu eus katalog frank Google Fonts ha miret e vezont e {dir}. Ne vez morse pellgarget un nodrezh hep aotre frank — pa vez un tres frank kenglotus e ventoù e vez kinniget en e lec'h, hag adlakaat a ra ar pajennaozadur rak ma klot pellder araokaat a-zremm pep arouezenn.
+dialog.fonts.user_font_dir = ho kavlec'h nodrezhioù arveriad
+
+dialog.models.title = Patromoù Neural Filters
+dialog.models.built_in = Enkorfet · {size}
+dialog.models.installed = Staliet · {size}
+dialog.models.not_installed = N'eo ket staliet · {size}
+dialog.models.not_in_browser = N'eo ket hegerz er merdeer · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Miret e vez ar patromoù e {dir}. Ar siloù hep patrom a zistro d'an tretiñ arhentoù hag a lavar anezhañ.
+
+dialog.new_doc.title = Teul nevez
+dialog.new_doc.picker_title = Restr nevez
+dialog.new_doc.custom_ellipsis = Personelaet…
+dialog.new_doc.preset = Rakarventenn
+dialog.new_doc.preset_default = Dre ziouer (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Karrez (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Lizher US, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Krouiñ
+dialog.new_doc.created = Teul nevez: {w} × {h} px
+
+dialog.open.image_title = Digeriñ ur skeudenn
+dialog.open.image_prompt = Digeriñ “{name}” en un ivinell nevez, pe he ouzhpennañ d'an teul vremanel evel ur gwiskad nevez?
+dialog.open.new_tab = Ivinell nevez
+dialog.open.new_layer = Gwiskad nevez
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = ar restr {n}-mañ
+dialog.open.these_files.two = an {n} restr-mañ
+dialog.open.these_files.few = an {n} restr-mañ
+dialog.open.these_files.many = ar {n} a restroù-mañ
+dialog.open.these_files.other = ar {n} restr-mañ
+dialog.open.shared_title_one = Skeudenn rannet
+dialog.open.shared_title_many = Skeudennoù rannet
+dialog.open.shared_prompt = Ouzhpennañ {what} d'ar skeudennaoueg, pe digeriñ er c'hemmer?
+dialog.open.add_to_gallery = Ouzhpennañ d'ar skeudennaoueg
+dialog.open.open_in_editor = Digeriñ er c'hemmer
+dialog.open.heic_title = Skor HEIC
+dialog.open.heic_needs_decoder = Evit digeriñ “{name}” ez eus ezhomm eus un digoder HEVC, n'eo ket staliet war ar reizhiad-mañ.
+dialog.open.heic_offer = Schist a c'hall pellgargañ un handelv eus libheif {version} savet evit digodiñ hepken, gant an digoder HEVC libde265 (≈5 MB). An daou zo dindan aotre LGPL-3.0; staliet e vez testennoù aotre an daou e-kichen al levraoueg, ha tarzh an daou zo hegerz war pajenn ar raktres.
+dialog.open.licenses_source = Aotreoù & Tarzh
+dialog.open.folders_title = Kavlec'hioù lezet da gouezhañ
+dialog.open.n_folders.one = {n} c'havlec'h
+dialog.open.n_folders.two = {n} gavlec'h
+dialog.open.n_folders.few = {n} c'havlec'h
+dialog.open.n_folders.many = {n} a gavlec'hioù
+dialog.open.n_folders.other = {n} kavlec'h
+dialog.open.open_in_tabs = Digeriñ en ivinelloù
+dialog.open.open_first_in_tabs = Digeriñ ar re {n} kentañ en ivinelloù
+dialog.open.open_n_in_tabs.one = Digeriñ {n} en un ivinell
+dialog.open.open_n_in_tabs.two = Digeriñ {n} en ivinelloù
+dialog.open.open_n_in_tabs.few = Digeriñ {n} en ivinelloù
+dialog.open.open_n_in_tabs.many = Digeriñ {n} en ivinelloù
+dialog.open.open_n_in_tabs.other = Digeriñ {n} en ivinelloù
+dialog.open.folder_holds.one = E {what} ez eus {n} skeudenn a c'hall Schist digeriñ (gant an iskavlec'hioù).
+dialog.open.folder_holds.two = E {what} ez eus {n} skeudenn a c'hall Schist digeriñ (gant an iskavlec'hioù).
+dialog.open.folder_holds.few = E {what} ez eus {n} skeudenn a c'hall Schist digeriñ (gant an iskavlec'hioù).
+dialog.open.folder_holds.many = E {what} ez eus {n} a skeudennoù a c'hall Schist digeriñ (gant an iskavlec'hioù).
+dialog.open.folder_holds.other = E {what} ez eus {n} skeudenn a c'hall Schist digeriñ (gant an iskavlec'hioù).
+dialog.open.folders_note = Ouzhpennañ d'ar skeudennaoueg a evezh ar c'havlec'hioù el lec'h m'emaint — ne vez eilet netra, ha miret e vez ar c'hemmoù evel handelvoù e-kichen pep luc'hskeudenn. Digeriñ en ivinelloù a garg pep skeudenn er c'hemmer bremañ.
+
+dialog.plugins.title = Enlugelladoù
+dialog.plugins.kind_filter = sil
+dialog.plugins.kind_format = mentrezh
+dialog.plugins.kind_unavailable = dihegerz
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Karget e vez an enlugelladoù diwar {dir}
+dialog.plugins.none = Enlugellad staliet ebet c'hoazh.
+dialog.plugins.install_ellipsis = Staliañ…
+dialog.plugins.photoshop_heading = Enlugelladoù Photoshop
+dialog.plugins.loaded_from = Karget diwar {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Gwellvezioù
+dialog.prefs.theme = Neuz
+dialog.prefs.theme_dark = Teñval
+dialog.prefs.theme_light = Sklaer
+dialog.prefs.grid_spacing = Esaou ar gael
+dialog.prefs.snapping = Pegañ
+dialog.prefs.snap_to = Pegañ ouzh ar sturioù, ar gael ha riblennoù ar steuenn
+dialog.prefs.rendering_intent = Pal daskoriñ
+dialog.prefs.intent_perceptual = Hewel
+dialog.prefs.intent_relative = Livventoniezh daveel
+dialog.prefs.intent_saturation = Peurvec'hiañ
+dialog.prefs.intent_absolute = Livventoniezh dizave
+dialog.prefs.scrolling = Dibunañ
+dialog.prefs.zoom_with_scroll = Zoumañ gant ar rod dibunañ
+dialog.prefs.rendering = Daskoriñ
+dialog.prefs.gpu_compositing = Kenaozañ gant ar GPU
+dialog.prefs.diagnostics = Deznaouiñ
+dialog.prefs.crash_reports = Skrivañ un danevell sac'hadenn lec'hel pa vez ur panik
+dialog.prefs.crash_upload = Kas anezhi d'an diorroerien ivez
+dialog.prefs.telemetry = Kas ur galv pemdeziek dizanv
+dialog.prefs.diagnostics_note = Gweredekaet e vo an deznaouadurioù pa vo loc'het Schist en-dro.
+dialog.prefs.updates = Hizivadurioù
+dialog.prefs.check_updates = Gwiriañ an embannadurioù nevez pa loc'her
+dialog.prefs.keyboard_shortcuts = Berradennoù klavier: {path}
+dialog.prefs.nsfw_needs_model = Ezhomm eus ar patrom Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = pellgargit anezhañ e Merañ ar patromoù…
+dialog.prefs.hide_flagged = Kuzhat al luc'hskeudennoù merket
+
+dialog.profile.profile = Aelad
+dialog.profile.assign_title = Deverkañ un aelad
+dialog.profile.convert_title = Amdreiñ d'un aelad
+dialog.profile.assign = Deverkañ
+dialog.profile.convert = Amdreiñ
+dialog.profile.assign_note = Adsteriañ a ra gwerzhioù ar pikselioù a zo dindan an aelad nevez.
+dialog.profile.convert_note = Adskrivañ a ra gwerzhioù ar pikselioù evit ma chomo neuz al livioù digemm.
+
+dialog.save_image.title = Enrollañ ar skeudenn evel
+dialog.save_image.note = {name} — ar c'hemm, ma'z eus unan; ne vez ket stoket ouzh an orin morse.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Ment ar skeudenn
+dialog.size.canvas_title = Ment ar steuenn
+dialog.size.constrain = Destrizhañ
+dialog.size.keep_proportions = Mirout ar c'henfeurioù
+dialog.size.resample = Adstandilhonañ
+dialog.size.bicubic = Daouc'harrdi
+dialog.size.bilinear = Daoulinennek
+dialog.size.nearest = Amezezañ tostañ
+dialog.size.anchor = Eor
+dialog.size.currently = Bremañ {w} × {h} px
+dialog.size.image_size_status = Ment ar skeudenn: {w} × {h}
+dialog.size.canvas_size_status = Ment ar steuenn: {w} × {h}
+
+dialog.update.title = Hizivadur hegerz
+dialog.update.available = Hegerz eo Schist {version}. {current} eo an eilad-mañ.
+dialog.update.installing = O staliañ an hizivadur…
+dialog.update.can_install = Schist a c'hall e bellgargañ ({size}) hag e staliañ war an eilad-mañ.
+dialog.update.external = An eilad-mañ a zeu eus ul lec'h a ver anezhañ — ur merer pakadoù, un AppImage, ur seurt savet ganeoc'h — neuze e vez hizivaet evel ma voe staliet.
+dialog.update.later = Diwezhatoc'h
+dialog.update.release_notes = Notennoù an embannadur
+dialog.update.update_restart = Hizivaat hag adloc'hañ
+dialog.update.open_page = Digeriñ pajenn an embannadur
+
+dialog.style.title = Stil gwiskad
+dialog.style.bevel = Beskel & Bos
+dialog.style.stroke = Tres
+dialog.style.inner_shadow = Skeud diabarzh
+dialog.style.inner_glow = Lugern diabarzh
+dialog.style.satin = Satin
+dialog.style.color_overlay = Gourlec'hiañ ul liv
+dialog.style.gradient_overlay = Gourlec'hiañ un ilrezenn
+dialog.style.outer_glow = Lugern diavaez
+dialog.style.drop_shadow = Skeud taolet
+dialog.style.blur = Flou Gauss
+dialog.style.gradient_from = Gourlec'hiañ un ilrezenn eus
+dialog.style.gradient_to = Gourlec'hiañ un ilrezenn da
+dialog.style.soften = Blotañ
+dialog.style.depth = Donder
+dialog.style.altitude = Uhelder
+dialog.style.highlight = Gouloù kreñv
+dialog.style.shadow = Skeud
+dialog.style.outer_bevel = Beskel diavaez
+dialog.style.inner_bevel = Beskel diabarzh
+dialog.style.emboss = Bos
+dialog.style.pillow_emboss = Bos goubenner
+dialog.style.linear = Linennek
+dialog.style.radial = Skinel
+dialog.style.reverse = Eilpennañ
+dialog.style.from_to = Eus / Da
+dialog.style.from_fg = Eus = rakleur
+dialog.style.to_fg = Da = rakleur
+dialog.style.precise = Resis
+dialog.style.knockout = Ar gwiskad a doull ar skeud taolet
+
+dialog.color_picker.title = Dibaber liv ({what})
+dialog.color_picker.effect_color = Liv {effect}
+dialog.color_picker.note_color = Liv an notenn
+dialog.color_picker.new = nevez
+dialog.color_picker.current = bremanel
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Adderaouekaat ar sanell
+dialog.curves.hint = Riklait evit stummañ · klikit evit ouzhpennañ · alt-klikit evit lemel
+
+dialog.prefs.camera_sync = Roll ar benveg luc'hskeudenniñ
+dialog.prefs.camera_sync_enabled = Gwarediñ e Schist Cloud
+dialog.prefs.camera_sync_sign_in = Kevreit e Schist Cloud evit gwarediñ roll ho penveg luc'hskeudenniñ.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Kemmañ…

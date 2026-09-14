@@ -1,0 +1,23 @@
+# Forvrængningsværktøjer: Blødgør, Marionetfordrejning og Forsvindingspunkt.
+tool.liquify.name = Blødgør
+tool.liquify.description = Skub, hvirvl, sammentræk eller oppust pixels under en stor pensel — tilstanden bestemmer handlingen. Forvrængningen opbygges i et net og anvendes på laget, når du bekræfter.
+tool.liquify.option.tool = Værktøj
+tool.liquify.choice.forward_warp = Forvræng fremad
+tool.liquify.choice.reconstruct = Rekonstruer
+tool.liquify.choice.twirl_cw = Hvirvl med uret
+tool.liquify.choice.twirl_ccw = Hvirvl mod uret
+tool.liquify.choice.pucker = Sammentræk
+tool.liquify.choice.bloat = Oppust
+tool.liquify.choice.push_left = Skub mod venstre
+tool.liquify.history.liquify = Blødgør
+
+tool.puppet_warp.name = Marionetfordrejning
+tool.puppet_warp.description = Klik for at fastgøre laget på nogle få punkter, og træk derefter i ét. Nettet bøjer omkring stifterne, stift eller løst som angivet af indstillingen Stivhed. Bekræft for at anvende ændringen.
+tool.puppet_warp.option.stiffness = Stivhed
+tool.puppet_warp.history.puppet_warp = Marionetfordrejning
+
+tool.vanishing_point.name = Forsvindingspunkt
+tool.vanishing_point.description = Træk et plan ud over noget med perspektiv, skift derefter til tilstanden Klon, og mal. De kopierede pixels følger planet og bliver mindre med afstanden.
+tool.vanishing_point.choice.edit_plane = Rediger plan
+tool.vanishing_point.choice.clone = Klon
+tool.vanishing_point.history.vanishing_point = Forsvindingspunkt

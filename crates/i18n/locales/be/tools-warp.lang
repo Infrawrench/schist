@@ -1,0 +1,27 @@
+# Інструменты дэфармацыі: пластыка, марыянеткавая дэфармацыя і кропка сходу.
+
+# Пластыка
+tool.liquify.name = Пластыка
+tool.liquify.description = Зрушвайце, закручвайце, сціскайце або раздзімайце пікселі пад вялікім пэндзлем — патрэбнае дзеянне задаецца рэжымам. Дэфармацыя назапашваецца ў сетцы і прымяняецца да пласта пасля пацвярджэння.
+tool.liquify.option.tool = Інструмент
+tool.liquify.choice.forward_warp = Дэфармацыя наперад
+tool.liquify.choice.reconstruct = Аднаўленне
+tool.liquify.choice.twirl_cw = Закручванне па гадзінніку
+tool.liquify.choice.twirl_ccw = Закручванне супраць гадзінніка
+tool.liquify.choice.pucker = Сцісканне
+tool.liquify.choice.bloat = Раздзіманне
+tool.liquify.choice.push_left = Зрух улева
+tool.liquify.history.liquify = Пластыка
+
+# Марыянеткавая дэфармацыя
+tool.puppet_warp.name = Марыянеткавая дэфармацыя
+tool.puppet_warp.description = Пастаўце на пласце некалькі апорных кропак, а затым перацягніце адну з іх: сетка выгнецца вакол кропак — больш ці менш жорстка, у залежнасці ад параметра «Жорсткасць». Пацвярджэнне прымяняе дэфармацыю.
+tool.puppet_warp.option.stiffness = Жорсткасць
+tool.puppet_warp.history.puppet_warp = Марыянеткавая дэфармацыя
+
+# Кропка сходу
+tool.vanishing_point.name = Кропка сходу
+tool.vanishing_point.description = Перацягваннем накладзіце плоскасць на аб'ект у перспектыве, затым пераключыцеся ў рэжым кланавання і малюйце: скапіраваныя пікселі будуць прытрымлівацца плоскасці і змяншацца з адлегласцю.
+tool.vanishing_point.choice.edit_plane = Рэдагаванне плоскасці
+tool.vanishing_point.choice.clone = Кланаванне
+tool.vanishing_point.history.vanishing_point = Кропка сходу

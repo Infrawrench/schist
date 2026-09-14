@@ -1,0 +1,21 @@
+# ගැළපුම් ස්තර සහ Image ▸ Adjustments විධානවල නම්.
+adjustment.levels.name = මට්ටම්
+adjustment.curves.name = වක්‍ර
+adjustment.hue_saturation.name = පැහැය/සන්තෘප්තිය
+adjustment.brightness_contrast.name = දීප්තිය/වෙනස
+adjustment.black_white.name = කළු සහ සුදු
+adjustment.solid_color.name = ඝන වර්ණය
+adjustment.gradient_fill.name = අනුක්‍රමණ පිරවුම
+adjustment.pattern_fill.name = රටා පිරවුම
+adjustment.invert.name = ප්‍රතිලෝම කරන්න
+adjustment.posterize.name = වර්ණ මට්ටම් අඩු කරන්න
+adjustment.threshold.name = සීමාව
+adjustment.color_balance.name = වර්ණ සමතුලිතතාව
+adjustment.vibrance.name = වර්ණ ප්‍රාණවත්භාවය
+adjustment.exposure.name = නිරාවරණය
+adjustment.photo_filter.name = ඡායාරූප පෙරහන
+adjustment.gradient_map.name = අනුක්‍රමණ සිතියම
+adjustment.selective_color.name = තෝරාගත් වර්ණය
+adjustment.channel_mixer.name = නාලිකා මිශ්‍රකය
+# Schist හි සංස්කාරකයක් නොමැති PSD ගොනුවකින් කියවන ගැළපුම් වර්ගයකි.
+adjustment.other.name = ගැළපුම

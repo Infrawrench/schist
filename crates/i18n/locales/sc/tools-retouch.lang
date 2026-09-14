@@ -1,0 +1,27 @@
+# Curretzione
+tool.patch.name = Curretzione
+tool.patch.description = Tràghe unu cuntornu in giru a unu difetu, pustis tràghe custa seletzione subra de pixel netos: sa trama de cussu logu est adatada a su difetu. Sa modalidade Curretzione seletzionat cale estremidade de sa pariga depes tràghere.
+tool.patch.option.patch = Curretzione
+tool.patch.choice.source = Orìgine
+tool.patch.choice.destination = Destinatzione
+tool.patch.history.patch = Curretzione
+
+# Tramuda cun atentzione a su cuntenutu
+tool.content_aware_move.name = Tramuda cun atentzione a su cuntenutu
+tool.content_aware_move.description = Tràghe un'ogetu seletzionadu in un'àteru logu e su càudu chi lassat est prenu impreadu su cuntestu. In modalidade Istèrrere, s'ogetu est allonghiadu imbetzes de èssere tramudadu.
+tool.content_aware_move.choice.move = Tramuda
+tool.content_aware_move.choice.extend = Istèrrere
+tool.content_aware_move.history.move = Tramuda cun atentzione a su cuntenutu
+
+# Ogu ruju
+tool.red_eye.name = Ogu ruju
+tool.red_eye.description = Incarca una pupilla pro nche bogare su ruju de su lampu.
+tool.red_eye.option.pupil_size = Mannària de sa pupilla
+tool.red_eye.option.darken = Iscuriga
+tool.red_eye.history.red_eye = Ogu ruju
+
+# Goma màgica
+tool.magic_eraser.name = Goma màgica
+tool.magic_eraser.description = Incarca pro cantzellare s'àrea de colore sìmile suta de su puntadore, intro de sa toleràntzia de s'aina: sighida a su puntu incarcadu o in cada logu de s'istratu.
+tool.magic_eraser.option.contiguous = Sighidu
+tool.magic_eraser.history.erase = Goma màgica

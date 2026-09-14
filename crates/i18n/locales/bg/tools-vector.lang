@@ -1,0 +1,44 @@
+# Векторни инструменти: пера, селекция на пътеки и фигури.
+tool.pen.name = Перо
+tool.pen.description = Изградете пътека: щракнете за ъглова точка, плъзнете, за да изтеглите манипулаторите на крива от нея, и щракнете върху първата точка, за да затворите пътеката. Потвърждаването превръща пътеката в слой с фигура.
+tool.pen.option.rubber_band = Еластична линия
+tool.pen.history.fill = Запълване на пътека
+tool.pen.default_path_name = Пътека {n}
+tool.pen.freeform.name = Перо за свободно рисуване
+tool.pen.freeform.description = Начертайте свободна линия с плъзгане и тя ще бъде напасната към пътека с точността, зададена от настройката „Напасване“.
+tool.pen.freeform.option.fit = Напасване
+tool.pen.curvature.name = Перо за криви
+tool.pen.curvature.description = Щракнете поредица от точки и пътеката ще премине плавно извита през тях.
+
+tool.path_select.name = Селекция на пътека
+tool.path_select.description = Щракнете върху пътека, за да я изберете, и плъзнете, за да преместите цялата пътека.
+tool.direct_select.name = Директна селекция
+tool.direct_select.description = Плъзнете отделна опорна точка или манипулаторите ѝ, за да промените формата на пътеката около нея.
+
+tool.shape.history.layer = Слой „{name}“
+tool.shape.rect.name = Инструмент „Правоъгълник“
+tool.shape.rect.label = Правоъгълник
+tool.shape.rect.description = Очертайте с плъзгане правоъгълен слой с фигура в цвета на предния план; той остава векторен и се растеризира отново при преоразмеряване.
+tool.shape.ellipse.name = Инструмент „Елипса“
+tool.shape.ellipse.label = Елипса
+tool.shape.ellipse.description = Очертайте с плъзгане елипсовиден слой с фигура в цвета на предния план.
+tool.shape.line.name = Инструмент „Линия“
+tool.shape.line.label = Линия
+tool.shape.line.description = Очертайте с плъзгане слой с права линия в цвета на предния план.
+tool.shape.line.option.weight = Дебелина
+tool.shape.line.option.arrow_start = Начало
+tool.shape.line.option.arrow_end = Край
+tool.shape.polygon.name = Инструмент „Многоъгълник“
+tool.shape.polygon.label = Многоъгълник
+tool.shape.polygon.description = Очертайте с плъзгане слой с правилен многоъгълник в цвета на предния план, чийто брой страни се задава в настройките.
+tool.shape.polygon.option.sides = Страни
+
+tool.shape.custom.name = Фигура по избор
+tool.shape.custom.label = Фигура по избор
+tool.shape.custom.description = Очертайте с плъзгане една от вградените готови фигури, избрана чрез настройката „Фигура“.
+tool.shape.custom.choice.heart = Сърце
+tool.shape.custom.choice.star = Звезда
+tool.shape.custom.choice.arrow = Стрелка
+tool.shape.custom.choice.lightning = Светкавица
+tool.shape.custom.choice.cross = Кръст
+tool.shape.custom.choice.speech_bubble = Балонче за реплика

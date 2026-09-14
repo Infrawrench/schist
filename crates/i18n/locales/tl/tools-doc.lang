@@ -1,0 +1,24 @@
+tool.artboard.name = Artboard
+tool.artboard.description = I-drag upang gumawa ng artboard: isang pinangalanang bahagi ng canvas na maaaring i-export nang bukod. Inililipat ito kapag nag-drag sa loob ng dati nang artboard.
+tool.artboard.default_name = Artboard {n}
+
+tool.slice.name = Slice
+tool.slice.description = I-drag upang gumawa ng export slice, isang pinangalanang parihaba sa canvas na ine-export bilang sarili nitong larawan. Inililipat ito kapag nag-drag sa loob ng dati nang slice.
+tool.slice.default_name = Slice {n}
+
+tool.frame.name = Frame
+tool.frame.description = I-drag upang gumawa ng frame: isang parihaba o eliptikong layer na nagma-mask sa anumang inilalagay dito.
+tool.frame.default_name = Frame {n}
+tool.frame.choice.rectangle = Parihaba
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Frame
+
+tool.note.name = Tala
+tool.note.description = Mag-click sa bakanteng bahagi ng canvas upang maglagay roon ng tala na may tatak ng may-akda at kulay mula sa estado ng editor; mag-click sa dati nang pin upang piliin ito para sa panel na Mga Tala.
+tool.note.history.place = Maglagay ng Tala
+tool.note.history.move = Ilipat ang Tala
+tool.note.history.delete = Burahin ang Tala
+
+tool.count.name = Bilang
+tool.count.description = Mag-click upang maglagay ng mga de-numerong pananda ng bilang sa canvas, at mag-click sa dati nang pananda upang alisin ito.
+tool.count.default_name = Bilang {n}

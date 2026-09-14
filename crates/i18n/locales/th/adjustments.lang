@@ -1,0 +1,23 @@
+# Adjustment layers and the Image ▸ Adjustments commands: the names.
+# Keyed by the ids in crates/app/src/actions.rs (adjustment_id); the
+# parameter labels of each adjustment's dialog are in dialogs.lang.
+adjustment.levels.name = ระดับ
+adjustment.curves.name = เส้นโค้ง
+adjustment.hue_saturation.name = เฉดสี/ความอิ่มตัว
+adjustment.brightness_contrast.name = ความสว่าง/ความเปรียบต่าง
+adjustment.black_white.name = ขาวดำ
+adjustment.solid_color.name = สีล้วน
+adjustment.gradient_fill.name = เติมการไล่ระดับสี
+adjustment.pattern_fill.name = เติมลวดลาย
+adjustment.invert.name = กลับสี
+adjustment.posterize.name = ลดระดับสี
+adjustment.threshold.name = เกณฑ์
+adjustment.color_balance.name = สมดุลสี
+adjustment.vibrance.name = ความสดใส
+adjustment.exposure.name = การรับแสง
+adjustment.photo_filter.name = ฟิลเตอร์ภาพถ่าย
+adjustment.gradient_map.name = แมปการไล่ระดับสี
+adjustment.selective_color.name = เลือกปรับสี
+adjustment.channel_mixer.name = ตัวผสมช่องสี
+# A kind read from a PSD that Schist has no editor for.
+adjustment.other.name = การปรับแต่ง

@@ -1,0 +1,25 @@
+# Iloj por retuŝi regionojn: Flikaĵo, Enhavkonscia movo, Ruĝaj okuloj kaj Magia skrapgumo.
+
+tool.patch.name = Flikaĵo
+tool.patch.description = Trenu konturon ĉirkaŭ difekto, poste trenu tiun elekton sur purajn rastrumerojn: la tiea teksturo estas adaptita al la difekto. La flikaĵa reĝimo elektas, kiun finon de la paro vi trenas.
+tool.patch.option.patch = Flikaĵo
+tool.patch.choice.source = Fonto
+tool.patch.choice.destination = Celo
+tool.patch.history.patch = Flikaĵo
+
+tool.content_aware_move.name = Enhavkonscia movo
+tool.content_aware_move.description = Trenu elektitan objekton al alia loko, kaj la postlasita truo pleniĝos laŭ sia ĉirkaŭaĵo. En la reĝimo Etendi la objekto estas etendata anstataŭ movata.
+tool.content_aware_move.choice.move = Movi
+tool.content_aware_move.choice.extend = Etendi
+tool.content_aware_move.history.move = Enhavkonscia movo
+
+tool.red_eye.name = Ruĝaj okuloj
+tool.red_eye.description = Alklaku pupilon por forigi el ĝi la ruĝecon de la fulmo.
+tool.red_eye.option.pupil_size = Pupila grando
+tool.red_eye.option.darken = Malheligi
+tool.red_eye.history.red_eye = Ruĝaj okuloj
+
+tool.magic_eraser.name = Magia skrapgumo
+tool.magic_eraser.description = Alklaku por forviŝi la areon de simila koloro sub la montrilo, ene de la toleremo de la ilo — ĉu nur la areon konektitan al la alklakita punkto, ĉu ĉiujn tiajn areojn en la tavolo.
+tool.magic_eraser.option.contiguous = Apuda
+tool.magic_eraser.history.erase = Magia skrapgumo

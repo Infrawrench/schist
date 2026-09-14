@@ -1,0 +1,24 @@
+tool.artboard.name = Tablo ya mosala
+tool.artboard.description = Benda mpo na kosala tablo ya mosala: etando ya kanvasi oyo ezali na nkombo mpe ekoki kobimisama yango moko. Soki obendi na kati ya tablo oyo ezali, okotambolisa yango.
+tool.artboard.default_name = Tablo ya mosala {n}
+
+tool.slice.name = Eteni
+tool.slice.description = Benda mpo na kosala eteni ya kobimisa, rektangle ya kanvasi oyo ezali na nkombo mpe ebimisamaka lokola elilingi na yango moko. Soki obendi na kati ya eteni oyo ezali, okotambolisa yango.
+tool.slice.default_name = Eteni {n}
+
+tool.frame.name = Kadrɛ
+tool.frame.description = Benda mpo na kosala kadrɛ: kalke ya rektangle (to ya elipse) oyo ezipaka bisika ya eloko nyonso oyo etyami na kati na yango.
+tool.frame.default_name = Kadrɛ {n}
+tool.frame.choice.rectangle = Rektangle
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Kadrɛ
+
+tool.note.name = Note
+tool.note.description = Finá esika ya mpamba na kanvasi mpo na kotya note kuna, elongo na nkombo ya mokomi mpe langi oyo ezali na ebongiseli ya editɛrɛ; finá elembo oyo ezali mpo na kopona yango na pano ya Banote.
+tool.note.history.place = Kotya note
+tool.note.history.move = Kotambolisa note
+tool.note.history.delete = Kolongola note
+
+tool.count.name = Kotánga
+tool.count.description = Finá mpo na kotya bilembo ya motángo na kanvasi, mpe finá elembo oyo ezali mpo na kolongola yango.
+tool.count.default_name = Motángo {n}

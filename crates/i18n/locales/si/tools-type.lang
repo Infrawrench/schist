@@ -1,0 +1,26 @@
+# අකුරු මෙවලම
+tool.type.name = අකුරු
+tool.type.description = එම ස්ථානයේ පෙළ ස්තරයක් ආරම්භ කිරීමට ක්ලික් කරන්න, නැතහොත් පවතින පෙළ ස්තරයක් සංස්කරණය කිරීමට එය ක්ලික් කරන්න. එය විවෘතව ඇති විට මෙවලම අමු යතුරු ආදානය භාරගනී (අක්ෂර යතුරු ආදානය ලෙස යවන්න); තහවුරු කිරීමෙන් ස්තරය විදැහුම් කර සංස්කරණය වසා දමයි.
+
+# විකල්ප තීරුව
+tool.type.option.align = පෙළගැස්ම
+tool.type.option.leading = පේළි පරතරය
+tool.type.option.tracking = අක්ෂර පරතරය
+tool.type.option.kerning = අක්ෂර යුගල පරතරය
+tool.type.option.ligatures = සංයුක්ත අක්ෂර
+tool.type.option.discretionary_ligatures = විකල්ප සංයුක්ත අක්ෂර
+tool.type.option.small_caps = කුඩා විශාල අකුරු
+tool.type.option.on_path = සක්‍රිය මාර්ගය මත
+tool.type.option.path_offset = මාර්ග විස්ථාපනය
+
+# ශෛලිය
+tool.type.choice.regular = සාමාන්‍ය
+tool.type.choice.bold = තද
+tool.type.choice.italic = ඇල
+tool.type.choice.bold_italic = තද ඇල
+
+# ඉතිහාසය
+tool.type.history.new_layer = නව පෙළ ස්තරය
+tool.type.history.edit = පෙළ සංස්කරණය කරන්න
+tool.type.history.discard = පෙළ ඉවතලන්න
+tool.type.history.discard_empty = හිස් පෙළ ඉවතලන්න

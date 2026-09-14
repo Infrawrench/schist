@@ -1,0 +1,9 @@
+{
+  "loading": "Tê barkirin…",
+  "starting": "Dest pê dike…",
+  "webgpu": "Schist hewcedarê WebGPU ye, lê ev gerok wê pêşkêş nake. Chrome/Edge 113+, Firefox 141+ û Safari 26+ wê pêşkêş dikin.",
+  "noticeTitle": "Schist wekî sepana sermaseyê herî baş dixebite",
+  "noticeBody": "Tu guhertoya webê ya siviktir bi kar tînî: wêne li ser CPU tevlihev dike û hin taybetmendiyan — pêvekên Photoshop û pêvekên aliyên sêyem, galerîya wêneyan, panela AI, anîna HEIC û daxistina tîpan — nagire nav xwe; pel jî wek daxistin tên tomarkirin. Sepana sermaseyê ya belaş ji bo macOS, Windows û Linux hemû van taybetmendiyan heye.",
+  "noticeLink": "Sepana sermaseyê bistîne.",
+  "ok": "Temam"
+}

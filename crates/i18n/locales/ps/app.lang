@@ -1,0 +1,42 @@
+# د چاڼګرو نندارتون، لیکبڼې، اوسمهالوونکی او د Vulkan تشخیصي پیغامونه.
+
+app.filter_gallery.title = د چاڼګرو نندارتون
+app.filter_gallery.stack = کتار (له لاندې څخه پورته پلي کېږي)
+app.filter_gallery.no_settings = دا چاڼګر امستنې نه لري.
+
+app.fonts.not_open_licensed = ازاد جواز نه لري · {substitute} یې له کچو سره سمون خوري
+app.fonts.missing_substituted = ورکه ده · متن په بدیله لیکبڼه کې اېښودل کېږي
+app.fonts.not_in_catalogue = {family} د ازادو لیکبڼو په لړلیک کې نشته
+app.fonts.no_faces = د {family} لپاره د راکښته کېدو وړ بڼې نشته
+app.fonts.empty_response = تش ځواب
+
+app.update.unreadable_response = نه لوستل کېدونکی ځواب: {error}
+app.update.no_temp_dir = د راکښته کولو لپاره لنډمهاله پوښۍ نشته
+app.update.asset_has_path = خپرونه خپلې شتمنۍ ته د لارې لرونکی نوم ورکړی
+app.update.too_big = راکښته شوې دوتنه د خپرونې له ښودلې کچې لویه ده
+app.update.stopped_at = راکښته کول د {total} بایټونو له ډلې پر {got} ودرېدل
+app.update.hash_mismatch = د راکښته شوې دوتنې هش {got} دی، نه {want}
+app.update.not_in_bundle = دا کاپي د اپ په بنډل کې دننه نه ده
+app.update.no_parent_dir = د اپ بنډل مورنۍ پوښۍ نه لري
+app.update.cannot_write = په {dir} کې لیکل نشي کېدای
+app.update.cannot_move_aside = {app} څنګ ته نشي لېږدېدای
+app.update.cannot_move_in = نوی بنډل خپل ځای ته نشي لېږدېدای
+app.update.cannot_run_ditto = /usr/bin/ditto نشي چلول کېدای
+app.update.unpack_failed = د راکښته شوې دوتنې پرانیستل ناکام شول: {error}
+app.update.no_app_in_download = په راکښته شوې دوتنه کې Schist.app نشته
+app.update.cannot_run_codesign = /usr/bin/codesign نشي چلول کېدای
+app.update.signature_invalid = د راکښته شوې دوتنې لاسلیک نه تاییدېږي: {error}
+app.update.download_unsigned = دا کاپي لاسلیک شوې، خو راکښته شوې دوتنه نه ده لاسلیک شوې
+app.update.different_developer = راکښته شوې دوتنه بل جوړوونکي لاسلیک کړې
+app.update.cannot_relaunch = بیا پیلوونکی نشي پیل کېدای
+app.update.not_installed_copy = دا کاپي لګوونکي دلته نه ده ایښې
+app.update.cannot_start_installer = لګوونکی نشي پیل کېدای
+app.update.platform_unsupported = په دې پلیټفارم کې اوسمهالونه په هماغه لاره لګول کېږي چې Schist لګول شوی و
+
+# په Linux کې د Vulkan کتنه. د بستو نومونه او قوماندې هماغسې پاتې دي.
+app.vulkan.no_loader = schist: په دې سیسټم کې د Vulkan باروونکی نشته، نو د انځورولو لپاره څه نشته.\n\nSchist د Vulkan له لارې انځوروي، او `libvulkan.so.1` نه دی لګول شوی.\nباروونکی او چلوونکی دواړه اړین دي:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: هغه Vulkan چلوونکی چې دا ناسته ورته اشاره کوي، نشته.\n\n{var} ټاکل شوی، او ټاکل یې د چلوونکو لپاره د باروونکي لټون د زیاتولو پر ځای *ځایناستی* کوي. نو دا دوتنې، چې شتون نه لري،\nد چلوونکو بشپړ لړلیک دی — او په دې ناسته کې د Vulkan هېڅ پروګرام\nهېڅ چلوونکی نه ویني، که هر څو چلوونکي لګول شوي هم وي:\n\n{missing}\n    {var}={value}\n\nهغه داسې څرګندپاڼې ته ورسم کړئ چې شته وي — لګول شوي چلوونکي خپلې څرګندپاڼې په\n/usr/share/vulkan/icd.d کې ږدي — یا یې ارزښت لرې کړئ او باروونکي ته پرېږدئ چې خپل چلوونکی ومومي.\nهغه ناسته چې دا ارزښت له امستنې دوتنې اخلي (د Hyprland `env =`،\nد systemd environment.d ورزیاتونه، یا د شېل پېژنیال) باید هماغلته بدله شي،\nاو بدلون هغو روانو چارو ته د رسېدو لپاره نوې ننوتنه غواړي.\n
+app.vulkan.override_note = \n{var} په {value} ټاکل شوی، او دا د باروونکي خپل\nلټون ځایناستی کوي: که له دغو څرګندپاڼو هېڅ یوه د دې ماشین لپاره نه وي، د ارزښت لرې کول یې\nلومړۍ هڅه ده.\n
+app.vulkan.no_driver = schist: د Vulkan هېڅ چلوونکی نه دی لګول شوی، نو د انځورولو لپاره څه نشته.\n\nSchist د Vulkan له لارې انځوروي. باروونکی لګول شوی، خو هېڅ\nچلوونکی نه ښيي — د لټون په دواړو ځایونو کې هېڅ چلوونکي ځان نه دی ثبت کړی:\n\n{dirs}\n\nباروونکی له چلوونکو جلا وړاندې کېږي، نو دا معمولا د یوې\nناشتې بستې ستونزه وي.\n\nد دې ماشین د GPU لپاره چلوونکی ولګوئ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nد NVIDIA ځانګړی چلوونکی خپل چلوونکی لري (په Arch کې `nvidia-utils`،\nپه Debian کې `nvidia-driver`). په مجازي ماشین، یا داسې ځای کې چې\nد GPU چلوونکی نشي لګېدای، ساوتریز راسټرکوونکی کار کوي:\nپه Arch کې `vulkan-swrast` او په نورو ځایونو کې د `mesa-vulkan-drivers` برخه. دا\nورو دی، خو پیلېږي.\n{overridden}
+app.vulkan.no_device = schist: د Vulkan چلوونکی لګول شوی، خو د انځورولو لپاره هېڅ وسیله نه وړاندې کوي.\n\nکېدای شي چلوونکی دا GPU ونه پوښي، یا لاسرسی ورته ونه لري —\nد SSH له لارې یا د کانتینر دننه، /dev/dri ډېری وخت\nنه وي. `vulkaninfo --summary` ښيي چې باروونکی څه ویني.\n\nکه دا ماشین GPU نه لري، ساوتریز راسټرکوونکی بې له GPU څخه انځوروي:\nپه Arch کې `vulkan-swrast`، او په Debian او Fedora کې\nد `mesa-vulkan-drivers` برخه.\n
+app.vulkan.skip_hint = د دې لپاره چې Schist بیا هم پیل کړئ او پرېږدئ چې په خپله لاره ناکام شي، {var}=1 وټاکئ.

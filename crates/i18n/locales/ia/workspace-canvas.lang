@@ -1,0 +1,40 @@
+# Tela del editor, responsas de stato e entratas del historia.
+
+workspace.canvas.rotate_view_degrees = Rotar le vista {degrees}°
+workspace.canvas.view_reset = Vista reinitialisate
+workspace.canvas.notes_on = Notas activate
+workspace.canvas.notes_off = Notas disactivate
+workspace.canvas.rulers_on = Regulas activate
+workspace.canvas.rulers_off = Regulas disactivate
+workspace.canvas.grid_on = Grilia activate
+workspace.canvas.grid_off = Grilia disactivate
+workspace.canvas.guides_on = Guidas activate
+workspace.canvas.guides_off = Guidas disactivate
+workspace.canvas.extras_on = Extras activate
+workspace.canvas.extras_off = Extras disactivate
+workspace.canvas.snap_on = Attraction activate
+workspace.canvas.snap_off = Attraction disactivate
+workspace.canvas.guides_cleared = Guidas vacuate
+workspace.canvas.no_path = Necun percurso a usar
+workspace.canvas.path_empty = Le percurso es vacue
+workspace.canvas.stroke_needs_selection = Traciar require un selection
+workspace.canvas.nothing_to_stroke = Nihil a traciar
+workspace.canvas.content_aware_fill_needs_selection = Reimplimento sensibile al contento require un selection
+workspace.canvas.content_aware_fill_needs_pixel_layer = Reimplimento sensibile al contento require un strato de pixels
+workspace.canvas.color_range_needs_pixel_layer = Gamma de colores require un strato de pixels
+workspace.canvas.nothing_to_adjust = Nihil a adjustar
+workspace.canvas.nothing_to_trim = Nihil a taliar
+workspace.canvas.trimmed = Retaliate
+workspace.canvas.indexed_not_supported = Color indexate non es ancora supportate
+workspace.canvas.opacity_percent = Opacitate: {n}%
+
+workspace.history.stroke = Tracto
+workspace.history.fill = Reimplimento
+workspace.history.content_aware_scale = Scala sensibile al contento
+workspace.history.filter_gallery = Galeria de filtros
+workspace.history.color_range = Gamma de colores
+workspace.history.move_layer = Mover strato
+workspace.history.move_layers = Mover stratos
+workspace.history.layer_opacity = Opacitate del strato
+workspace.history.delete_note = Deler nota
+workspace.history.edit_note = Modificar nota

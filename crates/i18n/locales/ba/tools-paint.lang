@@ -1,0 +1,73 @@
+# Буяу ҡоралдары.
+tool.brush.name = Бумала
+tool.brush.description = Алғы төҫ менән йомшаҡ ситле һыҙыҡ буяй; уның үлсәмен, ҡатылығын һәм үтә күренмәүсәнлеген мөхәррирҙәге бумала параметрҙары билдәләй.
+tool.brush.history.stroke = Бумала
+
+tool.pencil.name = Ҡәләм
+tool.pencil.description = Алғы төҫ менән ҡаты ситле, шымартылмаған һыҙыҡ буяй.
+tool.pencil.history.stroke = Ҡәләм
+
+tool.eraser.name = Юйғыс
+tool.eraser.description = Һыҙыҡ буйлап юйып, ҡатламды үтә күренмәлелеккә ҡайтара.
+tool.eraser.history.stroke = Юйғыс
+
+tool.clone.name = Клонлау штампы
+tool.clone.description = Клонлау штампы: сығанаҡ нөктәһен билдәләү өсөн alt менән сиртегеҙ, шунан унан шул уҡ тайпылышта күсерелгән пикселдәр менән буяғыҙ.
+tool.clone.history.stroke = Клонлау штампы
+
+tool.dodge.name = Яҡтыртыу
+tool.dodge.description = Һыҙыҡ үткән пикселдәрҙе яҡтырта.
+tool.dodge.history.stroke = Яҡтыртыу
+tool.burn.name = Ҡарайтыу
+tool.burn.description = Һыҙыҡ үткән пикселдәрҙе ҡарайта.
+tool.burn.history.stroke = Ҡарайтыу
+tool.sponge.name = Губка
+tool.sponge.description = Һыҙыҡ үткән пикселдәрҙең төҫөн туйындыра йәки туйынғанлығын кәметә.
+tool.sponge.history.stroke = Губка
+
+tool.blur.name = Тоноҡландырыу
+tool.blur.description = Һыҙыҡ үткән пикселдәрҙең үткерлеген кәметә.
+tool.blur.history.stroke = Тоноҡландырыу
+tool.sharpen.name = Үткерләү
+tool.sharpen.description = Һыҙыҡ үткән пикселдәрҙе үткерләй.
+tool.sharpen.history.stroke = Үткерләү
+tool.smudge.name = Һылау
+tool.smudge.description = Еүеш буяуҙы эткән кеүек, төҫтө һыҙыҡ буйлап һөйрәй.
+tool.smudge.history.stroke = Һылау
+
+tool.heal.name = Тергеҙеүсе бумала
+tool.heal.description = Тергеҙеүсе бумала: сығанаҡты билдәләү өсөн alt менән сиртегеҙ, шунан буяғыҙ; сығанаҡ текстураһы тәғәйен урындағы төҫ һәм яҡтылыҡ менән ҡатнаштырыла.
+tool.heal.history.stroke = Тергеҙеүсе бумала
+tool.spot_heal.name = Нөктәне тергеҙеүсе бумала
+tool.spot_heal.description = Нөктәне тергеҙеүсе бумала: кәмселек өҫтөнән буяғыҙ, һәм ул тирәһенән алынған текстура менән алмаштырыла; сығанаҡ нөктәһе билдәләнмәй.
+tool.spot_heal.history.stroke = Нөктәне тергеҙеүсе бумала
+
+tool.history_brush.name = Тарих бумалаһы
+tool.history_brush.description = Пикселдәрҙе документ тарихының һаҡланған торошонан кире буяп, һуңғы эштәрҙе һыҙыҡлап кире ҡайтара.
+tool.history_brush.history.stroke = Тарих бумалаһы
+
+tool.background_eraser.name = Фон юйғысы
+tool.background_eraser.description = Объектты фондан айырыу өсөн бумала үҙәге аҫтынан алынған төҫтө юя һәм унан айырылған пикселдәргә теймәй.
+tool.background_eraser.history.stroke = Фон юйғысы
+
+tool.gradient.name = Градиент
+tool.gradient.description = Һөйрәү йүнәлешендә алғы төҫтән артҡы төҫкә барған һыҙыҡлы градиент менән ҡатламды тултырыу өсөн һөйрәгеҙ; һайланған өлкә булһа, тултырыу уның аша үтә.
+tool.gradient.radial.name = Радиаль градиент
+tool.gradient.radial.description = Алғы һәм артҡы төҫтәр араһындағы радиаль градиент менән тултырыу өсөн үҙәктән тышҡа һөйрәгеҙ.
+tool.gradient.option.gradient = Градиент
+tool.gradient.option.reverse = Киреһенә
+tool.gradient.option.dither = Дизеринг
+tool.gradient.choice.foreground_to_background = Алғы төҫтән артҡы төҫкә
+tool.gradient.choice.foreground_to_transparent = Алғы төҫтән үтә күренмәлегә
+tool.gradient.choice.linear = Һыҙыҡлы
+tool.gradient.choice.radial = Радиаль
+tool.gradient.choice.angle = Мөйөшлө
+tool.gradient.choice.reflected = Сағылдырылған
+tool.gradient.choice.diamond = Ромб
+tool.gradient.history.gradient = Градиент
+
+tool.bucket.name = Буяу биҙрәһе
+tool.bucket.description = Күрһәткән урындағы оҡшаш төҫлө тоташ өлкәне ҡоралдың рөхсәт ителгән айырмаһы сиктәрендә алғы төҫ менән тултырыу өсөн сиртегеҙ.
+tool.bucket.option.contiguous = Тоташ
+tool.bucket.option.all_layers = Барлыҡ ҡатламдар
+tool.bucket.history.fill = Буяу биҙрәһе

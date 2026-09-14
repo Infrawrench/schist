@@ -1,0 +1,40 @@
+# Risposte della barra di stato
+workspace.canvas.rotate_view_degrees = Ruota vista di {degrees}°
+workspace.canvas.view_reset = Vista ripristinata
+workspace.canvas.notes_on = Note attive
+workspace.canvas.notes_off = Note disattive
+workspace.canvas.rulers_on = Righelli attivi
+workspace.canvas.rulers_off = Righelli disattivi
+workspace.canvas.grid_on = Griglia attiva
+workspace.canvas.grid_off = Griglia disattiva
+workspace.canvas.guides_on = Guide attive
+workspace.canvas.guides_off = Guide disattive
+workspace.canvas.extras_on = Extra attivi
+workspace.canvas.extras_off = Extra disattivi
+workspace.canvas.snap_on = Allineamento attivo
+workspace.canvas.snap_off = Allineamento disattivo
+workspace.canvas.guides_cleared = Guide cancellate
+workspace.canvas.no_path = Nessun tracciato da usare
+workspace.canvas.path_empty = Il tracciato è vuoto
+workspace.canvas.stroke_needs_selection = Per tracciare è necessaria una selezione
+workspace.canvas.nothing_to_stroke = Nulla da tracciare
+workspace.canvas.content_aware_fill_needs_selection = Riempimento in base al contenuto richiede una selezione
+workspace.canvas.content_aware_fill_needs_pixel_layer = Riempimento in base al contenuto richiede un livello pixel
+workspace.canvas.color_range_needs_pixel_layer = Intervallo colori richiede un livello pixel
+workspace.canvas.nothing_to_adjust = Nulla da regolare
+workspace.canvas.nothing_to_trim = Nulla da rifilare
+workspace.canvas.trimmed = Rifilato
+workspace.canvas.indexed_not_supported = Il metodo Colore indicizzato non è ancora supportato
+workspace.canvas.opacity_percent = Opacità: {n}%
+
+# Voci del pannello Storia
+workspace.history.stroke = Traccia
+workspace.history.fill = Riempi
+workspace.history.content_aware_scale = Scala in base al contenuto
+workspace.history.filter_gallery = Galleria filtri
+workspace.history.color_range = Intervallo colori
+workspace.history.move_layer = Sposta livello
+workspace.history.move_layers = Sposta livelli
+workspace.history.layer_opacity = Opacità livello
+workspace.history.delete_note = Elimina nota
+workspace.history.edit_note = Modifica nota

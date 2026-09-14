@@ -1,0 +1,9 @@
+{
+  "loading": "Waa la rarayaa…",
+  "starting": "Waa la bilaabayaa…",
+  "webgpu": "Schist wuxuu u baahan yahay WebGPU, kaas oo aanu barrawsarkan taageerin. Chrome/Edge 113+, Firefox 141+ iyo Safari 26+ way taageeraan.",
+  "noticeTitle": "Schist wuxuu sida ugu fiican ugu shaqeeyaa abka desktop-ka",
+  "noticeBody": "Waxaad isticmaalaysaa nooca webka, oo ah nooc hawlo yar leh: isku-darka sawirrada wuxuu ku sameeyaa CPU-ga, waxaana ka maqan qaybo ay ka mid yihiin Photoshop plug-ins iyo plug-ins ay sameeyeen dhinacyo kale, maktabadda sawirrada, guddiga AI, soo dejinta HEIC iyo soo dejinta farta; faylashana waxaa loo kaydiyaa sidii faylal la soo dejiyey. Abka desktop-ka ee bilaashka ah ee macOS, Windows iyo Linux ayaa leh dhammaan qaybahaas.",
+  "noticeLink": "Hel abka desktop-ka.",
+  "ok": "Hagaag"
+}

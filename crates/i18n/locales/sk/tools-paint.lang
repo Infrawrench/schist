@@ -1,0 +1,72 @@
+tool.brush.name = Štetec
+tool.brush.description = Maľuje ťah s mäkkými okrajmi farbou popredia; jeho veľkosť, tvrdosť a krytie určujú nastavenia štetca v editore.
+tool.brush.history.stroke = Štetec
+
+tool.pencil.name = Ceruzka
+tool.pencil.description = Maľuje nevyhladený ťah s tvrdými okrajmi farbou popredia.
+tool.pencil.history.stroke = Ceruzka
+
+tool.eraser.name = Guma
+tool.eraser.description = Maže pozdĺž ťahu a vracia vrstvu do priehľadnosti.
+tool.eraser.history.stroke = Guma
+
+tool.clone.name = Klonovacia pečiatka
+tool.clone.description = Klonovacia pečiatka: kliknutím s klávesom Alt nastavte zdrojový bod a potom maľujte pixely kopírované z tohto bodu s rovnakým posunom.
+tool.clone.history.stroke = Klonovacia pečiatka
+
+tool.dodge.name = Zosvetlenie
+tool.dodge.description = Zosvetľuje pixely, cez ktoré prechádza ťah.
+tool.dodge.history.stroke = Zosvetlenie
+tool.burn.name = Stmavenie
+tool.burn.description = Stmavuje pixely, cez ktoré prechádza ťah.
+tool.burn.history.stroke = Stmavenie
+tool.sponge.name = Špongia
+tool.sponge.description = Zvyšuje alebo znižuje sýtosť pixelov, cez ktoré prechádza ťah.
+tool.sponge.history.stroke = Špongia
+
+tool.blur.name = Rozmazanie
+tool.blur.description = Rozmazáva pixely, cez ktoré prechádza ťah.
+tool.blur.history.stroke = Rozmazanie
+tool.sharpen.name = Zaostrenie
+tool.sharpen.description = Zaostruje pixely, cez ktoré prechádza ťah.
+tool.sharpen.history.stroke = Zaostrenie
+tool.smudge.name = Rozotretie
+tool.smudge.description = Rozťahuje farbu pozdĺž ťahu, akoby ste posúvali mokrú farbu.
+tool.smudge.history.stroke = Rozotretie
+
+tool.heal.name = Retušovací štetec
+tool.heal.description = Retušovací štetec: kliknutím s klávesom Alt nastavte zdroj a potom maľujte; textúra zdroja sa prelína s farbou a osvetlením cieľového miesta.
+tool.heal.history.stroke = Retušovací štetec
+tool.spot_heal.name = Bodový retušovací štetec
+tool.spot_heal.description = Bodový retušovací štetec: premaľujte nedostatok a nahradí sa textúrou z okolia — zdrojový bod netreba nastavovať.
+tool.spot_heal.history.stroke = Bodový retušovací štetec
+
+tool.history_brush.name = Štetec histórie
+tool.history_brush.description = Maľovaním obnovuje pixely zo snímky histórie dokumentu a ťah po ťahu ruší neskoršie úpravy.
+tool.history_brush.history.stroke = Štetec histórie
+
+tool.background_eraser.name = Guma pozadia
+tool.background_eraser.description = Maže farbu odobratú pod stredom štetca a odlišné pixely ponecháva, aby bolo možné oddeliť objekt od pozadia.
+tool.background_eraser.history.stroke = Guma pozadia
+
+tool.gradient.name = Prechod
+tool.gradient.description = Potiahnutím vyplní vrstvu — cez výber, ak existuje — lineárnym prechodom, ktorý vedie v smere ťahu od farby popredia k farbe pozadia.
+tool.gradient.radial.name = Kruhový prechod
+tool.gradient.radial.description = Potiahnutím od stredu smerom von vyplní oblasť kruhovým prechodom medzi farbou popredia a pozadia.
+tool.gradient.option.gradient = Prechod
+tool.gradient.option.reverse = Obrátiť
+tool.gradient.option.dither = Rozklad
+tool.gradient.choice.foreground_to_background = Od popredia k pozadiu
+tool.gradient.choice.foreground_to_transparent = Od popredia k priehľadnosti
+tool.gradient.choice.linear = Lineárny
+tool.gradient.choice.radial = Kruhový
+tool.gradient.choice.angle = Uhlový
+tool.gradient.choice.reflected = Zrkadlený
+tool.gradient.choice.diamond = Kosoštvorcový
+tool.gradient.history.gradient = Prechod
+
+tool.bucket.name = Vedro s farbou
+tool.bucket.description = Kliknutím vyplní súvislú oblasť podobnej farby pod ukazovateľom farbou popredia v rámci tolerancie nástroja.
+tool.bucket.option.contiguous = Súvislé
+tool.bucket.option.all_layers = Všetky vrstvy
+tool.bucket.history.fill = Vedro s farbou

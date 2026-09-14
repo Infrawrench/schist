@@ -1,0 +1,21 @@
+tool.move.name = Hambisa
+tool.move.description = Hudulela okuqukethwe kusendlalelo esisebenzayo endaweni entsha. Nxa ukuzikhethela kuvuliwe, ukucindezela kuqala kukhethe loba yisiphi isendlalelo — kumbe iqembu lonke — elingaphansi kwesikhombi.
+tool.move.option.auto_select = Zikhethele
+tool.move.history.move_layer = Hambisa Isendlalelo
+
+tool.eyedropper.name = Isicoshi Sombala
+tool.eyedropper.description = Thatha umbala ongaphansi kwesikhombi uwufake kusampula yombala wangaphambili, kumbe kusampula yangemuva nxa u-Alt ebanjiwe. Ukuhudula kuqhubeka kuthatha amasampula.
+tool.eyedropper.option.sample_size = Ubukhulu Besampula
+tool.eyedropper.option.sample = Isampula
+tool.eyedropper.choice.point_sample = Isampula Yephuzu
+tool.eyedropper.choice.average_3 = Isilinganiso sika-3 ngo-3
+tool.eyedropper.choice.average_5 = Isilinganiso sika-5 ngo-5
+tool.eyedropper.choice.average_11 = Isilinganiso sika-11 ngo-11
+tool.eyedropper.choice.average_31 = Isilinganiso sika-31 ngo-31
+tool.eyedropper.choice.all_layers = Zonke Izendlalelo
+tool.eyedropper.choice.current_layer = Isendlalelo Samanje
+
+tool.hand.name = Isandla
+tool.hand.description = Susa indawo ebukwayo iye eceleni. Indawo ebukwayo ngeyewindi, ngakho leli thuluzi kaliguquli lutho kudokhumenti nxa lisetshenziswa kungela windi.
+tool.zoom.name = Sondeza
+tool.zoom.description = Sondeza loba uqhelise indawo ebukwayo. Indawo ebukwayo ngeyewindi, ngakho leli thuluzi kaliguquli lutho kudokhumenti nxa lisetshenziswa kungela windi.

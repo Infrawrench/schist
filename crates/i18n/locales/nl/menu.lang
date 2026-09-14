@@ -1,0 +1,143 @@
+# Menubalk voor het venster en het systeem.
+
+menu.file = Bestand
+menu.file.new = Nieuw
+menu.file.open = Openen…
+menu.file.open_recent = Recente bestanden openen
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Door galerie bladeren…
+menu.file.close = Sluiten
+menu.file.save = Opslaan
+menu.file.save_as = Opslaan als…
+menu.file.export = Exporteren…
+menu.file.export_submenu = Exporteren
+menu.file.export_artboards = Tekengebieden naar PNG…
+menu.file.export_slices = Segmenten naar PNG…
+menu.file.save_to_photos = Bewaren in Foto's
+menu.file.plugins = Plug-ins…
+menu.file.missing_fonts = Ontbrekende lettertypen…
+menu.file.check_for_updates = Zoeken naar updates…
+menu.file.quit = Stoppen
+menu.file.add_folder_to_gallery = Map aan galerie toevoegen…
+menu.file.import_from_photos = Importeren uit Foto's…
+menu.file.import_from_camera = Importeren van camera…
+
+menu.edit = Bewerken
+menu.edit.fill = Vullen…
+menu.edit.stroke = Omlijnen…
+menu.edit.content_aware_fill = Vullen met behoud van inhoud
+menu.edit.content_aware_scale = Schalen met behoud van inhoud…
+menu.edit.puppet_warp = Marionet verdraaien
+menu.edit.free_transform = Vrije transformatie
+menu.edit.transform = Transformeren
+menu.edit.rotate_180 = 180° draaien
+menu.edit.rotate_90_cw = 90° rechtsom draaien
+menu.edit.rotate_90_ccw = 90° linksom draaien
+menu.edit.flip_horizontal = Horizontaal spiegelen
+menu.edit.flip_vertical = Verticaal spiegelen
+
+menu.image = Afbeelding
+menu.image.mode = Modus
+menu.image.adjustments = Aanpassingen
+menu.image.auto_tone = Automatische tint
+menu.image.auto_contrast = Automatisch contrast
+menu.image.auto_color = Automatische kleur
+menu.image.image_size = Afbeeldingsgrootte…
+menu.image.canvas_size = Canvasgrootte…
+menu.image.image_rotation = Afbeelding roteren
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° rechtsom
+menu.image.rotate_90_ccw = 90° linksom
+menu.image.flip_canvas_horizontal = Canvas horizontaal spiegelen
+menu.image.flip_canvas_vertical = Canvas verticaal spiegelen
+menu.image.crop_to_selection = Uitsnijden tot selectie
+menu.image.trim = Verkleinen
+menu.image.assign_profile = Profiel toewijzen…
+menu.image.convert_to_profile = Omzetten in profiel…
+
+menu.select = Selecteren
+menu.select.color_range = Kleurbereik…
+menu.select.modify = Bewerken
+menu.select.border = Rand…
+menu.select.smooth = Vloeiend maken…
+menu.select.expand = Uitbreiden…
+menu.select.contract = Slinken…
+menu.select.feather = Doezelaar…
+menu.select.transform_selection = Selectie transformeren
+
+menu.layer = Laag
+menu.layer.layer_style = Laagstijl…
+menu.layer.layer_comps = Laagcomposities
+menu.layer.new_layer_comp = Nieuwe laagcompositie
+menu.layer.delete_layer_comp = {name} verwijderen
+menu.layer.path = Pad
+menu.layer.fill_path = Pad vullen
+menu.layer.stroke_path = Pad omlijnen
+menu.layer.make_selection = Selectie maken
+menu.layer.delete_path = Pad verwijderen
+
+menu.adjust = Aanpassen
+
+menu.filter = Filter
+menu.filter.filter_gallery = Filtergalerie…
+menu.filter.liquify = Uitvloeien
+menu.filter.vanishing_point = Verdwijnpunt
+menu.filter.manage_models = Modellen beheren…
+menu.filter.camera_raw_development = Camera Raw-ontwikkeling…
+
+menu.view = Weergave
+menu.view.rotate_view_cw = Weergave rechtsom draaien
+menu.view.rotate_view_ccw = Weergave linksom draaien
+menu.view.reset_view = Weergave herstellen
+menu.view.zoom_in = Inzoomen
+menu.view.zoom_out = Uitzoomen
+menu.view.fit_on_screen = Passend op scherm
+menu.view.actual_size = 100%
+menu.view.rulers = Linialen
+menu.view.grid = Raster
+menu.view.guides = Hulplijnen
+menu.view.notes = Notities
+menu.view.ai_panel = AI-deelvenster
+menu.view.extras = Extra's
+menu.view.snap = Magnetisch
+menu.view.clear_guides = Hulplijnen wissen
+menu.view.clear_notes = Notities wissen
+menu.view.clear_count = Telling wissen
+menu.view.screen_mode = Schermmodus
+menu.view.proof_colors = Proefkleuren
+menu.view.show_rulers = Linialen tonen
+menu.view.hide_rulers = Linialen verbergen
+menu.view.show_grid = Raster tonen
+menu.view.hide_grid = Raster verbergen
+menu.view.show_guides = Hulplijnen tonen
+menu.view.hide_guides = Hulplijnen verbergen
+menu.view.show_notes = Notities tonen
+menu.view.hide_notes = Notities verbergen
+menu.view.show_extras = Extra's tonen
+menu.view.hide_extras = Extra's verbergen
+menu.view.enable_snapping = Magnetisch uitlijnen inschakelen
+menu.view.disable_snapping = Magnetisch uitlijnen uitschakelen
+menu.view.enable_proof_colors = Proefkleuren inschakelen
+menu.view.disable_proof_colors = Proefkleuren uitschakelen
+
+menu.gallery = Galerie
+menu.gallery.edit_selected = Selectie bewerken
+menu.gallery.refresh = Vernieuwen
+menu.gallery.map_filter = Kaartfilter…
+menu.gallery.back_to_editor = Terug naar editor
+
+menu.cloud.browse = Door Schist Cloud bladeren
+menu.cloud.generate = Afbeeldingen genereren…
+menu.cloud.upload = Document naar Schist Cloud uploaden…
+menu.cloud.sign_out = Afmelden bij Schist Cloud
+menu.cloud.sign_in = Aanmelden bij Schist Cloud…
+
+menu.app.services = Voorzieningen
+menu.app.hide = {app} verbergen
+menu.app.hide_others = Andere verbergen
+menu.app.show_all = Alles tonen
+menu.app.quit = {app} stoppen
+
+menu.status.transform_selection_needs_selection = Voor Selectie transformeren is een selectie nodig
+menu.status.crop_needs_selection = Voor Uitsnijden tot selectie is een selectie nodig
+menu.status.select_photo_to_edit = Selecteer een foto om te bewerken

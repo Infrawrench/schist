@@ -1,0 +1,27 @@
+# Piranti tèks.
+
+tool.type.name = Tèks
+tool.type.description = Klik kanggo miwiti lapisan tèks ing kono, utawa klik lapisan tèks sing wis ana kanggo nyunting. Sajroning panyuntingan, piranti nampa tombol mentah (kirim aksara minangka input tombol), lan nalika ditrapaké lapisan bakal dirender lan panyuntingan ditutup.
+
+# Bilah pilihan
+tool.type.option.align = Laras
+tool.type.option.leading = Jarak Larik
+tool.type.option.tracking = Jarak Aksara
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligatur
+tool.type.option.discretionary_ligatures = Ligatur Opsional
+tool.type.option.small_caps = Kapital Cilik
+tool.type.option.on_path = Ing path aktif
+tool.type.option.path_offset = Ofset path
+
+# Dhaptar gaya
+tool.type.choice.regular = Biasa
+tool.type.choice.bold = Kandel
+tool.type.choice.italic = Miring
+tool.type.choice.bold_italic = Kandel Miring
+
+# Riwayat
+tool.type.history.new_layer = Lapisan Tèks Anyar
+tool.type.history.edit = Sunting Tèks
+tool.type.history.discard = Buwang Tèks
+tool.type.history.discard_empty = Buwang Tèks Kosong

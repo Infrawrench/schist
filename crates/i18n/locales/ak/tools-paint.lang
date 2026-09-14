@@ -1,0 +1,83 @@
+# Brush
+tool.brush.name = Brush
+tool.brush.description = Fa anim kɔla no yɛ nsensanee a n'ano yɛ bɔkɔɔ; ne kɛse gyina editor no brush kɛse, denyɛ ne sɛnea ɛkata so no so.
+tool.brush.history.stroke = Brush
+
+# Pencil
+tool.pencil.name = Pɛnsere
+tool.pencil.description = Fa anim kɔla no yɛ nsensanee a n'ano yɛ den na wɔnyɛɛ antialiasing biara.
+tool.pencil.history.stroke = Pɛnsere
+
+# Pɛpaade
+tool.eraser.name = Pɛpaade
+tool.eraser.description = Pepa faako a nsensanee no fa, na ma layer no san yɛ nea wɔnam mu hu ade.
+tool.eraser.history.stroke = Pɛpaade
+
+# Clone Stamp
+tool.clone.name = Nsɛso Stamp
+tool.clone.description = Nsɛso Stamp: mia alt na mia beae bi de yɛ fibea, afei fa pixels a wɔafa afi hɔ no yɛ adwuma wɔ ntwea koro no ara so.
+tool.clone.history.stroke = Nsɛso Stamp
+
+# Dodge, Burn, Sponge
+tool.dodge.name = Ma Ɛyɛ Hann
+tool.dodge.description = Ma pixels a nsensanee no fa so no nyɛ hann.
+tool.dodge.history.stroke = Ma Ɛyɛ Hann
+tool.burn.name = Ma Ɛyɛ Tuntum
+tool.burn.description = Ma pixels a nsensanee no fa so no nyɛ tuntum.
+tool.burn.history.stroke = Ma Ɛyɛ Tuntum
+tool.sponge.name = Sponge
+tool.sponge.description = Ma pixels a nsensanee no fa so no kɔla saturation nkɔ soro anaa fam.
+tool.sponge.history.stroke = Sponge
+
+# Kusuu, Nam, Petepete
+tool.blur.name = Yɛ Kusuu
+tool.blur.description = Ma pixels a nsensanee no fa so no nyɛ kusuu.
+tool.blur.history.stroke = Yɛ Kusuu
+tool.sharpen.name = Ma Ɛyɛ Nam
+tool.sharpen.description = Ma pixels a nsensanee no fa so no nyɛ nam.
+tool.sharpen.history.stroke = Ma Ɛyɛ Nam
+tool.smudge.name = Petepete
+tool.smudge.description = Twe kɔla fa nsensanee no so te sɛ nea worepia paint a afɔw.
+tool.smudge.history.stroke = Petepete
+
+# Ayaresa
+tool.heal.name = Ayaresa Brush
+tool.heal.description = Ayaresa Brush: mia alt na mia de si fibea no, afei fa brush no yɛ adwuma; wɔde fibea no texture fra beae a ɛrekɔ no ankasa kɔla ne hann mu.
+tool.heal.history.stroke = Ayaresa Brush
+tool.spot_heal.name = Beae Ayaresa Brush
+tool.spot_heal.description = Beae Ayaresa Brush: fa brush no kata nkekae bi so, na wɔde texture a wɔafa afi nea atwa ho ahyia no besi ananmu — fibea beae biara nni hɔ a ɛsɛ sɛ wohyɛ.
+tool.spot_heal.history.stroke = Beae Ayaresa Brush
+
+# Abakɔsɛm Brush
+tool.history_brush.name = Abakɔsɛm Brush
+tool.history_brush.description = San fa pixels fi document no abakɔsɛm snapshot mu yɛ adwuma, na san akyiri dwuma a wɔyɛe akyiri yi nsensanee biara so.
+tool.history_brush.history.stroke = Abakɔsɛm Brush
+
+# Akyi Pɛpaade
+tool.background_eraser.name = Akyi Pɛpaade
+tool.background_eraser.description = Pepa kɔla a wɔpaw wɔ brush no mfinimfini no, na nnya pixels a wɔn kɔla nyɛ saa no, sɛnea ɛbɛyɛ a wubeyi ade bi afi n'akyiri.
+tool.background_eraser.history.stroke = Akyi Pɛpaade
+
+# Gradient
+tool.gradient.name = Gradient
+tool.gradient.description = Twe na fa linear gradient a efi anim kɔla no so kɔ akyi kɔla no so wɔ ɔkwan a wotwee no so hyɛ layer no mu — ɛfa nea woapaw no mu bere a biribi wɔ hɔ.
+tool.gradient.radial.name = Kurukuruwa Gradient
+tool.gradient.radial.description = Twe fi mfinimfini kɔ abɔnten na fa radial gradient a ɛda anim ne akyi kɔla no ntam hyɛ mu.
+tool.gradient.option.gradient = Gradient
+tool.gradient.option.reverse = Dan No
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Anim Kɔ Akyi
+tool.gradient.choice.foreground_to_transparent = Anim Kɔ Nea Wɔnam Mu Hu Ade
+tool.gradient.choice.linear = Linear
+tool.gradient.choice.radial = Radial
+tool.gradient.choice.angle = Twea
+tool.gradient.choice.reflected = Ahwehwɛ Mu
+tool.gradient.choice.diamond = Diamond
+tool.gradient.history.gradient = Gradient
+
+# Paint Bucket
+tool.bucket.name = Paint Bokiti
+tool.bucket.description = Mia na fa anim kɔla no hyɛ beae a ɛtoa so na ne kɔla te sɛ nea ɛwɔ pointer no ase no mu, sɛnea adwinnade no tolerance te.
+tool.bucket.option.contiguous = Ɛtoa So
+tool.bucket.option.all_layers = Layer Nyinaa
+tool.bucket.history.fill = Paint Bokiti

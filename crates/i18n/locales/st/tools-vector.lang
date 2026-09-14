@@ -1,0 +1,44 @@
+# Lisebelisoa tsa vector: dipene, khetho ea litsela le dibopeho.
+tool.pen.name = Pene
+tool.pen.description = Haha tsela: tobetsa ho beha ntlha ea huku, hula ho ntša mehele e laolang ho kobeha ho eona, ebe u tobetsa ntlha ea pele ho koala tsela. Ho tiisa ho fetola tsela hore e be mokhahlelo oa sebopeho.
+tool.pen.option.rubber_band = Lebanta la Rabara
+tool.pen.history.fill = Ho Tlatsa Tsela
+tool.pen.default_path_name = Tsela {n}
+tool.pen.freeform.name = Pene ea Letsoho
+tool.pen.freeform.description = Hula mola ka letsoho, 'me o nyaloe le tsela ho latela hore na khetho ea Ho Nyalanya e o lumella ho kheloha hakae.
+tool.pen.freeform.option.fit = Nyalanya
+tool.pen.curvature.name = Pene ea Mela e Kobehileng
+tool.pen.curvature.description = Tobetsa letoto la lintlha, 'me tsela e kobehe ka boreleli ho feta ho tsona.
+
+tool.path_select.name = Khetho ea Tsela
+tool.path_select.description = Tobetsa tsela ho e khetha, 'me u hule ho tsamaisa tsela eohle.
+tool.direct_select.name = Khetho e Otlolohileng
+tool.direct_select.description = Hula ntlha e le 'ngoe e tlamang tsela kapa mehele ea eona ho fetola sebopeho sa tsela ho e potoloha.
+
+tool.shape.history.layer = Mokhahlelo oa {name}
+tool.shape.rect.name = Sesebelisoa sa Khutlonne
+tool.shape.rect.label = Khutlonne
+tool.shape.rect.description = Hula ho etsa mokhahlelo oa sebopeho sa khutlonne ka 'mala oa bokapele; o sala e le vector 'me o etsoa lipiksele bocha ha boholo bo fetoloa.
+tool.shape.ellipse.name = Sesebelisoa sa Motopo
+tool.shape.ellipse.label = Motopo
+tool.shape.ellipse.description = Hula ho etsa mokhahlelo oa sebopeho sa motopo ka 'mala oa bokapele.
+tool.shape.line.name = Sesebelisoa sa Mola
+tool.shape.line.label = Mola
+tool.shape.line.description = Hula ho etsa mokhahlelo oa sebopeho sa mola o otlolohileng ka 'mala oa bokapele.
+tool.shape.line.option.weight = Botenya
+tool.shape.line.option.arrow_start = Qalo
+tool.shape.line.option.arrow_end = Qetello
+tool.shape.polygon.name = Sesebelisoa sa Polygon
+tool.shape.polygon.label = Polygon
+tool.shape.polygon.description = Hula ho etsa mokhahlelo oa sebopeho sa polygon e tloaelehileng ka 'mala oa bokapele, e nang le palo ea mahlakore e khethiloeng likhethong.
+tool.shape.polygon.option.sides = Mahlakore
+
+tool.shape.custom.name = Sebopeho se Ikhethetsoeng
+tool.shape.custom.label = Sebopeho se Ikhethetsoeng
+tool.shape.custom.description = Hula ho etsa se seng sa dibopeho tse seng li kentsoe, se khethiloeng ka khetho ea Sebopeho.
+tool.shape.custom.choice.heart = Pelo
+tool.shape.custom.choice.star = Naleli
+tool.shape.custom.choice.arrow = Motsu
+tool.shape.custom.choice.lightning = Lehalima
+tool.shape.custom.choice.cross = Sefapano
+tool.shape.custom.choice.speech_bubble = Balunu ea Puo

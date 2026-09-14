@@ -1,0 +1,41 @@
+# Galleria di filtri, caratteri, aghjurnamenti è diagnosticu Vulkan.
+
+app.filter_gallery.title = Galleria di filtri
+app.filter_gallery.stack = Pila (appiicata da sottu à sopra)
+app.filter_gallery.no_settings = Stu filtru ùn hà nisuna impostazione.
+
+app.fonts.not_open_licensed = senza licenza aperta · {substitute} hà e listesse metriche
+app.fonts.missing_substituted = mancante · u testu hè cumpostu cù un caratteru sustitutu
+app.fonts.not_in_catalogue = {family} ùn hè micca in u catalogu apertu di caratteri
+app.fonts.no_faces = nisuna variante scaricabile per {family}
+app.fonts.empty_response = risposta viota
+
+app.update.unreadable_response = risposta illeggibile: {error}
+app.update.no_temp_dir = nisun cartulare tempurariu induve scaricà
+app.update.asset_has_path = a versione dà à a so risorsa un nome chì cuntene un percorsu
+app.update.too_big = u scaricamentu hè più grande chè ciò chì a versione indica
+app.update.stopped_at = u scaricamentu s'hè firmatu à {got} nant'à {total} ottetti
+app.update.hash_mismatch = l'impronta di u scaricamentu hè {got}, micca {want}
+app.update.not_in_bundle = sta copia ùn hè micca dentru à un pacchettu d'applicazione
+app.update.no_parent_dir = u pacchettu d'applicazione ùn hà micca cartulare parente
+app.update.cannot_write = impussibule di scrive in {dir}
+app.update.cannot_move_aside = impussibule di mette {app} da cantu
+app.update.cannot_move_in = impussibule di mette u pacchettu novu à u so locu
+app.update.cannot_run_ditto = impussibule d'eseguisce /usr/bin/ditto
+app.update.unpack_failed = fiascu à u scumpattamentu di u scaricamentu: {error}
+app.update.no_app_in_download = u scaricamentu ùn cuntene micca Schist.app
+app.update.cannot_run_codesign = impussibule d'eseguisce /usr/bin/codesign
+app.update.signature_invalid = a firma di u scaricamentu ùn pò esse verificata: {error}
+app.update.download_unsigned = sta copia hè firmata ma u scaricamentu ùn hè micca firmatu
+app.update.different_developer = u scaricamentu hè firmatu da un altru sviluppatore
+app.update.cannot_relaunch = impussibule d'avvià u rilanciatore
+app.update.not_installed_copy = sta copia ùn hè micca stata messa quì da l'installatore
+app.update.cannot_start_installer = impussibule d'avvià l'installatore
+app.update.platform_unsupported = nant'à sta piattaforma, l'aghjurnamenti sò stallati di listessa manera chè Schist
+
+app.vulkan.no_loader = schist: nisun caricatore Vulkan nant'à stu sistema, dunque ùn ci hè nunda cù chì disegnà.\n\nSchist rende per mezu di Vulkan, è `libvulkan.so.1` ùn hè micca stallatu.\nCi volenu à tempu u caricatore è un pilotu:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: u pilotu Vulkan indicatu da sta sessione ùn si trova micca.\n\n{var} hè definitu, è definiscelu *rimpiazza* a ricerca di piloti fatta da u caricatore invece d'aghjunghjesi à ella. Dunque sti schedarii, chì ùn esistenu micca,\nsò a lista sana di piloti — è ogni prugramma Vulkan di sta sessione\nùn vede nisun pilotu, quantunque piloti sianu stallati:\n\n{missing}\n    {var}={value}\n\nFatelu puntà nant'à un manifestu chì esiste — i piloti stallati mettenu u so in\n/usr/share/vulkan/icd.d — o cacciate a variabile è lasciate chì u caricatore trovi u so.\nUna sessione chì a definisce da un schedariu di cunfigurazione (`env =` di Hyprland,\nun schedariu environment.d di systemd, un prufilu di shell) deve esse mudificata quallà,\nè ci vole una cunnessione nova perchè u cambiamentu ghjunghji à ciò chì hè digià in esecuzione.\n
+app.vulkan.override_note = \n{var} hè definitu cum'è {value}, è què rimpiazza a ricerca\ndi u caricatore: s'ellu ùn ci hè nisun manifestu per sta macchina,\na prima cosa da pruvà hè di caccià sta definizione.\n
+app.vulkan.no_driver = schist: nisun pilotu Vulkan hè stallatu, dunque ùn ci hè nunda nant'à chì disegnà.\n\nSchist rende per mezu di Vulkan. U caricatore hè stallatu è ùn segnala\nnisun pilotu — nunda n'hà arregistratu unu in alcunu di i dui lochi induve sò ricercati:\n\n{dirs}\n\nU caricatore hè distribuitu à parte da i piloti, dunque di solitu manca solu\nun pacchettu.\n\nStallate quellu chì currisponde à u GPU di sta macchina:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nU pilotu pruprietariu di NVIDIA cuntene u so propiu (`nvidia-utils` nant'à Arch,\n`nvidia-driver` nant'à Debian). In una macchina virtuale, o induve ùn ci hè\nnisun pilotu GPU da stallà, a rasterizazione lugiziale hè quella chì funziona:\n`vulkan-swrast` nant'à Arch, parte di `mesa-vulkan-drivers` altrò. Hè\nlenta, ma s'avvia.\n{overridden}
+app.vulkan.no_device = schist: un pilotu Vulkan hè stallatu ma ùn offre nisun dispusitivu per rende.\n\nForse u pilotu ùn gestisce micca stu GPU, o ùn ci pò micca accede —\nper SSH o dentru à un cuntainer, spessu manca /dev/dri.\n`vulkaninfo --summary` indica ciò chì u caricatore vede.\n\nA rasterizazione lugiziale rende senza nisun GPU, s'ella hè a suluzione\nnecessaria à sta macchina: `vulkan-swrast` nant'à Arch, parte di `mesa-vulkan-drivers`\nnant'à Debian è Fedora.\n
+app.vulkan.skip_hint = Per avvià quantunque Schist è lasciallu fiascà à modu soiu, definite {var}=1.

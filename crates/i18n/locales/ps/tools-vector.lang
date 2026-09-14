@@ -1,0 +1,45 @@
+# د ویکتور وسیلې: قلمونه، د ټاکنې غشي، بڼې او دودیزې بڼې.
+
+tool.pen.name = قلم
+tool.pen.description = لار جوړه کړئ: د کونج ټکي لپاره کېکاږئ، د منحني لاستي ترې ایستلو لپاره راکاږئ، او د تړلو لپاره پر لومړي ټکي کېکاږئ. منل لار د بڼې په طبقه بدلوي.
+tool.pen.option.rubber_band = ربړي پټۍ
+tool.pen.history.fill = لار ډکول
+tool.pen.default_path_name = لار {n}
+tool.pen.freeform.name = ازاد قلم
+tool.pen.freeform.description = په لاس ازاده کرښه راکاږئ؛ د برابرولو غوراوي له مخې په نرمۍ یا ټینګۍ یوې لارې ته برابرېږي.
+tool.pen.freeform.option.fit = برابرول
+tool.pen.curvature.name = منحني قلم
+tool.pen.curvature.description = پر پرله‌پسې ټکو کېکاږئ؛ لار په هواره توګه له هغو تېره منحني کېږي.
+
+tool.path_select.name = د لارې ټاکنه
+tool.path_select.description = د ټاکلو لپاره پر لار کېکاږئ، او د ټولې لارې د لېږد لپاره یې راکاږئ.
+tool.direct_select.name = نېغه ټاکنه
+tool.direct_select.description = یو مهار ټکی یا لاستي یې راکاږئ چې چاپېر لار یې بله بڼه واخلي.
+
+tool.shape.history.layer = د {name} طبقه
+tool.shape.rect.name = د مستطیل وسیله
+tool.shape.rect.label = مستطیل
+tool.shape.rect.description = په مخکیني رنګ د مستطیل بڼې طبقه راکاږئ؛ ویکتور پاتې کېږي او د کچې په بدلېدو بیا پېکسلي کېږي.
+tool.shape.ellipse.name = د بیضوي وسیله
+tool.shape.ellipse.label = بیضوي
+tool.shape.ellipse.description = په مخکیني رنګ د بیضوي بڼې طبقه راکاږئ.
+tool.shape.line.name = د کرښې وسیله
+tool.shape.line.label = کرښه
+tool.shape.line.description = په مخکیني رنګ د نېغې کرښې بڼې طبقه راکاږئ.
+tool.shape.line.option.weight = پنډوالی
+tool.shape.line.option.arrow_start = پیل
+tool.shape.line.option.arrow_end = پای
+tool.shape.polygon.name = د څوګوټي وسیله
+tool.shape.polygon.label = څوګوټی
+tool.shape.polygon.description = په مخکیني رنګ منظمه څوګوټیزه طبقه راکاږئ؛ د اړخونو شمېر یې له غوراویو اخیستل کېږي.
+tool.shape.polygon.option.sides = اړخونه
+
+tool.shape.custom.name = دودیزه بڼه
+tool.shape.custom.label = دودیزه بڼه
+tool.shape.custom.description = له مخکې جوړو شوو بڼو یوه راکاږئ؛ بڼه د «بڼه» په غوراوي ټاکل کېږي.
+tool.shape.custom.choice.heart = زړه
+tool.shape.custom.choice.star = ستوری
+tool.shape.custom.choice.arrow = غشی
+tool.shape.custom.choice.lightning = برېښنا
+tool.shape.custom.choice.cross = صلیب
+tool.shape.custom.choice.speech_bubble = د خبرو پوکاڼه

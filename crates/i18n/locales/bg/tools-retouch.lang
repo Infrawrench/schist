@@ -1,0 +1,24 @@
+# Инструменти за ретуширане на области.
+tool.patch.name = Кръпка
+tool.patch.description = Очертайте с плъзгане дефекта, след което плъзнете избраната област върху чисти пиксели: текстурата оттам се напасва върху дефекта. Режимът на кръпката определя кой край от двойката да плъзнете.
+tool.patch.option.patch = Кръпка
+tool.patch.choice.source = Източник
+tool.patch.choice.destination = Местоназначение
+tool.patch.history.patch = Кръпка
+
+tool.content_aware_move.name = Преместване със съобразяване със съдържанието
+tool.content_aware_move.description = Плъзнете избран обект на друго място и празнината след него ще се запълни от околността. В режим „Разширяване“ обектът се разтяга, вместо да се премества.
+tool.content_aware_move.choice.move = Преместване
+tool.content_aware_move.choice.extend = Разширяване
+tool.content_aware_move.history.move = Преместване със съобразяване със съдържанието
+
+tool.red_eye.name = Червени очи
+tool.red_eye.description = Щракнете върху зеница, за да премахнете червения отблясък от светкавицата.
+tool.red_eye.option.pupil_size = Размер на зеницата
+tool.red_eye.option.darken = Затъмняване
+tool.red_eye.history.red_eye = Червени очи
+
+tool.magic_eraser.name = Магическа гума
+tool.magic_eraser.description = Щракнете, за да изтриете областта с подобен цвят под показалеца в рамките на допуска на инструмента — само свързаната с щракнатото място област или всички такива области в слоя.
+tool.magic_eraser.option.contiguous = Съседни
+tool.magic_eraser.history.erase = Магическа гума

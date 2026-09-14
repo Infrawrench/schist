@@ -1,0 +1,237 @@
+dialog.save_ellipsis = Kobomba…
+dialog.use_foreground = Kosalela langi ya liboso
+dialog.downloading = Ezali kozwisa…
+dialog.downloading_of = Ezali kozwisa… {got} kati na {total}
+dialog.no_config_dir = (dosye ya konfiguratio ezali te)
+
+dialog.layer_props.title = Bizaleli ya kalke
+
+dialog.export.format = Formá
+dialog.export.dither = Dither
+dialog.export.dither_note = Salelá dither ntango ozali kokitisa na bit 8
+dialog.export.export_ellipsis = Kobimisa…
+
+dialog.batch.title = Kobongisa bafɔtɔ
+dialog.batch.note_edit.one = Fɔtɔ {n} — ebombami lokola mbongwana ya galerie; bafɔtɔ originale esimbami ata moke te.
+dialog.batch.note_edit.other = Bafɔtɔ {n} — ebombami lokola mbongwana ya galerie; bafɔtɔ originale esimbami ata moke te.
+dialog.batch.note_edit_edited.one = Fɔtɔ {n}; motángo oyo esilá kobongisama: {edited} — recette ekobakisama likoló ya mbongwana, mpe mbongwana ya liboso ekobatelama lokola vɛrsio.
+dialog.batch.note_edit_edited.other = Bafɔtɔ {n}; motángo oyo esilá kobongisama: {edited} — recette ekobakisama likoló ya mbongwana, mpe mbongwana ya liboso ekobatelama lokola vɛrsio.
+dialog.batch.note_copies.one = Fɔtɔ {n} — kopi esangisami; bafɔtɔ originale esimbami ata moke te.
+dialog.batch.note_copies.other = Bafɔtɔ {n} — bakopi esangisami; bafɔtɔ originale esimbami ata moke te.
+dialog.batch.note_copies_edited.one = Fɔtɔ {n}; motángo oyo esilá kobongisama: {edited} — kopi ekosalema uta na mbongwana.
+dialog.batch.note_copies_edited.other = Bafɔtɔ {n}; motángo oyo esilá kobongisama: {edited} — bakopi ekosalema uta na mbongwana.
+dialog.batch.turn = Kobalusa
+dialog.batch.rotate = Kobalusa
+dialog.batch.flip = Kobalusa lokola talatala
+dialog.batch.upscale = Kokómisa monene
+dialog.batch.colour = Langi
+dialog.batch.add_adjustment = Kobongisa…
+dialog.batch.output = Ebimeli
+dialog.batch.save_as = Kobomba lokola
+dialog.batch.process = Kosala
+dialog.batch.process_n = Kosala {n}
+dialog.batch.nothing_to_do = Eloko ya kosala ezali te: poná kobalusa, kokómisa monene to kobongisa liboso
+
+dialog.content_aware_scale.title = Kobongola bonene na kotalela makambo
+dialog.content_aware_scale.note = Ekataka banzela oyo ezali na badɛtaye mingi te. Eteni eponami elakisaka oyo esengeli kobatelama.
+
+dialog.stroke.title = Molɔngɔ ya ndelo
+dialog.stroke.location = Esika
+dialog.stroke.inside = Na kati
+dialog.stroke.outside = Na libándá
+dialog.stroke.note = Esalaka molɔngɔ na eteni eponami na langi ya liboso.
+
+dialog.fill.contents = Makambo
+
+dialog.color_range.title = Etando ya balangi
+dialog.color_range.sampled = Langi oyo ezwami
+dialog.color_range.fuzziness = Bopanzani ya boponi
+dialog.color_range.note = Eponaka bapiksele oyo ezali pene na langi oyo ezwami na kalke oyo ezali kosalelama.
+
+dialog.file_picker.up = ↑ Likoló
+dialog.file_picker.empty = Eloko ezali awa te
+dialog.file_picker.choose_folder = Kopona dosye oyo
+
+dialog.filter.camera_raw_development = Kobongisa Camera Raw
+dialog.filter.reset_as_shot = Kozongisa ndenge ezwamaki
+dialog.filter.raw_note = Ebongisaka lisusu kalke oyo ezali kosalelama uta na badone originale ya capteur.
+dialog.filter.note = Esalelamaka na kalke oyo ezali kosalelama, na kati ya eteni eponami.
+
+dialog.fonts.title = Mitindo ya bilembo oyo ezangi
+dialog.fonts.install_named = Kotya {name}
+dialog.fonts.no_document = Dokima moko te efungwami, yango wana eloko ya kotala ezali te.
+dialog.fonts.all_installed = Mitindo nyonso ya bilembo oyo dokima oyo esalelaka etyami. Makomi na yango ezali na mitindo ya bilembo oyo esalelamaki mpo na kobongisa yango.
+dialog.fonts.missing_intro = Dokima oyo esaleli mitindo ya bilembo oyo ozali na yango te. Makomi ekoki kotángama na lolenge mosusu, kasi bonene mpe bisika oyo milɔngɔ ekatani ekokani te na ebongiseli originale.
+dialog.fonts.footer = Bafisye ezwamaka uta na katalogɛ ya polele ya Google Fonts mpe ebombamaka na {dir}. Lolenge ya bilembo oyo licence na yango ezali ya polele te ezwamaka ata moke te — soki dessin libre oyo ezali na bamezire ndenge moko ezali, epesamaka na esika na yango; yango ezongisaka ebongiseli mpo ntaka oyo elembo moko na moko etambolaka na mopanzi ekokani.
+dialog.fonts.user_font_dir = dosye na yo ya mitindo ya bilembo
+
+dialog.models.title = Ba modɛlɛ ya Neural Filters
+dialog.models.built_in = Ezali na kati · {size}
+dialog.models.installed = Etyami · {size}
+dialog.models.not_installed = Etyami te · {size}
+dialog.models.not_in_browser = Ezali na navigatɛrɛ te · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Ba modɛlɛ ebombamaka na {dir}. Ba filtre oyo ezali na modɛlɛ te ezongelaka traitement ya signal mpe elobaka yango.
+
+dialog.new_doc.title = Dokima ya sika
+dialog.new_doc.picker_title = Fisye ya sika
+dialog.new_doc.custom_ellipsis = Oyo obongisi…
+dialog.new_doc.preset = Ebongiseli
+dialog.new_doc.preset_default = Ya liboso (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Kare (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Lɛtrɛ US, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Kosala
+dialog.new_doc.created = Dokima ya sika: {w} × {h} px
+
+dialog.open.image_title = Kofungola elilingi
+dialog.open.image_prompt = Kofungola “{name}” na onglet ya sika, to kobakisa yango na dokima ya sikoyo lokola kalke ya sika?
+dialog.open.new_tab = Onglet ya sika
+dialog.open.new_layer = Kalke ya sika
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = fisye oyo {n}
+dialog.open.these_files.other = bafisye oyo {n}
+dialog.open.shared_title_one = Elilingi oyo ekabolami
+dialog.open.shared_title_many = Bililingi oyo ekabolami
+dialog.open.shared_prompt = Kobakisa {what} na galerie, to kofungola na editɛrɛ?
+dialog.open.add_to_gallery = Kobakisa na galerie
+dialog.open.open_in_editor = Kofungola na editɛrɛ
+dialog.open.heic_title = Lisungi ya HEIC
+dialog.open.heic_needs_decoder = Kofungola “{name}” esengeli na efungoli ya kode HEVC, oyo etyami na sistɛme oyo te.
+dialog.open.heic_offer = Schist ekoki kozwisa vɛrsio ya libheif {version} oyo efungolaka kaka kode, elongo na efungoli ya kode HEVC libde265 (≈5 MB). Nyonso mibale ezali na licence LGPL-3.0; makomi ya balicence na yango etyamaka pembeni ya bibliotɛkɛ, mpe code source ezali na lokasa ya projet.
+dialog.open.licenses_source = Balicence mpe code source
+dialog.open.folders_title = Badosye oyo ebwakami
+dialog.open.n_folders.one = Dosye {n}
+dialog.open.n_folders.other = Badosye {n}
+dialog.open.open_in_tabs = Kofungola na baonglet
+dialog.open.open_first_in_tabs = Kofungola {n} ya liboso na baonglet
+dialog.open.open_n_in_tabs.one = Kofungola {n} na onglet
+dialog.open.open_n_in_tabs.other = Kofungola {n} na baonglet
+dialog.open.folder_holds.one = {what} ezali na elilingi {n} oyo Schist ekoki kofungola (ná badosye ya kati).
+dialog.open.folder_holds.other = {what} ezali na bililingi {n} oyo Schist ekoki kofungola (ná badosye ya kati).
+dialog.open.folders_note = Kobakisa na Galerie elandaka badosye na esika na yango — eloko moko te ekopiami, mpe mbongwana ebombamaka na bavɛrsio pembeni ya fɔtɔ mokomoko. Kofungola na baonglet ekɔtisaka bililingi nyonso na editɛrɛ sikoyo.
+
+dialog.plugins.title = Ba plug-in
+dialog.plugins.kind_filter = filtre
+dialog.plugins.kind_format = formá
+dialog.plugins.kind_unavailable = ezali te
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Ba plug-in ekɔtaka uta na {dir}
+dialog.plugins.none = Plug-in moko te etyami naino.
+dialog.plugins.install_ellipsis = Kotya…
+dialog.plugins.photoshop_heading = Ba plug-in ya Photoshop
+dialog.plugins.loaded_from = Ekɔtisami uta na {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Maponi
+dialog.prefs.theme = Motif
+dialog.prefs.theme_dark = Molili
+dialog.prefs.theme_light = Pole
+dialog.prefs.grid_spacing = Ntaka ya monyama ya milɔngɔ
+dialog.prefs.snapping = Kokangama na milɔngɔ
+dialog.prefs.snap_to = Kokangama na ba gidɛ, monyama ya milɔngɔ mpe bandelo ya kanvasi
+dialog.prefs.rendering_intent = Mokano ya kobimisa balangi
+dialog.prefs.intent_perceptual = Na ndenge liso emonaka
+dialog.prefs.intent_relative = Colorimétrique relatif
+dialog.prefs.intent_saturation = Bokasi ya langi
+dialog.prefs.intent_absolute = Colorimétrique absolu
+dialog.prefs.scrolling = Kotambolisa
+dialog.prefs.zoom_with_scroll = Kozumisa na molette
+dialog.prefs.rendering = Kosala elilingi
+dialog.prefs.gpu_compositing = Kosangisa bililingi na GPU
+dialog.prefs.diagnostics = Diagnostike
+dialog.prefs.crash_reports = Kokoma lapɔrɔ ya panne na fisye ya awa ntango programɛ ekwei
+dialog.prefs.crash_upload = Kotinda yango mpe epai ya babongisi
+dialog.prefs.telemetry = Kotinda signal ya mokolo na mokolo kozanga nkombo
+dialog.prefs.diagnostics_note = Diagnostike ebandaka kosala ntango Schist ekofungwama lisusu.
+dialog.prefs.updates = Ba mise à jour
+dialog.prefs.check_updates = Kotala bavɛrsio ya sika ntango programɛ ebandi
+dialog.prefs.keyboard_shortcuts = Banzela mikuse ya klavye: {path}
+dialog.prefs.nsfw_needs_model = Esengeli na modɛlɛ Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = zwá yango na Kokamba ba modɛlɛ…
+dialog.prefs.hide_flagged = Kobomba bafɔtɔ oyo etiamaki elembo
+
+dialog.profile.profile = Profil
+dialog.profile.assign_title = Kopesa profil
+dialog.profile.convert_title = Kobongola na profil
+dialog.profile.assign = Kopesa
+dialog.profile.convert = Kobongola
+dialog.profile.assign_note = Etángaka lisusu motuya ya bapiksele oyo ezali na nse ya profil ya sika.
+dialog.profile.convert_note = Ekomaka lisusu motuya ya bapiksele mpo balangi ebatela ndenge emonanaka.
+
+dialog.save_image.title = Kobomba elilingi lokola
+dialog.save_image.note = {name} — mbongwana, soki ezali na yango; originale esimbami ata moke te.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Bonene ya elilingi
+dialog.size.canvas_title = Bonene ya kanvasi
+dialog.size.constrain = Kotya ndelo
+dialog.size.keep_proportions = Kobatela baproporsio
+dialog.size.resample = Kozwa lisusu ndakisa
+dialog.size.bicubic = Bicubique
+dialog.size.bilinear = Bilineaire
+dialog.size.nearest = Piksele ya pembeni koleka
+dialog.size.anchor = Pwɛ ya kokanga
+dialog.size.currently = Sikoyo {w} × {h} px
+dialog.size.image_size_status = Bonene ya elilingi: {w} × {h}
+dialog.size.canvas_size_status = Bonene ya kanvasi: {w} × {h}
+
+dialog.update.title = Mise à jour ezali
+dialog.update.available = Schist {version} ezali. Kopi oyo ezali {current}.
+dialog.update.installing = Ezali kotya mise à jour…
+dialog.update.can_install = Schist ekoki kozwisa yango ({size}) mpe kotya yango likoló ya kopi oyo.
+dialog.update.external = Kopi oyo eutaki na esika oyo ekambaka yango — mokambi ya bapaquet, AppImage, to vɛrsio oyo yo moko osalaki — yango wana ebongwanaka ndenge etyamaki.
+dialog.update.later = Na nsima
+dialog.update.release_notes = Banote ya vɛrsio
+dialog.update.update_restart = Kosala mise à jour mpe kobanda lisusu
+dialog.update.open_page = Kofungola lokasa ya vɛrsio
+
+dialog.style.title = Style ya kalke
+dialog.style.bevel = Bevel mpe Emboss
+dialog.style.stroke = Molɔngɔ ya ndelo
+dialog.style.inner_shadow = Elili ya kati
+dialog.style.inner_glow = Kongɛnga ya kati
+dialog.style.satin = Satin
+dialog.style.color_overlay = Kozipisa na langi
+dialog.style.gradient_overlay = Kozipisa na degrade
+dialog.style.outer_glow = Kongɛnga ya libándá
+dialog.style.drop_shadow = Elili oyo ekwei
+dialog.style.blur = Flou gaussien
+dialog.style.gradient_from = Degrade ya kozipisa uta na
+dialog.style.gradient_to = Degrade ya kozipisa kino na
+dialog.style.soften = Koyeisa pɛtɛɛ
+dialog.style.depth = Bozindo
+dialog.style.altitude = Bosanda
+dialog.style.highlight = Pole makasi
+dialog.style.shadow = Elili
+dialog.style.outer_bevel = Bevel ya libándá
+dialog.style.inner_bevel = Bevel ya kati
+dialog.style.emboss = Emboss
+dialog.style.pillow_emboss = Emboss ya kusi
+dialog.style.linear = Ya molɔngɔ
+dialog.style.radial = Ya zingazinga
+dialog.style.reverse = Kozongola
+dialog.style.from_to = Uta / Kino
+dialog.style.from_fg = Uta = Liboso
+dialog.style.to_fg = Kino = Liboso
+dialog.style.precise = Ya sikisiki
+dialog.style.knockout = Kalke elongolaka elili oyo ekwei
+
+dialog.color_picker.title = Eponeli ya langi ({what})
+dialog.color_picker.effect_color = Langi ya {effect}
+dialog.color_picker.note_color = Langi ya note
+dialog.color_picker.new = ya sika
+dialog.color_picker.current = ya sikoyo
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Kozongisa shenɛ na ebandeli
+dialog.curves.hint = Benda mpo na kopesa lolenge · finá mpo na kobakisa · finá na alt mpo na kolongola
+
+dialog.prefs.camera_sync = Bafɔtɔ ya kamera
+dialog.prefs.camera_sync_enabled = Kosala kopi ya bokengi na Schist Cloud
+dialog.prefs.camera_sync_sign_in = Kɔtá na Schist Cloud mpo na kosala kopi ya bokengi ya bafɔtɔ ya kamera na yo.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Kobongola…

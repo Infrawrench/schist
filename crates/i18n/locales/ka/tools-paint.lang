@@ -1,0 +1,70 @@
+# ხატვის ხელსაწყოები
+tool.brush.name = ფუნჯი
+tool.brush.description = დახატეთ რბილკიდიანი მონასმი წინა პლანის ფერით; ზომას რედაქტორის ფუნჯის ზომა, სიმაგრე და გაუმჭვირვალობა განსაზღვრავს.
+tool.brush.history.stroke = ფუნჯი
+tool.pencil.name = ფანქარი
+tool.pencil.description = დახატეთ მყარკიდიანი, მოუგლუვებელი მონასმი წინა პლანის ფერით.
+tool.pencil.history.stroke = ფანქარი
+tool.eraser.name = საშლელი
+tool.eraser.description = წაშალეთ მონასმის გასწვრივ და ფენა კვლავ გამჭვირვალე გახადეთ.
+tool.eraser.history.stroke = საშლელი
+
+tool.clone.name = კლონირების შტამპი
+tool.clone.description = კლონირების შტამპი: წყაროს წერტილის დასაყენებლად Alt-დაწკაპუნება გამოიყენეთ, შემდეგ კი ხატეთ მისგან შესაბამისი წანაცვლებით დაკოპირებული პიქსელებით.
+tool.clone.history.stroke = კლონირების შტამპი
+
+tool.dodge.name = გამღიავებელი
+tool.dodge.description = გააღიავეთ პიქსელები, რომლებზეც მონასმი გაივლის.
+tool.dodge.history.stroke = გამღიავებელი
+tool.burn.name = გამამუქებელი
+tool.burn.description = გაამუქეთ პიქსელები, რომლებზეც მონასმი გაივლის.
+tool.burn.history.stroke = გამამუქებელი
+tool.sponge.name = ღრუბელი
+tool.sponge.description = გაზარდეთ ან შეამცირეთ პიქსელების გაჯერება, რომლებზეც მონასმი გაივლის.
+tool.sponge.history.stroke = ღრუბელი
+
+tool.blur.name = გაბუნდოვნება
+tool.blur.description = გააბუნდოვნეთ პიქსელები, რომლებზეც მონასმი გაივლის.
+tool.blur.history.stroke = გაბუნდოვნება
+tool.sharpen.name = სიმკვეთრე
+tool.sharpen.description = გაზარდეთ იმ პიქსელების სიმკვეთრე, რომლებზეც მონასმი გაივლის.
+tool.sharpen.history.stroke = სიმკვეთრე
+tool.smudge.name = თითით გაზელა
+tool.smudge.description = მონასმის გასწვრივ გაწელეთ ფერი, თითქოს სველ საღებავს აწვებით.
+tool.smudge.history.stroke = თითით გაზელა
+
+tool.heal.name = აღმდგენი ფუნჯი
+tool.heal.description = აღმდგენი ფუნჯი: წყაროს დასაყენებლად Alt-დაწკაპუნება გამოიყენეთ, შემდეგ დახატეთ; წყაროს ტექსტურა დანიშნულების საკუთარ ფერსა და განათებას შეერევა.
+tool.heal.history.stroke = აღმდგენი ფუნჯი
+tool.spot_heal.name = წერტილოვანი აღმდგენი ფუნჯი
+tool.spot_heal.description = წერტილოვანი აღმდგენი ფუნჯი: გადაუსვით დეფექტს და იგი გარემომცველი უბნიდან აღებული ტექსტურით ჩანაცვლდება — წყაროს წერტილის დაყენება საჭირო არ არის.
+tool.spot_heal.history.stroke = წერტილოვანი აღმდგენი ფუნჯი
+
+tool.history_brush.name = ისტორიის ფუნჯი
+tool.history_brush.description = დააბრუნეთ პიქსელები დოკუმენტის ისტორიის ანაბეჭდიდან და შემდგომი სამუშაო მონასმ-მონასმ გააუქმეთ.
+tool.history_brush.history.stroke = ისტორიის ფუნჯი
+tool.background_eraser.name = ფონის საშლელი
+tool.background_eraser.description = წაშალეთ ფუნჯის ცენტრის ქვეშ აღებული ფერი და განსხვავებული პიქსელები ხელუხლებლად დატოვეთ, რათა ობიექტი ფონს გამოეყოს.
+tool.background_eraser.history.stroke = ფონის საშლელი
+
+tool.gradient.name = გრადიენტი
+tool.gradient.description = გადათრევით შეავსეთ ფენა — მონიშნული არის არსებობისას მის ფარგლებში — წრფივი გრადიენტით, რომელიც გადათრევის მიმართულებით წინა პლანის ფერიდან ფონის ფერზე გადადის.
+tool.gradient.radial.name = რადიალური გრადიენტი
+tool.gradient.radial.description = ცენტრიდან გარეთ გადათრევით შეავსეთ არე წინა პლანისა და ფონის ფერებს შორის რადიალური გრადიენტით.
+tool.gradient.option.gradient = გრადიენტი
+tool.gradient.option.reverse = შებრუნება
+tool.gradient.option.dither = დიზერინგი
+tool.gradient.choice.foreground_to_background = წინა პლანიდან ფონამდე
+tool.gradient.choice.foreground_to_transparent = წინა პლანიდან გამჭვირვალემდე
+tool.gradient.choice.linear = წრფივი
+tool.gradient.choice.radial = რადიალური
+tool.gradient.choice.angle = კუთხოვანი
+tool.gradient.choice.reflected = არეკლილი
+tool.gradient.choice.diamond = რომბული
+tool.gradient.history.gradient = გრადიენტი
+
+tool.bucket.name = საღებავის სათლი
+tool.bucket.description = დაწკაპუნებით შეავსეთ მაჩვენებლის ქვეშ მდებარე მსგავსი ფერის მომიჯნავე უბანი წინა პლანის ფერით, ხელსაწყოს დაშვების ფარგლებში.
+tool.bucket.option.contiguous = მომიჯნავე
+tool.bucket.option.all_layers = ყველა ფენა
+tool.bucket.history.fill = საღებავის სათლი

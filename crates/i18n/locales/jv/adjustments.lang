@@ -1,0 +1,20 @@
+# Lapisan pangaturan lan jeneng printah Image ▸ Adjustments.
+adjustment.levels.name = Tingkat
+adjustment.curves.name = Kurva
+adjustment.hue_saturation.name = Hue/Saturasi
+adjustment.brightness_contrast.name = Padhang/Kontras
+adjustment.black_white.name = Ireng & Putih
+adjustment.solid_color.name = Werna Polos
+adjustment.gradient_fill.name = Isen Gradien
+adjustment.pattern_fill.name = Isen Pola
+adjustment.invert.name = Walik
+adjustment.posterize.name = Posterisasi
+adjustment.threshold.name = Ambang
+adjustment.color_balance.name = Imbangan Werna
+adjustment.vibrance.name = Vibrance
+adjustment.exposure.name = Eksposur
+adjustment.photo_filter.name = Filter Foto
+adjustment.gradient_map.name = Peta Gradien
+adjustment.selective_color.name = Werna Selektif
+adjustment.channel_mixer.name = Pangaduk Kanal
+adjustment.other.name = Pangaturan

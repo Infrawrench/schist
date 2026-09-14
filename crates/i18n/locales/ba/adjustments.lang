@@ -1,0 +1,20 @@
+# Көйләү ҡатламдары һәм Рәсем ▸ Көйләүҙәр командаларының атамалары.
+adjustment.levels.name = Дәрәжәләр
+adjustment.curves.name = Кәкре һыҙыҡтар
+adjustment.hue_saturation.name = Төҫ тоны/Туйынғанлыҡ
+adjustment.brightness_contrast.name = Яҡтылыҡ/Контраст
+adjustment.black_white.name = Ҡара-аҡ
+adjustment.solid_color.name = Тотош төҫ
+adjustment.gradient_fill.name = Градиент менән тултырыу
+adjustment.pattern_fill.name = Биҙәк менән тултырыу
+adjustment.invert.name = Инверсия
+adjustment.posterize.name = Постеризация
+adjustment.threshold.name = Сик дәрәжә
+adjustment.color_balance.name = Төҫтәр балансы
+adjustment.vibrance.name = Төҫтәр сағыулығы
+adjustment.exposure.name = Экспозиция
+adjustment.photo_filter.name = Фотофильтр
+adjustment.gradient_map.name = Градиент картаһы
+adjustment.selective_color.name = Һайлап төҫ көйләү
+adjustment.channel_mixer.name = Каналдар ҡатнаштырғысы
+adjustment.other.name = Көйләү

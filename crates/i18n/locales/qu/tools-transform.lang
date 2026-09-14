@@ -1,0 +1,29 @@
+# Munasqaykiman tikray
+tool.transform.name = Munasqaykiman tikray
+tool.transform.description = Munasqaykiman tikray. Hap'ichispa llamk'achkan patapa muyuriqninpi tikrana kahata kichan: kuchunta aysay sayayninta tikranapaq, hawanta aysay muyuchinapaq, kantunta aysay waq'uyachinapaq. Enter ñit'ispa takyachinakama mana imapas qillqasqachu; Escape ñit'ispa sayachiqtiykiqa pata ñawpaq kasqanman kutin.
+tool.transform.option.interpolation = Interpolación
+tool.transform.history.transform = Munasqaykiman tikray
+tool.transform.history.image_size = Rikch'aypa sayaynin
+tool.transform.history.canvas_size = Lienzopa sayaynin
+
+# Akllasqata tikray
+tool.transform.selection.name = Akllasqata tikray
+tool.transform.selection.description = Akllasqata tikray: kikin kaha, ichaqa ukhunpi kaq pixelkunata mana kuyuchispa akllasqa siq'ita kuyuchin. Tukuchinapaq takyachiy utaq sayachiy.
+tool.transform.selection.history.transform = Akllasqata tikray
+
+# Rikch'ay sayanta tikraq interpolaciónkuna
+tool.transform.resample.nearest_neighbor = Aswan qaylla pixel
+tool.transform.resample.bilinear = Bilineal
+tool.transform.resample.bicubic = Bicúbica
+
+# K'utuy
+tool.crop.name = K'utuy
+tool.crop.description = Waqaychanayki k'itita aysay, hap'inankunatataq allichay; Enter ñit'ispa takyachispa qillqata chayman k'utun, Escape ñit'ispa sayachispa mana tikranchu.
+tool.crop.option.ratio = Tupaynin
+tool.crop.option.delete_cropped = K'utusqa pixelkunata qulluy
+tool.crop.choice.unconstrained = Mana watasqa
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = K'utuy

@@ -1,0 +1,152 @@
+# File
+menu.file = Sañcikā
+menu.file.new = Navaṃ
+menu.file.open = Vivaratha…
+menu.file.open_recent = Nūtanaṃ vivaratha
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Saṅgahaṃ oloketha…
+menu.file.close = Pidahatha
+menu.file.save = Rakkhatha
+menu.file.save_as = Aññanāmena rakkhatha…
+menu.file.export = Nīharatha…
+menu.file.export_submenu = Nīharatha
+menu.file.export_artboards = Kalāphalakāni PNG-rūpena…
+menu.file.export_slices = Chedā PNG-rūpena…
+menu.file.save_to_photos = Chāyācittesu rakkhatha
+menu.file.plugins = Plug-in-karaṇāni…
+menu.file.missing_fonts = Na laddhā akkharākārā…
+menu.file.check_for_updates = Navīkaraṇāni upaparikkhatha…
+menu.file.quit = Nikkhamatha
+menu.file.add_folder_to_gallery = Saṅgahaṃ sañcikādhārakaṃ pakkhipatha…
+menu.file.import_from_photos = Chāyācittehi pavesetha…
+menu.file.import_from_camera = Chāyāgāhakehi pavesetha…
+
+# Edit
+menu.edit = Sampādetha
+menu.edit.fill = Pūretha…
+menu.edit.stroke = Lekhaṃ karotha…
+menu.edit.content_aware_fill = Atthaññū-pūraṇaṃ
+menu.edit.content_aware_scale = Atthaññū-pamāṇakaraṇaṃ…
+menu.edit.puppet_warp = Kaṭṭhaputtalikāvikati
+menu.edit.free_transform = Yathicchitaparivattanaṃ
+menu.edit.transform = Parivattetha
+menu.edit.rotate_180 = 180° parivattetha
+menu.edit.rotate_90_cw = Dakkhiṇāvaṭṭena 90° parivattetha
+menu.edit.rotate_90_ccw = Vāmāvaṭṭena 90° parivattetha
+menu.edit.flip_horizontal = Tiriyaṃ viparivattetha
+menu.edit.flip_vertical = Uddhaṃ viparivattetha
+
+# Image
+menu.image = Chāyārūpaṃ
+menu.image.mode = Vidhi
+menu.image.adjustments = Anurūpakaraṇāni
+menu.image.auto_tone = Sayaṃ ālokamānaṃ
+menu.image.auto_contrast = Sayaṃ virodho
+menu.image.auto_color = Sayaṃ vaṇṇo
+menu.image.image_size = Chāyārūpappamāṇaṃ…
+menu.image.canvas_size = Phalakappamāṇaṃ…
+menu.image.image_rotation = Chāyārūpaparivattanaṃ
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = Dakkhiṇāvaṭṭena 90°
+menu.image.rotate_90_ccw = Vāmāvaṭṭena 90°
+menu.image.flip_canvas_horizontal = Phalakaṃ tiriyaṃ viparivattetha
+menu.image.flip_canvas_vertical = Phalakaṃ uddhaṃ viparivattetha
+menu.image.crop_to_selection = Gahaṇapariyantaṃ chindatha
+menu.image.trim = Pariyantaṃ chindatha
+menu.image.assign_profile = Vaṇṇalakkhaṇaṃ niyametha…
+menu.image.convert_to_profile = Vaṇṇalakkhaṇaṃ parivattetha…
+
+# Select
+menu.select = Gaṇhatha
+menu.select.color_range = Vaṇṇapadeso…
+menu.select.modify = Vikatiṃ karotha
+menu.select.border = Pariyanto…
+menu.select.smooth = Maṭṭhaṃ karotha…
+menu.select.expand = Vitthāretha…
+menu.select.contract = Saṅkocetha…
+menu.select.feather = Mudumalīkarotha…
+menu.select.transform_selection = Gahaṇaṃ parivattetha
+
+# Layer
+menu.layer = Santharo
+menu.layer.layer_style = Santharākāro…
+menu.layer.layer_comps = Santharatulanāyo
+menu.layer.new_layer_comp = Nava-santhatulanā
+menu.layer.delete_layer_comp = {name} nāsetha
+menu.layer.path = Maggo
+menu.layer.fill_path = Maggaṃ pūretha
+menu.layer.stroke_path = Magge lekhaṃ karotha
+menu.layer.make_selection = Gahaṇaṃ karotha
+menu.layer.delete_path = Maggaṃ nāsetha
+
+menu.adjust = Anurūpaṃ karotha
+
+# Filter
+menu.filter = Sodhakaṃ
+menu.filter.filter_gallery = Sodhakasaṅgaho…
+menu.filter.liquify = Davīkarotha
+menu.filter.vanishing_point = Antaradhānabindu
+menu.filter.manage_models = Namūnāni pāletha…
+menu.filter.camera_raw_development = Camera Raw-vaḍḍhanaṃ…
+
+# View
+menu.view = Dassanaṃ
+menu.view.rotate_view_cw = Dassanaṃ dakkhiṇāvaṭṭena parivattetha
+menu.view.rotate_view_ccw = Dassanaṃ vāmāvaṭṭena parivattetha
+menu.view.reset_view = Dassanaṃ puna patiṭṭhāpetha
+menu.view.zoom_in = Mahantaṃ dassetha
+menu.view.zoom_out = Khuddakaṃ dassetha
+menu.view.fit_on_screen = Paṭale samāne karotha
+menu.view.actual_size = 100%
+menu.view.rulers = Māṇadaṇḍā
+menu.view.grid = Jālaṃ
+menu.view.guides = Niddesakalekhā
+menu.view.notes = Satiyā lekhā
+menu.view.ai_panel = AI-phalakaṃ
+menu.view.extras = Atirekā
+menu.view.snap = Āsannabandhanaṃ
+menu.view.clear_guides = Niddesakalekhā sodhetha
+menu.view.clear_notes = Satiyā lekhā sodhetha
+menu.view.clear_count = Gaṇanaṃ sodhetha
+menu.view.screen_mode = Paṭalavidhi
+menu.view.proof_colors = Pamāṇavaṇṇā
+menu.view.show_rulers = Māṇadaṇḍe dassetha
+menu.view.hide_rulers = Māṇadaṇḍe paṭicchādetha
+menu.view.show_grid = Jālaṃ dassetha
+menu.view.hide_grid = Jālaṃ paṭicchādetha
+menu.view.show_guides = Niddesakalekhā dassetha
+menu.view.hide_guides = Niddesakalekhā paṭicchādetha
+menu.view.show_notes = Satiyā lekhā dassetha
+menu.view.hide_notes = Satiyā lekhā paṭicchādetha
+menu.view.show_extras = Atireke dassetha
+menu.view.hide_extras = Atireke paṭicchādetha
+menu.view.enable_snapping = Āsannabandhanaṃ pavattetha
+menu.view.disable_snapping = Āsannabandhanaṃ nivattetha
+menu.view.enable_proof_colors = Pamāṇavaṇṇe pavattetha
+menu.view.disable_proof_colors = Pamāṇavaṇṇe nivattetha
+
+# Gallery
+menu.gallery = Saṅgaho
+menu.gallery.edit_selected = Gahitaṃ sampādetha
+menu.gallery.refresh = Puna tājaṃ karotha
+menu.gallery.map_filter = Bhūmicittasodhakaṃ…
+menu.gallery.back_to_editor = Sampādakaṃ paccāgacchatha
+
+# Cloud
+menu.cloud.browse = Schist Cloud oloketha
+menu.cloud.generate = Chāyārūpāni janetha…
+menu.cloud.upload = Potthakaṃ Schist Cloud upari pesetha…
+menu.cloud.sign_out = Schist Cloud-mhā nikkhamatha
+menu.cloud.sign_in = Schist Cloud pavisatha…
+
+# Application
+menu.app.services = Veyyāvaccāni
+menu.app.hide = {app} paṭicchādetha
+menu.app.hide_others = Aññe paṭicchādetha
+menu.app.show_all = Sabbe dassetha
+menu.app.quit = {app} nikkhamatha
+
+# Status
+menu.status.transform_selection_needs_selection = Gahaṇaparivattanatthāya gahaṇaṃ avassakaṃ
+menu.status.crop_needs_selection = Gahaṇapariyantachedanatthāya gahaṇaṃ avassakaṃ
+menu.status.select_photo_to_edit = Sampādetuṃ chāyācittaṃ gaṇhatha

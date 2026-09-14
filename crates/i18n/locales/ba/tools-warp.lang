@@ -1,0 +1,24 @@
+# Деформация ҡоралдары.
+
+tool.liquify.name = Шыйыҡландырыу
+tool.liquify.description = Ҙур бумала аҫтындағы пикселдәрҙе этегеҙ, өйөрөлтөгөҙ, йыйырығыҙ йәки ҡабартығыҙ — ғәмәлде режим параметры билдәләй. Деформация селтәрҙә йыйыла һәм раҫлағанда ҡатламға ҡулланыла.
+tool.liquify.option.tool = Ҡорал
+tool.liquify.choice.forward_warp = Алға деформациялау
+tool.liquify.choice.reconstruct = Тергеҙеү
+tool.liquify.choice.twirl_cw = Сәғәт уғы буйынса өйөрөлтөү
+tool.liquify.choice.twirl_ccw = Сәғәт уғына ҡаршы өйөрөлтөү
+tool.liquify.choice.pucker = Йыйырыу
+tool.liquify.choice.bloat = Ҡабартыу
+tool.liquify.choice.push_left = Һулға этеү
+tool.liquify.history.liquify = Шыйыҡландырыу
+
+tool.puppet_warp.name = Марионетка деформацияһы
+tool.puppet_warp.description = Ҡатламды бер нисә нөктәлә беркетеү өсөн сиртегеҙ, шунан береһен һөйрәгеҙ: селтәр беркетмәләр тирәләй Ҡатылыҡ параметрына ярашлы ҡатыраҡ йәки иркенерәк бөгөлә. Раҫлау үҙгәреште ҡуллана.
+tool.puppet_warp.option.stiffness = Ҡатылыҡ
+tool.puppet_warp.history.puppet_warp = Марионетка деформацияһы
+
+tool.vanishing_point.name = Юғалыу нөктәһе
+tool.vanishing_point.description = Перспективалы объект өҫтөндә яҫылыҡ һыҙығыҙ, шунан режимды Клонға күсереп буяғыҙ: күсерелгән пикселдәр алыҫлашҡан һайын бәләкәйләнеп, яҫылыҡҡа эйәрә.
+tool.vanishing_point.choice.edit_plane = Яҫылыҡты үҙгәртеү
+tool.vanishing_point.choice.clone = Клон
+tool.vanishing_point.history.vanishing_point = Юғалыу нөктәһе

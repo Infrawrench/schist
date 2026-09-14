@@ -1,0 +1,47 @@
+# Pinnas
+tool.pen.name = Pinna
+tool.pen.description = Crea unu percursu: incarca pro unu puntu angulare, tràghe pro nche bogare is manìgias de sa curva, e incarca su primu puntu pro serrare. Cunfirmende, su percursu est cunvertidu in un'istratu de forma.
+tool.pen.option.rubber_band = Elàsticu
+tool.pen.history.fill = Prentura de su percursu
+tool.pen.default_path_name = Percursu {n}
+tool.pen.freeform.name = Pinna a manu lìbera
+tool.pen.freeform.description = Tràghe una lìnia a manu lìbera e dda adatada a unu percursu, cun su livellu de aprossimatzione inditadu dae s'optzione Adatamentu.
+tool.pen.freeform.option.fit = Adatamentu
+tool.pen.curvature.name = Pinna de curvatura
+tool.pen.curvature.description = Incarca una sèrie de puntos e su percursu est curvadu in manera lìscia tràmite issos.
+
+# Frètzias
+tool.path_select.name = Seletzione de percursu
+tool.path_select.description = Incarca unu percursu pro ddu seletzionare, e tràghe pro tramudare su percursu intreu.
+tool.direct_select.name = Seletzione direta
+tool.direct_select.description = Tràghe unu puntu de ancoràgiu o is manìgias suas pro torrare a modellare su percursu in giru a issu.
+
+# Formas
+tool.shape.history.layer = Istratu {name}
+tool.shape.rect.name = Aina Retàngulu
+tool.shape.rect.label = Retàngulu
+tool.shape.rect.description = Tràghe pro creare un'istratu de forma retangulare in su colore de primu pianu; abarrat vetoriale e est rasterizadu torra cando nde mudas sa mannària.
+tool.shape.ellipse.name = Aina Elisse
+tool.shape.ellipse.label = Elisse
+tool.shape.ellipse.description = Tràghe pro creare un'istratu de forma elìtica in su colore de primu pianu.
+tool.shape.line.name = Aina Lìnia
+tool.shape.line.label = Lìnia
+tool.shape.line.description = Tràghe pro creare un'istratu de forma cun una lìnia dereta in su colore de primu pianu.
+tool.shape.line.option.weight = Grussària
+tool.shape.line.option.arrow_start = Incumintzu
+tool.shape.line.option.arrow_end = Fine
+tool.shape.polygon.name = Aina Polìgonu
+tool.shape.polygon.label = Polìgonu
+tool.shape.polygon.description = Tràghe pro creare un'istratu de forma cun unu polìgonu regulare in su colore de primu pianu, cun su nùmeru de lados inditadu in is optziones.
+tool.shape.polygon.option.sides = Lados
+
+# Formas personalizadas
+tool.shape.custom.name = Forma personalizada
+tool.shape.custom.label = Forma personalizada
+tool.shape.custom.description = Tràghe pro creare una de is formas predefinidas incorporadas, seletzionada cun s'optzione Forma.
+tool.shape.custom.choice.heart = Coro
+tool.shape.custom.choice.star = Istella
+tool.shape.custom.choice.arrow = Frètzia
+tool.shape.custom.choice.lightning = Fùrmine
+tool.shape.custom.choice.cross = Rughe
+tool.shape.custom.choice.speech_bubble = Balloon de diàlogu

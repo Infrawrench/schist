@@ -1,0 +1,31 @@
+# أدوات عناصر المستند: لوحات الرسم والشرائح والإطارات والملاحظات والعدّ.
+
+# لوحة الرسم
+tool.artboard.name = لوحة الرسم
+tool.artboard.description = اسحب لإنشاء لوحة رسم: منطقة مسماة من مساحة العمل يمكن تصديرها بصورة مستقلة. يؤدي السحب داخل لوحة موجودة إلى نقلها.
+tool.artboard.default_name = لوحة الرسم {n}
+
+# الشريحة
+tool.slice.name = شريحة
+tool.slice.description = اسحب لإنشاء شريحة تصدير، وهي مستطيل مسمى من مساحة العمل يُصدّر كصورة مستقلة. يؤدي السحب داخل شريحة موجودة إلى نقلها.
+tool.slice.default_name = الشريحة {n}
+
+# الإطار
+tool.frame.name = إطار
+tool.frame.description = اسحب لإنشاء إطار: طبقة مستطيلة (أو بيضاوية) تقنّع كل ما يوضع داخلها.
+tool.frame.default_name = الإطار {n}
+tool.frame.choice.rectangle = مستطيل
+tool.frame.choice.ellipse = قطع ناقص
+tool.frame.history.frame = إنشاء إطار
+
+# الملاحظة
+tool.note.name = ملاحظة
+tool.note.description = انقر مساحة فارغة من اللوحة لتثبيت ملاحظة تحمل اسم المؤلف واللون المحددين في حالة المحرر؛ وانقر دبوسًا موجودًا لتحديده في لوحة الملاحظات.
+tool.note.history.place = وضع ملاحظة
+tool.note.history.move = نقل الملاحظة
+tool.note.history.delete = حذف الملاحظة
+
+# العدّ
+tool.count.name = العدّ
+tool.count.description = انقر لإسقاط علامات عدّ مرقمة على مساحة العمل، وانقر علامة موجودة لإزالتها.
+tool.count.default_name = العدّ {n}

@@ -1,0 +1,25 @@
+# Dokumentværktøjer: tegnebrætter, udsnit, rammer, noter og optælling.
+tool.artboard.name = Tegnebræt
+tool.artboard.description = Træk et tegnebræt ud: et navngivet område af lærredet, der eksporteres separat. Træk inden i et eksisterende tegnebræt for at flytte det.
+tool.artboard.default_name = Tegnebræt {n}
+
+tool.slice.name = Udsnit
+tool.slice.description = Træk et eksportudsnit ud: et navngivet rektangel på lærredet, der eksporteres som sit eget billede. Træk inden i et eksisterende udsnit for at flytte det.
+tool.slice.default_name = Udsnit {n}
+
+tool.frame.name = Ramme
+tool.frame.description = Træk en ramme ud: et rektangulært (eller elliptisk) lag, der maskerer alt, som placeres i det.
+tool.frame.default_name = Ramme {n}
+tool.frame.choice.rectangle = Rektangel
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Ramme
+
+tool.note.name = Note
+tool.note.description = Klik på et tomt sted på lærredet for at fastgøre en note dér, mærket med forfatteren og farven fra redigeringstilstanden. Klik på en eksisterende markør for at vælge den i panelet Noter.
+tool.note.history.place = Placer note
+tool.note.history.move = Flyt note
+tool.note.history.delete = Slet note
+
+tool.count.name = Optælling
+tool.count.description = Klik for at placere nummererede optællingsmarkører på lærredet, og klik på en eksisterende markør for at fjerne den.
+tool.count.default_name = Optælling {n}

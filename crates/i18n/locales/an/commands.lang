@@ -1,0 +1,115 @@
+# Comandos d'Edición, Selección y Capa.
+
+# Edición
+command.edit.undo.title = Desfer
+command.edit.undo.description = Torna una dentrada dezaga en l'historial de desfer d'o documento.
+command.edit.redo.title = Refer
+command.edit.redo.description = Torna a fer a zaguera edición desfeita.
+command.edit.copy.title = Copiar
+command.edit.copy.description = Copia en o portapapers interno os pixels trigaus d'a capa activa (a capa entera si no i hai selección).
+command.edit.copy_merged.title = Copiar fusionau
+command.edit.copy_merged.description = Copia a selección tal como la componen todas as capas visibles, en cuenta de copiar nomás d'a capa activa.
+command.edit.cut.title = Tallar
+command.edit.cut.description = Copia os pixels trigaus en o portapapers y los borra d'a capa activa.
+command.edit.paste.title = Apegar
+command.edit.paste.description = Apega o portapapers en una capa nueva dencima d'a capa activa, centrada en o lenzo.
+command.edit.paste.layer_name = Capa apegada
+command.edit.paste_in_place.title = Apegar en o mesmo puesto
+command.edit.paste_in_place.description = Apega o portapapers en una capa nueva en as coordinadas dende an se copió.
+command.edit.fill_foreground.title = Emplir con primer plano
+command.edit.fill_foreground.description = Emple a selección (u o lenzo entero si no i hai selección) con a color d'o primer plano.
+command.edit.fill_background.title = Emplir con fondo
+command.edit.fill_background.description = Emple a selección (u o lenzo entero si no i hai selección) con a color de fondo.
+
+# Selección
+command.select.all.title = Trigar-lo tot
+command.select.all.description = Tría o lenzo entero.
+command.select.deselect.title = Deseleccionar
+command.select.deselect.description = Elimina a selección ta que as edicions tornen a afectar a capa entera.
+command.select.inverse.title = Invertir selección
+command.select.inverse.description = Intercambia as arias trigadas y as no trigadas.
+command.select.reselect.title = Tornar a trigar
+command.select.reselect.description = Recupera a zaguera selección eliminada.
+command.select.reselect.msg.nothing_to_reselect = No i hai cosa que tornar a trigar
+command.select.feather.title = Esvaneixer selección
+command.select.feather.description = Suaviza o canto d'a selección con un desenfoque de dos pixels ta que a siguient edición s'esvaneixca a traviés d'ell.
+command.select.grow.title = Creixer
+command.select.grow.description = Extiende a selección enta pixels contiguos pareixius a los ya trigaus, dentro d'a tolerancia d'a barita machica.
+command.select.similar.title = Pareixida
+command.select.similar.description = Tría totz os pixels d'a capa pareixius a la selección, sigan u no contiguos, dentro d'a tolerancia d'a barita machica.
+command.select.save.title = Alzar selección
+command.select.save.description = Alza a selección actual en o documento como un canal alfa con nombre.
+command.select.save.channel_name = Alfa {n}
+command.select.load.title = Cargar selección
+command.select.load.description = Recupera a selección alzada mas recient.
+
+# Capa
+command.layer.new.title = Nueva capa
+command.layer.new.description = Anyade una capa raster vueda dencima d'a capa activa y la activa.
+command.layer.duplicate.title = Duplicar capa
+command.layer.duplicate.description = Copia a capa activa, con tot o suyo conteniu, en una capa nueva dencima d'ella.
+command.layer.smart_object.title = Convertir en obchecto intelichent
+command.layer.smart_object.description = Mete os pixels d'a capa raster activa en un obchecto intelichent, ta que as transformacions y filtros posteriors remuestreyen a fuent intacta.
+command.layer.rasterize.title = Rasterizar capa
+command.layer.rasterize.description = Convierte una capa de forma, texto u obchecto intelichent en pixels simples.
+command.layer.delete.title = Borrar capa
+command.layer.delete.description = Borra as capas trigadas.
+command.layer.group.title = Agrupar capas
+command.layer.group.description = Mete as capas trigadas en un grupo nuevo, en o mesmo puesto.
+command.layer.raise.title = Adelantar
+command.layer.raise.description = Puya a capa activa un puesto en a pila d'o suyo grupo.
+command.layer.lower.title = Endrezagar
+command.layer.lower.description = Baixa a capa activa un puesto en a pila d'o suyo grupo.
+command.layer.to_front.title = Levar ta debant
+command.layer.to_front.description = Mueve a capa activa enta lo alto d'o suyo grupo.
+command.layer.to_back.title = Levar ta dezaga
+command.layer.to_back.description = Mueve a capa activa enta lo baixo d'o suyo grupo.
+command.layer.clipping_mask.title = Crear/liberar mascara de retalle
+command.layer.clipping_mask.description = Retalla a capa activa con a capa que ye debaixo, u la libera si ya ye retallada; una capa retallada nomás s'amuestra an a suya base tiene pixels.
+command.layer.cut_to_new.title = Capa por tallada
+command.layer.cut_to_new.description = Saca os pixels trigaus d'a capa activa y los mete en una capa nueva dencima.
+command.layer.cut_to_new.layer_name = Capa por tallada
+command.layer.add_mask.title = Anyadir mascara de capa
+command.layer.add_mask.description = Anyade una mascara a la capa activa y, si i hai una selección, nomás revela ixa selección.
+command.layer.flatten.title = Aplanar imachen
+command.layer.flatten.description = Composa tot o visible en una sola capa Fondo opaca y descarta as capas amagadas.
+command.layer.merge_down.title = Fusionar enta abaixo
+command.layer.merge_down.description = Composa a capa activa en a capa que ye debaixo.
+command.layer.merge_down.msg.no_layer_below = No i hai garra capa debaixo con a qual fusionar
+command.layer.merge_visible.title = Fusionar visibles
+command.layer.merge_visible.description = Composa todas as capas visibles en una sola y deixa intactas as amagadas.
+
+# Motivos por os quals un comando no actúa
+command.msg.nothing_to_copy = Tría una capa de pixels d'a qual copiar
+command.msg.clipboard_empty = No i hai cosa en o portapapers
+
+# Dentradas de l'historial
+command.history.grow = Creixer
+command.history.similar = Pareixida
+command.history.clear = Limpiar
+command.history.merge_down = Fusionar enta abaixo
+command.history.flatten_image = Aplanar imachen
+command.history.merge_visible = Fusionar visibles
+command.history.paste = Apegar
+command.history.fill = Emplir
+command.history.select_all = Trigar-lo tot
+command.history.deselect = Deseleccionar
+command.history.select_inverse = Invertir selección
+command.history.new_layer = Nueva capa
+command.history.duplicate_layer = Duplicar capa
+command.history.convert_to_smart_object = Convertir en obchecto intelichent
+command.history.rasterize_layer = Rasterizar capa
+command.history.delete_layer = Borrar capa
+command.history.delete_layers = Borrar capas
+command.history.group_layer = Agrupar capa
+command.history.group_layers = Agrupar capas
+command.history.reselect = Tornar a trigar
+command.history.feather = Esvaneixer
+command.history.load_selection = Cargar selección
+command.history.bring_forward = Adelantar
+command.history.send_backward = Endrezagar
+command.history.bring_to_front = Levar ta debant
+command.history.send_to_back = Levar ta dezaga
+command.history.clipping_mask = Mascara de retalle
+command.history.layer_via_cut = Capa por tallada
+command.history.add_layer_mask = Anyadir mascara de capa

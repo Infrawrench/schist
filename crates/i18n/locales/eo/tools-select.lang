@@ -1,0 +1,32 @@
+# Elektiloj
+tool.select.mode.subtract = Subtrahi
+tool.select.mode.intersect = Intersekci
+
+tool.marquee.rect.name = Rektangula elektilo
+tool.marquee.rect.description = Trenu rektangulan elekton. Shift komence de la treno aldonas al la elekto, Alt subtrahas, kaj ambaŭ faras intersekcon; Shift dum la treno igas ĝin kvadrato. Alklako sen treno malelektas.
+tool.marquee.ellipse.name = Elipsa elektilo
+tool.marquee.ellipse.description = Trenu elipsan elekton kun la sama kombinado per Shift kaj Alt kiel ĉe la rektangula elektilo.
+
+tool.lasso.name = Lasoo
+tool.lasso.description = Trenu libermane konturon; kiam la treno finiĝas, la elekto fermiĝas inter la finpunktoj. Shift aldonas, Alt subtrahas.
+tool.lasso.history.select = Elekti per lasoo
+tool.lasso.polygonal.name = Plurangula lasoo
+tool.lasso.polygonal.description = Alklaku sinsekvajn angulojn por konstrui rektrandan elekton, kaj alklaku proksime al la unua punkto por fermi ĝin.
+tool.lasso.polygonal.history.select = Plurangula lasoo
+tool.lasso.magnetic.name = Magneta lasoo
+tool.lasso.magnetic.description = Sekvu proksimume laŭ rando, kaj la konturo alkroĉiĝos al la plej forta kontrasto proksime al la vojo.
+tool.lasso.magnetic.history.select = Magneta lasoo
+tool.lasso.magnetic.option.frequency = Ofteco
+
+tool.wand.name = Magia vergo
+tool.wand.description = Alklaku por elekti la konektitan areon de simila koloro sub la montrilo, laŭ la tolerema opcio — la sama toleremo uzata de Kreskigi, Simila kaj Kolorgamo.
+tool.wand.option.contiguous = Apuda
+tool.wand.history.select = Magia vergo
+
+tool.quick_select.name = Rapida elekto
+tool.quick_select.description = Pentru super regiono, kaj la elekto kreskos tra la similaj rastrumeroj, super kiuj pasas la peniko.
+tool.quick_select.history.select = Rapida elekto
+
+tool.object_select.name = Objekta elekto
+tool.object_select.description = Trenu kadron ĉirkaŭ objekto, kaj la elekto alkroĉiĝos al la objekto trovita en ĝi.
+tool.object_select.history.select = Objekta elekto

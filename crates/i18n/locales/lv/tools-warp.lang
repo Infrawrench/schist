@@ -1,0 +1,25 @@
+# Sašķidrināšana
+tool.liquify.name = Sašķidrināšana
+tool.liquify.description = Ar lielu otu stumiet, virpuļojiet, savelciet vai uzpūtiet pikseļus — darbību nosaka režīma opcija. Deformācija uzkrājas režģī un pēc apstiprināšanas tiek piemērota slānim.
+tool.liquify.option.tool = Rīks
+tool.liquify.choice.forward_warp = Deformēt uz priekšu
+tool.liquify.choice.reconstruct = Atjaunot
+tool.liquify.choice.twirl_cw = Virpuļot pulksteņrādītāja virzienā
+tool.liquify.choice.twirl_ccw = Virpuļot pretēji pulksteņrādītāja virzienam
+tool.liquify.choice.pucker = Savelkt
+tool.liquify.choice.bloat = Uzpūst
+tool.liquify.choice.push_left = Stumt pa kreisi
+tool.liquify.history.liquify = Sašķidrināšana
+
+# Leļļu deformācija
+tool.puppet_warp.name = Leļļu deformācija
+tool.puppet_warp.description = Noklikšķiniet, lai dažos punktos piespraustu slāni, un pēc tam velciet vienu no tiem: režģis ap piespraudēm lokās stingri vai brīvi atbilstoši iestatījumam Stingrība. Apstiprinot deformācija tiek piemērota.
+tool.puppet_warp.option.stiffness = Stingrība
+tool.puppet_warp.history.puppet_warp = Leļļu deformācija
+
+# Perspektīvas plakne
+tool.vanishing_point.name = Satekpunkts
+tool.vanishing_point.description = Velkot izveidojiet plakni virs perspektīvā attēlota objekta, pēc tam pārslēdziet režīmu uz Klonēšana un krāsojiet: kopētie pikseļi seko plaknei un līdz ar attālumu sarūk.
+tool.vanishing_point.choice.edit_plane = Rediģēt plakni
+tool.vanishing_point.choice.clone = Klonēšana
+tool.vanishing_point.history.vanishing_point = Satekpunkts

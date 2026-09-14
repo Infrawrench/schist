@@ -1,0 +1,95 @@
+# Tikrachina teclakuna
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Imayna kachkan barra
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Qillqa khipu qhawachiqkuna, t'uqupa sutin ima
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Ñan qhawachiq
+panel.navigator.title = Ñan qhawachiq
+panel.navigator.actual_pixels = Chiqap pixelkuna
+
+# Llimp'i panel
+panel.color.picker = Llimp'i akllaq…
+panel.color.swap = Llimp'ikunata rantinakuy
+panel.color.reset = Yana yuraqman kutichiy
+
+# Patakuna panel
+panel.layers.blending_options = Chaqruna akllanakuna…
+panel.layers.properties = Patap kaqninkuna…
+panel.layers.show_hide = Patata qhawachiy/pakay
+panel.layers.toggle_visibility = Rikukuyninta tikray
+
+# Ñawpaq ruwasqakuna
+panel.history.title = Ñawpaq ruwasqakuna
+panel.history.opened = Kichasqa
+
+# Willakuy
+panel.info.title = Willakuy
+panel.info.camera = Cámara
+panel.info.lens = Lente
+panel.info.iso = ISO {iso}
+panel.info.bias = Desviación
+panel.info.flash_fired = flash hap'irqa
+panel.info.no_flash = mana flash
+panel.info.white_balance = Yuraq kuskachay {wb}
+panel.info.metering = {metering} tupuy
+panel.info.taken = Hapisqa
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · mayman qhawasqan {o}
+panel.info.software = Software
+panel.info.where = Maypi
+
+# Willakuykuna panel
+panel.notes.author = Qillqaq
+panel.notes.clear_all = Llapanta qulluy
+panel.notes.unattributed = Mana qillqaqniyuq
+panel.notes.empty = Lienzota ñit'ispa willakuyta saqiy.
+panel.notes.placeholder = Ñit'ispa qillqay
+
+# Sanampa panel
+panel.character.title = Sanampa
+panel.character.type_tool = Qillqa llamk'ana (T)
+panel.character.align_left = Lluq'iman siq'ichay
+panel.character.align_center = Chawpiman siq'ichay
+panel.character.align_right = Pañaman siq'ichay
+panel.character.text_color = Qillqap llimp'in
+panel.character.panel = Sanampa panel
+panel.character.cancel_edit = Qillqa allichayta sayachiy
+panel.character.commit_edit = Qillqa allichayta takyachiy
+panel.character.number_tip = {label} · Yupayta qillqay, utaq ↑ / ↓ llamk'achiy (hatun puriyninkunapaq Shift)
+panel.character.leading = Siq'ikuna chawpi karu
+panel.character.tracking = Sanampakuna chawpi karu
+panel.character.alignment = Siq'ichay
+panel.character.opentype = OpenType
+panel.character.text_on_path = Ñanpi qillqa
+panel.character.straight = Chiqan
+panel.character.on_path = Ñanpi
+panel.character.straight_tip = Qillqa patap sapa qallariq siq'inta llamk'achiy
+panel.character.on_path_tip = Llamk'achkan ñanpa mirachisqanta llamk'achiy
+panel.character.path_offset = Ñanmanta karun
+
+# IA panel
+panel.ai.title = IA
+panel.ai.empty_editor = Huk allichayta mañakuy, lienzopi ruwakusqantataq qhaway. Agenteqa menúkunap llamk'anankunata, suysunankunata, kamachiykunatapas apaykachan; sapa kuti huk kutichina puriyniyuq.
+panel.ai.empty_gallery = Fotoykikunamanta tapuy, galeríapi ruwakusqantataq qhaway: agenteqa maskayta, huch'uy rikch'aykunata qhawayta, akllayta, huñukunaman rakiyta, fototapas allichaqpi kichayta atin.
+panel.ai.thinking = yuyaykachkan…
+panel.ai.placeholder_editor = Kay qillqa khipumanta tapuy utaq allichay
+panel.ai.placeholder_gallery = Fotoykikunamanta tapuy
+panel.ai.send = Apachiy
+panel.ai.stop = Sayachiy
+panel.ai.fetching_models = CLI-ta modelonkunamanta tapuchkan…
+panel.ai.no_models = Manam tupaq modelo kanchu
+panel.ai.search_models = Modelokunata maskay…
+
+# Archivo rimanakuna
+panel.keymap.install_plugin = Plug-inta churay
+panel.keymap.save_as_prompt = Huk hina waqaychay — extensiónmi formatota akllan:

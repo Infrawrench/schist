@@ -1,0 +1,24 @@
+tool.artboard.name = Artboard
+tool.artboard.description = Pulum wan artboard i kamaot: hem i wan eria blong kanvas we i gat nem mo i eksport hem wan. Sipos yu pulum insaed long wan artboard we i stap finis, yu muvum hem.
+tool.artboard.default_name = Artboard {n}
+
+tool.slice.name = Slaes
+tool.slice.description = Pulum wan eksport slaes i kamaot, hem i wan rectangle blong kanvas we i gat nem mo i eksport olsem wan image blong hem wan. Sipos yu pulum insaed long wan slaes we i stap finis, yu muvum hem.
+tool.slice.default_name = Slaes {n}
+
+tool.frame.name = Frem
+tool.frame.description = Pulum wan frem i kamaot: hem i wan layer olsem rectangle (o ellipse) we i maskem wanem samting yu putum insaed long hem.
+tool.frame.default_name = Frem {n}
+tool.frame.choice.rectangle = Rectangle
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Frem
+
+tool.note.name = Not
+tool.note.description = Klik long emti kanvas blong pinim wan not long ples ya, wetem nem blong man we i raetem mo kala we i stap long editor state; klik long wan pin we i stap finis blong jusum long Notes panel.
+tool.note.history.place = Putum Not
+tool.note.history.move = Muvum Not
+tool.note.history.delete = Deletem Not
+
+tool.count.name = Kaont
+tool.count.description = Klik blong putum ol kaont maka we oli gat namba long kanvas, mo klik long wan we i stap finis blong tekemaot.
+tool.count.default_name = Kaont {n}

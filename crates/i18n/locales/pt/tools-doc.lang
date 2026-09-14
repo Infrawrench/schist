@@ -1,0 +1,24 @@
+tool.artboard.name = Prancheta
+tool.artboard.description = Arraste para criar uma prancheta: uma região nomeada da tela que pode ser exportada separadamente. Arrastar dentro de uma prancheta existente move-a.
+tool.artboard.default_name = Prancheta {n}
+
+tool.slice.name = Fatia
+tool.slice.description = Arraste para criar uma fatia de exportação, um retângulo nomeado da tela que é exportado como uma imagem separada. Arrastar dentro de uma fatia existente move-a.
+tool.slice.default_name = Fatia {n}
+
+tool.frame.name = Quadro
+tool.frame.description = Arraste para criar um quadro: uma camada retangular (ou elíptica) que mascara tudo o que for colocado nela.
+tool.frame.default_name = Quadro {n}
+tool.frame.choice.rectangle = Retângulo
+tool.frame.choice.ellipse = Elipse
+tool.frame.history.frame = Quadro
+
+tool.note.name = Nota
+tool.note.description = Clique numa área vazia da tela para fixar uma nota, identificada com o autor e a cor definidos no editor; clique num marcador existente para o selecionar no painel Notas.
+tool.note.history.place = Colocar nota
+tool.note.history.move = Mover nota
+tool.note.history.delete = Eliminar nota
+
+tool.count.name = Contagem
+tool.count.description = Clique para colocar marcadores de contagem numerados na tela e clique num marcador existente para o remover.
+tool.count.default_name = Contagem {n}

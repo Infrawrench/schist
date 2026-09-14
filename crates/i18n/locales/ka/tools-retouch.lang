@@ -1,0 +1,29 @@
+# უბნების რეტუშირების ხელსაწყოები: საკერებელი, შიგთავსის გათვალისწინებით გადაადგილება, წითელი თვალი და ჯადოსნური საშლელი.
+
+# საკერებელი
+tool.patch.name = საკერებელი
+tool.patch.description = შემოხაზეთ დეფექტი, შემდეგ მონიშნული არე სუფთა პიქსელებზე გადაათრიეთ: იქაური ტექსტურა დეფექტს მოერგება. საკერებლის რეჟიმი განსაზღვრავს, წყვილის რომელ ბოლოს გადაათრევთ.
+tool.patch.option.patch = საკერებელი
+tool.patch.choice.source = წყარო
+tool.patch.choice.destination = დანიშნულება
+tool.patch.history.patch = საკერებელი
+
+# შიგთავსის გათვალისწინებით გადაადგილება
+tool.content_aware_move.name = შიგთავსის გათვალისწინებით გადაადგილება
+tool.content_aware_move.description = მონიშნული ობიექტი სხვა ადგილას გადაათრიეთ და მისგან დარჩენილი სიცარიელე გარემომცველი უბნის მიხედვით შეივსება. გაფართოების რეჟიმში ობიექტი გადაადგილების ნაცვლად გაიწელება.
+tool.content_aware_move.choice.move = გადაადგილება
+tool.content_aware_move.choice.extend = გაფართოება
+tool.content_aware_move.history.move = შიგთავსის გათვალისწინებით გადაადგილება
+
+# წითელი თვალი
+tool.red_eye.name = წითელი თვალი
+tool.red_eye.description = დაწკაპუნებით მოაშორეთ გუგას ფოტოგანათებით გამოწვეული სიწითლე.
+tool.red_eye.option.pupil_size = გუგის ზომა
+tool.red_eye.option.darken = გამუქება
+tool.red_eye.history.red_eye = წითელი თვალი
+
+# ჯადოსნური საშლელი
+tool.magic_eraser.name = ჯადოსნური საშლელი
+tool.magic_eraser.description = დაწკაპუნებით წაშალეთ მაჩვენებლის ქვეშ მსგავსი ფერის უბანი ხელსაწყოს დაშვების ფარგლებში — დაწკაპუნების წერტილთან მომიჯნავე ან ფენის ყველა შესაბამის ადგილას.
+tool.magic_eraser.option.contiguous = მომიჯნავე
+tool.magic_eraser.history.erase = ჯადოსნური საშლელი

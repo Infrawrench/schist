@@ -1,0 +1,36 @@
+app.filter_gallery.title = ފިލްޓަރ ގެލެރީ
+app.filter_gallery.stack = ސްޓެކް (ތިރީން މައްޗަށް ތަތުބީޤު ކުރެވޭ)
+app.filter_gallery.no_settings = މި ފިލްޓަރަށް ސެޓިންގެއް ނެތެވެ.
+app.fonts.not_open_licensed = އޯޕަން ލައިސަންސެއް ނޫން · {substitute} އެއީގެ މިންތަކާ ގުޅެއެވެ
+app.fonts.missing_substituted = ނެތް · ލިޔުން ޖަހަނީ ބަދަލު ފޮންޓަކުންނެވެ
+app.fonts.not_in_catalogue = {family} އޯޕަން ފޮންޓް ކެޓަލޮގުގައި ނެތް
+app.fonts.no_faces = {family} އަށް ޑައުންލޯޑް ކުރެވޭ ފޭސްތަކެއް ނެތް
+app.fonts.empty_response = ހުސް ޖަވާބެއް
+app.update.unreadable_response = ކިޔެވެން ނުކެރޭ ޖަވާބެއް: {error}
+app.update.no_temp_dir = ޑައުންލޯޑް ކުރާނެ ވަގުތީ ޑައިރެކްޓަރީއެއް ނެތް
+app.update.asset_has_path = ރިލީސްގައި އެސެޓްގެ ނަމުގައި މަގެއް ހިމެނޭ
+app.update.too_big = ޑައުންލޯޑް ރިލީސްގައި ބުނާ ވަރަށްވުރެ ބޮޑު
+app.update.stopped_at = ޑައުންލޯޑް {total} ބައިޓުން {got} ގައި ހުއްޓުނު
+app.update.hash_mismatch = ޑައުންލޯޑުގެ ހެޝް {want} ނޫން، {got} އެވެ
+app.update.not_in_bundle = މި ކޮޕީ އެޕްލިކޭޝަން ބަންޑަލެއްގެ ތެރޭގައި ނެތް
+app.update.no_parent_dir = އެޕްލިކޭޝަން ބަންޑަލަށް ޕެރެންޓް ޑައިރެކްޓަރީއެއް ނެތް
+app.update.cannot_write = {dir} އަށް ލިޔެން ނުކެރޭ
+app.update.cannot_move_aside = {app} ދުރުކޮށްލެވެން ނުކެރޭ
+app.update.cannot_move_in = އާ ބަންޑަލް އެތަނަށް ގެންދެވެން ނުކެރޭ
+app.update.cannot_run_ditto = /usr/bin/ditto ހިންގާލެވެން ނުކެރޭ
+app.update.unpack_failed = ޑައުންލޯޑް އަންޕެކް ކުރުން ފޭލްވި: {error}
+app.update.no_app_in_download = ޑައުންލޯޑުގައި Schist.app ނެތް
+app.update.cannot_run_codesign = /usr/bin/codesign ހިންގާލެވެން ނުކެރޭ
+app.update.signature_invalid = ޑައުންލޯޑުގެ ސޮއި ތަސްދީޤު ނުވޭ: {error}
+app.update.download_unsigned = މި ކޮޕީގައި ސޮއި ކޮށްފައިވާއިރު ޑައުންލޯޑުގައި ސޮއި ކޮށްފައެއް ނެތް
+app.update.different_developer = ޑައުންލޯޑުގައި ސޮއި ކޮށްފައިވަނީ އެހެން ޑިވެލޮޕަރެއް
+app.update.cannot_relaunch = ރީލޯންޗަރ ފަށަން ނުކެރޭ
+app.update.not_installed_copy = މި ކޮޕީ މިތަނަށް ބެހެއްޓީ އިންސްޓޯލަރ ނޫން
+app.update.cannot_start_installer = އިންސްޓޯލަރ ފަށަން ނުކެރޭ
+app.update.platform_unsupported = މި ޕްލެޓްފޯމުގައި އަޕްޑޭޓް އިންސްޓޯލްވަނީ Schist އިންސްޓޯލްވި ގޮތަށެވެ
+app.vulkan.no_loader = schist: މި ސިސްޓަމުގައި Vulkan ލޯޑަރެއް ނެތީމާ ކުރެހޭނެ އެއްޗެއް ނެތެވެ.\n\nSchist ރެންޑަރ ކުރަނީ Vulkan މެދުވެރިކޮށް، އަދި `libvulkan.so.1` އިންސްޓޯލް ކޮށްފައެއް ނެތެވެ.\nލޯޑަރާއި ޑްރައިވަރެއް ދެންމެ ބޭނުންވެއެވެ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: މި ސެޝަނުން ދައްކާ Vulkan ޑްރައިވަރ އެތަނުގައި ނެތެވެ.\n\n{var} ސެޓްކޮށްފައިވެއެވެ، އަދި އެއީ ޑްރައިވަރ ހޯދުމަށް ލޯޑަރ ކުރާ ސާޗްއަށް އިތުރުކުރުމެއް ނޫން، އެ ސާޗް *ބަދަލު* ކުރެއެވެ. ވީމާ ނެތް މި ފައިލްތަކަކީ މުޅި ޑްރައިވަރ ލިސްޓެވެ — އަދި ކިތައްމެ ޑްރައިވަރެއް އިންސްޓޯލްކޮށްފައި ހުރިއަސް، މި ސެޝަނުގެ ހުރިހާ Vulkan ޕްރޮގްރާމަކަށް ޑްރައިވަރެއް ނުފެންނާނެއެވެ:\n\n{missing}\n    {var}={value}\n\nހުންނަ މެނިފެސްޓަކަށް އެއީ ދައްކާށެވެ — އިންސްޓޯލްކޮށްފައިވާ ޑްރައިވަރުތަކުގެ މެނިފެސްޓް ހުންނަނީ /usr/share/vulkan/icd.d ގައެވެ — ނުވަތަ އެއީ އަންސެޓްކޮށް ލޯޑަރަށް އޭނާގެ މަނިފެސްޓް ހޯދަން ދޫކޮށްލާށެވެ. ކޮންފިގް ފައިލަކުން (Hyprland ގެ `env =`، systemd environment.d drop-in، ނުވަތަ ޝެލް ޕްރޮފައިލަކުން) މިކަން ސެޓްކޮށްދޭ ސެޝަނެއްނަމަ އެތަނުގައި ބުނެދޭން ޖެހެއެވެ، އަދި ހިނގަމުން ދާ ތަކެއްޗަށް ބަދަލު ދެވުމަށް އަލުން ލޮގްއިން ކުރަން ޖެހެއެވެ.\n
+app.vulkan.override_note = \n{var} އަކީ {value} އަށް ސެޓްކޮށްފައިވާ ވޭރިއަބަލެކެވެ، އަދި އެއީ ލޯޑަރުގެ ސާޗް ބަދަލުކުރެއެވެ: އެ މެނިފެސްޓްތަކުން މި މެޝިނަށް ވާ އެއްވެސް މެނިފެސްޓެއް ނެތްނަމަ، ފުރަތަމަ ބަލާނީ އެއީ އަންސެޓްކުރުމެވެ.\n
+app.vulkan.no_driver = schist: Vulkan ޑްރައިވަރެއް އިންސްޓޯލްކޮށްފައި ނެތީމާ ކުރެހޭނެ ތަނެއް ނެތެވެ.\n\nSchist ރެންޑަރ ކުރަނީ Vulkan މެދުވެރިކޮށެވެ. ލޯޑަރ އިންސްޓޯލްކޮށްފައިވިޔަސް ޑްރައިވަރެއް ނެތްކަމަށް އެއީ ރިޕޯޓްކުރެއެވެ — ހޯދާ ދެ ތަނުގެ އެއްވެސް ތަނެއްގައި ޑްރައިވަރެއް ރަޖިސްޓަރ ކޮށްފައެއް ނެތެވެ:\n\n{dirs}\n\nލޯޑަރ ދޫކުރަނީ ޑްރައިވަރުތަކާ ވަކިންނެވެ، ވީމާ މިއީ ގާލިބަށް އެއް ޕެކޭޖެއް ނެތުމުގެ މައްސަލައެކެވެ.\n\nމި މެޝިނުގެ GPU އަށް ވާ ޕެކޭޖް އިންސްޓޯލް ކުރާށެވެ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA ގެ ޕްރޮޕްރައިޓަރީ ޑްރައިވަރުގައި އެއީގެ ޑްރައިވަރ ހިމެނެއެވެ (Arch ގައި `nvidia-utils`، Debian ގައި `nvidia-driver`). ވާޗުއަލް މެޝިނެއްގައި، ނުވަތަ GPU ޑްރައިވަރެއް އިންސްޓޯލްކުރާނެ ތަނެއް ނޫންނަމަ، ހިނގާނީ ސޮފްޓްވެއަރ ރާސްޓަރައިޒަރެވެ: Arch ގައި `vulkan-swrast`، އެހެން ތަންތަނުގައި `mesa-vulkan-drivers` ގެ ބައެކެވެ. އެއީ ލަސް، ނަމަވެސް ފެށޭނެއެވެ.\n{overridden}
+app.vulkan.no_device = schist: Vulkan ޑްރައިވަރެއް އިންސްޓޯލްކޮށްފައިވިޔަސް ރެންޑަރ ކުރާނެ ޑިވައިސެއް ނުދެއެވެ.\n\nޑްރައިވަރުން މި GPU ނުހިމަނާ ކަމުގައި، ނުވަތަ އެއަށް ދެވެން ނުކެރޭ ކަމުގައި ވެދާނެއެވެ — SSH މަގުން، ނުވަތަ ކޮންޓޭނަރެއްގެ ތެރޭގައި، /dev/dri ނެތުމަކީ އާންމު ކަމެކެވެ. `vulkaninfo --summary` އިން ލޯޑަރަށް ފެންނަ ތަކެތި ރިޕޯޓްކުރެއެވެ.\n\nމި މެޝިނުގައި GPU އެއް ނެތްނަމަ، ސޮފްޓްވެއަރ ރާސްޓަރައިޒަރުން GPU އެއް ނުލާ ރެންޑަރ ކުރެއެވެ: Arch ގައި `vulkan-swrast`، Debian އަދި Fedora ގައި `mesa-vulkan-drivers` ގެ ބައެކެވެ.\n
+app.vulkan.skip_hint = Schist ކޮންމެހެން ފަށައި އޭގެ ގޮތަށް ފޭލްވާން ދޫކޮށްލުމަށް {var}=1 ސެޓް ކުރާށެވެ.

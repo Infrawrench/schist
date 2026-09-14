@@ -1,0 +1,25 @@
+tool.transform.name = Transformação livre
+tool.transform.description = Transformação livre. Ao ativá-la, é apresentada uma caixa de transformação à volta da camada ativa: arraste um canto para redimensionar, arraste fora de um canto para rodar e arraste uma aresta para inclinar. Nada é gravado até confirmar (Enter); ao cancelar (Escape), a camada regressa ao estado anterior.
+tool.transform.option.interpolation = Interpolação
+tool.transform.history.transform = Transformação livre
+tool.transform.history.image_size = Tamanho da imagem
+tool.transform.history.canvas_size = Tamanho da tela
+
+tool.transform.selection.name = Transformar seleção
+tool.transform.selection.description = Transformar seleção: a mesma caixa, mas deslocando o contorno da seleção em vez dos píxeis dentro dela. Confirme ou cancele para terminar.
+tool.transform.selection.history.transform = Transformar seleção
+
+tool.transform.resample.nearest_neighbor = Vizinho mais próximo
+tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bicubic = Bicúbica
+
+tool.crop.name = Cortar
+tool.crop.description = Arraste para definir a área a manter e ajuste as respetivas alças; ao confirmar (Enter), o documento é recortado para essa área, enquanto cancelar (Escape) o deixa intacto.
+tool.crop.option.ratio = Proporção
+tool.crop.option.delete_cropped = Eliminar píxeis cortados
+tool.crop.choice.unconstrained = Sem restrições
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Cortar

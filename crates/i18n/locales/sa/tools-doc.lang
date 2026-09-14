@@ -1,0 +1,24 @@
+tool.artboard.name = चित्रफलकम्
+tool.artboard.description = चित्रफलकं कर्षित्वा रचयतु—एषः चित्रपटस्य नामयुक्तः प्रदेशः स्वतन्त्रतया निर्यात्यते। विद्यमानचित्रफलकस्य अन्तः कर्षणेन तत् चाल्यते।
+tool.artboard.default_name = चित्रफलकम् {n}
+
+tool.slice.name = खण्डः
+tool.slice.description = निर्यातखण्डं कर्षित्वा रचयतु; चित्रपटस्य एषः नामयुक्तः आयतः स्वतन्त्रचित्ररूपेण निर्यात्यते। विद्यमानखण्डस्य अन्तः कर्षणेन सः चाल्यते।
+tool.slice.default_name = खण्डः {n}
+
+tool.frame.name = आबन्धः
+tool.frame.description = आबन्धं कर्षित्वा रचयतु—आयताकारः (दीर्घवृत्ताकारो वा) स्तरः, यः तस्मिन् स्थापितं सर्वं मुखावरणेन सीमितं करोति।
+tool.frame.default_name = आबन्धः {n}
+tool.frame.choice.rectangle = आयतः
+tool.frame.choice.ellipse = दीर्घवृत्तम्
+tool.frame.history.frame = आबन्धः
+
+tool.note.name = टिप्पणी
+tool.note.description = रिक्तचित्रपटे नोदित्वा तत्र टिप्पणीं स्थापयतु; सा सम्पादकस्थितेः लेखकवर्णाभ्यां मुद्रिता भवति। विद्यमानचिह्ने नोदित्वा टिप्पणिफलकाय तत् चिनोतु।
+tool.note.history.place = टिप्पणीस्थापनम्
+tool.note.history.move = टिप्पणीचालनम्
+tool.note.history.delete = टिप्पणीविलोपनम्
+
+tool.count.name = गणना
+tool.count.description = चित्रपटे सङ्ख्यायुक्तानि गणनाचिह्नानि स्थापयितुं नोदयतु, विद्यमानं चिह्नं निष्कासयितुं तस्मिन् नोदयतु।
+tool.count.default_name = गणना {n}

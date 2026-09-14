@@ -1,0 +1,45 @@
+# The editor's canvas and its surroundings (crates/app/src/workspace:
+# viewport, view_options, notes, edit_ops, image_ops, layers_panel,
+# chrome, render): status-bar replies and history entries. Entries that
+# share a menu item's exact English reuse the menu.lang key instead.
+
+# Status-bar replies
+workspace.canvas.rotate_view_degrees = Putar Paparan {degrees}°
+workspace.canvas.view_reset = Paparan ditetapkan semula
+workspace.canvas.notes_on = Nota dihidupkan
+workspace.canvas.notes_off = Nota dimatikan
+workspace.canvas.rulers_on = Pembaris dihidupkan
+workspace.canvas.rulers_off = Pembaris dimatikan
+workspace.canvas.grid_on = Grid dihidupkan
+workspace.canvas.grid_off = Grid dimatikan
+workspace.canvas.guides_on = Panduan dihidupkan
+workspace.canvas.guides_off = Panduan dimatikan
+workspace.canvas.extras_on = Tambahan dihidupkan
+workspace.canvas.extras_off = Tambahan dimatikan
+workspace.canvas.snap_on = Lekap dihidupkan
+workspace.canvas.snap_off = Lekap dimatikan
+workspace.canvas.guides_cleared = Panduan dikosongkan
+workspace.canvas.no_path = Tiada laluan untuk digunakan
+workspace.canvas.path_empty = Laluan kosong
+workspace.canvas.stroke_needs_selection = Sapuan memerlukan pilihan
+workspace.canvas.nothing_to_stroke = Tiada apa-apa untuk disapu
+workspace.canvas.content_aware_fill_needs_selection = Isian Sedar Kandungan memerlukan pilihan
+workspace.canvas.content_aware_fill_needs_pixel_layer = Isian Sedar Kandungan memerlukan lapisan piksel
+workspace.canvas.color_range_needs_pixel_layer = Julat Warna memerlukan lapisan piksel
+workspace.canvas.nothing_to_adjust = Tiada apa-apa untuk dilaraskan
+workspace.canvas.nothing_to_trim = Tiada apa-apa untuk dirapikan
+workspace.canvas.trimmed = Dirapikan
+workspace.canvas.indexed_not_supported = Warna Berindeks belum disokong
+workspace.canvas.opacity_percent = Kelegapan: {n}%
+
+# History panel entries
+workspace.history.stroke = Sapuan
+workspace.history.fill = Isian
+workspace.history.content_aware_scale = Skala Sedar Kandungan
+workspace.history.filter_gallery = Galeri Penapis
+workspace.history.color_range = Julat Warna
+workspace.history.move_layer = Alih Lapisan
+workspace.history.move_layers = Alih Lapisan
+workspace.history.layer_opacity = Kelegapan Lapisan
+workspace.history.delete_note = Padam Nota
+workspace.history.edit_note = Sunting Nota

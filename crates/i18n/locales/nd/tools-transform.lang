@@ -1,0 +1,25 @@
+tool.transform.name = Ukuguqula Ngokukhululeka
+tool.transform.description = Ukuguqula Ngokukhululeka. Ukukusebenzisa kuvula ibhokisi lokuguqula elizingelezele isendlalelo esisebenzayo: hudula ikhona ukuze utshintshe ubukhulu, hudula ngaphandle kwekhona ukuze uphendukise, kumbe uhudule umphetho ukuze utshekise. Akulalutho olubhalwayo kuze kwamukelwe (Enter), njalo ukwesula (Escape) kubuyisela isendlalelo esimweni saso.
+tool.transform.option.interpolation = Ukubala Amanani Aphakathi
+tool.transform.history.transform = Ukuguqula Ngokukhululeka
+tool.transform.history.image_size = Ubukhulu Besithombe
+tool.transform.history.canvas_size = Ubukhulu Bekhanvasi
+
+tool.transform.selection.name = Guqula Okukhethiweyo
+tool.transform.selection.description = Guqula Okukhethiweyo: yibhokisi elifananayo, kodwa lihambisa umngcele walokho okukhethiweyo hatshi amaphikseli angaphakathi kwawo. Yamukela kumbe wesule ukuze uqede.
+tool.transform.selection.history.transform = Guqula Okukhethiweyo
+
+tool.transform.resample.nearest_neighbor = Umakhelwane Oseduze
+tool.transform.resample.bilinear = I-Bilinear
+tool.transform.resample.bicubic = I-Bicubic
+
+tool.crop.name = Sika
+tool.crop.description = Hudula ukhethe indawo ezagcinwa ubusulungisa izibambo zayo; ukwamukela (Enter) kusika idokhumenti ilingane layo, ukwesula (Escape) kuyitshiya injalo.
+tool.crop.option.ratio = Isilinganiso
+tool.crop.option.delete_cropped = Susa Amaphikseli Asikiweyo
+tool.crop.choice.unconstrained = Akubotshelwanga
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Sika

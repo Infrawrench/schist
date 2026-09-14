@@ -1,0 +1,25 @@
+# Өлкәләрҙе ретушлау ҡоралдары.
+
+tool.patch.name = Ямау
+tool.patch.description = Кәмселекте уратып һыҙығыҙ, шунан һайланған өлкәне таҙа пикселдәр өҫтөнә һөйрәгеҙ: ундағы текстура кәмселеккә яраҡлаштырыла. Ямау режимы был ике өлөштең ҡайһыһын һөйрәргә икәнен билдәләй.
+tool.patch.option.patch = Ямау
+tool.patch.choice.source = Сығанаҡ
+tool.patch.choice.destination = Тәғәйен урын
+tool.patch.history.patch = Ямау
+
+tool.content_aware_move.name = Эстәлекте иҫәпкә алып күсереү
+tool.content_aware_move.description = Һайланған объектты икенсе урынға һөйрәгеҙ, ә унан ҡалған бушлыҡ тирә-яҡтан тултырыла. Оҙайтыу режимында объект күсерелмәй, ә һуҙыла.
+tool.content_aware_move.choice.move = Күсереү
+tool.content_aware_move.choice.extend = Оҙайтыу
+tool.content_aware_move.history.move = Эстәлекте иҫәпкә алып күсереү
+
+tool.red_eye.name = Ҡыҙыл күҙ
+tool.red_eye.description = Ялтырауыҡтан ҡалған ҡыҙыл төҫтө бөтөрөү өсөн күҙ ҡараһына сиртегеҙ.
+tool.red_eye.option.pupil_size = Күҙ ҡараһы үлсәме
+tool.red_eye.option.darken = Ҡарайтыу
+tool.red_eye.history.red_eye = Ҡыҙыл күҙ
+
+tool.magic_eraser.name = Тылсымлы юйғыс
+tool.magic_eraser.description = Күрһәткән урындағы оҡшаш төҫлө өлкәне ҡоралдың рөхсәт ителгән айырмаһы сиктәрендә юйыу өсөн сиртегеҙ: сиртелгән урынға тоташ өлкәне йәки ҡатламдың бөтә урынын.
+tool.magic_eraser.option.contiguous = Тоташ
+tool.magic_eraser.history.erase = Тылсымлы юйғыс

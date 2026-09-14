@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Кемитүү
+tool.select.mode.intersect = Кесилишүү
+
+tool.marquee.rect.name = Тик бурчтуу тандоо
+tool.marquee.rect.description = Тик бурчтуу тандоо аймагын сүйрөп түзүңүз. Сүйрөөнүн башында Shift басылса, аймак тандоого кошулат; Alt басылса, кемитилет; экөө тең басылса, кесилиши алынат. Сүйрөп жатканда Shift бассаңыз, фигура чарчы болот. Сүйрөбөй басуу тандоону алып салат.
+tool.marquee.ellipse.name = Эллипс сымал тандоо
+tool.marquee.ellipse.description = Тик бурчтуу тандоодогудай Shift/Alt айкалыштарын колдонуп, эллипс сымал тандоо аймагын сүйрөп түзүңүз.
+
+tool.lasso.name = Лассо
+tool.lasso.description = Эркин чекти сүйрөп чийиңиз; сүйрөө бүткөндө тандоо аймагынын учтары туташат. Shift кошот, Alt кемитет.
+tool.lasso.history.select = Лассо менен тандоо
+tool.lasso.polygonal.name = Көп бурчтуу лассо
+tool.lasso.polygonal.description = Бурчтарды биринин артынан бирин басып, кырлары түз тандоо аймагын түзүңүз; жабуу үчүн биринчи чекиттин жанына басыңыз.
+tool.lasso.polygonal.history.select = Көп бурчтуу лассо
+tool.lasso.magnetic.name = Магниттик лассо
+tool.lasso.magnetic.description = Кырды болжол менен бойлой өтсөңүз, чек ошол жолдун жанындагы эң күчтүү контрастка жабышат.
+tool.lasso.magnetic.history.select = Магниттик лассо
+tool.lasso.magnetic.option.frequency = Жыштык
+
+tool.wand.name = Сыйкырдуу таякча
+tool.wand.description = Көрсөткүчтүн астындагы өңү окшош туташ аймакты жол берилген айырманын чегинде тандоо үчүн басыңыз; бул маанини «Чоңойтуу», «Окшош» жана «Түс диапазону» да колдонот.
+tool.wand.option.contiguous = Туташ
+tool.wand.history.select = Сыйкырдуу таякча
+
+tool.quick_select.name = Ыкчам тандоо
+tool.quick_select.description = Аймактын үстүнөн боёсоңуз, тандоо кылкалем өткөн окшош пикселдерге жайылат.
+tool.quick_select.history.select = Ыкчам тандоо
+
+tool.object_select.name = Объектти тандоо
+tool.object_select.description = Объектти куту менен курчап сүйрөсөңүз, тандоо анын ичинен табылган объекттин чегине жабышат.
+tool.object_select.history.select = Объектти тандоо

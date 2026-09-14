@@ -1,0 +1,83 @@
+# ტილოს გარშემო პანელები და ზოლები
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = ნავიგატორი
+panel.navigator.actual_pixels = რეალური პიქსელები
+
+panel.color.picker = ფერის ამრჩევი…
+panel.color.swap = ფერების გაცვლა
+panel.color.reset = შავსა და თეთრზე დაბრუნება
+
+panel.layers.blending_options = შერევის პარამეტრები…
+panel.layers.properties = ფენის თვისებები…
+panel.layers.show_hide = ფენის ჩვენება/დამალვა
+panel.layers.toggle_visibility = ხილვადობის გადართვა
+
+panel.history.title = ისტორია
+panel.history.opened = გახსნილია
+
+panel.info.title = ინფორმაცია
+panel.info.camera = კამერა
+panel.info.lens = ობიექტივი
+panel.info.iso = ISO {iso}
+panel.info.bias = ექსპოკორექცია
+panel.info.flash_fired = ფოტოგანათება ჩაირთო
+panel.info.no_flash = ფოტოგანათების გარეშე
+panel.info.white_balance = თეთრის ბალანსი {wb}
+panel.info.metering = {metering} ექსპოზიციის გაზომვა
+panel.info.taken = გადაღების დრო
+panel.info.size = {w} × {h} · {mp} მპ
+panel.info.size_oriented = {w} × {h} · {mp} მპ · ორიენტაცია {o}
+panel.info.software = პროგრამა
+panel.info.where = მდებარეობა
+
+panel.notes.author = ავტორი
+panel.notes.clear_all = ყველას გასუფთავება
+panel.notes.unattributed = ავტორის გარეშე
+panel.notes.empty = შენიშვნის დასატოვებლად ტილოზე დაწკაპუნეთ.
+panel.notes.placeholder = დასაწერად დაწკაპუნეთ
+
+panel.character.title = სიმბოლო
+panel.character.type_tool = ტექსტის ხელსაწყო (T)
+panel.character.align_left = მარცხნივ გასწორება
+panel.character.align_center = ცენტრში გასწორება
+panel.character.align_right = მარჯვნივ გასწორება
+panel.character.text_color = ტექსტის ფერი
+panel.character.panel = სიმბოლოს პანელი
+panel.character.cancel_edit = ტექსტის რედაქტირების გაუქმება
+panel.character.commit_edit = ტექსტის რედაქტირების დადასტურება
+panel.character.number_tip = {label} · შეიყვანეთ მნიშვნელობა ან გამოიყენეთ ↑ / ↓ (უფრო დიდი ნაბიჯისთვის Shift)
+panel.character.leading = სტრიქონთაშორისი ინტერვალი
+panel.character.tracking = ასოთაშორისი ინტერვალი
+panel.character.alignment = გასწორება
+panel.character.opentype = OpenType
+panel.character.text_on_path = ტექსტი კონტურზე
+panel.character.straight = სწორი
+panel.character.on_path = კონტურზე
+panel.character.straight_tip = ტექსტური ფენის ჩვეულებრივი საბაზისო ხაზის გამოყენება
+panel.character.on_path_tip = აქტიური კონტურის ასლის გამოყენება
+panel.character.path_offset = კონტურიდან წანაცვლება
+
+panel.ai.title = AI
+panel.ai.empty_editor = მოითხოვეთ შესწორება და უყურეთ მის შესრულებას ტილოზე. აგენტი იმავე ხელსაწყოებს, ფილტრებსა და ბრძანებებს მართავს, რომლებსაც მენიუები — თითოეული მოქმედება ისტორიის ერთი ნაბიჯია.
+panel.ai.empty_gallery = ჰკითხეთ თქვენი ფოტოების შესახებ და შედეგს გალერეაში იხილავთ: აგენტს შეუძლია ძიება, ესკიზების ნახვა, მონიშვნა, ჯგუფებად დალაგება და ფოტოს რედაქტორში გახსნა.
+panel.ai.thinking = ფიქრობს…
+panel.ai.placeholder_editor = ჰკითხეთ ამ დოკუმენტზე ან შეასწორეთ იგი
+panel.ai.placeholder_gallery = ჰკითხეთ თქვენი ფოტოების შესახებ
+panel.ai.send = გაგზავნა
+panel.ai.stop = შეჩერება
+panel.ai.fetching_models = მოდელების სია CLI-დან მოითხოვება…
+panel.ai.no_models = შესაბამისი მოდელები არ არის
+panel.ai.search_models = მოდელების ძიება…
+
+panel.keymap.install_plugin = დამატების დაყენება
+panel.keymap.save_as_prompt = შენახვა როგორც — ფორმატს გაფართოება განსაზღვრავს:

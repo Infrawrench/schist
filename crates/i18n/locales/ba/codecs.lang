@@ -1,0 +1,36 @@
+# Файл форматтары һәм импорт хаталары.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} декодлана
+codec.msg.zero_sized = рәсемдә пикселдәр юҡ
+codec.msg.assembling_document = документ йыйыла
+
+codec.raw.msg.decoding = эшкәртелмәгән файл декодлана
+codec.raw.msg.developing = эшкәртелмәгән файл эшкәртелә
+codec.raw.msg.finding_preview = эсенә һалынған алдан ҡарау рәсеме эҙләнә
+codec.raw.msg.decoding_preview = эсенә һалынған алдан ҡарау рәсеме декодлана
+codec.raw.msg.decoder_panicked = был файлды декодлаусының эше өҙөлдө: {what}
+
+codec.affinity.import_title = Affinity импорты
+codec.affinity.flattened_preview_layer = Бер ҡатламға берләштерелгән алдан ҡарау
+codec.affinity.msg.no_preview = Ҡулланырлыҡ эсенә һалынған алдан ҡарау рәсеме юҡ. Affinity-ҙың ҡатламлы форматы ябыҡ; Schist файлдағы бер ҡатламға берләштерелгән алдан ҡарау рәсемен импортлай. Был файлда ул юҡ — Affinity программаһында уны яңынан һаҡлағыҙ йәки тулы ҡатламлы импорт өсөн PSD итеп экспортлағыҙ.
+
+codec.heif.msg.no_library = libheif мөмкин түгел ({details}). HEIC асыу өсөн libheif китапханаһы кәрәк (Linux: libheif1 урынлаштырығыҙ; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — был libheif йыйылмаһында HEVC декодлаусыһы булмауы мөмкин (Debian/Ubuntu системаларында libheif-plugin-libde265 урынлаштырығыҙ)
+codec.heif.msg.unknown_error = билдәһеҙ хата
+codec.heif.msg.initialising = libheif әҙерләнә
+codec.heif.msg.reading_container = HEIF контейнеры уҡыла
+codec.heif.msg.finding_primary_image = төп рәсем эҙләнә
+codec.heif.msg.reading_icc_profile = ICC профиле уҡыла
+codec.heif.msg.decoding_image = рәсем декодлана
+codec.heif.msg.checksum_mismatch = {name} өсөн тикшереү суммаһы тура килмәй: {expected} көтөлдө, {got} алынды
+codec.heif.msg.imageio_cannot_read = ImageIO HEIF контейнерын уҡый алманы
+codec.heif.msg.container_empty = HEIF контейнерында рәсем юҡ
+codec.heif.msg.imageio_cannot_decode = ImageIO төп рәсемде декодлай алманы

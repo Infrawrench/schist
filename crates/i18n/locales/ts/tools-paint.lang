@@ -1,0 +1,72 @@
+tool.brush.name = Burachi
+tool.brush.description = Penda ntila wa makumu yo olova hi muhlovo wa le mahlweni, sayizi ya wona yi lawuriwa hi sayizi, ku tiya ni ku pfaleka ka burachi ya muhleri.
+tool.brush.history.stroke = Burachi
+
+tool.pencil.name = Pensele
+tool.pencil.description = Penda ntila wa makumu yo tiya, lowu nga olovisiwangiki hi antialias, hi muhlovo wa le mahlweni.
+tool.pencil.history.stroke = Pensele
+
+tool.eraser.name = Xisusi
+tool.eraser.description = Sula laha ntila wu hundzaka kona, u tlherisela leyara leswaku yi vonaka hi le ndzhaku.
+tool.eraser.history.stroke = Xisusi
+
+tool.clone.name = Xitempe xo kopa
+tool.clone.description = Xitempe xo kopa: tshikilela alt u ri karhi u tshikilela ku veka ndhawu ya xihlovo, kutani u penda tipikseli leti kopiweke ku suka eka yona hi mpfhuka wolowo.
+tool.clone.history.stroke = Xitempe xo kopa
+
+tool.dodge.name = Vonakisa
+tool.dodge.description = Vonakisa tipikseli leti ntila wu hundzaka ehenhla ka tona.
+tool.dodge.history.stroke = Vonakisa
+tool.burn.name = Nyamisa
+tool.burn.description = Nyamisa tipikseli leti ntila wu hundzaka ehenhla ka tona.
+tool.burn.history.stroke = Nyamisa
+tool.sponge.name = Xiponci
+tool.sponge.description = Engetela kumbe hunguta ndzalo ya muhlovo eka tipikseli leti ntila wu hundzaka ehenhla ka tona.
+tool.sponge.history.stroke = Xiponci
+
+tool.blur.name = Fihla
+tool.blur.description = Fihla tipikseli leti ntila wu hundzaka ehenhla ka tona.
+tool.blur.history.stroke = Fihla
+tool.sharpen.name = Tiyisa vuxokoxoko
+tool.sharpen.description = Tiyisa vuxokoxoko bya tipikseli leti ntila wu hundzaka ehenhla ka tona.
+tool.sharpen.history.stroke = Tiyisa vuxokoxoko
+tool.smudge.name = Totela
+tool.smudge.description = Koka muhlovo hi laha ntila wu fambaka kona, onge u susumeta pende leyi tsakamaka.
+tool.smudge.history.stroke = Totela
+
+tool.heal.name = Burachi yo lunghisa
+tool.heal.description = Burachi yo lunghisa: tshikilela alt ni ku tshikilela ku veka xihlovo, kutani u penda; xivumbeko xa xihlovo xi hlanganisiwa ni muhlovo ni ku vonakala ka laha ku yisiwaka kona.
+tool.heal.history.stroke = Burachi yo lunghisa
+tool.spot_heal.name = Burachi yo lunghisa xivati
+tool.spot_heal.description = Burachi yo lunghisa xivati: penda ehenhla ka xivati kutani xi siviwa hi xivumbeko lexi tekiweke ekusuhi na xona — a ku na ndhawu ya xihlovo yo yi veka.
+tool.spot_heal.history.stroke = Burachi yo lunghisa xivati
+
+tool.history_brush.name = Burachi ya matimu
+tool.history_brush.description = Penda tipikseli ti huma eka xifaniso xa matimu ya dokhumente, u tlherisela endzhaku mintirho leyi endliweke endzhaku, ntila hi ntila.
+tool.history_brush.history.stroke = Burachi ya matimu
+
+tool.background_eraser.name = Xisusi xa le ndzhaku
+tool.background_eraser.description = Sula muhlovo lowu tekiweke ehansi ka xivindzi xa burachi, u siya tipikseli ta muhlovo lowu hambaneke, leswaku u susa munhu kumbe xilo eka leswi nga le ndzhaku.
+tool.background_eraser.history.stroke = Xisusi xa le ndzhaku
+
+tool.gradient.name = Ku cincana ka mihlovo
+tool.gradient.description = Koka u tata leyara — hi le ka nhlawulo loko wu ri kona — hi ku cincana ka mihlovo hi layini ku suka eka muhlovo wa le mahlweni ku ya eka wa le ndzhaku, hi tlhelo leri u kokaka ha rona.
+tool.gradient.radial.name = Ku cincana ka mihlovo hi xirhendzevutana
+tool.gradient.radial.description = Koka ku suka exikarhini u ya ehandle ku tata hi ku cincana ka mihlovo ya xirhendzevutana, ku suka eka muhlovo wa le mahlweni ku ya eka wa le ndzhaku.
+tool.gradient.option.gradient = Ku cincana ka mihlovo
+tool.gradient.option.reverse = Hundzuluxa
+tool.gradient.option.dither = Hlanganisa mihlovo
+tool.gradient.choice.foreground_to_background = Ku suka le mahlweni ku ya le ndzhaku
+tool.gradient.choice.foreground_to_transparent = Ku suka le mahlweni ku ya eka ku vonaka hi le ndzhaku
+tool.gradient.choice.linear = Hi layini
+tool.gradient.choice.radial = Hi xirhendzevutana
+tool.gradient.choice.angle = Engele
+tool.gradient.choice.reflected = Kombisiweke
+tool.gradient.choice.diamond = Dayimani
+tool.gradient.history.gradient = Ku cincana ka mihlovo
+
+tool.bucket.name = Bakiti ya pende
+tool.bucket.description = Tshikilela ku tata ndhawu leyi hlanganeke ya muhlovo lowu fanaka ehansi ka njoho hi muhlovo wa le mahlweni, hi mpimo lowu xitirhisiwa xi pfumelelaka ku hambana ha wona.
+tool.bucket.option.contiguous = Swi hlanganile
+tool.bucket.option.all_layers = Maleyara hinkwawo
+tool.bucket.history.fill = Bakiti ya pende

@@ -1,0 +1,9 @@
+{
+  "loading": "Laadimine…",
+  "starting": "Käivitamine…",
+  "webgpu": "Schist vajab WebGPU-d, mida see brauser ei paku. Seda toetavad Chrome/Edge 113+, Firefox 141+ ja Safari 26+.",
+  "noticeTitle": "Schist töötab kõige paremini töölauarakendusena",
+  "noticeBody": "Kasutad veebiversiooni, mis on kergem tarkvaraversioon: see komposiidib protsessoril ning sellest puuduvad mõned funktsioonid — Photoshopi pistikprogrammid ja kolmandate osapoolte pistikprogrammid, pildigalerii, tehisintellekti paneel, HEIC-import ja fontide allalaadimine — ning failid salvestatakse allalaadimistena. Tasuta macOS-i, Windowsi ja Linuxi töölauarakenduses on need kõik olemas.",
+  "noticeLink": "Hangi töölauarakendus.",
+  "ok": "OK"
+}

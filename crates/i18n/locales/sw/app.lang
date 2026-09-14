@@ -1,0 +1,36 @@
+app.filter_gallery.title = Matunzio ya Vichujio
+app.filter_gallery.stack = Rundo (hutumika kutoka chini hadi juu)
+app.filter_gallery.no_settings = Kichujio hiki hakina mipangilio.
+app.fonts.not_open_licensed = haina leseni huria · {substitute} inalingana na vipimo vyake
+app.fonts.missing_substituted = inakosekana · maandishi yanatumia fonti mbadala
+app.fonts.not_in_catalogue = {family} haipo katika orodha ya fonti huria
+app.fonts.no_faces = hakuna mitindo ya {family} inayoweza kupakuliwa
+app.fonts.empty_response = jibu tupu
+app.update.unreadable_response = jibu halisomeki: {error}
+app.update.no_temp_dir = hakuna saraka ya muda ya kupakulia
+app.update.asset_has_path = toleo limetaja mali yake kwa njia
+app.update.too_big = kipakuliwa ni kikubwa kuliko ilivyoelezwa na toleo
+app.update.stopped_at = upakuaji ulisimama kwenye baiti {got} kati ya {total}
+app.update.hash_mismatch = hashi ya kipakuliwa ni {got}, si {want}
+app.update.not_in_bundle = nakala hii haimo ndani ya kifurushi cha programu
+app.update.no_parent_dir = kifurushi cha programu hakina saraka mzazi
+app.update.cannot_write = haiwezi kuandika kwenye {dir}
+app.update.cannot_move_aside = haiwezi kuhamisha {app} pembeni
+app.update.cannot_move_in = haiwezi kuhamisha kifurushi kipya mahali pake
+app.update.cannot_run_ditto = haiwezi kuendesha /usr/bin/ditto
+app.update.unpack_failed = kufungua kipakuliwa kumeshindwa: {error}
+app.update.no_app_in_download = kipakuliwa hakina Schist.app
+app.update.cannot_run_codesign = haiwezi kuendesha /usr/bin/codesign
+app.update.signature_invalid = sahihi ya kipakuliwa haijathibitishwa: {error}
+app.update.download_unsigned = nakala hii imetiwa sahihi lakini kipakuliwa hakijatiwa sahihi
+app.update.different_developer = kipakuliwa kimetiwa sahihi na msanidi mwingine
+app.update.cannot_relaunch = haiwezi kuanzisha kifungua-upya
+app.update.not_installed_copy = nakala hii haikuwekwa hapa na kisakinishaji
+app.update.cannot_start_installer = haiwezi kuanzisha kisakinishaji
+app.update.platform_unsupported = masasisho kwenye jukwaa hili husakinishwa kwa njia ambayo Schist ilisakinishwa
+app.vulkan.no_loader = schist: mfumo huu hauna kipakiaji cha Vulkan, hivyo hakuna cha kuchorea.\n\nSchist huonyesha kupitia Vulkan, na `libvulkan.so.1` haijasakinishwa.\nKipakiaji na kiendeshi vyote vinahitajika:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: kiendeshi cha Vulkan kinachoelekezwa na kipindi hiki hakipo.\n\n{var} imewekwa, na kuiweka *hubadilisha* utafutaji wa viendeshi wa kipakiaji\nbadala ya kuuongezea. Kwa hiyo faili hizi ambazo hazipo ndizo orodha nzima\nya viendeshi, na programu zote za Vulkan katika kipindi hiki hazioni kiendeshi:\n\n{missing}\n    {var}={value}\n\nIelekeze kwenye manifest iliyopo — viendeshi huweka zao katika\n/usr/share/vulkan/icd.d — au iondoe na uruhusu kipakiaji kijitafutie.\nIkiwa kipindi huiweka kutoka faili ya usanidi (`env =` ya Hyprland,\nfaili ya systemd environment.d, au wasifu wa shell), ibadilishe huko;\nmabadiliko yanahitaji kuingia upya ili yafikie programu zinazoendelea.\n
+app.vulkan.override_note = \n{var} imewekwa kuwa {value}, na hiyo hubadilisha utafutaji wa kipakiaji:\nikiwa hakuna manifest ya mashine hii, jaribu kwanza kuondoa mpangilio huo.\n
+app.vulkan.no_driver = schist: hakuna kiendeshi cha Vulkan kilichosakinishwa, hivyo hakuna cha kuchorea.\n\nSchist huonyesha kupitia Vulkan. Kipakiaji kimesakinishwa lakini hakioni\nkiendeshi katika maeneo yote mawili yanayotafutwa:\n\n{dirs}\n\nKipakiaji husambazwa tofauti na viendeshi, kwa hivyo kawaida kifurushi kimoja\nkinakosekana.\n\nSakinisha kiendeshi cha GPU ya mashine hii:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nKiendeshi miliki cha NVIDIA kina chake (`nvidia-utils` kwenye Arch,\n`nvidia-driver` kwenye Debian). Kwenye mashine pepe au pasipo kiendeshi cha GPU,\ntumia rasterizer ya programu: `vulkan-swrast` kwenye Arch, sehemu ya\n`mesa-vulkan-drivers` kwingine. Ni polepole, lakini huanza.\n{overridden}
+app.vulkan.no_device = schist: kiendeshi cha Vulkan kimesakinishwa lakini hakitoi kifaa cha kuonyesha.\n\nHuenda kiendeshi hakitumiki na GPU hii au hakiwezi kuifikia — kupitia SSH au\nndani ya kontena, /dev/dri mara nyingi hukosekana. `vulkaninfo --summary`\nhuonyesha kile kipakiaji kinachoona.\n\nRasterizer ya programu huonyesha bila GPU: `vulkan-swrast` kwenye Arch,\nsehemu ya `mesa-vulkan-drivers` kwenye Debian na Fedora.\n
+app.vulkan.skip_hint = Kuanzisha Schist hata hivyo na kuiacha ishindwe yenyewe, weka {var}=1.

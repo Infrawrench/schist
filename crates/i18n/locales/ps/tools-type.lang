@@ -1,0 +1,27 @@
+# د متن وسیله. د لیکبڼې د کورنۍ نومونه هېڅکله نه ژباړل کېږي.
+
+tool.type.name = متن
+tool.type.description = کېکاږئ چې هلته د متن طبقه پیل کړئ، یا پر شته طبقه کېکاږئ چې سمون یې کړئ. د پرانیستې پر مهال وسیله خامې کیلي اخلي (توري د کیلي د ورودي په توګه ورولېږئ)، او منل طبقه انځوروي او سمون بندوي.
+
+# د غوراویو پټه
+tool.type.option.align = برابرول
+tool.type.option.leading = د کرښو واټن
+tool.type.option.tracking = د تورو ټولیز واټن
+tool.type.option.kerning = د تورو جوړیز واټن
+tool.type.option.ligatures = تړلي توري
+tool.type.option.discretionary_ligatures = اختیاري تړلي توري
+tool.type.option.small_caps = واړه غټ توري
+tool.type.option.on_path = پر فعاله لار
+tool.type.option.path_offset = له لارې واټن
+
+# د بڼې غورځنګلړ
+tool.type.choice.regular = عادي
+tool.type.choice.bold = پنډ
+tool.type.choice.italic = کوږ
+tool.type.choice.bold_italic = پنډ کوږ
+
+# تاریخ
+tool.type.history.new_layer = د متن نوې طبقه
+tool.type.history.edit = متن سمول
+tool.type.history.discard = متن غورځول
+tool.type.history.discard_empty = تش متن غورځول

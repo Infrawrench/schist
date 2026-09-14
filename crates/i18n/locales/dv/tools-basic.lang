@@ -1,0 +1,21 @@
+tool.move.name = ބަދަލު ކުރުން
+tool.move.description = އެކްޓިވް ލޭޔަރުގައި ހިމެނޭ ތަކެތި ދަމާލައި އާ ތަނަކަށް ބަދަލު ކުރާށެވެ. އޮޓޯ-ސެލެކްޓް ޖަހާފައި ހުރިއިރު، ފިއްތާލުމުން ޕޮއިންޓަރުގެ ދަށުގައި ފުރަތަމަ ހުރި ލޭޔަރ ނުވަތަ މުޅި ގްރޫޕް ހޮވޭނެއެވެ.
+tool.move.option.auto_select = އޮޓޯ-ސެލެކްޓް
+tool.move.history.move_layer = ލޭޔަރ ބަދަލު ކުރުން
+
+tool.eyedropper.name = ކުލަ ނަގާ އާލާތް
+tool.eyedropper.description = ޕޮއިންޓަރުގެ ދަށުގައި ހުރި ކުލަ ފޯގްރައުންޑް ސްވޮޗަށް ނަގާށެވެ؛ alt ބައިންދާފައި ހުރިއިރު އެ ކުލަ ބެކްގްރައުންޑް ސްވޮޗަށް ނެގޭނެއެވެ. ދަމަމުން ދާއިރު ކުލަ ނެގުން ދެމިގެން ދާނެއެވެ.
+tool.eyedropper.option.sample_size = ސާމްޕަލްގެ ސައިޒު
+tool.eyedropper.option.sample = ސާމްޕަލް
+tool.eyedropper.choice.point_sample = ޕޮއިންޓް ސާމްޕަލް
+tool.eyedropper.choice.average_3 = 3 ގުނަ 3 އެވްރެޖް
+tool.eyedropper.choice.average_5 = 5 ގުނަ 5 އެވްރެޖް
+tool.eyedropper.choice.average_11 = 11 ގުނަ 11 އެވްރެޖް
+tool.eyedropper.choice.average_31 = 31 ގުނަ 31 އެވްރެޖް
+tool.eyedropper.choice.all_layers = ހުރިހާ ލޭޔަރެއް
+tool.eyedropper.choice.current_layer = މިހާރުގެ ލޭޔަރ
+
+tool.hand.name = އަތް
+tool.hand.description = ފެންނަ ދައިރާ ބަދަލު ކުރާށެވެ. ވިއުޕޯޓް އަކީ ވިންޑޯގެ ބައެއް ކަމުން، ހެޑްލެސް ގޮތުގައި މި އާލާތުން ޑޮކިއުމަންޓަކަށް އެއްވެސް ބަދަލެއް ނުކުރާނެއެވެ.
+tool.zoom.name = ޒޫމް
+tool.zoom.description = ފެންނަ ދައިރާ ޒޫމް ކުރާށެވެ. ވިއުޕޯޓް އަކީ ވިންޑޯގެ ބައެއް ކަމުން، ހެޑްލެސް ގޮތުގައި މި އާލާތުން ޑޮކިއުމަންޓަކަށް އެއްވެސް ބަދަލެއް ނުކުރާނެއެވެ.

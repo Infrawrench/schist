@@ -1,0 +1,29 @@
+# Artboard
+tool.artboard.name = Olubaawo lw'emirimu
+tool.artboard.description = Walula olubaawo lw'emirimu: ekitundu kya canvas ekirina erinnya era ekifulumizibwa kyokka. Okuwalulira munda mu lubaawo oluliwo kukutambuza.
+tool.artboard.default_name = Olubaawo lw'emirimu {n}
+
+# Slice
+tool.slice.name = Ekitundu
+tool.slice.description = Walula ekitundu ekifulumizibwa, nga kya nneekulungirivu erina erinnya ku canvas era ekifulumizibwa ng'ekifaananyi kyokka. Okuwalulira munda mu kitundu ekiriwo kukitambuza.
+tool.slice.default_name = Ekitundu {n}
+
+# Frame
+tool.frame.name = Fuleemu
+tool.frame.description = Walula fuleemu: layer ya nneekulungirivu (oba eya nninga) ekweka ebitali munda mu kintu kyonna ekigiteekebwamu.
+tool.frame.default_name = Fuleemu {n}
+tool.frame.choice.rectangle = Nneekulungirivu
+tool.frame.choice.ellipse = Nninga
+tool.frame.history.frame = Fuleemu
+
+# Note
+tool.note.name = Ekiwandiiko
+tool.note.description = Nyiga ku canvas enjereere oteekeko ekiwandiiko, nga kiriko erinnya ly'omuwandiisi ne langi ebiri mu mbeera y'omukwanaganya; nyiga ku kabonero akaliwo okulonda ekiwandiiko ekyo mu kipande ky'Ebiwandiiko.
+tool.note.history.place = Teeka Ekiwandiiko
+tool.note.history.move = Tambuza Ekiwandiiko
+tool.note.history.delete = Sangula Ekiwandiiko
+
+# Count
+tool.count.name = Okubala
+tool.count.description = Nyiga okuteeka obubonero obw'okubala obulina ennamba ku canvas, era nyiga ku kabonero akaliwo okukaggyawo.
+tool.count.default_name = Kubala {n}

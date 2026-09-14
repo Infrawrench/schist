@@ -1,0 +1,20 @@
+# Инструмент «Текст».
+tool.type.name = Текст
+tool.type.description = Щёлкните, чтобы создать в этом месте текстовый слой, или щёлкните существующий слой, чтобы изменить его. Во время редактирования инструмент принимает непосредственный ввод с клавиатуры; подтверждение растеризует слой и завершает редактирование.
+tool.type.option.align = Выравнивание
+tool.type.option.leading = Интерлиньяж
+tool.type.option.tracking = Трекинг
+tool.type.option.kerning = Кернинг
+tool.type.option.ligatures = Лигатуры
+tool.type.option.discretionary_ligatures = Дополнительные лигатуры
+tool.type.option.small_caps = Капитель
+tool.type.option.on_path = По активному контуру
+tool.type.option.path_offset = Смещение по контуру
+tool.type.choice.regular = Обычный
+tool.type.choice.bold = Полужирный
+tool.type.choice.italic = Курсив
+tool.type.choice.bold_italic = Полужирный курсив
+tool.type.history.new_layer = Новый текстовый слой
+tool.type.history.edit = Изменение текста
+tool.type.history.discard = Отмена текста
+tool.type.history.discard_empty = Удаление пустого текста

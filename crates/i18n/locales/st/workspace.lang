@@ -1,0 +1,101 @@
+# Ditokomane, disefo, thomelo, taolo ea mebala le ho hlaphoheloa.
+workspace.fill.gray_50 = Boputsoa ba 50%
+workspace.fill.content_aware = E Lemohang Litaba
+workspace.modify.expand = Atolosa Khetho
+workspace.modify.contract = Honyetsa Khetho
+workspace.modify.border = Moeli oa Khetho
+workspace.modify.smooth = Boreleli Khetho
+workspace.modify.feather = Nolofatsa Moeli oa Khetho
+
+workspace.batch.target.edit = Liphetoho tsa pokello (tse bolokiloeng e le mefuta)
+workspace.batch.target.beside = Likopi pela lifaele tsa pele
+workspace.batch.target.folder = Likopi ka foldareng…
+workspace.modal.image_size.title = Boholo ba Setšoantšo
+
+workspace.docs.opening = E ntse e bula {name}…
+workspace.docs.opened = {name} e butsoe
+workspace.docs.open_failed = Ho bula ho hlotsoe: {error}
+workspace.docs.no_codec = {name} ha se sebopeho seo Schist e ka se bulang
+workspace.docs.no_exporter = Schist ha e khone ho boloka lifaele tsa .{ext}
+workspace.docs.empty_response = Seva e rometse karabo e se nang letho
+workspace.docs.heic_not_installed = Tšehetso ea HEIC ha ea kengoa
+workspace.docs.heic_downloading = E jarolla tšehetso ea HEIC (libheif {version})…
+workspace.docs.heic_installed = Tšehetso ea HEIC e kentsoe
+workspace.docs.heic_download_failed = Ho jarolla tšehetso ea HEIC ho hlotsoe: {error}
+workspace.docs.placing = E ntse e beha {name}…
+workspace.docs.place_image = Beha Setšoantšo
+workspace.docs.placed = {name} e behiloe
+workspace.docs.place_failed = Ho beha ho hlotsoe: {error}
+workspace.docs.saved = {name} e bolokiloe
+workspace.docs.save_failed = Ho boloka ho hlotsoe: {error}
+
+workspace.adjustment.new_layer = Mokhahlelo o Mocha oa {name}
+workspace.adjustment.added = {name} e kentsoe
+workspace.adjustment.settings = Litlhophiso tsa {name}
+workspace.adjustment.updated = {name} e ntlafalitsoe
+workspace.adjustment.no_settings = {name} ha e na litlhophiso tse ka hlophisoang
+workspace.comps.name_n = Tlhophiso ea Mekhahlelo {n}
+workspace.comps.captured = Tlhophiso ea mekhahlelo e bolokiloe
+workspace.comps.apply = Sebelisa {name}
+workspace.styles.layer_style = Setaele sa Mokhahlelo
+workspace.context.rename_layer = Reha Mokhahlelo Bocha
+workspace.commands.tool = Sesebelisoa: {name}
+
+workspace.colormgmt.assign = Abela {name}
+workspace.colormgmt.assigned = {name} e abetsoe
+workspace.colormgmt.convert_to = Fetolela ho {name}
+workspace.colormgmt.converted_to = E fetoletsoe ho {name}
+workspace.colormgmt.convert_failed = Ho fetola ho hlotsoe: {error}
+workspace.colormgmt.proof_on = Mebala ea teko e buletsoe
+workspace.colormgmt.proof_off = Mebala ea teko e koetsoe
+
+workspace.filters.choose = Khetha
+workspace.filters.select_layer_first = Khetha mokhahlelo pele
+workspace.filters.needs_pixel_layer = Disefo li hloka mokhahlelo oa lipiksele
+workspace.filters.nothing_to_filter = Ha ho letho le ka sefoang
+workspace.filters.went_away = Sefe e nyametse
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: mokhahlelo oo e neng e o sefa ha o sa le teng
+workspace.filters.plugin_title = Plug-in ea Photoshop
+workspace.filters.running = E tsamaisa {name}
+workspace.filters.plugin_note = Plug-in e sebetsa lenaneong la eona le ikemetseng. Haeba e bula fensetere, araba ka fensetere eo hore tšebetso e tsoele pele.
+workspace.filters.raw_preview_developing = E lokisa ponelopele ea RAW…
+workspace.filters.raw_preview_done = Ponelopele ea RAW (demosaic e potlakileng)
+workspace.filters.raw_preview_size_changed = Boholo ba ponelopele ea RAW bo fetohile: {w} × {h}
+workspace.filters.raw_preview_failed = Ponelopele ea RAW e hlotsoe: {error}
+workspace.filters.raw_developing = E lokisa setšoantšo sa pele se hapiloeng…
+workspace.filters.raw_developing_note = Ho sebelisoa mokhoa o motle ka ho fetisisa oa demosaic. RAW ea pele le litlhophiso tsena li lula li ka hlophisoa ka mor'a ho boloka e le PSD kapa PSB.
+workspace.filters.raw_document_changed = Ho lokisa RAW ho qetile ka mor'a hore tokomane ea eona e fetohe
+workspace.filters.raw_failed = Ho lokisa RAW ho hlotsoe: {error}
+workspace.filters.raw_too_wide = Setšoantšo se lokisoang sa RAW se sephara haholo
+workspace.filters.raw_too_tall = Setšoantšo se lokisoang sa RAW se phahame haholo
+workspace.filters.raw_size_changed = Boholo ba setšoantšo se lokisoang sa RAW bo fetohile ho {w} × {h}; mokhahlelo oa hona joale oa bolokoa
+workspace.filters.raw_history = Ntlafatso ea Camera Raw
+workspace.filters.raw_applied = Ntlafatso ea Camera Raw e sebelisitsoe (demosaic e ntle ka ho fetisisa)
+
+workspace.image_size.done = Boholo ba setšoantšo: {w} × {h}
+workspace.image_size.bicubic_fallback = Boholo ba setšoantšo: {w} × {h} — motlolo oa {name} ha oa ka oa laela, kahoo ha sebelisoa bicubic
+workspace.image_size.upscaling = E holisa ka {name}
+workspace.image_size.upscaling_note = Li-megapiksele tse {mp} li feta marangrang, se seng le se seng se nka metsotsoana e seng mekae. Tokomane e tšoaroa ho fihlela tšebetso e fela.
+
+workspace.export.no_slices = Ha ho likarolo tse ka romelloang
+workspace.export.no_artboards = Ha ho liboto tsa bonono tse ka romelloang
+workspace.export.regions.one = Palo ea libaka tse rometsoeng: {n}
+workspace.export.regions.other = Palo ea libaka tse rometsoeng: {n}
+workspace.export.prompt = Romela e le:
+workspace.export.done = {name} e rometsoe
+workspace.export.failed = Ho romela ho hlotsoe: {error}
+workspace.export.codec_vanished = Seromelli ha se sa fumaneha
+
+workspace.file_picker.choose_folder = Khetha Foldara
+workspace.file_picker.type_a_name = Ngola lebitso la faele
+workspace.file_picker.exists = {name} e se e le teng; tobetsa Boloka hape ho e nkela sebaka
+workspace.file_picker.tap_a_file = Tobetsa faele ho e bula
+workspace.file_picker.pictures = Litšoantšo
+workspace.file_picker.camera = Khamera
+workspace.file_picker.downloads = Tse Jarollotsoeng
+workspace.file_picker.permission_denied = Schist ha e na tumello ea ho bala foldara ena
+
+workspace.recovery.recovered_title = {title} (e hlaphohetsoe)
+workspace.recovery.recovered.one = Mosebetsi o sa bolokoang oa lenaneo le fetileng o hlaphohetsoe
+workspace.recovery.recovered.other = Palo ea litokomane tse hlaphohileng lenaneong le fetileng: {n}

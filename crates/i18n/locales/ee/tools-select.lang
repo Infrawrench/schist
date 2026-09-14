@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Ɖe le eme
+tool.select.mode.intersect = Tso le afisi wodo go le
+
+tool.marquee.rect.name = Rectangle Marquee
+tool.marquee.rect.description = He rectangle ƒe tiatia aɖe. Shift le hehẽ la ƒe gɔmedzedze tsɔa kpee ɖe tiatia la ŋu, alt ɖea le eme, eye wo evẽ wɔa afisi wodo go le; shift le hehẽ la me wɔa eŋu be eƒe axawo katã nasɔ. Zidzidada si me hehẽ mele o ɖea tiatia la ɖa.
+tool.marquee.ellipse.name = Ellipse Marquee
+tool.marquee.ellipse.description = He ellipse ƒe tiatia aɖe, eye zã shift/alt abe rectangle marquee la ene be nàƒo tiatiawo ƒu.
+
+tool.lasso.name = Lasso
+tool.lasso.description = He togbefli kple asi; ne hehẽ la vɔ la, tiatia la tu fli le eƒe nuwuwuwo dome. Shift tsɔa kpee, alt ɖea le eme.
+tool.lasso.history.select = Lasso Tiatia
+tool.lasso.polygonal.name = Polygonal Lasso
+tool.lasso.polygonal.description = Zi dzogoe ɖeka emegbe bubu be nàwɔ tiatia si ƒe towo dzɔdzɔ, eye nàzi te ɖe teƒe gbãtɔ ŋu be nàtui.
+tool.lasso.polygonal.history.select = Polygonal Lasso
+tool.lasso.magnetic.name = Magnetic Lasso
+tool.lasso.magnetic.description = Zɔ le to aɖe ŋu gbegblẽe eye togbefli la alé contrast sesẽtɔ si te ɖe mɔ la ŋu.
+tool.lasso.magnetic.history.select = Magnetic Lasso
+tool.lasso.magnetic.option.frequency = Frequency
+
+tool.wand.name = Magic Wand
+tool.wand.description = Zi be nàtia teƒe siwo ƒe amadede sɔ eye wonɔ ka ɖe wo nɔewo ŋu le nudzesi la te, le tolerance ƒe ɖoɖo me — tolerance ma ke ye Grow, Similar kple Color Range xlẽna.
+tool.wand.option.contiguous = Siwo nɔ ka ɖe wo nɔewo ŋu
+tool.wand.history.select = Magic Wand
+
+tool.quick_select.name = Tiatia Kabakaba
+tool.quick_select.description = Ta ɖe teƒe aɖe dzi eye tiatia la akeke ɖe pixel siwo sɔ kple esi dzi brush la tona la me.
+tool.quick_select.history.select = Tiatia Kabakaba
+
+tool.object_select.name = Nɔnɔme ƒe Tiatia
+tool.object_select.description = He kpekpeɖeŋu aɖe ƒo xlã nu aɖe eye tiatia la alé nu si wokpɔ le eme la.
+tool.object_select.history.select = Nɔnɔme ƒe Tiatia

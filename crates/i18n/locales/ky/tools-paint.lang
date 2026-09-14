@@ -1,0 +1,72 @@
+tool.brush.name = Кылкалем
+tool.brush.description = Редактордогу кылкалемдин өлчөмүнө, катуулугуна жана тунуктугуна жараша алдыңкы пландын түсү менен четтери жумшак сызык тартыңыз.
+tool.brush.history.stroke = Кылкалем
+
+tool.pencil.name = Карандаш
+tool.pencil.description = Алдыңкы пландын түсү менен четтери катуу, антиалиасингсиз сызык тартыңыз.
+tool.pencil.history.stroke = Карандаш
+
+tool.eraser.name = Өчүргүч
+tool.eraser.description = Сызык боюнча өчүрүп, катмарды кайра тунук кылыңыз.
+tool.eraser.history.stroke = Өчүргүч
+
+tool.clone.name = Клондоочу штамп
+tool.clone.description = Клондоочу штамп: баштапкы чекитти коюу үчүн Alt менен басыңыз, анан ошол чекиттен белгиленген жылышта көчүрүлгөн пикселдер менен боёңуз.
+tool.clone.history.stroke = Клондоочу штамп
+
+tool.dodge.name = Агарткыч
+tool.dodge.description = Сызык өткөн пикселдерди агартыңыз.
+tool.dodge.history.stroke = Агарткыч
+tool.burn.name = Караңгылаткыч
+tool.burn.description = Сызык өткөн пикселдерди караңгылатыңыз.
+tool.burn.history.stroke = Караңгылаткыч
+tool.sponge.name = Губка
+tool.sponge.description = Сызык өткөн пикселдердин түсүн каныктырыңыз же каныккандыгын азайтыңыз.
+tool.sponge.history.stroke = Губка
+
+tool.blur.name = Бүдөмүктөгүч
+tool.blur.description = Сызык өткөн пикселдерди бүдөмүктөтүңүз.
+tool.blur.history.stroke = Бүдөмүктөгүч
+tool.sharpen.name = Курчуткуч
+tool.sharpen.description = Сызык өткөн пикселдерди курчутуңуз.
+tool.sharpen.history.stroke = Курчуткуч
+tool.smudge.name = Жайгыч
+tool.smudge.description = Нымдуу боёкту түрткөндөй, түстү сызык боюнча жайыңыз.
+tool.smudge.history.stroke = Жайгыч
+
+tool.heal.name = Калыбына келтирүүчү кылкалем
+tool.heal.description = Калыбына келтирүүчү кылкалем: булакты коюу үчүн Alt менен басып, анан боёңуз; булактын текстурасы көздөгөн жердин түсү жана жарыгы менен аралашат.
+tool.heal.history.stroke = Калыбына келтирүүчү кылкалем
+tool.spot_heal.name = Чекиттик калыбына келтирүүчү кылкалем
+tool.spot_heal.description = Чекиттик калыбына келтирүүчү кылкалем: тактын үстүнөн боёсоңуз, ал тегерегинен алынган текстура менен алмашат; булак чекитин коюунун кереги жок.
+tool.spot_heal.history.stroke = Чекиттик калыбына келтирүүчү кылкалем
+
+tool.history_brush.name = Таржымал кылкалеми
+tool.history_brush.description = Документтин таржымал сүрөтүнөн пикселдерди кайра боёп чыгарып, кийинки иштерди сызык сайын жокко чыгарыңыз.
+tool.history_brush.history.stroke = Таржымал кылкалеми
+
+tool.background_eraser.name = Фон өчүргүч
+tool.background_eraser.description = Объектти фондон бөлүп алуу үчүн кылкалемдин борборунун астынан алынган түстү өчүрүп, андан айырмаланган пикселдерди калтырыңыз.
+tool.background_eraser.history.stroke = Фон өчүргүч
+
+tool.gradient.name = Градиент
+tool.gradient.description = Катмарды — тандалган аймак болсо, анын ичин — сүйрөө багытында алдыңкы пландын түсүнөн арткы пландын түсүнө өткөн сызыктуу градиент менен толтуруңуз.
+tool.gradient.radial.name = Радиалдык градиент
+tool.gradient.radial.description = Борбордон сыртты көздөй сүйрөп, алдыңкы жана арткы пландын түстөрүнүн ортосундагы радиалдык градиент менен толтуруңуз.
+tool.gradient.option.gradient = Градиент
+tool.gradient.option.reverse = Тескери
+tool.gradient.option.dither = Дизеринг
+tool.gradient.choice.foreground_to_background = Алдыңкы пландан арткы планга
+tool.gradient.choice.foreground_to_transparent = Алдыңкы пландан тунукка
+tool.gradient.choice.linear = Сызыктуу
+tool.gradient.choice.radial = Радиалдык
+tool.gradient.choice.angle = Бурчтуу
+tool.gradient.choice.reflected = Чагылдырылган
+tool.gradient.choice.diamond = Ромб
+tool.gradient.history.gradient = Градиент
+
+tool.bucket.name = Боёк чакасы
+tool.bucket.description = Куралдын жол берилген айырмасынын чегинде, көрсөткүчтүн астындагы өңү окшош туташ аймакты алдыңкы пландын түсү менен толтуруу үчүн басыңыз.
+tool.bucket.option.contiguous = Туташ
+tool.bucket.option.all_layers = Бардык катмарлар
+tool.bucket.history.fill = Боёк чакасы

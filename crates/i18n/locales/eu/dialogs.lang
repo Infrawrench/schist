@@ -1,0 +1,259 @@
+# Hainbat elkarrizketa-koadrok partekatua
+dialog.save_ellipsis = Gorde…
+dialog.use_foreground = Erabili aurreko planoa
+dialog.downloading = Deskargatzen…
+dialog.downloading_of = Deskargatzen… {got}/{total}
+dialog.no_config_dir = (ez dago konfigurazio-direktoriorik)
+
+dialog.layer_props.title = Geruzaren propietateak
+
+# Esportazioa
+dialog.export.format = Formatua
+dialog.export.dither = Bilbea
+dialog.export.dither_note = Aplikatu bilbea 8 bitera murriztean
+dialog.export.export_ellipsis = Esportatu…
+
+# Argazkiak prozesatu
+dialog.batch.title = Prozesatu argazkiak
+dialog.batch.note_edit.one = Argazki {n} — galeriako edizio gisa gordeko da; jatorrizkoa ez da inoiz ukitzen.
+dialog.batch.note_edit.other = {n} argazki — galeriako edizio gisa gordeko dira; jatorrizkoak ez dira inoiz ukitzen.
+dialog.batch.note_edit_edited.one = Argazki {n}, {edited} dagoeneko editatuta — errezeta edizioaren gainean aplikatuko da, eta aurreko edizioa bertsio gisa gordeko da.
+dialog.batch.note_edit_edited.other = {n} argazki, {edited} dagoeneko editatuta — errezeta edizioen gainean aplikatuko da, eta aurreko edizioak bertsio gisa gordeko dira.
+dialog.batch.note_copies.one = Argazki {n} — kopia laua; jatorrizkoa ez da inoiz ukitzen.
+dialog.batch.note_copies.other = {n} argazki — kopia lauak; jatorrizkoak ez dira inoiz ukitzen.
+dialog.batch.note_copies_edited.one = Argazki {n}, {edited} dagoeneko editatuta — kopia ediziotik egingo da.
+dialog.batch.note_copies_edited.other = {n} argazki, {edited} dagoeneko editatuta — kopiak edizioetatik egingo dira.
+dialog.batch.turn = Biratu
+dialog.batch.rotate = Biraketa
+dialog.batch.flip = Irauli
+dialog.batch.upscale = Handitu
+dialog.batch.colour = Kolorea
+dialog.batch.add_adjustment = Doikuntza…
+dialog.batch.output = Irteera
+dialog.batch.save_as = Gorde honela
+dialog.batch.process = Prozesatu
+dialog.batch.process_n = Prozesatu {n}
+dialog.batch.nothing_to_do = Ez dago zer eginik: aukeratu biraketa, handitzea edo doikuntza bat lehenik
+
+# Edukiaren araberako eskala
+dialog.content_aware_scale.title = Edukiaren araberako eskala
+dialog.content_aware_scale.note = Xehetasun gutxiko junturak kentzen ditu. Hautapenak zer babestu adierazten du.
+
+# Trazua
+dialog.stroke.title = Trazua
+dialog.stroke.location = Kokalekua
+dialog.stroke.inside = Barruan
+dialog.stroke.outside = Kanpoan
+dialog.stroke.note = Hautapena aurreko planoko kolorearekin trazatzen du.
+
+dialog.fill.contents = Edukia
+
+# Kolore-barrutia
+dialog.color_range.title = Kolore-barrutia
+dialog.color_range.sampled = Lagindua
+dialog.color_range.fuzziness = Lausotasuna
+dialog.color_range.note = Lagindutako koloretik hurbil dauden geruza aktiboko pixelak hautatzen ditu.
+
+# Fitxategi-hautatzailea
+dialog.file_picker.up = ↑ Gora
+dialog.file_picker.empty = Ez dago ezer hemen
+dialog.file_picker.choose_folder = Aukeratu karpeta hau
+
+# Iragazkien elkarrizketa-koadroak
+dialog.filter.camera_raw_development = Camera Raw garapena
+dialog.filter.reset_as_shot = Berrezarri argazkia atera zen bezala
+dialog.filter.raw_note = Geruza aktiboa jatorrizko sentsore-datuetatik garatzen du berriro.
+dialog.filter.note = Geruza aktiboari aplikatzen zaio, hautapenaren barruan.
+
+# Falta diren letra-tipoak
+dialog.fonts.title = Falta diren letra-tipoak
+dialog.fonts.install_named = Instalatu {name}
+dialog.fonts.no_document = Ez dago dokumenturik irekita; beraz, ez dago zer egiaztaturik.
+dialog.fonts.all_installed = Dokumentu honek erabiltzen dituen letra-tipo guztiak instalatuta daude. Testua maketatzeko erabilitako letra-tipo berberekin konposatuta dago.
+dialog.fonts.missing_intro = Dokumentu hau ez dituzun letra-tipoekin konposatuta dago. Testua irakurgarria da ordezko letra-tipo batekin, baina haren zabalerak eta lerro-jauziak ez dira maketatu zenekoak.
+dialog.fonts.footer = Deskargak Google Fonts letra-tipo irekien katalogotik datoz eta {dir} direktorioan gordetzen dira. Lizentzia irekirik ez duen letra-tiporik ez da inoiz deskargatzen; metrikekin bateragarria den diseinu libre bat dagoenean, hura eskaintzen da, eta horrek maketazioa leheneratzen du aurrerapen-zabalerak bat datozelako.
+dialog.fonts.user_font_dir = erabiltzailearen letra-tipoen direktorioa
+
+# Neural Filters modeloak
+dialog.models.title = Neural Filters modeloak
+dialog.models.built_in = Integratua · {size}
+dialog.models.installed = Instalatuta · {size}
+dialog.models.not_installed = Instalatu gabe · {size}
+dialog.models.not_in_browser = Ez dago arakatzailean erabilgarri · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modeloak {dir} direktorioan gordetzen dira. Modelorik ez duten iragazkiek seinale-prozesamendua erabiltzen dute ordezko gisa, eta hala adierazten dute.
+
+# Dokumentu berria
+dialog.new_doc.title = Dokumentu berria
+dialog.new_doc.picker_title = Fitxategi berria
+dialog.new_doc.custom_ellipsis = Pertsonalizatua…
+dialog.new_doc.preset = Aurrezarpena
+dialog.new_doc.preset_default = Lehenetsia (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Karratua (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = AEBko gutuna, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Sortu
+dialog.new_doc.created = Dokumentu berria: {w} × {h} px
+
+# Fitxategiak irekitzea
+dialog.open.image_title = Ireki irudia
+dialog.open.image_prompt = Ireki “{name}” fitxa berri batean, edo gehitu uneko dokumentuari geruza berri gisa?
+dialog.open.new_tab = Fitxa berria
+dialog.open.new_layer = Geruza berria
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = fitxategi {n} hau
+dialog.open.these_files.other = {n} fitxategi hauek
+dialog.open.shared_title_one = Partekatutako irudia
+dialog.open.shared_title_many = Partekatutako irudiak
+dialog.open.shared_prompt = Gehitu {what} Galeriara, edo ireki editorean?
+dialog.open.add_to_gallery = Gehitu Galeriara
+dialog.open.open_in_editor = Ireki editorean
+dialog.open.heic_title = HEIC euskarria
+dialog.open.heic_needs_decoder = “{name}” irekitzeko HEVC deskodetzaile bat behar da, baina ez dago sistema honetan instalatuta.
+dialog.open.heic_offer = Schist aplikazioak libheif {version} liburutegiaren deskodetze hutserako bertsio bat deskarga dezake, libde265 HEVC deskodetzailearekin (≈5 MB). Biek LGPL-3.0 lizentzia dute; lizentzien testuak liburutegiaren ondoan instalatzen dira, eta iturburu-kodea proiektuaren orrian dago eskuragarri.
+dialog.open.licenses_source = Lizentziak eta iturburu-kodea
+dialog.open.folders_title = Jaregindako karpetak
+dialog.open.n_folders.one = Karpeta {n}
+dialog.open.n_folders.other = {n} karpeta
+dialog.open.open_in_tabs = Ireki fitxetan
+dialog.open.open_first_in_tabs = Ireki lehenengo {n}ak fitxetan
+dialog.open.open_n_in_tabs.one = Ireki {n} fitxa batean
+dialog.open.open_n_in_tabs.other = Ireki {n} fitxetan
+dialog.open.folder_holds.one = {what} kokalekuak Schistek ireki dezakeen irudi {n} dauka (azpikarpetak barne).
+dialog.open.folder_holds.other = {what} kokalekuak Schistek ireki ditzakeen {n} irudi dauzka (azpikarpetak barne).
+dialog.open.folders_note = Gehitu Galeriara aukerak karpetak dauden lekuan behatzen ditu: ez da ezer kopiatzen, eta edizioak argazki bakoitzaren ondoan bertsionatzen dira. Fitxetan irekitzeak irudi guztiak editorean kargatzen ditu orain.
+
+# Pluginak
+dialog.plugins.title = Pluginak
+dialog.plugins.kind_filter = iragazkia
+dialog.plugins.kind_format = formatua
+dialog.plugins.kind_unavailable = ez dago erabilgarri
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Pluginak {dir} direktoriotik kargatzen dira
+dialog.plugins.none = Oraindik ez dago pluginik instalatuta.
+dialog.plugins.install_ellipsis = Instalatu…
+dialog.plugins.photoshop_heading = Photoshop plug-inak
+dialog.plugins.loaded_from = Hemendik kargatuta: {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Hobespenak
+dialog.prefs.title = Hobespenak
+dialog.prefs.theme = Gaia
+dialog.prefs.theme_dark = Iluna
+dialog.prefs.theme_light = Argia
+dialog.prefs.grid_spacing = Saretaren tartea
+dialog.prefs.snapping = Atxikitzea
+dialog.prefs.snap_to = Atxiki gidei, saretari eta mihisearen ertzei
+dialog.prefs.rendering_intent = Errendatze-asmoa
+dialog.prefs.intent_perceptual = Pertzepziozkoa
+dialog.prefs.intent_relative = Kolorimetriko erlatiboa
+dialog.prefs.intent_saturation = Saturazioa
+dialog.prefs.intent_absolute = Kolorimetriko absolutua
+dialog.prefs.scrolling = Korritzea
+dialog.prefs.zoom_with_scroll = Egin zooma korritze-gurpilarekin
+dialog.prefs.rendering = Errendatzea
+dialog.prefs.gpu_compositing = GPU bidezko konposizioa
+dialog.prefs.diagnostics = Diagnostikoak
+dialog.prefs.crash_reports = Idatzi hutsegite-txosten lokal bat izu-errorea gertatzean
+dialog.prefs.crash_upload = Bidali garatzaileei ere
+dialog.prefs.telemetry = Bidali eguneroko ping anonimo bat
+dialog.prefs.diagnostics_note = Diagnostikoak Schist hurrengo aldiz abiaraztean jarriko dira indarrean.
+dialog.prefs.updates = Eguneratzeak
+dialog.prefs.check_updates = Bilatu bertsio berriak abiaraztean
+dialog.prefs.keyboard_shortcuts = Laster-teklak: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) modeloa behar du —
+dialog.prefs.nsfw_download_link = deskargatu Kudeatu modeloak menuan…
+dialog.prefs.hide_flagged = Ezkutatu markatutako argazkiak
+
+# Profila esleitu / Profilera bihurtu
+dialog.profile.profile = Profila
+dialog.profile.assign_title = Esleitu profila
+dialog.profile.convert_title = Bihurtu profilera
+dialog.profile.assign = Esleitu
+dialog.profile.convert = Bihurtu
+dialog.profile.assign_note = Dauden pixel-balioak profil berriaren arabera berrinterpretatzen ditu.
+dialog.profile.convert_note = Pixel-balioak berridazten ditu koloreek itxura mantendu dezaten.
+
+# Gorde irudia honela
+dialog.save_image.title = Gorde irudia honela
+dialog.save_image.note = {name} — edizioa, baldin badu; jatorrizkoa ez da inoiz ukitzen.
+dialog.save_image.scale_to = %{percent} → {w} × {h}
+
+# Irudiaren eta mihisearen tamaina
+dialog.size.image_title = Irudiaren tamaina
+dialog.size.canvas_title = Mihisearen tamaina
+dialog.size.constrain = Murriztu
+dialog.size.keep_proportions = Mantendu proportzioak
+dialog.size.resample = Berriro lagindu
+dialog.size.bicubic = Bikubikoa
+dialog.size.bilinear = Bilineala
+dialog.size.nearest = Hurbileneko auzokoa
+dialog.size.anchor = Aingura
+dialog.size.currently = Une honetan {w} × {h} px
+dialog.size.image_size_status = Irudiaren tamaina: {w} × {h}
+dialog.size.canvas_size_status = Mihisearen tamaina: {w} × {h}
+
+# Eguneratzea eskuragarri
+dialog.update.title = Eguneratzea eskuragarri
+dialog.update.available = Schist {version} eskuragarri dago. Kopia hau {current} da.
+dialog.update.installing = Eguneratzea instalatzen…
+dialog.update.can_install = Schistek deskargatu ({size}) eta kopia honen gainean instala dezake.
+dialog.update.external = Kopia hau kudeatzen duen beste iturri batetik etorri da —pakete-kudeatzaile batetik, AppImage batetik edo zeuk egindako konpilazio batetik—; beraz, instalatu zen modu berean eguneratzen da.
+dialog.update.later = Geroago
+dialog.update.release_notes = Bertsio-oharrak
+dialog.update.update_restart = Eguneratu eta berrabiarazi
+dialog.update.open_page = Ireki bertsioaren orria
+
+# Geruza-estiloa
+dialog.style.title = Geruza-estiloa
+dialog.style.bevel = Alaka eta erliebea
+dialog.style.stroke = Trazua
+dialog.style.inner_shadow = Barneko itzala
+dialog.style.inner_glow = Barneko dirdira
+dialog.style.satin = Satina
+dialog.style.color_overlay = Kolore-gainjartzea
+dialog.style.gradient_overlay = Gradiente-gainjartzea
+dialog.style.outer_glow = Kanpoko dirdira
+dialog.style.drop_shadow = Itzal jaurtia
+dialog.style.blur = Lausotze gaussiarra
+dialog.style.gradient_from = Gradiente-gainjartzearen hasiera
+dialog.style.gradient_to = Gradiente-gainjartzearen amaiera
+dialog.style.soften = Leundu
+dialog.style.depth = Sakonera
+dialog.style.altitude = Altitudea
+dialog.style.highlight = Argiunea
+dialog.style.shadow = Itzala
+dialog.style.outer_bevel = Kanpoko alaka
+dialog.style.inner_bevel = Barneko alaka
+dialog.style.emboss = Erliebea
+dialog.style.pillow_emboss = Kuxin-erliebea
+dialog.style.linear = Lineala
+dialog.style.radial = Erradiala
+dialog.style.reverse = Alderantzikatu
+dialog.style.from_to = Hasiera / Amaiera
+dialog.style.from_fg = Hasiera = aurreko planoa
+dialog.style.to_fg = Amaiera = aurreko planoa
+dialog.style.precise = Zehatza
+dialog.style.knockout = Geruzak itzal jaurtia zulatzen du
+
+# Kolore-hautatzailea
+dialog.color_picker.title = Kolore-hautatzailea ({what})
+dialog.color_picker.effect_color = {effect} efektuaren kolorea
+dialog.color_picker.note_color = Oharraren kolorea
+dialog.color_picker.new = berria
+dialog.color_picker.current = unekoa
+
+# Kurbak grafikoa
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Berrezarri kanala
+dialog.curves.hint = Arrastatu forma emateko · egin klik gehitzeko · Alt+klik kentzeko
+
+# Kameraren argazki-bildumaren babeskopia
+dialog.prefs.camera_sync = Kameraren argazki-bilduma
+dialog.prefs.camera_sync_enabled = Egin babeskopia Schist Cloud-en
+dialog.prefs.camera_sync_sign_in = Hasi Schist Cloud-eko saioa kameraren argazki-bildumaren babeskopia egiteko.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Aldatu…

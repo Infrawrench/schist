@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Atņemt
+tool.select.mode.intersect = Šķēlums
+
+tool.marquee.rect.name = Taisnstūrveida atlase
+tool.marquee.rect.description = Velkot izveidojiet taisnstūrveida atlasi. Turot Shift vilkšanas sākumā, apgabals tiek pievienots atlasei; turot Alt, tas tiek atņemts; turot abus, tiek atlasīts šķēlums. Turot Shift vilkšanas laikā, forma kļūst kvadrātveida. Noklikšķinot bez vilkšanas, atlase tiek noņemta.
+tool.marquee.ellipse.name = Eliptiska atlase
+tool.marquee.ellipse.description = Velkot izveidojiet eliptisku atlasi; Shift un Alt to apvieno ar esošo atlasi tāpat kā taisnstūrveida atlases rīkam.
+
+tool.lasso.name = Laso
+tool.lasso.description = Velciet brīvrokas kontūru; vilkšanas beigās atlase tiek noslēgta starp tās galiem. Shift pievieno atlasei, bet Alt atņem no tās.
+tool.lasso.history.select = Atlase ar laso
+tool.lasso.polygonal.name = Daudzstūru laso
+tool.lasso.polygonal.description = Klikšķiniet secīgi katrā stūrī, lai izveidotu atlasi ar taisnām malām, un noklikšķiniet pirmā punkta tuvumā, lai to noslēgtu.
+tool.lasso.polygonal.history.select = Daudzstūru laso
+tool.lasso.magnetic.name = Magnētiskais laso
+tool.lasso.magnetic.description = Aptuveni velciet gar malu, un kontūra piesaistīsies spēcīgākajam kontrastam ceļa tuvumā.
+tool.lasso.magnetic.history.select = Magnētiskais laso
+tool.lasso.magnetic.option.frequency = Biežums
+
+tool.wand.name = Burvju nūjiņa
+tool.wand.description = Noklikšķiniet, lai pielaides robežās atlasītu zem rādītāja esošo savienoto līdzīgas krāsas apgabalu; to pašu pielaidi izmanto komandas Palielināt, Līdzīgs un Krāsu diapazons.
+tool.wand.option.contiguous = Blakusesošs
+tool.wand.history.select = Burvju nūjiņa
+
+tool.quick_select.name = Ātrā atlase
+tool.quick_select.description = Krāsojiet pāri apgabalam, un atlase izpletīsies caur līdzīgiem pikseļiem, kuriem pāriet ota.
+tool.quick_select.history.select = Ātrā atlase
+
+tool.object_select.name = Objektu atlase
+tool.object_select.description = Apvelciet objektam taisnstūri, un atlase piesaistīsies tajā atrastajam objektam.
+tool.object_select.history.select = Objektu atlase

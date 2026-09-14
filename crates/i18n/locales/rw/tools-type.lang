@@ -1,0 +1,26 @@
+# Type tool
+tool.type.name = Inyandiko
+tool.type.description = Kanda utangize urwego rw'inyandiko aho, cyangwa ukande ku rusanzweho kugira uruhindure. Mu gihe guhindura gufunguye, igikoresho cyakira gukanda kuri klavye mu buryo butaziguye (ohereza inyuguti nk'amakuru yinjizwa na klavye); kwemeza bishushanya urwego kandi bigafunga guhindura.
+
+# Options
+tool.type.option.align = Gutondeka
+tool.type.option.leading = Intera y'imirongo
+tool.type.option.tracking = Intera y'inyuguti
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Inyuguti zihujwe
+tool.type.option.discretionary_ligatures = Inyuguti zihujwe zitari ngombwa
+tool.type.option.small_caps = Inyuguti nkuru nto
+tool.type.option.on_path = Ku nzira ikora
+tool.type.option.path_offset = Kwimura ku nzira
+
+# Style choices
+tool.type.choice.regular = Bisanzwe
+tool.type.choice.bold = Bitsindagiye
+tool.type.choice.italic = Biberamye
+tool.type.choice.bold_italic = Bitsindagiye kandi biberamye
+
+# History
+tool.type.history.new_layer = Urwego rushya rw'inyandiko
+tool.type.history.edit = Guhindura inyandiko
+tool.type.history.discard = Kureka inyandiko
+tool.type.history.discard_empty = Kureka inyandiko irimo ubusa

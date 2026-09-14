@@ -1,0 +1,31 @@
+# Състояние, бележки и грешки в панела за ИИ.
+ai.status.panel_shown = Панелът за ИИ е показан
+ai.status.panel_hidden = Панелът за ИИ е скрит — Изглед ▸ Панел за ИИ ({shortcut}) го показва отново
+ai.status.tool = ИИ: {name}
+
+ai.info.connected = Установена е връзка с {backend}
+ai.info.now_in_gallery = Вече сте в галерията.
+ai.info.now_in_editor = Вече сте в редактора.
+ai.tool.shell_command = команда на обвивката
+
+ai.error.cli_missing = Интерфейсът за команден ред на {backend} („{binary}“) не е в PATH. Първо го инсталирайте и влезте в него.
+ai.error.endpoint_failed = стартирането на крайната точка на MCP бе неуспешно: {error}
+ai.error.binding_endpoint = обвързване на крайната точка на MCP
+ai.error.spawning_endpoint_thread = стартиране на нишката на крайната точка на MCP
+ai.error.runtime_failed = стартирането на средата за изпълнение на агента бе неуспешно: {error}
+ai.error.worker_failed = стартирането на работния процес на {backend} бе неуспешно: {error}
+ai.error.did_not_start = {backend} не се стартира: {error}
+ai.error.switch_model_failed = превключването на модела бе неуспешно: {error}
+ai.error.send_failed = изпращането на заявката бе неуспешно: {error}
+ai.error.interrupt_failed = прекъсването бе неуспешно: {error}
+ai.error.locating_binary = намиране на изпълнимия файл на Schist
+ai.error.starting_app_server = стартиране на сървъра на приложението Codex
+ai.error.attaching_app_server = свързване със сървъра на приложението Codex
+ai.error.initializing_app_server = инициализиране на сървъра на приложението Codex
+ai.error.resuming_thread = възобновяване на нишката в Codex
+ai.error.starting_thread = стартиране на нишката в Codex
+
+ai.model.opus_detail = Ниво с най-големи възможности
+ai.model.sonnet_detail = Ефективен за обичайни задачи
+ai.model.haiku_detail = Най-бърз за кратки отговори
+ai.model.codex_catalog = Каталог на Codex

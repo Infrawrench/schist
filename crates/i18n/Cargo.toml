@@ -19,6 +19,7 @@ sys-locale = "0.3"
 sys-locale = { version = "0.3", features = ["js"] }
 
 [dev-dependencies]
+serde_json.workspace = true
 # Reads the CJK web fonts' character maps, to check they cover the
 # zh-Hans and ja catalogs. Already in the tree behind the text engine.
 ttf-parser = "0.21"

@@ -1,0 +1,23 @@
+# Հիմնական գործիքները՝ Տեղափոխում, Կաթոցիչ, Ձեռք և Խոշորացում
+
+tool.move.name = Տեղափոխում
+tool.move.description = Քաշեք ակտիվ շերտի պարունակությունը նոր դիրք։ Երբ «Ինքնաընտրումը» միացված է, սեղմելիս նախ ընտրվում է ցուցիչի տակ գտնվող շերտը կամ ամբողջ խումբը։
+tool.move.option.auto_select = Ինքնաընտրում
+tool.move.history.move_layer = Շերտի տեղափոխում
+
+tool.eyedropper.name = Կաթոցիչ
+tool.eyedropper.description = Ցուցիչի տակ գտնվող գույնը վերցրեք որպես առաջին պլանի նմուշ, իսկ Alt-ը սեղմած պահելիս՝ որպես հետին պլանի նմուշ։ Քաշելիս գույնի ընտրությունը շարունակվում է։
+tool.eyedropper.option.sample_size = Նմուշի չափ
+tool.eyedropper.option.sample = Նմուշառում
+tool.eyedropper.choice.point_sample = Կետային նմուշ
+tool.eyedropper.choice.average_3 = 3 × 3 միջին
+tool.eyedropper.choice.average_5 = 5 × 5 միջին
+tool.eyedropper.choice.average_11 = 11 × 11 միջին
+tool.eyedropper.choice.average_31 = 31 × 31 միջին
+tool.eyedropper.choice.all_layers = Բոլոր շերտերը
+tool.eyedropper.choice.current_layer = Ընթացիկ շերտ
+
+tool.hand.name = Ձեռք
+tool.hand.description = Տեղաշարժում է դիտման տիրույթը։ Դիտման տիրույթը պատկանում է պատուհանին, ուստի առանց գրաֆիկական միջերեսի այս գործիքը փաստաթղթում ոչինչ չի փոխում։
+tool.zoom.name = Խոշորացում
+tool.zoom.description = Մեծացնում կամ փոքրացնում է դիտումը։ Դիտման տիրույթը պատկանում է պատուհանին, ուստի առանց գրաֆիկական միջերեսի այս գործիքը փաստաթղթում ոչինչ չի փոխում։

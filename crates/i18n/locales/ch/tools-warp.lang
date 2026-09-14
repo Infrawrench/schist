@@ -1,0 +1,25 @@
+# Liquify
+tool.liquify.name = Liquify
+tool.liquify.description = Empuha, bira, na' fanhålom pat na' fanhiyong i pixel siha gi papa' i dångkolo na brush — i mode option ha ayek håfa. Ma'amontona i warp gi un mesh ya ma'aplika gi layer an ma-komit.
+tool.liquify.option.tool = Tool
+tool.liquify.choice.forward_warp = Forward Warp
+tool.liquify.choice.reconstruct = Rekonstrue
+tool.liquify.choice.twirl_cw = Bira segun i relos
+tool.liquify.choice.twirl_ccw = Bira kontra i relos
+tool.liquify.choice.pucker = Na' hålom
+tool.liquify.choice.bloat = Na' hiyong
+tool.liquify.choice.push_left = Empuha para akague
+tool.liquify.history.liquify = Liquify
+
+# Puppet Warp
+tool.puppet_warp.name = Puppet Warp
+tool.puppet_warp.description = Klik para un pega i layer gi didide' na puntu, ya arrastra unu: i mesh ha dobla gi uriyan i pin siha, metgot pat suåbe komu ilek-ña i Stiffness option. I komit ha aplika este.
+tool.puppet_warp.option.stiffness = Rigididåt
+tool.puppet_warp.history.puppet_warp = Puppet Warp
+
+# Vanishing Point
+tool.vanishing_point.name = Vanishing Point
+tool.vanishing_point.description = Arrastra un plånu gi hilo' un kosa ni gai perspektiba, ya tulaika i mode para Clone yan pinta: i makopian pixel siha ha tattiyi i plånu, manmandikike' komu dumådångkolo i distånsia.
+tool.vanishing_point.choice.edit_plane = Edita plånu
+tool.vanishing_point.choice.clone = Clone
+tool.vanishing_point.history.vanishing_point = Vanishing Point

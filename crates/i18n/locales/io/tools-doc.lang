@@ -1,0 +1,21 @@
+# Utensili por dokumentelementi.
+tool.artboard.name = Desegnotabulo
+tool.artboard.description = Trenez desegnotabulo: nomizita regiono dil kanvaso qua exportesas aparte. Trenado interne existanta desegnotabulo movas ol.
+tool.artboard.default_name = Desegnotabulo {n}
+tool.slice.name = Sekco
+tool.slice.description = Trenez exportosekco, nomizita rektangulo dil kanvaso exportata kom aparta imajo. Trenado interne existanta sekco movas ol.
+tool.slice.default_name = Sekco {n}
+tool.frame.name = Kadro
+tool.frame.description = Trenez kadro: rektangula (o elipsala) strato qua maskas irgo pozita en ol.
+tool.frame.default_name = Kadro {n}
+tool.frame.choice.rectangle = Rektangulo
+tool.frame.choice.ellipse = Elipso
+tool.frame.history.frame = Kadro
+tool.note.name = Noto
+tool.note.description = Kliktez vakua kanvaso por fixigar noto ibe, stampita kun la autoro e koloro en la redaktila stando; kliktez existanta marko por selektar ol por la panelo Noti.
+tool.note.history.place = Pozar noto
+tool.note.history.move = Movar noto
+tool.note.history.delete = Efacar noto
+tool.count.name = Kontado
+tool.count.description = Kliktez por pozar numerizita kontomarkili sur la kanvaso, e kliktez existanta markilo por efacar ol.
+tool.count.default_name = Kontado {n}

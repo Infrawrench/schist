@@ -1,0 +1,22 @@
+tool.liquify.name = Моеъсозӣ
+tool.liquify.description = Пикселҳои зери мӯқалами калонро тела диҳед, тоб диҳед, фурӯ баред ё варам диҳед — навъи амалро реҷаи интихобшуда муайян мекунад. Каҷиш дар тӯр ҷамъ мешавад ва ҳангоми тасдиқ ба қабат татбиқ мегардад.
+tool.liquify.option.tool = Абзор
+tool.liquify.choice.forward_warp = Каҷиши пеш
+tool.liquify.choice.reconstruct = Барқарорсозӣ
+tool.liquify.choice.twirl_cw = Тобиши соатгард
+tool.liquify.choice.twirl_ccw = Тобиши муқобили соат
+tool.liquify.choice.pucker = Фурӯбурдан
+tool.liquify.choice.bloat = Варам додан
+tool.liquify.choice.push_left = Ба чап тела додан
+tool.liquify.history.liquify = Моеъсозӣ
+
+tool.puppet_warp.name = Каҷиши лӯхтакӣ
+tool.puppet_warp.description = Барои дар чанд нуқта маҳкам кардани қабат зер кунед, сипас яке аз онҳоро кашед: тӯр вобаста ба танзими «Сахтӣ» дар гирди мехҳо сахт ё озод хам мешавад. Тасдиқ онро татбиқ мекунад.
+tool.puppet_warp.option.stiffness = Сахтӣ
+tool.puppet_warp.history.puppet_warp = Каҷиши лӯхтакӣ
+
+tool.vanishing_point.name = Нуқтаи гурез
+tool.vanishing_point.description = Рӯйи қисми дорои перспектива сатҳи ҳамвореро кашида созед, сипас реҷаро ба «Клон» гузаронда ранг кунед: пикселҳои нусхашуда бо дур шудан хурд шуда, аз рӯйи он сатҳ ҳаракат мекунанд.
+tool.vanishing_point.choice.edit_plane = Таҳрири сатҳ
+tool.vanishing_point.choice.clone = Клон
+tool.vanishing_point.history.vanishing_point = Нуқтаи гурез

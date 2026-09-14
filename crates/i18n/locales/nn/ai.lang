@@ -1,0 +1,30 @@
+ai.status.panel_shown = KI-panelet er vist
+ai.status.panel_hidden = KI-panelet er gøymt – Vis ▸ KI-panel ({shortcut}) hentar det fram att
+ai.status.tool = KI: {name}
+
+ai.info.connected = {backend} er tilkopla
+ai.info.now_in_gallery = No i galleriet.
+ai.info.now_in_editor = No i redigeringa.
+ai.tool.shell_command = skalkommando
+
+ai.error.cli_missing = Kommandolinjeverktøyet for {backend} («{binary}») finst ikkje i PATH. Installer det og logg inn først.
+ai.error.endpoint_failed = klarte ikkje å starta MCP-endepunktet: {error}
+ai.error.binding_endpoint = bind MCP-endepunktet
+ai.error.spawning_endpoint_thread = start tråden for MCP-endepunktet
+ai.error.runtime_failed = klarte ikkje å starta agentkøyremiljøet: {error}
+ai.error.worker_failed = klarte ikkje å starta {backend}-arbeidaren: {error}
+ai.error.did_not_start = {backend} starta ikkje: {error}
+ai.error.switch_model_failed = klarte ikkje å byta modell: {error}
+ai.error.send_failed = klarte ikkje å senda førespurnaden: {error}
+ai.error.interrupt_failed = klarte ikkje å avbryta: {error}
+ai.error.locating_binary = finn Schist-programfila
+ai.error.starting_app_server = start Codex-apptenaren
+ai.error.attaching_app_server = kopla til Codex-apptenaren
+ai.error.initializing_app_server = klargjer Codex-apptenaren
+ai.error.resuming_thread = ta opp att Codex-tråden
+ai.error.starting_thread = start Codex-tråden
+
+ai.model.opus_detail = Det mest avanserte nivået
+ai.model.sonnet_detail = Effektiv til vanlege oppgåver
+ai.model.haiku_detail = Raskast til korte svar
+ai.model.codex_catalog = Codex-katalog

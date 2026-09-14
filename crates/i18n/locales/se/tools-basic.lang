@@ -1,0 +1,21 @@
+tool.move.name = Sirdde
+tool.move.description = Gease aktiivvalaš gearddi sisdoalu ođđa sadjái. Go Auto-válljen lea alde, de coahkkaleapmi vállje vuos gearddi dahje olles joavkku mii lea čujuhanáli vuolde.
+tool.move.option.auto_select = Auto-válljen
+tool.move.history.move_layer = Sirdde gearddi
+
+tool.eyedropper.name = Ivdnečoaggán
+tool.eyedropper.description = Váldde čujuhanáli vuolde ivdneovdamearkka ovdabeale ivdnemearkan, dahje duogábeale ivdnemearkan go alt lea dollojuvvon. Geassin joatká ovdamearkkaid váldimis.
+tool.eyedropper.option.sample_size = Ovdamearkka sturrodat
+tool.eyedropper.option.sample = Ovdamearka
+tool.eyedropper.choice.point_sample = Čuokkisovdamearka
+tool.eyedropper.choice.average_3 = 3 × 3 gaskamearri
+tool.eyedropper.choice.average_5 = 5 × 5 gaskamearri
+tool.eyedropper.choice.average_11 = 11 × 11 gaskamearri
+tool.eyedropper.choice.average_31 = 31 × 31 gaskamearri
+tool.eyedropper.choice.all_layers = Buot gearddit
+tool.eyedropper.choice.current_layer = Dálá geardi
+
+tool.hand.name = Giehta
+tool.hand.description = Sirdda čájeheami. Čájehanviidodat gullá lássii, nu ahte dát reaiddus ii rievdat dokumeantta go grafihkalaš lásehis dilis geavahuvvo.
+tool.zoom.name = Stuoridan
+tool.zoom.description = Stuorida dahje unnána čájeheami. Čájehanviidodat gullá lássii, nu ahte dát reaiddus ii rievdat dokumeantta go grafihkalaš lásehis dilis geavahuvvo.

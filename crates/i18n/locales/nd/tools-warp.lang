@@ -1,0 +1,22 @@
+tool.liquify.name = Ncibilikisa
+tool.liquify.description = Dudula, sonta, finyeza kumbe khukhumeza amaphikseli angaphansi kwebhulashi elikhulu — inketho yemodi iyakhetha ukuthi kwenziwani. Ukugoba kuyaqongelela kunethi bese kufakwa kusendlalelo nxa kwamukelwa.
+tool.liquify.option.tool = Ithuluzi
+tool.liquify.choice.forward_warp = Gobela Phambili
+tool.liquify.choice.reconstruct = Yakha Kutsha
+tool.liquify.choice.twirl_cw = Sonta Ngokuhamba Kwewotshi
+tool.liquify.choice.twirl_ccw = Sonta Ngokuphikisana Lewotshi
+tool.liquify.choice.pucker = Finyeza
+tool.liquify.choice.bloat = Khukhumeza
+tool.liquify.choice.push_left = Dudulela Kwesokhohlo
+tool.liquify.history.liquify = Ncibilikisa
+
+tool.puppet_warp.name = Ukugoba Njengonodoli
+tool.puppet_warp.description = Chofoza ukuze ubophele isendlalelo emaphuzwini ambalwa, ubusuhudula elinye: inethi iyagoba izingelezele amaphini, iqine kumbe ixega njengokutsho kwenketho Yokuqina. Ukwamukela kuyakusebenzisa.
+tool.puppet_warp.option.stiffness = Ukuqina
+tool.puppet_warp.history.puppet_warp = Ukugoba Njengonodoli
+
+tool.vanishing_point.name = Iphuzu Lokunyamalala
+tool.vanishing_point.description = Hudula udale indawo eyisicaba phezu kwento elombono wokude lokuseduze, ubusuguqula imodi ibe ngu-Kopa upende: amaphikseli akotshiweyo alandela indawo leyo, encipha ngokuya khatshana.
+tool.vanishing_point.choice.edit_plane = Hlela Indawo Eyisicaba
+tool.vanishing_point.choice.clone = Kopa
+tool.vanishing_point.history.vanishing_point = Iphuzu Lokunyamalala

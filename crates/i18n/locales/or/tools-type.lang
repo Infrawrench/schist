@@ -1,0 +1,24 @@
+# ଟାଇପ୍ ଉପକରଣ। ଫଣ୍ଟ ପରିବାର ନାମ କେବେ ଅନୁବାଦ ହୁଏ ନାହିଁ।
+
+tool.type.name = ଟାଇପ୍
+tool.type.description = ସେହି ସ୍ଥାନରେ ଏକ ପାଠ୍ୟ ସ୍ତର ଆରମ୍ଭ କରିବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ, କିମ୍ବା ଥିବା ପାଠ୍ୟ ସ୍ତରକୁ ସମ୍ପାଦନ କରିବାକୁ ସେଥିରେ କ୍ଲିକ୍ କରନ୍ତୁ। ଏହା ଖୋଲାଥିବା ବେଳେ ଉପକରଣଟି ସିଧାସଳଖ କି ଇନ୍‌ପୁଟ୍ ନିଏ (ଅକ୍ଷରଗୁଡ଼ିକୁ କି ଇନ୍‌ପୁଟ୍ ଭାବେ ପଠାନ୍ତୁ), ଏବଂ ନିଶ୍ଚିତ କଲେ ସ୍ତରଟି ରେଣ୍ଡର୍ ହୋଇ ସମ୍ପାଦନ ବନ୍ଦ ହୁଏ।
+
+tool.type.option.align = ସଜାଣ
+tool.type.option.leading = ପଙ୍କ୍ତି ବ୍ୟବଧାନ
+tool.type.option.tracking = ଅକ୍ଷର ବ୍ୟବଧାନ
+tool.type.option.kerning = କର୍ନିଂ
+tool.type.option.ligatures = ଯୁକ୍ତାକ୍ଷର
+tool.type.option.discretionary_ligatures = ଇଚ୍ଛାଧୀନ ଯୁକ୍ତାକ୍ଷର
+tool.type.option.small_caps = ଛୋଟ ଆକାରର ବଡ଼ ଅକ୍ଷର
+tool.type.option.on_path = ସକ୍ରିୟ ପଥ ଉପରେ
+tool.type.option.path_offset = ପଥ ବିଚ୍ୟୁତି
+
+tool.type.choice.regular = ସାଧାରଣ
+tool.type.choice.bold = ମୋଟା
+tool.type.choice.italic = ତେରଛା
+tool.type.choice.bold_italic = ମୋଟା ତେରଛା
+
+tool.type.history.new_layer = ନୂଆ ପାଠ୍ୟ ସ୍ତର
+tool.type.history.edit = ପାଠ୍ୟ ସମ୍ପାଦନ କରନ୍ତୁ
+tool.type.history.discard = ପାଠ୍ୟ ତ୍ୟାଗ କରନ୍ତୁ
+tool.type.history.discard_empty = ଖାଲି ପାଠ୍ୟ ତ୍ୟାଗ କରନ୍ତୁ

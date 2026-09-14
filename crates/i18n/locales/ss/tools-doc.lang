@@ -1,0 +1,24 @@
+tool.artboard.name = Libhodi Lemsebenti
+tool.artboard.description = Hudvula wakhe libhodi lemsebenti: indzawo leneligama kukhanvasi letitfumela yona iyodvwa. Kuhudvula ekhatsi kulelivele likhona kuyalihambisa.
+tool.artboard.default_name = Libhodi Lemsebenti {n}
+
+tool.slice.name = Sicephu
+tool.slice.description = Hudvula wakhe sicephu sekutfumela, calandze lelineligama lekhanvasi lelitfunyelwa njengesitfombe lesitimele. Kuhudvula ekhatsi kulesivele sikhona kuyasihambisa.
+tool.slice.default_name = Sicephu {n}
+
+tool.frame.name = Luhlaka
+tool.frame.description = Hudvula wakhe luhlaka: luhlaka lolucalandze (nobe loluyindilinga lelulekile) lolusibekelo sanobe yini lefakwe kulo.
+tool.frame.default_name = Luhlaka {n}
+tool.frame.choice.rectangle = Calandze
+tool.frame.choice.ellipse = Indilinga Lelulekile
+tool.frame.history.frame = Luhlaka
+
+tool.note.name = Inothi
+tool.note.description = Chafata kukhanvasi lengenalutfo kuze unamatsisele inothi lapho, lephawulwe ngumbhali nangembala losesimeni semhleli; chafata liphini lelivele likhona kuze ulikhetsele liphaneli Lemanothi.
+tool.note.history.place = Beka Inothi
+tool.note.history.move = Hambisa Inothi
+tool.note.history.delete = Susa Inothi
+
+tool.count.name = Sibalo
+tool.count.description = Chafata kuze ubeke timaki tekubala letinetinombolo kukhanvasi, bese uchafata lelivele likhona kuze ulisuse.
+tool.count.default_name = Sibalo {n}

@@ -1,0 +1,100 @@
+workspace.fill.gray_50 = 50% grys
+workspace.fill.content_aware = Inhoudsbewus
+workspace.modify.expand = Vergroot seleksie
+workspace.modify.contract = Trek seleksie saam
+workspace.modify.border = Omrand seleksie
+workspace.modify.smooth = Maak seleksie glad
+workspace.modify.feather = Versag seleksie
+
+workspace.batch.target.edit = Galerywysigings (met weergawes)
+workspace.batch.target.beside = Kopieë langs die oorspronklikes
+workspace.batch.target.folder = Kopieë in 'n vouer…
+workspace.modal.image_size.title = Beeldgrootte
+
+workspace.docs.opening = Maak {name} oop…
+workspace.docs.opened = {name} oopgemaak
+workspace.docs.open_failed = Kon nie oopmaak nie: {error}
+workspace.docs.no_codec = {name} is nie 'n formaat wat Schist kan oopmaak nie
+workspace.docs.no_exporter = Schist kan nie .{ext}-lêers stoor nie
+workspace.docs.empty_response = Die bediener het 'n leë antwoord gestuur
+workspace.docs.heic_not_installed = HEIC-ondersteuning is nie geïnstalleer nie
+workspace.docs.heic_downloading = Laai HEIC-ondersteuning af (libheif {version})…
+workspace.docs.heic_installed = HEIC-ondersteuning geïnstalleer
+workspace.docs.heic_download_failed = Kon nie HEIC-ondersteuning aflaai nie: {error}
+workspace.docs.placing = Plaas {name}…
+workspace.docs.place_image = Plaas beeld
+workspace.docs.placed = {name} geplaas
+workspace.docs.place_failed = Kon nie plaas nie: {error}
+workspace.docs.saved = {name} gestoor
+workspace.docs.save_failed = Kon nie stoor nie: {error}
+
+workspace.adjustment.new_layer = Nuwe {name}-laag
+workspace.adjustment.added = {name} bygevoeg
+workspace.adjustment.settings = {name}-instellings
+workspace.adjustment.updated = {name} bygewerk
+workspace.adjustment.no_settings = {name} het geen wysigbare instellings nie
+workspace.comps.name_n = Laagsamestelling {n}
+workspace.comps.captured = Laagsamestelling vasgelê
+workspace.comps.apply = Pas {name} toe
+workspace.styles.layer_style = Laagstyl
+workspace.context.rename_layer = Hernoem laag
+workspace.commands.tool = Gereedskap: {name}
+
+workspace.colormgmt.assign = Ken {name} toe
+workspace.colormgmt.assigned = {name} toegeken
+workspace.colormgmt.convert_to = Skakel om na {name}
+workspace.colormgmt.converted_to = Omgeskakel na {name}
+workspace.colormgmt.convert_failed = Omskakeling het misluk: {error}
+workspace.colormgmt.proof_on = Proefkleure aan
+workspace.colormgmt.proof_off = Proefkleure af
+
+workspace.filters.choose = Kies
+workspace.filters.select_layer_first = Selekteer eers 'n laag
+workspace.filters.needs_pixel_layer = Filters vereis 'n pixellaag
+workspace.filters.nothing_to_filter = Niks om te filtreer nie
+workspace.filters.went_away = Filter het verdwyn
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: die gefiltreerde laag is weg
+workspace.filters.plugin_title = Photoshop-inprop
+workspace.filters.running = Laat {name} loop
+workspace.filters.plugin_note = Die inprop loop in sy eie proses. As dit 'n venster oopmaak, reageer daarop om voort te gaan.
+workspace.filters.raw_preview_developing = Ontwikkel RAW-voorskou…
+workspace.filters.raw_preview_done = RAW-voorskou (vinnige demosaïek)
+workspace.filters.raw_preview_size_changed = RAW-voorskougrootte het verander: {w} × {h}
+workspace.filters.raw_preview_failed = RAW-voorskou het misluk: {error}
+workspace.filters.raw_developing = Ontwikkel die oorspronklike opname…
+workspace.filters.raw_developing_note = Gebruik die beste demosaïekroete. Die oorspronklike RAW en hierdie instellings bly wysigbaar nadat dit as PSD of PSB gestoor is.
+workspace.filters.raw_document_changed = RAW-ontwikkeling is voltooi nadat die dokument verander het
+workspace.filters.raw_failed = RAW-ontwikkeling het misluk: {error}
+workspace.filters.raw_too_wide = RAW-ontwikkeling is te breed
+workspace.filters.raw_too_tall = RAW-ontwikkeling is te hoog
+workspace.filters.raw_size_changed = RAW-ontwikkeling se grootte het na {w} × {h} verander; die huidige laag word behou
+workspace.filters.raw_history = Camera Raw-ontwikkeling
+workspace.filters.raw_applied = Camera Raw-ontwikkeling toegepas (beste demosaïek)
+
+workspace.image_size.done = Beeldgrootte: {w} × {h}
+workspace.image_size.bicubic_fallback = Beeldgrootte: {w} × {h} — die {name}-model wou nie laai nie, dus is bikubiese skalering gebruik
+workspace.image_size.upscaling = Vergroot met {name}
+workspace.image_size.upscaling_note = {mp} megapixels deur die netwerk, teen 'n paar sekondes elk. Die dokument word gehou totdat dit klaar is.
+
+workspace.export.no_slices = Geen segmente om uit te voer nie
+workspace.export.no_artboards = Geen tekenborde om uit te voer nie
+workspace.export.regions.one = {n} gebied uitgevoer
+workspace.export.regions.other = {n} gebiede uitgevoer
+workspace.export.prompt = Voer uit as:
+workspace.export.done = {name} uitgevoer
+workspace.export.failed = Uitvoer het misluk: {error}
+workspace.export.codec_vanished = Die uitvoerder is nie meer beskikbaar nie
+
+workspace.file_picker.choose_folder = Kies vouer
+workspace.file_picker.type_a_name = Tik 'n naam vir die lêer
+workspace.file_picker.exists = {name} bestaan; tik weer op Stoor om dit te vervang
+workspace.file_picker.tap_a_file = Tik op 'n lêer om dit oop te maak
+workspace.file_picker.pictures = Prente
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Aflaaie
+workspace.file_picker.permission_denied = Schist het nie toestemming om hierdie vouer te lees nie
+
+workspace.recovery.recovered_title = {title} (herstel)
+workspace.recovery.recovered.one = Ongestoorde werk uit 'n vorige sessie herstel
+workspace.recovery.recovered.other = {n} dokumente uit 'n vorige sessie herstel

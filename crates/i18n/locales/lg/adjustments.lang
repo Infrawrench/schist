@@ -1,0 +1,20 @@
+# Enkyukakyuka z'ekifaananyi
+adjustment.levels.name = Emitendera
+adjustment.curves.name = Emisittale egyefunyise
+adjustment.hue_saturation.name = Langi/Obungi bwa langi
+adjustment.brightness_contrast.name = Obutangaavu/Enjawulo
+adjustment.black_white.name = Enzirugavu n'Enjeru
+adjustment.solid_color.name = Langi emu
+adjustment.gradient_fill.name = Jjuza n'enkyukakyuka ya langi
+adjustment.pattern_fill.name = Jjuza n'omusono
+adjustment.invert.name = Kyusa langi
+adjustment.posterize.name = Kendeeza emitendera gya langi
+adjustment.threshold.name = Ensalo
+adjustment.color_balance.name = Okutebenkeza langi
+adjustment.vibrance.name = Obulamu bwa langi
+adjustment.exposure.name = Ekigero ky'ekitangaala
+adjustment.photo_filter.name = Akasengejja k'ekifaananyi
+adjustment.gradient_map.name = Maapu y'enkyukakyuka ya langi
+adjustment.selective_color.name = Langi erondeddwa
+adjustment.channel_mixer.name = Ekitabula emikutu
+adjustment.other.name = Enkyukakyuka

@@ -1,0 +1,23 @@
+# Текст ҡоралы.
+tool.type.name = Текст
+tool.type.description = Был урында текст ҡатламы башлау өсөн сиртегеҙ йәки булған ҡатламды үҙгәртеү өсөн уға сиртегеҙ. Асыҡ саҡта ҡорал туранан-тура клавишаларҙы ҡабул итә (хәрефтәрҙе клавиша индереүе итеп ебәрегеҙ); раҫлау ҡатламды растрға төшөрә һәм үҙгәртеүҙе яба.
+
+tool.type.option.align = Тигеҙләү
+tool.type.option.leading = Юл аралығы
+tool.type.option.tracking = Хәреф аралығы
+tool.type.option.kerning = Кернинг
+tool.type.option.ligatures = Лигатуралар
+tool.type.option.discretionary_ligatures = Өҫтәмә лигатуралар
+tool.type.option.small_caps = Кесе баш хәрефтәр
+tool.type.option.on_path = Әүҙем контурҙа
+tool.type.option.path_offset = Контур буйынса тайпылыш
+
+tool.type.choice.regular = Ғәҙәти
+tool.type.choice.bold = Ҡалын
+tool.type.choice.italic = Курсив
+tool.type.choice.bold_italic = Ҡалын курсив
+
+tool.type.history.new_layer = Яңы текст ҡатламы
+tool.type.history.edit = Тексты үҙгәртеү
+tool.type.history.discard = Тексты ташлау
+tool.type.history.discard_empty = Буш тексты ташлау

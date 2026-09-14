@@ -1,0 +1,24 @@
+# Liquify, Puppet Warp ଏବଂ Vanishing Point ଉପକରଣ।
+
+tool.liquify.name = ଲିକ୍ୱିଫାଇ
+tool.liquify.description = ବଡ଼ ବ୍ରଶ୍ ତଳର ପିକ୍ସେଲ୍‌ଗୁଡ଼ିକୁ ଠେଲନ୍ତୁ, ଘୂରାନ୍ତୁ, ସଙ୍କୁଚିତ କିମ୍ବା ଫୁଲାନ୍ତୁ — କେଉଁ କାମ ହେବ ତାହା ମୋଡ୍ ବିକଳ୍ପ ବାଛେ। ବିକୃତିଟି ଏକ ମେଶ୍‌ରେ ସଞ୍ଚିତ ହୁଏ ଏବଂ ନିଶ୍ଚିତ କଲେ ସ୍ତରରେ ପ୍ରୟୋଗ ହୁଏ।
+tool.liquify.option.tool = ଉପକରଣ
+tool.liquify.choice.forward_warp = ଆଗକୁ ବିକୃତି
+tool.liquify.choice.reconstruct = ପୁନର୍ଗଠନ
+tool.liquify.choice.twirl_cw = ଘଣ୍ଟାକଣ୍ଟା ଦିଗରେ ଘୂର୍ଣ୍ଣନ
+tool.liquify.choice.twirl_ccw = ଘଣ୍ଟାକଣ୍ଟାର ବିପରୀତ ଦିଗରେ ଘୂର୍ଣ୍ଣନ
+tool.liquify.choice.pucker = ସଙ୍କୋଚନ
+tool.liquify.choice.bloat = ସ୍ଫୀତି
+tool.liquify.choice.push_left = ବାମକୁ ଠେଲନ୍ତୁ
+tool.liquify.history.liquify = ଲିକ୍ୱିଫାଇ
+
+tool.puppet_warp.name = ପପେଟ୍ ୱାର୍ପ
+tool.puppet_warp.description = ସ୍ତରକୁ କିଛି ବିନ୍ଦୁରେ ପିନ୍ କରିବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ, ତା’ପରେ ଗୋଟିଏ ବିନ୍ଦୁକୁ ଟାଣନ୍ତୁ: ଦୃଢ଼ତା ବିକଳ୍ପ ଅନୁସାରେ ମେଶ୍‌ଟି ପିନ୍‌ଗୁଡ଼ିକ ଚାରିପଟେ କଠିନ କିମ୍ବା ଢିଲା ଭାବେ ବଙ୍କା ହୁଏ। ନିଶ୍ଚିତ କଲେ ଏହା ପ୍ରୟୋଗ ହୁଏ।
+tool.puppet_warp.option.stiffness = ଦୃଢ଼ତା
+tool.puppet_warp.history.puppet_warp = ପପେଟ୍ ୱାର୍ପ
+
+tool.vanishing_point.name = ଭାନିଶିଂ ପଏଣ୍ଟ
+tool.vanishing_point.description = ପରିପ୍ରେକ୍ଷ୍ୟ ଥିବା କୌଣସି ବସ୍ତୁ ଉପରେ ଟାଣି ଏକ ସମତଳ ଚିହ୍ନଟ କରନ୍ତୁ, ତା’ପରେ ମୋଡ୍‌କୁ କ୍ଲୋନ୍‌ରେ ବଦଳାଇ ରଙ୍ଗ କରନ୍ତୁ: ନକଲ ହୋଇଥିବା ପିକ୍ସେଲ୍‌ଗୁଡ଼ିକ ସମତଳକୁ ଅନୁସରଣ କରି ଦୂରତା ସହିତ ଛୋଟ ହୁଅନ୍ତି।
+tool.vanishing_point.choice.edit_plane = ସମତଳ ସମ୍ପାଦନ କରନ୍ତୁ
+tool.vanishing_point.choice.clone = କ୍ଲୋନ୍
+tool.vanishing_point.history.vanishing_point = ଭାନିଶିଂ ପଏଣ୍ଟ

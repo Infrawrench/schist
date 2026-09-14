@@ -1,0 +1,27 @@
+# Yr offeryn teipio.
+
+tool.type.name = Teip
+tool.type.description = Cliciwch i ddechrau haen destun yno, neu cliciwch un sy'n bodoli eisoes i'w golygu. Tra bo'r haen ar agor, mae'r offeryn yn derbyn bysellau crai (anfonwch nodau fel mewnbwn bysellau), ac mae cadarnhau'n rendro'r haen ac yn cau'r golygu.
+
+# Y bar dewisiadau
+tool.type.option.align = Alinio
+tool.type.option.leading = Bylchu Llinellau
+tool.type.option.tracking = Bylchu Nodau
+tool.type.option.kerning = Cernio
+tool.type.option.ligatures = Clymlythrennau
+tool.type.option.discretionary_ligatures = Clymlythrennau dewisol
+tool.type.option.small_caps = Priflythrennau bach
+tool.type.option.on_path = Ar y llwybr gweithredol
+tool.type.option.path_offset = Atred y llwybr
+
+# Y gwymplen Arddull
+tool.type.choice.regular = Arferol
+tool.type.choice.bold = Trwm
+tool.type.choice.italic = Italig
+tool.type.choice.bold_italic = Italig Trwm
+
+# Hanes
+tool.type.history.new_layer = Haen Destun Newydd
+tool.type.history.edit = Golygu Testun
+tool.type.history.discard = Gwaredu Testun
+tool.type.history.discard_empty = Gwaredu Testun Gwag

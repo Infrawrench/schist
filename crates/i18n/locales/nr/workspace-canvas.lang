@@ -1,0 +1,40 @@
+# Status replies
+workspace.canvas.rotate_view_degrees = Zombezisa Okubonwako {degrees}°
+workspace.canvas.view_reset = Okubonwako kusethwe ngobutjha
+workspace.canvas.notes_on = Amaphuzu avuliwe
+workspace.canvas.notes_off = Amaphuzu avaliwe
+workspace.canvas.rulers_on = Amarula avuliwe
+workspace.canvas.rulers_off = Amarula avaliwe
+workspace.canvas.grid_on = Igridi ivuliwe
+workspace.canvas.grid_off = Igridi ivaliwe
+workspace.canvas.guides_on = Iinkombandlela zivuliwe
+workspace.canvas.guides_off = Iinkombandlela zivaliwe
+workspace.canvas.extras_on = Okungeziweko kuvuliwe
+workspace.canvas.extras_off = Okungeziweko kuvaliwe
+workspace.canvas.snap_on = Ukunamathisela kuvuliwe
+workspace.canvas.snap_off = Ukunamathisela kuvaliwe
+workspace.canvas.guides_cleared = Iinkombandlela zisuliwe
+workspace.canvas.no_path = Akunandlela engasetjenziswa
+workspace.canvas.path_empty = Indlela ayinalitho
+workspace.canvas.stroke_needs_selection = Umuda utlhoga okukhethiweko
+workspace.canvas.nothing_to_stroke = Akukho okungadwetjwa umuda kikho
+workspace.canvas.content_aware_fill_needs_selection = Ukuzalisa Okuzwisisa Okumumethweko kutlhoga okukhethiweko
+workspace.canvas.content_aware_fill_needs_pixel_layer = Ukuzalisa Okuzwisisa Okumumethweko kutlhoga ileya yamaphikseli
+workspace.canvas.color_range_needs_pixel_layer = Ibanga Lombala litlhoga ileya yamaphikseli
+workspace.canvas.nothing_to_adjust = Akukho okungalungiswa
+workspace.canvas.nothing_to_trim = Akukho okungapungulwa
+workspace.canvas.trimmed = Kupunguliwe
+workspace.canvas.indexed_not_supported = Umbala Onekomba awukasekelwa
+workspace.canvas.opacity_percent = Ukusitheka: {n}%
+
+# History
+workspace.history.stroke = Umuda
+workspace.history.fill = Ukuzalisa
+workspace.history.content_aware_scale = Ukutjhugulula Ubukhulu Okuzwisisa Okumumethweko
+workspace.history.filter_gallery = Igalari Yeenthlungi
+workspace.history.color_range = Ibanga Lombala
+workspace.history.move_layer = Khambisa Ileya
+workspace.history.move_layers = Khambisa Amaleya
+workspace.history.layer_opacity = Ukusitheka Kweleya
+workspace.history.delete_note = Sula Iphuzu
+workspace.history.edit_note = Hlela Iphuzu

@@ -1,0 +1,225 @@
+# Модаль диалогтар.
+dialog.save_ellipsis = Һаҡлау…
+dialog.use_foreground = Алғы төҫтө ҡулланыу
+dialog.downloading = Йөкләп алына…
+dialog.downloading_of = Йөкләп алына… {total} араһынан {got}
+dialog.no_config_dir = (көйләү папкаһы юҡ)
+dialog.layer_props.title = Ҡатлам үҙенсәлектәре
+
+dialog.export.format = Формат
+dialog.export.dither = Дизеринг
+dialog.export.dither_note = 8 биткә кәметкәндә дизеринг ҡулланыу
+dialog.export.export_ellipsis = Экспортлау…
+
+dialog.batch.title = Фотоларҙы эшкәртеү
+dialog.batch.note_edit.other = Фото һаны: {n} — галерея үҙгәртеүҙәре итеп һаҡлана; төп нөсхәләргә бер ҡасан да тейелмәй.
+dialog.batch.note_edit_edited.other = Фото һаны: {n}, быға тиклем үҙгәртелгәндәре: {edited} — рецепт алдағы үҙгәртеү өҫтөнә ҡулланыла, һәм бөтә элекке үҙгәртеүҙәр версиялар итеп һаҡлана.
+dialog.batch.note_copies.other = Фото һаны: {n} — бер ҡатламлы күсермәләр; төп нөсхәләргә бер ҡасан да тейелмәй.
+dialog.batch.note_copies_edited.other = Фото һаны: {n}, быға тиклем үҙгәртелгәндәре: {edited} — күсермәләр үҙгәртелгән версияларҙан яһала.
+dialog.batch.turn = Бороу
+dialog.batch.rotate = Әйләндереү
+dialog.batch.flip = Сағылдырыу
+dialog.batch.upscale = Ҙурайтыу
+dialog.batch.colour = Төҫ
+dialog.batch.add_adjustment = Көйләү…
+dialog.batch.output = Һөҙөмтә
+dialog.batch.save_as = Ошолай һаҡлау
+dialog.batch.process = Эшкәртеү
+dialog.batch.process_n = Эшкәртеү: {n}
+dialog.batch.nothing_to_do = Эшкәртерлек нәмә юҡ: тәүҙә бороу, ҙурайтыу йәки көйләү һайлағыҙ
+
+dialog.content_aware_scale.title = Эстәлекте иҫәпкә алып масштаблау
+dialog.content_aware_scale.note = Детале аҙ булған йөйҙәрҙе алып ташлай. Һайлау һаҡланырға тейешле өлкәне билдәләй.
+dialog.stroke.title = Сик һыҙығы
+dialog.stroke.location = Урын
+dialog.stroke.inside = Эстә
+dialog.stroke.outside = Тышта
+dialog.stroke.note = Һайлау сиген алғы төҫ менән һыҙа.
+dialog.fill.contents = Эстәлек
+dialog.color_range.title = Төҫ диапазоны
+dialog.color_range.sampled = Өлгө алынған
+dialog.color_range.fuzziness = Төҫ айырмаһы
+dialog.color_range.note = Әүҙем ҡатламда өлгө алынған төҫкә яҡын пикселдәрҙе һайлай.
+
+dialog.file_picker.up = ↑ Өҫкә
+dialog.file_picker.empty = Бында бер ни ҙә юҡ
+dialog.file_picker.choose_folder = Ошо папканы һайлау
+
+dialog.filter.camera_raw_development = Camera Raw эшкәртеүе
+dialog.filter.reset_as_shot = Төшөрөлгәндәгегә ҡайтарыу
+dialog.filter.raw_note = Әүҙем ҡатламды сенсорҙың төп мәғлүмәтенән яңынан эшкәртә.
+dialog.filter.note = Әүҙем ҡатламға, һайланған өлкә эсендә ҡулланыла.
+
+dialog.fonts.title = Етмәгән шрифттар
+dialog.fonts.install_named = {name} урынлаштырыу
+dialog.fonts.no_document = Бер документ та асылмаған, шуға тикшерерлек нәмә юҡ.
+dialog.fonts.all_installed = Был документ ҡулланған һәр шрифт урынлаштырылған. Текст үҙенең тәүге макетында ҡулланылған шрифттар менән йыйыла.
+dialog.fonts.missing_intro = Был документ һеҙҙә булмаған шрифттар менән йыйылған. Тексты алмаштырғыс шрифтта уҡып була, ләкин уның киңлектәре һәм юл өҙөлөүҙәре тәүге макеттағыса түгел.
+dialog.fonts.footer = Шрифттар Google Fonts асыҡ каталогынан йөкләп алына һәм {dir} эсендә һаҡлана. Асыҡ лицензияһы булмаған шрифт бер ҡасан да алынмай; метрикаһы тура килгән ирекле шрифт булһа, уның урынына шул тәҡдим ителә. Ул макетты тергеҙә, сөнки һәр символдың горизонталь алға шылыу киңлеге тура килә.
+dialog.fonts.user_font_dir = ҡулланыусы шрифттары папкаһы
+
+dialog.models.title = Neural Filters моделдәре
+dialog.models.built_in = Эсенә һалынған · {size}
+dialog.models.installed = Урынлаштырылған · {size}
+dialog.models.not_installed = Урынлаштырылмаған · {size}
+dialog.models.not_in_browser = Браузерҙа мөмкин түгел · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Моделдәр {dir} эсендә һаҡлана. Моделе булмаған фильтрҙар сигнал эшкәртеүгә күсә һәм быны хәбәр итә.
+
+dialog.new_doc.title = Яңы документ
+dialog.new_doc.picker_title = Яңы файл
+dialog.new_doc.custom_ellipsis = Махсус…
+dialog.new_doc.preset = Әҙер өлгө
+dialog.new_doc.preset_default = Ғәҙәти (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Квадрат (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Булдырыу
+dialog.new_doc.created = Яңы документ: {w} × {h} px
+
+dialog.open.image_title = Рәсем асыу
+dialog.open.image_prompt = “{name}” яңы биттә асылһынмы, әллә әлеге документҡа яңы ҡатлам итеп өҫтәлһенме?
+dialog.open.new_tab = Яңы өҫтәмә бит
+dialog.open.new_layer = Яңы ҡатлам
+dialog.open.quoted = “{name}”
+dialog.open.these_files.other = Был файлдар һаны: {n}
+dialog.open.shared_title_one = Уртаҡ рәсем
+dialog.open.shared_title_many = Уртаҡ рәсемдәр
+dialog.open.shared_prompt = {what} галереяға өҫтәлһенме, әллә мөхәррирҙә асылһынмы?
+dialog.open.add_to_gallery = Галереяға өҫтәү
+dialog.open.open_in_editor = Мөхәррирҙә асыу
+dialog.open.heic_title = HEIC ярҙамы
+dialog.open.heic_needs_decoder = “{name}” асыу өсөн был системала урынлаштырылмаған HEVC декодлаусыһы кәрәк.
+dialog.open.heic_offer = Schist libde265 HEVC декодлаусыһы менән libheif {version} китапханаһының декодлау өсөн генә йыйылмаһын (≈5 МБ) йөкләй ала. Ике китапхана ла LGPL-3.0 лицензияһы аҫтында; икеһенең дә лицензия текстары китапхана янына урынлаштырыла, ә икеһенең дә сығанаҡ коды проект битендә бар.
+dialog.open.licenses_source = Лицензиялар һәм сығанаҡ код
+dialog.open.folders_title = Төшөрөп ҡалдырылған папкалар
+dialog.open.n_folders.other = Папкалар һаны: {n}
+dialog.open.open_in_tabs = Өҫтәмә биттәрҙә асыу
+dialog.open.open_first_in_tabs = Тәүге {n} файлды өҫтәмә биттәрҙә асыу
+dialog.open.open_n_in_tabs.other = Файлдарҙы өҫтәмә биттәрҙә асыу; һаны: {n}
+dialog.open.folder_holds.other = {what} эсендә Schist аса алған рәсемдәр һаны: {n} (эске папкаларҙы ла индереп).
+dialog.open.folders_note = Галереяға өҫтәү папкаларҙы үҙ урындарында күҙәтә — бер ни ҙә күсерелмәй, ә үҙгәртеүҙәр һәр фото янында версиялар итеп һаҡлана. Өҫтәмә биттәрҙә асыу бөтә рәсемдәрҙе хәҙер үк мөхәрриргә йөкләй.
+
+dialog.plugins.title = Плагиндар
+dialog.plugins.kind_filter = фильтр
+dialog.plugins.kind_format = формат
+dialog.plugins.kind_unavailable = мөмкин түгел
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Плагиндар {dir} эсенән йөкләнә
+dialog.plugins.none = Әлегә плагиндар урынлаштырылмаған.
+dialog.plugins.install_ellipsis = Урынлаштырыу…
+dialog.plugins.photoshop_heading = Photoshop плагиндары
+dialog.plugins.loaded_from = Ошо папкаларҙан йөкләнде: {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Параметрҙар
+dialog.prefs.theme = Тема
+dialog.prefs.theme_dark = Ҡараңғы
+dialog.prefs.theme_light = Яҡты
+dialog.prefs.grid_spacing = Селтәр аралығы
+dialog.prefs.snapping = Йәбешеү
+dialog.prefs.snap_to = Йүнәлткестәргә, селтәргә һәм киндер ситтәренә йәбешеү
+dialog.prefs.rendering_intent = Төҫ үҙгәртеү маҡсаты
+dialog.prefs.intent_perceptual = Тойомлау буйынса
+dialog.prefs.intent_relative = Сағыштырмаса колориметрик
+dialog.prefs.intent_saturation = Туйынғанлыҡ
+dialog.prefs.intent_absolute = Абсолют колориметрик
+dialog.prefs.scrolling = Әйләндереп ҡарау
+dialog.prefs.zoom_with_scroll = Тәгәрмәс менән масштаблау
+dialog.prefs.rendering = Растрлау
+dialog.prefs.gpu_compositing = GPU ярҙамында ҡатламдарҙы берләштереү
+dialog.prefs.diagnostics = Диагностика
+dialog.prefs.crash_reports = Эш өҙөлгәндә урындағы хата отчетын яҙыу
+dialog.prefs.crash_upload = Уны эшләүселәргә лә ебәреү
+dialog.prefs.telemetry = Көн һайын аноним сигнал ебәреү
+dialog.prefs.diagnostics_note = Диагностика көйләүҙәре Schist киләһе тапҡыр асылғанда ғәмәлгә инә.
+dialog.prefs.updates = Яңыртыуҙар
+dialog.prefs.check_updates = Ебәргәндә яңы сығарылыштарҙы тикшереү
+dialog.prefs.keyboard_shortcuts = Клавиатура ҡыҫҡартмалары: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) моделе кәрәк —
+dialog.prefs.nsfw_download_link = уны Моделдәр менән идара итеү менюһында йөкләп алығыҙ…
+dialog.prefs.hide_flagged = Билдәләнгән фотоларҙы йәшереү
+
+dialog.profile.profile = Профиль
+dialog.profile.assign_title = Профиль тәғәйенләү
+dialog.profile.convert_title = Профилгә әйләндереү
+dialog.profile.assign = Тәғәйенләү
+dialog.profile.convert = Әйләндереү
+dialog.profile.assign_note = Булған пиксель ҡиммәттәрен яңы профиль буйынса ҡабаттан аңлата.
+dialog.profile.convert_note = Төҫтәрҙең күренеше һаҡланһын өсөн пиксель ҡиммәттәрен яңынан яҙа.
+
+dialog.save_image.title = Рәсемде икенсе исем менән һаҡлау
+dialog.save_image.note = {name} — үҙгәртелгән версияһы булһа, шул һаҡлана; төп нөсхәгә бер ҡасан да тейелмәй.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Рәсем үлсәме
+dialog.size.canvas_title = Киндер үлсәме
+dialog.size.constrain = Сикләү
+dialog.size.keep_proportions = Нисбәттәрҙе һаҡлау
+dialog.size.resample = Ҡабаттан өлгө алыу
+dialog.size.bicubic = Бикубик
+dialog.size.bilinear = Билиней
+dialog.size.nearest = Иң яҡын күрше
+dialog.size.anchor = Терәк нөктәһе
+dialog.size.currently = Хәҙер {w} × {h} px
+dialog.size.image_size_status = Рәсем үлсәме: {w} × {h}
+dialog.size.canvas_size_status = Киндер үлсәме: {w} × {h}
+
+dialog.update.title = Яңыртыу бар
+dialog.update.available = Schist {version} бар. Был күсермәнең версияһы — {current}.
+dialog.update.installing = Яңыртыу урынлаштырыла…
+dialog.update.can_install = Schist уны ({size}) йөкләп алып, был күсермә өҫтөнә урынлаштыра ала.
+dialog.update.external = Был күсермәгә тышҡы система — пакеттар идарасыһы, AppImage йәки үҙегеҙҙең йыйылма — идара итә, шуға ул үҙенең урынлаштырылыу ысулы менән яңыртыла.
+dialog.update.later = Һуңыраҡ
+dialog.update.release_notes = Сығарылыш иҫкәрмәләре
+dialog.update.update_restart = Яңыртыу һәм яңынан ебәреү
+dialog.update.open_page = Сығарылыш битен асыу
+
+dialog.style.title = Ҡатлам стиле
+dialog.style.bevel = Фаска һәм рельеф
+dialog.style.stroke = Сик һыҙығы
+dialog.style.inner_shadow = Эске күләгә
+dialog.style.inner_glow = Эске балҡыш
+dialog.style.satin = Сатин
+dialog.style.color_overlay = Төҫ менән ҡаплау
+dialog.style.gradient_overlay = Градиент менән ҡаплау
+dialog.style.outer_glow = Тышҡы балҡыш
+dialog.style.drop_shadow = Төшкән күләгә
+dialog.style.blur = Гаусс буйынса тоноҡландырыу
+dialog.style.gradient_from = Градиент менән ҡаплауҙың башы
+dialog.style.gradient_to = Градиент менән ҡаплауҙың аҙағы
+dialog.style.soften = Йомшартыу
+dialog.style.depth = Тәрәнлек
+dialog.style.altitude = Бейеклек
+dialog.style.highlight = Яҡты өлкә
+dialog.style.shadow = Күләгә
+dialog.style.outer_bevel = Тышҡы фаска
+dialog.style.inner_bevel = Эске фаска
+dialog.style.emboss = Рельеф
+dialog.style.pillow_emboss = Мендәр рельефы
+dialog.style.linear = Һыҙыҡлы
+dialog.style.radial = Радиаль
+dialog.style.reverse = Киреһенә
+dialog.style.from_to = Башы / Аҙағы
+dialog.style.from_fg = Башы = алғы төҫ
+dialog.style.to_fg = Аҙағы = алғы төҫ
+dialog.style.precise = Теүәл
+dialog.style.knockout = Ҡатлам төшкән күләгәне киҫеп сығара
+
+dialog.color_picker.title = Төҫ һайлағыс ({what})
+dialog.color_picker.effect_color = {effect} төҫө
+dialog.color_picker.note_color = Иҫкәрмә төҫө
+dialog.color_picker.new = яңы
+dialog.color_picker.current = әлеге
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Каналды башланғыс хәлгә ҡайтарыу
+dialog.curves.hint = Форма биреү өсөн һөйрәгеҙ · өҫтәү өсөн сиртегеҙ · алып ташлау өсөн alt менән сиртегеҙ
+
+dialog.prefs.camera_sync = Камера фотолары
+dialog.prefs.camera_sync_enabled = Schist Cloud-ҡа резерв күсермә яһау
+dialog.prefs.camera_sync_sign_in = Камера фотоларының резерв күсермәһен яһау өсөн Schist Cloud-ҡа инегеҙ.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Үҙгәртеү…

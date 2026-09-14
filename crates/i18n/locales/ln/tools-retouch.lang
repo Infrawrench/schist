@@ -1,0 +1,23 @@
+tool.patch.name = Ebamba
+tool.patch.description = Benda molɔngɔ zingazinga ya mbeba, na nsima benda eteni yango likoló ya bapiksele ya pɛto: tekstire ya esika yango ekokɔtisama na mbeba. Mode ya Ebamba eponaka nsuka nini ya mibale okobenda.
+tool.patch.option.patch = Ebamba
+tool.patch.choice.source = Liziba
+tool.patch.choice.destination = Esika ya kokóma
+tool.patch.history.patch = Ebamba
+
+tool.content_aware_move.name = Kotambolisa na kotalela makambo
+tool.content_aware_move.description = Benda eloko oyo eponami na esika mosusu, mpe lidusu oyo etiki ekotondisama na makambo ya zingazinga. Na mode ya Koyeisa molai, eloko eyandolamaka na esika ya kotambolisama.
+tool.content_aware_move.choice.move = Kotambolisa
+tool.content_aware_move.choice.extend = Koyeisa molai
+tool.content_aware_move.history.move = Kotambolisa na kotalela makambo
+
+tool.red_eye.name = Liso motane
+tool.red_eye.description = Finá pupile mpo na kolongola langi motane oyo flash ebimisi.
+tool.red_eye.option.pupil_size = Bonene ya pupile
+tool.red_eye.option.darken = Koyeisa molili
+tool.red_eye.history.red_eye = Liso motane
+
+tool.magic_eraser.name = Gome ya maji
+tool.magic_eraser.description = Finá mpo na kopangusa etando ya langi oyo ekokani na oyo ezali na nse ya elembo, na kati ya toleransi ya esaleli — kaka etando oyo esimbani na esika ofini, to bisika nyonso na kalke.
+tool.magic_eraser.option.contiguous = Oyo esimbani
+tool.magic_eraser.history.erase = Gome ya maji

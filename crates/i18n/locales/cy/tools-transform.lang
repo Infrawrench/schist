@@ -1,0 +1,31 @@
+# Trawsnewid rhydd, trawsnewid detholiad a thocio, ynghyd ag enwau ailhap-samplu.
+
+# Trawsnewid rhydd
+tool.transform.name = Trawsnewid Rhydd
+tool.transform.description = Trawsnewid Rhydd. Mae ei weithredu'n agor blwch trawsnewid o amgylch yr haen weithredol: llusgwch gornel i newid y raddfa, llusgwch y tu allan i gornel i gylchdroi, neu lusgwch ymyl i ogwyddo. Ni chaiff dim ei ysgrifennu nes ichi gadarnhau (Enter), ac mae canslo (Escape) yn dychwelyd yr haen i'w chyflwr blaenorol.
+tool.transform.option.interpolation = Rhyngosodiad
+tool.transform.history.transform = Trawsnewid Rhydd
+tool.transform.history.image_size = Maint Delwedd
+tool.transform.history.canvas_size = Maint Cynfas
+
+# Trawsnewid detholiad
+tool.transform.selection.name = Trawsnewid Detholiad
+tool.transform.selection.description = Trawsnewid Detholiad: yr un blwch, ond yn symud amlinell y detholiad yn hytrach na'r picseli sydd ynddo. Cadarnhewch neu ganslwch i orffen.
+tool.transform.selection.history.transform = Trawsnewid Detholiad
+
+# Yr hidlyddion ailhap-samplu clasurol
+tool.transform.resample.nearest_neighbor = Cymydog Agosaf
+tool.transform.resample.bilinear = Deulinol
+tool.transform.resample.bicubic = Deugiwbig
+
+# Tocio
+tool.crop.name = Tocio
+tool.crop.description = Llusgwch i amlinellu'r ardal i'w chadw ac addaswch ei dolenni; mae cadarnhau (Enter) yn tocio'r ddogfen iddi, ac mae canslo (Escape) yn gadael y ddogfen fel y mae.
+tool.crop.option.ratio = Cymhareb
+tool.crop.option.delete_cropped = Dileu Picseli a Dociwyd
+tool.crop.choice.unconstrained = Heb Gyfyngiad
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Tocio

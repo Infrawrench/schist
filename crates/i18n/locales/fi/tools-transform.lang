@@ -1,0 +1,23 @@
+# Vapaa muunnos, valinnan muunnos ja rajaus.
+tool.transform.name = Vapaa muunnos
+tool.transform.description = Vapaa muunnos. Aktivointi avaa muunnoskehyksen aktiivisen tason ympärille: skaalaa vetämällä kulmasta, kierrä vetämällä kulman ulkopuolelta ja kallista vetämällä reunasta. Mitään ei tallenneta ennen vahvistamista (Enter), ja peruuttaminen (Escape) palauttaa tason.
+tool.transform.option.interpolation = Interpolointi
+tool.transform.history.transform = Vapaa muunnos
+tool.transform.history.image_size = Kuvan koko
+tool.transform.history.canvas_size = Piirtoalueen koko
+tool.transform.selection.name = Muunna valintaa
+tool.transform.selection.description = Muunna valintaa: sama kehys, mutta se siirtää valinnan ääriviivaa sen sisällä olevien kuvapisteiden sijasta. Lopeta vahvistamalla tai peruuttamalla.
+tool.transform.selection.history.transform = Muunna valintaa
+tool.transform.resample.nearest_neighbor = Lähin naapuri
+tool.transform.resample.bilinear = Bilineaarinen
+tool.transform.resample.bicubic = Bikubinen
+tool.crop.name = Rajaa
+tool.crop.description = Vedä säilytettävä alue ja säädä sen kahvoja. Vahvistaminen (Enter) rajaa dokumentin alueeseen, kun taas peruuttaminen (Escape) jättää sen ennalleen.
+tool.crop.option.ratio = Suhde
+tool.crop.option.delete_cropped = Poista rajatut kuvapisteet
+tool.crop.choice.unconstrained = Rajoittamaton
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Rajaa

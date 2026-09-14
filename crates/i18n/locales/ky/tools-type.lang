@@ -1,0 +1,22 @@
+tool.type.name = Текст
+tool.type.description = Ошол жерден текст катмарын баштоо үчүн басыңыз же учурдагы текстти түзөтүү үчүн аны басыңыз. Түзөтүү ачык турганда курал баскычтардын түздөн-түз киргизилишин кабыл алат (тамгаларды баскыч киргизүүсү катары жөнөтүңүз), ал эми ырастаганда катмар тартылып, түзөтүү жабылат.
+
+tool.type.option.align = Тегиздөө
+tool.type.option.leading = Сап аралыгы
+tool.type.option.tracking = Тамгалардын жалпы аралыгы
+tool.type.option.kerning = Кернинг
+tool.type.option.ligatures = Лигатуралар
+tool.type.option.discretionary_ligatures = Кошумча лигатуралар
+tool.type.option.small_caps = Кичине баш тамгалар
+tool.type.option.on_path = Активдүү контур боюнча
+tool.type.option.path_offset = Контурдан жылышы
+
+tool.type.choice.regular = Кадимки
+tool.type.choice.bold = Калың
+tool.type.choice.italic = Жантайыңкы
+tool.type.choice.bold_italic = Калың жантайыңкы
+
+tool.type.history.new_layer = Жаңы текст катмары
+tool.type.history.edit = Текстти түзөтүү
+tool.type.history.discard = Текстти таштоо
+tool.type.history.discard_empty = Бош текстти таштоо

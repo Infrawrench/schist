@@ -1,0 +1,29 @@
+# කලා පුවරුව
+tool.artboard.name = කලා පුවරුව
+tool.artboard.description = කලා පුවරුවක් ඇඳ සාදන්න: තනිව අපනයනය වන, කැන්වසයේ නම් කළ ප්‍රදේශයකි. පවතින කලා පුවරුවක් තුළ ඇදීමෙන් එය ගෙනයයි.
+tool.artboard.default_name = කලා පුවරුව {n}
+
+# කොටස
+tool.slice.name = කොටස
+tool.slice.description = අපනයන කොටසක් ඇඳ සාදන්න; එය තනි රූපයක් ලෙස අපනයනය වන කැන්වසයේ නම් කළ සෘජුකෝණාස්‍රයකි. පවතින කොටසක් තුළ ඇදීමෙන් එය ගෙනයයි.
+tool.slice.default_name = කොටස {n}
+
+# රාමුව
+tool.frame.name = රාමුව
+tool.frame.description = රාමුවක් ඇඳ සාදන්න: එයට තබන ඕනෑම දෙයක් ආවරණය කරන සෘජුකෝණාස්‍රාකාර (හෝ ඉලිප්සාකාර) ස්තරයකි.
+tool.frame.default_name = රාමුව {n}
+tool.frame.choice.rectangle = සෘජුකෝණාස්‍රය
+tool.frame.choice.ellipse = ඉලිප්සය
+tool.frame.history.frame = රාමුව
+
+# සටහන
+tool.note.name = සටහන
+tool.note.description = කර්තෘ සහ සංස්කාරක තත්ත්වයේ වර්ණය සටහන් කරමින් සටහනක් එහි ඇමිණීමට හිස් කැන්වසය ක්ලික් කරන්න; Notes පැනලයට තේරීමට පවතින ඇමුණුමක් ක්ලික් කරන්න.
+tool.note.history.place = සටහන තබන්න
+tool.note.history.move = සටහන ගෙනයන්න
+tool.note.history.delete = සටහන මකන්න
+
+# ගණනය
+tool.count.name = ගණනය
+tool.count.description = කැන්වසය මත අංකිත ගණන් සලකුණු දැමීමට ක්ලික් කරන්න; පවතින සලකුණක් ඉවත් කිරීමට එය ක්ලික් කරන්න.
+tool.count.default_name = ගණනය {n}

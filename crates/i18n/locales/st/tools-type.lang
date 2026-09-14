@@ -1,0 +1,24 @@
+# Sesebelisoa sa mongolo.
+
+tool.type.name = Mongolo
+tool.type.description = Tobetsa ho qala mokhahlelo oa mongolo sebakeng seo, kapa u tobetse o seng o le teng ho o hlophisa. Ha o ntse o butsoe, sesebelisoa se amohela linotlolo ka kotloloho (romela litlhaku e le ketso ea linotlolo), 'me ho tiisa ho taka mokhahlelo le ho koala ho hlophisa.
+
+tool.type.option.align = Tsepanya
+tool.type.option.leading = Sekheo sa Mela
+tool.type.option.tracking = Sekheo sa Litlhaku
+tool.type.option.kerning = Sekheo sa Para ea Litlhaku
+tool.type.option.ligatures = Litlhaku tse Kopantsoeng
+tool.type.option.discretionary_ligatures = Litlhaku tse Kopantsoeng ka Boikhethelo
+tool.type.option.small_caps = Litlhaku tse Nyenyane tsa Tlhaku-kholo
+tool.type.option.on_path = Tseleng e sebetsang
+tool.type.option.path_offset = Ho Sutha Tseleng
+
+tool.type.choice.regular = Tloaelehileng
+tool.type.choice.bold = Tenya
+tool.type.choice.italic = Sekama
+tool.type.choice.bold_italic = Tenya e Sekameng
+
+tool.type.history.new_layer = Mokhahlelo o Mocha oa Mongolo
+tool.type.history.edit = Hlophisa Mongolo
+tool.type.history.discard = Lahla Mongolo
+tool.type.history.discard_empty = Lahla Mongolo o se Nang Letho

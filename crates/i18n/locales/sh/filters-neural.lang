@@ -1,0 +1,153 @@
+filter.neural.param.center_x = Središte X
+filter.neural.param.center_y = Središte Y
+filter.neural.param.direction = Smjer
+filter.neural.param.transition = Prijelaz
+filter.neural.param.detail = Detalji
+filter.neural.param.eyes = Oči
+
+filter.neural.msg.using_model = Upotrebljava se {model} · {license}.
+filter.neural.msg.get_model = Preuzmite ga putem Filtar ▸ Neural Filters ▸ Upravljanje modelima.
+
+filter.camera_raw.name = Camera Raw Filter
+filter.camera_raw.param.temperature = Temperatura
+filter.camera_raw.param.tint = Ton boje
+filter.camera_raw.param.highlights = Svijetli tonovi
+filter.camera_raw.param.shadows = Sjene
+filter.camera_raw.param.whites = Bijele
+filter.camera_raw.param.blacks = Crne
+filter.camera_raw.param.clarity = Jasnoća
+filter.camera_raw.param.dehaze = Uklanjanje izmaglice
+filter.camera_raw.param.vibrance = Živost
+filter.camera_raw.param.sharpening = Izoštravanje
+filter.camera_raw.param.noise = Smanjenje šuma
+filter.camera_raw.param.vignette = Vinjeta
+
+filter.lens_correction.name = Ispravljanje objektiva
+filter.lens_correction.param.distortion = Ukloni izobličenje
+filter.lens_correction.param.red = Ispravi crveni/cijan rub
+filter.lens_correction.param.blue = Ispravi plavi/žuti rub
+filter.lens_correction.param.vignette = Količina vinjete
+filter.lens_correction.param.midpoint = Središnja točka vinjete
+filter.lens_correction.param.vertical = Okomita perspektiva
+filter.lens_correction.param.horizontal = Vodoravna perspektiva
+
+filter.adaptive_wide_angle.name = Prilagodljivi široki kut
+filter.adaptive_wide_angle.param.projection = Ispravljanje
+filter.adaptive_wide_angle.choice.fisheye = Riblje oko
+filter.adaptive_wide_angle.choice.perspective = Perspektiva
+filter.adaptive_wide_angle.choice.full_spherical = Potpuno sferno
+filter.adaptive_wide_angle.param.focal = Žarišna duljina
+filter.adaptive_wide_angle.param.crop = Faktor izrezivanja
+
+filter.field_blur.name = Zamućenje polja
+filter.field_blur.param.position = Oštro na
+filter.iris_blur.name = Zamućenje šarenice
+filter.iris_blur.param.roundness = Zaobljenost
+filter.tilt_shift.name = Tilt-Shift
+filter.tilt_shift.param.position = Središte
+filter.tilt_shift.param.band = Oštro područje
+filter.spin_blur.name = Kružno zamućenje
+filter.spin_blur.param.angle = Kut zamućenja
+filter.path_blur.name = Zamućenje putanje
+filter.path_blur.param.speed = Brzina
+filter.path_blur.param.curve = Zakrivljenost
+filter.path_blur.param.taper = Sužavanje
+
+filter.shape_blur.name = Zamućenje oblikom
+filter.shape_blur.choice.square = Kvadrat
+filter.shape_blur.choice.diamond = Romb
+filter.shape_blur.choice.hexagon = Šesterokut
+filter.shape_blur.choice.cross = Križ
+filter.shape_blur.choice.ring = Prsten
+filter.shape_blur.choice.star = Zvijezda
+filter.smart_blur.name = Pametno zamućenje
+filter.smart_blur.choice.normal = Normalno
+filter.smart_blur.choice.edge_only = Samo rub
+filter.smart_blur.choice.overlay_edge = Prekrij rub
+
+filter.deinterlace.name = Uklanjanje ispreplitanja
+filter.deinterlace.param.field = Ukloni
+filter.deinterlace.choice.odd_fields = Neparna polja
+filter.deinterlace.choice.even_fields = Parna polja
+filter.deinterlace.param.fill = Izradi nova polja s pomoću
+filter.deinterlace.choice.interpolation = Interpolacija
+filter.deinterlace.choice.duplication = Dupliciranje
+filter.ntsc_colors.name = NTSC boje
+
+filter.neural.skin_smoothing.name = Zaglađivanje kože
+filter.neural.skin_smoothing.param.blur = Glatkoća
+filter.neural.skin_smoothing.param.detail = Sačuvaj detalje
+filter.neural.skin_smoothing.msg.no_model = Model {model} nije instaliran — umjesto lica zaglađuje se sve što ima boju kože.
+
+filter.neural.jpeg_artifacts.name = Uklanjanje JPEG artefakata
+filter.neural.jpeg_artifacts.msg.no_model = Model {model} nije instaliran — umjesto toga zaglađuje se mreža od 8 piksela.
+
+filter.neural.colorize.name = Koloriziranje
+filter.neural.colorize.param.warmth = Toplina
+filter.neural.colorize.msg.no_model = Model {model} nije instaliran — umjesto toga dodaje se ton prema svjetlini.
+
+filter.neural.super_zoom.name = Super Zoom
+filter.neural.super_zoom.msg.no_model = Model {model} nije instaliran — umjesto toga primjenjuje se izoštravanje usmjereno prema rubovima.
+
+filter.neural.style_transfer.name = Prijenos stila
+filter.neural.style_transfer.choice.mosaic = Mozaik
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = Nije instaliran nijedan model stila — prenosi se samo boja. Preuzmite ih putem Filtar ▸ Neural Filters ▸ Upravljanje modelima.
+filter.neural.style_transfer.msg.installed = Instalirano: {styles} (ONNX Model Zoo, Apache-2.0).
+
+filter.neural.color_transfer.name = Prijenos boje
+filter.neural.color_transfer.param.hue = Ciljna nijansa
+filter.neural.color_transfer.param.contrast = Uskladi kontrast
+filter.neural.color_transfer.msg.info = Preuzima paletu sa sloja ispod. Ako ispod nema ničega, umjesto toga cilja Ciljnu nijansu.
+
+filter.neural.depth_blur.name = Zamućenje dubine
+filter.neural.depth_blur.param.focus = Udaljenost izoštravanja
+filter.neural.depth_blur.param.blur = Jačina zamućenja
+filter.neural.depth_blur.msg.no_model = Model {model} nije instaliran — umjesto toga izoštrava se prema lokalnoj oštrini.
+
+filter.neural.harmonization.name = Usklađivanje
+filter.neural.harmonization.param.tone = Uskladi ton
+filter.neural.harmonization.msg.info = Usklađuje ovaj sloj s onime ispod njega. Ako ispod nema ničega, nema se s čime uskladiti pa se ništa ne mijenja.
+
+filter.neural.landscape_mixer.name = Miješanje krajolika
+filter.neural.landscape_mixer.param.bands = Dubinska područja
+filter.neural.landscape_mixer.msg.with_depth = Preuzima paletu sa sloja ispod i usklađuje područje po područje s pomoću modela Depth (Depth Blur).
+filter.neural.landscape_mixer.msg.without_depth = Preuzima paletu sa sloja ispod. Instalirajte Depth (Depth Blur) kako biste nebo uskladili s nebom, a tlo s tlom, umjesto da usklađujete sliku kao cjelinu.
+
+filter.neural.photo_restoration.name = Obnavljanje fotografije
+filter.neural.photo_restoration.param.enhance = Poboljšanje fotografije
+filter.neural.photo_restoration.param.scratches = Smanjenje ogrebotina
+filter.neural.photo_restoration.param.tone = Obnovi ton
+filter.neural.photo_restoration.msg.no_model = Čišćenje bez modela.
+filter.neural.photo_restoration.msg.using_deblock = Upotrebljava se Deblock · istreniran za Schist.
+filter.neural.photo_restoration.msg.using_detail = Upotrebljava se Detail · istreniran za Schist.
+filter.neural.photo_restoration.msg.using_both = Upotrebljavaju se Deblock i Detail · istrenirani za Schist.
+
+filter.neural.photo_to_sketch.name = Fotografija u skicu
+filter.neural.photo_to_sketch.param.weight = Debljina crte
+filter.neural.photo_to_sketch.param.shading = Sjenčanje
+
+filter.neural.face_to_caricature.name = Lice u karikaturu
+filter.neural.face_to_caricature.param.mouth = Usta
+filter.neural.face_to_caricature.param.head = Glava
+filter.neural.face_to_caricature.msg.no_model = Model {model} nije instaliran pa se ništa ne mijenja — nema se što pretvoriti u karikaturu.
+
+filter.neural.smart_portrait.name = Pametni portret
+filter.neural.smart_portrait.param.happiness = Sreća
+filter.neural.smart_portrait.param.surprise = Iznenađenje
+filter.neural.smart_portrait.param.age = Dob lica
+filter.neural.smart_portrait.param.gaze = Pogled
+filter.neural.smart_portrait.param.light = Smjer svjetla
+filter.neural.smart_portrait.msg.no_model = Model {model} nije instaliran pa se ništa ne mijenja — nema lica na kojem bi mogao raditi.
+
+filter.neural.makeup_transfer.name = Prijenos šminke
+filter.neural.makeup_transfer.param.lips = Usne
+filter.neural.makeup_transfer.param.skin = Ton kože
+filter.neural.makeup_transfer.msg.info = Preuzima šminku s lica na sloju ispod. Preuzima boju, a ne teksturu.
+filter.neural.makeup_transfer.msg.no_model = Model {model} nije instaliran pa se ništa ne mijenja.
+
+filter.neural.sketch_to_portrait.name = Skica u portret
+filter.neural.sketch_to_portrait.param.detail = Sačuvaj crte
+filter.neural.sketch_to_portrait.msg.with_face = Istreniran je za popunjavanje rezultata vlastitog filtra Fotografija u skicu ove aplikacije. Radi na licu koje pronađe.
+filter.neural.sketch_to_portrait.msg.no_face = Istreniran je za popunjavanje rezultata vlastitog filtra Fotografija u skicu ove aplikacije. Instalirajte Faces (Skin Smoothing) kako bi radio na licu umjesto na cijelom odabiru.

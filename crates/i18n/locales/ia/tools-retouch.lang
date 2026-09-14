@@ -1,0 +1,25 @@
+# Instrumentos de retocco regional.
+
+tool.patch.name = Pecia
+tool.patch.description = Trahe un contorno circum un defecto, postea trahe iste selection super pixels intacte: le textura de ibi es adaptate al defecto. Le modo Pecia determina qual extremitate del par tu trahe.
+tool.patch.option.patch = Pecia
+tool.patch.choice.source = Origine
+tool.patch.choice.destination = Destination
+tool.patch.history.patch = Pecia
+
+tool.content_aware_move.name = Movimento sensibile al contento
+tool.content_aware_move.description = Trahe un objecto seligite a un altere loco e le apertura que illo lassa es reimplite a partir de su vicinitate. In modo Extender, le objecto es allongate in vice de esser movite.
+tool.content_aware_move.choice.move = Mover
+tool.content_aware_move.choice.extend = Extender
+tool.content_aware_move.history.move = Movimento sensibile al contento
+
+tool.red_eye.name = Oculo rubie
+tool.red_eye.description = Clicca sur un pupilla pro remover de illo le rubor causate per le flash.
+tool.red_eye.option.pupil_size = Dimension del pupilla
+tool.red_eye.option.darken = Obscurar
+tool.red_eye.history.red_eye = Oculo rubie
+
+tool.magic_eraser.name = Gumma magic
+tool.magic_eraser.description = Clicca pro deler le area de color similar sub le punctator, intra le tolerantia del instrumento — contigue al puncto cliccate o ubique in le strato.
+tool.magic_eraser.option.contiguous = Contigue
+tool.magic_eraser.history.erase = Gumma magic

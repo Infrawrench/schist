@@ -1,0 +1,229 @@
+dialog.save_ellipsis = Opslaon…
+dialog.use_foreground = Veurgrondj gebroeke
+dialog.downloading = Downloade…
+dialog.downloading_of = Downloade… {got} van {total}
+dialog.no_config_dir = (gein configuratiemap)
+
+dialog.layer_props.title = Laogeigesjappe
+
+dialog.export.format = Formaat
+dialog.export.dither = Dithere
+dialog.export.dither_note = Dithere bie vermindering nao 8 bit
+dialog.export.export_ellipsis = Exportere…
+
+dialog.batch.title = Foto's verwirke
+dialog.batch.note_edit.other = Aantal foto's: {n} — opgeslage es galeriebewèrkinge; de originele waere noets aangeraak.
+dialog.batch.note_edit_edited.other = Aantal foto's: {n}; al bewèrk: {edited} — 't recept kump baove-op de bewèrking en de veurige bewèrking blief es versie behawwe.
+dialog.batch.note_copies.other = Aantal foto's: {n} — vlakke kopieën; de originele waere noets aangeraak.
+dialog.batch.note_copies_edited.other = Aantal foto's: {n}; al bewèrk: {edited} — de kopieën waere vanaaf de bewèrkinge gemaak.
+dialog.batch.turn = Drejje
+dialog.batch.rotate = Rotere
+dialog.batch.flip = Spegele
+dialog.batch.upscale = Opsjale
+dialog.batch.colour = Kleur
+dialog.batch.add_adjustment = Aanpassing…
+dialog.batch.output = Oetveur
+dialog.batch.save_as = Opslaon es
+dialog.batch.process = Verwirke
+dialog.batch.process_n = {n} verwirke
+dialog.batch.nothing_to_do = Niks te doon: keus iers 'n drej-jing, opsjaling of aanpassing
+
+dialog.content_aware_scale.title = Inhaudsgevoelig sjale
+dialog.content_aware_scale.note = Snit neje mit weinig detail weg. 'n Selectie geuf aan wat besjermp mót waere.
+
+dialog.stroke.title = Omliening
+dialog.stroke.location = Positie
+dialog.stroke.inside = Binne
+dialog.stroke.outside = Boete
+dialog.stroke.note = Lient de selectie óm mit de veurgrondjskleur.
+
+dialog.fill.contents = Inhaud
+
+dialog.color_range.title = Kleurbereik
+dialog.color_range.sampled = Gemete
+dialog.color_range.fuzziness = Tolerantie
+dialog.color_range.note = Selecteert pixels kort bie de gemete kleur op de actieve laog.
+
+dialog.file_picker.up = ↑ Omhoeg
+dialog.file_picker.empty = Hie is niks
+dialog.file_picker.choose_folder = Deze map keze
+
+dialog.filter.camera_raw_development = Camera Raw-óntwikkeling
+dialog.filter.reset_as_shot = Trök nao Es genome
+dialog.filter.raw_note = Óntwikkelt de actieve laog opnuuj vanaaf de originele sensorgegaeves.
+dialog.filter.note = Weurt binne de selectie op de actieve laog toegepas.
+
+dialog.fonts.title = Óntbraekende booksjrifte
+dialog.fonts.install_named = {name} installere
+dialog.fonts.no_document = D'r is gein document aope, dus d'r is niks om te controlere.
+dialog.fonts.all_installed = Eder booksjrif dat dit document gebroek is geïnstalleerd. De teks is gezat in de booksjrifte wo-mit häöre opmaak gemaak is.
+dialog.fonts.missing_intro = Dit document is gezat in booksjrifte die geer neet höbt. De teks is laesbaar in 'n vervangend booksjrif, mer de breides en regelbraeke zien neet die van de oersjprónkelike opmaak.
+dialog.fonts.footer = Downloads kómme oet de aope catalogus van Google Fonts en waere in {dir} bewaard. 'n Booksjrif zonger aope licentie weurt noets opgehaold — es d'r 'n vrieje vormgeving mit dezelfde metriek besteit, weurt die es vervanging aangebaoje. Zo'n vervanging herstèlt de opmaak ómdat de horizontale afstandj die eder teike inneumt euvereinkump.
+dialog.fonts.user_font_dir = eur map mit gebroekersbooksjrifte
+
+dialog.models.title = Neural Filter-modelle
+dialog.models.built_in = Ingebouwd · {size}
+dialog.models.installed = Geïnstalleerd · {size}
+dialog.models.not_installed = Neet geïnstalleerd · {size}
+dialog.models.not_in_browser = Neet besjikbaar in de browser · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modelle waere in {dir} bewaard. Filters zonger model valle trök op signaalverwèrking en melje dat.
+
+dialog.new_doc.title = Nuuj document
+dialog.new_doc.picker_title = Nuuj besjtandj
+dialog.new_doc.custom_ellipsis = Aangepas…
+dialog.new_doc.preset = Veurinstèlling
+dialog.new_doc.preset_default = Standaard (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Veerkant (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Make
+dialog.new_doc.created = Nuuj document: {w} × {h} px
+
+dialog.open.image_title = Aafbiljing äöpene
+dialog.open.image_prompt = “{name}” in 'n nuuj tabblaj äöpene of es nuuj laog aan 't hujige document toeveuge?
+dialog.open.new_tab = Nuuj tabblaj
+dialog.open.new_layer = Nuuje laog
+dialog.open.quoted = “{name}”
+dialog.open.these_files.other = Aantal bestenj: {n}
+dialog.open.shared_title_one = Gedeilde aafbiljing
+dialog.open.shared_title_many = Gedeilde aafbiljinge
+dialog.open.shared_prompt = {what} aan de galerie toeveuge of in de bewèrker äöpene?
+dialog.open.add_to_gallery = Aan galerie toeveuge
+dialog.open.open_in_editor = In bewèrker äöpene
+dialog.open.heic_title = HEIC-oondersteuning
+dialog.open.heic_needs_decoder = Om “{name}” te äöpene is 'ne HEVC-decoder neudig, dae op dit systeem neet geïnstalleerd is.
+dialog.open.heic_offer = Schist kin 'ne build van libheif {version} allein veur decodering downloade, same mit de libde265 HEVC-decoder (≈5 MB). Allebei höbbe 'n LGPL-3.0-licentie; de licentietekste waere neve de bibliotheek geïnstalleerd en de broncode is op de projectpagina besjikbaar.
+dialog.open.licenses_source = Licenties en broncode
+dialog.open.folders_title = Neergezatte mappe
+dialog.open.n_folders.other = Aantal mappe: {n}
+dialog.open.open_in_tabs = In tabblajer äöpene
+dialog.open.open_first_in_tabs = De ierste {n} in tabblajer äöpene
+dialog.open.open_n_in_tabs.other = In tabblajer äöpene; aantal: {n}
+dialog.open.folder_holds.other = {what} bevat aafbiljinge die Schist kin äöpene; aantal: {n} (submappe mitgetèld).
+dialog.open.folders_note = Toeveuge aan galerie bewaak de mappe op hun hujige plaats — d'r weurt niks gekopieerd en bewèrkinge waere neve eder foto es versies bewaard. Äöpene in tabblajer laadt alle aafbiljinge noe in de bewèrker.
+
+dialog.plugins.title = Plug-ins
+dialog.plugins.kind_filter = filter
+dialog.plugins.kind_format = formaat
+dialog.plugins.kind_unavailable = neet besjikbaar
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Plug-ins laje vanaaf {dir}
+dialog.plugins.none = Nog gein plug-ins geïnstalleerd.
+dialog.plugins.install_ellipsis = Installere…
+dialog.plugins.photoshop_heading = Photoshop-plug-ins
+dialog.plugins.loaded_from = Gelaje oet {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Väörkeure
+dialog.prefs.theme = Thema
+dialog.prefs.theme_dark = Donker
+dialog.prefs.theme_light = Leech
+dialog.prefs.grid_spacing = Rasterafstandj
+dialog.prefs.snapping = Vastklikke
+dialog.prefs.snap_to = Aan hulpliene, raster en canvasrande vastklikke
+dialog.prefs.rendering_intent = Renderingsdoel
+dialog.prefs.intent_perceptual = Perceptueel
+dialog.prefs.intent_relative = Relatief colorimetrisch
+dialog.prefs.intent_saturation = Verzaodiging
+dialog.prefs.intent_absolute = Absoluut colorimetrisch
+dialog.prefs.scrolling = Sjrolle
+dialog.prefs.zoom_with_scroll = Zoome mit 't sjrolwiel
+dialog.prefs.rendering = Rendering
+dialog.prefs.gpu_compositing = Sameveuge op de GPU
+dialog.prefs.diagnostics = Diagnostiek
+dialog.prefs.crash_reports = Bie 'n crash 'n lokaal crashrapport sjrieve
+dialog.prefs.crash_upload = 't Rapport ouch nao de óntwikkelaars sjikke
+dialog.prefs.telemetry = Daageliks 'n anonieme ping sjikke
+dialog.prefs.diagnostics_note = Diagnostiek geit in es Schist de volgende kier start.
+dialog.prefs.updates = Biewèrkinge
+dialog.prefs.check_updates = Bie 't starte op nuuj oetgaves controlere
+dialog.prefs.keyboard_shortcuts = Toetscombinaties: {path}
+dialog.prefs.nsfw_needs_model = Haet 't model Content (NSFW Filter) neudig —
+dialog.prefs.nsfw_download_link = download 't bie Modelle behere…
+dialog.prefs.hide_flagged = Gemarkeerde foto's verberge
+
+dialog.profile.profile = Profiel
+dialog.profile.assign_title = Profiel toewieze
+dialog.profile.convert_title = Nao profiel convertere
+dialog.profile.assign = Toewieze
+dialog.profile.convert = Convertere
+dialog.profile.assign_note = Interpreteert de bestaonde pixelwäördes opnuuj oonder 't nuuj profiel.
+dialog.profile.convert_note = Sjrief de pixelwäördes opnuuj zoedat de kleure d'r hetzelfde oet blieve zeen.
+
+dialog.save_image.title = Aafbiljing opslaon es
+dialog.save_image.note = {name} — de bewèrking, es d'r ein is; 't origineel weurt noets aangeraak.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Aafbiljingsgroeëtte
+dialog.size.canvas_title = Canvasgroeëtte
+dialog.size.constrain = Beperke
+dialog.size.keep_proportions = Verhawdinge behawwe
+dialog.size.resample = Opnuuj bemonstere
+dialog.size.bicubic = Bicubisch
+dialog.size.bilinear = Bilineair
+dialog.size.nearest = Dichtstbieje naober
+dialog.size.anchor = Anker
+dialog.size.currently = Noe {w} × {h} px
+dialog.size.image_size_status = Aafbiljingsgroeëtte: {w} × {h}
+dialog.size.canvas_size_status = Canvasgroeëtte: {w} × {h}
+
+dialog.update.title = Biewèrking besjikbaar
+dialog.update.available = Schist {version} is besjikbaar. Deze kopie is {current}.
+dialog.update.installing = De biewèrking installere…
+dialog.update.can_install = Schist kin ze downloade ({size}) en euver deze kopie hèn installere.
+dialog.update.external = Deze kopie kump van 'n bron die ze beheert — 'ne pakketbeheerder, 'n AppImage of eur eige build — dus ze weurt biewèrk op de meneer wo-op ze geïnstalleerd is.
+dialog.update.later = Later
+dialog.update.release_notes = Oetgaafnotities
+dialog.update.update_restart = Biewèrke en herstarte
+dialog.update.open_page = Oetgaafpagina äöpene
+
+dialog.style.title = Laogsjtiel
+dialog.style.bevel = Aafsjuning en reliëf
+dialog.style.stroke = Omliening
+dialog.style.inner_shadow = Binnesjeem
+dialog.style.inner_glow = Binnegloed
+dialog.style.satin = Satien
+dialog.style.color_overlay = Kleurbedèkking
+dialog.style.gradient_overlay = Kleurverlaopbedèkking
+dialog.style.outer_glow = Boetegloed
+dialog.style.drop_shadow = Valsjeem
+dialog.style.blur = Gaussiaanse vervaoging
+dialog.style.gradient_from = Kleurverlaopbedèkking vanaaf
+dialog.style.gradient_to = Kleurverlaopbedèkking nao
+dialog.style.soften = Verzachte
+dialog.style.depth = Deipte
+dialog.style.altitude = Huugtehook
+dialog.style.highlight = Leechplek
+dialog.style.shadow = Sjeem
+dialog.style.outer_bevel = Boete-aafsjuning
+dialog.style.inner_bevel = Binne-aafsjuning
+dialog.style.emboss = Reliëf
+dialog.style.pillow_emboss = Kössereliëf
+dialog.style.linear = Lineair
+dialog.style.radial = Radiaal
+dialog.style.reverse = Ómdrejje
+dialog.style.from_to = Vanaaf / nao
+dialog.style.from_fg = Vanaaf = VG
+dialog.style.to_fg = Nao = VG
+dialog.style.precise = Precies
+dialog.style.knockout = Laog sjteik de valsjeem oet
+
+dialog.color_picker.title = Kleurkezer ({what})
+dialog.color_picker.effect_color = Kleur van {effect}
+dialog.color_picker.note_color = Notitiekleur
+dialog.color_picker.new = nuuj
+dialog.color_picker.current = hujig
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Kanaal trökzètte
+dialog.curves.hint = Sleip om te vorme · klik om toe te veuge · Alt-klik om te verwiedere
+
+dialog.prefs.camera_sync = Camera-album
+dialog.prefs.camera_sync_enabled = Reservekopie nao Schist Cloud
+dialog.prefs.camera_sync_sign_in = Meldj uch aan bie Schist Cloud om 'n reservekopie van eur camera-album te make.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Verangere…

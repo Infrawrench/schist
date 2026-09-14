@@ -1,0 +1,24 @@
+# Move
+tool.move.name = നീക്കുക
+tool.move.description = സജീവ ലെയറിലെ ഉള്ളടക്കം വലിച്ച് പുതിയ സ്ഥാനത്തേക്ക് നീക്കുന്നു. സ്വയം തിരഞ്ഞെടുക്കൽ പ്രവർത്തനക്ഷമമാണെങ്കിൽ, പോയിന്ററിനു കീഴിലുള്ള ലെയറോ മുഴുവൻ ഗ്രൂപ്പോ അമർത്തുമ്പോൾ ആദ്യം തിരഞ്ഞെടുക്കപ്പെടും.
+tool.move.option.auto_select = സ്വയം തിരഞ്ഞെടുക്കുക
+tool.move.history.move_layer = ലെയർ നീക്കുക
+
+# Eyedropper
+tool.eyedropper.name = ഐഡ്രോപ്പർ
+tool.eyedropper.description = പോയിന്ററിനു കീഴിലുള്ള വർണ്ണം സാമ്പിളെടുത്ത് മുൻനിര വർണ്ണസ്വാച്ചിലാക്കുന്നു; Alt അമർത്തിപ്പിടിച്ചാൽ പശ്ചാത്തല വർണ്ണസ്വാച്ചിലാക്കും. വലിച്ചുകൊണ്ടിരിക്കുമ്പോൾ സാമ്പിളെടുക്കൽ തുടരും.
+tool.eyedropper.option.sample_size = സാമ്പിൾ വലുപ്പം
+tool.eyedropper.option.sample = സാമ്പിൾ
+tool.eyedropper.choice.point_sample = പോയിന്റ് സാമ്പിൾ
+tool.eyedropper.choice.average_3 = 3 × 3 ശരാശരി
+tool.eyedropper.choice.average_5 = 5 × 5 ശരാശരി
+tool.eyedropper.choice.average_11 = 11 × 11 ശരാശരി
+tool.eyedropper.choice.average_31 = 31 × 31 ശരാശരി
+tool.eyedropper.choice.all_layers = എല്ലാ ലെയറുകളും
+tool.eyedropper.choice.current_layer = നിലവിലെ ലെയർ
+
+# Hand and Zoom
+tool.hand.name = കൈ
+tool.hand.description = കാഴ്ചയെ നീക്കുന്നു. വ്യൂപോർട്ട് വിൻഡോയുടേതായതിനാൽ, ഗ്രാഫിക്കൽ ഇന്റർഫേസ് ഇല്ലാതെ ഈ ഉപകരണം ഡോക്യുമെന്റിൽ മാറ്റമൊന്നും വരുത്തില്ല.
+tool.zoom.name = സൂം
+tool.zoom.description = കാഴ്ച വലുതാക്കുകയോ ചെറുതാക്കുകയോ ചെയ്യുന്നു. വ്യൂപോർട്ട് വിൻഡോയുടേതായതിനാൽ, ഗ്രാഫിക്കൽ ഇന്റർഫേസ് ഇല്ലാതെ ഈ ഉപകരണം ഡോക്യുമെന്റിൽ മാറ്റമൊന്നും വരുത്തില്ല.

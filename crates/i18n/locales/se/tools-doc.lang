@@ -1,0 +1,24 @@
+tool.artboard.name = Dáiddaduolba
+tool.artboard.description = Gease dáiddaduolbba: namaduvvon guovlu govvaduolbbas mii olggosfievrriduvvo iežas. Geassin dálá dáiddaduolbba siste sirddá dan.
+tool.artboard.default_name = Dáiddaduolba {n}
+
+tool.slice.name = Čuohpus
+tool.slice.description = Gease olggosfievrridančuohpusa, namaduvvon njuolggočiegatguovllu govvaduolbbas mii olggosfievrriduvvo sierra govvan. Geassin dálá čuohpusa siste sirddá dan.
+tool.slice.default_name = Čuohpus {n}
+
+tool.frame.name = Rámma
+tool.frame.description = Gease rámma: njuolggočiegat dahje ellipsahámát geardi mii čiehká dasa bidjojuvvon sisdoalu rámma olggobealde.
+tool.frame.default_name = Rámma {n}
+tool.frame.choice.rectangle = Njuolggočiehka
+tool.frame.choice.ellipse = Ellipsa
+tool.frame.history.frame = Rámma
+
+tool.note.name = Mearkkašupmi
+tool.note.description = Coahkkal govvaduolbba guoros sajis vai gidde mearkkašumi dasa; doaimmaheaddji dilis das lea dahkki ja ivdni. Coahkkal dálá pinná vai válljet dan Mearkkašumit-panela várás.
+tool.note.history.place = Bija mearkkašumi
+tool.note.history.move = Sirdde mearkkašumi
+tool.note.history.delete = Sihko mearkkašumi
+
+tool.count.name = Lohku
+tool.count.description = Coahkkal vai bijat nummirastojuvvon lohkanmearkka govvaduolbái, ja coahkkal dálá mearkka vai váldit dan eret.
+tool.count.default_name = Lohku {n}

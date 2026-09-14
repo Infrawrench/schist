@@ -1,0 +1,358 @@
+# Hliðarstika
+library.sidebar.view = SÝN
+library.sidebar.folders = MÖPPUR
+library.sidebar.buckets = FÖTUR
+library.sidebar.people = FÓLK
+library.sidebar.group_by = FLOKKA EFTIR
+library.sidebar.all_photos = Allar myndir
+library.sidebar.world_map = Heimskort
+library.sidebar.map_filter = Kortsía…
+library.sidebar.map_filter_on = Kortsía virk
+library.sidebar.add_folder = + Bæta við möppu…
+library.sidebar.new_bucket = + Ný fata
+library.sidebar.stop_watching = Hætta að vakta þessa möppu
+library.sidebar.unnamed_faces = Ónefnd andlit
+library.sidebar.retry_face_model = Reyna aftur að sækja andlitslíkan
+library.sidebar.retry_recognition_model = Reyna aftur að sækja kennslalíkan
+library.sidebar.looking_for_faces = Leita að andlitum… {looked}/{total}
+library.sidebar.faces_appear = Andlit birtast hér þegar myndir eru skráðar.
+library.sidebar.downloading_face_models = Sæki andlitslíkön… {got} af {total} MB
+
+# Flokkun hnitanets
+library.group_by.date = Dagsetning
+library.group_by.folder = Mappa
+library.group_by.place = Staður
+
+# Mánaðarhausar
+library.month.january = Janúar
+library.month.february = Febrúar
+library.month.march = Mars
+library.month.april = Apríl
+library.month.may = Maí
+library.month.june = Júní
+library.month.july = Júlí
+library.month.august = Ágúst
+library.month.september = September
+library.month.october = Október
+library.month.november = Nóvember
+library.month.december = Desember
+library.month.title = {month} {year}
+library.month.undated = Án dagsetningar
+
+# Flokkahausar
+library.group.person = Fólk · {name}
+library.group.person_in = Fólk · {name} · í {scope}
+library.group.unnamed = Ónefnd andlit
+library.group.unnamed_in = Ónefnd andlit · í {scope}
+library.group.bucket = Fata · {name}
+library.group.no_location = Engin staðsetning
+library.group.not_indexed = Ekki skráð enn
+library.group.detail = {detail} — {n}
+
+# Efsta ræman
+library.strip.import = Flytja inn…
+library.strip.add_folder = Bæta við möppu…
+library.strip.settings = Stillingar…
+library.strip.new_file = Ný skrá…
+library.strip.back_to_editing = Aftur í ritil
+library.strip.enable_search = Virkja myndaleit…
+library.strip.enable_search_menu = Virkja myndaleit…
+library.strip.map_filter_chip = Kortsía: {name}
+library.strip.downloading_search = Sæki myndaleit… {got} af {total} MB
+
+# Leitarreitur
+library.search.placeholder = Leita í myndum…
+library.search.placeholder_indexing = Leita ({indexed}/{total} skráðar)
+library.search.placeholder_people_places = Leita að fólki og stöðum…
+library.search.results = Leitarniðurstöður
+library.search.results_in_bucket = Fata · {name} · Leitarniðurstöður
+library.search.near = nálægt {place}
+library.search.with = með {names}
+
+# Bakki og reitir
+library.tray.view = Skoða
+library.tray.edited_note = breytt — útgáfur varðveittar við hlið skrárinnar
+library.tray.n_hidden.one = {n} falin af innihaldssíunni
+library.tray.n_hidden.other = {n} faldar af innihaldssíunni
+library.cell.no_preview = engin forskoðun
+library.cell.edited = breytt
+library.gallery.loading = Hleð myndum…
+
+# Móttökuskjár
+library.welcome.title = Velkomin í Schist
+library.welcome.intro = Vaktaðu myndamöppur eða flyttu inn úr myndavél. Skrárnar haldast á sínum stað; breytingar eru vistaðar í útgáfum við hlið þeirra:
+library.welcome.intro_ios = Flyttu inn myndir úr safninu þínu eða bættu við möppu úr Skrám. Breytingar eru vistaðar í útgáfum við hlið hverrar myndar:
+library.welcome.or_open = Eða opnaðu mynd til að breyta henni:
+library.welcome.shortcut_mac = Myndasafnið er alltaf aðeins ⌘⇧G í burtu, hvað sem þú ert að breyta.
+library.welcome.shortcut = Myndasafnið er alltaf aðeins Ctrl+Shift+G í burtu, hvað sem þú ert að breyta.
+
+# Tómt hnitanet
+library.gallery.empty_bucket_search = Ekkert í þessari fötu samsvarar leitinni. Escape hreinsar leitina og sýnir alla fötuna.
+library.gallery.empty_search = Ekkert samsvarar leitinni. Escape hreinsar hana.
+library.gallery.empty_smart_bucket = Ekkert samsvarar reglu fötunnar enn — samsvaranir birtast þegar myndir eru skráðar. Einnig má draga myndir inn.
+library.gallery.empty_bucket = Þessi fata er tóm. Dragðu myndir á röð hennar í hliðarstikunni til að bæta þeim við.
+library.gallery.empty_person = Ekkert hér enn. Andlit birtast þegar myndir eru skráðar; smelltu á mynd og síðan andlit til að segja hver þetta er.
+library.gallery.scanning = Skanna möppur…
+library.gallery.empty = Engar myndir fundust í vöktuðu möppunum. Myndir sem Schist getur opnað (PNG, JPEG, WebP, TIFF, HEIC, hrámyndir myndavéla, PSD, Affinity) birtast hér; undirmöppur eru skannaðar niður á sex þrep.
+
+# Fötur
+library.bucket.default_name = Fata {n}
+library.bucket.rule_matches = samsvarar „{query}“
+library.bucket.rule_taken_in = tekin í {name}
+library.bucket.new_title = Ný fata
+library.bucket.edit_title = Breyta fötu
+library.bucket.new_cloud_title = Ný skýjafata
+library.bucket.edit_cloud_title = Breyta skýjafötu
+library.bucket.create = Búa til
+library.bucket.query_placeholder = t.d. hundur á strönd (valfrjálst)
+library.bucket.the_drawn_area = teiknaða svæðið
+library.bucket.area_help = Shift-dragðu á kortinu (eða veldu forstillingu) til að bæta við svæði; örstuttur dráttur hreinsar það. Reglur halda fötunni sjálfkrafa fylltri.
+library.bucket.rule_none = Engin regla: venjuleg fata sem er fyllt með því að draga myndir inn.
+library.bucket.rule_query = Geymir allar myndir sem samsvara „{query}“.
+library.bucket.rule_area = Geymir allar myndir sem teknar voru á {area}.
+library.bucket.rule_query_area = Geymir allar myndir sem samsvara „{query}“ og voru teknar á {area}.
+library.bucket.starts_with.one = Byrjar með {n} valinni mynd.
+library.bucket.starts_with.other = Byrjar með {n} völdum myndum.
+
+# Heimskort
+library.map.status = {located} myndir á korti · {unlocated} án staðsetningar
+library.map.reading_locations = Les staðsetningar: {n} eftir
+library.map.reset_view = Endurstilla sýn
+library.map.no_photos = Engar myndir með GPS-staðsetningu í þessari sýn. Bættu við staðmerktum myndum eða breyttu síum myndasafnsins.
+library.map.no_photos_cloud = Engar myndir með GPS-staðsetningu hér. Veldu aðra möppu eða fötu, eða hreinsaðu leitina.
+library.map.hint = Dragðu til að hliðra · Skrunaðu til að breyta aðdrætti · Smelltu á merki til að sjá myndir þess · Tvísmelltu á mynd til að breyta
+library.map.n_at_marker.one = {n} mynd við þetta merki
+library.map.n_at_marker.other = {n} myndir við þetta merki
+library.map.n_in_marker.one = {n} mynd í þessu merki
+library.map.n_in_marker.other = {n} myndir í þessu merki
+library.map.attribution = © þátttakendur OpenStreetMap
+
+# Jaðraritill
+library.map.draw_area = Teikna svæði
+library.map.drawing = Teikna…
+library.map.clear_boundary = Hreinsa jaðar
+library.map.editor_hint = dráttur hliðrar · skrun breytir aðdrætti · Shift-dráttur teiknar
+
+# Kortsía
+library.map_filter.title = Kortsía
+library.map_filter.drawn_area = teiknað svæði
+library.map_filter.apply_named = Beita sýnir aðeins myndir teknar í {name}; myndir án EXIF-staðsetningar felast.
+library.map_filter.apply_drawn = Beita sýnir aðeins myndir teknar innan {south}°, {west}° til {north}°, {east}°; myndir án EXIF-staðsetningar felast.
+library.map_filter.draw_first = Teiknaðu jaðar (Shift-dráttur eða forstilltur hnappur) og veldu svo Beita. Ef ekkert er teiknað slekkur Beita á síunni.
+library.map_filter.turn_off = Slökkva á síu
+
+# Innflutningur úr myndavél
+library.import.title = Flytja inn úr myndavél
+library.import.from = Flytja inn úr {name}
+library.import.no_cameras = Engar myndavélar fundust.
+library.import.no_cameras_help = Tengdu myndavél, minniskort eða iPhone. iPhone þarf að vera ólæstur og þú þarft að samþykkja Treysta þessari tölvu áður en myndirnar birtast — gerðu það, bíddu andartak og veldu Skanna aftur. Öll tæki sem tengjast sem diskur með DCIM-möppu teljast einnig með.
+library.import.scan_again = Skanna aftur
+library.import.pick_source = Fleiri en ein myndavél er tiltæk. Flytja inn úr:
+library.import.via_image_capture = með Image Capture
+library.import.boundary_named = Jaðar: {name} — aðeins myndir með EXIF-staðsetningu innan hans flytjast inn; myndir án staðsetningar verða eftir í myndavélinni.
+library.import.boundary_drawn = Jaðar: {south}°, {west}° til {north}°, {east}° — aðeins myndir með EXIF-staðsetningu innan hans flytjast inn.
+library.import.no_boundary = Enginn jaðar — allt í myndavélinni flyst inn.
+library.import.destination = Í ~/Pictures/Schist Imports/{name} — skrám sem þegar hafa verið fluttar inn er sleppt, svo öruggt er að keyra aftur.
+library.import.selected_area = Valið svæði
+library.import.locked_help = Ef tækið er læst: opnaðu það, pikkaðu á Treysta þessari tölvu þegar spurt er, haltu því tengdu og reyndu aftur.
+library.import.try_again = Reyna aftur
+library.import.add_to_gallery = Bæta við myndasafn
+
+# Staða innflutnings úr myndavél
+library.import.needs_home = Innflutningur þarf heimamöppu til að afrita í
+library.import.importing_from = Flyt inn úr {source}…
+library.import.importing_in_place = Flyt inn myndir teknar í {place} úr {source}…
+library.import.device_macos_only = Beinn innflutningur úr tæki er aðeins í boði á macOS
+library.import.failed = Innflutningur mistókst: {error}
+library.import.from_failed = Innflutningur úr {name} mistókst
+library.import.locked = {name} er læst — opnaðu tækið og pikkaðu á Treysta til að halda áfram
+library.import.reading_catalog = Les myndaskrá {name}…
+library.import.progress_from = Flyt inn mynd {n}/{total} úr {name}…
+library.import.progress = Flyt inn skrá {n}/{total}…
+library.import.choose_photos = Veldu myndir og myndskeið til að flytja inn…
+library.import.photos_open_failed = Gat ekki opnað myndasafnið: {error}
+library.import.done.one = Flutti {n} skrá inn í {dest}
+library.import.done.other = Flutti {n} skrár inn í {dest}
+library.import.done_in_place.one = Flutti {n} mynd tekna í {place} inn í {dest} ({filtered} annars staðar eða án staðsetningar varð eftir í myndavélinni)
+library.import.done_in_place.other = Flutti {n} myndir teknar í {place} inn í {dest} ({filtered} annars staðar eða án staðsetningar urðu eftir í myndavélinni)
+library.import.n_failed.one = {n} mistókst
+library.import.n_failed.other = {n} mistókust
+library.import.no_dcim = Engin DCIM-mappa á {source}
+library.import.already_running = Innflutningur er þegar í gangi
+library.import.camera_gone = Þessi myndavél er ekki lengur tengd
+library.import.camera_disconnected = Myndavélin aftengdist í miðjum innflutningi
+library.import.unknown_error = Óþekkt villa
+library.import.picker_needs_ios14 = Myndavalið krefst iOS 14 eða nýrra
+library.import.picker_unavailable = Myndavalið er ekki tiltækt
+library.import.no_window = Enginn gluggi tiltækur til að birta myndavalið úr
+
+# Almenn heiti myndavélarmiðla
+library.volume.iphone = iPhone eða iPad
+library.volume.camera = Myndavél
+library.volume.phone = Sími
+
+# Mappa opnuð í flipum
+library.open_folder.opened.one = Opnaði {n} mynd
+library.open_folder.opened.other = Opnaði {n} myndir
+library.open_folder.opened_first = Opnaði fyrstu {n} af {total} myndum — myndasafnið geymir hinar
+
+# Myndaleitarlíkön
+library.search_models.title = Myndaleit
+library.search_models.intro = Til að leita í myndum eftir innihaldi þarf tvö líkön sem eru sótt einu sinni og geymd á þessari vél. Þau keyra staðbundið: engin mynd yfirgefur vélina.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = MobileCLIP frá Apple
+library.search_models.export = ONNX-útflutningur frá Xenova
+library.search_models.license = Leyfi
+library.search_models.download_note = Niðurhalið setur bæði upp ({mb} MB samtals) og samþykkir leyfi þeirra. Hægt er að fjarlægja þau aftur undir Myndasafn ▸ Stjórna líkönum…
+library.search_models.agree = Samþykkja og sækja
+
+# Hægrismellsvalmynd
+library.menu.add_all_to = Bæta öllum við {name}
+library.menu.add_all_to_new_bucket = Bæta öllum við nýja fötu…
+library.menu.edit_n_in_tabs = Breyta {n} í flipum
+library.menu.view_name_people = Skoða og nefna fólk
+library.menu.reveal = Sýna í skráastjóra
+library.menu.add_to = Bæta við {name}
+library.menu.add_to_new_bucket = Bæta við nýja fötu
+library.menu.remove_from_bucket = Fjarlægja úr þessari fötu
+library.menu.save_n_as_zip = Vista {n} sem ZIP…
+library.menu.save_image_as = Vista mynd sem…
+library.menu.process = Vinna…
+library.menu.process_n = Vinna {n} myndir…
+library.menu.move_to_folder = Færa í möppu…
+library.menu.move_n_to_folder = Færa {n} í möppu…
+library.menu.revert = Endurheimta frumrit
+library.menu.revert_n = Endurheimta frumrit {n} mynda
+library.menu.upload_to_cloud = Hlaða upp í Schist Cloud…
+library.menu.watch_local_folder = Vakta möppu á þessari tölvu…
+library.menu.new_cloud_folder = {glyph} Ný Schist Cloud-mappa…
+library.menu.new_local_bucket = Ný fata á þessari tölvu…
+library.menu.new_cloud_bucket = {glyph} Ný Schist Cloud-fata…
+library.menu.edit_bucket = Breyta fötu…
+library.menu.select_all_n = Velja allar ({n})
+library.menu.save_all_as_zip = Vista allar sem ZIP… ({n})
+library.menu.process_all = Vinna allar… ({n})
+library.menu.move_all_to_folder = Færa allar í möppu…
+library.menu.clear_added = Hreinsa viðbættar myndir
+library.menu.clear_bucket = Tæma fötu
+library.menu.delete_bucket = Eyða fötu
+library.menu.show_person = Sýna {name}
+library.menu.rename_person = Endurnefna…
+library.menu.forget_person.one = Gleyma einstaklingi ({n} andlit)
+library.menu.forget_person.other = Gleyma einstaklingi ({n} andlit)
+
+# Aðgerðir
+library.ops.moving.one = Færi {n} mynd í {dest}…
+library.ops.moving.other = Færi {n} myndir í {dest}…
+library.ops.moved.one = Færði {n} mynd í {dest}
+library.ops.moved.other = Færði {n} myndir í {dest}
+library.ops.moved_partial = Færði {n} af {total} myndum í {dest} — afgangurinn er í annálnum
+library.ops.move_here = Færa hingað
+library.ops.no_export_format = Ekkert snið hér getur vistað mynd
+library.ops.saved_size = Vistaði {name} ({w} × {h})
+library.ops.save_failed = Vistun mistókst: {error}
+library.ops.opening_first = Opna fyrstu {n} af {total} myndum — myndasafnið geymir hinar
+library.ops.nothing_to_revert = Ekkert að endurheimta: engri þessara mynda hefur verið breytt
+library.ops.reverted.one = Endurheimti frumrit {n} myndar — breytingin er varðveitt undir versions/
+library.ops.reverted.other = Endurheimti frumrit {n} mynda — breytingarnar eru varðveittar undir versions/
+library.ops.no_file_name = Skráin hefur ekkert heiti
+library.zip.nothing_all_held = Ekkert til að þjappa: innihaldssían heldur öllum {n} myndunum frá
+library.zip.failed = ZIP-þjöppun mistókst: {error}
+library.zip.progress = Þjappa {n}/{total}…
+library.zip.n_held.one = ({n} sleppt vegna innihaldssíunnar)
+library.zip.n_held.other = ({n} sleppt vegna innihaldssíunnar)
+library.zip.done.one = Þjappaði {n} mynd í {dest}
+library.zip.done.other = Þjappaði {n} myndum í {dest}
+library.zip.done_partial = Þjappaði {n} af {total} myndum í {dest} — afgangurinn er í annálnum
+library.zip.nothing_readable = Ekki tókst að lesa neitt til að þjappa
+library.zip.too_large = Of stórt fyrir ZIP án zip64
+library.batch.nothing_to_do = Ekkert að gera: veldu fyrst snúning, upplausnarstækkun eða aðlögun
+library.batch.save_copies_here = Vista afrit hér
+library.batch.processing.one = Vinn {n} mynd…
+library.batch.processing.other = Vinn {n} myndir…
+library.batch.progress = Vann {n}/{total} — {name}
+library.batch.failed = Vinnsla mistókst: {error}
+library.batch.done.one = Vann {n} mynd
+library.batch.done.other = Vann {n} myndir
+library.batch.done_partial = Vann {n} af {total} myndum — afgangurinn er í annálnum
+library.batch.model_would_not_load = Ekki tókst að hlaða líkaninu {name}
+library.batch.no_psd_writer = Enginn PSD-skrifari er hlaðinn
+
+# Skoðari og fólk
+library.viewer.back = ‹ Aftur í myndir
+library.viewer.could_not_decode = Ekki tókst að afkóða þessa mynd.
+library.viewer.label_auto = {name} · sjálfvirkt
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = FÓLK Á ÞESSARI MYND
+library.viewer.faces_intro = Andlit finnast með litlu líkani sem er sótt einu sinni. Einnig er hægt að teikna ramma handvirkt.
+library.viewer.looking_for_faces = Leita að andlitum…
+library.viewer.no_faces = Engin andlit fundust. Dragðu ramma utan um andlit til að bæta einstaklingi við handvirkt.
+library.viewer.help = Smelltu á andlit til að nefna það; Enter vistar. Dragðu á myndinni til að merkja andlit sem greinirinn missti af. ← → færa milli mynda, Esc fer til baka.
+library.viewer.not_them = Ekki þessi einstaklingur
+library.viewer.remove_name = Fjarlægja nafn
+library.viewer.not_a_face = Ekki andlit
+library.viewer.auto = sjálfvirkt
+library.viewer.is_this = Er þetta {name}?
+library.viewer.someone_else = Einhver annar
+library.viewer.add_name = Bæta við nafni…
+library.viewer.who_is_this = Hver er þetta?
+library.people.rename_title = Endurnefna einstakling
+library.people.merge_warning = Einhver heitir þegar „{name}“: vistun sameinar þau tvö.
+library.people.merge_note = Ef nafni er breytt í nafn sem einhver annar ber eru einstaklingarnir tveir sameinaðir.
+library.people.named = Nefndi {name}
+library.people.named_followed.one = Nefndi {name} · {n} andlit til viðbótar samsvaraði sjálfkrafa
+library.people.named_followed.other = Nefndi {name} · {n} andlit til viðbótar samsvöruðu sjálfkrafa
+
+# Vista í Photos
+library.photos.saving = Vista í Photos…
+library.photos.saved = Vistað í Photos
+library.photos.save_failed = Vistun í Photos mistókst: {error}
+library.photos.no_document = ekkert skjal er opið
+library.photos.no_png_codec = PNG-kóðarinn er ekki hlaðinn
+library.photos.no_answer = myndasafnið svaraði ekki
+library.photos.bad_url = ekki tókst að gera slóð skrárinnar að vefslóð
+library.photos.unavailable = myndasafnið er ekki tiltækt
+library.photos.declined = myndasafnið hafnaði beiðninni
+
+# Skrár deildar með forritinu
+library.shared.needs_documents = Myndasafnið þarf Documents-möppu til að afrita í
+library.shared.added.one = Bætti {n} mynd við myndasafnið
+library.shared.added.other = Bætti {n} myndum við myndasafnið
+library.shared.open_needs_documents = Opnun þarf Documents-möppu til að afrita í
+library.shared.could_not_open = Gat ekki opnað {name}: {error}
+
+# Forskoðun myndskeiða
+video.invalid_file = Þetta er ekki staðbundin myndskeiðsskrá.
+video.install_gstreamer = Forskoðun myndskeiða krefst GStreamer 1.x og viðbóta fyrir myndskeiðsafkóðun. Settu þær upp og opnaðu myndskeiðið aftur. Þú getur samt valið utanaðkomandi ritil.
+video.decode_failed = Ekki tókst að afkóða þennan ramma myndskeiðsins.
+video.no_stream = Skráin hefur engan myndstraum.
+video.no_duration = Ekki tókst að lesa lengd myndskeiðsins.
+video.frame_too_large = Þessi rammi myndskeiðsins er of stór til að opna.
+video.first_frame = Þegar komið að fyrsta ramma.
+video.editor_failed = Gat ekki opnað myndskeiðsritilinn: {error}
+video.editor_unavailable = Ekki tókst að opna valda myndskeiðsritilinn. Veldu forritið aftur.
+video.loading = Hleð myndskeiði…
+video.searching = Leita að skarpari ramma í nágrenninu…
+video.capturing = Opna ramma í fullri upplausn…
+video.frame_title = {name} — rammi {time}
+video.frame_layer = Rammi úr myndskeiði
+video.already_sharpest = Þetta er þegar skarpasti ramminn í nágrenninu.
+video.found_frame = Valdi skarpasta rammann í nágrenninu við {time}.
+video.choose_editor = Velja myndskeiðsritil…
+video.back = Aftur í myndasafn
+video.pause = Gera hlé
+video.play = Spila
+video.previous = Fyrri rammi
+video.next = Næsti rammi
+video.sharper = Finna skarpari ramma
+video.edit_frame = Breyta ramma
+video.open_editor = Opna í myndskeiðsritli
+video.preview_help = Hljóðlaus forskoðun · Bil: spila/hlé · Örvar: stíga milli ramma · Leitar innan ½ sekúndu í hvora átt. Breyting opnar sérstaka mynd.
+video.badge = ▶ Myndskeið
+video.view = Skoða myndskeið
+
+video.open_another_app = Opna í öðru forriti…
+video.preview_help_touch = Hljóðlaus forskoðun · Dragðu tímalínuna eða stígðu milli ramma. Finna skarpari ramma leitar innan ½ sekúndu í hvora átt. Breyting opnar sérstaka mynd.
+video.importing = Flyt inn myndir og myndskeið…
+video.import_failed = Gat ekki flutt inn miðil: {error}
+video.import_failed_simple = Gat ekki flutt inn eða deilt þessum miðli.

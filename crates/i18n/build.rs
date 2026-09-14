@@ -9,23 +9,81 @@
 //! from, and the tests check that no key is defined twice.
 
 use std::env;
+use std::fmt::Write;
 use std::fs;
 use std::path::PathBuf;
-
-/// The locales Schist ships. Kept in step with `Locale::ALL` in
-/// `src/lib.rs`; the test there fails if a directory is missing.
-const LOCALES: &[&str] = &["en", "sv", "de", "zh-Hans", "ja"];
 
 fn main() {
     let out = PathBuf::from(env::var("OUT_DIR").expect("OUT_DIR"));
     let root =
         PathBuf::from(env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR")).join("locales");
-    // A directory: cargo watches everything under it, so a new `.lang`
-    // file is picked up as well as an edit to an existing one.
-    println!("cargo::rerun-if-changed=locales");
+    println!("cargo::rerun-if-changed=locales.tsv");
     println!("cargo::rerun-if-changed=build.rs");
-    for locale in LOCALES {
+    let registry = fs::read_to_string("locales.tsv").expect("reading locales.tsv");
+    let locales: Vec<Vec<&str>> = registry
+        .lines()
+        .filter(|line| !line.trim().is_empty() && !line.starts_with('#'))
+        .map(|line| {
+            let fields: Vec<_> = line.split('\t').collect();
+            assert_eq!(fields.len(), 5, "invalid locale record: {line}");
+            assert!(fields[0]
+                .chars()
+                .all(|c| c.is_ascii_alphanumeric() || c == '-'));
+            assert!(fields[1].chars().all(|c| c.is_ascii_alphanumeric()));
+            assert!(matches!(fields[3], "ltr" | "rtl"));
+            fields
+        })
+        .collect();
+    assert_eq!(
+        locales.first().map(|row| row[0]),
+        Some("en"),
+        "English must be first"
+    );
+    let mut generated = String::from(
+        "/// A language Schist's chrome is available in.\n\
+         #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]\n\
+         #[repr(usize)]\n\
+         pub enum Locale {\n",
+    );
+    for row in &locales {
+        writeln!(generated, "    {},", row[1]).unwrap();
+    }
+    generated.push_str("}\nimpl Locale {\n");
+    writeln!(
+        generated,
+        "    pub const ALL: [Self; {}] = [",
+        locales.len()
+    )
+    .unwrap();
+    for row in &locales {
+        writeln!(generated, "        Self::{},", row[1]).unwrap();
+    }
+    generated.push_str("    ];\n}\n");
+    writeln!(
+        generated,
+        "const METADATA: [(&str, &str, bool, &str); {}] = [",
+        locales.len()
+    )
+    .unwrap();
+    for row in &locales {
+        writeln!(
+            generated,
+            "    ({:?}, {:?}, {}, {:?}),",
+            row[0],
+            row[2],
+            row[3] == "rtl",
+            row[4]
+        )
+        .unwrap();
+    }
+    generated.push_str("];\n");
+    writeln!(generated, "const SOURCES: [&str; {}] = [", locales.len()).unwrap();
+    for row in &locales {
+        let locale = row[0];
         let dir = root.join(locale);
+        // Watch each shipped directory, including newly added files, without
+        // rebuilding for edits to unregistered translation drafts.
+        println!("cargo::rerun-if-changed=locales/{locale}");
         let mut files: Vec<PathBuf> = fs::read_dir(&dir)
             .unwrap_or_else(|err| panic!("reading {}: {err}", dir.display()))
             .filter_map(|entry| entry.ok().map(|e| e.path()))
@@ -44,5 +102,12 @@ fn main() {
             }
         }
         fs::write(out.join(format!("{locale}.lang")), joined).expect("writing the joined catalog");
+        writeln!(
+            generated,
+            "    include_str!(concat!(env!(\"OUT_DIR\"), \"/{locale}.lang\")),"
+        )
+        .unwrap();
     }
+    generated.push_str("];\n");
+    fs::write(out.join("locales.rs"), generated).expect("writing the locale registry");
 }

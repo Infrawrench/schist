@@ -1,0 +1,360 @@
+# Galerie de fotos: barre lateral, grille, mappa, persones, import e video.
+
+# Sidebar captions and rows
+library.sidebar.view = VISE
+library.sidebar.folders = FÓLDERS
+library.sidebar.buckets = COLECTORES
+library.sidebar.people = PERSONES
+library.sidebar.group_by = GRUPPAR SECUN
+library.sidebar.all_photos = Omni fotos
+library.sidebar.world_map = Mappa mundial
+library.sidebar.map_filter = Filtre de mappa…
+library.sidebar.map_filter_on = Filtre de mappa activ
+library.sidebar.add_folder = + Adjunter fólder…
+library.sidebar.new_bucket = + Nov colector
+library.sidebar.stop_watching = Cessar observar ti fólder
+library.sidebar.unnamed_faces = Faces sin nómine
+library.sidebar.retry_face_model = Retentar descarga del modelle de faces
+library.sidebar.retry_recognition_model = Retentar descarga del modelle de reconossentie
+library.sidebar.looking_for_faces = Serchante faces… {looked}/{total}
+library.sidebar.faces_appear = Faces apar ci durant que fotos es indicisat.
+library.sidebar.downloading_face_models = Descargante modelles de faces… {got} de {total} MB
+
+# How the grid is grouped
+library.group_by.date = Date
+library.group_by.folder = Fólder
+library.group_by.place = Loc
+
+# Month headers
+library.month.january = Januar
+library.month.february = Februar
+library.month.march = Marte
+library.month.april = April
+library.month.may = May
+library.month.june = Junio
+library.month.july = Julio
+library.month.august = August
+library.month.september = Septembre
+library.month.october = Octobre
+library.month.november = Novembre
+library.month.december = Decembre
+library.month.title = {month} {year}
+library.month.undated = Sin date
+
+# Group headers the local library builds
+library.group.person = Persones · {name}
+library.group.person_in = Persones · {name} · in {scope}
+library.group.unnamed = Faces sin nómine
+library.group.unnamed_in = Faces sin nómine · in {scope}
+library.group.bucket = Colector · {name}
+library.group.no_location = Sin localisation
+library.group.not_indexed = Ancor ne indicisat
+library.group.detail = {detail} — {n}
+
+# The top strip
+library.strip.import = Importar…
+library.strip.add_folder = Adjunter fólder…
+library.strip.settings = Parametres…
+library.strip.new_file = Nov file…
+library.strip.back_to_editing = Retornar al redaction
+library.strip.enable_search = Activar sercha de fotos…
+library.strip.enable_search_menu = Activar sercha de fotos…
+library.strip.map_filter_chip = Filtre de mappa: {name}
+library.strip.downloading_search = Descargante sercha de fotos… {got} de {total} MB
+
+# The search box
+library.search.placeholder = Serchar fotos…
+library.search.placeholder_indexing = Serchar ({indexed}/{total} indicisat)
+library.search.placeholder_people_places = Serchar persones e locs…
+library.search.results = Resultates del sercha
+library.search.results_in_bucket = Colector · {name} · Resultates del sercha
+library.search.near = proxim {place}
+library.search.with = con {names}
+
+# The tray and the cells
+library.tray.view = Vise
+library.tray.edited_note = redactet — versiones conservat apu li file
+library.tray.n_hidden.one = {n} celat per li filtre de contenete
+library.tray.n_hidden.other = {n} celat per li filtre de contenete
+library.cell.no_preview = null prevision
+library.cell.edited = redactet
+library.gallery.loading = Chargante fotos…
+
+# The welcome screen, before any folder is watched
+library.welcome.title = Benevenit a Schist
+library.welcome.intro = Observa fólders de fotos, o importa de un cámera. Li files resta in lor loc; redactiones es gardat quam versiones apu les:
+library.welcome.intro_ios = Importa fotos ex tui fototeca, o adjunte un fólder ex Files. Redactiones es gardat quam versiones apu chascun foto:
+library.welcome.or_open = O aperte un image por redacter:
+library.welcome.shortcut_mac = Li galerie es sempre accessibil per ⌘⇧G, quo que vu redacter.
+library.welcome.shortcut = Li galerie es sempre accessibil per Ctrl+Shift+G, quo que vu redacter.
+
+# Why the grid is bare
+library.gallery.empty_bucket_search = Nequó in ti colector concorda con li sercha. Escape vacua it por monstrar li tot colector.
+library.gallery.empty_search = Nequó concorda con li sercha. Escape vacua it.
+library.gallery.empty_smart_bucket = Ancor nequó concorda con li regul de ti colector — concordant fotos apar durant que ili es indicisat. On posse anc tracter fotos in it.
+library.gallery.empty_bucket = Ti colector es vacui. Tracte fotos sur su linea in li barre lateral por adjunter les.
+library.gallery.empty_person = Ancor nequó ci. Faces apar durant que fotos es indicisat; clicca un foto, poy un face, por dir qui it es.
+library.gallery.scanning = Examinante fólders…
+library.gallery.empty = Null fotos trovat in li observat fólders. Images quel Schist posse aperter (PNG, JPEG, WebP, TIFF, HEIC, files raw de cámera, PSD, Affinity) apar ci; subfólders es examinat til six nivelles profund.
+
+# Buckets
+library.bucket.default_name = Colector {n}
+library.bucket.rule_matches = concorda con “{query}”
+library.bucket.rule_taken_in = fat in {name}
+library.bucket.new_title = Nov colector
+library.bucket.edit_title = Redacter colector
+library.bucket.new_cloud_title = Nov colector in li nube
+library.bucket.edit_cloud_title = Redacter colector in li nube
+library.bucket.create = Crear
+library.bucket.query_placeholder = p.ex. cane sur un plage (optional)
+library.bucket.the_drawn_area = li dessinat area
+library.bucket.area_help = Shift-tracte sur li mappa (o selecte un predefinition) por adjunter un area; un minim tract vacua it. Regules tene li colector plen automaticmen.
+library.bucket.rule_none = Sin regul: un ordinari colector, plenat per tractar fotos in it.
+library.bucket.rule_query = Tene omni foto concordant con “{query}”.
+library.bucket.rule_area = Tene omni foto fat in {area}.
+library.bucket.rule_query_area = Tene omni foto concordant con “{query}” e fat in {area}.
+library.bucket.starts_with.one = Comensa con li selectet foto.
+library.bucket.starts_with.other = Comensa con li {n} selectet fotos.
+
+# The world map
+library.map.status = {located} fotos sur li mappa · {unlocated} sin localisation
+library.map.reading_locations = Leente localisationes: {n} restant
+library.map.reset_view = Reinitialisar li vise
+library.map.no_photos = Null fotos con localisation GPS in ti vise. Adjunte geotaggat fotos o cambia li filtres del galerie.
+library.map.no_photos_cloud = Null fotos con localisation GPS ci. Selecte un altri fólder o colector, o vacua li sercha.
+library.map.hint = Tracte por panoramisar · Rula por zoomar · Clicca un marcator por vider su fotos · Duplic clicca un foto por redacter
+library.map.n_at_marker.one = {n} foto apud ti marcator
+library.map.n_at_marker.other = {n} fotos apud ti marcator
+library.map.n_in_marker.one = {n} foto in ti marcator
+library.map.n_in_marker.other = {n} fotos in ti marcator
+library.map.attribution = © contributores de OpenStreetMap
+
+# The boundary editor shared by import, the map filter and buckets
+library.map.draw_area = Dessinar area
+library.map.drawing = Dessinante…
+library.map.clear_boundary = Vacuar limite
+library.map.editor_hint = tractar panoramisa · rular zooma · Shift-tractar dessina
+
+# The map filter
+library.map_filter.title = Filtre de mappa
+library.map_filter.drawn_area = dessinat area
+library.map_filter.apply_named = Aplicar monstra solmen fotos fat in {name}; fotos sin position EXIF es celat.
+library.map_filter.apply_drawn = Aplicar monstra solmen fotos fat intra {south}°, {west}° til {north}°, {east}°; fotos sin position EXIF es celat.
+library.map_filter.draw_first = Dessina un limite (Shift-tracte, o usa un predefinition), poy aplica. Aplicar sin dessine desactiva li filtre.
+library.map_filter.turn_off = Desactivar filtre
+
+# Camera import: the picker, the options, the failure dialog
+library.import.title = Importar ex cámera
+library.import.from = Importar ex {name}
+library.import.no_cameras = Null cámeras trovat.
+library.import.no_cameras_help = Conexe un cámera, carte de memorie o iPhone. Un iPhone deve esser deblocat e li demanda Fider ti computator acceptat ante que it monstra su fotos — fa to, atende un moment e presse Examinar denov. Omnicos montat quam disc con un fólder DCIM anc conta.
+library.import.scan_again = Examinar denov
+library.import.pick_source = Plu quam un cámera es accessibil. Importar ex:
+library.import.via_image_capture = per Image Capture
+library.import.boundary_named = Limite: {name} — sol fotos con un position EXIF intra it es importat; fotos sin position resta sur li cámera.
+library.import.boundary_drawn = Limite: {south}°, {west}° til {north}°, {east}° — sol fotos con un position EXIF intra it es importat.
+library.import.no_boundary = Sin limite — omnicos sur li cámera es importat.
+library.import.destination = In ~/Pictures/Schist Imports/{name} — files ja importat es omisset, do repetition es secur.
+library.import.selected_area = Selectet area
+library.import.locked_help = Si li aparate es blocat: debloca it, tappa Fider ti computator quande demandat, tene it conexet e prova denov.
+library.import.try_again = Provar denov
+library.import.add_to_gallery = Adjunter al galerie
+
+# Camera import: what the tray says
+library.import.needs_home = Import besona un hem-directoria in quel copiar
+library.import.importing_from = Importante ex {source}…
+library.import.importing_in_place = Importante fotos fat in {place} ex {source}…
+library.import.device_macos_only = Direct import de aparates es un function de macOS
+library.import.failed = Import ne successat: {error}
+library.import.from_failed = Import ex {name} ne successat
+library.import.locked = {name} es blocat — debloca it e tappa Fider por continuar
+library.import.reading_catalog = Leente li catalogue de fotos de {name}…
+library.import.progress_from = Importante foto {n}/{total} ex {name}…
+library.import.progress = Importante file {n}/{total}…
+library.import.choose_photos = Selecter fotos e videos a importar…
+library.import.photos_open_failed = Ne posset aperter li fototeca: {error}
+library.import.done.one = Importat {n} file a {dest}
+library.import.done.other = Importat {n} files a {dest}
+library.import.done_in_place.one = Importat {n} foto fat in {place} a {dest} ({filtered} fat altriloc o sin position restat sur li cámera)
+library.import.done_in_place.other = Importat {n} fotos fat in {place} a {dest} ({filtered} fat altriloc o sin position restat sur li cámera)
+library.import.n_failed.one = {n} ne successat
+library.import.n_failed.other = {n} ne successat
+library.import.no_dcim = Null fólder DCIM sur {source}
+library.import.already_running = Un import ja es activ
+library.import.camera_gone = Ti cámera ne plu es conexet
+library.import.camera_disconnected = Li cámera deconexet durant li import
+library.import.unknown_error = Ínconosset errore
+library.import.picker_needs_ios14 = Li selector de fotos besona iOS 14 o plu recent
+library.import.picker_unavailable = Li selector de fotos es indisponibil
+library.import.no_window = Null fenestre ex quel presentar li selector
+
+# What a camera volume is called when its mount name says nothing
+library.volume.iphone = iPhone o iPad
+library.volume.camera = Cámera
+library.volume.phone = Telefon
+
+# A folder dropped on the window and opened as tabs
+library.open_folder.opened.one = Apertet {n} image
+library.open_folder.opened.other = Apertet {n} images
+library.open_folder.opened_first = Apertet li unesim {n} de {total} images — li galerie tene li rest
+
+# The photo search models dialog
+library.search_models.title = Sercha de fotos
+library.search_models.intro = Serchar fotos secun lor contenete besona du modelles, descargat un vez e conservat sur ti machine. Ili functiona localmen: null foto jamais quita it.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = MobileCLIP de Apple
+library.search_models.export = Export ONNX de Xenova
+library.search_models.license = Licentie
+library.search_models.download_note = Descargar installa ambi ({mb} MB total) e accepta lor licenties. On posse remover les denov sub Galerie ▸ Gerer modelles…
+library.search_models.agree = Consentir e descargar
+
+# The right-click menu
+library.menu.add_all_to = Adjunter omnis a {name}
+library.menu.add_all_to_new_bucket = Adjunter omnis a un nov colector…
+library.menu.edit_n_in_tabs = Redacter {n} in cartes
+library.menu.view_name_people = Vider e nominar persones
+library.menu.reveal = Monstrar in gerente de files
+library.menu.add_to = Adjunter a {name}
+library.menu.add_to_new_bucket = Adjunter a nov colector
+library.menu.remove_from_bucket = Remover ex ti colector
+library.menu.save_n_as_zip = Gardar {n} quam ZIP…
+library.menu.save_image_as = Gardar image quam…
+library.menu.process = Processar…
+library.menu.process_n = Processar {n} fotos…
+library.menu.move_to_folder = Mover a fólder…
+library.menu.move_n_to_folder = Mover {n} a fólder…
+library.menu.revert = Retroverter al originale
+library.menu.revert_n = Retroverter {n} al originales
+library.menu.upload_to_cloud = Cargar a Schist Cloud…
+library.menu.watch_local_folder = Observar un fólder sur ti computator…
+library.menu.new_cloud_folder = {glyph} Nov fólder in Schist Cloud…
+library.menu.new_local_bucket = Nov colector sur ti computator…
+library.menu.new_cloud_bucket = {glyph} Nov colector in Schist Cloud…
+library.menu.edit_bucket = Redacter colector…
+library.menu.select_all_n = Selecter omnis ({n})
+library.menu.save_all_as_zip = Gardar omnis quam ZIP… ({n})
+library.menu.process_all = Processar omnis… ({n})
+library.menu.move_all_to_folder = Mover omnis a fólder…
+library.menu.clear_added = Vacuar adjuntet fotos
+library.menu.clear_bucket = Vacuar colector
+library.menu.delete_bucket = Deleter colector
+library.menu.show_person = Monstrar {name}
+library.menu.rename_person = Renominar…
+library.menu.forget_person.one = Obliviar person ({n} face)
+library.menu.forget_person.other = Obliviar person ({n} faces)
+
+# Moving, zipping, saving, reverting, batch processing
+library.ops.moving.one = Movente {n} foto a {dest}…
+library.ops.moving.other = Movente {n} fotos a {dest}…
+library.ops.moved.one = Movet {n} foto a {dest}
+library.ops.moved.other = Movet {n} fotos a {dest}
+library.ops.moved_partial = Movet {n} de {total} fotos a {dest} — li diarium have li rest
+library.ops.move_here = Mover ci
+library.ops.no_export_format = Null formate ci posse gardar un image
+library.ops.saved_size = Gardat {name} ({w} × {h})
+library.ops.save_failed = Gardation ne successat: {error}
+library.ops.opening_first = Apertente li unesim {n} de {total} fotos — li galerie tene li rest
+library.ops.nothing_to_revert = Nequó a retroverter: null de ti fotos have un redaction
+library.ops.reverted.one = Retrovertet {n} foto a su originale — li redaction es conservat sub versions/
+library.ops.reverted.other = Retrovertet {n} fotos a lor originales — li redactiones es conservat sub versions/
+library.ops.no_file_name = Li file ne have nómine
+library.zip.nothing_all_held = Nequó a ZIP-ar: li filtre de contenete exclude omni {n} de ti fotos
+library.zip.failed = ZIP ne successat: {error}
+library.zip.progress = ZIP-ante {n}/{total}…
+library.zip.n_held.one = ({n} omisset per li filtre de contenete)
+library.zip.n_held.other = ({n} omisset per li filtre de contenete)
+library.zip.done.one = ZIP-at {n} foto a {dest}
+library.zip.done.other = ZIP-at {n} fotos a {dest}
+library.zip.done_partial = ZIP-at {n} de {total} fotos a {dest} — li diarium have li rest
+library.zip.nothing_readable = Nequó posset esser leet por ZIP-ar
+library.zip.too_large = Tro grand por un ZIP sin zip64
+library.batch.nothing_to_do = Nequó a far: selecte un rotation, un agrandament o un ajustation in prim
+library.batch.save_copies_here = Gardar copies ci
+library.batch.processing.one = Processante {n} foto…
+library.batch.processing.other = Processante {n} fotos…
+library.batch.progress = Processat {n}/{total} — {name}
+library.batch.failed = Processament ne successat: {error}
+library.batch.done.one = Processat {n} foto
+library.batch.done.other = Processat {n} fotos
+library.batch.done_partial = Processat {n} de {total} fotos — li diarium have li rest
+library.batch.model_would_not_load = Li modelle {name} ne posset esser cargat
+library.batch.no_psd_writer = Null scritor PSD es cargat
+
+# The viewer and the People album
+library.viewer.back = ‹ Retro al fotos
+library.viewer.could_not_decode = Ti foto ne posset esser decodificat.
+library.viewer.label_auto = {name} · auto
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = PERSONES IN TI FOTO
+library.viewer.faces_intro = Faces es trovat per un micri modelle descargat un vez. On posse sempre dessinar buxes manualmen.
+library.viewer.looking_for_faces = Serchante faces…
+library.viewer.no_faces = Null faces trovat. Tracte un bux circum un por adjunter manualmen un person.
+library.viewer.help = Clicca un face por nominar it; Enter garda. Tracte sur li foto por marcar un face quel li detector mancat. ← → move inter fotos, Esc retorna.
+library.viewer.not_them = Ne ti person
+library.viewer.remove_name = Remover nómine
+library.viewer.not_a_face = Ne un face
+library.viewer.auto = auto
+library.viewer.is_this = Esque to es {name}?
+library.viewer.someone_else = Alcun altri
+library.viewer.add_name = Adjunter un nómine…
+library.viewer.who_is_this = Qui es to?
+library.people.rename_title = Renominar person
+library.people.merge_warning = Alcun ja es nominat “{name}”: gardar fusiona li du.
+library.people.merge_note = Renominar a un nómine ja usat de alcun altri fusiona li du persones.
+library.people.named = Nominat {name}
+library.people.named_followed.one = Nominat {name} · {n} altri face concordat automaticmen
+library.people.named_followed.other = Nominat {name} · {n} altri faces concordat automaticmen
+
+# Save to Photos (iOS)
+library.photos.saving = Gardante in Photos…
+library.photos.saved = Gardat in Photos
+library.photos.save_failed = Gardation in Photos ne successat: {error}
+library.photos.no_document = null document es apert
+library.photos.no_png_codec = li codec PNG ne es cargat
+library.photos.no_answer = li fototeca ne respondet
+library.photos.bad_url = li tracie del file ne posset esser convertet a un URL
+library.photos.unavailable = li fototeca es indisponibil
+library.photos.declined = li fototeca refusat
+
+# Files shared into the app (iOS)
+library.shared.needs_documents = Li galerie besona un fólder Documents in quel copiar
+library.shared.added.one = Adjuntet {n} foto al galerie
+library.shared.added.other = Adjuntet {n} fotos al galerie
+library.shared.open_needs_documents = Apertura besona un fólder Documents in quel copiar
+library.shared.could_not_open = Ne posset aperter {name}: {error}
+
+# Desktop video preview and frame capture
+video.invalid_file = To ne es un local file de video.
+video.install_gstreamer = Prevision de video besona GStreamer 1.x e plug-ins decodificatori de video. Installa les, poy aperte li video denov. Vu posse sempre selecter un extern redactor.
+video.decode_failed = Ti cadre de video ne posset esser decodificat.
+video.no_stream = Ti file ne have un flue de video.
+video.no_duration = Li duration del video ne posset esser leet.
+video.frame_too_large = Ti cadre de video es tro grand por aperter.
+video.first_frame = Ja al unesim cadre.
+video.editor_failed = Ne posset aperter li redactor de video: {error}
+video.editor_unavailable = Li selectet redactor de video ne posset esser apertet. Selecte li application denov.
+video.loading = Chargante video…
+video.searching = Serchante un plu acut cadre proxim…
+video.capturing = Apertente li cadre in plen resolution…
+video.frame_title = {name} — cadre {time}
+video.frame_layer = Cadre de video
+video.already_sharpest = To ja es li maxim acut cadre proxim.
+video.found_frame = Selectet li maxim acut cadre proxim a {time}.
+video.choose_editor = Selecter redactor de video…
+video.back = Retro al galerie
+video.pause = Pausa
+video.play = Reproducter
+video.previous = Precedent cadre
+video.next = Sequent cadre
+video.sharper = Trovar plu acut cadre
+video.edit_frame = Redacter cadre
+video.open_editor = Aperter in redactor de video
+video.preview_help = Mut prevision · Spacie: reproducter/pausar · Fleches: avansar per cadres · Sercha intra ½ seconde a chascun látere. Redaction aperte un separat image.
+video.badge = ▶ Video
+video.view = Vider video
+
+video.open_another_app = Aperter in un altri application…
+video.preview_help_touch = Mut prevision · Tracte li linea de témpor o avansa per cadres. Trovar plu acut cadre sercha intra ½ seconde a chascun látere. Redaction aperte un separat image.
+video.importing = Importante fotos e videos…
+video.import_failed = Ne posset importar media: {error}
+video.import_failed_simple = Ne posset importar o compartir ti media.

@@ -1,0 +1,39 @@
+app.filter_gallery.title = Filtergalery
+app.filter_gallery.stack = Stapel (van onder na bo toegepas)
+app.filter_gallery.no_settings = Hierdie filter het geen instellings nie.
+
+app.fonts.not_open_licensed = nie onder 'n oop lisensie nie · {substitute} se metrieke stem ooreen
+app.fonts.missing_substituted = ontbreek · teks word in 'n plaasvervanger geset
+app.fonts.not_in_catalogue = {family} is nie in die oop lettertipekatalogus nie
+app.fonts.no_faces = geen aflaaibare lettervlakke vir {family} nie
+app.fonts.empty_response = leë antwoord
+
+app.update.unreadable_response = onleesbare antwoord: {error}
+app.update.no_temp_dir = geen tydelike gids om na af te laai nie
+app.update.asset_has_path = die vrystelling benoem sy bate met 'n pad
+app.update.too_big = die aflaai is groter as wat die vrystelling aandui
+app.update.stopped_at = die aflaai het by {got} van {total} grepe gestop
+app.update.hash_mismatch = die aflaai se hutswaarde is {got}, nie {want} nie
+app.update.not_in_bundle = hierdie kopie is nie binne 'n toepassingbundel nie
+app.update.no_parent_dir = die toepassingbundel het geen moedergids nie
+app.update.cannot_write = kan nie na {dir} skryf nie
+app.update.cannot_move_aside = kan nie {app} opsy skuif nie
+app.update.cannot_move_in = kan nie die nuwe bundel in plek skuif nie
+app.update.cannot_run_ditto = kan nie /usr/bin/ditto laat loop nie
+app.update.unpack_failed = kon nie die aflaai uitpak nie: {error}
+app.update.no_app_in_download = die aflaai bevat geen Schist.app nie
+app.update.cannot_run_codesign = kan nie /usr/bin/codesign laat loop nie
+app.update.signature_invalid = die aflaai se handtekening kon nie bevestig word nie: {error}
+app.update.download_unsigned = hierdie kopie is onderteken, maar die aflaai is nie
+app.update.different_developer = die aflaai is deur 'n ander ontwikkelaar onderteken
+app.update.cannot_relaunch = kan nie die herbeginprogram begin nie
+app.update.not_installed_copy = hierdie kopie is nie deur die installeerder hier geplaas nie
+app.update.cannot_start_installer = kan nie die installeerder begin nie
+app.update.platform_unsupported = bywerkings op hierdie platform word geïnstalleer op dieselfde manier as Schist
+
+app.vulkan.no_loader = schist: geen Vulkan-laaier is op hierdie stelsel nie, dus is daar niks waarmee geteken kan word nie.\n\nSchist lewer beelde deur Vulkan, en `libvulkan.so.1` is nie geïnstalleer nie.\nBeide die laaier en 'n drywer word vereis:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: die Vulkan-drywer waarna hierdie sessie verwys, is nie daar nie.\n\n{var} is gestel, en wanneer dit gestel word, *vervang* dit die laaier se soektog na\ndrywers eerder as om daarby te voeg. Hierdie lêers, wat nie bestaan nie,\nis dus die hele drywerlys — en elke Vulkan-program in hierdie sessie\nsien hoegenaamd geen drywer nie, ongeag hoeveel geïnstalleer is:\n\n{missing}\n    {var}={value}\n\nLaat dit verwys na 'n manifes wat bestaan — geïnstalleerde drywers plaas hulle s'n in\n/usr/share/vulkan/icd.d — of verwyder die instelling en laat die laaier self soek.\n'n Sessie wat dit uit 'n konfigurasielêer stel (Hyprland se `env =`, 'n\nsystemd environment.d-invoeging of 'n dopprofiel), moet daar aangepas word,\nen 'n nuwe aanmelding is nodig voordat die verandering enigiets bereik wat reeds loop.\n
+app.vulkan.override_note = \n{var} is op {value} gestel, en dit vervang die laaier se eie\nsoektog: as geen van daardie manifeste vir hierdie masjien is nie, is die\neerste stap om die instelling te verwyder.\n
+app.vulkan.no_driver = schist: geen Vulkan-drywer is geïnstalleer nie, dus is daar niks waarop geteken kan word nie.\n\nSchist lewer beelde deur Vulkan. Die laaier is geïnstalleer en meld geen\ndrywer nie — niks het een geregistreer op enige van die twee plekke waar gesoek word nie:\n\n{dirs}\n\nDie laaier word afsonderlik van die drywers verskaf, dus ontbreek daar gewoonlik net\neen pakket.\n\nInstalleer die pakket vir hierdie masjien se GPU:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA se eie drywer bevat sy eie (`nvidia-utils` op Arch,\n`nvidia-driver` op Debian). In 'n virtuele masjien, of waar daar geen\nGPU-drywer is om te installeer nie, werk die sagtewarerasteriseerder:\n`vulkan-swrast` op Arch, deel van `mesa-vulkan-drivers` elders. Dit is\nstadig, maar dit begin.\n{overridden}
+app.vulkan.no_device = schist: 'n Vulkan-drywer is geïnstalleer, maar bied geen toestel waarop gelewer kan word nie.\n\nDie drywer ondersteun dalk nie hierdie GPU nie, of kan dit dalk nie bereik nie —\noor SSH, of binne 'n houer, ontbreek /dev/dri dikwels.\n`vulkaninfo --summary` meld wat die laaier sien.\n\nDie sagtewarerasteriseerder lewer beelde heeltemal sonder 'n GPU, as dit is wat\nhierdie masjien het: `vulkan-swrast` op Arch, deel van `mesa-vulkan-drivers`\nop Debian en Fedora.\n
+app.vulkan.skip_hint = Om Schist in elk geval te begin en dit op sy eie manier te laat misluk, stel {var}=1.

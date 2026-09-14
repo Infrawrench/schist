@@ -1,0 +1,43 @@
+# Filtru galerija
+app.filter_gallery.title = Filtru galerija
+app.filter_gallery.stack = Kopa (lieto no apakšas uz augšu)
+app.filter_gallery.no_settings = Šim filtram nav iestatījumu.
+
+# Fonti
+app.fonts.not_open_licensed = nav atvērtas licences · {substitute} metrika ir atbilstoša
+app.fonts.missing_substituted = trūkst · teksts tiek salikts ar aizstājējfontu
+app.fonts.not_in_catalogue = {family} nav atvērto fontu katalogā
+app.fonts.no_faces = saimei {family} nav lejupielādējamu garnitūru
+app.fonts.empty_response = tukša atbilde
+
+# Pašatjauninātājs
+app.update.unreadable_response = nenolasāma atbilde: {error}
+app.update.no_temp_dir = nav pagaidu mapes, kurā lejupielādēt
+app.update.asset_has_path = laidienā resursa nosaukumā ir norādīts ceļš
+app.update.too_big = lejupielāde ir lielāka, nekā norādīts laidienā
+app.update.stopped_at = lejupielāde apstājās pie {got} no {total} baitiem
+app.update.hash_mismatch = lejupielādes kontrolsumma ir {got}, nevis {want}
+app.update.not_in_bundle = šī kopija neatrodas lietotnes pakotnē
+app.update.no_parent_dir = lietotnes pakotnei nav vecākmapes
+app.update.cannot_write = nevar ierakstīt mapē {dir}
+app.update.cannot_move_aside = nevar pārvietot {app} malā
+app.update.cannot_move_in = nevar pārvietot jauno pakotni paredzētajā vietā
+app.update.cannot_run_ditto = nevar palaist /usr/bin/ditto
+app.update.unpack_failed = neizdevās izpakot lejupielādi: {error}
+app.update.no_app_in_download = lejupielādē nav Schist.app
+app.update.cannot_run_codesign = nevar palaist /usr/bin/codesign
+app.update.signature_invalid = lejupielādes parakstu nevar verificēt: {error}
+app.update.download_unsigned = šī kopija ir parakstīta, bet lejupielāde nav parakstīta
+app.update.different_developer = lejupielādi ir parakstījis cits izstrādātājs
+app.update.cannot_relaunch = nevar palaist atkārtotas palaišanas programmu
+app.update.not_installed_copy = instalētājs nav ievietojis šo kopiju šajā vietā
+app.update.cannot_start_installer = nevar palaist instalētāju
+app.update.platform_unsupported = šajā platformā atjauninājumi tiek instalēti tāpat kā Schist
+
+# Vulkan pārbaude operētājsistēmā Linux
+app.vulkan.no_loader = schist: šajā sistēmā nav Vulkan ielādētāja, tāpēc nav ar ko zīmēt.\n\nSchist renderē ar Vulkan, bet `libvulkan.so.1` nav instalēts.\nIr vajadzīgs gan ielādētājs, gan draiveris:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan draiveris, uz kuru norāda šī sesija, nav atrodams.\n\nMainīgais {var} ir iestatīts, un tā iestatīšana *aizstāj* ielādētāja draiveru\nmeklēšanu, nevis to papildina. Tādēļ šie neesošie faili ir viss draiveru\nsaraksts, un neviena Vulkan programma šajā sesijā neredz nevienu draiveri\nneatkarīgi no instalēto draiveru skaita:\n\n{missing}\n    {var}={value}\n\nNorādiet esošu manifesta failu — instalētie draiveri savus manifestus ievieto\nmapē /usr/share/vulkan/icd.d — vai atiestatiet mainīgo un ļaujiet ielādētājam\nmeklēt pašam. Ja sesija to iestata konfigurācijas failā (Hyprland `env =`,\nsystemd environment.d papildfailā vai čaulas profilā), tas jāmaina tur,\nun jau palaistās programmās izmaiņas stāsies spēkā tikai pēc jaunas pieteikšanās.\n
+app.vulkan.override_note = \nMainīgais {var} ir iestatīts uz {value}, un tas aizstāj ielādētāja paša\nmeklēšanu: ja neviens no šiem manifestiem nav paredzēts šim datoram,\nvispirms mēģiniet atiestatīt šo mainīgo.\n
+app.vulkan.no_driver = schist: nav instalēts Vulkan draiveris, tāpēc nav ar ko zīmēt.\n\nSchist renderē ar Vulkan. Ielādētājs ir instalēts, bet neziņo par nevienu\ndraiveri — nevienā no abām pārbaudāmajām vietām draiveris nav reģistrēts:\n\n{dirs}\n\nIelādētāju piegādā atsevišķi no draiveriem, tāpēc parasti trūkst tikai vienas\npakotnes.\n\nInstalējiet šī datora grafiskajam procesoram paredzēto draiveri:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA patentētais draiveris ietver savu draiveri (`nvidia-utils` sistēmā Arch,\n`nvidia-driver` sistēmā Debian). Virtuālajā mašīnā vai citā sistēmā, kurā nav\ninstalējama grafiskā procesora draivera, darbojas programmatūras rastrētājs:\n`vulkan-swrast` sistēmā Arch un daļa no `mesa-vulkan-drivers` citās sistēmās.\nTas ir lēns, bet ļauj programmu palaist.\n{overridden}
+app.vulkan.no_device = schist: Vulkan draiveris ir instalēts, bet nepiedāvā ierīci renderēšanai.\n\nIespējams, draiveris neatbalsta šo grafisko procesoru vai nevar tam piekļūt —\nizmantojot SSH vai konteinerā bieži nav pieejama /dev/dri. Komanda\n`vulkaninfo --summary` parāda, ko redz ielādētājs.\n\nJa šim datoram vispār nav grafiskā procesora, programmatūras rastrētājs renderē\nbez tā: `vulkan-swrast` sistēmā Arch un daļa no `mesa-vulkan-drivers` sistēmās\nDebian un Fedora.\n
+app.vulkan.skip_hint = Lai tomēr palaistu Schist un ļautu tam pašam ziņot par kļūmi, iestatiet {var}=1.

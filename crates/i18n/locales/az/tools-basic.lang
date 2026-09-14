@@ -1,0 +1,26 @@
+# Əsas alətlər: Köçürmə, Pipet, Əl və Miqyas.
+
+# Köçürmə
+tool.move.name = Köçürmə
+tool.move.description = Aktiv qatın məzmununu yeni mövqeyə sürükləyin. Avtomatik seçim aktivdirsə, basdığınız zaman göstəricinin altındakı ilk qat və ya bütöv qrup seçilir.
+tool.move.option.auto_select = Avtomatik seçim
+tool.move.history.move_layer = Qatı köçür
+
+# Pipet
+tool.eyedropper.name = Pipet
+tool.eyedropper.description = Göstəricinin altındakı rəngi ön plan nümunəsinə, Alt basılı olduqda isə arxa plan nümunəsinə götürün. Sürüklədikcə nümunə götürülməyə davam edir.
+tool.eyedropper.option.sample_size = Nümunə ölçüsü
+tool.eyedropper.option.sample = Nümunə
+tool.eyedropper.choice.point_sample = Nöqtəvi nümunə
+tool.eyedropper.choice.average_3 = 3 × 3 orta
+tool.eyedropper.choice.average_5 = 5 × 5 orta
+tool.eyedropper.choice.average_11 = 11 × 11 orta
+tool.eyedropper.choice.average_31 = 31 × 31 orta
+tool.eyedropper.choice.all_layers = Bütün qatlar
+tool.eyedropper.choice.current_layer = Cari qat
+
+# Əl və Miqyas
+tool.hand.name = Əl
+tool.hand.description = Görünüşü sürüşdürür. Görünüş sahəsi pəncərəyə aid olduğuna görə qrafik interfeys olmadan bu alət sənədə təsir etmir.
+tool.zoom.name = Miqyas
+tool.zoom.description = Görünüşün miqyasını dəyişir. Görünüş sahəsi pəncərəyə aid olduğuna görə qrafik interfeys olmadan bu alət sənədə təsir etmir.

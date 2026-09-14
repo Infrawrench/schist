@@ -1,0 +1,30 @@
+ai.status.panel_shown = AI-panela čájehuvvo
+ai.status.panel_hidden = AI-panela lea čihkkon — Čájeheapmi ▸ AI-panela ({shortcut}) čájeha dan fas
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} lea oktavuođas
+ai.info.now_in_gallery = Dál galleriijas.
+ai.info.now_in_editor = Dál doaimmaheaddjis.
+ai.tool.shell_command = skálžogohččun
+
+ai.error.cli_missing = {backend}-gohččunlinnjáreaidu (“{binary}”) ii leat PATH:s. Sajáiduhte dan ja čális vuos sisa.
+ai.error.endpoint_failed = MCP-loahppabáikki álggahan filtii: {error}
+ai.error.binding_endpoint = MCP-loahppabáikki čatnamin
+ai.error.spawning_endpoint_thread = MCP-loahppabáikki láiggi álgguheamen
+ai.error.runtime_failed = ageanta vuodjinbirrasa álggahan filtii: {error}
+ai.error.worker_failed = {backend}-bargi álggahan filtii: {error}
+ai.error.did_not_start = {backend} ii álggahan: {error}
+ai.error.switch_model_failed = modealla molsun filtii: {error}
+ai.error.send_failed = bivdaga sádden filtii: {error}
+ai.error.interrupt_failed = gaskkalduhttin filtii: {error}
+ai.error.locating_binary = Schist-prográmmafiilla ohcamin
+ai.error.starting_app_server = Codex-prográmmabálvvá álgguheamen
+ai.error.attaching_app_server = Codex-prográmmabálvvái čatnamin
+ai.error.initializing_app_server = Codex-prográmmabálvvá válmmaštallamin
+ai.error.resuming_thread = Codex-lági joatkimin
+ai.error.starting_thread = Codex-lági álgguheamen
+
+ai.model.opus_detail = Návccaleamos dássi
+ai.model.sonnet_detail = Beaktil dábálaš bargguide
+ai.model.haiku_detail = Jođáneamos oanehis vástádusaide
+ai.model.codex_catalog = Codex-kataloga

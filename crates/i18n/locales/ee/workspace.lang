@@ -1,0 +1,100 @@
+workspace.fill.gray_50 = Gray 50%
+workspace.fill.content_aware = Content-Aware
+workspace.modify.expand = Keke Tiatia ɖe Ŋu
+workspace.modify.contract = Na Tiatia Nadze Sue
+workspace.modify.border = Tiatia ƒe To
+workspace.modify.smooth = Ƒo Tiatia
+workspace.modify.feather = Ble Tiatia ƒe To
+
+workspace.batch.target.edit = Gallery ƒe tɔtrɔwo (kple tata yeyewo)
+workspace.batch.target.beside = Kɔpiwo le dzɔtsoƒewo gbɔ
+workspace.batch.target.folder = Kɔpiwo le agbalẽdzraɖoƒe me…
+workspace.modal.image_size.title = Nɔnɔme ƒe Lolome
+
+workspace.docs.opening = Le {name} ʋum…
+workspace.docs.opened = Woʋu {name}
+workspace.docs.open_failed = Nuʋuʋu medze edzi o: {error}
+workspace.docs.no_codec = {name} menye tata si Schist ate ŋu aʋu o
+workspace.docs.no_exporter = Schist mate ŋu adzra .{ext} agbalẽwo ɖo o
+workspace.docs.empty_response = Server la ɖo ŋuɖoɖo ƒuƒlu
+workspace.docs.heic_not_installed = Womeɖo HEIC ƒe kpekpeɖeŋu o
+workspace.docs.heic_downloading = Le HEIC ƒe kpekpeɖeŋu (libheif {version}) daɖem…
+workspace.docs.heic_installed = Woɖo HEIC ƒe kpekpeɖeŋu
+workspace.docs.heic_download_failed = HEIC ƒe kpekpeɖeŋu ƒe daunilod medze edzi o: {error}
+workspace.docs.placing = Le {name} ɖom ɖe teƒe…
+workspace.docs.place_image = Ɖo Nɔnɔme ɖe Teƒe
+workspace.docs.placed = Woɖo {name} ɖe teƒe
+workspace.docs.place_failed = Teƒeɖoɖo medze edzi o: {error}
+workspace.docs.saved = Wodzra {name} ɖo
+workspace.docs.save_failed = Dzraɖoɖo medze edzi o: {error}
+
+workspace.adjustment.new_layer = {name} Layer Yeye
+workspace.adjustment.added = Wotsɔ {name} kpee
+workspace.adjustment.settings = {name} ƒe Ɖoɖowo
+workspace.adjustment.updated = Wotrɔ {name}
+workspace.adjustment.no_settings = Ɖoɖo aɖeke mele {name} ŋu si woate ŋu atrɔ o
+workspace.comps.name_n = Layer Comp {n}
+workspace.comps.captured = Wolé layer comp
+workspace.comps.apply = Zã {name}
+workspace.styles.layer_style = Layer ƒe Style
+workspace.context.rename_layer = Trɔ Layer ƒe Ŋkɔ
+workspace.commands.tool = Dɔwɔnu: {name}
+
+workspace.colormgmt.assign = Tsɔ {name} Nae
+workspace.colormgmt.assigned = Wotsɔ {name} Nae
+workspace.colormgmt.convert_to = Trɔe yi {name}
+workspace.colormgmt.converted_to = Wotrɔe yi {name}
+workspace.colormgmt.convert_failed = Tɔtrɔ medze edzi o: {error}
+workspace.colormgmt.proof_on = Amadede ƒe proof le dɔ wɔm
+workspace.colormgmt.proof_off = Amadede ƒe proof mele dɔ wɔm o
+
+workspace.filters.choose = Tia
+workspace.filters.select_layer_first = Tia layer gbã
+workspace.filters.needs_pixel_layer = Nɔnɔmetatawo hia pixel layer
+workspace.filters.nothing_to_filter = Nu aɖeke mele afima be woata nɔnɔme ɖe eŋu o
+workspace.filters.went_away = Nɔnɔmetata la bu
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: layer si dzi wòta nɔnɔme le la bu
+workspace.filters.plugin_title = Photoshop plug-in
+workspace.filters.running = Ele {name} dɔ wɔm
+workspace.filters.plugin_note = Plug-in la ƒua du le eƒe process ŋutɔ me. Ne eʋu fesre aɖe la, ɖo eŋu be wòayi edzi.
+workspace.filters.raw_preview_developing = Le RAW ŋgɔmekpɔkpɔ wɔm…
+workspace.filters.raw_preview_done = RAW ŋgɔmekpɔkpɔ (demosaic kabakaba)
+workspace.filters.raw_preview_size_changed = RAW ŋgɔmekpɔkpɔ ƒe lolome trɔ: {w} × {h}
+workspace.filters.raw_preview_failed = RAW ŋgɔmekpɔkpɔ medze edzi o: {error}
+workspace.filters.raw_developing = Le fotolẽlẽ gbãtɔ la wɔm…
+workspace.filters.raw_developing_note = Ele demosaic mɔ nyuitɔ zazãm. RAW gbãtɔ kple ɖoɖo siawo anɔ esi woate ŋu atrɔ le wo dzra agbalẽ la ɖo abe PSD alo PSB ene megbe hã.
+workspace.filters.raw_document_changed = RAW wɔwɔ vɔ le esi wotrɔ eƒe agbalẽ la megbe
+workspace.filters.raw_failed = RAW wɔwɔ medze edzi o: {error}
+workspace.filters.raw_too_wide = RAW wɔwɔ ƒe kekeme de ŋgɔ akpa
+workspace.filters.raw_too_tall = RAW wɔwɔ ƒe kɔkɔme de ŋgɔ akpa
+workspace.filters.raw_size_changed = RAW wɔwɔ ƒe lolome trɔ zu {w} × {h}; ele layer si li fifia la dzraɖoɖom
+workspace.filters.raw_history = Camera Raw Wɔwɔ
+workspace.filters.raw_applied = Wozã Camera Raw wɔwɔ (demosaic nyuitɔ)
+
+workspace.image_size.done = Nɔnɔme ƒe lolome: {w} × {h}
+workspace.image_size.bicubic_fallback = Nɔnɔme ƒe lolome: {w} × {h} — {name} model la meʋu o, eyata wozã bicubic ɖe eteƒe
+workspace.image_size.upscaling = Le lolome dzi ɖem kple {name}
+workspace.image_size.upscaling_note = Megapixel {mp} ato network la me, sekɔnd ʋɛ aɖewo na ɖe sia ɖe. Woalé agbalẽ la va se ɖe esime wòavɔ.
+
+workspace.export.no_slices = Slice aɖeke mele afima be woaɖe ɖa o
+workspace.export.no_artboards = Artboard aɖeke mele afima be woaɖe ɖa o
+workspace.export.regions.one = Woɖe nɔnɔme ƒe akpa {n} ɖa
+workspace.export.regions.other = Woɖe nɔnɔme ƒe akpa {n} ɖa
+workspace.export.prompt = Ɖee ɖa abe:
+workspace.export.done = Woɖe {name} ɖa
+workspace.export.failed = Nuɖeɖeɖa medze edzi o: {error}
+workspace.export.codec_vanished = Nuɖelawo megali o
+
+workspace.file_picker.choose_folder = Tia Agbalẽdzraɖoƒe
+workspace.file_picker.type_a_name = Ŋlɔ ŋkɔ na agbalẽ la
+workspace.file_picker.exists = {name} li xoxo; zi Dzra Ɖo ake be nàtsɔe aɖɔli
+workspace.file_picker.tap_a_file = Zi agbalẽ aɖe dzi be nàʋui
+workspace.file_picker.pictures = Nɔnɔmewo
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Daunilodwo
+workspace.file_picker.permission_denied = Schist mexɔ mɔ be wòaxlẽ agbalẽdzraɖoƒe sia o
+
+workspace.recovery.recovered_title = {title} (wogbugbɔe)
+workspace.recovery.recovered.one = Wogbugbɔ dɔ si womadzra ɖo o tso session si va yi me
+workspace.recovery.recovered.other = Wogbugbɔ agbalẽ {n} tso session si va yi me

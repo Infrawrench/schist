@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = dekoduojama {name}
+codec.msg.zero_sized = vaizde nėra pikselių
+codec.msg.assembling_document = surenkamas dokumentas
+
+codec.raw.msg.decoding = dekoduojamas neapdorotas failas
+codec.raw.msg.developing = apdorojamas neapdorotas failas
+codec.raw.msg.finding_preview = ieškoma įterptos peržiūros
+codec.raw.msg.decoding_preview = dekoduojama įterpta peržiūra
+codec.raw.msg.decoder_panicked = apdorojant šį failą sutriko neapdorotų failų dekoderis: {what}
+
+codec.affinity.import_title = Affinity importavimas
+codec.affinity.flattened_preview_layer = Suplokštinta peržiūra
+codec.affinity.msg.no_preview = Nėra tinkamos įterptos peržiūros. „Affinity“ sluoksniuotasis formatas yra nuosavybinis; Schist importuoja faile esančią suplokštintą peržiūrą. Šiame faile jos nėra – iš naujo įrašykite jį programa „Affinity“ arba eksportuokite kaip PSD, kad būtų importuoti visi sluoksniai.
+
+codec.heif.msg.no_library = „libheif“ nepasiekiama ({details}). HEIC failams atverti reikia „libheif“ bibliotekos („Linux“: įdiekite libheif1; „macOS“: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} – šioje „libheif“ versijoje gali nebūti HEVC dekoderio („Debian“ / „Ubuntu“ sistemose įdiekite libheif-plugin-libde265)
+codec.heif.msg.unknown_error = nežinoma klaida
+codec.heif.msg.initialising = inicijuojama libheif
+codec.heif.msg.reading_container = skaitomas HEIF konteineris
+codec.heif.msg.finding_primary_image = ieškoma pirminio vaizdo
+codec.heif.msg.reading_icc_profile = skaitomas ICC profilis
+codec.heif.msg.decoding_image = dekoduojamas vaizdas
+codec.heif.msg.checksum_mismatch = Nesutampa {name} kontrolinė suma: tikėtasi {expected}, gauta {got}
+codec.heif.msg.imageio_cannot_read = „ImageIO“ nepavyko perskaityti HEIF konteinerio
+codec.heif.msg.container_empty = HEIF konteineryje nėra vaizdo
+codec.heif.msg.imageio_cannot_decode = „ImageIO“ nepavyko dekoduoti pirminio vaizdo

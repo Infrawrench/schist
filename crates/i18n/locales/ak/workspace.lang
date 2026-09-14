@@ -1,0 +1,100 @@
+workspace.fill.gray_50 = 50% Nsõ
+workspace.fill.content_aware = Ɛte Mu Nsɛm Ase
+workspace.modify.expand = Trɛw Nea Woapaw Mu
+workspace.modify.contract = Tew Nea Woapaw Mu
+workspace.modify.border = Yɛ Nea Woapaw Ano
+workspace.modify.smooth = Yɛ Nea Woapaw Torɔtorɔ
+workspace.modify.feather = Yɛ Nea Woapaw Ano Bɔkɔɔ
+
+workspace.batch.target.edit = Gallery nsiesiei (wɔde version gu so)
+workspace.batch.target.beside = Nsɛso wɔ original no nkyɛn
+workspace.batch.target.folder = Nsɛso wɔ folda mu…
+workspace.modal.image_size.title = Mfonini Kɛse
+
+workspace.docs.opening = Ɛrebue {name}…
+workspace.docs.opened = Wɔabue {name}
+workspace.docs.open_failed = Bue no dii nkogu: {error}
+workspace.docs.no_codec = {name} nyɛ format a Schist tumi bue
+workspace.docs.no_exporter = Schist ntumi nkora .{ext} fael so
+workspace.docs.empty_response = Server no de mmuae a hwee nni mu bae
+workspace.docs.heic_not_installed = Wɔmfa HEIC mmoa nto so
+workspace.docs.heic_downloading = Ɛretwe HEIC mmoa aba (libheif {version})…
+workspace.docs.heic_installed = Wɔde HEIC mmoa ato so
+workspace.docs.heic_download_failed = Wɔantumi antwe HEIC mmoa amma: {error}
+workspace.docs.placing = Ɛde {name} resi hɔ…
+workspace.docs.place_image = Fa Mfonini Si Hɔ
+workspace.docs.placed = Wɔde {name} asi hɔ
+workspace.docs.place_failed = Fa si hɔ no dii nkogu: {error}
+workspace.docs.saved = Wɔakora {name} so
+workspace.docs.save_failed = Kora so no dii nkogu: {error}
+
+workspace.adjustment.new_layer = {name} Layer Foforo
+workspace.adjustment.added = Wɔde {name} aka ho
+workspace.adjustment.settings = {name} Nhyehyɛe
+workspace.adjustment.updated = Wɔayɛ {name} foforo
+workspace.adjustment.no_settings = {name} nni nhyehyɛe biara a wobetumi asiesie
+workspace.comps.name_n = Layer Comp {n}
+workspace.comps.captured = Wɔakyere layer comp no
+workspace.comps.apply = Fa {name} Di Dwuma
+workspace.styles.layer_style = Layer Sɛso
+workspace.context.rename_layer = Sesa Layer Din
+workspace.commands.tool = Adwinnade: {name}
+
+workspace.colormgmt.assign = Fa {name} Ma
+workspace.colormgmt.assigned = Wɔde {name} Ama
+workspace.colormgmt.convert_to = Dan Kɔ {name}
+workspace.colormgmt.converted_to = Wɔadan Kɔ {name}
+workspace.colormgmt.convert_failed = Ndan no dii nkogu: {error}
+workspace.colormgmt.proof_on = Kɔla sɔhwɛ asɔ
+workspace.colormgmt.proof_off = Kɔla sɔhwɛ adum
+
+workspace.filters.choose = Paw
+workspace.filters.select_layer_first = Di kan paw layer
+workspace.filters.needs_pixel_layer = Filters hia pixel layer
+workspace.filters.nothing_to_filter = Biribiara nni hɔ a wɔde filter bɛyɛ
+workspace.filters.went_away = Filter no ayera
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: layer a ɛde filter yɛɛ no ayera
+workspace.filters.plugin_title = Photoshop plug-in
+workspace.filters.running = Ɛde {name} redi dwuma
+workspace.filters.plugin_note = Plug-in no yɛ adwuma wɔ ne process ankasa mu. Sɛ ebue window bi a, bua nea ebisa no na toa so.
+workspace.filters.raw_preview_developing = Ɛresiesie RAW preview…
+workspace.filters.raw_preview_done = RAW preview (demosaic ntɛm)
+workspace.filters.raw_preview_size_changed = RAW preview kɛse asesa: {w} × {h}
+workspace.filters.raw_preview_failed = RAW preview dii nkogu: {error}
+workspace.filters.raw_developing = Ɛresiesie original capture no…
+workspace.filters.raw_developing_note = Ɛde demosaic kwan a eye sen biara redi dwuma. Original RAW ne nhyehyɛe yi bɛkɔ so ayɛ nea wobetumi asiesie bere a wɔakora sɛ PSD anaa PSB akyi.
+workspace.filters.raw_document_changed = RAW nsiesiei wiee bere a ne document no asesa
+workspace.filters.raw_failed = RAW nsiesiei dii nkogu: {error}
+workspace.filters.raw_too_wide = RAW nsiesiei no trɛw dodo
+workspace.filters.raw_too_tall = RAW nsiesiei no ware dodo
+workspace.filters.raw_size_changed = RAW nsiesiei kɛse asesa ayɛ {w} × {h}; wɔrekora layer a ɛwɔ hɔ no
+workspace.filters.raw_history = Camera Raw Development
+workspace.filters.raw_applied = Wɔde Camera Raw nsiesiei adi dwuma (demosaic a eye sen biara)
+
+workspace.image_size.done = Mfonini kɛse: {w} × {h}
+workspace.image_size.bicubic_fallback = Mfonini kɛse: {w} × {h} — {name} model no antumi anboaboa ano, enti bicubic sii ananmu
+workspace.image_size.upscaling = Ɛde {name} rema kɛse
+workspace.image_size.upscaling_note = Megapixels {mp} fa network no mu, na biara gye sikɔne kakra. Wokura document no kosi sɛ ewie.
+
+workspace.export.no_slices = Twitwa biara nni hɔ a wobeyi akɔ akyiri
+workspace.export.no_artboards = Artboard biara nni hɔ a wobeyi akɔ akyiri
+workspace.export.regions.one = Wɔayi beae dodow {n} akɔ akyiri
+workspace.export.regions.other = Wɔayi mmeae {n} akɔ akyiri
+workspace.export.prompt = Yi kɔ akyiri sɛ:
+workspace.export.done = Wɔayi {name} akɔ akyiri
+workspace.export.failed = Yi kɔ akyiri no dii nkogu: {error}
+workspace.export.codec_vanished = Exporter no nni hɔ bio
+
+workspace.file_picker.choose_folder = Paw Folda
+workspace.file_picker.type_a_name = Kyerɛw din ma fael no
+workspace.file_picker.exists = {name} wɔ hɔ dedaw; mia Kora So bio na fa foforo no si ananmu
+workspace.file_picker.tap_a_file = Mia fael bi na bue
+workspace.file_picker.pictures = Mfonini
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Nneɛma a Wɔatwe Aba
+workspace.file_picker.permission_denied = Schist nni kwan sɛ ɛkenkan folda yi
+
+workspace.recovery.recovered_title = {title} (wɔasan anya)
+workspace.recovery.recovered.one = Wɔasan anya adwuma a wɔankora so fi session a etwaam no mu, document dodow {n}
+workspace.recovery.recovered.other = Wɔasan anya documents {n} fi session a etwaam no mu

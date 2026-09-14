@@ -1,0 +1,26 @@
+# Fri transformering, transformer markering og beskæring.
+tool.transform.name = Fri transformering
+tool.transform.description = Fri transformering. Når værktøjet aktiveres, åbnes en transformeringsramme omkring det aktive lag: Træk i et hjørne for at skalere, uden for et hjørne for at rotere eller i en kant for at skråtstille. Intet skrives, før du bekræfter (Enter), og annullering (Escape) gendanner laget.
+tool.transform.option.interpolation = Interpolation
+tool.transform.history.transform = Fri transformering
+tool.transform.history.image_size = Billedstørrelse
+tool.transform.history.canvas_size = Lærredstørrelse
+
+tool.transform.selection.name = Transformer markering
+tool.transform.selection.description = Transformer markering: den samme ramme, men markeringskonturen flyttes i stedet for de pixels, den indeholder. Bekræft eller annuller for at afslutte.
+tool.transform.selection.history.transform = Transformer markering
+
+tool.transform.resample.nearest_neighbor = Nærmeste nabo
+tool.transform.resample.bilinear = Bilineær
+tool.transform.resample.bicubic = Bikubisk
+
+tool.crop.name = Beskær
+tool.crop.description = Træk området, der skal bevares, ud, og juster dets håndtag. Ved bekræftelse (Enter) beskæres dokumentet til området; ved annullering (Escape) forbliver det uændret.
+tool.crop.option.ratio = Forhold
+tool.crop.option.delete_cropped = Slet beskårne pixels
+tool.crop.choice.unconstrained = Ubegrænset
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Beskær

@@ -1,0 +1,116 @@
+# Bete iturriak
+workspace.fill.gray_50 = % 50 grisa
+workspace.fill.content_aware = Edukiaren arabera
+
+# Hautapena aldatu
+workspace.modify.expand = Zabaldu hautapena
+workspace.modify.contract = Uzkurtu hautapena
+workspace.modify.border = Egin hautapenaren ertza
+workspace.modify.smooth = Leundu hautapena
+workspace.modify.feather = Lumatu hautapena
+
+# Galeriako sorta-elkarrizketa
+workspace.batch.target.edit = Galeriako edizioak (bertsiodunak)
+workspace.batch.target.beside = Kopiak jatorrizkoen ondoan
+workspace.batch.target.folder = Kopiak karpeta batean…
+
+workspace.modal.image_size.title = Irudiaren tamaina
+
+# Dokumentuak eta fitxak
+workspace.docs.opening = {name} irekitzen…
+workspace.docs.opened = {name} irekita
+workspace.docs.open_failed = Ezin izan da ireki: {error}
+workspace.docs.no_codec = Schist aplikazioak ezin du {name} formatua ireki
+workspace.docs.no_exporter = Schist aplikazioak ezin ditu .{ext} fitxategiak gorde
+workspace.docs.empty_response = Zerbitzariak erantzun hutsa bidali du
+workspace.docs.heic_not_installed = HEIC euskarria ez dago instalatuta
+workspace.docs.heic_downloading = HEIC euskarria deskargatzen (libheif {version})…
+workspace.docs.heic_installed = HEIC euskarria instalatuta
+workspace.docs.heic_download_failed = Huts egin du HEIC euskarria deskargatzean: {error}
+workspace.docs.placing = {name} kokatzen…
+workspace.docs.place_image = Kokatu irudia
+workspace.docs.placed = {name} kokatuta
+workspace.docs.place_failed = Ezin izan da kokatu: {error}
+workspace.docs.saved = {name} gordeta
+workspace.docs.save_failed = Ezin izan da gorde: {error}
+
+# Doikuntza-geruzak
+workspace.adjustment.new_layer = {name} geruza berria
+workspace.adjustment.added = {name} gehituta
+workspace.adjustment.settings = {name} ezarpenak
+workspace.adjustment.updated = {name} eguneratuta
+workspace.adjustment.no_settings = {name} doikuntzak ez dira editagarriak
+
+# Geruza-konposizioak
+workspace.comps.name_n = {n}. geruza-konposizioa
+workspace.comps.captured = Geruza-konposizioa kapturatuta
+workspace.comps.apply = Aplikatu {name}
+
+workspace.styles.layer_style = Geruza-estiloa
+workspace.context.rename_layer = Aldatu geruzaren izena
+workspace.commands.tool = Tresna: {name}
+
+# Kolore-kudeaketa
+workspace.colormgmt.assign = Esleitu {name}
+workspace.colormgmt.assigned = {name} esleituta
+workspace.colormgmt.convert_to = Bihurtu {name} profilera
+workspace.colormgmt.converted_to = {name} profilera bihurtuta
+workspace.colormgmt.convert_failed = Bihurketak huts egin du: {error}
+workspace.colormgmt.proof_on = Proba-koloreak aktibatuta
+workspace.colormgmt.proof_off = Proba-koloreak desaktibatuta
+
+# Iragazkiak exekutatzea
+workspace.filters.choose = Aukeratu
+workspace.filters.select_layer_first = Hautatu geruza bat lehenik
+workspace.filters.needs_pixel_layer = Iragazkiek pixel-geruza bat behar dute
+workspace.filters.nothing_to_filter = Ez dago iragazteko ezer
+workspace.filters.went_away = Iragazkia desagertu da
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: iragazitako geruza desagertu da
+workspace.filters.plugin_title = Photoshop plug-ina
+workspace.filters.running = {name} exekutatzen
+workspace.filters.plugin_note = Plug-ina bere prozesuan exekutatzen da. Leiho bat irekitzen badu, erantzun bertan jarraitzeko.
+workspace.filters.raw_preview_developing = RAW aurrebista garatzen…
+workspace.filters.raw_preview_done = RAW aurrebista (demosaiko azkarra)
+workspace.filters.raw_preview_size_changed = RAW aurrebistaren tamaina aldatu da: {w} × {h}
+workspace.filters.raw_preview_failed = RAW aurrebistak huts egin du: {error}
+workspace.filters.raw_developing = Jatorrizko kaptura garatzen…
+workspace.filters.raw_developing_note = Demosaiko-biderik onena erabiltzen. Jatorrizko RAW fitxategia eta ezarpen hauek editagarri egongo dira PSD edo PSB gisa gorde ondoren ere.
+workspace.filters.raw_document_changed = RAW garapena dokumentua aldatu ondoren amaitu da
+workspace.filters.raw_failed = RAW garapenak huts egin du: {error}
+workspace.filters.raw_too_wide = RAW garapena zabalegia da
+workspace.filters.raw_too_tall = RAW garapena altuegia da
+workspace.filters.raw_size_changed = RAW garapenaren tamaina {w} × {h} bihurtu da; uneko geruza mantenduko da
+workspace.filters.raw_history = Camera Raw garapena
+workspace.filters.raw_applied = Camera Raw garapena aplikatuta (demosaikorik onena)
+
+# Irudiaren tamaina eskalatzaile neuronal batekin
+workspace.image_size.done = Irudiaren tamaina: {w} × {h}
+workspace.image_size.bicubic_fallback = Irudiaren tamaina: {w} × {h} — {name} modeloa ezin izan da kargatu; beraz, bikubikoa erabili da
+workspace.image_size.upscaling = {name} erabiliz handitzen
+workspace.image_size.upscaling_note = {mp} megapixel sare neuronalaren bidez, segundo batzuk bakoitzeko. Dokumentua blokeatuta egongo da amaitu arte.
+
+# Esportazioa
+workspace.export.no_slices = Ez dago esportatzeko zatirik
+workspace.export.no_artboards = Ez dago esportatzeko lan-mahairik
+workspace.export.regions.one = Eskualde {n} esportatu da
+workspace.export.regions.other = {n} eskualde esportatu dira
+workspace.export.prompt = Esportatu honela:
+workspace.export.done = {name} esportatuta
+workspace.export.failed = Esportazioak huts egin du: {error}
+workspace.export.codec_vanished = Esportatzailea jada ez dago erabilgarri
+
+# Schisten fitxategi-hautatzailea
+workspace.file_picker.choose_folder = Aukeratu karpeta
+workspace.file_picker.type_a_name = Idatzi fitxategiaren izena
+workspace.file_picker.exists = {name} badago lehendik; sakatu Gorde berriro ordezteko
+workspace.file_picker.tap_a_file = Sakatu fitxategi bat irekitzeko
+workspace.file_picker.pictures = Irudiak
+workspace.file_picker.camera = Kamera
+workspace.file_picker.downloads = Deskargak
+workspace.file_picker.permission_denied = Schistek ez du karpeta hau irakurtzeko baimenik
+
+# Hutsegiteen berreskuratzea
+workspace.recovery.recovered_title = {title} (berreskuratua)
+workspace.recovery.recovered.one = Aurreko saioko gorde gabeko lana berreskuratu da
+workspace.recovery.recovered.other = Aurreko saioko {n} dokumentu berreskuratu dira

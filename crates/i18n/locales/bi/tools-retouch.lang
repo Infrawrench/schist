@@ -1,0 +1,23 @@
+tool.patch.name = Patch
+tool.patch.description = Pulum wan laen raon long wan rong ples, afta pulum selection ya i go antap long ol klin pixel: texture blong ples ya i fit insaed long rong ples. Patch mode i jusum weswan en blong tufala ples ya yu pulum.
+tool.patch.option.patch = Patch
+tool.patch.choice.source = Sos
+tool.patch.choice.destination = Ples we i Go Long Hem
+tool.patch.history.patch = Patch
+
+tool.content_aware_move.name = Content-Aware Move
+tool.content_aware_move.description = Pulum wan object we yu jusum i go long narafala ples, mo hol we hem i livim i fulap long samting raon long hem. Long Extend mode, object i kam longfala be i no muv.
+tool.content_aware_move.choice.move = Muvum
+tool.content_aware_move.choice.extend = Mekem i Longfala
+tool.content_aware_move.history.move = Content-Aware Move
+
+tool.red_eye.name = Red Ae
+tool.red_eye.description = Klik long pupil blong tekemaot red kala we flash i mekem.
+tool.red_eye.option.pupil_size = Saes blong Pupil
+tool.red_eye.option.darken = Mekem i Dak
+tool.red_eye.history.red_eye = Red Ae
+
+tool.magic_eraser.name = Majik Eraser
+tool.magic_eraser.description = Klik blong waepemaot eria we kala blong hem i sem mak long kala aninit long poenta, folem tolerance blong tul—eria i save joen wetem ples we yu klik, o i save stap eniwe long layer.
+tool.magic_eraser.option.contiguous = Ol Eria we Oli Joen
+tool.magic_eraser.history.erase = Waepemaot wetem Majik Eraser

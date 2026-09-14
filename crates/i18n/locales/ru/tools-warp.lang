@@ -1,0 +1,21 @@
+# Инструменты деформации.
+tool.liquify.name = Пластика
+tool.liquify.description = Сдвигайте, закручивайте, сморщивайте или раздувайте пиксели большой кистью; действие выбирается параметром режима. Деформация накапливается в сетке и применяется к слою после подтверждения.
+tool.liquify.option.tool = Инструмент
+tool.liquify.choice.forward_warp = Деформация
+tool.liquify.choice.reconstruct = Реконструировать
+tool.liquify.choice.twirl_cw = Скручивание по часовой стрелке
+tool.liquify.choice.twirl_ccw = Скручивание против часовой стрелки
+tool.liquify.choice.pucker = Сморщивание
+tool.liquify.choice.bloat = Вздутие
+tool.liquify.choice.push_left = Сдвиг влево
+tool.liquify.history.liquify = Пластика
+tool.puppet_warp.name = Марионеточная деформация
+tool.puppet_warp.description = Закрепите слой в нескольких точках, затем перетащите одну из них: сетка изгибается вокруг булавок с жёсткостью, заданной параметром. Подтверждение применяет изменения.
+tool.puppet_warp.option.stiffness = Жёсткость
+tool.puppet_warp.history.puppet_warp = Марионеточная деформация
+tool.vanishing_point.name = Исправление перспективы
+tool.vanishing_point.description = Задайте плоскость на объекте с перспективой, затем выберите режим клонирования и рисуйте: скопированные пиксели следуют плоскости и уменьшаются с расстоянием.
+tool.vanishing_point.choice.edit_plane = Изменить плоскость
+tool.vanishing_point.choice.clone = Клонирование
+tool.vanishing_point.history.vanishing_point = Исправление перспективы

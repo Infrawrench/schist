@@ -1,0 +1,27 @@
+# Əymə alətləri: Mayeləşdirmə, Kukla əyməsi və Perspektiv nöqtəsi.
+
+# Mayeləşdirmə
+tool.liquify.name = Mayeləşdirmə
+tool.liquify.description = Böyük fırçanın altındakı pikselləri itələyin, burun, büzün və ya şişirdin; əməliyyatı rejim seçimi müəyyən edir. Əymə torda toplanır və təsdiqləndikdə qata tətbiq olunur.
+tool.liquify.option.tool = Alət
+tool.liquify.choice.forward_warp = İrəli əymə
+tool.liquify.choice.reconstruct = Bərpa
+tool.liquify.choice.twirl_cw = Saat istiqamətində bur
+tool.liquify.choice.twirl_ccw = Saat istiqamətinin əksinə bur
+tool.liquify.choice.pucker = Büz
+tool.liquify.choice.bloat = Şişirt
+tool.liquify.choice.push_left = Sola itələ
+tool.liquify.history.liquify = Mayeləşdirmə
+
+# Kukla əyməsi
+tool.puppet_warp.name = Kukla əyməsi
+tool.puppet_warp.description = Qatı bir neçə nöqtədə bərkitmək üçün klikləyin, sonra nöqtələrdən birini sürükləyin: tor Sərtlik seçiminə uyğun olaraq bərkitmə nöqtələrinin ətrafında sərt və ya elastik şəkildə əyilir. Təsdiqləmə nəticəni tətbiq edir.
+tool.puppet_warp.option.stiffness = Sərtlik
+tool.puppet_warp.history.puppet_warp = Kukla əyməsi
+
+# Perspektiv nöqtəsi
+tool.vanishing_point.name = Perspektiv nöqtəsi
+tool.vanishing_point.description = Perspektivli obyektin üzərində müstəvi çəkin, sonra rejimi Klonlama olaraq dəyişib rəngləyin: kopyalanmış piksellər müstəvini izləyir və məsafə artdıqca kiçilir.
+tool.vanishing_point.choice.edit_plane = Müstəvini redaktə et
+tool.vanishing_point.choice.clone = Klonlama
+tool.vanishing_point.history.vanishing_point = Perspektiv nöqtəsi

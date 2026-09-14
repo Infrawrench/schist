@@ -1,0 +1,71 @@
+# ဆေးခြယ်ကိရိယာများ
+tool.brush.name = စုတ်တံ
+tool.brush.description = တည်းဖြတ်ကိရိယာ၏ စုတ်တံအရွယ်အစား၊ မာကျောမှုနှင့် အလင်းပိတ်မှုအတိုင်း ရှေ့ခံအရောင်ဖြင့် အနားပျော့သော စုတ်ချက်ကို ဆေးခြယ်ပါ။
+tool.brush.history.stroke = စုတ်တံ
+tool.pencil.name = ခဲတံ
+tool.pencil.description = ရှေ့ခံအရောင်ဖြင့် အနားမာပြီး အနားချောမထားသော စုတ်ချက်ကို ဆေးခြယ်ပါ။
+tool.pencil.history.stroke = ခဲတံ
+tool.eraser.name = ဖျက်ကိရိယာ
+tool.eraser.description = စုတ်ချက်တစ်လျှောက် ဖျက်ပြီး အလွှာကို ဖောက်ထွင်းမြင်ရသည့် အခြေအနေသို့ ပြန်ထားပါ။
+tool.eraser.history.stroke = ဖျက်ကိရိယာ
+
+tool.clone.name = ပုံတူတံဆိပ်
+tool.clone.description = ပုံတူတံဆိပ်ဖြင့် အရင်းနေရာ သတ်မှတ်ရန် Alt နှင့်အတူ နှိပ်ပြီးနောက် ထိုနေရာမှ ကူးယူသော ပစ်ဇယ်များကို တူညီသည့် အကွာအဝေးအတိုင်း ဆေးခြယ်ပါ။
+tool.clone.history.stroke = ပုံတူတံဆိပ်
+
+tool.dodge.name = လင်းတင်ရန်
+tool.dodge.description = စုတ်ချက် ဖြတ်သွားသော ပစ်ဇယ်များကို လင်းစေပါ။
+tool.dodge.history.stroke = လင်းတင်ရန်
+tool.burn.name = မှောင်တင်ရန်
+tool.burn.description = စုတ်ချက် ဖြတ်သွားသော ပစ်ဇယ်များကို မှောင်စေပါ။
+tool.burn.history.stroke = မှောင်တင်ရန်
+tool.sponge.name = ရေမြှုပ်
+tool.sponge.description = စုတ်ချက် ဖြတ်သွားသော ပစ်ဇယ်များ၏ အရောင်ရင့်အားကို တိုး သို့မဟုတ် လျှော့ပါ။
+tool.sponge.history.stroke = ရေမြှုပ်
+
+tool.blur.name = မှုန်ဝါးစေရန်
+tool.blur.description = စုတ်ချက် ဖြတ်သွားသော ပစ်ဇယ်များကို မှုန်ဝါးစေပါ။
+tool.blur.history.stroke = မှုန်ဝါးစေရန်
+tool.sharpen.name = ပြတ်သားစေရန်
+tool.sharpen.description = စုတ်ချက် ဖြတ်သွားသော ပစ်ဇယ်များကို ပြတ်သားစေပါ။
+tool.sharpen.history.stroke = ပြတ်သားစေရန်
+tool.smudge.name = ပွတ်ဆွဲရန်
+tool.smudge.description = စိုနေသော ဆေးကို တွန်းသကဲ့သို့ စုတ်ချက်တစ်လျှောက် အရောင်ကို ဆွဲပါ။
+tool.smudge.history.stroke = ပွတ်ဆွဲရန်
+
+tool.heal.name = ပြုပြင်စုတ်တံ
+tool.heal.description = ပြုပြင်စုတ်တံ၏ အရင်းနေရာကို သတ်မှတ်ရန် Alt နှင့်အတူ နှိပ်ပြီး ဆေးခြယ်ပါ။ အရင်း၏ မျက်နှာပြင်အသွင်ကို ဦးတည်ရာ၏ ကိုယ်ပိုင်အရောင်နှင့် အလင်းတို့ထဲ ရောစပ်ပေးသည်။
+tool.heal.history.stroke = ပြုပြင်စုတ်တံ
+tool.spot_heal.name = အစက်အပြောက် ပြုပြင်စုတ်တံ
+tool.spot_heal.description = အစက်အပြောက် ပြုပြင်စုတ်တံဖြင့် အပြစ်အနာအဆာပေါ် ဆေးခြယ်လျှင် ပတ်ဝန်းကျင်မှ မျက်နှာပြင်အသွင်ဖြင့် အစားထိုးပေးသည်။ အရင်းနေရာ သတ်မှတ်ရန် မလိုပါ။
+tool.spot_heal.history.stroke = အစက်အပြောက် ပြုပြင်စုတ်တံ
+
+tool.history_brush.name = မှတ်တမ်းစုတ်တံ
+tool.history_brush.description = စာတမ်း၏ မှတ်တမ်းလျှပ်တစ်ပြက်ပုံမှ ပစ်ဇယ်များကို စုတ်ချက်တစ်ချက်ချင်း ပြန်ဆေး၍ နောက်ပိုင်းလုပ်ဆောင်မှုများကို ပြန်ဖျက်ပါ။
+tool.history_brush.history.stroke = မှတ်တမ်းစုတ်တံ
+
+tool.background_eraser.name = နောက်ခံဖျက်ကိရိယာ
+tool.background_eraser.description = အရာတစ်ခုကို နောက်ခံမှ ခွဲထုတ်ရန် စုတ်တံအလယ်အောက်မှ နမူနာယူထားသော အရောင်ကို ဖျက်ပြီး မတူသော ပစ်ဇယ်များကို မဖျက်ဘဲထားပါ။
+tool.background_eraser.history.stroke = နောက်ခံဖျက်ကိရိယာ
+
+tool.gradient.name = အရောင်ပြေး
+tool.gradient.description = ရှေ့ခံအရောင်မှ နောက်ခံအရောင်သို့ ဆွဲသည့်လမ်းတစ်လျှောက် မျဉ်းဖြောင့်အရောင်ပြေးဖြင့် အလွှာကို ဖြည့်ရန် ဆွဲပါ။ ရွေးချယ်မှုရှိလျှင် ယင်းအတွင်း၌သာ ဖြည့်သည်။
+tool.gradient.radial.name = ဗဟိုဖြန့် အရောင်ပြေး
+tool.gradient.radial.description = ရှေ့ခံနှင့် နောက်ခံအရောင်ကြား ဗဟိုဖြန့်အရောင်ပြေးဖြင့် ဖြည့်ရန် အလယ်မှ အပြင်သို့ ဆွဲပါ။
+tool.gradient.option.gradient = အရောင်ပြေး
+tool.gradient.option.reverse = ပြောင်းပြန်
+tool.gradient.option.dither = အရောင်ဖြန့်ရောရန်
+tool.gradient.choice.foreground_to_background = ရှေ့ခံမှ နောက်ခံသို့
+tool.gradient.choice.foreground_to_transparent = ရှေ့ခံမှ ဖောက်ထွင်းမြင်ရသို့
+tool.gradient.choice.linear = မျဉ်းဖြောင့်
+tool.gradient.choice.radial = ဗဟိုဖြန့်
+tool.gradient.choice.angle = ထောင့်
+tool.gradient.choice.reflected = ရောင်ပြန်
+tool.gradient.choice.diamond = စိန်ပုံ
+tool.gradient.history.gradient = အရောင်ပြေး
+
+tool.bucket.name = ဆေးပုံး
+tool.bucket.description = ကိရိယာ၏ သည်းခံအတိုင်းအတာအတွင်း ညွှန်တံအောက်ရှိ ဆင်တူအရောင်နှင့် ဆက်စပ်သော ဧရိယာတစ်ခုလုံးကို ရှေ့ခံအရောင်ဖြင့် ဖြည့်ရန် နှိပ်ပါ။
+tool.bucket.option.contiguous = ဆက်စပ်ဧရိယာသာ
+tool.bucket.option.all_layers = အလွှာအားလုံး
+tool.bucket.history.fill = ဆေးပုံး

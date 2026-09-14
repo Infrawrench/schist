@@ -1,0 +1,24 @@
+tool.artboard.name = Teikneflate
+tool.artboard.description = Dra ut ei teikneflate, eit namngjeve område av lerretet som kan eksporterast for seg. Dreg du inni ei teikneflate som finst frå før, flyttar du henne.
+tool.artboard.default_name = Teikneflate {n}
+
+tool.slice.name = Utsnitt
+tool.slice.description = Dra ut eit eksportutsnitt, eit namngjeve rektangel på lerretet som vert eksportert som eit eige bilete. Dreg du inni eit utsnitt som finst frå før, flyttar du det.
+tool.slice.default_name = Utsnitt {n}
+
+tool.frame.name = Ramme
+tool.frame.description = Dra ut ei ramme, eit rektangulært eller elliptisk lag som maskerer det som vert plassert i henne.
+tool.frame.default_name = Ramme {n}
+tool.frame.choice.rectangle = Rektangel
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Ramme
+
+tool.note.name = Merknad
+tool.note.description = Klikk på eit tomt område av lerretet for å feste ein merknad der. Merknaden får forfattaren og fargen frå redigeringsinnstillingane. Klikk på ein eksisterande stift for å velja han i Merknader-panelet.
+tool.note.history.place = Plasser merknad
+tool.note.history.move = Flytt merknad
+tool.note.history.delete = Slett merknad
+
+tool.count.name = Teljing
+tool.count.description = Klikk for å setja nummererte teljemerke på lerretet, og klikk på eit eksisterande merke for å fjerna det.
+tool.count.default_name = Teljing {n}

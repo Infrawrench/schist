@@ -1,0 +1,23 @@
+# Instrumentos basic: Mover, Contaguttas, Mano e Zoom.
+
+tool.move.name = Mover
+tool.move.description = Trahe le contento del strato active a un nove position. Con Selection automatic activate, le pression selige primo le strato — o le gruppo integre — que se trova sub le punctator.
+tool.move.option.auto_select = Selection automatic
+tool.move.history.move_layer = Mover strato
+
+tool.eyedropper.name = Contaguttas
+tool.eyedropper.description = Preleva le color sub le punctator in le specimen de prime plano, o in le specimen de fundo si Alt es tenite. Durante le traction, le prelevamento continua.
+tool.eyedropper.option.sample_size = Dimension del specimen
+tool.eyedropper.option.sample = Prelevar
+tool.eyedropper.choice.point_sample = Specimen punctual
+tool.eyedropper.choice.average_3 = Media de 3 per 3
+tool.eyedropper.choice.average_5 = Media de 5 per 5
+tool.eyedropper.choice.average_11 = Media de 11 per 11
+tool.eyedropper.choice.average_31 = Media de 31 per 31
+tool.eyedropper.choice.all_layers = Tote le stratos
+tool.eyedropper.choice.current_layer = Strato actual
+
+tool.hand.name = Mano
+tool.hand.description = Displacia le vista. Le area visibile pertine al fenestra, dunque sin interfacie graphic iste instrumento non modifica le documento.
+tool.zoom.name = Zoom
+tool.zoom.description = Cambia le scala del vista. Le area visibile pertine al fenestra, dunque sin interfacie graphic iste instrumento non modifica le documento.

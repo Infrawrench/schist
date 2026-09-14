@@ -1,0 +1,25 @@
+# Алатке за елементе документа: радне површине, исечци, оквири, белешке и бројачи.
+tool.artboard.name = Радна површина
+tool.artboard.description = Превуците да направите радну површину: именовану област платна која се засебно извози. Превлачењем унутар постојеће површине она се помера.
+tool.artboard.default_name = Радна површина {n}
+
+tool.slice.name = Исечак
+tool.slice.description = Превуците да направите извозни исечак, именовани правоугаоник платна који се извози као засебна слика. Превлачењем унутар постојећег исечка он се помера.
+tool.slice.default_name = Исечак {n}
+
+tool.frame.name = Оквир
+tool.frame.description = Превуците да направите оквир: правоугаони (или елиптични) слој који маскира све што се у њега постави.
+tool.frame.default_name = Оквир {n}
+tool.frame.choice.rectangle = Правоугаоник
+tool.frame.choice.ellipse = Елипса
+tool.frame.history.frame = Оквир
+
+tool.note.name = Белешка
+tool.note.description = Кликните на празан део платна да тамо закачите белешку означену аутором и бојом из стања уређивача; кликните на постојећу ознаку да је изаберете у панелу Белешке.
+tool.note.history.place = Постави белешку
+tool.note.history.move = Помери белешку
+tool.note.history.delete = Избриши белешку
+
+tool.count.name = Бројач
+tool.count.description = Кликните да на платно поставите нумерисане ознаке бројача, а кликните на постојећу ознаку да је уклоните.
+tool.count.default_name = Бројач {n}

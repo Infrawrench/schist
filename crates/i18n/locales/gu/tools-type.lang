@@ -1,0 +1,22 @@
+tool.type.name = ટાઇપ
+tool.type.description = ત્યાં ટેક્સ્ટ લેયર શરૂ કરવા ક્લિક કરો, અથવા હાલના લેયરને સંપાદિત કરવા તેના પર ક્લિક કરો. તે ખુલ્લું હોય ત્યારે ટૂલ સીધાં કી ઇનપુટ લે છે (કી ઇનપુટ તરીકે અક્ષરો મોકલો), અને કમિટ કરવાથી લેયર રેન્ડર થઈને સંપાદન બંધ થાય છે.
+
+tool.type.option.align = ગોઠવણી
+tool.type.option.leading = લીડિંગ
+tool.type.option.tracking = ટ્રૅકિંગ
+tool.type.option.kerning = કર્નિંગ
+tool.type.option.ligatures = લિગેચર
+tool.type.option.discretionary_ligatures = વૈકલ્પિક લિગેચર
+tool.type.option.small_caps = નાના કૅપિટલ અક્ષરો
+tool.type.option.on_path = સક્રિય પાથ પર
+tool.type.option.path_offset = પાથ ઑફસેટ
+
+tool.type.choice.regular = નિયમિત
+tool.type.choice.bold = બોલ્ડ
+tool.type.choice.italic = ઇટાલિક
+tool.type.choice.bold_italic = બોલ્ડ ઇટાલિક
+
+tool.type.history.new_layer = નવું ટેક્સ્ટ લેયર
+tool.type.history.edit = ટેક્સ્ટ સંપાદિત કર્યું
+tool.type.history.discard = ટેક્સ્ટ ફગાવ્યું
+tool.type.history.discard_empty = ખાલી ટેક્સ્ટ ફગાવ્યું

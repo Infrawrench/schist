@@ -1,0 +1,45 @@
+# أدوات المتجهات: الأقلام وسهما التحديد والأشكال والأشكال المخصصة.
+
+tool.pen.name = القلم
+tool.pen.description = أنشئ مسارًا: انقر لإنشاء نقطة زاوية، واسحب لإخراج مقابض المنحنى منها، ثم انقر النقطة الأولى لإغلاق المسار. يحول الاعتماد المسار إلى طبقة شكل.
+tool.pen.option.rubber_band = شريط مطاطي
+tool.pen.history.fill = تعبئة المسار
+tool.pen.default_path_name = المسار {n}
+tool.pen.freeform.name = قلم حر
+tool.pen.freeform.description = اسحب خطًا حرًا فيُلاءم مع مسار بدرجة المرونة التي يحددها خيار الملاءمة.
+tool.pen.freeform.option.fit = الملاءمة
+tool.pen.curvature.name = قلم الانحناء
+tool.pen.curvature.description = انقر سلسلة من النقاط فينحني المسار بسلاسة عبرها.
+
+tool.path_select.name = تحديد المسار
+tool.path_select.description = انقر مسارًا لتحديده، واسحب لنقل المسار بأكمله.
+tool.direct_select.name = تحديد مباشر
+tool.direct_select.description = اسحب نقطة إرساء منفردة أو مقابضها لإعادة تشكيل المسار حولها.
+
+tool.shape.history.layer = طبقة {name}
+tool.shape.rect.name = أداة المستطيل
+tool.shape.rect.label = مستطيل
+tool.shape.rect.description = اسحب لإنشاء طبقة شكل مستطيل بلون المقدمة؛ تظل متجهية ويُعاد تنقيطها عند تغيير حجمها.
+tool.shape.ellipse.name = أداة القطع الناقص
+tool.shape.ellipse.label = قطع ناقص
+tool.shape.ellipse.description = اسحب لإنشاء طبقة شكل قطع ناقص بلون المقدمة.
+tool.shape.line.name = أداة الخط
+tool.shape.line.label = خط
+tool.shape.line.description = اسحب لإنشاء طبقة شكل خط مستقيم بلون المقدمة.
+tool.shape.line.option.weight = السُمك
+tool.shape.line.option.arrow_start = البداية
+tool.shape.line.option.arrow_end = النهاية
+tool.shape.polygon.name = أداة المضلع
+tool.shape.polygon.label = مضلع
+tool.shape.polygon.description = اسحب لإنشاء طبقة شكل مضلع منتظم بلون المقدمة، بعدد الأضلاع المحدد في الخيارات.
+tool.shape.polygon.option.sides = الأضلاع
+
+tool.shape.custom.name = شكل مخصص
+tool.shape.custom.label = شكل مخصص
+tool.shape.custom.description = اسحب لإنشاء أحد الأشكال المسبقة المضمنة، والمختارة بواسطة خيار الشكل.
+tool.shape.custom.choice.heart = قلب
+tool.shape.custom.choice.star = نجمة
+tool.shape.custom.choice.arrow = سهم
+tool.shape.custom.choice.lightning = صاعقة
+tool.shape.custom.choice.cross = صليب
+tool.shape.custom.choice.speech_bubble = فقاعة كلام

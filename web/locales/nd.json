@@ -1,0 +1,9 @@
+{
+  "loading": "Iyalayisha…",
+  "starting": "Iyaqalisa…",
+  "webgpu": "I-Schist idinga i-WebGPU, isiphequluli lesi esingelayo. I-Chrome/Edge 113+, Firefox 141+ le-Safari 26+ zilayo.",
+  "noticeTitle": "I-Schist isebenza kuhle kakhulu njengohlelo lwekhompuyutha",
+  "noticeBody": "Usebenzisa inguqulo yewebhu, eyakhiwe yaba lula: ihlanganisa izendlalelo nge-CPU njalo kayilazo ezinye izici — ama-plug-in e-Photoshop lama-plug-in avela kwabanye abakhi, igalari yezithombe, iphaneli ye-AI, ukungenisa i-HEIC lokudawuniloda amafonti — njalo amafayela agcinwa njengokudawunilodiweyo. Uhlelo lwamahala lwekhompuyutha lwe-macOS, Windows le-Linux lulakho konke lokhu.",
+  "noticeLink": "Thola uhlelo lwekhompuyutha.",
+  "ok": "Kulungile"
+}

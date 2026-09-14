@@ -1,0 +1,30 @@
+ai.status.panel_shown = Panel za AI je prikazan
+ai.status.panel_hidden = Panel za AI je skriven — Prikaz ▸ Panel za AI ({shortcut}) ponovo ga prikazuje
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} je povezan
+ai.info.now_in_gallery = Sada ste u galeriji.
+ai.info.now_in_editor = Sada ste u uređivaču.
+ai.tool.shell_command = naredba ljuske
+
+ai.error.cli_missing = CLI za {backend} („{binary}“) nije na putanji PATH. Prvo ga instalirajte i prijavite se.
+ai.error.endpoint_failed = pokretanje MCP krajnje tačke nije uspjelo: {error}
+ai.error.binding_endpoint = povezivanje MCP krajnje tačke
+ai.error.spawning_endpoint_thread = pokretanje niti MCP krajnje tačke
+ai.error.runtime_failed = pokretanje izvršnog okruženja agenta nije uspjelo: {error}
+ai.error.worker_failed = pokretanje izvršioca za {backend} nije uspjelo: {error}
+ai.error.did_not_start = {backend} se nije pokrenuo: {error}
+ai.error.switch_model_failed = promjena modela nije uspjela: {error}
+ai.error.send_failed = slanje upita nije uspjelo: {error}
+ai.error.interrupt_failed = prekid nije uspio: {error}
+ai.error.locating_binary = pronalaženje izvršne datoteke Schist
+ai.error.starting_app_server = pokretanje aplikacijskog servera Codex
+ai.error.attaching_app_server = povezivanje s aplikacijskim serverom Codex
+ai.error.initializing_app_server = inicijaliziranje aplikacijskog servera Codex
+ai.error.resuming_thread = nastavljanje niti Codex
+ai.error.starting_thread = pokretanje niti Codex
+
+ai.model.opus_detail = Najsposobnija kategorija
+ai.model.sonnet_detail = Efikasan za uobičajene zadatke
+ai.model.haiku_detail = Najbrži za kratke odgovore
+ai.model.codex_catalog = Katalog Codex

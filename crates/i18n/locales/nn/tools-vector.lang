@@ -1,0 +1,43 @@
+tool.pen.name = Penn
+tool.pen.description = Bygg ei bane: Klikk for å laga eit hjørnepunkt, dra for å trekkja kurvehandtak ut frå det, og klikk på det første punktet for å lukka bana. Når du stadfestar, vert bana til eit formlag.
+tool.pen.option.rubber_band = Strikk
+tool.pen.history.fill = Banefyll
+tool.pen.default_path_name = Bane {n}
+tool.pen.freeform.name = Frihandspenn
+tool.pen.freeform.description = Dra ei linje på frihand, så vert ho tilpassa ei bane så laust som innstillinga Tilpassing seier.
+tool.pen.freeform.option.fit = Tilpassing
+tool.pen.curvature.name = Kurvepenn
+tool.pen.curvature.description = Klikk inn ei rekkje punkt, så vert bana bøygd jamt gjennom dei.
+
+tool.path_select.name = Baneval
+tool.path_select.description = Klikk på ei bane for å velja henne, og dra for å flytta heile bana.
+tool.direct_select.name = Direkteval
+tool.direct_select.description = Dra i eit enkelt ankerpunkt eller handtaka til punktet for å forma bana rundt det på nytt.
+
+tool.shape.history.layer = {name}-lag
+tool.shape.rect.name = Rektangelverktøy
+tool.shape.rect.label = Rektangel
+tool.shape.rect.description = Dra ut eit rektangulært formlag i framgrunnsfargen. Det held fram med å vera vektorbasert og vert rasterisert på nytt når storleiken vert endra.
+tool.shape.ellipse.name = Ellipseverktøy
+tool.shape.ellipse.label = Ellipse
+tool.shape.ellipse.description = Dra ut eit elliptisk formlag i framgrunnsfargen.
+tool.shape.line.name = Linjeverktøy
+tool.shape.line.label = Linje
+tool.shape.line.description = Dra ut eit formlag med ei rett linje i framgrunnsfargen.
+tool.shape.line.option.weight = Tjukkleik
+tool.shape.line.option.arrow_start = Start
+tool.shape.line.option.arrow_end = Slutt
+tool.shape.polygon.name = Mangekantverktøy
+tool.shape.polygon.label = Mangekant
+tool.shape.polygon.description = Dra ut eit formlag med ein regelbunden mangekant i framgrunnsfargen. Talet på sider kjem frå innstillingane.
+tool.shape.polygon.option.sides = Sider
+
+tool.shape.custom.name = Eigendefinert form
+tool.shape.custom.label = Eigendefinert form
+tool.shape.custom.description = Dra ut ei av dei innebygde førehandsinnstilte formene som er valde med innstillinga Form.
+tool.shape.custom.choice.heart = Hjarte
+tool.shape.custom.choice.star = Stjerne
+tool.shape.custom.choice.arrow = Pil
+tool.shape.custom.choice.lightning = Lyn
+tool.shape.custom.choice.cross = Kross
+tool.shape.custom.choice.speech_bubble = Snakkeboble

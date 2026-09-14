@@ -1,0 +1,21 @@
+tool.move.name = Ilipat
+tool.move.description = I-drag ang nilalaman ng aktibong layer papunta sa bagong posisyon. Kapag naka-on ang Awtomatikong Piliin, unang pinipili ng pagpindot ang layer — o buong grupo — na nasa ilalim ng pointer.
+tool.move.option.auto_select = Awtomatikong Piliin
+tool.move.history.move_layer = Ilipat ang Layer
+
+tool.eyedropper.name = Eyedropper
+tool.eyedropper.description = Kunin ang kulay sa ilalim ng pointer papunta sa swatch sa harapan, o sa swatch sa likuran kapag nakapindot ang Alt. Patuloy na kumukuha ng sample habang nagda-drag.
+tool.eyedropper.option.sample_size = Laki ng Sample
+tool.eyedropper.option.sample = Sample
+tool.eyedropper.choice.point_sample = Sample sa Isang Punto
+tool.eyedropper.choice.average_3 = Average na 3 × 3
+tool.eyedropper.choice.average_5 = Average na 5 × 5
+tool.eyedropper.choice.average_11 = Average na 11 × 11
+tool.eyedropper.choice.average_31 = Average na 31 × 31
+tool.eyedropper.choice.all_layers = Lahat ng Layer
+tool.eyedropper.choice.current_layer = Kasalukuyang Layer
+
+tool.hand.name = Kamay
+tool.hand.description = Inililipat ang tanaw. Sa window nakatalaga ang viewport, kaya walang binabago sa dokumento ang tool na ito kapag walang graphical na window.
+tool.zoom.name = Zoom
+tool.zoom.description = Pinalalaki o pinaliliit ang tanaw. Sa window nakatalaga ang viewport, kaya walang binabago sa dokumento ang tool na ito kapag walang graphical na window.

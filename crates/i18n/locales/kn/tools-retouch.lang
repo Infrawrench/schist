@@ -1,0 +1,29 @@
+# ಪ್ಯಾಚ್, ವಿಷಯ-ಅರಿತ ಸರಿಸುವಿಕೆ, ಕೆಂಪು ಕಣ್ಣು ಮತ್ತು ಮಾಯಾ ಅಳಿಸುಗ.
+
+# ಪ್ಯಾಚ್
+tool.patch.name = ಪ್ಯಾಚ್
+tool.patch.description = ದೋಷದ ಸುತ್ತ ಹೊರರೇಖೆಯನ್ನು ಎಳೆಯಿರಿ, ನಂತರ ಆ ಆಯ್ಕೆಯನ್ನು ಸ್ವಚ್ಛ ಪಿಕ್ಸೆಲ್‌ಗಳ ಮೇಲೆ ಎಳೆಯಿರಿ: ಅಲ್ಲಿನ ವಿನ್ಯಾಸವನ್ನು ದೋಷದೊಳಗೆ ಹೊಂದಿಸಲಾಗುತ್ತದೆ. ಜೋಡಿಯ ಯಾವ ತುದಿಯನ್ನು ಎಳೆಯಬೇಕು ಎಂಬುದನ್ನು ಪ್ಯಾಚ್ ವಿಧಾನ ನಿರ್ಧರಿಸುತ್ತದೆ.
+tool.patch.option.patch = ಪ್ಯಾಚ್
+tool.patch.choice.source = ಮೂಲ
+tool.patch.choice.destination = ಗಮ್ಯಸ್ಥಾನ
+tool.patch.history.patch = ಪ್ಯಾಚ್
+
+# ವಿಷಯ-ಅರಿತ ಸರಿಸುವಿಕೆ
+tool.content_aware_move.name = ವಿಷಯ-ಅರಿತ ಸರಿಸುವಿಕೆ
+tool.content_aware_move.description = ಆಯ್ಕೆಮಾಡಿದ ವಸ್ತುವನ್ನು ಬೇರೆಡೆಗೆ ಎಳೆಯಿರಿ; ಅದು ಬಿಟ್ಟ ಜಾಗವನ್ನು ಸುತ್ತಲಿನ ಭಾಗಗಳಿಂದ ತುಂಬಲಾಗುತ್ತದೆ. ವಿಸ್ತರಣೆ ವಿಧಾನದಲ್ಲಿ ವಸ್ತುವನ್ನು ಸರಿಸುವ ಬದಲು ಹಿಗ್ಗಿಸಲಾಗುತ್ತದೆ.
+tool.content_aware_move.choice.move = ಸರಿಸು
+tool.content_aware_move.choice.extend = ವಿಸ್ತರಿಸು
+tool.content_aware_move.history.move = ವಿಷಯ-ಅರಿತ ಸರಿಸುವಿಕೆ
+
+# ಕೆಂಪು ಕಣ್ಣು
+tool.red_eye.name = ಕೆಂಪು ಕಣ್ಣು
+tool.red_eye.description = ಫ್ಲ್ಯಾಶ್‌ನಿಂದ ಕಣ್ಣಿನ ಪಾಪೆಯಲ್ಲಿ ಕಾಣುವ ಕೆಂಪನ್ನು ತೆಗೆದುಹಾಕಲು ಅದರ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.
+tool.red_eye.option.pupil_size = ಕಣ್ಣಿನ ಪಾಪೆಯ ಗಾತ್ರ
+tool.red_eye.option.darken = ಕಪ್ಪಾಗಿಸು
+tool.red_eye.history.red_eye = ಕೆಂಪು ಕಣ್ಣು
+
+# ಮಾಯಾ ಅಳಿಸುಗ
+tool.magic_eraser.name = ಮಾಯಾ ಅಳಿಸುಗ
+tool.magic_eraser.description = ಪರಿಕರದ ಸಹಿಷ್ಣುತೆ ಮಿತಿಯೊಳಗೆ ಪಾಯಿಂಟರ್‌ನ ಕೆಳಗಿನ ಬಣ್ಣಕ್ಕೆ ಹೋಲುವ ಪ್ರದೇಶವನ್ನು ಅಳಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ—ಕ್ಲಿಕ್ ಮಾಡಿದ ಸ್ಥಳಕ್ಕೆ ಹೊಂದಿಕೊಂಡಿರುವ ಭಾಗವನ್ನು ಅಥವಾ ಲೇಯರ್‌ನ ಎಲ್ಲೆಡೆಯ ಭಾಗವನ್ನು ಅಳಿಸಬಹುದು.
+tool.magic_eraser.option.contiguous = ಹೊಂದಿಕೊಂಡಿರುವುದು
+tool.magic_eraser.history.erase = ಮಾಯಾ ಅಳಿಸುಗ

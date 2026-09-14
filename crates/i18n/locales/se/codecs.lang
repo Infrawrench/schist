@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = dekodemin {name}
+codec.msg.zero_sized = govas eai leat govvačuoggát
+codec.msg.assembling_document = čoahkkáibijamin dokumeantta
+
+codec.raw.msg.decoding = dekodemin ráhkafiilla
+codec.raw.msg.developing = ovdánahttimin ráhkafiilla
+codec.raw.msg.finding_preview = ohcamin sisahuksejuvvon ovdačájeheami
+codec.raw.msg.decoding_preview = dekodemin sisahuksejuvvon ovdačájeheami
+codec.raw.msg.decoder_panicked = ráhkafiila dekoder ii nagodan dán fiillain: {what}
+
+codec.affinity.import_title = Affinity-sisafievrrideapmi
+codec.affinity.flattened_preview_layer = Duolbbahuvvon ovdačájeheapmi
+codec.affinity.msg.no_preview = Ii leat geavahanláhkai sisahuksejuvvon ovdačájeheapmi. Affinity gearddálaš formáhta lea opmodat; Schist sisafievrrida fiilla duolbbahuvvon ovdačájeheami. Dán fiillas ii leat dakkár — vurke dan ođđasit Affinity:s, dahje olggosfievrrit PSD:n vai oaččut olles gearddálaš sisafievrrideami.
+
+codec.heif.msg.no_library = libheif ii leat olámuttus ({details}). HEIC-fiilla rahpan gáibida libheif-bibliotehka (Linux: sajáiduhte libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — dán libheif-veršuvnnas sáhttá váilut HEVC-dekoder (Debian/Ubuntu: sajáiduhte libheif-plugin-libde265)
+codec.heif.msg.unknown_error = dovdameahttun meattáhus
+codec.heif.msg.initialising = válmmaštallamin libheif
+codec.heif.msg.reading_container = lohkamin HEIF-árppu
+codec.heif.msg.finding_primary_image = ohcamin váldogova
+codec.heif.msg.reading_icc_profile = lohkamin ICC-profiilla
+codec.heif.msg.decoding_image = dekodemin gova
+codec.heif.msg.checksum_mismatch = Dárkkistanlohku ii heive fiilii {name}: vuorddejuvvui {expected}, bođii {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ii sáhttán lohkat HEIF-árppu
+codec.heif.msg.container_empty = HEIF-árppus ii leat govva
+codec.heif.msg.imageio_cannot_decode = ImageIO ii sáhttán dekodet váldogova

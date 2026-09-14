@@ -1,0 +1,31 @@
+# Montaj sahələri, dilimlər, çərçivələr, qeydlər və sayğac alətləri.
+
+# Montaj sahəsi
+tool.artboard.name = Montaj sahəsi
+tool.artboard.description = Montaj sahəsi çəkin: bu, kətanın ayrıca ixrac olunan adlandırılmış hissəsidir. Mövcud sahənin daxilindən sürükləmək onu köçürür.
+tool.artboard.default_name = Montaj sahəsi {n}
+
+# Dilim
+tool.slice.name = Dilim
+tool.slice.description = İxrac dilimi çəkin: bu, kətanın ayrıca şəkil kimi ixrac olunan adlandırılmış düzbucaqlı hissəsidir. Mövcud dilimin daxilindən sürükləmək onu köçürür.
+tool.slice.default_name = Dilim {n}
+
+# Çərçivə
+tool.frame.name = Çərçivə
+tool.frame.description = Çərçivə çəkin: bu, daxilinə yerləşdirilən hər şeyi maskalayan düzbucaqlı (və ya ellipsşəkilli) qatdır.
+tool.frame.default_name = Çərçivə {n}
+tool.frame.choice.rectangle = Düzbucaqlı
+tool.frame.choice.ellipse = Ellips
+tool.frame.history.frame = Çərçivə
+
+# Qeyd
+tool.note.name = Qeyd
+tool.note.description = Boş kətana klikləyərək redaktor vəziyyətindəki müəllif və rənglə işarələnmiş qeydi ora bərkidin; mövcud nişana klikləyərək onu Qeydlər panelində seçin.
+tool.note.history.place = Qeyd yerləşdir
+tool.note.history.move = Qeydi köçür
+tool.note.history.delete = Qeydi sil
+
+# Sayğac
+tool.count.name = Sayğac
+tool.count.description = Kətana nömrələnmiş sayğac nişanları yerləşdirmək üçün klikləyin; mövcud nişanı silmək üçün ona klikləyin.
+tool.count.default_name = Sayğac {n}

@@ -1,0 +1,26 @@
+# Treuzfurmiñ dieub, treuzfurmiñ an diuzadenn ha krennañ.
+tool.transform.name = Treuzfurmiñ dieub
+tool.transform.description = Treuzfurmiñ dieub. Pa vez gweredekaet e tiger ur voest dreuzfurmiñ tro-dro d'ar gwiskad oberiant: riklit ur c'horn evit cheñch ar skeul, riklit en diavaez d'ur c'horn evit treiñ, riklit ur riblenn evit stummañ a-veskell. Netra ne vez skrivet betek kadarnaat (Enter), ha pa zilezer (Escape) e vez adlakaet ar gwiskad evel ma oa.
+tool.transform.option.interpolation = Etrepoladur
+tool.transform.history.transform = Treuzfurmiñ dieub
+tool.transform.history.image_size = Ment ar skeudenn
+tool.transform.history.canvas_size = Ment ar steuñvenn
+
+tool.transform.selection.name = Treuzfurmiñ an diuzadenn
+tool.transform.selection.description = Treuzfurmiñ an diuzadenn: ar memes boest, met dilec'hiañ a ra tro-linenn an diuzadenn e-lec'h ar pikselioù enni. Kadarnait pe zilezit evit echuiñ.
+tool.transform.selection.history.transform = Treuzfurmiñ an diuzadenn
+
+tool.transform.resample.nearest_neighbor = Piksel tostañ
+tool.transform.resample.bilinear = Bilinennek
+tool.transform.resample.bicubic = Bikubek
+
+tool.crop.name = Krennañ
+tool.crop.description = Riklit evit tresañ ar rann da virout ha reizhit he dornelloù; pa gadarnait (Enter) e vez krennet an teul diouti, ha pa zilezit (Escape) e chom digemm.
+tool.crop.option.ratio = Kenfeur
+tool.crop.option.delete_cropped = Dilemel ar pikselioù krennet
+tool.crop.choice.unconstrained = Hep destrizh
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Krennañ

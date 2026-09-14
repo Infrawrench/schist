@@ -1,0 +1,20 @@
+# Maleyara yo lulamisa ni swileriso swa Xifaniso ▸ Ku lulamisa.
+adjustment.levels.name = Tilevhele
+adjustment.curves.name = Tikhevhu
+adjustment.hue_saturation.name = Muhlovo/Ndzalo
+adjustment.brightness_contrast.name = Ku vangama/Ku hambana
+adjustment.black_white.name = Ntema ni Basa
+adjustment.solid_color.name = Muhlovo wun'we
+adjustment.gradient_fill.name = Ku tata hi ku cincana ka mihlovo
+adjustment.pattern_fill.name = Ku tata hi phetheni
+adjustment.invert.name = Hundzuluxa mihlovo
+adjustment.posterize.name = Hunguta mihlovo
+adjustment.threshold.name = Mpimo wa ku hambanyisa
+adjustment.color_balance.name = Ndzingano wa mihlovo
+adjustment.vibrance.name = Ku hanya ka mihlovo
+adjustment.exposure.name = Ku voningeriwa
+adjustment.photo_filter.name = Filitara ya xifaniso
+adjustment.gradient_map.name = Mepe wa ku cincana ka mihlovo
+adjustment.selective_color.name = Muhlovo lowu hlawuriweke
+adjustment.channel_mixer.name = Xihlanganisi xa tichanele
+adjustment.other.name = Ndzulamiso

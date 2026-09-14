@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = dekódovanie {name}
+codec.msg.zero_sized = obrázok nemá žiadne pixely
+codec.msg.assembling_document = zostavovanie dokumentu
+
+codec.raw.msg.decoding = dekódovanie surového súboru
+codec.raw.msg.developing = vyvolávanie surového súboru
+codec.raw.msg.finding_preview = hľadanie vloženého náhľadu
+codec.raw.msg.decoding_preview = dekódovanie vloženého náhľadu
+codec.raw.msg.decoder_panicked = dekodér surových súborov pri tomto súbore zlyhal: {what}
+
+codec.affinity.import_title = Import z Affinity
+codec.affinity.flattened_preview_layer = Zlúčený náhľad
+codec.affinity.msg.no_preview = Nenašiel sa použiteľný vložený náhľad. Vrstvený formát Affinity je proprietárny; Schist importuje zlúčený náhľad uložený v súbore. Tento súbor ho neobsahuje — znova ho uložte v Affinity alebo ho exportujte ako PSD, ak chcete úplný import vrstiev.
+
+codec.heif.msg.no_library = Knižnica libheif nie je k dispozícii ({details}). Na otvorenie HEIC je potrebná knižnica libheif (Linux: nainštalujte libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — táto zostava libheif nemusí obsahovať dekodér HEVC (v Debiane/Ubuntu nainštalujte libheif-plugin-libde265)
+codec.heif.msg.unknown_error = neznáma chyba
+codec.heif.msg.initialising = inicializácia libheif
+codec.heif.msg.reading_container = čítanie kontajnera HEIF
+codec.heif.msg.finding_primary_image = hľadanie hlavného obrázka
+codec.heif.msg.reading_icc_profile = čítanie profilu ICC
+codec.heif.msg.decoding_image = dekódovanie obrázka
+codec.heif.msg.checksum_mismatch = Kontrolný súčet súboru {name} sa nezhoduje: očakával sa {expected}, získal sa {got}
+codec.heif.msg.imageio_cannot_read = ImageIO nedokázalo prečítať kontajner HEIF
+codec.heif.msg.container_empty = kontajner HEIF neobsahuje obrázok
+codec.heif.msg.imageio_cannot_decode = ImageIO nedokázalo dekódovať hlavný obrázok

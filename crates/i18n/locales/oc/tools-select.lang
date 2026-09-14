@@ -1,0 +1,37 @@
+# Mòdes de combinason de la seleccion
+tool.select.mode.subtract = Sostraire
+tool.select.mode.intersect = Entrecopar
+
+# Enquadraments de seleccion
+tool.marquee.rect.name = Seleccion rectangulara
+tool.marquee.rect.description = Fasètz lisar per traçar una seleccion rectangulara. Maj al començament del lisament l'apond a la seleccion, Alt la sostrau e las doas tòcas ne gardan l'entrecopament ; Maj pendent lo lisament la rend carrada. Un clic sens lisament desselecciona.
+tool.marquee.ellipse.name = Seleccion elliptica
+tool.marquee.ellipse.description = Fasètz lisar per traçar una seleccion elliptica, amb las meteissas combinasons Maj/Alt que per la seleccion rectangulara.
+
+# Laçes
+tool.lasso.name = Laç
+tool.lasso.description = Fasètz lisar per traçar un contorn a man levada ; la seleccion se tampa entre las doas extremitats quand lo lisament s'acaba. Maj apond e Alt sostrau.
+tool.lasso.history.select = Seleccion amb lo laç
+tool.lasso.polygonal.name = Laç poligonal
+tool.lasso.polygonal.description = Clicatz sus cada canton per bastir una seleccion de bòrds dreches, puèi clicatz prèp del primièr punt per la tampar.
+tool.lasso.polygonal.history.select = Laç poligonal
+tool.lasso.magnetic.name = Laç magnetic
+tool.lasso.magnetic.description = Seguissètz aperaquí un bòrd e lo contorn s'arrapa al contraste mai fòrt prèp del camin.
+tool.lasso.magnetic.history.select = Laç magnetic
+tool.lasso.magnetic.option.frequency = Frequéncia
+
+# Bageta magica
+tool.wand.name = Bageta magica
+tool.wand.description = Clicatz per seleccionar la zòna contigua de color semblabla jos lo puntador, segon l'opcion de tolerància — la meteissa tolerància que legisson Espandir, Semblable e Plaja de colors.
+tool.wand.option.contiguous = Contigú
+tool.wand.history.select = Bageta magica
+
+# Seleccion rapida
+tool.quick_select.name = Seleccion rapida
+tool.quick_select.description = Penchenatz sus una region e la seleccion s'espandís dins los pixèls semblables que la bròssa rescontra.
+tool.quick_select.history.select = Seleccion rapida
+
+# Seleccion d'objècte
+tool.object_select.name = Seleccion d'objècte
+tool.object_select.description = Fasètz lisar una bóstia a l'entorn d'un objècte e la seleccion s'ajusta a l'objècte trobat dedins.
+tool.object_select.history.select = Seleccion d'objècte

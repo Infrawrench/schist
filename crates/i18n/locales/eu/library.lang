@@ -1,0 +1,356 @@
+# Alboko barra
+library.sidebar.view = IKUSPEGIA
+library.sidebar.folders = KARPETAK
+library.sidebar.buckets = MULTZOAK
+library.sidebar.people = PERTSONAK
+library.sidebar.group_by = TALDEKATU HONEN ARABERA
+library.sidebar.all_photos = Argazki guztiak
+library.sidebar.world_map = Munduko mapa
+library.sidebar.map_filter = Mapa-iragazkia…
+library.sidebar.map_filter_on = Mapa-iragazkia aktibatuta
+library.sidebar.add_folder = + Gehitu karpeta…
+library.sidebar.new_bucket = + Multzo berria
+library.sidebar.stop_watching = Utzi karpeta hau behatzeari
+library.sidebar.unnamed_faces = Izenik gabeko aurpegiak
+library.sidebar.retry_face_model = Saiatu berriro aurpegi-modeloa deskargatzen
+library.sidebar.retry_recognition_model = Saiatu berriro ezagutze-modeloa deskargatzen
+library.sidebar.looking_for_faces = Aurpegiak bilatzen… {looked}/{total}
+library.sidebar.faces_appear = Aurpegiak hemen agertuko dira argazkiak indexatu ahala.
+library.sidebar.downloading_face_models = Aurpegi-modeloak deskargatzen… {got}/{total} MB
+
+library.group_by.date = Data
+library.group_by.folder = Karpeta
+library.group_by.place = Lekua
+
+# Hilabeteak
+library.month.january = Urtarrila
+library.month.february = Otsaila
+library.month.march = Martxoa
+library.month.april = Apirila
+library.month.may = Maiatza
+library.month.june = Ekaina
+library.month.july = Uztaila
+library.month.august = Abuztua
+library.month.september = Iraila
+library.month.october = Urria
+library.month.november = Azaroa
+library.month.december = Abendua
+library.month.title = {year}(e)ko {month}
+library.month.undated = Datarik gabe
+
+# Talde-goiburuak
+library.group.person = Pertsonak · {name}
+library.group.person_in = Pertsonak · {name} · {scope} barruan
+library.group.unnamed = Izenik gabeko aurpegiak
+library.group.unnamed_in = Izenik gabeko aurpegiak · {scope} barruan
+library.group.bucket = Multzoa · {name}
+library.group.no_location = Kokalekurik gabe
+library.group.not_indexed = Oraindik indexatu gabe
+library.group.detail = {detail} — {n}
+
+# Goiko zerrenda
+library.strip.import = Inportatu…
+library.strip.add_folder = Gehitu karpeta…
+library.strip.settings = Ezarpenak…
+library.strip.new_file = Fitxategi berria…
+library.strip.back_to_editing = Itzuli ediziora
+library.strip.enable_search = Gaitu argazki-bilaketa…
+library.strip.enable_search_menu = Gaitu argazki-bilaketa…
+library.strip.map_filter_chip = Mapa-iragazkia: {name}
+library.strip.downloading_search = Argazki-bilaketa deskargatzen… {got}/{total} MB
+
+# Bilaketa
+library.search.placeholder = Bilatu argazkiak…
+library.search.placeholder_indexing = Bilatu ({indexed}/{total} indexatuta)
+library.search.placeholder_people_places = Bilatu pertsonak eta lekuak…
+library.search.results = Bilaketa-emaitzak
+library.search.results_in_bucket = Multzoa · {name} · Bilaketa-emaitzak
+library.search.near = {place} inguruan
+library.search.with = honekin: {names}
+
+# Erretilua eta gelaxkak
+library.tray.view = Ikusi
+library.tray.edited_note = editatuta — bertsioak fitxategiaren ondoan gordeta
+library.tray.n_hidden.one = {n} ezkutatuta eduki-iragazkiaren ondorioz
+library.tray.n_hidden.other = {n} ezkutatuta eduki-iragazkiaren ondorioz
+library.cell.no_preview = aurrebistarik ez
+library.cell.edited = editatuta
+library.gallery.loading = Argazkiak kargatzen…
+
+# Ongietorria
+library.welcome.title = Ongi etorri Schist aplikaziora
+library.welcome.intro = Behatu argazki-karpetak edo inportatu kamera batetik. Fitxategiek beren lekuan jarraitzen dute; edizioak haien ondoan bertsionatzen dira:
+library.welcome.intro_ios = Inportatu argazkiak zure liburutegitik edo gehitu karpeta bat Fitxategiak aplikaziotik. Edizioak argazki bakoitzaren ondoan bertsionatzen dira:
+library.welcome.or_open = Edo ireki irudi bat editatzeko:
+library.welcome.shortcut_mac = Galeria beti dago ⌘⇧G sakatuta, editatzen ari zarena edozein dela ere.
+library.welcome.shortcut = Galeria beti dago Ctrl+Shift+G sakatuta, editatzen ari zarena edozein dela ere.
+
+# Galeria hutsik
+library.gallery.empty_bucket_search = Multzo honetako ezer ez dator bat bilaketarekin. Ihes teklak bilaketa garbitu eta multzo osoa erakusten du.
+library.gallery.empty_search = Ezer ez dator bat bilaketarekin. Ihes teklak bilaketa garbitzen du.
+library.gallery.empty_smart_bucket = Oraindik ezer ez dator bat multzo honen arauarekin; emaitzak argazkiak indexatu ahala agertuko dira. Argazkiak bertara arrastatzea ere badabil.
+library.gallery.empty_bucket = Multzo hau hutsik dago. Argazkiak gehitzeko, arrastatu alboko barrako haren errenkadara.
+library.gallery.empty_person = Oraindik ez dago ezer hemen. Aurpegiak argazkiak indexatu ahala agertuko dira; egin klik argazki batean eta gero aurpegi batean nor den adierazteko.
+library.gallery.scanning = Karpetak arakatzen…
+library.gallery.empty = Ez da argazkirik aurkitu behatutako karpetetan. Schistek ireki ditzakeen irudiak (PNG, JPEG, WebP, TIFF, HEIC, kamerako raw fitxategiak, PSD, Affinity) hemen agertuko dira; azpikarpetak sei mailako sakoneraraino arakatzen dira.
+
+# Multzoak
+library.bucket.default_name = {n}. multzoa
+library.bucket.rule_matches = bat dator “{query}” bilaketarekin
+library.bucket.rule_taken_in = hemen hartua: {name}
+library.bucket.new_title = Multzo berria
+library.bucket.edit_title = Editatu multzoa
+library.bucket.new_cloud_title = Hodeiko multzo berria
+library.bucket.edit_cloud_title = Editatu hodeiko multzoa
+library.bucket.create = Sortu
+library.bucket.query_placeholder = adib. txakurra hondartzan (aukerakoa)
+library.bucket.the_drawn_area = marraztutako eremua
+library.bucket.area_help = Eremu bat gehitzeko, arrastatu mapa Maius sakatuta (edo aukeratu aurrezarpen bat); arraste txiki batek garbitu egiten du. Arauek multzoa automatikoki beteta mantentzen dute.
+library.bucket.rule_none = Araurik ez: multzo arrunta, argazkiak bertara arrastatuz betetzekoa.
+library.bucket.rule_query = “{query}” bilaketarekin bat datorren argazki oro mantentzen du.
+library.bucket.rule_area = {area} eremuan hartutako argazki oro mantentzen du.
+library.bucket.rule_query_area = {area} eremuan hartu eta “{query}” bilaketarekin bat datorren argazki oro mantentzen du.
+library.bucket.starts_with.one = Hautatutako argazkiarekin hasiko da.
+library.bucket.starts_with.other = Hautatutako {n} argazkiekin hasiko da.
+
+# Munduko mapa
+library.map.status = {located} argazki mapan · {unlocated} kokalekurik gabe
+library.map.reading_locations = Kokalekuak irakurtzen: {n} falta dira
+library.map.reset_view = Berrezarri ikuspegia
+library.map.no_photos = Ikuspegi honetan ez dago GPS kokalekua duen argazkirik. Gehitu geoetiketatutako argazkiak edo aldatu galeriako iragazkiak.
+library.map.no_photos_cloud = Hemen ez dago GPS kokalekua duen argazkirik. Aukeratu beste karpeta edo multzo bat, edo garbitu bilaketa.
+library.map.hint = Arrastatu mugitzeko · Korritu zoom egiteko · Egin klik markatzaile batean haren argazkiak ikusteko · Egin klik bikoitza argazki batean editatzeko
+library.map.n_at_marker.one = Argazki {n} markatzaile honetan
+library.map.n_at_marker.other = {n} argazki markatzaile honetan
+library.map.n_in_marker.one = Argazki {n} markatzaile honen barruan
+library.map.n_in_marker.other = {n} argazki markatzaile honen barruan
+library.map.attribution = © OpenStreetMap kolaboratzaileak
+
+# Eremu-mugen editorea
+library.map.draw_area = Marraztu eremua
+library.map.drawing = Marrazten…
+library.map.clear_boundary = Garbitu muga
+library.map.editor_hint = arrastatu mugitzeko · korritu zoom egiteko · arrastatu Maius sakatuta marrazteko
+
+# Mapa-iragazkia
+library.map_filter.title = Mapa-iragazkia
+library.map_filter.drawn_area = marraztutako eremua
+library.map_filter.apply_named = Aplikatu aukerak {name} kokalekuan hartutako argazkiak soilik erakusten ditu; EXIF kokalekurik gabekoak ezkutatu egiten dira.
+library.map_filter.apply_drawn = Aplikatu aukerak {south}°, {west}° eta {north}°, {east}° artean hartutako argazkiak soilik erakusten ditu; EXIF kokalekurik gabekoak ezkutatu egiten dira.
+library.map_filter.draw_first = Marraztu muga bat (Maius sakatuta arrastatuz edo aurrezarpen-fitxa bat erabiliz), eta gero sakatu Aplikatu. Ezer marraztu gabe aplikatzeak iragazkia desaktibatzen du.
+library.map_filter.turn_off = Desaktibatu iragazkia
+
+# Kameratik inportatzea
+library.import.title = Inportatu kameratik
+library.import.from = Inportatu hemendik: {name}
+library.import.no_cameras = Ez da kamerarik aurkitu.
+library.import.no_cameras_help = Konektatu kamera, memoria-txartel edo iPhone bat. iPhonea desblokeatuta egon behar da, eta Ordenagailu honetan fidatu galderari erantzun behar zaio argazkiak erakutsi aurretik; egin hori, itxaron pixka bat eta sakatu Arakatu berriro. Disko gisa muntatzen den eta DCIM karpeta duen edozein gailuk ere balio du.
+library.import.scan_again = Arakatu berriro
+library.import.pick_source = Kamera bat baino gehiago dago erabilgarri. Inportatu hemendik:
+library.import.via_image_capture = Irudi-kaptura bidez
+library.import.boundary_named = Muga: {name} — EXIF kokalekua haren barruan duten argazkiak soilik inportatuko dira; kokalekurik gabekoak kameran geratuko dira.
+library.import.boundary_drawn = Muga: {south}°, {west}° eta {north}°, {east}° artean — EXIF kokalekua haren barruan duten argazkiak soilik inportatuko dira.
+library.import.no_boundary = Mugarik ez — kamerako guztia inportatuko da.
+library.import.destination = ~/Pictures/Schist Imports/{name} karpetara — dagoeneko inportatutako fitxategiak saltatzen dira; beraz, berriro exekutatzea segurua da.
+library.import.selected_area = Hautatutako eremua
+library.import.locked_help = Gailua blokeatuta badago: desblokeatu, sakatu Ordenagailu honetan fidatu eskatzen duenean, mantendu konektatuta eta saiatu berriro.
+library.import.try_again = Saiatu berriro
+library.import.add_to_gallery = Gehitu Galeriara
+
+# Inportazioaren egoera
+library.import.needs_home = Inportazioak etxeko direktorio bat behar du bertara kopiatzeko
+library.import.importing_from = {source} iturritik inportatzen…
+library.import.importing_in_place = {place} kokalekuan hartutako argazkiak {source} iturritik inportatzen…
+library.import.device_macos_only = Gailuetatik zuzenean inportatzea macOS eginbidea da
+library.import.failed = Inportazioak huts egin du: {error}
+library.import.from_failed = {name} iturritik inportatzeak huts egin du
+library.import.locked = {name} blokeatuta dago — desblokeatu eta sakatu Fidatu jarraitzeko
+library.import.reading_catalog = {name} gailuko argazki-katalogoa irakurtzen…
+library.import.progress_from = {n}/{total} argazkia {name} gailutik inportatzen…
+library.import.progress = {n}/{total} fitxategia inportatzen…
+library.import.choose_photos = Aukeratu inportatzeko argazkiak eta bideoak…
+library.import.photos_open_failed = Ezin izan da argazki-liburutegia ireki: {error}
+library.import.done.one = Fitxategi {n} inportatu da {dest} kokalekura
+library.import.done.other = {n} fitxategi inportatu dira {dest} kokalekura
+library.import.done_in_place.one = {place} kokalekuan hartutako argazki {n} inportatu da {dest} kokalekura ({filtered} beste leku batekoa edo kokalekurik gabea kameran utzi da)
+library.import.done_in_place.other = {place} kokalekuan hartutako {n} argazki inportatu dira {dest} kokalekura ({filtered} beste leku batekoak edo kokalekurik gabeak kameran utzi dira)
+library.import.n_failed.one = {n} huts eginda
+library.import.n_failed.other = {n} huts eginda
+library.import.no_dcim = {source} gailuak ez du DCIM karpetarik
+library.import.already_running = Inportazio bat martxan dago dagoeneko
+library.import.camera_gone = Kamera hori jada ez dago konektatuta
+library.import.camera_disconnected = Kamera deskonektatu egin da inportazioaren erdian
+library.import.unknown_error = Errore ezezaguna
+library.import.picker_needs_ios14 = Argazki-hautatzaileak iOS 14 edo berriagoa behar du
+library.import.picker_unavailable = Argazki-hautatzailea ez dago erabilgarri
+library.import.no_window = Ez dago hautatzailea erakusteko leihorik
+
+library.volume.iphone = iPhone edo iPad
+library.volume.camera = Kamera
+library.volume.phone = Telefonoa
+
+# Karpetak fitxetan irekitzea
+library.open_folder.opened.one = Irudi {n} ireki da
+library.open_folder.opened.other = {n} irudi ireki dira
+library.open_folder.opened_first = {total} irudietatik lehenengo {n}ak ireki dira; galeriak gainerakoak dauzka
+
+# Argazki-bilaketaren modeloak
+library.search_models.title = Argazki-bilaketa
+library.search_models.intro = Argazkiak haien edukiaren arabera bilatzeko bi modelo behar dira; behin deskargatu eta makina honetan gordetzen dira. Lokalki exekutatzen dira: ez da inoiz argazkirik makinatik ateratzen.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = Apple-ren MobileCLIP
+library.search_models.export = Xenova-ren ONNX esportazioa
+library.search_models.license = Lizentzia
+library.search_models.download_note = Deskargatzeak biak instalatzen ditu ({mb} MB guztira) eta haien lizentziak onartzen ditu. Gero berriro ken daitezke Galeria ▸ Kudeatu modeloak… menuan.
+library.search_models.agree = Onartu eta deskargatu
+
+# Eskuineko klikaren menua
+library.menu.add_all_to = Gehitu guztiak hona: {name}
+library.menu.add_all_to_new_bucket = Gehitu guztiak multzo berri batera…
+library.menu.edit_n_in_tabs = Editatu {n} fitxetan
+library.menu.view_name_people = Ikusi eta izendatu pertsonak
+library.menu.reveal = Erakutsi fitxategi-kudeatzailean
+library.menu.add_to = Gehitu hona: {name}
+library.menu.add_to_new_bucket = Gehitu multzo berri batera
+library.menu.remove_from_bucket = Kendu multzo honetatik
+library.menu.save_n_as_zip = Gorde {n} ZIP gisa…
+library.menu.save_image_as = Gorde irudia honela…
+library.menu.process = Prozesatu…
+library.menu.process_n = Prozesatu {n} argazki…
+library.menu.move_to_folder = Mugitu karpetara…
+library.menu.move_n_to_folder = Mugitu {n} karpetara…
+library.menu.revert = Leheneratu jatorrizkoa
+library.menu.revert_n = Leheneratu {n} jatorrizkoetara
+library.menu.upload_to_cloud = Kargatu Schist Cloud-era…
+library.menu.watch_local_folder = Behatu ordenagailu honetako karpeta bat…
+library.menu.new_cloud_folder = {glyph} Schist Cloud karpeta berria…
+library.menu.new_local_bucket = Ordenagailu honetako multzo berria…
+library.menu.new_cloud_bucket = {glyph} Schist Cloud multzo berria…
+library.menu.edit_bucket = Editatu multzoa…
+library.menu.select_all_n = Hautatu guztiak ({n})
+library.menu.save_all_as_zip = Gorde guztiak ZIP gisa… ({n})
+library.menu.process_all = Prozesatu guztiak… ({n})
+library.menu.move_all_to_folder = Mugitu guztiak karpetara…
+library.menu.clear_added = Garbitu gehitutako argazkiak
+library.menu.clear_bucket = Garbitu multzoa
+library.menu.delete_bucket = Ezabatu multzoa
+library.menu.show_person = Erakutsi {name}
+library.menu.rename_person = Aldatu izena…
+library.menu.forget_person.one = Ahaztu pertsona (aurpegi {n})
+library.menu.forget_person.other = Ahaztu pertsona ({n} aurpegi)
+
+# Mugitzea, konprimitzea, gordetzea eta prozesatzea
+library.ops.moving.one = Argazki {n} {dest} kokalekura mugitzen…
+library.ops.moving.other = {n} argazki {dest} kokalekura mugitzen…
+library.ops.moved.one = Argazki {n} {dest} kokalekura mugitu da
+library.ops.moved.other = {n} argazki {dest} kokalekura mugitu dira
+library.ops.moved_partial = {total} argazkietatik {n} mugitu dira {dest} kokalekura; gainerakoak erregistroan daude
+library.ops.move_here = Mugitu hona
+library.ops.no_export_format = Hemengo formatu bakar batek ere ezin du irudi bat gorde
+library.ops.saved_size = {name} gordeta ({w} × {h})
+library.ops.save_failed = Ezin izan da gorde: {error}
+library.ops.opening_first = {total} argazkietatik lehenengo {n}ak irekitzen; galeriak gainerakoak dauzka
+library.ops.nothing_to_revert = Ez dago leheneratzeko ezer: argazki horietako batek ere ez du ediziorik
+library.ops.reverted.one = Argazki {n} jatorrizkora leheneratu da; edizioa versions/ direktorioan gorde da
+library.ops.reverted.other = {n} argazki jatorrizkoetara leheneratu dira; edizioak versions/ direktorioan gorde dira
+library.ops.no_file_name = Fitxategiak ez du izenik
+library.zip.nothing_all_held = Ez dago konprimitzeko ezer: eduki-iragazkiak {n} argazki horiek guztiak kanpo uzten ditu
+library.zip.failed = ZIP sortzeak huts egin du: {error}
+library.zip.progress = ZIP konprimitzen: {n}/{total}…
+library.zip.n_held.one = ({n} kanpoan utzi du eduki-iragazkiak)
+library.zip.n_held.other = ({n} kanpoan utzi ditu eduki-iragazkiak)
+library.zip.done.one = Argazki {n} {dest} kokalekuko ZIPean konprimitu da
+library.zip.done.other = {n} argazki {dest} kokalekuko ZIPean konprimitu dira
+library.zip.done_partial = {total} argazkietatik {n} {dest} kokalekuko ZIPean konprimitu dira; gainerakoak erregistroan daude
+library.zip.nothing_readable = Ezin izan da ezer irakurri ZIPean konprimitzeko
+library.zip.too_large = Handiegia da zip64 gabeko ZIP baterako
+library.batch.nothing_to_do = Ez dago zer eginik: aukeratu biraketa, handitzea edo doikuntza bat lehenik
+library.batch.save_copies_here = Gorde kopiak hemen
+library.batch.processing.one = Argazki {n} prozesatzen…
+library.batch.processing.other = {n} argazki prozesatzen…
+library.batch.progress = {n}/{total} prozesatuta — {name}
+library.batch.failed = Prozesatzeak huts egin du: {error}
+library.batch.done.one = Argazki {n} prozesatu da
+library.batch.done.other = {n} argazki prozesatu dira
+library.batch.done_partial = {total} argazkietatik {n} prozesatu dira; gainerakoak erregistroan daude
+library.batch.model_would_not_load = {name} modeloa ezin izan da kargatu
+library.batch.no_psd_writer = Ez dago PSD idazlerik kargatuta
+
+# Ikustailea eta Pertsonak albuma
+library.viewer.back = ‹ Itzuli argazkietara
+library.viewer.could_not_decode = Ezin izan da argazki hau deskodetu.
+library.viewer.label_auto = {name} · automatikoa
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = ARGAZKI HONETAKO PERTSONAK
+library.viewer.faces_intro = Aurpegiak behin deskargatzen den modelo txiki batek aurkitzen ditu. Koadroak eskuz ere marraz daitezke.
+library.viewer.looking_for_faces = Aurpegiak bilatzen…
+library.viewer.no_faces = Ez da aurpegirik aurkitu. Arrastatu koadro bat baten inguruan pertsona eskuz gehitzeko.
+library.viewer.help = Egin klik aurpegi batean izendatzeko; Sartu teklak gordetzen du. Arrastatu argazkiaren gainean detektagailuak aurkitu ez duen aurpegia markatzeko. ← → teklek argazkiz aldatzen dute; Ihes teklak atzera egiten du.
+library.viewer.not_them = Ez da pertsona hori
+library.viewer.remove_name = Kendu izena
+library.viewer.not_a_face = Ez da aurpegia
+library.viewer.auto = automatikoa
+library.viewer.is_this = {name} da?
+library.viewer.someone_else = Beste norbait
+library.viewer.add_name = Gehitu izena…
+library.viewer.who_is_this = Nor da hau?
+library.people.rename_title = Aldatu pertsonaren izena
+library.people.merge_warning = Norbaitek “{name}” izena du dagoeneko: gordetzeak biak bateratuko ditu.
+library.people.merge_note = Beste norbaitek dagoeneko duen izena jartzeak bi pertsonak bateratzen ditu.
+library.people.named = {name} izendatuta
+library.people.named_followed.one = {name} izendatuta · beste aurpegi {n} automatikoki parekatu da
+library.people.named_followed.other = {name} izendatuta · beste {n} aurpegi automatikoki parekatu dira
+
+# Argazkiak aplikazioan gordetzea
+library.photos.saving = Argazkiak aplikazioan gordetzen…
+library.photos.saved = Argazkiak aplikazioan gordeta
+library.photos.save_failed = Ezin izan da Argazkiak aplikazioan gorde: {error}
+library.photos.no_document = ez dago dokumenturik irekita
+library.photos.no_png_codec = PNG kodeka ez dago kargatuta
+library.photos.no_answer = argazki-liburutegiak ez du erantzun
+library.photos.bad_url = ezin izan da fitxategiaren bidea URL bihurtu
+library.photos.unavailable = argazki-liburutegia ez dago erabilgarri
+library.photos.declined = argazki-liburutegiak eskaera ukatu du
+
+# Aplikazioarekin partekatutako fitxategiak
+library.shared.needs_documents = Galeriak Dokumentuak karpeta bat behar du bertara kopiatzeko
+library.shared.added.one = Argazki {n} gehitu da Galeriara
+library.shared.added.other = {n} argazki gehitu dira Galeriara
+library.shared.open_needs_documents = Irekitzeko Dokumentuak karpeta bat behar da bertara kopiatzeko
+library.shared.could_not_open = Ezin izan da {name} ireki: {error}
+
+# Bideo-aurrebista
+video.invalid_file = Hau ez da bideo-fitxategi lokal bat.
+video.install_gstreamer = Bideo-aurrebistak GStreamer 1.x eta bideo-deskodetzailearen pluginak behar ditu. Instalatu eta ireki bideoa berriro. Kanpoko editore bat aukeratu ahal izango duzu hala ere.
+video.decode_failed = Ezin izan da bideo-fotograma hau deskodetu.
+video.no_stream = Fitxategi honek ez du bideo-korronterik.
+video.no_duration = Ezin izan da bideoaren iraupena irakurri.
+video.frame_too_large = Bideo-fotograma hau handiegia da irekitzeko.
+video.first_frame = Lehenengo fotograman zaude dagoeneko.
+video.editor_failed = Ezin izan da bideo-editorea ireki: {error}
+video.editor_unavailable = Ezin izan da aukeratutako bideo-editorea ireki. Aukeratu aplikazioa berriro.
+video.loading = Bideoa kargatzen…
+video.searching = Inguruan fotograma zorrotzago bat bilatzen…
+video.capturing = Bereizmen osoko fotograma irekitzen…
+video.frame_title = {name} — {time} fotograma
+video.frame_layer = Bideo-fotograma
+video.already_sharpest = Hau da dagoeneko inguruko fotogramarik zorrotzena.
+video.found_frame = Inguruko fotogramarik zorrotzena hautatu da hemen: {time}.
+video.choose_editor = Aukeratu bideo-editorea…
+video.back = Itzuli Galeriara
+video.pause = Pausatu
+video.play = Erreproduzitu
+video.previous = Aurreko fotograma
+video.next = Hurrengo fotograma
+video.sharper = Bilatu fotograma zorrotzagoa
+video.edit_frame = Editatu fotograma
+video.open_editor = Ireki bideo-editorean
+video.preview_help = Soinurik gabeko aurrebista · Zuriunea: erreproduzitu/pausatu · Geziak: fotogramaz fotograma mugitu · Segundo erdiko tartean bilatzen du bi aldeetara. Editatzeak beste irudi bat irekitzen du.
+video.badge = ▶ Bideoa
+video.view = Ikusi bideoa
+
+video.open_another_app = Ireki beste aplikazio batean…
+video.preview_help_touch = Soinurik gabeko aurrebista · Arrastatu denbora-lerroa edo mugitu fotogramaz fotograma. Fotograma zorrotzagoa bilatzeak segundo erdiko tartean bilatzen du bi aldeetara. Editatzeak beste irudi bat irekitzen du.
+video.importing = Argazkiak eta bideoak inportatzen…
+video.import_failed = Ezin izan da multimedia inportatu: {error}
+video.import_failed_simple = Ezin izan da multimedia hau inportatu edo partekatu.

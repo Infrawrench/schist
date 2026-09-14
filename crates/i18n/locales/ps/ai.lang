@@ -1,0 +1,32 @@
+# د AI اړخپټې حالتونه، یادښتونه او د کارن لپاره تېروتنې.
+
+ai.status.panel_shown = د AI چوکاټ ښکاره شو
+ai.status.panel_hidden = د AI چوکاټ پټ شو — لید ▸ د AI چوکاټ ({shortcut}) یې بېرته راولي
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} ونښلول شو
+ai.info.now_in_gallery = اوس په نندارتون کې یاست.
+ai.info.now_in_editor = اوس په سمونګر کې یاست.
+ai.tool.shell_command = د شېل قومانده
+
+ai.error.cli_missing = د {backend} CLI («{binary}») په PATH کې نشته. لومړی یې ولګوئ او ورننوځئ.
+ai.error.endpoint_failed = د MCP پایټکي پیل ناکام شو: {error}
+ai.error.binding_endpoint = د MCP پایټکی تړل کېږي
+ai.error.spawning_endpoint_thread = د MCP پایټکي بهیر پیل کېږي
+ai.error.runtime_failed = د استازي د چلښت چاپېریال پیل ناکام شو: {error}
+ai.error.worker_failed = د {backend} کارکوونکي پیل ناکام شو: {error}
+ai.error.did_not_start = {backend} پیل نشو: {error}
+ai.error.switch_model_failed = د موډل بدلول ناکام شول: {error}
+ai.error.send_failed = د غوښتنې لېږل ناکام شول: {error}
+ai.error.interrupt_failed = درول ناکام شول: {error}
+ai.error.locating_binary = د Schist اجرایي دوتنه موندل کېږي
+ai.error.starting_app_server = د Codex اپ سرور پیل کېږي
+ai.error.attaching_app_server = د Codex اپ سرور سره نښلول کېږي
+ai.error.initializing_app_server = د Codex اپ سرور چمتو کېږي
+ai.error.resuming_thread = د Codex لړۍ بیا پیلېږي
+ai.error.starting_thread = د Codex لړۍ پیلېږي
+
+ai.model.opus_detail = تر ټولو وړتیا لرونکې کچه
+ai.model.sonnet_detail = د ورځنیو چارو لپاره اغېزمن
+ai.model.haiku_detail = د چټکو ځوابونو لپاره تر ټولو چټک
+ai.model.codex_catalog = د Codex لړلیک

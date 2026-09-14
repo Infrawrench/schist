@@ -1,0 +1,234 @@
+# Dialogos modal.
+
+dialog.save_ellipsis = Salvar…
+dialog.use_foreground = Usar prime plano
+dialog.downloading = Discargamento…
+dialog.downloading_of = Discargamento… {got} de {total}
+dialog.no_config_dir = (necun directorio de configuration)
+dialog.layer_props.title = Proprietates del strato
+
+dialog.export.format = Formato
+dialog.export.dither = Tramage
+dialog.export.dither_note = Applicar tramage al reduction a 8 bits
+dialog.export.export_ellipsis = Exportar…
+
+dialog.batch.title = Processar photos
+dialog.batch.note_edit.one = {n} photo — salvate como modification de galeria; le original nunquam es alterate.
+dialog.batch.note_edit.other = {n} photos — salvate como modificationes de galeria; le originales nunquam es alterate.
+dialog.batch.note_edit_edited.one = {n} photo, {edited} jam modificate — le recepta es applicate super le modification, e le modification precedente es conservate como version.
+dialog.batch.note_edit_edited.other = {n} photos, {edited} jam modificate — le recepta es applicate super le modificationes, e le modificationes precedente es conservate como versiones.
+dialog.batch.note_copies.one = {n} photo — copia applanate; le original nunquam es alterate.
+dialog.batch.note_copies.other = {n} photos — copias applanate; le originales nunquam es alterate.
+dialog.batch.note_copies_edited.one = {n} photo, {edited} jam modificate — le copia es create a partir del modification.
+dialog.batch.note_copies_edited.other = {n} photos, {edited} jam modificate — le copias es create a partir del modificationes.
+dialog.batch.turn = Tornar
+dialog.batch.rotate = Rotar
+dialog.batch.flip = Reflecter
+dialog.batch.upscale = Augmentar scala
+dialog.batch.colour = Color
+dialog.batch.add_adjustment = Adjustamento…
+dialog.batch.output = Destination
+dialog.batch.save_as = Salvar como
+dialog.batch.process = Processar
+dialog.batch.process_n = Processar {n}
+dialog.batch.nothing_to_do = Nihil a facer: selige primo un rotation, un augmentation de scala o un adjustamento
+
+dialog.content_aware_scale.title = Scala sensibile al contento
+dialog.content_aware_scale.note = Retira le juncturas a basse detalio. Un selection marca lo que debe esser protegite.
+dialog.stroke.title = Traciar contorno
+dialog.stroke.location = Position
+dialog.stroke.inside = Intra
+dialog.stroke.outside = Foras
+dialog.stroke.note = Tracia le selection con le color de prime plano.
+dialog.fill.contents = Contento
+
+dialog.color_range.title = Gamma de colores
+dialog.color_range.sampled = Prelevate
+dialog.color_range.fuzziness = Tolerantia diffuse
+dialog.color_range.note = Selige sur le strato active le pixels presso al color prelevate.
+dialog.file_picker.up = ↑ In alto
+dialog.file_picker.empty = Nihil hic
+dialog.file_picker.choose_folder = Seliger iste dossier
+
+dialog.filter.camera_raw_development = Developpamento Camera Raw
+dialog.filter.reset_as_shot = Reinitialisar al captura
+dialog.filter.raw_note = Disveloppa de novo le strato active a partir de su datos de sensor original.
+dialog.filter.note = Se applica al strato active, intra le selection.
+
+dialog.fonts.title = Typos de litteras mancante
+dialog.fonts.install_named = Installar {name}
+dialog.fonts.no_document = Necun documento es aperte, dunque il ha nihil a verificar.
+dialog.fonts.all_installed = Cata typo de litteras usate per iste documento es installate. Su texto usa le typos de litteras con le quales su disposition esseva create.
+dialog.fonts.missing_intro = Iste documento usa typos de litteras que tu non possede. Le texto es legibile con un substituto, ma su largores e rupturas de linea differe del disposition original.
+dialog.fonts.footer = Le discargamentos proveni del catalogo aperte Google Fonts e es conservate in {dir}. Un typo de litteras sin licentia aperte nunquam es obtenite — quando un designo libere con metricas compatibile existe, illo es offerite in su loco; isto restitue le disposition perque le distantia de avancemento horizontal de cata character corresponde.
+dialog.fonts.user_font_dir = tu directorio personal de typos de litteras
+
+dialog.models.title = Modellos de Neural Filters
+dialog.models.built_in = Incorporate · {size}
+dialog.models.installed = Installate · {size}
+dialog.models.not_installed = Non installate · {size}
+dialog.models.not_in_browser = Non disponibile in le navigator · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Le modellos es conservate in {dir}. Le filtros sin modello recurre al tractamento de signal e lo declara.
+
+dialog.new_doc.title = Nove documento
+dialog.new_doc.picker_title = Nove file
+dialog.new_doc.custom_ellipsis = Personalisate…
+dialog.new_doc.preset = Predefinition
+dialog.new_doc.preset_default = Predefinite (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Quadrate (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Littera SUA, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Crear
+dialog.new_doc.created = Nove documento: {w} × {h} px
+
+dialog.open.image_title = Aperir imagine
+dialog.open.image_prompt = Aperir “{name}” in un nove scheda, o adder lo al documento actual como nove strato?
+dialog.open.new_tab = Nove scheda
+dialog.open.new_layer = Nove strato
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = iste {n} file
+dialog.open.these_files.other = iste {n} files
+dialog.open.shared_title_one = Imagine compartite
+dialog.open.shared_title_many = Imagines compartite
+dialog.open.shared_prompt = Adder {what} al galeria, o aperir in le editor?
+dialog.open.add_to_gallery = Adder al galeria
+dialog.open.open_in_editor = Aperir in le editor
+dialog.open.heic_title = Supporto HEIC
+dialog.open.heic_needs_decoder = Aperir “{name}” require un decodificator HEVC, que non es installate sur iste systema.
+dialog.open.heic_offer = Schist pote discargar un compilation de libheif {version} destinate solmente al decodification, con le decodificator HEVC libde265 (≈5 MB). Ambes ha licentia LGPL-3.0; le textos de lor licentias es installate presso al bibliotheca, e le codice fonte es disponibile sur le pagina del projecto.
+dialog.open.licenses_source = Licentias e fonte
+dialog.open.folders_title = Dossieres deponite
+dialog.open.n_folders.one = {n} dossier
+dialog.open.n_folders.other = {n} dossieres
+dialog.open.open_in_tabs = Aperir in schedas
+dialog.open.open_first_in_tabs = Aperir le prime {n} in schedas
+dialog.open.open_n_in_tabs.one = Aperir {n} in un scheda
+dialog.open.open_n_in_tabs.other = Aperir {n} in schedas
+dialog.open.folder_holds.one = {what} contine {n} imagine que Schist pote aperir (subdossieres includite).
+dialog.open.folder_holds.other = {what} contine {n} imagines que Schist pote aperir (subdossieres includite).
+dialog.open.folders_note = Adder al galeria observa le dossieres in lor loco — nihil es copiate, e le modificationes es versionate presso a cata photo. Aperir in schedas carga ora cata imagine in le editor.
+
+dialog.plugins.title = Plug-ins
+dialog.plugins.kind_filter = filtro
+dialog.plugins.kind_format = formato
+dialog.plugins.kind_unavailable = indisponibile
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Le plug-ins es cargate ab {dir}
+dialog.plugins.none = Necun plug-in es ancora installate.
+dialog.plugins.install_ellipsis = Installar…
+dialog.plugins.photoshop_heading = Plug-ins de Photoshop
+dialog.plugins.loaded_from = Cargate ab {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Preferentias
+dialog.prefs.theme = Thema
+dialog.prefs.theme_dark = Obscur
+dialog.prefs.theme_light = Clar
+dialog.prefs.grid_spacing = Spatiamento del grilia
+dialog.prefs.snapping = Attraction
+dialog.prefs.snap_to = Attraher al guidas, grilia e bordos del tela
+dialog.prefs.rendering_intent = Intento de rendition
+dialog.prefs.intent_perceptual = Perceptual
+dialog.prefs.intent_relative = Colorimetric relative
+dialog.prefs.intent_saturation = Saturation
+dialog.prefs.intent_absolute = Colorimetric absolute
+dialog.prefs.scrolling = Rolamento
+dialog.prefs.zoom_with_scroll = Zoom con le rota de rolamento
+dialog.prefs.rendering = Rendition
+dialog.prefs.gpu_compositing = Composition GPU
+dialog.prefs.diagnostics = Diagnostico
+dialog.prefs.crash_reports = Scriber un reporto local de crash in caso de panico
+dialog.prefs.crash_upload = Inviar lo etiam al disveloppatores
+dialog.prefs.telemetry = Inviar un signal quotidian anonyme
+dialog.prefs.diagnostics_note = Le parametros de diagnostico prende effecto al proxime initiation de Schist.
+dialog.prefs.updates = Actualisationes
+dialog.prefs.check_updates = Cercar nove versiones al initiation
+dialog.prefs.keyboard_shortcuts = Vias breve de claviero: {path}
+dialog.prefs.nsfw_needs_model = Require le modello Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = discarga lo in Gerer modellos…
+dialog.prefs.hide_flagged = Celar photos signalate
+
+dialog.profile.profile = Profilo
+dialog.profile.assign_title = Assignar profilo
+dialog.profile.convert_title = Converter a profilo
+dialog.profile.assign = Assignar
+dialog.profile.convert = Converter
+dialog.profile.assign_note = Reinterpreta le valores de pixel existente sub le nove profilo.
+dialog.profile.convert_note = Rescribe le valores de pixel de sorta que le colores conserva lor apparentia.
+
+dialog.save_image.title = Salvar imagine como
+dialog.save_image.note = {name} — le modification, si un existe; le original nunquam es alterate.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Dimension del imagine
+dialog.size.canvas_title = Dimension del tela
+dialog.size.constrain = Limitar
+dialog.size.keep_proportions = Conservar proportiones
+dialog.size.resample = Reamostrar
+dialog.size.bicubic = Bicubic
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Vicino le plus proxime
+dialog.size.anchor = Ancora
+dialog.size.currently = Actualmente {w} × {h} px
+dialog.size.image_size_status = Dimension del imagine: {w} × {h}
+dialog.size.canvas_size_status = Dimension del tela: {w} × {h}
+
+dialog.update.title = Actualisation disponibile
+dialog.update.available = Schist {version} es disponibile. Iste copia es {current}.
+dialog.update.installing = Installation del actualisation…
+dialog.update.can_install = Schist pote discargar lo ({size}) e installar lo super iste copia.
+dialog.update.external = Iste copia proveni de un systema que lo gere — un gestor de pacchettos, un AppImage o tu proprie compilation — dunque illo se actualisa del maniera in que illo esseva installate.
+dialog.update.later = Plus tarde
+dialog.update.release_notes = Notas de version
+dialog.update.update_restart = Actualisar e reinitiar
+dialog.update.open_page = Aperir pagina del version
+
+dialog.style.title = Stilo de strato
+dialog.style.bevel = Bisello e relievo
+dialog.style.stroke = Contorno
+dialog.style.inner_shadow = Umbra interne
+dialog.style.inner_glow = Luminescentia interne
+dialog.style.satin = Satin
+dialog.style.color_overlay = Superposition de color
+dialog.style.gradient_overlay = Superposition de gradiente
+dialog.style.outer_glow = Luminescentia externe
+dialog.style.drop_shadow = Umbra projectate
+dialog.style.blur = Disfocalisation gaussian
+dialog.style.gradient_from = Origine del superposition de gradiente
+dialog.style.gradient_to = Destination del superposition de gradiente
+dialog.style.soften = Suavificar
+dialog.style.depth = Profunditate
+dialog.style.altitude = Altitude
+dialog.style.highlight = Lumine intense
+dialog.style.shadow = Umbra
+dialog.style.outer_bevel = Bisello externe
+dialog.style.inner_bevel = Bisello interne
+dialog.style.emboss = Relievo
+dialog.style.pillow_emboss = Relievo a cossino
+dialog.style.linear = Linear
+dialog.style.radial = Radial
+dialog.style.reverse = Inverter
+dialog.style.from_to = Ab / A
+dialog.style.from_fg = Ab = PP
+dialog.style.to_fg = A = PP
+dialog.style.precise = Precise
+dialog.style.knockout = Le strato elimina le umbra projectate
+
+dialog.color_picker.title = Selector de color ({what})
+dialog.color_picker.effect_color = Color de {effect}
+dialog.color_picker.note_color = Color del nota
+dialog.color_picker.new = nove
+dialog.color_picker.current = actual
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Reinitialisar canal
+dialog.curves.hint = Trahe pro formar · clicca pro adder · clicca con Alt pro remover
+
+dialog.prefs.camera_sync = Rolamento de camera
+dialog.prefs.camera_sync_enabled = Copia de securitate in Schist Cloud
+dialog.prefs.camera_sync_sign_in = Aperi session in Schist Cloud pro copiar tu rolamento de camera.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Cambiar…

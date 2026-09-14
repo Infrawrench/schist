@@ -1,0 +1,72 @@
+tool.brush.name = Broust
+tool.brush.description = Livañ un tres a riblennoù blot gant liv ar rakleur, mentet gant ment, kaleter ha disterded broust ar c'hemmer.
+tool.brush.history.stroke = Broust
+
+tool.pencil.name = Kreion
+tool.pencil.description = Livañ un tres a riblennoù kalet, hep kuñvaat, gant liv ar rakleur.
+tool.pencil.history.stroke = Kreion
+
+tool.eraser.name = Diverker
+tool.eraser.description = Diverkañ a-hed an tres, en ur lakaat ar gwiskad da zont treuzwelus en-dro.
+tool.eraser.history.stroke = Diverker
+
+tool.clone.name = Stamper klonañ
+tool.clone.description = Stamper klonañ: alt-klikit evit dibab ar poent tarzh, goude-se livit pikselioù eilet dioutañ gant an hevelep linkadur.
+tool.clone.history.stroke = Stamper klonañ
+
+tool.dodge.name = Sklaeraat
+tool.dodge.description = Sklaeraat ar pikselioù ma tremen an tres warno.
+tool.dodge.history.stroke = Sklaeraat
+tool.burn.name = Teñvalaat
+tool.burn.description = Teñvalaat ar pikselioù ma tremen an tres warno.
+tool.burn.history.stroke = Teñvalaat
+tool.sponge.name = Spoue
+tool.sponge.description = Peurvec'hiañ, pe divrec'hiañ, ar pikselioù ma tremen an tres warno.
+tool.sponge.history.stroke = Spoue
+
+tool.blur.name = Flou
+tool.blur.description = Lakaat da vezañ flou ar pikselioù ma tremen an tres warno, en ur zigreskiñ o lemmder.
+tool.blur.history.stroke = Flou
+tool.sharpen.name = Lemmañ
+tool.sharpen.description = Kreskiñ lemmder ar pikselioù ma tremen an tres warno.
+tool.sharpen.history.stroke = Lemmañ
+tool.smudge.name = Skubañ
+tool.smudge.description = Sachañ al liv a-hed an tres, evel pa vije bountet livadur gleb.
+tool.smudge.history.stroke = Skubañ
+
+tool.heal.name = Broust pare
+tool.heal.description = Broust pare: alt-klikit evit dibab an tarzh, goude-se livit; gwiadenn an tarzh a vez mesket gant liv ha gouloù al lec'h degemer.
+tool.heal.history.stroke = Broust pare
+tool.spot_heal.name = Broust pare pikoù
+tool.spot_heal.description = Broust pare pikoù: livit war un namm hag erlec'hiet e vo gant ur wiadenn kemeret tro-dro dezhañ — poent tarzh ebet da zibar.
+tool.spot_heal.history.stroke = Broust pare pikoù
+
+tool.history_brush.name = Broust an istor
+tool.history_brush.description = Livañ ar pikselioù en-dro diwar luc'hskeudenn istor an teul, en ur zober al labour diwezhatoc'h da get tres goude tres.
+tool.history_brush.history.stroke = Broust an istor
+
+tool.background_eraser.name = Diverker drekleur
+tool.background_eraser.description = Diverkañ al liv standilhonet dindan kreiz ar broust ha lezel ar pikselioù disheñvel, evit diframmañ un danvez diouzh e zrekleur.
+tool.background_eraser.history.stroke = Diverker drekleur
+
+tool.gradient.name = Ilrezenn
+tool.gradient.description = Riklait evit leuniañ ar gwiskad — dre an diuzadenn pa vez unan — gant un ilrezenn linennek eus liv ar rakleur da liv an drekleur a-hed ar rikladenn.
+tool.gradient.radial.name = Ilrezenn skinel
+tool.gradient.radial.description = Riklait eus ar c'hreiz war-zu an diavaez evit leuniañ gant un ilrezenn skinel etre livioù ar rakleur hag an drekleur.
+tool.gradient.option.gradient = Ilrezenn
+tool.gradient.option.reverse = Eilpennañ
+tool.gradient.option.dither = Darvanañ livioù
+tool.gradient.choice.foreground_to_background = Eus ar rakleur d'an drekleur
+tool.gradient.choice.foreground_to_transparent = Eus ar rakleur d'an treuzwelus
+tool.gradient.choice.linear = Linennek
+tool.gradient.choice.radial = Skinel
+tool.gradient.choice.angle = Korn
+tool.gradient.choice.reflected = Dishedet
+tool.gradient.choice.diamond = Diamant
+tool.gradient.history.gradient = Ilrezenn
+
+tool.bucket.name = Sailh liv
+tool.bucket.description = Klikit evit beuziñ an takad kevreet a liv heñvel dindan ar biz gant liv ar rakleur, hervez dalc'husted ar benveg.
+tool.bucket.option.contiguous = Kefin
+tool.bucket.option.all_layers = An holl wiskadoù
+tool.bucket.history.fill = Sailh liv

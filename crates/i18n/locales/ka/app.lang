@@ -1,0 +1,40 @@
+# ფილტრების გალერეა, შრიფტები, განახლებები და Vulkan-ის შემოწმება
+app.filter_gallery.title = ფილტრების გალერეა
+app.filter_gallery.stack = დასტა (გამოიყენება ქვემოდან ზემოთ)
+app.filter_gallery.no_settings = ამ ფილტრს პარამეტრები არ აქვს.
+
+app.fonts.not_open_licensed = ღია ლიცენზია არ აქვს · {substitute} მის მეტრიკას ემთხვევა
+app.fonts.missing_substituted = აკლია · ტექსტი შემცვლელი შრიფტით აიწყობა
+app.fonts.not_in_catalogue = {family} ღია შრიფტების კატალოგში არ არის
+app.fonts.no_faces = {family}-ისთვის ჩამოსატვირთი მოხაზულობები არ არის
+app.fonts.empty_response = ცარიელი პასუხი
+
+app.update.unreadable_response = პასუხის წაკითხვა შეუძლებელია: {error}
+app.update.no_temp_dir = ჩამოსატვირთად დროებითი საქაღალდე არ არის
+app.update.asset_has_path = გამოშვებაში რესურსის სახელი ბილიკს შეიცავს
+app.update.too_big = ჩამოტვირთული ფაილი გამოშვებაში მითითებულზე დიდია
+app.update.stopped_at = ჩამოტვირთვა შეწყდა {got} ბაიტზე, სულ {total}-დან
+app.update.hash_mismatch = ჩამოტვირთულის ჰეშია {got}, მოსალოდნელია {want}
+app.update.not_in_bundle = ეს ასლი აპის პაკეტში არ მდებარეობს
+app.update.no_parent_dir = აპის პაკეტს მშობელი საქაღალდე არ აქვს
+app.update.cannot_write = {dir}-ში ჩაწერა შეუძლებელია
+app.update.cannot_move_aside = {app}-ის გვერდზე გადატანა შეუძლებელია
+app.update.cannot_move_in = ახალი პაკეტის თავის ადგილას გადატანა შეუძლებელია
+app.update.cannot_run_ditto = /usr/bin/ditto ვერ ეშვება
+app.update.unpack_failed = ჩამოტვირთულის ამოღება ვერ მოხერხდა: {error}
+app.update.no_app_in_download = ჩამოტვირთული ფაილი Schist.app-ს არ შეიცავს
+app.update.cannot_run_codesign = /usr/bin/codesign ვერ ეშვება
+app.update.signature_invalid = ჩამოტვირთულის ხელმოწერა ვერ მოწმდება: {error}
+app.update.download_unsigned = ეს ასლი ხელმოწერილია, ჩამოტვირთული კი — არა
+app.update.different_developer = ჩამოტვირთული ფაილი სხვა დეველოპერის მიერაა ხელმოწერილი
+app.update.cannot_relaunch = ხელახლა გამშვები პროგრამის დაწყება შეუძლებელია
+app.update.not_installed_copy = ეს ასლი აქ ინსტალერს არ განუთავსებია
+app.update.cannot_start_installer = ინსტალერის დაწყება შეუძლებელია
+app.update.platform_unsupported = ამ პლატფორმაზე განახლებები იმავე გზით ყენდება, რომლითაც Schist დაყენდა
+
+app.vulkan.no_loader = schist: ამ სისტემაში Vulkan-ის ჩამტვირთველი არ არის, ამიტომ გამოსახვის საშუალებაც არ არსებობს.\n\nSchist გამოსახვას Vulkan-ის მეშვეობით ასრულებს, ხოლო `libvulkan.so.1` დაყენებული არ არის.\nსაჭიროა როგორც ჩამტვირთველი, ისე დრაივერი:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan-ის დრაივერი, რომელზეც ეს სესია მიუთითებს, არ არსებობს.\n\n{var} დაყენებულია და მისი დაყენება ჩამტვირთველის მიერ დრაივერების ძიებას *ანაცვლებს* და არ ავსებს. ამიტომ ეს არარსებული ფაილები დრაივერების სრულ სიას წარმოადგენს — და ამ სესიის Vulkan-ის ვერცერთი პროგრამა დრაივერს ვერ ხედავს, რამდენიც უნდა იყოს დაყენებული:\n\n{missing}\n    {var}={value}\n\nმიუთითეთ არსებულ მანიფესტზე — დაყენებული დრაივერები თავიანთ მანიფესტებს /usr/share/vulkan/icd.d-ში ათავსებს — ან ცვლადი მოხსენით და ჩამტვირთველს თავად მოაძებნინეთ. თუ სესია ამ ცვლადს კონფიგურაციის ფაილიდან ადგენს (Hyprland-ის `env =`, systemd-ის environment.d ჩანართი ან გარსის პროფილი), ცვლილება იქვე უნდა შეიტანოთ; უკვე გაშვებულ პროგრამებამდე მისაღწევად კი ხელახლა შესვლაა საჭირო.\n
+app.vulkan.override_note = \n{var}-ის მნიშვნელობაა {value}, რაც ჩამტვირთველის საკუთარ ძიებას ანაცვლებს: თუ ამ მანიფესტებიდან არცერთი ამ მანქანისთვის არ არის, პირველ რიგში სცადეთ ცვლადის მოხსნა.\n
+app.vulkan.no_driver = schist: Vulkan-ის დრაივერი დაყენებული არ არის, ამიტომ გამოსახვის საშუალებაც არ არსებობს.\n\nSchist გამოსახვას Vulkan-ის მეშვეობით ასრულებს. ჩამტვირთველი დაყენებულია, მაგრამ დრაივერს ვერ პოულობს — დრაივერი არცერთ საძიებო ადგილას არ არის რეგისტრირებული:\n\n{dirs}\n\nჩამტვირთველი დრაივერებისგან დამოუკიდებლად ვრცელდება, ამიტომ მიზეზი, ჩვეულებრივ, ერთი ნაკლული პაკეტია.\n\nდააყენეთ ამ მანქანის GPU-ს შესაბამისი დრაივერი:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA-ს საკუთრებითი დრაივერი თავის დრაივერს შეიცავს (Arch-ზე `nvidia-utils`, Debian-ზე `nvidia-driver`). ვირტუალურ მანქანაში ან იქ, სადაც GPU-ს დრაივერი ვერ დაყენდება, პროგრამული რასტერიზატორი გამოდგება: Arch-ზე `vulkan-swrast`, სხვაგან კი `mesa-vulkan-drivers`-ის ნაწილი. ის ნელია, მაგრამ პროგრამას გაუშვებს.\n{overridden}
+app.vulkan.no_device = schist: Vulkan-ის დრაივერი დაყენებულია, მაგრამ გამოსახვისთვის მოწყობილობას არ გვთავაზობს.\n\nშესაძლოა დრაივერი ამ GPU-ს არ უჭერდეს მხარს ან მასთან წვდომა ვერ ჰქონდეს — SSH-ით მუშაობისას ან კონტეინერში ხშირად /dev/dri აკლია. `vulkaninfo --summary` აჩვენებს, რას ხედავს ჩამტვირთველი.\n\nთუ ამ მანქანას GPU საერთოდ არ აქვს, პროგრამული რასტერიზატორი მის გარეშეც იმუშავებს: Arch-ზე `vulkan-swrast`, Debian-სა და Fedora-ზე კი `mesa-vulkan-drivers`-ის ნაწილი.\n
+app.vulkan.skip_hint = Schist-ის მაინც გასაშვებად და მისთვის ჩვეულებრივი გზით ჩავარდნის მისაცემად დააყენეთ {var}=1.

@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galerîya Fîltreyan
+app.filter_gallery.stack = Kom (ji jêr ber bi jor ve tê sepandin)
+app.filter_gallery.no_settings = Mîhengên vê fîltreyê tune.
+app.fonts.not_open_licensed = lîsansa vekirî tune · {substitute} bi pîvanên wê re li hev tê
+app.fonts.missing_substituted = winda ye · nivîs bi tîpeke cîgir tê nivîsandin
+app.fonts.not_in_catalogue = {family} di kataloga tîpên vekirî de tune
+app.fonts.no_faces = ji bo {family} tu şêwazê tîpan ê daxistinê tune
+app.fonts.empty_response = bersiva vala
+app.update.unreadable_response = bersiv nayê xwendin: {error}
+app.update.no_temp_dir = ji bo daxistinê peldanka demkî tune
+app.update.asset_has_path = di weşanê de navê çavkaniyê rêçekê dihewîne
+app.update.too_big = daxistin ji mezinahiya ku weşan dibêje mezintir e
+app.update.stopped_at = daxistin li {got} ji {total} baytan rawestiya
+app.update.hash_mismatch = heşa daxistinê {got} e, ne {want}
+app.update.not_in_bundle = ev kopî di nav pakêteke sepanê de tune
+app.update.no_parent_dir = pakêta sepanê peldanka dêûbav tune
+app.update.cannot_write = li {dir} nayê nivîsandin
+app.update.cannot_move_aside = {app} nikare were kişandin aliyekî
+app.update.cannot_move_in = pakêta nû nikare were bicihkirin
+app.update.cannot_run_ditto = /usr/bin/ditto nayê xebitandin
+app.update.unpack_failed = vekirina pakêta daxistinê têk çû: {error}
+app.update.no_app_in_download = di daxistinê de Schist.app tune
+app.update.cannot_run_codesign = /usr/bin/codesign nayê xebitandin
+app.update.signature_invalid = îmzeya daxistinê nayê piştrastkirin: {error}
+app.update.download_unsigned = ev kopî îmzekirî ye, lê daxistin ne îmzekirî ye
+app.update.different_developer = daxistin ji aliyê pêşdebirekî din ve hatiye îmzekirin
+app.update.cannot_relaunch = destpêkera ji nû ve nayê destpêkirin
+app.update.not_installed_copy = ev kopî ji aliyê sazkerê ve li vir nehatiye danîn
+app.update.cannot_start_installer = sazker nayê destpêkirin
+app.update.platform_unsupported = rojanekirinên li ser vê platformê bi heman awayê ku Schist hat sazkirin tên sazkirin
+app.vulkan.no_loader = schist: di vî pergalî de barkera Vulkan tune, ji ber vê yekê tiştek tune ku pê were xêzkirin.\n\nSchist bi Vulkan re dixe dîmenê, û `libvulkan.so.1` ne sazkirî ye.\nHem barkera hem ajoker pêwîst in:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ajokera Vulkan ku ev danişîn nîşanî dide li wir tune.\n\n{var} hatiye mîhengkirin, û ev mîheng li şûna zêdekirina li lêgerîna barkerê ya\najokeran, wê lêgerînê *diguhêre*. Ji ber vê yekê ev pelên ku tune ne,\nlîsteya tevahî ya ajokeran in — û her bernameya Vulkan di vê danişînê de\ntu ajoker nabîne, çiqas ajoker sazkirî bin jî:\n\n{missing}\n    {var}={value}\n\nWê nîşanî manîfesteyeke heyî bide — ajokerên sazkirî manîfesteyên xwe dixin\n/usr/share/vulkan/icd.d — an mîhengê rake û bihêle barkera bi xwe bibîne.\nDanişîna ku vê ji pelekî veavakirinê saz dike (mîhenga `env =` ya Hyprland,\npelekî systemd environment.d, profîla shellê) divê li wir were guhertin,\nû ji bo ku guherîn bigihîje bernameyên jixwe vekirî têketineke nû pêwîst e.\n
+app.vulkan.override_note = \n{var} wek {value} hatiye mîhengkirin, û ev li şûna lêgerîna barkerê ya xwe\ntê bikaranîn: ger ji wan manîfesteyan yek jî ji bo vê makîneyê nebe,\nrakirina vî mîhengî tiştê yekem ê ceribandinê ye.\n
+app.vulkan.no_driver = schist: tu ajokera Vulkan ne sazkirî ye, ji ber vê yekê tiştek tune ku li ser were xêzkirin.\n\nSchist bi Vulkan re dixe dîmenê. Barkera sazkirî ye û dibêje tu ajoker tune —\nli her du cihên lêgerînê tiştekî ajokerek tomar nekiriye:\n\n{dirs}\n\nBarker ji ajokeran cuda tê belavkirin, ji ber vê yekê pir caran tenê pakêtek kêm e.\n\nAjokera GPU-ya vê makîneyê saz bike:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nAjokera xwedîtiyê ya NVIDIA ajokera xwe bi xwe re tîne (`nvidia-utils` li Arch,\n`nvidia-driver` li Debian). Di makîneyeke rastandinî de, an li her cihê ku\ntu ajokera GPU-ê ya sazkirinê tune, rasterîzera nivîsbariyê dixebite:\n`vulkan-swrast` li Arch, li deverên din parçeyek ji `mesa-vulkan-drivers` e. Ew\nhêdî ye, lê dest pê dike.\n{overridden}
+app.vulkan.no_device = schist: ajokereke Vulkan sazkirî ye lê tu amûra dîmenkirinê pêşkêş nake.\n\nDibe ku ajoker vê GPU-ê negire nav xwe, an negihîje wê — bi SSH re, an\ndi konteynirekê de, pir caran /dev/dri kêm e. `vulkaninfo --summary` tiştê\nbarker dibîne rapor dike.\n\nGer vê makîneyê GPU tune be, rasterîzera nivîsbariyê bê GPU jî dixe dîmenê:\n`vulkan-swrast` li Arch, parçeyek ji `mesa-vulkan-drivers` li Debian û Fedora.\n
+app.vulkan.skip_hint = Ji bo ku Schist dîsa jî dest pê bike û bi awayê xwe têk biçe, {var}=1 saz bike.

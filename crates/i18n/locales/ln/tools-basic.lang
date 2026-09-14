@@ -1,0 +1,21 @@
+tool.move.name = Kotambolisa
+tool.move.description = Benda makambo ya kalke oyo eponami mpe ezali kosalelama mpo na komema yango na esika ya sika. Soki Opona-Yango-Moko efungwami, esika ofini eponaka liboso kalke moko boye — to etuluku mobimba — oyo ezali na nse ya elembo.
+tool.move.option.auto_select = Opona-Yango-Moko
+tool.move.history.move_layer = Kotambolisa kalke
+
+tool.eyedropper.name = Pipɛti
+tool.eyedropper.description = Zwá ndakisa ya langi oyo ezali na nse ya elembo mpe tyá yango na langi ya liboso, to na langi ya nsima soki osimbi alt. Soki ozali kobenda, ndakisa ya langi ekobaka kozwama.
+tool.eyedropper.option.sample_size = Bonene ya ndakisa
+tool.eyedropper.option.sample = Ndakisa
+tool.eyedropper.choice.point_sample = Ndakisa ya pwɛ
+tool.eyedropper.choice.average_3 = Mwayene 3 na 3
+tool.eyedropper.choice.average_5 = Mwayene 5 na 5
+tool.eyedropper.choice.average_11 = Mwayene 11 na 11
+tool.eyedropper.choice.average_31 = Mwayene 31 na 31
+tool.eyedropper.choice.all_layers = Ba kalke nyonso
+tool.eyedropper.choice.current_layer = Kalke ya sikoyo
+
+tool.hand.name = Lobɔkɔ
+tool.hand.description = Etambolisaka ndenge ozali kotala elilingi. Esika ya komona ezali ya lininisa, yango wana soki lininisa ezali te, esaleli oyo ebongolaka eloko moko te na dokima.
+tool.zoom.name = Zumu
+tool.zoom.description = Ekómisaka ndenge ozali kotala elilingi monene to moke. Esika ya komona ezali ya lininisa, yango wana soki lininisa ezali te, esaleli oyo ebongolaka eloko moko te na dokima.

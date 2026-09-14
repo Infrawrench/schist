@@ -1,0 +1,152 @@
+# Fitchî
+menu.file = Fitchî
+menu.file.new = Novea
+menu.file.open = Drovi…
+menu.file.open_recent = Drovi onk d' enawaire
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Foyter l' galreye…
+menu.file.close = Clôre
+menu.file.save = Schaper
+menu.file.save_as = Schaper et rlomer…
+menu.file.export = Ebaguer…
+menu.file.export_submenu = Ebaguer
+menu.file.export_artboards = Årtisses viè PNG…
+menu.file.export_slices = Côpes viè PNG…
+menu.file.save_to_photos = Schaper dins les Fotos
+menu.file.plugins = Tchôke-divins…
+menu.file.missing_fonts = Fontes ki mankèt…
+menu.file.check_for_updates = Cweri après des metaedjes a djoû…
+menu.file.quit = Cwiter
+menu.file.add_folder_to_gallery = Radjouter on ridant al galreye…
+menu.file.import_from_photos = Abaguer des Fotos…
+menu.file.import_from_camera = Abaguer del camera…
+
+# Candjî
+menu.edit = Candjî
+menu.edit.fill = Rimpli…
+menu.edit.stroke = Tracer l' boird…
+menu.edit.content_aware_fill = Rimpliçaedje ki comprind l' contnou
+menu.edit.content_aware_scale = Metaedje al schåle ki comprind l' contnou…
+menu.edit.puppet_warp = Distronnaedje marionete
+menu.edit.free_transform = Candjaedje libe
+menu.edit.transform = Candjî
+menu.edit.rotate_180 = Toûrner di 180°
+menu.edit.rotate_90_cw = Toûrner di 90° come l' ôrlodje
+menu.edit.rotate_90_ccw = Toûrner di 90° å rvier del ôrlodje
+menu.edit.flip_horizontal = Ritoûrner coûtchî
+menu.edit.flip_vertical = Ritoûrner astampé
+
+# Imådje
+menu.image = Imådje
+menu.image.mode = Môde
+menu.image.adjustments = Apontiaedjes
+menu.image.auto_tone = Tinte otomatike
+menu.image.auto_contrast = Contrasse otomatike
+menu.image.auto_color = Coleur otomatike
+menu.image.image_size = Grandeu di l' imådje…
+menu.image.canvas_size = Grandeu do tåvlea…
+menu.image.image_rotation = Toûrnaedje di l' imådje
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° come l' ôrlodje
+menu.image.rotate_90_ccw = 90° å rvier del ôrlodje
+menu.image.flip_canvas_horizontal = Ritoûrner l' tåvlea coûtchî
+menu.image.flip_canvas_vertical = Ritoûrner l' tåvlea astampé
+menu.image.crop_to_selection = Ricôper sol tchoezixhaedje
+menu.image.trim = Racourti
+menu.image.assign_profile = Aroyî on profil…
+menu.image.convert_to_profile = Covierser viè on profil…
+
+# Tchoezi
+menu.select = Tchoezi
+menu.select.color_range = Fortchete di coleurs…
+menu.select.modify = Candjî
+menu.select.border = Boird…
+menu.select.smooth = Lisse…
+menu.select.expand = Agrandi…
+menu.select.contract = Rapetixh…
+menu.select.feather = Adoûci les boirds…
+menu.select.transform_selection = Candjî l' tchoezixhaedje
+
+# Coûtche
+menu.layer = Coûtche
+menu.layer.layer_style = Stîle del coûtche…
+menu.layer.layer_comps = Compôzaedjes di coûtches
+menu.layer.new_layer_comp = Novea compôzaedje di coûtches
+menu.layer.delete_layer_comp = Disfacer {name}
+menu.layer.path = Tchimin
+menu.layer.fill_path = Rimpli l' tchimin
+menu.layer.stroke_path = Tracer l' boird do tchimin
+menu.layer.make_selection = Fé on tchoezixhaedje
+menu.layer.delete_path = Disfacer l' tchimin
+
+menu.adjust = Apontyî
+
+# Passete
+menu.filter = Passete
+menu.filter.filter_gallery = Galreye des passetes…
+menu.filter.liquify = Licefiyî
+menu.filter.vanishing_point = Pont di fwait
+menu.filter.manage_models = Manaedjî les modeles…
+menu.filter.camera_raw_development = Diswalpaedje Camera Raw…
+
+# Vuwe
+menu.view = Vuwe
+menu.view.rotate_view_cw = Toûrner l' vuwe come l' ôrlodje
+menu.view.rotate_view_ccw = Toûrner l' vuwe å rvier del ôrlodje
+menu.view.reset_view = Rimete li vuwe come divant
+menu.view.zoom_in = Agrandi
+menu.view.zoom_out = Rapetixh
+menu.view.fit_on_screen = Mete al grandeu del waitroûle
+menu.view.actual_size = 100%
+menu.view.rulers = Riles
+menu.view.grid = Grile
+menu.view.guides = Guides
+menu.view.notes = Notes
+menu.view.ai_panel = Panea AI
+menu.view.extras = Radjoutis
+menu.view.snap = Aclawer
+menu.view.clear_guides = Oister les guides
+menu.view.clear_notes = Oister les notes
+menu.view.clear_count = Oister l' contaedje
+menu.view.screen_mode = Môde del waitroûle
+menu.view.proof_colors = Sayî les coleurs
+menu.view.show_rulers = Mostrer les riles
+menu.view.hide_rulers = Catchî les riles
+menu.view.show_grid = Mostrer l' grile
+menu.view.hide_grid = Catchî l' grile
+menu.view.show_guides = Mostrer les guides
+menu.view.hide_guides = Catchî les guides
+menu.view.show_notes = Mostrer les notes
+menu.view.hide_notes = Catchî les notes
+menu.view.show_extras = Mostrer les radjoutis
+menu.view.hide_extras = Catchî les radjoutis
+menu.view.enable_snapping = Mete l' aclawaedje en alaedje
+menu.view.disable_snapping = Arester l' aclawaedje
+menu.view.enable_proof_colors = Mete li sayaedje des coleurs en alaedje
+menu.view.disable_proof_colors = Arester l' sayaedje des coleurs
+
+# Galreye
+menu.gallery = Galreye
+menu.gallery.edit_selected = Candjî les cayets tchoezis
+menu.gallery.refresh = Rafristî
+menu.gallery.map_filter = Passete sol mape…
+menu.gallery.back_to_editor = Rivni å candjeu
+
+# Schist Cloud
+menu.cloud.browse = Foyter Schist Cloud
+menu.cloud.generate = Ahiver des imådjes…
+menu.cloud.upload = Eberweter l' documint so Schist Cloud…
+menu.cloud.sign_out = Si dislodjî di Schist Cloud
+menu.cloud.sign_in = Si lodjî so Schist Cloud…
+
+# Menou macOS
+menu.app.services = Siervices
+menu.app.hide = Catchî {app}
+menu.app.hide_others = Catchî les ôtes
+menu.app.show_all = Tot mostrer
+menu.app.quit = Cwiter {app}
+
+# Messaedjes del båre d' estat
+menu.status.transform_selection_needs_selection = Candjî l' tchoezixhaedje dimande on tchoezixhaedje
+menu.status.crop_needs_selection = Ricôper sol tchoezixhaedje dimande on tchoezixhaedje
+menu.status.select_photo_to_edit = Tchoezixhoz ene foto a candjî

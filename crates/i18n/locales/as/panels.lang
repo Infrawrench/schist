@@ -1,0 +1,104 @@
+# The chrome around the canvas (crates/app/src/panels): the side
+# panels, the toolbar and its options bar, the status bar, the title
+# bar, the document tabs and the right-click menus; and the file
+# dialogs in crates/app/src/keymap.rs. Panel names follow Photoshop's
+# own localisations. Titles that another area already has — Layers,
+# Color, Notes, Opacity, Size — are reused from common.lang and
+# menu.lang rather than repeated here.
+
+# The modifier keys as a menu's shortcut hint spells them
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Status bar: the document's title and size, with a dot when unsaved
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Document tabs and the window title
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigator
+panel.navigator.title = নেভিগেটৰ
+panel.navigator.actual_pixels = প্ৰকৃত পিক্সেল
+
+# Color panel and its right-click menu
+panel.color.picker = ৰং নিৰ্বাচক…
+panel.color.swap = ৰং অদল-বদল কৰক
+panel.color.reset = ক'লা আৰু বগালৈ পুনঃস্থাপন কৰক
+
+# Layers panel: the row's right-click menu and the history entry the
+# visibility eye writes
+panel.layers.blending_options = মিশ্ৰণ বিকল্পসমূহ…
+panel.layers.properties = স্তৰৰ বৈশিষ্ট্যসমূহ…
+panel.layers.show_hide = স্তৰ দেখুৱাওক/লুকুৱাওক
+panel.layers.toggle_visibility = দৃশ্যমানতা সলনি কৰক
+
+# History panel
+panel.history.title = ইতিহাস
+panel.history.opened = খোলা হ'ল
+
+# Info tab: what the photo's EXIF says
+panel.info.title = তথ্য
+panel.info.camera = কেমেৰা
+panel.info.lens = লেন্স
+panel.info.iso = ISO {iso}
+panel.info.bias = ক্ষতিপূৰণ
+panel.info.flash_fired = ফ্লেছ জ্বলিছিল
+panel.info.no_flash = ফ্লেছ নাছিল
+panel.info.white_balance = WB {wb}
+panel.info.metering = {metering} মিটাৰিং
+panel.info.taken = তোলা হৈছিল
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · অভিমুখ {o}
+panel.info.software = ছফ্টৱেৰ
+panel.info.where = অৱস্থান
+
+# Notes panel and the Note tool's options
+panel.notes.author = লেখক
+panel.notes.clear_all = সকলো আঁতৰাওক
+panel.notes.unattributed = লেখকবিহীন
+panel.notes.empty = টোকা এৰিবলৈ কেনভাছত ক্লিক কৰক।
+panel.notes.placeholder = লিখিবলৈ ক্লিক কৰক
+
+# Character panel and the Type tool's options bar
+panel.character.title = আখৰ
+panel.character.type_tool = লিখনী সঁজুলি (T)
+panel.character.align_left = বাওঁফালে সংৰেখিত কৰক
+panel.character.align_center = মাজত সংৰেখিত কৰক
+panel.character.align_right = সোঁফালে সংৰেখিত কৰক
+panel.character.text_color = লিখনীৰ ৰং
+panel.character.panel = আখৰ পেনেল
+panel.character.cancel_edit = লিখনী সম্পাদনা বাতিল কৰক
+panel.character.commit_edit = লিখনী সম্পাদনা নিশ্চিত কৰক
+panel.character.number_tip = {label} · এটা মান লিখক, অথবা ↑ / ↓ ব্যৱহাৰ কৰক (ডাঙৰ পদক্ষেপৰ বাবে Shift)
+panel.character.leading = শাৰী-ব্যৱধান
+panel.character.tracking = আখৰ-ব্যৱধান
+panel.character.alignment = সংৰেখণ
+panel.character.opentype = OpenType
+panel.character.text_on_path = পথত লিখনী
+panel.character.straight = পোন
+panel.character.on_path = পথত
+panel.character.straight_tip = লিখনী স্তৰৰ সাধাৰণ ভিত্তিৰেখা ব্যৱহাৰ কৰক
+panel.character.on_path_tip = সক্ৰিয় পথৰ এটা প্ৰতিলিপি ব্যৱহাৰ কৰক
+panel.character.path_offset = পথৰ অফছেট
+
+# AI sidebar
+panel.ai.title = AI
+panel.ai.empty_editor = সম্পাদনা কৰিবলৈ কওক আৰু কেনভাছত সেয়া হোৱা চাওক। এজেণ্টে মেনুৰ একেবোৰ সঁজুলি, ফিল্টাৰ আৰু কমাণ্ড চলায়; প্ৰতিটো এটা পূৰ্বাৱস্থা পদক্ষেপ।
+panel.ai.empty_gallery = আপোনাৰ ফটোৰ বিষয়ে সোধক আৰু গেলেৰীত কাৰ্যটো হোৱা চাওক: এজেণ্টে সন্ধান কৰিব, থাম্বনেইল চাব, নিৰ্বাচন কৰিব, ভাগে ভাগে সজাব আৰু সম্পাদকত ফটো খুলিব পাৰে।
+panel.ai.thinking = চিন্তা কৰি আছে…
+panel.ai.placeholder_editor = এই দস্তাবেজৰ বিষয়ে সোধক বা সম্পাদনা কৰক
+panel.ai.placeholder_gallery = আপোনাৰ ফটোৰ বিষয়ে সোধক
+panel.ai.send = পঠিয়াওক
+panel.ai.stop = বন্ধ কৰক
+panel.ai.fetching_models = CLI-ক তাৰ মডেলসমূহ সোধা হৈছে…
+panel.ai.no_models = কোনো মডেল মিলা নাই
+panel.ai.search_models = মডেল সন্ধান কৰক…
+
+# File dialogs (keymap.rs)
+panel.keymap.install_plugin = প্লাগ-ইন ইনষ্টল কৰক
+panel.keymap.save_as_prompt = এই ৰূপে সংৰক্ষণ কৰক — সম্প্ৰসাৰণে ফৰ্মেট নিৰ্ধাৰণ কৰে:

@@ -1,0 +1,83 @@
+# Pinnellu
+tool.brush.name = Pinnellu
+tool.brush.description = Pìntura unu tratu cun oros isfumados in su colore de primu pianu, cun sa mannària, sa duresa e s'opacidade de su pinnellu impostadas in s'editore.
+tool.brush.history.stroke = Pinnellu
+
+# Làpis
+tool.pencil.name = Làpis
+tool.pencil.description = Pìntura unu tratu cun oros duros, chena antialiasing, in su colore de primu pianu.
+tool.pencil.history.stroke = Làpis
+
+# Goma
+tool.eraser.name = Goma
+tool.eraser.description = Cantzella a su longu de su tratu, torrende s'istratu a sa trasparèntzia.
+tool.eraser.history.stroke = Goma
+
+# Timbru de clonatzione
+tool.clone.name = Timbru de clonatzione
+tool.clone.description = Timbru de clonatzione: faghe alt+incarcu pro impostare su puntu de orìgine, pustis pìntura is pixel copiados dae in cue a cussa distàntzia.
+tool.clone.history.stroke = Timbru de clonatzione
+
+# Subraesponidore, abbrusiadore, ispùngia
+tool.dodge.name = Subraesponidore
+tool.dodge.description = Allughia is pixel subra de is cales passat su tratu.
+tool.dodge.history.stroke = Subraesponidore
+tool.burn.name = Abbrusiadore
+tool.burn.description = Iscuriga is pixel subra de is cales passat su tratu.
+tool.burn.history.stroke = Abbrusiadore
+tool.sponge.name = Ispùngia
+tool.sponge.description = Satura, o desatura, is pixel subra de is cales passat su tratu.
+tool.sponge.history.stroke = Ispùngia
+
+# Isfoca, afila, istèrrida
+tool.blur.name = Isfoca
+tool.blur.description = Isfocat is pixel subra de is cales passat su tratu.
+tool.blur.history.stroke = Isfoca
+tool.sharpen.name = Afila
+tool.sharpen.description = Afilat is pixel subra de is cales passat su tratu.
+tool.sharpen.history.stroke = Afila
+tool.smudge.name = Istèrrida
+tool.smudge.description = Tràghe su colore a su longu de su tratu, che imbuciende pintura ùmida.
+tool.smudge.history.stroke = Istèrrida
+
+# Curatzione
+tool.heal.name = Pinnellu curretore
+tool.heal.description = Pinnellu curretore: faghe alt+incarcu pro impostare s'orìgine, pustis pìntura; sa trama de s'orìgine est ammesturada cun su colore e sa lughe de sa destinatzione.
+tool.heal.history.stroke = Pinnellu curretore
+tool.spot_heal.name = Pinnellu curretore puntuale
+tool.spot_heal.description = Pinnellu curretore puntuale: pìntura subra de unu difetu e at a èssere sostituidu cun trama pigada dae su cuntestu — chena impostare perunu puntu de orìgine.
+tool.spot_heal.history.stroke = Pinnellu curretore puntuale
+
+# Pinnellu de sa cronologia
+tool.history_brush.name = Pinnellu de sa cronologia
+tool.history_brush.description = Riprìstina cun su pinnellu is pixel dae s'istantànea de sa cronologia de su documentu, annullende su traballu imbeniente tratu pro tratu.
+tool.history_brush.history.stroke = Pinnellu de sa cronologia
+
+# Goma de fundu
+tool.background_eraser.name = Goma de fundu
+tool.background_eraser.description = Cantzella su colore prelevadu suta de su tzentru de su pinnellu e lassa is pixel diferentes, pro separare unu sugetu dae su fundu suo.
+tool.background_eraser.history.stroke = Goma de fundu
+
+# Gradiente
+tool.gradient.name = Gradiente
+tool.gradient.description = Tràghe pro prènnere s'istratu — petzi a intro de sa seletzione, si nde b'at una — cun unu gradiente lineare dae su colore de primu pianu a cussu de fundu in sa diretzione de su tràghidu.
+tool.gradient.radial.name = Gradiente radiale
+tool.gradient.radial.description = Tràghe dae su tzentru cara a foras pro prènnere cun unu gradiente radiale intre su colore de primu pianu e cussu de fundu.
+tool.gradient.option.gradient = Gradiente
+tool.gradient.option.reverse = Inverte
+tool.gradient.option.dither = Tramadura
+tool.gradient.choice.foreground_to_background = Dae su primu pianu a su fundu
+tool.gradient.choice.foreground_to_transparent = Dae su primu pianu a trasparente
+tool.gradient.choice.linear = Lineare
+tool.gradient.choice.radial = Radiale
+tool.gradient.choice.angle = Angulare
+tool.gradient.choice.reflected = Rifletidu
+tool.gradient.choice.diamond = Diamante
+tool.gradient.history.gradient = Gradiente
+
+# Bidone de pintura
+tool.bucket.name = Bidone de pintura
+tool.bucket.description = Incarca pro prènnere cun su colore de primu pianu s'àrea ligada de colore sìmile suta de su puntadore, intro de sa toleràntzia de s'aina.
+tool.bucket.option.contiguous = Sighidu
+tool.bucket.option.all_layers = Totu is istratos
+tool.bucket.history.fill = Bidone de pintura

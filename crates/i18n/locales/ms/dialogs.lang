@@ -1,0 +1,257 @@
+# Dialog modal (crates/app/src/dialogs/, style_dialog.rs,
+# color_picker.rs, curve_editor.rs). Butang yang dikongsi oleh setiap dialog — OK,
+# Batal, Tutup, Selesai — terdapat dalam common.lang.
+
+# Dikongsi oleh beberapa dialog
+dialog.save_ellipsis = Simpan…
+dialog.use_foreground = Gunakan Latar Depan
+dialog.downloading = Memuat turun…
+dialog.downloading_of = Memuat turun… {got} daripada {total}
+dialog.no_config_dir = (tiada direktori konfigurasi)
+
+# Sifat Lapisan
+dialog.layer_props.title = Sifat Lapisan
+
+# Eksport
+dialog.export.format = Format
+dialog.export.dither = Penditeran
+dialog.export.dither_note = Diter apabila mengurangkan kepada 8 bit
+dialog.export.export_ellipsis = Eksport…
+
+# Proses Foto (dialog kelompok galeri)
+dialog.batch.title = Proses Foto
+dialog.batch.note_edit.other = {n} foto — disimpan sebagai suntingan galeri; foto asal tidak pernah disentuh.
+dialog.batch.note_edit_edited.other = {n} foto, {edited} telah disunting — resipi digunakan di atas suntingan itu dan suntingan sebelumnya dikekalkan sebagai versi.
+dialog.batch.note_copies.other = {n} foto — salinan rata; foto asal tidak pernah disentuh.
+dialog.batch.note_copies_edited.other = {n} foto, {edited} telah disunting — salinan dibuat daripada suntingan tersebut.
+dialog.batch.turn = Putar
+dialog.batch.rotate = Putar
+dialog.batch.flip = Balikkan
+dialog.batch.upscale = Tingkatkan Resolusi
+dialog.batch.colour = Warna
+dialog.batch.add_adjustment = Pelarasan…
+dialog.batch.output = Output
+dialog.batch.save_as = Simpan sebagai
+dialog.batch.process = Proses
+dialog.batch.process_n = Proses {n}
+dialog.batch.nothing_to_do = Tiada apa-apa untuk dilakukan: pilih putaran, peningkatan resolusi atau pelarasan dahulu
+
+# Skala Sedar Kandungan
+dialog.content_aware_scale.title = Skala Sedar Kandungan
+dialog.content_aware_scale.note = Mengukir kelim yang kurang terperinci. Pilihan menandakan bahagian yang perlu dilindungi.
+
+# Gurisan (juga kedudukan gurisan dialog Gaya Lapisan)
+dialog.stroke.title = Gurisan
+dialog.stroke.location = Lokasi
+dialog.stroke.inside = Di Dalam
+dialog.stroke.outside = Di Luar
+dialog.stroke.note = Mengguris pilihan dengan warna latar depan.
+
+# Isian
+dialog.fill.contents = Kandungan
+
+# Julat Warna
+dialog.color_range.title = Julat Warna
+dialog.color_range.sampled = Disampel
+dialog.color_range.fuzziness = Kekaburan
+dialog.color_range.note = Memilih piksel berhampiran warna yang disampel pada lapisan aktif.
+
+# Pemilih fail yang dilukis sendiri oleh Schist (Android)
+dialog.file_picker.up = ↑ Naik
+dialog.file_picker.empty = Tiada apa-apa di sini
+dialog.file_picker.choose_folder = Pilih Folder Ini
+
+# Dialog penapis
+dialog.filter.camera_raw_development = Pembangunan Camera Raw
+dialog.filter.reset_as_shot = Tetapkan Semula kepada Seperti Dirakam
+dialog.filter.raw_note = Membangunkan semula lapisan aktif daripada data penderia asalnya.
+dialog.filter.note = Digunakan pada lapisan aktif, di dalam pilihan.
+
+# Fon Hilang
+dialog.fonts.title = Fon Hilang
+dialog.fonts.install_named = Pasang {name}
+dialog.fonts.no_document = Tiada dokumen dibuka, jadi tiada apa-apa untuk diperiksa.
+dialog.fonts.all_installed = Setiap fon yang digunakan oleh dokumen ini telah dipasang. Teksnya ditetapkan dengan fon yang digunakan untuk menyusun atur teks tersebut.
+dialog.fonts.missing_intro = Dokumen ini ditetapkan dengan fon yang tidak anda miliki. Teks boleh dibaca dengan fon pengganti, tetapi lebar dan pemisah barisnya tidak sama seperti ketika disusun atur.
+dialog.fonts.footer = Muat turun berasal daripada katalog terbuka Google Fonts dan disimpan dalam {dir}. Fon yang tidak berlesen terbuka tidak akan diambil — jika terdapat reka bentuk bebas yang serasi dari segi metrik, reka bentuk itu ditawarkan sebagai ganti, lalu memulihkan susun atur kerana lebar anjakannya sepadan.
+dialog.fonts.user_font_dir = direktori fon pengguna anda
+
+# Model Penapis Neural
+dialog.models.title = Model Neural Filters
+dialog.models.built_in = Terbina dalam · {size}
+dialog.models.installed = Dipasang · {size}
+dialog.models.not_installed = Tidak dipasang · {size}
+dialog.models.not_in_browser = Tidak tersedia dalam pelayar · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Model disimpan dalam {dir}. Penapis tanpa model kembali menggunakan pemprosesan isyarat dan menyatakannya.
+
+# Dokumen Baharu
+dialog.new_doc.title = Dokumen Baharu
+dialog.new_doc.picker_title = Fail Baharu
+dialog.new_doc.custom_ellipsis = Tersuai…
+dialog.new_doc.preset = Pratetap
+dialog.new_doc.preset_default = Lalai (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Segi Empat Sama (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = Surat AS, 300 ppi
+dialog.new_doc.summary = {w} × {h} px pada {ppi} ppi · {size}
+dialog.new_doc.create = Cipta
+dialog.new_doc.created = Dokumen baharu: {w} × {h} px
+
+# Membuka fail: imej dan folder yang dilepaskan, fail dikongsi, sokongan HEIC
+dialog.open.image_title = Buka Imej
+dialog.open.image_prompt = Buka “{name}” dalam tab baharu atau tambahkannya pada dokumen semasa sebagai lapisan baharu?
+dialog.open.new_tab = Tab Baharu
+dialog.open.new_layer = Lapisan Baharu
+dialog.open.quoted = “{name}”
+dialog.open.these_files.other = {n} fail ini
+dialog.open.shared_title_one = Imej Dikongsi
+dialog.open.shared_title_many = Imej Dikongsi
+dialog.open.shared_prompt = Tambahkan {what} pada galeri atau buka dalam editor?
+dialog.open.add_to_gallery = Tambah pada Galeri
+dialog.open.open_in_editor = Buka dalam Editor
+dialog.open.heic_title = Sokongan HEIC
+dialog.open.heic_needs_decoder = Pembukaan “{name}” memerlukan penyahkod HEVC yang tidak dipasang pada sistem ini.
+dialog.open.heic_offer = Schist boleh memuat turun binaan nyahkod sahaja libheif {version} dengan penyahkod HEVC libde265 (≈5 MB). Kedua-duanya dilesenkan di bawah LGPL-3.0; teks lesen dipasang bersebelahan pustaka dan sumbernya tersedia di halaman projek.
+dialog.open.licenses_source = Lesen & Sumber
+dialog.open.folders_title = Folder yang Dilepaskan
+dialog.open.n_folders.other = {n} folder
+dialog.open.open_in_tabs = Buka dalam Tab
+dialog.open.open_first_in_tabs = Buka {n} Pertama dalam Tab
+dialog.open.open_n_in_tabs.other = Buka {n} dalam Tab
+dialog.open.folder_holds.other = {what} mengandungi {n} imej yang boleh dibuka oleh Schist (termasuk subfolder).
+dialog.open.folders_note = Tambah pada Galeri memantau folder di lokasi asal — tiada apa-apa disalin dan suntingan diberikan versi di sebelah setiap foto. Membuka dalam tab memuatkan setiap imej ke dalam editor sekarang.
+
+# Pemalam
+dialog.plugins.title = Pemalam
+dialog.plugins.kind_filter = penapis
+dialog.plugins.kind_format = format
+dialog.plugins.kind_unavailable = tidak tersedia
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Pemalam dimuatkan dari {dir}
+dialog.plugins.none = Belum ada pemalam dipasang.
+dialog.plugins.install_ellipsis = Pasang…
+dialog.plugins.photoshop_heading = Pemalam Photoshop
+dialog.plugins.loaded_from = Dimuatkan dari {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+# Keutamaan
+dialog.prefs.title = Keutamaan
+dialog.prefs.theme = Tema
+dialog.prefs.theme_dark = Gelap
+dialog.prefs.theme_light = Cerah
+dialog.prefs.grid_spacing = Jarak grid
+dialog.prefs.snapping = Pelekatan
+dialog.prefs.snap_to = Lekat pada panduan, grid dan tepi kanvas
+dialog.prefs.rendering_intent = Tujuan pemaparan
+dialog.prefs.intent_perceptual = Persepsi
+dialog.prefs.intent_relative = Kolorimetrik Relatif
+dialog.prefs.intent_saturation = Ketepuan
+dialog.prefs.intent_absolute = Kolorimetrik Mutlak
+dialog.prefs.scrolling = Penatalan
+dialog.prefs.zoom_with_scroll = Zum dengan roda tatal
+dialog.prefs.rendering = Pemaparan
+dialog.prefs.gpu_compositing = Penggubahan GPU
+dialog.prefs.diagnostics = Diagnostik
+dialog.prefs.crash_reports = Tulis laporan ranap setempat apabila panik
+dialog.prefs.crash_upload = Hantar juga kepada pembangun
+dialog.prefs.telemetry = Hantar ping harian tanpa nama
+dialog.prefs.diagnostics_note = Diagnostik berkuat kuasa apabila Schist dimulakan semula.
+dialog.prefs.updates = Kemas Kini
+dialog.prefs.check_updates = Semak keluaran baharu semasa pelancaran
+dialog.prefs.keyboard_shortcuts = Pintasan papan kekunci: {path}
+dialog.prefs.nsfw_needs_model = Memerlukan model Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = muat turunnya dalam Urus Model…
+dialog.prefs.hide_flagged = Sembunyikan foto yang ditandai
+
+# Tetapkan Profil / Tukar kepada Profil
+dialog.profile.profile = Profil
+dialog.profile.assign_title = Tetapkan Profil
+dialog.profile.convert_title = Tukar kepada Profil
+dialog.profile.assign = Tetapkan
+dialog.profile.convert = Tukar
+dialog.profile.assign_note = Mentafsir semula nilai piksel sedia ada di bawah profil baharu.
+dialog.profile.convert_note = Menulis semula nilai piksel supaya rupa warna dikekalkan.
+
+# Simpan Imej Sebagai (foto galeri sebagai imej rata)
+dialog.save_image.title = Simpan Imej Sebagai
+dialog.save_image.note = {name} — suntingannya, jika ada; foto asal tidak pernah disentuh.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+# Saiz Imej dan Saiz Kanvas
+dialog.size.image_title = Saiz Imej
+dialog.size.canvas_title = Saiz Kanvas
+dialog.size.constrain = Kekang
+dialog.size.keep_proportions = Kekalkan perkadaran
+dialog.size.resample = Sampel Semula
+dialog.size.bicubic = Bikubik
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Jiran Terdekat
+dialog.size.anchor = Penambat
+dialog.size.currently = Kini {w} × {h} px
+dialog.size.image_size_status = Saiz imej: {w} × {h}
+dialog.size.canvas_size_status = Saiz kanvas: {w} × {h}
+
+# Kemas Kini Tersedia
+dialog.update.title = Kemas Kini Tersedia
+dialog.update.available = Schist {version} tersedia. Salinan ini ialah {current}.
+dialog.update.installing = Memasang kemas kini…
+dialog.update.can_install = Schist boleh memuat turunnya ({size}) dan memasangnya di atas salinan ini.
+dialog.update.external = Salinan ini berasal dari tempat yang menguruskannya — pengurus pakej, AppImage atau binaan anda sendiri — maka salinan ini dikemas kini mengikut cara ia dipasang.
+dialog.update.later = Kemudian
+dialog.update.release_notes = Nota Keluaran
+dialog.update.update_restart = Kemas Kini dan Mulakan Semula
+dialog.update.open_page = Buka Halaman Keluaran
+
+# Gaya Lapisan: kesan (nama Photoshop) dan kawalannya
+dialog.style.title = Gaya Lapisan
+dialog.style.bevel = Serong & Timbul
+dialog.style.stroke = Gurisan
+dialog.style.inner_shadow = Bayang Dalam
+dialog.style.inner_glow = Cahaya Dalam
+dialog.style.satin = Satin
+dialog.style.color_overlay = Tindihan Warna
+dialog.style.gradient_overlay = Tindihan Gradien
+dialog.style.outer_glow = Cahaya Luar
+dialog.style.drop_shadow = Bayang Jatuh
+dialog.style.blur = Kabur Gaussian
+dialog.style.gradient_from = Tindihan Gradien Dari
+dialog.style.gradient_to = Tindihan Gradien Ke
+dialog.style.soften = Lembutkan
+dialog.style.depth = Kedalaman
+dialog.style.altitude = Altitud
+dialog.style.highlight = Sorotan
+dialog.style.shadow = Bayang
+dialog.style.outer_bevel = Serong Luar
+dialog.style.inner_bevel = Serong Dalam
+dialog.style.emboss = Timbul
+dialog.style.pillow_emboss = Timbul Bantal
+dialog.style.linear = Linear
+dialog.style.radial = Jejari
+dialog.style.reverse = Songsangkan
+dialog.style.from_to = Dari / Ke
+dialog.style.from_fg = Dari = LD
+dialog.style.to_fg = Ke = LD
+dialog.style.precise = Tepat
+dialog.style.knockout = Lapisan menebuk keluar bayang jatuh
+
+# Pemilih Warna
+dialog.color_picker.title = Pemilih Warna ({what})
+dialog.color_picker.effect_color = Warna {effect}
+dialog.color_picker.note_color = Warna Nota
+dialog.color_picker.new = baharu
+dialog.color_picker.current = semasa
+
+# Graf Lengkung
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Tetapkan Semula Saluran
+dialog.curves.hint = Seret untuk membentuk · klik untuk menambah · alt-klik untuk mengalih keluar
+
+# Baris sandaran gulungan kamera dalam Keutamaan pada telefon.
+dialog.prefs.camera_sync = Gulungan kamera
+dialog.prefs.camera_sync_enabled = Sandarkan ke Schist Cloud
+dialog.prefs.camera_sync_sign_in = Log masuk ke Schist Cloud untuk menyandarkan gulungan kamera anda.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Tukar…

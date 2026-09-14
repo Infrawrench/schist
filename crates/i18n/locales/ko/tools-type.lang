@@ -1,0 +1,27 @@
+# 문자 도구. 글꼴 모음 이름은 번역하지 않습니다.
+
+tool.type.name = 문자
+tool.type.description = 클릭한 위치에 텍스트 레이어를 만들거나 기존 텍스트 레이어를 클릭하여 편집합니다. 편집 중에는 도구가 원시 키 입력을 받으므로 문자를 키 입력으로 보내야 합니다. 확정하면 레이어가 렌더링되고 편집이 종료됩니다.
+
+# 옵션 막대
+tool.type.option.align = 정렬
+tool.type.option.leading = 행간
+tool.type.option.tracking = 자간
+tool.type.option.kerning = 커닝
+tool.type.option.ligatures = 합자
+tool.type.option.discretionary_ligatures = 임의 합자
+tool.type.option.small_caps = 작은 대문자
+tool.type.option.on_path = 활성 패스 위
+tool.type.option.path_offset = 패스 오프셋
+
+# Photoshop에 표시되는 순서의 스타일 메뉴
+tool.type.choice.regular = 보통
+tool.type.choice.bold = 굵게
+tool.type.choice.italic = 기울임꼴
+tool.type.choice.bold_italic = 굵은 기울임꼴
+
+# 작업 내역
+tool.type.history.new_layer = 새 텍스트 레이어
+tool.type.history.edit = 텍스트 편집
+tool.type.history.discard = 텍스트 버리기
+tool.type.history.discard_empty = 빈 텍스트 버리기

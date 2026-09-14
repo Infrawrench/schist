@@ -1,0 +1,27 @@
+# Vrieje transformatie, selectietransformatie en biesnieje, plus hermetingsname.
+
+tool.transform.name = Vrieje transformatie
+tool.transform.description = Vrieje transformatie. Bie 't activere versjient 'n transformatiekader roondj de actieve laog: sleip 'ne hook om te sjale, sleip boete 'ne hook om te drejje en sleip 'ne randj om sjeif te trèkke. D'r weurt niks vasgelag toet se bevestigs (Enter); annulere (Escape) zèt de laog trök.
+tool.transform.option.interpolation = Interpolatie
+tool.transform.history.transform = Vrieje transformatie
+tool.transform.history.image_size = Aafbiljingsgroeëtte
+tool.transform.history.canvas_size = Canvasgroeëtte
+
+tool.transform.selection.name = Selectie transformere
+tool.transform.selection.description = Selectie transformere: 'tzelfde kader, mer noe versjuufste de selectierandj in plaats van de pixels d'rbinne. Bevestig of annuleer om aaf te sjloete.
+tool.transform.selection.history.transform = Selectie transformere
+
+tool.transform.resample.nearest_neighbor = Dichtstbieje naober
+tool.transform.resample.bilinear = Bilineair
+tool.transform.resample.bicubic = Bicubisch
+
+tool.crop.name = Biesnieje
+tool.crop.description = Trèk 't gebied dat se wils behawwe en pas de handgrepe aan. Bie bevestige (Enter) weurt 't document dao-op biesneje; bie annulere (Escape) blief 't ónveraanderd.
+tool.crop.option.ratio = Verhawding
+tool.crop.option.delete_cropped = Aafgesneje pixels verwiedere
+tool.crop.choice.unconstrained = Onbegrens
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Biesnieje

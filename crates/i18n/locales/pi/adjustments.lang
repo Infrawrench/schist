@@ -1,0 +1,20 @@
+# Adjustment names
+adjustment.levels.name = Pamāṇāni
+adjustment.curves.name = Vaṅkalekhāyo
+adjustment.hue_saturation.name = Vaṇṇabhedo/vaṇṇagāḷhatā
+adjustment.brightness_contrast.name = Obhāso/virodho
+adjustment.black_white.name = Kāḷañca odātañca
+adjustment.solid_color.name = Ekavaṇṇo
+adjustment.gradient_fill.name = Anukkamavaṇṇapūraṇaṃ
+adjustment.pattern_fill.name = Paṭirūpapūraṇaṃ
+adjustment.invert.name = Viparivattanaṃ
+adjustment.posterize.name = Appavaṇṇakaraṇaṃ
+adjustment.threshold.name = Sīmā
+adjustment.color_balance.name = Vaṇṇasamabhāvo
+adjustment.vibrance.name = Vaṇṇajīvitatā
+adjustment.exposure.name = Ālokappaveso
+adjustment.photo_filter.name = Chāyārūpasodhakaṃ
+adjustment.gradient_map.name = Anukkamavaṇṇaniyojanaṃ
+adjustment.selective_color.name = Vicitavaṇṇo
+adjustment.channel_mixer.name = Vaṇṇamaggamissakaṃ
+adjustment.other.name = Anurūpakaraṇaṃ

@@ -1,0 +1,23 @@
+# Toolys gwedha: Liquify, Puppet Warp ha Vanishing Point.
+tool.liquify.name = Liquify
+tool.liquify.description = Gwaska, troylya, kunys po hwytha piksellow yn-dann skubellik bras — an dewis fordh a dhewis py unn. An gwedhans a wra kreski yn roos hag a vydh gorres war an gwisk pan vydh komityes.
+tool.liquify.option.tool = Daffar
+tool.liquify.choice.forward_warp = Gwedha Ragdres
+tool.liquify.choice.reconstruct = Dasformya
+tool.liquify.choice.twirl_cw = Toryel yn Tu an Eur
+tool.liquify.choice.twirl_ccw = Toryel Erbyn Tu an Eur
+tool.liquify.choice.pucker = Kunys
+tool.liquify.choice.bloat = Hwetha
+tool.liquify.choice.push_left = Gwaska dhe'n Kledh
+tool.liquify.history.liquify = Liquify
+
+tool.puppet_warp.name = Gwedha Popet
+tool.puppet_warp.description = Klyckya rag festya an gwisk orth nebes poynt, ena tenna unn: an roos a wra plegya yn-dro dhe'n pynnow, yn kalet po yn loer dell yw dewis an Kaledter. Komitya a wra'y gorra.
+tool.puppet_warp.option.stiffness = Kaledter
+tool.puppet_warp.history.puppet_warp = Gwedha Popet
+
+tool.vanishing_point.name = Poynt Difones
+tool.vanishing_point.description = Tenna planenn war dra gans perspektiv ynno, ena chanjya'n fordh dhe Klonya ha liva: an piksellow kopyes a wra sewya'n planenn hag ombyghanhe gans pellder.
+tool.vanishing_point.choice.edit_plane = Golygi Planenn
+tool.vanishing_point.choice.clone = Klonya
+tool.vanishing_point.history.vanishing_point = Poynt Difones

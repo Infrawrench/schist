@@ -1,0 +1,22 @@
+tool.liquify.name = Dissolver
+tool.liquify.description = Empurre, gire, contraia ou dilate os píxeis sob um pincel grande — a opção de modo determina a ação. A deformação acumula-se numa malha e é aplicada à camada ao confirmar.
+tool.liquify.option.tool = Ferramenta
+tool.liquify.choice.forward_warp = Deformação para a frente
+tool.liquify.choice.reconstruct = Reconstruir
+tool.liquify.choice.twirl_cw = Girar à direita
+tool.liquify.choice.twirl_ccw = Girar à esquerda
+tool.liquify.choice.pucker = Contrair
+tool.liquify.choice.bloat = Dilatar
+tool.liquify.choice.push_left = Empurrar para a esquerda
+tool.liquify.history.liquify = Dissolver
+
+tool.puppet_warp.name = Deformação de marioneta
+tool.puppet_warp.description = Clique para fixar a camada em alguns pontos e depois arraste um deles: a malha dobra-se à volta dos pinos, com maior ou menor rigidez conforme a opção Rigidez. A confirmação aplica a alteração.
+tool.puppet_warp.option.stiffness = Rigidez
+tool.puppet_warp.history.puppet_warp = Deformação de marioneta
+
+tool.vanishing_point.name = Ponto de fuga
+tool.vanishing_point.description = Arraste para definir um plano sobre algo com perspetiva e depois mude o modo para Clonar e pinte: os píxeis copiados seguem o plano e diminuem com a distância.
+tool.vanishing_point.choice.edit_plane = Editar plano
+tool.vanishing_point.choice.clone = Clonar
+tool.vanishing_point.history.vanishing_point = Ponto de fuga

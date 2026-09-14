@@ -1,0 +1,33 @@
+# د ټاکنې وسیلې: ټاکنچوکاټونه، کمندونه، جادويي امسا او د څیز ټاکنه.
+
+tool.select.mode.subtract = منفي کول
+tool.select.mode.intersect = تقاطع
+
+tool.marquee.rect.name = مستطیل ټاکنچوکاټ
+tool.marquee.rect.description = مستطیله ټاکنه راکاږئ. د راکاږلو په پیل کې Shift ټاکنې ته زیاتوي، Alt ترې منفي کوي او دواړه تقاطع اخلي؛ د راکاږلو پر مهال Shift یې مربع کوي. بې له راکاږلو کېکاږل ټاکنه ختموي.
+tool.marquee.ellipse.name = بیضوي ټاکنچوکاټ
+tool.marquee.ellipse.description = بیضوي ټاکنه راکاږئ؛ د Shift/Alt یوځای کول یې د مستطیل ټاکنچوکاټ په څېر دي.
+
+tool.lasso.name = کمند
+tool.lasso.description = په لاس ازاده کرښه راکاږئ؛ کله چې راکاږل پای ته ورسېږي، ټاکنه د دواړو سرونو ترمنځ تړل کېږي. Shift زیاتوي او Alt منفي کوي.
+tool.lasso.history.select = په کمند ټاکل
+tool.lasso.polygonal.name = څوګوټیز کمند
+tool.lasso.polygonal.description = یو په بل پسې پر کونجونو کېکاږئ چې نېغې څنډې لرونکې ټاکنه جوړه شي، او د لومړي ټکي څنګ ته کېکاږئ چې وتړل شي.
+tool.lasso.polygonal.history.select = څوګوټیز کمند
+tool.lasso.magnetic.name = مقناطیسي کمند
+tool.lasso.magnetic.description = په اټکلي ډول د یوې څنډې په اوږدو کې لاړ شئ؛ کرښه لارې ته نږدې تر ټولو پیاوړي توپیر پورې نښلي.
+tool.lasso.magnetic.history.select = مقناطیسي کمند
+tool.lasso.magnetic.option.frequency = تکرار
+
+tool.wand.name = جادويي امسا
+tool.wand.description = کېکاږئ چې د زغم د غوراوي په کچه د نښې لاندې د ورته رنګ نښتې سیمه وټاکئ؛ همدا زغم د پراخولو، ورته او د رنګ لړۍ کړنې هم کاروي.
+tool.wand.option.contiguous = سره نښتی
+tool.wand.history.select = جادويي امسا
+
+tool.quick_select.name = چټکه ټاکنه
+tool.quick_select.description = پر یوې سیمې رنګ ووهئ؛ ټاکنه د هغو ورته پېکسلونو له لارې پراخېږي چې برس پرې تېرېږي.
+tool.quick_select.history.select = چټکه ټاکنه
+
+tool.object_select.name = د څیز ټاکنه
+tool.object_select.description = د یوه څیز چاپېر چوکاټ راکاږئ؛ ټاکنه په چوکاټ کې موندل شوي څیز ته نښلي.
+tool.object_select.history.select = د څیز ټاکنه

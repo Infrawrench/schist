@@ -1,0 +1,27 @@
+# Seçim alətləri
+tool.select.mode.subtract = Çıx
+tool.select.mode.intersect = Kəsişdir
+tool.marquee.rect.name = Düzbucaqlı seçim
+tool.marquee.rect.description = Düzbucaqlı seçim çəkin. Sürükləməyə başlayarkən Shift seçimi əlavə edir, Alt çıxır, hər ikisi kəsişdirir; sürükləmə zamanı Shift formanı kvadrat edir. Sürükləmədən klikləmək seçimi ləğv edir.
+tool.marquee.ellipse.name = Ellipsşəkilli seçim
+tool.marquee.ellipse.description = Düzbucaqlı seçimdəki eyni Shift/Alt birləşdirməsi ilə ellipsşəkilli seçim çəkin.
+tool.lasso.name = Kəmənd
+tool.lasso.description = Sərbəst kontur çəkin; sürükləmə bitəndə seçim ucları birləşdirilərək bağlanır. Shift əlavə edir, Alt çıxır.
+tool.lasso.history.select = Kəməndlə seçim
+tool.lasso.polygonal.name = Çoxbucaqlı kəmənd
+tool.lasso.polygonal.description = Düz kənarlı seçim qurmaq üçün künclərə ardıcıl klikləyin, bağlamaq üçün isə ilk nöqtənin yaxınlığına klikləyin.
+tool.lasso.polygonal.history.select = Çoxbucaqlı kəmənd
+tool.lasso.magnetic.name = Maqnit kəmənd
+tool.lasso.magnetic.description = Təxminən kənar boyunca hərəkət edin; kontur yolun yaxınlığındakı ən güclü kontrasta yapışır.
+tool.lasso.magnetic.history.select = Maqnit kəmənd
+tool.lasso.magnetic.option.frequency = Tezlik
+tool.wand.name = Sehrli çubuq
+tool.wand.description = Dözümlülük parametri daxilində göstəricinin altındakı oxşar rəngli bitişik sahəni seçmək üçün klikləyin; Böyüt, Oxşar və Rəng diapazonu da eyni dözümlülüyü istifadə edir.
+tool.wand.option.contiguous = Bitişik
+tool.wand.history.select = Sehrli çubuq
+tool.quick_select.name = Sürətli seçim
+tool.quick_select.description = Sahənin üzərini rəngləyin; fırçanın keçdiyi oxşar piksellər boyunca seçim genişlənir.
+tool.quick_select.history.select = Sürətli seçim
+tool.object_select.name = Obyekt seçimi
+tool.object_select.description = Obyektin ətrafında çərçivə çəkin; seçim çərçivənin daxilində tapılan obyektə yapışır.
+tool.object_select.history.select = Obyekt seçimi

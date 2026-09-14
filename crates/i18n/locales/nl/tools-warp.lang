@@ -1,0 +1,23 @@
+# Vervormingshulpmiddelen: Uitvloeien, Marionet verdraaien en Verdwijnpunt.
+tool.liquify.name = Uitvloeien
+tool.liquify.description = Duw, draai, trek samen of blaas pixels op onder een groot penseel; de modus bepaalt welke bewerking wordt gebruikt. De vervorming wordt in een net opgebouwd en bij bevestigen op de laag toegepast.
+tool.liquify.option.tool = Hulpmiddel
+tool.liquify.choice.forward_warp = Vooruit verdraaien
+tool.liquify.choice.reconstruct = Reconstrueren
+tool.liquify.choice.twirl_cw = Rechtsom draaien
+tool.liquify.choice.twirl_ccw = Linksom draaien
+tool.liquify.choice.pucker = Samentrekken
+tool.liquify.choice.bloat = Opblazen
+tool.liquify.choice.push_left = Naar links duwen
+tool.liquify.history.liquify = Uitvloeien
+
+tool.puppet_warp.name = Marionet verdraaien
+tool.puppet_warp.description = Klik om de laag op enkele punten vast te zetten en sleep vervolgens een punt. Het net buigt rond de spelden, stijf of soepel volgens de optie Stijfheid. Bevestigen past de vervorming toe.
+tool.puppet_warp.option.stiffness = Stijfheid
+tool.puppet_warp.history.puppet_warp = Marionet verdraaien
+
+tool.vanishing_point.name = Verdwijnpunt
+tool.vanishing_point.description = Sleep een vlak over iets met perspectief, schakel daarna over naar de modus Klonen en schilder. De gekopieerde pixels volgen het vlak en worden kleiner naarmate de afstand toeneemt.
+tool.vanishing_point.choice.edit_plane = Vlak bewerken
+tool.vanishing_point.choice.clone = Klonen
+tool.vanishing_point.history.vanishing_point = Verdwijnpunt

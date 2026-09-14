@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} чечмеленүүдө
+codec.msg.zero_sized = сүрөттө пикселдер жок
+codec.msg.assembling_document = документ түзүлүүдө
+
+codec.raw.msg.decoding = иштетилбеген файл чечмеленүүдө
+codec.raw.msg.developing = иштетилбеген файл иштелүүдө
+codec.raw.msg.finding_preview = камтылган алдын ала көрүнүш изделүүдө
+codec.raw.msg.decoding_preview = камтылган алдын ала көрүнүш чечмеленүүдө
+codec.raw.msg.decoder_panicked = иштетилбеген сүрөттөрдүн декодери бул файлды иштете алган жок: {what}
+
+codec.affinity.import_title = Affinity импорттоо
+codec.affinity.flattened_preview_layer = Бир катмарга бириктирилген алдын ала көрүнүш
+codec.affinity.msg.no_preview = Колдонууга жарактуу камтылган алдын ала көрүнүш жок. Affinity'нин катмарлуу форматы жабык; Schist файлдагы бир катмарга бириктирилген алдын ала көрүнүштү импорттойт. Бул файлда андай көрүнүш жок — аны Affinity'де кайра сактаңыз же бардык катмарлары менен импорттоо үчүн PSD кылып экспорттоңуз.
+
+codec.heif.msg.no_library = libheif жеткиликсиз ({details}). HEIC ачуу үчүн libheif китепканасы керек (Linux: libheif1 орнотуңуз; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — бул libheif түзүлүшүндө HEVC декодери жок болушу мүмкүн (Debian/Ubuntu'да libheif-plugin-libde265 орнотуңуз)
+codec.heif.msg.unknown_error = белгисиз ката
+codec.heif.msg.initialising = libheif баштапкы абалга келтирилүүдө
+codec.heif.msg.reading_container = HEIF контейнери окулууда
+codec.heif.msg.finding_primary_image = негизги сүрөт изделүүдө
+codec.heif.msg.reading_icc_profile = ICC профили окулууда
+codec.heif.msg.decoding_image = сүрөт чечмеленүүдө
+codec.heif.msg.checksum_mismatch = {name} үчүн текшерүү суммасы дал келген жок: {expected} күтүлгөн, {got} алынды
+codec.heif.msg.imageio_cannot_read = ImageIO HEIF контейнерин окуй алган жок
+codec.heif.msg.container_empty = HEIF контейнеринде сүрөт жок
+codec.heif.msg.imageio_cannot_decode = ImageIO негизги сүрөттү чечмелей алган жок

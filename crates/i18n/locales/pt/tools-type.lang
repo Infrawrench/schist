@@ -1,0 +1,22 @@
+tool.type.name = Texto
+tool.type.description = Clique para iniciar uma camada de texto nesse ponto ou clique numa camada existente para a editar. Enquanto estiver aberta, a ferramenta recebe teclas sem processamento (envie os caracteres como entrada de teclado); ao confirmar, a camada é renderizada e a edição é fechada.
+
+tool.type.option.align = Alinhar
+tool.type.option.leading = Entrelinha
+tool.type.option.tracking = Espaçamento entre caracteres
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligaduras
+tool.type.option.discretionary_ligatures = Ligaduras discricionárias
+tool.type.option.small_caps = Versaletes
+tool.type.option.on_path = No caminho ativo
+tool.type.option.path_offset = Deslocamento no caminho
+
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Negrito
+tool.type.choice.italic = Itálico
+tool.type.choice.bold_italic = Negrito itálico
+
+tool.type.history.new_layer = Nova camada de texto
+tool.type.history.edit = Editar texto
+tool.type.history.discard = Descartar texto
+tool.type.history.discard_empty = Descartar texto vazio

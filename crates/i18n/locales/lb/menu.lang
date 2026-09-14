@@ -1,0 +1,143 @@
+# Menüleescht.
+
+menu.file = Fichier
+menu.file.new = Nei
+menu.file.open = Opmaachen…
+menu.file.open_recent = Rezent Fichieren opmaachen
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Galerie duerchsichen…
+menu.file.close = Zoumaachen
+menu.file.save = Späicheren
+menu.file.save_as = Späicheren als…
+menu.file.export = Exportéieren…
+menu.file.export_submenu = Exportéieren
+menu.file.export_artboards = Zeecheflächen als PNG…
+menu.file.export_slices = Slicen als PNG…
+menu.file.save_to_photos = A Fotoe späicheren
+menu.file.plugins = Plug-ins…
+menu.file.missing_fonts = Feelend Schrëften…
+menu.file.check_for_updates = No Aktualiséierunge sichen…
+menu.file.quit = Verloossen
+menu.file.add_folder_to_gallery = Dossier an d'Galerie dobäisetzen…
+menu.file.import_from_photos = Aus Fotoen importéieren…
+menu.file.import_from_camera = Vun der Kamera importéieren…
+
+menu.edit = Änneren
+menu.edit.fill = Fëllen…
+menu.edit.stroke = Kontur…
+menu.edit.content_aware_fill = Inhaltsbaséiert Fëllung
+menu.edit.content_aware_scale = Inhaltsbaséiert Skaléieren…
+menu.edit.puppet_warp = Marionetteverformung
+menu.edit.free_transform = Fräi transforméieren
+menu.edit.transform = Transforméieren
+menu.edit.rotate_180 = Ëm 180° dréinen
+menu.edit.rotate_90_cw = Ëm 90° mat der Auer dréinen
+menu.edit.rotate_90_ccw = Ëm 90° géint d'Auer dréinen
+menu.edit.flip_horizontal = Horizontal spigelen
+menu.edit.flip_vertical = Vertikal spigelen
+
+menu.image = Bild
+menu.image.mode = Modus
+menu.image.adjustments = Upassungen
+menu.image.auto_tone = Automatesch Tonwäerter
+menu.image.auto_contrast = Automatesche Kontrast
+menu.image.auto_color = Automatesch Faarf
+menu.image.image_size = Bildgréisst…
+menu.image.canvas_size = Canvasgréisst…
+menu.image.image_rotation = Bilddréiung
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° mat der Auer
+menu.image.rotate_90_ccw = 90° géint d'Auer
+menu.image.flip_canvas_horizontal = Canvas horizontal spigelen
+menu.image.flip_canvas_vertical = Canvas vertikal spigelen
+menu.image.crop_to_selection = Op d'Auswiel zouschneiden
+menu.image.trim = Rand ewechschneiden
+menu.image.assign_profile = Profil zouweisen…
+menu.image.convert_to_profile = A Profil ëmwandelen…
+
+menu.select = Auswielen
+menu.select.color_range = Faarfberäich…
+menu.select.modify = Änneren
+menu.select.border = Rand…
+menu.select.smooth = Glätten…
+menu.select.expand = Erweideren…
+menu.select.contract = Verklengeren…
+menu.select.feather = Mëlle Rand…
+menu.select.transform_selection = Auswiel transforméieren
+
+menu.layer = Eben
+menu.layer.layer_style = Ebenestil…
+menu.layer.layer_comps = Ebenekompositiounen
+menu.layer.new_layer_comp = Nei Ebenekompositioun
+menu.layer.delete_layer_comp = {name} läschen
+menu.layer.path = Pad
+menu.layer.fill_path = Pad fëllen
+menu.layer.stroke_path = Padkontur zeechnen
+menu.layer.make_selection = Auswiel erstellen
+menu.layer.delete_path = Pad läschen
+
+menu.adjust = Upassen
+
+menu.filter = Filter
+menu.filter.filter_gallery = Filtergalerie…
+menu.filter.liquify = Verflëssegen
+menu.filter.vanishing_point = Fluchtpunkt
+menu.filter.manage_models = Modeller verwalten…
+menu.filter.camera_raw_development = Camera Raw entwéckelen…
+
+menu.view = Usiicht
+menu.view.rotate_view_cw = Usiicht mat der Auer dréinen
+menu.view.rotate_view_ccw = Usiicht géint d'Auer dréinen
+menu.view.reset_view = Usiicht zerécksetzen
+menu.view.zoom_in = Vergréisseren
+menu.view.zoom_out = Verklengeren
+menu.view.fit_on_screen = Un den Ecran upassen
+menu.view.actual_size = 100%
+menu.view.rulers = Linealen
+menu.view.grid = Gitter
+menu.view.guides = Hëllefslinnen
+menu.view.notes = Notizen
+menu.view.ai_panel = KI-Panneau
+menu.view.extras = Zousätzlech Elementer
+menu.view.snap = Ausriichten
+menu.view.clear_guides = Hëllefslinne läschen
+menu.view.clear_notes = Notize läschen
+menu.view.clear_count = Zielmarkéierungen läschen
+menu.view.screen_mode = Ecranmodus
+menu.view.proof_colors = Prouffaarwen
+menu.view.show_rulers = Lineale weisen
+menu.view.hide_rulers = Lineale verstoppen
+menu.view.show_grid = Gitter weisen
+menu.view.hide_grid = Gitter verstoppen
+menu.view.show_guides = Hëllefslinne weisen
+menu.view.hide_guides = Hëllefslinne verstoppen
+menu.view.show_notes = Notize weisen
+menu.view.hide_notes = Notize verstoppen
+menu.view.show_extras = Zousätzlech Elementer weisen
+menu.view.hide_extras = Zousätzlech Elementer verstoppen
+menu.view.enable_snapping = Ausriichten aktivéieren
+menu.view.disable_snapping = Ausriichten desaktivéieren
+menu.view.enable_proof_colors = Prouffaarwen aktivéieren
+menu.view.disable_proof_colors = Prouffaarwen desaktivéieren
+
+menu.gallery = Galerie
+menu.gallery.edit_selected = Ausgewieltes änneren
+menu.gallery.refresh = Nei lueden
+menu.gallery.map_filter = Kaartfilter…
+menu.gallery.back_to_editor = Zeréck an den Editeur
+
+menu.cloud.browse = Schist Cloud duerchsichen
+menu.cloud.generate = Biller generéieren…
+menu.cloud.upload = Dokument op Schist Cloud eroplueden…
+menu.cloud.sign_out = Vu Schist Cloud ofmellen
+menu.cloud.sign_in = Bei Schist Cloud umellen…
+
+menu.app.services = Servicer
+menu.app.hide = {app} verstoppen
+menu.app.hide_others = Anerer verstoppen
+menu.app.show_all = All weisen
+menu.app.quit = {app} verloossen
+
+menu.status.transform_selection_needs_selection = Fir d'Auswiel ze transforméieren, muss eng Auswiel bestoen
+menu.status.crop_needs_selection = Fir op d'Auswiel zouzeschneiden, muss eng Auswiel bestoen
+menu.status.select_photo_to_edit = Wielt eng Foto aus, fir se z'änneren

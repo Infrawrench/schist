@@ -1,0 +1,22 @@
+# Основни инструменти: Преместване, Пипета, Ръка и Мащаб.
+tool.move.name = Преместване
+tool.move.description = Плъзнете съдържанието на активния слой до нова позиция. Когато автоматичното избиране е включено, натискането първо избира слоя — или цялата група — под показалеца.
+tool.move.option.auto_select = Автоматично избиране
+tool.move.history.move_layer = Преместване на слой
+
+tool.eyedropper.name = Пипета
+tool.eyedropper.description = Вземете проба от цвета под показалеца като цвят на преден план или като цвят на фона, когато е задържан Alt. При плъзгане пробите се вземат непрекъснато.
+tool.eyedropper.option.sample_size = Размер на пробата
+tool.eyedropper.option.sample = Проба
+tool.eyedropper.choice.point_sample = Точкова проба
+tool.eyedropper.choice.average_3 = Средно 3 на 3
+tool.eyedropper.choice.average_5 = Средно 5 на 5
+tool.eyedropper.choice.average_11 = Средно 11 на 11
+tool.eyedropper.choice.average_31 = Средно 31 на 31
+tool.eyedropper.choice.all_layers = Всички слоеве
+tool.eyedropper.choice.current_layer = Текущ слой
+
+tool.hand.name = Ръка
+tool.hand.description = Премества изгледа. Областта за преглед принадлежи на прозореца, затова при работа без графичен интерфейс този инструмент не променя документа.
+tool.zoom.name = Мащаб
+tool.zoom.description = Променя мащаба на изгледа. Областта за преглед принадлежи на прозореца, затова при работа без графичен интерфейс този инструмент не променя документа.

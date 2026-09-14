@@ -1,0 +1,27 @@
+# Інструмент тэксту.
+
+tool.type.name = Тэкст
+tool.type.description = Пстрыкніце, каб пачаць тэкставы пласт у гэтым месцы, або пстрыкніце па існым, каб яго рэдагаваць. Пакуль пласт адкрыты, інструмент прымае непасрэдныя націскі клавіш (перадавайце сімвалы як клавіятурны ўвод), а пацвярджэнне адмалёўвае пласт і закрывае рэдагаванне.
+
+# Панэль параметраў
+tool.type.option.align = Выраўноўванне
+tool.type.option.leading = Інтэрліньяж
+tool.type.option.tracking = Трэкінг
+tool.type.option.kerning = Кернінг
+tool.type.option.ligatures = Лігатуры
+tool.type.option.discretionary_ligatures = Дыскрэцыйныя лігатуры
+tool.type.option.small_caps = Капітэль
+tool.type.option.on_path = Па актыўным контуры
+tool.type.option.path_offset = Зрух па контуры
+
+# Стыль
+tool.type.choice.regular = Звычайны
+tool.type.choice.bold = Тоўсты
+tool.type.choice.italic = Курсіў
+tool.type.choice.bold_italic = Тоўсты курсіў
+
+# Гісторыя
+tool.type.history.new_layer = Новы тэкставы пласт
+tool.type.history.edit = Рэдагаванне тэксту
+tool.type.history.discard = Адкіданне тэксту
+tool.type.history.discard_empty = Адкіданне пустога тэксту

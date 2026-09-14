@@ -1,0 +1,21 @@
+# Outils liés au document : plans de travail, tranches, cadres, notes et comptages.
+tool.artboard.name = Plan de travail
+tool.artboard.description = Tracez un plan de travail : une zone nommée de la zone de travail qui s’exporte séparément. Faites glisser à l’intérieur d’un plan existant pour le déplacer.
+tool.artboard.default_name = Plan de travail {n}
+tool.slice.name = Tranche
+tool.slice.description = Tracez une tranche d’exportation, un rectangle nommé de la zone de travail exporté comme une image distincte. Faites glisser à l’intérieur d’une tranche existante pour la déplacer.
+tool.slice.default_name = Tranche {n}
+tool.frame.name = Cadre
+tool.frame.description = Tracez un cadre : un calque rectangulaire (ou elliptique) qui masque tout ce qui y est placé.
+tool.frame.default_name = Cadre {n}
+tool.frame.choice.rectangle = Rectangle
+tool.frame.choice.ellipse = Ellipse
+tool.frame.history.frame = Cadre
+tool.note.name = Note
+tool.note.description = Cliquez sur une zone vide pour y épingler une note portant l’auteur et la couleur de l’état de l’éditeur ; cliquez sur une épingle existante pour la sélectionner dans le panneau Notes.
+tool.note.history.place = Ajout d’une note
+tool.note.history.move = Déplacement de la note
+tool.note.history.delete = Suppression de la note
+tool.count.name = Comptage
+tool.count.description = Cliquez pour placer des repères de comptage numérotés sur la zone de travail, puis cliquez sur un repère existant pour le supprimer.
+tool.count.default_name = Comptage {n}

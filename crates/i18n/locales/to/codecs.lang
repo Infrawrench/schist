@@ -1,0 +1,37 @@
+# Ngaahi hingoa ʻo e faʻunga mo e pōpoaki ʻo e codec
+
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = ʻoku fakaʻuhingaʻi ʻa e {name}
+codec.msg.zero_sized = ʻoku ʻikai ha pikisi ʻi he ʻīmisí
+codec.msg.assembling_document = ʻoku fakatahatahaʻi ʻa e fakamatala
+
+codec.raw.msg.decoding = ʻoku fakaʻuhingaʻi ʻa e faile raw
+codec.raw.msg.developing = ʻoku fakatupulekina ʻa e faile raw
+codec.raw.msg.finding_preview = ʻoku kumi ʻa e tomuʻa vakai kuo fakahū ʻi loto
+codec.raw.msg.decoding_preview = ʻoku fakaʻuhingaʻi ʻa e tomuʻa vakai kuo fakahū ʻi loto
+codec.raw.msg.decoder_panicked = naʻe ʻikai lava ʻa e decoder raw ʻi he faile ko ʻení: {what}
+
+codec.affinity.import_title = Fakahū mai ʻo e Affinity
+codec.affinity.flattened_preview_layer = Tomuʻa vakai kuo fakapapatahi
+codec.affinity.msg.no_preview = ʻOku ʻikai ha tomuʻa vakai lelei kuo fakahū ʻi loto. ʻOku fakangatangata ʻa e faʻunga Layer ʻa Affinity ʻe hono tokotaha ʻaʻana; ʻoku fakahū mai ʻe Schist ʻa e tomuʻa vakai kuo fakapapatahi ʻoku ʻi he failé. ʻOku ʻikai maʻu ia ʻi he faile ko ʻení — toe seivi ia ʻi he Affinity, pe ʻave ia ko e PSD ke fakahū mai ʻa e ngaahi Layer kakató.
+
+codec.heif.msg.no_library = ʻOku ʻikai maʻu ʻa e libheif ({details}). ʻOku fiemaʻu ʻa e library libheif ke fakaava ʻa e HEIC (Linux: install libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — mahalo ʻoku ʻikai kau ha decoder HEVC ʻi he build libheif ko ʻení (ʻi he Debian/Ubuntu, install libheif-plugin-libde265)
+codec.heif.msg.unknown_error = fehālaaki ʻoku ʻikai ʻiloʻi
+codec.heif.msg.initialising = ʻoku teuteu ʻa e libheif
+codec.heif.msg.reading_container = ʻoku lau ʻa e container HEIF
+codec.heif.msg.finding_primary_image = ʻoku kumi ʻa e ʻīmisi tefitó
+codec.heif.msg.reading_icc_profile = ʻoku lau ʻa e fakamatala ICC
+codec.heif.msg.decoding_image = ʻoku fakaʻuhingaʻi ʻa e ʻīmisí
+codec.heif.msg.checksum_mismatch = ʻOku ʻikai tatau ʻa e checksum ʻo e {name}: naʻe ʻamanaki ki he {expected}, ka naʻe maʻu ʻa e {got}
+codec.heif.msg.imageio_cannot_read = Naʻe ʻikai lava ʻe ImageIO ʻo lau ʻa e container HEIF
+codec.heif.msg.container_empty = ʻoku ʻikai ha ʻīmisi ʻi he container HEIF
+codec.heif.msg.imageio_cannot_decode = Naʻe ʻikai lava ʻe ImageIO ʻo fakaʻuhingaʻi ʻa e ʻīmisi tefitó

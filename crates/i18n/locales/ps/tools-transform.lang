@@ -1,0 +1,31 @@
+# خپلواک بدلون، د ټاکنې بدلون او پرېکول، د بیا بېلګه اخیستنې نومونه او تاریخ.
+
+# خپلواک بدلون
+tool.transform.name = خپلواک بدلون
+tool.transform.description = خپلواک بدلون. په چالانېدو یې د فعالې طبقې چاپېر د بدلون چوکاټ پرانیستل کېږي: د کچې بدلولو لپاره کونج راکاږئ، د څرخولو لپاره د کونج له دباندې راکاږئ او د کوږولو لپاره څنډه راکاږئ. تر منلو (Enter) پورې هېڅ بدلون نه لیکل کېږي، او لغوه کول (Escape) طبقه بېرته خپل حالت ته راولي.
+tool.transform.option.interpolation = منځ‌اټکل
+tool.transform.history.transform = خپلواک بدلون
+tool.transform.history.image_size = د انځور کچه
+tool.transform.history.canvas_size = د انځورپاڼې کچه
+
+# د ټاکنې بدلون
+tool.transform.selection.name = د ټاکنې بدلون
+tool.transform.selection.description = د ټاکنې بدلون: هماغه چوکاټ دی، خو د ټاکنې دننه پېکسلونو پر ځای د ټاکنې کرښه لېږدوي. د پای ته رسولو لپاره یې ومنئ یا لغوه یې کړئ.
+tool.transform.selection.history.transform = د ټاکنې بدلون
+
+# د بیا بېلګه اخیستنې دودیز چاڼګرونه
+tool.transform.resample.nearest_neighbor = نږدې ګاونډی
+tool.transform.resample.bilinear = دوه‌خطي
+tool.transform.resample.bicubic = درېیمه‌درجه دوه‌لوری
+
+# پرېکول
+tool.crop.name = پرېکول
+tool.crop.description = هغه سیمه راکاږئ چې ساتل یې غواړئ او لاستي یې برابر کړئ؛ منل (Enter) سند تر هماغې سیمې پرې کوي، او لغوه کول (Escape) یې هماغسې پرېږدي.
+tool.crop.option.ratio = نسبت
+tool.crop.option.delete_cropped = پرې شوي پېکسلونه ړنګول
+tool.crop.choice.unconstrained = بې محدودې
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = پرېکول

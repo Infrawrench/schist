@@ -1,0 +1,23 @@
+# Ja kuruɲɛ baarakɛminɛnw
+tool.liquify.name = Jiyalen
+tool.liquify.description = Pikisɛliw gɛn, munumunu, dɔgɔya walima funun bɔrɔsi belebele jukɔrɔ; cogoya sugandili bɛ min kɛ olu dɔ ye. Kuruɲɛli bɛ fara ɲɔgɔn kan ja-filɛ kɔnɔ, ka da kaliki la ni i sɔnna a ma.
+tool.liquify.option.tool = Baarakɛminɛn
+tool.liquify.choice.forward_warp = Kuruɲɛ ɲɛfɛ
+tool.liquify.choice.reconstruct = Lasegin
+tool.liquify.choice.twirl_cw = Munumunu lɛri boli cogo la
+tool.liquify.choice.twirl_ccw = Munumunu lɛri boli kɔrɔcɛma
+tool.liquify.choice.pucker = Dɔgɔya cɛma
+tool.liquify.choice.bloat = Funun
+tool.liquify.choice.push_left = Gɛn numan fɛ
+tool.liquify.history.liquify = Jiyalen
+
+tool.puppet_warp.name = Marionɛti kuruɲɛ
+tool.puppet_warp.description = Digi ka kaliki datugu yɔrɔ damadɔ la, ka kelen sama: ja-filɛ bɛ kuruɲɛ datugudaw lamini, ka girin walima ka nɔgɔn i n'a fɔ Girinya sugandili b'a fɔ cogo min na. Sɔnni b'a da a la.
+tool.puppet_warp.option.stiffness = Girinya
+tool.puppet_warp.history.puppet_warp = Marionɛti kuruɲɛ
+
+tool.vanishing_point.name = Tununyɔrɔ
+tool.vanishing_point.description = I ka yɔrɔ tilennen sama ka da fɛn kan min bɛ peresipɛktivi kɔnɔ; o kɔ, cogoya yɛlɛma ka kɛ Kopi ye ka bɔrɔsi: pikisɛli kopilenw bɛ o yɔrɔ tilennen sira taama, ka dɔgɔya ni u bɔra ka jan.
+tool.vanishing_point.choice.edit_plane = Yɔrɔ tilennen labɛn
+tool.vanishing_point.choice.clone = Kopi
+tool.vanishing_point.history.vanishing_point = Tununyɔrɔ

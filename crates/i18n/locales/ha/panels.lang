@@ -1,0 +1,97 @@
+# Falaye, sandunan kayan aiki da sauran abubuwan da ke kewaye da wurin zane.
+
+# Maɓallan gyara
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Sandar matsayi
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+# Shafukan takarda da sandar take
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Mai kewaya
+panel.navigator.title = Mai Kewaya
+panel.navigator.actual_pixels = Pixels na Ainihi
+
+# Falin launi
+panel.color.picker = Mai Zaɓen Launi…
+panel.color.swap = Musanya Launuka
+panel.color.reset = Sake Saita zuwa Baƙi da Fari
+
+# Falin shimfiɗu
+panel.layers.blending_options = Zaɓuɓɓukan Haɗawa…
+panel.layers.properties = Halayen Shimfiɗa…
+panel.layers.show_hide = Nuna/Ɓoye Shimfiɗa
+panel.layers.toggle_visibility = Sauya Bayyanar
+
+# Falin tarihi
+panel.history.title = Tarihi
+panel.history.opened = An Buɗe
+
+# Bayanan hoto
+panel.info.title = Bayani
+panel.info.camera = Kamara
+panel.info.lens = Ruwan Tabarau
+panel.info.iso = ISO {iso}
+panel.info.bias = Karkatar Fallasa
+panel.info.flash_fired = an kunna walƙiya
+panel.info.no_flash = babu walƙiya
+panel.info.white_balance = WB {wb}
+panel.info.metering = ma'aunin {metering}
+panel.info.taken = An Ɗauka
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · fuskantarwa {o}
+panel.info.software = Manhaja
+panel.info.where = Wuri
+
+# Falin bayanai
+panel.notes.author = Marubuci
+panel.notes.clear_all = Goge Duka
+panel.notes.unattributed = Ba a San Mai Shi ba
+panel.notes.empty = Danna wurin zane don barin bayani.
+panel.notes.placeholder = Danna don rubutawa
+
+# Falin haruffa
+panel.character.title = Harafi
+panel.character.type_tool = Kayan aikin rubutu (T)
+panel.character.align_left = Jera hagu
+panel.character.align_center = Jera tsakiya
+panel.character.align_right = Jera dama
+panel.character.text_color = Launin rubutu
+panel.character.panel = Falin haruffa
+panel.character.cancel_edit = Soke gyaran rubutu
+panel.character.commit_edit = Tabbatar da gyaran rubutu
+panel.character.number_tip = {label} · Rubuta ƙima, ko yi amfani da ↑ / ↓ (Shift don matakai mafi girma)
+panel.character.leading = Tazarar Layuka
+panel.character.tracking = Tazarar Haruffa
+panel.character.alignment = Jeri
+panel.character.opentype = OpenType
+panel.character.text_on_path = Rubutu a kan tafarki
+panel.character.straight = Madaidaici
+panel.character.on_path = A kan tafarki
+panel.character.straight_tip = Yi amfani da layin tushe na yau da kullum na shimfiɗar rubutu
+panel.character.on_path_tip = Yi amfani da kwafin tafarki mai aiki
+panel.character.path_offset = Kaucewar tafarki
+
+# Falin AI
+panel.ai.title = AI
+panel.ai.empty_editor = Nemi gyara ka ga yadda yake faruwa a kan wurin zane. Wakilin yana sarrafa kayan aiki, matata da umarni iri ɗaya da menu, matakin warwarewa ɗaya ga kowane aiki.
+panel.ai.empty_gallery = Tambayi game da hotunanka ka ga yadda yake faruwa a ma'ajiyar hotuna: wakilin zai iya nema, duba ƙananan hotuna, zaɓa, rarraba su cikin rukuni, da buɗe hoto a edita.
+panel.ai.thinking = ana tunani…
+panel.ai.placeholder_editor = Tambaya game da wannan takarda ko gyara ta
+panel.ai.placeholder_gallery = Tambaya game da hotunanka
+panel.ai.send = Aika
+panel.ai.stop = Tsaya
+panel.ai.fetching_models = Ana tambayar CLI jerin samfuransa…
+panel.ai.no_models = Babu samfuran da suka dace
+panel.ai.search_models = Nemi samfura…
+
+# Maganganun fayil
+panel.keymap.install_plugin = Girka Plug-in
+panel.keymap.save_as_prompt = Ajiye kamar — tsawo ne yake zaɓar tsarin:

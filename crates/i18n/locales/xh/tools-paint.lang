@@ -1,0 +1,83 @@
+# Ibhrashi
+tool.brush.name = Ibhrashi
+tool.brush.description = Peyinta umgca onemiphetho ethambileyo ngombala wangaphambili, ubungakanani bawo bulawulwa bubungakanani bebrashi, ukuqina nokungabonakalisi ngaphaya okusetiweyo kumhleli.
+tool.brush.history.stroke = Umgca webhrashi
+
+# Ipensile
+tool.pencil.name = Ipensile
+tool.pencil.description = Peyinta umgca onemiphetho eqinileyo, ongenaso isilungisi semiphetho, ngombala wangaphambili.
+tool.pencil.history.stroke = Umgca wepensile
+
+# Isicimi
+tool.eraser.name = Isicimi
+tool.eraser.description = Cima apho umgca udlula khona, ubuyisele umaleko ekubonakaleni ngaphaya.
+tool.eraser.history.stroke = Ukucima
+
+# Isitampu Sokukopa
+tool.clone.name = Isitampu Sokukopa
+tool.clone.description = Isitampu Sokukopa: cofa nge-alt ukuze usete indawo yomthombo, uze upeyinte iipikseli ezikhutshelwe kuyo zikuloo mgama.
+tool.clone.history.stroke = Isitampu Sokukopa
+
+# Ukukhanyisa, Ukwenza Mnyama, Isiponji
+tool.dodge.name = Ukukhanyisa
+tool.dodge.description = Khanyisa iipikseli umgca odlula phezu kwazo.
+tool.dodge.history.stroke = Ukukhanyisa
+tool.burn.name = Ukwenza Mnyama
+tool.burn.description = Yenza mnyama iipikseli umgca odlula phezu kwazo.
+tool.burn.history.stroke = Ukwenza Mnyama
+tool.sponge.name = Isiponji
+tool.sponge.description = Yandisa okanye unciphise ukugcwala kombala kwiipikseli umgca odlula phezu kwazo.
+tool.sponge.history.stroke = Isiponji
+
+# Ukufiphalisa, Ukulola, Ukuthambisa
+tool.blur.name = Ukufiphalisa
+tool.blur.description = Nciphisa ukulola kweepikseli umgca odlula phezu kwazo.
+tool.blur.history.stroke = Ukufiphalisa
+tool.sharpen.name = Ukulola
+tool.sharpen.description = Lola iipikseli umgca odlula phezu kwazo.
+tool.sharpen.history.stroke = Ukulola
+tool.smudge.name = Ukuthambisa
+tool.smudge.description = Tsala umbala ulandele umgca, ngokungathi utyhala ipeyinti emanzi.
+tool.smudge.history.stroke = Ukuthambisa
+
+# Ukulungisa
+tool.heal.name = Ibhrashi Yokulungisa
+tool.heal.description = Ibhrashi Yokulungisa: cofa nge-alt ukuze usete umthombo, uze upeyinte; uburhabaxa bomthombo budityaniswa nombala nokukhanya kwendawo ekuyiwa kuyo.
+tool.heal.history.stroke = Ibhrashi Yokulungisa
+tool.spot_heal.name = Ibhrashi Yokulungisa Amabala
+tool.spot_heal.description = Ibhrashi Yokulungisa Amabala: peyinta phezu kwesiphako size sithatyathelwe indawo buburhabaxa obuthathwe macala onke—akukho ndawo yomthombo ekufuneka isetiwe.
+tool.spot_heal.history.stroke = Ibhrashi Yokulungisa Amabala
+
+# Ibhrashi Yembali
+tool.history_brush.name = Ibhrashi Yembali
+tool.history_brush.description = Peyinta ubuyise iipikseli ezivela kumfanekiso ogciniweyo wembali yoxwebhu, urhoxise umsebenzi owenziwe emva koko umgca ngomgca.
+tool.history_brush.history.stroke = Ibhrashi Yembali
+
+# Isicimi Semvelaphi
+tool.background_eraser.name = Isicimi Semvelaphi
+tool.background_eraser.description = Cima umbala othathwe phantsi kombindi webhrashi uze ushiye iipikseli ezahlukileyo, ukuze ukhuphe into esemfanekisweni kwimvelaphi yayo.
+tool.background_eraser.history.stroke = Isicimi Semvelaphi
+
+# Uthambeka
+tool.gradient.name = Uthambeka Lombala
+tool.gradient.description = Tsala ukuze ugcwalise umaleko—udlule kukhetho xa lukhona—ngothambeka oluthe ngqo olusuka kumbala wangaphambili ukuya kowasemva ecaleni kwendlela otsala kuyo.
+tool.gradient.radial.name = Uthambeka Lombala Oluphuma Embindini
+tool.gradient.radial.description = Tsala ukusuka embindini uye ngaphandle ukuze ugcwalise ngothambeka oluphuma embindini phakathi kombala wangaphambili nowasemva.
+tool.gradient.option.gradient = Uthambeka Lombala
+tool.gradient.option.reverse = Guqula Icala
+tool.gradient.option.dither = Xuba Amaqondo Ombala
+tool.gradient.choice.foreground_to_background = Owangaphambili ukuya Kowasemva
+tool.gradient.choice.foreground_to_transparent = Owangaphambili ukuya Kokubonakala Ngaphaya
+tool.gradient.choice.linear = Oluthe Ngqo
+tool.gradient.choice.radial = Oluphuma Embindini
+tool.gradient.choice.angle = I-engile
+tool.gradient.choice.reflected = Olubonisiweyo
+tool.gradient.choice.diamond = Idayimani
+tool.gradient.history.gradient = Uthambeka Lombala
+
+# I-emele Yepeyinti
+tool.bucket.name = I-emele Yepeyinti
+tool.bucket.description = Cofa ukuze ugcwalise indawo edibeneyo enombala ofanayo phantsi kwesalathisi ngombala wangaphambili, ngokomda wokunyamezela wesixhobo.
+tool.bucket.option.contiguous = Okudibeneyo
+tool.bucket.option.all_layers = Yonke Imaleko
+tool.bucket.history.fill = I-emele Yepeyinti

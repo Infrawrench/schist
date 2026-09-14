@@ -1,0 +1,244 @@
+dialog.save_ellipsis = Saglabāt…
+dialog.use_foreground = Izmantot priekšplāna krāsu
+dialog.downloading = Lejupielādē…
+dialog.downloading_of = Lejupielādē… {got} no {total}
+dialog.no_config_dir = (nav konfigurācijas mapes)
+
+dialog.layer_props.title = Slāņa rekvizīti
+
+dialog.export.format = Formāts
+dialog.export.dither = Krāsu rastrēšana
+dialog.export.dither_note = Rastrēt krāsas, samazinot līdz 8 bitiem
+dialog.export.export_ellipsis = Eksportēt…
+
+dialog.batch.title = Apstrādāt fotoattēlus
+dialog.batch.note_edit.zero = {n} fotoattēlu — saglabā kā galerijas labojumus; oriģināli nekad netiek mainīti.
+dialog.batch.note_edit.one = {n} fotoattēls — saglabā kā galerijas labojumu; oriģināls nekad netiek mainīts.
+dialog.batch.note_edit.other = {n} fotoattēli — saglabā kā galerijas labojumus; oriģināli nekad netiek mainīti.
+dialog.batch.note_edit_edited.zero = {n} fotoattēlu, iepriekš laboti: {edited} — apstrādes darbības tiek lietotas virs esošajiem labojumiem, bet iepriekšējie labojumi tiek paturēti kā versijas.
+dialog.batch.note_edit_edited.one = {n} fotoattēls, iepriekš laboti: {edited} — apstrādes darbības tiek lietotas virs esošā labojuma, bet iepriekšējais labojums tiek paturēts kā versija.
+dialog.batch.note_edit_edited.other = {n} fotoattēli, iepriekš laboti: {edited} — apstrādes darbības tiek lietotas virs esošajiem labojumiem, bet iepriekšējie labojumi tiek paturēti kā versijas.
+dialog.batch.note_copies.zero = {n} fotoattēlu — saplacinātas kopijas; oriģināli nekad netiek mainīti.
+dialog.batch.note_copies.one = {n} fotoattēls — saplacināta kopija; oriģināls nekad netiek mainīts.
+dialog.batch.note_copies.other = {n} fotoattēli — saplacinātas kopijas; oriģināli nekad netiek mainīti.
+dialog.batch.note_copies_edited.zero = {n} fotoattēlu, iepriekš laboti: {edited} — kopijas tiek veidotas no labotajām versijām.
+dialog.batch.note_copies_edited.one = {n} fotoattēls, iepriekš laboti: {edited} — kopija tiek veidota no labotās versijas.
+dialog.batch.note_copies_edited.other = {n} fotoattēli, iepriekš laboti: {edited} — kopijas tiek veidotas no labotajām versijām.
+dialog.batch.turn = Pagrieziens
+dialog.batch.rotate = Pagriezt
+dialog.batch.flip = Apvērst
+dialog.batch.upscale = Palielināt
+dialog.batch.colour = Krāsa
+dialog.batch.add_adjustment = Korekcija…
+dialog.batch.output = Izvade
+dialog.batch.save_as = Saglabāt kā
+dialog.batch.process = Apstrādāt
+dialog.batch.process_n = Apstrādāt: {n}
+dialog.batch.nothing_to_do = Nav ko darīt: vispirms izvēlieties pagriešanu, palielināšanu vai korekciju
+
+dialog.content_aware_scale.title = Saturjutīgā mērogošana
+dialog.content_aware_scale.note = Izgriež zemas detalizācijas šuves. Atlase norāda aizsargājamo apgabalu.
+
+dialog.stroke.title = Apvilkšana
+dialog.stroke.location = Novietojums
+dialog.stroke.inside = Iekšpusē
+dialog.stroke.outside = Ārpusē
+dialog.stroke.note = Apvelk atlasi ar priekšplāna krāsu.
+dialog.fill.contents = Saturs
+
+dialog.color_range.title = Krāsu diapazons
+dialog.color_range.sampled = Parauga krāsa
+dialog.color_range.fuzziness = Izkliede
+dialog.color_range.note = Atlasa aktīvā slāņa pikseļus, kuru krāsa ir tuva parauga krāsai.
+
+dialog.file_picker.up = ↑ Augšup
+dialog.file_picker.empty = Šeit nekā nav
+dialog.file_picker.choose_folder = Izvēlēties šo mapi
+
+dialog.filter.camera_raw_development = Camera Raw attīstīšana
+dialog.filter.reset_as_shot = Atiestatīt uz uzņemšanas iestatījumiem
+dialog.filter.raw_note = Atkārtoti attīsta aktīvo slāni no tā sākotnējiem sensora datiem.
+dialog.filter.note = Lieto aktīvajam slānim atlases robežās.
+
+dialog.fonts.title = Trūkstošie fonti
+dialog.fonts.install_named = Instalēt {name}
+dialog.fonts.no_document = Nav atvērts neviens dokuments, tāpēc nav ko pārbaudīt.
+dialog.fonts.all_installed = Visi šajā dokumentā izmantotie fonti ir instalēti. Teksts ir salikts ar tiem pašiem fontiem, kuriem tas tika izkārtots.
+dialog.fonts.missing_intro = Šajā dokumentā teksts ir salikts ar fontiem, kuru jums nav. Teksts ar aizstājējfontu ir salasāms, taču rakstzīmju platumi un rindu pārnesumi neatbilst sākotnējam izkārtojumam.
+dialog.fonts.footer = Fonti tiek lejupielādēti no Google Fonts atvērto fontu kataloga un glabāti mapē {dir}. Fontu bez atvērtas licences nekad nelejupielādē — ja pieejams metriskā ziņā saderīgs brīvs fonts, tā vietā tiek piedāvāts tas. Tā kā katras rakstzīmes horizontālais virzījums sakrīt, tiek atjaunots sākotnējais izkārtojums.
+dialog.fonts.user_font_dir = jūsu lietotāja fontu mape
+
+dialog.models.title = Neural Filters modeļi
+dialog.models.built_in = Iebūvēts · {size}
+dialog.models.installed = Instalēts · {size}
+dialog.models.not_installed = Nav instalēts · {size}
+dialog.models.not_in_browser = Nav pieejams pārlūkprogrammā · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modeļi tiek glabāti mapē {dir}. Filtri bez modeļa izmanto signālu apstrādi un par to paziņo.
+
+dialog.new_doc.title = Jauns dokuments
+dialog.new_doc.picker_title = Jauns fails
+dialog.new_doc.custom_ellipsis = Pielāgots…
+dialog.new_doc.preset = Sākotnējais iestatījums
+dialog.new_doc.preset_default = Noklusējums (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Kvadrāts (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Izveidot
+dialog.new_doc.created = Jauns dokuments: {w} × {h} px
+
+dialog.open.image_title = Atvērt attēlu
+dialog.open.image_prompt = Vai atvērt “{name}” jaunā cilnē vai pievienot pašreizējam dokumentam kā jaunu slāni?
+dialog.open.new_tab = Jauna cilne
+dialog.open.new_layer = Jauns slānis
+dialog.open.quoted = “{name}”
+dialog.open.these_files.zero = {n} failu
+dialog.open.these_files.one = šo {n} failu
+dialog.open.these_files.other = šos {n} failus
+dialog.open.shared_title_one = Kopīgots attēls
+dialog.open.shared_title_many = Kopīgoti attēli
+dialog.open.shared_prompt = Vai pievienot {what} galerijai vai atvērt redaktorā?
+dialog.open.add_to_gallery = Pievienot galerijai
+dialog.open.open_in_editor = Atvērt redaktorā
+dialog.open.heic_title = HEIC atbalsts
+dialog.open.heic_needs_decoder = Lai atvērtu “{name}”, nepieciešams HEVC dekodētājs, kas šajā sistēmā nav instalēts.
+dialog.open.heic_offer = Schist var lejupielādēt tikai dekodēšanai paredzētu libheif {version} būvējumu kopā ar libde265 HEVC dekodētāju (≈5 MB). Gan libheif, gan libde265 ir licencēti ar LGPL-3.0; abu licenču teksti tiek instalēti blakus bibliotēkai, un abu pirmkods ir pieejams projekta lapā.
+dialog.open.licenses_source = Licences un pirmkods
+dialog.open.folders_title = Nomestās mapes
+dialog.open.n_folders.zero = {n} mapju
+dialog.open.n_folders.one = {n} mape
+dialog.open.n_folders.other = {n} mapes
+dialog.open.open_in_tabs = Atvērt cilnēs
+dialog.open.open_first_in_tabs = Atvērt pirmos {n} cilnēs
+dialog.open.open_n_in_tabs.zero = Atvērt {n} attēlu cilnēs
+dialog.open.open_n_in_tabs.one = Atvērt {n} attēlu cilnē
+dialog.open.open_n_in_tabs.other = Atvērt {n} attēlus cilnēs
+dialog.open.folder_holds.zero = Mapē {what} ir {n} attēlu, ko Schist var atvērt (ieskaitot apakšmapes).
+dialog.open.folder_holds.one = Mapē {what} ir {n} attēls, ko Schist var atvērt (ieskaitot apakšmapes).
+dialog.open.folder_holds.other = Mapē {what} ir {n} attēli, ko Schist var atvērt (ieskaitot apakšmapes).
+dialog.open.folders_note = Pievienojot galerijai, mapes tiek uzraudzītas to pašreizējā vietā — nekas netiek kopēts, un labojumi tiek glabāti versijās blakus katram fotoattēlam. Atverot cilnēs, visi attēli tūlīt tiek ielādēti redaktorā.
+
+dialog.plugins.title = Spraudņi
+dialog.plugins.kind_filter = filtrs
+dialog.plugins.kind_format = formāts
+dialog.plugins.kind_unavailable = nav pieejams
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Spraudņi tiek ielādēti no {dir}
+dialog.plugins.none = Vēl nav instalēts neviens spraudnis.
+dialog.plugins.install_ellipsis = Instalēt…
+dialog.plugins.photoshop_heading = Photoshop spraudņi
+dialog.plugins.loaded_from = Ielādēti no {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Preferences
+dialog.prefs.theme = Dizains
+dialog.prefs.theme_dark = Tumšs
+dialog.prefs.theme_light = Gaišs
+dialog.prefs.grid_spacing = Režģa atstarpe
+dialog.prefs.snapping = Piesaistīšana
+dialog.prefs.snap_to = Piesaistīt palīglīnijām, režģim un audekla malām
+dialog.prefs.rendering_intent = Renderēšanas nolūks
+dialog.prefs.intent_perceptual = Perceptuāls
+dialog.prefs.intent_relative = Relatīvs kolorimetrisks
+dialog.prefs.intent_saturation = Piesātinājums
+dialog.prefs.intent_absolute = Absolūts kolorimetrisks
+dialog.prefs.scrolling = Ritināšana
+dialog.prefs.zoom_with_scroll = Mērogot ar ritentiņu
+dialog.prefs.rendering = Renderēšana
+dialog.prefs.gpu_compositing = Kompozīcija grafiskajā procesorā
+dialog.prefs.diagnostics = Diagnostika
+dialog.prefs.crash_reports = Avārijas gadījumā saglabāt lokālu avārijas pārskatu
+dialog.prefs.crash_upload = Nosūtīt to arī izstrādātājiem
+dialog.prefs.telemetry = Sūtīt anonīmu ikdienas signālu
+dialog.prefs.diagnostics_note = Diagnostikas iestatījumi stāsies spēkā nākamajā Schist palaišanas reizē.
+dialog.prefs.updates = Atjauninājumi
+dialog.prefs.check_updates = Palaišanas laikā pārbaudīt jaunus laidienus
+dialog.prefs.keyboard_shortcuts = Tastatūras saīsnes: {path}
+dialog.prefs.nsfw_needs_model = Nepieciešams modelis Content (NSFW Filter) —
+dialog.prefs.nsfw_download_link = lejupielādējiet to sadaļā Pārvaldīt modeļus…
+dialog.prefs.hide_flagged = Paslēpt atzīmētos fotoattēlus
+
+dialog.profile.profile = Profils
+dialog.profile.assign_title = Piešķirt profilu
+dialog.profile.convert_title = Konvertēt profilā
+dialog.profile.assign = Piešķirt
+dialog.profile.convert = Konvertēt
+dialog.profile.assign_note = Esošās pikseļu vērtības tiek no jauna interpretētas atbilstoši jaunajam profilam.
+dialog.profile.convert_note = Pikseļu vērtības tiek pārrakstītas, lai saglabātu krāsu izskatu.
+
+dialog.save_image.title = Saglabāt attēlu kā
+dialog.save_image.note = {name} — labotā versija, ja tāda ir; oriģināls nekad netiek mainīts.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Attēla lielums
+dialog.size.canvas_title = Audekla lielums
+dialog.size.constrain = Ierobežot
+dialog.size.keep_proportions = Saglabāt proporcijas
+dialog.size.resample = Pārrēķināt
+dialog.size.bicubic = Bikubiska
+dialog.size.bilinear = Bilineāra
+dialog.size.nearest = Tuvākais kaimiņš
+dialog.size.anchor = Enkurs
+dialog.size.currently = Pašlaik {w} × {h} px
+dialog.size.image_size_status = Attēla lielums: {w} × {h}
+dialog.size.canvas_size_status = Audekla lielums: {w} × {h}
+
+dialog.update.title = Pieejams atjauninājums
+dialog.update.available = Ir pieejams Schist {version}. Šīs kopijas versija ir {current}.
+dialog.update.installing = Instalē atjauninājumu…
+dialog.update.can_install = Schist var to lejupielādēt ({size}) un instalēt šīs kopijas vietā.
+dialog.update.external = Šī kopija iegūta no avota, kas to pārvalda — pakotņu pārvaldnieka, AppImage vai jūsu paša būvējuma —, tāpēc tā jāatjaunina tādā pašā veidā, kā tika instalēta.
+dialog.update.later = Vēlāk
+dialog.update.release_notes = Laidiena piezīmes
+dialog.update.update_restart = Atjaunināt un pārstartēt
+dialog.update.open_page = Atvērt laidiena lapu
+
+dialog.style.title = Slāņa stils
+dialog.style.bevel = Slīpā mala un reljefs
+dialog.style.stroke = Apvilkums
+dialog.style.inner_shadow = Iekšējā ēna
+dialog.style.inner_glow = Iekšējais spīdums
+dialog.style.satin = Satīns
+dialog.style.color_overlay = Krāsas pārklājums
+dialog.style.gradient_overlay = Gradienta pārklājums
+dialog.style.outer_glow = Ārējais spīdums
+dialog.style.drop_shadow = Krītošā ēna
+dialog.style.blur = Gausa aizmiglojums
+dialog.style.gradient_from = Gradienta pārklājuma sākums
+dialog.style.gradient_to = Gradienta pārklājuma beigas
+dialog.style.soften = Mīkstināt
+dialog.style.depth = Dziļums
+dialog.style.altitude = Augstums
+dialog.style.highlight = Izgaismojums
+dialog.style.shadow = Ēna
+dialog.style.outer_bevel = Ārējā slīpā mala
+dialog.style.inner_bevel = Iekšējā slīpā mala
+dialog.style.emboss = Reljefs
+dialog.style.pillow_emboss = Spilvena reljefs
+dialog.style.linear = Lineārs
+dialog.style.radial = Radiāls
+dialog.style.reverse = Apgriezt
+dialog.style.from_to = No/līdz
+dialog.style.from_fg = No = priekšplāns
+dialog.style.to_fg = Līdz = priekšplāns
+dialog.style.precise = Precīzs
+dialog.style.knockout = Slānis izsit krītošo ēnu
+
+dialog.color_picker.title = Krāsu izvēle ({what})
+dialog.color_picker.effect_color = Efekta {effect} krāsa
+dialog.color_picker.note_color = Piezīmes krāsa
+dialog.color_picker.new = jaunā
+dialog.color_picker.current = pašreizējā
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Atiestatīt kanālu
+dialog.curves.hint = Velciet, lai veidotu līkni · noklikšķiniet, lai pievienotu · klikšķiniet ar Alt, lai noņemtu
+
+dialog.prefs.camera_sync = Kameras rullis
+dialog.prefs.camera_sync_enabled = Dublēt pakalpojumā Schist Cloud
+dialog.prefs.camera_sync_sign_in = Pierakstieties Schist Cloud, lai dublētu kameras rulli.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Mainīt…

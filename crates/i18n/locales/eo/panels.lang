@@ -1,0 +1,83 @@
+# Klavmodifiloj
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigilo
+panel.navigator.actual_pixels = Efektivaj rastrumeroj
+
+panel.color.picker = Elektilo…
+panel.color.swap = Interŝanĝi kolorojn
+panel.color.reset = Restarigi nigran kaj blankan
+
+panel.layers.blending_options = Kunfandaj opcioj…
+panel.layers.properties = Tavolaj ecoj…
+panel.layers.show_hide = Montri/kaŝi tavolon
+panel.layers.toggle_visibility = Baskuligi videblecon
+
+panel.history.title = Historio
+panel.history.opened = Malfermita
+
+panel.info.title = Informoj
+panel.info.camera = Fotilo
+panel.info.lens = Objektivo
+panel.info.iso = ISO {iso}
+panel.info.bias = Ekspona kompenso
+panel.info.flash_fired = fulmo ekbrilis
+panel.info.no_flash = sen fulmo
+panel.info.white_balance = Blankekvilibro {wb}
+panel.info.metering = {metering}-mezurado
+panel.info.taken = Fotita
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · orientiĝo {o}
+panel.info.software = Programaro
+panel.info.where = Loko
+
+panel.notes.author = Aŭtoro
+panel.notes.clear_all = Forigi ĉiujn
+panel.notes.unattributed = Sen aŭtoro
+panel.notes.empty = Alklaku la kanvason por lasi noton.
+panel.notes.placeholder = Alklaku por skribi
+
+panel.character.title = Signo
+panel.character.type_tool = Tekstilo (T)
+panel.character.align_left = Ĝisrandigi maldekstren
+panel.character.align_center = Centrigi
+panel.character.align_right = Ĝisrandigi dekstren
+panel.character.text_color = Tekstkoloro
+panel.character.panel = Panelo Signo
+panel.character.cancel_edit = Nuligi tekstredaktadon
+panel.character.commit_edit = Konfirmi tekstredaktadon
+panel.character.number_tip = {label} · Tajpu valoron aŭ uzu ↑ / ↓ (Shift por pli grandaj paŝoj)
+panel.character.leading = Linia interspaco
+panel.character.tracking = Literinterspaco
+panel.character.alignment = Ĝisrandigo
+panel.character.opentype = OpenType
+panel.character.text_on_path = Teksto sur kurbo
+panel.character.straight = Rekta
+panel.character.on_path = Sur kurbo
+panel.character.straight_tip = Uzi la ordinaran bazlinion de la teksttavolo
+panel.character.on_path_tip = Uzi kopion de la aktiva kurbo
+panel.character.path_offset = Deŝovo laŭ kurbo
+
+panel.ai.title = AI
+panel.ai.empty_editor = Petu redakton kaj rigardu ĝian aperon sur la kanvaso. La agento uzas la samajn ilojn, filtrilojn kaj komandojn kiel la menuoj, kun po unu malfara paŝo.
+panel.ai.empty_gallery = Demandu pri viaj fotoj kaj rigardu la agon en la galerio: la agento povas serĉi, rigardi bildetojn, elekti, ordigi en grupojn kaj malfermi foton en la redaktilo.
+panel.ai.thinking = pensante…
+panel.ai.placeholder_editor = Demandu pri ĉi tiu dokumento aŭ redaktu ĝin
+panel.ai.placeholder_gallery = Demandu pri viaj fotoj
+panel.ai.send = Sendi
+panel.ai.stop = Haltigi
+panel.ai.fetching_models = Petante de la komandlinia interfaco ĝiajn modelojn…
+panel.ai.no_models = Neniu modelo kongruas
+panel.ai.search_models = Serĉi modelojn…
+
+panel.keymap.install_plugin = Instali kromprogramon
+panel.keymap.save_as_prompt = Konservi kiel — la sufikso elektas la dosierformon:

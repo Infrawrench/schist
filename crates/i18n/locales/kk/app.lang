@@ -1,0 +1,39 @@
+app.filter_gallery.title = Сүзгілер галереясы
+app.filter_gallery.stack = Жинақ (төменнен жоғары қарай қолданылады)
+app.filter_gallery.no_settings = Бұл сүзгінің баптаулары жоқ.
+
+app.fonts.not_open_licensed = ашық лицензиясы жоқ · {substitute} метрикаларына сәйкес келеді
+app.fonts.missing_substituted = жоқ · мәтін алмастырушы қаріппен терілуде
+app.fonts.not_in_catalogue = {family} ашық қаріптер каталогында жоқ
+app.fonts.no_faces = {family} үшін жүктеп алуға болатын қаріп нұсқалары жоқ
+app.fonts.empty_response = бос жауап
+
+app.update.unreadable_response = жауап оқылмайды: {error}
+app.update.no_temp_dir = жүктеп алуға арналған уақытша каталог жоқ
+app.update.asset_has_path = шығарылымда ресурс атауы жолмен бірге берілген
+app.update.too_big = жүктелген файл шығарылымда көрсетілгеннен үлкен
+app.update.stopped_at = жүктеу {total} байттың {got} байтында тоқтады
+app.update.hash_mismatch = жүктеменің хэші {want} орнына {got} болып шықты
+app.update.not_in_bundle = бұл көшірме қолданба бумасының ішінде емес
+app.update.no_parent_dir = қолданба бумасының аталық каталогы жоқ
+app.update.cannot_write = {dir} ішіне жазу мүмкін емес
+app.update.cannot_move_aside = {app} қолданбасын шетке жылжыту мүмкін емес
+app.update.cannot_move_in = жаңа буманы орнына жылжыту мүмкін емес
+app.update.cannot_run_ditto = /usr/bin/ditto іске қосылмайды
+app.update.unpack_failed = жүктемені ашу сәтсіз аяқталды: {error}
+app.update.no_app_in_download = жүктемеде Schist.app жоқ
+app.update.cannot_run_codesign = /usr/bin/codesign іске қосылмайды
+app.update.signature_invalid = жүктеменің қолтаңбасы расталмады: {error}
+app.update.download_unsigned = бұл көшірмеге қол қойылған, ал жүктемеге қойылмаған
+app.update.different_developer = жүктемеге басқа әзірлеуші қол қойған
+app.update.cannot_relaunch = қайта іске қосу құралын бастау мүмкін емес
+app.update.not_installed_copy = бұл көшірмені осы жерге орнатушы орналастырмаған
+app.update.cannot_start_installer = орнатушыны іске қосу мүмкін емес
+app.update.platform_unsupported = бұл платформадағы жаңартулар Schist орнатылған тәсілмен орнатылады
+
+app.vulkan.no_loader = schist: бұл жүйеде Vulkan жүктеушісі жоқ, сондықтан кескін салу мүмкін емес.\n\nSchist кескінді Vulkan арқылы салады, ал `libvulkan.so.1` орнатылмаған.\nЖүктеуші де, драйвер де қажет:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: осы сеанс көрсетіп тұрған Vulkan драйвері жоқ.\n\n{var} орнатылған, ал оны орнату жүктеушінің драйверлерді іздеуін толықтыратын емес, алмастыратын әрекет. Сондықтан жоқ мына файлдар драйверлердің толық тізімі болып тұр, әрі қанша драйвер орнатылса да, осы сеанстағы Vulkan бағдарламаларының ешқайсысы драйверді көрмейді:\n\n{missing}\n    {var}={value}\n\nОны бар манифестке бағыттаңыз — орнатылған драйверлер өз манифесттерін /usr/share/vulkan/icd.d ішіне қояды — немесе бұл айнымалыны алып тастап, жүктеушіге өзі іздеуге мүмкіндік беріңіз. Мұны конфигурация файлынан орнататын сеанста (Hyprland ішіндегі `env =`, systemd environment.d файлы немесе қабық профилі) өзгерісті сол жерде жасау керек; қазір іске қосулы бағдарламаларға жетуі үшін жүйеге қайта кіру қажет.\n
+app.vulkan.override_note = \n{var} мәні {value} болып орнатылған және ол жүктеушінің өз іздеуін алмастырады: сол манифесттердің ешқайсысы бұл компьютерге арналмаған болса, алдымен айнымалыны алып тастап көріңіз.\n
+app.vulkan.no_driver = schist: Vulkan драйвері орнатылмаған, сондықтан кескін салу мүмкін емес.\n\nSchist кескінді Vulkan арқылы салады. Жүктеуші орнатылған, бірақ драйвер жоқ деп хабарлайды — ізделетін екі орынның ешқайсысында драйвер тіркелмеген:\n\n{dirs}\n\nЖүктеуші драйверлерден бөлек жеткізіледі, сондықтан әдетте бір пакет қана жетіспейді.\n\nОсы компьютердің GPU құрылғысына арналған драйверді орнатыңыз:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA компаниясының меншікті драйвері өз драйверімен бірге келеді (Arch жүйесінде `nvidia-utils`, Debian жүйесінде `nvidia-driver`). Виртуалды машинада немесе GPU драйверін орнату мүмкін емес ортада бағдарламалық растрлағыш жұмыс істейді: Arch жүйесінде `vulkan-swrast`, басқа жүйелерде `mesa-vulkan-drivers` құрамында. Ол баяу, бірақ іске қосылады.\n{overridden}
+app.vulkan.no_device = schist: Vulkan драйвері орнатылған, бірақ кескін салатын құрылғы ұсынбайды.\n\nДрайвер бұл GPU құрылғысын қолдамауы немесе оған қол жеткізе алмауы мүмкін — SSH арқылы немесе контейнер ішінде жұмыс істегенде /dev/dri жиі қолжетімсіз болады. `vulkaninfo --summary` жүктеуші көретін құрылғыларды көрсетеді.\n\nБұл компьютерде GPU мүлде болмаса, бағдарламалық растрлағыш онсыз да кескін салады: Arch жүйесінде `vulkan-swrast`, Debian және Fedora жүйелерінде `mesa-vulkan-drivers` құрамында.\n
+app.vulkan.skip_hint = Schist қолданбасын бәрібір іске қосып, өз қатесімен тоқтауына мүмкіндік беру үшін {var}=1 мәнін орнатыңыз.

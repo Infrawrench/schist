@@ -1,0 +1,72 @@
+tool.brush.name = Brush
+tool.brush.description = Ta fli si ƒe towo ble le ŋgɔgbe ƒe amadede me, eye eƒe lolome sɔ kple trɔla la ƒe brush ƒe lolome, sesẽme kple opacity.
+tool.brush.history.stroke = Brush
+
+tool.pencil.name = Akpanyɔ
+tool.pencil.description = Ta fli si ƒe to sesẽ eye anti-aliasing mele eme o le ŋgɔgbe ƒe amadede me.
+tool.pencil.history.stroke = Akpanyɔ
+
+tool.eraser.name = Tutudɔwɔnu
+tool.eraser.description = Tutui ɖe fli la dzi, eye nàgbugbɔ layer la ɖe transparent nɔnɔme me.
+tool.eraser.history.stroke = Tutudɔwɔnu
+
+tool.clone.name = Clone Stamp
+tool.clone.description = Clone Stamp: zi alt eye nàzi be nàtia dzɔtsoƒe, eye emegbe ta pixel siwo wokɔpi tso afi ma le didi ma dzi.
+tool.clone.history.stroke = Clone Stamp
+
+tool.dodge.name = Dodge
+tool.dodge.description = Na pixel siwo dzi fli la tona la nakle.
+tool.dodge.history.stroke = Dodge
+tool.burn.name = Burn
+tool.burn.description = Na pixel siwo dzi fli la tona la nado viviti.
+tool.burn.history.stroke = Burn
+tool.sponge.name = Sponge
+tool.sponge.description = Na pixel siwo dzi fli la tona la ƒe amadede nasẽ alo nalɔ.
+tool.sponge.history.stroke = Sponge
+
+tool.blur.name = Blur
+tool.blur.description = Wɔ blur ɖe pixel siwo dzi fli la tona la ŋu.
+tool.blur.history.stroke = Blur
+tool.sharpen.name = Kɔ ŋu
+tool.sharpen.description = Kɔ pixel siwo dzi fli la tona la ŋu.
+tool.sharpen.history.stroke = Kɔ ŋu
+tool.smudge.name = Smudge
+tool.smudge.description = He amadede ɖe fli la dzi abe ɖe nèle amadzeze be si hehe ene.
+tool.smudge.history.stroke = Smudge
+
+tool.heal.name = Healing Brush
+tool.heal.description = Healing Brush: zi alt eye nàzi be nàtia dzɔtsoƒe, emegbe nàta; woawɔ dzɔtsoƒe la ƒe texture ɖe teƒe si wòyi la ŋutɔ ƒe amadede kple kekeli me.
+tool.heal.history.stroke = Healing Brush
+tool.spot_heal.name = Spot Healing Brush
+tool.spot_heal.description = Spot Healing Brush: ta ɖe gbegblẽvi aɖe dzi eye woatsɔ texture si woxɔ tso eƒe megbe dome aɖɔli — mehia be nàtia dzɔtsoƒe o.
+tool.spot_heal.history.stroke = Spot Healing Brush
+
+tool.history_brush.name = History Brush
+tool.history_brush.description = Gbugbɔ pixelwo ta tso agbalẽ la ƒe ŋutinya ƒe snapshot me, eye nàɖe dɔ siwo wowɔ emegbe ɖa fli ɖeka ɖeka.
+tool.history_brush.history.stroke = History Brush
+
+tool.background_eraser.name = Megbe Tutudɔwɔnu
+tool.background_eraser.description = Tu amadede si brush la ƒe titina kpɔ la, eye nàgblẽ pixel siwo ƒe amadede to vovo ɖi, be woaɖe nɔnɔme si le ŋgɔ la tso eƒe megbe.
+tool.background_eraser.history.stroke = Megbe Tutudɔwɔnu
+
+tool.gradient.name = Gradient
+tool.gradient.description = He be nàtsɔ linear gradient si dze egɔme tso ŋgɔgbe ƒe amadede me yi megbe ƒe amadede me le hehẽ la ƒe mɔ dzi ayɔ layer la me — ato tiatia la me ne aɖe li.
+tool.gradient.radial.name = Radial Gradient
+tool.gradient.radial.description = He tso titina yi gotagome be nàtsɔ radial gradient si le ŋgɔgbe kple megbe ƒe amadedewo dome ayɔ eme.
+tool.gradient.option.gradient = Gradient
+tool.gradient.option.reverse = Trɔ megbe
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Ŋgɔgbe yi Megbe
+tool.gradient.choice.foreground_to_transparent = Ŋgɔgbe yi Transparent
+tool.gradient.choice.linear = Linear
+tool.gradient.choice.radial = Radial
+tool.gradient.choice.angle = Dzogoe
+tool.gradient.choice.reflected = Nɔnɔme si wòɖe le ahuhɔ̃e me
+tool.gradient.choice.diamond = Diamond
+tool.gradient.history.gradient = Gradient
+
+tool.bucket.name = Amadede ƒe Kɔ
+tool.bucket.description = Zi be nàtsɔ ŋgɔgbe ƒe amadede ayɔ teƒe siwo ƒe amadede sɔ eye wonɔ ka ɖe wo nɔewo ŋu le nudzesi la te, le dɔwɔnu la ƒe tolerance me.
+tool.bucket.option.contiguous = Siwo nɔ ka ɖe wo nɔewo ŋu
+tool.bucket.option.all_layers = Layerwo Katã
+tool.bucket.history.fill = Amadede ƒe Kɔ

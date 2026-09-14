@@ -1,0 +1,36 @@
+app.filter_gallery.title = Gallery ya Disefe
+app.filter_gallery.stack = Stack (e dirisiwa go tswa tlase go ya godimo)
+app.filter_gallery.no_settings = Sefe seno ga se na dithulaganyo.
+app.fonts.not_open_licensed = ga e na laesense e e bulegileng · {substitute} e tsamaisana le metrics tsa yone
+app.fonts.missing_substituted = e tlhaela · mokwalo o bewa ka font e e emelang
+app.fonts.not_in_catalogue = {family} ga e yo mo katalogong ya difont tse di bulegileng
+app.fonts.no_faces = ga go na font faces tsa {family} tse di ka laeletswang
+app.fonts.empty_response = karabo e e lolea
+app.update.unreadable_response = karabo e e sa balegeng: {error}
+app.update.no_temp_dir = ga go na setsholadifaele sa nakwana se download e ka tsenang mo go sone
+app.update.asset_has_path = release e reile asset ya yone ka path
+app.update.too_big = download e kgolo go feta jaaka release e boletse
+app.update.stopped_at = download e eme mo go {got} ya {total} bytes
+app.update.hash_mismatch = hash ya download ke {got}, e seng {want}
+app.update.not_in_bundle = kopi eno ga e mo teng ga application bundle
+app.update.no_parent_dir = application bundle ga e na parent directory
+app.update.cannot_write = ga go kgonege go kwalela mo {dir}
+app.update.cannot_move_aside = ga go kgonege go sutisetsa {app} kwa thoko
+app.update.cannot_move_in = ga go kgonege go sutisetsa bundle e ntšha mo lefelong
+app.update.cannot_run_ditto = ga go kgonege go tsamaisa /usr/bin/ditto
+app.update.unpack_failed = go phutholola download go retetse: {error}
+app.update.no_app_in_download = download ga e na Schist.app
+app.update.cannot_run_codesign = ga go kgonege go tsamaisa /usr/bin/codesign
+app.update.signature_invalid = signature ya download ga e netefadiwe: {error}
+app.update.download_unsigned = kopi eno e saennwe mme download ga e a saenwa
+app.update.different_developer = download e saennwe ke motlhami yo mongwe
+app.update.cannot_relaunch = ga go kgonege go simolola relauncher
+app.update.not_installed_copy = kopi eno ga e a bewa fano ke installer
+app.update.cannot_start_installer = ga go kgonege go simolola installer
+app.update.platform_unsupported = dintšhwafatso mo platform eno di tsenngwa ka tsela e Schist e neng e tsentswe ka yone
+app.vulkan.no_loader = schist: ga go na Vulkan loader mo system eno, ka jalo ga go na se go ka torowang ka sone.\n\nSchist e render-a ka Vulkan, mme `libvulkan.so.1` ga e a tsenngwa.\nLoader le driver di a tlhokega:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan driver e session eno e supang kwa go yone ga e yo.\n\n{var} e setilwe, mme go e seta go emisetsa patlo ya loader ya driver, ga go oketse mo go yone. Ka jalo difaele tseno, tse di seyong, ke lenane lotlhe la driver — mme program nngwe le nngwe ya Vulkan mo session eno ga e bone driver, le fa go tsentswe di le dintsi:\n\n{missing}\n    {var}={value}\n\nE supe kwa manifest e e leng teng — driver tse di tsentsweng di baya tsa tsone mo /usr/share/vulkan/icd.d — kgotsa e unset-e mme o letle loader go ipatlela. Session e e setang seno go tswa mo config file (Hyprland `env =`, systemd environment.d drop-in, kgotsa shell profile) e tshwanetse go fetolwa teng, mme phetogo e tlhoka login e ntšha gore e fitlhelele dilo tse di setseng di dira.\n
+app.vulkan.override_note = \n{var} e setilwe go {value}, mme seo se emisetsa patlo ya loader: fa go se na manifest ya motšhini ono, go e unset-a ke selo sa ntlha se o ka se lekang.\n
+app.vulkan.no_driver = schist: ga go na Vulkan driver e e tsentsweng, ka jalo ga go na se go ka torowang mo go sone.\n\nSchist e render-a ka Vulkan. Loader e tsentswe mme e bega gore ga go na driver — ga go na e e ikwadisitseng mo lefelong lepe la a mabedi a a batliwang:\n\n{dirs}\n\nLoader e romelwa e kgaogane le driver, ka jalo gantsi seno ke package e le nngwe e e tlhokegang.\n\nTsenya e e diretsweng GPU ya motšhini ono:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nDriver ya NVIDIA e e laolwang ke mong wa yone e na le karolo ya yone ya Vulkan (`nvidia-utils` mo Arch, `nvidia-driver` mo Debian). Mo virtual machine, kgotsa gongwe le gongwe go se nang GPU driver e e ka tsenngwang, software rasteriser ke yone e e dirang: `vulkan-swrast` mo Arch, karolo ya `mesa-vulkan-drivers` go sele. E bonya, mme e a simolola.\n{overridden}
+app.vulkan.no_device = schist: Vulkan driver e tsentswe mme ga e neye device e e ka render-wang mo go yone.\n\nDriver e ka tswa e sa akaretse GPU eno, kgotsa e sa kgone go e fitlhelela — ka SSH kgotsa mo container, /dev/dri gantsi ke yone e e tlhaelang. `vulkaninfo --summary` e bega se loader e se bonang.\n\nFa motšhini ono o se na GPU, software rasteriser e render-a kwa ntle ga GPU: `vulkan-swrast` mo Arch, karolo ya `mesa-vulkan-drivers` mo Debian le Fedora.\n
+app.vulkan.skip_hint = Go simolola Schist le fa go ntse jalo mme o e letle e retele ka tsela ya yone, seta {var}=1.

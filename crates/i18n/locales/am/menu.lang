@@ -1,0 +1,155 @@
+# የምናሌ አሞሌ።
+
+# ፋይል
+menu.file = ፋይል
+menu.file.new = አዲስ
+menu.file.open = ክፈት…
+menu.file.open_recent = የቅርብ ጊዜውን ክፈት
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = ማዕከለ-ስዕላትን አስስ…
+menu.file.close = ዝጋ
+menu.file.save = አስቀምጥ
+menu.file.save_as = እንደ… አስቀምጥ
+menu.file.export = ላክ…
+menu.file.export_submenu = ላክ
+menu.file.export_artboards = የሥዕል ሰሌዳዎችን ወደ PNG…
+menu.file.export_slices = ቁራጮችን ወደ PNG…
+menu.file.save_to_photos = ወደ ፎቶዎች አስቀምጥ
+menu.file.plugins = ተሰኪዎች…
+menu.file.missing_fonts = የጎደሉ ቅርጸ-ቁምፊዎች…
+menu.file.check_for_updates = ዝማኔዎችን ፈልግ…
+menu.file.quit = ውጣ
+menu.file.add_folder_to_gallery = አቃፊን ወደ ማዕከለ-ስዕላት ጨምር…
+menu.file.import_from_photos = ከፎቶዎች አስመጣ…
+menu.file.import_from_camera = ከካሜራ አስመጣ…
+
+# አርትዕ
+menu.edit = አርትዕ
+menu.edit.fill = ሙላ…
+menu.edit.stroke = ድንበር ሳል…
+menu.edit.content_aware_fill = ይዘትን የሚገነዘብ ሙሌት
+menu.edit.content_aware_scale = ይዘትን የሚገነዘብ መጠን ለውጥ…
+menu.edit.puppet_warp = የአሻንጉሊት ማጣመሚያ
+menu.edit.free_transform = ነጻ ለውጥ
+menu.edit.transform = ቀይር
+menu.edit.rotate_180 = 180° አሽከርክር
+menu.edit.rotate_90_cw = 90° ወደ ቀኝ አሽከርክር
+menu.edit.rotate_90_ccw = 90° ወደ ግራ አሽከርክር
+menu.edit.flip_horizontal = በአግድም ገልብጥ
+menu.edit.flip_vertical = በቁልቁል ገልብጥ
+
+# ምስል
+menu.image = ምስል
+menu.image.mode = ሁነታ
+menu.image.adjustments = ማስተካከያዎች
+menu.image.auto_tone = ራስሰር የድምፀት ደረጃ
+menu.image.auto_contrast = ራስሰር ንፅፅር
+menu.image.auto_color = ራስሰር ቀለም
+menu.image.image_size = የምስል መጠን…
+menu.image.canvas_size = የሸራ መጠን…
+menu.image.image_rotation = የምስል ሽክርክር
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° ወደ ቀኝ
+menu.image.rotate_90_ccw = 90° ወደ ግራ
+menu.image.flip_canvas_horizontal = ሸራውን በአግድም ገልብጥ
+menu.image.flip_canvas_vertical = ሸራውን በቁልቁል ገልብጥ
+menu.image.crop_to_selection = በምርጫው ልክ ከርክም
+menu.image.trim = ጠርዞችን ቁረጥ
+menu.image.assign_profile = መገለጫ መድብ…
+menu.image.convert_to_profile = ወደ መገለጫ ቀይር…
+
+# ምረጥ
+menu.select = ምረጥ
+menu.select.color_range = የቀለም ክልል…
+menu.select.modify = አሻሽል
+menu.select.border = ድንበር…
+menu.select.smooth = አለስልስ…
+menu.select.expand = አስፋ…
+menu.select.contract = አጥብብ…
+menu.select.feather = ጠርዝ አለስልስ…
+menu.select.transform_selection = ምርጫን ቀይር
+
+# ንብርብር
+menu.layer = ንብርብር
+menu.layer.layer_style = የንብርብር ቅጥ…
+menu.layer.layer_comps = የንብርብር ውህዶች
+menu.layer.new_layer_comp = አዲስ የንብርብር ውህድ
+menu.layer.delete_layer_comp = {name}ን ሰርዝ
+menu.layer.path = መንገድ
+menu.layer.fill_path = መንገድ ሙላ
+menu.layer.stroke_path = የመንገድ ድንበር ሳል
+menu.layer.make_selection = ምርጫ ፍጠር
+menu.layer.delete_path = መንገድ ሰርዝ
+
+# አስተካክል
+menu.adjust = አስተካክል
+
+# ማጣሪያ
+menu.filter = ማጣሪያ
+menu.filter.filter_gallery = የማጣሪያ ማዕከለ-ስዕላት…
+menu.filter.liquify = ፈሳሽ አድርግ
+menu.filter.vanishing_point = የእይታ ነጥብ
+menu.filter.manage_models = ሞዴሎችን አስተዳድር…
+menu.filter.camera_raw_development = የCamera Raw ማበልጸጊያ…
+
+# ዕይታ
+menu.view = ዕይታ
+menu.view.rotate_view_cw = ዕይታውን ወደ ቀኝ አሽከርክር
+menu.view.rotate_view_ccw = ዕይታውን ወደ ግራ አሽከርክር
+menu.view.reset_view = ዕይታውን ዳግም አስጀምር
+menu.view.zoom_in = አጉላ
+menu.view.zoom_out = አሳንስ
+menu.view.fit_on_screen = ከማያ ገጹ ጋር አመጣጥን
+menu.view.actual_size = 100%
+menu.view.rulers = መለኪያዎች
+menu.view.grid = ፍርግርግ
+menu.view.guides = መመሪያዎች
+menu.view.notes = ማስታወሻዎች
+menu.view.ai_panel = የAI ፓነል
+menu.view.extras = ተጨማሪዎች
+menu.view.snap = አጣብቅ
+menu.view.clear_guides = መመሪያዎችን አጽዳ
+menu.view.clear_notes = ማስታወሻዎችን አጽዳ
+menu.view.clear_count = ቆጠራን አጽዳ
+menu.view.screen_mode = የማያ ገጽ ሁነታ
+menu.view.proof_colors = የማረጋገጫ ቀለሞች
+menu.view.show_rulers = መለኪያዎችን አሳይ
+menu.view.hide_rulers = መለኪያዎችን ደብቅ
+menu.view.show_grid = ፍርግርግን አሳይ
+menu.view.hide_grid = ፍርግርግን ደብቅ
+menu.view.show_guides = መመሪያዎችን አሳይ
+menu.view.hide_guides = መመሪያዎችን ደብቅ
+menu.view.show_notes = ማስታወሻዎችን አሳይ
+menu.view.hide_notes = ማስታወሻዎችን ደብቅ
+menu.view.show_extras = ተጨማሪዎችን አሳይ
+menu.view.hide_extras = ተጨማሪዎችን ደብቅ
+menu.view.enable_snapping = ማጣበቅን አንቃ
+menu.view.disable_snapping = ማጣበቅን አሰናክል
+menu.view.enable_proof_colors = የማረጋገጫ ቀለሞችን አንቃ
+menu.view.disable_proof_colors = የማረጋገጫ ቀለሞችን አሰናክል
+
+# ማዕከለ-ስዕላት
+menu.gallery = ማዕከለ-ስዕላት
+menu.gallery.edit_selected = የተመረጠውን አርትዕ
+menu.gallery.refresh = አድስ
+menu.gallery.map_filter = የካርታ ማጣሪያ…
+menu.gallery.back_to_editor = ወደ አርታዒው ተመለስ
+
+# Schist Cloud
+menu.cloud.browse = Schist Cloudን አስስ
+menu.cloud.generate = ምስሎችን አመንጭ…
+menu.cloud.upload = ሰነዱን ወደ Schist Cloud ስቀል…
+menu.cloud.sign_out = ከSchist Cloud ውጣ
+menu.cloud.sign_in = ወደ Schist Cloud ግባ…
+
+# የmacOS መተግበሪያ ምናሌ
+menu.app.services = አገልግሎቶች
+menu.app.hide = {app}ን ደብቅ
+menu.app.hide_others = ሌሎችን ደብቅ
+menu.app.show_all = ሁሉንም አሳይ
+menu.app.quit = ከ{app} ውጣ
+
+# ሊፈጸሙ ለማይችሉ የምናሌ ትዕዛዞች የሁኔታ መልሶች
+menu.status.transform_selection_needs_selection = ምርጫን መቀየር ምርጫ ያስፈልገዋል
+menu.status.crop_needs_selection = በምርጫው ልክ ለመከርከም ምርጫ ያስፈልጋል
+menu.status.select_photo_to_edit = ለማርትዕ ፎቶ ይምረጡ

@@ -1,0 +1,230 @@
+# Foroba
+dialog.save_ellipsis = Mara…
+dialog.use_foreground = Ɲɛfɛta kɛ
+dialog.downloading = A bɛ telesarize…
+dialog.downloading_of = A bɛ telesarize… {got} ka bɔ {total} la
+dialog.no_config_dir = (labɛnni fɔldɛri tɛ yen)
+
+dialog.layer_props.title = Kaliki kunnafoniyaw
+
+dialog.export.format = Cogoya
+dialog.export.dither = Dither
+dialog.export.dither_note = Dither kɛ ni a bɛ dɔgɔya ka kɛ bit 8 ye
+dialog.export.export_ellipsis = Bɔ…
+
+dialog.batch.title = Fotow labɛn
+dialog.batch.note_edit.other = Foto hakɛ: {n} — u bɛ mara galeri labɛnniw ye; bɔyɔrɔlaw tɛ yɛlɛma abada.
+dialog.batch.note_edit_edited.other = Foto hakɛ: {n}, minnu labɛnnen don kaban hakɛ: {edited} — baara recette bɛ fara labɛnni kan, ka labɛnni kɔrɔlen mara i n'a fɔ vɛrisiyɔn.
+dialog.batch.note_copies.other = Foto hakɛ: {n} — kopi kaliki kelenw; bɔyɔrɔlaw tɛ yɛlɛma abada.
+dialog.batch.note_copies_edited.other = Foto hakɛ: {n}, minnu labɛnnen don kaban hakɛ: {edited} — kopiw bɛ dilan ka bɔ labɛnniw na.
+dialog.batch.turn = Yɛlɛma fan
+dialog.batch.rotate = Munumunu
+dialog.batch.flip = Lawuli
+dialog.batch.upscale = Bonya caya
+dialog.batch.colour = Kulɛri
+dialog.batch.add_adjustment = Labɛnni…
+dialog.batch.output = Bɔta
+dialog.batch.save_as = Mara i n'a fɔ
+dialog.batch.process = Labɛn
+dialog.batch.process_n = {n} labɛn
+dialog.batch.nothing_to_do = Foyi tɛ yen ka kɛ: fan yɛlɛmali, bonya cayali walima labɛnni sugandi fɔlɔ
+
+dialog.content_aware_scale.title = Kɔnɔkow faamuyalen bonya yɛlɛmali
+dialog.content_aware_scale.note = A bɛ tigɛli kɛ sira faranfansi dɔgɔmanw fɛ. Sugandili bɛ yɔrɔ latangali taamasiyɛn.
+
+dialog.stroke.title = Kɛrɛsira
+dialog.stroke.location = Yɔrɔ
+dialog.stroke.inside = Kɔnɔ
+dialog.stroke.outside = Kɔkan
+dialog.stroke.note = A bɛ kɛrɛsira kɛ sugandili la ni ɲɛfɛ kulɛri ye.
+
+dialog.fill.contents = Kɔnɔkow
+
+dialog.color_range.title = Kulɛri dan
+dialog.color_range.sampled = Kulɛri talen
+dialog.color_range.fuzziness = Kulɛri surunya
+dialog.color_range.note = A bɛ pikisɛli minnu ka kulɛri surun kulɛri talen na kaliki min bɛ baara la o kan, olu sugandi.
+
+dialog.file_picker.up = ↑ Sanfɛ
+dialog.file_picker.empty = Foyi tɛ yan
+dialog.file_picker.choose_folder = Nin fɔldɛri sugandi
+
+dialog.filter.camera_raw_development = Camera Raw labɛnni
+dialog.filter.reset_as_shot = Lasegin a tacogo la
+dialog.filter.raw_note = A bɛ kaliki min bɛ baara la o labɛn kokura ka bɔ a sensɛri bɔyɔrɔla kunnafoni na.
+dialog.filter.note = A bɛ kɛ kaliki min bɛ baara la o la, sugandili kɔnɔ.
+
+dialog.fonts.title = Sɛbɛnni-fɔnti tununnenw
+dialog.fonts.install_named = {name} sigindi
+dialog.fonts.no_document = Sɛbɛn si dayɛlɛlen tɛ, o la foyi tɛ yen ka lajɛ.
+dialog.fonts.all_installed = Nin sɛbɛn bɛ baara kɛ ni fɔnti minnu bɛɛ ye, olu sigilennen don. A sɛbɛn bɛ fɔnti minnu na a labɛnna ni olu ye, olu de bɛ kɛ.
+dialog.fonts.missing_intro = Nin sɛbɛn labɛnna ni fɔnti minnu ye, dɔw tɛ i bolo. Sɛbɛn bɛ se ka kalan ni fɔnti wɛrɛ ye, nka a harfuw fiyɛw ni sɛbɛn siraw tigɛyɔrɔw tɛ bɛn a labɛncogo fɔlɔ ma.
+dialog.fonts.footer = Telesarizeliw bɛ bɔ Google Fonts katalogi hɔrɔnya la ka mara {dir} kɔnɔ. Fɔnti min lisansi tɛ hɔrɔnya la, o tɛ telesarize abada — ni libre siyali bɛ yen min ka hakɛw bɛ bɛn a ma, o bɛ di a nɔ na; o bɛ labɛncogo lasegin barisa harfu kelen-kelen bɛ taa ɲɛ dafɛla cɛjan min na, o bɛ bɛn fɔnti fɔlɔ ta ma.
+dialog.fonts.user_font_dir = I ka fɔnti fɔldɛri
+
+dialog.models.title = Neural Filter misaliw
+dialog.models.built_in = Donnen porogaramu kɔnɔ · {size}
+dialog.models.installed = Sigilennen · {size}
+dialog.models.not_installed = Ma sigindi · {size}
+dialog.models.not_in_browser = A tɛ sɔrɔ navigatɛri kɔnɔ · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Misaliw bɛ mara {dir} kɔnɔ. Sɛgɛsɛgɛlan min ka misali tɛ yen, o bɛ segin signal processing ma ka o fɔ.
+
+dialog.new_doc.title = Sɛbɛn kura
+dialog.new_doc.picker_title = Dosiyɛ kura
+dialog.new_doc.custom_ellipsis = I yɛrɛ ta…
+dialog.new_doc.preset = Labɛnnen
+dialog.new_doc.preset_default = Daminɛ ta (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Kare (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = US Letter, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Dilan
+dialog.new_doc.created = Sɛbɛn kura: {w} × {h} px
+
+dialog.open.image_title = Ja dayɛlɛ
+dialog.open.image_prompt = “{name}” dayɛlɛ tab kura kɔnɔ, walima a fara sisan sɛbɛn kan i n'a fɔ kaliki kura wa?
+dialog.open.new_tab = Tab kura
+dialog.open.new_layer = Kaliki kura
+dialog.open.quoted = “{name}”
+dialog.open.these_files.other = Nin dosiyɛ hakɛ: {n}
+dialog.open.shared_title_one = Ja tilalen
+dialog.open.shared_title_many = Jaw tilalenw
+dialog.open.shared_prompt = {what} fara galeri kan, walima dayɛlɛ labɛnnikɛlan na wa?
+dialog.open.add_to_gallery = Fara galeri kan
+dialog.open.open_in_editor = Dayɛlɛ labɛnnikɛlan na
+dialog.open.heic_title = HEIC dɛmɛ
+dialog.open.heic_needs_decoder = “{name}” dayɛlɛli mako bɛ HEVC kɔdi bɔlan na, min ma sigindi nin sistemu kan.
+dialog.open.heic_offer = Schist bɛ se ka libheif {version} build telesarize min bɛ kɔdi bɔ dɔrɔn, ni libde265 HEVC kɔdi bɔlan ye (≈5 MB). Fila bɛɛ lisansi ye LGPL-3.0 ye; u lisansi sɛbɛnw bɛ sigindi library dafɛ, ani u source bɛ sɔrɔ poroze pajɛ la.
+dialog.open.licenses_source = Lisansiw ani source
+dialog.open.folders_title = Fɔldɛri binnenw
+dialog.open.n_folders.other = Fɔldɛri hakɛ: {n}
+dialog.open.open_in_tabs = Dayɛlɛ tabw kɔnɔ
+dialog.open.open_first_in_tabs = Fɔlɔ {n} dayɛlɛ tabw kɔnɔ
+dialog.open.open_n_in_tabs.other = {n} dayɛlɛ tabw kɔnɔ
+dialog.open.folder_holds.other = {what} kɔnɔ ja hakɛ {n} bɛ yen minnu Schist bɛ se ka dayɛlɛ (fɔldɛri kɔnɔtaw fana bɛ a la).
+dialog.open.folders_note = Fara galeri kan bɛ fɔldɛriw lajɛ u yɔrɔ la — foyi tɛ kopi, ani labɛnniw bɛ mara vɛrisiyɔnw na foto kelen-kelen dafɛ. Dayɛlɛli tabw kɔnɔ bɛ ja bɛɛ don labɛnnikɛlan na sisan.
+
+dialog.plugins.title = Plug-inw
+dialog.plugins.kind_filter = Sɛgɛsɛgɛlan
+dialog.plugins.kind_format = Cogoya
+dialog.plugins.kind_unavailable = A tɛ sɔrɔ
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Plug-inw bɛ don ka bɔ {dir} kɔnɔ
+dialog.plugins.none = Plug-in si ma sigindi fɔlɔ.
+dialog.plugins.install_ellipsis = Sigindi…
+dialog.plugins.photoshop_heading = Photoshop plug-inw
+dialog.plugins.loaded_from = U donna ka bɔ {folders} kɔnɔ
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = I ka labɛncogow
+dialog.prefs.theme = Ɲɛjiracogo
+dialog.prefs.theme_dark = Dibi
+dialog.prefs.theme_light = Yelen
+dialog.prefs.grid_spacing = Ja-filɛ cɛjan
+dialog.prefs.snapping = Yɛrɛma-bɛnni
+dialog.prefs.snap_to = Yɛrɛma-bɛn sirajiralanw, ja-filɛ ani kanvas kɛrɛw ma
+dialog.prefs.rendering_intent = Kulɛri bɔli kuntaala
+dialog.prefs.intent_perceptual = Yɛcogo marali
+dialog.prefs.intent_relative = Colorimetric relatif
+dialog.prefs.intent_saturation = Saturation
+dialog.prefs.intent_absolute = Colorimetric absolu
+dialog.prefs.scrolling = Lajɛli lamagali
+dialog.prefs.zoom_with_scroll = Lajɛli bonya ni scroll wheel ye
+dialog.prefs.rendering = Ja bɔli
+dialog.prefs.gpu_compositing = Ja ɲagamini GPU kan
+dialog.prefs.diagnostics = Fili ɲinini
+dialog.prefs.crash_reports = Ni porogaramu banna paniki la, a kɛcogo sɛbɛn masin yɛrɛ kan
+dialog.prefs.crash_upload = O fana ci dilannikɛlaw ma
+dialog.prefs.telemetry = Kunnafoni tɔgɔntan kelen ci don o don
+dialog.prefs.diagnostics_note = Fili ɲinini labɛncogow bɛ baara kɛ Schist daminɛli nata la.
+dialog.prefs.updates = Lakurayaliw
+dialog.prefs.check_updates = Bɔli kura lajɛ daminɛli la
+dialog.prefs.keyboard_shortcuts = Klaviyɛ sira surunw: {path}
+dialog.prefs.nsfw_needs_model = Mako bɛ Content (NSFW Filter) misali la —
+dialog.prefs.nsfw_download_link = a telesarize Misaliw ɲɛnabɔ kɔnɔ…
+dialog.prefs.hide_flagged = Foto taamasiyɛnnenw dogo
+
+dialog.profile.profile = Kunnafoni
+dialog.profile.assign_title = Kunnafoni kɛ a la
+dialog.profile.convert_title = Yɛlɛma ka kɛ kunnafoni ye
+dialog.profile.assign = A kɛ a la
+dialog.profile.convert = Yɛlɛma
+dialog.profile.assign_note = A bɛ pikisɛli hakɛ minnu bɛ yen kaban olu kɔrɔ faamu kokura kunnafoni kura jukɔrɔ.
+dialog.profile.convert_note = A bɛ pikisɛli hakɛw sɛbɛn kokura walasa kulɛriw ka to u yɛcogo la.
+
+dialog.save_image.title = Ja mara i n'a fɔ
+dialog.save_image.note = {name} — a labɛnni ni o bɛ a la; bɔyɔrɔla tɛ yɛlɛma abada.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Ja bonya
+dialog.size.canvas_title = Kanvas bonya
+dialog.size.constrain = Dan d'a la
+dialog.size.keep_proportions = Nisɔngɔw mara
+dialog.size.resample = Pikisɛliw bɔ kokura
+dialog.size.bicubic = Bicubic
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Sigida min ka surun
+dialog.size.anchor = Datugupwen
+dialog.size.currently = Sisan {w} × {h} px
+dialog.size.image_size_status = Ja bonya: {w} × {h}
+dialog.size.canvas_size_status = Kanvas bonya: {w} × {h}
+
+dialog.update.title = Lakurayali bɛ sɔrɔ
+dialog.update.available = Schist {version} bɛ sɔrɔ. Nin kopi ye {current} ye.
+dialog.update.installing = Lakurayali bɛ sigindi…
+dialog.update.can_install = Schist bɛ se k'a telesarize ({size}) ka a sigindi nin kopi kan.
+dialog.update.external = Nin kopi bɔra yɔrɔ wɛrɛ min b'a ɲɛnabɔ — package manager, AppImage, walima i yɛrɛ ka build — o la a bɛ lakuraya a sigincogo la.
+dialog.update.later = Kɔfɛ
+dialog.update.release_notes = Bɔli kunnafoniw
+dialog.update.update_restart = Lakuraya ka daminɛ kokura
+dialog.update.open_page = Bɔli pajɛ dayɛlɛ
+
+dialog.style.title = Kaliki cogoya
+dialog.style.bevel = Kɛrɛ tigɛlen ani Emboss
+dialog.style.stroke = Kɛrɛsira
+dialog.style.inner_shadow = Kɔnɔ dibi
+dialog.style.inner_glow = Kɔnɔ manamana
+dialog.style.satin = Satin
+dialog.style.color_overlay = Kulɛri kanbila
+dialog.style.gradient_overlay = Kulɛri yɛlɛmali kanbila
+dialog.style.outer_glow = Kɔkan manamana
+dialog.style.drop_shadow = Dibi binnen
+dialog.style.blur = Gaussian Flou
+dialog.style.gradient_from = Kulɛri yɛlɛmali kanbila bɔyɔrɔ
+dialog.style.gradient_to = Kulɛri yɛlɛmali kanbila tayɔrɔ
+dialog.style.soften = Nɔgɔnya
+dialog.style.depth = Janya
+dialog.style.altitude = Sanfɛjanya
+dialog.style.highlight = Yelen yɔrɔ
+dialog.style.shadow = Dibi
+dialog.style.outer_bevel = Kɔkan kɛrɛ tigɛlen
+dialog.style.inner_bevel = Kɔnɔ kɛrɛ tigɛlen
+dialog.style.emboss = Emboss
+dialog.style.pillow_emboss = Pillow Emboss
+dialog.style.linear = Tilennen
+dialog.style.radial = Cɛmancɛlama
+dialog.style.reverse = A kɔrɔcɛma
+dialog.style.from_to = Ka bɔ / Ka taa
+dialog.style.from_fg = Bɔyɔrɔ = FG
+dialog.style.to_fg = Tayɔrɔ = FG
+dialog.style.precise = Jateminɛnen
+dialog.style.knockout = Kaliki bɛ dibi binnen bɔ
+
+dialog.color_picker.title = Kulɛri sugandilan ({what})
+dialog.color_picker.effect_color = {effect} kulɛri
+dialog.color_picker.note_color = Kunkan kulɛri
+dialog.color_picker.new = Kura
+dialog.color_picker.current = Sisan ta
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Kanala lasegin
+dialog.curves.hint = Sama ka siyali di · digi ka fara · alt ni digi ka bɔ
+
+dialog.prefs.camera_sync = Kamera ja-marali
+dialog.prefs.camera_sync_enabled = Kopi mara Schist Cloud la
+dialog.prefs.camera_sync_sign_in = Don Schist Cloud la ka i ka kamera jaw kopi mara.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Yɛlɛma…

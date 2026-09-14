@@ -1,0 +1,32 @@
+# Herramientas de selección.
+tool.select.mode.subtract = Restar
+tool.select.mode.intersect = Intersecar
+
+tool.marquee.rect.name = Marco rectangular
+tool.marquee.rect.description = Arrastra para crear una selección rectangular. Mayús al iniciar el arrastre añade a la selección, Alt resta y ambas teclas crean la intersección; Mayús durante el arrastre la convierte en un cuadrado. Un clic sin arrastrar anula la selección.
+tool.marquee.ellipse.name = Marco elíptico
+tool.marquee.ellipse.description = Arrastra para crear una selección elíptica, con las mismas combinaciones de Mayús y Alt que el marco rectangular.
+
+tool.lasso.name = Lazo
+tool.lasso.description = Arrastra para dibujar un contorno a mano alzada; al terminar, la selección se cierra uniendo sus extremos. Mayús añade y Alt resta.
+tool.lasso.history.select = Selección con lazo
+tool.lasso.polygonal.name = Lazo poligonal
+tool.lasso.polygonal.description = Haz clic en cada esquina para crear una selección de bordes rectos y haz clic cerca del primer punto para cerrarla.
+tool.lasso.polygonal.history.select = Lazo poligonal
+tool.lasso.magnetic.name = Lazo magnético
+tool.lasso.magnetic.description = Sigue aproximadamente un borde y el contorno se ajustará al contraste más fuerte próximo al trazado.
+tool.lasso.magnetic.history.select = Lazo magnético
+tool.lasso.magnetic.option.frequency = Frecuencia
+
+tool.wand.name = Varita mágica
+tool.wand.description = Haz clic para seleccionar el área conectada de color similar bajo el puntero, según la opción de tolerancia; es la misma tolerancia que emplean Ampliar, Similar y Gama de colores.
+tool.wand.option.contiguous = Contiguo
+tool.wand.history.select = Varita mágica
+
+tool.quick_select.name = Selección rápida
+tool.quick_select.description = Pinta sobre una región y la selección se extenderá por los píxeles similares que recorra el pincel.
+tool.quick_select.history.select = Selección rápida
+
+tool.object_select.name = Selección de objetos
+tool.object_select.description = Traza un cuadro alrededor de un objeto y la selección se ajustará al objeto detectado en su interior.
+tool.object_select.history.select = Selección de objetos

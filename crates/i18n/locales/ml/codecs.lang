@@ -1,0 +1,40 @@
+# Formats
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = ക്യാമറ റോ
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Shared import messages
+codec.msg.decoding = {name} ഡീകോഡ് ചെയ്യുന്നു
+codec.msg.zero_sized = ചിത്രത്തിൽ പിക്സലുകളില്ല
+codec.msg.assembling_document = ഡോക്യുമെന്റ് കൂട്ടിച്ചേർക്കുന്നു
+
+# Camera raw
+codec.raw.msg.decoding = റോ ഫയൽ ഡീകോഡ് ചെയ്യുന്നു
+codec.raw.msg.developing = റോ ഫയൽ ഡെവലപ്പ് ചെയ്യുന്നു
+codec.raw.msg.finding_preview = ഉൾച്ചേർത്ത പ്രിവ്യൂ തിരയുന്നു
+codec.raw.msg.decoding_preview = ഉൾച്ചേർത്ത പ്രിവ്യൂ ഡീകോഡ് ചെയ്യുന്നു
+codec.raw.msg.decoder_panicked = ഈ ഫയലിൽ റോ ഡീകോഡർ പരാജയപ്പെട്ടു: {what}
+
+# Affinity
+codec.affinity.import_title = Affinity ഇറക്കുമതി
+codec.affinity.flattened_preview_layer = പരത്തിയ പ്രിവ്യൂ
+codec.affinity.msg.no_preview = ഉപയോഗിക്കാവുന്ന ഉൾച്ചേർത്ത പ്രിവ്യൂ ഇല്ല. Affinity-യുടെ ലെയർ ഘടനയുള്ള ഫോർമാറ്റ് ഉടമസ്ഥാവകാശമുള്ളതാണ്; ഫയലിലുള്ള പരത്തിയ പ്രിവ്യൂവാണ് Schist ഇറക്കുമതി ചെയ്യുന്നത്. ഈ ഫയലിൽ അത്തരമൊരു പ്രിവ്യൂ ഇല്ല—ഇത് Affinity-യിൽ വീണ്ടും സംരക്ഷിക്കുക, അല്ലെങ്കിൽ മുഴുവൻ ലെയറുകളോടെയും ഇറക്കുമതി ചെയ്യാൻ PSD ആയി കയറ്റുമതി ചെയ്യുക.
+
+# HEIF
+codec.heif.msg.no_library = libheif ലഭ്യമല്ല ({details}). HEIC തുറക്കാൻ libheif ലൈബ്രറി ആവശ്യമാണ് (Linux: libheif1 ഇൻസ്റ്റാൾ ചെയ്യുക; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — ഈ libheif ബിൽഡിൽ HEVC ഡീകോഡർ ഇല്ലായിരിക്കാം (Debian/Ubuntu-യിൽ libheif-plugin-libde265 ഇൻസ്റ്റാൾ ചെയ്യുക)
+codec.heif.msg.unknown_error = അറിയാത്ത പിശക്
+codec.heif.msg.initialising = libheif പ്രാരംഭീകരിക്കുന്നു
+codec.heif.msg.reading_container = HEIF കണ്ടെയ്നർ വായിക്കുന്നു
+codec.heif.msg.finding_primary_image = പ്രധാന ചിത്രം കണ്ടെത്തുന്നു
+codec.heif.msg.reading_icc_profile = ICC പ്രൊഫൈൽ വായിക്കുന്നു
+codec.heif.msg.decoding_image = ചിത്രം ഡീകോഡ് ചെയ്യുന്നു
+codec.heif.msg.checksum_mismatch = {name}-ന്റെ ചെക്ക്സം പൊരുത്തപ്പെടുന്നില്ല: പ്രതീക്ഷിച്ചത് {expected}, ലഭിച്ചത് {got}
+codec.heif.msg.imageio_cannot_read = ImageIO-യ്ക്ക് HEIF കണ്ടെയ്നർ വായിക്കാനായില്ല
+codec.heif.msg.container_empty = HEIF കണ്ടെയ്നറിൽ ചിത്രമില്ല
+codec.heif.msg.imageio_cannot_decode = ImageIO-യ്ക്ക് പ്രധാന ചിത്രം ഡീകോഡ് ചെയ്യാനായില്ല

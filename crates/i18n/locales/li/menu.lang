@@ -1,0 +1,143 @@
+# Menubalk van Schist.
+
+menu.file = Besjtandj
+menu.file.new = Nuuj
+menu.file.open = Äöpene…
+menu.file.open_recent = Recènt äöpene
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Galerie doorblajere…
+menu.file.close = Sjloete
+menu.file.save = Opslaon
+menu.file.save_as = Opslaon es…
+menu.file.export = Exportere…
+menu.file.export_submenu = Exportere
+menu.file.export_artboards = Tekengebeej nao PNG…
+menu.file.export_slices = Segmente nao PNG…
+menu.file.save_to_photos = Bie Foto's opslaon
+menu.file.plugins = Plug-ins…
+menu.file.missing_fonts = Óntbraekende booksjrifte…
+menu.file.check_for_updates = Op biewèrkinge controlere…
+menu.file.quit = Aafsjloete
+menu.file.add_folder_to_gallery = Map aan galerie toeveuge…
+menu.file.import_from_photos = Oet Foto's importere…
+menu.file.import_from_camera = Van camera importere…
+
+menu.edit = Bewèrke
+menu.edit.fill = Völle…
+menu.edit.stroke = Omliening…
+menu.edit.content_aware_fill = Inhaudsgevoelig völle
+menu.edit.content_aware_scale = Inhaudsgevoelig sjale…
+menu.edit.puppet_warp = Marionetvervorming
+menu.edit.free_transform = Vrieje transformatie
+menu.edit.transform = Transformere
+menu.edit.rotate_180 = 180° drejje
+menu.edit.rotate_90_cw = 90° nao rechts drejje
+menu.edit.rotate_90_ccw = 90° nao links drejje
+menu.edit.flip_horizontal = Horizontaal spegele
+menu.edit.flip_vertical = Verticaal spegele
+
+menu.image = Aafbiljing
+menu.image.mode = Modus
+menu.image.adjustments = Aanpassinge
+menu.image.auto_tone = Automatische tint
+menu.image.auto_contrast = Automatisch contras
+menu.image.auto_color = Automatische kleur
+menu.image.image_size = Aafbiljingsgroeëtte…
+menu.image.canvas_size = Canvasgroeëtte…
+menu.image.image_rotation = Aafbiljing drejje
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° nao rechts
+menu.image.rotate_90_ccw = 90° nao links
+menu.image.flip_canvas_horizontal = Canvas horizontaal spegele
+menu.image.flip_canvas_vertical = Canvas verticaal spegele
+menu.image.crop_to_selection = Biesnieje toet selectie
+menu.image.trim = Bietrimme
+menu.image.assign_profile = Profiel toewieze…
+menu.image.convert_to_profile = Nao profiel convertere…
+
+menu.select = Selectere
+menu.select.color_range = Kleurbereik…
+menu.select.modify = Aanpasse
+menu.select.border = Randj…
+menu.select.smooth = Glad make…
+menu.select.expand = Oetbreije…
+menu.select.contract = Inkrimpe…
+menu.select.feather = Verzachte…
+menu.select.transform_selection = Selectie transformere
+
+menu.layer = Laog
+menu.layer.layer_style = Laogsjtiel…
+menu.layer.layer_comps = Laogsamenstèllinge
+menu.layer.new_layer_comp = Nuuje laogsamenstèlling
+menu.layer.delete_layer_comp = {name} verwiedere
+menu.layer.path = Paad
+menu.layer.fill_path = Paad völle
+menu.layer.stroke_path = Paad omliene
+menu.layer.make_selection = Selectie make
+menu.layer.delete_path = Paad verwiedere
+
+menu.adjust = Aanpasse
+
+menu.filter = Filter
+menu.filter.filter_gallery = Filtergalerie…
+menu.filter.liquify = Vloeibaar make
+menu.filter.vanishing_point = Verdwinpunt
+menu.filter.manage_models = Modelle behere…
+menu.filter.camera_raw_development = Camera Raw-óntwikkeling…
+
+menu.view = Beeld
+menu.view.rotate_view_cw = Beeld nao rechts drejje
+menu.view.rotate_view_ccw = Beeld nao links drejje
+menu.view.reset_view = Beeld trökzètte
+menu.view.zoom_in = Inzoome
+menu.view.zoom_out = Oetzoome
+menu.view.fit_on_screen = Op sjirm passe
+menu.view.actual_size = 100%
+menu.view.rulers = Linjale
+menu.view.grid = Raster
+menu.view.guides = Hulpliene
+menu.view.notes = Notities
+menu.view.ai_panel = AI-paneel
+menu.view.extras = Extra's
+menu.view.snap = Vastklikke
+menu.view.clear_guides = Hulpliene wösse
+menu.view.clear_notes = Notities wösse
+menu.view.clear_count = Telling wösse
+menu.view.screen_mode = Sjirmmodus
+menu.view.proof_colors = Proefkleure
+menu.view.show_rulers = Linjale tuine
+menu.view.hide_rulers = Linjale verberge
+menu.view.show_grid = Raster tuine
+menu.view.hide_grid = Raster verberge
+menu.view.show_guides = Hulpliene tuine
+menu.view.hide_guides = Hulpliene verberge
+menu.view.show_notes = Notities tuine
+menu.view.hide_notes = Notities verberge
+menu.view.show_extras = Extra's tuine
+menu.view.hide_extras = Extra's verberge
+menu.view.enable_snapping = Vastklikke insjakele
+menu.view.disable_snapping = Vastklikke oetsjakele
+menu.view.enable_proof_colors = Proefkleure insjakele
+menu.view.disable_proof_colors = Proefkleure oetsjakele
+
+menu.gallery = Galerie
+menu.gallery.edit_selected = Selectie bewèrke
+menu.gallery.refresh = Vernuuj
+menu.gallery.map_filter = Kaartfilter…
+menu.gallery.back_to_editor = Trök nao bewèrker
+
+menu.cloud.browse = Door Schist Cloud blajere
+menu.cloud.generate = Aafbiljinge generere…
+menu.cloud.upload = Document nao Schist Cloud uploade…
+menu.cloud.sign_out = Aafmelje bie Schist Cloud
+menu.cloud.sign_in = Aanmelje bie Schist Cloud…
+
+menu.app.services = Deenste
+menu.app.hide = {app} verberge
+menu.app.hide_others = Angere verberge
+menu.app.show_all = Alles tuine
+menu.app.quit = {app} aafsjloete
+
+menu.status.transform_selection_needs_selection = Selectie transformere haet 'n selectie neudig
+menu.status.crop_needs_selection = Biesnieje toet selectie haet 'n selectie neudig
+menu.status.select_photo_to_edit = Selecteer 'n foto om te bewèrke

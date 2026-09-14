@@ -1,0 +1,89 @@
+# Modifier keys
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+# Status and titles
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+# Navigator and color
+panel.navigator.title = Isikhambisi
+panel.navigator.actual_pixels = Amaphikseli Wamambala
+panel.color.picker = Isikhethi…
+panel.color.swap = Tjhintjha Imibala
+panel.color.reset = Buyisela Kokunzima Nokumhlophe
+
+# Layers and history
+panel.layers.blending_options = Iinkhetho Zokuhlanganisa…
+panel.layers.properties = Izakhiwo Zeleya…
+panel.layers.show_hide = Tjengisa/Fihla Ileya
+panel.layers.toggle_visibility = Tjhugulula Ukubonakala
+panel.history.title = Umlando
+panel.history.opened = Kuvuliwe
+
+# Info
+panel.info.title = Ilwazi
+panel.info.camera = Ikhamera
+panel.info.lens = Ilensi
+panel.info.iso = ISO {iso}
+panel.info.bias = Ukulungiswa Kokukhanya
+panel.info.flash_fired = ifletjhi ivulekile
+panel.info.no_flash = akunafletjhi
+panel.info.white_balance = WB {wb}
+panel.info.metering = ukumeda kwe-{metering}
+panel.info.taken = Sathathwa
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · ukujamiswa {o}
+panel.info.software = Isofthiwe
+panel.info.where = Indawo
+
+# Notes
+panel.notes.author = Umtloli
+panel.notes.clear_all = Sula Koke
+panel.notes.unattributed = Akunamtloli
+panel.notes.empty = Qhafaza ikhanvasi ukutjhiya iphuzu.
+panel.notes.placeholder = Qhafaza ukutlola
+
+# Character
+panel.character.title = Amatshwayo
+panel.character.type_tool = Ithulusi lomtlolo (T)
+panel.character.align_left = Linganisa ngesinceleni
+panel.character.align_center = Linganisa phakathi
+panel.character.align_right = Linganisa ngesidleni
+panel.character.text_color = Umbala womtlolo
+panel.character.panel = Iphaneli yamatshwayo
+panel.character.cancel_edit = Khansela ukuhlela umtlolo
+panel.character.commit_edit = Qinisekisa ukuhlela umtlolo
+panel.character.number_tip = {label} · Tlola inani, namkha sebenzisa ↑ / ↓ (Shift ukuthatha amagadango amakhulu)
+panel.character.leading = Isikhala phakathi kwemida
+panel.character.tracking = Isikhala phakathi kwamaledere
+panel.character.alignment = Ukulinganisa
+panel.character.opentype = OpenType
+panel.character.text_on_path = Umtlolo endleleni
+panel.character.straight = Nqophile
+panel.character.on_path = Endleleni
+panel.character.straight_tip = Sebenzisa umuda ophasi ojayelekileko weleya yomtlolo
+panel.character.on_path_tip = Sebenzisa ikhophi yendlela esebenzako
+panel.character.path_offset = Ukusuka endleleni
+
+# AI
+panel.ai.title = AI
+panel.ai.empty_editor = Bawa itjhuguluko bese ubukela lisenzeka ekhanvasini. I-ejenti isebenzisa amathulusi, iinhlungi nemiyalo efana neyemamenyu, ngayinye iba ligadango linye lokubuyisela emuva.
+panel.ai.empty_gallery = Buza ngeenthombe zakho bese ubukela kwenzeka egalari: i-ejenti ingafuna, iqale iinthombana, ikhethe, ihlele ngeenqhema, begodu ivule isithombe kumhleli.
+panel.ai.thinking = iyacabanga…
+panel.ai.placeholder_editor = Buza ngedokhumenti le namkha uyihlele
+panel.ai.placeholder_gallery = Buza ngeenthombe zakho
+panel.ai.send = Thumela
+panel.ai.stop = Jama
+panel.ai.fetching_models = Kubuzwa i-CLI ngamamodeli wayo…
+panel.ai.no_models = Akunamamodeli afanako
+panel.ai.search_models = Funa amamodeli…
+
+# File dialogs
+panel.keymap.install_plugin = Faka I-plug-in
+panel.keymap.save_as_prompt = Bulunga njenge — isijobelelo sikhetha ifomethi:

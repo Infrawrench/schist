@@ -1,0 +1,351 @@
+# Sidebar
+library.sidebar.view = UKUBONA
+library.sidebar.folders = AMAFOLDA
+library.sidebar.buckets = AMABHAKEDE
+library.sidebar.people = ABANTU
+library.sidebar.group_by = HLUKANISA NGA
+library.sidebar.all_photos = Zoke Iinthombe
+library.sidebar.world_map = Imebhe Yephasi
+library.sidebar.map_filter = Isihlungi semebhe…
+library.sidebar.map_filter_on = Isihlungi semebhe sivuliwe
+library.sidebar.add_folder = + Engeza ifolda…
+library.sidebar.new_bucket = + Ibhakede elitjha
+library.sidebar.stop_watching = Lisa ukuqapha ifolda le
+library.sidebar.unnamed_faces = Ubuso obungakanikelwa amagama
+library.sidebar.retry_face_model = Zama ukudawuniloda imodeli yobuso godu
+library.sidebar.retry_recognition_model = Zama ukudawuniloda imodeli yokubona godu
+library.sidebar.looking_for_faces = Kufunwa ubuso… {looked}/{total}
+library.sidebar.faces_appear = Ubuso buvela lapha njengombana iinthombe zifakwa ekombeni.
+library.sidebar.downloading_face_models = Kudawunilodwa amamodeli wobuso… {got} kwa-{total} MB
+
+library.group_by.date = Ilanga
+library.group_by.folder = Ifolda
+library.group_by.place = Indawo
+
+# Months
+library.month.january = Tjhirhweni
+library.month.february = Mhlolanja
+library.month.march = Ntaka
+library.month.april = Sihlabantangana
+library.month.may = Mrhayili
+library.month.june = Mgwengweni
+library.month.july = Velabahlinze
+library.month.august = Rhoboyi
+library.month.september = Khukhulamungu
+library.month.october = Sewula
+library.month.november = Sinyikhaba
+library.month.december = Nobayeni
+library.month.title = {month} {year}
+library.month.undated = Akunalanga
+
+# Groups
+library.group.person = Abantu · {name}
+library.group.person_in = Abantu · {name} · ku-{scope}
+library.group.unnamed = Ubuso obungakanikelwa amagama
+library.group.unnamed_in = Ubuso obungakanikelwa amagama · ku-{scope}
+library.group.bucket = Ibhakede · {name}
+library.group.no_location = Akunandawo
+library.group.not_indexed = Akukafakwa ekombeni
+library.group.detail = {detail} — {n}
+
+# Strip and search
+library.strip.import = Ngenisa…
+library.strip.add_folder = Engeza Ifolda…
+library.strip.settings = Amasethingi…
+library.strip.new_file = Ifayela Elitjha…
+library.strip.back_to_editing = Buyela Ekuhleleni
+library.strip.enable_search = Vumela ukufuna iinthombe…
+library.strip.enable_search_menu = Vumela Ukufuna Iinthombe…
+library.strip.map_filter_chip = Isihlungi semebhe: {name}
+library.strip.downloading_search = Kudawunilodwa ukufuna iinthombe… {got} kwa-{total} MB
+library.search.placeholder = Funa iinthombe…
+library.search.placeholder_indexing = Funa ({indexed}/{total} kufakwe ekombeni)
+library.search.placeholder_people_places = Funa abantu neendawo…
+library.search.results = Imiphumela yokufuna
+library.search.results_in_bucket = Ibhakede · {name} · Imiphumela yokufuna
+library.search.near = eduze ne-{place}
+library.search.with = no-{names}
+
+# Tray
+library.tray.view = Ukubona
+library.tray.edited_note = kuhleliwe — iinguqulo zibulungwa eduze nefayela
+library.tray.n_hidden.one = {n} kufihlwe sihlungi sokumumethweko
+library.tray.n_hidden.other = {n} kufihlwe sihlungi sokumumethweko
+library.cell.no_preview = akunamboniso wangaphambili
+library.cell.edited = kuhleliwe
+library.gallery.loading = Kulayitjhwa iinthombe…
+
+# Welcome
+library.welcome.title = Siyakwamukela ku-Schist
+library.welcome.intro = Qapha amafolda weenthombe, namkha ungenise ekhamerani. Amafayela ahlala endawenawo; amatjhuguluko abulungwa njengeenguqulo eduze kwawo:
+library.welcome.intro_ios = Ngenisa iinthombe elabhulali yakho, namkha ungeze ifolda kumaFayela. Amatjhuguluko abulungwa njengeenguqulo eduze nesithombe ngasinye:
+library.welcome.or_open = Namkha vula isithombe usihlele:
+library.welcome.shortcut_mac = Igalari ihlala ifumaneka ngo-⌘⇧G, nanyana uhlela ini.
+library.welcome.shortcut = Igalari ihlala ifumaneka ngo-Ctrl+Shift+G, nanyana uhlela ini.
+
+# Empty gallery
+library.gallery.empty_bucket_search = Akukho kileli bhakede okufana nokufunwako. U-Escape ukusula ukuze utjengise ibhakede loke.
+library.gallery.empty_search = Akukho okufana nokufunwako. U-Escape ukusula.
+library.gallery.empty_smart_bucket = Akukho okufana nomthetho webhakede leli — okufanako kuvela njengombana iinthombe zifakwa ekombeni. Ukudosa iinthombe uzifake nakho kuyasebenza.
+library.gallery.empty_bucket = Ibhakede leli alinalitho. Dosela iinthombe emudeni walo ebha eseceleni ukuzingeza.
+library.gallery.empty_person = Akunalitho lapha. Ubuso buvela njengombana iinthombe zifakwa ekombeni; qhafaza isithombe, bese uqhafaza ubuso, utjho ukuthi ngubani.
+library.gallery.scanning = Kuskenwa amafolda…
+library.gallery.empty = Akunazithombe ezitholwe emafoldeni aqatjhiweko. Iinthombe i-Schist engazivula (PNG, JPEG, WebP, TIFF, HEIC, amafayela wekhamera angakalungiswa, PSD, Affinity) zivela lapha; amafolda angaphakathi askenwa ukufika emazingeni asithandathu.
+
+# Buckets
+library.bucket.default_name = Ibhakede {n}
+library.bucket.rule_matches = kufana no-“{query}”
+library.bucket.rule_taken_in = kuthathwe ku-{name}
+library.bucket.new_title = Ibhakede Elitjha
+library.bucket.edit_title = Hlela Ibhakede
+library.bucket.new_cloud_title = Ibhakede Lelifu Elitjha
+library.bucket.edit_cloud_title = Hlela Ibhakede Lelifu
+library.bucket.create = Yakha
+library.bucket.query_placeholder = isib. inja ebhishi (akukatelelekile)
+library.bucket.the_drawn_area = indawo edwetjiweko
+library.bucket.area_help = Dosa imebhe ngo-Shift (namkha ukhethe okuhleliweko) ukungeza indawo; ukudosa okuncani kuyayisula. Imithetho igcina ibhakede lizaliswa ngokuzenzakalela.
+library.bucket.rule_none = Akunamthetho: ibhakede elijayelekileko, elizaliswa ngokudosela iinthombe kilo.
+library.bucket.rule_query = Sigcina soke isithombe esifana no-“{query}”.
+library.bucket.rule_area = Sigcina soke isithombe esithathwe ku-{area}.
+library.bucket.rule_query_area = Sigcina soke isithombe esifana no-“{query}” esithathwe ku-{area}.
+library.bucket.starts_with.one = Sithoma ngokumumatha isithombe esikhethiweko.
+library.bucket.starts_with.other = Sithoma ngokumumatha iinthombe ezikhethiweko ezingu-{n}.
+
+# Map
+library.map.status = {located} iinthombe emebheni · {unlocated} azinandawo
+library.map.reading_locations = Kufundwa iindawo: kusasele {n}
+library.map.reset_view = Setha okubonwako ngobutjha
+library.map.no_photos = Akunazithombe ezineendawo ze-GPS kulokhu okubonwako. Engeza iinthombe ezineendawo namkha utjhugulule iinhlungi zegalari.
+library.map.no_photos_cloud = Akunazithombe ezineendawo ze-GPS lapha. Khetha enye ifolda namkha ibhakede, namkha usule okufunwako.
+library.map.hint = Dosa ukukhambisa · Skrola ukusondeza · Qhafaza itshwayo ukubona iinthombe zalo · Qhafaza kabili isithombe ukusihlela
+library.map.n_at_marker.one = {n} isithombe etshwayweni leli
+library.map.n_at_marker.other = {n} iinthombe etshwayweni leli
+library.map.n_in_marker.one = {n} isithombe ngaphakathi kwetshwayo leli
+library.map.n_in_marker.other = {n} iinthombe ngaphakathi kwetshwayo leli
+library.map.attribution = © Abanikeleli be-OpenStreetMap
+library.map.draw_area = Dweba indawo
+library.map.drawing = Kuyadwetjwa…
+library.map.clear_boundary = Sula umkhawulo
+library.map.editor_hint = ukudosa kuyakhambisa · ukuskrola kuyasondeza · ukudosa ngo-shift kudweba
+
+# Map filter
+library.map_filter.title = Isihlungi Semebhe
+library.map_filter.drawn_area = indawo edwetjiweko
+library.map_filter.apply_named = Ukusebenzisa kutjengisa kwaphela iinthombe ezithathwe ku-{name}; iinthombe ezinganayo indawo ye-EXIF ziyafihleka.
+library.map_filter.apply_drawn = Ukusebenzisa kutjengisa kwaphela iinthombe ezithathwe ngaphakathi kwe-{south}°, {west}° ukuya ku-{north}°, {east}°; iinthombe ezinganayo indawo ye-EXIF ziyafihleka.
+library.map_filter.draw_first = Dweba umkhawulo (dosa ngo-Shift, namkha usebenzise okuhleliweko), bese usebenzisa. Ukusebenzisa kungakadwetjwa litho kuvala isihlungi.
+library.map_filter.turn_off = Vala Isihlungi
+
+# Camera import options
+library.import.title = Ngenisa Ekhamerani
+library.import.from = Ngenisa ku-{name}
+library.import.no_cameras = Akunakhamera etholakeleko.
+library.import.no_cameras_help = Xhuma ikhamera, ikhadi lememori namkha i-iPhone. I-iPhone kufanele ivulwe, bese uvuma u-Trust This Computer, ngaphambi kokuthi itjengise iinthombe zayo — yenza lokho, ulinde kancani, bese ugandelela u-Skena Godu. Nanyana yini efakwa njengediski enefolda ye-DCIM nayo iyabalwa.
+library.import.scan_again = Skena Godu
+library.import.pick_source = Kungafikelelwa ikhamera engaphezu kweyodwa. Ngenisa ku:
+library.import.via_image_capture = nge-Image Capture
+library.import.boundary_named = Umkhawulo: {name} — kungeniswa kwaphela iinthombe indawo yazo ye-EXIF engaphakathi kwawo; iinthombe ezinganayo indawo zihlala ekhamerani.
+library.import.boundary_drawn = Umkhawulo: {south}°, {west}° ukuya ku-{north}°, {east}° — kungeniswa kwaphela iinthombe indawo yazo ye-EXIF engaphakathi kwawo.
+library.import.no_boundary = Akunamkhawulo — koke okusekhamerani kuyangeniswa.
+library.import.destination = Ku-~/Pictures/Schist Imports/{name} — amafayela asele angenisiwe ayakweqwa, ngalokho kuphephile ukukusebenzisa godu.
+library.import.selected_area = Indawo Ekhethiweko
+library.import.locked_help = Nangabe idivayisi ikhiyiwe: yivule, thinta u-Trust This Computer nayibuzako, uyitjhiye ixhunyiwe, bese uzama godu.
+library.import.try_again = Zama Godu
+library.import.add_to_gallery = Engeza Egalari
+
+# Import status
+library.import.needs_home = Ukungenisa kutlhoga ifolda yekhaya okungakotjelwa kiyo
+library.import.importing_from = Kungeniswa ku-{source}…
+library.import.importing_in_place = Kungeniswa iinthombe ezithathwe ku-{place} ukusuka ku-{source}…
+library.import.device_macos_only = Ukungenisa bunqopha edivayisini kusekelo le-macOS
+library.import.failed = Ukungenisa kuhlulekile: {error}
+library.import.from_failed = Ukungenisa ku-{name} kuhlulekile
+library.import.locked = I-{name} ikhiyiwe — yivule bese uthinta u-Trust ukuragela phambili
+library.import.reading_catalog = Kufundwa ikhathalogi yeenthombe ye-{name}…
+library.import.progress_from = Kungeniswa isithombe {n}/{total} ku-{name}…
+library.import.progress = Kungeniswa ifayela {n}/{total}…
+library.import.choose_photos = Khetha iinthombe namavidiyo ozowangenisa…
+library.import.photos_open_failed = Akukghonakali ukuvula ilabhulali yeenthombe: {error}
+library.import.done.one = Kungeniswe {n} ifayela ku-{dest}
+library.import.done.other = Kungeniswe {n} amafayela ku-{dest}
+library.import.done_in_place.one = Kungeniswe {n} isithombe esithathwe ku-{place} saya ku-{dest} ({filtered} esikwenye indawo namkha esinganayo indawo sitjhiywe ekhamerani)
+library.import.done_in_place.other = Kungeniswe {n} iinthombe ezithathwe ku-{place} zaya ku-{dest} ({filtered} ezikwenye indawo namkha ezinganayo indawo zitjhiywe ekhamerani)
+library.import.n_failed.one = {n} kuhlulekile
+library.import.n_failed.other = {n} kuhlulekile
+library.import.no_dcim = Akunafolda ye-DCIM ku-{source}
+library.import.already_running = Ukungenisa sele kuyasebenza
+library.import.camera_gone = Ikhamera leyo ayisaxhunyiwe
+library.import.camera_disconnected = Ikhamera ixhumulukile phakathi nokungenisa
+library.import.unknown_error = Iphoso engaziwako
+library.import.picker_needs_ios14 = Isikhethi seenthombe sitlhoga i-iOS 14 namkha etja
+library.import.picker_unavailable = Isikhethi seenthombe asitholakali
+library.import.no_window = Akunafesidere yokutjengisa isikhethi
+
+library.volume.iphone = i-iPhone namkha i-iPad
+library.volume.camera = Ikhamera
+library.volume.phone = Umaliledinini
+
+# Open folder
+library.open_folder.opened.one = Kuvulwe {n} isithombe
+library.open_folder.opened.other = Kuvulwe {n} iinthombe
+library.open_folder.opened_first = Kuvulwe iinthombe zokuthoma ezingu-{n} kwezingu-{total} — igalari imumethe ezinye
+
+# Search models
+library.search_models.title = Ukufuna Iinthombe
+library.search_models.intro = Ukufuna iinthombe ngalokho okungaphakathi kwazo kutlhoga amamodeli amabili, adawunilodwa kanye bese abulungwa emtjhinini lo. Asebenza emtjhinini: asikho isithombe esiphuma kiwo.
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = I-MobileCLIP eyenziwe yi-Apple
+library.search_models.export = Ukuthumela kwe-ONNX okwenziwe yi-Xenova
+library.search_models.license = Ilayisensi
+library.search_models.download_note = Ukudawuniloda kufaka womabili ({mb} MB woke) begodu kwamukela amalayisensi wawo. Angasuswa godu ngaphasi kokuthi Igalari ▸ Lawula Amamodeli…
+library.search_models.agree = Vuma Bese Udawuniloda
+
+# Context menu
+library.menu.add_all_to = Engeza koke ku-{name}
+library.menu.add_all_to_new_bucket = Engeza koke ebhakedeni elitjha…
+library.menu.edit_n_in_tabs = Hlela {n} kumathebhu
+library.menu.view_name_people = Bona bese uthiya abantu
+library.menu.reveal = Tjengisa kumphathi wamafayela
+library.menu.add_to = Engeza ku-{name}
+library.menu.add_to_new_bucket = Engeza ebhakedeni elitjha
+library.menu.remove_from_bucket = Susa ebhakedeni leli
+library.menu.save_n_as_zip = Bulunga {n} njenge-ZIP…
+library.menu.save_image_as = Bulunga isithombe njenge…
+library.menu.process = Sebenza…
+library.menu.process_n = Sebenza ngeenthombe ezingu-{n}…
+library.menu.move_to_folder = Khambisa uye kufolda…
+library.menu.move_n_to_folder = Khambisa {n} uye kufolda…
+library.menu.revert = Buyisela kwesokuthoma
+library.menu.revert_n = Buyisela {n} kezokuthoma
+library.menu.upload_to_cloud = Layitjhela ku-Schist Cloud…
+library.menu.watch_local_folder = Qapha ifolda esemakhomphyutheni lo…
+library.menu.new_cloud_folder = {glyph} Ifolda etja ye-Schist Cloud…
+library.menu.new_local_bucket = Ibhakede elitjha emtjhinini lo…
+library.menu.new_cloud_bucket = {glyph} Ibhakede elitjha le-Schist Cloud…
+library.menu.edit_bucket = Hlela ibhakede…
+library.menu.select_all_n = Khetha koke ({n})
+library.menu.save_all_as_zip = Bulunga koke njenge-ZIP… ({n})
+library.menu.process_all = Sebenza ngakho koke… ({n})
+library.menu.move_all_to_folder = Khambisa koke uye kufolda…
+library.menu.clear_added = Sula iinthombe ezingeziweko
+library.menu.clear_bucket = Sula ibhakede
+library.menu.delete_bucket = Sula ibhakede
+library.menu.show_person = Tjengisa {name}
+library.menu.rename_person = Thiya ngobutjha…
+library.menu.forget_person.one = Khohlwa umuntu ({n} ubuso)
+library.menu.forget_person.other = Khohlwa umuntu ({n} ubuso)
+
+# Operations
+library.ops.moving.one = Kukhambiswa {n} isithombe siya ku-{dest}…
+library.ops.moving.other = Kukhambiswa {n} iinthombe ziya ku-{dest}…
+library.ops.moved.one = Kukhambiswe {n} isithombe saya ku-{dest}
+library.ops.moved.other = Kukhambiswe {n} iinthombe zaya ku-{dest}
+library.ops.moved_partial = Kukhambiswe iinthombe ezingu-{n} kwezingu-{total} zaya ku-{dest} — ilogo inezinye
+library.ops.move_here = Khambisa Lapha
+library.ops.no_export_format = Akunafomethi lapha engabulunga isithombe
+library.ops.saved_size = Kubulungwe {name} ({w} × {h})
+library.ops.save_failed = Ukubulunga kuhlulekile: {error}
+library.ops.opening_first = Kuvulwa iinthombe zokuthoma ezingu-{n} kwezingu-{total} — igalari imumethe ezinye
+library.ops.nothing_to_revert = Akukho okungabuyiselwa: asikho kezinye iinthombe esinamatjhuguluko
+library.ops.reverted.one = Kubuyiselwe {n} isithombe kwesokuthoma — amatjhuguluko abulungwe ngaphasi kwe-versions/
+library.ops.reverted.other = Kubuyiselwe {n} iinthombe kezokuthoma — amatjhuguluko abulungwe ngaphasi kwe-versions/
+library.ops.no_file_name = Ifayela alinaligama
+library.zip.nothing_all_held = Akukho okungafakwa ku-ZIP: isihlungi sokumumethweko sivimbela zoke iinthombe lezo ezingu-{n}
+library.zip.failed = Ukwenza i-ZIP kuhlulekile: {error}
+library.zip.progress = Kwenziwa i-ZIP {n}/{total}…
+library.zip.n_held.one = ({n} kutjhiywe ngaphandle sihlungi sokumumethweko)
+library.zip.n_held.other = ({n} kutjhiywe ngaphandle sihlungi sokumumethweko)
+library.zip.done.one = Kufakwe {n} isithombe ku-ZIP ku-{dest}
+library.zip.done.other = Kufakwe {n} iinthombe ku-ZIP ku-{dest}
+library.zip.done_partial = Kufakwe iinthombe ezingu-{n} kwezingu-{total} ku-ZIP ku-{dest} — ilogo inezinye
+library.zip.nothing_readable = Akukho okufundekako okungafakwa ku-ZIP
+library.zip.too_large = Kukhulu khulu ukwenza i-ZIP ngaphandle kwe-zip64
+library.batch.nothing_to_do = Akunalitho lokwenza: thoma ngokukhetha ukuphendula, ukukhulisa namkha ukulungisa
+library.batch.save_copies_here = Bulunga Amakhophi Lapha
+library.batch.processing.one = Kusetjenzwa nge-{n} isithombe…
+library.batch.processing.other = Kusetjenzwa nge-{n} iinthombe…
+library.batch.progress = Kusetjenzwe nge-{n}/{total} — {name}
+library.batch.failed = Ukusebenza kuhlulekile: {error}
+library.batch.done.one = Kusetjenzwe nge-{n} isithombe
+library.batch.done.other = Kusetjenzwe nge-{n} iinthombe
+library.batch.done_partial = Kusetjenzwe ngeenthombe ezingu-{n} kwezingu-{total} — ilogo inezinye
+library.batch.model_would_not_load = Imodeli ye-{name} ayikghonakali ukulayitjha
+library.batch.no_psd_writer = Akunasitloleli se-PSD esilayitjhiweko
+
+# Viewer and people
+library.viewer.back = ‹ Buyela eenthombeni
+library.viewer.could_not_decode = Akukghonakali ukukhipha ikhodi yesithombe lesi.
+library.viewer.label_auto = {name} · ngokuzenzakalela
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = ABANTU ESITHOMBENI LESI
+library.viewer.faces_intro = Ubuso butholwa yimodeli encani edawunilodwa kanye. Amabhoksi angadwetjwa ngesandla.
+library.viewer.looking_for_faces = Kufunwa ubuso…
+library.viewer.no_faces = Akunabuso obutholakeleko. Dosa ibhoksi lizombeleze ubuso ukungeza umuntu ngesandla.
+library.viewer.help = Qhafaza ubuso ukubuthiya; u-Enter uyabulunga. Dosa esithombeni ukutshwaya ubuso isitholi esingakabutholi. ← → kukhambisa phakathi kweenthombe, u-Esc ubuyela emuva.
+library.viewer.not_them = Akusibo
+library.viewer.remove_name = Susa igama
+library.viewer.not_a_face = Akusibuso
+library.viewer.auto = ngokuzenzakalela
+library.viewer.is_this = Lo ngu-{name}?
+library.viewer.someone_else = Omunye umuntu
+library.viewer.add_name = Engeza igama…
+library.viewer.who_is_this = Ngubani lo?
+library.people.rename_title = Thiya Umuntu Ngobutjha
+library.people.merge_warning = Omunye umuntu sele abizwa ngo-“{name}”: ukubulunga kuhlanganisa bobabili.
+library.people.merge_note = Ukuthiya ngegama omunye umuntu asele analo kuhlanganisa abantu bobabili.
+library.people.named = Kuthiwe ngu-{name}
+library.people.named_followed.one = Kuthiwe ngu-{name} · {n} obunye ubuso bufaniswe ngokuzenzakalela
+library.people.named_followed.other = Kuthiwe ngu-{name} · obunye ubuso obungu-{n} bufaniswe ngokuzenzakalela
+
+# Photos
+library.photos.saving = Kubulungwa eeThombeni…
+library.photos.saved = Kubulungwe eeThombeni
+library.photos.save_failed = Ukubulunga eeThombeni kuhlulekile: {error}
+library.photos.no_document = akunadokhumenti evulekileko
+library.photos.no_png_codec = isikhuphi sekhodi se-PNG asikalayitjhwa
+library.photos.no_answer = ilabhulali yeenthombe ayikaphenduli
+library.photos.bad_url = indlela yefayela ayikghonakali ukwenziwa i-URL
+library.photos.unavailable = ilabhulali yeenthombe ayitholakali
+library.photos.declined = ilabhulali yeenthombe yalile
+
+# Shared files
+library.shared.needs_documents = Igalari itlhoga ifolda yamaDokhumenti ezakukopela kiyo
+library.shared.added.one = Kungezwe {n} isithombe egalari
+library.shared.added.other = Kungezwe {n} iinthombe egalari
+library.shared.open_needs_documents = Ukuvula kutlhoga ifolda yamaDokhumenti ezakukopela kiyo
+library.shared.could_not_open = Akukghonakali ukuvula {name}: {error}
+
+# Video
+video.invalid_file = Leli akusilo ifayela levidiyo elisemTjhinini.
+video.install_gstreamer = Isiboniso sangaphambili sevidiyo sitlhoga i-GStreamer 1.x nama-plug-in wokukhupha ikhodi yevidiyo. Wafake, bese uvula ividiyo godu. Usengakhetha umhleli wangaphandle.
+video.decode_failed = Akukghonakali ukukhipha ikhodi yefremu yevidiyo le.
+video.no_stream = Ifayela leli alinamrhobho wevidiyo.
+video.no_duration = Akukghonakali ukufunda ubude bevidiyo.
+video.frame_too_large = Ifremu yevidiyo le yikulu khulu ukuthi ingavulwa.
+video.first_frame = Sele kusefremuni yokuthoma.
+video.editor_failed = Akukghonakali ukuvula umhleli wevidiyo: {error}
+video.editor_unavailable = Umhleli wevidiyo okhethiweko awukghonakali ukuvula. Khetha ihlelo godu.
+video.loading = Kulayitjhwa ividiyo…
+video.searching = Kufunwa ifremu eloleke khudlwana eduze…
+video.capturing = Kuvulwa ifremu enokucaca okupheleleko…
+video.frame_title = {name} — ifremu {time}
+video.frame_layer = Ifremu yevidiyo
+video.already_sharpest = Le sele iyifremu eloleke khulu eduze.
+video.found_frame = Kukhethwe ifremu eloleke khulu eduze ku-{time}.
+video.choose_editor = Khetha umhleli wevidiyo…
+video.back = Buyela egalari
+video.pause = Jamisa kancani
+video.play = Dlala
+video.previous = Ifremu edlulileko
+video.next = Ifremu elandelako
+video.sharper = Funa ifremu eloleke khudlwana
+video.edit_frame = Hlela ifremu
+video.open_editor = Vula kumhleli wevidiyo
+video.preview_help = Isiboniso sangaphambili esinganamsindo · Isikhala: dlala/jamisa kancani · Imitjhoko: dlulela emafremuni · Kufunwa ngaphakathi kwesekhondi eli-½ emahlangothini womabili. Ukuhlela kuvula isithombe esihlukileko.
+video.badge = ▶ Ividiyo
+video.view = Bona ividiyo
+video.open_another_app = Vula kwelinye ihlelo…
+video.preview_help_touch = Isiboniso sangaphambili esinganamsindo · Dosa umuda wesikhathi namkha udlulele emafremuni. Ukufuna ifremu eloleke khudlwana kufuna ngaphakathi kwesekhondi eli-½ emahlangothini womabili. Ukuhlela kuvula isithombe esihlukileko.
+video.importing = Kungeniswa iinthombe namavidiyo…
+video.import_failed = Akukghonakali ukungenisa imidiya: {error}
+video.import_failed_simple = Akukghonakali ukungenisa namkha ukwabelana ngemidiya le.

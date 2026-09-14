@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = {name} декодталуда
+codec.msg.zero_sized = кескінде пиксель жоқ
+codec.msg.assembling_document = құжат құрастырылуда
+
+codec.raw.msg.decoding = өңделмеген файл декодталуда
+codec.raw.msg.developing = өңделмеген файл өңделуде
+codec.raw.msg.finding_preview = ендірілген алдын ала көрініс ізделуде
+codec.raw.msg.decoding_preview = ендірілген алдын ала көрініс декодталуда
+codec.raw.msg.decoder_panicked = өңделмеген файл декодері бұл файлды өңдей алмады: {what}
+
+codec.affinity.import_title = Affinity импорттау
+codec.affinity.flattened_preview_layer = Біріктірілген алдын ала көрініс
+codec.affinity.msg.no_preview = Пайдалануға жарамды ендірілген алдын ала көрініс жоқ. Affinity қабатты пішімі меншікті; Schist файлдағы біріктірілген алдын ала көріністі импорттайды. Бұл файлда ондай көрініс жоқ — оны Affinity ішінде қайта сақтаңыз немесе барлық қабаттарын импорттау үшін PSD пішіміне экспорттаңыз.
+
+codec.heif.msg.no_library = libheif қолжетімсіз ({details}). HEIC файлын ашу үшін libheif кітапханасы қажет (Linux: libheif1 орнатыңыз; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — бұл libheif жинағында HEVC декодері болмауы мүмкін (Debian/Ubuntu жүйесінде libheif-plugin-libde265 орнатыңыз)
+codec.heif.msg.unknown_error = белгісіз қате
+codec.heif.msg.initialising = libheif баптандырылуда
+codec.heif.msg.reading_container = HEIF контейнері оқылуда
+codec.heif.msg.finding_primary_image = негізгі кескін ізделуде
+codec.heif.msg.reading_icc_profile = ICC профилі оқылуда
+codec.heif.msg.decoding_image = кескін декодталуда
+codec.heif.msg.checksum_mismatch = {name} бақылау сомасы сәйкес емес: күтілгені — {expected}, алынғаны — {got}
+codec.heif.msg.imageio_cannot_read = ImageIO HEIF контейнерін оқи алмады
+codec.heif.msg.container_empty = HEIF контейнерінде кескін жоқ
+codec.heif.msg.imageio_cannot_decode = ImageIO негізгі кескінді декодтай алмады

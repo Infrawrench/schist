@@ -1,0 +1,24 @@
+# Kuyuchiy
+tool.move.name = Kuyuchiy
+tool.move.description = Llamk'achkan patapi kaqkunata huk k'itiyman aysay. Kikinmanta Akllay hap'ichisqa kaptinqa, ñit'ispa tupuchiqpa uranpi ñawpaq kaq patata utaq huñunta akllan.
+tool.move.option.auto_select = Kikinmanta akllay
+tool.move.history.move_layer = Patata kuyuchiy
+
+# Llimp'i hapiq
+tool.eyedropper.name = Llimp'i hapiq
+tool.eyedropper.description = Tupuchiqpa uranpi kaq llimp'ita ñawpaq llimp'i tawa kuchuman hap'iy; Alt ñit'isqa kaptinqa qhipa llimp'i tawa kuchuman hap'iy. Aysachkaspaykiqa llimp'ita sapa kuti hap'in.
+tool.eyedropper.option.sample_size = Rikuna sayaynin
+tool.eyedropper.option.sample = Rikuna
+tool.eyedropper.choice.point_sample = Huk ch'iku rikuna
+tool.eyedropper.choice.average_3 = 3 × 3 chawpi yupaynin
+tool.eyedropper.choice.average_5 = 5 × 5 chawpi yupaynin
+tool.eyedropper.choice.average_11 = 11 × 11 chawpi yupaynin
+tool.eyedropper.choice.average_31 = 31 × 31 chawpi yupaynin
+tool.eyedropper.choice.all_layers = Llapan patakuna
+tool.eyedropper.choice.current_layer = Kunan pata
+
+# Maki, Hatunyachiy ima
+tool.hand.name = Maki
+tool.hand.description = Qhawasqa k'itita kuyuchin. Qhawanaqa t'uqup kaqninsi; chayrayku interfaz gráfica mana kaptinqa kay llamk'anaqa qillqata mana imatapas ruwanchu.
+tool.zoom.name = Hatunyachiy
+tool.zoom.description = Qhawasqata hatunyachin utaq huch'uyachin. Qhawanaqa t'uqup kaqninsi; chayrayku interfaz gráfica mana kaptinqa kay llamk'anaqa qillqata mana imatapas ruwanchu.

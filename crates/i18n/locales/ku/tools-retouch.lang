@@ -1,0 +1,29 @@
+# Amûrên sererastkirina herêmê: Peçe, Veguhastina Naverok-Ahayî, Çavê Sor, Jêbera Sêhrîn.
+
+# Peçe
+tool.patch.name = Peçe
+tool.patch.description = Li dora kêmasiyekê xêzekê bikişîne, paşê wê hilbijartinê bikişîne ser pîkselên paqij: tekstûra li wir li kêmasiyê tê bicihkirin. Moda Peçeyê diyar dike tu kîjan aliyê cotê bikişînî.
+tool.patch.option.patch = Peçe
+tool.patch.choice.source = Çavkanî
+tool.patch.choice.destination = Armanc
+tool.patch.history.patch = Peçe
+
+# Veguhastina Naverok-Ahayî
+tool.content_aware_move.name = Veguhastina Li Gorî Naverokê
+tool.content_aware_move.description = Tiştekî hilbijartî bikişîne cihê din; valahiya ku li dû xwe dihêle bi naveroka wêneyê ya li derdorê tê dagirtin. Di moda Dirêjkirinê de tişt li şûna veguhastinê tê dirêjkirin.
+tool.content_aware_move.choice.move = Veguhastin
+tool.content_aware_move.choice.extend = Dirêjkirin
+tool.content_aware_move.history.move = Veguhastina Li Gorî Naverokê
+
+# Çavê Sor
+tool.red_eye.name = Çavê Sor
+tool.red_eye.description = Li ser şagirtê çavê bitikîne da ku rengê sor ê flaşê ji wê rake.
+tool.red_eye.option.pupil_size = Mezinahiya Şagirtê Çavê
+tool.red_eye.option.darken = Tarî Bike
+tool.red_eye.history.red_eye = Çavê Sor
+
+# Jêbera Sêhrîn
+tool.magic_eraser.name = Jêbera Sêhrîn
+tool.magic_eraser.description = Bitikîne da ku herêma rengê wê di bin nîşankerê de di nav toleransa amûrê de ye jê bibî — ya bi cihê tikandinê ve girêdayî, an jî li her derê layerê.
+tool.magic_eraser.option.contiguous = Li Pey Hev
+tool.magic_eraser.history.erase = Jêbera Sêhrîn

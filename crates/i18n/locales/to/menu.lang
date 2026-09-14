@@ -1,0 +1,155 @@
+# Menu ʻo e polokalamá
+
+# Faile
+menu.file = Faile
+menu.file.new = Foʻou
+menu.file.open = Fakaava…
+menu.file.open_recent = Fakaava ʻa e Toki Ngāueʻakí
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Kumi ʻi he Fakahāʻanga ʻĪmisi…
+menu.file.close = Tāpuni
+menu.file.save = Seivi
+menu.file.save_as = Seivi ko e…
+menu.file.export = ʻAve Ki Tuʻa…
+menu.file.export_submenu = ʻAve Ki Tuʻa
+menu.file.export_artboards = ʻAve ʻa e Ngaahi Papa Tā ki he PNG…
+menu.file.export_slices = ʻAve ʻa e Ngaahi Konga ʻAve ki he PNG…
+menu.file.save_to_photos = Seivi ki he Ngaahi Tā
+menu.file.plugins = Ngaahi Plug-in…
+menu.file.missing_fonts = Ngaahi Mataʻitohi ʻOku Pulia…
+menu.file.check_for_updates = Vakaiʻi ha Fakatonutonu Foʻou…
+menu.file.quit = Mavahe
+menu.file.add_folder_to_gallery = Tānaki ha Faile Faʻoʻanga ki he Fakahāʻanga ʻĪmisi…
+menu.file.import_from_photos = Fakahū Mai mei he Ngaahi Tā…
+menu.file.import_from_camera = Fakahū Mai mei he Meʻafaitā…
+
+# Fakatonutonu
+menu.edit = Fakatonutonu
+menu.edit.fill = Fakafonu…
+menu.edit.stroke = Laine…
+menu.edit.content_aware_fill = Fakafonu Fakatatau ki he Kakanó
+menu.edit.content_aware_scale = Liliu Lahi Fakatatau ki he Kakanó…
+menu.edit.puppet_warp = Mioʻi Papeti
+menu.edit.free_transform = Liliu Faʻunga Tauʻatāina
+menu.edit.transform = Liliu Faʻunga
+menu.edit.rotate_180 = Vilo 180°
+menu.edit.rotate_90_cw = Vilo 90° Fakatatau ki he Uasi
+menu.edit.rotate_90_ccw = Vilo 90° Fehangahangai mo e Uasi
+menu.edit.flip_horizontal = Fulihi Fakatokoto
+menu.edit.flip_vertical = Fulihi Fakatū
+
+# ʻĪmisi
+menu.image = ʻĪmisi
+menu.image.mode = Founga
+menu.image.adjustments = Ngaahi Liliu
+menu.image.auto_tone = Lanu Maama ʻOtometiki
+menu.image.auto_contrast = Kehekehe ʻOtometiki
+menu.image.auto_color = Lanu ʻOtometiki
+menu.image.image_size = Lahi ʻo e ʻĪmisi…
+menu.image.canvas_size = Lahi ʻo e Kanivā…
+menu.image.image_rotation = Vilo ʻo e ʻĪmisi
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° Fakatatau ki he Uasi
+menu.image.rotate_90_ccw = 90° Fehangahangai mo e Uasi
+menu.image.flip_canvas_horizontal = Fulihi Fakatokoto ʻa e Kanivā
+menu.image.flip_canvas_vertical = Fulihi Fakatū ʻa e Kanivā
+menu.image.crop_to_selection = Kosi ki he Feituʻu Kuo Fili
+menu.image.trim = Tuʻusi
+menu.image.assign_profile = Vaheʻi ʻa e Fakamatala Lanu…
+menu.image.convert_to_profile = Liliu ki he Fakamatala Lanu…
+
+# Fili
+menu.select = Fili
+menu.select.color_range = Vahaʻa ʻo e Lanu…
+menu.select.modify = Liliu
+menu.select.border = Kauʻā…
+menu.select.smooth = Fakatokalelei…
+menu.select.expand = Fakalahi…
+menu.select.contract = Fakasiʻisiʻi…
+menu.select.feather = Fakamolū Ngataʻanga…
+menu.select.transform_selection = Liliu Faʻunga ʻo e Feituʻu Kuo Fili
+
+# Layer
+menu.layer = Layer
+menu.layer.layer_style = Sīpinga ʻo e Layer…
+menu.layer.layer_comps = Ngaahi Tuʻunga ʻo e Layer
+menu.layer.new_layer_comp = Tuʻunga Layer Foʻou
+menu.layer.delete_layer_comp = Tamateʻi ʻa e {name}
+menu.layer.path = Hala
+menu.layer.fill_path = Fakafonu ʻa e Hala
+menu.layer.stroke_path = Tā Laine ʻi he Hala
+menu.layer.make_selection = Faʻu ha Feituʻu ke Fili
+menu.layer.delete_path = Tamateʻi ʻa e Hala
+
+# Liliu
+menu.adjust = Liliu
+
+# Sivi
+menu.filter = Sivi
+menu.filter.filter_gallery = Fakahāʻanga Sivi…
+menu.filter.liquify = Fakavaia
+menu.filter.vanishing_point = Poini Pulia
+menu.filter.manage_models = Puleʻi ʻa e Ngaahi Mōtolo…
+menu.filter.camera_raw_development = Fakatupulekina ʻo e Camera Raw…
+
+# Vakai
+menu.view = Vakai
+menu.view.rotate_view_cw = Vilo ʻa e Vakai Fakatatau ki he Uasi
+menu.view.rotate_view_ccw = Vilo ʻa e Vakai Fehangahangai mo e Uasi
+menu.view.reset_view = Toe Fokotuʻu ʻa e Vakai
+menu.view.zoom_in = Fakalahi
+menu.view.zoom_out = Fakasiʻisiʻi
+menu.view.fit_on_screen = Fakafeʻunga ki he Sikilini
+menu.view.actual_size = 100%
+menu.view.rulers = Ngaahi Meʻafua
+menu.view.grid = Kupenga
+menu.view.guides = Ngaahi Laine Tataki
+menu.view.notes = Ngaahi Fakamatala Nounou
+menu.view.ai_panel = Penolo AI
+menu.view.extras = Ngaahi Meʻa Tānaki
+menu.view.snap = Piki
+menu.view.clear_guides = Fakamaʻa ʻa e Ngaahi Laine Tataki
+menu.view.clear_notes = Fakamaʻa ʻa e Ngaahi Fakamatala Nounou
+menu.view.clear_count = Fakamaʻa ʻa e Lau
+menu.view.screen_mode = Founga Sikilini
+menu.view.proof_colors = Proof Colors
+menu.view.show_rulers = Fakahā ʻa e Ngaahi Meʻafua
+menu.view.hide_rulers = Fufū ʻa e Ngaahi Meʻafua
+menu.view.show_grid = Fakahā ʻa e Kupenga
+menu.view.hide_grid = Fufū ʻa e Kupenga
+menu.view.show_guides = Fakahā ʻa e Ngaahi Laine Tataki
+menu.view.hide_guides = Fufū ʻa e Ngaahi Laine Tataki
+menu.view.show_notes = Fakahā ʻa e Ngaahi Fakamatala Nounou
+menu.view.hide_notes = Fufū ʻa e Ngaahi Fakamatala Nounou
+menu.view.show_extras = Fakahā ʻa e Ngaahi Meʻa Tānaki
+menu.view.hide_extras = Fufū ʻa e Ngaahi Meʻa Tānaki
+menu.view.enable_snapping = Fakamoʻui ʻa e Pikí
+menu.view.disable_snapping = Tamateʻi ʻa e Pikí
+menu.view.enable_proof_colors = Fakamoʻui ʻa e Proof Colors
+menu.view.disable_proof_colors = Tamateʻi ʻa e Proof Colors
+
+# Fakahāʻanga ʻīmisi
+menu.gallery = Fakahāʻanga ʻĪmisi
+menu.gallery.edit_selected = Fakatonutonu ʻa e Meʻa Kuo Fili
+menu.gallery.refresh = Toe Fakafoʻou
+menu.gallery.map_filter = Sivi Mape…
+menu.gallery.back_to_editor = Foki ki he ʻĒtita
+
+# Menu Schist Cloud
+menu.cloud.browse = Kumi ʻi he Schist Cloud
+menu.cloud.generate = Faʻu ha ngaahi ʻīmisi…
+menu.cloud.upload = ʻAve ʻa e fakamatala ki he Schist Cloud…
+menu.cloud.sign_out = Hū ki tuʻa mei he Schist Cloud
+menu.cloud.sign_in = Hū ki he Schist Cloud…
+
+# Menu ʻo e polokalama macOS
+menu.app.services = Ngaahi Ngāue Tokoni
+menu.app.hide = Fufū ʻa e {app}
+menu.app.hide_others = Fufū ʻa e Niʻihi Kehé
+menu.app.show_all = Fakahā Kotoa
+menu.app.quit = Mavahe mei he {app}
+
+# Ngaahi tali ʻi he laine tuʻungá
+menu.status.transform_selection_needs_selection = ʻOku fiemaʻu ʻe he Liliu Faʻunga ʻo e Feituʻu Kuo Filí ha feituʻu kuo fili
+menu.status.crop_needs_selection = ʻOku fiemaʻu ʻe he Kosi ki he Feituʻu Kuo Filí ha feituʻu kuo fili
+menu.status.select_photo_to_edit = Fili ha tā ke fakatonutonu

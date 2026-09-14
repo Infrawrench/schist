@@ -1,0 +1,40 @@
+# Tela di l'editore: risposte di statu è cronulugia.
+
+workspace.canvas.rotate_view_degrees = Girà a vista di {degrees}°
+workspace.canvas.view_reset = Vista rimessa
+workspace.canvas.notes_on = Note attivate
+workspace.canvas.notes_off = Note disattivate
+workspace.canvas.rulers_on = Righelli attivati
+workspace.canvas.rulers_off = Righelli disattivati
+workspace.canvas.grid_on = Griglia attivata
+workspace.canvas.grid_off = Griglia disattivata
+workspace.canvas.guides_on = Guide attivate
+workspace.canvas.guides_off = Guide disattivate
+workspace.canvas.extras_on = Elementi in più attivati
+workspace.canvas.extras_off = Elementi in più disattivati
+workspace.canvas.snap_on = Aderenza attivata
+workspace.canvas.snap_off = Aderenza disattivata
+workspace.canvas.guides_cleared = Guide cacciate
+workspace.canvas.no_path = Nisun tracciatu da aduprà
+workspace.canvas.path_empty = U tracciatu hè viotu
+workspace.canvas.stroke_needs_selection = Per appiicà un cuntornu ci vole una selezzione
+workspace.canvas.nothing_to_stroke = Nunda à chì appiicà un cuntornu
+workspace.canvas.content_aware_fill_needs_selection = Per u Riempimentu sensibile à u cuntenutu ci vole una selezzione
+workspace.canvas.content_aware_fill_needs_pixel_layer = Per u Riempimentu sensibile à u cuntenutu ci vole un stratu di pixel
+workspace.canvas.color_range_needs_pixel_layer = Per a Gamma di culori ci vole un stratu di pixel
+workspace.canvas.nothing_to_adjust = Nunda da regulà
+workspace.canvas.nothing_to_trim = Nunda da rifilà
+workspace.canvas.trimmed = Rifilatu
+workspace.canvas.indexed_not_supported = U Culore indiziatu ùn hè ancu suppurtatu
+workspace.canvas.opacity_percent = Opacità: {n}%
+
+workspace.history.stroke = Cuntornu
+workspace.history.fill = Riempimentu
+workspace.history.content_aware_scale = Scala sensibile à u cuntenutu
+workspace.history.filter_gallery = Galleria di filtri
+workspace.history.color_range = Gamma di culori
+workspace.history.move_layer = Spustà u stratu
+workspace.history.move_layers = Spustà i strati
+workspace.history.layer_opacity = Opacità di u stratu
+workspace.history.delete_note = Sguassà a nota
+workspace.history.edit_note = Mudificà a nota

@@ -1,0 +1,37 @@
+# Combinatzione cun sa seletzione
+tool.select.mode.subtract = Sutràe
+tool.select.mode.intersect = Interseca
+
+# Marchesinas
+tool.marquee.rect.name = Seletzione retangulare
+tool.marquee.rect.description = Tràghe pro creare una seletzione retangulare. Shift a s'incumintzu de su tràghidu annanghet a sa seletzione, alt nd'istratzat, ambos dd'intersecant; Shift durante su tràghidu dda faghet cuadrada. Un'incarcu chena tràghere deseletzionat.
+tool.marquee.ellipse.name = Seletzione elìtica
+tool.marquee.ellipse.description = Tràghe pro creare una seletzione elìtica, cun sa matessi combinatzione de Shift/alt de sa seletzione retangulare.
+
+# Làtzos
+tool.lasso.name = Làtzu
+tool.lasso.description = Tràghe unu cuntornu a manu lìbera; sa seletzione si serrat intre is estremidades cando agabbat su tràghidu. Shift annanghet, alt istratzat.
+tool.lasso.history.select = Seletziona cun su làtzu
+tool.lasso.polygonal.name = Làtzu poligonale
+tool.lasso.polygonal.description = Incarca unu càntaru a pustis de s'àteru pro creare una seletzione cun oros deretos, e incarca acanta de su primu puntu pro dda serrare.
+tool.lasso.polygonal.history.select = Làtzu poligonale
+tool.lasso.magnetic.name = Làtzu magnèticu
+tool.lasso.magnetic.description = Sighi a manera aprossimativa unu màrgine e su cuntornu s'acàpiat a su contrastu prus forte acanta de su percursu.
+tool.lasso.magnetic.history.select = Làtzu magnèticu
+tool.lasso.magnetic.option.frequency = Frecuèntzia
+
+# Bacheta màgica
+tool.wand.name = Bacheta màgica
+tool.wand.description = Incarca pro seletzionare s'àrea ligada de colore sìmile suta de su puntadore, intro de s'optzione de toleràntzia — sa matessi toleràntzia impreada dae Ismànnia, Sìmile e Gamma de colores.
+tool.wand.option.contiguous = Sighidu
+tool.wand.history.select = Bacheta màgica
+
+# Seletzione lestra
+tool.quick_select.name = Seletzione lestra
+tool.quick_select.description = Pìntura subra de una regione e sa seletzione si ismànniat tràmite is pixel sìmiles subra de is cales passat su pinnellu.
+tool.quick_select.history.select = Seletzione lestra
+
+# Seletzione de ogetos
+tool.object_select.name = Seletzione de ogetos
+tool.object_select.description = Tràghe una càscia in giru a un'ogetu e sa seletzione s'acàpiat a s'ogetu agatadu a intro.
+tool.object_select.history.select = Seletzione de ogetos

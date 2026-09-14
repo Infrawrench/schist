@@ -1,0 +1,36 @@
+tool.select.mode.subtract = બાદ કરો
+tool.select.mode.intersect = છેદ
+
+# Marquees
+tool.marquee.rect.name = લંબચોરસ માર્કી
+tool.marquee.rect.description = લંબચોરસ પસંદગી દોરી કાઢો. ખેંચવાનું શરૂ કરો ત્યારે Shift દબાવવાથી પસંદગીમાં ઉમેરાય છે, Alt બાદ કરે છે અને બંને દબાવવાથી છેદ લેવાય છે; ખેંચતી વખતે Shift દબાવવાથી પૂર્ણ ચોરસ બને છે. ખેંચ્યા વિના ક્લિક કરવાથી પસંદગી દૂર થાય છે.
+tool.marquee.ellipse.name = અંડાકાર માર્કી
+tool.marquee.ellipse.description = લંબચોરસ માર્કીની જેમ જ Shift/Alt વડે જોડાતી અંડાકાર પસંદગી દોરી કાઢો.
+
+# Lassos
+tool.lasso.name = લાસો
+tool.lasso.description = મુક્તહસ્ત રૂપરેખા ખેંચો; ખેંચવાનું પૂરું થાય ત્યારે તેના છેડા જોડાઈને પસંદગી બંધ થાય છે. Shift ઉમેરે છે અને Alt બાદ કરે છે.
+tool.lasso.history.select = લાસો પસંદગી
+tool.lasso.polygonal.name = બહુકોણીય લાસો
+tool.lasso.polygonal.description = સીધી ધારવાળી પસંદગી બનાવવા એક પછી એક ખૂણા પર ક્લિક કરો અને તેને બંધ કરવા પહેલા બિંદુની નજીક ક્લિક કરો.
+tool.lasso.polygonal.history.select = બહુકોણીય લાસો
+tool.lasso.magnetic.name = ચુંબકીય લાસો
+tool.lasso.magnetic.description = કોઈ ધારની આસપાસ અંદાજે ટ્રેસ કરો અને રૂપરેખા પાથ નજીકના સૌથી તીવ્ર કોન્ટ્રાસ્ટ સાથે સ્નૅપ થશે.
+tool.lasso.magnetic.history.select = ચુંબકીય લાસો
+tool.lasso.magnetic.option.frequency = આવૃત્તિ
+
+# Magic wand
+tool.wand.name = મેજિક વૉન્ડ
+tool.wand.description = સહનશીલતા વિકલ્પની મર્યાદામાં પોઇન્ટરની નીચે સમાન રંગ ધરાવતો સળંગ વિસ્તાર પસંદ કરવા ક્લિક કરો — Grow, Similar અને Color Range પણ આ જ સહનશીલતા વાંચે છે.
+tool.wand.option.contiguous = સળંગ
+tool.wand.history.select = મેજિક વૉન્ડ
+
+# Quick selection
+tool.quick_select.name = ઝડપી પસંદગી
+tool.quick_select.description = કોઈ વિસ્તાર પર પેઇન્ટ કરો અને બ્રશ જે સમાન પિક્સેલ પરથી પસાર થાય તેમાં પસંદગી વિસ્તરશે.
+tool.quick_select.history.select = ઝડપી પસંદગી
+
+# Object selection
+tool.object_select.name = ઑબ્જેક્ટ પસંદગી
+tool.object_select.description = ઑબ્જેક્ટની આસપાસ બૉક્સ ખેંચો અને પસંદગી તેની અંદર મળેલા ઑબ્જેક્ટ સાથે સ્નૅપ થશે.
+tool.object_select.history.select = ઑબ્જેક્ટ પસંદગી

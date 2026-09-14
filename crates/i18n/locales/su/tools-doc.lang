@@ -1,0 +1,24 @@
+tool.artboard.name = Artboard
+tool.artboard.description = Séréd pikeun nyieun artboard: wewengkon kanvas anu dingaranan sarta diékspor mandiri. Nyéréd di jero artboard nu geus aya bakal mindahkeun éta artboard.
+tool.artboard.default_name = Artboard {n}
+
+tool.slice.name = Irisan
+tool.slice.description = Séréd pikeun nyieun irisan ékspor, nyaéta pasagi panjang kanvas anu dingaranan sarta diékspor jadi gambar mandiri. Nyéréd di jero irisan nu geus aya bakal mindahkeun éta irisan.
+tool.slice.default_name = Irisan {n}
+
+tool.frame.name = Pigura
+tool.frame.description = Séréd pikeun nyieun pigura: lapisan wangun pasagi panjang (atawa élips) anu ngamasker naon waé anu diteundeun di jerona.
+tool.frame.default_name = Pigura {n}
+tool.frame.choice.rectangle = Pasagi Panjang
+tool.frame.choice.ellipse = Élips
+tool.frame.history.frame = Pigura
+
+tool.note.name = Catetan
+tool.note.description = Klik bagian kanvas kosong pikeun masang catetan di dinya, dibéré tanda pangarang jeung warna dina kaayaan éditor; klik pin anu geus aya pikeun milihna dina panel Catetan.
+tool.note.history.place = Pasang Catetan
+tool.note.history.move = Pindahkeun Catetan
+tool.note.history.delete = Pupus Catetan
+
+tool.count.name = Itungan
+tool.count.description = Klik pikeun nunda pananda itungan bernomor dina kanvas, sarta klik pananda anu geus aya pikeun mupusna.
+tool.count.default_name = Itungan {n}

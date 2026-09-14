@@ -1,0 +1,24 @@
+# Utensil da text.
+
+tool.type.name = Text
+tool.type.description = Clicca per cumenzar là ina stresa da text u clicca sin ina existenta per l'editar. Durant ch'ella è averta, retschaiva l'utensil las tastas directamain (trametta ils segns sco endataziun da tastas); cun confermar vegn la stresa renderisada e l'ediziun serrada.
+
+tool.type.option.align = Alingiar
+tool.type.option.leading = Interlingia
+tool.type.option.tracking = Spaziament
+tool.type.option.kerning = Kerning
+tool.type.option.ligatures = Ligaturas
+tool.type.option.discretionary_ligatures = Ligaturas facultativas
+tool.type.option.small_caps = Chapitalas pitschnas
+tool.type.option.on_path = Sin il trutg activ
+tool.type.option.path_offset = Deplazzament sin il trutg
+
+tool.type.choice.regular = Normal
+tool.type.choice.bold = Grass
+tool.type.choice.italic = Cursiv
+tool.type.choice.bold_italic = Grass cursiv
+
+tool.type.history.new_layer = Nova stresa da text
+tool.type.history.edit = Modifitgar il text
+tool.type.history.discard = Refusar il text
+tool.type.history.discard_empty = Refusar il text vid

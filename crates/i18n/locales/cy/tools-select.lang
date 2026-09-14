@@ -1,0 +1,39 @@
+# Offer dewis: pebyll, lasos, hudlath, dewis cyflym a dewis gwrthrych.
+
+# Cyfuno siâp newydd â'r detholiad presennol
+tool.select.mode.subtract = Tynnu
+tool.select.mode.intersect = Croestorri
+
+# Pebyll
+tool.marquee.rect.name = Pabell Betryalog
+tool.marquee.rect.description = Llusgwch i greu detholiad petryalog. Mae Shift ar ddechrau'r llusgiad yn ychwanegu at y detholiad, mae Alt yn tynnu ohono, ac mae'r ddau'n croestorri; mae Shift yn ystod y llusgiad yn ei wneud yn sgwâr. Mae clic heb lusgo'n dad-ddewis.
+tool.marquee.ellipse.name = Pabell Eliptig
+tool.marquee.ellipse.description = Llusgwch i greu detholiad eliptig, gyda'r un cyfuniadau Shift/Alt â'r babell betryalog.
+
+# Lasos
+tool.lasso.name = Laso
+tool.lasso.description = Llusgwch amlinell â llawrydd; mae'r detholiad yn cau ar draws y pennau pan ddaw'r llusgiad i ben. Mae Shift yn ychwanegu ac Alt yn tynnu.
+tool.lasso.history.select = Dewis â Laso
+tool.lasso.polygonal.name = Laso Amlochrog
+tool.lasso.polygonal.description = Cliciwch gornel ar ôl cornel i greu detholiad ag ymylon syth, a chliciwch yn agos at y pwynt cyntaf i'w gau.
+tool.lasso.polygonal.history.select = Dewis â Laso Amlochrog
+tool.lasso.magnetic.name = Laso Magnetig
+tool.lasso.magnetic.description = Dilynwch ymyl yn fras ac mae'r amlinell yn snapio at y cyferbyniad cryfaf ger y llwybr.
+tool.lasso.magnetic.history.select = Dewis â Laso Magnetig
+tool.lasso.magnetic.option.frequency = Amledd
+
+# Hudlath
+tool.wand.name = Hudlath
+tool.wand.description = Cliciwch i ddewis yr ardal gydgysylltiedig o liw tebyg o dan y pwyntydd, o fewn y goddefiant — yr un goddefiant a ddefnyddir gan Tyfu, Tebyg ac Ystod Lliwiau.
+tool.wand.option.contiguous = Cydgysylltiedig
+tool.wand.history.select = Hudlath
+
+# Dewis cyflym
+tool.quick_select.name = Dewis Cyflym
+tool.quick_select.description = Paentiwch dros ardal ac mae'r detholiad yn tyfu drwy'r picseli tebyg y mae'r brwsh yn mynd drostynt.
+tool.quick_select.history.select = Dewis Cyflym
+
+# Dewis gwrthrych
+tool.object_select.name = Dewis Gwrthrych
+tool.object_select.description = Llusgwch flwch o amgylch gwrthrych ac mae'r detholiad yn snapio at y gwrthrych a ganfuwyd ynddo.
+tool.object_select.history.select = Dewis Gwrthrych

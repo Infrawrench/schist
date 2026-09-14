@@ -1,0 +1,43 @@
+tool.pen.name = Ipeni
+tool.pen.description = Yakha indlela: chafata kuze wakhe liphuzu lelikhona, hudvula kuze ukhiphe tibambo temugca logobile kulo, bese uchafata liphuzu lekucala kuze uyivale. Kwemukela kugucula indlela ibe luhlaka lwesimo.
+tool.pen.option.rubber_band = Libhande Lerabha
+tool.pen.history.fill = Kugcwalisa Indlela
+tool.pen.default_path_name = Indlela {n}
+tool.pen.freeform.name = Ipeni Yekudvweba Ngesandla
+tool.pen.freeform.description = Hudvula umugca ngesandla bese ulinganiselwa endleleni, ukhululeke ngendlela inkhetselo Yekulinganisa lesho ngayo.
+tool.pen.freeform.option.fit = Linganisa
+tool.pen.curvature.name = Ipeni Yekugobisa Umugca
+tool.pen.curvature.description = Chafata luchungechunge lwemaphuzu bese indlela igobeka kahle idlule kuwo.
+
+tool.path_select.name = Kukhetsa Indlela
+tool.path_select.description = Chafata indlela kuze uyikhetse, bese uhudvula kuze uhambise yonkhe indlela.
+tool.direct_select.name = Kukhetsa Ngco
+tool.direct_select.description = Hudvula liphuzu linye leliyihange nobe tibambo talo kuze wakhe kabusha indlela letungelete lona.
+
+tool.shape.history.layer = Luhlaka lwa-{name}
+tool.shape.rect.name = Lithuluzi Lelicalandze
+tool.shape.rect.label = Calandze
+tool.shape.rect.description = Hudvula wakhe luhlaka lwesimo lesilicalandze ngembala wangembili; luhlala luyi-vector futsi luphindze lentiwe emaphikseli nakushintjwa bukhulu balo.
+tool.shape.ellipse.name = Lithuluzi Lendilinga Lelulekile
+tool.shape.ellipse.label = Indilinga Lelulekile
+tool.shape.ellipse.description = Hudvula wakhe luhlaka lwesimo lesiyindilinga lelulekile ngembala wangembili.
+tool.shape.line.name = Lithuluzi Lemugca
+tool.shape.line.label = Umugca
+tool.shape.line.description = Hudvula wakhe luhlaka lwesimo lesingumugca locondzile ngembala wangembili.
+tool.shape.line.option.weight = Kujiyana
+tool.shape.line.option.arrow_start = Kucala
+tool.shape.line.option.arrow_end = Kuphela
+tool.shape.polygon.name = Lithuluzi Lemacala Lamanyenti
+tool.shape.polygon.label = Simo Lesinemacala Lamanyenti
+tool.shape.polygon.description = Hudvula wakhe luhlaka lwesimo lesinemacala lalinganako ngembala wangembili, linani lemacala litsatfwa kutinkhetselo.
+tool.shape.polygon.option.sides = Emacala
+
+tool.shape.custom.name = Simo Lesakhelwe Wena
+tool.shape.custom.label = Simo Lesakhelwe Wena
+tool.shape.custom.description = Hudvula wakhe sinye setimo letimisiwe letifakwe ekhatsi, lesikhetfwe ngenkhetselo yeSimo.
+tool.shape.custom.choice.heart = Inhlitiyo
+tool.shape.custom.choice.star = Inkhanyeti
+tool.shape.custom.choice.arrow = Umcibisholo
+tool.shape.custom.choice.lightning = Umbane
+tool.shape.custom.choice.cross = Siphambano
+tool.shape.custom.choice.speech_bubble = Libhamuta Lenkhulumo

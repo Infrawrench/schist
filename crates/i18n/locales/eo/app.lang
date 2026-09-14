@@ -1,0 +1,43 @@
+# Filtrila galerio
+app.filter_gallery.title = Filtrila galerio
+app.filter_gallery.stack = Stako (aplikata de malsupre supren)
+app.filter_gallery.no_settings = Ĉi tiu filtrilo havas neniujn agordojn.
+
+# Tiparoj
+app.fonts.not_open_licensed = ne libere licencita · {substitute} havas samajn metrikojn
+app.fonts.missing_substituted = mankas · la teksto estas kompostata per anstataŭa tiparo
+app.fonts.not_in_catalogue = {family} ne estas en la katalogo de liberaj tiparoj
+app.fonts.no_faces = neniu elŝutebla fasono por {family}
+app.fonts.empty_response = malplena respondo
+
+# Memĝisdatigilo
+app.update.unreadable_response = nelegebla respondo: {error}
+app.update.no_temp_dir = neniu provizora dosierujo por la elŝuto
+app.update.asset_has_path = la eldono nomas sian dosieron per dosierindiko
+app.update.too_big = la elŝuto estas pli granda ol indikas la eldono
+app.update.stopped_at = la elŝuto haltis ĉe {got} el {total} bitokoj
+app.update.hash_mismatch = la haketaĵo de la elŝuto estas {got}, ne {want}
+app.update.not_in_bundle = ĉi tiu kopio ne estas en aplikaĵa pakaĵo
+app.update.no_parent_dir = la aplikaĵa pakaĵo ne havas patran dosierujon
+app.update.cannot_write = ne eblas skribi en {dir}
+app.update.cannot_move_aside = ne eblas formovi {app}
+app.update.cannot_move_in = ne eblas meti la novan pakaĵon en ĝian lokon
+app.update.cannot_run_ditto = ne eblas ruli /usr/bin/ditto
+app.update.unpack_failed = malsukcesis malpaki la elŝuton: {error}
+app.update.no_app_in_download = la elŝuto ne enhavas Schist.app
+app.update.cannot_run_codesign = ne eblas ruli /usr/bin/codesign
+app.update.signature_invalid = ne eblas kontroli la subskribon de la elŝuto: {error}
+app.update.download_unsigned = ĉi tiu kopio estas subskribita, sed la elŝuto ne
+app.update.different_developer = la elŝuton subskribis alia programisto
+app.update.cannot_relaunch = ne eblas startigi la restartigilon
+app.update.not_installed_copy = ĉi tiun kopion ne metis ĉi tien la instalilo
+app.update.cannot_start_installer = ne eblas startigi la instalilon
+app.update.platform_unsupported = ĝisdatigoj en ĉi tiu platformo estas instalataj same kiel Schist estis instalita
+
+# Vulkan-kontrolo en Linux; pakaĵnomoj kaj komandoj restas netuŝitaj.
+app.vulkan.no_loader = schist: en ĉi tiu sistemo ne estas Vulkan-ŝargilo, do nenio povas desegni.\n\nSchist bildigas per Vulkan, kaj `libvulkan.so.1` ne estas instalita.\nNecesas kaj la ŝargilo kaj pelilo:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: la Vulkan-pelilo, al kiu ĉi tiu seanco direktas, ne troviĝas.\n\n{var} estas agordita, kaj ĝia agordo *anstataŭigas* la serĉadon de\npeliloj fare de la ŝargilo, anstataŭ aldoni al ĝi. Do ĉi tiuj neekzistantaj\ndosieroj estas la tuta listo de peliloj — kaj ĉiu Vulkan-programo en ĉi tiu\nseanco vidas entute neniun pelilon, kiom ajn estas instalitaj:\n\n{missing}\n    {var}={value}\n\nDirektu ĝin al ekzistanta manifesto — instalitaj peliloj metas siajn en\n/usr/share/vulkan/icd.d — aŭ malagordu ĝin kaj lasu la ŝargilon mem serĉi.\nSe seanco agordas ĉi tion per agorda dosiero (la `env =` de Hyprland,\naldonaĵo de systemd environment.d, ŝela profilo), oni devas ŝanĝi ĝin tie,\nkaj nova ensaluto necesas por ke la ŝanĝo atingu jam rulatajn programojn.\n
+app.vulkan.override_note = \n{var} estas agordita al {value}, kaj tio anstataŭigas la propran serĉon\nde la ŝargilo: se neniu el tiuj manifestoj taŭgas por ĉi tiu komputilo,\nmalagordi ĝin estas la unua provindaĵo.\n
+app.vulkan.no_driver = schist: neniu Vulkan-pelilo estas instalita, do nenio povas desegni.\n\nSchist bildigas per Vulkan. La ŝargilo estas instalita sed raportas neniun\npelilon — nenio registris pelilon en iu el la du serĉataj lokoj:\n\n{dirs}\n\nLa ŝargilo estas liverata aparte de la peliloj, do kutime mankas nur unu\npakaĵo.\n\nInstalu tiun por la grafika procesoro de ĉi tiu komputilo:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nLa proprieta pelilo de NVIDIA enhavas sian propran (`nvidia-utils` en Arch,\n`nvidia-driver` en Debian). En virtuala maŝino, aŭ kie ajn ne ekzistas\ninstalebla pelilo por grafika procesoro, funkcias la programa rastrumilo:\n`vulkan-swrast` en Arch, parto de `mesa-vulkan-drivers` aliloke. Ĝi estas\nmalrapida, sed ĝi startas.\n{overridden}
+app.vulkan.no_device = schist: Vulkan-pelilo estas instalita sed ofertas neniun aparaton por bildigo.\n\nEble la pelilo ne subtenas ĉi tiun grafikan procesoron aŭ ne povas atingi ĝin —\nper SSH aŭ ene de ujo ofte mankas /dev/dri. `vulkaninfo --summary` raportas\ntion, kion vidas la ŝargilo.\n\nLa programa rastrumilo bildigas tute sen grafika procesoro, se ĉi tiu komputilo\nne havas ĝin: `vulkan-swrast` en Arch, parto de `mesa-vulkan-drivers` en\nDebian kaj Fedora.\n
+app.vulkan.skip_hint = Por tamen startigi Schist kaj lasi ĝin malsukcesi siamaniere, agordu {var}=1.

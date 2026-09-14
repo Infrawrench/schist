@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigátor
+panel.navigator.actual_pixels = Skutočné pixely
+
+panel.color.picker = Výber farby…
+panel.color.swap = Vymeniť farby
+panel.color.reset = Obnoviť čiernu a bielu
+
+panel.layers.blending_options = Možnosti prelínania…
+panel.layers.properties = Vlastnosti vrstvy…
+panel.layers.show_hide = Zobraziť/skryť vrstvu
+panel.layers.toggle_visibility = Prepnúť viditeľnosť
+
+panel.history.title = História
+panel.history.opened = Otvorenie
+
+panel.info.title = Informácie
+panel.info.camera = Fotoaparát
+panel.info.lens = Objektív
+panel.info.iso = ISO {iso}
+panel.info.bias = Korekcia expozície
+panel.info.flash_fired = blesk sa použil
+panel.info.no_flash = bez blesku
+panel.info.white_balance = Vyváženie bielej {wb}
+panel.info.metering = meranie: {metering}
+panel.info.taken = Nasnímané
+panel.info.size = {w} × {h} · {mp} Mpx
+panel.info.size_oriented = {w} × {h} · {mp} Mpx · orientácia {o}
+panel.info.software = Softvér
+panel.info.where = Miesto
+
+panel.notes.author = Autor
+panel.notes.clear_all = Vymazať všetko
+panel.notes.unattributed = Bez autora
+panel.notes.empty = Kliknutím na plátno pridajte poznámku.
+panel.notes.placeholder = Kliknite a píšte
+
+panel.character.title = Znaky
+panel.character.type_tool = Nástroj Text (T)
+panel.character.align_left = Zarovnať vľavo
+panel.character.align_center = Zarovnať na stred
+panel.character.align_right = Zarovnať vpravo
+panel.character.text_color = Farba textu
+panel.character.panel = Panel Znaky
+panel.character.cancel_edit = Zrušiť úpravu textu
+panel.character.commit_edit = Potvrdiť úpravu textu
+panel.character.number_tip = {label} · Zadajte hodnotu alebo použite ↑ / ↓ (Shift nastavuje väčšie kroky)
+panel.character.leading = Riadkovanie
+panel.character.tracking = Prestrkávanie
+panel.character.alignment = Zarovnanie
+panel.character.opentype = OpenType
+panel.character.text_on_path = Text na ceste
+panel.character.straight = Rovný
+panel.character.on_path = Na ceste
+panel.character.straight_tip = Použiť bežnú základnú čiaru textovej vrstvy
+panel.character.on_path_tip = Použiť kópiu aktívnej cesty
+panel.character.path_offset = Posun na ceste
+
+panel.ai.title = AI
+panel.ai.empty_editor = Požiadajte o úpravu a sledujte jej priebeh na plátne. Agent používa rovnaké nástroje, filtre a príkazy ako ponuky; každý krok možno samostatne vrátiť späť.
+panel.ai.empty_gallery = Požiadajte o prácu s fotografiami a sledujte jej priebeh v galérii: agent môže vyhľadávať, prezerať miniatúry, vyberať, triediť do skupín a otvárať fotografie v editore.
+panel.ai.thinking = premýšľa…
+panel.ai.placeholder_editor = Opýtajte sa na tento dokument alebo ho upravte
+panel.ai.placeholder_gallery = Opýtajte sa na svoje fotografie
+panel.ai.send = Odoslať
+panel.ai.stop = Zastaviť
+panel.ai.fetching_models = Získavajú sa modely z CLI…
+panel.ai.no_models = Žiadne modely nezodpovedajú
+panel.ai.search_models = Hľadať modely…
+
+panel.keymap.install_plugin = Nainštalovať zásuvný modul
+panel.keymap.save_as_prompt = Uložiť ako — prípona určuje formát:

@@ -1,0 +1,24 @@
+tool.artboard.name = Tabula Artis
+tool.artboard.description = Trahendo tabulam artis crea: regionem nominatam telae quae separatim exportatur. Trahendo intra tabulam iam exstantem ea movetur.
+tool.artboard.default_name = Tabula Artis {n}
+
+tool.slice.name = Sectio
+tool.slice.description = Trahendo sectionem exportandam crea, rectangulum nominatum telae quod velut imago separata exportatur. Trahendo intra sectionem iam exstantem ea movetur.
+tool.slice.default_name = Sectio {n}
+
+tool.frame.name = Forma
+tool.frame.description = Trahendo formam crea: stratum rectangulum (vel ellipticum) quod quidquid in eo ponitur obtegit.
+tool.frame.default_name = Forma {n}
+tool.frame.choice.rectangle = Rectangulum
+tool.frame.choice.ellipse = Ellipsis
+tool.frame.history.frame = Forma
+
+tool.note.name = Nota
+tool.note.description = Preme telam vacuam ut ibi notam defigas, cui auctor et color ex statu editoris adscribuntur; clavum iam exstantem preme ut eum in tabula Notarum eligas.
+tool.note.history.place = Nota Posita
+tool.note.history.move = Nota Mota
+tool.note.history.delete = Nota Deleta
+
+tool.count.name = Numeratio
+tool.count.description = Preme ut notas numeratas in tela ponas; notam iam exstantem preme ut eam removeas.
+tool.count.default_name = Numeratio {n}

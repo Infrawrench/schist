@@ -1,0 +1,124 @@
+# Espacio de treballo: documentos, filtros, exportación y recuperación.
+
+# Fuents de Edición ▸ Emplir
+workspace.fill.gray_50 = Griso a lo 50%
+workspace.fill.content_aware = Sensible a lo conteniu
+
+# Titols de Selección ▸ Modificar
+workspace.modify.expand = Expandir selección
+workspace.modify.contract = Contrayer selección
+workspace.modify.border = Borde d'a selección
+workspace.modify.smooth = Suavizar selección
+workspace.modify.feather = Esvaneixer selección
+
+# Destino d'o procesau por lotes d'a galería
+workspace.batch.target.edit = Edicions d'a galería (con versions)
+workspace.batch.target.beside = Copias chunto a los orichinals
+workspace.batch.target.folder = Copias en una carpeta…
+
+# Imachen ▸ Grandaria d'a imachen
+workspace.modal.image_size.title = Grandaria d'a imachen
+
+# Documentos y pestanyas
+workspace.docs.opening = Se ye ubrindo {name}…
+workspace.docs.opened = S'ha ubierto {name}
+workspace.docs.open_failed = Ha fallau l'obridura: {error}
+workspace.docs.no_codec = {name} no ye un formato que Schist pueda ubrir
+workspace.docs.no_exporter = Schist no puet alzar fichers .{ext}
+workspace.docs.empty_response = O servidor ha ninviau una respuesta vueda
+workspace.docs.heic_not_installed = O soporte de HEIC no ye instalau
+workspace.docs.heic_downloading = Se ye descargando o soporte de HEIC (libheif {version})…
+workspace.docs.heic_installed = O soporte de HEIC ye instalau
+workspace.docs.heic_download_failed = Ha fallau a descarga d'o soporte de HEIC: {error}
+workspace.docs.placing = Se ye metendo {name}…
+workspace.docs.place_image = Meter imachen
+workspace.docs.placed = S'ha metiu {name}
+workspace.docs.place_failed = Ha fallau a colocación: {error}
+workspace.docs.saved = S'ha alzau {name}
+workspace.docs.save_failed = Ha fallau l'alzau: {error}
+
+# Capas d'achuste
+workspace.adjustment.new_layer = Nueva capa de {name}
+workspace.adjustment.added = S'ha anyadiu {name}
+workspace.adjustment.settings = Configuración de {name}
+workspace.adjustment.updated = S'ha actualizau {name}
+workspace.adjustment.no_settings = {name} no tiene configuración editable
+
+# Composicions de capas
+workspace.comps.name_n = Composición de capas {n}
+workspace.comps.captured = S'ha capturau a composición de capas
+workspace.comps.apply = Aplicar {name}
+
+# Estilo de capa
+workspace.styles.layer_style = Estilo de capa
+
+# Propiedatz d'a capa
+workspace.context.rename_layer = Renombrar capa
+
+# Activación de ferramientas
+workspace.commands.tool = Ferramienta: {name}
+
+# Chestión d'a color
+workspace.colormgmt.assign = Asignar {name}
+workspace.colormgmt.assigned = S'ha asignau {name}
+workspace.colormgmt.convert_to = Convertir a {name}
+workspace.colormgmt.converted_to = S'ha convertiu a {name}
+workspace.colormgmt.convert_failed = Ha fallau a conversión: {error}
+workspace.colormgmt.proof_on = Colors de preba activadas
+workspace.colormgmt.proof_off = Colors de preba desactivadas
+
+# Execución de filtros
+workspace.filters.choose = Trigar
+workspace.filters.select_layer_first = Tría primero una capa
+workspace.filters.needs_pixel_layer = Os filtros amenesten una capa de pixels
+workspace.filters.nothing_to_filter = No i hai cosa que filtrar
+workspace.filters.went_away = O filtro ya no ye disponible
+workspace.filters.failed = {name}: {error}
+workspace.filters.layer_gone = {name}: a capa que filtraba ya no existe
+workspace.filters.plugin_title = Complemento de Photoshop
+workspace.filters.running = Se ye executando {name}
+workspace.filters.plugin_note = O complemento s'executa en o suyo propio proceso. Si ubre una finestra, responde-ie ta continar.
+workspace.filters.raw_preview_developing = Se ye revelando a vista previa RAW…
+workspace.filters.raw_preview_done = Vista previa RAW (desmosaicau rapido)
+workspace.filters.raw_preview_size_changed = Ha cambiau a grandaria d'a vista previa RAW: {w} × {h}
+workspace.filters.raw_preview_failed = Ha fallau a vista previa RAW: {error}
+workspace.filters.raw_developing = Se ye revelando a captura orichinal…
+workspace.filters.raw_developing_note = S'usa o millor metodo de desmosaicau. O RAW orichinal y istos achustes continan editables dimpués d'alzar como PSD u PSB.
+workspace.filters.raw_document_changed = O revelau RAW ha rematau dimpués que cambió o suyo documento
+workspace.filters.raw_failed = Ha fallau o revelau RAW: {error}
+workspace.filters.raw_too_wide = O revelau RAW ye mas amplo d'o permitiu
+workspace.filters.raw_too_tall = O revelau RAW ye mas alto d'o permitiu
+workspace.filters.raw_size_changed = A grandaria d'o revelau RAW ha cambiau a {w} × {h}; se conserva a capa actual
+workspace.filters.raw_history = Revelau de Camera Raw
+workspace.filters.raw_applied = S'ha aplicau o revelau de Camera Raw (o millor desmosaicau)
+
+# Grandaria d'a imachen con un escalador neuronal
+workspace.image_size.done = Grandaria d'a imachen: {w} × {h}
+workspace.image_size.bicubic_fallback = Grandaria d'a imachen: {w} × {h} — o modelo {name} no s'ha puesto cargar, asinas que s'ha usau o bicubico
+workspace.image_size.upscaling = Se ye aumentando a escala con {name}
+workspace.image_size.upscaling_note = {mp} megapixels pasan por o ret, a qualques segundos por cada un. O documento se mantiene blocau dica que remate.
+
+# Exportación
+workspace.export.no_slices = No i hai garra tallada que exportar
+workspace.export.no_artboards = No i hai garra mesa de treballo que exportar
+workspace.export.regions.one = S'ha exportau {n} rechión
+workspace.export.regions.other = S'han exportau {n} rechions
+workspace.export.prompt = Exportar como:
+workspace.export.done = S'ha exportau {name}
+workspace.export.failed = Ha fallau a exportación: {error}
+workspace.export.codec_vanished = L'exportador ya no ye disponible
+
+# Selector de fichers de Schist
+workspace.file_picker.choose_folder = Trigar carpeta
+workspace.file_picker.type_a_name = Escribe un nombre ta lo fichero
+workspace.file_picker.exists = {name} ya existe; toca Alzar atra vegada ta reemplazar-lo
+workspace.file_picker.tap_a_file = Toca un fichero ta ubrir-lo
+workspace.file_picker.pictures = Imachens
+workspace.file_picker.camera = Camera
+workspace.file_picker.downloads = Descargas
+workspace.file_picker.permission_denied = Schist no tiene permiso ta leyer ista carpeta
+
+# Recuperación dimpués d'un fallo
+workspace.recovery.recovered_title = {title} (recuperau)
+workspace.recovery.recovered.one = S'ha recuperau treballo sin alzar d'una sesión anterior
+workspace.recovery.recovered.other = S'han recuperau {n} documentos d'una sesión anterior

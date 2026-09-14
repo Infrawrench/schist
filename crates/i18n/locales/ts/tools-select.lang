@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Susa
+tool.select.mode.intersect = Hlanganisa laha swi tlapanaka
+
+tool.marquee.rect.name = Nhlawulo wa rekhithengula
+tool.marquee.rect.description = Koka u endla nhlawulo wa rekhithengula. Shift loko u sungula ku koka yi engetela eka nhlawulo, alt ya susa, naswona havumbirhi bya hlawula laha swi tlapanaka; Shift loko u ri karhi u koka yi endla xikwere. Ku tshikilela u nga koki swi tshika nhlawulo.
+tool.marquee.ellipse.name = Nhlawulo wa elipisi
+tool.marquee.ellipse.description = Koka u endla nhlawulo wa elipisi, u tirhisa Shift/Alt ku hlanganisa hi ndlela leyi fanaka ni nhlawulo wa rekhithengula.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Koka ndzilakana hi voko; nhlawulo wu pfala mpfhuka wa le xiphen'wini loko ku koka ku hela. Shift ya engetela, alt ya susa.
+tool.lasso.history.select = Hlawula hi lasso
+tool.lasso.polygonal.name = Lasso ya tipholigoni
+tool.lasso.polygonal.description = Tshikilela khumbi rin'wana ni rin'wana ku aka nhlawulo wa matlhelo lama lulameke, kutani u tshikilela ekusuhi ni ndhawu yo sungula ku wu pfala.
+tool.lasso.polygonal.history.select = Lasso ya tipholigoni
+tool.lasso.magnetic.name = Lasso ya maginete
+tool.lasso.magnetic.description = Landzelela makumu hi ku ringana, kutani ndzilakana wu namarhela eka ku hambana loku tiyeke ngopfu ekusuhi ni ndlela.
+tool.lasso.magnetic.history.select = Lasso ya maginete
+tool.lasso.magnetic.option.frequency = Mpimo wa ku vuyelela
+
+tool.wand.name = Nhonga ya masalamusi
+tool.wand.description = Tshikilela ku hlawula ndhawu leyi hlanganeke ya muhlovo lowu fanaka ehansi ka njoho, hi mpimo wa ku hambana lowu pfumeleriwaka — mpimo lowu fanaka lowu hlayiwaka hi Kurisa, Swa fana ni Nxaxamelo wa mihlovo.
+tool.wand.option.contiguous = Swi hlanganile
+tool.wand.history.select = Nhonga ya masalamusi
+
+tool.quick_select.name = Nhlawulo wa xihatla
+tool.quick_select.description = Penda ehenhla ka ndhawu kutani nhlawulo wu kula hi le ka tipikseli leti fanaka leti burachi yi hundzaka ehenhla ka tona.
+tool.quick_select.history.select = Nhlawulo wa xihatla
+
+tool.object_select.name = Nhlawulo wa xilo
+tool.object_select.description = Koka bokisi ku rhendzela xilo, kutani nhlawulo wu namarhela eka xilo lexi kumiweke endzeni ka rona.
+tool.object_select.history.select = Nhlawulo wa xilo

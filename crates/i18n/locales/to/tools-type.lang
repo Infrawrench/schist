@@ -1,0 +1,24 @@
+# Meʻangāue tohí
+
+tool.type.name = Tohi
+tool.type.description = Lomi ke kamata ai ha Layer tohi, pe lomi ʻi ha Layer tohi lolotonga ke fakatonutonu ia. Lolotonga ʻene fakaavá, ʻoku tali hangatonu ʻe he meʻangāué ʻa e ngaahi lomi kī ʻikai liliu (ʻoatu ʻa e ngaahi mataʻitohi ko e fakahū kī), pea ʻi hono fakapapauʻí ʻoku ne fakatupu ʻa e ʻīmisi ʻo e Layer mo tāpuni ʻa e fakatonutonú.
+
+tool.type.option.align = Fakatonutonu Tuʻunga
+tool.type.option.leading = Vahaʻa Laine
+tool.type.option.tracking = Vahaʻa Mataʻitohi
+tool.type.option.kerning = Fakatonutonu Vahaʻa Mataʻitohi
+tool.type.option.ligatures = Ngaahi Mataʻitohi Fakataha
+tool.type.option.discretionary_ligatures = Ngaahi mataʻitohi fakataha fili pē
+tool.type.option.small_caps = Ngaahi mataʻitohi lalahi iiki
+tool.type.option.on_path = ʻI he hala lolotonga
+tool.type.option.path_offset = Mamaʻo mei he hala
+
+tool.type.choice.regular = Angamaheni
+tool.type.choice.bold = Mataʻitohi Matolu
+tool.type.choice.italic = Mataʻitohi Italic
+tool.type.choice.bold_italic = Mataʻitohi Matolu Italic
+
+tool.type.history.new_layer = Layer Tohi Foʻou
+tool.type.history.edit = Fakatonutonu Tohi
+tool.type.history.discard = Liʻaki Tohi
+tool.type.history.discard_empty = Liʻaki Tohi ʻAtaʻatā

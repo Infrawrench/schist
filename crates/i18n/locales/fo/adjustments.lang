@@ -1,0 +1,20 @@
+# Adjustment layers and the Image ▸ Adjustments commands: the names.
+adjustment.levels.name = Stig
+adjustment.curves.name = Kurvur
+adjustment.hue_saturation.name = Litblæbrigdi/litmettni
+adjustment.brightness_contrast.name = Ljósstyrki/kontrastur
+adjustment.black_white.name = Svart og hvítt
+adjustment.solid_color.name = Einlittur litur
+adjustment.gradient_fill.name = Stigvíst fylli
+adjustment.pattern_fill.name = Mynsturfylli
+adjustment.invert.name = Vend litum
+adjustment.posterize.name = Minka litstig
+adjustment.threshold.name = Gátt
+adjustment.color_balance.name = Litjavnvág
+adjustment.vibrance.name = Litmegi
+adjustment.exposure.name = Lýsing
+adjustment.photo_filter.name = Myndasía
+adjustment.gradient_map.name = Stigvíst kort
+adjustment.selective_color.name = Úrvaldur litur
+adjustment.channel_mixer.name = Rásblandari
+adjustment.other.name = Tillaging

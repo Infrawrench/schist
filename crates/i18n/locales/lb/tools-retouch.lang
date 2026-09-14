@@ -1,0 +1,24 @@
+# Wierkzeuge fir Beräicher ze retouchéieren.
+tool.patch.name = Fleck
+tool.patch.description = Zitt eng Kontur ëm eng Feelstell an zitt dës Auswiel dann op propper Pixel: d'Textur vun do gëtt un d'Feelstell ugepasst. De Fleck-Modus bestëmmt, wéi een Enn vum Puer Dir zitt.
+tool.patch.option.patch = Fleck
+tool.patch.choice.source = Quell
+tool.patch.choice.destination = Zil
+tool.patch.history.patch = Fleck
+
+tool.content_aware_move.name = Inhaltsbaséiert verréckelen
+tool.content_aware_move.description = Zitt en ausgewielten Objet op eng aner Plaz; d'Lach, dat en hannerléisst, gëtt aus senger Ëmgéigend opgefëllt. Am Modus Erweideren gëtt den Objet gestreckt amplaz verréckelt.
+tool.content_aware_move.choice.move = Verréckelen
+tool.content_aware_move.choice.extend = Erweideren
+tool.content_aware_move.history.move = Inhaltsbaséiert verréckelen
+
+tool.red_eye.name = Rout Aen
+tool.red_eye.description = Klickt op eng Pupill, fir dat rout Blëtzliicht doraus ze entfernen.
+tool.red_eye.option.pupil_size = Pupillgréisst
+tool.red_eye.option.darken = Ofdonkelen
+tool.red_eye.history.red_eye = Rout Aen
+
+tool.magic_eraser.name = Magesche Gummi
+tool.magic_eraser.description = Klickt, fir de Beräich mat änlecher Faarf ënner dem Mauszeiger bannent der Toleranz vum Wierkzeug ze läschen – entweder nëmmen de mam Klick zesummenhängende Beräich oder iwwerall op der Eben.
+tool.magic_eraser.option.contiguous = Zesummenhängend
+tool.magic_eraser.history.erase = Magesche Gummi

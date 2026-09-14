@@ -1,0 +1,23 @@
+# Základní nástroje: Přesun, Kapátko, Ručička a Lupa.
+
+tool.move.name = Přesun
+tool.move.description = Přetáhne obsah aktivní vrstvy na nové místo. Když je zapnutý Automatický výběr, stisknutí nejprve vybere vrstvu nebo celou skupinu pod ukazatelem.
+tool.move.option.auto_select = Automatický výběr
+tool.move.history.move_layer = Přesunout vrstvu
+
+tool.eyedropper.name = Kapátko
+tool.eyedropper.description = Navzorkuje barvu pod ukazatelem do políčka barvy popředí, nebo při podržení klávesy Alt do políčka barvy pozadí. Při tažení pokračuje ve vzorkování.
+tool.eyedropper.option.sample_size = Velikost vzorku
+tool.eyedropper.option.sample = Vzorkovat
+tool.eyedropper.choice.point_sample = Bodový vzorek
+tool.eyedropper.choice.average_3 = Průměr 3 × 3
+tool.eyedropper.choice.average_5 = Průměr 5 × 5
+tool.eyedropper.choice.average_11 = Průměr 11 × 11
+tool.eyedropper.choice.average_31 = Průměr 31 × 31
+tool.eyedropper.choice.all_layers = Všechny vrstvy
+tool.eyedropper.choice.current_layer = Aktivní vrstva
+
+tool.hand.name = Ručička
+tool.hand.description = Posouvá zobrazení. Výřez patří oknu, takže v bezhlavém režimu tento nástroj dokument nijak nezmění.
+tool.zoom.name = Lupa
+tool.zoom.description = Mění měřítko zobrazení. Výřez patří oknu, takže v bezhlavém režimu tento nástroj dokument nijak nezmění.

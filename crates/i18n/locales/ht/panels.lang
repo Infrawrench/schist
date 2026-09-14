@@ -1,0 +1,83 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Navigatè
+panel.navigator.actual_pixels = Piksèl reyèl
+
+panel.color.picker = Selektè…
+panel.color.swap = Boukante koulè yo
+panel.color.reset = Retounen nan nwa ak blan
+
+panel.layers.blending_options = Opsyon melanj…
+panel.layers.properties = Pwopriyete kouch…
+panel.layers.show_hide = Montre/Kache kouch
+panel.layers.toggle_visibility = Chanje vizibilite
+
+panel.history.title = Istorik
+panel.history.opened = Louvri
+
+panel.info.title = Enfòmasyon
+panel.info.camera = Kamera
+panel.info.lens = Lantiy
+panel.info.iso = ISO {iso}
+panel.info.bias = Konpansasyon
+panel.info.flash_fired = flach te limen
+panel.info.no_flash = san flach
+panel.info.white_balance = Balans blan {wb}
+panel.info.metering = mezi {metering}
+panel.info.taken = Dat foto a
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · oryantasyon {o}
+panel.info.software = Lojisyèl
+panel.info.where = Kote
+
+panel.notes.author = Otè
+panel.notes.clear_all = Efase tout
+panel.notes.unattributed = San otè
+panel.notes.empty = Klike sou twal la pou kite yon nòt.
+panel.notes.placeholder = Klike pou ekri
+
+panel.character.title = Karaktè
+panel.character.type_tool = Zouti Tèks (T)
+panel.character.align_left = Alinye agoch
+panel.character.align_center = Alinye nan sant
+panel.character.align_right = Alinye adwat
+panel.character.text_color = Koulè tèks
+panel.character.panel = Pano Karaktè
+panel.character.cancel_edit = Anile modifikasyon tèks la
+panel.character.commit_edit = Valide modifikasyon tèks la
+panel.character.number_tip = {label} · Tape yon valè, oswa sèvi ak ↑ / ↓ (Shift pou pi gwo pa)
+panel.character.leading = Entèliy
+panel.character.tracking = Espasman lèt
+panel.character.alignment = Aliyman
+panel.character.opentype = OpenType
+panel.character.text_on_path = Tèks sou yon chemen
+panel.character.straight = Dwat
+panel.character.on_path = Sou chemen
+panel.character.straight_tip = Sèvi ak liy baz nòmal kouch tèks la
+panel.character.on_path_tip = Sèvi ak yon kopi chemen aktif la
+panel.character.path_offset = Dekalaj sou chemen an
+
+panel.ai.title = AI
+panel.ai.empty_editor = Mande yon modifikasyon epi gade l fèt sou twal la. Ajan an sèvi ak menm zouti, filtè ak kòmand ki nan meni yo, yon etap defè pou chak aksyon.
+panel.ai.empty_gallery = Poze kesyon sou foto ou yo epi gade aksyon yo fèt nan galri a: ajan an ka chèche, gade minyati, seleksyone, klase nan gwoup, epi louvri yon foto nan editè a.
+panel.ai.thinking = ap reflechi…
+panel.ai.placeholder_editor = Poze kesyon sou dokiman sa a oswa modifye l
+panel.ai.placeholder_gallery = Poze kesyon sou foto ou yo
+panel.ai.send = Voye
+panel.ai.stop = Kanpe
+panel.ai.fetching_models = Ap mande CLI a lis modèl li yo…
+panel.ai.no_models = Okenn modèl pa koresponn
+panel.ai.search_models = Chèche modèl…
+
+panel.keymap.install_plugin = Enstale plòg-in
+panel.keymap.save_as_prompt = Anrejistre kòm — ekstansyon an detèmine fòma a:

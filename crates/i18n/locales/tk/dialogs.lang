@@ -1,0 +1,237 @@
+dialog.save_ellipsis = Ýazdyr…
+dialog.use_foreground = Öňdäki reňki ulanmak
+dialog.downloading = Göçürilýär…
+dialog.downloading_of = Göçürilýär… {got}/{total}
+dialog.no_config_dir = (sazlama bukjasy ýok)
+
+dialog.layer_props.title = Gatlagyň häsiýetleri
+
+dialog.export.format = Format
+dialog.export.dither = Diter
+dialog.export.dither_note = 8 bite peseldilende diter ulanmak
+dialog.export.export_ellipsis = Eksport etmek…
+
+dialog.batch.title = Suratlary işlemek
+dialog.batch.note_edit.one = {n} surat — galereýa düzedişi hökmünde ýazdyrylýar; asyl surat hiç haçan üýtgedilmeýär.
+dialog.batch.note_edit.other = {n} surat — galereýa düzedişleri hökmünde ýazdyrylýar; asyl suratlar hiç haçan üýtgedilmeýär.
+dialog.batch.note_edit_edited.one = {n} surat, öň redaktirlenenleriň sany: {edited} — resept suratyň bar bolan düzedişiniň üstüne goşulýar, öňki düzediş bolsa wersiýa hökmünde saklanýar.
+dialog.batch.note_edit_edited.other = {n} surat, öň redaktirlenenleriň sany: {edited} — resept her suratyň bar bolan düzedişiniň üstüne goşulýar, öňki düzediş bolsa wersiýa hökmünde saklanýar.
+dialog.batch.note_copies.one = {n} surat — tekiz nusga; asyl surat hiç haçan üýtgedilmeýär.
+dialog.batch.note_copies.other = {n} surat — tekiz nusgalar; asyl suratlar hiç haçan üýtgedilmeýär.
+dialog.batch.note_copies_edited.one = {n} surat, öň redaktirlenenleriň sany: {edited} — nusga bar bolan düzedişden döredilýär.
+dialog.batch.note_copies_edited.other = {n} surat, öň redaktirlenenleriň sany: {edited} — her nusga bar bolan düzedişden döredilýär.
+dialog.batch.turn = Öwürmek
+dialog.batch.rotate = Aýlamak
+dialog.batch.flip = Agdarmak
+dialog.batch.upscale = Ulaltmak
+dialog.batch.colour = Reňk
+dialog.batch.add_adjustment = Sazlama…
+dialog.batch.output = Çykyş
+dialog.batch.save_as = Şu görnüşde ýazdyrmak
+dialog.batch.process = Işlemek
+dialog.batch.process_n = {n} sanyny işlemek
+dialog.batch.nothing_to_do = Etmeli zat ýok: ilki öwürmegi, ulaltmagy ýa-da sazlamany saýlaň
+
+dialog.content_aware_scale.title = Mazmuna görä ölçeg üýtgetmek
+dialog.content_aware_scale.note = Jikme-jikligi az bolan tikinleri oýup aýyrýar. Saýlaw goralmaly ýeri görkezýär.
+
+dialog.stroke.title = Çyzgy
+dialog.stroke.location = Ýerleşiş
+dialog.stroke.inside = Içinde
+dialog.stroke.outside = Daşynda
+dialog.stroke.note = Saýlawyň daşyny öňdäki reňk bilen çyzýar.
+
+dialog.fill.contents = Mazmun
+
+dialog.color_range.title = Reňk aralygy
+dialog.color_range.sampled = Nusga alnan
+dialog.color_range.fuzziness = Ýaýraňlyk
+dialog.color_range.note = Işjeň gatlakda nusga alnan reňke ýakyn pikselleri saýlaýar.
+
+dialog.file_picker.up = ↑ Ýokary
+dialog.file_picker.empty = Bu ýerde hiç zat ýok
+dialog.file_picker.choose_folder = Şu bukjany saýlamak
+
+dialog.filter.camera_raw_development = Camera Raw işlenişi
+dialog.filter.reset_as_shot = Surata düşürilişi ýaly täzeden düzmek
+dialog.filter.raw_note = Işjeň gatlagy asyl sensor maglumatlaryndan täzeden işleýär.
+dialog.filter.note = Saýlawyň içinde, işjeň gatlaga ulanylýar.
+
+dialog.fonts.title = Ýetmeýän şriftler
+dialog.fonts.install_named = {name} gurmak
+dialog.fonts.no_document = Açyk resminama ýok, şonuň üçin barlamaly zat ýok.
+dialog.fonts.all_installed = Bu resminamada ulanylýan ähli şriftler gurulan. Tekst ýerleşdirilende ulanylan şriftlerde görkezilýär.
+dialog.fonts.missing_intro = Bu resminama sizde ýok şriftler bilen düzülen. Teksti ornuny tutýan şriftde okap bolýar, ýöne onuň giňligi we setir bölünişi asyl ýerleşişine gabat gelmeýär.
+dialog.fonts.footer = Şriftler Google Fonts açyk katalogyndan göçürilip, {dir} bukjasynda saklanýar. Açyk ygtyýarnamasy bolmadyk şrift hiç wagt alynmaýar — ölçegleri gabat gelýän erkin dizaýn bar bolsa, şony hödürleýär; nyşanlaryň kese öňe süýşme aralyklary gabat gelýändigi üçin ýerleşiş dikeldilýär.
+dialog.fonts.user_font_dir = ulanyjy şrift bukjaňyz
+
+dialog.models.title = Neural Filter modelleri
+dialog.models.built_in = Içinde bar · {size}
+dialog.models.installed = Gurulan · {size}
+dialog.models.not_installed = Gurulmadyk · {size}
+dialog.models.not_in_browser = Brauzerde elýeterli däl · {size}
+dialog.models.state_license = {state} · {license}
+dialog.models.footer = Modeller {dir} bukjasynda saklanýar. Modelsiz süzgüçler signal işlenişine geçýär we muny habar berýär.
+
+dialog.new_doc.title = Täze resminama
+dialog.new_doc.picker_title = Täze faýl
+dialog.new_doc.custom_ellipsis = Ýörite…
+dialog.new_doc.preset = Öňünden sazlama
+dialog.new_doc.preset_default = Adaty (1280 × 800)
+dialog.new_doc.preset_hd = HD (1920 × 1080)
+dialog.new_doc.preset_4k = 4K UHD (3840 × 2160)
+dialog.new_doc.preset_square = Kwadrat (1080 × 1080)
+dialog.new_doc.preset_a4 = A4, 300 ppi
+dialog.new_doc.preset_us_letter = ABŞ haty, 300 ppi
+dialog.new_doc.summary = {w} × {h} px @ {ppi} ppi · {size}
+dialog.new_doc.create = Döretmek
+dialog.new_doc.created = Täze resminama: {w} × {h} px
+
+dialog.open.image_title = Şekili açmak
+dialog.open.image_prompt = “{name}” täze goýmada açylsynmy ýa-da häzirki resminama täze gatlak hökmünde goşulsynmy?
+dialog.open.new_tab = Täze goýma
+dialog.open.new_layer = Täze gatlak
+dialog.open.quoted = “{name}”
+dialog.open.these_files.one = şu {n} faýl
+dialog.open.these_files.other = şu {n} faýl
+dialog.open.shared_title_one = Paýlaşylan şekil
+dialog.open.shared_title_many = Paýlaşylan şekiller
+dialog.open.shared_prompt = {what} galereýa goşulsynmy ýa-da redaktorda açylsynmy?
+dialog.open.add_to_gallery = Galereýa goşmak
+dialog.open.open_in_editor = Redaktorda açmak
+dialog.open.heic_title = HEIC goldawy
+dialog.open.heic_needs_decoder = “{name}” faýlyny açmak üçin bu ulgamda gurulmadyk HEVC dekoderi gerek.
+dialog.open.heic_offer = Schist diňe dekodirlemek üçin niýetlenen libheif {version} ýygnamasyny libde265 HEVC dekoderi bilen (≈5 MB) göçürip biler. Iki kitaphana-da LGPL-3.0 ygtyýarnamaly; olaryň ygtyýarnama tekstleri kitaphanalaryň ýanynda gurulýar, çeşme kody bolsa taslama sahypasynda elýeterlidir.
+dialog.open.licenses_source = Ygtyýarnamalar we çeşme kody
+dialog.open.folders_title = Taşlanan bukjalar
+dialog.open.n_folders.one = {n} bukja
+dialog.open.n_folders.other = {n} bukja
+dialog.open.open_in_tabs = Goýmalarda açmak
+dialog.open.open_first_in_tabs = Ilkinji {n} sanyny goýmalarda açmak
+dialog.open.open_n_in_tabs.one = {n} sanyny goýmada açmak
+dialog.open.open_n_in_tabs.other = {n} sanyny goýmalarda açmak
+dialog.open.folder_holds.one = {what} içinde Schist-iň açyp bilýän {n} şekili bar (içki bukjalar hem girýär).
+dialog.open.folder_holds.other = {what} içinde Schist-iň açyp bilýän {n} şekili bar (içki bukjalar hem girýär).
+dialog.open.folders_note = Galereýa goşmak bukjalara ýerinde gözegçilik edýär — hiç zat göçürilmeýär, düzedişler bolsa her suratyň ýanynda wersiýaly saklanýar. Goýmalarda açmak ähli şekilleri häzir redaktora ýükleýär.
+
+dialog.plugins.title = Plug-inler
+dialog.plugins.kind_filter = süzgüç
+dialog.plugins.kind_format = format
+dialog.plugins.kind_unavailable = elýeterli däl
+dialog.plugins.detail = {kind} · {id}
+dialog.plugins.load_from = Plug-inler şu ýerden ýüklenýär: {dir}
+dialog.plugins.none = Entäk hiç bir plug-in gurulmady.
+dialog.plugins.install_ellipsis = Gurmak…
+dialog.plugins.photoshop_heading = Photoshop plug-inleri
+dialog.plugins.loaded_from = Şu bukjalardan ýüklendi: {folders}
+dialog.plugins.ps_detail = {architecture} · {detail}
+
+dialog.prefs.title = Saýlamalar
+dialog.prefs.theme = Tema
+dialog.prefs.theme_dark = Garaňky
+dialog.prefs.theme_light = Ýagty
+dialog.prefs.grid_spacing = Gözenek aralygy
+dialog.prefs.snapping = Ýapyşma
+dialog.prefs.snap_to = Gollanmalara, gözenege we kanwanyň gyralaryna ýapyşmak
+dialog.prefs.rendering_intent = Reňk öwürme maksady
+dialog.prefs.intent_perceptual = Duýuş boýunça
+dialog.prefs.intent_relative = Otnositel kolorimetrik
+dialog.prefs.intent_saturation = Doýgunlyk
+dialog.prefs.intent_absolute = Absolýut kolorimetrik
+dialog.prefs.scrolling = Süýşürmek
+dialog.prefs.zoom_with_scroll = Syçanyň tekeri bilen ulaltmak
+dialog.prefs.rendering = Renderleme
+dialog.prefs.gpu_compositing = GPU kompozisiýasy
+dialog.prefs.diagnostics = Diagnostika
+dialog.prefs.crash_reports = Näsazlykda ýerli ýykylyş hasabatyny ýazmak
+dialog.prefs.crash_upload = Ony işläp düzüjilere-de ibermek
+dialog.prefs.telemetry = Her gün anonim signal ibermek
+dialog.prefs.diagnostics_note = Diagnostika Schist indiki gezek açylanda güýje girýär.
+dialog.prefs.updates = Täzelenmeler
+dialog.prefs.check_updates = Açylan wagty täze neşirleri barlamak
+dialog.prefs.keyboard_shortcuts = Klawiatura gysga ýollary: {path}
+dialog.prefs.nsfw_needs_model = Content (NSFW Filter) modeli gerek —
+dialog.prefs.nsfw_download_link = ony Modelleri dolandyrmak menýusyndan göçüriň…
+dialog.prefs.hide_flagged = Baýdaklanan suratlary gizlemek
+
+dialog.profile.profile = Profil
+dialog.profile.assign_title = Profil bellemek
+dialog.profile.convert_title = Profile öwürmek
+dialog.profile.assign = Bellemek
+dialog.profile.convert = Öwürmek
+dialog.profile.assign_note = Bar bolan piksel bahalaryny täze profiliň çäginde gaýtadan düşündirýär.
+dialog.profile.convert_note = Reňkleriň görnüşini saklamak üçin piksel bahalaryny gaýtadan ýazýar.
+
+dialog.save_image.title = Şekili şu görnüşde ýazdyrmak
+dialog.save_image.note = {name} — düzedişi bar bolsa, şol düzediş; asyl surat hiç haçan üýtgedilmeýär.
+dialog.save_image.scale_to = {percent}% → {w} × {h}
+
+dialog.size.image_title = Şekiliň ölçegi
+dialog.size.canvas_title = Kanwanyň ölçegi
+dialog.size.constrain = Çäklendirmek
+dialog.size.keep_proportions = Gatnaşyklary saklamak
+dialog.size.resample = Gaýtadan nusgalamak
+dialog.size.bicubic = Bikubik
+dialog.size.bilinear = Bilinear
+dialog.size.nearest = Iň ýakyn goňşy
+dialog.size.anchor = Daýanç nokady
+dialog.size.currently = Häzirki wagtda {w} × {h} px
+dialog.size.image_size_status = Şekiliň ölçegi: {w} × {h}
+dialog.size.canvas_size_status = Kanwanyň ölçegi: {w} × {h}
+
+dialog.update.title = Täzelenme bar
+dialog.update.available = Schist {version} elýeterli. Bu nusga {current}.
+dialog.update.installing = Täzelenme gurulýar…
+dialog.update.can_install = Schist ony ({size}) göçürip alyp, şu nusganyň üstüne gurup biler.
+dialog.update.external = Bu nusga ony dolandyrýan başga ýerden geldi — paket dolandyryjysy, AppImage ýa-da öz ýygnamaňyz — şonuň üçin ol gurnalyş usulyna görä täzelenýär.
+dialog.update.later = Soňrak
+dialog.update.release_notes = Neşir bellikleri
+dialog.update.update_restart = Täzeläp täzeden açmak
+dialog.update.open_page = Neşir sahypasyny açmak
+
+dialog.style.title = Gatlak stili
+dialog.style.bevel = Gyýa we relýef
+dialog.style.stroke = Çyzgy
+dialog.style.inner_shadow = Içki kölege
+dialog.style.inner_glow = Içki şöhle
+dialog.style.satin = Atlas
+dialog.style.color_overlay = Reňk örtügi
+dialog.style.gradient_overlay = Gradiýent örtügi
+dialog.style.outer_glow = Daşky şöhle
+dialog.style.drop_shadow = Düşýän kölege
+dialog.style.blur = Gauss bulaşyklygy
+dialog.style.gradient_from = Gradiýent örtüginiň başlangyjy
+dialog.style.gradient_to = Gradiýent örtüginiň soňy
+dialog.style.soften = Ýumşatmak
+dialog.style.depth = Çuňluk
+dialog.style.altitude = Belentlik
+dialog.style.highlight = Ýagty ýer
+dialog.style.shadow = Kölege
+dialog.style.outer_bevel = Daşky gyýa
+dialog.style.inner_bevel = Içki gyýa
+dialog.style.emboss = Relýef
+dialog.style.pillow_emboss = Ýassyk relýefi
+dialog.style.linear = Göni çyzykly
+dialog.style.radial = Radial
+dialog.style.reverse = Tersine
+dialog.style.from_to = Başlangyç / Soň
+dialog.style.from_fg = Başlangyç = öňdäki reňk
+dialog.style.to_fg = Soň = öňdäki reňk
+dialog.style.precise = Takyk
+dialog.style.knockout = Gatlak düşýän kölegäni deşýär
+
+dialog.color_picker.title = Reňk saýlaýjy ({what})
+dialog.color_picker.effect_color = {effect} reňki
+dialog.color_picker.note_color = Bellik reňki
+dialog.color_picker.new = täze
+dialog.color_picker.current = häzirki
+
+dialog.curves.rgb = RGB
+dialog.curves.reset_channel = Kanaly täzeden düzmek
+dialog.curves.hint = Şekil bermek üçin süýräň · goşmak üçin basyň · aýyrmak üçin alt-basyň
+
+dialog.prefs.camera_sync = Kamera lentasy
+dialog.prefs.camera_sync_enabled = Schist Cloud-a ätiýaçlamak
+dialog.prefs.camera_sync_sign_in = Kamera lentaňyzy ätiýaçlamak üçin Schist Cloud-a giriň.
+dialog.prefs.camera_sync_rule = {source} → {folder}
+dialog.prefs.camera_sync_change = Üýtgetmek…

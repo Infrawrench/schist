@@ -1,0 +1,152 @@
+# Dosiero
+menu.file = Dosiero
+menu.file.new = Nova
+menu.file.open = Malfermi…
+menu.file.open_recent = Malfermi lastatempan dosieron
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Foliumi galerion…
+menu.file.close = Fermi
+menu.file.save = Konservi
+menu.file.save_as = Konservi kiel…
+menu.file.export = Eksporti…
+menu.file.export_submenu = Eksporti
+menu.file.export_artboards = Desegnotabuloj al PNG…
+menu.file.export_slices = Tranĉaĵoj al PNG…
+menu.file.save_to_photos = Konservi en Fotoj
+menu.file.plugins = Kromprogramoj…
+menu.file.missing_fonts = Mankantaj tiparoj…
+menu.file.check_for_updates = Kontroli ĝisdatigojn…
+menu.file.quit = Ĉesi
+menu.file.add_folder_to_gallery = Aldoni dosierujon al galerio…
+menu.file.import_from_photos = Importi el Fotoj…
+menu.file.import_from_camera = Importi el fotilo…
+
+# Redakti
+menu.edit = Redakti
+menu.edit.fill = Plenigi…
+menu.edit.stroke = Konturi…
+menu.edit.content_aware_fill = Enhavkonscia plenigo
+menu.edit.content_aware_scale = Enhavkonscia skalado…
+menu.edit.puppet_warp = Pupa misformo
+menu.edit.free_transform = Libera transformo
+menu.edit.transform = Transformi
+menu.edit.rotate_180 = Turni je 180°
+menu.edit.rotate_90_cw = Turni je 90° dekstrume
+menu.edit.rotate_90_ccw = Turni je 90° maldekstrume
+menu.edit.flip_horizontal = Speguli horizontale
+menu.edit.flip_vertical = Speguli vertikale
+
+# Bildo
+menu.image = Bildo
+menu.image.mode = Reĝimo
+menu.image.adjustments = Ĝustigoj
+menu.image.auto_tone = Aŭtomata tonalo
+menu.image.auto_contrast = Aŭtomata kontrasto
+menu.image.auto_color = Aŭtomata koloro
+menu.image.image_size = Bilda grando…
+menu.image.canvas_size = Kanvasa grando…
+menu.image.image_rotation = Bildrotacio
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° dekstrume
+menu.image.rotate_90_ccw = 90° maldekstrume
+menu.image.flip_canvas_horizontal = Speguli kanvason horizontale
+menu.image.flip_canvas_vertical = Speguli kanvason vertikale
+menu.image.crop_to_selection = Stuci laŭ elekto
+menu.image.trim = Forstuci randojn
+menu.image.assign_profile = Atribui profilon…
+menu.image.convert_to_profile = Konverti al profilo…
+
+# Elekti
+menu.select = Elekti
+menu.select.color_range = Kolorgamo…
+menu.select.modify = Modifi
+menu.select.border = Rando…
+menu.select.smooth = Glatigi…
+menu.select.expand = Plivastigi…
+menu.select.contract = Malvastigi…
+menu.select.feather = Moligi…
+menu.select.transform_selection = Transformi elekton
+
+# Tavolo
+menu.layer = Tavolo
+menu.layer.layer_style = Tavolstilo…
+menu.layer.layer_comps = Tavolaj kunmetaĵoj
+menu.layer.new_layer_comp = Nova tavola kunmetaĵo
+menu.layer.delete_layer_comp = Forigi {name}
+menu.layer.path = Kurbo
+menu.layer.fill_path = Plenigi kurbon
+menu.layer.stroke_path = Konturi kurbon
+menu.layer.make_selection = Krei elekton
+menu.layer.delete_path = Forigi kurbon
+
+menu.adjust = Ĝustigi
+
+# Filtrilo
+menu.filter = Filtrilo
+menu.filter.filter_gallery = Filtrila galerio…
+menu.filter.liquify = Likvigi
+menu.filter.vanishing_point = Fuĝpunkto
+menu.filter.manage_models = Administri modelojn…
+menu.filter.camera_raw_development = Disvolvi per Camera Raw…
+
+# Vido
+menu.view = Vido
+menu.view.rotate_view_cw = Turni vidon dekstrume
+menu.view.rotate_view_ccw = Turni vidon maldekstrume
+menu.view.reset_view = Restarigi vidon
+menu.view.zoom_in = Enzomi
+menu.view.zoom_out = Elzomi
+menu.view.fit_on_screen = Adapti al ekrano
+menu.view.actual_size = 100%
+menu.view.rulers = Mezuriloj
+menu.view.grid = Krado
+menu.view.guides = Gvidlinioj
+menu.view.notes = Notoj
+menu.view.ai_panel = AI-panelo
+menu.view.extras = Kromaĵoj
+menu.view.snap = Alkroĉi
+menu.view.clear_guides = Forigi gvidliniojn
+menu.view.clear_notes = Forigi notojn
+menu.view.clear_count = Forigi nombrilojn
+menu.view.screen_mode = Ekranreĝimo
+menu.view.proof_colors = Provkoloroj
+menu.view.show_rulers = Montri mezurilojn
+menu.view.hide_rulers = Kaŝi mezurilojn
+menu.view.show_grid = Montri kradon
+menu.view.hide_grid = Kaŝi kradon
+menu.view.show_guides = Montri gvidliniojn
+menu.view.hide_guides = Kaŝi gvidliniojn
+menu.view.show_notes = Montri notojn
+menu.view.hide_notes = Kaŝi notojn
+menu.view.show_extras = Montri kromaĵojn
+menu.view.hide_extras = Kaŝi kromaĵojn
+menu.view.enable_snapping = Ŝalti alkroĉadon
+menu.view.disable_snapping = Malŝalti alkroĉadon
+menu.view.enable_proof_colors = Ŝalti provkolorojn
+menu.view.disable_proof_colors = Malŝalti provkolorojn
+
+# Galerio
+menu.gallery = Galerio
+menu.gallery.edit_selected = Redakti elektitaĵojn
+menu.gallery.refresh = Aktualigi
+menu.gallery.map_filter = Mapa filtrilo…
+menu.gallery.back_to_editor = Reen al redaktilo
+
+# Schist Cloud
+menu.cloud.browse = Foliumi Schist Cloud
+menu.cloud.generate = Generi bildojn…
+menu.cloud.upload = Alŝuti dokumenton al Schist Cloud…
+menu.cloud.sign_out = Elsaluti el Schist Cloud
+menu.cloud.sign_in = Ensaluti en Schist Cloud…
+
+# Aplikaĵa menuo de macOS
+menu.app.services = Servoj
+menu.app.hide = Kaŝi {app}
+menu.app.hide_others = Kaŝi aliajn
+menu.app.show_all = Montri ĉiujn
+menu.app.quit = Ĉesigi {app}
+
+# Mesaĝoj en la statobreto
+menu.status.transform_selection_needs_selection = La komando Transformi elekton bezonas elekton
+menu.status.crop_needs_selection = La komando Stuci laŭ elekto bezonas elekton
+menu.status.select_photo_to_edit = Elektu foton por redakti

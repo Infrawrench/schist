@@ -1,0 +1,31 @@
+tool.select.mode.subtract = Lamet
+tool.select.mode.intersect = Kenskejañ
+
+tool.marquee.rect.name = Sternad reizhkornek
+tool.marquee.rect.description = Riklait evit tresañ un diuzadenn reizhkornek. Shift e deroù ar rikladenn a ouzhpenna d'an diuzadenn, alt a lam kuit, hag an daou a genskej; Shift e-pad ar rikladenn a laka anezhi karrez. Ur c'hlik hep riklañ a ziuz.
+tool.marquee.ellipse.name = Sternad eliptek
+tool.marquee.ellipse.description = Riklait evit tresañ un diuzadenn eliptek, gant ar memes kensavadur Shift/Alt hag ar sternad reizhkornek.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Riklait un amlinenn gant an dorn; an diuzadenn a serr etre an daou benn pa echu ar rikladenn. Shift a ouzhpenn, alt a lam kuit.
+tool.lasso.history.select = Diuzañ gant al lasso
+tool.lasso.polygonal.name = Lasso lieskornek
+tool.lasso.polygonal.description = Klikit korn goude korn evit sevel un diuzadenn gant riblennoù eeun, ha klikit tost d'ar poent kentañ evit he serriñ.
+tool.lasso.polygonal.history.select = Lasso lieskornek
+tool.lasso.magnetic.name = Lasso gwarellek
+tool.lasso.magnetic.description = Heuilhit ur riblenn dre vras hag an amlinenn a bego ouzh an dargemm kreñvañ tost d'an treug.
+tool.lasso.magnetic.history.select = Lasso gwarellek
+tool.lasso.magnetic.option.frequency = Frekañs
+
+tool.wand.name = Bazh hud
+tool.wand.description = Klikit evit diuzañ an takad kevreet a liv heñvel dindan ar biz, hervez an dibarzh dalc'husted — an hevelep dalc'husted a lenner gant Kreskiñ, Heñvel hag Eren al livioù.
+tool.wand.option.contiguous = Kefin
+tool.wand.history.select = Bazh hud
+
+tool.quick_select.name = Diuzañ prim
+tool.quick_select.description = Livit war un takad hag an diuzadenn a gresk dre ar pikselioù heñvel ma tremen ar broust drezo.
+tool.quick_select.history.select = Diuzañ prim
+
+tool.object_select.name = Diuzañ un ergorenn
+tool.object_select.description = Riklait ur voest tro-dro d'un ergorenn hag an diuzadenn a bego ouzh an ergorenn kavet enni.
+tool.object_select.history.select = Diuzañ un ergorenn

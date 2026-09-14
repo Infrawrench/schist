@@ -1,0 +1,36 @@
+app.filter_gallery.title = Galerie filtrů
+app.filter_gallery.stack = Zásobník (použije se zdola nahoru)
+app.filter_gallery.no_settings = Tento filtr nemá žádná nastavení.
+app.fonts.not_open_licensed = nemá otevřenou licenci · {substitute} má shodné metriky
+app.fonts.missing_substituted = chybí · text se sází náhradním písmem
+app.fonts.not_in_catalogue = Písmo {family} není v katalogu otevřených písem
+app.fonts.no_faces = Pro písmo {family} nejsou k dispozici žádné řezy ke stažení
+app.fonts.empty_response = prázdná odpověď
+app.update.unreadable_response = nečitelná odpověď: {error}
+app.update.no_temp_dir = chybí dočasná složka pro stažení
+app.update.asset_has_path = název prostředku ve vydání obsahuje cestu
+app.update.too_big = stahovaný soubor je větší, než uvádí vydání
+app.update.stopped_at = stahování se zastavilo na {got} z {total} bajtů
+app.update.hash_mismatch = kontrolní otisk staženého souboru je {got}, očekává se {want}
+app.update.not_in_bundle = tato kopie není uvnitř balíčku aplikace
+app.update.no_parent_dir = balíček aplikace nemá nadřazenou složku
+app.update.cannot_write = nelze zapisovat do {dir}
+app.update.cannot_move_aside = aplikaci {app} nelze odsunout
+app.update.cannot_move_in = nový balíček nelze přesunout na místo
+app.update.cannot_run_ditto = nelze spustit /usr/bin/ditto
+app.update.unpack_failed = rozbalení staženého souboru se nezdařilo: {error}
+app.update.no_app_in_download = stažený soubor neobsahuje Schist.app
+app.update.cannot_run_codesign = nelze spustit /usr/bin/codesign
+app.update.signature_invalid = podpis staženého souboru se nepodařilo ověřit: {error}
+app.update.download_unsigned = tato kopie je podepsaná, ale stažený soubor ne
+app.update.different_developer = stažený soubor je podepsán jiným vývojářem
+app.update.cannot_relaunch = nelze spustit program pro nové spuštění aplikace
+app.update.not_installed_copy = tato kopie sem nebyla umístěna instalačním programem
+app.update.cannot_start_installer = nelze spustit instalační program
+app.update.platform_unsupported = aktualizace se na této platformě instalují stejným způsobem jako Schist
+app.vulkan.no_loader = schist: v tomto systému není zavaděč Vulkan, takže není čím vykreslovat.\n\nSchist vykresluje prostřednictvím Vulkan a knihovna `libvulkan.so.1` není nainstalována.\nJe potřeba zavaděč i ovladač:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: ovladač Vulkan, na který toto sezení odkazuje, neexistuje.\n\nProměnná {var} je nastavená a její nastavení *nahrazuje* vyhledávání ovladačů\nzavaděčem, místo aby do něj něco přidávalo. Tyto neexistující soubory jsou tedy\núplným seznamem ovladačů a žádný program Vulkan v tomto sezení nevidí žádný\novladač bez ohledu na to, kolik jich je nainstalováno:\n\n{missing}\n    {var}={value}\n\nNastavte ji na existující manifest — nainstalované ovladače ukládají manifesty do\n/usr/share/vulkan/icd.d — nebo ji zrušte a nechte zavaděč, ať si ovladač najde sám.\nPokud se proměnná nastavuje v konfiguračním souboru (pomocí `env =` v Hyprlandu,\nv souboru prostředí systemd environment.d nebo v profilu shellu), musí se změnit\ntam. Aby se změna projevila v již spuštěných programech, je nutné nové přihlášení.\n
+app.vulkan.override_note = \nProměnná {var} je nastavená na {value}, což nahrazuje vlastní vyhledávání\nzavaděče. Pokud žádný z těchto manifestů nepatří tomuto počítači, zkuste\nnejdříve nastavení proměnné zrušit.\n
+app.vulkan.no_driver = schist: není nainstalován žádný ovladač Vulkan, takže není čím vykreslovat.\n\nSchist vykresluje prostřednictvím Vulkan. Zavaděč je nainstalovaný, ale nehlásí\nžádný ovladač — v žádném z míst, kde je hledá, není žádný zaregistrovaný:\n\n{dirs}\n\nZavaděč se dodává odděleně od ovladačů, takže obvykle chybí jediný balíček.\n\nNainstalujte ovladač pro grafický procesor tohoto počítače:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nVlastní ovladač NVIDIA obsahuje svůj vlastní (`nvidia-utils` v Archu,\n`nvidia-driver` v Debianu). Ve virtuálním počítači nebo tam, kde nelze\nnainstalovat ovladač GPU, funguje softwarový rasterizér: `vulkan-swrast`\nv Archu, jinde je součástí `mesa-vulkan-drivers`. Je pomalý, ale spustí se.\n{overridden}
+app.vulkan.no_device = schist: ovladač Vulkan je nainstalovaný, ale nenabízí žádné zařízení pro vykreslování.\n\nOvladač nemusí podporovat tento grafický procesor nebo k němu nemusí mít přístup —\npřes SSH nebo uvnitř kontejneru často chybí /dev/dri. Příkaz\n`vulkaninfo --summary` ukáže, co zavaděč vidí.\n\nPokud tento počítač nemá GPU, může softwarový rasterizér vykreslovat zcela bez něj:\n`vulkan-swrast` v Archu, v Debianu a Fedoře jako součást\n`mesa-vulkan-drivers`.\n
+app.vulkan.skip_hint = Chcete-li Schist přesto spustit a nechat jej selhat vlastním způsobem, nastavte {var}=1.

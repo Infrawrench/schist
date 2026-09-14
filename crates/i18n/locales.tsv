@@ -1,0 +1,154 @@
+# ISO 639-1 language registry. English must remain first (startup fallback).
+# tag	Rust variant	native name	direction	default script
+# Language codes: pycountry ISO 639-3 database (alpha_2 entries, includes sh).
+# Native names and scripts: Unicode CLDR 48; names absent there supplied explicitly.
+en	En	English	ltr	Latn
+sv	Sv	svenska	ltr	Latn
+de	De	Deutsch	ltr	Latn
+zh-Hans	ZhHans	简体中文	ltr	Hans
+ja	Ja	日本語	ltr	Jpan
+fr	Fr	français	ltr	Latn
+es	Es	español	ltr	Latn
+ru	Ru	русский	ltr	Cyrl
+hi	Hi	हिन्दी	ltr	Deva
+ko	Ko	한국어	ltr	Kore
+ms	Ms	Melayu	ltr	Latn
+ar	Ar	العربية	rtl	Arab
+nl	Nl	Nederlands	ltr	Latn
+pt	Pt	português	ltr	Latn
+tr	Tr	Türkçe	ltr	Latn
+fa	Fa	فارسی	rtl	Arab
+id	Id	Indonesia	ltr	Latn
+ne	Ne	नेपाली	ltr	Deva
+uk	Uk	українська	ltr	Cyrl
+mr	Mr	मराठी	ltr	Deva
+th	Th	ไทย	ltr	Thai
+da	Da	dansk	ltr	Latn
+ca	Ca	català	ltr	Latn
+vi	Vi	Tiếng Việt	ltr	Latn
+he	He	עברית	rtl	Hebr
+bn	Bn	বাংলা	ltr	Beng
+pl	Pl	polski	ltr	Latn
+sw	Sw	Kiswahili	ltr	Latn
+kk	Kk	қазақ тілі	ltr	Cyrl
+pa	Pa	ਪੰਜਾਬੀ	ltr	Guru
+fi	Fi	suomi	ltr	Latn
+ro	Ro	română	ltr	Latn
+mn	Mn	монгол	ltr	Cyrl
+ur	Ur	اردو	rtl	Arab
+gu	Gu	ગુજરાતી	ltr	Gujr
+ps	Ps	پښتو	rtl	Arab
+ta	Ta	தமிழ்	ltr	Taml
+it	It	italiano	ltr	Latn
+nb	Nb	Norsk bokmål	ltr	Latn
+jv	Jv	Jawa	ltr	Latn
+az	Az	azərbaycan	ltr	Latn
+cs	Cs	čeština	ltr	Latn
+mt	Mt	Malti	ltr	Latn
+uz	Uz	o‘zbek	ltr	Latn
+hy	Hy	հայերեն	ltr	Armn
+ka	Ka	ქართული	ltr	Geor
+gl	Gl	galego	ltr	Latn
+as	As	অসমীয়া	ltr	Beng
+sa	Sa	संस्कृत भाषा	ltr	Deva
+is	Is	íslenska	ltr	Latn
+ky	Ky	кыргызча	ltr	Cyrl
+si	Si	සිංහල	ltr	Sinh
+be	Be	беларуская	ltr	Cyrl
+sq	Sq	shqip	ltr	Latn
+tt	Tt	татар	ltr	Cyrl
+af	Af	Afrikaans	ltr	Latn
+kn	Kn	ಕನ್ನಡ	ltr	Knda
+sk	Sk	slovenčina	ltr	Latn
+my	My	မြန်မာ	ltr	Mymr
+te	Te	తెలుగు	ltr	Telu
+ha	Ha	Hausa	ltr	Latn
+or	Or	ଓଡ଼ିଆ	ltr	Orya
+am	Am	አማርኛ	ltr	Ethi
+ht	Ht	Kreyòl Ayisyen	ltr	Latn
+ug	Ug	ئۇيغۇرچە	rtl	Arab
+eu	Eu	euskara	ltr	Latn
+sl	Sl	slovenščina	ltr	Latn
+km	Km	ខ្មែរ	ltr	Khmr
+ku	Ku	kurdî (kurmancî)	ltr	Latn
+nn	Nn	Norsk nynorsk	ltr	Latn
+no	No	norsk	ltr	Latn
+nd	Nd	isiNdebele (Zimbabwe)	ltr	Latn
+ts	Ts	Xitsonga	ltr	Latn
+oc	Oc	occitan	ltr	Latn
+hr	Hr	hrvatski	ltr	Latn
+fy	Fy	Frysk	ltr	Latn
+sm	Sm	Gagana Sāmoa	ltr	Latn
+bs	Bs	bosanski	ltr	Latn
+tw	Tw	Twi	ltr	Latn
+rm	Rm	rumantsch	ltr	Latn
+ig	Ig	Igbo	ltr	Latn
+lb	Lb	Lëtzebuergesch	ltr	Latn
+sn	Sn	chiShona	ltr	Latn
+ak	Ak	Akan	ltr	Latn
+nr	Nr	isiNdebele (South Africa)	ltr	Latn
+lg	Lg	Luganda	ltr	Latn
+sr	Sr	српски	ltr	Cyrl
+sh	Sh	srpskohrvatski	ltr	Latn
+co	Co	corsu	ltr	Latn
+so	So	Soomaali	ltr	Latn
+ga	Ga	Gaeilge	ltr	Latn
+an	An	aragonés	ltr	Latn
+li	Li	Limburgs	ltr	Latn
+ny	Ny	Nyanja	ltr	Latn
+bg	Bg	български	ltr	Cyrl
+sc	Sc	sardu	ltr	Latn
+ve	Ve	Tshivenḓa	ltr	Latn
+dv	Dv	ދިވެހިބަސް	rtl	Thaa
+ss	Ss	siSwati	ltr	Latn
+gd	Gd	Gàidhlig	ltr	Latn
+bi	Bi	Bislama	ltr	Latn
+ln	Ln	lingála	ltr	Latn
+la	La	Latina	ltr	Latn
+mk	Mk	македонски	ltr	Cyrl
+om	Om	Oromoo	ltr	Latn
+wa	Wa	walon	ltr	Latn
+ba	Ba	башҡорт	ltr	Cyrl
+st	St	Sesotho	ltr	Latn
+eo	Eo	Esperanto	ltr	Latn
+cy	Cy	Cymraeg	ltr	Latn
+lv	Lv	latviešu	ltr	Latn
+bm	Bm	bamanakan	ltr	Latn
+su	Su	Basa Sunda	ltr	Latn
+wo	Wo	Wolof	ltr	Latn
+lo	Lo	ລາວ	ltr	Laoo
+dz	Dz	རྫོང་ཁ	ltr	Tibt
+fo	Fo	føroyskt	ltr	Latn
+lt	Lt	lietuvių	ltr	Latn
+ia	Ia	interlingua	ltr	Latn
+pi	Pi	Pāḷi	ltr	Latn
+br	Br	brezhoneg	ltr	Latn
+mg	Mg	Malagasy	ltr	Latn
+tg	Tg	тоҷикӣ	ltr	Cyrl
+gn	Gn	avañe’ẽ	ltr	Latn
+ie	Ie	Interlingue	ltr	Latn
+et	Et	eesti	ltr	Latn
+ee	Ee	eʋegbe	ltr	Latn
+qu	Qu	Runasimi	ltr	Latn
+xh	Xh	IsiXhosa	ltr	Latn
+el	El	Ελληνικά	ltr	Grek
+mh	Mh	Kajin M̧ajeļ	ltr	Latn
+bo	Bo	བོད་སྐད་	ltr	Tibt
+ti	Ti	ትግርኛ	ltr	Ethi
+io	Io	Ido	ltr	Latn
+kw	Kw	kernewek	ltr	Latn
+hu	Hu	magyar	ltr	Latn
+rn	Rn	Ikirundi	ltr	Latn
+mi	Mi	Māori	ltr	Latn
+yi	Yi	ייִדיש	rtl	Hebr
+tk	Tk	türkmen dili	ltr	Latn
+ch	Ch	Chamoru	ltr	Latn
+ml	Ml	മലയാളം	ltr	Mlym
+se	Se	davvisámegiella	ltr	Latn
+rw	Rw	Ikinyarwanda	ltr	Latn
+tl	Tl	Tagalog	ltr	Latn
+yo	Yo	Èdè Yorùbá	ltr	Latn
+tn	Tn	Setswana	ltr	Latn
+sd	Sd	سنڌي	rtl	Arab
+zu	Zu	isiZulu	ltr	Latn
+to	To	lea fakatonga	ltr	Latn

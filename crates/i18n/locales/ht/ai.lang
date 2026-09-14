@@ -1,0 +1,30 @@
+ai.status.panel_shown = Pano AI a parèt
+ai.status.panel_hidden = Pano AI a kache — Afiche ▸ Pano AI ({shortcut}) ap fè l parèt ankò
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} konekte
+ai.info.now_in_gallery = Kounye a nan galri a.
+ai.info.now_in_editor = Kounye a nan editè a.
+ai.tool.shell_command = kòmand koki
+
+ai.error.cli_missing = CLI {backend} la (“{binary}”) pa nan PATH. Enstale l epi konekte ladan l anvan.
+ai.error.endpoint_failed = demaraj pwen aksè MCP a echwe: {error}
+ai.error.binding_endpoint = koneksyon pwen aksè MCP a
+ai.error.spawning_endpoint_thread = demaraj fil pwen aksè MCP a
+ai.error.runtime_failed = demaraj anviwònman ajan an echwe: {error}
+ai.error.worker_failed = demaraj travayè {backend} la echwe: {error}
+ai.error.did_not_start = {backend} pa t demare: {error}
+ai.error.switch_model_failed = chanjman modèl la echwe: {error}
+ai.error.send_failed = voye enstriksyon an echwe: {error}
+ai.error.interrupt_failed = entèripsyon an echwe: {error}
+ai.error.locating_binary = ap chèche binè Schist la
+ai.error.starting_app_server = ap demare sèvè aplikasyon Codex la
+ai.error.attaching_app_server = ap konekte ak sèvè aplikasyon Codex la
+ai.error.initializing_app_server = ap inisyalize sèvè aplikasyon Codex la
+ai.error.resuming_thread = ap rekòmanse fil Codex la
+ai.error.starting_thread = ap demare fil Codex la
+
+ai.model.opus_detail = Nivo ki pi kapab la
+ai.model.sonnet_detail = Efikas pou travay òdinè
+ai.model.haiku_detail = Pi rapid pou repons kout
+ai.model.codex_catalog = Katalòg Codex

@@ -1,0 +1,36 @@
+app.filter_gallery.title = शोधकवीथिका
+app.filter_gallery.stack = सञ्चयः (अधस्तात् उपरि प्रयुक्तः)
+app.filter_gallery.no_settings = अस्य शोधकस्य विन्यासाः न सन्ति।
+app.fonts.not_open_licensed = मुक्तानुज्ञप्तं नास्ति · {substitute} तस्य मापैः मिलति
+app.fonts.missing_substituted = अनुपलब्धम् · पाठः प्रतिस्थापकेन विन्यस्यते
+app.fonts.not_in_catalogue = {family} मुक्ताक्षररूपसूच्यां नास्ति
+app.fonts.no_faces = {family} कृते अवतारणयोग्यानि मुखानि न सन्ति
+app.fonts.empty_response = रिक्तम् उत्तरम्
+app.update.unreadable_response = अपठनीयम् उत्तरम्: {error}
+app.update.no_temp_dir = अवतारणाय अस्थायिसञ्चयः नास्ति
+app.update.asset_has_path = विमोचने सम्पदः नाम मार्गयुक्तम् अस्ति
+app.update.too_big = अवतारणं विमोचनोक्तपरिमाणात् बृहत्तरम्
+app.update.stopped_at = अवतारणं {total} बाइट् मध्ये {got} इत्यत्र स्थगितम्
+app.update.hash_mismatch = अवतारणस्य हैश् {got} अस्ति, न तु {want}
+app.update.not_in_bundle = इयं प्रतिलिपिः उपयोज्यपुटस्य अन्तः नास्ति
+app.update.no_parent_dir = उपयोज्यपुटस्य जनकसञ्चयः नास्ति
+app.update.cannot_write = {dir} मध्ये लेखितुं न शक्यते
+app.update.cannot_move_aside = {app} पार्श्वे चालयितुं न शक्यते
+app.update.cannot_move_in = नूतनपुटं स्थाने चालयितुं न शक्यते
+app.update.cannot_run_ditto = /usr/bin/ditto चालयितुं न शक्यते
+app.update.unpack_failed = अवतारणस्य पुटोन्मोचनं विफलम्: {error}
+app.update.no_app_in_download = अवतारणे Schist.app नास्ति
+app.update.cannot_run_codesign = /usr/bin/codesign चालयितुं न शक्यते
+app.update.signature_invalid = अवतारणस्य हस्ताक्षरं न प्रमाणीभवति: {error}
+app.update.download_unsigned = इयं प्रतिलिपिः हस्ताक्षरिता, अवतारणं तु न
+app.update.different_developer = अवतारणं भिन्नविकासकेन हस्ताक्षरितम्
+app.update.cannot_relaunch = पुनरारम्भकं चालयितुं न शक्यते
+app.update.not_installed_copy = इयं प्रतिलिपिः संस्थापकेन अत्र न स्थापिता
+app.update.cannot_start_installer = संस्थापकं चालयितुं न शक्यते
+app.update.platform_unsupported = अस्मिन् मञ्चे अद्यतनानि Schist संस्थापनपद्धत्यैव संस्थाप्यन्ते
+app.vulkan.no_loader = schist: अस्मिन् तन्त्रे Vulkan भारकः नास्ति, अतः चित्रणाय किमपि नास्ति।\n\nSchist Vulkan द्वारा चित्रयति, `libvulkan.so.1` च संस्थापितं नास्ति।\nभारकः चालकश्च उभावपि आवश्यकौ:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: अयं सत्रः यं Vulkan चालकं निर्दिशति सः तत्र नास्ति।\n\n{var} विन्यस्तम्; तस्य विन्यासः भारकस्य चालकान्वेषणं वर्धयितुं न, प्रत्युत तत् प्रतिस्थापयति। अतः इमाः अविद्यमानाः सञ्चिकाः एव सम्पूर्णा चालकसूची—कियन्तोऽपि चालकाः संस्थापिताः स्युः, अस्य सत्रस्य प्रत्येकं Vulkan कार्यक्रमः चालकं न पश्यति:\n\n{missing}\n    {var}={value}\n\nविद्यमानं घोषणापत्रं निर्दिशतु—संस्थापितचालकाः स्वानि /usr/share/vulkan/icd.d मध्ये स्थापयन्ति—अथवा विन्यासं निष्कास्य भारकं स्वयमन्वेष्टुं ददातु। यदि सत्रः विन्याससञ्चिकातः (Hyprland `env =`, systemd environment.d सञ्चिका, शेल्-रूपरेखा) एतत् विन्यस्यति, तर्हि तत्रैव परिवर्तनं करणीयम्; प्रचलितकार्याणि प्राप्तुं नूतनः प्रवेशः आवश्यकः।\n
+app.vulkan.override_note = \n{var} इत्यस्य मूल्यं {value}; एतत् भारकस्य स्वान्वेषणं प्रतिस्थापयति। यदि तेषु घोषणापत्रेषु अस्य यन्त्रस्य किमपि नास्ति, तर्हि विन्यासस्य निष्कासनं प्रथमः प्रयासः।\n
+app.vulkan.no_driver = schist: Vulkan चालकः संस्थापितः नास्ति, अतः चित्रणाय किमपि नास्ति।\n\nSchist Vulkan द्वारा चित्रयति। भारकः संस्थापितः, परन्तु चालकं न निवेदयति—ययोः स्थानयोः अन्वेषणं भवति तत्र केनापि चालकः पञ्जीकृतः नास्ति:\n\n{dirs}\n\nभारकः चालकेभ्यः पृथक् वितर्यते, अतः प्रायः केवलमेकं पुटम् अनुपलब्धम्।\n\nअस्य यन्त्रस्य GPU कृते चालकं संस्थापयतु:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nNVIDIA स्वामित्वाधीनचालके स्वकीयः चालकः अन्तर्भवति (Arch मध्ये `nvidia-utils`, Debian मध्ये `nvidia-driver`)। आभासीययन्त्रे, अथवा यत्र GPU चालकः संस्थापयितुं न शक्यते, तत्र तन्त्रांशरेखाकर्ता कार्यं करोति: Arch मध्ये `vulkan-swrast`, अन्यत्र `mesa-vulkan-drivers` इत्यस्य भागः। सः मन्दः, किन्तु आरभते।\n{overridden}
+app.vulkan.no_device = schist: Vulkan चालकः संस्थापितः, किन्तु चित्रणाय उपकरणं न ददाति।\n\nचालकः अस्य GPU कृते न स्यात्, अथवा तत् प्राप्तुं न शक्नुयात्—SSH द्वारा अथवा पात्रस्य अन्तः /dev/dri प्रायः अनुपलब्धं भवति। `vulkaninfo --summary` भारकदृष्टं निवेदयति।\n\nयदि अस्मिन् यन्त्रे GPU एव नास्ति, तर्हि तन्त्रांशरेखाकर्ता तेन विनापि चित्रयति: Arch मध्ये `vulkan-swrast`, Debian तथा Fedora मध्ये `mesa-vulkan-drivers` इत्यस्य भागः।\n
+app.vulkan.skip_hint = तथापि Schist आरभ्य स्वरीत्या विफलं भवितुं दातुं {var}=1 विन्यस्यतु।

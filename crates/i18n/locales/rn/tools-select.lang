@@ -1,0 +1,32 @@
+# Selection tools
+tool.select.mode.subtract = Gukuramwo
+tool.select.mode.intersect = Guhuza aho bihurira
+
+tool.marquee.rect.name = Itoranya ry'urukiramende
+tool.marquee.rect.description = Kurura ukore itoranya ry'urukiramende. Gufata Shift utanguye gukurura vyongera ku vyatoranijwe, Alt igakuramwo, vyompi bigatora aho bihurira; gufata Shift uriko urakurura bituma riba kare. Gukanda udakuruye bikuraho itoranya.
+tool.marquee.ellipse.name = Itoranya rya ellipse
+tool.marquee.ellipse.description = Kurura ukore itoranya rya ellipse, ukoreshe Shift na Alt mu kurihuza n'irisanzwe nk'uko bikorwa ku rukiramende.
+
+tool.lasso.name = Lasso
+tool.lasso.description = Kurura ucape urubibe ukoresheje ukuboko; itoranya ririyugara hagati y'impera iyo uhejeje gukurura. Shift iryongerako, Alt igakuramwo.
+tool.lasso.history.select = Gutoranya na Lasso
+tool.lasso.polygonal.name = Lasso y'impande nyinshi
+tool.lasso.polygonal.description = Kanda ku mfuruka imwe imwe kugira ukore itoranya ry'imirongo igororotse, hanyuma ukande hafi y'akadomo ka mbere kugira uriyugare.
+tool.lasso.polygonal.history.select = Gutoranya na Lasso y'impande nyinshi
+tool.lasso.magnetic.name = Lasso y'isumaku
+tool.lasso.magnetic.description = Kurikirana urubibe hafi na hafi maze umurongo witorere itandukaniro rikomeye riri hafi y'inzira.
+tool.lasso.magnetic.history.select = Gutoranya na Lasso y'isumaku
+tool.lasso.magnetic.option.frequency = Incuro
+
+tool.wand.name = Inkoni y'amageza
+tool.wand.description = Kanda kugira uhitemwo akarere gafatanye gafise ibara risa n'iriri munsi y'erekana, mu rugero rwemewe — ni rwa rugero nyene rukoreshwa na Kwagura, Ibisa hamwe n'Urutonde rw'amabara.
+tool.wand.option.contiguous = Bifatanye
+tool.wand.history.select = Inkoni y'amageza
+
+tool.quick_select.name = Gutoranya ningoga
+tool.quick_select.description = Siga akarere maze itoranya ryaguke mu mapikisele asa igisigisho giciyeko.
+tool.quick_select.history.select = Gutoranya ningoga
+
+tool.object_select.name = Gutoranya ikintu
+tool.object_select.description = Kurura agasandugu gakikuje ikintu maze itoranya ryifatanye n'ikintu kibonetse muri ko.
+tool.object_select.history.select = Gutoranya ikintu

@@ -1,0 +1,31 @@
+# Veguherandina azad, veguherandina hilbijartinê û qutkirin.
+
+# Veguherandina azad
+tool.transform.name = Veguherandina Azad
+tool.transform.description = Veguherandina Azad. Bi çalakkirina wê qutiyeke veguherandinê li dora layera çalak vedibe: ji goşeyekê bikişîne da ku mezinahiyê biguherînî, ji derveyê goşeyekê bikişîne da ku bizivirînî, û ji kêlekê bikişîne da ku xwar bikî. Heta ku were pejirandin (Enter) tiştek nayê nivîsandin; betalkirin (Escape) layerê vedigerîne rewşa berê.
+tool.transform.option.interpolation = Navberdan
+tool.transform.history.transform = Veguherandina Azad
+tool.transform.history.image_size = Mezinahiya Wêneyê
+tool.transform.history.canvas_size = Mezinahiya Kanavayê
+
+# Veguherandina hilbijartinê
+tool.transform.selection.name = Veguherandina Hilbijartinê
+tool.transform.selection.description = Veguherandina Hilbijartinê: heman qutî ye, lê li şûna pîkselên hundirê hilbijartinê xêza wê diguhêze. Ji bo qedandinê bipejirîne an betal bike.
+tool.transform.selection.history.transform = Veguherandina Hilbijartinê
+
+# Fîltreyên klasîk ên ji nû ve nimûnegirtinê
+tool.transform.resample.nearest_neighbor = Cîranê Herî Nêzîk
+tool.transform.resample.bilinear = Duxêzî
+tool.transform.resample.bicubic = Bikubîk
+
+# Qutkirin
+tool.crop.name = Qutkirin
+tool.crop.description = Herêma ku dixwazî biparêzî bi kişandinê diyar bike û destikên wê eyar bike; pejirandin (Enter) belgeyê li gorî wê qut dike, betalkirin (Escape) belgeyê wekî xwe dihêle.
+tool.crop.option.ratio = Rêje
+tool.crop.option.delete_cropped = Pîkselên Qutkirî Jê Bibe
+tool.crop.choice.unconstrained = Bêsînor
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Qutkirin

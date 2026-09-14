@@ -1,0 +1,72 @@
+tool.brush.name = Ibhulashi
+tool.brush.description = Penda umugqa olomphetho othambileyo ngombala wangaphambili, ubukhulu bawo bulandela ubukhulu bebhulashi, ukuqina lokungabonakalisi ngale okumiswe kumhleli.
+tool.brush.history.stroke = Ibhulashi
+
+tool.pencil.name = Ipenseli
+tool.pencil.description = Penda umugqa olomphetho oqinileyo, ongelakulungiswa komphetho, ngombala wangaphambili.
+tool.pencil.history.stroke = Ipenseli
+
+tool.eraser.name = Isesuli
+tool.eraser.description = Sula emzileni womugqa, ubuyisele isendlalelo ekubonakaliseni ngale.
+tool.eraser.history.stroke = Isesuli
+
+tool.clone.name = Isitembu Sokukopa
+tool.clone.description = Isitembu Sokukopa: chofoza ngo-Alt ukuze ubeke iphuzu elingumthombo, ubusupenda ngamaphikseli akotshwe kulo ekudeni okufananayo.
+tool.clone.history.stroke = Isitembu Sokukopa
+
+tool.dodge.name = Khanyisa
+tool.dodge.description = Khanyisa amaphikseli umugqa odlula phezu kwawo.
+tool.dodge.history.stroke = Khanyisa
+tool.burn.name = Tshisa
+tool.burn.description = Yenza amaphikseli umugqa odlula phezu kwawo abe mnyama.
+tool.burn.history.stroke = Tshisa
+tool.sponge.name = Isipontshi
+tool.sponge.description = Gcwalisa kumbe unciphise umbala wamaphikseli umugqa odlula phezu kwawo.
+tool.sponge.history.stroke = Isipontshi
+
+tool.blur.name = Fiphalisa
+tool.blur.description = Fiphalisa amaphikseli umugqa odlula phezu kwawo.
+tool.blur.history.stroke = Fiphalisa
+tool.sharpen.name = Lola
+tool.sharpen.description = Lola amaphikseli umugqa odlula phezu kwawo.
+tool.sharpen.history.stroke = Lola
+tool.smudge.name = Huduba
+tool.smudge.description = Hudula umbala emzileni womugqa, angathi ududula ipende emanzi.
+tool.smudge.history.stroke = Huduba
+
+tool.heal.name = Ibhulashi Lokwelapha
+tool.heal.description = Ibhulashi Lokwelapha: chofoza ngo-Alt ukuze ubeke umthombo, ubusupenda; ukuthungwa komthombo kuhlanganiswa lombala lokukhanya kwendawo okuya kuyo.
+tool.heal.history.stroke = Ibhulashi Lokwelapha
+tool.spot_heal.name = Ibhulashi Lokwelapha Isici
+tool.spot_heal.description = Ibhulashi Lokwelapha Isici: penda phezu kwesici ukuze sithathelwe indawo yikuthungwa okuthathwe endaweni esizingelezeleyo — akulaphuzu elingumthombo okumele ulimise.
+tool.spot_heal.history.stroke = Ibhulashi Lokwelapha Isici
+
+tool.history_brush.name = Ibhulashi Lembali
+tool.history_brush.description = Penda amaphikseli uwabuyisa kusithombe esagcinwa embalini yedokhumenti, uhlehlisa umsebenzi wakamuva umugqa ngomugqa.
+tool.history_brush.history.stroke = Ibhulashi Lembali
+
+tool.background_eraser.name = Isesuli Sangemuva
+tool.background_eraser.description = Sula umbala othathwe ngaphansi kwesikhungo sebhulashi utshiye amaphikseli angafanani lawo, ukuze wehlukanise into lengemuva layo.
+tool.background_eraser.history.stroke = Isesuli Sangemuva
+
+tool.gradient.name = Inguquko Yombala
+tool.gradient.description = Hudula ukuze ugcwalise isendlalelo — udlule phakathi kokukhethiweyo nxa kukhona — ngenguquko yombala eqondileyo esuka kumbala wangaphambili iye kumbala wangemuva ilandela ukuhudula.
+tool.gradient.radial.name = Inguquko Yombala Eyindilinga
+tool.gradient.radial.description = Hudula usuka phakathi usiya phandle ukuze ugcwalise ngenguquko yombala eyindilinga phakathi kombala wangaphambili lowangemuva.
+tool.gradient.option.gradient = Inguquko Yombala
+tool.gradient.option.reverse = Guqula Indlela
+tool.gradient.option.dither = Hlakaza Imibala
+tool.gradient.choice.foreground_to_background = Wangaphambili Uye Kowangemuva
+tool.gradient.choice.foreground_to_transparent = Wangaphambili Uye Kokubonakalisa Ngale
+tool.gradient.choice.linear = Eqondileyo
+tool.gradient.choice.radial = Eyindilinga
+tool.gradient.choice.angle = I-engeli
+tool.gradient.choice.reflected = Efaniswe Njengesibuko
+tool.gradient.choice.diamond = Idayimani
+tool.gradient.history.gradient = Inguquko Yombala
+
+tool.bucket.name = Ibhakede Lepende
+tool.bucket.description = Chofoza ukuze ugcwale indawo exhumanayo elombala ofananayo ngaphansi kwesikhombi ngombala wangaphambili, phakathi kokubekezelela kwethuluzi.
+tool.bucket.option.contiguous = Okuxhumanayo
+tool.bucket.option.all_layers = Zonke Izendlalelo
+tool.bucket.history.fill = Ibhakede Lepende

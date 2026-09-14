@@ -1,0 +1,22 @@
+tool.type.name = Umbhalo
+tool.type.description = Chafata kuze ucale luhlaka lwembhalo lapho, nobe uchafate lolukhona kuze uluhlele. Ngesikhatsi lusavulekile lithuluzi lemukela tikhiya letingakacutshungulwa (tfumela tinhlavu njengalokufakwa yikhibhodi), bese kwemukela kwakha luhlaka futsi kuvale kuhlela.
+
+tool.type.option.align = Condzanisa
+tool.type.option.leading = Sikhala Semigca
+tool.type.option.tracking = Sikhala Sembhalo Sonkhe
+tool.type.option.kerning = Sikhala Emkhatsini Wetinhlavu Letimbili
+tool.type.option.ligatures = Tinhlavu Letihlanganisiwe
+tool.type.option.discretionary_ligatures = Tinhlavu letihlanganisiwe letikhetsako
+tool.type.option.small_caps = Tinhlavu Letinkhulu Letincane
+tool.type.option.on_path = Endleleni lesebentako
+tool.type.option.path_offset = Kuphambuka endleleni
+
+tool.type.choice.regular = Lokwetayelekile
+tool.type.choice.bold = Lokujiyile
+tool.type.choice.italic = Lokutshekile
+tool.type.choice.bold_italic = Lokujiyile Lokutshekile
+
+tool.type.history.new_layer = Luhlaka Lolusha Lwembhalo
+tool.type.history.edit = Hlela Umbhalo
+tool.type.history.discard = Lahla Umbhalo
+tool.type.history.discard_empty = Lahla Umbhalo Longenalutfo

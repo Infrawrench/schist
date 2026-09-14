@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = ku dekoda {name}
+codec.msg.zero_sized = xifaniso a xi na tipikseli
+codec.msg.assembling_document = ku hlanganisa dokhumente
+
+codec.raw.msg.decoding = ku dekoda fayili ya raw
+codec.raw.msg.developing = ku antswisa fayili ya raw
+codec.raw.msg.finding_preview = ku lava xivombiso lexi nga endzeni
+codec.raw.msg.decoding_preview = ku dekoda xivombiso lexi nga endzeni
+codec.raw.msg.decoder_panicked = decoder ya raw yi tsandzekile eka fayili leyi: {what}
+
+codec.affinity.import_title = Ku nghenisa Affinity
+codec.affinity.flattened_preview_layer = Xivombiso lexi hlanganisiweke
+codec.affinity.msg.no_preview = Ku hava xivombiso lexi tirhaka lexi nga endzeni. Fomati ya maleyara ya Affinity i ya vini; Schist yi nghenisa xivombiso lexi hlanganisiweke lexi nga eka fayili. Fayili leyi a yi na xona — yi hlayise nakambe eka Affinity, kumbe u yi rhumela yi ri PSD leswaku u nghenisa maleyara hinkwawu.
+
+codec.heif.msg.no_library = libheif a yi kumeki ({details}). Ku pfula HEIC swi lava layiburari ya libheif (Linux: nghenisa libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — build leyi ya libheif yi nga ha va yi nga na decoder ya HEVC (eka Debian/Ubuntu, nghenisa libheif-plugin-libde265)
+codec.heif.msg.unknown_error = xihoxo lexi nga tivekiki
+codec.heif.msg.initialising = ku lunghiselela libheif
+codec.heif.msg.reading_container = ku hlaya container ya HEIF
+codec.heif.msg.finding_primary_image = ku lava xifaniso lexikulu
+codec.heif.msg.reading_icc_profile = ku hlaya phurofayili ya ICC
+codec.heif.msg.decoding_image = ku dekoda xifaniso
+codec.heif.msg.checksum_mismatch = Checksum ya {name} a yi fambisani: a ku languteriwe {expected}, ku kumiwe {got}
+codec.heif.msg.imageio_cannot_read = ImageIO a yi kotanga ku hlaya container ya HEIF
+codec.heif.msg.container_empty = container ya HEIF a yi na xifaniso
+codec.heif.msg.imageio_cannot_decode = ImageIO a yi kotanga ku dekoda xifaniso lexikulu

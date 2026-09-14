@@ -1,0 +1,27 @@
+# የማጣመሚያ መሣሪያዎች።
+
+# ፈሳሽ አድርግ
+tool.liquify.name = ፈሳሽ አድርግ
+tool.liquify.description = በትልቅ ብሩሽ ሥር ያሉ ፒክሰሎችን ይግፉ፣ ያሽከርክሩ፣ ያጥብቡ ወይም ያስፉ፤ የሁነታ አማራጩ ከእነዚህ አንዱን ይመርጣል። መጣመሙ በፍርግርግ ውስጥ ይከማችና ሲጸድቅ በንብርብሩ ላይ ይተገበራል።
+tool.liquify.option.tool = መሣሪያ
+tool.liquify.choice.forward_warp = ወደፊት አጣምም
+tool.liquify.choice.reconstruct = እንደገና ገንባ
+tool.liquify.choice.twirl_cw = ወደ ቀኝ አሽከርክር
+tool.liquify.choice.twirl_ccw = ወደ ግራ አሽከርክር
+tool.liquify.choice.pucker = አጥብብ
+tool.liquify.choice.bloat = አስፋ
+tool.liquify.choice.push_left = ወደ ግራ ግፋ
+tool.liquify.history.liquify = ፈሳሽ አድርግ
+
+# የአሻንጉሊት ማጣመሚያ
+tool.puppet_warp.name = የአሻንጉሊት ማጣመሚያ
+tool.puppet_warp.description = ንብርብሩን በጥቂት ነጥቦች ለመሰካት ጠቅ ያድርጉ፣ ከዚያም አንዱን ይጎትቱ፤ የጥንካሬ አማራጩ እንደሚወስነው ፍርግርጉ በምስማሮቹ ዙሪያ በጥብቅ ወይም በላላ ሁኔታ ይታጠፋል። ማጽደቅ ለውጡን ይተገብራል።
+tool.puppet_warp.option.stiffness = ጥንካሬ
+tool.puppet_warp.history.puppet_warp = የአሻንጉሊት ማጣመሚያ
+
+# የእይታ ነጥብ
+tool.vanishing_point.name = የእይታ ነጥብ
+tool.vanishing_point.description = የእይታ ጥልቀት ባለው ነገር ላይ ጠፍጣፋ ወለል ይሳሉ፣ ከዚያም ሁነታውን ወደ ቅጂ ቀይረው ይሳሉ፤ የተቀዱት ፒክሰሎች ርቀቱ ሲጨምር እየተሳነሱ የወለሉን አቅጣጫ ይከተላሉ።
+tool.vanishing_point.choice.edit_plane = ወለል አርትዕ
+tool.vanishing_point.choice.clone = ቅጂ
+tool.vanishing_point.history.vanishing_point = የእይታ ነጥብ

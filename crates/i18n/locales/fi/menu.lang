@@ -1,0 +1,160 @@
+# Valikkorivi sekä ikkunassa että macOS:n/iPadOS:n järjestelmässä. Molemmat
+# muodostetaan samasta mallista (crates/app/src/panels/menus.rs). Liitännäiskomennot
+# saavat nimensä commands.lang-tiedostosta, suotimet filters.lang-tiedostosta ja
+# säädöt adjustments.lang-tiedostosta.
+
+# Tiedosto
+menu.file = Tiedosto
+menu.file.new = Uusi
+menu.file.open = Avaa…
+menu.file.open_recent = Avaa viimeksi käytetty
+menu.file.schist_cloud = Schist Cloud
+menu.file.browse_gallery = Selaa galleriaa…
+menu.file.close = Sulje
+menu.file.save = Tallenna
+menu.file.save_as = Tallenna nimellä…
+menu.file.export = Vie…
+menu.file.export_submenu = Vie
+menu.file.export_artboards = Vie piirtoalueet PNG-muodossa…
+menu.file.export_slices = Vie ositukset PNG-muodossa…
+menu.file.save_to_photos = Tallenna Kuviin
+menu.file.plugins = Liitännäiset…
+menu.file.missing_fonts = Puuttuvat fontit…
+menu.file.check_for_updates = Tarkista päivitykset…
+menu.file.quit = Lopeta
+menu.file.add_folder_to_gallery = Lisää kansio galleriaan…
+menu.file.import_from_photos = Tuo Kuvista…
+menu.file.import_from_camera = Tuo kamerasta…
+
+# Muokkaa
+menu.edit = Muokkaa
+menu.edit.fill = Täytä…
+menu.edit.stroke = Piirrä reunaviiva…
+menu.edit.content_aware_fill = Sisältötietoinen täyttö
+menu.edit.content_aware_scale = Sisältötietoinen skaalaus…
+menu.edit.puppet_warp = Nukkemuunnos
+menu.edit.free_transform = Vapaa muunnos
+menu.edit.transform = Muunna
+menu.edit.rotate_180 = Kierrä 180°
+menu.edit.rotate_90_cw = Kierrä 90° myötäpäivään
+menu.edit.rotate_90_ccw = Kierrä 90° vastapäivään
+menu.edit.flip_horizontal = Käännä vaakasuunnassa
+menu.edit.flip_vertical = Käännä pystysuunnassa
+
+# Kuva
+menu.image = Kuva
+menu.image.mode = Tila
+menu.image.adjustments = Säädöt
+menu.image.auto_tone = Automaattinen sävy
+menu.image.auto_contrast = Automaattinen kontrasti
+menu.image.auto_color = Automaattinen väri
+menu.image.image_size = Kuvan koko…
+menu.image.canvas_size = Piirtoalueen koko…
+menu.image.image_rotation = Kuvan kierto
+menu.image.rotate_180 = 180°
+menu.image.rotate_90_cw = 90° myötäpäivään
+menu.image.rotate_90_ccw = 90° vastapäivään
+menu.image.flip_canvas_horizontal = Käännä piirtoalue vaakasuunnassa
+menu.image.flip_canvas_vertical = Käännä piirtoalue pystysuunnassa
+menu.image.crop_to_selection = Rajaa valintaan
+menu.image.trim = Siisti
+menu.image.assign_profile = Määritä profiili…
+menu.image.convert_to_profile = Muunna profiiliksi…
+
+# Valitse
+menu.select = Valitse
+menu.select.color_range = Värialue…
+menu.select.modify = Muokkaa
+menu.select.border = Reuna…
+menu.select.smooth = Tasoita…
+menu.select.expand = Laajenna…
+menu.select.contract = Supista…
+menu.select.feather = Häivytä…
+menu.select.transform_selection = Muunna valintaa
+
+# Taso
+menu.layer = Taso
+menu.layer.layer_style = Tasotyyli…
+menu.layer.layer_comps = Tasokompositiot
+menu.layer.new_layer_comp = Uusi tasokompositio
+menu.layer.delete_layer_comp = Poista {name}
+menu.layer.path = Polku
+menu.layer.fill_path = Täytä polku
+menu.layer.stroke_path = Piirrä polun reunaviiva
+menu.layer.make_selection = Tee valinta
+menu.layer.delete_path = Poista polku
+
+# Säädä
+menu.adjust = Säädä
+
+# Suodin
+menu.filter = Suodin
+menu.filter.filter_gallery = Suodingalleria…
+menu.filter.liquify = Nesteytä
+menu.filter.vanishing_point = Pakopiste
+menu.filter.manage_models = Hallitse malleja…
+menu.filter.camera_raw_development = Camera Raw -kehitys…
+
+# Näytä
+menu.view = Näytä
+menu.view.rotate_view_cw = Kierrä näkymää myötäpäivään
+menu.view.rotate_view_ccw = Kierrä näkymää vastapäivään
+menu.view.reset_view = Palauta näkymä
+menu.view.zoom_in = Lähennä
+menu.view.zoom_out = Loitonna
+menu.view.fit_on_screen = Sovita näyttöön
+menu.view.actual_size = 100 %
+menu.view.rulers = Viivaimet
+menu.view.grid = Ruudukko
+menu.view.guides = Apuviivat
+menu.view.notes = Huomautukset
+menu.view.ai_panel = Tekoälypaneeli
+menu.view.extras = Lisäosat
+menu.view.snap = Kohdista
+menu.view.clear_guides = Tyhjennä apuviivat
+menu.view.clear_notes = Tyhjennä huomautukset
+menu.view.clear_count = Tyhjennä laskenta
+menu.view.screen_mode = Näyttötila
+menu.view.proof_colors = Vedosvärit
+# Järjestelmän valikkorivillä ei ole valintamerkkejä, joten vaihtokomento kertoo,
+# mitä napsauttaminen tekee, kuten Finderin ”Kätke sivupalkki” / ”Näytä sivupalkki”.
+menu.view.show_rulers = Näytä viivaimet
+menu.view.hide_rulers = Kätke viivaimet
+menu.view.show_grid = Näytä ruudukko
+menu.view.hide_grid = Kätke ruudukko
+menu.view.show_guides = Näytä apuviivat
+menu.view.hide_guides = Kätke apuviivat
+menu.view.show_notes = Näytä huomautukset
+menu.view.hide_notes = Kätke huomautukset
+menu.view.show_extras = Näytä lisäosat
+menu.view.hide_extras = Kätke lisäosat
+menu.view.enable_snapping = Ota kohdistus käyttöön
+menu.view.disable_snapping = Poista kohdistus käytöstä
+menu.view.enable_proof_colors = Ota vedosvärit käyttöön
+menu.view.disable_proof_colors = Poista vedosvärit käytöstä
+
+# Galleria (palkki gallerian ollessa näkyvissä)
+menu.gallery = Galleria
+menu.gallery.edit_selected = Muokkaa valittua
+menu.gallery.refresh = Päivitä
+menu.gallery.map_filter = Karttasuodin…
+menu.gallery.back_to_editor = Takaisin editoriin
+
+# Schist Cloud -alivalikko
+menu.cloud.browse = Selaa Schist Cloudia
+menu.cloud.generate = Luo kuvia…
+menu.cloud.upload = Lähetä dokumentti Schist Cloudiin…
+menu.cloud.sign_out = Kirjaudu ulos Schist Cloudista
+menu.cloud.sign_in = Kirjaudu Schist Cloudiin…
+
+# macOS:n sovellusvalikko
+menu.app.services = Palvelut
+menu.app.hide = Kätke {app}
+menu.app.hide_others = Kätke muut
+menu.app.show_all = Näytä kaikki
+menu.app.quit = Lopeta {app}
+
+# Tilarivin vastaukset valikkokomentoihin, joita ei voi suorittaa
+menu.status.transform_selection_needs_selection = Valinnan muuntaminen vaatii valinnan
+menu.status.crop_needs_selection = Valintaan rajaaminen vaatii valinnan
+menu.status.select_photo_to_edit = Valitse muokattava kuva

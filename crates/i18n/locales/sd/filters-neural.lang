@@ -1,0 +1,164 @@
+# Neural Filters، Camera Raw، Blur Gallery ۽ لينس فلٽر
+
+# ڪيترن فلٽرن جا گڏيل ليبل
+filter.neural.param.center_x = مرڪز X
+filter.neural.param.center_y = مرڪز Y
+filter.neural.param.direction = رخ
+filter.neural.param.transition = منتقلي
+filter.neural.param.detail = تفصيل
+filter.neural.param.eyes = اکيون
+
+# ماڊل تي هلندڙ فلٽر جي ڊائلاگ جو متن
+filter.neural.msg.using_model = {model} استعمال ٿي رهيو آهي · {license}.
+filter.neural.msg.get_model = ان کي فلٽر ▸ Neural Filters ▸ ماڊل سنڀاليو مان حاصل ڪريو.
+
+# Camera Raw فلٽر
+filter.camera_raw.name = Camera Raw فلٽر
+filter.camera_raw.param.temperature = گرمي پد
+filter.camera_raw.param.tint = رنگت
+filter.camera_raw.param.highlights = روشن حصا
+filter.camera_raw.param.shadows = ڇانورا
+filter.camera_raw.param.whites = اڇا
+filter.camera_raw.param.blacks = ڪارا
+filter.camera_raw.param.clarity = چٽائي
+filter.camera_raw.param.dehaze = ڌنڌ هٽايو
+filter.camera_raw.param.vibrance = رنگن جي تازگي
+filter.camera_raw.param.sharpening = تيز ڪرڻ
+filter.camera_raw.param.noise = شور گهٽائڻ
+filter.camera_raw.param.vignette = ڪنارن جي اونداهپ
+
+# لينس جي درستي
+filter.lens_correction.name = لينس جي درستي
+filter.lens_correction.param.distortion = بگاڙ هٽايو
+filter.lens_correction.param.red = ڳاڙهي/سائي نيري ڪناري کي درست ڪريو
+filter.lens_correction.param.blue = نيري/پيلي ڪناري کي درست ڪريو
+filter.lens_correction.param.vignette = ڪنارن جي اونداهپ جو مقدار
+filter.lens_correction.param.midpoint = ڪنارن جي اونداهپ جو وچيون نقطو
+filter.lens_correction.param.vertical = عمودي پرسپيڪٽو
+filter.lens_correction.param.horizontal = افقي پرسپيڪٽو
+
+# موافق وائڊ اينگل
+filter.adaptive_wide_angle.name = موافق وائڊ اينگل
+filter.adaptive_wide_angle.param.projection = درستي
+filter.adaptive_wide_angle.choice.fisheye = فِش آئي
+filter.adaptive_wide_angle.choice.perspective = پرسپيڪٽو
+filter.adaptive_wide_angle.choice.full_spherical = مڪمل گولائي وارو
+filter.adaptive_wide_angle.param.focal = فوڪل ڊيگهه
+filter.adaptive_wide_angle.param.crop = ڪراپ فيڪٽر
+
+# Blur Gallery
+filter.field_blur.name = ميدان ڌنڌلو ڪرڻ
+filter.field_blur.param.position = هتي تيز
+filter.iris_blur.name = آئرس ڌنڌلو ڪرڻ
+filter.iris_blur.param.roundness = گولائي
+filter.tilt_shift.name = ٽِلٽ-شِفٽ
+filter.tilt_shift.param.position = مرڪز
+filter.tilt_shift.param.band = تيز پٽي
+filter.spin_blur.name = ڦيري سان ڌنڌلو ڪرڻ
+filter.spin_blur.param.angle = ڌنڌلائپ جو ڪنڊ
+filter.path_blur.name = واٽ سان ڌنڌلو ڪرڻ
+filter.path_blur.param.speed = رفتار
+filter.path_blur.param.curve = وڪڙ
+filter.path_blur.param.taper = سنهو ٿيڻ
+
+# ڌنڌلو ڪرڻ
+filter.shape_blur.name = شڪل موجب ڌنڌلو ڪرڻ
+filter.shape_blur.choice.square = چورس
+filter.shape_blur.choice.diamond = هيرو
+filter.shape_blur.choice.hexagon = ڇهه ڪنڊو
+filter.shape_blur.choice.cross = صليب
+filter.shape_blur.choice.ring = ڇلو
+filter.shape_blur.choice.star = تارو
+filter.smart_blur.name = هوشيار ڌنڌلو ڪرڻ
+filter.smart_blur.choice.normal = عام
+filter.smart_blur.choice.edge_only = رڳو ڪنارا
+filter.smart_blur.choice.overlay_edge = ڪنارو مٿان چاڙهيو
+
+# وڊيو
+filter.deinterlace.name = انٽرليس هٽايو
+filter.deinterlace.param.field = ختم ڪريو
+filter.deinterlace.choice.odd_fields = طاق فيلڊ
+filter.deinterlace.choice.even_fields = جفت فيلڊ
+filter.deinterlace.param.fill = نوان فيلڊ هن ريت ٺاهيو
+filter.deinterlace.choice.interpolation = انٽرپوليشن
+filter.deinterlace.choice.duplication = نقل
+filter.ntsc_colors.name = NTSC رنگ
+
+# Neural Filters
+filter.neural.skin_smoothing.name = چمڙي هموار ڪرڻ
+filter.neural.skin_smoothing.param.blur = همواري
+filter.neural.skin_smoothing.param.detail = تفصيل قائم رکو
+filter.neural.skin_smoothing.msg.no_model = {model} انسٽال ٿيل ناهي — چهرن بدران چمڙي جي رنگ واري هر شيءِ کي هموار ڪيو پيو وڃي.
+
+filter.neural.jpeg_artifacts.name = JPEG خرابيون هٽائڻ
+filter.neural.jpeg_artifacts.msg.no_model = {model} انسٽال ٿيل ناهي — ان بدران 8-پڪسل گرڊ کي هموار ڪيو پيو وڃي.
+
+filter.neural.colorize.name = رنگ ڀريو
+filter.neural.colorize.param.warmth = گرم رنگت
+filter.neural.colorize.msg.no_model = {model} انسٽال ٿيل ناهي — ان بدران روشنيءَ موجب رنگت ڏني پئي وڃي.
+
+filter.neural.super_zoom.name = سپر زوم
+filter.neural.super_zoom.msg.no_model = {model} انسٽال ٿيل ناهي — ان بدران ڪنارن جي رخ موجب تيز ڪيو پيو وڃي.
+
+filter.neural.style_transfer.name = انداز جي منتقلي
+filter.neural.style_transfer.choice.mosaic = موزائيڪ
+filter.neural.style_transfer.choice.candy = Candy
+filter.neural.style_transfer.choice.udnie = Udnie
+filter.neural.style_transfer.msg.no_styles = انداز جا ڪي به ماڊل انسٽال ٿيل ناهن — رڳو رنگ منتقل ٿي رهيو آهي. انهن کي فلٽر ▸ Neural Filters ▸ ماڊل سنڀاليو مان حاصل ڪريو.
+filter.neural.style_transfer.msg.installed = انسٽال ٿيل: {styles} (ONNX Model Zoo، Apache-2.0).
+
+filter.neural.color_transfer.name = رنگ جي منتقلي
+filter.neural.color_transfer.param.hue = گهربل رنگت
+filter.neural.color_transfer.param.contrast = ابتڙتا ملائي
+filter.neural.color_transfer.msg.info = هيٺين پرت مان پنهنجو رنگن جو مجموعو وٺي ٿو. هيٺ ڪجهه نه هجي ته ان بدران گهربل رنگت ڏانهن وڃي ٿو.
+
+filter.neural.depth_blur.name = اونهائي موجب ڌنڌلو ڪرڻ
+filter.neural.depth_blur.param.focus = فوڪل فاصلو
+filter.neural.depth_blur.param.blur = ڌنڌلائپ جي طاقت
+filter.neural.depth_blur.msg.no_model = {model} انسٽال ٿيل ناهي — ان بدران مقامي تيزيءَ موجب فوڪس ڪيو پيو وڃي.
+
+filter.neural.harmonization.name = هم آهنگي
+filter.neural.harmonization.param.tone = ٽون ملائي
+filter.neural.harmonization.msg.info = هن پرت کي ان جي هيٺان موجود شيءِ سان ملائي ٿو. هيٺ ڪجهه به نه هجي ته ملائڻ لاءِ ڪجهه ناهي ۽ هي ڪجهه نٿو ڪري.
+
+filter.neural.landscape_mixer.name = منظرنامو ملائيندڙ
+filter.neural.landscape_mixer.param.bands = اونهائي جون پٽيون
+filter.neural.landscape_mixer.msg.with_depth = هيٺين پرت مان رنگن جو مجموعو وٺي ٿو ۽ Depth (Depth Blur) سان پٽيءَ پٽيءَ کي ملائي ٿو.
+filter.neural.landscape_mixer.msg.without_depth = هيٺين پرت مان رنگن جو مجموعو وٺي ٿو. سڄي تصوير کي هڪ ڀيرو ملائڻ بدران آسمان کي آسمان ۽ زمين کي زمين سان ملائڻ لاءِ Depth (Depth Blur) انسٽال ڪريو.
+
+filter.neural.photo_restoration.name = تصوير جي بحالي
+filter.neural.photo_restoration.param.enhance = تصوير بهتر ڪرڻ
+filter.neural.photo_restoration.param.scratches = رهڙون گهٽائڻ
+filter.neural.photo_restoration.param.tone = ٽون بحال ڪريو
+filter.neural.photo_restoration.msg.no_model = ماڊل کان سواءِ صفائي ٿي رهي آهي.
+filter.neural.photo_restoration.msg.using_deblock = Deblock استعمال ٿي رهيو آهي · Schist لاءِ تربيت ڏنل.
+filter.neural.photo_restoration.msg.using_detail = Detail استعمال ٿي رهيو آهي · Schist لاءِ تربيت ڏنل.
+filter.neural.photo_restoration.msg.using_both = Deblock ۽ Detail استعمال ٿي رهيا آهن · Schist لاءِ تربيت ڏنل.
+
+filter.neural.photo_to_sketch.name = تصوير مان خاڪو
+filter.neural.photo_to_sketch.param.weight = ليڪ جي ٿولهه
+filter.neural.photo_to_sketch.param.shading = ڇانورو
+
+filter.neural.face_to_caricature.name = چهري مان خاڪوچتر
+filter.neural.face_to_caricature.param.mouth = وات
+filter.neural.face_to_caricature.param.head = مٿو
+filter.neural.face_to_caricature.msg.no_model = {model} انسٽال ٿيل ناهي، تنهنڪري هي ڪجهه نٿو ڪري — خاڪوچتر ٺاهڻ لاءِ ڪجهه ناهي.
+
+filter.neural.smart_portrait.name = هوشيار پورٽريٽ
+filter.neural.smart_portrait.param.happiness = خوشي
+filter.neural.smart_portrait.param.surprise = حيرت
+filter.neural.smart_portrait.param.age = چهري جي عمر
+filter.neural.smart_portrait.param.gaze = نگاهه
+filter.neural.smart_portrait.param.light = روشنيءَ جو رخ
+filter.neural.smart_portrait.msg.no_model = {model} انسٽال ٿيل ناهي، تنهنڪري هي ڪجهه نٿو ڪري — ڪم ڪرڻ لاءِ ان وٽ ڪو چهرو ناهي.
+
+filter.neural.makeup_transfer.name = ميڪ اپ جي منتقلي
+filter.neural.makeup_transfer.param.lips = چپ
+filter.neural.makeup_transfer.param.skin = چمڙي جو رنگ
+filter.neural.makeup_transfer.msg.info = هيٺين پرت تي موجود چهري مان ميڪ اپ وٺي ٿو. رنگ وٺي ٿو، بناوت نه.
+filter.neural.makeup_transfer.msg.no_model = {model} انسٽال ٿيل ناهي، تنهنڪري هي ڪجهه نٿو ڪري.
+
+filter.neural.sketch_to_portrait.name = خاڪي مان پورٽريٽ
+filter.neural.sketch_to_portrait.param.detail = ليڪون قائم رکو
+filter.neural.sketch_to_portrait.msg.with_face = هن ايپليڪيشن جي پنهنجي تصوير مان خاڪو ٺاهڻ واري نتيجي کي ڀرڻ لاءِ تربيت ڏنل آهي. جيڪو چهرو ڳولي ٿو، تنهن تي ڪم ڪري ٿو.
+filter.neural.sketch_to_portrait.msg.no_face = هن ايپليڪيشن جي پنهنجي تصوير مان خاڪو ٺاهڻ واري نتيجي کي ڀرڻ لاءِ تربيت ڏنل آهي. Faces (Skin Smoothing) انسٽال ڪريو ته پوءِ سڄي چونڊ بدران چهري تي ڪم ڪندو.

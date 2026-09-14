@@ -1,0 +1,26 @@
+# Lisebelisoa tsa likarolo tsa tokomane: liboto tsa bonono, likarolo tsa thomelo, liforeimi, lintlha le lipalo.
+
+tool.artboard.name = Boto ea Bonono
+tool.artboard.description = Hula ho etsa boto ea bonono: sebaka se reheletsoeng sa seile se ka romelloang se le seng. Ho hula ka hare ho e seng e le teng hoa e tsamaisa.
+tool.artboard.default_name = Boto ea Bonono {n}
+
+tool.slice.name = Karolo ea Thomelo
+tool.slice.description = Hula ho etsa karolo ea thomelo, khutlonne e reheletsoeng ea seile e romelloang e le setšoantšo se ikemetseng. Ho hula ka hare ho e seng e le teng hoa e tsamaisa.
+tool.slice.default_name = Karolo ea Thomelo {n}
+
+tool.frame.name = Foreimi
+tool.frame.description = Hula ho etsa foreimi: mokhahlelo oa khutlonne (kapa oa motopo) o pata likarolo tsa ntho efe kapa efe e kentsoeng ho oona tse leng ka ntle ho sebopeho sa oona.
+tool.frame.default_name = Foreimi {n}
+tool.frame.choice.rectangle = Khutlonne
+tool.frame.choice.ellipse = Motopo
+tool.frame.history.frame = Foreimi
+
+tool.note.name = Ntlha
+tool.note.description = Tobetsa sebakeng se se nang letho sa seile ho maneha ntlha moo, e nang le lebitso la mongoli le 'mala tse boemong ba mohlophisi; tobetsa phini e seng e le teng ho e khetha bakeng sa phanele ea Lintlha.
+tool.note.history.place = Beha Ntlha
+tool.note.history.move = Tsamaisa Ntlha
+tool.note.history.delete = Hlakola Ntlha
+
+tool.count.name = Palo
+tool.count.description = Tobetsa ho beha matšoao a palo a nang le linomoro seileng, 'me u tobetse le seng le le teng ho le tlosa.
+tool.count.default_name = Palo {n}

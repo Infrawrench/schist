@@ -1,0 +1,365 @@
+# The photo gallery: the sidebar, the grid and its headers, the world
+# map, the People album and viewer, camera import, the bucket and map
+# filter dialogs, and the tray's status lines (crates/app/src/workspace/
+# library*.rs, gallery_chrome.rs, photos_save.rs, shared_files.rs).
+# Shared buttons (Cancel, Save, Apply, Edit…) and the photo counts come
+# from common.lang; the menu bar's gallery items from menu.lang.
+
+# Sidebar captions and rows
+library.sidebar.view = দৃশ্য
+library.sidebar.folders = ফ'ল্ডাৰসমূহ
+library.sidebar.buckets = বাকেটসমূহ
+library.sidebar.people = মানুহ
+library.sidebar.group_by = এই অনুসৰি গোট কৰক
+library.sidebar.all_photos = সকলো ফটো
+library.sidebar.world_map = বিশ্ব মানচিত্ৰ
+library.sidebar.map_filter = মানচিত্ৰ ফিল্টাৰ…
+library.sidebar.map_filter_on = মানচিত্ৰ ফিল্টাৰ চালু
+library.sidebar.add_folder = + ফ'ল্ডাৰ যোগ কৰক…
+library.sidebar.new_bucket = + নতুন বাকেট
+library.sidebar.stop_watching = এই ফ'ল্ডাৰ নিৰীক্ষণ বন্ধ কৰক
+library.sidebar.unnamed_faces = নাম নথকা মুখ
+library.sidebar.retry_face_model = মুখ মডেল পুনৰ ডাউনল'ড কৰক
+library.sidebar.retry_recognition_model = চিনাক্তকৰণ মডেল পুনৰ ডাউনল'ড কৰক
+library.sidebar.looking_for_faces = মুখ বিচৰা হৈছে… {looked}/{total}
+library.sidebar.faces_appear = ফটো সূচীবদ্ধ হোৱাৰ লগে লগে মুখবোৰ ইয়াত দেখা যাব।
+library.sidebar.downloading_face_models = মুখ মডেল ডাউনল'ড হৈ আছে… {total} MB-ৰ ভিতৰত {got}
+
+# How the grid is grouped
+library.group_by.date = তাৰিখ
+library.group_by.folder = ফ'ল্ডাৰ
+library.group_by.place = স্থান
+
+# Month headers
+library.month.january = জানুৱাৰী
+library.month.february = ফেব্ৰুৱাৰী
+library.month.march = মাৰ্চ
+library.month.april = এপ্ৰিল
+library.month.may = মে'
+library.month.june = জুন
+library.month.july = জুলাই
+library.month.august = আগষ্ট
+library.month.september = ছেপ্টেম্বৰ
+library.month.october = অক্টোবৰ
+library.month.november = নৱেম্বৰ
+library.month.december = ডিচেম্বৰ
+library.month.title = {month} {year}
+library.month.undated = তাৰিখবিহীন
+
+# Group headers the local library builds
+library.group.person = মানুহ · {name}
+library.group.person_in = মানুহ · {name} · {scope}-ত
+library.group.unnamed = নাম নথকা মুখ
+library.group.unnamed_in = নাম নথকা মুখ · {scope}-ত
+library.group.bucket = বাকেট · {name}
+library.group.no_location = অৱস্থান নাই
+library.group.not_indexed = এতিয়াও সূচীবদ্ধ হোৱা নাই
+library.group.detail = {detail} — {n}
+
+# The top strip
+library.strip.import = আমদানি কৰক…
+library.strip.add_folder = ফ'ল্ডাৰ যোগ কৰক…
+library.strip.settings = ছেটিংছ…
+library.strip.new_file = নতুন ফাইল…
+library.strip.back_to_editing = সম্পাদনালৈ ঘূৰি যাওক
+library.strip.enable_search = ফটো সন্ধান সক্ষম কৰক…
+library.strip.enable_search_menu = ফটো সন্ধান সক্ষম কৰক…
+library.strip.map_filter_chip = মানচিত্ৰ ফিল্টাৰ: {name}
+library.strip.downloading_search = ফটো সন্ধান ডাউনল'ড হৈ আছে… {total} MB-ৰ ভিতৰত {got}
+
+# The search box
+library.search.placeholder = ফটো সন্ধান কৰক…
+library.search.placeholder_indexing = সন্ধান ({total}-ৰ ভিতৰত {indexed} সূচীবদ্ধ)
+library.search.placeholder_people_places = মানুহ আৰু স্থান সন্ধান কৰক…
+library.search.results = সন্ধানৰ ফলাফল
+library.search.results_in_bucket = বাকেট · {name} · সন্ধানৰ ফলাফল
+library.search.near = {place}-ৰ ওচৰত
+library.search.with = {names}-ৰ সৈতে
+
+# The tray and the cells
+library.tray.view = চাওক
+library.tray.edited_note = সম্পাদিত — সংস্কৰণবোৰ ফাইলৰ কাষত ৰখা হৈছে
+library.tray.n_hidden.one = বিষয়বস্তু ফিল্টাৰে {n}খন লুকুৱাইছে
+library.tray.n_hidden.other = বিষয়বস্তু ফিল্টাৰে {n}খন লুকুৱাইছে
+library.cell.no_preview = কোনো পূৰ্বদৰ্শন নাই
+library.cell.edited = সম্পাদিত
+library.gallery.loading = ফটো লোড হৈ আছে…
+
+# The welcome screen, before any folder is watched
+library.welcome.title = Schist-লৈ স্বাগতম
+library.welcome.intro = ফটোৰ ফ'ল্ডাৰ নিৰীক্ষণ কৰক অথবা কেমেৰাৰ পৰা আমদানি কৰক। ফাইলবোৰ যথাস্থানতে থাকে; সম্পাদনাবোৰ তাৰ কাষত সংস্কৰণ হিচাপে ৰখা হয়:
+library.welcome.intro_ios = আপোনাৰ লাইব্ৰেৰীৰ পৰা ফটো আমদানি কৰক, অথবা Files-ৰ পৰা ফ'ল্ডাৰ যোগ কৰক। প্ৰতিখন ফটোৰ কাষত সম্পাদনাবোৰ সংস্কৰণ হিচাপে ৰখা হয়:
+library.welcome.or_open = অথবা সম্পাদনা কৰিবলৈ এখন ছবি খোলক:
+library.welcome.shortcut_mac = আপুনি যিয়েই সম্পাদনা কৰি নাথাকক কিয়, গেলেৰী সদায় ⌘⇧G দূৰত।
+library.welcome.shortcut = আপুনি যিয়েই সম্পাদনা কৰি নাথাকক কিয়, গেলেৰী সদায় Ctrl+Shift+G দূৰত।
+
+# Why the grid is bare
+library.gallery.empty_bucket_search = এই বাকেটৰ একোৱেই সন্ধানৰ সৈতে মিলা নাই। Escape-এ সন্ধান আঁতৰাই গোটেই বাকেটটো দেখুৱায়।
+library.gallery.empty_search = সন্ধানৰ সৈতে একো মিলা নাই। Escape-এ সন্ধান আঁতৰায়।
+library.gallery.empty_smart_bucket = এই বাকেটৰ নিয়মৰ সৈতে এতিয়াও একো মিলা নাই—ফটো সূচীবদ্ধ হোৱাৰ লগে লগে মিলাবোৰ দেখা যাব। ফটো টানি আনিও যোগ কৰিব পাৰি।
+library.gallery.empty_bucket = এই বাকেটটো খালী। ফটো যোগ কৰিবলৈ কাষৰ পেনেলত ইয়াৰ শাৰীৰ ওপৰলৈ টানি আনক।
+library.gallery.empty_person = ইয়াত এতিয়াও একো নাই। ফটো সূচীবদ্ধ হোৱাৰ লগে লগে মুখবোৰ দেখা যাব; কোন হয় ক'বলৈ এখন ফটোত, তাৰ পিছত মুখ এখনত ক্লিক কৰক।
+library.gallery.scanning = ফ'ল্ডাৰ স্কেন কৰা হৈছে…
+library.gallery.empty = নিৰীক্ষণ কৰা ফ'ল্ডাৰবোৰত কোনো ফটো পোৱা নগ'ল। Schist-এ খুলিব পৰা ছবি (PNG, JPEG, WebP, TIFF, HEIC, কেমেৰা ৰ' ফাইল, PSD, Affinity) ইয়াত দেখা যায়; উপ-ফ'ল্ডাৰবোৰ ছয় স্তৰ গভীৰলৈ স্কেন কৰা হয়।
+
+# Buckets
+library.bucket.default_name = বাকেট {n}
+library.bucket.rule_matches = “{query}”-ৰ সৈতে মিলে
+library.bucket.rule_taken_in = {name}-ত তোলা
+library.bucket.new_title = নতুন বাকেট
+library.bucket.edit_title = বাকেট সম্পাদনা কৰক
+library.bucket.new_cloud_title = নতুন ক্লাউড বাকেট
+library.bucket.edit_cloud_title = ক্লাউড বাকেট সম্পাদনা কৰক
+library.bucket.create = সৃষ্টি কৰক
+library.bucket.query_placeholder = যেনে সাগৰৰ পাৰত কুকুৰ (ঐচ্ছিক)
+library.bucket.the_drawn_area = অঁকা অঞ্চল
+library.bucket.area_help = অঞ্চল যোগ কৰিবলৈ মানচিত্ৰত Shift-টানক (অথবা পূৰ্বছেট বাছক); অতি সৰু টানে সেয়া আঁতৰায়। নিয়মে বাকেটটো স্বয়ংক্ৰিয়ভাৱে পূৰ কৰি ৰাখে।
+library.bucket.rule_none = কোনো নিয়ম নাই: ফটো টানি আনি পূৰণ কৰা এটা সাধাৰণ বাকেট।
+library.bucket.rule_query = “{query}”-ৰ সৈতে মিলা প্ৰতিখন ফটো ৰাখে।
+library.bucket.rule_area = {area}-ত তোলা প্ৰতিখন ফটো ৰাখে।
+library.bucket.rule_query_area = {area}-ত তোলা আৰু “{query}”-ৰ সৈতে মিলা প্ৰতিখন ফটো ৰাখে।
+library.bucket.starts_with.one = আৰম্ভণিতে নিৰ্বাচিত {n}খন ফটো ৰাখে।
+library.bucket.starts_with.other = আৰম্ভণিতে নিৰ্বাচিত {n}খন ফটো ৰাখে।
+
+# The world map
+library.map.status = মানচিত্ৰত {located}খন ফটো · অৱস্থানবিহীন {unlocated}খন
+library.map.reading_locations = অৱস্থান পঢ়া হৈছে: {n}টা বাকী
+library.map.reset_view = দৃশ্য পুনঃস্থাপন কৰক
+library.map.no_photos = এই দৃশ্যত GPS অৱস্থান থকা কোনো ফটো নাই। জিঅ'টেগ কৰা ফটো যোগ কৰক অথবা গেলেৰী ফিল্টাৰ সলনি কৰক।
+library.map.no_photos_cloud = ইয়াত GPS অৱস্থান থকা কোনো ফটো নাই। আন ফ'ল্ডাৰ বা বাকেট বাছক, অথবা সন্ধান আঁতৰাওক।
+library.map.hint = স্থানান্তৰ কৰিবলৈ টানক · জুম কৰিবলৈ স্ক্ৰ'ল কৰক · ফটো চাবলৈ চিহ্নত ক্লিক কৰক · সম্পাদনা কৰিবলৈ ফটোত দুবাৰ ক্লিক কৰক
+library.map.n_at_marker.one = এই চিহ্নত {n}খন ফটো
+library.map.n_at_marker.other = এই চিহ্নত {n}খন ফটো
+library.map.n_in_marker.one = এই চিহ্নৰ ভিতৰত {n}খন ফটো
+library.map.n_in_marker.other = এই চিহ্নৰ ভিতৰত {n}খন ফটো
+library.map.attribution = © OpenStreetMap অৱদানকাৰীসকল
+
+# The boundary editor shared by import, the map filter and buckets
+library.map.draw_area = অঞ্চল আঁকক
+library.map.drawing = অঁকা হৈছে…
+library.map.clear_boundary = সীমা আঁতৰাওক
+library.map.editor_hint = টানিলে স্থানান্তৰ · স্ক্ৰ'ল কৰিলে জুম · Shift-টানিলে অংকন
+
+# The map filter
+library.map_filter.title = মানচিত্ৰ ফিল্টাৰ
+library.map_filter.drawn_area = অঁকা অঞ্চল
+library.map_filter.apply_named = প্ৰয়োগ কৰিলে কেৱল {name}-ত তোলা ফটো দেখুৱায়; EXIF অৱস্থান নথকা ফটো লুকায়।
+library.map_filter.apply_drawn = প্ৰয়োগ কৰিলে কেৱল {south}°, {west}°-ৰ পৰা {north}°, {east}°-ৰ ভিতৰত তোলা ফটো দেখুৱায়; EXIF অৱস্থান নথকা ফটো লুকায়।
+library.map_filter.draw_first = এটা সীমা আঁকক (Shift-টানি অথবা পূৰ্বছেট চিপেৰে), তাৰ পিছত প্ৰয়োগ কৰক। একো নঅঁকাকৈ প্ৰয়োগ কৰিলে ফিল্টাৰ বন্ধ হয়।
+library.map_filter.turn_off = ফিল্টাৰ বন্ধ কৰক
+
+# Camera import: the picker, the options, the failure dialog
+library.import.title = কেমেৰাৰ পৰা আমদানি
+library.import.from = {name}-ৰ পৰা আমদানি
+library.import.no_cameras = কোনো কেমেৰা পোৱা নগ'ল।
+library.import.no_cameras_help = কেমেৰা, মেমৰি কাৰ্ড বা iPhone সংযোগ কৰক। ফটো দেখুওৱাৰ আগতে iPhone আনলক কৰি Trust This Computer প্ৰশ্নৰ উত্তৰ দিব লাগিব—সেয়া কৰি অলপ অপেক্ষা কৰক আৰু পুনৰ স্কেন কৰক টিপক। DCIM ফ'ল্ডাৰ থকা ডিস্ক হিচাপে মাউণ্ট হোৱা যিকোনো ডিভাইচো গ্ৰহণযোগ্য।
+library.import.scan_again = পুনৰ স্কেন কৰক
+library.import.pick_source = এটাতকৈ অধিক কেমেৰা পোৱা গৈছে। ইয়াৰ পৰা আমদানি কৰক:
+library.import.via_image_capture = Image Capture-ৰ জৰিয়তে
+library.import.boundary_named = সীমা: {name} — কেৱল ইয়াৰ ভিতৰত EXIF অৱস্থান থকা ফটো আমদানি হয়; অৱস্থান নথকা ফটো কেমেৰাতেই থাকে।
+library.import.boundary_drawn = সীমা: {south}°, {west}°-ৰ পৰা {north}°, {east}° — কেৱল ইয়াৰ ভিতৰত EXIF অৱস্থান থকা ফটো আমদানি হয়।
+library.import.no_boundary = কোনো সীমা নাই — কেমেৰাৰ সকলো বস্তু আমদানি হয়।
+library.import.destination = ~/Pictures/Schist Imports/{name}-লৈ — ইতিমধ্যে আমদানি কৰা ফাইল বাদ দিয়া হয়, সেয়েহে পুনৰ চলোৱা নিৰাপদ।
+library.import.selected_area = নিৰ্বাচিত অঞ্চল
+library.import.locked_help = ডিভাইচটো লক হৈ থাকিলে: আনলক কৰক, সুধিলে Trust This Computer টিপক, সংযুক্ত ৰাখক আৰু পুনৰ চেষ্টা কৰক।
+library.import.try_again = আকৌ চেষ্টা কৰক
+library.import.add_to_gallery = গেলেৰীত যোগ কৰক
+
+# Camera import: what the tray says
+library.import.needs_home = আমদানিৰ বাবে নকল কৰিবলৈ এটা গৃহ ডাইৰেক্টৰি প্ৰয়োজন
+library.import.importing_from = {source}-ৰ পৰা আমদানি হৈ আছে…
+library.import.importing_in_place = {source}-ৰ পৰা {place}-ত তোলা ফটো আমদানি হৈ আছে…
+library.import.device_macos_only = প্ৰত্যক্ষ ডিভাইচ আমদানি কেৱল macOS-ত উপলব্ধ
+library.import.failed = আমদানি বিফল হ'ল: {error}
+library.import.from_failed = {name}-ৰ পৰা আমদানি বিফল হ'ল
+library.import.locked = {name} লক হৈ আছে — আগবাঢ়িবলৈ ইয়াক আনলক কৰি Trust টিপক
+library.import.reading_catalog = {name}-ৰ ফটো কেটেলগ পঢ়া হৈছে…
+library.import.progress_from = {name}-ৰ পৰা {n}/{total} ফটো আমদানি হৈ আছে…
+library.import.progress = {n}/{total} ফাইল আমদানি হৈ আছে…
+library.import.choose_photos = আমদানি কৰিবলৈ ফটো আৰু ভিডিঅ' বাছক…
+library.import.photos_open_failed = ফটো লাইব্ৰেৰী খুলিব পৰা নগ'ল: {error}
+library.import.done.one = {n}টা ফাইল {dest}-লৈ আমদানি কৰা হ'ল
+library.import.done.other = {n}টা ফাইল {dest}-লৈ আমদানি কৰা হ'ল
+library.import.done_in_place.one = {place}-ত তোলা {n}খন ফটো {dest}-লৈ আমদানি কৰা হ'ল ({filtered}খন আন ঠাইৰ বা অৱস্থানবিহীন ফটো কেমেৰাত ৰ'ল)
+library.import.done_in_place.other = {place}-ত তোলা {n}খন ফটো {dest}-লৈ আমদানি কৰা হ'ল ({filtered}খন আন ঠাইৰ বা অৱস্থানবিহীন ফটো কেমেৰাত ৰ'ল)
+library.import.n_failed.one = {n}টা বিফল
+library.import.n_failed.other = {n}টা বিফল
+library.import.no_dcim = {source}-ত কোনো DCIM ফ'ল্ডাৰ নাই
+library.import.already_running = ইতিমধ্যে এটা আমদানি চলি আছে
+library.import.camera_gone = সেই কেমেৰাটো আৰু সংযুক্ত নহয়
+library.import.camera_disconnected = আমদানিৰ মাজতে কেমেৰাৰ সংযোগ বিচ্ছিন্ন হ'ল
+library.import.unknown_error = অজ্ঞাত ত্ৰুটি
+library.import.picker_needs_ios14 = ফটো নিৰ্বাচকৰ বাবে iOS 14 বা পৰৱৰ্তী সংস্কৰণ প্ৰয়োজন
+library.import.picker_unavailable = ফটো নিৰ্বাচক উপলব্ধ নহয়
+library.import.no_window = নিৰ্বাচকটো দেখুৱাবলৈ কোনো উইণ্ড' নাই
+
+# What a camera volume is called when its mount name says nothing
+library.volume.iphone = iPhone বা iPad
+library.volume.camera = কেমেৰা
+library.volume.phone = ফোন
+
+# A folder dropped on the window and opened as tabs
+library.open_folder.opened.one = {n}খন ছবি খোলা হ'ল
+library.open_folder.opened.other = {n}খন ছবি খোলা হ'ল
+library.open_folder.opened_first = {total}খন ছবিৰ প্ৰথম {n}খন খোলা হ'ল — বাকীবোৰ গেলেৰীত আছে
+
+# The photo search models dialog
+library.search_models.title = ফটো সন্ধান
+library.search_models.intro = ফটোৰ বিষয়বস্তু অনুসৰি সন্ধান কৰিবলৈ দুটা মডেলৰ প্ৰয়োজন; এবাৰ ডাউনল'ড কৰি এই মেচিনতে ৰখা হয়। সেইবোৰ স্থানীয়ভাৱে চলে: কোনো ফটো কেতিয়াও এই মেচিনৰ বাহিৰলৈ নাযায়।
+library.search_models.model_size = {name} · {mb} MB
+library.search_models.by_apple = Apple-ৰ MobileCLIP
+library.search_models.export = Xenova-ৰ ONNX ৰপ্তানি
+library.search_models.license = অনুজ্ঞাপত্ৰ
+library.search_models.download_note = ডাউনল'ড কৰিলে দুয়োটা ইনষ্টল হয় (মুঠ {mb} MB) আৰু সিহঁতৰ অনুজ্ঞাপত্ৰ গ্ৰহণ কৰা হয়। গেলেৰী ▸ মডেলসমূহ পৰিচালনা কৰক…-ৰ পৰা সেইবোৰ পুনৰ আঁতৰাব পাৰি।
+library.search_models.agree = সন্মত হৈ ডাউনল'ড কৰক
+
+# The right-click menu
+library.menu.add_all_to = সকলো {name}-ত যোগ কৰক
+library.menu.add_all_to_new_bucket = সকলো নতুন বাকেটত যোগ কৰক…
+library.menu.edit_n_in_tabs = {n}খন টেবত সম্পাদনা কৰক
+library.menu.view_name_people = মানুহ চাওক আৰু নাম দিয়ক
+library.menu.reveal = ফাইল মেনেজাৰত দেখুৱাওক
+library.menu.add_to = {name}-ত যোগ কৰক
+library.menu.add_to_new_bucket = নতুন বাকেটত যোগ কৰক
+library.menu.remove_from_bucket = এই বাকেটৰ পৰা আঁতৰাওক
+library.menu.save_n_as_zip = {n}খন ZIP হিচাপে সংৰক্ষণ কৰক…
+library.menu.save_image_as = ছবি এই ৰূপে সংৰক্ষণ কৰক…
+library.menu.process = প্ৰক্ৰিয়া কৰক…
+library.menu.process_n = {n}খন ফটো প্ৰক্ৰিয়া কৰক…
+library.menu.move_to_folder = ফ'ল্ডাৰলৈ নিয়ক…
+library.menu.move_n_to_folder = {n}খন ফ'ল্ডাৰলৈ নিয়ক…
+library.menu.revert = মূললৈ ঘূৰাই নিয়ক
+library.menu.revert_n = {n}খন মূললৈ ঘূৰাই নিয়ক
+library.menu.upload_to_cloud = Schist Cloud-লৈ আপল'ড কৰক…
+library.menu.watch_local_folder = এই কম্পিউটাৰত এটা ফ'ল্ডাৰ নিৰীক্ষণ কৰক…
+library.menu.new_cloud_folder = {glyph} নতুন Schist Cloud ফ'ল্ডাৰ…
+library.menu.new_local_bucket = এই কম্পিউটাৰত নতুন বাকেট…
+library.menu.new_cloud_bucket = {glyph} নতুন Schist Cloud বাকেট…
+library.menu.edit_bucket = বাকেট সম্পাদনা কৰক…
+library.menu.select_all_n = সকলো নিৰ্বাচন কৰক ({n})
+library.menu.save_all_as_zip = সকলো ZIP হিচাপে সংৰক্ষণ কৰক… ({n})
+library.menu.process_all = সকলো প্ৰক্ৰিয়া কৰক… ({n})
+library.menu.move_all_to_folder = সকলো ফ'ল্ডাৰলৈ নিয়ক…
+library.menu.clear_added = যোগ কৰা ফটো আঁতৰাওক
+library.menu.clear_bucket = বাকেট খালী কৰক
+library.menu.delete_bucket = বাকেট মচক
+library.menu.show_person = {name} দেখুৱাওক
+library.menu.rename_person = পুনৰ নাম দিয়ক…
+library.menu.forget_person.one = ব্যক্তিক পাহৰক ({n}খন মুখ)
+library.menu.forget_person.other = ব্যক্তিক পাহৰক ({n}খন মুখ)
+
+# Moving, zipping, saving, reverting, batch processing
+library.ops.moving.one = {n}খন ফটো {dest}-লৈ নিয়া হৈছে…
+library.ops.moving.other = {n}খন ফটো {dest}-লৈ নিয়া হৈছে…
+library.ops.moved.one = {n}খন ফটো {dest}-লৈ নিয়া হ'ল
+library.ops.moved.other = {n}খন ফটো {dest}-লৈ নিয়া হ'ল
+library.ops.moved_partial = {total}খন ফটোৰ ভিতৰত {n}খন {dest}-লৈ নিয়া হ'ল — বাকীবোৰৰ তথ্য লগত আছে
+library.ops.move_here = ইয়ালৈ নিয়ক
+library.ops.no_export_format = ইয়াৰ কোনো ফৰ্মেটে ছবি সংৰক্ষণ কৰিব নোৱাৰে
+library.ops.saved_size = {name} সংৰক্ষণ কৰা হ'ল ({w} × {h})
+library.ops.save_failed = সংৰক্ষণ বিফল হ'ল: {error}
+library.ops.opening_first = {total}খন ফটোৰ প্ৰথম {n}খন খোলা হৈছে — বাকীবোৰ গেলেৰীত আছে
+library.ops.nothing_to_revert = মূললৈ ঘূৰাবলৈ একো নাই: সেই ফটোবোৰৰ এখনতো সম্পাদনা নাই
+library.ops.reverted.one = {n}খন ফটো মূল ৰূপলৈ ঘূৰোৱা হ'ল — সম্পাদনাটো versions/-ৰ ভিতৰত ৰখা হৈছে
+library.ops.reverted.other = {n}খন ফটো মূল ৰূপলৈ ঘূৰোৱা হ'ল — সম্পাদনাবোৰ versions/-ৰ ভিতৰত ৰখা হৈছে
+library.ops.no_file_name = ফাইলটোৰ কোনো নাম নাই
+library.zip.nothing_all_held = ZIP কৰিবলৈ একো নাই: বিষয়বস্তু ফিল্টাৰে সেই {n}খন ফটোৰ আটাইকেইখন বাদ দিছে
+library.zip.failed = ZIP বিফল হ'ল: {error}
+library.zip.progress = ZIP কৰা হৈছে {n}/{total}…
+library.zip.n_held.one = (বিষয়বস্তু ফিল্টাৰে {n}খন বাদ দিলে)
+library.zip.n_held.other = (বিষয়বস্তু ফিল্টাৰে {n}খন বাদ দিলে)
+library.zip.done.one = {n}খন ফটো ZIP কৰি {dest}-ত ৰখা হ'ল
+library.zip.done.other = {n}খন ফটো ZIP কৰি {dest}-ত ৰখা হ'ল
+library.zip.done_partial = {total}খন ফটোৰ ভিতৰত {n}খন ZIP কৰি {dest}-ত ৰখা হ'ল — বাকীবোৰৰ তথ্য লগত আছে
+library.zip.nothing_readable = ZIP কৰিবলৈ একো পঢ়িব পৰা নগ'ল
+library.zip.too_large = zip64 অবিহনে ZIP কৰাৰ বাবে অত্যধিক ডাঙৰ
+library.batch.nothing_to_do = কৰিবলৈ একো নাই: প্ৰথমে ঘূৰ্ণন, আকাৰ বৃদ্ধি বা সমন্বয় বাছক
+library.batch.save_copies_here = প্ৰতিলিপিবোৰ ইয়াত সংৰক্ষণ কৰক
+library.batch.processing.one = {n}খন ফটো প্ৰক্ৰিয়া কৰা হৈছে…
+library.batch.processing.other = {n}খন ফটো প্ৰক্ৰিয়া কৰা হৈছে…
+library.batch.progress = {n}/{total} প্ৰক্ৰিয়া কৰা হ'ল — {name}
+library.batch.failed = প্ৰক্ৰিয়াকৰণ বিফল হ'ল: {error}
+library.batch.done.one = {n}খন ফটো প্ৰক্ৰিয়া কৰা হ'ল
+library.batch.done.other = {n}খন ফটো প্ৰক্ৰিয়া কৰা হ'ল
+library.batch.done_partial = {total}খন ফটোৰ ভিতৰত {n}খন প্ৰক্ৰিয়া কৰা হ'ল — বাকীবোৰৰ তথ্য লগত আছে
+library.batch.model_would_not_load = {name} মডেলটো লোড নহ'ল
+library.batch.no_psd_writer = কোনো PSD ৰাইটাৰ লোড কৰা নাই
+
+# The viewer and the People album
+library.viewer.back = ‹ ফটোসমূহলৈ ঘূৰি যাওক
+library.viewer.could_not_decode = এই ফটোখন ডিক'ড কৰিব পৰা নগ'ল।
+library.viewer.label_auto = {name} · স্বয়ংক্ৰিয়
+library.viewer.label_guess = {name}?
+library.viewer.people_heading = এই ফটোত থকা মানুহ
+library.viewer.faces_intro = এবাৰ ডাউনল'ড কৰা সৰু মডেল এটাই মুখ চিনাক্ত কৰে। তথাপিও হাতেৰে বাকচ আঁকিব পাৰি।
+library.viewer.looking_for_faces = মুখ বিচৰা হৈছে…
+library.viewer.no_faces = কোনো মুখ পোৱা নগ'ল। হাতেৰে ব্যক্তি যোগ কৰিবলৈ মুখৰ চাৰিওফালে এটা বাকচ টানক।
+library.viewer.help = নাম দিবলৈ মুখত ক্লিক কৰক; Enter-এ সংৰক্ষণ কৰে। চিনাক্তকাৰীয়ে বাদ দিয়া মুখ চিহ্নিত কৰিবলৈ ফটোত টানক। ← →-এ ফটোৰ মাজত চলায়, Esc-এ পিছলৈ নিয়ে।
+library.viewer.not_them = এই ব্যক্তি নহয়
+library.viewer.remove_name = নাম আঁতৰাওক
+library.viewer.not_a_face = মুখ নহয়
+library.viewer.auto = স্বয়ংক্ৰিয়
+library.viewer.is_this = এয়া {name} নেকি?
+library.viewer.someone_else = আন কোনোবা
+library.viewer.add_name = নাম যোগ কৰক…
+library.viewer.who_is_this = এইজন কোন?
+library.people.rename_title = ব্যক্তিৰ পুনৰ নাম দিয়ক
+library.people.merge_warning = “{name}” নামৰ ব্যক্তি ইতিমধ্যে আছে: সংৰক্ষণ কৰিলে দুয়ো একত্ৰিত হ'ব।
+library.people.merge_note = আন এজন ব্যক্তিৰ ইতিমধ্যে থকা নাম দিলে দুয়োজন ব্যক্তি একত্ৰিত হয়।
+library.people.named = {name} নাম দিয়া হ'ল
+library.people.named_followed.one = {name} নাম দিয়া হ'ল · আৰু {n}খন মুখ স্বয়ংক্ৰিয়ভাৱে মিলিল
+library.people.named_followed.other = {name} নাম দিয়া হ'ল · আৰু {n}খন মুখ স্বয়ংক্ৰিয়ভাৱে মিলিল
+
+# Save to Photos (iOS)
+library.photos.saving = ফটোসমূহত সংৰক্ষণ কৰা হৈছে…
+library.photos.saved = ফটোসমূহত সংৰক্ষণ কৰা হ'ল
+library.photos.save_failed = ফটোসমূহত সংৰক্ষণ বিফল হ'ল: {error}
+library.photos.no_document = কোনো দস্তাবেজ খোলা নাই
+library.photos.no_png_codec = PNG ক'ডেক লোড কৰা নাই
+library.photos.no_answer = ফটো লাইব্ৰেৰীয়ে সঁহাৰি নিদিলে
+library.photos.bad_url = ফাইলৰ পথটো URL কৰিব পৰা নগ'ল
+library.photos.unavailable = ফটো লাইব্ৰেৰী উপলব্ধ নহয়
+library.photos.declined = ফটো লাইব্ৰেৰীয়ে অস্বীকাৰ কৰিলে
+
+# Files shared into the app (iOS)
+library.shared.needs_documents = গেলেৰীত নকল কৰিবলৈ এটা Documents ফ'ল্ডাৰ প্ৰয়োজন
+library.shared.added.one = গেলেৰীত {n}খন ফটো যোগ কৰা হ'ল
+library.shared.added.other = গেলেৰীত {n}খন ফটো যোগ কৰা হ'ল
+library.shared.open_needs_documents = খুলিবলৈ নকল কৰিব পৰা এটা Documents ফ'ল্ডাৰ প্ৰয়োজন
+library.shared.could_not_open = {name} খুলিব পৰা নগ'ল: {error}
+
+# Desktop video preview and frame capture
+video.invalid_file = এইটো স্থানীয় ভিডিঅ' ফাইল নহয়।
+video.install_gstreamer = ভিডিঅ' পূৰ্বদৰ্শনৰ বাবে GStreamer 1.x আৰু ভিডিঅ' ডিক'ডাৰ প্লাগ-ইন প্ৰয়োজন। সেইবোৰ ইনষ্টল কৰি ভিডিঅ'টো পুনৰ খোলক। তথাপিও আপুনি বাহ্যিক সম্পাদক বাছিব পাৰে।
+video.decode_failed = এই ভিডিঅ' ফ্ৰেমটো ডিক'ড কৰিব পৰা নগ'ল।
+video.no_stream = এই ফাইলত কোনো ভিডিঅ' ষ্ট্ৰীম নাই।
+video.no_duration = ভিডিঅ'ৰ দৈৰ্ঘ্য পঢ়িব পৰা নগ'ল।
+video.frame_too_large = এই ভিডিঅ' ফ্ৰেমটো খুলিবলৈ অত্যধিক ডাঙৰ।
+video.first_frame = ইতিমধ্যে প্ৰথম ফ্ৰেমত আছে।
+video.editor_failed = ভিডিঅ' সম্পাদক খুলিব পৰা নগ'ল: {error}
+video.editor_unavailable = নিৰ্বাচিত ভিডিঅ' সম্পাদক খুলিব পৰা নগ'ল। এপ্লিকেশ্যনটো পুনৰ বাছক।
+video.loading = ভিডিঅ' লোড হৈ আছে…
+video.searching = ওচৰত অধিক তীক্ষ্ণ ফ্ৰেম বিচৰা হৈছে…
+video.capturing = সম্পূৰ্ণ ৰিজ'লিউশ্যনৰ ফ্ৰেম খোলা হৈছে…
+video.frame_title = {name} — ফ্ৰেম {time}
+video.frame_layer = ভিডিঅ' ফ্ৰেম
+video.already_sharpest = এয়াই ওচৰৰ আটাইতকৈ তীক্ষ্ণ ফ্ৰেম।
+video.found_frame = {time}-ত ওচৰৰ আটাইতকৈ তীক্ষ্ণ ফ্ৰেম নিৰ্বাচন কৰা হ'ল।
+video.choose_editor = ভিডিঅ' সম্পাদক বাছক…
+video.back = গেলেৰীলৈ ঘূৰি যাওক
+video.pause = বিৰতি
+video.play = চলাওক
+video.previous = আগৰ ফ্ৰেম
+video.next = পৰৱৰ্তী ফ্ৰেম
+video.sharper = অধিক তীক্ষ্ণ ফ্ৰেম বিচাৰক
+video.edit_frame = ফ্ৰেম সম্পাদনা কৰক
+video.open_editor = ভিডিঅ' সম্পাদকত খোলক
+video.preview_help = নিৰৱ পূৰ্বদৰ্শন · Space: চলাওক/বিৰতি · কাঁড়: ফ্ৰেমে ফ্ৰেমে যাওক · দুয়োফালে ½ ছেকেণ্ডৰ ভিতৰত সন্ধান কৰে। সম্পাদনা কৰিলে সুকীয়া ছবি খোল খায়।
+video.badge = ▶ ভিডিঅ'
+video.view = ভিডিঅ' চাওক
+
+video.open_another_app = আন এপত খোলক…
+video.preview_help_touch = নিৰৱ পূৰ্বদৰ্শন · সময়ৰেখা টানক বা ফ্ৰেমে ফ্ৰেমে যাওক। অধিক তীক্ষ্ণ ফ্ৰেম সন্ধানে দুয়োফালে ½ ছেকেণ্ডৰ ভিতৰত বিচাৰে। সম্পাদনা কৰিলে সুকীয়া ছবি খোল খায়।
+video.importing = ফটো আৰু ভিডিঅ' আমদানি হৈ আছে…
+video.import_failed = মিডিয়া আমদানি কৰিব পৰা নগ'ল: {error}
+video.import_failed_simple = এই মিডিয়া আমদানি বা ভাগ-বতৰা কৰিব পৰা নগ'ল।

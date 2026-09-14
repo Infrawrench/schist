@@ -1,0 +1,30 @@
+ai.status.panel_shown = Pano ya AI emonisami
+ai.status.panel_hidden = Pano ya AI ebombami — Kotala ▸ Pano ya AI ({shortcut}) ekozongisa yango
+ai.status.tool = AI: {name}
+
+ai.info.connected = {backend} ekangani
+ai.info.now_in_gallery = Sikoyo na galerie.
+ai.info.now_in_editor = Sikoyo na editɛrɛ.
+ai.tool.shell_command = komande ya shell
+
+ai.error.cli_missing = CLI ya {backend} (“{binary}”) ezali na PATH te. Tyá yango mpe kɔtá na yango liboso.
+ai.error.endpoint_failed = kobanda endpoint ya MCP elongi te: {error}
+ai.error.binding_endpoint = kokangisa endpoint ya MCP
+ai.error.spawning_endpoint_thread = kobanda thread ya endpoint ya MCP
+ai.error.runtime_failed = kobanda esika agent esalaka elongi te: {error}
+ai.error.worker_failed = kobanda worker ya {backend} elongi te: {error}
+ai.error.did_not_start = {backend} ebandaki te: {error}
+ai.error.switch_model_failed = kobongola modɛlɛ elongi te: {error}
+ai.error.send_failed = kotinda prompt elongi te: {error}
+ai.error.interrupt_failed = kokata mosala elongi te: {error}
+ai.error.locating_binary = koluka fisye exécutable ya Schist
+ai.error.starting_app_server = kobanda serveur ya programɛ Codex
+ai.error.attaching_app_server = kokangisa na serveur ya programɛ Codex
+ai.error.initializing_app_server = kobongisa serveur ya programɛ Codex mpo ebanda
+ai.error.resuming_thread = kozongela thread ya Codex
+ai.error.starting_thread = kobanda thread ya Codex
+
+ai.model.opus_detail = Nivo oyo ekoki koleka
+ai.model.sonnet_detail = Esalaka malamu mpo na misala ya momesano
+ai.model.haiku_detail = Ya mbangu koleka mpo na biyano ya noki
+ai.model.codex_catalog = Katalogɛ ya Codex

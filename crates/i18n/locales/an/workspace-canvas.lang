@@ -1,0 +1,42 @@
+# Lenzo de l'editor: respuestas d'estau y dentradas d'historial.
+
+# Respuestas d'a barra d'estau
+workspace.canvas.rotate_view_degrees = Chirar a vista {degrees}°
+workspace.canvas.view_reset = Vista restablida
+workspace.canvas.notes_on = Notas activadas
+workspace.canvas.notes_off = Notas desactivadas
+workspace.canvas.rulers_on = Reglas activadas
+workspace.canvas.rulers_off = Reglas desactivadas
+workspace.canvas.grid_on = Reixeta activada
+workspace.canvas.grid_off = Reixeta desactivada
+workspace.canvas.guides_on = Guiaderas activadas
+workspace.canvas.guides_off = Guiaderas desactivadas
+workspace.canvas.extras_on = Extras activaus
+workspace.canvas.extras_off = Extras desactivaus
+workspace.canvas.snap_on = Aliniación activada
+workspace.canvas.snap_off = Aliniación desactivada
+workspace.canvas.guides_cleared = Guiaderas borradas
+workspace.canvas.no_path = No i hai garra trazau que usar
+workspace.canvas.path_empty = O trazau ye vuedo
+workspace.canvas.stroke_needs_selection = O trazo ameneste una selección
+workspace.canvas.nothing_to_stroke = No i hai cosa que trazar
+workspace.canvas.content_aware_fill_needs_selection = O recheleno sensible a lo conteniu ameneste una selección
+workspace.canvas.content_aware_fill_needs_pixel_layer = O recheleno sensible a lo conteniu ameneste una capa de pixels
+workspace.canvas.color_range_needs_pixel_layer = O rango de colors ameneste una capa de pixels
+workspace.canvas.nothing_to_adjust = No i hai cosa que achustar
+workspace.canvas.nothing_to_trim = No i hai cosa que recortar
+workspace.canvas.trimmed = Recortau
+workspace.canvas.indexed_not_supported = A color indexada encara no ye compatible
+workspace.canvas.opacity_percent = Opacidat: {n}%
+
+# Dentradas d'o panel d'historial
+workspace.history.stroke = Trazo
+workspace.history.fill = Recheleno
+workspace.history.content_aware_scale = Escala sensible a lo conteniu
+workspace.history.filter_gallery = Galería de filtros
+workspace.history.color_range = Rango de colors
+workspace.history.move_layer = Mover capa
+workspace.history.move_layers = Mover capas
+workspace.history.layer_opacity = Opacidat d'a capa
+workspace.history.delete_note = Borrar nota
+workspace.history.edit_note = Editar nota

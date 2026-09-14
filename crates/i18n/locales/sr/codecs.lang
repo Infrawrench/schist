@@ -1,0 +1,36 @@
+# Називи формата и поруке о грешкама при увозу.
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = декодирање формата {name}
+codec.msg.zero_sized = слика нема пиксела
+codec.msg.assembling_document = састављање документа
+
+codec.raw.msg.decoding = декодирање необрађене датотеке
+codec.raw.msg.developing = развијање необрађене датотеке
+codec.raw.msg.finding_preview = тражење уграђеног прегледа
+codec.raw.msg.decoding_preview = декодирање уграђеног прегледа
+codec.raw.msg.decoder_panicked = декодер необрађених датотека није обрадио ову датотеку: {what}
+
+codec.affinity.import_title = Увоз из програма Affinity
+codec.affinity.flattened_preview_layer = Спојени преглед
+codec.affinity.msg.no_preview = Нема употребљивог уграђеног прегледа. Affinity формат са слојевима је власнички; Schist увози спојени преглед који датотека садржи. Ова датотека га нема — поново је сачувајте у програму Affinity или је извезите као PSD да бисте увезли све слојеве.
+
+codec.heif.msg.no_library = libheif није доступан ({details}). За отварање HEIC датотеке потребна је библиотека libheif (Linux: инсталирајте libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — ова верзија библиотеке libheif можда нема HEVC декодер (на системима Debian/Ubuntu инсталирајте libheif-plugin-libde265)
+codec.heif.msg.unknown_error = непозната грешка
+codec.heif.msg.initialising = иницијализација библиотеке libheif
+codec.heif.msg.reading_container = читање HEIF контејнера
+codec.heif.msg.finding_primary_image = проналажење главне слике
+codec.heif.msg.reading_icc_profile = читање ICC профила
+codec.heif.msg.decoding_image = декодирање слике
+codec.heif.msg.checksum_mismatch = Контролна сума за {name} се не подудара: очекивано {expected}, добијено {got}
+codec.heif.msg.imageio_cannot_read = ImageIO није успео да прочита HEIF контејнер
+codec.heif.msg.container_empty = HEIF контејнер не садржи слику
+codec.heif.msg.imageio_cannot_decode = ImageIO није успео да декодира главну слику

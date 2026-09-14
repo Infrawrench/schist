@@ -1,0 +1,82 @@
+panel.keys.cmd = Cmd
+panel.keys.ctrl = Ctrl
+panel.keys.shift = Shift
+panel.keys.alt = Alt
+
+panel.status.document = {title}  {w}×{h}
+panel.status.document_dirty = {title} •  {w}×{h}
+panel.tabs.dirty = {title} •
+panel.titlebar.document = {title} — Schist
+panel.titlebar.document_dirty = {title} • — Schist
+
+panel.navigator.title = Mufambisi
+panel.navigator.actual_pixels = Tipikseli ta xiviri
+
+panel.color.picker = Xihlawuri…
+panel.color.swap = Cincana mihlovo
+panel.color.reset = Tlherisela eka ntema ni basa
+
+panel.layers.blending_options = Swihlawulekisi swo hlanganisa…
+panel.layers.properties = Swihlawulekisi swa leyara…
+panel.layers.show_hide = Kombisa/Tumbeta leyara
+panel.layers.toggle_visibility = Cinca loko leyara yi vonaka
+
+panel.history.title = Matimu
+panel.history.opened = Swi pfuriwile
+
+panel.info.title = Vuxokoxoko
+panel.info.camera = Khamera
+panel.info.lens = Lenzi
+panel.info.iso = ISO {iso}
+panel.info.bias = Ku hambuka
+panel.info.flash_fired = flash yi voningile
+panel.info.no_flash = ku hava flash
+panel.info.white_balance = WB {wb}
+panel.info.metering = ku pima ka {metering}
+panel.info.taken = Xi tekiwe
+panel.info.size = {w} × {h} · {mp} MP
+panel.info.size_oriented = {w} × {h} · {mp} MP · tlhelo {o}
+panel.info.software = Software
+panel.info.where = Ndhawu
+
+panel.notes.author = Mutsari
+panel.notes.clear_all = Susa hinkwato
+panel.notes.unattributed = A swi na mutsari
+panel.notes.empty = Tshikilela khanivhasi ku siya noti.
+panel.notes.placeholder = Tshikilela ku tsala
+
+panel.character.title = Maletere
+panel.character.type_tool = Xitirhisiwa xa tsalwa (T)
+panel.character.align_left = Lulamisa eximatsini
+panel.character.align_center = Lulamisa exikarhini
+panel.character.align_right = Lulamisa exineneni
+panel.character.text_color = Muhlovo wa tsalwa
+panel.character.panel = Phanele ya Maletere
+panel.character.cancel_edit = Khansela ku hlela tsalwa
+panel.character.commit_edit = Tiyisisa ku hlela tsalwa
+panel.character.number_tip = {label} · Tsala nkoka, kumbe tirhisa ↑ / ↓ (Shift yi endla magoza lamakulu)
+panel.character.leading = Xivandla xa tilayini
+panel.character.tracking = Ku hambana ka maletere
+panel.character.alignment = Ku lulamisa
+panel.character.opentype = OpenType
+panel.character.text_on_path = Tsalwa endleleni
+panel.character.straight = Ku lulama
+panel.character.on_path = Endleleni
+panel.character.straight_tip = Tirhisa layini ya ntolovelo ya leyara ya tsalwa
+panel.character.on_path_tip = Tirhisa kopi ya ndlela leyi tirhaka
+panel.character.path_offset = Ku suka endleleni
+
+panel.ai.title = AI
+panel.ai.empty_editor = Kombela ku hleriwa kutani u hlalela swi endleka eka khanivhasi. Agent yi tirhisa switirhisiwa, tifilitara ni swileriso leswi fanaka ni swa timenyu, xin'wana ni xin'wana xi ri goza rin'we ro tlherisela endzhaku.
+panel.ai.empty_gallery = Vutisa hi swifaniso swa wena kutani u hlalela swi endleka eka galari: agent yi nga lava, yi languta swifaniso leswitsongo, yi hlawula, yi hlela hi mintlawa, naswona yi pfula xifaniso eka muhleri.
+panel.ai.thinking = ya ehleketa…
+panel.ai.placeholder_editor = Vutisa hi dokhumente leyi kumbe u yi hlela
+panel.ai.placeholder_gallery = Vutisa hi swifaniso swa wena
+panel.ai.send = Rhumela
+panel.ai.stop = Yimisa
+panel.ai.fetching_models = Ku vutisa CLI hi timodeli ta yona…
+panel.ai.no_models = Ku hava timodeli leti fambisanaka
+panel.ai.search_models = Lava timodeli…
+
+panel.keymap.install_plugin = Nghenisa plug-in
+panel.keymap.save_as_prompt = Hlayisa tani hi — extension yi hlawula fomati:

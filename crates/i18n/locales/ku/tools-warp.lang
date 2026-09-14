@@ -1,0 +1,27 @@
+# Amûrên teşedankirinê: Avkirin, Teşedankirina Kukla û Xala Jibirdar.
+
+# Avkirin
+tool.liquify.name = Teşedankirina Şilî
+tool.liquify.description = Pîkselên di bin firçeyeke mezin de wek şilavê pêl bide, bipêçîne, biçirûske an bipixîne — vebijarka modê yekê ji van hilbijêre. Teşedankirin di torê de kom dibe û dema pejirandinê li layerê tê sepandin.
+tool.liquify.option.tool = Amûr
+tool.liquify.choice.forward_warp = Teşedankirina Berbi Pêş
+tool.liquify.choice.reconstruct = Ji Nû Ve Ava Bike
+tool.liquify.choice.twirl_cw = Li Aliyê Saetê Bipêçîne
+tool.liquify.choice.twirl_ccw = Berevajî Aliyê Saetê Bipêçîne
+tool.liquify.choice.pucker = Biçirûske
+tool.liquify.choice.bloat = Bipixîne
+tool.liquify.choice.push_left = Berbi Çepê Pêl Bide
+tool.liquify.history.liquify = Teşedankirina Şilî
+
+# Teşedankirina Kukla
+tool.puppet_warp.name = Teşedankirina Kukla
+tool.puppet_warp.description = Bitikîne da ku layerê li çend xalan sabît bikî, paşê yekê bikişîne: tor li dora xalên sabît, li gorî vebijarka Hişkbûnê, bi hişkî an bi nermî ditewe. Pejirandin wê disepîne.
+tool.puppet_warp.option.stiffness = Hişkbûn
+tool.puppet_warp.history.puppet_warp = Teşedankirina Kukla
+
+# Xala Jibirdar
+tool.vanishing_point.name = Xala Jibirdar
+tool.vanishing_point.description = Li ser tiştekî ku perspektîf tê de heye rûberekê bi kişandinê çêke, paşê modê bike Klon û boyax bike: pîkselên kopîkirî rûberê dişopînin û bi dûrbûnê biçûk dibin.
+tool.vanishing_point.choice.edit_plane = Rûberê Sererast Bike
+tool.vanishing_point.choice.clone = Klon
+tool.vanishing_point.history.vanishing_point = Xala Jibirdar

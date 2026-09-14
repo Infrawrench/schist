@@ -39,9 +39,9 @@
 //! One `key = value` per line. `#` starts a comment; blank lines are
 //! ignored. Values run to the end of the line, trimmed; `\n` and `\\`
 //! are the two escapes. A placeholder is `{name}` and is filled by
-//! [`tf`]; a string with a count comes in a `.one` and a `.other`
-//! variant for [`tn`], where `{n}` is the count (Chinese and Japanese
-//! have no singular form and so need only `.other`). A key that merely ends
+//! [`tf`]; count strings provide the language's integer cardinal variants
+//! for [`tn`] (`zero`, `one`, `two`, `few`, `many`, `other`), where `{n}`
+//! is the count. Chinese and Japanese need only `.other`. A key that merely ends
 //! in `.other` — `filter.category.other`, a heading — is an ordinary
 //! string; it is the `.one` beside it that makes a pair.
 //!
@@ -59,89 +59,80 @@
 
 use std::collections::HashMap;
 use std::fmt::Display;
-use std::sync::atomic::{AtomicU8, Ordering};
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Mutex, OnceLock};
 
-/// A language Schist's chrome is available in.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub enum Locale {
-    /// English, the source language and the fallback.
-    En,
-    /// Swedish.
-    Sv,
-    /// German.
-    De,
-    /// Chinese, Simplified. Every `zh` request lands here, Traditional
-    /// included: a Simplified catalog is closer to what a Taiwanese or
-    /// Hong Kong reader wants than an English one.
-    ZhHans,
-    /// Japanese.
-    Ja,
-}
+mod plurals;
+
+// The registry and embedded catalogs are generated together, so their indices
+// cannot drift when a language is added.
+include!(concat!(env!("OUT_DIR"), "/locales.rs"));
 
 impl Locale {
-    /// Every locale, in the order the catalogs are embedded.
-    pub const ALL: [Locale; 5] = [
-        Locale::En,
-        Locale::Sv,
-        Locale::De,
-        Locale::ZhHans,
-        Locale::Ja,
-    ];
-
-    /// The BCP 47 tag, which is also the catalog directory's name.
+    /// The BCP 47 tag, also the catalog directory's name.
     pub fn tag(self) -> &'static str {
-        match self {
-            Locale::En => "en",
-            Locale::Sv => "sv",
-            Locale::De => "de",
-            Locale::ZhHans => "zh-Hans",
-            Locale::Ja => "ja",
-        }
+        METADATA[self.index()].0
     }
 
-    /// The language's own name for itself, for a language list.
+    /// The language's own name for itself.
     pub fn native_name(self) -> &'static str {
-        match self {
-            Locale::En => "English",
-            Locale::Sv => "Svenska",
-            Locale::De => "Deutsch",
-            Locale::ZhHans => "简体中文",
-            Locale::Ja => "日本語",
-        }
+        METADATA[self.index()].1
     }
 
-    /// Whether the language distinguishes one of something from several,
-    /// which decides whether a `.one` variant is looked for. Neither
-    /// Chinese nor Japanese marks a noun for number.
+    /// Whether the language's default script is written right to left.
+    pub fn is_rtl(self) -> bool {
+        METADATA[self.index()].2
+    }
+
+    /// The default ISO 15924 script code, for font selection.
+    pub fn script(self) -> &'static str {
+        METADATA[self.index()].3
+    }
+
+    /// Cardinal categories for this language's integer counts, plus `other`
+    /// as the required fallback even when only fractions would select it.
+    pub fn plural_categories(self) -> &'static [&'static str] {
+        plurals::categories(self.language())
+    }
+
+    /// Whether this language has a `one` cardinal category.
     pub fn has_singular(self) -> bool {
-        !matches!(self, Locale::ZhHans | Locale::Ja)
+        self.plural_categories().contains(&"one")
+    }
+
+    /// The Unicode CLDR cardinal category for an integer count.
+    pub fn plural_category(self, n: u64) -> &'static str {
+        plurals::category(self.language(), n)
+    }
+
+    fn language(self) -> &'static str {
+        self.tag().split('-').next().unwrap()
     }
 
     fn index(self) -> usize {
-        Locale::ALL.iter().position(|l| *l == self).unwrap_or(0)
+        self as usize
     }
 
-    /// The locale a single language tag asks for, if Schist has it.
-    ///
-    /// Only the language subtag decides: `sv-FI` is Swedish, `de-AT` is
-    /// German, `zh-TW` is Chinese. Takes BCP 47 (`sv-SE`) and the POSIX
-    /// spellings a `LANG` variable may still carry (`sv_SE.UTF-8`,
-    /// `de_DE@euro`); `C` and `POSIX` are no language at all.
+    /// Match BCP 47 and POSIX tags, including common legacy language codes.
+    /// Regions use the language's default catalog; `zh` uses Simplified Chinese.
     pub fn from_tag(tag: &str) -> Option<Locale> {
         let language = tag
+            .trim()
             .split(['-', '_', '.', '@'])
-            .next()
-            .unwrap_or_default()
+            .next()?
             .to_ascii_lowercase();
-        match language.as_str() {
-            "en" => Some(Locale::En),
-            "sv" => Some(Locale::Sv),
-            "de" => Some(Locale::De),
-            "zh" => Some(Locale::ZhHans),
-            "ja" => Some(Locale::Ja),
-            _ => None,
-        }
+        let language = match language.as_str() {
+            "iw" => "he",
+            "in" => "id",
+            "ji" => "yi",
+            "jw" => "jv",
+            "mo" => "ro",
+            "fil" => "tl",
+            other => other,
+        };
+        Self::ALL
+            .into_iter()
+            .find(|locale| locale.language() == language)
     }
 
     /// The first of the user's preferred languages Schist has, or
@@ -158,32 +149,16 @@ impl Locale {
     }
 }
 
-/// The catalogs, joined by `build.rs` from `locales/<tag>/*.lang`.
-const SOURCES: [&str; 5] = [
-    include_str!(concat!(env!("OUT_DIR"), "/en.lang")),
-    include_str!(concat!(env!("OUT_DIR"), "/sv.lang")),
-    include_str!(concat!(env!("OUT_DIR"), "/de.lang")),
-    include_str!(concat!(env!("OUT_DIR"), "/zh-Hans.lang")),
-    include_str!(concat!(env!("OUT_DIR"), "/ja.lang")),
-];
-
 type Catalog = HashMap<&'static str, &'static str>;
 
-fn catalogs() -> &'static [Catalog; 5] {
-    static CATALOGS: OnceLock<[Catalog; 5]> = OnceLock::new();
-    CATALOGS.get_or_init(|| {
-        let mut out: [Catalog; 5] = Default::default();
-        for (catalog, source) in out.iter_mut().zip(SOURCES) {
-            for (key, value) in parse(source) {
-                catalog.insert(key, value);
-            }
-        }
-        out
-    })
+fn catalog(locale: Locale) -> &'static Catalog {
+    static CATALOGS: [OnceLock<Catalog>; Locale::ALL.len()] =
+        [const { OnceLock::new() }; Locale::ALL.len()];
+    CATALOGS[locale.index()].get_or_init(|| parse(SOURCES[locale.index()]).collect())
 }
 
 /// The active locale's index into `SOURCES`; English until `init` runs.
-static ACTIVE: AtomicU8 = AtomicU8::new(0);
+static ACTIVE: AtomicUsize = AtomicUsize::new(0);
 
 /// Choose the language from the operating system's preferences, or from
 /// `SCHIST_LANG` when that is set. Call once, first thing at startup;
@@ -217,12 +192,12 @@ where
 /// that must speak English regardless — the headless MCP server, whose
 /// tool descriptions are read by a model, not a person.
 pub fn set_locale(locale: Locale) {
-    ACTIVE.store(locale.index() as u8, Ordering::Release);
+    ACTIVE.store(locale.index(), Ordering::Release);
 }
 
 /// The language in use.
 pub fn locale() -> Locale {
-    Locale::ALL[ACTIVE.load(Ordering::Acquire) as usize]
+    Locale::ALL[ACTIVE.load(Ordering::Acquire)]
 }
 
 /// The languages the operating system says the user prefers, in order.
@@ -248,11 +223,10 @@ fn override_tag() -> Option<String> {
 /// translation never blanks a control. Both fallbacks are bugs the
 /// crate's tests catch; the second is also logged, once per key.
 pub fn t(key: &str) -> &'static str {
-    let catalogs = catalogs();
-    if let Some(value) = catalogs[locale().index()].get(key) {
+    if let Some(value) = catalog(locale()).get(key) {
         return value;
     }
-    if let Some(value) = catalogs[Locale::En.index()].get(key) {
+    if let Some(value) = catalog(Locale::En).get(key) {
         return value;
     }
     missing(key)
@@ -265,11 +239,10 @@ pub fn t(key: &str) -> &'static str {
 /// the menu that files it under the translated heading compares against
 /// the English form.
 pub fn t_in(locale: Locale, key: &str) -> &'static str {
-    let catalogs = catalogs();
-    if let Some(value) = catalogs[locale.index()].get(key) {
+    if let Some(value) = catalog(locale).get(key) {
         return value;
     }
-    if let Some(value) = catalogs[Locale::En.index()].get(key) {
+    if let Some(value) = catalog(Locale::En).get(key) {
         return value;
     }
     missing(key)
@@ -281,28 +254,29 @@ pub fn tf(key: &str, args: &[(&str, &dyn Display)]) -> String {
     fill(t(key), args)
 }
 
-/// The string for a count: `key.one` when `n` is 1 in a language that
-/// has a singular, `key.other` otherwise, with `{n}` filled in.
+/// The string for an integer count, using the language's CLDR cardinal
+/// category (`zero`, `one`, `two`, `few`, `many`, or `other`).
 pub fn tn(key: &str, n: u64) -> String {
     tnf(key, n, &[])
 }
 
 /// [`tn`] with further placeholders besides `{n}`.
 pub fn tnf(key: &str, n: u64, args: &[(&str, &dyn Display)]) -> String {
-    let variant = if n == 1 && locale().has_singular() {
-        "one"
-    } else {
-        "other"
-    };
-    let full = format!("{key}.{variant}");
-    let text = if variant == "one" && !has(&full) {
-        // A language that has a singular but a string that was written
-        // without one: the plural form is the better fallback, since it
-        // at least belongs to the right language.
-        t(&format!("{key}.other"))
-    } else {
-        t(&full)
-    };
+    let language = locale();
+    let full = format!("{key}.{}", language.plural_category(n));
+    let other = format!("{key}.other");
+    // Stay in the selected language before trying English; an English `one`
+    // entry must never replace a translated count-neutral `other` entry.
+    let text = catalog(language)
+        .get(full.as_str())
+        .or_else(|| catalog(language).get(other.as_str()))
+        .copied()
+        .unwrap_or_else(|| {
+            t_in(
+                Locale::En,
+                &format!("{key}.{}", Locale::En.plural_category(n)),
+            )
+        });
     let mut with_n: Vec<(&str, &dyn Display)> = Vec::with_capacity(args.len() + 1);
     with_n.push(("n", &n));
     with_n.extend_from_slice(args);
@@ -311,15 +285,14 @@ pub fn tnf(key: &str, n: u64, args: &[(&str, &dyn Display)]) -> String {
 
 /// Whether the active language, or English, has a string for `key`.
 pub fn has(key: &str) -> bool {
-    let catalogs = catalogs();
-    catalogs[locale().index()].contains_key(key) || catalogs[Locale::En.index()].contains_key(key)
+    catalog(locale()).contains_key(key) || catalog(Locale::En).contains_key(key)
 }
 
 /// A list of strings for a list of keys, with the `'static` lifetime the
 /// plugin API's choice lists carry.
 ///
 /// A tool's dropdown declares its entries as `&'static [&'static str]`,
-/// which a `const` could hold in one language but not in four. This
+/// which a `const` cannot translate at runtime. This
 /// looks each key up and keeps the list for the life of the process;
 /// asking again for the same keys in the same language returns the same
 /// list, so the memory is bounded by the number of distinct lists.
@@ -327,9 +300,10 @@ pub fn choices(keys: &'static [&'static str]) -> &'static [&'static str] {
     // The cache key is the list's address and length: a
     // `&'static [&'static str]` never moves, so they identify it for the
     // life of the process. Kept as an integer, which is all it is used as.
-    type Entry = (u8, usize, usize, &'static [&'static str]);
+    type Entry = (usize, usize, usize, &'static [&'static str]);
     static LISTS: Mutex<Vec<Entry>> = Mutex::new(Vec::new());
-    let locale = ACTIVE.load(Ordering::Acquire);
+    let language = locale();
+    let locale = language.index();
     let (ptr, len) = (keys.as_ptr() as usize, keys.len());
     let mut lists = LISTS.lock().unwrap_or_else(|e| e.into_inner());
     if let Some(hit) = lists
@@ -340,7 +314,7 @@ pub fn choices(keys: &'static [&'static str]) -> &'static [&'static str] {
     }
     let list: &'static [&'static str] = Box::leak(
         keys.iter()
-            .map(|key| t(key))
+            .map(|key| t_in(language, key))
             .collect::<Vec<_>>()
             .into_boxed_slice(),
     );

@@ -1,0 +1,36 @@
+app.filter_gallery.title = Faletusi o Faamama
+app.filter_gallery.stack = Faaputuga (faaaogā mai lalo agaʻi i luga)
+app.filter_gallery.no_settings = E leai ni faatulagaga o lenei faamama.
+app.fonts.not_open_licensed = e lē o iai se laisene tatala · e tutusa fua o {substitute}
+app.fonts.missing_substituted = ua leiloa · o loo faatulaga le tusitusiga i se ituaiga mataʻitusi sui
+app.fonts.not_in_catalogue = E lē o iai {family} i le lisi o ituaiga mataʻitusi tatala
+app.fonts.no_faces = e leai ni foliga mataʻitusi e mafai ona laʻu mai mo {family}
+app.fonts.empty_response = tali gaogao
+app.update.unreadable_response = e lē mafai ona faitau le tali: {error}
+app.update.no_temp_dir = e leai se faila teu lē tumau e laʻu i ai
+app.update.asset_has_path = ua faaigoa e le lomiga lana aseta faatasi ma se ala
+app.update.too_big = e telē atu le faila ua laʻu mai nai lo le telē ua taʻua e le lomiga
+app.update.stopped_at = na taofi le laʻuina i le {got} mai le {total} paita
+app.update.hash_mismatch = o le hash o le faila ua laʻu mai o le {got}, ae lē o le {want}
+app.update.not_in_bundle = e lē o totonu lenei kopi o se fusi polokalame
+app.update.no_parent_dir = e leai se faila teu matua o le fusi polokalame
+app.update.cannot_write = e lē mafai ona tusia i le {dir}
+app.update.cannot_move_aside = e lē mafai ona aveese {app} mai lona tulaga
+app.update.cannot_move_in = e lē mafai ona tuu le fusi fou i lona tulaga
+app.update.cannot_run_ditto = e lē mafai ona faagaoioi /usr/bin/ditto
+app.update.unpack_failed = ua lē mafai ona tatala le afifi na laʻu mai: {error}
+app.update.no_app_in_download = e leai se Schist.app i le faila ua laʻu mai
+app.update.cannot_run_codesign = e lē mafai ona faagaoioi /usr/bin/codesign
+app.update.signature_invalid = e lē mafai ona faamaonia le saini o le faila ua laʻu mai: {error}
+app.update.download_unsigned = ua sainia lenei kopi ae e leʻi sainia le faila ua laʻu mai
+app.update.different_developer = ua sainia le faila ua laʻu mai e se isi tagata atiaʻe
+app.update.cannot_relaunch = e lē mafai ona amata le polokalame toe tatala
+app.update.not_installed_copy = e leʻi tuuina i inei lenei kopi e le polokalame faapipii
+app.update.cannot_start_installer = e lē mafai ona amata le polokalame faapipii
+app.update.platform_unsupported = o faafouga i lenei fausaga e faapipii i le auala na faapipii ai Schist
+app.vulkan.no_loader = schist: e leai se loader Vulkan i lenei faiga, o lea e leai ai se auala e tusi ai ata.\n\nE tusi ata Schist e ala i Vulkan, ae e leʻi faapipiiina `libvulkan.so.1`.\nE manaʻomia uma le loader ma se driver:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: e lē o iai le driver Vulkan ua faasino i ai lenei sauniga.\n\nUa seti {var}, ma o le setiina e *sui atoa* ai le saʻiliga a le loader mo\ndriver, ae lē faaopoopo i ai. O lea la, o faila nei e lē o iai\no le lisi atoa lea o driver — ma e lē vaaia e so o se polokalame Vulkan\ni lenei sauniga se driver, tusa lava pe tele ua faapipiiina:\n\n{missing}\n    {var}={value}\n\nFaasino i se manifest o loo iai — e tuu e driver ua faapipii a latou manifest i\n/usr/share/vulkan/icd.d — pe aveese lona seti ma tuu le loader e saʻili lava.\nAfai e seti lenei mea e se faila faatulagaga (le `env =` a Hyprland, se faila\nfaaopoopo systemd environment.d, po o se talaaga shell), e tatau ona suia i inā,\nma e manaʻomia ona toe saini fou ina ia oo le suiga i mea ua uma ona ola.\n
+app.vulkan.override_note = \nUa seti {var} i le {value}, ma e sui atoa ai le saʻiliga a le loader:\nafai e leai se tasi o na manifest e mo lenei masini, o le aveese o lona seti\no le mea muamua lea e taumafai ai.\n
+app.vulkan.no_driver = schist: e leai se driver Vulkan ua faapipiiina, o lea e leai ai se auala e tusi ai ata.\n\nE tusi ata Schist e ala i Vulkan. Ua faapipii le loader ae ua lipotia mai e leai\nse driver — e leai se driver ua lesitala i nofoaga uma e lua e saʻili ai:\n\n{dirs}\n\nE ese le afifi o le loader mai afifi o driver, o lea e masani ai ona na o le tasi\nle afifi o loo misi.\n\nFaapipii le driver mo le GPU o lenei masini:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nE iai le driver a NVIDIA i lana lava afifi (`nvidia-utils` i Arch,\n`nvidia-driver` i Debian). I se masini faafoliga, po o se nofoaga e leai se\ndriver GPU e faapipii, e aogā le rasteriser faakomepiuta:\n`vulkan-swrast` i Arch, ma o se vaega o `mesa-vulkan-drivers` i isi faiga. E\ntelegese, ae e mafai ona amata.\n{overridden}
+app.vulkan.no_device = schist: ua faapipii se driver Vulkan ae e leai se masini e ofo mai e tusi ai ata.\n\nAtonu e lē lagolagoina e le driver lenei GPU, pe e lē mafai ona oo i ai —\ni luga o SSH, po o totonu o se container, e masani ona misi /dev/dri.\nE lipotia e `vulkaninfo --summary` mea e vaaia e le loader.\n\nE mafai e le rasteriser faakomepiuta ona tusi ata e aunoa ma se GPU, pe afai\no le tulaga lea o lenei masini: `vulkan-swrast` i Arch, ma o se vaega o\n`mesa-vulkan-drivers` i Debian ma Fedora.\n
+app.vulkan.skip_hint = Ina ia amata pea Schist ma tuu e lē manuia i lana lava auala, seti {var}=1.

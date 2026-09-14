@@ -1,0 +1,26 @@
+# Utensils per elements dal document: surfatschas da lavur, tagls, roms, notizias e dumbraders.
+
+tool.artboard.name = Surfatscha da lavur
+tool.artboard.description = Tira si ina surfatscha da lavur: ina regiun numnada da la taila che vegn exportada separadamain. Cun trair entaifer ina surfatscha existenta vegn quella spustada.
+tool.artboard.default_name = Surfatscha da lavur {n}
+
+tool.slice.name = Tagl
+tool.slice.description = Tira si in tagl d'export, in rectangul numnà da la taila che vegn exportà sco agen maletg. Cun trair entaifer in tagl existent vegn quel spustà.
+tool.slice.default_name = Tagl {n}
+
+tool.frame.name = Rom
+tool.frame.description = Tira si in rom: ina stresa rectangulara u elliptica che maschescha tut quai che vegn plazzà lien.
+tool.frame.default_name = Rom {n}
+tool.frame.choice.rectangle = Rectangul
+tool.frame.choice.ellipse = Ellipsa
+tool.frame.history.frame = Rom
+
+tool.note.name = Notizia
+tool.note.description = Clicca sin ina part vida da la taila per fixar là ina notizia marcada cun l'autur e la colur dal stadi da l'editur; clicca sin ina noda existenta per la selecziunar en il champ Notizias.
+tool.note.history.place = Plazzar la notizia
+tool.note.history.move = Spustar la notizia
+tool.note.history.delete = Stizzar la notizia
+
+tool.count.name = Dumbrader
+tool.count.description = Clicca per plazzar marcaziuns numeradas sin la taila e clicca sin ina marcaziun existenta per l'allontanar.
+tool.count.default_name = Dumbrader {n}

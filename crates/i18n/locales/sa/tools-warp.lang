@@ -1,0 +1,22 @@
+tool.liquify.name = द्रवीकरणम्
+tool.liquify.description = विशालकूर्चस्य अधः पिक्सेलान् नुदतु, आवर्तयतु, सङ्कोचयतु वा स्फीतान् करोतु—विधिविकल्पः क्रियां चिनोति। विकृतिः जालिकायां सञ्चीयते, प्रतिबद्धकरणे च स्तरे प्रयुज्यते।
+tool.liquify.option.tool = साधनम्
+tool.liquify.choice.forward_warp = अग्रविकृतिः
+tool.liquify.choice.reconstruct = पुनर्निर्माणम्
+tool.liquify.choice.twirl_cw = दक्षिणावर्तः
+tool.liquify.choice.twirl_ccw = वामावर्तः
+tool.liquify.choice.pucker = सङ्कोचनम्
+tool.liquify.choice.bloat = स्फीतीकरणम्
+tool.liquify.choice.push_left = वामनोदनम्
+tool.liquify.history.liquify = द्रवीकरणम्
+
+tool.puppet_warp.name = पुत्तलिकाविकृतिः
+tool.puppet_warp.description = कतिपयेषु बिन्दुषु स्तरं स्थिरीकर्तुं नोदयतु, ततः एकं बिन्दुं कर्षयतु; काठिन्यविकल्पेन निर्दिष्टवत् जालिका स्थिरबिन्दूनां परितः दृढतया शिथिलतया वा नमति। प्रतिबद्धकरणेन तत् प्रयुज्यते।
+tool.puppet_warp.option.stiffness = काठिन्यम्
+tool.puppet_warp.history.puppet_warp = पुत्तलिकाविकृतिः
+
+tool.vanishing_point.name = लुप्तबिन्दुः
+tool.vanishing_point.description = परिप्रेक्ष्ययुक्तस्य वस्तुनः उपरि तलं कर्षित्वा रचयतु, ततः विधिं प्रतिरूपकरणे परिवर्त्य चित्रयतु; प्रतिलिप्ताः पिक्सेलाः तलम् अनुसरन्ति, दूरेण च लघवः भवन्ति।
+tool.vanishing_point.choice.edit_plane = तलसम्पादनम्
+tool.vanishing_point.choice.clone = प्रतिरूपकरणम्
+tool.vanishing_point.history.vanishing_point = लुप्तबिन्दुः

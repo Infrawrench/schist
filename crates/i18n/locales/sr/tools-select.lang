@@ -1,0 +1,32 @@
+# Алатке за избор.
+tool.select.mode.subtract = Одузми
+tool.select.mode.intersect = Пресек
+
+tool.marquee.rect.name = Правоугаони избор
+tool.marquee.rect.description = Превуците да направите правоугаони избор. Shift на почетку превлачења додаје избору, Alt одузима, а оба тастера праве пресек; Shift током превлачења прави квадрат. Клик без превлачења поништава избор.
+tool.marquee.ellipse.name = Елиптични избор
+tool.marquee.ellipse.description = Превуците да направите елиптични избор, уз исто комбиновање тастерима Shift/Alt као код правоугаоног избора.
+
+tool.lasso.name = Ласо
+tool.lasso.description = Превуците слободноручну контуру; њени крајеви се спајају када завршите превлачење. Shift додаје, а Alt одузима.
+tool.lasso.history.select = Избор ласом
+tool.lasso.polygonal.name = Полигонални ласо
+tool.lasso.polygonal.description = Кликћите угао за углом да направите избор правих ивица, па кликните близу прве тачке да га затворите.
+tool.lasso.polygonal.history.select = Избор полигоналним ласом
+tool.lasso.magnetic.name = Магнетни ласо
+tool.lasso.magnetic.description = Приближно пратите ивицу, а контура ће прионути уз најјачи контраст близу путање.
+tool.lasso.magnetic.history.select = Избор магнетним ласом
+tool.lasso.magnetic.option.frequency = Учесталост
+
+tool.wand.name = Чаробни штапић
+tool.wand.description = Кликните да изаберете повезану област сличне боје испод показивача, унутар задате толеранције — исте толеранције коју користе Прошири, Слично и Опсег боја.
+tool.wand.option.contiguous = Суседно
+tool.wand.history.select = Чаробни штапић
+
+tool.quick_select.name = Брзи избор
+tool.quick_select.description = Пређите четкицом преко области и избор ће се проширити кроз сличне пикселе преко којих четкица прелази.
+tool.quick_select.history.select = Брзи избор
+
+tool.object_select.name = Избор објекта
+tool.object_select.description = Развуците оквир око објекта и избор ће прионути уз објекат пронађен унутар оквира.
+tool.object_select.history.select = Избор објекта

@@ -1,0 +1,25 @@
+# Ferramentas de retoque de rexións.
+
+tool.patch.name = Parche
+tool.patch.description = Arrastra un contorno arredor dun defecto e, despois, arrastra esa selección sobre píxeles limpos: a textura desa zona adáptase ao defecto. O modo Parche determina cal dos dous extremos se arrastra.
+tool.patch.option.patch = Parche
+tool.patch.choice.source = Orixe
+tool.patch.choice.destination = Destino
+tool.patch.history.patch = Parche
+
+tool.content_aware_move.name = Movemento segundo o contido
+tool.content_aware_move.description = Arrastra un obxecto seleccionado a outro lugar e o oco que deixa énchese a partir da contorna. No modo Estender, o obxecto estírase en vez de moverse.
+tool.content_aware_move.choice.move = Mover
+tool.content_aware_move.choice.extend = Estender
+tool.content_aware_move.history.move = Movemento segundo o contido
+
+tool.red_eye.name = Ollos vermellos
+tool.red_eye.description = Preme nunha pupila para eliminar o vermello producido polo flash.
+tool.red_eye.option.pupil_size = Tamaño da pupila
+tool.red_eye.option.darken = Escurecer
+tool.red_eye.history.red_eye = Ollos vermellos
+
+tool.magic_eraser.name = Borrador máxico
+tool.magic_eraser.description = Preme para borrar a zona de cor semellante situada baixo o punteiro, dentro da tolerancia da ferramenta: pode ser a zona contigua ao punto premido ou todas as zonas da capa.
+tool.magic_eraser.option.contiguous = Contiguo
+tool.magic_eraser.history.erase = Borrador máxico

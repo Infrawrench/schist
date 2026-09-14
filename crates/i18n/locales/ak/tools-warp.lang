@@ -1,0 +1,25 @@
+# Liquify
+tool.liquify.name = Ma Ɛnyɛ Nsu
+tool.liquify.description = Pia, kyinkyim, twetwe mu anaa ma pixels a ɛwɔ brush kɛse bi ase no hon — mode no na ɛpaw nea ɛbɛyɛ. Kyinkyim no boaboa ano wɔ mesh mu, na sɛ wugye tom a, wɔde gu layer no so.
+tool.liquify.option.tool = Adwinnade
+tool.liquify.choice.forward_warp = Kyinkyim Kɔ Anim
+tool.liquify.choice.reconstruct = Yɛ Foforo
+tool.liquify.choice.twirl_cw = Kyinkyim Kɔ Nifa
+tool.liquify.choice.twirl_ccw = Kyinkyim Kɔ Benkum
+tool.liquify.choice.pucker = Twetwe Mu
+tool.liquify.choice.bloat = Ma Ɛhon
+tool.liquify.choice.push_left = Pia Kɔ Benkum
+tool.liquify.history.liquify = Ma Ɛnyɛ Nsu
+
+# Puppet Warp
+tool.puppet_warp.name = Puppet Kyinkyim
+tool.puppet_warp.description = Mia mmeae kakra na fa pin siesie layer no, afei twe baako: mesh no kyinkyim twa pin no ho sɛnea Stiffness nhyehyɛe no kyerɛ, den anaa bɔkɔɔ. Sɛ wugye tom a, ɛde nsakrae no gu so.
+tool.puppet_warp.option.stiffness = Denyɛ
+tool.puppet_warp.history.puppet_warp = Puppet Kyinkyim
+
+# Vanishing Point
+tool.vanishing_point.name = Beae a Ɛyera
+tool.vanishing_point.description = Twe plane bi gu ade a perspective wɔ mu no so, afei sesa mode no kɔ Clone na fa brush no yɛ adwuma: pixels a wɔafa no di plane no akyi na ɛyɛ ketewa bere a ɛrekɔ akyirikyiri no.
+tool.vanishing_point.choice.edit_plane = Siesie Plane
+tool.vanishing_point.choice.clone = Yɛ Ne Nsɛso
+tool.vanishing_point.history.vanishing_point = Beae a Ɛyera

@@ -1,0 +1,42 @@
+# Sunayen tsare-tsare da saƙonnin gazawar shigo da fayil.
+
+# Sunayen tsare-tsare
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Saƙonnin shigo da fayil na gama gari
+codec.msg.decoding = ana sauya lambar {name}
+codec.msg.zero_sized = hoton ba shi da pixels
+codec.msg.assembling_document = ana haɗa takardar
+
+# Fayil ɗin kamara na asali
+codec.raw.msg.decoding = ana sauya lambar fayil ɗin asali
+codec.raw.msg.developing = ana sarrafa fayil ɗin asali
+codec.raw.msg.finding_preview = ana neman samfotin da aka saka ciki
+codec.raw.msg.decoding_preview = ana sauya lambar samfotin da aka saka ciki
+codec.raw.msg.decoder_panicked = mai sauya lambar fayil ɗin asali ya gaza a wannan fayil: {what}
+
+# Affinity
+codec.affinity.import_title = Shigo da Affinity
+codec.affinity.flattened_preview_layer = Samfoti da aka shimfiɗa
+codec.affinity.msg.no_preview = Babu samfotin da aka saka ciki da za a iya amfani da shi. Tsarin shimfiɗu na Affinity mallakakke ne; Schist yana shigo da samfotin da fayil ɗin yake ɗauke da shi bayan an shimfiɗa shi. Wannan fayil ɗin ba shi da shi—sake ajiye shi a Affinity, ko fitar da shi a matsayin PSD domin shigo da cikakkun shimfiɗunsa.
+
+# HEIF
+codec.heif.msg.no_library = Babu libheif ({details}). Buɗe HEIC yana buƙatar ma'ajiyar libheif (Linux: girka libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — mai yiwuwa wannan ginin libheif ba shi da mai sauya lambar HEVC (a Debian/Ubuntu, girka libheif-plugin-libde265)
+codec.heif.msg.unknown_error = kuskuren da ba a sani ba
+codec.heif.msg.initialising = ana ƙaddamar da libheif
+codec.heif.msg.reading_container = ana karanta kwandon HEIF
+codec.heif.msg.finding_primary_image = ana neman babban hoto
+codec.heif.msg.reading_icc_profile = ana karanta bayanan ICC
+codec.heif.msg.decoding_image = ana sauya lambar hoto
+codec.heif.msg.checksum_mismatch = Jimillar dubawa ta {name} ba ta dace ba: ana tsammanin {expected}, an samu {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ya kasa karanta kwandon HEIF
+codec.heif.msg.container_empty = kwandon HEIF ba shi da hoto
+codec.heif.msg.imageio_cannot_decode = ImageIO ya kasa sauya lambar babban hoto

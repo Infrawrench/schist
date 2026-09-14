@@ -1,0 +1,43 @@
+tool.pen.name = Plim
+tool.pen.description = Bati yon chemen: klike pou mete yon pwen kwen, trennen pou rale manch koub soti ladan l, epi klike sou premye pwen an pou fèmen chemen an. Lè w valide, chemen an tounen yon kouch fòm.
+tool.pen.option.rubber_band = Bann elastik
+tool.pen.history.fill = Ranpli chemen
+tool.pen.default_path_name = Chemen {n}
+tool.pen.freeform.name = Plim alamen
+tool.pen.freeform.description = Trennen yon liy alamen epi li adapte sou yon chemen, avèk presizyon opsyon Adaptasyon an fikse a.
+tool.pen.freeform.option.fit = Adaptasyon
+tool.pen.curvature.name = Plim koub
+tool.pen.curvature.description = Klike sou yon seri pwen epi chemen an koube san pwoblèm atravè yo.
+
+tool.path_select.name = Seleksyon chemen
+tool.path_select.description = Klike sou yon chemen pou seleksyone l, epi trennen pou deplase tout chemen an.
+tool.direct_select.name = Seleksyon dirèk
+tool.direct_select.description = Trennen yon pwen lank apa oswa manch li yo pou chanje fòm chemen an toutotou l.
+
+tool.shape.history.layer = Kouch {name}
+tool.shape.rect.name = Zouti Rektang
+tool.shape.rect.label = Rektang
+tool.shape.rect.description = Trennen pou trase yon kouch fòm rektang nan koulè premye plan an; li rete vektoryèl epi li rasterize ankò lè yo chanje gwosè l.
+tool.shape.ellipse.name = Zouti Elips
+tool.shape.ellipse.label = Elips
+tool.shape.ellipse.description = Trennen pou trase yon kouch fòm elips nan koulè premye plan an.
+tool.shape.line.name = Zouti Liy
+tool.shape.line.label = Liy
+tool.shape.line.description = Trennen pou trase yon kouch fòm liy dwat nan koulè premye plan an.
+tool.shape.line.option.weight = Epesè
+tool.shape.line.option.arrow_start = Kòmansman
+tool.shape.line.option.arrow_end = Fen
+tool.shape.polygon.name = Zouti Poligòn
+tool.shape.polygon.label = Poligòn
+tool.shape.polygon.description = Trennen pou trase yon kouch fòm poligòn regilye nan koulè premye plan an, avèk kantite kote opsyon yo fikse a.
+tool.shape.polygon.option.sides = Kote
+
+tool.shape.custom.name = Fòm pèsonalize
+tool.shape.custom.label = Fòm pèsonalize
+tool.shape.custom.description = Trennen pou trase youn nan fòm preregle entegre yo, ou chwazi avèk opsyon Fòm nan.
+tool.shape.custom.choice.heart = Kè
+tool.shape.custom.choice.star = Etwal
+tool.shape.custom.choice.arrow = Flèch
+tool.shape.custom.choice.lightning = Zeklè
+tool.shape.custom.choice.cross = Kwa
+tool.shape.custom.choice.speech_bubble = Ti wonn pawòl

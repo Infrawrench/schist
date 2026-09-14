@@ -1,0 +1,25 @@
+tool.transform.name = Ирекле үзгәртү
+tool.transform.description = Ирекле үзгәртү. Коралны кабызгач, актив катлам тирәли үзгәртү кысасы ачыла: масштаблау өчен почмакны, бору өчен кысадан читтәге урынны, авыштыру өчен кырыйны сөйрәгез. Үзгәрешләр расланганчы (Enter) язылмый, ә гамәлдән баш тартканда (Escape) катлам элекке хәленә кайта.
+tool.transform.option.interpolation = Интерполяция
+tool.transform.history.transform = Ирекле үзгәртү
+tool.transform.history.image_size = Рәсем зурлыгы
+tool.transform.history.canvas_size = Киндер зурлыгы
+
+tool.transform.selection.name = Сайланган өлкәне үзгәртү
+tool.transform.selection.description = Сайланган өлкәне үзгәртү: шул ук кыса, әмма ул эчендәге пиксельләрне түгел, сайлау чиген күчерә. Тәмамлау өчен гамәлне раслагыз яки аннан баш тартыгыз.
+tool.transform.selection.history.transform = Сайланган өлкәне үзгәртү
+
+tool.transform.resample.nearest_neighbor = Иң якын күрше
+tool.transform.resample.bilinear = Билиней
+tool.transform.resample.bicubic = Бикубик
+
+tool.crop.name = Кисү
+tool.crop.description = Калдырыласы өлкәне сызу өчен сөйрәгез һәм тоткаларын көйләгез; раслаганда (Enter) документ шул өлкәгә кадәр киселә, гамәлдән баш тартканда (Escape) үзгәрешсез кала.
+tool.crop.option.ratio = Нисбәт
+tool.crop.option.delete_cropped = Киселгән пиксельләрне бетерү
+tool.crop.choice.unconstrained = Чикләнмәгән
+tool.crop.choice.ratio_1_1 = 1:1
+tool.crop.choice.ratio_4_3 = 4:3
+tool.crop.choice.ratio_3_2 = 3:2
+tool.crop.choice.ratio_16_9 = 16:9
+tool.crop.history.crop = Кисү

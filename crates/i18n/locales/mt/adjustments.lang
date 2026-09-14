@@ -1,0 +1,23 @@
+# Saffi ta' aġġustament u l-kmandi Immaġni ▸ Aġġustamenti: l-ismijiet.
+# Immarkati bl-IDs fi crates/app/src/actions.rs (adjustment_id); it-tikketti
+# tal-parametri fid-djalogu ta' kull aġġustament jinsabu f'dialogs.lang.
+adjustment.levels.name = Livelli
+adjustment.curves.name = Kurvi
+adjustment.hue_saturation.name = Tonalità/Saturazzjoni
+adjustment.brightness_contrast.name = Luminożità/Kuntrast
+adjustment.black_white.name = Iswed u Abjad
+adjustment.solid_color.name = Kulur Uniformi
+adjustment.gradient_fill.name = Mili bi Gradjent
+adjustment.pattern_fill.name = Mili b'Disinn
+adjustment.invert.name = Aqleb il-Kuluri
+adjustment.posterize.name = Posterizza
+adjustment.threshold.name = Limitu
+adjustment.color_balance.name = Bilanċ tal-Kuluri
+adjustment.vibrance.name = Vivaċità
+adjustment.exposure.name = Espożizzjoni
+adjustment.photo_filter.name = Filtru Fotografiku
+adjustment.gradient_map.name = Mappa tal-Gradjent
+adjustment.selective_color.name = Kulur Selettiv
+adjustment.channel_mixer.name = Ħallat il-Kanali
+# Tip li jinqara minn PSD u li Schist ma għandux editur għalih.
+adjustment.other.name = Aġġustament

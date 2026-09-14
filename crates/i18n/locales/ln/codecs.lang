@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = kofungola kode ya {name}
+codec.msg.zero_sized = elilingi ezali na piksele moko te
+codec.msg.assembling_document = kosangisa dokima
+
+codec.raw.msg.decoding = kofungola kode ya fisye raw
+codec.raw.msg.developing = kobongisa fisye raw
+codec.raw.msg.finding_preview = koluka botali liboso oyo ezali na kati
+codec.raw.msg.decoding_preview = kofungola kode ya botali liboso oyo ezali na kati
+codec.raw.msg.decoder_panicked = efungoli ya kode raw elongi te na fisye oyo: {what}
+
+codec.affinity.import_title = Kokɔtisa Affinity
+codec.affinity.flattened_preview_layer = Botali liboso oyo esangisami
+codec.affinity.msg.no_preview = Botali liboso ya malonga ezali na kati te. Formá ya ba kalke ya Affinity ezali ya nkuku; Schist ekɔtisaka botali liboso oyo esangisami mpe fisye ezali komema. Fisye oyo ezali na yango te — bombá yango lisusu na Affinity, to bimisá yango na PSD mpo ba kalke nyonso ekɔta.
+
+codec.heif.msg.no_library = libheif ezali te ({details}). Kofungola HEIC esengeli na bibliotɛkɛ libheif (Linux: tyá libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — ekoki kozala ete vɛrsio oyo ya libheif ezali na efungoli ya kode HEVC te (na Debian/Ubuntu, tyá libheif-plugin-libde265)
+codec.heif.msg.unknown_error = libunga oyo eyebani te
+codec.heif.msg.initialising = kobongisa libheif mpo ebanda
+codec.heif.msg.reading_container = kotánga container HEIF
+codec.heif.msg.finding_primary_image = koluka elilingi ya liboso
+codec.heif.msg.reading_icc_profile = kotánga profil ICC
+codec.heif.msg.decoding_image = kofungola kode ya elilingi
+codec.heif.msg.checksum_mismatch = Checksum ya {name} ekokani te: ezelaki {expected}, ezwi {got}
+codec.heif.msg.imageio_cannot_read = ImageIO ekokaki kotánga container HEIF te
+codec.heif.msg.container_empty = container HEIF ezali na elilingi moko te
+codec.heif.msg.imageio_cannot_decode = ImageIO ekokaki kofungola kode ya elilingi ya liboso te

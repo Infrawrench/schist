@@ -1,0 +1,24 @@
+tool.artboard.name = Tekenbord
+tool.artboard.description = Sleep om 'n tekenbord te skep: 'n benoemde gebied van die doek wat afsonderlik uitgevoer word. As jy binne 'n bestaande tekenbord sleep, word dit geskuif.
+tool.artboard.default_name = Tekenbord {n}
+
+tool.slice.name = Segment
+tool.slice.description = Sleep om 'n uitvoersegment te skep, 'n benoemde reghoek van die doek wat as sy eie beeld uitgevoer word. As jy binne 'n bestaande segment sleep, word dit geskuif.
+tool.slice.default_name = Segment {n}
+
+tool.frame.name = Raam
+tool.frame.description = Sleep om 'n raam te skep: 'n reghoekige (of elliptiese) laag wat alles wat daarin geplaas word, maskeer.
+tool.frame.default_name = Raam {n}
+tool.frame.choice.rectangle = Reghoek
+tool.frame.choice.ellipse = Ellips
+tool.frame.history.frame = Raam
+
+tool.note.name = Nota
+tool.note.description = Klik op 'n leë deel van die doek om 'n nota daar vas te pen, gemerk met die outeur en kleur in die redigeerdertoestand; klik op 'n bestaande pen om dit vir die Notas-paneel te kies.
+tool.note.history.place = Plaas nota
+tool.note.history.move = Skuif nota
+tool.note.history.delete = Skrap nota
+
+tool.count.name = Teller
+tool.count.description = Klik om genommerde telmerkers op die doek te plaas, en klik op 'n bestaande merker om dit te verwyder.
+tool.count.default_name = Teller {n}

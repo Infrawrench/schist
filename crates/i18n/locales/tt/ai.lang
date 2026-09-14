@@ -1,0 +1,30 @@
+ai.status.panel_shown = ЯИ панеле күрсәтелә
+ai.status.panel_hidden = ЯИ панеле яшерелде — Күренеш ▸ ЯИ панеле ({shortcut}) аны кабат ача
+ai.status.tool = ЯИ: {name}
+
+ai.info.connected = {backend} тоташты
+ai.info.now_in_gallery = Хәзер галереяда.
+ai.info.now_in_editor = Хәзер мөхәррирдә.
+ai.tool.shell_command = тышча командасы
+
+ai.error.cli_missing = {backend} CLI («{binary}») PATH эчендә юк. Башта аны урнаштырыгыз һәм хисап язмагызга керегез.
+ai.error.endpoint_failed = MCP оч ноктасын эшләтеп җибәреп булмады: {error}
+ai.error.binding_endpoint = MCP оч ноктасына бәйләнү
+ai.error.spawning_endpoint_thread = MCP оч ноктасы агымын эшләтеп җибәрү
+ai.error.runtime_failed = агентның башкару мохитен эшләтеп җибәреп булмады: {error}
+ai.error.worker_failed = {backend} эшчесен эшләтеп җибәреп булмады: {error}
+ai.error.did_not_start = {backend} эшли башламады: {error}
+ai.error.switch_model_failed = модельне алыштырып булмады: {error}
+ai.error.send_failed = сорауны җибәреп булмады: {error}
+ai.error.interrupt_failed = өзеп булмады: {error}
+ai.error.locating_binary = Schist башкарылма файлын эзләү
+ai.error.starting_app_server = Codex кушымта серверын эшләтеп җибәрү
+ai.error.attaching_app_server = Codex кушымта серверына тоташу
+ai.error.initializing_app_server = Codex кушымта серверын әзерләү
+ai.error.resuming_thread = Codex агымын дәвам итү
+ai.error.starting_thread = Codex агымын эшләтеп җибәрү
+
+ai.model.opus_detail = Иң куәтле дәрәҗә
+ai.model.sonnet_detail = Гадәти биремнәр өчен нәтиҗәле
+ai.model.haiku_detail = Кыска җаваплар өчен иң тизе
+ai.model.codex_catalog = Codex каталогы

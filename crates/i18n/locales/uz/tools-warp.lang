@@ -1,0 +1,24 @@
+# Deformatsiya vositalari: Suyuqlashtirish, Qo‘g‘irchoq deformatsiyasi va Perspektiva tekisligi.
+
+tool.liquify.name = Suyuqlashtirish
+tool.liquify.description = Katta mo‘yqalam ostidagi piksellarni suring, aylantiring, ichkariga torting yoki bo‘rttiring; amalni rejim parametri belgilaydi. Deformatsiya to‘rda yig‘iladi va tasdiqlanganda qatlamga qo‘llanadi.
+tool.liquify.option.tool = Vosita
+tool.liquify.choice.forward_warp = Oldinga deformatsiya
+tool.liquify.choice.reconstruct = Qayta tiklash
+tool.liquify.choice.twirl_cw = Soat yo‘nalishida aylantirish
+tool.liquify.choice.twirl_ccw = Soat yo‘nalishiga teskari aylantirish
+tool.liquify.choice.pucker = Ichkariga tortish
+tool.liquify.choice.bloat = Bo‘rttirish
+tool.liquify.choice.push_left = Chapga surish
+tool.liquify.history.liquify = Suyuqlashtirish
+
+tool.puppet_warp.name = Qo‘g‘irchoq deformatsiyasi
+tool.puppet_warp.description = Qatlamni bir necha nuqtada mahkamlash uchun bosing, so‘ng ulardan birini sudrang: to‘r Qattiqlik parametri ko‘rsatganidek mahkamlash nuqtalari atrofida qattiqroq yoki erkinroq egiladi. Tasdiqlash o‘zgarishni qo‘llaydi.
+tool.puppet_warp.option.stiffness = Qattiqlik
+tool.puppet_warp.history.puppet_warp = Qo‘g‘irchoq deformatsiyasi
+
+tool.vanishing_point.name = Perspektiva tekisligi
+tool.vanishing_point.description = Perspektivali obyekt ustida tekislikni sudrab belgilang, so‘ng rejimni Klonlashga o‘tkazib bo‘yang: nusxalangan piksellar tekislik bo‘ylab joylashadi va uzoqlashgan sari kichrayadi.
+tool.vanishing_point.choice.edit_plane = Tekislikni tahrirlash
+tool.vanishing_point.choice.clone = Klonlash
+tool.vanishing_point.history.vanishing_point = Perspektiva tekisligi

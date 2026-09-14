@@ -1,0 +1,26 @@
+# Асноўныя інструменты: перамяшчэнне, піпетка, рука і маштаб.
+
+# Перамяшчэнне
+tool.move.name = Перамяшчэнне
+tool.move.description = Перацягніце змесціва актыўнага пласта ў новае месца. Калі ўключаны аўтавыбар, націск спачатку выбірае пласт — або ўсю групу — пад указальнікам.
+tool.move.option.auto_select = Аўтавыбар
+tool.move.history.move_layer = Перамяшчэнне пласта
+
+# Піпетка
+tool.eyedropper.name = Піпетка
+tool.eyedropper.description = Вазьміце колер пад указальнікам як колер пярэдняга плана або як колер фону, калі ўтрымліваецца Alt. Падчас перацягвання колер выбіраецца бесперапынна.
+tool.eyedropper.option.sample_size = Памер узору
+tool.eyedropper.option.sample = Узор
+tool.eyedropper.choice.point_sample = Кропкавы ўзор
+tool.eyedropper.choice.average_3 = Сярэдняе 3 на 3
+tool.eyedropper.choice.average_5 = Сярэдняе 5 на 5
+tool.eyedropper.choice.average_11 = Сярэдняе 11 на 11
+tool.eyedropper.choice.average_31 = Сярэдняе 31 на 31
+tool.eyedropper.choice.all_layers = Усе пласты
+tool.eyedropper.choice.current_layer = Бягучы пласт
+
+# Рука і маштаб
+tool.hand.name = Рука
+tool.hand.description = Перамяшчае вобласць прагляду. Яна належыць акну, таму без графічнага інтэрфейсу гэты інструмент не змяняе дакумент.
+tool.zoom.name = Маштаб
+tool.zoom.description = Змяняе маштаб прагляду. Вобласць прагляду належыць акну, таму без графічнага інтэрфейсу гэты інструмент не змяняе дакумент.

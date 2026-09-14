@@ -1,0 +1,9 @@
+{
+  "loading": "A carregar…",
+  "starting": "A iniciar…",
+  "webgpu": "O Schist requer WebGPU, que este navegador não disponibiliza. Chrome/Edge 113+, Firefox 141+ e Safari 26+ disponibilizam.",
+  "noticeTitle": "O Schist funciona melhor como aplicação de ambiente de trabalho",
+  "noticeBody": "Está a usar a versão Web, uma compilação mais leve: faz a composição na CPU e não inclui algumas funcionalidades — plug-ins do Photoshop e de terceiros, galeria de imagens, painel de IA, importação HEIC e transferência de tipos de letra — e os ficheiros são guardados como transferências. A aplicação gratuita para macOS, Windows e Linux inclui tudo.",
+  "noticeLink": "Obter a aplicação para computador.",
+  "ok": "OK"
+}

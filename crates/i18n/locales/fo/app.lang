@@ -1,0 +1,37 @@
+# App-wide messages.
+app.filter_gallery.title = Síasavn
+app.filter_gallery.stack = Stakkur (nýtt niðast frá og uppeftir)
+app.filter_gallery.no_settings = Henda sían hevur ongar stillingar.
+app.fonts.not_open_licensed = ikki givið út við opnum loyvi · {substitute} hevur somu mát
+app.fonts.missing_substituted = manglar · teksturin verður settur við einum avloysarastavsniði
+app.fonts.not_in_catalogue = {family} er ikki í skránni yvir opin stavsnið
+app.fonts.no_faces = eingir stavsniðsskurðir kunnu takast niður fyri {family}
+app.fonts.empty_response = tómt svar
+app.update.unreadable_response = svarið kann ikki lesast: {error}
+app.update.no_temp_dir = eingin fyribils mappa at taka niður í
+app.update.asset_has_path = útgávan nevnir tilfeingið við einari fíluleið
+app.update.too_big = niðurhalið er størri enn útgávan sigur
+app.update.stopped_at = niðurhalið steðgaði á {got} av {total} býtum
+app.update.hash_mismatch = hashvirðið á niðurhalinum er {got}, ikki {want}
+app.update.not_in_bundle = hetta eintakið er ikki inni í einum app-bunta
+app.update.no_parent_dir = app-buntin hevur onga yvirmappu
+app.update.cannot_write = kann ikki skriva í {dir}
+app.update.cannot_move_aside = kann ikki flyta {app} til viks
+app.update.cannot_move_in = kann ikki flyta nýggja buntan upp á pláss
+app.update.cannot_run_ditto = kann ikki koyra /usr/bin/ditto
+app.update.unpack_failed = tað miseydnaðist at pakka niðurhalið út: {error}
+app.update.no_app_in_download = niðurhalið hevur onga Schist.app
+app.update.cannot_run_codesign = kann ikki koyra /usr/bin/codesign
+app.update.signature_invalid = undirskriftin á niðurhalinum kann ikki váttast: {error}
+app.update.download_unsigned = hetta eintakið er undirskrivað, men niðurhalið er ikki
+app.update.different_developer = niðurhalið er undirskrivað av einum øðrum mennara
+app.update.cannot_relaunch = kann ikki byrja endurræsaran
+app.update.not_installed_copy = hetta eintakið varð ikki lagt inn her av innleggingarforritinum
+app.update.cannot_start_installer = kann ikki byrja innleggingarforritið
+app.update.platform_unsupported = dagføringar á hesum pallinum verða lagdar inn á sama hátt sum Schist varð
+app.vulkan.no_loader = schist: eingin Vulkan-loader er á hesi skipanini, so einki kann teknast við.\n\nSchist teknar gjøgnum Vulkan, og `libvulkan.so.1` er ikki lagt inn.\nBæði loader og drivari eru neyðug:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-icd-loader vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install libvulkan1 mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install vulkan-loader mesa-vulkan-drivers\n
+app.vulkan.override_missing = schist: Vulkan-drivarin, sum henda setan vísir á, er ikki har.\n\n{var} er sett, og tann stillingin *kemur í staðin fyri* leitingina hjá loaderinum\neftir drivarum heldur enn at leggja nakað afturat henni. Tí eru hesar fílurnar, sum ikki eru til,\nallur drivaralistin — og einki Vulkan-forrit í hesi setanini sær nakran drivara,\nlíkamikið hvussu nógvir eru lagdir inn:\n\n{missing}\n    {var}={value}\n\nVís á eina verandi manifestfílu — innlagdir drivarnar leggja sínar í\n/usr/share/vulkan/icd.d — ella strika stillingina og lat loaderin finna sínar egnu.\nUm ein setan fær hetta úr einari uppsetingarfílu (Hyprland `env =`, ein\nsystemd environment.d-ískoytisfíla, ein skeljuprofilur), má tað broytast har,\nog tú mást rita inn av nýggjum, áðrenn broytingin røkkur tí, sum longu koyrir.\n
+app.vulkan.override_note = \n{var} er sett til {value}, og tað kemur í staðin fyri egnu leitingina hjá loaderinum:\num einki av hesum manifestunum er til hesa maskinuna, royn fyrst at strika stillingina.\n
+app.vulkan.no_driver = schist: eingin Vulkan-drivari er lagdur inn, so einki kann teknast.\n\nSchist teknar gjøgnum Vulkan. Loaderin er lagdur inn, men finnur ongan\ndrivara — eingin drivari er skrásettur á nøkrum av teimum báðum støðunum, leitað verður:\n\n{dirs}\n\nLoaderin kemur fyri seg og drivarnir fyri seg, so vanliga manglar bert ein pakki.\n\nLegg tann inn, sum hóskar til GPU-ina í hesi maskinuni:\n\n    Arch, CachyOS, Omarchy    sudo pacman -S vulkan-driver\n    Debian, Ubuntu, Mint      sudo apt install mesa-vulkan-drivers\n    Fedora, RHEL              sudo dnf install mesa-vulkan-drivers\n\nOgnardrivarin hjá NVIDIA hevur sín egna (`nvidia-utils` á Arch,\n`nvidia-driver` á Debian). Í einari tykismaskinu, ella har eingin\nGPU-drivari kann leggjast inn, riggar ritbúnaðarrasterarin:\n`vulkan-swrast` á Arch, partur av `mesa-vulkan-drivers` aðrastaðni. Hann er\nseinur, men hann byrjar.\n{overridden}
+app.vulkan.no_device = schist: ein Vulkan-drivari er lagdur inn, men veitir einki tól at tekna á.\n\nDrivarin stuðlar kanska ikki hesi GPU-ini, ella fær ikki samband við hana —\nyvir SSH, ella inni í einum ílati, manglar /dev/dri ofta.\n`vulkaninfo --summary` vísir, hvat loaderin sær.\n\nRitbúnaðarrasterarin teknar heilt uttan GPU, um henda maskinan ikki hevur nakra:\n`vulkan-swrast` á Arch, partur av `mesa-vulkan-drivers` á Debian og Fedora.\n
+app.vulkan.skip_hint = Fyri kortini at byrja Schist og lata tað miseydnast á sín egna hátt, set {var}=1.

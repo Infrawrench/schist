@@ -1,0 +1,29 @@
+# Tekengebiet
+tool.artboard.name = Tekengebiet
+tool.artboard.description = Sleep in tekengebiet út: in neamd part fan it kanvas dat apart eksportearre wurdt. Troch binnen in besteand tekengebiet te slepen, ferpleatse jo it.
+tool.artboard.default_name = Tekengebiet {n}
+
+# Utsnijing
+tool.slice.name = Utsnijing
+tool.slice.description = Sleep in eksportútsnijing út, in neamde rjochthoeke fan it kanvas dy't as aparte ôfbylding eksportearre wurdt. Troch binnen in besteande útsnijing te slepen, ferpleatse jo dy.
+tool.slice.default_name = Utsnijing {n}
+
+# Ramt
+tool.frame.name = Ramt
+tool.frame.description = Sleep in ramt út: in rjochthoekige (of elliptyske) laach dy't alles wat deryn pleatst wurdt maskearret.
+tool.frame.default_name = Ramt {n}
+tool.frame.choice.rectangle = Rjochthoeke
+tool.frame.choice.ellipse = Ellips
+tool.frame.history.frame = Ramt
+
+# Notysje
+tool.note.name = Notysje
+tool.note.description = Klik op in leech stik kanvas om dêr in notysje fêst te setten, mei de skriuwer en kleur út de bewurkersteat; klik op in besteande pin om dy foar it paniel Notysjes te selektearjen.
+tool.note.history.place = Notysje pleatse
+tool.note.history.move = Notysje ferpleatse
+tool.note.history.delete = Notysje wiskje
+
+# Teller
+tool.count.name = Teller
+tool.count.description = Klik om nûmere teltekens op it kanvas te pleatsen en klik op in besteand teken om it te ferwiderjen.
+tool.count.default_name = Teller {n}

@@ -1,0 +1,23 @@
+tool.patch.name = ޕެޗް
+tool.patch.description = ކުށެއް ހުރި ދިމާލުގައި ބުރެއް ދަމާލައި، އެ ހޮވާފައިވާ ބައި ސާފު ޕިކްސެލްތަކެއް މައްޗަށް ދަމާށެވެ: އެތަނުގެ ޓެކްސްޗަރ ކުށް ހުރި ބަޔަށް ފިޓް ކުރެވޭނެއެވެ. ޕެޗް މޯޑުން މި ދެ ކޮޅުން ދަމާނީ ކޮން ކޮޅެއްކަން ހޮވޭނެއެވެ.
+tool.patch.option.patch = ޕެޗް
+tool.patch.choice.source = މަސްދަރު
+tool.patch.choice.destination = މަންޒިލް
+tool.patch.history.patch = ޕެޗް
+
+tool.content_aware_move.name = ކޮންޓެންޓް-އެވެއަރ މޫވް
+tool.content_aware_move.description = ހޮވާފައިވާ އޮބްޖެކްޓެއް އެހެން ތަނަކަށް ދަމާލުމުން، އެއީ ދޫކޮށްލާ ހުސްތަން އެ ސަރަހައްދުގެ ތަކެތިން ފުރެވޭނެއެވެ. އެކްސްޓެންޑް މޯޑުގައި އޮބްޖެކްޓް ބަދަލު ނުކޮށް ދިގު ކުރެވޭނެއެވެ.
+tool.content_aware_move.choice.move = ބަދަލު ކުރުން
+tool.content_aware_move.choice.extend = ދިގު ކުރުން
+tool.content_aware_move.history.move = ކޮންޓެންޓް-އެވެއަރ މޫވް
+
+tool.red_eye.name = ރަތް ލޯ
+tool.red_eye.description = ފްލެޝްގެ ސަބަބުން ލޯމަތީ އައި ރަތްކުލަ ނައްތާލުމަށް ލޯމަތީ ކްލިކް ކުރާށެވެ.
+tool.red_eye.option.pupil_size = ލޯމަތީގެ ސައިޒު
+tool.red_eye.option.darken = އަނދިރި ކުރުން
+tool.red_eye.history.red_eye = ރަތް ލޯ
+
+tool.magic_eraser.name = މެޖިކް އިރޭސަރ
+tool.magic_eraser.description = ޕޮއިންޓަރުގެ ދަށުގައި ހުރި އެއްކަހަލަ ކުލައިގެ ދައިރާ، އާލާތުގެ ޓޮލަރެންސްގެ މިންވަރުގައި، ފޮހެލުމަށް ކްލިކް ކުރާށެވެ؛ ކްލިކް ކުރި ތަނާ ގުޅިފައިވާ ބައި ނުވަތަ ލޭޔަރުގެ ހުރިހާ ތަނެއް ފޮހެވޭނެއެވެ.
+tool.magic_eraser.option.contiguous = ގުޅިފައިވާ
+tool.magic_eraser.history.erase = މެޖިކް އިރޭސަރ

@@ -1,0 +1,40 @@
+# Nòmines de formadu
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+# Messàgios cumpartzidos de importatzione
+codec.msg.decoding = decodifichende {name}
+codec.msg.zero_sized = s'immàgine no tenet perunu pixel
+codec.msg.assembling_document = cumponende su documentu
+
+# Archìviu raw de càmera
+codec.raw.msg.decoding = decodifichende s'archìviu raw
+codec.raw.msg.developing = isvilupende s'archìviu raw
+codec.raw.msg.finding_preview = chirchende s'antiprima incorporada
+codec.raw.msg.decoding_preview = decodifichende s'antiprima incorporada
+codec.raw.msg.decoder_panicked = su decodificadore raw at faddidu cun custu archìviu: {what}
+
+# Affinity
+codec.affinity.import_title = Importatzione Affinity
+codec.affinity.flattened_preview_layer = Antiprima aplanada
+codec.affinity.msg.no_preview = Non b'at peruna antiprima incorporada chi si potzat impreare. Su formadu a istratos de Affinity est propietàriu; Schist importat s'antiprima aplanada chi portat s'archìviu. Custu archìviu no nde tenet — torra·ddu a sarvare in Affinity, o esporta·ddu comente PSD pro un'importatzione intrea cun is istratos.
+
+# HEIF
+codec.heif.msg.no_library = libheif no est a disponimentu ({details}). Pro abèrrere HEIC serbit sa biblioteca libheif (Linux: installa libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — podet èssere chi custa versione de libheif no tenzat unu decodificadore HEVC (in Debian/Ubuntu, installa libheif-plugin-libde265)
+codec.heif.msg.unknown_error = faddina disconnota
+codec.heif.msg.initialising = initzializende libheif
+codec.heif.msg.reading_container = leghende su cuntènnidore HEIF
+codec.heif.msg.finding_primary_image = chirchende s'immàgine printzipale
+codec.heif.msg.reading_icc_profile = leghende su profilu ICC
+codec.heif.msg.decoding_image = decodifichende s'immàgine
+codec.heif.msg.checksum_mismatch = Sa suma de controllu de {name} no currispondet: s'ispetaiat {expected}, est arribada {got}
+codec.heif.msg.imageio_cannot_read = ImageIO no at pòdidu lèghere su cuntènnidore HEIF
+codec.heif.msg.container_empty = su cuntènnidore HEIF no tenet peruna immàgine
+codec.heif.msg.imageio_cannot_decode = ImageIO no at pòdidu decodificare s'immàgine printzipale

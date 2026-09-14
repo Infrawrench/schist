@@ -1,0 +1,35 @@
+codec.png.name = PNG
+codec.jpeg.name = JPEG
+codec.webp.name = WebP
+codec.tiff.name = TIFF
+codec.heif.name = HEIF
+codec.raw.name = Camera Raw
+codec.affinity.name = Affinity
+codec.psd.name = Photoshop PSD
+
+codec.msg.decoding = o tigodiñ {name}
+codec.msg.zero_sized = n'eus piksel ebet er skeudenn
+codec.msg.assembling_document = o sevel an teul
+
+codec.raw.msg.decoding = o tigodiñ ar restr kriz
+codec.raw.msg.developing = o tiorren ar restr kriz
+codec.raw.msg.finding_preview = o klask an alberz enframmet
+codec.raw.msg.decoding_preview = o tigodiñ an alberz enframmet
+codec.raw.msg.decoder_panicked = c'hwitet en deus an digoder kriz gant ar restr-mañ: {what}
+
+codec.affinity.import_title = Enporzhiañ Affinity
+codec.affinity.flattened_preview_layer = Alberz plaenaet
+codec.affinity.msg.no_preview = Alberz enframmet arveradus ebet. Perzhel eo mentrezh gwiskadoù Affinity; Schist a enporzh an alberz plaenaet a zo er restr. N'eus hini ebet er restr-mañ — enrollit anezhi en-dro en Affinity, pe ezporzhiit anezhi e PSD evit un enporzhiadenn glok gant gwiskadoù.
+
+codec.heif.msg.no_library = Ne c'haller ket kaout libheif ({details}). Evit digeriñ HEIC ez eo ret kaout levraoueg libheif (Linux: staliañ libheif1; macOS: brew install libheif).
+codec.heif.msg.no_decoder = {what}: {message} — marteze n'eus digoder HEVC ebet er seurt libheif-mañ (war Debian/Ubuntu, staliañ libheif-plugin-libde265)
+codec.heif.msg.unknown_error = fazi dianav
+codec.heif.msg.initialising = o teraouiñ libheif
+codec.heif.msg.reading_container = o lenn ar c'hronnad HEIF
+codec.heif.msg.finding_primary_image = o klask ar skeudenn bennañ
+codec.heif.msg.reading_icc_profile = o lenn an aelad ICC
+codec.heif.msg.decoding_image = o tigodiñ ar skeudenn
+codec.heif.msg.checksum_mismatch = N'eo ket mat sammad gwiriañ {name}: gortozet {expected}, bet {got}
+codec.heif.msg.imageio_cannot_read = N'hall ket ImageIO lenn ar c'hronnad HEIF
+codec.heif.msg.container_empty = n'eus skeudenn ebet er c'hronnad HEIF
+codec.heif.msg.imageio_cannot_decode = N'hall ket ImageIO digodiñ ar skeudenn bennañ

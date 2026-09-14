@@ -1,0 +1,25 @@
+# Lisebelisoa tsa ho lokisa libaka: Patch, Content-Aware Move, Red Eye le Magic Eraser.
+
+tool.patch.name = Setsiba
+tool.patch.description = Hula moeli ho potoloha sekoli, ebe u hulela khetho eo lipikseleng tse hloekileng: sebopeho sa bokaholimo ba tsona se nyalisoa le sekoli. Mokhoa oa Setsiba o khetha hore na u hula ntlha efe ea para ena.
+tool.patch.option.patch = Setsiba
+tool.patch.choice.source = Mohloli
+tool.patch.choice.destination = Moo se Isoang
+tool.patch.history.patch = Setsiba
+
+tool.content_aware_move.name = Tsamaisa ka ho Lemoha Litaba
+tool.content_aware_move.description = Hulela ntho e khethiloeng sebakeng se seng, 'me lesoba leo e le sieang le tlatsoa ka lintho tse e potolohileng. Mokhoeng oa Atolosa, ntho e a otlolloa ho e-na le ho tsamaisoa.
+tool.content_aware_move.choice.move = Tsamaisa
+tool.content_aware_move.choice.extend = Atolosa
+tool.content_aware_move.history.move = Tsamaisa ka ho Lemoha Litaba
+
+tool.red_eye.name = Leihlo le Lefubelu
+tool.red_eye.description = Tobetsa thaka ea leihlo ho tlosa bofubelu bo bakiloeng ke lebone la flash.
+tool.red_eye.option.pupil_size = Boholo ba Thaka
+tool.red_eye.option.darken = Fifatsa
+tool.red_eye.history.red_eye = Leihlo le Lefubelu
+
+tool.magic_eraser.name = Raba ea Boselamose
+tool.magic_eraser.description = Tobetsa ho hlakola sebaka sa 'mala o tšoanang se tlas'a sesupa, ho latela tekanyo ea mamello ea sesebelisoa—ebang ke sebaka se hokahaneng le moo u tobileng teng kapa libaka tsohle tsa mokhahlelo.
+tool.magic_eraser.option.contiguous = Tse Hokahaneng
+tool.magic_eraser.history.erase = Hlakola ka Raba ea Boselamose

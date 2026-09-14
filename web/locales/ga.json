@@ -1,0 +1,9 @@
+{
+  "loading": "Á lódáil…",
+  "starting": "Á thosú…",
+  "webgpu": "Tá WebGPU de dhíth ar Schist, ach ní chuireann an brabhsálaí seo ar fáil é. Cuireann Chrome/Edge 113+, Firefox 141+ agus Safari 26+ ar fáil é.",
+  "noticeTitle": "Is fearr a oibríonn Schist mar aip deisce",
+  "noticeBody": "Tá an leagan gréasáin á úsáid agat, ar leagan níos éadroime é: cumascann sé ar an LAP agus fágtar roinnt gnéithe ar lár — breiseáin Photoshop agus breiseáin tríú páirtí, gailearaí na n-íomhánna, an painéal IS, iompórtáil HEIC agus íoslódálacha clónna — agus sábháiltear comhaid mar íoslódálacha. Tá gach ceann díobh san aip deisce saor in aisce do macOS, Windows agus Linux.",
+  "noticeLink": "Faigh an aip deisce.",
+  "ok": "Ceart go leor"
+}

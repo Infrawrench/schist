@@ -1,0 +1,83 @@
+# Pincel
+tool.brush.name = Pincel
+tool.brush.description = Ñawpaq llimp'iwan llamp'u kantuyuq siq'ita pintay; sayayninqa editorpa pincel sayaynin, sinchi kaynin, mana rikukuq kaynin ima nisqanman hinam.
+tool.brush.history.stroke = Pincelwan siq'iy
+
+# Lápiz
+tool.pencil.name = Lápiz
+tool.pencil.description = Ñawpaq llimp'iwan sinchi kantuyuq, mana antialiasingniyuq siq'ita pintay.
+tool.pencil.history.stroke = Lápizwan siq'iy
+
+# Pichana
+tool.eraser.name = Pichana
+tool.eraser.description = Siq'isqa ñanta pichay, patata ch'uya kayman kutichispa.
+tool.eraser.history.stroke = Pichanawan siq'iy
+
+# Clonar sello
+tool.clone.name = Clonar sello
+tool.clone.description = Clonar sello: qallariq ch'ikuta churanapaq Alt-ñit'iy, chaymanta chaymanta mirachisqa pixelkunata kikin karupi pintay.
+tool.clone.history.stroke = Clonar sellowan siq'iy
+
+# K'anchachiy, tutayachiy, esponja ima
+tool.dodge.name = Foto k'anchachiq
+tool.dodge.description = Siq'ip pasan pixelkunata k'anchachiy.
+tool.dodge.history.stroke = Foto k'anchachiqwan siq'iy
+tool.burn.name = Foto tutayachiq
+tool.burn.description = Siq'ip pasan pixelkunata tutayachiy.
+tool.burn.history.stroke = Foto tutayachiqwan siq'iy
+tool.sponge.name = Esponja
+tool.sponge.description = Siq'ip pasan pixelkunap llimp'inta saksachiy utaq saksayninta pisiyachiy.
+tool.sponge.history.stroke = Esponjawan siq'iy
+
+# Desenfoque, nitidez, llusiy ima
+tool.blur.name = Desenfoque
+tool.blur.description = Siq'ip pasan pixelkunap nitidezninta pisiyachiy.
+tool.blur.history.stroke = Desenfoquewan siq'iy
+tool.sharpen.name = Nitidezta yapay
+tool.sharpen.description = Siq'ip pasan pixelkunap nitidezninta yapay.
+tool.sharpen.history.stroke = Nitidezta yapay
+tool.smudge.name = Llusiy
+tool.smudge.description = Siq'isqa ñanta llimp'ita aysay, unu pinturata tanqachkankiman hina.
+tool.smudge.history.stroke = Llusispa siq'iy
+
+# Allichay
+tool.heal.name = Allichaq pincel
+tool.heal.description = Allichaq pincel: qallariyninta churanapaq Alt-ñit'iy, chaymanta pintay; qallariqpa texturanqa chayananpa kikin llimp'inwan k'anchayninwan chaqrusqa kanqa.
+tool.heal.history.stroke = Allichaq pincelwan siq'iy
+tool.spot_heal.name = Ch'iku allichaq pincel
+tool.spot_heal.description = Ch'iku allichaq pincel: pantaypa hawanpi pintay, muyuriqninmanta hapisqa texturawan rantichisqa kananpaq; manam qallariq ch'ikuta churanachu.
+tool.spot_heal.history.stroke = Ch'iku allichaq pincelwan siq'iy
+
+# Ñawpaq ruwasqakuna pincel
+tool.history_brush.name = Ñawpaq ruwasqakuna pincel
+tool.history_brush.description = Qillqa khipup ñawpaq waqaychasqa rikch'ayninmanta pixelkunata wakmanta pintay, qhipa ruwasqakunata siq'imanta siq'i kutichispa.
+tool.history_brush.history.stroke = Ñawpaq ruwasqakuna pincelwan siq'iy
+
+# Qhipa pichana
+tool.background_eraser.name = Qhipa pichana
+tool.background_eraser.description = Pincel chawpipa uranpi hapisqa llimp'ita pichay, chikan pixelkunatataq ama llamiychu, imata qhipanmanta hurqunapaq.
+tool.background_eraser.history.stroke = Qhipa pichanawan siq'iy
+
+# Gradiente
+tool.gradient.name = Gradiente
+tool.gradient.description = Patata hunt'achinapaq aysay — akllasqa kaptinqa chay ukhunta — ñawpaq llim'imanta qhipa llim'ikama aysasqayki ñanta puriq siqiq gradientewan.
+tool.gradient.radial.name = Radio gradiente
+tool.gradient.radial.description = Chawpimanta hawaman aysay, ñawpaq qhipa llim'ikuna chawpipi radio gradientewan hunt'achinapaq.
+tool.gradient.option.gradient = Gradiente
+tool.gradient.option.reverse = Tikray
+tool.gradient.option.dither = Dither
+tool.gradient.choice.foreground_to_background = Ñawpaq llim'imanta qhipa llim'iman
+tool.gradient.choice.foreground_to_transparent = Ñawpaq llim'imanta ch'uyaman
+tool.gradient.choice.linear = Siqiq
+tool.gradient.choice.radial = Radio
+tool.gradient.choice.angle = K'uchu
+tool.gradient.choice.reflected = Espejopi rikch'akuq
+tool.gradient.choice.diamond = Diamante
+tool.gradient.history.gradient = Gradiente hunt'achiy
+
+# Pintura balde
+tool.bucket.name = Pintura balde
+tool.bucket.description = Ñit'ispa tupuchiqpa uranpi kaq rikch'akuq llimp'iyuq tupanakusqa k'itita ñawpaq llim'iwan hunt'achiy, llamk'anap saqisqan tupukama.
+tool.bucket.option.contiguous = Tupanakusqa
+tool.bucket.option.all_layers = Llapan patakuna
+tool.bucket.history.fill = Pintura baldewan hunt'achiy
