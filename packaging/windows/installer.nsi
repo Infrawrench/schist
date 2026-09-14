@@ -60,6 +60,8 @@ Section "Schist"
   ; Everything Schist can open that the shell has no better idea about.
   ; PSB is a PSD with 64-bit offsets, and the Affinity family is
   ; import-only, but all of them open by double-click just the same.
+  !insertmacro AssociateExt "pdn" "Paint.NET Document"
+  !insertmacro AssociateExt "xcf" "GIMP XCF Document"
   !insertmacro AssociateExt "psd" "Photoshop Document"
   !insertmacro AssociateExt "psb" "Photoshop Large Document"
   !insertmacro AssociateExt "afphoto" "Affinity Photo Document"
@@ -84,6 +86,8 @@ Section "Uninstall"
   DeleteRegKey HKCR "schist"
   DeleteRegKey HKLM "Software\Schist"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Schist"
+  !insertmacro UnassociateExt "pdn"
+  !insertmacro UnassociateExt "xcf"
   !insertmacro UnassociateExt "psd"
   !insertmacro UnassociateExt "psb"
   !insertmacro UnassociateExt "afphoto"

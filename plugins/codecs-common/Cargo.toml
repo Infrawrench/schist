@@ -13,6 +13,9 @@ schist-codec-affinity.workspace = true
 anyhow.workspace = true
 log.workspace = true
 image.workspace = true
+miniz_oxide.workspace = true
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+half = "2"
 sha2 = "0.10"
 schist-color.workspace = true
 schist-colormgmt.workspace = true

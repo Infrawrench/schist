@@ -43,4 +43,12 @@
     <glob pattern="*.psb"/>
   </mime-type>
 
+  <mime-type type="image/x-paintnet">
+    <comment>Paint.NET document</comment>
+    <sub-class-of type="application/octet-stream"/>
+    <generic-icon name="image-x-generic"/>
+    <glob pattern="*.pdn"/>
+    <magic priority="60"><match type="string" value="PDN3" offset="0"/></magic>
+  </mime-type>
+
 </mime-info>

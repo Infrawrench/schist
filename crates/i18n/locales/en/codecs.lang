@@ -13,6 +13,16 @@ codec.heif.name = HEIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
+codec.pdn.name = Paint.NET
+codec.xcf.name = GIMP XCF
+
+# Native layered raster files
+codec.layered.invalid = The layered image file is damaged or incomplete.
+codec.layered.too_large = The layered image exceeds the supported size or layer count.
+codec.layered.unsupported = This file uses an unsupported feature: {feature}.
+codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
+codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
+codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
 
 # Shared import messages. These prefix a decoder's own message, so they
 # read as a clause: "decoding PNG: unexpected end of file".

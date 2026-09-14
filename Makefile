@@ -248,6 +248,17 @@ clean-helpers:
 
 FORCE:
 
+.PHONY: check-layered-codecs check-layered-codecs-wasm check-layered-codecs-app
+check-layered-codecs:
+	$(CARGO) test -p schist-codecs-common -p schist-preview
+	$(CARGO) clippy -p schist-codecs-common -p schist-preview --all-targets -- -D warnings
+
+check-layered-codecs-wasm:
+	$(CARGO) check -p schist-codecs-common -p schist-preview --target wasm32-unknown-unknown
+
+check-layered-codecs-app:
+	$(CARGO) check -p schist-app
+
 # README's text layout and GPU effect work.
 .PHONY: check-text check-gpu-fx check-readme
 check-text:

@@ -1,10 +1,15 @@
 //! Common raster format codecs (PNG, JPEG, WebP, TIFF) via the `image`
 //! crate, HEIC/HEIF via the system's libheif, camera raws via the
-//! pure-Rust `schist-codec-raw` crate, wrapped as `CodecPlugin`s, plus layered Affinity
-//! import/export. For the simple formats, import produces a single
+//! pure-Rust `schist-codec-raw` crate, wrapped as `CodecPlugin`s, plus layered
+//! Affinity, Paint.NET PDN, and GIMP XCF import/export. For the simple formats, import produces a single
 //! "Background" layer and export flattens through the compositor.
 
 pub use affinity::AffinityCodec;
+mod layered;
+mod pdn;
+mod xcf;
+pub use pdn::PdnCodec;
+pub use xcf::XcfCodec;
 mod psd;
 use anyhow::Context as _;
 #[cfg(not(target_arch = "wasm32"))]
@@ -411,6 +416,8 @@ impl PluginManifest for CommonCodecsPlugin {
         #[cfg(not(target_arch = "wasm32"))]
         registry.register_codec(Box::new(HeifCodec));
         registry.register_codec(Box::new(AffinityCodec));
+        registry.register_codec(Box::new(PdnCodec));
+        registry.register_codec(Box::new(XcfCodec));
     }
 }
 

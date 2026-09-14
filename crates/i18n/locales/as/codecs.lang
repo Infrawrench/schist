@@ -48,3 +48,13 @@ codec.heif.msg.checksum_mismatch = {name}-ৰ চেকছাম নিমিল
 codec.heif.msg.imageio_cannot_read = ImageIO-এ HEIF কণ্টেইনাৰ পঢ়িব নোৱাৰিলে
 codec.heif.msg.container_empty = HEIF কণ্টেইনাৰত কোনো ছবি নাই
 codec.heif.msg.imageio_cannot_decode = ImageIO-এ মূল ছবি ডিক'ড কৰিব নোৱাৰিলে
+
+# Native layered formats. Product names and English diagnostics pending translation.
+codec.pdn.name = Paint.NET
+codec.xcf.name = GIMP XCF
+codec.layered.invalid = The layered image file is damaged or incomplete.
+codec.layered.too_large = The layered image exceeds the supported size or layer count.
+codec.layered.unsupported = This file uses an unsupported feature: {feature}.
+codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
+codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
+codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
