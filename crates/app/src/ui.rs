@@ -592,6 +592,20 @@ pub fn modal_frame(
     Modal::new(title).width(width).child(body).action(actions)
 }
 
+/// A filter/adjustment dialog whose canvas preview must retain its colors.
+pub fn preview_modal_frame(
+    title: impl Into<SharedString>,
+    width: f32,
+    body: impl IntoElement,
+    actions: impl IntoElement,
+) -> impl IntoElement {
+    Modal::new(title)
+        .width(width)
+        .dim_background(false)
+        .child(body)
+        .action(actions)
+}
+
 use gpui::prelude::FluentBuilder as _;
 
 #[cfg(test)]

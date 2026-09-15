@@ -1,24 +1,43 @@
 //! Run each shader through its real filter body, against that body's CPU
-//! fallback. Tiny forced jobs make edge cases affordable and ensure that
-//! a passing test cannot be a silently declined GPU operation.
+//! fallback. Tiny forced jobs cover edges; production-sized jobs verify
+//! normal offloading. Neither can pass by silently declining GPU work.
 use schist_compositor_gpu::{GpuCompositor, GpuContext};
 use schist_filters_core as filters;
 use schist_fx::{FxBackend, ShaderJob, ShaderSpec};
 use schist_plugin_api::{FilterContext, FilterPlugin, FilterValues};
 use std::sync::{Arc, Mutex};
 
-struct Forced {
+struct Tracking {
     ctx: Arc<GpuContext>,
+    production: bool,
     seen: Mutex<Vec<&'static str>>,
 }
-impl FxBackend for Forced {
+impl FxBackend for Tracking {
     fn name(&self) -> &'static str {
-        "forced shader test"
+        "tracked shader test"
     }
     fn shader(&self, job: &ShaderJob<'_>) -> Option<Vec<f32>> {
-        let out = self.ctx.run_shader(job).expect(job.shader.name);
+        let out = if self.production {
+            schist_compositor_gpu::GpuFx::new(self.ctx.clone()).shader(job)
+        } else {
+            self.ctx.run_shader(job)
+        }
+        .expect(job.shader.name);
         self.seen.lock().unwrap().push(job.shader.source);
         Some(out)
+    }
+}
+// Discover the real filter body's normalized cost, so the production
+// cases remain above the offload threshold when parameters change.
+#[derive(Default)]
+struct CostProbe(Mutex<Vec<usize>>);
+impl FxBackend for CostProbe {
+    fn name(&self) -> &'static str {
+        "shader cost probe"
+    }
+    fn shader(&self, job: &ShaderJob<'_>) -> Option<Vec<f32>> {
+        self.0.lock().unwrap().push(job.work_per_pixel);
+        Some(job.px.to_vec())
     }
 }
 struct Restore(Arc<dyn FxBackend>);
@@ -120,7 +139,10 @@ fn cases() -> Vec<Case> {
     case!(filters::pixelate::Facet);
     case!(filters::pixelate::Fragment);
     case!(filters::distort::Twirl);
+    case!(filters::distort::Twirl, "angle" => -137.0);
     case!(filters::distort::Ripple, "amount" => -237.0);
+    case!(filters::distort::Ripple, "amount" => 17.0, "size" => 7.0);
+    case!(filters::distort::Wave, "generators" => 3.0, "horizontal" => 18.0, "vertical" => 30.0, "seed" => 71.0);
     case!(filters::render::Clouds);
     case!(filters::render::DifferenceClouds);
     case!(filters::render::Fibers);
@@ -131,19 +153,25 @@ fn cases() -> Vec<Case> {
 fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
     let Some(gpu) = gpu() else { return };
     let _restore = Restore(schist_fx::backend());
-    let force = Arc::new(Forced {
+    let force = Arc::new(Tracking {
         ctx: gpu.context().clone(),
+        production: false,
+        seen: Mutex::new(Vec::new()),
+    });
+    let production = Arc::new(Tracking {
+        ctx: gpu.context().clone(),
+        production: true,
         seen: Mutex::new(Vec::new()),
     });
     let original_limit = force.ctx.binding_limit();
-    for (w, h, banded) in [
-        (37, 29, false),
-        (1, 9, false),
-        (9, 1, false),
-        (67, 49, true),
-        (1025, 3, false),
+    for (width, height, banded, normal_offload) in [
+        (37, 29, false, false),
+        (1, 9, false, false),
+        (9, 1, false, false),
+        (67, 49, true, false),
+        (1025, 3, false, false),
+        (0, 0, false, true),
     ] {
-        let input = pixels(w, h);
         for (filter, pairs) in cases() {
             let mut values = FilterValues::defaults(&filter.params());
             for (k, v) in pairs {
@@ -154,6 +182,19 @@ fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
                 background: schist_color::Rgba::new(0.9, 0.2, 0.8, 1.0),
                 ..FilterContext::default()
             };
+            let (w, h) = if normal_offload {
+                let probe = Arc::new(CostProbe::default());
+                schist_fx::set_backend(probe.clone());
+                filter.apply_with(&mut pixels(37, 29), 37, 29, &values, &context);
+                let costs = probe.0.lock().unwrap();
+                let cost = *costs.iter().min().expect("filter attempted a shader");
+                let area = 8_000_000usize.div_ceil(cost.max(1));
+                let w = ((area as f64).sqrt().ceil() as usize).max(67) | 1;
+                (w, area.div_ceil(w).max(49))
+            } else {
+                (width, height)
+            };
+            let input = pixels(w, h);
             let mut cpu = input.clone();
             schist_fx::set_backend(Arc::new(schist_fx::CpuFx));
             filter.apply_with(&mut cpu, w, h, &values, &context);
@@ -167,16 +208,21 @@ fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
             } else {
                 original_limit
             });
-            let before = force.seen.lock().unwrap().len();
-            schist_fx::set_backend(force.clone());
+            let backend = if normal_offload { &production } else { &force };
+            let before = backend.seen.lock().unwrap().len();
+            schist_fx::set_backend(backend.clone());
             let mut result = input.clone();
             filter.apply_with(&mut result, w, h, &values, &context);
             assert!(
-                force.seen.lock().unwrap().len() > before,
+                backend.seen.lock().unwrap().len() > before,
                 "{} did not dispatch",
                 filter.id()
             );
-            close(&result, &cpu, &format!("{} {w}x{h}", filter.id()));
+            close(
+                &result,
+                &cpu,
+                &format!("{} {w}x{h} production={normal_offload}", filter.id()),
+            );
         }
     }
     let seen = force.seen.lock().unwrap();

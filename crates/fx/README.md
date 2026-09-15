@@ -60,6 +60,13 @@ Use displacement sampling for remaps to avoid losing fractional bits when
 adding a small motion to a large image coordinate. The Rust filter helpers
 provide the matching `sample_offset` and `warp_offset` operations. Radial Blur
 also prepares its sample rotations once and shares them between both paths.
+Twirl, Ripple and Wave share CPU-prepared displacements with their shaders:
+device-dependent trig and multiply-add rounding can otherwise move sampling
+weights enough to change straight RGB at transparent edges. Ripple and Wave
+only need one displacement per row/column; Twirl needs two floats per pixel.
+The GPU still performs the premultiplied sampling. Twirl's map adds eight bytes
+per pixel of upload/storage and is subject to the shader parameter binding
+limit; an oversized job retains the CPU fallback.
 
 `work_per_pixel` estimates source taps or equivalent arithmetic. The production
 backend uses the existing conservative offload threshold; tiny effects stay on

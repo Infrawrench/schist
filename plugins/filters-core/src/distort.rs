@@ -23,27 +23,30 @@ simple_filter!(
         let angle = v.get("angle").to_radians();
         let (cx, cy) = (w as f32 / 2.0, h as f32 / 2.0);
         let radius = cx.hypot(cy);
-        if crate::gpu::apply(
-            px,
-            w,
-            h,
-            &crate::gpu::TWIRL,
-            &[angle, cx, cy, radius],
-            None,
-            24,
-        ) {
+        // Share the exact displacements with the shader. Small differences
+        // in device hypot/sin/cos move bilinear weights enough to change
+        // straight RGB substantially at nearly transparent edges.
+        let mut offsets = Vec::with_capacity(w * h * 2);
+        for y in 0..h {
+            for x in 0..w {
+                let (dx, dy) = (x as f32 + 0.5 - cx, y as f32 + 0.5 - cy);
+                let d = dx.hypot(dy);
+                let delta = if d >= radius {
+                    (0.0, 0.0)
+                } else {
+                    let t = angle * (1.0 - d / radius).powi(2);
+                    let (s, c) = t.sin_cos();
+                    (dx * (c - 1.0) - dy * s, dx * s + dy * (c - 1.0))
+                };
+                offsets.extend_from_slice(&[delta.0, delta.1]);
+            }
+        }
+        if crate::gpu::apply(px, w, h, &crate::gpu::TWIRL, &offsets, None, 24) {
             return;
         }
         warp_offset(px, w, h, |x, y| {
-            let (dx, dy) = (x - cx, y - cy);
-            let d = dx.hypot(dy);
-            if d >= radius {
-                return (0.0, 0.0);
-            }
-            // Rotation falls off to nothing at the edge of the circle.
-            let t = angle * (1.0 - d / radius).powi(2);
-            let (s, c) = t.sin_cos();
-            (dx * (c - 1.0) - dy * s, dx * s + dy * (c - 1.0))
+            let i = (y as usize * w + x as usize) * 2;
+            (offsets[i], offsets[i + 1])
         });
     }
 );
@@ -60,22 +63,26 @@ simple_filter!(
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let amount = v.get("amount") / 100.0;
         let size = v.get("size").max(1.0);
+        // Ripple is separable: one horizontal displacement per row and
+        // one vertical displacement per column. Prepare sin only once,
+        // using the same values on the CPU and every GPU backend.
+        let offsets: Vec<f32> = (0..h)
+            .chain(0..w)
+            .map(|i| ((i as f32 + 0.5) / size).sin() * amount * size * 0.25)
+            .collect();
         if crate::gpu::apply(
             px,
             w,
             h,
             &crate::gpu::RIPPLE,
-            &[amount, size],
+            &offsets,
             Some((amount.abs() * size * 0.25).ceil() as usize + 1),
             16,
         ) {
             return;
         }
         warp_offset(px, w, h, |x, y| {
-            (
-                (y / size).sin() * amount * size * 0.25,
-                (x / size).sin() * amount * size * 0.25,
-            )
+            (offsets[y as usize], offsets[h + x as usize])
         });
     }
 );
@@ -148,23 +155,12 @@ simple_filter!(
         let vscale = v.get("vertical") / 100.0;
         let kind = (v.get("type").round().max(0.0) as usize).min(2);
         let seed = v.get("seed") as u32;
-        let mut shader_params = vec![generators as f32, amp, hscale, vscale, kind as f32];
+        let mut waves = Vec::with_capacity(generators);
         for g in 0..generators {
             let jitter = 0.5 + value_noise(g as f32 * 13.0, 0.0, seed);
             let k = std::f32::consts::TAU / (len * jitter);
             let phase = value_noise(0.0, g as f32 * 7.0, seed) * std::f32::consts::TAU;
-            shader_params.extend_from_slice(&[k, phase]);
-        }
-        if crate::gpu::apply(
-            px,
-            w,
-            h,
-            &crate::gpu::WAVE,
-            &shader_params,
-            Some((amp * vscale).abs().ceil() as usize + 2),
-            4 + generators * 16,
-        ) {
-            return;
+            waves.push((k, phase));
         }
         // Square waves displace by a constant either way, which is what
         // gives Wave its torn-paper look; triangles ramp between.
@@ -182,19 +178,33 @@ simple_filter!(
                 _ => phase.sin(),
             }
         };
-        warp_offset(px, w, h, move |x, y| {
-            let (mut ox, mut oy) = (0.0f32, 0.0f32);
-            for g in 0..generators {
-                // Each generator gets its own wavelength and phase, from
-                // the seed, so Randomness rearranges the water without
-                // changing how much of it there is.
-                let jitter = 0.5 + value_noise(g as f32 * 13.0, 0.0, seed);
-                let k = std::f32::consts::TAU / (len * jitter);
-                let phase = value_noise(0.0, g as f32 * 7.0, seed) * std::f32::consts::TAU;
-                ox += shape(y * k + phase) * amp / generators as f32;
-                oy += shape(x * k + phase) * amp / generators as f32;
-            }
-            (ox * hscale, oy * vscale)
+        // These are also separable. Sharing the final offsets avoids
+        // backend-dependent trig, remainder and multiply-add rounding.
+        let offsets: Vec<f32> = (0..h)
+            .map(|i| (i, hscale))
+            .chain((0..w).map(|i| (i, vscale)))
+            .map(|(i, scale)| {
+                let pos = i as f32 + 0.5;
+                let mut offset = 0.0;
+                for &(k, phase) in &waves {
+                    offset += shape(pos * k + phase) * amp / generators as f32;
+                }
+                offset * scale
+            })
+            .collect();
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::WAVE,
+            &offsets,
+            Some((amp * vscale).abs().ceil() as usize + 2),
+            16,
+        ) {
+            return;
+        }
+        warp_offset(px, w, h, |x, y| {
+            (offsets[y as usize], offsets[h + x as usize])
         });
     }
 );
