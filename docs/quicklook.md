@@ -3,7 +3,7 @@
 Finder asks an app for two different pictures of a document: the
 thumbnail it draws as the file's icon, and the preview the space bar
 opens. Schist supplies both for the formats nothing else on the system
-can read — `.psd`, `.psb`, `.afphoto`, `.afdesign`, `.afpub` and `.af` —
+can read — `.psd`, `.psb`, `.pdn`, `.xcf`, `.afphoto`, `.afdesign`, `.afpub` and `.af` —
 so those files stop looking like blank pages in a folder.
 
 Nothing has to be enabled. The extensions live inside `Schist.app`, and

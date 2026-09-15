@@ -178,6 +178,27 @@
     <key>UTImportedTypeDeclarations</key>
     <array>
         <dict>
+            <key>UTTypeIdentifier</key><string>org.gimp.xcf</string>
+            <key>UTTypeDescription</key><string>GIMP XCF Document</string>
+            <key>UTTypeConformsTo</key><array><string>public.image</string></array>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key><array><string>xcf</string></array>
+                <key>public.mime-type</key><array><string>image/x-xcf</string></array>
+            </dict>
+        </dict>
+        <dict>
+            <key>UTTypeIdentifier</key><string>com.infrawrench.schist.pdn</string>
+            <key>UTTypeDescription</key><string>Paint.NET Document</string>
+            <key>UTTypeConformsTo</key><array><string>public.image</string></array>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key><array><string>pdn</string></array>
+                <key>public.mime-type</key><array><string>image/x-paintnet</string></array>
+            </dict>
+        </dict>
+
+        <dict>
             <key>UTTypeIdentifier</key><string>com.adobe.photoshop-large-image</string>
             <key>UTTypeDescription</key><string>Photoshop Large Document</string>
             <key>UTTypeConformsTo</key>
@@ -272,6 +293,8 @@
             <key>LSHandlerRank</key><string>Alternate</string>
             <key>LSItemContentTypes</key>
             <array>
+                <string>org.gimp.xcf</string>
+                <string>com.infrawrench.schist.pdn</string>
                 <string>public.png</string>
                 <string>public.jpeg</string>
                 <string>public.tiff</string>

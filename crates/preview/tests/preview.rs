@@ -18,6 +18,20 @@ fn fixture(rel: &str) -> Option<PathBuf> {
     }
 }
 
+#[test]
+fn native_paintnet_and_gimp_documents_have_layered_previews() {
+    for bytes in [
+        include_bytes!("../../../fixtures/layered/paintnet-4.pdn").as_slice(),
+        include_bytes!("../../../fixtures/layered/gimp-rle.xcf").as_slice(),
+        include_bytes!("../../../fixtures/layered/gimp-group-16.xcf").as_slice(),
+    ] {
+        let preview = render(bytes, 64).unwrap();
+        assert_eq!(preview.source, Source::Composited);
+        assert_eq!(preview.width.max(preview.height), 64);
+        assert!(preview.rgba.as_chunks::<4>().0.iter().any(|p| p[3] != 0));
+    }
+}
+
 /// Not all zero, not all one colour: a real picture came out.
 fn has_content(rgba: &[u8]) -> bool {
     let pixels = rgba.as_chunks::<4>().0;

@@ -360,7 +360,15 @@ fn suggested_name(ws: &Workspace) -> String {
                 .as_ref()
                 .and_then(|p| p.extension())
                 .and_then(|e| e.to_str())
-                .filter(|e| ["psd", "psb", "png", "jpg", "jpeg", "webp", "tif", "tiff"].contains(e))
+                .filter(|e| {
+                    ws.registry.codecs().any(|codec| {
+                        codec.can_export()
+                            && codec
+                                .extensions()
+                                .iter()
+                                .any(|ext| ext.eq_ignore_ascii_case(e))
+                    })
+                })
                 .unwrap_or("psd");
             format!("{stem}.{ext}")
         })

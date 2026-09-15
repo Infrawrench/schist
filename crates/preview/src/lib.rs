@@ -103,6 +103,10 @@ pub fn render(bytes: &[u8], max_edge: u32) -> Result<Preview> {
         psd_preview(bytes, max_edge)
     } else if schist_codecs_common::AffinityCodec.probe(bytes) {
         affinity_preview(bytes, max_edge)
+    } else if schist_codecs_common::PdnCodec.probe(bytes) {
+        composite_preview(schist_codecs_common::PdnCodec.import(bytes)?, max_edge)
+    } else if schist_codecs_common::XcfCodec.probe(bytes) {
+        composite_preview(schist_codecs_common::XcfCodec.import(bytes)?, max_edge)
     } else {
         // HEIC before the generic decoder: the `image` crate does not
         // read it, and an iPhone's camera roll is mostly HEIC — a

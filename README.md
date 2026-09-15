@@ -73,7 +73,7 @@ architectures a `.8bf` plug-in might be built for — see
 Windows and Linux live in [packaging/](packaging); tagging `vX.Y.Z` builds
 them all in CI, signing and notarizing the macOS bundle when the
 [signing secrets](docs/versioning.md#signing-secrets) are set. All three
-register `.psd`, `.psb`, `.afphoto`, `.afdesign`, `.afpub` and `.af` as
+register `.psd`, `.psb`, `.pdn`, `.xcf`, `.afphoto`, `.afdesign`, `.afpub` and `.af` as
 openable, never as the default handler: an installed Schist joins the
 "Open with" menu rather than taking files off Photoshop or Affinity.
 
@@ -131,7 +131,11 @@ NEF, which no decoder reads without the vendor's SDK. HEIC decodes through libhe
 same way: the system's copy if installed, otherwise Schist offers to
 download a hash-pinned, decode-only build (with its LGPL license texts)
 from [libheif-prebuilt](https://github.com/IAmJSD/libheif-prebuilt) —
-nothing links at build time and the build stays pure Rust. Affinity files
+nothing links at build time and the build stays pure Rust. Paint.NET `.pdn`
+and GIMP `.xcf` files open and save with supported raster layers, names,
+opacity, visibility, and blend modes; XCF also supports groups, masks,
+offsets, and high precision pixels. See [format support and limits](docs/layered-formats.md).
+Affinity files
 (`.af`/`.afphoto`/`.afdesign`/`.afpub` — Affinity 1, 2 and the unified Canva-era format) open through a
 natively reverse-engineered reader
 ([docs/affinity-format.md](docs/affinity-format.md)): pixel layers,

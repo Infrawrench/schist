@@ -29,6 +29,8 @@
                  extension, which needs no help from us. -->
             <key>QLSupportedContentTypes</key>
             <array>
+                <string>org.gimp.xcf</string>
+                <string>com.infrawrench.schist.pdn</string>
                 <string>com.adobe.photoshop-image</string>
                 <string>com.adobe.photoshop-large-image</string>
                 <string>com.seriflabs.afphoto</string>
