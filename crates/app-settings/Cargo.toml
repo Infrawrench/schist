@@ -1,0 +1,15 @@
+[package]
+name = "schist-app-settings"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-i18n.workspace = true
+log.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+schist-core.workspace = true
+
+[target.'cfg(any(target_arch = "wasm32", target_os = "ios", target_os = "android"))'.dependencies]
+schist-app-platform.workspace = true

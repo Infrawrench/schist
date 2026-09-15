@@ -56,7 +56,7 @@ overlay. The software keyboard comes up for any field that is taking
 typing (a dialog's field, the gallery's search box, a layer being
 renamed, a note, the type tool) and goes when it lets go: Schist's
 fields keep their own buffers and take keys, so
-`crates/app/src/workspace/text_input.rs` registers a gpui input handler
+`crates/editor/src/workspace/text_input.rs` registers a gpui input handler
 while one is active (that is what raises the keyboard) and replays what
 the keyboard types as the key events a hardware keyboard would have
 sent. Autocorrect's rewrite of the word at the caret is backspaced and
@@ -69,7 +69,7 @@ and nothing hides under the home indicator or the keyboard. Everything
 sized for a pointer grows to Apple's 44pt target on iOS: the tool slots,
 menu rows, layer and history rows, tabs, sliders and the panel column's
 buttons, with larger type throughout. The two size tables sit side by
-side in `crates/app/src/ui.rs` (`DESKTOP_METRICS` and `TOUCH_METRICS`),
+side in `crates/editor/src/ui.rs` (`DESKTOP_METRICS` and `TOUCH_METRICS`),
 and `ui::touch()` is the one switch. Documents open through the system
 document picker and save through it too; the Documents folder is visible
 in the Files app (`UIFileSharingEnabled`) and the gallery watches it.
@@ -184,7 +184,7 @@ and the panel column, its icon naming the one it switches to; that
 choice is per session and starts on the canvas.
 
 **Compiled out.** Everything a sandboxed app cannot host, gated by the
-`sandboxed` cfg that `crates/app/build.rs` sets for iOS and the browser:
+`sandboxed` cfg that `tools/app-cfg.rs` sets for iOS and the browser:
 
 - The Photoshop plug-in host (helper processes) and the WebAssembly
   plug-in host (a JIT). The first-party plugins are all there.
@@ -235,7 +235,7 @@ built in:
 - "Save to Photos", in the File menu and as the arrow button at the
   right end of the tool options bar, encodes the flattened document as
   PNG (as Export does) and adds it to the camera roll through the photo
-  library (`crates/app/src/workspace/photos_save.rs`). The first save
+  library (`crates/editor/src/workspace/photos_save.rs`). The first save
   asks for add-only permission; the outcome lands in the status bar.
 - A file another app hands over (the share sheet's "Copy to Schist",
   Files' "Open in Schist", a photo sent from Photos) is asked about:
@@ -243,11 +243,11 @@ built in:
   into `Documents/Photos` and shows it; the editor copies it into
   `Documents` and opens it. A file already under Documents stays put,
   and one from the sandbox's Inbox is removed once copied, as iOS
-  expects (`crates/app/src/workspace/shared_files.rs`). The desktop
+  expects (`crates/editor/src/workspace/shared_files.rs`). The desktop
   opens handed-over files outright, as before.
 - The gallery's "Import from Photos…" (the desktop's "Import from
   Camera…") opens the system photo picker (`PHPickerViewController`,
-  `crates/app/src/workspace/library_photos.rs`), which needs no photo
+  `crates/editor/src/workspace/library_photos.rs`), which needs no photo
   library permission. What is picked is copied as the original files,
   HEIC included, into the app's `Documents/Photos`, which joins the
   gallery's watched folders; from there thumbnails, EXIF, edits and

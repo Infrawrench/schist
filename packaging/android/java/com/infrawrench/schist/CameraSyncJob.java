@@ -17,7 +17,7 @@ import javax.crypto.spec.GCMParameterSpec;
 /**
  * The camera-roll backup's background wake: the one piece of Java in
  * Schist. JobScheduler starts this every so often while the rule is on
- * (crates/app/src/workspace/camera_sync_android.rs schedules it), and
+ * (crates/camera-sync/src/android.rs schedules it), and
  * it hands straight to the Rust engine in the app's own library, which
  * runs headless -- no activity, no gpui -- and returns when the cloud
  * folder is up to date. tools/android-build.sh compiles this with javac

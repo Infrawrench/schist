@@ -6321,53 +6321,28 @@ dependencies = [
 name = "schist-app"
 version = "0.13.0"
 dependencies = [
- "android-activity",
- "anyhow",
- "ash",
- "async-trait",
- "block2",
- "claude-agent-sdk-rs",
- "codex-codes",
  "console_error_panic_hook",
  "console_log",
- "crc32fast",
  "env_logger",
- "filetime",
- "flate2",
- "futures",
  "gpui",
- "image",
  "jni",
- "js-sys",
- "libloading",
  "log",
- "objc2",
- "objc2-foundation",
- "rand 0.10.2",
- "raw-window-handle",
- "rustc-hash 2.1.3",
- "schist-adjustments",
+ "schist-app-actions",
+ "schist-app-ai",
+ "schist-app-platform",
+ "schist-app-services",
+ "schist-app-settings",
+ "schist-camera-sync",
  "schist-cloud",
- "schist-codec-psd",
  "schist-codecs-common",
- "schist-color",
- "schist-colormgmt",
  "schist-commands-core",
- "schist-compositor",
- "schist-compositor-gpu",
- "schist-core",
+ "schist-editor",
  "schist-filters-core",
- "schist-fx",
  "schist-gallery",
  "schist-i18n",
- "schist-layer-fx",
- "schist-mcp",
- "schist-neural",
  "schist-plugin-api",
  "schist-plugin-host-8bf",
  "schist-plugin-host-wasm",
- "schist-preview",
- "schist-text-engine",
  "schist-tools-basic",
  "schist-tools-doc",
  "schist-tools-paint",
@@ -6377,25 +6352,124 @@ dependencies = [
  "schist-tools-type",
  "schist-tools-vector",
  "schist-tools-warp",
- "schist-ui",
- "schist-vector",
- "seahash",
+ "tempfile",
+]
+
+[[package]]
+name = "schist-app-actions"
+version = "0.13.0"
+dependencies = [
+ "gpui",
+ "log",
+ "schist-adjustments",
+ "schist-core",
+ "schist-plugin-api",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "schist-app-ai"
+version = "0.13.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "claude-agent-sdk-rs",
+ "codex-codes",
+ "futures",
+ "log",
+ "schist-i18n",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "schist-app-fonts"
+version = "0.13.0"
+dependencies = [
+ "log",
+ "schist-core",
+ "schist-i18n",
+ "schist-text-engine",
+ "schist-tools-type",
+ "ureq",
+]
+
+[[package]]
+name = "schist-app-platform"
+version = "0.13.0"
+dependencies = [
+ "anyhow",
+ "ash",
+ "futures",
+ "gpui",
+ "js-sys",
+ "log",
+ "objc2",
+ "objc2-foundation",
+ "raw-window-handle",
+ "schist-i18n",
+ "schist-text-engine",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "windows 0.58.0",
+ "windows-core 0.58.0",
+ "x11rb",
+]
+
+[[package]]
+name = "schist-app-services"
+version = "0.13.0"
+dependencies = [
+ "anyhow",
+ "log",
+ "rand 0.10.2",
+ "schist-gallery",
+ "schist-i18n",
  "sentry",
  "serde",
  "serde_json",
  "sha2 0.10.9",
- "smallvec",
  "sysinfo",
+ "ureq",
+]
+
+[[package]]
+name = "schist-app-settings"
+version = "0.13.0"
+dependencies = [
+ "log",
+ "schist-app-platform",
+ "schist-core",
+ "schist-i18n",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "schist-camera-sync"
+version = "0.13.0"
+dependencies = [
+ "anyhow",
+ "block2",
+ "filetime",
+ "futures",
+ "gpui",
+ "jni",
+ "log",
+ "objc2",
+ "objc2-foundation",
+ "schist-app-settings",
+ "schist-cloud",
+ "schist-cloud-transfer",
+ "schist-gallery",
+ "schist-i18n",
+ "seahash",
+ "serde",
+ "serde_json",
  "tempfile",
  "tokio",
- "ureq",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
- "web-time",
- "windows 0.58.0",
- "windows-core 0.58.0",
- "x11rb",
 ]
 
 [[package]]
@@ -6429,6 +6503,20 @@ dependencies = [
  "wasm-bindgen-test",
  "web-sys",
  "web-time",
+]
+
+[[package]]
+name = "schist-cloud-transfer"
+version = "0.13.0"
+dependencies = [
+ "anyhow",
+ "flate2",
+ "futures",
+ "schist-app-platform",
+ "schist-cloud",
+ "schist-i18n",
+ "serde",
+ "sha2 0.10.9",
 ]
 
 [[package]]
@@ -6617,6 +6705,69 @@ dependencies = [
 ]
 
 [[package]]
+name = "schist-editor"
+version = "0.13.0"
+dependencies = [
+ "anyhow",
+ "block2",
+ "crc32fast",
+ "flate2",
+ "futures",
+ "gpui",
+ "image",
+ "log",
+ "objc2",
+ "objc2-foundation",
+ "rustc-hash 2.1.3",
+ "schist-adjustments",
+ "schist-app-actions",
+ "schist-app-ai",
+ "schist-app-fonts",
+ "schist-app-platform",
+ "schist-app-services",
+ "schist-app-settings",
+ "schist-camera-sync",
+ "schist-cloud",
+ "schist-cloud-transfer",
+ "schist-codec-psd",
+ "schist-codecs-common",
+ "schist-color",
+ "schist-colormgmt",
+ "schist-compositor",
+ "schist-compositor-gpu",
+ "schist-core",
+ "schist-fx",
+ "schist-gallery",
+ "schist-gallery-ui",
+ "schist-i18n",
+ "schist-map-view",
+ "schist-mcp",
+ "schist-neural",
+ "schist-plugin-api",
+ "schist-plugin-host-8bf",
+ "schist-plugin-host-wasm",
+ "schist-preview",
+ "schist-text-engine",
+ "schist-tools-doc",
+ "schist-tools-retouch",
+ "schist-tools-transform",
+ "schist-tools-type",
+ "schist-tools-vector",
+ "schist-tools-warp",
+ "schist-ui",
+ "schist-vector",
+ "schist-video",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "smallvec",
+ "tempfile",
+ "ureq",
+ "web-sys",
+ "web-time",
+]
+
+[[package]]
 name = "schist-filters-core"
 version = "0.13.0"
 dependencies = [
@@ -6648,6 +6799,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "schist-gallery-ui"
+version = "0.13.0"
+dependencies = [
+ "gpui",
+ "schist-i18n",
+ "schist-ui",
+]
+
+[[package]]
 name = "schist-i18n"
 version = "0.13.0"
 dependencies = [
@@ -6665,6 +6825,18 @@ dependencies = [
  "schist-color",
  "schist-core",
  "schist-pixel-ops",
+]
+
+[[package]]
+name = "schist-map-view"
+version = "0.13.0"
+dependencies = [
+ "gpui",
+ "image",
+ "rustc-hash 2.1.3",
+ "schist-gallery",
+ "smallvec",
+ "ureq",
 ]
 
 [[package]]
@@ -6959,6 +7131,26 @@ name = "schist-vector"
 version = "0.13.0"
 dependencies = [
  "schist-core",
+]
+
+[[package]]
+name = "schist-video"
+version = "0.13.0"
+dependencies = [
+ "anyhow",
+ "gpui",
+ "image",
+ "jni",
+ "libloading",
+ "log",
+ "objc2",
+ "objc2-foundation",
+ "schist-gallery",
+ "schist-i18n",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "windows 0.58.0",
 ]
 
 [[package]]

@@ -61,7 +61,7 @@ replace: inside a writable `.app` bundle on macOS, and next to the
 
 The updater picks its download out of the release by asset name —
 `Schist.zip` and `Schist-<version>-setup.exe`, matched in
-`crates/app/src/update.rs`. Renaming either in `release.yml` without
+`crates/app-services/src/update.rs`. Renaming either in `release.yml` without
 changing it there ends self-updating silently, so keep the two together.
 
 ## Releasing
@@ -158,7 +158,7 @@ tick **Preferences ▸ Diagnostics ▸ Also send it to the developers**, *and*
 the build has to have been given a DSN. Only the release workflow supplies
 one, so a build from source — or from a distribution's packaging — has no
 DSN, never starts the SDK, and does not even show the checkbox. See
-`crates/app/src/crash.rs`.
+`crates/app-services/src/crash.rs`.
 
 Events are scrubbed before they leave: no PII, no breadcrumbs, no session
 tracking, `server_name` set to `redacted` rather than the machine's

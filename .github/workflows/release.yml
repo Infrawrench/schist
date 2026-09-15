@@ -23,7 +23,7 @@ jobs:
             artifact: schist-windows-x86_64
     runs-on: ${{ matrix.os }}
     env:
-      # Compiled into the app by crates/app/src/crash.rs. In a fork, or any
+      # Compiled into the app by crates/app-services/src/crash.rs. In a fork, or any
       # repository without the secret, this arrives as an empty string --
       # which that code reads as "no DSN", so the build still succeeds and
       # simply has nothing to upload to and no preference to offer.

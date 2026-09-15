@@ -51,7 +51,7 @@ exports (`CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER`,
 that its `NativeActivity` loads, calling the `android_main` that
 `gpui::android_main!` defines; `rustc` cannot build one crate as both an
 executable and a shared library. So the app crate is a library
-(`crates/app/src/lib.rs`, everything) with a one-line executable in front
+(`crates/app/src/lib.rs`, the entry point and application assembly) with a one-line executable in front
 of it (`src/main.rs`) on every other platform, and the Android build asks
 for the cdylib with `cargo rustc --lib --crate-type cdylib` rather than a
 `crate-type` in `Cargo.toml`, which would make every platform link a
@@ -69,7 +69,7 @@ a mouse is a mouse. A hardware keyboard drives the whole keymap with
 Ctrl where macOS has Command (Android reserves the Meta key for its own
 shortcuts). The software keyboard comes up for any field that is taking
 typing and goes when it lets go, through the same input-handler bridge
-as iOS (`crates/app/src/workspace/text_input.rs`); it types through key
+as iOS (`crates/editor/src/workspace/text_input.rs`); it types through key
 events, so letters, digits, punctuation, Return and Backspace arrive and
 autocorrect, suggestions and IME composition do not (a `NativeActivity`
 offers the input method no `InputConnection`). Back is Escape: it closes
@@ -115,7 +115,7 @@ activity-result bridge currently handles media imports. Every prompt for a
 path -- Open, Save As, Export, Add Folder to Gallery, the cloud's
 uploads and downloads -- goes through `Workspace::prompt_for_paths` and
 `prompt_for_new_path`, which on Android open a dialog of Schist's own
-(`crates/app/src/workspace/file_picker.rs`, drawn by
+(`crates/editor/src/workspace/file_picker.rs`, drawn by
 `dialogs/file_picker.rs`): a listing of the folder to walk, folders
 first, a row of places (the app's Documents, then the device's Pictures,
 camera roll and Downloads), Up, and for a save a name field. Tapping a
@@ -125,7 +125,7 @@ keep their platform dialogs behind the same two calls.
 
 **Where things live.** An app's process starts with no `HOME`, so the
 app sets one before anything derives a path from it
-(`crates/app/src/android.rs`): the app's private files directory
+(`crates/app-platform/src/android.rs`): the app's private files directory
 (`/data/user/0/com.infrawrench.schist/files`), under which preferences
 and the library sit in `.config/schist` and the caches, recovery files
 and index in `.local/state/schist`, as on Linux; `TMPDIR` is the cache
@@ -158,7 +158,7 @@ new intent), so a sign-in started from a running app has to be finished
 by closing and reopening it.
 
 **Compiled out.** Everything under the `sandboxed` cfg that
-`crates/app/build.rs` sets for iOS and the browser is off on Android
+`tools/app-cfg.rs` sets for iOS and the browser is off on Android
 too, for a different reason: Android could run subprocesses, `dlopen`
 and a JIT, but there is nothing for them to run. The Photoshop plug-in
 helpers are desktop binaries for other architectures, the agent CLIs

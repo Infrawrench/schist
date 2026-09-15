@@ -1,0 +1,62 @@
+[package]
+name = "schist-app-platform"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-i18n.workspace = true
+gpui.workspace = true
+anyhow.workspace = true
+log.workspace = true
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+raw-window-handle = "0.6"
+objc2-foundation = { version = "0.3", default-features = false, features = [
+    "std",
+    "NSString",
+] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+raw-window-handle = "0.6"
+windows = { version = "0.58", features = [
+    "implement",
+    "Win32_Foundation",
+    "Win32_System_Com",
+    "Win32_System_Ole",
+    "Win32_System_SystemServices",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+] }
+windows-core = "0.58"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "=0.2.127"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = [
+    "Window",
+    "Document",
+    "Element",
+    "HtmlElement",
+    "HtmlInputElement",
+    "HtmlAnchorElement",
+    "CssStyleDeclaration",
+    "File",
+    "FileList",
+    "Blob",
+    "BlobPropertyBag",
+    "Url",
+    "Event",
+    "Response",
+    "ReadableStream",
+    "ReadableStreamDefaultReader",
+    "Storage",
+] }
+schist-text-engine.workspace = true
+futures.workspace = true
+
+[target.'cfg(target_os = "linux")'.dependencies]
+ash = "0.38"
+x11rb = "0.13"

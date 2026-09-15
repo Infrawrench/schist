@@ -1,63 +1,29 @@
 //! Schist — a plugin-first image editor on GPUI.
 //!
-//! The whole app is this library; `src/main.rs` is the one-line executable
+//! This crate assembles the app; editor and services live in separate crates.
+//! `src/main.rs` is the one-line executable
 //! that calls [`main`]. Android has no executable: the activity loads the
 //! same crate as a shared library and enters through `android_main`, which
 //! `gpui::android_main!` defines at the bottom of this file.
 
-mod actions;
-// The AI sidebar drives agent CLIs the user has installed; a browser tab
-// and an iOS app can spawn no processes, so the whole subsystem stays off
-// those builds (a stub keeps the bits of state the UI shares compiling).
-// `sandboxed` is set by build.rs for exactly those targets.
-#[cfg(not(sandboxed))]
-mod ai;
-#[cfg(sandboxed)]
-#[path = "ai_stub.rs"]
-mod ai;
-// The process environment an Android app starts with, pointed at the
-// app's own storage before anything derives a path from it.
 #[cfg(target_os = "android")]
-mod android;
-mod assets;
-mod color_picker;
-mod crash;
-mod curve_editor;
-mod dialogs;
-// Dragging photos out of the window onto the desktop's file manager.
-// Desktop-only: it is the platforms' own drag protocols, and neither a
-// browser tab nor an iOS app has a file manager to drop on.
+mod android_sync;
+
+use schist_app_actions as actions;
 #[cfg(not(sandboxed))]
-mod drag_out;
-mod feature_flags;
-mod fonts;
-mod gallery;
-mod keymap;
-mod native_menu;
-mod panels;
-mod style_dialog;
-mod ui;
-// The self-updater replaces the running binary; a web deployment serves
-// newer files and an iOS app updates through the store.
-#[cfg(not(sandboxed))]
-mod update;
-#[cfg(sandboxed)]
-#[path = "update_stub.rs"]
-mod update;
-// Linux renders through Vulkan and panics inside GPUI when there is no
-// driver to render with. Nothing to check on macOS (Metal) or Windows.
-#[cfg(not(target_arch = "wasm32"))]
-mod video;
+use schist_app_ai as ai;
+#[cfg(target_os = "android")]
+use schist_app_platform::android;
+use schist_app_platform::assets;
 #[cfg(target_os = "linux")]
-mod vulkan;
-// The browser build's shims: the in-memory file system behind open/save,
-// the assets the loading page fetched, and the loading-page handoff.
+use schist_app_platform::vulkan;
 #[cfg(target_arch = "wasm32")]
-mod web;
-mod workspace;
-// Telemetry handling for desktop OS's
+use schist_app_platform::web;
 #[cfg(not(target_arch = "wasm32"))]
-mod telemetry;
+use schist_app_services::crash;
+#[cfg(not(target_arch = "wasm32"))]
+use schist_app_services::telemetry;
+use schist_editor::{keymap, workspace};
 
 use actions::{HideApp, HideOthers, Quit, ShowAll};
 use gpui::{
@@ -70,7 +36,7 @@ use std::path::PathBuf;
 use std::rc::Rc;
 use workspace::Workspace;
 
-pub use feature_flags::feature_enabled;
+pub use schist_app_settings::feature_enabled;
 pub use schist_codecs_common::{PsdCodec, PsdPlugin};
 
 /// Whether an opt-in diagnostic is on: the preference, or the environment
@@ -324,7 +290,7 @@ pub fn main() {
     // first ping can say which adapter it settled on (on Android the
     // adapter may not be known yet, and the ping says so).
     #[cfg(not(target_arch = "wasm32"))]
-    telemetry::start(workspace::schist_folder());
+    telemetry::start(workspace::schist_folder(), workspace::gpu_info);
     #[cfg(not(sandboxed))]
     let (registry, plugin_manager, photoshop_plugins) = build_registry();
     #[cfg(sandboxed)]

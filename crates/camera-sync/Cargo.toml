@@ -1,0 +1,35 @@
+[package]
+name = "schist-camera-sync"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-i18n.workspace = true
+schist-cloud = { path = "../cloud" }
+anyhow.workspace = true
+log.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+futures.workspace = true
+schist-gallery.workspace = true
+schist-app-settings.workspace = true
+schist-cloud-transfer.workspace = true
+
+[target.'cfg(target_os = "android")'.dependencies]
+jni = "0.22"
+seahash = "4"
+gpui.workspace = true
+
+[target.'cfg(target_os = "ios")'.dependencies]
+objc2 = "0.6"
+block2 = "0.6"
+objc2-foundation = { version = "0.3", default-features = false, features = [
+    "std",
+    "NSString",
+] }
+
+[dev-dependencies]
+tokio.workspace = true
+tempfile = "3"
+filetime = "0.2"

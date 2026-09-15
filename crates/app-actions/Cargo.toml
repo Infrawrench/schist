@@ -1,0 +1,14 @@
+[package]
+name = "schist-app-actions"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+gpui.workspace = true
+log.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+schist-core.workspace = true
+schist-plugin-api.workspace = true
+schist-adjustments.workspace = true

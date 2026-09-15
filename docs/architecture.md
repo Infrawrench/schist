@@ -4,7 +4,19 @@ Schist is a microkernel plus plugins. The kernel owns *state and
 contracts*; everything a user can see or click lives in a plugin.
 
 ```
-crates/app              GPUI shell: window, canvas, panels, dialogs, keymap
+crates/app              entry points, plugin assembly, application/window startup
+├── crates/editor       workspace, canvas interaction, panels and dialogs
+├── crates/app-actions  action types and keybinding policy
+├── crates/app-ai       agent SDK adapters, conversations and local MCP bridge
+├── crates/app-fonts    missing-font discovery and libre font downloads
+├── crates/app-platform  assets, browser shims, native drag-out and Vulkan probe
+├── crates/app-services  crash reporting, telemetry and desktop updates
+├── crates/app-settings  persisted preferences and feature flags
+├── crates/camera-sync   backup ledger/engine and native background jobs
+├── crates/cloud-transfer  cancellable uploads, batching, deduplication and retry
+├── crates/gallery-ui    generic gallery controls, grid navigation and palette
+├── crates/map-view      map camera, tile cache/loading and map paint data
+├── crates/video         platform video decoding and frame capture
 ├── crates/ui           widget kit: palette, buttons, rows, checkboxes, links
 ├── crates/i18n         the chrome's translated strings, plural rules, and OS locale
 ├── crates/plugin-api   the trait surface every feature implements
@@ -39,6 +51,43 @@ plugins/                first-party features, each optional at compile time
 ├── codecs-common       PNG/JPEG/WebP/TIFF/HEIC/camera raw, layered PDN/XCF
 └── commands-core       menu commands and their keybindings
 ```
+
+## Application crate boundaries
+
+`app` composes the application and preserves the `schist` executable and
+`schist_app` Android library entry points. `editor` owns `Workspace` and
+its event handling, panels and dialogs. These views still share the editor's
+concrete state; they are kept together so services never depend back on the
+window that consumes them.
+
+The other application crates depend on the kernel, plugins and each other,
+never on `app` or `editor`. In particular:
+
+- `app-ai` has no GPUI dependency. The editor owns the chat input, scroll
+  handle and sidebar state; the harness crate owns worker conversations.
+- `cloud-transfer` owns upload preparation, cancellation, retries and
+  progress callbacks. `camera-sync` uses it for checkpointed backups and
+  can run without an editor. Their desktop builds do not depend on GPUI.
+- `gallery-ui` takes generic GPUI entities and callbacks. Its `GalleryHost`
+  trait covers only caret, thumbnail-size and grouping operations.
+- `map-view` owns its tile cache and loader. The editor supplies an accessor
+  selecting the import, world or info map; it never accesses cache internals.
+- `app-settings` owns the serialized preference types, including camera
+  backup settings, so background jobs can read preferences without the editor.
+- `app-services` receives a GPU-info callback for telemetry. It does not
+  read editor state or choose a compositor backend.
+
+Target-specific dependencies stay in the crate that uses them. The shared
+`tools/app-cfg.rs` build script defines `sandboxed` for the launcher, editor
+and release services; browser/mobile builds omit desktop agent SDKs and
+plugin hosts. Browser assets are packaged from `crates/app-platform/assets`.
+
+Use `make app PROFILE=debug` to build the application, `make check-app` to
+check all application crates and their tests, `make test-app` to run those
+tests, `make lint-app` for Clippy, and `make check-app-web` to check the
+browser application. Tests for
+an extracted subsystem live with it, including video fixtures and the
+camera backup ledger/cancellation regressions.
 
 ## Chrome
 
@@ -156,7 +205,7 @@ group or form their own, and unknown groups sort after the built-ins.
 ## The GPUI boundary
 
 The kernel and plugins never import GPUI. Tools receive `PointerInput` in
-document space and return `Overlay` primitives; `crates/app` translates
+document space and return `Overlay` primitives; `crates/editor` translates
 between those and GPUI events/paint calls. Two consequences: tools are unit
 testable with no window, and a GPUI upgrade touches one crate.
 
