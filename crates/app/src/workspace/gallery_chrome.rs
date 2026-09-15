@@ -1050,13 +1050,10 @@ mod strip_actions {
     use super::*;
 
     pub fn import(ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>) {
-        if ws.cloud.show {
-            ws.cloud_pick_upload(false, cx);
-        }
         #[cfg(not(target_arch = "wasm32"))]
-        if !ws.cloud.show {
-            ws.gallery_import_camera(cx);
-        }
+        ws.gallery_import_camera(cx);
+        #[cfg(target_arch = "wasm32")]
+        ws.cloud_pick_upload(false, cx);
     }
 
     pub fn add_folder(ws: &mut Workspace, window: &mut Window, cx: &mut Context<Workspace>) {

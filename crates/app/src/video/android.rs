@@ -181,9 +181,19 @@ impl Drop for Decoder {
     }
 }
 
-pub(crate) fn begin_import() -> Result<()> {
+pub(crate) fn begin_import(destination: Option<&Path>) -> Result<()> {
     with_activity(|env, activity| {
-        env.call_method(activity, jni_str!("pickMedia"), jni_sig!(()), &[])?;
+        let destination = env.new_string(
+            destination
+                .map(|path| path.to_string_lossy().into_owned())
+                .unwrap_or_default(),
+        )?;
+        env.call_method(
+            activity,
+            jni_str!("pickMedia"),
+            jni_sig!((destination: JString)),
+            &[JValue::Object(&destination)],
+        )?;
         Ok(())
     })
 }

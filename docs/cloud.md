@@ -105,6 +105,16 @@ search box in the top strip searches the remote library as you type (names and
 tags, ranked by the provider); the map filter applies to the cloud too, with
 its chip in the strip while it is on. Escape clears the search. Pages of 200 photos have links under the grid.
 
+**Import…** uses the same camera/device picker and map boundary options as the
+local gallery. With Schist Cloud selected, originals are downloaded into a
+temporary folder and uploaded into the cloud folder or bucket selected when
+Import was opened (or the cloud root). The temporary folder stays out of the
+local gallery and is removed after the upload finishes. The existing upload
+pipeline checks storage and duplicates and shows progress; originals remain on
+the camera. On iOS and Android the system photo/media picker feeds the same
+cloud upload path. The browser continues to use its file picker. **Upload
+files…** and **Upload folder…** remain available on cloud folder context menus.
+
 The sidebar's VIEW, GROUP BY and PEOPLE sections stay whichever room is up.
 World Map plots every located photo in the folder, bucket or search on show
 (not just the current page, up to 5000) by the `location` each asset carries,

@@ -424,6 +424,11 @@ Picking a source opens the import options:
 
 The destination folder joins the watched list automatically.
 
+When a Schist Cloud folder or bucket is selected, **Import…** opens the same
+source picker and options, with that cloud destination shown in the dialog.
+The imported files are staged temporarily and uploaded there; the staging folder
+does not join the local gallery. See [cloud.md](cloud.md#gallery-and-documents).
+
 ## Editing and versions
 
 Double-clicking a photo (or Edit in the tray) opens it in the editor.

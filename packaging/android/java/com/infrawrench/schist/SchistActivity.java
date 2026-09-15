@@ -22,6 +22,7 @@ public final class SchistActivity extends NativeActivity {
     private static final int PICK_MEDIA = 41;
     private static final ConcurrentLinkedQueue<JSONObject> imports = new ConcurrentLinkedQueue<>();
     private static final ExecutorService copies = Executors.newSingleThreadExecutor();
+    private File importDestination;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -32,22 +33,28 @@ public final class SchistActivity extends NativeActivity {
         setIntent(intent);
         receive(intent);
     }
-    public void pickMedia() {
+    public void pickMedia(String destination) {
         runOnUiThread(() -> {
             try {
+                importDestination = destination.isEmpty() ? null : new File(destination);
                 Intent pick = new Intent(Intent.ACTION_OPEN_DOCUMENT).setType("*/*")
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(Intent.EXTRA_MIME_TYPES, new String[] {"image/*", "video/*"})
                     .putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 startActivityForResult(pick, PICK_MEDIA);
-            } catch (RuntimeException error) { event(null, error, true, false); }
+            } catch (RuntimeException error) {
+                importDestination = null;
+                event(null, error, true, false);
+            }
         });
     }
     @Override protected void onActivityResult(int request, int result, Intent data) {
         super.onActivityResult(request, result, data);
         if (request != PICK_MEDIA) return;
+        File destination = importDestination;
+        importDestination = null;
         if (result != RESULT_OK || data == null) { event(null, null, true, false); return; }
-        try { copyUris(data, false); }
+        try { copyUris(data, false, destination); }
         catch (RuntimeException error) { event(null, error, true, false); }
     }
     private void receive(Intent intent) {
@@ -56,11 +63,11 @@ public final class SchistActivity extends NativeActivity {
             String action = intent.getAction();
             if (Intent.ACTION_SEND.equals(action) || Intent.ACTION_SEND_MULTIPLE.equals(action)
                     || (Intent.ACTION_VIEW.equals(action) && intent.getData() != null
-                        && "content".equals(intent.getData().getScheme()))) copyUris(intent, true);
-        } catch (RuntimeException error) { event(null, error, true, false); }
+                        && "content".equals(intent.getData().getScheme()))) copyUris(intent, true, null);
+        } catch (RuntimeException error) { event(null, error, true, true); }
     }
 
-    private void copyUris(Intent intent, boolean open) {
+    private void copyUris(Intent intent, boolean open, File destination) {
         java.util.LinkedHashSet<Uri> uris = new java.util.LinkedHashSet<>();
         if (intent.getData() != null) uris.add(intent.getData());
         ClipData clip = intent.getClipData();
@@ -76,13 +83,13 @@ public final class SchistActivity extends NativeActivity {
         }
         copies.execute(() -> {
             for (Uri uri : uris) {
-                try { event(copy(uri), null, false, open); }
-                catch (IOException | RuntimeException error) { event(null, error, false, false); }
+                try { event(copy(uri, destination), null, false, open); }
+                catch (IOException | RuntimeException error) { event(null, error, false, open); }
             }
-            event(null, null, true, false);
+            event(null, null, true, open);
         });
     }
-    private File copy(Uri uri) throws IOException {
+    private File copy(Uri uri, File destination) throws IOException {
         if (!"content".equals(uri.getScheme())) throw new IOException("video.invalid_file");
         String name = "media";
         try (Cursor cursor = getContentResolver().query(uri,
@@ -102,7 +109,7 @@ public final class SchistActivity extends NativeActivity {
         stem = stem.substring(0, Math.min(stem.length(), 80));
         File root = getExternalFilesDir(null);
         if (root == null) root = getFilesDir();
-        File folder = new File(root, "Documents/Imports");
+        File folder = destination == null ? new File(root, "Documents/Imports") : destination;
         if (!folder.isDirectory() && !folder.mkdirs()) throw new IOException("video.import_failed");
         File target = File.createTempFile(stem + "-", suffix.toLowerCase(Locale.ROOT), folder);
         boolean success = false;

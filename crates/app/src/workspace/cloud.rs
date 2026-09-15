@@ -165,6 +165,40 @@ pub(crate) const PAGE_SIZE: u64 = 200;
 /// in memory (~256 KB each) before the cache shrinks to the page.
 const THUMBNAIL_WORKERS: usize = 8;
 const THUMBNAIL_CACHE: usize = 600;
+/// Camera originals must stay on disk until the upload task finishes. Keeping
+/// their temporary directory here also cleans it up on error or cancellation.
+pub(super) enum LocalUpload {
+    Paths(Vec<PathBuf>),
+    #[cfg(not(target_arch = "wasm32"))]
+    Camera {
+        directory: Arc<tempfile::TempDir>,
+        failed: usize,
+    },
+}
+
+impl LocalUpload {
+    fn files(&self) -> Result<Vec<(PathBuf, Option<String>)>> {
+        let paths: &[PathBuf] = match self {
+            Self::Paths(paths) => paths,
+            #[cfg(not(target_arch = "wasm32"))]
+            Self::Camera { directory, .. } => &[directory.path().to_path_buf()],
+        };
+        let mut files = Vec::new();
+        for path in paths {
+            if path.is_dir() {
+                enumerate_files(path, path, &mut files)?;
+            } else {
+                #[cfg(not(target_arch = "wasm32"))]
+                let relative = None;
+                #[cfg(target_arch = "wasm32")]
+                let relative = crate::web::cloud_relative_path(path);
+                files.push((path.clone(), relative));
+            }
+        }
+        Ok(files)
+    }
+}
+
 pub(crate) struct CloudState {
     pub generation: super::cloud_generation::GenerationState,
     pub account: Option<Account>,
@@ -2143,6 +2177,16 @@ impl Workspace {
         paths: Vec<PathBuf>,
         cx: &mut Context<Self>,
     ) {
+        self.cloud_upload_local(bucket, folder, LocalUpload::Paths(paths), cx);
+    }
+
+    pub(super) fn cloud_upload_local(
+        &mut self,
+        bucket: Option<String>,
+        folder: Option<String>,
+        source: LocalUpload,
+        cx: &mut Context<Self>,
+    ) {
         let Some(c) = &self.cloud.client else {
             return;
         };
@@ -2162,18 +2206,7 @@ impl Workspace {
                 });
             });
             let result: Result<UploadSummary> = (async {
-                let mut files = Vec::new();
-                for path in paths {
-                    if path.is_dir() {
-                        enumerate_files(&path, &path, &mut files)?;
-                    } else {
-                        #[cfg(not(target_arch = "wasm32"))]
-                        let relative = None;
-                        #[cfg(target_arch = "wasm32")]
-                        let relative = crate::web::cloud_relative_path(&path);
-                        files.push((path, relative));
-                    }
-                }
+                let files = source.files()?;
                 let uploader =
                     upload_files(&handle, folder.clone(), files, report.clone(), None, None)
                         .await?;
@@ -2221,10 +2254,18 @@ impl Workspace {
             })
             .await;
             let job = match result {
-                Ok(summary) => Job::Done {
-                    epoch,
-                    message: summary.message(),
-                },
+                Ok(summary) => {
+                    #[allow(unused_mut)]
+                    let mut message = summary.message();
+                    #[cfg(not(target_arch = "wasm32"))]
+                    if let LocalUpload::Camera { failed, .. } = &source {
+                        if *failed > 0 {
+                            message.push_str(" — ");
+                            message.push_str(&tn("library.import.n_failed", *failed as u64));
+                        }
+                    }
+                    Job::Done { epoch, message }
+                }
                 Err(e) => Job::Error {
                     epoch,
                     error: if e
@@ -2238,6 +2279,7 @@ impl Workspace {
                 },
             };
             let _ = sender.send(job);
+            drop(source);
         });
         cx.notify();
     }
@@ -3796,6 +3838,33 @@ pub(super) fn rgba_to_render_image(
 #[cfg(test)]
 mod cloud_lifecycle_tests {
     use super::*;
+    #[cfg(not(target_arch = "wasm32"))]
+    #[test]
+    fn camera_upload_owns_only_its_staged_originals_until_completion() {
+        let original = tempfile::tempdir().unwrap();
+        let photo = original.path().join("photo.jpg");
+        std::fs::write(&photo, b"original photo").unwrap();
+        let directory = Arc::new(tempfile::tempdir().unwrap());
+        let staging = directory.path().to_path_buf();
+        std::fs::copy(&photo, staging.join("photo.jpg")).unwrap();
+        std::fs::write(staging.join(".private"), b"not uploaded").unwrap();
+        let upload = LocalUpload::Camera {
+            directory: directory.clone(),
+            failed: 0,
+        };
+        drop(directory);
+        assert!(staging.exists());
+        let files = upload.files().unwrap();
+        assert_eq!(
+            files,
+            vec![(staging.join("photo.jpg"), Some("photo.jpg".into()))]
+        );
+        assert_eq!(std::fs::read(&files[0].0).unwrap(), b"original photo");
+        drop(upload);
+        assert!(!staging.exists());
+        assert_eq!(std::fs::read(photo).unwrap(), b"original photo");
+    }
+
     #[test]
     fn face_previews_preserve_color_and_cache_by_source_and_rectangle() {
         let mut state = CloudState::default();
