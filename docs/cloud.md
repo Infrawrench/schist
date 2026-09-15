@@ -111,7 +111,8 @@ World Map plots every located photo in the folder, bucket or search on show
 with the same markers, strip and marker menu as local photos; marker
 thumbnails load on demand. The PEOPLE list
 shows the local people and, beneath them, the cloud's people with a ☁ badge;
-right-click a cloud person to rename, merge or forget them.
+click a cloud person or unnamed faces to select the Schist Cloud root and filter
+across the cloud library. Right-click a cloud person to rename, merge or forget them.
 
 Whole folders move in either direction from the right-click menus. A cloud
 folder row (and the ☁ Schist Cloud root) offers Upload files here…, Upload
@@ -287,8 +288,10 @@ validate edits, and materialize downloads. See [document-library.md](document-li
 
 ## People and upload screening
 
-Cloud People lives in the same gallery sidebar as the local People album, scoped
-to the current cloud folder or bucket. Faces are found automatically in cleared cloud
+Cloud People lives in the same gallery sidebar as the local People album. Clicking
+a person or unnamed faces selects the Schist Cloud root and applies the person
+filter there, keeping other search and filter settings. Clicking the active person
+again at the root clears that filter. Faces are found automatically in cleared cloud
 uploads with the same UltraFace/SFace models as desktop. Space or “View & name
 people” opens the cloud face viewer: click a box to name it, draw a missed face,
 accept a suggestion, or use “Not them”/“Not a face”. Rename can merge people;

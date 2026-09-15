@@ -3,7 +3,7 @@ use super::cloud_view::CLOUD_GLYPH;
 use super::gallery_chrome::{self as chrome, pal};
 use super::*;
 use gpui::{img, StatefulInteractiveElement as _};
-use schist_cloud::{protocol::value, Face, FaceRect, Value};
+use schist_cloud::{protocol::value, Face, FaceRect, Scope, Value};
 use schist_i18n::{t, tf, tn};
 use schist_ui::Badge;
 
@@ -123,7 +123,11 @@ pub(crate) fn rows(
     if caption {
         rows.push(chrome::sidebar_caption(t("cloud.sidebar.people")).into_any_element());
     }
-    let viewing = ws.cloud.query.filters.person_id.clone();
+    let viewing = if ws.cloud.show {
+        ws.cloud.query.filters.person_id.clone()
+    } else {
+        None
+    };
     let badge = |glyph: &'static str| {
         Badge::new(glyph)
             .outlined()
@@ -249,14 +253,15 @@ pub(crate) fn rows(
 }
 impl Workspace {
     pub(crate) fn cloud_person(&mut self, person: Option<String>, cx: &mut Context<Self>) {
-        self.cloud.query.filters.person_id = if self.cloud.query.filters.person_id == person {
+        self.cloud.query.filters.person_id = if self.cloud.show
+            && self.cloud.query.scope == Scope::Library
+            && self.cloud.query.filters.person_id == person
+        {
             None
         } else {
             person
         };
-        self.cloud.query.offset = 0;
-        self.cloud_watch_assets(false);
-        cx.notify();
+        self.cloud_browse(Scope::Library, cx);
     }
     pub(crate) fn cloud_people_view(&mut self, cx: &mut Context<Self>) {
         if let Some(asset) = self.cloud_lead_asset() {
