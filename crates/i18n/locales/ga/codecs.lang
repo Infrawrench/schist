@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = Níorbh fhéidir le ImageIO an coimeádán 
 codec.heif.msg.container_empty = níl aon íomhá sa choimeádán HEIF
 codec.heif.msg.imageio_cannot_decode = Níorbh fhéidir le ImageIO an phríomhíomhá a dhíchódú
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Tá an comhad íomhá le sraitheanna damáistithe nó neamhiomlán.
+codec.layered.too_large = Sáraíonn an íomhá le sraitheanna an méid nó líon na sraitheanna a dtacaítear leis.
+codec.layered.unsupported = Úsáideann an comhad seo gné nach dtacaítear léi: {feature}.
+codec.layered.export_layer = Tá gnéithe sa tsraith “{name}” nach féidir leis an bhformáid seo a chaomhnú. Rastaraigh í nó sábháil mar PSD.
+codec.layered.export_depth = Teastaíonn cáipéis RGB 8 ngiotán le heaspórtáil go Paint.NET. Tiontaigh an cháipéis go RGB 8 ngiotán ar dtús.
+codec.layered.export_mode = Teastaíonn cáipéis RGB le heaspórtáil. Tiontaigh an cháipéis go RGB ar dtús.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = mód cumaisc PDN
+codec.pdn.feature.compression = comhbhrú PDN
+codec.pdn.feature.container_version = leagan an choimeádáin PDN
+codec.pdn.feature.layer_type = cineál sraithe PDN
+codec.pdn.feature.multidimensional_array = eagar iltoiseach PDN
+codec.pdn.feature.pixel_format = formáid picteilíní PDN
+codec.pdn.feature.primitive_type = cineál sonraí primitíbheach PDN
+codec.pdn.feature.serialization_record = taifead srathaithe PDN
+codec.xcf.feature.blend_mode = mód cumaisc XCF
+codec.xcf.feature.color_model = samhail datha XCF
+codec.xcf.feature.compression = comhbhrú XCF
+codec.xcf.feature.floating_selection = roghnú ar snámh XCF
+codec.xcf.feature.layer_effects = éifeachtaí sraithe XCF
+codec.xcf.feature.precision = beachtas XCF
+codec.xcf.feature.version = leagan XCF

@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO mënu koo jàng konteneer HEIF bi
 codec.heif.msg.container_empty = konteneer HEIF bi amul nataal
 codec.heif.msg.imageio_cannot_decode = ImageIO mënu koo ubbi kodu nataal bu njëkk bi
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Dencukaayu nataal bi am ay couche dafa yàqu walla matul.
+codec.layered.too_large = Dayob nataal bi walla limu couche yi ci nekk ëpp na kem-kàttan gi ñu nangu.
+codec.layered.unsupported = Dencukaay bii dafay jëfandikoo man-man gu ñu nangulul: {feature}.
+codec.layered.export_layer = Couche “{name}” bi am na ay man-man yu formaa bii mënul denc. Soppi ko mu doon ay pixel walla nga denc ko ci PSD.
+codec.layered.export_depth = Ngir génne ci Paint.NET, dafa soxla jukki RGB bu 8 bit. Jëkka soppi jukki bi ci RGB bu 8 bit.
+codec.layered.export_mode = Ngir génne, dafa soxla jukki RGB. Jëkka soppi jukki bi ci RGB.
+codec.pdn.feature.blend_mode = anamu jaxase PDN
+codec.pdn.feature.compression = waññi dayob rootaanu PDN
+codec.pdn.feature.container_version = sumbub mbalkam PDN
+codec.pdn.feature.layer_type = xeetu couche PDN
+codec.pdn.feature.multidimensional_array = tëralinu rootaanu PDN bu am ay natt yu bari
+codec.pdn.feature.pixel_format = formaa pixel PDN
+codec.pdn.feature.primitive_type = xeetu rootaanu PDN bu suufe
+codec.pdn.feature.serialization_record = aareb rootaanu PDN yi ñu toftale ngir denc
+codec.xcf.feature.blend_mode = anamu jaxase XCF
+codec.xcf.feature.color_model = royukaayu melo XCF
+codec.xcf.feature.compression = waññi dayob rootaanu XCF
+codec.xcf.feature.floating_selection = tannub XCF buy féey
+codec.xcf.feature.layer_effects = jeexitalu couche XCF
+codec.xcf.feature.precision = njubteg XCF
+codec.xcf.feature.version = sumbub XCF

@@ -49,12 +49,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO ei voinut lukea HEIF-säilöä
 codec.heif.msg.container_empty = HEIF-säilössä ei ole kuvaa
 codec.heif.msg.imageio_cannot_decode = ImageIO ei voinut dekoodata ensisijaista kuvaa
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Tasollinen kuvatiedosto on vioittunut tai puutteellinen.
+codec.layered.too_large = Tasollisen kuvan koko tai tasojen määrä ylittää tuetun rajan.
+codec.layered.unsupported = Tämä tiedosto käyttää ominaisuutta, jota ei tueta: {feature}.
+codec.layered.export_layer = Taso ”{name}” sisältää ominaisuuksia, joita tämä muoto ei voi säilyttää. Rasteroi taso tai tallenna PSD-muodossa.
+codec.layered.export_depth = Vienti Paint.NET-muotoon vaatii 8-bittisen RGB-dokumentin. Muunna dokumentti ensin 8-bittiseen RGB-muotoon.
+codec.layered.export_mode = Vienti vaatii RGB-dokumentin. Muunna dokumentti ensin RGB-muotoon.
+codec.pdn.feature.blend_mode = PDN-sekoitustila
+codec.pdn.feature.compression = PDN-pakkaus
+codec.pdn.feature.container_version = PDN-säiliöversio
+codec.pdn.feature.layer_type = PDN-tasotyyppi
+codec.pdn.feature.multidimensional_array = moniulotteinen PDN-taulukko
+codec.pdn.feature.pixel_format = PDN-pikselimuoto
+codec.pdn.feature.primitive_type = PDN-perustietotyyppi
+codec.pdn.feature.serialization_record = PDN-sarjallistamistietue
+codec.xcf.feature.blend_mode = XCF-sekoitustila
+codec.xcf.feature.color_model = XCF-värimalli
+codec.xcf.feature.compression = XCF-pakkaus
+codec.xcf.feature.floating_selection = kelluva XCF-valinta
+codec.xcf.feature.layer_effects = XCF-tasotehosteet
+codec.xcf.feature.precision = XCF-tarkkuus
+codec.xcf.feature.version = XCF-versio

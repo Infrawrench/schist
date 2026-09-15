@@ -204,7 +204,7 @@ impl Parser {
                 r.take(len - 1)?;
                 Value::Null
             }
-            _ => return Err(unsupported("PDN primitive type")),
+            _ => return Err(unsupported(t("codec.pdn.feature.primitive_type"))),
         })
     }
     fn type_info(&mut self, r: &mut Reader<'_>, kind: u8) -> Result<Option<u8>> {
@@ -361,7 +361,7 @@ impl Parser {
                 ensure!(
                     rank == 1 && kind == 0,
                     "{}",
-                    unsupported("PDN multidimensional array")
+                    unsupported(t("codec.pdn.feature.multidimensional_array"))
                 );
                 let count = r.le32()? as usize;
                 let kind = r.byte()?;
@@ -387,7 +387,7 @@ impl Parser {
                 let primitive = if tag == 15 { Some(r.byte()?) } else { None };
                 self.array(r, id, count, primitive, depth)
             }
-            _ => Err(unsupported("PDN serialization record")),
+            _ => Err(unsupported(t("codec.pdn.feature.serialization_record"))),
         }
     }
 }

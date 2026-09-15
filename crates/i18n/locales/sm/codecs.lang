@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = Ua lē mafai e ImageIO ona faitau le contai
 codec.heif.msg.container_empty = e leai se ata i le container HEIF
 codec.heif.msg.imageio_cannot_decode = Ua lē mafai e ImageIO ona tatala le faailoga o le ata autū
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Ua leaga pe lē atoa le faila o le ata e iai vaega.
+codec.layered.too_large = Ua sili atu le telē o le ata po o le aofaʻi o ona vaega i le tapulaʻa e lagolagoina.
+codec.layered.unsupported = E faaaogā e lenei faila se vaega e lē lagolagoina: {feature}.
+codec.layered.export_layer = O le vaega “{name}” e iai mea e lē mafai ona faasaoina e lenei faatulagaga. Liua le vaega i pika pe sefe o se PSD.
+codec.layered.export_depth = E manaʻomia se pepa RGB 8-bit e auina ese ai i Paint.NET. Muamua, liua le pepa i le RGB 8-bit.
+codec.layered.export_mode = E manaʻomia se pepa RGB e auina ese ai. Muamua, liua le pepa i le RGB.
+codec.pdn.feature.blend_mode = faiga palu a PDN
+codec.pdn.feature.compression = faaitiitiga o faamaumauga a PDN
+codec.pdn.feature.container_version = lomiga o le container a PDN
+codec.pdn.feature.layer_type = ituaiga vaega a PDN
+codec.pdn.feature.multidimensional_array = faasologa o faamaumauga e tele ona fua a PDN
+codec.pdn.feature.pixel_format = faatulagaga o pika a PDN
+codec.pdn.feature.primitive_type = ituaiga autū o faamaumauga a PDN
+codec.pdn.feature.serialization_record = faamaumauga ua faasolosolo mo le teuina a PDN
+codec.xcf.feature.blend_mode = faiga palu a XCF
+codec.xcf.feature.color_model = faataʻitaʻiga lanu a XCF
+codec.xcf.feature.compression = faaitiitiga o faamaumauga a XCF
+codec.xcf.feature.floating_selection = filifiliga opeopea a XCF
+codec.xcf.feature.layer_effects = aafiaga o vaega a XCF
+codec.xcf.feature.precision = saʻo atoatoa a XCF
+codec.xcf.feature.version = lomiga a XCF

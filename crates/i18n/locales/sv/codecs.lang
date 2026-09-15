@@ -43,12 +43,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO kunde inte läsa HEIF-behållaren
 codec.heif.msg.container_empty = HEIF-behållaren innehåller ingen bild
 codec.heif.msg.imageio_cannot_decode = ImageIO kunde inte avkoda huvudbilden
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Den lagerindelade bildfilen är skadad eller ofullständig.
+codec.layered.too_large = Bilden överskrider den storlek eller det antal lager som stöds.
+codec.layered.unsupported = Den här filen använder en funktion som inte stöds: {feature}.
+codec.layered.export_layer = Lagret ”{name}” innehåller funktioner som det här formatet inte kan bevara. Rastrera det eller spara som PSD.
+codec.layered.export_depth = Export till Paint.NET kräver ett RGB-dokument med 8 bitar. Konvertera först dokumentet till RGB med 8 bitar.
+codec.layered.export_mode = Export kräver ett RGB-dokument. Konvertera först dokumentet till RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN-blandningsläge
+codec.pdn.feature.compression = PDN-komprimering
+codec.pdn.feature.container_version = PDN-behållarversion
+codec.pdn.feature.layer_type = PDN-lagertyp
+codec.pdn.feature.multidimensional_array = PDN-flerdimensionell array
+codec.pdn.feature.pixel_format = PDN-pixelformat
+codec.pdn.feature.primitive_type = PDN-primitiv datatyp
+codec.pdn.feature.serialization_record = PDN-serialiseringspost
+codec.xcf.feature.blend_mode = XCF-blandningsläge
+codec.xcf.feature.color_model = XCF-färgmodell
+codec.xcf.feature.compression = XCF-komprimering
+codec.xcf.feature.floating_selection = XCF-flytande markering
+codec.xcf.feature.layer_effects = XCF-lagereffekter
+codec.xcf.feature.precision = XCF-precision
+codec.xcf.feature.version = XCF-version

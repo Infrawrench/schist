@@ -41,12 +41,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO ya kasa karanta kwandon HEIF
 codec.heif.msg.container_empty = kwandon HEIF ba shi da hoto
 codec.heif.msg.imageio_cannot_decode = ImageIO ya kasa sauya lambar babban hoto
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Fayil ɗin hoton mai shimfiɗu ya lalace ko bai cika ba.
+codec.layered.too_large = Girman hoton mai shimfiɗu ko yawan shimfiɗunsa ya wuce iyakar da ake tallafawa.
+codec.layered.unsupported = Wannan fayil yana amfani da fasalin da ba a tallafawa: {feature}.
+codec.layered.export_layer = Shimfiɗar “{name}” tana ɗauke da fasalolin da wannan tsarin ba zai iya adanawa ba. Mayar da ita pixels ko ajiye a matsayin PSD.
+codec.layered.export_depth = Fitarwa zuwa Paint.NET yana buƙatar takardar RGB mai bit 8. Da farko, mayar da takardar zuwa RGB mai bit 8.
+codec.layered.export_mode = Fitarwa yana buƙatar takardar RGB. Da farko, mayar da takardar zuwa RGB.
+codec.pdn.feature.blend_mode = yanayin haɗawa na PDN
+codec.pdn.feature.compression = matse bayanai na PDN
+codec.pdn.feature.container_version = sigar kwandon PDN
+codec.pdn.feature.layer_type = nau'in shimfiɗar PDN
+codec.pdn.feature.multidimensional_array = jerin bayanai mai girma da yawa na PDN
+codec.pdn.feature.pixel_format = tsarin pixel na PDN
+codec.pdn.feature.primitive_type = nau'in bayanai na asali na PDN
+codec.pdn.feature.serialization_record = rikodin jera bayanai don ajiya na PDN
+codec.xcf.feature.blend_mode = yanayin haɗawa na XCF
+codec.xcf.feature.color_model = samfurin launi na XCF
+codec.xcf.feature.compression = matse bayanai na XCF
+codec.xcf.feature.floating_selection = zaɓi mai iyo na XCF
+codec.xcf.feature.layer_effects = tasirin shimfiɗar XCF
+codec.xcf.feature.precision = daidaiton XCF
+codec.xcf.feature.version = sigar XCF

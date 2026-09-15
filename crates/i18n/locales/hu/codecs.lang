@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = Az ImageIO nem tudta olvasni a HEIF-kontén
 codec.heif.msg.container_empty = a HEIF-konténer nem tartalmaz képet
 codec.heif.msg.imageio_cannot_decode = Az ImageIO nem tudta dekódolni az elsődleges képet
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = A réteges képfájl sérült vagy hiányos.
+codec.layered.too_large = A kép mérete vagy a rétegek száma meghaladja a támogatott határértéket.
+codec.layered.unsupported = Ez a fájl nem támogatott funkciót használ: {feature}.
+codec.layered.export_layer = A(z) „{name}” réteg olyan funkciókat tartalmaz, amelyeket ez a formátum nem tud megőrizni. Raszterizálja a réteget, vagy mentse PSD-ként.
+codec.layered.export_depth = A Paint.NET-exportáláshoz 8 bites RGB-dokumentum szükséges. Először alakítsa át a dokumentumot 8 bites RGB-re.
+codec.layered.export_mode = Az exportáláshoz RGB-dokumentum szükséges. Először alakítsa át a dokumentumot RGB-re.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN keverési mód
+codec.pdn.feature.compression = PDN-tömörítés
+codec.pdn.feature.container_version = PDN-tárolóverzió
+codec.pdn.feature.layer_type = PDN-rétegtípus
+codec.pdn.feature.multidimensional_array = PDN többdimenziós tömb
+codec.pdn.feature.pixel_format = PDN-képpontformátum
+codec.pdn.feature.primitive_type = PDN primitív adattípus
+codec.pdn.feature.serialization_record = PDN szerializálási rekord
+codec.xcf.feature.blend_mode = XCF keverési mód
+codec.xcf.feature.color_model = XCF-színmodell
+codec.xcf.feature.compression = XCF-tömörítés
+codec.xcf.feature.floating_selection = XCF lebegő kijelölés
+codec.xcf.feature.layer_effects = XCF-rétegeffektusok
+codec.xcf.feature.precision = XCF-pontosság
+codec.xcf.feature.version = XCF-verzió

@@ -35,12 +35,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO، HEIF کنٹینر نہیں پڑھ
 codec.heif.msg.container_empty = HEIF کنٹینر میں کوئی تصویر نہیں
 codec.heif.msg.imageio_cannot_decode = ImageIO بنیادی تصویر ڈی کوڈ نہیں کر سکا
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = لیئرز والی تصویر کی فائل خراب یا نامکمل ہے۔
+codec.layered.too_large = لیئرز والی تصویر کا سائز یا لیئرز کی تعداد معاون حد سے زیادہ ہے۔
+codec.layered.unsupported = اس فائل میں ایک غیر معاون خصوصیت استعمال ہوئی ہے: {feature}۔
+codec.layered.export_layer = لیئر ”{name}“ میں ایسی خصوصیات ہیں جنہیں یہ فارمیٹ محفوظ نہیں رکھ سکتا۔ اسے راسٹر کریں یا PSD کے طور پر محفوظ کریں۔
+codec.layered.export_depth = Paint.NET میں برآمد کرنے کے لیے 8 بٹ RGB دستاویز درکار ہے۔ پہلے دستاویز کو 8 بٹ RGB میں تبدیل کریں۔
+codec.layered.export_mode = برآمد کرنے کے لیے RGB دستاویز درکار ہے۔ پہلے دستاویز کو RGB میں تبدیل کریں۔
+codec.pdn.feature.blend_mode = PDN بلینڈ موڈ
+codec.pdn.feature.compression = PDN کمپریشن
+codec.pdn.feature.container_version = PDN کنٹینر کا ورژن
+codec.pdn.feature.layer_type = PDN لیئر کی قسم
+codec.pdn.feature.multidimensional_array = PDN کثیر جہتی اَرے
+codec.pdn.feature.pixel_format = PDN پکسل فارمیٹ
+codec.pdn.feature.primitive_type = PDN بنیادی ڈیٹا کی قسم
+codec.pdn.feature.serialization_record = PDN سیریلائزیشن ریکارڈ
+codec.xcf.feature.blend_mode = XCF بلینڈ موڈ
+codec.xcf.feature.color_model = XCF رنگ ماڈل
+codec.xcf.feature.compression = XCF کمپریشن
+codec.xcf.feature.floating_selection = XCF تیرتا ہوا انتخاب
+codec.xcf.feature.layer_effects = XCF لیئر کے اثرات
+codec.xcf.feature.precision = XCF درستگی
+codec.xcf.feature.version = XCF ورژن

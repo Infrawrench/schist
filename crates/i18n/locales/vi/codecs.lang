@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO không thể đọc vùng chứa HE
 codec.heif.msg.container_empty = vùng chứa HEIF không có ảnh
 codec.heif.msg.imageio_cannot_decode = ImageIO không thể giải mã ảnh chính
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Tệp ảnh có lớp bị hỏng hoặc không đầy đủ.
+codec.layered.too_large = Ảnh có lớp vượt quá kích thước hoặc số lớp được hỗ trợ.
+codec.layered.unsupported = Tệp này sử dụng một tính năng không được hỗ trợ: {feature}.
+codec.layered.export_layer = Lớp “{name}” chứa những tính năng mà định dạng này không thể giữ lại. Hãy raster hóa lớp hoặc lưu dưới dạng PSD.
+codec.layered.export_depth = Xuất sang Paint.NET cần tài liệu RGB 8 bit. Trước tiên, hãy chuyển tài liệu sang RGB 8 bit.
+codec.layered.export_mode = Xuất cần tài liệu RGB. Trước tiên, hãy chuyển tài liệu sang RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Chế độ hòa trộn PDN
+codec.pdn.feature.compression = Nén PDN
+codec.pdn.feature.container_version = Phiên bản vùng chứa PDN
+codec.pdn.feature.layer_type = Loại lớp PDN
+codec.pdn.feature.multidimensional_array = Mảng đa chiều PDN
+codec.pdn.feature.pixel_format = Định dạng điểm ảnh PDN
+codec.pdn.feature.primitive_type = Kiểu dữ liệu nguyên thủy PDN
+codec.pdn.feature.serialization_record = Bản ghi tuần tự hóa PDN
+codec.xcf.feature.blend_mode = Chế độ hòa trộn XCF
+codec.xcf.feature.color_model = Mô hình màu XCF
+codec.xcf.feature.compression = Nén XCF
+codec.xcf.feature.floating_selection = Vùng chọn nổi XCF
+codec.xcf.feature.layer_effects = Hiệu ứng lớp XCF
+codec.xcf.feature.precision = Độ chính xác XCF
+codec.xcf.feature.version = Phiên bản XCF

@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO ไม่สามารถอ่�
 codec.heif.msg.container_empty = คอนเทนเนอร์ HEIF ไม่มีภาพ
 codec.heif.msg.imageio_cannot_decode = ImageIO ไม่สามารถถอดรหัสภาพหลัก
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = ไฟล์ภาพที่มีเลเยอร์เสียหายหรือไม่สมบูรณ์
+codec.layered.too_large = ภาพที่มีเลเยอร์มีขนาดหรือจำนวนเลเยอร์เกินขีดจำกัดที่รองรับ
+codec.layered.unsupported = ไฟล์นี้ใช้คุณสมบัติที่ไม่รองรับ: {feature}
+codec.layered.export_layer = เลเยอร์ “{name}” มีคุณสมบัติที่รูปแบบนี้ไม่สามารถเก็บรักษาไว้ได้ โปรดแรสเตอร์ไรซ์เลเยอร์หรือบันทึกเป็น PSD
+codec.layered.export_depth = การส่งออกเป็น Paint.NET ต้องใช้เอกสาร RGB 8 บิต โปรดแปลงเอกสารเป็น RGB 8 บิตก่อน
+codec.layered.export_mode = การส่งออกต้องใช้เอกสาร RGB โปรดแปลงเอกสารเป็น RGB ก่อน
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = โหมดผสม PDN
+codec.pdn.feature.compression = การบีบอัด PDN
+codec.pdn.feature.container_version = เวอร์ชันคอนเทนเนอร์ PDN
+codec.pdn.feature.layer_type = ชนิดเลเยอร์ PDN
+codec.pdn.feature.multidimensional_array = อาร์เรย์หลายมิติ PDN
+codec.pdn.feature.pixel_format = รูปแบบพิกเซล PDN
+codec.pdn.feature.primitive_type = ชนิดข้อมูลพื้นฐาน PDN
+codec.pdn.feature.serialization_record = ระเบียนการซีเรียลไลซ์ PDN
+codec.xcf.feature.blend_mode = โหมดผสม XCF
+codec.xcf.feature.color_model = โมเดลสี XCF
+codec.xcf.feature.compression = การบีบอัด XCF
+codec.xcf.feature.floating_selection = ส่วนที่เลือกลอยตัว XCF
+codec.xcf.feature.layer_effects = เอฟเฟ็กต์เลเยอร์ XCF
+codec.xcf.feature.precision = ความละเอียดของค่าพิกเซล XCF
+codec.xcf.feature.version = เวอร์ชัน XCF

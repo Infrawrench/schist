@@ -35,12 +35,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF контейнерын уҡы�
 codec.heif.msg.container_empty = HEIF контейнерында рәсем юҡ
 codec.heif.msg.imageio_cannot_decode = ImageIO төп рәсемде декодлай алманы
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Ҡатламлы рәсем файлы боҙолған йәки тулы түгел.
+codec.layered.too_large = Ҡатламлы рәсемдең үлсәме йәки ҡатламдар һаны хупланған сиктән артып китә.
+codec.layered.unsupported = Был файл хупланмаған мөмкинлекте ҡуллана: {feature}.
+codec.layered.export_layer = «{name}» ҡатламында был формат һаҡлай алмаған мөмкинлектәр бар. Ҡатламды растрлағыҙ йәки PSD итеп һаҡлағыҙ.
+codec.layered.export_depth = Paint.NET форматына экспортлау өсөн 8 битлы RGB документы кәрәк. Башта документты 8 битлы RGB-ға әйләндерегеҙ.
+codec.layered.export_mode = Экспортлау өсөн RGB документы кәрәк. Башта документты RGB-ға әйләндерегеҙ.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN ҡатнаштырыу режимы
+codec.pdn.feature.compression = PDN ҡыҫыуы
+codec.pdn.feature.container_version = PDN контейнеры версияһы
+codec.pdn.feature.layer_type = PDN ҡатламы төрө
+codec.pdn.feature.multidimensional_array = PDN күп үлсәмле массивы
+codec.pdn.feature.pixel_format = PDN пиксель форматы
+codec.pdn.feature.primitive_type = PDN мәғлүмәттәренең ябай төрө
+codec.pdn.feature.serialization_record = PDN сериаллаштырыу яҙмаһы
+codec.xcf.feature.blend_mode = XCF ҡатнаштырыу режимы
+codec.xcf.feature.color_model = XCF төҫ моделе
+codec.xcf.feature.compression = XCF ҡыҫыуы
+codec.xcf.feature.floating_selection = XCF йөҙөүсе һайлауы
+codec.xcf.feature.layer_effects = XCF ҡатлам эффекттары
+codec.xcf.feature.precision = XCF теүәллеге
+codec.xcf.feature.version = XCF версияһы

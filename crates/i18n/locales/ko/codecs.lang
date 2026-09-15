@@ -42,12 +42,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO가 HEIF 컨테이너를 읽지 못�
 codec.heif.msg.container_empty = HEIF 컨테이너에 이미지가 없습니다
 codec.heif.msg.imageio_cannot_decode = ImageIO가 기본 이미지를 디코딩하지 못했습니다
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = 레이어가 있는 이미지 파일이 손상되었거나 불완전합니다.
+codec.layered.too_large = 레이어가 있는 이미지의 크기 또는 레이어 수가 지원 범위를 초과합니다.
+codec.layered.unsupported = 이 파일은 지원되지 않는 기능을 사용합니다: {feature}.
+codec.layered.export_layer = “{name}” 레이어에 이 형식으로 보존할 수 없는 기능이 있습니다. 레이어를 래스터화하거나 PSD로 저장하세요.
+codec.layered.export_depth = Paint.NET으로 내보내려면 8비트 RGB 문서가 필요합니다. 먼저 문서를 8비트 RGB로 변환하세요.
+codec.layered.export_mode = 내보내려면 RGB 문서가 필요합니다. 먼저 문서를 RGB로 변환하세요.
+codec.pdn.feature.blend_mode = PDN 혼합 모드
+codec.pdn.feature.compression = PDN 압축
+codec.pdn.feature.container_version = PDN 컨테이너 버전
+codec.pdn.feature.layer_type = PDN 레이어 유형
+codec.pdn.feature.multidimensional_array = PDN 다차원 배열
+codec.pdn.feature.pixel_format = PDN 픽셀 형식
+codec.pdn.feature.primitive_type = PDN 기본 자료형
+codec.pdn.feature.serialization_record = PDN 직렬화 레코드
+codec.xcf.feature.blend_mode = XCF 혼합 모드
+codec.xcf.feature.color_model = XCF 색상 모델
+codec.xcf.feature.compression = XCF 압축
+codec.xcf.feature.floating_selection = XCF 떠 있는 선택 영역
+codec.xcf.feature.layer_effects = XCF 레이어 효과
+codec.xcf.feature.precision = XCF 정밀도
+codec.xcf.feature.version = XCF 버전

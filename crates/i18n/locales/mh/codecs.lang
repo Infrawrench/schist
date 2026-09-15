@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO ejjab maroñ riit container in HEIF
 codec.heif.msg.container_empty = ejelọk pija ilo container in HEIF
 codec.heif.msg.imageio_cannot_decode = ImageIO ejjab maroñ decode pija eo eļaptata
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = File in pija eo ewōr layer ie ejorrāān ak ejjab dedelọk.
+codec.layered.too_large = Pija eo ewōr layer ie elap jān joñan ak oran layer ko program eo emaroñ jerbal kōn.
+codec.layered.unsupported = File in ej kōjerbal men eo program eo ejjab maroñ jerbal kōn: {feature}.
+codec.layered.export_layer = Layer “{name}” ewōr men ko format in ejjab maroñ kōjparoki. Ukot layer eo ñan pixel ko wōt ak kōjparoke āinwōt PSD.
+codec.layered.export_depth = Ñan jilkinļọk ñan Paint.NET, kwōj aikuj document in RGB 8-bit. Jinoin ukot document eo ñan RGB 8-bit.
+codec.layered.export_mode = Ñan jilkinļọk, kwōj aikuj document in RGB. Jinoin ukot document eo ñan RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Mode in koba an PDN
+codec.pdn.feature.compression = Kōkadik data in PDN
+codec.pdn.feature.container_version = Version in container in PDN
+codec.pdn.feature.layer_type = Kain layer in PDN
+codec.pdn.feature.multidimensional_array = Array in PDN eo ewōr elōñ dimension ie
+codec.pdn.feature.pixel_format = Kain pixel in PDN
+codec.pdn.feature.primitive_type = Kain data eo jinoin in PDN
+codec.pdn.feature.serialization_record = Rekoot in kōlaajrak data in PDN
+codec.xcf.feature.blend_mode = Mode in koba an XCF
+codec.xcf.feature.color_model = Model in kōlar an XCF
+codec.xcf.feature.compression = Kōkadik data in XCF
+codec.xcf.feature.floating_selection = Selection eo ej eļļā ilo XCF
+codec.xcf.feature.layer_effects = Jerbal ko an layer in XCF
+codec.xcf.feature.precision = Joñan jejjet in pixel an XCF
+codec.xcf.feature.version = Version in XCF

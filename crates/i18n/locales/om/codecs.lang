@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO qabduu HEIF dubbisuu hin dandeenye
 codec.heif.msg.container_empty = qabduun HEIF suuraa hin qabu
 codec.heif.msg.imageio_cannot_decode = ImageIO suuraa ijoo hiikuu hin dandeenye
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Faayilli suuraa laayaroota qabu miidhameera yookaan guutuu miti.
+codec.layered.too_large = Guddinni suuraa laayaroota qabuu yookaan baay'inni laayaroota isaa daangaa deeggaramu caala.
+codec.layered.unsupported = Faayilli kun amala hin deeggaramne fayyadama: {feature}.
+codec.layered.export_layer = Laayarri “{name}” amaloota akkaataan kun eeguu hin dandeenye qaba. Gara pikselootaatti jijjiiri yookaan akka PSDtti olkaa'i.
+codec.layered.export_depth = Gara Paint.NET al-erguun galmee RGB 8-bit barbaada. Dura galmee gara RGB 8-bit jijjiiri.
+codec.layered.export_mode = Al-erguun galmee RGB barbaada. Dura galmee gara RGB jijjiiri.
+codec.pdn.feature.blend_mode = haala makaa PDN
+codec.pdn.feature.compression = cuunfaa PDN
+codec.pdn.feature.container_version = gosa kuusaa PDN
+codec.pdn.feature.layer_type = gosa laayara PDN
+codec.pdn.feature.multidimensional_array = tarree deetaa safaroota hedduu qabu kan PDN
+codec.pdn.feature.pixel_format = akkaataa pikselii PDN
+codec.pdn.feature.primitive_type = gosa deetaa bu'uuraa PDN
+codec.pdn.feature.serialization_record = galmee deetaa kuusuuf tartiibeffame kan PDN
+codec.xcf.feature.blend_mode = haala makaa XCF
+codec.xcf.feature.color_model = moodeela halluu XCF
+codec.xcf.feature.compression = cuunfaa XCF
+codec.xcf.feature.floating_selection = filannoo bololi'aa XCF
+codec.xcf.feature.layer_effects = dhiibbaawwan laayara XCF
+codec.xcf.feature.precision = sirrummaa XCF
+codec.xcf.feature.version = gosa XCF

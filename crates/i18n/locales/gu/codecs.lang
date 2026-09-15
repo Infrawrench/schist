@@ -39,12 +39,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF કન્ટેનર વા�
 codec.heif.msg.container_empty = HEIF કન્ટેનરમાં કોઈ છબી નથી
 codec.heif.msg.imageio_cannot_decode = ImageIO મુખ્ય છબી ડિકોડ કરી શક્યું નહીં
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = લેયરવાળી ઇમેજની ફાઇલ નુકસાનગ્રસ્ત અથવા અધૂરી છે.
+codec.layered.too_large = લેયરવાળી ઇમેજનું કદ અથવા લેયરની સંખ્યા સમર્થિત મર્યાદાથી વધુ છે.
+codec.layered.unsupported = આ ફાઇલ અસમર્થિત સુવિધાનો ઉપયોગ કરે છે: {feature}.
+codec.layered.export_layer = “{name}” લેયરમાં એવી સુવિધાઓ છે જે આ ફોર્મેટ જાળવી શકતું નથી. તેને રાસ્ટરાઇઝ કરો અથવા PSD તરીકે સાચવો.
+codec.layered.export_depth = Paint.NET એક્સપોર્ટ માટે 8-બિટ RGB દસ્તાવેજ જરૂરી છે. પહેલાં દસ્તાવેજને 8-બિટ RGBમાં રૂપાંતરિત કરો.
+codec.layered.export_mode = એક્સપોર્ટ માટે RGB દસ્તાવેજ જરૂરી છે. પહેલાં દસ્તાવેજને RGBમાં રૂપાંતરિત કરો.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN બ્લેન્ડ મોડ
+codec.pdn.feature.compression = PDN સંકોચન
+codec.pdn.feature.container_version = PDN કન્ટેનર આવૃત્તિ
+codec.pdn.feature.layer_type = PDN લેયરનો પ્રકાર
+codec.pdn.feature.multidimensional_array = PDN બહુપરીમાણીય અરે
+codec.pdn.feature.pixel_format = PDN પિક્સેલ ફોર્મેટ
+codec.pdn.feature.primitive_type = PDN મૂળભૂત ડેટાનો પ્રકાર
+codec.pdn.feature.serialization_record = PDN સિરિયલાઇઝેશન રેકોર્ડ
+codec.xcf.feature.blend_mode = XCF બ્લેન્ડ મોડ
+codec.xcf.feature.color_model = XCF રંગ મોડેલ
+codec.xcf.feature.compression = XCF સંકોચન
+codec.xcf.feature.floating_selection = XCF તરતી પસંદગી
+codec.xcf.feature.layer_effects = XCF લેયરની અસરો
+codec.xcf.feature.precision = XCF ચોકસાઈ
+codec.xcf.feature.version = XCF આવૃત્તિ

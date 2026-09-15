@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO i no save ridim HEIF container
 codec.heif.msg.container_empty = HEIF container i no gat image
 codec.heif.msg.imageio_cannot_decode = ImageIO i no save dikodem mein image
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Fael blong pija we i gat ol layer i brok o i no fulwan.
+codec.layered.too_large = Pija we i gat ol layer i bitim saes o namba blong layer we program i save sapotem.
+codec.layered.unsupported = Fael ya i yusum wan fisa we program i no sapotem: {feature}.
+codec.layered.export_layer = Layer “{name}” i gat ol fisa we format ya i no save kipim. Jenisim layer ya i kam ol pixel o sevem olsem PSD.
+codec.layered.export_depth = Blong eksportem long Paint.NET, yu nidim wan RGB dokumen blong 8-bit. Jenisim dokumen i kam RGB blong 8-bit fastaem.
+codec.layered.export_mode = Blong eksportem, yu nidim wan RGB dokumen. Jenisim dokumen i kam RGB fastaem.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Mod blong miksim PDN
+codec.pdn.feature.compression = Kompresen blong PDN
+codec.pdn.feature.container_version = Vesen blong kontena blong PDN
+codec.pdn.feature.layer_type = Kaen layer blong PDN
+codec.pdn.feature.multidimensional_array = Are blong PDN we i gat plante daemensen
+codec.pdn.feature.pixel_format = Fomat blong pixel blong PDN
+codec.pdn.feature.primitive_type = Besik kaen data blong PDN
+codec.pdn.feature.serialization_record = Rekod blong putum data long wan laen blong PDN
+codec.xcf.feature.blend_mode = Mod blong miksim XCF
+codec.xcf.feature.color_model = Model blong kala blong XCF
+codec.xcf.feature.compression = Kompresen blong XCF
+codec.xcf.feature.floating_selection = Seleksen we i flot blong XCF
+codec.xcf.feature.layer_effects = Ol efek blong layer blong XCF
+codec.xcf.feature.precision = Presisen blong XCF
+codec.xcf.feature.version = Vesen blong XCF

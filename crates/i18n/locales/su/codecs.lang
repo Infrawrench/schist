@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO teu bisa maca konténer HEIF
 codec.heif.msg.container_empty = konténer HEIF teu ngandung gambar
 codec.heif.msg.imageio_cannot_decode = ImageIO teu bisa ngadékode gambar utama
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Berkas gambar anu boga lapisan ruksak atawa teu lengkep.
+codec.layered.too_large = Gambar anu boga lapisan ngaleuwihan ukuran atawa jumlah lapisan anu dirojong.
+codec.layered.unsupported = Berkas ieu maké fitur anu teu dirojong: {feature}.
+codec.layered.export_layer = Lapisan “{name}” ngandung fitur anu teu bisa dijaga ku format ieu. Rasterkeun lapisan éta atawa simpen salaku PSD.
+codec.layered.export_depth = Ékspor ka Paint.NET merlukeun dokumén RGB 8-bit. Robah heula dokumén jadi RGB 8-bit.
+codec.layered.export_mode = Ékspor merlukeun dokumén RGB. Robah heula dokumén jadi RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Mode campuran PDN
+codec.pdn.feature.compression = Komprési PDN
+codec.pdn.feature.container_version = Vérsi wadah PDN
+codec.pdn.feature.layer_type = Jenis lapisan PDN
+codec.pdn.feature.multidimensional_array = Larik sababaraha diménsi PDN
+codec.pdn.feature.pixel_format = Format piksel PDN
+codec.pdn.feature.primitive_type = Jenis data dasar PDN
+codec.pdn.feature.serialization_record = Rékaman sérialisasi PDN
+codec.xcf.feature.blend_mode = Mode campuran XCF
+codec.xcf.feature.color_model = Modél warna XCF
+codec.xcf.feature.compression = Komprési XCF
+codec.xcf.feature.floating_selection = Pilihan ngambang XCF
+codec.xcf.feature.layer_effects = Éfék lapisan XCF
+codec.xcf.feature.precision = Katepatan XCF
+codec.xcf.feature.version = Vérsi XCF

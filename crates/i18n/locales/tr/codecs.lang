@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO, HEIF kapsayıcısını okuyamadı
 codec.heif.msg.container_empty = HEIF kapsayıcısında görüntü yok
 codec.heif.msg.imageio_cannot_decode = ImageIO, birincil görüntünün kodunu çözemedi
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Katmanlı görüntü dosyası hasarlı veya eksik.
+codec.layered.too_large = Katmanlı görüntü, desteklenen boyutu veya katman sayısını aşıyor.
+codec.layered.unsupported = Bu dosya desteklenmeyen bir özellik kullanıyor: {feature}.
+codec.layered.export_layer = “{name}” katmanı, bu biçimin koruyamadığı özellikler içeriyor. Katmanı rasterleştirin veya PSD olarak kaydedin.
+codec.layered.export_depth = Paint.NET olarak dışa aktarma, 8 bit RGB belge gerektirir. Önce belgeyi 8 bit RGB'ye dönüştürün.
+codec.layered.export_mode = Dışa aktarma, RGB belge gerektirir. Önce belgeyi RGB'ye dönüştürün.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN karışım modu
+codec.pdn.feature.compression = PDN sıkıştırması
+codec.pdn.feature.container_version = PDN kapsayıcı sürümü
+codec.pdn.feature.layer_type = PDN katman türü
+codec.pdn.feature.multidimensional_array = PDN çok boyutlu dizisi
+codec.pdn.feature.pixel_format = PDN piksel biçimi
+codec.pdn.feature.primitive_type = PDN ilkel veri türü
+codec.pdn.feature.serialization_record = PDN serileştirme kaydı
+codec.xcf.feature.blend_mode = XCF karışım modu
+codec.xcf.feature.color_model = XCF renk modeli
+codec.xcf.feature.compression = XCF sıkıştırması
+codec.xcf.feature.floating_selection = XCF yüzen seçim
+codec.xcf.feature.layer_effects = XCF katman efektleri
+codec.xcf.feature.precision = XCF hassasiyeti
+codec.xcf.feature.version = XCF sürümü

@@ -34,12 +34,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO pa t kapab li kontenè HEIF la
 codec.heif.msg.container_empty = kontenè HEIF la pa gen imaj
 codec.heif.msg.imageio_cannot_decode = ImageIO pa t kapab dekode imaj prensipal la
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Fichye imaj ki gen kouch la domaje oswa li pa konplè.
+codec.layered.too_large = Imaj ki gen kouch la depase gwosè oswa kantite kouch ki sipòte a.
+codec.layered.unsupported = Fichye sa a sèvi ak yon fonksyon ki pa sipòte: {feature}.
+codec.layered.export_layer = Kouch “{name}” la gen fonksyon fòma sa a pa ka konsève. Rasterize li oswa anrejistre kòm PSD.
+codec.layered.export_depth = Ekspòtasyon nan Paint.NET mande yon dokiman RGB 8 bit. Konvèti dokiman an nan RGB 8 bit anvan.
+codec.layered.export_mode = Ekspòtasyon mande yon dokiman RGB. Konvèti dokiman an nan RGB anvan.
+codec.pdn.feature.blend_mode = mòd melanj PDN
+codec.pdn.feature.compression = konpresyon PDN
+codec.pdn.feature.container_version = vèsyon kontenè PDN
+codec.pdn.feature.layer_type = tip kouch PDN
+codec.pdn.feature.multidimensional_array = tablo miltidimansyonèl PDN
+codec.pdn.feature.pixel_format = fòma piksèl PDN
+codec.pdn.feature.primitive_type = tip done primitif PDN
+codec.pdn.feature.serialization_record = dosye seryalizasyon PDN
+codec.xcf.feature.blend_mode = mòd melanj XCF
+codec.xcf.feature.color_model = modèl koulè XCF
+codec.xcf.feature.compression = konpresyon XCF
+codec.xcf.feature.floating_selection = seleksyon flotan XCF
+codec.xcf.feature.layer_effects = efè kouch XCF
+codec.xcf.feature.precision = presizyon XCF
+codec.xcf.feature.version = vèsyon XCF

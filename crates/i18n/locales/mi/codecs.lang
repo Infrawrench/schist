@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = Kāore i taea e ImageIO te pānui i te ipu 
 codec.heif.msg.container_empty = kāore he atahanga i te ipu HEIF
 codec.heif.msg.imageio_cannot_decode = Kāore i taea e ImageIO te wetewaehere i te atahanga matua
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Kua kino, kāore rānei i oti te kōnae atahanga whai apa.
+codec.layered.too_large = Kua hipa te rahi o te atahanga whai apa, te maha rānei o ngā apa, i te tepe e tautokona ana.
+codec.layered.unsupported = Ka whakamahia e tēnei kōnae tētahi āhuatanga kāore e tautokona ana: {feature}.
+codec.layered.export_layer = Kei te apa “{name}” ētahi āhuatanga kāore e taea e tēnei hōputu te pupuri. Whakapikatia, tiakina rānei hei PSD.
+codec.layered.export_depth = Me whai tuhinga RGB 8-bit hei kaweake ki Paint.NET. Hurihia te tuhinga hei RGB 8-bit i te tuatahi.
+codec.layered.export_mode = Me whai tuhinga RGB hei kaweake. Hurihia te tuhinga hei RGB i te tuatahi.
+codec.pdn.feature.blend_mode = aratau whakaranu PDN
+codec.pdn.feature.compression = kōpeketanga PDN
+codec.pdn.feature.container_version = putanga ipu PDN
+codec.pdn.feature.layer_type = momo apa PDN
+codec.pdn.feature.multidimensional_array = huinga raraunga ahu maha PDN
+codec.pdn.feature.pixel_format = hōputu pika PDN
+codec.pdn.feature.primitive_type = momo raraunga taketake PDN
+codec.pdn.feature.serialization_record = pūkete whakaraupapa raraunga PDN
+codec.xcf.feature.blend_mode = aratau whakaranu XCF
+codec.xcf.feature.color_model = tauira tae XCF
+codec.xcf.feature.compression = kōpeketanga XCF
+codec.xcf.feature.floating_selection = tīpakonga mānu XCF
+codec.xcf.feature.layer_effects = pānga apa XCF
+codec.xcf.feature.precision = tika o XCF
+codec.xcf.feature.version = putanga XCF

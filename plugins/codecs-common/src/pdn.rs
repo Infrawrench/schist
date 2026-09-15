@@ -48,7 +48,11 @@ fn unsigned(n: i64) -> Result<u32> {
 
 fn chunks(r: &mut Reader<'_>, length: usize) -> Result<Vec<u8>> {
     let compression = r.byte()?;
-    ensure!(compression <= 1, "{}", unsupported("PDN compression"));
+    ensure!(
+        compression <= 1,
+        "{}",
+        unsupported(t("codec.pdn.feature.compression"))
+    );
     let chunk_size = r.be32()? as usize;
     ensure!(
         chunk_size > 0 && length <= MAX_BYTES,
@@ -133,7 +137,7 @@ fn read(bytes: &[u8]) -> Result<Document> {
     ensure!(
         r.take(2)? == [0, 1],
         "{}",
-        unsupported("PDN container version")
+        unsupported(t("codec.pdn.feature.container_version"))
     );
     let graph = nrbf::read(&mut r)?;
     let root = Value::Ref(graph.root);
@@ -180,7 +184,7 @@ fn read(bytes: &[u8]) -> Result<Document> {
         ensure!(
             source.name == "PaintDotNet.BitmapLayer",
             "{}",
-            unsupported("PDN layer type")
+            unsupported(t("codec.pdn.feature.layer_type"))
         );
         ensure!(
             source.int("Layer+width")? == w as i64 && source.int("Layer+height")? == h as i64,
@@ -198,7 +202,7 @@ fn read(bytes: &[u8]) -> Result<Document> {
         ensure!(
             stride >= w as usize * 4,
             "{}",
-            unsupported("PDN pixel format")
+            unsupported(t("codec.pdn.feature.pixel_format"))
         );
         let length = stride.checked_mul(h as usize).ok_or_else(invalid)?;
         let data = memory(&graph, &buffers, surface.field("scan0")?, 0)?;
@@ -258,7 +262,7 @@ fn layer_blend(graph: &Graph, layer: &Object, props: &Object) -> Result<BlendMod
             .iter()
             .find(|m| m.0 == id)
             .map(|m| m.2)
-            .ok_or_else(|| unsupported("PDN blend mode"));
+            .ok_or_else(|| unsupported(t("codec.pdn.feature.blend_mode")));
     }
     let properties = graph.object(layer.field("properties")?)?;
     let op = graph.object(properties.field("blendOp")?)?;
@@ -266,7 +270,7 @@ fn layer_blend(graph: &Graph, layer: &Object, props: &Object) -> Result<BlendMod
         .iter()
         .find(|m| op.name == format!("PaintDotNet.UserBlendOps+{}BlendOp", m.1))
         .map(|m| m.2)
-        .ok_or_else(|| unsupported("PDN blend mode"))
+        .ok_or_else(|| unsupported(t("codec.pdn.feature.blend_mode")))
 }
 
 fn write(doc: &Document) -> Result<Vec<u8>> {
@@ -399,7 +403,7 @@ fn write(doc: &Document) -> Result<Vec<u8>> {
         let mode = MODES
             .iter()
             .find(|m| m.2 == layer.blend)
-            .ok_or_else(|| unsupported("PDN blend mode"))?;
+            .ok_or_else(|| unsupported(t("codec.pdn.feature.blend_mode")))?;
         let props = w.id();
         let bitmap_props = w.id();
         let surface = w.id();

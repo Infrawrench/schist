@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO nie może odczytać kontenera HEIF
 codec.heif.msg.container_empty = kontener HEIF nie zawiera obrazu
 codec.heif.msg.imageio_cannot_decode = ImageIO nie może zdekodować obrazu głównego
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Plik obrazu z warstwami jest uszkodzony lub niekompletny.
+codec.layered.too_large = Obraz z warstwami przekracza obsługiwany rozmiar lub liczbę warstw.
+codec.layered.unsupported = Ten plik używa nieobsługiwanej funkcji: {feature}.
+codec.layered.export_layer = Warstwa „{name}” zawiera funkcje, których ten format nie może zachować. Zrasteryzuj ją lub zapisz jako PSD.
+codec.layered.export_depth = Eksport do formatu Paint.NET wymaga 8-bitowego dokumentu RGB. Najpierw przekonwertuj dokument na 8-bitowy RGB.
+codec.layered.export_mode = Eksport wymaga dokumentu RGB. Najpierw przekonwertuj dokument na RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Tryb mieszania PDN
+codec.pdn.feature.compression = Kompresja PDN
+codec.pdn.feature.container_version = Wersja kontenera PDN
+codec.pdn.feature.layer_type = Typ warstwy PDN
+codec.pdn.feature.multidimensional_array = Tablica wielowymiarowa PDN
+codec.pdn.feature.pixel_format = Format pikseli PDN
+codec.pdn.feature.primitive_type = Pierwotny typ danych PDN
+codec.pdn.feature.serialization_record = Rekord serializacji PDN
+codec.xcf.feature.blend_mode = Tryb mieszania XCF
+codec.xcf.feature.color_model = Model kolorów XCF
+codec.xcf.feature.compression = Kompresja XCF
+codec.xcf.feature.floating_selection = Oderwane zaznaczenie XCF
+codec.xcf.feature.layer_effects = Efekty warstw XCF
+codec.xcf.feature.precision = Precyzja XCF
+codec.xcf.feature.version = Wersja XCF

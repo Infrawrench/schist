@@ -34,12 +34,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO mete ŋu xlẽ HEIF container la o
 codec.heif.msg.container_empty = nɔnɔme aɖeke mele HEIF container la me o
 codec.heif.msg.imageio_cannot_decode = ImageIO mete ŋu ɖe nɔnɔme gbãtɔ la ƒe code o
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Nɔnɔmetata ƒe agbalẽ si me layerwo le la gblẽ alo meblibo o.
+codec.layered.too_large = Nɔnɔmetata la ƒe lolome alo layerwo ƒe xexlẽme wu akpa si dzi wokpɔa ɖo.
+codec.layered.unsupported = Agbalẽ sia zãa dɔwɔnu si dzi womekpɔa ɖo o: {feature}.
+codec.layered.export_layer = Dɔwɔnuwo le layer “{name}” me siwo tata sia mate ŋu adzra ɖo o. Trɔe zu raster alo dzrae ɖo abe PSD ene.
+codec.layered.export_depth = Ɖeɖeɖe Paint.NET me bia agbalẽ RGB bit 8. Trɔ agbalẽ la zu RGB bit 8 gbã.
+codec.layered.export_mode = Ɖeɖeɖe bia agbalẽ RGB. Trɔ agbalẽ la zu RGB gbã.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN ƒe tsakaɖa ƒe nɔnɔme
+codec.pdn.feature.compression = PDN ƒe ƒuƒoƒo
+codec.pdn.feature.container_version = PDN ƒe nuɖaka ƒe tata
+codec.pdn.feature.layer_type = PDN ƒe layer ƒe tɔgbe
+codec.pdn.feature.multidimensional_array = PDN ƒe deta ƒe ɖoɖo si ƒe dzidzemewo sɔ gbɔ
+codec.pdn.feature.pixel_format = PDN ƒe piksel ƒe tata
+codec.pdn.feature.primitive_type = PDN ƒe deta ƒe gɔmeɖoanyi tɔgbe
+codec.pdn.feature.serialization_record = PDN ƒe deta ɖoɖo ɖe wo nɔewo yome ƒe nuŋlɔɖi
+codec.xcf.feature.blend_mode = XCF ƒe tsakaɖa ƒe nɔnɔme
+codec.xcf.feature.color_model = XCF ƒe ama ƒe kpɔɖeŋu
+codec.xcf.feature.compression = XCF ƒe ƒuƒoƒo
+codec.xcf.feature.floating_selection = XCF ƒe tiatia si le tame
+codec.xcf.feature.layer_effects = XCF ƒe layer ƒe ŋusẽwo
+codec.xcf.feature.precision = XCF ƒe dzidzedze ƒe pɛpɛpɛnyenye
+codec.xcf.feature.version = XCF ƒe tata

@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = O ImageIO não conseguiu ler o contentor HE
 codec.heif.msg.container_empty = o contentor HEIF não contém nenhuma imagem
 codec.heif.msg.imageio_cannot_decode = O ImageIO não conseguiu descodificar a imagem principal
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = O ficheiro de imagem com camadas está danificado ou incompleto.
+codec.layered.too_large = A imagem com camadas excede o tamanho ou o número de camadas suportado.
+codec.layered.unsupported = Este ficheiro utiliza uma funcionalidade não suportada: {feature}.
+codec.layered.export_layer = A camada «{name}» contém funcionalidades que este formato não consegue preservar. Rasterize-a ou guarde como PSD.
+codec.layered.export_depth = A exportação para Paint.NET requer um documento RGB de 8 bits. Converta primeiro o documento para RGB de 8 bits.
+codec.layered.export_mode = A exportação requer um documento RGB. Converta primeiro o documento para RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = modo de mistura PDN
+codec.pdn.feature.compression = compressão PDN
+codec.pdn.feature.container_version = versão do contentor PDN
+codec.pdn.feature.layer_type = tipo de camada PDN
+codec.pdn.feature.multidimensional_array = matriz multidimensional PDN
+codec.pdn.feature.pixel_format = formato de píxel PDN
+codec.pdn.feature.primitive_type = tipo de dados primitivo PDN
+codec.pdn.feature.serialization_record = registo de serialização PDN
+codec.xcf.feature.blend_mode = modo de mistura XCF
+codec.xcf.feature.color_model = modelo de cor XCF
+codec.xcf.feature.compression = compressão XCF
+codec.xcf.feature.floating_selection = seleção flutuante XCF
+codec.xcf.feature.layer_effects = efeitos de camada XCF
+codec.xcf.feature.precision = precisão XCF
+codec.xcf.feature.version = versão XCF

@@ -34,12 +34,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF контейнерин оку�
 codec.heif.msg.container_empty = HEIF контейнеринде сүрөт жок
 codec.heif.msg.imageio_cannot_decode = ImageIO негизги сүрөттү чечмелей алган жок
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Катмарлуу сүрөт файлы бузулган же толук эмес.
+codec.layered.too_large = Катмарлуу сүрөттүн өлчөмү же катмарларынын саны колдоого алынган чектен ашат.
+codec.layered.unsupported = Бул файл колдоого алынбаган функцияны колдонот: {feature}.
+codec.layered.export_layer = “{name}” катмарында бул формат сактай албаган мүмкүнчүлүктөр бар. Катмарды растрлаңыз же PSD катары сактаңыз.
+codec.layered.export_depth = Paint.NET форматына экспорттоо үчүн 8 биттик RGB документ керек. Адегенде документти 8 биттик RGB форматына айландырыңыз.
+codec.layered.export_mode = Экспорттоо үчүн RGB документ керек. Адегенде документти RGB форматына айландырыңыз.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN аралаштыруу режими
+codec.pdn.feature.compression = PDN кысуусу
+codec.pdn.feature.container_version = PDN контейнеринин версиясы
+codec.pdn.feature.layer_type = PDN катмарынын түрү
+codec.pdn.feature.multidimensional_array = PDN көп өлчөмдүү массиви
+codec.pdn.feature.pixel_format = PDN пикселинин форматы
+codec.pdn.feature.primitive_type = PDN маалыматтарынын жөнөкөй түрү
+codec.pdn.feature.serialization_record = PDN сериялаштыруу жазуусу
+codec.xcf.feature.blend_mode = XCF аралаштыруу режими
+codec.xcf.feature.color_model = XCF түс модели
+codec.xcf.feature.compression = XCF кысуусу
+codec.xcf.feature.floating_selection = XCF калкыма тандоосу
+codec.xcf.feature.layer_effects = XCF катмар эффекттери
+codec.xcf.feature.precision = XCF тактыгы
+codec.xcf.feature.version = XCF версиясы

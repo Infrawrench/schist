@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO контейнери HEIF-ро хо
 codec.heif.msg.container_empty = контейнери HEIF тасвир надорад
 codec.heif.msg.imageio_cannot_decode = ImageIO тасвири асосиро рамзкушоӣ карда натавонист
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Файли тасвири қабатдор вайрон ё нопурра аст.
+codec.layered.too_large = Андозаи тасвири қабатдор ё шумораи қабатҳои он аз ҳадди дастгиришаванда зиёд аст.
+codec.layered.unsupported = Ин файл имконияти дастгиринашавандаро истифода мебарад: {feature}.
+codec.layered.export_layer = Қабати «{name}» имкониятҳое дорад, ки ин формат онҳоро нигоҳ дошта наметавонад. Онро растрӣ кунед ё ҳамчун PSD захира кунед.
+codec.layered.export_depth = Содирот ба Paint.NET ҳуҷҷати RGB-и 8-битаро талаб мекунад. Аввал ҳуҷҷатро ба RGB-и 8-бита табдил диҳед.
+codec.layered.export_mode = Содирот ҳуҷҷати RGB-ро талаб мекунад. Аввал ҳуҷҷатро ба RGB табдил диҳед.
+codec.pdn.feature.blend_mode = реҷаи омезиши PDN
+codec.pdn.feature.compression = фишурдани PDN
+codec.pdn.feature.container_version = версияи зарфи PDN
+codec.pdn.feature.layer_type = навъи қабати PDN
+codec.pdn.feature.multidimensional_array = массиви бисёрченакаи PDN
+codec.pdn.feature.pixel_format = формати пикселҳои PDN
+codec.pdn.feature.primitive_type = навъи ибтидоии додаҳои PDN
+codec.pdn.feature.serialization_record = сабти сериализатсияи PDN
+codec.xcf.feature.blend_mode = реҷаи омезиши XCF
+codec.xcf.feature.color_model = модели ранги XCF
+codec.xcf.feature.compression = фишурдани XCF
+codec.xcf.feature.floating_selection = интихоби шинокунандаи XCF
+codec.xcf.feature.layer_effects = таъсирҳои қабати XCF
+codec.xcf.feature.precision = дақиқии XCF
+codec.xcf.feature.version = версияи XCF

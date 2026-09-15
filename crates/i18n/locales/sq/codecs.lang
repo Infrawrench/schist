@@ -31,12 +31,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO nuk mund ta lexonte kontejnerin HEI
 codec.heif.msg.container_empty = kontejneri HEIF nuk përmban imazh
 codec.heif.msg.imageio_cannot_decode = ImageIO nuk mund ta dekodonte imazhin kryesor
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Skedari i figurës me shtresa është i dëmtuar ose i paplotë.
+codec.layered.too_large = Figura me shtresa tejkalon madhësinë ose numrin e shtresave që mbështetet.
+codec.layered.unsupported = Ky skedar përdor një veçori që nuk mbështetet: {feature}.
+codec.layered.export_layer = Shtresa “{name}” përmban veçori që ky format nuk mund t’i ruajë. Rasterizojeni ose ruajeni si PSD.
+codec.layered.export_depth = Eksportimi në Paint.NET kërkon një dokument RGB 8-bitësh. Fillimisht kthejeni dokumentin në RGB 8-bitësh.
+codec.layered.export_mode = Eksportimi kërkon një dokument RGB. Fillimisht kthejeni dokumentin në RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Modaliteti i përzierjes PDN
+codec.pdn.feature.compression = Ngjeshja PDN
+codec.pdn.feature.container_version = Versioni i kontejnerit PDN
+codec.pdn.feature.layer_type = Lloji i shtresës PDN
+codec.pdn.feature.multidimensional_array = Vargu shumëpërmasor PDN
+codec.pdn.feature.pixel_format = Formati i pikselit PDN
+codec.pdn.feature.primitive_type = Lloji primitiv i të dhënave PDN
+codec.pdn.feature.serialization_record = Regjistri i serializimit PDN
+codec.xcf.feature.blend_mode = Modaliteti i përzierjes XCF
+codec.xcf.feature.color_model = Modeli i ngjyrave XCF
+codec.xcf.feature.compression = Ngjeshja XCF
+codec.xcf.feature.floating_selection = Përzgjedhja lundruese XCF
+codec.xcf.feature.layer_effects = Efektet e shtresës XCF
+codec.xcf.feature.precision = Saktësia XCF
+codec.xcf.feature.version = Versioni XCF

@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF पात्रं पठि�
 codec.heif.msg.container_empty = HEIF पात्रे चित्रं नास्ति
 codec.heif.msg.imageio_cannot_decode = ImageIO प्रधानचित्रं विसङ्केतयितुं न शक्तम्
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = स्तरयुक्तचित्रस्य सञ्चिका दूषिता अपूर्णा वा अस्ति।
+codec.layered.too_large = स्तरयुक्तचित्रस्य आकारः स्तरसङ्ख्या वा समर्थितसीमाम् अतिक्रामति।
+codec.layered.unsupported = इयं सञ्चिका असमर्थितं वैशिष्ट्यम् उपयुङ्क्ते: {feature}।
+codec.layered.export_layer = “{name}” स्तरे एतादृशानि वैशिष्ट्यानि सन्ति यानि अस्मिन् प्रारूपे रक्षितुं न शक्यन्ते। तं पिक्सेलीकरोतु अथवा PSD रूपेण रक्षतु।
+codec.layered.export_depth = Paint.NET निर्याताय 8-बिट् RGB प्रलेखः आवश्यकः। प्रथमं प्रलेखं 8-बिट् RGB रूपेण परिवर्तयतु।
+codec.layered.export_mode = निर्याताय RGB प्रलेखः आवश्यकः। प्रथमं प्रलेखं RGB रूपेण परिवर्तयतु।
+codec.pdn.feature.blend_mode = PDN मिश्रणविधिः
+codec.pdn.feature.compression = PDN सङ्कोचनम्
+codec.pdn.feature.container_version = PDN पात्रसंस्करणम्
+codec.pdn.feature.layer_type = PDN स्तरप्रकारः
+codec.pdn.feature.multidimensional_array = PDN बहुआयामव्यूहः
+codec.pdn.feature.pixel_format = PDN पिक्सेलप्रारूपम्
+codec.pdn.feature.primitive_type = PDN मूलदत्तांशप्रकारः
+codec.pdn.feature.serialization_record = PDN दत्तांशक्रमबद्धीकरणलेखः
+codec.xcf.feature.blend_mode = XCF मिश्रणविधिः
+codec.xcf.feature.color_model = XCF वर्णप्रतिरूपम्
+codec.xcf.feature.compression = XCF सङ्कोचनम्
+codec.xcf.feature.floating_selection = XCF प्लवमानचयनम्
+codec.xcf.feature.layer_effects = XCF स्तरप्रभावाः
+codec.xcf.feature.precision = XCF परिशुद्धता
+codec.xcf.feature.version = XCF संस्करणम्

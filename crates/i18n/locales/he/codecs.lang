@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ‏ImageIO לא הצליח לקרוא את 
 codec.heif.msg.container_empty = אין תמונה במכל HEIF
 codec.heif.msg.imageio_cannot_decode = ‏ImageIO לא הצליח לפענח את התמונה הראשית
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = קובץ התמונה עם השכבות פגום או לא שלם.
+codec.layered.too_large = גודל התמונה עם השכבות או מספר השכבות חורג מהמגבלה הנתמכת.
+codec.layered.unsupported = הקובץ משתמש בתכונה שאינה נתמכת: {feature}.
+codec.layered.export_layer = השכבה „{name}” מכילה תכונות שתבנית זו אינה יכולה לשמר. יש להמיר אותה לפיקסלים או לשמור בתור PSD.
+codec.layered.export_depth = ייצוא ל־Paint.NET דורש מסמך RGB בעומק 8 סיביות. יש להמיר תחילה את המסמך ל־RGB בעומק 8 סיביות.
+codec.layered.export_mode = ייצוא דורש מסמך RGB. יש להמיר תחילה את המסמך ל־RGB.
+codec.pdn.feature.blend_mode = מצב שילוב PDN
+codec.pdn.feature.compression = דחיסת PDN
+codec.pdn.feature.container_version = גרסת המכל של PDN
+codec.pdn.feature.layer_type = סוג שכבה של PDN
+codec.pdn.feature.multidimensional_array = מערך רב־ממדי של PDN
+codec.pdn.feature.pixel_format = תבנית פיקסלים של PDN
+codec.pdn.feature.primitive_type = טיפוס נתונים בסיסי של PDN
+codec.pdn.feature.serialization_record = רשומת סריאליזציה של PDN
+codec.xcf.feature.blend_mode = מצב שילוב XCF
+codec.xcf.feature.color_model = מודל צבע של XCF
+codec.xcf.feature.compression = דחיסת XCF
+codec.xcf.feature.floating_selection = בחירה צפה של XCF
+codec.xcf.feature.layer_effects = אפקטים לשכבה של XCF
+codec.xcf.feature.precision = דיוק של XCF
+codec.xcf.feature.version = גרסת XCF

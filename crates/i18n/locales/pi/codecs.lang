@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF-bhājanaṃ paṭhituṃ nāsa
 codec.heif.msg.container_empty = HEIF-bhājane chāyārūpaṃ natthi
 codec.heif.msg.imageio_cannot_decode = ImageIO mukhya-chāyārūpassa viggahaṃ kātuṃ nāsakkhi
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Santharayuttachāyārūpassa sañcikā duṭṭhā vā aparipuṇṇā vā hoti.
+codec.layered.too_large = Santharayuttachāyārūpassa pamāṇaṃ vā santharasaṅkhyā vā upatthambhitaṃ sīmaṃ atikkamati.
+codec.layered.unsupported = Ayaṃ sañcikā anupatthambhitaṃ visesaṃ upayuñjati: {feature}.
+codec.layered.export_layer = “{name}” santhare imasmiṃ saṇṭhāne rakkhituṃ asakkuṇeyyā visesā santi. Taṃ pikselīkarotha atha vā PSD-rūpena rakkhatha.
+codec.layered.export_depth = Paint.NET-nīharaṇatthāya 8-bit RGB-potthako āvassako. Paṭhamaṃ potthakaṃ 8-bit RGB-rūpena pariṇāmetha.
+codec.layered.export_mode = Nīharaṇatthāya RGB-potthako āvassako. Paṭhamaṃ potthakaṃ RGB-rūpena pariṇāmetha.
+codec.pdn.feature.blend_mode = PDN-missanavidhi
+codec.pdn.feature.compression = PDN-saṅkocanaṃ
+codec.pdn.feature.container_version = PDN-bhājanasaṃskaraṇaṃ
+codec.pdn.feature.layer_type = PDN-santharappakāro
+codec.pdn.feature.multidimensional_array = PDN-bahuparimāṇabyūho
+codec.pdn.feature.pixel_format = PDN-pikselsaṇṭhānaṃ
+codec.pdn.feature.primitive_type = PDN-mūladattappakāro
+codec.pdn.feature.serialization_record = PDN-dattānukkamarakkhaṇalekho
+codec.xcf.feature.blend_mode = XCF-missanavidhi
+codec.xcf.feature.color_model = XCF-vaṇṇapaṭirūpaṃ
+codec.xcf.feature.compression = XCF-saṅkocanaṃ
+codec.xcf.feature.floating_selection = XCF-plavamānacayanaṃ
+codec.xcf.feature.layer_effects = XCF-santharappabhāvā
+codec.xcf.feature.precision = XCF-parisuddhatā
+codec.xcf.feature.version = XCF-saṃskaraṇaṃ

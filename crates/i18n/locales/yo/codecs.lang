@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO kò lè ka àpò HEIF
 codec.heif.msg.container_empty = àpò HEIF kò ní àwòrán
 codec.heif.msg.imageio_cannot_decode = ImageIO kò lè ṣe ìtumọ̀ àwòrán àkọ́kọ́
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Fáìlì àwòrán onífẹ́lẹ́fẹ́lẹ́ náà ti bàjẹ́ tàbí kò pé.
+codec.layered.too_large = Àwòrán onífẹ́lẹ́fẹ́lẹ́ náà kọjá ìwọ̀n tàbí iye àwọn fẹ́lẹ́fẹ́lẹ́ tí a ṣe àtìlẹ́yìn fún.
+codec.layered.unsupported = Fáìlì yìí ń lo ẹ̀yà tí a kò ṣe àtìlẹ́yìn fún: {feature}.
+codec.layered.export_layer = Fẹ́lẹ́fẹ́lẹ́ “{name}” ní àwọn ẹ̀yà tí ọ̀nà ìpamọ́ yìí kò lè pa mọ́. Sọ ọ́ di raster tàbí fipamọ́ gẹ́gẹ́ bí PSD.
+codec.layered.export_depth = Gbígbé jáde sí Paint.NET nílò ìwé RGB 8-bit. Kọ́kọ́ yí ìwé náà padà sí RGB 8-bit.
+codec.layered.export_mode = Gbígbé jáde nílò ìwé RGB. Kọ́kọ́ yí ìwé náà padà sí RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Ipo àdàpọ̀ PDN
+codec.pdn.feature.compression = Fífi PDN pọ̀
+codec.pdn.feature.container_version = Ẹ̀dà àpótí PDN
+codec.pdn.feature.layer_type = Irú fẹ́lẹ́fẹ́lẹ́ PDN
+codec.pdn.feature.multidimensional_array = Àkójọpọ̀ PDN alápá ìwọ̀n púpọ̀
+codec.pdn.feature.pixel_format = Ọ̀nà ìpamọ́ píksẹ́lì PDN
+codec.pdn.feature.primitive_type = Irú dátà ìpìlẹ̀ PDN
+codec.pdn.feature.serialization_record = Àkọsílẹ̀ dátà PDN ní ọ̀wọ̀ọ̀wọ́
+codec.xcf.feature.blend_mode = Ipo àdàpọ̀ XCF
+codec.xcf.feature.color_model = Àwòṣe àwọ̀ XCF
+codec.xcf.feature.compression = Fífi XCF pọ̀
+codec.xcf.feature.floating_selection = Àṣàyàn líléfòó XCF
+codec.xcf.feature.layer_effects = Àwọn ipa fẹ́lẹ́fẹ́lẹ́ XCF
+codec.xcf.feature.precision = Ìpéye XCF
+codec.xcf.feature.version = Ẹ̀dà XCF

@@ -31,12 +31,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO የHEIF መያዣውን ማንበ�
 codec.heif.msg.container_empty = የHEIF መያዣው ምንም ምስል የለውም
 codec.heif.msg.imageio_cannot_decode = ImageIO ዋናውን ምስል መፍታት አልቻለም
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = ባለንብርብሩ የምስል ፋይል ተበላሽቷል ወይም ያልተሟላ ነው።
+codec.layered.too_large = ባለንብርብሩ ምስል የሚደገፈውን መጠን ወይም የንብርብር ብዛት አልፏል።
+codec.layered.unsupported = ይህ ፋይል የማይደገፍ ባህሪ ይጠቀማል፦ {feature}።
+codec.layered.export_layer = “{name}” ንብርብር ይህ ቅርጸት ሊጠብቃቸው የማይችላቸው ባህሪያት አሉት። ወደ ራስተር ይቀይሩት ወይም በPSD ቅርጸት ያስቀምጡ።
+codec.layered.export_depth = ወደ Paint.NET ለመላክ 8-ቢት RGB ሰነድ ያስፈልጋል። መጀመሪያ ሰነዱን ወደ 8-ቢት RGB ይቀይሩ።
+codec.layered.export_mode = ለመላክ RGB ሰነድ ያስፈልጋል። መጀመሪያ ሰነዱን ወደ RGB ይቀይሩ።
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = የPDN ማዋሃድ ሁነታ
+codec.pdn.feature.compression = የPDN መጭመቂያ
+codec.pdn.feature.container_version = የPDN መያዣ ስሪት
+codec.pdn.feature.layer_type = የPDN ንብርብር አይነት
+codec.pdn.feature.multidimensional_array = የPDN ባለብዙ ልኬት ድርድር
+codec.pdn.feature.pixel_format = የPDN ፒክሰል ቅርጸት
+codec.pdn.feature.primitive_type = የPDN መሠረታዊ ውሂብ አይነት
+codec.pdn.feature.serialization_record = የPDN ተከታታይ ማድረጊያ መዝገብ
+codec.xcf.feature.blend_mode = የXCF ማዋሃድ ሁነታ
+codec.xcf.feature.color_model = የXCF ቀለም ሞዴል
+codec.xcf.feature.compression = የXCF መጭመቂያ
+codec.xcf.feature.floating_selection = የXCF ተንሳፋፊ ምርጫ
+codec.xcf.feature.layer_effects = የXCF ንብርብር ተፅዕኖዎች
+codec.xcf.feature.precision = የXCF ትክክለኛነት
+codec.xcf.feature.version = የXCF ስሪት

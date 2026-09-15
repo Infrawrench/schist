@@ -35,12 +35,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO ntiyashoboye gusoma igikoresho HEIF
 codec.heif.msg.container_empty = igikoresho HEIF nta shusho kirimwo
 codec.heif.msg.imageio_cannot_decode = ImageIO ntiyashoboye gusoma ishusho nyamukuru
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Idosiye y’ishusho ifise inzego yononekaye canke ntiyuzuye.
+codec.layered.too_large = Ishusho ifise inzego irenza ubunini canke igitigiri c’inzego vyemewe.
+codec.layered.unsupported = Iyi dosiye ikoresha ikintu kidashigikiwe: {feature}.
+codec.layered.export_layer = Urwego “{name}” rurimwo ibintu ubu bwoko bwa dosiye budashobora kubika. Hindura urwo rwego rube amapikisele canke ubike nka PSD.
+codec.layered.export_depth = Gusohora muri Paint.NET bisaba inyandiko ya RGB ya 8-bit. Banza uhindure inyandiko ibe RGB ya 8-bit.
+codec.layered.export_mode = Gusohora bisaba inyandiko ya RGB. Banza uhindure inyandiko ibe RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Uburyo bwo kuvanga bwa PDN
+codec.pdn.feature.compression = Gutsindagira amakuru kwa PDN
+codec.pdn.feature.container_version = Verisiyo y’ububiko bwa PDN
+codec.pdn.feature.layer_type = Ubwoko bw’urwego rwa PDN
+codec.pdn.feature.multidimensional_array = Urutonde rw’ibipimo vyinshi rwa PDN
+codec.pdn.feature.pixel_format = Ubwoko bwa pikisele bwa PDN
+codec.pdn.feature.primitive_type = Ubwoko bw’amakuru bw’ishimikiro bwa PDN
+codec.pdn.feature.serialization_record = Inyandiko y’urutonde rw’amakuru rwa PDN
+codec.xcf.feature.blend_mode = Uburyo bwo kuvanga bwa XCF
+codec.xcf.feature.color_model = Uburyo bw’amabara bwa XCF
+codec.xcf.feature.compression = Gutsindagira amakuru kwa XCF
+codec.xcf.feature.floating_selection = Ivyatoranijwe bireremba vya XCF
+codec.xcf.feature.layer_effects = Ingaruka z’inzego za XCF
+codec.xcf.feature.precision = Ubunonosere bw’ibipimo vya XCF
+codec.xcf.feature.version = Verisiyo ya XCF

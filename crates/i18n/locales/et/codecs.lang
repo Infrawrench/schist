@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO ei suutnud HEIF-konteinerit lugeda
 codec.heif.msg.container_empty = HEIF-konteineris pole pilti
 codec.heif.msg.imageio_cannot_decode = ImageIO ei suutnud põhipilti dekodeerida
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Kihtidega pildifail on kahjustatud või puudulik.
+codec.layered.too_large = Kihtidega pildi suurus või kihtide arv ületab toetatud piiri.
+codec.layered.unsupported = See fail kasutab toetamata võimalust: {feature}.
+codec.layered.export_layer = Kiht „{name}“ sisaldab omadusi, mida see vorming ei saa säilitada. Rasterda see või salvesta PSD-vormingus.
+codec.layered.export_depth = Paint.NET-vormingusse eksportimiseks on vaja 8-bitist RGB-dokumenti. Teisenda dokument esmalt 8-bitiseks RGB-ks.
+codec.layered.export_mode = Eksportimiseks on vaja RGB-dokumenti. Teisenda dokument esmalt RGB-ks.
+codec.pdn.feature.blend_mode = PDN segamisrežiim
+codec.pdn.feature.compression = PDN tihendus
+codec.pdn.feature.container_version = PDN konteineri versioon
+codec.pdn.feature.layer_type = PDN kihi tüüp
+codec.pdn.feature.multidimensional_array = PDN mitmemõõtmeline massiiv
+codec.pdn.feature.pixel_format = PDN pikslivorming
+codec.pdn.feature.primitive_type = PDN lihtandmetüüp
+codec.pdn.feature.serialization_record = PDN jadastuskirje
+codec.xcf.feature.blend_mode = XCF segamisrežiim
+codec.xcf.feature.color_model = XCF värvimudel
+codec.xcf.feature.compression = XCF tihendus
+codec.xcf.feature.floating_selection = XCF ujuvalik
+codec.xcf.feature.layer_effects = XCF kihiefektid
+codec.xcf.feature.precision = XCF täpsus
+codec.xcf.feature.version = XCF versioon

@@ -31,12 +31,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO n'ha betg pudì leger il container 
 codec.heif.msg.container_empty = il container HEIF na cuntegna nagin maletg
 codec.heif.msg.imageio_cannot_decode = ImageIO n'ha betg pudì decodar il maletg principal
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = La datoteca da maletg cun stresas è donnegiada u incumpletta.
+codec.layered.too_large = Il maletg cun stresas surpassa la grondezza u il dumber da stresas sustegnids.
+codec.layered.unsupported = Questa datoteca utilisescha ina funcziun betg sustegnida: {feature}.
+codec.layered.export_layer = La stresa «{name}» cuntegna funcziuns che quest format na po betg mantegnair. Rasterisai ella u memorisai sco PSD.
+codec.layered.export_depth = L'export en Paint.NET pretenda in document RGB dad 8 bits. Converti l'emprim il document en RGB dad 8 bits.
+codec.layered.export_mode = L'export pretenda in document RGB. Converti l'emprim il document en RGB.
+codec.pdn.feature.blend_mode = modus da maschadaziun PDN
+codec.pdn.feature.compression = cumpressiun PDN
+codec.pdn.feature.container_version = versiun dal cuntegnider PDN
+codec.pdn.feature.layer_type = tip da stresa PDN
+codec.pdn.feature.multidimensional_array = champ multidimensiunal PDN
+codec.pdn.feature.pixel_format = format da pixels PDN
+codec.pdn.feature.primitive_type = tip da datas primitiv PDN
+codec.pdn.feature.serialization_record = registraziun da serialisaziun PDN
+codec.xcf.feature.blend_mode = modus da maschadaziun XCF
+codec.xcf.feature.color_model = model da colur XCF
+codec.xcf.feature.compression = cumpressiun XCF
+codec.xcf.feature.floating_selection = selecziun flotanta XCF
+codec.xcf.feature.layer_effects = effects da stresa XCF
+codec.xcf.feature.precision = precisiun XCF
+codec.xcf.feature.version = versiun XCF

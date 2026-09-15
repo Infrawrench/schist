@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO གིས་ HEIF སྣོད་�
 codec.heif.msg.container_empty = HEIF སྣོད་ཆས་ནང་པར་མེད།
 codec.heif.msg.imageio_cannot_decode = ImageIO གིས་པར་ངོ་མ་ཨང་བཤོལ་འབད་མ་ཚུགས།
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = བང་རིམ་ཡོད་པའི་པར་གྱི་ཡིག་སྣོད་དེ་མེདཔ་ཐལ་ནུག་ ཡང་ན་ཆ་ཚང་མིན་འདུག།
+codec.layered.too_large = བང་རིམ་ཡོད་པའི་པར་དེ་གི་ཚད་ ཡང་ན་བང་རིམ་གྱི་གྱངས་ཁ་དེ་རྒྱབ་སྐྱོར་ཡོད་པའི་ཚད་ལས་བརྒལ་ནུག།
+codec.layered.unsupported = ཡིག་སྣོད་འདི་གིས་རྒྱབ་སྐྱོར་མེད་པའི་ཁྱད་རྣམ་ཅིག་ལག་ལེན་འཐབ་ཨིན་: {feature}།
+codec.layered.export_layer = བང་རིམ་ “{name}” ནང་རྣམ་བཞག་འདི་གིས་ཉམས་སྲུང་འབད་མ་ཚུགས་པའི་ཁྱད་རྣམ་ཚུ་ཡོད། བང་རིམ་དེ་པིག་སེལ་ལུ་སྒྱུར་ ཡང་ན་ PSD སྦེ་སྲུང་།
+codec.layered.export_depth = Paint.NET སྦེ་ཕྱིར་འདྲེན་འབད་ནི་ལུ་ 8-བིཊ་ RGB ཡིག་ཆ་དགོ། ཧེ་མ་ཡིག་ཆ་དེ་ 8-བིཊ་ RGB ལུ་སྒྱུར།
+codec.layered.export_mode = ཕྱིར་འདྲེན་འབད་ནི་ལུ་ RGB ཡིག་ཆ་དགོ། ཧེ་མ་ཡིག་ཆ་དེ་ RGB ལུ་སྒྱུར།
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN སྲེ་སྦྱོར་ཐབས་ལམ།
+codec.pdn.feature.compression = PDN ཨེབ་བཙུགས།
+codec.pdn.feature.container_version = PDN འཛིན་སྣོད་ཀྱི་ཐོན་རིམ།
+codec.pdn.feature.layer_type = PDN བང་རིམ་གྱི་དབྱེ་བ།
+codec.pdn.feature.multidimensional_array = PDN མཚོན་གྲངས་མང་བའི་ཨེ་རེ།
+codec.pdn.feature.pixel_format = PDN པིག་སེལ་རྣམ་བཞག།
+codec.pdn.feature.primitive_type = PDN གཞི་རིམ་གནད་སྡུད་དབྱེ་བ།
+codec.pdn.feature.serialization_record = PDN གོ་རིམ་བཟོ་ནིའི་ཐོ་བཀོད།
+codec.xcf.feature.blend_mode = XCF སྲེ་སྦྱོར་ཐབས་ལམ།
+codec.xcf.feature.color_model = XCF ཚོས་གཞིའི་དཔེ།
+codec.xcf.feature.compression = XCF ཨེབ་བཙུགས།
+codec.xcf.feature.floating_selection = XCF ལྡིང་བའི་སེལ་འཐུ།
+codec.xcf.feature.layer_effects = XCF བང་རིམ་གྱི་ནུས་པ།
+codec.xcf.feature.precision = XCF པིག་སེལ་གྱི་ཀྲིག་ཀྲི།
+codec.xcf.feature.version = XCF ཐོན་རིམ།

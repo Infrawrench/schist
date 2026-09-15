@@ -78,6 +78,6 @@ implemented [pypdn reader](https://github.com/addisonElliott/pypdn).
 The NRBF record layout is documented by
 [Microsoft's MS-NRBF specification](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-nrbf/75b9fe09-be15-475f-85b8-ae7b7558cfe5).
 
-Format labels and diagnostics use `schist-i18n`. The new diagnostic keys
-are present in every catalog; non-English catalogs currently carry the
-English diagnostic text pending translation.
+Format labels, diagnostics, and unsupported-feature descriptions use
+`schist-i18n`, with translations in every registered locale. The generic
+Norwegian and Serbo-Croatian catalogs are generated from Bokmål and Croatian.
