@@ -1,4 +1,5 @@
-//! The GPU side of the [`schist_fx`] seam: blurs and mesh warps.
+//! The GPU side of the [`schist_fx`] seam: specialized kernels and
+//! effect-owned shader companions.
 //!
 //! These share the compositor's device and its work mutex — error scopes
 //! are a per-device stack, so an fx submission running beside a composite
@@ -34,6 +35,14 @@ impl GpuFx {
 impl FxBackend for GpuFx {
     fn name(&self) -> &'static str {
         "gpu"
+    }
+
+    fn shader(&self, job: &schist_fx::ShaderJob<'_>) -> Option<Vec<f32>> {
+        let pixels = job.width.checked_mul(job.height)?;
+        if !schist_fx::worth_offloading(pixels, job.work_per_pixel) {
+            return None;
+        }
+        self.ctx.run_shader(job)
     }
 
     fn blur(&self, job: &BlurJob<'_>) -> Option<Vec<f32>> {

@@ -49,6 +49,10 @@ impl FxBackend for Counting {
         self.count(self.inner.as_ref()?.lens_blur(job))
     }
 
+    fn shader(&self, job: &schist_fx::ShaderJob<'_>) -> Option<Vec<f32>> {
+        self.count(self.inner.as_ref()?.shader(job))
+    }
+
     fn warp(&self, params: &WarpParams<'_>, src: &[f32]) -> Option<Vec<f32>> {
         self.count(self.inner.as_ref()?.warp(params, src))
     }
@@ -174,6 +178,42 @@ fn the_blur_filters_run_through_the_installed_backend() {
         assert_close(&with_gpu, &with_cpu, filter.id());
         assert_ne!(with_gpu, px, "{} did nothing at all", filter.id());
     }
+}
+
+#[test]
+fn shader_filters_reach_the_production_backend_above_the_cost_threshold() {
+    let _guard = exclusive();
+    let Some(backend) = install_gpu() else { return };
+    let (w, h) = (512, 384);
+    let px = noise_f32(w, h, 0xF11E);
+    type Case = (Box<dyn FilterPlugin>, &'static [(&'static str, f32)]);
+    let cases: Vec<Case> = vec![
+        (
+            Box::new(schist_filters_core::AddNoise),
+            &[("distribution", 1.0)],
+        ),
+        (Box::new(schist_filters_core::Median), &[("radius", 2.0)]),
+        (
+            Box::new(schist_filters_core::other::SurfaceBlur),
+            &[("radius", 5.0)],
+        ),
+        (Box::new(schist_filters_core::render::Clouds), &[]),
+    ];
+    for (filter, pairs) in cases {
+        let v = values(filter.as_ref(), pairs);
+        let before = backend.took();
+        let gpu = run_filter(filter.as_ref(), &px, w, h, &v);
+        assert!(
+            backend.took() > before,
+            "{} never reached the GPU",
+            filter.id()
+        );
+        schist_fx::set_backend(Arc::new(schist_fx::CpuFx));
+        let cpu = run_filter(filter.as_ref(), &px, w, h, &v);
+        schist_fx::set_backend(backend.clone());
+        assert_close(&gpu, &cpu, filter.id());
+    }
+    schist_fx::set_backend(Arc::new(schist_fx::CpuFx));
 }
 
 #[test]

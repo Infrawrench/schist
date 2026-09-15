@@ -149,6 +149,9 @@ simple_filter!(
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         // Replace each pixel with whichever neighbour's colour is most
         // common in its 3x3 block, which flattens gradients into patches.
+        if crate::gpu::apply(px, w, h, &crate::gpu::FACET, &[], Some(1), 81) {
+            return;
+        }
         let src = px.to_vec();
         for y in 0..h as i32 {
             for x in 0..w as i32 {
@@ -197,6 +200,17 @@ simple_filter!(
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Four copies, offset diagonally, averaged: Photoshop's Fragment.
         let d = v.get("offset").round() as i32;
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::FRAGMENT,
+            &[d as f32],
+            Some(d.unsigned_abs() as usize),
+            4,
+        ) {
+            return;
+        }
         premultiply(px);
         let src = px.to_vec();
         for y in 0..h as i32 {

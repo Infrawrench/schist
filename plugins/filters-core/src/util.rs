@@ -24,11 +24,24 @@ pub fn at(px: &[f32], w: usize, h: usize, x: i32, y: i32) -> [f32; 4] {
 
 /// Bilinear sample at a fractional position, clamping to the edge.
 pub fn sample(px: &[f32], w: usize, h: usize, fx: f32, fy: f32) -> [f32; 4] {
+    sample_offset(px, w, h, (0, 0), (fx, fy))
+}
+
+/// Bilinear sampling with an integer origin kept separate from the
+/// fractional displacement, preserving subpixel precision on wide images.
+pub fn sample_offset(
+    px: &[f32],
+    w: usize,
+    h: usize,
+    origin: (i32, i32),
+    delta: (f32, f32),
+) -> [f32; 4] {
+    let (fx, fy) = delta;
     let x0 = fx.floor();
     let y0 = fy.floor();
     let tx = fx - x0;
     let ty = fy - y0;
-    let (x0, y0) = (x0 as i32, y0 as i32);
+    let (x0, y0) = (origin.0 + x0 as i32, origin.1 + y0 as i32);
     let mut out = [0.0f32; 4];
     for (c, o) in out.iter_mut().enumerate() {
         let a = at(px, w, h, x0, y0)[c];
@@ -68,9 +81,37 @@ pub fn warp(px: &mut [f32], w: usize, h: usize, map: impl Fn(f32, f32) -> (f32, 
     unpremultiply(px);
 }
 
+/// Remap using displacements instead of absolute source positions. This
+/// keeps subpixel motion separate from the image's integer coordinates.
+pub fn warp_offset(px: &mut [f32], w: usize, h: usize, map: impl Fn(f32, f32) -> (f32, f32)) {
+    if w == 0 || h == 0 {
+        return;
+    }
+    premultiply(px);
+    let src = px.to_vec();
+    for y in 0..h {
+        for x in 0..w {
+            let delta = map(x as f32 + 0.5, y as f32 + 0.5);
+            put(
+                px,
+                w,
+                x,
+                y,
+                sample_offset(&src, w, h, (x as i32, y as i32), delta),
+            );
+        }
+    }
+    unpremultiply(px);
+}
+
 /// Convolve with a 3x3 kernel, leaving alpha alone.
 pub fn convolve3(px: &mut [f32], w: usize, h: usize, k: [f32; 9], bias: f32) {
     if w == 0 || h == 0 {
+        return;
+    }
+    let mut params = vec![3.0, 1.0, bias, 0.0];
+    params.extend_from_slice(&k);
+    if crate::gpu::apply(px, w, h, &crate::gpu::CONVOLVE, &params, Some(1), 9) {
         return;
     }
     let src = px.to_vec();

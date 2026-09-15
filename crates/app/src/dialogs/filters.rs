@@ -218,7 +218,7 @@ pub(super) fn filter_dialog(
             },
             cx,
         ));
-    ui::modal_frame(name, 360.0, body, actions)
+    ui::preview_modal_frame(name, 360.0, body, actions)
 }
 
 /// Image ▸ Adjustments: the same sliders as the adjustment layers, but
@@ -327,7 +327,7 @@ pub(super) fn destructive_adjustment_dialog(
             },
             cx,
         ));
-    ui::modal_frame(
+    ui::preview_modal_frame(
         ui::adjustment_name(kind),
         if curves { 430.0 } else { 380.0 },
         body,

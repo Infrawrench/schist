@@ -4,9 +4,9 @@
 //! per keystroke of a dialog — blurs with a large kernel, and the
 //! displacement resample Puppet Warp re-runs on every pointer move —
 //! plus Content-Aware Scale, which sweeps it once per carved seam and so
-//! does hundreds of passes for one command. They are the only pixel work
-//! in the editor where a round trip to a second wgpu device can pay for
-//! itself; brush-footprint tools do a few thousand pixels per dab and stay
+//! does hundreds of passes for one command. Effects can also supply their
+//! own [`ShaderSpec`] for neighborhood, procedural and remapping work.
+//! Brush-footprint tools do a few thousand pixels per dab and stay
 //! on the CPU, where the latency is. Liquify is the one that goes both
 //! ways: a dab resamples only the footprint of the brush and stays here,
 //! but the warp it runs is the same one.
@@ -18,6 +18,9 @@
 
 use rayon::prelude::*;
 use std::sync::{Arc, OnceLock, RwLock};
+
+mod shader;
+pub use shader::{try_shader_rgba, ShaderJob, ShaderSpec, SHADER_PRELUDE};
 
 /// A separable box blur: `passes` rounds of one horizontal and one
 /// vertical pass over premultiplied alpha.
@@ -110,6 +113,13 @@ pub struct Carved {
 pub trait FxBackend: Send + Sync {
     /// Short name for logs ("cpu", "gpu").
     fn name(&self) -> &'static str;
+
+    /// An effect-owned WGSL kernel using the shared RGBA shader contract.
+    /// Declining leaves the caller's original pixels available for its CPU body.
+    fn shader(&self, job: &ShaderJob<'_>) -> Option<Vec<f32>> {
+        let _ = job;
+        None
+    }
 
     fn blur(&self, job: &BlurJob<'_>) -> Option<Vec<f32>> {
         let _ = job;

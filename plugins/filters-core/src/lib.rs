@@ -6,8 +6,9 @@
 //!
 //! The large-kernel sweeps — the box passes behind every Gaussian, and the
 //! lens blur's disc — go through `schist_fx`, which runs them on the GPU
-//! when one is installed and on its own CPU reference otherwise. Anything
-//! whose cost is a couple of taps per pixel stays here.
+//! when one is installed and on its own CPU reference otherwise. Other
+//! effects attach shader companions through [`gpu`], retaining their CPU
+//! bodies whenever the backend declines or the job is too small to upload.
 
 use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues, PluginManifest, PluginRegistry};
@@ -18,6 +19,7 @@ pub mod brush;
 pub mod bump;
 pub mod camera_raw;
 pub mod distort;
+pub mod gpu;
 pub mod lens;
 pub mod neural;
 pub mod other;
@@ -266,6 +268,21 @@ impl FilterPlugin for MotionBlur {
         let angle = values.get("angle").to_radians();
         let (dx, dy) = (angle.cos(), angle.sin());
         let steps = distance.round().max(1.0) as i32;
+        let mut taps = vec![(2 * (steps / 2) + 1) as f32];
+        for s in -steps / 2..=steps / 2 {
+            taps.extend_from_slice(&[dx * s as f32, dy * s as f32]);
+        }
+        if gpu::apply(
+            pixels,
+            width,
+            height,
+            &gpu::MOTION,
+            &taps,
+            Some(steps as usize / 2 + 1),
+            steps as usize,
+        ) {
+            return;
+        }
         premultiply(pixels);
         let src = pixels.to_vec();
         for y in 0..height as i32 {
@@ -478,6 +495,17 @@ impl FilterPlugin for AddNoise {
         }
         let mono = values.get("monochrome") >= 0.5;
         let gaussian = values.get("distribution") >= 0.5;
+        if gpu::apply(
+            pixels,
+            width,
+            height,
+            &gpu::ADD_NOISE,
+            &[amount, mono as u8 as f32, gaussian as u8 as f32],
+            Some(0),
+            if gaussian { 48 } else { 16 },
+        ) {
+            return;
+        }
         // Deterministic hash noise: same input, same output, so undo/redo
         // and re-runs are reproducible.
         let raw = |x: u32, y: u32, c: u32| -> f32 {
@@ -551,6 +579,9 @@ impl FilterPlugin for Median {
     fn apply(&self, pixels: &mut [f32], width: usize, height: usize, values: &FilterValues) {
         let r = values.get("radius").round().clamp(1.0, 10.0) as i32;
         if width == 0 || height == 0 {
+            return;
+        }
+        if gpu::median(pixels, width, height, r, false, 4, -1.0) {
             return;
         }
         let src = pixels.to_vec();

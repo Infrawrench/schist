@@ -205,6 +205,7 @@ impl RenderOnce for Divider {
 pub struct Modal {
     title: SharedString,
     width: f32,
+    dim_background: bool,
     style: StyleRefinement,
     children: Vec<AnyElement>,
     actions: Vec<AnyElement>,
@@ -215,6 +216,7 @@ impl Modal {
         Modal {
             title: title.into(),
             width: 360.0,
+            dim_background: true,
             style: StyleRefinement::default(),
             children: Vec::new(),
             actions: Vec::new(),
@@ -224,6 +226,13 @@ impl Modal {
     /// The card's width, in pixels.
     pub fn width(mut self, width: f32) -> Self {
         self.width = width;
+        self
+    }
+
+    /// Keep live canvas previews at their actual brightness. The backdrop
+    /// still blocks input when its dimming is disabled.
+    pub fn dim_background(mut self, dim: bool) -> Self {
+        self.dim_background = dim;
         self
     }
 
@@ -281,7 +290,11 @@ impl RenderOnce for Modal {
             .items_center()
             .justify_center()
             .p_2()
-            .bg(gpui::rgba(0x00000080))
+            .bg(gpui::rgba(if self.dim_background {
+                0x00000080
+            } else {
+                0x00000000
+            }))
             // The backdrop must swallow the pointer, or the canvas
             // underneath keeps its hit box and the active tool edits
             // the document while the dialog is open.

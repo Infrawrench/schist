@@ -13,6 +13,7 @@ use schist_core::{TileBuf, TileCoord, TILE_PIXELS};
 use wgpu::util::DeviceExt;
 
 mod carve_paged;
+mod effect_shader;
 
 /// Per-chunk ceiling on any one storage buffer, and the tile count that
 /// keeps the f32 output under it (256 KiB × 4 channels × 4 bytes = 1 MiB
@@ -37,6 +38,8 @@ pub struct GpuContext {
     fx_blur: wgpu::ComputePipeline,
     fx_lens: wgpu::ComputePipeline,
     fx_warp: wgpu::ComputePipeline,
+    effect_shaders:
+        parking_lot::Mutex<rustc_hash::FxHashMap<&'static str, Option<wgpu::ComputePipeline>>>,
     /// Seam carving: six stages over one shared bind group layout, so the
     /// whole run is a single set of buffers and no layout can drift
     /// between entry points.
@@ -230,6 +233,7 @@ impl GpuContext {
             fx_blur: make(&fx_blur_module, "box_pass"),
             fx_lens: make(&fx_lens_module, "lens_blur"),
             fx_warp: make(&fx_warp_module, "mesh_warp"),
+            effect_shaders: parking_lot::Mutex::new(rustc_hash::FxHashMap::default()),
             paged_carve: std::sync::OnceLock::new(),
             carve: CarvePipelines {
                 energy: carve_stage("energy_pass"),

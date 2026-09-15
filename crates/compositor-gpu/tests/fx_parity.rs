@@ -26,6 +26,17 @@ fn gpu() -> Option<&'static Arc<GpuContext>> {
 
 #[test]
 fn fx_shaders_validate_without_an_adapter() {
+    for shader in schist_filters_core::gpu::SHADERS {
+        let source = shader.wgsl();
+        let module = naga::front::wgsl::parse_str(&source)
+            .unwrap_or_else(|e| panic!("{}: {}", shader.name, e.emit_to_string(&source)));
+        naga::valid::Validator::new(
+            naga::valid::ValidationFlags::all(),
+            naga::valid::Capabilities::empty(),
+        )
+        .validate(&module)
+        .unwrap_or_else(|e| panic!("{}: {}", shader.name, e.emit_to_string(&source)));
+    }
     for (name, source) in [
         ("warp", include_str!("../src/fx_warp.wgsl")),
         ("paged carve", include_str!("../src/fx_carve_paged.wgsl")),
