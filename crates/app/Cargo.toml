@@ -3,13 +3,9 @@ name = "schist-app"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+build = "../../tools/app-cfg.rs"
 
-# The app is a library with a one-line executable in front of it, because
-# Android runs it as a shared library instead: NativeActivity loads
-# `libschist_app.so` and calls the `android_main` that `src/lib.rs`
-# defines. `tools/android-build.sh` builds that with
-# `cargo rustc --lib --crate-type cdylib`; every other target builds the
-# `schist` binary and never sees a cdylib.
+# Android loads this library; other platforms use the schist executable.
 [lib]
 name = "schist_app"
 path = "src/lib.rs"
@@ -20,33 +16,10 @@ path = "src/main.rs"
 
 [dependencies]
 schist-i18n.workspace = true
-# Deflate for the gallery's ZIPs and the cloud's gzip batch uploads;
-# already in the tree behind the PNG codec, so this adds no download.
-flate2 = "1"
 schist-cloud = { path = "../cloud" }
-web-time = "1"
 gpui.workspace = true
-anyhow.workspace = true
 log.workspace = true
-serde.workspace = true
-serde_json.workspace = true
-# Verifies a downloaded update against the digest the release records.
-sha2 = "0.10"
-image.workspace = true
-futures.workspace = true
-smallvec.workspace = true
-rustc-hash.workspace = true
-
-# The widget kit: palette, buttons, rows, checkboxes.
-schist-ui.workspace = true
-schist-core.workspace = true
-schist-color.workspace = true
 schist-plugin-api.workspace = true
-schist-compositor.workspace = true
-schist-fx.workspace = true
-schist-layer-fx.workspace = true
-schist-neural.workspace = true
-schist-codec-psd.workspace = true
 schist-codecs-common.workspace = true
 schist-tools-basic.workspace = true
 schist-tools-paint.workspace = true
@@ -57,152 +30,32 @@ schist-tools-vector.workspace = true
 schist-tools-warp.workspace = true
 schist-tools-doc.workspace = true
 schist-tools-type.workspace = true
-schist-text-engine.workspace = true
-schist-vector.workspace = true
 schist-commands-core.workspace = true
 schist-filters-core.workspace = true
-schist-adjustments.workspace = true
-schist-colormgmt.workspace = true
-# The gallery's on-disk model, shared with the headless MCP server.
 schist-gallery.workspace = true
+schist-app-platform.workspace = true
+schist-app-actions.workspace = true
+schist-app-services.workspace = true
+schist-app-settings.workspace = true
+schist-editor.workspace = true
 
-# Everything a browser tab cannot host: blocking sockets (ureq, sentry)
-# and the second wgpu device the GPU compositor opens with a blocking
-# pollster wait. The web build composites on the CPU reference backend
-# and drops those features; see src/web/mod.rs. iOS has all of these.
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-tempfile = "3"
 env_logger.workspace = true
-# Update checks, font downloads and update downloads.
-ureq = { version = "3", default-features = false, features = ["rustls", "json"] }
-# Only used by the opt-in crash upload, and only in a build handed a DSN.
-sentry.workspace = true
-schist-compositor-gpu.workspace = true
-# Gallery thumbnails: one windowless image of a file. Native-only with the
-# rest of the gallery — a browser tab has no folders to browse.
-schist-preview.workspace = true
-# The gallery's "save bucket as ZIP" writes the archive by hand; this
-# is its checksum. Its deflate, flate2, sits in the common dependencies
-# since cloud batch uploads gzip on every target.
-crc32fast.workspace = true
-# The daily ping: its dedup ID, and the CPU model and RAM it reports.
-rand = "0.10"
-sysinfo = { version = "0.31", default-features = false, features = ["system"] }
 
-# What only a desktop can host: subprocesses, dlopen and a JIT. iOS
-# forbids all three, and Android has none of the desktop binaries they
-# would run (see build.rs for the `sandboxed` cfg these sites test), so
-# the plug-in hosts and the agent CLIs behind the AI sidebar stay off
-# there too.
 [target.'cfg(not(any(target_arch = "wasm32", target_os = "ios", target_os = "android")))'.dependencies]
 schist-plugin-host-wasm.workspace = true
-# Carries the .8bf plug-in helpers, which are binaries for architectures
-# other than this one and are unpacked on first use. See the Makefile.
-schist-plugin-host-8bf = { workspace = true, features = ["registry"] }
-# The AI sidebar: shared MCP catalog/dispatch, and the agent SDKs that
-# drive the user's installed `claude` / `codex` CLIs against it.
-schist-mcp.workspace = true
-claude-agent-sdk-rs.workspace = true
-codex-codes.workspace = true
-tokio.workspace = true
-async-trait.workspace = true
-
-# ImageCaptureCore for the gallery's iPhone/PTP-camera import: those
-# devices never mount as filesystems on macOS. Same objc2 idiom as the
-# Quick Look extensions — the delegate class is built at runtime.
-[target.'cfg(target_os = "macos")'.dependencies]
-objc2 = "0.6"
-# The window's NSView, for starting a native drag out of it.
-raw-window-handle = "0.6"
-objc2-foundation = { version = "0.3", default-features = false, features = [
-    "std",
-    "NSString",
+schist-plugin-host-8bf = { workspace = true, features = [
+    "registry",
 ] }
+schist-app-ai.workspace = true
 
-# The camera-roll backup's Android half: the media permission, the
-# shared folders and the background job are all Java, reached over JNI
-# through the activity gpui holds. Both crates are already in the tree
-# behind gpui's Android backend.
-[target.'cfg(target_os = "android")'.dependencies]
-jni = "0.22"
-android-activity = { version = "0.6", features = ["native-activity"] }
-# gpui names its credentials file by this hash of the key; the headless
-# job reads the same file.
-seahash = "4"
-
-# The photo library on iOS, through PHPickerViewController; the delegate
-# class is built at runtime, as on macOS.
-[target.'cfg(target_os = "ios")'.dependencies]
-objc2 = "0.6"
-block2 = "0.6"
-objc2-foundation = { version = "0.3", default-features = false, features = [
-    "std",
-    "NSString",
-] }
-
-# Dragging photos out of the window onto Explorer: OLE drag-and-drop,
-# with the shell's own data object for the files.
-[target.'cfg(target_os = "windows")'.dependencies]
-raw-window-handle = "0.6"
-# The `implement` macro expands to `windows_core::` paths, which
-# resolve as an extern crate rather than through the umbrella.
-windows-core = "0.58"
-windows = { version = "0.58", features = [
-    # `implement` generates the `_Impl` traits behind a drop source.
-    "implement",
-    "Win32_Foundation",
-    "Win32_Media_MediaFoundation",
-    "Win32_System_Com",
-    "Win32_System_Ole",
-    "Win32_System_SystemServices",
-    "Win32_UI_Shell",
-    "Win32_UI_WindowsAndMessaging",
-] }
-
-# The browser build. wasm-bindgen is pinned exactly: the CLI that
-# post-processes the binary (see tools/web-build.sh) must match the crate
-# version byte for byte.
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-wasm-bindgen = "=0.2.127"
-wasm-bindgen-futures = "0.4"
-js-sys = "0.3"
 console_error_panic_hook = "0.1"
 console_log = "1"
-web-sys = { version = "0.3", features = [
-    "Window",
-    "Document",
-    "Element",
-    "HtmlElement",
-    "HtmlInputElement",
-    "HtmlAnchorElement",
-    "CssStyleDeclaration",
-    "File",
-    "FileList",
-    "Blob",
-    "BlobPropertyBag",
-    "Url",
-    "Event",
-    "Response",
-    "ReadableStream",
-    "ReadableStreamDefaultReader",
-    "Storage",
-] }
-
-# The pre-flight Vulkan probe in `src/vulkan.rs`. Blade already links this
-# exact version to do the real thing, so it is not another crate in the
-# tree -- only another user of one.
-[target.'cfg(target_os = "linux")'.dependencies]
-ash = "0.38"
-# Load the system GStreamer at runtime, keeping it an optional dependency.
-libloading.workspace = true
-# Dragging photos out of the window onto a file manager: XDND, from the
-# source side, on its own connection. Same version gpui's X11 backend
-# already links.
-x11rb = "0.13"
 
 [dev-dependencies]
-tokio.workspace = true
-# The camera-roll backup's tests walk a scratch folder and move its
-# mtimes about.
 tempfile = "3"
-filetime = "0.2"
+
+[target.'cfg(target_os = "android")'.dependencies]
+jni = "0.22"
+schist-camera-sync.workspace = true

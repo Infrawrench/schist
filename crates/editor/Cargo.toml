@@ -1,0 +1,109 @@
+[package]
+name = "schist-editor"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+build = "../../tools/app-cfg.rs"
+
+[dependencies]
+schist-i18n.workspace = true
+flate2 = "1"
+schist-cloud = { path = "../cloud" }
+web-time = "1"
+gpui.workspace = true
+anyhow.workspace = true
+log.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2 = "0.10"
+image.workspace = true
+futures.workspace = true
+smallvec.workspace = true
+rustc-hash.workspace = true
+schist-ui.workspace = true
+schist-core.workspace = true
+schist-color.workspace = true
+schist-plugin-api.workspace = true
+schist-compositor.workspace = true
+schist-fx.workspace = true
+schist-neural.workspace = true
+schist-codec-psd.workspace = true
+schist-codecs-common.workspace = true
+schist-tools-retouch.workspace = true
+schist-tools-transform.workspace = true
+schist-tools-vector.workspace = true
+schist-tools-warp.workspace = true
+schist-tools-doc.workspace = true
+schist-tools-type.workspace = true
+schist-text-engine.workspace = true
+schist-vector.workspace = true
+schist-adjustments.workspace = true
+schist-colormgmt.workspace = true
+schist-gallery.workspace = true
+schist-app-platform.workspace = true
+schist-app-actions.workspace = true
+schist-app-fonts.workspace = true
+schist-app-services.workspace = true
+schist-app-settings.workspace = true
+schist-cloud-transfer.workspace = true
+schist-gallery-ui.workspace = true
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+tempfile = "3"
+ureq = { version = "3", default-features = false, features = [
+    "rustls",
+    "json",
+] }
+schist-compositor-gpu.workspace = true
+schist-preview.workspace = true
+crc32fast.workspace = true
+schist-video.workspace = true
+schist-camera-sync.workspace = true
+schist-map-view.workspace = true
+
+[target.'cfg(not(any(target_arch = "wasm32", target_os = "ios", target_os = "android")))'.dependencies]
+schist-plugin-host-wasm.workspace = true
+schist-plugin-host-8bf = { workspace = true, features = [
+    "registry",
+] }
+schist-mcp.workspace = true
+schist-app-ai.workspace = true
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+objc2-foundation = { version = "0.3", default-features = false, features = [
+    "std",
+    "NSString",
+] }
+
+[target.'cfg(target_os = "ios")'.dependencies]
+objc2 = "0.6"
+block2 = "0.6"
+objc2-foundation = { version = "0.3", default-features = false, features = [
+    "std",
+    "NSString",
+] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+web-sys = { version = "0.3", features = [
+    "Window",
+    "Document",
+    "Element",
+    "HtmlElement",
+    "HtmlInputElement",
+    "HtmlAnchorElement",
+    "CssStyleDeclaration",
+    "File",
+    "FileList",
+    "Blob",
+    "BlobPropertyBag",
+    "Url",
+    "Event",
+    "Response",
+    "ReadableStream",
+    "ReadableStreamDefaultReader",
+    "Storage",
+] }
+
+[dev-dependencies]
+tempfile = "3"

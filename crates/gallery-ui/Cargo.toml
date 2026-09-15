@@ -1,0 +1,10 @@
+[package]
+name = "schist-gallery-ui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-i18n.workspace = true
+gpui.workspace = true
+schist-ui.workspace = true

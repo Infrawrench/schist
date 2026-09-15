@@ -1,0 +1,17 @@
+[package]
+name = "schist-cloud-transfer"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-i18n.workspace = true
+flate2 = "1"
+sha2 = "0.10"
+schist-cloud = { path = "../cloud" }
+anyhow.workspace = true
+serde.workspace = true
+futures.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+schist-app-platform.workspace = true

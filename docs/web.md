@@ -61,7 +61,7 @@ deploy`.
   `window.__schist_boot`; the neural models are fetched by the app on
   demand (below).
 
-The app itself never fetches during startup: `crates/app/src/web/mod.rs`
+The app itself never fetches during startup: `crates/app-platform/src/web/mod.rs`
 reads the boot payload synchronously, registers the fonts with both text
 systems (a browser exposes no system fonts), and opens the window.
 

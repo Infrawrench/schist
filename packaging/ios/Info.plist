@@ -216,7 +216,7 @@
     <string>Schist saves exported images to your photo library.</string>
     <!-- The camera-roll backup's background launch: iOS starts the app
          now and then, on a network, to upload what is new
-         (crates/app/src/workspace/camera_sync_ios.rs). -->
+         (crates/camera-sync/src/ios.rs). -->
     <key>UIBackgroundModes</key>
     <array><string>processing</string></array>
     <key>BGTaskSchedulerPermittedIdentifiers</key>

@@ -10,7 +10,7 @@ if crate::feature_enabled("gpu-compositing") {
 ```
 
 Register flags and their shipping defaults in `DEFAULTS` in
-[`crates/app/src/feature_flags.rs`](../crates/app/src/feature_flags.rs).
+[`crates/app-settings/src/feature_flags.rs`](../crates/app-settings/src/feature_flags.rs).
 Names are case-sensitive. Unknown names always return `false`, even if an
 override tries to enable them. Adding a flag means adding its default there
 and checking it at the feature's entry point.

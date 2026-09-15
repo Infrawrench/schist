@@ -393,7 +393,7 @@ unlocked iPhone (`afc:`), a PTP camera (`gphoto2:`) or an Android phone
 
 On macOS an iPhone never mounts as a filesystem, so the gallery asks
 **ImageCaptureCore** — the framework behind Image Capture and Photos —
-what is plugged in (`crates/app/src/workspace/library_icc.rs`; the
+what is plugged in (`crates/editor/src/workspace/library_icc.rs`; the
 delegate class is assembled at runtime, like the Quick Look providers).
 Connected iPhones and PTP cameras appear beside the mounted volumes in
 the picker; downloading runs through `requestDownloadFile` with
