@@ -1,7 +1,7 @@
 //! Filter ▸ Distort. Every one of these is a coordinate remap through
 //! [`warp`], so they differ only in the mapping.
 
-use crate::util::{blur_plane, fbm, luma, surface, value_noise, warp};
+use crate::util::{blur_plane, fbm, luma, surface, value_noise, warp, warp_offset};
 use crate::{choice, context_filter, param, simple_filter};
 use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterContext, FilterParam, FilterPlugin, FilterValues};
@@ -23,16 +23,27 @@ simple_filter!(
         let angle = v.get("angle").to_radians();
         let (cx, cy) = (w as f32 / 2.0, h as f32 / 2.0);
         let radius = cx.hypot(cy);
-        warp(px, w, h, |x, y| {
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::TWIRL,
+            &[angle, cx, cy, radius],
+            None,
+            24,
+        ) {
+            return;
+        }
+        warp_offset(px, w, h, |x, y| {
             let (dx, dy) = (x - cx, y - cy);
             let d = dx.hypot(dy);
             if d >= radius {
-                return (x, y);
+                return (0.0, 0.0);
             }
             // Rotation falls off to nothing at the edge of the circle.
             let t = angle * (1.0 - d / radius).powi(2);
             let (s, c) = t.sin_cos();
-            (cx + dx * c - dy * s, cy + dx * s + dy * c)
+            (dx * (c - 1.0) - dy * s, dx * s + dy * (c - 1.0))
         });
     }
 );
@@ -49,10 +60,21 @@ simple_filter!(
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let amount = v.get("amount") / 100.0;
         let size = v.get("size").max(1.0);
-        warp(px, w, h, |x, y| {
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::RIPPLE,
+            &[amount, size],
+            Some((amount.abs() * size * 0.25).ceil() as usize + 1),
+            16,
+        ) {
+            return;
+        }
+        warp_offset(px, w, h, |x, y| {
             (
-                x + (y / size).sin() * amount * size * 0.25,
-                y + (x / size).sin() * amount * size * 0.25,
+                (y / size).sin() * amount * size * 0.25,
+                (x / size).sin() * amount * size * 0.25,
             )
         });
     }
@@ -126,6 +148,24 @@ simple_filter!(
         let vscale = v.get("vertical") / 100.0;
         let kind = (v.get("type").round().max(0.0) as usize).min(2);
         let seed = v.get("seed") as u32;
+        let mut shader_params = vec![generators as f32, amp, hscale, vscale, kind as f32];
+        for g in 0..generators {
+            let jitter = 0.5 + value_noise(g as f32 * 13.0, 0.0, seed);
+            let k = std::f32::consts::TAU / (len * jitter);
+            let phase = value_noise(0.0, g as f32 * 7.0, seed) * std::f32::consts::TAU;
+            shader_params.extend_from_slice(&[k, phase]);
+        }
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::WAVE,
+            &shader_params,
+            Some((amp * vscale).abs().ceil() as usize + 2),
+            4 + generators * 16,
+        ) {
+            return;
+        }
         // Square waves displace by a constant either way, which is what
         // gives Wave its torn-paper look; triangles ramp between.
         let shape = move |phase: f32| -> f32 {
@@ -142,7 +182,7 @@ simple_filter!(
                 _ => phase.sin(),
             }
         };
-        warp(px, w, h, move |x, y| {
+        warp_offset(px, w, h, move |x, y| {
             let (mut ox, mut oy) = (0.0f32, 0.0f32);
             for g in 0..generators {
                 // Each generator gets its own wavelength and phase, from
@@ -154,7 +194,7 @@ simple_filter!(
                 ox += shape(y * k + phase) * amp / generators as f32;
                 oy += shape(x * k + phase) * amp / generators as f32;
             }
-            (x + ox * hscale, y + oy * vscale)
+            (ox * hscale, oy * vscale)
         });
     }
 );

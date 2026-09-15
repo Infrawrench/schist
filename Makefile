@@ -264,8 +264,15 @@ check-layered-codecs-app:
 check-text:
 	$(CARGO) test -p schist-core -p schist-text-engine -p schist-tools-type -p schist-codec-affinity
 check-gpu-fx:
-	$(CARGO) test -p schist-fx
-	$(CARGO) test -p schist-compositor-gpu --test fx_parity --test fx_wiring
+	$(CARGO) test -p schist-fx -p schist-filters-core -p schist-compositor-gpu
+
+.PHONY: fmt-gpu-fx lint-gpu-fx check-gpu-shaders
+check-gpu-shaders:
+	$(CARGO) test -p schist-compositor-gpu --test effect_shaders
+fmt-gpu-fx:
+	$(CARGO) fmt -p schist-fx -p schist-filters-core -p schist-compositor-gpu
+lint-gpu-fx:
+	$(CARGO) clippy -p schist-fx -p schist-filters-core -p schist-compositor-gpu --all-targets -- -D warnings
 check-readme: check-text check-gpu-fx
 	$(CARGO) clippy -p schist-core -p schist-text-engine -p schist-tools-type -p schist-codec-affinity -p schist-fx -p schist-compositor-gpu --all-targets -- -D warnings
 # Native cloud client and editor integration checks.

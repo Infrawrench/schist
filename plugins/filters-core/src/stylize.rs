@@ -32,6 +32,9 @@ simple_filter!(
     t("filter.category.stylize"),
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
+        if crate::gpu::apply(px, w, h, &crate::gpu::FIND_EDGES, &[], Some(1), 18) {
+            return;
+        }
         let e = edges(px, w, h);
         for y in 0..h {
             for x in 0..w {
@@ -117,6 +120,20 @@ simple_filter!(
         let angle = v.get("angle").to_radians();
         let amount = v.get("amount") / 100.0 * v.get("height");
         let (s, c) = angle.sin_cos();
+        let step = v.get("height").max(1.0);
+        let dx = (c * step) as i32;
+        let dy = (s * step) as i32;
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::EMBOSS,
+            &[dx as f32, dy as f32, amount],
+            Some(dy.unsigned_abs() as usize),
+            6,
+        ) {
+            return;
+        }
         let src = px.to_vec();
         for y in 0..h as i32 {
             for x in 0..w as i32 {
@@ -201,6 +218,17 @@ simple_filter!(
         // both and combining gives a contour two pixels wide with the
         // level exactly between them.
         let upper = v.get("edge") >= 0.5;
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::TRACE_CONTOUR,
+            &[level, upper as u8 as f32],
+            Some(1),
+            3,
+        ) {
+            return;
+        }
         let src = px.to_vec();
         for y in 0..h as i32 {
             for x in 0..w as i32 {
@@ -508,6 +536,26 @@ simple_filter!(
         let bristle = v.get("bristle") / 10.0;
         let shine = v.get("shine") / 10.0;
         let light = v.get("angle").to_radians();
+        if levels <= 64
+            && crate::gpu::apply(
+                px,
+                w,
+                h,
+                &crate::gpu::OIL,
+                &[
+                    r as f32,
+                    levels as f32,
+                    bristle,
+                    shine,
+                    light.cos(),
+                    light.sin(),
+                ],
+                Some(r as usize),
+                (2 * r + 1).pow(2) as usize * 2,
+            )
+        {
+            return;
+        }
         let src = px.to_vec();
         for y in 0..h as i32 {
             for x in 0..w as i32 {

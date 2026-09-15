@@ -22,6 +22,29 @@ context_filter!(
         let octaves = v.get("detail").max(1.0) as u32;
         let seed = v.get("seed") as u32;
         let (fg, bg) = (ctx.fg(), ctx.bg());
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::CLOUDS,
+            &[
+                0.0,
+                scale,
+                1.0,
+                octaves as f32,
+                seed as f32,
+                fg[0],
+                fg[1],
+                fg[2],
+                bg[0],
+                bg[1],
+                bg[2],
+            ],
+            Some(0),
+            octaves as usize * 16,
+        ) {
+            return;
+        }
         for y in 0..h {
             for x in 0..w {
                 let n = fbm(x as f32 / scale, y as f32 / scale, seed, octaves);
@@ -60,6 +83,29 @@ context_filter!(
         let octaves = v.get("detail").max(1.0) as u32;
         let seed = v.get("seed") as u32;
         let (fg, bg) = (ctx.fg(), ctx.bg());
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::CLOUDS,
+            &[
+                1.0,
+                scale,
+                1.0,
+                octaves as f32,
+                seed as f32,
+                fg[0],
+                fg[1],
+                fg[2],
+                bg[0],
+                bg[1],
+                bg[2],
+            ],
+            Some(0),
+            octaves as usize * 16,
+        ) {
+            return;
+        }
         for y in 0..h {
             for x in 0..w {
                 let t = fbm(x as f32 / scale, y as f32 / scale, seed, octaves);
@@ -108,6 +154,29 @@ context_filter!(
         let strength = v.get("strength").max(1.0);
         let seed = 977 + v.get("seed") as u32;
         let (fg, bg) = (ctx.fg(), ctx.bg());
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::CLOUDS,
+            &[
+                2.0,
+                variance,
+                strength,
+                4.0,
+                seed as f32,
+                fg[0],
+                fg[1],
+                fg[2],
+                bg[0],
+                bg[1],
+                bg[2],
+            ],
+            Some(0),
+            64,
+        ) {
+            return;
+        }
         for y in 0..h {
             for x in 0..w {
                 let n = fbm(x as f32 * variance / 16.0, y as f32 / strength, seed, 4);

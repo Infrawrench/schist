@@ -64,6 +64,21 @@ simple_filter!(
         let dx = v.get("x").round() as i32;
         let dy = v.get("y").round() as i32;
         let undefined = (v.get("undefined").round().max(0.0) as usize).min(2);
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::OFFSET,
+            &[dx as f32, dy as f32, undefined as f32],
+            if undefined == 2 {
+                None
+            } else {
+                Some(dy.unsigned_abs() as usize)
+            },
+            1,
+        ) {
+            return;
+        }
         let src = px.to_vec();
         for y in 0..h as i32 {
             for x in 0..w as i32 {
@@ -102,6 +117,17 @@ simple_filter!(
 /// mostly used to grow and shrink masks, and a mask of a building should
 /// not come back with rounded corners.
 fn morph(px: &mut [f32], w: usize, h: usize, radius: i32, take_max: bool, round: bool) {
+    if crate::gpu::apply(
+        px,
+        w,
+        h,
+        &crate::gpu::MORPHOLOGY,
+        &[radius as f32, take_max as u8 as f32, round as u8 as f32],
+        Some(radius as usize),
+        (2 * radius + 1).pow(2) as usize,
+    ) {
+        return;
+    }
     let src = px.to_vec();
     for y in 0..h as i32 {
         for x in 0..w as i32 {
@@ -209,24 +235,48 @@ simple_filter!(
             _ => 48,
         };
         let (cx, cy) = (v.get("x") / 100.0 * w as f32, v.get("y") / 100.0 * h as f32);
+        // Every pixel uses the same rotations/scales. Prepare them once:
+        // rotating (fx, fy) directly avoids a per-pixel polar conversion
+        // and keeps CPU/GPU sampling on the same floating point inputs.
+        let transforms: Vec<(f32, f32)> = (0..steps)
+            .map(|s| {
+                let t = s as f32 / (steps - 1) as f32 - 0.5;
+                if spin {
+                    let (sin, cos) = (t * amount).sin_cos();
+                    (cos - 1.0, sin)
+                } else {
+                    (t * amount, 0.0)
+                }
+            })
+            .collect();
+        let mut shader_params = vec![spin as u8 as f32, steps as f32, cx, cy];
+        for &(a, b) in &transforms {
+            shader_params.extend_from_slice(&[a, b]);
+        }
+        if crate::gpu::apply(
+            px,
+            w,
+            h,
+            &crate::gpu::RADIAL,
+            &shader_params,
+            None,
+            steps * 4,
+        ) {
+            return;
+        }
         premultiply(px);
         let src = px.to_vec();
         for y in 0..h {
             for x in 0..w {
                 let (fx, fy) = (x as f32 + 0.5 - cx, y as f32 + 0.5 - cy);
-                let r = fx.hypot(fy);
-                let theta = fy.atan2(fx);
                 let mut acc = [0.0f32; 4];
-                for s in 0..steps {
-                    let t = s as f32 / (steps - 1) as f32 - 0.5;
-                    let (sx, sy) = if spin {
-                        let a = theta + t * amount;
-                        (cx + r * a.cos(), cy + r * a.sin())
+                for &(a, b) in &transforms {
+                    let delta = if spin {
+                        (fx * a - fy * b, fx * b + fy * a)
                     } else {
-                        let k = 1.0 + t * amount;
-                        (cx + fx * k, cy + fy * k)
+                        (fx * a, fy * a)
                     };
-                    let p = crate::util::sample(&src, w, h, sx - 0.5, sy - 0.5);
+                    let p = crate::util::sample_offset(&src, w, h, (x as i32, y as i32), delta);
                     for c in 0..4 {
                         acc[c] += p[c] / steps as f32;
                     }
@@ -252,6 +302,9 @@ simple_filter!(
         // flat areas smooth and edges stay put.
         let r = v.get("radius").round().max(1.0) as i32;
         let t = (v.get("threshold") / 255.0).max(1e-3);
+        if crate::gpu::bilateral(px, w, h, r, t, true) {
+            return;
+        }
         let src = px.to_vec();
         for y in 0..h as i32 {
             for x in 0..w as i32 {
@@ -665,6 +718,9 @@ simple_filter!(
     [],
     |px: &mut [f32], w: usize, h: usize, _v: &FilterValues| {
         // Median of 3x3, but only away from edges, so detail survives.
+        if crate::gpu::median(px, w, h, 1, false, 3, 0.04) {
+            return;
+        }
         let src = px.to_vec();
         for y in 0..h as i32 {
             for x in 0..w as i32 {
@@ -703,6 +759,9 @@ simple_filter!(
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let r = v.get("radius").round().max(1.0) as i32;
         let t = v.get("threshold") / 255.0;
+        if crate::gpu::median(px, w, h, r, true, 3, t) {
+            return;
+        }
         let src = px.to_vec();
         for y in 0..h as i32 {
             for x in 0..w as i32 {
@@ -781,31 +840,33 @@ simple_filter!(
         let jpeg = v.get("jpeg") >= 0.5;
         let r = (strength.max(0.5)).round() as i32;
         let t = (0.25 * (1.0 - detail)).max(1e-3);
-        let src = px.to_vec();
-        for y in 0..h as i32 {
-            for x in 0..w as i32 {
-                let centre = at(&src, w, h, x, y);
-                let mut acc = [0.0f32; 4];
-                let mut wsum = 0.0f32;
-                for dy in -r..=r {
-                    for dx in -r..=r {
-                        let p = at(&src, w, h, x + dx, y + dy);
-                        let d = (p[0] - centre[0])
-                            .abs()
-                            .max((p[1] - centre[1]).abs())
-                            .max((p[2] - centre[2]).abs());
-                        let k = (1.0 - d / t).max(0.0);
-                        for c in 0..4 {
-                            acc[c] += p[c] * k;
+        if !crate::gpu::bilateral(px, w, h, r, t, false) {
+            let src = px.to_vec();
+            for y in 0..h as i32 {
+                for x in 0..w as i32 {
+                    let centre = at(&src, w, h, x, y);
+                    let mut acc = [0.0f32; 4];
+                    let mut wsum = 0.0f32;
+                    for dy in -r..=r {
+                        for dx in -r..=r {
+                            let p = at(&src, w, h, x + dx, y + dy);
+                            let d = (p[0] - centre[0])
+                                .abs()
+                                .max((p[1] - centre[1]).abs())
+                                .max((p[2] - centre[2]).abs());
+                            let k = (1.0 - d / t).max(0.0);
+                            for c in 0..4 {
+                                acc[c] += p[c] * k;
+                            }
+                            wsum += k;
                         }
-                        wsum += k;
                     }
-                }
-                if wsum > 0.0 {
-                    for a in acc.iter_mut() {
-                        *a /= wsum;
+                    if wsum > 0.0 {
+                        for a in acc.iter_mut() {
+                            *a /= wsum;
+                        }
+                        put(px, w, x as usize, y as usize, acc);
                     }
-                    put(px, w, x as usize, y as usize, acc);
                 }
             }
         }
@@ -1008,6 +1069,19 @@ impl FilterPlugin for Custom {
         }
         let scale = values.get("scale").abs().max(1e-3);
         let offset = values.get("offset") / 255.0;
+        let mut params = vec![5.0, scale, offset, 1.0];
+        params.extend_from_slice(&k);
+        if crate::gpu::apply(
+            px,
+            width,
+            height,
+            &crate::gpu::CONVOLVE,
+            &params,
+            Some(2),
+            k.iter().filter(|&&v| v != 0.0).count(),
+        ) {
+            return;
+        }
         let src = px.to_vec();
         for y in 0..height as i32 {
             for x in 0..width as i32 {
