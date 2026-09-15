@@ -34,12 +34,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO klarte ikkje å lesa HEIF-behaldare
 codec.heif.msg.container_empty = HEIF-behaldaren inneheld ikkje noko bilete
 codec.heif.msg.imageio_cannot_decode = ImageIO klarte ikkje å dekoda hovudbiletet
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Biletfila med lag er skadd eller ufullstendig.
+codec.layered.too_large = Biletet med lag overskrid den støtta storleiken eller det støtta talet på lag.
+codec.layered.unsupported = Denne fila bruker ein funksjon som ikkje er støtta: {feature}.
+codec.layered.export_layer = Laget «{name}» inneheld funksjonar som dette formatet ikkje kan ta vare på. Rasteriser det, eller lagre som PSD.
+codec.layered.export_depth = Eksport til Paint.NET krev eit 8-bits RGB-dokument. Gjer først dokumentet om til 8-bits RGB.
+codec.layered.export_mode = Eksport krev eit RGB-dokument. Gjer først dokumentet om til RGB.
+codec.pdn.feature.blend_mode = PDN-flettemodus
+codec.pdn.feature.compression = PDN-komprimering
+codec.pdn.feature.container_version = PDN-behaldarversjon
+codec.pdn.feature.layer_type = PDN-lagtype
+codec.pdn.feature.multidimensional_array = fleirdimensjonal PDN-tabell
+codec.pdn.feature.pixel_format = PDN-pikselformat
+codec.pdn.feature.primitive_type = primitiv PDN-datatype
+codec.pdn.feature.serialization_record = PDN-serialiseringspost
+codec.xcf.feature.blend_mode = XCF-flettemodus
+codec.xcf.feature.color_model = XCF-fargemodell
+codec.xcf.feature.compression = XCF-komprimering
+codec.xcf.feature.floating_selection = flytande XCF-utval
+codec.xcf.feature.layer_effects = XCF-lageffektar
+codec.xcf.feature.precision = XCF-presisjon
+codec.xcf.feature.version = XCF-versjon

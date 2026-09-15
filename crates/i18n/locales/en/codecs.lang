@@ -24,6 +24,23 @@ codec.layered.export_layer = Layer “{name}” contains features this format ca
 codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
 codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
 
+# Feature labels inserted into codec.layered.unsupported.
+codec.pdn.feature.blend_mode = PDN blend mode
+codec.pdn.feature.compression = PDN compression
+codec.pdn.feature.container_version = PDN container version
+codec.pdn.feature.layer_type = PDN layer type
+codec.pdn.feature.multidimensional_array = PDN multidimensional array
+codec.pdn.feature.pixel_format = PDN pixel format
+codec.pdn.feature.primitive_type = PDN primitive type
+codec.pdn.feature.serialization_record = PDN serialization record
+codec.xcf.feature.blend_mode = XCF blend mode
+codec.xcf.feature.color_model = XCF color model
+codec.xcf.feature.compression = XCF compression
+codec.xcf.feature.floating_selection = XCF floating selection
+codec.xcf.feature.layer_effects = XCF layer effects
+codec.xcf.feature.precision = XCF precision
+codec.xcf.feature.version = XCF version
+
 # Shared import messages. These prefix a decoder's own message, so they
 # read as a clause: "decoding PNG: unexpected end of file".
 codec.msg.decoding = decoding {name}

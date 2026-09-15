@@ -31,12 +31,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF konteynerini o‘qiy olmadi
 codec.heif.msg.container_empty = HEIF konteynerida tasvir yo‘q
 codec.heif.msg.imageio_cannot_decode = ImageIO asosiy tasvirni dekodlay olmadi
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Qatlamli tasvir fayli shikastlangan yoki to‘liq emas.
+codec.layered.too_large = Qatlamli tasvirning o‘lchami yoki qatlamlar soni qo‘llab-quvvatlanadigan chegaradan oshgan.
+codec.layered.unsupported = Bu fayl qo‘llab-quvvatlanmaydigan imkoniyatdan foydalanadi: {feature}.
+codec.layered.export_layer = “{name}” qatlamida bu format saqlab qola olmaydigan imkoniyatlar bor. Uni rasterlang yoki PSD sifatida saqlang.
+codec.layered.export_depth = Paint.NET formatiga eksport qilish uchun 8 bitli RGB hujjati kerak. Avval hujjatni 8 bitli RGB formatiga aylantiring.
+codec.layered.export_mode = Eksport qilish uchun RGB hujjati kerak. Avval hujjatni RGB formatiga aylantiring.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN aralashtirish rejimi
+codec.pdn.feature.compression = PDN siqishi
+codec.pdn.feature.container_version = PDN konteyner versiyasi
+codec.pdn.feature.layer_type = PDN qatlam turi
+codec.pdn.feature.multidimensional_array = PDN ko‘p o‘lchamli massivi
+codec.pdn.feature.pixel_format = PDN piksel formati
+codec.pdn.feature.primitive_type = PDN sodda ma’lumotlar turi
+codec.pdn.feature.serialization_record = PDN ketma-ketlashtirish yozuvi
+codec.xcf.feature.blend_mode = XCF aralashtirish rejimi
+codec.xcf.feature.color_model = XCF rang modeli
+codec.xcf.feature.compression = XCF siqishi
+codec.xcf.feature.floating_selection = XCF suzuvchi tanlovi
+codec.xcf.feature.layer_effects = XCF qatlam effektlari
+codec.xcf.feature.precision = XCF aniqligi
+codec.xcf.feature.version = XCF versiyasi

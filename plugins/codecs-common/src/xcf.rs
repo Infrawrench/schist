@@ -73,7 +73,7 @@ impl Precision {
         // Development builds before v012 stored high precision samples in
         // host byte order. There is no reliable way to infer that byte order.
         if version < 12 && value != 150 {
-            return Err(unsupported("XCF precision"));
+            return Err(unsupported(t("codec.xcf.feature.precision")));
         }
         let (bytes, float, depth) = match value {
             100 | 150 => (1, false, Depth::Eight),
@@ -82,7 +82,7 @@ impl Precision {
             500 | 550 => (2, true, Depth::ThirtyTwo),
             600 | 650 => (4, true, Depth::ThirtyTwo),
             700 | 750 => (8, true, Depth::ThirtyTwo),
-            _ => return Err(unsupported("XCF precision")),
+            _ => return Err(unsupported(t("codec.xcf.feature.precision"))),
         };
         Ok(Self {
             bytes,
@@ -162,7 +162,7 @@ impl Decoder<'_> {
                     tw * th * bpp,
                 )
                 .map_err(|_| invalid())?,
-                _ => return Err(unsupported("XCF compression")),
+                _ => return Err(unsupported(t("codec.xcf.feature.compression"))),
             };
             ensure!(raw.len() == tw * th * bpp, "{}", t("codec.layered.invalid"));
             for y in 0..th {
@@ -199,10 +199,10 @@ impl Decoder<'_> {
         let hierarchy = r.pointer(self.wide)?;
         let mask = r.pointer(self.wide)?;
         if version >= 20 && r.pointer(self.wide)? != 0 {
-            return Err(unsupported("XCF layer effects"));
+            return Err(unsupported(t("codec.xcf.feature.layer_effects")));
         }
         if props.contains_key(&5) {
-            return Err(unsupported("XCF floating selection"));
+            return Err(unsupported(t("codec.xcf.feature.floating_selection")));
         }
         let mut offset = Reader::new(props.get(&15).copied().unwrap_or(&[0; 8]));
         let (x, y) = (offset.be32()? as i32, offset.be32()? as i32);
@@ -366,10 +366,18 @@ fn read(bytes: &[u8]) -> Result<Document> {
         );
         std::str::from_utf8(&tag[1..4])?.parse::<u32>()?
     };
-    ensure!(version <= 23, "{}", unsupported("XCF version"));
+    ensure!(
+        version <= 23,
+        "{}",
+        unsupported(t("codec.xcf.feature.version"))
+    );
     let (w, h, base) = (r.be32()?, r.be32()?, r.be32()?);
     layered::size(w, h, 16)?;
-    ensure!(base <= 2, "{}", unsupported("XCF color model"));
+    ensure!(
+        base <= 2,
+        "{}",
+        unsupported(t("codec.xcf.feature.color_model"))
+    );
     let precision = Precision::parse(version, if version >= 4 { r.be32()? } else { 150 })?;
     ensure!(
         base != 2 || precision.bytes == 1,
@@ -496,7 +504,7 @@ fn blend(value: u32) -> Result<BlendMode> {
         52 => Exclusion,
         53 => LinearBurn,
         61 => PassThrough,
-        _ => return Err(unsupported("XCF blend mode")),
+        _ => return Err(unsupported(t("codec.xcf.feature.blend_mode"))),
     })
 }
 
@@ -531,7 +539,7 @@ fn blend_id(mode: BlendMode) -> Result<u32> {
         Exclusion => 52,
         LinearBurn => 53,
         PassThrough => 61,
-        _ => return Err(unsupported("XCF blend mode")),
+        _ => return Err(unsupported(t("codec.xcf.feature.blend_mode"))),
     })
 }
 

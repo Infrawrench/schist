@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO ma akhriyi karin weelka HEIF
 codec.heif.msg.container_empty = weelka HEIF sawir kuma jiro
 codec.heif.msg.imageio_cannot_decode = ImageIO ma furfuri karin sawirka koowaad
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Faylka sawirka lakabyada leh wuu dhaawacmay ama ma dhammaystirna.
+codec.layered.too_large = Sawirka lakabyada leh wuxuu dhaafayaa cabbirka ama tirada lakabyada la taageero.
+codec.layered.unsupported = Faylkani wuxuu adeegsadaa sifo aan la taageerin: {feature}.
+codec.layered.export_layer = Lakabka “{name}” wuxuu leeyahay sifooyin aanu qaabkani ilaalin karin. Raster ka dhig ama u kaydi sida PSD.
+codec.layered.export_depth = U dhoofinta Paint.NET waxay u baahan tahay dukumenti RGB oo 8-bit ah. Marka hore dukumentiga u beddel RGB 8-bit ah.
+codec.layered.export_mode = Dhoofintu waxay u baahan tahay dukumenti RGB ah. Marka hore dukumentiga u beddel RGB.
+codec.pdn.feature.blend_mode = habka isku-darka PDN
+codec.pdn.feature.compression = isku-ururinta PDN
+codec.pdn.feature.container_version = nooca weelka PDN
+codec.pdn.feature.layer_type = nooca lakabka PDN
+codec.pdn.feature.multidimensional_array = taxane cabbirro badan leh oo PDN
+codec.pdn.feature.pixel_format = qaabka pixels-ka PDN
+codec.pdn.feature.primitive_type = nooca xogta aasaasiga ah ee PDN
+codec.pdn.feature.serialization_record = diiwaanka taxanaysiinta PDN
+codec.xcf.feature.blend_mode = habka isku-darka XCF
+codec.xcf.feature.color_model = moodeelka midabka XCF
+codec.xcf.feature.compression = isku-ururinta XCF
+codec.xcf.feature.floating_selection = xulashada sabbaysa ee XCF
+codec.xcf.feature.layer_effects = saamaynta lakabka XCF
+codec.xcf.feature.precision = saxnaanta XCF
+codec.xcf.feature.version = nooca XCF

@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = Tsy afaka namaky ny fitoeran'ny HEIF ny Ima
 codec.heif.msg.container_empty = tsy misy sary ao amin'ny fitoeran'ny HEIF
 codec.heif.msg.imageio_cannot_decode = Tsy afaka namadika ny sary fototra ny ImageIO
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Simba na tsy feno ny raki-daza misy sary misy sosona.
+codec.layered.too_large = Mihoatra ny habe na ny isan’ny sosona tohanana ny sary misy sosona.
+codec.layered.unsupported = Mampiasa fiasa tsy tohanana ity raki-daza ity: {feature}.
+codec.layered.export_layer = Misy fiasa tsy azon’ity endrika ity tehirizina ny sosona “{name}”. Avadiho ho piksel ilay sosona na tehirizo ho PSD.
+codec.layered.export_depth = Mitaky rakitra RGB 8-bit ny fanondranana ho Paint.NET. Avadiho ho RGB 8-bit aloha ny rakitra.
+codec.layered.export_mode = Mitaky rakitra RGB ny fanondranana. Avadiho ho RGB aloha ny rakitra.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Fomba fampifangaroana PDN
+codec.pdn.feature.compression = Famoretana PDN
+codec.pdn.feature.container_version = Kinovan’ny fitoerana PDN
+codec.pdn.feature.layer_type = Karazana sosona PDN
+codec.pdn.feature.multidimensional_array = Laharam-pitahirizana misy refy maro PDN
+codec.pdn.feature.pixel_format = Endriky ny piksel PDN
+codec.pdn.feature.primitive_type = Karazana angona fototra PDN
+codec.pdn.feature.serialization_record = Firaketana fandaharana angona misesy PDN
+codec.xcf.feature.blend_mode = Fomba fampifangaroana XCF
+codec.xcf.feature.color_model = Modelin’ny loko XCF
+codec.xcf.feature.compression = Famoretana XCF
+codec.xcf.feature.floating_selection = Safidy mitsingevana XCF
+codec.xcf.feature.layer_effects = Vokatry ny sosona XCF
+codec.xcf.feature.precision = Fahamarinan’ny sanda XCF
+codec.xcf.feature.version = Kinova XCF

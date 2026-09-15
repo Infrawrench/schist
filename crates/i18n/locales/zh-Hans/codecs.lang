@@ -42,12 +42,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO 无法读取 HEIF 容器
 codec.heif.msg.container_empty = HEIF 容器中没有图像
 codec.heif.msg.imageio_cannot_decode = ImageIO 无法解码主图像
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = 分层图像文件已损坏或不完整。
+codec.layered.too_large = 分层图像的尺寸或图层数量超出支持的范围。
+codec.layered.unsupported = 此文件使用了不支持的功能：{feature}。
+codec.layered.export_layer = 图层“{name}”包含此格式无法保留的功能。请将其栅格化或另存为 PSD。
+codec.layered.export_depth = 导出为 Paint.NET 需要 8 位 RGB 文档。请先将文档转换为 8 位 RGB。
+codec.layered.export_mode = 导出需要 RGB 文档。请先将文档转换为 RGB。
+codec.pdn.feature.blend_mode = PDN 混合模式
+codec.pdn.feature.compression = PDN 压缩方式
+codec.pdn.feature.container_version = PDN 容器版本
+codec.pdn.feature.layer_type = PDN 图层类型
+codec.pdn.feature.multidimensional_array = PDN 多维数组
+codec.pdn.feature.pixel_format = PDN 像素格式
+codec.pdn.feature.primitive_type = PDN 基元类型
+codec.pdn.feature.serialization_record = PDN 序列化记录
+codec.xcf.feature.blend_mode = XCF 混合模式
+codec.xcf.feature.color_model = XCF 颜色模型
+codec.xcf.feature.compression = XCF 压缩方式
+codec.xcf.feature.floating_selection = XCF 浮动选区
+codec.xcf.feature.layer_effects = XCF 图层效果
+codec.xcf.feature.precision = XCF 精度
+codec.xcf.feature.version = XCF 版本

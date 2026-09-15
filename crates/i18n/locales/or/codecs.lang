@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF କଣ୍ଟେନର୍ ପ�
 codec.heif.msg.container_empty = HEIF କଣ୍ଟେନର୍‌ରେ କୌଣସି ଛବି ନାହିଁ
 codec.heif.msg.imageio_cannot_decode = ImageIO ମୁଖ୍ୟ ଛବିକୁ ଡିକୋଡ୍ କରିପାରିଲା ନାହିଁ
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = ସ୍ତରଯୁକ୍ତ ଛବି ଫାଇଲ୍‌ଟି କ୍ଷତିଗ୍ରସ୍ତ କିମ୍ବା ଅସମ୍ପୂର୍ଣ୍ଣ।
+codec.layered.too_large = ସ୍ତରଯୁକ୍ତ ଛବିର ଆକାର କିମ୍ବା ସ୍ତର ସଂଖ୍ୟା ସମର୍ଥିତ ସୀମା ଅତିକ୍ରମ କରିଛି।
+codec.layered.unsupported = ଏହି ଫାଇଲ୍ ଏକ ଅସମର୍ଥିତ ବୈଶିଷ୍ଟ୍ୟ ବ୍ୟବହାର କରୁଛି: {feature}।
+codec.layered.export_layer = “{name}” ସ୍ତରରେ ଏପରି ବୈଶିଷ୍ଟ୍ୟ ଅଛି ଯାହା ଏହି ଫର୍ମାଟ୍ ସଂରକ୍ଷଣ କରିପାରିବ ନାହିଁ। ଏହାକୁ ରାଷ୍ଟରାଇଜ୍ କରନ୍ତୁ କିମ୍ବା PSD ଭାବେ ସଞ୍ଚୟ କରନ୍ତୁ।
+codec.layered.export_depth = Paint.NET ରପ୍ତାନି ପାଇଁ 8-ବିଟ୍ RGB ଡକ୍ୟୁମେଣ୍ଟ ଆବଶ୍ୟକ। ପ୍ରଥମେ ଡକ୍ୟୁମେଣ୍ଟକୁ 8-ବିଟ୍ RGBରେ ରୂପାନ୍ତର କରନ୍ତୁ।
+codec.layered.export_mode = ରପ୍ତାନି ପାଇଁ RGB ଡକ୍ୟୁମେଣ୍ଟ ଆବଶ୍ୟକ। ପ୍ରଥମେ ଡକ୍ୟୁମେଣ୍ଟକୁ RGBରେ ରୂପାନ୍ତର କରନ୍ତୁ।
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN ବ୍ଲେଣ୍ଡ ମୋଡ୍
+codec.pdn.feature.compression = PDN ସଙ୍କୋଚନ
+codec.pdn.feature.container_version = PDN କଣ୍ଟେନର୍ ସଂସ୍କରଣ
+codec.pdn.feature.layer_type = PDN ସ୍ତର ପ୍ରକାର
+codec.pdn.feature.multidimensional_array = PDN ବହୁମାତ୍ରିକ ଆରେ
+codec.pdn.feature.pixel_format = PDN ପିକ୍ସେଲ୍ ଫର୍ମାଟ୍
+codec.pdn.feature.primitive_type = PDN ମୌଳିକ ତଥ୍ୟ ପ୍ରକାର
+codec.pdn.feature.serialization_record = PDN କ୍ରମିକୀକରଣ ରେକର୍ଡ
+codec.xcf.feature.blend_mode = XCF ବ୍ଲେଣ୍ଡ ମୋଡ୍
+codec.xcf.feature.color_model = XCF ରଙ୍ଗ ମଡେଲ୍
+codec.xcf.feature.compression = XCF ସଙ୍କୋଚନ
+codec.xcf.feature.floating_selection = XCF ଭାସମାନ ଚୟନ
+codec.xcf.feature.layer_effects = XCF ସ୍ତର ପ୍ରଭାବ
+codec.xcf.feature.precision = XCF ସଠିକତା
+codec.xcf.feature.version = XCF ସଂସ୍କରଣ

@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO n' a nén savou lére li contneu HE
 codec.heif.msg.container_empty = li contneu HEIF ni contént nole imådje
 codec.heif.msg.imageio_cannot_decode = ImageIO n' a nén savou discoder l' imådje mwaisse
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Li fitchî d' imådje a coûtches est abîmé ou nén complet.
+codec.layered.too_large = L' imådje a coûtches passe li grandeu ou l' nombe di coûtches sopoirtés.
+codec.layered.unsupported = Ci fitchî-ci eploye ene fonccion nén sopoirtêye: {feature}.
+codec.layered.export_layer = Li coûtche «{name}» a des fonccions ki ci cogne-ci n' sait nén wårder. Rasterizez-l' ou schapez e PSD.
+codec.layered.export_depth = L' ebagaedje viè Paint.NET a mezåjhe d' on documint RGB di 8 bits. Candjîz d' avance li documint e RGB di 8 bits.
+codec.layered.export_mode = L' ebagaedje a mezåjhe d' on documint RGB. Candjîz d' avance li documint e RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = môde di maxhaedje PDN
+codec.pdn.feature.compression = rastrindaedje PDN
+codec.pdn.feature.container_version = modêye do contneu PDN
+codec.pdn.feature.layer_type = sôre di coûtche PDN
+codec.pdn.feature.multidimensional_array = tåvlea a sacwants diminsions PDN
+codec.pdn.feature.pixel_format = cogne di picsel PDN
+codec.pdn.feature.primitive_type = sôre di dnêyes primitive PDN
+codec.pdn.feature.serialization_record = eredjistraedje di serialijhaedje PDN
+codec.xcf.feature.blend_mode = môde di maxhaedje XCF
+codec.xcf.feature.color_model = modele di coleur XCF
+codec.xcf.feature.compression = rastrindaedje XCF
+codec.xcf.feature.floating_selection = tchuze flotante XCF
+codec.xcf.feature.layer_effects = efets di coûtche XCF
+codec.xcf.feature.precision = precizion XCF
+codec.xcf.feature.version = modêye XCF

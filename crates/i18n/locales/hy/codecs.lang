@@ -31,12 +31,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO-ն չկարողացավ կարդա�
 codec.heif.msg.container_empty = HEIF բեռնարկղը պատկեր չի պարունակում
 codec.heif.msg.imageio_cannot_decode = ImageIO-ն չկարողացավ ապակոդավորել հիմնական պատկերը
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Շերտավոր պատկերի ֆայլը վնասված է կամ թերի։
+codec.layered.too_large = Շերտավոր պատկերի չափը կամ շերտերի քանակը գերազանցում է աջակցվող սահմանը։
+codec.layered.unsupported = Այս ֆայլն օգտագործում է չաջակցվող գործառույթ՝ {feature}։
+codec.layered.export_layer = «{name}» շերտը պարունակում է գործառույթներ, որոնք այս ձևաչափը չի կարող պահպանել։ Ռաստերացրեք շերտը կամ պահեք PSD ձևաչափով։
+codec.layered.export_depth = Paint.NET ձևաչափով արտահանելու համար անհրաժեշտ է 8-բիթանոց RGB փաստաթուղթ։ Նախ փաստաթուղթը փոխարկեք 8-բիթանոց RGB-ի։
+codec.layered.export_mode = Արտահանելու համար անհրաժեշտ է RGB փաստաթուղթ։ Նախ փաստաթուղթը փոխարկեք RGB-ի։
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN խառնման ռեժիմ
+codec.pdn.feature.compression = PDN սեղմում
+codec.pdn.feature.container_version = PDN բեռնարկղի տարբերակ
+codec.pdn.feature.layer_type = PDN շերտի տեսակ
+codec.pdn.feature.multidimensional_array = PDN բազմաչափ զանգված
+codec.pdn.feature.pixel_format = PDN փիքսելի ձևաչափ
+codec.pdn.feature.primitive_type = PDN տվյալների տարրական տեսակ
+codec.pdn.feature.serialization_record = PDN սերիականացման գրառում
+codec.xcf.feature.blend_mode = XCF խառնման ռեժիմ
+codec.xcf.feature.color_model = XCF գունային մոդել
+codec.xcf.feature.compression = XCF սեղմում
+codec.xcf.feature.floating_selection = XCF լողացող ընտրություն
+codec.xcf.feature.layer_effects = XCF շերտի էֆեկտներ
+codec.xcf.feature.precision = XCF ճշգրտություն
+codec.xcf.feature.version = XCF տարբերակ

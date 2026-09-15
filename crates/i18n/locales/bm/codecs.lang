@@ -35,12 +35,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO ma se ka HEIF container kalan
 codec.heif.msg.container_empty = Ja si tɛ HEIF container kɔnɔ
 codec.heif.msg.imageio_cannot_decode = ImageIO ma se ka ja fɔlɔ kɔdi yɔrɔ bɔ
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Ja kalikima dosiyɛ tiɲɛnen don walima a dafalen tɛ.
+codec.layered.too_large = Ja kalikima bonya walima a ka kaliki hakɛ ka bon ni dan sɔnnen ye.
+codec.layered.unsupported = Nin dosiyɛ bɛ baara kɛminɛ sɔnnbali dɔ kɛ: {feature}.
+codec.layered.export_layer = Kaliki “{name}” kɔnɔ, baara kɛminɛw bɛ yen minnu tɛ se ka mara nin cogoya la. A yɛlɛma raster ye walima a mara PSD na.
+codec.layered.export_depth = Bɔli Paint.NET na bɛ RGB sɛbɛn ɲini min ye bit 8 ta ye. Sɛbɛn yɛlɛma RGB bit 8 ta ye fɔlɔ.
+codec.layered.export_mode = Bɔli bɛ RGB sɛbɛn ɲini. Sɛbɛn yɛlɛma RGB ye fɔlɔ.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN ɲagamincogo
+codec.pdn.feature.compression = PDN digi ka dɔgɔya
+codec.pdn.feature.container_version = PDN minɛn vɛrisiyɔn
+codec.pdn.feature.layer_type = PDN kaliki suguya
+codec.pdn.feature.multidimensional_array = PDN kunnafoni sɛrɛ min ka suman siraw ka ca
+codec.pdn.feature.pixel_format = PDN pikisɛli cogoya
+codec.pdn.feature.primitive_type = PDN kunnafoni suguya sinsinlen
+codec.pdn.feature.serialization_record = PDN kunnafoniw labɛnni kɔrɔkɔrɔ sɛbɛn
+codec.xcf.feature.blend_mode = XCF ɲagamincogo
+codec.xcf.feature.color_model = XCF kulɛri misali
+codec.xcf.feature.compression = XCF digi ka dɔgɔya
+codec.xcf.feature.floating_selection = XCF sugandili min bɛ fun
+codec.xcf.feature.layer_effects = XCF kaliki nɔw
+codec.xcf.feature.precision = XCF tilennenya
+codec.xcf.feature.version = XCF vɛrisiyɔn

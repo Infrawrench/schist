@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO a yo ngo kona u vhala khontheina ya
 codec.heif.msg.container_empty = khontheina ya HEIF a i na tshifanyiso
 codec.heif.msg.imageio_cannot_decode = ImageIO a yo ngo kona u dekhouda tshifanyiso tshihulwane
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Faela ya tshifanyiso tshi re na dziḽeyara yo tshinyala kana a yo ngo fhelela.
+codec.layered.too_large = Vhuhulwane ha tshifanyiso kana tshivhalo tsha dziḽeyara zwi fhira zwine zwa tikedzwa.
+codec.layered.unsupported = Faela iyi i shumisa tshiteṅwa tshi sa tikedzwi: {feature}.
+codec.layered.export_layer = Ḽeyara “{name}” i na zwiteṅwa zwine fomathi iyi ya sa kone u zwi vhulunga. I shandukiseleni kha dzipixel kana ni i vhulunge sa PSD.
+codec.layered.export_depth = U rumela kha Paint.NET zwi ṱoḓa ḽiṅwalo ḽa RGB ḽa biti dza 8. Thomani nga u shandukisela ḽiṅwalo kha RGB ya biti dza 8.
+codec.layered.export_mode = U rumela zwi ṱoḓa ḽiṅwalo ḽa RGB. Thomani nga u shandukisela ḽiṅwalo kha RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = moudu wa u ṱanganya wa PDN
+codec.pdn.feature.compression = u tsikeledza ha PDN
+codec.pdn.feature.container_version = vesheni ya tshifaredzi tsha PDN
+codec.pdn.feature.layer_type = lushaka lwa ḽeyara ya PDN
+codec.pdn.feature.multidimensional_array = mutevhe wa PDN u re na mielo minzhi
+codec.pdn.feature.pixel_format = fomathi ya dzipixel ya PDN
+codec.pdn.feature.primitive_type = lushaka lwa mafhungo lwa mutheo lwa PDN
+codec.pdn.feature.serialization_record = rekhodo ya u tevhekanya mafhungo ya PDN
+codec.xcf.feature.blend_mode = moudu wa u ṱanganya wa XCF
+codec.xcf.feature.color_model = modele wa muvhala wa XCF
+codec.xcf.feature.compression = u tsikeledza ha XCF
+codec.xcf.feature.floating_selection = khethekanyo i papamalaho ya XCF
+codec.xcf.feature.layer_effects = masiandoitwa a ḽeyara a XCF
+codec.xcf.feature.precision = vhuronwane ha dzipixel dza XCF
+codec.xcf.feature.version = vesheni ya XCF

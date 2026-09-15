@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO އަށް HEIF ކޮންޓޭނަރ ކ
 codec.heif.msg.container_empty = HEIF ކޮންޓޭނަރުގައި ތަސްވީރެއް ނެތް
 codec.heif.msg.imageio_cannot_decode = ImageIO އަށް މައި ތަސްވީރު ޑީކޯޑް ކުރެވެން ނުކެރުނު
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = ލޭޔަރުތައް ހުންނަ ތަސްވީރު ފައިލު ހަލާކުވެފައި ނުވަތަ ފުރިހަމަ ނުވެފައި ވެއެވެ.
+codec.layered.too_large = ލޭޔަރުތައް ހުންނަ ތަސްވީރުގެ ސައިޒު ނުވަތަ ލޭޔަރުތަކުގެ އަދަދު ސަޕޯޓް ކުރާ ހައްދުފަހަނަށް ގޮސްފައި ވެއެވެ.
+codec.layered.unsupported = މި ފައިލުގައި ސަޕޯޓް ނުކުރާ ސިފައެއް ބޭނުން ކުރެއެވެ: {feature}.
+codec.layered.export_layer = “{name}” ލޭޔަރުގައި މި ފޯމެޓުން ރައްކާ ކުރެވޭނެ ނޫން ސިފަތައް ހިމެނެއެވެ. ލޭޔަރ ރާސްޓަރައިޒް ކުރާށެވެ، ނުވަތަ PSD ގެ ގޮތުގައި ސޭވް ކުރާށެވެ.
+codec.layered.export_depth = Paint.NET އަށް އެކްސްޕޯޓް ކުރުމަށް 8-ބިޓް RGB ޑޮކިއުމަންޓެއް ބޭނުންވެއެވެ. ފުރަތަމަ ޑޮކިއުމަންޓް 8-ބިޓް RGB އަށް ބަދަލު ކުރާށެވެ.
+codec.layered.export_mode = އެކްސްޕޯޓް ކުރުމަށް RGB ޑޮކިއުމަންޓެއް ބޭނުންވެއެވެ. ފުރަތަމަ ޑޮކިއުމަންޓް RGB އަށް ބަދަލު ކުރާށެވެ.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN ބްލެންޑް މޯޑް
+codec.pdn.feature.compression = PDN ކޮމްޕްރެޝަން
+codec.pdn.feature.container_version = PDN ކޮންޓެއިނަރ ވާޝަން
+codec.pdn.feature.layer_type = PDN ލޭޔަރުގެ ބާވަތް
+codec.pdn.feature.multidimensional_array = PDN ބައިވަރު ޑައިމެންޝަން ހުރި އެރޭ
+codec.pdn.feature.pixel_format = PDN ޕިކްސެލް ފޯމެޓް
+codec.pdn.feature.primitive_type = PDN އަސާސީ ޑޭޓާގެ ބާވަތް
+codec.pdn.feature.serialization_record = PDN ސީރިއަލައިޒޭޝަން ރެކޯޑް
+codec.xcf.feature.blend_mode = XCF ބްލެންޑް މޯޑް
+codec.xcf.feature.color_model = XCF ކުލައިގެ މޮޑެލް
+codec.xcf.feature.compression = XCF ކޮމްޕްރެޝަން
+codec.xcf.feature.floating_selection = XCF ފްލޯޓިންގ ހޮވުން
+codec.xcf.feature.layer_effects = XCF ލޭޔަރުގެ އެފެކްޓްތައް
+codec.xcf.feature.precision = XCF ދަގީގުކަން
+codec.xcf.feature.version = XCF ވާޝަން

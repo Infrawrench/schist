@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO nu a putut citi containerul HEIF
 codec.heif.msg.container_empty = containerul HEIF nu conține nicio imagine
 codec.heif.msg.imageio_cannot_decode = ImageIO nu a putut decoda imaginea principală
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Fișierul imaginii cu straturi este deteriorat sau incomplet.
+codec.layered.too_large = Imaginea cu straturi depășește dimensiunea sau numărul de straturi acceptat.
+codec.layered.unsupported = Acest fișier folosește o funcționalitate neacceptată: {feature}.
+codec.layered.export_layer = Stratul „{name}” conține funcționalități pe care acest format nu le poate păstra. Rasterizați-l sau salvați documentul ca PSD.
+codec.layered.export_depth = Exportul în Paint.NET necesită un document RGB pe 8 biți. Convertiți mai întâi documentul în RGB pe 8 biți.
+codec.layered.export_mode = Exportul necesită un document RGB. Convertiți mai întâi documentul în RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = mod de amestec PDN
+codec.pdn.feature.compression = comprimare PDN
+codec.pdn.feature.container_version = versiune a containerului PDN
+codec.pdn.feature.layer_type = tip de strat PDN
+codec.pdn.feature.multidimensional_array = matrice multidimensională PDN
+codec.pdn.feature.pixel_format = format de pixel PDN
+codec.pdn.feature.primitive_type = tip de date primitiv PDN
+codec.pdn.feature.serialization_record = înregistrare de serializare PDN
+codec.xcf.feature.blend_mode = mod de amestec XCF
+codec.xcf.feature.color_model = model de culoare XCF
+codec.xcf.feature.compression = comprimare XCF
+codec.xcf.feature.floating_selection = selecție flotantă XCF
+codec.xcf.feature.layer_effects = efecte de strat XCF
+codec.xcf.feature.precision = precizie XCF
+codec.xcf.feature.version = versiune XCF

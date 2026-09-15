@@ -34,12 +34,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO kon nie die HEIF-houer lees nie
 codec.heif.msg.container_empty = die HEIF-houer bevat geen beeld nie
 codec.heif.msg.imageio_cannot_decode = ImageIO kon nie die primêre beeld dekodeer nie
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Die gelaagde beeldlêer is beskadig of onvolledig.
+codec.layered.too_large = Die gelaagde beeld oorskry die ondersteunde grootte of aantal lae.
+codec.layered.unsupported = Hierdie lêer gebruik 'n onondersteunde kenmerk: {feature}.
+codec.layered.export_layer = Laag “{name}” bevat kenmerke wat hierdie formaat nie kan behou nie. Rasteriseer dit of stoor as PSD.
+codec.layered.export_depth = Uitvoer na Paint.NET vereis 'n 8-bis-RGB-dokument. Skakel die dokument eers na 8-bis-RGB om.
+codec.layered.export_mode = Uitvoer vereis 'n RGB-dokument. Skakel die dokument eers na RGB om.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN-mengmodus
+codec.pdn.feature.compression = PDN-kompressie
+codec.pdn.feature.container_version = PDN-houerweergawe
+codec.pdn.feature.layer_type = PDN-laagtipe
+codec.pdn.feature.multidimensional_array = PDN-multidimensionele skikking
+codec.pdn.feature.pixel_format = PDN-pikselformaat
+codec.pdn.feature.primitive_type = PDN-primitiewe datatipe
+codec.pdn.feature.serialization_record = PDN-serialisasierekord
+codec.xcf.feature.blend_mode = XCF-mengmodus
+codec.xcf.feature.color_model = XCF-kleurmodel
+codec.xcf.feature.compression = XCF-kompressie
+codec.xcf.feature.floating_selection = XCF-drywende seleksie
+codec.xcf.feature.layer_effects = XCF-laageffekte
+codec.xcf.feature.precision = XCF-presisie
+codec.xcf.feature.version = XCF-weergawe

@@ -35,12 +35,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO ha ea khona ho bala setshelo sa HEI
 codec.heif.msg.container_empty = setshelo sa HEIF ha se na setšoantšo
 codec.heif.msg.imageio_cannot_decode = ImageIO ha ea khona ho manolla setšoantšo se seholo
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Faele ea setšoantšo se nang le mekhahlelo e senyehile kapa ha ea fella.
+codec.layered.too_large = Setšoantšo se nang le mekhahlelo se feta boholo kapa palo ea mekhahlelo e tšehetsoeng.
+codec.layered.unsupported = Faele ena e sebelisa tšobotsi e sa tšehetsoeng: {feature}.
+codec.layered.export_layer = Mokhahlelo “{name}” o na le litšobotsi tseo sebopeho sena se ke keng sa li boloka. O fetole hore e be lipiksele kapa o boloke e le PSD.
+codec.layered.export_depth = Ho romela ho Paint.NET ho hloka tokomane ea RGB ea 8-bit. Qala ka ho fetolela tokomane ho RGB ea 8-bit.
+codec.layered.export_mode = Ho romela ho hloka tokomane ea RGB. Qala ka ho fetolela tokomane ho RGB.
+codec.pdn.feature.blend_mode = mokhoa oa ho kopanya oa PDN
+codec.pdn.feature.compression = ho petetsa data ha PDN
+codec.pdn.feature.container_version = mofuta oa setshelo sa PDN
+codec.pdn.feature.layer_type = mofuta oa mokhahlelo oa PDN
+codec.pdn.feature.multidimensional_array = lenane la data le nang le litekanyo tse ngata la PDN
+codec.pdn.feature.pixel_format = sebopeho sa lipiksele sa PDN
+codec.pdn.feature.primitive_type = mofuta oa motheo oa data oa PDN
+codec.pdn.feature.serialization_record = rekoto ea data e hlophisitsoeng hore e bolokoe ea PDN
+codec.xcf.feature.blend_mode = mokhoa oa ho kopanya oa XCF
+codec.xcf.feature.color_model = mohlala oa mebala oa XCF
+codec.xcf.feature.compression = ho petetsa data ha XCF
+codec.xcf.feature.floating_selection = khetho e phaphametseng ea XCF
+codec.xcf.feature.layer_effects = liphello tsa mokhahlelo oa XCF
+codec.xcf.feature.precision = ho nepahala ha XCF
+codec.xcf.feature.version = mofuta oa XCF

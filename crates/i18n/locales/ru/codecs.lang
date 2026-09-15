@@ -31,12 +31,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO не удалось прочита�
 codec.heif.msg.container_empty = контейнер HEIF не содержит изображения
 codec.heif.msg.imageio_cannot_decode = ImageIO не удалось декодировать основное изображение
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Файл изображения со слоями повреждён или неполон.
+codec.layered.too_large = Размер изображения или число слоёв превышает поддерживаемый предел.
+codec.layered.unsupported = В этом файле используется неподдерживаемая возможность: {feature}.
+codec.layered.export_layer = Слой «{name}» содержит возможности, которые этот формат не может сохранить. Растрируйте его или сохраните документ в формате PSD.
+codec.layered.export_depth = Для экспорта в Paint.NET требуется 8-битный документ RGB. Сначала преобразуйте документ в 8-битный RGB.
+codec.layered.export_mode = Для экспорта требуется документ RGB. Сначала преобразуйте документ в RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = режим наложения PDN
+codec.pdn.feature.compression = сжатие PDN
+codec.pdn.feature.container_version = версия контейнера PDN
+codec.pdn.feature.layer_type = тип слоя PDN
+codec.pdn.feature.multidimensional_array = многомерный массив PDN
+codec.pdn.feature.pixel_format = формат пикселей PDN
+codec.pdn.feature.primitive_type = примитивный тип данных PDN
+codec.pdn.feature.serialization_record = запись сериализации PDN
+codec.xcf.feature.blend_mode = режим наложения XCF
+codec.xcf.feature.color_model = цветовая модель XCF
+codec.xcf.feature.compression = сжатие XCF
+codec.xcf.feature.floating_selection = плавающее выделение XCF
+codec.xcf.feature.layer_effects = эффекты слоя XCF
+codec.xcf.feature.precision = точность XCF
+codec.xcf.feature.version = версия XCF

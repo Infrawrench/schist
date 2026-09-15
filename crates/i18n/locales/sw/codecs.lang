@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO imeshindwa kusoma kontena la HEIF
 codec.heif.msg.container_empty = kontena la HEIF halina picha
 codec.heif.msg.imageio_cannot_decode = ImageIO imeshindwa kusimbua picha kuu
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Faili ya picha yenye safu imeharibika au haijakamilika.
+codec.layered.too_large = Picha yenye safu inazidi ukubwa au idadi ya safu inayokubaliwa.
+codec.layered.unsupported = Faili hii inatumia kipengele kisichokubaliwa: {feature}.
+codec.layered.export_layer = Safu “{name}” ina vipengele ambavyo umbizo hili haliwezi kuhifadhi. Igeuze kuwa raster au uhifadhi kama PSD.
+codec.layered.export_depth = Kuhamisha kwenda Paint.NET kunahitaji waraka wa RGB wa biti 8. Kwanza geuza waraka kuwa RGB ya biti 8.
+codec.layered.export_mode = Kuhamisha kunahitaji waraka wa RGB. Kwanza geuza waraka kuwa RGB.
+codec.pdn.feature.blend_mode = hali ya mchanganyiko ya PDN
+codec.pdn.feature.compression = ufinyazaji wa PDN
+codec.pdn.feature.container_version = toleo la kontena la PDN
+codec.pdn.feature.layer_type = aina ya safu ya PDN
+codec.pdn.feature.multidimensional_array = safu ya data yenye vipimo vingi ya PDN
+codec.pdn.feature.pixel_format = umbizo la pikseli la PDN
+codec.pdn.feature.primitive_type = aina ya msingi ya data ya PDN
+codec.pdn.feature.serialization_record = rekodi ya usirialishaji ya PDN
+codec.xcf.feature.blend_mode = hali ya mchanganyiko ya XCF
+codec.xcf.feature.color_model = muundo wa rangi wa XCF
+codec.xcf.feature.compression = ufinyazaji wa XCF
+codec.xcf.feature.floating_selection = uteuzi unaoelea wa XCF
+codec.xcf.feature.layer_effects = athari za safu za XCF
+codec.xcf.feature.precision = usahihi wa XCF
+codec.xcf.feature.version = toleo la XCF

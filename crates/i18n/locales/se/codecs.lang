@@ -34,12 +34,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO ii sáhttán lohkat HEIF-árppu
 codec.heif.msg.container_empty = HEIF-árppus ii leat govva
 codec.heif.msg.imageio_cannot_decode = ImageIO ii sáhttán dekodet váldogova
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Gearddálaš govvafiila lea vahágahtton dahje váilevaš.
+codec.layered.too_large = Gearddálaš govva lea stuorát dahje das leat eambbo gearddit go doarjju siskkilda.
+codec.layered.unsupported = Dát fiila geavaha doaimma man prográmma ii doarjjo: {feature}.
+codec.layered.export_layer = Gearddis “{name}” leat doaimmat maid dát formáhta ii sáhte seailluhit. Rasterere gearddi dahje vurke PSD:n.
+codec.layered.export_depth = Olggosfievrrideapmi Paint.NET-formáhttii gáibida 8-bihtta RGB-dokumeantta. Konvertere dokumeantta vuos 8-bihtta RGB:n.
+codec.layered.export_mode = Olggosfievrrideapmi gáibida RGB-dokumeantta. Konvertere dokumeantta vuos RGB:n.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN-seaguhanmodealla
+codec.pdn.feature.compression = PDN-komprimeren
+codec.pdn.feature.container_version = PDN-konteainerveršuvdna
+codec.pdn.feature.layer_type = PDN-geardetiipa
+codec.pdn.feature.multidimensional_array = PDN-máŋggadimenšuvnnalaš tabealla
+codec.pdn.feature.pixel_format = PDN-govvačuokkisformáhta
+codec.pdn.feature.primitive_type = PDN-vuođđodáhtatiipa
+codec.pdn.feature.serialization_record = PDN-serialiserenmerkkoš
+codec.xcf.feature.blend_mode = XCF-seaguhanmodealla
+codec.xcf.feature.color_model = XCF-ivdnemodealla
+codec.xcf.feature.compression = XCF-komprimeren
+codec.xcf.feature.floating_selection = XCF-govdi válljen
+codec.xcf.feature.layer_effects = XCF-geardeéifeavttat
+codec.xcf.feature.precision = XCF-dárkilvuohta
+codec.xcf.feature.version = XCF-veršuvdna

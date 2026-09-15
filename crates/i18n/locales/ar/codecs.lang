@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = تعذر على ImageIO قراءة حاوي
 codec.heif.msg.container_empty = لا تحتوي حاوية HEIF على صورة
 codec.heif.msg.imageio_cannot_decode = تعذر على ImageIO فك ترميز الصورة الأساسية
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = ملف الصورة ذات الطبقات تالف أو غير مكتمل.
+codec.layered.too_large = تتجاوز الصورة ذات الطبقات الحجم أو عدد الطبقات المدعوم.
+codec.layered.unsupported = يستخدم هذا الملف ميزة غير مدعومة: {feature}.
+codec.layered.export_layer = تحتوي الطبقة «{name}» على ميزات لا يمكن لهذا التنسيق الحفاظ عليها. نقّط الطبقة أو احفظ بصيغة PSD.
+codec.layered.export_depth = يتطلب التصدير بصيغة Paint.NET مستند RGB بعمق 8 بت. حوّل المستند أولًا إلى RGB بعمق 8 بت.
+codec.layered.export_mode = يتطلب التصدير مستند RGB. حوّل المستند أولًا إلى RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = وضع مزج PDN
+codec.pdn.feature.compression = ضغط PDN
+codec.pdn.feature.container_version = إصدار حاوية PDN
+codec.pdn.feature.layer_type = نوع طبقة PDN
+codec.pdn.feature.multidimensional_array = مصفوفة PDN متعددة الأبعاد
+codec.pdn.feature.pixel_format = تنسيق بكسل PDN
+codec.pdn.feature.primitive_type = نوع بيانات بدائي في PDN
+codec.pdn.feature.serialization_record = سجل تسلسل PDN
+codec.xcf.feature.blend_mode = وضع مزج XCF
+codec.xcf.feature.color_model = نموذج ألوان XCF
+codec.xcf.feature.compression = ضغط XCF
+codec.xcf.feature.floating_selection = تحديد عائم في XCF
+codec.xcf.feature.layer_effects = تأثيرات طبقات XCF
+codec.xcf.feature.precision = دقة XCF
+codec.xcf.feature.version = إصدار XCF

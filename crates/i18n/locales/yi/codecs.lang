@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO האָט נישט געקענט לי
 codec.heif.msg.container_empty = דער HEIF־קאַנטיינער האָט נישט קיין בילד
 codec.heif.msg.imageio_cannot_decode = ImageIO האָט נישט געקענט דעקאָדירן דאָס הויפּטבילד
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = די בילדטעקע מיט שיכטן איז געשעדיקט אָדער אומפֿולשטענדיק.
+codec.layered.too_large = דאָס בילד מיט שיכטן גייט איבער דער געשטיצטער גרייס אָדער צאָל שיכטן.
+codec.layered.unsupported = די טעקע ניצט אַ פֿונקציע וואָס ווערט נישט געשטיצט: {feature}.
+codec.layered.export_layer = די שיכט „{name}“ אַנטהאַלט פֿונקציעס וואָס דער פֿאָרמאַט קען נישט אָפּהיטן. ראַסטעריזיר זי אָדער היט ווי PSD.
+codec.layered.export_depth = עקספּאָרט קיין Paint.NET פֿאָדערט אַן 8־ביט RGB־דאָקומענט. פֿאַרוואַנדל קודם דעם דאָקומענט אין 8־ביט RGB.
+codec.layered.export_mode = עקספּאָרט פֿאָדערט אַ RGB־דאָקומענט. פֿאַרוואַנדל קודם דעם דאָקומענט אין RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN מיש־מאָדוס
+codec.pdn.feature.compression = PDN קאָמפּרעסיע
+codec.pdn.feature.container_version = PDN קאַנטיינער־ווערסיע
+codec.pdn.feature.layer_type = PDN שיכט־טיפּ
+codec.pdn.feature.multidimensional_array = PDN פֿילדימענסיאָנעל פֿעלד
+codec.pdn.feature.pixel_format = PDN פּיקסל־פֿאָרמאַט
+codec.pdn.feature.primitive_type = PDN פּרימיטיווער דאַטן־טיפּ
+codec.pdn.feature.serialization_record = PDN סעריאַליזאַציע־רעקאָרד
+codec.xcf.feature.blend_mode = XCF מיש־מאָדוס
+codec.xcf.feature.color_model = XCF קאָליר־מאָדעל
+codec.xcf.feature.compression = XCF קאָמפּרעסיע
+codec.xcf.feature.floating_selection = XCF שוועבנדיקע אויסוואַל
+codec.xcf.feature.layer_effects = XCF שיכט־עפֿעקטן
+codec.xcf.feature.precision = XCF פּינקטלעכקייט
+codec.xcf.feature.version = XCF ווערסיע

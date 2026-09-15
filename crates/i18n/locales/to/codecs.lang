@@ -36,12 +36,27 @@ codec.heif.msg.imageio_cannot_read = Naʻe ʻikai lava ʻe ImageIO ʻo lau ʻa e
 codec.heif.msg.container_empty = ʻoku ʻikai ha ʻīmisi ʻi he container HEIF
 codec.heif.msg.imageio_cannot_decode = Naʻe ʻikai lava ʻe ImageIO ʻo fakaʻuhingaʻi ʻa e ʻīmisi tefitó
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = ʻOku maumau pe ʻikai kakato ʻa e faile ʻo e ʻīmisi ʻoku ʻi ai ha ngaahi Layer.
+codec.layered.too_large = ʻOku laka ʻa e lahi ʻo e ʻīmisi pe ko e fika ʻo hono ngaahi Layer ʻi he ngataʻanga ʻoku poupouʻí.
+codec.layered.unsupported = ʻOku fakaʻaongaʻi ʻe he faile ko ʻení ha tafaʻaki ʻoku ʻikai poupouʻi: {feature}.
+codec.layered.export_layer = ʻOku ʻi he Layer “{name}” ha ngaahi tafaʻaki ʻoku ʻikai lava ʻe he faʻunga ko ʻení ʻo tauhi. Liliu ia ki he ngaahi pikisi pe seivi ko e PSD.
+codec.layered.export_depth = ʻOku fiemaʻu ha fakamatala RGB 8-bit ke ʻave ki he Paint.NET. Liliu muʻa ʻa e fakamatala ki he RGB 8-bit.
+codec.layered.export_mode = ʻOku fiemaʻu ha fakamatala RGB ke ʻave ki tuʻa. Liliu muʻa ʻa e fakamatala ki he RGB.
+codec.pdn.feature.blend_mode = founga tuifio ʻo e PDN
+codec.pdn.feature.compression = fakamālohiʻi ʻo e ngaahi fakamatala PDN
+codec.pdn.feature.container_version = pulusinga ʻo e meʻa tauhi PDN
+codec.pdn.feature.layer_type = faʻahinga Layer ʻo e PDN
+codec.pdn.feature.multidimensional_array = hokohoko fakamatala ʻoku lahi hono ngaahi fua ʻo e PDN
+codec.pdn.feature.pixel_format = faʻunga pikisi ʻo e PDN
+codec.pdn.feature.primitive_type = faʻahinga fakamatala tefito ʻo e PDN
+codec.pdn.feature.serialization_record = lekooti ʻo e fakamatala kuo fakahokohoko ke tauhi ʻi he PDN
+codec.xcf.feature.blend_mode = founga tuifio ʻo e XCF
+codec.xcf.feature.color_model = sīpinga lanu ʻo e XCF
+codec.xcf.feature.compression = fakamālohiʻi ʻo e ngaahi fakamatala XCF
+codec.xcf.feature.floating_selection = fili ʻoku maanu ʻo e XCF
+codec.xcf.feature.layer_effects = ngaahi ola ʻo e Layer XCF
+codec.xcf.feature.precision = tonu ʻo e XCF
+codec.xcf.feature.version = pulusinga ʻo e XCF

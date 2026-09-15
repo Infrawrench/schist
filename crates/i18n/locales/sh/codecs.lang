@@ -34,12 +34,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO nije mogao pročitati HEIF spremnik
 codec.heif.msg.container_empty = HEIF spremnik ne sadrži sliku
 codec.heif.msg.imageio_cannot_decode = ImageIO nije mogao dekodirati primarnu sliku
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Datoteka slike sa slojevima oštećena je ili nepotpuna.
+codec.layered.too_large = Slika sa slojevima premašuje podržanu veličinu ili broj slojeva.
+codec.layered.unsupported = Ova datoteka upotrebljava nepodržanu značajku: {feature}.
+codec.layered.export_layer = Sloj „{name}” sadrži značajke koje ovaj format ne može sačuvati. Rasterizirajte ga ili spremite kao PSD.
+codec.layered.export_depth = Izvoz u Paint.NET zahtijeva 8-bitni RGB dokument. Najprije pretvorite dokument u 8-bitni RGB.
+codec.layered.export_mode = Izvoz zahtijeva RGB dokument. Najprije pretvorite dokument u RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = način stapanja PDN
+codec.pdn.feature.compression = sažimanje PDN
+codec.pdn.feature.container_version = verzija spremnika PDN
+codec.pdn.feature.layer_type = vrsta sloja PDN
+codec.pdn.feature.multidimensional_array = višedimenzionalno polje PDN
+codec.pdn.feature.pixel_format = format piksela PDN
+codec.pdn.feature.primitive_type = primitivni tip podataka PDN
+codec.pdn.feature.serialization_record = zapis serijalizacije PDN
+codec.xcf.feature.blend_mode = način stapanja XCF
+codec.xcf.feature.color_model = model boja XCF
+codec.xcf.feature.compression = sažimanje XCF
+codec.xcf.feature.floating_selection = plutajući odabir XCF
+codec.xcf.feature.layer_effects = efekti sloja XCF
+codec.xcf.feature.precision = preciznost XCF
+codec.xcf.feature.version = verzija XCF

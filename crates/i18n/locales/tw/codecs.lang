@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO antumi ankenkan HEIF container no
 codec.heif.msg.container_empty = mfonini biara nni HEIF container no mu
 codec.heif.msg.imageio_cannot_decode = ImageIO antumi ankyerɛkyerɛ mfonini titiriw no mu
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Mfonini file a ɛwɔ layer ahorow no asɛe anaa enwie pɛyɛ.
+codec.layered.too_large = Mfonini a ɛwɔ layer ahorow no kɛse anaa layer dodow no tra nea wɔboa no.
+codec.layered.unsupported = File yi de dwumadi bi a wɔmmoa no di dwuma: {feature}.
+codec.layered.export_layer = Layer “{name}” no wɔ dwumadi ahorow a format yi ntumi nkora so. Dane layer no raster anaa kora no sɛ PSD.
+codec.layered.export_depth = Sɛ wobɛyi kɔ Paint.NET format mu a, ehia RGB document a ɛyɛ 8-bit. Di kan dane document no kɔ RGB 8-bit mu.
+codec.layered.export_mode = Sɛ wobɛyi akɔ abɔnten a, ehia RGB document. Di kan dane document no kɔ RGB mu.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN afrafra ɔkwan
+codec.pdn.feature.compression = PDN data mia
+codec.pdn.feature.container_version = PDN adekorabea no version
+codec.pdn.feature.layer_type = PDN layer no su
+codec.pdn.feature.multidimensional_array = PDN nhyehyɛe a ɛwɔ nsusuwii pii
+codec.pdn.feature.pixel_format = PDN pixel nhyehyɛe
+codec.pdn.feature.primitive_type = PDN data su a ɛyɛ mfitiase
+codec.pdn.feature.serialization_record = PDN data a wɔahyehyɛ ntoatoaso no kyerɛwtohɔ
+codec.xcf.feature.blend_mode = XCF afrafra ɔkwan
+codec.xcf.feature.color_model = XCF kɔla nhyehyɛe
+codec.xcf.feature.compression = XCF data mia
+codec.xcf.feature.floating_selection = XCF nea woapaw a ɛsensɛn hɔ
+codec.xcf.feature.layer_effects = XCF layer nsunsuanso
+codec.xcf.feature.precision = XCF pɛpɛɛpɛyɛ
+codec.xcf.feature.version = XCF no version

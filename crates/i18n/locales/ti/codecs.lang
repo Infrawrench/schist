@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO ንመትሓዚ HEIF ከንብብ �
 codec.heif.msg.container_empty = መትሓዚ HEIF ስእሊ የብሉን
 codec.heif.msg.imageio_cannot_decode = ImageIO ነቲ ቀንዲ ስእሊ ክፈትሕ ኣይከኣለን
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = እቲ ንጣፋት ዘለዎ ፋይል ምስሊ ተበላሽዩ ወይ ዘይምሉእ እዩ።
+codec.layered.too_large = ዓቐን እቲ ምስሊ ወይ ብዝሒ ንጣፋቱ ነቲ ዝድገፍ ደረት ሓሊፉ።
+codec.layered.unsupported = እዚ ፋይል ዘይድገፍ ባህሪ ይጥቀም፦ {feature}።
+codec.layered.export_layer = ንጣፍ “{name}” እዚ ቅርጺ ክዕቅቦም ዘይክእል ባህርያት ኣለዉዎ። ራስተር ግበሮ ወይ ከም PSD ኣቐምጦ።
+codec.layered.export_depth = ናብ Paint.NET ምውጻእ ናይ 8 ቢት RGB ሰነድ ይሓትት። መጀመርታ ነቲ ሰነድ ናብ 8 ቢት RGB ቀይሮ።
+codec.layered.export_mode = ምውጻእ RGB ሰነድ ይሓትት። መጀመርታ ነቲ ሰነድ ናብ RGB ቀይሮ።
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = ሁነታ ምውህሃድ PDN
+codec.pdn.feature.compression = ምጽቃጥ PDN
+codec.pdn.feature.container_version = ስሪት መትሓዚ PDN
+codec.pdn.feature.layer_type = ዓይነት ንጣፍ PDN
+codec.pdn.feature.multidimensional_array = ብዙሕ መኣዝናት ዘለዎ ድርድር PDN
+codec.pdn.feature.pixel_format = ቅርጺ ፒክሰል PDN
+codec.pdn.feature.primitive_type = መሰረታዊ ዓይነት ዳታ PDN
+codec.pdn.feature.serialization_record = መዝገብ ተኸታታሊ ኣቀማምጣ ዳታ PDN
+codec.xcf.feature.blend_mode = ሁነታ ምውህሃድ XCF
+codec.xcf.feature.color_model = ሞዴል ሕብሪ XCF
+codec.xcf.feature.compression = ምጽቃጥ XCF
+codec.xcf.feature.floating_selection = ተንሳፋፊ ምርጫ XCF
+codec.xcf.feature.layer_effects = ውጽኢታት ንጣፍ XCF
+codec.xcf.feature.precision = ትኽክለኛነት XCF
+codec.xcf.feature.version = ስሪት XCF

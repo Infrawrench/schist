@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO yatadza kuverenga container yeHEIF
 codec.heif.msg.container_empty = container yeHEIF haina mufananidzo
 codec.heif.msg.imageio_cannot_decode = ImageIO yatadza kudhikhodha mufananidzo mukuru
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Faira remufananidzo une zvikamu rakanganisika kana kuti harina kukwana.
+codec.layered.too_large = Saizi yemufananidzo une zvikamu kana huwandu hwezvikamu zvawo hunodarika muganhu unotsigirwa.
+codec.layered.unsupported = Faira iri rinoshandisa chinhu chisingatsigirwi: {feature}.
+codec.layered.export_layer = Chikamu “{name}” chine zvinhu zvisingagoni kuchengetwa nefomati iyi. Chishandure kuva mapikiseri kana kuchengetedza sePSD.
+codec.layered.export_depth = Kutumira kuPaint.NET kunoda gwaro reRGB re8-bit. Tanga washandura gwaro kuva RGB ye8-bit.
+codec.layered.export_mode = Kutumira kunoda gwaro reRGB. Tanga washandura gwaro kuva RGB.
+codec.pdn.feature.blend_mode = maitiro ekusanganisa ePDN
+codec.pdn.feature.compression = kudzvanywa kwedata rePDN
+codec.pdn.feature.container_version = vhezheni yechigadziko chePDN
+codec.pdn.feature.layer_type = rudzi rwechikamu chePDN
+codec.pdn.feature.multidimensional_array = hurongwa hwedata hune mativi akawanda hwePDN
+codec.pdn.feature.pixel_format = fomati yemapikiseri yePDN
+codec.pdn.feature.primitive_type = rudzi rwedata rwekutanga rwePDN
+codec.pdn.feature.serialization_record = rekodhi yedata rakarongwa kuti richengetwe yePDN
+codec.xcf.feature.blend_mode = maitiro ekusanganisa eXCF
+codec.xcf.feature.color_model = modhero yeruvara yeXCF
+codec.xcf.feature.compression = kudzvanywa kwedata reXCF
+codec.xcf.feature.floating_selection = sarudzo inoyangarara yeXCF
+codec.xcf.feature.layer_effects = mhedzisiro yechikamu cheXCF
+codec.xcf.feature.precision = kururama kweXCF
+codec.xcf.feature.version = vhezheni yeXCF

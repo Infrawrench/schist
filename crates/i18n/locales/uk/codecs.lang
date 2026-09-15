@@ -31,12 +31,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO не вдалося прочита�
 codec.heif.msg.container_empty = контейнер HEIF не містить зображення
 codec.heif.msg.imageio_cannot_decode = ImageIO не вдалося декодувати основне зображення
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Файл зображення з шарами пошкоджений або неповний.
+codec.layered.too_large = Розмір зображення з шарами або кількість шарів перевищує підтримуване обмеження.
+codec.layered.unsupported = Цей файл використовує непідтримувану можливість: {feature}.
+codec.layered.export_layer = Шар «{name}» містить можливості, які цей формат не може зберегти. Растеризуйте його або збережіть як PSD.
+codec.layered.export_depth = Для експорту в Paint.NET потрібен 8-бітний документ RGB. Спочатку перетворіть документ на 8-бітний RGB.
+codec.layered.export_mode = Для експорту потрібен документ RGB. Спочатку перетворіть документ на RGB.
+codec.pdn.feature.blend_mode = режим накладання PDN
+codec.pdn.feature.compression = стиснення PDN
+codec.pdn.feature.container_version = версія контейнера PDN
+codec.pdn.feature.layer_type = тип шару PDN
+codec.pdn.feature.multidimensional_array = багатовимірний масив PDN
+codec.pdn.feature.pixel_format = формат пікселів PDN
+codec.pdn.feature.primitive_type = примітивний тип даних PDN
+codec.pdn.feature.serialization_record = запис серіалізації PDN
+codec.xcf.feature.blend_mode = режим накладання XCF
+codec.xcf.feature.color_model = колірна модель XCF
+codec.xcf.feature.compression = стиснення XCF
+codec.xcf.feature.floating_selection = рухоме виділення XCF
+codec.xcf.feature.layer_effects = ефекти шару XCF
+codec.xcf.feature.precision = точність XCF
+codec.xcf.feature.version = версія XCF

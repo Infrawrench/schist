@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO හට HEIF බහාලුම ක�
 codec.heif.msg.container_empty = HEIF බහාලුමේ රූපයක් නැත
 codec.heif.msg.imageio_cannot_decode = ImageIO හට ප්‍රධාන රූපය විකේතනය කළ නොහැකි විය
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = ස්තර සහිත රූප ගොනුව හානි වී හෝ අසම්පූර්ණ වී ඇත.
+codec.layered.too_large = ස්තර සහිත රූපය සහාය දක්වන ප්‍රමාණය හෝ ස්තර ගණන ඉක්මවයි.
+codec.layered.unsupported = මෙම ගොනුව සහාය නොදක්වන විශේෂාංගයක් භාවිත කරයි: {feature}.
+codec.layered.export_layer = “{name}” ස්තරයේ මෙම ආකෘතියට රැකගත නොහැකි විශේෂාංග ඇත. එය රාස්ටර් කරන්න හෝ PSD ලෙස සුරකින්න.
+codec.layered.export_depth = Paint.NET වෙත නිර්යාත කිරීමට බිට් 8 RGB ලේඛනයක් අවශ්‍ය වේ. පළමුව ලේඛනය බිට් 8 RGB බවට පරිවර්තනය කරන්න.
+codec.layered.export_mode = නිර්යාත කිරීමට RGB ලේඛනයක් අවශ්‍ය වේ. පළමුව ලේඛනය RGB බවට පරිවර්තනය කරන්න.
+codec.pdn.feature.blend_mode = PDN මිශ්‍රණ ආකාරය
+codec.pdn.feature.compression = PDN සම්පීඩනය
+codec.pdn.feature.container_version = PDN බහාලුම් අනුවාදය
+codec.pdn.feature.layer_type = PDN ස්තර වර්ගය
+codec.pdn.feature.multidimensional_array = PDN බහුමාන අරාව
+codec.pdn.feature.pixel_format = PDN පික්සල ආකෘතිය
+codec.pdn.feature.primitive_type = PDN මූලික දත්ත වර්ගය
+codec.pdn.feature.serialization_record = PDN අනුක්‍රමිකකරණ වාර්තාව
+codec.xcf.feature.blend_mode = XCF මිශ්‍රණ ආකාරය
+codec.xcf.feature.color_model = XCF වර්ණ ආකෘතිය
+codec.xcf.feature.compression = XCF සම්පීඩනය
+codec.xcf.feature.floating_selection = XCF පාවෙන තේරීම
+codec.xcf.feature.layer_effects = XCF ස්තර ප්‍රයෝග
+codec.xcf.feature.precision = XCF නිරවද්‍යතාව
+codec.xcf.feature.version = XCF අනුවාදය

@@ -36,12 +36,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO د HEIF لوښی نشي لوستل�
 codec.heif.msg.container_empty = د HEIF لوښی هېڅ انځور نه لري
 codec.heif.msg.imageio_cannot_decode = ImageIO اصلي انځور نشي کوډسپړلی
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = د طبقو لرونکې انځور دوتنه خرابه یا نیمګړې ده.
+codec.layered.too_large = د طبقو لرونکي انځور کچه یا د طبقو شمېر له ملاتړ شوې پولې اوړي.
+codec.layered.unsupported = دا دوتنه داسې ځانګړنه کاروي چې ملاتړ یې نه کېږي: {feature}.
+codec.layered.export_layer = د “{name}” طبقه داسې ځانګړنې لري چې دا بڼه یې نه شي ساتلی. طبقه پېکسلي کړئ یا یې د PSD په بڼه وساتئ.
+codec.layered.export_depth = د Paint.NET په بڼه صادرول د 8-بېټه RGB سند ته اړتیا لري. لومړی سند 8-بېټه RGB ته بدل کړئ.
+codec.layered.export_mode = صادرول د RGB سند ته اړتیا لري. لومړی سند RGB ته بدل کړئ.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = د PDN د ګډولو حالت
+codec.pdn.feature.compression = د PDN کمپرېس کول
+codec.pdn.feature.container_version = د PDN لوښي نسخه
+codec.pdn.feature.layer_type = د PDN طبقې ډول
+codec.pdn.feature.multidimensional_array = د PDN څو اړخیزه لړۍ
+codec.pdn.feature.pixel_format = د PDN پېکسل بڼه
+codec.pdn.feature.primitive_type = د PDN بنسټیز اومتوک ډول
+codec.pdn.feature.serialization_record = د PDN د پرله‌پسې کولو ریکارډ
+codec.xcf.feature.blend_mode = د XCF د ګډولو حالت
+codec.xcf.feature.color_model = د XCF رنګ بېلګه
+codec.xcf.feature.compression = د XCF کمپرېس کول
+codec.xcf.feature.floating_selection = د XCF لامبو وهونکې ټاکنه
+codec.xcf.feature.layer_effects = د XCF طبقې اغېزې
+codec.xcf.feature.precision = د XCF کره‌والی
+codec.xcf.feature.version = د XCF نسخه

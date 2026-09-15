@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO ny allas redya an lestryn HEIF
 codec.heif.msg.container_empty = nyns eus delwenn y'n lestryn HEIF
 codec.heif.msg.imageio_cannot_decode = ImageIO ny allas kodhalla an delwenn gynsa
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Legrys po anleunn yw restren an delwenn gans gwiskow.
+codec.layered.too_large = Bras yw an delwenn gans gwiskow dres an vent po niver a wiskow skoodhys.
+codec.layered.unsupported = An restren ma a dhevnydh nas na veu skoodhys: {feature}.
+codec.layered.export_layer = Yma yn gwisk “{name}” nasow na yll an furvas ma aga gwitha. Rasterhewgh an gwisk po sawyewgh avel PSD.
+codec.layered.export_depth = Res yw skrifen RGB 8-bit rag esperthi dhe Paint.NET. Treuswrewgh an skrifen dhe RGB 8-bit yn kynsa.
+codec.layered.export_mode = Res yw skrifen RGB rag esperthi. Treuswrewgh an skrifen dhe RGB yn kynsa.
+codec.pdn.feature.blend_mode = fordh kemyska PDN
+codec.pdn.feature.compression = gwaskans PDN
+codec.pdn.feature.container_version = versyon lestryn PDN
+codec.pdn.feature.layer_type = ryw gwisk PDN
+codec.pdn.feature.multidimensional_array = aray liesventek PDN
+codec.pdn.feature.pixel_format = furvas piksel PDN
+codec.pdn.feature.primitive_type = ryw data selvenel PDN
+codec.pdn.feature.serialization_record = kovnodh a ddata yn aray rag sawya PDN
+codec.xcf.feature.blend_mode = fordh kemyska XCF
+codec.xcf.feature.color_model = patron liw XCF
+codec.xcf.feature.compression = gwaskans XCF
+codec.xcf.feature.floating_selection = dewis ow neuvella XCF
+codec.xcf.feature.layer_effects = effeythyow gwisk XCF
+codec.xcf.feature.precision = kewerdedh XCF
+codec.xcf.feature.version = versyon XCF

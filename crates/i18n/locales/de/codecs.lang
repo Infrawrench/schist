@@ -43,12 +43,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO konnte den HEIF-Container nicht les
 codec.heif.msg.container_empty = der HEIF-Container enthält kein Bild
 codec.heif.msg.imageio_cannot_decode = ImageIO konnte das Hauptbild nicht decodieren
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Die Bilddatei mit Ebenen ist beschädigt oder unvollständig.
+codec.layered.too_large = Das Bild mit Ebenen überschreitet die unterstützte Größe oder Ebenenanzahl.
+codec.layered.unsupported = Diese Datei verwendet eine nicht unterstützte Funktion: {feature}.
+codec.layered.export_layer = Die Ebene „{name}“ enthält Funktionen, die dieses Format nicht erhalten kann. Rastern Sie die Ebene oder speichern Sie als PSD.
+codec.layered.export_depth = Der Export als Paint.NET erfordert ein RGB-Dokument mit 8 Bit. Konvertieren Sie das Dokument zuerst in RGB mit 8 Bit.
+codec.layered.export_mode = Der Export erfordert ein RGB-Dokument. Konvertieren Sie das Dokument zuerst in RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN-Füllmethode
+codec.pdn.feature.compression = PDN-Komprimierung
+codec.pdn.feature.container_version = PDN-Containerversion
+codec.pdn.feature.layer_type = PDN-Ebenentyp
+codec.pdn.feature.multidimensional_array = Mehrdimensionales PDN-Array
+codec.pdn.feature.pixel_format = PDN-Pixelformat
+codec.pdn.feature.primitive_type = Primitiver PDN-Datentyp
+codec.pdn.feature.serialization_record = PDN-Serialisierungsdatensatz
+codec.xcf.feature.blend_mode = XCF-Füllmethode
+codec.xcf.feature.color_model = XCF-Farbmodell
+codec.xcf.feature.compression = XCF-Komprimierung
+codec.xcf.feature.floating_selection = Schwebende XCF-Auswahl
+codec.xcf.feature.layer_effects = XCF-Ebeneneffekte
+codec.xcf.feature.precision = XCF-Präzision
+codec.xcf.feature.version = XCF-Version

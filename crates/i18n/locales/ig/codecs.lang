@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO enweghị ike ịgụ HEIF containe
 codec.heif.msg.container_empty = HEIF container enweghị onyonyo
 codec.heif.msg.imageio_cannot_decode = ImageIO enweghị ike idekọ onyonyo bụ isi
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Faịlụ onyonyo nwere leya emebiela ma ọ bụ ezughị ezu.
+codec.layered.too_large = Nha onyonyo nwere leya ma ọ bụ ọnụọgụ leya karịrị oke a na-akwado.
+codec.layered.unsupported = Faịlụ a na-eji njirimara a na-akwadoghị: {feature}.
+codec.layered.export_layer = Leya “{name}” nwere njirimara usoro a na-enweghị ike ichekwa. Mee leya ahụ ka ọ bụrụ raster ma ọ bụ chekwaa dịka PSD.
+codec.layered.export_depth = Mbupụ Paint.NET chọrọ dọkụmentị RGB bit 8. Buru ụzọ gbanwee dọkụmentị ahụ ka ọ bụrụ RGB bit 8.
+codec.layered.export_mode = Mbupụ chọrọ dọkụmentị RGB. Buru ụzọ gbanwee dọkụmentị ahụ ka ọ bụrụ RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = ọnọdụ ngwakọta PDN
+codec.pdn.feature.compression = mkpakọ PDN
+codec.pdn.feature.container_version = ụdị akpa PDN
+codec.pdn.feature.layer_type = ụdị leya PDN
+codec.pdn.feature.multidimensional_array = usoro data nwere ọtụtụ akụkụ PDN
+codec.pdn.feature.pixel_format = usoro pikselụ PDN
+codec.pdn.feature.primitive_type = ụdị data bụ isi PDN
+codec.pdn.feature.serialization_record = ndekọ nhazi data n'usoro PDN
+codec.xcf.feature.blend_mode = ọnọdụ ngwakọta XCF
+codec.xcf.feature.color_model = ụkpụrụ ụcha XCF
+codec.xcf.feature.compression = mkpakọ XCF
+codec.xcf.feature.floating_selection = nhọrọ na-ese n'elu XCF
+codec.xcf.feature.layer_effects = mmetụta leya XCF
+codec.xcf.feature.precision = izi ezi XCF
+codec.xcf.feature.version = ụdị XCF

@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = Hindi mabasa ng ImageIO ang HEIF container
 codec.heif.msg.container_empty = walang larawan ang HEIF container
 codec.heif.msg.imageio_cannot_decode = Hindi ma-decode ng ImageIO ang pangunahing larawan
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Sira o hindi kumpleto ang file ng larawang may mga layer.
+codec.layered.too_large = Lampas sa sinusuportahang limitasyon ang laki ng larawan o dami ng mga layer.
+codec.layered.unsupported = Gumagamit ang file na ito ng feature na hindi sinusuportahan: {feature}.
+codec.layered.export_layer = May mga feature ang layer na “{name}” na hindi mapapanatili ng format na ito. I-rasterize ito o i-save bilang PSD.
+codec.layered.export_depth = Kailangan ng 8-bit RGB na dokumento para mag-export sa Paint.NET. I-convert muna ang dokumento sa 8-bit RGB.
+codec.layered.export_mode = Kailangan ng RGB na dokumento para mag-export. I-convert muna ang dokumento sa RGB.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = mode ng paghahalo ng PDN
+codec.pdn.feature.compression = pag-compress ng PDN
+codec.pdn.feature.container_version = bersiyon ng lalagyan ng PDN
+codec.pdn.feature.layer_type = uri ng layer ng PDN
+codec.pdn.feature.multidimensional_array = array na maraming dimensiyon ng PDN
+codec.pdn.feature.pixel_format = format ng pixel ng PDN
+codec.pdn.feature.primitive_type = pangunahing uri ng data ng PDN
+codec.pdn.feature.serialization_record = tala ng serialisasyon ng PDN
+codec.xcf.feature.blend_mode = mode ng paghahalo ng XCF
+codec.xcf.feature.color_model = modelo ng kulay ng XCF
+codec.xcf.feature.compression = pag-compress ng XCF
+codec.xcf.feature.floating_selection = lumulutang na seleksiyon ng XCF
+codec.xcf.feature.layer_effects = mga epekto ng layer ng XCF
+codec.xcf.feature.precision = presisyon ng XCF
+codec.xcf.feature.version = bersiyon ng XCF

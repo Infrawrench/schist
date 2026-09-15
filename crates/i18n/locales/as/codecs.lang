@@ -49,12 +49,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO-এ HEIF কণ্টেইনা�
 codec.heif.msg.container_empty = HEIF কণ্টেইনাৰত কোনো ছবি নাই
 codec.heif.msg.imageio_cannot_decode = ImageIO-এ মূল ছবি ডিক'ড কৰিব নোৱাৰিলে
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = স্তৰযুক্ত ছবিৰ ফাইলটো ক্ষতিগ্ৰস্ত বা অসম্পূৰ্ণ।
+codec.layered.too_large = স্তৰযুক্ত ছবিখনৰ আকাৰ বা স্তৰৰ সংখ্যা সমৰ্থিত সীমাতকৈ বেছি।
+codec.layered.unsupported = এই ফাইলটোৱে এটা অসমৰ্থিত সুবিধা ব্যৱহাৰ কৰিছে: {feature}।
+codec.layered.export_layer = “{name}” স্তৰত এনে সুবিধা আছে যিবোৰ এই বিন্যাসে সংৰক্ষণ কৰিব নোৱাৰে। স্তৰটো ৰেষ্টাৰাইজ কৰক বা PSD হিচাপে সংৰক্ষণ কৰক।
+codec.layered.export_depth = Paint.NET হিচাপে ৰপ্তানি কৰিবলৈ 8-বিট RGB দস্তাবেজৰ প্ৰয়োজন। প্ৰথমে দস্তাবেজটো 8-বিট RGB লৈ ৰূপান্তৰ কৰক।
+codec.layered.export_mode = ৰপ্তানি কৰিবলৈ RGB দস্তাবেজৰ প্ৰয়োজন। প্ৰথমে দস্তাবেজটো RGB লৈ ৰূপান্তৰ কৰক।
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = PDN মিশ্ৰণ মোড
+codec.pdn.feature.compression = PDN সংকোচন
+codec.pdn.feature.container_version = PDN কণ্টেইনাৰ সংস্কৰণ
+codec.pdn.feature.layer_type = PDN স্তৰৰ প্ৰকাৰ
+codec.pdn.feature.multidimensional_array = PDN বহুমাত্ৰিক এৰে
+codec.pdn.feature.pixel_format = PDN পিক্সেল বিন্যাস
+codec.pdn.feature.primitive_type = PDN মৌলিক ডেটাৰ প্ৰকাৰ
+codec.pdn.feature.serialization_record = PDN ক্ৰমিকীকৰণ ৰেকৰ্ড
+codec.xcf.feature.blend_mode = XCF মিশ্ৰণ মোড
+codec.xcf.feature.color_model = XCF ৰঙৰ আৰ্হি
+codec.xcf.feature.compression = XCF সংকোচন
+codec.xcf.feature.floating_selection = XCF ভাসমান নিৰ্বাচন
+codec.xcf.feature.layer_effects = XCF স্তৰৰ প্ৰভাৱ
+codec.xcf.feature.precision = XCF সূক্ষ্মতা
+codec.xcf.feature.version = XCF সংস্কৰণ

@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF কন্টেইনার �
 codec.heif.msg.container_empty = HEIF কন্টেইনারে কোনো ছবি নেই
 codec.heif.msg.imageio_cannot_decode = ImageIO প্রধান ছবিটি ডিকোড করতে পারেনি
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = স্তরযুক্ত ছবির ফাইলটি ক্ষতিগ্রস্ত বা অসম্পূর্ণ।
+codec.layered.too_large = স্তরযুক্ত ছবির আকার বা লেয়ারের সংখ্যা সমর্থিত সীমা অতিক্রম করেছে।
+codec.layered.unsupported = এই ফাইলটি একটি অসমর্থিত বৈশিষ্ট্য ব্যবহার করে: {feature}।
+codec.layered.export_layer = “{name}” লেয়ারে এমন বৈশিষ্ট্য আছে যা এই ফরম্যাটে সংরক্ষণ করা যায় না। লেয়ারটি রাস্টারাইজ করুন অথবা PSD হিসেবে সংরক্ষণ করুন।
+codec.layered.export_depth = Paint.NET-এ রপ্তানি করতে 8-বিট RGB নথি প্রয়োজন। প্রথমে নথিটি 8-বিট RGB-তে রূপান্তর করুন।
+codec.layered.export_mode = রপ্তানি করতে RGB নথি প্রয়োজন। প্রথমে নথিটি RGB-তে রূপান্তর করুন।
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = PDN ব্লেন্ড মোড
+codec.pdn.feature.compression = PDN সংকোচন
+codec.pdn.feature.container_version = PDN কন্টেইনার সংস্করণ
+codec.pdn.feature.layer_type = PDN লেয়ারের ধরন
+codec.pdn.feature.multidimensional_array = PDN বহুমাত্রিক অ্যারে
+codec.pdn.feature.pixel_format = PDN পিক্সেল ফরম্যাট
+codec.pdn.feature.primitive_type = PDN মৌলিক ডেটার ধরন
+codec.pdn.feature.serialization_record = PDN সিরিয়ালাইজেশন রেকর্ড
+codec.xcf.feature.blend_mode = XCF ব্লেন্ড মোড
+codec.xcf.feature.color_model = XCF রঙের মডেল
+codec.xcf.feature.compression = XCF সংকোচন
+codec.xcf.feature.floating_selection = XCF ভাসমান নির্বাচন
+codec.xcf.feature.layer_effects = XCF লেয়ারের প্রভাব
+codec.xcf.feature.precision = XCF নির্ভুলতা
+codec.xcf.feature.version = XCF সংস্করণ

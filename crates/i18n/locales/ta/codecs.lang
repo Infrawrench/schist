@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO ஆல் HEIF கொள்கல�
 codec.heif.msg.container_empty = HEIF கொள்கலனில் படம் இல்லை
 codec.heif.msg.imageio_cannot_decode = ImageIO ஆல் முதன்மைப் படத்தின் குறியீட்டை நீக்க முடியவில்லை
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = அடுக்குகளைக் கொண்ட படக்கோப்பு சேதமடைந்துள்ளது அல்லது முழுமையற்றது.
+codec.layered.too_large = அடுக்குகளைக் கொண்ட படம் ஆதரிக்கப்படும் அளவு அல்லது அடுக்கு எண்ணிக்கையை மீறுகிறது.
+codec.layered.unsupported = இந்தக் கோப்பு ஆதரிக்கப்படாத அம்சத்தைப் பயன்படுத்துகிறது: {feature}.
+codec.layered.export_layer = “{name}” அடுக்கில் இந்த வடிவத்தால் பாதுகாக்க முடியாத அம்சங்கள் உள்ளன. அதை படப்புள்ளிகளாக்கவும் அல்லது PSD ஆகச் சேமிக்கவும்.
+codec.layered.export_depth = Paint.NET ஏற்றுமதிக்கு 8-பிட் RGB ஆவணம் தேவை. முதலில் ஆவணத்தை 8-பிட் RGB ஆக மாற்றவும்.
+codec.layered.export_mode = ஏற்றுமதிக்கு RGB ஆவணம் தேவை. முதலில் ஆவணத்தை RGB ஆக மாற்றவும்.
+codec.pdn.feature.blend_mode = PDN கலப்பு முறை
+codec.pdn.feature.compression = PDN சுருக்கம்
+codec.pdn.feature.container_version = PDN கொள்கலன் பதிப்பு
+codec.pdn.feature.layer_type = PDN அடுக்கு வகை
+codec.pdn.feature.multidimensional_array = PDN பல்பரிமாண அணி
+codec.pdn.feature.pixel_format = PDN படப்புள்ளி வடிவம்
+codec.pdn.feature.primitive_type = PDN அடிப்படைத் தரவு வகை
+codec.pdn.feature.serialization_record = PDN தொடராக்கப் பதிவு
+codec.xcf.feature.blend_mode = XCF கலப்பு முறை
+codec.xcf.feature.color_model = XCF வண்ண மாதிரி
+codec.xcf.feature.compression = XCF சுருக்கம்
+codec.xcf.feature.floating_selection = XCF மிதக்கும் தேர்வு
+codec.xcf.feature.layer_effects = XCF அடுக்கு விளைவுகள்
+codec.xcf.feature.precision = XCF துல்லியம்
+codec.xcf.feature.version = XCF பதிப்பு

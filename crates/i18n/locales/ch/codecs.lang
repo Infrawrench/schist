@@ -30,12 +30,27 @@ codec.heif.msg.imageio_cannot_read = Ti siña ha basa i ImageIO i HEIF container
 codec.heif.msg.container_empty = Tåya' imåhen gi HEIF container
 codec.heif.msg.imageio_cannot_decode = Ti siña ha decode i ImageIO i primet na imåhen
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Madåñu pat ti kompletu i file nu i imåhen ni gai layer siha.
+codec.layered.too_large = Mas dångkolo i imåhen pat mas meggai i layer siha ki i siña masuporta.
+codec.layered.unsupported = Ha usa este na file un kualidåt ni ti masuporta: {feature}.
+codec.layered.export_layer = Guaha gi layer “{name}” kualidåt siha ni ti siña ha såtba este na format. Konbiette i layer para pixel siha pat såtba komu PSD.
+codec.layered.export_depth = Nisisåriu un dokumentu RGB 8-bit para un eksporta para Paint.NET. Konbiette i dokumentu para RGB 8-bit fine'na.
+codec.layered.export_mode = Nisisåriu un dokumentu RGB para un eksporta. Konbiette i dokumentu para RGB fine'na.
+codec.pdn.feature.blend_mode = modon meskla nu i PDN
+codec.pdn.feature.compression = mapi'ot na data nu i PDN
+codec.pdn.feature.container_version = betsion nu i kahan PDN
+codec.pdn.feature.layer_type = klåsen layer nu i PDN
+codec.pdn.feature.multidimensional_array = arreglo ni gai meggai na dimensón nu i PDN
+codec.pdn.feature.pixel_format = formåton pixel nu i PDN
+codec.pdn.feature.primitive_type = båsiku na klåsen data nu i PDN
+codec.pdn.feature.serialization_record = rekod nu i data ni ma'aregla para masåtba gi PDN
+codec.xcf.feature.blend_mode = modon meskla nu i XCF
+codec.xcf.feature.color_model = modelon kulot nu i XCF
+codec.xcf.feature.compression = mapi'ot na data nu i XCF
+codec.xcf.feature.floating_selection = pinili' ni må'ya gi XCF
+codec.xcf.feature.layer_effects = efekton layer nu i XCF
+codec.xcf.feature.precision = mina'eksaktu nu i XCF
+codec.xcf.feature.version = betsion nu i XCF

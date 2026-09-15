@@ -34,12 +34,29 @@ codec.heif.msg.imageio_cannot_read = N'hall ket ImageIO lenn ar c'hronnad HEIF
 codec.heif.msg.container_empty = n'eus skeudenn ebet er c'hronnad HEIF
 codec.heif.msg.imageio_cannot_decode = N'hall ket ImageIO digodiñ ar skeudenn bennañ
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Restr ar skeudenn gant gwiskadoù zo dañvaet pe diglok.
+codec.layered.too_large = Ar skeudenn gant gwiskadoù a ya dreist ar vent pe an niver a wiskadoù skoret.
+codec.layered.unsupported = Ar restr-mañ a implij un arc'hwel ha n'eo ket skoret: {feature}.
+codec.layered.export_layer = Ar gwiskad «{name}» a zo ennañ arc'hwelioù na c'hall ket ar mentrezh-mañ mirout. Rasterelait anezhañ pe enrollit e PSD.
+codec.layered.export_depth = Evit ezporzhiañ da Paint.NET ez eus ezhomm eus un teul RGB 8 bit. Troit an teul da RGB 8 bit da gentañ.
+codec.layered.export_mode = Evit ezporzhiañ ez eus ezhomm eus un teul RGB. Troit an teul da RGB da gentañ.
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = mod meskañ PDN
+codec.pdn.feature.compression = koazhañ PDN
+codec.pdn.feature.container_version = handelv an endalc'her PDN
+codec.pdn.feature.layer_type = seurt gwiskad PDN
+codec.pdn.feature.multidimensional_array = taolenn liesment PDN
+codec.pdn.feature.pixel_format = mentrezh pikselioù PDN
+codec.pdn.feature.primitive_type = rizh roadennoù diazez PDN
+codec.pdn.feature.serialization_record = rollad heuliadelaat PDN
+codec.xcf.feature.blend_mode = mod meskañ XCF
+codec.xcf.feature.color_model = patrom liv XCF
+codec.xcf.feature.compression = koazhañ XCF
+codec.xcf.feature.floating_selection = diuzañ neuñvius XCF
+codec.xcf.feature.layer_effects = efedoù gwiskad XCF
+codec.xcf.feature.precision = pizhder XCF
+codec.xcf.feature.version = handelv XCF

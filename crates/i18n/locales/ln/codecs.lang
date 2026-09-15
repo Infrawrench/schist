@@ -34,12 +34,27 @@ codec.heif.msg.imageio_cannot_read = ImageIO ekokaki kotánga container HEIF te
 codec.heif.msg.container_empty = container HEIF ezali na elilingi moko te
 codec.heif.msg.imageio_cannot_decode = ImageIO ekokaki kofungola kode ya elilingi ya liboso te
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Fisye ya elilingi oyo ezali na ba kalke ebebi to ezali mobimba te.
+codec.layered.too_large = Bonene ya elilingi to motángo ya ba kalke na yango eleki ndelo oyo endimami.
+codec.layered.unsupported = Fisye oyo esalelaka likoki oyo endimami te: {feature}.
+codec.layered.export_layer = Kalke “{name}” ezali na makoki oyo formá oyo ekoki kobatela te. Bongolá yango na bapiksele to bombá lokola PSD.
+codec.layered.export_depth = Kobimisa na Paint.NET esɛngaka dokima RGB ya bit 8. Liboso, bongolá dokima na RGB ya bit 8.
+codec.layered.export_mode = Kobimisa esɛngaka dokima RGB. Liboso, bongolá dokima na RGB.
+codec.pdn.feature.blend_mode = mode ya kosangisa ya PDN
+codec.pdn.feature.compression = kofina ba données ya PDN
+codec.pdn.feature.container_version = versio ya eloko oyo esimbi PDN
+codec.pdn.feature.layer_type = lolenge ya kalke ya PDN
+codec.pdn.feature.multidimensional_array = etanda ya ba données oyo ezali na bimekeli mingi ya PDN
+codec.pdn.feature.pixel_format = formá ya bapiksele ya PDN
+codec.pdn.feature.primitive_type = lolenge ya moboko ya ba données ya PDN
+codec.pdn.feature.serialization_record = rekɔrɔ ya kotya ba données na molɔngɔ mpo na kobomba ya PDN
+codec.xcf.feature.blend_mode = mode ya kosangisa ya XCF
+codec.xcf.feature.color_model = modɛlɛ ya langi ya XCF
+codec.xcf.feature.compression = kofina ba données ya XCF
+codec.xcf.feature.floating_selection = boponi oyo ezali kopumbwa ya XCF
+codec.xcf.feature.layer_effects = ba efɛ ya kalke ya XCF
+codec.xcf.feature.precision = bosikisiki ya XCF
+codec.xcf.feature.version = versio ya XCF

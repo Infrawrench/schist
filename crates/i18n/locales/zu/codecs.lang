@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = I-ImageIO ayikwazanga ukufunda isiqukathi s
 codec.heif.msg.container_empty = isiqukathi se-HEIF asinawo umfanekiso
 codec.heif.msg.imageio_cannot_decode = I-ImageIO ayikwazanga ukuqaqa isithombe esiyinhloko
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = Ifayela lesithombe esinezingqimba lonakele noma aliphelele.
+codec.layered.too_large = Isithombe esinezingqimba sidlula usayizi noma inani lezingqimba elisekelwayo.
+codec.layered.unsupported = Leli fayela lisebenzisa isici esingasekelwa: {feature}.
+codec.layered.export_layer = Ungqimba oluthi “{name}” luqukethe izici le fomethi engakwazi ukuzigcina. Luguqule lube amaphikseli noma ulondoloze njenge-PSD.
+codec.layered.export_depth = Ukuthumela ngaphandle ngefomethi ye-Paint.NET kudinga idokhumenti ye-RGB engu-8-bit. Qala ngokuguqula idokhumenti ibe yi-RGB engu-8-bit.
+codec.layered.export_mode = Ukuthumela ngaphandle kudinga idokhumenti ye-RGB. Qala ngokuguqula idokhumenti ibe yi-RGB.
+
+# Unsupported layered format features
+codec.pdn.feature.blend_mode = Imodi yokuxuba ye-PDN
+codec.pdn.feature.compression = Ukucindezela kwe-PDN
+codec.pdn.feature.container_version = Inguqulo yesiqukathi se-PDN
+codec.pdn.feature.layer_type = Uhlobo longqimba lwe-PDN
+codec.pdn.feature.multidimensional_array = Uhlu olunezilinganiso eziningi lwe-PDN
+codec.pdn.feature.pixel_format = Ifomethi yephikseli ye-PDN
+codec.pdn.feature.primitive_type = Uhlobo lwedatha oluyisisekelo lwe-PDN
+codec.pdn.feature.serialization_record = Irekhodi lokulandelanisa idatha le-PDN
+codec.xcf.feature.blend_mode = Imodi yokuxuba ye-XCF
+codec.xcf.feature.color_model = Imodeli yombala ye-XCF
+codec.xcf.feature.compression = Ukucindezela kwe-XCF
+codec.xcf.feature.floating_selection = Okukhethiwe okuntantayo kwe-XCF
+codec.xcf.feature.layer_effects = Imiphumela yezingqimba ye-XCF
+codec.xcf.feature.precision = Ukunemba kwe-XCF
+codec.xcf.feature.version = Inguqulo ye-XCF

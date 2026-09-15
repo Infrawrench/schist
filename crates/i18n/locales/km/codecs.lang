@@ -30,12 +30,29 @@ codec.heif.msg.imageio_cannot_read = ImageIO មិនអាចអានកុ�
 codec.heif.msg.container_empty = កុងតឺន័រ HEIF គ្មានរូបភាព
 codec.heif.msg.imageio_cannot_decode = ImageIO មិនអាចឌិកូដរូបភាពចម្បង
 
-# Native layered formats. Product names and English diagnostics pending translation.
+# Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
-codec.layered.invalid = The layered image file is damaged or incomplete.
-codec.layered.too_large = The layered image exceeds the supported size or layer count.
-codec.layered.unsupported = This file uses an unsupported feature: {feature}.
-codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
-codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
-codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.invalid = ឯកសាររូបភាពដែលមានស្រទាប់ខូច ឬមិនពេញលេញ។
+codec.layered.too_large = ទំហំរូបភាព ឬចំនួនស្រទាប់លើសពីកម្រិតដែលបានគាំទ្រ។
+codec.layered.unsupported = ឯកសារនេះប្រើមុខងារដែលមិនបានគាំទ្រ៖ {feature}។
+codec.layered.export_layer = ស្រទាប់ “{name}” មានមុខងារដែលទ្រង់ទ្រាយនេះមិនអាចរក្សាទុកបាន។ សូមបម្លែងវាទៅជាភីកសែល ឬរក្សាទុកជា PSD។
+codec.layered.export_depth = ការនាំចេញទៅ Paint.NET តម្រូវឱ្យមានឯកសារ RGB 8 ប៊ីត។ សូមបម្លែងឯកសារទៅជា RGB 8 ប៊ីតជាមុនសិន។
+codec.layered.export_mode = ការនាំចេញតម្រូវឱ្យមានឯកសារ RGB។ សូមបម្លែងឯកសារទៅជា RGB ជាមុនសិន។
+
+# Unsupported layered-format features.
+codec.pdn.feature.blend_mode = របៀបលាយ PDN
+codec.pdn.feature.compression = ការបង្ហាប់ PDN
+codec.pdn.feature.container_version = កំណែប្រអប់ផ្ទុក PDN
+codec.pdn.feature.layer_type = ប្រភេទស្រទាប់ PDN
+codec.pdn.feature.multidimensional_array = អារេពហុវិមាត្រ PDN
+codec.pdn.feature.pixel_format = ទ្រង់ទ្រាយភីកសែល PDN
+codec.pdn.feature.primitive_type = ប្រភេទទិន្នន័យមូលដ្ឋាន PDN
+codec.pdn.feature.serialization_record = កំណត់ត្រាបម្លែងទិន្នន័យជាលំដាប់ PDN
+codec.xcf.feature.blend_mode = របៀបលាយ XCF
+codec.xcf.feature.color_model = គំរូពណ៌ XCF
+codec.xcf.feature.compression = ការបង្ហាប់ XCF
+codec.xcf.feature.floating_selection = ជម្រើសអណ្ដែត XCF
+codec.xcf.feature.layer_effects = បែបផែនស្រទាប់ XCF
+codec.xcf.feature.precision = ភាពជាក់លាក់ XCF
+codec.xcf.feature.version = កំណែ XCF
