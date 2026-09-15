@@ -1844,7 +1844,7 @@ pub(crate) fn camera_import_dialog(
                 true,
                 |ws, _w, cx| {
                     ws.close_modal(cx);
-                    ws.gallery_import_camera(cx);
+                    ws.gallery_rescan_cameras(cx);
                 },
                 cx,
             ));
@@ -2026,6 +2026,10 @@ pub(crate) fn camera_import_options_dialog(
         (Some(_), None) => t("library.import.selected_area").to_string(),
         (None, _) => label.clone(),
     };
+    let destination = match &ws.library.import_cloud {
+        Some(target) => target.label(&ws.cloud),
+        None => tf!("library.import.destination", name = dest_name),
+    };
 
     let body = div()
         .flex()
@@ -2042,7 +2046,7 @@ pub(crate) fn camera_import_options_dialog(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(crate::ui::palette().text_dim))
-                .child(tf!("library.import.destination", name = dest_name)),
+                .child(destination),
         );
 
     let area = selection.map(|b| {

@@ -105,13 +105,24 @@ search box in the top strip searches the remote library as you type (names and
 tags, ranked by the provider); the map filter applies to the cloud too, with
 its chip in the strip while it is on. Escape clears the search. Pages of 200 photos have links under the grid.
 
+**Import…** uses the same camera/device picker and map boundary options as the
+local gallery. With Schist Cloud selected, originals are downloaded into a
+temporary folder and uploaded into the cloud folder or bucket selected when
+Import was opened (or the cloud root). The temporary folder stays out of the
+local gallery and is removed after the upload finishes. The existing upload
+pipeline checks storage and duplicates and shows progress; originals remain on
+the camera. On iOS and Android the system photo/media picker feeds the same
+cloud upload path. The browser continues to use its file picker. **Upload
+files…** and **Upload folder…** remain available on cloud folder context menus.
+
 The sidebar's VIEW, GROUP BY and PEOPLE sections stay whichever room is up.
 World Map plots every located photo in the folder, bucket or search on show
 (not just the current page, up to 5000) by the `location` each asset carries,
 with the same markers, strip and marker menu as local photos; marker
 thumbnails load on demand. The PEOPLE list
 shows the local people and, beneath them, the cloud's people with a ☁ badge;
-right-click a cloud person to rename, merge or forget them.
+click a cloud person or unnamed faces to select the Schist Cloud root and filter
+across the cloud library. Right-click a cloud person to rename, merge or forget them.
 
 Whole folders move in either direction from the right-click menus. A cloud
 folder row (and the ☁ Schist Cloud root) offers Upload files here…, Upload
@@ -139,6 +150,12 @@ a signed download ticket the provider serves without credentials (format
 `thumbnail`, revision-bound). The client fetches a page's worth through a
 small worker pool, decodes WebP/PNG/JPEG at up to 256 px, and shows "no
 preview" for an asset whose URL is absent or whose fetch failed.
+People portraits use the same queue and cache, including while the local gallery
+is open. Each person's optional `avatar` carries `asset_id`, `rect`, `revision`
+and a signed `thumbnail_url`, so its photo need not be on the current page. The
+sidebar, face viewer and naming dialog frame the face with the local People
+album's square crop and padding. Older providers without avatar tickets can use
+a source thumbnail already present on the page; missing previews keep a placeholder.
 
 Drag local gallery photos, a watched local folder, or files/folders from the file
 manager into a cloud bucket or folder to upload them. Local originals remain in
@@ -281,8 +298,10 @@ validate edits, and materialize downloads. See [document-library.md](document-li
 
 ## People and upload screening
 
-Cloud People lives in the same gallery sidebar as the local People album, scoped
-to the current cloud folder or bucket. Faces are found automatically in cleared cloud
+Cloud People lives in the same gallery sidebar as the local People album. Clicking
+a person or unnamed faces selects the Schist Cloud root and applies the person
+filter there, keeping other search and filter settings. Clicking the active person
+again at the root clears that filter. Faces are found automatically in cleared cloud
 uploads with the same UltraFace/SFace models as desktop. Space or “View & name
 people” opens the cloud face viewer: click a box to name it, draw a missed face,
 accept a suggestion, or use “Not them”/“Not a face”. Rename can merge people;

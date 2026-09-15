@@ -35,6 +35,8 @@ mod ai;
 #[path = "ai_stub.rs"]
 mod ai;
 #[cfg(not(target_arch = "wasm32"))]
+mod camera_import;
+#[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod camera_sync;
 #[cfg(target_os = "android")]
 pub(crate) mod camera_sync_android;

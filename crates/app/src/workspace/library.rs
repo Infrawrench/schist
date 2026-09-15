@@ -11,6 +11,7 @@
 //! folders to watch and no cameras to mount, so the whole module is
 //! compiled out of the web build.
 
+use super::camera_import::{CloudImportTarget, ImportDestination};
 use super::gallery_chrome::GridScroll;
 use super::library_geo;
 use super::*;
@@ -294,6 +295,11 @@ pub struct Library {
     pub scanning: bool,
     /// A camera import in flight, so a second click does not start one.
     pub importing: bool,
+    /// The destination captured by the Import button, including while a source
+    /// picker or retry dialog is open. None means a local gallery import.
+    pub(super) import_cloud: Option<CloudImportTarget>,
+    #[cfg(target_os = "android")]
+    pub(super) media_import_destination: Option<ImportDestination>,
     /// Thumbnail states, tagged with the mtime they were built from: a
     /// file that changed underneath — a photo still landing off a
     /// camera when its first decode ran, an edit — loads again.
@@ -530,6 +536,9 @@ impl Library {
             thumb_px: file.thumb_px.unwrap_or(144.0).clamp(80.0, 240.0),
             scanning: false,
             importing: false,
+            import_cloud: None,
+            #[cfg(target_os = "android")]
+            media_import_destination: None,
             thumbs: FxHashMap::default(),
             thumb_used: FxHashMap::default(),
             thumb_frame: 0,
@@ -3655,6 +3664,15 @@ impl Workspace {
         if self.library.importing {
             return;
         }
+        self.library.import_cloud = self.cloud.show.then(|| CloudImportTarget {
+            epoch: self.cloud.epoch,
+            scope: self.cloud.query.scope.clone(),
+        });
+        self.gallery_rescan_cameras(cx);
+    }
+
+    /// Rescanning the picker keeps the destination chosen by the Import click.
+    pub(super) fn gallery_rescan_cameras(&mut self, cx: &mut Context<Self>) {
         // On iOS the camera is the camera roll, and the system picker is
         // the way to it.
         #[cfg(target_os = "ios")]
@@ -3697,10 +3715,9 @@ impl Workspace {
         }
     }
 
-    /// Copy a camera volume's DCIM into ~/Pictures and watch the result.
-    /// Import from a camera, optionally bounded: `area` is the drawn
-    /// (or preset) box and its human name, and only photos whose EXIF
-    /// position falls inside it come over.
+    /// Import from a camera to the local gallery or cloud, optionally bounded.
+    /// `area` is the drawn (or preset) box and its human name. Only photos whose
+    /// EXIF position falls inside it come over.
     pub fn import_camera(
         &mut self,
         source: ImportSource,
@@ -3711,10 +3728,6 @@ impl Workspace {
             return;
         }
         let label = source_label(&source);
-        let Some(home) = std::env::var("HOME").ok().map(PathBuf::from) else {
-            self.status = t("library.import.needs_home").into();
-            return;
-        };
         // A boundary is a sorting instruction, so it names the
         // destination: photos taken in New York land in a New York
         // folder, whatever camera they came off.
@@ -3722,7 +3735,20 @@ impl Workspace {
             .as_ref()
             .map(|(_, name)| sanitize_folder_name(name))
             .unwrap_or_else(|| label.clone());
-        let dest = home.join("Pictures/Schist Imports").join(&dest_name);
+        let dest = match self.import_destination(|| {
+            let home = std::env::var("HOME")
+                .map(PathBuf::from)
+                .map_err(|_| anyhow::anyhow!(t("library.import.needs_home")))?;
+            Ok(home.join("Pictures/Schist Imports").join(&dest_name))
+        }) {
+            Ok(dest) => dest,
+            Err(error) => {
+                self.status = error.to_string().into();
+                cx.notify();
+                return;
+            }
+        };
+        let local = dest.is_local();
         self.library.importing = true;
         self.status = match &area {
             Some((_, name)) => tf!(
@@ -3733,15 +3759,9 @@ impl Workspace {
             .into(),
             None => tf!("library.import.importing_from", source = label).into(),
         };
-        // The destination joins the gallery now, not when the import
-        // finishes: with the gallery open and a rescan ticking below,
-        // photos appear in the grid as they land.
-        if !self.library.folders.contains(&dest) {
-            self.library.folders.push(dest.clone());
-            self.library.folders.sort();
-            self.library.save();
-        }
-        self.library.open = true;
+        // Local imports join the gallery as files arrive. Cloud imports stay
+        // in staging until the uploader takes ownership of the originals.
+        self.watch_import_destination(&dest);
         cx.notify();
         match source {
             ImportSource::Volume(volume) => self.import_volume(volume, dest, area, cx),
@@ -3757,7 +3777,7 @@ impl Workspace {
         }
         // While the import runs, keep rescanning the watched folders so
         // each arriving photo shows up within a moment of landing.
-        if self.library.importing {
+        if local && self.library.importing {
             cx.spawn(async move |this, cx| loop {
                 cx.background_executor()
                     .timer(std::time::Duration::from_millis(1500))
@@ -3781,7 +3801,7 @@ impl Workspace {
     fn import_volume(
         &mut self,
         source: PathBuf,
-        dest: PathBuf,
+        dest: ImportDestination,
         area: Option<(library_geo::GeoBounds, String)>,
         cx: &mut Context<Self>,
     ) {
@@ -3791,7 +3811,7 @@ impl Workspace {
         cx.spawn(async move |this, cx| {
             let result = cx
                 .background_executor()
-                .spawn(async move { copy_dcim(&source, &copy_dest, &exts, bounds) })
+                .spawn(async move { copy_dcim(&source, copy_dest.path(), &exts, bounds) })
                 .await;
             this.update(cx, |ws, cx| {
                 ws.library.importing = false;
@@ -3819,7 +3839,7 @@ impl Workspace {
         &mut self,
         id: u64,
         name: String,
-        dest: PathBuf,
+        dest: ImportDestination,
         area: Option<(library_geo::GeoBounds, String)>,
         cx: &mut Context<Self>,
     ) {
@@ -3833,7 +3853,7 @@ impl Workspace {
                 photo_gps(path).is_some_and(|(lat, lon)| bounds.contains(lat, lon))
             }) as library_icc::KeepFilter
         });
-        if let Err(err) = library_icc::begin_import(id, dest.clone(), keep) {
+        if let Err(err) = library_icc::begin_import(id, dest.path().to_path_buf(), keep) {
             self.library.importing = false;
             self.report_device_failure(id, name, area, err, cx);
             return;
@@ -3899,24 +3919,27 @@ impl Workspace {
     #[cfg(target_os = "ios")]
     fn import_photos(&mut self, cx: &mut Context<Self>) {
         use super::library_photos;
-        let Some(home) = std::env::var("HOME").ok().map(PathBuf::from) else {
-            self.status = t("library.import.needs_home").into();
-            return;
+        let dest = match self.import_destination(|| {
+            let home = std::env::var("HOME")
+                .map(PathBuf::from)
+                .map_err(|_| anyhow::anyhow!(t("library.import.needs_home")))?;
+            Ok(home.join("Documents/Photos"))
+        }) {
+            Ok(dest) => dest,
+            Err(error) => {
+                self.status = error.to_string().into();
+                cx.notify();
+                return;
+            }
         };
-        let dest = home.join("Documents/Photos");
-        if let Err(err) = library_photos::begin_import(dest.clone()) {
+        if let Err(err) = library_photos::begin_import(dest.path().to_path_buf()) {
             self.status = tf!("library.import.photos_open_failed", error = err).into();
             cx.notify();
             return;
         }
         self.library.importing = true;
         self.status = t("library.import.choose_photos").into();
-        if !self.library.folders.contains(&dest) {
-            self.library.folders.push(dest.clone());
-            self.library.folders.sort();
-            self.library.save();
-        }
-        self.library.open = true;
+        self.watch_import_destination(&dest);
         cx.notify();
         cx.spawn(async move |this, cx| loop {
             cx.background_executor()
@@ -3941,7 +3964,9 @@ impl Workspace {
                         total = total
                     )
                     .into();
-                    ws.library_rescan(cx);
+                    if dest.is_local() {
+                        ws.library_rescan(cx);
+                    }
                 }
                 cx.notify();
                 false
@@ -3979,15 +4004,32 @@ impl Workspace {
 
     /// Shared tail of every camera import: watch the destination, tell
     /// the user what happened, show the result.
-    fn finish_camera_import(
+    pub(super) fn finish_camera_import(
         &mut self,
-        dest: PathBuf,
+        dest: ImportDestination,
         copied: usize,
         filtered: usize,
         failed: usize,
         area: Option<(library_geo::GeoBounds, String)>,
         cx: &mut Context<Self>,
     ) {
+        if let ImportDestination::Cloud { target, staging } = dest {
+            if copied > 0 {
+                self.upload_camera_import(target, staging, failed, cx);
+            } else {
+                self.status = t("cloud.upload.summary_none").into();
+                if failed > 0 {
+                    self.status = format!(
+                        "{} — {}",
+                        self.status,
+                        tn("library.import.n_failed", failed as u64)
+                    )
+                    .into();
+                }
+            }
+            return;
+        }
+        let dest = dest.path().to_path_buf();
         if !self.library.folders.contains(&dest) {
             self.library.folders.push(dest.clone());
             self.library.folders.sort();
@@ -4872,6 +4914,46 @@ mod tests {
         jpeg.extend_from_slice(&tiff);
         jpeg.extend_from_slice(&[0xFF, 0xD9]);
         jpeg
+    }
+
+    #[test]
+    fn cloud_lifecycle_tests_camera_import_keeps_the_place_filter() {
+        let camera = tempfile::tempdir().unwrap();
+        let dcim = camera.path().join("DCIM/100CAMERA");
+        std::fs::create_dir_all(&dcim).unwrap();
+        let located = times_square_jpeg();
+        std::fs::write(dcim.join("nyc.jpg"), &located).unwrap();
+        std::fs::write(dcim.join("unknown.jpg"), b"no GPS").unwrap();
+        std::fs::write(dcim.join("notes.txt"), b"not a photo").unwrap();
+        let staging = tempfile::tempdir().unwrap();
+        let extensions = vec!["jpg".into()];
+        let area = library_geo::GeoBounds {
+            south: 40.7,
+            north: 40.8,
+            west: -74.1,
+            east: -73.9,
+        };
+        assert_eq!(
+            copy_dcim(camera.path(), staging.path(), &extensions, Some(area)).unwrap(),
+            (1, 1)
+        );
+        assert_eq!(
+            std::fs::read(staging.path().join("nyc.jpg")).unwrap(),
+            located
+        );
+        assert!(!staging.path().join("unknown.jpg").exists());
+        assert!(!staging.path().join("notes.txt").exists());
+        assert_eq!(std::fs::read(dcim.join("nyc.jpg")).unwrap(), located);
+
+        let local = tempfile::tempdir().unwrap();
+        assert_eq!(
+            copy_dcim(camera.path(), local.path(), &extensions, None).unwrap(),
+            (2, 0)
+        );
+        assert_eq!(
+            copy_dcim(camera.path(), local.path(), &extensions, None).unwrap(),
+            (0, 0)
+        );
     }
 
     #[test]

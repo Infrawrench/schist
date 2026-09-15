@@ -525,6 +525,19 @@ pub struct Person {
     pub id: String,
     pub name: String,
     pub asset_count: u64,
+    #[serde(default)]
+    pub avatar: Option<PersonAvatar>,
+}
+/// A representative face, including a thumbnail ticket for photos outside the
+/// current page. Older providers may send only the asset ID and rectangle.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+pub struct PersonAvatar {
+    pub asset_id: String,
+    pub rect: FaceRect,
+    #[serde(default)]
+    pub revision: Option<u64>,
+    #[serde(default)]
+    pub thumbnail_url: Option<String>,
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct FaceRect {
@@ -575,5 +588,34 @@ mod people_contract_tests {
         let current: Snapshot=serde_json::from_str(r#"{"kind":"assets","revision":1,"total":0,"offset":0,"items":[],"screening":{"pending":2,"blocked":1},"people":{"enabled":true,"pending":1,"unnamed":2,"people":[{"id":"p","name":"Ann","asset_count":3}]}}"#).unwrap();
         assert_eq!(current.screening.unwrap().pending, 2);
         assert_eq!(current.people.unwrap().people[0].asset_count, 3);
+    }
+    #[test]
+    fn people_avatars_accept_legacy_metadata_and_off_page_thumbnail_tickets() {
+        let mut person = serde_json::json!({"id": "p", "name": "Ann", "asset_count": 3});
+        assert!(serde_json::from_value::<Person>(person.clone())
+            .unwrap()
+            .avatar
+            .is_none());
+        person["avatar"] = serde_json::json!({
+            "asset_id": "photo", "rect": {"x": 0.1, "y": 0.2, "w": 0.3, "h": 0.4}
+        });
+        let legacy: Person = serde_json::from_value(person.clone()).unwrap();
+        assert_eq!(legacy.avatar.as_ref().unwrap().asset_id, "photo");
+        assert_eq!(legacy.avatar.as_ref().unwrap().revision, None);
+        assert_eq!(legacy.avatar.unwrap().thumbnail_url, None);
+        person["avatar"]["revision"] = 7.into();
+        person["avatar"]["thumbnail_url"] = "https://cloud.test/api/download/ticket".into();
+        let current: Person = parse(value(&person)).unwrap();
+        let avatar = current.avatar.unwrap();
+        assert_eq!(avatar.revision, Some(7));
+        assert_eq!(
+            avatar.thumbnail_url.as_deref(),
+            Some("https://cloud.test/api/download/ticket")
+        );
+        person["avatar"] = serde_json::Value::Null;
+        assert!(serde_json::from_value::<Person>(person)
+            .unwrap()
+            .avatar
+            .is_none());
     }
 }

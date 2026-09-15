@@ -1705,6 +1705,11 @@ pub(crate) fn dialog(
         _ => "Schist Cloud",
     };
     let mut body = div().flex().flex_col().gap_2();
+    if matches!(kind, "face-name" | "face-add") {
+        if let Some(preview) = super::cloud_people::naming_preview(ws, &fields) {
+            body = body.child(preview);
+        }
+    }
     if kind == "people-rename" {
         let id = fields
             .iter()

@@ -75,8 +75,23 @@ impl Workspace {
     }
     #[cfg(target_os = "android")]
     pub(super) fn import_mobile_media(&mut self, cx: &mut Context<Self>) {
-        match crate::video::platform::begin_import() {
+        let destination = match self
+            .library
+            .import_cloud
+            .as_ref()
+            .map(|target| target.destination(&self.cloud))
+            .transpose()
+        {
+            Ok(destination) => destination,
+            Err(error) => {
+                self.status = error.to_string().into();
+                cx.notify();
+                return;
+            }
+        };
+        match crate::video::platform::begin_import(destination.as_ref().map(|d| d.path())) {
             Ok(()) => {
+                self.library.media_import_destination = destination;
                 self.library.importing = true;
                 self.status = t("video.importing").into();
             }
@@ -87,7 +102,8 @@ impl Workspace {
     #[cfg(target_os = "android")]
     pub(super) fn watch_media_imports(&mut self, cx: &mut Context<Self>) {
         cx.spawn(async move |this, cx| {
-            let mut import_failed = false;
+            let mut import_failed = 0;
+            let mut imported = 0;
             loop {
                 cx.background_executor()
                     .timer(std::time::Duration::from_millis(300))
@@ -111,33 +127,52 @@ impl Workspace {
                         let mut changed = false;
                         for event in events {
                             if let Some(path) = event.path {
-                                if let Some(folder) = path.parent() {
-                                    if !ws.library.folders.iter().any(|f| f == folder) {
-                                        ws.library.folders.push(folder.to_path_buf());
-                                        ws.library.save();
-                                    }
+                                if !event.open {
+                                    imported += 1;
                                 }
-                                changed = true;
-                                if event.open {
-                                    ws.load_file(path, cx);
-                                } else {
-                                    ws.library.open = true;
+                                if event.open || ws.library.media_import_destination.is_none() {
+                                    if let Some(folder) = path.parent() {
+                                        if !ws.library.folders.iter().any(|f| f == folder) {
+                                            ws.library.folders.push(folder.to_path_buf());
+                                            ws.library.save();
+                                        }
+                                    }
+                                    changed = true;
+                                    if event.open {
+                                        ws.load_file(path, cx);
+                                    } else {
+                                        ws.library.open = true;
+                                    }
                                 }
                             }
                             if let Some(error) = event.error {
-                                import_failed = true;
+                                if !event.open {
+                                    import_failed += 1;
+                                }
                                 log::warn!("media import/handoff: {error}");
                                 ws.status = t("video.import_failed_simple").into();
                                 if let Some(video) = ws.library.video.as_mut() {
                                     video.set_message(t("video.import_failed_simple").into());
                                 }
                             }
-                            if event.done {
+                            if event.done && !event.open {
                                 ws.library.importing = false;
-                                if !import_failed {
+                                if let Some(destination) =
+                                    ws.library.media_import_destination.take()
+                                {
+                                    ws.finish_camera_import(
+                                        destination,
+                                        imported,
+                                        0,
+                                        import_failed,
+                                        None,
+                                        cx,
+                                    );
+                                } else if import_failed == 0 {
                                     ws.status = t("common.ready").into();
                                 }
-                                import_failed = false;
+                                import_failed = 0;
+                                imported = 0;
                             }
                         }
                         if changed {
