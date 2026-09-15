@@ -346,6 +346,10 @@ impl Workspace {
     /// Open `path` without blocking the window: the read and decode run
     /// on a background thread and the document is installed when ready.
     pub fn load_file(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        if palettes::is_palette(&path) {
+            self.load_palette(path, cx);
+            return;
+        }
         #[cfg(not(target_arch = "wasm32"))]
         if schist_gallery::is_video(&path) {
             self.open_video(path, cx);

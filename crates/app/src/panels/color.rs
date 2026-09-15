@@ -56,6 +56,7 @@ pub(super) const PALETTE: [u32; 16] = [
 
 pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let fg = ws.editor.foreground.to_u8();
+    let swatches = palette_controls(ws, cx);
     div()
         .flex()
         .flex_col()
@@ -68,27 +69,30 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
                 ws.open_context_menu(ContextTarget::Color, ev.position, cx);
             }),
         )
-        .child(div().flex().flex_row().flex_wrap().gap_1().children(
-            PALETTE.iter().enumerate().map(|(i, &hex)| {
-                Swatch::new(("palette-swatch", i), gpui::rgb(hex))
-                    .rounded_none()
-                    .border_color(gpui::rgb(palette().divider))
-                    .on_click(cx.listener(move |ws, ev: &gpui::ClickEvent, _w, cx| {
-                        let color = Rgba::from_u8(
-                            ((hex >> 16) & 0xFF) as u8,
-                            ((hex >> 8) & 0xFF) as u8,
-                            (hex & 0xFF) as u8,
-                            255,
-                        );
-                        if ev.modifiers().alt {
-                            ws.editor.background = color;
-                        } else {
-                            ws.editor.foreground = color;
-                        }
-                        cx.notify();
-                    }))
-            }),
-        ))
+        .child(swatches)
+        .when(ws.palettes.selected().is_none(), |panel| {
+            panel.child(div().flex().flex_row().flex_wrap().gap_1().children(
+                PALETTE.iter().enumerate().map(|(i, &hex)| {
+                    Swatch::new(("palette-swatch", i), gpui::rgb(hex))
+                        .rounded_none()
+                        .border_color(gpui::rgb(palette().divider))
+                        .on_click(cx.listener(move |ws, ev: &gpui::ClickEvent, _w, cx| {
+                            let color = Rgba::from_u8(
+                                ((hex >> 16) & 0xFF) as u8,
+                                ((hex >> 8) & 0xFF) as u8,
+                                (hex & 0xFF) as u8,
+                                255,
+                            );
+                            if ev.modifiers().alt {
+                                ws.editor.background = color;
+                            } else {
+                                ws.editor.foreground = color;
+                            }
+                            cx.notify();
+                        }))
+                }),
+            ))
+        })
         .child(slider(
             "col-r",
             "R",
@@ -136,4 +140,158 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
         )
         // Photoshop's spectrum bar: drag along it to take a hue directly.
         .child(crate::color_picker::hue_ramp(ws, cx))
+}
+
+fn palette_controls(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    use crate::workspace::palettes::SEARCH_FIELD;
+
+    let selected = ws.palettes.selected();
+    let popup = Popup::Field("color-palette");
+    let options = std::iter::once((t("common.default").into(), 0))
+        .chain(
+            ws.palettes
+                .entries
+                .iter()
+                .enumerate()
+                .map(|(i, p)| (p.name.clone().into(), i + 1)),
+        )
+        .collect();
+    let picker = ui::dropdown(
+        &ws.dropdown,
+        ui::Dropdown {
+            popup,
+            is_open: ws.open_popup == Some(popup),
+            current: ws.palettes.active,
+            label: selected.map_or_else(|| t("common.default").into(), |p| p.name.clone().into()),
+            width: 0.0,
+            options,
+        },
+        |ws, value, cx| ws.select_palette(value, cx),
+        cx,
+    );
+    let mut root = div().flex().flex_col().gap_1().child(picker).child(
+        div()
+            .flex()
+            .gap_2()
+            .child(
+                Link::new("import-palette", t("common.import"))
+                    .text_size(px(10.0))
+                    .on_click(cx.listener(|ws, _, _, cx| ws.import_palette(cx))),
+            )
+            .when(selected.is_some(), |row| {
+                row.child(
+                    Link::new("remove-palette", t("common.remove"))
+                        .text_size(px(10.0))
+                        .on_click(cx.listener(|ws, _, _, cx| ws.remove_palette(cx))),
+                )
+            }),
+    );
+    if let Some(selected) = selected {
+        let active = ws.focused_field == Some(SEARCH_FIELD);
+        let query = if active {
+            &ws.field_buffer
+        } else {
+            &ws.palette_search
+        };
+        root = root.child(
+            TextInput::new(SEARCH_FIELD, query.clone())
+                .placeholder(t("common.search"))
+                .active(active)
+                .caret_on(ws.caret_on())
+                .cursor(if active { ws.field_cursor } else { 0 })
+                .selection(if active { ws.field_selection() } else { 0..0 })
+                .w_full()
+                .on_focus(cx.listener(|ws, press: &ui::TextPress, _, cx| {
+                    ws.press_field(SEARCH_FIELD, ws.palette_search.clone(), press);
+                    cx.notify();
+                }))
+                .on_select_to(cx.listener(|ws, offset: &usize, _, cx| {
+                    ws.drag_field(SEARCH_FIELD, *offset);
+                    cx.notify();
+                })),
+        );
+        let query = query.trim().to_lowercase();
+        let indices: Vec<usize> = selected
+            .swatches
+            .iter()
+            .enumerate()
+            .filter(|(_, s)| {
+                query.is_empty()
+                    || s.name.to_lowercase().contains(&query)
+                    || s.group.to_lowercase().contains(&query)
+            })
+            .map(|(i, _)| i)
+            .collect();
+        let count = indices.len();
+        let entity = cx.entity().downgrade();
+        let rows = gpui::uniform_list("imported-palette", count, move |range, _, cx| {
+            entity
+                .update(cx, |ws, cx| {
+                    let Some(palette) = ws.palettes.selected() else {
+                        return Vec::new();
+                    };
+                    range
+                        .filter_map(|row| {
+                            let index = *indices.get(row)?;
+                            let swatch = palette.swatches.get(index)?;
+                            let color = swatch.color.to_rgb();
+                            let [r, g, b, _] = color.to_u8();
+                            let hex = format!("#{r:02X}{g:02X}{b:02X}");
+                            let label = if swatch.name.is_empty() {
+                                hex.clone()
+                            } else {
+                                swatch.name.clone()
+                            };
+                            let tip = if swatch.group.is_empty() {
+                                format!("{label} · {hex}")
+                            } else {
+                                format!("{} / {label} · {hex}", swatch.group)
+                            };
+                            Some(
+                                Button::bare(("named-swatch", index))
+                                    .ghost()
+                                    .w_full()
+                                    .h(px(26.0))
+                                    .px_1()
+                                    .gap_2()
+                                    .justify_start()
+                                    .tooltip(tip, None)
+                                    .child(Swatch::new(
+                                        ("named-swatch-color", index),
+                                        swatch_hex(color),
+                                    ))
+                                    .child(
+                                        div().text_size(px(11.0)).truncate().child(label.clone()),
+                                    )
+                                    .on_click(cx.listener(
+                                        move |ws, ev: &gpui::ClickEvent, _, cx| {
+                                            ws.commit_focused_field();
+                                            if ev.modifiers().alt {
+                                                ws.editor.background = color;
+                                            } else {
+                                                ws.editor.foreground = color;
+                                            }
+                                            ws.status = label.clone().into();
+                                            cx.notify();
+                                        },
+                                    )),
+                            )
+                        })
+                        .collect::<Vec<_>>()
+                })
+                .unwrap_or_default()
+        })
+        .h(px(156.0))
+        .w_full();
+        root = if count == 0 {
+            root.child(
+                div()
+                    .text_size(px(11.0))
+                    .child(t("dialog.file_picker.empty")),
+            )
+        } else {
+            root.child(div().overflow_hidden().child(rows))
+        };
+    }
+    root
 }

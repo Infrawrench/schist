@@ -283,6 +283,24 @@ crash recovery, and a fully remappable keymap. Right-click the layers,
 history, colour or navigator panels — or the canvas — for Photoshop-style
 context menus (layer properties, duplicate, clipping mask, reorder, merge…).
 
+## Color palettes
+
+Custom Photoshop palettes can be loaded with **Import** in the **Color**
+panel, or by opening or dropping an `.aco`, `.ase`, or `.acb` file. The
+palette selector keeps the built-in colors and your imported palettes;
+imports and the selected palette persist across launches. Search filters
+named swatches and ASE groups. Click a swatch to set the foreground color,
+or Alt-click to set the background. **Remove** removes an imported palette
+from Schist without changing its source file.
+
+This includes user-supplied Pantone ACB color books; no Pantone libraries
+are bundled. RGB, HSB, CMYK, D50 Lab, and grayscale swatches are supported
+where the format provides them. Names, source components, and ASE spot
+flags are retained, but painting uses RGB approximations, with unprofiled
+CMYK conversion. This does not create spot-ink channels or guarantee a
+print match. Legacy ACO entries containing opaque ink-library references
+are rejected; use an ACB book or swatches with explicit color values.
+
 ## Keyboard
 
 Photoshop's defaults (⌘ on macOS, Ctrl elsewhere):

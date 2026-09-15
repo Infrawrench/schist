@@ -54,6 +54,7 @@ mod context;
 mod docs;
 mod edit_ops;
 mod export;
+pub mod palettes;
 #[cfg(not(target_arch = "wasm32"))]
 mod video;
 #[cfg(any(target_os = "ios", target_os = "android"))]
@@ -472,6 +473,8 @@ pub struct Workspace {
     color_epoch: u64,
     /// Colour management settings and the compiled display transform.
     pub color: schist_colormgmt::ColorSettings,
+    pub palettes: palettes::Palettes,
+    pub palette_search: String,
     display_transform: Option<Arc<schist_colormgmt::ColorTransform>>,
     proof_transform: Option<Arc<schist_colormgmt::ColorTransform>>,
     /// The AI sidebar: transcript, conversation worker, MCP queues.
@@ -1558,6 +1561,8 @@ impl Workspace {
             pending_fit: false,
             color_epoch: 0,
             color: schist_colormgmt::ColorSettings::default(),
+            palettes: palettes::Palettes::load(),
+            palette_search: String::new(),
             display_transform: None,
             proof_transform: None,
             #[cfg(not(sandboxed))]

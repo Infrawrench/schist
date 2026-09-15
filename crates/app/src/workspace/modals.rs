@@ -348,6 +348,7 @@ impl Workspace {
             || id == "face-name"
             || id == "person-name"
             || id == file_picker::NAME_FIELD
+            || id == palettes::SEARCH_FIELD
             || id.starts_with("cloud-");
         let hex = id == "cp-hex";
         // The caret belongs to the textual fields; keep it on the rails
@@ -488,6 +489,10 @@ impl Workspace {
 
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
         let buffer = self.field_buffer.clone();
+        if id == palettes::SEARCH_FIELD {
+            self.palette_search = buffer;
+            return;
+        }
         // The file picker's name: committed on Enter before the dialog
         // confirms, so the confirm reads it from the picker.
         if id == file_picker::NAME_FIELD {
@@ -784,7 +789,9 @@ impl Workspace {
         // always-matching "Workspace" context -- got there ahead of it
         // and closed the whole dialog on the first press.
         if self.focused_field.is_some()
-            && (self.modal.is_some() || self.type_field_option().is_some())
+            && (self.modal.is_some()
+                || self.type_field_option().is_some()
+                || self.focused_field == Some(palettes::SEARCH_FIELD))
         {
             self.focused_field = None;
             self.field_buffer.clear();
