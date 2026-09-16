@@ -1,0 +1,16 @@
+[package]
+name = "schist-app-ai"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-i18n.workspace = true
+anyhow.workspace = true
+log.workspace = true
+serde_json.workspace = true
+futures.workspace = true
+claude-agent-sdk-rs.workspace = true
+codex-codes.workspace = true
+tokio.workspace = true
+async-trait.workspace = true

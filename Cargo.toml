@@ -4,6 +4,18 @@ resolver = "2"
 exclude = ["examples/plugins/sepia-filter", "examples/plugins/pgm-codec"]
 members = [
     "crates/app",
+    "crates/gallery-ui",
+    "crates/map-view",
+    "crates/camera-sync",
+    "crates/cloud-transfer",
+    "crates/editor",
+    "crates/app-settings",
+    "crates/app-services",
+    "crates/video",
+    "crates/app-ai",
+    "crates/app-fonts",
+    "crates/app-actions",
+    "crates/app-platform",
     "crates/core",
     "crates/document",
     "crates/people-worker",
@@ -55,6 +67,18 @@ repository = "https://github.com/Infrawrench/schist"
 
 [workspace.dependencies]
 # internal
+schist-gallery-ui = { path = "crates/gallery-ui" }
+schist-map-view = { path = "crates/map-view" }
+schist-camera-sync = { path = "crates/camera-sync" }
+schist-cloud-transfer = { path = "crates/cloud-transfer" }
+schist-editor = { path = "crates/editor" }
+schist-app-settings = { path = "crates/app-settings" }
+schist-app-services = { path = "crates/app-services" }
+schist-video = { path = "crates/video" }
+schist-app-ai = { path = "crates/app-ai" }
+schist-app-fonts = { path = "crates/app-fonts" }
+schist-app-actions = { path = "crates/app-actions" }
+schist-app-platform = { path = "crates/app-platform" }
 schist-core = { path = "crates/core" }
 schist-document = { path = "crates/document" }
 schist-plugin-api = { path = "crates/plugin-api" }

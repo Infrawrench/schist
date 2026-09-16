@@ -113,6 +113,10 @@ help:
 	@echo 'make release          build and package into dist/'
 	@echo
 	@echo 'make app              just the Schist binary, no helpers'
+	@echo 'make check-app        type-check all application crates and their tests'
+	@echo 'make test-app         test all application crates'
+	@echo 'make lint-app         lint all application crates'
+	@echo 'make check-app-web    type-check the browser application'
 	@echo 'make web              the browser build, into dist/web/'
 	@echo 'make android          the Android package, into dist/android/'
 	@echo 'make helpers          just the .8bf plug-in helpers, beside the binary'
@@ -141,6 +145,20 @@ stage-helpers:
 app:
 	$(CARGO) build $(PROFILE_FLAG) -p schist-app
 
+# Check and test the launcher plus every crate extracted from the app.
+APP_CRATES := app editor app-actions app-ai app-fonts app-platform app-services \
+              app-settings camera-sync cloud-transfer gallery-ui map-view video
+APP_PACKAGES := $(foreach crate,$(APP_CRATES),-p schist-$(crate))
+.PHONY: check-app test-app lint-app check-app-web
+check-app:
+	$(CARGO) check $(APP_PACKAGES) --all-targets
+test-app:
+	$(CARGO) test $(APP_PACKAGES)
+lint-app:
+	$(CARGO) clippy $(APP_PACKAGES) --all-targets -- -D warnings
+check-app-web:
+	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
+
 # The browser deployment, assembled into dist/web/. A script rather than
 # rules here: it is one linear pipeline (bindgen, opt, chunk, manifest)
 # with nothing make's dependency graph would add. See docs/web.md.
@@ -159,7 +177,7 @@ ios:
 ios-device:
 	./tools/ios-build.sh $(if $(filter debug,$(PROFILE)),--debug,) --device
 check-camera-sync:
-	$(CARGO) test -p schist-app camera_sync
+	$(CARGO) test -p schist-camera-sync
 check-camera-sync-ios:
 	$(CARGO) check -p schist-app --target aarch64-apple-ios
 check-camera-sync-android:
@@ -279,7 +297,8 @@ check-readme: check-text check-gpu-fx
 .PHONY: check-cloud
 check-cloud:
 	$(CARGO) test -p schist-cloud
-	$(CARGO) test -p schist-app cloud_lifecycle_tests
+	$(CARGO) test -p schist-editor cloud_lifecycle_tests
+	$(CARGO) test -p schist-cloud-transfer
 	$(CARGO) check -p schist-app
 
 # Requires wasm-bindgen-test-runner and a browser WebDriver (e.g. CHROMEDRIVER).
@@ -308,29 +327,29 @@ check-people:
 
 .PHONY: format-cloud
 format-cloud:
-	$(CARGO) fmt -p schist-cloud -p schist-app -p schist-document -p schist-people-worker
+	$(CARGO) fmt -p schist-cloud $(APP_PACKAGES) -p schist-document -p schist-people-worker
 
 .PHONY: check-gallery check-cloud-browser
 check-gallery:
-	$(CARGO) test -p schist-app
+	$(CARGO) test -p schist-editor -p schist-gallery-ui -p schist-map-view
 check-cloud-browser:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
 
 .PHONY: check-feature-flags
 check-feature-flags:
-	$(CARGO) test -p schist-app --lib feature_flags::
-	$(CARGO) test -p schist-app --lib feature_flag_tests::
+	$(CARGO) test -p schist-app-settings --lib feature_flags::
+	$(CARGO) test -p schist-editor --lib feature_flag_tests::
 	$(CARGO) test -p schist-app --test feature_flags
 
 .PHONY: lint-cloud
 lint-cloud:
-	$(CARGO) clippy -p schist-cloud -p schist-app -p schist-document -p schist-people-worker --all-targets -- -D warnings
+	$(CARGO) clippy -p schist-cloud $(APP_PACKAGES) -p schist-document -p schist-people-worker --all-targets -- -D warnings
 
 # Photoshop palette readers, workspace integration, and browser compilation.
 .PHONY: check-palettes check-palettes-wasm
 check-palettes:
 	$(CARGO) test -p schist-color
-	$(CARGO) test -p schist-app --lib workspace::palettes::tests
+	$(CARGO) test -p schist-editor --lib workspace::palettes::tests
 	$(CARGO) test -p schist-i18n
 check-palettes-wasm:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
@@ -339,23 +358,23 @@ check-palettes-wasm:
 .PHONY: check-video format-video
 check-video:
 	$(CARGO) test -p schist-gallery -p schist-i18n
-	$(CARGO) test -p schist-app
+	$(CARGO) test -p schist-app -p schist-editor -p schist-video
 	$(MAKE) check-video-native
 
 .PHONY: check-video-native
 check-video-native:
-	$(CARGO) test -p schist-app video::native_tests -- --include-ignored
+	$(CARGO) test -p schist-video native_tests -- --include-ignored
 format-video:
-	$(CARGO) fmt -p schist-app -p schist-gallery
+	$(CARGO) fmt -p schist-app -p schist-editor -p schist-gallery -p schist-video
 
 .PHONY: lint-video
 lint-video:
-	$(CARGO) clippy -p schist-app -p schist-gallery --all-targets -- -D warnings
+	$(CARGO) clippy -p schist-app -p schist-editor -p schist-gallery -p schist-video --all-targets -- -D warnings
 
 # Regenerate our small native-encoded H.264 test clips (macOS only).
 .PHONY: video-fixtures
 video-fixtures:
-	swift tools/video-fixtures.swift crates/app/tests/fixtures/video
+	swift tools/video-fixtures.swift crates/video/tests/fixtures/video
 
 .PHONY: check-video-ios check-video-android
 check-video-ios:
@@ -367,4 +386,4 @@ check-video-android:
 check-video-android-native:
 	./tools/android-build.sh --video-test
 check-video-ios-native:
-	IOS_TEST_FILTER=video:: ./tools/ios-test.sh -p schist-app --lib
+	./tools/ios-test.sh -p schist-video --lib

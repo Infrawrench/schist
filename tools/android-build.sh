@@ -121,7 +121,7 @@ if [ "$video_test" = 1 ]; then
   remote="/data/local/tmp/schist-video-test-$$"
   adb shell mkdir -p "$remote"
   trap 'adb shell rm -rf "$remote" >/dev/null 2>&1 || true' EXIT
-  adb push "$stage/classes.dex" crates/app/tests/fixtures/video/*.mp4 "$remote/" >/dev/null
+  adb push "$stage/classes.dex" crates/video/tests/fixtures/video/*.mp4 "$remote/" >/dev/null
   adb shell "CLASSPATH=$remote/classes.dex app_process / com.infrawrench.schist.VideoDecoderTest $remote"
   exit 0
 fi

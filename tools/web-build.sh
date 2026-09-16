@@ -114,7 +114,7 @@ rm -f "$OUT"/pkg/*.d.ts
 echo '-- assets'
 python3 tools/sync-i18n.py --check
 cp web/index.html web/loader.js web/i18n.js web/i18n-data.js "$OUT/"
-cp crates/app/assets/icons/*.svg "$OUT/assets/icons/"
+cp crates/app-platform/assets/icons/*.svg "$OUT/assets/icons/"
 cp web/fonts/*.ttf web/fonts/*.otf web/fonts/LICENSE-* "$OUT/assets/fonts/"
 cp crates/neural/models/*.onnx "$OUT/assets/models/"
 cp assets/logo/schist.svg "$OUT/assets/logo/"
