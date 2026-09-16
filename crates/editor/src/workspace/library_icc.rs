@@ -13,13 +13,17 @@
 //! pumping. The `Mutex` around [`Shared`] protects only the Rust
 //! bookkeeping; the workspace polls it from a timer to draw progress.
 
+pub(super) use super::camera_import::downloaded::KeepFilter;
+use super::camera_import::{
+    downloaded::{Outcome, Processor},
+    ImportDestination,
+};
 use objc2::rc::Retained;
 use objc2::runtime::{AnyClass, AnyObject, Bool, ClassBuilder, Sel};
 use objc2::{msg_send, sel};
 use objc2_foundation::NSString;
 use schist_i18n::t;
 use std::ffi::c_void;
-use std::path::{Path, PathBuf};
 use std::sync::{Mutex, OnceLock};
 
 #[link(name = "ImageCaptureCore", kind = "framework")]
@@ -42,18 +46,15 @@ struct Device {
     obj: ObjPtr,
 }
 
-/// The per-file veto a place filter installs: given the downloaded
-/// file, keep it or not.
-pub(super) type KeepFilter = Box<dyn Fn(&Path) -> bool + Send>;
-
 /// One import in flight. `keep` decides a downloaded file's fate (the
 /// place filter); a file it declines is deleted and counted, so the
 /// destination ends up holding exactly what was asked for.
 struct Job {
     device_id: u64,
     device: ObjPtr,
-    dest: PathBuf,
-    keep: Option<KeepFilter>,
+    dest: ImportDestination,
+    processor: Processor,
+    generation: usize,
     /// Downloads requested; `None` until the catalog has been read.
     total: Option<usize>,
     done: usize,
@@ -67,6 +68,7 @@ struct Job {
 struct Shared {
     devices: Vec<Device>,
     next_id: u64,
+    next_import: usize,
     job: Option<Job>,
     started: bool,
 }
@@ -74,6 +76,7 @@ struct Shared {
 static SHARED: Mutex<Shared> = Mutex::new(Shared {
     devices: Vec::new(),
     next_id: 1,
+    next_import: 1,
     job: None,
     started: false,
 });
@@ -142,8 +145,12 @@ pub(super) fn devices() -> Vec<(u64, String)> {
 
 /// Open the device and start pulling its photos into `dest`. The rest
 /// happens in delegate callbacks; poll [`poll_import`] for progress.
-pub(super) fn begin_import(id: u64, dest: PathBuf, keep: Option<KeepFilter>) -> Result<(), String> {
-    std::fs::create_dir_all(&dest).map_err(|e| e.to_string())?;
+pub(super) fn begin_import(
+    id: u64,
+    dest: ImportDestination,
+    keep: Option<KeepFilter>,
+) -> Result<(), String> {
+    std::fs::create_dir_all(dest.path()).map_err(|e| e.to_string())?;
     let device = {
         let mut shared = lock();
         if shared.job.is_some() {
@@ -153,11 +160,15 @@ pub(super) fn begin_import(id: u64, dest: PathBuf, keep: Option<KeepFilter>) -> 
             return Err(t("library.import.camera_gone").into());
         };
         let ptr = device.obj.0;
+        let generation = shared.next_import;
+        shared.next_import += 1;
+        let processor = Processor::new(dest.clone(), keep);
         shared.job = Some(Job {
             device_id: id,
             device: ObjPtr(ptr),
             dest,
-            keep,
+            processor,
+            generation,
             total: None,
             done: 0,
             copied: 0,
@@ -179,6 +190,22 @@ pub(super) fn begin_import(id: u64, dest: PathBuf, keep: Option<KeepFilter>) -> 
 
 /// A snapshot of the running import, or `None` when there is none.
 pub(super) fn poll_import() -> Option<ImportStatus> {
+    let complete = {
+        let mut shared = lock();
+        let job = shared.job.as_mut()?;
+        for outcome in job.processor.results.try_iter() {
+            job.done += 1;
+            match outcome {
+                Outcome::Copied => job.copied += 1,
+                Outcome::Filtered => job.filtered += 1,
+                Outcome::Failed => job.failed += 1,
+            }
+        }
+        job.finished.is_none() && job.total.is_some_and(|total| job.done >= total)
+    };
+    if complete {
+        conclude(Ok(()));
+    }
     let shared = lock();
     let job = shared.job.as_ref()?;
     Some(ImportStatus {
@@ -416,16 +443,21 @@ extern "C" fn access_granted(_this: *mut AnyObject, _sel: Sel, _device: *mut Any
 /// The catalog is complete: queue every media file for download, except
 /// the ones the destination already holds at the same size.
 extern "C" fn device_ready(_this: *mut AnyObject, _sel: Sel, device: *mut AnyObject) {
-    let (dest, active) = {
+    let (dest, generation, local) = {
         let shared = lock();
         match shared.job.as_ref() {
-            Some(job) if job.finished.is_none() => (job.dest.clone(), true),
-            _ => (PathBuf::new(), false),
+            Some(job)
+                if job.device.0 == device && job.finished.is_none() && job.total.is_none() =>
+            {
+                (
+                    job.dest.path().to_path_buf(),
+                    job.generation,
+                    job.dest.is_local(),
+                )
+            }
+            _ => return,
         }
     };
-    if !active {
-        return;
-    }
     let delegate = delegate();
     let mut queued = 0usize;
     let mut already = 0usize;
@@ -449,9 +481,10 @@ extern "C" fn device_ready(_this: *mut AnyObject, _sel: Sel, device: *mut AnyObj
                 continue;
             };
             let size: i64 = msg_send![file, fileSize];
-            let existing = std::fs::metadata(dest.join(&name))
-                .map(|m| m.len() as i64 == size)
-                .unwrap_or(false);
+            let existing = local
+                && std::fs::metadata(dest.join(&name))
+                    .map(|m| m.len() as i64 == size)
+                    .unwrap_or(false);
             if existing {
                 already += 1;
                 continue;
@@ -466,7 +499,7 @@ extern "C" fn device_ready(_this: *mut AnyObject, _sel: Sel, device: *mut AnyObj
                 options: options,
                 downloadDelegate: delegate,
                 didDownloadSelector: sel!(didDownloadFile:error:options:contextInfo:),
-                contextInfo: std::ptr::null_mut::<c_void>()
+                contextInfo: generation as *mut c_void
             ];
             queued += 1;
         }
@@ -482,16 +515,26 @@ extern "C" fn device_ready(_this: *mut AnyObject, _sel: Sel, device: *mut AnyObj
     }
 }
 
-/// One download settled. Apply the place filter to the file on disk,
-/// and when this was the last one, wrap the whole import up.
+/// One download settled. Queue filesystem work without blocking the main loop.
+/// The poller counts a download only after the background filter has finished.
 extern "C" fn did_download(
     _this: *mut AnyObject,
     _sel: Sel,
     file: *mut AnyObject,
     error: *mut AnyObject,
     options: *mut AnyObject,
-    _context: *mut c_void,
+    context: *mut c_void,
 ) {
+    let (dest, sender) = {
+        let shared = lock();
+        let Some(job) = shared.job.as_ref() else {
+            return;
+        };
+        if job.generation != context as usize || job.finished.is_some() {
+            return;
+        }
+        (job.dest.path().to_path_buf(), job.processor.sender.clone())
+    };
     let path = unsafe {
         let saved: *mut AnyObject = if options.is_null() {
             std::ptr::null_mut()
@@ -506,40 +549,17 @@ extern "C" fn did_download(
                 ns_string(name_obj)
             }
         });
-        name.and_then(|n| lock().job.as_ref().map(|j| j.dest.join(n)))
+        name.map(|n| dest.join(n))
     };
     let failed = if error.is_null() {
         None
     } else {
         Some(unsafe { error_string(error) })
     };
-    let complete = {
-        let mut shared = lock();
-        let Some(job) = shared.job.as_mut() else {
-            return;
-        };
-        job.done += 1;
-        match (&failed, &path) {
-            (Some(what), _) => {
-                log::warn!("gallery: a download failed: {what}");
-                job.failed += 1;
-            }
-            (None, Some(path)) => {
-                let keep = job.keep.as_ref().map(|k| k(path)).unwrap_or(true);
-                if keep {
-                    job.copied += 1;
-                } else {
-                    // Outside the asked-for place: not this import's.
-                    let _ = std::fs::remove_file(path);
-                    job.filtered += 1;
-                }
-            }
-            (None, None) => job.failed += 1,
-        }
-        job.total.is_some_and(|total| job.done >= total)
-    };
-    if complete {
-        log::info!("gallery: camera import finished");
-        conclude(Ok(()));
+    if let Some(error) = failed {
+        log::warn!("gallery: a download failed: {error}");
+        let _ = sender.send(None);
+    } else {
+        let _ = sender.send(path);
     }
 }

@@ -162,38 +162,20 @@ pub(crate) const PAGE_SIZE: u64 = 200;
 /// in memory (~256 KB each) before the cache shrinks to the page.
 const THUMBNAIL_WORKERS: usize = 8;
 const THUMBNAIL_CACHE: usize = 600;
-/// Camera originals must stay on disk until the upload task finishes. Keeping
-/// their temporary directory here also cleans it up on error or cancellation.
-pub(super) enum LocalUpload {
-    Paths(Vec<PathBuf>),
-    #[cfg(not(target_arch = "wasm32"))]
-    Camera {
-        directory: Arc<tempfile::TempDir>,
-        failed: usize,
-    },
-}
-
-impl LocalUpload {
-    fn files(&self) -> Result<Vec<(PathBuf, Option<String>)>> {
-        let paths: &[PathBuf] = match self {
-            Self::Paths(paths) => paths,
+fn local_upload_files(paths: &[PathBuf]) -> Result<Vec<(PathBuf, Option<String>)>> {
+    let mut files = Vec::new();
+    for path in paths {
+        if path.is_dir() {
+            enumerate_files(path, path, &mut files)?;
+        } else {
             #[cfg(not(target_arch = "wasm32"))]
-            Self::Camera { directory, .. } => &[directory.path().to_path_buf()],
-        };
-        let mut files = Vec::new();
-        for path in paths {
-            if path.is_dir() {
-                enumerate_files(path, path, &mut files)?;
-            } else {
-                #[cfg(not(target_arch = "wasm32"))]
-                let relative = None;
-                #[cfg(target_arch = "wasm32")]
-                let relative = crate::web::cloud_relative_path(path);
-                files.push((path.clone(), relative));
-            }
+            let relative = None;
+            #[cfg(target_arch = "wasm32")]
+            let relative = crate::web::cloud_relative_path(path);
+            files.push((path.clone(), relative));
         }
-        Ok(files)
     }
+    Ok(files)
 }
 
 pub(crate) struct CloudState {
@@ -282,7 +264,7 @@ pub(crate) struct CloudState {
     /// The camera-roll backup, while the app is open.
     #[cfg(not(target_arch = "wasm32"))]
     pub sync: super::camera_sync::SyncState,
-    cancel: Arc<AtomicBool>,
+    pub(super) cancel: Arc<AtomicBool>,
     writes: VecDeque<Option<Account>>,
     #[cfg(not(target_arch = "wasm32"))]
     writing: bool,
@@ -1142,6 +1124,7 @@ impl Workspace {
                 self.camera_sync_sign_out();
                 self.cloud.disconnect();
                 self.cloud.epoch += 1;
+                self.cloud.cancel.store(true, Ordering::Relaxed);
                 self.cloud.account = None;
                 self.cloud.client = None;
                 self.cloud.writes.push_back(None);
@@ -2174,16 +2157,6 @@ impl Workspace {
         paths: Vec<PathBuf>,
         cx: &mut Context<Self>,
     ) {
-        self.cloud_upload_local(bucket, folder, LocalUpload::Paths(paths), cx);
-    }
-
-    pub(super) fn cloud_upload_local(
-        &mut self,
-        bucket: Option<String>,
-        folder: Option<String>,
-        source: LocalUpload,
-        cx: &mut Context<Self>,
-    ) {
         let Some(c) = &self.cloud.client else {
             return;
         };
@@ -2203,39 +2176,12 @@ impl Workspace {
                 });
             });
             let result: Result<UploadSummary> = (async {
-                let files = source.files()?;
+                let files = local_upload_files(&paths)?;
                 let uploader =
                     upload_files(&handle, folder.clone(), files, report.clone(), None, None)
                         .await?;
                 if let Some(bucket) = bucket {
-                    uploader.report(t("cloud.upload.adding_to_bucket").into());
-                    let members: Vec<String> = uploader
-                        .uploaded
-                        .iter()
-                        .chain(uploader.existing.iter())
-                        .cloned()
-                        .collect();
-                    for chunk in members.chunks(1000) {
-                        let mutation = remote::Uuid::new_v4().to_string();
-                        uploader
-                            .retrying(t("cloud.upload.step.adding_to_bucket"), || {
-                                let items = chunk
-                                    .iter()
-                                    .map(|id| {
-                                        map([("kind", "asset".into()), ("id", id.clone().into())])
-                                    })
-                                    .collect();
-                                handle.request_async(
-                                    "bucket.add",
-                                    map([
-                                        ("id", bucket.clone().into()),
-                                        ("items", Value::Array(items)),
-                                        ("mutation_id", mutation.clone().into()),
-                                    ]),
-                                )
-                            })
-                            .await?;
-                    }
+                    uploader.add_to_bucket(&bucket).await?;
                 }
                 Ok(UploadSummary {
                     uploaded: uploader.uploaded.len(),
@@ -2245,18 +2191,10 @@ impl Workspace {
             })
             .await;
             let job = match result {
-                Ok(summary) => {
-                    #[allow(unused_mut)]
-                    let mut message = summary.message();
-                    #[cfg(not(target_arch = "wasm32"))]
-                    if let LocalUpload::Camera { failed, .. } = &source {
-                        if *failed > 0 {
-                            message.push_str(" — ");
-                            message.push_str(&tn("library.import.n_failed", *failed as u64));
-                        }
-                    }
-                    Job::Done { epoch, message }
-                }
+                Ok(summary) => Job::Done {
+                    epoch,
+                    message: summary.message(),
+                },
                 Err(e) => Job::Error {
                     epoch,
                     error: if e
@@ -2270,7 +2208,6 @@ impl Workspace {
                 },
             };
             let _ = sender.send(job);
-            drop(source);
         });
         cx.notify();
     }
@@ -2860,33 +2797,6 @@ pub(super) fn rgba_to_render_image(
 #[cfg(test)]
 mod cloud_lifecycle_tests {
     use super::*;
-    #[cfg(not(target_arch = "wasm32"))]
-    #[test]
-    fn camera_upload_owns_only_its_staged_originals_until_completion() {
-        let original = tempfile::tempdir().unwrap();
-        let photo = original.path().join("photo.jpg");
-        std::fs::write(&photo, b"original photo").unwrap();
-        let directory = Arc::new(tempfile::tempdir().unwrap());
-        let staging = directory.path().to_path_buf();
-        std::fs::copy(&photo, staging.join("photo.jpg")).unwrap();
-        std::fs::write(staging.join(".private"), b"not uploaded").unwrap();
-        let upload = LocalUpload::Camera {
-            directory: directory.clone(),
-            failed: 0,
-        };
-        drop(directory);
-        assert!(staging.exists());
-        let files = upload.files().unwrap();
-        assert_eq!(
-            files,
-            vec![(staging.join("photo.jpg"), Some("photo.jpg".into()))]
-        );
-        assert_eq!(std::fs::read(&files[0].0).unwrap(), b"original photo");
-        drop(upload);
-        assert!(!staging.exists());
-        assert_eq!(std::fs::read(photo).unwrap(), b"original photo");
-    }
-
     #[test]
     fn face_previews_preserve_color_and_cache_by_source_and_rectangle() {
         let mut state = CloudState::default();

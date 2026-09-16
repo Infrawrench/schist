@@ -96,7 +96,12 @@ impl Workspace {
                 self.library.importing = true;
                 self.status = t("video.importing").into();
             }
-            Err(error) => self.status = tf!("video.import_failed", error = error).into(),
+            Err(error) => {
+                if let Some(destination) = destination {
+                    destination.abort(error.to_string());
+                }
+                self.status = tf!("video.import_failed", error = error).into();
+            }
         }
         cx.notify();
     }
@@ -130,6 +135,12 @@ impl Workspace {
                             if let Some(path) = event.path {
                                 if !event.open {
                                     imported += 1;
+                                    if let Some(destination) = &ws.library.media_import_destination
+                                    {
+                                        if let Err(error) = destination.ready(path.clone()) {
+                                            log::warn!("cloud media import: {error:#}");
+                                        }
+                                    }
                                 }
                                 if event.open || ws.library.media_import_destination.is_none() {
                                     if let Some(folder) = path.parent() {
