@@ -48,7 +48,8 @@ pub fn install_ios_window_scene_fix() {
 }
 
 impl Workspace {
-    pub(crate) fn pause_mobile_video(&mut self, cx: &mut Context<Self>) {
+    /// Pause playback when the launcher observes the mobile window becoming inactive.
+    pub fn pause_mobile_video(&mut self, cx: &mut Context<Self>) {
         if let Some(video) = self.library.video.as_mut() {
             if video.playing {
                 video.pause();
