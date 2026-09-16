@@ -1063,6 +1063,17 @@ fn rgba_planes(tiles: &schist_core::TileMap, rect: &IntRect) -> Vec<Vec<u8>> {
                         }
                     }
                 }
+                schist_core::TileBuf::Native(_) => {
+                    for x in clip.left..clip.right {
+                        let p = buf
+                            .get(ly * TILE_SIZE as usize + (x - trect.left) as usize)
+                            .to_u8();
+                        let dst = dst_row + (x - rect.left) as usize;
+                        for (c, plane) in planes.iter_mut().enumerate() {
+                            plane[dst] = p[c];
+                        }
+                    }
+                }
                 schist_core::TileBuf::F32(d) => {
                     for x in clip.left..clip.right {
                         let s = (ly * TILE_SIZE as usize + (x - trect.left) as usize) * 4;

@@ -494,6 +494,23 @@ impl SharedDocument {
 fn tile_bytes(tile: &TileBuf) -> Vec<u8> {
     let mut out = Vec::with_capacity(tile.byte_len() + 1);
     match tile {
+        TileBuf::Native(t) => {
+            out.extend_from_slice(&[
+                64,
+                if t.mode == schist_color::ColorMode::Cmyk {
+                    4
+                } else {
+                    9
+                },
+            ]);
+            use schist_core::NativeSamples;
+            let samples = match &t.samples {
+                NativeSamples::U8(b) => TileBuf::U8(b.clone()),
+                NativeSamples::U16(b) => TileBuf::U16(b.clone()),
+                NativeSamples::F32(b) => TileBuf::F32(b.clone()),
+            };
+            out.extend(tile_bytes(&samples));
+        }
         TileBuf::U8(b) => {
             out.push(8);
             out.extend_from_slice(b);
@@ -514,8 +531,25 @@ fn tile_bytes(tile: &TileBuf) -> Vec<u8> {
     out
 }
 fn read_tile(b: &[u8]) -> Result<TileBuf> {
+    if b.first() == Some(&64) {
+        ensure!(b.len() >= 3, "Truncated native tile");
+        let mode = match b[1] {
+            4 => schist_color::ColorMode::Cmyk,
+            9 => schist_color::ColorMode::Lab,
+            _ => bail!("Invalid native tile mode"),
+        };
+        let samples = match read_tile_samples(&b[2..], TILE_PIXELS * (mode.channels() + 1))? {
+            TileBuf::U8(b) => schist_core::NativeSamples::U8(b),
+            TileBuf::U16(b) => schist_core::NativeSamples::U16(b),
+            TileBuf::F32(b) => schist_core::NativeSamples::F32(b),
+            TileBuf::Native(_) => unreachable!(),
+        };
+        return Ok(TileBuf::Native(schist_core::NativeTile { mode, samples }));
+    }
+    read_tile_samples(b, TILE_PIXELS * 4)
+}
+fn read_tile_samples(b: &[u8], n: usize) -> Result<TileBuf> {
     ensure!(!b.is_empty(), "Empty tile");
-    let n = TILE_PIXELS * 4;
     Ok(match b[0] {
         8 => {
             ensure!(b.len() == 1 + n, "Invalid u8 tile");
@@ -677,5 +711,61 @@ mod tests {
         );
         assert_eq!(result.layer_comps[0].states[0].opacity, 0.4);
         assert!(peer.local_changes(&result).unwrap().is_none());
+    }
+}
+
+#[cfg(test)]
+mod native_channel_tests {
+    use super::*;
+    use schist_color::{ColorMode, NativePixel};
+
+    #[test]
+    fn native_recovery_and_tile_encoding_retain_mode_depth_and_separations() {
+        for mode in [ColorMode::Cmyk, ColorMode::Lab] {
+            for depth in [Depth::Eight, Depth::Sixteen, Depth::ThirtyTwo] {
+                let mut doc = Document::new("native", 1, 1, depth);
+                doc.mode = mode;
+                let id = doc.push_layer(Layer::new_raster("native"));
+                let mut edit = doc.begin_edit("samples");
+                let tile = edit.writable_tile(id, TileCoord::containing(0, 0)).unwrap();
+                tile.set_native_pixel(
+                    0,
+                    NativePixel {
+                        mode,
+                        color: [0.125, 0.5, 0.75, 0.5],
+                        alpha: 0.25,
+                    },
+                );
+                assert_eq!(*tile, read_tile(&tile_bytes(tile)).unwrap());
+                edit.commit();
+                let before = doc.tree.layers[0]
+                    .as_raster()
+                    .unwrap()
+                    .tiles
+                    .native_pixel(0, 0);
+                let mut shared = SharedDocument::new(&doc).unwrap();
+                let saved = shared.checkpoint().unwrap();
+                let back = shared.restore(&saved, &doc).unwrap();
+                assert_eq!(back.mode, mode);
+                assert_eq!(back.depth, depth);
+                assert_eq!(
+                    back.tree.layers[0]
+                        .as_raster()
+                        .unwrap()
+                        .tiles
+                        .native_pixel(0, 0),
+                    before
+                );
+            }
+        }
+        for corrupt in [
+            vec![64],
+            vec![64, 4],
+            vec![64, 3, 8],
+            vec![64, 4, 64],
+            vec![64, 9, 8],
+        ] {
+            assert!(read_tile(&corrupt).is_err());
+        }
     }
 }

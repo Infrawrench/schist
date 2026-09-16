@@ -42,6 +42,8 @@ pub struct Document {
     pub height: u32,
     pub resolution_dpi: f32,
     pub mode: ColorMode,
+    /// Native colour channel selected for painting; None edits the composite.
+    pub active_channel: Option<usize>,
     pub depth: Depth,
     pub icc_profile: Option<Vec<u8>>,
     pub tree: LayerTree,
@@ -112,6 +114,7 @@ impl Document {
             height,
             resolution_dpi: 72.0,
             mode: ColorMode::Rgb,
+            active_channel: None,
             depth,
             icc_profile: None,
             tree: LayerTree::default(),
@@ -504,6 +507,7 @@ impl Document {
                 self.damage_all();
             }
             EditOp::ColorModeSet { before, after } => {
+                self.active_channel = None;
                 self.mode = if dir == Direction::Undo {
                     *before
                 } else {
@@ -575,7 +579,8 @@ impl Document {
 
     /// Convenience for tests and importers: append a raster layer at the top
     /// level (top of stack) without recording history.
-    pub fn push_layer(&mut self, layer: Layer) -> LayerId {
+    pub fn push_layer(&mut self, mut layer: Layer) -> LayerId {
+        prepare_layer_mode(&mut layer, self.mode);
         let id = layer.id;
         let bounds = layer.content_bounds();
         self.tree.layers.push(layer);
@@ -583,6 +588,25 @@ impl Document {
         self.add_damage(bounds);
         self.structure_changed();
         id
+    }
+}
+
+fn prepare_layer_mode(layer: &mut Layer, mode: ColorMode) {
+    match &mut layer.kind {
+        crate::LayerKind::Raster(r) => {
+            let storage_mode = if matches!(mode, ColorMode::Cmyk | ColorMode::Lab) {
+                mode
+            } else {
+                ColorMode::Rgb
+            };
+            r.tiles = r.tiles.converted(storage_mode);
+        }
+        crate::LayerKind::Group(g) => {
+            for child in &mut g.children {
+                prepare_layer_mode(child, mode);
+            }
+        }
+        _ => {}
     }
 }
 
@@ -612,6 +636,7 @@ impl<'a> EditBuilder<'a> {
     /// Copy-on-write access to a layer tile, with undo capture.
     pub fn writable_tile(&mut self, layer_id: LayerId, coord: TileCoord) -> Option<&mut TileBuf> {
         let depth = self.doc.depth;
+        let mode = self.doc.mode;
         let entry_key = (layer_id, coord);
         let layer = self.doc.tree.find_mut(layer_id)?;
         let raster = layer.as_raster_mut()?;
@@ -626,7 +651,7 @@ impl<'a> EditBuilder<'a> {
             self.recorded_tiles.insert(entry_key, self.ops.len() - 1);
         }
         self.damage = self.damage.union(&coord.rect());
-        Some(raster.tiles.get_mut_or_insert(coord, depth))
+        Some(raster.tiles.get_mut_or_insert_mode(coord, depth, mode))
     }
 
     /// Copy-on-write access to a layer-mask tile, with undo capture.
@@ -654,7 +679,8 @@ impl<'a> EditBuilder<'a> {
     }
 
     /// Insert a layer (records op + performs it).
-    pub fn insert_layer(&mut self, path: LayerPath, layer: Layer) -> LayerId {
+    pub fn insert_layer(&mut self, path: LayerPath, mut layer: Layer) -> LayerId {
+        prepare_layer_mode(&mut layer, self.doc.mode);
         let id = layer.id;
         self.damage = self.damage.union(&layer.content_bounds());
         self.doc.tree.insert_at(&path, layer.clone());
@@ -739,6 +765,16 @@ impl<'a> EditBuilder<'a> {
     /// Replace a raster layer's tiles wholesale, recording every tile that
     /// changes (transforms, filters and resizes all go through this).
     pub fn replace_layer_tiles(&mut self, layer_id: LayerId, new_tiles: TileMap) {
+        let storage_mode = if matches!(self.doc.mode, ColorMode::Cmyk | ColorMode::Lab) {
+            self.doc.mode
+        } else {
+            ColorMode::Rgb
+        };
+        let new_tiles = if new_tiles.mode() != storage_mode {
+            new_tiles.converted(storage_mode)
+        } else {
+            new_tiles
+        };
         let Some(layer) = self.doc.tree.find(layer_id) else {
             return;
         };
@@ -991,11 +1027,118 @@ impl<'a> EditBuilder<'a> {
             return;
         }
         let before = self.doc.mode;
+        let native_transform =
+            schist_colormgmt::NativeColorTransform::new(before, self.doc.icc_profile.as_deref())
+                .ok();
+        let rgb_transform = if !matches!(before, ColorMode::Cmyk | ColorMode::Lab) {
+            self.doc
+                .icc_profile
+                .as_deref()
+                .and_then(|b| schist_colormgmt::Profile::from_bytes(b).ok())
+                .and_then(|source| {
+                    schist_colormgmt::ColorTransform::new(
+                        &source,
+                        &schist_colormgmt::Profile::srgb(),
+                        schist_colormgmt::Intent::RelativeColorimetric,
+                    )
+                    .ok()
+                })
+        } else {
+            None
+        };
         self.doc.mode = mode;
+        let ids = self.raster_layer_ids();
+        for id in ids {
+            let source = &self.doc.tree.find(id).unwrap().as_raster().unwrap().tiles;
+            let mut tiles = TileMap::new_in_mode(mode);
+            for (&coord, tile) in source.iter() {
+                let mut rgba = if matches!(tile.mode(), ColorMode::Cmyk | ColorMode::Lab) {
+                    let pixels: Vec<_> = (0..TILE_PIXELS).map(|i| tile.native_pixel(i)).collect();
+                    schist_colormgmt::native_to_rgba(&pixels, native_transform.as_ref())
+                } else {
+                    let mut rgba = vec![0.0; TILE_PIXELS * 4];
+                    tile.decode_f32(&mut rgba);
+                    if let Some(transform) = &rgb_transform {
+                        transform.apply(&mut rgba);
+                    }
+                    rgba
+                };
+                if mode == ColorMode::Grayscale {
+                    for p in rgba.as_chunks_mut::<4>().0.iter_mut() {
+                        let l = 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2];
+                        p[..3].fill(l);
+                    }
+                }
+                let mut converted = TileBuf::new_in_mode(tile.depth(), mode);
+                for (i, p) in rgba.as_chunks::<4>().0.iter().enumerate() {
+                    converted.set_native_pixel(
+                        i,
+                        schist_color::NativePixel::from_rgba(
+                            mode,
+                            schist_color::Rgba::new(p[0], p[1], p[2], p[3]),
+                        ),
+                    );
+                }
+                tiles.insert(coord, Arc::new(converted));
+            }
+            self.replace_layer_tiles(id, tiles);
+        }
+        self.doc.active_channel = None;
+        // Mode conversion changes the interpretation as well as the samples.
+        // Native targets use the documented unprofiled conversion; RGB is sRGB.
+        let profile = if matches!(mode, ColorMode::Rgb | ColorMode::Grayscale) {
+            schist_colormgmt::Profile::srgb()
+                .icc_bytes()
+                .map(|p| p.to_vec())
+        } else {
+            None
+        };
+        self.set_icc_profile(profile);
         self.ops.push(EditOp::ColorModeSet {
             before,
             after: mode,
         });
+    }
+
+    /// Fill a native channel through the selection. A normalized value of
+    /// one means full ink in CMYK, or L=100/a=127/b=127 in Lab.
+    pub fn fill_native_channel(&mut self, layer: LayerId, channel: usize, value: f32) -> bool {
+        let mode = self.doc.mode;
+        if !matches!(mode, ColorMode::Cmyk | ColorMode::Lab) || channel >= mode.channels() {
+            return false;
+        }
+        let Some(raster) = self
+            .doc
+            .tree
+            .find(layer)
+            .filter(|l| !l.locked)
+            .and_then(|l| l.as_raster())
+        else {
+            return false;
+        };
+        let coords: Vec<_> = raster.tiles.coords().collect();
+        let selection = self.doc.selection.clone();
+        let canvas = self.doc.canvas_rect();
+        for coord in coords {
+            let clip = coord.rect().intersect(&canvas);
+            let Some(tile) = self.writable_tile(layer, coord) else {
+                continue;
+            };
+            for y in clip.top..clip.bottom {
+                for x in clip.left..clip.right {
+                    let coverage = selection.coverage(x, y) as f32 / 255.0;
+                    if coverage == 0.0 {
+                        continue;
+                    }
+                    let i = (y.rem_euclid(crate::TILE_SIZE) * crate::TILE_SIZE
+                        + x.rem_euclid(crate::TILE_SIZE)) as usize;
+                    let mut p = tile.native_pixel(i);
+                    p.color[channel] += (value.clamp(0.0, 1.0) - p.color[channel]) * coverage;
+                    tile.set_native_pixel(i, p);
+                }
+            }
+        }
+        true
     }
 
     /// Replace the selection via closure; captures before/after.
@@ -1117,13 +1260,14 @@ impl StrokeEdit {
         coord: TileCoord,
     ) -> Option<&'d mut TileBuf> {
         let depth = doc.depth;
+        let mode = doc.mode;
         let layer = doc.tree.find_mut(layer_id)?;
         let raster = layer.as_raster_mut()?;
         self.befores
             .entry((layer_id, coord))
             .or_insert_with(|| raster.tiles.snapshot(coord));
         self.damage = self.damage.union(&coord.rect());
-        Some(raster.tiles.get_mut_or_insert(coord, depth))
+        Some(raster.tiles.get_mut_or_insert_mode(coord, depth, mode))
     }
 
     pub fn writable_mask_tile<'d>(

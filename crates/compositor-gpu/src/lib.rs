@@ -58,6 +58,14 @@ impl GpuCompositor {
 
     /// Composite a batch on the GPU; `None` falls back to the CPU.
     fn batch(&self, doc: &Document, coords: &[TileCoord], rgba8: bool) -> Option<BatchOut> {
+        // Native compositing retains four independent inks. RGBA shaders
+        // remain an explicit RGB-only backend and use the CPU reference.
+        if matches!(
+            doc.mode,
+            schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+        ) {
+            return None;
+        }
         let plan = match plan::build(doc) {
             Ok(plan) => plan,
             Err(why) => {

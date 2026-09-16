@@ -307,7 +307,7 @@ pub fn transform_tiles(
     filter: Filter,
     clip: IntRect,
 ) -> TileMap {
-    let mut out = TileMap::new();
+    let mut out = TileMap::new_in_mode(src.mode());
     let Some(inv) = m.invert() else { return out };
     // Clamp lookups to the artwork's pixel-tight edge: without it an
     // upscale samples "past" the last row/column, pulling in transparency
@@ -364,7 +364,7 @@ pub fn transform_tiles(
             if clip_rect.is_empty() {
                 return None;
             }
-            let mut buf = TileBuf::new(depth);
+            let mut buf = TileBuf::new_in_mode(depth, src.mode());
             let mut any = false;
             for y in clip_rect.top..clip_rect.bottom {
                 for x in clip_rect.left..clip_rect.right {
@@ -375,6 +375,50 @@ pub fn transform_tiles(
                     let (sx, sy) = inv.apply(x as f32 + 0.5, y as f32 + 0.5);
                     // Sample coordinates address pixel centres.
                     let (sx, sy) = (sx - 0.5, sy - 0.5);
+                    if matches!(
+                        src.mode(),
+                        schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+                    ) {
+                        let fetch_native = |x: i32, y: i32| {
+                            src.native_pixel(
+                                x.clamp(src_bounds.left, src_bounds.right - 1),
+                                y.clamp(src_bounds.top, src_bounds.bottom - 1),
+                            )
+                        };
+                        let mut p = schist_color::NativePixel::transparent(src.mode());
+                        for start in [0, 3] {
+                            if start == 3 && src.mode() != schist_color::ColorMode::Cmyk {
+                                break;
+                            }
+                            let fetch = |x, y| {
+                                let n = fetch_native(x, y);
+                                if start == 0 {
+                                    Rgba::new(n.color[0], n.color[1], n.color[2], n.alpha)
+                                } else {
+                                    Rgba::new(n.color[3], 0.0, 0.0, n.alpha)
+                                }
+                            };
+                            let q = if boxed {
+                                sample_box(fetch, sx, sy, fx, fy)
+                            } else {
+                                sample_with(fetch, sx, sy, filter)
+                            };
+                            if start == 0 {
+                                p.color[..3].copy_from_slice(&[q.r, q.g, q.b]);
+                            } else {
+                                p.color[3] = q.r;
+                            }
+                            p.alpha = q.a * cov;
+                        }
+                        if p.alpha > 0.0 {
+                            buf.set_native_pixel(
+                                ((y - trect.top) * TILE_SIZE + (x - trect.left)) as usize,
+                                p,
+                            );
+                            any = true;
+                        }
+                        continue;
+                    }
                     let mut px = if boxed {
                         sample_box(fetch, sx, sy, fx, fy)
                     } else {

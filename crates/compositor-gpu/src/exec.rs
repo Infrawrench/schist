@@ -1213,7 +1213,7 @@ impl GpuContext {
                         fmt = fmt.max(match buf.as_ref() {
                             TileBuf::U8(_) => 0,
                             TileBuf::U16(_) => 1,
-                            TileBuf::F32(_) => 2,
+                            TileBuf::F32(_) | TileBuf::Native(_) => 2,
                         });
                     }
                 }
@@ -1482,6 +1482,11 @@ fn pack_pixels(out: &mut Vec<u32>, buf: &TileBuf, fmt: u32) {
         }
         (TileBuf::U16(d), _) => {
             out.extend(d.iter().map(|&v| (v as f32 / 65535.0).to_bits()));
+        }
+        (TileBuf::Native(_), _) => {
+            let mut rgba = vec![0.0; TILE_PIXELS * 4];
+            buf.decode_f32(&mut rgba);
+            out.extend(rgba.iter().map(|v| v.to_bits()));
         }
         (TileBuf::F32(d), _) => {
             out.extend(d.iter().map(|v| v.to_bits()));

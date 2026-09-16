@@ -167,6 +167,17 @@ pub fn composite_region_rgba8(doc: &Document, region: IntRect) -> Vec<u8> {
 
 /// Composite one document tile to straight-alpha f32 RGBA (CPU reference).
 pub fn composite_tile_cpu(doc: &Document, coord: TileCoord) -> TileF32 {
+    if matches!(
+        doc.mode,
+        schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+    ) {
+        let transform =
+            schist_colormgmt::NativeColorTransform::new(doc.mode, doc.icc_profile.as_deref()).ok();
+        return schist_colormgmt::native_to_rgba(
+            &composite_native_tile(doc, coord),
+            transform.as_ref(),
+        );
+    }
     let mut scratch = Scratch::default();
     let mut dst = blank_tile();
     composite_layers(doc, &doc.tree.layers, coord, &mut dst, &mut scratch);
@@ -1349,3 +1360,6 @@ fn content_alpha(layer: &Layer) -> f32 {
         layer.fill_opacity
     }
 }
+
+mod native;
+pub use native::{composite_native_region, composite_native_tile, composite_region_tiles};

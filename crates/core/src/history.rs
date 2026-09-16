@@ -153,12 +153,8 @@ pub enum EditOp {
         before: Vec<crate::annotate::Note>,
         after: Vec<crate::annotate::Note>,
     },
-    /// The document's colour mode changed (Image > Mode).
-    ///
-    /// Set outside the edit, so undo restored the pixels and left the new
-    /// mode: a document converted to greyscale and undone still reported
-    /// (and saved as) greyscale. The CMYK/Lab/RGB cases changed nothing
-    /// else at all, so they produced no history entry whatsoever.
+    /// The document's colour mode changed. Native pixel conversion and
+    /// profile metadata travel in the same edit as this mode tag.
     ColorModeSet {
         before: schist_color::ColorMode,
         after: schist_color::ColorMode,

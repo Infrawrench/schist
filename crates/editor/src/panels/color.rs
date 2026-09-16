@@ -69,6 +69,7 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
                 ws.open_context_menu(ContextTarget::Color, ev.position, cx);
             }),
         )
+        .child(native_channels(ws, cx))
         .child(swatches)
         .when(ws.palettes.selected().is_none(), |panel| {
             panel.child(div().flex().flex_row().flex_wrap().gap_1().children(
@@ -294,4 +295,97 @@ fn palette_controls(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoEle
         };
     }
     root
+}
+
+fn native_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let mut panel = div().flex().flex_col().gap_1();
+    let Some(doc) = ws.doc.as_ref() else {
+        return panel;
+    };
+    let keys: &[&str] = match doc.mode {
+        schist_color::ColorMode::Cmyk => &[
+            "common.cyan",
+            "common.magenta",
+            "common.yellow",
+            "common.black",
+        ],
+        schist_color::ColorMode::Lab => &["common.lightness", "a*", "b*"],
+        _ => return panel,
+    };
+    // CIELAB axis symbols are mathematical identifiers, like R/G/B above.
+    let label = |key: &'static str| {
+        if matches!(key, "a*" | "b*") {
+            key
+        } else {
+            t(key)
+        }
+    };
+    let composite = t(if doc.mode == schist_color::ColorMode::Cmyk {
+        "common.cmyk"
+    } else {
+        "common.lab"
+    });
+    let selected = doc.active_channel.filter(|&c| c < keys.len());
+    let popup = Popup::Field("native-channel");
+    let options = std::iter::once((composite.into(), 0))
+        .chain(
+            keys.iter()
+                .enumerate()
+                .map(|(c, key)| (label(key).into(), c + 1)),
+        )
+        .collect();
+    panel = panel
+        .child(panel_title(t("common.channels")))
+        .child(ui::dropdown(
+            &ws.dropdown,
+            ui::Dropdown {
+                popup,
+                is_open: ws.open_popup == Some(popup),
+                current: selected.map_or(0, |c| c + 1),
+                label: selected.map_or_else(|| composite.into(), |c| label(keys[c]).into()),
+                width: 0.0,
+                options,
+            },
+            |ws, value, cx| {
+                if let Some(doc) = ws.doc.as_mut() {
+                    doc.active_channel = value.checked_sub(1);
+                }
+                cx.notify();
+            },
+            cx,
+        ));
+    if let Some(channel) = selected {
+        let display = if doc.mode == schist_color::ColorMode::Lab && channel > 0 {
+            format!("{:.1}", ws.editor.native_channel_value * 255.0 - 128.0)
+        } else {
+            format!("{:.1}%", ws.editor.native_channel_value * 100.0)
+        };
+        panel = panel
+            .child(slider(
+                "native-channel-value",
+                t("common.value"),
+                display,
+                SliderTarget::NativeChannelValue,
+                ws,
+                cx,
+            ))
+            .child(
+                Link::new("fill-native-channel", t("common.fill")).on_click(cx.listener(
+                    |ws, _, _, cx| {
+                        let Some(doc) = ws.doc.as_mut() else {
+                            return;
+                        };
+                        let (Some(layer), Some(channel)) = (doc.active_layer, doc.active_channel)
+                        else {
+                            return;
+                        };
+                        let mut edit = doc.begin_edit(t("common.fill"));
+                        edit.fill_native_channel(layer, channel, ws.editor.native_channel_value);
+                        edit.commit();
+                        ws.after_change(cx);
+                    },
+                )),
+            );
+    }
+    panel
 }

@@ -44,3 +44,6 @@ pub use style::{
 pub use tile::{MaskTileMap, TileBuf, TileCoord, TileMap, TILE_PIXELS, TILE_SIZE};
 
 pub use schist_color as color;
+
+pub mod native;
+pub use native::{NativeSamples, NativeTile};

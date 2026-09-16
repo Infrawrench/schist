@@ -349,17 +349,15 @@ Remap anything in `~/.config/schist/keymap.json`:
 { "ctrl-shift-x": "command:edit.fill_foreground", "f1": "tool:brush" }
 ```
 
-## Not there yet
+## Native colour editing
 
-- **CMYK and Lab edit in RGB.** Files open, edit and save in their own
-  mode, converting at the boundaries; the editing in between is RGB, so
-  individual ink channels are not separately editable. This remains
-  unresolved because tiles, editing operations and plugin APIs carry
-  RGBA, and import has already converted the native channels to RGB.
-  Correct native editing needs a coordinated storage, undo, compositor
-  and plugin-contract migration; RGB-derived controls cannot recover
-  independent CMYK separations. See the [implementation constraints and
-  remaining work](docs/native-colour-editing.md).
+CMYK and Lab PSD/PSB files retain their native channels at 8/16/32-bit
+depth. The Color panel's **Channels** control selects individual inks or
+Lab components for brush and fill edits, preserving other channels and
+alpha. Native samples survive undo, layer merges, recovery and save/reopen.
+RGB filters and effects still use explicit conversion boundaries; native
+documents currently use CPU compositing. See [native colour editing and
+processing boundaries](docs/native-colour-editing.md).
 
 ## Diagnostics
 

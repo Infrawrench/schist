@@ -128,6 +128,7 @@ struct Stroke {
     /// Leftover distance to the next dab from the previous segment.
     spacing_debt: f32,
     ink: Ink,
+    native_channel: Option<(usize, f32)>,
     opacity: f32,
     size: f32,
     hardness: f32,
@@ -176,6 +177,17 @@ impl Stroke {
             last: (input.x, input.y),
             spacing_debt: 0.0,
             ink,
+            native_channel: ctx
+                .doc
+                .active_channel
+                .filter(|&c| {
+                    c < ctx.doc.mode.channels()
+                        && matches!(
+                            ctx.doc.mode,
+                            schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+                        )
+                })
+                .map(|c| (c, ctx.state.native_channel_value)),
             opacity: ctx.state.tool_opacity,
             size: ctx.state.brush_size,
             hardness: if mode == PaintMode::Pencil {
@@ -308,6 +320,62 @@ impl Stroke {
                         None => Rgba::TRANSPARENT,
                     };
                     let a = c * opacity;
+                    if matches!(
+                        tile.mode(),
+                        schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+                    ) {
+                        let orig_native = original.as_ref().map_or_else(
+                            || schist_color::NativePixel::transparent(tile.mode()),
+                            |t| t.native_pixel(ix).converted(tile.mode()),
+                        );
+                        let mut p = orig_native;
+                        let handled = match &ink {
+                            Ink::Solid(color) => {
+                                if let Some((channel, value)) = self.native_channel {
+                                    p.color[channel] += (value - p.color[channel]) * a;
+                                } else {
+                                    let mut top =
+                                        schist_color::NativePixel::from_rgba(tile.mode(), *color);
+                                    top.alpha = a;
+                                    p = top.over(p);
+                                }
+                                true
+                            }
+                            Ink::Erase => {
+                                p.alpha *= 1.0 - a;
+                                true
+                            }
+                            Ink::Clone { source, dx, dy } => {
+                                let mut top =
+                                    source.native_pixel(x - dx, y - dy).converted(tile.mode());
+                                top.alpha *= a;
+                                let result = top.over(p);
+                                if let Some((c, _)) = self.native_channel {
+                                    p.color[c] = result.color[c];
+                                } else {
+                                    p = result;
+                                }
+                                true
+                            }
+                            Ink::Restore { snapshot } => {
+                                let src = snapshot.native_pixel(x, y).converted(tile.mode());
+                                for c in 0..tile.mode().channels() {
+                                    if self.native_channel.is_none_or(|(ch, _)| ch == c) {
+                                        p.color[c] += (src.color[c] - p.color[c]) * a;
+                                    }
+                                }
+                                if self.native_channel.is_none() {
+                                    p.alpha += (src.alpha - p.alpha) * a;
+                                }
+                                true
+                            }
+                            _ => false,
+                        };
+                        if handled {
+                            tile.set_native_pixel(ix, p);
+                            continue;
+                        }
+                    }
                     let out = match &ink {
                         Ink::Erase => Rgba {
                             a: orig.a * (1.0 - a),
@@ -1173,7 +1241,8 @@ fn fill_gradient(ctx: &mut ToolCtx, fill: GradientFill, from: (f32, f32), to: (f
                     a: (start.a + (end.a - start.a) * t) * opacity * sel,
                 };
                 let ix = ((y - trect.top) * TILE_SIZE + (x - trect.left)) as usize;
-                tile.set(ix, src.over(tile.get(ix)));
+                let top = schist_color::NativePixel::from_rgba(tile.mode(), src);
+                tile.set_native_pixel(ix, top.over(tile.native_pixel(ix)));
             }
         }
     }
@@ -1325,7 +1394,8 @@ impl ToolPlugin for BucketTool {
                     a: color.a * opacity * sel,
                     ..color
                 };
-                tile.set(ix, src.over(tile.get(ix)));
+                let top = schist_color::NativePixel::from_rgba(tile.mode(), src);
+                tile.set_native_pixel(ix, top.over(tile.native_pixel(ix)));
             }
         }
         edit.commit();
@@ -2090,4 +2160,79 @@ fn heal_at(patch: &[Rgba], rect: IntRect, x: i32, y: i32) -> Option<Rgba> {
     patch
         .get((y - rect.top) as usize * w + (x - rect.left) as usize)
         .copied()
+}
+
+#[cfg(test)]
+mod native_channel_tests {
+    use super::*;
+    use schist_color::{ColorMode, Depth, NativePixel};
+    #[test]
+    fn brush_targets_one_native_channel_and_undo_restores_all_samples() {
+        for mode in [ColorMode::Cmyk, ColorMode::Lab] {
+            let mut doc = Document::new("native", 1, 1, Depth::ThirtyTwo);
+            doc.mode = mode;
+            let id = doc.push_layer(schist_core::Layer::new_raster("native"));
+            let before = NativePixel {
+                mode,
+                color: [
+                    0.25,
+                    0.5,
+                    0.75,
+                    if mode == ColorMode::Cmyk { 0.5 } else { 0.0 },
+                ],
+                alpha: 0.25,
+            };
+            let mut edit = doc.begin_edit("seed");
+            edit.writable_tile(id, TileCoord::containing(0, 0))
+                .unwrap()
+                .set_native_pixel(0, before);
+            edit.commit();
+            doc.active_channel = Some(0);
+            let mut state = EditorState {
+                native_channel_value: 1.0,
+                brush_size: 4.0,
+                brush_hardness: 1.0,
+                ..EditorState::default()
+            };
+            let mut brush = PaintTool::new(PaintMode::Brush);
+            let input = PointerInput {
+                x: 0.5,
+                y: 0.5,
+                pressure: 1.0,
+                modifiers: Default::default(),
+            };
+            let mut ctx = ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            };
+            brush.on_pointer_down(&mut ctx, input);
+            brush.on_pointer_up(&mut ctx, input);
+            let p = doc.tree.layers[0]
+                .as_raster()
+                .unwrap()
+                .tiles
+                .native_pixel(0, 0);
+            assert_eq!(p.color[0], 1.0);
+            assert_eq!(p.color[1..], before.color[1..]);
+            assert_eq!(p.alpha, before.alpha);
+            doc.undo();
+            assert_eq!(
+                doc.tree.layers[0]
+                    .as_raster()
+                    .unwrap()
+                    .tiles
+                    .native_pixel(0, 0),
+                before
+            );
+            doc.redo();
+            assert_eq!(
+                doc.tree.layers[0]
+                    .as_raster()
+                    .unwrap()
+                    .tiles
+                    .native_pixel(0, 0),
+                p
+            );
+        }
+    }
 }

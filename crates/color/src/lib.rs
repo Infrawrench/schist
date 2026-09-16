@@ -7,7 +7,9 @@
 
 use serde::{Deserialize, Serialize};
 
+mod native;
 pub mod palette;
+pub use native::NativePixel;
 
 /// Bits per channel of a document.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -29,18 +31,15 @@ impl Depth {
 
 /// Colour mode of a document.
 ///
-/// Pixels are always held as RGBA f32 -- one pipeline rather than five --
-/// and converted at the boundaries: on open, on Image ▸ Mode, and on save.
-/// So a CMYK file opens, edits and saves as CMYK, but the editing itself
-/// happens in RGB. See `convert`.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+/// Raster tiles retain native CMYK and Lab samples. RGBA is an explicit
+/// display/processing interchange format; see `NativePixel`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum ColorMode {
     Rgb,
     Grayscale,
-    /// Four-ink separation. Pixels are still edited as RGBA; the mode
-    /// records how the file is stored and how it converts on save.
+    /// Four independent ink channels plus separate transparency.
     Cmyk,
-    /// CIELAB. Same arrangement as CMYK: converted at the boundaries.
+    /// D50 CIELAB, stored as normalized L*, a*, b* plus transparency.
     Lab,
     /// A palette of at most 256 colours.
     Indexed,
@@ -202,11 +201,8 @@ mod tests {
 /// Conversions between the working RGB space and the other document
 /// modes.
 ///
-/// Schist edits in RGBA f32 whatever the document's mode says, and
-/// converts at the boundaries: on open, on Image ▸ Mode, and on save. That
-/// keeps one pipeline rather than four, at the cost of not editing CMYK
-/// channels individually -- which is stated in the docs rather than
-/// implied by silence.
+/// Used at explicit RGB processing and display boundaries. These fallback
+/// conversions do not replace the authoritative native samples.
 pub mod convert {
     use super::Rgba;
 
@@ -300,9 +296,19 @@ pub mod convert {
         )
     }
 
+    /// sRGB to D50 CIELAB (Bradford-adapted matrix).
+    pub fn rgb_to_lab_d50(px: Rgba) -> [f32; 3] {
+        let (r, g, b) = (to_linear(px.r), to_linear(px.g), to_linear(px.b));
+        let x = (0.4360747 * r + 0.3850649 * g + 0.1430804 * b) / 0.96422;
+        let y = 0.2225045 * r + 0.7168786 * g + 0.0606169 * b;
+        let z = (0.0139322 * r + 0.0971045 * g + 0.7141733 * b) / 0.82521;
+        let (fx, fy, fz) = (lab_f(x), lab_f(y), lab_f(z));
+        [116.0 * fy - 16.0, 500.0 * (fx - fy), 200.0 * (fy - fz)]
+    }
+
     /// D50 CIELAB to sRGB, for Adobe swatches and color books. The matrix
     /// includes Bradford adaptation from D50 to sRGB's D65 white point.
-    /// Keep this separate from the D65 Lab used by document conversion.
+    /// The legacy `rgb_to_lab`/`lab_to_rgb` helpers use D65.
     pub fn lab_d50_to_rgb(lab: [f32; 3], alpha: f32) -> Rgba {
         let fy = (lab[0] + 16.0) / 116.0;
         let x = lab_f_inv(fy + lab[1] / 500.0) * 0.96422;
