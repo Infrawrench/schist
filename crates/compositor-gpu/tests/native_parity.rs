@@ -2,6 +2,7 @@
 //! satisfy these tests. Shader validation still runs without an adapter.
 use schist_adjustments::{Levels, Params};
 use schist_color::{ColorMode, Depth, NativePixel};
+use schist_colormgmt::{native_to_rgba, NativeColorTransform};
 use schist_compositor::{composite_native_tile_cpu, Compositor, CpuCompositor};
 use schist_compositor_gpu::{plan, BatchOut, GpuCompositor};
 use schist_core::{
@@ -110,6 +111,20 @@ fn close(gpu: &[NativePixel], cpu: &[NativePixel], label: &str) {
                 "{label} pixel {i} sample {j}: GPU={g}, CPU={c}"
             );
         }
+    }
+}
+
+fn close_display(actual: &[f32], expected: &[f32], label: &str) {
+    assert_eq!(actual.len(), expected.len(), "{label}");
+    for (i, (a, b)) in actual.iter().zip(expected).enumerate() {
+        assert!((a - b).abs() < 2e-5, "{label} sample {i}: {a} vs {b}");
+    }
+}
+
+fn equal_display_bytes(actual: &[u8], expected: &[u8], label: &str) {
+    assert_eq!(actual.len(), expected.len(), "{label}");
+    for (i, (a, b)) in actual.iter().zip(expected).enumerate() {
+        assert_eq!(a, b, "{label} sample {i}");
     }
 }
 
@@ -311,36 +326,75 @@ fn native_gpu_channels_blends_groups_boundaries_and_dispatch() {
         }
     }
 
-    // Native compositing feeds every public display path, with ICC applied
-    // to the final native samples and never to alpha.
+    // ICC LUTs quantize their inputs: one ULP of legal CPU/Metal rounding
+    // can select adjacent entries (for example around Lab's 0.5 sample).
+    // Check native CPU/GPU parity before the transform, then verify every
+    // display path against the CMS applied to those exact GPU samples.
+    // Neither the native nor the display tolerance needs to be relaxed.
     for mode in [ColorMode::Cmyk, ColorMode::Lab] {
         let mut d = doc(mode, Depth::ThirtyTwo);
         d.push_layer(layer(mode, d.depth, 11));
         let mut profile = moxcms::ColorProfile::new_lab();
         profile.pcs = moxcms::DataColorSpace::Lab;
-        for icc in [None, Some(vec![0; 128]), Some(profile.encode().unwrap())] {
+        for (profile_index, icc) in [None, Some(vec![0; 128]), Some(profile.encode().unwrap())]
+            .into_iter()
+            .enumerate()
+        {
             d.icc_profile = icc;
-            parity(&gpu, &d, one, "ICC never changes native compositing");
-            let a = gpu.tile(&d, coords[1]);
-            let b = CpuCompositor.tile(&d, coords[1]);
-            for (a, b) in a.iter().zip(&b) {
-                assert!((a - b).abs() < 2e-5, "display {mode:?}: {a} vs {b}");
-            }
+            let label = format!("display {mode:?} profile {profile_index}");
+            let transform = NativeColorTransform::new(mode, d.icc_profile.as_deref()).ok();
+            assert_eq!(
+                transform.is_some(),
+                mode == ColorMode::Lab && profile_index == 2
+            );
+            let native = dispatched(&gpu, &d, &coords);
+            assert_eq!(native.len(), coords.len());
+            let expected: Vec<_> = native
+                .iter()
+                .zip(&coords)
+                .map(|(pixels, &coord)| {
+                    let cpu = composite_native_tile_cpu(&d, coord);
+                    close(pixels, &cpu, &label);
+                    let rgba = native_to_rgba(pixels, transform.as_ref());
+                    if transform.is_none() {
+                        // The fallback conversions are continuous, so their
+                        // final RGB values can still be compared directly.
+                        close_display(&rgba, &CpuCompositor.tile(&d, coord), &label);
+                    }
+                    rgba
+                })
+                .collect();
+            close_display(&gpu.tile(&d, coords[1]), &expected[1], &label);
+
             let rect = IntRect::from_xywh(-3, 1, 267, 5);
-            let a = gpu.region_f32(&d, rect);
-            let b = CpuCompositor.region_f32(&d, rect);
-            for (a, b) in a.iter().zip(&b) {
-                assert!((a - b).abs() < 2e-5);
+            let mut region = Vec::new();
+            for y in rect.top..rect.bottom {
+                for x in rect.left..rect.right {
+                    let t = coords
+                        .iter()
+                        .position(|&c| c == TileCoord::containing(x, y))
+                        .unwrap();
+                    let i = (y.rem_euclid(TILE_SIZE) * TILE_SIZE + x.rem_euclid(TILE_SIZE))
+                        as usize
+                        * 4;
+                    region.extend_from_slice(&expected[t][i..i + 4]);
+                }
             }
-            let a = gpu.region_rgba8(&d, rect);
-            let b = CpuCompositor.region_rgba8(&d, rect);
-            for (a, b) in a.iter().zip(&b) {
-                assert!(a.abs_diff(*b) <= 1);
-            }
-            let a = gpu.tiles_rgba8(&d, one);
-            let b = CpuCompositor.tiles_rgba8(&d, one);
-            for (a, b) in a[0].iter().zip(&b[0]) {
-                assert!(a.abs_diff(*b) <= 1);
+            close_display(&gpu.region_f32(&d, rect), &region, &label);
+            let bytes: Vec<_> = region.into_iter().map(schist_color::f32_to_u8).collect();
+            equal_display_bytes(
+                &gpu.region_rgba8(&d, rect),
+                &bytes,
+                &format!("{label} region RGBA8"),
+            );
+            let bytes: Vec<Vec<_>> = expected
+                .iter()
+                .map(|tile| tile.iter().copied().map(schist_color::f32_to_u8).collect())
+                .collect();
+            let actual = gpu.tiles_rgba8(&d, &coords);
+            assert_eq!(actual.len(), bytes.len(), "{label} tile count");
+            for (i, (a, b)) in actual.iter().zip(&bytes).enumerate() {
+                equal_display_bytes(a, b, &format!("{label} tile {i} RGBA8"));
             }
         }
     }
