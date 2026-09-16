@@ -1,26 +1,28 @@
 //! Native channel compositing. RGB-only effects and nonseparable blend modes
 //! have explicit processing boundaries; source tiles are never rewritten.
-use rayon::prelude::*;
 use schist_color::{ColorMode, NativePixel, Rgba};
 use schist_core::{
     BlendMode, Document, IntRect, Layer, LayerKind, TileCoord, TILE_PIXELS, TILE_SIZE,
 };
 
-pub fn composite_native_tile(doc: &Document, coord: TileCoord) -> Vec<NativePixel> {
+/// Reference implementation; never dispatches to the active backend.
+pub fn composite_native_tile_cpu(doc: &Document, coord: TileCoord) -> Vec<NativePixel> {
     let mut out = vec![NativePixel::transparent(doc.mode); TILE_PIXELS];
     layers(doc, &doc.tree.layers, coord, &mut out);
     out
+}
+
+/// Composite authoritative channels through the active backend.
+pub fn composite_native_tile(doc: &Document, coord: TileCoord) -> Vec<NativePixel> {
+    super::backend().native_tile(doc, coord)
 }
 
 pub fn composite_native_region(doc: &Document, rect: IntRect) -> Vec<NativePixel> {
     let mut out =
         vec![NativePixel::transparent(doc.mode); rect.width() as usize * rect.height() as usize];
     let coords: Vec<_> = TileCoord::covering(&rect).collect();
-    let tiles: Vec<_> = coords
-        .into_par_iter()
-        .map(|c| (c, composite_native_tile(doc, c)))
-        .collect();
-    for (coord, tile) in tiles {
+    let tiles = super::backend().native_tiles(doc, &coords);
+    for (coord, tile) in coords.into_iter().zip(tiles) {
         let clip = coord.rect().intersect(&rect);
         for y in clip.top..clip.bottom {
             for x in clip.left..clip.right {
@@ -47,7 +49,15 @@ fn rgb_boundary(pixels: &mut [NativePixel], f: impl FnOnce(&mut Vec<f32>)) {
         .zip(rgba.as_chunks::<4>().0.iter())
         .zip(before.as_chunks::<4>().0.iter())
     {
-        if p[..3] != old[..3] {
+        // RGB conversion/LUT arithmetic can move an unchanged colour by
+        // a few ULPs, differently on CPU and GPU. Do not re-separate inks
+        // or clip out-of-gamut Lab for that numerical noise. Keep this
+        // threshold in sync with composite_native.wgsl.
+        if p[..3]
+            .iter()
+            .zip(&old[..3])
+            .any(|(a, b)| (a - b).abs() > 1e-6)
+        {
             *native = NativePixel::from_rgba(native.mode, Rgba::new(p[0], p[1], p[2], p[3]));
         }
         native.alpha = p[3];
@@ -272,8 +282,9 @@ pub fn composite_region_tiles(doc: &Document, rect: IntRect, opaque: bool) -> sc
 #[cfg(test)]
 mod tests {
     use super::*;
+    use schist_adjustments::{Levels, Params};
     use schist_color::Depth;
-    use schist_core::{LayerMask, MaskTileMap};
+    use schist_core::{AdjustmentData, AdjustmentKind, LayerMask, MaskTileMap};
 
     #[test]
     fn merge_and_flatten_keep_native_mode_depth_and_key() {
@@ -351,5 +362,53 @@ mod tests {
                 .native_pixel(0, 0),
             bottom
         );
+    }
+
+    #[test]
+    fn identity_levels_keeps_inks_and_out_of_gamut_lab() {
+        for mode in [ColorMode::Cmyk, ColorMode::Lab] {
+            let mut doc = Document::new("identity", 256, 1, Depth::ThirtyTwo);
+            doc.mode = mode;
+            doc.tree.layers.clear();
+            let mut layer = Layer::new_raster("native samples");
+            let coord = TileCoord::containing(0, 0);
+            let tile = layer
+                .as_raster_mut()
+                .unwrap()
+                .tiles
+                .get_mut_or_insert_mode(coord, doc.depth, mode);
+            for i in 0..256 {
+                let sample = |c: usize| ((i * (13 + c * 6) + c * 19) % 239) as f32 / 238.0;
+                tile.set_native_pixel(
+                    i,
+                    NativePixel {
+                        mode,
+                        color: [
+                            sample(0),
+                            sample(1),
+                            sample(2),
+                            if mode == ColorMode::Cmyk {
+                                sample(3)
+                            } else {
+                                0.0
+                            },
+                        ],
+                        alpha: 0.63,
+                    },
+                );
+            }
+            doc.push_layer(layer);
+            let before = composite_native_tile_cpu(&doc, coord);
+            let mut adj = Layer::new_raster("identity Levels");
+            adj.kind = LayerKind::Adjustment(AdjustmentData {
+                kind: AdjustmentKind::Levels,
+                raw: Vec::new(),
+                params_json: Some(
+                    serde_json::to_string(&Params::Levels(Levels::default())).unwrap(),
+                ),
+            });
+            doc.push_layer(adj);
+            assert_eq!(composite_native_tile_cpu(&doc, coord), before);
+        }
     }
 }

@@ -8,9 +8,10 @@
 //! composites on the CPU instead.
 
 use schist_adjustments::{Params, Prepared};
+use schist_color::ColorMode;
 use schist_core::{AdjustmentData, BlendMode, Document, Layer, LayerKind, MaskTileMap, TileMap};
 
-/// Mirrors `MAX_DEPTH` in composite.wgsl: the deepest value stack a pixel
+/// Mirrors `MAX_DEPTH` in composite_common.wgsl: the deepest value stack a pixel
 /// program may need (root + one level per isolated group/layer buffer).
 pub const MAX_DEPTH: usize = 12;
 
@@ -92,6 +93,7 @@ pub const D_POSTERIZE: u32 = 4;
 pub const DIRECT_STRIDE: usize = 6;
 
 pub struct Plan<'a> {
+    pub mode: ColorMode,
     pub ops: Vec<PlanOp>,
     pub sources: Vec<PlanSource<'a>>,
     /// Concatenated 3×256 LUTs, 768 floats each.
@@ -102,6 +104,10 @@ pub struct Plan<'a> {
 }
 
 impl<'a> Plan<'a> {
+    pub fn is_native(&self) -> bool {
+        matches!(self.mode, ColorMode::Cmyk | ColorMode::Lab)
+    }
+
     fn op(&mut self, kind: u32) -> &mut PlanOp {
         self.ops.push(PlanOp {
             kind,
@@ -203,6 +209,7 @@ fn resolve_params(data: &AdjustmentData) -> Params {
 
 pub fn build(doc: &Document) -> Result<Plan<'_>, Unsupported> {
     let mut plan = Plan {
+        mode: doc.mode,
         ops: Vec::new(),
         sources: Vec::new(),
         luts: Vec::new(),
@@ -249,12 +256,13 @@ fn emit_layers<'a>(
                 op.mode = mode_id(clip_layer.blend);
                 op.opacity = clip_layer.opacity * content_alpha(clip_layer);
             }
-            // `blend_buf_onto` re-applies the mask for group layers (on
-            // top of `render_single_layer` having applied it); mirror
-            // that, double application and all. Styled groups are the
-            // exception on both sides: their mask is applied once, by
-            // the styled-raster path.
-            let mask = if matches!(layer.kind, LayerKind::Group(_)) && layer.styled.is_none() {
+            // The RGB CPU compositor re-applies unstyled group masks at
+            // this point. Native compositing and styled groups mask once,
+            // during emit_single. Match each reference independently.
+            let mask = if !plan.is_native()
+                && matches!(layer.kind, LayerKind::Group(_))
+                && layer.styled.is_none()
+            {
                 plan.mask_ref(layer)
             } else {
                 MaskRef::NONE

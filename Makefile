@@ -401,3 +401,9 @@ lint-native-color:
 	$(CARGO) clippy $(NATIVE_COLOR_PACKAGES) --all-targets -- -D warnings
 check-native-color-app:
 	$(CARGO) check -p schist-app --all-targets
+
+# GPU native-channel parity. Set SCHIST_REQUIRE_GPU=1 to reject missing adapters.
+.PHONY: check-native-color-gpu
+check-native-color-gpu:
+	$(CARGO) test -p schist-compositor-gpu --test native_parity -- --nocapture
+	$(CARGO) test -p schist-compositor-gpu --test parity

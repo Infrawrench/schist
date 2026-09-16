@@ -9,15 +9,15 @@
 //! each chunk as a single dispatch.
 
 use crate::plan::{Plan, PlanSource};
+use schist_color::{ColorMode, NativePixel};
 use schist_core::{TileBuf, TileCoord, TILE_PIXELS};
 use wgpu::util::DeviceExt;
 
 mod carve_paged;
 mod effect_shader;
 
-/// Per-chunk ceiling on any one storage buffer, and the tile count that
-/// keeps the f32 output under it (256 KiB × 4 channels × 4 bytes = 1 MiB
-/// per tile).
+/// Per-chunk upload/output budget. Native output uses five f32 samples
+/// per pixel; RGB uses four. Both also respect the device binding limit.
 const BUDGET_BYTES: usize = 256 << 20;
 const MAX_CHUNK_TILES: usize = 128;
 
@@ -33,6 +33,7 @@ pub struct GpuContext {
     device: wgpu::Device,
     queue: wgpu::Queue,
     composite: wgpu::ComputePipeline,
+    composite_native: wgpu::ComputePipeline,
     pack: wgpu::ComputePipeline,
     viewport: wgpu::ComputePipeline,
     fx_blur: wgpu::ComputePipeline,
@@ -80,6 +81,8 @@ const UNIFORM_ALIGN: usize = 256;
 const CARVE_SEAMS_PER_SUBMIT: usize = 16;
 
 pub enum BatchOut {
+    /// Authoritative CMYK/Lab samples, regardless of the RGBA packing request.
+    Native(Vec<Vec<NativePixel>>),
     F32(Vec<Vec<f32>>),
     Rgba8(Vec<Vec<u8>>),
 }
@@ -161,7 +164,20 @@ impl GpuContext {
                 source: wgpu::ShaderSource::Wgsl(source.into()),
             })
         };
-        let composite_module = make_module("composite.wgsl", include_str!("composite.wgsl"));
+        let composite_module = make_module(
+            "composite.wgsl",
+            concat!(
+                include_str!("composite_common.wgsl"),
+                include_str!("composite.wgsl")
+            ),
+        );
+        let native_module = make_module(
+            "composite_native.wgsl",
+            concat!(
+                include_str!("composite_common.wgsl"),
+                include_str!("composite_native.wgsl")
+            ),
+        );
         let pack_module = make_module("pack.wgsl", include_str!("pack.wgsl"));
         let viewport_module = make_module("viewport.wgsl", include_str!("viewport.wgsl"));
         // One module per kernel: naga's HLSL backend rejects entry points
@@ -228,6 +244,7 @@ impl GpuContext {
             work: parking_lot::Mutex::new(()),
             binding_limit: std::sync::atomic::AtomicUsize::new(binding_limit),
             composite: make(&composite_module, "composite"),
+            composite_native: make(&native_module, "composite_native"),
             pack: make(&pack_module, "pack_rgba8"),
             viewport: make(&viewport_module, "viewport"),
             fx_blur: make(&fx_blur_module, "box_pass"),
@@ -1136,37 +1153,55 @@ impl GpuContext {
     /// Run `plan` over `coords`, splitting into budget-sized chunks.
     /// `None` means the GPU could not run this batch (a single tile's
     /// sources exceed the buffer budget, or a readback failed); the caller
-    /// falls back to the CPU reference.
+    /// falls back to the CPU reference. Native plans return `BatchOut::Native`;
+    /// ICC conversion and RGBA packing belong to the display boundary.
     pub fn composite_batch(
         &self,
         plan: &Plan<'_>,
         coords: &[TileCoord],
         rgba8: bool,
     ) -> Option<BatchOut> {
+        let limit = self.binding_limit().min(BUDGET_BYTES);
+        // Fixed bindings must fit even when a batch is split to one tile.
+        if [
+            plan.ops.len().max(1) * 80,
+            plan.luts.len().max(1) * 4,
+            plan.directs.len().max(1) * 4,
+        ]
+        .into_iter()
+        .any(|n| n > limit)
+        {
+            return None;
+        }
+        let mut native_out = Vec::new();
         let mut f32_out: Vec<Vec<f32>> = Vec::new();
         let mut u8_out: Vec<Vec<u8>> = Vec::new();
         let mut start = 0;
         while start < coords.len() {
             let mut end = start;
-            let mut bytes = 0usize;
+            let mut bytes = [0usize; 5];
             while end < coords.len() && end - start < MAX_CHUNK_TILES {
                 let cost = self.tile_cost(plan, coords[end]);
-                if bytes + cost > BUDGET_BYTES && end > start {
+                let next = std::array::from_fn::<_, 5, _>(|i| bytes[i] + cost[i]);
+                if next.iter().any(|&n| n > limit) || next.iter().sum::<usize>() > BUDGET_BYTES {
+                    if end == start {
+                        return None;
+                    }
                     break;
                 }
-                if cost > BUDGET_BYTES {
-                    return None; // one tile alone blows the budget
-                }
-                bytes += cost;
+                bytes = next;
                 end += 1;
             }
             match self.run_chunk(plan, &coords[start..end], rgba8)? {
+                BatchOut::Native(mut v) => native_out.append(&mut v),
                 BatchOut::F32(mut v) => f32_out.append(&mut v),
                 BatchOut::Rgba8(mut v) => u8_out.append(&mut v),
             }
             start = end;
         }
-        Some(if rgba8 {
+        Some(if plan.is_native() {
+            BatchOut::Native(native_out)
+        } else if rgba8 {
             BatchOut::Rgba8(u8_out)
         } else {
             BatchOut::F32(f32_out)
@@ -1174,18 +1209,25 @@ impl GpuContext {
     }
 
     /// Upper-bound upload bytes one tile contributes (worst-case f32).
-    fn tile_cost(&self, plan: &Plan<'_>, coord: TileCoord) -> usize {
-        let mut bytes = 0;
+    fn tile_cost(&self, plan: &Plan<'_>, coord: TileCoord) -> [usize; 5] {
+        let pixel_bytes = if plan.is_native() { 20 } else { 16 };
+        let mut bytes = [
+            0,
+            0,
+            TILE_PIXELS * pixel_bytes,
+            plan.sources.len().max(1) * 4,
+            8,
+        ];
         for src in &plan.sources {
             match src {
                 PlanSource::Pixels(map) => {
                     if map.get(coord).is_some() {
-                        bytes += TILE_PIXELS * 16;
+                        bytes[0] += TILE_PIXELS * pixel_bytes;
                     }
                 }
                 PlanSource::Mask(map) => {
                     if map.get(coord).is_some() {
-                        bytes += TILE_PIXELS;
+                        bytes[1] += TILE_PIXELS;
                     }
                 }
             }
@@ -1196,6 +1238,28 @@ impl GpuContext {
     fn run_chunk(&self, plan: &Plan<'_>, coords: &[TileCoord], rgba8: bool) -> Option<BatchOut> {
         let _work = self.work.lock();
         self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let result = self.run_chunk_inner(plan, coords, rgba8);
+        if let Some(err) = pollster::block_on(self.device.pop_error_scope()) {
+            log::warn!("gpu composite failed, falling back to the CPU: {err}");
+            return None;
+        }
+        result
+    }
+
+    fn run_chunk_inner(
+        &self,
+        plan: &Plan<'_>,
+        coords: &[TileCoord],
+        rgba8: bool,
+    ) -> Option<BatchOut> {
+        let native = plan.is_native();
+        let rgba8 = rgba8 && !native;
+        let pixel_bytes = if native { 20 } else { 16 };
+        let pipeline = if native {
+            &self.composite_native
+        } else {
+            &self.composite
+        };
         let n_tiles = coords.len();
         let n_rows = plan.sources.len();
         let mut slots = vec![-1i32; n_rows.max(1) * n_tiles];
@@ -1226,7 +1290,15 @@ impl GpuContext {
                     for (t, c) in coords.iter().enumerate() {
                         if let Some(buf) = map.get(*c) {
                             slots[r * n_tiles + t] = src_words.len() as i32;
-                            pack_pixels(&mut src_words, buf, fmts[r]);
+                            if native {
+                                for i in 0..TILE_PIXELS {
+                                    let p = buf.native_pixel(i).converted(plan.mode);
+                                    src_words.extend(p.color.map(f32::to_bits));
+                                    src_words.push(p.alpha.to_bits());
+                                }
+                            } else {
+                                pack_pixels(&mut src_words, buf, fmts[r]);
+                            }
                         }
                     }
                 }
@@ -1271,6 +1343,10 @@ impl GpuContext {
                 0,
             ]);
         }
+        // Runtime arrays still require room for one complete element.
+        if op_words.is_empty() {
+            op_words.resize(20, 0);
+        }
         let mut origins: Vec<i32> = Vec::with_capacity(n_tiles * 2);
         for c in coords {
             let r = c.rect();
@@ -1292,7 +1368,16 @@ impl GpuContext {
             .device
             .create_buffer_init(&wgpu::util::BufferInitDescriptor {
                 label: Some("globals"),
-                contents: cast_u32s(&[plan.ops.len() as u32, n_tiles as u32, 0, 0]),
+                contents: cast_u32s(&[
+                    plan.ops.len() as u32,
+                    n_tiles as u32,
+                    match plan.mode {
+                        ColorMode::Cmyk => 1,
+                        ColorMode::Lab => 2,
+                        _ => 0,
+                    },
+                    0,
+                ]),
                 usage: wgpu::BufferUsages::UNIFORM,
             });
         let ops_buf = storage("ops", &op_words);
@@ -1314,14 +1399,14 @@ impl GpuContext {
         );
         let out_f32 = self.device.create_buffer(&wgpu::BufferDescriptor {
             label: Some("out-f32"),
-            size: (n_tiles * TILE_PIXELS * 16) as u64,
+            size: (n_tiles * TILE_PIXELS * pixel_bytes) as u64,
             usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
             mapped_at_creation: false,
         });
 
         let bind = self.device.create_bind_group(&wgpu::BindGroupDescriptor {
             label: Some("composite"),
-            layout: &self.composite.get_bind_group_layout(0),
+            layout: &pipeline.get_bind_group_layout(0),
             entries: &[
                 bind_entry(0, &globals),
                 bind_entry(1, &ops_buf),
@@ -1338,7 +1423,7 @@ impl GpuContext {
         let out_bytes = if rgba8 {
             n_tiles * TILE_PIXELS * 4
         } else {
-            n_tiles * TILE_PIXELS * 16
+            n_tiles * TILE_PIXELS * pixel_bytes
         };
         let packed = if rgba8 {
             Some((
@@ -1385,7 +1470,7 @@ impl GpuContext {
                 label: Some("composite"),
                 timestamp_writes: None,
             });
-            pass.set_pipeline(&self.composite);
+            pass.set_pipeline(pipeline);
             pass.set_bind_group(0, &bind, &[]);
             pass.dispatch_workgroups(16, 16, n_tiles as u32);
             if let Some((_, _, pack_bind)) = &packed {
@@ -1406,7 +1491,30 @@ impl GpuContext {
         self.device.poll(wgpu::PollType::wait_indefinitely()).ok()?;
         rx.recv().ok()?.ok()?;
         let data = slice.get_mapped_range();
-        let out = if rgba8 {
+        let out = if native {
+            BatchOut::Native(
+                data.as_chunks::<{ TILE_PIXELS * 20 }>()
+                    .0
+                    .iter()
+                    .map(|tile| {
+                        tile.as_chunks::<20>()
+                            .0
+                            .iter()
+                            .map(|p| {
+                                let f = |i: usize| {
+                                    f32::from_le_bytes(p[i * 4..i * 4 + 4].try_into().unwrap())
+                                };
+                                NativePixel {
+                                    mode: plan.mode,
+                                    color: [f(0), f(1), f(2), f(3)],
+                                    alpha: f(4),
+                                }
+                            })
+                            .collect()
+                    })
+                    .collect(),
+            )
+        } else if rgba8 {
             BatchOut::Rgba8(
                 (0..n_tiles)
                     .map(|t| data[t * TILE_PIXELS * 4..(t + 1) * TILE_PIXELS * 4].to_vec())
@@ -1428,10 +1536,6 @@ impl GpuContext {
         };
         drop(data);
         staging.unmap();
-        if let Some(err) = pollster::block_on(self.device.pop_error_scope()) {
-            log::warn!("gpu composite failed, falling back to the CPU: {err}");
-            return None;
-        }
         Some(out)
     }
 }

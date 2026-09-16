@@ -37,12 +37,18 @@ channel. Eraser edits transparency independently.
 
 Normal compositing, masks, opacity, groups, clipping stacks, Merge Down,
 Merge Visible and Flatten retain native channels. CMYK separable blend
-functions operate on the ink complements, including K. Native documents
-use the CPU compositor; RGBA GPU shaders are not used for their layer
-compositing.
+functions operate on the ink complements, including K. The GPU compositor
+uploads native samples at every document depth and runs a native channel
+shader with separate alpha. Masks, opacity, groups, clipping, blend modes
+and adjustments follow the CPU reference. Native merge and export callers
+use the same backend, so readback retains independent inks and Lab samples.
+Batches split to respect device buffer limits; unsupported render offsets,
+excessive nesting, oversized tiles or unavailable devices use CPU fallback.
+The GPU preference and `SCHIST_GPU` override apply to native documents too.
 
 Embedded native ICC profiles are used for the final conversion to sRGB
-and the in-process filter adapter where the CMS can evaluate them. Alpha
+and the in-process filter adapter where the CMS can evaluate them. Final
+ICC display conversion still runs on the CPU after native GPU readback. Alpha
 never enters the colour transform. Missing, invalid or unsupported
 profiles use the simple CMYK conversion or D50 Lab conversion. Source ICC
 bytes survive editing and PSD save/reopen. Changing mode converts samples
@@ -74,6 +80,13 @@ resampling, RGB identity filters, native plugin dispatch, ICC Lab conversion,
 recovery serialization, and PSD/PSB save/reopen. Codec fixtures are built
 independently of the writer and cover 8/16/32-bit data plus raw, RLE, ZIP
 and ZIP-with-prediction input.
+
+`make check-native-color-gpu` validates both compositor shaders and compares
+actual native GPU dispatch against CPU channels across depths, blend modes,
+masks, clipping/groups, adjustments, RGB effect inputs, ICC display, native
+merge dispatch and forced buffer limits. Set `SCHIST_REQUIRE_GPU=1` to fail
+instead of skipping dispatch tests when no adapter is available. It also
+runs the existing RGB compositor parity suite.
 
 `make check-native-color-app` checks application integration;
 `make lint-native-color` runs the relevant lint checks.

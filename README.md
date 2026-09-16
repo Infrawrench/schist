@@ -355,9 +355,11 @@ CMYK and Lab PSD/PSB files retain their native channels at 8/16/32-bit
 depth. The Color panel's **Channels** control selects individual inks or
 Lab components for brush and fill edits, preserving other channels and
 alpha. Native samples survive undo, layer merges, recovery and save/reopen.
-RGB filters and effects still use explicit conversion boundaries; native
-documents currently use CPU compositing. See [native colour editing and
-processing boundaries](docs/native-colour-editing.md).
+RGB filters and effects still use explicit conversion boundaries. Native
+CMYK/Lab compositing runs on the GPU when available, preserving independent
+channels through canvas rendering and layer merges; final ICC display
+conversion uses the CPU color-management engine. See
+[native colour editing and processing boundaries](docs/native-colour-editing.md).
 
 ## Diagnostics
 
