@@ -96,7 +96,7 @@ Median companions use scratch arrays for radii 1–4 and constant-register radix
 selection for larger windows (the helper supports radii through 100). Oil Paint supports up to 64 intensity bins.
 Gaussian/box blur, lens blur, mesh warp and seam carving retain their specialized
 backends. Additional companions cover blur galleries, distortions, lens correction,
-pixelate and texture effects; see the [coverage map](../../docs/gpu-opportunities.md).
+pixelate and texture effects.
 
 ## Resident programs and browser callers
 

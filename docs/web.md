@@ -97,7 +97,7 @@ plans and failed jobs retain the CPU fallback.
 
 Whole-filter descriptors cover blur and sharpening programs, noise and median,
 additional distortions, lens correction, pixelate/texture effects and selected
-stylize/procedural filters. See [the coverage list](gpu-opportunities.md#browser-whole-filter-operations).
+stylize/procedural filters.
 Previews and Apply use asynchronous operations when the workload passes the
 offload threshold. Slider changes coalesce; Cancel invalidates pending results,
 and Apply records one undoable edit. Context-dependent filters retain the

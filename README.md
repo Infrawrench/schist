@@ -279,9 +279,8 @@ Additional kernels cover adjustments, affine transforms, selections, layer-effec
 preparation, RAW development, matrix/TRC color conversion, supported neural
 graphs, retouch diffusion and vector coverage. Compound filters retain their
 intermediate images on-device. The browser uses asynchronous WebGPU for the
-canvas and the whole-filter operations listed in the coverage map;
-see [browser GPU support](docs/web.md) and the
-[GPU coverage and remaining opportunities](docs/gpu-opportunities.md).
+canvas and supported whole-filter operations;
+see [browser GPU support](docs/web.md).
 
 **Image.** Mode (RGB, greyscale, CMYK, Lab, Indexed), Auto Tone /
 Contrast / Colour, image and canvas size, the five rotations and flips,
