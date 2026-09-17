@@ -712,6 +712,7 @@ pub struct FilterPreview {
     pub layer: schist_core::LayerId,
     pub region: IntRect,
     pub original: Vec<f32>,
+    pub original_tiles: schist_core::TileMap,
     /// RAW development always covers the capture, independent of a pixel
     /// selection. Ordinary filters leave this false.
     pub whole_layer: bool,

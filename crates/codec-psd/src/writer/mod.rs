@@ -428,7 +428,7 @@ fn prepare_entry(entry: &Entry<'_>, doc: &Document, psb: bool) -> Result<Prepare
         Entry::Leaf(layer) => {
             let (bounds, channels) = match &layer.kind {
                 LayerKind::Raster(r) => {
-                    let bounds = r.tiles.content_bounds();
+                    let bounds = r.tiles.storage_bounds();
                     if bounds.is_empty() {
                         (IntRect::EMPTY, empty_channels(doc))
                     } else {
@@ -630,13 +630,7 @@ fn mask_bounds(mask: &LayerMask) -> IntRect {
     }
 }
 
-/// Extract R,G,B,A planes for `rect` at the document's depth, big-endian.
-/// The colour channels a document of this mode stores, converted from the
-/// RGBA the tiles hold.
-///
-/// Everything is edited as RGBA; a CMYK or Lab document converts here on
-/// the way out and in the reader on the way back, so the file is genuinely
-/// in its mode even though the editing was not.
+/// Write authoritative native colour planes, converting only RGB source tiles.
 fn colour_planes(tiles: &TileMap, rect: IntRect, doc: &Document) -> Vec<Vec<u8>> {
     let depth = doc.depth;
     let w = rect.width().max(0) as usize;
@@ -663,28 +657,16 @@ fn colour_planes(tiles: &TileMap, rect: IntRect, doc: &Document) -> Vec<Vec<u8>>
         }
         for y in clip.top..clip.bottom {
             for x in clip.left..clip.right {
-                let px = buf
-                    .get((y - trect.top) as usize * TILE_SIZE as usize + (x - trect.left) as usize);
+                let ix = (y - trect.top) as usize * TILE_SIZE as usize + (x - trect.left) as usize;
+                let px = buf.native_pixel(ix).converted(doc.mode);
                 let at = ((y - rect.top) as usize * w + (x - rect.left) as usize) * bpc;
                 let values: Vec<f32> = match doc.mode {
-                    ColorMode::Cmyk => {
-                        // PSD stores CMYK inverted: 0 means full ink.
-                        schist_color::convert::rgb_to_cmyk(px)
-                            .iter()
-                            .map(|v| 1.0 - v)
-                            .collect()
+                    ColorMode::Cmyk => px.color.iter().map(|v| 1.0 - v).collect(),
+                    ColorMode::Lab => px.color[..3].to_vec(),
+                    _ => {
+                        let rgb = px.to_rgba();
+                        vec![0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b]
                     }
-                    ColorMode::Lab => {
-                        let lab = schist_color::convert::rgb_to_lab(px);
-                        vec![
-                            lab[0] / 100.0,
-                            (lab[1] + 128.0) / 255.0,
-                            (lab[2] + 128.0) / 255.0,
-                        ]
-                    }
-                    // Indexed has no palette here, so its single plane is
-                    // the luminance -- the same thing the reader shows.
-                    _ => vec![0.299 * px.r + 0.587 * px.g + 0.114 * px.b],
                 };
                 for (i, v) in values.into_iter().take(n).enumerate() {
                     write_sample(&mut planes[i][at..at + bpc], v.clamp(0.0, 1.0), depth);
@@ -830,17 +812,37 @@ fn encode_channel(plane: &[u8], row_bytes: usize, rows: usize, depth: Depth, psb
 /// layers.
 fn write_merged_image(b: &mut Buf, doc: &Document, channels: u16, psb: bool) {
     let rect = doc.canvas_rect();
-    let composite = schist_compositor::composite_region_f32(doc, rect);
+    let native = matches!(doc.mode, ColorMode::Cmyk | ColorMode::Lab)
+        .then(|| schist_compositor::composite_native_region(doc, rect));
+    let composite = if native.is_none() {
+        schist_compositor::composite_region_f32(doc, rect)
+    } else {
+        Vec::new()
+    };
     let w = rect.width() as usize;
     let h = rect.height() as usize;
     let bpc = doc.depth.bytes_per_channel();
     let row_bytes = w * bpc;
 
     // Channel order in the merged section is colour first, then alpha.
-    // Non-RGB modes convert here, the same way the layer channels do.
+    // Native colour planes come straight from native compositing.
     let n = doc.mode.channels();
     let mut planes: Vec<Vec<u8>> = (0..n + 1).map(|_| vec![0u8; w * h * bpc]).collect();
     for i in 0..w * h {
+        if let Some(native) = &native {
+            let p = native[i];
+            for (c, plane) in planes.iter_mut().enumerate() {
+                let value = if c == n {
+                    p.alpha
+                } else if doc.mode == ColorMode::Cmyk {
+                    1.0 - p.color[c]
+                } else {
+                    p.color[c]
+                };
+                write_sample(&mut plane[i * bpc..(i + 1) * bpc], value, doc.depth);
+            }
+            continue;
+        }
         let px = schist_color::Rgba::new(
             composite[i * 4],
             composite[i * 4 + 1],
@@ -852,18 +854,7 @@ fn write_merged_image(b: &mut Buf, doc: &Document, channels: u16, psb: bool) {
             ColorMode::Grayscale | ColorMode::Indexed => {
                 vec![0.299 * px.r + 0.587 * px.g + 0.114 * px.b]
             }
-            ColorMode::Cmyk => schist_color::convert::rgb_to_cmyk(px)
-                .iter()
-                .map(|v| 1.0 - v)
-                .collect(),
-            ColorMode::Lab => {
-                let lab = schist_color::convert::rgb_to_lab(px);
-                vec![
-                    lab[0] / 100.0,
-                    (lab[1] + 128.0) / 255.0,
-                    (lab[2] + 128.0) / 255.0,
-                ]
-            }
+            ColorMode::Cmyk | ColorMode::Lab => unreachable!("native planes handled above"),
         };
         for (c, v) in values.into_iter().take(n).enumerate() {
             write_sample(

@@ -167,3 +167,42 @@ pub fn fill_mask_tiles(tiles: &mut MaskTileMap, rect: IntRect, bytes: &[u8]) {
         }
     }
 }
+
+/// Store file-native colour planes directly. PSD's inverted CMYK encoding
+/// is decoded here; Lab stays encoded as normalized D50 components.
+pub fn fill_native_tiles(
+    tiles: &mut TileMap,
+    depth: Depth,
+    mode: schist_color::ColorMode,
+    rect: IntRect,
+    colors: &[Option<Vec<f32>>],
+    alpha: Option<&[f32]>,
+) {
+    let w = rect.width() as usize;
+    *tiles = TileMap::new_in_mode(mode);
+    for coord in TileCoord::covering(&rect) {
+        let clip = coord.rect().intersect(&rect);
+        let tile = tiles.get_mut_or_insert(coord, depth);
+        for y in clip.top..clip.bottom {
+            for x in clip.left..clip.right {
+                let i = (y - rect.top) as usize * w + (x - rect.left) as usize;
+                let mut p = schist_color::NativePixel::transparent(mode);
+                for c in 0..mode.channels() {
+                    let inverted = mode == schist_color::ColorMode::Cmyk;
+                    let v = colors
+                        .get(c)
+                        .and_then(|p| p.as_ref())
+                        .and_then(|p| p.get(i))
+                        .copied()
+                        .unwrap_or(if inverted { 1.0 } else { 0.0 });
+                    p.color[c] = if inverted { 1.0 - v } else { v };
+                }
+                p.alpha = alpha.and_then(|p| p.get(i)).copied().unwrap_or(1.0);
+                tile.set_native_pixel(
+                    (y.rem_euclid(TILE_SIZE) * TILE_SIZE + x.rem_euclid(TILE_SIZE)) as usize,
+                    p,
+                );
+            }
+        }
+    }
+}

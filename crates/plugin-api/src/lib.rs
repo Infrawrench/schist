@@ -12,7 +12,9 @@ use schist_core::{Document, IntRect};
 
 pub use registry::{PluginManifest, PluginRegistry};
 
+mod native;
 pub mod registry;
+pub use native::NativeFilterBuffer;
 
 /// Keyboard modifiers accompanying a pointer event.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
@@ -48,6 +50,8 @@ pub struct ClipboardImage {
 #[derive(Debug, Clone)]
 pub struct EditorState {
     pub foreground: Rgba,
+    /// Normalized value painted into the document's selected native channel.
+    pub native_channel_value: f32,
     pub background: Rgba,
     pub brush_size: f32,
     /// 0.0 = maximally soft edge, 1.0 = hard edge.
@@ -84,6 +88,7 @@ impl Default for EditorState {
     fn default() -> Self {
         EditorState {
             foreground: Rgba::BLACK,
+            native_channel_value: 1.0,
             background: Rgba::WHITE,
             brush_size: 24.0,
             brush_hardness: 0.5,
@@ -579,8 +584,22 @@ pub trait FilterPlugin: Send + Sync {
         Vec::new()
     }
     /// Apply in place to a straight-alpha f32 RGBA buffer of
-    /// `width * height` pixels.
+    /// `width * height` pixels. This is an explicit RGB processing boundary:
+    /// hosts convert only changed pixels back to native storage, retain alpha
+    /// independently, and capture native tiles (never RGB buffers) for undo.
+    /// Filters that need original separations use `NativeFilterBuffer` instead.
     fn apply(&self, pixels: &mut [f32], width: usize, height: usize, values: &FilterValues);
+
+    /// Mode-aware entry point. Native filters override this to operate on
+    /// independent channels. Existing filters use an explicit RGB adapter.
+    fn apply_native_with(
+        &self,
+        pixels: &mut NativeFilterBuffer,
+        values: &FilterValues,
+        context: &FilterContext,
+    ) {
+        pixels.process_rgba(|rgba, w, h| self.apply_with(rgba, w, h, values, context));
+    }
 
     /// Whether this filter wants to see what is underneath the layer.
     ///

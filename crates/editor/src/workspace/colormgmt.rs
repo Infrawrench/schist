@@ -11,10 +11,23 @@ impl Workspace {
     /// the colour settings change, and drop cached pixels drawn with the
     /// old ones.
     pub fn rebuild_color_transforms(&mut self) {
-        let icc = self.doc.as_ref().and_then(|d| d.icc_profile.clone());
-        let transform = self.color.transform_for(icc.as_deref());
+        // The compositor renders native profiles to sRGB before this hop.
+        let native = self
+            .doc
+            .as_ref()
+            .is_some_and(|d| matches!(d.mode, ColorMode::Cmyk | ColorMode::Lab));
+        let mut settings = self.color.clone();
+        if native {
+            settings.working = schist_colormgmt::Profile::srgb();
+        }
+        let icc = self
+            .doc
+            .as_ref()
+            .filter(|_| !native)
+            .and_then(|d| d.icc_profile.as_deref());
+        let transform = settings.transform_for(icc);
         self.display_transform = (!transform.is_identity()).then(|| Arc::new(transform));
-        self.proof_transform = self.color.proof_transform(icc.as_deref()).map(Arc::new);
+        self.proof_transform = settings.proof_transform(icc).map(Arc::new);
         self.cache.invalidate_all();
         self.display_tiles.clear();
         self.invalidate_viewport_image();
@@ -67,6 +80,13 @@ impl Workspace {
     /// Assign a profile: same numbers, new interpretation.
     pub fn assign_profile(&mut self, profile: schist_colormgmt::Profile, cx: &mut Context<Self>) {
         if let Some(doc) = self.doc.as_mut() {
+            if matches!(doc.mode, ColorMode::Cmyk | ColorMode::Lab) {
+                if let Err(err) = profile.validate_mode(doc.mode) {
+                    self.status = tf!("workspace.colormgmt.convert_failed", error = err).into();
+                    cx.notify();
+                    return;
+                }
+            }
             let mut edit = doc.begin_edit(tf!("workspace.colormgmt.assign", name = profile.name()));
             edit.set_icc_profile(profile.icc_bytes().map(|b| b.to_vec()));
             edit.commit();
@@ -85,10 +105,17 @@ impl Workspace {
     ) {
         let intent = self.color.intent;
         let Some(doc) = self.doc.as_mut() else { return };
-        let source = match &doc.icc_profile {
-            Some(bytes) => schist_colormgmt::Profile::from_bytes(bytes)
-                .unwrap_or_else(|_| self.color.working.clone()),
-            None => self.color.working.clone(),
+        let native = matches!(doc.mode, ColorMode::Cmyk | ColorMode::Lab);
+        // The profile picker offers RGB working spaces. Convert native
+        // samples to sRGB first, in the same undo entry as the target hop.
+        let source = if native {
+            schist_colormgmt::Profile::srgb()
+        } else {
+            match &doc.icc_profile {
+                Some(bytes) => schist_colormgmt::Profile::from_bytes(bytes)
+                    .unwrap_or_else(|_| self.color.working.clone()),
+                None => self.color.working.clone(),
+            }
         };
         let transform = match schist_colormgmt::ColorTransform::new(&source, &profile, intent) {
             Ok(transform) => transform,
@@ -99,6 +126,9 @@ impl Workspace {
         };
 
         let mut edit = doc.begin_edit(tf!("workspace.colormgmt.convert_to", name = profile.name()));
+        if native {
+            edit.set_color_mode(ColorMode::Rgb);
+        }
         for id in edit.raster_layer_ids() {
             let Some(raster) = edit.doc().tree.find(id).and_then(|l| l.as_raster()) else {
                 continue;

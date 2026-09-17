@@ -387,3 +387,23 @@ check-video-android-native:
 	./tools/android-build.sh --video-test
 check-video-ios-native:
 	./tools/ios-test.sh -p schist-video --lib
+
+# Native channel storage, edits, processing boundaries and file round trips.
+.PHONY: check-native-color
+check-native-color:
+	$(CARGO) test -p schist-color -p schist-core -p schist-colormgmt -p schist-codec-psd -p schist-compositor -p schist-tools-paint -p schist-plugin-api -p schist-document -p schist-commands-core
+
+.PHONY: format-native-color lint-native-color check-native-color-app
+NATIVE_COLOR_PACKAGES := -p schist-color -p schist-core -p schist-colormgmt -p schist-plugin-api -p schist-codec-psd -p schist-compositor -p schist-compositor-gpu -p schist-document -p schist-codec-affinity -p schist-editor -p schist-tools-paint -p schist-commands-core -p schist-mcp
+format-native-color:
+	$(CARGO) fmt $(NATIVE_COLOR_PACKAGES)
+lint-native-color:
+	$(CARGO) clippy $(NATIVE_COLOR_PACKAGES) --all-targets -- -D warnings
+check-native-color-app:
+	$(CARGO) check -p schist-app --all-targets
+
+# GPU native-channel parity. Set SCHIST_REQUIRE_GPU=1 to reject missing adapters.
+.PHONY: check-native-color-gpu
+check-native-color-gpu:
+	$(CARGO) test -p schist-compositor-gpu --test native_parity -- --nocapture
+	$(CARGO) test -p schist-compositor-gpu --test parity

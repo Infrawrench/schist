@@ -289,20 +289,16 @@ fn merge_down(ctx: &mut CommandCtx) {
     }
     let mut scratch = Document::new("merge", ctx.doc.width, ctx.doc.height, ctx.doc.depth);
     let bounds = upper.content_bounds().union(&lower.content_bounds());
+    scratch.mode = ctx.doc.mode;
+    scratch.icc_profile = ctx.doc.icc_profile.clone();
     scratch.tree.layers = vec![lower, upper];
     let bounds = bounds.intersect(&scratch.canvas_rect());
     if bounds.is_empty() {
         return;
     }
-    let rgba = schist_compositor::composite_region_rgba8(&scratch, bounds);
-
     let mut merged = Layer::new_raster(ctx.doc.tree.find(id).unwrap().name.clone());
-    blit_rgba8(
-        &mut merged.as_raster_mut().unwrap().tiles,
-        ctx.doc.depth,
-        bounds,
-        &rgba,
-    );
+    merged.as_raster_mut().unwrap().tiles =
+        schist_compositor::composite_region_tiles(&scratch, bounds, false);
     let merged_id = merged.id;
 
     let below_id = {
@@ -337,31 +333,14 @@ fn flatten_image(ctx: &mut CommandCtx) {
 
 fn merge_all(ctx: &mut CommandCtx, flatten: bool) {
     let canvas = ctx.doc.canvas_rect();
-    let mut rgba = schist_compositor::composite_region_rgba8(ctx.doc, canvas);
-    if flatten {
-        // Flattening composites onto an opaque white background, the way
-        // Photoshop does, so the result has no transparency left.
-        for px in rgba.as_chunks_mut::<4>().0 {
-            let a = px[3] as u32;
-            let inv = 255 - a;
-            for c in px[..3].iter_mut() {
-                *c = ((*c as u32 * a + 255 * inv) / 255) as u8;
-            }
-            px[3] = 255;
-        }
-    }
     let name = if flatten {
         t("common.background_layer")
     } else {
         t("common.merged")
     };
     let mut merged = Layer::new_raster(name);
-    blit_rgba8(
-        &mut merged.as_raster_mut().unwrap().tiles,
-        ctx.doc.depth,
-        canvas,
-        &rgba,
-    );
+    merged.as_raster_mut().unwrap().tiles =
+        schist_compositor::composite_region_tiles(ctx.doc, canvas, flatten);
     let merged_id = merged.id;
 
     // Flatten removes every layer; Merge Visible leaves the hidden ones.
@@ -425,6 +404,12 @@ fn fill_selection(ctx: &mut CommandCtx, background: bool) {
     let Some(id) = ctx.doc.active_layer else {
         return;
     };
+    if let Some(channel) = ctx.doc.active_channel {
+        let mut edit = ctx.doc.begin_edit(t("command.history.fill"));
+        edit.fill_native_channel(id, channel, ctx.state.native_channel_value);
+        edit.commit();
+        return;
+    }
     let color = if background {
         ctx.state.background
     } else {
@@ -456,7 +441,8 @@ fn fill_selection(ctx: &mut CommandCtx, background: bool) {
                 let ix = ((y - trect.top) * TILE_SIZE + (x - trect.left)) as usize;
                 let mut src = color;
                 src.a *= c;
-                tile.set(ix, src.over(tile.get(ix)));
+                let top = schist_color::NativePixel::from_rgba(tile.mode(), src);
+                tile.set_native_pixel(ix, top.over(tile.native_pixel(ix)));
             }
         }
     }

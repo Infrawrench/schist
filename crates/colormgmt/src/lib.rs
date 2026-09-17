@@ -125,6 +125,25 @@ impl Profile {
         vec![("sRGB", Profile::srgb), ("Display P3", Profile::display_p3)]
     }
 
+    pub fn color_mode(&self) -> Option<schist_color::ColorMode> {
+        use schist_color::ColorMode;
+        match self.profile.color_space {
+            moxcms::DataColorSpace::Rgb => Some(ColorMode::Rgb),
+            moxcms::DataColorSpace::Gray => Some(ColorMode::Grayscale),
+            moxcms::DataColorSpace::Cmyk => Some(ColorMode::Cmyk),
+            moxcms::DataColorSpace::Lab => Some(ColorMode::Lab),
+            _ => None,
+        }
+    }
+
+    pub fn validate_mode(&self, mode: schist_color::ColorMode) -> Result<()> {
+        if self.color_mode() == Some(mode) {
+            Ok(())
+        } else {
+            Err(anyhow!("ICC profile does not match document mode"))
+        }
+    }
+
     pub fn name(&self) -> &str {
         &self.name
     }
@@ -725,5 +744,152 @@ mod tests {
             (pixels[0] - 0.8).abs() > 1e-3 || (pixels[1] - 0.2).abs() > 1e-3,
             "sRGB to Display P3 should have moved the pixel"
         );
+    }
+}
+
+/// ICC transforms for native colour samples. Alpha never enters the CMS:
+/// CMYK's fourth sample is K, even though moxcms calls its layout `Rgba`.
+pub struct NativeColorTransform {
+    mode: schist_color::ColorMode,
+    to_rgb: Arc<dyn TransformExecutor<f32> + Send + Sync>,
+    from_rgb: Option<Arc<dyn TransformExecutor<f32> + Send + Sync>>,
+}
+
+impl NativeColorTransform {
+    pub fn new(mode: schist_color::ColorMode, icc: Option<&[u8]>) -> Result<Self> {
+        use schist_color::ColorMode;
+        let source = Profile::from_bytes(icc.ok_or_else(|| anyhow!("No native ICC profile"))?)?;
+        let (space, layout) = match mode {
+            ColorMode::Cmyk => (moxcms::DataColorSpace::Cmyk, Layout::Rgba),
+            ColorMode::Lab => (moxcms::DataColorSpace::Lab, Layout::Rgb),
+            _ => return Err(anyhow!("Not a native colour mode")),
+        };
+        if source.profile.color_space != space {
+            return Err(anyhow!("ICC profile does not match document mode"));
+        }
+        let rgb = Profile::srgb();
+        let to_rgb = source
+            .profile
+            .create_transform_f32(
+                layout,
+                &rgb.profile,
+                Layout::Rgb,
+                TransformOptions::default(),
+            )
+            .map_err(|e| anyhow!("Cannot build native colour transform: {e:?}"))?;
+        let from_rgb = rgb
+            .profile
+            .create_transform_f32(
+                Layout::Rgb,
+                &source.profile,
+                layout,
+                TransformOptions::default(),
+            )
+            .ok();
+        Ok(Self {
+            mode,
+            to_rgb,
+            from_rgb,
+        })
+    }
+}
+
+/// Render native samples into sRGB, using the embedded profile when it can
+/// be evaluated, otherwise the documented CMYK/D50 Lab fallback.
+pub fn native_to_rgba(
+    pixels: &[schist_color::NativePixel],
+    transform: Option<&NativeColorTransform>,
+) -> Vec<f32> {
+    let mut out: Vec<f32> = pixels
+        .iter()
+        .flat_map(|p| {
+            let p = p.to_rgba();
+            [p.r, p.g, p.b, p.a]
+        })
+        .collect();
+    if let Some(t) = transform {
+        let src: Vec<f32> = pixels
+            .iter()
+            .flat_map(|p| p.color[..t.mode.channels()].iter().copied())
+            .collect();
+        let mut rgb = vec![0.0; pixels.len() * 3];
+        if t.to_rgb.transform(&src, &mut rgb).is_ok() {
+            for (dst, p) in out
+                .as_chunks_mut::<4>()
+                .0
+                .iter_mut()
+                .zip(rgb.as_chunks::<3>().0.iter())
+            {
+                dst[..3].copy_from_slice(p);
+            }
+        }
+    }
+    out
+}
+
+/// Explicit conversion back from an RGB processing result. Callers retain
+/// original native samples for pixels the RGB operation did not change.
+pub fn rgba_to_native(
+    mode: schist_color::ColorMode,
+    rgba: &[f32],
+    transform: Option<&NativeColorTransform>,
+) -> Vec<schist_color::NativePixel> {
+    let mut out: Vec<_> = rgba
+        .as_chunks::<4>()
+        .0
+        .iter()
+        .map(|p| {
+            schist_color::NativePixel::from_rgba(
+                mode,
+                schist_color::Rgba::new(p[0], p[1], p[2], p[3]),
+            )
+        })
+        .collect();
+    if let Some(t) = transform.filter(|t| t.mode == mode) {
+        if let Some(from) = &t.from_rgb {
+            let src: Vec<f32> = rgba
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .flat_map(|p| p[..3].iter().copied())
+                .collect();
+            let mut samples = vec![0.0; out.len() * mode.channels()];
+            if from.transform(&src, &mut samples).is_ok() {
+                for (dst, p) in out.iter_mut().zip(samples.chunks_exact(mode.channels())) {
+                    dst.color[..mode.channels()].copy_from_slice(p);
+                }
+            }
+        }
+    }
+    out
+}
+
+#[cfg(test)]
+mod native_tests {
+    use super::*;
+    use schist_color::{ColorMode, NativePixel};
+
+    #[test]
+    fn native_lab_profile_uses_three_colour_samples_and_preserves_alpha() {
+        // Identity Lab device -> Lab PCS. The library's generic constructor
+        // labels its identity LUT as XYZ; set the PCS to match our fixture.
+        let mut profile = ColorProfile::new_lab();
+        profile.pcs = moxcms::DataColorSpace::Lab;
+        let icc = profile.encode().unwrap();
+        let transform = NativeColorTransform::new(ColorMode::Lab, Some(&icc)).unwrap();
+        let pixels = [NativePixel {
+            mode: ColorMode::Lab,
+            color: [0.5, 128.0 / 255.0, 128.0 / 255.0, 0.0],
+            alpha: 0.25,
+        }];
+        let rgb = native_to_rgba(&pixels, Some(&transform));
+        assert_eq!(rgb[3], 0.25);
+        assert!(rgb[..3].iter().all(|v| *v > 0.3 && *v < 0.7), "{rgb:?}");
+        let back = rgba_to_native(ColorMode::Lab, &rgb, Some(&transform));
+        for c in 0..3 {
+            assert!((back[0].color[c] - pixels[0].color[c]).abs() < 0.02);
+        }
+        assert_eq!(back[0].alpha, 0.25);
+        assert!(NativeColorTransform::new(ColorMode::Cmyk, Some(&icc)).is_err());
     }
 }

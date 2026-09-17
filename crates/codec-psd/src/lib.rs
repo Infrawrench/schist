@@ -8,11 +8,11 @@
 //! document / layers so the writer can round-trip it byte-for-byte.
 //!
 //! Supported: PSD (version 1) and PSB (version 2); 8/16/32-bit depth; RGB
-//! and Grayscale color modes; raw and RLE (PackBits) channel compression;
+//! Grayscale, native CMYK and native Lab; raw, RLE and ZIP compression;
 //! groups (`lsct`), layer masks, unicode names (`luni`), adjustment layers.
 //!
-//! Deliberately deferred: zip/zip-with-prediction channel compression,
-//! Bitmap/Indexed/CMYK/Lab/Duotone/Multichannel modes.
+//! Indexed imports use the existing grayscale fallback. Bitmap, Duotone
+//! and Multichannel are not supported.
 
 pub mod effects;
 pub mod error;

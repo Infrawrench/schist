@@ -371,6 +371,17 @@ impl Workspace {
         respect_selection: bool,
     ) {
         let Some(doc) = self.doc.as_mut() else { return };
+        if !record {
+            if let Some(preview) = &self.filter_preview {
+                if preview.layer == layer_id {
+                    if let Some(raster) =
+                        doc.tree.find_mut(layer_id).and_then(|l| l.as_raster_mut())
+                    {
+                        raster.tiles = preview.original_tiles.clone();
+                    }
+                }
+            }
+        }
         let selection = respect_selection.then(|| doc.selection.clone());
         let depth = doc.depth;
         let coords: Vec<TileCoord> = TileCoord::covering(&region).collect();
@@ -466,6 +477,17 @@ impl Workspace {
             layer: layer_id,
             region,
             original,
+            original_tiles: self
+                .doc
+                .as_ref()
+                .unwrap()
+                .tree
+                .find(layer_id)
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles
+                .clone(),
             whole_layer,
         });
         true
@@ -576,6 +598,72 @@ impl Workspace {
         .detach();
     }
 
+    /// Native filters receive independent channels. Existing filters enter
+    /// through the RGB compatibility adapter in plugin-api.
+    fn run_native_filter(
+        &mut self,
+        filter: &dyn schist_plugin_api::FilterPlugin,
+        layer: schist_core::LayerId,
+        region: IntRect,
+        values: &schist_plugin_api::FilterValues,
+        label: &str,
+        record: bool,
+    ) -> bool {
+        let Some(doc) = self
+            .doc
+            .as_ref()
+            .filter(|d| matches!(d.mode, ColorMode::Cmyk | ColorMode::Lab))
+        else {
+            return false;
+        };
+        let Some(raster) = doc.tree.find(layer).and_then(|l| l.as_raster()) else {
+            return false;
+        };
+        let original = if !record {
+            self.filter_preview
+                .as_ref()
+                .filter(|p| p.layer == layer)
+                .map(|p| p.original_tiles.clone())
+                .unwrap_or_else(|| raster.tiles.clone())
+        } else {
+            raster.tiles.clone()
+        };
+        let mut native = schist_plugin_api::NativeFilterBuffer::read(
+            &original,
+            region,
+            doc.mode,
+            doc.icc_profile.clone(),
+        );
+        let map = self.filter_map();
+        let (mut backdrop, mut path) = (None, None);
+        let context = self.filter_context(
+            filter,
+            layer,
+            region,
+            &mut backdrop,
+            &mut path,
+            map.as_deref(),
+        );
+        filter.apply_native_with(&mut native, values, &context);
+        if let Some(err) = filter.last_error() {
+            self.status = tf!("workspace.filters.failed", name = label, error = err).into();
+            return true;
+        }
+        let Some(doc) = self.doc.as_mut() else {
+            return true;
+        };
+        let out = native.write(&original, region, doc.depth, &doc.selection);
+        if record {
+            let mut edit = doc.begin_edit(label);
+            edit.replace_layer_tiles(layer, out);
+            edit.commit();
+        } else if let Some(raster) = doc.tree.find_mut(layer).and_then(|l| l.as_raster_mut()) {
+            raster.tiles = out;
+            doc.add_damage(region);
+        }
+        true
+    }
+
     /// Re-run the filter on the canvas from the snapshot, without touching
     /// history. `None` values restore the untouched pixels.
     pub fn preview_filter(
@@ -608,6 +696,17 @@ impl Workspace {
             let Some(filter) = self.registry.shared_filter(id) else {
                 return;
             };
+            if self.run_native_filter(
+                filter.as_ref(),
+                preview.layer,
+                preview.region,
+                values,
+                "",
+                false,
+            ) {
+                self.after_change(cx);
+                return;
+            }
             let map = self.filter_map();
             let (mut backdrop, mut path) = (None, None);
             let context = self.filter_context(
@@ -740,6 +839,10 @@ impl Workspace {
         let Some(filter) = self.registry.shared_filter(id) else {
             return;
         };
+        if self.run_native_filter(filter.as_ref(), layer_id, region, values, &name, true) {
+            self.after_change(cx);
+            return;
+        }
         let map = self.filter_map();
         let (mut backdrop, mut path) = (None, None);
         let context = self.filter_context(

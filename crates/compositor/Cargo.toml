@@ -5,6 +5,7 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+schist-colormgmt.workspace = true
 schist-core.workspace = true
 schist-adjustments.workspace = true
 serde_json.workspace = true

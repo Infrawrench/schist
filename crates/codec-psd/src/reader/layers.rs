@@ -502,7 +502,24 @@ fn decode_layer_channels(
     }
 
     let mut tiles = TileMap::new();
-    if header.depth == Depth::Eight
+    if matches!(header.mode, ColorMode::Cmyk | ColorMode::Lab) {
+        let to_f32 = |p: &Option<Vec<u8>>| p.as_deref().map(|b| plane_to_f32(b, header.depth));
+        let colors = [
+            to_f32(&raw[0]),
+            to_f32(&raw[1]),
+            to_f32(&raw[2]),
+            to_f32(&key_bytes),
+        ];
+        let alpha = to_f32(&raw[3]);
+        super::pixels::fill_native_tiles(
+            &mut tiles,
+            header.depth,
+            header.mode,
+            rec.rect,
+            &colors,
+            alpha.as_deref(),
+        );
+    } else if header.depth == Depth::Eight
         && matches!(
             header.mode,
             ColorMode::Rgb | ColorMode::Grayscale | ColorMode::Indexed
@@ -527,7 +544,6 @@ fn decode_layer_channels(
             b: to_f32(&raw[2]),
             a: to_f32(&raw[3]),
         };
-        let key = to_f32(&key_bytes);
 
         // Convert whatever the file's mode stores into the RGBA everything
         // downstream works in.
@@ -536,8 +552,7 @@ fn decode_layer_channels(
                 planes.g.clone_from(&planes.r);
                 planes.b.clone_from(&planes.r);
             }
-            ColorMode::Cmyk => convert_cmyk_planes(&mut planes, key.as_deref()),
-            ColorMode::Lab => convert_lab_planes(&mut planes),
+            ColorMode::Cmyk | ColorMode::Lab => unreachable!(),
             ColorMode::Rgb => {}
         }
 
@@ -715,68 +730,6 @@ fn make_layer(
         styled: None,
         render_offset: (0, 0),
     }
-}
-
-/// Turn CMYK planes (stored inverted: 0 means full ink) into RGB.
-fn convert_cmyk_planes(planes: &mut ColorPlanes, key: Option<&[f32]>) {
-    let n = planes.r.as_ref().map(|p| p.len()).unwrap_or(0);
-    if n == 0 {
-        return;
-    }
-    let take = |p: &Option<Vec<f32>>, i: usize| {
-        1.0 - p.as_ref().and_then(|v| v.get(i)).copied().unwrap_or(1.0)
-    };
-    let mut r = vec![0.0f32; n];
-    let mut g = vec![0.0f32; n];
-    let mut b = vec![0.0f32; n];
-    for i in 0..n {
-        let k = 1.0 - key.and_then(|v| v.get(i)).copied().unwrap_or(1.0);
-        let px = schist_color::convert::cmyk_to_rgb(
-            [
-                take(&planes.r, i),
-                take(&planes.g, i),
-                take(&planes.b, i),
-                k,
-            ],
-            1.0,
-        );
-        r[i] = px.r;
-        g[i] = px.g;
-        b[i] = px.b;
-    }
-    planes.r = Some(r);
-    planes.g = Some(g);
-    planes.b = Some(b);
-}
-
-/// Turn Lab planes into RGB. Channels arrive 0..=1: L covers 0..=100, and
-/// a/b cover -128..=127 with 128 as the neutral point.
-fn convert_lab_planes(planes: &mut ColorPlanes) {
-    let n = planes.r.as_ref().map(|p| p.len()).unwrap_or(0);
-    if n == 0 {
-        return;
-    }
-    let take =
-        |p: &Option<Vec<f32>>, i: usize| p.as_ref().and_then(|v| v.get(i)).copied().unwrap_or(0.0);
-    let mut r = vec![0.0f32; n];
-    let mut g = vec![0.0f32; n];
-    let mut b = vec![0.0f32; n];
-    for i in 0..n {
-        let px = schist_color::convert::lab_to_rgb(
-            [
-                take(&planes.r, i) * 100.0,
-                take(&planes.g, i) * 255.0 - 128.0,
-                take(&planes.b, i) * 255.0 - 128.0,
-            ],
-            1.0,
-        );
-        r[i] = px.r;
-        g[i] = px.g;
-        b[i] = px.b;
-    }
-    planes.r = Some(r);
-    planes.g = Some(g);
-    planes.b = Some(b);
 }
 
 /// Rebuild a vector shape from a layer's `vmsk`/`vsms` and `SoCo` blocks.

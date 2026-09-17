@@ -15,6 +15,7 @@ pub enum SliderTarget {
     BrushHardness,
     ToolOpacity,
     LayerOpacity(LayerId),
+    NativeChannelValue,
     ForegroundR,
     ForegroundG,
     ForegroundB,
@@ -41,6 +42,7 @@ pub(super) fn slider_get(ws: &Workspace, target: SliderTarget) -> f32 {
             .and_then(|d| d.tree.find(id))
             .map(|l| l.opacity)
             .unwrap_or(1.0),
+        SliderTarget::NativeChannelValue => ws.editor.native_channel_value,
         SliderTarget::ForegroundR => ws.editor.foreground.r,
         SliderTarget::ForegroundG => ws.editor.foreground.g,
         SliderTarget::ForegroundB => ws.editor.foreground.b,
@@ -63,6 +65,7 @@ pub(super) fn slider_set(
         SliderTarget::BrushHardness => ws.editor.brush_hardness = ratio,
         SliderTarget::ToolOpacity => ws.editor.tool_opacity = ratio,
         SliderTarget::LayerOpacity(id) => ws.set_layer_opacity_live(id, ratio),
+        SliderTarget::NativeChannelValue => ws.editor.native_channel_value = ratio,
         SliderTarget::ForegroundR => ws.editor.foreground.r = ratio,
         SliderTarget::ForegroundG => ws.editor.foreground.g = ratio,
         SliderTarget::ForegroundB => ws.editor.foreground.b = ratio,

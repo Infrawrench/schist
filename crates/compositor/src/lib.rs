@@ -18,7 +18,7 @@ pub mod viewport;
 use rayon::prelude::*;
 use rustc_hash::FxHashMap;
 use schist_adjustments::Params;
-use schist_color::Rgba;
+use schist_color::{NativePixel, Rgba};
 use schist_core::{
     AdjustmentData, BlendMode, Document, IntRect, Layer, LayerKind, TileCoord, TILE_PIXELS,
     TILE_SIZE,
@@ -75,6 +75,19 @@ pub trait Compositor: Send + Sync {
 
     /// Composite one tile to straight-alpha f32 RGBA.
     fn tile(&self, doc: &Document, coord: TileCoord) -> Vec<f32>;
+
+    /// Composite authoritative channels, retaining CMYK K and separate alpha.
+    fn native_tile(&self, doc: &Document, coord: TileCoord) -> Vec<NativePixel> {
+        composite_native_tile_cpu(doc, coord)
+    }
+
+    /// Batch form used by native exports and layer merges.
+    fn native_tiles(&self, doc: &Document, coords: &[TileCoord]) -> Vec<Vec<NativePixel>> {
+        coords
+            .par_iter()
+            .map(|&c| self.native_tile(doc, c))
+            .collect()
+    }
 
     /// Composite several tiles to RGBA8 (straight alpha), one buffer per
     /// coord in order. The batch form is where a GPU backend earns its
@@ -167,6 +180,17 @@ pub fn composite_region_rgba8(doc: &Document, region: IntRect) -> Vec<u8> {
 
 /// Composite one document tile to straight-alpha f32 RGBA (CPU reference).
 pub fn composite_tile_cpu(doc: &Document, coord: TileCoord) -> TileF32 {
+    if matches!(
+        doc.mode,
+        schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+    ) {
+        let transform =
+            schist_colormgmt::NativeColorTransform::new(doc.mode, doc.icc_profile.as_deref()).ok();
+        return schist_colormgmt::native_to_rgba(
+            &composite_native_tile_cpu(doc, coord),
+            transform.as_ref(),
+        );
+    }
     let mut scratch = Scratch::default();
     let mut dst = blank_tile();
     composite_layers(doc, &doc.tree.layers, coord, &mut dst, &mut scratch);
@@ -1349,3 +1373,9 @@ fn content_alpha(layer: &Layer) -> f32 {
         layer.fill_opacity
     }
 }
+
+mod native;
+pub use native::{
+    composite_native_region, composite_native_tile, composite_native_tile_cpu,
+    composite_region_tiles,
+};

@@ -475,6 +475,41 @@ impl SessionCtx<'_> {
         }
         let name = filter.name().to_string();
         let (layer_id, region) = self.filter_target()?;
+        if matches!(
+            self.doc.mode,
+            schist_core::color::ColorMode::Cmyk | schist_core::color::ColorMode::Lab
+        ) {
+            let original = self
+                .doc
+                .tree
+                .find(layer_id)
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles
+                .clone();
+            let mut buffer = schist_plugin_api::NativeFilterBuffer::read(
+                &original,
+                region,
+                self.doc.mode,
+                self.doc.icc_profile.clone(),
+            );
+            let filter = self.registry.filters().find(|f| f.id() == id).unwrap();
+            filter.apply_native_with(
+                &mut buffer,
+                &resolved,
+                &schist_plugin_api::FilterContext::default(),
+            );
+            if let Some(err) = filter.last_error() {
+                bail!("filter {id:?} failed: {err}");
+            }
+            let tiles = buffer.write(&original, region, self.doc.depth, &self.doc.selection);
+            let mut edit = self.doc.begin_edit(&name);
+            edit.replace_layer_tiles(layer_id, tiles);
+            edit.commit();
+            self.refresh_caches();
+            return Ok(name);
+        }
         let original = self
             .read_region(layer_id, region)
             .ok_or_else(|| anyhow!("layer pixels unreadable"))?;

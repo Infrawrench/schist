@@ -321,41 +321,10 @@ impl Workspace {
             cx.notify();
             return;
         }
-        if mode == schist_color::ColorMode::Grayscale {
-            // Flatten colour out of every layer, which is what the mode
-            // change actually means for the pixels.
-            let ids: Vec<schist_core::LayerId> = doc.tree.iter().map(|l| l.id).collect();
-            let coords_by_layer: Vec<(schist_core::LayerId, Vec<TileCoord>)> = ids
-                .iter()
-                .filter_map(|id| {
-                    doc.tree
-                        .find(*id)
-                        .and_then(|l| l.as_raster())
-                        .map(|r| (*id, r.tiles.iter().map(|(c, _)| *c).collect()))
-                })
-                .collect();
-            let mut edit = doc.begin_edit(color_mode_name(mode));
-            for (id, coords) in coords_by_layer {
-                for coord in coords {
-                    let Some(tile) = edit.writable_tile(id, coord) else {
-                        break;
-                    };
-                    for ix in 0..schist_core::TILE_PIXELS {
-                        let p = tile.get(ix);
-                        let l = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b;
-                        tile.set(ix, schist_color::Rgba::new(l, l, l, p.a));
-                    }
-                }
-            }
-            edit.set_color_mode(mode);
-            edit.commit();
-        } else {
-            // CMYK/Lab/RGB change nothing but the mode, which still has
-            // to be undoable: it used to produce no history entry at all.
-            let mut edit = doc.begin_edit(color_mode_name(mode));
-            edit.set_color_mode(mode);
-            edit.commit();
-        }
+        let mut edit = doc.begin_edit(color_mode_name(mode));
+        edit.set_color_mode(mode);
+        edit.commit();
+        self.rebuild_color_transforms();
         if let Some(doc) = self.doc.as_mut() {
             doc.damage_all();
         }
@@ -415,7 +384,7 @@ pub(super) fn transform_document(doc: &mut Document, op: CanvasTransform) {
                         CanvasTransform::FlipV => (x, h as i32 - 1 - y),
                     };
                     let ix = ((y - trect.top) * TILE_SIZE + (x - trect.left)) as usize;
-                    tile.set(ix, src.pixel(sx, sy));
+                    tile.set_native_pixel(ix, src.native_pixel(sx, sy));
                 }
             }
         }

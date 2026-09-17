@@ -7,7 +7,9 @@
 
 use crate::geom::IntRect;
 use rustc_hash::FxHashMap;
-use schist_color::{f32_to_u16, f32_to_u8, u16_to_f32, u8_to_f32, Depth, Rgba};
+use schist_color::{
+    f32_to_u16, f32_to_u8, u16_to_f32, u8_to_f32, ColorMode, Depth, NativePixel, Rgba,
+};
 use std::sync::Arc;
 
 pub const TILE_SIZE: i32 = 256;
@@ -55,9 +57,11 @@ impl TileCoord {
     }
 }
 
-/// Interleaved RGBA pixel data for one tile, at the document's native depth.
+/// Raster samples at native depth. RGB accessors are processing/display
+/// adapters; `native_pixel`/`set_native_pixel` retain independent channels.
 #[derive(Debug, Clone, PartialEq)]
 pub enum TileBuf {
+    Native(crate::NativeTile),
     U8(Box<[u8]>),
     U16(Box<[u16]>),
     F32(Box<[f32]>),
@@ -72,8 +76,58 @@ impl TileBuf {
         }
     }
 
+    pub fn new_in_mode(depth: Depth, mode: ColorMode) -> Self {
+        match mode {
+            ColorMode::Cmyk | ColorMode::Lab => Self::Native(crate::NativeTile::new(mode, depth)),
+            _ => Self::new(depth),
+        }
+    }
+
+    pub fn mode(&self) -> ColorMode {
+        match self {
+            Self::Native(t) => t.mode,
+            _ => ColorMode::Rgb,
+        }
+    }
+
+    pub fn native_pixel(&self, ix: usize) -> NativePixel {
+        match self {
+            Self::Native(t) => t.get(ix),
+            _ => NativePixel::from_rgba(ColorMode::Rgb, self.get(ix)),
+        }
+    }
+
+    pub fn set_native_pixel(&mut self, ix: usize, px: NativePixel) {
+        match self {
+            Self::Native(t) => t.set(ix, px.converted(t.mode)),
+            _ => self.set(ix, px.to_rgba()),
+        }
+    }
+
+    pub fn converted(&self, mode: ColorMode) -> Self {
+        let storage_mode = match mode {
+            ColorMode::Cmyk | ColorMode::Lab => mode,
+            _ => ColorMode::Rgb,
+        };
+        if self.mode() == storage_mode && mode != ColorMode::Grayscale {
+            return self.clone();
+        }
+        let mut out = Self::new_in_mode(self.depth(), mode);
+        for i in 0..TILE_PIXELS {
+            if mode == ColorMode::Grayscale {
+                let p = self.get(i);
+                let l = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b;
+                out.set(i, Rgba::new(l, l, l, p.a));
+            } else {
+                out.set_native_pixel(i, self.native_pixel(i));
+            }
+        }
+        out
+    }
+
     pub fn depth(&self) -> Depth {
         match self {
+            TileBuf::Native(t) => t.depth(),
             TileBuf::U8(_) => Depth::Eight,
             TileBuf::U16(_) => Depth::Sixteen,
             TileBuf::F32(_) => Depth::ThirtyTwo,
@@ -83,6 +137,7 @@ impl TileBuf {
     /// Heap bytes held by the pixel data.
     pub fn byte_len(&self) -> usize {
         match self {
+            TileBuf::Native(t) => t.byte_len(),
             TileBuf::U8(b) => b.len(),
             TileBuf::U16(b) => b.len() * 2,
             TileBuf::F32(b) => b.len() * 4,
@@ -93,6 +148,7 @@ impl TileBuf {
     pub fn get(&self, ix: usize) -> Rgba {
         let i = ix * 4;
         match self {
+            TileBuf::Native(t) => t.get(ix).to_rgba(),
             TileBuf::U8(d) => Rgba::new(
                 u8_to_f32(d[i]),
                 u8_to_f32(d[i + 1]),
@@ -113,6 +169,19 @@ impl TileBuf {
     pub fn set(&mut self, ix: usize, px: Rgba) {
         let i = ix * 4;
         match self {
+            TileBuf::Native(t) => {
+                // RGB-only operations explicitly re-separate changed colours.
+                // Preserve original inks for unchanged colour and alpha-only edits.
+                let old = t.get(ix);
+                let rgb = old.to_rgba();
+                let mut out = if [rgb.r, rgb.g, rgb.b] == [px.r, px.g, px.b] {
+                    old
+                } else {
+                    NativePixel::from_rgba(t.mode, px)
+                };
+                out.alpha = px.a;
+                t.set(ix, out);
+            }
             TileBuf::U8(d) => {
                 let [r, g, b, a] = px.to_u8();
                 d[i] = r;
@@ -140,6 +209,12 @@ impl TileBuf {
     pub fn decode_f32(&self, out: &mut [f32]) {
         debug_assert_eq!(out.len(), TILE_PIXELS * 4);
         match self {
+            TileBuf::Native(_) => {
+                for (ix, p) in out.as_chunks_mut::<4>().0.iter_mut().enumerate() {
+                    let c = self.get(ix);
+                    p.copy_from_slice(&[c.r, c.g, c.b, c.a]);
+                }
+            }
             TileBuf::U8(d) => {
                 for (o, v) in out.iter_mut().zip(d.iter()) {
                     *o = u8_to_f32(*v);
@@ -158,6 +233,11 @@ impl TileBuf {
     pub fn encode_f32(&mut self, src: &[f32]) {
         debug_assert_eq!(src.len(), TILE_PIXELS * 4);
         match self {
+            TileBuf::Native(_) => {
+                for (ix, p) in src.as_chunks::<4>().0.iter().enumerate() {
+                    self.set(ix, Rgba::new(p[0], p[1], p[2], p[3]));
+                }
+            }
             TileBuf::U8(d) => {
                 for (o, v) in d.iter_mut().zip(src.iter()) {
                     *o = f32_to_u8(*v);
@@ -172,9 +252,13 @@ impl TileBuf {
         }
     }
 
-    /// True if every pixel is fully transparent.
+    /// True if the tile has no visible pixels or retained native samples.
     pub fn is_blank(&self) -> bool {
         match self {
+            TileBuf::Native(t) => (0..TILE_PIXELS).all(|i| {
+                let p = t.get(i);
+                p.alpha == 0.0 && p.color.iter().all(|&c| c == 0.0)
+            }),
             TileBuf::U8(d) => d.as_chunks::<4>().0.iter().all(|p| p[3] == 0),
             TileBuf::U16(d) => d.as_chunks::<4>().0.iter().all(|p| p[3] == 0),
             TileBuf::F32(d) => d.as_chunks::<4>().0.iter().all(|p| p[3] == 0.0),
@@ -186,11 +270,76 @@ impl TileBuf {
 #[derive(Debug, Clone, Default)]
 pub struct TileMap {
     tiles: FxHashMap<TileCoord, Arc<TileBuf>>,
+    mode: Option<ColorMode>,
 }
 
 impl TileMap {
     pub fn new() -> Self {
         Self::default()
+    }
+
+    pub fn new_in_mode(mode: ColorMode) -> Self {
+        Self {
+            tiles: FxHashMap::default(),
+            mode: Some(mode),
+        }
+    }
+
+    pub fn mode(&self) -> ColorMode {
+        self.tiles
+            .values()
+            .next()
+            .map_or(self.mode.unwrap_or(ColorMode::Rgb), |t| t.mode())
+    }
+
+    pub fn native_pixel(&self, x: i32, y: i32) -> NativePixel {
+        self.get(TileCoord::containing(x, y)).map_or_else(
+            || NativePixel::transparent(self.mode()),
+            |t| {
+                t.native_pixel(
+                    (y.rem_euclid(TILE_SIZE) * TILE_SIZE + x.rem_euclid(TILE_SIZE)) as usize,
+                )
+            },
+        )
+    }
+
+    pub fn converted(&self, mode: ColorMode) -> Self {
+        let mut out = Self::new_in_mode(mode);
+        for (&coord, tile) in self.iter() {
+            out.insert(
+                coord,
+                if tile.mode() == mode {
+                    tile.clone()
+                } else {
+                    Arc::new(tile.converted(mode))
+                },
+            );
+        }
+        out
+    }
+
+    pub fn get_mut_or_insert_mode(
+        &mut self,
+        coord: TileCoord,
+        depth: Depth,
+        mode: ColorMode,
+    ) -> &mut TileBuf {
+        self.mode = Some(mode);
+        let arc = self
+            .tiles
+            .entry(coord)
+            .or_insert_with(|| Arc::new(TileBuf::new_in_mode(depth, mode)));
+        // Convert once at an explicit mode boundary; same-mode native
+        // tiles keep their independent samples.
+        let storage_mode = if matches!(mode, ColorMode::Cmyk | ColorMode::Lab) {
+            mode
+        } else {
+            ColorMode::Rgb
+        };
+        if arc.mode() != storage_mode {
+            *arc = Arc::new(arc.converted(storage_mode));
+        }
+        Arc::make_mut(arc)
     }
 
     pub fn get(&self, coord: TileCoord) -> Option<&Arc<TileBuf>> {
@@ -199,11 +348,8 @@ impl TileMap {
 
     /// Copy-on-write mutable access; creates a blank tile if absent.
     pub fn get_mut_or_insert(&mut self, coord: TileCoord, depth: Depth) -> &mut TileBuf {
-        let arc = self
-            .tiles
-            .entry(coord)
-            .or_insert_with(|| Arc::new(TileBuf::new(depth)));
-        Arc::make_mut(arc)
+        let mode = self.mode();
+        self.get_mut_or_insert_mode(coord, depth, mode)
     }
 
     pub fn insert(&mut self, coord: TileCoord, buf: Arc<TileBuf>) {
@@ -248,6 +394,16 @@ impl TileMap {
     /// tile-granular `tile_bounds`). Used when writing PSD layer rects and
     /// when clamping resample lookups to the real edge of the artwork.
     pub fn content_bounds(&self) -> IntRect {
+        self.pixel_bounds(false)
+    }
+
+    /// Includes native colour samples beneath zero alpha. File saving must
+    /// retain these too: erasing transparency does not erase ink channels.
+    pub fn storage_bounds(&self) -> IntRect {
+        self.pixel_bounds(true)
+    }
+
+    fn pixel_bounds(&self, include_hidden: bool) -> IntRect {
         let mut out = IntRect::EMPTY;
         for (coord, buf) in self.iter() {
             let trect = coord.rect();
@@ -255,7 +411,13 @@ impl TileMap {
                 let mut first: Option<i32> = None;
                 let mut last = 0;
                 for lx in 0..TILE_SIZE {
-                    if buf.get((ly * TILE_SIZE + lx) as usize).a > 0.0 {
+                    let i = (ly * TILE_SIZE + lx) as usize;
+                    let p = buf.native_pixel(i);
+                    if p.alpha > 0.0
+                        || (include_hidden
+                            && matches!(buf.as_ref(), TileBuf::Native(_))
+                            && p.color.iter().any(|&v| v != 0.0))
+                    {
                         first.get_or_insert(lx);
                         last = lx;
                     }
@@ -316,7 +478,7 @@ impl TileMap {
         if dx == 0 && dy == 0 {
             return self.clone();
         }
-        let mut out = TileMap::new();
+        let mut out = TileMap::new_in_mode(self.mode());
         if dx.rem_euclid(TILE_SIZE) == 0 && dy.rem_euclid(TILE_SIZE) == 0 {
             let (tdx, tdy) = (dx.div_euclid(TILE_SIZE), dy.div_euclid(TILE_SIZE));
             for (coord, buf) in self.iter() {
@@ -346,8 +508,8 @@ impl TileMap {
                     for x in clip.left..clip.right {
                         let sx = (x - dx - src_rect.left) as usize;
                         let lx = (x - drect.left) as usize;
-                        let px = buf.get(sy * TILE_SIZE as usize + sx);
-                        dst.set(ly * TILE_SIZE as usize + lx, px);
+                        let px = buf.native_pixel(sy * TILE_SIZE as usize + sx);
+                        dst.set_native_pixel(ly * TILE_SIZE as usize + lx, px);
                     }
                 }
             }
