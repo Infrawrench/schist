@@ -15,12 +15,12 @@
 
 // state[] slots. Everything that changes between dispatches lives here, so
 // one bind group serves the whole run.
-const S_WIDTH: u32 = 0u;      // current width, shrinking or growing
+const S_WIDTH: u32 = 0u; // current width, shrinking or growing
 const S_HEIGHT: u32 = 1u;
-const S_STRIDE: u32 = 2u;     // row stride of every buffer: the widest width
-const S_MODE: u32 = 3u;       // 0 = carve, 1 = grow
-const S_BEST: u32 = 5u;       // column the seam ends on
-const S_SEAM: u32 = 8u;       // seam[y] follows, one column per row
+const S_STRIDE: u32 = 2u; // row stride of every buffer: the widest width
+const S_MODE: u32 = 3u; // 0 = carve, 1 = grow
+const S_BEST: u32 = 5u; // column the seam ends on
+const S_SEAM: u32 = 8u; // seam[y] follows, one column per row
 
 const TILE_ROWS: u32 = 64u;
 const WG: u32 = 256u;
@@ -55,6 +55,7 @@ struct Tile {
     _p1: u32,
     _p2: u32,
 }
+
 @group(0) @binding(8) var<uniform> tile: Tile;
 
 fn width() -> u32 {
@@ -99,8 +100,7 @@ fn energy_pass(@builtin(global_invocation_id) gid: vec3<u32>) {
     let d = lum(x, min(y + 1u, h - 1u));
     // Fully transparent pixels are free to remove.
     let alpha = px_in[(y * stride() + x) * 4u + 3u];
-    energy[y * stride() + x] =
-        (abs(r - l) + abs(d - u)) * alpha + prot_in[y * stride() + x];
+    energy[y * stride() + x] = (abs(r - l) + abs(d - u)) * alpha + prot_in[y * stride() + x];
 }
 
 // Row 0 of the scan is just the energy, which is where the reference's
@@ -226,8 +226,7 @@ fn pick(@builtin(local_invocation_id) lid: vec3<u32>) {
         workgroupBarrier();
         if (lid.x < step) {
             let o = lid.x + step;
-            if (best_val[o] < best_val[lid.x]
-                || (best_val[o] == best_val[lid.x] && best_col[o] < best_col[lid.x])) {
+            if (best_val[o] < best_val[lid.x] || (best_val[o] == best_val[lid.x] && best_col[o] < best_col[lid.x])) {
                 best_val[lid.x] = best_val[o];
                 best_col[lid.x] = best_col[o];
             }

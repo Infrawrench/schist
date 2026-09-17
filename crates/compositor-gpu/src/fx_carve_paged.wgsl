@@ -18,12 +18,12 @@
 
 // state[] slots. Everything that changes between dispatches lives here, so
 // one bind group serves the whole run.
-const S_WIDTH: u32 = 0u;      // current width, shrinking or growing
+const S_WIDTH: u32 = 0u; // current width, shrinking or growing
 const S_HEIGHT: u32 = 1u;
-const S_STRIDE: u32 = 2u;     // row stride of every buffer: the widest width
-const S_MODE: u32 = 3u;       // 0 = carve, 1 = grow
-const S_BEST: u32 = 5u;       // column the seam ends on
-const S_SEAM: u32 = 8u;       // seam[y] follows, one column per row
+const S_STRIDE: u32 = 2u; // row stride of every buffer: the widest width
+const S_MODE: u32 = 3u; // 0 = carve, 1 = grow
+const S_BEST: u32 = 5u; // column the seam ends on
+const S_SEAM: u32 = 8u; // seam[y] follows, one column per row
 
 const TILE_ROWS: u32 = 64u;
 const WG: u32 = 256u;
@@ -60,6 +60,7 @@ struct Tile {
     _p1: u32,
     _p2: u32,
 }
+
 @group(0) @binding(8) var<uniform> tile: Tile;
 
 fn width() -> u32 {
@@ -82,18 +83,22 @@ fn texel(x: u32, y: u32) -> vec3<i32> {
     let th = u32(state[7]);
     return vec3<i32>(i32(i % tw), i32((i / tw) % th), i32(i / (tw * th)));
 }
+
 fn pixel(x: u32, y: u32) -> vec4<f32> {
     let p = texel(x, y);
     return textureLoad(px_in, p.xy, p.z, 0);
 }
+
 fn protection(x: u32, y: u32) -> f32 {
     let p = texel(x, y);
     return textureLoad(prot_in, p.xy, p.z, 0).x;
 }
+
 fn energy(x: u32, y: u32) -> f32 {
     let p = texel(x, y);
     return textureLoad(energy_in, p.xy, p.z, 0).x;
 }
+
 fn lum(x: u32, y: u32) -> f32 {
     let p = pixel(x, y);
     return 0.299 * p.x + 0.587 * p.y + 0.114 * p.z;
@@ -257,8 +262,7 @@ fn pick(@builtin(local_invocation_id) lid: vec3<u32>) {
         workgroupBarrier();
         if (lid.x < step) {
             let o = lid.x + step;
-            if (best_val[o] < best_val[lid.x]
-                || (best_val[o] == best_val[lid.x] && best_col[o] < best_col[lid.x])) {
+            if (best_val[o] < best_val[lid.x] || (best_val[o] == best_val[lid.x] && best_col[o] < best_col[lid.x])) {
                 best_val[lid.x] = best_val[o];
                 best_col[lid.x] = best_col[o];
             }
@@ -293,21 +297,29 @@ fn resample(@builtin(global_invocation_id) gid: vec3<u32>) {
     let cut = u32(state[S_SEAM + y]);
     let p = texel(x, y);
     if (state[S_MODE] == 0) {
-        if (x + 1u >= w) { return; }
+        if (x + 1u >= w) {
+            return;
+        }
         var sx = x;
-        if (x >= cut) { sx = x + 1u; }
+        if (x >= cut) {
+            sx = x + 1u;
+        }
         textureStore(px_out, p.xy, p.z, pixel(sx, y));
         textureStore(prot_out, p.xy, p.z, vec4(protection(sx, y), 0.0, 0.0, 0.0));
         return;
     }
-    if (x > w) { return; }
+    if (x > w) {
+        return;
+    }
     if (x == cut + 1u) {
         textureStore(px_out, p.xy, p.z, (pixel(cut, y) + pixel(min(cut + 1u, w - 1u), y)) / 2.0);
         textureStore(prot_out, p.xy, p.z, vec4(protection(cut, y) + 200.0, 0.0, 0.0, 0.0));
         return;
     }
     var sx = x;
-    if (x > cut) { sx = x - 1u; }
+    if (x > cut) {
+        sx = x - 1u;
+    }
     textureStore(px_out, p.xy, p.z, pixel(sx, y));
     textureStore(prot_out, p.xy, p.z, vec4(protection(sx, y), 0.0, 0.0, 0.0));
 }
