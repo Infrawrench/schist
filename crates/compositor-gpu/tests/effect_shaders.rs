@@ -76,13 +76,18 @@ fn pixels(w: usize, h: usize) -> Vec<f32> {
         })
         .collect()
 }
-fn close(g: &[f32], c: &[f32], label: &str) {
-    assert_eq!(g.len(), c.len(), "{label}");
+fn compare_pixels(g: &[f32], c: &[f32], label: &str) -> Result<(), String> {
+    if g.len() != c.len() {
+        return Err(format!(
+            "{label}: GPU length {} != CPU length {}",
+            g.len(),
+            c.len()
+        ));
+    }
     for (i, (&a, &b)) in g.iter().zip(c).enumerate() {
-        assert!(
-            a.is_finite() && b.is_finite(),
-            "{label} at {i}: non-finite output"
-        );
+        if !a.is_finite() || !b.is_finite() {
+            return Err(format!("{label} at {i}: non-finite output"));
+        }
         let alpha = i / 4 * 4 + 3;
         // At the unpremultiply cutoff a one-ULP alpha difference can
         // choose zero RGB on one device and straight RGB on another.
@@ -107,11 +112,14 @@ fn close(g: &[f32], c: &[f32], label: &str) {
         } else {
             (a - b).abs()
         };
-        assert!(
-            difference <= if transcendental { 5e-4 } else { 1e-4 },
-            "{label} at {i}: gpu {a}, cpu {b}, difference {difference}"
-        );
+        if difference > if transcendental { 5e-4 } else { 1e-4 } {
+            return Err(format!(
+                "{label} at {i}: gpu {a}, cpu {b}, alpha {} / {}, difference {difference}",
+                g[alpha], c[alpha]
+            ));
+        }
     }
+    Ok(())
 }
 type Case = (Box<dyn FilterPlugin>, Vec<(&'static str, f32)>);
 fn cases() -> Vec<Case> {
@@ -206,7 +214,11 @@ fn cases() -> Vec<Case> {
         case!(filters::blurgallery::SmartBlur,"mode"=>mode as f32);
     }
     case!(filters::distort::ZigZag);
-    case!(filters::distort::Spherize);
+    for mode in 0..3 {
+        for amount in [-100.0, 50.0, 100.0] {
+            case!(filters::distort::Spherize, "mode" => mode as f32, "amount" => amount);
+        }
+    }
     case!(filters::distort::Pinch);
     case!(filters::distort::PolarCoordinates);
     case!(filters::distort::Shear,"undefined"=>1.0);
@@ -240,6 +252,7 @@ fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
         seen: Mutex::new(Vec::new()),
     });
     let original_limit = force.ctx.binding_limit();
+    let mut failures = Vec::new();
     for (width, height, banded, normal_offload) in [
         (37, 29, false, false),
         (1, 9, false, false),
@@ -308,11 +321,16 @@ fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
                 "{} did not dispatch",
                 filter.id()
             );
-            close(
+            if let Err(error) = compare_pixels(
                 &result,
                 &cpu,
-                &format!("{} {w}x{h} production={normal_offload}", filter.id()),
-            );
+                &format!(
+                    "{} {w}x{h} production={normal_offload} {values:?}",
+                    filter.id()
+                ),
+            ) {
+                failures.push(error);
+            }
         }
     }
     let seen = force.seen.lock().unwrap();
@@ -323,6 +341,11 @@ fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
             shader.name
         );
     }
+    assert!(
+        failures.is_empty(),
+        "filter parity failures:\n{}",
+        failures.join("\n")
+    );
 }
 
 static IDENTITY: ShaderSpec = ShaderSpec {

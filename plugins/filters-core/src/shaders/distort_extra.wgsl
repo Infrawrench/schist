@@ -27,10 +27,19 @@ fn mapped(p:vec2<f32>)->vec2<f32> {
     }
     if mode==1u || mode==2u {
         var v=delta; if args[2]==1.0 {v.y=0.0;} if args[2]==2.0 {v.x=0.0;}
-        let reach=max(min(centre.x,centre.y),1.0);let dist=length(v);
+        let reach=max(min(centre.x,centre.y),1.0);
+        if mode==1u {
+            // Avoid cancellation in 1-t*t after rounding the normalized radius.
+            let squared=dot(v,v);let radius_squared=reach*reach;
+            if squared>=radius_squared || squared<0.000001 {return p;}
+            let dist=sqrt(squared);let height=sqrt(radius_squared-squared);
+            let bulged=clamp(precise_atan2(dist,height)/(PI/2.0),0.0,1.0);
+            let scale=1.0+(bulged/(dist/reach)-1.0)*args[1];
+            return centre+v*scale;
+        }
+        let dist=length(v);
         if dist>=reach || dist<0.001 {return p;}
-        let t=dist/reach; var scale=pow(t,1.0+args[1])/t;
-        if mode==1u {let bulged=clamp(precise_atan2(t,sqrt(1.0-t*t))/(PI/2.0),0.0,1.0);scale=1.0+(bulged/t-1.0)*args[1];}
+        let t=dist/reach;let scale=pow(t,1.0+args[1])/t;
         return centre+v*scale;
     }
     if mode==3u {

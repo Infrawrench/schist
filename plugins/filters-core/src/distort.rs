@@ -278,6 +278,21 @@ simple_filter!(
     }
 );
 
+fn spherize_scale(dx: f32, dy: f32, radius: f32, amount: f32) -> Option<f32> {
+    let squared = dx * dx + dy * dy;
+    let radius_squared = radius * radius;
+    if squared >= radius_squared || squared < 1e-6 {
+        return None;
+    }
+    let distance = squared.sqrt();
+    // asin(distance / radius) amplifies the rounding of a ratio near one.
+    // Keep the hemisphere height in pixel units until after the subtraction;
+    // the squared half-pixel coordinates retain precision at the rim.
+    let height = (radius_squared - squared).sqrt();
+    let bulged = (distance.atan2(height) / std::f32::consts::FRAC_PI_2).clamp(0.0, 1.0);
+    Some(1.0 + (bulged / (distance / radius) - 1.0) * amount)
+}
+
 simple_filter!(
     Spherize,
     "filter.spherize",
@@ -300,14 +315,9 @@ simple_filter!(
                 2 => (0.0, y - cy),
                 _ => (x - cx, y - cy),
             };
-            let d = dx.hypot(dy);
-            if d >= radius || d < 1e-3 {
+            let Some(scale) = spherize_scale(dx, dy, radius, amount) else {
                 return (x, y);
-            }
-            let t = d / radius;
-            // asin gives the bulge of a hemisphere seen head on.
-            let bulged = (t.asin() / (std::f32::consts::FRAC_PI_2)).clamp(0.0, 1.0);
-            let scale = 1.0 + (bulged / t - 1.0) * amount;
+            };
             (cx + dx * scale, cy + dy * scale)
         });
     }
@@ -752,4 +762,39 @@ pub fn register(registry: &mut schist_plugin_api::PluginRegistry) {
     registry.register_filter(Box::new(DiffuseGlow));
     registry.register_filter(Box::new(Glass));
     registry.register_filter(Box::new(OceanRipple));
+}
+
+#[cfg(test)]
+mod tests {
+    use super::spherize_scale;
+
+    #[test]
+    fn spherize_keeps_subpixel_precision_near_the_rim() {
+        // The first point exposed CPU/Metal drift on a 449x446 image.
+        // Compare against f64 geometry, independently of either f32 backend.
+        let radius = 223.0;
+        for (dx, dy) in [
+            (-185.0, -124.5),
+            (185.0, 124.5),
+            (222.5, 0.0),
+            (0.0, -222.5),
+        ] {
+            for amount in [-1.0, 0.5, 1.0] {
+                let scale = spherize_scale(dx, dy, radius, amount).unwrap();
+                let t = (dx as f64).hypot(dy as f64) / radius as f64;
+                let reference =
+                    1.0 + (t.asin() / std::f64::consts::FRAC_PI_2 / t - 1.0) * amount as f64;
+                for (centre, delta) in [(224.5, dx), (223.0, dy)] {
+                    let actual = (centre + delta * scale) as f64;
+                    let expected = centre as f64 + delta as f64 * reference;
+                    assert!(
+                        (actual - expected).abs() < 0.00004,
+                        "({dx}, {dy}), amount {amount}: {actual} != {expected}"
+                    );
+                }
+            }
+        }
+        assert!(spherize_scale(0.0, 0.0, radius, 1.0).is_none());
+        assert!(spherize_scale(radius, 0.0, radius, 1.0).is_none());
+    }
 }
