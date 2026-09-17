@@ -1,16 +1,9 @@
-// Range reduction keeps the alternating series below tan(pi/8).
-fn precise_atan(x:f32)->f32 {
-    var t=abs(x);var offset=0.0;var reciprocal=false;
-    if t>1.0 {t=1.0/t;reciprocal=true;}
-    if t>0.414213562373095 {t=(t-1.0)/(t+1.0);offset=0.7853981633974483;}
-    let square=t*t;var term=t;var sum=t;
-    for(var k=1u;k<12u;k++){term*=-square;sum+=term/f32(2u*k+1u);}
-    var a=offset+sum;if reciprocal {a=1.5707963267948966-a;}
-    return select(a,-a,x<0.0);
-}
-fn precise_atan2(y:f32,x:f32)->f32 {
-    if x==0.0 {return select(select(0.0,1.5707963267948966,y>0.0),-1.5707963267948966,y<0.0);}
-    var a=precise_atan(y/x);if x<0.0 {a+=select(-3.141592653589793,3.141592653589793,y>=0.0);}return a;
+// The slider's sweep gives sample angles in [-pi/6, pi/6]. This series
+// avoids backend-dependent native trig precision; larger API inputs retain sin.
+fn spin_sine(a:f32)->f32 {
+    if abs(a)>0.6 {return sin(a);}
+    let square=a*a;
+    return a*(1.0+square*(-1.0/6.0+square*(1.0/120.0+square*(-1.0/5040.0+square/362880.0))));
 }
 // mode 0: spin; 1: path (precomputed 24 offset/weight triples); 2: shape; 3: smart.
 fn effect(pos:vec2<i32>)->vec4<f32> {
@@ -23,10 +16,12 @@ fn effect(pos:vec2<i32>)->vec4<f32> {
         let p=vec2<f32>(pos)+vec2(0.5)-centre; let r=length(p);
         let inside=1.0-clamp((r/reach-(1.0-args[5]))/args[5],0.0,1.0);
         if inside<=0.001 {return straight(premul(here));}
-        let theta=precise_atan2(p.y,p.x);
         for(var s=0u;s<24u;s++) {
-            let t=f32(s)/23.0-0.5; let a=theta+t*args[1]*inside;
-            sum+=sample_premul(centre+r*vec2(cos(a),sin(a))-vec2(0.5))/24.0;
+            let t=f32(s)/23.0-0.5;let a=t*args[1]*inside;
+            let sine=spin_sine(a);let half_sine=spin_sine(a*0.5);
+            let cosine_minus_one=-2.0*half_sine*half_sine;
+            let offset=vec2(p.x*cosine_minus_one-p.y*sine,p.x*sine+p.y*cosine_minus_one);
+            sum+=sample_premul_offset(pos,offset)/24.0;
         }
         return straight(sum);
     }

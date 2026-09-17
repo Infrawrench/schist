@@ -206,6 +206,8 @@ fn cases() -> Vec<Case> {
     case!(filters::render::DifferenceClouds);
     case!(filters::render::Fibers);
     case!(filters::blurgallery::SpinBlur);
+    case!(filters::blurgallery::SpinBlur, "angle" => 0.01);
+    case!(filters::blurgallery::SpinBlur, "angle" => 60.0);
     case!(filters::blurgallery::PathBlur,"curve"=>37.0,"taper"=>72.0,"angle"=>45.0);
     for kind in 0..6 {
         case!(filters::blurgallery::ShapeBlur,"shape"=>kind as f32,"radius"=>4.0);
