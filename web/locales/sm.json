@@ -3,7 +3,7 @@
   "starting": "O loo amata…",
   "webgpu": "E manaʻomia e Schist le WebGPU, ae e lē maua i lenei palausa. E maua i le Chrome/Edge 113+, Firefox 141+ ma le Safari 26+.",
   "noticeTitle": "E sili ona lelei Schist pe a avea ma polokalame komepiuta",
-  "noticeBody": "O loo e faaaogā le lomiga i le upega tafailagi, o se fausaga māmā: e tuufaatasia ata i le CPU ma e lē aofia ai nisi vaega—plug-in a Photoshop ma plug-in a isi vaega, le faletusi ata, le vaega AI, le aumaia o faila HEIC ma le laʻuina o ituaiga mataʻitusi—ma e sefe faila o ni faila e laʻu mai. O le polokalame komepiuta e leai se totogi mo macOS, Windows ma Linux e iai nei vaega uma.",
+  "noticeBody": "O loo e faaaogā le lomiga i le upega tafailagi, o se fausaga māmā: e tuufaatasia ata i le WebGPU ma e lē aofia ai nisi vaega—plug-in a Photoshop ma plug-in a isi vaega, le faletusi ata, le vaega AI, le aumaia o faila HEIC ma le laʻuina o ituaiga mataʻitusi—ma e sefe faila o ni faila e laʻu mai. O le polokalame komepiuta e leai se totogi mo macOS, Windows ma Linux e iai nei vaega uma.",
   "noticeLink": "Maua le polokalame komepiuta.",
   "ok": "Ua lelei"
 }

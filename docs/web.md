@@ -88,12 +88,35 @@ browser fetch is refused before it starts. Every neural filter falls
 back to its classical implementation when its model is absent — that is
 a design guarantee of `crates/neural`, not a web special case.
 
-Compositing happens on the CPU reference backend. The GPU compositor
-opens a second wgpu device behind a blocking wait, which the browser's
-single thread cannot make progress under; gpui's own WebGPU renderer
-still draws the UI. Likewise rayon degrades to sequential execution on
-this target (no threads without cross-origin-isolated SharedArrayBuffer),
-so heavy filters are slower than native.
+Canvas compositing and viewport resampling use WebGPU when GPU compositing
+is enabled in Preferences and the compute device initializes successfully.
+Device creation, submission completion and readback are asynchronous. The
+canvas keeps its previous image while a new frame runs, coalesces redraws,
+and rejects results from an outdated document or view. Unsupported layer
+plans and failed jobs retain the CPU fallback.
+
+Whole-filter descriptors cover blur and sharpening programs, noise and median,
+additional distortions, lens correction, pixelate/texture effects and selected
+stylize/procedural filters. See [the coverage list](gpu-opportunities.md#browser-whole-filter-operations).
+Previews and Apply use asynchronous operations when the workload passes the
+offload threshold. Slider changes coalesce; Cancel invalidates pending results,
+and Apply records one undoable edit. Context-dependent filters retain the
+colors and auxiliary inputs captured for that request, including on fallback.
+General multi-pass programs retain intermediate buffers on the device.
+Other synchronous filter/tool callers, exports and library APIs use their CPU
+paths. The executor exposes async entry points for all specialized kernels and
+general programs for further caller integration.
+GPUI still owns a separate rendering device, so completed images are read
+back before display. No SharedArrayBuffer or cross-origin isolation is needed.
+CPU work through rayon remains sequential on this target.
+
+`make check-web-gpu` checks the browser build. `make test-web-gpu` runs real
+WebGPU parity, concurrent submission and cancellation tests through
+`wasm-bindgen-test-runner`; configure `CHROMEDRIVER` (or another supported
+WebDriver) and a browser with WebGPU enabled. Tests require an adapter and
+fail when GPU work declines. `WASM_BINDGEN_TEST_WEBDRIVER_JSON` can point to
+browser capabilities for the test machine. `make check-gpu-fx` exercises the
+same executor through the native blocking API.
 
 Compiled out entirely, with the reason:
 

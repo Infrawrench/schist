@@ -355,6 +355,10 @@ pub fn transform_tiles(
     let fy = (inv.c * inv.c + inv.d * inv.d).sqrt();
     let boxed = fx > 2.0 || fy > 2.0;
 
+    if let Some(result) = transform_gpu(src, &inv, depth, filter, src_bounds, dst_bounds) {
+        return result;
+    }
+
     let coords: Vec<TileCoord> = TileCoord::covering(&dst_bounds).collect();
     let tiles: Vec<(TileCoord, TileBuf)> = coords
         .into_par_iter()
@@ -439,6 +443,152 @@ pub fn transform_tiles(
         out.insert(coord, std::sync::Arc::new(buf));
     }
     out
+}
+
+pub(crate) static AFFINE_SHADER: schist_fx::ComputeShader = schist_fx::ComputeShader {
+    name: "affine-resample",
+    source: include_str!("affine.wgsl"),
+};
+
+pub(crate) fn affine_work(inv: &Affine, dst: IntRect, channels: usize) -> usize {
+    let fx = (inv.a * inv.a + inv.b * inv.b).sqrt();
+    let fy = (inv.c * inv.c + inv.d * inv.d).sqrt();
+    (dst.width() as usize)
+        .saturating_mul(dst.height() as usize)
+        .saturating_mul(32 + (fx * fy).min(1e6) as usize)
+        .saturating_mul(channels)
+}
+
+pub(crate) fn affine_program(
+    inv: &Affine,
+    filter: Filter,
+    src: IntRect,
+    dst: IntRect,
+    channels: usize,
+) -> schist_fx::ComputeProgram {
+    let fx = (inv.a * inv.a + inv.b * inv.b).sqrt();
+    let fy = (inv.c * inv.c + inv.d * inv.d).sqrt();
+    let n = dst.width() as usize * dst.height() as usize;
+    let cost = affine_work(inv, dst, channels);
+    let mut p = schist_fx::ComputeProgram::single(
+        &AFFINE_SHADER,
+        vec![
+            inv.a,
+            inv.b,
+            inv.c,
+            inv.d,
+            inv.tx,
+            inv.ty,
+            src.left as f32,
+            src.top as f32,
+            src.width() as f32,
+            src.height() as f32,
+            dst.left as f32,
+            dst.top as f32,
+            match filter {
+                Filter::Nearest => 0.0,
+                Filter::Bilinear => 1.0,
+                Filter::Bicubic => 2.0,
+            },
+            fx,
+            fy,
+        ],
+        n * channels,
+        [dst.width() as u32, dst.height() as u32, channels as u32],
+        cost,
+    );
+    for (start, len, u, v) in [
+        (dst.left, dst.width(), inv.a, inv.b),
+        (dst.top, dst.height(), inv.c, inv.d),
+    ] {
+        for i in start..start + len {
+            for offset in [0.5, 0.125, 0.375, 0.625, 0.875] {
+                let x = i as f32 + offset;
+                p.steps[0].params.extend_from_slice(&[u * x, v * x]);
+            }
+        }
+    }
+    p.steps[0].invocations = n;
+    p
+}
+
+fn transform_gpu(
+    src: &TileMap,
+    inv: &Affine,
+    depth: Depth,
+    filter: Filter,
+    bounds: IntRect,
+    dst: IntRect,
+) -> Option<TileMap> {
+    let native = matches!(
+        src.mode(),
+        schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+    );
+    let channels = if src.mode() == schist_color::ColorMode::Cmyk {
+        5
+    } else {
+        4
+    };
+    if !schist_fx::backend().compute_available(affine_work(inv, dst, channels)) {
+        return None;
+    }
+    let len = (bounds.width() as usize)
+        .checked_mul(bounds.height() as usize)?
+        .checked_mul(channels)?;
+    let output_len = (dst.width() as usize)
+        .checked_mul(dst.height() as usize)?
+        .checked_mul(channels)?;
+    if len > 32 << 20 || output_len > 32 << 20 {
+        return None;
+    }
+    let program = affine_program(inv, filter, bounds, dst, channels);
+    let mut pixels = Vec::with_capacity(len);
+    for y in bounds.top..bounds.bottom {
+        for x in bounds.left..bounds.right {
+            if native {
+                let p = src.native_pixel(x, y);
+                pixels.extend_from_slice(&p.color[..channels - 1]);
+                pixels.push(p.alpha);
+            } else {
+                let p = src.pixel(x, y);
+                pixels.extend_from_slice(&[p.r, p.g, p.b, p.a]);
+            }
+        }
+    }
+    let result = schist_fx::try_compute(&pixels, &program)?;
+    let mut out = TileMap::new_in_mode(src.mode());
+    for coord in TileCoord::covering(&dst) {
+        let rect = coord.rect();
+        let clip = rect.intersect(&dst);
+        let mut any = false;
+        let mut tile = TileBuf::new_in_mode(depth, src.mode());
+        for y in clip.top..clip.bottom {
+            for x in clip.left..clip.right {
+                let i = ((y - dst.top) as usize * dst.width() as usize + (x - dst.left) as usize)
+                    * channels;
+                if result[i + channels - 1] <= 0.0 {
+                    continue;
+                }
+                let j = ((y - rect.top) * TILE_SIZE + x - rect.left) as usize;
+                if native {
+                    let mut p = schist_color::NativePixel::transparent(src.mode());
+                    p.color[..channels - 1].copy_from_slice(&result[i..i + channels - 1]);
+                    p.alpha = result[i + channels - 1];
+                    tile.set_native_pixel(j, p);
+                } else {
+                    tile.set(
+                        j,
+                        Rgba::new(result[i], result[i + 1], result[i + 2], result[i + 3]),
+                    );
+                }
+                any = true;
+            }
+        }
+        if any {
+            out.insert(coord, std::sync::Arc::new(tile));
+        }
+    }
+    Some(out)
 }
 
 /// Rescale a tile map from `from` to `to` (used by Image Size).

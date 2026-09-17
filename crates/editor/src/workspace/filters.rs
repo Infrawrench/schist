@@ -360,7 +360,7 @@ impl Workspace {
     }
 
     #[allow(clippy::too_many_arguments)]
-    fn write_region_inner(
+    pub(super) fn write_region_inner(
         &mut self,
         layer_id: schist_core::LayerId,
         region: IntRect,
@@ -672,6 +672,8 @@ impl Workspace {
         values: Option<&schist_plugin_api::FilterValues>,
         cx: &mut Context<Self>,
     ) {
+        #[cfg(target_arch = "wasm32")]
+        self.cancel_browser_filter();
         let Some(preview) = self.filter_preview.clone() else {
             return;
         };
@@ -696,6 +698,21 @@ impl Workspace {
             let Some(filter) = self.registry.shared_filter(id) else {
                 return;
             };
+            #[cfg(target_arch = "wasm32")]
+            if self.queue_browser_filter(
+                filter.clone(),
+                values,
+                browser_gpu::FilterInput {
+                    layer: preview.layer,
+                    region: preview.region,
+                    original: &preview.original,
+                    whole_layer: preview.whole_layer,
+                },
+                false,
+                cx,
+            ) {
+                return;
+            }
             if self.run_native_filter(
                 filter.as_ref(),
                 preview.layer,
@@ -733,6 +750,8 @@ impl Workspace {
 
     /// Drop a preview, restoring the pixels it was drawn over.
     pub fn cancel_filter_preview(&mut self, cx: &mut Context<Self>) {
+        #[cfg(target_arch = "wasm32")]
+        self.cancel_browser_filter();
         self.raw_preview_seq = self.raw_preview_seq.wrapping_add(1);
         if self.filter_preview.is_none() {
             return;
@@ -747,6 +766,8 @@ impl Workspace {
         values: &schist_plugin_api::FilterValues,
         cx: &mut Context<Self>,
     ) {
+        #[cfg(target_arch = "wasm32")]
+        self.cancel_browser_filter();
         if self.is_raw_redevelopment(id) {
             // Calls outside the dialog may still have a live preview. Put
             // its pixels back and invalidate every in-flight preview before
@@ -839,6 +860,21 @@ impl Workspace {
         let Some(filter) = self.registry.shared_filter(id) else {
             return;
         };
+        #[cfg(target_arch = "wasm32")]
+        if self.queue_browser_filter(
+            filter.clone(),
+            values,
+            browser_gpu::FilterInput {
+                layer: layer_id,
+                region,
+                original: &original,
+                whole_layer: false,
+            },
+            true,
+            cx,
+        ) {
+            return;
+        }
         if self.run_native_filter(filter.as_ref(), layer_id, region, values, &name, true) {
             self.after_change(cx);
             return;

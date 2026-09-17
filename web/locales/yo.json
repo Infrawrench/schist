@@ -3,7 +3,7 @@
   "starting": "Ń bẹ̀rẹ̀…",
   "webgpu": "Schist nílò WebGPU, èyí tí aṣàwákiri yìí kò pèsè. Chrome/Edge 113+, Firefox 141+ àti Safari 26+ ní àtìlẹ́yìn fún un.",
   "noticeTitle": "Schist máa ń ṣiṣẹ́ dáadáa jù gẹ́gẹ́ bí ápù kọ̀ǹpútà",
-  "noticeBody": "Ẹ̀dà wẹ́ẹ̀bù tí o ń lò jẹ́ ẹ̀dà sọ́fítíwẹ́ẹ̀ tó fúyẹ́: ó ń darapọ̀ àwọn fẹ́lẹ́fẹ́lẹ́ lórí CPU, kò sì ní àwọn ẹ̀yà kan — àwọn plug-in Photoshop àti àwọn plug-in àwọn olùpèsè mìíràn, ibi àkójọ àwòrán, pánẹ́ẹ̀lì AI, gbígbé HEIC wọlé àti gbígba fọ́ǹtì — a sì ń fi àwọn fáìlì pamọ́ gẹ́gẹ́ bí ohun tí a gbà sílẹ̀. Ápù kọ̀ǹpútà ọ̀fẹ́ fún macOS, Windows àti Linux ní gbogbo wọn.",
+  "noticeBody": "Ẹ̀dà wẹ́ẹ̀bù tí o ń lò jẹ́ ẹ̀dà sọ́fítíwẹ́ẹ̀ tó fúyẹ́: ó ń darapọ̀ àwọn fẹ́lẹ́fẹ́lẹ́ lórí WebGPU, kò sì ní àwọn ẹ̀yà kan — àwọn plug-in Photoshop àti àwọn plug-in àwọn olùpèsè mìíràn, ibi àkójọ àwòrán, pánẹ́ẹ̀lì AI, gbígbé HEIC wọlé àti gbígba fọ́ǹtì — a sì ń fi àwọn fáìlì pamọ́ gẹ́gẹ́ bí ohun tí a gbà sílẹ̀. Ápù kọ̀ǹpútà ọ̀fẹ́ fún macOS, Windows àti Linux ní gbogbo wọn.",
   "noticeLink": "Gba ápù kọ̀ǹpútà.",
   "ok": "Ó DÁRA"
 }

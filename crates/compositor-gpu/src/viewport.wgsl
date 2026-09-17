@@ -17,7 +17,7 @@ struct VParams {
     footprint: f32,
     _p0: f32,
     canvas: vec4<i32>, // left, top, right, bottom
-    grid: vec4<i32>,   // tx0, ty0, cols, rows
+    grid: vec4<i32>, // tx0, ty0, cols, rows
     surround: u32,
     crisp: u32,
     box_taps: u32,
@@ -99,10 +99,14 @@ fn viewport(@builtin(global_invocation_id) gid: vec3<u32>) {
         var acc = vec4(0.0);
         for (var dxi = 0; dxi < 2; dxi++) {
             var wx = 1.0 - tx;
-            if (dxi == 1) { wx = tx; }
+            if (dxi == 1) {
+                wx = tx;
+            }
             for (var dyi = 0; dyi < 2; dyi++) {
                 var wy = 1.0 - ty;
-                if (dyi == 1) { wy = ty; }
+                if (dyi == 1) {
+                    wy = ty;
+                }
                 let w = wx * wy;
                 if (w <= 0.0) {
                     continue;

@@ -3,7 +3,7 @@
   "starting": "Se pornește…",
   "webgpu": "Schist necesită WebGPU, pe care acest browser nu îl oferă. Chrome/Edge 113+, Firefox 141+ și Safari 26+ îl oferă.",
   "noticeTitle": "Schist funcționează cel mai bine ca aplicație desktop",
-  "noticeBody": "Folosiți versiunea web, o versiune mai ușoară: compune pe CPU și omite unele funcții — plug-inuri Photoshop și plug-inuri terțe, galeria de imagini, panoul IA, importul HEIC și descărcarea fonturilor — iar fișierele sunt salvate ca descărcări. Aplicația desktop gratuită pentru macOS, Windows și Linux le include pe toate.",
+  "noticeBody": "Folosiți versiunea web, o versiune mai ușoară: compune pe WebGPU și omite unele funcții — plug-inuri Photoshop și plug-inuri terțe, galeria de imagini, panoul IA, importul HEIC și descărcarea fonturilor — iar fișierele sunt salvate ca descărcări. Aplicația desktop gratuită pentru macOS, Windows și Linux le include pe toate.",
   "noticeLink": "Obțineți aplicația desktop.",
   "ok": "OK"
 }

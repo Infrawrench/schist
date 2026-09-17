@@ -8,6 +8,7 @@ license.workspace = true
 schist-colormgmt.workspace = true
 schist-i18n.workspace = true
 schist-core.workspace = true
+schist-fx.workspace = true
 schist-color.workspace = true
 anyhow.workspace = true
 serde.workspace = true

@@ -3,7 +3,7 @@
   "starting": "Byrjar…",
   "webgpu": "Schist krevur WebGPU, sum hesin kagin ikki veitir. Chrome/Edge 113+, Firefox 141+ og Safari 26+ veita tað.",
   "noticeTitle": "Schist riggar best sum skriviborðsforrit",
-  "noticeBody": "Tú brúkar vefútgávuna, sum er ein lættari útgáva: hon setur myndina saman á CPU-num og hevur ikki allar eginleikar — Photoshop-ískoytisforrit og ískoytisforrit frá triðjaparti, myndasavn, AI-panel, HEIC-innflutning og niðurhal av stavsniðum — og fílur verða goymdar sum niðurhal. Ókeypis skriviborðsforritið til macOS, Windows og Linux hevur alt hetta.",
+  "noticeBody": "Tú brúkar vefútgávuna, sum er ein lættari útgáva: hon setur myndina saman á WebGPU-num og hevur ikki allar eginleikar — Photoshop-ískoytisforrit og ískoytisforrit frá triðjaparti, myndasavn, AI-panel, HEIC-innflutning og niðurhal av stavsniðum — og fílur verða goymdar sum niðurhal. Ókeypis skriviborðsforritið til macOS, Windows og Linux hevur alt hetta.",
   "noticeLink": "Fá skriviborðsforritið.",
   "ok": "Í lagi"
 }

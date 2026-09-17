@@ -288,6 +288,31 @@ check-gpu-fx:
 .PHONY: fmt-gpu-fx lint-gpu-fx check-gpu-shaders
 check-gpu-shaders:
 	$(CARGO) test -p schist-compositor-gpu --test effect_shaders
+
+.PHONY: check-gpu-opportunities
+check-gpu-opportunities:
+	$(CARGO) test -p schist-compositor-gpu --test adjustment_coverage --test compute_programs --test async_filters --test native_parity
+
+.PHONY: check-gpu-domains
+check-gpu-domains:
+	$(CARGO) test -p schist-adjustments -p schist-core -p schist-layer-fx -p schist-codec-raw -p schist-colormgmt -p schist-vector -p schist-neural -p schist-tools-retouch
+
+.PHONY: check-web-gpu
+check-web-gpu:
+	$(CARGO) check -p schist-compositor-gpu -p schist-editor --target wasm32-unknown-unknown
+
+.PHONY: test-web-gpu fmt-web-gpu lint-web-gpu web-debug
+test-web-gpu:
+	CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER=wasm-bindgen-test-runner $(CARGO) test -p schist-compositor-gpu --target wasm32-unknown-unknown --test browser
+
+fmt-web-gpu:
+	$(CARGO) fmt -p schist-compositor-gpu -p schist-editor -p schist-fx -p schist-filters-core -p schist-plugin-api -p schist-adjustments -p schist-core -p schist-layer-fx -p schist-codec-raw -p schist-colormgmt -p schist-vector -p schist-neural -p schist-tools-retouch
+
+lint-web-gpu:
+	$(CARGO) clippy -p schist-compositor-gpu -p schist-editor --target wasm32-unknown-unknown -- -D warnings
+
+web-debug:
+	tools/web-build.sh --debug
 fmt-gpu-fx:
 	$(CARGO) fmt -p schist-fx -p schist-filters-core -p schist-compositor-gpu
 lint-gpu-fx:

@@ -13,23 +13,35 @@ fn native_blank() -> NativePixel {
 // only used at explicit RGB blend/adjustment boundaries; display ICC
 // conversion happens after native readback in schist_colormgmt.
 fn to_linear(v: f32) -> f32 {
-    if (v <= 0.04045) { return v / 12.92; }
+    if (v <= 0.04045) {
+        return v / 12.92;
+    }
     return pow((v + 0.055) / 1.055, 2.4);
 }
+
 fn from_linear(v: f32) -> f32 {
-    if (v <= 0.0031308) { return v * 12.92; }
+    if (v <= 0.0031308) {
+        return v * 12.92;
+    }
     return 1.055 * pow(v, 1.0 / 2.4) - 0.055;
 }
+
 fn lab_f(t: f32) -> f32 {
     let d = 6.0 / 29.0;
-    if (t > d * d * d) { return pow(t, 1.0 / 3.0); }
+    if (t > d * d * d) {
+        return pow(t, 1.0 / 3.0);
+    }
     return t / (3.0 * d * d) + 4.0 / 29.0;
 }
+
 fn lab_f_inv(t: f32) -> f32 {
     let d = 6.0 / 29.0;
-    if (t > d) { return t * t * t; }
+    if (t > d) {
+        return t * t * t;
+    }
     return 3.0 * d * d * (t - 4.0 / 29.0);
 }
+
 fn native_to_rgb(p: NativePixel) -> vec4<f32> {
     if (globals.color_mode == 1u) {
         let c = clamp(p.color, vec4(0.0), vec4(1.0));
@@ -47,6 +59,7 @@ fn native_to_rgb(p: NativePixel) -> vec4<f32> {
     );
     return vec4(clamp(rgb, vec3(0.0), vec3(1.0)), p.alpha);
 }
+
 fn native_from_rgb(p: vec4<f32>) -> NativePixel {
     if (globals.color_mode == 1u) {
         let k = 1.0 - max(max(p.r, p.g), p.b);
@@ -72,10 +85,17 @@ fn native_from_rgb(p: vec4<f32>) -> NativePixel {
     ), p.a);
 }
 
-fn native_src(row: i32, tile: u32, px: u32) -> NativePixel {
-    if (row < 0) { return native_blank(); }
-    let off = slots[u32(row) * globals.n_tiles + tile];
-    if (off < 0) { return native_blank(); }
+fn native_src(row: i32, tile: u32, pixel: u32) -> NativePixel {
+    if (row < 0) {
+        return native_blank();
+    }
+    let slot = (u32(row) * globals.n_tiles + tile) * 6u;
+    let xy = vec2(pixel % 256u, pixel / 256u) + vec2(u32(slots[slot + 4u]), u32(slots[slot + 5u]));
+    let off = slots[slot + (xy.y / 256u) * 2u + xy.x / 256u];
+    let px = (xy.y % 256u) * 256u + xy.x % 256u;
+    if (off < 0) {
+        return native_blank();
+    }
     // Upload is five f32 samples at every depth; widening preserves the
     // authoritative native values, including out-of-gamut float samples.
     let b = u32(off) + px * 5u;
@@ -86,10 +106,14 @@ fn native_src(row: i32, tile: u32, px: u32) -> NativePixel {
 }
 
 fn native_blend(mode: u32, top: NativePixel, bottom: NativePixel, x: i32, y: i32) -> NativePixel {
-    if (top.alpha <= 0.0) { return bottom; }
+    if (top.alpha <= 0.0) {
+        return bottom;
+    }
     if (mode == M_NORMAL || mode == M_PASS_THROUGH) {
         let a = top.alpha + bottom.alpha * (1.0 - top.alpha);
-        if (a <= 1.1920929e-7) { return native_blank(); }
+        if (a <= 1.1920929e-7) {
+            return native_blank();
+        }
         return NativePixel((top.color * top.alpha + bottom.color * bottom.alpha * (1.0 - top.alpha)) / a, a);
     }
     if (globals.color_mode == 2u || mode == M_DARKER_COLOR || mode == M_LIGHTER_COLOR || mode >= M_HUE) {
@@ -110,7 +134,9 @@ fn native_blend(mode: u32, top: NativePixel, bottom: NativePixel, x: i32, y: i32
 @compute @workgroup_size(16, 16, 1)
 fn composite_native(@builtin(global_invocation_id) gid: vec3<u32>) {
     let tile = gid.z;
-    if (tile >= globals.n_tiles) { return; }
+    if (tile >= globals.n_tiles) {
+        return;
+    }
     let px = gid.y * TILE + gid.x;
     let orig = tile_origin[tile];
     let x = orig.x + i32(gid.x);
@@ -150,7 +176,9 @@ fn composite_native(@builtin(global_invocation_id) gid: vec3<u32>) {
                     stack[sp - 1u] = native_blend(op.mode, p, stack[sp - 1u], x, y);
                 }
             }
-            case 4u: { snap[sp - 1u] = stack[sp - 1u].alpha; }
+            case 4u: {
+                snap[sp - 1u] = stack[sp - 1u].alpha;
+            }
             case 5u: {
                 let rgb = native_to_rgb(stack[sp - 1u]);
                 let adjusted = adjust_px(i, tile, x, y, px, snap[sp - 1u], rgb);
@@ -163,8 +191,11 @@ fn composite_native(@builtin(global_invocation_id) gid: vec3<u32>) {
                 }
                 stack[sp - 1u].alpha = adjusted.a;
             }
-            case 6u: { stack[sp - 1u].alpha *= mask_value(i, tile, x, y, px); }
-            default: {}
+            case 6u: {
+                stack[sp - 1u].alpha *= mask_value(i, tile, x, y, px);
+            }
+            default: {
+            }
         }
     }
     let out = stack[0];

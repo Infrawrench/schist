@@ -3,7 +3,7 @@
   "starting": "Pokretanje…",
   "webgpu": "Schist zahtijeva WebGPU, koji ovaj preglednik ne podržava. Podržavaju ga Chrome/Edge 113+, Firefox 141+ i Safari 26+.",
   "noticeTitle": "Schist najbolje radi kao aplikacija za računalo",
-  "noticeBody": "Upotrebljavate web-verziju, koja ima manje mogućnosti: kompoziciju izvodi na procesoru i ne obuhvaća neke značajke — dodatke za Photoshop i dodatke drugih proizvođača, galeriju slika, ploču za AI, uvoz HEIC datoteka ni preuzimanje fontova — a datoteke se spremaju kao preuzimanja. Besplatna aplikacija za računala sa sustavima macOS, Windows i Linux obuhvaća sve te mogućnosti.",
+  "noticeBody": "Upotrebljavate web-verziju, koja ima manje mogućnosti: kompoziciju izvodi uz WebGPU i ne obuhvaća neke značajke — dodatke za Photoshop i dodatke drugih proizvođača, galeriju slika, ploču za AI, uvoz HEIC datoteka ni preuzimanje fontova — a datoteke se spremaju kao preuzimanja. Besplatna aplikacija za računala sa sustavima macOS, Windows i Linux obuhvaća sve te mogućnosti.",
   "noticeLink": "Preuzmite aplikaciju za računalo.",
   "ok": "U redu"
 }

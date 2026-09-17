@@ -3,7 +3,7 @@
   "starting": "Lantschar…",
   "webgpu": "Schist dovra WebGPU, che quest navigatur na porscha betg. Quai fan Chrome/Edge 113+, Firefox 141+ e Safari 26+.",
   "noticeTitle": "Schist funcziuna il meglier sco applicaziun per il desktop",
-  "noticeBody": "Ti utiliseschas la versiun web, ina versiun pli leva: ella cumpona ils maletgs sin la CPU ed ometta tschertas funcziuns — plug-ins da Photoshop e plug-ins da terzas partidas, la gallaria da maletgs, il champ dad IA, l'import da HEIC e la telechargiada da scrittiras — e las datotecas vegnan arcunadas en furma da telechargiadas. L'applicaziun gratuita per il desktop per macOS, Windows e Linux cumpiglia tut quai.",
+  "noticeBody": "Ti utiliseschas la versiun web, ina versiun pli leva: ella cumpona ils maletgs sin la WebGPU ed ometta tschertas funcziuns — plug-ins da Photoshop e plug-ins da terzas partidas, la gallaria da maletgs, il champ dad IA, l'import da HEIC e la telechargiada da scrittiras — e las datotecas vegnan arcunadas en furma da telechargiadas. L'applicaziun gratuita per il desktop per macOS, Windows e Linux cumpiglia tut quai.",
   "noticeLink": "Retschaiver l'applicaziun per il desktop.",
   "ok": "OK"
 }

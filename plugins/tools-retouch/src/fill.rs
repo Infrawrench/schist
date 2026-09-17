@@ -28,6 +28,59 @@ use rayon::prelude::*;
 use schist_color::Rgba;
 use schist_core::{IntRect, TileMap};
 
+fn relax_gpu(
+    input: &[f32],
+    hole: &[bool],
+    held: Option<&[bool]>,
+    w: usize,
+    h: usize,
+    channels: usize,
+    passes: usize,
+) -> Option<Vec<f32>> {
+    use schist_fx::{ComputeProgram, ComputeShader, ComputeSource, ComputeStep};
+    static SHADER: ComputeShader = ComputeShader {
+        name: "healing-diffusion",
+        source: include_str!("fill_gpu.wgsl"),
+    };
+    let work = input.len().saturating_mul(passes).saturating_mul(4);
+    if !schist_fx::backend().compute_available(work) {
+        return None;
+    }
+    let mask = hole
+        .iter()
+        .enumerate()
+        .flat_map(|(i, &hole)| {
+            [
+                u8::from(hole) as f32,
+                u8::from(held.is_some_and(|h| h[i])) as f32,
+            ]
+        })
+        .collect();
+    let mut p = ComputeProgram {
+        buffers: vec![mask],
+        steps: vec![],
+        result: ComputeSource::Input(0),
+        work,
+    };
+    for i in 0..passes {
+        p.steps.push(ComputeStep {
+            shader: &SHADER,
+            source: if i == 0 {
+                ComputeSource::Input(0)
+            } else {
+                ComputeSource::Step(i - 1)
+            },
+            auxiliary: ComputeSource::Input(1),
+            params: vec![u8::from(held.is_some()) as f32],
+            output_len: input.len(),
+            invocations: input.len(),
+            shape: [w as u32, h as u32, channels as u32],
+        });
+    }
+    p.result = ComputeSource::Step(p.steps.len() - 1);
+    schist_fx::try_compute(input, &p)
+}
+
 /// Fill the pixels where `hole` is true, over `rect`.
 pub fn inpaint(tiles: &TileMap, rect: IntRect, hole: &[bool]) -> Vec<Rgba> {
     let (w, h) = (rect.width().max(0) as usize, rect.height().max(0) as usize);
@@ -111,35 +164,47 @@ fn settle_seam(buf: &mut [Rgba], hole: &[bool], w: usize, h: usize) {
         return;
     }
     let passes = (w.min(h) as u32).clamp(8, 160);
-    let mut next = fix.clone();
-    for _ in 0..passes {
-        for y in 0..h {
-            for x in 0..w {
-                let i = y * w + x;
-                if !hole[i] {
-                    continue;
-                }
-                let (mut acc, mut n) = ([0f32; 3], 0f32);
-                for (dx, dy) in [(1i32, 0i32), (-1, 0), (0, 1), (0, -1)] {
-                    let (sx, sy) = (x as i32 + dx, y as i32 + dy);
-                    if sx < 0 || sy < 0 || sx as usize >= w || sy as usize >= h {
+    if let Some(out) = relax_gpu(
+        fix.as_flattened(),
+        hole,
+        Some(&held),
+        w,
+        h,
+        3,
+        passes as usize,
+    ) {
+        fix.copy_from_slice(out.as_chunks::<3>().0);
+    } else {
+        let mut next = fix.clone();
+        for _ in 0..passes {
+            for y in 0..h {
+                for x in 0..w {
+                    let i = y * w + x;
+                    if !hole[i] {
                         continue;
                     }
-                    let j = sy as usize * w + sx as usize;
-                    if !hole[j] && !held[j] {
-                        continue;
+                    let (mut acc, mut n) = ([0f32; 3], 0f32);
+                    for (dx, dy) in [(1i32, 0i32), (-1, 0), (0, 1), (0, -1)] {
+                        let (sx, sy) = (x as i32 + dx, y as i32 + dy);
+                        if sx < 0 || sy < 0 || sx as usize >= w || sy as usize >= h {
+                            continue;
+                        }
+                        let j = sy as usize * w + sx as usize;
+                        if !hole[j] && !held[j] {
+                            continue;
+                        }
+                        for c in 0..3 {
+                            acc[c] += fix[j][c];
+                        }
+                        n += 1.0;
                     }
-                    for c in 0..3 {
-                        acc[c] += fix[j][c];
+                    if n > 0.0 {
+                        next[i] = [acc[0] / n, acc[1] / n, acc[2] / n];
                     }
-                    n += 1.0;
-                }
-                if n > 0.0 {
-                    next[i] = [acc[0] / n, acc[1] / n, acc[2] / n];
                 }
             }
+            std::mem::swap(&mut fix, &mut next);
         }
-        std::mem::swap(&mut fix, &mut next);
     }
     for (i, &gone) in hole.iter().enumerate() {
         if gone {
@@ -281,6 +346,17 @@ fn diffuse(buf: &mut Vec<Rgba>, hole: &[bool], w: usize, h: usize) {
         }
     }
     let passes = (w.min(h) as u32).clamp(8, 160);
+    if schist_fx::backend()
+        .compute_available(buf.len().saturating_mul(passes as usize).saturating_mul(16))
+    {
+        let input: Vec<f32> = buf.iter().flat_map(|p| [p.r, p.g, p.b, p.a]).collect();
+        if let Some(out) = relax_gpu(&input, hole, None, w, h, 4, passes as usize) {
+            for (p, c) in buf.iter_mut().zip(out.as_chunks::<4>().0) {
+                *p = Rgba::new(c[0], c[1], c[2], c[3]);
+            }
+            return;
+        }
+    }
     let mut next = buf.clone();
     for _ in 0..passes {
         for y in 0..h {

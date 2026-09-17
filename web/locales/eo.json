@@ -3,7 +3,7 @@
   "starting": "Startigante…",
   "webgpu": "Schist bezonas WebGPU, kiun ĉi tiu retumilo ne ofertas. Chrome/Edge 113+, Firefox 141+ kaj Safari 26+ ja ofertas ĝin.",
   "noticeTitle": "Schist plej bone funkcias kiel labortabla aplikaĵo",
-  "noticeBody": "Vi uzas la retan version, kiu estas pli malpeza eldono: ĝi kunmetas bildojn per la ĉefprocesoro kaj ne inkluzivas kelkajn funkciojn — Photoshop-kromprogramojn kaj kromprogramojn de eksteraj liverantoj, bildgalerion, la AI-panelon, importadon de HEIC kaj elŝutadon de tiparoj — kaj dosieroj estas konservataj kiel elŝutaĵoj. La senpaga labortabla aplikaĵo por macOS, Windows kaj Linux enhavas ĉion ĉi.",
+  "noticeBody": "Vi uzas la retan version, kiu estas pli malpeza eldono: ĝi kunmetas bildojn per WebGPU kaj ne inkluzivas kelkajn funkciojn — Photoshop-kromprogramojn kaj kromprogramojn de eksteraj liverantoj, bildgalerion, la AI-panelon, importadon de HEIC kaj elŝutadon de tiparoj — kaj dosieroj estas konservataj kiel elŝutaĵoj. La senpaga labortabla aplikaĵo por macOS, Windows kaj Linux enhavas ĉion ĉi.",
   "noticeLink": "Akiri la labortablan aplikaĵon.",
   "ok": "Bone"
 }

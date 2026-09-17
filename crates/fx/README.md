@@ -92,11 +92,30 @@ trusted effect code, with valid parameter ranges and the same CPU semantics.
 | Noise / remap | Add Noise, Offset, Twirl, Ripple, Wave |
 | Procedural | Clouds, Difference Clouds, Fibers; toolbox colors included |
 
-Median companions handle radii 1–4; larger windows use the CPU to avoid large
-per-invocation scratch arrays. Oil Paint supports up to 64 intensity bins.
+Median companions use scratch arrays for radii 1–4 and constant-register radix
+selection for larger windows (the helper supports radii through 100). Oil Paint supports up to 64 intensity bins.
 Gaussian/box blur, lens blur, mesh warp and seam carving retain their specialized
-backends. Compound filters continue their remaining CPU stages after an
-accelerated kernel.
+backends. Additional companions cover blur galleries, distortions, lens correction,
+pixelate and texture effects; see the [coverage map](../../docs/gpu-opportunities.md).
+
+## Resident programs and browser callers
+
+`ComputeProgram` describes float-buffer steps with primary and auxiliary inputs,
+owned parameters, output lengths and dispatch shapes. `ComputeSource::Step`
+references an earlier result. Kernels implement `compute(index: u32)` over the
+bindings in `COMPUTE_PRELUDE`; row/pixel kernels must guard their logical index
+when they write more than one sample. The executor validates dependencies and
+allocation limits, reuses dead outputs and reads back only the program result.
+`FxBackend::compute_available(work)` lets callers avoid expensive preparation
+when no eligible backend is installed. A declined program leaves the original
+input available for CPU execution.
+
+`FilterPlugin::gpu_operation_with` exposes a **complete** asynchronous operation,
+including captured context. Native callers use the same descriptor when present.
+`FilterOperation::Program` builds dimension-dependent graphs; High Pass, Unsharp
+Mask, graded blurs and Mosaic use it. Browser hosts await the descriptor and
+handle stale results, cancellation, fallback and history. A synchronous library
+call in WebAssembly still uses its CPU implementation.
 
 ## Verification
 
@@ -108,6 +127,7 @@ Register new companions in the shader list and add real-filter cases to
 GPU work actually ran, compares it with the CPU body, and exercises HDR colors,
 transparent and nearly transparent pixels, single rows/columns and band edges.
 Near the unpremultiply cutoff, parity compares the pixels' premultiplied color
-contribution; elsewhere it compares straight-alpha channels within `1e-4`.
+contribution; elsewhere it compares straight-alpha channels within `1e-4`, except new floating
+remaps which allow `5e-4` in premultiplied contribution.
 The shader list is parsed and validated without an adapter; execution tests need
 a wgpu adapter and report a skip when none is available.

@@ -14,6 +14,8 @@
 //!
 //! Profiles are parsed by `moxcms` (pure Rust, no C toolchain).
 
+mod gpu;
+
 use anyhow::{anyhow, Result};
 use moxcms::{
     CicpColorPrimaries, CicpProfile, ColorProfile, Layout, MatrixCoefficients, RenderingIntent,
@@ -165,6 +167,7 @@ pub struct ColorTransform {
     executor: Arc<dyn TransformExecutor<f32> + Send + Sync>,
     /// True when source and destination match, so callers can skip work.
     identity: bool,
+    gpu_params: Option<Arc<Vec<f32>>>,
 }
 
 impl std::fmt::Debug for ColorTransform {
@@ -180,6 +183,8 @@ impl ColorTransform {
     pub fn new(src: &Profile, dst: &Profile, intent: Intent) -> Result<ColorTransform> {
         let options = TransformOptions {
             rendering_intent: intent.to_mox(),
+            // Match GPU f32 matrix arithmetic instead of hardware-specific fixed-point shapers.
+            prefer_fixed_point: false,
             ..Default::default()
         };
         let executor = src
@@ -189,6 +194,7 @@ impl ColorTransform {
         Ok(ColorTransform {
             executor,
             identity: false,
+            gpu_params: gpu::coefficients(&src.profile, &dst.profile).map(Arc::new),
         })
     }
 
@@ -204,6 +210,7 @@ impl ColorTransform {
         ColorTransform {
             executor: Arc::new(Noop),
             identity: true,
+            gpu_params: None,
         }
     }
 
@@ -224,6 +231,17 @@ impl ColorTransform {
     pub fn apply(&self, pixels: &mut [f32]) {
         if self.identity || pixels.is_empty() {
             return;
+        }
+        if pixels.len().is_multiple_of(4)
+            && schist_fx::backend().compute_available(pixels.len().saturating_mul(24))
+        {
+            if let Some(params) = &self.gpu_params {
+                let program = gpu::program(params, pixels.len());
+                if let Some(out) = schist_fx::try_compute(pixels, &program) {
+                    pixels.copy_from_slice(&out);
+                    return;
+                }
+            }
         }
         let src = pixels.to_vec();
         if let Err(err) = self.executor.transform(&src, pixels) {

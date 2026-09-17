@@ -3,7 +3,7 @@
   "starting": "Mi ngi tàmbali…",
   "webgpu": "Schist soxla na WebGPU, te joowkat bii amu ko. Chrome/Edge 113+, Firefox 141+ ak Safari 26+ dañu ko am.",
   "noticeTitle": "Schist gën a baax ci aplikaasioŋu ordinaatëër",
-  "noticeBody": "Yaa ngi jëfandikoo sumb bu web bi, te sumb bu gëna woyof la: day boole nataal yi ci CPU bi te bàyyi yenn man-man yi — plug-in yu Photoshop ak plug-in yu ñeneen, galeri nataal yi, pano AI bi, dugal HEIC ak yeb font yi — te dencukaay yi dañuy denc ni ay yeb. Aplikaasioŋu ordinaatëër bu macOS, Windows ak Linux bi amul fay am na lépp.",
+  "noticeBody": "Yaa ngi jëfandikoo sumb bu web bi, te sumb bu gëna woyof la: day boole nataal yi ci WebGPU bi te bàyyi yenn man-man yi — plug-in yu Photoshop ak plug-in yu ñeneen, galeri nataal yi, pano AI bi, dugal HEIC ak yeb font yi — te dencukaay yi dañuy denc ni ay yeb. Aplikaasioŋu ordinaatëër bu macOS, Windows ak Linux bi amul fay am na lépp.",
   "noticeLink": "Jël aplikaasioŋu ordinaatëër bi.",
   "ok": "Baax na"
 }

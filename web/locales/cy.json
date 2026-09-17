@@ -3,7 +3,7 @@
   "starting": "Wrthi'n cychwyn…",
   "webgpu": "Mae angen WebGPU ar Schist, ac nid yw'r porwr hwn yn ei gynnig. Mae Chrome/Edge 113+, Firefox 141+ a Safari 26+ yn ei gynnig.",
   "noticeTitle": "Mae Schist yn gweithio orau fel ap bwrdd gwaith",
-  "noticeBody": "Rydych yn defnyddio'r fersiwn gwe, sy'n fersiwn ysgafnach: mae'n cyfansoddi ar y CPU ac yn hepgor rhai nodweddion — ategion Photoshop ac ategion trydydd parti, yr oriel ddelweddau, y panel AI, mewnforio HEIC a lawrlwytho ffontiau — ac mae ffeiliau'n cael eu cadw fel lawrlwythiadau. Mae'r ap bwrdd gwaith rhad ac am ddim ar gyfer macOS, Windows a Linux yn cynnwys y cyfan.",
+  "noticeBody": "Rydych yn defnyddio'r fersiwn gwe, sy'n fersiwn ysgafnach: mae'n cyfansoddi ar y WebGPU ac yn hepgor rhai nodweddion — ategion Photoshop ac ategion trydydd parti, yr oriel ddelweddau, y panel AI, mewnforio HEIC a lawrlwytho ffontiau — ac mae ffeiliau'n cael eu cadw fel lawrlwythiadau. Mae'r ap bwrdd gwaith rhad ac am ddim ar gyfer macOS, Windows a Linux yn cynnwys y cyfan.",
   "noticeLink": "Cael yr ap bwrdd gwaith.",
   "ok": "Iawn"
 }

@@ -3,6 +3,17 @@
 use super::*;
 
 impl Workspace {
+    pub(super) fn has_browser_gpu(&self) -> bool {
+        #[cfg(target_arch = "wasm32")]
+        {
+            self.browser_gpu.context.is_some()
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            false
+        }
+    }
+
     /// Which document pixels can land on screen at the current zoom, pan
     /// and rotation, clipped to the canvas. `width`/`height` are the
     /// canvas element's size in device pixels.
@@ -59,6 +70,7 @@ impl Workspace {
         &mut self,
         bounds: Bounds<Pixels>,
         scale_factor: f32,
+        _cx: &mut Context<Self>,
     ) -> Option<Arc<RenderImage>> {
         let sf = scale_factor.max(0.01);
         let width = (f32::from(bounds.size.width) * sf).round().max(1.0) as usize;
@@ -82,6 +94,11 @@ impl Workspace {
             rotation: self.rotation.to_bits(),
             surround: crate::ui::palette().canvas_bg,
         };
+        // Even a cache hit or an empty view supersedes an in-flight frame.
+        #[cfg(target_arch = "wasm32")]
+        {
+            self.browser_gpu.requested = Some((doc.id, key));
+        }
         if let Some((cached_key, image)) = &self.viewport_image {
             if *cached_key == key {
                 return Some(image.clone());
@@ -106,6 +123,10 @@ impl Workspace {
         // Composite the visible tiles, then index them by grid position so
         // sampling is an array lookup rather than a hash per pixel.
         let coords: Vec<TileCoord> = TileCoord::covering(&visible).collect();
+        #[cfg(target_arch = "wasm32")]
+        if self.queue_browser_viewport(key, visible, &coords, sf, _cx) {
+            return self.viewport_image.as_ref().map(|(_, image)| image.clone());
+        }
         if let Some(doc) = self.doc.as_ref() {
             self.cache.prewarm(doc, &coords);
         }

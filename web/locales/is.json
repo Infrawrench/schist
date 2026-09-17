@@ -3,7 +3,7 @@
   "starting": "Ræsir…",
   "webgpu": "Schist þarf WebGPU, sem þessi vafri býður ekki upp á. Chrome/Edge 113+, Firefox 141+ og Safari 26+ styðja það.",
   "noticeTitle": "Schist virkar best sem skjáborðsforrit",
-  "noticeBody": "Þú ert að nota vefútgáfuna, sem er léttari gerð: hún setur myndina saman á örgjörvanum og sleppir sumum eiginleikum — Photoshop-viðbótum og viðbótum frá þriðja aðila, myndasafni, gervigreindarspjaldinu, HEIC-innflutningi og niðurhali leturgerða — og skrár eru vistaðar sem niðurhöl. Ókeypis skjáborðsforritið fyrir macOS, Windows og Linux hefur alla þessa eiginleika.",
+  "noticeBody": "Þú ert að nota vefútgáfuna, sem er léttari gerð: hún setur myndina saman á WebGPU og sleppir sumum eiginleikum — Photoshop-viðbótum og viðbótum frá þriðja aðila, myndasafni, gervigreindarspjaldinu, HEIC-innflutningi og niðurhali leturgerða — og skrár eru vistaðar sem niðurhöl. Ókeypis skjáborðsforritið fyrir macOS, Windows og Linux hefur alla þessa eiginleika.",
   "noticeLink": "Sækja skjáborðsforritið.",
   "ok": "Í lagi"
 }

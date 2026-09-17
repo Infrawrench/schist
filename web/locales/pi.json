@@ -3,7 +3,7 @@
   "starting": "Ārabhīyati…",
   "webgpu": "Schist WebGPU icchati; idaṃ jālavicarakaprogramaṃ taṃ na deti. Chrome/Edge 113+, Firefox 141+ ca Safari 26+ ca denti.",
   "noticeTitle": "Schist lekhapīṭha-app-rūpena seṭṭhataraṃ pavattati",
-  "noticeBody": "Tumhe jālavibhāgaṃ payojetha; so lahutaro nimmāṇo: CPU-mhi chāyārūpāni misseti, katipaye ca guṇe na deti—Photoshop plug-in-karaṇāni, aññesaṃ pakkhānaṃ plug-in-karaṇāni, chāyārūpasaṅgaho, AI-phalakaṃ, HEIC-pavesanaṃ, akkharākāra-āharaṇañca—sañcikā pana āharaṇarūpena rakkhīyanti. macOS, Windows, Linux ca atthāya amūlako lekhapīṭha-app sabbam-etaṃ deti.",
+  "noticeBody": "Tumhe jālavibhāgaṃ payojetha; so lahutaro nimmāṇo: WebGPU-mhi chāyārūpāni misseti, katipaye ca guṇe na deti—Photoshop plug-in-karaṇāni, aññesaṃ pakkhānaṃ plug-in-karaṇāni, chāyārūpasaṅgaho, AI-phalakaṃ, HEIC-pavesanaṃ, akkharākāra-āharaṇañca—sañcikā pana āharaṇarūpena rakkhīyanti. macOS, Windows, Linux ca atthāya amūlako lekhapīṭha-app sabbam-etaṃ deti.",
   "noticeLink": "Lekhapīṭha-app labhatha.",
   "ok": "Sādhu"
 }

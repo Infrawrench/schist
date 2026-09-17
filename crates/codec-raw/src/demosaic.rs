@@ -40,6 +40,9 @@
 //! algorithms come from their published descriptions and the code is
 //! this crate's own.
 
+#[path = "demosaic_gpu.rs"]
+mod gpu;
+
 use crate::{frame_samples, Cfa, CfaColor, Error, Result};
 use rayon::prelude::*;
 
@@ -99,6 +102,23 @@ const CORRECTION: f32 = 0.5;
 /// scale roughly halves a neighbour's weight.
 const RANGE: f32 = 8.0;
 
+// The two Bayer passes accumulate several f32 operations before comparing
+// gradients. Reassociation (for example, by Metal) can reverse a near tie and
+// select an entirely different color. Average directions within that rounding
+// budget, on both the CPU and GPU. Scale the budget for HDR samples as well.
+const DIRECTION_EPSILON: f32 = 16.0 * f32::EPSILON;
+
+fn directional_mean(da: f32, db: f32, a: f32, b: f32) -> f32 {
+    let tolerance = DIRECTION_EPSILON * a.abs().max(b.abs()).max(da).max(db).max(1.0);
+    if da + tolerance < db {
+        a
+    } else if db + tolerance < da {
+        b
+    } else {
+        0.5 * (a + b)
+    }
+}
+
 /// Interpolate `data` (`width * height`, one sample a pixel) under
 /// `cfa` into RGB (`width * height * 3`). Any `Cfa` variant: Bayer and
 /// X-Trans get their proper algorithms, `Pattern` gets a generic
@@ -137,6 +157,9 @@ pub fn demosaic(
     // the generic path rather than being interpolated as if the
     // neighbours were the colours the algorithm expects.
     let bayer = matches!(cfa, Cfa::Bayer(_)) && mosaic.is_true_bayer();
+    if let Some(out) = gpu::run(&mosaic, width, height, bayer, quality) {
+        return Ok(out);
+    }
     Ok(match (bayer, quality) {
         (true, Quality::Fast) => bayer_bilinear(&mosaic, width, height),
         (true, Quality::Best) => bayer_hamilton_adams(&mosaic, width, height),
@@ -404,13 +427,7 @@ fn bayer_green(m: &Mosaic) -> Vec<f32> {
                 let dv = (n - s).abs() + lv.abs();
                 let gh = 0.5 * (w + e) + 0.25 * lh;
                 let gv = 0.5 * (n + s) + 0.25 * lv;
-                *out = if dh < dv {
-                    gh
-                } else if dv < dh {
-                    gv
-                } else {
-                    0.5 * (gh + gv)
-                };
+                *out = directional_mean(dh, dv, gh, gv);
             }
         });
     green
@@ -456,13 +473,8 @@ fn bayer_hamilton_adams(m: &Mosaic, width: usize, height: usize) -> Vec<f32> {
                         let se = diff(px + 1, py + 1);
                         let down = (nw - se).abs();
                         let up = (ne - sw).abs();
-                        let other = g + if down < up {
-                            0.5 * (nw + se)
-                        } else if up < down {
-                            0.5 * (ne + sw)
-                        } else {
-                            0.25 * (nw + ne + sw + se)
-                        };
+                        let other =
+                            g + directional_mean(down, up, 0.5 * (nw + se), 0.5 * (ne + sw));
                         if code == RED {
                             o[0] = v;
                             o[1] = g;
@@ -946,6 +958,39 @@ mod tests {
         let plane = vec![0.5f32; w * h];
         let out = demosaic(&plane, w, h, &cfa, Quality::Best).expect("odd bayer");
         assert!(out.iter().all(|v| (*v - 0.5).abs() < 1e-5));
+    }
+
+    #[test]
+    fn bayer_direction_ties_do_not_amplify_roundoff() {
+        // At (10, 2), the two diagonal gradients differ by about one ulp.
+        // Before rounding-aware ties, reassociating the green pass changed
+        // this missing channel from 1.1820586 to 0.756637. It should average
+        // the two directions, including after tiny input perturbations.
+        let (w, h) = (37, 29);
+        for scale in [1.0, 32.0] {
+            for perturb in [-1, 0, 1] {
+                let input: Vec<f32> = (0..w * h)
+                    .map(|i| {
+                        let v = (((i * 197 % 1009) as f32 / 1008.0) * 1.7 - 0.02) * scale;
+                        match perturb {
+                            -1 => v.next_down(),
+                            1 => v.next_up(),
+                            _ => v,
+                        }
+                    })
+                    .collect();
+                for (cfa, channel) in [(Cfa::RGGB, 2), (Cfa::BGGR, 0)] {
+                    let m = Mosaic::build(&input, w, h, &cfa).unwrap();
+                    let out = bayer_hamilton_adams(&m, w, h);
+                    let actual = out[(2 * w + 10) * 3 + channel];
+                    let expected = 0.9693477 * scale;
+                    assert!(
+                        (actual - expected).abs() < 0.00002 * scale,
+                        "{cfa:?}, scale {scale}, perturbation {perturb}: {actual} != {expected}"
+                    );
+                }
+            }
+        }
     }
 
     /// A flat field must come out flat under every path: any

@@ -17,7 +17,9 @@
 //! are lens effects, not measurements: what matters is that the falloff
 //! is smooth and that the sharp part is genuinely untouched.
 
-use crate::util::{at, gaussian_rgba, luma, premultiply, put, sample, unpremultiply};
+use crate::util::{
+    at, gaussian_rgba, luma, premultiply, put, sample, sample_offset, unpremultiply,
+};
 use crate::{choice, param, simple_filter};
 use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues};
@@ -227,6 +229,18 @@ simple_filter!(
     }
 );
 
+fn spin_offset(x: f32, y: f32, angle: f32) -> (f32, f32) {
+    let sine = angle.sin();
+    // Retain small rotations: cos(angle)-1 and absolute source coordinates
+    // both lose subpixel motion when the radius is large.
+    let half_sine = (angle * 0.5).sin();
+    let cosine_minus_one = -2.0 * half_sine * half_sine;
+    (
+        x * cosine_minus_one - y * sine,
+        x * sine + y * cosine_minus_one,
+    )
+}
+
 simple_filter!(
     SpinBlur,
     "filter.spin_blur",
@@ -285,12 +299,11 @@ simple_filter!(
                 if inside <= 0.001 {
                     continue;
                 }
-                let theta = fy.atan2(fx);
                 let mut acc = [0.0f32; 4];
                 for s in 0..STEPS {
                     let t = s as f32 / (STEPS - 1) as f32 - 0.5;
-                    let a = theta + t * sweep * inside;
-                    let p = sample(&src, w, h, cx + r * a.cos() - 0.5, cy + r * a.sin() - 0.5);
+                    let offset = spin_offset(fx, fy, t * sweep * inside);
+                    let p = sample_offset(&src, w, h, (x as i32, y as i32), offset);
                     for c in 0..4 {
                         acc[c] += p[c] / STEPS as f32;
                     }
@@ -408,7 +421,7 @@ static SHAPES: &[&str] = &[
 ];
 
 /// Whether a point inside the kernel's unit square belongs to the shape.
-fn in_shape(kind: usize, u: f32, v: f32) -> bool {
+pub(crate) fn in_shape(kind: usize, u: f32, v: f32) -> bool {
     let (au, av) = (u.abs(), v.abs());
     match kind {
         0 => au <= 1.0 && av <= 1.0,
@@ -652,4 +665,29 @@ pub fn register(registry: &mut schist_plugin_api::PluginRegistry) {
     registry.register_filter(Box::new(SmartBlur));
     registry.register_filter(Box::new(Deinterlace));
     registry.register_filter(Box::new(NtscColors));
+}
+
+#[cfg(test)]
+mod tests {
+    use super::spin_offset;
+
+    #[test]
+    fn spin_retains_small_rotations_at_large_radii() {
+        for (x, y) in [(508.0, -1.0), (-508.0, -1.0), (-1024.0, 0.5)] {
+            for angle in [-0.003, 0.000001, 0.003, std::f32::consts::FRAC_PI_6] {
+                let (dx, dy) = spin_offset(x, y, angle);
+                let a = angle as f64;
+                let reference = (
+                    x as f64 * (a.cos() - 1.0) - y as f64 * a.sin(),
+                    x as f64 * a.sin() + y as f64 * (a.cos() - 1.0),
+                );
+                for (actual, expected) in [(dx, reference.0), (dy, reference.1)] {
+                    assert!(
+                        (actual as f64 - expected).abs() <= 2e-7 * expected.abs().max(1.0),
+                        "({x}, {y}), angle {angle}: {actual} != {expected}"
+                    );
+                }
+            }
+        }
+    }
 }

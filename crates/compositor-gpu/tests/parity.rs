@@ -525,13 +525,12 @@ fn direct_adjustments_with_masks_opacity_and_clipping() {
     assert_parity(&doc, true, 0, "direct adjustments weighted");
 }
 
-/// An adjustment kind the plan has no branch for still has to be caught
-/// and handed to the CPU rather than silently rendered wrong.
+/// Direct adjustments retain their preparation semantics, and translated
+/// layers execute through the GPU plan.
 #[test]
-fn an_unknown_direct_adjustment_falls_back() {
+fn direct_adjustments_and_translated_layers_have_gpu_plans() {
     use schist_adjustments::Prepared;
-    // Guard the assumption the plan relies on: only these four kinds
-    // prepare to `Direct`, and each has a GPU branch.
+    // These original direct branches remain direct as coverage grows.
     for params in [
         Params::HueSaturation {
             hue: 1.0,
@@ -565,10 +564,10 @@ fn an_unknown_direct_adjustment_falls_back() {
     layer.render_offset = (3, 4);
     doc.push_layer(layer);
     assert!(
-        plan::build(&doc).is_err(),
-        "a mid-drag layer must stay on the CPU"
+        plan::build(&doc).is_ok(),
+        "a mid-drag layer should remain on the GPU"
     );
-    assert_parity(&doc, false, 0, "render offset fallback");
+    assert_parity(&doc, false, 0, "render offset GPU");
 }
 
 #[test]

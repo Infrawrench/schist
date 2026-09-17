@@ -5,7 +5,18 @@ use schist_i18n::tf;
 
 impl Workspace {
     /// Everything the paint closure needs, computed with &mut self.
-    pub(super) fn prepare_paint(&mut self, bounds: Bounds<Pixels>, scale_factor: f32) -> PaintJob {
+    pub(super) fn prepare_paint(
+        &mut self,
+        bounds: Bounds<Pixels>,
+        scale_factor: f32,
+        cx: &mut Context<Self>,
+    ) -> PaintJob {
+        #[cfg(target_arch = "wasm32")]
+        {
+            self.ensure_browser_gpu(cx);
+            // Gesture snapshots and an empty canvas also supersede older work.
+            self.browser_gpu.requested = None;
+        }
         self.canvas_bounds = bounds;
         // The fit a fresh document owes itself, now that the bounds are
         // real rather than whatever the canvas last knew.
@@ -104,7 +115,7 @@ impl Workspace {
             }
         };
 
-        if zoom <= preview_zoom_cutoff(scale_factor) {
+        if zoom <= preview_zoom_cutoff(scale_factor) && !self.has_browser_gpu() {
             // Far out, compositing every tile would be wasteful; the
             // downscaled preview is already one seamless image.
             if let Some(img) = self.refresh_preview() {
@@ -129,7 +140,7 @@ impl Workspace {
             let h = (f32::from(bounds.size.height) * sf).round().max(1.0) as usize;
             let visible = self.visible_doc_rect(w, h, sf, canvas_rect);
             self.rebuild_prefetch_queue(canvas_rect, visible, true);
-        } else if let Some(img) = self.assemble_viewport(bounds, scale_factor) {
+        } else if let Some(img) = self.assemble_viewport(bounds, scale_factor, cx) {
             // One image covering the whole canvas element, already
             // resampled and checkered, so there are no tile edges to seam.
             job.tiles.push((bounds, img));
@@ -452,7 +463,7 @@ impl Workspace {
                     move |bounds, window, cx| {
                         let scale = window.scale_factor();
                         entity.update(cx, |ws, cx| {
-                            let job = ws.prepare_paint(bounds, scale);
+                            let job = ws.prepare_paint(bounds, scale, cx);
                             // Idle prefetch rides the paint cycle:
                             // whatever this frame left unrendered starts
                             // warming in the background.

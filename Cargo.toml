@@ -163,7 +163,9 @@ futures = "0.3"
 async-trait = "0.1"
 # GPU compositing backend; wgpu is its own instance (GPUI's renderer does
 # not expose a device to share).
-wgpu = "27"
+# Match GPUI's browser backend; wasm-bindgen cannot merge the WebGPU
+# string-enum bindings produced by two different wgpu major versions.
+wgpu = "30"
 pollster = "0.4"
 env_logger = "0.11"
 # Opt-in crash reporting. No default features: they would pull reqwest and

@@ -3,8 +3,8 @@
 //! The walk mirrors `schist_compositor::composite_layers` exactly — same
 //! clip-run detection, same pass-through rules, same opacity products —
 //! because the plan *is* the CPU compositor's control flow, flattened.
-//! Anything the shader cannot express faithfully (mid-drag render
-//! offsets, absurd nesting) returns [`Unsupported`] and the caller
+//! Anything the shader cannot express faithfully (excessive nesting or an
+//! unsupported adjustment) returns [`Unsupported`] and the caller
 //! composites on the CPU instead.
 
 use schist_adjustments::{Params, Prepared};
@@ -21,16 +21,13 @@ pub const MAX_DEPTH: usize = 12;
 pub enum Unsupported {
     /// An adjustment kind the shader has no code path for.
     DirectAdjustment,
-    /// A layer is mid-drag (`render_offset != 0`) and samples across tile
-    /// boundaries.
-    RenderOffset,
     /// Nesting deeper than the shader's fixed stack.
     TooDeep,
 }
 
 /// One source of per-tile data referenced by ops via a slot-table row.
 pub enum PlanSource<'a> {
-    Pixels(&'a TileMap),
+    Pixels(&'a TileMap, (i32, i32)),
     Mask(&'a MaskTileMap),
 }
 
@@ -53,6 +50,7 @@ impl MaskRef {
 
 /// One shader op. `src_fmt` is filled in at upload time (it depends on
 /// which tile depths actually occur in the batch).
+#[derive(Clone)]
 pub struct PlanOp {
     pub kind: u32,
     pub mode: u32,
@@ -65,7 +63,7 @@ pub struct PlanOp {
     /// Which full-colour adjustment this op runs (`D_*`), or [`D_NONE`]
     /// when it is a LUT or a fill.
     pub direct: u32,
-    /// Row into [`Plan::directs`] holding that adjustment's coefficients.
+    /// Float offset into [`Plan::directs`] holding the adjustment coefficients.
     pub dparams: i32,
 }
 
@@ -80,17 +78,7 @@ pub const OP_MASK_TOP: u32 = 6;
 pub const F_CONFINE: u32 = 1;
 pub const F_FILL: u32 = 2;
 
-// Full-colour adjustments: the ones that mix channels or step, so a
-// per-channel LUT cannot express them.
-pub const D_NONE: u32 = 0;
-pub const D_HUE_SATURATION: u32 = 1;
-pub const D_BLACK_WHITE: u32 = 2;
-pub const D_THRESHOLD: u32 = 3;
-pub const D_POSTERIZE: u32 = 4;
-
-/// Floats per row of [`Plan::directs`] — six, the widest kind
-/// (black & white's channel weights).
-pub const DIRECT_STRIDE: usize = 6;
+pub use schist_adjustments::gpu::{direct_coeffs, D_NONE};
 
 pub struct Plan<'a> {
     pub mode: ColorMode,
@@ -98,12 +86,64 @@ pub struct Plan<'a> {
     pub sources: Vec<PlanSource<'a>>,
     /// Concatenated 3×256 LUTs, 768 floats each.
     pub luts: Vec<f32>,
-    /// Coefficients for the [`D_HUE_SATURATION`]-and-friends ops,
-    /// [`DIRECT_STRIDE`] floats each.
+    /// Variable-length coefficient records, addressed by float offset.
     pub directs: Vec<f32>,
 }
 
+/// A render snapshot that can outlive the editor borrow while GPU work awaits.
+/// Tile maps share their pixel buffers until an edit writes to them.
+pub struct PlanSnapshot {
+    mode: ColorMode,
+    ops: Vec<PlanOp>,
+    sources: Vec<SnapshotSource>,
+    luts: Vec<f32>,
+    directs: Vec<f32>,
+}
+
+enum SnapshotSource {
+    Pixels(TileMap, (i32, i32)),
+    Mask(MaskTileMap),
+}
+
+impl PlanSnapshot {
+    pub fn plan(&self) -> Plan<'_> {
+        Plan {
+            mode: self.mode,
+            ops: self.ops.clone(),
+            sources: self
+                .sources
+                .iter()
+                .map(|source| match source {
+                    SnapshotSource::Pixels(pixels, offset) => PlanSource::Pixels(pixels, *offset),
+                    SnapshotSource::Mask(mask) => PlanSource::Mask(mask),
+                })
+                .collect(),
+            luts: self.luts.clone(),
+            directs: self.directs.clone(),
+        }
+    }
+}
+
 impl<'a> Plan<'a> {
+    pub fn snapshot(&self) -> PlanSnapshot {
+        PlanSnapshot {
+            mode: self.mode,
+            ops: self.ops.clone(),
+            sources: self
+                .sources
+                .iter()
+                .map(|source| match source {
+                    PlanSource::Pixels(pixels, offset) => {
+                        SnapshotSource::Pixels((*pixels).clone(), *offset)
+                    }
+                    PlanSource::Mask(mask) => SnapshotSource::Mask((*mask).clone()),
+                })
+                .collect(),
+            luts: self.luts.clone(),
+            directs: self.directs.clone(),
+        }
+    }
+
     pub fn is_native(&self) -> bool {
         matches!(self.mode, ColorMode::Cmyk | ColorMode::Lab)
     }
@@ -124,14 +164,15 @@ impl<'a> Plan<'a> {
         self.ops.last_mut().unwrap()
     }
 
-    fn pixel_row(&mut self, tiles: &'a TileMap) -> i32 {
-        self.sources.push(PlanSource::Pixels(tiles));
+    fn pixel_row(&mut self, tiles: &'a TileMap, offset: (i32, i32)) -> i32 {
+        self.sources.push(PlanSource::Pixels(tiles, offset));
         (self.sources.len() - 1) as i32
     }
 
-    fn direct_row(&mut self, coeffs: [f32; DIRECT_STRIDE]) -> i32 {
-        self.directs.extend_from_slice(&coeffs);
-        (self.directs.len() / DIRECT_STRIDE - 1) as i32
+    fn direct_row(&mut self, coeffs: Vec<f32>) -> i32 {
+        let offset = self.directs.len() as i32;
+        self.directs.extend(coeffs);
+        offset
     }
 
     fn mask_ref(&mut self, layer: &'a Layer) -> MaskRef {
@@ -335,13 +376,10 @@ fn emit_layers<'a>(
 /// yet opacity-scaled) pixels as a new stack entry.
 fn emit_single<'a>(layer: &'a Layer, plan: &mut Plan<'a>, depth: usize) -> Result<(), Unsupported> {
     need_depth(depth + 1)?;
-    if layer.render_offset != (0, 0) {
-        return Err(Unsupported::RenderOffset);
-    }
     // A layer with effects composites its styled raster instead of its
     // own pixels.
     if let Some(styled) = layer.styled.as_ref() {
-        let src = plan.pixel_row(&styled.tiles);
+        let src = plan.pixel_row(&styled.tiles, layer.render_offset);
         let mask = plan.mask_ref(layer);
         let op = plan.op(OP_PUSH_LAYER);
         op.src_ref = src;
@@ -350,7 +388,7 @@ fn emit_single<'a>(layer: &'a Layer, plan: &mut Plan<'a>, depth: usize) -> Resul
     }
     match &layer.kind {
         LayerKind::Raster(raster) => {
-            let src = plan.pixel_row(&raster.tiles);
+            let src = plan.pixel_row(&raster.tiles, layer.render_offset);
             let mask = plan.mask_ref(layer);
             let op = plan.op(OP_PUSH_LAYER);
             op.src_ref = src;
@@ -427,75 +465,6 @@ fn emit_adjust<'a>(
     op.direct = direct;
     op.dparams = dparams;
     Ok(())
-}
-
-/// The shader op and coefficient row for a full-colour adjustment.
-///
-/// Everything that can be folded on the CPU is folded here — the /100
-/// scalings — so the shader does the same arithmetic on the same
-/// numbers `Params::apply` does, in the same order. `None` for a kind
-/// the shader has no branch for.
-fn direct_coeffs(params: &Params) -> Option<(u32, [f32; DIRECT_STRIDE])> {
-    match params {
-        // Per-range HSL tweaks need six trapezoids' worth of
-        // coefficients, which don't fit the direct row — those
-        // adjustments composite on the CPU.
-        Params::HueSaturation { ranges, .. } if !ranges.is_empty() => None,
-        Params::HueSaturation {
-            hue,
-            saturation,
-            lightness,
-            colorize,
-            lightness_desaturates,
-            reciprocal_saturation,
-            ranges: _,
-        } => Some((
-            D_HUE_SATURATION,
-            [
-                *hue,
-                saturation / 100.0,
-                lightness / 100.0,
-                if *colorize { 1.0 } else { 0.0 },
-                // The two Affinity slider conventions; the shader
-                // branches on them the way `Params::apply` does.
-                if *lightness_desaturates { 1.0 } else { 0.0 },
-                if *reciprocal_saturation { 1.0 } else { 0.0 },
-            ],
-        )),
-        Params::BlackWhite {
-            reds,
-            yellows,
-            greens,
-            cyans,
-            blues,
-            magentas,
-        } => Some((
-            D_BLACK_WHITE,
-            [
-                reds / 100.0,
-                yellows / 100.0,
-                greens / 100.0,
-                cyans / 100.0,
-                blues / 100.0,
-                magentas / 100.0,
-            ],
-        )),
-        Params::Threshold { level } => Some((D_THRESHOLD, [*level, 0.0, 0.0, 0.0, 0.0, 0.0])),
-        Params::Posterize { levels } => Some((
-            D_POSTERIZE,
-            [
-                // The shader floors into `levels` bands and divides by
-                // `levels - 1`, mirroring the CPU's convention.
-                (*levels).clamp(2, 255) as f32,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-            ],
-        )),
-        _ => None,
-    }
 }
 
 fn need_depth(depth: usize) -> Result<(), Unsupported> {

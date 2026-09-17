@@ -3,7 +3,7 @@
   "starting": "Qallarichkan…",
   "webgpu": "Schistqa WebGPU-ta munan, kay maskaqtaq mana quyta atinchu. Chrome/Edge 113+, Firefox 141+ Safari 26+ ima qunku.",
   "noticeTitle": "Schistqa escritorio aplicacionpi aswan allinta llamk'an",
-  "noticeBody": "Web versión apaykachkanki; kayqa aswan pisilla ruwasqa: CPU-pi rikch'aykunata chaqrun, wakin ruwanakunatataq mana apamunchu — Photoshop plug-inkuna, hukkunap ruwasqan plug-inkuna, rikch'ay galería, IA panel, HEIC yaykuchiy, sanampa rikch'aykunata uraykachiy ima —, archivokunataq uraykachisqa hina waqaychakunku. macOS, Windows Linux ima nisqapaq mana qullqiyuq escritorio aplicaciónqa llapan chaykunayuqmi.",
+  "noticeBody": "Web versión apaykachkanki; kayqa aswan pisilla ruwasqa: WebGPU-pi rikch'aykunata chaqrun, wakin ruwanakunatataq mana apamunchu — Photoshop plug-inkuna, hukkunap ruwasqan plug-inkuna, rikch'ay galería, IA panel, HEIC yaykuchiy, sanampa rikch'aykunata uraykachiy ima —, archivokunataq uraykachisqa hina waqaychakunku. macOS, Windows Linux ima nisqapaq mana qullqiyuq escritorio aplicaciónqa llapan chaykunayuqmi.",
   "noticeLink": "Escritorio aplicacionta tariy.",
   "ok": "Allinmi"
 }

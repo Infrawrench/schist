@@ -33,6 +33,15 @@ impl GpuFx {
 }
 
 impl FxBackend for GpuFx {
+    fn compute_available(&self, work: usize) -> bool {
+        !self.ctx.is_lost() && schist_fx::worth_offloading(1, work)
+    }
+    fn compute(&self, job: &schist_fx::ComputeJob<'_>) -> Option<Vec<f32>> {
+        if !schist_fx::worth_offloading(1, job.program.work) {
+            return None;
+        }
+        self.ctx.run_compute(job)
+    }
     fn name(&self) -> &'static str {
         "gpu"
     }
@@ -132,12 +141,5 @@ impl FxBackend for GpuFx {
             *resident = None;
         }
         out
-    }
-}
-
-pub(crate) fn cast_f32s(values: &[f32]) -> &[u8] {
-    // f32 → u8 view; alignment only shrinks, so this cannot fail.
-    unsafe {
-        std::slice::from_raw_parts(values.as_ptr() as *const u8, std::mem::size_of_val(values))
     }
 }

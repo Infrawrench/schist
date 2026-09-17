@@ -3,7 +3,7 @@
   "starting": "Initiation…",
   "webgpu": "Schist besona WebGPU, quel ti navigator ne oferta. Chrome/Edge 113+, Firefox 141+ e Safari 26+ oferta it.",
   "noticeTitle": "Schist functiona maxim bon quam application de pupitre",
-  "noticeBody": "Vu usa li version web, quel es un plu levi compilation del programma: it composi per li CPU e omisse quelc functiones — plug-ins de Photoshop e plug-ins de altri productores, galerie de images, li panel IA, import de HEIC e descargas de fontes — e files es gardat quam descargas. Li gratuit application de pupitre por macOS, Windows e Linux include omnicos.",
+  "noticeBody": "Vu usa li version web, quel es un plu levi compilation del programma: it composi per li WebGPU e omisse quelc functiones — plug-ins de Photoshop e plug-ins de altri productores, galerie de images, li panel IA, import de HEIC e descargas de fontes — e files es gardat quam descargas. Li gratuit application de pupitre por macOS, Windows e Linux include omnicos.",
   "noticeLink": "Obtener li application de pupitre.",
   "ok": "OK"
 }

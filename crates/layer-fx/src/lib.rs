@@ -495,6 +495,16 @@ fn precise_grow(a: &mut [f32], w: usize, h: usize, size: f32) {
 /// enough: `limit` is an effect size, so tens of pixels at most.
 fn signed_distance(alpha: &[f32], w: usize, h: usize, limit: f32) -> Vec<f32> {
     let r = limit.ceil().max(1.0) as i32;
+    let program = schist_fx::ComputeProgram::single(
+        &schist_fx::plane::SIGNED_DISTANCE,
+        vec![limit],
+        w * h,
+        [w as u32, h as u32, 1],
+        (w * h).saturating_mul((2 * r as usize + 1).pow(2)),
+    );
+    if let Some(out) = schist_fx::try_compute(alpha, &program) {
+        return out;
+    }
     let mut out = vec![0.0f32; w * h];
     for y in 0..h as i32 {
         for x in 0..w as i32 {
@@ -543,6 +553,16 @@ fn signed_distance(alpha: &[f32], w: usize, h: usize, limit: f32) -> Vec<f32> {
 fn offset_alpha(alpha: &[f32], w: usize, h: usize, dx: f32, dy: f32) -> Vec<f32> {
     if dx == 0.0 && dy == 0.0 {
         return alpha.to_vec();
+    }
+    let program = schist_fx::ComputeProgram::single(
+        &schist_fx::plane::ALPHA_OFFSET,
+        vec![dx, dy],
+        w * h,
+        [w as u32, h as u32, 1],
+        (w * h).saturating_mul(16),
+    );
+    if let Some(out) = schist_fx::try_compute(alpha, &program) {
+        return out;
     }
     let mut out = vec![0.0f32; w * h];
     let sample = |x: i32, y: i32| -> f32 {

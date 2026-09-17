@@ -3,7 +3,7 @@
   "starting": "Qed jinbeda…",
   "webgpu": "Schist jeħtieġ WebGPU, li dan il-brawżer ma joffrix. Chrome/Edge 113+, Firefox 141+ u Safari 26+ joffruh.",
   "noticeTitle": "Schist jaħdem l-aħjar bħala applikazzjoni tad-desktop",
-  "noticeBody": "Qed tuża l-verżjoni tal-web, li hija verżjoni eħfef: tagħmel il-kompożizzjoni fuq is-CPU u tħalli barra xi karatteristiċi — plugins ta' Photoshop u plugins ta' partijiet terzi, il-gallerija tal-immaġnijiet, il-pannell tal-IA, l-importazzjoni HEIC u t-tniżżil tal-fonts — u l-fajls jiġu ssejvjati bħala downloads. L-applikazzjoni tad-desktop b'xejn għal macOS, Windows u Linux għandha kollox.",
+  "noticeBody": "Qed tuża l-verżjoni tal-web, li hija verżjoni eħfef: tagħmel il-kompożizzjoni fuq is-WebGPU u tħalli barra xi karatteristiċi — plugins ta' Photoshop u plugins ta' partijiet terzi, il-gallerija tal-immaġnijiet, il-pannell tal-IA, l-importazzjoni HEIC u t-tniżżil tal-fonts — u l-fajls jiġu ssejvjati bħala downloads. L-applikazzjoni tad-desktop b'xejn għal macOS, Windows u Linux għandha kollox.",
   "noticeLink": "Ikseb l-applikazzjoni tad-desktop.",
   "ok": "OK"
 }

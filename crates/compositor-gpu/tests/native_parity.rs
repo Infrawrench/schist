@@ -19,10 +19,12 @@ fn both_compositor_shaders_validate() {
     for source in [
         concat!(
             include_str!("../src/composite_common.wgsl"),
+            include_str!("../../adjustments/src/gpu.wgsl"),
             include_str!("../src/composite.wgsl")
         ),
         concat!(
             include_str!("../src/composite_common.wgsl"),
+            include_str!("../../adjustments/src/gpu.wgsl"),
             include_str!("../src/composite_native.wgsl")
         ),
     ] {
@@ -467,9 +469,48 @@ fn native_gpu_channels_blends_groups_boundaries_and_dispatch() {
     gpu.context().set_binding_limit(limit);
     parity(&gpu, &d, one, "successful dispatch after decline");
     d.tree.layers[0].render_offset = (1, 0);
-    assert_eq!(plan::build(&d).err(), Some(plan::Unsupported::RenderOffset));
+    assert!(plan::build(&d).is_ok());
     assert_eq!(
         gpu.native_tile(&d, coords[1]),
         composite_native_tile_cpu(&d, coords[1])
     );
+}
+
+#[test]
+fn translated_layers_cross_tiles_with_masks_in_every_color_mode() {
+    let gpu = GpuCompositor::new().expect("GPU adapter required");
+    let coords: Vec<_> = (-1..=1)
+        .flat_map(|ty| (-1..=2).map(move |tx| TileCoord { tx, ty }))
+        .collect();
+    for mode in [ColorMode::Rgb, ColorMode::Cmyk, ColorMode::Lab] {
+        for offset in [(1, 1), (-13, -7), (256, 0), (275, 261), (-257, 255)] {
+            let mut d = doc(mode, Depth::ThirtyTwo);
+            let mut l = layer(mode, d.depth, 2);
+            l.render_offset = offset;
+            l.mask = Some(mask());
+            d.tree.layers.push(l);
+            let plan = plan::build(&d).unwrap();
+            let result = gpu
+                .context()
+                .composite_batch(&plan, &coords, false)
+                .expect("offset GPU declined");
+            match result {
+                BatchOut::Native(tiles) => {
+                    for (coord, tile) in coords.iter().zip(tiles) {
+                        close(
+                            &tile,
+                            &composite_native_tile_cpu(&d, *coord),
+                            "translated native",
+                        );
+                    }
+                }
+                BatchOut::F32(tiles) => {
+                    for (coord, tile) in coords.iter().zip(tiles) {
+                        close_display(&tile, &CpuCompositor.tile(&d, *coord), "translated RGB");
+                    }
+                }
+                _ => panic!("unexpected format"),
+            }
+        }
+    }
 }

@@ -3,7 +3,7 @@
   "starting": "Startante…",
   "webgpu": "Schist bezonas WebGPU, quan ca navigilo ne ofertas. Chrome/Edge 113+, Firefox 141+ e Safari 26+ ofertas ol.",
   "noticeTitle": "Schist funcionas maxim bone kom komputila programo",
-  "noticeBody": "Vu uzas la retversiono, qua esas versiono plu legera dil programo: ol kompozas per la CPU e omisas kelka funcionuri — Photoshop plugini e plugini di altra produktanti, imajo-galerio, la panelo AI, importo HEIC e tiparodeskargi — e dosieri konservesas kom deskargi. La gratuita komputila programo por macOS, Windows e Linux inkluzas omno.",
+  "noticeBody": "Vu uzas la retversiono, qua esas versiono plu legera dil programo: ol kompozas per la WebGPU e omisas kelka funcionuri — Photoshop plugini e plugini di altra produktanti, imajo-galerio, la panelo AI, importo HEIC e tiparodeskargi — e dosieri konservesas kom deskargi. La gratuita komputila programo por macOS, Windows e Linux inkluzas omno.",
   "noticeLink": "Obtenez la komputila programo.",
   "ok": "OK"
 }

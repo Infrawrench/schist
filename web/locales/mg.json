@@ -3,7 +3,7 @@
   "starting": "Eo am-panombohana…",
   "webgpu": "Mila WebGPU i Schist, saingy tsy omen'ity mpitety tranonkala ity izany. Manohana azy ny Chrome/Edge 113+, Firefox 141+ ary Safari 26+.",
   "noticeTitle": "Miasa tsara indrindra amin'ny fampiharana birao i Schist",
-  "noticeBody": "Ny kinova tranonkala no ampiasainao, izay kinova maivana kokoa: ny CPU no mampiray ny sosona ary tsy ahitana fiasa sasany — plug-in Photoshop sy plug-in avy amin'ny antoko fahatelo, galerian-tsary, tontonana AI, fanafarana HEIC ary fampidinana endritsoratra — ary tehirizina ho rakitra alaina ireo rakitra. Manana ireo rehetra ireo ny fampiharana birao maimaim-poana ho an'ny macOS, Windows ary Linux.",
+  "noticeBody": "Ny kinova tranonkala no ampiasainao, izay kinova maivana kokoa: ny WebGPU no mampiray ny sosona ary tsy ahitana fiasa sasany — plug-in Photoshop sy plug-in avy amin'ny antoko fahatelo, galerian-tsary, tontonana AI, fanafarana HEIC ary fampidinana endritsoratra — ary tehirizina ho rakitra alaina ireo rakitra. Manana ireo rehetra ireo ny fampiharana birao maimaim-poana ho an'ny macOS, Windows ary Linux.",
   "noticeLink": "Alao ny fampiharana birao.",
   "ok": "OK"
 }

@@ -5,7 +5,7 @@ impl GpuContext {
     /// Execute an effect-owned shader. Pipelines (including failed
     /// compilations) are cached by source, so names need not be unique.
     /// The cost threshold lives in GpuFx; tests can exercise tiny jobs here.
-    pub fn run_shader(&self, job: &ShaderJob<'_>) -> Option<Vec<f32>> {
+    pub async fn run_shader_async(&self, job: &ShaderJob<'_>) -> Option<Vec<f32>> {
         if !job.valid() {
             return None;
         }
@@ -34,13 +34,17 @@ impl GpuContext {
             }
             (rows, halo)
         };
-        let _work = self.work.lock();
-        let pipeline = {
-            let mut cache = self.effect_shaders.lock();
-            cache
-                .entry(job.shader.source)
-                .or_insert_with(|| self.compile_effect(job.shader))
-                .clone()?
+        let _work = self.work.lock().await;
+        let cached = self.effect_shaders.lock().get(job.shader.source).cloned();
+        let pipeline = match cached {
+            Some(pipeline) => pipeline?,
+            None => {
+                let pipeline = self.compile_effect(job.shader).await;
+                self.effect_shaders
+                    .lock()
+                    .insert(job.shader.source, pipeline.clone());
+                pipeline?
+            }
         };
         let mut out = vec![0.0; job.px.len()];
         for top in (0..job.height).step_by(band_rows) {
@@ -48,7 +52,9 @@ impl GpuContext {
             let first = top.saturating_sub(halo);
             let end = bottom.saturating_add(halo).min(job.height);
             let px = &job.px[first * job.width * 4..end * job.width * 4];
-            let band = self.effect_band(job, &pipeline, px, first, end - first)?;
+            let band = self
+                .effect_band(job, &pipeline, px, first, end - first)
+                .await?;
             out[top * job.width * 4..bottom * job.width * 4].copy_from_slice(
                 &band[(top - first) * job.width * 4..(bottom - first) * job.width * 4],
             );
@@ -56,9 +62,10 @@ impl GpuContext {
         Some(out)
     }
 
-    fn compile_effect(&self, shader: &ShaderSpec) -> Option<wgpu::ComputePipeline> {
-        self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory);
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+    async fn compile_effect(&self, shader: &ShaderSpec) -> Option<wgpu::ComputePipeline> {
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory));
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         let module = self
             .device
             .create_shader_module(wgpu::ShaderModuleDescriptor {
@@ -94,8 +101,8 @@ impl GpuContext {
             .device
             .create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
                 label: Some(shader.name),
-                bind_group_layouts: &[&bind_layout],
-                push_constant_ranges: &[],
+                bind_group_layouts: &[Some(&bind_layout)],
+                immediate_size: 0,
             });
         let pipeline = self
             .device
@@ -107,8 +114,8 @@ impl GpuContext {
                 compilation_options: Default::default(),
                 cache: None,
             });
-        let validation = pollster::block_on(self.device.pop_error_scope());
-        let allocation = pollster::block_on(self.device.pop_error_scope());
+        let validation = scopes.pop().await;
+        let allocation = scopes.pop().await;
         if let Some(error) = validation.or(allocation) {
             log::warn!("effect shader {} unavailable: {error}", shader.name);
             return None;
@@ -116,7 +123,7 @@ impl GpuContext {
         Some(pipeline)
     }
 
-    fn effect_band(
+    async fn effect_band(
         &self,
         job: &ShaderJob<'_>,
         pipeline: &wgpu::ComputePipeline,
@@ -124,8 +131,9 @@ impl GpuContext {
         first: usize,
         rows: usize,
     ) -> Option<Vec<f32>> {
-        self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory);
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory));
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         let upload = |label, data: &[u8], usage| {
             self.device
                 .create_buffer_init(&wgpu::util::BufferInitDescriptor {
@@ -136,7 +144,7 @@ impl GpuContext {
         };
         let src = upload(
             "effect-source",
-            crate::fx::cast_f32s(px),
+            crate::cast_f32s(px),
             wgpu::BufferUsages::STORAGE,
         );
         let dimensions = upload(
@@ -151,7 +159,7 @@ impl GpuContext {
         );
         let args = upload(
             "effect-args",
-            crate::fx::cast_f32s(if job.params.is_empty() {
+            crate::cast_f32s(if job.params.is_empty() {
                 &[0.0]
             } else {
                 job.params
@@ -193,8 +201,10 @@ impl GpuContext {
                 1,
             );
         }
-        let result = self.finish_fx(encoder, &dst, bytes, job.shader.name);
-        if let Some(error) = pollster::block_on(self.device.pop_error_scope()) {
+        let result = self
+            .finish_fx(encoder, &dst, bytes, job.shader.name, &mut scopes)
+            .await;
+        if let Some(error) = scopes.pop().await {
             log::warn!("effect {} allocation failed: {error}", job.shader.name);
             return None;
         }

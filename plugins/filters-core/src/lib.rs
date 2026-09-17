@@ -20,6 +20,7 @@ pub mod bump;
 pub mod camera_raw;
 pub mod distort;
 pub mod gpu;
+mod gpu_programs;
 pub mod lens;
 pub mod neural;
 pub mod other;
@@ -91,6 +92,9 @@ macro_rules! simple_filter {
             fn params(&self) -> Vec<FilterParam> {
                 vec![$($param),*]
             }
+            fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+                $crate::gpu::operation($id,values)
+            }
             fn apply(
                 &self,
                 pixels: &mut [f32],
@@ -100,6 +104,9 @@ macro_rules! simple_filter {
             ) {
                 if width == 0 || height == 0 {
                     return;
+                }
+                if let Some(operation)=self.gpu_operation(values) {
+                    if $crate::gpu::apply_operation(&operation,pixels,width,height) {return;}
                 }
                 #[allow(clippy::redundant_closure_call)]
                 ($body)(pixels, width, height, values)
@@ -135,6 +142,12 @@ macro_rules! context_filter {
             fn params(&self) -> Vec<FilterParam> {
                 vec![$($param),*]
             }
+            fn gpu_operation(&self, values:&FilterValues)->Option<schist_fx::FilterOperation>{
+                self.gpu_operation_with(values,&schist_plugin_api::FilterContext::default())
+            }
+            fn gpu_operation_with(&self,values:&FilterValues,context:&schist_plugin_api::FilterContext<'_>)->Option<schist_fx::FilterOperation>{
+                $crate::gpu::operation_with($id,values,context)
+            }
             fn apply(
                 &self,
                 pixels: &mut [f32],
@@ -161,6 +174,9 @@ macro_rules! context_filter {
                 if width == 0 || height == 0 {
                     return;
                 }
+                if let Some(operation)=self.gpu_operation_with(values,context){
+                    if $crate::gpu::apply_operation(&operation,pixels,width,height){return;}
+                }
                 #[allow(clippy::redundant_closure_call)]
                 ($body)(pixels, width, height, values, context)
             }
@@ -173,6 +189,14 @@ use schist_fx::{gaussian_rgba as gaussian_blur, premultiply, unpremultiply};
 pub struct GaussianBlur;
 
 impl FilterPlugin for GaussianBlur {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        let radius = values.get("radius");
+        (radius >= 0.5).then(|| schist_fx::FilterOperation::Blur {
+            radius: ((radius / 3.0f32.sqrt()).round() as usize).max(1),
+            passes: 3,
+        })
+    }
+
     fn id(&self) -> &'static str {
         "filter.gaussian_blur"
     }
@@ -201,6 +225,11 @@ impl FilterPlugin for GaussianBlur {
 pub struct BoxBlur;
 
 impl FilterPlugin for BoxBlur {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        let radius = values.get("radius").round() as usize;
+        (radius > 0).then_some(schist_fx::FilterOperation::Blur { radius, passes: 1 })
+    }
+
     fn id(&self) -> &'static str {
         "filter.box_blur"
     }
@@ -229,6 +258,26 @@ impl FilterPlugin for BoxBlur {
 pub struct MotionBlur;
 
 impl FilterPlugin for MotionBlur {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        let distance = values.get("distance");
+        if distance < 1.0 {
+            return None;
+        }
+        let angle = values.get("angle").to_radians();
+        let (dx, dy) = (angle.cos(), angle.sin());
+        let steps = distance.round().max(1.0) as i32;
+        let mut params = vec![(2 * (steps / 2) + 1) as f32];
+        for s in -steps / 2..=steps / 2 {
+            params.extend_from_slice(&[dx * s as f32, dy * s as f32]);
+        }
+        Some(schist_fx::FilterOperation::Shader {
+            shader: &gpu::MOTION,
+            params,
+            halo: Some(steps as usize / 2 + 1),
+            work_per_pixel: steps as usize,
+        })
+    }
+
     fn id(&self) -> &'static str {
         "filter.motion_blur"
     }
@@ -317,6 +366,10 @@ impl FilterPlugin for MotionBlur {
 pub struct Sharpen;
 
 impl FilterPlugin for Sharpen {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        gpu::operation(self.id(), values)
+    }
+
     fn id(&self) -> &'static str {
         "filter.sharpen"
     }
@@ -352,6 +405,10 @@ impl FilterPlugin for Sharpen {
 pub struct UnsharpMask;
 
 impl FilterPlugin for UnsharpMask {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        gpu::operation(self.id(), values)
+    }
+
     fn id(&self) -> &'static str {
         "filter.unsharp_mask"
     }
@@ -417,6 +474,15 @@ fn unsharp_mask(
     if amount <= 0.0 || width == 0 || height == 0 {
         return;
     }
+    let mut values = FilterValues::default();
+    values.set("radius", radius);
+    values.set("amount", amount * 100.0);
+    values.set("threshold", threshold * 255.0);
+    if let Some(operation) = gpu::operation("filter.unsharp_mask", &values) {
+        if gpu::apply_operation(&operation, pixels, width, height) {
+            return;
+        }
+    }
     let mut blurred = pixels.to_vec();
     if radius >= 0.5 {
         gaussian_blur(&mut blurred, width, height, radius);
@@ -448,6 +514,21 @@ static ADD_NOISE_DISTRIBUTIONS: &[&str] = &[
 pub struct AddNoise;
 
 impl FilterPlugin for AddNoise {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        let amount = values.get("amount") / 100.0;
+        if amount <= 0.0 {
+            return None;
+        }
+        let mono = values.get("monochrome") >= 0.5;
+        let gaussian = values.get("distribution") >= 0.5;
+        Some(schist_fx::FilterOperation::Shader {
+            shader: &gpu::ADD_NOISE,
+            params: vec![amount, mono as u8 as f32, gaussian as u8 as f32],
+            halo: Some(0),
+            work_per_pixel: if gaussian { 48 } else { 16 },
+        })
+    }
+
     fn id(&self) -> &'static str {
         "filter.add_noise"
     }
@@ -556,6 +637,20 @@ impl FilterPlugin for AddNoise {
 pub struct Median;
 
 impl FilterPlugin for Median {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        let r = values.get("radius").round().clamp(1.0, 10.0) as i32;
+        Some(schist_fx::FilterOperation::Shader {
+            shader: if r <= 4 {
+                &gpu::MEDIAN
+            } else {
+                &gpu::MEDIAN_LARGE
+            },
+            params: vec![r as f32, 0.0, 4.0, -1.0],
+            halo: Some(r as usize),
+            work_per_pixel: (2 * r + 1).pow(2) as usize * if r <= 4 { 8 } else { 32 },
+        })
+    }
+
     fn id(&self) -> &'static str {
         "filter.median"
     }

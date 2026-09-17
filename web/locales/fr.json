@@ -3,7 +3,7 @@
   "starting": "Démarrage…",
   "webgpu": "Schist nécessite WebGPU, que ce navigateur ne prend pas en charge. Chrome/Edge 113 ou version ultérieure, Firefox 141 ou version ultérieure et Safari 26 ou version ultérieure le prennent en charge.",
   "noticeTitle": "Schist offre une expérience optimale dans l’application de bureau",
-  "noticeBody": "Vous utilisez la version web, une édition allégée : elle effectue la composition sur le processeur et ne comprend pas certaines fonctions — les modules externes Photoshop et tiers, la galerie d’images, le panneau IA, l’importation HEIC et le téléchargement de polices — et les fichiers sont enregistrés sous forme de téléchargements. L’application de bureau gratuite pour macOS, Windows et Linux les propose toutes.",
+  "noticeBody": "Vous utilisez la version web, une édition allégée : elle effectue la composition avec WebGPU et ne comprend pas certaines fonctions — les modules externes Photoshop et tiers, la galerie d’images, le panneau IA, l’importation HEIC et le téléchargement de polices — et les fichiers sont enregistrés sous forme de téléchargements. L’application de bureau gratuite pour macOS, Windows et Linux les propose toutes.",
   "noticeLink": "Télécharger l’application de bureau.",
   "ok": "OK"
 }

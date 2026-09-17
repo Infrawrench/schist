@@ -3,7 +3,7 @@
   "starting": "Ezali kobanda…",
   "webgpu": "Schist esengeli na WebGPU, kasi navigatɛrɛ oyo ezali na yango te. Chrome/Edge 113+, Firefox 141+ mpe Safari 26+ ezali na yango.",
   "noticeTitle": "Schist esalaka malamu koleka lokola programɛ ya ordinatɛrɛ",
-  "noticeBody": "Ozali kosalela vɛrsio ya web, oyo ezali vɛrsio ya pɛpɛlɛ: esangisaka bililingi na CPU mpe ezali na makambo mosusu te — ba plug-in ya Photoshop mpe ba plug-in ya bato mosusu, galerie ya bililingi, pano ya AI, kokɔtisa HEIC mpe kozwisa mitindo ya bilembo ya makomi — mpe bafisye ebombamaka lokola bafisye oyo ozwi. Programɛ ya ofele mpo na macOS, Windows mpe Linux ezali na makambo yango nyonso.",
+  "noticeBody": "Ozali kosalela vɛrsio ya web, oyo ezali vɛrsio ya pɛpɛlɛ: esangisaka bililingi na WebGPU mpe ezali na makambo mosusu te — ba plug-in ya Photoshop mpe ba plug-in ya bato mosusu, galerie ya bililingi, pano ya AI, kokɔtisa HEIC mpe kozwisa mitindo ya bilembo ya makomi — mpe bafisye ebombamaka lokola bafisye oyo ozwi. Programɛ ya ofele mpo na macOS, Windows mpe Linux ezali na makambo yango nyonso.",
   "noticeLink": "Zwá programɛ ya ordinatɛrɛ.",
   "ok": "Malamu"
 }

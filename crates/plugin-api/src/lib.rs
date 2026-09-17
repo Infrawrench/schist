@@ -590,6 +590,23 @@ pub trait FilterPlugin: Send + Sync {
     /// Filters that need original separations use `NativeFilterBuffer` instead.
     fn apply(&self, pixels: &mut [f32], width: usize, height: usize, values: &FilterValues);
 
+    /// Optional complete GPU operation for hosts that cannot block on readback.
+    /// Returning None preserves the synchronous CPU implementation. An operation
+    /// must represent the entire filter, including alpha and parameter semantics.
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        let _ = values;
+        None
+    }
+
+    /// Context-aware asynchronous descriptor. The returned operation owns all inputs.
+    fn gpu_operation_with(
+        &self,
+        values: &FilterValues,
+        _context: &FilterContext<'_>,
+    ) -> Option<schist_fx::FilterOperation> {
+        self.gpu_operation(values)
+    }
+
     /// Mode-aware entry point. Native filters override this to operate on
     /// independent channels. Existing filters use an explicit RGB adapter.
     fn apply_native_with(

@@ -3,7 +3,7 @@
   "starting": "Ej jino…",
   "webgpu": "Schist ej aikuj WebGPU, ak browser in ejjab lewaj. Chrome/Edge 113+, Firefox 141+ im Safari 26+ rej lewaj.",
   "noticeTitle": "Schist ej jerbal eṃṃan tata āinwōt desktop app",
-  "noticeBody": "Kwōj kōjerbal version in web eo, eo edikļọk: ej koba layer ko ilo CPU im ejjab koba jet men — Photoshop plug-in ko im plug-in ko an bar juon, gallery in pija, panel in AI, import in HEIC im download in font — im file ko rej save āinwōt download. Desktop app eo ej free ñan macOS, Windows im Linux ewōr aolep men kein ie.",
+  "noticeBody": "Kwōj kōjerbal version in web eo, eo edikļọk: ej koba layer ko ilo WebGPU im ejjab koba jet men — Photoshop plug-in ko im plug-in ko an bar juon, gallery in pija, panel in AI, import in HEIC im download in font — im file ko rej save āinwōt download. Desktop app eo ej free ñan macOS, Windows im Linux ewōr aolep men kein ie.",
   "noticeLink": "Bōk desktop app eo.",
   "ok": "OK"
 }

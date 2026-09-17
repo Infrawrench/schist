@@ -56,14 +56,6 @@ const M_LUMINOSITY: u32 = 27u;
 const F_CONFINE: u32 = 1u;
 const F_FILL: u32 = 2u;
 
-// Full-colour adjustment kinds (plan::D_*).
-const D_NONE: u32 = 0u;
-const D_HUE_SATURATION: u32 = 1u;
-const D_BLACK_WHITE: u32 = 2u;
-const D_THRESHOLD: u32 = 3u;
-const D_POSTERIZE: u32 = 4u;
-const DIRECT_STRIDE: u32 = 6u;
-
 // Source formats (matches TileBuf variants).
 const FMT_U8: u32 = 0u;
 const FMT_U16: u32 = 1u;
@@ -154,50 +146,102 @@ fn soft_light(b: f32, s: f32) -> f32 {
 fn separable(mode: u32, b: f32, s: f32) -> f32 {
     var v: f32;
     switch mode {
-        case 3u: { v = min(b, s); }                       // Darken
-        case 4u: { v = mulc(b, s); }                      // Multiply
-        case 5u: { v = color_burn(b, s); }                // ColorBurn
-        case 6u: { v = b + s - 1.0; }                     // LinearBurn
-        case 8u: { v = max(b, s); }                       // Lighten
-        case 9u: { v = screenc(b, s); }                   // Screen
-        case 10u: { v = color_dodge(b, s); }              // ColorDodge
-        case 11u: { v = b + s; }                          // LinearDodge
-        case 13u: { v = hard_light(s, b); }               // Overlay
-        case 14u: { v = soft_light(b, s); }               // SoftLight
-        case 15u: { v = hard_light(b, s); }               // HardLight
-        case 16u: {                                       // VividLight
+        case 3u: {
+            v = min(b, s);
+        }
+        // Darken
+        case 4u: {
+            v = mulc(b, s);
+        }
+        // Multiply
+        case 5u: {
+            v = color_burn(b, s);
+        }
+        // ColorBurn
+        case 6u: {
+            v = b + s - 1.0;
+        }
+        // LinearBurn
+        case 8u: {
+            v = max(b, s);
+        }
+        // Lighten
+        case 9u: {
+            v = screenc(b, s);
+        }
+        // Screen
+        case 10u: {
+            v = color_dodge(b, s);
+        }
+        // ColorDodge
+        case 11u: {
+            v = b + s;
+        }
+        // LinearDodge
+        case 13u: {
+            v = hard_light(s, b);
+        }
+        // Overlay
+        case 14u: {
+            v = soft_light(b, s);
+        }
+        // SoftLight
+        case 15u: {
+            v = hard_light(b, s);
+        }
+        // HardLight
+        case 16u: {
+            // VividLight
             if (s <= 0.5) {
                 v = color_burn(b, 2.0 * s);
             } else {
                 v = color_dodge(b, 2.0 * s - 1.0);
             }
         }
-        case 17u: { v = b + 2.0 * s - 1.0; }              // LinearLight
-        case 18u: {                                       // PinLight
+        case 17u: {
+            v = b + 2.0 * s - 1.0;
+        }
+        // LinearLight
+        case 18u: {
+            // PinLight
             if (s <= 0.5) {
                 v = min(b, 2.0 * s);
             } else {
                 v = max(b, 2.0 * s - 1.0);
             }
         }
-        case 19u: {                                       // HardMix
+        case 19u: {
+            // HardMix
             if (b + s >= 1.0) {
                 v = 1.0;
             } else {
                 v = 0.0;
             }
         }
-        case 20u: { v = abs(b - s); }                     // Difference
-        case 21u: { v = b + s - 2.0 * b * s; }            // Exclusion
-        case 22u: { v = b - s; }                          // Subtract
-        case 23u: {                                       // Divide
+        case 20u: {
+            v = abs(b - s);
+        }
+        // Difference
+        case 21u: {
+            v = b + s - 2.0 * b * s;
+        }
+        // Exclusion
+        case 22u: {
+            v = b - s;
+        }
+        // Subtract
+        case 23u: {
+            // Divide
             if (s <= 0.0) {
                 v = 1.0;
             } else {
                 v = b / s;
             }
         }
-        default: { v = s; }                               // Normal/PassThrough/…
+        default: {
+            v = s;
+        }
+        // Normal/PassThrough/…
     }
     return clamp(v, 0.0, 1.0);
 }
@@ -236,9 +280,21 @@ fn set_sat(c: vec3<f32>, s: f32) -> vec3<f32> {
     var i0 = 0u;
     var i1 = 1u;
     var i2 = 2u;
-    if (cc[i0] > cc[i1]) { let t = i0; i0 = i1; i1 = t; }
-    if (cc[i1] > cc[i2]) { let t = i1; i1 = i2; i2 = t; }
-    if (cc[i0] > cc[i1]) { let t = i0; i0 = i1; i1 = t; }
+    if (cc[i0] > cc[i1]) {
+        let t = i0;
+        i0 = i1;
+        i1 = t;
+    }
+    if (cc[i1] > cc[i2]) {
+        let t = i1;
+        i1 = i2;
+        i2 = t;
+    }
+    if (cc[i0] > cc[i1]) {
+        let t = i0;
+        i0 = i1;
+        i1 = t;
+    }
     var out = vec3(0.0);
     if (cc[i2] > cc[i0]) {
         out[i1] = (cc[i1] - cc[i0]) * s / (cc[i2] - cc[i0]);
@@ -249,16 +305,34 @@ fn set_sat(c: vec3<f32>, s: f32) -> vec3<f32> {
 
 fn blend_color(mode: u32, cb: vec3<f32>, cs: vec3<f32>) -> vec3<f32> {
     switch mode {
-        case 24u: { return set_lum(set_sat(cs, sat3(cb)), lum3(cb)); }  // Hue
-        case 25u: { return set_lum(set_sat(cb, sat3(cs)), lum3(cb)); }  // Saturation
-        case 26u: { return set_lum(cs, lum3(cb)); }                     // Color
-        case 27u: { return set_lum(cb, lum3(cs)); }                     // Luminosity
-        case 7u: {                                                      // DarkerColor
-            if (lum3(cs) < lum3(cb)) { return cs; }
+        case 24u: {
+            return set_lum(set_sat(cs, sat3(cb)), lum3(cb));
+        }
+        // Hue
+        case 25u: {
+            return set_lum(set_sat(cb, sat3(cs)), lum3(cb));
+        }
+        // Saturation
+        case 26u: {
+            return set_lum(cs, lum3(cb));
+        }
+        // Color
+        case 27u: {
+            return set_lum(cb, lum3(cs));
+        }
+        // Luminosity
+        case 7u: {
+            // DarkerColor
+            if (lum3(cs) < lum3(cb)) {
+                return cs;
+            }
             return cb;
         }
-        case 12u: {                                                     // LighterColor
-            if (lum3(cs) > lum3(cb)) { return cs; }
+        case 12u: {
+            // LighterColor
+            if (lum3(cs) > lum3(cb)) {
+                return cs;
+            }
             return cb;
         }
         default: {
@@ -314,11 +388,14 @@ fn blend_px(mode: u32, top: vec4<f32>, bottom: vec4<f32>, x: i32, y: i32) -> vec
 
 // ---- sources ----
 
-fn src_texel(row: i32, fmt: u32, tile: u32, px: u32) -> vec4<f32> {
+fn src_texel(row: i32, fmt: u32, tile: u32, pixel: u32) -> vec4<f32> {
     if (row < 0) {
         return vec4(0.0);
     }
-    let off = slots[u32(row) * globals.n_tiles + tile];
+    let slot = (u32(row) * globals.n_tiles + tile) * 6u;
+    let xy = vec2(pixel % 256u, pixel / 256u) + vec2(u32(slots[slot + 4u]), u32(slots[slot + 5u]));
+    let off = slots[slot + (xy.y / 256u) * 2u + xy.x / 256u];
+    let px = (xy.y % 256u) * 256u + xy.x % 256u;
     if (off < 0) {
         return vec4(0.0);
     }
@@ -366,7 +443,7 @@ fn mask_value(op_i: u32, tile: u32, x: i32, y: i32, px: u32) -> f32 {
     if (x < b.x || y < b.y || x >= b.z || y >= b.w) {
         return op.mask_default;
     }
-    let off = slots[u32(op.mask_ref) * globals.n_tiles + tile];
+    let off = slots[(u32(op.mask_ref) * globals.n_tiles + tile) * 6u];
     if (off < 0) {
         return 0.0;
     }
@@ -395,186 +472,6 @@ fn apply_lut(lut: i32, c: vec3<f32>) -> vec3<f32> {
     );
 }
 
-// ---- full-colour adjustments ----
-//
-// A mirror of `Params::apply` for the four kinds no per-channel LUT can
-// express that the shader models. The coefficients arrive pre-scaled
-// (the /100 divisions happen on the CPU), so what is left here is the
-// same arithmetic in the same order the reference runs.
-
-fn rem_euclid_f(a: f32, b: f32) -> f32 {
-    let r = a % b;
-    if (r < 0.0) {
-        return r + b;
-    }
-    return r;
-}
-
-fn rgb_to_hsl(c: vec3<f32>) -> vec3<f32> {
-    let mx = max(c.r, max(c.g, c.b));
-    let mn = min(c.r, min(c.g, c.b));
-    let l = (mx + mn) / 2.0;
-    if (abs(mx - mn) < 1e-6) {
-        return vec3(0.0, 0.0, l);
-    }
-    let d = mx - mn;
-    var s: f32;
-    if (l > 0.5) {
-        s = d / (2.0 - mx - mn);
-    } else {
-        s = d / (mx + mn);
-    }
-    var h: f32;
-    if (mx == c.r) {
-        h = 60.0 * (((c.g - c.b) / d) % 6.0);
-    } else if (mx == c.g) {
-        h = 60.0 * ((c.b - c.r) / d + 2.0);
-    } else {
-        h = 60.0 * ((c.r - c.g) / d + 4.0);
-    }
-    return vec3(rem_euclid_f(h, 360.0), s, l);
-}
-
-fn hsl_to_rgb(h: f32, s: f32, l: f32) -> vec3<f32> {
-    if (s <= 1e-6) {
-        return vec3(l, l, l);
-    }
-    let c = (1.0 - abs(2.0 * l - 1.0)) * s;
-    let hp = rem_euclid_f(h, 360.0) / 60.0;
-    let x = c * (1.0 - abs(hp % 2.0 - 1.0));
-    var rgb: vec3<f32>;
-    switch u32(hp) {
-        case 0u: { rgb = vec3(c, x, 0.0); }
-        case 1u: { rgb = vec3(x, c, 0.0); }
-        case 2u: { rgb = vec3(0.0, c, x); }
-        case 3u: { rgb = vec3(0.0, x, c); }
-        case 4u: { rgb = vec3(x, 0.0, c); }
-        default: { rgb = vec3(c, 0.0, x); }
-    }
-    return clamp(rgb + vec3(l - c / 2.0), vec3(0.0), vec3(1.0));
-}
-
-// `amount` is already the /100 fraction.
-fn adjust_lightness(l: f32, amount: f32) -> f32 {
-    var v: f32;
-    if (amount >= 0.0) {
-        v = l + (1.0 - l) * amount;
-    } else {
-        v = l * (1.0 + amount);
-    }
-    return clamp(v, 0.0, 1.0);
-}
-
-// Photoshop's six-slider mono mix: weight the two colour regions the
-// pixel's channel ordering places it between.
-fn black_white(base: u32, c: vec3<f32>) -> vec3<f32> {
-    let reds = dparams[base];
-    let yellows = dparams[base + 1u];
-    let greens = dparams[base + 2u];
-    let cyans = dparams[base + 3u];
-    let blues = dparams[base + 4u];
-    let magentas = dparams[base + 5u];
-    let r = c.r;
-    let g = c.g;
-    let b = c.b;
-    let mx = max(r, max(g, b));
-    let mn = min(r, min(g, b));
-    let mid = r + g + b - mx - mn;
-    var gray: f32;
-    if (mx <= mn + 1e-6) {
-        gray = mx;
-    } else {
-        let t = (mid - mn) / (mx - mn);
-        var lo: f32;
-        var hi: f32;
-        if (r >= g && g >= b) {
-            lo = reds;
-            hi = yellows;
-        } else if (g >= r && r >= b) {
-            lo = greens;
-            hi = yellows;
-        } else if (g >= b && b >= r) {
-            lo = greens;
-            hi = cyans;
-        } else if (b >= g && g >= r) {
-            lo = blues;
-            hi = cyans;
-        } else if (b >= r && r >= g) {
-            lo = blues;
-            hi = magentas;
-        } else {
-            lo = reds;
-            hi = magentas;
-        }
-        gray = mn + (mx - mn) * (lo * (1.0 - t) + hi * t);
-    }
-    let v = clamp(gray, 0.0, 1.0);
-    return vec3(v, v, v);
-}
-
-fn apply_direct(kind: u32, base: u32, c: vec3<f32>) -> vec3<f32> {
-    switch kind {
-        case D_HUE_SATURATION: {
-            let hue = dparams[base];
-            let saturation = dparams[base + 1u];
-            let lightness = dparams[base + 2u];
-            let colorize = dparams[base + 3u] != 0.0;
-            let lightness_desaturates = dparams[base + 4u] != 0.0;
-            let reciprocal_saturation = dparams[base + 5u] != 0.0;
-            let hsl = rgb_to_hsl(c);
-            // Affinity's lightness slider flattens colour as it lifts,
-            // and its saturation slider boosts reciprocally. Both are
-            // off for our own (Photoshop-style) sliders.
-            var desat = 1.0;
-            if (lightness_desaturates) {
-                desat = clamp(1.0 - abs(lightness), 0.0, 1.0);
-            }
-            var shifted = hsl.y * (1.0 + saturation);
-            if (reciprocal_saturation && saturation > 0.0) {
-                shifted = hsl.y / max(1.0 - saturation, 0.02);
-            }
-            var nh: f32;
-            var ns: f32;
-            if (colorize) {
-                nh = rem_euclid_f(hue, 360.0);
-                ns = clamp(saturation, 0.0, 1.0);
-            } else {
-                nh = rem_euclid_f(hsl.x + hue, 360.0);
-                ns = clamp(shifted * desat, 0.0, 1.0);
-            }
-            return hsl_to_rgb(nh, ns, adjust_lightness(hsl.z, lightness));
-        }
-        case D_BLACK_WHITE: {
-            return black_white(base, c);
-        }
-        case D_THRESHOLD: {
-            let lum = 0.3 * c.r + 0.59 * c.g + 0.11 * c.b;
-            if (lum >= dparams[base]) {
-                return vec3(1.0);
-            }
-            return vec3(0.0);
-        }
-        case D_POSTERIZE: {
-            // floor into n equal input bands, outputs over the full
-            // range — the CPU's (and Photoshop's, and Affinity's)
-            // convention.
-            let n = dparams[base];
-            return clamp(
-                vec3(
-                    min(floor(c.r * n), n - 1.0) / (n - 1.0),
-                    min(floor(c.g * n), n - 1.0) / (n - 1.0),
-                    min(floor(c.b * n), n - 1.0) / (n - 1.0),
-                ),
-                vec3(0.0),
-                vec3(1.0),
-            );
-        }
-        default: {
-            return c;
-        }
-    }
-}
-
 // Shared RGB adjustment boundary, also used by the native interpreter.
 fn adjust_px(i: u32, tile: u32, x: i32, y: i32, px: u32, confine: f32, d: vec4<f32>) -> vec4<f32> {
     let op = ops[i];
@@ -595,7 +492,7 @@ fn adjust_px(i: u32, tile: u32, x: i32, y: i32, px: u32, confine: f32, d: vec4<f
             } else {
                 adjusted = apply_direct(
                     op.direct,
-                    u32(op.dparams) * DIRECT_STRIDE,
+                    u32(op.dparams),
                     d.rgb,
                 );
             }
@@ -613,4 +510,8 @@ fn adjust_px(i: u32, tile: u32, x: i32, y: i32, px: u32, confine: f32, d: vec4<f
         }
     }
     return result;
+}
+
+fn adj_arg(index: u32) -> f32 {
+    return dparams[index];
 }

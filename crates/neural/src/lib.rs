@@ -39,6 +39,7 @@ use tract_onnx::prelude::*;
 mod colour;
 mod compat;
 mod depth;
+mod gpu;
 // The gallery's search embeddings. Desktop only with the gallery — the
 // tokenizer tables it carries would be dead weight in the wasm module.
 #[cfg(not(target_arch = "wasm32"))]
@@ -561,6 +562,7 @@ pub fn installed(id: &str) -> bool {
 /// A loaded model, ready to run.
 pub struct Model {
     plan: Arc<TypedSimplePlan>,
+    gpu: Option<gpu::Network>,
     /// Planes the graph's input takes, which is three for everything
     /// that sees only colour.
     channels: usize,
@@ -640,6 +642,7 @@ impl Model {
                 .into_runnable()?;
             return Ok(Model {
                 plan,
+                gpu: None,
                 channels: 0,
                 nhwc: false,
                 spec,
@@ -668,6 +671,14 @@ impl Model {
         } else {
             f32::fact([1, channels, h, w])
         };
+        let gpu = gpu::Network::compile(
+            &proto,
+            if nhwc {
+                vec![1, h, w, channels]
+            } else {
+                vec![1, channels, h, w]
+            },
+        );
         let plan = onnx
             .model_for_proto_model(&proto)
             .context("not a model tract can parse")?
@@ -678,10 +689,31 @@ impl Model {
             .into_runnable()?;
         Ok(Model {
             plan,
+            gpu,
             channels,
             nhwc,
             spec,
         })
+    }
+
+    /// The checked resident graph, also submit-able by an asynchronous GPU host.
+    /// Input uses the model's declared tensor layout and encoded value range.
+    pub fn gpu_program(&self) -> Option<&schist_fx::ComputeProgram> {
+        self.gpu.as_ref().map(|g| &g.program)
+    }
+
+    fn run_input(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
+        if let Some(gpu) = &self.gpu {
+            if let Ok(view) = inputs[0].to_plain_array_view::<f32>() {
+                if let Some(output) = view
+                    .as_slice()
+                    .and_then(|input| schist_fx::try_compute(input, &gpu.program))
+                {
+                    return Ok(tvec!(Tensor::from_shape(&gpu.shape, &output)?.into()));
+                }
+            }
+        }
+        self.plan.run(inputs)
     }
 
     /// How many planes the graph wants.
@@ -705,7 +737,7 @@ impl Model {
             (1, self.channels, h, w),
             |(_, c, y, x)| planes[c][y * w + x],
         );
-        self.plan.run(tvec!(input.into_tensor().into()))
+        self.run_input(tvec!(input.into_tensor().into()))
     }
 
     /// Run the graph over one frame of interleaved RGB in 0..=1, sized
@@ -728,7 +760,7 @@ impl Model {
                 range.encode(rgb[(y * w + x) * 3 + c], c)
             })
         };
-        self.plan.run(tvec!(input.into_tensor().into()))
+        self.run_input(tvec!(input.into_tensor().into()))
     }
 
     /// Run a *classifier*: one frame of interleaved RGB in 0..=1, sized
@@ -748,7 +780,7 @@ impl Model {
             bail!("expected {context} token ids, got {}", ids.len());
         }
         let input = tract_ndarray::Array2::<i64>::from_shape_vec((1, context), ids.to_vec())?;
-        let out = self.plan.run(tvec!(input.into_tensor().into()))?;
+        let out = self.run_input(tvec!(input.into_tensor().into()))?;
         let view = out[0].to_plain_array_view::<f32>()?;
         Ok(view.iter().copied().collect())
     }

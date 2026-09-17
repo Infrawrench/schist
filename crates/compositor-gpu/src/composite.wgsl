@@ -22,17 +22,20 @@ fn composite(@builtin(global_invocation_id) gid: vec3<u32>) {
     for (var i = 0u; i < globals.n_ops; i++) {
         let op = ops[i];
         switch op.kind {
-            case 0u: { // PushLayer: source pixels, mask folded into alpha
+            case 0u: {
+                // PushLayer: source pixels, mask folded into alpha
                 var v = src_texel(op.src_ref, op.src_fmt, tile, px);
                 v.a = v.a * mask_value(i, tile, x, y, px);
                 stack[sp] = v;
                 sp += 1u;
             }
-            case 1u: { // PushBlank
+            case 1u: {
+                // PushBlank
                 stack[sp] = vec4(0.0);
                 sp += 1u;
             }
-            case 2u: { // Blend: pop, blend onto below
+            case 2u: {
+                // Blend: pop, blend onto below
                 sp -= 1u;
                 let s = stack[sp];
                 let a = s.a * op.opacity * mask_value(i, tile, x, y, px);
@@ -40,7 +43,8 @@ fn composite(@builtin(global_invocation_id) gid: vec3<u32>) {
                     stack[sp - 1u] = blend_px(op.mode, vec4(s.rgb, a), stack[sp - 1u], x, y);
                 }
             }
-            case 3u: { // ClipBlend: confined to the snapshot base alpha
+            case 3u: {
+                // ClipBlend: confined to the snapshot base alpha
                 sp -= 1u;
                 let ba = snap[sp - 1u];
                 if (ba > 0.0) {
@@ -51,16 +55,19 @@ fn composite(@builtin(global_invocation_id) gid: vec3<u32>) {
                     }
                 }
             }
-            case 4u: { // SnapshotAlpha
+            case 4u: {
+                // SnapshotAlpha
                 snap[sp - 1u] = stack[sp - 1u].a;
             }
             case 5u: {
                 stack[sp - 1u] = adjust_px(i, tile, x, y, px, snap[sp - 1u], stack[sp - 1u]);
             }
-            case 6u: { // MaskTop: isolated-group mask
+            case 6u: {
+                // MaskTop: isolated-group mask
                 stack[sp - 1u].a *= mask_value(i, tile, x, y, px);
             }
-            default: {}
+            default: {
+            }
         }
     }
 

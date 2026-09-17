@@ -3,7 +3,7 @@
   "starting": "Ishga tushirilmoqda…",
   "webgpu": "Schist uchun WebGPU kerak, ammo bu brauzer uni taqdim etmaydi. Chrome/Edge 113+, Firefox 141+ va Safari 26+ uni qo‘llaydi.",
   "noticeTitle": "Schist ish stoli ilovasi sifatida yaxshiroq ishlaydi",
-  "noticeBody": "Siz imkoniyatlari qisqartirilgan veb-versiyadan foydalanyapsiz: u tasvirni CPU’da birlashtiradi va ayrim imkoniyatlarni — Photoshop plaginlari hamda uchinchi tomon plaginlari, tasvirlar galereyasi, AI paneli, HEIC importi va shriftlarni yuklab olishni — o‘z ichiga olmaydi; fayllar esa yuklamalar sifatida saqlanadi. macOS, Windows va Linux uchun bepul ish stoli ilovasida bularning barchasi mavjud.",
+  "noticeBody": "Siz imkoniyatlari qisqartirilgan veb-versiyadan foydalanyapsiz: u tasvirni WebGPU’da birlashtiradi va ayrim imkoniyatlarni — Photoshop plaginlari hamda uchinchi tomon plaginlari, tasvirlar galereyasi, AI paneli, HEIC importi va shriftlarni yuklab olishni — o‘z ichiga olmaydi; fayllar esa yuklamalar sifatida saqlanadi. macOS, Windows va Linux uchun bepul ish stoli ilovasida bularning barchasi mavjud.",
   "noticeLink": "Ish stoli ilovasini olish.",
   "ok": "OK"
 }
