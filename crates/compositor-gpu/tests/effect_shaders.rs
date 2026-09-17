@@ -7,6 +7,15 @@ use schist_fx::{FxBackend, ShaderJob, ShaderSpec};
 use schist_plugin_api::{FilterContext, FilterPlugin, FilterValues};
 use std::sync::{Arc, Mutex};
 
+#[path = "support/trig.rs"]
+mod trig;
+
+#[test]
+fn trigonometric_extrema_match_cpu() {
+    let Some(gpu) = gpu() else { return };
+    pollster::block_on(trig::verify(gpu.context()));
+}
+
 struct Tracking {
     ctx: Arc<GpuContext>,
     production: bool,
@@ -198,8 +207,9 @@ fn cases() -> Vec<Case> {
     case!(filters::stylize::Emboss, "angle" => -40.0);
     case!(filters::pixelate::Facet);
     case!(filters::pixelate::Fragment);
-    case!(filters::distort::Twirl);
-    case!(filters::distort::Twirl, "angle" => -137.0);
+    for angle in [0.0, 0.01, 50.0, -137.0, -999.0, 999.0] {
+        case!(filters::distort::Twirl, "angle" => angle);
+    }
     case!(filters::distort::Ripple, "amount" => -237.0);
     case!(filters::distort::Ripple, "amount" => 17.0, "size" => 7.0);
     case!(filters::distort::Wave, "generators" => 3.0, "horizontal" => 18.0, "vertical" => 30.0, "seed" => 71.0);

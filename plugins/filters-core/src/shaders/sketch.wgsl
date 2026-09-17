@@ -43,12 +43,14 @@ fn effect(pos: vec2<i32>) -> vec4<f32> {
         tone = select(1.0, 0.0, comb < ink);
     } else if mode == 6u {
         let tau = 6.283185307179586;
-        var screen = sin(xy.y / args[1] * tau) * 0.5 + 0.5;
+        var screen = precise_sin_cos(xy.y / args[1] * tau).x * 0.5 + 0.5;
         if args[3] == 0.0 {
             let center = vec2<f32>(f32(image.width), f32(image.height)) / 2.0;
-            screen = sin(length(xy - center) / args[1] * tau) * 0.5 + 0.5;
+            screen = precise_sin_cos(length(xy - center) / args[1] * tau).x * 0.5 + 0.5;
         } else if args[3] == 1.0 {
-            screen = sin(xy.x / args[1] * tau) * sin(xy.y / args[1] * tau) * 0.5 + 0.5;
+            let sx = precise_sin_cos(xy.x / args[1] * tau).x;
+            let sy = precise_sin_cos(xy.y / args[1] * tau).x;
+            screen = sx * sy * 0.5 + 0.5;
         }
         let value = clamp((tone - 0.5) * (1.0 + args[2] * 4.0) + 0.5, 0.0, 1.0);
         tone = select(0.0, 1.0, screen < value);

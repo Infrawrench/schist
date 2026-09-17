@@ -11,6 +11,15 @@ use wasm_bindgen_test::*;
 
 wasm_bindgen_test_configure!(run_in_browser);
 
+#[path = "support/trig.rs"]
+mod trig;
+
+#[wasm_bindgen_test(async)]
+async fn trigonometric_extrema_match_cpu() {
+    let context = GpuContext::new_async().await.expect("WebGPU required");
+    trig::verify(&context).await;
+}
+
 fn pixels(w: usize, h: usize) -> Vec<f32> {
     (0..w * h)
         .flat_map(|i| {

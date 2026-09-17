@@ -352,6 +352,7 @@ fn gallery_families_and_complete_blurs_match_cpu() {
     };
     let mut registry = PluginRegistry::new();
     schist_filters_core::CoreFiltersPlugin.register(&mut registry);
+    let mut failures = Vec::new();
     let ids = [
         "tree",
         "flame",
@@ -489,6 +490,8 @@ fn gallery_families_and_complete_blurs_match_cpu() {
                     } else if id == "smart_sharpen" {
                         values.set("remove", ((variant - 1) * 2) as f32);
                         values.set("angle", 33.0);
+                    } else if id == "halftone_pattern" {
+                        values.set("pattern", ((variant - 1) * 2) as f32);
                     } else {
                         continue;
                     }
@@ -506,15 +509,23 @@ fn gallery_families_and_complete_blurs_match_cpu() {
                         program: &program,
                     })
                     .unwrap_or_else(|| panic!("GPU {id} declined"));
-                for (i, (a, b)) in out.iter().zip(&expected).enumerate() {
-                    assert!(
-                        (a - b).abs() < 5e-4,
+                if let Some((i, (a, b))) =
+                    out.iter().zip(&expected).enumerate().find(|(_, (a, b))| {
+                        !a.is_finite() || !b.is_finite() || (*a - *b).abs() >= 5e-4
+                    })
+                {
+                    failures.push(format!(
                         "{id} {w}x{h} variant {variant} at {i}: GPU {a}, CPU {b}"
-                    );
+                    ));
                 }
             }
         }
     }
+    assert!(
+        failures.is_empty(),
+        "filter parity failures:\n{}",
+        failures.join("\n")
+    );
 }
 
 #[test]

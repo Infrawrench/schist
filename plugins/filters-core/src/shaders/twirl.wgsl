@@ -8,8 +8,10 @@ fn effect(pos: vec2<i32>) -> vec4<f32> {
     if d < radius {
         let falloff = 1.0 - d / radius;
         let angle = args[0] * falloff * falloff;
-        let s = sin(angle);
-        let c = cos(angle) - 1.0;
+        let s = precise_sin_cos(angle).x;
+        let half_sine = precise_sin_cos(angle * 0.5).x;
+        // Avoid subtracting nearly equal numbers near the falloff boundary.
+        let c = -2.0 * half_sine * half_sine;
         offset = vec2<f32>(delta.x * c - delta.y * s, delta.x * s + delta.y * c);
     }
     return straight(sample_premul_offset(pos, offset));
