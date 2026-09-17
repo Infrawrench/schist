@@ -72,7 +72,7 @@ async fn twirl_extreme_angles_match_cpu() {
                     (a * actual[alpha] - b * expected[alpha]).abs()
                 };
                 assert!(
-                    difference <= 5e-4,
+                    difference <= trig::twirl_tolerance(angle),
                     "Twirl {w}x{h}, angle {angle}, channel {i}: {difference}"
                 );
             }
@@ -386,7 +386,7 @@ async fn histogram_gallery_and_neural_graphs_execute_in_browser() {
         .0
         .iter()
         .zip(input.as_chunks::<4>().0.iter())
-        .zip(expected.chunks_exact(3))
+        .zip(expected.as_chunks::<3>().0)
     {
         assert_eq!(a[3], b[3]);
         for (a, b) in a[..3].iter().zip(expected) {

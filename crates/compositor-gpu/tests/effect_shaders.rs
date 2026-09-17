@@ -85,7 +85,12 @@ fn pixels(w: usize, h: usize) -> Vec<f32> {
         })
         .collect()
 }
-fn compare_pixels(g: &[f32], c: &[f32], label: &str) -> Result<(), String> {
+fn compare_pixels(
+    g: &[f32],
+    c: &[f32],
+    label: &str,
+    twirl_angle: Option<f32>,
+) -> Result<(), String> {
     if g.len() != c.len() {
         return Err(format!(
             "{label}: GPU length {} != CPU length {}",
@@ -122,7 +127,11 @@ fn compare_pixels(g: &[f32], c: &[f32], label: &str) -> Result<(), String> {
         } else {
             (a - b).abs()
         };
-        if difference > if transcendental { 5e-4 } else { 1e-4 } {
+        let tolerance = twirl_angle.map_or(
+            if transcendental { 5e-4 } else { 1e-4 },
+            trig::twirl_tolerance,
+        );
+        if difference > tolerance {
             return Err(format!(
                 "{label} at {i}: gpu {a}, cpu {b}, alpha {} / {}, difference {difference}",
                 g[alpha], c[alpha]
@@ -341,6 +350,7 @@ fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
                     "{} {w}x{h} production={normal_offload} {values:?}",
                     filter.id()
                 ),
+                (filter.id() == "filter.twirl").then(|| values.get("angle")),
             ) {
                 failures.push(error);
             }

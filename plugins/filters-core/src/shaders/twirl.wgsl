@@ -7,7 +7,8 @@ fn effect(pos: vec2<i32>) -> vec4<f32> {
     var offset = vec2<f32>(0.0);
     if distance_squared < radius_squared {
         let falloff = 1.0 - sqrt(distance_squared / radius_squared);
-        let angle = args[0] * falloff * falloff;
+        // Match the CPU's powi(2) before applying the requested angle.
+        let angle = args[0] * (falloff * falloff);
         let s = precise_sin_cos(angle).x;
         let half_sine = precise_sin_cos(angle * 0.5).x;
         // Avoid subtracting nearly equal numbers near the falloff boundary.

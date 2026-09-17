@@ -1,6 +1,13 @@
 use schist_compositor_gpu::GpuContext;
 use schist_fx::{ShaderJob, ShaderSpec};
 
+pub fn twirl_tolerance(angle: f32) -> f32 {
+    // Rotation magnifies float radius errors in proportion to the angle.
+    // Preserve the original bound through a half-turn; even at the slider's
+    // +/-999 degree extremes this stays below one 8-bit color step (1/255).
+    5e-4 * (angle.abs() / 180.0).max(1.0)
+}
+
 pub async fn verify(ctx: &GpuContext) {
     static TRIG: ShaderSpec = ShaderSpec {
         name: "trig-extrema",
