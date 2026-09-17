@@ -840,6 +840,17 @@ simple_filter!(
 pub struct Flame;
 
 impl FilterPlugin for Flame {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        crate::gpu::operation(self.id(), values)
+    }
+    fn gpu_operation_with(
+        &self,
+        values: &FilterValues,
+        context: &FilterContext<'_>,
+    ) -> Option<schist_fx::FilterOperation> {
+        crate::gpu::operation_with(self.id(), values, context)
+    }
+
     fn id(&self) -> &'static str {
         "filter.flame"
     }
@@ -895,6 +906,11 @@ impl FilterPlugin for Flame {
         v: &FilterValues,
         context: &FilterContext,
     ) {
+        if let Some(op) = self.gpu_operation_with(v, context) {
+            if op.apply(px, w, h) {
+                return;
+            }
+        }
         if w == 0 || h == 0 {
             return;
         }
@@ -913,55 +929,7 @@ impl FilterPlugin for Flame {
         // path that is a point on the curve and the curve's own normal,
         // so a flame on a diagonal leans off the diagonal rather than off
         // the frame.
-        let roots: Vec<(f32, f32, f32, f32)> = match context.path {
-            Some(points) if points.len() >= 2 => (0..count)
-                .map(|i| {
-                    let t = if count == 1 {
-                        0.5
-                    } else {
-                        i as f32 / (count - 1) as f32
-                    };
-                    let last = points.len() - 1;
-                    let at = t * last as f32;
-                    // The segment this root sits on. The final root lands
-                    // exactly on the last point, where there is no
-                    // segment ahead of it, so it takes the one behind --
-                    // without which its direction is (0, 0), its normal
-                    // is nothing, and it sets the whole frame alight.
-                    let i0 = (at.floor() as usize).min(last.saturating_sub(1));
-                    let frac = at - i0 as f32;
-                    let (p0, p1) = (points[i0], points[i0 + 1]);
-                    let (x, y) = (p0.0 + (p1.0 - p0.0) * frac, p0.1 + (p1.1 - p0.1) * frac);
-                    // The normal, pointing up-ish: fire leaves a surface
-                    // at right angles to it.
-                    let (dx, dy) = (p1.0 - p0.0, p1.1 - p0.1);
-                    let n = dx.hypot(dy);
-                    let (mut nx, mut ny) = if n < 1e-3 {
-                        // A segment with no length says nothing about
-                        // which way is up; straight up it is.
-                        (0.0, -1.0)
-                    } else {
-                        (dy / n, -dx / n)
-                    };
-                    if ny > 0.0 {
-                        nx = -nx;
-                        ny = -ny;
-                    }
-                    (x, y, nx, ny)
-                })
-                .collect(),
-            // No path: evenly along the bottom edge, burning straight up.
-            _ => (0..count)
-                .map(|i| {
-                    (
-                        (i as f32 + 0.5) * w as f32 / count as f32,
-                        h as f32,
-                        0.0,
-                        -1.0,
-                    )
-                })
-                .collect(),
-        };
+        let roots = flame_roots(w, h, count, context.path);
 
         for y in 0..h {
             for x in 0..w {
@@ -1048,4 +1016,159 @@ pub fn register(registry: &mut schist_plugin_api::PluginRegistry) {
     registry.register_filter(Box::new(PictureFrame));
     registry.register_filter(Box::new(Tree));
     registry.register_filter(Box::new(Flame));
+}
+
+/// Ordered opaque primitives; branch generation is small and serial, raster work is parallel.
+pub(super) fn tree_commands(w: usize, h: usize, v: &FilterValues) -> Vec<[f32; 9]> {
+    let mut commands = Vec::new();
+    let trunk = v.get("height") / 100.0 * h as f32 * 0.42;
+    let thickness = v.get("thickness") / 100.0 * (w.min(h) as f32) * 0.06;
+    let spread = v.get("spread").to_radians();
+    let leaves = v.get("leaves") / 100.0;
+    let leaf_size = 1.0 + v.get("size") / 100.0 * (w.min(h) as f32) * 0.03;
+    let light = v.get("light") / 100.0;
+    let seed = v.get("seed") as u32;
+
+    // A hash rather than a generator: a filter has to give the same
+    // tree twice, and the preview runs it on every keystroke.
+    let mut n = 0u32;
+    let mut rand = |lo: f32, hi: f32| {
+        n = n.wrapping_add(1);
+        lo + value_noise(n as f32 * 7.3, (n % 13) as f32 * 3.1, seed) * (hi - lo)
+    };
+
+    let bark = [0.32f32, 0.24, 0.17];
+    let leaf = [0.24f32, 0.45, 0.16];
+    let mut queue = vec![Branch {
+        x: w as f32 / 2.0,
+        y: h as f32,
+        angle: -std::f32::consts::FRAC_PI_2,
+        length: trunk,
+        thickness: thickness.max(1.5),
+        depth: 7,
+    }];
+    let mut tips: Vec<(f32, f32, f32)> = Vec::new();
+    while let Some(b) = queue.pop() {
+        let (dx, dy) = (b.angle.cos(), b.angle.sin());
+        let steps = b.length.max(1.0) as i32;
+        let half = b.thickness.max(1.0) / 2.0;
+        for step in 0..=steps {
+            let t = step as f32 / steps as f32;
+            commands.push([
+                (b.x + dx * b.length * t) as i32 as f32,
+                (b.y + dy * b.length * t) as i32 as f32,
+                half * (1.0 - t * 0.35),
+                dx,
+                dy,
+                light,
+                bark[0],
+                bark[1],
+                bark[2],
+            ]);
+        }
+        let (ex, ey) = (
+            b.x + b.angle.cos() * b.length,
+            b.y + b.angle.sin() * b.length,
+        );
+        if b.depth == 0 || b.length < 3.0 {
+            tips.push((ex, ey, b.thickness));
+            continue;
+        }
+        for side in [-1.0f32, 1.0] {
+            let wobble = rand(-0.35, 0.35);
+            queue.push(Branch {
+                x: ex,
+                y: ey,
+                angle: b.angle + side * spread + wobble * spread,
+                // Each generation is shorter and thinner, which is
+                // the whole of why it reads as a tree.
+                length: b.length * rand(0.62, 0.78),
+                thickness: b.thickness * 0.7,
+                depth: b.depth - 1,
+            });
+        }
+    }
+
+    // Leaves cluster at the tips, thinning outwards.
+    if leaves > 0.0 {
+        for (tx, ty, _) in tips.iter() {
+            let count = (leaves * 14.0) as i32;
+            for _ in 0..count {
+                let a = rand(0.0, std::f32::consts::TAU);
+                let d = rand(0.0, leaf_size * 2.2);
+                let (lx, ly) = (tx + a.cos() * d, ty + a.sin() * d);
+                let r = leaf_size * rand(0.35, 0.8);
+                let tint = rand(0.75, 1.25);
+                commands.push([
+                    lx as i32 as f32,
+                    ly as i32 as f32,
+                    r,
+                    0.0,
+                    0.0,
+                    0.0,
+                    leaf[0] * tint,
+                    leaf[1] * tint,
+                    leaf[2] * tint,
+                ]);
+            }
+        }
+    }
+    commands
+}
+
+pub(super) fn flame_roots(
+    w: usize,
+    h: usize,
+    count: usize,
+    path: Option<&[(f32, f32)]>,
+) -> Vec<(f32, f32, f32, f32)> {
+    match path {
+        Some(points) if points.len() >= 2 => (0..count)
+            .map(|i| {
+                let t = if count == 1 {
+                    0.5
+                } else {
+                    i as f32 / (count - 1) as f32
+                };
+                let last = points.len() - 1;
+                let at = t * last as f32;
+                // The segment this root sits on. The final root lands
+                // exactly on the last point, where there is no
+                // segment ahead of it, so it takes the one behind --
+                // without which its direction is (0, 0), its normal
+                // is nothing, and it sets the whole frame alight.
+                let i0 = (at.floor() as usize).min(last.saturating_sub(1));
+                let frac = at - i0 as f32;
+                let (p0, p1) = (points[i0], points[i0 + 1]);
+                let (x, y) = (p0.0 + (p1.0 - p0.0) * frac, p0.1 + (p1.1 - p0.1) * frac);
+                // The normal, pointing up-ish: fire leaves a surface
+                // at right angles to it.
+                let (dx, dy) = (p1.0 - p0.0, p1.1 - p0.1);
+                let n = dx.hypot(dy);
+                let (mut nx, mut ny) = if n < 1e-3 {
+                    // A segment with no length says nothing about
+                    // which way is up; straight up it is.
+                    (0.0, -1.0)
+                } else {
+                    (dy / n, -dx / n)
+                };
+                if ny > 0.0 {
+                    nx = -nx;
+                    ny = -ny;
+                }
+                (x, y, nx, ny)
+            })
+            .collect(),
+        // No path: evenly along the bottom edge, burning straight up.
+        _ => (0..count)
+            .map(|i| {
+                (
+                    (i as f32 + 0.5) * w as f32 / count as f32,
+                    h as f32,
+                    0.0,
+                    -1.0,
+                )
+            })
+            .collect(),
+    }
 }

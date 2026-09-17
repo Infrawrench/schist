@@ -1,29 +1,101 @@
 //! General float-buffer kernels and device-resident multi-pass programs.
 //! Inputs may be pixels, single-channel masks, sensors or tensors.
 
+#[derive(Clone, Copy)]
 pub struct ComputeShader {
     pub name: &'static str,
     /// Implements `compute(index: u32)` using the shared bindings below.
     pub source: &'static str,
+    pub entry: ComputeEntry,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum ComputeEntry {
+    /// One call to `compute(index)` per output element.
+    Element,
+    /// One RGBA pixel through the effect shader ABI.
+    Rgba,
+    /// Atomic writes to a zeroed destination; values use explicit u32 bit patterns.
+    Atomic,
+    /// One cooperative call to `compute_group(group, lane)` per 256-thread
+    /// workgroup. The bounds check is uniform, so barriers are legal.
+    Workgroup,
 }
 
 impl ComputeShader {
+    pub const fn new(name: &'static str, source: &'static str) -> Self {
+        Self {
+            name,
+            source,
+            entry: ComputeEntry::Element,
+        }
+    }
+
+    pub const fn workgroup(name: &'static str, source: &'static str) -> Self {
+        Self {
+            name,
+            source,
+            entry: ComputeEntry::Workgroup,
+        }
+    }
+
     pub fn wgsl(&self) -> String {
-        format!("{COMPUTE_PRELUDE}\n{}", self.source)
+        let entry = match self.entry {
+            ComputeEntry::Element => COMPUTE_ENTRY,
+            ComputeEntry::Atomic => {
+                return format!("{ATOMIC_BINDINGS}\n{COMPUTE_ENTRY}\n{}", self.source)
+            }
+            ComputeEntry::Rgba => {
+                return format!(
+                    "{COMPUTE_BINDINGS}\n{}\n{}\n{}",
+                    include_str!("shader_compute.wgsl"),
+                    include_str!("shader.wgsl"),
+                    self.source
+                )
+            }
+            ComputeEntry::Workgroup => WORKGROUP_ENTRY,
+        };
+        format!("{COMPUTE_BINDINGS}\n{entry}\n{}", self.source)
     }
 }
 
-pub const COMPUTE_PRELUDE: &str = r#"
+pub const COMPUTE_BINDINGS: &str = r#"
 struct Shape { len: u32, width: u32, height: u32, channels: u32 }
 @group(0) @binding(0) var<storage, read> src: array<f32>;
 @group(0) @binding(1) var<storage, read> aux: array<f32>;
 @group(0) @binding(2) var<storage, read_write> dst: array<f32>;
 @group(0) @binding(3) var<storage, read> args: array<f32>;
 @group(0) @binding(4) var<uniform> shape: Shape;
+"#;
+
+const ATOMIC_BINDINGS: &str = r#"
+struct Shape { len: u32, width: u32, height: u32, channels: u32 }
+@group(0) @binding(0) var<storage, read> src: array<f32>;
+@group(0) @binding(1) var<storage, read> aux: array<f32>;
+@group(0) @binding(2) var<storage, read_write> dst: array<atomic<u32>>;
+@group(0) @binding(3) var<storage, read> args: array<f32>;
+@group(0) @binding(4) var<uniform> shape: Shape;
+"#;
+
+pub const COMPUTE_ENTRY: &str = r#"
 @compute @workgroup_size(256)
 fn run_compute(@builtin(global_invocation_id) gid: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {
     let i = gid.x + gid.y * groups.x * 256u;
     if i < shape.len { compute(i); }
+}
+"#;
+
+const WORKGROUP_ENTRY: &str = r#"
+@compute @workgroup_size(256)
+fn run_compute(
+    @builtin(workgroup_id) group: vec3<u32>,
+    @builtin(local_invocation_index) lane: u32,
+    @builtin(num_workgroups) groups: vec3<u32>,
+) {
+    let i = group.x + group.y * groups.x;
+    if i < shape.len {
+        compute_group(i, lane);
+    }
 }
 "#;
 
@@ -37,12 +109,12 @@ pub enum ComputeSource {
 
 #[derive(Clone)]
 pub struct ComputeStep {
-    pub shader: &'static ComputeShader,
+    pub shader: ComputeShader,
     pub source: ComputeSource,
     pub auxiliary: ComputeSource,
     pub params: Vec<f32>,
     pub output_len: usize,
-    /// Number of kernel invocations; a row kernel can write many samples.
+    /// Number of elements or cooperative workgroups, according to the shader.
     pub invocations: usize,
     /// Interpretation belongs to the kernel. The ABI supplies integer dimensions.
     pub shape: [u32; 3],
@@ -63,8 +135,30 @@ pub struct ComputeJob<'a> {
 }
 
 impl ComputeProgram {
+    /// Append another program with its primary input bound to an existing
+    /// source. Intermediates stay resident and their last uses remain visible
+    /// to the allocator, including branches that refer to the original input.
+    pub fn append(&mut self, program: &Self, input: ComputeSource) -> ComputeSource {
+        let buffer_offset = self.buffers.len();
+        let step_offset = self.steps.len();
+        let remap = |source| match source {
+            ComputeSource::Input(0) => input,
+            ComputeSource::Input(i) => ComputeSource::Input(buffer_offset + i),
+            ComputeSource::Step(i) => ComputeSource::Step(step_offset + i),
+        };
+        self.buffers.extend(program.buffers.iter().cloned());
+        self.steps
+            .extend(program.steps.iter().cloned().map(|mut step| {
+                step.source = remap(step.source);
+                step.auxiliary = remap(step.auxiliary);
+                step
+            }));
+        self.work = self.work.saturating_add(program.work);
+        remap(program.result)
+    }
+
     pub fn single(
-        shader: &'static ComputeShader,
+        shader: &ComputeShader,
         params: Vec<f32>,
         len: usize,
         shape: [u32; 3],
@@ -73,7 +167,7 @@ impl ComputeProgram {
         Self {
             buffers: vec![],
             steps: vec![ComputeStep {
-                shader,
+                shader: *shader,
                 source: ComputeSource::Input(0),
                 auxiliary: ComputeSource::Input(0),
                 params,
@@ -109,7 +203,9 @@ impl ComputeProgram {
                     && step.output_len <= u32::MAX as usize
                     && step.shape.iter().all(|&d| d > 0)
                     && step.invocations > 0
-                    && step.invocations <= step.output_len
+                    && step.invocations <= u32::MAX as usize
+                    && (step.shader.entry == ComputeEntry::Atomic
+                        || step.invocations <= step.output_len)
                     && self.source_len(step.source, input_len, i).is_some()
                     && self.source_len(step.auxiliary, input_len, i).is_some()
                     && step.params.iter().all(|v| v.is_finite())
@@ -127,14 +223,12 @@ pub fn try_compute(input: &[f32], program: &ComputeProgram) -> Option<Vec<f32>> 
         .then_some(out)
 }
 
-pub static RGBA_BOX: ComputeShader = ComputeShader {
-    name: "rgba-box-pass",
-    source: include_str!("kernels/rgba_box.wgsl"),
-};
+pub static RGBA_BOX: ComputeShader =
+    ComputeShader::new("rgba-box-pass", include_str!("kernels/rgba_box.wgsl"));
 impl ComputeProgram {
     pub fn push(
         &mut self,
-        shader: &'static ComputeShader,
+        shader: &ComputeShader,
         source: ComputeSource,
         auxiliary: ComputeSource,
         params: Vec<f32>,
@@ -143,7 +237,7 @@ impl ComputeProgram {
     ) -> ComputeSource {
         let result = ComputeSource::Step(self.steps.len());
         self.steps.push(ComputeStep {
-            shader,
+            shader: *shader,
             source,
             auxiliary,
             params,
@@ -179,4 +273,13 @@ impl ComputeProgram {
         }
         self.push(&RGBA_BOX, current, source, vec![3.0], len, shape)
     }
+}
+
+/// Awaitable executor for browser/library callers. Futures may remain on the
+/// foreground thread because browser WebGPU resources are not thread-safe.
+pub trait AsyncCompute {
+    fn compute_async<'a>(
+        &'a self,
+        job: ComputeJob<'a>,
+    ) -> impl std::future::Future<Output = Option<Vec<f32>>> + 'a;
 }

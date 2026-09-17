@@ -94,6 +94,7 @@ fn compare_pixels(g: &[f32], c: &[f32], label: &str) -> Result<(), String> {
         // Compare the actual color contribution for nearly invisible
         // pixels; keep the strict straight-alpha check everywhere else.
         let transcendental = [
+            "filter.twirl",
             "filter.spin_blur",
             "filter.zigzag",
             "filter.spherize",
@@ -393,12 +394,17 @@ fn shader_failures_limits_and_cache_do_not_poison_other_effects() {
     ctx.set_binding_limit(19 * 16 * 5);
     assert_eq!(ctx.run_shader(&job).unwrap(), px);
     job.halo = None;
-    assert!(
-        ctx.run_shader(&job).is_none(),
-        "nonlocal source cannot be banded"
+    assert_eq!(
+        ctx.run_shader(&job).unwrap(),
+        px,
+        "nonlocal sources use texture pages"
     );
     job.halo = Some(3);
-    assert!(ctx.run_shader(&job).is_none(), "halo leaves no output rows");
+    assert_eq!(
+        ctx.run_shader(&job).unwrap(),
+        px,
+        "large halos use texture pages"
+    );
     job.halo = Some(0);
     job.px = &px[..px.len() - 1];
     assert!(ctx.run_shader(&job).is_none());

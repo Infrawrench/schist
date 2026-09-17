@@ -1,6 +1,6 @@
-// src is the padded mosaic; codes follow the six scalar arguments.
+// src is the padded band; arguments carry just one CFA period.
 fn code(x: i32, y: i32) -> u32 {
-    return u32(args[6u + u32(y) * u32(args[1]) + u32(x)]);
+    return u32(args[7u + ((u32(y) + u32(args[6])) % u32(args[5])) * u32(args[4]) + u32(x) % u32(args[4])]);
 }
 
 fn at(x: i32, y: i32) -> f32 {

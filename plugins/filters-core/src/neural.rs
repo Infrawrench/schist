@@ -323,6 +323,10 @@ fn face_mask(faces: &[Face], width: usize, height: usize) -> Vec<f32> {
 pub struct JpegArtifactRemoval;
 
 impl FilterPlugin for JpegArtifactRemoval {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        schist_neural::get("dejpeg")?.rgba_operation(values.get("strength") / 100.0)
+    }
+
     fn id(&self) -> &'static str {
         "filter.neural.jpeg_artifacts"
     }
@@ -348,6 +352,11 @@ impl FilterPlugin for JpegArtifactRemoval {
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
+        if let Some(operation) = self.gpu_operation(values) {
+            if operation.apply(px, width, height) {
+                return;
+            }
+        }
         if width == 0 || height == 0 {
             return;
         }
@@ -549,6 +558,10 @@ fn tint_by_luminance(px: &mut [f32], warmth: f32, strength: f32) {
 pub struct SuperZoom;
 
 impl FilterPlugin for SuperZoom {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        schist_neural::get("detail")?.rgba_operation(values.get("detail") / 100.0)
+    }
+
     fn id(&self) -> &'static str {
         "filter.neural.super_zoom"
     }
@@ -574,6 +587,11 @@ impl FilterPlugin for SuperZoom {
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
+        if let Some(operation) = self.gpu_operation(values) {
+            if operation.apply(px, width, height) {
+                return;
+            }
+        }
         if width == 0 || height == 0 {
             return;
         }
@@ -633,6 +651,11 @@ const STYLE_IDS: &[&str] = &["style-mosaic", "style-candy", "style-udnie"];
 pub struct StyleTransfer;
 
 impl FilterPlugin for StyleTransfer {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        schist_neural::get(STYLE_IDS[values.get("style").round().clamp(0.0, 2.0) as usize])?
+            .rgba_operation(values.get("strength") / 100.0)
+    }
+
     fn id(&self) -> &'static str {
         "filter.neural.style_transfer"
     }
@@ -669,6 +692,11 @@ impl FilterPlugin for StyleTransfer {
     }
 
     fn apply(&self, px: &mut [f32], width: usize, height: usize, values: &FilterValues) {
+        if let Some(operation) = self.gpu_operation(values) {
+            if operation.apply(px, width, height) {
+                return;
+            }
+        }
         if width == 0 || height == 0 {
             return;
         }

@@ -17,6 +17,8 @@ use wgpu::util::DeviceExt;
 mod blocking;
 mod carve_paged;
 mod compute;
+mod compute_cache;
+pub use compute_cache::ComputeCacheStats;
 mod effect_shader;
 
 /// Per-chunk upload/output budget. Native output uses five f32 samples
@@ -43,10 +45,16 @@ pub struct GpuContext {
     fx_blur: wgpu::ComputePipeline,
     fx_lens: wgpu::ComputePipeline,
     fx_warp: wgpu::ComputePipeline,
-    effect_shaders:
-        parking_lot::Mutex<rustc_hash::FxHashMap<&'static str, Option<wgpu::ComputePipeline>>>,
-    compute_shaders:
-        parking_lot::Mutex<rustc_hash::FxHashMap<&'static str, Option<wgpu::ComputePipeline>>>,
+    effect_shaders: parking_lot::Mutex<
+        rustc_hash::FxHashMap<(&'static str, bool), Option<wgpu::ComputePipeline>>,
+    >,
+    compute_shaders: parking_lot::Mutex<
+        rustc_hash::FxHashMap<
+            (&'static str, schist_fx::ComputeEntry),
+            Option<wgpu::ComputePipeline>,
+        >,
+    >,
+    compute_inputs: parking_lot::Mutex<compute_cache::InputCache>,
     /// Seam carving: six stages over one shared bind group layout, so the
     /// whole run is a single set of buffers and no layout can drift
     /// between entry points.
@@ -209,6 +217,7 @@ impl GpuContext {
         let composite_module = make_module(
             "composite.wgsl",
             concat!(
+                include_str!("../../pixel-ops/src/blend.wgsl"),
                 include_str!("composite_common.wgsl"),
                 include_str!("../../adjustments/src/gpu.wgsl"),
                 include_str!("composite.wgsl")
@@ -217,6 +226,7 @@ impl GpuContext {
         let native_module = make_module(
             "composite_native.wgsl",
             concat!(
+                include_str!("../../pixel-ops/src/blend.wgsl"),
                 include_str!("composite_common.wgsl"),
                 include_str!("../../adjustments/src/gpu.wgsl"),
                 include_str!("composite_native.wgsl")
@@ -297,6 +307,7 @@ impl GpuContext {
             fx_warp: make(&fx_warp_module, "mesh_warp"),
             effect_shaders: parking_lot::Mutex::new(rustc_hash::FxHashMap::default()),
             compute_shaders: parking_lot::Mutex::new(rustc_hash::FxHashMap::default()),
+            compute_inputs: parking_lot::Mutex::new(compute_cache::InputCache::default()),
             paged_carve: std::sync::OnceLock::new(),
             carve: CarvePipelines {
                 energy: carve_stage("energy_pass"),
@@ -1379,14 +1390,22 @@ impl GpuContext {
         for (r, src) in plan.sources.iter().enumerate() {
             match src {
                 PlanSource::Pixels(map, offset) => {
+                    let mut uploaded = rustc_hash::FxHashMap::default();
                     for (t, c) in coords.iter().enumerate() {
                         let (sources, rem) = shifted_sources(*c, *offset);
                         let slot = (r * n_tiles + t) * 6;
                         slots[slot + 4] = rem.0;
                         slots[slot + 5] = rem.1;
                         for (q, coord) in sources.into_iter().enumerate() {
-                            if let Some(buf) = coord.and_then(|c| map.get(c)) {
+                            if let Some((coord, buf)) =
+                                coord.and_then(|c| map.get(c).map(|buf| (c, buf)))
+                            {
+                                if let Some(&offset) = uploaded.get(&coord) {
+                                    slots[slot + q] = offset;
+                                    continue;
+                                }
                                 slots[slot + q] = src_words.len() as i32;
+                                uploaded.insert(coord, slots[slot + q]);
                                 if native {
                                     for i in 0..TILE_PIXELS {
                                         let p = buf.native_pixel(i).converted(plan.mode);

@@ -41,8 +41,10 @@ fn complete_async_operations_match_the_actual_filters() {
         let op = filter.gpu_operation(&values).expect("operation missing");
         let actual = pollster::block_on(async {
             match &op {
-                FilterOperation::Program { build, params, .. } => {
-                    let program = build(w, h, params).unwrap();
+                FilterOperation::Program { .. }
+                | FilterOperation::Captured { .. }
+                | FilterOperation::Sequence(_) => {
+                    let program = op.program(w, h).unwrap();
                     ctx.run_compute_async(&schist_fx::ComputeJob {
                         input: &input,
                         program: &program,

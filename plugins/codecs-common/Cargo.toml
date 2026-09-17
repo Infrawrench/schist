@@ -5,6 +5,7 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+schist-fx.workspace = true
 schist-i18n.workspace = true
 schist-core.workspace = true
 schist-codec-psd.workspace = true

@@ -197,14 +197,32 @@ pub fn direct_coeffs(params: &Params) -> Option<(u32, Vec<f32>)> {
     })
 }
 
-pub static ADJUSTMENT: schist_fx::ComputeShader = schist_fx::ComputeShader {
-    name: "destructive-adjustment",
-    source: concat!(include_str!("gpu.wgsl"), include_str!("gpu_buffer.wgsl")),
-};
+pub static ADJUSTMENT: schist_fx::ComputeShader = schist_fx::ComputeShader::new(
+    "destructive-adjustment",
+    concat!(include_str!("gpu.wgsl"), include_str!("gpu_buffer.wgsl")),
+);
 
 pub fn buffer_program(params: &crate::Params, floats: usize) -> Option<schist_fx::ComputeProgram> {
     let (kind, mut args) = direct_coeffs(params)?;
     args.insert(0, kind as f32);
+    build_buffer(floats, args)
+}
+
+/// The same destructive adjustment, owned by an asynchronous editor request.
+pub fn operation(params: &crate::Params) -> Option<schist_fx::FilterOperation> {
+    let (kind, mut args) = direct_coeffs(params)?;
+    args.insert(0, kind as f32);
+    Some(schist_fx::FilterOperation::Program {
+        build: |w, h, args| build_buffer(w.checked_mul(h)?.checked_mul(4)?, args.to_vec()),
+        params: args,
+        work_per_pixel: 128,
+    })
+}
+
+fn build_buffer(floats: usize, args: Vec<f32>) -> Option<schist_fx::ComputeProgram> {
+    if floats == 0 || !floats.is_multiple_of(4) || floats > u32::MAX as usize {
+        return None;
+    }
     let mut p = schist_fx::ComputeProgram::single(
         &ADJUSTMENT,
         args,

@@ -1,9 +1,7 @@
 use schist_fx::{ComputeProgram, ComputeShader, ComputeSource, FilterOperation};
 use schist_plugin_api::FilterValues;
-static COMPOUND: ComputeShader = ComputeShader {
-    name: "compound-filter",
-    source: include_str!("shaders/compound.wgsl"),
-};
+static COMPOUND: ComputeShader =
+    ComputeShader::new("compound-filter", include_str!("shaders/compound.wgsl"));
 pub fn operation(id: &str, v: &FilterValues) -> Option<FilterOperation> {
     let mut params = match id {
         "filter.mosaic" => vec![10.0, v.get("size").round().max(1.0)],
@@ -80,10 +78,8 @@ fn build(w: usize, h: usize, args: &[f32]) -> Option<ComputeProgram> {
     let radius = args[1];
     let shape = [w as u32, h as u32, 4];
     if mode == 10 {
-        static CELLS: ComputeShader = ComputeShader {
-            name: "cell-average",
-            source: include_str!("shaders/cells.wgsl"),
-        };
+        static CELLS: ComputeShader =
+            ComputeShader::new("cell-average", include_str!("shaders/cells.wgsl"));
         let cell = radius as usize;
         let cells = w
             .div_ceil(cell)
@@ -132,4 +128,58 @@ fn build(w: usize, h: usize, args: &[f32]) -> Option<ComputeProgram> {
     }
     p.work = w * h * ((radius.max(1.0) as usize) * 12 + 32) * if mode >= 2 { 3 } else { 1 };
     Some(p)
+}
+
+/// Own the map before an asynchronous host yields. The auxiliary buffer remains
+/// resident with the source throughout displacement sampling.
+pub fn displace(
+    v: &FilterValues,
+    context: &schist_plugin_api::FilterContext<'_>,
+) -> Option<FilterOperation> {
+    let map = context.map.cloned();
+    if let Some(map) = &map {
+        if map.width.checked_mul(map.height)?.checked_mul(4)? != map.pixels.len() {
+            return None;
+        }
+    }
+    let args = vec![
+        v.get("scale"),
+        v.get("vscale"),
+        v.get("detail").max(1.0),
+        v.get("seed") as u32 as f32,
+        u8::from(v.get("fit") >= 0.5) as f32,
+        u8::from(v.get("undefined") >= 0.5) as f32,
+        map.as_ref().map_or(0, |m| m.width) as f32,
+        map.as_ref().map_or(0, |m| m.height) as f32,
+        u8::from(map.is_some()) as f32,
+    ];
+    Some(FilterOperation::Captured {
+        work_per_pixel: 128,
+        build: std::sync::Arc::new(move |w, h| {
+            let shader = ComputeShader {
+                name: "displace",
+                source: concat!(
+                    include_str!("shaders/noise.wgsl"),
+                    include_str!("shaders/displace.wgsl")
+                ),
+                entry: schist_fx::ComputeEntry::Rgba,
+            };
+            let pixels = w.checked_mul(h)?;
+            let mut program = ComputeProgram::single(
+                &shader,
+                args.clone(),
+                pixels.checked_mul(4)?,
+                [w as u32, h as u32, 4],
+                pixels.saturating_mul(128),
+            );
+            program.steps[0].invocations = pixels;
+            if let Some(map) = &map {
+                if !map.pixels.is_empty() {
+                    program.buffers.push(map.pixels.clone());
+                    program.steps[0].auxiliary = ComputeSource::Input(1);
+                }
+            }
+            Some(program)
+        }),
+    })
 }

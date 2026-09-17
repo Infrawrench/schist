@@ -171,6 +171,12 @@ pub(super) fn image_size(
                     ws.resize_image_neural(width, height, id, cx);
                     return;
                 }
+                #[cfg(target_arch = "wasm32")]
+                if let Resample::Classic(filter) = resample {
+                    if ws.queue_browser_resize(width, height, filter, cx) {
+                        return;
+                    }
+                }
                 if let Some(doc) = ws.doc.as_mut() {
                     schist_tools_transform::resize_image_with(doc, width, height, resample);
                 }

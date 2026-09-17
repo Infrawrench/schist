@@ -445,10 +445,8 @@ pub fn transform_tiles(
     out
 }
 
-pub(crate) static AFFINE_SHADER: schist_fx::ComputeShader = schist_fx::ComputeShader {
-    name: "affine-resample",
-    source: include_str!("affine.wgsl"),
-};
+pub(crate) static AFFINE_SHADER: schist_fx::ComputeShader =
+    schist_fx::ComputeShader::new("affine-resample", include_str!("affine.wgsl"));
 
 pub(crate) fn affine_work(inv: &Affine, dst: IntRect, channels: usize) -> usize {
     let fx = (inv.a * inv.a + inv.b * inv.b).sqrt();
@@ -512,6 +510,71 @@ pub(crate) fn affine_program(
     p
 }
 
+/// Keep the immutable source snapshot and its flattened plane across drag
+/// previews. Holding the tile Arcs makes subsequent edits copy on write; exact
+/// Arc identity comparisons invalidate the cache without a collision-prone hash.
+struct AffineSource {
+    tiles: TileMap,
+    bounds: IntRect,
+    pixels: std::sync::Arc<[f32]>,
+}
+
+fn affine_source(
+    src: &TileMap,
+    bounds: IntRect,
+    channels: usize,
+    native: bool,
+) -> std::sync::Arc<[f32]> {
+    use std::sync::{Arc, Mutex, OnceLock};
+    static CACHE: OnceLock<Mutex<Option<AffineSource>>> = OnceLock::new();
+    let cache = CACHE.get_or_init(|| Mutex::new(None));
+    if let Ok(guard) = cache.lock() {
+        if let Some(cached) = guard.as_ref() {
+            if cached.bounds == bounds
+                && cached.tiles.mode() == src.mode()
+                && cached.tiles.len() == src.len()
+                && src.iter().all(|(coord, tile)| {
+                    cached
+                        .tiles
+                        .get(*coord)
+                        .is_some_and(|other| Arc::ptr_eq(tile, other))
+                })
+            {
+                return cached.pixels.clone();
+            }
+        }
+    }
+    let mut pixels =
+        Vec::with_capacity(bounds.width() as usize * bounds.height() as usize * channels);
+    for y in bounds.top..bounds.bottom {
+        for x in bounds.left..bounds.right {
+            if native {
+                let p = src.native_pixel(x, y);
+                pixels.extend_from_slice(&p.color[..channels - 1]);
+                pixels.push(p.alpha);
+            } else {
+                let p = src.pixel(x, y);
+                pixels.extend_from_slice(&[p.r, p.g, p.b, p.a]);
+            }
+        }
+    }
+    let pixels: Arc<[f32]> = pixels.into();
+    // Large one-off images still work, without retaining an unbounded snapshot.
+    if let Ok(mut guard) = cache.lock() {
+        let retained = src
+            .iter()
+            .fold(std::mem::size_of_val(pixels.as_ref()), |n, (_, tile)| {
+                n.saturating_add(tile.byte_len())
+            });
+        *guard = (retained <= 64 << 20).then(|| AffineSource {
+            tiles: src.clone(),
+            bounds,
+            pixels: pixels.clone(),
+        });
+    }
+    pixels
+}
+
 fn transform_gpu(
     src: &TileMap,
     inv: &Affine,
@@ -542,53 +605,160 @@ fn transform_gpu(
         return None;
     }
     let program = affine_program(inv, filter, bounds, dst, channels);
-    let mut pixels = Vec::with_capacity(len);
-    for y in bounds.top..bounds.bottom {
-        for x in bounds.left..bounds.right {
-            if native {
-                let p = src.native_pixel(x, y);
-                pixels.extend_from_slice(&p.color[..channels - 1]);
-                pixels.push(p.alpha);
-            } else {
-                let p = src.pixel(x, y);
-                pixels.extend_from_slice(&[p.r, p.g, p.b, p.a]);
-            }
-        }
-    }
+    let pixels = affine_source(src, bounds, channels, native);
     let result = schist_fx::try_compute(&pixels, &program)?;
-    let mut out = TileMap::new_in_mode(src.mode());
-    for coord in TileCoord::covering(&dst) {
-        let rect = coord.rect();
-        let clip = rect.intersect(&dst);
-        let mut any = false;
-        let mut tile = TileBuf::new_in_mode(depth, src.mode());
-        for y in clip.top..clip.bottom {
-            for x in clip.left..clip.right {
-                let i = ((y - dst.top) as usize * dst.width() as usize + (x - dst.left) as usize)
-                    * channels;
-                if result[i + channels - 1] <= 0.0 {
-                    continue;
+    Some(
+        AffineOutput {
+            rect: dst,
+            depth,
+            mode: src.mode(),
+            channels,
+        }
+        .decode(&result),
+    )
+}
+
+/// Output geometry retained independently of a resident affine program.
+#[derive(Clone, Copy)]
+pub struct AffineOutput {
+    rect: IntRect,
+    depth: Depth,
+    mode: schist_color::ColorMode,
+    channels: usize,
+}
+
+impl AffineOutput {
+    /// Pack a CPU fallback into the same native channel layout as the GPU.
+    pub fn encode(&self, tiles: &TileMap) -> Vec<f32> {
+        affine_source(
+            tiles,
+            self.rect,
+            self.channels,
+            matches!(
+                self.mode,
+                schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+            ),
+        )
+        .to_vec()
+    }
+
+    pub fn decode(&self, result: &[f32]) -> TileMap {
+        if result.len() != self.rect.width() as usize * self.rect.height() as usize * self.channels
+        {
+            return TileMap::new_in_mode(self.mode);
+        }
+        let mode = self.mode;
+        let native = matches!(
+            mode,
+            schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+        );
+        let (dst, depth, channels) = (self.rect, self.depth, self.channels);
+        let mut out = TileMap::new_in_mode(mode);
+        for coord in TileCoord::covering(&dst) {
+            let rect = coord.rect();
+            let clip = rect.intersect(&dst);
+            let mut any = false;
+            let mut tile = TileBuf::new_in_mode(depth, mode);
+            for y in clip.top..clip.bottom {
+                for x in clip.left..clip.right {
+                    let i = ((y - dst.top) as usize * dst.width() as usize
+                        + (x - dst.left) as usize)
+                        * channels;
+                    if result[i + channels - 1] <= 0.0 {
+                        continue;
+                    }
+                    let j = ((y - rect.top) * TILE_SIZE + x - rect.left) as usize;
+                    if native {
+                        let mut p = schist_color::NativePixel::transparent(mode);
+                        p.color[..channels - 1].copy_from_slice(&result[i..i + channels - 1]);
+                        p.alpha = result[i + channels - 1];
+                        tile.set_native_pixel(j, p);
+                    } else {
+                        tile.set(
+                            j,
+                            Rgba::new(result[i], result[i + 1], result[i + 2], result[i + 3]),
+                        );
+                    }
+                    any = true;
                 }
-                let j = ((y - rect.top) * TILE_SIZE + x - rect.left) as usize;
-                if native {
-                    let mut p = schist_color::NativePixel::transparent(src.mode());
-                    p.color[..channels - 1].copy_from_slice(&result[i..i + channels - 1]);
-                    p.alpha = result[i + channels - 1];
-                    tile.set_native_pixel(j, p);
-                } else {
-                    tile.set(
-                        j,
-                        Rgba::new(result[i], result[i + 1], result[i + 2], result[i + 3]),
-                    );
-                }
-                any = true;
+            }
+            if any {
+                out.insert(coord, std::sync::Arc::new(tile));
             }
         }
-        if any {
-            out.insert(coord, std::sync::Arc::new(tile));
+        out
+    }
+}
+
+/// Capture a checked affine dispatch without invoking a synchronous backend.
+pub fn affine_operation(
+    src: &TileMap,
+    m: &Affine,
+    depth: Depth,
+    filter: Filter,
+    clip: IntRect,
+) -> Option<(
+    std::sync::Arc<[f32]>,
+    schist_fx::ComputeProgram,
+    AffineOutput,
+)> {
+    let inv = m.invert()?;
+    let bounds = src.content_bounds();
+    let dst = m.transform_bounds(bounds).intersect(&clip);
+    if bounds.is_empty() || dst.is_empty() {
+        return None;
+    }
+    let channels = if src.mode() == schist_color::ColorMode::Cmyk {
+        5
+    } else {
+        4
+    };
+    let len = (bounds.width() as usize)
+        .checked_mul(bounds.height() as usize)?
+        .checked_mul(channels)?;
+    let output_len = (dst.width() as usize)
+        .checked_mul(dst.height() as usize)?
+        .checked_mul(channels)?;
+    if len > 32 << 20 || output_len > 32 << 20 {
+        return None;
+    }
+    let native = matches!(
+        src.mode(),
+        schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+    );
+    Some((
+        affine_source(src, bounds, channels, native),
+        affine_program(&inv, filter, bounds, dst, channels),
+        AffineOutput {
+            rect: dst,
+            depth,
+            channels,
+            mode: src.mode(),
+        },
+    ))
+}
+
+/// Awaitable transform for browser hosts, preserving native CMYK/Lab channels.
+pub async fn transform_tiles_async(
+    src: &TileMap,
+    m: &Affine,
+    depth: Depth,
+    filter: Filter,
+    clip: IntRect,
+    backend: &impl schist_fx::AsyncCompute,
+) -> TileMap {
+    if let Some((input, program, output)) = affine_operation(src, m, depth, filter, clip) {
+        if let Some(result) = backend
+            .compute_async(schist_fx::ComputeJob {
+                input: &input,
+                program: &program,
+            })
+            .await
+        {
+            return output.decode(&result);
         }
     }
-    Some(out)
+    transform_tiles(src, m, depth, filter, clip)
 }
 
 /// Rescale a tile map from `from` to `to` (used by Image Size).
@@ -610,6 +780,23 @@ pub fn resize_tiles(
 mod tests {
     use super::*;
     use crate::document::blit_rgba8;
+
+    #[test]
+    fn affine_source_cache_reuses_clones_and_invalidates_edited_tiles() {
+        let mut tiles = checker(7, 5);
+        let bounds = IntRect::from_size(7, 5);
+        let first = affine_source(&tiles, bounds, 4, false);
+        let cloned = tiles.clone();
+        let second = affine_source(&cloned, bounds, 4, false);
+        assert!(std::sync::Arc::ptr_eq(&first, &second));
+        tiles
+            .get_mut_or_insert(TileCoord { tx: 0, ty: 0 }, Depth::Eight)
+            .set(0, Rgba::new(0.2, 0.3, 0.4, 1.0));
+        let changed = affine_source(&tiles, bounds, 4, false);
+        assert!(!std::sync::Arc::ptr_eq(&first, &changed));
+        assert_ne!(&first[..4], &changed[..4]);
+        assert_eq!(cloned.pixel(0, 0), Rgba::WHITE);
+    }
 
     fn checker(w: u32, h: u32) -> TileMap {
         let mut tiles = TileMap::new();

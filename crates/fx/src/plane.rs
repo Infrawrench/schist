@@ -1,22 +1,16 @@
 //! Single-channel kernels shared by layer styles and selection masks.
 use crate::{ComputeProgram, ComputeShader, ComputeSource, ComputeStep};
 
-pub static ALPHA_BOX: ComputeShader = ComputeShader {
-    name: "alpha-box",
-    source: include_str!("kernels/alpha_box.wgsl"),
-};
-pub static SIGNED_DISTANCE: ComputeShader = ComputeShader {
-    name: "signed-distance",
-    source: include_str!("kernels/signed_distance.wgsl"),
-};
-pub static MASK_MORPH: ComputeShader = ComputeShader {
-    name: "mask-morph",
-    source: include_str!("kernels/mask_morph.wgsl"),
-};
-pub static ALPHA_OFFSET: ComputeShader = ComputeShader {
-    name: "alpha-offset",
-    source: include_str!("kernels/alpha_offset.wgsl"),
-};
+pub static ALPHA_BOX: ComputeShader =
+    ComputeShader::new("alpha-box", include_str!("kernels/alpha_box.wgsl"));
+pub static SIGNED_DISTANCE: ComputeShader = ComputeShader::new(
+    "signed-distance",
+    include_str!("kernels/signed_distance.wgsl"),
+);
+pub static MASK_MORPH: ComputeShader =
+    ComputeShader::new("mask-morph", include_str!("kernels/mask_morph.wgsl"));
+pub static ALPHA_OFFSET: ComputeShader =
+    ComputeShader::new("alpha-offset", include_str!("kernels/alpha_offset.wgsl"));
 
 /// Keep mixed radii and the selection feather's historic accumulation order.
 pub fn alpha_blur_program(w: usize, h: usize, radii: &[usize], selection: bool) -> ComputeProgram {
@@ -29,7 +23,7 @@ pub fn alpha_blur_program(w: usize, h: usize, radii: &[usize], selection: bool) 
                 ComputeSource::Step(steps.len() - 1)
             };
             steps.push(ComputeStep {
-                shader: &ALPHA_BOX,
+                shader: ALPHA_BOX,
                 source,
                 auxiliary: ComputeSource::Input(0),
                 params: vec![

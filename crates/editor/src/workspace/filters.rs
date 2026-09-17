@@ -77,6 +77,49 @@ fn render_raw_capture(
     Ok(developed)
 }
 
+#[cfg(target_arch = "wasm32")]
+async fn render_raw_capture_browser(
+    source: Arc<[u8]>,
+    settings: schist_core::RawSettings,
+    quality: schist_codecs_common::raw::RawQuality,
+    filter: Arc<dyn schist_plugin_api::FilterPlugin>,
+    mut values: schist_plugin_api::FilterValues,
+    context: Option<std::rc::Rc<schist_compositor_gpu::GpuContext>>,
+) -> anyhow::Result<schist_codecs_common::raw::DevelopedRaw> {
+    let Some(context) = context else {
+        return render_raw_capture(source, settings, quality, filter, values);
+    };
+    let mut developed =
+        schist_codecs_common::raw::develop_rgba_async(&source, settings, quality, context.as_ref())
+            .await?;
+    values.set("temperature", 0.0);
+    values.set("tint", 0.0);
+    values.set("exposure", 0.0);
+    let output = if let Some(operation) = filter.gpu_operation(&values) {
+        context
+            .filter_async(
+                &operation,
+                &developed.rgba,
+                developed.width,
+                developed.height,
+            )
+            .await
+    } else {
+        None
+    };
+    if let Some(output) = output {
+        developed.rgba = output;
+    } else {
+        filter.apply(
+            &mut developed.rgba,
+            developed.width,
+            developed.height,
+            &values,
+        );
+    }
+    Ok(developed)
+}
+
 impl Workspace {
     // ----- filters and adjustments -----
 
@@ -513,6 +556,7 @@ impl Workspace {
         let Some(filter) = self.registry.shared_filter(CAMERA_RAW_FILTER) else {
             return;
         };
+        let stamp = self.doc.as_ref().map(|doc| (doc.id, doc.revision));
         let settings = settings_from_values(values);
         let values = values.clone();
         self.raw_preview_seq = self.raw_preview_seq.wrapping_add(1);
@@ -520,6 +564,11 @@ impl Workspace {
         self.status = t("workspace.filters.raw_preview_developing").into();
         cx.notify();
 
+        #[cfg(target_arch = "wasm32")]
+        let gpu_context = {
+            self.ensure_browser_gpu(cx);
+            self.browser_gpu.context.clone()
+        };
         cx.spawn(async move |this, cx| {
             // Slider drags emit many positions. Only start the expensive
             // sensor decode once a position has remained current briefly.
@@ -529,6 +578,7 @@ impl Workspace {
             let current = this
                 .update(cx, |ws, _cx| {
                     ws.raw_preview_seq == sequence
+                        && ws.doc.as_ref().map(|doc| (doc.id, doc.revision)) == stamp
                         && ws
                             .filter_preview
                             .as_ref()
@@ -539,6 +589,17 @@ impl Workspace {
                 return;
             }
 
+            #[cfg(target_arch = "wasm32")]
+            let rendered = render_raw_capture_browser(
+                raw.source,
+                settings,
+                schist_codecs_common::raw::RawQuality::Fast,
+                filter,
+                values,
+                gpu_context,
+            )
+            .await;
+            #[cfg(not(target_arch = "wasm32"))]
             let rendered = cx
                 .background_executor()
                 .spawn(async move {
@@ -552,7 +613,9 @@ impl Workspace {
                 })
                 .await;
             this.update(cx, |ws, cx| {
-                if ws.raw_preview_seq != sequence {
+                if ws.raw_preview_seq != sequence
+                    || ws.doc.as_ref().map(|doc| (doc.id, doc.revision)) != stamp
+                {
                     return;
                 }
                 let Some(current) = ws.filter_preview.clone() else {
@@ -931,10 +994,12 @@ impl Workspace {
             return;
         };
         let document_id = doc.id;
+        let revision = doc.revision;
         let settings = settings_from_values(values);
         let values = values.clone();
         let source = raw.source.clone();
         self.raw_preview_seq = self.raw_preview_seq.wrapping_add(1);
+        let sequence = self.raw_preview_seq;
         self.open_modal(
             Modal::Busy {
                 // A product name, the same in every language.
@@ -945,7 +1010,23 @@ impl Workspace {
             cx,
         );
 
+        #[cfg(target_arch = "wasm32")]
+        let gpu_context = {
+            self.ensure_browser_gpu(cx);
+            self.browser_gpu.context.clone()
+        };
         cx.spawn(async move |this, cx| {
+            #[cfg(target_arch = "wasm32")]
+            let rendered = render_raw_capture_browser(
+                source,
+                settings,
+                schist_codecs_common::raw::RawQuality::Best,
+                filter,
+                values,
+                gpu_context,
+            )
+            .await;
+            #[cfg(not(target_arch = "wasm32"))]
             let rendered = cx
                 .background_executor()
                 .spawn(async move {
@@ -959,11 +1040,17 @@ impl Workspace {
                 })
                 .await;
             this.update(cx, |ws, cx| {
+                if ws.raw_preview_seq != sequence {
+                    return;
+                }
                 ws.modal = None;
                 let Some(doc) = ws.doc.as_mut() else {
                     return;
                 };
-                if doc.id != document_id || doc.tree.find(layer_id).is_none() {
+                if doc.id != document_id
+                    || doc.revision != revision
+                    || doc.tree.find(layer_id).is_none()
+                {
                     ws.status = t("workspace.filters.raw_document_changed").into();
                     cx.notify();
                     return;

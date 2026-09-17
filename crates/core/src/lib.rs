@@ -56,3 +56,6 @@ pub fn fresh_id() -> u64 {
     getrandom::fill(&mut bytes).expect("operating system entropy unavailable");
     (u64::from_le_bytes(bytes) & ((1 << 53) - 1)).max(1)
 }
+
+/// GPU programs for color classification and connected selection growth.
+pub mod selection_gpu;

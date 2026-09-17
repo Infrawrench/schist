@@ -111,6 +111,55 @@ pub struct ToolCtx<'a> {
     pub state: &'a mut EditorState,
 }
 
+pub type GpuEditFallback = Box<dyn FnOnce(&[f32]) -> Vec<f32> + Send>;
+pub type GpuEditApply = Box<dyn FnOnce(&mut Document, Vec<f32>) + Send>;
+
+/// An owned edit that an asynchronous host may compute before committing.
+/// The host must verify document identity and revision before calling `apply`.
+/// Fallback reads the same captured input. Preview edits create no history;
+/// committed edits record their original snapshot once.
+pub struct GpuEdit {
+    pub input: Vec<f32>,
+    pub program: schist_fx::ComputeProgram,
+    pub fallback: GpuEditFallback,
+    pub apply: GpuEditApply,
+    pub name: &'static str,
+}
+
+impl GpuEdit {
+    pub fn selection(
+        tiles: &schist_core::TileMap,
+        rect: IntRect,
+        rule: schist_core::selection_gpu::ColorMatch,
+        seeds: Option<Vec<f32>>,
+        name: &'static str,
+        apply: impl FnOnce(&mut Document, Vec<f32>) + Send + 'static,
+    ) -> Option<Self> {
+        let (w, h) = (
+            usize::try_from(rect.width()).ok()?,
+            usize::try_from(rect.height()).ok()?,
+        );
+        let program = schist_core::selection_gpu::program(w, h, rule, seeds.as_deref())?;
+        let input = (rect.top..rect.bottom)
+            .flat_map(|y| {
+                (rect.left..rect.right).flat_map(move |x| {
+                    let p = tiles.pixel(x, y);
+                    [p.r, p.g, p.b, p.a]
+                })
+            })
+            .collect();
+        Some(Self {
+            input,
+            program,
+            name,
+            apply: Box::new(apply),
+            fallback: Box::new(move |input| {
+                schist_core::selection_gpu::classify_pixels(input, w, rule, seeds.as_deref())
+            }),
+        })
+    }
+}
+
 /// Overlay primitives a tool asks the canvas to draw (marching ants,
 /// transform handles, brush cursor…). Coordinates are document-space.
 #[derive(Debug, Clone)]
@@ -154,6 +203,12 @@ pub enum Overlay {
 /// A canvas tool. One tool is active at a time; the canvas routes pointer
 /// events (already in document space) to it.
 pub trait ToolPlugin: Send {
+    /// Hosts enabling this must drain `take_gpu_edit` after every event.
+    fn set_async_compute(&mut self, _enabled: bool) {}
+    fn take_gpu_edit(&mut self) -> Option<GpuEdit> {
+        None
+    }
+
     /// Stable identifier, e.g. "brush".
     fn id(&self) -> &'static str;
     fn name(&self) -> &'static str;
@@ -184,6 +239,17 @@ pub trait ToolPlugin: Send {
     /// shouldn't take a toolbar slot (free transform, for instance).
     fn in_toolbar(&self) -> bool {
         true
+    }
+
+    /// Complete pointer-down edit for hosts that can await GPU readback.
+    /// Synchronous hosts continue to call `on_pointer_down`.
+    fn gpu_pointer_down(
+        &self,
+        _doc: &Document,
+        _state: &EditorState,
+        _input: PointerInput,
+    ) -> Option<GpuEdit> {
+        None
     }
 
     fn on_pointer_down(&mut self, ctx: &mut ToolCtx, input: PointerInput);

@@ -1037,6 +1037,10 @@ const CUSTOM_LABELS: [&str; 25] = [
 ];
 
 impl FilterPlugin for Custom {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        crate::gpu::operation(self.id(), values)
+    }
+
     fn id(&self) -> &'static str {
         "filter.custom"
     }

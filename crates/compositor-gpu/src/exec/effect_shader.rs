@@ -24,25 +24,52 @@ impl GpuContext {
         {
             return None;
         }
+        if max_rows == 0 {
+            return None;
+        }
+        let local_rows = job
+            .halo
+            .and_then(|halo| max_rows.checked_sub(halo.checked_mul(2)?));
+        let paged = job.height > max_rows && local_rows.is_none_or(|rows| rows == 0);
         let (band_rows, halo) = if job.height <= max_rows {
             (job.height, 0)
+        } else if paged {
+            (max_rows, 0)
         } else {
-            let halo = job.halo?;
-            let rows = max_rows.checked_sub(halo.checked_mul(2)?)?;
-            if rows == 0 {
+            (local_rows?, job.halo?)
+        };
+        // Include texture padding, output and staging in the allocation budget.
+        // Upload before taking the execution lock; the upload owns that lock too.
+        let source = if paged {
+            let pixels = job.px.len() / 4;
+            let edge = limits.max_texture_dimension_2d.min(1024) as usize;
+            let width = pixels.min(edge);
+            let page = width * pixels.div_ceil(width).min(edge);
+            let bytes = pixels.div_ceil(page).checked_mul(page)?.checked_mul(16)?;
+            if bytes
+                .checked_add(band_rows.checked_mul(row_bytes)?.checked_mul(2)?)?
+                .checked_add(std::mem::size_of_val(job.params))?
+                > BUDGET_BYTES
+            {
                 return None;
             }
-            (rows, halo)
+            Some(self.upload_warp_source_async(job.px).await?)
+        } else {
+            None
         };
         let _work = self.work.lock().await;
-        let cached = self.effect_shaders.lock().get(job.shader.source).cloned();
+        let cached = self
+            .effect_shaders
+            .lock()
+            .get(&(job.shader.source, paged))
+            .cloned();
         let pipeline = match cached {
             Some(pipeline) => pipeline?,
             None => {
-                let pipeline = self.compile_effect(job.shader).await;
+                let pipeline = self.compile_effect(job.shader, paged).await;
                 self.effect_shaders
                     .lock()
-                    .insert(job.shader.source, pipeline.clone());
+                    .insert((job.shader.source, paged), pipeline.clone());
                 pipeline?
             }
         };
@@ -53,7 +80,7 @@ impl GpuContext {
             let end = bottom.saturating_add(halo).min(job.height);
             let px = &job.px[first * job.width * 4..end * job.width * 4];
             let band = self
-                .effect_band(job, &pipeline, px, first, end - first)
+                .effect_band(job, &pipeline, px, first, end - first, source.as_ref())
                 .await?;
             out[top * job.width * 4..bottom * job.width * 4].copy_from_slice(
                 &band[(top - first) * job.width * 4..(bottom - first) * job.width * 4],
@@ -62,7 +89,11 @@ impl GpuContext {
         Some(out)
     }
 
-    async fn compile_effect(&self, shader: &ShaderSpec) -> Option<wgpu::ComputePipeline> {
+    async fn compile_effect(
+        &self,
+        shader: &ShaderSpec,
+        paged: bool,
+    ) -> Option<wgpu::ComputePipeline> {
         let mut scopes = ErrorScopes::default();
         scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory));
         scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
@@ -70,7 +101,14 @@ impl GpuContext {
             .device
             .create_shader_module(wgpu::ShaderModuleDescriptor {
                 label: Some(shader.name),
-                source: wgpu::ShaderSource::Wgsl(shader.wgsl().into()),
+                source: wgpu::ShaderSource::Wgsl(
+                    if paged {
+                        shader.wgsl_paged()
+                    } else {
+                        shader.wgsl()
+                    }
+                    .into(),
+                ),
             });
         // Explicit layout: a shader may not use args or read the source,
         // but every effect still binds the same four resources.
@@ -82,16 +120,24 @@ impl GpuContext {
                     .map(|binding| wgpu::BindGroupLayoutEntry {
                         binding,
                         visibility: wgpu::ShaderStages::COMPUTE,
-                        ty: wgpu::BindingType::Buffer {
-                            ty: if binding == 0 {
-                                wgpu::BufferBindingType::Uniform
-                            } else {
-                                wgpu::BufferBindingType::Storage {
-                                    read_only: binding != 2,
-                                }
-                            },
-                            has_dynamic_offset: false,
-                            min_binding_size: None,
+                        ty: if binding == 1 && paged {
+                            wgpu::BindingType::Texture {
+                                sample_type: wgpu::TextureSampleType::Float { filterable: false },
+                                view_dimension: wgpu::TextureViewDimension::D2Array,
+                                multisampled: false,
+                            }
+                        } else {
+                            wgpu::BindingType::Buffer {
+                                ty: if binding == 0 {
+                                    wgpu::BufferBindingType::Uniform
+                                } else {
+                                    wgpu::BufferBindingType::Storage {
+                                        read_only: binding != 2,
+                                    }
+                                },
+                                has_dynamic_offset: false,
+                                min_binding_size: None,
+                            }
                         },
                         count: None,
                     })
@@ -130,6 +176,7 @@ impl GpuContext {
         px: &[f32],
         first: usize,
         rows: usize,
+        source: Option<&WarpSource>,
     ) -> Option<Vec<f32>> {
         let mut scopes = ErrorScopes::default();
         scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory));
@@ -142,11 +189,13 @@ impl GpuContext {
                     usage,
                 })
         };
-        let src = upload(
-            "effect-source",
-            crate::cast_f32s(px),
-            wgpu::BufferUsages::STORAGE,
-        );
+        let src = source.is_none().then(|| {
+            upload(
+                "effect-source",
+                crate::cast_f32s(px),
+                wgpu::BufferUsages::STORAGE,
+            )
+        });
         let dimensions = upload(
             "effect-image",
             cast_u32s(&[
@@ -178,7 +227,13 @@ impl GpuContext {
             layout: &pipeline.get_bind_group_layout(0),
             entries: &[
                 bind_entry(0, &dimensions),
-                bind_entry(1, &src),
+                match source {
+                    Some(source) => wgpu::BindGroupEntry {
+                        binding: 1,
+                        resource: wgpu::BindingResource::TextureView(&source.view),
+                    },
+                    None => bind_entry(1, src.as_ref()?),
+                },
                 bind_entry(2, &dst),
                 bind_entry(3, &args),
             ],

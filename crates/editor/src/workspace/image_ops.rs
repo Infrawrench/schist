@@ -30,6 +30,38 @@ impl Workspace {
 
     /// Select ▸ Color Range: every pixel within `tolerance` of `target`.
     pub fn apply_color_range(&mut self, tolerance: f32, target: Rgba, cx: &mut Context<Self>) {
+        #[cfg(target_arch = "wasm32")]
+        if let Some(request) = self.doc.as_ref().and_then(|doc| {
+            let tiles = &doc.tree.find(doc.active_layer?)?.as_raster()?.tiles;
+            let rect = doc.canvas_rect();
+            let name = t("workspace.history.color_range");
+            schist_plugin_api::GpuEdit::selection(
+                tiles,
+                rect,
+                schist_core::selection_gpu::ColorMatch::FuzzyRgb {
+                    color: [target.r, target.g, target.b],
+                    tolerance: tolerance / 255.0,
+                },
+                None,
+                name,
+                move |doc, mask| {
+                    let w = rect.width() as usize;
+                    let mut edit = doc.begin_edit(name);
+                    edit.change_selection(|sel, _| {
+                        sel.deselect();
+                        sel.activate();
+                        sel.apply_shape(rect, schist_core::SelectOp::Replace, |x, y| {
+                            (mask[(y - rect.top) as usize * w + (x - rect.left) as usize] * 255.0)
+                                .round() as u8
+                        });
+                    });
+                    edit.commit();
+                },
+            )
+        }) {
+            self.queue_browser_edit(request, cx);
+            return;
+        }
         let Some(doc) = self.doc.as_mut() else { return };
         let Some(raster) = doc
             .active_layer
@@ -45,28 +77,40 @@ impl Workspace {
         // Coverage falls off across the tolerance band rather than
         // cutting hard, which is what makes Photoshop's Fuzziness feather
         // the edges of a colour selection.
-        let mut cov = vec![0u8; (canvas.width() * canvas.height()) as usize];
         let w = canvas.width() as usize;
-        for y in canvas.top..canvas.bottom {
-            for x in canvas.left..canvas.right {
-                let c = raster.tiles.pixel(x, y);
-                let d = (c.r - target.r)
-                    .abs()
-                    .max((c.g - target.g).abs())
-                    .max((c.b - target.b).abs());
-                let v = if tol <= 0.0 {
-                    if d == 0.0 {
-                        1.0
+        let cov = schist_core::selection_gpu::classify(
+            &raster.tiles,
+            canvas,
+            schist_core::selection_gpu::ColorMatch::FuzzyRgb {
+                color: [target.r, target.g, target.b],
+                tolerance: tol,
+            },
+            None,
+        )
+        .unwrap_or_else(|| {
+            let mut cov = vec![0u8; (canvas.width() * canvas.height()) as usize];
+            for y in canvas.top..canvas.bottom {
+                for x in canvas.left..canvas.right {
+                    let c = raster.tiles.pixel(x, y);
+                    let d = (c.r - target.r)
+                        .abs()
+                        .max((c.g - target.g).abs())
+                        .max((c.b - target.b).abs());
+                    let v = if tol <= 0.0 {
+                        if d == 0.0 {
+                            1.0
+                        } else {
+                            0.0
+                        }
                     } else {
-                        0.0
-                    }
-                } else {
-                    (1.0 - d / tol).clamp(0.0, 1.0)
-                };
-                cov[(y - canvas.top) as usize * w + (x - canvas.left) as usize] =
-                    (v * 255.0).round() as u8;
+                        (1.0 - d / tol).clamp(0.0, 1.0)
+                    };
+                    cov[(y - canvas.top) as usize * w + (x - canvas.left) as usize] =
+                        (v * 255.0).round() as u8;
+                }
             }
-        }
+            cov
+        });
         let mut edit = doc.begin_edit(t("workspace.history.color_range"));
         edit.change_selection(|sel, canvas| {
             sel.deselect();
@@ -111,9 +155,17 @@ impl Workspace {
         params: Option<&schist_adjustments::Params>,
         cx: &mut Context<Self>,
     ) {
+        #[cfg(target_arch = "wasm32")]
+        self.cancel_browser_filter();
         let Some(preview) = self.filter_preview.clone() else {
             return;
         };
+        #[cfg(target_arch = "wasm32")]
+        if let Some(params) = params {
+            if self.queue_browser_adjustment(params, "", &preview, false, cx) {
+                return;
+            }
+        }
         let mut buf = preview.original.clone();
         if let Some(params) = params {
             params.apply_buffer(&mut buf);
@@ -142,9 +194,13 @@ impl Workspace {
         let Some(preview) = self.filter_preview.take() else {
             return;
         };
+        let name = crate::ui::adjustment_name(kind);
+        #[cfg(target_arch = "wasm32")]
+        if self.queue_browser_adjustment(params, name, &preview, true, cx) {
+            return;
+        }
         let mut buf = preview.original.clone();
         params.apply_buffer(&mut buf);
-        let name = crate::ui::adjustment_name(kind);
         self.write_region(
             preview.layer,
             preview.region,
@@ -172,78 +228,21 @@ impl Workspace {
             return;
         };
         let mut buf = preview.original.clone();
-        // Photoshop clips half a percent off each end so a handful of
-        // stray pixels cannot flatten the whole stretch.
-        const CLIP: f32 = 0.005;
-        let mut lo = [1.0f32; 3];
-        let mut hi = [0.0f32; 3];
-        for ch in 0..3 {
-            let mut vals: Vec<f32> = buf
-                .as_chunks::<4>()
-                .0
-                .iter()
-                .filter(|p| p[3] > 0.0)
-                .map(|p| p[ch])
-                .collect();
-            if vals.is_empty() {
-                self.status = t("workspace.canvas.nothing_to_adjust").into();
-                cx.notify();
-                return;
-            }
-            vals.sort_by(|a, b| a.total_cmp(b));
-            let n = vals.len();
-            lo[ch] = vals[((n as f32 * CLIP) as usize).min(n - 1)];
-            hi[ch] = vals[((n as f32 * (1.0 - CLIP)) as usize).min(n - 1)];
+        let correction = match mode {
+            AutoMode::Tone => schist_adjustments::auto::AutoMode::Tone,
+            AutoMode::Contrast => schist_adjustments::auto::AutoMode::Contrast,
+            AutoMode::Color => schist_adjustments::auto::AutoMode::Color,
+        };
+        #[cfg(target_arch = "wasm32")]
+        if buf.as_chunks::<4>().0.iter().any(|p| p[3] > 0.0)
+            && self.queue_browser_auto(correction, mode.title(), &preview, cx)
+        {
+            return;
         }
-        if mode == AutoMode::Contrast {
-            // One stretch for all three channels keeps the colour cast.
-            let l = lo[0].min(lo[1]).min(lo[2]);
-            let h = hi[0].max(hi[1]).max(hi[2]);
-            lo = [l; 3];
-            hi = [h; 3];
-        }
-        // Auto Color additionally pulls each channel's midtone to neutral
-        // grey, which is the only thing distinguishing it from Auto Tone.
-        // This used to be `v.powf(1.0)`, the identity, so the two menu
-        // items produced byte-identical results.
-        let mut gamma = [1.0f32; 3];
-        if mode == AutoMode::Color {
-            let mut sum = [0.0f64; 3];
-            let mut n = 0u64;
-            for p in buf.as_chunks::<4>().0 {
-                if p[3] <= 0.0 {
-                    continue;
-                }
-                for ch in 0..3 {
-                    let span = (hi[ch] - lo[ch]).max(1e-4);
-                    sum[ch] += f64::from(((p[ch] - lo[ch]) / span).clamp(0.0, 1.0));
-                }
-                n += 1;
-            }
-            if n > 0 {
-                for ch in 0..3 {
-                    let mean = (sum[ch] / n as f64) as f32;
-                    // Solve mean^gamma = 0.5 for gamma, so the channel's
-                    // midtone lands on neutral grey. Clamped so a nearly
-                    // black or white channel cannot explode.
-                    if mean > 1e-3 && mean < 1.0 - 1e-3 {
-                        gamma[ch] = (0.5f32.ln() / mean.ln()).clamp(0.2, 5.0);
-                    }
-                }
-            }
-        }
-        for p in buf.as_chunks_mut::<4>().0 {
-            if p[3] <= 0.0 {
-                continue;
-            }
-            for ch in 0..3 {
-                let span = (hi[ch] - lo[ch]).max(1e-4);
-                let mut v = ((p[ch] - lo[ch]) / span).clamp(0.0, 1.0);
-                if gamma[ch] != 1.0 {
-                    v = v.powf(gamma[ch]);
-                }
-                p[ch] = v;
-            }
+        if !schist_adjustments::auto::apply(&mut buf, correction) {
+            self.status = t("workspace.canvas.nothing_to_adjust").into();
+            cx.notify();
+            return;
         }
         let name = mode.title();
         self.write_region(

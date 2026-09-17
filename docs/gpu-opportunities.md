@@ -1,95 +1,98 @@
 # GPU coverage and remaining opportunities
 
-The compute backend now covers work in every major area identified in the
-initial map. Native callers use the shared `schist-fx` backend; browser callers
-must explicitly await an operation. Small workloads, unsupported operations,
-device failures and jobs exceeding the memory budget retain CPU execution.
+The compute backend covers the remaining image-processing stages from the
+original map. Native callers use `schist-fx`; browser callers explicitly await
+WebGPU. Unsupported graphs/profiles, device failures, small native workloads,
+and jobs exceeding allocation limits retain their CPU implementations.
 
-## Implemented coverage
+## Coverage
 
-| Area | GPU implementation | Remaining work in this area |
+| Area | Implemented work | Browser entry point / boundary |
 | --- | --- | --- |
-| Adjustments | Every supported direct compositor adjustment, including ranged Hue/Saturation, Color Balance, Vibrance, Photo Filter, Gradient Map, Selective Color, Channel Mixer and White Balance. Variable coefficient records replace the fixed record limit. Destructive adjustments also have float-buffer kernels, including exact curves and levels formulas. | Auto-adjust histogram/statistics and asynchronous destructive-adjustment browser callers. Unknown/unsupported adjustment kinds retain existing behavior. |
-| Moving layers | Integer render offsets sample up to four source tiles, including negative coordinates, masks and native CMYK/Lab. Browser snapshots preserve the offset. | Shader stack depth remains bounded. Tile uploads could be deduplicated across translated destinations. |
-| Layer effects | Shared alpha blur, bilinear alpha offset and bounded signed-distance kernels accelerate shadow, glow, satin, stroke and bevel preparation. Mixed blur radii and CPU accumulation order are preserved. | Style assembly, bevel shading and overlay evaluation remain CPU stages. |
-| Transforms / resize | Affine nearest, bilinear and bicubic sampling, minification box sampling and edge coverage; RGB, CMYK and Lab remain in their native channel layouts. Existing transform/resize/smart-object callers use this seam. | Source tiles are flattened/uploaded per operation; keep them resident across interactive drags. Browser synchronous transform callers still use CPU. |
-| Blur variants | Spin, Path, Shape and Smart Blur have companion kernels. High Pass, Sharpen, Unsharp Mask and Field/Iris/Tilt-Shift Blur execute complete resident compute programs. | Nondefault Lens Blur apertures/depth/noise stages and additional compound artistic/sketch stages. |
-| RAW development | Sensor normalization/white balance, Bayer Fast/Best and generic CFA Fast/Best demosaic, camera matrix, crop and all eight orientations. Demosaic processes bounded bands; internal passes remain on-device. | Decoding, padded-mosaic preparation, SuperCCD geometry and later Camera Raw filter stages remain CPU. Cache decoded sensor data across edits; stream large final matrix/crop jobs. |
-| Browser callers | Async canvas composite and viewport rendering; preview/Apply operations listed below, including resident programs and captured filter context. Coalescing, cancellation, document/revision checks and one history entry per Apply. | Other synchronous tools, library APIs, export, RAW, neural inference and previews outside this host still use CPU in the browser. |
-| Selection / masks | Feather, expand, contract, border, smooth and affine mask transforms, preserving canvas boundaries and byte rounding. | Color Range/Similar classification and connected wand/grow operations. |
-| Distortions / lens | ZigZag, Spherize, Pinch, Polar Coordinates, Shear, Adaptive Wide Angle, Lens Correction including channel aberration and vignette, Glass and Ocean Ripple. | Auxiliary-map Displace; paged sources for nonlocal companion remaps. Existing Twirl still prepares offsets on CPU. |
-| Compound stages / transfers | Generic float-buffer programs upload inputs once, keep intermediate passes on-device, reuse dead intermediate allocations and read only the final result. Used for compound blur, RAW, masks, diffusion and neural graphs. | Filter Gallery graph composition, remaining Reduce Noise/artistic/sketch stages, persistence across separate jobs and sharing GPUI renderer resources. |
-| Neural inference | Checked ONNX subset: Conv, Relu, LeakyRelu, Sigmoid, Tanh, Add/Mul/Div broadcasting, 2D MatMul, Transpose, constant BatchNormalization, Identity, float constants, nearest asymmetric Resize, two-input Concat and Softmax. Detail, JPEG repair, Portrait, Colorize and Inpaint run whole graphs on GPU. An unsupported node rejects the GPU graph and keeps tract execution. | Other Resize/Concat variants, ConvTranspose, attention and operators needed by Waifu2x, segmentation, depth and embedding models. Browser host scheduling and persistent weights. |
-| Color management | Matrix/TRC RGB ICC transforms, including sRGB/linear CICP transfer metadata; alpha is preserved. Parity cases include sRGB, Display P3, Adobe RGB and linear ACEScg. CPU/GPU matrix execution uses float arithmetic and CMS-compatible transfer tables. | CLUT profiles, other CICP transfers, native CMYK/Lab profile conversion and proofing pipelines. |
-| Healing / content-aware fill | Iterative boundary diffusion and seam relaxation retain their planes on the GPU and reuse allocations between passes. | Candidate scoring/reduction and source-patch residency; patch selection/placement remains sequential on CPU. |
-| Other whole-image effects | Mosaic uses cell reduction followed by broadcast; Crystallize, Pointillize, Mezzotint and Texturizer have complete GPU operations. Existing companion stages continue to accelerate other effects. | Remaining pixelate, brush-stroke, sketch, artistic and procedural lighting stages; prioritize using measured end-to-end costs. |
-| Vector rasterization | Flattened-edge scan coverage for even-odd and nonzero fills, including subpixel vertical coverage. | Path flattening/text shaping remain CPU. Benchmark complex paths on hardware before tuning dispatch thresholds. |
+| Adjustments | All direct adjustments, plus exact Auto Tone/Contrast/Color percentile selection and clipped color statistics. Histogram reductions retain HDR values and hidden RGB. | Destructive preview/Apply and automatic corrections use the captured filter queue. |
+| Layer effects | Complete style assembly: content blur, fill opacity, shadows, glows, satin, bevel shading, color/gradient overlays and strokes, sharing compositor blend formulas. | Native style preparation uses the resident graph. Browser synchronous style preparation still uses CPU. |
+| Transforms / resize | Affine sampling and native CMYK/Lab channels; immutable tile snapshots cache flattened sources, and exact upload caching reuses them across drags. | Free Transform raster/smart-object previews and Apply, plus classical Image Size, await GPU operations. Selection-transform and other synchronous library callers retain CPU execution in wasm. |
+| Moving layers | Translated tile uploads are deduplicated within each output row; masks, negative coordinates and native channels retain parity. | Async composite snapshots preserve offsets. |
+| RAW | Sensor normalization, white balance, padded CFA preparation, Bayer/generic demosaic, SuperCCD shear/rotation, crop, matrix and orientations; bounded final-stage bands; decoded-sensor cache; exposure histogram, shoulder and sRGB encoding. Camera Raw's remaining controls have a complete filter graph. | RAW preview and Apply await sensor development and encoding, with document/revision/sequence guards. Oversized resident browser developments fall back to CPU. Container parsing/decompression remain CPU. |
+| Selection | Color Range, Similar, wand and Grow classification; atomic connected components, seed selection and mask extraction. Existing morphology/feather kernels remain available. | Wand, Grow/Similar and Color Range use owned asynchronous edits. Quick Selection's evolving mean and other synchronous gestures retain their existing algorithm. |
+| Blur / sharpening / noise | Complete nondefault Lens Blur, including aperture/depth/noise; Reduce Noise, Smart Sharpen, Sharpen More/Edges, Blur/Blur More, Despeckle and Dust & Scratches. | Complete filter descriptors run through preview/Apply. |
+| Distortions | Auxiliary-map Displace, GPU Twirl coordinates, and paged nonlocal sources. Ripple/Wave retain small separable coordinate tables for consistent transcendental rounding. | Captured maps, paths and toolbox colors survive asynchronous fallback. |
+| Gallery / whole-image filters | Complete Artistic, Brush Strokes, Sketch, Texture and Pixelate families; Average, Custom convolution, HSB/HSL, Deinterlace, NTSC Colors, Diffuse Glow, Wind, Tiles and Oil Paint. | Filter Gallery composes supported operations into one resident graph; mixed unsupported stacks retain complete CPU fallback. |
+| Procedural rendering | Lens Flare, Lighting Effects, Picture Frame, Bump/Normal Map, Tree, Flame and deterministic Extrude coverage/overlap resolution. | Filter descriptors capture context. Small tree geometry, path roots and aperture geometry are prepared on CPU. |
+| Neural inference | Static shape folding, grouped ConvTranspose, normalization, reductions/pooling, general batched MatMul, Gemm, attention arithmetic, Slice/Gather/Expand/Split, multi-input Concat, multiple outputs and Resize variants. All bundled restoration/upscaling graphs compile, including Waifu2x. MiDaS depth, U2Net segmentation and MobileCLIP vision graphs were executed against tract. | Complete tiled RGBA descriptors cover JPEG repair, detail enhancement and compatible style-transfer models. Other neural hosts remain synchronous; token-input and unsupported ONNX graphs retain tract. |
+| Color management | Additional CICP transfers, CMS-compatible smooth CLUT profiles, native profile conversion descriptors and proof/display graph composition. Lattice reconstruction preserves the CMS's quantized interpolation instead of adding another LUT approximation. | Canvas proof/display conversion and native preview conversion await GPU operations. Profiles that fail conservative eligibility/probe checks use the original CMS executor. |
+| Healing / fill | Candidate patches stay in the exact upload cache; GPU scoring and stable minimum reduction read back one winning index per placement. Existing diffusion/seam passes retain intermediates. | Boundary priority and patch placement remain sequential. Browser synchronous retouch callers retain CPU execution. |
+| Vector coverage | Flattened-edge raster coverage supports even-odd/nonzero fills and subpixel coverage. | Path flattening and text shaping remain CPU; browser synchronous vector preparation retains its current execution path. |
 
-Source entry points:
-[compute ABI](../crates/fx/src/compute.rs),
-[executor](../crates/compositor-gpu/src/exec/compute.rs),
-[adjustments](../crates/adjustments/src/gpu.rs),
-[alpha/mask programs](../crates/fx/src/plane.rs),
-[affine transforms](../crates/core/src/resample.rs),
-[RAW](../crates/codec-raw/src/demosaic_gpu.rs),
-[neural compiler](../crates/neural/src/gpu.rs),
-[ICC](../crates/colormgmt/src/gpu.rs),
-[retouch](../plugins/tools-retouch/src/fill.rs),
-[vector coverage](../crates/vector/src/raster.wgsl).
-The neural compiler follows the [ONNX operator definitions](https://onnx.ai/onnx/operators/onnx__Conv.html)
-and deliberately accepts only graphs whose complete operator sequence is supported.
+## Shared execution and browser editing
 
-## Browser whole-filter operations
+`ComputeProgram` supports element, RGBA, atomic-output and workgroup kernels.
+Appending a graph remaps its inputs and intermediate references; dead outputs
+are reused and only the final result is read back. `FilterOperation::Sequence`
+composes Gallery stacks, while captured operations retain model/profile/context
+data. The exact immutable upload cache confirms full byte equality after hash
+lookup, so hash collisions or edits cannot reuse stale data.
 
-The filter queue supports Gaussian/Box/Motion Blur, Add Noise, Median (including
-large windows), Spin/Path/Shape/Smart Blur, High Pass, Sharpen, Unsharp Mask,
-Field/Iris/Tilt-Shift Blur, ZigZag, Spherize, Pinch, Polar Coordinates, Shear,
-Adaptive Wide Angle, Lens Correction, Glass, Ocean Ripple, Mosaic, Crystallize,
-Pointillize, Mezzotint, Texturizer, Facet, Fragment, Find Edges, Trace Contour,
-Emboss, Minimum, Maximum, Offset, Clouds, Difference Clouds and Fibers.
+Browser filters and owned tool edits each keep one running request and the
+latest pending request. Results are installed only when the document, revision
+and request sequence still match. Transform previews create no history entry;
+Apply records the original snapshot once. CPU fallback uses the same captured
+input. Merely exposing a compute kernel does not make a synchronous wasm caller
+asynchronous.
 
-Descriptors represent the complete filter. Context-dependent operations capture
-the toolbox colors before yielding; a failed job uses the same captured context
-for CPU fallback. Merely implementing a kernel does not make a synchronous
-browser caller asynchronous. See [browser integration](../crates/editor/src/workspace/browser_gpu.rs)
-and [filter descriptors](../plugins/filters-core/src/gpu.rs).
+Flattened PNG/JPEG/WebP/TIFF exports and artboard/slice exports await the
+compositor against an immutable raster/profile snapshot. Encoding remains CPU.
+Other synchronous library/plugin entry points and direct GPUI texture handoff
+remain integration boundaries. The pinned GPUI dependency keeps its
+renderer/device/atlas private and uses different
+native rendering backends. Sharing those resources requires a GPUI API change;
+completed canvas images currently retain the GPU→CPU→GPU transfer. This branch
+does not replace that dependency or claim hardware performance improvements.
 
-## Bounds, accuracy and performance
+## Bounds and numerical contracts
 
-- General programs have a 256 MiB aggregate allocation budget, including inputs,
-  retained intermediates, parameters and final readback. Per-binding and dispatch
-  limits are checked before submission. These programs do not page arbitrary
-  large inputs; an oversized program falls back. Specialized warp/carve paths
-  retain their existing texture paging.
-- Median uses a small scratch array for radii 1–4 and constant-register radix
-  selection above that. The median helper accepts radii through 100; the Median
-  filter exposes its existing slider range. Large windows require more passes
-  through their samples and are not a guaranteed speedup.
-- CPU/GPU parity covers HDR and nearly transparent pixels, narrow images, band
-  boundaries, native color modes and translated layers. Most shader comparisons
-  use `1e-4`; new float remaps allow `5e-4` in premultiplied color contribution.
-  Mask/vector coverage permits one byte of rounding difference. ICC and neural
-  comparisons use `3e-4`. RAW demosaic uses `2e-5` and developed output `1e-4`, including a
-  four-megapixel RAW case spanning two bands.
-- GPUI owns a separate device. Completed canvas images still make a GPU→CPU→GPU
-  trip. Device sharing, persistent transformed sources and cached neural weights
-  remain opportunities beyond retaining intermediates inside a job.
-- Offload thresholds estimate work; they are not measured speed guarantees.
-  Hardware profiling, including preparation, upload and readback, remains
-  necessary before lowering them. Small brush dabs and general UI/history/file
-  parsing work remain CPU tasks.
+- General programs have a **256 MiB aggregate allocation budget**, including
+  inputs, retained intermediates, parameters and final readback. Binding sizes
+  and dispatch limits are checked before submission. Cached buffers consume
+  only the remaining budget, up to 64 MiB.
+- Nonlocal effect shaders use texture-array source pages and bounded output
+  bands when storage bindings cannot hold the source. This does not remove the
+  aggregate budget or make arbitrary resident graphs unbounded.
+- Flattened affine snapshots and their source tiles retain at most 64 MiB;
+  decoded RAW caching retains one image, with a 128 MiB input/sample/preview budget. Tiled
+  resident neural image graphs are bounded to 256 tiles and 16M output floats.
+- Float parity includes HDR/transparent pixels, narrow images, paging boundaries,
+  native channels, SuperCCD and all orientations. Most comparisons use `1e-4`;
+  transcendental remaps use `5e-4` in premultiplied contribution. Neural/CMS tests
+  use `3e-4`; mask/vector coverage allows one byte of rounding difference.
+- Unsupported ONNX semantics reject the whole GPU graph. Integer shape data
+  keeps its original width, including Slice sentinels. External tensor files,
+  token inputs and dynamic/unsupported operators retain tract execution.
+- Dispatch thresholds estimate work. Actual speedups and threshold tuning need
+  hardware profiling that includes preparation, upload and readback. Software
+  Vulkan/SwiftShader tests establish correctness, not acceleration performance.
 
 ## Verification
 
-- `make check-gpu-fx`: native kernel, filter and compositor regression suite.
-- `make check-gpu-opportunities`: adjustment coverage, real caller parity,
-  resident filter programs and translated native/RGB composites.
-- `make check-gpu-domains`: tests for the domain crates using the new seam.
-- `make check-web-gpu` and `make lint-web-gpu`: browser integration builds/lints.
-- `make test-web-gpu`: browser WebGPU execution, resident programs, context,
-  translated snapshots, concurrency and cancellation. Requires a WebGPU-capable
-  browser/WebDriver and does not accept CPU fallback as success.
+- `make check-gpu-fx`: native effects, resident programs, compositor and regression tests.
+- `make check-gpu-opportunities`: real caller parity and remaining opportunity coverage.
+- `make check-gpu-domains`: CPU/reference tests in the domain crates.
+- `make check-web-gpu` / `make lint-web-gpu`: browser host builds and lint checks.
+- `make test-web-gpu`: actual WebGPU execution, including atomic histograms,
+  connected selections, transform/resize undo, Gallery, tiled neural filters and
+  RAW development/encoding and float export compositing. GPU decline is a
+  failure in these execution tests.
 
-The headless test adapter checks computation. Hardware acceleration performance
-and a complete interactive canvas smoke test need a working hardware browser;
-the container's SwiftShader canvas presentation is unreliable.
+The optional downloaded-model regression uses `SCHIST_GPU_MODEL_DIR` containing
+`depth.onnx`, `segment.onnx` and `embed-image.onnx`; setting
+`SCHIST_GPU_MODEL_EXECUTE=1` also compares inference with tract. The default suite
+uses committed small operator fixtures and bundled models without downloading.
+The synthetic RAW fixture is generated by the DNG builder in
+`plugins/codecs-common/src/raw.rs` with dimensions 67×65.
+
+See [compute ABI](../crates/fx/src/compute.rs),
+[browser scheduling](../crates/editor/src/workspace/browser_gpu.rs),
+[filter descriptors](../plugins/filters-core/src/gpu.rs),
+[ONNX compiler](../crates/neural/src/gpu.rs),
+[ICC lattice conversion](../crates/colormgmt/src/gpu_lut.rs) and the
+[ONNX operator specifications](https://onnx.ai/onnx/operators/index.html).

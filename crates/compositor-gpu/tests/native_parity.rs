@@ -18,11 +18,13 @@ use std::sync::{
 fn both_compositor_shaders_validate() {
     for source in [
         concat!(
+            include_str!("../../pixel-ops/src/blend.wgsl"),
             include_str!("../src/composite_common.wgsl"),
             include_str!("../../adjustments/src/gpu.wgsl"),
             include_str!("../src/composite.wgsl")
         ),
         concat!(
+            include_str!("../../pixel-ops/src/blend.wgsl"),
             include_str!("../src/composite_common.wgsl"),
             include_str!("../../adjustments/src/gpu.wgsl"),
             include_str!("../src/composite_native.wgsl")

@@ -15,6 +15,7 @@
 //! Profiles are parsed by `moxcms` (pure Rust, no C toolchain).
 
 mod gpu;
+mod gpu_lut;
 
 use anyhow::{anyhow, Result};
 use moxcms::{
@@ -168,6 +169,7 @@ pub struct ColorTransform {
     /// True when source and destination match, so callers can skip work.
     identity: bool,
     gpu_params: Option<Arc<Vec<f32>>>,
+    gpu_lut: Option<Arc<gpu_lut::Lut>>,
 }
 
 impl std::fmt::Debug for ColorTransform {
@@ -191,10 +193,25 @@ impl ColorTransform {
             .profile
             .create_transform_f32(Layout::Rgba, &dst.profile, Layout::Rgba, options)
             .map_err(|e| anyhow!("cannot build colour transform: {e:?}"))?;
+        let gpu_params = gpu::coefficients(&src.profile, &dst.profile).map(Arc::new);
+        let gpu_lut = if gpu_params.is_none() {
+            gpu_lut::Lut::compile(
+                &src.profile,
+                &dst.profile,
+                intent.to_mox(),
+                executor.as_ref(),
+                4,
+                4,
+            )
+            .map(Arc::new)
+        } else {
+            None
+        };
         Ok(ColorTransform {
             executor,
             identity: false,
-            gpu_params: gpu::coefficients(&src.profile, &dst.profile).map(Arc::new),
+            gpu_params,
+            gpu_lut,
         })
     }
 
@@ -211,11 +228,33 @@ impl ColorTransform {
             executor: Arc::new(Noop),
             identity: true,
             gpu_params: None,
+            gpu_lut: None,
         }
     }
 
     pub fn is_identity(&self) -> bool {
         self.identity
+    }
+
+    /// Complete colour conversion descriptor for asynchronous hosts and proof stacks.
+    pub fn gpu_operation(&self) -> Option<schist_fx::FilterOperation> {
+        if let Some(params) = self.gpu_params.clone() {
+            Some(schist_fx::FilterOperation::Captured {
+                work_per_pixel: 96,
+                build: Arc::new(move |w, h| {
+                    Some(gpu::program(&params, w.checked_mul(h)?.checked_mul(4)?))
+                }),
+            })
+        } else {
+            self.gpu_lut
+                .clone()
+                .map(|lut| schist_fx::FilterOperation::Captured {
+                    work_per_pixel: 128,
+                    build: Arc::new(move |w, h| {
+                        Some(lut.program(w.checked_mul(h)?, 4, 4, true, true))
+                    }),
+                })
+        }
     }
 
     /// Convert a straight-alpha f32 RGBA buffer in place.
@@ -232,13 +271,9 @@ impl ColorTransform {
         if self.identity || pixels.is_empty() {
             return;
         }
-        if pixels.len().is_multiple_of(4)
-            && schist_fx::backend().compute_available(pixels.len().saturating_mul(24))
-        {
-            if let Some(params) = &self.gpu_params {
-                let program = gpu::program(params, pixels.len());
-                if let Some(out) = schist_fx::try_compute(pixels, &program) {
-                    pixels.copy_from_slice(&out);
+        if pixels.len().is_multiple_of(4) {
+            if let Some(operation) = self.gpu_operation() {
+                if operation.apply(pixels, pixels.len() / 4, 1) {
                     return;
                 }
             }
@@ -771,9 +806,28 @@ pub struct NativeColorTransform {
     mode: schist_color::ColorMode,
     to_rgb: Arc<dyn TransformExecutor<f32> + Send + Sync>,
     from_rgb: Option<Arc<dyn TransformExecutor<f32> + Send + Sync>>,
+    to_gpu: Option<gpu_lut::Lut>,
+    from_gpu: Option<gpu_lut::Lut>,
 }
 
 impl NativeColorTransform {
+    /// Input is packed native channels; output is three sRGB channels per pixel.
+    pub fn to_rgb_program(&self, count: usize) -> Option<schist_fx::ComputeProgram> {
+        Some(
+            self.to_gpu
+                .as_ref()?
+                .program(count, self.mode.channels(), 3, false, false),
+        )
+    }
+    /// Input is packed RGB; output retains the document's native channel count.
+    pub fn from_rgb_program(&self, count: usize) -> Option<schist_fx::ComputeProgram> {
+        Some(
+            self.from_gpu
+                .as_ref()?
+                .program(count, 3, self.mode.channels(), false, false),
+        )
+    }
+
     pub fn new(mode: schist_color::ColorMode, icc: Option<&[u8]>) -> Result<Self> {
         use schist_color::ColorMode;
         let source = Profile::from_bytes(icc.ok_or_else(|| anyhow!("No native ICC profile"))?)?;
@@ -792,7 +846,10 @@ impl NativeColorTransform {
                 layout,
                 &rgb.profile,
                 Layout::Rgb,
-                TransformOptions::default(),
+                TransformOptions {
+                    prefer_fixed_point: false,
+                    ..Default::default()
+                },
             )
             .map_err(|e| anyhow!("Cannot build native colour transform: {e:?}"))?;
         let from_rgb = rgb
@@ -801,13 +858,36 @@ impl NativeColorTransform {
                 Layout::Rgb,
                 &source.profile,
                 layout,
-                TransformOptions::default(),
+                TransformOptions {
+                    prefer_fixed_point: false,
+                    ..Default::default()
+                },
             )
             .ok();
+        let to_gpu = gpu_lut::Lut::compile(
+            &source.profile,
+            &rgb.profile,
+            RenderingIntent::Perceptual,
+            to_rgb.as_ref(),
+            mode.channels(),
+            3,
+        );
+        let from_gpu = from_rgb.as_ref().and_then(|executor| {
+            gpu_lut::Lut::compile(
+                &rgb.profile,
+                &source.profile,
+                RenderingIntent::Perceptual,
+                executor.as_ref(),
+                3,
+                mode.channels(),
+            )
+        });
         Ok(Self {
             mode,
             to_rgb,
             from_rgb,
+            to_gpu,
+            from_gpu,
         })
     }
 }
@@ -831,7 +911,17 @@ pub fn native_to_rgba(
             .flat_map(|p| p.color[..t.mode.channels()].iter().copied())
             .collect();
         let mut rgb = vec![0.0; pixels.len() * 3];
-        if t.to_rgb.transform(&src, &mut rgb).is_ok() {
+        let accelerated = t.to_gpu.as_ref().and_then(|lut| {
+            let program = lut.program(pixels.len(), t.mode.channels(), 3, false, false);
+            schist_fx::try_compute(&src, &program)
+        });
+        let converted = if let Some(result) = accelerated {
+            rgb = result;
+            true
+        } else {
+            t.to_rgb.transform(&src, &mut rgb).is_ok()
+        };
+        if converted {
             for (dst, p) in out
                 .as_chunks_mut::<4>()
                 .0
@@ -872,7 +962,17 @@ pub fn rgba_to_native(
                 .flat_map(|p| p[..3].iter().copied())
                 .collect();
             let mut samples = vec![0.0; out.len() * mode.channels()];
-            if from.transform(&src, &mut samples).is_ok() {
+            let accelerated = t.from_gpu.as_ref().and_then(|lut| {
+                let program = lut.program(out.len(), 3, mode.channels(), false, false);
+                schist_fx::try_compute(&src, &program)
+            });
+            let converted = if let Some(result) = accelerated {
+                samples = result;
+                true
+            } else {
+                from.transform(&src, &mut samples).is_ok()
+            };
+            if converted {
                 for (dst, p) in out.iter_mut().zip(samples.chunks_exact(mode.channels())) {
                     dst.color[..mode.channels()].copy_from_slice(p);
                 }

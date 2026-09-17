@@ -735,12 +735,20 @@ impl Workspace {
                 doc,
                 state: &mut self.editor,
             };
+            #[cfg(target_arch = "wasm32")]
+            tool.set_async_compute(true);
             tool.on_commit(&mut ctx);
+            #[cfg(target_arch = "wasm32")]
+            if let Some(request) = tool.take_gpu_edit() {
+                self.queue_browser_edit(request, cx);
+            }
         }
         self.after_change(cx);
     }
 
     pub fn cancel_gesture(&mut self, cx: &mut Context<Self>) {
+        #[cfg(target_arch = "wasm32")]
+        self.cancel_browser_edits();
         // Escape reaches here as the CancelGesture action, ahead of the
         // canvas key listener the rename normally types through.
         if self.layer_rename.is_some() {

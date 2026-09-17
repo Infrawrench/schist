@@ -23,30 +23,16 @@ simple_filter!(
         let angle = v.get("angle").to_radians();
         let (cx, cy) = (w as f32 / 2.0, h as f32 / 2.0);
         let radius = cx.hypot(cy);
-        // Share the exact displacements with the shader. Small differences
-        // in device hypot/sin/cos move bilinear weights enough to change
-        // straight RGB substantially at nearly transparent edges.
-        let mut offsets = Vec::with_capacity(w * h * 2);
-        for y in 0..h {
-            for x in 0..w {
-                let (dx, dy) = (x as f32 + 0.5 - cx, y as f32 + 0.5 - cy);
-                let d = dx.hypot(dy);
-                let delta = if d >= radius {
-                    (0.0, 0.0)
-                } else {
-                    let t = angle * (1.0 - d / radius).powi(2);
-                    let (s, c) = t.sin_cos();
-                    (dx * (c - 1.0) - dy * s, dx * s + dy * (c - 1.0))
-                };
-                offsets.extend_from_slice(&[delta.0, delta.1]);
-            }
-        }
-        if crate::gpu::apply(px, w, h, &crate::gpu::TWIRL, &offsets, None, 24) {
-            return;
-        }
+
         warp_offset(px, w, h, |x, y| {
-            let i = (y as usize * w + x as usize) * 2;
-            (offsets[i], offsets[i + 1])
+            let (dx, dy) = (x - cx, y - cy);
+            let d = dx.hypot(dy);
+            if d >= radius {
+                return (0.0, 0.0);
+            }
+            let t = angle * (1.0 - d / radius).powi(2);
+            let (s, c) = t.sin_cos();
+            (dx * (c - 1.0) - dy * s, dx * s + dy * (c - 1.0))
         });
     }
 );
@@ -470,6 +456,17 @@ static MAP_FIT: &[&str] = &[
 pub struct Displace;
 
 impl FilterPlugin for Displace {
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        self.gpu_operation_with(values, &FilterContext::default())
+    }
+    fn gpu_operation_with(
+        &self,
+        values: &FilterValues,
+        context: &FilterContext<'_>,
+    ) -> Option<schist_fx::FilterOperation> {
+        crate::gpu_programs::displace(values, context)
+    }
+
     fn id(&self) -> &'static str {
         "filter.displace"
     }
@@ -529,6 +526,12 @@ impl FilterPlugin for Displace {
         values: &FilterValues,
         context: &FilterContext,
     ) {
+        if self
+            .gpu_operation_with(values, context)
+            .is_some_and(|op| op.apply(px, width, height))
+        {
+            return;
+        }
         let scale = values.get("scale");
         let vscale = values.get("vscale");
         let detail = values.get("detail").max(1.0);

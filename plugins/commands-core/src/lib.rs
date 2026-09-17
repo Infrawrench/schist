@@ -80,45 +80,77 @@ fn grow_selection(ctx: &mut CommandCtx, contiguous: bool) {
             <= tol
     };
 
-    let mut out: Vec<(i32, i32)> = Vec::new();
-    if contiguous {
-        // Flood outwards from the selection's own edge.
+    let accelerated = if schist_core::selection_gpu::available(canvas, contiguous) {
         let w = canvas.width() as usize;
-        let mut seen = vec![false; w * canvas.height() as usize];
-        let mut stack = Vec::new();
-        for y in bounds.top..bounds.bottom {
-            for x in bounds.left..bounds.right {
-                if ctx.doc.selection.coverage(x, y) >= 128 {
-                    seen[(y - canvas.top) as usize * w + (x - canvas.left) as usize] = true;
-                    stack.push((x, y));
-                }
-            }
-        }
-        while let Some((cx, cy)) = stack.pop() {
-            for (nx, ny) in [(cx - 1, cy), (cx + 1, cy), (cx, cy - 1), (cx, cy + 1)] {
-                if !canvas.contains(nx, ny) {
-                    continue;
-                }
-                let ix = (ny - canvas.top) as usize * w + (nx - canvas.left) as usize;
-                if seen[ix] {
-                    continue;
-                }
-                seen[ix] = true;
-                if alike(nx, ny) {
-                    out.push((nx, ny));
-                    stack.push((nx, ny));
-                }
-            }
-        }
+        let seeds = contiguous.then(|| {
+            (canvas.top..canvas.bottom)
+                .flat_map(|y| (canvas.left..canvas.right).map(move |x| (x, y)))
+                .map(|(x, y)| u8::from(ctx.doc.selection.coverage(x, y) >= 128) as f32)
+                .collect::<Vec<_>>()
+        });
+        schist_core::selection_gpu::classify(
+            &raster.tiles,
+            canvas,
+            schist_core::selection_gpu::ColorMatch::Rgb {
+                color: mean,
+                tolerance: tol,
+            },
+            seeds.as_deref(),
+        )
+        .map(|mask| {
+            mask.iter()
+                .enumerate()
+                .filter_map(|(i, &v)| {
+                    let (x, y) = (canvas.left + (i % w) as i32, canvas.top + (i / w) as i32);
+                    (v > 0 && ctx.doc.selection.coverage(x, y) < 128).then_some((x, y))
+                })
+                .collect::<Vec<_>>()
+        })
     } else {
-        for y in canvas.top..canvas.bottom {
-            for x in canvas.left..canvas.right {
-                if ctx.doc.selection.coverage(x, y) < 128 && alike(x, y) {
-                    out.push((x, y));
+        None
+    };
+    let out = accelerated.unwrap_or_else(|| {
+        let mut out: Vec<(i32, i32)> = Vec::new();
+        if contiguous {
+            // Flood outwards from the selection's own edge.
+            let w = canvas.width() as usize;
+            let mut seen = vec![false; w * canvas.height() as usize];
+            let mut stack = Vec::new();
+            for y in bounds.top..bounds.bottom {
+                for x in bounds.left..bounds.right {
+                    if ctx.doc.selection.coverage(x, y) >= 128 {
+                        seen[(y - canvas.top) as usize * w + (x - canvas.left) as usize] = true;
+                        stack.push((x, y));
+                    }
+                }
+            }
+            while let Some((cx, cy)) = stack.pop() {
+                for (nx, ny) in [(cx - 1, cy), (cx + 1, cy), (cx, cy - 1), (cx, cy + 1)] {
+                    if !canvas.contains(nx, ny) {
+                        continue;
+                    }
+                    let ix = (ny - canvas.top) as usize * w + (nx - canvas.left) as usize;
+                    if seen[ix] {
+                        continue;
+                    }
+                    seen[ix] = true;
+                    if alike(nx, ny) {
+                        out.push((nx, ny));
+                        stack.push((nx, ny));
+                    }
+                }
+            }
+        } else {
+            for y in canvas.top..canvas.bottom {
+                for x in canvas.left..canvas.right {
+                    if ctx.doc.selection.coverage(x, y) < 128 && alike(x, y) {
+                        out.push((x, y));
+                    }
                 }
             }
         }
-    }
+        out
+    });
     if out.is_empty() {
         return;
     }
@@ -1711,4 +1743,79 @@ mod m11_tests {
         binds.dedup();
         assert_eq!(binds.len(), count, "two commands share a keybinding");
     }
+}
+
+/// Owned Grow/Similar request for an asynchronous editor host.
+pub fn gpu_selection_command(
+    id: &str,
+    doc: &Document,
+    state: &schist_plugin_api::EditorState,
+) -> Option<schist_plugin_api::GpuEdit> {
+    let contiguous = match id {
+        "select.grow" => true,
+        "select.similar" => false,
+        _ => return None,
+    };
+    if doc.selection.is_empty() {
+        return None;
+    }
+    let canvas = doc.canvas_rect();
+    let tiles = &doc.tree.find(doc.active_layer?)?.as_raster()?.tiles;
+    let bounds = doc.selection.bounds().intersect(&canvas);
+    let mut acc = [0f64; 3];
+    let mut n = 0u64;
+    for y in bounds.top..bounds.bottom {
+        for x in bounds.left..bounds.right {
+            if doc.selection.coverage(x, y) >= 128 {
+                let p = tiles.pixel(x, y);
+                acc[0] += p.r as f64;
+                acc[1] += p.g as f64;
+                acc[2] += p.b as f64;
+                n += 1;
+            }
+        }
+    }
+    if n == 0 {
+        return None;
+    }
+    let rule = schist_core::selection_gpu::ColorMatch::Rgb {
+        color: acc.map(|v| (v / n as f64) as f32),
+        tolerance: state.tolerance as f32 / 255.0,
+    };
+    let seeds = contiguous.then(|| {
+        (canvas.top..canvas.bottom)
+            .flat_map(|y| {
+                (canvas.left..canvas.right)
+                    .map(move |x| u8::from(doc.selection.coverage(x, y) >= 128) as f32)
+            })
+            .collect()
+    });
+    let name = if contiguous {
+        t("command.history.grow")
+    } else {
+        t("command.history.similar")
+    };
+    schist_plugin_api::GpuEdit::selection(tiles, canvas, rule, seeds, name, move |doc, mask| {
+        let w = canvas.width() as usize;
+        let points = mask
+            .iter()
+            .enumerate()
+            .filter_map(|(i, &v)| {
+                let (x, y) = (canvas.left + (i % w) as i32, canvas.top + (i / w) as i32);
+                (v > 0.0 && doc.selection.coverage(x, y) < 128).then_some((x, y))
+            })
+            .collect::<Vec<_>>();
+        if points.is_empty() {
+            return;
+        }
+        let mut edit = doc.begin_edit(name);
+        edit.change_selection(|sel, _| {
+            for (x, y) in points {
+                let buf = sel.mask.get_mut_or_insert(TileCoord::containing(x, y));
+                buf[(y.rem_euclid(TILE_SIZE) * TILE_SIZE + x.rem_euclid(TILE_SIZE)) as usize] = 255;
+            }
+            sel.recompute_bounds();
+        });
+        edit.commit();
+    })
 }

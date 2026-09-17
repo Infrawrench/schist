@@ -2,6 +2,7 @@
 
 use super::*;
 use schist_compositor_gpu::{plan, BatchOut, GpuContext};
+use schist_i18n::tf;
 use std::rc::Rc;
 
 #[derive(Default)]
@@ -13,8 +14,17 @@ pub(super) struct BrowserGpu {
     pub requested: Option<(schist_core::DocumentId, ViewportKey)>,
     failed: Option<(schist_core::DocumentId, ViewportKey)>,
     filter_sequence: u64,
+    edit_sequence: u64,
+    edit_running: bool,
+    edit_request: Option<EditRequest>,
     filter_running: bool,
     filter_request: Option<FilterRequest>,
+}
+
+struct EditRequest {
+    operation: schist_plugin_api::GpuEdit,
+    stamp: (schist_core::DocumentId, u64, Option<schist_core::LayerId>),
+    sequence: u64,
 }
 
 struct FilterRequest {
@@ -43,6 +53,60 @@ pub(super) struct FilterInput<'a> {
     pub whole_layer: bool,
 }
 
+/// Destructive adjustments use the filter queue's cancellation, snapshot and
+/// single-history-entry rules, including its captured CPU fallback.
+struct AdjustmentOperation {
+    params: schist_adjustments::Params,
+    name: &'static str,
+}
+
+struct AutoOperation {
+    mode: schist_adjustments::auto::AutoMode,
+    name: &'static str,
+}
+
+impl schist_plugin_api::FilterPlugin for AutoOperation {
+    fn id(&self) -> &'static str {
+        "adjustment.auto"
+    }
+
+    fn name(&self) -> &'static str {
+        self.name
+    }
+
+    fn gpu_operation(
+        &self,
+        _: &schist_plugin_api::FilterValues,
+    ) -> Option<schist_fx::FilterOperation> {
+        Some(schist_adjustments::auto::operation(self.mode))
+    }
+
+    fn apply(&self, pixels: &mut [f32], _: usize, _: usize, _: &schist_plugin_api::FilterValues) {
+        schist_adjustments::auto::apply_cpu(pixels, self.mode);
+    }
+}
+
+impl schist_plugin_api::FilterPlugin for AdjustmentOperation {
+    fn id(&self) -> &'static str {
+        "adjustment.destructive"
+    }
+
+    fn name(&self) -> &'static str {
+        self.name
+    }
+
+    fn gpu_operation(
+        &self,
+        _: &schist_plugin_api::FilterValues,
+    ) -> Option<schist_fx::FilterOperation> {
+        schist_adjustments::gpu::operation(&self.params)
+    }
+
+    fn apply(&self, pixels: &mut [f32], _: usize, _: usize, _: &schist_plugin_api::FilterValues) {
+        self.params.apply_buffer(pixels);
+    }
+}
+
 impl BrowserGpu {
     pub fn reset(&mut self) {
         *self = Self {
@@ -53,6 +117,173 @@ impl BrowserGpu {
 }
 
 impl Workspace {
+    pub(super) fn cancel_browser_edits(&mut self) {
+        self.browser_gpu.edit_sequence = self.browser_gpu.edit_sequence.wrapping_add(1);
+        self.browser_gpu.edit_request = None;
+    }
+
+    pub fn queue_browser_resize(
+        &mut self,
+        width: u32,
+        height: u32,
+        filter: schist_core::Filter,
+        cx: &mut Context<Self>,
+    ) -> bool {
+        self.ensure_browser_gpu(cx);
+        let Some(context) = self.browser_gpu.context.clone() else {
+            return false;
+        };
+        let Some(doc) = self.doc.as_ref() else {
+            return false;
+        };
+        let Some(plan) = schist_tools_transform::ClassicResize::capture(doc, width, height, filter)
+        else {
+            return false;
+        };
+        let stamp = (doc.id, doc.revision);
+        self.cancel_browser_edits();
+        let sequence = self.browser_gpu.edit_sequence;
+        let epoch = self.browser_gpu.epoch;
+        self.close_modal(cx);
+        cx.spawn(async move |this, cx| {
+            let result = plan.run(context.as_ref()).await;
+            this.update(cx, |ws, cx| {
+                if ws.browser_gpu.epoch != epoch || ws.browser_gpu.edit_sequence != sequence {
+                    return;
+                }
+                let Some(doc) = ws
+                    .doc
+                    .as_mut()
+                    .filter(|doc| (doc.id, doc.revision) == stamp)
+                else {
+                    return;
+                };
+                result.apply(doc);
+                ws.status = tf!("dialog.size.image_size_status", w = width, h = height).into();
+                ws.after_change(cx);
+                ws.fit_to_view();
+            })
+            .ok();
+        })
+        .detach();
+        true
+    }
+
+    pub(super) fn queue_browser_edit(
+        &mut self,
+        request: schist_plugin_api::GpuEdit,
+        cx: &mut Context<Self>,
+    ) {
+        let Some(doc) = &self.doc else {
+            return;
+        };
+        let stamp = (doc.id, doc.revision, doc.active_layer);
+        self.ensure_browser_gpu(cx);
+        self.browser_gpu.edit_sequence = self.browser_gpu.edit_sequence.wrapping_add(1);
+        self.browser_gpu.edit_request = Some(EditRequest {
+            operation: request,
+            stamp,
+            sequence: self.browser_gpu.edit_sequence,
+        });
+        self.start_browser_edit(cx);
+    }
+
+    fn start_browser_edit(&mut self, cx: &mut Context<Self>) {
+        if self.browser_gpu.edit_running {
+            return;
+        }
+        let Some(EditRequest {
+            operation: request,
+            stamp,
+            sequence,
+        }) = self.browser_gpu.edit_request.take()
+        else {
+            return;
+        };
+        self.browser_gpu.edit_running = true;
+        let epoch = self.browser_gpu.epoch;
+        let context = self.browser_gpu.context.clone();
+        cx.spawn(async move |this, cx| {
+            let output = if let Some(context) = context {
+                context
+                    .run_compute_async(&schist_fx::ComputeJob {
+                        input: &request.input,
+                        program: &request.program,
+                    })
+                    .await
+            } else {
+                None
+            };
+            let output = output.unwrap_or_else(|| (request.fallback)(&request.input));
+            this.update(cx, |ws, cx| {
+                if ws.browser_gpu.epoch != epoch {
+                    return;
+                }
+                ws.browser_gpu.edit_running = false;
+                if ws.browser_gpu.edit_sequence == sequence {
+                    if let Some(doc) = ws
+                        .doc
+                        .as_mut()
+                        .filter(|doc| (doc.id, doc.revision, doc.active_layer) == stamp)
+                    {
+                        (request.apply)(doc, output);
+                        ws.status = request.name.into();
+                        ws.after_change(cx);
+                    }
+                }
+                ws.start_browser_edit(cx);
+            })
+            .ok();
+        })
+        .detach();
+    }
+
+    pub(super) fn queue_browser_auto(
+        &mut self,
+        mode: schist_adjustments::auto::AutoMode,
+        name: &'static str,
+        preview: &FilterPreview,
+        cx: &mut Context<Self>,
+    ) -> bool {
+        self.queue_browser_filter(
+            Arc::new(AutoOperation { mode, name }),
+            &schist_plugin_api::FilterValues::default(),
+            FilterInput {
+                original: &preview.original,
+                region: preview.region,
+                layer: preview.layer,
+                whole_layer: preview.whole_layer,
+            },
+            true,
+            cx,
+        )
+    }
+
+    pub(super) fn queue_browser_adjustment(
+        &mut self,
+        params: &schist_adjustments::Params,
+        name: &'static str,
+        preview: &FilterPreview,
+        record: bool,
+        cx: &mut Context<Self>,
+    ) -> bool {
+        self.queue_browser_filter(
+            Arc::new(AdjustmentOperation {
+                params: params.clone(),
+                name,
+            }),
+            &schist_plugin_api::FilterValues::default(),
+            FilterInput {
+                original: &preview.original,
+                region: preview.region,
+                layer: preview.layer,
+                whole_layer: preview.whole_layer,
+            },
+            record,
+            cx,
+        )
+    }
+
     pub(super) fn cancel_browser_filter(&mut self) {
         self.browser_gpu.filter_sequence = self.browser_gpu.filter_sequence.wrapping_add(1);
         self.browser_gpu.filter_request = None;
@@ -77,7 +308,7 @@ impl Workspace {
             return false;
         }
         // Avoid composing a backdrop or flattening a path twice for CPU-only filters.
-        // Current GPU context descriptors use colors; auxiliary-input filters stay synchronous.
+        // Captured descriptors include colors, maps, paths and backdrop snapshots.
         if (filter.wants_backdrop() || filter.wants_path() || filter.wants_map().is_some())
             && filter.gpu_operation(values).is_none()
         {
@@ -321,7 +552,7 @@ impl Workspace {
                     let batch = context
                         .composite_batch_async(&snapshot.plan(), &missing, true)
                         .await?;
-                    let tiles = match batch {
+                    let mut tiles = match batch {
                         BatchOut::Rgba8(tiles) => tiles,
                         BatchOut::Native(tiles) => {
                             let transform = schist_colormgmt::NativeColorTransform::new(
@@ -329,30 +560,74 @@ impl Workspace {
                                 profile.as_deref(),
                             )
                             .ok();
-                            tiles
-                                .iter()
-                                .map(|tile| {
-                                    schist_colormgmt::native_to_rgba(tile, transform.as_ref())
-                                        .into_iter()
-                                        .map(schist_color::f32_to_u8)
-                                        .collect()
-                                })
-                                .collect()
+                            let mut converted = Vec::with_capacity(tiles.len());
+                            for tile in tiles {
+                                let accelerated = if let Some(program) = transform
+                                    .as_ref()
+                                    .and_then(|t| t.to_rgb_program(tile.len()))
+                                {
+                                    let input: Vec<f32> = tile
+                                        .iter()
+                                        .flat_map(|p| p.color[..mode.channels()].iter().copied())
+                                        .collect();
+                                    context
+                                        .run_compute_async(&schist_fx::ComputeJob {
+                                            input: &input,
+                                            program: &program,
+                                        })
+                                        .await
+                                } else {
+                                    None
+                                };
+                                let rgba = if let Some(rgb) = accelerated {
+                                    rgb.as_chunks::<3>()
+                                        .0
+                                        .iter()
+                                        .zip(&tile)
+                                        .flat_map(|(rgb, p)| [rgb[0], rgb[1], rgb[2], p.alpha])
+                                        .collect::<Vec<_>>()
+                                } else {
+                                    schist_colormgmt::native_to_rgba(&tile, transform.as_ref())
+                                };
+                                converted
+                                    .push(rgba.into_iter().map(schist_color::f32_to_u8).collect());
+                            }
+                            converted
                         }
                         BatchOut::F32(_) => return None,
                     };
-                    for (coord, mut tile) in missing.into_iter().zip(tiles) {
-                        if proof.is_some() || display.is_some() {
-                            let mut pixels: Vec<_> =
-                                tile.iter().map(|&v| v as f32 / 255.0).collect();
-                            if let Some(proof) = &proof {
-                                proof.apply(&mut pixels);
+                    if (proof.is_some() || display.is_some()) && !tiles.is_empty() {
+                        let mut pixels: Vec<f32> =
+                            tiles.iter().flatten().map(|&v| v as f32 / 255.0).collect();
+                        let transforms = proof.iter().chain(display.iter()).collect::<Vec<_>>();
+                        let operations = transforms
+                            .iter()
+                            .map(|t| t.gpu_operation())
+                            .collect::<Option<Vec<_>>>();
+                        let accelerated = if let Some(operations) = operations {
+                            let operation = schist_fx::FilterOperation::Sequence(operations);
+                            context
+                                .filter_async(&operation, &pixels, pixels.len() / 4, 1)
+                                .await
+                        } else {
+                            None
+                        };
+                        if let Some(result) = accelerated {
+                            pixels = result;
+                        } else {
+                            for transform in transforms {
+                                transform.apply(&mut pixels);
                             }
-                            if let Some(display) = &display {
-                                display.apply(&mut pixels);
-                            }
-                            tile = pixels.into_iter().map(schist_color::f32_to_u8).collect();
                         }
+                        let mut start = 0;
+                        for tile in &mut tiles {
+                            for (out, &value) in tile.iter_mut().zip(&pixels[start..]) {
+                                *out = schist_color::f32_to_u8(value);
+                            }
+                            start += tile.len();
+                        }
+                    }
+                    for (coord, tile) in missing.into_iter().zip(tiles) {
                         let tile = Arc::new(tile);
                         grid[(coord.ty - ty0) as usize * cols + (coord.tx - tx0) as usize] =
                             Some(tile.clone());

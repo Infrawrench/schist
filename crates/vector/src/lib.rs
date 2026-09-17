@@ -282,10 +282,8 @@ pub fn rasterize(path: &Path, rect: IntRect, rule: FillRule) -> Vec<u8> {
         return vec![0; w * h];
     }
 
-    static SHADER: schist_fx::ComputeShader = schist_fx::ComputeShader {
-        name: "vector-coverage",
-        source: include_str!("raster.wgsl"),
-    };
+    static SHADER: schist_fx::ComputeShader =
+        schist_fx::ComputeShader::new("vector-coverage", include_str!("raster.wgsl"));
     let work = w
         .saturating_mul(h)
         .saturating_mul(edges.len())

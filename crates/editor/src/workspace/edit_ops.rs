@@ -5,6 +5,65 @@
 use super::*;
 use schist_i18n::{t, t_in, Locale};
 
+struct GalleryOperation {
+    entries: Vec<(
+        Arc<dyn schist_plugin_api::FilterPlugin>,
+        schist_plugin_api::FilterValues,
+    )>,
+    foreground: schist_color::Rgba,
+    background: schist_color::Rgba,
+}
+
+impl schist_plugin_api::FilterPlugin for GalleryOperation {
+    fn id(&self) -> &'static str {
+        "filter.gallery"
+    }
+    fn name(&self) -> &'static str {
+        t("workspace.history.filter_gallery")
+    }
+    fn gpu_operation(
+        &self,
+        _: &schist_plugin_api::FilterValues,
+    ) -> Option<schist_fx::FilterOperation> {
+        let context = schist_plugin_api::FilterContext {
+            foreground: self.foreground,
+            background: self.background,
+            ..Default::default()
+        };
+        if self.entries.is_empty() {
+            return None;
+        }
+        Some(schist_fx::FilterOperation::Sequence(
+            self.entries
+                .iter()
+                .map(|(filter, values)| filter.gpu_operation_with(values, &context))
+                .collect::<Option<Vec<_>>>()?,
+        ))
+    }
+    fn apply(
+        &self,
+        pixels: &mut [f32],
+        w: usize,
+        h: usize,
+        values: &schist_plugin_api::FilterValues,
+    ) {
+        if self
+            .gpu_operation(values)
+            .is_some_and(|op| op.apply(pixels, w, h))
+        {
+            return;
+        }
+        let context = schist_plugin_api::FilterContext {
+            foreground: self.foreground,
+            background: self.background,
+            ..Default::default()
+        };
+        for (filter, values) in &self.entries {
+            filter.apply_with(pixels, w, h, values, &context);
+        }
+    }
+}
+
 impl Workspace {
     /// Rasterize the active path: fill it, stroke it, or turn it into a
     /// selection. The three things Photoshop's Paths panel buttons do.
@@ -367,31 +426,51 @@ impl Workspace {
         );
     }
 
+    fn gallery_operation(
+        &self,
+        stack: &[GalleryEntry],
+    ) -> Arc<dyn schist_plugin_api::FilterPlugin> {
+        Arc::new(GalleryOperation {
+            entries: stack
+                .iter()
+                .filter(|entry| entry.enabled)
+                .filter_map(|entry| {
+                    Some((self.registry.shared_filter(entry.id)?, entry.values.clone()))
+                })
+                .collect(),
+            foreground: self.editor.foreground,
+            background: self.editor.background,
+        })
+    }
+
     /// Run a gallery stack over the preview snapshot, bottom to top.
     pub(super) fn run_gallery(&self, stack: &[GalleryEntry], buf: &mut [f32], w: usize, h: usize) {
-        for entry in stack {
-            if !entry.enabled {
-                continue;
-            }
-            let Some(filter) = self.registry.filters().find(|f| f.id() == entry.id) else {
-                continue;
-            };
-            // The gallery hands over the toolbox colours and nothing
-            // else: a stack has no one layer to read a backdrop for, and
-            // choosing a map per entry would need a picker per entry.
-            let context = schist_plugin_api::FilterContext {
-                foreground: self.editor.foreground,
-                background: self.editor.background,
-                ..Default::default()
-            };
-            filter.apply_with(buf, w, h, &entry.values, &context);
-        }
+        self.gallery_operation(stack)
+            .apply(buf, w, h, &Default::default());
     }
 
     pub fn preview_gallery(&mut self, stack: &[GalleryEntry], cx: &mut Context<Self>) {
         let Some(preview) = self.filter_preview.clone() else {
             return;
         };
+        #[cfg(target_arch = "wasm32")]
+        {
+            self.cancel_browser_filter();
+            if self.queue_browser_filter(
+                self.gallery_operation(stack),
+                &Default::default(),
+                super::browser_gpu::FilterInput {
+                    original: &preview.original,
+                    region: preview.region,
+                    layer: preview.layer,
+                    whole_layer: preview.whole_layer,
+                },
+                false,
+                cx,
+            ) {
+                return;
+            }
+        }
         let (w, h) = (
             preview.region.width() as usize,
             preview.region.height() as usize,
@@ -416,6 +495,21 @@ impl Workspace {
         let Some(preview) = self.filter_preview.take() else {
             return;
         };
+        #[cfg(target_arch = "wasm32")]
+        if self.queue_browser_filter(
+            self.gallery_operation(stack),
+            &Default::default(),
+            super::browser_gpu::FilterInput {
+                original: &preview.original,
+                region: preview.region,
+                layer: preview.layer,
+                whole_layer: preview.whole_layer,
+            },
+            true,
+            cx,
+        ) {
+            return;
+        }
         let (w, h) = (
             preview.region.width() as usize,
             preview.region.height() as usize,

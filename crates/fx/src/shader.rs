@@ -10,13 +10,28 @@ pub struct ShaderSpec {
 }
 
 impl ShaderSpec {
+    /// Complete source with texture pages for nonlocal reads across output bands.
+    pub fn wgsl_paged(&self) -> String {
+        format!(
+            "{}\n{}\n{}\n{}",
+            include_str!("shader_paged.wgsl"),
+            include_str!("shader.wgsl"),
+            include_str!("shader_entry.wgsl"),
+            self.source
+        )
+    }
+
     /// Complete source, also usable for offline shader validation.
     pub fn wgsl(&self) -> String {
         format!("{SHADER_PRELUDE}\n{}", self.source)
     }
 }
 
-pub const SHADER_PRELUDE: &str = include_str!("shader.wgsl");
+pub const SHADER_PRELUDE: &str = concat!(
+    include_str!("shader_buffer.wgsl"),
+    include_str!("shader.wgsl"),
+    include_str!("shader_entry.wgsl")
+);
 
 /// One same-size RGBA operation. Parameters are a tightly packed float
 /// array (`args` in WGSL), with no uniform-buffer alignment to manage.

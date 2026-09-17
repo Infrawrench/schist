@@ -291,11 +291,11 @@ check-gpu-shaders:
 
 .PHONY: check-gpu-opportunities
 check-gpu-opportunities:
-	$(CARGO) test -p schist-compositor-gpu --test adjustment_coverage --test compute_programs --test async_filters --test native_parity
+	$(CARGO) test -p schist-compositor-gpu --test adjustment_coverage --test compute_programs --test async_filters --test native_parity --test remaining_opportunities
 
 .PHONY: check-gpu-domains
 check-gpu-domains:
-	$(CARGO) test -p schist-adjustments -p schist-core -p schist-layer-fx -p schist-codec-raw -p schist-colormgmt -p schist-vector -p schist-neural -p schist-tools-retouch
+	$(CARGO) test -p schist-adjustments -p schist-core -p schist-layer-fx -p schist-codec-raw -p schist-colormgmt -p schist-vector -p schist-neural -p schist-tools-retouch -p schist-tools-transform -p schist-tools-select -p schist-commands-core -p schist-codecs-common
 
 .PHONY: check-web-gpu
 check-web-gpu:

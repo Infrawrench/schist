@@ -17,6 +17,9 @@
 //! histogram until 1% of the pixels clip. The result lands near the
 //! camera's own JPEG in brightness with the highlights still there.
 
+#[path = "raw_gpu.rs"]
+mod gpu;
+
 use schist_core::{Document, RawDevelopment, RawSettings};
 use schist_i18n::{t, tf};
 use schist_plugin_api::CodecPlugin;
@@ -53,6 +56,14 @@ pub const RAW_EXTENSIONS: &[&str] = &[
 /// above the knee an exponential shoulder (the one HDR captures get)
 /// that compresses the top towards white instead of cutting it off.
 fn expose_and_encode_with(rgba: &mut [f32], exposure: f32) {
+    if schist_fx::backend().compute_available(rgba.len().saturating_mul(8)) {
+        if let Some(program) = gpu::program(rgba.len() / 4, exposure) {
+            if let Some(output) = schist_fx::try_compute(rgba, &program) {
+                rgba.copy_from_slice(&output);
+                return;
+            }
+        }
+    }
     const KNEE: f32 = 0.85;
     const MAX_GAIN: f32 = 4.0;
     const BINS: usize = 4096;
@@ -146,6 +157,50 @@ pub fn develop_rgba(
     guarded(|| native::develop_rgba(bytes, settings, quality))
 }
 
+/// Asynchronous development for browser previews and library callers.
+pub async fn develop_rgba_async(
+    bytes: &[u8],
+    settings: RawSettings,
+    quality: RawQuality,
+    backend: &impl schist_fx::AsyncCompute,
+) -> anyhow::Result<DevelopedRaw> {
+    let settings = settings.sanitized();
+    let raw = guarded(|| Ok(schist_codec_raw::decode_cached(bytes)?))?;
+    let options = schist_codec_raw::DevelopOptions {
+        quality,
+        white_balance: Some(native::adjusted_white_balance(raw.wb_coeffs, settings)),
+        ..Default::default()
+    };
+    let developed = schist_codec_raw::develop::develop_async(&raw, &options, backend).await?;
+    let mut rgba: Vec<f32> = developed
+        .rgb
+        .as_chunks::<3>()
+        .0
+        .iter()
+        .flat_map(|p| [p[0], p[1], p[2], 1.0])
+        .collect();
+    let encoded = if let Some(program) = gpu::program(rgba.len() / 4, settings.exposure) {
+        backend
+            .compute_async(schist_fx::ComputeJob {
+                input: &rgba,
+                program: &program,
+            })
+            .await
+    } else {
+        None
+    };
+    if let Some(output) = encoded {
+        rgba = output;
+    } else {
+        expose_and_encode_with(&mut rgba, settings.exposure);
+    }
+    Ok(DevelopedRaw {
+        width: developed.width,
+        height: developed.height,
+        rgba,
+    })
+}
+
 /// Camera raw files, import only.
 pub struct RawCodec;
 
@@ -232,7 +287,7 @@ mod native {
         quality: RawQuality,
     ) -> anyhow::Result<DevelopedRaw> {
         let settings = settings.sanitized();
-        let raw = schist_codec_raw::decode(bytes).context(t("codec.raw.msg.decoding"))?;
+        let raw = schist_codec_raw::decode_cached(bytes).context(t("codec.raw.msg.decoding"))?;
         if raw.color_matrix.is_none() {
             log::warn!(
                 "raw: no colour matrix for {} {}; developing in camera RGB",
@@ -259,7 +314,7 @@ mod native {
         })
     }
 
-    fn adjusted_white_balance(mut wb: [f32; 4], settings: RawSettings) -> [f32; 4] {
+    pub(super) fn adjusted_white_balance(mut wb: [f32; 4], settings: RawSettings) -> [f32; 4] {
         let finite = |value: f32| if value.is_finite() { value } else { 0.0 };
         let temperature = finite(settings.temperature).clamp(-100.0, 100.0) / 100.0;
         let tint = finite(settings.tint).clamp(-100.0, 100.0) / 100.0;
