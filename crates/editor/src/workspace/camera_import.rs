@@ -2,8 +2,14 @@
 //! finishes; they never register the staging directory with the local gallery.
 use super::*;
 use anyhow::{ensure, Result};
+use futures::channel::mpsc;
 use schist_cloud::Scope;
-use schist_i18n::t;
+use schist_cloud_transfer::{
+    cancellable,
+    incoming::{upload_incoming, ImportEvent},
+    upload_files, Report, UploadSummary,
+};
+use schist_i18n::{t, tf, tn};
 use std::path::Path;
 
 /// Captured when Import opens, so browsing elsewhere or signing into another
@@ -23,14 +29,86 @@ impl CloudImportTarget {
 
     pub fn destination(&self, cloud: &cloud::CloudState) -> Result<ImportDestination> {
         self.check(cloud)?;
-        Ok(ImportDestination::Cloud {
-            target: self.clone(),
-            staging: Arc::new(
-                tempfile::Builder::new()
-                    .prefix("schist-import-")
-                    .tempdir()?,
-            ),
-        })
+        let staging = Arc::new(
+            tempfile::Builder::new()
+                .prefix("schist-import-")
+                .tempdir()?,
+        );
+        let (sender, receiver) = mpsc::unbounded();
+        let destination = ImportDestination::Cloud {
+            staging: staging.clone(),
+            sender,
+        };
+        let handle = cloud.client.as_ref().unwrap().handle.clone();
+        let epoch = self.epoch;
+        let jobs = cloud.sender.clone();
+        let cancel = cloud.cancel.clone();
+        let (bucket, folder) = match &self.scope {
+            Scope::Bucket { id } => (Some(id.clone()), None),
+            Scope::Folder { id, .. } => (None, Some(id.clone())),
+            Scope::Library => (None, None),
+        };
+        schist_cloud::runtime::spawn(async move {
+            let progress_jobs = jobs.clone();
+            let report: Report = Arc::new(move |done, total, label| {
+                let _ = progress_jobs.send(cloud::Job::Progress {
+                    epoch,
+                    done,
+                    total,
+                    label,
+                });
+            });
+            let result = cancellable(
+                Some(&cancel),
+                upload_incoming(receiver, |paths| {
+                    let handle = handle.clone();
+                    let folder = folder.clone();
+                    let bucket = bucket.clone();
+                    let report = report.clone();
+                    let cancel = cancel.clone();
+                    async move {
+                        let files = paths.into_iter().map(|p| (p, None)).collect();
+                        let uploader =
+                            upload_files(&handle, folder, files, report, Some(cancel), None)
+                                .await?;
+                        if let Some(bucket) = bucket {
+                            uploader.add_to_bucket(&bucket).await?;
+                        }
+                        Ok(UploadSummary {
+                            uploaded: uploader.uploaded.len(),
+                            existing: uploader.existing.len(),
+                            skipped: uploader.skipped,
+                        })
+                    }
+                }),
+            )
+            .await;
+            let job = match result {
+                Ok((summary, failed)) => {
+                    let mut message = summary.message();
+                    if failed > 0 {
+                        message.push_str(" — ");
+                        message.push_str(&tn("library.import.n_failed", failed as u64));
+                    }
+                    cloud::Job::Done { epoch, message }
+                }
+                Err(error) => cloud::Job::Error {
+                    epoch,
+                    error: if error
+                        .to_string()
+                        .starts_with(t("cloud.error.not_enough_storage"))
+                    {
+                        error.to_string()
+                    } else {
+                        tf!("cloud.upload.failed_partial", error = error)
+                    },
+                },
+            };
+            let _ = jobs.send(job);
+            // The producer also owns this directory until its last copy ends.
+            drop(staging);
+        });
+        Ok(destination)
     }
 
     pub fn label(&self, cloud: &cloud::CloudState) -> String {
@@ -50,8 +128,8 @@ impl CloudImportTarget {
 pub(super) enum ImportDestination {
     Local(PathBuf),
     Cloud {
-        target: CloudImportTarget,
         staging: Arc<tempfile::TempDir>,
+        sender: mpsc::UnboundedSender<ImportEvent>,
     },
 }
 
@@ -65,6 +143,74 @@ impl ImportDestination {
 
     pub fn is_local(&self) -> bool {
         matches!(self, Self::Local(_))
+    }
+
+    /// Call only after the original has been completely copied and accepted.
+    pub fn ready(&self, path: PathBuf) -> Result<()> {
+        if let Self::Cloud { sender, .. } = self {
+            sender
+                .unbounded_send(ImportEvent::Ready(path))
+                .map_err(|_| anyhow::anyhow!(t("cloud.upload.cancelled")))?;
+        }
+        Ok(())
+    }
+
+    pub fn finish(&self, failed: usize) {
+        if let Self::Cloud { sender, .. } = self {
+            let _ = sender.unbounded_send(ImportEvent::Finished { failed });
+        }
+    }
+
+    pub fn abort(&self, error: String) {
+        if let Self::Cloud { sender, .. } = self {
+            let _ = sender.unbounded_send(ImportEvent::Failed(error));
+        }
+    }
+}
+
+/// ImageCaptureCore calls back on the UI thread. Inspect EXIF, delete rejected
+/// downloads and hand accepted paths to the uploader on a single worker instead.
+#[cfg(any(target_os = "macos", test))]
+pub(super) mod downloaded {
+    use super::*;
+    use std::sync::mpsc;
+
+    pub type KeepFilter = Box<dyn Fn(&Path) -> bool + Send>;
+    pub enum Outcome {
+        Copied,
+        Filtered,
+        Failed,
+    }
+
+    pub struct Processor {
+        pub sender: mpsc::Sender<Option<PathBuf>>,
+        pub results: mpsc::Receiver<Outcome>,
+    }
+
+    impl Processor {
+        pub fn new(dest: ImportDestination, keep: Option<KeepFilter>) -> Self {
+            let (sender, input) = mpsc::channel::<Option<PathBuf>>();
+            let (output, results) = mpsc::channel();
+            std::thread::spawn(move || {
+                for path in input {
+                    let outcome = match path {
+                        Some(path) if keep.as_ref().is_some_and(|keep| !keep(&path)) => {
+                            let _ = std::fs::remove_file(path);
+                            Outcome::Filtered
+                        }
+                        Some(path) => match dest.ready(path) {
+                            Ok(()) => Outcome::Copied,
+                            Err(_) => Outcome::Failed,
+                        },
+                        None => Outcome::Failed,
+                    };
+                    if output.send(outcome).is_err() {
+                        break;
+                    }
+                }
+            });
+            Self { sender, results }
+        }
     }
 }
 
@@ -89,38 +235,103 @@ impl Workspace {
         }
         self.library.open = true;
     }
-
-    pub(super) fn upload_camera_import(
-        &mut self,
-        target: CloudImportTarget,
-        staging: Arc<tempfile::TempDir>,
-        failed: usize,
-        cx: &mut Context<Self>,
-    ) {
-        if let Err(error) = target.check(&self.cloud) {
-            self.cloud_error(error.to_string());
-            return;
-        }
-        let (bucket, folder) = match target.scope {
-            Scope::Bucket { id } => (Some(id), None),
-            Scope::Folder { id, .. } => (None, Some(id)),
-            Scope::Library => (None, None),
-        };
-        self.cloud_upload_local(
-            bucket,
-            folder,
-            cloud::LocalUpload::Camera {
-                directory: staging,
-                failed,
-            },
-            cx,
-        );
-    }
 }
 
 #[cfg(test)]
 mod cloud_lifecycle_tests {
     use super::*;
+    use futures::{executor::block_on, FutureExt, StreamExt};
+
+    #[test]
+    fn downloaded_photos_are_filtered_off_thread_before_entering_the_upload_queue() {
+        let staging = Arc::new(tempfile::tempdir().unwrap());
+        let accepted = staging.path().join("accepted.jpg");
+        let rejected = staging.path().join("rejected.jpg");
+        std::fs::write(&accepted, b"complete original").unwrap();
+        std::fs::write(&rejected, b"outside boundary").unwrap();
+        let (sender, mut receiver) = mpsc::unbounded();
+        let dest = ImportDestination::Cloud { staging, sender };
+        let (entered_tx, entered_rx) = std::sync::mpsc::channel();
+        let (release_tx, release_rx) = std::sync::mpsc::channel();
+        let ui_thread = std::thread::current().id();
+        let processor = downloaded::Processor::new(
+            dest.clone(),
+            Some(Box::new(move |path| {
+                assert_ne!(std::thread::current().id(), ui_thread);
+                if path.file_name().unwrap() == "accepted.jpg" {
+                    entered_tx.send(()).unwrap();
+                    release_rx.recv().unwrap();
+                    true
+                } else {
+                    false
+                }
+            })),
+        );
+        processor.sender.send(Some(accepted.clone())).unwrap();
+        entered_rx
+            .recv_timeout(std::time::Duration::from_secs(5))
+            .unwrap();
+        assert!(receiver.next().now_or_never().is_none());
+        // Callback/polling can continue while EXIF work is blocked.
+        processor.sender.send(Some(rejected.clone())).unwrap();
+        processor.sender.send(None).unwrap();
+        assert!(processor.results.try_recv().is_err());
+        release_tx.send(()).unwrap();
+        let timeout = std::time::Duration::from_secs(5);
+        assert!(matches!(
+            processor.results.recv_timeout(timeout).unwrap(),
+            downloaded::Outcome::Copied
+        ));
+        assert!(matches!(
+            processor.results.recv_timeout(timeout).unwrap(),
+            downloaded::Outcome::Filtered
+        ));
+        assert!(matches!(
+            processor.results.recv_timeout(timeout).unwrap(),
+            downloaded::Outcome::Failed
+        ));
+        match block_on(receiver.next()).unwrap() {
+            ImportEvent::Ready(path) => {
+                assert_eq!(path, accepted);
+                assert_eq!(std::fs::read(path).unwrap(), b"complete original");
+            }
+            _ => panic!("expected the accepted photo"),
+        }
+        assert!(!rejected.exists());
+        assert!(receiver.next().now_or_never().is_none());
+        dest.finish(1);
+        assert!(matches!(
+            block_on(receiver.next()),
+            Some(ImportEvent::Finished { failed: 1 })
+        ));
+    }
+
+    #[test]
+    fn staging_survives_until_both_downloading_and_uploading_release_it() {
+        let original = tempfile::tempdir().unwrap();
+        let photo = original.path().join("photo.jpg");
+        std::fs::write(&photo, b"camera original").unwrap();
+        let staging = Arc::new(tempfile::tempdir().unwrap());
+        let path = staging.path().to_path_buf();
+        std::fs::copy(&photo, path.join("photo.jpg")).unwrap();
+        let (sender, _receiver) = mpsc::unbounded();
+        let producer = ImportDestination::Cloud {
+            staging: staging.clone(),
+            sender,
+        };
+        // This is the separate guard captured by the async upload task.
+        let upload = staging.clone();
+        drop(staging);
+        drop(producer);
+        assert!(path.exists());
+        assert_eq!(
+            std::fs::read(path.join("photo.jpg")).unwrap(),
+            b"camera original"
+        );
+        drop(upload);
+        assert!(!path.exists());
+        assert_eq!(std::fs::read(photo).unwrap(), b"camera original");
+    }
 
     #[test]
     fn camera_import_rejects_an_account_change_before_staging_or_upload() {

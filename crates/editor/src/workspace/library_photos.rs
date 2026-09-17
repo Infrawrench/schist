@@ -13,6 +13,7 @@
 //! handlers run on the item providers' own queues and touch only the
 //! filesystem and the counters behind [`lock`].
 
+use super::camera_import::ImportDestination;
 use block2::RcBlock;
 use objc2::rc::Retained;
 use objc2::runtime::{AnyClass, AnyObject, AnyProtocol, ClassBuilder, Sel};
@@ -35,7 +36,7 @@ unsafe impl Send for ObjPtr {}
 
 /// One import in flight: what was picked, and how much has landed.
 struct Job {
-    dest: PathBuf,
+    dest: ImportDestination,
     /// Photos picked; `None` until the picker has returned.
     total: Option<usize>,
     done: usize,
@@ -139,8 +140,8 @@ unsafe fn topmost(mut controller: *mut AnyObject) -> *mut AnyObject {
 
 /// Show the picker; what it picks is copied into `dest`. Poll
 /// [`poll_import`] for progress.
-pub(super) fn begin_import(dest: PathBuf) -> Result<(), String> {
-    std::fs::create_dir_all(&dest).map_err(|e| e.to_string())?;
+pub(super) fn begin_import(dest: ImportDestination) -> Result<(), String> {
+    std::fs::create_dir_all(dest.path()).map_err(|e| e.to_string())?;
     {
         let mut shared = lock();
         if shared.job.is_some() {
@@ -261,20 +262,28 @@ unsafe fn copy_in(url: *mut AnyObject) -> Option<()> {
         let path = PathBuf::from(path?.to_string());
         let dest = lock().job.as_ref()?.dest.clone();
         let name = path.file_name()?.to_os_string();
-        let mut target = dest.join(&name);
+        let mut target = dest.path().join(&name);
         let stem = path.file_stem()?.to_string_lossy().into_owned();
         let ext = path.extension().map(|e| e.to_string_lossy().into_owned());
         let mut n = 1;
-        while target.exists() {
+        // Reserve names atomically: provider callbacks may copy concurrently.
+        let output = loop {
+            match std::fs::File::create_new(&target) {
+                Ok(file) => break file,
+                Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => {}
+                Err(_) => return None,
+            }
             n += 1;
             let mut candidate = format!("{stem}-{n}");
             if let Some(ext) = &ext {
                 candidate.push('.');
                 candidate.push_str(ext);
             }
-            target = dest.join(candidate);
-        }
-        std::fs::copy(&path, &target).ok().map(|_| ())
+            target = dest.path().join(candidate);
+        };
+        drop(output);
+        std::fs::copy(&path, &target).ok()?;
+        dest.ready(target).ok()
     }
 }
 

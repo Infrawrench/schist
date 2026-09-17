@@ -1,4 +1,6 @@
 //! Cancellable, resumable cloud upload orchestration and batch preparation.
+#[cfg(not(target_arch = "wasm32"))]
+pub mod incoming;
 use anyhow::{anyhow, Result};
 #[cfg(target_arch = "wasm32")]
 use schist_app_platform::web;
@@ -157,16 +159,19 @@ pub async fn upload_files(
     let preparer = Preparer::new(files, support);
     #[cfg(not(target_arch = "wasm32"))]
     {
-        let (tx, rx) = std::sync::mpsc::sync_channel::<Prepared>(PREPARE_AHEAD);
+        use futures::{SinkExt, StreamExt};
+        let (mut tx, mut rx) = futures::channel::mpsc::channel::<Prepared>(PREPARE_AHEAD);
         std::thread::spawn(move || {
             let mut preparer = preparer;
             while let Some(item) = preparer.next() {
-                if tx.send(item).is_err() {
+                if futures::executor::block_on(tx.send(item)).is_err() {
                     break;
                 }
             }
         });
-        while let Ok(item) = rx.recv() {
+        while let Some(item) =
+            cancellable(uploader.cancel.as_ref(), async { Ok(rx.next().await) }).await?
+        {
             uploader.take(item).await?;
         }
     }
@@ -468,6 +473,36 @@ pub struct Uploader {
     dedupe: u8,
 }
 impl Uploader {
+    /// Include both new assets and deduplicated originals in the destination.
+    pub async fn add_to_bucket(&self, bucket: &str) -> Result<()> {
+        self.report(t("cloud.upload.adding_to_bucket").into());
+        let members: Vec<String> = self
+            .uploaded
+            .iter()
+            .chain(self.existing.iter())
+            .cloned()
+            .collect();
+        for chunk in members.chunks(1000) {
+            let mutation = remote::Uuid::new_v4().to_string();
+            self.retrying(t("cloud.upload.step.adding_to_bucket"), || {
+                let items = chunk
+                    .iter()
+                    .map(|id| map([("kind", "asset".into()), ("id", id.clone().into())]))
+                    .collect();
+                self.handle.request_async(
+                    "bucket.add",
+                    map([
+                        ("id", bucket.into()),
+                        ("items", Value::Array(items)),
+                        ("mutation_id", mutation.clone().into()),
+                    ]),
+                )
+            })
+            .await?;
+        }
+        Ok(())
+    }
+
     fn handled(&self, paths: &[PathBuf]) -> Result<()> {
         if let Some(handled) = &self.handled {
             handled(paths)?;

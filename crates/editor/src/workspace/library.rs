@@ -2594,6 +2594,7 @@ fn copy_dcim(
     dest: &Path,
     exts: &[String],
     area: Option<library_geo::GeoBounds>,
+    ready: Option<&dyn Fn(PathBuf) -> anyhow::Result<()>>,
 ) -> anyhow::Result<(usize, usize)> {
     let dcim = dcim_dir(source).ok_or_else(|| {
         anyhow::anyhow!(
@@ -2633,7 +2634,16 @@ fn copy_dcim(
                     continue;
                 }
             }
-            let target = dest.join(name);
+            let mut target = dest.join(name);
+            // A cloud upload may still be reading the previous file. Never
+            // overwrite a staged original when camera folders reuse names.
+            if ready.is_some() {
+                let mut n = 1;
+                while target.exists() {
+                    n += 1;
+                    target = dest.join(format!("{n}-{}", name.to_string_lossy()));
+                }
+            }
             let same = match (std::fs::metadata(&path), std::fs::metadata(&target)) {
                 (Ok(a), Ok(b)) => a.len() == b.len(),
                 _ => false,
@@ -2642,6 +2652,9 @@ fn copy_dcim(
                 continue;
             }
             std::fs::copy(&path, &target)?;
+            if let Some(ready) = ready {
+                ready(target)?;
+            }
             copied += 1;
         }
     }
@@ -3811,7 +3824,16 @@ impl Workspace {
         cx.spawn(async move |this, cx| {
             let result = cx
                 .background_executor()
-                .spawn(async move { copy_dcim(&source, copy_dest.path(), &exts, bounds) })
+                .spawn(async move {
+                    let ready = |path| copy_dest.ready(path);
+                    copy_dcim(
+                        &source,
+                        copy_dest.path(),
+                        &exts,
+                        bounds,
+                        (!copy_dest.is_local()).then_some(&ready),
+                    )
+                })
                 .await;
             this.update(cx, |ws, cx| {
                 ws.library.importing = false;
@@ -3821,6 +3843,7 @@ impl Workspace {
                     }
                     Err(err) => {
                         log::error!("camera import failed: {err:#}");
+                        dest.abort(err.to_string());
                         ws.status = tf!("library.import.failed", error = err).into();
                     }
                 }
@@ -3853,8 +3876,9 @@ impl Workspace {
                 photo_gps(path).is_some_and(|(lat, lon)| bounds.contains(lat, lon))
             }) as library_icc::KeepFilter
         });
-        if let Err(err) = library_icc::begin_import(id, dest.path().to_path_buf(), keep) {
+        if let Err(err) = library_icc::begin_import(id, dest.clone(), keep) {
             self.library.importing = false;
+            dest.abort(err.clone());
             self.report_device_failure(id, name, area, err, cx);
             return;
         }
@@ -3882,6 +3906,7 @@ impl Workspace {
                             );
                         }
                         Err(err) => {
+                            dest.abort(err.clone());
                             ws.report_device_failure(id, name.clone(), area.clone(), err, cx);
                         }
                     }
@@ -3932,7 +3957,8 @@ impl Workspace {
                 return;
             }
         };
-        if let Err(err) = library_photos::begin_import(dest.path().to_path_buf()) {
+        if let Err(err) = library_photos::begin_import(dest.clone()) {
+            dest.abort(err.clone());
             self.status = tf!("library.import.photos_open_failed", error = err).into();
             cx.notify();
             return;
@@ -4013,20 +4039,8 @@ impl Workspace {
         area: Option<(library_geo::GeoBounds, String)>,
         cx: &mut Context<Self>,
     ) {
-        if let ImportDestination::Cloud { target, staging } = dest {
-            if copied > 0 {
-                self.upload_camera_import(target, staging, failed, cx);
-            } else {
-                self.status = t("cloud.upload.summary_none").into();
-                if failed > 0 {
-                    self.status = format!(
-                        "{} — {}",
-                        self.status,
-                        tn("library.import.n_failed", failed as u64)
-                    )
-                    .into();
-                }
-            }
+        if !dest.is_local() {
+            dest.finish(failed);
             return;
         }
         let dest = dest.path().to_path_buf();
@@ -4917,6 +4931,40 @@ mod tests {
     }
 
     #[test]
+    fn cloud_lifecycle_tests_streaming_import_does_not_overwrite_queued_originals() {
+        let camera = tempfile::tempdir().unwrap();
+        for (dir, contents) in [("100CAMERA", b"first"), ("101CAMERA", b"other")] {
+            let dir = camera.path().join("DCIM").join(dir);
+            std::fs::create_dir_all(&dir).unwrap();
+            std::fs::write(dir.join("IMG_0001.jpg"), contents).unwrap();
+        }
+        let staging = tempfile::tempdir().unwrap();
+        let queued = std::cell::RefCell::new(Vec::new());
+        let ready = |path: PathBuf| {
+            let bytes = std::fs::read(&path).unwrap();
+            queued.borrow_mut().push((path, bytes));
+            Ok(())
+        };
+        assert_eq!(
+            copy_dcim(
+                camera.path(),
+                staging.path(),
+                &["jpg".into()],
+                None,
+                Some(&ready)
+            )
+            .unwrap(),
+            (2, 0)
+        );
+        let queued = queued.into_inner();
+        assert_eq!(queued.len(), 2);
+        assert_ne!(queued[0].0, queued[1].0);
+        for (path, bytes) in queued {
+            assert_eq!(std::fs::read(path).unwrap(), bytes);
+        }
+    }
+
+    #[test]
     fn cloud_lifecycle_tests_camera_import_keeps_the_place_filter() {
         let camera = tempfile::tempdir().unwrap();
         let dcim = camera.path().join("DCIM/100CAMERA");
@@ -4933,10 +4981,26 @@ mod tests {
             west: -74.1,
             east: -73.9,
         };
+        let ready_paths = std::cell::RefCell::new(Vec::new());
+        let ready = |path: PathBuf| {
+            // A ready notification means all bytes are available, and only
+            // photos accepted by the map filter can enter the upload queue.
+            assert_eq!(std::fs::read(&path).unwrap(), located);
+            ready_paths.borrow_mut().push(path);
+            Ok(())
+        };
         assert_eq!(
-            copy_dcim(camera.path(), staging.path(), &extensions, Some(area)).unwrap(),
+            copy_dcim(
+                camera.path(),
+                staging.path(),
+                &extensions,
+                Some(area),
+                Some(&ready)
+            )
+            .unwrap(),
             (1, 1)
         );
+        assert_eq!(*ready_paths.borrow(), vec![staging.path().join("nyc.jpg")]);
         assert_eq!(
             std::fs::read(staging.path().join("nyc.jpg")).unwrap(),
             located
@@ -4947,11 +5011,11 @@ mod tests {
 
         let local = tempfile::tempdir().unwrap();
         assert_eq!(
-            copy_dcim(camera.path(), local.path(), &extensions, None).unwrap(),
+            copy_dcim(camera.path(), local.path(), &extensions, None, None).unwrap(),
             (2, 0)
         );
         assert_eq!(
-            copy_dcim(camera.path(), local.path(), &extensions, None).unwrap(),
+            copy_dcim(camera.path(), local.path(), &extensions, None, None).unwrap(),
             (0, 0)
         );
     }
