@@ -8,6 +8,7 @@
 use crate::geom::IntRect;
 use crate::tile::{MaskTileMap, TileMap};
 use crate::BlendMode;
+#[cfg(not(schist_library))]
 use std::sync::atomic::{AtomicU64, Ordering};
 
 #[derive(
@@ -15,11 +16,21 @@ use std::sync::atomic::{AtomicU64, Ordering};
 )]
 pub struct LayerId(pub u64);
 
+#[cfg(not(schist_library))]
 static NEXT_LAYER_ID: AtomicU64 = AtomicU64::new(1);
 
 impl LayerId {
     pub fn next() -> LayerId {
-        LayerId(NEXT_LAYER_ID.fetch_add(1, Ordering::Relaxed))
+        LayerId({
+            #[cfg(not(schist_library))]
+            {
+                NEXT_LAYER_ID.fetch_add(1, Ordering::Relaxed)
+            }
+            #[cfg(schist_library)]
+            {
+                crate::fresh_id()
+            }
+        })
     }
 }
 

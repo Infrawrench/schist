@@ -24,7 +24,9 @@ use schist_core::{
     TILE_SIZE,
 };
 use schist_pixel_ops::blend_pixel;
-use std::sync::{Arc, OnceLock, RwLock};
+use std::sync::Arc;
+#[cfg(not(schist_library))]
+use std::sync::{OnceLock, RwLock};
 
 type TileF32 = Vec<f32>; // TILE_PIXELS * 4, straight-alpha RGBA
 
@@ -146,18 +148,22 @@ impl Compositor for CpuCompositor {
 
 /// The active rendering backend. CPU until [`set_backend`] installs
 /// something else.
+#[cfg(not(schist_library))]
 static BACKEND: OnceLock<RwLock<Arc<dyn Compositor>>> = OnceLock::new();
 
+#[cfg(not(schist_library))]
 fn backend_cell() -> &'static RwLock<Arc<dyn Compositor>> {
     BACKEND.get_or_init(|| RwLock::new(Arc::new(CpuCompositor)))
 }
 
 /// Install the backend the `composite_*` dispatchers use.
+#[cfg(not(schist_library))]
 pub fn set_backend(backend: Arc<dyn Compositor>) {
     *backend_cell().write().unwrap() = backend;
 }
 
 /// The currently active backend.
+#[cfg(not(schist_library))]
 pub fn backend() -> Arc<dyn Compositor> {
     backend_cell().read().unwrap().clone()
 }
@@ -1379,3 +1385,8 @@ pub use native::{
     composite_native_region, composite_native_tile, composite_native_tile_cpu,
     composite_region_tiles,
 };
+
+#[cfg(schist_library)]
+pub fn backend() -> Arc<dyn Compositor> {
+    Arc::new(CpuCompositor)
+}

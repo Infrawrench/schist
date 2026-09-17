@@ -63,7 +63,7 @@ context_filter!(
             3.0,
             ""
         ),
-        choice("light", t("filter.param.light"), choices(LIGHTS), 3)
+        choice("light", t("filter.param.light"), choices!(LIGHTS), 3)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Carved shallowly into stone: the picture as a height field, lit
@@ -246,7 +246,7 @@ context_filter!(
         choice(
             "texture",
             t("filter.param.texture"),
-            choices(crate::artistic::SURFACES),
+            choices!(crate::artistic::SURFACES),
             0
         ),
         param(
@@ -317,7 +317,7 @@ context_filter!(
         choice(
             "direction",
             t("filter.param.stroke_direction"),
-            choices(crate::brush::DIRECTIONS),
+            choices!(crate::brush::DIRECTIONS),
             0
         )
     ],
@@ -365,7 +365,7 @@ context_filter!(
         choice(
             "pattern",
             t("filter.halftone_pattern.param.pattern"),
-            choices(HALFTONE_PATTERNS),
+            choices!(HALFTONE_PATTERNS),
             1
         )
     ],
@@ -512,7 +512,7 @@ context_filter!(
             2.0,
             ""
         ),
-        choice("light", t("filter.param.light"), choices(LIGHTS), 5)
+        choice("light", t("filter.param.light"), choices!(LIGHTS), 5)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Poured and set: the dark half of the picture rises out of the

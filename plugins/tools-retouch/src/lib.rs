@@ -140,7 +140,7 @@ impl ToolPlugin for PatchTool {
         vec![ToolOption::choice(
             "patch-mode",
             t("tool.patch.option.patch"),
-            choices(&["tool.patch.choice.source", "tool.patch.choice.destination"]),
+            choices!(&["tool.patch.choice.source", "tool.patch.choice.destination"]),
             if self.source_mode { 0 } else { 1 },
         )]
     }
@@ -321,7 +321,7 @@ impl ToolPlugin for ContentAwareMoveTool {
         vec![ToolOption::choice(
             "cam-mode",
             t("common.mode"),
-            choices(&[
+            choices!(&[
                 "tool.content_aware_move.choice.move",
                 "tool.content_aware_move.choice.extend",
             ]),

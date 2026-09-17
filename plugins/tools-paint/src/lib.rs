@@ -1103,13 +1103,13 @@ impl ToolPlugin for GradientTool {
             ToolOption::choice(
                 "gradient-fill",
                 t("tool.gradient.option.gradient"),
-                choices(GRADIENT_FILLS),
+                choices!(GRADIENT_FILLS),
                 usize::from(self.to_transparent),
             ),
             ToolOption::choice(
                 "gradient-style",
                 t("common.style"),
-                choices(GRADIENT_STYLES),
+                choices!(GRADIENT_STYLES),
                 self.style.index(),
             ),
             ToolOption::toggle(

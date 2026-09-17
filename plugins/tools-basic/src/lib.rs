@@ -130,7 +130,7 @@ impl ToolPlugin for MoveTool {
             opts.push(ToolOption::choice(
                 "move-auto-target",
                 "",
-                choices(AUTO_TARGETS),
+                choices!(AUTO_TARGETS),
                 usize::from(self.auto_select_group),
             ));
         }
@@ -333,13 +333,13 @@ impl ToolPlugin for EyedropperTool {
             ToolOption::choice(
                 "dropper-size",
                 t("tool.eyedropper.option.sample_size"),
-                choices(SAMPLE_SIZES),
+                choices!(SAMPLE_SIZES),
                 self.sample,
             ),
             ToolOption::choice(
                 "dropper-scope",
                 t("tool.eyedropper.option.sample"),
-                choices(SAMPLE_SCOPES),
+                choices!(SAMPLE_SCOPES),
                 usize::from(self.current_layer_only),
             ),
         ]

@@ -43,7 +43,9 @@ mod depth;
 // tokenizer tables it carries would be dead weight in the wasm module.
 #[cfg(not(target_arch = "wasm32"))]
 pub mod embed;
+mod face_rect;
 mod faces;
+pub use face_rect::{FaceRect, SAME_FACE_IOU};
 mod framed;
 mod inpaint;
 mod segment;
@@ -64,19 +66,19 @@ pub use tile::{run_scaled, run_tiled};
 /// in-memory store on demand, like any other download. The catalogue's
 /// `bytes` fields are therefore literals rather than `.len()` of these;
 /// `built_in_sizes_match_the_catalogue` (below) keeps them honest.
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const DETAIL_ONNX: &[u8] = include_bytes!("../models/detail.onnx");
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const DEJPEG_ONNX: &[u8] = include_bytes!("../models/dejpeg.onnx");
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const COLORIZE_ONNX: &[u8] = include_bytes!("../models/colorize.onnx");
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const PORTRAIT_ONNX: &[u8] = include_bytes!("../models/portrait.onnx");
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const INPAINT_ONNX: &[u8] = include_bytes!("../models/inpaint.onnx");
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const WAIFU2X_ART_ONNX: &[u8] = include_bytes!("../models/waifu2x-art.onnx");
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const WAIFU2X_PHOTO_ONNX: &[u8] = include_bytes!("../models/waifu2x-photo.onnx");
 
 /// How a model wants its pixels.
@@ -542,6 +544,7 @@ pub fn model_dir() -> PathBuf {
 }
 
 /// Whether a model is ready to run.
+#[cfg(not(schist_library))]
 pub fn installed(id: &str) -> bool {
     #[cfg(target_arch = "wasm32")]
     {
@@ -881,6 +884,7 @@ fn cache() -> &'static Cache {
 /// Returns `None` when the model is not installed or will not load, which
 /// is the signal for a filter to use its classical path instead. The
 /// failure is cached too, so a broken file is not re-parsed on every dab.
+#[cfg(not(schist_library))]
 pub fn get(id: &str) -> Option<Arc<Model>> {
     if let Some(hit) = cache().read().ok()?.get(id) {
         return hit.clone();
@@ -907,7 +911,7 @@ pub fn release(id: &str) {
     }
 }
 
-#[cfg(target_arch = "wasm32")]
+#[cfg(all(target_arch = "wasm32", not(schist_library)))]
 fn load(spec: &'static ModelSpec) -> Result<Model> {
     let store = match web_store().read() {
         Ok(store) => store,
@@ -919,7 +923,7 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
     Model::from_bytes(spec, bytes)
 }
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
 fn load(spec: &'static ModelSpec) -> Result<Model> {
     if spec.built_in() {
         let bytes = match spec.id {
@@ -1068,4 +1072,16 @@ mod catalogue_tests {
             assert_eq!(spec(id).unwrap().bytes, bytes.len(), "{id}");
         }
     }
+}
+
+#[cfg(schist_library)]
+pub fn get(id: &str) -> Option<Arc<Model>> {
+    load(spec(id)?)
+        .map(Arc::new)
+        .map_err(|e| log::warn!("neural model {id}: {e:#}"))
+        .ok()
+}
+#[cfg(schist_library)]
+pub fn installed(id: &str) -> bool {
+    spec(id).is_some_and(|s| s.built_in() || model_dir().join(s.file).is_file())
 }

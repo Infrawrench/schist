@@ -55,7 +55,7 @@ simple_filter!(
         choice(
             "blur",
             t("filter.param.blur_detail"),
-            choices(BLUR_DETAIL),
+            choices!(BLUR_DETAIL),
             1
         ),
         param("contrast", t("common.contrast"), 0.0, 100.0, 30.0, ""),
@@ -86,7 +86,7 @@ simple_filter!(
         choice(
             "blur",
             t("filter.param.blur_detail"),
-            choices(BLUR_DETAIL),
+            choices!(BLUR_DETAIL),
             1
         ),
         param("contrast", t("common.contrast"), 0.0, 100.0, 30.0, ""),

@@ -348,7 +348,7 @@ simple_filter!(
         choice(
             "direction",
             t("filter.param.stroke_direction"),
-            choices(DIRECTIONS),
+            choices!(DIRECTIONS),
             0
         )
     ],

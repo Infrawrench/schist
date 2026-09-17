@@ -141,7 +141,7 @@ simple_filter!(
         choice(
             "kind",
             t("filter.grain.param.kind"),
-            choices(GRAIN_TYPES),
+            choices!(GRAIN_TYPES),
             0
         )
     ],
@@ -375,7 +375,7 @@ simple_filter!(
         choice(
             "texture",
             t("filter.param.texture"),
-            choices(crate::artistic::SURFACES),
+            choices!(crate::artistic::SURFACES),
             0
         ),
         param(
@@ -390,7 +390,7 @@ simple_filter!(
         choice(
             "light",
             t("filter.param.light"),
-            choices(crate::sketch::LIGHTS),
+            choices!(crate::sketch::LIGHTS),
             7
         ),
         param("invert", t("common.invert"), 0.0, 1.0, 0.0, "")

@@ -29,6 +29,7 @@
 
 use std::ffi::{c_char, c_int, c_void, CStr};
 use std::path::PathBuf;
+#[cfg(not(schist_library))]
 use std::sync::Mutex;
 
 use anyhow::Context as _;
@@ -81,6 +82,10 @@ macro_rules! libheif_fns {
             /// Optional: added in libheif 1.13. Older versions register
             /// their built-in decoders from static initialisers.
             init: Option<unsafe extern "C" fn(*const c_void) -> HeifError>,
+            #[cfg(schist_library)]
+            deinit: Option<unsafe extern "C" fn()>,
+            #[cfg(schist_library)]
+            initialized: bool,
             /// Optional: added in libheif 1.12.
             is_premultiplied_alpha: Option<unsafe extern "C" fn(*const c_void) -> c_int>,
             $( $field: unsafe extern "C" fn($($arg),*) $(-> $ret)?, )*
@@ -91,6 +96,10 @@ macro_rules! libheif_fns {
                 unsafe {
                     Ok(Self {
                         init: lib.get(b"heif_init\0").map(|s| *s).ok(),
+                        #[cfg(schist_library)]
+                        deinit: lib.get(b"heif_deinit\0").map(|s| *s).ok(),
+                        #[cfg(schist_library)]
+                        initialized: false,
                         is_premultiplied_alpha: lib
                             .get(b"heif_image_handle_is_premultiplied_alpha\0")
                             .map(|s| *s)
@@ -182,6 +191,7 @@ impl std::error::Error for Unavailable {}
 /// A failed load is deliberately not cached, and `install` clears this,
 /// so a download can take effect without a restart.
 #[cfg(not(target_os = "ios"))]
+#[cfg(not(schist_library))]
 static LOADED: Mutex<Option<(&'static LibHeif, bool)>> = Mutex::new(None);
 
 /// True when an `import` error means no libheif could be loaded.
@@ -218,7 +228,7 @@ pub fn download_would_help(err: &anyhow::Error) -> bool {
     }
     // The managed build is loaded and still could not do it: there is
     // nothing left to fetch.
-    #[cfg(not(target_os = "ios"))]
+    #[cfg(all(not(target_os = "ios"), not(schist_library)))]
     if LOADED.lock().unwrap().is_some_and(|(_, managed)| managed) {
         return false;
     }
@@ -411,7 +421,7 @@ pub fn install(file: &RemoteFile, bytes: &[u8]) -> anyhow::Result<PathBuf> {
     // pick up the managed one instead. The old mapping stays leaked —
     // unloading a library other threads may hold references into is
     // never safe.
-    #[cfg(not(target_os = "ios"))]
+    #[cfg(all(not(target_os = "ios"), not(schist_library)))]
     {
         *LOADED.lock().unwrap() = None;
     }
@@ -419,6 +429,7 @@ pub fn install(file: &RemoteFile, bytes: &[u8]) -> anyhow::Result<PathBuf> {
 }
 
 #[cfg(not(target_os = "ios"))]
+#[cfg(not(schist_library))]
 fn libheif() -> anyhow::Result<&'static LibHeif> {
     let mut loaded = LOADED.lock().unwrap();
     if let Some((lib, _)) = *loaded {
@@ -459,6 +470,52 @@ fn libheif() -> anyhow::Result<&'static LibHeif> {
                 }
                 let lib = &*Box::leak(Box::new(lib));
                 *loaded = Some((lib, *from_managed));
+                return Ok(lib);
+            }
+            Err(err) => errors.push(format!("{}: {err}", name.to_string_lossy())),
+        }
+    }
+    Err(Unavailable::NoLibrary {
+        details: errors.join("; "),
+    }
+    .into())
+}
+
+#[cfg(all(schist_library, not(target_os = "ios")))]
+fn libheif() -> anyhow::Result<LibHeif> {
+    let mut candidates: Vec<(std::ffi::OsString, bool)> = Vec::new();
+    if let Some(managed) = managed_library() {
+        candidates.push((
+            managed_dir().join(managed.library.name).into_os_string(),
+            true,
+        ));
+    }
+    candidates.extend(LIBRARY_CANDIDATES.iter().map(|name| (name.into(), false)));
+
+    // Every candidate's failure, not just the last: the one that
+    // matters is usually the managed library's, and it is first in the
+    // list. Reporting only the last leaves a downloaded library that
+    // dlopen refused looking like it was never there.
+    let mut errors = Vec::new();
+    for (name, _from_managed) in &candidates {
+        let lib = match unsafe { libloading::Library::new(name) } {
+            Ok(lib) => lib,
+            Err(err) => {
+                errors.push(format!("{}: {err}", name.to_string_lossy()));
+                continue;
+            }
+        };
+        match LibHeif::from_library(lib) {
+            Ok(mut lib) => {
+                if let Some(init) = lib.init {
+                    // Loads the decoder plugins on distros that ship
+                    // them as separate shared objects.
+                    check(
+                        unsafe { init(std::ptr::null()) },
+                        t("codec.heif.msg.initialising"),
+                    )?;
+                    lib.initialized = true;
+                }
                 return Ok(lib);
             }
             Err(err) => errors.push(format!("{}: {err}", name.to_string_lossy())),
@@ -540,7 +597,14 @@ impl CodecPlugin for HeifCodec {
     #[cfg(not(target_os = "ios"))]
     fn import(&self, bytes: &[u8]) -> anyhow::Result<Document> {
         let lib = libheif()?;
-        import(lib, bytes)
+        #[cfg(not(schist_library))]
+        {
+            import(lib, bytes)
+        }
+        #[cfg(schist_library)]
+        {
+            import(&lib, bytes)
+        }
     }
     #[cfg(target_os = "ios")]
     fn import(&self, bytes: &[u8]) -> anyhow::Result<Document> {
@@ -694,5 +758,16 @@ fn import(lib: &LibHeif, bytes: &[u8]) -> anyhow::Result<Document> {
 
         crate::flat_document(t("codec.heif.name"), w, h, &rgba, icc)
             .context(t("codec.msg.assembling_document"))
+    }
+}
+
+#[cfg(all(schist_library, not(target_os = "ios")))]
+impl Drop for LibHeif {
+    fn drop(&mut self) {
+        if self.initialized {
+            if let Some(deinit) = self.deinit {
+                unsafe { deinit() };
+            }
+        }
     }
 }

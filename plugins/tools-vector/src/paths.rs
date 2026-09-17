@@ -659,7 +659,7 @@ impl ToolPlugin for CustomShapeTool {
         vec![ToolOption::choice(
             "custom-shape",
             t("common.shape"),
-            choices(PRESET_NAMES),
+            choices!(PRESET_NAMES),
             self.shape,
         )]
     }

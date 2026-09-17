@@ -558,7 +558,7 @@ simple_filter!(
             4.0,
             ""
         ),
-        choice("texture", t("filter.param.texture"), choices(SURFACES), 0),
+        choice("texture", t("filter.param.texture"), choices!(SURFACES), 0),
         param(
             "scaling",
             t("filter.param.scaling"),
@@ -715,7 +715,7 @@ simple_filter!(
             16.0,
             ""
         ),
-        choice("texture", t("filter.param.texture"), choices(SURFACES), 0),
+        choice("texture", t("filter.param.texture"), choices!(SURFACES), 0),
         param(
             "scaling",
             t("filter.param.scaling"),

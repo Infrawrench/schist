@@ -15,4 +15,6 @@ pub mod dispatch;
 pub mod session;
 
 pub use catalog::{Action, Catalog, Scope};
-pub use session::{Session, SessionCtx};
+#[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
+pub use session::Session;
+pub use session::SessionCtx;

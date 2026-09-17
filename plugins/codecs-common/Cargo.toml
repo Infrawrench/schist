@@ -39,3 +39,6 @@ foreign-types = "0.5"
 [dev-dependencies]
 crc32fast.workspace = true
 moxcms = "0.8"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }

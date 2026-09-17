@@ -644,7 +644,7 @@ impl FilterPlugin for StyleTransfer {
     }
     fn params(&self) -> Vec<FilterParam> {
         vec![
-            choice("style", t("common.style"), choices(STYLES), 0),
+            choice("style", t("common.style"), choices!(STYLES), 0),
             param("strength", t("common.strength"), 0.0, 100.0, 100.0, ""),
         ]
     }

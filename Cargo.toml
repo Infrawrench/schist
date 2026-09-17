@@ -18,7 +18,7 @@ members = [
     "crates/app-platform",
     "crates/core",
     "crates/document",
-    "crates/people-worker",
+    "crates/library",
     "crates/layer-fx",
     "crates/neural",
     "crates/psd-descriptor",

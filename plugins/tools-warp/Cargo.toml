@@ -11,3 +11,6 @@ schist-core.workspace = true
 schist-color.workspace = true
 schist-fx.workspace = true
 schist-plugin-api.workspace = true
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }

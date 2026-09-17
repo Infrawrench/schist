@@ -140,7 +140,7 @@ simple_filter!(
             100.0,
             "%"
         ),
-        choice("type", t("common.type"), choices(WAVE_TYPES), 0),
+        choice("type", t("common.type"), choices!(WAVE_TYPES), 0),
         param("seed", t("filter.param.randomness"), 0.0, 999.0, 1.0, "")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
@@ -238,7 +238,7 @@ simple_filter!(
             5.0,
             ""
         ),
-        choice("style", t("common.style"), choices(ZIGZAG_STYLES), 2)
+        choice("style", t("common.style"), choices!(ZIGZAG_STYLES), 2)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let amount = v.get("amount") / 100.0;
@@ -285,7 +285,7 @@ simple_filter!(
     t("filter.category.distort"),
     [
         param("amount", t("common.amount"), -100.0, 100.0, 50.0, "%"),
-        choice("mode", t("common.mode"), choices(AXIS_MODES), 0)
+        choice("mode", t("common.mode"), choices!(AXIS_MODES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let amount = v.get("amount") / 100.0;
@@ -320,7 +320,7 @@ simple_filter!(
     t("filter.category.distort"),
     [
         param("amount", t("common.amount"), -100.0, 100.0, 50.0, "%"),
-        choice("mode", t("common.mode"), choices(AXIS_MODES), 0)
+        choice("mode", t("common.mode"), choices!(AXIS_MODES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let amount = v.get("amount") / 100.0;
@@ -360,7 +360,7 @@ simple_filter!(
     [choice(
         "to_polar",
         t("filter.polar.param.to_polar"),
-        choices(POLAR_DIRECTIONS),
+        choices!(POLAR_DIRECTIONS),
         1
     )],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
@@ -410,13 +410,13 @@ simple_filter!(
         choice(
             "curve",
             t("filter.shear.param.curve"),
-            choices(SHEAR_CURVES),
+            choices!(SHEAR_CURVES),
             0
         ),
         choice(
             "undefined",
             t("filter.param.undefined_areas"),
-            choices(EDGE_UNDEFINED),
+            choices!(EDGE_UNDEFINED),
             0
         )
     ],
@@ -489,11 +489,11 @@ impl FilterPlugin for Displace {
             ),
             param("detail", t("filter.param.detail"), 1.0, 64.0, 16.0, " px"),
             param("seed", t("filter.param.randomness"), 0.0, 999.0, 1.0, ""),
-            choice("fit", t("filter.displace.param.fit"), choices(MAP_FIT), 0),
+            choice("fit", t("filter.displace.param.fit"), choices!(MAP_FIT), 0),
             choice(
                 "undefined",
                 t("filter.param.undefined_areas"),
-                choices(EDGE_UNDEFINED),
+                choices!(EDGE_UNDEFINED),
                 0,
             ),
         ]
@@ -643,7 +643,7 @@ simple_filter!(
         choice(
             "texture",
             t("filter.param.texture"),
-            choices(GLASS_TEXTURES),
+            choices!(GLASS_TEXTURES),
             0
         ),
         param(

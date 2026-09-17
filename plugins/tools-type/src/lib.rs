@@ -699,7 +699,7 @@ impl ToolPlugin for TypeTool {
             ToolOption::choice(
                 "type-style",
                 t("common.style"),
-                choices(STYLES),
+                choices!(STYLES),
                 usize::from(self.spec.bold) | (usize::from(self.spec.italic) << 1),
             ),
             ToolOption::slider(
@@ -713,7 +713,7 @@ impl ToolPlugin for TypeTool {
             ToolOption::choice(
                 "type-align",
                 t("tool.type.option.align"),
-                choices(ALIGNMENTS),
+                choices!(ALIGNMENTS),
                 match self.spec.align {
                     Align::Left => 0,
                     Align::Center => 1,

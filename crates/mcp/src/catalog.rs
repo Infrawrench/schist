@@ -86,7 +86,10 @@ impl Catalog {
     /// catalog needs has been copied into owned JSON, and a session
     /// builds its own anyway (tools carry per-gesture state).
     pub fn build() -> Catalog {
+        #[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
         let (registry, _wasm, _photoshop) = session::build_registry();
+        #[cfg(not(all(feature = "desktop", not(target_arch = "wasm32"))))]
+        let registry = session::builtin_registry();
         Catalog::from_registry(&registry)
     }
 
@@ -308,7 +311,7 @@ fn tool_option_prop(option: &ToolOption) -> Value {
     } else {
         option.label
     };
-    match option.kind {
+    match &option.kind {
         OptionKind::Slider { min, max, suffix } => json!({
             "type": "number",
             "minimum": min,
@@ -328,7 +331,7 @@ fn tool_option_prop(option: &ToolOption) -> Value {
             "enum": names,
             "description": format!(
                 "{label}, currently {:?}",
-                names.get(option.value.index()).copied().unwrap_or_default(),
+                names.get(option.value.index()).map(String::as_str).unwrap_or_default(),
             ),
         }),
     }
@@ -825,7 +828,10 @@ mod tests {
     /// session id and nothing manages sessions.
     #[test]
     fn the_active_scope_has_no_sessions_anywhere() {
+        #[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
         let (registry, _wasm, _photoshop) = session::build_registry();
+        #[cfg(not(all(feature = "desktop", not(target_arch = "wasm32"))))]
+        let registry = session::builtin_registry();
         let catalog = Catalog::from_registry_scoped(&registry, Scope::Active);
         assert!(catalog.defs().len() > 100);
         for name in ["create_session", "list_sessions", "close_session"] {

@@ -225,7 +225,7 @@ simple_filter!(
         choice(
             "lens",
             t("filter.lens_flare.param.lens"),
-            choices(LENS_TYPES),
+            choices!(LENS_TYPES),
             0
         )
     ],
@@ -323,7 +323,7 @@ simple_filter!(
         choice(
             "type",
             t("filter.lighting_effects.param.type"),
-            choices(LIGHT_TYPES),
+            choices!(LIGHT_TYPES),
             0
         ),
         param(
@@ -504,7 +504,7 @@ simple_filter!(
     t("filter.picture_frame.name"),
     t("filter.category.render"),
     [
-        choice("style", t("common.style"), choices(FRAME_STYLES), 1),
+        choice("style", t("common.style"), choices!(FRAME_STYLES), 1),
         param(
             "width",
             t("filter.picture_frame.param.width"),

@@ -692,6 +692,7 @@ impl Trie {
     }
 }
 
+#[cfg(not(schist_library))]
 fn trie() -> &'static Trie {
     static TRIE: std::sync::OnceLock<Trie> = std::sync::OnceLock::new();
     TRIE.get_or_init(Trie::build)
@@ -709,6 +710,7 @@ fn trie() -> &'static Trie {
 ///
 /// so 0 stays 0 and 255 becomes 1023. The lowpass band is never
 /// companded.
+#[cfg(not(schist_library))]
 fn expand_curve() -> &'static [i32; 256] {
     static CURVE: std::sync::OnceLock<[i32; 256]> = std::sync::OnceLock::new();
     CURVE.get_or_init(|| {
@@ -727,6 +729,7 @@ fn expand_curve() -> &'static [i32; 256] {
 /// The encoder's forward curve is a base-113 logarithm over the 16-bit
 /// sensor range, so the decoder's is the matching power curve. Values
 /// are then shifted down to the sensor's real bit depth.
+#[cfg(not(schist_library))]
 fn log_curve() -> &'static [u16; 4096] {
     static CURVE: std::sync::OnceLock<[u16; 4096]> = std::sync::OnceLock::new();
     CURVE.get_or_init(|| {
@@ -1540,5 +1543,35 @@ mod tests {
                 let _ = decode(&broken, w, h, 2);
             }
         }
+    }
+}
+
+#[cfg(schist_library)]
+fn trie() -> Trie {
+    Trie::build()
+}
+
+#[cfg(schist_library)]
+fn expand_curve() -> [i32; 256] {
+    {
+        let mut curve = [0i32; 256];
+        for (m, slot) in curve.iter_mut().enumerate() {
+            let m = m as i64;
+            *slot = (m + (768 * m * m * m) / (255 * 255 * 255)) as i32;
+        }
+        curve
+    }
+}
+
+#[cfg(schist_library)]
+fn log_curve() -> [u16; 4096] {
+    {
+        let mut curve = [0u16; 4096];
+        for (i, slot) in curve.iter_mut().enumerate() {
+            let t = (i as f64) / 4095.0;
+            let linear = 65535.0 * (113f64.powf(t) - 1.0) / 112.0;
+            *slot = linear.floor().clamp(0.0, 65535.0) as u16;
+        }
+        curve
     }
 }

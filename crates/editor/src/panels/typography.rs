@@ -56,12 +56,12 @@ fn choice(
         popup,
         is_open: ws.open_popup == Some(popup),
         current,
-        label: labels.get(current).copied().unwrap_or("").into(),
+        label: labels.get(current).cloned().unwrap_or_default().into(),
         width,
         options: labels
             .iter()
             .enumerate()
-            .map(|(i, label)| ((*label).into(), i))
+            .map(|(i, label)| (label.clone().into(), i))
             .collect(),
     };
     let select = move |ws: &mut Workspace, value, cx: &mut Context<Workspace>| {

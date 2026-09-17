@@ -266,7 +266,7 @@ impl ToolPlugin for VanishingPointTool {
             ToolOption::choice(
                 "vp-phase",
                 t("common.mode"),
-                choices(&[
+                choices!(&[
                     "tool.vanishing_point.choice.edit_plane",
                     "tool.vanishing_point.choice.clone",
                 ]),

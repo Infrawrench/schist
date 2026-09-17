@@ -336,7 +336,7 @@ simple_filter!(
     t("filter.mezzotint.name"),
     t("filter.category.pixelate"),
     [
-        choice("type", t("common.type"), choices(MEZZOTINT_TYPES), 1),
+        choice("type", t("common.type"), choices!(MEZZOTINT_TYPES), 1),
         param("grain", t("filter.param.grain"), 1.0, 16.0, 2.0, " px")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {

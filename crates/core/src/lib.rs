@@ -47,3 +47,12 @@ pub use schist_color as color;
 
 pub mod native;
 pub use native::{NativeSamples, NativeTile};
+
+/// Stateless identifiers for independently embedded libraries. Keep the integer
+/// exactly representable by JavaScript (53 bits), with zero reserved.
+#[cfg(schist_library)]
+pub fn fresh_id() -> u64 {
+    let mut bytes = [0; 8];
+    getrandom::fill(&mut bytes).expect("operating system entropy unavailable");
+    (u64::from_le_bytes(bytes) & ((1 << 53) - 1)).max(1)
+}

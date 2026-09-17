@@ -285,19 +285,19 @@ impl ToolOption {
     pub fn choice(
         key: &'static str,
         label: &'static str,
-        options: &'static [&'static str],
+        options: impl IntoIterator<Item = impl AsRef<str>>,
         value: usize,
     ) -> ToolOption {
         ToolOption {
             key,
             label,
-            kind: OptionKind::Choice(options),
+            kind: OptionKind::Choice(options.into_iter().map(|s| s.as_ref().to_owned()).collect()),
             value: OptionValue::Choice(value),
         }
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum OptionKind {
     /// Continuous value shown as a drag track.
     Slider {
@@ -309,7 +309,7 @@ pub enum OptionKind {
     /// On/off checkbox.
     Toggle,
     /// One of a fixed list, shown as a dropdown.
-    Choice(&'static [&'static str]),
+    Choice(Vec<String>),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]

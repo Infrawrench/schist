@@ -62,6 +62,10 @@ Schist also runs in the browser: `make web` assembles a static
 deployment (WebGPU, chunked wasm, a loading page) into `dist/web/` —
 see [docs/web.md](docs/web.md) for what's included and what isn't.
 
+`make library` builds the headless editor and face detection/recognition as a
+native shared library with a C API and as WebAssembly for browsers and Node.
+Each instance owns its state; see [docs/library.md](docs/library.md) for the API.
+
 Runtime feature flags use `feature_enabled("flag-name") -> bool`, with
 central defaults and local overrides. See [docs/feature-flags.md](docs/feature-flags.md)
 for adding flags and configuring them on native and browser builds.

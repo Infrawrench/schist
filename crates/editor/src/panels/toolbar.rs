@@ -285,12 +285,12 @@ fn tool_option_control(
                 popup: Popup::Field(key),
                 is_open: ws.open_popup == Some(Popup::Field(key)),
                 current,
-                label: labels.get(current).copied().unwrap_or("").into(),
+                label: labels.get(current).cloned().unwrap_or_default().into(),
                 width,
                 options: labels
                     .iter()
                     .enumerate()
-                    .map(|(i, l)| (SharedString::from(*l), i))
+                    .map(|(i, l)| (SharedString::from(l.clone()), i))
                     .collect(),
             };
             let on_select = move |ws: &mut Workspace, i, cx: &mut Context<Workspace>| {
