@@ -2,11 +2,11 @@
 fn effect(pos: vec2<i32>) -> vec4<f32> {
     let center = vec2<f32>(f32(image.width), f32(image.height)) / 2.0;
     let delta = vec2<f32>(pos) + 0.5 - center;
-    let radius = length(center);
-    let d = length(delta);
+    let radius_squared = dot(center, center);
+    let distance_squared = dot(delta, delta);
     var offset = vec2<f32>(0.0);
-    if d < radius {
-        let falloff = 1.0 - d / radius;
+    if distance_squared < radius_squared {
+        let falloff = 1.0 - sqrt(distance_squared / radius_squared);
         let angle = args[0] * falloff * falloff;
         let s = precise_sin_cos(angle).x;
         let half_sine = precise_sin_cos(angle * 0.5).x;

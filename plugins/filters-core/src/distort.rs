@@ -22,17 +22,21 @@ simple_filter!(
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let angle = v.get("angle").to_radians();
         let (cx, cy) = (w as f32 / 2.0, h as f32 / 2.0);
-        let radius = cx.hypot(cy);
+        let radius_squared = cx * cx + cy * cy;
 
         warp_offset(px, w, h, |x, y| {
             let (dx, dy) = (x - cx, y - cy);
-            let d = dx.hypot(dy);
-            if d >= radius {
+            let distance_squared = dx * dx + dy * dy;
+            if distance_squared >= radius_squared {
                 return (0.0, 0.0);
             }
-            let t = angle * (1.0 - d / radius).powi(2);
-            let (s, c) = t.sin_cos();
-            (dx * (c - 1.0) - dy * s, dx * s + dy * (c - 1.0))
+            // Normalize before taking the square root: independently rounded
+            // lengths amplify coordinate errors at large rotation angles.
+            let t = angle * (1.0 - (distance_squared / radius_squared).sqrt()).powi(2);
+            let s = t.sin();
+            let half_sine = (t * 0.5).sin();
+            let c = -2.0 * half_sine * half_sine;
+            (dx * c - dy * s, dx * s + dy * c)
         });
     }
 );

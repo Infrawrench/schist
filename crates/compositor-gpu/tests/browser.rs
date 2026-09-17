@@ -20,6 +20,66 @@ async fn trigonometric_extrema_match_cpu() {
     trig::verify(&context).await;
 }
 
+#[wasm_bindgen_test(async)]
+async fn twirl_extreme_angles_match_cpu() {
+    let context = GpuContext::new_async().await.expect("WebGPU required");
+    let filter = schist_filters_core::distort::Twirl;
+    for (w, h) in [(1025, 3), (501, 500)] {
+        let mut state = 1234567u32;
+        let input: Vec<f32> = (0..w * h * 4)
+            .map(|i| {
+                state ^= state << 13;
+                state ^= state >> 17;
+                state ^= state << 5;
+                if i % 4 == 3 {
+                    [0.0, 1.0, 0.0000005, 0.000002, 0.25, 0.7][(state % 6) as usize]
+                } else {
+                    (state % 2048) as f32 / 1024.0 - 0.25
+                }
+            })
+            .collect();
+        for angle in [0.0, 0.01, 50.0, -137.0, -999.0, 999.0] {
+            let mut values = FilterValues::defaults(&filter.params());
+            values.set("angle", angle);
+            let mut expected = input.clone();
+            filter.apply(&mut expected, w, h, &values);
+            let schist_fx::FilterOperation::Shader {
+                shader,
+                params,
+                halo,
+                work_per_pixel,
+            } = filter.gpu_operation(&values).unwrap()
+            else {
+                panic!("Twirl shader expected")
+            };
+            let actual = context
+                .run_shader_async(&ShaderJob {
+                    shader,
+                    params: &params,
+                    halo,
+                    work_per_pixel,
+                    px: &input,
+                    width: w,
+                    height: h,
+                })
+                .await
+                .expect("Twirl must execute on WebGPU");
+            for (i, (&a, &b)) in actual.iter().zip(&expected).enumerate() {
+                let alpha = i / 4 * 4 + 3;
+                let difference = if i % 4 == 3 {
+                    (a - b).abs()
+                } else {
+                    (a * actual[alpha] - b * expected[alpha]).abs()
+                };
+                assert!(
+                    difference <= 5e-4,
+                    "Twirl {w}x{h}, angle {angle}, channel {i}: {difference}"
+                );
+            }
+        }
+    }
+}
+
 fn pixels(w: usize, h: usize) -> Vec<f32> {
     (0..w * h)
         .flat_map(|i| {
