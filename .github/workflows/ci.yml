@@ -7,6 +7,7 @@ on:
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -24,7 +25,13 @@ jobs:
           # clang and mold are required by the linker settings in .cargo/config.toml.
           sudo apt-get install -y libfontconfig-dev libwayland-dev libxkbcommon-x11-dev \
             libxcb1-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libvulkan-dev \
-            clang mold
+            clang mold mesa-vulkan-drivers
+          # The hosted VM has no physical GPU. Run the compute tests on
+          # Mesa's software Vulkan device, including tests that require an adapter.
+          lavapipe_icds=(/usr/share/vulkan/icd.d/lvp_icd*.json)
+          test -f "${lavapipe_icds[0]}"
+          echo "VK_DRIVER_FILES=${lavapipe_icds[0]}" >> "$GITHUB_ENV"
+          echo "WGPU_BACKEND=vulkan" >> "$GITHUB_ENV"
           # Links the Photoshop plug-in helpers, which are Windows binaries
           # even when Schist itself is not.
           sudo apt-get install -y gcc-mingw-w64

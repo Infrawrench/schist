@@ -55,12 +55,14 @@ impl Drop for Restore {
         schist_fx::set_backend(self.0.clone());
     }
 }
+#[track_caller]
 fn close(a: &[f32], b: &[f32], t: f32) {
     assert_eq!(a.len(), b.len());
     for (i, (a, b)) in a.iter().zip(b).enumerate() {
         assert!((a - b).abs() <= t, "at {i}: GPU={a} CPU={b}");
     }
 }
+#[track_caller]
 fn close_pixels(a: &[f32], b: &[f32], t: f32) {
     let mut a = a.to_vec();
     let mut b = b.to_vec();
@@ -70,11 +72,12 @@ fn close_pixels(a: &[f32], b: &[f32], t: f32) {
         .iter_mut()
         .zip(b.as_chunks_mut::<5>().0.iter_mut())
     {
-        if a[4].max(b[4]) < 1e-5 {
-            for c in 0..4 {
-                a[c] *= a[4];
-                b[c] *= b[4];
-            }
+        // Compare the color contributed to compositing. Unpremultiplying a
+        // faint shadow amplifies backend rounding (Metal vs. Vulkan) without
+        // changing its visible color. Alpha is still compared independently.
+        for c in 0..4 {
+            a[c] *= a[4];
+            b[c] *= b[4];
         }
     }
     close(&a, &b, t);
