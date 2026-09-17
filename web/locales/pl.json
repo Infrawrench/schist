@@ -3,7 +3,7 @@
   "starting": "Uruchamianie…",
   "webgpu": "Schist wymaga WebGPU, którego ta przeglądarka nie udostępnia. Obsługują je Chrome/Edge 113+, Firefox 141+ i Safari 26+.",
   "noticeTitle": "Schist działa najlepiej jako aplikacja komputerowa",
-  "noticeBody": "Korzystasz z wersji internetowej, która jest lżejsza: składa obraz na procesorze i pomija niektóre funkcje — wtyczki programu Photoshop i wtyczki innych firm, galerię obrazów, panel AI, import HEIC i pobieranie czcionek — a pliki zapisuje jako pobrane. Bezpłatna aplikacja komputerowa dla macOS, Windows i Linux zawiera je wszystkie.",
+  "noticeBody": "Korzystasz z wersji internetowej, która jest lżejsza: składa obraz za pomocą WebGPU i pomija niektóre funkcje — wtyczki programu Photoshop i wtyczki innych firm, galerię obrazów, panel AI, import HEIC i pobieranie czcionek — a pliki zapisuje jako pobrane. Bezpłatna aplikacja komputerowa dla macOS, Windows i Linux zawiera je wszystkie.",
   "noticeLink": "Pobierz aplikację komputerową.",
   "ok": "OK"
 }

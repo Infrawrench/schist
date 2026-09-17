@@ -572,6 +572,16 @@ impl Params {
         if matches!(self, Params::Unsupported) {
             return;
         }
+        if pixels.len().is_multiple_of(4)
+            && schist_fx::backend().compute_available(pixels.len().saturating_mul(32))
+        {
+            if let Some(program) = crate::gpu::buffer_program(self, pixels.len()) {
+                if let Some(out) = schist_fx::try_compute(pixels, &program) {
+                    pixels.copy_from_slice(&out);
+                    return;
+                }
+            }
+        }
         for px in pixels.as_chunks_mut::<4>().0 {
             let out = self.apply(Rgba::new(px[0], px[1], px[2], px[3]));
             px[0] = out.r;

@@ -142,7 +142,10 @@ pub(crate) fn white_balance_interaction(warmth: f32, tint: f32) -> [f32; 3] {
     out
 }
 
-pub(crate) fn white_balance(px: Rgba, warmth: f32, tint: f32) -> Rgba {
+pub(crate) fn white_balance_coefficients(
+    warmth: f32,
+    tint: f32,
+) -> ([[f32; 3]; 3], [[f32; 3]; 3], [f32; 3]) {
     // Each slider's measured grey gains, multiplied together.
     let (kw, kt) = (
         slider_log_gains(&WARMTH_LOG_GAINS, warmth / 100.0),
@@ -218,6 +221,14 @@ pub(crate) fn white_balance(px: Rgba, warmth: f32, tint: f32) -> Rgba {
         bg[1] / u[1] * c[1].exp(),
         bg[2] / u[2] * c[2].exp(),
     ];
+    (bm, inv3(&bm), d)
+}
+
+pub(crate) fn white_balance(px: Rgba, warmth: f32, tint: f32) -> Rgba {
+    let (bm, inverse, d) = white_balance_coefficients(warmth, tint);
+    let matvec = |m: &[[f32; 3]; 3], v: [f32; 3]| -> [f32; 3] {
+        std::array::from_fn(|i| m[i][0] * v[0] + m[i][1] * v[1] + m[i][2] * v[2])
+    };
     let dec = |v: f32| {
         let v = v.clamp(0.0, 1.0);
         if v <= 0.04045 {
@@ -237,7 +248,7 @@ pub(crate) fn white_balance(px: Rgba, warmth: f32, tint: f32) -> Rgba {
     let lin = [dec(px.r), dec(px.g), dec(px.b)];
     let lms = matvec(&bm, lin);
     let adapted = [lms[0] * d[0], lms[1] * d[1], lms[2] * d[2]];
-    let out = matvec(&inv3(&bm), adapted);
+    let out = matvec(&inverse, adapted);
     Rgba {
         r: enc(out[0]),
         g: enc(out[1]),

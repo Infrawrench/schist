@@ -3,7 +3,7 @@
   "starting": "E ntse e qala…",
   "webgpu": "Schist e hloka WebGPU, eo sebali sena se sa faneng ka eona. Chrome/Edge 113+, Firefox 141+ le Safari 26+ lia e fana.",
   "noticeTitle": "Schist e sebetsa hantle ka ho fetisisa e le app ea komporo",
-  "noticeBody": "U sebelisa mofuta oa webosaete, e leng mofuta o bobebe: o kopanya litšoantšo ka CPU 'me ha o kenye likarolo tse ling—li-plug-in tsa Photoshop le li-plug-in tsa mekhatlo e meng, pokello ea litšoantšo, phanele ea AI, ho kenya HEIC le ho jarolla lifonte—'me lifaele li bolokoa e le lintho tse jarollotsoeng. App ea mahala ea komporo bakeng sa macOS, Windows le Linux e na le likarolo tsena kaofela.",
+  "noticeBody": "U sebelisa mofuta oa webosaete, e leng mofuta o bobebe: o kopanya litšoantšo ka WebGPU 'me ha o kenye likarolo tse ling—li-plug-in tsa Photoshop le li-plug-in tsa mekhatlo e meng, pokello ea litšoantšo, phanele ea AI, ho kenya HEIC le ho jarolla lifonte—'me lifaele li bolokoa e le lintho tse jarollotsoeng. App ea mahala ea komporo bakeng sa macOS, Windows le Linux e na le likarolo tsena kaofela.",
   "noticeLink": "Fumana app ea komporo.",
   "ok": "Ho lokile"
 }

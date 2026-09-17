@@ -3,7 +3,7 @@
   "starting": "ʻOku kamata…",
   "webgpu": "ʻOku fiemaʻu ʻe Schist ʻa e WebGPU, ʻa ia ʻoku ʻikai ʻomi ʻe he polokalama vakai ko ʻení. ʻOku maʻu ia ʻi he Chrome/Edge 113+, Firefox 141+ mo e Safari 26+.",
   "noticeTitle": "ʻOku lele lelei taha ʻa Schist ko ha polokalama desktop",
-  "noticeBody": "ʻOkú ke ngāueʻaki ʻa e tatau uepi, ʻa ia ko ha tatau polokalama maʻamaʻa ange: ʻoku ne fakatahaʻi ʻa e ngaahi Layer ʻi he CPU pea ʻoku ʻikai kau ai ha ngaahi meʻa ʻe niʻihi—ngaahi plug-in Photoshop mo e ngaahi plug-in mei he faʻahi hono tolú, fakahāʻanga ʻīmisi, penolo AI, fakahū HEIC mo e download ʻo e ngaahi mataʻitohi—pea ʻoku seivi ʻa e ngaahi failé ko e ngaahi download. ʻOku maʻu kotoa ia ʻi he polokalama desktop taʻetotongi ki he macOS, Windows mo e Linux.",
+  "noticeBody": "ʻOkú ke ngāueʻaki ʻa e tatau uepi, ʻa ia ko ha tatau polokalama maʻamaʻa ange: ʻoku ne fakatahaʻi ʻa e ngaahi Layer ʻi he WebGPU pea ʻoku ʻikai kau ai ha ngaahi meʻa ʻe niʻihi—ngaahi plug-in Photoshop mo e ngaahi plug-in mei he faʻahi hono tolú, fakahāʻanga ʻīmisi, penolo AI, fakahū HEIC mo e download ʻo e ngaahi mataʻitohi—pea ʻoku seivi ʻa e ngaahi failé ko e ngaahi download. ʻOku maʻu kotoa ia ʻi he polokalama desktop taʻetotongi ki he macOS, Windows mo e Linux.",
   "noticeLink": "Maʻu ʻa e polokalama desktop.",
   "ok": "Sai"
 }

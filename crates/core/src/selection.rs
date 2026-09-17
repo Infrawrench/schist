@@ -289,9 +289,14 @@ impl Selection {
         }
         let r = (radius / (3f32).sqrt()).max(0.5);
         let mut b = vec![0f32; w * h];
-        for _ in 0..3 {
-            box_blur_h(&a, &mut b, w, h, r);
-            box_blur_v(&b, &mut a, w, h, r);
+        let program = schist_fx::plane::alpha_blur_program(w, h, &[r as usize; 3], true);
+        if let Some(result) = schist_fx::try_compute(&a, &program) {
+            a = result;
+        } else {
+            for _ in 0..3 {
+                box_blur_h(&a, &mut b, w, h, r);
+                box_blur_v(&b, &mut a, w, h, r);
+            }
         }
         let mut mask = MaskTileMap::new();
         for y in 0..h {
@@ -348,6 +353,27 @@ impl Selection {
             return out;
         }
         out.active = true;
+        if schist_fx::backend().compute_available(crate::resample::affine_work(&inv, dst, 1))
+            && (src.width() as usize).saturating_mul(src.height() as usize) <= 32 << 20
+            && (dst.width() as usize).saturating_mul(dst.height() as usize) <= 32 << 20
+        {
+            let program = crate::resample::affine_program(
+                &inv,
+                crate::resample::Filter::Bilinear,
+                src,
+                dst,
+                1,
+            );
+            let input: Vec<f32> = (src.top..src.bottom)
+                .flat_map(|y| (src.left..src.right).map(move |x| self.mask.value(x, y) as f32))
+                .collect();
+            if let Some(result) = schist_fx::try_compute(&input, &program) {
+                out.apply_shape(dst, SelectOp::Replace, |x, y| {
+                    result[((y - dst.top) * dst.width() + x - dst.left) as usize] as u8
+                });
+                return out;
+            }
+        }
         let sample = |fx: f32, fy: f32| -> u8 {
             let (x0, y0) = (fx.floor(), fy.floor());
             let (tx, ty) = (fx - x0, fy - y0);
@@ -406,6 +432,9 @@ impl Selection {
             return;
         }
         let rect = self.grown_bounds(radius, canvas);
+        if self.gpu_morph(radius, canvas, 2, rect) {
+            return;
+        }
         let before = self.clone();
         let r2 = radius * radius;
         let mut offsets = Vec::new();
@@ -450,6 +479,9 @@ impl Selection {
         } else {
             self.bounds()
         };
+        if self.gpu_morph(radius, canvas, u8::from(grow), rect) {
+            return;
+        }
         let r2 = radius * radius;
         let mut offsets = Vec::new();
         for dy in -radius..=radius {
@@ -484,6 +516,48 @@ impl Selection {
                 0
             }
         });
+    }
+
+    fn gpu_morph(&mut self, radius: i32, canvas: IntRect, mode: u8, rect: IntRect) -> bool {
+        let work = rect.inflated(radius);
+        if work.is_empty() {
+            return false;
+        }
+        let (w, h) = (work.width() as usize, work.height() as usize);
+        let count = w.saturating_mul(h);
+        let cost = count.saturating_mul((2 * radius as usize + 1).saturating_pow(2));
+        if !schist_fx::backend().compute_available(cost) || count > 32 << 20 {
+            return false;
+        }
+        let mut input = Vec::with_capacity(count);
+        for y in work.top..work.bottom {
+            for x in work.left..work.right {
+                input.push(self.coverage(x, y) as f32);
+            }
+        }
+        let program = schist_fx::ComputeProgram::single(
+            &schist_fx::plane::MASK_MORPH,
+            vec![
+                radius as f32,
+                mode as f32,
+                (canvas.left - work.left) as f32,
+                (canvas.top - work.top) as f32,
+                (canvas.right - work.left) as f32,
+                (canvas.bottom - work.top) as f32,
+            ],
+            count,
+            [w as u32, h as u32, 1],
+            cost,
+        );
+        let Some(out) = schist_fx::try_compute(&input, &program) else {
+            return false;
+        };
+        self.mask = MaskTileMap::new();
+        self.active = true;
+        self.apply_shape(rect, SelectOp::Replace, |x, y| {
+            out[(y - work.top) as usize * w + (x - work.left) as usize] as u8
+        });
+        true
     }
 
     /// Trace the selection's boundary as polylines in document space.

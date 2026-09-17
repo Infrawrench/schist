@@ -25,6 +25,7 @@ schist-core.workspace = true
 schist-color.workspace = true
 schist-plugin-api.workspace = true
 schist-compositor.workspace = true
+schist-compositor-gpu.workspace = true
 schist-fx.workspace = true
 schist-neural.workspace = true
 schist-codec-psd.workspace = true
@@ -54,7 +55,6 @@ ureq = { version = "3", default-features = false, features = [
     "rustls",
     "json",
 ] }
-schist-compositor-gpu.workspace = true
 schist-preview.workspace = true
 crc32fast.workspace = true
 schist-video.workspace = true

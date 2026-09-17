@@ -408,7 +408,7 @@ static SHAPES: &[&str] = &[
 ];
 
 /// Whether a point inside the kernel's unit square belongs to the shape.
-fn in_shape(kind: usize, u: f32, v: f32) -> bool {
+pub(crate) fn in_shape(kind: usize, u: f32, v: f32) -> bool {
     let (au, av) = (u.abs(), v.abs());
     match kind {
         0 => au <= 1.0 && av <= 1.0,

@@ -3,7 +3,7 @@
   "starting": "Paleidžiama…",
   "webgpu": "„Schist“ reikia „WebGPU“, kurios ši naršyklė nepalaiko. Ją palaiko „Chrome“ / „Edge“ 113+, „Firefox“ 141+ ir „Safari“ 26+.",
   "noticeTitle": "„Schist“ geriausiai veikia kaip darbalaukio programa",
-  "noticeBody": "Naudojate žiniatinklio versiją – lengvesnį programinės įrangos variantą: vaizdai komponuojami procesoriumi, nėra kai kurių funkcijų – „Photoshop“ papildinių ir trečiųjų šalių papildinių, vaizdų galerijos, DI skydelio, HEIC importavimo bei šriftų atsisiuntimo, o failus galima išsaugoti tik juos atsisiunčiant. Nemokamoje „macOS“, „Windows“ ir „Linux“ skirtoje darbalaukio programoje yra visos šios funkcijos.",
+  "noticeBody": "Naudojate žiniatinklio versiją – lengvesnį programinės įrangos variantą: vaizdai komponuojami naudojant WebGPU, nėra kai kurių funkcijų – „Photoshop“ papildinių ir trečiųjų šalių papildinių, vaizdų galerijos, DI skydelio, HEIC importavimo bei šriftų atsisiuntimo, o failus galima išsaugoti tik juos atsisiunčiant. Nemokamoje „macOS“, „Windows“ ir „Linux“ skirtoje darbalaukio programoje yra visos šios funkcijos.",
   "noticeLink": "Gauti darbalaukio programą.",
   "ok": "Gerai"
 }

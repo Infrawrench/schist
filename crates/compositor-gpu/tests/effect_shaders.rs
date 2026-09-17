@@ -22,7 +22,12 @@ impl FxBackend for Tracking {
         } else {
             self.ctx.run_shader(job)
         }
-        .expect(job.shader.name);
+        .unwrap_or_else(|| {
+            panic!(
+                "{} {}x{} halo={:?}",
+                job.shader.name, job.width, job.height, job.halo
+            )
+        });
         self.seen.lock().unwrap().push(job.shader.source);
         Some(out)
     }
@@ -83,13 +88,27 @@ fn close(g: &[f32], c: &[f32], label: &str) {
         // choose zero RGB on one device and straight RGB on another.
         // Compare the actual color contribution for nearly invisible
         // pixels; keep the strict straight-alpha check everywhere else.
-        let difference = if i % 4 != 3 && g[alpha].max(c[alpha]) < 1e-5 {
+        let transcendental = [
+            "filter.spin_blur",
+            "filter.zigzag",
+            "filter.spherize",
+            "filter.pinch",
+            "filter.polar",
+            "filter.shear",
+            "filter.lens_correction",
+            "filter.glass",
+            "filter.ocean_ripple",
+            "filter.adaptive_wide_angle",
+        ]
+        .iter()
+        .any(|name| label.starts_with(name));
+        let difference = if i % 4 != 3 && (g[alpha].max(c[alpha]) < 1e-5 || transcendental) {
             (a * g[alpha] - b * c[alpha]).abs()
         } else {
             (a - b).abs()
         };
         assert!(
-            difference <= 1e-4,
+            difference <= if transcendental { 5e-4 } else { 1e-4 },
             "{label} at {i}: gpu {a}, cpu {b}, difference {difference}"
         );
     }
@@ -97,6 +116,38 @@ fn close(g: &[f32], c: &[f32], label: &str) {
 type Case = (Box<dyn FilterPlugin>, Vec<(&'static str, f32)>);
 fn cases() -> Vec<Case> {
     let mut cases: Vec<Case> = Vec::new();
+    for filter in [
+        Box::new(schist_filters_core::pixelate::Crystallize) as Box<dyn FilterPlugin>,
+        Box::new(schist_filters_core::pixelate::Pointillize),
+        Box::new(schist_filters_core::pixelate::Mezzotint),
+    ] {
+        cases.push((filter, vec![]));
+    }
+    cases.push((
+        Box::new(schist_filters_core::lens::LensCorrection),
+        vec![
+            ("distortion", 30.0),
+            ("red", 20.0),
+            ("blue", -17.0),
+            ("angle", 13.0),
+            ("vertical", 15.0),
+            ("horizontal", -9.0),
+            ("vignette", 40.0),
+        ],
+    ));
+    for kind in 0..6 {
+        cases.push((
+            Box::new(schist_filters_core::distort::Glass),
+            vec![("texture", kind as f32)],
+        ));
+    }
+    cases.push((Box::new(schist_filters_core::distort::OceanRipple), vec![]));
+    for kind in 0..4 {
+        cases.push((
+            Box::new(schist_filters_core::texture::Texturizer),
+            vec![("texture", kind as f32), ("invert", 1.0)],
+        ));
+    }
     macro_rules! case {
         ($filter:expr $(, $key:literal => $value:expr)* $(,)?) => {
             cases.push((Box::new($filter), vec![$(($key, $value)),*]));
@@ -105,7 +156,7 @@ fn cases() -> Vec<Case> {
     for angle in [0.0, 30.0, 90.0, -73.0] {
         case!(filters::MotionBlur, "distance" => 12.0, "angle" => angle);
     }
-    for radius in [1.0, 2.0, 4.0] {
+    for radius in [1.0, 2.0, 4.0, 7.0] {
         case!(filters::Median, "radius" => radius);
         case!(filters::other::DustAndScratches, "radius" => radius, "threshold" => 10.0);
     }
@@ -146,11 +197,36 @@ fn cases() -> Vec<Case> {
     case!(filters::render::Clouds);
     case!(filters::render::DifferenceClouds);
     case!(filters::render::Fibers);
+    case!(filters::blurgallery::SpinBlur);
+    case!(filters::blurgallery::PathBlur,"curve"=>37.0,"taper"=>72.0,"angle"=>45.0);
+    for kind in 0..6 {
+        case!(filters::blurgallery::ShapeBlur,"shape"=>kind as f32,"radius"=>4.0);
+    }
+    for mode in 0..3 {
+        case!(filters::blurgallery::SmartBlur,"mode"=>mode as f32);
+    }
+    case!(filters::distort::ZigZag);
+    case!(filters::distort::Spherize);
+    case!(filters::distort::Pinch);
+    case!(filters::distort::PolarCoordinates);
+    case!(filters::distort::Shear,"undefined"=>1.0);
+    case!(filters::lens::AdaptiveWideAngle);
     cases
 }
 
 #[test]
 fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
+    for shader in filters::gpu::SHADERS {
+        let source = shader.wgsl();
+        let module = naga::front::wgsl::parse_str(&source)
+            .unwrap_or_else(|e| panic!("{}: {}", shader.name, e.emit_to_string(&source)));
+        naga::valid::Validator::new(
+            naga::valid::ValidationFlags::all(),
+            naga::valid::Capabilities::empty(),
+        )
+        .validate(&module)
+        .unwrap_or_else(|e| panic!("{}: {e}", shader.name));
+    }
     let Some(gpu) = gpu() else { return };
     let _restore = Restore(schist_fx::backend());
     let force = Arc::new(Tracking {
@@ -201,8 +277,22 @@ fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
             // Nonlocal samplers need the full source. Every other effect
             // crosses band boundaries; global procedural coordinates must
             // not reset at the start of each band.
-            let local = !matches!(filter.id(), "filter.radial_blur" | "filter.twirl")
-                && !(filter.id() == "filter.offset" && values.get("undefined") == 2.0);
+            let local = !matches!(
+                filter.id(),
+                "filter.radial_blur"
+                    | "filter.twirl"
+                    | "filter.spin_blur"
+                    | "filter.path_blur"
+                    | "filter.zigzag"
+                    | "filter.spherize"
+                    | "filter.pinch"
+                    | "filter.crystallize"
+                    | "filter.pointillize"
+                    | "filter.polar"
+                    | "filter.glass"
+                    | "filter.lens_correction"
+                    | "filter.adaptive_wide_angle"
+            ) && !(filter.id() == "filter.offset" && values.get("undefined") == 2.0);
             force.ctx.set_binding_limit(if banded && local {
                 w * 16 * 39
             } else {

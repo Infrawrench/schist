@@ -72,9 +72,12 @@ fn native_from_rgb(p: vec4<f32>) -> NativePixel {
     ), p.a);
 }
 
-fn native_src(row: i32, tile: u32, px: u32) -> NativePixel {
+fn native_src(row: i32, tile: u32, pixel: u32) -> NativePixel {
     if (row < 0) { return native_blank(); }
-    let off = slots[u32(row) * globals.n_tiles + tile];
+    let slot = (u32(row) * globals.n_tiles + tile) * 6u;
+    let xy = vec2(pixel % 256u, pixel / 256u) + vec2(u32(slots[slot + 4u]), u32(slots[slot + 5u]));
+    let off = slots[slot + (xy.y / 256u) * 2u + xy.x / 256u];
+    let px = (xy.y % 256u) * 256u + xy.x % 256u;
     if (off < 0) { return native_blank(); }
     // Upload is five f32 samples at every depth; widening preserves the
     // authoritative native values, including out-of-gamut float samples.

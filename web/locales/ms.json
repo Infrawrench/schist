@@ -3,7 +3,7 @@
   "starting": "Memulakan…",
   "webgpu": "Schist memerlukan WebGPU, yang tidak disediakan oleh pelayar ini. Chrome/Edge 113+, Firefox 141+ dan Safari 26+ menyediakannya.",
   "noticeTitle": "Schist berfungsi paling baik sebagai aplikasi desktop",
-  "noticeBody": "Anda sedang menggunakan versi web, iaitu binaan yang lebih ringan: versi ini menggubah imej pada CPU dan tidak menyertakan beberapa ciri — pemalam Photoshop dan pemalam pihak ketiga, galeri imej, panel AI, import HEIC dan muat turun fon — manakala fail disimpan sebagai muat turun. Aplikasi desktop percuma untuk macOS, Windows dan Linux menyediakan kesemuanya.",
+  "noticeBody": "Anda sedang menggunakan versi web, iaitu binaan yang lebih ringan: versi ini menggubah imej pada WebGPU dan tidak menyertakan beberapa ciri — pemalam Photoshop dan pemalam pihak ketiga, galeri imej, panel AI, import HEIC dan muat turun fon — manakala fail disimpan sebagai muat turun. Aplikasi desktop percuma untuk macOS, Windows dan Linux menyediakan kesemuanya.",
   "noticeLink": "Dapatkan aplikasi desktop.",
   "ok": "OK"
 }

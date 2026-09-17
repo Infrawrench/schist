@@ -3,7 +3,7 @@
   "starting": "Ɛrefi ase…",
   "webgpu": "Schist hia WebGPU, nanso browser yi nni bi. Chrome/Edge 113+, Firefox 141+ ne Safari 26+ wɔ bi.",
   "noticeTitle": "Schist yɛ adwuma yiye paa sɛ desktop app",
-  "noticeBody": "Wode web version no na ɛreyɛ adwuma, na ɛyɛ build a emu yɛ hare: ɛka mfonini afã horow bom wɔ CPU no so na enni nneɛma bi — Photoshop plug-ins ne plug-ins a developers afoforo yɛe, mfonini gallery, AI panel, HEIC import ne font downloads — na wɔkora fael ahorow so sɛ downloads. Desktop app a wontua hwee a ɛyɛ macOS, Windows ne Linux de no nyinaa ka ho.",
+  "noticeBody": "Wode web version no na ɛreyɛ adwuma, na ɛyɛ build a emu yɛ hare: ɛka mfonini afã horow bom wɔ WebGPU no so na enni nneɛma bi — Photoshop plug-ins ne plug-ins a developers afoforo yɛe, mfonini gallery, AI panel, HEIC import ne font downloads — na wɔkora fael ahorow so sɛ downloads. Desktop app a wontua hwee a ɛyɛ macOS, Windows ne Linux de no nyinaa ka ho.",
   "noticeLink": "Gye desktop app no.",
   "ok": "YOO"
 }

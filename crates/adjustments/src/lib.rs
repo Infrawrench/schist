@@ -17,6 +17,7 @@ use schist_core::AdjustmentKind;
 
 mod color;
 mod curves;
+pub mod gpu;
 mod labels;
 mod params;
 mod prepared;

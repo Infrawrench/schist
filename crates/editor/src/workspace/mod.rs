@@ -47,6 +47,8 @@ pub(crate) mod camera_sync;
 pub(crate) use schist_camera_sync::android as camera_sync_android;
 #[cfg(target_os = "ios")]
 pub use schist_camera_sync::ios as camera_sync_ios;
+#[cfg(target_arch = "wasm32")]
+mod browser_gpu;
 mod chrome;
 mod clipboard;
 pub(crate) mod cloud;
@@ -222,6 +224,8 @@ pub struct Workspace {
     /// so painting a quad per tile let the sampler bleed past each tile's
     /// slot at fractional zoom and drew a dark line at every boundary.
     viewport_image: Option<(ViewportKey, Arc<RenderImage>)>,
+    #[cfg(target_arch = "wasm32")]
+    browser_gpu: browser_gpu::BrowserGpu,
     /// Images replaced this frame; freed from the sprite atlas after paint.
     retired_images: Vec<Arc<RenderImage>>,
     /// Whether a continuous zoom/pan gesture is streaming events. While
@@ -745,9 +749,8 @@ pub enum ScreenMode {
 /// preference flips; falls back to the CPU with a log line when no adapter
 /// exists. The `gpu-compositing` feature flag must also be enabled.
 pub fn init_compositor_backend(prefer_gpu: bool) {
-    // The GPU backend opens a second wgpu device with a blocking wait,
-    // which the browser's single thread cannot make progress under; the
-    // web build composites on the CPU reference backend instead.
+    // Synchronous callers retain the CPU reference in the browser.
+    // Workspace owns the asynchronous WebGPU canvas and filter executor.
     #[cfg(target_arch = "wasm32")]
     {
         let _ = prefer_gpu;
@@ -1258,6 +1261,8 @@ impl Workspace {
             cache: TileCache::new(),
             display_tiles: FxHashMap::default(),
             viewport_image: None,
+            #[cfg(target_arch = "wasm32")]
+            browser_gpu: browser_gpu::BrowserGpu::default(),
             retired_images: Vec::new(),
             view_gesture_active: false,
             view_gesture_seq: 0,

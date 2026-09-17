@@ -3,7 +3,7 @@
   "starting": "Starte…",
   "webgpu": "Schist haet WebGPU neudig, mer deze browser böd dat neet aan. Chrome/Edge 113+, Firefox 141+ en Safari 26+ doon dat waal.",
   "noticeTitle": "Schist wirk 't bèste es bureaublad-app",
-  "noticeBody": "Geer gebroek de webversie, 'ne lichtere oetgaaf: die combineert op de CPU en laot 'n paar functies weg — Photoshop-plug-ins en plug-ins van anger partieje, de aafbiljingsgalerie, 't AI-paneel, HEIC-import en 't downloade van booksjrifte — en bestenj waere es downloads opgeslage. De gratis bureaublad-app veur macOS, Windows en Linux haet dit allemaol waal.",
+  "noticeBody": "Geer gebroek de webversie, 'ne lichtere oetgaaf: die combineert op de WebGPU en laot 'n paar functies weg — Photoshop-plug-ins en plug-ins van anger partieje, de aafbiljingsgalerie, 't AI-paneel, HEIC-import en 't downloade van booksjrifte — en bestenj waere es downloads opgeslage. De gratis bureaublad-app veur macOS, Windows en Linux haet dit allemaol waal.",
   "noticeLink": "Haal de bureaublad-app op.",
   "ok": "OK"
 }

@@ -282,6 +282,39 @@ pub fn rasterize(path: &Path, rect: IntRect, rule: FillRule) -> Vec<u8> {
         return vec![0; w * h];
     }
 
+    static SHADER: schist_fx::ComputeShader = schist_fx::ComputeShader {
+        name: "vector-coverage",
+        source: include_str!("raster.wgsl"),
+    };
+    let work = w
+        .saturating_mul(h)
+        .saturating_mul(edges.len())
+        .saturating_mul(SUB);
+    if schist_fx::backend().compute_available(work) {
+        let input: Vec<f32> = edges
+            .iter()
+            .flat_map(|&(x0, y0, x1, y1, dir)| [x0, y0, x1, y1, dir as f32])
+            .collect();
+        let program = schist_fx::ComputeProgram::single(
+            &SHADER,
+            vec![
+                rect.left as f32,
+                rect.top as f32,
+                match rule {
+                    FillRule::EvenOdd => 0.0,
+                    FillRule::NonZero => 1.0,
+                },
+                SUB as f32,
+            ],
+            w * h,
+            [w as u32, h as u32, 1],
+            work,
+        );
+        if let Some(out) = schist_fx::try_compute(&input, &program) {
+            return out.into_iter().map(|v| v as u8).collect();
+        }
+    }
+
     let mut crossings: Vec<(f32, i32)> = Vec::with_capacity(edges.len());
     for row in 0..h {
         let py = rect.top as f32 + row as f32;

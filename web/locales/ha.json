@@ -3,7 +3,7 @@
   "starting": "Ana farawa…",
   "webgpu": "Schist yana buƙatar WebGPU, wanda wannan burauzar ba ta samarwa. Chrome/Edge 113+, Firefox 141+ da Safari 26+ suna samar da shi.",
   "noticeTitle": "Schist yana aiki mafi kyau a matsayin manhajar kwamfuta",
-  "noticeBody": "Kana amfani da sigar yanar gizo, wadda aka rage wasu fasalolinta: tana haɗa hotuna a kan CPU kuma ba ta ƙunshi wasu fasaloli—Photoshop plug-ins da plug-ins na wasu kamfanoni, ma'ajiyar hotuna, falin AI, shigo da HEIC da sauke nau'ikan rubutu—kuma ana adana fayiloli a matsayin abubuwan saukewa. Manhajar kwamfuta ta kyauta don macOS, Windows da Linux tana da duk waɗannan.",
+  "noticeBody": "Kana amfani da sigar yanar gizo, wadda aka rage wasu fasalolinta: tana haɗa hotuna a kan WebGPU kuma ba ta ƙunshi wasu fasaloli—Photoshop plug-ins da plug-ins na wasu kamfanoni, ma'ajiyar hotuna, falin AI, shigo da HEIC da sauke nau'ikan rubutu—kuma ana adana fayiloli a matsayin abubuwan saukewa. Manhajar kwamfuta ta kyauta don macOS, Windows da Linux tana da duk waɗannan.",
   "noticeLink": "Sami manhajar kwamfuta.",
   "ok": "To"
 }

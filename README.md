@@ -254,8 +254,8 @@ operations, a document→display transform, soft proofing, and ordered
 dithering when exporting to 8-bit.
 
 **GPU.** Compositing runs on the GPU when an adapter exists: the layer
-tree — blend modes, masks, clipping, group isolation, all sixteen
-adjustment kinds — compiles to a compute-shader program (wgpu), and
+tree — blend modes, masks, clipping, group isolation and supported
+adjustments — compiles to a compute-shader program (wgpu), and
 zooming, rotating and panning resample on the GPU too, which is what keeps
 large documents responsive. The big filter sweeps go the same way: the box
 passes behind every Gaussian, the lens blur's disc, and the displacement
@@ -271,10 +271,17 @@ large carves keep their image planes in texture arrays and cumulative costs
 in two rows. Device texture limits and available memory still apply, and
 small carves stay on the CPU when dispatch overhead would cost more than
 the GPU saves. The CPU is the semantic reference throughout: parity tests
-hold the GPU to it, anything it can't express (layers mid-drag) or can't
+hold the GPU to it, anything it cannot express or cannot
 fit falls back for that call, and machines with no usable adapter just run
 the CPU path. Toggle it in
 Preferences, or override with `SCHIST_GPU=0` / `SCHIST_GPU=1`.
+Additional kernels cover adjustments, affine transforms, selections, layer-effect
+preparation, RAW development, matrix/TRC color conversion, supported neural
+graphs, retouch diffusion and vector coverage. Compound filters retain their
+intermediate images on-device. The browser uses asynchronous WebGPU for the
+canvas and the whole-filter operations listed in the coverage map;
+see [browser GPU support](docs/web.md) and the
+[GPU coverage and remaining opportunities](docs/gpu-opportunities.md).
 
 **Image.** Mode (RGB, greyscale, CMYK, Lab, Indexed), Auto Tone /
 Contrast / Colour, image and canvas size, the five rotations and flips,

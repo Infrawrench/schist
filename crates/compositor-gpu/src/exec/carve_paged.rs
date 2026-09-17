@@ -92,7 +92,7 @@ impl Plane {
                     },
                     aspect: wgpu::TextureAspect::All,
                 },
-                crate::fx::cast_f32s(&pixels),
+                crate::cast_f32s(&pixels),
                 wgpu::TexelCopyBufferLayout {
                     offset: 0,
                     bytes_per_row: Some(self.width * self.channels as u32 * 4),
@@ -107,7 +107,7 @@ impl Plane {
         }
     }
 
-    fn read(&self, ctx: &GpuContext, count: usize) -> Option<Vec<f32>> {
+    async fn read(&self, ctx: &GpuContext, count: usize) -> Option<Vec<f32>> {
         let row_bytes = self.width as usize * self.channels * 4;
         let padded_row = row_bytes.div_ceil(256) * 256;
         let bytes = (padded_row * self.height as usize) as u64;
@@ -147,13 +147,14 @@ impl Plane {
             );
             ctx.queue.submit([encoder.finish()]);
             let slice = staging.slice(..);
-            let (tx, rx) = std::sync::mpsc::channel();
+            let (tx, rx) = futures::channel::oneshot::channel();
             slice.map_async(wgpu::MapMode::Read, move |r| {
                 let _ = tx.send(r);
             });
+            #[cfg(not(target_arch = "wasm32"))]
             ctx.device.poll(wgpu::PollType::wait_indefinitely()).ok()?;
-            rx.recv().ok()?.ok()?;
-            let data = slice.get_mapped_range();
+            rx.await.ok()?.ok()?;
+            let data = slice.get_mapped_range().ok()?;
             for row in data.chunks(padded_row) {
                 let remaining = count * self.channels - out.len();
                 out.extend(
@@ -175,13 +176,16 @@ impl Plane {
 impl GpuContext {
     /// Seam carving without full-image storage-buffer bindings. Also
     /// public so parity tests can exercise this path on small fixtures.
-    pub fn run_carve_paged(&self, job: &schist_fx::CarveJob<'_>) -> Option<schist_fx::Carved> {
-        self.run_carve_paged_with_edge(job, 1024)
+    pub async fn run_carve_paged_async(
+        &self,
+        job: &schist_fx::CarveJob<'_>,
+    ) -> Option<schist_fx::Carved> {
+        self.run_carve_paged_with_edge_async(job, 1024).await
     }
 
     /// A smaller texture page edge can bound transient upload/readback
     /// allocations. It also makes cross-page tests affordable.
-    pub fn run_carve_paged_with_edge(
+    pub async fn run_carve_paged_with_edge_async(
         &self,
         job: &schist_fx::CarveJob<'_>,
         edge: u32,
@@ -210,11 +214,12 @@ impl GpuContext {
         {
             return None;
         }
-        let _work = self.work.lock();
-        self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory);
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let _work = self.work.lock().await;
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory));
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         // Always balance the device's error scopes, even if readback fails.
-        let result = (|| {
+        let result = (async {
             let pipelines = self.paged_carve.get_or_init(|| {
                 let module = self
                     .device
@@ -355,16 +360,17 @@ impl GpuContext {
                 }
                 self.queue.submit([encoder.finish()]);
             }
-            let px = px[seams % 2].read(self, count)?;
-            let protect = protect[seams % 2].read(self, count)?;
+            let px = px[seams % 2].read(self, count).await?;
+            let protect = protect[seams % 2].read(self, count).await?;
             Some(schist_fx::Carved {
                 px: unpad_rows(&px, stride * 4, target * 4, h),
                 protect: unpad_rows(&protect, stride, target, h),
                 width: target,
             })
-        })();
-        let validation = pollster::block_on(self.device.pop_error_scope());
-        let allocation = pollster::block_on(self.device.pop_error_scope());
+        })
+        .await;
+        let validation = scopes.pop().await;
+        let allocation = scopes.pop().await;
         if let Some(error) = validation.or(allocation) {
             log::warn!("GPU paged carve failed: {error}");
             return None;

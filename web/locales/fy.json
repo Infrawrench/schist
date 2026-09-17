@@ -3,7 +3,7 @@
   "starting": "Opstarte…",
   "webgpu": "Schist hat WebGPU nedich, mar dizze browser biedt dat net. Chrome/Edge 113+, Firefox 141+ en Safari 26+ dogge dat wol.",
   "noticeTitle": "Schist wurket it bêste as buroblêd-app",
-  "noticeBody": "Jo brûke de webferzje, in lichtere útfiering: dy stelt bylden gear op de CPU en lit guon funksjes fuort — Photoshop-ynstekkers en ynstekkers fan tredden, de ôfbyldingsgalery, it AI-paniel, HEIC-ymport en lettertypen ynlade — en bestannen wurde as downloads bewarre. De fergese buroblêd-app foar macOS, Windows en Linux hat dit allegear wol.",
+  "noticeBody": "Jo brûke de webferzje, in lichtere útfiering: dy stelt bylden gear op de WebGPU en lit guon funksjes fuort — Photoshop-ynstekkers en ynstekkers fan tredden, de ôfbyldingsgalery, it AI-paniel, HEIC-ymport en lettertypen ynlade — en bestannen wurde as downloads bewarre. De fergese buroblêd-app foar macOS, Windows en Linux hat dit allegear wol.",
   "noticeLink": "Download de buroblêd-app.",
   "ok": "OK"
 }

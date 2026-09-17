@@ -10,6 +10,7 @@ description = "Camera raw decoding and development in pure Rust: DNG and the ven
 # could be published on its own. The plugin in codecs-common adapts its
 # output to a Document.
 [dependencies]
+schist-fx.workspace = true
 # DNG's deflate-compressed (and float) tiles.
 miniz_oxide.workspace = true
 # Lossy DNG tiles are baseline JPEG; nothing else here goes through

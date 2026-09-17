@@ -13,7 +13,10 @@ use schist_color::{ColorMode, NativePixel};
 use schist_core::{TileBuf, TileCoord, TILE_PIXELS};
 use wgpu::util::DeviceExt;
 
+#[cfg(not(target_arch = "wasm32"))]
+mod blocking;
 mod carve_paged;
+mod compute;
 mod effect_shader;
 
 /// Per-chunk upload/output budget. Native output uses five f32 samples
@@ -25,7 +28,8 @@ pub struct GpuContext {
     /// One batch at a time: error scopes are a per-device stack, so
     /// concurrent submissions would pop each other's scopes and attribute
     /// failures to the wrong caller.
-    work: parking_lot::Mutex<()>,
+    work: futures::lock::Mutex<()>,
+    lost: std::sync::Arc<std::sync::atomic::AtomicBool>,
     /// The largest storage buffer this device will bind, and what fx jobs
     /// band themselves to fit. Overridable so tests can force the banded
     /// path on hardware roomy enough to skip it.
@@ -40,6 +44,8 @@ pub struct GpuContext {
     fx_lens: wgpu::ComputePipeline,
     fx_warp: wgpu::ComputePipeline,
     effect_shaders:
+        parking_lot::Mutex<rustc_hash::FxHashMap<&'static str, Option<wgpu::ComputePipeline>>>,
+    compute_shaders:
         parking_lot::Mutex<rustc_hash::FxHashMap<&'static str, Option<wgpu::ComputePipeline>>>,
     /// Seam carving: six stages over one shared bind group layout, so the
     /// whole run is a single set of buffers and no layout can drift
@@ -87,10 +93,35 @@ pub enum BatchOut {
     Rgba8(Vec<Vec<u8>>),
 }
 
+/// Error scopes stay on the submitting thread and pop on cancellation too.
+#[derive(Default)]
+struct ErrorScopes(Vec<wgpu::ErrorScopeGuard>);
+
+impl ErrorScopes {
+    fn push(&mut self, scope: wgpu::ErrorScopeGuard) {
+        self.0.push(scope);
+    }
+    fn pop(&mut self) -> impl std::future::Future<Output = Option<wgpu::Error>> {
+        self.0.pop().expect("scope owned by active GPU job").pop()
+    }
+}
+
+impl Drop for ErrorScopes {
+    fn drop(&mut self) {
+        while let Some(scope) = self.0.pop() {
+            drop(scope);
+        }
+    }
+}
+
 impl GpuContext {
-    pub fn new() -> Result<GpuContext, String> {
+    pub fn is_lost(&self) -> bool {
+        self.lost.load(std::sync::atomic::Ordering::Relaxed)
+    }
+
+    pub async fn new_async() -> Result<GpuContext, String> {
         #[cfg_attr(not(windows), allow(unused_mut))]
-        let mut instance_desc = wgpu::InstanceDescriptor::from_env_or_default();
+        let mut instance_desc = wgpu::InstanceDescriptor::new_without_display_handle_from_env();
         // FXC, the default DX12 shader compiler, miscompiles the
         // switch-heavy op interpreter (Color Burn came back as noise on
         // WARP); the statically linked DXC does not. Respect an explicit
@@ -102,13 +133,16 @@ impl GpuContext {
         ) {
             instance_desc.backend_options.dx12.shader_compiler = wgpu::Dx12Compiler::StaticDxc;
         }
-        let instance = wgpu::Instance::new(&instance_desc);
-        let adapter = pollster::block_on(instance.request_adapter(&wgpu::RequestAdapterOptions {
-            power_preference: wgpu::PowerPreference::HighPerformance,
-            compatible_surface: None,
-            force_fallback_adapter: false,
-        }))
-        .map_err(|e| format!("no wgpu adapter: {e}"))?;
+        let instance = wgpu::Instance::new(instance_desc);
+        let adapter = instance
+            .request_adapter(&wgpu::RequestAdapterOptions {
+                power_preference: wgpu::PowerPreference::HighPerformance,
+                compatible_surface: None,
+                force_fallback_adapter: false,
+                ..Default::default()
+            })
+            .await
+            .map_err(|e| format!("no wgpu adapter: {e}"))?;
         // A software Vulkan device -- the Android emulator's SwiftShader
         // -- takes minutes to compile the kernels and then runs them
         // slower than the CPU compositor's thread pool would, and on
@@ -134,30 +168,38 @@ impl GpuContext {
             .max(limits.max_buffer_size);
         // What fx jobs band themselves to: the smaller of what one
         // binding takes and what one buffer may be.
-        let binding_limit = (limits.max_storage_buffer_binding_size as u64)
+        let binding_limit = limits
+            .max_storage_buffer_binding_size
             .min(limits.max_buffer_size)
             .min(usize::MAX as u64) as usize;
-        let (device, queue) = pollster::block_on(adapter.request_device(&wgpu::DeviceDescriptor {
-            label: Some("schist-compositor-gpu"),
-            required_features: wgpu::Features::empty(),
-            required_limits: limits,
-            memory_hints: wgpu::MemoryHints::default(),
-            trace: wgpu::Trace::Off,
-            experimental_features: wgpu::ExperimentalFeatures::default(),
-        }))
-        .map_err(|e| format!("wgpu device: {e}"))?;
+        let (device, queue) = adapter
+            .request_device(&wgpu::DeviceDescriptor {
+                label: Some("schist-compositor-gpu"),
+                required_features: wgpu::Features::empty(),
+                required_limits: limits,
+                memory_hints: wgpu::MemoryHints::default(),
+                trace: wgpu::Trace::Off,
+                experimental_features: wgpu::ExperimentalFeatures::default(),
+            })
+            .await
+            .map_err(|e| format!("wgpu device: {e}"))?;
         // Validation failures would otherwise panic in a callback thread;
         // log them and let the CPU fallback produce the frame.
         device.on_uncaptured_error(std::sync::Arc::new(|e| {
             log::error!("gpu compositor error: {e}");
         }));
+        let lost = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
+        let lost_callback = lost.clone();
+        device.set_device_lost_callback(move |_, _| {
+            lost_callback.store(true, std::sync::atomic::Ordering::Relaxed);
+        });
 
         // Shader translation differs per backend (SPIR-V, MSL, HLSL); a
         // module that validates on one can still fail another's pipeline
         // creation. Catch that here and report "no GPU" so the caller
         // stays on the CPU, instead of dispatching a dead pipeline and
         // reading back zeroes.
-        device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let initialization = device.push_error_scope(wgpu::ErrorFilter::Validation);
         let make_module = |name: &str, source: &str| {
             device.create_shader_module(wgpu::ShaderModuleDescriptor {
                 label: Some(name),
@@ -168,6 +210,7 @@ impl GpuContext {
             "composite.wgsl",
             concat!(
                 include_str!("composite_common.wgsl"),
+                include_str!("../../adjustments/src/gpu.wgsl"),
                 include_str!("composite.wgsl")
             ),
         );
@@ -175,6 +218,7 @@ impl GpuContext {
             "composite_native.wgsl",
             concat!(
                 include_str!("composite_common.wgsl"),
+                include_str!("../../adjustments/src/gpu.wgsl"),
                 include_str!("composite_native.wgsl")
             ),
         );
@@ -217,8 +261,8 @@ impl GpuContext {
         let carve_pipeline_layout =
             device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
                 label: Some("carve"),
-                bind_group_layouts: &[&carve_layout],
-                push_constant_ranges: &[],
+                bind_group_layouts: &[Some(&carve_layout)],
+                immediate_size: 0,
             });
         let carve_stage = |entry: &str| {
             device.create_compute_pipeline(&wgpu::ComputePipelineDescriptor {
@@ -241,7 +285,8 @@ impl GpuContext {
             })
         };
         let ctx = GpuContext {
-            work: parking_lot::Mutex::new(()),
+            work: futures::lock::Mutex::new(()),
+            lost,
             binding_limit: std::sync::atomic::AtomicUsize::new(binding_limit),
             composite: make(&composite_module, "composite"),
             composite_native: make(&native_module, "composite_native"),
@@ -251,6 +296,7 @@ impl GpuContext {
             fx_lens: make(&fx_lens_module, "lens_blur"),
             fx_warp: make(&fx_warp_module, "mesh_warp"),
             effect_shaders: parking_lot::Mutex::new(rustc_hash::FxHashMap::default()),
+            compute_shaders: parking_lot::Mutex::new(rustc_hash::FxHashMap::default()),
             paged_carve: std::sync::OnceLock::new(),
             carve: CarvePipelines {
                 energy: carve_stage("energy_pass"),
@@ -265,7 +311,7 @@ impl GpuContext {
             device,
             queue,
         };
-        if let Some(err) = pollster::block_on(ctx.device.pop_error_scope()) {
+        if let Some(err) = initialization.pop().await {
             return Err(format!("pipeline creation: {err}"));
         }
         Ok(ctx)
@@ -274,7 +320,7 @@ impl GpuContext {
     /// GPU version of `schist_compositor::viewport::render_viewport_cpu`.
     /// `None` when the grid exceeds buffer budgets (the CPU path takes
     /// over) or a readback fails.
-    pub fn render_viewport(
+    pub async fn render_viewport_async(
         &self,
         p: &schist_compositor::viewport::ViewportParams,
         grid: &[Option<std::sync::Arc<Vec<u8>>>],
@@ -287,8 +333,9 @@ impl GpuContext {
         if out_bytes > BUDGET_BYTES || present * TILE_PIXELS * 4 > BUDGET_BYTES {
             return None;
         }
-        let _work = self.work.lock();
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let _work = self.work.lock().await;
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         let mut tile_bytes: Vec<u8> = Vec::with_capacity(present * TILE_PIXELS * 4);
         let mut index = Vec::with_capacity(grid.len());
         for slot in grid {
@@ -395,17 +442,18 @@ impl GpuContext {
         self.queue.submit([encoder.finish()]);
 
         let slice = staging.slice(..);
-        let (tx, rx) = std::sync::mpsc::channel();
+        let (tx, rx) = futures::channel::oneshot::channel();
         slice.map_async(wgpu::MapMode::Read, move |r| {
             let _ = tx.send(r);
         });
+        #[cfg(not(target_arch = "wasm32"))]
         self.device.poll(wgpu::PollType::wait_indefinitely()).ok()?;
-        rx.recv().ok()?.ok()?;
-        let data = slice.get_mapped_range();
+        rx.await.ok()?.ok()?;
+        let data = slice.get_mapped_range().ok()?;
         let out = data.to_vec();
         drop(data);
         staging.unmap();
-        if let Some(err) = pollster::block_on(self.device.pop_error_scope()) {
+        if let Some(err) = scopes.pop().await {
             log::warn!("gpu viewport failed, falling back to the CPU: {err}");
             return None;
         }
@@ -418,7 +466,10 @@ impl GpuContext {
     /// Oversized planes use texture pages and two rows of cumulative
     /// costs. `None` means device limits or available memory still prevent
     /// the operation, so the caller should use the CPU reference.
-    pub fn run_carve(&self, job: &schist_fx::CarveJob<'_>) -> Option<schist_fx::Carved> {
+    pub async fn run_carve_async(
+        &self,
+        job: &schist_fx::CarveJob<'_>,
+    ) -> Option<schist_fx::Carved> {
         let (w0, h) = (job.width, job.height);
         let target = job.target_width.max(1);
         if w0 == 0 || h == 0 || target == w0 {
@@ -430,11 +481,12 @@ impl GpuContext {
         let plane = max_w.checked_mul(h)?;
         let limit = self.binding_limit();
         if plane.checked_mul(16)? > limit {
-            return self.run_carve_paged(job);
+            return self.run_carve_paged_async(job).await;
         }
 
-        let _work = self.work.lock();
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let _work = self.work.lock().await;
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         let storage = |label: &str, bytes: u64| {
             self.device.create_buffer(&wgpu::BufferDescriptor {
                 label: Some(label),
@@ -447,7 +499,7 @@ impl GpuContext {
             self.device
                 .create_buffer_init(&wgpu::util::BufferInitDescriptor {
                     label: Some(label),
-                    contents: crate::fx::cast_f32s(data),
+                    contents: crate::cast_f32s(data),
                     usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
                 })
         };
@@ -567,9 +619,9 @@ impl GpuContext {
         // Each seam writes to the other plane, so an odd count finishes in
         // the second one.
         let done = seams % 2;
-        let px_out = self.read_back(&px[done], (plane * 16) as u64)?;
-        let prot_out = self.read_back(&prot[done], (plane * 4) as u64)?;
-        if let Some(err) = pollster::block_on(self.device.pop_error_scope()) {
+        let px_out = self.read_back(&px[done], (plane * 16) as u64).await?;
+        let prot_out = self.read_back(&prot[done], (plane * 4) as u64).await?;
+        if let Some(err) = scopes.pop().await {
             log::warn!("gpu carve failed, falling back to the CPU: {err}");
             return None;
         }
@@ -581,7 +633,7 @@ impl GpuContext {
     }
 
     /// Copy a storage buffer out through a staging buffer.
-    fn read_back(&self, buffer: &wgpu::Buffer, bytes: u64) -> Option<Vec<f32>> {
+    async fn read_back(&self, buffer: &wgpu::Buffer, bytes: u64) -> Option<Vec<f32>> {
         let staging = self.device.create_buffer(&wgpu::BufferDescriptor {
             label: Some("carve-staging"),
             size: bytes,
@@ -594,13 +646,14 @@ impl GpuContext {
         encoder.copy_buffer_to_buffer(buffer, 0, &staging, 0, bytes);
         self.queue.submit([encoder.finish()]);
         let slice = staging.slice(..);
-        let (tx, rx) = std::sync::mpsc::channel();
+        let (tx, rx) = futures::channel::oneshot::channel();
         slice.map_async(wgpu::MapMode::Read, move |r| {
             let _ = tx.send(r);
         });
+        #[cfg(not(target_arch = "wasm32"))]
         self.device.poll(wgpu::PollType::wait_indefinitely()).ok()?;
-        rx.recv().ok()?.ok()?;
-        let data = slice.get_mapped_range();
+        rx.await.ok()?.ok()?;
+        let data = slice.get_mapped_range().ok()?;
         let out: Vec<f32> = data
             .as_chunks::<4>()
             .0
@@ -655,11 +708,13 @@ impl GpuContext {
     /// A plane too big for one binding is split into horizontal bands with
     /// an overlap wide enough that the rows each band keeps are the ones
     /// the whole-image pass would have produced.
-    pub fn run_blur(&self, job: &schist_fx::BlurJob<'_>) -> Option<Vec<f32>> {
+    pub async fn run_blur_async(&self, job: &schist_fx::BlurJob<'_>) -> Option<Vec<f32>> {
         let halo = job.passes.checked_mul(job.radius)?;
         let (band_rows, halo) = self.band_plan(job.width, job.height, halo)?;
         if band_rows >= job.height {
-            return self.blur_plane(job.px, job.width, job.height, job.radius, job.passes);
+            return self
+                .blur_plane(job.px, job.width, job.height, job.radius, job.passes)
+                .await;
         }
         let mut out = vec![0.0f32; job.px.len()];
         let mut top = 0usize;
@@ -667,13 +722,15 @@ impl GpuContext {
             let bottom = (top + band_rows).min(job.height);
             let a = top.saturating_sub(halo);
             let b = (bottom + halo).min(job.height);
-            let banded = self.blur_plane(
-                &job.px[a * job.width * 4..b * job.width * 4],
-                job.width,
-                b - a,
-                job.radius,
-                job.passes,
-            )?;
+            let banded = self
+                .blur_plane(
+                    &job.px[a * job.width * 4..b * job.width * 4],
+                    job.width,
+                    b - a,
+                    job.radius,
+                    job.passes,
+                )
+                .await?;
             let keep = (top - a) * job.width * 4..(bottom - a) * job.width * 4;
             out[top * job.width * 4..bottom * job.width * 4].copy_from_slice(&banded[keep]);
             top = bottom;
@@ -681,7 +738,7 @@ impl GpuContext {
         Some(out)
     }
 
-    fn blur_plane(
+    async fn blur_plane(
         &self,
         px: &[f32],
         width: usize,
@@ -689,14 +746,15 @@ impl GpuContext {
         radius: usize,
         passes: usize,
     ) -> Option<Vec<f32>> {
-        let _work = self.work.lock();
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let _work = self.work.lock().await;
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         let bytes = std::mem::size_of_val(px) as u64;
         let front = self
             .device
             .create_buffer_init(&wgpu::util::BufferInitDescriptor {
                 label: Some("fx-blur-a"),
-                contents: crate::fx::cast_f32s(px),
+                contents: crate::cast_f32s(px),
                 usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
             });
         let back = self.device.create_buffer(&wgpu::BufferDescriptor {
@@ -773,16 +831,19 @@ impl GpuContext {
                 );
             }
         }
-        self.finish_fx(encoder, &front, bytes, "blur")
+        self.finish_fx(encoder, &front, bytes, "blur", &mut scopes)
+            .await
     }
 
-    /// Lens blur, banded on the same rule as [`run_blur`](Self::run_blur):
+    /// Lens blur, banded on the same rule as [`run_blur_async`](Self::run_blur_async):
     /// one dispatch reaches `radius` rows, so that is the overlap.
-    pub fn run_lens_blur(&self, job: &schist_fx::LensJob<'_>) -> Option<Vec<f32>> {
+    pub async fn run_lens_blur_async(&self, job: &schist_fx::LensJob<'_>) -> Option<Vec<f32>> {
         let halo = job.radius.max(0) as usize;
         let (band_rows, halo) = self.band_plan(job.width, job.height, halo)?;
         if band_rows >= job.height {
-            return self.lens_plane(job.px, job.width, job.height, job.radius, job.boost);
+            return self
+                .lens_plane(job.px, job.width, job.height, job.radius, job.boost)
+                .await;
         }
         let mut out = vec![0.0f32; job.px.len()];
         let mut top = 0usize;
@@ -790,13 +851,15 @@ impl GpuContext {
             let bottom = (top + band_rows).min(job.height);
             let a = top.saturating_sub(halo);
             let b = (bottom + halo).min(job.height);
-            let banded = self.lens_plane(
-                &job.px[a * job.width * 4..b * job.width * 4],
-                job.width,
-                b - a,
-                job.radius,
-                job.boost,
-            )?;
+            let banded = self
+                .lens_plane(
+                    &job.px[a * job.width * 4..b * job.width * 4],
+                    job.width,
+                    b - a,
+                    job.radius,
+                    job.boost,
+                )
+                .await?;
             let keep = (top - a) * job.width * 4..(bottom - a) * job.width * 4;
             out[top * job.width * 4..bottom * job.width * 4].copy_from_slice(&banded[keep]);
             top = bottom;
@@ -804,7 +867,7 @@ impl GpuContext {
         Some(out)
     }
 
-    fn lens_plane(
+    async fn lens_plane(
         &self,
         px: &[f32],
         width: usize,
@@ -812,14 +875,15 @@ impl GpuContext {
         radius: i32,
         boost: f32,
     ) -> Option<Vec<f32>> {
-        let _work = self.work.lock();
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let _work = self.work.lock().await;
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         let bytes = std::mem::size_of_val(px) as u64;
         let src = self
             .device
             .create_buffer_init(&wgpu::util::BufferInitDescriptor {
                 label: Some("fx-lens-src"),
-                contents: crate::fx::cast_f32s(px),
+                contents: crate::cast_f32s(px),
                 usage: wgpu::BufferUsages::STORAGE,
             });
         let dst = self.device.create_buffer(&wgpu::BufferDescriptor {
@@ -856,13 +920,14 @@ impl GpuContext {
             pass.set_bind_group(0, &bind, &[]);
             pass.dispatch_workgroups((width as u32).div_ceil(16), (height as u32).div_ceil(16), 1);
         }
-        self.finish_fx(encoder, &dst, bytes, "lens blur")
+        self.finish_fx(encoder, &dst, bytes, "lens blur", &mut scopes)
+            .await
     }
 
     /// Upload a straight-alpha snapshot into bounded 2D texture pages.
     /// A pixel's linear index determines its page, so even very wide or
     /// tall layers need no special sampling path and no padded CPU copy.
-    pub fn upload_warp_source(&self, src: &[f32]) -> Option<WarpSource> {
+    pub async fn upload_warp_source_async(&self, src: &[f32]) -> Option<WarpSource> {
         if src.is_empty() || !src.len().is_multiple_of(4) {
             return None;
         }
@@ -876,9 +941,10 @@ impl GpuContext {
         if layers > self.device.limits().max_texture_array_layers {
             return None;
         }
-        let _work = self.work.lock();
-        self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory);
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let _work = self.work.lock().await;
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory));
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         let texture = self.device.create_texture(&wgpu::TextureDescriptor {
             label: Some("fx-warp-source"),
             size: wgpu::Extent3d {
@@ -907,7 +973,7 @@ impl GpuContext {
                         },
                         aspect: wgpu::TextureAspect::All,
                     },
-                    crate::fx::cast_f32s(data),
+                    crate::cast_f32s(data),
                     wgpu::TexelCopyBufferLayout {
                         offset: 0,
                         bytes_per_row: Some(w * 16),
@@ -937,8 +1003,8 @@ impl GpuContext {
             dimension: Some(wgpu::TextureViewDimension::D2Array),
             ..Default::default()
         });
-        let validation = pollster::block_on(self.device.pop_error_scope());
-        let allocation = pollster::block_on(self.device.pop_error_scope());
+        let validation = scopes.pop().await;
+        let allocation = scopes.pop().await;
         if let Some(error) = validation.or(allocation) {
             log::warn!("GPU warp upload failed: {error}");
             return None;
@@ -947,13 +1013,18 @@ impl GpuContext {
     }
 
     /// Warp through `src`, which the caller keeps resident across a drag.
-    pub fn run_warp(&self, job: &schist_fx::WarpParams<'_>, src: &WarpSource) -> Option<Vec<f32>> {
-        self.run_warp_banded(job, src, self.binding_limit())
+    pub async fn run_warp_async(
+        &self,
+        job: &schist_fx::WarpParams<'_>,
+        src: &WarpSource,
+    ) -> Option<Vec<f32>> {
+        self.run_warp_banded_async(job, src, self.binding_limit())
+            .await
     }
 
     /// As `run_warp`, with an optional tighter output budget, useful for
     /// callers sharing a device and for exercising band edges in tests.
-    pub fn run_warp_banded(
+    pub async fn run_warp_banded_async(
         &self,
         job: &schist_fx::WarpParams<'_>,
         src: &WarpSource,
@@ -1000,7 +1071,7 @@ impl GpuContext {
                     ),
                     ..*job
                 };
-                let pixels = self.run_warp_tile(&tile, src)?;
+                let pixels = self.run_warp_tile(&tile, src).await?;
                 for row in 0..h {
                     let offset = ((y + row) * job.dst_width + x) * 4;
                     out[offset..offset + w * 4]
@@ -1011,10 +1082,15 @@ impl GpuContext {
         Some(out)
     }
 
-    fn run_warp_tile(&self, job: &schist_fx::WarpParams<'_>, src: &WarpSource) -> Option<Vec<f32>> {
-        let _work = self.work.lock();
-        self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory);
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
+    async fn run_warp_tile(
+        &self,
+        job: &schist_fx::WarpParams<'_>,
+        src: &WarpSource,
+    ) -> Option<Vec<f32>> {
+        let _work = self.work.lock().await;
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory));
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         let bytes = (job.dst_width * job.dst_height * 16) as u64;
         let dst = self.device.create_buffer(&wgpu::BufferDescriptor {
             label: Some("fx-warp-dst"),
@@ -1053,7 +1129,7 @@ impl GpuContext {
                 contents: if job.mesh.is_empty() {
                     &[0; 8]
                 } else {
-                    crate::fx::cast_f32s(job.mesh)
+                    crate::cast_f32s(job.mesh)
                 },
                 usage: wgpu::BufferUsages::STORAGE,
             });
@@ -1086,8 +1162,10 @@ impl GpuContext {
                 1,
             );
         }
-        let result = self.finish_fx(encoder, &dst, bytes, "warp");
-        if let Some(error) = pollster::block_on(self.device.pop_error_scope()) {
+        let result = self
+            .finish_fx(encoder, &dst, bytes, "warp", &mut scopes)
+            .await;
+        if let Some(error) = scopes.pop().await {
             log::warn!("GPU warp allocation failed: {error}");
             return None;
         }
@@ -1096,14 +1174,15 @@ impl GpuContext {
 
     /// Submit, read `bytes` back out of `out`, and turn any validation
     /// failure into `None` so the caller runs the CPU reference.
-    fn finish_fx(
+    async fn finish_fx(
         &self,
         mut encoder: wgpu::CommandEncoder,
         out: &wgpu::Buffer,
         bytes: u64,
         what: &str,
+        scopes: &mut ErrorScopes,
     ) -> Option<Vec<f32>> {
-        let result = (|| {
+        let result = (async {
             let staging = self.device.create_buffer(&wgpu::BufferDescriptor {
                 label: Some("fx-staging"),
                 size: bytes,
@@ -1113,13 +1192,14 @@ impl GpuContext {
             encoder.copy_buffer_to_buffer(out, 0, &staging, 0, bytes);
             self.queue.submit([encoder.finish()]);
             let slice = staging.slice(..);
-            let (tx, rx) = std::sync::mpsc::channel();
+            let (tx, rx) = futures::channel::oneshot::channel();
             slice.map_async(wgpu::MapMode::Read, move |r| {
                 let _ = tx.send(r);
             });
+            #[cfg(not(target_arch = "wasm32"))]
             self.device.poll(wgpu::PollType::wait_indefinitely()).ok()?;
-            rx.recv().ok()?.ok()?;
-            let data = slice.get_mapped_range();
+            rx.await.ok()?.ok()?;
+            let data = slice.get_mapped_range().ok()?;
             let floats: Vec<f32> = data
                 .as_chunks::<4>()
                 .0
@@ -1129,9 +1209,10 @@ impl GpuContext {
             drop(data);
             staging.unmap();
             Some(floats)
-        })();
+        })
+        .await;
         // A failed map/poll must not leave a scope for the next job to pop.
-        if let Some(err) = pollster::block_on(self.device.pop_error_scope()) {
+        if let Some(err) = scopes.pop().await {
             log::warn!("gpu {what} failed, falling back to the CPU: {err}");
             return None;
         }
@@ -1155,7 +1236,7 @@ impl GpuContext {
     /// sources exceed the buffer budget, or a readback failed); the caller
     /// falls back to the CPU reference. Native plans return `BatchOut::Native`;
     /// ICC conversion and RGBA packing belong to the display boundary.
-    pub fn composite_batch(
+    pub async fn composite_batch_async(
         &self,
         plan: &Plan<'_>,
         coords: &[TileCoord],
@@ -1192,7 +1273,7 @@ impl GpuContext {
                 bytes = next;
                 end += 1;
             }
-            match self.run_chunk(plan, &coords[start..end], rgba8)? {
+            match self.run_chunk(plan, &coords[start..end], rgba8).await? {
                 BatchOut::Native(mut v) => native_out.append(&mut v),
                 BatchOut::F32(mut v) => f32_out.append(&mut v),
                 BatchOut::Rgba8(mut v) => u8_out.append(&mut v),
@@ -1215,14 +1296,16 @@ impl GpuContext {
             0,
             0,
             TILE_PIXELS * pixel_bytes,
-            plan.sources.len().max(1) * 4,
+            plan.sources.len().max(1) * 6 * 4,
             8,
         ];
         for src in &plan.sources {
             match src {
-                PlanSource::Pixels(map) => {
-                    if map.get(coord).is_some() {
-                        bytes[0] += TILE_PIXELS * pixel_bytes;
+                PlanSource::Pixels(map, offset) => {
+                    for c in shifted_sources(coord, *offset).0.into_iter().flatten() {
+                        if map.get(c).is_some() {
+                            bytes[0] += TILE_PIXELS * pixel_bytes;
+                        }
                     }
                 }
                 PlanSource::Mask(map) => {
@@ -1235,18 +1318,24 @@ impl GpuContext {
         bytes
     }
 
-    fn run_chunk(&self, plan: &Plan<'_>, coords: &[TileCoord], rgba8: bool) -> Option<BatchOut> {
-        let _work = self.work.lock();
-        self.device.push_error_scope(wgpu::ErrorFilter::Validation);
-        let result = self.run_chunk_inner(plan, coords, rgba8);
-        if let Some(err) = pollster::block_on(self.device.pop_error_scope()) {
+    async fn run_chunk(
+        &self,
+        plan: &Plan<'_>,
+        coords: &[TileCoord],
+        rgba8: bool,
+    ) -> Option<BatchOut> {
+        let _work = self.work.lock().await;
+        let mut scopes = ErrorScopes::default();
+        scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
+        let result = self.run_chunk_inner(plan, coords, rgba8).await;
+        if let Some(err) = scopes.pop().await {
             log::warn!("gpu composite failed, falling back to the CPU: {err}");
             return None;
         }
         result
     }
 
-    fn run_chunk_inner(
+    async fn run_chunk_inner(
         &self,
         plan: &Plan<'_>,
         coords: &[TileCoord],
@@ -1262,7 +1351,7 @@ impl GpuContext {
         };
         let n_tiles = coords.len();
         let n_rows = plan.sources.len();
-        let mut slots = vec![-1i32; n_rows.max(1) * n_tiles];
+        let mut slots = vec![-1i32; n_rows.max(1) * n_tiles * 6];
         let mut fmts = vec![0u32; n_rows];
         let mut src_words: Vec<u32> = Vec::new();
         let mut mask_words: Vec<u32> = Vec::new();
@@ -1270,10 +1359,13 @@ impl GpuContext {
         // Each pixel row uploads at one format: the widest depth present
         // in this chunk (narrower tiles convert losslessly on the way in).
         for (r, src) in plan.sources.iter().enumerate() {
-            if let PlanSource::Pixels(map) = src {
+            if let PlanSource::Pixels(map, offset) = src {
                 let mut fmt = 0u32;
-                for c in coords {
-                    if let Some(buf) = map.get(*c) {
+                for c in coords
+                    .iter()
+                    .flat_map(|c| shifted_sources(*c, *offset).0.into_iter().flatten())
+                {
+                    if let Some(buf) = map.get(c) {
                         fmt = fmt.max(match buf.as_ref() {
                             TileBuf::U8(_) => 0,
                             TileBuf::U16(_) => 1,
@@ -1286,18 +1378,24 @@ impl GpuContext {
         }
         for (r, src) in plan.sources.iter().enumerate() {
             match src {
-                PlanSource::Pixels(map) => {
+                PlanSource::Pixels(map, offset) => {
                     for (t, c) in coords.iter().enumerate() {
-                        if let Some(buf) = map.get(*c) {
-                            slots[r * n_tiles + t] = src_words.len() as i32;
-                            if native {
-                                for i in 0..TILE_PIXELS {
-                                    let p = buf.native_pixel(i).converted(plan.mode);
-                                    src_words.extend(p.color.map(f32::to_bits));
-                                    src_words.push(p.alpha.to_bits());
+                        let (sources, rem) = shifted_sources(*c, *offset);
+                        let slot = (r * n_tiles + t) * 6;
+                        slots[slot + 4] = rem.0;
+                        slots[slot + 5] = rem.1;
+                        for (q, coord) in sources.into_iter().enumerate() {
+                            if let Some(buf) = coord.and_then(|c| map.get(c)) {
+                                slots[slot + q] = src_words.len() as i32;
+                                if native {
+                                    for i in 0..TILE_PIXELS {
+                                        let p = buf.native_pixel(i).converted(plan.mode);
+                                        src_words.extend(p.color.map(f32::to_bits));
+                                        src_words.push(p.alpha.to_bits());
+                                    }
+                                } else {
+                                    pack_pixels(&mut src_words, buf, fmts[r]);
                                 }
-                            } else {
-                                pack_pixels(&mut src_words, buf, fmts[r]);
                             }
                         }
                     }
@@ -1305,7 +1403,7 @@ impl GpuContext {
                 PlanSource::Mask(map) => {
                     for (t, c) in coords.iter().enumerate() {
                         if let Some(buf) = map.get(*c) {
-                            slots[r * n_tiles + t] = mask_words.len() as i32;
+                            slots[(r * n_tiles + t) * 6] = mask_words.len() as i32;
                             pack_mask(&mut mask_words, buf.as_ref());
                         }
                     }
@@ -1484,13 +1582,14 @@ impl GpuContext {
         self.queue.submit([encoder.finish()]);
 
         let slice = staging.slice(..);
-        let (tx, rx) = std::sync::mpsc::channel();
+        let (tx, rx) = futures::channel::oneshot::channel();
         slice.map_async(wgpu::MapMode::Read, move |r| {
             let _ = tx.send(r);
         });
+        #[cfg(not(target_arch = "wasm32"))]
         self.device.poll(wgpu::PollType::wait_indefinitely()).ok()?;
-        rx.recv().ok()?.ok()?;
-        let data = slice.get_mapped_range();
+        rx.await.ok()?.ok()?;
+        let data = slice.get_mapped_range().ok()?;
         let out = if native {
             BatchOut::Native(
                 data.as_chunks::<{ TILE_PIXELS * 20 }>()
@@ -1632,4 +1731,34 @@ fn unpad_rows(src: &[f32], src_row: usize, dst_row: usize, rows: usize) -> Vec<f
         out.extend_from_slice(&src[y * src_row..y * src_row + dst_row]);
     }
     out
+}
+
+/// Up to four source tiles for an integer translation, including negative offsets.
+/// i64 arithmetic also handles offsets at the ends of the document coordinate range.
+fn shifted_sources(coord: TileCoord, offset: (i32, i32)) -> ([Option<TileCoord>; 4], (i32, i32)) {
+    let size = schist_core::TILE_SIZE as i64;
+    let x = coord.tx as i64 * size - offset.0 as i64;
+    let y = coord.ty as i64 * size - offset.1 as i64;
+    let rem = (x.rem_euclid(size) as i32, y.rem_euclid(size) as i32);
+    let sources = std::array::from_fn(|q| {
+        let (dx, dy) = ((q % 2) as i64, (q / 2) as i64);
+        if (dx != 0 && rem.0 == 0) || (dy != 0 && rem.1 == 0) {
+            return None;
+        }
+        let tx = x.div_euclid(size) + dx;
+        let ty = y.div_euclid(size) + dy;
+        // TileMap::pixel accepts i32 coordinates, so out-of-domain tiles are transparent.
+        if tx < i32::MIN as i64 / size
+            || tx > i32::MAX as i64 / size
+            || ty < i32::MIN as i64 / size
+            || ty > i32::MAX as i64 / size
+        {
+            return None;
+        }
+        Some(TileCoord {
+            tx: tx as i32,
+            ty: ty as i32,
+        })
+    });
+    (sources, rem)
 }

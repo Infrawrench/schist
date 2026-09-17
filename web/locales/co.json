@@ -3,7 +3,7 @@
   "starting": "Avviamentu…",
   "webgpu": "Schist hà bisognu di WebGPU, chì stu navigatore ùn offre micca. Chrome/Edge 113+, Firefox 141+ è Safari 26+ l'offrenu.",
   "noticeTitle": "Schist funziona megliu cum'è applicazione per urdinatore",
-  "noticeBody": "Aduprate a versione web, chì hè una versione più ligera: face a cumpusizione nant'à u CPU è ùn include certe funzioni — i plug-in Photoshop è i plug-in di terzi, a galleria di maghjine, u pannellu AI, l'impurtazione HEIC è u scaricamentu di caratteri tipugrafichi — è i schedarii sò arregistrati cum'è scaricamenti. L'applicazione gratuita per urdinatore, dispunibule per macOS, Windows è Linux, cuntene tuttu.",
+  "noticeBody": "Aduprate a versione web, chì hè una versione più ligera: face a cumpusizione nant'à u WebGPU è ùn include certe funzioni — i plug-in Photoshop è i plug-in di terzi, a galleria di maghjine, u pannellu AI, l'impurtazione HEIC è u scaricamentu di caratteri tipugrafichi — è i schedarii sò arregistrati cum'è scaricamenti. L'applicazione gratuita per urdinatore, dispunibule per macOS, Windows è Linux, cuntene tuttu.",
   "noticeLink": "Ottene l'applicazione per urdinatore.",
   "ok": "OK"
 }

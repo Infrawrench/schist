@@ -3,7 +3,7 @@
   "starting": "Begin tans…",
   "webgpu": "Schist het WebGPU nodig, wat hierdie blaaier nie bied nie. Chrome/Edge 113+, Firefox 141+ en Safari 26+ bied dit wel.",
   "noticeTitle": "Schist werk die beste as 'n rekenaartoepassing",
-  "noticeBody": "Jy gebruik die vereenvoudigde webweergawe: dit stel beelde op die SVE saam en laat sekere funksies uit — Photoshop-inproppe en derdeparty-inproppe, die beeldgalery, die KI-paneel, HEIC-invoer en lettertipe-aflaaie — en lêers word as aflaaie gestoor. Die gratis rekenaartoepassing vir macOS, Windows en Linux bevat al hierdie funksies.",
+  "noticeBody": "Jy gebruik die vereenvoudigde webweergawe: dit stel beelde op WebGPU saam en laat sekere funksies uit — Photoshop-inproppe en derdeparty-inproppe, die beeldgalery, die KI-paneel, HEIC-invoer en lettertipe-aflaaie — en lêers word as aflaaie gestoor. Die gratis rekenaartoepassing vir macOS, Windows en Linux bevat al hierdie funksies.",
   "noticeLink": "Kry die rekenaartoepassing.",
   "ok": "Goed"
 }

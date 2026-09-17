@@ -3,7 +3,7 @@
   "starting": "Ow talleth…",
   "webgpu": "Res yw WebGPU dhe Schist, hag ny'n prov an peurel ma. Chrome/Edge 113+, Firefox 141+ ha Safari 26+ a'n gwra.",
   "noticeTitle": "Schist a ober an gwella avel app desktop",
-  "noticeBody": "Yth esowgh ow kul devnydh a'n versyon gwias, hag ev yw adeiladans skavarra: yth yw ow kesposya war an CPU ha gasa mes nebes nasow — ynworransow Photoshop hag ynworransow a drydy parti, galari delwennow, an panel AI, ynperthi HEIC ha iskargyansow font — ha restrennow a vydh sawys avel iskargyansow. Yma oll an re ma yn app desktop rydh rag macOS, Windows ha Linux.",
+  "noticeBody": "Yth esowgh ow kul devnydh a'n versyon gwias, hag ev yw adeiladans skavarra: yth yw ow kesposya war an WebGPU ha gasa mes nebes nasow — ynworransow Photoshop hag ynworransow a drydy parti, galari delwennow, an panel AI, ynperthi HEIC ha iskargyansow font — ha restrennow a vydh sawys avel iskargyansow. Yma oll an re ma yn app desktop rydh rag macOS, Windows ha Linux.",
   "noticeLink": "Kavos an app desktop.",
   "ok": "Da"
 }

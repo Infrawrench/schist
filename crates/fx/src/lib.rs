@@ -23,6 +23,45 @@ use std::sync::{OnceLock, RwLock};
 
 mod shader;
 pub use shader::{try_shader_rgba, ShaderJob, ShaderSpec, SHADER_PRELUDE};
+mod compute;
+pub mod plane;
+pub use compute::*;
+
+/// An owned, whole-filter operation that an asynchronous host can submit.
+/// Unlike borrowed jobs this can wait in a queue without retaining editor state.
+pub enum FilterOperation {
+    Program {
+        build: fn(usize, usize, &[f32]) -> Option<ComputeProgram>,
+        params: Vec<f32>,
+        work_per_pixel: usize,
+    },
+    Blur {
+        radius: usize,
+        passes: usize,
+    },
+    Shader {
+        shader: &'static ShaderSpec,
+        params: Vec<f32>,
+        halo: Option<usize>,
+        work_per_pixel: usize,
+    },
+}
+
+impl FilterOperation {
+    pub fn worth_offloading(&self, pixels: usize) -> bool {
+        let work = match self {
+            Self::Blur { radius, passes } => radius
+                .saturating_mul(2)
+                .saturating_add(1)
+                .saturating_mul(2)
+                .saturating_mul(*passes),
+            Self::Shader { work_per_pixel, .. } | Self::Program { work_per_pixel, .. } => {
+                *work_per_pixel
+            }
+        };
+        worth_offloading(pixels, work)
+    }
+}
 
 /// A separable box blur: `passes` rounds of one horizontal and one
 /// vertical pass over premultiplied alpha.
@@ -115,6 +154,17 @@ pub struct Carved {
 pub trait FxBackend: Send + Sync {
     /// Short name for logs ("cpu", "gpu").
     fn name(&self) -> &'static str;
+
+    /// Whether preparing a float-buffer program is worthwhile for this workload.
+    fn compute_available(&self, work: usize) -> bool {
+        let _ = work;
+        false
+    }
+
+    fn compute(&self, job: &ComputeJob<'_>) -> Option<Vec<f32>> {
+        let _ = job;
+        None
+    }
 
     /// An effect-owned WGSL kernel using the shared RGBA shader contract.
     /// Declining leaves the caller's original pixels available for its CPU body.

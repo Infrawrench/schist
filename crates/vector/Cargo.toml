@@ -5,4 +5,5 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+schist-fx.workspace = true
 schist-core.workspace = true

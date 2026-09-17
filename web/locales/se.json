@@ -3,7 +3,7 @@
   "starting": "Álggaheamen…",
   "webgpu": "Schist dárbbaša WebGPU, muhto dát neahttalohkki ii doarjjo dan. Chrome/Edge 113+, Firefox 141+ ja Safari 26+ dorjot dan.",
   "noticeTitle": "Schist doaibmá buoremusat dihtorprográmman",
-  "noticeBody": "Don geavahat fierpmádatveršuvnna, mii lea geahppaset veršuvdna: dat komposere CPU:s ja guođđá muhtun doaibmabijuid eret — Photoshop-lasáhusat ja goalmmát oassebeali lasáhusat, govvagalleriija, AI-panela, HEIC-sisačáliheami ja fonttaid viežžama — ja fiillat vurkejuvvojit viežžosin. Nuvttá dihtorprográmmas macOS:i, Windowsii ja Linuxii leat buot dát doaibmabijut.",
+  "noticeBody": "Don geavahat fierpmádatveršuvnna, mii lea geahppaset veršuvdna: dat komposere WebGPU:s ja guođđá muhtun doaibmabijuid eret — Photoshop-lasáhusat ja goalmmát oassebeali lasáhusat, govvagalleriija, AI-panela, HEIC-sisačáliheami ja fonttaid viežžama — ja fiillat vurkejuvvojit viežžosin. Nuvttá dihtorprográmmas macOS:i, Windowsii ja Linuxii leat buot dát doaibmabijut.",
   "noticeLink": "Viečča dihtorprográmma.",
   "ok": "OK"
 }

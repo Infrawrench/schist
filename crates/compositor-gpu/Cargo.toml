@@ -19,16 +19,25 @@ wgpu.workspace = true
 # gpui's tree turns on codespan-reporting's "termcolor" feature, which
 # changes an API naga only tolerates with its own "termcolor" on. Keep
 # the two in agreement or naga stops compiling in the full workspace.
-naga = { version = "27", features = ["termcolor"] }
+naga = { version = "30", features = ["termcolor"] }
 pollster.workspace = true
+futures.workspace = true
 
 [dev-dependencies]
+schist-neural.workspace = true
+schist-tools-retouch.workspace = true
+schist-codec-raw.workspace = true
+schist-vector.workspace = true
+schist-layer-fx.workspace = true
 moxcms = "0.8"
 schist-pixel-ops.workspace = true
 # The wiring tests drive real filters and warp tools through the seam.
 schist-filters-core.workspace = true
 schist-tools-warp.workspace = true
 schist-plugin-api.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+wasm-bindgen-test = "0.3"
 
 # FXC (the default DX12 shader compiler) miscompiles this crate's switch-
 # heavy compute shaders; DXC handles them. Statically linked so nothing

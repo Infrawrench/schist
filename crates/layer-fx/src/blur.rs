@@ -12,6 +12,11 @@ pub fn gaussian_alpha(a: &mut [f32], w: usize, h: usize, radius: f32) {
         return;
     }
     let sigma = radius / 3.0f32.sqrt();
+    let program = schist_fx::plane::alpha_blur_program(w, h, &box_radii(sigma), false);
+    if let Some(out) = schist_fx::try_compute(a, &program) {
+        a.copy_from_slice(&out);
+        return;
+    }
     let mut tmp = vec![0.0f32; a.len()];
     for r in box_radii(sigma) {
         box_pass(a, &mut tmp, w, h, r, false);

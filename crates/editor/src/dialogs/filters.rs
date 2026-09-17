@@ -206,14 +206,16 @@ pub(super) fn filter_dialog(
             move |ws, _w, cx| {
                 // A RAW-backed layer renders asynchronously. Close its
                 // preview dialog first, then let `apply_filter` replace it
-                // with a progress modal; the ordinary pixel-filter path
-                // remains synchronous and closes afterwards.
+                // with a progress modal. Pixel filters can also submit
+                // asynchronously in the browser; preserve their Busy modal.
                 if ws.is_raw_redevelopment(id) {
                     ws.close_modal(cx);
                     ws.apply_filter(id, &apply_values, cx);
                 } else {
                     ws.apply_filter(id, &apply_values, cx);
-                    ws.close_modal(cx);
+                    if matches!(ws.modal, Some(Modal::Filter { .. })) {
+                        ws.close_modal(cx);
+                    }
                 }
             },
             cx,

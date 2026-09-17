@@ -758,7 +758,7 @@ export const STRINGS = {
     "starting": "Starting…",
     "webgpu": "Schist needs WebGPU, which this browser doesn't offer. Chrome/Edge 113+, Firefox 141+ and Safari 26+ do.",
     "noticeTitle": "Schist runs best as a desktop app",
-    "noticeBody": "You're using the web version, which is a lighter build: it composites on the CPU and leaves out some features — Photoshop plug-ins and third-party plug-ins, image gallery, the AI panel, HEIC import and font downloads — and files are saved as downloads. The free desktop app for macOS, Windows and Linux has all of it.",
+    "noticeBody": "You're using the web version, which is a lighter build: it composites with WebGPU and leaves out some features — Photoshop plug-ins and third-party plug-ins, image gallery, the AI panel, HEIC import and font downloads — and files are saved as downloads. The free desktop app for macOS, Windows and Linux has all of it.",
     "noticeLink": "Get the desktop app.",
     "ok": "OK"
   },
@@ -767,7 +767,7 @@ export const STRINGS = {
     "starting": "Startar…",
     "webgpu": "Schist behöver WebGPU, som den här webbläsaren inte har. Chrome/Edge 113+, Firefox 141+ och Safari 26+ har det.",
     "noticeTitle": "Schist fungerar bäst som skrivbordsprogram",
-    "noticeBody": "Du använder webbversionen, som är en lättare variant: den komponerar på processorn och saknar vissa funktioner – Photoshop- och tredjepartsplugin, bildgalleriet, AI-panelen, HEIC-import och teckensnittshämtning – och filer sparas som hämtningar. Det kostnadsfria skrivbordsprogrammet för macOS, Windows och Linux har allt.",
+    "noticeBody": "Du använder webbversionen, som är en lättare variant: den komponerar med WebGPU och saknar vissa funktioner – Photoshop- och tredjepartsplugin, bildgalleriet, AI-panelen, HEIC-import och teckensnittshämtning – och filer sparas som hämtningar. Det kostnadsfria skrivbordsprogrammet för macOS, Windows och Linux har allt.",
     "noticeLink": "Hämta skrivbordsprogrammet.",
     "ok": "OK"
   },
@@ -776,7 +776,7 @@ export const STRINGS = {
     "starting": "Wird gestartet…",
     "webgpu": "Schist braucht WebGPU, das dieser Browser nicht bietet. Chrome/Edge 113+, Firefox 141+ und Safari 26+ haben es.",
     "noticeTitle": "Schist läuft am besten als Desktop-App",
-    "noticeBody": "Du verwendest die Web-Version, eine leichtere Ausgabe: Sie komponiert auf der CPU und lässt einige Funktionen weg – Photoshop- und Drittanbieter-Plug-ins, die Bildgalerie, das KI-Bedienfeld, HEIC-Import und Schrift-Downloads – und Dateien werden als Downloads gesichert. Die kostenlose Desktop-App für macOS, Windows und Linux hat alles davon.",
+    "noticeBody": "Du verwendest die Web-Version, eine leichtere Ausgabe: Sie komponiert auf der WebGPU und lässt einige Funktionen weg – Photoshop- und Drittanbieter-Plug-ins, die Bildgalerie, das KI-Bedienfeld, HEIC-Import und Schrift-Downloads – und Dateien werden als Downloads gesichert. Die kostenlose Desktop-App für macOS, Windows und Linux hat alles davon.",
     "noticeLink": "Desktop-App laden.",
     "ok": "OK"
   },
@@ -785,7 +785,7 @@ export const STRINGS = {
     "starting": "正在启动…",
     "webgpu": "Schist 需要 WebGPU，而此浏览器不支持。Chrome/Edge 113+、Firefox 141+ 和 Safari 26+ 支持。",
     "noticeTitle": "Schist 在桌面应用中体验最佳",
-    "noticeBody": "你正在使用网页版，这是一个精简版本：它在 CPU 上合成，并且缺少部分功能——Photoshop 和第三方增效工具、图库、AI 面板、HEIC 导入和字体下载——文件会以下载方式存储。适用于 macOS、Windows 和 Linux 的免费桌面应用具备全部功能。",
+    "noticeBody": "你正在使用网页版，这是一个精简版本：它在 WebGPU 上合成，并且缺少部分功能——Photoshop 和第三方增效工具、图库、AI 面板、HEIC 导入和字体下载——文件会以下载方式存储。适用于 macOS、Windows 和 Linux 的免费桌面应用具备全部功能。",
     "noticeLink": "获取桌面应用。",
     "ok": "好"
   },
@@ -794,7 +794,7 @@ export const STRINGS = {
     "starting": "起動中…",
     "webgpu": "Schist には WebGPU が必要ですが、このブラウザーは対応していません。Chrome/Edge 113 以降、Firefox 141 以降、Safari 26 以降が対応しています。",
     "noticeTitle": "Schist はデスクトップ版が最適です",
-    "noticeBody": "ご覧になっているのはウェブ版で、軽量な構成です。合成を CPU で行い、一部の機能——Photoshop 用およびサードパーティのプラグイン、画像ギャラリー、AI パネル、HEIC の読み込み、フォントのダウンロード——を省いており、ファイルはダウンロードとして保存されます。macOS、Windows、Linux 向けの無料のデスクトップ版にはそのすべてがあります。",
+    "noticeBody": "ご覧になっているのはウェブ版で、軽量な構成です。合成を WebGPU で行い、一部の機能——Photoshop 用およびサードパーティのプラグイン、画像ギャラリー、AI パネル、HEIC の読み込み、フォントのダウンロード——を省いており、ファイルはダウンロードとして保存されます。macOS、Windows、Linux 向けの無料のデスクトップ版にはそのすべてがあります。",
     "noticeLink": "デスクトップ版を入手",
     "ok": "OK"
   },
@@ -803,7 +803,7 @@ export const STRINGS = {
     "starting": "Démarrage…",
     "webgpu": "Schist nécessite WebGPU, que ce navigateur ne prend pas en charge. Chrome/Edge 113 ou version ultérieure, Firefox 141 ou version ultérieure et Safari 26 ou version ultérieure le prennent en charge.",
     "noticeTitle": "Schist offre une expérience optimale dans l’application de bureau",
-    "noticeBody": "Vous utilisez la version web, une édition allégée : elle effectue la composition sur le processeur et ne comprend pas certaines fonctions — les modules externes Photoshop et tiers, la galerie d’images, le panneau IA, l’importation HEIC et le téléchargement de polices — et les fichiers sont enregistrés sous forme de téléchargements. L’application de bureau gratuite pour macOS, Windows et Linux les propose toutes.",
+    "noticeBody": "Vous utilisez la version web, une édition allégée : elle effectue la composition avec WebGPU et ne comprend pas certaines fonctions — les modules externes Photoshop et tiers, la galerie d’images, le panneau IA, l’importation HEIC et le téléchargement de polices — et les fichiers sont enregistrés sous forme de téléchargements. L’application de bureau gratuite pour macOS, Windows et Linux les propose toutes.",
     "noticeLink": "Télécharger l’application de bureau.",
     "ok": "OK"
   },
@@ -812,7 +812,7 @@ export const STRINGS = {
     "starting": "Iniciando…",
     "webgpu": "Schist necesita WebGPU, pero este navegador no lo ofrece. Chrome/Edge 113 o posterior, Firefox 141 o posterior y Safari 26 o posterior sí lo ofrecen.",
     "noticeTitle": "Schist funciona mejor como aplicación de escritorio",
-    "noticeBody": "Estás usando la versión web, una edición más ligera: compone en la CPU y omite algunas funciones —los complementos de Photoshop y de terceros, la galería de imágenes, el panel de IA, la importación de HEIC y la descarga de fuentes—, y los archivos se guardan como descargas. La aplicación de escritorio gratuita para macOS, Windows y Linux incluye todas estas funciones.",
+    "noticeBody": "Estás usando la versión web, una edición más ligera: compone en la WebGPU y omite algunas funciones —los complementos de Photoshop y de terceros, la galería de imágenes, el panel de IA, la importación de HEIC y la descarga de fuentes—, y los archivos se guardan como descargas. La aplicación de escritorio gratuita para macOS, Windows y Linux incluye todas estas funciones.",
     "noticeLink": "Obtener la aplicación de escritorio.",
     "ok": "Aceptar"
   },
@@ -821,7 +821,7 @@ export const STRINGS = {
     "starting": "Запуск…",
     "webgpu": "Для работы Schist требуется WebGPU, который не поддерживается этим браузером. WebGPU доступен в Chrome/Edge 113+, Firefox 141+ и Safari 26+.",
     "noticeTitle": "Лучше всего Schist работает как настольное приложение",
-    "noticeBody": "Вы используете облегчённую веб-версию: она выполняет компоновку на центральном процессоре и не включает некоторые возможности — подключаемые модули Photoshop и сторонних разработчиков, галерею изображений, панель ИИ, импорт HEIC и загрузку шрифтов, — а файлы сохраняет как загрузки. В бесплатном настольном приложении для macOS, Windows и Linux доступны все эти возможности.",
+    "noticeBody": "Вы используете облегчённую веб-версию: она выполняет компоновку с помощью WebGPU и не включает некоторые возможности — подключаемые модули Photoshop и сторонних разработчиков, галерею изображений, панель ИИ, импорт HEIC и загрузку шрифтов, — а файлы сохраняет как загрузки. В бесплатном настольном приложении для macOS, Windows и Linux доступны все эти возможности.",
     "noticeLink": "Скачать настольное приложение.",
     "ok": "ОК"
   },
@@ -830,7 +830,7 @@ export const STRINGS = {
     "starting": "शुरू हो रहा है…",
     "webgpu": "Schist को WebGPU चाहिए, जो यह ब्राउज़र उपलब्ध नहीं कराता। Chrome/Edge 113+, Firefox 141+ और Safari 26+ इसे उपलब्ध कराते हैं।",
     "noticeTitle": "Schist डेस्कटॉप ऐप के रूप में सबसे अच्छा चलता है",
-    "noticeBody": "आप वेब संस्करण इस्तेमाल कर रहे हैं, जो हल्का बिल्ड है: यह CPU पर कंपोज़िट करता है और कुछ सुविधाएँ शामिल नहीं करता—Photoshop और तृतीय-पक्ष प्लग-इन, छवि गैलरी, AI पैनल, HEIC आयात और फ़ॉन्ट डाउनलोड—और फ़ाइलें डाउनलोड के रूप में सहेजी जाती हैं। macOS, Windows और Linux के लिए मुफ़्त डेस्कटॉप ऐप में ये सभी सुविधाएँ हैं।",
+    "noticeBody": "आप वेब संस्करण इस्तेमाल कर रहे हैं, जो हल्का बिल्ड है: यह WebGPU पर कंपोज़िट करता है और कुछ सुविधाएँ शामिल नहीं करता—Photoshop और तृतीय-पक्ष प्लग-इन, छवि गैलरी, AI पैनल, HEIC आयात और फ़ॉन्ट डाउनलोड—और फ़ाइलें डाउनलोड के रूप में सहेजी जाती हैं। macOS, Windows और Linux के लिए मुफ़्त डेस्कटॉप ऐप में ये सभी सुविधाएँ हैं।",
     "noticeLink": "डेस्कटॉप ऐप पाएँ।",
     "ok": "ठीक है"
   },
@@ -839,7 +839,7 @@ export const STRINGS = {
     "starting": "시작하는 중…",
     "webgpu": "Schist를 사용하려면 WebGPU가 필요하지만 이 브라우저에서는 지원하지 않습니다. Chrome/Edge 113 이상, Firefox 141 이상 또는 Safari 26 이상을 사용하세요.",
     "noticeTitle": "Schist는 데스크톱 앱에서 가장 원활하게 작동합니다",
-    "noticeBody": "현재 사용 중인 웹 버전은 기능을 줄인 경량 빌드입니다. CPU에서 합성 작업을 처리하며 Photoshop 및 서드파티 플러그인, 이미지 갤러리, AI 패널, HEIC 가져오기, 글꼴 다운로드 등의 기능이 제외되어 있고 파일은 다운로드 방식으로 저장됩니다. macOS, Windows, Linux용 무료 데스크톱 앱에서는 모든 기능을 사용할 수 있습니다.",
+    "noticeBody": "현재 사용 중인 웹 버전은 기능을 줄인 경량 빌드입니다. WebGPU에서 합성 작업을 처리하며 Photoshop 및 서드파티 플러그인, 이미지 갤러리, AI 패널, HEIC 가져오기, 글꼴 다운로드 등의 기능이 제외되어 있고 파일은 다운로드 방식으로 저장됩니다. macOS, Windows, Linux용 무료 데스크톱 앱에서는 모든 기능을 사용할 수 있습니다.",
     "noticeLink": "데스크톱 앱 받기",
     "ok": "확인"
   },
@@ -848,7 +848,7 @@ export const STRINGS = {
     "starting": "Memulakan…",
     "webgpu": "Schist memerlukan WebGPU, yang tidak disediakan oleh pelayar ini. Chrome/Edge 113+, Firefox 141+ dan Safari 26+ menyediakannya.",
     "noticeTitle": "Schist berfungsi paling baik sebagai aplikasi desktop",
-    "noticeBody": "Anda sedang menggunakan versi web, iaitu binaan yang lebih ringan: versi ini menggubah imej pada CPU dan tidak menyertakan beberapa ciri — pemalam Photoshop dan pemalam pihak ketiga, galeri imej, panel AI, import HEIC dan muat turun fon — manakala fail disimpan sebagai muat turun. Aplikasi desktop percuma untuk macOS, Windows dan Linux menyediakan kesemuanya.",
+    "noticeBody": "Anda sedang menggunakan versi web, iaitu binaan yang lebih ringan: versi ini menggubah imej pada WebGPU dan tidak menyertakan beberapa ciri — pemalam Photoshop dan pemalam pihak ketiga, galeri imej, panel AI, import HEIC dan muat turun fon — manakala fail disimpan sebagai muat turun. Aplikasi desktop percuma untuk macOS, Windows dan Linux menyediakan kesemuanya.",
     "noticeLink": "Dapatkan aplikasi desktop.",
     "ok": "OK"
   },
@@ -857,7 +857,7 @@ export const STRINGS = {
     "starting": "جارٍ بدء التشغيل…",
     "webgpu": "يتطلب Schist تقنية WebGPU، وهي غير متاحة في هذا المتصفح. تتوفر التقنية في Chrome وEdge الإصدار 113 فأحدث، وFirefox الإصدار 141 فأحدث، وSafari الإصدار 26 فأحدث.",
     "noticeTitle": "يعمل Schist بأفضل صورة كتطبيق لسطح المكتب",
-    "noticeBody": "أنت تستخدم إصدار الويب، وهو إصدار أخف: ينفّذ تركيب الصور على وحدة المعالجة المركزية ولا يتضمن بعض الميزات، ومنها ملحقات Photoshop والملحقات التابعة لجهات خارجية، ومعرض الصور، ولوحة الذكاء الاصطناعي، واستيراد ملفات HEIC، وتنزيل الخطوط؛ كما تُحفظ الملفات في صورة تنزيلات. يتضمن تطبيق سطح المكتب المجاني لأنظمة macOS وWindows وLinux جميع هذه الميزات.",
+    "noticeBody": "أنت تستخدم إصدار الويب، وهو إصدار أخف: ينفّذ تركيب الصور باستخدام WebGPU ولا يتضمن بعض الميزات، ومنها ملحقات Photoshop والملحقات التابعة لجهات خارجية، ومعرض الصور، ولوحة الذكاء الاصطناعي، واستيراد ملفات HEIC، وتنزيل الخطوط؛ كما تُحفظ الملفات في صورة تنزيلات. يتضمن تطبيق سطح المكتب المجاني لأنظمة macOS وWindows وLinux جميع هذه الميزات.",
     "noticeLink": "تنزيل تطبيق سطح المكتب.",
     "ok": "موافق"
   },
@@ -866,7 +866,7 @@ export const STRINGS = {
     "starting": "Starten…",
     "webgpu": "Schist heeft WebGPU nodig, maar deze browser biedt dat niet. Chrome/Edge 113+, Firefox 141+ en Safari 26+ doen dat wel.",
     "noticeTitle": "Schist werkt het beste als desktopapp",
-    "noticeBody": "Je gebruikt de webversie, een lichtere build: deze maakt composities op de CPU en bevat enkele functies niet — plug-ins voor Photoshop en van andere ontwikkelaars, de afbeeldingsgalerie, het AI-deelvenster, HEIC-import en downloads van lettertypen — en bestanden worden als downloads opgeslagen. De gratis desktopapp voor macOS, Windows en Linux bevat al deze functies.",
+    "noticeBody": "Je gebruikt de webversie, een lichtere build: deze maakt composities op de WebGPU en bevat enkele functies niet — plug-ins voor Photoshop en van andere ontwikkelaars, de afbeeldingsgalerie, het AI-deelvenster, HEIC-import en downloads van lettertypen — en bestanden worden als downloads opgeslagen. De gratis desktopapp voor macOS, Windows en Linux bevat al deze functies.",
     "noticeLink": "Download de desktopapp.",
     "ok": "OK"
   },
@@ -875,7 +875,7 @@ export const STRINGS = {
     "starting": "A iniciar…",
     "webgpu": "O Schist requer WebGPU, que este navegador não disponibiliza. Chrome/Edge 113+, Firefox 141+ e Safari 26+ disponibilizam.",
     "noticeTitle": "O Schist funciona melhor como aplicação de ambiente de trabalho",
-    "noticeBody": "Está a usar a versão Web, uma compilação mais leve: faz a composição na CPU e não inclui algumas funcionalidades — plug-ins do Photoshop e de terceiros, galeria de imagens, painel de IA, importação HEIC e transferência de tipos de letra — e os ficheiros são guardados como transferências. A aplicação gratuita para macOS, Windows e Linux inclui tudo.",
+    "noticeBody": "Está a usar a versão Web, uma compilação mais leve: faz a composição na WebGPU e não inclui algumas funcionalidades — plug-ins do Photoshop e de terceiros, galeria de imagens, painel de IA, importação HEIC e transferência de tipos de letra — e os ficheiros são guardados como transferências. A aplicação gratuita para macOS, Windows e Linux inclui tudo.",
     "noticeLink": "Obter a aplicação para computador.",
     "ok": "OK"
   },
@@ -884,7 +884,7 @@ export const STRINGS = {
     "starting": "Başlatılıyor…",
     "webgpu": "Schist, bu tarayıcının sunmadığı WebGPU'ya ihtiyaç duyar. Chrome/Edge 113+, Firefox 141+ ve Safari 26+ bunu destekler.",
     "noticeTitle": "Schist en iyi masaüstü uygulaması olarak çalışır",
-    "noticeBody": "Web sürümünü kullanıyorsunuz. Bu daha hafif bir yapıdır: birleştirme işlemini CPU'da yapar; Photoshop ve üçüncü taraf eklentileri, görüntü galerisi, AI paneli, HEIC içe aktarma ve yazı tipi indirme gibi bazı özellikleri içermez; dosyalar da indirme olarak kaydedilir. macOS, Windows ve Linux için ücretsiz masaüstü uygulaması bunların tümünü içerir.",
+    "noticeBody": "Web sürümünü kullanıyorsunuz. Bu daha hafif bir yapıdır: birleştirme işlemini WebGPU'da yapar; Photoshop ve üçüncü taraf eklentileri, görüntü galerisi, AI paneli, HEIC içe aktarma ve yazı tipi indirme gibi bazı özellikleri içermez; dosyalar da indirme olarak kaydedilir. macOS, Windows ve Linux için ücretsiz masaüstü uygulaması bunların tümünü içerir.",
     "noticeLink": "Masaüstü uygulamasını edinin.",
     "ok": "Tamam"
   },
@@ -893,7 +893,7 @@ export const STRINGS = {
     "starting": "در حال راه‌اندازی…",
     "webgpu": "Schist به WebGPU نیاز دارد که این مرورگر ارائه نمی‌کند. Chrome/Edge 113+، Firefox 141+ و Safari 26+ از آن پشتیبانی می‌کنند.",
     "noticeTitle": "Schist در قالب برنامهٔ دسکتاپ بهترین عملکرد را دارد",
-    "noticeBody": "شما از نسخهٔ وب استفاده می‌کنید که ساختی سبک‌تر است: ترکیب تصاویر را با CPU انجام می‌دهد و برخی قابلیت‌ها—افزونه‌های Photoshop و شخص ثالث، گالری تصویر، پنل هوش مصنوعی، واردکردن HEIC و بارگیری قلم‌ها—در آن وجود ندارند و فایل‌ها به‌صورت دانلود ذخیره می‌شوند. برنامهٔ رایگان دسکتاپ برای macOS، Windows و Linux همهٔ این قابلیت‌ها را دارد.",
+    "noticeBody": "شما از نسخهٔ وب استفاده می‌کنید که ساختی سبک‌تر است: ترکیب تصاویر را با WebGPU انجام می‌دهد و برخی قابلیت‌ها—افزونه‌های Photoshop و شخص ثالث، گالری تصویر، پنل هوش مصنوعی، واردکردن HEIC و بارگیری قلم‌ها—در آن وجود ندارند و فایل‌ها به‌صورت دانلود ذخیره می‌شوند. برنامهٔ رایگان دسکتاپ برای macOS، Windows و Linux همهٔ این قابلیت‌ها را دارد.",
     "noticeLink": "دریافت برنامهٔ دسکتاپ.",
     "ok": "تأیید"
   },
@@ -902,7 +902,7 @@ export const STRINGS = {
     "starting": "Memulai…",
     "webgpu": "Schist memerlukan WebGPU, yang tidak disediakan browser ini. Gunakan Chrome/Edge 113+, Firefox 141+, atau Safari 26+.",
     "noticeTitle": "Schist bekerja paling baik sebagai aplikasi desktop",
-    "noticeBody": "Anda sedang menggunakan versi web, yaitu versi yang lebih ringan: komposisi dilakukan di CPU dan beberapa fitur tidak disertakan—plugin Photoshop dan pihak ketiga, galeri gambar, panel AI, impor HEIC, serta pengunduhan font—dan berkas disimpan sebagai unduhan. Aplikasi desktop gratis untuk macOS, Windows, dan Linux memiliki semua fitur tersebut.",
+    "noticeBody": "Anda sedang menggunakan versi web, yaitu versi yang lebih ringan: komposisi dilakukan di WebGPU dan beberapa fitur tidak disertakan—plugin Photoshop dan pihak ketiga, galeri gambar, panel AI, impor HEIC, serta pengunduhan font—dan berkas disimpan sebagai unduhan. Aplikasi desktop gratis untuk macOS, Windows, dan Linux memiliki semua fitur tersebut.",
     "noticeLink": "Dapatkan aplikasi desktop.",
     "ok": "OK"
   },
@@ -911,7 +911,7 @@ export const STRINGS = {
     "starting": "सुरु हुँदै छ…",
     "webgpu": "Schist लाई WebGPU चाहिन्छ, जुन यो ब्राउजरले उपलब्ध गराउँदैन। Chrome/Edge 113+, Firefox 141+ र Safari 26+ ले उपलब्ध गराउँछन्।",
     "noticeTitle": "Schist डेस्कटप एपका रूपमा सबैभन्दा राम्रो चल्छ",
-    "noticeBody": "तपाईं वेब संस्करण प्रयोग गर्दै हुनुहुन्छ, जुन हल्का बिल्ड हो: यसले CPU मा कम्पोजिट गर्छ र Photoshop तथा तेस्रो-पक्ष प्लगइन, छवि ग्यालरी, AI प्यानल, HEIC आयात र फन्ट डाउनलोडजस्ता केही सुविधा समावेश गर्दैन—फाइलहरू डाउनलोडका रूपमा बचत हुन्छन्। macOS, Windows र Linux का लागि निःशुल्क डेस्कटप एपमा यी सबै सुविधा छन्।",
+    "noticeBody": "तपाईं वेब संस्करण प्रयोग गर्दै हुनुहुन्छ, जुन हल्का बिल्ड हो: यसले WebGPU मा कम्पोजिट गर्छ र Photoshop तथा तेस्रो-पक्ष प्लगइन, छवि ग्यालरी, AI प्यानल, HEIC आयात र फन्ट डाउनलोडजस्ता केही सुविधा समावेश गर्दैन—फाइलहरू डाउनलोडका रूपमा बचत हुन्छन्। macOS, Windows र Linux का लागि निःशुल्क डेस्कटप एपमा यी सबै सुविधा छन्।",
     "noticeLink": "डेस्कटप एप प्राप्त गर्नुहोस्।",
     "ok": "ठीक छ"
   },
@@ -920,7 +920,7 @@ export const STRINGS = {
     "starting": "Запуск…",
     "webgpu": "Schist потребує WebGPU, якої цей браузер не підтримує. Її підтримують Chrome/Edge 113+, Firefox 141+ і Safari 26+.",
     "noticeTitle": "Schist найкраще працює як настільний застосунок",
-    "noticeBody": "Ви користуєтеся вебверсією — полегшеною збіркою: вона виконує компонування на центральному процесорі та не містить деяких функцій — плагінів Photoshop і сторонніх розробників, галереї зображень, панелі ШІ, імпорту HEIC і завантаження шрифтів, — а файли зберігає як завантаження. Безплатний настільний застосунок для macOS, Windows і Linux містить усе це.",
+    "noticeBody": "Ви користуєтеся вебверсією — полегшеною збіркою: вона виконує компонування за допомогою WebGPU та не містить деяких функцій — плагінів Photoshop і сторонніх розробників, галереї зображень, панелі ШІ, імпорту HEIC і завантаження шрифтів, — а файли зберігає як завантаження. Безплатний настільний застосунок для macOS, Windows і Linux містить усе це.",
     "noticeLink": "Завантажити настільний застосунок.",
     "ok": "Гаразд"
   },
@@ -929,7 +929,7 @@ export const STRINGS = {
     "starting": "सुरू करत आहे…",
     "webgpu": "Schist ला WebGPU आवश्यक आहे, पण हा ब्राउझर ते देत नाही. Chrome/Edge 113+, Firefox 141+ आणि Safari 26+ ते देतात.",
     "noticeTitle": "Schist डेस्कटॉप अॅप म्हणून सर्वोत्कृष्ट चालते",
-    "noticeBody": "तुम्ही वेब आवृत्ती वापरत आहात. ही हलकी बिल्ड CPU वर मिश्रण करते आणि काही वैशिष्ट्ये वगळते — Photoshop व तृतीय-पक्ष प्लगइन, प्रतिमा गॅलरी, AI पटल, HEIC आयात आणि फॉन्ट डाउनलोड — तसेच फाइल डाउनलोड म्हणून जतन होतात. macOS, Windows आणि Linux साठीच्या मोफत डेस्कटॉप अॅपमध्ये हे सर्व आहे.",
+    "noticeBody": "तुम्ही वेब आवृत्ती वापरत आहात. ही हलकी बिल्ड WebGPU वर मिश्रण करते आणि काही वैशिष्ट्ये वगळते — Photoshop व तृतीय-पक्ष प्लगइन, प्रतिमा गॅलरी, AI पटल, HEIC आयात आणि फॉन्ट डाउनलोड — तसेच फाइल डाउनलोड म्हणून जतन होतात. macOS, Windows आणि Linux साठीच्या मोफत डेस्कटॉप अॅपमध्ये हे सर्व आहे.",
     "noticeLink": "डेस्कटॉप अॅप मिळवा.",
     "ok": "ठीक"
   },
@@ -938,7 +938,7 @@ export const STRINGS = {
     "starting": "กำลังเริ่มต้น…",
     "webgpu": "Schist ต้องใช้ WebGPU แต่เบราว์เซอร์นี้ไม่รองรับ โปรดใช้ Chrome/Edge 113 ขึ้นไป, Firefox 141 ขึ้นไป หรือ Safari 26 ขึ้นไป",
     "noticeTitle": "Schist ทำงานได้ดีที่สุดในรูปแบบแอปเดสก์ท็อป",
-    "noticeBody": "คุณกำลังใช้เวอร์ชันเว็บซึ่งมีขนาดเล็กกว่า โดยประมวลผลองค์ประกอบภาพบน CPU และไม่มีคุณสมบัติบางอย่าง ได้แก่ Photoshop และปลั๊กอินจากภายนอก แกลเลอรีภาพ แผง AI การนำเข้า HEIC และการดาวน์โหลดแบบอักษร อีกทั้งไฟล์จะถูกบันทึกเป็นรายการดาวน์โหลด แอปเดสก์ท็อปฟรีสำหรับ macOS, Windows และ Linux มีคุณสมบัติเหล่านี้ทั้งหมด",
+    "noticeBody": "คุณกำลังใช้เวอร์ชันเว็บซึ่งมีขนาดเล็กกว่า โดยประมวลผลองค์ประกอบภาพบน WebGPU และไม่มีคุณสมบัติบางอย่าง ได้แก่ Photoshop และปลั๊กอินจากภายนอก แกลเลอรีภาพ แผง AI การนำเข้า HEIC และการดาวน์โหลดแบบอักษร อีกทั้งไฟล์จะถูกบันทึกเป็นรายการดาวน์โหลด แอปเดสก์ท็อปฟรีสำหรับ macOS, Windows และ Linux มีคุณสมบัติเหล่านี้ทั้งหมด",
     "noticeLink": "ดาวน์โหลดแอปเดสก์ท็อป",
     "ok": "ตกลง"
   },
@@ -947,7 +947,7 @@ export const STRINGS = {
     "starting": "Starter…",
     "webgpu": "Schist kræver WebGPU, som denne browser ikke tilbyder. Chrome/Edge 113+, Firefox 141+ og Safari 26+ understøtter det.",
     "noticeTitle": "Schist fungerer bedst som computerprogram",
-    "noticeBody": "Du bruger webversionen, som er en lettere udgave: Den sammensætter billeder på CPU'en og udelader nogle funktioner — ekstramoduler til Photoshop og fra andre udviklere, billedgalleriet, AI-panelet, HEIC-import og hentning af skrifter — og filer gemmes som overførsler. Det gratis computerprogram til macOS, Windows og Linux indeholder det hele.",
+    "noticeBody": "Du bruger webversionen, som er en lettere udgave: Den sammensætter billeder på WebGPU'en og udelader nogle funktioner — ekstramoduler til Photoshop og fra andre udviklere, billedgalleriet, AI-panelet, HEIC-import og hentning af skrifter — og filer gemmes som overførsler. Det gratis computerprogram til macOS, Windows og Linux indeholder det hele.",
     "noticeLink": "Hent computerprogrammet.",
     "ok": "OK"
   },
@@ -956,7 +956,7 @@ export const STRINGS = {
     "starting": "S'està iniciant…",
     "webgpu": "El Schist necessita WebGPU, que aquest navegador no ofereix. Chrome/Edge 113+, Firefox 141+ i Safari 26+ sí que n'ofereixen.",
     "noticeTitle": "El Schist funciona millor com a aplicació d'escriptori",
-    "noticeBody": "Esteu utilitzant la versió web, una compilació més lleugera: compon amb la CPU i omet algunes funcions —els connectors del Photoshop i els de tercers, la galeria d'imatges, el tauler d'IA, la importació HEIC i la baixada de tipus de lletra—, i els fitxers es desen com a baixades. L'aplicació d'escriptori gratuïta per a macOS, Windows i Linux ho inclou tot.",
+    "noticeBody": "Esteu utilitzant la versió web, una compilació més lleugera: compon amb la WebGPU i omet algunes funcions —els connectors del Photoshop i els de tercers, la galeria d'imatges, el tauler d'IA, la importació HEIC i la baixada de tipus de lletra—, i els fitxers es desen com a baixades. L'aplicació d'escriptori gratuïta per a macOS, Windows i Linux ho inclou tot.",
     "noticeLink": "Baixa l'aplicació d'escriptori.",
     "ok": "D'acord"
   },
@@ -965,7 +965,7 @@ export const STRINGS = {
     "starting": "Đang khởi động…",
     "webgpu": "Schist cần WebGPU nhưng trình duyệt này không hỗ trợ. Chrome/Edge 113+, Firefox 141+ và Safari 26+ có hỗ trợ.",
     "noticeTitle": "Schist hoạt động tốt nhất dưới dạng ứng dụng máy tính",
-    "noticeBody": "Bạn đang dùng phiên bản web, một bản dựng nhẹ hơn: phiên bản này tổng hợp trên CPU và không bao gồm một số tính năng — phần bổ trợ Photoshop và phần bổ trợ bên thứ ba, thư viện ảnh, bảng AI, nhập HEIC và tải phông chữ — đồng thời tệp được lưu dưới dạng bản tải xuống. Ứng dụng máy tính miễn phí cho macOS, Windows và Linux có đầy đủ các tính năng này.",
+    "noticeBody": "Bạn đang dùng phiên bản web, một bản dựng nhẹ hơn: phiên bản này tổng hợp trên WebGPU và không bao gồm một số tính năng — phần bổ trợ Photoshop và phần bổ trợ bên thứ ba, thư viện ảnh, bảng AI, nhập HEIC và tải phông chữ — đồng thời tệp được lưu dưới dạng bản tải xuống. Ứng dụng máy tính miễn phí cho macOS, Windows và Linux có đầy đủ các tính năng này.",
     "noticeLink": "Tải ứng dụng máy tính.",
     "ok": "OK"
   },
@@ -974,7 +974,7 @@ export const STRINGS = {
     "starting": "בהפעלה…",
     "webgpu": "Schist זקוק ל־WebGPU, שאינו מוצע בדפדפן זה. Chrome/Edge 113+, Firefox 141+ ו־Safari 26+ כן תומכים בו.",
     "noticeTitle": "Schist פועל בצורה הטובה ביותר כיישום שולחני",
-    "noticeBody": "נעשה שימוש בגרסת האינטרנט, שהיא גרסה קלה יותר: היא מרכיבה תמונות במעבד ומשמיטה כמה יכולות—תוספי Photoshop ותוספי צד שלישי, גלריית התמונות, חלונית הבינה המלאכותית, ייבוא HEIC והורדת גופנים—והקבצים נשמרים כהורדות. היישום השולחני החינמי ל־macOS, ל־Windows ול־Linux כולל את כולן.",
+    "noticeBody": "נעשה שימוש בגרסת האינטרנט, שהיא גרסה קלה יותר: היא מרכיבה תמונות באמצעות WebGPU ומשמיטה כמה יכולות—תוספי Photoshop ותוספי צד שלישי, גלריית התמונות, חלונית הבינה המלאכותית, ייבוא HEIC והורדת גופנים—והקבצים נשמרים כהורדות. היישום השולחני החינמי ל־macOS, ל־Windows ול־Linux כולל את כולן.",
     "noticeLink": "הורדת היישום השולחני.",
     "ok": "אישור"
   },
@@ -983,7 +983,7 @@ export const STRINGS = {
     "starting": "চালু হচ্ছে…",
     "webgpu": "Schist-এর WebGPU প্রয়োজন, যা এই ব্রাউজারে নেই। Chrome/Edge 113+, Firefox 141+ এবং Safari 26+-এ এটি রয়েছে।",
     "noticeTitle": "ডেস্কটপ অ্যাপ হিসেবে Schist সবচেয়ে ভালো চলে",
-    "noticeBody": "আপনি ওয়েব সংস্করণ ব্যবহার করছেন, যা তুলনামূলক হালকা বিল্ড: এটি CPU-তে কম্পোজিট করে এবং কিছু সুবিধা বাদ দেয়—Photoshop ও তৃতীয় পক্ষের প্লাগইন, ছবির গ্যালারি, AI প্যানেল, HEIC আমদানি ও ফন্ট ডাউনলোড—এবং ফাইলগুলো ডাউনলোড হিসেবে সংরক্ষিত হয়। macOS, Windows ও Linux-এর বিনামূল্যের ডেস্কটপ অ্যাপে সব সুবিধাই রয়েছে।",
+    "noticeBody": "আপনি ওয়েব সংস্করণ ব্যবহার করছেন, যা তুলনামূলক হালকা বিল্ড: এটি WebGPU-তে কম্পোজিট করে এবং কিছু সুবিধা বাদ দেয়—Photoshop ও তৃতীয় পক্ষের প্লাগইন, ছবির গ্যালারি, AI প্যানেল, HEIC আমদানি ও ফন্ট ডাউনলোড—এবং ফাইলগুলো ডাউনলোড হিসেবে সংরক্ষিত হয়। macOS, Windows ও Linux-এর বিনামূল্যের ডেস্কটপ অ্যাপে সব সুবিধাই রয়েছে।",
     "noticeLink": "ডেস্কটপ অ্যাপ নিন।",
     "ok": "ঠিক আছে"
   },
@@ -992,7 +992,7 @@ export const STRINGS = {
     "starting": "Uruchamianie…",
     "webgpu": "Schist wymaga WebGPU, którego ta przeglądarka nie udostępnia. Obsługują je Chrome/Edge 113+, Firefox 141+ i Safari 26+.",
     "noticeTitle": "Schist działa najlepiej jako aplikacja komputerowa",
-    "noticeBody": "Korzystasz z wersji internetowej, która jest lżejsza: składa obraz na procesorze i pomija niektóre funkcje — wtyczki programu Photoshop i wtyczki innych firm, galerię obrazów, panel AI, import HEIC i pobieranie czcionek — a pliki zapisuje jako pobrane. Bezpłatna aplikacja komputerowa dla macOS, Windows i Linux zawiera je wszystkie.",
+    "noticeBody": "Korzystasz z wersji internetowej, która jest lżejsza: składa obraz za pomocą WebGPU i pomija niektóre funkcje — wtyczki programu Photoshop i wtyczki innych firm, galerię obrazów, panel AI, import HEIC i pobieranie czcionek — a pliki zapisuje jako pobrane. Bezpłatna aplikacja komputerowa dla macOS, Windows i Linux zawiera je wszystkie.",
     "noticeLink": "Pobierz aplikację komputerową.",
     "ok": "OK"
   },
@@ -1001,7 +1001,7 @@ export const STRINGS = {
     "starting": "Inaanza…",
     "webgpu": "Schist inahitaji WebGPU, ambayo kivinjari hiki hakitoi. Chrome/Edge 113+, Firefox 141+ na Safari 26+ zinaitumia.",
     "noticeTitle": "Schist hufanya kazi vizuri zaidi kama programu ya kompyuta",
-    "noticeBody": "Unatumia toleo la wavuti, ambalo ni jepesi: huunganisha picha kwenye CPU na halina baadhi ya vipengele — programu-jalizi za Photoshop na za wengine, matunzio ya picha, paneli ya AI, uletaji wa HEIC na upakuaji wa fonti — na faili huhifadhiwa kama vipakuliwa. Programu ya kompyuta isiyolipishwa ya macOS, Windows na Linux ina vipengele vyote.",
+    "noticeBody": "Unatumia toleo la wavuti, ambalo ni jepesi: huunganisha picha kwenye WebGPU na halina baadhi ya vipengele — programu-jalizi za Photoshop na za wengine, matunzio ya picha, paneli ya AI, uletaji wa HEIC na upakuaji wa fonti — na faili huhifadhiwa kama vipakuliwa. Programu ya kompyuta isiyolipishwa ya macOS, Windows na Linux ina vipengele vyote.",
     "noticeLink": "Pata programu ya kompyuta.",
     "ok": "Sawa"
   },
@@ -1010,7 +1010,7 @@ export const STRINGS = {
     "starting": "Іске қосылуда…",
     "webgpu": "Schist қолданбасына WebGPU қажет, бірақ бұл браузер оны ұсынбайды. Chrome/Edge 113+, Firefox 141+ және Safari 26+ нұсқалары қолдайды.",
     "noticeTitle": "Schist жұмыс үстелі қолданбасы ретінде жақсырақ жұмыс істейді",
-    "noticeBody": "Сіз мүмкіндіктері ықшамдалған веб-нұсқаны пайдаланып отырсыз: ол композицияны CPU арқылы орындайды және кейбір мүмкіндіктерді — Photoshop плагиндері мен бөгде плагиндерді, кескіндер галереясын, ЖИ панелін, HEIC импортын және қаріптерді жүктеп алуды — қамтымайды, ал файлдар жүктеме ретінде сақталады. macOS, Windows және Linux жүйелеріне арналған тегін жұмыс үстелі қолданбасында мұның бәрі бар.",
+    "noticeBody": "Сіз мүмкіндіктері ықшамдалған веб-нұсқаны пайдаланып отырсыз: ол композицияны WebGPU арқылы орындайды және кейбір мүмкіндіктерді — Photoshop плагиндері мен бөгде плагиндерді, кескіндер галереясын, ЖИ панелін, HEIC импортын және қаріптерді жүктеп алуды — қамтымайды, ал файлдар жүктеме ретінде сақталады. macOS, Windows және Linux жүйелеріне арналған тегін жұмыс үстелі қолданбасында мұның бәрі бар.",
     "noticeLink": "Жұмыс үстелі қолданбасын алу.",
     "ok": "OK"
   },
@@ -1019,7 +1019,7 @@ export const STRINGS = {
     "starting": "ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ…",
     "webgpu": "Schist ਨੂੰ WebGPU ਚਾਹੀਦਾ ਹੈ, ਜੋ ਇਹ ਬਰਾਊਜ਼ਰ ਨਹੀਂ ਦਿੰਦਾ। Chrome/Edge 113+, Firefox 141+ ਅਤੇ Safari 26+ ਇਹ ਦਿੰਦੇ ਹਨ।",
     "noticeTitle": "Schist ਡੈਸਕਟਾਪ ਐਪ ਵਜੋਂ ਸਭ ਤੋਂ ਵਧੀਆ ਚੱਲਦਾ ਹੈ",
-    "noticeBody": "ਤੁਸੀਂ ਵੈੱਬ ਵਰਜਨ ਵਰਤ ਰਹੇ ਹੋ, ਜੋ ਹਲਕਾ ਬਿਲਡ ਹੈ: ਇਹ CPU ਉੱਤੇ ਕੰਪੋਜ਼ਿਟ ਕਰਦਾ ਹੈ ਅਤੇ ਕੁਝ ਸਹੂਲਤਾਂ—Photoshop ਅਤੇ ਤੀਜੀ-ਧਿਰ ਪਲੱਗਇਨ, ਤਸਵੀਰ ਗੈਲਰੀ, AI ਪੈਨਲ, HEIC ਆਯਾਤ ਅਤੇ ਫ਼ੌਂਟ ਡਾਊਨਲੋਡ—ਸ਼ਾਮਲ ਨਹੀਂ ਕਰਦਾ; ਫ਼ਾਈਲਾਂ ਡਾਊਨਲੋਡ ਵਜੋਂ ਸੰਭਾਲੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। macOS, Windows ਅਤੇ Linux ਲਈ ਮੁਫ਼ਤ ਡੈਸਕਟਾਪ ਐਪ ਵਿੱਚ ਇਹ ਸਭ ਕੁਝ ਹੈ।",
+    "noticeBody": "ਤੁਸੀਂ ਵੈੱਬ ਵਰਜਨ ਵਰਤ ਰਹੇ ਹੋ, ਜੋ ਹਲਕਾ ਬਿਲਡ ਹੈ: ਇਹ WebGPU ਉੱਤੇ ਕੰਪੋਜ਼ਿਟ ਕਰਦਾ ਹੈ ਅਤੇ ਕੁਝ ਸਹੂਲਤਾਂ—Photoshop ਅਤੇ ਤੀਜੀ-ਧਿਰ ਪਲੱਗਇਨ, ਤਸਵੀਰ ਗੈਲਰੀ, AI ਪੈਨਲ, HEIC ਆਯਾਤ ਅਤੇ ਫ਼ੌਂਟ ਡਾਊਨਲੋਡ—ਸ਼ਾਮਲ ਨਹੀਂ ਕਰਦਾ; ਫ਼ਾਈਲਾਂ ਡਾਊਨਲੋਡ ਵਜੋਂ ਸੰਭਾਲੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। macOS, Windows ਅਤੇ Linux ਲਈ ਮੁਫ਼ਤ ਡੈਸਕਟਾਪ ਐਪ ਵਿੱਚ ਇਹ ਸਭ ਕੁਝ ਹੈ।",
     "noticeLink": "ਡੈਸਕਟਾਪ ਐਪ ਲਵੋ।",
     "ok": "ਠੀਕ ਹੈ"
   },
@@ -1028,7 +1028,7 @@ export const STRINGS = {
     "starting": "Käynnistetään…",
     "webgpu": "Schist tarvitsee WebGPU:n, jota tämä selain ei tarjoa. Sitä tukevat Chrome/Edge 113+, Firefox 141+ ja Safari 26+.",
     "noticeTitle": "Schist toimii parhaiten työpöytäsovelluksena",
-    "noticeBody": "Käytät verkkoversiota, joka on ominaisuuksiltaan suppeampi kooste: se yhdistää kuvan suorittimella eikä sisällä kaikkia ominaisuuksia — Photoshop- ja muiden valmistajien liitännäisiä, kuvagalleriaa, tekoälypaneelia, HEIC-tuontia ja fonttien latausta — ja tiedostot tallennetaan latauksina. Ilmainen työpöytäsovellus macOS:lle, Windowsille ja Linuxille sisältää kaikki ominaisuudet.",
+    "noticeBody": "Käytät verkkoversiota, joka on ominaisuuksiltaan suppeampi kooste: se yhdistää kuvan WebGPU:lla eikä sisällä kaikkia ominaisuuksia — Photoshop- ja muiden valmistajien liitännäisiä, kuvagalleriaa, tekoälypaneelia, HEIC-tuontia ja fonttien latausta — ja tiedostot tallennetaan latauksina. Ilmainen työpöytäsovellus macOS:lle, Windowsille ja Linuxille sisältää kaikki ominaisuudet.",
     "noticeLink": "Hanki työpöytäsovellus.",
     "ok": "OK"
   },
@@ -1037,7 +1037,7 @@ export const STRINGS = {
     "starting": "Se pornește…",
     "webgpu": "Schist necesită WebGPU, pe care acest browser nu îl oferă. Chrome/Edge 113+, Firefox 141+ și Safari 26+ îl oferă.",
     "noticeTitle": "Schist funcționează cel mai bine ca aplicație desktop",
-    "noticeBody": "Folosiți versiunea web, o versiune mai ușoară: compune pe CPU și omite unele funcții — plug-inuri Photoshop și plug-inuri terțe, galeria de imagini, panoul IA, importul HEIC și descărcarea fonturilor — iar fișierele sunt salvate ca descărcări. Aplicația desktop gratuită pentru macOS, Windows și Linux le include pe toate.",
+    "noticeBody": "Folosiți versiunea web, o versiune mai ușoară: compune pe WebGPU și omite unele funcții — plug-inuri Photoshop și plug-inuri terțe, galeria de imagini, panoul IA, importul HEIC și descărcarea fonturilor — iar fișierele sunt salvate ca descărcări. Aplicația desktop gratuită pentru macOS, Windows și Linux le include pe toate.",
     "noticeLink": "Obțineți aplicația desktop.",
     "ok": "OK"
   },
@@ -1046,7 +1046,7 @@ export const STRINGS = {
     "starting": "Эхлүүлж байна…",
     "webgpu": "Schist-д WebGPU шаардлагатай боловч энэ хөтөч дэмждэггүй. Chrome/Edge 113+, Firefox 141+ болон Safari 26+ дэмжинэ.",
     "noticeTitle": "Schist ширээний апп хэлбэрээр хамгийн сайн ажиллана",
-    "noticeBody": "Та вэб хувилбарыг ашиглаж байна. Энэ нь хөнгөн хувилбар бөгөөд CPU дээр нийлүүлж, зарим боломжийг орхидог — Photoshop болон гуравдагч талын нэмэлт, зургийн галерей, AI самбар, HEIC импорт, фонт таталт — мөн файлыг татан авалт хэлбэрээр хадгална. macOS, Windows болон Linux-д зориулсан үнэгүй ширээний апп эдгээрийг бүгдийг агуулна.",
+    "noticeBody": "Та вэб хувилбарыг ашиглаж байна. Энэ нь хөнгөн хувилбар бөгөөд WebGPU дээр нийлүүлж, зарим боломжийг орхидог — Photoshop болон гуравдагч талын нэмэлт, зургийн галерей, AI самбар, HEIC импорт, фонт таталт — мөн файлыг татан авалт хэлбэрээр хадгална. macOS, Windows болон Linux-д зориулсан үнэгүй ширээний апп эдгээрийг бүгдийг агуулна.",
     "noticeLink": "Ширээний апп авах.",
     "ok": "ЗА"
   },
@@ -1055,7 +1055,7 @@ export const STRINGS = {
     "starting": "شروع ہو رہا ہے…",
     "webgpu": "Schist کو WebGPU درکار ہے، جو یہ براؤزر فراہم نہیں کرتا۔ Chrome/Edge 113+، Firefox 141+ اور Safari 26+ اسے سپورٹ کرتے ہیں۔",
     "noticeTitle": "Schist بطور ڈیسک ٹاپ ایپ بہترین چلتا ہے",
-    "noticeBody": "آپ ہلکا ویب ورژن استعمال کر رہے ہیں: یہ CPU پر تصاویر مرکب کرتا ہے اور کچھ خصوصیات شامل نہیں کرتا — Photoshop اور فریق ثالث پلگ انز، تصویری گیلری، AI پینل، HEIC درآمد اور فونٹ ڈاؤن لوڈ — اور فائلیں ڈاؤن لوڈ کے طور پر محفوظ ہوتی ہیں۔ macOS، Windows اور Linux کے لیے مفت ڈیسک ٹاپ ایپ میں یہ سب موجود ہے۔",
+    "noticeBody": "آپ ہلکا ویب ورژن استعمال کر رہے ہیں: یہ WebGPU پر تصاویر مرکب کرتا ہے اور کچھ خصوصیات شامل نہیں کرتا — Photoshop اور فریق ثالث پلگ انز، تصویری گیلری، AI پینل، HEIC درآمد اور فونٹ ڈاؤن لوڈ — اور فائلیں ڈاؤن لوڈ کے طور پر محفوظ ہوتی ہیں۔ macOS، Windows اور Linux کے لیے مفت ڈیسک ٹاپ ایپ میں یہ سب موجود ہے۔",
     "noticeLink": "ڈیسک ٹاپ ایپ حاصل کریں۔",
     "ok": "ٹھیک ہے"
   },
@@ -1064,7 +1064,7 @@ export const STRINGS = {
     "starting": "શરૂ થઈ રહ્યું છે…",
     "webgpu": "Schist માટે WebGPU જરૂરી છે, જે આ બ્રાઉઝરમાં ઉપલબ્ધ નથી. Chrome/Edge 113+, Firefox 141+ અને Safari 26+ તેને સપોર્ટ કરે છે.",
     "noticeTitle": "Schist ડેસ્કટૉપ ઍપ તરીકે શ્રેષ્ઠ રીતે ચાલે છે",
-    "noticeBody": "તમે હળવું વેબ વર્ઝન વાપરી રહ્યા છો: તે CPU પર કમ્પોઝિટ કરે છે અને કેટલીક સુવિધાઓ સમાવતું નથી — Photoshop પ્લગઇન અને તૃતીય-પક્ષ પ્લગઇન, છબી ગૅલેરી, AI પેનલ, HEIC ઇમ્પોર્ટ અને ફોન્ટ ડાઉનલોડ — તેમજ ફાઇલો ડાઉનલોડ તરીકે સાચવાય છે. macOS, Windows અને Linux માટેની મફત ડેસ્કટૉપ ઍપમાં આ બધું ઉપલબ્ધ છે.",
+    "noticeBody": "તમે હળવું વેબ વર્ઝન વાપરી રહ્યા છો: તે WebGPU પર કમ્પોઝિટ કરે છે અને કેટલીક સુવિધાઓ સમાવતું નથી — Photoshop પ્લગઇન અને તૃતીય-પક્ષ પ્લગઇન, છબી ગૅલેરી, AI પેનલ, HEIC ઇમ્પોર્ટ અને ફોન્ટ ડાઉનલોડ — તેમજ ફાઇલો ડાઉનલોડ તરીકે સાચવાય છે. macOS, Windows અને Linux માટેની મફત ડેસ્કટૉપ ઍપમાં આ બધું ઉપલબ્ધ છે.",
     "noticeLink": "ડેસ્કટૉપ ઍપ મેળવો.",
     "ok": "ઠીક"
   },
@@ -1073,7 +1073,7 @@ export const STRINGS = {
     "starting": "پیلېږي…",
     "webgpu": "Schist ته WebGPU پکار دی، خو دا لټونګر یې نه وړاندې کوي. Chrome/Edge 113+، Firefox 141+ او Safari 26+ یې وړاندې کوي.",
     "noticeTitle": "Schist د ډېسکټاپ اپ په توګه غوره کار کوي",
-    "noticeBody": "تاسو وېب بڼه کاروئ چې سپکه نسخه ده: انځور پر CPU سره یوځای کوي او ځینې ځانګړنې نه لري — د Photoshop پلګ‌اینونه او د درېیم لوري پلګ‌اینونه، د انځورونو نندارتون، د AI چوکاټ، د HEIC واردول او د لیکبڼو راکښته کول — او دوتنې د راکښته شویو دوتنو په توګه ساتل کېږي. د macOS، Windows او Linux لپاره وړیا ډېسکټاپ اپ دا ټول لري.",
+    "noticeBody": "تاسو وېب بڼه کاروئ چې سپکه نسخه ده: انځور پر WebGPU سره یوځای کوي او ځینې ځانګړنې نه لري — د Photoshop پلګ‌اینونه او د درېیم لوري پلګ‌اینونه، د انځورونو نندارتون، د AI چوکاټ، د HEIC واردول او د لیکبڼو راکښته کول — او دوتنې د راکښته شویو دوتنو په توګه ساتل کېږي. د macOS، Windows او Linux لپاره وړیا ډېسکټاپ اپ دا ټول لري.",
     "noticeLink": "د ډېسکټاپ اپ ترلاسه کړئ.",
     "ok": "سمه ده"
   },
@@ -1082,7 +1082,7 @@ export const STRINGS = {
     "starting": "தொடங்குகிறது…",
     "webgpu": "இந்த உலாவி வழங்காத WebGPU Schist க்குத் தேவை. Chrome/Edge 113+, Firefox 141+, Safari 26+ ஆகியவை அதை வழங்குகின்றன.",
     "noticeTitle": "கணினிப் பயன்பாடாக Schist மிகச் சிறப்பாக இயங்கும்",
-    "noticeBody": "நீங்கள் குறைவான அம்சங்களைக் கொண்ட இணையப் பதிப்பைப் பயன்படுத்துகிறீர்கள்: இது CPU இல் அடுக்குகளைக் கலக்குகிறது; Photoshop செருகுநிரல்கள் மற்றும் மூன்றாம் தரப்புச் செருகுநிரல்கள், படத்தொகுப்பு, AI பலகம், HEIC இறக்குமதி, எழுத்துருப் பதிவிறக்கங்கள் போன்ற சில அம்சங்கள் இதில் இல்லை; கோப்புகள் பதிவிறக்கங்களாகச் சேமிக்கப்படும். macOS, Windows, Linux க்கான இலவசக் கணினிப் பயன்பாட்டில் இவை அனைத்தும் உள்ளன.",
+    "noticeBody": "நீங்கள் குறைவான அம்சங்களைக் கொண்ட இணையப் பதிப்பைப் பயன்படுத்துகிறீர்கள்: இது WebGPU இல் அடுக்குகளைக் கலக்குகிறது; Photoshop செருகுநிரல்கள் மற்றும் மூன்றாம் தரப்புச் செருகுநிரல்கள், படத்தொகுப்பு, AI பலகம், HEIC இறக்குமதி, எழுத்துருப் பதிவிறக்கங்கள் போன்ற சில அம்சங்கள் இதில் இல்லை; கோப்புகள் பதிவிறக்கங்களாகச் சேமிக்கப்படும். macOS, Windows, Linux க்கான இலவசக் கணினிப் பயன்பாட்டில் இவை அனைத்தும் உள்ளன.",
     "noticeLink": "கணினிப் பயன்பாட்டைப் பெறுக.",
     "ok": "சரி"
   },
@@ -1091,7 +1091,7 @@ export const STRINGS = {
     "starting": "Avvio…",
     "webgpu": "Schist richiede WebGPU, che questo browser non supporta. È disponibile in Chrome/Edge 113+, Firefox 141+ e Safari 26+.",
     "noticeTitle": "Schist funziona al meglio come applicazione desktop",
-    "noticeBody": "Stai usando la versione web, una versione più leggera: esegue la composizione sulla CPU e non include alcune funzioni, tra cui i plugin di Photoshop e quelli di terze parti, la galleria immagini, il pannello IA, l'importazione HEIC e il download dei font; inoltre, i file vengono salvati come download. L'applicazione desktop gratuita per macOS, Windows e Linux include tutte queste funzioni.",
+    "noticeBody": "Stai usando la versione web, una versione più leggera: esegue la composizione sulla WebGPU e non include alcune funzioni, tra cui i plugin di Photoshop e quelli di terze parti, la galleria immagini, il pannello IA, l'importazione HEIC e il download dei font; inoltre, i file vengono salvati come download. L'applicazione desktop gratuita per macOS, Windows e Linux include tutte queste funzioni.",
     "noticeLink": "Scarica l'applicazione desktop.",
     "ok": "OK"
   },
@@ -1100,7 +1100,7 @@ export const STRINGS = {
     "starting": "Starter…",
     "webgpu": "Schist krever WebGPU, som denne nettleseren ikke tilbyr. Chrome/Edge 113+, Firefox 141+ og Safari 26+ støtter det.",
     "noticeTitle": "Schist fungerer best som en skrivebordsapp",
-    "noticeBody": "Du bruker nettversjonen, som er en lettere utgave: Den setter sammen bildet på prosessoren og utelater enkelte funksjoner – Photoshop- og tredjepartsprogramtillegg, bildegalleriet, KI-panelet, HEIC-import og nedlasting av skrifter – og filer lagres som nedlastinger. Den kostnadsfrie skrivebordsappen for macOS, Windows og Linux har alt dette.",
+    "noticeBody": "Du bruker nettversjonen, som er en lettere utgave: Den setter sammen bildet på WebGPU og utelater enkelte funksjoner – Photoshop- og tredjepartsprogramtillegg, bildegalleriet, KI-panelet, HEIC-import og nedlasting av skrifter – og filer lagres som nedlastinger. Den kostnadsfrie skrivebordsappen for macOS, Windows og Linux har alt dette.",
     "noticeLink": "Hent skrivebordsappen.",
     "ok": "OK"
   },
@@ -1109,7 +1109,7 @@ export const STRINGS = {
     "starting": "Miwiti…",
     "webgpu": "Schist mbutuhaké WebGPU, nanging browser iki ora nyedhiyakaké. Chrome/Edge 113+, Firefox 141+, lan Safari 26+ nyedhiyakaké.",
     "noticeTitle": "Schist lumaku paling apik minangka aplikasi desktop",
-    "noticeBody": "Kowé lagi nganggo vèrsi web sing luwih entheng: vèrsi iki nyusun gambar nganggo CPU lan ora nyakup sawatara fitur — plugin Photoshop lan plugin pihak katelu, galèri gambar, panel AI, impor HEIC, lan undhuhan font — déné berkas disimpen minangka undhuhan. Aplikasi desktop gratis kanggo macOS, Windows, lan Linux nyakup kabèh fitur mau.",
+    "noticeBody": "Kowé lagi nganggo vèrsi web sing luwih entheng: vèrsi iki nyusun gambar nganggo WebGPU lan ora nyakup sawatara fitur — plugin Photoshop lan plugin pihak katelu, galèri gambar, panel AI, impor HEIC, lan undhuhan font — déné berkas disimpen minangka undhuhan. Aplikasi desktop gratis kanggo macOS, Windows, lan Linux nyakup kabèh fitur mau.",
     "noticeLink": "Undhuh aplikasi desktop.",
     "ok": "OK"
   },
@@ -1118,7 +1118,7 @@ export const STRINGS = {
     "starting": "Başladılır…",
     "webgpu": "Schist üçün WebGPU tələb olunur, lakin bu brauzer onu dəstəkləmir. Chrome/Edge 113+, Firefox 141+ və Safari 26+ dəstəkləyir.",
     "noticeTitle": "Schist masaüstü tətbiqi kimi daha yaxşı işləyir",
-    "noticeBody": "Veb versiyadan istifadə edirsiniz; bu, daha yüngül yığımdır: kompozisiyanı CPU-da aparır, Photoshop plaginlərini və üçüncü tərəf plaginlərini, şəkil qalereyasını, AI panelini, HEIC idxalını və şrift endirmələrini daxil etmir, fayllar isə endirmə kimi saxlanılır. macOS, Windows və Linux üçün pulsuz masaüstü tətbiqində bunların hamısı var.",
+    "noticeBody": "Veb versiyadan istifadə edirsiniz; bu, daha yüngül yığımdır: kompozisiyanı WebGPU-da aparır, Photoshop plaginlərini və üçüncü tərəf plaginlərini, şəkil qalereyasını, AI panelini, HEIC idxalını və şrift endirmələrini daxil etmir, fayllar isə endirmə kimi saxlanılır. macOS, Windows və Linux üçün pulsuz masaüstü tətbiqində bunların hamısı var.",
     "noticeLink": "Masaüstü tətbiqini əldə edin.",
     "ok": "OK"
   },
@@ -1127,7 +1127,7 @@ export const STRINGS = {
     "starting": "Spouštění…",
     "webgpu": "Schist vyžaduje WebGPU, které tento prohlížeč neposkytuje. Podporují je Chrome/Edge 113+, Firefox 141+ a Safari 26+.",
     "noticeTitle": "Schist funguje nejlépe jako počítačová aplikace",
-    "noticeBody": "Používáte odlehčenou webovou verzi: obraz skládá pomocí procesoru, vynechává některé funkce — zásuvné moduly pro Photoshop a moduly jiných výrobců, galerii obrázků, panel AI, import HEIC a stahování písem — a ukládá soubory do stažených položek. Bezplatná počítačová aplikace pro macOS, Windows a Linux obsahuje všechny tyto funkce.",
+    "noticeBody": "Používáte odlehčenou webovou verzi: obraz skládá pomocí WebGPU, vynechává některé funkce — zásuvné moduly pro Photoshop a moduly jiných výrobců, galerii obrázků, panel AI, import HEIC a stahování písem — a ukládá soubory do stažených položek. Bezplatná počítačová aplikace pro macOS, Windows a Linux obsahuje všechny tyto funkce.",
     "noticeLink": "Stáhnout počítačovou aplikaci.",
     "ok": "OK"
   },
@@ -1136,7 +1136,7 @@ export const STRINGS = {
     "starting": "Qed jinbeda…",
     "webgpu": "Schist jeħtieġ WebGPU, li dan il-brawżer ma joffrix. Chrome/Edge 113+, Firefox 141+ u Safari 26+ joffruh.",
     "noticeTitle": "Schist jaħdem l-aħjar bħala applikazzjoni tad-desktop",
-    "noticeBody": "Qed tuża l-verżjoni tal-web, li hija verżjoni eħfef: tagħmel il-kompożizzjoni fuq is-CPU u tħalli barra xi karatteristiċi — plugins ta' Photoshop u plugins ta' partijiet terzi, il-gallerija tal-immaġnijiet, il-pannell tal-IA, l-importazzjoni HEIC u t-tniżżil tal-fonts — u l-fajls jiġu ssejvjati bħala downloads. L-applikazzjoni tad-desktop b'xejn għal macOS, Windows u Linux għandha kollox.",
+    "noticeBody": "Qed tuża l-verżjoni tal-web, li hija verżjoni eħfef: tagħmel il-kompożizzjoni fuq is-WebGPU u tħalli barra xi karatteristiċi — plugins ta' Photoshop u plugins ta' partijiet terzi, il-gallerija tal-immaġnijiet, il-pannell tal-IA, l-importazzjoni HEIC u t-tniżżil tal-fonts — u l-fajls jiġu ssejvjati bħala downloads. L-applikazzjoni tad-desktop b'xejn għal macOS, Windows u Linux għandha kollox.",
     "noticeLink": "Ikseb l-applikazzjoni tad-desktop.",
     "ok": "OK"
   },
@@ -1145,7 +1145,7 @@ export const STRINGS = {
     "starting": "Ishga tushirilmoqda…",
     "webgpu": "Schist uchun WebGPU kerak, ammo bu brauzer uni taqdim etmaydi. Chrome/Edge 113+, Firefox 141+ va Safari 26+ uni qo‘llaydi.",
     "noticeTitle": "Schist ish stoli ilovasi sifatida yaxshiroq ishlaydi",
-    "noticeBody": "Siz imkoniyatlari qisqartirilgan veb-versiyadan foydalanyapsiz: u tasvirni CPU’da birlashtiradi va ayrim imkoniyatlarni — Photoshop plaginlari hamda uchinchi tomon plaginlari, tasvirlar galereyasi, AI paneli, HEIC importi va shriftlarni yuklab olishni — o‘z ichiga olmaydi; fayllar esa yuklamalar sifatida saqlanadi. macOS, Windows va Linux uchun bepul ish stoli ilovasida bularning barchasi mavjud.",
+    "noticeBody": "Siz imkoniyatlari qisqartirilgan veb-versiyadan foydalanyapsiz: u tasvirni WebGPU’da birlashtiradi va ayrim imkoniyatlarni — Photoshop plaginlari hamda uchinchi tomon plaginlari, tasvirlar galereyasi, AI paneli, HEIC importi va shriftlarni yuklab olishni — o‘z ichiga olmaydi; fayllar esa yuklamalar sifatida saqlanadi. macOS, Windows va Linux uchun bepul ish stoli ilovasida bularning barchasi mavjud.",
     "noticeLink": "Ish stoli ilovasini olish.",
     "ok": "OK"
   },
@@ -1154,7 +1154,7 @@ export const STRINGS = {
     "starting": "Մեկնարկում է…",
     "webgpu": "Schist-ին անհրաժեշտ է WebGPU, որը հասանելի չէ այս դիտարկիչում։ Այն հասանելի է Chrome/Edge 113+, Firefox 141+ և Safari 26+ տարբերակներում։",
     "noticeTitle": "Schist-ը լավագույնս աշխատում է որպես աշխատասեղանի հավելված",
-    "noticeBody": "Դուք օգտագործում եք վեբ տարբերակը՝ ավելի քիչ հնարավորություններով․ այն պատկերները համադրում է պրոցեսորով և չի ներառում որոշ հնարավորություններ՝ Photoshop-ի և երրորդ կողմերի հավելումներ, պատկերների պատկերասրահ, արհեստական բանականության վահանակ, HEIC ներմուծում և տառատեսակների ներբեռնում։ Բացի այդ, ֆայլերը պահվում են որպես ներբեռնումներ։ macOS-ի, Windows-ի և Linux-ի անվճար աշխատասեղանի հավելվածն ունի այդ բոլոր հնարավորությունները։",
+    "noticeBody": "Դուք օգտագործում եք վեբ տարբերակը՝ ավելի քիչ հնարավորություններով․ այն պատկերները համադրում է WebGPU-ով և չի ներառում որոշ հնարավորություններ՝ Photoshop-ի և երրորդ կողմերի հավելումներ, պատկերների պատկերասրահ, արհեստական բանականության վահանակ, HEIC ներմուծում և տառատեսակների ներբեռնում։ Բացի այդ, ֆայլերը պահվում են որպես ներբեռնումներ։ macOS-ի, Windows-ի և Linux-ի անվճար աշխատասեղանի հավելվածն ունի այդ բոլոր հնարավորությունները։",
     "noticeLink": "Ներբեռնել աշխատասեղանի հավելվածը։",
     "ok": "Լավ"
   },
@@ -1163,7 +1163,7 @@ export const STRINGS = {
     "starting": "იწყება…",
     "webgpu": "Schist-ს სჭირდება WebGPU, რომელსაც ეს ბრაუზერი არ უზრუნველყოფს. მას მხარს უჭერს Chrome/Edge 113+, Firefox 141+ და Safari 26+.",
     "noticeTitle": "Schist საუკეთესოდ მუშაობს დესკტოპის აპის სახით",
-    "noticeBody": "თქვენ იყენებთ ვებვერსიას, რომელიც უფრო მსუბუქი ანაწყობია: კომპოზიციას CPU-ზე ასრულებს და რამდენიმე შესაძლებლობა აკლია — Photoshop-ისა და სხვა მწარმოებლების დამატებები, გამოსახულებების გალერეა, AI-პანელი, HEIC-ის იმპორტი და შრიფტების ჩამოტვირთვა — ფაილები კი ჩამოტვირთვების სახით ინახება. macOS-ის, Windows-ისა და Linux-ის უფასო დესკტოპის აპში ეს ყველაფერი ხელმისაწვდომია.",
+    "noticeBody": "თქვენ იყენებთ ვებვერსიას, რომელიც უფრო მსუბუქი ანაწყობია: კომპოზიციას WebGPU-ზე ასრულებს და რამდენიმე შესაძლებლობა აკლია — Photoshop-ისა და სხვა მწარმოებლების დამატებები, გამოსახულებების გალერეა, AI-პანელი, HEIC-ის იმპორტი და შრიფტების ჩამოტვირთვა — ფაილები კი ჩამოტვირთვების სახით ინახება. macOS-ის, Windows-ისა და Linux-ის უფასო დესკტოპის აპში ეს ყველაფერი ხელმისაწვდომია.",
     "noticeLink": "ჩამოტვირთეთ დესკტოპის აპი.",
     "ok": "კარგი"
   },
@@ -1172,7 +1172,7 @@ export const STRINGS = {
     "starting": "Iniciando…",
     "webgpu": "Schist precisa WebGPU, que este navegador non ofrece. Chrome/Edge 113+, Firefox 141+ e Safari 26+ si o ofrecen.",
     "noticeTitle": "Schist funciona mellor como aplicación de escritorio",
-    "noticeBody": "Estás a usar a versión web, unha edición máis lixeira: compón as imaxes na CPU e non inclúe algunhas funcións —os complementos de Photoshop e de terceiros, a galería de imaxes, o panel de IA, a importación de HEIC e a descarga de tipos de letra—, e os ficheiros gárdanse como descargas. A aplicación de escritorio gratuíta para macOS, Windows e Linux inclúe todas estas funcións.",
+    "noticeBody": "Estás a usar a versión web, unha edición máis lixeira: compón as imaxes na WebGPU e non inclúe algunhas funcións —os complementos de Photoshop e de terceiros, a galería de imaxes, o panel de IA, a importación de HEIC e a descarga de tipos de letra—, e os ficheiros gárdanse como descargas. A aplicación de escritorio gratuíta para macOS, Windows e Linux inclúe todas estas funcións.",
     "noticeLink": "Obter a aplicación de escritorio.",
     "ok": "Aceptar"
   },
@@ -1181,7 +1181,7 @@ export const STRINGS = {
     "starting": "আৰম্ভ হৈ আছে…",
     "webgpu": "Schist-ৰ বাবে WebGPU প্ৰয়োজন, কিন্তু এই ব্ৰাউজাৰে সেয়া প্ৰদান নকৰে। Chrome/Edge 113+, Firefox 141+ আৰু Safari 26+-এ ইয়াক সমৰ্থন কৰে।",
     "noticeTitle": "ডেস্কটপ এপ হিচাপে Schist সৰ্বোত্তমভাৱে চলে",
-    "noticeBody": "আপুনি ৱেব সংস্কৰণ ব্যৱহাৰ কৰিছে, যিটো কম সুবিধাযুক্ত সংস্কৰণ: ই CPU-ত কম্প'জিট কৰে আৰু কিছুমান সুবিধা—Photoshop প্লাগ-ইন, তৃতীয় পক্ষৰ প্লাগ-ইনসমূহ, ছবি গেলেৰী, AI পেনেল, HEIC আমদানি আৰু ফণ্ট ডাউনল'ড—বাদ দিয়ে; ফাইলবোৰ ডাউনল'ড হিচাপে সংৰক্ষণ কৰা হয়। macOS, Windows আৰু Linux-ৰ বিনামূলীয়া ডেস্কটপ এপটোত এই সকলো সুবিধা আছে।",
+    "noticeBody": "আপুনি ৱেব সংস্কৰণ ব্যৱহাৰ কৰিছে, যিটো কম সুবিধাযুক্ত সংস্কৰণ: ই WebGPU-ত কম্প'জিট কৰে আৰু কিছুমান সুবিধা—Photoshop প্লাগ-ইন, তৃতীয় পক্ষৰ প্লাগ-ইনসমূহ, ছবি গেলেৰী, AI পেনেল, HEIC আমদানি আৰু ফণ্ট ডাউনল'ড—বাদ দিয়ে; ফাইলবোৰ ডাউনল'ড হিচাপে সংৰক্ষণ কৰা হয়। macOS, Windows আৰু Linux-ৰ বিনামূলীয়া ডেস্কটপ এপটোত এই সকলো সুবিধা আছে।",
     "noticeLink": "ডেস্কটপ এপটো লওক।",
     "ok": "ঠিক আছে"
   },
@@ -1190,7 +1190,7 @@ export const STRINGS = {
     "starting": "आरम्भः प्रचलति…",
     "webgpu": "Schist कृते WebGPU आवश्यकम्, यच्चायं विचरकः न ददाति। Chrome/Edge 113+, Firefox 141+ तथा Safari 26+ तत् ददति।",
     "noticeTitle": "Schist पटलोपयोज्यरूपेण सर्वोत्तमं कार्यं करोति",
-    "noticeBody": "भवान् जालसंस्करणम् उपयुङ्क्ते, यत् लघुतरं संस्करणम् अस्ति—तत् CPU इत्यत्र स्तरसंयोजनं करोति तथा कानिचन वैशिष्ट्यानि विहाय वर्तते: Photoshop प्लग्-इन् तथा तृतीयपक्षीयप्लग्-इन्, चित्रवीथिका, AI फलकम्, HEIC आयातः, अक्षररूपावतारणानि च। सञ्चिकाः अवतारणरूपेण रक्ष्यन्ते। macOS, Windows तथा Linux कृते निःशुल्के पटलोपयोज्ये एतानि सर्वाणि सन्ति।",
+    "noticeBody": "भवान् जालसंस्करणम् उपयुङ्क्ते, यत् लघुतरं संस्करणम् अस्ति—तत् WebGPU इत्यत्र स्तरसंयोजनं करोति तथा कानिचन वैशिष्ट्यानि विहाय वर्तते: Photoshop प्लग्-इन् तथा तृतीयपक्षीयप्लग्-इन्, चित्रवीथिका, AI फलकम्, HEIC आयातः, अक्षररूपावतारणानि च। सञ्चिकाः अवतारणरूपेण रक्ष्यन्ते। macOS, Windows तथा Linux कृते निःशुल्के पटलोपयोज्ये एतानि सर्वाणि सन्ति।",
     "noticeLink": "पटलोपयोज्यम् आनयतु।",
     "ok": "अस्तु"
   },
@@ -1199,7 +1199,7 @@ export const STRINGS = {
     "starting": "Ræsir…",
     "webgpu": "Schist þarf WebGPU, sem þessi vafri býður ekki upp á. Chrome/Edge 113+, Firefox 141+ og Safari 26+ styðja það.",
     "noticeTitle": "Schist virkar best sem skjáborðsforrit",
-    "noticeBody": "Þú ert að nota vefútgáfuna, sem er léttari gerð: hún setur myndina saman á örgjörvanum og sleppir sumum eiginleikum — Photoshop-viðbótum og viðbótum frá þriðja aðila, myndasafni, gervigreindarspjaldinu, HEIC-innflutningi og niðurhali leturgerða — og skrár eru vistaðar sem niðurhöl. Ókeypis skjáborðsforritið fyrir macOS, Windows og Linux hefur alla þessa eiginleika.",
+    "noticeBody": "Þú ert að nota vefútgáfuna, sem er léttari gerð: hún setur myndina saman á WebGPU og sleppir sumum eiginleikum — Photoshop-viðbótum og viðbótum frá þriðja aðila, myndasafni, gervigreindarspjaldinu, HEIC-innflutningi og niðurhali leturgerða — og skrár eru vistaðar sem niðurhöl. Ókeypis skjáborðsforritið fyrir macOS, Windows og Linux hefur alla þessa eiginleika.",
     "noticeLink": "Sækja skjáborðsforritið.",
     "ok": "Í lagi"
   },
@@ -1208,7 +1208,7 @@ export const STRINGS = {
     "starting": "Иштетилүүдө…",
     "webgpu": "Schist үчүн WebGPU керек, бирок бул браузер аны колдобойт. Chrome/Edge 113+, Firefox 141+ жана Safari 26+ колдойт.",
     "noticeTitle": "Schist иштакта колдонмосу катары мыкты иштейт",
-    "noticeBody": "Сиз веб-версияны колдонуп жатасыз. Бул мүмкүнчүлүктөрү кыскартылган версия: композицияны процессордо аткарат жана айрым мүмкүнчүлүктөрдү — Photoshop плагиндерин жана башка өндүрүүчүлөрдүн плагиндерин, сүрөт галереясын, ЖИ панелин, HEIC импортун жана ариптерди жүктөөнү — камтыбайт; файлдар жүктөмө катары сакталат. macOS, Windows жана Linux үчүн акысыз иштакта колдонмосунда булардын баары бар.",
+    "noticeBody": "Сиз веб-версияны колдонуп жатасыз. Бул мүмкүнчүлүктөрү кыскартылган версия: композицияны WebGPU аркылуу аткарат жана айрым мүмкүнчүлүктөрдү — Photoshop плагиндерин жана башка өндүрүүчүлөрдүн плагиндерин, сүрөт галереясын, ЖИ панелин, HEIC импортун жана ариптерди жүктөөнү — камтыбайт; файлдар жүктөмө катары сакталат. macOS, Windows жана Linux үчүн акысыз иштакта колдонмосунда булардын баары бар.",
     "noticeLink": "Иштакта колдонмосун алуу.",
     "ok": "Макул"
   },
@@ -1217,7 +1217,7 @@ export const STRINGS = {
     "starting": "ආරම්භ වෙමින්…",
     "webgpu": "මෙම බ්‍රවුසරය සපයන්නේ නැති WebGPU Schist සඳහා අවශ්‍යයි. Chrome/Edge 113+, Firefox 141+ සහ Safari 26+ එය සපයයි.",
     "noticeTitle": "Schist ඩෙස්ක්ටොප් යෙදුමක් ලෙස වඩාත් හොඳින් ක්‍රියා කරයි",
-    "noticeBody": "ඔබ භාවිත කරන්නේ අඩු පහසුකම් සහිත වෙබ් අනුවාදයයි: එය CPU මත සංයුක්ත කිරීම සිදු කරන අතර Photoshop ප්ලග්-ඉන්, තෙවන පාර්ශ්ව ප්ලග්-ඉන්, රූප ගැලරිය, AI පැනලය, HEIC ආයාතය සහ අකුරු බාගැනීම් ඇතුළත් නොකරයි; ගොනු බාගැනීම් ලෙස සුරකියි. macOS, Windows සහ Linux සඳහා ඇති නොමිලේ ඩෙස්ක්ටොප් යෙදුමේ මේ සියල්ල ඇත.",
+    "noticeBody": "ඔබ භාවිත කරන්නේ අඩු පහසුකම් සහිත වෙබ් අනුවාදයයි: එය WebGPU මත සංයුක්ත කිරීම සිදු කරන අතර Photoshop ප්ලග්-ඉන්, තෙවන පාර්ශ්ව ප්ලග්-ඉන්, රූප ගැලරිය, AI පැනලය, HEIC ආයාතය සහ අකුරු බාගැනීම් ඇතුළත් නොකරයි; ගොනු බාගැනීම් ලෙස සුරකියි. macOS, Windows සහ Linux සඳහා ඇති නොමිලේ ඩෙස්ක්ටොප් යෙදුමේ මේ සියල්ල ඇත.",
     "noticeLink": "ඩෙස්ක්ටොප් යෙදුම ලබාගන්න.",
     "ok": "හරි"
   },
@@ -1226,7 +1226,7 @@ export const STRINGS = {
     "starting": "Запуск…",
     "webgpu": "Для працы Schist патрэбны WebGPU, якога няма ў гэтым браўзеры. Ён падтрымліваецца ў Chrome/Edge 113+, Firefox 141+ і Safari 26+.",
     "noticeTitle": "Найлепш Schist працуе як настольная праграма",
-    "noticeBody": "Вы карыстаецеся вэб-версіяй — палегчанай зборкай, якая выконвае кампазітынг на працэсары і не мае некаторых магчымасцей: убудоў Photoshop і старонніх распрацоўшчыкаў, галерэі відарысаў, панэлі ШІ, імпарту HEIC і спампоўвання шрыфтоў. Файлы захоўваюцца як спампаваныя матэрыялы. У бясплатнай настольнай праграме для macOS, Windows і Linux ёсць усе гэтыя магчымасці.",
+    "noticeBody": "Вы карыстаецеся вэб-версіяй — палегчанай зборкай, якая выконвае кампазітынг з дапамогай WebGPU і не мае некаторых магчымасцей: убудоў Photoshop і старонніх распрацоўшчыкаў, галерэі відарысаў, панэлі ШІ, імпарту HEIC і спампоўвання шрыфтоў. Файлы захоўваюцца як спампаваныя матэрыялы. У бясплатнай настольнай праграме для macOS, Windows і Linux ёсць усе гэтыя магчымасці.",
     "noticeLink": "Спампаваць настольную праграму.",
     "ok": "Добра"
   },
@@ -1235,7 +1235,7 @@ export const STRINGS = {
     "starting": "Po niset…",
     "webgpu": "Schist ka nevojë për WebGPU, të cilin ky shfletues nuk e ofron. Chrome/Edge 113+, Firefox 141+ dhe Safari 26+ e mbështesin.",
     "noticeTitle": "Schist funksionon më mirë si aplikacion për desktop",
-    "noticeBody": "Po përdorni versionin për ueb, i cili është një variant më i lehtë: kompozimin e kryen në CPU dhe nuk përfshin disa veçori — shtojcat për Photoshop dhe shtojcat e palëve të treta, galerinë e imazheve, panelin e inteligjencës artificiale, importimin HEIC dhe shkarkimin e shkronjave — ndërsa skedarët ruhen si shkarkime. Aplikacioni falas për desktop për macOS, Windows dhe Linux i përfshin të gjitha.",
+    "noticeBody": "Po përdorni versionin për ueb, i cili është një variant më i lehtë: kompozimin e kryen në WebGPU dhe nuk përfshin disa veçori — shtojcat për Photoshop dhe shtojcat e palëve të treta, galerinë e imazheve, panelin e inteligjencës artificiale, importimin HEIC dhe shkarkimin e shkronjave — ndërsa skedarët ruhen si shkarkime. Aplikacioni falas për desktop për macOS, Windows dhe Linux i përfshin të gjitha.",
     "noticeLink": "Merrni aplikacionin për desktop.",
     "ok": "Në rregull"
   },
@@ -1244,7 +1244,7 @@ export const STRINGS = {
     "starting": "Эшләтеп җибәрелә…",
     "webgpu": "Schist өчен WebGPU кирәк, әмма бу браузер аны тәкъдим итми. Chrome/Edge 113+, Firefox 141+ һәм Safari 26+ версияләрендә ул бар.",
     "noticeTitle": "Schist өстәл кушымтасы буларак яхшырак эшли",
-    "noticeBody": "Сез җиңеләйтелгән веб-версияне кулланасыз: ул рәсемне үзәк процессорда берләштерә һәм кайбер мөмкинлекләрне — Photoshop плагиннарын һәм өченче як плагиннарын, рәсем галереясен, ЯИ панелен, HEIC импортын һәм шрифтлар йөкләүне — кертми; файллар йөкләмә рәвешендә саклана. macOS, Windows һәм Linux өчен бушлай өстәл кушымтасында боларның барысы да бар.",
+    "noticeBody": "Сез җиңеләйтелгән веб-версияне кулланасыз: ул рәсемне WebGPU аша берләштерә һәм кайбер мөмкинлекләрне — Photoshop плагиннарын һәм өченче як плагиннарын, рәсем галереясен, ЯИ панелен, HEIC импортын һәм шрифтлар йөкләүне — кертми; файллар йөкләмә рәвешендә саклана. macOS, Windows һәм Linux өчен бушлай өстәл кушымтасында боларның барысы да бар.",
     "noticeLink": "Өстәл кушымтасын алу.",
     "ok": "Ярар"
   },
@@ -1253,7 +1253,7 @@ export const STRINGS = {
     "starting": "Begin tans…",
     "webgpu": "Schist het WebGPU nodig, wat hierdie blaaier nie bied nie. Chrome/Edge 113+, Firefox 141+ en Safari 26+ bied dit wel.",
     "noticeTitle": "Schist werk die beste as 'n rekenaartoepassing",
-    "noticeBody": "Jy gebruik die vereenvoudigde webweergawe: dit stel beelde op die SVE saam en laat sekere funksies uit — Photoshop-inproppe en derdeparty-inproppe, die beeldgalery, die KI-paneel, HEIC-invoer en lettertipe-aflaaie — en lêers word as aflaaie gestoor. Die gratis rekenaartoepassing vir macOS, Windows en Linux bevat al hierdie funksies.",
+    "noticeBody": "Jy gebruik die vereenvoudigde webweergawe: dit stel beelde op WebGPU saam en laat sekere funksies uit — Photoshop-inproppe en derdeparty-inproppe, die beeldgalery, die KI-paneel, HEIC-invoer en lettertipe-aflaaie — en lêers word as aflaaie gestoor. Die gratis rekenaartoepassing vir macOS, Windows en Linux bevat al hierdie funksies.",
     "noticeLink": "Kry die rekenaartoepassing.",
     "ok": "Goed"
   },
@@ -1262,7 +1262,7 @@ export const STRINGS = {
     "starting": "ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ…",
     "webgpu": "ಈ ಬ್ರೌಸರ್ ಒದಗಿಸದ WebGPU, Schist‌ಗೆ ಅಗತ್ಯವಿದೆ. Chrome/Edge 113+, Firefox 141+ ಮತ್ತು Safari 26+ ಇದನ್ನು ಒದಗಿಸುತ್ತವೆ.",
     "noticeTitle": "ಡೆಸ್ಕ್‌ಟಾಪ್ ಆ್ಯಪ್‌ನಲ್ಲಿ Schist ಅತ್ಯುತ್ತಮವಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ",
-    "noticeBody": "ನೀವು ಹಗುರವಾದ ವೆಬ್ ಆವೃತ್ತಿಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ: ಇದು CPUನಲ್ಲಿ ಸಂಯೋಜನೆ ಮಾಡುತ್ತದೆ ಮತ್ತು Photoshop ಪ್ಲಗ್-ಇನ್‌ಗಳು ಹಾಗೂ ಮೂರನೇ ಪಕ್ಷದ ಪ್ಲಗ್-ಇನ್‌ಗಳು, ಚಿತ್ರ ಗ್ಯಾಲರಿ, AI ಫಲಕ, HEIC ಆಮದು ಮತ್ತು ಫಾಂಟ್ ಡೌನ್‌ಲೋಡ್‌ಗಳಂತಹ ಕೆಲವು ಸೌಲಭ್ಯಗಳನ್ನು ಒಳಗೊಂಡಿಲ್ಲ; ಕಡತಗಳನ್ನು ಡೌನ್‌ಲೋಡ್‌ಗಳಾಗಿ ಉಳಿಸುತ್ತದೆ. macOS, Windows ಮತ್ತು Linuxಗಾಗಿ ಉಚಿತ ಡೆಸ್ಕ್‌ಟಾಪ್ ಆ್ಯಪ್‌ನಲ್ಲಿ ಇವೆಲ್ಲವೂ ಲಭ್ಯವಿವೆ.",
+    "noticeBody": "ನೀವು ಹಗುರವಾದ ವೆಬ್ ಆವೃತ್ತಿಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ: ಇದು WebGPUನಲ್ಲಿ ಸಂಯೋಜನೆ ಮಾಡುತ್ತದೆ ಮತ್ತು Photoshop ಪ್ಲಗ್-ಇನ್‌ಗಳು ಹಾಗೂ ಮೂರನೇ ಪಕ್ಷದ ಪ್ಲಗ್-ಇನ್‌ಗಳು, ಚಿತ್ರ ಗ್ಯಾಲರಿ, AI ಫಲಕ, HEIC ಆಮದು ಮತ್ತು ಫಾಂಟ್ ಡೌನ್‌ಲೋಡ್‌ಗಳಂತಹ ಕೆಲವು ಸೌಲಭ್ಯಗಳನ್ನು ಒಳಗೊಂಡಿಲ್ಲ; ಕಡತಗಳನ್ನು ಡೌನ್‌ಲೋಡ್‌ಗಳಾಗಿ ಉಳಿಸುತ್ತದೆ. macOS, Windows ಮತ್ತು Linuxಗಾಗಿ ಉಚಿತ ಡೆಸ್ಕ್‌ಟಾಪ್ ಆ್ಯಪ್‌ನಲ್ಲಿ ಇವೆಲ್ಲವೂ ಲಭ್ಯವಿವೆ.",
     "noticeLink": "ಡೆಸ್ಕ್‌ಟಾಪ್ ಆ್ಯಪ್ ಪಡೆಯಿರಿ.",
     "ok": "ಸರಿ"
   },
@@ -1271,7 +1271,7 @@ export const STRINGS = {
     "starting": "Spúšťa sa…",
     "webgpu": "Schist vyžaduje WebGPU, ktoré tento prehliadač nepodporuje. Podporujú ho Chrome/Edge 113+, Firefox 141+ a Safari 26+.",
     "noticeTitle": "Schist funguje najlepšie ako aplikácia pre počítač",
-    "noticeBody": "Používate webovú verziu, ktorá je odľahčenou zostavou: kompozíciu vykonáva na procesore a neobsahuje niektoré funkcie — zásuvné moduly Photoshopu a zásuvné moduly tretích strán, galériu obrázkov, panel AI, import HEIC ani sťahovanie písiem — a súbory sa ukladajú ako stiahnuté súbory. Bezplatná aplikácia pre macOS, Windows a Linux obsahuje všetky tieto funkcie.",
+    "noticeBody": "Používate webovú verziu, ktorá je odľahčenou zostavou: kompozíciu vykonáva pomocou WebGPU a neobsahuje niektoré funkcie — zásuvné moduly Photoshopu a zásuvné moduly tretích strán, galériu obrázkov, panel AI, import HEIC ani sťahovanie písiem — a súbory sa ukladajú ako stiahnuté súbory. Bezplatná aplikácia pre macOS, Windows a Linux obsahuje všetky tieto funkcie.",
     "noticeLink": "Získať aplikáciu pre počítač.",
     "ok": "OK"
   },
@@ -1280,7 +1280,7 @@ export const STRINGS = {
     "starting": "စတင်နေသည်…",
     "webgpu": "Schist ကို WebGPU လိုအပ်သော်လည်း ဤဘရောက်ဇာတွင် မပါရှိပါ။ Chrome/Edge 113 နှင့်အထက်၊ Firefox 141 နှင့်အထက်နှင့် Safari 26 နှင့်အထက်တို့တွင် ပါရှိသည်။",
     "noticeTitle": "Schist ကို ဒက်စ်တော့အက်ပ်အဖြစ် အသုံးပြုလျှင် အကောင်းဆုံးဖြစ်သည်",
-    "noticeBody": "သင်အသုံးပြုနေသည့် ဝဘ်ဗားရှင်းသည် ပိုမိုပေါ့ပါးသော ဗားရှင်းဖြစ်သည်။ ၎င်းသည် CPU ဖြင့် ပုံများကို ပေါင်းစပ်ပြီး Photoshop ပလပ်အင်များနှင့် အခြားကုမ္ပဏီထုတ် ပလပ်အင်များ၊ ပုံပြခန်း၊ AI ပန်နယ်၊ HEIC တင်သွင်းမှုနှင့် ဖောင့်ဒေါင်းလုဒ်များကဲ့သို့ လုပ်ဆောင်ချက်အချို့ မပါဝင်ပါ။ ထို့ပြင် ဖိုင်များကို ဒေါင်းလုဒ်များအဖြစ် သိမ်းဆည်းသည်။ macOS၊ Windows နှင့် Linux အတွက် အခမဲ့ ဒက်စ်တော့အက်ပ်တွင် ယင်းလုပ်ဆောင်ချက်အားလုံး ပါဝင်သည်။",
+    "noticeBody": "သင်အသုံးပြုနေသည့် ဝဘ်ဗားရှင်းသည် ပိုမိုပေါ့ပါးသော ဗားရှင်းဖြစ်သည်။ ၎င်းသည် WebGPU ဖြင့် ပုံများကို ပေါင်းစပ်ပြီး Photoshop ပလပ်အင်များနှင့် အခြားကုမ္ပဏီထုတ် ပလပ်အင်များ၊ ပုံပြခန်း၊ AI ပန်နယ်၊ HEIC တင်သွင်းမှုနှင့် ဖောင့်ဒေါင်းလုဒ်များကဲ့သို့ လုပ်ဆောင်ချက်အချို့ မပါဝင်ပါ။ ထို့ပြင် ဖိုင်များကို ဒေါင်းလုဒ်များအဖြစ် သိမ်းဆည်းသည်။ macOS၊ Windows နှင့် Linux အတွက် အခမဲ့ ဒက်စ်တော့အက်ပ်တွင် ယင်းလုပ်ဆောင်ချက်အားလုံး ပါဝင်သည်။",
     "noticeLink": "ဒက်စ်တော့အက်ပ်ကို ရယူရန်။",
     "ok": "ကောင်းပြီ"
   },
@@ -1289,7 +1289,7 @@ export const STRINGS = {
     "starting": "ప్రారంభమవుతోంది…",
     "webgpu": "ఈ బ్రౌజర్ అందించని WebGPU Schistకు అవసరం. Chrome/Edge 113+, Firefox 141+, Safari 26+ సంస్కరణలు దీన్ని అందిస్తాయి.",
     "noticeTitle": "డెస్క్‌టాప్ యాప్‌గా Schist అత్యుత్తమంగా పనిచేస్తుంది",
-    "noticeBody": "మీరు తేలికైన వెబ్ సంస్కరణను ఉపయోగిస్తున్నారు: CPUపై చిత్ర పొరలను మేళవిస్తుంది; Photoshop ప్లగ్-ఇన్‌లు, మూడవ పక్ష ప్లగ్-ఇన్‌లు, చిత్ర గ్యాలరీ, AI ప్యానెల్, HEIC దిగుమతి, ఫాంట్ డౌన్‌లోడ్‌లు వంటి కొన్ని సౌకర్యాలు ఇందులో ఉండవు; ఫైళ్లు డౌన్‌లోడ్‌లుగా సేవ్ అవుతాయి. macOS, Windows, Linux కోసం ఉచిత డెస్క్‌టాప్ యాప్‌లో ఇవన్నీ ఉన్నాయి.",
+    "noticeBody": "మీరు తేలికైన వెబ్ సంస్కరణను ఉపయోగిస్తున్నారు: WebGPUపై చిత్ర పొరలను మేళవిస్తుంది; Photoshop ప్లగ్-ఇన్‌లు, మూడవ పక్ష ప్లగ్-ఇన్‌లు, చిత్ర గ్యాలరీ, AI ప్యానెల్, HEIC దిగుమతి, ఫాంట్ డౌన్‌లోడ్‌లు వంటి కొన్ని సౌకర్యాలు ఇందులో ఉండవు; ఫైళ్లు డౌన్‌లోడ్‌లుగా సేవ్ అవుతాయి. macOS, Windows, Linux కోసం ఉచిత డెస్క్‌టాప్ యాప్‌లో ఇవన్నీ ఉన్నాయి.",
     "noticeLink": "డెస్క్‌టాప్ యాప్‌ను పొందండి.",
     "ok": "సరే"
   },
@@ -1298,7 +1298,7 @@ export const STRINGS = {
     "starting": "Ana farawa…",
     "webgpu": "Schist yana buƙatar WebGPU, wanda wannan burauzar ba ta samarwa. Chrome/Edge 113+, Firefox 141+ da Safari 26+ suna samar da shi.",
     "noticeTitle": "Schist yana aiki mafi kyau a matsayin manhajar kwamfuta",
-    "noticeBody": "Kana amfani da sigar yanar gizo, wadda aka rage wasu fasalolinta: tana haɗa hotuna a kan CPU kuma ba ta ƙunshi wasu fasaloli—Photoshop plug-ins da plug-ins na wasu kamfanoni, ma'ajiyar hotuna, falin AI, shigo da HEIC da sauke nau'ikan rubutu—kuma ana adana fayiloli a matsayin abubuwan saukewa. Manhajar kwamfuta ta kyauta don macOS, Windows da Linux tana da duk waɗannan.",
+    "noticeBody": "Kana amfani da sigar yanar gizo, wadda aka rage wasu fasalolinta: tana haɗa hotuna a kan WebGPU kuma ba ta ƙunshi wasu fasaloli—Photoshop plug-ins da plug-ins na wasu kamfanoni, ma'ajiyar hotuna, falin AI, shigo da HEIC da sauke nau'ikan rubutu—kuma ana adana fayiloli a matsayin abubuwan saukewa. Manhajar kwamfuta ta kyauta don macOS, Windows da Linux tana da duk waɗannan.",
     "noticeLink": "Sami manhajar kwamfuta.",
     "ok": "To"
   },
@@ -1307,7 +1307,7 @@ export const STRINGS = {
     "starting": "ଆରମ୍ଭ ହେଉଛି…",
     "webgpu": "Schist ପାଇଁ WebGPU ଆବଶ୍ୟକ, କିନ୍ତୁ ଏହି ବ୍ରାଉଜର୍ ତାହା ପ୍ରଦାନ କରେ ନାହିଁ। Chrome/Edge 113+, Firefox 141+ ଏବଂ Safari 26+ ଏହା ପ୍ରଦାନ କରନ୍ତି।",
     "noticeTitle": "ଡେସ୍କଟପ୍ ଆପ୍ ଭାବେ Schist ସର୍ବୋତ୍ତମ କାମ କରେ",
-    "noticeBody": "ଆପଣ ୱେବ୍ ସଂସ୍କରଣ ବ୍ୟବହାର କରୁଛନ୍ତି, ଯାହା ଏକ ହାଲୁକା ସଂସ୍କରଣ: ଏହା CPUରେ କମ୍ପୋଜିଟ୍ କରେ ଏବଂ କିଛି ସୁବିଧା — Photoshop ପ୍ଲଗ୍-ଇନ୍ ଓ ତୃତୀୟ-ପକ୍ଷ ପ୍ଲଗ୍-ଇନ୍, ଛବି ଗ୍ୟାଲେରୀ, AI ପ୍ୟାନେଲ୍, HEIC ଆମଦାନୀ ଏବଂ ଫଣ୍ଟ ଡାଉନଲୋଡ୍ — ଏଥିରେ ନାହିଁ; ଫାଇଲ୍‌ଗୁଡ଼ିକ ଡାଉନଲୋଡ୍ ଭାବେ ସଞ୍ଚୟ ହୁଏ। macOS, Windows ଏବଂ Linux ପାଇଁ ମାଗଣା ଡେସ୍କଟପ୍ ଆପ୍‌ରେ ଏସବୁ ସୁବିଧା ଅଛି।",
+    "noticeBody": "ଆପଣ ୱେବ୍ ସଂସ୍କରଣ ବ୍ୟବହାର କରୁଛନ୍ତି, ଯାହା ଏକ ହାଲୁକା ସଂସ୍କରଣ: ଏହା WebGPUରେ କମ୍ପୋଜିଟ୍ କରେ ଏବଂ କିଛି ସୁବିଧା — Photoshop ପ୍ଲଗ୍-ଇନ୍ ଓ ତୃତୀୟ-ପକ୍ଷ ପ୍ଲଗ୍-ଇନ୍, ଛବି ଗ୍ୟାଲେରୀ, AI ପ୍ୟାନେଲ୍, HEIC ଆମଦାନୀ ଏବଂ ଫଣ୍ଟ ଡାଉନଲୋଡ୍ — ଏଥିରେ ନାହିଁ; ଫାଇଲ୍‌ଗୁଡ଼ିକ ଡାଉନଲୋଡ୍ ଭାବେ ସଞ୍ଚୟ ହୁଏ। macOS, Windows ଏବଂ Linux ପାଇଁ ମାଗଣା ଡେସ୍କଟପ୍ ଆପ୍‌ରେ ଏସବୁ ସୁବିଧା ଅଛି।",
     "noticeLink": "ଡେସ୍କଟପ୍ ଆପ୍ ପାଆନ୍ତୁ।",
     "ok": "ଠିକ୍ ଅଛି"
   },
@@ -1316,7 +1316,7 @@ export const STRINGS = {
     "starting": "በመጀመር ላይ…",
     "webgpu": "Schist WebGPU ያስፈልገዋል፤ ይህ አሳሽ ግን አያቀርበውም። Chrome/Edge 113+፣ Firefox 141+ እና Safari 26+ ያቀርቡታል።",
     "noticeTitle": "Schist እንደ ዴስክቶፕ መተግበሪያ ሲሠራ የተሻለ ነው",
-    "noticeBody": "እየተጠቀሙ ያሉት ቀለል ያለውን የድር ስሪት ነው፤ ምስሎችን በCPU ያዋህዳል፣ የPhotoshop ተሰኪዎችንና የሶስተኛ ወገን ተሰኪዎችን፣ የምስል ማዕከለ-ስዕላትን፣ የAI ፓነሉን፣ HEIC ማስመጣትን እና ቅርጸ-ቁምፊ ማውረድን አያካትትም፤ ፋይሎችም እንደ ውርዶች ይቀመጣሉ። ለmacOS፣ Windows እና Linux ያለው ነጻ የዴስክቶፕ መተግበሪያ እነዚህን ሁሉ ያካትታል።",
+    "noticeBody": "እየተጠቀሙ ያሉት ቀለል ያለውን የድር ስሪት ነው፤ ምስሎችን በWebGPU ያዋህዳል፣ የPhotoshop ተሰኪዎችንና የሶስተኛ ወገን ተሰኪዎችን፣ የምስል ማዕከለ-ስዕላትን፣ የAI ፓነሉን፣ HEIC ማስመጣትን እና ቅርጸ-ቁምፊ ማውረድን አያካትትም፤ ፋይሎችም እንደ ውርዶች ይቀመጣሉ። ለmacOS፣ Windows እና Linux ያለው ነጻ የዴስክቶፕ መተግበሪያ እነዚህን ሁሉ ያካትታል።",
     "noticeLink": "የዴስክቶፕ መተግበሪያውን ያግኙ።",
     "ok": "እሺ"
   },
@@ -1325,7 +1325,7 @@ export const STRINGS = {
     "starting": "Ap demare…",
     "webgpu": "Schist bezwen WebGPU, men navigatè sa a pa ofri li. Chrome/Edge 113+, Firefox 141+ ak Safari 26+ ofri li.",
     "noticeTitle": "Schist mache pi byen kòm yon aplikasyon pou òdinatè",
-    "noticeBody": "W ap itilize vèsyon entènèt la, ki se yon vèsyon pi lejè: li konpoze imaj yo sou CPU a epi li pa gen kèk fonksyon — plòg-in Photoshop ak plòg-in twazyèm pati, galri imaj la, pano AI a, enpòtasyon HEIC ak telechajman polis — epi fichye yo anrejistre kòm telechajman. Aplikasyon gratis pou òdinatè macOS, Windows ak Linux la gen tout fonksyon sa yo.",
+    "noticeBody": "W ap itilize vèsyon entènèt la, ki se yon vèsyon pi lejè: li konpoze imaj yo sou WebGPU a epi li pa gen kèk fonksyon — plòg-in Photoshop ak plòg-in twazyèm pati, galri imaj la, pano AI a, enpòtasyon HEIC ak telechajman polis — epi fichye yo anrejistre kòm telechajman. Aplikasyon gratis pou òdinatè macOS, Windows ak Linux la gen tout fonksyon sa yo.",
     "noticeLink": "Jwenn aplikasyon pou òdinatè a.",
     "ok": "Dakò"
   },
@@ -1334,7 +1334,7 @@ export const STRINGS = {
     "starting": "قوزغىلىۋاتىدۇ…",
     "webgpu": "Schist ئۈچۈن WebGPU زۆرۈر، ئەمما بۇ توركۆرگۈ ئۇنى تەمىنلىمەيدۇ. Chrome/Edge 113+، Firefox 141+ ۋە Safari 26+ تەمىنلەيدۇ.",
     "noticeTitle": "Schist ئۈستەلئۈستى ئەپ سۈپىتىدە ئەڭ ياخشى ئىشلەيدۇ",
-    "noticeBody": "سىز تور نۇسخىسىنى ئىشلىتىۋاتىسىز، بۇ تېخىمۇ يېنىك نەشر: ئۇ CPU دا بىرىكتۈرىدۇ ھەمدە Photoshop قىستۇرمىلىرى ۋە ئۈچىنچى تەرەپ قىستۇرمىلىرى، سۈرەت ئامبىرى، AI تاختىسى، HEIC ئىمپورت قىلىش ۋە خەت نۇسخىسى چۈشۈرۈش قاتارلىق بەزى ئىقتىدارلارنى ئۆز ئىچىگە ئالمايدۇ؛ ھۆججەتلەر چۈشۈرۈلمە سۈپىتىدە ساقلىنىدۇ. macOS، Windows ۋە Linux ئۈچۈن ھەقسىز ئۈستەلئۈستى ئەپىدە بۇلارنىڭ ھەممىسى بار.",
+    "noticeBody": "سىز تور نۇسخىسىنى ئىشلىتىۋاتىسىز، بۇ تېخىمۇ يېنىك نەشر: ئۇ WebGPU دا بىرىكتۈرىدۇ ھەمدە Photoshop قىستۇرمىلىرى ۋە ئۈچىنچى تەرەپ قىستۇرمىلىرى، سۈرەت ئامبىرى، AI تاختىسى، HEIC ئىمپورت قىلىش ۋە خەت نۇسخىسى چۈشۈرۈش قاتارلىق بەزى ئىقتىدارلارنى ئۆز ئىچىگە ئالمايدۇ؛ ھۆججەتلەر چۈشۈرۈلمە سۈپىتىدە ساقلىنىدۇ. macOS، Windows ۋە Linux ئۈچۈن ھەقسىز ئۈستەلئۈستى ئەپىدە بۇلارنىڭ ھەممىسى بار.",
     "noticeLink": "ئۈستەلئۈستى ئەپىنى ئېلىڭ.",
     "ok": "ماقۇل"
   },
@@ -1343,7 +1343,7 @@ export const STRINGS = {
     "starting": "Abiarazten…",
     "webgpu": "Schist aplikazioak WebGPU behar du, baina arakatzaile honek ez du eskaintzen. Chrome/Edge 113 edo berriagoek, Firefox 141 edo berriagoek eta Safari 26 edo berriagoek bai.",
     "noticeTitle": "Schist hobeto dabil mahaigaineko aplikazio gisa",
-    "noticeBody": "Web-bertsioa erabiltzen ari zara; bertsio arinagoa da: konposizioa PUZean egiten du eta ez ditu zenbait eginbide barne hartzen —Photoshop plug-inak eta hirugarrenen plug-inak, irudi-galeria, AA panela, HEIC inportazioa eta letra-tipoen deskargak—, eta fitxategiak deskarga gisa gordetzen dira. macOS, Windows eta Linuxerako doako mahaigaineko aplikazioak dena dauka.",
+    "noticeBody": "Web-bertsioa erabiltzen ari zara; bertsio arinagoa da: konposizioa WebGPUn egiten du eta ez ditu zenbait eginbide barne hartzen —Photoshop plug-inak eta hirugarrenen plug-inak, irudi-galeria, AA panela, HEIC inportazioa eta letra-tipoen deskargak—, eta fitxategiak deskarga gisa gordetzen dira. macOS, Windows eta Linuxerako doako mahaigaineko aplikazioak dena dauka.",
     "noticeLink": "Eskuratu mahaigaineko aplikazioa.",
     "ok": "Ados"
   },
@@ -1352,7 +1352,7 @@ export const STRINGS = {
     "starting": "Zaganjanje …",
     "webgpu": "Schist potrebuje WebGPU, ki ga ta brskalnik ne podpira. Podpirajo ga Chrome/Edge 113+, Firefox 141+ in Safari 26+.",
     "noticeTitle": "Schist najbolje deluje kot namizna aplikacija",
-    "noticeBody": "Uporabljate spletno različico, ki je lažja različica programa: sestavljanje slike izvaja s procesorjem in ne vključuje nekaterih možnosti — vtičnikov za Photoshop in vtičnikov drugih ponudnikov, galerije slik, plošče za umetno inteligenco, uvoza HEIC ter prenosa pisav — datoteke pa se shranijo kot prenosi. Brezplačna namizna aplikacija za macOS, Windows in Linux vključuje vse te možnosti.",
+    "noticeBody": "Uporabljate spletno različico, ki je lažja različica programa: sestavljanje slike izvaja z WebGPU in ne vključuje nekaterih možnosti — vtičnikov za Photoshop in vtičnikov drugih ponudnikov, galerije slik, plošče za umetno inteligenco, uvoza HEIC ter prenosa pisav — datoteke pa se shranijo kot prenosi. Brezplačna namizna aplikacija za macOS, Windows in Linux vključuje vse te možnosti.",
     "noticeLink": "Prenesite namizno aplikacijo.",
     "ok": "V redu"
   },
@@ -1361,7 +1361,7 @@ export const STRINGS = {
     "starting": "កំពុងចាប់ផ្តើម…",
     "webgpu": "Schist ត្រូវការ WebGPU ដែលកម្មវិធីរុករកនេះមិនផ្តល់ជូន។ Chrome/Edge 113+, Firefox 141+ និង Safari 26+ អាចប្រើបាន។",
     "noticeTitle": "Schist ដំណើរការល្អបំផុតជាកម្មវិធីលើកុំព្យូទ័រ",
-    "noticeBody": "អ្នកកំពុងប្រើកំណែវេប ដែលជាកំណែស្រាលជាង៖ វាផ្គុំរូបភាពដោយ CPU និងមិនរួមបញ្ចូលមុខងារមួយចំនួន ដូចជា កម្មវិធីជំនួយ Photoshop និងកម្មវិធីជំនួយរបស់ភាគីទីបី វិចិត្រសាលរូបភាព បន្ទះ AI ការនាំចូល HEIC និងការទាញយកពុម្ពអក្សរ ហើយឯកសារត្រូវបានរក្សាទុកជាឯកសារទាញយក។ កម្មវិធីលើកុំព្យូទ័រឥតគិតថ្លៃសម្រាប់ macOS, Windows និង Linux មានមុខងារទាំងអស់នេះ។",
+    "noticeBody": "អ្នកកំពុងប្រើកំណែវេប ដែលជាកំណែស្រាលជាង៖ វាផ្គុំរូបភាពដោយ WebGPU និងមិនរួមបញ្ចូលមុខងារមួយចំនួន ដូចជា កម្មវិធីជំនួយ Photoshop និងកម្មវិធីជំនួយរបស់ភាគីទីបី វិចិត្រសាលរូបភាព បន្ទះ AI ការនាំចូល HEIC និងការទាញយកពុម្ពអក្សរ ហើយឯកសារត្រូវបានរក្សាទុកជាឯកសារទាញយក។ កម្មវិធីលើកុំព្យូទ័រឥតគិតថ្លៃសម្រាប់ macOS, Windows និង Linux មានមុខងារទាំងអស់នេះ។",
     "noticeLink": "ទាញយកកម្មវិធីលើកុំព្យូទ័រ។",
     "ok": "យល់ព្រម"
   },
@@ -1370,7 +1370,7 @@ export const STRINGS = {
     "starting": "Dest pê dike…",
     "webgpu": "Schist hewcedarê WebGPU ye, lê ev gerok wê pêşkêş nake. Chrome/Edge 113+, Firefox 141+ û Safari 26+ wê pêşkêş dikin.",
     "noticeTitle": "Schist wekî sepana sermaseyê herî baş dixebite",
-    "noticeBody": "Tu guhertoya webê ya siviktir bi kar tînî: wêne li ser CPU tevlihev dike û hin taybetmendiyan — pêvekên Photoshop û pêvekên aliyên sêyem, galerîya wêneyan, panela AI, anîna HEIC û daxistina tîpan — nagire nav xwe; pel jî wek daxistin tên tomarkirin. Sepana sermaseyê ya belaş ji bo macOS, Windows û Linux hemû van taybetmendiyan heye.",
+    "noticeBody": "Tu guhertoya webê ya siviktir bi kar tînî: wêne li ser WebGPU tevlihev dike û hin taybetmendiyan — pêvekên Photoshop û pêvekên aliyên sêyem, galerîya wêneyan, panela AI, anîna HEIC û daxistina tîpan — nagire nav xwe; pel jî wek daxistin tên tomarkirin. Sepana sermaseyê ya belaş ji bo macOS, Windows û Linux hemû van taybetmendiyan heye.",
     "noticeLink": "Sepana sermaseyê bistîne.",
     "ok": "Temam"
   },
@@ -1379,7 +1379,7 @@ export const STRINGS = {
     "starting": "Startar …",
     "webgpu": "Schist treng WebGPU, som denne nettlesaren ikkje tilbyr. Chrome/Edge 113+, Firefox 141+ og Safari 26+ gjer det.",
     "noticeTitle": "Schist fungerer best som skrivebordsapp",
-    "noticeBody": "Du brukar nettversjonen, som er ei lettare utgåve: Ho set saman biletet på prosessoren og manglar nokre funksjonar – Photoshop-programtillegg og programtillegg frå tredjepartar, biletgalleri, KI-panelet, HEIC-import og nedlasting av skrifter – og filer vert lagra som nedlastingar. Den gratis skrivebordsappen for macOS, Windows og Linux har alt dette.",
+    "noticeBody": "Du brukar nettversjonen, som er ei lettare utgåve: Ho set saman biletet på WebGPU og manglar nokre funksjonar – Photoshop-programtillegg og programtillegg frå tredjepartar, biletgalleri, KI-panelet, HEIC-import og nedlasting av skrifter – og filer vert lagra som nedlastingar. Den gratis skrivebordsappen for macOS, Windows og Linux har alt dette.",
     "noticeLink": "Hent skrivebordsappen.",
     "ok": "OK"
   },
@@ -1388,7 +1388,7 @@ export const STRINGS = {
     "starting": "Starter…",
     "webgpu": "Schist krever WebGPU, som denne nettleseren ikke tilbyr. Chrome/Edge 113+, Firefox 141+ og Safari 26+ støtter det.",
     "noticeTitle": "Schist fungerer best som en skrivebordsapp",
-    "noticeBody": "Du bruker nettversjonen, som er en lettere utgave: Den setter sammen bildet på prosessoren og utelater enkelte funksjoner – Photoshop- og tredjepartsprogramtillegg, bildegalleriet, KI-panelet, HEIC-import og nedlasting av skrifter – og filer lagres som nedlastinger. Den kostnadsfrie skrivebordsappen for macOS, Windows og Linux har alt dette.",
+    "noticeBody": "Du bruker nettversjonen, som er en lettere utgave: Den setter sammen bildet på WebGPU og utelater enkelte funksjoner – Photoshop- og tredjepartsprogramtillegg, bildegalleriet, KI-panelet, HEIC-import og nedlasting av skrifter – og filer lagres som nedlastinger. Den kostnadsfrie skrivebordsappen for macOS, Windows og Linux har alt dette.",
     "noticeLink": "Hent skrivebordsappen.",
     "ok": "OK"
   },
@@ -1397,7 +1397,7 @@ export const STRINGS = {
     "starting": "Iyaqalisa…",
     "webgpu": "I-Schist idinga i-WebGPU, isiphequluli lesi esingelayo. I-Chrome/Edge 113+, Firefox 141+ le-Safari 26+ zilayo.",
     "noticeTitle": "I-Schist isebenza kuhle kakhulu njengohlelo lwekhompuyutha",
-    "noticeBody": "Usebenzisa inguqulo yewebhu, eyakhiwe yaba lula: ihlanganisa izendlalelo nge-CPU njalo kayilazo ezinye izici — ama-plug-in e-Photoshop lama-plug-in avela kwabanye abakhi, igalari yezithombe, iphaneli ye-AI, ukungenisa i-HEIC lokudawuniloda amafonti — njalo amafayela agcinwa njengokudawunilodiweyo. Uhlelo lwamahala lwekhompuyutha lwe-macOS, Windows le-Linux lulakho konke lokhu.",
+    "noticeBody": "Usebenzisa inguqulo yewebhu, eyakhiwe yaba lula: ihlanganisa izendlalelo nge-WebGPU njalo kayilazo ezinye izici — ama-plug-in e-Photoshop lama-plug-in avela kwabanye abakhi, igalari yezithombe, iphaneli ye-AI, ukungenisa i-HEIC lokudawuniloda amafonti — njalo amafayela agcinwa njengokudawunilodiweyo. Uhlelo lwamahala lwekhompuyutha lwe-macOS, Windows le-Linux lulakho konke lokhu.",
     "noticeLink": "Thola uhlelo lwekhompuyutha.",
     "ok": "Kulungile"
   },
@@ -1406,7 +1406,7 @@ export const STRINGS = {
     "starting": "Ya sungula…",
     "webgpu": "Schist yi lava WebGPU, leyi browser leyi yi nga riki na yona. Chrome/Edge 113+, Firefox 141+ na Safari 26+ ti na yona.",
     "noticeTitle": "Schist yi tirha kahle ngopfu yi ri app ya desktop",
-    "noticeBody": "U tirhisa vuhundzuluxi bya webu, ku nga build yo vevuka: yi hlanganisa swifaniso hi CPU naswona a yi katsi swihlawulekisi swin'wana—ti-plug-in ta Photoshop ni ti-plug-in ta vanhu van'wana, galari ya swifaniso, phanele ya AI, ku nghenisa HEIC ni ku dawuniloda tifonto—naswona tifayili ti hlayisiwa ti ri leswi dawunilodiwaka. App ya mahala ya desktop ya macOS, Windows na Linux yi na swona hinkwato.",
+    "noticeBody": "U tirhisa vuhundzuluxi bya webu, ku nga build yo vevuka: yi hlanganisa swifaniso hi WebGPU naswona a yi katsi swihlawulekisi swin'wana—ti-plug-in ta Photoshop ni ti-plug-in ta vanhu van'wana, galari ya swifaniso, phanele ya AI, ku nghenisa HEIC ni ku dawuniloda tifonto—naswona tifayili ti hlayisiwa ti ri leswi dawunilodiwaka. App ya mahala ya desktop ya macOS, Windows na Linux yi na swona hinkwato.",
     "noticeLink": "Kuma app ya desktop.",
     "ok": "Swi lulamile"
   },
@@ -1415,7 +1415,7 @@ export const STRINGS = {
     "starting": "Aviada…",
     "webgpu": "Schist a besonh de WebGPU, qu'aqueste navigador prepausa pas. Chrome/Edge 113+, Firefox 141+ e Safari 26+ lo prepausan.",
     "noticeTitle": "Schist fonciona melhor coma aplicacion de burèu",
-    "noticeBody": "Utilizatz la version web, qu'es una version mai leugièra : compausa los imatges sul processor e inclutz pas certanas foncionalitats — los moduls extèrnes de Photoshop e los moduls extèrnes de tèrças parts, la galariá d'imatges, lo panèl d'IA, l'importacion HEIC e lo telecargament de poliças — e los fichièrs son enregistrats coma telecargaments. L'aplicacion de burèu gratuita per macOS, Windows e Linux inclutz tot aquò.",
+    "noticeBody": "Utilizatz la version web, qu'es una version mai leugièra : compausa los imatges amb WebGPU e inclutz pas certanas foncionalitats — los moduls extèrnes de Photoshop e los moduls extèrnes de tèrças parts, la galariá d'imatges, lo panèl d'IA, l'importacion HEIC e lo telecargament de poliças — e los fichièrs son enregistrats coma telecargaments. L'aplicacion de burèu gratuita per macOS, Windows e Linux inclutz tot aquò.",
     "noticeLink": "Obténer l'aplicacion de burèu.",
     "ok": "D'acòrdi"
   },
@@ -1424,7 +1424,7 @@ export const STRINGS = {
     "starting": "Pokretanje…",
     "webgpu": "Schist zahtijeva WebGPU, koji ovaj preglednik ne podržava. Podržavaju ga Chrome/Edge 113+, Firefox 141+ i Safari 26+.",
     "noticeTitle": "Schist najbolje radi kao aplikacija za računalo",
-    "noticeBody": "Upotrebljavate web-verziju, koja ima manje mogućnosti: kompoziciju izvodi na procesoru i ne obuhvaća neke značajke — dodatke za Photoshop i dodatke drugih proizvođača, galeriju slika, ploču za AI, uvoz HEIC datoteka ni preuzimanje fontova — a datoteke se spremaju kao preuzimanja. Besplatna aplikacija za računala sa sustavima macOS, Windows i Linux obuhvaća sve te mogućnosti.",
+    "noticeBody": "Upotrebljavate web-verziju, koja ima manje mogućnosti: kompoziciju izvodi uz WebGPU i ne obuhvaća neke značajke — dodatke za Photoshop i dodatke drugih proizvođača, galeriju slika, ploču za AI, uvoz HEIC datoteka ni preuzimanje fontova — a datoteke se spremaju kao preuzimanja. Besplatna aplikacija za računala sa sustavima macOS, Windows i Linux obuhvaća sve te mogućnosti.",
     "noticeLink": "Preuzmite aplikaciju za računalo.",
     "ok": "U redu"
   },
@@ -1433,7 +1433,7 @@ export const STRINGS = {
     "starting": "Opstarte…",
     "webgpu": "Schist hat WebGPU nedich, mar dizze browser biedt dat net. Chrome/Edge 113+, Firefox 141+ en Safari 26+ dogge dat wol.",
     "noticeTitle": "Schist wurket it bêste as buroblêd-app",
-    "noticeBody": "Jo brûke de webferzje, in lichtere útfiering: dy stelt bylden gear op de CPU en lit guon funksjes fuort — Photoshop-ynstekkers en ynstekkers fan tredden, de ôfbyldingsgalery, it AI-paniel, HEIC-ymport en lettertypen ynlade — en bestannen wurde as downloads bewarre. De fergese buroblêd-app foar macOS, Windows en Linux hat dit allegear wol.",
+    "noticeBody": "Jo brûke de webferzje, in lichtere útfiering: dy stelt bylden gear op de WebGPU en lit guon funksjes fuort — Photoshop-ynstekkers en ynstekkers fan tredden, de ôfbyldingsgalery, it AI-paniel, HEIC-ymport en lettertypen ynlade — en bestannen wurde as downloads bewarre. De fergese buroblêd-app foar macOS, Windows en Linux hat dit allegear wol.",
     "noticeLink": "Download de buroblêd-app.",
     "ok": "OK"
   },
@@ -1442,7 +1442,7 @@ export const STRINGS = {
     "starting": "O loo amata…",
     "webgpu": "E manaʻomia e Schist le WebGPU, ae e lē maua i lenei palausa. E maua i le Chrome/Edge 113+, Firefox 141+ ma le Safari 26+.",
     "noticeTitle": "E sili ona lelei Schist pe a avea ma polokalame komepiuta",
-    "noticeBody": "O loo e faaaogā le lomiga i le upega tafailagi, o se fausaga māmā: e tuufaatasia ata i le CPU ma e lē aofia ai nisi vaega—plug-in a Photoshop ma plug-in a isi vaega, le faletusi ata, le vaega AI, le aumaia o faila HEIC ma le laʻuina o ituaiga mataʻitusi—ma e sefe faila o ni faila e laʻu mai. O le polokalame komepiuta e leai se totogi mo macOS, Windows ma Linux e iai nei vaega uma.",
+    "noticeBody": "O loo e faaaogā le lomiga i le upega tafailagi, o se fausaga māmā: e tuufaatasia ata i le WebGPU ma e lē aofia ai nisi vaega—plug-in a Photoshop ma plug-in a isi vaega, le faletusi ata, le vaega AI, le aumaia o faila HEIC ma le laʻuina o ituaiga mataʻitusi—ma e sefe faila o ni faila e laʻu mai. O le polokalame komepiuta e leai se totogi mo macOS, Windows ma Linux e iai nei vaega uma.",
     "noticeLink": "Maua le polokalame komepiuta.",
     "ok": "Ua lelei"
   },
@@ -1451,7 +1451,7 @@ export const STRINGS = {
     "starting": "Pokretanje…",
     "webgpu": "Schist zahtijeva WebGPU, koji ovaj preglednik ne podržava. Podržavaju ga Chrome/Edge 113+, Firefox 141+ i Safari 26+.",
     "noticeTitle": "Schist najbolje radi kao aplikacija za računar",
-    "noticeBody": "Koristite web-verziju, koja je olakšano izdanje: sastavlja sliku na procesoru i ne uključuje neke mogućnosti — dodatke za Photoshop i dodatke drugih proizvođača, galeriju slika, panel za AI, uvoz HEIC datoteka ni preuzimanje fontova — a datoteke se spremaju kao preuzimanja. Besplatna aplikacija za računare s operativnim sistemima macOS, Windows i Linux ima sve te mogućnosti.",
+    "noticeBody": "Koristite web-verziju, koja je olakšano izdanje: sastavlja sliku uz WebGPU i ne uključuje neke mogućnosti — dodatke za Photoshop i dodatke drugih proizvođača, galeriju slika, panel za AI, uvoz HEIC datoteka ni preuzimanje fontova — a datoteke se spremaju kao preuzimanja. Besplatna aplikacija za računare s operativnim sistemima macOS, Windows i Linux ima sve te mogućnosti.",
     "noticeLink": "Preuzmite aplikaciju za računar.",
     "ok": "U redu"
   },
@@ -1460,7 +1460,7 @@ export const STRINGS = {
     "starting": "Ɛrefi ase…",
     "webgpu": "Schist hia WebGPU, nanso browser yi nni bi. Chrome/Edge 113+, Firefox 141+ ne Safari 26+ wɔ bi.",
     "noticeTitle": "Schist yɛ adwuma yiye paa sɛ desktop app",
-    "noticeBody": "Wode web version no na ɛreyɛ adwuma, na ɛyɛ build a emu yɛ hare: ɛka mfonini no bom wɔ CPU no so na ennye nneɛma bi nka ho — Photoshop plug-ins ne plug-ins a afoforo ayɛ, mfonini gallery, AI panel, HEIC import ne font ahodoɔ a wɔtwe fi intanɛt so — na sɛ wokora file a, ɛba sɛ download. Desktop app a wontua hwee ma macOS, Windows ne Linux no wɔ ne nyinaa.",
+    "noticeBody": "Wode web version no na ɛreyɛ adwuma, na ɛyɛ build a emu yɛ hare: ɛka mfonini no bom wɔ WebGPU no so na ennye nneɛma bi nka ho — Photoshop plug-ins ne plug-ins a afoforo ayɛ, mfonini gallery, AI panel, HEIC import ne font ahodoɔ a wɔtwe fi intanɛt so — na sɛ wokora file a, ɛba sɛ download. Desktop app a wontua hwee ma macOS, Windows ne Linux no wɔ ne nyinaa.",
     "noticeLink": "Gye desktop app no.",
     "ok": "Yoo"
   },
@@ -1469,7 +1469,7 @@ export const STRINGS = {
     "starting": "Lantschar…",
     "webgpu": "Schist dovra WebGPU, che quest navigatur na porscha betg. Quai fan Chrome/Edge 113+, Firefox 141+ e Safari 26+.",
     "noticeTitle": "Schist funcziuna il meglier sco applicaziun per il desktop",
-    "noticeBody": "Ti utiliseschas la versiun web, ina versiun pli leva: ella cumpona ils maletgs sin la CPU ed ometta tschertas funcziuns — plug-ins da Photoshop e plug-ins da terzas partidas, la gallaria da maletgs, il champ dad IA, l'import da HEIC e la telechargiada da scrittiras — e las datotecas vegnan arcunadas en furma da telechargiadas. L'applicaziun gratuita per il desktop per macOS, Windows e Linux cumpiglia tut quai.",
+    "noticeBody": "Ti utiliseschas la versiun web, ina versiun pli leva: ella cumpona ils maletgs sin la WebGPU ed ometta tschertas funcziuns — plug-ins da Photoshop e plug-ins da terzas partidas, la gallaria da maletgs, il champ dad IA, l'import da HEIC e la telechargiada da scrittiras — e las datotecas vegnan arcunadas en furma da telechargiadas. L'applicaziun gratuita per il desktop per macOS, Windows e Linux cumpiglia tut quai.",
     "noticeLink": "Retschaiver l'applicaziun per il desktop.",
     "ok": "OK"
   },
@@ -1478,7 +1478,7 @@ export const STRINGS = {
     "starting": "Na-amalite…",
     "webgpu": "Schist chọrọ WebGPU, nke ihe nchọgharị a anaghị enye. Chrome/Edge 113+, Firefox 141+ na Safari 26+ na-enye ya.",
     "noticeTitle": "Schist na-arụ ọrụ nke ọma karịa dịka ngwa desktọọpụ",
-    "noticeBody": "Ị na-eji ụdị webụ, nke bụ ụdị e mere ka ọ dị mfe: ọ na-ejikọta onyonyo site na CPU ma hapụ ụfọdụ atụmatụ — Photoshop plug-in na plug-in ndị nrụpụta ndị ọzọ, ebe ngosi onyonyo, panel AI, mbubata HEIC na nbudata fọnt — a na-echekwakwa faịlụ dịka nbudata. Ngwa desktọọpụ efu maka macOS, Windows na Linux nwere ha niile.",
+    "noticeBody": "Ị na-eji ụdị webụ, nke bụ ụdị e mere ka ọ dị mfe: ọ na-ejikọta onyonyo site na WebGPU ma hapụ ụfọdụ atụmatụ — Photoshop plug-in na plug-in ndị nrụpụta ndị ọzọ, ebe ngosi onyonyo, panel AI, mbubata HEIC na nbudata fọnt — a na-echekwakwa faịlụ dịka nbudata. Ngwa desktọọpụ efu maka macOS, Windows na Linux nwere ha niile.",
     "noticeLink": "Nweta ngwa desktọọpụ.",
     "ok": "Ọ dị mma"
   },
@@ -1487,7 +1487,7 @@ export const STRINGS = {
     "starting": "Gëtt gestart…",
     "webgpu": "Schist brauch WebGPU, wat dëse Browser net ubitt. Chrome/Edge 113+, Firefox 141+ a Safari 26+ ënnerstëtzen et.",
     "noticeTitle": "Schist funktionéiert am beschten als Desktop-App",
-    "noticeBody": "Dir benotzt d'Webversioun, déi eng méi liicht Versioun ass: Si setzt d'Bild um CPU zesummen a léisst verschidde Funktiounen ewech – Photoshop-Plug-ins a Plug-ins vun Drëttubidder, d'Bildgalerie, den KI-Panneau, den HEIC-Import an d'Schrëft-Downloads – an Dateie ginn als Downloads gespäichert. Déi gratis Desktop-App fir macOS, Windows a Linux huet all dës Funktiounen.",
+    "noticeBody": "Dir benotzt d'Webversioun, déi eng méi liicht Versioun ass: Si setzt d'Bild um WebGPU zesummen a léisst verschidde Funktiounen ewech – Photoshop-Plug-ins a Plug-ins vun Drëttubidder, d'Bildgalerie, den KI-Panneau, den HEIC-Import an d'Schrëft-Downloads – an Dateie ginn als Downloads gespäichert. Déi gratis Desktop-App fir macOS, Windows a Linux huet all dës Funktiounen.",
     "noticeLink": "Desktop-App eroflueden.",
     "ok": "OK"
   },
@@ -1496,7 +1496,7 @@ export const STRINGS = {
     "starting": "Kuri kutanga…",
     "webgpu": "Schist inoda WebGPU, iyo isingawanikwi mubhurawuza iri. Inowanikwa muChrome/Edge 113+, Firefox 141+ uye Safari 26+.",
     "noticeTitle": "Schist inoshanda zvakanaka zvikuru sechishandiso chepadesktop",
-    "noticeBody": "Uri kushandisa vhezheni yewebhu, iri vhezheni yakareruka: inosanganisa mifananidzo ichishandisa CPU uye haina zvimwe zvinhu — mapulagini ePhotoshop nemapulagini evamwe vagadziri, garari yemifananidzo, panera reAI, kupinza HEIC uye kudhaunirodha mafonti — uye mafaira anochengetwa sezvinhu zvakadhaunirodhwa. Shanduro yepadesktop yemahara ye macOS, Windows neLinux ine zvose izvi.",
+    "noticeBody": "Uri kushandisa vhezheni yewebhu, iri vhezheni yakareruka: inosanganisa mifananidzo ichishandisa WebGPU uye haina zvimwe zvinhu — mapulagini ePhotoshop nemapulagini evamwe vagadziri, garari yemifananidzo, panera reAI, kupinza HEIC uye kudhaunirodha mafonti — uye mafaira anochengetwa sezvinhu zvakadhaunirodhwa. Shanduro yepadesktop yemahara ye macOS, Windows neLinux ine zvose izvi.",
     "noticeLink": "Wana shanduro yepadesktop.",
     "ok": "Zvakanaka"
   },
@@ -1505,7 +1505,7 @@ export const STRINGS = {
     "starting": "Ɛrefi ase…",
     "webgpu": "Schist hia WebGPU, nanso browser yi nni bi. Chrome/Edge 113+, Firefox 141+ ne Safari 26+ wɔ bi.",
     "noticeTitle": "Schist yɛ adwuma yiye paa sɛ desktop app",
-    "noticeBody": "Wode web version no na ɛreyɛ adwuma, na ɛyɛ build a emu yɛ hare: ɛka mfonini afã horow bom wɔ CPU no so na enni nneɛma bi — Photoshop plug-ins ne plug-ins a developers afoforo yɛe, mfonini gallery, AI panel, HEIC import ne font downloads — na wɔkora fael ahorow so sɛ downloads. Desktop app a wontua hwee a ɛyɛ macOS, Windows ne Linux de no nyinaa ka ho.",
+    "noticeBody": "Wode web version no na ɛreyɛ adwuma, na ɛyɛ build a emu yɛ hare: ɛka mfonini afã horow bom wɔ WebGPU no so na enni nneɛma bi — Photoshop plug-ins ne plug-ins a developers afoforo yɛe, mfonini gallery, AI panel, HEIC import ne font downloads — na wɔkora fael ahorow so sɛ downloads. Desktop app a wontua hwee a ɛyɛ macOS, Windows ne Linux de no nyinaa ka ho.",
     "noticeLink": "Gye desktop app no.",
     "ok": "YOO"
   },
@@ -1514,7 +1514,7 @@ export const STRINGS = {
     "starting": "Iyathoma…",
     "webgpu": "I-Schist itlhoga i-WebGPU, kodwana isiphequluli lesi asiyinikezeli. I-Chrome/Edge 113+, Firefox 141+ ne-Safari 26+ ziyayinikezela.",
     "noticeTitle": "I-Schist isebenza kuhle khulu njengehlelo lekhomphyutha",
-    "noticeBody": "Usebenzisa ihlelo lewebhu, eliyinguqulo elula: lihlanganisa iinthombe nge-CPU begodu alifaki ezinye izinto — ama-plug-in we-Photoshop nama-plug-in wabanye abenzi, igalari yeenthombe, iphaneli ye-AI, ukungenisa i-HEIC nokudawuniloda amafonti — begodu amafayela agcinwa njengokudawunilodiweko. Ihlelo lekhomphyutha lamahhala le-macOS, Windows ne-Linux linakho koke lokhu.",
+    "noticeBody": "Usebenzisa ihlelo lewebhu, eliyinguqulo elula: lihlanganisa iinthombe nge-WebGPU begodu alifaki ezinye izinto — ama-plug-in we-Photoshop nama-plug-in wabanye abenzi, igalari yeenthombe, iphaneli ye-AI, ukungenisa i-HEIC nokudawuniloda amafonti — begodu amafayela agcinwa njengokudawunilodiweko. Ihlelo lekhomphyutha lamahhala le-macOS, Windows ne-Linux linakho koke lokhu.",
     "noticeLink": "Thola ihlelo lekhomphyutha.",
     "ok": "Kulungile"
   },
@@ -1523,7 +1523,7 @@ export const STRINGS = {
     "starting": "Etandika…",
     "webgpu": "Schist yeetaaga WebGPU, naye bbulawuza eno tegirina. Chrome/Edge 113+, Firefox 141+ ne Safari 26+ bazirina.",
     "noticeTitle": "Schist esinga okukola obulungi nga pulogulaamu ya ku kompyuta",
-    "noticeBody": "Okozesa Schist ey'oku mutimbagano, era eno nkola nnyangu: egatta ebifaananyi ku CPU era terina bimu ku bikolwa — plug-ins za Photoshop ne plug-ins ez'abakola abalala, ekkuŋŋaaniro ly'ebifaananyi, ekipande kya AI, okuyingiza HEIC n'okuwanula empandiika — era fayiro ziterekebwa ng'ebuwanulwa. Pulogulaamu ya ku kompyuta ey'obwereere ku macOS, Windows ne Linux erina byonna.",
+    "noticeBody": "Okozesa Schist ey'oku mutimbagano, era eno nkola nnyangu: egatta ebifaananyi ku WebGPU era terina bimu ku bikolwa — plug-ins za Photoshop ne plug-ins ez'abakola abalala, ekkuŋŋaaniro ly'ebifaananyi, ekipande kya AI, okuyingiza HEIC n'okuwanula empandiika — era fayiro ziterekebwa ng'ebuwanulwa. Pulogulaamu ya ku kompyuta ey'obwereere ku macOS, Windows ne Linux erina byonna.",
     "noticeLink": "Funa pulogulaamu ya ku kompyuta.",
     "ok": "Kale"
   },
@@ -1532,7 +1532,7 @@ export const STRINGS = {
     "starting": "Покретање…",
     "webgpu": "Schist захтева WebGPU, који овај прегледач не подржава. Подржавају га Chrome/Edge 113+, Firefox 141+ и Safari 26+.",
     "noticeTitle": "Schist најбоље ради као десктоп апликација",
-    "noticeBody": "Користите веб-верзију, која је олакшана варијанта: композицију обавља на процесору и изоставља неке функције — додатке за Photoshop и додатке других произвођача, галерију слика, панел за вештачку интелигенцију, увоз HEIC датотека и преузимање фонтова — а датотеке се чувају као преузимања. Бесплатна десктоп апликација за macOS, Windows и Linux има све те функције.",
+    "noticeBody": "Користите веб-верзију, која је олакшана варијанта: композицију обавља уз WebGPU и изоставља неке функције — додатке за Photoshop и додатке других произвођача, галерију слика, панел за вештачку интелигенцију, увоз HEIC датотека и преузимање фонтова — а датотеке се чувају као преузимања. Бесплатна десктоп апликација за macOS, Windows и Linux има све те функције.",
     "noticeLink": "Преузмите десктоп апликацију.",
     "ok": "У реду"
   },
@@ -1541,7 +1541,7 @@ export const STRINGS = {
     "starting": "Pokretanje…",
     "webgpu": "Schist zahtijeva WebGPU, koji ovaj preglednik ne podržava. Podržavaju ga Chrome/Edge 113+, Firefox 141+ i Safari 26+.",
     "noticeTitle": "Schist najbolje radi kao aplikacija za računalo",
-    "noticeBody": "Upotrebljavate web-verziju, koja ima manje mogućnosti: kompoziciju izvodi na procesoru i ne obuhvaća neke značajke — dodatke za Photoshop i dodatke drugih proizvođača, galeriju slika, ploču za AI, uvoz HEIC datoteka ni preuzimanje fontova — a datoteke se spremaju kao preuzimanja. Besplatna aplikacija za računala sa sustavima macOS, Windows i Linux obuhvaća sve te mogućnosti.",
+    "noticeBody": "Upotrebljavate web-verziju, koja ima manje mogućnosti: kompoziciju izvodi uz WebGPU i ne obuhvaća neke značajke — dodatke za Photoshop i dodatke drugih proizvođača, galeriju slika, ploču za AI, uvoz HEIC datoteka ni preuzimanje fontova — a datoteke se spremaju kao preuzimanja. Besplatna aplikacija za računala sa sustavima macOS, Windows i Linux obuhvaća sve te mogućnosti.",
     "noticeLink": "Preuzmite aplikaciju za računalo.",
     "ok": "U redu"
   },
@@ -1550,7 +1550,7 @@ export const STRINGS = {
     "starting": "Avviamentu…",
     "webgpu": "Schist hà bisognu di WebGPU, chì stu navigatore ùn offre micca. Chrome/Edge 113+, Firefox 141+ è Safari 26+ l'offrenu.",
     "noticeTitle": "Schist funziona megliu cum'è applicazione per urdinatore",
-    "noticeBody": "Aduprate a versione web, chì hè una versione più ligera: face a cumpusizione nant'à u CPU è ùn include certe funzioni — i plug-in Photoshop è i plug-in di terzi, a galleria di maghjine, u pannellu AI, l'impurtazione HEIC è u scaricamentu di caratteri tipugrafichi — è i schedarii sò arregistrati cum'è scaricamenti. L'applicazione gratuita per urdinatore, dispunibule per macOS, Windows è Linux, cuntene tuttu.",
+    "noticeBody": "Aduprate a versione web, chì hè una versione più ligera: face a cumpusizione nant'à u WebGPU è ùn include certe funzioni — i plug-in Photoshop è i plug-in di terzi, a galleria di maghjine, u pannellu AI, l'impurtazione HEIC è u scaricamentu di caratteri tipugrafichi — è i schedarii sò arregistrati cum'è scaricamenti. L'applicazione gratuita per urdinatore, dispunibule per macOS, Windows è Linux, cuntene tuttu.",
     "noticeLink": "Ottene l'applicazione per urdinatore.",
     "ok": "OK"
   },
@@ -1559,7 +1559,7 @@ export const STRINGS = {
     "starting": "Waa la bilaabayaa…",
     "webgpu": "Schist wuxuu u baahan yahay WebGPU, kaas oo aanu barrawsarkan taageerin. Chrome/Edge 113+, Firefox 141+ iyo Safari 26+ way taageeraan.",
     "noticeTitle": "Schist wuxuu sida ugu fiican ugu shaqeeyaa abka desktop-ka",
-    "noticeBody": "Waxaad isticmaalaysaa nooca webka, oo ah nooc hawlo yar leh: isku-darka sawirrada wuxuu ku sameeyaa CPU-ga, waxaana ka maqan qaybo ay ka mid yihiin Photoshop plug-ins iyo plug-ins ay sameeyeen dhinacyo kale, maktabadda sawirrada, guddiga AI, soo dejinta HEIC iyo soo dejinta farta; faylashana waxaa loo kaydiyaa sidii faylal la soo dejiyey. Abka desktop-ka ee bilaashka ah ee macOS, Windows iyo Linux ayaa leh dhammaan qaybahaas.",
+    "noticeBody": "Waxaad isticmaalaysaa nooca webka, oo ah nooc hawlo yar leh: isku-darka sawirrada wuxuu ku sameeyaa WebGPU-ga, waxaana ka maqan qaybo ay ka mid yihiin Photoshop plug-ins iyo plug-ins ay sameeyeen dhinacyo kale, maktabadda sawirrada, guddiga AI, soo dejinta HEIC iyo soo dejinta farta; faylashana waxaa loo kaydiyaa sidii faylal la soo dejiyey. Abka desktop-ka ee bilaashka ah ee macOS, Windows iyo Linux ayaa leh dhammaan qaybahaas.",
     "noticeLink": "Hel abka desktop-ka.",
     "ok": "Hagaag"
   },
@@ -1568,7 +1568,7 @@ export const STRINGS = {
     "starting": "Á thosú…",
     "webgpu": "Tá WebGPU de dhíth ar Schist, ach ní chuireann an brabhsálaí seo ar fáil é. Cuireann Chrome/Edge 113+, Firefox 141+ agus Safari 26+ ar fáil é.",
     "noticeTitle": "Is fearr a oibríonn Schist mar aip deisce",
-    "noticeBody": "Tá an leagan gréasáin á úsáid agat, ar leagan níos éadroime é: cumascann sé ar an LAP agus fágtar roinnt gnéithe ar lár — breiseáin Photoshop agus breiseáin tríú páirtí, gailearaí na n-íomhánna, an painéal IS, iompórtáil HEIC agus íoslódálacha clónna — agus sábháiltear comhaid mar íoslódálacha. Tá gach ceann díobh san aip deisce saor in aisce do macOS, Windows agus Linux.",
+    "noticeBody": "Tá an leagan gréasáin á úsáid agat, ar leagan níos éadroime é: cumascann sé le WebGPU agus fágtar roinnt gnéithe ar lár — breiseáin Photoshop agus breiseáin tríú páirtí, gailearaí na n-íomhánna, an painéal IS, iompórtáil HEIC agus íoslódálacha clónna — agus sábháiltear comhaid mar íoslódálacha. Tá gach ceann díobh san aip deisce saor in aisce do macOS, Windows agus Linux.",
     "noticeLink": "Faigh an aip deisce.",
     "ok": "Ceart go leor"
   },
@@ -1577,7 +1577,7 @@ export const STRINGS = {
     "starting": "Se ye empecipiando…",
     "webgpu": "Schist ameneste WebGPU, pero iste navegador no en ofreix. Sí que n'ofreixen Chrome/Edge 113+, Firefox 141+ y Safari 26+.",
     "noticeTitle": "Schist funciona millor como aplicación d'escritorio",
-    "noticeBody": "Yes usando a versión web, que ye una compilación mas lichera: fa a composición en a CPU y no incluye bellas funcions —os complementos de Photoshop y os complementos de tercers, a galería d'imachens, o panel d'IA, a importación HEIC y a descarga de fuents—, y os fichers s'alzan como descargas. L'aplicación gratuita d'escritorio ta macOS, Windows y Linux lo incluye tot.",
+    "noticeBody": "Yes usando a versión web, que ye una compilación mas lichera: fa a composición en a WebGPU y no incluye bellas funcions —os complementos de Photoshop y os complementos de tercers, a galería d'imachens, o panel d'IA, a importación HEIC y a descarga de fuents—, y os fichers s'alzan como descargas. L'aplicación gratuita d'escritorio ta macOS, Windows y Linux lo incluye tot.",
     "noticeLink": "Descarga l'aplicación d'escritorio.",
     "ok": "Acceptar"
   },
@@ -1586,7 +1586,7 @@ export const STRINGS = {
     "starting": "Starte…",
     "webgpu": "Schist haet WebGPU neudig, mer deze browser böd dat neet aan. Chrome/Edge 113+, Firefox 141+ en Safari 26+ doon dat waal.",
     "noticeTitle": "Schist wirk 't bèste es bureaublad-app",
-    "noticeBody": "Geer gebroek de webversie, 'ne lichtere oetgaaf: die combineert op de CPU en laot 'n paar functies weg — Photoshop-plug-ins en plug-ins van anger partieje, de aafbiljingsgalerie, 't AI-paneel, HEIC-import en 't downloade van booksjrifte — en bestenj waere es downloads opgeslage. De gratis bureaublad-app veur macOS, Windows en Linux haet dit allemaol waal.",
+    "noticeBody": "Geer gebroek de webversie, 'ne lichtere oetgaaf: die combineert op de WebGPU en laot 'n paar functies weg — Photoshop-plug-ins en plug-ins van anger partieje, de aafbiljingsgalerie, 't AI-paneel, HEIC-import en 't downloade van booksjrifte — en bestenj waere es downloads opgeslage. De gratis bureaublad-app veur macOS, Windows en Linux haet dit allemaol waal.",
     "noticeLink": "Haal de bureaublad-app op.",
     "ok": "OK"
   },
@@ -1595,7 +1595,7 @@ export const STRINGS = {
     "starting": "Ikuyamba…",
     "webgpu": "Schist imafuna WebGPU, yomwe browser iyi ilibe. Chrome/Edge 113+, Firefox 141+ ndi Safari 26+ zili nayo.",
     "noticeTitle": "Schist imagwira bwino kwambiri ngati pulogalamu ya pa kompyuta",
-    "noticeBody": "Mukugwiritsa ntchito mtundu wa pawebusayiti, womwe ndi mtundu wopepuka: umaphatikiza zithunzi pogwiritsa ntchito CPU ndipo ulibe zina—ma plug-in a Photoshop ndi ma plug-in a opanga ena, gallery ya zithunzi, panel ya AI, kulowetsa HEIC ndi kutsitsa ma font—ndipo mafayilo amasungidwa ngati zotsitsidwa. Pulogalamu yaulere ya pa kompyuta ya macOS, Windows ndi Linux ili ndi zonsezi.",
+    "noticeBody": "Mukugwiritsa ntchito mtundu wa pawebusayiti, womwe ndi mtundu wopepuka: umaphatikiza zithunzi pogwiritsa ntchito WebGPU ndipo ulibe zina—ma plug-in a Photoshop ndi ma plug-in a opanga ena, gallery ya zithunzi, panel ya AI, kulowetsa HEIC ndi kutsitsa ma font—ndipo mafayilo amasungidwa ngati zotsitsidwa. Pulogalamu yaulere ya pa kompyuta ya macOS, Windows ndi Linux ili ndi zonsezi.",
     "noticeLink": "Pezani pulogalamu ya pa kompyuta.",
     "ok": "Chabwino"
   },
@@ -1604,7 +1604,7 @@ export const STRINGS = {
     "starting": "Стартиране…",
     "webgpu": "Schist изисква WebGPU, но този браузър не го поддържа. Поддържат го Chrome/Edge 113+, Firefox 141+ и Safari 26+.",
     "noticeTitle": "Schist работи най-добре като настолно приложение",
-    "noticeBody": "Използвате уеб версията, която е по-лека компилация: тя композира изображението чрез централния процесор и не включва някои функции — приставки за Photoshop и приставки от трети страни, галерията с изображения, панела за ИИ, импортиране на HEIC и изтегляне на шрифтове — а файловете се запазват като изтегляния. Безплатното настолно приложение за macOS, Windows и Linux включва всичко това.",
+    "noticeBody": "Използвате уеб версията, която е по-лека компилация: тя композира изображението чрез WebGPU и не включва някои функции — приставки за Photoshop и приставки от трети страни, галерията с изображения, панела за ИИ, импортиране на HEIC и изтегляне на шрифтове — а файловете се запазват като изтегляния. Безплатното настолно приложение за macOS, Windows и Linux включва всичко това.",
     "noticeLink": "Изтеглете настолното приложение.",
     "ok": "Добре"
   },
@@ -1613,7 +1613,7 @@ export const STRINGS = {
     "starting": "Aviende…",
     "webgpu": "Schist tenet bisòngiu de WebGPU, chi custu navigadore non frunit. Chrome/Edge 113+, Firefox 141+ e Safari 26+ dda frunint.",
     "noticeTitle": "Schist funtzionat mègius comente aplicatzione de iscrivania",
-    "noticeBody": "Ses impreende sa versione web, chi est una versione prus lèbia: componet in sa CPU e no incluit unas cantas funtzionalidades — is cumplementos de Photoshop e is cumplementos de àteras partes, sa galleria de immàgines, su pannellu de IA, s'importatzione HEIC e s'iscarrigamentu de caràteres — e is archìvios sunt sarvados comente iscarrigamentos. S'aplicatzione de iscrivania de badas pro macOS, Windows e Linux tenet totu custas funtzionalidades.",
+    "noticeBody": "Ses impreende sa versione web, chi est una versione prus lèbia: componet in sa WebGPU e no incluit unas cantas funtzionalidades — is cumplementos de Photoshop e is cumplementos de àteras partes, sa galleria de immàgines, su pannellu de IA, s'importatzione HEIC e s'iscarrigamentu de caràteres — e is archìvios sunt sarvados comente iscarrigamentos. S'aplicatzione de iscrivania de badas pro macOS, Windows e Linux tenet totu custas funtzionalidades.",
     "noticeLink": "Otene s'aplicatzione de iscrivania.",
     "ok": "AB"
   },
@@ -1622,7 +1622,7 @@ export const STRINGS = {
     "starting": "I khou thoma…",
     "webgpu": "Schist i ṱoḓa WebGPU, ine browser iyi i si i ṋee. Chrome/Edge 113+, Firefox 141+ na Safari 26+ dzi a i ṋea.",
     "noticeTitle": "Schist i shuma zwavhuḓi sa app ya desikithopo",
-    "noticeBody": "Ni khou shumisa vesheni ya webu, ine ya vha vesheni yo leluwaho: i ṱanganya zwifanyiso kha CPU nahone a i na zwiṅwe zwishumiswa — dzi-plug-in dza Photoshop na dzi-plug-in dza vhaṅwe vhaṋetshedzi, gaḽari ya zwifanyiso, phanele ya AI, u dzhenisa HEIC na u dawuniḽoda dzifonto — nahone faela dzi vhulungwa sa zwo dawuniḽodiwaho. App ya desikithopo ya mahala ya macOS, Windows na Linux i na zwoṱhe.",
+    "noticeBody": "Ni khou shumisa vesheni ya webu, ine ya vha vesheni yo leluwaho: i ṱanganya zwifanyiso kha WebGPU nahone a i na zwiṅwe zwishumiswa — dzi-plug-in dza Photoshop na dzi-plug-in dza vhaṅwe vhaṋetshedzi, gaḽari ya zwifanyiso, phanele ya AI, u dzhenisa HEIC na u dawuniḽoda dzifonto — nahone faela dzi vhulungwa sa zwo dawuniḽodiwaho. App ya desikithopo ya mahala ya macOS, Windows na Linux i na zwoṱhe.",
     "noticeLink": "Wanani app ya desikithopo.",
     "ok": "Zwo luga"
   },
@@ -1631,7 +1631,7 @@ export const STRINGS = {
     "starting": "ފެށެމުން ދަނީ…",
     "webgpu": "މި ބްރައުޒަރުން ނުދޭ WebGPU، Schist އަށް ބޭނުންވެއެވެ. Chrome/Edge 113+، Firefox 141+ އަދި Safari 26+ އިން އެއީ ދެއެވެ.",
     "noticeTitle": "Schist އެންމެ ރަނގަޅަށް ހިނގާނީ ޑެސްކްޓޮޕް އެޕެއްގެ ގޮތުގައެވެ",
-    "noticeBody": "ތިޔަ ބޭނުން ކުރަނީ ލުއި ބިލްޑެއްކަމުގައިވާ ވެބް ވަރޝަނެވެ: އެއީ CPU މަތީ ކޮމްޕޮސިޓް ކޮށް، ބައެއް ފީޗަރުތައް — Photoshop ޕްލަގް-އިންތަކާއި ތިންވަނަ ފަރާތްތަކުގެ ޕްލަގް-އިންތައް، ފޮޓޯ ގެލެރީ، AI ޕެނަލް، HEIC އިމްޕޯޓް އަދި ފޮންޓް ޑައުންލޯޑުތައް — ހިމަނާފައެއް ނުވެއެވެ، އަދި ފައިލްތައް ސޭވްވަނީ ޑައުންލޯޑުތަކެއްގެ ގޮތުގައެވެ. macOS، Windows އަދި Linux އަށް ލިބޭ ހިލޭ ޑެސްކްޓޮޕް އެޕުގައި މި ހުރިހާ ކަމެއް ހިމެނެއެވެ.",
+    "noticeBody": "ތިޔަ ބޭނުން ކުރަނީ ލުއި ބިލްޑެއްކަމުގައިވާ ވެބް ވަރޝަނެވެ: އެއީ WebGPU މަތީ ކޮމްޕޮސިޓް ކޮށް، ބައެއް ފީޗަރުތައް — Photoshop ޕްލަގް-އިންތަކާއި ތިންވަނަ ފަރާތްތަކުގެ ޕްލަގް-އިންތައް، ފޮޓޯ ގެލެރީ، AI ޕެނަލް، HEIC އިމްޕޯޓް އަދި ފޮންޓް ޑައުންލޯޑުތައް — ހިމަނާފައެއް ނުވެއެވެ، އަދި ފައިލްތައް ސޭވްވަނީ ޑައުންލޯޑުތަކެއްގެ ގޮތުގައެވެ. macOS، Windows އަދި Linux އަށް ލިބޭ ހިލޭ ޑެސްކްޓޮޕް އެޕުގައި މި ހުރިހާ ކަމެއް ހިމެނެއެވެ.",
     "noticeLink": "ޑެސްކްޓޮޕް އެޕް ހޯދާ.",
     "ok": "ރަނގަޅު"
   },
@@ -1640,7 +1640,7 @@ export const STRINGS = {
     "starting": "Kuyacala…",
     "webgpu": "Schist idzinga i-WebGPU, lesiphequluli lesingayiniki. I-Chrome/Edge 113+, Firefox 141+ ne-Safari 26+ kuyayinika.",
     "noticeTitle": "Schist isebenta kahle kakhulu njengeluhlelo lwedeskithophu",
-    "noticeBody": "Usebentisa inguqulo yewebhu, lenguqulo lelula: ihlanganisa sitfombe nge-CPU futsi ayifaki letinye tintfo — ema-plug-in e-Photoshop nema-plug-in emacembu esitsatfu, ligalari yetitfombe, liphaneli le-AI, kungenisa i-HEIC nekulandza emafonti — futsi emafayela agcinwa njengalokulandziwe. Luhlelo lwamahhala lwedeskithophu lwe-macOS, Windows ne-Linux lunako konkhe loku.",
+    "noticeBody": "Usebentisa inguqulo yewebhu, lenguqulo lelula: ihlanganisa sitfombe nge-WebGPU futsi ayifaki letinye tintfo — ema-plug-in e-Photoshop nema-plug-in emacembu esitsatfu, ligalari yetitfombe, liphaneli le-AI, kungenisa i-HEIC nekulandza emafonti — futsi emafayela agcinwa njengalokulandziwe. Luhlelo lwamahhala lwedeskithophu lwe-macOS, Windows ne-Linux lunako konkhe loku.",
     "noticeLink": "Tfola luhlelo lwedeskithophu.",
     "ok": "Kulungile"
   },
@@ -1649,7 +1649,7 @@ export const STRINGS = {
     "starting": "’Ga thòiseachadh…",
     "webgpu": "Tha WebGPU a dhìth air Schist ach chan eil am brabhsair seo ’ga thabhann. Tha Chrome/Edge 113+, Firefox 141+ agus Safari 26+ ’ga thabhann.",
     "noticeTitle": "Obraichidh Schist as fheàrr mar aplacaid deasg",
-    "noticeBody": "Tha thu a’ cleachdadh an tionndaidh-lìn, a tha na thionndadh nas aotruime: nì e co-dhealbhadh air an CPU agus chan eil cuid dhe na gleusan ann — plugain Photoshop agus plugain treas-phàrtaidh, gailearaidh dhealbhan, am panal AI, ion-phortadh HEIC agus luchdadh a-nuas chruthan-clò — agus thèid faidhlichean a shàbhaladh mar nithean air an luchdadh a-nuas. Tha iad uile san aplacaid deasg shaor airson macOS, Windows agus Linux.",
+    "noticeBody": "Tha thu a’ cleachdadh an tionndaidh-lìn, a tha na thionndadh nas aotruime: nì e co-dhealbhadh air an WebGPU agus chan eil cuid dhe na gleusan ann — plugain Photoshop agus plugain treas-phàrtaidh, gailearaidh dhealbhan, am panal AI, ion-phortadh HEIC agus luchdadh a-nuas chruthan-clò — agus thèid faidhlichean a shàbhaladh mar nithean air an luchdadh a-nuas. Tha iad uile san aplacaid deasg shaor airson macOS, Windows agus Linux.",
     "noticeLink": "Faigh an aplacaid deasg.",
     "ok": "Ceart ma-thà"
   },
@@ -1658,7 +1658,7 @@ export const STRINGS = {
     "starting": "I stap stat…",
     "webgpu": "Schist i nidim WebGPU, be browser ya i no sapotem. Chrome/Edge 113+, Firefox 141+ mo Safari 26+ oli sapotem.",
     "noticeTitle": "Schist i wok bes olsem wan desktop app",
-    "noticeBody": "Yu stap yusum web version we i no gat plante samting olsem desktop version: hem i miksim ol image long CPU mo i no gat sam feature—ol Photoshop plug-in mo ol plug-in blong narafala kampani, image gallery, AI panel, HEIC import mo font download—mo hem i sevem ol fael olsem download. Fri desktop app blong macOS, Windows mo Linux i gat olgeta samting ya.",
+    "noticeBody": "Yu stap yusum web version we i no gat plante samting olsem desktop version: hem i miksim ol image long WebGPU mo i no gat sam feature—ol Photoshop plug-in mo ol plug-in blong narafala kampani, image gallery, AI panel, HEIC import mo font download—mo hem i sevem ol fael olsem download. Fri desktop app blong macOS, Windows mo Linux i gat olgeta samting ya.",
     "noticeLink": "Karem desktop app.",
     "ok": "OK"
   },
@@ -1667,7 +1667,7 @@ export const STRINGS = {
     "starting": "Ezali kobanda…",
     "webgpu": "Schist esengeli na WebGPU, kasi navigatɛrɛ oyo ezali na yango te. Chrome/Edge 113+, Firefox 141+ mpe Safari 26+ ezali na yango.",
     "noticeTitle": "Schist esalaka malamu koleka lokola programɛ ya ordinatɛrɛ",
-    "noticeBody": "Ozali kosalela vɛrsio ya web, oyo ezali vɛrsio ya pɛpɛlɛ: esangisaka bililingi na CPU mpe ezali na makambo mosusu te — ba plug-in ya Photoshop mpe ba plug-in ya bato mosusu, galerie ya bililingi, pano ya AI, kokɔtisa HEIC mpe kozwisa mitindo ya bilembo ya makomi — mpe bafisye ebombamaka lokola bafisye oyo ozwi. Programɛ ya ofele mpo na macOS, Windows mpe Linux ezali na makambo yango nyonso.",
+    "noticeBody": "Ozali kosalela vɛrsio ya web, oyo ezali vɛrsio ya pɛpɛlɛ: esangisaka bililingi na WebGPU mpe ezali na makambo mosusu te — ba plug-in ya Photoshop mpe ba plug-in ya bato mosusu, galerie ya bililingi, pano ya AI, kokɔtisa HEIC mpe kozwisa mitindo ya bilembo ya makomi — mpe bafisye ebombamaka lokola bafisye oyo ozwi. Programɛ ya ofele mpo na macOS, Windows mpe Linux ezali na makambo yango nyonso.",
     "noticeLink": "Zwá programɛ ya ordinatɛrɛ.",
     "ok": "Malamu"
   },
@@ -1676,7 +1676,7 @@ export const STRINGS = {
     "starting": "Incipitur…",
     "webgpu": "Schist WebGPU requirit, quod hic navigator non praebet. Chrome/Edge 113+, Firefox 141+ et Safari 26+ id praebent.",
     "noticeTitle": "Schist optime ut applicatio computatralis operatur",
-    "noticeBody": "Versione interretiali uteris, quae est versio levior: imagines in CPU componit et nonnullas facultates omittit — plug-in Photoshop et plug-in a tertiis partibus facta, pinacothecam imaginum, tabulam AI, importationem HEIC et descensiones formarum litterarum — atque fasciculi velut res descensae servantur. Applicatio computatralis gratuita pro macOS, Windows et Linux has facultates omnes habet.",
+    "noticeBody": "Versione interretiali uteris, quae est versio levior: imagines in WebGPU componit et nonnullas facultates omittit — plug-in Photoshop et plug-in a tertiis partibus facta, pinacothecam imaginum, tabulam AI, importationem HEIC et descensiones formarum litterarum — atque fasciculi velut res descensae servantur. Applicatio computatralis gratuita pro macOS, Windows et Linux has facultates omnes habet.",
     "noticeLink": "Applicationem computatralem accipe.",
     "ok": "Bene"
   },
@@ -1685,7 +1685,7 @@ export const STRINGS = {
     "starting": "Се стартува…",
     "webgpu": "На Schist му е потребен WebGPU, кој овој прелистувач не го нуди. Го нудат Chrome/Edge 113+, Firefox 141+ и Safari 26+.",
     "noticeTitle": "Schist работи најдобро како десктоп-апликација",
-    "noticeBody": "Ја користите веб-верзијата, која е полесна верзија: таа го составува приказот на процесорот и изостава некои можности — приклучоци за Photoshop и приклучоци од трети страни, галеријата со слики, панелот за ВИ, увозот на HEIC и преземањето фонтови — а датотеките се зачувуваат како преземања. Бесплатната десктоп-апликација за macOS, Windows и Linux ги има сите овие можности.",
+    "noticeBody": "Ја користите веб-верзијата, која е полесна верзија: таа го составува приказот со WebGPU и изостава некои можности — приклучоци за Photoshop и приклучоци од трети страни, галеријата со слики, панелот за ВИ, увозот на HEIC и преземањето фонтови — а датотеките се зачувуваат како преземања. Бесплатната десктоп-апликација за macOS, Windows и Linux ги има сите овие можности.",
     "noticeLink": "Преземете ја десктоп-апликацијата.",
     "ok": "Во ред"
   },
@@ -1694,7 +1694,7 @@ export const STRINGS = {
     "starting": "Jalqabamaa jira…",
     "webgpu": "Schist WebGPU barbaada; biraawzarri kun garuu hin dhiyeessu. Chrome/Edge 113+, Firefox 141+ fi Safari 26+ ni dhiyeessu.",
     "noticeTitle": "Schist akka appii deeskitooppiitti caalaatti hojjeta",
-    "noticeBody": "Ati vershinii weebii fayyadamaa jirta; inni vershinii salphaa dha: suuraa CPU irratti walitti makuun amaloota tokko tokko keessaa hambisa — plug-in Photoshop fi plug-in qaama sadaffaa, kuusaa suuraa, paanaalii AI, galchaa HEIC fi foontiiwwan buufachuu — faayilonnis buufamuun olkaa'amu. Appiin deeskitooppii bilisaa kan macOS, Windows fi Linux amaloota kana hunda qaba.",
+    "noticeBody": "Ati vershinii weebii fayyadamaa jirta; inni vershinii salphaa dha: suuraa WebGPU irratti walitti makuun amaloota tokko tokko keessaa hambisa — plug-in Photoshop fi plug-in qaama sadaffaa, kuusaa suuraa, paanaalii AI, galchaa HEIC fi foontiiwwan buufachuu — faayilonnis buufamuun olkaa'amu. Appiin deeskitooppii bilisaa kan macOS, Windows fi Linux amaloota kana hunda qaba.",
     "noticeLink": "Appii deeskitooppichaa argadhu.",
     "ok": "TOLE"
   },
@@ -1703,7 +1703,7 @@ export const STRINGS = {
     "starting": "Dji m' enonde…",
     "webgpu": "Schist a mezåjhe di WebGPU, ki ç' betchteu-ci n' ofere nén. Chrome/Edge 113+, Firefox 141+ et Safari 26+ l' oferèt.",
     "noticeTitle": "Schist va mia come programe di scribanne",
-    "noticeBody": "Vos eployîz l' modêye waibe, k' est pus ledjire: ele compôze les imådjes sol CPU et n' a nén sacwantès fonccionålités — les tchôke-divins Photoshop et les tchôke-divins di tîces pårteyes, li galreye d' imådjes, li panea AI, l' abagaedje HEIC et l' aberwetaedje des fontes — et les fitchîs sont schapés come aberwetaedjes. Li programe di scribanne libe po macOS, Windows et Linux a totes ces fonccionålités.",
+    "noticeBody": "Vos eployîz l' modêye waibe, k' est pus ledjire: ele compôze les imådjes sol WebGPU et n' a nén sacwantès fonccionålités — les tchôke-divins Photoshop et les tchôke-divins di tîces pårteyes, li galreye d' imådjes, li panea AI, l' abagaedje HEIC et l' aberwetaedje des fontes — et les fitchîs sont schapés come aberwetaedjes. Li programe di scribanne libe po macOS, Windows et Linux a totes ces fonccionålités.",
     "noticeLink": "Aberweter l' programe di scribanne.",
     "ok": "I va"
   },
@@ -1712,7 +1712,7 @@ export const STRINGS = {
     "starting": "Ебәрелә…",
     "webgpu": "Schist өсөн WebGPU кәрәк, ләкин был браузер уны тәҡдим итмәй. Chrome/Edge 113+, Firefox 141+ һәм Safari 26+ браузерҙарында ул бар.",
     "noticeTitle": "Schist өҫтәл ҡушымтаһы булараҡ иң яҡшы эшләй",
-    "noticeBody": "Һеҙ веб-версияны ҡулланаһығыҙ; был еңелерәк йыйылма процессорҙа ҡатламдарҙы берләштерә һәм ҡайһы бер мөмкинлектәрҙе — Photoshop плагиндарын һәм сит плагиндарҙы, рәсемдәр галереяһын, ЯИ панелен, HEIC импортын һәм шрифттарҙы йөкләүҙе — үҙ эсенә алмай, ә файлдар йөкләмәләр итеп һаҡлана. macOS, Windows һәм Linux өсөн бушлай өҫтәл ҡушымтаһында быларҙың барыһы ла бар.",
+    "noticeBody": "Һеҙ веб-версияны ҡулланаһығыҙ; был еңелерәк йыйылма WebGPU аша ҡатламдарҙы берләштерә һәм ҡайһы бер мөмкинлектәрҙе — Photoshop плагиндарын һәм сит плагиндарҙы, рәсемдәр галереяһын, ЯИ панелен, HEIC импортын һәм шрифттарҙы йөкләүҙе — үҙ эсенә алмай, ә файлдар йөкләмәләр итеп һаҡлана. macOS, Windows һәм Linux өсөн бушлай өҫтәл ҡушымтаһында быларҙың барыһы ла бар.",
     "noticeLink": "Өҫтәл ҡушымтаһын алырға.",
     "ok": "Ярай"
   },
@@ -1721,7 +1721,7 @@ export const STRINGS = {
     "starting": "E ntse e qala…",
     "webgpu": "Schist e hloka WebGPU, eo sebali sena se sa faneng ka eona. Chrome/Edge 113+, Firefox 141+ le Safari 26+ lia e fana.",
     "noticeTitle": "Schist e sebetsa hantle ka ho fetisisa e le app ea komporo",
-    "noticeBody": "U sebelisa mofuta oa webosaete, e leng mofuta o bobebe: o kopanya litšoantšo ka CPU 'me ha o kenye likarolo tse ling—li-plug-in tsa Photoshop le li-plug-in tsa mekhatlo e meng, pokello ea litšoantšo, phanele ea AI, ho kenya HEIC le ho jarolla lifonte—'me lifaele li bolokoa e le lintho tse jarollotsoeng. App ea mahala ea komporo bakeng sa macOS, Windows le Linux e na le likarolo tsena kaofela.",
+    "noticeBody": "U sebelisa mofuta oa webosaete, e leng mofuta o bobebe: o kopanya litšoantšo ka WebGPU 'me ha o kenye likarolo tse ling—li-plug-in tsa Photoshop le li-plug-in tsa mekhatlo e meng, pokello ea litšoantšo, phanele ea AI, ho kenya HEIC le ho jarolla lifonte—'me lifaele li bolokoa e le lintho tse jarollotsoeng. App ea mahala ea komporo bakeng sa macOS, Windows le Linux e na le likarolo tsena kaofela.",
     "noticeLink": "Fumana app ea komporo.",
     "ok": "Ho lokile"
   },
@@ -1730,7 +1730,7 @@ export const STRINGS = {
     "starting": "Startigante…",
     "webgpu": "Schist bezonas WebGPU, kiun ĉi tiu retumilo ne ofertas. Chrome/Edge 113+, Firefox 141+ kaj Safari 26+ ja ofertas ĝin.",
     "noticeTitle": "Schist plej bone funkcias kiel labortabla aplikaĵo",
-    "noticeBody": "Vi uzas la retan version, kiu estas pli malpeza eldono: ĝi kunmetas bildojn per la ĉefprocesoro kaj ne inkluzivas kelkajn funkciojn — Photoshop-kromprogramojn kaj kromprogramojn de eksteraj liverantoj, bildgalerion, la AI-panelon, importadon de HEIC kaj elŝutadon de tiparoj — kaj dosieroj estas konservataj kiel elŝutaĵoj. La senpaga labortabla aplikaĵo por macOS, Windows kaj Linux enhavas ĉion ĉi.",
+    "noticeBody": "Vi uzas la retan version, kiu estas pli malpeza eldono: ĝi kunmetas bildojn per WebGPU kaj ne inkluzivas kelkajn funkciojn — Photoshop-kromprogramojn kaj kromprogramojn de eksteraj liverantoj, bildgalerion, la AI-panelon, importadon de HEIC kaj elŝutadon de tiparoj — kaj dosieroj estas konservataj kiel elŝutaĵoj. La senpaga labortabla aplikaĵo por macOS, Windows kaj Linux enhavas ĉion ĉi.",
     "noticeLink": "Akiri la labortablan aplikaĵon.",
     "ok": "Bone"
   },
@@ -1739,7 +1739,7 @@ export const STRINGS = {
     "starting": "Wrthi'n cychwyn…",
     "webgpu": "Mae angen WebGPU ar Schist, ac nid yw'r porwr hwn yn ei gynnig. Mae Chrome/Edge 113+, Firefox 141+ a Safari 26+ yn ei gynnig.",
     "noticeTitle": "Mae Schist yn gweithio orau fel ap bwrdd gwaith",
-    "noticeBody": "Rydych yn defnyddio'r fersiwn gwe, sy'n fersiwn ysgafnach: mae'n cyfansoddi ar y CPU ac yn hepgor rhai nodweddion — ategion Photoshop ac ategion trydydd parti, yr oriel ddelweddau, y panel AI, mewnforio HEIC a lawrlwytho ffontiau — ac mae ffeiliau'n cael eu cadw fel lawrlwythiadau. Mae'r ap bwrdd gwaith rhad ac am ddim ar gyfer macOS, Windows a Linux yn cynnwys y cyfan.",
+    "noticeBody": "Rydych yn defnyddio'r fersiwn gwe, sy'n fersiwn ysgafnach: mae'n cyfansoddi ar y WebGPU ac yn hepgor rhai nodweddion — ategion Photoshop ac ategion trydydd parti, yr oriel ddelweddau, y panel AI, mewnforio HEIC a lawrlwytho ffontiau — ac mae ffeiliau'n cael eu cadw fel lawrlwythiadau. Mae'r ap bwrdd gwaith rhad ac am ddim ar gyfer macOS, Windows a Linux yn cynnwys y cyfan.",
     "noticeLink": "Cael yr ap bwrdd gwaith.",
     "ok": "Iawn"
   },
@@ -1748,7 +1748,7 @@ export const STRINGS = {
     "starting": "Notiek palaišana…",
     "webgpu": "Programmai Schist ir nepieciešams WebGPU, ko šī pārlūkprogramma nepiedāvā. Tas ir pieejams Chrome/Edge 113+, Firefox 141+ un Safari 26+.",
     "noticeTitle": "Schist vislabāk darbojas kā darbvirsmas lietotne",
-    "noticeBody": "Jūs izmantojat tīmekļa versiju, kas ir vieglāks būvējums: tā veic kompozīciju centrālajā procesorā un neietver dažas iespējas — Photoshop spraudņus un trešo pušu spraudņus, attēlu galeriju, MI paneli, HEIC importēšanu un fontu lejupielādi —, bet faili tiek saglabāti kā lejupielādes. Bezmaksas darbvirsmas lietotnē macOS, Windows un Linux sistēmām tas viss ir pieejams.",
+    "noticeBody": "Jūs izmantojat tīmekļa versiju, kas ir vieglāks būvējums: tā veic kompozīciju ar WebGPU un neietver dažas iespējas — Photoshop spraudņus un trešo pušu spraudņus, attēlu galeriju, MI paneli, HEIC importēšanu un fontu lejupielādi —, bet faili tiek saglabāti kā lejupielādes. Bezmaksas darbvirsmas lietotnē macOS, Windows un Linux sistēmām tas viss ir pieejams.",
     "noticeLink": "Iegūt darbvirsmas lietotni.",
     "ok": "Labi"
   },
@@ -1757,7 +1757,7 @@ export const STRINGS = {
     "starting": "A bɛ daminɛ…",
     "webgpu": "WebGPU ka kan ka kɛ Schist bolo, nka nin navigatɛri tɛ o di. Chrome/Edge 113+, Firefox 141+ ani Safari 26+ bɛ o di.",
     "noticeTitle": "Schist ka ɲi kosɛbɛ ni a kɛra ordinatɛri porogaramu ye",
-    "noticeBody": "I bɛ web porogaramu de la, min ka nɔgɔn: a bɛ jaw ɲagami CPU kan, baarakɛcogo dɔw fana tɛ a la — Photoshop plug-inw ani ɲɔgɔn wɛrɛw ka plug-inw, ja galeri, AI panɛli, HEIC donni ani sɛbɛnni-fɔnti telesarizeli — ani sɛbɛnw bɛ mara telesarizeliw ye. Ordinatɛri porogaramu fu macOS, Windows ani Linux kan, olu bɛɛ bɛ o la.",
+    "noticeBody": "I bɛ web porogaramu de la, min ka nɔgɔn: a bɛ jaw ɲagami WebGPU kan, baarakɛcogo dɔw fana tɛ a la — Photoshop plug-inw ani ɲɔgɔn wɛrɛw ka plug-inw, ja galeri, AI panɛli, HEIC donni ani sɛbɛnni-fɔnti telesarizeli — ani sɛbɛnw bɛ mara telesarizeliw ye. Ordinatɛri porogaramu fu macOS, Windows ani Linux kan, olu bɛɛ bɛ o la.",
     "noticeLink": "Ordinatɛri porogaramu sɔrɔ.",
     "ok": "A ka ɲi"
   },
@@ -1766,7 +1766,7 @@ export const STRINGS = {
     "starting": "Ngamimitian…",
     "webgpu": "Schist merlukeun WebGPU, tapi panyungsi ieu henteu nyadiakeunana. Chrome/Edge 113+, Firefox 141+, jeung Safari 26+ nyadiakeunana.",
     "noticeTitle": "Schist lumaku panghadéna salaku aplikasi desktop",
-    "noticeBody": "Anjeun keur maké vérsi wéb anu leuwih hampang: komposit diprosés dina CPU sarta sababaraha fitur teu disadiakeun — plug-in Photoshop jeung plug-in pihak katilu, galéri gambar, panel AI, impor HEIC, sarta unduhan font — tur berkas disimpen minangka unduhan. Aplikasi desktop gratis pikeun macOS, Windows, jeung Linux nyadiakeun kabéh fitur éta.",
+    "noticeBody": "Anjeun keur maké vérsi wéb anu leuwih hampang: komposit diprosés dina WebGPU sarta sababaraha fitur teu disadiakeun — plug-in Photoshop jeung plug-in pihak katilu, galéri gambar, panel AI, impor HEIC, sarta unduhan font — tur berkas disimpen minangka unduhan. Aplikasi desktop gratis pikeun macOS, Windows, jeung Linux nyadiakeun kabéh fitur éta.",
     "noticeLink": "Kéngingkeun aplikasi desktop.",
     "ok": "Muhun"
   },
@@ -1775,7 +1775,7 @@ export const STRINGS = {
     "starting": "Mi ngi tàmbali…",
     "webgpu": "Schist soxla na WebGPU, te joowkat bii amu ko. Chrome/Edge 113+, Firefox 141+ ak Safari 26+ dañu ko am.",
     "noticeTitle": "Schist gën a baax ci aplikaasioŋu ordinaatëër",
-    "noticeBody": "Yaa ngi jëfandikoo sumb bu web bi, te sumb bu gëna woyof la: day boole nataal yi ci CPU bi te bàyyi yenn man-man yi — plug-in yu Photoshop ak plug-in yu ñeneen, galeri nataal yi, pano AI bi, dugal HEIC ak yeb font yi — te dencukaay yi dañuy denc ni ay yeb. Aplikaasioŋu ordinaatëër bu macOS, Windows ak Linux bi amul fay am na lépp.",
+    "noticeBody": "Yaa ngi jëfandikoo sumb bu web bi, te sumb bu gëna woyof la: day boole nataal yi ci WebGPU bi te bàyyi yenn man-man yi — plug-in yu Photoshop ak plug-in yu ñeneen, galeri nataal yi, pano AI bi, dugal HEIC ak yeb font yi — te dencukaay yi dañuy denc ni ay yeb. Aplikaasioŋu ordinaatëër bu macOS, Windows ak Linux bi amul fay am na lépp.",
     "noticeLink": "Jël aplikaasioŋu ordinaatëër bi.",
     "ok": "Baax na"
   },
@@ -1784,7 +1784,7 @@ export const STRINGS = {
     "starting": "ກຳລັງເລີ່ມ…",
     "webgpu": "Schist ຕ້ອງການ WebGPU ເຊິ່ງບຣາວເຊີນີ້ບໍ່ຮອງຮັບ. Chrome/Edge 113 ຂຶ້ນໄປ, Firefox 141 ຂຶ້ນໄປ ແລະ Safari 26 ຂຶ້ນໄປ ຮອງຮັບ.",
     "noticeTitle": "Schist ເຮັດວຽກໄດ້ດີທີ່ສຸດເມື່ອໃຊ້ເປັນແອັບເດັສທັອບ",
-    "noticeBody": "ທ່ານກຳລັງໃຊ້ເວີຊັນເວັບ ເຊິ່ງເປັນບິວທີ່ເບົາກວ່າ: ມັນປະກອບພາບດ້ວຍ CPU ແລະ ບໍ່ລວມບາງຄຸນສົມບັດ ເຊັ່ນ ປລັກອິນ Photoshop ແລະ ປລັກອິນຈາກພາກສ່ວນອື່ນ, ແກເລີຣີຮູບພາບ, ແຜງ AI, ການນຳເຂົ້າ HEIC ແລະ ການດາວໂຫຼດຟອນ; ແລະ ໄຟລ໌ຈະຖືກບັນທຶກເປັນໄຟລ໌ດາວໂຫຼດ. ແອັບເດັສທັອບຟຣີສຳລັບ macOS, Windows ແລະ Linux ມີຄົບທຸກຢ່າງ.",
+    "noticeBody": "ທ່ານກຳລັງໃຊ້ເວີຊັນເວັບ ເຊິ່ງເປັນບິວທີ່ເບົາກວ່າ: ມັນປະກອບພາບດ້ວຍ WebGPU ແລະ ບໍ່ລວມບາງຄຸນສົມບັດ ເຊັ່ນ ປລັກອິນ Photoshop ແລະ ປລັກອິນຈາກພາກສ່ວນອື່ນ, ແກເລີຣີຮູບພາບ, ແຜງ AI, ການນຳເຂົ້າ HEIC ແລະ ການດາວໂຫຼດຟອນ; ແລະ ໄຟລ໌ຈະຖືກບັນທຶກເປັນໄຟລ໌ດາວໂຫຼດ. ແອັບເດັສທັອບຟຣີສຳລັບ macOS, Windows ແລະ Linux ມີຄົບທຸກຢ່າງ.",
     "noticeLink": "ຮັບແອັບເດັສທັອບ",
     "ok": "ຕົກລົງ"
   },
@@ -1793,7 +1793,7 @@ export const STRINGS = {
     "starting": "འགོ་བཙུགས་དོ…",
     "webgpu": "Schist ལུ་ WebGPU དགོཔ་ཨིན་རུང་ བརའུ་ཟར་འདི་གིས་མི་བྱིན་པས། Chrome/Edge 113+, Firefox 141+ དང་ Safari 26+ གིས་རྒྱབ་སྐྱོར་འབདཝ་ཨིན།",
     "noticeTitle": "Schist དེ་ཌེསཀ་ཊོཔ་གློག་རིམ་སྦེ་ལཱ་ལེགས་ཤོམ་འབདཝ་ཨིན།",
-    "noticeBody": "ཁྱོད་ཀྱིས་ཝེབ་ཐོན་རིམ་ལག་ལེན་འཐབ་དོ། འདི་ཁྱད་རྣམ་ཉུང་སུ་ཡོད་པའི་མཉེན་ཆས་ཐོན་རིམ་ཅིག་ཨིནམ་ལས་ CPU གུ་སྡེབ་སྦྱོར་འབདཝ་ཨིནམ་དང་ Photoshop plug-ins དང་ཕྱོགས་གསུམ་པའི་ plug-ins པར་གྱི་སྟོན་ཁང་ AI པེ་ནཱལ་ HEIC ནང་འདྲེན་ དེ་ལས་ཡིག་གཟུགས་ཕབ་ལེན་ཚུ་མེད། ཡིག་སྣོད་ཚུ་ཕབ་ལེན་སྦེ་སྲུངམ་ཨིན། macOS, Windows དང་ Linux གི་དོན་ལུ་རིན་མེད་ཌེསཀ་ཊོཔ་གློག་རིམ་ནང་ཁྱད་རྣམ་ཆ་མཉམ་ཡོད།",
+    "noticeBody": "ཁྱོད་ཀྱིས་ཝེབ་ཐོན་རིམ་ལག་ལེན་འཐབ་དོ། འདི་ཁྱད་རྣམ་ཉུང་སུ་ཡོད་པའི་མཉེན་ཆས་ཐོན་རིམ་ཅིག་ཨིནམ་ལས་ WebGPU གུ་སྡེབ་སྦྱོར་འབདཝ་ཨིནམ་དང་ Photoshop plug-ins དང་ཕྱོགས་གསུམ་པའི་ plug-ins པར་གྱི་སྟོན་ཁང་ AI པེ་ནཱལ་ HEIC ནང་འདྲེན་ དེ་ལས་ཡིག་གཟུགས་ཕབ་ལེན་ཚུ་མེད། ཡིག་སྣོད་ཚུ་ཕབ་ལེན་སྦེ་སྲུངམ་ཨིན། macOS, Windows དང་ Linux གི་དོན་ལུ་རིན་མེད་ཌེསཀ་ཊོཔ་གློག་རིམ་ནང་ཁྱད་རྣམ་ཆ་མཉམ་ཡོད།",
     "noticeLink": "ཌེསཀ་ཊོཔ་གློག་རིམ་ལེན།",
     "ok": "བཏུབ།"
   },
@@ -1802,7 +1802,7 @@ export const STRINGS = {
     "starting": "Byrjar…",
     "webgpu": "Schist krevur WebGPU, sum hesin kagin ikki veitir. Chrome/Edge 113+, Firefox 141+ og Safari 26+ veita tað.",
     "noticeTitle": "Schist riggar best sum skriviborðsforrit",
-    "noticeBody": "Tú brúkar vefútgávuna, sum er ein lættari útgáva: hon setur myndina saman á CPU-num og hevur ikki allar eginleikar — Photoshop-ískoytisforrit og ískoytisforrit frá triðjaparti, myndasavn, AI-panel, HEIC-innflutning og niðurhal av stavsniðum — og fílur verða goymdar sum niðurhal. Ókeypis skriviborðsforritið til macOS, Windows og Linux hevur alt hetta.",
+    "noticeBody": "Tú brúkar vefútgávuna, sum er ein lættari útgáva: hon setur myndina saman á WebGPU-num og hevur ikki allar eginleikar — Photoshop-ískoytisforrit og ískoytisforrit frá triðjaparti, myndasavn, AI-panel, HEIC-innflutning og niðurhal av stavsniðum — og fílur verða goymdar sum niðurhal. Ókeypis skriviborðsforritið til macOS, Windows og Linux hevur alt hetta.",
     "noticeLink": "Fá skriviborðsforritið.",
     "ok": "Í lagi"
   },
@@ -1811,7 +1811,7 @@ export const STRINGS = {
     "starting": "Paleidžiama…",
     "webgpu": "„Schist“ reikia „WebGPU“, kurios ši naršyklė nepalaiko. Ją palaiko „Chrome“ / „Edge“ 113+, „Firefox“ 141+ ir „Safari“ 26+.",
     "noticeTitle": "„Schist“ geriausiai veikia kaip darbalaukio programa",
-    "noticeBody": "Naudojate žiniatinklio versiją – lengvesnį programinės įrangos variantą: vaizdai komponuojami procesoriumi, nėra kai kurių funkcijų – „Photoshop“ papildinių ir trečiųjų šalių papildinių, vaizdų galerijos, DI skydelio, HEIC importavimo bei šriftų atsisiuntimo, o failus galima išsaugoti tik juos atsisiunčiant. Nemokamoje „macOS“, „Windows“ ir „Linux“ skirtoje darbalaukio programoje yra visos šios funkcijos.",
+    "noticeBody": "Naudojate žiniatinklio versiją – lengvesnį programinės įrangos variantą: vaizdai komponuojami naudojant WebGPU, nėra kai kurių funkcijų – „Photoshop“ papildinių ir trečiųjų šalių papildinių, vaizdų galerijos, DI skydelio, HEIC importavimo bei šriftų atsisiuntimo, o failus galima išsaugoti tik juos atsisiunčiant. Nemokamoje „macOS“, „Windows“ ir „Linux“ skirtoje darbalaukio programoje yra visos šios funkcijos.",
     "noticeLink": "Gauti darbalaukio programą.",
     "ok": "Gerai"
   },
@@ -1820,7 +1820,7 @@ export const STRINGS = {
     "starting": "Initiation…",
     "webgpu": "Schist require WebGPU, que iste navigator non offere. Chrome/Edge 113+, Firefox 141+ e Safari 26+ lo offere.",
     "noticeTitle": "Schist functiona melio como application de scriptorio",
-    "noticeBody": "Tu usa le version web, que es un compilation de software plus legier: illo compone le imagines con le CPU e omitte alcun functiones — plug-ins de Photoshop e plug-ins de tertie partes, le galeria de imagines, le pannello IA, le importation HEIC e le discargamento de typos de litteras — e le files es salvate como discargamentos. Le application de scriptorio gratuite pro macOS, Windows e Linux include toto.",
+    "noticeBody": "Tu usa le version web, que es un compilation de software plus legier: illo compone le imagines con le WebGPU e omitte alcun functiones — plug-ins de Photoshop e plug-ins de tertie partes, le galeria de imagines, le pannello IA, le importation HEIC e le discargamento de typos de litteras — e le files es salvate como discargamentos. Le application de scriptorio gratuite pro macOS, Windows e Linux include toto.",
     "noticeLink": "Obtener le application de scriptorio.",
     "ok": "OK"
   },
@@ -1829,7 +1829,7 @@ export const STRINGS = {
     "starting": "Ārabhīyati…",
     "webgpu": "Schist WebGPU icchati; idaṃ jālavicarakaprogramaṃ taṃ na deti. Chrome/Edge 113+, Firefox 141+ ca Safari 26+ ca denti.",
     "noticeTitle": "Schist lekhapīṭha-app-rūpena seṭṭhataraṃ pavattati",
-    "noticeBody": "Tumhe jālavibhāgaṃ payojetha; so lahutaro nimmāṇo: CPU-mhi chāyārūpāni misseti, katipaye ca guṇe na deti—Photoshop plug-in-karaṇāni, aññesaṃ pakkhānaṃ plug-in-karaṇāni, chāyārūpasaṅgaho, AI-phalakaṃ, HEIC-pavesanaṃ, akkharākāra-āharaṇañca—sañcikā pana āharaṇarūpena rakkhīyanti. macOS, Windows, Linux ca atthāya amūlako lekhapīṭha-app sabbam-etaṃ deti.",
+    "noticeBody": "Tumhe jālavibhāgaṃ payojetha; so lahutaro nimmāṇo: WebGPU-mhi chāyārūpāni misseti, katipaye ca guṇe na deti—Photoshop plug-in-karaṇāni, aññesaṃ pakkhānaṃ plug-in-karaṇāni, chāyārūpasaṅgaho, AI-phalakaṃ, HEIC-pavesanaṃ, akkharākāra-āharaṇañca—sañcikā pana āharaṇarūpena rakkhīyanti. macOS, Windows, Linux ca atthāya amūlako lekhapīṭha-app sabbam-etaṃ deti.",
     "noticeLink": "Lekhapīṭha-app labhatha.",
     "ok": "Sādhu"
   },
@@ -1838,7 +1838,7 @@ export const STRINGS = {
     "starting": "O loc'hañ…",
     "webgpu": "WebGPU zo ezhomm gant Schist, met n'eo ket kinniget gant ar merdeer-mañ. Chrome/Edge 113+, Firefox 141+ ha Safari 26+ a ginnig anezhañ.",
     "noticeTitle": "Gwelloc'h e ya Schist en un arload burev",
-    "noticeBody": "Emaoc'h oc'h implijout ar stumm web, ur stumm skañvoc'h: kenaozañ a ra ar skeudennoù war ar CPU ha ne ginnig ket perzhioù zo — plug-inioù Photoshop ha plug-inioù tredeourien, ar skeudennaoueg, ar penel AI, enporzhiañ HEIC ha pellgargañ nodrezhoù — hag ar restroù a vez enrollet evel pellgargadennoù. An arload burev digoust evit macOS, Windows ha Linux en deus an holl berzhioù-se.",
+    "noticeBody": "Emaoc'h oc'h implijout ar stumm web, ur stumm skañvoc'h: kenaozañ a ra ar skeudennoù war ar WebGPU ha ne ginnig ket perzhioù zo — plug-inioù Photoshop ha plug-inioù tredeourien, ar skeudennaoueg, ar penel AI, enporzhiañ HEIC ha pellgargañ nodrezhoù — hag ar restroù a vez enrollet evel pellgargadennoù. An arload burev digoust evit macOS, Windows ha Linux en deus an holl berzhioù-se.",
     "noticeLink": "Kaout an arload burev.",
     "ok": "Mat eo"
   },
@@ -1847,7 +1847,7 @@ export const STRINGS = {
     "starting": "Eo am-panombohana…",
     "webgpu": "Mila WebGPU i Schist, saingy tsy omen'ity mpitety tranonkala ity izany. Manohana azy ny Chrome/Edge 113+, Firefox 141+ ary Safari 26+.",
     "noticeTitle": "Miasa tsara indrindra amin'ny fampiharana birao i Schist",
-    "noticeBody": "Ny kinova tranonkala no ampiasainao, izay kinova maivana kokoa: ny CPU no mampiray ny sosona ary tsy ahitana fiasa sasany — plug-in Photoshop sy plug-in avy amin'ny antoko fahatelo, galerian-tsary, tontonana AI, fanafarana HEIC ary fampidinana endritsoratra — ary tehirizina ho rakitra alaina ireo rakitra. Manana ireo rehetra ireo ny fampiharana birao maimaim-poana ho an'ny macOS, Windows ary Linux.",
+    "noticeBody": "Ny kinova tranonkala no ampiasainao, izay kinova maivana kokoa: ny WebGPU no mampiray ny sosona ary tsy ahitana fiasa sasany — plug-in Photoshop sy plug-in avy amin'ny antoko fahatelo, galerian-tsary, tontonana AI, fanafarana HEIC ary fampidinana endritsoratra — ary tehirizina ho rakitra alaina ireo rakitra. Manana ireo rehetra ireo ny fampiharana birao maimaim-poana ho an'ny macOS, Windows ary Linux.",
     "noticeLink": "Alao ny fampiharana birao.",
     "ok": "OK"
   },
@@ -1856,7 +1856,7 @@ export const STRINGS = {
     "starting": "Оғоз шуда истодааст…",
     "webgpu": "Барои Schist WebGPU лозим аст, вале ин браузер онро пешниҳод намекунад. Chrome/Edge 113+, Firefox 141+ ва Safari 26+ онро дастгирӣ мекунанд.",
     "noticeTitle": "Schist ҳамчун барномаи мизи корӣ беҳтар кор мекунад",
-    "noticeBody": "Шумо аз нашри веб истифода мебаред, ки сохти сабуктар аст: он тасвирро бо CPU таркиб медиҳад ва баъзе имкониятҳоро надорад — плагинҳои Photoshop ва плагинҳои тарафи сеюм, нигористони тасвирҳо, лавҳаи AI, воридоти HEIC ва боргирии ҳуруфҳо — инчунин файлҳо ҳамчун боргириҳо захира мешаванд. Барномаи ройгони мизи корӣ барои macOS, Windows ва Linux ҳамаи ин имкониятҳоро дорад.",
+    "noticeBody": "Шумо аз нашри веб истифода мебаред, ки сохти сабуктар аст: он тасвирро бо WebGPU таркиб медиҳад ва баъзе имкониятҳоро надорад — плагинҳои Photoshop ва плагинҳои тарафи сеюм, нигористони тасвирҳо, лавҳаи AI, воридоти HEIC ва боргирии ҳуруфҳо — инчунин файлҳо ҳамчун боргириҳо захира мешаванд. Барномаи ройгони мизи корӣ барои macOS, Windows ва Linux ҳамаи ин имкониятҳоро дорад.",
     "noticeLink": "Гирифтани барномаи мизи корӣ.",
     "ok": "ХУБ"
   },
@@ -1865,7 +1865,7 @@ export const STRINGS = {
     "starting": "Oñepyrũ…",
     "webgpu": "Schist oikotevẽ WebGPU rehe, ko kundahára nome'ẽiva. Chrome/Edge 113+, Firefox 141+ ha Safari 26+ ome'ẽ.",
     "noticeTitle": "Schist omba'apo porãve tembiporu mesa arigua aplicación ramo",
-    "noticeBody": "Reiporu hína web versión, ha'éva peteĩ compilación ivevúiva: ombojoaju CPU-pe ha ndojapói heta mba'e — Photoshop plugin ha ambue apohára plugin, ta'anga renda, AI panel, HEIC jegueru ha tai ysaja ñemboguejy — ha umi vore katu oñeñongatu oñemboguejyháicha. Tembiporu mesa arigua aplicación reigua macOS, Windows ha Linux-pe oguereko opaite mba'e.",
+    "noticeBody": "Reiporu hína web versión, ha'éva peteĩ compilación ivevúiva: ombojoaju WebGPU-pe ha ndojapói heta mba'e — Photoshop plugin ha ambue apohára plugin, ta'anga renda, AI panel, HEIC jegueru ha tai ysaja ñemboguejy — ha umi vore katu oñeñongatu oñemboguejyháicha. Tembiporu mesa arigua aplicación reigua macOS, Windows ha Linux-pe oguereko opaite mba'e.",
     "noticeLink": "Egueru tembiporu mesa arigua aplicación.",
     "ok": "Oĩ porã"
   },
@@ -1874,7 +1874,7 @@ export const STRINGS = {
     "starting": "Initiation…",
     "webgpu": "Schist besona WebGPU, quel ti navigator ne oferta. Chrome/Edge 113+, Firefox 141+ e Safari 26+ oferta it.",
     "noticeTitle": "Schist functiona maxim bon quam application de pupitre",
-    "noticeBody": "Vu usa li version web, quel es un plu levi compilation del programma: it composi per li CPU e omisse quelc functiones — plug-ins de Photoshop e plug-ins de altri productores, galerie de images, li panel IA, import de HEIC e descargas de fontes — e files es gardat quam descargas. Li gratuit application de pupitre por macOS, Windows e Linux include omnicos.",
+    "noticeBody": "Vu usa li version web, quel es un plu levi compilation del programma: it composi per li WebGPU e omisse quelc functiones — plug-ins de Photoshop e plug-ins de altri productores, galerie de images, li panel IA, import de HEIC e descargas de fontes — e files es gardat quam descargas. Li gratuit application de pupitre por macOS, Windows e Linux include omnicos.",
     "noticeLink": "Obtener li application de pupitre.",
     "ok": "OK"
   },
@@ -1883,7 +1883,7 @@ export const STRINGS = {
     "starting": "Käivitamine…",
     "webgpu": "Schist vajab WebGPU-d, mida see brauser ei paku. Seda toetavad Chrome/Edge 113+, Firefox 141+ ja Safari 26+.",
     "noticeTitle": "Schist töötab kõige paremini töölauarakendusena",
-    "noticeBody": "Kasutad veebiversiooni, mis on kergem tarkvaraversioon: see komposiidib protsessoril ning sellest puuduvad mõned funktsioonid — Photoshopi pistikprogrammid ja kolmandate osapoolte pistikprogrammid, pildigalerii, tehisintellekti paneel, HEIC-import ja fontide allalaadimine — ning failid salvestatakse allalaadimistena. Tasuta macOS-i, Windowsi ja Linuxi töölauarakenduses on need kõik olemas.",
+    "noticeBody": "Kasutad veebiversiooni, mis on kergem tarkvaraversioon: see komposiidib WebGPU abil ning sellest puuduvad mõned funktsioonid — Photoshopi pistikprogrammid ja kolmandate osapoolte pistikprogrammid, pildigalerii, tehisintellekti paneel, HEIC-import ja fontide allalaadimine — ning failid salvestatakse allalaadimistena. Tasuta macOS-i, Windowsi ja Linuxi töölauarakenduses on need kõik olemas.",
     "noticeLink": "Hangi töölauarakendus.",
     "ok": "OK"
   },
@@ -1892,7 +1892,7 @@ export const STRINGS = {
     "starting": "Ele dzedzem…",
     "webgpu": "Schist hiã WebGPU, gake agbalẽdzraɖoƒe sia metsɔe na o. Chrome/Edge 113+, Firefox 141+ kple Safari 26+ tsɔa na.",
     "noticeTitle": "Schist wɔa dɔ nyuie wu abe kɔmpiuta dzi dɔwɔnu ene",
-    "noticeBody": "Èle web ƒe tata la zazãm; eya nye tata si le bɔbɔe: etsɔa CPU la wɔa nɔnɔmetatawo ƒe akpa kpekpe eye megblẽa Photoshop plug-ins kple ame bubuwo ƒe plug-ins, nɔnɔmetatawo ƒe nudzraɖoƒe, AI ƒe akpa, HEIC ƒe agbalẽxɔxɔ kple ŋɔŋlɔdzesiwo ƒe dauninlod o; eye woɖoa agbalẽviwo abe dauninlodwo ene. Kɔmpiuta dzi dɔwɔnu si womeƒlea o na macOS, Windows kple Linux la me nu siawo katã le.",
+    "noticeBody": "Èle web ƒe tata la zazãm; eya nye tata si le bɔbɔe: etsɔa WebGPU la wɔa nɔnɔmetatawo ƒe akpa kpekpe eye megblẽa Photoshop plug-ins kple ame bubuwo ƒe plug-ins, nɔnɔmetatawo ƒe nudzraɖoƒe, AI ƒe akpa, HEIC ƒe agbalẽxɔxɔ kple ŋɔŋlɔdzesiwo ƒe dauninlod o; eye woɖoa agbalẽviwo abe dauninlodwo ene. Kɔmpiuta dzi dɔwɔnu si womeƒlea o na macOS, Windows kple Linux la me nu siawo katã le.",
     "noticeLink": "Xɔ kɔmpiuta dzi dɔwɔnu la.",
     "ok": "YO"
   },
@@ -1901,7 +1901,7 @@ export const STRINGS = {
     "starting": "Qallarichkan…",
     "webgpu": "Schistqa WebGPU-ta munan, kay maskaqtaq mana quyta atinchu. Chrome/Edge 113+, Firefox 141+ Safari 26+ ima qunku.",
     "noticeTitle": "Schistqa escritorio aplicacionpi aswan allinta llamk'an",
-    "noticeBody": "Web versión apaykachkanki; kayqa aswan pisilla ruwasqa: CPU-pi rikch'aykunata chaqrun, wakin ruwanakunatataq mana apamunchu — Photoshop plug-inkuna, hukkunap ruwasqan plug-inkuna, rikch'ay galería, IA panel, HEIC yaykuchiy, sanampa rikch'aykunata uraykachiy ima —, archivokunataq uraykachisqa hina waqaychakunku. macOS, Windows Linux ima nisqapaq mana qullqiyuq escritorio aplicaciónqa llapan chaykunayuqmi.",
+    "noticeBody": "Web versión apaykachkanki; kayqa aswan pisilla ruwasqa: WebGPU-pi rikch'aykunata chaqrun, wakin ruwanakunatataq mana apamunchu — Photoshop plug-inkuna, hukkunap ruwasqan plug-inkuna, rikch'ay galería, IA panel, HEIC yaykuchiy, sanampa rikch'aykunata uraykachiy ima —, archivokunataq uraykachisqa hina waqaychakunku. macOS, Windows Linux ima nisqapaq mana qullqiyuq escritorio aplicaciónqa llapan chaykunayuqmi.",
     "noticeLink": "Escritorio aplicacionta tariy.",
     "ok": "Allinmi"
   },
@@ -1910,7 +1910,7 @@ export const STRINGS = {
     "starting": "Iyaqalisa…",
     "webgpu": "ISchist ifuna iWebGPU, engafumanekiyo kwesi sikhangeli. IChrome/Edge 113+, iFirefox 141+ kunye neSafari 26+ ziyayixhasa.",
     "noticeTitle": "ISchist isebenza kakuhle kakhulu njenge-app yekhompyutha",
-    "noticeBody": "Usebenzisa inguqulelo yewebhu, eyinguqulelo elula: idibanisa imifanekiso kwi-CPU kwaye ayiquki ezinye iimpawu — ii-plug-in zePhotoshop kunye nee-plug-in zabanye abavelisi, igalari yemifanekiso, iphaneli ye-AI, ukungenisa i-HEIC nokukhuphela iifonti — kwaye iifayile zigcinwa njengezinto ezikhutshelweyo. I-app yasimahla yekhompyutha ye-macOS, Windows neLinux inazo zonke ezi mpawu.",
+    "noticeBody": "Usebenzisa inguqulelo yewebhu, eyinguqulelo elula: idibanisa imifanekiso kwi-WebGPU kwaye ayiquki ezinye iimpawu — ii-plug-in zePhotoshop kunye nee-plug-in zabanye abavelisi, igalari yemifanekiso, iphaneli ye-AI, ukungenisa i-HEIC nokukhuphela iifonti — kwaye iifayile zigcinwa njengezinto ezikhutshelweyo. I-app yasimahla yekhompyutha ye-macOS, Windows neLinux inazo zonke ezi mpawu.",
     "noticeLink": "Fumana i-app yekhompyutha.",
     "ok": "Kulungile"
   },
@@ -1919,7 +1919,7 @@ export const STRINGS = {
     "starting": "Εκκίνηση…",
     "webgpu": "Το Schist χρειάζεται WebGPU, την οποία δεν παρέχει αυτό το πρόγραμμα περιήγησης. Υποστηρίζεται από Chrome/Edge 113+, Firefox 141+ και Safari 26+.",
     "noticeTitle": "Το Schist λειτουργεί καλύτερα ως εφαρμογή υπολογιστή",
-    "noticeBody": "Χρησιμοποιείτε την έκδοση ιστού, η οποία είναι μια ελαφρύτερη έκδοση: συνθέτει την εικόνα στην CPU και παραλείπει ορισμένες δυνατότητες — πρόσθετα του Photoshop και πρόσθετα τρίτων, συλλογή εικόνων, τον πίνακα τεχνητής νοημοσύνης, εισαγωγή HEIC και λήψη γραμματοσειρών — ενώ τα αρχεία αποθηκεύονται ως λήψεις. Η δωρεάν εφαρμογή υπολογιστή για macOS, Windows και Linux τα περιλαμβάνει όλα.",
+    "noticeBody": "Χρησιμοποιείτε την έκδοση ιστού, η οποία είναι μια ελαφρύτερη έκδοση: συνθέτει την εικόνα στην WebGPU και παραλείπει ορισμένες δυνατότητες — πρόσθετα του Photoshop και πρόσθετα τρίτων, συλλογή εικόνων, τον πίνακα τεχνητής νοημοσύνης, εισαγωγή HEIC και λήψη γραμματοσειρών — ενώ τα αρχεία αποθηκεύονται ως λήψεις. Η δωρεάν εφαρμογή υπολογιστή για macOS, Windows και Linux τα περιλαμβάνει όλα.",
     "noticeLink": "Αποκτήστε την εφαρμογή υπολογιστή.",
     "ok": "OK"
   },
@@ -1928,7 +1928,7 @@ export const STRINGS = {
     "starting": "Ej jino…",
     "webgpu": "Schist ej aikuj WebGPU, ak browser in ejjab lewaj. Chrome/Edge 113+, Firefox 141+ im Safari 26+ rej lewaj.",
     "noticeTitle": "Schist ej jerbal eṃṃan tata āinwōt desktop app",
-    "noticeBody": "Kwōj kōjerbal version in web eo, eo edikļọk: ej koba layer ko ilo CPU im ejjab koba jet men — Photoshop plug-in ko im plug-in ko an bar juon, gallery in pija, panel in AI, import in HEIC im download in font — im file ko rej save āinwōt download. Desktop app eo ej free ñan macOS, Windows im Linux ewōr aolep men kein ie.",
+    "noticeBody": "Kwōj kōjerbal version in web eo, eo edikļọk: ej koba layer ko ilo WebGPU im ejjab koba jet men — Photoshop plug-in ko im plug-in ko an bar juon, gallery in pija, panel in AI, import in HEIC im download in font — im file ko rej save āinwōt download. Desktop app eo ej free ñan macOS, Windows im Linux ewōr aolep men kein ie.",
     "noticeLink": "Bōk desktop app eo.",
     "ok": "OK"
   },
@@ -1937,7 +1937,7 @@ export const STRINGS = {
     "starting": "འགོ་འཛུགས་བཞིན་པ…",
     "webgpu": "Schist ལ་ WebGPU དགོས་ཀྱང་བཤར་ཆས་འདིས་དེ་མི་འདོན། Chrome/Edge 113+、Firefox 141+ དང་ Safari 26+ ཡིས་འདོན་ཐུབ།",
     "noticeTitle": "Schist ནི་མདུན་ངོས་ཉེར་སྤྱོད་དུ་སྤྱད་ན་ལེགས་ཤོས་ཡིན།",
-    "noticeBody": "ཁྱེད་ཀྱིས་དྲ་ངོས་ཐོན་རིམ་སྤྱོད་བཞིན་ཡོད། འདི་ནི་མཉེན་ཆས་ཀྱི་ཐོན་རིམ་ཡང་བ་ཞིག་ཡིན་པས་ CPU ཡིས་པར་རིས་བསྲེ་སྦྱོར་བྱེད་ཅིང་། Photoshop གི་མཐུད་ཆས་དང་ཕྱོགས་གསུམ་པའི་མཐུད་ཆས། པར་རིས་མཛོད། AI ངོས། HEIC ནང་འདྲེན། ཡིག་གཟུགས་ཕབ་ལེན་བཅས་ཀྱི་ཁྱད་ཆོས་འགའ་མི་འདུས། ཡིག་ཆ་རྣམས་ཕབ་ལེན་ཡིག་ཆའི་ཚུལ་དུ་ཉར། macOS、Windows དང་ Linux གི་རིན་མེད་མདུན་ངོས་ཉེར་སྤྱོད་ལ་དེ་དག་ཚང་མ་ཡོད།",
+    "noticeBody": "ཁྱེད་ཀྱིས་དྲ་ངོས་ཐོན་རིམ་སྤྱོད་བཞིན་ཡོད། འདི་ནི་མཉེན་ཆས་ཀྱི་ཐོན་རིམ་ཡང་བ་ཞིག་ཡིན་པས་ WebGPU ཡིས་པར་རིས་བསྲེ་སྦྱོར་བྱེད་ཅིང་། Photoshop གི་མཐུད་ཆས་དང་ཕྱོགས་གསུམ་པའི་མཐུད་ཆས། པར་རིས་མཛོད། AI ངོས། HEIC ནང་འདྲེན། ཡིག་གཟུགས་ཕབ་ལེན་བཅས་ཀྱི་ཁྱད་ཆོས་འགའ་མི་འདུས། ཡིག་ཆ་རྣམས་ཕབ་ལེན་ཡིག་ཆའི་ཚུལ་དུ་ཉར། macOS、Windows དང་ Linux གི་རིན་མེད་མདུན་ངོས་ཉེར་སྤྱོད་ལ་དེ་དག་ཚང་མ་ཡོད།",
     "noticeLink": "མདུན་ངོས་ཉེར་སྤྱོད་ལེན།",
     "ok": "འགྲིག"
   },
@@ -1946,7 +1946,7 @@ export const STRINGS = {
     "starting": "ይጅምር ኣሎ…",
     "webgpu": "Schist ንWebGPU ይደሊ፣ እዚ መርበብ ሓሳስ ግን ኣየቕርቦን። Chrome/Edge 113+፣ Firefox 141+ን Safari 26+ን ይድግፍዎ።",
     "noticeTitle": "Schist ከም ናይ ዴስክቶፕ መተግበሪ ዝበለጸ ይሰርሕ",
-    "noticeBody": "ቀሊል ሕታም ዝኾነ ናይ መርበብ ሕታም ትጥቀም ኣለኻ፤ ስእሊ ብCPU የዋህድ፣ ገለ ባህርያት ድማ የብሉን — Photoshop ፕላግ-ኢናትን ናይ ሳልሳይ ወገን ፕላግ-ኢናትን፣ ናይ ስእሊ ጋለሪ፣ AI ፓነል፣ HEIC ምእታውን ፊደል-ቅርጺ ምውራድን — ፋይላት እውን ከም ዝወረዱ ፋይላት ይቕመጡ። እቲ ነጻ ናይ ዴስክቶፕ መተግበሪ ንmacOS፣ Windowsን Linuxን ነዚ ኩሉ ኣለዎ።",
+    "noticeBody": "ቀሊል ሕታም ዝኾነ ናይ መርበብ ሕታም ትጥቀም ኣለኻ፤ ስእሊ ብWebGPU የዋህድ፣ ገለ ባህርያት ድማ የብሉን — Photoshop ፕላግ-ኢናትን ናይ ሳልሳይ ወገን ፕላግ-ኢናትን፣ ናይ ስእሊ ጋለሪ፣ AI ፓነል፣ HEIC ምእታውን ፊደል-ቅርጺ ምውራድን — ፋይላት እውን ከም ዝወረዱ ፋይላት ይቕመጡ። እቲ ነጻ ናይ ዴስክቶፕ መተግበሪ ንmacOS፣ Windowsን Linuxን ነዚ ኩሉ ኣለዎ።",
     "noticeLink": "ናይ ዴስክቶፕ መተግበሪ ውሰድ።",
     "ok": "ሕራይ"
   },
@@ -1955,7 +1955,7 @@ export const STRINGS = {
     "starting": "Startante…",
     "webgpu": "Schist bezonas WebGPU, quan ca navigilo ne ofertas. Chrome/Edge 113+, Firefox 141+ e Safari 26+ ofertas ol.",
     "noticeTitle": "Schist funcionas maxim bone kom komputila programo",
-    "noticeBody": "Vu uzas la retversiono, qua esas versiono plu legera dil programo: ol kompozas per la CPU e omisas kelka funcionuri — Photoshop plugini e plugini di altra produktanti, imajo-galerio, la panelo AI, importo HEIC e tiparodeskargi — e dosieri konservesas kom deskargi. La gratuita komputila programo por macOS, Windows e Linux inkluzas omno.",
+    "noticeBody": "Vu uzas la retversiono, qua esas versiono plu legera dil programo: ol kompozas per la WebGPU e omisas kelka funcionuri — Photoshop plugini e plugini di altra produktanti, imajo-galerio, la panelo AI, importo HEIC e tiparodeskargi — e dosieri konservesas kom deskargi. La gratuita komputila programo por macOS, Windows e Linux inkluzas omno.",
     "noticeLink": "Obtenez la komputila programo.",
     "ok": "OK"
   },
@@ -1964,7 +1964,7 @@ export const STRINGS = {
     "starting": "Ow talleth…",
     "webgpu": "Res yw WebGPU dhe Schist, hag ny'n prov an peurel ma. Chrome/Edge 113+, Firefox 141+ ha Safari 26+ a'n gwra.",
     "noticeTitle": "Schist a ober an gwella avel app desktop",
-    "noticeBody": "Yth esowgh ow kul devnydh a'n versyon gwias, hag ev yw adeiladans skavarra: yth yw ow kesposya war an CPU ha gasa mes nebes nasow — ynworransow Photoshop hag ynworransow a drydy parti, galari delwennow, an panel AI, ynperthi HEIC ha iskargyansow font — ha restrennow a vydh sawys avel iskargyansow. Yma oll an re ma yn app desktop rydh rag macOS, Windows ha Linux.",
+    "noticeBody": "Yth esowgh ow kul devnydh a'n versyon gwias, hag ev yw adeiladans skavarra: yth yw ow kesposya war an WebGPU ha gasa mes nebes nasow — ynworransow Photoshop hag ynworransow a drydy parti, galari delwennow, an panel AI, ynperthi HEIC ha iskargyansow font — ha restrennow a vydh sawys avel iskargyansow. Yma oll an re ma yn app desktop rydh rag macOS, Windows ha Linux.",
     "noticeLink": "Kavos an app desktop.",
     "ok": "Da"
   },
@@ -1973,7 +1973,7 @@ export const STRINGS = {
     "starting": "Indítás…",
     "webgpu": "A Schist WebGPU-t igényel, amelyet ez a böngésző nem biztosít. A Chrome/Edge 113+, a Firefox 141+ és a Safari 26+ támogatja.",
     "noticeTitle": "A Schist asztali alkalmazásként működik a legjobban",
-    "noticeBody": "A webes verziót használja, amely egy könnyebb változat: a CPU-n kompozitál, és kihagy néhány funkciót — a Photoshop-bővítményeket és a külső fejlesztők bővítményeit, a képgalériát, az MI-panelt, a HEIC-importálást és a betűtípusok letöltését —, a fájlokat pedig letöltésként menti. A macOS, Windows és Linux rendszerre készült ingyenes asztali alkalmazás mindezeket tartalmazza.",
+    "noticeBody": "A webes verziót használja, amely egy könnyebb változat: a WebGPU-n kompozitál, és kihagy néhány funkciót — a Photoshop-bővítményeket és a külső fejlesztők bővítményeit, a képgalériát, az MI-panelt, a HEIC-importálást és a betűtípusok letöltését —, a fájlokat pedig letöltésként menti. A macOS, Windows és Linux rendszerre készült ingyenes asztali alkalmazás mindezeket tartalmazza.",
     "noticeLink": "Az asztali alkalmazás letöltése.",
     "ok": "OK"
   },
@@ -1982,7 +1982,7 @@ export const STRINGS = {
     "starting": "Biriko biratangura…",
     "webgpu": "Schist ikeneye WebGPU, ariko iyi navigateur ntayifise. Chrome/Edge 113+, Firefox 141+ na Safari 26+ zirayifise.",
     "noticeTitle": "Schist ikora neza kuruta nka porogaramu ya mudasobwa",
-    "noticeBody": "Uriko ukoresha verisiyo yo ku rubuga, yubatswe mu buryo bworoheje: ivanga amashusho kuri CPU kandi ntirimwo bimwe — plug-ins za Photoshop n'iz'abandi, ububiko bw'amashusho, igice ca AI, kwinjiza HEIC no kuvoma amafonti — kandi amadosiye abikwa nk'ivyavomwe. Porogaramu ya mudasobwa y'ubuntu ya macOS, Windows na Linux irimwo vyose.",
+    "noticeBody": "Uriko ukoresha verisiyo yo ku rubuga, yubatswe mu buryo bworoheje: ivanga amashusho kuri WebGPU kandi ntirimwo bimwe — plug-ins za Photoshop n'iz'abandi, ububiko bw'amashusho, igice ca AI, kwinjiza HEIC no kuvoma amafonti — kandi amadosiye abikwa nk'ivyavomwe. Porogaramu ya mudasobwa y'ubuntu ya macOS, Windows na Linux irimwo vyose.",
     "noticeLink": "Ronka porogaramu ya mudasobwa.",
     "ok": "Ego"
   },
@@ -1991,7 +1991,7 @@ export const STRINGS = {
     "starting": "E tīmata ana…",
     "webgpu": "Me whai WebGPU a Schist, engari kāore tēnei pūtirotiro e tuku. Ka tautokona e Chrome/Edge 113+, Firefox 141+, me Safari 26+.",
     "noticeTitle": "He pai rawa te rere o Schist hei taupānga papamahi",
-    "noticeBody": "E whakamahi ana koe i te putanga tukutuku, he putanga māmā ake: ka whakakotahi apa mā te PTM, ā, kāore ētahi āhuatanga — ngā mono-mai Photoshop me ngā mono-mai a rōpū kē, te taiwhanga atahanga, te paewhiri AI, te kawemai HEIC, me te tikiake momotuhi — ka tiakina hoki ngā kōnae hei tikiake. Kei te taupānga papamahi koreutu mō macOS, Windows me Linux ēnei āhuatanga katoa.",
+    "noticeBody": "E whakamahi ana koe i te putanga tukutuku, he putanga māmā ake: ka whakakotahi apa mā WebGPU, ā, kāore ētahi āhuatanga — ngā mono-mai Photoshop me ngā mono-mai a rōpū kē, te taiwhanga atahanga, te paewhiri AI, te kawemai HEIC, me te tikiake momotuhi — ka tiakina hoki ngā kōnae hei tikiake. Kei te taupānga papamahi koreutu mō macOS, Windows me Linux ēnei āhuatanga katoa.",
     "noticeLink": "Tikina te taupānga papamahi.",
     "ok": "ĀE"
   },
@@ -2000,7 +2000,7 @@ export const STRINGS = {
     "starting": "עס הייבט זיך אָן…",
     "webgpu": "Schist דאַרף WebGPU, וואָס דער דאָזיקער בלעטערער שטעלט נישט צו. Chrome/Edge 113+, Firefox 141+ און Safari 26+ שטיצן עס.",
     "noticeTitle": "Schist אַרבעט בעסטן ווי אַ דעסקטאָפּ־אַפּ",
-    "noticeBody": "איר ניצט די וועב־ווערסיע, אַ לײַכטערע ווערסיע פֿון דער פּראָגראַם: זי שטעלט בילדער צונויף אויפֿן CPU און לאָזט אויס עטלעכע פֿעיִקייטן — Photoshop־פּלאַג־אינס און פּלאַג־אינס פֿון דריטע צדדים, די בילדער־גאַלעריע, דעם AI־פּאַנעל, HEIC־אימפּאָרט און שריפֿט־אַראָפּלאָדונגען — און טעקעס ווערן געהיט ווי אַראָפּלאָדונגען. די פֿרײַע דעסקטאָפּ־אַפּ פֿאַר macOS, Windows און Linux האָט דאָס אַלץ.",
+    "noticeBody": "איר ניצט די וועב־ווערסיע, אַ לײַכטערע ווערסיע פֿון דער פּראָגראַם: זי שטעלט בילדער צונויף אויפֿן WebGPU און לאָזט אויס עטלעכע פֿעיִקייטן — Photoshop־פּלאַג־אינס און פּלאַג־אינס פֿון דריטע צדדים, די בילדער־גאַלעריע, דעם AI־פּאַנעל, HEIC־אימפּאָרט און שריפֿט־אַראָפּלאָדונגען — און טעקעס ווערן געהיט ווי אַראָפּלאָדונגען. די פֿרײַע דעסקטאָפּ־אַפּ פֿאַר macOS, Windows און Linux האָט דאָס אַלץ.",
     "noticeLink": "באַקומען די דעסקטאָפּ־אַפּ.",
     "ok": "גוט"
   },
@@ -2009,7 +2009,7 @@ export const STRINGS = {
     "starting": "Başladylýar…",
     "webgpu": "Schist üçin WebGPU gerek, emma bu brauzer ony üpjün etmeýär. Chrome/Edge 113+, Firefox 141+ we Safari 26+ ony goldaýar.",
     "noticeTitle": "Schist iş stoly programmasy hökmünde iň gowy işleýär",
-    "noticeBody": "Siz has ýeňil düzülen web wersiýasyny ulanýarsyňyz: ol şekili CPU-da birleşdirýär we käbir mümkinçilikleri — Photoshop plaginlerini we üçünji tarap plaginlerini, surat galereýasyny, AI panelini, HEIC importyny hem-de şrift ýüklemelerini — öz içine almaýar; faýllar bolsa ýüklenen faýl görnüşinde saklanýar. macOS, Windows we Linux üçin mugt iş stoly programmasynda bularyň ählisi bar.",
+    "noticeBody": "Siz has ýeňil düzülen web wersiýasyny ulanýarsyňyz: ol şekili WebGPU-da birleşdirýär we käbir mümkinçilikleri — Photoshop plaginlerini we üçünji tarap plaginlerini, surat galereýasyny, AI panelini, HEIC importyny hem-de şrift ýüklemelerini — öz içine almaýar; faýllar bolsa ýüklenen faýl görnüşinde saklanýar. macOS, Windows we Linux üçin mugt iş stoly programmasynda bularyň ählisi bar.",
     "noticeLink": "Iş stoly programmasyny alyň.",
     "ok": "Bolýar"
   },
@@ -2018,7 +2018,7 @@ export const STRINGS = {
     "starting": "Tutuhon…",
     "webgpu": "Ha nisisita i Schist i WebGPU, lao ti ha suporta este na browser. Ma suporta i Chrome/Edge 113+, Firefox 141+ yan Safari 26+.",
     "noticeTitle": "Mås måolik macho'cho' i Schist komu desktop app",
-    "noticeBody": "Un u'usa i web version, ni mas dikike' na build: ha komposi i imåhen siha gi CPU yan ti mana'hålom palo na feature — i Photoshop plug-in siha yan i third-party plug-in siha, i image gallery, i AI panel, i HEIC import yan i font download siha — ya mañåsave i file siha komu download. Guaha todu este gi dibåtde na desktop app para macOS, Windows yan Linux.",
+    "noticeBody": "Un u'usa i web version, ni mas dikike' na build: ha komposi i imåhen siha gi WebGPU yan ti mana'hålom palo na feature — i Photoshop plug-in siha yan i third-party plug-in siha, i image gallery, i AI panel, i HEIC import yan i font download siha — ya mañåsave i file siha komu download. Guaha todu este gi dibåtde na desktop app para macOS, Windows yan Linux.",
     "noticeLink": "Chule' i desktop app.",
     "ok": "OK"
   },
@@ -2027,7 +2027,7 @@ export const STRINGS = {
     "starting": "ആരംഭിക്കുന്നു…",
     "webgpu": "ഈ ബ്രൗസർ നൽകാത്ത WebGPU Schist-ന് ആവശ്യമാണ്. Chrome/Edge 113+, Firefox 141+, Safari 26+ എന്നിവ അത് നൽകുന്നു.",
     "noticeTitle": "ഡെസ്ക്ടോപ്പ് ആപ്പായാണ് Schist ഏറ്റവും മികച്ച രീതിയിൽ പ്രവർത്തിക്കുന്നത്",
-    "noticeBody": "നിങ്ങൾ ഉപയോഗിക്കുന്നത് വെബ് പതിപ്പാണ്. ഇത് ഭാരം കുറഞ്ഞ ബിൽഡാണ്: CPU-വിലാണ് കോംപോസിറ്റിങ് നടത്തുന്നത്; Photoshop പ്ലഗ്-ഇനുകൾ, മൂന്നാം കക്ഷി പ്ലഗ്-ഇനുകൾ, ചിത്ര ഗാലറി, AI പാനൽ, HEIC ഇറക്കുമതി, ഫോണ്ട് ഡൗൺലോഡുകൾ എന്നീ ചില സൗകര്യങ്ങൾ ഇതിലില്ല; ഫയലുകൾ ഡൗൺലോഡുകളായാണ് സംരക്ഷിക്കപ്പെടുന്നത്. macOS, Windows, Linux എന്നിവയ്ക്കുള്ള സൗജന്യ ഡെസ്ക്ടോപ്പ് ആപ്പിൽ ഇവയെല്ലാം ലഭ്യമാണ്.",
+    "noticeBody": "നിങ്ങൾ ഉപയോഗിക്കുന്നത് വെബ് പതിപ്പാണ്. ഇത് ഭാരം കുറഞ്ഞ ബിൽഡാണ്: WebGPU-വിലാണ് കോംപോസിറ്റിങ് നടത്തുന്നത്; Photoshop പ്ലഗ്-ഇനുകൾ, മൂന്നാം കക്ഷി പ്ലഗ്-ഇനുകൾ, ചിത്ര ഗാലറി, AI പാനൽ, HEIC ഇറക്കുമതി, ഫോണ്ട് ഡൗൺലോഡുകൾ എന്നീ ചില സൗകര്യങ്ങൾ ഇതിലില്ല; ഫയലുകൾ ഡൗൺലോഡുകളായാണ് സംരക്ഷിക്കപ്പെടുന്നത്. macOS, Windows, Linux എന്നിവയ്ക്കുള്ള സൗജന്യ ഡെസ്ക്ടോപ്പ് ആപ്പിൽ ഇവയെല്ലാം ലഭ്യമാണ്.",
     "noticeLink": "ഡെസ്ക്ടോപ്പ് ആപ്പ് നേടുക.",
     "ok": "ശരി"
   },
@@ -2036,7 +2036,7 @@ export const STRINGS = {
     "starting": "Álggaheamen…",
     "webgpu": "Schist dárbbaša WebGPU, muhto dát neahttalohkki ii doarjjo dan. Chrome/Edge 113+, Firefox 141+ ja Safari 26+ dorjot dan.",
     "noticeTitle": "Schist doaibmá buoremusat dihtorprográmman",
-    "noticeBody": "Don geavahat fierpmádatveršuvnna, mii lea geahppaset veršuvdna: dat komposere CPU:s ja guođđá muhtun doaibmabijuid eret — Photoshop-lasáhusat ja goalmmát oassebeali lasáhusat, govvagalleriija, AI-panela, HEIC-sisačáliheami ja fonttaid viežžama — ja fiillat vurkejuvvojit viežžosin. Nuvttá dihtorprográmmas macOS:i, Windowsii ja Linuxii leat buot dát doaibmabijut.",
+    "noticeBody": "Don geavahat fierpmádatveršuvnna, mii lea geahppaset veršuvdna: dat komposere WebGPU:s ja guođđá muhtun doaibmabijuid eret — Photoshop-lasáhusat ja goalmmát oassebeali lasáhusat, govvagalleriija, AI-panela, HEIC-sisačáliheami ja fonttaid viežžama — ja fiillat vurkejuvvojit viežžosin. Nuvttá dihtorprográmmas macOS:i, Windowsii ja Linuxii leat buot dát doaibmabijut.",
     "noticeLink": "Viečča dihtorprográmma.",
     "ok": "OK"
   },
@@ -2045,7 +2045,7 @@ export const STRINGS = {
     "starting": "Birimo gutangira…",
     "webgpu": "Schist ikenera WebGPU, ariko iyi mushakisha ntayitanga. Chrome/Edge 113+, Firefox 141+ na Safari 26+ zirayitanga.",
     "noticeTitle": "Schist ikora neza kurushaho nka porogaramu ya mudasobwa",
-    "noticeBody": "Urimo gukoresha verisiyo yo ku rubuga, yubatswe mu buryo bworoheje: ihuriza inzego kuri CPU kandi ntirimo bimwe mu bikoresho — inyongera za Photoshop n'inyongera z'abandi, ububiko bw'amashusho, igice cya AI, kuzana HEIC no kuvana amafonti kuri interineti — kandi amadosiye abikwa nk'ibikururwa. Porogaramu ya mudasobwa y'ubuntu ya macOS, Windows na Linux irimo byose.",
+    "noticeBody": "Urimo gukoresha verisiyo yo ku rubuga, yubatswe mu buryo bworoheje: ihuriza inzego kuri WebGPU kandi ntirimo bimwe mu bikoresho — inyongera za Photoshop n'inyongera z'abandi, ububiko bw'amashusho, igice cya AI, kuzana HEIC no kuvana amafonti kuri interineti — kandi amadosiye abikwa nk'ibikururwa. Porogaramu ya mudasobwa y'ubuntu ya macOS, Windows na Linux irimo byose.",
     "noticeLink": "Shaka porogaramu ya mudasobwa.",
     "ok": "Yego"
   },
@@ -2054,7 +2054,7 @@ export const STRINGS = {
     "starting": "Nagsisimula…",
     "webgpu": "Kailangan ng Schist ang WebGPU, ngunit hindi ito ibinibigay ng browser na ito. Sinusuportahan ito ng Chrome/Edge 113+, Firefox 141+, at Safari 26+.",
     "noticeTitle": "Pinakamahusay na gumagana ang Schist bilang desktop app",
-    "noticeBody": "Ginagamit mo ang web na bersiyon, isang mas magaan na build ng software: sa CPU nito pinagsasama ang mga layer at wala rito ang ilang kakayahan — mga Photoshop plug-in at mga third-party plug-in, gallery ng larawan, AI panel, pag-import ng HEIC, at pag-download ng mga font — at sine-save ang mga file bilang mga download. Nasa libreng desktop app para sa macOS, Windows, at Linux ang lahat ng ito.",
+    "noticeBody": "Ginagamit mo ang web na bersiyon, isang mas magaan na build ng software: sa WebGPU nito pinagsasama ang mga layer at wala rito ang ilang kakayahan — mga Photoshop plug-in at mga third-party plug-in, gallery ng larawan, AI panel, pag-import ng HEIC, at pag-download ng mga font — at sine-save ang mga file bilang mga download. Nasa libreng desktop app para sa macOS, Windows, at Linux ang lahat ng ito.",
     "noticeLink": "Kunin ang desktop app.",
     "ok": "OK"
   },
@@ -2063,7 +2063,7 @@ export const STRINGS = {
     "starting": "Ń bẹ̀rẹ̀…",
     "webgpu": "Schist nílò WebGPU, èyí tí aṣàwákiri yìí kò pèsè. Chrome/Edge 113+, Firefox 141+ àti Safari 26+ ní àtìlẹ́yìn fún un.",
     "noticeTitle": "Schist máa ń ṣiṣẹ́ dáadáa jù gẹ́gẹ́ bí ápù kọ̀ǹpútà",
-    "noticeBody": "Ẹ̀dà wẹ́ẹ̀bù tí o ń lò jẹ́ ẹ̀dà sọ́fítíwẹ́ẹ̀ tó fúyẹ́: ó ń darapọ̀ àwọn fẹ́lẹ́fẹ́lẹ́ lórí CPU, kò sì ní àwọn ẹ̀yà kan — àwọn plug-in Photoshop àti àwọn plug-in àwọn olùpèsè mìíràn, ibi àkójọ àwòrán, pánẹ́ẹ̀lì AI, gbígbé HEIC wọlé àti gbígba fọ́ǹtì — a sì ń fi àwọn fáìlì pamọ́ gẹ́gẹ́ bí ohun tí a gbà sílẹ̀. Ápù kọ̀ǹpútà ọ̀fẹ́ fún macOS, Windows àti Linux ní gbogbo wọn.",
+    "noticeBody": "Ẹ̀dà wẹ́ẹ̀bù tí o ń lò jẹ́ ẹ̀dà sọ́fítíwẹ́ẹ̀ tó fúyẹ́: ó ń darapọ̀ àwọn fẹ́lẹ́fẹ́lẹ́ lórí WebGPU, kò sì ní àwọn ẹ̀yà kan — àwọn plug-in Photoshop àti àwọn plug-in àwọn olùpèsè mìíràn, ibi àkójọ àwòrán, pánẹ́ẹ̀lì AI, gbígbé HEIC wọlé àti gbígba fọ́ǹtì — a sì ń fi àwọn fáìlì pamọ́ gẹ́gẹ́ bí ohun tí a gbà sílẹ̀. Ápù kọ̀ǹpútà ọ̀fẹ́ fún macOS, Windows àti Linux ní gbogbo wọn.",
     "noticeLink": "Gba ápù kọ̀ǹpútà.",
     "ok": "Ó DÁRA"
   },
@@ -2072,7 +2072,7 @@ export const STRINGS = {
     "starting": "E a simolola…",
     "webgpu": "Schist e tlhoka WebGPU, mme browser eno ga e e tshegetse. Chrome/Edge 113+, Firefox 141+ le Safari 26+ di a e tshegetsa.",
     "noticeTitle": "Schist e dira sentle thata e le desktop app",
-    "noticeBody": "O dirisa mofuta wa web, e leng software build e e fokoditsweng: e kopanya dillaga tsa ditshwantsho mo CPU mme ga e akaretse dikarolo dingwe — di-plug-in tsa Photoshop le di-plug-in tsa batho ba bangwe, gallery ya ditshwantsho, panel ya AI, go import-a HEIC le go download-a difont — mme difaele di bolokwa jaaka download. Desktop app ya mahala ya macOS, Windows le Linux e na le tsotlhe.",
+    "noticeBody": "O dirisa mofuta wa web, e leng software build e e fokoditsweng: e kopanya dillaga tsa ditshwantsho mo WebGPU mme ga e akaretse dikarolo dingwe — di-plug-in tsa Photoshop le di-plug-in tsa batho ba bangwe, gallery ya ditshwantsho, panel ya AI, go import-a HEIC le go download-a difont — mme difaele di bolokwa jaaka download. Desktop app ya mahala ya macOS, Windows le Linux e na le tsotlhe.",
     "noticeLink": "Bona desktop app.",
     "ok": "Go siame"
   },
@@ -2081,7 +2081,7 @@ export const STRINGS = {
     "starting": "شروع ٿي رهيو آهي…",
     "webgpu": "Schist کي WebGPU گهرجي، جيڪو هي برائوزر مهيا نٿو ڪري. Chrome/Edge 113+، Firefox 141+ ۽ Safari 26+ ان کي سپورٽ ڪن ٿا.",
     "noticeTitle": "Schist ڊيسڪٽاپ ايپ طور بهترين هلي ٿو",
-    "noticeBody": "توهان ويب ورزن استعمال ڪري رهيا آهيو، جيڪو سافٽ ويئر جو هلڪو ورزن آهي: اهو CPU تي پرتن کي گڏ ڪري ٿو ۽ ڪجهه سهولتون شامل نٿو ڪري—Photoshop پلگ-اِن، ٽئين ڌر جا پلگ-اِن، تصويري گيلري، AI پينل، HEIC درآمد ۽ فونٽ ڊائون لوڊ—۽ فائيل ڊائون لوڊ طور محفوظ ٿين ٿا. macOS، Windows ۽ Linux لاءِ مفت ڊيسڪٽاپ ايپ ۾ اهي سڀ سهولتون موجود آهن.",
+    "noticeBody": "توهان ويب ورزن استعمال ڪري رهيا آهيو، جيڪو سافٽ ويئر جو هلڪو ورزن آهي: اهو WebGPU تي پرتن کي گڏ ڪري ٿو ۽ ڪجهه سهولتون شامل نٿو ڪري—Photoshop پلگ-اِن، ٽئين ڌر جا پلگ-اِن، تصويري گيلري، AI پينل، HEIC درآمد ۽ فونٽ ڊائون لوڊ—۽ فائيل ڊائون لوڊ طور محفوظ ٿين ٿا. macOS، Windows ۽ Linux لاءِ مفت ڊيسڪٽاپ ايپ ۾ اهي سڀ سهولتون موجود آهن.",
     "noticeLink": "ڊيسڪٽاپ ايپ حاصل ڪريو.",
     "ok": "ٺيڪ"
   },
@@ -2090,7 +2090,7 @@ export const STRINGS = {
     "starting": "Iyaqala…",
     "webgpu": "I-Schist idinga i-WebGPU, kodwa lesi siphequluli asiyinikezi. I-Chrome/Edge 113+, Firefox 141+ ne-Safari 26+ ziyinikeza.",
     "noticeTitle": "I-Schist isebenza kahle kakhulu njengohlelo lokusebenza lwedeskithophu",
-    "noticeBody": "Usebenzisa inguqulo yewebhu, ewuhlelo olulula olunezici ezimbalwa: ihlanganisa izingqimba zesithombe ku-CPU futhi ayinazo ezinye izici — ama-plug-in e-Photoshop nama-plug-in ezinkampani zangaphandle, igalari yezithombe, iphaneli ye-AI, ukungenisa i-HEIC nokulanda amafonti — futhi amafayela agcinwa njengokulandiwe. Uhlelo lokusebenza lwedeskithophu lwamahhala lwe-macOS, Windows ne-Linux lunazo zonke lezi zici.",
+    "noticeBody": "Usebenzisa inguqulo yewebhu, ewuhlelo olulula olunezici ezimbalwa: ihlanganisa izingqimba zesithombe ku-WebGPU futhi ayinazo ezinye izici — ama-plug-in e-Photoshop nama-plug-in ezinkampani zangaphandle, igalari yezithombe, iphaneli ye-AI, ukungenisa i-HEIC nokulanda amafonti — futhi amafayela agcinwa njengokulandiwe. Uhlelo lokusebenza lwedeskithophu lwamahhala lwe-macOS, Windows ne-Linux lunazo zonke lezi zici.",
     "noticeLink": "Thola uhlelo lokusebenza lwedeskithophu.",
     "ok": "Kulungile"
   },
@@ -2099,7 +2099,7 @@ export const STRINGS = {
     "starting": "ʻOku kamata…",
     "webgpu": "ʻOku fiemaʻu ʻe Schist ʻa e WebGPU, ʻa ia ʻoku ʻikai ʻomi ʻe he polokalama vakai ko ʻení. ʻOku maʻu ia ʻi he Chrome/Edge 113+, Firefox 141+ mo e Safari 26+.",
     "noticeTitle": "ʻOku lele lelei taha ʻa Schist ko ha polokalama desktop",
-    "noticeBody": "ʻOkú ke ngāueʻaki ʻa e tatau uepi, ʻa ia ko ha tatau polokalama maʻamaʻa ange: ʻoku ne fakatahaʻi ʻa e ngaahi Layer ʻi he CPU pea ʻoku ʻikai kau ai ha ngaahi meʻa ʻe niʻihi—ngaahi plug-in Photoshop mo e ngaahi plug-in mei he faʻahi hono tolú, fakahāʻanga ʻīmisi, penolo AI, fakahū HEIC mo e download ʻo e ngaahi mataʻitohi—pea ʻoku seivi ʻa e ngaahi failé ko e ngaahi download. ʻOku maʻu kotoa ia ʻi he polokalama desktop taʻetotongi ki he macOS, Windows mo e Linux.",
+    "noticeBody": "ʻOkú ke ngāueʻaki ʻa e tatau uepi, ʻa ia ko ha tatau polokalama maʻamaʻa ange: ʻoku ne fakatahaʻi ʻa e ngaahi Layer ʻi he WebGPU pea ʻoku ʻikai kau ai ha ngaahi meʻa ʻe niʻihi—ngaahi plug-in Photoshop mo e ngaahi plug-in mei he faʻahi hono tolú, fakahāʻanga ʻīmisi, penolo AI, fakahū HEIC mo e download ʻo e ngaahi mataʻitohi—pea ʻoku seivi ʻa e ngaahi failé ko e ngaahi download. ʻOku maʻu kotoa ia ʻi he polokalama desktop taʻetotongi ki he macOS, Windows mo e Linux.",
     "noticeLink": "Maʻu ʻa e polokalama desktop.",
     "ok": "Sai"
   }

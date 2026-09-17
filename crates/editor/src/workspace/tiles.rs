@@ -102,6 +102,10 @@ impl Workspace {
     /// in a fresh queue whenever the view changes and the ticker just
     /// keeps draining whatever is nearest now.
     pub(super) fn kick_prefetch(&mut self, cx: &mut Context<Self>) {
+        if self.has_browser_gpu() {
+            self.prefetch_queue.clear();
+            return;
+        }
         if self.prefetch_queue.is_empty() || self.prefetch_ticker {
             return;
         }

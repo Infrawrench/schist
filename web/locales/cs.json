@@ -3,7 +3,7 @@
   "starting": "Spouštění…",
   "webgpu": "Schist vyžaduje WebGPU, které tento prohlížeč neposkytuje. Podporují je Chrome/Edge 113+, Firefox 141+ a Safari 26+.",
   "noticeTitle": "Schist funguje nejlépe jako počítačová aplikace",
-  "noticeBody": "Používáte odlehčenou webovou verzi: obraz skládá pomocí procesoru, vynechává některé funkce — zásuvné moduly pro Photoshop a moduly jiných výrobců, galerii obrázků, panel AI, import HEIC a stahování písem — a ukládá soubory do stažených položek. Bezplatná počítačová aplikace pro macOS, Windows a Linux obsahuje všechny tyto funkce.",
+  "noticeBody": "Používáte odlehčenou webovou verzi: obraz skládá pomocí WebGPU, vynechává některé funkce — zásuvné moduly pro Photoshop a moduly jiných výrobců, galerii obrázků, panel AI, import HEIC a stahování písem — a ukládá soubory do stažených položek. Bezplatná počítačová aplikace pro macOS, Windows a Linux obsahuje všechny tyto funkce.",
   "noticeLink": "Stáhnout počítačovou aplikaci.",
   "ok": "OK"
 }

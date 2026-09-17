@@ -3,7 +3,7 @@
   "starting": "Aviada…",
   "webgpu": "Schist a besonh de WebGPU, qu'aqueste navigador prepausa pas. Chrome/Edge 113+, Firefox 141+ e Safari 26+ lo prepausan.",
   "noticeTitle": "Schist fonciona melhor coma aplicacion de burèu",
-  "noticeBody": "Utilizatz la version web, qu'es una version mai leugièra : compausa los imatges sul processor e inclutz pas certanas foncionalitats — los moduls extèrnes de Photoshop e los moduls extèrnes de tèrças parts, la galariá d'imatges, lo panèl d'IA, l'importacion HEIC e lo telecargament de poliças — e los fichièrs son enregistrats coma telecargaments. L'aplicacion de burèu gratuita per macOS, Windows e Linux inclutz tot aquò.",
+  "noticeBody": "Utilizatz la version web, qu'es una version mai leugièra : compausa los imatges amb WebGPU e inclutz pas certanas foncionalitats — los moduls extèrnes de Photoshop e los moduls extèrnes de tèrças parts, la galariá d'imatges, lo panèl d'IA, l'importacion HEIC e lo telecargament de poliças — e los fichièrs son enregistrats coma telecargaments. L'aplicacion de burèu gratuita per macOS, Windows e Linux inclutz tot aquò.",
   "noticeLink": "Obténer l'aplicacion de burèu.",
   "ok": "D'acòrdi"
 }

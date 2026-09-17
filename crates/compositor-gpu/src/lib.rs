@@ -7,26 +7,39 @@
 //! bus. Batched workloads — zoom-outs, exports, multi-tile damage on
 //! big documents — are where that trade wins; the semantics are the CPU
 //! compositor's, enforced by parity tests, and anything the shader can't
-//! express (mid-drag offsets, nesting past the fixed stack) falls back to
+//! express (nesting past the fixed stack) falls back to
 //! the CPU reference per call.
 //!
 //! Install with `schist_compositor::set_backend(Arc::new(GpuCompositor::new()?))`.
+//! Browser callers await `GpuContext::new_async` and its asynchronous kernels.
 
 mod exec;
+#[cfg(not(target_arch = "wasm32"))]
 mod fx;
+mod operation;
 pub mod plan;
 
 pub use exec::{BatchOut, GpuContext, WarpSource};
+#[cfg(not(target_arch = "wasm32"))]
 pub use fx::GpuFx;
 
+#[cfg(not(target_arch = "wasm32"))]
 use schist_color::NativePixel;
+#[cfg(not(target_arch = "wasm32"))]
 use schist_compositor::viewport::ViewportParams;
+#[cfg(not(target_arch = "wasm32"))]
 use schist_compositor::{
     composite_region_f32_cpu, composite_region_rgba8_cpu, composite_tile_cpu, Compositor,
     CpuCompositor,
 };
+#[cfg(not(target_arch = "wasm32"))]
 use schist_core::{Document, IntRect, TileCoord, TILE_SIZE};
 use std::sync::Arc;
+
+pub(crate) fn cast_f32s(values: &[f32]) -> &[u8] {
+    // The byte view has weaker alignment and exactly the source slice's size/lifetime.
+    unsafe { std::slice::from_raw_parts(values.as_ptr().cast(), std::mem::size_of_val(values)) }
+}
 
 pub struct GpuCompositor {
     ctx: Arc<GpuContext>,
@@ -35,6 +48,7 @@ pub struct GpuCompositor {
 impl GpuCompositor {
     /// Set up the GPU backend. Fails cleanly (with a reason for the log)
     /// when no adapter exists — headless CI, missing drivers.
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn new() -> Result<GpuCompositor, String> {
         let ctx = Arc::new(GpuContext::new()?);
         Ok(GpuCompositor { ctx })
@@ -52,11 +66,13 @@ impl GpuCompositor {
 
     /// The filter and warp backend sharing this device — install it with
     /// `schist_fx::set_backend` so blurs and mesh warps run here too.
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn fx(&self) -> GpuFx {
         GpuFx::new(self.ctx.clone())
     }
 
     /// Composite a batch on the GPU; `None` falls back to the CPU.
+    #[cfg(not(target_arch = "wasm32"))]
     fn batch(&self, doc: &Document, coords: &[TileCoord], rgba8: bool) -> Option<BatchOut> {
         let plan = match plan::build(doc) {
             Ok(plan) => plan,
@@ -93,6 +109,7 @@ impl GpuCompositor {
     }
 }
 
+#[cfg(not(target_arch = "wasm32"))]
 impl Compositor for GpuCompositor {
     fn name(&self) -> &'static str {
         "gpu"
@@ -164,6 +181,7 @@ impl Compositor for GpuCompositor {
 
 /// Copy the intersection of a composited tile into a tightly packed
 /// region buffer (works for any 4-element pixel type).
+#[cfg(not(target_arch = "wasm32"))]
 fn crop_into<T: Copy>(region: &IntRect, coord: TileCoord, out: &mut [T], tile: &[T]) {
     let w = region.width() as usize;
     let trect = coord.rect();

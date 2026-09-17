@@ -40,6 +40,9 @@
 //! algorithms come from their published descriptions and the code is
 //! this crate's own.
 
+#[path = "demosaic_gpu.rs"]
+mod gpu;
+
 use crate::{frame_samples, Cfa, CfaColor, Error, Result};
 use rayon::prelude::*;
 
@@ -137,6 +140,9 @@ pub fn demosaic(
     // the generic path rather than being interpolated as if the
     // neighbours were the colours the algorithm expects.
     let bayer = matches!(cfa, Cfa::Bayer(_)) && mosaic.is_true_bayer();
+    if let Some(out) = gpu::run(&mosaic, width, height, bayer, quality) {
+        return Ok(out);
+    }
     Ok(match (bayer, quality) {
         (true, Quality::Fast) => bayer_bilinear(&mosaic, width, height),
         (true, Quality::Best) => bayer_hamilton_adams(&mosaic, width, height),

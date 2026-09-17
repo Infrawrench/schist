@@ -3,7 +3,7 @@
   "starting": "O loc'hañ…",
   "webgpu": "WebGPU zo ezhomm gant Schist, met n'eo ket kinniget gant ar merdeer-mañ. Chrome/Edge 113+, Firefox 141+ ha Safari 26+ a ginnig anezhañ.",
   "noticeTitle": "Gwelloc'h e ya Schist en un arload burev",
-  "noticeBody": "Emaoc'h oc'h implijout ar stumm web, ur stumm skañvoc'h: kenaozañ a ra ar skeudennoù war ar CPU ha ne ginnig ket perzhioù zo — plug-inioù Photoshop ha plug-inioù tredeourien, ar skeudennaoueg, ar penel AI, enporzhiañ HEIC ha pellgargañ nodrezhoù — hag ar restroù a vez enrollet evel pellgargadennoù. An arload burev digoust evit macOS, Windows ha Linux en deus an holl berzhioù-se.",
+  "noticeBody": "Emaoc'h oc'h implijout ar stumm web, ur stumm skañvoc'h: kenaozañ a ra ar skeudennoù war ar WebGPU ha ne ginnig ket perzhioù zo — plug-inioù Photoshop ha plug-inioù tredeourien, ar skeudennaoueg, ar penel AI, enporzhiañ HEIC ha pellgargañ nodrezhoù — hag ar restroù a vez enrollet evel pellgargadennoù. An arload burev digoust evit macOS, Windows ha Linux en deus an holl berzhioù-se.",
   "noticeLink": "Kaout an arload burev.",
   "ok": "Mat eo"
 }

@@ -3,7 +3,7 @@
   "starting": "正在启动…",
   "webgpu": "Schist 需要 WebGPU，而此浏览器不支持。Chrome/Edge 113+、Firefox 141+ 和 Safari 26+ 支持。",
   "noticeTitle": "Schist 在桌面应用中体验最佳",
-  "noticeBody": "你正在使用网页版，这是一个精简版本：它在 CPU 上合成，并且缺少部分功能——Photoshop 和第三方增效工具、图库、AI 面板、HEIC 导入和字体下载——文件会以下载方式存储。适用于 macOS、Windows 和 Linux 的免费桌面应用具备全部功能。",
+  "noticeBody": "你正在使用网页版，这是一个精简版本：它在 WebGPU 上合成，并且缺少部分功能——Photoshop 和第三方增效工具、图库、AI 面板、HEIC 导入和字体下载——文件会以下载方式存储。适用于 macOS、Windows 和 Linux 的免费桌面应用具备全部功能。",
   "noticeLink": "获取桌面应用。",
   "ok": "好"
 }

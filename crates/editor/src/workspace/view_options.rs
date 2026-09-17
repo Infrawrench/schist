@@ -63,6 +63,10 @@ impl Workspace {
 
     /// Drop everything composited by the previous backend and repaint.
     pub fn rebuild_after_backend_change(&mut self, cx: &mut Context<Self>) {
+        #[cfg(target_arch = "wasm32")]
+        {
+            self.browser_gpu.reset();
+        }
         self.cache.invalidate_all();
         self.display_tiles.clear();
         if let Some((_, old)) = self.viewport_image.take() {

@@ -47,6 +47,97 @@ pub struct Developed {
     pub rgb: Vec<f32>,
 }
 
+static DEVELOP_GPU: schist_fx::ComputeShader = schist_fx::ComputeShader {
+    name: "raw-develop",
+    source: include_str!("develop_gpu.wgsl"),
+};
+
+fn normalise_gpu(raw: &RawImage, levels: &Levels) -> Option<Vec<f32>> {
+    let len = raw.width * raw.height * raw.cpp;
+    if !schist_fx::backend().compute_available(len.saturating_mul(8)) {
+        return None;
+    }
+    let mut output = Vec::with_capacity(len);
+    let stride = raw.width * raw.cpp;
+    let rows = (4_000_000 / stride).max(1).min(raw.height);
+    for y in (0..raw.height).step_by(rows) {
+        let height = rows.min(raw.height - y);
+        let range = y * stride..(y + height) * stride;
+        let owned;
+        let input = match &raw.data {
+            RawData::U16(v) => {
+                owned = v[range].iter().map(|&n| n as f32).collect::<Vec<_>>();
+                owned.as_slice()
+            }
+            RawData::F32(v) => &v[range],
+        };
+        let mut args = vec![
+            0.0,
+            raw.cpp as f32,
+            levels.width as f32,
+            levels.height as f32,
+            y as f32,
+            levels.black.len() as f32,
+        ];
+        args.extend(&levels.black);
+        args.extend(&levels.gain);
+        let program = schist_fx::ComputeProgram::single(
+            &DEVELOP_GPU,
+            args,
+            input.len(),
+            [raw.width as u32, height as u32, raw.cpp as u32],
+            len.saturating_mul(8),
+        );
+        output.extend(schist_fx::try_compute(input, &program)?);
+    }
+    Some(output)
+}
+
+fn finish_gpu(
+    rgb: &[f32],
+    width: usize,
+    crop: Rect,
+    orientation: Orientation,
+    matrix: Option<&[[f32; 3]; 3]>,
+) -> Option<Developed> {
+    let (w, h) = if orientation.transposes() {
+        (crop.height, crop.width)
+    } else {
+        (crop.width, crop.height)
+    };
+    let work = w.saturating_mul(h).saturating_mul(32);
+    if !schist_fx::backend().compute_available(work) {
+        return None;
+    }
+    let mut args = vec![
+        1.0,
+        width as f32,
+        crop.width as f32,
+        crop.height as f32,
+        crop.x as f32,
+        crop.y as f32,
+        orientation as u32 as f32,
+    ];
+    args.extend(
+        matrix
+            .unwrap_or(&[[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
+            .iter()
+            .flatten(),
+    );
+    let program = schist_fx::ComputeProgram::single(
+        &DEVELOP_GPU,
+        args,
+        w * h * 3,
+        [w as u32, h as u32, 3],
+        work,
+    );
+    Some(Developed {
+        width: w,
+        height: h,
+        rgb: schist_fx::try_compute(rgb, &program)?,
+    })
+}
+
 pub fn develop(raw: &RawImage, options: &DevelopOptions) -> Result<Developed> {
     // Everything below indexes `data` from the declared dimensions and
     // the crop, so the invariants have to hold before any of it runs.
@@ -74,14 +165,18 @@ pub fn develop(raw: &RawImage, options: &DevelopOptions) -> Result<Developed> {
         // channel.
         let levels = Levels::per_channel(raw, multipliers)?;
         let mut rgb = vec![0f32; width * height * 3];
-        let stride = width * 3;
-        match &raw.data {
-            RawData::U16(v) => rgb.par_chunks_mut(stride).enumerate().for_each(|(y, row)| {
-                normalise_pixels(row, &v[y * stride..(y + 1) * stride], &levels)
-            }),
-            RawData::F32(v) => rgb.par_chunks_mut(stride).enumerate().for_each(|(y, row)| {
-                normalise_pixels(row, &v[y * stride..(y + 1) * stride], &levels)
-            }),
+        if let Some(out) = normalise_gpu(raw, &levels) {
+            rgb = out;
+        } else {
+            let stride = width * 3;
+            match &raw.data {
+                RawData::U16(v) => rgb.par_chunks_mut(stride).enumerate().for_each(|(y, row)| {
+                    normalise_pixels(row, &v[y * stride..(y + 1) * stride], &levels)
+                }),
+                RawData::F32(v) => rgb.par_chunks_mut(stride).enumerate().for_each(|(y, row)| {
+                    normalise_pixels(row, &v[y * stride..(y + 1) * stride], &levels)
+                }),
+            }
         }
         rgb
     } else {
@@ -121,6 +216,14 @@ pub fn develop(raw: &RawImage, options: &DevelopOptions) -> Result<Developed> {
             height,
         }
     };
+    let orientation = if options.orient {
+        raw.orientation
+    } else {
+        Orientation::Normal
+    };
+    if let Some(out) = finish_gpu(&rgb, width, crop, orientation, matrix.as_ref()) {
+        return Ok(out);
+    }
     let (mut out_w, mut out_h) = (crop.width, crop.height);
     if crop.x == 0 && crop.y == 0 && crop.width == width && crop.height == height {
         rgb.par_chunks_mut(width * 3)
@@ -168,6 +271,9 @@ fn srgb_matrix(raw: &RawImage, options: &DevelopOptions) -> Option<[[f32; 3]; 3]
 /// white-balanced 0..1 scene-linear numbers, still under the filter
 /// array.
 fn normalised_plane(raw: &RawImage, levels: &Levels) -> Vec<f32> {
+    if let Some(out) = normalise_gpu(raw, levels) {
+        return out;
+    }
     let (width, height) = (raw.width, raw.height);
     let mut plane = vec![0f32; width * height];
     match &raw.data {

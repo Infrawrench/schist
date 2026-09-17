@@ -3,7 +3,7 @@
   "starting": "Dji m' enonde…",
   "webgpu": "Schist a mezåjhe di WebGPU, ki ç' betchteu-ci n' ofere nén. Chrome/Edge 113+, Firefox 141+ et Safari 26+ l' oferèt.",
   "noticeTitle": "Schist va mia come programe di scribanne",
-  "noticeBody": "Vos eployîz l' modêye waibe, k' est pus ledjire: ele compôze les imådjes sol CPU et n' a nén sacwantès fonccionålités — les tchôke-divins Photoshop et les tchôke-divins di tîces pårteyes, li galreye d' imådjes, li panea AI, l' abagaedje HEIC et l' aberwetaedje des fontes — et les fitchîs sont schapés come aberwetaedjes. Li programe di scribanne libe po macOS, Windows et Linux a totes ces fonccionålités.",
+  "noticeBody": "Vos eployîz l' modêye waibe, k' est pus ledjire: ele compôze les imådjes sol WebGPU et n' a nén sacwantès fonccionålités — les tchôke-divins Photoshop et les tchôke-divins di tîces pårteyes, li galreye d' imådjes, li panea AI, l' abagaedje HEIC et l' aberwetaedje des fontes — et les fitchîs sont schapés come aberwetaedjes. Li programe di scribanne libe po macOS, Windows et Linux a totes ces fonccionålités.",
   "noticeLink": "Aberweter l' programe di scribanne.",
   "ok": "I va"
 }

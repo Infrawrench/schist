@@ -3,7 +3,7 @@
   "starting": "S'està iniciant…",
   "webgpu": "El Schist necessita WebGPU, que aquest navegador no ofereix. Chrome/Edge 113+, Firefox 141+ i Safari 26+ sí que n'ofereixen.",
   "noticeTitle": "El Schist funciona millor com a aplicació d'escriptori",
-  "noticeBody": "Esteu utilitzant la versió web, una compilació més lleugera: compon amb la CPU i omet algunes funcions —els connectors del Photoshop i els de tercers, la galeria d'imatges, el tauler d'IA, la importació HEIC i la baixada de tipus de lletra—, i els fitxers es desen com a baixades. L'aplicació d'escriptori gratuïta per a macOS, Windows i Linux ho inclou tot.",
+  "noticeBody": "Esteu utilitzant la versió web, una compilació més lleugera: compon amb la WebGPU i omet algunes funcions —els connectors del Photoshop i els de tercers, la galeria d'imatges, el tauler d'IA, la importació HEIC i la baixada de tipus de lletra—, i els fitxers es desen com a baixades. L'aplicació d'escriptori gratuïta per a macOS, Windows i Linux ho inclou tot.",
   "noticeLink": "Baixa l'aplicació d'escriptori.",
   "ok": "D'acord"
 }

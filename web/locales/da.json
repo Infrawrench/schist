@@ -3,7 +3,7 @@
   "starting": "Starter…",
   "webgpu": "Schist kræver WebGPU, som denne browser ikke tilbyder. Chrome/Edge 113+, Firefox 141+ og Safari 26+ understøtter det.",
   "noticeTitle": "Schist fungerer bedst som computerprogram",
-  "noticeBody": "Du bruger webversionen, som er en lettere udgave: Den sammensætter billeder på CPU'en og udelader nogle funktioner — ekstramoduler til Photoshop og fra andre udviklere, billedgalleriet, AI-panelet, HEIC-import og hentning af skrifter — og filer gemmes som overførsler. Det gratis computerprogram til macOS, Windows og Linux indeholder det hele.",
+  "noticeBody": "Du bruger webversionen, som er en lettere udgave: Den sammensætter billeder på WebGPU'en og udelader nogle funktioner — ekstramoduler til Photoshop og fra andre udviklere, billedgalleriet, AI-panelet, HEIC-import og hentning af skrifter — og filer gemmes som overførsler. Det gratis computerprogram til macOS, Windows og Linux indeholder det hele.",
   "noticeLink": "Hent computerprogrammet.",
   "ok": "OK"
 }

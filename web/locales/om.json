@@ -3,7 +3,7 @@
   "starting": "Jalqabamaa jira…",
   "webgpu": "Schist WebGPU barbaada; biraawzarri kun garuu hin dhiyeessu. Chrome/Edge 113+, Firefox 141+ fi Safari 26+ ni dhiyeessu.",
   "noticeTitle": "Schist akka appii deeskitooppiitti caalaatti hojjeta",
-  "noticeBody": "Ati vershinii weebii fayyadamaa jirta; inni vershinii salphaa dha: suuraa CPU irratti walitti makuun amaloota tokko tokko keessaa hambisa — plug-in Photoshop fi plug-in qaama sadaffaa, kuusaa suuraa, paanaalii AI, galchaa HEIC fi foontiiwwan buufachuu — faayilonnis buufamuun olkaa'amu. Appiin deeskitooppii bilisaa kan macOS, Windows fi Linux amaloota kana hunda qaba.",
+  "noticeBody": "Ati vershinii weebii fayyadamaa jirta; inni vershinii salphaa dha: suuraa WebGPU irratti walitti makuun amaloota tokko tokko keessaa hambisa — plug-in Photoshop fi plug-in qaama sadaffaa, kuusaa suuraa, paanaalii AI, galchaa HEIC fi foontiiwwan buufachuu — faayilonnis buufamuun olkaa'amu. Appiin deeskitooppii bilisaa kan macOS, Windows fi Linux amaloota kana hunda qaba.",
   "noticeLink": "Appii deeskitooppichaa argadhu.",
   "ok": "TOLE"
 }

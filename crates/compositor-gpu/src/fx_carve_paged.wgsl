@@ -36,7 +36,7 @@ const SPAN: u32 = WG * PER_THREAD;
 // up at each end for every row after the first.
 const TILE_COLS: u32 = SPAN - 2u * (TILE_ROWS - 1u);
 
-const BIG: f32 = 3.4028235e38;
+const BIG: f32 = 0x1.fffffep+127f;
 
 @group(0) @binding(0) var<storage, read_write> state: array<i32>;
 @group(0) @binding(1) var px_in: texture_2d_array<f32>;
@@ -144,6 +144,7 @@ fn dp_seed(@builtin(global_invocation_id) gid: vec3<u32>) {
 // Two rows of the scan, alternating: reading one while writing the other
 // needs a single barrier a row instead of two.
 var<workgroup> ring: array<array<f32, SPAN>, 2>;
+var<workgroup> scan_size: vec2<u32>;
 
 // TILE_ROWS rows of the cumulative-cost scan.
 //
@@ -156,8 +157,14 @@ fn dp_tile(
     @builtin(workgroup_id) wid: vec3<u32>,
     @builtin(local_invocation_id) lid: vec3<u32>,
 ) {
-    let w = width();
-    let h = height();
+    // Storage reads are non-uniform in WGSL, even at a shared index.
+    // Broadcast dimensions before using them to exit loops with barriers.
+    if (lid.x == 0u) {
+        scan_size = vec2<u32>(width(), height());
+    }
+    let size = workgroupUniformLoad(&scan_size);
+    let w = size.x;
+    let h = size.y;
     let s = stride();
     let own0 = wid.x * TILE_COLS;
     if (own0 >= w) {
