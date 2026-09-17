@@ -3,6 +3,13 @@ fn code(x:i32,y:i32)->u32{return u32(args[6u+u32(y)*u32(args[1])+u32(x)]);}
 fn at(x:i32,y:i32)->f32{return src[u32(y)*u32(args[1])+u32(x)];}
 fn guide(x:i32,y:i32)->f32{return aux[u32(y)*u32(args[1])+u32(x)];}
 fn difference(x:i32,y:i32)->f32{return at(x,y)-guide(x,y);}
+// Match the CPU's rounding-aware tie handling for the two Bayer passes.
+fn directional_mean(da:f32,db:f32,a:f32,b:f32)->f32{
+    let tolerance=args[3]*max(max(max(max(abs(a),abs(b)),da),db),1.0);
+    if da+tolerance<db{return a;}
+    if db+tolerance<da{return b;}
+    return 0.5*(a+b);
+}
 fn wide(x:i32,y:i32,want:u32,fallback:f32)->f32{
     for(var r=3;r<=6;r++){
         var sum=0.0;var weight=0.0;
@@ -25,7 +32,7 @@ fn compute(i:u32){
             let lh=2.0*v-at(x-2,y)-at(x+2,y);let lv=2.0*v-at(x,y-2)-at(x,y+2);
             let dh=abs(w-e)+abs(lh);let dv=abs(n-s)+abs(lv);
             let gh=0.5*(w+e)+0.25*lh;let gv=0.5*(n+s)+0.25*lv;
-            var out=0.5*(gh+gv);if dh<dv{out=gh;}else if dv<dh{out=gv;}dst[i]=out;return;
+            dst[i]=directional_mean(dh,dv,gh,gv);return;
         }
         if mode==4u && own==1u {dst[i]=v;return;}
         var sum_g=0.0;var weight_g=0.0;var sum_c=0.0;var weight_c=0.0;
@@ -59,8 +66,8 @@ fn compute(i:u32){
             if code(x-1,y)==0u{out=vec3(g+hor,v,g+vert);}else{out=vec3(g+vert,v,g+hor);}
         }else{
             let nw=difference(x-1,y-1);let ne=difference(x+1,y-1);let sw=difference(x-1,y+1);let se=difference(x+1,y+1);
-            let down=abs(nw-se);let up=abs(ne-sw);var other=0.25*(nw+ne+sw+se);
-            if down<up{other=0.5*(nw+se);}else if up<down{other=0.5*(ne+sw);}other+=g;
+            let down=abs(nw-se);let up=abs(ne-sw);
+            let other=g+directional_mean(down,up,0.5*(nw+se),0.5*(ne+sw));
             if own==0u{out=vec3(v,g,other);}else{out=vec3(other,g,v);}
         }
     }else{

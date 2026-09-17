@@ -41,7 +41,7 @@ jobs:
       - name: Windows native video regressions
         if: runner.os == 'Windows'
         run: 'cargo test -p schist-video'
-      - run: cargo test --workspace
+      - run: cargo test --workspace --no-fail-fast
       # The plug-in helpers are the one thing `cargo test` cannot cover:
       # they are built for other architectures than the one under test, so
       # nothing else would notice them failing to compile or link.

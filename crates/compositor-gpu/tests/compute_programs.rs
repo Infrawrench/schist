@@ -319,6 +319,7 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
             },
         ] {
             for quality in [Quality::Fast, Quality::Best] {
+                eprintln!("RAW parity: {cfa:?}, {quality:?}");
                 let (w, h) = (37, 29);
                 let input: Vec<f32> = (0..w * h)
                     .map(|i| ((i * 197 % 1009) as f32 / 1008.0) * 1.7 - 0.02)

@@ -1,4 +1,4 @@
-use super::{Mosaic, Quality, PAD};
+use super::{Mosaic, Quality, DIRECTION_EPSILON, PAD};
 use schist_fx::{ComputeProgram, ComputeShader, ComputeSource, ComputeStep};
 static SHADER: ComputeShader = ComputeShader {
     name: "raw-demosaic",
@@ -26,7 +26,7 @@ pub(super) fn run(
         let ph = height + PAD * 2;
         let n = m.pw * ph;
         let data = &m.plane[top * m.pw..(top + ph) * m.pw];
-        let mut args = vec![0.0, m.pw as f32, ph as f32, 0.0, 0.0, 0.0];
+        let mut args = vec![0.0, m.pw as f32, ph as f32, DIRECTION_EPSILON, 0.0, 0.0];
         args.extend(
             m.codes[top * m.pw..(top + ph) * m.pw]
                 .iter()
