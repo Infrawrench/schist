@@ -6676,6 +6676,7 @@ name = "schist-core"
 version = "0.13.0"
 dependencies = [
  "anyhow",
+ "getrandom 0.3.4",
  "log",
  "parking_lot",
  "rayon",
@@ -6832,6 +6833,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "schist-library"
+version = "0.13.0"
+dependencies = [
+ "anyhow",
+ "base64 0.22.1",
+ "image",
+ "schist-core",
+ "schist-document",
+ "schist-i18n",
+ "schist-mcp",
+ "schist-neural",
+ "schist-plugin-api",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "schist-map-view"
 version = "0.13.0"
 dependencies = [
@@ -6888,20 +6908,9 @@ dependencies = [
  "image",
  "log",
  "rayon",
+ "serde",
  "sha2 0.10.9",
  "tract-onnx",
-]
-
-[[package]]
-name = "schist-people-worker"
-version = "0.13.0"
-dependencies = [
- "anyhow",
- "image",
- "schist-gallery",
- "schist-neural",
- "serde",
- "serde_json",
 ]
 
 [[package]]

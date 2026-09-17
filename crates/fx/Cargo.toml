@@ -6,3 +6,6 @@ license.workspace = true
 
 [dependencies]
 rayon.workspace = true
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }

@@ -15,3 +15,10 @@ smallvec.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 log.workspace = true
+
+[dependencies.getrandom]
+version = "0.3"
+features = ["wasm_js"]
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }

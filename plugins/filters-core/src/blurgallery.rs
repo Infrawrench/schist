@@ -438,7 +438,7 @@ simple_filter!(
     t("filter.category.blur"),
     [
         param("radius", t("common.radius"), 1.0, 60.0, 10.0, " px"),
-        choice("shape", t("common.shape"), choices(SHAPES), 0)
+        choice("shape", t("common.shape"), choices!(SHAPES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // An average over a kernel shaped like something other than a
@@ -493,7 +493,7 @@ simple_filter!(
     [
         param("radius", t("common.radius"), 0.1, 100.0, 5.0, " px"),
         param("threshold", t("common.threshold"), 0.1, 100.0, 25.0, ""),
-        choice("mode", t("common.mode"), choices(SMART_MODES), 0)
+        choice("mode", t("common.mode"), choices!(SMART_MODES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Blur everything that is *nearly* the same as its surroundings
@@ -564,7 +564,7 @@ simple_filter!(
         choice(
             "field",
             t("filter.deinterlace.param.field"),
-            choices(&[
+            choices!(&[
                 "filter.deinterlace.choice.odd_fields",
                 "filter.deinterlace.choice.even_fields"
             ]),
@@ -573,7 +573,7 @@ simple_filter!(
         choice(
             "fill",
             t("filter.deinterlace.param.fill"),
-            choices(&[
+            choices!(&[
                 "filter.deinterlace.choice.interpolation",
                 "filter.deinterlace.choice.duplication"
             ]),

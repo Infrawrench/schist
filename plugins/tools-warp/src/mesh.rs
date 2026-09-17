@@ -9,6 +9,7 @@
 use rayon::prelude::*;
 use schist_color::{Depth, Rgba};
 use schist_core::{IntRect, TileCoord, TileMap, TILE_SIZE};
+#[cfg(not(schist_library))]
 use std::sync::atomic::{AtomicU64, Ordering};
 
 /// Grid spacing in pixels. Small enough that a brush of any usable size
@@ -214,8 +215,16 @@ impl Mesh {
 /// wants no token: a dab redoes its own footprint, which is small enough
 /// that the transfer would cost more than the work.)
 pub fn next_source_token() -> u64 {
+    #[cfg(not(schist_library))]
     static NEXT: AtomicU64 = AtomicU64::new(1);
-    NEXT.fetch_add(1, Ordering::Relaxed)
+    #[cfg(not(schist_library))]
+    {
+        NEXT.fetch_add(1, Ordering::Relaxed)
+    }
+    #[cfg(schist_library)]
+    {
+        schist_core::fresh_id()
+    }
 }
 
 /// Resample `src` through `mesh`, writing into a fresh tile map.

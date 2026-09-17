@@ -10,10 +10,12 @@
 //! writes — minus everything that needs a window (view transforms,
 //! previews, system clipboard, dialogs).
 
-use anyhow::{anyhow, bail, Context as _, Result};
+#[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
+use anyhow::Context as _;
+use anyhow::{anyhow, bail, Result};
 use schist_core::color::{Depth, Rgba};
 use schist_core::{
-    blit_rgba8, AdjustmentKind, Document, IntRect, Layer, LayerId, LayerKind, TileCoord, TILE_SIZE,
+    AdjustmentKind, Document, IntRect, Layer, LayerId, LayerKind, TileCoord, TILE_SIZE,
 };
 use schist_plugin_api::{
     CodecPlugin, CommandCtx, EditorState, ExportOptions, FilterValues, Modifiers, OptionValue,
@@ -21,55 +23,17 @@ use schist_plugin_api::{
 };
 use std::path::{Path, PathBuf};
 
-/// PSD/PSB import and export via `schist-codec-psd` — the same wrapper the
-/// app shell registers.
-struct PsdCodec;
-
-impl CodecPlugin for PsdCodec {
-    fn id(&self) -> &'static str {
-        "codec.psd"
-    }
-    fn name(&self) -> &'static str {
-        "Photoshop PSD"
-    }
-    fn extensions(&self) -> &'static [&'static str] {
-        &["psd", "psb"]
-    }
-    fn probe(&self, bytes: &[u8]) -> bool {
-        schist_codec_psd::is_psd(bytes)
-    }
-    fn import(&self, bytes: &[u8]) -> Result<Document> {
-        Ok(schist_codec_psd::read_psd(bytes)?)
-    }
-    fn can_export(&self) -> bool {
-        true
-    }
-    fn export(&self, doc: &Document) -> Result<Vec<u8>> {
-        Ok(schist_codec_psd::write_psd(doc)?)
-    }
-}
-
-struct PsdPlugin;
-
-impl PluginManifest for PsdPlugin {
-    fn id(&self) -> &'static str {
-        "schist.codec-psd"
-    }
-    fn register(&self, registry: &mut PluginRegistry) {
-        registry.register_codec(Box::new(PsdCodec));
-    }
-}
-
 /// The same first-party plugin set `schist-app` assembles, plus any
 /// installed third-party WebAssembly plugins. Each session gets its own
 /// registry because tools carry per-gesture state.
+#[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
 type Hosts = (
     PluginRegistry,
     schist_plugin_host_wasm::PluginManager,
     schist_plugin_host_8bf::manager::PluginManager,
 );
 
-pub fn build_registry() -> Hosts {
+pub fn builtin_registry() -> PluginRegistry {
     let mut registry = PluginRegistry::new();
     let manifests: Vec<Box<dyn PluginManifest>> = vec![
         Box::new(schist_tools_basic::BasicToolsPlugin),
@@ -84,11 +48,17 @@ pub fn build_registry() -> Hosts {
         Box::new(schist_commands_core::CoreCommandsPlugin),
         Box::new(schist_filters_core::CoreFiltersPlugin),
         Box::new(schist_codecs_common::CommonCodecsPlugin),
-        Box::new(PsdPlugin),
+        Box::new(schist_codecs_common::PsdPlugin),
     ];
     for manifest in manifests {
         manifest.register(&mut registry);
     }
+    registry
+}
+
+#[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
+pub fn build_registry() -> Hosts {
+    let mut registry = builtin_registry();
     let manager = match schist_plugin_host_wasm::PluginManager::plugin_dir() {
         Some(dir) => schist_plugin_host_wasm::PluginManager::load_dir(&dir, &mut registry),
         None => schist_plugin_host_wasm::PluginManager::default(),
@@ -112,19 +82,24 @@ pub struct SessionCtx<'a> {
     pub registry: &'a mut PluginRegistry,
     /// The Photoshop plug-in scan, for `photoshop_plugins` reporting.
     /// `None` when the host has no scan to report.
+    #[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
     pub photoshop: Option<&'a schist_plugin_host_8bf::manager::PluginManager>,
 }
 
+#[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
 pub struct Session {
     pub doc: Document,
     pub state: EditorState,
     pub registry: PluginRegistry,
     /// Keeps loaded WASM plugins alive for the session's lifetime.
+    #[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
     _wasm: schist_plugin_host_wasm::PluginManager,
     /// Keeps the discovered Photoshop plug-ins alive alongside them.
+    #[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
     pub photoshop: schist_plugin_host_8bf::manager::PluginManager,
 }
 
+#[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
 impl Session {
     /// A blank document with a white Background layer, like File ▸ New.
     pub fn new_blank(title: &str, width: u32, height: u32, depth: Depth) -> Result<Session> {
@@ -134,7 +109,7 @@ impl Session {
         let mut doc = Document::new(title, width, height, depth);
         let mut bg = Layer::new_raster("Background");
         let white = vec![255u8; width as usize * height as usize * 4];
-        blit_rgba8(
+        schist_core::blit_rgba8(
             &mut bg.as_raster_mut().unwrap().tiles,
             depth,
             IntRect::from_size(width, height),
@@ -281,7 +256,22 @@ impl Session {
     }
 }
 
-impl SessionCtx<'_> {
+impl<'a> SessionCtx<'a> {
+    /// Borrow a caller-owned editing context without scanning plugin directories.
+    pub fn new(
+        doc: &'a mut Document,
+        state: &'a mut EditorState,
+        registry: &'a mut PluginRegistry,
+    ) -> Self {
+        Self {
+            doc,
+            state,
+            registry,
+            #[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
+            photoshop: None,
+        }
+    }
+
     // ----- commands -----
 
     pub fn run_command(&mut self, id: &str) -> Result<String> {
@@ -778,7 +768,7 @@ fn reshape_layers(layers: &mut [Layer], depth: Depth, canvas: IntRect, damage: &
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "desktop", not(target_arch = "wasm32")))]
 mod tests {
     use super::*;
 

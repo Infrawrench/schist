@@ -13,6 +13,11 @@ path = "src/lib.rs"
 [[bin]]
 name = "schist-mcp"
 path = "src/main.rs"
+required-features = ["desktop"]
+
+[features]
+default = ["desktop"]
+desktop = ["dep:schist-plugin-host-wasm", "dep:schist-plugin-host-8bf", "dep:schist-gallery", "dep:env_logger"]
 
 [dependencies]
 schist-i18n.workspace = true
@@ -22,11 +27,8 @@ schist-compositor.workspace = true
 schist-layer-fx.workspace = true
 schist-adjustments.workspace = true
 schist-codec-psd.workspace = true
-schist-plugin-host-wasm.workspace = true
-schist-plugin-host-8bf = { workspace = true, features = ["registry"] }
 schist-codecs-common.workspace = true
 # The gallery's files on disk, for the gallery_* tools.
-schist-gallery.workspace = true
 schist-neural.workspace = true
 schist-tools-basic.workspace = true
 schist-tools-paint.workspace = true
@@ -44,5 +46,10 @@ serde.workspace = true
 serde_json.workspace = true
 image.workspace = true
 log.workspace = true
-env_logger.workspace = true
 base64 = "0.22"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+schist-plugin-host-wasm = { workspace = true, optional = true }
+schist-plugin-host-8bf = { workspace = true, features = ["registry"], optional = true }
+schist-gallery = { workspace = true, optional = true }
+env_logger = { workspace = true, optional = true }

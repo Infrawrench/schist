@@ -56,7 +56,7 @@ simple_filter!(
         choice(
             "undefined",
             t("filter.param.undefined_areas"),
-            choices(OFFSET_UNDEFINED),
+            choices!(OFFSET_UNDEFINED),
             2
         )
     ],
@@ -159,7 +159,12 @@ simple_filter!(
     t("filter.category.other"),
     [
         param("radius", t("common.radius"), 1.0, 40.0, 2.0, " px"),
-        choice("preserve", t("filter.param.preserve"), choices(PRESERVE), 1)
+        choice(
+            "preserve",
+            t("filter.param.preserve"),
+            choices!(PRESERVE),
+            1
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         morph(
@@ -180,7 +185,12 @@ simple_filter!(
     t("filter.category.other"),
     [
         param("radius", t("common.radius"), 1.0, 40.0, 2.0, " px"),
-        choice("preserve", t("filter.param.preserve"), choices(PRESERVE), 1)
+        choice(
+            "preserve",
+            t("filter.param.preserve"),
+            choices!(PRESERVE),
+            1
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         morph(
@@ -215,10 +225,15 @@ simple_filter!(
         choice(
             "method",
             t("filter.radial_blur.param.method"),
-            choices(RADIAL_METHODS),
+            choices!(RADIAL_METHODS),
             0
         ),
-        choice("quality", t("common.quality"), choices(RADIAL_QUALITIES), 1),
+        choice(
+            "quality",
+            t("common.quality"),
+            choices!(RADIAL_QUALITIES),
+            1
+        ),
         param("x", t("filter.param.centre_x"), 0.0, 100.0, 50.0, "%"),
         param("y", t("filter.param.centre_y"), 0.0, 100.0, 50.0, "%")
     ],
@@ -411,7 +426,7 @@ context_filter!(
         choice(
             "shape",
             t("filter.lens_blur.param.shape"),
-            choices(IRIS_SHAPES),
+            choices!(IRIS_SHAPES),
             0
         ),
         param(
@@ -450,7 +465,7 @@ context_filter!(
         choice(
             "depth",
             t("filter.lens_blur.param.depth"),
-            choices(DEPTH_SOURCES),
+            choices!(DEPTH_SOURCES),
             0
         ),
         param(
@@ -612,7 +627,7 @@ simple_filter!(
             10.0,
             "%"
         ),
-        choice("remove", t("common.remove"), choices(SHARPEN_REMOVE), 1),
+        choice("remove", t("common.remove"), choices!(SHARPEN_REMOVE), 1),
         param("angle", t("common.angle"), 0.0, 360.0, 0.0, "\u{b0}")
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
@@ -1192,7 +1207,7 @@ simple_filter!(
     "filter.hsb_hsl",
     t("filter.hsb_hsl.name"),
     t("filter.category.other"),
-    [choice("mode", t("common.mode"), choices(HSB_MODES), 0)],
+    [choice("mode", t("common.mode"), choices!(HSB_MODES), 0)],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         let _ = (w, h);
         let mode = (v.get("mode").round().max(0.0) as usize).min(3);

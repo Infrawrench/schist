@@ -188,7 +188,7 @@ impl ToolPlugin for RectTool {
             RectKind::Frame => vec![ToolOption::choice(
                 "frame-shape",
                 t("common.shape"),
-                choices(FRAME_SHAPES),
+                choices!(FRAME_SHAPES),
                 self.ellipse as usize,
             )],
             _ => Vec::new(),

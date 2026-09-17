@@ -276,7 +276,7 @@ impl ToolPlugin for LiquifyTool {
             ToolOption::choice(
                 "liquify-mode",
                 t("tool.liquify.option.tool"),
-                choices(MODES),
+                choices!(MODES),
                 self.mode.index(),
             ),
             ToolOption::slider(

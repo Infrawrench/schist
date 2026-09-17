@@ -130,7 +130,7 @@ fn select_tool(sess: &mut SessionCtx, id: &str, args: &Value) -> Result<Value> {
         let kind = declared
             .iter()
             .find(|o| o.key == key)
-            .map(|o| o.kind)
+            .map(|o| o.kind.clone())
             .ok_or_else(|| {
                 anyhow!(
                     "tool {id:?} has no option {key:?} (has: {:?})",
@@ -621,7 +621,7 @@ fn layer_json(layer: &Layer, active: Option<LayerId>) -> Value {
 }
 
 fn option_json(option: &ToolOption) -> Value {
-    let (kind, extra) = match option.kind {
+    let (kind, extra) = match &option.kind {
         OptionKind::Slider { min, max, suffix } => {
             ("slider", json!({"min": min, "max": max, "suffix": suffix}))
         }
@@ -631,8 +631,8 @@ fn option_json(option: &ToolOption) -> Value {
     let value = match option.value {
         OptionValue::Num(v) => json!(v),
         OptionValue::Bool(b) => json!(b),
-        OptionValue::Choice(i) => match option.kind {
-            OptionKind::Choice(names) => json!(names.get(i).copied().unwrap_or("?")),
+        OptionValue::Choice(i) => match &option.kind {
+            OptionKind::Choice(names) => json!(names.get(i).map(String::as_str).unwrap_or("?")),
             _ => json!(i),
         },
     };
@@ -709,6 +709,7 @@ pub fn state_json(id: Option<&str>, sess: &SessionCtx) -> Value {
 /// The plug-ins that loaded are published as filter tools like any
 /// other, so this is really about the ones that did not: which folders
 /// were searched, and what stopped each entry.
+#[cfg(all(feature = "desktop", not(target_arch = "wasm32")))]
 fn photoshop_json(sess: &SessionCtx) -> Value {
     let Some(photoshop) = sess.photoshop else {
         return json!({"folders": [], "plugins": []});
@@ -782,13 +783,13 @@ mod tests {
     #[test]
     fn option_values_coerce_by_kind() {
         use serde_json::json;
-        let choice = OptionKind::Choice(&["Mosaic", "Crystals"]);
+        let choice = OptionKind::Choice(vec!["Mosaic".into(), "Crystals".into()]);
         assert_eq!(
-            coerce_option(&json!("crystals"), choice).unwrap(),
+            coerce_option(&json!("crystals"), choice.clone()).unwrap(),
             OptionValue::Choice(1)
         );
         assert_eq!(
-            coerce_option(&json!(1), choice).unwrap(),
+            coerce_option(&json!(1), choice.clone()).unwrap(),
             OptionValue::Choice(1)
         );
         assert!(coerce_option(&json!("nope"), choice).is_err());
@@ -806,4 +807,9 @@ mod tests {
             OptionValue::Bool(true)
         );
     }
+}
+
+#[cfg(not(all(feature = "desktop", not(target_arch = "wasm32"))))]
+fn photoshop_json(_sess: &SessionCtx) -> Value {
+    json!({"folders": [], "plugins": []})
 }

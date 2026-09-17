@@ -8,12 +8,14 @@ use crate::tile::{TileBuf, TileCoord, TileMap, TILE_PIXELS};
 use rustc_hash::FxHashMap;
 use schist_color::{ColorMode, Depth};
 use std::path::PathBuf;
+#[cfg(not(schist_library))]
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct DocumentId(pub u64);
 
+#[cfg(not(schist_library))]
 static NEXT_DOC_ID: AtomicU64 = AtomicU64::new(1);
 
 /// A ruler guide: a full-canvas line at a fixed position.
@@ -107,7 +109,16 @@ pub struct Document {
 impl Document {
     pub fn new(title: impl Into<String>, width: u32, height: u32, depth: Depth) -> Document {
         Document {
-            id: DocumentId(NEXT_DOC_ID.fetch_add(1, Ordering::Relaxed)),
+            id: DocumentId({
+                #[cfg(not(schist_library))]
+                {
+                    NEXT_DOC_ID.fetch_add(1, Ordering::Relaxed)
+                }
+                #[cfg(schist_library)]
+                {
+                    crate::fresh_id()
+                }
+            }),
             title: title.into(),
             path: None,
             width,

@@ -202,7 +202,7 @@ simple_filter!(
         choice(
             "projection",
             t("filter.adaptive_wide_angle.param.projection"),
-            choices(PROJECTIONS),
+            choices!(PROJECTIONS),
             0
         ),
         param(

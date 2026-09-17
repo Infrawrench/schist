@@ -475,7 +475,7 @@ impl FilterPlugin for AddNoise {
                 max: 1.0,
                 default: 0.0,
                 suffix: "",
-                choices: choices(ADD_NOISE_DISTRIBUTIONS),
+                choices: choices!(ADD_NOISE_DISTRIBUTIONS),
             },
             FilterParam {
                 key: "monochrome",

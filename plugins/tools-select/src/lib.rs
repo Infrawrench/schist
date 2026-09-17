@@ -298,7 +298,7 @@ impl ToolPlugin for MarqueeTool {
             ToolOption::choice(
                 "marquee-mode",
                 t("common.mode"),
-                choices(SELECT_MODES),
+                choices!(SELECT_MODES),
                 mode_index(self.mode),
             ),
             ToolOption::slider(
@@ -495,7 +495,7 @@ impl ToolPlugin for LassoTool {
             ToolOption::choice(
                 "lasso-mode",
                 t("common.mode"),
-                choices(SELECT_MODES),
+                choices!(SELECT_MODES),
                 mode_index(self.mode),
             ),
             ToolOption::slider(
@@ -748,7 +748,7 @@ impl ToolPlugin for WandTool {
             ToolOption::choice(
                 "wand-mode",
                 t("common.mode"),
-                choices(SELECT_MODES),
+                choices!(SELECT_MODES),
                 mode_index(self.mode),
             ),
             ToolOption::slider(
@@ -1230,7 +1230,7 @@ impl ToolPlugin for ObjectSelectTool {
             ToolOption::choice(
                 "os-mode",
                 t("common.mode"),
-                choices(SELECT_MODES),
+                choices!(SELECT_MODES),
                 mode_index(self.mode),
             ),
             ToolOption::slider(

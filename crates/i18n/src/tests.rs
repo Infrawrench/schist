@@ -386,8 +386,8 @@ fn referenced_keys(text: &str) -> Vec<String> {
         }
     }
     let mut from = 0;
-    while let Some(at) = text[from..].find("choices(&[") {
-        let start = from + at + "choices(&[".len();
+    while let Some(at) = text[from..].find("choices!(&[") {
+        let start = from + at + "choices!(&[".len();
         let Some(end) = text[start..].find(']') else {
             break;
         };

@@ -1,0 +1,28 @@
+name: Headless library
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  native-and-wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+          targets: wasm32-unknown-unknown
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: . -> target/library
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang mold
+          version=$(python3 -c 'import tomllib; print(next(p["version"] for p in tomllib.load(open("Cargo.lock", "rb"))["package"] if p["name"] == "wasm-bindgen"))')
+          cargo install --locked wasm-bindgen-cli --version "$version"
+      - run: make lint-library check-library smoke-library

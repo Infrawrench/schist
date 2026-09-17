@@ -155,6 +155,40 @@ fn main() {
         }
         sources.push(joined);
     }
+    // The library protocol has no process-global active locale or lazy caches.
+    let mut english = BTreeMap::new();
+    for line in sources[0].lines() {
+        let line = line.trim();
+        if line.starts_with('#') {
+            continue;
+        }
+        if let Some((key, value)) = line.split_once('=') {
+            let mut decoded = String::new();
+            let mut chars = value.trim().chars();
+            while let Some(c) = chars.next() {
+                if c != '\\' {
+                    decoded.push(c);
+                    continue;
+                }
+                match chars.next() {
+                    Some('n') => decoded.push('\n'),
+                    Some('\\') => decoded.push('\\'),
+                    Some(c) => {
+                        decoded.push('\\');
+                        decoded.push(c);
+                    }
+                    None => decoded.push('\\'),
+                }
+            }
+            english.insert(key.trim(), decoded);
+        }
+    }
+    let mut table = String::from("const ENGLISH: &[(&str, &str)] = &[\n");
+    for (key, value) in english {
+        writeln!(table, "({key:?}, {value:?}),").unwrap();
+    }
+    table.push_str("];\n");
+    fs::write(out.join("english.rs"), table).expect("writing immutable English catalog");
     // Gzip cannot carry a preset dictionary. The zlib wrapper records its
     // Adler-32 ID and a checksum of each catalog, checked during inflation.
     let dictionary = dictionary(&sources);

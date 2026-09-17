@@ -205,7 +205,7 @@ simple_filter!(
         choice(
             "edge",
             t("filter.trace_contour.param.edge"),
-            choices(CONTOUR_EDGES),
+            choices!(CONTOUR_EDGES),
             0
         )
     ],
@@ -267,11 +267,11 @@ simple_filter!(
     t("filter.category.stylize"),
     [
         param("strength", t("common.strength"), 1.0, 100.0, 20.0, " px"),
-        choice("method", t("common.method"), choices(WIND_METHODS), 0),
+        choice("method", t("common.method"), choices!(WIND_METHODS), 0),
         choice(
             "direction",
             t("filter.wind.param.direction"),
-            choices(WIND_DIRECTIONS),
+            choices!(WIND_DIRECTIONS),
             0
         )
     ],
@@ -351,7 +351,12 @@ context_filter!(
             10.0,
             "%"
         ),
-        choice("fill", t("filter.tiles.param.fill"), choices(TILE_FILLS), 0)
+        choice(
+            "fill",
+            t("filter.tiles.param.fill"),
+            choices!(TILE_FILLS),
+            0
+        )
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues, ctx: &FilterContext| {
         // Break the image into tiles and shove each one off its place.
@@ -430,7 +435,7 @@ simple_filter!(
     t("filter.category.stylize"),
     [
         param("amount", t("common.amount"), 1.0, 32.0, 4.0, " px"),
-        choice("mode", t("common.mode"), choices(DIFFUSE_MODES), 0)
+        choice("mode", t("common.mode"), choices!(DIFFUSE_MODES), 0)
     ],
     |px: &mut [f32], w: usize, h: usize, v: &FilterValues| {
         // Swap each pixel with a random neighbour, which frosts the image.
@@ -621,7 +626,7 @@ simple_filter!(
     t("filter.extrude.name"),
     t("filter.category.stylize"),
     [
-        choice("type", t("common.type"), choices(EXTRUDE_TYPES), 0),
+        choice("type", t("common.type"), choices!(EXTRUDE_TYPES), 0),
         param("size", t("common.size"), 2.0, 64.0, 12.0, " px"),
         param(
             "depth",
@@ -634,7 +639,7 @@ simple_filter!(
         choice(
             "basis",
             t("filter.extrude.param.basis"),
-            choices(EXTRUDE_BASES),
+            choices!(EXTRUDE_BASES),
             0
         ),
         param("solid", t("filter.extrude.param.solid"), 0.0, 1.0, 0.0, "")

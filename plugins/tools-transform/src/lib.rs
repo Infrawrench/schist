@@ -383,7 +383,7 @@ impl ToolPlugin for TransformTool {
         vec![ToolOption::choice(
             "transform-interpolation",
             t("tool.transform.option.interpolation"),
-            choices(INTERPOLATIONS),
+            choices!(INTERPOLATIONS),
             match self.resample {
                 Filter::Nearest => 0,
                 Filter::Bilinear => 1,
@@ -718,7 +718,7 @@ impl ToolPlugin for CropTool {
             ToolOption::choice(
                 "crop-ratio",
                 t("tool.crop.option.ratio"),
-                choices(CROP_RATIOS),
+                choices!(CROP_RATIOS),
                 self.ratio,
             ),
             ToolOption::toggle(

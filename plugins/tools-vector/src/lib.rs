@@ -645,7 +645,7 @@ impl ToolPlugin for ShapeTool {
         let mut out = vec![ToolOption::choice(
             "shape-mode",
             t("common.mode"),
-            choices(SHAPE_MODES),
+            choices!(SHAPE_MODES),
             (!self.vector) as usize,
         )];
         out.extend(match self.kind {
@@ -852,7 +852,7 @@ impl ToolPlugin for PenTool {
             ToolOption::choice(
                 "pen-mode",
                 t("common.mode"),
-                choices(SHAPE_MODES),
+                choices!(SHAPE_MODES),
                 usize::from(!self.vector),
             ),
             ToolOption::toggle(

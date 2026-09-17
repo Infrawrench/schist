@@ -17,7 +17,9 @@
 //! compositor is for compositing.
 
 use rayon::prelude::*;
-use std::sync::{Arc, OnceLock, RwLock};
+use std::sync::Arc;
+#[cfg(not(schist_library))]
+use std::sync::{OnceLock, RwLock};
 
 mod shader;
 pub use shader::{try_shader_rgba, ShaderJob, ShaderSpec, SHADER_PRELUDE};
@@ -169,18 +171,22 @@ impl FxBackend for CpuFx {
     }
 }
 
+#[cfg(not(schist_library))]
 static BACKEND: OnceLock<RwLock<Arc<dyn FxBackend>>> = OnceLock::new();
 
+#[cfg(not(schist_library))]
 fn backend_cell() -> &'static RwLock<Arc<dyn FxBackend>> {
     BACKEND.get_or_init(|| RwLock::new(Arc::new(CpuFx)))
 }
 
 /// Install the backend the dispatchers below use.
+#[cfg(not(schist_library))]
 pub fn set_backend(backend: Arc<dyn FxBackend>) {
     *backend_cell().write().unwrap() = backend;
 }
 
 /// The currently active backend.
+#[cfg(not(schist_library))]
 pub fn backend() -> Arc<dyn FxBackend> {
     backend_cell().read().unwrap().clone()
 }
@@ -778,4 +784,9 @@ mod tests {
         };
         assert!(warp(&job, || src.clone()).iter().all(|v| *v == 0.0));
     }
+}
+
+#[cfg(schist_library)]
+pub fn backend() -> Arc<dyn FxBackend> {
+    Arc::new(CpuFx)
 }

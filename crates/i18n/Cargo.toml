@@ -28,3 +28,6 @@ serde_json.workspace = true
 # Reads the CJK web fonts' character maps, to check they cover the
 # zh-Hans and ja catalogs. Already in the tree behind the text engine.
 ttf-parser = "0.21"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }

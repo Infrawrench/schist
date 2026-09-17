@@ -117,6 +117,7 @@ help:
 	@echo 'make test-app         test all application crates'
 	@echo 'make lint-app         lint all application crates'
 	@echo 'make check-app-web    type-check the browser application'
+	@echo 'make library          headless shared library + WASM, into dist/library/'
 	@echo 'make web              the browser build, into dist/web/'
 	@echo 'make android          the Android package, into dist/android/'
 	@echo 'make helpers          just the .8bf plug-in helpers, beside the binary'
@@ -317,17 +318,15 @@ format-document:
 	$(CARGO) fmt -p schist-document -p schist-cloud -p schist-codecs-common
 
 # The cloud adapter uses the same face detector, recogniser and crop as desktop.
-.PHONY: people-worker check-people
-people-worker:
-	$(CARGO) build -p schist-people-worker $(if $(filter release,$(PROFILE)),--release,)
+.PHONY: check-people
 check-people:
 	$(CARGO) test -p schist-gallery people
 	$(CARGO) test -p schist-neural faces
-	$(CARGO) check -p schist-people-worker
+	$(CARGO) check -p schist-library
 
 .PHONY: format-cloud
 format-cloud:
-	$(CARGO) fmt -p schist-cloud $(APP_PACKAGES) -p schist-document -p schist-people-worker
+	$(CARGO) fmt -p schist-cloud $(APP_PACKAGES) -p schist-document -p schist-library
 
 .PHONY: check-gallery check-cloud-browser
 check-gallery:
@@ -343,7 +342,7 @@ check-feature-flags:
 
 .PHONY: lint-cloud
 lint-cloud:
-	$(CARGO) clippy -p schist-cloud $(APP_PACKAGES) -p schist-document -p schist-people-worker --all-targets -- -D warnings
+	$(CARGO) clippy -p schist-cloud $(APP_PACKAGES) -p schist-document -p schist-library --all-targets -- -D warnings
 
 # Photoshop palette readers, workspace integration, and browser compilation.
 .PHONY: check-palettes check-palettes-wasm
@@ -407,3 +406,35 @@ check-native-color-app:
 check-native-color-gpu:
 	$(CARGO) test -p schist-compositor-gpu --test native_parity -- --nocapture
 	$(CARGO) test -p schist-compositor-gpu --test parity
+
+# Headless shared library and WebAssembly bindings; UI embedding is separate.
+.PHONY: library library-native library-wasm check-library check-library-wasm format-library
+LIBRARY_TARGET_DIR ?= $(or $(SCHIST_LIBRARY_TARGET_DIR),target/library)
+library: library-native library-wasm
+library-native:
+	CARGO='$(CARGO)' SCHIST_LIBRARY_TARGET_DIR='$(LIBRARY_TARGET_DIR)' ./tools/library-cargo.sh build $(PROFILE_FLAG) --lib
+	@mkdir -p dist/library
+	cp include/schist.h LICENSE web/fonts/LICENSE-IBMPlexSans.txt dist/library/
+ifeq ($(HOST),linux)
+	cp '$(LIBRARY_TARGET_DIR)/$(PROFILE)/libschist.so' dist/library/
+else ifeq ($(HOST),macos)
+	cp '$(LIBRARY_TARGET_DIR)/$(PROFILE)/libschist.dylib' dist/library/
+else ifeq ($(HOST),windows)
+	cp '$(LIBRARY_TARGET_DIR)/$(PROFILE)/schist.dll' dist/library/
+endif
+library-wasm:
+	CARGO='$(CARGO)' SCHIST_LIBRARY_TARGET_DIR='$(LIBRARY_TARGET_DIR)' ./tools/library-build.sh $(if $(filter debug,$(PROFILE)),--debug,)
+check-library:
+	CARGO='$(CARGO)' ./tools/library-cargo.sh test --lib --tests
+check-library-wasm:
+	CARGO='$(CARGO)' ./tools/library-cargo.sh check --target wasm32-unknown-unknown
+format-library:
+	$(CARGO) fmt -p schist-library -p schist-mcp
+
+.PHONY: smoke-library lint-library
+smoke-library: library
+	$(CC) -Wall -Wextra -Werror -Iinclude examples/library/smoke.c -Ldist/library -lschist -Wl,-rpath,'$(CURDIR)/dist/library' -o '$(LIBRARY_TARGET_DIR)/smoke-c'
+	'$(LIBRARY_TARGET_DIR)/smoke-c'
+	node examples/library/smoke.cjs
+lint-library:
+	CARGO='$(CARGO)' ./tools/library-cargo.sh clippy --lib --tests -- -D warnings

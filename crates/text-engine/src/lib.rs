@@ -9,7 +9,9 @@
 
 use schist_core::IntRect;
 use std::path::PathBuf;
-use std::sync::{Arc, OnceLock, RwLock};
+#[cfg(not(schist_library))]
+use std::sync::OnceLock;
+use std::sync::{Arc, RwLock};
 
 mod shaping;
 mod text_path;
@@ -432,6 +434,7 @@ impl TextRaster {
 /// `OnceLock` because installing a font has to take effect at once: a
 /// document that asked for a family we just fetched should set in it
 /// now, not after a restart.
+#[cfg(not(schist_library))]
 fn font_db() -> &'static RwLock<Arc<fontdb::Database>> {
     static DB: OnceLock<RwLock<Arc<fontdb::Database>>> = OnceLock::new();
     DB.get_or_init(|| RwLock::new(Arc::new(scan_fonts())))
@@ -441,10 +444,11 @@ fn font_db() -> &'static RwLock<Arc<fontdb::Database>> {
 /// [`refresh`] swapping in a new scan cannot pull it out from under them.
 fn db() -> Arc<fontdb::Database> {
     let cell = font_db();
-    match cell.read() {
+    let snapshot = match cell.read() {
         Ok(g) => Arc::clone(&g),
         Err(poisoned) => Arc::clone(&poisoned.into_inner()),
-    }
+    };
+    snapshot
 }
 
 /// Re-scan the font directories and drop every cached face.
@@ -453,6 +457,7 @@ fn db() -> Arc<fontdb::Database> {
 /// [`family_names`] stay valid: the list is rebuilt and re-leaked rather
 /// than mutated, so a caller still holding the old slice keeps reading
 /// good memory.
+#[cfg(not(schist_library))]
 pub fn refresh() {
     let scanned = Arc::new(scan_fonts());
     match font_db().write() {
@@ -471,6 +476,7 @@ pub fn refresh() {
 /// directories to scan: the loading page fetches them and the app calls
 /// [`add_font_data`] before anything shapes text.
 #[cfg(target_arch = "wasm32")]
+#[cfg(not(schist_library))]
 fn web_faces() -> &'static std::sync::Mutex<Vec<Vec<u8>>> {
     static FACES: OnceLock<std::sync::Mutex<Vec<Vec<u8>>>> = OnceLock::new();
     FACES.get_or_init(|| std::sync::Mutex::new(Vec::new()))
@@ -478,6 +484,7 @@ fn web_faces() -> &'static std::sync::Mutex<Vec<Vec<u8>>> {
 
 /// Register a font from raw file bytes and make it usable at once.
 #[cfg(target_arch = "wasm32")]
+#[cfg(not(schist_library))]
 pub fn add_font_data(bytes: Vec<u8>) {
     if let Ok(mut faces) = web_faces().lock() {
         faces.push(bytes);
@@ -550,6 +557,7 @@ struct LoadedFace {
     cap_ratio: Option<f32>,
 }
 
+#[cfg(not(schist_library))]
 fn font_cache() -> &'static std::sync::Mutex<std::collections::HashMap<FaceKey, Option<LoadedFace>>>
 {
     static CACHE: OnceLock<
@@ -560,6 +568,8 @@ fn font_cache() -> &'static std::sync::Mutex<std::collections::HashMap<FaceKey, 
 
 fn scan_fonts() -> fontdb::Database {
     let mut db = fontdb::Database::new();
+    #[cfg(schist_library)]
+    db.load_font_data(include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec());
     db.load_system_fonts();
     if let Some(dir) = font_dir() {
         db.load_fonts_dir(dir);
@@ -574,7 +584,7 @@ fn scan_fonts() -> fontdb::Database {
             PathBuf::from(home).join("Library/Containers/com.apple.FontBook/Data/Library/Fonts"),
         );
     }
-    #[cfg(target_arch = "wasm32")]
+    #[cfg(all(target_arch = "wasm32", not(schist_library)))]
     if let Ok(faces) = web_faces().lock() {
         for bytes in faces.iter() {
             db.load_font_data(bytes.clone());
@@ -654,6 +664,7 @@ pub fn has_family(name: &str) -> bool {
         .any(|f| f.families.iter().any(|(n, _)| n.eq_ignore_ascii_case(name)))
 }
 
+#[cfg(not(schist_library))]
 fn leak_family_names() -> &'static [&'static str] {
     let names: Vec<&'static str> = families()
         .into_iter()
@@ -662,6 +673,7 @@ fn leak_family_names() -> &'static [&'static str] {
     Box::leak(names.into_boxed_slice())
 }
 
+#[cfg(not(schist_library))]
 fn family_name_cache() -> &'static RwLock<&'static [&'static str]> {
     static NAMES: OnceLock<RwLock<&'static [&'static str]>> = OnceLock::new();
     NAMES.get_or_init(|| RwLock::new(leak_family_names()))
@@ -672,6 +684,7 @@ fn family_name_cache() -> &'static RwLock<&'static [&'static str]> {
 /// The options bar asks for this on every frame it draws, so the list is
 /// built once and leaked rather than re-collected; [`refresh`] rebuilds
 /// it after an install.
+#[cfg(not(schist_library))]
 pub fn family_names() -> &'static [&'static str] {
     match family_name_cache().read() {
         Ok(g) => *g,
@@ -1929,3 +1942,20 @@ mod tests {
         assert!(caret_at(&s, 2).is_some());
     }
 }
+
+// A library call owns these temporary resources. The desktop's mutable font
+// database and cache are not linked into the headless distribution.
+#[cfg(schist_library)]
+fn font_db() -> RwLock<Arc<fontdb::Database>> {
+    RwLock::new(Arc::new(scan_fonts()))
+}
+#[cfg(schist_library)]
+fn font_cache() -> std::sync::Mutex<std::collections::HashMap<FaceKey, Option<LoadedFace>>> {
+    std::sync::Mutex::new(std::collections::HashMap::new())
+}
+#[cfg(schist_library)]
+pub fn family_names() -> Vec<String> {
+    families()
+}
+#[cfg(schist_library)]
+pub fn refresh() {}

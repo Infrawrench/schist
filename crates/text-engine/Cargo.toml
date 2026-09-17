@@ -17,3 +17,6 @@ serde.workspace = true
 
 [dev-dependencies]
 serde_json.workspace = true
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }
