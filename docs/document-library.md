@@ -13,7 +13,7 @@ let export = schist_document::export(&codecs, &edited, "psd")?;
 
 `crates/cloud::document::SharedDocument` remains a compatibility re-export. The PSD plugin wrapper now lives in `schist-codecs-common`, so the UI and headless registry use the same wrapper and registration order. `registry()` returns the normal extensible `PluginRegistry`; a host can register additional trusted codecs.
 
-The library includes every built-in desktop codec. HEIC requires libheif and a compatible HEVC decoder at runtime; no library is downloaded automatically by the worker. RAW and HEIC can be imported and collaboratively edited even though their codecs cannot export. Export to layered PSD/PSB to keep an editable document, or explicitly choose another available encoder. The desktop codecs' existing support/fidelity limits still apply. Pixel merging remains tile-level Yjs conflict resolution, not per-pixel blending.
+The library includes every built-in desktop codec. HEIC requires libheif 1.23.4 or later and a compatible HEVC decoder at runtime; older or unverifiable libraries are refused before initialization or image parsing. No library is downloaded automatically by the worker. RAW and HEIC can be imported and collaboratively edited even though their codecs cannot export. Export to layered PSD/PSB to keep an editable document, or explicitly choose another available encoder. The desktop codecs' existing support/fidelity limits still apply. Pixel merging remains tile-level Yjs conflict resolution, not per-pixel blending.
 
 ## Build and verify
 

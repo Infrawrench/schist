@@ -634,12 +634,20 @@ mod tests {
             .join("../../fixtures/heif")
             .join(name);
         let Ok(bytes) = std::fs::read(&path) else {
+            assert!(
+                std::env::var_os("SCHIST_REQUIRE_HEIF").is_none(),
+                "required HEIC fixture is missing: {}",
+                path.display()
+            );
             eprintln!("skipping: no fixture {}", path.display());
             return None;
         };
         assert!(HeifCodec.probe(&bytes), "{name} should probe as HEIF");
         match HeifCodec.import(&bytes) {
-            Err(err) if heif::no_decoder_available(&err) => {
+            Err(err)
+                if heif::no_decoder_available(&err)
+                    && std::env::var_os("SCHIST_REQUIRE_HEIF").is_none() =>
+            {
                 eprintln!("skipping: {err:#}");
                 None
             }

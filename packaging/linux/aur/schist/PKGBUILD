@@ -15,7 +15,7 @@ depends=(fontconfig freetype2 hicolor-icon-theme libxcb libxkbcommon
          libxkbcommon-x11 vulkan-driver vulkan-icd-loader wayland)
 # dlopen'd at run time; the app starts and opens everything else
 # without it.
-optdepends=('libheif: HEIC import')
+optdepends=('libheif>=1.23.4: HEIC import')
 # clang + mold: the repo's .cargo/config.toml selects them as the linker.
 makedepends=(cargo clang mold)
 # !lto: makepkg's -flto=auto produces GCC-bitcode objects in ring's C archive

@@ -14,6 +14,10 @@
 //! 2. The system's libheif (macOS via Homebrew, virtually every Linux
 //!    distro).
 //!
+//! Both must report at least `MINIMUM_VERSION` before initialization or
+//! parsing any image. Rejected copies use the same download offer as a
+//! missing decoder, including when an older managed build is installed.
+//!
 //! Builds stay pure Rust, and machines with neither get an actionable
 //! error instead of a build failure. Import only: encoding HEVC needs
 //! x265, which neither source ships, so `can_export` stays false.
@@ -36,6 +40,33 @@ use anyhow::Context as _;
 use schist_core::Document;
 use schist_i18n::{t, tf};
 use schist_plugin_api::CodecPlugin;
+
+/// Security floor for every libheif consumer, including the headless
+/// library. 1.23.3 and 1.23.4 fix vulnerabilities present in 1.23.2.
+/// https://github.com/strukturag/libheif/releases/tag/v1.23.4
+pub const MINIMUM_VERSION: &str = "1.23.4";
+// libheif's numeric ABI encodes major.minor.patch as 0xHHMMLL00.
+const MINIMUM_VERSION_NUMBER: u32 = 0x0117_0400;
+
+fn require_safe_version(version: Option<u32>) -> Result<(), String> {
+    match version {
+        Some(version) if version >= MINIMUM_VERSION_NUMBER => Ok(()),
+        Some(version) => Err(tf!(
+            "codec.heif.msg.unsafe_version",
+            version = format!(
+                "{}.{}.{}",
+                version >> 24,
+                (version >> 16) & 0xff,
+                (version >> 8) & 0xff
+            ),
+            minimum = MINIMUM_VERSION
+        )),
+        None => Err(tf!(
+            "codec.heif.msg.unknown_version",
+            minimum = MINIMUM_VERSION
+        )),
+    }
+}
 
 /// `enum heif_colorspace`
 const COLORSPACE_RGB: c_int = 1;
@@ -94,6 +125,15 @@ macro_rules! libheif_fns {
         impl LibHeif {
             fn from_library(lib: libloading::Library) -> Result<Self, String> {
                 unsafe {
+                    // Check before resolving the decode API or calling
+                    // heif_init: neither managed nor system libraries
+                    // may bypass the security floor. A missing version
+                    // symbol must fail closed too.
+                    let version = lib
+                        .get::<unsafe extern "C" fn() -> u32>(b"heif_get_version_number\0")
+                        .ok()
+                        .map(|get_version| get_version());
+                    require_safe_version(version)?;
                     Ok(Self {
                         init: lib.get(b"heif_init\0").map(|s| *s).ok(),
                         #[cfg(schist_library)]
@@ -205,7 +245,7 @@ pub fn is_missing_library_error(err: &anyhow::Error) -> bool {
 }
 
 /// True when the failure is "this machine cannot decode HEIC" — no
-/// libheif at all, or one with no HEVC decoder — rather than a broken
+/// safe libheif at all, or one with no HEVC decoder — rather than a broken
 /// file. Tests skip on this; the app asks the further question of
 /// whether a download would fix it.
 pub fn no_decoder_available(err: &anyhow::Error) -> bool {
@@ -214,7 +254,7 @@ pub fn no_decoder_available(err: &anyhow::Error) -> bool {
 }
 
 /// True when this machine cannot decode HEIC today but installing the
-/// managed library would fix it: either no libheif loaded at all, or
+/// managed library would fix it: no safe libheif loaded at all, or
 /// the loaded (system) build has no HEVC decoder — stock Ubuntu ships
 /// libheif with only AV1 plugins — and the managed build, which always
 /// carries one, is neither in use nor already installed.
@@ -319,44 +359,42 @@ macro_rules! managed {
 /// system package instead).
 pub fn managed_library() -> Option<&'static ManagedLibrary> {
     static LINUX_X86_64: ManagedLibrary = managed!(
-        "v1.23.2-3", "1.23.2",
-        "libheif-1.23.2-linux-x86_64.so" as "libheif.so.1",
-        "317fdcc0372234421a415112a6ce0ef84ab88be782efb57c44ee322a10837089"
+        "v1.23.4-1", "1.23.4",
+        "libheif-1.23.4-linux-x86_64.so" as "libheif.so.1",
+        "69d406075e8561c4269b8dbe429e9170c350775267ec3a02c6356740bb4cb806"
     );
     static LINUX_AARCH64: ManagedLibrary = managed!(
-        "v1.23.2-3", "1.23.2",
-        "libheif-1.23.2-linux-aarch64.so" as "libheif.so.1",
-        "cbdba60d3eb17d699af12a53d8399680f56ae7b5b61307e63c07172523808368"
+        "v1.23.4-1", "1.23.4",
+        "libheif-1.23.4-linux-aarch64.so" as "libheif.so.1",
+        "b849638224d5aa064360e164f2555c2979cd61c3a9b69cd2d99c8ed7013532a0"
     );
     static MACOS_AARCH64: ManagedLibrary = managed!(
-        "v1.23.2-3", "1.23.2",
-        "libheif-1.23.2-macos-aarch64.dylib" as "libheif.dylib",
-        "fd44ea1e8a6ba69d7e6756ee055d7bb8351684ba8e7da83aad77bd21f0d1b4fd"
+        "v1.23.4-1", "1.23.4",
+        "libheif-1.23.4-macos-aarch64.dylib" as "libheif.dylib",
+        "3e414a6c79c0cc917c62735c1a4b1270bcea1b74023508f91ce6d0439a45223b"
     );
     static MACOS_X86_64: ManagedLibrary = managed!(
-        "v1.23.2-3", "1.23.2",
-        "libheif-1.23.2-macos-x86_64.dylib" as "libheif.dylib",
-        "8f67631af968e8765150f9d45f286a1182f90c3aacecd4a997dbfd2bb61eb030"
+        "v1.23.4-1", "1.23.4",
+        "libheif-1.23.4-macos-x86_64.dylib" as "libheif.dylib",
+        "7a18feac2440f617408c3ece533f1db9ef8d915c06f4695d6a48e29d3bd2f32f"
     );
     static WINDOWS_X86_64: ManagedLibrary = managed!(
-        "v1.23.2-3", "1.23.2",
-        "libheif-1.23.2-windows-x86_64.dll" as "heif.dll",
-        "a3e200cb857fdd78d01cb05329a7650c035eceb359e9d3f0783dab5cf950b594"
+        "v1.23.4-1", "1.23.4",
+        "libheif-1.23.4-windows-x86_64.dll" as "heif.dll",
+        "81919509cead82e2d81e7614e2653f52f7aaa7e7cf5e7128058b64b1c02be053"
     );
-    // Build 4 added the Android artifacts (NDK cross builds with the
-    // NDK's libc++ linked in, so they depend on Bionic alone); the other
-    // platforms stay on the build they were verified against. arm64 is
-    // every device and the emulator on an Apple Silicon host, x86_64 the
-    // emulator on an Intel one.
+    // NDK cross builds with libc++ linked in, depending on Bionic alone.
+    // arm64 covers devices and Apple Silicon emulators; x86_64 covers
+    // emulators on Intel hosts.
     static ANDROID_AARCH64: ManagedLibrary = managed!(
-        "v1.23.2-4", "1.23.2",
-        "libheif-1.23.2-android-aarch64.so" as "libheif.so",
-        "04f44aacae441b09fcb01e2ca180d34ea0df90ab1fc2d1bdd6f5ebaa05ad06d2"
+        "v1.23.4-1", "1.23.4",
+        "libheif-1.23.4-android-aarch64.so" as "libheif.so",
+        "f5c60697c23e03215fdcf0a52aabdc131eb2a7f29af0751ffbf679ec113aeacf"
     );
     static ANDROID_X86_64: ManagedLibrary = managed!(
-        "v1.23.2-4", "1.23.2",
-        "libheif-1.23.2-android-x86_64.so" as "libheif.so",
-        "a3d03157059f11bd2b4dd2253b736ff84e0881f1aef86bd337aec6a3bbf797b5"
+        "v1.23.4-1", "1.23.4",
+        "libheif-1.23.4-android-x86_64.so" as "libheif.so",
+        "000a7d934247ff9b882ee0a45ef4304a27c58c5d027439aa56eb4a32307348a2"
     );
     match (std::env::consts::OS, std::env::consts::ARCH) {
         ("linux", "x86_64") => Some(&LINUX_X86_64),
@@ -769,5 +807,84 @@ impl Drop for LibHeif {
                 unsafe { deinit() };
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn heif_security_floor_rejects_old_and_unknown_versions() {
+        for version in [
+            None,
+            Some(0),
+            Some(0x0116_0200),
+            Some(0x0117_0200),
+            Some(0x0117_0300),
+        ] {
+            let error = require_safe_version(version).unwrap_err();
+            assert!(error.contains(MINIMUM_VERSION));
+        }
+        for version in [0x0117_0400, 0x0117_0500, 0x0118_0000, 0x0200_0000] {
+            assert!(require_safe_version(Some(version)).is_ok());
+        }
+    }
+
+    // Exercise the actual dlopen boundary with libraries that export a
+    // version but deliberately have no decode API. An old/unverifiable
+    // library must be rejected before we even try to resolve that API.
+    #[test]
+    #[cfg(any(target_os = "linux", target_os = "macos"))]
+    fn heif_loader_checks_security_before_resolving_decoder_symbols() {
+        let dir = std::env::temp_dir().join(format!("schist-heif-security-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        for (name, version) in [
+            ("old", Some(0x0117_0200u32)),
+            ("previous", Some(0x0117_0300)),
+            ("unknown", None),
+            ("safe", Some(0x0117_0400)),
+        ] {
+            let source = dir.join(format!("{name}.c"));
+            let library = dir.join(format!("{name}.{}", std::env::consts::DLL_EXTENSION));
+            let code = version.map_or_else(
+                || "void unrelated_symbol(void) {}".to_string(),
+                |version| {
+                    format!("unsigned int heif_get_version_number(void) {{ return {version}u; }}")
+                },
+            );
+            std::fs::write(&source, code).unwrap();
+            let output = std::process::Command::new("cc")
+                .arg(if cfg!(target_os = "macos") {
+                    "-dynamiclib"
+                } else {
+                    "-shared"
+                })
+                .arg("-fPIC")
+                .arg(&source)
+                .arg("-o")
+                .arg(&library)
+                .output()
+                .expect("a C compiler is required to test the dynamic library boundary");
+            assert!(
+                output.status.success(),
+                "{}",
+                String::from_utf8_lossy(&output.stderr)
+            );
+            let lib = unsafe { libloading::Library::new(&library) }.unwrap();
+            let error = LibHeif::from_library(lib)
+                .err()
+                .expect("stub has no decode API");
+            if name == "safe" {
+                assert!(error.contains("heif_context_alloc"), "{error}");
+            } else {
+                assert_eq!(error, require_safe_version(version).unwrap_err());
+                let unavailable = anyhow::Error::new(Unavailable::NoLibrary { details: error })
+                    .context("opening a HEIC preview");
+                assert!(no_decoder_available(&unavailable));
+                assert!(is_missing_library_error(&unavailable));
+            }
+        }
+        std::fs::remove_dir_all(dir).unwrap();
     }
 }

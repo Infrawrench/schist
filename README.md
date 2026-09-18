@@ -131,9 +131,12 @@ vendor's codecs including Canon's CR3 and sRAW, Fuji's compressed RAF and
 SuperCCD, Sigma's Foveon and GoPro's VC-5; nothing links at build time
 and there is no fallback library to install, on the desktop or in the
 browser. The one thing it refuses is Nikon's licensed High Efficiency
-NEF, which no decoder reads without the vendor's SDK. HEIC decodes through libheif the
-same way: the system's copy if installed, otherwise Schist offers to
-download a hash-pinned, decode-only build (with its LGPL license texts)
+NEF, which no decoder reads without the vendor's SDK. HEIC decodes through libheif
+1.23.4 or later: a downloaded copy takes priority over the system library.
+Older versions and libraries whose version cannot be verified are refused
+before initialization or image parsing, including for previews and thumbnails.
+When no supported decoder is available, Schist offers to download a
+hash-pinned, decode-only build (with its LGPL license texts)
 from [libheif-prebuilt](https://github.com/IAmJSD/libheif-prebuilt) —
 nothing links at build time and the build stays pure Rust. Paint.NET `.pdn`
 and GIMP `.xcf` files open and save with supported raster layers, names,

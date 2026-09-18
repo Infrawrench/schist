@@ -145,7 +145,11 @@ pub(super) fn heif_support(
             .flex_col()
             .gap_2()
             .text_size(px(12.0))
-            .child(tf!("dialog.open.heic_needs_decoder", name = name))
+            .child(tf!(
+                "dialog.open.heic_needs_safe_decoder",
+                name = name,
+                minimum = schist_codecs_common::heif::MINIMUM_VERSION
+            ))
             .child(tf!("dialog.open.heic_offer", version = managed.version)),
         div()
             .flex()

@@ -80,7 +80,7 @@ Maintainer: $packager
 Installed-Size: $size
 Depends: libc6, libfontconfig1, libfreetype6, libxcb1, libxkbcommon0,
  libxkbcommon-x11-0, libwayland-client0, libvulkan1, hicolor-icon-theme
-Recommends: libheif1
+Recommends: libheif1 (>= 1.23.4)
 Homepage: $url
 Description: $summary
  Schist is a layered image editor that opens and writes Photoshop (PSD and
@@ -162,7 +162,7 @@ Requires:       libxkbcommon-x11
 Requires:       libwayland-client
 Requires:       vulkan-loader
 Requires:       hicolor-icon-theme
-Recommends:     libheif
+Recommends:     libheif >= 1.23.4
 
 %description
 Schist is a layered image editor that opens and writes Photoshop (PSD and
@@ -227,7 +227,7 @@ EOF
                libxkbcommon-x11 vulkan-icd-loader wayland; do
         echo "depend = $dep" >> "$work/.PKGINFO"
     done
-    echo "optdepend = libheif: HEIC import" >> "$work/.PKGINFO"
+    echo "optdepend = libheif>=1.23.4: HEIC import" >> "$work/.PKGINFO"
     # Recorded in the .MTREE below, so it is set before that is written.
     chmod 644 "$work/.PKGINFO"
 
