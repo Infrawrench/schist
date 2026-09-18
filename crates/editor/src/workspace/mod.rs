@@ -32,6 +32,7 @@ use std::sync::atomic::AtomicU64;
 #[cfg(not(target_arch = "wasm32"))]
 use std::sync::atomic::Ordering;
 use std::sync::Arc;
+use viewport_frame::ViewportKey;
 
 mod adjustments;
 #[cfg(not(sandboxed))]
@@ -68,6 +69,7 @@ pub mod palettes;
 mod video;
 #[cfg(any(target_os = "ios", target_os = "android"))]
 mod video_mobile;
+mod viewport_frame;
 #[cfg(target_os = "ios")]
 pub use video_mobile::install_ios_window_scene_fix;
 // The path prompts, and the picker drawn where the platform has none.
@@ -822,21 +824,6 @@ pub enum ContextTarget {
 pub struct ContextMenu {
     pub position: Point<Pixels>,
     pub target: ContextTarget,
-}
-
-/// Identifies the state a viewport image was assembled for.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-struct ViewportKey {
-    revision: u64,
-    /// Zoom and pan as raw bits, so any change invalidates.
-    zoom: u32,
-    offset: (i32, i32),
-    size: (u32, u32),
-    color_epoch: u64,
-    rotation: u32,
-    /// The surround outside the document is baked into the image, so a
-    /// theme change must invalidate it.
-    surround: u32,
 }
 
 /// How far along an update the user asked for is.

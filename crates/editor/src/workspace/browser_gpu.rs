@@ -476,7 +476,8 @@ impl Workspace {
     }
 
     /// Keep one submission in flight; newer paints replace the requested stamp.
-    /// A completion can populate unchanged tiles, but only the newest view is shown.
+    /// Completions may show intermediate edits so a continuous drag cannot
+    /// starve painting. Only tiles from the current revision enter the cache.
     pub(super) fn queue_browser_viewport(
         &mut self,
         key: ViewportKey,
@@ -653,20 +654,32 @@ impl Workspace {
                 if context.is_lost() {
                     ws.browser_gpu.context = None;
                 }
-                let same_document = ws
+                let current_revision = ws
                     .doc
                     .as_ref()
-                    .is_some_and(|doc| doc.id == stamp.0 && doc.revision == key.revision)
-                    && ws.color_epoch == key.color_epoch;
-                if same_document {
+                    .filter(|doc| doc.id == stamp.0 && ws.color_epoch == key.color_epoch)
+                    .map(|doc| doc.revision);
+                if let Some(revision) = current_revision {
                     if let Some((tiles, image)) = result {
-                        ws.display_tiles.extend(tiles);
-                        if ws.browser_gpu.requested == Some(stamp) {
+                        // Damage may have invalidated these tiles while the
+                        // GPU was working. A displayable intermediate frame
+                        // must never repopulate the cache with those pixels.
+                        if revision == key.revision {
+                            ws.display_tiles.extend(tiles);
+                        }
+                        let displayed = ws.viewport_image.as_ref().map(|(key, _)| *key);
+                        if ws
+                            .browser_gpu
+                            .requested
+                            .is_some_and(|(document, requested)| {
+                                document == stamp.0 && key.can_present_for(requested, displayed)
+                            })
+                        {
                             if let Some((_, old)) = ws.viewport_image.replace((key, image)) {
                                 ws.retired_images.push(old);
                             }
                         }
-                    } else {
+                    } else if revision == key.revision {
                         ws.browser_gpu.failed = Some(stamp);
                     }
                 }
