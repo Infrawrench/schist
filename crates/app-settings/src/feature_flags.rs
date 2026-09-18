@@ -72,7 +72,7 @@ mod tests {
     }
 
     #[test]
-    fn explicit_false_overrides_an_enabled_default() {
+    fn explicit_false_is_disabled() {
         let overrides = parse_overrides(Some(r#"{"gpu-compositing": false}"#));
         assert!(!evaluate("gpu-compositing", &overrides));
     }
@@ -84,13 +84,13 @@ mod tests {
     }
 
     #[test]
-    fn cloud_is_enabled_by_default_and_independent_of_gpu_compositing() {
-        assert!(evaluate("schist-cloud", &parse_overrides(None)));
+    fn cloud_and_gpu_compositing_overrides_are_independent() {
         let overrides =
             parse_overrides(Some(r#"{"schist-cloud": true, "gpu-compositing": false}"#));
         assert!(evaluate("schist-cloud", &overrides));
         assert!(!evaluate("gpu-compositing", &overrides));
-        let overrides = parse_overrides(Some(r#"{"schist-cloud": false}"#));
+        let overrides =
+            parse_overrides(Some(r#"{"schist-cloud": false, "gpu-compositing": true}"#));
         assert!(!evaluate("schist-cloud", &overrides));
         assert!(evaluate("gpu-compositing", &overrides));
     }
@@ -98,7 +98,7 @@ mod tests {
     #[test]
     fn unknown_names_cannot_be_enabled_by_overrides() {
         let overrides = parse_overrides(Some(
-            r#"{"unknown": true, "GPU-COMPOSITING": true, "": true}"#,
+            r#"{"unknown": true, "GPU-COMPOSITING": true, "": true, "gpu-compositing": true}"#,
         ));
         for name in ["unknown", "GPU-COMPOSITING", "", " gpu-compositing "] {
             assert!(!evaluate(name, &overrides), "{name:?}");
@@ -119,7 +119,9 @@ mod tests {
         ] {
             let overrides = parse_overrides(Some(source));
             assert!(overrides.is_empty(), "{source}");
-            assert!(evaluate("gpu-compositing", &overrides), "{source}");
+            for &(name, default) in DEFAULTS {
+                assert_eq!(evaluate(name, &overrides), default, "{source}: {name}");
+            }
         }
     }
 

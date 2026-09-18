@@ -7,19 +7,27 @@ use std::process::Command;
 
 #[test]
 fn feature_flag_environment_overrides() {
+    // Shipping defaults can change independently of the override mechanism.
+    // Explicitly configure every flag whose value we assert.
     for (overrides, gpu, cloud) in [
-        (None, true, true),
-        (Some(r#"{"gpu-compositing": false}"#), false, true),
-        (Some(r#"{"gpu-compositing": true}"#), true, true),
-        (Some(r#"{"gpu-compositing": "false"}"#), true, true),
-        (Some("not json"), true, true),
-        (Some(r#"{"unknown": true}"#), true, true),
-        (Some(r#"{"schist-cloud": true}"#), true, true),
-        (Some(r#"{"schist-cloud": false}"#), true, false),
-        (Some(r#"{"schist-cloud": "false"}"#), true, true),
         (
-            Some(r#"{"schist-cloud": true, "gpu-compositing": false}"#),
+            r#"{"gpu-compositing": false, "schist-cloud": false}"#,
             false,
+            false,
+        ),
+        (
+            r#"{"gpu-compositing": false, "schist-cloud": true}"#,
+            false,
+            true,
+        ),
+        (
+            r#"{"gpu-compositing": true, "schist-cloud": false}"#,
+            true,
+            false,
+        ),
+        (
+            r#"{"gpu-compositing": true, "schist-cloud": true, "unknown": true}"#,
+            true,
             true,
         ),
     ] {
@@ -28,10 +36,7 @@ fn feature_flag_environment_overrides() {
             .args(["--exact", "feature_flag_child", "--nocapture"])
             .env("SCHIST_TEST_EXPECT_GPU_FLAG", gpu.to_string())
             .env("SCHIST_TEST_EXPECT_CLOUD_FLAG", cloud.to_string())
-            .env_remove("SCHIST_FEATURE_FLAGS");
-        if let Some(overrides) = overrides {
-            child.env("SCHIST_FEATURE_FLAGS", overrides);
-        }
+            .env("SCHIST_FEATURE_FLAGS", overrides);
         let output = child.output().unwrap();
         assert!(
             output.status.success(),
