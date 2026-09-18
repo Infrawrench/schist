@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} ditolak lantaran aya kalemahan kaamanan anu geus dipikanyaho; diperlukeun vérsi {minimum} atawa anu leuwih anyar. Unduh pangrojong HEIC anu geus diapdet atawa apdet pustaka sistem.
+codec.heif.msg.unknown_version = libheif ditolak lantaran vérsina teu bisa diverifikasi; diperlukeun vérsi {minimum} atawa anu leuwih anyar. Unduh pangrojong HEIC anu geus diapdet atawa apdet pustaka sistem.
+dialog.open.heic_needs_safe_decoder = Pikeun muka “{name}” diperlukeun libheif {minimum} atawa anu leuwih anyar jeung dékoder HEVC. Vérsi heubeul atawa anu teu bisa diverifikasi diblokir pikeun ngajaga tina kalemahan kaamanan anu geus dipikanyaho. Unduh pangrojong HEIC anu geus diapdet pikeun neruskeun.
+workspace.docs.heic_safe_decoder_needed = Pangrojong HEIC anu geus diapdet diperlukeun

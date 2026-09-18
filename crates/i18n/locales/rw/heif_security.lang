@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} ntiyemerewe gukoreshwa kubera intege nke zizwi mu mutekano; hakenewe verisiyo {minimum} cyangwa iyisumbuyeho. Kurura ubushobozi bwa HEIC bwavuguruwe cyangwa uvugurure isomero rya sisitemu.
+codec.heif.msg.unknown_version = libheif ntiyemerewe gukoreshwa kuko verisiyo yayo idashobora kugenzurwa; hakenewe verisiyo {minimum} cyangwa iyisumbuyeho. Kurura ubushobozi bwa HEIC bwavuguruwe cyangwa uvugurure isomero rya sisitemu.
+dialog.open.heic_needs_safe_decoder = Gufungura “{name}” bisaba libheif {minimum} cyangwa verisiyo iyisumbuyeho, hamwe n’igisobanura HEVC. Verisiyo za kera cyangwa izidashobora kugenzurwa zirabujijwe kugira ngo hirindwe ingaruka z’intege nke zizwi mu mutekano. Kurura ubushobozi bwa HEIC bwavuguruwe kugira ngo ukomeze.
+workspace.docs.heic_safe_decoder_needed = Ubushobozi bwa HEIC bwavuguruwe burakenewe

@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = 由于存在已知安全漏洞，拒绝使用 libheif {version}；需要 {minimum} 或更高版本。请下载更新后的 HEIC 支持，或升级系统库。
+codec.heif.msg.unknown_version = 由于无法验证版本，拒绝使用 libheif；需要 {minimum} 或更高版本。请下载更新后的 HEIC 支持，或升级系统库。
+dialog.open.heic_needs_safe_decoder = 打开“{name}”需要配备 HEVC 解码器的 libheif {minimum} 或更高版本。为防范已知安全漏洞，旧版本和无法验证的版本已被禁用。请下载更新后的 HEIC 支持以继续。
+workspace.docs.heic_safe_decoder_needed = 需要更新后的 HEIC 支持

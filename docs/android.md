@@ -143,7 +143,7 @@ arbitrary files in Downloads. The picker reports folders it cannot read.
 **HEIC** decodes through the same downloaded libheif as the desktop:
 [IAmJSD/libheif-prebuilt](https://github.com/IAmJSD/libheif-prebuilt)
 publishes Android builds (arm64 and x86_64, with the NDK's libc++ linked
-in so they depend on Bionic alone) from its v1.23.2-4 release, pinned
+in so they depend on Bionic alone) from its v1.23.4-1 release, pinned
 by hash in `plugins/codecs-common/src/heif.rs` like the others. The
 download lands under the private files directory, which is the one
 place on the device a library can be `dlopen`ed from (external storage

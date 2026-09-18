@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} kasutamisest keelduti teadaolevate turvanõrkuste tõttu; nõutav on versioon {minimum} või uuem. Laadi alla uuendatud HEIC-tugi või uuenda süsteemi teeki.
+codec.heif.msg.unknown_version = libheif kasutamisest keelduti, sest selle versiooni ei saa kontrollida; nõutav on versioon {minimum} või uuem. Laadi alla uuendatud HEIC-tugi või uuenda süsteemi teeki.
+dialog.open.heic_needs_safe_decoder = Faili „{name}“ avamiseks on vaja libheif versiooni {minimum} või uuemat koos HEVC-dekoodriga. Vanemad versioonid ja versioonid, mida ei saa kontrollida, blokeeritakse teadaolevate turvanõrkuste eest kaitsmiseks. Jätkamiseks laadi alla uuendatud HEIC-tugi.
+workspace.docs.heic_safe_decoder_needed = Vaja on uuendatud HEIC-tuge

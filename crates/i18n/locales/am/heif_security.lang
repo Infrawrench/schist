@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = የታወቁ የደህንነት ክፍተቶች ስላሉት libheif {version}ን መጠቀም ተከልክሏል፤ ስሪት {minimum} ወይም ከዚያ በኋላ የወጣ ስሪት ያስፈልጋል። የተዘመነ የHEIC ድጋፍ ያውርዱ ወይም የስርዓቱን ቤተ-መጻሕፍት ያዘምኑ።
+codec.heif.msg.unknown_version = ስሪቱን ማረጋገጥ ስለማይቻል libheifን መጠቀም ተከልክሏል፤ ስሪት {minimum} ወይም ከዚያ በኋላ የወጣ ስሪት ያስፈልጋል። የተዘመነ የHEIC ድጋፍ ያውርዱ ወይም የስርዓቱን ቤተ-መጻሕፍት ያዘምኑ።
+dialog.open.heic_needs_safe_decoder = “{name}”ን ለመክፈት የHEVC ፈቺ ያለው libheif {minimum} ወይም ከዚያ በኋላ የወጣ ስሪት ያስፈልጋል። ከታወቁ የደህንነት ክፍተቶች ለመከላከል የቆዩ ወይም ማረጋገጥ የማይቻልባቸው ስሪቶች ታግደዋል። ለመቀጠል የተዘመነ የHEIC ድጋፍ ያውርዱ።
+workspace.docs.heic_safe_decoder_needed = የተዘመነ የHEIC ድጋፍ ያስፈልጋል

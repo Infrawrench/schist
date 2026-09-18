@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = A kọ̀ láti lo libheif {version} nítorí àwọn àìlera ààbò tí a mọ̀; a nílò ẹ̀dà {minimum} tàbí èyí tí ó tuntun jù ú lọ. Gba àtìlẹ́yìn HEIC tí a ti ṣe àtúnṣe sí sílẹ̀ tàbí mú ibi ìkàwé sọ́fítíwẹ́ẹ̀ ètò náà dójú ìwọ̀n.
+codec.heif.msg.unknown_version = A kọ̀ láti lo libheif nítorí a kò lè jẹ́rìí ẹ̀dà rẹ̀; a nílò ẹ̀dà {minimum} tàbí èyí tí ó tuntun jù ú lọ. Gba àtìlẹ́yìn HEIC tí a ti ṣe àtúnṣe sí sílẹ̀ tàbí mú ibi ìkàwé sọ́fítíwẹ́ẹ̀ ètò náà dójú ìwọ̀n.
+dialog.open.heic_needs_safe_decoder = Ṣíṣí “{name}” nílò libheif {minimum} tàbí ẹ̀dà tuntun ju èyí lọ pẹ̀lú olùtumọ̀ HEVC. A dí àwọn ẹ̀dà àtijọ́ àti àwọn ẹ̀dà tí a kò lè jẹ́rìí wọn lọ́wọ́ láti dáàbò bo ẹ̀rọ lọ́wọ́ àwọn àìlera ààbò tí a mọ̀. Gba àtìlẹ́yìn HEIC tí a ti ṣe àtúnṣe sí sílẹ̀ láti tẹ̀ síwájú.
+workspace.docs.heic_safe_decoder_needed = A nílò àtìlẹ́yìn HEIC tí a ti ṣe àtúnṣe sí

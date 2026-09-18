@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} waa la diiday sababo la xiriira nuglaansho amni oo la yaqaan; waxaa loo baahan yahay nooca {minimum} ama mid ka cusub. Soo deji taageerada HEIC ee la cusboonaysiiyey ama cusboonaysii maktabadda nidaamka.
+codec.heif.msg.unknown_version = libheif waa la diiday sababtoo ah noociisa lama xaqiijin karo; waxaa loo baahan yahay nooca {minimum} ama mid ka cusub. Soo deji taageerada HEIC ee la cusboonaysiiyey ama cusboonaysii maktabadda nidaamka.
+dialog.open.heic_needs_safe_decoder = Furista “{name}” waxay u baahan tahay libheif {minimum} ama nooc ka cusub oo leh furfuraha HEVC. Noocyada duugga ah ama kuwa aan la xaqiijin karin waa la xannibay si looga ilaaliyo nuglaanshaha amni ee la yaqaan. Soo deji taageerada HEIC ee la cusboonaysiiyey si aad u sii waddo.
+workspace.docs.heic_safe_decoder_needed = Waxaa loo baahan yahay taageerada HEIC ee la cusboonaysiiyey

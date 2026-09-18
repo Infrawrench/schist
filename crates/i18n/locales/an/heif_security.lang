@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Se refusa libheif {version} por vulnerabilidatz de seguranza conoixidas; cal a versión {minimum} u una posterior. Descarga o soporte de HEIC actualizau u actualiza a biblioteca d'o sistema.
+codec.heif.msg.unknown_version = Se refusa libheif porque no se puede verificar a suya versión; cal a versión {minimum} u una posterior. Descarga o soporte de HEIC actualizau u actualiza a biblioteca d'o sistema.
+dialog.open.heic_needs_safe_decoder = Ta ubrir «{name}» cal libheif {minimum} u una versión posterior con un decodificador HEVC. As versions antigas u que no se pueden verificar son blocadas ta protecher contra vulnerabilidatz de seguranza conoixidas. Descarga o soporte de HEIC actualizau ta continar.
+workspace.docs.heic_safe_decoder_needed = Cal o soporte de HEIC actualizau

@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = השימוש ב־libheif {version} נדחה עקב פרצות אבטחה ידועות; נדרשת גרסה {minimum} ומעלה. יש להוריד תמיכה מעודכנת ב־HEIC או לשדרג את ספריית המערכת.
+codec.heif.msg.unknown_version = השימוש ב־libheif נדחה כי לא ניתן לאמת את גרסת הספרייה; נדרשת גרסה {minimum} ומעלה. יש להוריד תמיכה מעודכנת ב־HEIC או לשדרג את ספריית המערכת.
+dialog.open.heic_needs_safe_decoder = פתיחת „{name}” דורשת את libheif בגרסה {minimum} ומעלה, עם מפענח HEVC. גרסאות ישנות יותר או גרסאות שלא ניתן לאמת נחסמות כדי להגן מפני פרצות אבטחה ידועות. יש להוריד תמיכה מעודכנת ב־HEIC כדי להמשיך.
+workspace.docs.heic_safe_decoder_needed = נדרשת תמיכה מעודכנת ב־HEIC

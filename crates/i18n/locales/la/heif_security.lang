@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} propter vitia securitatis nota reicitur; versio {minimum} aut recentior requiritur. Facultatem HEIC renovatam descende aut bibliothecam systematis renova.
+codec.heif.msg.unknown_version = libheif reicitur quia versio eius comprobari non potest; versio {minimum} aut recentior requiritur. Facultatem HEIC renovatam descende aut bibliothecam systematis renova.
+dialog.open.heic_needs_safe_decoder = Ad “{name}” aperiendum libheif versionis {minimum} aut recentioris cum decodificatore HEVC requiritur. Versiones antiquiores vel quae comprobari non possunt intercluduntur ad vitia securitatis nota vitanda. Facultatem HEIC renovatam descende ut pergas.
+workspace.docs.heic_safe_decoder_needed = Facultas HEIC renovata requiritur

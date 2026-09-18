@@ -19,7 +19,7 @@ depends=(fontconfig freetype2 hicolor-icon-theme libxcb libxkbcommon
 # resolve it to nvidia-utils in the build container; Omarchy installs the right
 # driver per machine. libheif is dlopen'd; everything else opens without it.
 optdepends=('vulkan-driver: GPU rendering (any Vulkan ICD, vulkan-swrast in software)'
-            'libheif: HEIC import')
+            'libheif>=1.23.4: HEIC import')
 provides=(schist)
 conflicts=(schist)
 # The released binary ships byte-exact: it is already stripped by the

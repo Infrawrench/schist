@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = I no letem yu yusum libheif {version} from ol wik poen long sekiuriti we oli save long olgeta finis; yu nidim vesen {minimum} o wan vesen we i niufala moa. Daonlodem HEIC sapot we oli apdetem finis o apdetem library blong system.
+codec.heif.msg.unknown_version = I no letem yu yusum libheif from oli no save konfemem vesen blong hem; yu nidim vesen {minimum} o wan vesen we i niufala moa. Daonlodem HEIC sapot we oli apdetem finis o apdetem library blong system.
+dialog.open.heic_needs_safe_decoder = Blong openem “{name}” yu nidim libheif {minimum} o wan vesen we i niufala moa, wetem wan HEVC decoder. Oli blokem ol olfala vesen mo ol vesen we oli no save konfemem, blong protektem yu long ol wik poen long sekiuriti we oli save long olgeta finis. Daonlodem HEIC sapot we oli apdetem finis blong gohed.
+workspace.docs.heic_safe_decoder_needed = Yu nidim HEIC sapot we oli apdetem finis

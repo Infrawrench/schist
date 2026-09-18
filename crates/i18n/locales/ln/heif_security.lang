@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Kosalela libheif {version} endimami te mpo na bolɛmbu ya bokengi oyo eyebani; esengeli na vɛrsio {minimum} to oyo ya sika koleka. Zwá lisungi ya HEIC oyo ezongisami sika to salá mise à jour ya bibliotɛkɛ ya sistɛme.
+codec.heif.msg.unknown_version = Kosalela libheif endimami te mpo vɛrsio na yango ekoki kondimisama te; esengeli na vɛrsio {minimum} to oyo ya sika koleka. Zwá lisungi ya HEIC oyo ezongisami sika to salá mise à jour ya bibliotɛkɛ ya sistɛme.
+dialog.open.heic_needs_safe_decoder = Kofungola “{name}” esengeli na libheif {minimum} to vɛrsio ya sika koleka oyo ezali na efungoli ya kode HEVC. Bavɛrsio ya kala to oyo ekoki kondimisama te ekangami mpo na kobatela yo na bolɛmbu ya bokengi oyo eyebani. Zwá lisungi ya HEIC oyo ezongisami sika mpo na kokoba.
+workspace.docs.heic_safe_decoder_needed = Esengeli na lisungi ya HEIC oyo ezongisami sika

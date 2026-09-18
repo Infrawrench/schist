@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} -kirjaston käyttö estetään tunnettujen tietoturvahaavoittuvuuksien vuoksi; tarvitaan versio {minimum} tai uudempi. Lataa päivitetty HEIC-tuki tai päivitä järjestelmän kirjasto.
+codec.heif.msg.unknown_version = libheif-kirjaston käyttö estetään, koska sen versiota ei voida varmistaa; tarvitaan versio {minimum} tai uudempi. Lataa päivitetty HEIC-tuki tai päivitä järjestelmän kirjasto.
+dialog.open.heic_needs_safe_decoder = Kohteen ”{name}” avaaminen vaatii libheif-kirjaston version {minimum} tai uudemman sekä HEVC-dekooderin. Vanhempien versioiden ja sellaisten versioiden, joita ei voida varmistaa, käyttö estetään tunnetuilta tietoturvahaavoittuvuuksilta suojaamiseksi. Jatka lataamalla päivitetty HEIC-tuki.
+workspace.docs.heic_safe_decoder_needed = Päivitetty HEIC-tuki vaaditaan

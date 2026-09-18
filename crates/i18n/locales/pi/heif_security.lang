@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Ārakkhāya ñātadubbalyānaṃ kāraṇā libheif {version} paṭikkhipīyati; {minimum} nimmāṇaṃ vā tato navataraṃ vā avassakaṃ. Navīkataṃ HEIC-upatthambhaṃ āharatha, yantassa ganthālayaṃ vā navīkarotha.
+codec.heif.msg.unknown_version = Nimmāṇassa nicchayaṃ kātuṃ na sakkāti libheif paṭikkhipīyati; {minimum} nimmāṇaṃ vā tato navataraṃ vā avassakaṃ. Navīkataṃ HEIC-upatthambhaṃ āharatha, yantassa ganthālayaṃ vā navīkarotha.
+dialog.open.heic_needs_safe_decoder = “{name}” vivarituṃ HEVC-viggāhakena saddhiṃ libheif {minimum} nimmāṇaṃ vā tato navataraṃ vā avassakaṃ. Ārakkhāya ñātadubbalyehi rakkhaṇatthāya purāṇāni nimmāṇāni ca nicchayaṃ kātuṃ asakkuṇeyyāni nimmāṇāni ca nivārīyanti. Anuvattituṃ navīkataṃ HEIC-upatthambhaṃ āharatha.
+workspace.docs.heic_safe_decoder_needed = Navīkato HEIC-upatthambho avassako

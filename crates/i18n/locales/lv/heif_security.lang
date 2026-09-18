@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} izmantošana ir liegta zināmu drošības ievainojamību dēļ; nepieciešama versija {minimum} vai jaunāka. Lejupielādējiet atjauninātu HEIC atbalstu vai atjauniniet sistēmas bibliotēku.
+codec.heif.msg.unknown_version = libheif izmantošana ir liegta, jo tā versiju nevar pārbaudīt; nepieciešama versija {minimum} vai jaunāka. Lejupielādējiet atjauninātu HEIC atbalstu vai atjauniniet sistēmas bibliotēku.
+dialog.open.heic_needs_safe_decoder = Lai atvērtu “{name}”, nepieciešama libheif versija {minimum} vai jaunāka ar HEVC dekodētāju. Vecākas versijas un versijas, kuras nevar pārbaudīt, ir bloķētas, lai aizsargātu pret zināmām drošības ievainojamībām. Lai turpinātu, lejupielādējiet atjauninātu HEIC atbalstu.
+workspace.docs.heic_safe_decoder_needed = Nepieciešams atjaunināts HEIC atbalsts

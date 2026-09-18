@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Nyns yw libheif {version} alowys awos gwanderow diogeledh aswonnys; res yw versyon {minimum} po nowydhha. Iskargewgh skoodh HEIC nowedhys po nowedhewgh lyverva an system.
+codec.heif.msg.unknown_version = Nyns yw libheif alowys rag na yllir gwirya y versyon; res yw versyon {minimum} po nowydhha. Iskargewgh skoodh HEIC nowedhys po nowedhewgh lyverva an system.
+dialog.open.heic_needs_safe_decoder = Res yw libheif {minimum} po nowydhha gans kodhaller HEVC rag ygeri “{name}”. Versyons kothha po versyons na yllir gwirya yw lettys rag difres erbynn gwanderow diogeledh aswonnys. Iskargewgh skoodh HEIC nowedhys rag pesya.
+workspace.docs.heic_safe_decoder_needed = Res yw skoodh HEIC nowedhys

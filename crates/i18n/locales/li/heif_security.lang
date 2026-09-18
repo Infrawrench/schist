@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} weurt geweigerd vanwaege bekènde veiligheidslekke; vèrsie {minimum} of nuujer is neudig. Download biewèrkte HEIC-oondersteuning of werk de systeembibliotheek bie.
+codec.heif.msg.unknown_version = libheif weurt geweigerd ómdat de vèrsie neet gecontroleerd kin waere; vèrsie {minimum} of nuujer is neudig. Download biewèrkte HEIC-oondersteuning of werk de systeembibliotheek bie.
+dialog.open.heic_needs_safe_decoder = Om “{name}” te äöpene is libheif {minimum} of nuujer mit 'ne HEVC-decoder neudig. Awere vèrsies en vèrsies die neet gecontroleerd kinne waere, waere geblokkeerd om te besjèrme taege bekènde veiligheidslekke. Download biewèrkte HEIC-oondersteuning om door te gaon.
+workspace.docs.heic_safe_decoder_needed = Biewèrkte HEIC-oondersteuning is neudig

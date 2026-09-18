@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Gebruik van libheif {version} word geweier weens bekende sekuriteitskwesbaarhede; weergawe {minimum} of later word vereis. Laai opgedateerde HEIC-ondersteuning af of gradeer die stelselbiblioteek op.
+codec.heif.msg.unknown_version = Gebruik van libheif word geweier omdat die weergawe daarvan nie geverifieer kan word nie; weergawe {minimum} of later word vereis. Laai opgedateerde HEIC-ondersteuning af of gradeer die stelselbiblioteek op.
+dialog.open.heic_needs_safe_decoder = Om “{name}” oop te maak, word libheif {minimum} of later met 'n HEVC-dekodeerder vereis. Ouer weergawes of weergawes wat nie geverifieer kan word nie, word geblokkeer om teen bekende sekuriteitskwesbaarhede te beskerm. Laai opgedateerde HEIC-ondersteuning af om voort te gaan.
+workspace.docs.heic_safe_decoder_needed = Opgedateerde HEIC-ondersteuning word vereis

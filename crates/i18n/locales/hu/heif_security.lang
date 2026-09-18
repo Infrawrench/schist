@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = A libheif {version} használata ismert biztonsági sebezhetőségek miatt letiltva; a(z) {minimum} vagy újabb verzió szükséges. Töltse le a frissített HEIC-támogatást, vagy frissítse a rendszerkönyvtárat.
+codec.heif.msg.unknown_version = A libheif használata letiltva, mert a verziója nem ellenőrizhető; a(z) {minimum} vagy újabb verzió szükséges. Töltse le a frissített HEIC-támogatást, vagy frissítse a rendszerkönyvtárat.
+dialog.open.heic_needs_safe_decoder = A(z) „{name}” megnyitásához a libheif {minimum} vagy újabb verziója és egy HEVC-dekódoló szükséges. A régebbi vagy nem ellenőrizhető verziók az ismert biztonsági sebezhetőségek elleni védelem érdekében le vannak tiltva. A folytatáshoz töltse le a frissített HEIC-támogatást.
+workspace.docs.heic_safe_decoder_needed = Frissített HEIC-támogatás szükséges

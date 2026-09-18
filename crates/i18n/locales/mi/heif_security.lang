@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Kua aukatia te whakamahi i a libheif {version} nā ngā whakaraeraetanga haumarutanga e mōhiotia ana; me whai putanga {minimum}, tētahi putanga hōu ake rānei. Tikiake i te tautoko HEIC kua whakahoutia, whakahou rānei i te puna o te pūnaha.
+codec.heif.msg.unknown_version = Kua aukatia te whakamahi i a libheif nā te kore e taea te manatoko i tōna putanga; me whai putanga {minimum}, tētahi putanga hōu ake rānei. Tikiake i te tautoko HEIC kua whakahoutia, whakahou rānei i te puna o te pūnaha.
+dialog.open.heic_needs_safe_decoder = Hei huaki i a “{name}”, me whai i a libheif {minimum}, tētahi putanga hōu ake rānei, me tētahi pūwetewaehere HEVC. Kua aukatia ngā putanga tawhito me ngā putanga kāore e taea te manatoko hei ārai i ngā whakaraeraetanga haumarutanga e mōhiotia ana. Tikiake i te tautoko HEIC kua whakahoutia hei haere tonu.
+workspace.docs.heic_safe_decoder_needed = Me whai tautoko HEIC kua whakahoutia

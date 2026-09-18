@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Kugwiritsa ntchito libheif {version} kwakanidwa chifukwa cha zofooka zodziwika zachitetezo; pakufunika veshoni {minimum} kapena yatsopano kuposa imeneyo. Tsitsani chothandizira HEIC chosinthidwa kapena sinthani library ya dongosolo.
+codec.heif.msg.unknown_version = Kugwiritsa ntchito libheif kwakanidwa chifukwa veshoni yake siingatsimikizidwe; pakufunika veshoni {minimum} kapena yatsopano kuposa imeneyo. Tsitsani chothandizira HEIC chosinthidwa kapena sinthani library ya dongosolo.
+dialog.open.heic_needs_safe_decoder = Kutsegula “{name}” kumafuna libheif {minimum} kapena veshoni yatsopano kuposa imeneyo yokhala ndi decoder ya HEVC. Maveshoni akale kapena omwe sangathe kutsimikizidwa amaletsedwa pofuna kuteteza ku zofooka zodziwika zachitetezo. Tsitsani chothandizira HEIC chosinthidwa kuti mupitirize.
+workspace.docs.heic_safe_decoder_needed = Pakufunika chothandizira HEIC chosinthidwa

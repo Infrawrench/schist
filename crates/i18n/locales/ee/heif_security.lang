@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Wogbe libheif {version} zazã le dedienɔnɔ ƒe gbɔdzɔgbɔdzɔ siwo wonya ta; tata {minimum} alo esi nye yeye wu hia. Da HEIC ƒe kpekpeɖeŋu si wowɔ yeye ɖe anyi alo wɔ ɖoɖo la ƒe library yeye.
+codec.heif.msg.unknown_version = Wogbe libheif zazã elabena womate ŋu aka ɖe eƒe tata dzi o; tata {minimum} alo esi nye yeye wu hia. Da HEIC ƒe kpekpeɖeŋu si wowɔ yeye ɖe anyi alo wɔ ɖoɖo la ƒe library yeye.
+dialog.open.heic_needs_safe_decoder = libheif {minimum} alo esi nye yeye wu kple HEVC decoder hia be woaʋu “{name}”. Woxe mɔ na tata xoxowo alo tata siwo dzi womate ŋu aka ɖo o be woakpɔ ta tso dedienɔnɔ ƒe gbɔdzɔgbɔdzɔ siwo wonya me. Da HEIC ƒe kpekpeɖeŋu si wowɔ yeye ɖe anyi be nàyi edzi.
+workspace.docs.heic_safe_decoder_needed = HEIC ƒe kpekpeɖeŋu si wowɔ yeye hia

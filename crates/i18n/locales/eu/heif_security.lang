@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Ezin da libheif {version} erabili, segurtasun-ahultasun ezagunak dituelako; {minimum} bertsioa edo berriagoa behar da. Deskargatu HEIC euskarri eguneratua edo eguneratu sistemaren liburutegia.
+codec.heif.msg.unknown_version = Ezin da libheif erabili, haren bertsioa ezin delako egiaztatu; {minimum} bertsioa edo berriagoa behar da. Deskargatu HEIC euskarri eguneratua edo eguneratu sistemaren liburutegia.
+dialog.open.heic_needs_safe_decoder = “{name}” irekitzeko, HEVC deskodetzailea duen libheif {minimum} bertsioa edo berriagoa behar da. Bertsio zaharrak edo egiaztatu ezin direnak blokeatuta daude, segurtasun-ahultasun ezagunetatik babesteko. Jarraitzeko, deskargatu HEIC euskarri eguneratua.
+workspace.docs.heic_safe_decoder_needed = HEIC euskarri eguneratua behar da

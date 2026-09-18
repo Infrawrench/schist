@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} gëtt wéinst bekannte Sécherheetslücke refuséiert; Versioun {minimum} oder méi nei ass néideg. Luet aktualiséiert HEIC-Ënnerstëtzung erof oder aktualiséiert d'Systembibliothéik.
+codec.heif.msg.unknown_version = libheif gëtt refuséiert, well seng Versioun net iwwerpréift ka ginn; Versioun {minimum} oder méi nei ass néideg. Luet aktualiséiert HEIC-Ënnerstëtzung erof oder aktualiséiert d'Systembibliothéik.
+dialog.open.heic_needs_safe_decoder = Fir „{name}“ opzemaachen, ass libheif {minimum} oder méi nei mat engem HEVC-Decoder néideg. Eeler Versiounen oder Versiounen, déi net iwwerpréift kënne ginn, gi blockéiert, fir géint bekannte Sécherheetslücken ze schützen. Luet aktualiséiert HEIC-Ënnerstëtzung erof, fir weiderzemaachen.
+workspace.docs.heic_safe_decoder_needed = Aktualiséiert HEIC-Ënnerstëtzung ass néideg

@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} wurdt wegere fanwegen bekende befeiligingslekken; ferzje {minimum} of nijer is nedich. Laad bywurke HEIC-stipe yn of wurkje de systeembibleteek by.
+codec.heif.msg.unknown_version = libheif wurdt wegere omdat de ferzje net ferifiearre wurde kin; ferzje {minimum} of nijer is nedich. Laad bywurke HEIC-stipe yn of wurkje de systeembibleteek by.
+dialog.open.heic_needs_safe_decoder = Foar it iepenjen fan “{name}” is libheif {minimum} of nijer mei in HEVC-dekoder nedich. Aldere ferzjes of ferzjes dy't net ferifiearre wurde kinne, wurde blokkearre om te beskermjen tsjin bekende befeiligingslekken. Laad bywurke HEIC-stipe yn om troch te gean.
+workspace.docs.heic_safe_decoder_needed = Bywurke HEIC-stipe is nedich

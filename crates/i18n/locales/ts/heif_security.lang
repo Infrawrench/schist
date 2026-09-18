@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} a yi amukeriwi hikokwalaho ka swihoxo swa vuhlayiseki leswi tivekaka; ku laveka vhexini ya {minimum} kumbe leyi nga humesiwa endzhaku ka yona. Dawuniloda nseketelo wa HEIC lowu pfuxetiweke kumbe u pfuxeta layiburari ya sisiteme.
+codec.heif.msg.unknown_version = libheif a yi amukeriwi hikuva vhexini ya yona a yi koteki ku tiyisisiwa; ku laveka vhexini ya {minimum} kumbe leyi nga humesiwa endzhaku ka yona. Dawuniloda nseketelo wa HEIC lowu pfuxetiweke kumbe u pfuxeta layiburari ya sisiteme.
+dialog.open.heic_needs_safe_decoder = Ku pfula “{name}” swi lava libheif {minimum} kumbe vhexini leyi nga humesiwa endzhaku ka yona, leyi nga ni decoder ya HEVC. Tivhexini ta khale kumbe leti nga kotekiki ku tiyisisiwa ta siveriwa leswaku ku sirheleriwa eka swihoxo swa vuhlayiseki leswi tivekaka. Dawuniloda nseketelo wa HEIC lowu pfuxetiweke leswaku u ya mahlweni.
+workspace.docs.heic_safe_decoder_needed = Ku laveka nseketelo wa HEIC lowu pfuxetiweke

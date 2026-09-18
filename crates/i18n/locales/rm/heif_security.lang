@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = L'utilisaziun da libheif {version} vegn refusada pervi da largias da segirezza enconuschentas; la versiun {minimum} u ina pli nova è necessaria. Telechargiar il sustegn da HEIC actualisà u actualisar la biblioteca dal sistem.
+codec.heif.msg.unknown_version = L'utilisaziun da libheif vegn refusada perquai che sia versiun na po betg vegnir verifitgada; la versiun {minimum} u ina pli nova è necessaria. Telechargiar il sustegn da HEIC actualisà u actualisar la biblioteca dal sistem.
+dialog.open.heic_needs_safe_decoder = Per avrir «{name}» dovri libheif {minimum} u ina versiun pli nova cun in decodader HEVC. Versiuns pli veglias u betg verifitgablas vegnan bloccadas per proteger cunter largias da segirezza enconuschentas. Telechargiar il sustegn da HEIC actualisà per cuntinuar.
+workspace.docs.heic_safe_decoder_needed = Il sustegn da HEIC actualisà è necessari

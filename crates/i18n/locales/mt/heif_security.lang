@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = L-użu ta' libheif {version} qed jiġi rrifjutat minħabba vulnerabbiltajiet tas-sigurtà magħrufa; hija meħtieġa l-verżjoni {minimum} jew waħda aktar ġdida. Niżżel l-appoġġ aġġornat għal HEIC jew aġġorna l-librerija tas-sistema.
+codec.heif.msg.unknown_version = L-użu ta' libheif qed jiġi rrifjutat għax il-verżjoni tagħha ma tistax tiġi vverifikata; hija meħtieġa l-verżjoni {minimum} jew waħda aktar ġdida. Niżżel l-appoġġ aġġornat għal HEIC jew aġġorna l-librerija tas-sistema.
+dialog.open.heic_needs_safe_decoder = Biex tiftaħ “{name}” teħtieġ libheif {minimum} jew verżjoni aktar ġdida b'dekoder HEVC. Verżjonijiet eqdem jew li ma jistgħux jiġu vverifikati huma mblukkati għal protezzjoni kontra vulnerabbiltajiet tas-sigurtà magħrufa. Niżżel l-appoġġ aġġornat għal HEIC biex tkompli.
+workspace.docs.heic_safe_decoder_needed = Huwa meħtieġ appoġġ aġġornat għal HEIC

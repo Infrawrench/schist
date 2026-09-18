@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = A utilização da libheif {version} foi recusada devido a vulnerabilidades de segurança conhecidas; é necessária a versão {minimum} ou posterior. Transfira o suporte atualizado para HEIC ou atualize a biblioteca do sistema.
+codec.heif.msg.unknown_version = A utilização da libheif foi recusada porque não é possível verificar a sua versão; é necessária a versão {minimum} ou posterior. Transfira o suporte atualizado para HEIC ou atualize a biblioteca do sistema.
+dialog.open.heic_needs_safe_decoder = Para abrir “{name}” é necessária a libheif {minimum} ou posterior com um descodificador HEVC. As versões anteriores ou que não podem ser verificadas são bloqueadas para proteger contra vulnerabilidades de segurança conhecidas. Transfira o suporte atualizado para HEIC para continuar.
+workspace.docs.heic_safe_decoder_needed = É necessário suporte atualizado para HEIC

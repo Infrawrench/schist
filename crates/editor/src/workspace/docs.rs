@@ -417,7 +417,7 @@ impl Workspace {
                     self.open_filter_dialog("filter.camera_raw", cx);
                 }
             }
-            // A HEIC on a machine with no libheif — or a libheif with
+            // A HEIC on a machine with no safe libheif — or a libheif with
             // no HEVC decoder, as stock Ubuntu ships: downloading the
             // managed build fixes both, so offer that instead of failing.
             // (The web build has no dlopen and no HEIC codec at all, so
@@ -428,7 +428,7 @@ impl Workspace {
                     && schist_codecs_common::heif::managed_library().is_some()
                     && self.modal.is_none() =>
             {
-                self.status = t("workspace.docs.heic_not_installed").into();
+                self.status = t("workspace.docs.heic_safe_decoder_needed").into();
                 self.open_modal(Modal::HeifSupport { path }, cx);
             }
             Err(err) => {

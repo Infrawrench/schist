@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} refuzesas pro konocata sekuresala vulnerablesi; versiono {minimum} o plu nova esas bezonata. Deskargez aktualigita suporto HEIC o aktualigez la biblioteko dil sistemo.
+codec.heif.msg.unknown_version = libheif refuzesas pro ke lua versiono ne povas verifikesar; versiono {minimum} o plu nova esas bezonata. Deskargez aktualigita suporto HEIC o aktualigez la biblioteko dil sistemo.
+dialog.open.heic_needs_safe_decoder = Apertar “{name}” bezonas libheif {minimum} o plu nova kun HEVC-dekodifikilo. Plu anciena o neverifikebla versioni blokesas por protektar kontre konocata sekuresala vulnerablesi. Deskargez aktualigita suporto HEIC por durar.
+workspace.docs.heic_safe_decoder_needed = Aktualigita suporto HEIC esas bezonata

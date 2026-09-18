@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Ní ghlactar le libheif {version} mar gheall ar leochaileachtaí slándála aitheanta; tá leagan {minimum} nó níos déanaí de dhíth. Íoslódáil tacaíocht nuashonraithe HEIC nó uasghrádaigh leabharlann an chórais.
+codec.heif.msg.unknown_version = Ní ghlactar le libheif toisc nach féidir a leagan a fhíorú; tá leagan {minimum} nó níos déanaí de dhíth. Íoslódáil tacaíocht nuashonraithe HEIC nó uasghrádaigh leabharlann an chórais.
+dialog.open.heic_needs_safe_decoder = Chun “{name}” a oscailt, tá libheif {minimum} nó níos déanaí le díchódóir HEVC de dhíth. Cuirtear bac ar leaganacha níos sine nó ar leaganacha nach féidir a fhíorú chun cosaint a thabhairt ar leochaileachtaí slándála aitheanta. Íoslódáil tacaíocht nuashonraithe HEIC chun leanúint ar aghaidh.
+workspace.docs.heic_safe_decoder_needed = Tá tacaíocht nuashonraithe HEIC de dhíth

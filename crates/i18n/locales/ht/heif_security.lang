@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Itilizasyon libheif {version} refize akoz fay sekirite ki deja konnen; fòk gen vèsyon {minimum} oswa yon vèsyon ki pi resan. Telechaje sipò HEIC ki ajou oswa mete bibliyotèk sistèm nan ajou.
+codec.heif.msg.unknown_version = Itilizasyon libheif refize paske vèsyon li pa ka verifye; fòk gen vèsyon {minimum} oswa yon vèsyon ki pi resan. Telechaje sipò HEIC ki ajou oswa mete bibliyotèk sistèm nan ajou.
+dialog.open.heic_needs_safe_decoder = Pou louvri “{name}”, fòk gen libheif {minimum} oswa yon vèsyon ki pi resan, avèk yon dekodè HEVC. Ansyen vèsyon yo ak vèsyon ki pa ka verifye yo bloke pou pwoteje kont fay sekirite ki deja konnen. Telechaje sipò HEIC ki ajou pou kontinye.
+workspace.docs.heic_safe_decoder_needed = Sipò HEIC ki ajou nesesè

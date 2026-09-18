@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = U shumisa libheif {version} zwo hanelwa nga nṱhani ha vhushayanungo ha tsireledzo vhu ḓivheaho; hu ṱoḓea vesheni {minimum} kana ntswa u fhira yeneyo. Dawuniḽodani thikhedzo ya HEIC yo khwiniswaho kana ni khwinise ḽaiburari ya sisiteme.
+codec.heif.msg.unknown_version = U shumisa libheif zwo hanelwa ngauri vesheni yayo i nga si khwaṱhisedzwe; hu ṱoḓea vesheni {minimum} kana ntswa u fhira yeneyo. Dawuniḽodani thikhedzo ya HEIC yo khwiniswaho kana ni khwinise ḽaiburari ya sisiteme.
+dialog.open.heic_needs_safe_decoder = U vula “{name}” zwi ṱoḓa libheif ya vesheni {minimum} kana ntswa u fhira yeneyo, i re na dekhouda ya HEVC. Vesheni dza kale kana dzi sa koni u khwaṱhisedzwa dzi a thivhelwa u itela u tsireledza kha vhushayanungo ha tsireledzo vhu ḓivheaho. Dawuniḽodani thikhedzo ya HEIC yo khwiniswaho uri ni bvele phanḓa.
+workspace.docs.heic_safe_decoder_needed = Hu ṱoḓea thikhedzo ya HEIC yo khwiniswaho

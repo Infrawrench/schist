@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Ua teena libheif {version} ona o vaivaiga ua iloa i le puipuiga; e manaʻomia le lomiga {minimum} po o se lomiga fou atu. Laʻu mai le lagolago HEIC ua faafouina pe faafou le faletusi o le faiga.
+codec.heif.msg.unknown_version = Ua teena libheif ona e lē mafai ona faamaonia lona lomiga; e manaʻomia le lomiga {minimum} po o se lomiga fou atu. Laʻu mai le lagolago HEIC ua faafouina pe faafou le faletusi o le faiga.
+dialog.open.heic_needs_safe_decoder = E manaʻomia libheif {minimum} po o se lomiga fou atu ma se decoder HEVC e tatala ai “{name}”. Ua poloka lomiga tuai po o lomiga e lē mafai ona faamaonia ina ia puipuia mai vaivaiga ua iloa i le puipuiga. Laʻu mai le lagolago HEIC ua faafouina e faaauau ai.
+workspace.docs.heic_safe_decoder_needed = E manaʻomia le lagolago HEIC ua faafouina

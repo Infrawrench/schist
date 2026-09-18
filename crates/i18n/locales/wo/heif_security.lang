@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Dañuy bañ a jëfandikoo libheif {version} ndax ay ñàkk yi ñu xam ci kaaraange gi; sumb {minimum} walla sumb bu gën a bees lañu soxla. Yebbil ndimbalu HEIC bu ñu yeesal walla nga yeesal bibliotek bu sistem bi.
+codec.heif.msg.unknown_version = Dañuy bañ a jëfandikoo libheif ndax mëneesul a seet ba wóor sumbam; sumb {minimum} walla sumb bu gën a bees lañu soxla. Yebbil ndimbalu HEIC bu ñu yeesal walla nga yeesal bibliotek bu sistem bi.
+dialog.open.heic_needs_safe_decoder = Ubbi “{name}” soxla na libheif {minimum} walla sumb bu gën a bees, ànd ak ubbi-kodu HEVC. Sumb yi gën a màgg walla yi mëneesul a seet ba wóor dañu leen tëj ngir aar ci ñàkk yi ñu xam ci kaaraange gi. Yebbil ndimbalu HEIC bu ñu yeesal ngir man a wéy.
+workspace.docs.heic_safe_decoder_needed = Ndimbalu HEIC bu ñu yeesal lañu soxla

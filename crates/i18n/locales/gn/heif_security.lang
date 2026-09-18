@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Ndojeipurúi libheif {version} oguerekógui ñemo'ã kangyha ojekuaáva; oñeikotevẽ versión {minimum} térã ipyahuvéva rehe. Emboguejy HEIC jeporu oñembopyahúva térã embopyahu sistema biblioteca.
+codec.heif.msg.unknown_version = Ndojeipurúi libheif ndaikatúigui ojehecha añete iversión; oñeikotevẽ versión {minimum} térã ipyahuvéva rehe. Emboguejy HEIC jeporu oñembopyahúva térã embopyahu sistema biblioteca.
+dialog.open.heic_needs_safe_decoder = “{name}” jepe'a oikotevẽ libheif {minimum} térã ipyahuvéva rehe, HEVC dekodifikaha reheve. Ojejoko umi versión itujavéva térã ndaikatúiva ojehecha añete, oñeñangareko hag̃ua ñemo'ã kangyha ojekuaávagui. Emboguejy HEIC jeporu oñembopyahúva reho hag̃ua hese.
+workspace.docs.heic_safe_decoder_needed = Oñeikotevẽ HEIC jeporu oñembopyahúva rehe

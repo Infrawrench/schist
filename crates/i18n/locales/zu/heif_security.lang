@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = I-libheif {version} yenqatshiwe ngenxa yobuthakathaka bokuphepha obaziwayo; kudingeka inguqulo {minimum} noma entsha kunayo. Landa ukusekelwa kwe-HEIC okubuyekeziwe noma uthuthukise ilabhulali yesistimu.
+codec.heif.msg.unknown_version = I-libheif yenqatshiwe ngoba inguqulo yayo ayikwazi ukuqinisekiswa; kudingeka inguqulo {minimum} noma entsha kunayo. Landa ukusekelwa kwe-HEIC okubuyekeziwe noma uthuthukise ilabhulali yesistimu.
+dialog.open.heic_needs_safe_decoder = Ukuvula i-“{name}” kudinga i-libheif {minimum} noma inguqulo entsha kunayo enesiqaqi se-HEVC. Izinguqulo ezindala noma ezingakwazi ukuqinisekiswa zivinjiwe ukuze kuvikelwe ebuthakathakeni bokuphepha obaziwayo. Landa ukusekelwa kwe-HEIC okubuyekeziwe ukuze uqhubeke.
+workspace.docs.heic_safe_decoder_needed = Kudingeka ukusekelwa kwe-HEIC okubuyekeziwe

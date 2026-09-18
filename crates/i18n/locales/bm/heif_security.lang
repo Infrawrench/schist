@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} labaarali bɛ bali lakana barikantanya dɔnnenw kosɔn; vɛrisiyɔn {minimum} walima vɛrisiyɔn min ka kura ni o ye de ka kan ka kɛ. HEIC dɛmɛ lakurayalen telesarize walima sistemu ka bibliyotɛki lakuraya.
+codec.heif.msg.unknown_version = libheif labaarali bɛ bali, barisa a vɛrisiyɔn tɛ se ka sɛgɛsɛgɛ; vɛrisiyɔn {minimum} walima vɛrisiyɔn min ka kura ni o ye de ka kan ka kɛ. HEIC dɛmɛ lakurayalen telesarize walima sistemu ka bibliyotɛki lakuraya.
+dialog.open.heic_needs_safe_decoder = “{name}” dayɛlɛli mako bɛ libheif {minimum} la walima vɛrisiyɔn min ka kura ni o ye, ni HEVC kɔdi bɔlan ye. Vɛrisiyɔn kɔrɔlenw ni vɛrisiyɔn minnu tɛ se ka sɛgɛsɛgɛ bɛ bali ka baara kɛ, walasa ka i lakana lakana barikantanya dɔnnenw ma. HEIC dɛmɛ lakurayalen telesarize walasa ka tugu a la.
+workspace.docs.heic_safe_decoder_needed = Mako bɛ HEIC dɛmɛ lakurayalen na

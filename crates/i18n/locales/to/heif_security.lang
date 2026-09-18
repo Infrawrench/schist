@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = ʻOku taʻofi hono ngāueʻaki ʻo e libheif {version} koeʻuhi ko e ngaahi vaivaiʻanga ʻi he malu kuo ʻiloʻi; ʻoku fiemaʻu ʻa e pulusinga {minimum} pe ha pulusinga foʻou ange. Download ʻa e poupou HEIC kuo fakafoʻou pe fakafoʻou ʻa e library ʻo e system.
+codec.heif.msg.unknown_version = ʻOku taʻofi hono ngāueʻaki ʻo e libheif koeʻuhi ʻoku ʻikai lava ʻo fakapapauʻi hono pulusingá; ʻoku fiemaʻu ʻa e pulusinga {minimum} pe ha pulusinga foʻou ange. Download ʻa e poupou HEIC kuo fakafoʻou pe fakafoʻou ʻa e library ʻo e system.
+dialog.open.heic_needs_safe_decoder = Ke fakaava ʻa e “{name}”, ʻoku fiemaʻu ʻa e libheif {minimum} pe ha pulusinga foʻou ange, fakataha mo ha decoder HEVC. ʻOku taʻofi ʻa e ngaahi pulusinga motuʻa pe ngaahi pulusinga ʻoku ʻikai lava ʻo fakapapauʻi ke maluʻi mei he ngaahi vaivaiʻanga ʻi he malu kuo ʻiloʻi. Download ʻa e poupou HEIC kuo fakafoʻou ke hoko atu.
+workspace.docs.heic_safe_decoder_needed = ʻOku fiemaʻu ʻa e poupou HEIC kuo fakafoʻou

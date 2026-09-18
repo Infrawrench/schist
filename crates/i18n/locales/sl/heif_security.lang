@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Uporaba knjižnice libheif {version} je zavrnjena zaradi znanih varnostnih ranljivosti; potrebna je različica {minimum} ali novejša. Prenesite posodobljeno podporo za HEIC ali nadgradite sistemsko knjižnico.
+codec.heif.msg.unknown_version = Uporaba knjižnice libheif je zavrnjena, ker njene različice ni mogoče preveriti; potrebna je različica {minimum} ali novejša. Prenesite posodobljeno podporo za HEIC ali nadgradite sistemsko knjižnico.
+dialog.open.heic_needs_safe_decoder = Za odpiranje datoteke »{name}« potrebujete knjižnico libheif različice {minimum} ali novejše z dekodirnikom HEVC. Starejše različice in različice, ki jih ni mogoče preveriti, so blokirane zaradi zaščite pred znanimi varnostnimi ranljivostmi. Za nadaljevanje prenesite posodobljeno podporo za HEIC.
+workspace.docs.heic_safe_decoder_needed = Potrebna je posodobljena podpora za HEIC

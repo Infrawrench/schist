@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Bilinen güvenlik açıkları nedeniyle libheif {version} kullanımı reddediliyor; {minimum} veya daha yeni bir sürüm gerekiyor. Güncellenmiş HEIC desteğini indirin veya sistem kitaplığını yükseltin.
+codec.heif.msg.unknown_version = Sürümü doğrulanamadığı için libheif kullanımı reddediliyor; {minimum} veya daha yeni bir sürüm gerekiyor. Güncellenmiş HEIC desteğini indirin veya sistem kitaplığını yükseltin.
+dialog.open.heic_needs_safe_decoder = “{name}” dosyasını açmak için HEVC kod çözücüsü içeren libheif {minimum} veya daha yeni bir sürüm gerekiyor. Bilinen güvenlik açıklarına karşı koruma sağlamak için eski veya doğrulanamayan sürümler engellenir. Devam etmek için güncellenmiş HEIC desteğini indirin.
+workspace.docs.heic_safe_decoder_needed = Güncellenmiş HEIC desteği gerekiyor

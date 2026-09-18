@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Eṃōj bōbrae kōjerbal libheif {version} kōn jikin mōjņo ko eṃōj jeļā kaki ilo kōjparok eo an; aikuj version {minimum} ak eo ej itok ālikin. Kōṃṃan download in support in HEIC eo eṃōj kōkāāl, ak kōkāāl library in system eo.
+codec.heif.msg.unknown_version = Eṃōj bōbrae kōjerbal libheif kinke ejjab maroñ kaṃool version eo an; aikuj version {minimum} ak eo ej itok ālikin. Kōṃṃan download in support in HEIC eo eṃōj kōkāāl, ak kōkāāl library in system eo.
+dialog.open.heic_needs_safe_decoder = Bellọk “{name}” ej aikuj libheif {minimum} ak eo ej itok ālikin, ippān juon HEVC decoder. Eṃōj bōbrae version ko mokta ak ko rejjab maroñ kaṃool ñan kōjparok jen jikin mōjņo ko eṃōj jeļā kaki ilo kōjparok. Kōṃṃan download in support in HEIC eo eṃōj kōkāāl ñan wōnṃaanļọk.
+workspace.docs.heic_safe_decoder_needed = Aikuj support in HEIC eo eṃōj kōkāāl

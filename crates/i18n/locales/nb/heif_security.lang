@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Bruk av libheif {version} avvises på grunn av kjente sikkerhetssårbarheter; versjon {minimum} eller nyere kreves. Last ned oppdatert HEIC-støtte eller oppgrader systembiblioteket.
+codec.heif.msg.unknown_version = Bruk av libheif avvises fordi versjonen ikke kan bekreftes; versjon {minimum} eller nyere kreves. Last ned oppdatert HEIC-støtte eller oppgrader systembiblioteket.
+dialog.open.heic_needs_safe_decoder = For å åpne «{name}» kreves libheif {minimum} eller nyere med en HEVC-dekoder. Eldre versjoner og versjoner som ikke kan bekreftes, blokkeres for å beskytte mot kjente sikkerhetssårbarheter. Last ned oppdatert HEIC-støtte for å fortsette.
+workspace.docs.heic_safe_decoder_needed = Oppdatert HEIC-støtte kreves

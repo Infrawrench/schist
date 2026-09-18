@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = 既知のセキュリティ上の脆弱性があるため、libheif {version} の使用を拒否しました。バージョン {minimum} 以降が必要です。更新された HEIC サポートをダウンロードするか、システムのライブラリをアップグレードしてください。
+codec.heif.msg.unknown_version = バージョンを確認できないため、libheif の使用を拒否しました。バージョン {minimum} 以降が必要です。更新された HEIC サポートをダウンロードするか、システムのライブラリをアップグレードしてください。
+dialog.open.heic_needs_safe_decoder = 「{name}」を開くには、HEVC デコーダーを備えた libheif {minimum} 以降が必要です。既知のセキュリティ上の脆弱性から保護するため、古いバージョンやバージョンを確認できないものの使用はブロックされます。続行するには、更新された HEIC サポートをダウンロードしてください。
+workspace.docs.heic_safe_decoder_needed = 更新された HEIC サポートが必要です

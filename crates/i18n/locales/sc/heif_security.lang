@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} est refudadu pro vulnerabilidades de seguresa connòschidas; serbit sa versione {minimum} o una prus noa. Iscàrriga sa cumpatibilidade cun HEIC atualizada o atualiza sa biblioteca de su sistema.
+codec.heif.msg.unknown_version = libheif est refudadu ca no si podet verificare sa versione sua; serbit sa versione {minimum} o una prus noa. Iscàrriga sa cumpatibilidade cun HEIC atualizada o atualiza sa biblioteca de su sistema.
+dialog.open.heic_needs_safe_decoder = Pro abèrrere «{name}» serbit libheif {minimum} o una versione prus noa cun unu decodificadore HEVC. Is versiones antigas o chi no si podent verificare sunt blocadas pro amparare dae vulnerabilidades de seguresa connòschidas. Iscàrriga sa cumpatibilidade cun HEIC atualizada pro sighire.
+workspace.docs.heic_safe_decoder_needed = Serbit sa cumpatibilidade cun HEIC atualizada

@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = د پېژندل شویو امنیتي کمزوریو له امله د libheif {version} کارول رد شول؛ {minimum} یا تر هغې نوې نسخه اړینه ده. د HEIC تازه شوی ملاتړ راکښته کړئ یا د سیسټم کتابتون تازه کړئ.
+codec.heif.msg.unknown_version = د libheif کارول رد شول، ځکه نسخه یې نه شي تاییدېدای؛ {minimum} یا تر هغې نوې نسخه اړینه ده. د HEIC تازه شوی ملاتړ راکښته کړئ یا د سیسټم کتابتون تازه کړئ.
+dialog.open.heic_needs_safe_decoder = د «{name}» پرانیستلو لپاره د HEVC کوډسپړونکي سره libheif {minimum} یا تر هغې نوې نسخه اړینه ده. د پېژندل شویو امنیتي کمزوریو پر وړاندې د ساتنې لپاره زړې نسخې او هغه نسخې چې نه شي تاییدېدای، بندې شوې دي. د دوام لپاره د HEIC تازه شوی ملاتړ راکښته کړئ.
+workspace.docs.heic_safe_decoder_needed = د HEIC تازه شوی ملاتړ اړین دی

@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Ti ma’aksepta i libheif {version} put i matungo’ na debilidåt siha gi seguridåt; nisisåriu i betsion {minimum} pat un betsion ni mas nuebu. Download i inayuda para HEIC ni ma-update, pat update i library nu i sistema.
+codec.heif.msg.unknown_version = Ti ma’aksepta i libheif sa’ ti siña makonfitma i betsion-ña; nisisåriu i betsion {minimum} pat un betsion ni mas nuebu. Download i inayuda para HEIC ni ma-update, pat update i library nu i sistema.
+dialog.open.heic_needs_safe_decoder = Para mababa “{name}”, nisisåriu i libheif {minimum} pat un betsion ni mas nuebu, yan un HEVC decoder. Ti ma’aksepta i betsion siha ni mas bihu pat ti siña makonfitma para maprotehi kontra i matungo’ na debilidåt siha gi seguridåt. Download i inayuda para HEIC ni ma-update para un kontinua.
+workspace.docs.heic_safe_decoder_needed = Nisisåriu i inayuda para HEIC ni ma-update

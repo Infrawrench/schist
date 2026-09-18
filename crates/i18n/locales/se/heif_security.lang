@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} hilgojuvvo dovddus dorvováilivuođaid geažil; veršuvdna {minimum} dahje ođđaset veršuvdna gáibiduvvo. Viečča ođasmahtton HEIC-doarjaga dahje ođasmahte vuogádaga bibliotehka.
+codec.heif.msg.unknown_version = libheif hilgojuvvo daningo dan veršuvnna ii sáhte duođaštit; veršuvdna {minimum} dahje ođđaset veršuvdna gáibiduvvo. Viečča ođasmahtton HEIC-doarjaga dahje ođasmahte vuogádaga bibliotehka.
+dialog.open.heic_needs_safe_decoder = “{name}” rahpan gáibida libheif {minimum} dahje ođđaset veršuvnna HEVC-dekoderiin. Boarráset veršuvnnat ja veršuvnnat maid ii sáhte duođaštit leat hehttejuvvon dovddus dorvováilivuođaid vuostá suodjaleami dihte. Viečča ođasmahtton HEIC-doarjaga joatkin dihte.
+workspace.docs.heic_safe_decoder_needed = Ođasmahtton HEIC-doarjja gáibiduvvo

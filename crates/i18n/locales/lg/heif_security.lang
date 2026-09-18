@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Okukozesa libheif {version} kugaanyiddwa olw'obunafu mu byokwerinda obumanyiddwa; kyetaaga ekika {minimum} oba ekiggya okusingawo. Wanula obuwagizi bwa HEIC obuzze ku mulembe oba zza library y'enkola ku mulembe.
+codec.heif.msg.unknown_version = Okukozesa libheif kugaanyiddwa kubanga ekika kyayo tekisobola kukakasibwa; kyetaaga ekika {minimum} oba ekiggya okusingawo. Wanula obuwagizi bwa HEIC obuzze ku mulembe oba zza library y'enkola ku mulembe.
+dialog.open.heic_needs_safe_decoder = Okuggulawo “{name}” kyetaaga libheif ey'ekika {minimum} oba ekiggya okusingawo, ng'erina ekisumulula HEVC. Ebika ebikadde oba ebitasobola kukakasibwa biziyizibwa okukuuma okuva ku bunafu mu byokwerinda obumanyiddwa. Wanula obuwagizi bwa HEIC obuzze ku mulembe okugenda mu maaso.
+workspace.docs.heic_safe_decoder_needed = Obuwagizi bwa HEIC obuzze ku mulembe bwetaagibwa

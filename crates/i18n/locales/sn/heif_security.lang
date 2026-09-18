@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Kuramba kushandisa libheif {version} nekuda kwekusasimba kwechengetedzo kunozivikanwa; panodiwa vhezheni {minimum} kana itsva kupfuura iyi. Dhaunirodha rutsigiro rweHEIC rwakagadziridzwa kana vandudza raibhurari yesisitimu.
+codec.heif.msg.unknown_version = Kuramba kushandisa libheif nokuti vhezheni yayo haigone kusimbiswa; panodiwa vhezheni {minimum} kana itsva kupfuura iyi. Dhaunirodha rutsigiro rweHEIC rwakagadziridzwa kana vandudza raibhurari yesisitimu.
+dialog.open.heic_needs_safe_decoder = Kuvhura “{name}” kunoda libheif {minimum} kana vhezheni itsva kupfuura iyi ine HEVC decoder. Mavhezheni ekare kana asingagoni kusimbiswa anovharirwa kudzivirira njodzi dzinobva pakusasimba kwechengetedzo kunozivikanwa. Dhaunirodha rutsigiro rweHEIC rwakagadziridzwa kuti uenderere mberi.
+workspace.docs.heic_safe_decoder_needed = Panodiwa rutsigiro rweHEIC rwakagadziridzwa

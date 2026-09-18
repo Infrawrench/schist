@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} ብሰንኪ ዝተፈልጡ ድኽመታት ድሕነት ምጥቃሙ ተኸልኪሉ፤ ስሪት {minimum} ወይ ካብኡ ዝሓደሰ የድሊ። ዝተሓደሰ ደገፍ HEIC ኣውርድ ወይ ቤተ-መጻሕፍቲ እቲ ስርዓት ኣሐድስ።
+codec.heif.msg.unknown_version = ስሪት libheif ክረጋገጽ ስለ ዘይከኣል ምጥቃሙ ተኸልኪሉ፤ ስሪት {minimum} ወይ ካብኡ ዝሓደሰ የድሊ። ዝተሓደሰ ደገፍ HEIC ኣውርድ ወይ ቤተ-መጻሕፍቲ እቲ ስርዓት ኣሐድስ።
+dialog.open.heic_needs_safe_decoder = “{name}” ንምኽፋት፡ ፈታሒ HEVC ዘለዎ libheif {minimum} ወይ ካብኡ ዝሓደሰ የድሊ። ካብ ዝተፈልጡ ድኽመታት ድሕነት ንምክልኻል፡ ዝኣረጉ ወይ ክረጋገጹ ዘይክእሉ ስሪታት ይኽልከሉ። ንምቕጻል፡ ዝተሓደሰ ደገፍ HEIC ኣውርድ።
+workspace.docs.heic_safe_decoder_needed = ዝተሓደሰ ደገፍ HEIC የድሊ

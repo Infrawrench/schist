@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Nac'het eo libheif {version} abalamour da doulloù surentez anavezet; ret eo kaout an handelv {minimum} pe un handelv nevesoc'h. Pellgargit ar skor HEIC hizivaet pe hizivait levraoueg ar reizhiad.
+codec.heif.msg.unknown_version = Nac'het eo libheif rak ne c'haller ket gwiriañ e handelv; ret eo kaout an handelv {minimum} pe un handelv nevesoc'h. Pellgargit ar skor HEIC hizivaet pe hizivait levraoueg ar reizhiad.
+dialog.open.heic_needs_safe_decoder = Evit digeriñ “{name}” ez eus ezhomm eus libheif {minimum} pe un handelv nevesoc'h, gant un digoder HEVC. Stanket eo an handelvoù koshoc'h pe na c'haller ket gwiriañ evit gwareziñ ouzh toulloù surentez anavezet. Pellgargit ar skor HEIC hizivaet evit kenderc'hel.
+workspace.docs.heic_safe_decoder_needed = Ret eo kaout ar skor HEIC hizivaet

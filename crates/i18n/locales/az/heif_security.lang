@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Məlum təhlükəsizlik boşluqlarına görə libheif {version} istifadəsi rədd edilir; {minimum} və ya daha yeni versiya tələb olunur. Yenilənmiş HEIC dəstəyini endirin və ya sistem kitabxanasını yeniləyin.
+codec.heif.msg.unknown_version = Versiyasını təsdiqləmək mümkün olmadığı üçün libheif istifadəsi rədd edilir; {minimum} və ya daha yeni versiya tələb olunur. Yenilənmiş HEIC dəstəyini endirin və ya sistem kitabxanasını yeniləyin.
+dialog.open.heic_needs_safe_decoder = “{name}” faylını açmaq üçün HEVC dekoderi ilə libheif {minimum} və ya daha yeni versiya tələb olunur. Məlum təhlükəsizlik boşluqlarından qorunmaq üçün köhnə və ya təsdiqlənməsi mümkün olmayan versiyalar bloklanır. Davam etmək üçün yenilənmiş HEIC dəstəyini endirin.
+workspace.docs.heic_safe_decoder_needed = Yenilənmiş HEIC dəstəyi tələb olunur

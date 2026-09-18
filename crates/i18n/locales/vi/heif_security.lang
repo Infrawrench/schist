@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Từ chối sử dụng libheif {version} vì có các lỗ hổng bảo mật đã biết; cần phiên bản {minimum} trở lên. Tải bản hỗ trợ HEIC đã cập nhật hoặc nâng cấp thư viện hệ thống.
+codec.heif.msg.unknown_version = Từ chối sử dụng libheif vì không thể xác minh phiên bản; cần phiên bản {minimum} trở lên. Tải bản hỗ trợ HEIC đã cập nhật hoặc nâng cấp thư viện hệ thống.
+dialog.open.heic_needs_safe_decoder = Để mở “{name}” cần libheif {minimum} trở lên với trình giải mã HEVC. Các phiên bản cũ hơn hoặc không thể xác minh bị chặn để bảo vệ khỏi các lỗ hổng bảo mật đã biết. Tải bản hỗ trợ HEIC đã cập nhật để tiếp tục.
+workspace.docs.heic_safe_decoder_needed = Cần bản hỗ trợ HEIC đã cập nhật

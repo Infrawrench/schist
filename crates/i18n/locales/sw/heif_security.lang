@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Matumizi ya libheif {version} yamekataliwa kwa sababu ya udhaifu wa usalama unaojulikana; toleo la {minimum} au jipya zaidi linahitajika. Pakua usaidizi wa HEIC uliosasishwa au boresha maktaba ya mfumo.
+codec.heif.msg.unknown_version = Matumizi ya libheif yamekataliwa kwa sababu toleo lake haliwezi kuthibitishwa; toleo la {minimum} au jipya zaidi linahitajika. Pakua usaidizi wa HEIC uliosasishwa au boresha maktaba ya mfumo.
+dialog.open.heic_needs_safe_decoder = Kufungua “{name}” kunahitaji libheif {minimum} au toleo jipya zaidi lenye kisimbuzi cha HEVC. Matoleo ya zamani au yasiyoweza kuthibitishwa yamezuiwa ili kulinda dhidi ya udhaifu wa usalama unaojulikana. Pakua usaidizi wa HEIC uliosasishwa ili kuendelea.
+workspace.docs.heic_safe_decoder_needed = Usaidizi wa HEIC uliosasishwa unahitajika

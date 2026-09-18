@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = تم رفض استخدام libheif {version} بسبب ثغرات أمنية معروفة؛ يلزم الإصدار {minimum} أو أحدث. نزّل دعم HEIC المحدّث أو رقّ مكتبة النظام.
+codec.heif.msg.unknown_version = تم رفض استخدام libheif لتعذّر التحقق من إصداره؛ يلزم الإصدار {minimum} أو أحدث. نزّل دعم HEIC المحدّث أو رقّ مكتبة النظام.
+dialog.open.heic_needs_safe_decoder = يتطلب فتح «{name}» الإصدار {minimum} أو أحدث من libheif مع مفكك ترميز HEVC. تُحظر الإصدارات القديمة أو التي يتعذّر التحقق منها للحماية من الثغرات الأمنية المعروفة. نزّل دعم HEIC المحدّث للمتابعة.
+workspace.docs.heic_safe_decoder_needed = يلزم دعم HEIC محدّث

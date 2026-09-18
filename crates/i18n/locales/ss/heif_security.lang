@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Kusetjentiswa kwe-libheif {version} kuyenqatjwa ngenca yebutsakatsaka bekuphepha lobatiwako; kudzingeka inguqulo {minimum} nobe lensha kunayo. Landza kusekelwa kwe-HEIC lokubuyeketiwe nobe ubuyekete lilabhulali leluhlelo.
+codec.heif.msg.unknown_version = Kusetjentiswa kwe-libheif kuyenqatjwa ngoba inguqulo yayo ayikwati kucinisekiswa; kudzingeka inguqulo {minimum} nobe lensha kunayo. Landza kusekelwa kwe-HEIC lokubuyeketiwe nobe ubuyekete lilabhulali leluhlelo.
+dialog.open.heic_needs_safe_decoder = Kuvula “{name}” kudzinga libheif {minimum} nobe inguqulo lensha kunayo lenesicatululi se-HEVC. Tinguqulo letindzala nobe letingeke ticinisekiswe tiyavinjwa kute kuvikelwe ebutsakatsakeni bekuphepha lobatiwako. Landza kusekelwa kwe-HEIC lokubuyeketiwe kute uchubeke.
+workspace.docs.heic_safe_decoder_needed = Kudzingeka kusekelwa kwe-HEIC lokubuyeketiwe

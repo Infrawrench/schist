@@ -33,7 +33,7 @@ pub fn formats(registry: &PluginRegistry) -> Vec<Format> {
             extensions: c.extensions(),
             can_export: c.can_export(),
             runtime_requirement: (c.id() == "codec.heif")
-                .then_some("libheif with a compatible HEVC decoder"),
+                .then_some("libheif 1.23.4 or later with a compatible HEVC decoder"),
         })
         .collect()
 }

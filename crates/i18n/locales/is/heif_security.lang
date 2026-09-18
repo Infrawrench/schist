@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Notkun libheif {version} er hafnað vegna þekktra öryggisveikleika; útgáfa {minimum} eða nýrri er nauðsynleg. Sæktu uppfærðan HEIC-stuðning eða uppfærðu kerfissafnið.
+codec.heif.msg.unknown_version = Notkun libheif er hafnað þar sem ekki er hægt að staðfesta útgáfu þess; útgáfa {minimum} eða nýrri er nauðsynleg. Sæktu uppfærðan HEIC-stuðning eða uppfærðu kerfissafnið.
+dialog.open.heic_needs_safe_decoder = Til að opna „{name}“ þarf libheif {minimum} eða nýrra með HEVC-afkóðara. Lokað er fyrir eldri útgáfur og útgáfur sem ekki er hægt að staðfesta til að vernda gegn þekktum öryggisveikleikum. Sæktu uppfærðan HEIC-stuðning til að halda áfram.
+workspace.docs.heic_safe_decoder_needed = Uppfærður HEIC-stuðningur er nauðsynlegur

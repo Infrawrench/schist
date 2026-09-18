@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = An ƙi amfani da libheif {version} saboda raunin tsaro da aka sani; ana buƙatar sigar {minimum} ko wadda ta fi sabuwa. Sauke tallafin HEIC da aka sabunta ko sabunta ma'ajiyar tsarin.
+codec.heif.msg.unknown_version = An ƙi amfani da libheif saboda ba za a iya tabbatar da sigarsa ba; ana buƙatar sigar {minimum} ko wadda ta fi sabuwa. Sauke tallafin HEIC da aka sabunta ko sabunta ma'ajiyar tsarin.
+dialog.open.heic_needs_safe_decoder = Buɗe “{name}” yana buƙatar libheif {minimum} ko sabuwar siga fiye da ita, tare da mai sauya lambar HEVC. Ana toshe tsofaffin sigogi ko waɗanda ba za a iya tabbatar da su ba don kariya daga raunin tsaro da aka sani. Sauke tallafin HEIC da aka sabunta don ci gaba.
+workspace.docs.heic_safe_decoder_needed = Ana buƙatar tallafin HEIC da aka sabunta

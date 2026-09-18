@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Odmowa użycia biblioteki libheif {version} z powodu znanych luk w zabezpieczeniach; wymagana jest wersja {minimum} lub nowsza. Pobierz zaktualizowaną obsługę HEIC lub zaktualizuj bibliotekę systemową.
+codec.heif.msg.unknown_version = Odmowa użycia biblioteki libheif, ponieważ nie można zweryfikować jej wersji; wymagana jest wersja {minimum} lub nowsza. Pobierz zaktualizowaną obsługę HEIC lub zaktualizuj bibliotekę systemową.
+dialog.open.heic_needs_safe_decoder = Otwarcie „{name}” wymaga biblioteki libheif {minimum} lub nowszej z dekoderem HEVC. Starsze wersje i wersje, których nie można zweryfikować, są blokowane w celu ochrony przed znanymi lukami w zabezpieczeniach. Pobierz zaktualizowaną obsługę HEIC, aby kontynuować.
+workspace.docs.heic_safe_decoder_needed = Wymagana jest zaktualizowana obsługa HEIC

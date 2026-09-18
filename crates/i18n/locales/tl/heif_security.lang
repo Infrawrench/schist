@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Tinatanggihang gamitin ang libheif {version} dahil sa mga kilalang kahinaan sa seguridad; kailangan ang bersiyon {minimum} o mas bago. I-download ang na-update na suporta sa HEIC o i-upgrade ang library ng system.
+codec.heif.msg.unknown_version = Tinatanggihang gamitin ang libheif dahil hindi ma-verify ang bersiyon nito; kailangan ang bersiyon {minimum} o mas bago. I-download ang na-update na suporta sa HEIC o i-upgrade ang library ng system.
+dialog.open.heic_needs_safe_decoder = Kailangan ng libheif {minimum} o mas bago na may HEVC decoder para buksan ang “{name}”. Hinaharang ang mas lumang bersiyon o mga bersiyong hindi ma-verify upang maprotektahan laban sa mga kilalang kahinaan sa seguridad. I-download ang na-update na suporta sa HEIC para magpatuloy.
+workspace.docs.heic_safe_decoder_needed = Kailangan ang na-update na suporta sa HEIC

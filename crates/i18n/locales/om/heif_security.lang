@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Hanqinoota nageenyaa beekaman irraa kan ka'e libheif {version} fayyadamuun didame; gosti {minimum} yookaan kan isa caalaa haaraa ta'e barbaachisa. Deeggarsa HEIC haaromfame buufadhu yookaan laayibrarii sirnichaa haaromsi.
+codec.heif.msg.unknown_version = Gosti isaa mirkanaa'uu waan hin dandeenyeef libheif fayyadamuun didame; gosti {minimum} yookaan kan isa caalaa haaraa ta'e barbaachisa. Deeggarsa HEIC haaromfame buufadhu yookaan laayibrarii sirnichaa haaromsi.
+dialog.open.heic_needs_safe_decoder = “{name}” banuuf libheif gosa {minimum} yookaan kan isa caalaa haaraa ta'e, hiikaa HEVC qabu barbaachisa. Hanqinoota nageenyaa beekaman irraa eeguuf, gosoonni durii yookaan mirkanaa'uu hin dandeenye ugguramu. Itti fufuuf deeggarsa HEIC haaromfame buufadhu.
+workspace.docs.heic_safe_decoder_needed = Deeggarsi HEIC haaromfame barbaachisa

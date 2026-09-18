@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Tsy ekena ny libheif {version} noho ny fahalemena ara-piarovana efa fantatra; ilaina ny kinova {minimum} na vaovao kokoa. Alao ny fanohanana HEIC nohavaozina na havaozy ny tahirin'ny rafitra.
+codec.heif.msg.unknown_version = Tsy ekena ny libheif satria tsy azo hamarinina ny kinovany; ilaina ny kinova {minimum} na vaovao kokoa. Alao ny fanohanana HEIC nohavaozina na havaozy ny tahirin'ny rafitra.
+dialog.open.heic_needs_safe_decoder = Mila libheif {minimum} na vaovao kokoa miaraka amin'ny mpamadika HEVC ny fanokafana an'i “{name}”. Voasakana ireo kinova tranainy kokoa na tsy azo hamarinina mba hiarovana amin'ny fahalemena ara-piarovana efa fantatra. Alao ny fanohanana HEIC nohavaozina mba hanohizana.
+workspace.docs.heic_safe_decoder_needed = Ilaina ny fanohanana HEIC nohavaozina

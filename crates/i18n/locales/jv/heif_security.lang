@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = Panganggoné libheif {version} ditolak amarga ana kerentanan keamanan sing wis dingertèni; perlu versi {minimum} utawa sing luwih anyar. Undhuh dhukungan HEIC sing wis dianyari utawa anyari pustaka sistem.
+codec.heif.msg.unknown_version = Panganggoné libheif ditolak amarga versiné ora bisa dipesthèkaké; perlu versi {minimum} utawa sing luwih anyar. Undhuh dhukungan HEIC sing wis dianyari utawa anyari pustaka sistem.
+dialog.open.heic_needs_safe_decoder = Kanggo mbukak “{name}” perlu libheif {minimum} utawa sing luwih anyar mawa dhékodher HEVC. Versi sing luwih lawas utawa sing ora bisa dipesthèkaké diblokir kanggo nglindhungi saka kerentanan keamanan sing wis dingertèni. Undhuh dhukungan HEIC sing wis dianyari kanggo nerusaké.
+workspace.docs.heic_safe_decoder_needed = Perlu dhukungan HEIC sing wis dianyari

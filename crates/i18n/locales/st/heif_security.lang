@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} e haneloa ka lebaka la mefokolo e tsejoang ea tšireletso; ho hlokahala mofuta oa {minimum} kapa o mocha ho feta oo. Jarolla tšehetso ea HEIC e ntlafalitsoeng kapa u ntlafatse laebrari ea tsamaiso.
+codec.heif.msg.unknown_version = libheif e haneloa hobane mofuta oa eona o ke ke oa netefatsoa; ho hlokahala mofuta oa {minimum} kapa o mocha ho feta oo. Jarolla tšehetso ea HEIC e ntlafalitsoeng kapa u ntlafatse laebrari ea tsamaiso.
+dialog.open.heic_needs_safe_decoder = Ho bula “{name}” ho hloka libheif {minimum} kapa mofuta o mocha ho feta oo, o nang le semanolli sa HEVC. Mefuta ea khale kapa e ke keng ea netefatsoa e thibetsoe ho sireletsa khahlanong le mefokolo e tsejoang ea tšireletso. Jarolla tšehetso ea HEIC e ntlafalitsoeng hore u tsoele pele.
+workspace.docs.heic_safe_decoder_needed = Ho hlokahala tšehetso ea HEIC e ntlafalitsoeng

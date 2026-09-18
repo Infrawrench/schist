@@ -1,0 +1,5 @@
+# HEIC security update.
+codec.heif.msg.unsafe_version = L'utilizacion de libheif {version} es refusada a causa de vulnerabilitats de seguretat conegudas ; cal la version {minimum} o una version ulteriora. Telecargatz la presa en carga HEIC mesa a jorn o metètz a jorn la bibliotèca del sistèma.
+codec.heif.msg.unknown_version = L'utilizacion de libheif es refusada perque sa version pòt pas èsser verificada ; cal la version {minimum} o una version ulteriora. Telecargatz la presa en carga HEIC mesa a jorn o metètz a jorn la bibliotèca del sistèma.
+dialog.open.heic_needs_safe_decoder = Per dobrir « {name} » cal libheif {minimum} o una version ulteriora amb un descodador HEVC. Las versions ancianas o impossiblas de verificar son blocadas per protegir contra las vulnerabilitats de seguretat conegudas. Telecargatz la presa en carga HEIC mesa a jorn per contunhar.
+workspace.docs.heic_safe_decoder_needed = Cal una presa en carga HEIC mesa a jorn

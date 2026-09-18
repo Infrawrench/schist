@@ -268,6 +268,14 @@ clean-helpers:
 FORCE:
 
 .PHONY: check-layered-codecs check-layered-codecs-wasm check-layered-codecs-app
+# HEIC security gate, download upgrade, and real-image import regressions.
+# Serial execution keeps the install test's managed-directory override
+# from changing where the import tests find their decoder.
+# SCHIST_REQUIRE_HEIF=1 requires a decoder and forbids skipped imports.
+.PHONY: check-heif
+check-heif:
+	$(CARGO) test -p schist-codecs-common heif -- --test-threads=1 --nocapture
+
 check-layered-codecs:
 	$(CARGO) test -p schist-codecs-common -p schist-preview
 	$(CARGO) clippy -p schist-codecs-common -p schist-preview --all-targets -- -D warnings
