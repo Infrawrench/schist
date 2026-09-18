@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = သိရှိထားသော လုံခြုံရေးအားနည်းချက်များကြောင့် libheif {version} ကို အသုံးပြုရန် ငြင်းပယ်ထားသည်။ ဗားရှင်း {minimum} သို့မဟုတ် နောက်ပိုင်းဗားရှင်း လိုအပ်သည်။ မွမ်းမံထားသော HEIC ပံ့ပိုးမှုကို ဒေါင်းလုဒ်လုပ်ပါ သို့မဟုတ် စနစ်၏ library ကို အဆင့်မြှင့်ပါ။
+codec.heif.msg.unknown_version = libheif ၏ ဗားရှင်းကို အတည်မပြုနိုင်သောကြောင့် ၎င်းကို အသုံးပြုရန် ငြင်းပယ်ထားသည်။ ဗားရှင်း {minimum} သို့မဟုတ် နောက်ပိုင်းဗားရှင်း လိုအပ်သည်။ မွမ်းမံထားသော HEIC ပံ့ပိုးမှုကို ဒေါင်းလုဒ်လုပ်ပါ သို့မဟုတ် စနစ်၏ library ကို အဆင့်မြှင့်ပါ။
+dialog.open.heic_needs_safe_decoder = “{name}” ကို ဖွင့်ရန် HEVC decoder ပါဝင်သော libheif {minimum} သို့မဟုတ် နောက်ပိုင်းဗားရှင်း လိုအပ်သည်။ သိရှိထားသော လုံခြုံရေးအားနည်းချက်များမှ ကာကွယ်ရန် ဗားရှင်းဟောင်းများ သို့မဟုတ် အတည်မပြုနိုင်သော ဗားရှင်းများကို ပိတ်ပင်ထားသည်။ ဆက်လုပ်ရန် မွမ်းမံထားသော HEIC ပံ့ပိုးမှုကို ဒေါင်းလုဒ်လုပ်ပါ။
+workspace.docs.heic_safe_decoder_needed = မွမ်းမံထားသော HEIC ပံ့ပိုးမှု လိုအပ်သည်

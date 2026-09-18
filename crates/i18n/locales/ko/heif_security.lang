@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = 알려진 보안 취약점으로 인해 libheif {version}의 사용이 거부되었습니다. {minimum} 이상의 버전이 필요합니다. 업데이트된 HEIC 지원을 다운로드하거나 시스템 라이브러리를 업그레이드하세요.
+codec.heif.msg.unknown_version = 버전을 확인할 수 없어 libheif의 사용이 거부되었습니다. {minimum} 이상의 버전이 필요합니다. 업데이트된 HEIC 지원을 다운로드하거나 시스템 라이브러리를 업그레이드하세요.
+dialog.open.heic_needs_safe_decoder = “{name}”을(를) 열려면 HEVC 디코더가 포함된 libheif {minimum} 이상이 필요합니다. 알려진 보안 취약점으로부터 보호하기 위해 이전 버전이나 확인할 수 없는 버전은 차단됩니다. 계속하려면 업데이트된 HEIC 지원을 다운로드하세요.
+workspace.docs.heic_safe_decoder_needed = 업데이트된 HEIC 지원이 필요합니다

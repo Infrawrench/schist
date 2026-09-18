@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = Hanqinoota nageenyaa beekaman irraa kan ka'e libheif {version} fayyadamuun didame; gosti {minimum} yookaan kan isa caalaa haaraa ta'e barbaachisa. Deeggarsa HEIC haaromfame buufadhu yookaan laayibrarii sirnichaa haaromsi.
+codec.heif.msg.unknown_version = Gosti isaa mirkanaa'uu waan hin dandeenyeef libheif fayyadamuun didame; gosti {minimum} yookaan kan isa caalaa haaraa ta'e barbaachisa. Deeggarsa HEIC haaromfame buufadhu yookaan laayibrarii sirnichaa haaromsi.
+dialog.open.heic_needs_safe_decoder = “{name}” banuuf libheif gosa {minimum} yookaan kan isa caalaa haaraa ta'e, hiikaa HEVC qabu barbaachisa. Hanqinoota nageenyaa beekaman irraa eeguuf, gosoonni durii yookaan mirkanaa'uu hin dandeenye ugguramu. Itti fufuuf deeggarsa HEIC haaromfame buufadhu.
+workspace.docs.heic_safe_decoder_needed = Deeggarsi HEIC haaromfame barbaachisa

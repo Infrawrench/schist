@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = I-libheif {version} ayivunyelwa ngombana inobuthakathaka bokuphepha obaziwako; kutlhogeka inguqulo {minimum} namkha etja kunayo. Dawuniloda ukusekelwa kwe-HEIC okubuyekeziweko namkha buyekeza ilabhulali yehlelo.
+codec.heif.msg.unknown_version = I-libheif ayivunyelwa ngombana inguqulo yayo ayikghoni ukuqinisekiswa; kutlhogeka inguqulo {minimum} namkha etja kunayo. Dawuniloda ukusekelwa kwe-HEIC okubuyekeziweko namkha buyekeza ilabhulali yehlelo.
+dialog.open.heic_needs_safe_decoder = Ukuvula i-“{name}” kutlhoga i-libheif {minimum} namkha inguqulo etja kunayo enesikhuphi sekhodi se-HEVC. Iinguqulo ezidala namkha ezingakghoni ukuqinisekiswa ziyavinjwa ukuvikela ebuthakathakeni bokuphepha obaziwako. Dawuniloda ukusekelwa kwe-HEIC okubuyekeziweko ukuze uragele phambili.
+workspace.docs.heic_safe_decoder_needed = Kutlhogeka ukusekelwa kwe-HEIC okubuyekeziweko

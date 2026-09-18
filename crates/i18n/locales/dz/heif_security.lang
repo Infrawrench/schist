@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = ཧེ་མ་ལས་ཤེས་པའི་སྲུང་སྐྱོབ་ཀྱི་སྐྱོན་ཆ་ཚུ་ཡོདཔ་ལས་ libheif {version} ལག་ལེན་འཐབ་མི་ཆོག ཐོན་རིམ་ {minimum} ཡང་ན་དེ་ལས་གསརཔ་དགོ། དུས་མཐུན་བཟོས་པའི་ HEIC རྒྱབ་སྐྱོར་ཕབ་ལེན་འབད་ ཡང་ན་རིམ་ལུགས་ཀྱི་དཔེ་མཛོད་དུས་མཐུན་བཟོ།
+codec.heif.msg.unknown_version = ཐོན་རིམ་ངེས་བདེན་བཟོ་མ་ཚུགསཔ་ལས་ libheif ལག་ལེན་འཐབ་མི་ཆོག ཐོན་རིམ་ {minimum} ཡང་ན་དེ་ལས་གསརཔ་དགོ། དུས་མཐུན་བཟོས་པའི་ HEIC རྒྱབ་སྐྱོར་ཕབ་ལེན་འབད་ ཡང་ན་རིམ་ལུགས་ཀྱི་དཔེ་མཛོད་དུས་མཐུན་བཟོ།
+dialog.open.heic_needs_safe_decoder = “{name}” ཁ་ཕྱེ་ནི་ལུ་ HEVC ཨང་བཤོལ་ཆས་དང་བཅས་པའི་ libheif {minimum} ཡང་ན་དེ་ལས་གསར་པའི་ཐོན་རིམ་དགོ། ཧེ་མ་ལས་ཤེས་པའི་སྲུང་སྐྱོབ་ཀྱི་སྐྱོན་ཆ་ཚུ་ལས་ཉེན་སྲུང་འབད་ནི་ལུ་ ཐོན་རིམ་རྙིངམ་ཚུ་དང་ངེས་བདེན་བཟོ་མ་ཚུགས་པའི་ཐོན་རིམ་ཚུ་བཀག་བཞག་སྟེ་ཡོད། འཕྲོ་མཐུད་ནི་ལུ་ དུས་མཐུན་བཟོས་པའི་ HEIC རྒྱབ་སྐྱོར་ཕབ་ལེན་འབད།
+workspace.docs.heic_safe_decoder_needed = དུས་མཐུན་བཟོས་པའི་ HEIC རྒྱབ་སྐྱོར་དགོ།

@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = Go gana go dirisa libheif {version} ka ntlha ya makowa a a itsiweng a tshireletsego; go tlhokega mofuta wa {minimum} kgotsa o mosha go feta oo. Laeletsa tshegetso ya HEIC e e ntšhafaditsweng kgotsa o ntšhafatse laeborari ya tsamaiso.
+codec.heif.msg.unknown_version = Go gana go dirisa libheif ka gonne mofuta wa yone o ka se netefadiwe; go tlhokega mofuta wa {minimum} kgotsa o mosha go feta oo. Laeletsa tshegetso ya HEIC e e ntšhafaditsweng kgotsa o ntšhafatse laeborari ya tsamaiso.
+dialog.open.heic_needs_safe_decoder = Go bula “{name}” go tlhoka libheif {minimum} kgotsa mofuta o mosha go feta oo, le decoder ya HEVC. Mefuta ya bogologolo kgotsa e e ka se netefadiweng e thibetswe go sireletsa kgatlhanong le makowa a a itsiweng a tshireletsego. Laeletsa tshegetso ya HEIC e e ntšhafaditsweng gore o tswelele.
+workspace.docs.heic_safe_decoder_needed = Go tlhokega tshegetso ya HEIC e e ntšhafaditsweng

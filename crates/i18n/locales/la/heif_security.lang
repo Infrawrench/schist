@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} propter vitia securitatis nota reicitur; versio {minimum} aut recentior requiritur. Facultatem HEIC renovatam descende aut bibliothecam systematis renova.
+codec.heif.msg.unknown_version = libheif reicitur quia versio eius comprobari non potest; versio {minimum} aut recentior requiritur. Facultatem HEIC renovatam descende aut bibliothecam systematis renova.
+dialog.open.heic_needs_safe_decoder = Ad “{name}” aperiendum libheif versionis {minimum} aut recentioris cum decodificatore HEVC requiritur. Versiones antiquiores vel quae comprobari non possunt intercluduntur ad vitia securitatis nota vitanda. Facultatem HEIC renovatam descende ut pergas.
+workspace.docs.heic_safe_decoder_needed = Facultas HEIC renovata requiritur

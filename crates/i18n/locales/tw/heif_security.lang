@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = Wɔmpene libheif {version} so esiane ahobammɔ mmerɛwyɛ a wonim nti; ɛhia version {minimum} anaa nea ɛyɛ foforo sen ɛno. Twe HEIC mmoa a wɔayɛ no foforo anaa yɛ system no library no foforo.
+codec.heif.msg.unknown_version = Wɔmpene libheif so efisɛ wontumi nsi ne version no pi; ɛhia version {minimum} anaa nea ɛyɛ foforo sen ɛno. Twe HEIC mmoa a wɔayɛ no foforo anaa yɛ system no library no foforo.
+dialog.open.heic_needs_safe_decoder = Sɛ wubebue “{name}” a, ehia libheif {minimum} anaa version a ɛyɛ foforo sen ɛno a HEVC decoder ka ho. Wɔasi version dedaw anaa nea wontumi nsi no pi kwan de abɔ wo ho ban afi ahobammɔ mmerɛwyɛ a wonim ho. Twe HEIC mmoa a wɔayɛ no foforo na toa so.
+workspace.docs.heic_safe_decoder_needed = Ɛhia HEIC mmoa a wɔayɛ no foforo

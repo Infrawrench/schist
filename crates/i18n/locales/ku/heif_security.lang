@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = Ji ber lawaziyên ewlehiyê yên naskirî, bikaranîna libheif {version} tê redkirin; guhertoya {minimum} an nûtir pêwîst e. Piştgiriya HEIC ya rojanekirî daxe an pirtûkxaneya pergalê rojane bike.
+codec.heif.msg.unknown_version = Ji ber ku guhertoya wê nikare were piştrastkirin, bikaranîna libheif tê redkirin; guhertoya {minimum} an nûtir pêwîst e. Piştgiriya HEIC ya rojanekirî daxe an pirtûkxaneya pergalê rojane bike.
+dialog.open.heic_needs_safe_decoder = Ji bo vekirina “{name}”, libheif {minimum} an guhertoyeke nûtir bi kodvekerê HEVC pêwîst e. Guhertoyên kevn an yên ku nikarin bên piştrastkirin tên astengkirin da ku li hember lawaziyên ewlehiyê yên naskirî parastin hebe. Ji bo berdewamkirinê, piştgiriya HEIC ya rojanekirî daxe.
+workspace.docs.heic_safe_decoder_needed = Piştgiriya HEIC ya rojanekirî pêwîst e

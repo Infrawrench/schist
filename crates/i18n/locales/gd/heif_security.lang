@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = Thathar a’ diùltadh libheif {version} air sgàth so-leòntachdan tèarainteachd aithnichte; tha tionndadh {minimum} no nas ùire a dhìth. Luchdaich a-nuas taic HEIC ùraichte no ùraich leabharlann an t-siostaim.
+codec.heif.msg.unknown_version = Thathar a’ diùltadh libheif oir chan urrainnear an tionndadh aige a dhearbhadh; tha tionndadh {minimum} no nas ùire a dhìth. Luchdaich a-nuas taic HEIC ùraichte no ùraich leabharlann an t-siostaim.
+dialog.open.heic_needs_safe_decoder = Tha libheif {minimum} no nas ùire le dì-chòdaiche HEVC a dhìth gus “{name}” fhosgladh. Tha tionndaidhean nas sine agus tionndaidhean nach gabh dearbhadh air am bacadh gus dìon an aghaidh so-leòntachdan tèarainteachd aithnichte. Luchdaich a-nuas taic HEIC ùraichte gus leantainn air adhart.
+workspace.docs.heic_safe_decoder_needed = Tha taic HEIC ùraichte a dhìth

@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = Dañuy bañ a jëfandikoo libheif {version} ndax ay ñàkk yi ñu xam ci kaaraange gi; sumb {minimum} walla sumb bu gën a bees lañu soxla. Yebbil ndimbalu HEIC bu ñu yeesal walla nga yeesal bibliotek bu sistem bi.
+codec.heif.msg.unknown_version = Dañuy bañ a jëfandikoo libheif ndax mëneesul a seet ba wóor sumbam; sumb {minimum} walla sumb bu gën a bees lañu soxla. Yebbil ndimbalu HEIC bu ñu yeesal walla nga yeesal bibliotek bu sistem bi.
+dialog.open.heic_needs_safe_decoder = Ubbi “{name}” soxla na libheif {minimum} walla sumb bu gën a bees, ànd ak ubbi-kodu HEVC. Sumb yi gën a màgg walla yi mëneesul a seet ba wóor dañu leen tëj ngir aar ci ñàkk yi ñu xam ci kaaraange gi. Yebbil ndimbalu HEIC bu ñu yeesal ngir man a wéy.
+workspace.docs.heic_safe_decoder_needed = Ndimbalu HEIC bu ñu yeesal lañu soxla

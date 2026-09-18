@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = libheif {version} ווערט אָפּגעוואָרפֿן צוליב באַקאַנטע זיכערהייט־שוואַכקייטן; מען דאַרף ווערסיע {minimum} אָדער אַ נײַערע. לאָד אַראָפּ דערהײַנטיקטע HEIC־שטיצע אָדער דערהײַנטיק די סיסטעם־ביבליאָטעק.
+codec.heif.msg.unknown_version = libheif ווערט אָפּגעוואָרפֿן, ווײַל זײַן ווערסיע קען נישט וועריפֿיצירט ווערן; מען דאַרף ווערסיע {minimum} אָדער אַ נײַערע. לאָד אַראָפּ דערהײַנטיקטע HEIC־שטיצע אָדער דערהײַנטיק די סיסטעם־ביבליאָטעק.
+dialog.open.heic_needs_safe_decoder = צו עפֿענען „{name}“ דאַרף מען libheif {minimum} אָדער אַ נײַערע ווערסיע מיט אַן HEVC־דעקאָדער. עלטערע ווערסיעס אָדער ווערסיעס וואָס מע קען נישט וועריפֿיצירן ווערן בלאָקירט כּדי צו באַשיצן קעגן באַקאַנטע זיכערהייט־שוואַכקייטן. לאָד אַראָפּ דערהײַנטיקטע HEIC־שטיצע כּדי צו פאָרזעצן.
+workspace.docs.heic_safe_decoder_needed = מען דאַרף דערהײַנטיקטע HEIC־שטיצע

@@ -1,5 +1,5 @@
-# HEIC security update: English fallback until translated.
-codec.heif.msg.unsafe_version = Refusing libheif {version} because of known security vulnerabilities; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-codec.heif.msg.unknown_version = Refusing libheif because its version cannot be verified; version {minimum} or later is required. Download updated HEIC support or upgrade the system library.
-dialog.open.heic_needs_safe_decoder = Opening “{name}” needs libheif {minimum} or later with an HEVC decoder. Older or unverifiable versions are blocked to protect against known security vulnerabilities. Download updated HEIC support to continue.
-workspace.docs.heic_safe_decoder_needed = Updated HEIC support is required
+# HEIC security update.
+codec.heif.msg.unsafe_version = Eṃōj bōbrae kōjerbal libheif {version} kōn jikin mōjņo ko eṃōj jeļā kaki ilo kōjparok eo an; aikuj version {minimum} ak eo ej itok ālikin. Kōṃṃan download in support in HEIC eo eṃōj kōkāāl, ak kōkāāl library in system eo.
+codec.heif.msg.unknown_version = Eṃōj bōbrae kōjerbal libheif kinke ejjab maroñ kaṃool version eo an; aikuj version {minimum} ak eo ej itok ālikin. Kōṃṃan download in support in HEIC eo eṃōj kōkāāl, ak kōkāāl library in system eo.
+dialog.open.heic_needs_safe_decoder = Bellọk “{name}” ej aikuj libheif {minimum} ak eo ej itok ālikin, ippān juon HEVC decoder. Eṃōj bōbrae version ko mokta ak ko rejjab maroñ kaṃool ñan kōjparok jen jikin mōjņo ko eṃōj jeļā kaki ilo kōjparok. Kōṃṃan download in support in HEIC eo eṃōj kōkāāl ñan wōnṃaanļọk.
+workspace.docs.heic_safe_decoder_needed = Aikuj support in HEIC eo eṃōj kōkāāl
