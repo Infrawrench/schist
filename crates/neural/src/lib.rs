@@ -40,6 +40,7 @@ mod colour;
 mod compat;
 mod depth;
 mod gpu;
+mod gpu_image;
 // The gallery's search embeddings. Desktop only with the gallery — the
 // tokenizer tables it carries would be dead weight in the wasm module.
 #[cfg(not(target_arch = "wasm32"))]
@@ -671,6 +672,14 @@ impl Model {
         } else {
             f32::fact([1, channels, h, w])
         };
+        let mut inferred = onnx
+            .model_for_proto_model(&proto)
+            .context("not a model tract can parse")?
+            .with_input_fact(0, fact.into())
+            .context("model does not take the declared float input")?;
+        inferred
+            .analyse(false)
+            .context("model uses an operator tract cannot infer")?;
         let gpu = gpu::Network::compile(
             &proto,
             if nhwc {
@@ -678,12 +687,9 @@ impl Model {
             } else {
                 vec![1, channels, h, w]
             },
+            &inferred,
         );
-        let plan = onnx
-            .model_for_proto_model(&proto)
-            .context("not a model tract can parse")?
-            .with_input_fact(0, fact.into())
-            .context("model does not take the declared float input")?
+        let plan = inferred
             .into_optimized()
             .context("model uses an operator tract cannot run")?
             .into_runnable()?;
@@ -709,7 +715,15 @@ impl Model {
                     .as_slice()
                     .and_then(|input| schist_fx::try_compute(input, &gpu.program))
                 {
-                    return Ok(tvec!(Tensor::from_shape(&gpu.shape, &output)?.into()));
+                    let mut results = tvec!();
+                    let mut start = 0;
+                    for shape in &gpu.shapes {
+                        let len: usize = shape.iter().product();
+                        results
+                            .push(Tensor::from_shape(shape, &output[start..start + len])?.into());
+                        start += len;
+                    }
+                    return Ok(results);
                 }
             }
         }

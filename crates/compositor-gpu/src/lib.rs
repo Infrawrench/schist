@@ -19,7 +19,7 @@ mod fx;
 mod operation;
 pub mod plan;
 
-pub use exec::{BatchOut, GpuContext, WarpSource};
+pub use exec::{BatchOut, ComputeCacheStats, GpuContext, WarpSource};
 #[cfg(not(target_arch = "wasm32"))]
 pub use fx::GpuFx;
 

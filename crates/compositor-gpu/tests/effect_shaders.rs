@@ -7,6 +7,15 @@ use schist_fx::{FxBackend, ShaderJob, ShaderSpec};
 use schist_plugin_api::{FilterContext, FilterPlugin, FilterValues};
 use std::sync::{Arc, Mutex};
 
+#[path = "support/trig.rs"]
+mod trig;
+
+#[test]
+fn trigonometric_extrema_match_cpu() {
+    let Some(gpu) = gpu() else { return };
+    pollster::block_on(trig::verify(gpu.context()));
+}
+
 struct Tracking {
     ctx: Arc<GpuContext>,
     production: bool,
@@ -76,7 +85,12 @@ fn pixels(w: usize, h: usize) -> Vec<f32> {
         })
         .collect()
 }
-fn compare_pixels(g: &[f32], c: &[f32], label: &str) -> Result<(), String> {
+fn compare_pixels(
+    g: &[f32],
+    c: &[f32],
+    label: &str,
+    twirl_angle: Option<f32>,
+) -> Result<(), String> {
     if g.len() != c.len() {
         return Err(format!(
             "{label}: GPU length {} != CPU length {}",
@@ -94,6 +108,7 @@ fn compare_pixels(g: &[f32], c: &[f32], label: &str) -> Result<(), String> {
         // Compare the actual color contribution for nearly invisible
         // pixels; keep the strict straight-alpha check everywhere else.
         let transcendental = [
+            "filter.twirl",
             "filter.spin_blur",
             "filter.zigzag",
             "filter.spherize",
@@ -112,7 +127,11 @@ fn compare_pixels(g: &[f32], c: &[f32], label: &str) -> Result<(), String> {
         } else {
             (a - b).abs()
         };
-        if difference > if transcendental { 5e-4 } else { 1e-4 } {
+        let tolerance = twirl_angle.map_or(
+            if transcendental { 5e-4 } else { 1e-4 },
+            trig::twirl_tolerance,
+        );
+        if difference > tolerance {
             return Err(format!(
                 "{label} at {i}: gpu {a}, cpu {b}, alpha {} / {}, difference {difference}",
                 g[alpha], c[alpha]
@@ -197,8 +216,9 @@ fn cases() -> Vec<Case> {
     case!(filters::stylize::Emboss, "angle" => -40.0);
     case!(filters::pixelate::Facet);
     case!(filters::pixelate::Fragment);
-    case!(filters::distort::Twirl);
-    case!(filters::distort::Twirl, "angle" => -137.0);
+    for angle in [0.0, 0.01, 50.0, -137.0, -999.0, 999.0] {
+        case!(filters::distort::Twirl, "angle" => angle);
+    }
     case!(filters::distort::Ripple, "amount" => -237.0);
     case!(filters::distort::Ripple, "amount" => 17.0, "size" => 7.0);
     case!(filters::distort::Wave, "generators" => 3.0, "horizontal" => 18.0, "vertical" => 30.0, "seed" => 71.0);
@@ -330,6 +350,7 @@ fn effect_bodies_match_the_cpu_including_bands_and_alpha() {
                     "{} {w}x{h} production={normal_offload} {values:?}",
                     filter.id()
                 ),
+                (filter.id() == "filter.twirl").then(|| values.get("angle")),
             ) {
                 failures.push(error);
             }
@@ -393,12 +414,17 @@ fn shader_failures_limits_and_cache_do_not_poison_other_effects() {
     ctx.set_binding_limit(19 * 16 * 5);
     assert_eq!(ctx.run_shader(&job).unwrap(), px);
     job.halo = None;
-    assert!(
-        ctx.run_shader(&job).is_none(),
-        "nonlocal source cannot be banded"
+    assert_eq!(
+        ctx.run_shader(&job).unwrap(),
+        px,
+        "nonlocal sources use texture pages"
     );
     job.halo = Some(3);
-    assert!(ctx.run_shader(&job).is_none(), "halo leaves no output rows");
+    assert_eq!(
+        ctx.run_shader(&job).unwrap(),
+        px,
+        "large halos use texture pages"
+    );
     job.halo = Some(0);
     job.px = &px[..px.len() - 1];
     assert!(ctx.run_shader(&job).is_none());

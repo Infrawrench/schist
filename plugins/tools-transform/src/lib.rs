@@ -223,6 +223,36 @@ impl Session {
         doc.add_damage(before.union(&after));
     }
 
+    fn gpu_preview(&self, doc: &Document) -> Option<schist_plugin_api::GpuEdit> {
+        if self.mode != TransformMode::Layer {
+            return None;
+        }
+        let clip = doc.canvas_rect().inflated(
+            (self.base.width().max(self.base.height()) as f32
+                * self.scale.0.abs().max(self.scale.1.abs())) as i32,
+        );
+        let layer = self.layer;
+        affine_edit(
+            &self.original,
+            self.matrix(),
+            doc.depth,
+            Filter::Nearest,
+            clip,
+            move |doc, tiles| {
+                let before = doc
+                    .tree
+                    .find(layer)
+                    .map(|l| l.content_bounds())
+                    .unwrap_or(IntRect::EMPTY);
+                let after = tiles.content_bounds();
+                if let Some(raster) = doc.tree.find_mut(layer).and_then(|l| l.as_raster_mut()) {
+                    raster.tiles = tiles;
+                }
+                doc.add_damage(before.union(&after));
+            },
+        )
+    }
+
     fn restore(&self, doc: &mut Document) {
         if self.mode == TransformMode::Selection {
             let before = doc.selection.bounds();
@@ -244,6 +274,30 @@ impl Session {
         }
         doc.add_damage(before.union(&self.base));
     }
+}
+
+fn affine_edit(
+    source: &TileMap,
+    matrix: Affine,
+    depth: schist_color::Depth,
+    filter: Filter,
+    clip: IntRect,
+    apply: impl FnOnce(&mut Document, TileMap) + Send + 'static,
+) -> Option<schist_plugin_api::GpuEdit> {
+    let (input, program, output) =
+        schist_core::resample::affine_operation(source, &matrix, depth, filter, clip)?;
+    let source = source.clone();
+    Some(schist_plugin_api::GpuEdit {
+        input: input.to_vec(),
+        program,
+        name: t("tool.transform.history.transform"),
+        fallback: Box::new(move |_| {
+            output.encode(&schist_core::resample::transform_tiles(
+                &source, &matrix, depth, filter, clip,
+            ))
+        }),
+        apply: Box::new(move |doc, result| apply(doc, output.decode(&result))),
+    })
 }
 
 fn point_in_quad(x: f32, y: f32, quad: &[(f32, f32); 4]) -> bool {
@@ -280,6 +334,8 @@ pub fn filter_name(filter: Filter) -> &'static str {
 }
 
 pub struct TransformTool {
+    async_compute: bool,
+    pending_gpu: Option<schist_plugin_api::GpuEdit>,
     mode: TransformMode,
     session: Option<Session>,
     /// Mirrors `EditorState::resample`, which is what the commit actually
@@ -297,6 +353,8 @@ impl Default for TransformTool {
 impl TransformTool {
     pub fn new(mode: TransformMode) -> TransformTool {
         TransformTool {
+            async_compute: false,
+            pending_gpu: None,
             mode,
             session: None,
             resample: Filter::Bilinear,
@@ -342,6 +400,13 @@ impl TransformTool {
 }
 
 impl ToolPlugin for TransformTool {
+    fn set_async_compute(&mut self, enabled: bool) {
+        self.async_compute = enabled;
+    }
+    fn take_gpu_edit(&mut self) -> Option<schist_plugin_api::GpuEdit> {
+        self.pending_gpu.take()
+    }
+
     fn id(&self) -> &'static str {
         match self.mode {
             TransformMode::Layer => "transform",
@@ -481,6 +546,12 @@ impl ToolPlugin for TransformTool {
         session.dirty = true;
         // Nearest-neighbour keeps the drag interactive; the committed
         // render uses the user's filter.
+        if self.async_compute {
+            if let Some(request) = session.gpu_preview(ctx.doc) {
+                self.pending_gpu = Some(request);
+                return;
+            }
+        }
         session.render(ctx.doc, Filter::Nearest);
     }
 
@@ -533,6 +604,27 @@ impl ToolPlugin for TransformTool {
                 next.apply(&session.matrix());
                 next
             });
+        if self.async_compute {
+            let (source, matrix, filter) = match &smart {
+                Some(so) => (&so.source, so.transform, so.filter),
+                None => (&session.original, session.matrix(), ctx.state.resample),
+            };
+            let layer = session.layer;
+            let next_smart = smart.clone();
+            if let Some(request) =
+                affine_edit(source, matrix, depth, filter, clip, move |doc, tiles| {
+                    let mut edit = doc.begin_edit(t("tool.transform.history.transform"));
+                    edit.replace_layer_tiles(layer, tiles);
+                    if let Some(so) = next_smart {
+                        edit.set_smart_object(layer, Some(Box::new(so)));
+                    }
+                    edit.commit();
+                })
+            {
+                self.pending_gpu = Some(request);
+                return;
+            }
+        }
         let tiles = match &smart {
             Some(so) => so.render(depth, clip),
             None => schist_core::resample::transform_tiles(
@@ -552,6 +644,7 @@ impl ToolPlugin for TransformTool {
     }
 
     fn on_cancel(&mut self, ctx: &mut ToolCtx) {
+        self.pending_gpu = None;
         if let Some(session) = self.session.take() {
             session.restore(ctx.doc);
         }
@@ -800,6 +893,70 @@ pub fn resize_image(doc: &mut Document, width: u32, height: u32, filter: Filter)
     }
     edit.set_canvas_size(width, height);
     edit.commit();
+}
+
+/// Immutable input for an asynchronous Image Size operation.
+pub struct ClassicResize {
+    from: (u32, u32),
+    to: (u32, u32),
+    depth: schist_color::Depth,
+    filter: Filter,
+    layers: Vec<(LayerId, TileMap)>,
+}
+
+impl ClassicResize {
+    pub fn capture(doc: &Document, width: u32, height: u32, filter: Filter) -> Option<Self> {
+        if width == 0
+            || height == 0
+            || doc.width == 0
+            || doc.height == 0
+            || (width, height) == (doc.width, doc.height)
+        {
+            return None;
+        }
+        let layers = doc
+            .tree
+            .iter()
+            .filter_map(|layer| Some((layer.id, layer.as_raster()?.tiles.clone())))
+            .collect();
+        Some(Self {
+            from: (doc.width, doc.height),
+            to: (width, height),
+            depth: doc.depth,
+            filter,
+            layers,
+        })
+    }
+
+    pub async fn run(mut self, backend: &impl schist_fx::AsyncCompute) -> Self {
+        let matrix = Affine::scale(
+            self.to.0 as f32 / self.from.0 as f32,
+            self.to.1 as f32 / self.from.1 as f32,
+        );
+        let clip = IntRect::from_size(self.to.0, self.to.1);
+        for (_, tiles) in &mut self.layers {
+            *tiles = schist_core::resample::transform_tiles_async(
+                tiles,
+                &matrix,
+                self.depth,
+                self.filter,
+                clip,
+                backend,
+            )
+            .await;
+        }
+        self
+    }
+
+    /// The host verifies the document revision before installing the result.
+    pub fn apply(self, doc: &mut Document) {
+        let mut edit = doc.begin_edit(t("tool.transform.history.image_size"));
+        for (id, tiles) in self.layers {
+            edit.replace_layer_tiles(id, tiles);
+        }
+        edit.set_canvas_size(self.to.0, self.to.1);
+        edit.commit();
+    }
 }
 
 /// How Image Size gets from one size to the other.

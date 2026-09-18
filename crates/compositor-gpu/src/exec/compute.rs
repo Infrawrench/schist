@@ -1,5 +1,5 @@
 use super::*;
-use schist_fx::{ComputeJob, ComputeShader, ComputeSource};
+use schist_fx::{ComputeEntry, ComputeJob, ComputeShader, ComputeSource};
 
 impl GpuContext {
     /// Upload inputs once, execute the graph on-device, read only its result.
@@ -32,6 +32,7 @@ impl GpuContext {
         for (i, step) in program.steps.iter().enumerate() {
             bytes(step.output_len)?;
             total = total.checked_add(bytes(step.params.len())?)?;
+            total = total.checked_add(16)?;
             let slot = slots
                 .iter()
                 .position(|&(len, until)| until < i && len >= step.output_len);
@@ -57,7 +58,12 @@ impl GpuContext {
         let max_groups = self.device.limits().max_compute_workgroups_per_dimension;
         let mut dispatches = Vec::new();
         for step in &program.steps {
-            let groups = (step.invocations as u32).div_ceil(256);
+            let groups = match step.shader.entry {
+                ComputeEntry::Element | ComputeEntry::Rgba | ComputeEntry::Atomic => {
+                    (step.invocations as u32).div_ceil(256)
+                }
+                ComputeEntry::Workgroup => step.invocations as u32,
+            };
             let x = groups.min(max_groups);
             let y = groups.div_ceil(x);
             if y > max_groups {
@@ -68,14 +74,13 @@ impl GpuContext {
         let _work = self.work.lock().await;
         let mut pipelines = Vec::new();
         for step in &program.steps {
-            let cached = self.compute_shaders.lock().get(step.shader.source).cloned();
+            let key = (step.shader.source, step.shader.entry);
+            let cached = self.compute_shaders.lock().get(&key).cloned();
             let pipeline = match cached {
                 Some(p) => p?,
                 None => {
-                    let p = self.compile_compute(step.shader).await;
-                    self.compute_shaders
-                        .lock()
-                        .insert(step.shader.source, p.clone());
+                    let p = self.compile_compute(&step.shader).await;
+                    self.compute_shaders.lock().insert(key, p.clone());
                     p?
                 }
             };
@@ -85,12 +90,11 @@ impl GpuContext {
         scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::OutOfMemory));
         scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
         let upload = |data: &[f32]| {
-            self.device
-                .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                    label: Some("compute-input"),
-                    contents: crate::cast_f32s(if data.is_empty() { &[0.0] } else { data }),
-                    usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
-                })
+            // Count the whole job as well as the retained cache. This deliberately
+            // overcounts cache hits, keeping even overlapping lifetimes bounded.
+            self.compute_inputs
+                .lock()
+                .upload(&self.device, data, BUDGET_BYTES - total)
         };
         let inputs: Vec<_> = std::iter::once(job.input)
             .chain(program.buffers.iter().map(Vec::as_slice))
@@ -102,7 +106,9 @@ impl GpuContext {
                 self.device.create_buffer(&wgpu::BufferDescriptor {
                     label: Some("compute-intermediate"),
                     size: (len * 4) as u64,
-                    usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
+                    usage: wgpu::BufferUsages::STORAGE
+                        | wgpu::BufferUsages::COPY_SRC
+                        | wgpu::BufferUsages::COPY_DST,
                     mapped_at_creation: false,
                 })
             })
@@ -123,7 +129,7 @@ impl GpuContext {
                 .create_buffer_init(&wgpu::util::BufferInitDescriptor {
                     label: Some("compute-shape"),
                     contents: cast_u32s(&[
-                        step.output_len as u32,
+                        step.invocations as u32,
                         step.shape[0],
                         step.shape[1],
                         step.shape[2],
@@ -141,6 +147,9 @@ impl GpuContext {
                     bind_entry(4, &shape),
                 ],
             });
+            if step.shader.entry == ComputeEntry::Atomic {
+                encoder.clear_buffer(&outputs[output_slots[i]], 0, None);
+            }
             let mut pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
                 label: Some(step.shader.name),
                 timestamp_writes: None,
@@ -161,7 +170,11 @@ impl GpuContext {
             .await;
         if let Some(error) = scopes.pop().await {
             log::warn!("GPU program allocation failed: {error}");
+            self.clear_compute_cache();
             return None;
+        }
+        if out.is_none() {
+            self.clear_compute_cache();
         }
         out
     }

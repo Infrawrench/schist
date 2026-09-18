@@ -29,7 +29,15 @@ pub use compute::*;
 
 /// An owned, whole-filter operation that an asynchronous host can submit.
 /// Unlike borrowed jobs this can wait in a queue without retaining editor state.
+#[derive(Clone)]
 pub enum FilterOperation {
+    /// A stack composed into one graph, uploading and reading back only once.
+    Sequence(Vec<FilterOperation>),
+    /// A builder capturing immutable auxiliary images or model state.
+    Captured {
+        build: Arc<dyn Fn(usize, usize) -> Option<ComputeProgram> + Send + Sync>,
+        work_per_pixel: usize,
+    },
     Program {
         build: fn(usize, usize, &[f32]) -> Option<ComputeProgram>,
         params: Vec<f32>,
@@ -48,18 +56,113 @@ pub enum FilterOperation {
 }
 
 impl FilterOperation {
-    pub fn worth_offloading(&self, pixels: usize) -> bool {
-        let work = match self {
+    pub fn work_per_pixel(&self) -> usize {
+        match self {
+            Self::Sequence(operations) => operations
+                .iter()
+                .fold(0usize, |n, op| n.saturating_add(op.work_per_pixel())),
             Self::Blur { radius, passes } => radius
                 .saturating_mul(2)
                 .saturating_add(1)
                 .saturating_mul(2)
                 .saturating_mul(*passes),
-            Self::Shader { work_per_pixel, .. } | Self::Program { work_per_pixel, .. } => {
-                *work_per_pixel
-            }
+            Self::Shader { work_per_pixel, .. }
+            | Self::Program { work_per_pixel, .. }
+            | Self::Captured { work_per_pixel, .. } => *work_per_pixel,
+        }
+    }
+
+    pub fn worth_offloading(&self, pixels: usize) -> bool {
+        worth_offloading(pixels, self.work_per_pixel())
+    }
+
+    /// Build a resident graph, preserving branches and auxiliary inputs.
+    pub fn program(&self, width: usize, height: usize) -> Option<ComputeProgram> {
+        let pixels = width.checked_mul(height)?;
+        let len = pixels.checked_mul(4)?;
+        if pixels == 0 || len > u32::MAX as usize {
+            return None;
+        }
+        let input = ComputeSource::Input(0);
+        let mut program = ComputeProgram {
+            buffers: vec![],
+            steps: vec![],
+            result: input,
+            work: pixels.saturating_mul(self.work_per_pixel()),
         };
-        worth_offloading(pixels, work)
+        match self {
+            Self::Program { build, params, .. } => return build(width, height, params),
+            Self::Captured { build, .. } => return build(width, height),
+            Self::Blur { radius, passes } => {
+                program.result = program.rgba_blur(input, width, height, *radius, *passes);
+            }
+            Self::Shader { shader, params, .. } => {
+                let shader = ComputeShader {
+                    name: shader.name,
+                    source: shader.source,
+                    entry: ComputeEntry::Rgba,
+                };
+                program.result = program.push(
+                    &shader,
+                    input,
+                    input,
+                    params.clone(),
+                    len,
+                    [width as u32, height as u32, 4],
+                );
+                program.steps.last_mut()?.invocations = pixels;
+            }
+            Self::Sequence(operations) => {
+                program.work = 0;
+                for operation in operations {
+                    let next = operation.program(width, height)?;
+                    program.result = program.append(&next, program.result);
+                }
+            }
+        }
+        program.valid(len).then_some(program)
+    }
+
+    /// Native callers retain their reference implementation on any decline.
+    pub fn apply(&self, pixels: &mut [f32], width: usize, height: usize) -> bool {
+        if width.checked_mul(height).and_then(|n| n.checked_mul(4)) != Some(pixels.len()) {
+            return false;
+        }
+        match self {
+            Self::Shader {
+                shader,
+                params,
+                halo,
+                work_per_pixel,
+            } => try_shader_rgba(
+                pixels,
+                width,
+                height,
+                shader,
+                params,
+                *halo,
+                *work_per_pixel,
+            ),
+            _ => {
+                if !backend().compute_available(
+                    width
+                        .saturating_mul(height)
+                        .saturating_mul(self.work_per_pixel()),
+                ) {
+                    return false;
+                }
+                let Some(program) = self.program(width, height) else {
+                    return false;
+                };
+                let Some(out) =
+                    try_compute(pixels, &program).filter(|out| out.len() == pixels.len())
+                else {
+                    return false;
+                };
+                pixels.copy_from_slice(&out);
+                true
+            }
+        }
     }
 }
 

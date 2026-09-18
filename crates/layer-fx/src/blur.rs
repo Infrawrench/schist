@@ -33,7 +33,7 @@ pub fn gaussian_alpha(a: &mut [f32], w: usize, h: usize, radius: f32) {
 /// and two probes of the same effect then disagree about the scale
 /// factor. Mixing two adjacent widths across the passes (the standard
 /// construction) hits the target sigma to well under a percent instead.
-fn box_radii(sigma: f32) -> [usize; 3] {
+pub(super) fn box_radii(sigma: f32) -> [usize; 3] {
     const N: f32 = 3.0;
     let ideal = (12.0 * sigma * sigma / N + 1.0).sqrt();
     let mut lower = ideal.floor();

@@ -11,6 +11,75 @@ use wasm_bindgen_test::*;
 
 wasm_bindgen_test_configure!(run_in_browser);
 
+#[path = "support/trig.rs"]
+mod trig;
+
+#[wasm_bindgen_test(async)]
+async fn trigonometric_extrema_match_cpu() {
+    let context = GpuContext::new_async().await.expect("WebGPU required");
+    trig::verify(&context).await;
+}
+
+#[wasm_bindgen_test(async)]
+async fn twirl_extreme_angles_match_cpu() {
+    let context = GpuContext::new_async().await.expect("WebGPU required");
+    let filter = schist_filters_core::distort::Twirl;
+    for (w, h) in [(1025, 3), (501, 500)] {
+        let mut state = 1234567u32;
+        let input: Vec<f32> = (0..w * h * 4)
+            .map(|i| {
+                state ^= state << 13;
+                state ^= state >> 17;
+                state ^= state << 5;
+                if i % 4 == 3 {
+                    [0.0, 1.0, 0.0000005, 0.000002, 0.25, 0.7][(state % 6) as usize]
+                } else {
+                    (state % 2048) as f32 / 1024.0 - 0.25
+                }
+            })
+            .collect();
+        for angle in [0.0, 0.01, 50.0, -137.0, -999.0, 999.0] {
+            let mut values = FilterValues::defaults(&filter.params());
+            values.set("angle", angle);
+            let mut expected = input.clone();
+            filter.apply(&mut expected, w, h, &values);
+            let schist_fx::FilterOperation::Shader {
+                shader,
+                params,
+                halo,
+                work_per_pixel,
+            } = filter.gpu_operation(&values).unwrap()
+            else {
+                panic!("Twirl shader expected")
+            };
+            let actual = context
+                .run_shader_async(&ShaderJob {
+                    shader,
+                    params: &params,
+                    halo,
+                    work_per_pixel,
+                    px: &input,
+                    width: w,
+                    height: h,
+                })
+                .await
+                .expect("Twirl must execute on WebGPU");
+            for (i, (&a, &b)) in actual.iter().zip(&expected).enumerate() {
+                let alpha = i / 4 * 4 + 3;
+                let difference = if i % 4 == 3 {
+                    (a - b).abs()
+                } else {
+                    (a * actual[alpha] - b * expected[alpha]).abs()
+                };
+                assert!(
+                    difference <= trig::twirl_tolerance(angle),
+                    "Twirl {w}x{h}, angle {angle}, channel {i}: {difference}"
+                );
+            }
+        }
+    }
+}
+
 fn pixels(w: usize, h: usize) -> Vec<f32> {
     (0..w * h)
         .flat_map(|i| {
@@ -221,4 +290,113 @@ async fn resident_programs_and_context_filters_match_cpu() {
         panic!("offset composite declined")
     };
     assert_eq!(actual, expected);
+}
+
+#[path = "support/owned_edits.rs"]
+mod owned_edits;
+
+#[wasm_bindgen_test(async)]
+async fn selection_transform_and_image_size_use_owned_gpu_edits() {
+    let context = GpuContext::new_async().await.expect("WebGPU required");
+    owned_edits::verify(&context).await;
+    owned_edits::export(&context).await;
+}
+
+#[wasm_bindgen_test(async)]
+async fn histogram_gallery_and_neural_graphs_execute_in_browser() {
+    use schist_plugin_api::{PluginManifest, PluginRegistry};
+    struct BrowserLog;
+    impl log::Log for BrowserLog {
+        fn enabled(&self, metadata: &log::Metadata<'_>) -> bool {
+            metadata.level() <= log::Level::Warn
+        }
+        fn log(&self, record: &log::Record<'_>) {
+            if self.enabled(record.metadata()) {
+                wasm_bindgen_test::console_log!("{}", record.args());
+            }
+        }
+        fn flush(&self) {}
+    }
+    let _ = log::set_logger(&BrowserLog);
+    log::set_max_level(log::LevelFilter::Warn);
+    let context = GpuContext::new_async().await.expect("WebGPU required");
+    let (w, h) = (37, 29);
+    let input = pixels(w, h);
+    let mut expected = input.clone();
+    schist_adjustments::auto::apply_cpu(&mut expected, schist_adjustments::auto::AutoMode::Color);
+    let automatic = schist_adjustments::auto::operation(schist_adjustments::auto::AutoMode::Color);
+    // Exercise compact graphs directly: production intentionally declines
+    // images this small before creating a dispatch.
+    let program = automatic.program(w, h).unwrap();
+    let result = context
+        .run_compute_async(&schist_fx::ComputeJob {
+            input: &input,
+            program: &program,
+        })
+        .await
+        .expect("atomic histogram");
+    close(&result, &expected);
+    let mut registry = PluginRegistry::new();
+    schist_filters_core::CoreFiltersPlugin.register(&mut registry);
+    let mut operations = vec![];
+    let mut expected = input.clone();
+    for id in ["filter.cutout", "filter.watercolor", "filter.camera_raw"] {
+        let filter = registry.shared_filter(id).unwrap();
+        let values = FilterValues::defaults(&filter.params());
+        operations.push(filter.gpu_operation(&values).expect(id));
+        filter.apply(&mut expected, w, h, &values);
+    }
+    let program = schist_fx::FilterOperation::Sequence(operations)
+        .program(w, h)
+        .unwrap();
+    let result = context
+        .run_compute_async(&schist_fx::ComputeJob {
+            input: &input,
+            program: &program,
+        })
+        .await
+        .expect("resident gallery");
+    close(&result, &expected);
+    let model = std::sync::Arc::new(
+        schist_neural::Model::from_bytes(
+            schist_neural::spec("dejpeg").unwrap(),
+            include_bytes!("../../neural/models/dejpeg.onnx"),
+        )
+        .unwrap(),
+    );
+    let operation = model.rgba_operation(0.5).unwrap();
+    let program = operation.program(w, h).unwrap();
+    let mut expected = input
+        .as_chunks::<4>()
+        .0
+        .iter()
+        .flat_map(|pixel| pixel[..3].iter().copied())
+        .collect::<Vec<_>>();
+    schist_neural::run_tiled(&model, &mut expected, w, h, 0.5);
+    let result = context
+        .run_compute_async(&schist_fx::ComputeJob {
+            input: &input,
+            program: &program,
+        })
+        .await
+        .expect("resident neural image");
+    assert_eq!(result.len(), input.len());
+    for ((a, b), expected) in result
+        .as_chunks::<4>()
+        .0
+        .iter()
+        .zip(input.as_chunks::<4>().0.iter())
+        .zip(expected.as_chunks::<3>().0)
+    {
+        assert_eq!(a[3], b[3]);
+        for (a, b) in a[..3].iter().zip(expected) {
+            assert!((a - b).abs() <= 3e-4 * (1.0 + b.abs()));
+        }
+    }
+}
+
+#[wasm_bindgen_test(async)]
+async fn raw_sensor_histogram_and_encoding_execute_in_browser() {
+    let context = GpuContext::new_async().await.expect("WebGPU required");
+    owned_edits::raw_development(&context).await;
 }

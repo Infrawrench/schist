@@ -140,6 +140,49 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
         &tile_data(&expected.tiles, rect.inflated(40)),
         1e-4,
     );
+    for (i, bevel) in [
+        schist_core::BevelStyle_::InnerBevel,
+        schist_core::BevelStyle_::OuterBevel,
+        schist_core::BevelStyle_::Emboss,
+        schist_core::BevelStyle_::PillowEmboss,
+    ]
+    .into_iter()
+    .enumerate()
+    {
+        style.bevel.settings.style = bevel;
+        style.bevel.settings.soften = 1.3;
+        style.bevel.settings.depth = -0.7;
+        style.blur.enabled = true;
+        style.blur.settings.radius = 1.7;
+        style.blur.settings.preserve_alpha = i % 2 == 0;
+        style.inner_glow.settings.technique = schist_core::Technique::Precise;
+        style.outer_glow.settings.technique = schist_core::Technique::Precise;
+        style.inner_glow.settings.from_edge = i % 2 == 0;
+        style.gradient_overlay.enabled = true;
+        style.gradient_overlay.settings.shape = if i % 2 == 0 {
+            schist_core::GradientShape::Radial
+        } else {
+            schist_core::GradientShape::Linear
+        };
+        style.gradient_overlay.settings.reverse = true;
+        style.color_overlay.enabled = true;
+        style.color_overlay.settings.blend = schist_core::BlendMode::Color;
+        style.color_overlay.settings.opacity = 0.3;
+        style.stroke.settings.position = if i % 2 == 0 {
+            schist_core::StrokePosition::Inside
+        } else {
+            schist_core::StrokePosition::Center
+        };
+        schist_fx::set_backend(Arc::new(schist_fx::CpuFx));
+        let expected = schist_layer_fx::render_content(rect, pixel, &style, 0.4).unwrap();
+        schist_fx::set_backend(gpu.clone());
+        let actual = schist_layer_fx::render_content(rect, pixel, &style, 0.4).unwrap();
+        close_pixels(
+            &tile_data(&actual.tiles, rect.inflated(50)),
+            &tile_data(&expected.tiles, rect.inflated(50)),
+            1e-4,
+        );
+    }
     let canvas = IntRect::new(-30, -20, 310, 260);
     let mut original = Selection::new();
     original.select_ellipse(IntRect::new(-11, -7, 276, 241), SelectOp::Replace);
@@ -375,7 +418,13 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
             assert!(a.iter().zip(b).all(|(a, b)| a.abs_diff(b) <= 1));
         }
     }
-    for id in ["detail", "dejpeg", "portrait"] {
+    for id in [
+        "detail",
+        "dejpeg",
+        "portrait",
+        "waifu2x-art",
+        "waifu2x-photo",
+    ] {
         let model = schist_neural::get(id).unwrap();
         assert!(model.gpu_program().is_some(), "{id} compiler declined");
         let (w, h) = model.spec.input.dims();
@@ -393,10 +442,6 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
         );
         close(&a, &b, 0.0003);
     }
-    assert!(schist_neural::get("waifu2x-photo")
-        .unwrap()
-        .gpu_program()
-        .is_none());
     {
         let model = schist_neural::get("colorize").unwrap();
         assert!(model.gpu_program().is_some());
@@ -448,6 +493,7 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
         "vector-coverage",
         "neural-tensor",
         "healing-diffusion",
+        "healing-patch-score",
     ] {
         assert!(seen.contains(&name), "missing {name}");
     }

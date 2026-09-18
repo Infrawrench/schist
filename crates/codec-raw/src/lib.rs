@@ -22,6 +22,9 @@
 //! derived from dcraw, LibRaw, rawspeed, rawler or any other
 //! copyleft decoder, and nothing here may read their source.
 
+mod cache;
+pub use cache::{clear_decode_cache, decode_cached};
+
 pub mod bits;
 pub mod bmff;
 pub mod cameras;

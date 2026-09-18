@@ -18,10 +18,14 @@ use schist_plugin_api::{
 /// Shared by every tool that produces a pixel set rather than a shape:
 /// the wand, quick selection and object selection.
 fn commit_pixels(ctx: &mut ToolCtx, pixels: &[(i32, i32)], op: SelectOp, name: &str) {
+    commit_document_pixels(ctx.doc, pixels, op, name);
+}
+
+fn commit_document_pixels(doc: &mut Document, pixels: &[(i32, i32)], op: SelectOp, name: &str) {
     if pixels.is_empty() {
         return;
     }
-    let mut edit = ctx.doc.begin_edit(name.to_string());
+    let mut edit = doc.begin_edit(name.to_string());
     edit.change_selection(|sel, _| {
         if op == SelectOp::Replace {
             sel.deselect();
@@ -674,6 +678,31 @@ fn wand_select(
         return None;
     }
     let target = raster.tiles.pixel(x, y).to_u8();
+    if schist_core::selection_gpu::available(canvas, contiguous) {
+        let w = canvas.width() as usize;
+        let seeds = contiguous.then(|| {
+            let mut seeds = vec![0.0; w * canvas.height() as usize];
+            seeds[(y - canvas.top) as usize * w + (x - canvas.left) as usize] = 1.0;
+            seeds
+        });
+        if let Some(mask) = schist_core::selection_gpu::classify(
+            &raster.tiles,
+            canvas,
+            schist_core::selection_gpu::ColorMatch::Rgba8 {
+                color: target,
+                tolerance,
+            },
+            seeds.as_deref(),
+        ) {
+            return Some(
+                mask.iter()
+                    .enumerate()
+                    .filter(|(_, v)| **v > 0)
+                    .map(|(i, _)| (canvas.left + (i % w) as i32, canvas.top + (i / w) as i32))
+                    .collect(),
+            );
+        }
+    }
     let tol = tolerance as i32;
     let matches = |px: [u8; 4]| -> bool {
         px.iter()
@@ -717,6 +746,41 @@ fn wand_select(
 }
 
 impl ToolPlugin for WandTool {
+    fn gpu_pointer_down(
+        &self,
+        doc: &Document,
+        _: &EditorState,
+        input: PointerInput,
+    ) -> Option<schist_plugin_api::GpuEdit> {
+        let (x, y) = (input.x.floor() as i32, input.y.floor() as i32);
+        let canvas = doc.canvas_rect();
+        if !canvas.contains(x, y) {
+            return None;
+        }
+        let tiles = &active_raster(doc)?.tiles;
+        let w = canvas.width() as usize;
+        let seeds = self.contiguous.then(|| {
+            let mut seeds = vec![0.0; w * canvas.height() as usize];
+            seeds[(y - canvas.top) as usize * w + (x - canvas.left) as usize] = 1.0;
+            seeds
+        });
+        let rule = schist_core::selection_gpu::ColorMatch::Rgba8 {
+            color: tiles.pixel(x, y).to_u8(),
+            tolerance: self.tolerance,
+        };
+        let op = op_from(input.modifiers, self.mode);
+        let name = t("tool.wand.history.select");
+        schist_plugin_api::GpuEdit::selection(tiles, canvas, rule, seeds, name, move |doc, mask| {
+            let pixels = mask
+                .iter()
+                .enumerate()
+                .filter(|(_, v)| **v > 0.0)
+                .map(|(i, _)| (canvas.left + (i % w) as i32, canvas.top + (i / w) as i32))
+                .collect::<Vec<_>>();
+            commit_document_pixels(doc, &pixels, op, name);
+        })
+    }
+
     fn id(&self) -> &'static str {
         "wand"
     }

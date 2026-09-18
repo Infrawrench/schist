@@ -15,6 +15,7 @@ pub use schist_psd_descriptor as descriptor;
 use schist_color::Rgba;
 use schist_core::AdjustmentKind;
 
+pub mod auto;
 mod color;
 mod curves;
 pub mod gpu;

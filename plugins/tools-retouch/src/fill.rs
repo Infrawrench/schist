@@ -38,10 +38,8 @@ fn relax_gpu(
     passes: usize,
 ) -> Option<Vec<f32>> {
     use schist_fx::{ComputeProgram, ComputeShader, ComputeSource, ComputeStep};
-    static SHADER: ComputeShader = ComputeShader {
-        name: "healing-diffusion",
-        source: include_str!("fill_gpu.wgsl"),
-    };
+    static SHADER: ComputeShader =
+        ComputeShader::new("healing-diffusion", include_str!("fill_gpu.wgsl"));
     let work = input.len().saturating_mul(passes).saturating_mul(4);
     if !schist_fx::backend().compute_available(work) {
         return None;
@@ -64,7 +62,7 @@ fn relax_gpu(
     };
     for i in 0..passes {
         p.steps.push(ComputeStep {
-            shader: &SHADER,
+            shader: SHADER,
             source: if i == 0 {
                 ComputeSource::Input(0)
             } else {
@@ -406,6 +404,88 @@ const SEARCH_BUDGET: usize = 24_000_000;
 /// the network's answer is an opinion.
 const GUIDE: f32 = 0.4;
 
+/// The immutable source patches fit in the backend's exact upload cache. Each
+/// sequential placement uploads just 49 target colours/weights and reads one
+/// winning index; candidate scoring and reduction stay on the GPU.
+struct PatchScorer {
+    program: schist_fx::ComputeProgram,
+}
+
+impl PatchScorer {
+    fn new(original: &[Rgba], sources: &[usize], w: usize, searches: usize) -> Option<Self> {
+        use schist_fx::{ComputeProgram, ComputeShader, ComputeSource};
+        static SHADER: ComputeShader =
+            ComputeShader::new("healing-patch-score", include_str!("fill_score.wgsl"));
+        let work = sources
+            .len()
+            .saturating_mul(49 * 12)
+            .saturating_mul(searches);
+        if !schist_fx::backend().compute_available(work) {
+            return None;
+        }
+        let mut patches = Vec::with_capacity(sources.len() * 49 * 3);
+        for &s in sources {
+            for y in s / w - RADIUS..=s / w + RADIUS {
+                for x in s % w - RADIUS..=s % w + RADIUS {
+                    let p = original[y * w + x];
+                    patches.extend([p.r, p.g, p.b]);
+                }
+            }
+        }
+        let mut program = ComputeProgram {
+            buffers: vec![patches],
+            steps: vec![],
+            result: ComputeSource::Input(0),
+            work,
+        };
+        let scores = program.push(
+            &SHADER,
+            ComputeSource::Input(0),
+            ComputeSource::Input(1),
+            vec![0.0, sources.len() as f32],
+            sources.len(),
+            [sources.len() as u32, 1, 1],
+        );
+        program.result = program.push(
+            &SHADER,
+            scores,
+            scores,
+            vec![1.0, sources.len() as f32],
+            1,
+            [1, 1, 1],
+        );
+        Some(Self { program })
+    }
+
+    fn best(
+        &self,
+        buf: &[Rgba],
+        known: &[bool],
+        guide: Option<&[f32]>,
+        w: usize,
+        at: usize,
+    ) -> Option<usize> {
+        let mut target = Vec::with_capacity(49 * 4);
+        for y in at / w - RADIUS..=at / w + RADIUS {
+            for x in at % w - RADIUS..=at % w + RADIUS {
+                let i = y * w + x;
+                if known[i] {
+                    let p = buf[i];
+                    target.extend([p.r, p.g, p.b, 1.0]);
+                } else if let Some(g) = guide {
+                    target.extend([g[i * 3], g[i * 3 + 1], g[i * 3 + 2], GUIDE]);
+                } else {
+                    target.extend([0.0; 4]);
+                }
+            }
+        }
+        let output = schist_fx::try_compute(&target, &self.program)?;
+        let index = *output.first()?;
+        (index.is_finite() && index >= 0.0 && index < self.program.steps[0].output_len as f32)
+            .then_some(index as usize)
+    }
+}
+
 /// Rebuild the hole out of patches of the picture around it.
 ///
 /// Exemplar-based inpainting (Criminisi et al.): fill from the edge
@@ -452,6 +532,7 @@ fn synthesise(buf: &mut [Rgba], hole: &[bool], guide: Option<&[f32]>, w: usize, 
     // Candidates are read from the picture as it arrived, never from
     // what has been filled in so far, so nothing compounds.
     let original = buf.to_vec();
+    let scorer = PatchScorer::new(&original, &sources, w, searches);
     let mut conf: Vec<f32> = known.iter().map(|&k| k as u8 as f32).collect();
     let mut left = hole.iter().filter(|&&g| g).count();
 
@@ -489,27 +570,33 @@ fn synthesise(buf: &mut [Rgba], hole: &[bool], guide: Option<&[f32]>, w: usize, 
             break;
         }
         let (tx, ty) = (at % w, at / w);
-        let best = sources
-            .par_chunks(256)
-            .map(|chunk| {
-                chunk
-                    .iter()
-                    .fold((f32::INFINITY, chunk[0]), |(low, pick), &s| {
-                        let c = fit(buf, &original, guide, &known, w, at, s, r, low);
-                        match c < low {
-                            true => (c, s),
-                            false => (low, pick),
-                        }
+        let best = scorer
+            .as_ref()
+            .and_then(|s| s.best(buf, &known, guide, w, at))
+            .map(|i| sources[i])
+            .unwrap_or_else(|| {
+                sources
+                    .par_chunks(256)
+                    .map(|chunk| {
+                        chunk
+                            .iter()
+                            .fold((f32::INFINITY, chunk[0]), |(low, pick), &s| {
+                                let c = fit(buf, &original, guide, &known, w, at, s, r, low);
+                                match c < low {
+                                    true => (c, s),
+                                    false => (low, pick),
+                                }
+                            })
                     })
-            })
-            .reduce(
-                || (f32::INFINITY, sources[0]),
-                |a, b| match b.0 < a.0 {
-                    true => b,
-                    false => a,
-                },
-            )
-            .1;
+                    .reduce(
+                        || (f32::INFINITY, sources[0]),
+                        |a, b| match b.0 < a.0 {
+                            true => b,
+                            false => a,
+                        },
+                    )
+                    .1
+            });
 
         // Copy the patch in, but only over what is still missing.
         let settled = patch_confidence(&conf, &known, w, at, r);

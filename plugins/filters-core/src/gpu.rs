@@ -87,11 +87,15 @@ pub fn operation(
     v: &schist_plugin_api::FilterValues,
 ) -> Option<schist_fx::FilterOperation> {
     use schist_fx::FilterOperation;
+    if let Some(op) = crate::gpu_extra::operation(id, v, &Default::default()) {
+        return Some(op);
+    }
     if let Some(program) = crate::gpu_programs::operation(id, v) {
         return Some(program);
     }
     let (shader, params, halo, work): (&'static ShaderSpec, Vec<f32>, Option<usize>, usize) =
         match id {
+            "filter.twirl" => (&TWIRL, vec![v.get("angle").to_radians()], None, 32),
             "filter.glass" => (
                 &SURFACE,
                 vec![
@@ -373,36 +377,7 @@ pub fn apply_operation(
     w: usize,
     h: usize,
 ) -> bool {
-    match operation {
-        schist_fx::FilterOperation::Program {
-            build,
-            params,
-            work_per_pixel,
-        } => {
-            if !schist_fx::backend()
-                .compute_available(w.saturating_mul(h).saturating_mul(*work_per_pixel))
-            {
-                return false;
-            }
-            let Some(program) = build(w, h, params) else {
-                return false;
-            };
-            match schist_fx::try_compute(pixels, &program) {
-                Some(out) if out.len() == pixels.len() => {
-                    pixels.copy_from_slice(&out);
-                    true
-                }
-                _ => false,
-            }
-        }
-        schist_fx::FilterOperation::Shader {
-            shader,
-            params,
-            halo,
-            work_per_pixel,
-        } => apply(pixels, w, h, shader, params, *halo, *work_per_pixel),
-        schist_fx::FilterOperation::Blur { .. } => false,
-    }
+    operation.apply(pixels, w, h)
 }
 
 /// Context is encoded into owned parameters before the browser host yields.
@@ -411,6 +386,9 @@ pub fn operation_with(
     v: &schist_plugin_api::FilterValues,
     context: &schist_plugin_api::FilterContext<'_>,
 ) -> Option<schist_fx::FilterOperation> {
+    if let Some(op) = crate::gpu_extra::operation(id, v, context) {
+        return Some(op);
+    }
     let mut params = match id {
         "filter.clouds" | "filter.difference_clouds" => vec![
             if id == "filter.clouds" { 0.0 } else { 1.0 },

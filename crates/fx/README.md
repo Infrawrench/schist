@@ -96,26 +96,33 @@ Median companions use scratch arrays for radii 1–4 and constant-register radix
 selection for larger windows (the helper supports radii through 100). Oil Paint supports up to 64 intensity bins.
 Gaussian/box blur, lens blur, mesh warp and seam carving retain their specialized
 backends. Additional companions cover blur galleries, distortions, lens correction,
-pixelate and texture effects; see the [coverage map](../../docs/gpu-opportunities.md).
+pixelate and texture effects.
 
 ## Resident programs and browser callers
 
 `ComputeProgram` describes float-buffer steps with primary and auxiliary inputs,
 owned parameters, output lengths and dispatch shapes. `ComputeSource::Step`
-references an earlier result. Kernels implement `compute(index: u32)` over the
-bindings in `COMPUTE_PRELUDE`; row/pixel kernels must guard their logical index
-when they write more than one sample. The executor validates dependencies and
-allocation limits, reuses dead outputs and reads back only the program result.
+references an earlier result. `ComputeShader::new` implements `compute(index)`;
+`ComputeShader::workgroup` implements `compute_group(group, lane)` with 256 lanes.
+`ComputeEntry::Rgba` reuses an effect's pixel helpers, while `Atomic` exposes a
+zeroed atomic output for histograms and connected components. Dispatch bounds
+use `invocations`, independently of the number of output samples. Uniform
+workgroup guards keep barriers valid even in a partially occupied final group.
+The executor validates dependencies and allocation limits, reuses dead outputs,
+caches immutable inputs with exact byte comparison, and reads only the result.
 `FxBackend::compute_available(work)` lets callers avoid expensive preparation
 when no eligible backend is installed. A declined program leaves the original
 input available for CPU execution.
 
 `FilterPlugin::gpu_operation_with` exposes a **complete** asynchronous operation,
 including captured context. Native callers use the same descriptor when present.
-`FilterOperation::Program` builds dimension-dependent graphs; High Pass, Unsharp
-Mask, graded blurs and Mosaic use it. Browser hosts await the descriptor and
-handle stale results, cancellation, fallback and history. A synchronous library
-call in WebAssembly still uses its CPU implementation.
+`FilterOperation::Program` builds dimension-dependent graphs; `Captured` owns
+model/profile/context data, and `Sequence` composes a resident Filter Gallery.
+`ComputeProgram::append` remaps a complete graph onto an earlier result.
+Browser hosts await the descriptor and handle stale results, cancellation,
+fallback and history. `AsyncCompute` also serves RAW and affine callers;
+`GpuEdit` in plugin-api carries owned tool input and a matching CPU fallback.
+A synchronous library call in WebAssembly still uses its CPU implementation.
 
 ## Verification
 

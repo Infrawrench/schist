@@ -151,21 +151,35 @@ pub fn demosaic(
     }
     // Every path below allocates three floats per input pixel.
     frame_samples(width, height, 3)?;
-    let mosaic = Mosaic::build(data, width, height, cfa)?;
+    let period = CfaPeriod::new(cfa)?;
     // A Bayer array that is not actually Bayer (a vendor's odd
     // four-colour layout squeezed into the variant) falls through to
     // the generic path rather than being interpolated as if the
     // neighbours were the colours the algorithm expects.
-    let bayer = matches!(cfa, Cfa::Bayer(_)) && mosaic.is_true_bayer();
-    if let Some(out) = gpu::run(&mosaic, width, height, bayer, quality) {
+    let bayer = matches!(cfa, Cfa::Bayer(_)) && period.is_true_bayer();
+    if let Some(out) = gpu::run(data, &period, width, height, bayer, quality) {
         return Ok(out);
     }
+    let mosaic = Mosaic::build(data, width, height, cfa)?;
     Ok(match (bayer, quality) {
         (true, Quality::Fast) => bayer_bilinear(&mosaic, width, height),
         (true, Quality::Best) => bayer_hamilton_adams(&mosaic, width, height),
         (false, Quality::Fast) => generic_weighted(&mosaic, width, height),
         (false, Quality::Best) => generic_directional(&mosaic, width, height),
     })
+}
+
+/// Complete demosaic graph, including border preparation, for asynchronous
+/// RAW hosts. The executor enforces its aggregate memory limit before upload.
+pub(crate) fn gpu_program(
+    w: usize,
+    h: usize,
+    cfa: &Cfa,
+    quality: Quality,
+) -> Option<schist_fx::ComputeProgram> {
+    let period = CfaPeriod::new(cfa).ok()?;
+    let bayer = matches!(cfa, Cfa::Bayer(_)) && period.is_true_bayer();
+    gpu::band_program(&period, w, h, 0, h, 0, bayer, quality)
 }
 
 /// The sample plane extended by [`PAD`] pixels on every side, with a
@@ -185,18 +199,14 @@ struct Mosaic {
     ph: usize,
 }
 
-impl Mosaic {
-    #[inline(always)]
-    fn at(&self, x: usize, y: usize) -> f32 {
-        self.plane[y * self.pw + x]
-    }
+struct CfaPeriod {
+    cw: usize,
+    ch: usize,
+    period: Vec<u8>,
+}
 
-    #[inline(always)]
-    fn code(&self, x: usize, y: usize) -> u8 {
-        self.codes[y * self.pw + x]
-    }
-
-    fn build(data: &[f32], width: usize, height: usize, cfa: &Cfa) -> Result<Mosaic> {
+impl CfaPeriod {
+    fn new(cfa: &Cfa) -> Result<Self> {
         let (cw, ch) = match cfa {
             Cfa::None => return Err(Error::Unsupported("demosaic: no filter array".into())),
             Cfa::Bayer(_) => (2, 2),
@@ -244,6 +254,31 @@ impl Mosaic {
                 period[py * cw + px] = code_of(color)?;
             }
         }
+        Ok(Self { cw, ch, period })
+    }
+    fn is_true_bayer(&self) -> bool {
+        let c = &self.period;
+        c.len() == 4
+            && c.iter().filter(|&&v| v == GRN).count() == 2
+            && ((c[0] == GRN && c[3] == GRN) || (c[1] == GRN && c[2] == GRN))
+            && c.iter().filter(|&&v| v == RED).count() == 1
+            && c.iter().filter(|&&v| v == BLU).count() == 1
+    }
+}
+
+impl Mosaic {
+    #[inline(always)]
+    fn at(&self, x: usize, y: usize) -> f32 {
+        self.plane[y * self.pw + x]
+    }
+
+    #[inline(always)]
+    fn code(&self, x: usize, y: usize) -> u8 {
+        self.codes[y * self.pw + x]
+    }
+
+    fn build(data: &[f32], width: usize, height: usize, cfa: &Cfa) -> Result<Mosaic> {
+        let CfaPeriod { cw, ch, period } = CfaPeriod::new(cfa)?;
         let (pw, ph) = (
             width
                 .checked_add(2 * PAD)
@@ -283,24 +318,6 @@ impl Mosaic {
             pw,
             ph,
         })
-    }
-
-    /// Whether the 2x2 array really is a Bayer one: one red, one blue
-    /// and two greens on a diagonal. The Hamilton-Adams code assumes
-    /// exactly that.
-    fn is_true_bayer(&self) -> bool {
-        let c = [
-            self.code(0, 0),
-            self.code(1, 0),
-            self.code(0, 1),
-            self.code(1, 1),
-        ];
-        let greens = c.iter().filter(|v| **v == GRN).count();
-        let diagonal = (c[0] == GRN && c[3] == GRN) || (c[1] == GRN && c[2] == GRN);
-        greens == 2
-            && diagonal
-            && c.iter().filter(|v| **v == RED).count() == 1
-            && c.iter().filter(|v| **v == BLU).count() == 1
     }
 }
 

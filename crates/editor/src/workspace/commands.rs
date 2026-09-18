@@ -52,6 +52,10 @@ impl Workspace {
     }
 
     pub fn run_command(&mut self, id: &str, cx: &mut Context<Self>) {
+        #[cfg(target_arch = "wasm32")]
+        if matches!(id, "edit.undo" | "edit.redo") {
+            self.cancel_browser_edits();
+        }
         if (id == "edit.undo" || id == "edit.redo") && self.cloud_undo(id == "edit.redo", cx) {
             return;
         }
@@ -59,6 +63,15 @@ impl Workspace {
         // Grow, Similar and Color Range take their tolerance from the
         // magic wand, exactly as Photoshop does.
         self.sync_wand_tolerance();
+        #[cfg(target_arch = "wasm32")]
+        if let Some(request) = self
+            .doc
+            .as_ref()
+            .and_then(|doc| schist_commands_core::gpu_selection_command(id, doc, &self.editor))
+        {
+            self.queue_browser_edit(request, cx);
+            return;
+        }
         // Pasting prefers whatever is on the system clipboard, so copying
         // in another application and pasting here works. If there is no
         // image there, the internal clipboard is used unchanged.
@@ -111,6 +124,8 @@ impl Workspace {
     pub fn activate_tool(&mut self, id: &str, cx: &mut Context<Self>) {
         let previous = self.editor.active_tool;
         if previous != id {
+            #[cfg(target_arch = "wasm32")]
+            self.cancel_browser_edits();
             if self.type_field_option().is_some() {
                 self.commit_focused_field();
             }
@@ -124,7 +139,13 @@ impl Workspace {
                     doc,
                     state: &mut self.editor,
                 };
+                #[cfg(target_arch = "wasm32")]
+                tool.set_async_compute(true);
                 tool.on_deactivate(&mut ctx);
+                #[cfg(target_arch = "wasm32")]
+                if let Some(request) = tool.take_gpu_edit() {
+                    self.queue_browser_edit(request, cx);
+                }
             }
         }
         if let Some(tool) = self.registry.tool_mut(id) {

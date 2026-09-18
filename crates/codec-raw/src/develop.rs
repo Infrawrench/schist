@@ -7,6 +7,10 @@
 //! stays neutral), clip, then crop and orient. Output is linear light;
 //! the caller applies a tone curve and encoding.
 
+#[path = "develop_program.rs"]
+mod resident;
+pub use resident::develop_async;
+
 use crate::demosaic::demosaic;
 use crate::{frame_samples, Cfa, CfaColor, Error, Orientation, RawData, RawImage, Rect, Result};
 use rayon::prelude::*;
@@ -47,10 +51,8 @@ pub struct Developed {
     pub rgb: Vec<f32>,
 }
 
-static DEVELOP_GPU: schist_fx::ComputeShader = schist_fx::ComputeShader {
-    name: "raw-develop",
-    source: include_str!("develop_gpu.wgsl"),
-};
+static DEVELOP_GPU: schist_fx::ComputeShader =
+    schist_fx::ComputeShader::new("raw-develop", include_str!("develop_gpu.wgsl"));
 
 fn normalise_gpu(raw: &RawImage, levels: &Levels) -> Option<Vec<f32>> {
     let len = raw.width * raw.height * raw.cpp;
@@ -109,32 +111,62 @@ fn finish_gpu(
     if !schist_fx::backend().compute_available(work) {
         return None;
     }
-    let mut args = vec![
-        1.0,
-        width as f32,
-        crop.width as f32,
-        crop.height as f32,
-        crop.x as f32,
-        crop.y as f32,
-        orientation as u32 as f32,
-    ];
-    args.extend(
-        matrix
-            .unwrap_or(&[[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
-            .iter()
-            .flatten(),
-    );
-    let program = schist_fx::ComputeProgram::single(
-        &DEVELOP_GPU,
-        args,
-        w * h * 3,
-        [w as u32, h as u32, 3],
-        work,
-    );
+    // Stream source rows through the matrix/crop/orientation kernel. A rotated
+    // band becomes a vertical strip; assemble those strips without another
+    // per-pixel transform or an oversized GPU input binding.
+    let stride = width.checked_mul(3)?;
+    let rows = (4_000_000 / stride).max(1).min(crop.height);
+    let mut output = vec![0.0; w.checked_mul(h)?.checked_mul(3)?];
+    for top in (0..crop.height).step_by(rows) {
+        let height = rows.min(crop.height - top);
+        let input = &rgb[(crop.y + top) * stride..(crop.y + top + height) * stride];
+        let (bw, bh) = if orientation.transposes() {
+            (height, crop.width)
+        } else {
+            (crop.width, height)
+        };
+        let mut args = vec![
+            1.0,
+            width as f32,
+            crop.width as f32,
+            height as f32,
+            crop.x as f32,
+            0.0,
+            orientation as u32 as f32,
+        ];
+        args.extend(
+            matrix
+                .unwrap_or(&[[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
+                .iter()
+                .flatten(),
+        );
+        let program = schist_fx::ComputeProgram::single(
+            &DEVELOP_GPU,
+            args,
+            bw * bh * 3,
+            [bw as u32, bh as u32, 3],
+            work,
+        );
+        let band = schist_fx::try_compute(input, &program)?;
+        let reverse = matches!(orientation as u32, 2 | 3 | 5 | 6);
+        let offset = if reverse {
+            crop.height - top - height
+        } else {
+            top
+        };
+        if orientation.transposes() {
+            for y in 0..bh {
+                output[(y * w + offset) * 3..(y * w + offset + bw) * 3]
+                    .copy_from_slice(&band[y * bw * 3..(y + 1) * bw * 3]);
+            }
+        } else {
+            output[offset * w * 3..(offset + bh) * w * 3].copy_from_slice(&band);
+        }
+    }
     Some(Developed {
         width: w,
         height: h,
-        rgb: schist_fx::try_compute(rgb, &program)?,
+        rgb: output,
     })
 }
 
@@ -150,6 +182,9 @@ pub fn develop(raw: &RawImage, options: &DevelopOptions) -> Result<Developed> {
             "develop: {} samples a pixel",
             raw.cpp
         )));
+    }
+    if let Some(out) = resident::run(raw, options) {
+        return Ok(out);
     }
     let (width, height) = (raw.width, raw.height);
     let multipliers = white_balance(raw, options);
@@ -332,6 +367,25 @@ fn develop_super_ccd(
     let (mut rgb, mut out_w, mut out_h) =
         super_ccd_rotate(&rgb, sheared.width, sheared.height, fuji_width)?;
     let matrix = srgb_matrix(raw, options);
+    let orientation = if options.orient {
+        raw.orientation
+    } else {
+        Orientation::Normal
+    };
+    if let Some(out) = finish_gpu(
+        &rgb,
+        out_w,
+        Rect {
+            x: 0,
+            y: 0,
+            width: out_w,
+            height: out_h,
+        },
+        orientation,
+        matrix.as_ref(),
+    ) {
+        return Ok(out);
+    }
     rgb.par_chunks_mut(out_w * 3)
         .for_each(|row| finish_row(row, matrix.as_ref()));
     if options.orient && raw.orientation != Orientation::Normal {
@@ -436,6 +490,36 @@ pub(crate) fn super_ccd_shear(
         ));
     }
     let (width, height) = super_ccd_sheared_size(row_staggered, fuji_width, crop.height)?;
+    static SHEAR: schist_fx::ComputeShader =
+        schist_fx::ComputeShader::new("raw-super-ccd", include_str!("super_ccd.wgsl"));
+    let work = width.saturating_mul(height).saturating_mul(16);
+    if schist_fx::backend().compute_available(work) {
+        let program = schist_fx::ComputeProgram::single(
+            &SHEAR,
+            vec![
+                0.0,
+                fuji_width as f32,
+                crop.width as f32,
+                crop.height as f32,
+                u8::from(row_staggered) as f32,
+                stride as f32,
+                crop.y as f32,
+                crop.x as f32,
+            ],
+            frame_samples(width, height, 1)?,
+            [width as u32, height as u32, 1],
+            work,
+        );
+        if let Some(plane) = schist_fx::try_compute(plane, &program) {
+            // Validated stagger geometry is a bijection over the active crop.
+            return Ok(Sheared {
+                plane,
+                width,
+                height,
+                written: crop.width * crop.height,
+            });
+        }
+    }
     let mut out = vec![0f32; frame_samples(width, height, 1)?];
     let fw = fuji_width as i64;
     let (active_w, active_h) = (crop.width as i64, crop.height as i64);
@@ -547,6 +631,28 @@ pub(crate) fn super_ccd_rotate(
         ));
     }
     let (wide, high) = super_ccd_output_size(fuji_width, height)?;
+    static ROTATE: schist_fx::ComputeShader =
+        schist_fx::ComputeShader::new("raw-super-ccd", include_str!("super_ccd.wgsl"));
+    let work = wide.saturating_mul(high).saturating_mul(32);
+    if schist_fx::backend().compute_available(work) {
+        let count = wide + high - 1;
+        let mut args = vec![1.0, width as f32, height as f32, count as f32];
+        let scale = 0.5f64.sqrt();
+        args.extend((0..count).map(|i| {
+            (fuji_width.saturating_sub(1) as f64 + (i as f64 - (wide - 1) as f64) * scale) as f32
+        }));
+        args.extend((0..count).map(|i| (i as f64 * scale) as f32));
+        let program = schist_fx::ComputeProgram::single(
+            &ROTATE,
+            args,
+            frame_samples(wide, high, 3)?,
+            [wide as u32, high as u32, 3],
+            work,
+        );
+        if let Some(out) = schist_fx::try_compute(rgb, &program) {
+            return Ok((out, wide, high));
+        }
+    }
     let mut out = vec![0f32; frame_samples(wide, high, 3)?];
     out.par_chunks_mut(wide * 3)
         .enumerate()

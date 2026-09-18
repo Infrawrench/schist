@@ -4,6 +4,25 @@
 use super::*;
 use schist_i18n::{t, tf, tn};
 
+#[cfg(target_arch = "wasm32")]
+fn export_snapshot(doc: &Document) -> Document {
+    let mut snapshot = Document::new(doc.title.clone(), doc.width, doc.height, doc.depth);
+    snapshot.tree = doc.tree.clone();
+    snapshot.mode = doc.mode;
+    snapshot.icc_profile = doc.icc_profile.clone();
+    snapshot.resolution_dpi = doc.resolution_dpi;
+    snapshot
+}
+
+#[cfg(target_arch = "wasm32")]
+async fn flatten_export(snapshot: &mut Document, gpu: &schist_compositor_gpu::GpuContext) {
+    if let Some(tiles) = gpu.flatten_async(snapshot).await {
+        let mut layer = Layer::new_raster(t("common.background_layer"));
+        layer.as_raster_mut().unwrap().tiles = tiles;
+        snapshot.tree.layers = vec![layer];
+    }
+}
+
 impl Workspace {
     /// Export every artboard, or every slice, as its own file next to the
     /// document.
@@ -67,7 +86,45 @@ impl Workspace {
         regions: &[(String, IntRect)],
         cx: &mut Context<Self>,
     ) {
-        let Some(doc) = self.doc.as_ref() else { return };
+        #[cfg(target_arch = "wasm32")]
+        {
+            let Some(mut snapshot) = self.doc.as_ref().map(export_snapshot) else {
+                return;
+            };
+            self.ensure_browser_gpu(cx);
+            let context = self.browser_gpu.context.clone();
+            let base = base.to_owned();
+            let regions = regions.to_vec();
+            cx.spawn(async move |this, cx| {
+                if let Some(context) = context {
+                    flatten_export(&mut snapshot, &context).await;
+                }
+                this.update(cx, |ws, cx| {
+                    let written = ws.write_regions_from_doc(&snapshot, &base, &regions);
+                    ws.status = tn("workspace.export.regions", written as u64).into();
+                    cx.notify();
+                })
+                .ok();
+            })
+            .detach();
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            let Some(doc) = self.doc.as_ref() else {
+                return;
+            };
+            let written = self.write_regions_from_doc(doc, base, regions);
+            self.status = tn("workspace.export.regions", written as u64).into();
+            cx.notify();
+        }
+    }
+
+    fn write_regions_from_doc(
+        &self,
+        doc: &Document,
+        base: &std::path::Path,
+        regions: &[(String, IntRect)],
+    ) -> usize {
         let stem = base
             .file_stem()
             .map(|s| s.to_string_lossy().into_owned())
@@ -124,8 +181,7 @@ impl Workspace {
                 Err(e) => log::error!("export {name}: {e}"),
             }
         }
-        self.status = tn("workspace.export.regions", written as u64).into();
-        cx.notify();
+        written
     }
 
     /// The PNG codec, which is how anything leaves the app as a flat image.
@@ -160,8 +216,8 @@ impl Workspace {
             })
             .unwrap_or_else(|| "untitled".into());
         let suggested = format!("{stem}.{ext}");
-        // The browser flow is synchronous: its own prompt asks for the
-        // name, and the encoded bytes leave as a download.
+        // Prompt before yielding so the browser keeps its user activation;
+        // composite a captured raster before encoding and downloading.
         #[cfg(target_arch = "wasm32")]
         {
             let _ = window;
@@ -169,6 +225,44 @@ impl Workspace {
             else {
                 return;
             };
+            // These encoders consume only the flattened raster and profile.
+            // Capture both before yielding so later edits cannot change the file.
+            if matches!(
+                codec_id,
+                "codec.png" | "codec.jpeg" | "codec.webp" | "codec.tiff"
+            ) {
+                let Some(mut snapshot) = self.doc.as_ref().map(export_snapshot) else {
+                    return;
+                };
+                let Some(codec) = self
+                    .registry
+                    .shared_codecs()
+                    .into_iter()
+                    .find(|codec| codec.id() == codec_id)
+                else {
+                    return;
+                };
+                self.ensure_browser_gpu(cx);
+                let context = self.browser_gpu.context.clone();
+                cx.spawn(async move |this, cx| {
+                    if let Some(context) = context {
+                        flatten_export(&mut snapshot, &context).await;
+                    }
+                    let result = codec
+                        .export_with(&snapshot, &options)
+                        .and_then(|bytes| crate::web::download_bytes(&name, &bytes));
+                    this.update(cx, |ws, cx| {
+                        ws.status = match result {
+                            Ok(()) => tf!("workspace.export.done", name = name).into(),
+                            Err(err) => tf!("workspace.export.failed", error = err).into(),
+                        };
+                        cx.notify();
+                    })
+                    .ok();
+                })
+                .detach();
+                return;
+            }
             let result = (|| -> anyhow::Result<()> {
                 let doc = self
                     .doc

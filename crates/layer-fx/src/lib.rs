@@ -19,6 +19,7 @@ use schist_core::{
 };
 
 mod blur;
+mod gpu;
 pub use blur::gaussian_alpha;
 
 /// A straight-alpha RGBA plane in document coordinates.
@@ -151,6 +152,14 @@ pub fn render_content(
             base.px[i * 4 + 2] = px.b;
             base.px[i * 4 + 3] = px.a * fill_opacity;
         }
+    }
+
+    if let Some(px) = gpu::render(&base, &alpha, content, style) {
+        return Some(StyledRaster {
+            tiles: plane_to_tiles(&Plane { rect, px }),
+            bounds: rect,
+            key: 0,
+        });
     }
 
     // Affinity's Gaussian Blur effect softens the layer itself, and it

@@ -174,7 +174,7 @@ transforms, RAW stages, matrix/TRC ICC transforms, supported neural graphs,
 retouch diffusion and vector coverage. Their executor keeps intermediates on the
 device, reuses dead allocations and reads back the final result. Browser hosts
 await the same executor; synchronous native library callers use the blocking
-adapter. See [GPU coverage](gpu-opportunities.md) for caller coverage and limits.
+adapter.
 
 A **second seam** (`crates/fx`) covers the pixel work that is not
 compositing: the separable box passes behind every Gaussian, the lens

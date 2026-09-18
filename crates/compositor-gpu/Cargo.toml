@@ -25,8 +25,12 @@ futures.workspace = true
 
 [dev-dependencies]
 schist-neural.workspace = true
+schist-tools-transform.workspace = true
+schist-tools-select.workspace = true
+schist-commands-core.workspace = true
 schist-tools-retouch.workspace = true
 schist-codec-raw.workspace = true
+schist-codecs-common.workspace = true
 schist-vector.workspace = true
 schist-layer-fx.workspace = true
 moxcms = "0.8"

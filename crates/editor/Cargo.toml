@@ -22,6 +22,7 @@ smallvec.workspace = true
 rustc-hash.workspace = true
 schist-ui.workspace = true
 schist-core.workspace = true
+schist-commands-core.workspace = true
 schist-color.workspace = true
 schist-plugin-api.workspace = true
 schist-compositor.workspace = true
