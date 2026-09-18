@@ -10,7 +10,7 @@ use std::sync::OnceLock;
 
 /// Register each flag here, with its shipping default. Names are exact and
 /// case-sensitive; an override cannot enable an unregistered flag.
-const DEFAULTS: &[(&str, bool)] = &[("gpu-compositing", true), ("schist-cloud", true)];
+const DEFAULTS: &[(&str, bool)] = &[("gpu-compositing", true), ("schist-cloud", false)];
 
 static OVERRIDES: OnceLock<HashMap<String, bool>> = OnceLock::new();
 
