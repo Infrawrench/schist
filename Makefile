@@ -535,3 +535,10 @@ check-live-stack-editor:
 	$(CARGO) test -p schist-editor --lib filter_stack
 format-live-stack-transforms:
 	$(CARGO) fmt -p schist-core -p schist-editor -p schist-tools-transform -p schist-commands-core -p schist-codec-psd -p schist-document -p schist-plugin-api
+
+# Requires a real GPU adapter; exercises async preview/apply and native moves.
+.PHONY: check-live-stack-gpu format-live-stack-gpu
+check-live-stack-gpu:
+	SCHIST_REQUIRE_GPU=1 $(CARGO) test -p schist-compositor-gpu --test remaining_opportunities asynchronous_tool_edits_preserve_preview_and_undo_contracts -- --exact --nocapture
+format-live-stack-gpu:
+	$(CARGO) fmt -p schist-compositor-gpu

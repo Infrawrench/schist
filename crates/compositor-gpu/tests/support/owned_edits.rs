@@ -41,6 +41,15 @@ pub async fn verify(ctx: &GpuContext) {
         IntRect::from_size(64, 48),
         &rgba,
     );
+    // Outside the visible artwork: resampling/GPU packing may omit this,
+    // but an integer placement must preserve its native hidden samples.
+    let hidden = Rgba::new(5.25, -0.0, 0.75, 0.0);
+    layer
+        .as_raster_mut()
+        .unwrap()
+        .tiles
+        .get_mut_or_insert(schist_core::TileCoord { tx: 0, ty: 0 }, doc.depth)
+        .set(70 * schist_core::TILE_SIZE as usize + 90, hidden);
     let id = layer.id;
     let original = layer.as_raster().unwrap().tiles.clone();
     doc.tree.layers.push(layer);
@@ -66,69 +75,106 @@ pub async fn verify(ctx: &GpuContext) {
     }
     while doc.undo().is_some() {}
     assert!(doc.selection.is_empty());
-    let mut tool = schist_tools_transform::TransformTool::default();
-    tool.set_async_compute(true);
-    tool.on_activate(&mut ToolCtx {
-        doc: &mut doc,
-        state: &mut state,
-    });
-    tool.on_pointer_down(
-        &mut ToolCtx {
+    for (offset, gpu_commit) in [((7.0, 5.0), false), ((7.25, 5.5), true)] {
+        let mut tool = schist_tools_transform::TransformTool::default();
+        tool.set_async_compute(true);
+        tool.on_activate(&mut ToolCtx {
             doc: &mut doc,
             state: &mut state,
-        },
-        pointer(32.0, 24.0),
-    );
-    tool.on_pointer_move(
-        &mut ToolCtx {
-            doc: &mut doc,
-            state: &mut state,
-        },
-        pointer(39.0, 29.0),
-    );
-    execute(
-        ctx,
-        tool.take_gpu_edit()
-            .expect("asynchronous transform preview"),
-        &mut doc,
-    )
-    .await;
-    assert!(
-        doc.history.undo_name().is_none(),
-        "preview must not create history"
-    );
-    assert_eq!(
-        doc.tree
-            .find(id)
-            .unwrap()
-            .as_raster()
-            .unwrap()
-            .tiles
-            .pixel(7, 5),
-        original.pixel(0, 0)
-    );
-    tool.on_commit(&mut ToolCtx {
-        doc: &mut doc,
-        state: &mut state,
-    });
-    execute(
-        ctx,
-        tool.take_gpu_edit().expect("asynchronous transform Apply"),
-        &mut doc,
-    )
-    .await;
-    assert!(doc.undo().is_some());
-    assert!(
-        doc.history.undo_name().is_none(),
-        "Apply creates exactly one history entry"
-    );
-    let restored = &doc.tree.find(id).unwrap().as_raster().unwrap().tiles;
-    for y in 0..80 {
-        for x in 0..96 {
-            assert_eq!(restored.pixel(x, y), original.pixel(x, y));
+        });
+        tool.on_pointer_down(
+            &mut ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            },
+            pointer(32.0, 24.0),
+        );
+        tool.on_pointer_move(
+            &mut ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            },
+            pointer(32.0 + offset.0, 24.0 + offset.1),
+        );
+        execute(
+            ctx,
+            tool.take_gpu_edit()
+                .expect("asynchronous transform preview"),
+            &mut doc,
+        )
+        .await;
+        assert!(
+            doc.history.undo_name().is_none(),
+            "preview must not create history"
+        );
+        if !gpu_commit {
+            assert_eq!(
+                doc.tree
+                    .find(id)
+                    .unwrap()
+                    .as_raster()
+                    .unwrap()
+                    .tiles
+                    .pixel(7, 5),
+                original.pixel(0, 0)
+            );
         }
+        tool.on_commit(&mut ToolCtx {
+            doc: &mut doc,
+            state: &mut state,
+        });
+        if gpu_commit {
+            // Fractional placement still must execute through the actual GPU
+            // path. Making this request optional would hide a GPU regression.
+            execute(
+                ctx,
+                tool.take_gpu_edit()
+                    .expect("asynchronous fractional transform Apply"),
+                &mut doc,
+            )
+            .await;
+        } else {
+            assert!(
+                tool.take_gpu_edit().is_none(),
+                "integer placement commits on the lossless native path"
+            );
+            let moved = doc
+                .tree
+                .find(id)
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles
+                .pixel(97, 75);
+            assert_eq!(
+                [moved.r, moved.g, moved.b, moved.a].map(f32::to_bits),
+                [hidden.r, hidden.g, hidden.b, hidden.a].map(f32::to_bits)
+            );
+        }
+        assert!(doc.undo().is_some());
+        assert!(
+            doc.history.undo_name().is_none(),
+            "Apply creates exactly one history entry"
+        );
+        let restored = &doc.tree.find(id).unwrap().as_raster().unwrap().tiles;
+        for y in 0..80 {
+            for x in 0..96 {
+                assert_eq!(restored.pixel(x, y), original.pixel(x, y));
+            }
+        }
+        assert_eq!(restored.pixel(70, 70), Rgba::TRANSPARENT);
+        let restored_hidden = restored.pixel(90, 70);
+        assert_eq!(
+            [
+                restored_hidden.r,
+                restored_hidden.g,
+                restored_hidden.b,
+                restored_hidden.a
+            ]
+            .map(f32::to_bits),
+            [hidden.r, hidden.g, hidden.b, hidden.a].map(f32::to_bits)
+        );
     }
-    assert_eq!(restored.pixel(70, 70), Rgba::TRANSPARENT);
 
     struct Required<'a>(&'a GpuContext);
     impl schist_fx::AsyncCompute for Required<'_> {
