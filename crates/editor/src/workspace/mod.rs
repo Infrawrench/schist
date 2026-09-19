@@ -64,6 +64,7 @@ mod context;
 mod docs;
 mod edit_ops;
 mod export;
+mod export_recipes;
 pub mod palettes;
 #[cfg(not(target_arch = "wasm32"))]
 mod video;
@@ -1023,6 +1024,10 @@ pub enum Modal {
     Export {
         codec: &'static str,
         options: schist_plugin_api::ExportOptions,
+    },
+    /// Saved multi-output export recipes.
+    ExportRecipes {
+        editor: crate::export_recipes::Editor,
     },
     /// Assign or convert to a colour profile.
     Profile {

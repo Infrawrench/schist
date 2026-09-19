@@ -477,3 +477,8 @@ smoke-library: library
 	node examples/library/smoke.cjs
 lint-library:
 	CARGO='$(CARGO)' ./tools/library-cargo.sh clippy --lib --tests -- -D warnings
+
+# Multi-output export recipes: real codecs, naming, persistence and source preservation.
+.PHONY: check-export-recipes
+check-export-recipes:
+	$(CARGO) test -p schist-editor export_recipes
