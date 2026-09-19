@@ -127,13 +127,13 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
         // Info tab instead of pushing the column past the window. Lower
         // on touch, where the history panel's grip trades height with
         // this one and a landscape iPad has little to go round.
-        .min_h(px(if ui::touch() { 120.0 } else { 220.0 }))
+        .min_h(px((if ui::touch() { 120.0_f32 } else { 220.0_f32 })
+            .max(142.0 + crate::workspace::filter_stack::panel_height(ws))))
         .p_2()
         .gap_1()
         .border_t_1()
         .border_color(gpui::rgb(palette().panel_edge))
         .child(panel_title(t("common.layers")))
-        .child(crate::workspace::filter_stack::panel(ws, cx))
         .child(
             div()
                 .flex()
@@ -160,7 +160,7 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
                 .flex()
                 .flex_col()
                 .flex_grow()
-                .min_h(px(0.0))
+                .min_h(px(ui::metrics().layer_row_h))
                 .overflow_y_scroll()
                 .children(rows.into_iter().zip(thumbs).map(|(row, thumb)| {
                     let id = row.id;
@@ -389,9 +389,11 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
                     }),
                 ),
         )
+        .child(crate::workspace::filter_stack::panel(ws, cx))
         .child(
             // Action buttons.
             div()
+                .flex_none()
                 .flex()
                 .flex_row()
                 .items_center()

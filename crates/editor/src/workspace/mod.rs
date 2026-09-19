@@ -309,7 +309,6 @@ pub struct Workspace {
     pub picker_drag: Option<PickerDrag>,
     pub filter_preview: Option<FilterPreview>,
     pub stack_filter_session: Option<filter_stack::StackFilterSession>,
-    pub filter_stack_picker: bool,
     /// Generation of the most recently requested sensor-data preview.
     /// Slow results from an older slider position are discarded on arrival.
     raw_preview_seq: u64,
@@ -1288,7 +1287,6 @@ impl Workspace {
             picker_drag: None,
             filter_preview: None,
             stack_filter_session: None,
-            filter_stack_picker: false,
             raw_preview_seq: 0,
             slider_bounds: FxHashMap::default(),
             thumbs: FxHashMap::default(),

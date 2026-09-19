@@ -197,7 +197,6 @@ impl Workspace {
         })();
         match result {
             Ok((session, values)) => {
-                self.filter_stack_picker = false;
                 self.stack_filter_session = Some(session);
                 self.open_modal(
                     Modal::Filter {
@@ -377,8 +376,22 @@ impl Workspace {
     }
 }
 
+/// Space for controls plus at least one selectable layer row. Extra effects
+/// scroll within their own list instead of consuming the layer list's height.
+pub fn panel_height(ws: &Workspace) -> f32 {
+    let count = ws
+        .doc
+        .as_ref()
+        .and_then(|d| d.active_layer.and_then(|id| d.tree.find(id)))
+        .and_then(|l| FilterStack::read(l).ok().flatten())
+        .map_or(0, |s| s.effects.len());
+    let row_h = if ui::touch() { 32.0 } else { 24.0 };
+    29.0 + count.min(3) as f32 * row_h
+}
+
 pub fn panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     use gpui::prelude::*;
+    use schist_ui::{Button, IconButton};
     let layer = ws
         .doc
         .as_ref()
@@ -391,80 +404,75 @@ pub fn panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
     });
     let stack = layer.and_then(|l| FilterStack::read(l).ok().flatten());
     let has_stack = layer.is_some_and(filter_stack::has_stack);
+    let row_h = if ui::touch() { 32.0 } else { 24.0 };
+    let mut filters: Vec<(gpui::SharedString, Option<&'static str>)> = ws
+        .registry
+        .filters()
+        .filter(|f| schist_plugin_api::filter_stack::eligible(*f))
+        .map(|f| (f.name().to_string().into(), Some(f.id())))
+        .collect();
+    filters.sort_by(|a, b| a.0.cmp(&b.0));
+    let mut header = gpui::div().flex().items_center().gap_1().flex_none().child(
+        Button::new("stack-help", t("filter_stack.title"))
+            .ghost()
+            .px_0()
+            .flex_1()
+            .min_w(gpui::px(0.0))
+            .justify_start()
+            .text_size(gpui::px(11.0))
+            .tooltip(
+                if supported {
+                    t("filter_stack.note")
+                } else {
+                    t("filter_stack.unavailable")
+                },
+                None,
+            ),
+    );
+    if has_stack {
+        header = header.child(
+            IconButton::new("stack-bake", "merge-down")
+                .tooltip(t("filter_stack.bake"), None)
+                .on_click(
+                    cx.listener(|ws, _e, _w, cx| ws.change_filter_stack(StackChange::Bake, cx)),
+                ),
+        );
+    }
+    if supported {
+        header = header.child(ui::dropdown_above(
+            &ws.dropdown,
+            ui::Dropdown {
+                popup: Popup::Field("stack-filter-picker"),
+                is_open: ws.open_popup == Some(Popup::Field("stack-filter-picker")),
+                current: None,
+                label: t("filter_stack.add").into(),
+                width: 86.0,
+                options: filters,
+            },
+            |ws, id, cx| {
+                if let Some(id) = id {
+                    ws.open_stack_filter(id, None, cx);
+                }
+            },
+            cx,
+        ));
+    }
     let mut body = gpui::div()
         .flex()
         .flex_col()
-        .gap_1()
+        .flex_none()
         .border_t_1()
         .border_color(gpui::rgb(ui::palette().panel_edge))
-        .pt_1();
-    body = body.child(
-        gpui::div()
-            .flex()
-            .flex_row()
-            .gap_1()
-            .items_center()
-            .child(
-                gpui::div()
-                    .flex_1()
-                    .text_size(gpui::px(11.0))
-                    .child(t("filter_stack.title")),
-            )
-            .child(ui::button(
-                t("filter_stack.add"),
-                false,
-                |ws, _w, cx| {
-                    ws.filter_stack_picker = !ws.filter_stack_picker;
-                    cx.notify();
-                },
-                cx,
-            )),
-    );
-    if !supported {
-        return body.child(
-            gpui::div()
-                .text_size(gpui::px(10.0))
-                .child(t("filter_stack.unavailable")),
-        );
-    }
-    if ws.filter_stack_picker {
-        let mut filters: Vec<_> = ws
-            .registry
-            .filters()
-            .filter(|f| schist_plugin_api::filter_stack::eligible(*f))
-            .map(|f| (f.id(), f.name().to_string()))
-            .collect();
-        filters.sort_by(|a, b| a.1.cmp(&b.1));
-        body = body
-            .child(
-                gpui::div()
-                    .text_size(gpui::px(10.0))
-                    .child(t("filter_stack.eligibility")),
-            )
-            .child(
-                gpui::div()
-                    .id("stack-filter-picker")
-                    .flex()
-                    .flex_col()
-                    .max_h(gpui::px(180.0))
-                    .overflow_y_scroll()
-                    .children(filters.into_iter().map(|(id, name)| {
-                        ui::button(
-                            name,
-                            false,
-                            move |ws, _w, cx| ws.open_stack_filter(id, None, cx),
-                            cx,
-                        )
-                    })),
-            );
-    }
+        .pt_1()
+        .child(header);
     if let Some(stack) = stack {
+        let count = stack.effects.len();
         let mut rows = gpui::div()
             .id("stack-filter-list")
             .flex()
             .flex_col()
-            .gap_1()
-            .max_h(gpui::px(190.0))
+            .h(gpui::px(count.min(3) as f32 * row_h))
+            .flex_none()
             .overflow_y_scroll();
         for (index, effect) in stack.effects.iter().enumerate() {
             let filter = ws.registry.shared_filter(&effect.id);
@@ -477,75 +485,78 @@ pub fn panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                 gpui::div()
                     .id(("stack-effect", index))
                     .flex()
-                    .flex_col()
-                    .gap_1()
-                    .child(ui::button(
-                        name,
-                        false,
-                        move |ws, _w, cx| {
-                            if let Some(id) = id {
-                                ws.open_stack_filter(id, Some(index), cx);
-                            }
-                        },
-                        cx,
-                    ))
+                    .items_center()
+                    .flex_none()
+                    .h(gpui::px(row_h))
                     .child(
-                        gpui::div()
-                            .flex()
-                            .flex_row()
-                            .gap_1()
-                            .child(ui::button(
-                                if effect.enabled {
-                                    t("filter_stack.disable")
-                                } else {
-                                    t("filter_stack.enable")
-                                },
-                                false,
-                                move |ws, _w, cx| {
-                                    ws.change_filter_stack(StackChange::Toggle(index), cx)
-                                },
-                                cx,
-                            ))
-                            .child(ui::button(
-                                t("filter_stack.up"),
-                                false,
-                                move |ws, _w, cx| {
-                                    ws.change_filter_stack(StackChange::Up(index), cx)
-                                },
-                                cx,
-                            ))
-                            .child(ui::button(
-                                t("filter_stack.down"),
-                                false,
-                                move |ws, _w, cx| {
-                                    ws.change_filter_stack(StackChange::Down(index), cx)
-                                },
-                                cx,
-                            ))
-                            .child(ui::button(
-                                t("filter_stack.remove"),
-                                false,
-                                move |ws, _w, cx| {
-                                    ws.change_filter_stack(StackChange::Remove(index), cx)
-                                },
-                                cx,
-                            )),
+                        IconButton::new(
+                            ("stack-toggle", index),
+                            if effect.enabled { "eye" } else { "eye-off" },
+                        )
+                        .size(row_h)
+                        .icon_size(13.0)
+                        .tooltip(
+                            if effect.enabled {
+                                t("filter_stack.disable")
+                            } else {
+                                t("filter_stack.enable")
+                            },
+                            None,
+                        )
+                        .on_click(cx.listener(move |ws, _e, _w, cx| {
+                            ws.change_filter_stack(StackChange::Toggle(index), cx)
+                        })),
+                    )
+                    .child(
+                        Button::bare(("stack-edit", index))
+                            .ghost()
+                            .px_1()
+                            .flex_1()
+                            .min_w(gpui::px(0.0))
+                            .justify_start()
+                            .disabled(id.is_none())
+                            .tooltip(name.clone(), None)
+                            .child(gpui::div().truncate().text_size(gpui::px(11.0)).child(name))
+                            .on_click(cx.listener(move |ws, _e, _w, cx| {
+                                if let Some(id) = id {
+                                    ws.open_stack_filter(id, Some(index), cx);
+                                }
+                            })),
+                    )
+                    .child(
+                        Button::new(("stack-up", index), "↑")
+                            .ghost()
+                            .px_0()
+                            .w(gpui::px(row_h))
+                            .disabled(index == 0)
+                            .tooltip(t("filter_stack.up"), None)
+                            .on_click(cx.listener(move |ws, _e, _w, cx| {
+                                ws.change_filter_stack(StackChange::Up(index), cx)
+                            })),
+                    )
+                    .child(
+                        Button::new(("stack-down", index), "↓")
+                            .ghost()
+                            .px_0()
+                            .w(gpui::px(row_h))
+                            .disabled(index + 1 == count)
+                            .tooltip(t("filter_stack.down"), None)
+                            .on_click(cx.listener(move |ws, _e, _w, cx| {
+                                ws.change_filter_stack(StackChange::Down(index), cx)
+                            })),
+                    )
+                    .child(
+                        IconButton::new(("stack-remove", index), "trash")
+                            .size(row_h)
+                            .icon_size(13.0)
+                            .tooltip(t("filter_stack.remove"), None)
+                            .on_click(cx.listener(move |ws, _e, _w, cx| {
+                                ws.change_filter_stack(StackChange::Remove(index), cx)
+                            })),
                     ),
             );
         }
-        body = body.child(rows).child(
-            gpui::div()
-                .text_size(gpui::px(10.0))
-                .child(t("filter_stack.note")),
-        );
-    }
-    if has_stack {
-        body = body.child(ui::button(
-            t("filter_stack.bake"),
-            false,
-            |ws, _w, cx| ws.change_filter_stack(StackChange::Bake, cx),
-            cx,
-        ));
+        body = body.child(rows);
     }
     body
 }

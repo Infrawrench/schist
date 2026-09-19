@@ -216,7 +216,6 @@ impl Workspace {
         }
         self.filter_preview = None;
         self.stack_filter_session = None;
-        self.filter_stack_picker = false;
         self.dragging_guide = None;
     }
 
