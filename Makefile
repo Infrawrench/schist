@@ -267,6 +267,16 @@ clean-helpers:
 
 FORCE:
 
+.PHONY: check-recordable-actions check-recordable-actions-catalogs format-recordable-actions
+check-recordable-actions:
+	$(CARGO) test -p schist-editor --lib workspace::recorded_actions::tests
+	$(CARGO) check -p schist-editor --all-targets
+format-recordable-actions:
+	$(CARGO) fmt -p schist-editor -p schist-app-actions
+check-recordable-actions-catalogs:
+	python3 tools/check-i18n.py
+	python3 tools/sync-i18n.py --check
+
 .PHONY: check-layered-codecs check-layered-codecs-wasm check-layered-codecs-app
 # HEIC security gate, download upgrade, and real-image import regressions.
 # Serial execution keeps the install test's managed-directory override

@@ -37,6 +37,7 @@ pub(crate) fn run_app_item(
         return;
     }
     match item {
+        AppItem::RecordedActions => ws.open_actions(cx),
         AppItem::Search => ws.show_spotlight(window, cx),
         AppItem::CloudGenerate => {
             ws.cloud_generate_open(cx);

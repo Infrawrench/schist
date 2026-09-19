@@ -44,6 +44,7 @@ mod ai;
 mod camera_import;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod camera_sync;
+pub(crate) mod recorded_actions;
 #[cfg(target_os = "android")]
 pub(crate) use schist_camera_sync::android as camera_sync_android;
 #[cfg(target_os = "ios")]
@@ -218,6 +219,8 @@ pub struct Workspace {
     pub registry: PluginRegistry,
     pub editor: EditorState,
     pub doc: Option<Document>,
+    pub(crate) action_library: recorded_actions::ActionLibrary,
+    pub(crate) action_recorder: recorded_actions::Recorder,
     /// The other open documents, in tab order with a gap at `active_tab`
     /// where the checked-out `doc` sits.
     background_tabs: Vec<DocTab>,
@@ -855,6 +858,18 @@ pub enum UpdateProgress {
 // plumbing matches exhaustively on every target.
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub enum Modal {
+    RecordedActions {
+        selected: Option<usize>,
+        step: Option<usize>,
+        name: String,
+    },
+    RecordedActionBatch {
+        done: usize,
+        total: usize,
+        outputs: Vec<PathBuf>,
+        failures: Vec<(PathBuf, String)>,
+        finished: bool,
+    },
     #[cfg(not(target_arch = "wasm32"))]
     VersionHistory,
     CloudGenerate,
@@ -1262,6 +1277,8 @@ impl Workspace {
             registry,
             editor: EditorState::default(),
             doc: None,
+            action_library: recorded_actions::ActionLibrary::default(),
+            action_recorder: recorded_actions::Recorder::default(),
             background_tabs: Vec::new(),
             active_tab: 0,
             cache: TileCache::new(),
@@ -1431,6 +1448,10 @@ impl Workspace {
             }
         })
         .detach();
+        match recorded_actions::ActionLibrary::load() {
+            Ok(library) => ws.action_library = library,
+            Err(error) => ws.status = schist_i18n::tf!("actions.load_failed", error = error).into(),
+        }
         ws.cloud_start(cx);
         ws
     }

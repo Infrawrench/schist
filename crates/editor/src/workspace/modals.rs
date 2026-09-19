@@ -131,6 +131,18 @@ impl Workspace {
     }
 
     pub fn close_modal(&mut self, cx: &mut Context<Self>) {
+        if matches!(
+            self.modal,
+            Some(Modal::RecordedActionBatch {
+                finished: false,
+                ..
+            })
+        ) {
+            if let Some(cancel) = &self.action_recorder.batch_cancel {
+                cancel.store(true, std::sync::atomic::Ordering::Relaxed);
+            }
+            return;
+        }
         #[cfg(not(target_arch = "wasm32"))]
         if matches!(self.modal, Some(Modal::VersionHistory)) {
             self.library.versions = None;
@@ -356,6 +368,7 @@ impl Workspace {
         // character; the picker's hex field takes hex digits up to a full
         // triplet; numeric fields only digits.
         let textual = id == "layer-name"
+            || id == "recorded-action-name"
             || id == "new-doc-name"
             || id == "bucket-name"
             || id == "bucket-query"
@@ -504,6 +517,14 @@ impl Workspace {
 
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
         let buffer = self.field_buffer.clone();
+        if id == "recorded-action-name" {
+            self.update_modal(|modal| {
+                if let Modal::RecordedActions { name, .. } = modal {
+                    *name = buffer;
+                }
+            });
+            return;
+        }
         if id.starts_with("recipe-") {
             self.update_modal(|modal| {
                 if let Modal::ExportRecipes { editor } = modal {
@@ -698,6 +719,8 @@ impl Workspace {
             }
             // These dialogs have no typed fields.
             Modal::DestructiveAdjustment { .. }
+            | Modal::RecordedActions { .. }
+            | Modal::RecordedActionBatch { .. }
             | Modal::Busy { .. }
             | Modal::ConfirmCloseTab
             | Modal::SharedImage { .. }

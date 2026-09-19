@@ -44,6 +44,11 @@ pub fn status_bar(ws: &Workspace) -> impl IntoElement {
         .child(title)
         .child(zoom)
         .child(brush)
+        .child(if ws.action_recorder.recording {
+            t("actions.recording_indicator")
+        } else {
+            ""
+        })
         .child(div().flex_grow())
         .child(ws.status.clone())
 }

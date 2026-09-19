@@ -196,7 +196,9 @@ impl Workspace {
         };
         let name = crate::ui::adjustment_name(kind);
         #[cfg(target_arch = "wasm32")]
-        if self.queue_browser_adjustment(params, name, &preview, true, cx) {
+        if !self.action_recorder.recording
+            && self.queue_browser_adjustment(params, name, &preview, true, cx)
+        {
             return;
         }
         let mut buf = preview.original.clone();
@@ -210,6 +212,9 @@ impl Workspace {
             true,
         );
         self.status = name.into();
+        self.record_action_step(recorded_actions::Step::PixelAdjustment {
+            params: params.clone(),
+        });
         self.after_change(cx);
     }
 
