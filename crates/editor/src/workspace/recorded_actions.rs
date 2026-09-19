@@ -145,8 +145,13 @@ impl ActionLibrary {
             let Some(path) = schist_folder().map(|p| p.join("actions.json")) else {
                 return Ok(Self::default());
             };
-            match std::fs::read_to_string(path) {
-                Ok(text) => text,
+            match std::fs::File::open(path) {
+                Ok(file) => {
+                    use std::io::Read;
+                    let mut text = String::new();
+                    file.take(4 * 1024 * 1024 + 1).read_to_string(&mut text)?;
+                    text
+                }
                 Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(Self::default()),
                 Err(e) => return Err(e.into()),
             }
@@ -163,14 +168,9 @@ impl ActionLibrary {
         Self::decode(&json)?;
         #[cfg(not(target_arch = "wasm32"))]
         {
-            use std::io::Write;
             let dir = schist_folder()
                 .ok_or_else(|| anyhow::anyhow!("{}", t("actions.no_settings_folder")))?;
-            std::fs::create_dir_all(&dir)?;
-            let mut tmp = tempfile::NamedTempFile::new_in(&dir)?;
-            tmp.write_all(json.as_bytes())?;
-            tmp.as_file().sync_all()?;
-            tmp.persist(dir.join("actions.json"))?;
+            save_library_file(&dir, &json)?;
         }
         #[cfg(target_arch = "wasm32")]
         {
@@ -185,17 +185,50 @@ impl ActionLibrary {
     }
 }
 
+#[cfg(not(target_arch = "wasm32"))]
+fn save_library_file(dir: &std::path::Path, json: &str) -> anyhow::Result<()> {
+    use std::io::Write;
+    ActionLibrary::decode(json)?;
+    std::fs::create_dir_all(dir)?;
+    let mut tmp = tempfile::NamedTempFile::new_in(dir)?;
+    tmp.write_all(json.as_bytes())?;
+    tmp.as_file().sync_all()?;
+    tmp.persist(dir.join("actions.json"))?;
+    Ok(())
+}
+
 #[derive(Default)]
 pub struct Recorder {
     pub recording: bool,
     pub replaying: bool,
     document: Option<schist_core::DocumentId>,
     pub draft: Option<SavedAction>,
+    pub selected_action: Option<usize>,
     /// The last inserted adjustment can absorb its dialog's committed settings.
     added_adjustment: Option<(schist_core::LayerId, usize)>,
     pub batch_cancel: Option<Arc<std::sync::atomic::AtomicBool>>,
 }
 impl Recorder {
+    fn fold_adjustment(
+        &mut self,
+        layer: schist_core::LayerId,
+        params: &schist_adjustments::Params,
+    ) -> bool {
+        let Some((added, index)) = self.added_adjustment else {
+            return false;
+        };
+        let Some(action) = self.draft.as_mut() else {
+            return false;
+        };
+        if added != layer || index + 1 != action.steps.len() {
+            return false;
+        }
+        let Some(Step::AddAdjustment { params: original }) = action.steps.get_mut(index) else {
+            return false;
+        };
+        *original = params.clone();
+        true
+    }
     fn push(&mut self, document: Option<schist_core::DocumentId>, step: Step) -> bool {
         if !self.recording || self.replaying || document != self.document {
             return false;
@@ -616,7 +649,7 @@ impl Workspace {
         }
         self.open_modal(
             Modal::RecordedActions {
-                selected: None,
+                selected: self.action_recorder.selected_action,
                 step: None,
                 name: self
                     .action_recorder
@@ -764,24 +797,8 @@ impl Workspace {
             self.status = tf!("actions.not_recorded", error = error).into();
             return;
         }
-        if let Some((added, index)) = self.action_recorder.added_adjustment {
-            if added == layer
-                && self
-                    .action_recorder
-                    .draft
-                    .as_ref()
-                    .is_some_and(|a| index + 1 == a.steps.len())
-            {
-                if let Some(Step::AddAdjustment { params: original }) = self
-                    .action_recorder
-                    .draft
-                    .as_mut()
-                    .and_then(|a| a.steps.get_mut(index))
-                {
-                    *original = params.clone();
-                    return;
-                }
-            }
+        if self.action_recorder.fold_adjustment(layer, params) {
+            return;
         }
         if self.doc.as_ref().and_then(|d| d.active_layer) == Some(layer) {
             self.record_action_step(Step::SetAdjustment {
@@ -816,6 +833,7 @@ impl Workspace {
             self.action_library = library;
             self.action_recorder.draft = Some(action);
             let index = selected.unwrap_or(self.action_library.actions.len() - 1);
+            self.action_recorder.selected_action = Some(index);
             self.update_modal(|m| {
                 if let Modal::RecordedActions { selected, .. } = m {
                     *selected = Some(index);
@@ -839,6 +857,7 @@ impl Workspace {
             Ok(()) => {
                 self.action_library = library;
                 self.action_recorder.draft = None;
+                self.action_recorder.selected_action = None;
                 self.open_actions(cx);
             }
             Err(e) => self.status = tf!("actions.failed", error = e).into(),
@@ -927,6 +946,72 @@ mod tests {
     }
 
     #[test]
+    fn adjustment_settings_fold_only_into_an_adjacent_insertion() {
+        let doc = document();
+        let layer = doc.active_layer.unwrap();
+        let initial = schist_adjustments::Params::BrightnessContrast {
+            brightness: 0.0,
+            contrast: 0.0,
+        };
+        let changed = schist_adjustments::Params::BrightnessContrast {
+            brightness: 20.0,
+            contrast: 0.0,
+        };
+        let mut recorder = Recorder {
+            recording: true,
+            document: Some(doc.id),
+            draft: Some(action(vec![Step::AddAdjustment {
+                params: initial.clone(),
+            }])),
+            added_adjustment: Some((layer, 0)),
+            ..Default::default()
+        };
+        assert!(recorder.fold_adjustment(layer, &changed));
+        recorder.draft.as_mut().unwrap().steps[0] = Step::AddAdjustment {
+            params: initial.clone(),
+        };
+        recorder.push(Some(doc.id), command("layer.duplicate"));
+        assert!(!recorder.fold_adjustment(layer, &changed));
+        assert_eq!(
+            recorder.draft.unwrap().steps[0],
+            Step::AddAdjustment { params: initial }
+        );
+    }
+
+    #[test]
+    fn unchanged_adjustment_has_no_committed_edit_to_record() {
+        let mut doc = document();
+        runtime()
+            .replay(
+                &action(vec![Step::AddAdjustment {
+                    params: schist_adjustments::Params::Invert,
+                }]),
+                &mut doc,
+            )
+            .unwrap();
+        let layer = doc.active_layer.unwrap();
+        let Some(schist_core::LayerKind::Adjustment(data)) = doc.tree.find(layer).map(|l| &l.kind)
+        else {
+            panic!("adjustment inserted")
+        };
+        let original = (data.params_json.clone(), data.raw.clone());
+        let after = (
+            Some(serde_json::to_string(&schist_adjustments::Params::Invert).unwrap()),
+            Vec::new(),
+        );
+        let revision = doc.revision;
+        let entries = doc.history.entries().len();
+        let mut edit = doc.begin_edit("settings");
+        edit.record_adjustment_params(layer, original, after);
+        assert!(
+            !edit.commit(),
+            "the recorder's committed-edit hook must remain idle"
+        );
+        assert_eq!(doc.revision, revision);
+        assert_eq!(doc.history.entries().len(), entries);
+    }
+
+    #[test]
     fn library_roundtrips_owned_parameters_and_rejects_unsafe_operations() {
         let original = action(vec![
             command("edit.fill_foreground"),
@@ -969,6 +1054,38 @@ mod tests {
                 values: BTreeMap::new()
             }]))
             .is_err());
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    #[test]
+    fn library_file_survives_reload_and_rejects_invalid_replacement() {
+        let dir = tempfile::tempdir().unwrap();
+        let library = ActionLibrary {
+            schema: SCHEMA,
+            actions: vec![action(vec![command("select.all")])],
+        };
+        let json = serde_json::to_string(&library).unwrap();
+        save_library_file(dir.path(), &json).unwrap();
+        let path = dir.path().join("actions.json");
+        let saved = std::fs::read_to_string(&path).unwrap();
+        assert_eq!(
+            ActionLibrary::decode(&saved).unwrap().actions,
+            library.actions
+        );
+        assert!(save_library_file(dir.path(), "{broken").is_err());
+        assert_eq!(std::fs::read_to_string(&path).unwrap(), saved);
+        assert_eq!(std::fs::read_dir(dir.path()).unwrap().count(), 1);
+        save_library_file(
+            dir.path(),
+            &serde_json::to_string(&ActionLibrary::default()).unwrap(),
+        )
+        .unwrap();
+        assert!(
+            ActionLibrary::decode(&std::fs::read_to_string(path).unwrap())
+                .unwrap()
+                .actions
+                .is_empty()
+        );
     }
 
     #[test]

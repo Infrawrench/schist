@@ -77,6 +77,7 @@ pub(super) fn actions_dialog(
                     .cloned()
                 {
                     ws.action_recorder.draft = Some(action.clone());
+                    ws.action_recorder.selected_action = index;
                     ws.update_modal(|m| {
                         if let Modal::RecordedActions {
                             selected,
@@ -265,6 +266,9 @@ pub(super) fn actions_dialog(
                 Step::AddAdjustment { params }
                 | Step::SetAdjustment { params }
                 | Step::PixelAdjustment { params } => {
+                    if params.param_specs().is_empty() {
+                        body = body.child(t("actions.preserved_parameters"));
+                    }
                     for spec in params.param_specs() {
                         let key = spec.key;
                         body = body.child(param_slider(

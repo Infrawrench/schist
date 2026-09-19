@@ -108,7 +108,7 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         let after = (serde_json::to_string(params).ok(), Vec::new());
-        let changed = after != original;
+        let mut changed = false;
         if let Some(doc) = self.doc.as_mut() {
             // Put the pre-dialog state back first so the recorded edit has
             // the right "before"; the live preview already moved the layer.
@@ -125,7 +125,7 @@ impl Workspace {
             // Editing parameters supersedes the preserved PSD payload, so
             // the writer emits our values rather than stale bytes.
             edit.record_adjustment_params(layer, original, after);
-            edit.commit();
+            changed = edit.commit();
         }
         self.status = tf!(
             "workspace.adjustment.updated",
