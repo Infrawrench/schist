@@ -419,6 +419,12 @@ impl TransformTool {
 }
 
 impl ToolPlugin for TransformTool {
+    fn committed_layer_pixels(&self) -> Option<(LayerId, &TileMap)> {
+        let session = self.session.as_ref()?;
+        (session.mode == TransformMode::Layer && session.dirty)
+            .then_some((session.layer, &session.original))
+    }
+
     fn set_async_compute(&mut self, enabled: bool) {
         self.async_compute = enabled;
     }
@@ -1330,15 +1336,31 @@ mod tests {
                 tool.on_pointer_down(&mut ctx, input(60.0, 60.0));
                 tool.on_pointer_move(&mut ctx, input(20.0, 20.0));
                 tool.on_cancel(&mut ctx);
+                assert!(tool.committed_layer_pixels().is_none());
                 assert_eq!(ctx.doc.tree.layers[0].extras, original.extras);
                 assert!(!ctx.doc.history.can_undo());
                 for scale in [0.25, 4.0] {
+                    let before_preview = ctx.doc.tree.layers[0].as_raster().unwrap().tiles.clone();
                     tool.on_activate(&mut ctx);
                     let session = tool.session.as_mut().unwrap();
                     session.scale = (scale, scale);
                     session.dirty = true;
                     session.render(ctx.doc, Filter::Nearest);
+                    let (preview_layer, committed) = tool.committed_layer_pixels().unwrap();
+                    assert_eq!(preview_layer, ctx.doc.tree.layers[0].id);
+                    for (coord, tile) in before_preview.iter() {
+                        assert_eq!(committed.get(*coord), Some(tile));
+                    }
+                    assert_ne!(
+                        ctx.doc.tree.layers[0]
+                            .as_raster()
+                            .unwrap()
+                            .tiles
+                            .content_bounds(),
+                        before_preview.content_bounds()
+                    );
                     tool.on_commit(&mut ctx);
+                    assert!(tool.committed_layer_pixels().is_none());
                     if let Some(request) = tool.take_gpu_edit() {
                         let result = (request.fallback)(&request.input);
                         (request.apply)(ctx.doc, result);

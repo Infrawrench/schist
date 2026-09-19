@@ -54,8 +54,8 @@ channels and transparent colors. Reopening in Schist keeps editing available.
 Other applications see the rendered pixels; this is **not Adobe Smart Filter
 metadata**. Applications that strip unknown PSD blocks also discard the recipe.
 Flat image exports contain the visible result only. Native crash recovery and
-shared-document checkpoints retain all three blocks. Uncommitted stack previews are
-excluded from recovery and cloud edits.
+shared-document checkpoints retain all three blocks. Uncommitted filter-dialog
+and Free Transform previews are excluded from saves, recovery and cloud edits.
 
 The pristine source and filtered cache are each limited to 512 MiB before
 compression. Rendering also bounds image area and tile coverage to reject corrupt files and pathological narrow images

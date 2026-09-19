@@ -534,4 +534,4 @@ check-live-stack-storage:
 check-live-stack-editor:
 	$(CARGO) test -p schist-editor --lib filter_stack
 format-live-stack-transforms:
-	$(CARGO) fmt -p schist-core -p schist-editor -p schist-tools-transform -p schist-commands-core -p schist-codec-psd -p schist-document
+	$(CARGO) fmt -p schist-core -p schist-editor -p schist-tools-transform -p schist-commands-core -p schist-codec-psd -p schist-document -p schist-plugin-api

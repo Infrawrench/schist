@@ -130,12 +130,23 @@ impl Workspace {
         }
     }
 
+    /// Exclude both filter-dialog and transform-tool pixel previews from saves.
     pub(super) fn filter_stack_saved_document(&self, doc: &Document) -> Option<Document> {
-        let session = self.stack_filter_session.as_ref()?;
         if self.doc.as_ref()?.id != doc.id {
             return None;
         }
-        Some(committed_snapshot(doc, &session.original))
+        if let Some(session) = &self.stack_filter_session {
+            return Some(committed_snapshot(doc, &session.original));
+        }
+        let (id, pixels) = self
+            .registry
+            .tools()
+            .find(|tool| tool.id() == self.editor.active_tool)?
+            .committed_layer_pixels()?;
+        let mut original = doc.tree.find(id)?.clone();
+        original.as_raster_mut()?.tiles = pixels.clone();
+        original.styled = None;
+        Some(committed_snapshot(doc, &original))
     }
 
     pub fn open_stack_filter(
