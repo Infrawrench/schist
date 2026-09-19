@@ -1388,6 +1388,94 @@ mod tests {
     }
 
     #[test]
+    fn filter_stack_commit_clears_activation_snapshot_before_external_mutation() {
+        use schist_core::filter_stack::{read_source, FilterStack, LayerTransform};
+        for smart in [false, true] {
+            for dirty in [false, true] {
+                let mut doc = with_filter_stack(smart);
+                let mut state = EditorState::default();
+                let mut tool = TransformTool::default();
+                let mut ctx = ToolCtx {
+                    doc: &mut doc,
+                    state: &mut state,
+                };
+                tool.on_activate(&mut ctx);
+                if dirty {
+                    let session = tool.session.as_mut().unwrap();
+                    session.scale = (0.5, 0.5);
+                    session.dirty = true;
+                    session.render(ctx.doc, Filter::Nearest);
+                }
+                // The workspace flushes even clean activation snapshots before
+                // mutating a recipe, and forces the commit to finish now.
+                tool.set_async_compute(false);
+                let _ = tool.take_gpu_edit();
+                tool.on_commit(&mut ctx);
+                assert!(tool.session.is_none());
+
+                let canvas = ctx.doc.canvas_rect();
+                let depth = ctx.doc.depth;
+                let layer = &mut ctx.doc.tree.layers[0];
+                let source = read_source(layer).unwrap();
+                let mut filtered = source.clone();
+                filtered
+                    .get_mut_or_insert(schist_core::TileCoord { tx: 0, ty: 0 }, depth)
+                    .set(
+                        40 * schist_core::TILE_SIZE as usize + 40,
+                        schist_color::Rgba::WHITE,
+                    );
+                let mut stack = FilterStack::read(layer).unwrap().unwrap();
+                stack.effects[0].id = "edited-after-activation".into();
+                layer.extras = stack.blocks_with_render(layer, &source, &filtered).unwrap();
+                let tiles = if let Some(smart) = &mut layer.smart {
+                    smart.source = filtered;
+                    smart.source_bounds = smart.source.content_bounds();
+                    smart.render(depth, canvas)
+                } else {
+                    stack.place(&filtered, depth, canvas)
+                };
+                layer.as_raster_mut().unwrap().tiles = tiles.clone();
+                let extras = layer.extras.clone();
+                tool.on_cancel(&mut ctx);
+                assert_eq!(ctx.doc.tree.layers[0].extras, extras);
+                for (coord, tile) in tiles.iter() {
+                    assert_eq!(
+                        ctx.doc.tree.layers[0]
+                            .as_raster()
+                            .unwrap()
+                            .tiles
+                            .get(*coord),
+                        Some(tile)
+                    );
+                }
+
+                // Remaining on the Transform tool starts a fresh session on
+                // the next pointer-down, without another activation command.
+                tool.on_pointer_down(&mut ctx, input(40.0, 40.0));
+                let session = tool.session.as_mut().unwrap();
+                session.offset = (5.0, 0.0);
+                session.dirty = true;
+                let expected = LayerTransform::prepare(
+                    &ctx.doc.tree.layers[0],
+                    &session.matrix(),
+                    ctx.state.resample,
+                )
+                .unwrap()
+                .render(depth, canvas);
+                tool.on_commit(&mut ctx);
+                let layer = &ctx.doc.tree.layers[0];
+                assert_eq!(
+                    FilterStack::read(layer).unwrap().unwrap().effects[0].id,
+                    "edited-after-activation"
+                );
+                for (coord, tile) in expected.iter() {
+                    assert_eq!(layer.as_raster().unwrap().tiles.get(*coord), Some(tile));
+                }
+            }
+        }
+    }
+
+    #[test]
     fn filter_stack_async_resize_retains_source_and_restores_exact_native_tiles() {
         struct Cpu;
         impl schist_fx::AsyncCompute for Cpu {

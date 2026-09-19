@@ -799,14 +799,37 @@ impl Workspace {
 
     /// Enter: let the active tool commit its pending gesture.
     pub fn commit_gesture(&mut self, cx: &mut Context<Self>) {
+        self.commit_gesture_with_async(true, cx);
+    }
+
+    /// Finish a transform before another operation changes its source or recipe.
+    /// Even a clean activation holds a snapshot which must not survive the edit.
+    pub(super) fn commit_pending_transform(&mut self, cx: &mut Context<Self>) {
+        if matches!(self.editor.active_tool, "transform" | "transform.selection") {
+            // Also invalidates an already running result whose tool session
+            // was consumed by an earlier asynchronous commit. Keep this at
+            // the transform boundary so other tools' jobs remain unaffected.
+            #[cfg(target_arch = "wasm32")]
+            self.cancel_browser_edits();
+            if let Some(tool) = self.registry.tool_mut(self.editor.active_tool) {
+                let _ = tool.take_gpu_edit();
+            }
+            self.commit_gesture_with_async(false, cx);
+        }
+    }
+
+    fn commit_gesture_with_async(&mut self, _allow_async: bool, cx: &mut Context<Self>) {
         let tool_id = self.editor.active_tool;
         if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(tool_id)) {
+            if !_allow_async {
+                tool.set_async_compute(false);
+            }
             let mut ctx = ToolCtx {
                 doc,
                 state: &mut self.editor,
             };
             #[cfg(target_arch = "wasm32")]
-            tool.set_async_compute(true);
+            tool.set_async_compute(_allow_async);
             tool.on_commit(&mut ctx);
             #[cfg(target_arch = "wasm32")]
             if let Some(request) = tool.take_gpu_edit() {

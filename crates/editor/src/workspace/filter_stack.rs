@@ -155,6 +155,7 @@ impl Workspace {
         index: Option<usize>,
         cx: &mut Context<Self>,
     ) {
+        self.commit_pending_transform(cx);
         let result = (|| -> anyhow::Result<_> {
             let doc = self
                 .doc
@@ -356,6 +357,7 @@ impl Workspace {
     }
 
     pub fn change_filter_stack(&mut self, change: StackChange, cx: &mut Context<Self>) {
+        self.commit_pending_transform(cx);
         let Some(doc) = self.doc.as_ref() else { return };
         let Some(layer) = doc.active_layer.and_then(|id| doc.tree.find(id)) else {
             return;
