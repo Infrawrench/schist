@@ -349,6 +349,7 @@ impl Workspace {
             || id == "person-name"
             || id == file_picker::NAME_FIELD
             || id == palettes::SEARCH_FIELD
+            || id.starts_with("recipe-")
             || id.starts_with("cloud-");
         let hex = id == "cp-hex";
         // The caret belongs to the textual fields; keep it on the rails
@@ -489,6 +490,29 @@ impl Workspace {
 
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
         let buffer = self.field_buffer.clone();
+        if id.starts_with("recipe-") {
+            self.update_modal(|modal| {
+                if let Modal::ExportRecipes { editor } = modal {
+                    match id {
+                        "recipe-name" => editor.draft.name = buffer,
+                        "recipe-destination" => editor.draft.destination = buffer.into(),
+                        "recipe-template" => editor.draft.outputs[editor.output].template = buffer,
+                        "recipe-max-edge" => match buffer.parse::<u32>() {
+                            Ok(value) if value <= 32768 => {
+                                editor.draft.outputs[editor.output].max_edge = value
+                            }
+                            _ => {
+                                editor.draft.outputs[editor.output].max_edge = u32::MAX;
+                                editor.error =
+                                    Some(schist_i18n::t("export_recipes.invalid_size").into());
+                            }
+                        },
+                        _ => {}
+                    }
+                }
+            });
+            return;
+        }
         if id == palettes::SEARCH_FIELD {
             self.palette_search = buffer;
             return;
@@ -692,6 +716,7 @@ impl Workspace {
             | Modal::PluginManager
             | Modal::Preferences
             | Modal::Export { .. }
+            | Modal::ExportRecipes { .. }
             | Modal::MissingFonts { .. }
             | Modal::UpdateAvailable { .. }
             | Modal::Profile { .. } => {}
