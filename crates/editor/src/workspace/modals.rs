@@ -21,6 +21,7 @@ impl Workspace {
         // A dialog opened from the menus replaces whatever was up,
         // suspended parents included; only `open_color_picker_on` stacks.
         self.modal_stack.clear();
+        self.cloud.set_people_modal(Some(&modal));
         self.modal = Some(modal);
         self.context_menu = None;
         self.focused_field = None;
@@ -149,6 +150,7 @@ impl Workspace {
         }
         // Closing the picker uncovers the dialog it was opened from.
         self.modal = self.modal_stack.pop();
+        self.cloud.set_people_modal(self.modal.as_ref());
         self.default_action = None;
         self.focused_field = None;
         self.field_buffer.clear();
