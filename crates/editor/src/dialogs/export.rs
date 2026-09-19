@@ -87,6 +87,13 @@ pub(super) fn export_dialog(
         ),
     ));
 
+    body = body.child(ui::button(
+        t("export_recipes.open"),
+        false,
+        |ws, _window, cx| ws.open_export_recipes(Vec::new(), cx),
+        cx,
+    ));
+
     let actions = div()
         .flex()
         .flex_row()

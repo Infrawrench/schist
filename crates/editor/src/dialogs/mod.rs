@@ -21,10 +21,12 @@ mod batch;
 mod close;
 mod edit;
 mod export;
+mod export_recipes;
 mod file_picker;
 mod filters;
 mod fonts;
 mod layer_props;
+mod mask_refine;
 mod models;
 mod new_doc;
 mod open;
@@ -44,6 +46,7 @@ use batch::*;
 use close::*;
 use edit::*;
 use export::*;
+use export_recipes::*;
 use file_picker::*;
 use filters::*;
 use fonts::*;
@@ -143,6 +146,12 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         Modal::SelectModify { kind, amount } => {
             modify_dialog(&state, kind, amount, cx).into_any_element()
         }
+        Modal::MaskRefine {
+            settings,
+            background,
+            original,
+            zoom,
+        } => mask_refine::dialog(ws, settings, background, original, zoom, cx).into_any_element(),
         Modal::ColorRange { tolerance, target } => {
             color_range_dialog(&state, tolerance, target, cx).into_any_element()
         }
@@ -223,6 +232,9 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         }
         Modal::Export { codec, options } => {
             export_dialog(ws, &state, codec, options, cx).into_any_element()
+        }
+        Modal::ExportRecipes { editor } => {
+            export_recipes_dialog(ws, &state, editor, cx).into_any_element()
         }
         Modal::Profile { convert, selected } => {
             profile_dialog(&state, convert, selected, cx).into_any_element()
