@@ -222,7 +222,6 @@ cloud.people.title = Personi en ca fotografuro
 cloud.people.person = Persono
 cloud.people.unnamed = Nenomizita
 cloud.people.unnamed_faces = Nenomizita vizaji
-cloud.people.unnamed_faces_row = Nenomizita vizaji en Schist Cloud
 cloud.people.finding_faces.one = Serchante vizaji en {n} nubala fotografuro…
 cloud.people.finding_faces.other = Serchante vizaji en {n} nubala fotografuri…
 cloud.people.could_not_process.one = Ne povis procesar {n} nubala fotografuro

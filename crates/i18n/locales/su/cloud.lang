@@ -212,7 +212,6 @@ cloud.people.title = Jalma dina poto ieu
 cloud.people.person = Jalma
 cloud.people.unnamed = Tanpa ngaran
 cloud.people.unnamed_faces = Beungeut tanpa ngaran
-cloud.people.unnamed_faces_row = Beungeut tanpa ngaran dina Schist Cloud
 cloud.people.finding_faces.other = Néangan beungeut dina {n} poto cloud…
 cloud.people.could_not_process.other = Teu bisa ngolah {n} poto cloud
 cloud.people.add_face = Tambahkeun beungeut…

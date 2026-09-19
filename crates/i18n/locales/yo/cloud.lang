@@ -212,7 +212,6 @@ cloud.people.title = Àwọn ènìyàn nínú fọ́tò yìí
 cloud.people.person = Ènìyàn
 cloud.people.unnamed = Láìsí orúkọ
 cloud.people.unnamed_faces = Àwọn ojú láìsí orúkọ
-cloud.people.unnamed_faces_row = Àwọn ojú láìsí orúkọ ní Schist Cloud
 cloud.people.finding_faces.other = Ń wá ojú nínú fọ́tò cloud; iye: {n}…
 cloud.people.could_not_process.other = Iye fọ́tò cloud tí a kò lè ṣiṣẹ́ lórí: {n}
 cloud.people.add_face = Fi ojú kún un…

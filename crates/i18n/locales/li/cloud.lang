@@ -221,7 +221,6 @@ cloud.people.title = Minse op deze foto
 cloud.people.person = Persoen
 cloud.people.unnamed = Zonger naam
 cloud.people.unnamed_faces = Gezichter zonger naam
-cloud.people.unnamed_faces_row = Gezichter zonger naam in Schist Cloud
 cloud.people.finding_faces.other = Gezichter zeuke in cloudfoto's; aantal: {n}…
 cloud.people.could_not_process.other = Kós cloudfoto's neet verwirke; aantal: {n}
 cloud.people.add_face = Gezich toeveuge…

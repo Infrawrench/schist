@@ -212,7 +212,6 @@ cloud.people.title = Personas dins aquesta fòto
 cloud.people.person = Persona
 cloud.people.unnamed = Sens nom
 cloud.people.unnamed_faces = Visatges sens nom
-cloud.people.unnamed_faces_row = Visatges sens nom dins Schist Cloud
 cloud.people.finding_faces.other = Recèrca de visatges dins de fòtos del nívol — nombre : {n}…
 cloud.people.could_not_process.other = Fòtos del nívol impossiblas de tractar — nombre : {n}
 cloud.people.add_face = Apondre un visatge…

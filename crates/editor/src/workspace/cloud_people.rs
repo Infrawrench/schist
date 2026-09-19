@@ -115,8 +115,8 @@ pub(super) fn naming_preview(
 }
 
 /// The cloud's people, drawn like the local PEOPLE rows: a round badge,
-/// the name, a count, and the actions on the right-click menu. Signed
-/// out, or before the provider has looked, there is nothing to list.
+/// the name, a cloud marker, a count, and the actions on the right-click menu.
+/// Signed out, or before the provider has looked, there is nothing to list.
 /// `caption` adds the section heading, for a sidebar without a local
 /// list above.
 pub(crate) fn rows(
@@ -194,6 +194,13 @@ pub(crate) fn rows(
             .child(div().flex_grow().truncate().child(SharedString::from(name)))
             .child(
                 div()
+                    .flex_none()
+                    .text_color(gpui::rgb(pal().text_dim))
+                    .child(CLOUD_GLYPH),
+            )
+            .child(
+                div()
+                    .flex_none()
                     .text_size(px(10.0))
                     .text_color(gpui::rgb(pal().text_dim))
                     .child(format!("{count}")),
@@ -214,7 +221,15 @@ pub(crate) fn rows(
                 });
                 face_preview(&mut ws.cloud, image, &avatar.rect, 20.0)
             })
-            .unwrap_or_else(|| badge(CLOUD_GLYPH).into_any_element());
+            .unwrap_or_else(|| {
+                div()
+                    .w(px(20.0))
+                    .h(px(20.0))
+                    .flex_none()
+                    .rounded_full()
+                    .bg(gpui::rgb(pal().cell_edge))
+                    .into_any_element()
+            });
         rows.push(person_row(
             SharedString::from(format!("cloud-person-{}", person.id)),
             portrait,
@@ -230,7 +245,7 @@ pub(crate) fn rows(
         rows.push(person_row(
             "cloud-person-unnamed".into(),
             badge("?").into_any_element(),
-            t("cloud.people.unnamed_faces_row").into(),
+            t("cloud.people.unnamed_faces").into(),
             people.unnamed,
             viewing.as_deref() == Some("unnamed"),
             "unnamed".into(),

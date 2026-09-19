@@ -230,7 +230,6 @@ cloud.people.title = Watu katika picha hii
 cloud.people.person = Mtu
 cloud.people.unnamed = Hana jina
 cloud.people.unnamed_faces = Nyuso zisizo na majina
-cloud.people.unnamed_faces_row = Nyuso zisizo na majina kwenye Schist Cloud
 cloud.people.finding_faces.one = Inatafuta nyuso katika picha {n} ya wingu…
 cloud.people.finding_faces.other = Inatafuta nyuso katika picha {n} za wingu…
 cloud.people.could_not_process.one = Imeshindwa kuchakata picha {n} ya wingu

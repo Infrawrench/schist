@@ -230,7 +230,6 @@ cloud.people.title = Vanhu eka xifaniso lexi
 cloud.people.person = Munhu
 cloud.people.unnamed = Ku hava vito
 cloud.people.unnamed_faces = Swikandza leswi nga riki na mavito
-cloud.people.unnamed_faces_row = Swikandza leswi nga riki na mavito eka Schist Cloud
 cloud.people.finding_faces.one = Ku laviwa swikandza eka xifaniso xin'we ({n}) xa cloud…
 cloud.people.finding_faces.other = Ku laviwa swikandza eka swifaniso swa {n} swa cloud…
 cloud.people.could_not_process.one = A swi kotekanga ku endla xifaniso xin'we ({n}) xa cloud

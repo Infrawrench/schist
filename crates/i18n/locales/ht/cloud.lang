@@ -212,7 +212,6 @@ cloud.people.title = Moun nan foto sa a
 cloud.people.person = Moun
 cloud.people.unnamed = San non
 cloud.people.unnamed_faces = Figi san non
-cloud.people.unnamed_faces_row = Figi san non nan Schist Cloud
 cloud.people.finding_faces.other = Ap chèche figi nan {n} foto nwaj…
 cloud.people.could_not_process.other = Pa t kapab trete {n} foto nwaj
 cloud.people.add_face = Ajoute yon figi…

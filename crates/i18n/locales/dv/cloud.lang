@@ -221,7 +221,6 @@ cloud.people.title = މި ފޮޓޯގައި ހުރި މީހުން
 cloud.people.person = މީހާ
 cloud.people.unnamed = ނަން ނުދީ
 cloud.people.unnamed_faces = ނަން ނުދީފައިވާ މޫނުތައް
-cloud.people.unnamed_faces_row = Schist Cloud ގައި ނަން ނުދީފައިވާ މޫނުތައް
 cloud.people.finding_faces.one = ކްލައުޑް ފޮޓޯ {n} ގައި މޫނުތައް ހޯދަނީ…
 cloud.people.finding_faces.other = ކްލައުޑް ފޮޓޯ {n} ގައި މޫނުތައް ހޯދަނީ…
 cloud.people.could_not_process.one = ކްލައުޑް ފޮޓޯ {n} ޕްރޮސެސްކުރެވެން ނުކެރުނު

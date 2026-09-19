@@ -222,7 +222,6 @@ cloud.people.title = Personer på dette bildet
 cloud.people.person = Person
 cloud.people.unnamed = Uten navn
 cloud.people.unnamed_faces = Ansikter uten navn
-cloud.people.unnamed_faces_row = Ansikter uten navn i Schist Cloud
 cloud.people.finding_faces.one = Finner ansikter i {n} skybilde…
 cloud.people.finding_faces.other = Finner ansikter i {n} skybilder…
 cloud.people.could_not_process.one = Kunne ikke behandle {n} skybilde

@@ -231,7 +231,6 @@ cloud.people.title = ადამიანები ამ ფოტოში
 cloud.people.person = ადამიანი
 cloud.people.unnamed = უსახელო
 cloud.people.unnamed_faces = უსახელო სახეები
-cloud.people.unnamed_faces_row = უსახელო სახეები Schist Cloud-ში
 cloud.people.finding_faces.one = სახეები იძებნება {n} ღრუბლოვან ფოტოში…
 cloud.people.finding_faces.other = სახეები იძებნება {n} ღრუბლოვან ფოტოში…
 cloud.people.could_not_process.one = {n} ღრუბლოვანი ფოტო ვერ დამუშავდა

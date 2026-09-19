@@ -229,7 +229,6 @@ cloud.people.title = Mense in hierdie foto
 cloud.people.person = Persoon
 cloud.people.unnamed = Naamloos
 cloud.people.unnamed_faces = Naamlose gesigte
-cloud.people.unnamed_faces_row = Naamlose gesigte in Schist Cloud
 cloud.people.finding_faces.one = Soek gesigte in {n} wolkfoto…
 cloud.people.finding_faces.other = Soek gesigte in {n} wolkfoto's…
 cloud.people.could_not_process.one = Kon nie {n} wolkfoto verwerk nie

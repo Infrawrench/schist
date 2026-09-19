@@ -221,7 +221,6 @@ cloud.people.title = Olona ato amin'ity sary ity
 cloud.people.person = Olona
 cloud.people.unnamed = Tsy voatonona
 cloud.people.unnamed_faces = Tava tsy voatonona
-cloud.people.unnamed_faces_row = Tava tsy voatonona ao amin'ny Schist Cloud
 cloud.people.finding_faces.one = Mitady tava ao amin'ny sary cloud {n}…
 cloud.people.finding_faces.other = Mitady tava ao amin'ny sary cloud {n}…
 cloud.people.could_not_process.one = Tsy afaka nikarakara sary cloud {n}

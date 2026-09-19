@@ -221,7 +221,6 @@ cloud.people.title = Inimesed sellel fotol
 cloud.people.person = Inimene
 cloud.people.unnamed = Nimetu
 cloud.people.unnamed_faces = Nimetud näod
-cloud.people.unnamed_faces_row = Nimetud näod Schist Cloudis
 cloud.people.finding_faces.one = Nägude otsimine {n} pilvefotolt…
 cloud.people.finding_faces.other = Nägude otsimine {n} pilvefotolt…
 cloud.people.could_not_process.one = {n} pilvefotot ei saanud töödelda

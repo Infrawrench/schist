@@ -212,7 +212,6 @@ cloud.people.title = Tagata i lenei ata pue
 cloud.people.person = Tagata
 cloud.people.unnamed = Leai se igoa
 cloud.people.unnamed_faces = Foliga e leai ni igoa
-cloud.people.unnamed_faces_row = Foliga e leai ni igoa i Schist Cloud
 cloud.people.finding_faces.other = O loo saʻili foliga i le aofaʻi o ata pue ao e {n}…
 cloud.people.could_not_process.other = Ua lē mafai ona faagasolo le aofaʻi o ata pue ao e {n}
 cloud.people.add_face = Faaopoopo se foliga…

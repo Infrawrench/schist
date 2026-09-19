@@ -240,7 +240,6 @@ cloud.people.title = Abantu esithombeni lesi
 cloud.people.person = Umuntu
 cloud.people.unnamed = Akakanikelwa igama
 cloud.people.unnamed_faces = Ubuso obungakanikelwa amagama
-cloud.people.unnamed_faces_row = Ubuso obungakanikelwa amagama ku-Schist Cloud
 cloud.people.finding_faces.one = Kufunwa ubuso ku-{n} isithombe selifu…
 cloud.people.finding_faces.other = Kufunwa ubuso ku-{n} iinthombe zelifu…
 cloud.people.could_not_process.one = Akukghonakali ukusebenza nge-{n} isithombe selifu

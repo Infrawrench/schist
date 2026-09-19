@@ -230,7 +230,6 @@ cloud.people.title = Personar på dette fotoet
 cloud.people.person = Person
 cloud.people.unnamed = Utan namn
 cloud.people.unnamed_faces = Ansikt utan namn
-cloud.people.unnamed_faces_row = Ansikt utan namn i Schist Cloud
 cloud.people.finding_faces.one = Finn ansikt i {n} skyfoto …
 cloud.people.finding_faces.other = Finn ansikt i {n} skyfoto …
 cloud.people.could_not_process.one = Klarte ikkje å handsama {n} skyfoto

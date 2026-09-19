@@ -212,7 +212,6 @@ cloud.people.title = Ol man long foto ya
 cloud.people.person = Man
 cloud.people.unnamed = No gat nem
 cloud.people.unnamed_faces = Ol fes we no gat nem
-cloud.people.unnamed_faces_row = Ol fes we no gat nem long Schist Cloud
 cloud.people.finding_faces.other = I stap faenem ol fes long cloud foto; namba: {n}…
 cloud.people.could_not_process.other = I no save prosesem cloud foto; namba: {n}
 cloud.people.add_face = Ademap wan fes…

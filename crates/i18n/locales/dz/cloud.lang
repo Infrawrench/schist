@@ -212,7 +212,6 @@ cloud.people.title = པར་འདི་ནང་གི་མི་ཚུ།
 cloud.people.person = མི།
 cloud.people.unnamed = མིང་མ་བཏགས་མི།
 cloud.people.unnamed_faces = མིང་མ་བཏགས་པའི་གདོང་ཚུ།
-cloud.people.unnamed_faces_row = Schist Cloud ནང་གི་མིང་མ་བཏགས་པའི་གདོང་ཚུ།
 cloud.people.finding_faces.other = ཀེལའུཌ་པར་གྱངས་ཁ་ {n} ནང་གདོང་འཚོལ་དོ་…
 cloud.people.could_not_process.other = ཀེལའུཌ་པར་གྱངས་ཁ་ {n} བཟོ་སྦྱོར་འབད་མ་ཚུགས།
 cloud.people.add_face = གདོང་ཅིག་ཁ་སྐོང་…

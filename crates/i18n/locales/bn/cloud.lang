@@ -221,7 +221,6 @@ cloud.people.title = এই ছবির মানুষ
 cloud.people.person = ব্যক্তি
 cloud.people.unnamed = নামহীন
 cloud.people.unnamed_faces = নামহীন মুখ
-cloud.people.unnamed_faces_row = Schist Cloud-এর নামহীন মুখ
 cloud.people.finding_faces.one = {n}টি ক্লাউড ছবিতে মুখ খোঁজা হচ্ছে…
 cloud.people.finding_faces.other = {n}টি ক্লাউড ছবিতে মুখ খোঁজা হচ্ছে…
 cloud.people.could_not_process.one = {n}টি ক্লাউড ছবি প্রক্রিয়া করা যায়নি

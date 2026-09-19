@@ -221,7 +221,6 @@ cloud.people.title = இந்தப் புகைப்படத்தில�
 cloud.people.person = நபர்
 cloud.people.unnamed = பெயரிடாதவர்
 cloud.people.unnamed_faces = பெயரிடாத முகங்கள்
-cloud.people.unnamed_faces_row = Schist Cloud இல் பெயரிடாத முகங்கள்
 cloud.people.finding_faces.one = {n} மேகப் புகைப்படத்தில் முகங்களைக் கண்டறிகிறது…
 cloud.people.finding_faces.other = {n} மேகப் புகைப்படங்களில் முகங்களைக் கண்டறிகிறது…
 cloud.people.could_not_process.one = {n} மேகப் புகைப்படத்தைச் செயலாக்க முடியவில்லை

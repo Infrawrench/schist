@@ -212,7 +212,6 @@ cloud.people.title = Homines in hoc photographemate
 cloud.people.person = Persona
 cloud.people.unnamed = Sine nomine
 cloud.people.unnamed_faces = Facies sine nomine
-cloud.people.unnamed_faces_row = Facies sine nomine in Schist Cloud
 cloud.people.finding_faces.other = Facies in photographis nubis quaeruntur; photographematum numerus: {n}…
 cloud.people.could_not_process.other = Photographemata nubis processari non potuerunt; numerus: {n}
 cloud.people.add_face = Faciem adde…

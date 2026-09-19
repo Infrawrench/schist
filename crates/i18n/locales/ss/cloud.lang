@@ -221,7 +221,6 @@ cloud.people.title = Bantfu kulesitfombe
 cloud.people.person = Umuntfu
 cloud.people.unnamed = Akunaligama
 cloud.people.unnamed_faces = Buso lobungenamagama
-cloud.people.unnamed_faces_row = Buso lobungenamagama ku-Schist Cloud
 cloud.people.finding_faces.one = Kufunwa buso esitfombeni selifu lesingu-{n}…
 cloud.people.finding_faces.other = Kufunwa buso etitfombeni telifu letingu-{n}…
 cloud.people.could_not_process.one = Akukwazekanga kucubungula sitfombe selifu lesingu-{n}

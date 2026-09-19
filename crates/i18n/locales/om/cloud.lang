@@ -221,7 +221,6 @@ cloud.people.title = Namoota suuraa kana keessa jiran
 cloud.people.person = Nama
 cloud.people.unnamed = Maqaa Maleessa
 cloud.people.unnamed_faces = Fuulota maqaa hin qabne
-cloud.people.unnamed_faces_row = Fuulota Schist Cloud keessatti maqaa hin qabne
 cloud.people.finding_faces.one = Suuraa cloud {n} keessaa fuulota barbaadaa jira…
 cloud.people.finding_faces.other = Suuraawwan cloud {n} keessaa fuulota barbaadaa jira…
 cloud.people.could_not_process.one = Suuraa cloud {n} adeemsisuu hin dandeenye

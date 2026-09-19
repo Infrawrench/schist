@@ -221,7 +221,6 @@ cloud.people.title = ဤဓာတ်ပုံရှိ လူများ
 cloud.people.person = လူ
 cloud.people.unnamed = အမည်မရှိ
 cloud.people.unnamed_faces = အမည်မပေးရသေးသော မျက်နှာများ
-cloud.people.unnamed_faces_row = Schist Cloud ရှိ အမည်မပေးရသေးသော မျက်နှာများ
 cloud.people.finding_faces.other = Cloud ဓာတ်ပုံ {n} ပုံတွင် မျက်နှာများ ရှာနေသည်…
 cloud.people.could_not_process.other = Cloud ဓာတ်ပုံ {n} ပုံကို စီမံ၍မရပါ
 cloud.people.add_face = မျက်နှာတစ်ခု ထည့်ရန်…

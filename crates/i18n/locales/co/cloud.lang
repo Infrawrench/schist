@@ -212,7 +212,6 @@ cloud.people.title = Persone in sta fotò
 cloud.people.person = Persona
 cloud.people.unnamed = Senza nome
 cloud.people.unnamed_faces = Visi senza nome
-cloud.people.unnamed_faces_row = Visi senza nome in Schist Cloud
 cloud.people.finding_faces.other = Ricerca di visi in fotò nuvola: {n}…
 cloud.people.could_not_process.other = Fotò nuvola micca trattate: {n}
 cloud.people.add_face = Aghjunghje un visu…

@@ -212,7 +212,6 @@ cloud.people.title = Abantu bari muri iyi foto
 cloud.people.person = Umuntu
 cloud.people.unnamed = Nta zina
 cloud.people.unnamed_faces = Amasura atarita amazina
-cloud.people.unnamed_faces_row = Amasura atarita amazina muri Schist Cloud
 cloud.people.finding_faces.other = Harimo gushakwa amasura mu mafoto yo mu gicu: {n}…
 cloud.people.could_not_process.other = Amafoto yo mu gicu atashoboye gutunganywa: {n}
 cloud.people.add_face = Kongera isura…

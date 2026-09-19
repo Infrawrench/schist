@@ -231,7 +231,6 @@ cloud.people.title = अस्मिन् छायाचित्रे जन
 cloud.people.person = व्यक्तिः
 cloud.people.unnamed = अनाम
 cloud.people.unnamed_faces = अनाममुखानि
-cloud.people.unnamed_faces_row = Schist Cloud मध्ये अनाममुखानि
 cloud.people.finding_faces.other = मेघछायाचित्रेषु अन्विष्यमाणमुखसंख्या: {n}…
 cloud.people.could_not_process.other = संस्कर्तुम् अशक्यमेघछायाचित्रसंख्या: {n}
 cloud.people.add_face = मुखं योजयतु…

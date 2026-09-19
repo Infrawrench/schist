@@ -230,7 +230,6 @@ cloud.people.title = Persounen op dëser Foto
 cloud.people.person = Persoun
 cloud.people.unnamed = Onbenannt
 cloud.people.unnamed_faces = Onbenannt Gesiichter
-cloud.people.unnamed_faces_row = Onbenannt Gesiichter a Schist Cloud
 cloud.people.finding_faces.one = Gesiichter an {n} Cloud-Foto gi gesicht…
 cloud.people.finding_faces.other = Gesiichter an {n} Cloud-Fotoe gi gesicht…
 cloud.people.could_not_process.one = {n} Cloud-Foto konnt net verschafft ginn
