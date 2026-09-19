@@ -449,6 +449,8 @@ already logged into. See [docs/ai-panel.md](docs/ai-panel.md).
 
 * [docs/architecture.md](docs/architecture.md) — how the pieces fit
 * [docs/gallery.md](docs/gallery.md) — the Picasa-style photo gallery
+* [docs/export-recipes.md](docs/export-recipes.md) — saved exports for documents and gallery selections
+* [docs/mask-refinement.md](docs/mask-refinement.md) — refine selection edges and layer masks
 * [docs/plugin-guide.md](docs/plugin-guide.md) — writing plugins
 * [docs/text.md](docs/text.md) — OpenType controls and text on paths
 * [docs/filter-stacks.md](docs/filter-stacks.md) — editable filters and preserved source pixels

@@ -404,6 +404,14 @@ pub(super) fn batch_dialog(
         }
     }
 
+    let export_photos = photos.clone();
+    body = body.child(ui::button(
+        t("export_recipes.open"),
+        false,
+        move |ws, _window, cx| ws.open_export_recipes(export_photos.clone(), cx),
+        cx,
+    ));
+
     let run_label = if n == 1 {
         t("dialog.batch.process").to_string()
     } else {

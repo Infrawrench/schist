@@ -251,6 +251,8 @@ pub(crate) struct CloudState {
     pub library_total: Option<u64>,
     pub screening: remote::Screening,
     pub people: Option<remote::People>,
+    /// The photo being viewed or named survives changes to the gallery page.
+    pub people_target: Option<Asset>,
     pub face_bounds: Bounds<Pixels>,
     pub face_start: Option<(f32, f32)>,
     pub face_draft: Option<remote::FaceRect>,
@@ -358,6 +360,7 @@ impl Default for CloudState {
             library_total: None,
             screening: remote::Screening::default(),
             people: None,
+            people_target: None,
             face_bounds: Bounds::default(),
             face_start: None,
             face_draft: None,
@@ -388,6 +391,23 @@ impl Drop for CloudState {
     }
 }
 impl CloudState {
+    pub(super) fn people_asset(&self, id: &str) -> Option<&Asset> {
+        self.assets
+            .iter()
+            .find(|asset| asset.id == id)
+            .or_else(|| self.people_target.as_ref().filter(|asset| asset.id == id))
+    }
+
+    fn refresh_people_target(&mut self) {
+        // A missing photo may have left this filtered page; it does not mean
+        // that the photo being viewed was deleted.
+        if let Some(target) = &mut self.people_target {
+            if let Some(asset) = self.assets.iter().find(|asset| asset.id == target.id) {
+                *target = asset.clone();
+            }
+        }
+    }
+
     /// Resolve older avatar metadata from the page when possible. New providers
     /// include a ticket so the sidebar also works for photos outside that page.
     pub(super) fn avatar_source(
@@ -415,17 +435,23 @@ impl CloudState {
                 let (revision, url) = self.avatar_source(avatar)?;
                 Some((avatar.asset_id.clone(), revision, url))
             });
-        let sources = portraits.chain(
-            self.assets
-                .iter()
-                .chain(
-                    self.map_assets
-                        .iter()
-                        .filter(|a| self.map_wanted.contains(&a.id)),
-                )
-                .filter(|_| self.show)
-                .map(|a| (a.id.clone(), a.revision, a.thumbnail_url.clone())),
-        );
+        let sources = portraits
+            .chain(
+                self.assets
+                    .iter()
+                    .chain(
+                        self.map_assets
+                            .iter()
+                            .filter(|a| self.map_wanted.contains(&a.id)),
+                    )
+                    .filter(|_| self.show)
+                    .map(|a| (a.id.clone(), a.revision, a.thumbnail_url.clone())),
+            )
+            .chain(
+                self.people_target
+                    .iter()
+                    .map(|a| (a.id.clone(), a.revision, a.thumbnail_url.clone())),
+            );
         let mut positions = HashMap::new();
         let mut wanted: Vec<(String, u64, Option<String>)> = Vec::new();
         for source in sources {
@@ -641,6 +667,7 @@ impl Workspace {
             return;
         }
         self.cloud.library_total = None;
+        self.cloud.people_target = None;
         self.cloud.client = Some(Client::start(account.clone()));
         self.cloud.account = Some(account.clone());
         #[cfg(target_os = "android")]
@@ -679,6 +706,7 @@ impl Workspace {
         self.cloud.docs.clear();
         self.cloud.assets.clear();
         self.cloud.people = None;
+        self.cloud.people_target = None;
         self.cloud.thumbnails.clear();
         self.cloud.face_previews.clear();
         self.cloud.library_total = None;
@@ -1138,6 +1166,7 @@ impl Workspace {
                 self.cloud.thumbnail_failed.clear();
                 self.cloud.selected.clear();
                 self.cloud.people = None;
+                self.cloud.people_target = None;
                 self.cloud.total = 0;
                 self.cloud.library_total = None;
                 for doc in self.cloud.docs.values_mut() {
@@ -1191,6 +1220,7 @@ impl Workspace {
                             .into_iter()
                             .map(parse)
                             .collect::<Result<_>>()?;
+                        self.cloud.refresh_people_target();
                         self.cloud.total = snapshot.total;
                         self.cloud.loaded = true;
                         self.cloud.load_error = None;
@@ -2804,6 +2834,103 @@ pub(super) fn rgba_to_render_image(
 #[cfg(test)]
 mod cloud_lifecycle_tests {
     use super::*;
+
+    fn people_modal(kind: &'static str, asset: &str) -> Modal {
+        Modal::Cloud {
+            kind,
+            fields: vec![("cloud-asset-id", String::new(), asset.into())],
+        }
+    }
+
+    #[test]
+    fn people_view_keeps_its_photo_and_thumbnail_when_the_gallery_page_changes() {
+        let mut state = CloudState::default();
+        state.show = true;
+        let mut asset = binding("portrait").asset;
+        asset.thumbnail_url = Some("https://cloud.test/portrait".into());
+        asset.faces = vec![remote::Face {
+            id: "face".into(),
+            rect: remote::FaceRect {
+                x: 0.1,
+                y: 0.2,
+                w: 0.3,
+                h: 0.4,
+            },
+            person_id: Some("ann".into()),
+            automatic: false,
+            suggestion: None,
+        }];
+        state.assets.push(asset.clone());
+        state.set_people_modal(Some(&people_modal("people-view", &asset.id)));
+        // The page and viewer share one thumbnail request.
+        assert_eq!(
+            state.wanted_thumbnails(),
+            vec![(
+                asset.id.clone(),
+                asset.revision,
+                asset.thumbnail_url.clone()
+            )]
+        );
+
+        // A live refresh moves the photo off the page. Viewing and naming must
+        // still resolve the selected photo, including its face and preview.
+        state.assets.clear();
+        state.refresh_people_target();
+        assert_eq!(state.people_asset("portrait"), Some(&asset));
+        assert!(state.people_asset("another-photo").is_none());
+        state.set_people_modal(Some(&people_modal("face-name", &asset.id)));
+        assert_eq!(state.people_asset("portrait"), Some(&asset));
+        assert_eq!(
+            state.wanted_thumbnails(),
+            vec![(
+                asset.id.clone(),
+                asset.revision,
+                asset.thumbnail_url.clone()
+            )]
+        );
+
+        // Closing the dialog releases the photo and its thumbnail request.
+        state.set_people_modal(None);
+        assert!(state.people_asset("portrait").is_none());
+        assert!(state.wanted_thumbnails().is_empty());
+    }
+
+    #[test]
+    fn people_view_retains_updated_faces_and_revision_after_a_later_page_change() {
+        let mut state = CloudState::default();
+        let mut asset = binding("portrait").asset;
+        state.assets.push(asset.clone());
+        state.set_people_modal(Some(&people_modal("people-view", &asset.id)));
+        asset.revision = 2;
+        asset.thumbnail_url = Some("https://cloud.test/updated-portrait".into());
+        asset.faces = vec![remote::Face {
+            id: "new-face".into(),
+            rect: remote::FaceRect {
+                x: 0.1,
+                y: 0.2,
+                w: 0.3,
+                h: 0.4,
+            },
+            person_id: None,
+            automatic: true,
+            suggestion: None,
+        }];
+        state.assets = vec![asset.clone()];
+        state.refresh_people_target();
+        assert_eq!(state.people_asset("portrait"), Some(&asset));
+
+        state.assets = vec![binding("another-photo").asset];
+        state.refresh_people_target();
+        assert_eq!(state.people_asset("portrait"), Some(&asset));
+        assert_eq!(
+            state.wanted_thumbnails(),
+            vec![(asset.id, 2, asset.thumbnail_url)]
+        );
+        state.set_people_modal(Some(&people_modal("sign-in", "")));
+        assert!(state.people_asset("portrait").is_none());
+        assert!(state.wanted_thumbnails().is_empty());
+    }
+
     #[test]
     fn face_previews_preserve_color_and_cache_by_source_and_rectangle() {
         let mut state = CloudState::default();

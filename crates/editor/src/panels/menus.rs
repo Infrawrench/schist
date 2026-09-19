@@ -190,6 +190,7 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 Cmd("select.inverse"),
                 Sep,
                 App(t("menu.select.color_range"), ColorRangeItem, None),
+                App(t("mask_refine.title"), RefineMask, None),
                 Sep,
                 Sub(
                     "Modify",

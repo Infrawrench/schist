@@ -10,6 +10,21 @@ use schist_ui::Badge;
 const PREVIEW_PX: u32 = 64;
 
 impl super::cloud::CloudState {
+    /// Keep the photo through viewing and naming, until the dialog closes.
+    pub(super) fn set_people_modal(&mut self, modal: Option<&Modal>) {
+        self.people_target = match modal {
+            Some(Modal::Cloud {
+                kind: "people-view" | "face-name" | "face-add",
+                fields,
+            }) => fields
+                .iter()
+                .find(|(key, _, _)| *key == "cloud-asset-id")
+                .and_then(|(_, _, id)| self.people_asset(id))
+                .cloned(),
+            _ => None,
+        };
+    }
+
     /// Crop once per source image and face box, using local People's crop and
     /// padding. RenderImage already holds BGRA: resampling preserves that order.
     pub(super) fn face_preview_image(
@@ -83,11 +98,7 @@ pub(super) fn naming_preview(
             .find(|(k, _, _)| *k == key)
             .map(|(_, _, v)| v.as_str())
     };
-    let asset = ws
-        .cloud
-        .assets
-        .iter()
-        .find(|a| Some(a.id.as_str()) == get("cloud-asset-id"))?;
+    let asset = ws.cloud.people_asset(get("cloud-asset-id")?)?;
     let rect = asset
         .faces
         .iter()
@@ -333,9 +344,7 @@ pub(crate) fn viewer(
         .iter()
         .find(|(k, _, _)| *k == "cloud-asset-id")
         .map(|(_, _, v)| v);
-    let asset = id
-        .and_then(|id| ws.cloud.assets.iter().find(|a| &a.id == id))
-        .cloned();
+    let asset = id.and_then(|id| ws.cloud.people_asset(id)).cloned();
     let mut body = div().flex().flex_col().gap_2();
     if let Some(asset) = asset {
         let image = ws

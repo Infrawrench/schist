@@ -386,6 +386,12 @@ check-palettes:
 check-palettes-wasm:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
 
+.PHONY: check-mask-refinement
+check-mask-refinement:
+	$(CARGO) test -p schist-core mask_refine
+	$(CARGO) test -p schist-core payload_budget_tests
+	$(CARGO) check -p schist-editor --all-targets
+
 # Native video decoding, gallery invariants, and catalogs.
 .PHONY: check-video format-video
 check-video:
@@ -484,3 +490,8 @@ check-filter-stacks:
 .PHONY: format-filter-stacks
 format-filter-stacks:
 	$(CARGO) fmt -p schist-core -p schist-plugin-api -p schist-codec-psd -p schist-document -p schist-editor
+
+# Multi-output export recipes: real codecs, naming, persistence and source preservation.
+.PHONY: check-export-recipes
+check-export-recipes:
+	$(CARGO) test -p schist-editor export_recipes
