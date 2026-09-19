@@ -48,6 +48,10 @@ fn truncated_and_hostile_metadata_are_rejected() {
     source.identity.version = 999;
     layer.extras = source.blocks(&layer).unwrap();
     assert!(SmartSource::read(&layer).is_err());
+    source.identity.version = 1;
+    source.identity.origin = [i32::MAX, 0];
+    layer.extras = source.blocks(&layer).unwrap();
+    assert!(SmartSource::read(&layer).is_err());
 }
 
 #[test]
