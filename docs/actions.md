@@ -78,9 +78,9 @@ Browser builds use local storage under `schist.actions.v1`. Saving the native
 library uses a temporary file and atomic replacement. Load/save errors appear
 in the status bar. Action libraries are limited to 256 actions and 4 MiB.
 
-All new UI strings live in `crates/i18n/locales/*/actions.lang`. Existing
-non-English catalogs currently use explicitly marked English fallback text;
-these additions have not been translated or linguistically reviewed.
+All new UI strings live in `crates/i18n/locales/*/actions.lang`, with translations
+for every shipped locale. Catalog validation checks keys, placeholders, locale
+aliases, and font coverage.
 
 Run `make check-recordable-actions` for semantic replay, single-step undo,
 rollback and redo preservation, recording guards, parameter/schema validation,

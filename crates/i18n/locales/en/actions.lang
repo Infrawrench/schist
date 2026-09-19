@@ -1,4 +1,4 @@
-# Recordable actions. English fallback pending translation in non-English catalogs.
+# Recordable actions.
 actions.title = Actions…
 actions.start = Start recording
 actions.stop = Stop recording
@@ -75,12 +75,12 @@ actions.no_output_name = Could not reserve an unused name for the action copy.
 
 # Numeric adjustment controls.
 actions.param_b = Blue
-actions.param_b_b = Blue \u{2192} Blue
+actions.param_b_b = Blue → Blue
 actions.param_b_c = Blues: Cyan
-actions.param_b_g = Green \u{2192} Blue
+actions.param_b_g = Green → Blue
 actions.param_b_k = Blues: Black
 actions.param_b_m = Blues: Magenta
-actions.param_b_r = Red \u{2192} Blue
+actions.param_b_r = Red → Blue
 actions.param_b_y = Blues: Yellow
 actions.param_blues = Blues
 actions.param_brightness = Brightness
@@ -93,12 +93,12 @@ actions.param_cyans = Cyans
 actions.param_density = Density
 actions.param_exposure = Exposure
 actions.param_g = Green
-actions.param_g_b = Blue \u{2192} Green
+actions.param_g_b = Blue → Green
 actions.param_g_c = Greens: Cyan
-actions.param_g_g = Green \u{2192} Green
+actions.param_g_g = Green → Green
 actions.param_g_k = Greens: Black
 actions.param_g_m = Greens: Magenta
-actions.param_g_r = Red \u{2192} Green
+actions.param_g_r = Red → Green
 actions.param_g_y = Greens: Yellow
 actions.param_gamma = Gamma
 actions.param_greens = Greens
@@ -123,12 +123,12 @@ actions.param_offset = Offset
 actions.param_out_black = Output Black
 actions.param_out_white = Output White
 actions.param_r = Red
-actions.param_r_b = Blue \u{2192} Red
+actions.param_r_b = Blue → Red
 actions.param_r_c = Reds: Cyan
-actions.param_r_g = Green \u{2192} Red
+actions.param_r_g = Green → Red
 actions.param_r_k = Reds: Black
 actions.param_r_m = Reds: Magenta
-actions.param_r_r = Red \u{2192} Red
+actions.param_r_r = Red → Red
 actions.param_r_y = Reds: Yellow
 actions.param_reds = Reds
 actions.param_saturation = Saturation
