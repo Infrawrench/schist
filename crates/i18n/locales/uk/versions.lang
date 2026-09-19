@@ -1,0 +1,24 @@
+# Історія версій.
+versions.title = Історія версій
+versions.open = Історія версій…
+versions.original = Оригінал
+versions.current = Поточне збережене редагування
+versions.saved_at = Збережено {date} UTC
+versions.saved_sequence = Збережено {date} UTC ({n})
+versions.loading = Завантаження попереднього перегляду…
+versions.preview_failed = Попередній перегляд недоступний. Ви все одно можете спробувати відкрити копію.
+versions.drag_hint = Перетягніть роздільник, щоб порівняти оригінал ліворуч із вибраною версією праворуч.
+versions.no_saved = Збережених редагувань ще немає. Після кожного збереження попереднє редагування залишається тут.
+versions.copy_hint = Відновлення відкриває новий незбережений документ із його шарами. Збережіть копію в іншому місці.
+versions.restore = Відновити як копію
+versions.restoring = Відкриття копії…
+versions.restored = Версію відкрито як незбережену копію.
+versions.copy_title = {name} — відновлена копія
+versions.restore_failed = Не вдалося відкрити цю версію: {error}
+versions.read_failed = Не вдалося прочитати історію версій: {error}
+versions.close = Закрити
+versions.previous = Новіші версії
+versions.next = Старіші версії
+versions.page = Сторінка {n} з {total}
+versions.preserve_failed = Не вдалося зберегти попереднє редагування, тому збереження скасовано: {error}
+versions.revert_failed = Не вдалося зберегти всі редагування. Відновлено фотографій: {n}. {error}

@@ -1,0 +1,24 @@
+# आवृत्ती इतिहास.
+versions.title = आवृत्ती इतिहास
+versions.open = आवृत्ती इतिहास…
+versions.original = मूळ
+versions.current = सध्याचे जतन केलेले संपादन
+versions.saved_at = {date} UTC रोजी जतन केले
+versions.saved_sequence = {date} UTC रोजी जतन केले ({n})
+versions.loading = पूर्वावलोकन लोड करत आहे…
+versions.preview_failed = पूर्वावलोकन उपलब्ध नाही. तरीही प्रत उघडण्याचा प्रयत्न करू शकता.
+versions.drag_hint = डावीकडील मूळ आणि उजवीकडील निवडलेली आवृत्ती यांची तुलना करण्यासाठी विभाजक ओढा.
+versions.no_saved = अद्याप जतन केलेली संपादने नाहीत. प्रत्येक वेळी जतन केल्यावर मागील संपादन येथे ठेवले जाते.
+versions.copy_hint = पुनर्स्थापित केल्यावर स्तरांसह नवीन, जतन न केलेला दस्तऐवज उघडतो. प्रत नवीन ठिकाणी जतन करा.
+versions.restore = प्रत म्हणून पुनर्स्थापित करा
+versions.restoring = प्रत उघडत आहे…
+versions.restored = आवृत्ती जतन न केलेली प्रत म्हणून उघडली.
+versions.copy_title = {name} — पुनर्स्थापित प्रत
+versions.restore_failed = ही आवृत्ती उघडता आली नाही: {error}
+versions.read_failed = आवृत्ती इतिहास वाचता आला नाही: {error}
+versions.close = बंद करा
+versions.previous = नवीन आवृत्त्या
+versions.next = जुन्या आवृत्त्या
+versions.page = पृष्ठ {n} / {total}
+versions.preserve_failed = मागील संपादन राखता आले नाही, म्हणून जतन करणे रद्द केले: {error}
+versions.revert_failed = सर्व संपादने राखता आली नाहीत. पूर्वस्थितीत आणलेले फोटो: {n}. {error}

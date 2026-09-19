@@ -1,0 +1,24 @@
+# Imbali yeenguqulelo.
+versions.title = Imbali yeenguqulelo
+versions.open = Imbali yeenguqulelo…
+versions.original = Eyokuqala
+versions.current = Uhlelo lwangoku olugciniweyo
+versions.saved_at = Igcinwe ngo-{date} UTC
+versions.saved_sequence = Igcinwe ngo-{date} UTC ({n})
+versions.loading = Kulayishwa imboniso…
+versions.preview_failed = Imboniso ayifumaneki. Usenokuzama ukuvula ikopi.
+versions.drag_hint = Tsala umahluli ukuze uthelekise eyokuqala esekhohlo nenguqulelo ekhethiweyo esekunene.
+versions.no_saved = Akukho hlelo lugciniweyo okwangoku. Ugcino ngalunye lugcina uhlelo lwangaphambili apha.
+versions.copy_hint = Ukubuyisela kuvula uxwebhu olutsha olungagcinwanga kunye nemaleko yalo. Gcina ikopi kwindawo entsha.
+versions.restore = Buyisela njengekopi
+versions.restoring = Kuvulwa ikopi…
+versions.restored = Inguqulelo ivulwe njengekopi engagcinwanga.
+versions.copy_title = {name} — ikopi ebuyiselweyo
+versions.restore_failed = Ayikwazanga ukuvula le nguqulelo: {error}
+versions.read_failed = Ayikwazanga ukufunda imbali yeenguqulelo: {error}
+versions.close = Vala
+versions.previous = Iinguqulelo ezintsha
+versions.next = Iinguqulelo ezindala
+versions.page = Iphepha {n} kwangu-{total}
+versions.preserve_failed = Uhlelo lwangaphambili alukwazanga ukugcinwa, ngoko ugcino lurhoxisiwe: {error}
+versions.revert_failed = Ayikwazanga ukugcina lonke uhlelo. Iifoto ezibuyiselweyo: {n}. {error}

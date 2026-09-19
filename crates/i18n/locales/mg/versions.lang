@@ -1,0 +1,24 @@
+# Tantaran'ny kinova.
+versions.title = Tantaran'ny kinova
+versions.open = Tantaran'ny kinova…
+versions.original = Tany am-boalohany
+versions.current = Fanitsiana voatahiry ankehitriny
+versions.saved_at = Voatahiry {date} UTC
+versions.saved_sequence = Voatahiry {date} UTC ({n})
+versions.loading = Ampidirina ny topi-maso…
+versions.preview_failed = Tsy misy ny topi-maso. Mbola azonao andramana sokafana ny dika mitovy.
+versions.drag_hint = Tariho ny mpizara mba hampitahana ny sary tany am-boalohany eo ankavia amin'ny kinova voafantina eo ankavanana.
+versions.no_saved = Tsy mbola misy fanitsiana voatahiry. Isaky ny mitahiry ianao dia tazonina eto ny fanitsiana teo aloha.
+versions.copy_hint = Ny famerenana dia manokatra tahirin-kevitra vaovao tsy voatahiry miaraka amin'ireo sosony. Tehirizo any amin'ny toerana vaovao ilay dika mitovy.
+versions.restore = Avereno ho dika mitovy
+versions.restoring = Sokafana ny dika mitovy…
+versions.restored = Nosokafana ho dika mitovy tsy voatahiry ilay kinova.
+versions.copy_title = {name} — dika mitovy naverina
+versions.restore_failed = Tsy afaka nanokatra ity kinova ity: {error}
+versions.read_failed = Tsy afaka namaky ny tantaran'ny kinova: {error}
+versions.close = Akatona
+versions.previous = Kinova vaovao kokoa
+versions.next = Kinova tranainy kokoa
+versions.page = Pejy {n} amin'ny {total}
+versions.preserve_failed = Tsy afaka nitahiry ny fanitsiana teo aloha, ka nofoanana ny fitahirizana: {error}
+versions.revert_failed = Tsy afaka nitahiry ny fanitsiana rehetra. Sary naverina: {n}. {error}

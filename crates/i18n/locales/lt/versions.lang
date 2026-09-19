@@ -1,0 +1,24 @@
+# Versijų istorija.
+versions.title = Versijų istorija
+versions.open = Versijų istorija…
+versions.original = Originalas
+versions.current = Dabartinis įrašytas redagavimas
+versions.saved_at = Įrašyta {date} UTC
+versions.saved_sequence = Įrašyta {date} UTC ({n})
+versions.loading = Įkeliama peržiūra…
+versions.preview_failed = Peržiūra nepasiekiama. Vis tiek galite mėginti atverti kopiją.
+versions.drag_hint = Vilkite skirtuką, kad palygintumėte originalą kairėje su pasirinkta versija dešinėje.
+versions.no_saved = Įrašytų redagavimų dar nėra. Kaskart įrašant ankstesnis redagavimas paliekamas čia.
+versions.copy_hint = Atkuriant atveriamas naujas neįrašytas dokumentas su jo sluoksniais. Įrašykite kopiją naujoje vietoje.
+versions.restore = Atkurti kaip kopiją
+versions.restoring = Atveriama kopija…
+versions.restored = Versija atverta kaip neįrašyta kopija.
+versions.copy_title = {name} — atkurta kopija
+versions.restore_failed = Nepavyko atverti šios versijos: {error}
+versions.read_failed = Nepavyko perskaityti versijų istorijos: {error}
+versions.close = Užverti
+versions.previous = Naujesnės versijos
+versions.next = Senesnės versijos
+versions.page = {n} puslapis iš {total}
+versions.preserve_failed = Ankstesnio redagavimo nepavyko išsaugoti, todėl įrašymas atšauktas: {error}
+versions.revert_failed = Nepavyko išsaugoti visų redagavimų. Grąžintos nuotraukos: {n}. {error}

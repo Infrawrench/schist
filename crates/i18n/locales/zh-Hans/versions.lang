@@ -1,0 +1,24 @@
+# 版本历史记录。
+versions.title = 版本历史记录
+versions.open = 版本历史记录…
+versions.original = 原图
+versions.current = 当前存储的编辑
+versions.saved_at = 已于 {date} UTC 存储
+versions.saved_sequence = 已于 {date} UTC 存储（{n}）
+versions.loading = 正在载入预览…
+versions.preview_failed = 预览不可用。您仍可尝试打开副本。
+versions.drag_hint = 拖动分隔线，将左侧原图与右侧所选版本进行比较。
+versions.no_saved = 尚无存储的编辑。每次存储时，之前的编辑都会保留在此处。
+versions.copy_hint = 恢复操作会打开一个包含原有图层、尚未存储的新文档。请将该副本存储到新位置。
+versions.restore = 恢复为副本
+versions.restoring = 正在打开副本…
+versions.restored = 版本已作为未存储的副本打开。
+versions.copy_title = {name} — 恢复的副本
+versions.restore_failed = 无法打开此版本：{error}
+versions.read_failed = 无法读取版本历史记录：{error}
+versions.close = 关闭
+versions.previous = 较新版本
+versions.next = 较旧版本
+versions.page = 第 {n} 页，共 {total} 页
+versions.preserve_failed = 无法保留之前的编辑，因此存储操作已取消：{error}
+versions.revert_failed = 无法保留所有编辑。已还原照片：{n}。{error}

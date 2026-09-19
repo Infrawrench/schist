@@ -1,0 +1,24 @@
+# Cronologia de is versiones.
+versions.title = Cronologia de is versiones
+versions.open = Cronologia de is versiones…
+versions.original = Originale
+versions.current = Modìfica atuale sarvada
+versions.saved_at = Sarvada su {date} UTC
+versions.saved_sequence = Sarvada su {date} UTC ({n})
+versions.loading = Carrighende s'antiprima…
+versions.preview_failed = Antiprima non disponìbile. Podes proare su matessi a abèrrere una còpia.
+versions.drag_hint = Trascina su divisore pro confrontare s'originale a manca cun sa versione seberada a dereta.
+versions.no_saved = Non bi sunt ancora modìficas sarvadas. Onni sarvamentu mantene inoghe sa modìfica pretzedente.
+versions.copy_hint = Su riprìstinu aberit unu documentu nou non sarvadu cun is istratos suos. Sarva sa còpia in un'àtera positzione.
+versions.restore = Riprìstina comente còpia
+versions.restoring = Aberende sa còpia…
+versions.restored = Versione aberta comente còpia non sarvada.
+versions.copy_title = {name} — còpia ripristinada
+versions.restore_failed = No at fatu a abèrrere custa versione: {error}
+versions.read_failed = No at fatu a lèghere sa cronologia de is versiones: {error}
+versions.close = Serra
+versions.previous = Versiones prus noas
+versions.next = Versiones prus betzas
+versions.page = Pàgina {n} de {total}
+versions.preserve_failed = No at fatu a mantènnere sa modìfica pretzedente, duncas su sarvamentu est istadu annulladu: {error}
+versions.revert_failed = No at fatu a mantènnere totu is modìficas. Fotos torradas a su istadu pretzedente: {n}. {error}

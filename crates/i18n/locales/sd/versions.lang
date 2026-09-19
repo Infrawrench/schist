@@ -1,0 +1,24 @@
+# ورزن جي تاريخ.
+versions.title = ورزن جي تاريخ
+versions.open = ورزن جي تاريخ…
+versions.original = اصل
+versions.current = موجوده محفوظ ٿيل ترميم
+versions.saved_at = {date} UTC تي محفوظ ٿيل
+versions.saved_sequence = {date} UTC تي محفوظ ٿيل ({n})
+versions.loading = ڏيک لوڊ ٿي رهيو آهي…
+versions.preview_failed = ڏيک دستياب ناهي. توهان اڃا به ڪاپي کولڻ جي ڪوشش ڪري سگهو ٿا.
+versions.drag_hint = کاٻي پاسي واري اصل کي ساڄي پاسي واري چونڊيل ورزن سان ڀيٽڻ لاءِ ورهائيندڙ کي ڇڪيو.
+versions.no_saved = اڃا ڪا محفوظ ٿيل ترميم ناهي. هر ڀيري محفوظ ڪرڻ سان اڳوڻي ترميم هتي رهندي.
+versions.copy_hint = بحال ڪرڻ سان پرتن سميت هڪ نئون اڻ محفوظ ٿيل دستاويز کلندو. ڪاپي کي نئين جاءِ تي محفوظ ڪريو.
+versions.restore = ڪاپي طور بحال ڪريو
+versions.restoring = ڪاپي کلي رهي آهي…
+versions.restored = ورزن هڪ اڻ محفوظ ٿيل ڪاپي طور کوليو ويو.
+versions.copy_title = {name} — بحال ٿيل ڪاپي
+versions.restore_failed = هي ورزن نه کلي سگهيو: {error}
+versions.read_failed = ورزن جي تاريخ پڙهي نه سگهي: {error}
+versions.close = بند ڪريو
+versions.previous = نوان ورزن
+versions.next = پراڻا ورزن
+versions.page = صفحو {n}، ڪل {total}
+versions.preserve_failed = اڳوڻي ترميم محفوظ نه رهي سگهي، تنهنڪري محفوظ ڪرڻ رد ڪيو ويو: {error}
+versions.revert_failed = سڀ ترميمون محفوظ نه رهي سگهيون. واپس موٽايل فوٽو: {n}. {error}

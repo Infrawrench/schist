@@ -1,0 +1,24 @@
+# Феҳристи тарҷумашуда.
+versions.title = Таърихи версияҳо
+versions.open = Таърихи версияҳо…
+versions.original = Асл
+versions.current = Таҳрири ҷории захирашуда
+versions.saved_at = {date} UTC захира шуд
+versions.saved_sequence = {date} UTC захира шуд ({n})
+versions.loading = Пешнамоиш бор мешавад…
+versions.preview_failed = Пешнамоиш дастнорас аст. Шумо ҳанӯз метавонед кушодани нусхаро санҷед.
+versions.drag_hint = Ҷудокунандаро кашед, то асли тарафи чапро бо версияи интихобшудаи тарафи рост муқоиса кунед.
+versions.no_saved = Ҳанӯз таҳрири захирашуда нест. Ҳар захира таҳрири пешинаро дар ин ҷо нигоҳ медорад.
+versions.copy_hint = Барқароркунӣ ҳуҷҷати нави захиранашударо бо қабатҳояш мекушояд. Нусхаро дар ҷойи нав захира кунед.
+versions.restore = Ҳамчун нусха барқарор кардан
+versions.restoring = Нусха кушода мешавад…
+versions.restored = Версия ҳамчун нусхаи захиранашуда кушода шуд.
+versions.copy_title = {name} — нусхаи барқароршуда
+versions.restore_failed = Ин версия кушода нашуд: {error}
+versions.read_failed = Таърихи версияҳо хонда нашуд: {error}
+versions.close = Пӯшидан
+versions.previous = Версияҳои навтар
+versions.next = Версияҳои кӯҳнатар
+versions.page = Саҳифаи {n} аз {total}
+versions.preserve_failed = Таҳрири пешина нигоҳ дошта нашуд, бинобар ин захиракунӣ бекор шуд: {error}
+versions.revert_failed = Ҳамаи таҳрирҳо нигоҳ дошта нашуданд. Суратҳои баргардондашуда: {n}. {error}

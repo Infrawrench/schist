@@ -1,0 +1,24 @@
+# Версиялар тарихы.
+versions.title = Версиялар тарихы
+versions.open = Версиялар тарихы…
+versions.original = Төп нөсхә
+versions.current = Әлеге һаҡланған үҙгәртеү
+versions.saved_at = {date} UTC ваҡытында һаҡланды
+versions.saved_sequence = {date} UTC ваҡытында һаҡланды ({n})
+versions.loading = Алдан ҡарау йөкләнә…
+versions.preview_failed = Алдан ҡарап булмай. Күсермәһен асырға тырышып ҡарай алаһығыҙ.
+versions.drag_hint = Һулдағы төп нөсхәне уңдағы һайланған версия менән сағыштырыу өсөн бүлгесте һөйрәгеҙ.
+versions.no_saved = Әлегә һаҡланған үҙгәртеүҙәр юҡ. Һәр һаҡлау элекке үҙгәртеүҙе бында ҡалдыра.
+versions.copy_hint = Тергеҙеү ҡатламдары менән яңы һаҡланмаған документ аса. Күсермәне яңы урынға һаҡлағыҙ.
+versions.restore = Күсермә итеп тергеҙеү
+versions.restoring = Күсермә асыла…
+versions.restored = Версия һаҡланмаған күсермә итеп асылды.
+versions.copy_title = {name} — тергеҙелгән күсермә
+versions.restore_failed = Был версияны асып булманы: {error}
+versions.read_failed = Версиялар тарихын уҡып булманы: {error}
+versions.close = Ябыу
+versions.previous = Яңыраҡ версиялар
+versions.next = Иҫкерәк версиялар
+versions.page = {total} биттең {n}-сеһе
+versions.preserve_failed = Элекке үҙгәртеүҙе һаҡлап булманы, шуға күрә һаҡлау туҡтатылды: {error}
+versions.revert_failed = Барлыҡ үҙгәртеүҙәрҙе һаҡлап булманы. Кире ҡайтарылған фотолар: {n}. {error}

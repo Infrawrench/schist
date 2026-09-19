@@ -1,0 +1,24 @@
+# Umlandvo wetihumusho.
+versions.title = Umlandvo wetihumusho
+versions.open = Umlandvo wetihumusho…
+versions.original = Sitfombe sekucala
+versions.current = Kuhlela lokugcinwe nyalo
+versions.saved_at = Kugcinwe nga-{date} UTC
+versions.saved_sequence = Kugcinwe nga-{date} UTC ({n})
+versions.loading = Kulayishwa kubuka ngaphambilini…
+versions.preview_failed = Kubuka ngaphambilini akukatfolakali. Usengazama kuvula ikhophi.
+versions.drag_hint = Dvonsa sehlukanisi uze ucatsanise sitfombe sekucala ngesencele nenguqulo lekhetsiwe ngesekudla.
+versions.no_saved = Kute kuhlelwa lokugcinwe nyalo. Kugcina ngakunye kugcina kuhlelwa kwangaphambilini lapha.
+versions.copy_hint = Kubuyisela kuvula idokhumenti lensha lengakagcinwa kanye netinhlaka tayo. Gcina ikhophi endzaweni lensha.
+versions.restore = Buyisela njengekhophi
+versions.restoring = Kuvulwa ikhophi…
+versions.restored = Inguqulo ivulwe njengekhophi lengakagcinwa.
+versions.copy_title = {name} — ikhophi lebuyiselwe
+versions.restore_failed = Akukakhonakali kuvula lenguqulo: {error}
+versions.read_failed = Akukakhonakali kufundza umlandvo wetihumusho: {error}
+versions.close = Vala
+versions.previous = Tihumusho letinsha
+versions.next = Tihumusho letindzala
+versions.page = Likhasi {n} ku-{total}
+versions.preserve_failed = Kuhlela kwangaphambilini akukakhonakali kugcinwa, ngako kugcina kukhanseliwe: {error}
+versions.revert_failed = Akukakhonakali kugcina konkhe kuhlelwa. Titfombe letibuyiselwe: {n}. {error}

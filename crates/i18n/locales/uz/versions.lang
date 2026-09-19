@@ -1,0 +1,24 @@
+# Tarjima qilingan katalog.
+versions.title = Versiyalar tarixi
+versions.open = Versiyalar tarixi…
+versions.original = Asl nusxa
+versions.current = Joriy saqlangan tahrir
+versions.saved_at = {date} UTC da saqlangan
+versions.saved_sequence = {date} UTC da saqlangan ({n})
+versions.loading = Oldindan ko‘rish yuklanmoqda…
+versions.preview_failed = Oldindan ko‘rish imkonsiz. Baribir nusxasini ochishga urinib ko‘rishingiz mumkin.
+versions.drag_hint = Chapdagi asl nusxani o‘ngdagi tanlangan versiya bilan taqqoslash uchun ajratgichni suring.
+versions.no_saved = Hali saqlangan tahrirlar yo‘q. Har bir saqlash avvalgi tahrirni shu yerda saqlab qoladi.
+versions.copy_hint = Tiklash qatlamlari bilan yangi, saqlanmagan hujjatni ochadi. Nusxani yangi joyga saqlang.
+versions.restore = Nusxa sifatida tiklash
+versions.restoring = Nusxa ochilmoqda…
+versions.restored = Versiya saqlanmagan nusxa sifatida ochildi.
+versions.copy_title = {name} — tiklangan nusxa
+versions.restore_failed = Bu versiyani ochib bo‘lmadi: {error}
+versions.read_failed = Versiyalar tarixini o‘qib bo‘lmadi: {error}
+versions.close = Yopish
+versions.previous = Yangiroq versiyalar
+versions.next = Eskiroq versiyalar
+versions.page = {total} sahifadan {n}-sahifa
+versions.preserve_failed = Avvalgi tahrirni saqlab bo‘lmadi, shuning uchun saqlash bekor qilindi: {error}
+versions.revert_failed = Barcha tahrirlarni saqlab bo‘lmadi. Qaytarilgan suratlar: {n}. {error}

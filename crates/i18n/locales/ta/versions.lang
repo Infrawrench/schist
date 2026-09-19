@@ -1,0 +1,24 @@
+# பதிப்பு வரலாறு.
+versions.title = பதிப்பு வரலாறு
+versions.open = பதிப்பு வரலாறு…
+versions.original = அசல்
+versions.current = தற்போது சேமிக்கப்பட்ட திருத்தம்
+versions.saved_at = {date} UTC அன்று சேமிக்கப்பட்டது
+versions.saved_sequence = {date} UTC அன்று சேமிக்கப்பட்டது ({n})
+versions.loading = முன்னோட்டம் ஏற்றப்படுகிறது…
+versions.preview_failed = முன்னோட்டம் கிடைக்கவில்லை. இருந்தாலும் நகலைத் திறக்க முயலலாம்.
+versions.drag_hint = இடப்புறத்தில் உள்ள அசலையும் வலப்புறத்தில் உள்ள தேர்ந்தெடுத்த பதிப்பையும் ஒப்பிட பிரிப்பானை இழுக்கவும்.
+versions.no_saved = சேமித்த திருத்தங்கள் இன்னும் இல்லை. ஒவ்வொரு முறை சேமிக்கும்போதும் முந்தைய திருத்தம் இங்கே வைக்கப்படும்.
+versions.copy_hint = மீட்டமைப்பது அடுக்குகளுடன் புதிய சேமிக்கப்படாத ஆவணத்தைத் திறக்கும். நகலைப் புதிய இடத்தில் சேமிக்கவும்.
+versions.restore = நகலாக மீட்டமை
+versions.restoring = நகல் திறக்கப்படுகிறது…
+versions.restored = பதிப்பு சேமிக்கப்படாத நகலாகத் திறக்கப்பட்டது.
+versions.copy_title = {name} — மீட்டமைக்கப்பட்ட நகல்
+versions.restore_failed = இந்தப் பதிப்பைத் திறக்க முடியவில்லை: {error}
+versions.read_failed = பதிப்பு வரலாற்றைப் படிக்க முடியவில்லை: {error}
+versions.close = மூடு
+versions.previous = புதிய பதிப்புகள்
+versions.next = பழைய பதிப்புகள்
+versions.page = {total} இல் பக்கம் {n}
+versions.preserve_failed = முந்தைய திருத்தத்தைப் பாதுகாக்க முடியாததால் சேமித்தல் ரத்துசெய்யப்பட்டது: {error}
+versions.revert_failed = எல்லாத் திருத்தங்களையும் பாதுகாக்க முடியவில்லை. மீட்டமைக்கப்பட்ட படங்கள்: {n}. {error}

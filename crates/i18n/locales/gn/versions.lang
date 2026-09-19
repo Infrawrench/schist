@@ -1,0 +1,24 @@
+# Tembiasakue ñemoambuegua.
+versions.title = Ñemoambue rembiasakue
+versions.open = Ñemoambue rembiasakue…
+versions.original = Ypykue
+versions.current = Ñemyatyrõ ko'ag̃agua oñeñongatúva
+versions.saved_at = Oñeñongatu {date} UTC
+versions.saved_sequence = Oñeñongatu {date} UTC ({n})
+versions.loading = Ojekargahína jehecha mboyvegua…
+versions.preview_failed = Jehecha mboyvegua ndaipóri. Ikatu gueteri reha'ã eipe'a peteĩ monguatia.
+versions.drag_hint = Emoñyryry pe mopa'ũha embojoja hag̃ua asu gotyo pe ypykue ha akatúa gotyo pe ñemoambue poravopyre.
+versions.no_saved = Ndaipóri gueteri ñemyatyrõ oñeñongatúva. Reñongatu jave peteĩteĩ, oñeñongatu ko'ápe pe ñemyatyrõ mboyvegua.
+versions.copy_hint = Moĩjey oipe'a peteĩ kuatia pyahu noñeñongatúiva icapakuéra reheve. Eñongatu pe monguatia peteĩ tenda pyahúpe.
+versions.restore = Moĩjey monguatiáramo
+versions.restoring = Ojepe'ahína monguatia…
+versions.restored = Ñemoambue ojepe'a peteĩ monguatia noñeñongatúivaramo.
+versions.copy_title = {name} — monguatia oñemoĩjeýva
+versions.restore_failed = Ndaikatúi ojepe'a ko ñemoambue: {error}
+versions.read_failed = Ndaikatúi oñemoñe'ẽ ñemoambue rembiasakue: {error}
+versions.close = Mboty
+versions.previous = Ñemoambue pyahuvéva
+versions.next = Ñemoambue itujavéva
+versions.page = Kuatiarogue {n} / {total}
+versions.preserve_failed = Ndaikatúi oñeñongatu pe ñemyatyrõ mboyvegua, upévare oñeheja ñongatu: {error}
+versions.revert_failed = Ndaikatúi oñeñongatu opa ñemyatyrõ. Ta'anga oñembojevyva'ekue: {n}. {error}

@@ -1,0 +1,24 @@
+# Versiooniajalugu.
+versions.title = Versiooniajalugu
+versions.open = Versiooniajalugu…
+versions.original = Algne
+versions.current = Praegune salvestatud muudatus
+versions.saved_at = Salvestatud {date} UTC
+versions.saved_sequence = Salvestatud {date} UTC ({n})
+versions.loading = Eelvaate laadimine…
+versions.preview_failed = Eelvaade pole saadaval. Võite siiski proovida koopia avada.
+versions.drag_hint = Lohistage eraldajat, et võrrelda vasakul olevat algset pilti paremal oleva valitud versiooniga.
+versions.no_saved = Salvestatud muudatusi veel pole. Igal salvestamisel säilitatakse eelmine muudatus siin.
+versions.copy_hint = Taastamine avab uue salvestamata dokumendi koos kihtidega. Salvestage koopia uude asukohta.
+versions.restore = Taasta koopiana
+versions.restoring = Koopia avamine…
+versions.restored = Versioon avati salvestamata koopiana.
+versions.copy_title = {name} — taastatud koopia
+versions.restore_failed = Seda versiooni ei saanud avada: {error}
+versions.read_failed = Versiooniajalugu ei saanud lugeda: {error}
+versions.close = Sule
+versions.previous = Uuemad versioonid
+versions.next = Vanemad versioonid
+versions.page = Lehekülg {n}/{total}
+versions.preserve_failed = Eelmist muudatust ei saanud säilitada, seega salvestamine tühistati: {error}
+versions.revert_failed = Kõiki muudatusi ei saanud säilitada. Taastatud fotod: {n}. {error}

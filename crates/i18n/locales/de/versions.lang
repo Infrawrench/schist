@@ -1,0 +1,24 @@
+# Versionsverlauf.
+versions.title = Versionsverlauf
+versions.open = Versionsverlauf…
+versions.original = Original
+versions.current = Aktuelle gesicherte Bearbeitung
+versions.saved_at = Gesichert am {date} UTC
+versions.saved_sequence = Gesichert am {date} UTC ({n})
+versions.loading = Vorschau wird geladen…
+versions.preview_failed = Vorschau nicht verfügbar. Du kannst trotzdem versuchen, eine Kopie zu öffnen.
+versions.drag_hint = Ziehe die Trennlinie, um das Original links mit der ausgewählten Version rechts zu vergleichen.
+versions.no_saved = Noch keine gesicherten Bearbeitungen. Bei jedem Sichern wird die vorherige Bearbeitung hier aufbewahrt.
+versions.copy_hint = Beim Wiederherstellen wird ein neues, ungesichertes Dokument mit seinen Ebenen geöffnet. Sichere die Kopie an einem neuen Ort.
+versions.restore = Als Kopie wiederherstellen
+versions.restoring = Kopie wird geöffnet…
+versions.restored = Die Version wurde als ungesicherte Kopie geöffnet.
+versions.copy_title = {name} — wiederhergestellte Kopie
+versions.restore_failed = Diese Version konnte nicht geöffnet werden: {error}
+versions.read_failed = Der Versionsverlauf konnte nicht gelesen werden: {error}
+versions.close = Schließen
+versions.previous = Neuere Versionen
+versions.next = Ältere Versionen
+versions.page = Seite {n} von {total}
+versions.preserve_failed = Die vorherige Bearbeitung konnte nicht aufbewahrt werden. Das Sichern wurde daher abgebrochen: {error}
+versions.revert_failed = Nicht alle Bearbeitungen konnten aufbewahrt werden. Zurückgesetzte Fotos: {n}. {error}

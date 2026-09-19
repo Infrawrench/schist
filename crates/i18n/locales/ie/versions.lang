@@ -1,0 +1,24 @@
+# Historie de versiones.
+versions.title = Historie de versiones
+versions.open = Historie de versiones…
+versions.original = Original
+versions.current = Actual gardat modification
+versions.saved_at = Gardat li {date} UTC
+versions.saved_sequence = Gardat li {date} UTC ({n})
+versions.loading = Cargante prevision…
+versions.preview_failed = Prevision índisponibil. Vu posse támen provar aperter un copie.
+versions.drag_hint = Tirar li divisor por comparar li original a levul con li selectet version a dextri.
+versions.no_saved = Anc null gardat modificationes. Chascun gardation conserva ci li precedent modification.
+versions.copy_hint = Restaurar aperte un nov íngardat document con su strates. Garda li copie in un nov localisation.
+versions.restore = Restaurar quam copie
+versions.restoring = Apertente copie…
+versions.restored = Version apert quam íngardat copie.
+versions.copy_title = {name} — restaurat copie
+versions.restore_failed = Ne successat aperter ti version: {error}
+versions.read_failed = Ne successat leer li historie de versiones: {error}
+versions.close = Cluder
+versions.previous = Plu nov versiones
+versions.next = Plu old versiones
+versions.page = Págin {n} de {total}
+versions.preserve_failed = Li precedent modification ne posset esser conservat, do li gardation esset anullat: {error}
+versions.revert_failed = Ne successat conservar omni modificationes. Fotos revertet: {n}. {error}

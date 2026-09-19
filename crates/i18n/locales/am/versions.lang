@@ -1,0 +1,24 @@
+# የስሪት ታሪክ።
+versions.title = የስሪት ታሪክ
+versions.open = የስሪት ታሪክ…
+versions.original = ዋናው
+versions.current = የአሁኑ የተቀመጠ አርትዖት
+versions.saved_at = {date} UTC ተቀምጧል
+versions.saved_sequence = {date} UTC ({n}) ተቀምጧል
+versions.loading = ቅድመ ዕይታ በመጫን ላይ…
+versions.preview_failed = ቅድመ ዕይታ አይገኝም። አሁንም ቅጂ ለመክፈት መሞከር ይችላሉ።
+versions.drag_hint = በግራ ያለውን ዋና ምስል በቀኝ ካለው ከተመረጠው ስሪት ጋር ለማነጻጸር መከፋፈያውን ይጎትቱ።
+versions.no_saved = እስካሁን የተቀመጠ አርትዖት የለም። በእያንዳንዱ ማስቀመጥ የቀደመው አርትዖት እዚህ ይቀመጣል።
+versions.copy_hint = መመለስ ንብርብሮቹን የያዘ አዲስ ያልተቀመጠ ሰነድ ይከፍታል። ቅጂውን በአዲስ ቦታ ያስቀምጡ።
+versions.restore = እንደ ቅጂ መልስ
+versions.restoring = ቅጂ በመክፈት ላይ…
+versions.restored = ስሪቱ እንደ ያልተቀመጠ ቅጂ ተከፍቷል።
+versions.copy_title = {name} — የተመለሰ ቅጂ
+versions.restore_failed = ይህን ስሪት መክፈት አልተቻለም፦ {error}
+versions.read_failed = የስሪት ታሪክን ማንበብ አልተቻለም፦ {error}
+versions.close = ዝጋ
+versions.previous = አዳዲስ ስሪቶች
+versions.next = የቆዩ ስሪቶች
+versions.page = ገጽ {n} ከ{total}
+versions.preserve_failed = የቀደመውን አርትዖት ማቆየት ስላልተቻለ ማስቀመጡ ተሰርዟል፦ {error}
+versions.revert_failed = ሁሉንም አርትዖቶች ማቆየት አልተቻለም። የተመለሱ ፎቶዎች፦ {n}። {error}

@@ -1,0 +1,24 @@
+# Wersiýa taryhy.
+versions.title = Wersiýa taryhy
+versions.open = Wersiýa taryhy…
+versions.original = Asyl nusga
+versions.current = Häzirki saklanan üýtgetme
+versions.saved_at = {date} UTC wagtynda saklandy
+versions.saved_sequence = {date} UTC wagtynda saklandy ({n})
+versions.loading = Deslapky syn ýüklenýär…
+versions.preview_failed = Deslapky syn elýeterli däl. Nusgasyny açmaga synanyşyp bilersiňiz.
+versions.drag_hint = Çepdäki asyl nusgany sagdaky saýlanan wersiýa bilen deňeşdirmek üçin bölüjini süýräň.
+versions.no_saved = Entek saklanan üýtgetme ýok. Her gezek saklananda öňki üýtgetme şu ýerde galýar.
+versions.copy_hint = Dikeltmek gatlaklary bilen bilelikde täze saklanmadyk resminamany açýar. Nusgany täze ýere saklaň.
+versions.restore = Nusga hökmünde dikeltmek
+versions.restoring = Nusga açylýar…
+versions.restored = Wersiýa saklanmadyk nusga hökmünde açyldy.
+versions.copy_title = {name} — dikeldilen nusga
+versions.restore_failed = Bu wersiýany açyp bolmady: {error}
+versions.read_failed = Wersiýa taryhyny okap bolmady: {error}
+versions.close = Ýapmak
+versions.previous = Täzeräk wersiýalar
+versions.next = Köneräk wersiýalar
+versions.page = {total} sahypadan {n}-nji
+versions.preserve_failed = Öňki üýtgetmäni gorap bolmady, şonuň üçin saklamak ýatyryldy: {error}
+versions.revert_failed = Ähli üýtgetmeleri gorap bolmady. Yza gaýtarylan suratlar: {n}. {error}

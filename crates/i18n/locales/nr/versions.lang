@@ -1,0 +1,24 @@
+# Umlando weenguqulo.
+versions.title = Umlando weenguqulo
+versions.open = Umlando weenguqulo…
+versions.original = Yokuthoma
+versions.current = Ukuhlela kwanje okubulungweko
+versions.saved_at = Kubulungwe {date} UTC
+versions.saved_sequence = Kubulungwe {date} UTC ({n})
+versions.loading = Kulayitjwa ukuboniswa ngaphambili…
+versions.preview_failed = Ukuboniswa ngaphambili akutholakali. Usengazama ukuvula ikhophi.
+versions.drag_hint = Dosa isihlukanisi ukumadanisa yokuthoma ngesinceleni nenguqulo ekhethiweko ngesidleni.
+versions.no_saved = Akukho ukuhlela okubulungweko okwamanje. Ukubulunga ngakunye kubeka ukuhlela kwangaphambili lapha.
+versions.copy_hint = Ukubuyisela kuvula idokhumenti etja engakabulungwa namaleya wayo. Bulunga ikhophi endaweni etja.
+versions.restore = Buyisela njengekhophi
+versions.restoring = Kuvulwa ikhophi…
+versions.restored = Inguqulo ivulwe njengekhophi engakabulungwa.
+versions.copy_title = {name} — ikhophi ebuyiselweko
+versions.restore_failed = Akukghonakali ukuvula inguqulo le: {error}
+versions.read_failed = Akukghonakali ukufunda umlando weenguqulo: {error}
+versions.close = Vala
+versions.previous = Iinguqulo ezitjha
+versions.next = Iinguqulo ezidala
+versions.page = Ikhasi {n} kwangu-{total}
+versions.preserve_failed = Ukuhlela kwangaphambili akukghonakali ukubulungwa, ngalokho ukubulunga kukhanseliwe: {error}
+versions.revert_failed = Akukghonakali ukubulunga koke ukuhlela. Iinthombe ezibuyiselweko: {n}. {error}

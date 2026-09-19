@@ -1,0 +1,24 @@
+# ਵਰਜਨ ਇਤਿਹਾਸ।
+versions.title = ਵਰਜਨ ਇਤਿਹਾਸ
+versions.open = ਵਰਜਨ ਇਤਿਹਾਸ…
+versions.original = ਮੂਲ
+versions.current = ਮੌਜੂਦਾ ਸੰਭਾਲਿਆ ਸੰਪਾਦਨ
+versions.saved_at = {date} UTC ਨੂੰ ਸੰਭਾਲਿਆ
+versions.saved_sequence = {date} UTC ਨੂੰ ਸੰਭਾਲਿਆ ({n})
+versions.loading = ਝਲਕ ਲੋਡ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ…
+versions.preview_failed = ਝਲਕ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਤੁਸੀਂ ਹਾਲੇ ਵੀ ਕਾਪੀ ਖੋਲ੍ਹਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰ ਸਕਦੇ ਹੋ।
+versions.drag_hint = ਖੱਬੇ ਪਾਸੇ ਮੂਲ ਦੀ ਸੱਜੇ ਪਾਸੇ ਚੁਣੇ ਵਰਜਨ ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਲਈ ਵੰਡਕ ਨੂੰ ਖਿੱਚੋ।
+versions.no_saved = ਹਾਲੇ ਕੋਈ ਸੰਭਾਲਿਆ ਸੰਪਾਦਨ ਨਹੀਂ ਹੈ। ਹਰ ਵਾਰ ਸੰਭਾਲਣ ਉੱਤੇ ਪਿਛਲਾ ਸੰਪਾਦਨ ਇੱਥੇ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ।
+versions.copy_hint = ਮੁੜ-ਬਹਾਲ ਕਰਨ ਨਾਲ ਇਸ ਦੀਆਂ ਲੇਅਰਾਂ ਸਮੇਤ ਨਵਾਂ ਨਾ-ਸੰਭਾਲਿਆ ਦਸਤਾਵੇਜ਼ ਖੁੱਲ੍ਹਦਾ ਹੈ। ਕਾਪੀ ਨੂੰ ਨਵੀਂ ਥਾਂ ਸੰਭਾਲੋ।
+versions.restore = ਕਾਪੀ ਵਜੋਂ ਮੁੜ-ਬਹਾਲ ਕਰੋ
+versions.restoring = ਕਾਪੀ ਖੋਲ੍ਹੀ ਜਾ ਰਹੀ ਹੈ…
+versions.restored = ਵਰਜਨ ਨਾ-ਸੰਭਾਲੀ ਕਾਪੀ ਵਜੋਂ ਖੋਲ੍ਹਿਆ ਗਿਆ।
+versions.copy_title = {name} — ਮੁੜ-ਬਹਾਲ ਕੀਤੀ ਕਾਪੀ
+versions.restore_failed = ਇਹ ਵਰਜਨ ਖੋਲ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ: {error}
+versions.read_failed = ਵਰਜਨ ਇਤਿਹਾਸ ਪੜ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ: {error}
+versions.close = ਬੰਦ ਕਰੋ
+versions.previous = ਹੋਰ ਨਵੇਂ ਵਰਜਨ
+versions.next = ਹੋਰ ਪੁਰਾਣੇ ਵਰਜਨ
+versions.page = {total} ਵਿੱਚੋਂ ਸਫ਼ਾ {n}
+versions.preserve_failed = ਪਿਛਲਾ ਸੰਪਾਦਨ ਕਾਇਮ ਨਹੀਂ ਰੱਖਿਆ ਜਾ ਸਕਿਆ, ਇਸ ਲਈ ਸੰਭਾਲਣਾ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ: {error}
+versions.revert_failed = ਸਾਰੇ ਸੰਪਾਦਨ ਕਾਇਮ ਨਹੀਂ ਰੱਖੇ ਜਾ ਸਕੇ। ਵਾਪਸ ਕੀਤੀਆਂ ਫ਼ੋਟੋਆਂ: {n}। {error}

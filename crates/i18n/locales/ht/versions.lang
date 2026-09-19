@@ -1,0 +1,24 @@
+# Istorik vèsyon yo.
+versions.title = Istorik vèsyon yo
+versions.open = Istorik vèsyon yo…
+versions.original = Orijinal
+versions.current = Modifikasyon aktyèl ki anrejistre a
+versions.saved_at = Anrejistre {date} UTC
+versions.saved_sequence = Anrejistre {date} UTC ({n})
+versions.loading = Ap chaje apèsi a…
+versions.preview_failed = Apèsi a pa disponib. Ou ka toujou eseye louvri yon kopi.
+versions.drag_hint = Trennen separatè a pou konpare orijinal la agoch ak vèsyon ki seleksyone a adwat.
+versions.no_saved = Poko gen modifikasyon ki anrejistre. Chak anrejistreman kenbe modifikasyon anvan an isit la.
+versions.copy_hint = Retablisman an louvri yon nouvo dokiman ki poko anrejistre avèk kouch li yo. Anrejistre kopi a nan yon nouvo kote.
+versions.restore = Retabli kòm kopi
+versions.restoring = Ap louvri kopi a…
+versions.restored = Vèsyon an louvri kòm yon kopi ki poko anrejistre.
+versions.copy_title = {name} — kopi retabli
+versions.restore_failed = Pa t kapab louvri vèsyon sa a: {error}
+versions.read_failed = Pa t kapab li istorik vèsyon yo: {error}
+versions.close = Fèmen
+versions.previous = Vèsyon ki pi resan yo
+versions.next = Vèsyon ki pi ansyen yo
+versions.page = Paj {n} sou {total}
+versions.preserve_failed = Modifikasyon anvan an pa t kapab konsève, kidonk anrejistreman an te anile: {error}
+versions.revert_failed = Pa t kapab konsève tout modifikasyon yo. Foto ki retabli: {n}. {error}

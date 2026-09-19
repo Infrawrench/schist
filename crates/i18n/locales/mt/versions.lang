@@ -1,0 +1,24 @@
+# Storja tal-verżjonijiet.
+versions.title = Storja tal-verżjonijiet
+versions.open = Storja tal-verżjonijiet…
+versions.original = Oriġinali
+versions.current = Editjar issejvjat attwali
+versions.saved_at = Issejvjat {date} UTC
+versions.saved_sequence = Issejvjat {date} UTC ({n})
+versions.loading = Qed titgħabba l-previżjoni…
+versions.preview_failed = Il-previżjoni mhix disponibbli. Xorta tista' tipprova tiftaħ kopja.
+versions.drag_hint = Iddreggja s-separatur biex tqabbel l-oriġinali fuq ix-xellug mal-verżjoni magħżula fuq il-lemin.
+versions.no_saved = Għad ma hemm ebda editjar issejvjat. Kull darba li tissejvja, l-editjar preċedenti jinżamm hawn.
+versions.copy_hint = Ir-restawr jiftaħ dokument ġdid mhux issejvjat bis-saffi tiegħu. Issejvja l-kopja f'post ġdid.
+versions.restore = Irrestawra bħala kopja
+versions.restoring = Qed tinfetaħ il-kopja…
+versions.restored = Il-verżjoni nfetħet bħala kopja mhux issejvjata.
+versions.copy_title = {name} — kopja rrestawrata
+versions.restore_failed = Ma setgħetx tinfetaħ din il-verżjoni: {error}
+versions.read_failed = Ma setgħetx tinqara l-istorja tal-verżjonijiet: {error}
+versions.close = Agħlaq
+versions.previous = Verżjonijiet aktar ġodda
+versions.next = Verżjonijiet eqdem
+versions.page = Paġna {n} minn {total}
+versions.preserve_failed = L-editjar preċedenti ma setax jinżamm, għalhekk l-issejvjar ġie kkanċellat: {error}
+versions.revert_failed = Ma setgħux jinżammu l-editjar kollha. Ritratti mreġġgħin lura: {n}. {error}

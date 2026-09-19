@@ -1,0 +1,24 @@
+# Version history.
+versions.title = Historial de versions
+versions.open = Historial de versions…
+versions.original = Original
+versions.current = Edició desada actual
+versions.saved_at = Desat el {date} UTC
+versions.saved_sequence = Desat el {date} UTC ({n})
+versions.loading = S’està carregant la previsualització…
+versions.preview_failed = La previsualització no està disponible. Encara podeu provar d’obrir una còpia.
+versions.drag_hint = Arrossegueu el divisor per comparar l’original de l’esquerra amb la versió seleccionada de la dreta.
+versions.no_saved = Encara no hi ha edicions desades. Cada vegada que deseu, l’edició anterior es conservarà aquí.
+versions.copy_hint = La restauració obre un document nou sense desar amb les seves capes. Deseu la còpia en una ubicació nova.
+versions.restore = Restaura com a còpia
+versions.restoring = S’està obrint la còpia…
+versions.restored = La versió s’ha obert com a còpia sense desar.
+versions.copy_title = {name} — còpia restaurada
+versions.restore_failed = No s’ha pogut obrir aquesta versió: {error}
+versions.read_failed = No s’ha pogut llegir l’historial de versions: {error}
+versions.close = Tanca
+versions.previous = Versions més noves
+versions.next = Versions més antigues
+versions.page = Pàgina {n} de {total}
+versions.preserve_failed = No s’ha pogut conservar l’edició anterior i s’ha cancel·lat el desament: {error}
+versions.revert_failed = No s’han pogut conservar totes les edicions. Fotografies revertides: {n}. {error}

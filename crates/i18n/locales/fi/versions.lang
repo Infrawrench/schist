@@ -1,0 +1,24 @@
+# Versiohistoria.
+versions.title = Versiohistoria
+versions.open = Versiohistoria…
+versions.original = Alkuperäinen
+versions.current = Nykyinen tallennettu muokkaus
+versions.saved_at = Tallennettu {date} UTC
+versions.saved_sequence = Tallennettu {date} UTC ({n})
+versions.loading = Esikatselua ladataan…
+versions.preview_failed = Esikatselu ei ole saatavilla. Voit silti yrittää avata kopion.
+versions.drag_hint = Vertaile vasemmalla olevaa alkuperäistä ja oikealla olevaa valittua versiota vetämällä jakajaa.
+versions.no_saved = Tallennettuja muokkauksia ei vielä ole. Jokainen tallennus säilyttää edellisen muokkauksen täällä.
+versions.copy_hint = Palautus avaa uuden tallentamattoman asiakirjan tasoineen. Tallenna kopio uuteen sijaintiin.
+versions.restore = Palauta kopiona
+versions.restoring = Kopiota avataan…
+versions.restored = Versio avattiin tallentamattomana kopiona.
+versions.copy_title = {name} — palautettu kopio
+versions.restore_failed = Tätä versiota ei voitu avata: {error}
+versions.read_failed = Versiohistoriaa ei voitu lukea: {error}
+versions.close = Sulje
+versions.previous = Uudemmat versiot
+versions.next = Vanhemmat versiot
+versions.page = Sivu {n}/{total}
+versions.preserve_failed = Edellistä muokkausta ei voitu säilyttää, joten tallennus peruutettiin: {error}
+versions.revert_failed = Kaikkia muokkauksia ei voitu säilyttää. Palautettuja kuvia: {n}. {error}

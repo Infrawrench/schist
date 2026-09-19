@@ -1,0 +1,24 @@
+# Umlando wezinguqulo.
+versions.title = Umlando wezinguqulo
+versions.open = Umlando wezinguqulo…
+versions.original = Okwangempela
+versions.current = Ukuhlela okulondoloziwe kwamanje
+versions.saved_at = Kulondolozwe ngo-{date} UTC
+versions.saved_sequence = Kulondolozwe ngo-{date} UTC ({n})
+versions.loading = Kulayishwa ukubuka kuqala…
+versions.preview_failed = Ukubuka kuqala akutholakali. Usengazama ukuvula ikhophi.
+versions.drag_hint = Hudula isihlukanisi ukuze uqhathanise okwangempela kwesokunxele nenguqulo ekhethiwe kwesokudla.
+versions.no_saved = Akukho ukuhlela okulondoloziwe okwamanje. Ukulondoloza ngakunye kugcina ukuhlela kwangaphambilini lapha.
+versions.copy_hint = Ukubuyisela kuvula idokhumenti entsha engakalondolozwa enezendlalelo zayo. Londoloza ikhophi endaweni entsha.
+versions.restore = Buyisela njengekhophi
+versions.restoring = Kuvulwa ikhophi…
+versions.restored = Inguqulo ivulwe njengekhophi engakalondolozwa.
+versions.copy_title = {name} — ikhophi ebuyiselwe
+versions.restore_failed = Ayikwazanga ukuvula le nguqulo: {error}
+versions.read_failed = Ayikwazanga ukufunda umlando wezinguqulo: {error}
+versions.close = Vala
+versions.previous = Izinguqulo ezintsha
+versions.next = Izinguqulo ezindala
+versions.page = Ikhasi {n} kwangu-{total}
+versions.preserve_failed = Ukuhlela kwangaphambilini akukwazanga ukugcinwa, ngakho ukulondoloza kukhanseliwe: {error}
+versions.revert_failed = Akukwazanga ukugcina konke ukuhlela. Izithombe ezibuyiselwe: {n}. {error}

@@ -15,6 +15,10 @@ impl Workspace {
         {
             return;
         }
+        #[cfg(not(target_arch = "wasm32"))]
+        if matches!(self.modal, Some(Modal::VersionHistory)) {
+            self.library.versions = None;
+        }
         if !matches!(modal, Modal::MaskRefine { .. }) {
             self.cancel_mask_refine();
         }
@@ -127,6 +131,10 @@ impl Workspace {
     }
 
     pub fn close_modal(&mut self, cx: &mut Context<Self>) {
+        #[cfg(not(target_arch = "wasm32"))]
+        if matches!(self.modal, Some(Modal::VersionHistory)) {
+            self.library.versions = None;
+        }
         self.cancel_mask_refine();
         // A file picker going away unanswered is a cancel: dropping its
         // sender is what tells the prompt's caller.
@@ -634,6 +642,8 @@ impl Workspace {
             .map(|d| d.width as f32 / d.height.max(1) as f32)
             .unwrap_or(1.0);
         self.update_modal(|m| match m {
+            #[cfg(not(target_arch = "wasm32"))]
+            Modal::VersionHistory => {},
             Modal::Cloud {..} | Modal::CloudGenerate => {},
             Modal::ImageSize {
                 width,

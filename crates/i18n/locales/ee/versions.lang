@@ -1,0 +1,24 @@
+# Translated catalog.
+versions.title = Tata ƒe vɔvɔliwo ƒe ŋutinyawo
+versions.open = Tata ƒe vɔvɔliwo ƒe ŋutinyawo…
+versions.original = Gɔmedzedze
+versions.current = Tɔtrɔ si wòdzra ɖo fifia
+versions.saved_at = Wodzrae ɖo le {date} UTC
+versions.saved_sequence = Wodzrae ɖo le {date} UTC ({n})
+versions.loading = Ele ŋgɔdonukpɔkpɔ dem…
+versions.preview_failed = Ŋgɔdonukpɔkpɔ meli o. Àte ŋu agbugbɔ agbagba aʋu kɔpi aɖe.
+versions.drag_hint = He mamaƒe la be nàtsɔ gɔmedzedze si le miame akpa la asɔ kple vɔvɔli si wotia le nuɖusime.
+versions.no_saved = Womedzra tɔtrɔ aɖeke ɖo haɖe o. Ne èdzrae ɖo la, edzraa tɔtrɔ si va yi ɖo le afisia.
+versions.copy_hint = Gbugbɔɖoɖo ʋua nuŋlɔɖi yeye si womedzra ɖo o kple eƒe akpawo. Dzra kɔpi la ɖo le teƒe yeye.
+versions.restore = Gbugbɔe ɖo abe kɔpi ene
+versions.restoring = Ele kɔpi ʋum…
+versions.restored = Woʋu vɔvɔli la abe kɔpi si womedzra ɖo o ene.
+versions.copy_title = {name} — kɔpi si wogbugbɔ ɖo
+versions.restore_failed = Womete ŋu ʋu vɔvɔli sia o: {error}
+versions.read_failed = Womete ŋu xlẽ tata ƒe vɔvɔliwo ƒe ŋutinyawo o: {error}
+versions.close = Tu
+versions.previous = Vɔvɔli yeyewo
+versions.next = Vɔvɔli xoxowo
+versions.page = Axa {n} le {total} me
+versions.preserve_failed = Womete ŋu dzra tɔtrɔ si va yi la ɖo o, eyata wogbe dzraɖoɖo la: {error}
+versions.revert_failed = Womete ŋu dzra tɔtrɔawo katã ɖo o. Wogbugbɔ fotowo yi megbe: {n}. {error}

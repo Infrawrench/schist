@@ -1,0 +1,24 @@
+# ປະຫວັດເວີຊັນ.
+versions.title = ປະຫວັດເວີຊັນ
+versions.open = ປະຫວັດເວີຊັນ…
+versions.original = ຕົ້ນສະບັບ
+versions.current = ສະບັບແກ້ໄຂທີ່ບັນທຶກປັດຈຸບັນ
+versions.saved_at = ບັນທຶກເມື່ອ {date} UTC
+versions.saved_sequence = ບັນທຶກເມື່ອ {date} UTC ({n})
+versions.loading = ກຳລັງໂຫຼດພາບຕົວຢ່າງ…
+versions.preview_failed = ບໍ່ສາມາດສະແດງພາບຕົວຢ່າງໄດ້. ທ່ານຍັງສາມາດລອງເປີດສຳເນົາໄດ້.
+versions.drag_hint = ລາກຕົວແບ່ງເພື່ອປຽບທຽບຕົ້ນສະບັບທາງຊ້າຍກັບເວີຊັນທີ່ເລືອກທາງຂວາ.
+versions.no_saved = ຍັງບໍ່ມີການແກ້ໄຂທີ່ບັນທຶກ. ທຸກຄັ້ງທີ່ບັນທຶກ ການແກ້ໄຂກ່ອນໜ້າຈະຖືກເກັບໄວ້ບ່ອນນີ້.
+versions.copy_hint = ການກູ້ຄືນຈະເປີດເອກະສານໃໝ່ທີ່ຍັງບໍ່ໄດ້ບັນທຶກພ້ອມກັບເລເຢີຕ່າງໆ. ບັນທຶກສຳເນົາໄປຍັງບ່ອນໃໝ່.
+versions.restore = ກູ້ຄືນເປັນສຳເນົາ
+versions.restoring = ກຳລັງເປີດສຳເນົາ…
+versions.restored = ເປີດເວີຊັນເປັນສຳເນົາທີ່ຍັງບໍ່ໄດ້ບັນທຶກແລ້ວ.
+versions.copy_title = {name} — ສຳເນົາທີ່ກູ້ຄືນ
+versions.restore_failed = ບໍ່ສາມາດເປີດເວີຊັນນີ້ໄດ້: {error}
+versions.read_failed = ບໍ່ສາມາດອ່ານປະຫວັດເວີຊັນໄດ້: {error}
+versions.close = ປິດ
+versions.previous = ເວີຊັນໃໝ່ກວ່າ
+versions.next = ເວີຊັນເກົ່າກວ່າ
+versions.page = ໜ້າ {n} ຈາກ {total}
+versions.preserve_failed = ບໍ່ສາມາດເກັບຮັກສາການແກ້ໄຂກ່ອນໜ້າໄດ້, ດັ່ງນັ້ນຈຶ່ງຍົກເລີກການບັນທຶກ: {error}
+versions.revert_failed = ບໍ່ສາມາດເກັບຮັກສາການແກ້ໄຂທັງໝົດໄດ້. ຮູບທີ່ຖືກປ່ຽນກັບຄືນ: {n}. {error}

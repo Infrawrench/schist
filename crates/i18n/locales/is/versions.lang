@@ -1,0 +1,24 @@
+# Útgáfuferill.
+versions.title = Útgáfuferill
+versions.open = Útgáfuferill…
+versions.original = Frumrit
+versions.current = Núverandi vistuð breyting
+versions.saved_at = Vistað {date} UTC
+versions.saved_sequence = Vistað {date} UTC ({n})
+versions.loading = Hleð forskoðun…
+versions.preview_failed = Forskoðun er ekki tiltæk. Þú getur samt reynt að opna afrit.
+versions.drag_hint = Dragðu skilrúmið til að bera frumritið vinstra megin saman við valda útgáfu hægra megin.
+versions.no_saved = Engar vistaðar breytingar enn. Við hverja vistun er fyrri breytingin varðveitt hér.
+versions.copy_hint = Endurheimt opnar nýtt óvistað skjal með lögunum sínum. Vistaðu afritið á nýjum stað.
+versions.restore = Endurheimta sem afrit
+versions.restoring = Opna afrit…
+versions.restored = Útgáfan var opnuð sem óvistað afrit.
+versions.copy_title = {name} — endurheimt afrit
+versions.restore_failed = Ekki tókst að opna þessa útgáfu: {error}
+versions.read_failed = Ekki tókst að lesa útgáfuferil: {error}
+versions.close = Loka
+versions.previous = Nýrri útgáfur
+versions.next = Eldri útgáfur
+versions.page = Síða {n} af {total}
+versions.preserve_failed = Ekki tókst að varðveita fyrri breytinguna og því var vistun hætt: {error}
+versions.revert_failed = Ekki tókst að varðveita allar breytingar. Myndir færðar til baka: {n}. {error}

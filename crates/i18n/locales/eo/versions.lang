@@ -1,0 +1,24 @@
+# Historio de versioj.
+versions.title = Historio de versioj
+versions.open = Historio de versioj…
+versions.original = Originalo
+versions.current = Nuna konservita redakto
+versions.saved_at = Konservita je {date} UTC
+versions.saved_sequence = Konservita je {date} UTC ({n})
+versions.loading = Ŝargante antaŭrigardon…
+versions.preview_failed = Antaŭrigardo ne disponeblas. Vi tamen povas provi malfermi kopion.
+versions.drag_hint = Trenu la dividilon por kompari la originalon maldekstre kun la elektita versio dekstre.
+versions.no_saved = Ankoraŭ neniu konservita redakto. Ĉiu konservado tenas la antaŭan redakton ĉi tie.
+versions.copy_hint = Restarigo malfermas novan nekonservitan dokumenton kun ĝiaj tavoloj. Konservu la kopion en nova loko.
+versions.restore = Restarigi kiel kopion
+versions.restoring = Malfermante kopion…
+versions.restored = La versio estas malfermita kiel nekonservita kopio.
+versions.copy_title = {name} — restarigita kopio
+versions.restore_failed = Ne eblis malfermi ĉi tiun version: {error}
+versions.read_failed = Ne eblis legi la historion de versioj: {error}
+versions.close = Fermi
+versions.previous = Pli novaj versioj
+versions.next = Pli malnovaj versioj
+versions.page = Paĝo {n} el {total}
+versions.preserve_failed = Ne eblis konservi la antaŭan redakton, do la konservado estis nuligita: {error}
+versions.revert_failed = Ne eblis konservi ĉiujn redaktojn. Fotoj revenigitaj: {n}. {error}

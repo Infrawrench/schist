@@ -1,0 +1,24 @@
+# Versiju vēsture.
+versions.title = Versiju vēsture
+versions.open = Versiju vēsture…
+versions.original = Oriģināls
+versions.current = Pašreizējais saglabātais labojums
+versions.saved_at = Saglabāts {date} UTC
+versions.saved_sequence = Saglabāts {date} UTC ({n})
+versions.loading = Ielādē priekšskatījumu…
+versions.preview_failed = Priekšskatījums nav pieejams. Joprojām varat mēģināt atvērt kopiju.
+versions.drag_hint = Velciet atdalītāju, lai salīdzinātu oriģinālu kreisajā pusē ar atlasīto versiju labajā pusē.
+versions.no_saved = Vēl nav saglabātu labojumu. Katrā saglabāšanas reizē iepriekšējais labojums tiek paturēts šeit.
+versions.copy_hint = Atjaunojot tiek atvērts jauns nesaglabāts dokuments ar tā slāņiem. Saglabājiet kopiju jaunā vietā.
+versions.restore = Atjaunot kā kopiju
+versions.restoring = Atver kopiju…
+versions.restored = Versija atvērta kā nesaglabāta kopija.
+versions.copy_title = {name} — atjaunota kopija
+versions.restore_failed = Neizdevās atvērt šo versiju: {error}
+versions.read_failed = Neizdevās nolasīt versiju vēsturi: {error}
+versions.close = Aizvērt
+versions.previous = Jaunākas versijas
+versions.next = Vecākas versijas
+versions.page = {n}. lapa no {total}
+versions.preserve_failed = Iepriekšējo labojumu neizdevās saglabāt, tāpēc saglabāšana tika atcelta: {error}
+versions.revert_failed = Neizdevās saglabāt visus labojumus. Atgrieztie fotoattēli: {n}. {error}

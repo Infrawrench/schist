@@ -1,0 +1,24 @@
+# Riwayat versi.
+versions.title = Riwayat versi
+versions.open = Riwayat versi…
+versions.original = Asli
+versions.current = Editan tersimpan saat ini
+versions.saved_at = Disimpan {date} UTC
+versions.saved_sequence = Disimpan {date} UTC ({n})
+versions.loading = Memuat pratinjau…
+versions.preview_failed = Pratinjau tidak tersedia. Anda masih dapat mencoba membuka salinannya.
+versions.drag_hint = Seret pembatas untuk membandingkan versi asli di sebelah kiri dengan versi yang dipilih di sebelah kanan.
+versions.no_saved = Belum ada editan tersimpan. Setiap penyimpanan akan mempertahankan editan sebelumnya di sini.
+versions.copy_hint = Pemulihan membuka dokumen baru yang belum disimpan beserta lapisan-lapisannya. Simpan salinan tersebut ke lokasi baru.
+versions.restore = Pulihkan sebagai salinan
+versions.restoring = Membuka salinan…
+versions.restored = Versi dibuka sebagai salinan yang belum disimpan.
+versions.copy_title = {name} — salinan yang dipulihkan
+versions.restore_failed = Tidak dapat membuka versi ini: {error}
+versions.read_failed = Tidak dapat membaca riwayat versi: {error}
+versions.close = Tutup
+versions.previous = Versi lebih baru
+versions.next = Versi lebih lama
+versions.page = Halaman {n} dari {total}
+versions.preserve_failed = Editan sebelumnya tidak dapat dipertahankan, sehingga penyimpanan dibatalkan: {error}
+versions.revert_failed = Tidak dapat mempertahankan semua editan. Foto dikembalikan: {n}. {error}

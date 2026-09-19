@@ -1,0 +1,24 @@
+# Historia wersji.
+versions.title = Historia wersji
+versions.open = Historia wersji…
+versions.original = Oryginał
+versions.current = Bieżąca zapisana edycja
+versions.saved_at = Zapisano {date} UTC
+versions.saved_sequence = Zapisano {date} UTC ({n})
+versions.loading = Wczytywanie podglądu…
+versions.preview_failed = Podgląd jest niedostępny. Nadal można spróbować otworzyć kopię.
+versions.drag_hint = Przeciągnij separator, aby porównać oryginał po lewej z wybraną wersją po prawej.
+versions.no_saved = Nie ma jeszcze zapisanych edycji. Każdy zapis zachowa tutaj poprzednią edycję.
+versions.copy_hint = Przywrócenie otwiera nowy, niezapisany dokument wraz z warstwami. Zapisz kopię w nowym miejscu.
+versions.restore = Przywróć jako kopię
+versions.restoring = Otwieranie kopii…
+versions.restored = Wersja została otwarta jako niezapisana kopia.
+versions.copy_title = {name} — przywrócona kopia
+versions.restore_failed = Nie udało się otworzyć tej wersji: {error}
+versions.read_failed = Nie udało się odczytać historii wersji: {error}
+versions.close = Zamknij
+versions.previous = Nowsze wersje
+versions.next = Starsze wersje
+versions.page = Strona {n} z {total}
+versions.preserve_failed = Nie udało się zachować poprzedniej edycji, dlatego zapis anulowano: {error}
+versions.revert_failed = Nie udało się zachować wszystkich edycji. Przywrócono zdjęcia: {n}. {error}

@@ -452,6 +452,35 @@ Deleting a photo's `.schist` entry — or the whole directory — reverts it
 to the original everywhere; Schist treats an absent sidecar as "never
 edited".
 
+**Version history…** in a photo's right-click menu, the photo viewer,
+or the editor's History panel for a gallery photo opens the visual
+history. The current saved edit comes first, followed
+by earlier saves from newest to oldest and the untouched original.
+Six thumbnail cards load at a time; **Newer versions** and **Older
+versions** browse the remaining pages. Saves with the same timestamp
+have a sequence number, so saving twice within a second keeps both
+versions. Existing timestamp-only versions continue to work.
+If a previous edit cannot be archived, saving, reverting, or batch
+replacement stops for that photo and keeps its current edit intact.
+
+Click a thumbnail and drag the white divider over the comparison:
+the original is on the left and the selected version on the right.
+Both fit the same preview area with their aspect ratios preserved,
+including edits that changed the canvas size. The comparison uses
+previews up to 1200 pixels across; it is not a full-resolution pixel
+inspection view. Dates are displayed in UTC. Unreadable previews report
+their failure and leave the full document available to try opening.
+
+**Restore as copy** opens the selected original, current edit, or older
+PSD in a new unsaved editor tab, preserving its layers. Its first Save
+asks for a destination. Restoring does not replace the photo, its
+current edit, or any saved version. Cancelling the history while a copy
+loads discards that pending open. Unsaved editor changes are not part
+of the saved history; save them first to make them appear here.
+
+The `versions.lang` catalog includes translations for every shipped locale.
+Catalog validation checks keys, placeholders, locale aliases, and font coverage.
+
 ## Search
 
 Until the models are installed the box is not a box at all but a

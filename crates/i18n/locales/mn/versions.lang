@@ -1,0 +1,24 @@
+# Хувилбарын түүх.
+versions.title = Хувилбарын түүх
+versions.open = Хувилбарын түүх…
+versions.original = Эх хувь
+versions.current = Одоо хадгалсан засвар
+versions.saved_at = {date} UTC-д хадгалсан
+versions.saved_sequence = {date} UTC-д хадгалсан ({n})
+versions.loading = Урьдчилан харахыг ачаалж байна…
+versions.preview_failed = Урьдчилан харах боломжгүй. Хуулбарыг нээхээр оролдож болно.
+versions.drag_hint = Зүүн талын эх хувийг баруун талын сонгосон хувилбартай харьцуулахын тулд тусгаарлагчийг чирнэ үү.
+versions.no_saved = Одоогоор хадгалсан засвар алга. Хадгалах бүрд өмнөх засварыг энд үлдээнэ.
+versions.copy_hint = Сэргээхэд давхаргуудтай нь хадгалаагүй шинэ баримт нээгдэнэ. Хуулбарыг шинэ байршилд хадгална уу.
+versions.restore = Хуулбар болгон сэргээх
+versions.restoring = Хуулбарыг нээж байна…
+versions.restored = Хувилбарыг хадгалаагүй хуулбар болгон нээлээ.
+versions.copy_title = {name} — сэргээсэн хуулбар
+versions.restore_failed = Энэ хувилбарыг нээж чадсангүй: {error}
+versions.read_failed = Хувилбарын түүхийг уншиж чадсангүй: {error}
+versions.close = Хаах
+versions.previous = Шинэ хувилбарууд
+versions.next = Хуучин хувилбарууд
+versions.page = {total}-с {n}-р хуудас
+versions.preserve_failed = Өмнөх засварыг хадгалж чадсангүй, тиймээс хадгалах ажиллагааг цуцаллаа: {error}
+versions.revert_failed = Бүх засварыг хадгалж чадсангүй. Буцаасан зураг: {n}. {error}

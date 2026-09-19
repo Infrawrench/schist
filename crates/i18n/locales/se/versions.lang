@@ -1,0 +1,24 @@
+# Veršuvdnahistorjá.
+versions.title = Veršuvdnahistorjá
+versions.open = Veršuvdnahistorjá…
+versions.original = Originála
+versions.current = Dálá vurkejuvvon doaimmahus
+versions.saved_at = Vurkejuvvon {date} UTC
+versions.saved_sequence = Vurkejuvvon {date} UTC ({n})
+versions.loading = Ovdačájeheapmi viežžojuvvo…
+versions.preview_failed = Ovdačájeheapmi ii leat olámuttos. Don sáhtát liikká geahččalit rahpat máŋgosa.
+versions.drag_hint = Gease juohkima vai buohtastahtát originála gurutbealde válljejuvvon veršuvnnain olgešbealde.
+versions.no_saved = Eai leat vel vurkejuvvon doaimmahagat. Juohke vurken seailluha ovddit doaimmahaga dáppe.
+versions.copy_hint = Máhcaheapmi rahpá ođđa vurkeahtes dokumeantamáŋgosa gearddiidisguin. Vurke máŋgosa ođđa sadjái.
+versions.restore = Máhcat máŋgusin
+versions.restoring = Máŋggus rahppojuvvo…
+versions.restored = Veršuvdna rahppojuvvui vurkeahtes máŋgusin.
+versions.copy_title = {name} — máhcahuvvon máŋggus
+versions.restore_failed = Dán veršuvnna ii sáhttán rahpat: {error}
+versions.read_failed = Veršuvdnahistorjjá ii sáhttán lohkat: {error}
+versions.close = Gidde
+versions.previous = Ođđaset veršuvnnat
+versions.next = Boarráset veršuvnnat
+versions.page = Siidu {n}/{total}
+versions.preserve_failed = Ovddit doaimmahaga ii sáhttán seailluhit, nu ahte vurken gaskkalduhttojuvvui: {error}
+versions.revert_failed = Buot doaimmahagaid ii sáhttán seailluhit. Govat máhcahuvvojedje: {n}. {error}

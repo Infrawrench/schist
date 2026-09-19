@@ -118,6 +118,8 @@ mod services;
 mod shared_files;
 pub(crate) mod spotlight;
 mod styles;
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod versions;
 // The software keyboard's way in, on the platforms that have one.
 #[cfg(any(target_os = "ios", target_os = "android"))]
 mod text_input;
@@ -851,6 +853,8 @@ pub enum UpdateProgress {
 // plumbing matches exhaustively on every target.
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub enum Modal {
+    #[cfg(not(target_arch = "wasm32"))]
+    VersionHistory,
     CloudGenerate,
     Cloud {
         kind: &'static str,

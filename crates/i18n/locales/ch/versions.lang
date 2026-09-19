@@ -1,0 +1,24 @@
+# Istorian bersión.
+versions.title = Istorian bersión
+versions.open = Istorian bersión…
+versions.original = Orihinåt
+versions.current = I masåtba na inedita på'go
+versions.saved_at = Masåtba gi {date} UTC
+versions.saved_sequence = Masåtba gi {date} UTC ({n})
+versions.loading = Ha kåtga i preview…
+versions.preview_failed = Ti siña ma'annok i preview. Siña ha' un na'na'guaha un kopia.
+versions.drag_hint = Arråstra i divider para un kompara i orihinåt gi akague yan i ma'ayek na bersión gi agapa'.
+versions.no_saved = Tåya' masåtba na inedita. Kada un såtba, mapopo'lo guini i fine'nena na inedita.
+versions.copy_hint = I Restore ha baba un nuebu na dokumentu ni ti masåtba, yan todu i layer-ña. Såtba i kopia gi otro na lugåt.
+versions.restore = Na' tåtte komu kopia
+versions.restoring = Ha baba i kopia…
+versions.restored = Mababa i bersión komu un kopia ni ti masåtba.
+versions.copy_title = {name} — kopia ni mana' tåtte
+versions.restore_failed = Ti siña mababa este na bersión: {error}
+versions.read_failed = Ti siña mabasa i istorian bersión: {error}
+versions.close = Huchom
+versions.previous = Mås nuebu na bersión siha
+versions.next = Mås åntigu na bersión siha
+versions.page = Påhina {n} gi {total}
+versions.preserve_failed = Ti siña mapo'lo i fine'nena na inedita, pues makansela i sinåtba: {error}
+versions.revert_failed = Ti siña mapo'lo todu i inedita siha. Litråtu ni mana' tåtte: {n}. {error}

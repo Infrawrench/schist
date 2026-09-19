@@ -1,0 +1,24 @@
+# Historia de versiones.
+versions.title = Historia de versiones
+versions.open = Historia de versiones…
+versions.original = Original
+versions.current = Modification salvate actual
+versions.saved_at = Salvate le {date} UTC
+versions.saved_sequence = Salvate le {date} UTC ({n})
+versions.loading = Cargamento del previsualisation…
+versions.preview_failed = Previsualisation indisponibile. Tu pote ancora tentar aperir un copia.
+versions.drag_hint = Trahe le divisor pro comparar le original a sinistra con le version seligite a dextera.
+versions.no_saved = Il non ha ancora modificationes salvate. Cata salvamento conserva hic le modification precedente.
+versions.copy_hint = Restaurar aperi un nove documento non salvate con su stratos. Salva le copia in un nove loco.
+versions.restore = Restaurar como copia
+versions.restoring = Apertura del copia…
+versions.restored = Version aperte como copia non salvate.
+versions.copy_title = {name} — copia restaurate
+versions.restore_failed = Impossibile aperir iste version: {error}
+versions.read_failed = Impossibile leger le historia de versiones: {error}
+versions.close = Clauder
+versions.previous = Versiones plus recente
+versions.next = Versiones plus ancian
+versions.page = Pagina {n} de {total}
+versions.preserve_failed = Le modification precedente non poteva esser conservate, dunque le salvamento esseva cancellate: {error}
+versions.revert_failed = Impossibile conservar tote le modificationes. Photos revertite: {n}. {error}
