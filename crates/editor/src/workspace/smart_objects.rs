@@ -228,6 +228,7 @@ fn replacement_layers(
     pixels: &TileMap,
     region: IntRect,
 ) -> anyhow::Result<Vec<Layer>> {
+    #[allow(clippy::too_many_arguments)]
     fn visit(
         layers: &[Layer],
         out: &mut Vec<Layer>,
@@ -294,6 +295,14 @@ fn replacement_layers(
                     );
                     pixels.clone()
                 };
+            let old_origin = metadata
+                .as_ref()
+                .map_or(previous.identity.origin, |s| s.origin);
+            let new_origin = replacement.identity.origin;
+            smart.transform = smart.transform.then(&schist_core::Affine::translate(
+                (old_origin[0] - new_origin[0]) as f32,
+                (old_origin[1] - new_origin[1]) as f32,
+            ));
             smart.source = filtered;
             smart.source_bounds = smart.source.content_bounds();
             smart.name = layer.name.clone();
@@ -540,7 +549,7 @@ impl Workspace {
                             }),
                         linked_path: linked.then(|| path.to_string_lossy().into_owned()),
                         origin: [0, 0],
-                        linked_stamp: linked.then(|| file_stamp(&path)).flatten(),
+                        linked_stamp: if linked { file_stamp(&path) } else { None },
                     };
                     let source = encode_source(&doc, identity)?;
                     anyhow::Ok((source, pixels, doc.canvas_rect(), doc.title, previous))
@@ -887,6 +896,29 @@ mod tests {
             doc.tree.layers[0].as_raster().unwrap().tiles.pixel(2, 0),
             Rgba::WHITE
         );
+    }
+
+    #[test]
+    fn replacement_preserves_legacy_source_anchor_when_origin_changes() {
+        let (mut doc, selected, registry) = setup();
+        let mut previous = metadata();
+        previous.identity.origin = [-4, -2];
+        let layer = doc.tree.find_mut(selected).unwrap();
+        layer.extras = previous.blocks(layer).unwrap();
+        let replacement = metadata();
+        let layers = replacement_layers(
+            &registry,
+            &doc,
+            selected,
+            &previous,
+            &replacement,
+            &pixels(Rgba::WHITE),
+            IntRect::from_size(1, 1),
+        )
+        .unwrap();
+        let updated = layers.iter().find(|layer| layer.id == selected).unwrap();
+        let placement = updated.smart.as_ref().unwrap().transform;
+        assert_eq!((placement.tx, placement.ty), (3.0, -2.0));
     }
 
     #[test]

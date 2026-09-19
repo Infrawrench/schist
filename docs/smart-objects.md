@@ -21,8 +21,9 @@ Every instance keeps its placement transform, mask, opacity, blending and layer
 style. Filter stacks are rerun against the new unfiltered source. If an instance
 is locked or a filter cannot render, the entire update is refused. Replace
 Contents embeds a replacement and detaches any existing file link; Relink binds
-the source family to another file. Replacement retains each placement matrix;
-using artwork of different dimensions can therefore change the displayed size.
+the source family to another file. Replacement retains each instance’s scale, rotation and source anchor, adjusting
+for a changed source origin. Artwork of different dimensions can change the
+displayed size.
 
 Linked objects retain an embedded snapshot so missing files never blank the
 canvas. The Layers panel shows the source path, missing links and changes in file
