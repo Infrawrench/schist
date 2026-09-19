@@ -21,6 +21,9 @@ impl Workspace {
     }
 
     pub fn close_popup(&mut self, cx: &mut Context<Self>) {
+        if self.focused_field == Some("brush-preset-name") {
+            self.commit_focused_field();
+        }
         self.dropdown_search.clear();
         self.open_submenu.clear();
         self.dropdown.reset();

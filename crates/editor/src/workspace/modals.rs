@@ -370,6 +370,7 @@ impl Workspace {
         // character; the picker's hex field takes hex digits up to a full
         // triplet; numeric fields only digits.
         let textual = id == "layer-name"
+            || id == "brush-preset-name"
             || id == "recorded-action-name"
             || id == "new-doc-name"
             || id == "bucket-name"
@@ -518,6 +519,16 @@ impl Workspace {
     }
 
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
+        if id == "brush-preset-name" {
+            self.brush_preset_name = self
+                .field_buffer
+                .trim()
+                .chars()
+                .filter(|c| !c.is_control())
+                .take(64)
+                .collect();
+            return;
+        }
         let buffer = self.field_buffer.clone();
         if id == "recorded-action-name" {
             if let Some(draft) = self.action_recorder.draft.as_mut() {

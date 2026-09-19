@@ -1,4 +1,5 @@
 //! Persisted application preferences and process-wide feature flags.
+pub mod brushes;
 mod feature_flags;
 pub use feature_flags::feature_enabled;
 #[cfg(not(target_arch = "wasm32"))]

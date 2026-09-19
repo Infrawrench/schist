@@ -161,6 +161,12 @@ lint-app:
 check-app-web:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
 
+.PHONY: test-brush-workflows check-brush-workflows
+test-brush-workflows:
+	$(CARGO) test -p schist-tools-paint -p schist-app-settings
+check-brush-workflows:
+	$(CARGO) check -p schist-editor --all-targets
+
 # The browser deployment, assembled into dist/web/. A script rather than
 # rules here: it is one linear pipeline (bindgen, opt, chunk, manifest)
 # with nothing make's dependency graph would add. See docs/web.md.

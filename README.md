@@ -185,6 +185,11 @@ that in the photograph and copies it in, so what lands there is real
 texture arranged the right way rather than either one's idea of an
 average.
 
+Brush, pencil and eraser share [saved brush presets](docs/brushes.md),
+procedural grain and bristle tips, adjustable dab spacing and scattering,
+pressure-response curves, and stroke stabilization. The **Preset** button
+in the options bar opens these controls; named recipes survive restarts.
+
 **Vector.** Pen, freeform pen and curvature pen draw paths that are
 *stored*, so Path Selection and Direct Selection can edit them and Layer ▸
 Path can fill, stroke or convert them to a selection. Rectangle, ellipse,
