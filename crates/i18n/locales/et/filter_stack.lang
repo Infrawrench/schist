@@ -1,0 +1,17 @@
+# Redigeeritavad filtripakid.
+filter_stack.title = Filtripakk
+filter_stack.add = Lisa filter
+filter_stack.enable = Luba
+filter_stack.disable = Keela
+filter_stack.up = Üles
+filter_stack.down = Alla
+filter_stack.remove = Eemalda
+filter_stack.bake = Kinnista filtripakk
+filter_stack.note = Efekte rakendatakse säilitatud lähtele ülalt alla. Filtri muutmiseks klõpsake seda. Maalimine, teisaldamine, teisendamine või värvirežiimi muutmine kinnistab paki renderdatud ilme; käsk Võta tagasi taastab paki.
+filter_stack.eligibility = Loendis on ainult iseseisvad filtrid. Kaarti, rada, tausta või välist dialoogi vajavaid filtreid ei saa pakki salvestada.
+filter_stack.unavailable = Filtripaki muutmiseks valige lukustamata pikslikiht või nutiobjekt.
+filter_stack.render_failed = Filtripakki ei saanud renderdada. Selle lähteandmed ja salvestatud sätted jäid muutmata.
+filter_stack.edit_history = Muuda filtripakki
+filter_stack.bake_history = Kinnista filtripakk
+filter_stack.updated = Filtripakk värskendatud
+filter_stack.missing = Filter pole saadaval: {id}

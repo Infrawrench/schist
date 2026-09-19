@@ -1,0 +1,16 @@
+filter_stack.title = Fokotuʻunga sivi
+filter_stack.add = Tānaki ha sivi
+filter_stack.enable = Fakaʻatā
+filter_stack.disable = Taʻofi
+filter_stack.up = Ki ʻolunga
+filter_stack.down = Ki lalo
+filter_stack.remove = Toʻo
+filter_stack.bake = Fakapapauʻi ʻa e fokotuʻungá
+filter_stack.note = ʻOku fakahoko ʻa e ngaahi ola mei he tupuʻanga kuo tauhí, mei ʻolunga ki lalo. Lomiʻi ha sivi ke fakatonutonu. Ko e vali, hiki, liliu faʻunga, pe liliu ʻo e founga lanú ʻoku fakapapauʻi ai ʻa e fokotuʻungá; ʻoku toe fakafoki ia ʻe he Fakafoki.
+filter_stack.eligibility = ʻOku lisi pē ʻa e ngaahi sivi ʻoku kakato ʻiate kinautolú. He ʻikai lava ʻo tauhi ʻi ha fokotuʻunga ʻa e sivi ʻoku fiemaʻu ha mape, hala, puipuituʻa, pe puha talanoa mei tuʻa.
+filter_stack.unavailable = Fili ha Layer pikisi ʻoku ʻikai loka pe ha smart object ke fakatonutonu hono fokotuʻunga siví.
+filter_stack.render_failed = Naʻe ʻikai lava ʻo faʻu ʻa e fokotuʻunga siví. ʻOku ʻikai liliu hono tupuʻangá mo e ngaahi fokotuʻutuʻu kuo tauhí.
+filter_stack.edit_history = Fakatonutonu ʻa e fokotuʻunga sivi
+filter_stack.bake_history = Fakapapauʻi ʻa e fokotuʻunga sivi
+filter_stack.updated = Kuo fakafoʻou ʻa e fokotuʻunga sivi
+filter_stack.missing = Sivi ʻoku ʻikai maʻu: {id}

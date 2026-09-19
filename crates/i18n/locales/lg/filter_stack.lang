@@ -1,0 +1,16 @@
+filter_stack.title = Ekibinja ky'obusengejja
+filter_stack.add = Gattako akasengejja
+filter_stack.enable = Koleeza
+filter_stack.disable = Komya
+filter_stack.up = Waggulu
+filter_stack.down = Wansi
+filter_stack.remove = Ggyawo
+filter_stack.bake = Kakasa endabika y'ekibinja
+filter_stack.note = Ebivaamu bikolebwa okuva ku nsibuko ekuumiddwa, okuva waggulu okutuuka wansi. Nyiga ku kasengejja okukakyusa. Okusiiga, okutambuza, okukyusa enkula, oba okukyusa enkola ya langi kukakasa endabika y'ekibinja era ne kuggyawo enteekateeka zaakyo ezikyusibwa; Sazaamu ekikoleddwa akizzaawo.
+filter_stack.eligibility = Obusengejja obwesigamye ku bintu byabwo bwokka bwe bulagibwa. Obusengejja obwetaaga maapu, ekkubo, ekifaananyi eky'emabega, oba akabokisi akalala tebusoobola kuterekebwa mu kibinja.
+filter_stack.unavailable = Londa omutendera gwa pikseli ogutasibiddwa oba ekintu ekigezi okukyusa ekibinja kyagwo eky'obusengejja.
+filter_stack.render_failed = Ekibinja ky'obusengejja tekyasobodde kukolebwa kifaananyi. Ensibuko yaakyo n'enteekateeka ezaterekebwa tezikyusiddwa.
+filter_stack.edit_history = Kyusa ekibinja ky'obusengejja
+filter_stack.bake_history = Kakasa endabika y'ekibinja ky'obusengejja
+filter_stack.updated = Ekibinja ky'obusengejja kituukanyiziddwa
+filter_stack.missing = Akasengejja tekaliwo: {id}

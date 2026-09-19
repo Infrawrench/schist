@@ -1,0 +1,17 @@
+# Editable filter stacks.
+filter_stack.title = Pilha de filtros
+filter_stack.add = Adicionar filtro
+filter_stack.enable = Ativar
+filter_stack.disable = Desativar
+filter_stack.up = Subir
+filter_stack.down = Descer
+filter_stack.remove = Remover
+filter_stack.bake = Consolidar pilha
+filter_stack.note = Os efeitos são aplicados a partir da fonte preservada, de cima para baixo. Clique num filtro para o editar. Pintar, mover, transformar ou alterar o modo de cor consolida a pilha; Desfazer restaura-a.
+filter_stack.eligibility = Só são apresentados filtros autónomos. Os filtros que necessitam de um mapa, caminho, fundo ou diálogo externo não podem ser guardados numa pilha.
+filter_stack.unavailable = Selecione uma camada de píxeis desbloqueada ou um objeto inteligente para editar a respetiva pilha de filtros.
+filter_stack.render_failed = Não foi possível compor a pilha de filtros. A fonte e as definições guardadas permanecem inalteradas.
+filter_stack.edit_history = Editar pilha de filtros
+filter_stack.bake_history = Consolidar pilha de filtros
+filter_stack.updated = Pilha de filtros atualizada
+filter_stack.missing = Filtro indisponível: {id}

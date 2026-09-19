@@ -1,0 +1,17 @@
+# Translated catalog.
+filter_stack.title = Ama-dzraɖonuwo ƒe ha
+filter_stack.add = Tsɔ ama-dzraɖonu kpe ɖe eŋu
+filter_stack.enable = Na wòawɔ dɔ
+filter_stack.disable = Na wòatsi dɔ wɔwɔ
+filter_stack.up = Yi dzi
+filter_stack.down = Yi gɔme
+filter_stack.remove = Ɖe ɖa
+filter_stack.bake = De ama-dzraɖonuwo ƒe ha la anyi
+filter_stack.note = Nɔnɔmetɔtrɔawo dze egɔme tso dzɔtsoƒe si wodzra ɖo la gbɔ tso dzi yi gɔme. Zi ama-dzraɖonu dzi be nàtrɔe. Nukɔkɔ, hemama, nɔnɔmetɔtrɔ alo ama ƒe mɔ trɔtrɔ dea ama-dzraɖonuwo ƒe ha la anyi; Gbugbɔ megbe gbugbɔa eɖo.
+filter_stack.eligibility = Ama-dzraɖonu siwo ate ŋu awɔ dɔ le wo ɖokui si koe le xexlẽdzesi sia me. Ama-dzraɖonu si hiã mapi, mɔ, megbenɔnɔ alo dzeɖoɖo bubu la womate ŋu adzrae ɖo le ha me o.
+filter_stack.unavailable = Tia pixel ƒe akpa si womebla o alo nunya-nu be nàtrɔ eƒe ama-dzraɖonuwo ƒe ha.
+filter_stack.render_failed = Womete ŋu ta ama-dzraɖonuwo ƒe ha la o. Eƒe dzɔtsoƒe kple ɖoɖo siwo wodzra ɖo la metrɔ o.
+filter_stack.edit_history = Trɔ ama-dzraɖonuwo ƒe ha
+filter_stack.bake_history = De ama-dzraɖonuwo ƒe ha la anyi
+filter_stack.updated = Wowɔ ama-dzraɖonuwo ƒe ha la yeyee
+filter_stack.missing = Ama-dzraɖonu meli o: {id}

@@ -1,0 +1,17 @@
+# Izitaki zezihluzi ezihlelekayo.
+filter_stack.title = Isitaki sezihluzi
+filter_stack.add = Yongeza isihluzi
+filter_stack.enable = Vumela
+filter_stack.disable = Khubaza
+filter_stack.up = Phezulu
+filter_stack.down = Ezantsi
+filter_stack.remove = Susa
+filter_stack.bake = Qinisa isitaki
+filter_stack.note = Iziphumo zisebenza zisuka kumthombo ogciniweyo, ukusuka phezulu ukuya ezantsi. Cofa isihluzi ukuze usihlele. Ukupeyinta, ukuhambisa, ukuguqula okanye ukutshintsha imo yombala kuqinisa isitaki; Hlehlisa ukusibuyisela.
+filter_stack.eligibility = Kudweliswe izihluzi ezizimeleyo kuphela. Izihluzi ezifuna imephu, indlela, imvelaphi okanye ibhokisi yencoko yangaphandle azinakugcinwa kwisitaki.
+filter_stack.unavailable = Khetha umaleko weepikseli ongatshixwanga okanye into ekrelekrele ukuze uhlele isitaki sayo sezihluzi.
+filter_stack.render_failed = Isitaki sezihluzi asikwazanga kuveliswa. Umthombo waso nezicwangciso ezigciniweyo azitshintshanga.
+filter_stack.edit_history = Hlela isitaki sezihluzi
+filter_stack.bake_history = Qinisa isitaki sezihluzi
+filter_stack.updated = Isitaki sezihluzi sihlaziyiwe
+filter_stack.missing = Isihluzi esingafumanekiyo: {id}

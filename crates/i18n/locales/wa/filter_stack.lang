@@ -1,0 +1,17 @@
+# Piles di passetes candjåves.
+filter_stack.title = Pile di passetes
+filter_stack.add = Radjouter ene passete
+filter_stack.enable = Mete en alaedje
+filter_stack.disable = Dismete
+filter_stack.up = Al copete
+filter_stack.down = Al valêye
+filter_stack.remove = Oister
+filter_stack.bake = Rafirmer l' pile
+filter_stack.note = Les efets sont aplics a pårti del sourdant wårdêye, del copete al valêye. Clitchîz so ene passete pol candjî. Ponde, bodjî, candjî l' cogne ou l' môde di coleur rafirme li pile; Disfé l' rapexhe.
+filter_stack.eligibility = Seulmint les passetes k' si polèt fé totes seules sont el djivêye. Les passetes k' ont dandjî d' ene mape, d' on tchimin, d' on fond ou d' on purnea d' divize di foû ni polèt nén esse schapêyes dins ene pile.
+filter_stack.unavailable = Tchoezixhoz ene coûtche di picsels nén aclawêye ou on cayet malén po candjî si pile di passetes.
+filter_stack.render_failed = Li pile di passetes n' a nén savou esse rindowe. Si sourdant eyet ses apontiaedjes schapés n' ont nén candjî.
+filter_stack.edit_history = Candjî l' pile di passetes
+filter_stack.bake_history = Rafirmer l' pile di passetes
+filter_stack.updated = Pile di passetes metowe a djoû
+filter_stack.missing = Passete nén disponibe: {id}

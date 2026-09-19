@@ -1,0 +1,17 @@
+# Upraviteľné zásobníky filtrov.
+filter_stack.title = Zásobník filtrov
+filter_stack.add = Pridať filter
+filter_stack.enable = Povoliť
+filter_stack.disable = Zakázať
+filter_stack.up = Nahor
+filter_stack.down = Nadol
+filter_stack.remove = Odobrať
+filter_stack.bake = Zlúčiť zásobník
+filter_stack.note = Efekty sa vykonávajú zo zachovaného zdroja zhora nadol. Kliknutím na filter ho upravíte. Maľovanie, presúvanie, transformácia alebo zmena farebného režimu zlúči zásobník s obrazom; príkaz Späť ho obnoví.
+filter_stack.eligibility = Zobrazené sú iba samostatné filtre. Filtre, ktoré potrebujú mapu, cestu, pozadie alebo externé dialógové okno, sa nedajú uložiť do zásobníka.
+filter_stack.unavailable = Ak chcete upraviť zásobník filtrov, vyberte odomknutú pixelovú vrstvu alebo inteligentný objekt.
+filter_stack.render_failed = Zásobník filtrov sa nepodarilo vykresliť. Jeho zdroj a uložené nastavenia zostali nezmenené.
+filter_stack.edit_history = Upraviť zásobník filtrov
+filter_stack.bake_history = Zlúčiť zásobník filtrov
+filter_stack.updated = Zásobník filtrov bol aktualizovaný
+filter_stack.missing = Nedostupný filter: {id}

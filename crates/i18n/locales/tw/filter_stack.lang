@@ -1,0 +1,17 @@
+# Filter ahodoɔ a wɔahyehyɛ na wobetumi asesa.
+filter_stack.title = Filter Nhyehyɛe
+filter_stack.add = Fa Filter Ka Ho
+filter_stack.enable = Ma Ɛnyɛ Adwuma
+filter_stack.disable = Gyae Ne Dwumadi
+filter_stack.up = Kɔ Soro
+filter_stack.down = Kɔ Fam
+filter_stack.remove = Yi Fi Hɔ
+filter_stack.bake = Fa Nea Efi Nhyehyɛe No Mu Si Hɔ
+filter_stack.note = Effect ahodoɔ no fi fibea a wɔakora no so di dwuma fi soro kɔ fam. Mia filter bi so na sesa no. Sɛ wode paint, tu, transform, anaa sesa kɔla mode a, ɛde nea filter nhyehyɛe no ama no si hɔ na ɛtow nhyehyɛe a wobetumi asesa no gu; San Nea Woayɛ No Akyi de no ba bio.
+filter_stack.eligibility = Filter a enhia ade foforo nkutoo na wɔakyerɛ. Filter a ehia map, kwan, akyi mfonini, anaa dialog foforo no, wɔrentumi nkora wɔ nhyehyɛe mu.
+filter_stack.unavailable = Paw pixel layer anaa smart object a wɔntoo mu na woasesa ne filter nhyehyɛe.
+filter_stack.render_failed = Wɔantumi anyɛ filter nhyehyɛe no mfonini. Wɔansesa ne fibea ne nhyehyɛe a wɔakora no.
+filter_stack.edit_history = Sesa Filter Nhyehyɛe
+filter_stack.bake_history = Fa Filter Nhyehyɛe No Aba Si Hɔ
+filter_stack.updated = Wɔasesa filter nhyehyɛe no
+filter_stack.missing = Filter nni hɔ: {id}

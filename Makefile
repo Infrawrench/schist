@@ -485,6 +485,19 @@ smoke-library: library
 lint-library:
 	CARGO='$(CARGO)' ./tools/library-cargo.sh clippy --lib --tests -- -D warnings
 
+# Editable filter recipe rendering, native source preservation and persistence.
+.PHONY: check-filter-stacks
+check-filter-stacks:
+	$(CARGO) test -p schist-core --test filter_stacks
+	$(CARGO) test -p schist-plugin-api filter_stack
+	$(CARGO) test -p schist-codec-psd --test filter_stacks
+	$(CARGO) test -p schist-document filter_stack
+	$(CARGO) test -p schist-editor --lib filter_stack
+
+.PHONY: format-filter-stacks
+format-filter-stacks:
+	$(CARGO) fmt -p schist-core -p schist-plugin-api -p schist-codec-psd -p schist-document -p schist-editor
+
 # Multi-output export recipes: real codecs, naming, persistence and source preservation.
 .PHONY: check-export-recipes
 check-export-recipes:

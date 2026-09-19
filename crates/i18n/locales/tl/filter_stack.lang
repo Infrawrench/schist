@@ -1,0 +1,17 @@
+# Mga nae-edit na stack ng filter.
+filter_stack.title = Stack ng filter
+filter_stack.add = Magdagdag ng filter
+filter_stack.enable = I-enable
+filter_stack.disable = I-disable
+filter_stack.up = Pataas
+filter_stack.down = Pababa
+filter_stack.remove = Alisin
+filter_stack.bake = Ilapat nang permanente ang stack
+filter_stack.note = Inilalapat ang mga effect mula sa pinanatiling source, mula itaas pababa. I-click ang filter upang i-edit. Permanenteng ilalapat ng pagpinta, paglipat, pag-transform, o pagbabago ng mode ng kulay ang stack; maibabalik ito ng I-undo.
+filter_stack.eligibility = Mga filter na kumpleto sa sarili lamang ang nakalista. Hindi maaaring i-save sa stack ang mga filter na nangangailangan ng map, path, backdrop, o panlabas na dialog.
+filter_stack.unavailable = Pumili ng naka-unlock na pixel layer o smart object upang i-edit ang stack ng filter nito.
+filter_stack.render_failed = Hindi ma-render ang stack ng filter. Hindi nabago ang source at mga naka-save na setting nito.
+filter_stack.edit_history = I-edit ang stack ng filter
+filter_stack.bake_history = Ilapat nang permanente ang stack ng filter
+filter_stack.updated = Na-update ang stack ng filter
+filter_stack.missing = Hindi available na filter: {id}

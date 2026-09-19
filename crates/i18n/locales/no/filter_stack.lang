@@ -1,0 +1,17 @@
+# Redigerbare filterstabler.
+filter_stack.title = Filterstabel
+filter_stack.add = Legg til filter
+filter_stack.enable = Aktiver
+filter_stack.disable = Deaktiver
+filter_stack.up = Opp
+filter_stack.down = Ned
+filter_stack.remove = Fjern
+filter_stack.bake = Bruk filterstabel permanent
+filter_stack.note = Effektene kjøres på den bevarte kilden, fra øverst til nederst. Klikk på et filter for å redigere det. Maling, flytting, transformering eller endring av fargemodus bruker stabelen permanent. Angre gjenoppretter den.
+filter_stack.eligibility = Bare selvstendige filtre vises. Filtre som trenger et kart, en bane, et bakteppe eller en ekstern dialog, kan ikke lagres i en stabel.
+filter_stack.unavailable = Velg et ulåst bildepunktlag eller smartobjekt for å redigere filterstabelen.
+filter_stack.render_failed = Filterstabelen kunne ikke gjengis. Kilden og de lagrede innstillingene er uendret.
+filter_stack.edit_history = Rediger filterstabel
+filter_stack.bake_history = Bruk filterstabel permanent
+filter_stack.updated = Filterstabelen ble oppdatert
+filter_stack.missing = Utilgjengelig filter: {id}

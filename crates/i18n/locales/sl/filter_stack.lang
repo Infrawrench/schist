@@ -1,0 +1,17 @@
+# Uredljivi skladi filtrov.
+filter_stack.title = Sklad filtrov
+filter_stack.add = Dodaj filter
+filter_stack.enable = Omogoči
+filter_stack.disable = Onemogoči
+filter_stack.up = Navzgor
+filter_stack.down = Navzdol
+filter_stack.remove = Odstrani
+filter_stack.bake = Uveljavi sklad na sliki
+filter_stack.note = Učinki se izvajajo od vrha proti dnu na podlagi ohranjenega vira. Kliknite filter, da ga uredite. Slikanje, premikanje, preoblikovanje ali spreminjanje barvnega načina uveljavi sklad na sliki; ukaz Razveljavi ga obnovi.
+filter_stack.eligibility = Navedeni so samo samostojni filtri. Filtrov, ki potrebujejo preslikavo, pot, ozadje ali zunanje pogovorno okno, ni mogoče shraniti v sklad.
+filter_stack.unavailable = Za urejanje sklada filtrov izberite odklenjeno plast slikovnih pik ali pametni predmet.
+filter_stack.render_failed = Sklada filtrov ni bilo mogoče izrisati. Njegov vir in shranjene nastavitve so nespremenjeni.
+filter_stack.edit_history = Urejanje sklada filtrov
+filter_stack.bake_history = Uveljavitev sklada filtrov na sliki
+filter_stack.updated = Sklad filtrov je posodobljen
+filter_stack.missing = Filter ni na voljo: {id}

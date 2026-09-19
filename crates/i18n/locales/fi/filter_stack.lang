@@ -1,0 +1,17 @@
+# Muokattavat suodinpinot.
+filter_stack.title = Suodinpino
+filter_stack.add = Lisää suodin
+filter_stack.enable = Ota käyttöön
+filter_stack.disable = Poista käytöstä
+filter_stack.up = Ylös
+filter_stack.down = Alas
+filter_stack.remove = Poista
+filter_stack.bake = Vahvista suodinpino
+filter_stack.note = Tehosteet suoritetaan säilytetystä lähteestä ylhäältä alas. Muokkaa suodinta napsauttamalla sitä. Maalaaminen, siirtäminen, muuntaminen tai väritilan vaihtaminen vahvistaa pinon hahmonnetun ulkoasun. Kumoa-toiminto palauttaa pinon.
+filter_stack.eligibility = Luettelossa näkyvät vain itsenäiset suotimet. Karttaa, polkua, taustaa tai ulkoista valintaikkunaa tarvitsevia suotimia ei voi tallentaa pinoon.
+filter_stack.unavailable = Muokkaa suodinpinoa valitsemalla lukitsematon pikselitaso tai älyobjekti.
+filter_stack.render_failed = Suodinpinoa ei voitu hahmontaa. Sen lähde ja tallennetut asetukset eivät muuttuneet.
+filter_stack.edit_history = Muokkaa suodinpinoa
+filter_stack.bake_history = Vahvista suodinpino
+filter_stack.updated = Suodinpino päivitetty
+filter_stack.missing = Suodin ei ole saatavilla: {id}

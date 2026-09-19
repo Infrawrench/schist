@@ -1,0 +1,17 @@
+# Beaarbechtbar Filterstapelen.
+filter_stack.title = Filterstapel
+filter_stack.add = Filter dobäisetzen
+filter_stack.enable = Aktivéieren
+filter_stack.disable = Desaktivéieren
+filter_stack.up = Erop
+filter_stack.down = Erof
+filter_stack.remove = Ewechhuelen
+filter_stack.bake = Stapel fixéieren
+filter_stack.note = D'Effekter lafen op der erhalener Quell vun uewen no ënnen. Klickt op e Filter, fir en z'änneren. Molen, verréckelen, transforméieren oder de Faarfmodus änneren fixéiert de Stapel; Réckgängeg maachen restauréiert en.
+filter_stack.eligibility = Nëmme selbstänneg Filtere ginn opgelëscht. Filteren, déi eng Kaart, e Pad, en Hannergrond oder en externen Dialog brauchen, kënnen net an engem Stapel gespäichert ginn.
+filter_stack.unavailable = Wielt eng opgespaart Pixeleben oder e Smartobjekt, fir säi Filterstapel z'änneren.
+filter_stack.render_failed = De Filterstapel konnt net gerendert ginn. Seng Quell a gespäichert Astellunge sinn onverännert.
+filter_stack.edit_history = Filterstapel änneren
+filter_stack.bake_history = Filterstapel fixéieren
+filter_stack.updated = Filterstapel aktualiséiert
+filter_stack.missing = Net disponibele Filter: {id}

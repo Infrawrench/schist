@@ -1,0 +1,17 @@
+# Pile di filtri mudifichevule.
+filter_stack.title = Pila di filtri
+filter_stack.add = Aghjunghje un filtru
+filter_stack.enable = Attivà
+filter_stack.disable = Disattivà
+filter_stack.up = In sù
+filter_stack.down = In ghjò
+filter_stack.remove = Caccià
+filter_stack.bake = Fissà a pila
+filter_stack.note = L'effetti sò appiecati à a surghjente cunservata, da l'altu à u bassu. Cliccate nant'à un filtru per mudificallu. Pitturà, spustà, trasfurmà o cambià u modu di culore fissa a pila; Annullà a ristabilisce.
+filter_stack.eligibility = Solu i filtri autunomi sò elencati. I filtri chì richiedenu una carta, un chjassu, un fondu o una finestra esterna ùn ponu esse arregistrati in una pila.
+filter_stack.unavailable = Selezziunate un stratu di pixel micca chjosu o un ogettu intelligente per mudificà a so pila di filtri.
+filter_stack.render_failed = A pila di filtri ùn hà pussutu esse resa. A so surghjente è i parametri arregistrati ùn sò micca cambiati.
+filter_stack.edit_history = Mudificà a pila di filtri
+filter_stack.bake_history = Fissà a pila di filtri
+filter_stack.updated = Pila di filtri aghjurnata
+filter_stack.missing = Filtru indisponibile: {id}

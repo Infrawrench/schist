@@ -12,6 +12,7 @@ use schist_core::{Document, IntRect};
 
 pub use registry::{PluginManifest, PluginRegistry};
 
+pub mod filter_stack;
 mod native;
 pub mod registry;
 pub use native::NativeFilterBuffer;

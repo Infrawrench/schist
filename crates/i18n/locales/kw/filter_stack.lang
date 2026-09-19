@@ -1,0 +1,17 @@
+# Bern hidlennow golygyadow.
+filter_stack.title = Bern hidlennow
+filter_stack.add = Keworra hidlen
+filter_stack.enable = Gallosegi
+filter_stack.disable = Diallosegi
+filter_stack.up = Yn-bann
+filter_stack.down = Yn-nans
+filter_stack.remove = Dilea
+filter_stack.bake = Sefydhhe an bern
+filter_stack.note = An effeithiau a wra oberi dhyworth an fenten wityes, dhyworth an gwartha dhe'n goles. Klyckya war hidlen rag hy golygya. Peveryans, gwayans, treusfurvyans, po chanjya an ford liw a wra sefydhhe an bern; Digelmi a'y daskor.
+filter_stack.eligibility = Hidlennow dien ynno aga honan hepken a restrir. Hidlennow ow res aga mappa, hyns, kilndir, po kestella ekstern ny yllir aga gwitha y'n bern.
+filter_stack.unavailable = Dewis gwisk piksellow diglos po tra fur rag golygya y vern hidlennow.
+filter_stack.render_failed = Ny yllir rendra an bern hidlennow. Digemmys yw y fenten ha'y settyansow sawys.
+filter_stack.edit_history = Golygya bern hidlennow
+filter_stack.bake_history = Sefydhhe bern hidlennow
+filter_stack.updated = Nowedhys yw an bern hidlennow
+filter_stack.missing = Hidlen ankavadow: {id}

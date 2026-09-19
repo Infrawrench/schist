@@ -1,0 +1,17 @@
+# Xirmooyinka shaandhaynta ee la tafatiri karo.
+filter_stack.title = Xirmada shaandhaynta
+filter_stack.add = Ku dar shaandheeye
+filter_stack.enable = Daar
+filter_stack.disable = Demi
+filter_stack.up = Kor
+filter_stack.down = Hoos
+filter_stack.remove = Ka saar
+filter_stack.bake = Muuqaalka xirmada sug
+filter_stack.note = Saamayntu waxay ka bilaabataa isha la xafiday, kor ilaa hoos. Guji shaandheeye si aad u tafatirto. Rinjiyeynta, raridda, beddelidda qaabka, ama beddelidda habka midabku waxay sugaan muuqaalka xirmada oo ka saaraan habaynteeda la tafatiri karo; Ka-noqosho ayaa soo celisa.
+filter_stack.eligibility = Keliya shaandheeyayaasha iskood u dhammaystiran ayaa la taxaa. Shaandheeyayaasha u baahan khariidad, waddo, muuqaal-dambe, ama sanduuq wada-hadal dibadeed laguma kaydin karo xirmo.
+filter_stack.unavailable = Dooro lakab biksal ah ama shay caqli badan oo aan qufulnayn si aad u tafatirto xirmadiisa shaandhaynta.
+filter_stack.render_failed = Xirmada shaandhaynta lama samayn karin. Isheeda iyo dejimaha la kaydiyey isma beddelin.
+filter_stack.edit_history = Tafatir xirmada shaandhaynta
+filter_stack.bake_history = Sug muuqaalka xirmada shaandhaynta
+filter_stack.updated = Xirmada shaandhaynta waa la cusboonaysiiyey
+filter_stack.missing = Shaandheeye aan la heli karin: {id}

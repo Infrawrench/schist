@@ -1,0 +1,17 @@
+# Izitaki zezihlungi ezihlelekayo.
+filter_stack.title = Isitaki sezihlungi
+filter_stack.add = Engeza isihlungi
+filter_stack.enable = Nika amandla
+filter_stack.disable = Khubaza
+filter_stack.up = Phezulu
+filter_stack.down = Phansi
+filter_stack.remove = Khipha
+filter_stack.bake = Qinisa isitaki
+filter_stack.note = Imiphumela isebenza isuka emthonjeni ogciniwe, kusuka phezulu kuye phansi. Chofoza isihlungi ukuze usihlele. Ukupenda, ukuhambisa, ukuguqula noma ukushintsha imodi yombala kuqinisa isitaki; Hlehlisa ukusibuyisela.
+filter_stack.eligibility = Kubalwa izihlungi ezizimele kuphela. Izihlungi ezidinga imephu, indlela, ingemuva noma ibhokisi langaphandle azikwazi ukulondolozwa esitakini.
+filter_stack.unavailable = Khetha isendlalelo samaphikseli esingakhiyiwe noma into ehlakaniphile ukuze uhlele isitaki sayo sezihlungi.
+filter_stack.render_failed = Isitaki sezihlungi asikwazanga ukunikezwa. Umthombo nezilungiselelo ezilondoloziwe akushintshile.
+filter_stack.edit_history = Hlela isitaki sezihlungi
+filter_stack.bake_history = Qinisa isitaki sezihlungi
+filter_stack.updated = Isitaki sezihlungi sibuyekeziwe
+filter_stack.missing = Isihlungi esingatholakali: {id}

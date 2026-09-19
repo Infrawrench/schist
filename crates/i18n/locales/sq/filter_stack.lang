@@ -1,0 +1,17 @@
+# Pirgjet e filtrave të redaktueshëm.
+filter_stack.title = Pirgu i filtrave
+filter_stack.add = Shto filtër
+filter_stack.enable = Aktivizo
+filter_stack.disable = Çaktivizo
+filter_stack.up = Lart
+filter_stack.down = Poshtë
+filter_stack.remove = Hiq
+filter_stack.bake = Fikso pirgun
+filter_stack.note = Efektet zbatohen mbi burimin e ruajtur, nga lart poshtë. Klikoni një filtër për ta redaktuar. Pikturimi, zhvendosja, transformimi ose ndryshimi i modalitetit të ngjyrave e fikson pirgun; Zhbërja e rikthen atë.
+filter_stack.eligibility = Shfaqen vetëm filtrat e pavarur. Filtrat që kërkojnë një hartë, shteg, sfond ose dialog të jashtëm nuk mund të ruhen në një pirg.
+filter_stack.unavailable = Zgjidhni një shtresë pikselësh të shkyçur ose objekt inteligjent për të redaktuar pirgun e filtrave të tij.
+filter_stack.render_failed = Pirgu i filtrave nuk mund të përpunohej. Burimi dhe cilësimet e ruajtura të tij nuk kanë ndryshuar.
+filter_stack.edit_history = Redakto pirgun e filtrave
+filter_stack.bake_history = Fikso pirgun e filtrave
+filter_stack.updated = Pirgu i filtrave u përditësua
+filter_stack.missing = Filtri nuk ofrohet: {id}

@@ -171,6 +171,7 @@ impl Workspace {
     /// Park the active document, view transform and all, back into the
     /// tab list at its current position.
     pub(super) fn stash_active_tab(&mut self) {
+        self.discard_stack_filter_for_document_change();
         if let Some(doc) = self.doc.take() {
             let at = self.active_tab.min(self.background_tabs.len());
             self.background_tabs.insert(
@@ -214,6 +215,7 @@ impl Workspace {
             self.retired_images.push(old);
         }
         self.filter_preview = None;
+        self.stack_filter_session = None;
         self.dragging_guide = None;
     }
 
@@ -790,6 +792,10 @@ impl Workspace {
                 )
             )
         })?;
+        // Saving while a stack dialog is open uses its last committed layer,
+        // keeping the rendered raster coherent with the saved source/recipe.
+        let committed = self.filter_stack_saved_document(doc);
+        let doc = committed.as_ref().unwrap_or(doc);
         let bytes = codec.export(doc)?;
         // Write to a sibling temp file and rename, so an interrupted save
         // can't truncate the user's existing file.

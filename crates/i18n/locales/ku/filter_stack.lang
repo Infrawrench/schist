@@ -1,0 +1,16 @@
+filter_stack.title = Koma fîltreyê
+filter_stack.add = Fîltre zêde bike
+filter_stack.enable = Çalak bike
+filter_stack.disable = Neçalak bike
+filter_stack.up = Jor
+filter_stack.down = Jêr
+filter_stack.remove = Rake
+filter_stack.bake = Komê sabit bike
+filter_stack.note = Efekt li ser çavkaniya parastî ji jor ber bi jêr ve tên sepandin. Ji bo sererastkirinê li fîltreyekê bitikînin. Boyaxkirin, livandin, veguherandin an guhertina moda rengê komê sabit dike; Vegerandin wê vedigerîne.
+filter_stack.eligibility = Tenê fîltreyên serbixwe têne lîstekirin. Fîltreyên ku nexşe, rêç, paşxane an diyalogeke derveyî dixwazin nikarin di komekê de bên tomarkirin.
+filter_stack.unavailable = Ji bo sererastkirina koma fîltreyê layerê pîkselî an tiştekî jîr ê kilîdvekirî hilbijêrin.
+filter_stack.render_failed = Koma fîltreyê nehat renderkirin. Çavkanî û mîhengên wê yên tomarkirî neguherîne.
+filter_stack.edit_history = Koma fîltreyê sererast bike
+filter_stack.bake_history = Koma fîltreyê sabit bike
+filter_stack.updated = Koma fîltreyê hate rojanekirin
+filter_stack.missing = Fîltre ne berdest e: {id}

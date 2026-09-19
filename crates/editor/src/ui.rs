@@ -399,7 +399,18 @@ pub fn dropdown<T: Clone + PartialEq + 'static>(
     on_select: impl Fn(&mut Workspace, T, &mut Context<Workspace>) + Clone + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    dropdown_impl(scroll, spec, false, on_select, cx)
+    dropdown_impl(scroll, spec, false, false, on_select, cx)
+}
+
+/// A panel dropdown that opens above and aligns to the right, keeping long
+/// names and the list inside a sidebar near the bottom of the window.
+pub fn dropdown_above<T: Clone + PartialEq + 'static>(
+    scroll: &DropdownState,
+    spec: Dropdown<T>,
+    on_select: impl Fn(&mut Workspace, T, &mut Context<Workspace>) + Clone + 'static,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
+    dropdown_impl(scroll, spec, false, true, on_select, cx)
 }
 
 /// A [`dropdown`] whose rows are each set in the typeface they name, the
@@ -411,13 +422,14 @@ pub fn font_dropdown<T: Clone + PartialEq + 'static>(
     on_select: impl Fn(&mut Workspace, T, &mut Context<Workspace>) + Clone + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    dropdown_impl(scroll, spec, true, on_select, cx)
+    dropdown_impl(scroll, spec, true, false, on_select, cx)
 }
 
 fn dropdown_impl<T: Clone + PartialEq + 'static>(
     scroll: &DropdownState,
     spec: Dropdown<T>,
     preview_fonts: bool,
+    above: bool,
     on_select: impl Fn(&mut Workspace, T, &mut Context<Workspace>) + Clone + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
@@ -495,9 +507,9 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
             .collect();
         root = root.child(gpui::deferred(
             Popover::new("dropdown-items")
-                .top(px(22.0))
-                .left_0()
-                .w(px(width.max(140.0)))
+                .when(above, |p| p.bottom(px(24.0)).right_0())
+                .when(!above, |p| p.top(px(22.0)).left_0())
+                .w(px(width.max(if above { 260.0 } else { 140.0 })))
                 .max_h(px(300.0))
                 .track_scroll(&scroll.handle)
                 .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)))

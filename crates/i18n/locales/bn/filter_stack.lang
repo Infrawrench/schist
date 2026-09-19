@@ -1,0 +1,17 @@
+# Editable filter stacks.
+filter_stack.title = ফিল্টার স্ট্যাক
+filter_stack.add = ফিল্টার যোগ করুন
+filter_stack.enable = সক্ষম করুন
+filter_stack.disable = অক্ষম করুন
+filter_stack.up = উপরে
+filter_stack.down = নিচে
+filter_stack.remove = সরান
+filter_stack.bake = স্ট্যাক স্থায়ী করুন
+filter_stack.note = সংরক্ষিত উৎসে ওপর থেকে নিচ পর্যন্ত প্রভাবগুলি চলে। সম্পাদনা করতে কোনো ফিল্টারে ক্লিক করুন। আঁকা, সরানো, রূপান্তর বা রং মোড বদলালে স্ট্যাকটি স্থায়ী হয়; পূর্বাবস্থায় ফেরালে এটি পুনরুদ্ধার হয়।
+filter_stack.eligibility = কেবল স্বয়ংসম্পূর্ণ ফিল্টারগুলি দেখানো হয়েছে। ম্যাপ, পাথ, পটভূমি বা বাহ্যিক সংলাপ লাগে এমন ফিল্টার স্ট্যাকে সংরক্ষণ করা যায় না।
+filter_stack.unavailable = ফিল্টার স্ট্যাক সম্পাদনা করতে একটি আনলক করা পিক্সেল স্তর বা স্মার্ট অবজেক্ট নির্বাচন করুন।
+filter_stack.render_failed = ফিল্টার স্ট্যাক রেন্ডার করা যায়নি। এর উৎস ও সংরক্ষিত সেটিংস অপরিবর্তিত আছে।
+filter_stack.edit_history = ফিল্টার স্ট্যাক সম্পাদনা
+filter_stack.bake_history = ফিল্টার স্ট্যাক স্থায়ী করুন
+filter_stack.updated = ফিল্টার স্ট্যাক আপডেট হয়েছে
+filter_stack.missing = অনুপলব্ধ ফিল্টার: {id}

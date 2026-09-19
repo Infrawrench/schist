@@ -210,6 +210,11 @@ impl EditOp {
         let tile = |t: &Option<Arc<TileBuf>>| t.as_ref().map_or(0, |t| t.byte_len());
         match self {
             EditOp::TileWrite { before, after, .. } => tile(before) + tile(after),
+            EditOp::LayerExtrasSet { before, after, .. } => before
+                .iter()
+                .chain(after.iter())
+                .map(|b| b.data.len())
+                .sum(),
             EditOp::MaskTileWrite { before, after, .. } => {
                 (before.is_some() as usize + after.is_some() as usize) * TILE_PIXELS
             }
