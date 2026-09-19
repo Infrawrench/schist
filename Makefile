@@ -549,13 +549,14 @@ check-live-stack-gpu:
 format-live-stack-gpu:
 	$(CARGO) fmt -p schist-compositor-gpu
 
-.PHONY: check-smart-objects test-smart-objects
+.PHONY: check-smart-objects test-smart-objects test-smart-object-model
 check-smart-objects:
 	$(CARGO) check -p schist-editor --all-targets
-test-smart-objects:
+test-smart-object-model:
 	$(CARGO) test -p schist-core --test smart_sources
 	$(CARGO) test -p schist-codec-psd --test smart_sources
 	$(CARGO) test -p schist-codec-psd --test writer smart
 	$(CARGO) test -p schist-codec-psd --lib smart::tests
 	$(CARGO) test -p schist-document --test smart_sources
+test-smart-objects: test-smart-object-model
 	$(CARGO) test -p schist-editor smart_objects::tests

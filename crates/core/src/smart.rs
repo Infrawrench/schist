@@ -7,9 +7,9 @@
 //! to an ordinary layer would leave you with a tenth of the detail
 //! resampled up.
 //!
-//! Photoshop's version can also embed a whole nested document; this embeds
-//! a raster, which covers what the feature is actually used for and is what
-//! `Convert to Smart Object` produces.
+//! The raster here is the placement cache. Editable nested documents and
+//! optional filesystem links are carried by [`crate::smart_source::SmartSource`]
+//! in a private layer block, so those sources survive saves and shared history.
 
 use crate::geom::IntRect;
 use crate::resample::{Affine, Filter};
