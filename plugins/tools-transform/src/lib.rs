@@ -429,11 +429,13 @@ pub fn replay_transform(doc: &mut Document, params: schist_plugin_api::ActionTra
     } else {
         TransformMode::Layer
     });
-    let mut state = EditorState::default();
-    state.resample = match params.interpolation {
-        0 => Filter::Nearest,
-        1 => Filter::Bilinear,
-        _ => Filter::Bicubic,
+    let mut state = EditorState {
+        resample: match params.interpolation {
+            0 => Filter::Nearest,
+            1 => Filter::Bilinear,
+            _ => Filter::Bicubic,
+        },
+        ..Default::default()
     };
     let mut ctx = ToolCtx {
         doc,
