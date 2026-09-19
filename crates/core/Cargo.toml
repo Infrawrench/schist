@@ -16,6 +16,7 @@ smallvec.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 log.workspace = true
+miniz_oxide.workspace = true
 
 [dependencies.getrandom]
 version = "0.3"

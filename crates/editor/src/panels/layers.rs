@@ -133,6 +133,7 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
         .border_t_1()
         .border_color(gpui::rgb(palette().panel_edge))
         .child(panel_title(t("common.layers")))
+        .child(crate::workspace::filter_stack::panel(ws, cx))
         .child(
             div()
                 .flex()

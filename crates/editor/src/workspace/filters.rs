@@ -147,7 +147,8 @@ impl Workspace {
     /// Whether Camera Raw means re-developing the active layer's original
     /// capture rather than destructively filtering its current pixels.
     pub(crate) fn is_raw_redevelopment(&self, id: &str) -> bool {
-        id == CAMERA_RAW_FILTER
+        self.stack_filter_session.is_none()
+            && id == CAMERA_RAW_FILTER
             && self
                 .doc
                 .as_ref()
@@ -735,6 +736,10 @@ impl Workspace {
         values: Option<&schist_plugin_api::FilterValues>,
         cx: &mut Context<Self>,
     ) {
+        if self.stack_filter_session.is_some() {
+            self.preview_stack_filter(values, cx);
+            return;
+        }
         #[cfg(target_arch = "wasm32")]
         self.cancel_browser_filter();
         let Some(preview) = self.filter_preview.clone() else {
@@ -813,6 +818,9 @@ impl Workspace {
 
     /// Drop a preview, restoring the pixels it was drawn over.
     pub fn cancel_filter_preview(&mut self, cx: &mut Context<Self>) {
+        if self.stack_filter_session.is_some() {
+            self.cancel_stack_filter(cx);
+        }
         #[cfg(target_arch = "wasm32")]
         self.cancel_browser_filter();
         self.raw_preview_seq = self.raw_preview_seq.wrapping_add(1);
@@ -829,6 +837,10 @@ impl Workspace {
         values: &schist_plugin_api::FilterValues,
         cx: &mut Context<Self>,
     ) {
+        if self.stack_filter_session.is_some() {
+            self.commit_stack_filter(values, cx);
+            return;
+        }
         #[cfg(target_arch = "wasm32")]
         self.cancel_browser_filter();
         if self.is_raw_redevelopment(id) {

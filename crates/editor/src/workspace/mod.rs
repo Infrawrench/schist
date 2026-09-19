@@ -74,6 +74,7 @@ mod viewport_frame;
 pub use video_mobile::install_ios_window_scene_fix;
 // The path prompts, and the picker drawn where the platform has none.
 pub mod file_picker;
+pub(crate) mod filter_stack;
 mod filters;
 pub(crate) mod gallery_chrome;
 mod image_ops;
@@ -307,6 +308,8 @@ pub struct Workspace {
     /// Which colour control is being dragged, if any.
     pub picker_drag: Option<PickerDrag>,
     pub filter_preview: Option<FilterPreview>,
+    pub stack_filter_session: Option<filter_stack::StackFilterSession>,
+    pub filter_stack_picker: bool,
     /// Generation of the most recently requested sensor-data preview.
     /// Slow results from an older slider position are discarded on arrival.
     raw_preview_seq: u64,
@@ -1284,6 +1287,8 @@ impl Workspace {
             curve_drag: None,
             picker_drag: None,
             filter_preview: None,
+            stack_filter_session: None,
+            filter_stack_picker: false,
             raw_preview_seq: 0,
             slider_bounds: FxHashMap::default(),
             thumbs: FxHashMap::default(),

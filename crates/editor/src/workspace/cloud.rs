@@ -1486,6 +1486,11 @@ impl Workspace {
         true
     }
     pub(crate) fn cloud_capture_edit(&mut self) {
+        // Filter-stack previews are uncommitted raster caches. Capture once
+        // the recipe and source commit together and the session is cleared.
+        if self.stack_filter_session.is_some() {
+            return;
+        }
         let Some(doc) = &self.doc else {
             return;
         };
@@ -2348,6 +2353,8 @@ impl Workspace {
             .doc
             .as_ref()
             .ok_or_else(|| anyhow!(t("cloud.upload.open_document_first")))?;
+        let committed = self.filter_stack_saved_document(doc);
+        let doc = committed.as_ref().unwrap_or(doc);
         let data = schist_codec_psd::write_psd(doc)?;
         let id = doc.id;
         let name = format!("{}.psd", doc.title.trim_end_matches(".psd"));
