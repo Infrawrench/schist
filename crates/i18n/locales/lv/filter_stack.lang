@@ -1,0 +1,17 @@
+# Rediģējamas filtru kopas.
+filter_stack.title = Filtru kopa
+filter_stack.add = Pievienot filtru
+filter_stack.enable = Iespējot
+filter_stack.disable = Atspējot
+filter_stack.up = Augšup
+filter_stack.down = Lejup
+filter_stack.remove = Noņemt
+filter_stack.bake = Fiksēt filtru kopu
+filter_stack.note = Efekti tiek lietoti saglabātajam avotam secībā no augšas uz leju. Noklikšķiniet uz filtra, lai to rediģētu. Krāsojot, pārvietojot, transformējot vai mainot krāsu režīmu, filtru kopa tiek fiksēta; darbība “Atsaukt” to atjauno.
+filter_stack.eligibility = Sarakstā ir tikai patstāvīgi filtri. Filtrus, kam nepieciešama karte, ceļš, fons vai ārējs dialoglodziņš, nevar saglabāt filtru kopā.
+filter_stack.unavailable = Atlasiet atbloķētu pikseļu slāni vai viedo objektu, lai rediģētu tā filtru kopu.
+filter_stack.render_failed = Filtru kopu neizdevās renderēt. Tās avots un saglabātie iestatījumi nav mainīti.
+filter_stack.edit_history = Rediģēt filtru kopu
+filter_stack.bake_history = Fiksēt filtru kopu
+filter_stack.updated = Filtru kopa atjaunināta
+filter_stack.missing = Nepieejams filtrs: {id}

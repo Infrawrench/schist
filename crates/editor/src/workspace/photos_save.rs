@@ -28,6 +28,8 @@ impl Workspace {
             let codec = self
                 .png_codec()
                 .ok_or_else(|| anyhow::anyhow!("{}", t("library.photos.no_png_codec")))?;
+            let committed = self.filter_stack_saved_document(doc);
+            let doc = committed.as_ref().unwrap_or(doc);
             let bytes = codec.export(doc)?;
             let dir = std::env::temp_dir().join("schist-photos");
             std::fs::create_dir_all(&dir)?;

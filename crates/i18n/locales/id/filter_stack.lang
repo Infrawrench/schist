@@ -1,0 +1,17 @@
+# Tumpukan filter yang dapat diedit.
+filter_stack.title = Tumpukan filter
+filter_stack.add = Tambahkan filter
+filter_stack.enable = Aktifkan
+filter_stack.disable = Nonaktifkan
+filter_stack.up = Naik
+filter_stack.down = Turun
+filter_stack.remove = Hapus
+filter_stack.bake = Terapkan tumpukan secara permanen
+filter_stack.note = Efek dijalankan dari sumber yang dipertahankan, dari atas ke bawah. Klik filter untuk mengeditnya. Melukis, memindahkan, mentransformasi, atau mengubah mode warna akan menerapkan tumpukan secara permanen; Urungkan akan memulihkannya.
+filter_stack.eligibility = Hanya filter mandiri yang ditampilkan. Filter yang memerlukan peta, jalur, latar belakang, atau dialog eksternal tidak dapat disimpan dalam tumpukan.
+filter_stack.unavailable = Pilih lapisan piksel atau objek pintar yang tidak terkunci untuk mengedit tumpukan filternya.
+filter_stack.render_failed = Tumpukan filter tidak dapat dirender. Sumber dan pengaturan tersimpannya tidak berubah.
+filter_stack.edit_history = Edit tumpukan filter
+filter_stack.bake_history = Terapkan tumpukan filter secara permanen
+filter_stack.updated = Tumpukan filter diperbarui
+filter_stack.missing = Filter tidak tersedia: {id}

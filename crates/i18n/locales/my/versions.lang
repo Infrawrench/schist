@@ -1,0 +1,24 @@
+# ဗားရှင်းမှတ်တမ်း။
+versions.title = ဗားရှင်းမှတ်တမ်း
+versions.open = ဗားရှင်းမှတ်တမ်း…
+versions.original = မူရင်း
+versions.current = လက်ရှိသိမ်းထားသော တည်းဖြတ်မှု
+versions.saved_at = {date} UTC တွင် သိမ်းခဲ့သည်
+versions.saved_sequence = {date} UTC တွင် သိမ်းခဲ့သည် ({n})
+versions.loading = အစမ်းကြည့်ရှုမှု ဖွင့်နေသည်…
+versions.preview_failed = အစမ်းကြည့်ရှု၍ မရပါ။ မိတ္တူတစ်ခု ဖွင့်ရန် ကြိုးစားနိုင်သေးသည်။
+versions.drag_hint = ဘယ်ဘက်ရှိ မူရင်းနှင့် ညာဘက်ရှိ ရွေးထားသောဗားရှင်းကို နှိုင်းယှဉ်ရန် ပိုင်းခြားမျဉ်းကို ဆွဲပါ။
+versions.no_saved = သိမ်းထားသော တည်းဖြတ်မှု မရှိသေးပါ။ သိမ်းသည့်အခါတိုင်း ယခင်တည်းဖြတ်မှုကို ဤနေရာတွင် ထိန်းထားမည်။
+versions.copy_hint = ပြန်ယူခြင်းသည် အလွှာများပါသည့် မသိမ်းရသေးသော စာရွက်စာတမ်းအသစ်ကို ဖွင့်ပေးသည်။ မိတ္တူကို နေရာအသစ်တွင် သိမ်းပါ။
+versions.restore = မိတ္တူအဖြစ် ပြန်ယူရန်
+versions.restoring = မိတ္တူ ဖွင့်နေသည်…
+versions.restored = ဗားရှင်းကို မသိမ်းရသေးသော မိတ္တူအဖြစ် ဖွင့်ပြီးပါပြီ။
+versions.copy_title = {name} — ပြန်ယူထားသော မိတ္တူ
+versions.restore_failed = ဤဗားရှင်းကို ဖွင့်၍ မရပါ: {error}
+versions.read_failed = ဗားရှင်းမှတ်တမ်းကို ဖတ်၍ မရပါ: {error}
+versions.close = ပိတ်ရန်
+versions.previous = ပိုသစ်သော ဗားရှင်းများ
+versions.next = ပိုဟောင်းသော ဗားရှင်းများ
+versions.page = စာမျက်နှာ {n} / {total}
+versions.preserve_failed = ယခင်တည်းဖြတ်မှုကို ထိန်းသိမ်း၍ မရသောကြောင့် သိမ်းခြင်းကို ပယ်ဖျက်ခဲ့သည်: {error}
+versions.revert_failed = တည်းဖြတ်မှုအားလုံးကို ထိန်းသိမ်း၍ မရပါ။ မူလအတိုင်း ပြန်ထားသော ဓာတ်ပုံများ: {n}။ {error}

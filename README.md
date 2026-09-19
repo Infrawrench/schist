@@ -454,6 +454,7 @@ already logged into. See [docs/ai-panel.md](docs/ai-panel.md).
 * [docs/mask-refinement.md](docs/mask-refinement.md) — refine selection edges and layer masks
 * [docs/plugin-guide.md](docs/plugin-guide.md) — writing plugins
 * [docs/text.md](docs/text.md) — OpenType controls and text on paths
+* [docs/filter-stacks.md](docs/filter-stacks.md) — editable filters and preserved source pixels
 * [docs/mcp.md](docs/mcp.md) — the MCP server
 * [docs/ai-panel.md](docs/ai-panel.md) — the in-app AI sidebar
 * [docs/quicklook.md](docs/quicklook.md) — the macOS Quick Look extensions

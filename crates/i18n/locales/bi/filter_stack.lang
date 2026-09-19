@@ -1,0 +1,17 @@
+# Ol filta we yu save editim.
+filter_stack.title = Hip blong ol filta
+filter_stack.add = Ademap filta
+filter_stack.enable = Mekem i wok
+filter_stack.disable = Stopem
+filter_stack.up = Go antap
+filter_stack.down = Go daon
+filter_stack.remove = Tekemaot
+filter_stack.bake = Fiksim hip blong ol filta
+filter_stack.note = Ol efek oli stat long sos we oli kipim, stat antap i go daon. Klik long wan filta blong editim. Taem yu pentem, muvum, jenisim sep, o jenisim kala mod, hip blong ol filta i fiks; Karemaot Las Aksen i putumbak.
+filter_stack.eligibility = Lis ya i soem nomo ol filta we oli save wok olgeta. Filta we i nidim map, rod, bakgraon, o wan dialeg afsaed, yu no save sevem long wan hip.
+filter_stack.unavailable = Jusum wan piksel leya we oli no lokem, o wan smat objek, blong editim hip blong ol filta blong hem.
+filter_stack.render_failed = I no save mekem pikja blong hip blong ol filta. Sos mo ol seting we oli sevem oli no jenis.
+filter_stack.edit_history = Editim hip blong ol filta
+filter_stack.bake_history = Fiksim hip blong ol filta
+filter_stack.updated = Hip blong ol filta i apdet
+filter_stack.missing = Filta i no stap: {id}

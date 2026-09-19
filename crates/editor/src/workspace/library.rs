@@ -358,6 +358,7 @@ pub struct Library {
     pub person_filter: Option<PersonFilter>,
     /// The photo on show instead of the grid, if any.
     pub viewer: Option<Viewer>,
+    pub(super) versions: Option<super::versions::VersionBrowser>,
     /// Face avatars for the sidebar and the people panel, by face key;
     /// `None` while one is being cut, or after the cut failed.
     avatars: FxHashMap<String, Option<Arc<RenderImage>>>,
@@ -561,6 +562,7 @@ impl Library {
             denied_faces: file.denied_faces,
             person_filter: None,
             viewer: None,
+            versions: None,
             avatars: FxHashMap::default(),
             avatar_queue: Vec::new(),
             avatar_ticker: false,
@@ -4121,7 +4123,7 @@ impl Workspace {
     /// Before a save lands on a gallery sidecar: make sure its hidden
     /// directory exists, and copy the previous sidecar into `versions/`
     /// so every save is a version, automatically.
-    pub(super) fn pre_save_backing(&mut self, path: &Path) {
+    pub(super) fn pre_save_backing(&mut self, path: &Path) -> std::io::Result<()> {
         let backed = self
             .doc
             .as_ref()
@@ -4129,9 +4131,9 @@ impl Workspace {
             .and_then(|original| backing_psd(original))
             .is_some_and(|psd| psd == path);
         if !backed {
-            return;
+            return Ok(());
         }
-        super::library_ops::keep_sidecar_version(path);
+        super::library_ops::keep_sidecar_version(path)
     }
 
     /// After a save landed on a gallery sidecar: drop the photo's cached

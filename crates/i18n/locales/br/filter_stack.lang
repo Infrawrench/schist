@@ -1,0 +1,17 @@
+# Bernioù silañ a c'haller embann.
+filter_stack.title = Bern siloù
+filter_stack.add = Ouzhpennañ ur sil
+filter_stack.enable = Gweredekaat
+filter_stack.disable = Diweredekaat
+filter_stack.up = D’ar c’hrec’h
+filter_stack.down = D’an traoñ
+filter_stack.remove = Lemel
+filter_stack.bake = Kadarnaat ar bern
+filter_stack.note = An efedoù a vez sevenet diwar an tarzh miret, eus an nec’h d’an traoñ. Klikit war ur sil evit embann anezhañ. Livañ, dilec’hiañ, treuzfurmiñ pe cheñch mod liv a gadarna ar bern; Dizober a adsav anezhañ.
+filter_stack.eligibility = N’eus nemet ar siloù emren er roll. Ar siloù o deus ezhomm ur gartenn, un treug, un drekleur pe ur voest emziviz diavaez ne c’hallont ket bezañ enrollet en ur bern.
+filter_stack.unavailable = Diuzit ur gwiskad pikseloù divroudet pe un ergorenn speredek evit embann e vern siloù.
+filter_stack.render_failed = N’haller ket daskoriñ ar bern siloù. N’eo ket bet cheñchet e darzh nag e arventennoù enrollet.
+filter_stack.edit_history = Embann ar bern siloù
+filter_stack.bake_history = Kadarnaat ar bern siloù
+filter_stack.updated = Hizivaet eo bet ar bern siloù
+filter_stack.missing = Sil dihegerz: {id}

@@ -1,0 +1,24 @@
+# Stair na leaganacha.
+versions.title = Stair na leaganacha
+versions.open = Stair na leaganacha…
+versions.original = Bunchóip
+versions.current = Eagar sábháilte reatha
+versions.saved_at = Sábháilte {date} UTC
+versions.saved_sequence = Sábháilte {date} UTC ({n})
+versions.loading = Réamhamharc á luchtú…
+versions.preview_failed = Níl an réamhamharc ar fáil. Is féidir leat iarracht a dhéanamh cóip a oscailt fós.
+versions.drag_hint = Tarraing an roinnteoir chun an bhunchóip ar chlé a chur i gcomparáid leis an leagan roghnaithe ar dheis.
+versions.no_saved = Níl aon eagarthóireacht shábháilte ann fós. Coinníonn gach sábháil an eagarthóireacht roimhe seo anseo.
+versions.copy_hint = Osclaíonn Athchóirigh cáipéis nua gan sábháil lena sraitheanna. Sábháil an chóip in áit nua.
+versions.restore = Athchóirigh mar chóip
+versions.restoring = Cóip á hoscailt…
+versions.restored = Osclaíodh an leagan mar chóip gan sábháil.
+versions.copy_title = {name} — cóip athchóirithe
+versions.restore_failed = Níorbh fhéidir an leagan seo a oscailt: {error}
+versions.read_failed = Níorbh fhéidir stair na leaganacha a léamh: {error}
+versions.close = Dún
+versions.previous = Leaganacha níos nuaí
+versions.next = Leaganacha níos sine
+versions.page = Leathanach {n} as {total}
+versions.preserve_failed = Níorbh fhéidir an eagarthóireacht roimhe seo a chaomhnú, mar sin cealaíodh an tsábháil: {error}
+versions.revert_failed = Níorbh fhéidir gach eagarthóireacht a chaomhnú. Grianghraif a cuireadh ar ais: {n}. {error}

@@ -1,0 +1,17 @@
+# Editable filter stacks.
+filter_stack.title = Ntlhandlamano wa tisefe
+filter_stack.add = Engetela sefe
+filter_stack.enable = Pfumelela
+filter_stack.disable = Tshikisa
+filter_stack.up = Ehenhla
+filter_stack.down = Ehansi
+filter_stack.remove = Susa
+filter_stack.bake = Tiyisa ntlhandlamano
+filter_stack.note = Mimbuyelo yi tirhisiwa eka xihlovo lexi hlayisiweke, ku suka ehenhla ku ya ehansi. Tlilika sefe ku yi hlela. Ku penda, ku fambisa, ku cinca xivumbeko kumbe muxaka wa muhlovo swi tiyisa ntlhandlamano; Ku tlherisela endzhaku ku wu vuyisela.
+filter_stack.eligibility = Ku kombisiwa ntsena tisefe leti ti tiyimeleke. Tisefe leti lavaka mepe, ndlela, ndzhaku kumbe bokisi ra le handle a ti nge hlayisiwi entlhandlamanweni.
+filter_stack.unavailable = Hlawula leyara ya tipikseli leyi nga lotiwangiki kumbe xilo xo tlhariha leswaku u hlela ntlhandlamano wa yona wa tisefe.
+filter_stack.render_failed = Ntlhandlamano wa tisefe a wu kotekanga ku endliwa. Xihlovo ni swiyimiso leswi hlayisiweke a swi cincanga.
+filter_stack.edit_history = Hlela ntlhandlamano wa tisefe
+filter_stack.bake_history = Tiyisa ntlhandlamano wa tisefe
+filter_stack.updated = Ntlhandlamano wa tisefe wu pfuxetiwile
+filter_stack.missing = Sefe leyi nga kumekiki: {id}

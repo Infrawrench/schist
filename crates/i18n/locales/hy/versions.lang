@@ -1,0 +1,24 @@
+# Տարբերակների պատմության կառավարներ։
+versions.title = Տարբերակների պատմություն
+versions.open = Տարբերակների պատմություն…
+versions.original = Բնօրինակ
+versions.current = Ընթացիկ պահպանված խմբագրում
+versions.saved_at = Պահպանվել է {date} UTC
+versions.saved_sequence = Պահպանվել է {date} UTC ({n})
+versions.loading = Նախադիտումը բեռնվում է…
+versions.preview_failed = Նախադիտումն անհասանելի է։ Դեռ կարող եք փորձել բացել պատճենը։
+versions.drag_hint = Քաշեք բաժանարարը՝ ձախ կողմի բնօրինակը աջ կողմի ընտրված տարբերակի հետ համեմատելու համար։
+versions.no_saved = Պահված խմբագրումներ դեռ չկան։ Յուրաքանչյուր պահպանում այստեղ պահում է նախորդ խմբագրումը։
+versions.copy_hint = Վերականգնումը բացում է նոր, չպահված փաստաթուղթ՝ իր շերտերով։ Պահեք պատճենը նոր տեղում։
+versions.restore = Վերականգնել որպես պատճեն
+versions.restoring = Պատճենը բացվում է…
+versions.restored = Տարբերակը բացվել է որպես չպահպանված պատճեն։
+versions.copy_title = {name} — վերականգնված պատճեն
+versions.restore_failed = Չհաջողվեց բացել այս տարբերակը․ {error}
+versions.read_failed = Չհաջողվեց կարդալ տարբերակների պատմությունը․ {error}
+versions.close = Փակել
+versions.previous = Ավելի նոր տարբերակներ
+versions.next = Ավելի հին տարբերակներ
+versions.page = Էջ {n}՝ {total}-ից
+versions.preserve_failed = Չհաջողվեց պահպանել նախորդ խմբագրումը, ուստի պահպանումը չեղարկվեց․ {error}
+versions.revert_failed = Չհաջողվեց պահպանել բոլոր խմբագրումները։ Հետ վերադարձված լուսանկարներ՝ {n}։ {error}

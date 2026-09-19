@@ -292,6 +292,7 @@ pub(super) fn viewer(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .map(|(at, of)| tf!("common.n_of_m", n = at + 1, m = of))
         .unwrap_or_default();
     let edit_path = path.clone();
+    let version_path = path.clone();
     let header = div()
         .flex()
         .flex_row()
@@ -335,6 +336,12 @@ pub(super) fn viewer(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                 .child(position),
         )
         .child(div().flex_grow())
+        .child(gallery_button(
+            t("versions.open"),
+            false,
+            move |ws, _w, cx| ws.open_version_history(version_path.clone(), cx),
+            cx,
+        ))
         .child(gallery_button(
             t("common.edit"),
             true,

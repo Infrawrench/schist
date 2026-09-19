@@ -1,0 +1,17 @@
+# Düzenlenebilir filtre yığınları.
+filter_stack.title = Filtre yığını
+filter_stack.add = Filtre ekle
+filter_stack.enable = Etkinleştir
+filter_stack.disable = Devre dışı bırak
+filter_stack.up = Yukarı
+filter_stack.down = Aşağı
+filter_stack.remove = Kaldır
+filter_stack.bake = Yığını işle
+filter_stack.note = Efektler, korunan kaynaktan başlayarak yukarıdan aşağıya uygulanır. Düzenlemek için bir filtreye tıklayın. Boyama, taşıma, dönüştürme veya renk modunu değiştirme yığını kalıcı olarak işler; Geri Al işlemi yığını geri yükler.
+filter_stack.eligibility = Yalnızca kendi başına çalışan filtreler listelenir. Harita, yol, arka plan veya harici iletişim kutusu gerektiren filtreler bir yığına kaydedilemez.
+filter_stack.unavailable = Filtre yığınını düzenlemek için kilidi açık bir piksel katmanı veya akıllı nesne seçin.
+filter_stack.render_failed = Filtre yığını oluşturulamadı. Kaynağı ve kayıtlı ayarları değişmedi.
+filter_stack.edit_history = Filtre yığınını düzenle
+filter_stack.bake_history = Filtre yığınını işle
+filter_stack.updated = Filtre yığını güncellendi
+filter_stack.missing = Kullanılamayan filtre: {id}

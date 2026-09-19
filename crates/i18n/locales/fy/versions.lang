@@ -1,0 +1,24 @@
+# Ferzjeskiednis.
+versions.title = Ferzjeskiednis
+versions.open = Ferzjeskiednis…
+versions.original = Orizjineel
+versions.current = Hjoeddeiske bewarre bewurking
+versions.saved_at = Bewarre op {date} UTC
+versions.saved_sequence = Bewarre op {date} UTC ({n})
+versions.loading = Foarbyld wurdt laden…
+versions.preview_failed = Foarbyld net beskikber. Jo kinne noch besykje in kopy te iepenjen.
+versions.drag_hint = Sleep de skiedingsline om it orizjineel lofts mei de selektearre ferzje rjochts te ferlykjen.
+versions.no_saved = Noch gjin bewarre bewurkingen. By elke kear bewarjen wurdt de foarige bewurking hjir bewarre.
+versions.copy_hint = By weromsetten wurdt in nij, net bewarre dokumint mei syn lagen iepene. Bewarje de kopy op in nij plak.
+versions.restore = As kopy weromsette
+versions.restoring = Kopy wurdt iepene…
+versions.restored = Ferzje as net bewarre kopy iepene.
+versions.copy_title = {name} — weromsette kopy
+versions.restore_failed = Dizze ferzje koe net iepene wurde: {error}
+versions.read_failed = Ferzjeskiednis koe net lêzen wurde: {error}
+versions.close = Slute
+versions.previous = Nijere ferzjes
+versions.next = Aldere ferzjes
+versions.page = Side {n} fan {total}
+versions.preserve_failed = De foarige bewurking koe net bewarre wurde, dêrom is it bewarjen annulearre: {error}
+versions.revert_failed = Net alle bewurkingen koene bewarre wurde. Foto's weromset: {n}. {error}

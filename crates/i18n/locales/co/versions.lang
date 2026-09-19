@@ -1,0 +1,24 @@
+# Cronulugia di e versioni.
+versions.title = Cronulugia di e versioni
+versions.open = Cronulugia di e versioni…
+versions.original = Uriginale
+versions.current = Mudificazione attuale arregistrata
+versions.saved_at = Arregistrata u {date} UTC
+versions.saved_sequence = Arregistrata u {date} UTC ({n})
+versions.loading = Caricamentu di l'anteprima…
+versions.preview_failed = Anteprima indisponibile. Pudete quantunque pruvà à apre una copia.
+versions.drag_hint = Trascinate u separatore per paragunà l'uriginale à manca cù a versione selezziunata à diritta.
+versions.no_saved = Nisuna mudificazione arregistrata per avà. Ogni arregistramentu cunserva quì a mudificazione precedente.
+versions.copy_hint = U ristabilimentu apre un ducumentu novu micca arregistratu cù i so strati. Arregistrate a copia in un locu novu.
+versions.restore = Ristabilisce cum'è copia
+versions.restoring = Apertura di a copia…
+versions.restored = A versione hè stata aperta cum'è copia micca arregistrata.
+versions.copy_title = {name} — copia ristabilita
+versions.restore_failed = Impussibule d'apre sta versione: {error}
+versions.read_failed = Impussibule di leghje a cronulugia di e versioni: {error}
+versions.close = Chjode
+versions.previous = Versioni più recente
+versions.next = Versioni più vechje
+versions.page = Pagina {n} di {total}
+versions.preserve_failed = A mudificazione precedente ùn hà pussutu esse cunservata, dunque l'arregistramentu hè statu annullatu: {error}
+versions.revert_failed = Impussibule di cunservà tutte e mudificazioni. Fotò ripristinate: {n}. {error}

@@ -589,6 +589,40 @@ mod tests {
         d.tree.layers.push(Layer::new_raster("B"));
         d
     }
+    #[test]
+    fn filter_stack_shared_document_and_checkpoint_preserve_recipe_source_and_cache() {
+        use schist_core::filter_stack::{read_source, FilterEffect, FilterStack};
+        let mut doc = sample();
+        let region = doc.canvas_rect();
+        let layer = &mut doc.tree.layers[0];
+        let source = layer.as_raster().unwrap().tiles.clone();
+        let mut stack = FilterStack::new(region);
+        stack.effects.push(FilterEffect {
+            id: "test".into(),
+            enabled: true,
+            values: Default::default(),
+            foreground: [0.0, 0.0, 0.0, 1.0],
+            background: [1.0; 4],
+        });
+        layer.extras = stack.blocks(layer, &source).unwrap();
+        let mut shared = SharedDocument::new(&doc).unwrap();
+        let reopened = shared.render().unwrap();
+        assert_eq!(
+            FilterStack::read(&reopened.tree.layers[0]).unwrap(),
+            Some(stack.clone())
+        );
+        let restored = read_source(&reopened.tree.layers[0]).unwrap();
+        for (coord, tile) in source.iter() {
+            assert_eq!(restored.get(*coord), Some(tile));
+        }
+        let bytes = shared.checkpoint().unwrap();
+        let mut recovered = SharedDocument::unseeded(&doc).unwrap();
+        let restored = recovered.restore(&bytes, &doc).unwrap();
+        assert_eq!(
+            FilterStack::read(&restored.tree.layers[0]).unwrap(),
+            Some(stack)
+        );
+    }
     #[cfg_attr(not(target_arch = "wasm32"), test)]
     #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
     fn concurrent_properties_and_tiles_merge() {

@@ -610,6 +610,9 @@ fn prepare_layer_mode(layer: &mut Layer, mode: ColorMode) {
             } else {
                 ColorMode::Rgb
             };
+            if r.tiles.mode() != storage_mode {
+                layer.extras = crate::filter_stack::without_stack(&layer.extras);
+            }
             r.tiles = r.tiles.converted(storage_mode);
         }
         crate::LayerKind::Group(g) => {
@@ -644,8 +647,20 @@ impl<'a> EditBuilder<'a> {
         self.doc
     }
 
+    /// Destructive pixel edits bake a filter stack into its current raster. The
+    /// recipe/source removal is in the same undo entry as the pixels.
+    fn bake_filter_stack(&mut self, id: LayerId) {
+        if let Some(layer) = self.doc.tree.find(id) {
+            if crate::filter_stack::has_stack(layer) {
+                let extras = crate::filter_stack::without_stack(&layer.extras);
+                self.set_extras(id, extras);
+            }
+        }
+    }
+
     /// Copy-on-write access to a layer tile, with undo capture.
     pub fn writable_tile(&mut self, layer_id: LayerId, coord: TileCoord) -> Option<&mut TileBuf> {
+        self.bake_filter_stack(layer_id);
         let depth = self.doc.depth;
         let mode = self.doc.mode;
         let entry_key = (layer_id, coord);
@@ -720,6 +735,24 @@ impl<'a> EditBuilder<'a> {
         if dx == 0 && dy == 0 {
             return;
         }
+        // Moving a group also bakes stacks in its descendants, in the same edit.
+        fn stack_ids(layer: &Layer, out: &mut Vec<LayerId>) {
+            if crate::filter_stack::has_stack(layer) {
+                out.push(layer.id);
+            }
+            if let Some(children) = layer.children() {
+                for child in children {
+                    stack_ids(child, out);
+                }
+            }
+        }
+        let mut ids = Vec::new();
+        if let Some(layer) = self.doc.tree.find(id) {
+            stack_ids(layer, &mut ids);
+        }
+        for id in ids {
+            self.bake_filter_stack(id);
+        }
         // Text pixels move with the layer, and their editable origin must
         // move too. Keep the JSON contract here without depending on the
         // text engine (which itself depends on core). Record complete
@@ -776,6 +809,7 @@ impl<'a> EditBuilder<'a> {
     /// Replace a raster layer's tiles wholesale, recording every tile that
     /// changes (transforms, filters and resizes all go through this).
     pub fn replace_layer_tiles(&mut self, layer_id: LayerId, new_tiles: TileMap) {
+        self.bake_filter_stack(layer_id);
         let storage_mode = if matches!(self.doc.mode, ColorMode::Cmyk | ColorMode::Lab) {
             self.doc.mode
         } else {
@@ -859,6 +893,9 @@ impl<'a> EditBuilder<'a> {
         layer: LayerId,
         after: Option<Box<crate::smart::SmartObject>>,
     ) {
+        if after.is_none() {
+            self.bake_filter_stack(layer);
+        }
         let before = self.doc.tree.find(layer).and_then(|l| l.smart.clone());
         if let Some(l) = self.doc.tree.find_mut(layer) {
             l.smart = after.clone();
@@ -1249,6 +1286,7 @@ pub struct StrokeEdit {
     name: String,
     befores: FxHashMap<(LayerId, TileCoord), Option<Arc2<TileBuf>>>,
     mask_befores: FxHashMap<(LayerId, TileCoord), Option<Arc2<[u8; TILE_PIXELS]>>>,
+    stack_befores: FxHashMap<LayerId, Vec<RawBlock>>,
     damage: IntRect,
 }
 
@@ -1273,6 +1311,12 @@ impl StrokeEdit {
         let depth = doc.depth;
         let mode = doc.mode;
         let layer = doc.tree.find_mut(layer_id)?;
+        if crate::filter_stack::has_stack(layer) {
+            self.stack_befores
+                .entry(layer_id)
+                .or_insert_with(|| layer.extras.clone());
+            layer.extras = crate::filter_stack::without_stack(&layer.extras);
+        }
         let raster = layer.as_raster_mut()?;
         self.befores
             .entry((layer_id, coord))
@@ -1331,6 +1375,18 @@ impl StrokeEdit {
             return false;
         }
         let mut ops = Vec::new();
+        for (layer, before) in self.stack_befores {
+            let after = doc
+                .tree
+                .find(layer)
+                .map(|l| l.extras.clone())
+                .unwrap_or_default();
+            ops.push(EditOp::LayerExtrasSet {
+                layer,
+                before,
+                after,
+            });
+        }
         for ((layer, coord), before) in self.befores {
             let after = doc
                 .tree
@@ -1368,6 +1424,11 @@ impl StrokeEdit {
 
     /// Roll back everything this stroke touched.
     pub fn cancel(self, doc: &mut Document) {
+        for (id, before) in self.stack_befores {
+            if let Some(layer) = doc.tree.find_mut(id) {
+                layer.extras = before;
+            }
+        }
         for ((layer, coord), before) in self.befores {
             if let Some(l) = doc.tree.find_mut(layer) {
                 if let Some(r) = l.as_raster_mut() {

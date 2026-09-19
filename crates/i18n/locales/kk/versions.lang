@@ -1,0 +1,24 @@
+# Нұсқалар журналы.
+versions.title = Нұсқалар журналы
+versions.open = Нұсқалар журналы…
+versions.original = Түпнұсқа
+versions.current = Ағымдағы сақталған өңдеу
+versions.saved_at = {date} UTC уақытында сақталды
+versions.saved_sequence = {date} UTC уақытында сақталды ({n})
+versions.loading = Алдын ала көрініс жүктелуде…
+versions.preview_failed = Алдын ала көрініс қолжетімсіз. Көшірмені ашып көруге болады.
+versions.drag_hint = Сол жақтағы түпнұсқаны оң жақтағы таңдалған нұсқамен салыстыру үшін бөлгішті сүйреңіз.
+versions.no_saved = Сақталған өңдеулер әлі жоқ. Әр сақтау алдыңғы өңдеуді осында сақтайды.
+versions.copy_hint = Қалпына келтіру қабаттары бар жаңа сақталмаған құжатты ашады. Көшірмені жаңа орынға сақтаңыз.
+versions.restore = Көшірме ретінде қалпына келтіру
+versions.restoring = Көшірме ашылуда…
+versions.restored = Нұсқа сақталмаған көшірме ретінде ашылды.
+versions.copy_title = {name} — қалпына келтірілген көшірме
+versions.restore_failed = Бұл нұсқаны ашу мүмкін болмады: {error}
+versions.read_failed = Нұсқалар журналын оқу мүмкін болмады: {error}
+versions.close = Жабу
+versions.previous = Жаңарақ нұсқалар
+versions.next = Ескірек нұсқалар
+versions.page = {total} беттің {n}-беті
+versions.preserve_failed = Алдыңғы өңдеуді сақтау мүмкін болмады, сондықтан сақтау тоқтатылды: {error}
+versions.revert_failed = Барлық өңдеулерді сақтау мүмкін болмады. Қалпына қайтарылған фотосуреттер: {n}. {error}

@@ -1,0 +1,24 @@
+# Bertsio-historia.
+versions.title = Bertsio-historia
+versions.open = Bertsio-historia…
+versions.original = Jatorrizkoa
+versions.current = Uneko edizio gordea
+versions.saved_at = {date} UTC datan gordea
+versions.saved_sequence = {date} UTC datan gordea ({n})
+versions.loading = Aurrebista kargatzen…
+versions.preview_failed = Aurrebista ez dago erabilgarri. Kopia bat irekitzen saia zaitezke hala ere.
+versions.drag_hint = Arrastatu bereizlea ezkerreko jatorrizkoa eskuineko hautatutako bertsioarekin alderatzeko.
+versions.no_saved = Ez dago gordetako ediziorik oraindik. Gordetze bakoitzak aurreko edizioa hemen mantentzen du.
+versions.copy_hint = Leheneratzeak gorde gabeko dokumentu berri bat irekitzen du bere geruzekin. Gorde kopia kokaleku berri batean.
+versions.restore = Leheneratu kopia gisa
+versions.restoring = Kopia irekitzen…
+versions.restored = Bertsioa gorde gabeko kopia gisa ireki da.
+versions.copy_title = {name} — leheneratutako kopia
+versions.restore_failed = Ezin izan da bertsio hau ireki: {error}
+versions.read_failed = Ezin izan da bertsio-historia irakurri: {error}
+versions.close = Itxi
+versions.previous = Bertsio berriagoak
+versions.next = Bertsio zaharragoak
+versions.page = {n}/{total} orria
+versions.preserve_failed = Ezin izan da aurreko edizioa mantendu; beraz, gordetzea bertan behera utzi da: {error}
+versions.revert_failed = Ezin izan dira edizio guztiak mantendu. Leheneratutako argazkiak: {n}. {error}

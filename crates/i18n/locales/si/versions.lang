@@ -1,0 +1,24 @@
+# අනුවාද ඉතිහාසය.
+versions.title = අනුවාද ඉතිහාසය
+versions.open = අනුවාද ඉතිහාසය…
+versions.original = මුල් පිටපත
+versions.current = දැනට සුරැකි සංස්කරණය
+versions.saved_at = {date} UTC දී සුරකින ලදී
+versions.saved_sequence = {date} UTC දී සුරකින ලදී ({n})
+versions.loading = පෙරදසුන පූරණය වෙමින්…
+versions.preview_failed = පෙරදසුන ලබා ගත නොහැක. ඔබට තවමත් පිටපතක් විවෘත කිරීමට උත්සාහ කළ හැක.
+versions.drag_hint = වම්පස ඇති මුල් පිටපත දකුණුපස ඇති තෝරාගත් අනුවාදය සමඟ සැසඳීමට බෙදුම් රේඛාව ඇදගෙන යන්න.
+versions.no_saved = තවම සුරැකි සංස්කරණ නැත. සුරකින සෑම වාරයකම පෙර සංස්කරණය මෙහි තබා ගනී.
+versions.copy_hint = ප්‍රතිස්ථාපනය කිරීමෙන් එහි ස්තර සහිත නව සුරැකී නැති ලේඛනයක් විවෘත වේ. පිටපත නව ස්ථානයකට සුරකින්න.
+versions.restore = පිටපතක් ලෙස ප්‍රතිස්ථාපනය කරන්න
+versions.restoring = පිටපත විවෘත වෙමින්…
+versions.restored = අනුවාදය සුරැකී නැති පිටපතක් ලෙස විවෘත කරන ලදී.
+versions.copy_title = {name} — ප්‍රතිස්ථාපිත පිටපත
+versions.restore_failed = මෙම අනුවාදය විවෘත කළ නොහැකි විය: {error}
+versions.read_failed = අනුවාද ඉතිහාසය කියවිය නොහැකි විය: {error}
+versions.close = වසන්න
+versions.previous = නව අනුවාද
+versions.next = පැරණි අනුවාද
+versions.page = {total} න් {n} පිටුව
+versions.preserve_failed = පෙර සංස්කරණය තබා ගත නොහැකි වූ නිසා සුරැකීම අවලංගු කරන ලදී: {error}
+versions.revert_failed = සියලු සංස්කරණ තබා ගත නොහැකි විය. ආපසු හැරවූ ඡායාරූප: {n}. {error}

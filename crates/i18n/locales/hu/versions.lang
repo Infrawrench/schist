@@ -1,0 +1,24 @@
+# Verzióelőzmények.
+versions.title = Verzióelőzmények
+versions.open = Verzióelőzmények…
+versions.original = Eredeti
+versions.current = Jelenlegi mentett szerkesztés
+versions.saved_at = Mentve: {date} UTC
+versions.saved_sequence = Mentve: {date} UTC ({n})
+versions.loading = Előnézet betöltése…
+versions.preview_failed = Az előnézet nem érhető el. Ettől még megpróbálhat megnyitni egy másolatot.
+versions.drag_hint = Húzza el az elválasztót, hogy összehasonlítsa a bal oldali eredetit a jobb oldali kijelölt verzióval.
+versions.no_saved = Még nincsenek mentett szerkesztések. Minden mentés megőrzi itt az előző szerkesztést.
+versions.copy_hint = A visszaállítás új, nem mentett dokumentumként nyitja meg a verziót a rétegeivel együtt. Mentse a másolatot új helyre.
+versions.restore = Visszaállítás másolatként
+versions.restoring = Másolat megnyitása…
+versions.restored = A verzió nem mentett másolatként nyílt meg.
+versions.copy_title = {name} — visszaállított másolat
+versions.restore_failed = Nem sikerült megnyitni ezt a verziót: {error}
+versions.read_failed = Nem sikerült beolvasni a verzióelőzményeket: {error}
+versions.close = Bezárás
+versions.previous = Újabb verziók
+versions.next = Régebbi verziók
+versions.page = {n}. oldal / {total}
+versions.preserve_failed = Az előző szerkesztést nem sikerült megőrizni, ezért a mentés megszakadt: {error}
+versions.revert_failed = Nem sikerült minden szerkesztést megőrizni. Visszaállított fényképek: {n}. {error}

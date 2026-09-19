@@ -1,0 +1,24 @@
+# Nsiesie ahorow abakɔsɛm.
+versions.title = Nsiesie Ahorow Abakɔsɛm
+versions.open = Nsiesie Ahorow Abakɔsɛm…
+versions.original = Nea Edi Kan
+versions.current = Nsiesie a Wɔakora Seesei
+versions.saved_at = Wɔkoraa {date} UTC
+versions.saved_sequence = Wɔkoraa {date} UTC ({n})
+versions.loading = Ɛretwe nea wubehu ansa…
+versions.preview_failed = Wɔrentumi nkyerɛ nea wubehu ansa. Wubetumi ara abɔ mmɔden abue sɛso.
+versions.drag_hint = Twe ade a ɛkyekyɛ no na fa mfonini a edi kan no wɔ benkum toto nsiesie a woapaw no wɔ nifa ho.
+versions.no_saved = Nsiesie biara nni hɔ a wɔakora. Bere biara a wokora no, wɔde nsiesie a atwam no sie ha.
+versions.copy_hint = Sɛ wosan de ba a, ebue document foforo a wɔnkorae a ne layer ahorow ka ho. Kora sɛso no wɔ baabi foforo.
+versions.restore = San De Ba Sɛ Sɛso
+versions.restoring = Ɛrebue sɛso…
+versions.restored = Wɔabue nsiesie no sɛ sɛso a wɔnkorae.
+versions.copy_title = {name} — sɛso a wɔasan de aba
+versions.restore_failed = Wɔantumi ambue nsiesie yi: {error}
+versions.read_failed = Wɔantumi ankenkan nsiesie ahorow abakɔsɛm: {error}
+versions.close = To Mu
+versions.previous = Nsiesie Foforo
+versions.next = Nsiesie Dedaw
+versions.page = Kratafa {n} wɔ {total} mu
+versions.preserve_failed = Wɔantumi ankora nsiesie a atwam no nti wɔatwa kora no mu: {error}
+versions.revert_failed = Wɔantumi ankora nsiesie no nyinaa. Foto a wɔasan de akɔ dedaw mu: {n}. {error}

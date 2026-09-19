@@ -1,0 +1,17 @@
+# Stack in filter ko remaroñ ukot.
+filter_stack.title = Stack in filter
+filter_stack.add = Kobaik filter
+filter_stack.enable = Kōjerbale
+filter_stack.disable = Kabōjrak
+filter_stack.up = Lōñ
+filter_stack.down = Lal
+filter_stack.remove = Kōṃakūt
+filter_stack.bake = Kōṃṃan stack eo bwe en juon pija
+filter_stack.note = Effect ko rej jerbal jen source eo eṃōj dāpij, jen lōñ ñan lal. Click juon filter ñan ukote. Paint, kōṃakūt, transform, ak ukot color mode ej kōṃṃan stack eo bwe en juon pija; Ukot jebāāk ej kōṃṃan bwe en bar juon stack.
+filter_stack.eligibility = Filter ko rej maroñ make wōt rej walok. Filter ko rej aikuji juon māp, path, backdrop, ak dialog jen lik rejjab maroñ kōjparok ilo juon stack.
+filter_stack.unavailable = Kālet juon pixel layer ejjab lock ak smart object ñan ukot stack in filter an.
+filter_stack.render_failed = Ejjab maroñ render stack in filter eo. Source eo im setting ko an eṃōj kōjparok rejjab oktak.
+filter_stack.edit_history = Ukot stack in filter
+filter_stack.bake_history = Kōṃṃan stack in filter bwe en juon pija
+filter_stack.updated = Stack in filter eṃōj ukote
+filter_stack.missing = Filter eo ejjab maroñ jerbal: {id}

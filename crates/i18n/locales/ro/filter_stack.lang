@@ -1,0 +1,17 @@
+# Stive de filtre editabile.
+filter_stack.title = Stivă de filtre
+filter_stack.add = Adaugă un filtru
+filter_stack.enable = Activează
+filter_stack.disable = Dezactivează
+filter_stack.up = Mută în sus
+filter_stack.down = Mută în jos
+filter_stack.remove = Elimină
+filter_stack.bake = Definitivează stiva
+filter_stack.note = Efectele sunt aplicate sursei păstrate, de sus în jos. Faceți clic pe un filtru pentru a-l edita. Pictarea, mutarea, transformarea sau schimbarea modului de culoare definitivează stiva; comanda Anulare o restaurează.
+filter_stack.eligibility = Sunt afișate numai filtrele autonome. Filtrele care necesită o hartă, o cale, un fundal sau un dialog extern nu pot fi salvate într-o stivă.
+filter_stack.unavailable = Selectați un strat de pixeli deblocat sau un obiect inteligent pentru a-i edita stiva de filtre.
+filter_stack.render_failed = Stiva de filtre nu a putut fi randată. Sursa și setările sale salvate au rămas neschimbate.
+filter_stack.edit_history = Editare stivă de filtre
+filter_stack.bake_history = Definitivare stivă de filtre
+filter_stack.updated = Stiva de filtre a fost actualizată
+filter_stack.missing = Filtru indisponibil: {id}

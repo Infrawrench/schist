@@ -1,0 +1,24 @@
+# Historiku i versioneve.
+versions.title = Historiku i versioneve
+versions.open = Historiku i versioneve…
+versions.original = Origjinali
+versions.current = Redaktimi aktual i ruajtur
+versions.saved_at = Ruajtur më {date} UTC
+versions.saved_sequence = Ruajtur më {date} UTC ({n})
+versions.loading = Po ngarkohet pamja paraprake…
+versions.preview_failed = Pamja paraprake nuk ofrohet. Mund të provoni të hapni një kopje.
+versions.drag_hint = Tërhiqni ndarësin për të krahasuar origjinalin majtas me versionin e zgjedhur djathtas.
+versions.no_saved = Ende nuk ka redaktime të ruajtura. Çdo ruajtje mban këtu redaktimin e mëparshëm.
+versions.copy_hint = Rikthimi hap një dokument të ri të paruajtur me shtresat e tij. Ruajeni kopjen në një vendndodhje të re.
+versions.restore = Rikthe si kopje
+versions.restoring = Po hapet kopja…
+versions.restored = Versioni u hap si kopje e paruajtur.
+versions.copy_title = {name} — kopje e rikthyer
+versions.restore_failed = Nuk mund të hapej ky version: {error}
+versions.read_failed = Nuk mund të lexohej historiku i versioneve: {error}
+versions.close = Mbyll
+versions.previous = Versionet më të reja
+versions.next = Versionet më të vjetra
+versions.page = Faqja {n} nga {total}
+versions.preserve_failed = Redaktimi i mëparshëm nuk mund të ruhej, prandaj ruajtja u anulua: {error}
+versions.revert_failed = Nuk mund të ruheshin të gjitha redaktimet. Fotot e rikthyera: {n}. {error}

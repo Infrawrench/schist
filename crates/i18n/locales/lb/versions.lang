@@ -1,0 +1,24 @@
+# Versiounsverlaf.
+versions.title = Versiounsverlaf
+versions.open = Versiounsverlaf…
+versions.original = Original
+versions.current = Aktuell gespäichert Ännerung
+versions.saved_at = Gespäichert {date} UTC
+versions.saved_sequence = Gespäichert {date} UTC ({n})
+versions.loading = Virschau gëtt gelueden…
+versions.preview_failed = Virschau net disponibel. Dir kënnt nach ëmmer probéieren, eng Kopie opzemaachen.
+versions.drag_hint = Zitt den Trenner, fir d'Original lénks mat der gewielter Versioun riets ze vergläichen.
+versions.no_saved = Nach keng gespäichert Ännerungen. Bei all Späichervirgang bleift déi viregt Ännerung hei erhalen.
+versions.copy_hint = Beim Restauréiere gëtt en neit, net gespäichert Dokument mat sengen Ebenen opgemaach. Späichert d'Kopie op enger neier Plaz.
+versions.restore = Als Kopie restauréieren
+versions.restoring = Kopie gëtt opgemaach…
+versions.restored = Versioun gouf als net gespäichert Kopie opgemaach.
+versions.copy_title = {name} — restauréiert Kopie
+versions.restore_failed = Dës Versioun konnt net opgemaach ginn: {error}
+versions.read_failed = De Versiounsverlaf konnt net gelies ginn: {error}
+versions.close = Zoumaachen
+versions.previous = Méi nei Versiounen
+versions.next = Méi al Versiounen
+versions.page = Säit {n} vun {total}
+versions.preserve_failed = Déi viregt Ännerung konnt net erhale ginn, dofir gouf d'Späicheren ofgebrach: {error}
+versions.revert_failed = Net all Ännerunge konnten erhale ginn. Restauréiert Fotoen: {n}. {error}

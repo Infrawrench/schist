@@ -1,0 +1,24 @@
+# Riwayat vèrsi.
+versions.title = Riwayat vèrsi
+versions.open = Riwayat vèrsi…
+versions.original = Asli
+versions.current = Suntingan disimpen saiki
+versions.saved_at = Disimpen {date} UTC
+versions.saved_sequence = Disimpen {date} UTC ({n})
+versions.loading = Ngamot pratinjau…
+versions.preview_failed = Pratinjau ora kasedhiya. Sampeyan isih bisa nyoba mbukak salinan.
+versions.drag_hint = Seret pamisah kanggo mbandhingaké sing asli ing sisih kiwa karo vèrsi sing dipilih ing sisih tengen.
+versions.no_saved = Durung ana suntingan sing disimpen. Saben panyimpenan njaga suntingan sadurungé ing kéné.
+versions.copy_hint = Pulihaké bakal mbukak dokumèn anyar sing durung disimpen bebarengan karo lapisané. Simpen salinan menyang panggonan anyar.
+versions.restore = Pulihaké minangka salinan
+versions.restoring = Mbukak salinan…
+versions.restored = Vèrsi dibukak minangka salinan sing durung disimpen.
+versions.copy_title = {name} — salinan sing dipulihaké
+versions.restore_failed = Ora bisa mbukak vèrsi iki: {error}
+versions.read_failed = Ora bisa maca riwayat vèrsi: {error}
+versions.close = Tutup
+versions.previous = Vèrsi luwih anyar
+versions.next = Vèrsi luwih lawas
+versions.page = Kaca {n} saka {total}
+versions.preserve_failed = Suntingan sadurungé ora bisa dijaga, mula panyimpenan dibatalaké: {error}
+versions.revert_failed = Ora bisa njaga kabèh suntingan. Foto sing dibalèkaké: {n}. {error}

@@ -1,0 +1,17 @@
+# Mantun da filters modifitgabel.
+filter_stack.title = Mantun da filters
+filter_stack.add = Agiuntar in filter
+filter_stack.enable = Activar
+filter_stack.disable = Deactivar
+filter_stack.up = Ensi
+filter_stack.down = Engiu
+filter_stack.remove = Allontanar
+filter_stack.bake = Fixar il mantun
+filter_stack.note = Ils effects vegnan applitgads a la funtauna conservada, da surengiu. Cliccai sin in filter per al modifitgar. Malegiar, spustar, transfurmar u midar il modus da colur fixescha il mantun; Revocar al restabilescha.
+filter_stack.eligibility = I vegnan enumerads mo filters autonoms. Filters che dovran ina charta, ina senda, in fund u in dialog extern na pon betg vegnir memorisads en in mantun.
+filter_stack.unavailable = Tschernì ina stresa da pixels betg bloccada u in object intelligent per modifitgar ses mantun da filters.
+filter_stack.render_failed = Impussibel da renderisar il mantun da filters. Sia funtauna e sias configuraziuns memorisadas n'èn betg vegnidas midadas.
+filter_stack.edit_history = Modifitgar il mantun da filters
+filter_stack.bake_history = Fixar il mantun da filters
+filter_stack.updated = Mantun da filters actualisà
+filter_stack.missing = Filter betg disponibel: {id}

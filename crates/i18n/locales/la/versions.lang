@@ -1,0 +1,24 @@
+# Historia versionum.
+versions.title = Historia versionum
+versions.open = Historia versionum…
+versions.original = Originale
+versions.current = Emendatio nunc servata
+versions.saved_at = Servatum {date} UTC
+versions.saved_sequence = Servatum {date} UTC ({n})
+versions.loading = Praevisum oneratur…
+versions.preview_failed = Praevisum praesto non est. Exemplar tamen aperire conari potes.
+versions.drag_hint = Discriminem trahe ut originale sinistra cum versione electa dextra compares.
+versions.no_saved = Nullae emendationes servatae adhuc sunt. Quotiens servas, emendatio prior hic retinetur.
+versions.copy_hint = Restitutio novum documentum nondum servatum cum suis stratis aperit. Exemplar novo loco serva.
+versions.restore = Ut exemplar restitue
+versions.restoring = Exemplar aperitur…
+versions.restored = Versio ut exemplar nondum servatum aperta est.
+versions.copy_title = {name} — exemplar restitutum
+versions.restore_failed = Haec versio aperiri non potuit: {error}
+versions.read_failed = Historia versionum legi non potuit: {error}
+versions.close = Claude
+versions.previous = Versiones recentiores
+versions.next = Versiones vetustiores
+versions.page = Pagina {n} ex {total}
+versions.preserve_failed = Emendatio prior servari non potuit, itaque servatio rescissa est: {error}
+versions.revert_failed = Omnes emendationes servari non potuerunt. Photographemata restituta: {n}. {error}

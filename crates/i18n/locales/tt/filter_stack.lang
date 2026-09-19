@@ -1,0 +1,17 @@
+# Editable filter stacks.
+filter_stack.title = Фильтрлар җыелмасы
+filter_stack.add = Фильтр өстәү
+filter_stack.enable = Кабызу
+filter_stack.disable = Сүндерү
+filter_stack.up = Өскә
+filter_stack.down = Аска
+filter_stack.remove = Алып ташлау
+filter_stack.bake = Җыелма күренешен беркетү
+filter_stack.note = Эффектлар сакланган чыганактан өстән аска кулланыла. Үзгәртү өчен фильтрга басыгыз. Буяу, күчерү, трансформацияләү яки төс режимын алыштыру җыелма күренешен беркетә; Кире кайтару аны торгыза.
+filter_stack.eligibility = Исемлектә мөстәкыйль фильтрлар гына бар. Карта, контур, фон яки тышкы диалог таләп иткән фильтрларны җыелмада саклап булмый.
+filter_stack.unavailable = Фильтрлар җыелмасын үзгәртү өчен бикләнмәгән пиксель катламын яки акыллы объектны сайлагыз.
+filter_stack.render_failed = Фильтрлар җыелмасын күрсәтеп булмады. Аның чыганагы һәм сакланган көйләүләре үзгәрмәде.
+filter_stack.edit_history = Фильтрлар җыелмасын үзгәртү
+filter_stack.bake_history = Фильтрлар җыелмасы күренешен беркетү
+filter_stack.updated = Фильтрлар җыелмасы яңартылды
+filter_stack.missing = Мөмкин булмаган фильтр: {id}

@@ -1,0 +1,24 @@
+# Historie verzí.
+versions.title = Historie verzí
+versions.open = Historie verzí…
+versions.original = Originál
+versions.current = Aktuální uložená úprava
+versions.saved_at = Uloženo {date} UTC
+versions.saved_sequence = Uloženo {date} UTC ({n})
+versions.loading = Načítání náhledu…
+versions.preview_failed = Náhled není k dispozici. Přesto můžete zkusit otevřít kopii.
+versions.drag_hint = Přetažením oddělovače porovnejte originál vlevo s vybranou verzí vpravo.
+versions.no_saved = Zatím nejsou žádné uložené úpravy. Při každém uložení se zde zachová předchozí úprava.
+versions.copy_hint = Obnovením se otevře nový neuložený dokument se všemi vrstvami. Kopii uložte do nového umístění.
+versions.restore = Obnovit jako kopii
+versions.restoring = Otevírání kopie…
+versions.restored = Verze byla otevřena jako neuložená kopie.
+versions.copy_title = {name} — obnovená kopie
+versions.restore_failed = Tuto verzi se nepodařilo otevřít: {error}
+versions.read_failed = Historii verzí se nepodařilo načíst: {error}
+versions.close = Zavřít
+versions.previous = Novější verze
+versions.next = Starší verze
+versions.page = Stránka {n} z {total}
+versions.preserve_failed = Předchozí úpravu se nepodařilo zachovat, proto bylo ukládání zrušeno: {error}
+versions.revert_failed = Nepodařilo se zachovat všechny úpravy. Obnovené fotografie: {n}. {error}

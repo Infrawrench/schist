@@ -1,0 +1,24 @@
+# ཐོན་རིམ་ལོ་རྒྱུས།
+versions.title = ཐོན་རིམ་ལོ་རྒྱུས།
+versions.open = ཐོན་རིམ་ལོ་རྒྱུས་…
+versions.original = ངོ་མ།
+versions.current = ད་ལྟོ་སྲུངས་ཡོད་པའི་ཞུན་དག
+versions.saved_at = {date} UTC ལུ་སྲུངས་ཡོད།
+versions.saved_sequence = {date} UTC ལུ་སྲུངས་ཡོད་ ({n})
+versions.loading = སྔོན་ལྟ་མངོན་གསལ་འབད་དོ་…
+versions.preview_failed = སྔོན་ལྟ་མི་ཐོབ། ཁྱོད་ཀྱིས་ད་རུང་འདྲ་བཤུས་ཅིག་ཁ་ཕྱེ་ནི་འབད་བརྩོན་འབད་ཚུགས།
+versions.drag_hint = གཡོན་ཁ་ཐུག་གི་ངོ་མ་དང་གཡས་ཁ་ཐུག་གི་སེལ་འཐུ་འབད་མི་ཐོན་རིམ་གཉིས་ག་བསྡུར་འབད་ནི་ལུ་བར་མཚམས་འདི་འདྲུད།
+versions.no_saved = ད་ཚུན་སྲུངས་ཡོད་པའི་ཞུན་དག་མེད། ཚར་རེ་སྲུངམ་ད་ ཧེ་མའི་ཞུན་དག་འདི་ནཱ་ལུ་བཞགཔ་ཨིན།
+versions.copy_hint = སླར་གསོ་གིས་བང་རིམ་ཚུ་དང་བཅས་པའི་མ་སྲུངས་པའི་ཡིག་ཆ་གསརཔ་ཅིག་ཁ་ཕྱེཝ་ཨིན། འདྲ་བཤུས་འདི་ས་གནས་གསརཔ་ཅིག་ནང་སྲུང་།
+versions.restore = འདྲ་བཤུས་སྦེ་སླར་གསོ་འབད།
+versions.restoring = འདྲ་བཤུས་ཁ་ཕྱེ་དོ་…
+versions.restored = ཐོན་རིམ་འདི་མ་སྲུངས་པའི་འདྲ་བཤུས་སྦེ་ཁ་ཕྱེ་ཡོད།
+versions.copy_title = {name} — སླར་གསོ་འབད་མི་འདྲ་བཤུས།
+versions.restore_failed = ཐོན་རིམ་འདི་ཁ་ཕྱེ་མ་ཚུགས། {error}
+versions.read_failed = ཐོན་རིམ་ལོ་རྒྱུས་ལྷག་མ་ཚུགས། {error}
+versions.close = ཁ་བསྡམས།
+versions.previous = ཐོན་རིམ་གསར་མི་ཚུ།
+versions.next = ཐོན་རིམ་རྙིང་མི་ཚུ།
+versions.page = ཤོག་ལེབ་ {n}/{total}
+versions.preserve_failed = ཧེ་མའི་ཞུན་དག་འདི་ཉར་ཚགས་འབད་མ་ཚུགསཔ་ལས་ སྲུང་ནི་འདི་ཆ་མེད་བཏང་ཡོད། {error}
+versions.revert_failed = ཞུན་དག་ཆ་མཉམ་ཉར་ཚགས་འབད་མ་ཚུགས། ལོག་བཞག་མི་པར། {n}། {error}

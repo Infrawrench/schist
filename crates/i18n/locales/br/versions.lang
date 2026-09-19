@@ -1,0 +1,24 @@
+# Istor ar stummoù.
+versions.title = Istor ar stummoù
+versions.open = Istor ar stummoù…
+versions.original = Orinel
+versions.current = Embann enrollet bremañ
+versions.saved_at = Enrollet {date} UTC
+versions.saved_sequence = Enrollet {date} UTC ({n})
+versions.loading = O kargañ an alberz…
+versions.preview_failed = N’haller ket diskouez an alberz. Gallout a rit klask digeriñ un eilad memes tra.
+versions.drag_hint = Riklit ar rannerez evit keñveriañ an orin a-gleiz gant ar stumm diuzet a-zehou.
+versions.no_saved = Embann enrollet ebet evit c’hoazh. Pep enrollañ a vir an embann kent amañ.
+versions.copy_hint = Assevel a zigor un teul nevez dienrollet gant e wiskadoù. Enrollit an eilad en ul lec’h nevez.
+versions.restore = Assevel evel eilad
+versions.restoring = O tigeriñ an eilad…
+versions.restored = Digoret eo bet ar stumm evel un eilad dienrollet.
+versions.copy_title = {name} — eilad adsavet
+versions.restore_failed = N’haller ket digeriñ ar stumm-mañ: {error}
+versions.read_failed = N’haller ket lenn istor ar stummoù: {error}
+versions.close = Serriñ
+versions.previous = Stummoù nevesoc’h
+versions.next = Stummoù kosoc’h
+versions.page = Pajenn {n} diwar {total}
+versions.preserve_failed = N’haller ket mirout an embann kent, setu eo bet nullet an enrollañ: {error}
+versions.revert_failed = N’haller ket mirout an holl embannoù. Luc’hskeudennoù distroet: {n}. {error}

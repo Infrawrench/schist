@@ -1,0 +1,24 @@
+# Kasaysayan ng bersiyon.
+versions.title = Kasaysayan ng bersiyon
+versions.open = Kasaysayan ng bersiyon…
+versions.original = Orihinal
+versions.current = Kasalukuyang naka-save na edit
+versions.saved_at = Na-save noong {date} UTC
+versions.saved_sequence = Na-save noong {date} UTC ({n})
+versions.loading = Naglo-load ng preview…
+versions.preview_failed = Hindi available ang preview. Maaari mo pa ring subukang magbukas ng kopya.
+versions.drag_hint = I-drag ang divider upang ihambing ang orihinal sa kaliwa sa napiling bersiyon sa kanan.
+versions.no_saved = Wala pang naka-save na edit. Pinapanatili rito ng bawat pag-save ang nakaraang edit.
+versions.copy_hint = Nagbubukas ang I-restore ng bagong dokumentong hindi pa naka-save kasama ang mga layer nito. I-save ang kopya sa bagong lokasyon.
+versions.restore = I-restore bilang kopya
+versions.restoring = Binubuksan ang kopya…
+versions.restored = Binuksan ang bersiyon bilang kopyang hindi pa naka-save.
+versions.copy_title = {name} — na-restore na kopya
+versions.restore_failed = Hindi mabuksan ang bersiyong ito: {error}
+versions.read_failed = Hindi mabasa ang kasaysayan ng bersiyon: {error}
+versions.close = Isara
+versions.previous = Mas bagong mga bersiyon
+versions.next = Mas lumang mga bersiyon
+versions.page = Pahina {n} ng {total}
+versions.preserve_failed = Hindi mapanatili ang nakaraang edit, kaya kinansela ang pag-save: {error}
+versions.revert_failed = Hindi mapanatili ang lahat ng edit. Mga ibinalik na litrato: {n}. {error}

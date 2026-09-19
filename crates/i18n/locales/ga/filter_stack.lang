@@ -1,0 +1,17 @@
+# Cruacha scagairí ineagarthóireachta.
+filter_stack.title = Cruach scagairí
+filter_stack.add = Cuir scagaire leis
+filter_stack.enable = Cumasaigh
+filter_stack.disable = Díchumasaigh
+filter_stack.up = Suas
+filter_stack.down = Síos
+filter_stack.remove = Bain
+filter_stack.bake = Cuir cuma na cruaiche i bhfeidhm go buan
+filter_stack.note = Ritheann na héifeachtaí ón bhfoinse chaomhnaithe, ó bharr go bun. Cliceáil scagaire chun é a chur in eagar. Cuirtear cuma na cruaiche i bhfeidhm go buan nuair a dhéantar péinteáil, bogadh, claochlú nó athrú ar an mód datha; déanann Cealaigh í a athchóiriú.
+filter_stack.eligibility = Ní liostaítear ach scagairí féinchuimsitheacha. Ní féidir scagairí a dteastaíonn mapa, cosán, cúlra nó dialóg sheachtrach uathu a shábháil i gcruach.
+filter_stack.unavailable = Roghnaigh sraith picteilíní dhíghlasáilte nó oibiacht chliste chun a cruach scagairí a chur in eagar.
+filter_stack.render_failed = Níorbh fhéidir an chruach scagairí a rindreáil. Níor athraíodh a foinse ná a socruithe sábháilte.
+filter_stack.edit_history = Cuir cruach scagairí in eagar
+filter_stack.bake_history = Cuir cuma na cruaiche scagairí i bhfeidhm go buan
+filter_stack.updated = Nuashonraíodh an chruach scagairí
+filter_stack.missing = Scagaire nach bhfuil ar fáil: {id}

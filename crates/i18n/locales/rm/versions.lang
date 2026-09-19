@@ -1,0 +1,24 @@
+# Istorgia da versiuns.
+versions.title = Istorgia da versiuns
+versions.open = Istorgia da versiuns…
+versions.original = Original
+versions.current = Modificaziun memorisada actuala
+versions.saved_at = Memorisà ils {date} UTC
+versions.saved_sequence = Memorisà ils {date} UTC ({n})
+versions.loading = Chargiar la prevista…
+versions.preview_failed = La prevista n'è betg disponibla. Vus pudais tuttina empruvar d'avrir ina copia.
+versions.drag_hint = Tirai il separatur per cumparegliar l'original a sanestra cun la versiun tschernida a dretga.
+versions.no_saved = Anc naginas modificaziuns memorisadas. Mintga memorisaziun conserva qua la modificaziun precedenta.
+versions.copy_hint = Restabilir avra in nov document betg memorisà cun sias stresas. Memorisai la copia en in nov lieu.
+versions.restore = Restabilir sco copia
+versions.restoring = Avrir la copia…
+versions.restored = La versiun è vegnida averta sco copia betg memorisada.
+versions.copy_title = {name} — copia restabilida
+versions.restore_failed = Impussibel d'avrir questa versiun: {error}
+versions.read_failed = Impussibel da leger l'istorgia da versiuns: {error}
+versions.close = Serrar
+versions.previous = Versiuns pli novas
+versions.next = Versiuns pli veglias
+versions.page = Pagina {n} da {total}
+versions.preserve_failed = La modificaziun precedenta n'ha betg pudì vegnir conservada, perquai è la memorisaziun vegnida annullada: {error}
+versions.revert_failed = Impussibel da conservar tut las modificaziuns. Fotografias restabilidas: {n}. {error}

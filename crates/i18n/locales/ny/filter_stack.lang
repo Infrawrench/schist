@@ -1,0 +1,17 @@
+# Mndandanda wa masefa osinthika.
+filter_stack.title = Mndandanda wa masefa
+filter_stack.add = Onjezani sefa
+filter_stack.enable = Yambitsani
+filter_stack.disable = Letsani
+filter_stack.up = Pamwamba
+filter_stack.down = Pansi
+filter_stack.remove = Chotsani
+filter_stack.bake = Khazikitsani mndandanda
+filter_stack.note = Zotsatira zimayambira pa gwero losungidwa, kuchokera pamwamba kupita pansi. Dinani sefa kuti musinthe. Kujambula, kusuntha, kusintha mawonekedwe, kapena kusintha njira ya mitundu kumakhazikitsa mndandandawu; Bwezerani kumaukonzanso.
+filter_stack.eligibility = Mndandandawu umangosonyeza masefa amene amatha kugwira ntchito pawokha. Masefa ofuna mapu, path, maziko, kapena bokosi lakunja sangasungidwe mumndandanda.
+filter_stack.unavailable = Sankhani layer ya ma pixel yosakiyidwa kapena smart object kuti musinthe mndandanda wake wa masefa.
+filter_stack.render_failed = Mndandanda wa masefa sunathe kujambulidwa. Gwero lake ndi zokonda zosungidwa sizinasinthe.
+filter_stack.edit_history = Sinthani mndandanda wa masefa
+filter_stack.bake_history = Khazikitsani mndandanda wa masefa
+filter_stack.updated = Mndandanda wa masefa wasinthidwa
+filter_stack.missing = Sefa sikupezeka: {id}

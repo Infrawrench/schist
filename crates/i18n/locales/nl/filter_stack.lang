@@ -1,0 +1,17 @@
+# filter stack.
+filter_stack.title = Filterstapel
+filter_stack.add = Filter toevoegen
+filter_stack.enable = Inschakelen
+filter_stack.disable = Uitschakelen
+filter_stack.up = Omhoog
+filter_stack.down = Omlaag
+filter_stack.remove = Verwijderen
+filter_stack.bake = Filterstapel vastleggen
+filter_stack.note = Effecten worden van boven naar beneden op de bewaarde bron toegepast. Klik op een filter om het te bewerken. Door te schilderen, verplaatsen, transformeren of de kleurmodus te wijzigen, wordt de filterstapel vastgelegd; met Ongedaan maken wordt deze hersteld.
+filter_stack.eligibility = Alleen zelfstandige filters worden weergegeven. Filters die een structuur, pad, achtergrond of extern dialoogvenster nodig hebben, kunnen niet in een stapel worden opgeslagen.
+filter_stack.unavailable = Selecteer een ontgrendelde pixellaag of slim object om de filterstapel te bewerken.
+filter_stack.render_failed = De filterstapel kon niet worden gerenderd. De bron en opgeslagen instellingen zijn ongewijzigd.
+filter_stack.edit_history = Filterstapel bewerken
+filter_stack.bake_history = Filterstapel vastleggen
+filter_stack.updated = Filterstapel bijgewerkt
+filter_stack.missing = Niet-beschikbaar filter: {id}

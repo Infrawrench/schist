@@ -1,0 +1,17 @@
+# 編集可能なフィルタースタック。
+filter_stack.title = フィルタースタック
+filter_stack.add = フィルターを追加
+filter_stack.enable = 有効にする
+filter_stack.disable = 無効にする
+filter_stack.up = 上へ
+filter_stack.down = 下へ
+filter_stack.remove = 削除
+filter_stack.bake = スタックの表示結果を確定
+filter_stack.note = エフェクトは保持された元画像を使い、上から下へ実行されます。フィルターをクリックすると編集できます。ペイント、移動、変形、カラーモードの変更を行うと、スタックの表示結果が確定され、スタックを編集できなくなります。「取り消し」でスタックを復元できます。
+filter_stack.eligibility = 単独で完結するフィルターだけが表示されます。マップ、パス、背景、外部ダイアログを必要とするフィルターはスタックに保存できません。
+filter_stack.unavailable = フィルタースタックを編集するには、ロックされていないピクセルレイヤーまたはスマートオブジェクトを選択してください。
+filter_stack.render_failed = フィルタースタックを描画できませんでした。元画像と保存済みの設定は変更されていません。
+filter_stack.edit_history = フィルタースタックを編集
+filter_stack.bake_history = フィルタースタックの表示結果を確定
+filter_stack.updated = フィルタースタックを更新しました
+filter_stack.missing = 利用できないフィルター：{id}

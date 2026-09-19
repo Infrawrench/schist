@@ -1,0 +1,24 @@
+# Histri blong ol vesin.
+versions.title = Histri blong ol vesin
+versions.open = Histri blong ol vesin…
+versions.original = Orijinol
+versions.current = Edit we yu sevem naoia
+versions.saved_at = Oli sevem long {date} UTC
+versions.saved_sequence = Oli sevem long {date} UTC ({n})
+versions.loading = I stap lodem luk fastaem…
+versions.preview_failed = Luk fastaem i no stap. Yu save traem openem wan kopi yet.
+versions.drag_hint = Pulum sepereta blong komperem orijinol long lef wetem vesin we yu jusum long raet.
+versions.no_saved = I no gat edit we oli sevem yet. Taem yu sevem, edit blong bifo i stap long ples ya.
+versions.copy_hint = Taem yu putumbak, wan niufala dokumen we oli no sevem i open wetem ol leya blong hem. Sevem kopi long wan niufala ples.
+versions.restore = Putumbak olsem kopi
+versions.restoring = I stap openem kopi…
+versions.restored = Vesin i open olsem wan kopi we oli no sevem.
+versions.copy_title = {name} — kopi we oli putumbak
+versions.restore_failed = I no save openem vesin ya: {error}
+versions.read_failed = I no save ridim histri blong ol vesin: {error}
+versions.close = Klosem
+versions.previous = Ol niufala vesin
+versions.next = Ol olfala vesin
+versions.page = Pej {n} long {total}
+versions.preserve_failed = I no save kipim edit blong bifo, taswe oli kanselarem sev: {error}
+versions.revert_failed = I no save kipim olgeta edit. Foto we oli tanembak: {n}. {error}

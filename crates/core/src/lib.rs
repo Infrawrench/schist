@@ -7,6 +7,7 @@
 pub mod annotate;
 pub mod blend;
 pub mod document;
+pub mod filter_stack;
 pub mod geom;
 pub mod history;
 pub mod layer;

@@ -1,0 +1,24 @@
+# Saṃsaraṇānaṃ itihāso.
+versions.title = Saṃsaraṇānaṃ itihāso
+versions.open = Saṃsaraṇānaṃ itihāso…
+versions.original = Mūlaṃ
+versions.current = Etarahi rakkhitaṃ sampādanaṃ
+versions.saved_at = {date} UTC kāle rakkhitaṃ
+versions.saved_sequence = {date} UTC kāle rakkhitaṃ ({n})
+versions.loading = Pubbarūpaṃ āharīyati…
+versions.preview_failed = Pubbarūpaṃ na upalabbhati. Tathāpi paṭilipiṃ vivarituṃ sakkā.
+versions.drag_hint = Vāmapasse mūlaṃ dakkhiṇapasse ca gahitasaṃsaraṇaṃ upametvā passituṃ vibhājakaṃ ākaḍḍhatha.
+versions.no_saved = Ajja tāva sampādanāni na rakkhitāni. Ekekaṃ rakkhaṇaṃ purimasampādanaṃ idha ṭhapeti.
+versions.copy_hint = Punaṭṭhapanaṃ tassa santharehi saddhiṃ navaṃ arakkhitapaṭilipiṃ vivarati. Paṭilipiṃ aññasmiṃ ṭhāne rakkhatha.
+versions.restore = Paṭilipibhāvena puna ṭhapetha
+versions.restoring = Paṭilipi vivarīyati…
+versions.restored = Saṃsaraṇaṃ arakkhitapaṭilipibhāvena vivaṭaṃ.
+versions.copy_title = {name} — punaṭṭhapitā paṭilipi
+versions.restore_failed = Idaṃ saṃsaraṇaṃ vivarituṃ na sakkā: {error}
+versions.read_failed = Saṃsaraṇānaṃ itihāsaṃ paṭhituṃ na sakkā: {error}
+versions.close = Pidahatha
+versions.previous = Navatarāni saṃsaraṇāni
+versions.next = Purāṇatarāni saṃsaraṇāni
+versions.page = {total} antare piṭṭhaṃ {n}
+versions.preserve_failed = Purimasampādanaṃ ṭhapetuṃ na sakkā, tasmā rakkhaṇaṃ paṭikkhittaṃ: {error}
+versions.revert_failed = Sabbāni sampādanāni ṭhapetuṃ na sakkā. Paccāvattitāni chāyārūpāni: {n}. {error}

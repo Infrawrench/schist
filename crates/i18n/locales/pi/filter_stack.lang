@@ -1,0 +1,17 @@
+# Sampādetabbo sodhakapuñjo.
+filter_stack.title = Sodhakapuñjo
+filter_stack.add = Sodhakaṃ pakkhipatha
+filter_stack.enable = Pavattetha
+filter_stack.disable = Nivattetha
+filter_stack.up = Upari
+filter_stack.down = Heṭṭhā
+filter_stack.remove = Apanetha
+filter_stack.bake = Puñjassa dissamānarūpaṃ thiraṃ karotha
+filter_stack.note = Pabhāvā ṭhapitamūlato uparito heṭṭhā kamena pavattanti. Sampādetuṃ sodhakaṃ abhinippīḷetha. Ālikhanaṃ, cālanaṃ, pariṇāmanaṃ, vaṇṇavidhānaparivattanaṃ vā puñjassa dissamānarūpaṃ thiraṃ karoti; Paṭilomanaṃ taṃ puna ṭhapeti.
+filter_stack.eligibility = Attanā paripuṇṇā sodhakā yeva dassīyanti. Nakāsā, pathā, pacchābhūmi vā bāhirasaṃvādo vā yesaṃ vajjati te puñje rakkhituṃ na sakkā.
+filter_stack.unavailable = Imassa sodhakapuñjaṃ sampādetuṃ atāḷitaṃ pikselasantharaṃ vā paññāvatthuṃ vā gaṇhatha.
+filter_stack.render_failed = Sodhakapuñjaṃ dassetuṃ na sakkā. Tassa mūlañca rakkhitaniyojanāni ca avipariṇatāni.
+filter_stack.edit_history = Sodhakapuñjaṃ sampādetha
+filter_stack.bake_history = Sodhakapuñjassa dissamānarūpaṃ thiraṃ karotha
+filter_stack.updated = Sodhakapuñjo navīkato
+filter_stack.missing = Anupalabbhasodhako: {id}

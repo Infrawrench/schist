@@ -1,0 +1,17 @@
+# ערימות מסננים הניתנות לעריכה.
+filter_stack.title = ערימת מסננים
+filter_stack.add = הוספת מסנן
+filter_stack.enable = הפעלה
+filter_stack.disable = השבתה
+filter_stack.up = למעלה
+filter_stack.down = למטה
+filter_stack.remove = הסרה
+filter_stack.bake = קיבוע הערימה
+filter_stack.note = האפקטים מופעלים על המקור השמור, מלמעלה למטה. יש ללחוץ על מסנן כדי לערוך אותו. ציור, הזזה, שינוי צורה או שינוי מצב הצבע מקבעים את הערימה; ביטול מחזיר אותה.
+filter_stack.eligibility = מוצגים רק מסננים עצמאיים. לא ניתן לשמור בערימה מסננים שזקוקים למפה, נתיב, רקע או תיבת דו־שיח חיצונית.
+filter_stack.unavailable = יש לבחור שכבת פיקסלים שאינה נעולה או עצם חכם כדי לערוך את ערימת המסננים שלו.
+filter_stack.render_failed = לא ניתן לעבד את ערימת המסננים. המקור וההגדרות השמורות שלה לא השתנו.
+filter_stack.edit_history = עריכת ערימת מסננים
+filter_stack.bake_history = קיבוע ערימת מסננים
+filter_stack.updated = ערימת המסננים עודכנה
+filter_stack.missing = מסנן לא זמין: {id}

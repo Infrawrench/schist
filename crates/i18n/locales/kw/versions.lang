@@ -1,0 +1,24 @@
+# Istori versyons.
+versions.title = Istori versyons
+versions.open = Istori versyons…
+versions.original = Gwredhek
+versions.current = Golygyans sawys a-lemmyn
+versions.saved_at = Sawys {date} UTC
+versions.saved_sequence = Sawys {date} UTC ({n})
+versions.loading = Ow karga ragwel…
+versions.preview_failed = Nyns yw an ragwel kavadow. Hwi a yll hwath assaya ygeri kopi.
+versions.drag_hint = Tira an rannell rag kehevel an gwredhek war an tu kledh orth an versyon dewisys war an tu dyhow.
+versions.no_saved = Nyns eus golygyans sawys hwath. Pub sawyans a wra gwitha an golygyans kyns omma.
+versions.copy_hint = Daskor a wra ygeri skrifen nowydh ansawys gans y wiskow. Sawya an kopi dhe le nowydh.
+versions.restore = Daskor avel kopi
+versions.restoring = Ow ygeri kopi…
+versions.restored = Ygerys yw an versyon avel kopi ansawys.
+versions.copy_title = {name} — kopi daskorys
+versions.restore_failed = Ny yllir ygeri an versyon ma: {error}
+versions.read_failed = Ny yllir redya istori an versyons: {error}
+versions.close = Degea
+versions.previous = Versyons nowydhaga
+versions.next = Versyons kothaga
+versions.page = Folen {n} a {total}
+versions.preserve_failed = Ny yllir gwitha an golygyans kyns, hag ytho hedhedhys veu an sawyans: {error}
+versions.revert_failed = Ny yllir gwitha pub golygyans. Daswrys fotos: {n}. {error}

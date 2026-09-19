@@ -1,0 +1,17 @@
+# Editable filter stacks.
+filter_stack.title = फिल्टर स्ट्याक
+filter_stack.add = फिल्टर थप्नुहोस्
+filter_stack.enable = सक्षम पार्नुहोस्
+filter_stack.disable = असक्षम पार्नुहोस्
+filter_stack.up = माथि
+filter_stack.down = तल
+filter_stack.remove = हटाउनुहोस्
+filter_stack.bake = स्ट्याक स्थायी बनाउनुहोस्
+filter_stack.note = प्रभावहरू जोगाइएको स्रोतमा माथिदेखि तलसम्म लागू हुन्छन्। सम्पादन गर्न फिल्टरमा क्लिक गर्नुहोस्। रङ लगाउँदा, सार्दा, रूपान्तरण गर्दा वा रङ मोड बदल्दा स्ट्याक स्थायी हुन्छ; पूर्ववत्ले यसलाई पुनर्स्थापित गर्छ।
+filter_stack.eligibility = आफैंमा पूर्ण फिल्टरहरू मात्र सूचीबद्ध छन्। नक्सा, पथ, पृष्ठभूमि वा बाह्य संवाद चाहिने फिल्टरहरू स्ट्याकमा सुरक्षित गर्न सकिँदैन।
+filter_stack.unavailable = यसको फिल्टर स्ट्याक सम्पादन गर्न ताल्चा नलगाइएको पिक्सेल तह वा स्मार्ट वस्तु चयन गर्नुहोस्।
+filter_stack.render_failed = फिल्टर स्ट्याक रेन्डर गर्न सकिएन। यसको स्रोत र सुरक्षित सेटिङहरू बदलिएका छैनन्।
+filter_stack.edit_history = फिल्टर स्ट्याक सम्पादन
+filter_stack.bake_history = फिल्टर स्ट्याक स्थायी बनाउनुहोस्
+filter_stack.updated = फिल्टर स्ट्याक अद्यावधिक भयो
+filter_stack.missing = अनुपलब्ध फिल्टर: {id}

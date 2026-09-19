@@ -1,0 +1,24 @@
+# Version history.
+versions.title = Cronologia versioni
+versions.open = Cronologia versioni…
+versions.original = Originale
+versions.current = Modifica salvata corrente
+versions.saved_at = Salvata il {date} UTC
+versions.saved_sequence = Salvata il {date} UTC ({n})
+versions.loading = Caricamento anteprima…
+versions.preview_failed = Anteprima non disponibile. Puoi comunque provare ad aprire una copia.
+versions.drag_hint = Trascina il divisore per confrontare l'originale a sinistra con la versione selezionata a destra.
+versions.no_saved = Non ci sono ancora modifiche salvate. Ogni salvataggio conserva qui la modifica precedente.
+versions.copy_hint = Ripristina apre un nuovo documento non salvato con i relativi livelli. Salva la copia in una nuova posizione.
+versions.restore = Ripristina come copia
+versions.restoring = Apertura copia…
+versions.restored = Versione aperta come copia non salvata.
+versions.copy_title = {name} — copia ripristinata
+versions.restore_failed = Impossibile aprire questa versione: {error}
+versions.read_failed = Impossibile leggere la cronologia versioni: {error}
+versions.close = Chiudi
+versions.previous = Versioni più recenti
+versions.next = Versioni meno recenti
+versions.page = Pagina {n} di {total}
+versions.preserve_failed = Non è stato possibile conservare la modifica precedente, quindi il salvataggio è stato annullato: {error}
+versions.revert_failed = Impossibile conservare tutte le modifiche. Foto ripristinate: {n}. {error}

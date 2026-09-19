@@ -1,0 +1,24 @@
+# versions.
+versions.title = Weergawegeskiedenis
+versions.open = Weergawegeskiedenis…
+versions.original = Oorspronklik
+versions.current = Huidige gestoorde wysiging
+versions.saved_at = Gestoor op {date} UTC
+versions.saved_sequence = Gestoor op {date} UTC ({n})
+versions.loading = Laai voorskou…
+versions.preview_failed = Voorskou is nie beskikbaar nie. Jy kan steeds probeer om 'n kopie oop te maak.
+versions.drag_hint = Sleep die skeier om die oorspronklike links met die gekose weergawe regs te vergelyk.
+versions.no_saved = Nog geen gestoorde wysigings nie. Elke keer wanneer jy stoor, word die vorige wysiging hier behou.
+versions.copy_hint = Herstel maak 'n nuwe ongestoorde dokument met sy lae oop. Stoor die kopie op 'n nuwe plek.
+versions.restore = Herstel as kopie
+versions.restoring = Maak kopie oop…
+versions.restored = Weergawe as 'n ongestoorde kopie oopgemaak.
+versions.copy_title = {name} — herstelde kopie
+versions.restore_failed = Kon nie hierdie weergawe oopmaak nie: {error}
+versions.read_failed = Kon nie weergawegeskiedenis lees nie: {error}
+versions.close = Sluit
+versions.previous = Nuwer weergawes
+versions.next = Ouer weergawes
+versions.page = Bladsy {n} van {total}
+versions.preserve_failed = Die vorige wysiging kon nie behou word nie, daarom is stoor gekanselleer: {error}
+versions.revert_failed = Kon nie alle wysigings behou nie. Foto's teruggestel: {n}. {error}

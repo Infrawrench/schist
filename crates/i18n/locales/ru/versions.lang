@@ -1,0 +1,24 @@
+# История версий.
+versions.title = История версий
+versions.open = История версий…
+versions.original = Оригинал
+versions.current = Текущая сохранённая правка
+versions.saved_at = Сохранено {date} UTC
+versions.saved_sequence = Сохранено {date} UTC ({n})
+versions.loading = Загрузка предпросмотра…
+versions.preview_failed = Предпросмотр недоступен. Можно всё равно попытаться открыть копию.
+versions.drag_hint = Перетащите разделитель, чтобы сравнить оригинал слева с выбранной версией справа.
+versions.no_saved = Сохранённых правок пока нет. При каждом сохранении предыдущая правка остаётся здесь.
+versions.copy_hint = При восстановлении открывается новый несохранённый документ со всеми слоями. Сохраните копию в другом месте.
+versions.restore = Восстановить как копию
+versions.restoring = Открытие копии…
+versions.restored = Версия открыта как несохранённая копия.
+versions.copy_title = {name} — восстановленная копия
+versions.restore_failed = Не удалось открыть эту версию: {error}
+versions.read_failed = Не удалось прочитать историю версий: {error}
+versions.close = Закрыть
+versions.previous = Более новые версии
+versions.next = Более старые версии
+versions.page = Страница {n} из {total}
+versions.preserve_failed = Не удалось сохранить предыдущую правку, поэтому сохранение отменено: {error}
+versions.revert_failed = Не удалось сохранить все правки. Восстановлено фотографий: {n}. {error}

@@ -1,0 +1,24 @@
+# Taariikhda noocyada.
+versions.title = Taariikhda noocyada
+versions.open = Taariikhda noocyada…
+versions.original = Asalka
+versions.current = Tafatirka hadda kaydsan
+versions.saved_at = La kaydiyey {date} UTC
+versions.saved_sequence = La kaydiyey {date} UTC ({n})
+versions.loading = Hordhaca waa la rarayaa…
+versions.preview_failed = Hordhaca lama heli karo. Weli waxaad isku dayi kartaa inaad nuqul furto.
+versions.drag_hint = Jiid kala-qaybiyaha si aad asalka bidix ugu barbar dhigto nooca la doortay ee midig.
+versions.no_saved = Weli tafatirro la kaydiyey ma jiraan. Kaydin kasta waxay halkan ku haysaa tafatirkii ka horreeyey.
+versions.copy_hint = Soo-celintu waxay furaysaa dukumenti cusub oo aan la kaydin oo lakabyadiisu jiraan. Nuqulka ku kaydi meel cusub.
+versions.restore = Nuqul ahaan u soo celi
+versions.restoring = Nuqulka waa la furayaa…
+versions.restored = Nooca waxaa loo furay nuqul aan la kaydin.
+versions.copy_title = {name} — nuqul la soo celiyey
+versions.restore_failed = Noocan lama furi karin: {error}
+versions.read_failed = Taariikhda noocyada lama akhriyi karin: {error}
+versions.close = Xir
+versions.previous = Noocyo ka cusub
+versions.next = Noocyo ka da' weyn
+versions.page = Bogga {n} ee {total}
+versions.preserve_failed = Tafatirkii hore lama xafidi karin, sidaas darteed kaydinta waa la joojiyey: {error}
+versions.revert_failed = Dhammaan tafatirrada lama xafidi karin. Sawirrada dib loo celiyey: {n}. {error}

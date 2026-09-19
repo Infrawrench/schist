@@ -1,0 +1,17 @@
+# Doaimmahahtti sillenčopma.
+filter_stack.title = Sillenčopma
+filter_stack.add = Lasit silli
+filter_stack.enable = Váldde atnui
+filter_stack.disable = Váldde eret anus
+filter_stack.up = Bajás
+filter_stack.down = Vulos
+filter_stack.remove = Váldde eret
+filter_stack.bake = Čatna sillenčopma
+filter_stack.note = Váikkuhusat čađahuvvojit seailluhuvvon gáldus bajildan vulos. Coahkkal silli doaimmahan dihte. Málen, sirren, transformeren dahje ivdnemodealla rievdadeapmi čatná sillenčoma; Gomut máhcaha dan.
+filter_stack.eligibility = Dušše iešheanalis silliid čájehit. Silliid mat dárbbašit kártta, bálgá, duogáža dahje olgguldas láse ii sáhte vurket čopmii.
+filter_stack.unavailable = Vállje lohkatkeahtes govvačuokkisgearddi dahje jierpmálaš objeavtta doaimmahan dihte dan sillenčoma.
+filter_stack.render_failed = Sillenčoma ii sáhttán govvidit. Dan gáldu ja vurkejuvvon ásahusat eai rievdan.
+filter_stack.edit_history = Doaimmat sillenčoma
+filter_stack.bake_history = Čatnat sillenčoma
+filter_stack.updated = Sillenčopma ođasmahttojuvvui
+filter_stack.missing = Silli ii leat olámuttos: {id}

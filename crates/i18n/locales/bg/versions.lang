@@ -1,0 +1,24 @@
+# Хронология на версиите.
+versions.title = Хронология на версиите
+versions.open = Хронология на версиите…
+versions.original = Оригинал
+versions.current = Текуща запазена редакция
+versions.saved_at = Запазено на {date} UTC
+versions.saved_sequence = Запазено на {date} UTC ({n})
+versions.loading = Зареждане на прегледа…
+versions.preview_failed = Прегледът не е наличен. Все пак можете да опитате да отворите копие.
+versions.drag_hint = Плъзнете разделителя, за да сравните оригинала отляво с избраната версия отдясно.
+versions.no_saved = Все още няма запазени редакции. При всяко запазване предишната редакция остава тук.
+versions.copy_hint = Възстановяването отваря нов незапазен документ със слоевете му. Запазете копието на ново място.
+versions.restore = Възстановяване като копие
+versions.restoring = Отваряне на копието…
+versions.restored = Версията е отворена като незапазено копие.
+versions.copy_title = {name} — възстановено копие
+versions.restore_failed = Тази версия не можа да бъде отворена: {error}
+versions.read_failed = Хронологията на версиите не можа да бъде прочетена: {error}
+versions.close = Затваряне
+versions.previous = По-нови версии
+versions.next = По-стари версии
+versions.page = Страница {n} от {total}
+versions.preserve_failed = Предишната редакция не можа да бъде запазена, затова запазването беше отменено: {error}
+versions.revert_failed = Не всички редакции можаха да бъдат запазени. Върнати снимки: {n}. {error}

@@ -1,0 +1,17 @@
+# Munzelli ta' filtri editjabbli.
+filter_stack.title = Munzell ta' filtri
+filter_stack.add = Żid filtru
+filter_stack.enable = Attiva
+filter_stack.disable = Iddiżattiva
+filter_stack.up = 'Il fuq
+filter_stack.down = 'L isfel
+filter_stack.remove = Neħħi
+filter_stack.bake = Applika l-munzell b'mod permanenti
+filter_stack.note = L-effetti jitħaddmu mis-sors miżmum, minn fuq għal isfel. Ikklikkja filtru biex teditjah. Iż-żebgħa, iċ-ċaqliq, it-trasformazzjoni jew il-bidla tal-modalità tal-kulur japplikaw il-munzell b'mod permanenti; Ħoll jirrestawrah.
+filter_stack.eligibility = Jidhru biss filtri awtosuffiċjenti. Filtri li jeħtieġu mappa, passaġġ, sfond jew djalogu estern ma jistgħux jiġu ssejvjati f'munzell.
+filter_stack.unavailable = Agħżel saff ta' pixels mhux imsakkar jew oġġett intelliġenti biex teditja l-munzell ta' filtri tiegħu.
+filter_stack.render_failed = Il-munzell ta' filtri ma setax jiġi rrendjat. Is-sors u l-issettjar issejvjat tiegħu ma nbidlux.
+filter_stack.edit_history = Editja l-munzell ta' filtri
+filter_stack.bake_history = Applika l-munzell ta' filtri b'mod permanenti
+filter_stack.updated = Il-munzell ta' filtri ġie aġġornat
+filter_stack.missing = Filtru mhux disponibbli: {id}

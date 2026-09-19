@@ -1,0 +1,24 @@
+# Localized catalog.
+versions.title = Ιστορικό εκδόσεων
+versions.open = Ιστορικό εκδόσεων…
+versions.original = Πρωτότυπο
+versions.current = Τρέχουσα αποθηκευμένη επεξεργασία
+versions.saved_at = Αποθηκεύτηκε {date} UTC
+versions.saved_sequence = Αποθηκεύτηκε {date} UTC ({n})
+versions.loading = Φόρτωση προεπισκόπησης…
+versions.preview_failed = Η προεπισκόπηση δεν είναι διαθέσιμη. Μπορείτε ακόμη να δοκιμάσετε να ανοίξετε ένα αντίγραφο.
+versions.drag_hint = Σύρετε το διαχωριστικό για να συγκρίνετε το πρωτότυπο στα αριστερά με την επιλεγμένη έκδοση στα δεξιά.
+versions.no_saved = Δεν υπάρχουν ακόμη αποθηκευμένες επεξεργασίες. Κάθε αποθήκευση διατηρεί εδώ την προηγούμενη επεξεργασία.
+versions.copy_hint = Η επαναφορά ανοίγει ένα νέο μη αποθηκευμένο έγγραφο με τα επίπεδά του. Αποθηκεύστε το αντίγραφο σε νέα θέση.
+versions.restore = Επαναφορά ως αντίγραφο
+versions.restoring = Άνοιγμα αντιγράφου…
+versions.restored = Η έκδοση άνοιξε ως μη αποθηκευμένο αντίγραφο.
+versions.copy_title = {name} — αντίγραφο επαναφοράς
+versions.restore_failed = Δεν ήταν δυνατό το άνοιγμα αυτής της έκδοσης: {error}
+versions.read_failed = Δεν ήταν δυνατή η ανάγνωση του ιστορικού εκδόσεων: {error}
+versions.close = Κλείσιμο
+versions.previous = Νεότερες εκδόσεις
+versions.next = Παλαιότερες εκδόσεις
+versions.page = Σελίδα {n} από {total}
+versions.preserve_failed = Η προηγούμενη επεξεργασία δεν μπόρεσε να διατηρηθεί, επομένως η αποθήκευση ακυρώθηκε: {error}
+versions.revert_failed = Δεν ήταν δυνατή η διατήρηση όλων των επεξεργασιών. Φωτογραφίες που επανήλθαν: {n}. {error}

@@ -1,0 +1,24 @@
+# Versjonshistorikk.
+versions.title = Versjonshistorikk
+versions.open = Versjonshistorikk…
+versions.original = Original
+versions.current = Gjeldende lagrede redigering
+versions.saved_at = Lagret {date} UTC
+versions.saved_sequence = Lagret {date} UTC ({n})
+versions.loading = Laster forhåndsvisning…
+versions.preview_failed = Forhåndsvisningen er utilgjengelig. Du kan fortsatt prøve å åpne en kopi.
+versions.drag_hint = Dra skillelinjen for å sammenligne originalen til venstre med den valgte versjonen til høyre.
+versions.no_saved = Ingen lagrede redigeringer ennå. Hver lagring beholder den forrige redigeringen her.
+versions.copy_hint = Gjenopprett åpner et nytt, ulagret dokument med lagene. Lagre kopien et nytt sted.
+versions.restore = Gjenopprett som kopi
+versions.restoring = Åpner kopi…
+versions.restored = Versjonen ble åpnet som en ulagret kopi.
+versions.copy_title = {name} — gjenopprettet kopi
+versions.restore_failed = Kunne ikke åpne denne versjonen: {error}
+versions.read_failed = Kunne ikke lese versjonshistorikken: {error}
+versions.close = Lukk
+versions.previous = Nyere versjoner
+versions.next = Eldre versjoner
+versions.page = Side {n} av {total}
+versions.preserve_failed = Den forrige redigeringen kunne ikke bevares, så lagringen ble avbrutt: {error}
+versions.revert_failed = Kunne ikke bevare alle redigeringene. Bilder tilbakestilt: {n}. {error}

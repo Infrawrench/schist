@@ -1,0 +1,24 @@
+# Hanes fersiynau.
+versions.title = Hanes fersiynau
+versions.open = Hanes fersiynau…
+versions.original = Gwreiddiol
+versions.current = Golygiad cyfredol wedi’i gadw
+versions.saved_at = Cadwyd {date} UTC
+versions.saved_sequence = Cadwyd {date} UTC ({n})
+versions.loading = Wrthi’n llwytho’r rhagolwg…
+versions.preview_failed = Nid yw’r rhagolwg ar gael. Gallwch geisio agor copi o hyd.
+versions.drag_hint = Llusgwch y rhannwr i gymharu’r gwreiddiol ar y chwith â’r fersiwn a ddewiswyd ar y dde.
+versions.no_saved = Dim golygiadau wedi’u cadw eto. Mae pob cadw yn cadw’r golygiad blaenorol yma.
+versions.copy_hint = Mae adfer yn agor dogfen newydd heb ei chadw gyda’i haenau. Cadwch y copi mewn lleoliad newydd.
+versions.restore = Adfer fel copi
+versions.restoring = Wrthi’n agor copi…
+versions.restored = Agorwyd y fersiwn fel copi heb ei gadw.
+versions.copy_title = {name} — copi wedi’i adfer
+versions.restore_failed = Methu agor y fersiwn hwn: {error}
+versions.read_failed = Methu darllen hanes y fersiynau: {error}
+versions.close = Cau
+versions.previous = Fersiynau mwy newydd
+versions.next = Fersiynau hŷn
+versions.page = Tudalen {n} o {total}
+versions.preserve_failed = Nid oedd modd cadw’r golygiad blaenorol, felly canslwyd y cadw: {error}
+versions.revert_failed = Methu cadw pob golygiad. Lluniau wedi’u dychwelyd: {n}. {error}

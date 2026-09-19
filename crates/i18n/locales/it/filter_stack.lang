@@ -1,0 +1,17 @@
+# Editable filter stacks.
+filter_stack.title = Pila filtri
+filter_stack.add = Aggiungi filtro
+filter_stack.enable = Attiva
+filter_stack.disable = Disattiva
+filter_stack.up = Su
+filter_stack.down = Giù
+filter_stack.remove = Rimuovi
+filter_stack.bake = Consolida pila
+filter_stack.note = Gli effetti vengono applicati dalla sorgente conservata, dall'alto verso il basso. Fai clic su un filtro per modificarlo. Dipingere, spostare, trasformare o cambiare metodo colore consolida la pila; Annulla la ripristina.
+filter_stack.eligibility = Sono elencati solo i filtri autonomi. I filtri che richiedono una mappa, un tracciato, uno sfondo o una finestra esterna non possono essere salvati in una pila.
+filter_stack.unavailable = Seleziona un livello pixel sbloccato o un oggetto avanzato per modificarne la pila filtri.
+filter_stack.render_failed = Impossibile eseguire il rendering della pila filtri. La sorgente e le impostazioni salvate restano invariate.
+filter_stack.edit_history = Modifica pila filtri
+filter_stack.bake_history = Consolida pila filtri
+filter_stack.updated = Pila filtri aggiornata
+filter_stack.missing = Filtro non disponibile: {id}

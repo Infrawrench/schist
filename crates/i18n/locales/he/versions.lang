@@ -1,0 +1,24 @@
+# היסטוריית גרסאות.
+versions.title = היסטוריית גרסאות
+versions.open = היסטוריית גרסאות…
+versions.original = מקור
+versions.current = עריכה שמורה נוכחית
+versions.saved_at = נשמר בתאריך {date} UTC
+versions.saved_sequence = נשמר בתאריך {date} UTC ({n})
+versions.loading = התצוגה המקדימה נטענת…
+versions.preview_failed = התצוגה המקדימה אינה זמינה. עדיין ניתן לנסות לפתוח עותק.
+versions.drag_hint = יש לגרור את המפריד כדי להשוות בין המקור משמאל לגרסה שנבחרה מימין.
+versions.no_saved = עדיין אין עריכות שמורות. בכל שמירה, העריכה הקודמת נשמרת כאן.
+versions.copy_hint = שחזור פותח מסמך חדש שלא נשמר, יחד עם השכבות שלו. יש לשמור את העותק במיקום חדש.
+versions.restore = שחזור כעותק
+versions.restoring = העותק נפתח…
+versions.restored = הגרסה נפתחה כעותק שלא נשמר.
+versions.copy_title = {name} — עותק משוחזר
+versions.restore_failed = לא ניתן לפתוח גרסה זו: {error}
+versions.read_failed = לא ניתן לקרוא את היסטוריית הגרסאות: {error}
+versions.close = סגירה
+versions.previous = גרסאות חדשות יותר
+versions.next = גרסאות ישנות יותר
+versions.page = עמוד {n} מתוך {total}
+versions.preserve_failed = לא ניתן היה לשמר את העריכה הקודמת, ולכן השמירה בוטלה: {error}
+versions.revert_failed = לא ניתן היה לשמר את כל העריכות. תמונות ששוחזרו למצבן הקודם: {n}. {error}

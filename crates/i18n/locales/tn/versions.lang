@@ -1,0 +1,24 @@
+# Version history.
+versions.title = Hisitori ya diphetogo
+versions.open = Hisitori ya diphetogo…
+versions.original = Sa ntlha
+versions.current = Phetogo ya jaanong e e bolokilweng
+versions.saved_at = E bolokilwe ka {date} UTC
+versions.saved_sequence = E bolokilwe ka {date} UTC ({n})
+versions.loading = Go tsenya ponelopele…
+versions.preview_failed = Ponelopele ga e teng. O sa ntse o ka leka go bula khopi.
+versions.drag_hint = Goga sekgaoganyi go bapisa sa ntlha kafa molemeng le phetogo e e tlhophilweng kafa mojeng.
+versions.no_saved = Ga go na diphetogo tse di bolokilweng. Poloko nngwe le nngwe e boloka phetogo e e fetileng fano.
+versions.copy_hint = Go busetsa go bula tokomane e ntšha e e sa bolokwang le dillaga tsa yona. Boloka khopi kwa lefelong le lesha.
+versions.restore = Busetsa jaaka khopi
+versions.restoring = Go bula khopi…
+versions.restored = Phetogo e butswe jaaka khopi e e sa bolokwang.
+versions.copy_title = {name} — khopi e e buseditsweng
+versions.restore_failed = Ga go a kgonega go bula phetogo eno: {error}
+versions.read_failed = Ga go a kgonega go bala hisitori ya diphetogo: {error}
+versions.close = Tswala
+versions.previous = Diphetogo tse disha
+versions.next = Diphetogo tse dikgologolo
+versions.page = Tsebe {n} ya {total}
+versions.preserve_failed = Phetogo e e fetileng ga e a kgona go bolokwa, ka jalo poloko e khansetswe: {error}
+versions.revert_failed = Ga go a kgonega go boloka diphetogo tsotlhe. Ditshwantsho tse di buseditsweng: {n}. {error}

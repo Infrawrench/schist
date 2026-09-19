@@ -1,0 +1,24 @@
+# Versionshistorik.
+versions.title = Versionshistorik
+versions.open = Versionshistorik…
+versions.original = Original
+versions.current = Aktuell sparad redigering
+versions.saved_at = Sparad {date} UTC
+versions.saved_sequence = Sparad {date} UTC ({n})
+versions.loading = Läser in förhandsvisning…
+versions.preview_failed = Förhandsvisningen är inte tillgänglig. Du kan ändå försöka öppna en kopia.
+versions.drag_hint = Dra avdelaren för att jämföra originalet till vänster med den valda versionen till höger.
+versions.no_saved = Det finns inga sparade redigeringar än. Vid varje sparning bevaras den föregående redigeringen här.
+versions.copy_hint = Återställning öppnar ett nytt osparat dokument med dess lager. Spara kopian på en ny plats.
+versions.restore = Återställ som kopia
+versions.restoring = Öppnar kopia…
+versions.restored = Versionen öppnades som en osparad kopia.
+versions.copy_title = {name} — återställd kopia
+versions.restore_failed = Det gick inte att öppna den här versionen: {error}
+versions.read_failed = Det gick inte att läsa versionshistoriken: {error}
+versions.close = Stäng
+versions.previous = Nyare versioner
+versions.next = Äldre versioner
+versions.page = Sida {n} av {total}
+versions.preserve_failed = Den föregående redigeringen kunde inte bevaras, så sparningen avbröts: {error}
+versions.revert_failed = Alla redigeringar kunde inte bevaras. Foton som återställdes: {n}. {error}

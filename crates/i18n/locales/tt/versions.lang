@@ -1,0 +1,24 @@
+# Version history.
+versions.title = Версияләр тарихы
+versions.open = Версияләр тарихы…
+versions.original = Оригинал
+versions.current = Хәзерге сакланган үзгәртү
+versions.saved_at = {date} UTC сакланды
+versions.saved_sequence = {date} UTC сакланды ({n})
+versions.loading = Алдан карау йөкләнә…
+versions.preview_failed = Алдан карау мөмкин түгел. Күчермәсен ачып карый аласыз.
+versions.drag_hint = Сулдагы оригиналны уңдагы сайланган версия белән чагыштыру өчен бүлгечне сөйрәгез.
+versions.no_saved = Әлегә сакланган үзгәртүләр юк. Һәр саклау алдагы үзгәртүне монда калдыра.
+versions.copy_hint = Торгызу катламнары белән яңа сакланмаган документ ача. Күчермәне яңа урынга саклагыз.
+versions.restore = Күчермә итеп торгызу
+versions.restoring = Күчермә ачыла…
+versions.restored = Версия сакланмаган күчермә итеп ачылды.
+versions.copy_title = {name} — торгызылган күчермә
+versions.restore_failed = Бу версияне ачып булмады: {error}
+versions.read_failed = Версияләр тарихын укып булмады: {error}
+versions.close = Ябу
+versions.previous = Яңарак версияләр
+versions.next = Искерәк версияләр
+versions.page = {total} битнең {n}-нче бите
+versions.preserve_failed = Алдагы үзгәртүне саклап булмаганга, саклау туктатылды: {error}
+versions.revert_failed = Барлык үзгәртүләрне саклап булмады. Кире кайтарылган фотолар: {n}. {error}

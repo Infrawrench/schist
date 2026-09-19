@@ -374,6 +374,13 @@ format-cloud:
 .PHONY: check-gallery check-cloud-browser
 check-gallery:
 	$(CARGO) test -p schist-editor -p schist-gallery-ui -p schist-map-view
+
+.PHONY: check-version-history
+check-version-history:
+	$(CARGO) test -p schist-gallery -p schist-editor --lib versions::tests
+	$(CARGO) test -p schist-editor --lib workspace::library_ops::tests::moving_a_photo
+	$(CARGO) test -p schist-editor --lib workspace::library_ops::tests::batch_process_
+
 check-cloud-browser:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
 
@@ -487,6 +494,19 @@ smoke-library: library
 	node examples/library/smoke.cjs
 lint-library:
 	CARGO='$(CARGO)' ./tools/library-cargo.sh clippy --lib --tests -- -D warnings
+
+# Editable filter recipe rendering, native source preservation and persistence.
+.PHONY: check-filter-stacks
+check-filter-stacks:
+	$(CARGO) test -p schist-core --test filter_stacks
+	$(CARGO) test -p schist-plugin-api filter_stack
+	$(CARGO) test -p schist-codec-psd --test filter_stacks
+	$(CARGO) test -p schist-document filter_stack
+	$(CARGO) test -p schist-editor --lib filter_stack
+
+.PHONY: format-filter-stacks
+format-filter-stacks:
+	$(CARGO) fmt -p schist-core -p schist-plugin-api -p schist-codec-psd -p schist-document -p schist-editor
 
 # Multi-output export recipes: real codecs, naming, persistence and source preservation.
 .PHONY: check-export-recipes

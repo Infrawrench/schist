@@ -1,0 +1,16 @@
+filter_stack.title = Àkójọpọ̀ àsẹ
+filter_stack.add = Fi àsẹ kún un
+filter_stack.enable = Mú ṣiṣẹ́
+filter_stack.disable = Mú kúrò níṣẹ́
+filter_stack.up = Gbé sókè
+filter_stack.down = Gbé sísàlẹ̀
+filter_stack.remove = Yọ kúrò
+filter_stack.bake = Mú àkójọpọ̀ àsẹ dúró
+filter_stack.note = Àwọn ipa ń ṣiṣẹ́ láti orísun tí a pa mọ́, láti òkè dé ìsàlẹ̀. Tẹ àsẹ kan láti ṣàtúnṣe rẹ̀. Kíkun, gbígbé, yíyí ìrísí, tàbí yíyí ipò àwọ̀ mú àkójọpọ̀ náà dúró; Fagilé ń mú un padà.
+filter_stack.eligibility = Àwọn àsẹ tí ó ní gbogbo ohun tí wọ́n nílò nìkan ni a tò síbí. A kò lè fi àsẹ tó nílò máàpù, ipa, abẹ́lẹ̀, tàbí fèrèsé òde pamọ́ sínú àkójọpọ̀.
+filter_stack.unavailable = Yan fẹ́lẹ́fẹ́lẹ́ píksẹ́lì tí a kò tì tàbí smart object láti ṣàtúnṣe àkójọpọ̀ àsẹ rẹ̀.
+filter_stack.render_failed = A kò lè ṣe àfihàn àkójọpọ̀ àsẹ náà. Orísun àti àwọn ètò tí a fipamọ́ kò yí padà.
+filter_stack.edit_history = Ṣàtúnṣe àkójọpọ̀ àsẹ
+filter_stack.bake_history = Mú àkójọpọ̀ àsẹ dúró
+filter_stack.updated = A ti ṣe àfikún àkójọpọ̀ àsẹ
+filter_stack.missing = Àsẹ kò sí: {id}

@@ -1,0 +1,17 @@
+# Allichay atina suysuna qutu.
+filter_stack.title = Suysuna qutu
+filter_stack.add = Suysunata yapay
+filter_stack.enable = Hap'ichiy
+filter_stack.disable = Wañuchiy
+filter_stack.up = Hanaqman
+filter_stack.down = Uraman
+filter_stack.remove = Qichuy
+filter_stack.bake = Qututa pixelman tikray
+filter_stack.note = Efectokuna waqaychasqa qallariqmanta hanaqmanta uraman ruwakun. Huk suysunata ñit'iy allichanaykipaq. Pintaspa, kuyuchispa, tikraspa utaq llimp'i kayninta tikraspaqa qututa pixelman tikran; Ruwasqata kutichiy wakmanta allichay atina qutuman kutichin.
+filter_stack.eligibility = Kikinmanta hunt'asqa suysunakullam yupisqapi kanku. Mapa, ñan, qhipa rikch'ay utaq hawa rimana tawaquta munaq suysunakunaqa manam qutupi waqaychakuyta atinkuchu.
+filter_stack.unavailable = Mana wichq'asqa pixel patata utaq yuyayniyuq imata akllay suysuna qutunta allichanaykipaq.
+filter_stack.render_failed = Suysuna qututa mana rikch'ayman tikrayta atikunchu. Qallariqninpas waqaychasqa allichayninkunapas mana tikrasqachu.
+filter_stack.edit_history = Suysuna qututa allichay
+filter_stack.bake_history = Suysuna qututa pixelman tikray
+filter_stack.updated = Suysuna qutu musuqyachisqa
+filter_stack.missing = Mana kaq suysuna: {id}

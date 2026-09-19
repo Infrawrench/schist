@@ -1,0 +1,24 @@
+# Kahise k'uburyo.
+versions.title = Kahise k'uburyo
+versions.open = Kahise k'uburyo…
+versions.original = Ishusho yo mu ntango
+versions.current = Ihindurwa ribitswe ubu
+versions.saved_at = Vyabitswe {date} UTC
+versions.saved_sequence = Vyabitswe {date} UTC ({n})
+versions.loading = Hariko harashirwa ahabona ishusho y'imbere…
+versions.preview_failed = Ishusho y'imbere ntiboneka. Urashobora kugerageza kwugurura ikopi.
+versions.drag_hint = Kurura umurongo ugabura kugira ugereranye ishusho yo mu ntango ibubamfu n'uburyo wahisemwo iburyo.
+versions.no_saved = Nta mahindurwa arabikwa. Igihe cose ubika, ihindurwa ryariho rica ribikwa hano.
+versions.copy_hint = Gusubizaho vyugurura inyandiko nshasha itarabikwa iri kumwe n'ibice vyayo. Bika iyo kopi ahandi.
+versions.restore = Gusubizaho nk'ikopi
+versions.restoring = Hariko harugururwa ikopi…
+versions.restored = Ubu buryo bwuguruwe nk'ikopi itarabikwa.
+versions.copy_title = {name} — ikopi yasubijweho
+versions.restore_failed = Ntivyashobotse kwugurura ubu buryo: {error}
+versions.read_failed = Ntivyashobotse gusoma kahise k'uburyo: {error}
+versions.close = Kwugara
+versions.previous = Uburyo bushasha kuruta
+versions.next = Uburyo bwa kera kuruta
+versions.page = Urupapuro {n} kuri {total}
+versions.preserve_failed = Ihindurwa ryariho ntiryashoboye kubikwa, rero ukubika kwarahagaritswe: {error}
+versions.revert_failed = Ntivyashobotse kubika amahindurwa yose. Amashusho yasubijwe: {n}. {error}

@@ -1,0 +1,17 @@
+# ክእረም ዝኽእል ድርድር ፊልተራት።
+filter_stack.title = ድርድር ፊልተራት
+filter_stack.add = ፊልተር ወስኽ
+filter_stack.enable = ኣኽእል
+filter_stack.disable = ኣሰናኽል
+filter_stack.up = ንላዕሊ
+filter_stack.down = ንታሕቲ
+filter_stack.remove = ኣውጽእ
+filter_stack.bake = ትርኢት ድርድር ቀዋሚ ግበር
+filter_stack.note = ጽልዋታት ካብቲ ዝተዓቀበ ምንጪ ጀሚሮም፣ ካብ ላዕሊ ንታሕቲ ይሰርሑ። ፊልተር ንምእራም ጠውቆ። ምቕባእ፣ ምንቅስቓስ፣ ምቕያር ቅርጺ ወይ ምቕያር ስርዓት ሕብሪ ንትርኢት እቲ ድርድር ቀዋሚ ይገብሮ፤ ምስራዝ ድማ ይመልሶ።
+filter_stack.eligibility = ባዕሎም ዝማልኡ ፊልተራት ጥራይ እዮም ዝዝርዘሩ። ካርታ፣ መንገዲ፣ ድሕረ-ባይታ ወይ ደጋዊ መወያየጢ ዝደልዩ ፊልተራት ኣብ ድርድር ክቕመጡ ኣይክእሉን።
+filter_stack.unavailable = ድርድር ፊልተራቱ ንምእራም፣ ዘይተዓጽወ ንጣፍ ፒክሰል ወይ ስማርት ኦብጀክት ምረጽ።
+filter_stack.render_failed = እቲ ድርድር ፊልተራት ክቐርብ ኣይከኣለን። ምንጩን ዝተቐመጡ ቅንብራቱን ኣይተቐየሩን።
+filter_stack.edit_history = ድርድር ፊልተራት ኣርም
+filter_stack.bake_history = ትርኢት ድርድር ፊልተራት ቀዋሚ ግበር
+filter_stack.updated = ድርድር ፊልተራት ተሓዲሱ
+filter_stack.missing = ዘይርከብ ፊልተር፦ {id}

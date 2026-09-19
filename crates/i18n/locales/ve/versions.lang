@@ -1,0 +1,24 @@
+# Ḓivhazwakale ya dziṅweleo.
+versions.title = Ḓivhazwakale ya dziṅweleo
+versions.open = Ḓivhazwakale ya dziṅweleo…
+versions.original = Tshifanyiso tsha u thoma
+versions.current = Nzudzanyo yo vhulungwaho zwino
+versions.saved_at = Yo vhulungwa nga {date} UTC
+versions.saved_sequence = Yo vhulungwa nga {date} UTC ({n})
+versions.loading = I khou longela mbonalo ya phanḓa…
+versions.preview_failed = Mbonalo ya phanḓa a i wanali. Ni nga kha ḓi lingedza u vula khophi.
+versions.drag_hint = Kokodzani tshikhethekanyi u vhambedza tshifanyiso tsha u thoma tshi re kha monde na iṅweleo yo nangiwaho i re kha tshauḽa.
+versions.no_saved = A hu athu vha na nzudzanyo dzo vhulungwaho. Musi ni tshi vhulunga, nzudzanyo yo fhiraho i dzula hafha.
+versions.copy_hint = U vhuedzedza zwi vula ḽiṅwalo ḽiswa ḽi songo vhulungwaho ḽi na dziḽeyara dzaḽo. Vhulungani khophi fhethu huswa.
+versions.restore = Vhuedzedza sa khophi
+versions.restoring = I khou vula khophi…
+versions.restored = Iṅweleo yo vulwa sa khophi i songo vhulungwaho.
+versions.copy_title = {name} — khophi yo vhuedzedzwaho
+versions.restore_failed = A zwo ngo konadzea u vula iyi iṅweleo: {error}
+versions.read_failed = A zwo ngo konadzea u vhala ḓivhazwakale ya dziṅweleo: {error}
+versions.close = Vala
+versions.previous = Dziṅweleo ntswa
+versions.next = Dziṅweleo dza kale
+versions.page = Siaṱari {n} kha {total}
+versions.preserve_failed = Nzudzanyo yo fhiraho a yo ngo kona u tsireledzwa, zwenezwo u vhulunga ho thuthwa: {error}
+versions.revert_failed = A zwo ngo konadzea u tsireledza nzudzanyo dzoṱhe. Zwinepe zwo vhuedzedzwa: {n}. {error}

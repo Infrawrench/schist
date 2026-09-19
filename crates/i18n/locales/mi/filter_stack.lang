@@ -1,0 +1,17 @@
+# Tāpae tātari ka taea te whakatika.
+filter_stack.title = Tāpae tātari
+filter_stack.add = Tāpiri tātari
+filter_stack.enable = Whakahohe
+filter_stack.disable = Monokia
+filter_stack.up = Whakarunga
+filter_stack.down = Whakararo
+filter_stack.remove = Tango
+filter_stack.bake = Whakapūmau tāpae
+filter_stack.note = Ka mahia ngā pānga mai i te pūtake kua tiakina, mai i runga ki raro. Pāwhiria tētahi tātari hei whakatika. Mā te peita, te neke, te panoni, te huri rānei i te aratau tae e whakapūmau te tāpae; mā te Wete e whakahoki.
+filter_stack.eligibility = Ko ngā tātari motuhake anake ka whakarārangitia. Kāore e taea te tiaki ki tētahi tāpae ngā tātari e hiahia ana ki tētahi mahere, ara, papamuri, pouaka kōrero ā-waho rānei.
+filter_stack.unavailable = Tīpakohia tētahi apa pika kāore i maukati, tētahi ahanoa atamai rānei, hei whakatika i tōna tāpae tātari.
+filter_stack.render_failed = Kāore i taea te tāhuahua te tāpae tātari. Kāore tōna pūtake me ōna tautuhinga kua tiakina i panoni.
+filter_stack.edit_history = Whakatika tāpae tātari
+filter_stack.bake_history = Whakapūmau tāpae tātari
+filter_stack.updated = Kua whakahōutia te tāpae tātari
+filter_stack.missing = Tātari kāore i te wātea: {id}

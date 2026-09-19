@@ -2803,6 +2803,18 @@ fn gallery_context_menu(
             let acting = ws.library.selected.clone();
             let n = acting.len();
 
+            if !schist_gallery::is_video(&path) {
+                let original = path.clone();
+                row(
+                    t("versions.open").into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| {
+                        ws.open_version_history(original.clone(), cx);
+                    }),
+                );
+            }
+
             if n > 1 && acting.iter().any(|p| !schist_gallery::is_video(p)) {
                 let open: Vec<_> = acting
                     .iter()

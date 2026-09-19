@@ -1,0 +1,16 @@
+filter_stack.title = Inqwaba yezisefo
+filter_stack.add = Engeza isisefo
+filter_stack.enable = Vumela
+filter_stack.disable = Khubaza
+filter_stack.up = Phezulu
+filter_stack.down = Phansi
+filter_stack.remove = Susa
+filter_stack.bake = Qinisa inqwaba
+filter_stack.note = Imiphumela iqala emthonjeni ogciniweyo, isuke phezulu iye phansi. Chofoza isisefo ukuze usihlele. Ukupenda, ukuhambisa, ukuguqula, loba ukutshintsha imodi yombala kwenza umphumela obonakalayo wenqwaba uhlale njalo kususe amasethingi ahlelekayo; Ukuhlehlisa kuyawabuyisela.
+filter_stack.eligibility = Kubalwa izisefo ezizimeleyo kuphela. Izisefo ezidinga imephu, indlela, ingemuva, loba ibhokisi lengxoxo yangaphandle azigcinakali enqwabeni.
+filter_stack.unavailable = Khetha isendlalelo samaphikseli esingakhiywanga loba into ehlakaniphileyo ukuze uhlele inqwaba yezisefo zaso.
+filter_stack.render_failed = Inqwaba yezisefo ayidwetshwanga. Umthombo lamasethingi agciniweyo akuguqukanga.
+filter_stack.edit_history = Hlela inqwaba yezisefo
+filter_stack.bake_history = Qinisa inqwaba yezisefo
+filter_stack.updated = Inqwaba yezisefo ivuselelwe
+filter_stack.missing = Isisefo asitholakali: {id}

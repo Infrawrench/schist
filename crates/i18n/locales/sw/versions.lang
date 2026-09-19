@@ -1,0 +1,24 @@
+# Historia ya matoleo.
+versions.title = Historia ya matoleo
+versions.open = Historia ya matoleo…
+versions.original = Asili
+versions.current = Hariri ya sasa iliyohifadhiwa
+versions.saved_at = Ilihifadhiwa {date} UTC
+versions.saved_sequence = Ilihifadhiwa {date} UTC ({n})
+versions.loading = Inapakia onyesho la awali…
+versions.preview_failed = Onyesho la awali halipatikani. Bado unaweza kujaribu kufungua nakala.
+versions.drag_hint = Buruta kigawanyaji ili kulinganisha picha asili upande wa kushoto na toleo lililochaguliwa upande wa kulia.
+versions.no_saved = Bado hakuna hariri zilizohifadhiwa. Kila uhifadhi huweka hariri iliyotangulia hapa.
+versions.copy_hint = Kurejesha hufungua hati mpya ambayo haijahifadhiwa pamoja na tabaka zake. Hifadhi nakala hiyo mahali papya.
+versions.restore = Rejesha kama nakala
+versions.restoring = Inafungua nakala…
+versions.restored = Toleo limefunguliwa kama nakala isiyohifadhiwa.
+versions.copy_title = {name} — nakala iliyorejeshwa
+versions.restore_failed = Haikuweza kufungua toleo hili: {error}
+versions.read_failed = Haikuweza kusoma historia ya matoleo: {error}
+versions.close = Funga
+versions.previous = Matoleo mapya zaidi
+versions.next = Matoleo ya zamani zaidi
+versions.page = Ukurasa {n} kati ya {total}
+versions.preserve_failed = Hariri iliyotangulia haikuweza kuhifadhiwa, kwa hivyo uhifadhi ulighairiwa: {error}
+versions.revert_failed = Haikuweza kuhifadhi hariri zote. Picha zilizorudishwa: {n}. {error}

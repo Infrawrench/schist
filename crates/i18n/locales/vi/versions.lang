@@ -1,0 +1,24 @@
+# Lịch sử phiên bản.
+versions.title = Lịch sử phiên bản
+versions.open = Lịch sử phiên bản…
+versions.original = Bản gốc
+versions.current = Bản chỉnh sửa đã lưu hiện tại
+versions.saved_at = Đã lưu {date} UTC
+versions.saved_sequence = Đã lưu {date} UTC ({n})
+versions.loading = Đang tải bản xem trước…
+versions.preview_failed = Không thể xem trước. Bạn vẫn có thể thử mở một bản sao.
+versions.drag_hint = Kéo đường phân cách để so sánh bản gốc ở bên trái với phiên bản đã chọn ở bên phải.
+versions.no_saved = Chưa có bản chỉnh sửa nào được lưu. Mỗi lần lưu sẽ giữ lại bản chỉnh sửa trước đó tại đây.
+versions.copy_hint = Khôi phục sẽ mở một tài liệu mới chưa lưu cùng các lớp. Hãy lưu bản sao vào vị trí mới.
+versions.restore = Khôi phục dưới dạng bản sao
+versions.restoring = Đang mở bản sao…
+versions.restored = Phiên bản đã được mở dưới dạng bản sao chưa lưu.
+versions.copy_title = {name} — bản sao đã khôi phục
+versions.restore_failed = Không thể mở phiên bản này: {error}
+versions.read_failed = Không thể đọc lịch sử phiên bản: {error}
+versions.close = Đóng
+versions.previous = Phiên bản mới hơn
+versions.next = Phiên bản cũ hơn
+versions.page = Trang {n} / {total}
+versions.preserve_failed = Không thể giữ lại bản chỉnh sửa trước đó, vì vậy thao tác lưu đã bị hủy: {error}
+versions.revert_failed = Không thể giữ lại tất cả bản chỉnh sửa. Số ảnh đã hoàn nguyên: {n}. {error}

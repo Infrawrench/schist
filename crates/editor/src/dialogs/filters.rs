@@ -182,7 +182,9 @@ pub(super) fn filter_dialog(
             div()
                 .text_size(px(11.0))
                 .text_color(gpui::rgb(ui::palette().text_dim))
-                .child(if raw_development {
+                .child(if ws.stack_filter_session.is_some() {
+                    t("filter_stack.note")
+                } else if raw_development {
                     t("dialog.filter.raw_note")
                 } else {
                     t("dialog.filter.note")
@@ -213,7 +215,9 @@ pub(super) fn filter_dialog(
                     ws.apply_filter(id, &apply_values, cx);
                 } else {
                     ws.apply_filter(id, &apply_values, cx);
-                    if matches!(ws.modal, Some(Modal::Filter { .. })) {
+                    if matches!(ws.modal, Some(Modal::Filter { .. }))
+                        && ws.stack_filter_session.is_none()
+                    {
                         ws.close_modal(cx);
                     }
                 }

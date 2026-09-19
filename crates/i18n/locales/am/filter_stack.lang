@@ -1,0 +1,17 @@
+# ሊታረሙ የሚችሉ የማጣሪያ ቁልል።
+filter_stack.title = የማጣሪያ ቁልል
+filter_stack.add = ማጣሪያ ጨምር
+filter_stack.enable = አንቃ
+filter_stack.disable = አሰናክል
+filter_stack.up = ወደ ላይ
+filter_stack.down = ወደ ታች
+filter_stack.remove = አስወግድ
+filter_stack.bake = የቁልሉን ውጤት ቋሚ አድርግ
+filter_stack.note = ተፅዕኖዎች ከተጠበቀው ምንጭ ላይ ከላይ ወደ ታች ይተገበራሉ። ለማርትዕ ማጣሪያን ጠቅ ያድርጉ። መቀባት፣ ማንቀሳቀስ፣ መቀየር ወይም የቀለም ሁነታን መቀየር የቁልሉን ውጤት ቋሚ ያደርጋል፤ ቀልብስ ወደነበረበት ይመልሰዋል።
+filter_stack.eligibility = ራሳቸውን የቻሉ ማጣሪያዎች ብቻ ተዘርዝረዋል። ካርታ፣ መንገድ፣ የጀርባ ምስል ወይም ውጫዊ መገናኛ የሚፈልጉ ማጣሪያዎች በቁልል ውስጥ ሊቀመጡ አይችሉም።
+filter_stack.unavailable = የማጣሪያ ቁልሉን ለማርትዕ ያልተቆለፈ የፒክሰል ንብርብር ወይም ብልህ ነገር ይምረጡ።
+filter_stack.render_failed = የማጣሪያ ቁልሉን ማቅረብ አልተቻለም። ምንጩና የተቀመጡ ቅንብሮቹ አልተቀየሩም።
+filter_stack.edit_history = የማጣሪያ ቁልልን አርትዕ
+filter_stack.bake_history = የማጣሪያ ቁልልን ቋሚ አድርግ
+filter_stack.updated = የማጣሪያ ቁልሉ ተዘምኗል
+filter_stack.missing = የማይገኝ ማጣሪያ፦ {id}
