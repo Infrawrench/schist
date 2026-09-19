@@ -184,6 +184,8 @@ fn read_bounded(path: &std::path::Path) -> anyhow::Result<Vec<u8>> {
         "{}",
         t("smart.error.too_large")
     );
+    #[cfg(target_arch = "wasm32")]
+    let bytes = bytes.as_ref().clone();
     Ok(bytes)
 }
 
