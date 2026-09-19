@@ -9,6 +9,7 @@ impl Workspace {
 
     pub fn toggle_popup(&mut self, popup: Popup, cx: &mut Context<Self>) {
         self.open_submenu.clear();
+        self.dropdown_search.clear();
         self.open_popup = if self.open_popup == Some(popup) {
             None
         } else {
@@ -20,6 +21,7 @@ impl Workspace {
     }
 
     pub fn close_popup(&mut self, cx: &mut Context<Self>) {
+        self.dropdown_search.clear();
         self.open_submenu.clear();
         self.dropdown.reset();
         if self.open_popup.take().is_some() {
@@ -48,9 +50,30 @@ impl Workspace {
         let Some(menu) = crate::ui::open_dropdown() else {
             return false;
         };
+        if menu.searchable && ev.keystroke.key == "tab" {
+            self.close_popup(cx);
+            return true;
+        }
+        // A searchable list owns text editing, including clipboard shortcuts,
+        // while arrows and Enter still navigate and choose the filtered rows.
+        if menu.searchable
+            && !matches!(
+                ev.keystroke.key.as_str(),
+                "up" | "down" | "pageup" | "pagedown" | "enter"
+            )
+        {
+            match self.dropdown_search.key(ev, cx) {
+                crate::ui::LineEditKey::Changed => self.dropdown.reset(),
+                crate::ui::LineEditKey::Moved => {}
+                _ => return false,
+            }
+            self.reset_caret_phase();
+            cx.notify();
+            return true;
+        }
         let n = menu.labels.len();
         if n == 0 {
-            return false;
+            return menu.searchable;
         }
         let at = self.dropdown.highlight().or(menu.current);
         let mods = &ev.keystroke.modifiers;

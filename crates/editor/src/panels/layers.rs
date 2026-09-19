@@ -1,6 +1,7 @@
 //! The layers panel: rows, blend mode and opacity controls.
 
 use super::*;
+use crate::workspace::LayersTab;
 use schist_i18n::t;
 
 pub(super) struct LayerRow {
@@ -96,6 +97,48 @@ pub(super) fn blend_mode_control(
 }
 
 pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let selected = ws.layers_tab;
+    let tabs = div().flex().gap_1().flex_none().children(
+        [
+            ("layers-tab", t("common.layers"), LayersTab::Layers),
+            (
+                "filter-stack-tab",
+                t("filter_stack.title"),
+                LayersTab::FilterStack,
+            ),
+        ]
+        .into_iter()
+        .map(|(id, label, tab)| {
+            Chip::new(id, label)
+                .selected(selected == tab)
+                .on_click(cx.listener(move |ws, _, _, cx| {
+                    ws.commit_focused_field();
+                    ws.commit_layer_rename(cx);
+                    ws.close_popup(cx);
+                    ws.layers_tab = tab;
+                    cx.notify();
+                }))
+        }),
+    );
+    let content = match selected {
+        LayersTab::Layers => layers_content(ws, cx).into_any_element(),
+        LayersTab::FilterStack => crate::workspace::filter_stack::panel(ws, cx).into_any_element(),
+    };
+    div()
+        .flex()
+        .flex_col()
+        .flex_grow()
+        // The sidebar scrolls if a small window cannot fit the panel.
+        .min_h(px(if ui::touch() { 120.0 } else { 220.0 }))
+        .p_2()
+        .gap_1()
+        .border_t_1()
+        .border_color(gpui::rgb(palette().panel_edge))
+        .child(tabs)
+        .child(content)
+}
+
+fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let mut rows = Vec::new();
     let active_layer = ws.doc.as_ref().and_then(|d| d.active_layer);
     if let Some(doc) = &ws.doc {
@@ -122,18 +165,8 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
         .flex()
         .flex_col()
         .flex_grow()
-        // A floor, not zero: the side column scrolls now, and a growing
-        // panel with no floor would collapse to nothing under a tall
-        // Info tab instead of pushing the column past the window. Lower
-        // on touch, where the history panel's grip trades height with
-        // this one and a landscape iPad has little to go round.
-        .min_h(px((if ui::touch() { 120.0_f32 } else { 220.0_f32 })
-            .max(142.0 + crate::workspace::filter_stack::panel_height(ws))))
-        .p_2()
+        .min_h(px(0.0))
         .gap_1()
-        .border_t_1()
-        .border_color(gpui::rgb(palette().panel_edge))
-        .child(panel_title(t("common.layers")))
         .child(
             div()
                 .flex()
@@ -389,7 +422,6 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
                     }),
                 ),
         )
-        .child(crate::workspace::filter_stack::panel(ws, cx))
         .child(
             // Action buttons.
             div()

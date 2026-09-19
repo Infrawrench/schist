@@ -30,6 +30,7 @@ impl Workspace {
     /// the keyboard up.
     fn wants_text_input(&mut self) -> bool {
         self.spotlight.open
+            || (self.dropdown_open() && self.dropdown_search.active)
             || self.focused_field.is_some()
             || self.gallery_typing()
             || self.layer_rename.is_some()
@@ -70,6 +71,9 @@ impl Workspace {
         if self.spotlight.open {
             let edit = &self.spotlight.input;
             return Some((&edit.text, edit.selection()));
+        }
+        if self.dropdown_open() && self.dropdown_search.active {
+            return Some((&self.dropdown_search.text, self.dropdown_search.selection()));
         }
         if self.focused_field.is_some() {
             return Some((&self.field_buffer, self.field_selection()));

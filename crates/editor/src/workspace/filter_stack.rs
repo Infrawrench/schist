@@ -376,19 +376,6 @@ impl Workspace {
     }
 }
 
-/// Space for controls plus at least one selectable layer row. Extra effects
-/// scroll within their own list instead of consuming the layer list's height.
-pub fn panel_height(ws: &Workspace) -> f32 {
-    let count = ws
-        .doc
-        .as_ref()
-        .and_then(|d| d.active_layer.and_then(|id| d.tree.find(id)))
-        .and_then(|l| FilterStack::read(l).ok().flatten())
-        .map_or(0, |s| s.effects.len());
-    let row_h = if ui::touch() { 32.0 } else { 24.0 };
-    29.0 + count.min(3) as f32 * row_h
-}
-
 pub fn panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     use gpui::prelude::*;
     use schist_ui::{Button, IconButton};
@@ -413,13 +400,18 @@ pub fn panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
         .collect();
     filters.sort_by(|a, b| a.0.cmp(&b.0));
     let mut header = gpui::div().flex().items_center().gap_1().flex_none().child(
-        Button::new("stack-help", t("filter_stack.title"))
+        Button::bare("stack-help")
             .ghost()
             .px_0()
             .flex_1()
             .min_w(gpui::px(0.0))
             .justify_start()
-            .text_size(gpui::px(11.0))
+            .child(
+                gpui::div()
+                    .truncate()
+                    .text_size(gpui::px(11.0))
+                    .child(layer.map_or_else(|| t("common.none").to_string(), |l| l.name.clone())),
+            )
             .tooltip(
                 if supported {
                     t("filter_stack.note")
@@ -439,8 +431,9 @@ pub fn panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
         );
     }
     if supported {
-        header = header.child(ui::dropdown_above(
+        header = header.child(ui::searchable_dropdown_above(
             &ws.dropdown,
+            &ws.dropdown_search,
             ui::Dropdown {
                 popup: Popup::Field("stack-filter-picker"),
                 is_open: ws.open_popup == Some(Popup::Field("stack-filter-picker")),
@@ -460,19 +453,26 @@ pub fn panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
     let mut body = gpui::div()
         .flex()
         .flex_col()
-        .flex_none()
-        .border_t_1()
-        .border_color(gpui::rgb(ui::palette().panel_edge))
-        .pt_1()
+        .flex_grow()
+        .min_h(gpui::px(0.0))
+        .gap_1()
         .child(header);
+    if !supported {
+        body = body.child(
+            gpui::div()
+                .text_size(gpui::px(11.0))
+                .text_color(gpui::rgb(ui::palette().text_dim))
+                .child(t("filter_stack.unavailable")),
+        );
+    }
     if let Some(stack) = stack {
         let count = stack.effects.len();
         let mut rows = gpui::div()
             .id("stack-filter-list")
             .flex()
             .flex_col()
-            .h(gpui::px(count.min(3) as f32 * row_h))
-            .flex_none()
+            .flex_grow()
+            .min_h(gpui::px(0.0))
             .overflow_y_scroll();
         for (index, effect) in stack.effects.iter().enumerate() {
             let filter = ws.registry.shared_filter(&effect.id);
