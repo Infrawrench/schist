@@ -1520,7 +1520,7 @@ mod tests {
         let codecs: Vec<Arc<dyn schist_plugin_api::CodecPlugin>> =
             vec![Arc::new(schist_codecs_common::PsdCodec)];
         let recipe = BatchRecipe {
-            flip_v: true,
+            rotate: Some(CanvasTransform::Cw90),
             ..Default::default()
         };
         assert!(process_photo(&codecs, &photo, &recipe, &BatchSink::Edit).is_err());
