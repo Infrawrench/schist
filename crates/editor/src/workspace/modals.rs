@@ -123,6 +123,18 @@ impl Workspace {
     }
 
     pub fn close_modal(&mut self, cx: &mut Context<Self>) {
+        if matches!(
+            self.modal,
+            Some(Modal::RecordedActionBatch {
+                finished: false,
+                ..
+            })
+        ) {
+            if let Some(cancel) = &self.action_recorder.batch_cancel {
+                cancel.store(true, std::sync::atomic::Ordering::Relaxed);
+            }
+            return;
+        }
         // A file picker going away unanswered is a cancel: dropping its
         // sender is what tells the prompt's caller.
         self.file_picker = None;
@@ -489,6 +501,14 @@ impl Workspace {
 
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
         let buffer = self.field_buffer.clone();
+        if id == "recorded-action-name" {
+            self.update_modal(|modal| {
+                if let Modal::RecordedActions { name, .. } = modal {
+                    *name = buffer;
+                }
+            });
+            return;
+        }
         if id == palettes::SEARCH_FIELD {
             self.palette_search = buffer;
             return;
@@ -658,6 +678,8 @@ impl Workspace {
             }
             // These dialogs have no typed fields.
             Modal::DestructiveAdjustment { .. }
+            | Modal::RecordedActions { .. }
+            | Modal::RecordedActionBatch { .. }
             | Modal::Busy { .. }
             | Modal::ConfirmCloseTab
             | Modal::SharedImage { .. }

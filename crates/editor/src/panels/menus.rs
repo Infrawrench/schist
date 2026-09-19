@@ -104,6 +104,8 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
         (
             t("menu.edit"),
             vec![
+                App(t("actions.title"), RecordedActions, None),
+                Sep,
                 Cmd("edit.undo"),
                 Cmd("edit.redo"),
                 Sep,
@@ -425,6 +427,7 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
         (
             t("menu.gallery"),
             vec![
+                App(t("actions.title"), RecordedActions, None),
                 App(t("menu.gallery.edit_selected"), GalleryEditSelected, None),
                 App(t("menu.gallery.refresh"), GalleryRefresh, None),
                 App(t("menu.gallery.map_filter"), GalleryMapFilter, None),

@@ -67,6 +67,7 @@ impl Workspace {
         if let Some(request) = self
             .doc
             .as_ref()
+            .filter(|_| !self.action_recorder.recording)
             .and_then(|doc| schist_commands_core::gpu_selection_command(id, doc, &self.editor))
         {
             self.queue_browser_edit(request, cx);
@@ -80,6 +81,8 @@ impl Workspace {
         }
         let profile_before = self.doc.as_ref().and_then(|doc| doc.icc_profile.clone());
         let Some(doc) = self.doc.as_mut() else { return };
+        let revision_before = doc.revision;
+        let mut succeeded = false;
         if let Some(command) = self.registry.command(id) {
             let mut ctx = CommandCtx {
                 doc,
@@ -87,6 +90,7 @@ impl Workspace {
                 refusal: None,
             };
             (command.run)(&mut ctx);
+            succeeded = ctx.refusal.is_none() && ctx.doc.revision != revision_before;
             // Reporting the command's own title regardless meant every
             // silent no-op looked like it had worked.
             self.status = match ctx.refusal {
@@ -99,6 +103,9 @@ impl Workspace {
             }
         } else {
             log::warn!("unknown command {id}");
+        }
+        if succeeded {
+            self.record_command_action(id);
         }
         // Undo and redo are plugin commands, so a profile restored by
         // their history operation must rebuild the cached display hop.

@@ -32,6 +32,7 @@ mod open;
 mod plugins;
 mod prefs;
 mod profile;
+mod recorded_actions;
 #[cfg(not(target_arch = "wasm32"))]
 mod save_image;
 mod size;
@@ -109,6 +110,20 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
     let body = match modal {
         Modal::CloudGenerate => crate::workspace::cloud_generation::dialog(ws, cx),
         Modal::Cloud { kind, fields } => crate::workspace::cloud_view::dialog(ws, kind, fields, cx),
+        Modal::RecordedActions {
+            selected,
+            step,
+            name,
+        } => recorded_actions::actions_dialog(ws, &state, selected, step, name, cx)
+            .into_any_element(),
+        Modal::RecordedActionBatch {
+            done,
+            total,
+            outputs,
+            failures,
+            finished,
+        } => recorded_actions::batch_dialog(ws, done, total, outputs, failures, finished, cx)
+            .into_any_element(),
         Modal::ImageSize {
             width,
             height,

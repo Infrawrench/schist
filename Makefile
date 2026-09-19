@@ -267,6 +267,13 @@ clean-helpers:
 
 FORCE:
 
+.PHONY: check-recordable-actions format-recordable-actions
+check-recordable-actions:
+	$(CARGO) test -p schist-editor --lib workspace::recorded_actions::tests
+	$(CARGO) check -p schist-editor --all-targets
+format-recordable-actions:
+	$(CARGO) fmt -p schist-editor -p schist-app-actions
+
 .PHONY: check-layered-codecs check-layered-codecs-wasm check-layered-codecs-app
 # HEIC security gate, download upgrade, and real-image import regressions.
 # Serial execution keeps the install test's managed-directory override

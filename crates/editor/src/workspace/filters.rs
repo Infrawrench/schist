@@ -720,6 +720,7 @@ impl Workspace {
             let mut edit = doc.begin_edit(label);
             edit.replace_layer_tiles(layer, out);
             edit.commit();
+            self.record_filter_action(filter.id(), values);
         } else if let Some(raster) = doc.tree.find_mut(layer).and_then(|l| l.as_raster_mut()) {
             raster.tiles = out;
             doc.add_damage(region);
@@ -924,18 +925,20 @@ impl Workspace {
             return;
         };
         #[cfg(target_arch = "wasm32")]
-        if self.queue_browser_filter(
-            filter.clone(),
-            values,
-            browser_gpu::FilterInput {
-                layer: layer_id,
-                region,
-                original: &original,
-                whole_layer: false,
-            },
-            true,
-            cx,
-        ) {
+        if !self.action_recorder.recording
+            && self.queue_browser_filter(
+                filter.clone(),
+                values,
+                browser_gpu::FilterInput {
+                    layer: layer_id,
+                    region,
+                    original: &original,
+                    whole_layer: false,
+                },
+                true,
+                cx,
+            )
+        {
             return;
         }
         if self.run_native_filter(filter.as_ref(), layer_id, region, values, &name, true) {
@@ -970,6 +973,7 @@ impl Workspace {
         }
         self.write_region(layer_id, region, &original, &buf, &name, true);
         self.status = name.into();
+        self.record_filter_action(id, values);
         self.after_change(cx);
     }
 

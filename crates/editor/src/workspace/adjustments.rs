@@ -62,6 +62,7 @@ impl Workspace {
         edit.insert_layer(path, layer);
         edit.commit();
         doc.active_layer = Some(id);
+        self.record_added_adjustment(id, &params);
         self.status = tf!(
             "workspace.adjustment.added",
             name = crate::ui::adjustment_name(kind)
@@ -107,6 +108,7 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         let after = (serde_json::to_string(params).ok(), Vec::new());
+        let changed = after != original;
         if let Some(doc) = self.doc.as_mut() {
             // Put the pre-dialog state back first so the recorded edit has
             // the right "before"; the live preview already moved the layer.
@@ -130,6 +132,9 @@ impl Workspace {
             name = crate::ui::adjustment_name(params.kind())
         )
         .into();
+        if changed {
+            self.record_adjustment_settings(layer, params);
+        }
         self.after_change(cx);
     }
 
