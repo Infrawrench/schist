@@ -605,8 +605,20 @@ mod tests {
             background: [1.0; 4],
         });
         layer.extras = stack.blocks(layer, &source).unwrap();
+        let id = layer.id;
+        let mut edit = doc.begin_edit("move stack");
+        edit.translate_layer(id, 7, 9);
+        edit.commit();
+        let stack = FilterStack::read(doc.tree.find(id).unwrap())
+            .unwrap()
+            .unwrap();
+        let extras = doc.tree.find(id).unwrap().extras.clone();
         let mut shared = SharedDocument::new(&doc).unwrap();
         let reopened = shared.render().unwrap();
+        assert_eq!(reopened.tree.layers[0].extras, extras);
+        assert!(extras
+            .iter()
+            .any(|b| b.key == schist_core::filter_stack::CACHE_KEY));
         assert_eq!(
             FilterStack::read(&reopened.tree.layers[0]).unwrap(),
             Some(stack.clone())
@@ -618,6 +630,7 @@ mod tests {
         let bytes = shared.checkpoint().unwrap();
         let mut recovered = SharedDocument::unseeded(&doc).unwrap();
         let restored = recovered.restore(&bytes, &doc).unwrap();
+        assert_eq!(restored.tree.layers[0].extras, extras);
         assert_eq!(
             FilterStack::read(&restored.tree.layers[0]).unwrap(),
             Some(stack)

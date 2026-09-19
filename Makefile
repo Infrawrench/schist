@@ -521,3 +521,14 @@ format-filter-stacks:
 .PHONY: check-export-recipes
 check-export-recipes:
 	$(CARGO) test -p schist-editor export_recipes
+
+# Live filter placement, UI transforms, source preservation and file round trips.
+.PHONY: check-live-stack-transforms format-live-stack-transforms
+check-live-stack-transforms:
+	$(CARGO) test -p schist-core --test filter_stacks
+	$(CARGO) test -p schist-tools-transform -p schist-tools-basic -p schist-commands-core
+	$(CARGO) test -p schist-codec-psd --test filter_stacks
+	$(CARGO) test -p schist-document filter_stack
+	$(CARGO) test -p schist-editor --lib filter_stack
+format-live-stack-transforms:
+	$(CARGO) fmt -p schist-core -p schist-editor -p schist-tools-transform -p schist-commands-core -p schist-codec-psd -p schist-document

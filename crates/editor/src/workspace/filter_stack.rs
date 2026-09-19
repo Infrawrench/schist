@@ -56,7 +56,11 @@ fn render_layer(
     source: &schist_core::TileMap,
     stack: &FilterStack,
     doc: &Document,
-) -> anyhow::Result<(schist_core::TileMap, Option<Box<schist_core::SmartObject>>)> {
+) -> anyhow::Result<(
+    schist_core::TileMap,
+    Option<Box<schist_core::SmartObject>>,
+    schist_core::TileMap,
+)> {
     let filtered = schist_plugin_api::filter_stack::render(
         registry,
         stack,
@@ -65,12 +69,16 @@ fn render_layer(
         doc.icc_profile.clone(),
     )?;
     if let Some(mut smart) = layer.smart.clone() {
-        smart.source = filtered;
+        smart.source = filtered.clone();
         smart.source_bounds = smart.source.content_bounds();
         let tiles = smart.render(doc.depth, doc.canvas_rect());
-        Ok((tiles, Some(smart)))
+        Ok((tiles, Some(smart), filtered))
     } else {
-        Ok((filtered, None))
+        Ok((
+            stack.place(&filtered, doc.depth, doc.canvas_rect()),
+            None,
+            filtered,
+        ))
     }
 }
 
@@ -242,10 +250,11 @@ impl Workspace {
             None => Ok((
                 session.original.as_raster().unwrap().tiles.clone(),
                 session.original.smart.clone(),
+                session.source.clone(),
             )),
         };
         match output {
-            Ok((tiles, smart)) => {
+            Ok((tiles, smart, _)) => {
                 let doc = self.doc.as_mut().unwrap();
                 if let Some(layer) = doc.tree.find_mut(session.layer) {
                     if let Some(raster) = layer.as_raster_mut() {
@@ -300,11 +309,11 @@ impl Workspace {
                 .tree
                 .find(id)
                 .ok_or_else(|| anyhow::anyhow!("Layer removed"))?;
-            let (tiles, smart) = render_layer(&self.registry, layer, source, stack, doc)?;
+            let (tiles, smart, filtered) = render_layer(&self.registry, layer, source, stack, doc)?;
             let extras = if stack.effects.is_empty() {
                 filter_stack::without_stack(&layer.extras)
             } else {
-                stack.blocks(layer, source)?
+                stack.blocks_with_render(layer, source, &filtered)?
             };
             Ok((tiles, smart, extras))
         })();
@@ -312,7 +321,7 @@ impl Workspace {
             Ok((tiles, smart, extras)) => {
                 let doc = self.doc.as_mut().unwrap();
                 let mut edit = doc.begin_edit(t("filter_stack.edit_history"));
-                edit.replace_layer_tiles(id, tiles);
+                edit.replace_layer_render(id, tiles);
                 if smart.is_some() {
                     edit.set_smart_object(id, smart);
                 }
@@ -611,22 +620,112 @@ mod tests {
             foreground: [0.0, 0.0, 0.0, 1.0],
             background: [1.0; 4],
         });
-        let (rendered, smart) = render_layer(&registry, &layer, &source, &stack, &doc).unwrap();
+        let (rendered, smart, _) = render_layer(&registry, &layer, &source, &stack, &doc).unwrap();
         assert_eq!(rendered.pixel(3, 2).r, 1.0);
         assert_eq!(rendered.pixel(0, 0).a, 0.0);
         assert_eq!(source.pixel(0, 0).r, 0.0);
         assert_eq!(smart.unwrap().source.pixel(0, 0).r, 1.0);
         stack.effects.clear();
-        let (restored, _) = render_layer(&registry, &layer, &source, &stack, &doc).unwrap();
+        let (restored, _, _) = render_layer(&registry, &layer, &source, &stack, &doc).unwrap();
         assert_eq!(restored.pixel(3, 2), Rgba::BLACK);
     }
+    #[test]
+    fn filter_stack_edit_after_transform_refreshes_source_cache_and_keeps_placement() {
+        use schist_core::{Affine, Filter};
+        for smart in [false, true] {
+            let (mut doc, mut layer, registry) = setup();
+            if smart {
+                layer.smart = Some(Box::new(schist_core::SmartObject::wrap(
+                    layer.as_raster().unwrap().tiles.clone(),
+                    "source",
+                )));
+            }
+            let (source, mut stack) = source_and_stack(&layer, doc.canvas_rect()).unwrap();
+            stack.effects.push(FilterEffect {
+                id: "red".into(),
+                enabled: true,
+                values: Default::default(),
+                foreground: [0.0; 4],
+                background: [1.0; 4],
+            });
+            let (tiles, so, filtered) =
+                render_layer(&registry, &layer, &source, &stack, &doc).unwrap();
+            layer.as_raster_mut().unwrap().tiles = tiles;
+            layer.smart = so;
+            layer.extras = stack
+                .blocks_with_render(&layer, &source, &filtered)
+                .unwrap();
+            let id = doc.push_layer(layer);
+            let mut edit = doc.begin_edit("transform");
+            edit.transform_layer(
+                id,
+                &Affine::translate(3.0, 2.0).then(&Affine::scale(2.0, 2.0)),
+                Filter::Nearest,
+                IntRect::from_size(8, 8),
+            );
+            edit.commit();
+            let layer = doc.tree.find(id).unwrap();
+            let (source, mut stack) = source_and_stack(layer, doc.canvas_rect()).unwrap();
+            assert_eq!(source.pixel(0, 0), Rgba::BLACK);
+            stack.effects[0].enabled = false;
+            let (tiles, so, filtered) =
+                render_layer(&registry, layer, &source, &stack, &doc).unwrap();
+            assert_eq!(tiles.pixel(3, 2), Rgba::BLACK);
+            assert_eq!(tiles.pixel(0, 0).a, 0.0);
+            let extras = stack.blocks_with_render(layer, &source, &filtered).unwrap();
+            let mut edit = doc.begin_edit("disable");
+            edit.replace_layer_render(id, tiles);
+            if so.is_some() {
+                edit.set_smart_object(id, so);
+            }
+            edit.set_extras(id, extras);
+            edit.commit();
+            let mut edit = doc.begin_edit("transform again");
+            edit.transform_layer(
+                id,
+                &Affine::translate(1.0, 1.0),
+                Filter::Nearest,
+                IntRect::from_size(8, 8),
+            );
+            edit.commit();
+            assert_eq!(
+                doc.tree
+                    .find(id)
+                    .unwrap()
+                    .as_raster()
+                    .unwrap()
+                    .tiles
+                    .pixel(4, 3),
+                Rgba::BLACK
+            );
+            let layer = doc.tree.find(id).unwrap();
+            let mut stack = FilterStack::read(layer).unwrap().unwrap();
+            stack.effects.clear();
+            let (restored, _, _) = render_layer(&registry, layer, &source, &stack, &doc).unwrap();
+            assert_eq!(restored.pixel(4, 3), Rgba::BLACK);
+        }
+    }
+
     #[test]
     fn filter_stack_recovery_snapshot_excludes_preview_and_retains_recipe() {
         let (mut doc, mut layer, _) = setup();
         let (source, stack) = source_and_stack(&layer, doc.canvas_rect()).unwrap();
         layer.extras = stack.blocks(&layer, &source).unwrap();
-        let original = layer.clone();
         let id = doc.push_layer(layer);
+        let mut edit = doc.begin_edit("transform");
+        edit.transform_layer(
+            id,
+            &schist_core::Affine::scale(2.0, 2.0),
+            schist_core::Filter::Nearest,
+            IntRect::from_size(8, 8),
+        );
+        edit.commit();
+        let original = doc.tree.find(id).unwrap().clone();
+        let stack = FilterStack::read(&original).unwrap().unwrap();
+        assert!(original
+            .extras
+            .iter()
+            .any(|b| b.key == filter_stack::CACHE_KEY));
         doc.tree
             .find_mut(id)
             .unwrap()

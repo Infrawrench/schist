@@ -96,6 +96,7 @@ struct Session {
     layer: LayerId,
     /// Untransformed pixels (cheap: tiles are reference-counted).
     original: TileMap,
+    source: Option<schist_core::filter_stack::LayerTransform>,
     /// Untransformed selection, for `TransformMode::Selection`.
     original_selection: schist_core::Selection,
     /// Bounds of `original`, the box the handles frame.
@@ -196,13 +197,13 @@ impl Session {
                 * self.scale.0.abs().max(self.scale.1.abs())) as i32,
         );
         let depth = doc.depth;
-        let tiles = schist_core::resample::transform_tiles(
-            &self.original,
-            &self.matrix(),
-            depth,
-            filter,
-            clip,
-        );
+        let Some(source) = &self.source else {
+            return;
+        };
+        let Ok(transform) = source.then(&self.matrix(), filter) else {
+            return;
+        };
+        let tiles = transform.render(depth, clip);
         let before = doc
             .tree
             .find(self.layer)
@@ -232,9 +233,14 @@ impl Session {
                 * self.scale.0.abs().max(self.scale.1.abs())) as i32,
         );
         let layer = self.layer;
+        let transform = self
+            .source
+            .as_ref()?
+            .then(&self.matrix(), Filter::Nearest)
+            .ok()?;
         affine_edit(
-            &self.original,
-            self.matrix(),
+            &transform.source,
+            transform.matrix,
             doc.depth,
             Filter::Nearest,
             clip,
@@ -384,10 +390,23 @@ impl TransformTool {
         if base.is_empty() {
             return;
         }
+        let source = if self.mode == TransformMode::Layer {
+            let Ok(source) = schist_core::filter_stack::LayerTransform::prepare(
+                layer,
+                &Affine::IDENTITY,
+                ctx.state.resample,
+            ) else {
+                return;
+            };
+            Some(source)
+        } else {
+            None
+        };
         self.session = Some(Session {
             mode: self.mode,
             layer: id,
             original: raster.tiles.clone(),
+            source,
             original_selection: ctx.doc.selection.clone(),
             base,
             scale: (1.0, 1.0),
@@ -590,56 +609,37 @@ impl ToolPlugin for TransformTool {
             edit.commit();
             return;
         }
-        // A smart object composes the transform onto its own and
-        // re-renders from its untouched source, so transforming it twice
-        // costs no more quality than transforming it once.
-        let smart = ctx
-            .doc
-            .tree
-            .find(session.layer)
-            .and_then(|l| l.smart.as_deref())
-            .map(|so| {
-                let mut next = so.clone();
-                next.filter = ctx.state.resample;
-                next.apply(&session.matrix());
-                next
-            });
+        let Some(source) = &session.source else {
+            return;
+        };
+        let Ok(transform) = source.then(&session.matrix(), ctx.state.resample) else {
+            return;
+        };
         if self.async_compute {
-            let (source, matrix, filter) = match &smart {
-                Some(so) => (&so.source, so.transform, so.filter),
-                None => (&session.original, session.matrix(), ctx.state.resample),
-            };
             let layer = session.layer;
-            let next_smart = smart.clone();
-            if let Some(request) =
-                affine_edit(source, matrix, depth, filter, clip, move |doc, tiles| {
-                    let mut edit = doc.begin_edit(t("tool.transform.history.transform"));
-                    edit.replace_layer_tiles(layer, tiles);
-                    if let Some(so) = next_smart {
-                        edit.set_smart_object(layer, Some(Box::new(so)));
-                    }
-                    edit.commit();
-                })
-            {
-                self.pending_gpu = Some(request);
-                return;
+            // Keep integer translations on the lossless native path.
+            if !schist_core::filter_stack::is_integer_translation(&transform.matrix) {
+                let plan = transform.clone();
+                if let Some(request) = affine_edit(
+                    &transform.source,
+                    transform.matrix,
+                    depth,
+                    transform.filter,
+                    clip,
+                    move |doc, tiles| {
+                        let mut edit = doc.begin_edit(t("tool.transform.history.transform"));
+                        edit.apply_layer_transform(layer, tiles, plan);
+                        edit.commit();
+                    },
+                ) {
+                    self.pending_gpu = Some(request);
+                    return;
+                }
             }
         }
-        let tiles = match &smart {
-            Some(so) => so.render(depth, clip),
-            None => schist_core::resample::transform_tiles(
-                &session.original,
-                &session.matrix(),
-                depth,
-                ctx.state.resample,
-                clip,
-            ),
-        };
+        let tiles = transform.render(depth, clip);
         let mut edit = ctx.doc.begin_edit(t("tool.transform.history.transform"));
-        edit.replace_layer_tiles(session.layer, tiles);
-        if let Some(so) = smart {
-            edit.set_smart_object(session.layer, Some(Box::new(so)));
-        }
+        edit.apply_layer_transform(session.layer, tiles, transform);
         edit.commit();
     }
 
@@ -871,37 +871,21 @@ pub fn crop_to(doc: &mut Document, rect: IntRect) {
 
 /// Rescale the whole document (Image Size).
 pub fn resize_image(doc: &mut Document, width: u32, height: u32, filter: Filter) {
-    if width == 0 || height == 0 || (width == doc.width && height == doc.height) {
+    let Some(mut resize) = ClassicResize::capture(doc, width, height, filter) else {
         return;
+    };
+    let clip = IntRect::from_size(width, height);
+    for (_, plan, tiles) in &mut resize.layers {
+        *tiles = plan.render(doc.depth, clip);
     }
-    let from = (doc.width, doc.height);
-    let depth = doc.depth;
-    let mut edit = doc.begin_edit(t("tool.transform.history.image_size"));
-    let ids = edit.raster_layer_ids();
-    for id in ids {
-        let Some(raster) = edit.doc().tree.find(id).and_then(|l| l.as_raster()) else {
-            continue;
-        };
-        let tiles = schist_core::resample::resize_tiles(
-            &raster.tiles,
-            from,
-            (width, height),
-            depth,
-            filter,
-        );
-        edit.replace_layer_tiles(id, tiles);
-    }
-    edit.set_canvas_size(width, height);
-    edit.commit();
+    resize.apply(doc);
 }
 
 /// Immutable input for an asynchronous Image Size operation.
 pub struct ClassicResize {
-    from: (u32, u32),
     to: (u32, u32),
     depth: schist_color::Depth,
-    filter: Filter,
-    layers: Vec<(LayerId, TileMap)>,
+    layers: Vec<(LayerId, schist_core::filter_stack::LayerTransform, TileMap)>,
 }
 
 impl ClassicResize {
@@ -914,32 +898,39 @@ impl ClassicResize {
         {
             return None;
         }
+        let matrix = Affine::scale(
+            width as f32 / doc.width as f32,
+            height as f32 / doc.height as f32,
+        );
         let layers = doc
             .tree
             .iter()
-            .filter_map(|layer| Some((layer.id, layer.as_raster()?.tiles.clone())))
-            .collect();
+            .filter(|layer| layer.as_raster().is_some())
+            .map(|layer| {
+                schist_core::filter_stack::LayerTransform::prepare(layer, &matrix, filter)
+                    .ok()
+                    .map(|plan| (layer.id, plan, TileMap::new()))
+            })
+            .collect::<Option<Vec<_>>>()?;
         Some(Self {
-            from: (doc.width, doc.height),
             to: (width, height),
             depth: doc.depth,
-            filter,
             layers,
         })
     }
 
     pub async fn run(mut self, backend: &impl schist_fx::AsyncCompute) -> Self {
-        let matrix = Affine::scale(
-            self.to.0 as f32 / self.from.0 as f32,
-            self.to.1 as f32 / self.from.1 as f32,
-        );
         let clip = IntRect::from_size(self.to.0, self.to.1);
-        for (_, tiles) in &mut self.layers {
+        for (_, plan, tiles) in &mut self.layers {
+            if schist_core::filter_stack::is_integer_translation(&plan.matrix) {
+                *tiles = plan.render(self.depth, clip);
+                continue;
+            }
             *tiles = schist_core::resample::transform_tiles_async(
-                tiles,
-                &matrix,
+                &plan.source,
+                &plan.matrix,
                 self.depth,
-                self.filter,
+                plan.filter,
                 clip,
                 backend,
             )
@@ -951,8 +942,8 @@ impl ClassicResize {
     /// The host verifies the document revision before installing the result.
     pub fn apply(self, doc: &mut Document) {
         let mut edit = doc.begin_edit(t("tool.transform.history.image_size"));
-        for (id, tiles) in self.layers {
-            edit.replace_layer_tiles(id, tiles);
+        for (id, plan, tiles) in self.layers {
+            edit.apply_layer_transform(id, tiles, plan);
         }
         edit.set_canvas_size(self.to.0, self.to.1);
         edit.commit();
@@ -1298,6 +1289,114 @@ mod tests {
             .tiles
             .pixel(x, y)
             .to_u8()
+    }
+
+    fn with_filter_stack(smart: bool) -> Document {
+        use schist_core::filter_stack::{FilterEffect, FilterStack};
+        let mut doc = doc_with_square();
+        let region = doc.canvas_rect();
+        let layer = &mut doc.tree.layers[0];
+        let source = layer.as_raster().unwrap().tiles.clone();
+        let mut stack = FilterStack::new(region);
+        stack.effects.push(FilterEffect {
+            id: "missing-but-cached".into(),
+            enabled: true,
+            values: Default::default(),
+            foreground: [0.0; 4],
+            background: [1.0; 4],
+        });
+        layer.extras = stack.blocks(layer, &source).unwrap();
+        if smart {
+            layer.smart = Some(Box::new(schist_core::SmartObject::wrap(source, "smart")));
+        }
+        doc
+    }
+
+    #[test]
+    fn filter_stack_free_transform_preview_cancel_commit_and_repeat() {
+        use schist_core::filter_stack::{FilterStack, SOURCE_KEY};
+        for smart in [false, true] {
+            for asynchronous in [false, true] {
+                let mut doc = with_filter_stack(smart);
+                let original = doc.tree.layers[0].clone();
+                let mut state = EditorState::default();
+                let mut tool = TransformTool::default();
+                tool.set_async_compute(asynchronous);
+                let mut ctx = ToolCtx {
+                    doc: &mut doc,
+                    state: &mut state,
+                };
+                tool.on_activate(&mut ctx);
+                tool.on_pointer_down(&mut ctx, input(60.0, 60.0));
+                tool.on_pointer_move(&mut ctx, input(20.0, 20.0));
+                tool.on_cancel(&mut ctx);
+                assert_eq!(ctx.doc.tree.layers[0].extras, original.extras);
+                assert!(!ctx.doc.history.can_undo());
+                for scale in [0.25, 4.0] {
+                    tool.on_activate(&mut ctx);
+                    let session = tool.session.as_mut().unwrap();
+                    session.scale = (scale, scale);
+                    session.dirty = true;
+                    session.render(ctx.doc, Filter::Nearest);
+                    tool.on_commit(&mut ctx);
+                    if let Some(request) = tool.take_gpu_edit() {
+                        let result = (request.fallback)(&request.input);
+                        (request.apply)(ctx.doc, result);
+                    }
+                    assert!(FilterStack::read(&ctx.doc.tree.layers[0])
+                        .unwrap()
+                        .is_some());
+                }
+                let layer = &ctx.doc.tree.layers[0];
+                assert_eq!(
+                    layer.extras.iter().find(|b| b.key == SOURCE_KEY),
+                    original.extras.iter().find(|b| b.key == SOURCE_KEY)
+                );
+                for (coord, tile) in original.as_raster().unwrap().tiles.iter() {
+                    assert_eq!(layer.as_raster().unwrap().tiles.get(*coord), Some(tile));
+                }
+                ctx.doc.undo();
+                ctx.doc.undo();
+                assert_eq!(ctx.doc.tree.layers[0].extras, original.extras);
+                ctx.doc.redo();
+                ctx.doc.redo();
+                assert_eq!(px(ctx.doc, 30, 30), [0, 128, 255, 255]);
+            }
+        }
+    }
+
+    #[test]
+    fn filter_stack_resize_and_crop_keep_source_and_composed_placement() {
+        use schist_core::filter_stack::{FilterStack, SOURCE_KEY};
+        for smart in [false, true] {
+            let mut doc = with_filter_stack(smart);
+            let source = doc.tree.layers[0]
+                .extras
+                .iter()
+                .find(|b| b.key == SOURCE_KEY)
+                .unwrap()
+                .clone();
+            resize_image(&mut doc, 50, 50, Filter::Bicubic);
+            resize_image(&mut doc, 200, 200, Filter::Bicubic);
+            crop_to(&mut doc, IntRect::from_xywh(10, 10, 100, 100));
+            let layer = &doc.tree.layers[0];
+            assert_eq!(
+                layer.extras.iter().find(|b| b.key == SOURCE_KEY),
+                Some(&source)
+            );
+            let matrix = if smart {
+                layer.smart.as_ref().unwrap().transform
+            } else {
+                FilterStack::read(layer)
+                    .unwrap()
+                    .unwrap()
+                    .placement
+                    .unwrap()
+                    .matrix
+            };
+            assert_eq!(matrix, Affine::translate(-10.0, -10.0));
+            assert_eq!(px(&doc, 20, 20), [0, 128, 255, 255]);
+        }
     }
 
     #[test]

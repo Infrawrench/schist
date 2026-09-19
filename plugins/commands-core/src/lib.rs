@@ -666,17 +666,40 @@ impl CommandPlugin for CoreCommandsPlugin {
                     if layer.smart.is_some() {
                         return; // already one
                     }
-                    let Some(raster) = layer.as_raster() else {
+                    let filter = schist_core::filter_stack::FilterStack::read(layer)
+                        .ok()
+                        .flatten()
+                        .and_then(|s| s.placement)
+                        .map_or(schist_core::Filter::Bicubic, |p| p.filter);
+                    let Ok(plan) = schist_core::filter_stack::LayerTransform::prepare(
+                        layer,
+                        &schist_core::Affine::IDENTITY,
+                        filter,
+                    ) else {
                         return;
                     };
-                    // The layer's current pixels become the untouched
-                    // source; what is on the canvas does not change.
-                    let so =
-                        schist_core::SmartObject::wrap(raster.tiles.clone(), layer.name.clone());
+                    let mut so = schist_core::SmartObject::wrap(plan.source, layer.name.clone());
+                    so.transform = plan.matrix;
+                    so.filter = plan.filter;
+                    let mut extras = layer.extras.clone();
+                    if let Ok(Some(mut stack)) = schist_core::filter_stack::FilterStack::read(layer)
+                    {
+                        stack.version = 1;
+                        stack.placement = None;
+                        let Ok(source) = schist_core::filter_stack::read_source(layer) else {
+                            return;
+                        };
+                        let Ok(blocks) = stack.blocks_with_render(layer, &source, &so.source)
+                        else {
+                            return;
+                        };
+                        extras = blocks;
+                    }
                     let mut edit = ctx
                         .doc
                         .begin_edit(t("command.history.convert_to_smart_object"));
                     edit.set_smart_object(id, Some(Box::new(so)));
+                    edit.set_extras(id, extras);
                     edit.commit();
                 },
             ),
@@ -1141,6 +1164,53 @@ mod tests {
             refusal: None,
         };
         (reg.command(id).expect(id).run)(&mut ctx);
+    }
+
+    #[test]
+    fn filter_stack_smart_conversion_preserves_source_space_after_placement() {
+        use schist_core::{filter_stack::*, Affine, Filter};
+        let reg = registry();
+        let mut doc = doc_with_pixels();
+        let id = doc.active_layer.unwrap();
+        let region = doc.canvas_rect();
+        let layer = doc.tree.find_mut(id).unwrap();
+        let source = layer.as_raster().unwrap().tiles.clone();
+        layer.extras = FilterStack::new(region).blocks(layer, &source).unwrap();
+        let mut edit = doc.begin_edit("transform");
+        edit.transform_layer(
+            id,
+            &Affine::translate(5.0, 7.0).then(&Affine::scale(0.5, 0.5)),
+            Filter::Nearest,
+            region,
+        );
+        edit.commit();
+        let before = doc.tree.find(id).unwrap().clone();
+        run(
+            &reg,
+            "layer.smart_object",
+            &mut doc,
+            &mut EditorState::default(),
+        );
+        let layer = doc.tree.find(id).unwrap();
+        let smart = layer.smart.as_ref().unwrap();
+        assert_eq!(
+            smart.transform,
+            Affine::translate(5.0, 7.0).then(&Affine::scale(0.5, 0.5))
+        );
+        assert_eq!(smart.filter, Filter::Nearest);
+        assert_eq!(
+            smart.source.get(TileCoord { tx: 0, ty: 0 }),
+            source.get(TileCoord { tx: 0, ty: 0 })
+        );
+        assert!(FilterStack::read(layer)
+            .unwrap()
+            .unwrap()
+            .placement
+            .is_none());
+        assert!(!layer.extras.iter().any(|b| b.key == CACHE_KEY));
+        doc.undo();
+        assert_eq!(doc.tree.find(id).unwrap().extras, before.extras);
+        assert!(doc.tree.find(id).unwrap().smart.is_none());
     }
 
     fn doc_with_pixels() -> Document {

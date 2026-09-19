@@ -11,6 +11,8 @@ use std::{collections::BTreeMap, sync::Arc};
 
 pub const STACK_KEY: [u8; 4] = *b"ScFs";
 pub const SOURCE_KEY: [u8; 4] = *b"ScFo";
+/// Lossless filtered pixels in source coordinates, before raster placement.
+pub const CACHE_KEY: [u8; 4] = *b"ScFc";
 const MAX_BYTES: usize = 512 * 1024 * 1024;
 pub const MAX_EFFECTS: usize = 256;
 
@@ -28,19 +30,28 @@ pub struct FilterStack {
     pub version: u32,
     pub region: IntRect,
     pub effects: Vec<FilterEffect>,
+    /// Raster-only placement. Smart objects keep placement on their own payload.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub placement: Option<FilterPlacement>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct FilterPlacement {
+    pub matrix: crate::Affine,
+    pub filter: crate::Filter,
 }
 
 pub fn has_stack(layer: &Layer) -> bool {
     layer
         .extras
         .iter()
-        .any(|b| b.key == STACK_KEY || b.key == SOURCE_KEY)
+        .any(|b| b.key == STACK_KEY || b.key == SOURCE_KEY || b.key == CACHE_KEY)
 }
 
 pub fn without_stack(extras: &[RawBlock]) -> Vec<RawBlock> {
     extras
         .iter()
-        .filter(|b| b.key != STACK_KEY && b.key != SOURCE_KEY)
+        .filter(|b| b.key != STACK_KEY && b.key != SOURCE_KEY && b.key != CACHE_KEY)
         .cloned()
         .collect()
 }
@@ -51,6 +62,7 @@ impl FilterStack {
             version: 1,
             region,
             effects: Vec::new(),
+            placement: None,
         }
     }
 
@@ -68,7 +80,19 @@ impl FilterStack {
     }
 
     pub fn validate(&self) -> Result<()> {
-        ensure!(self.version == 1, "Unsupported filter stack version");
+        ensure!(
+            matches!(self.version, 1 | 2),
+            "Unsupported filter stack version"
+        );
+        if let Some(placement) = &self.placement {
+            ensure!(
+                self.version == 2,
+                "Placement requires filter stack version 2"
+            );
+            validate_matrix(&placement.matrix)?;
+            validate_bounds(&placement.matrix, self.region)?;
+            validate_render_extent(placement.matrix.transform_bounds(self.region))?;
+        }
         ensure!(
             !self.region.is_empty()
                 && self.region.width() as u64 * self.region.height() as u64 <= 32_000_000,
@@ -128,7 +152,218 @@ impl FilterStack {
                 data: encode_source(source)?,
             },
         });
+        if let Some(cache) = layer.extras.iter().find(|b| b.key == CACHE_KEY) {
+            extras.push(cache.clone());
+        }
         Ok(extras)
+    }
+
+    /// Parameter changes replace the derived cache while keeping pristine source bytes.
+    pub fn blocks_with_render(
+        &self,
+        layer: &Layer,
+        source: &TileMap,
+        filtered: &TileMap,
+    ) -> Result<Vec<RawBlock>> {
+        let mut extras = self.blocks(layer, source)?;
+        extras.retain(|b| b.key != CACHE_KEY);
+        if self.placement.is_some() {
+            extras.push(RawBlock {
+                key: CACHE_KEY,
+                data: encode_source(filtered)?,
+            });
+        }
+        Ok(extras)
+    }
+
+    pub fn place(&self, filtered: &TileMap, depth: Depth, clip: IntRect) -> TileMap {
+        match &self.placement {
+            Some(p) => render_placement(filtered, &p.matrix, depth, p.filter, clip),
+            None => filtered.clone(),
+        }
+    }
+}
+
+fn validate_matrix(matrix: &crate::Affine) -> Result<()> {
+    ensure!(
+        [matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty]
+            .iter()
+            .all(|v| v.is_finite() && v.abs() < (i32::MAX / 4) as f32)
+            && matrix.determinant().is_finite()
+            && matrix.invert().is_some(),
+        "Invalid filter placement"
+    );
+    Ok(())
+}
+
+fn validate_bounds(matrix: &crate::Affine, bounds: IntRect) -> Result<()> {
+    if bounds.is_empty() {
+        return Ok(());
+    }
+    for (x, y) in [
+        (bounds.left, bounds.top),
+        (bounds.right, bounds.top),
+        (bounds.left, bounds.bottom),
+        (bounds.right, bounds.bottom),
+    ] {
+        let (x, y) = matrix.apply(x as f32, y as f32);
+        ensure!(
+            x.is_finite()
+                && y.is_finite()
+                && x.abs() < (i32::MAX / 4) as f32
+                && y.abs() < (i32::MAX / 4) as f32,
+            "Filter placement outside safe coordinates"
+        );
+    }
+    Ok(())
+}
+
+fn validate_render_extent(bounds: IntRect) -> Result<()> {
+    if bounds.is_empty() {
+        return Ok(());
+    }
+    let first = TileCoord::containing(bounds.left, bounds.top);
+    let last = TileCoord::containing(bounds.right - 1, bounds.bottom - 1);
+    let tiles = (last.tx as i64 - first.tx as i64 + 1) as u64
+        * (last.ty as i64 - first.ty as i64 + 1) as u64;
+    ensure!(
+        bounds.width() as u64 * bounds.height() as u64 <= 32_000_000
+            && tiles <= (MAX_BYTES / (TILE_PIXELS * 5 * 4)) as u64,
+        "Filter placement would allocate too many pixels"
+    );
+    Ok(())
+}
+
+/// Whether placement can be rendered without interpolation or color conversion.
+pub fn is_integer_translation(matrix: &crate::Affine) -> bool {
+    matrix.a == 1.0
+        && matrix.b == 0.0
+        && matrix.c == 0.0
+        && matrix.d == 1.0
+        && matrix.tx.fract() == 0.0
+        && matrix.ty.fract() == 0.0
+        && matrix.tx.abs() < (i32::MAX / 2) as f32
+        && matrix.ty.abs() < (i32::MAX / 2) as f32
+}
+
+/// Preserve native samples and hidden colors exactly for integer translations.
+pub fn render_placement(
+    source: &TileMap,
+    matrix: &crate::Affine,
+    depth: Depth,
+    filter: crate::Filter,
+    clip: IntRect,
+) -> TileMap {
+    if is_integer_translation(matrix) {
+        return source.translated(matrix.tx as i32, matrix.ty as i32, depth);
+    }
+    crate::resample::transform_tiles(source, matrix, depth, filter, clip)
+}
+
+/// Fully prepared immutable transform input. Preparing can fail on malformed
+/// metadata, so callers prepare before changing pixels or recording history.
+#[derive(Clone)]
+pub struct LayerTransform {
+    pub source: TileMap,
+    pub matrix: crate::Affine,
+    pub filter: crate::Filter,
+    pub extras: Vec<RawBlock>,
+    pub smart: Option<Box<crate::SmartObject>>,
+}
+
+impl LayerTransform {
+    pub fn prepare(layer: &Layer, matrix: &crate::Affine, filter: crate::Filter) -> Result<Self> {
+        validate_matrix(matrix)?;
+        let raster = layer.as_raster().context("Transform needs a pixel layer")?;
+        if let Some(mut smart) = layer.smart.clone() {
+            smart.apply(matrix);
+            smart.filter = filter;
+            validate_matrix(&smart.transform)?;
+            validate_bounds(&smart.transform, smart.source.tile_bounds())?;
+            if has_stack(layer) {
+                validate_render_extent(smart.transform.transform_bounds(smart.source_bounds))?;
+            }
+            return Ok(Self {
+                source: smart.source.clone(),
+                matrix: smart.transform,
+                filter,
+                extras: layer.extras.clone(),
+                smart: Some(smart),
+            });
+        }
+        let Some(mut stack) = FilterStack::read(layer)? else {
+            ensure!(!has_stack(layer), "Incomplete filter stack");
+            return Ok(Self {
+                source: raster.tiles.clone(),
+                matrix: *matrix,
+                filter,
+                extras: layer.extras.clone(),
+                smart: None,
+            });
+        };
+        let (source, composed) = if let Some(placement) = &stack.placement {
+            let cache = layer
+                .extras
+                .iter()
+                .find(|b| b.key == CACHE_KEY)
+                .context("Missing filter stack render cache")?;
+            (decode_source(&cache.data)?, matrix.then(&placement.matrix))
+        } else {
+            (raster.tiles.clone(), *matrix)
+        };
+        validate_matrix(&composed)?;
+        validate_bounds(&composed, source.tile_bounds())?;
+        validate_render_extent(composed.transform_bounds(source.content_bounds()))?;
+        stack.version = 2;
+        stack.placement = Some(FilterPlacement {
+            matrix: composed,
+            filter,
+        });
+        let original = read_source(layer)?;
+        let extras = if layer.extras.iter().any(|b| b.key == CACHE_KEY) {
+            stack.blocks(layer, &original)?
+        } else {
+            stack.blocks_with_render(layer, &original, &source)?
+        };
+        Ok(Self {
+            source,
+            matrix: composed,
+            filter,
+            extras,
+            smart: None,
+        })
+    }
+
+    /// Reuse a gesture's decoded source and compressed blocks for every preview.
+    /// Only the small placement recipe changes while dragging.
+    pub fn then(&self, matrix: &crate::Affine, filter: crate::Filter) -> Result<Self> {
+        validate_matrix(matrix)?;
+        let mut next = self.clone();
+        next.matrix = matrix.then(&self.matrix);
+        next.filter = filter;
+        validate_matrix(&next.matrix)?;
+        validate_bounds(&next.matrix, self.source.tile_bounds())?;
+        if let Some(smart) = next.smart.as_mut() {
+            smart.transform = next.matrix;
+            smart.filter = filter;
+        } else if let Some(block) = next.extras.iter_mut().find(|b| b.key == STACK_KEY) {
+            let mut stack: FilterStack = serde_json::from_slice(&block.data)?;
+            stack.version = 2;
+            stack.placement = Some(FilterPlacement {
+                matrix: next.matrix,
+                filter,
+            });
+            stack.validate()?;
+            block.data = serde_json::to_vec(&stack)?;
+        }
+        if next.extras.iter().any(|b| b.key == STACK_KEY) {
+            validate_render_extent(next.matrix.transform_bounds(next.source.content_bounds()))?;
+        }
+        Ok(next)
+    }
+
+    pub fn render(&self, depth: Depth, clip: IntRect) -> TileMap {
+        render_placement(&self.source, &self.matrix, depth, self.filter, clip)
     }
 }
 
