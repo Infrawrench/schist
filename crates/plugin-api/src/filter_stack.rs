@@ -95,7 +95,7 @@ mod tests {
             }]
         }
         fn apply(&self, pixels: &mut [f32], _: usize, _: usize, v: &FilterValues) {
-            for p in pixels.chunks_exact_mut(4) {
+            for p in pixels.as_chunks_mut::<4>().0 {
                 if self.1 {
                     p[0] *= v.get("amount");
                 } else {
