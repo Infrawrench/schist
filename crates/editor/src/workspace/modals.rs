@@ -15,6 +15,10 @@ impl Workspace {
         {
             return;
         }
+        #[cfg(not(target_arch = "wasm32"))]
+        if matches!(self.modal, Some(Modal::VersionHistory)) {
+            self.library.versions = None;
+        }
         // A dialog opened from the menus replaces whatever was up,
         // suspended parents included; only `open_color_picker_on` stacks.
         self.modal_stack.clear();
@@ -123,6 +127,10 @@ impl Workspace {
     }
 
     pub fn close_modal(&mut self, cx: &mut Context<Self>) {
+        #[cfg(not(target_arch = "wasm32"))]
+        if matches!(self.modal, Some(Modal::VersionHistory)) {
+            self.library.versions = None;
+        }
         // A file picker going away unanswered is a cancel: dropping its
         // sender is what tells the prompt's caller.
         self.file_picker = None;
@@ -604,6 +612,8 @@ impl Workspace {
             .map(|d| d.width as f32 / d.height.max(1) as f32)
             .unwrap_or(1.0);
         self.update_modal(|m| match m {
+            #[cfg(not(target_arch = "wasm32"))]
+            Modal::VersionHistory => {},
             Modal::Cloud {..} | Modal::CloudGenerate => {},
             Modal::ImageSize {
                 width,

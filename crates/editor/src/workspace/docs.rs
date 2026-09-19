@@ -681,7 +681,12 @@ impl Workspace {
         // A save landing on a gallery sidecar keeps the previous state as
         // a version first — that is the gallery's automatic versioning.
         #[cfg(not(target_arch = "wasm32"))]
-        self.pre_save_backing(&path);
+        if let Err(error) = self.pre_save_backing(&path) {
+            self.close_after_save = None;
+            self.status = tf!("versions.preserve_failed", error = error).into();
+            cx.notify();
+            return;
+        }
         match self.write_document_to(&path) {
             Ok(()) => {
                 if let Some(doc) = &mut self.doc {

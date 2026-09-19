@@ -105,6 +105,8 @@ mod library_people_view;
 mod library_photos;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_view;
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod versions;
 mod modals;
 mod notes;
 #[cfg(target_os = "ios")]
@@ -848,6 +850,8 @@ pub enum UpdateProgress {
 // plumbing matches exhaustively on every target.
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub enum Modal {
+    #[cfg(not(target_arch = "wasm32"))]
+    VersionHistory,
     CloudGenerate,
     Cloud {
         kind: &'static str,

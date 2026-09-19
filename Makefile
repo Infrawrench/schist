@@ -364,6 +364,13 @@ format-cloud:
 .PHONY: check-gallery check-cloud-browser
 check-gallery:
 	$(CARGO) test -p schist-editor -p schist-gallery-ui -p schist-map-view
+
+.PHONY: check-version-history
+check-version-history:
+	$(CARGO) test -p schist-gallery -p schist-editor --lib versions::tests
+	$(CARGO) test -p schist-editor --lib workspace::library_ops::tests::moving_a_photo
+	$(CARGO) test -p schist-editor --lib workspace::library_ops::tests::batch_process_
+
 check-cloud-browser:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
 

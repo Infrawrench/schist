@@ -336,11 +336,19 @@ impl Workspace {
     /// gallery shows the untouched photo again.
     pub(super) fn revert_photos(&mut self, paths: Vec<PathBuf>, cx: &mut Context<Self>) {
         let mut reverted = 0usize;
+        let mut preserve_error = None;
         for path in &paths {
             let Some(psd) = backing_psd(path).filter(|p| p.exists()) else {
                 continue;
             };
-            keep_sidecar_version(&psd);
+            if let Err(err) = keep_sidecar_version(&psd) {
+                log::error!(
+                    "could not preserve edit before reverting {}: {err}",
+                    psd.display()
+                );
+                preserve_error = Some(err.to_string());
+                continue;
+            }
             match std::fs::remove_file(&psd) {
                 Ok(()) => {
                     reverted += 1;
@@ -353,6 +361,9 @@ impl Workspace {
             0 => t("library.ops.nothing_to_revert").into(),
             n => tn("library.ops.reverted", n as u64).into(),
         };
+        if let Some(error) = preserve_error {
+            self.status = tf!("versions.revert_failed", n = reverted, error = error).into();
+        }
         self.library_rescan(cx);
         cx.notify();
     }
@@ -565,25 +576,8 @@ enum BatchSink {
 
 /// Copy a sidecar into its `versions/` directory, stamped, before it
 /// is replaced — every save of an edit is a version, automatically.
-pub(super) fn keep_sidecar_version(path: &Path) {
-    let Some(dir) = path.parent() else { return };
-    let _ = std::fs::create_dir_all(dir);
-    if !path.exists() {
-        return;
-    }
-    let stamp = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map(|d| d.as_secs())
-        .unwrap_or(0);
-    let name = path
-        .file_name()
-        .map(|n| n.to_string_lossy().into_owned())
-        .unwrap_or_else(|| "backing.psd".into());
-    let versions = dir.join("versions");
-    let _ = std::fs::create_dir_all(&versions);
-    if let Err(err) = std::fs::copy(path, versions.join(format!("{stamp}-{name}"))) {
-        log::warn!("could not keep a version of {}: {err}", path.display());
-    }
+pub(super) fn keep_sidecar_version(path: &Path) -> std::io::Result<()> {
+    schist_gallery::versions::keep(path).map(|_| ())
 }
 
 /// A path that nothing occupies yet: `name.ext`, else `name-2.ext`,
@@ -666,7 +660,7 @@ fn process_photo(
                 doc.title = name.to_string_lossy().into_owned();
             }
             let bytes = psd.export(&doc)?;
-            keep_sidecar_version(&sidecar);
+            keep_sidecar_version(&sidecar)?;
             if let Some(dir) = sidecar.parent() {
                 std::fs::create_dir_all(dir)?;
             }
@@ -720,6 +714,7 @@ pub(super) fn reveal_in_file_manager(path: &Path) {
 
 /// One photo to `dest`, with its `.schist` sidecar and versions.
 fn move_photo(path: &Path, dest: &Path) -> anyhow::Result<()> {
+    let versions = schist_gallery::versions::list(path)?;
     let name = path
         .file_name()
         .ok_or_else(|| anyhow::anyhow!("no file name"))?;
@@ -731,26 +726,21 @@ fn move_photo(path: &Path, dest: &Path) -> anyhow::Result<()> {
             }
             move_file(&old_psd, &new_psd)?;
         }
-        // The versions of this photo, matched by the sidecar's name
-        // that every stamp ends with.
-        if let (Some(old_versions), Some(sidecar_name)) = (
-            old_psd.parent().map(|d| d.join("versions")),
-            old_psd.file_name().and_then(|n| n.to_str()),
-        ) {
-            if let Ok(read) = std::fs::read_dir(&old_versions) {
-                for item in read.flatten() {
-                    let is_ours = item
-                        .file_name()
-                        .to_str()
-                        .is_some_and(|n| n.ends_with(sidecar_name));
-                    if !is_ours {
-                        continue;
-                    }
-                    if let Some(new_dir) = new_psd.parent().map(|d| d.join("versions")) {
-                        let _ = std::fs::create_dir_all(&new_dir);
-                        let _ = move_file(&item.path(), &new_dir.join(item.file_name()));
-                    }
-                }
+        // Match the entire timestamp + sidecar name; suffix-only matches
+        // would also move a neighbouring photo such as "other-a.jpg".
+        for version in versions {
+            if !matches!(
+                version.kind,
+                schist_gallery::versions::VersionKind::Saved { .. }
+            ) {
+                continue;
+            }
+            if let (Some(new_dir), Some(name)) = (
+                new_psd.parent().map(|d| d.join("versions")),
+                version.path.file_name(),
+            ) {
+                std::fs::create_dir_all(&new_dir)?;
+                move_file(&version.path, &new_dir.join(name))?;
             }
         }
     }
@@ -1517,6 +1507,28 @@ mod tests {
     }
 
     #[test]
+    fn batch_process_keeps_current_edit_when_snapshot_storage_fails() {
+        let dir = tempfile::tempdir().unwrap();
+        let photo = half_magenta(dir.path(), "photo.psd");
+        let sidecar = backing_psd(&photo).unwrap();
+        std::fs::create_dir_all(sidecar.parent().unwrap()).unwrap();
+        std::fs::copy(&photo, &sidecar).unwrap();
+        let bytes = std::fs::read(&sidecar).unwrap();
+        // A file occupying the archive directory deterministically makes
+        // snapshot creation fail, including under a privileged test user.
+        std::fs::write(sidecar.parent().unwrap().join("versions"), b"blocked").unwrap();
+        let codecs: Vec<Arc<dyn schist_plugin_api::CodecPlugin>> =
+            vec![Arc::new(schist_codecs_common::PsdCodec)];
+        let recipe = BatchRecipe {
+            flip_v: true,
+            ..Default::default()
+        };
+        assert!(process_photo(&codecs, &photo, &recipe, &BatchSink::Edit).is_err());
+        assert_eq!(std::fs::read(&sidecar).unwrap(), bytes);
+        assert_eq!(std::fs::read(&photo).unwrap(), bytes);
+    }
+
+    #[test]
     fn moving_a_photo_brings_its_sidecar_and_versions() {
         let dir = std::env::temp_dir().join(format!("schist-move-test-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&dir);
@@ -1528,6 +1540,7 @@ mod tests {
         std::fs::write(from.join(".schist/versions/123-a.jpg.psd"), b"v1").unwrap();
         // A neighbour's version must stay behind.
         std::fs::write(from.join(".schist/versions/123-b.jpg.psd"), b"other").unwrap();
+        std::fs::write(from.join(".schist/versions/123-other-a.jpg.psd"), b"neighbour").unwrap();
         move_photo(&from.join("a.jpg"), &to).unwrap();
         assert!(to.join("a.jpg").exists());
         assert!(to.join(".schist/a.jpg.psd").exists());
@@ -1535,6 +1548,7 @@ mod tests {
         assert!(!from.join("a.jpg").exists());
         assert!(!from.join(".schist/a.jpg.psd").exists());
         assert!(from.join(".schist/versions/123-b.jpg.psd").exists());
+        assert!(from.join(".schist/versions/123-other-a.jpg.psd").exists());
         let _ = std::fs::remove_dir_all(&dir);
     }
 }

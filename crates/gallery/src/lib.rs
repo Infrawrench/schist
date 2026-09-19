@@ -24,6 +24,7 @@ pub mod people;
 pub mod persist;
 pub mod scan;
 pub mod video;
+pub mod versions;
 pub use video::{is_video, VIDEO_EXTENSIONS};
 pub mod scores;
 pub mod search;

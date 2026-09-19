@@ -22,6 +22,16 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
         .unwrap_or_default();
     let n_undo = undo_entries.len() as i32;
     let touch = ui::touch();
+    #[cfg(not(target_arch = "wasm32"))]
+    let versions = ws.version_history_original().map(|original| {
+        schist_ui::Button::new("history-saved-versions", t("versions.open"))
+            .on_click(cx.listener(move |ws, _ev, _window, cx| {
+                ws.open_version_history(original.clone(), cx);
+            }))
+            .into_any_element()
+    });
+    #[cfg(target_arch = "wasm32")]
+    let versions: Option<gpui::AnyElement> = None;
 
     div()
         .flex()
@@ -51,6 +61,7 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
                         .child(icon_button("redo", "edit.redo", cx)),
                 ),
         )
+        .children(versions)
         .on_mouse_down(
             MouseButton::Right,
             cx.listener(|ws, ev: &MouseDownEvent, _w, cx| {
