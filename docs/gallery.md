@@ -478,9 +478,8 @@ current edit, or any saved version. Cancelling the history while a copy
 loads discards that pending open. Unsaved editor changes are not part
 of the saved history; save them first to make them appear here.
 
-The new `versions.lang` catalog is present in every shipped locale;
-its initial labels use explicitly marked English fallback text where
-a translation is not yet available.
+The `versions.lang` catalog includes translations for every shipped locale.
+Catalog validation checks keys, placeholders, locale aliases, and font coverage.
 
 ## Search
 
