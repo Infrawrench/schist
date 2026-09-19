@@ -306,6 +306,7 @@ pub(crate) fn run_app_item(
             },
             cx,
         ),
+        AppItem::RefineMask => ws.open_mask_refine(cx),
         AppItem::ColorRangeItem => {
             let fg = ws.editor.foreground;
             ws.open_modal(

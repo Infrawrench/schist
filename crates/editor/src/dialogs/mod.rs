@@ -26,6 +26,7 @@ mod file_picker;
 mod filters;
 mod fonts;
 mod layer_props;
+mod mask_refine;
 mod models;
 mod new_doc;
 mod open;
@@ -143,6 +144,12 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         Modal::SelectModify { kind, amount } => {
             modify_dialog(&state, kind, amount, cx).into_any_element()
         }
+        Modal::MaskRefine {
+            settings,
+            background,
+            original,
+            zoom,
+        } => mask_refine::dialog(ws, settings, background, original, zoom, cx).into_any_element(),
         Modal::ColorRange { tolerance, target } => {
             color_range_dialog(&state, tolerance, target, cx).into_any_element()
         }

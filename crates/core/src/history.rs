@@ -6,9 +6,9 @@
 //! to *changed* pixels only. Tools don't build ops by hand; they go through
 //! `Document::begin_edit()` which records as they mutate.
 
-use crate::layer::{Layer, LayerId, LayerMask, LayerPath};
+use crate::layer::{Layer, LayerId, LayerKind, LayerMask, LayerPath};
 use crate::selection::Selection;
-use crate::tile::{TileBuf, TileCoord, TILE_PIXELS};
+use crate::tile::{MaskTileMap, TileBuf, TileCoord, TileMap, TILE_PIXELS};
 use crate::BlendMode;
 use std::sync::Arc;
 
@@ -161,9 +161,49 @@ pub enum EditOp {
     },
 }
 
+fn tile_map_bytes(tiles: &TileMap) -> usize {
+    tiles.iter().map(|(_, tile)| tile.byte_len()).sum()
+}
+
+fn mask_map_bytes(tiles: &MaskTileMap) -> usize {
+    tiles.iter().count() * TILE_PIXELS
+}
+
+/// Layer insertion/removal owns the same large payloads as pixel edits,
+/// including children and immutable sources retained for later rerendering.
+fn layer_bytes(layer: &Layer) -> usize {
+    let content = match &layer.kind {
+        LayerKind::Raster(raster) => tile_map_bytes(&raster.tiles),
+        LayerKind::Group(group) => group.children.iter().map(layer_bytes).sum(),
+        LayerKind::Adjustment(data) => {
+            data.raw.len() + data.params_json.as_ref().map_or(0, String::len)
+        }
+    };
+    content
+        + layer
+            .mask
+            .as_ref()
+            .map_or(0, |mask| mask_map_bytes(&mask.tiles))
+        + layer
+            .smart
+            .as_ref()
+            .map_or(0, |smart| tile_map_bytes(&smart.source))
+        + layer.raw.as_ref().map_or(0, |raw| raw.source.len())
+        + layer
+            .styled
+            .as_ref()
+            .map_or(0, |styled| tile_map_bytes(&styled.tiles))
+        + layer
+            .extras
+            .iter()
+            .map(|block| block.data.len())
+            .sum::<usize>()
+        + layer.blending_ranges.len()
+}
+
 impl EditOp {
     /// Rough heap bytes this op keeps alive, for the history byte budget.
-    /// Only the bulky pixel payloads are counted, and shared `Arc`s are
+    /// Bulky pixel, mask, and source payloads are counted, and shared `Arc`s are
     /// counted at full size, so this overestimates what evicting the op
     /// actually frees — the safe direction for a cap.
     fn retained_bytes(&self) -> usize {
@@ -173,6 +213,27 @@ impl EditOp {
             EditOp::MaskTileWrite { before, after, .. } => {
                 (before.is_some() as usize + after.is_some() as usize) * TILE_PIXELS
             }
+            EditOp::MaskSet { before, after, .. } => before
+                .iter()
+                .chain(after.iter())
+                .map(|mask| mask_map_bytes(&mask.tiles))
+                .sum(),
+            EditOp::LayerInsert { layer, .. } | EditOp::LayerRemove { layer, .. } => {
+                layer_bytes(layer)
+            }
+            EditOp::SelectionSet { before, after } => {
+                mask_map_bytes(&before.mask) + mask_map_bytes(&after.mask)
+            }
+            EditOp::SmartObjectSet { before, after, .. } => before
+                .iter()
+                .chain(after.iter())
+                .map(|smart| tile_map_bytes(&smart.source))
+                .sum(),
+            EditOp::RawDevelopmentSet { before, after, .. } => before
+                .iter()
+                .chain(after.iter())
+                .map(|raw| raw.source.len())
+                .sum(),
             _ => 0,
         }
     }
@@ -322,5 +383,82 @@ impl History {
     /// reverse yields the order they would be re-applied by `redo`).
     pub fn redo_entries(&self) -> &[Edit] {
         &self.redo_stack
+    }
+}
+
+#[cfg(test)]
+mod payload_budget_tests {
+    use super::*;
+    use schist_color::Depth;
+
+    fn mask() -> LayerMask {
+        let mut mask = LayerMask::new_revealing();
+        mask.tiles.get_mut_or_insert(TileCoord::containing(0, 0))[0] = 127;
+        mask
+    }
+
+    #[test]
+    fn full_mask_replacements_obey_budget_and_keep_newest_undo() {
+        let layer = LayerId::next();
+        let mut history = History::new();
+        history.byte_limit = TILE_PIXELS * 2;
+        for name in ["first", "second", "third"] {
+            history.push(Edit {
+                name: name.into(),
+                ops: vec![EditOp::MaskSet {
+                    layer,
+                    before: Some(Box::new(mask())),
+                    after: Some(Box::new(mask())),
+                }],
+            });
+        }
+        assert_eq!(history.entries().len(), 1);
+        assert_eq!(history.pop_undo().unwrap().name, "third");
+        assert!(!history.can_undo());
+        assert_eq!(history.pop_redo().unwrap().name, "third");
+    }
+
+    #[test]
+    fn nested_inserted_and_removed_layers_count_sources_and_masks() {
+        let mut child = Layer::new_raster("child");
+        child
+            .as_raster_mut()
+            .unwrap()
+            .tiles
+            .get_mut_or_insert(TileCoord::containing(0, 0), Depth::Eight);
+        child.mask = Some(mask());
+        child.smart = Some(Box::new(crate::smart::SmartObject::wrap(
+            child.as_raster().unwrap().tiles.clone(),
+            "source",
+        )));
+        child.extras.push(crate::layer::RawBlock {
+            key: *b"Test",
+            data: vec![42; TILE_PIXELS],
+        });
+        let mut group = Layer::new_group("group");
+        if let LayerKind::Group(children) = &mut group.kind {
+            children.children.push(child);
+        }
+        for remove in [false, true] {
+            let mut history = History::new();
+            // Two raster sources, a mask, and a preserved source block:
+            // eight tile planes alone fit twice, but the other payloads do not.
+            history.byte_limit = 18 * TILE_PIXELS;
+            for name in ["first", "second"] {
+                let layer = Box::new(group.clone());
+                let path = LayerPath(vec![0]);
+                history.push(Edit {
+                    name: name.into(),
+                    ops: vec![if remove {
+                        EditOp::LayerRemove { path, layer }
+                    } else {
+                        EditOp::LayerInsert { path, layer }
+                    }],
+                });
+            }
+            assert_eq!(history.entries().len(), 1);
+            assert_eq!(history.undo_name(), Some("second"));
+            assert!(!history.at_saved(), "evicted save points stay unreachable");
+        }
     }
 }
