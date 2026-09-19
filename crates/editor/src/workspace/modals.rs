@@ -354,6 +354,7 @@ impl Workspace {
         // character; the picker's hex field takes hex digits up to a full
         // triplet; numeric fields only digits.
         let textual = id == "layer-name"
+            || id == "recorded-action-name"
             || id == "new-doc-name"
             || id == "bucket-name"
             || id == "bucket-query"
