@@ -15,9 +15,13 @@ impl Workspace {
         {
             return;
         }
+        if !matches!(modal, Modal::MaskRefine { .. }) {
+            self.cancel_mask_refine();
+        }
         // A dialog opened from the menus replaces whatever was up,
         // suspended parents included; only `open_color_picker_on` stacks.
         self.modal_stack.clear();
+        self.cloud.set_people_modal(Some(&modal));
         self.modal = Some(modal);
         self.context_menu = None;
         self.focused_field = None;
@@ -135,6 +139,7 @@ impl Workspace {
             }
             return;
         }
+        self.cancel_mask_refine();
         // A file picker going away unanswered is a cancel: dropping its
         // sender is what tells the prompt's caller.
         self.file_picker = None;
@@ -157,6 +162,7 @@ impl Workspace {
         }
         // Closing the picker uncovers the dialog it was opened from.
         self.modal = self.modal_stack.pop();
+        self.cloud.set_people_modal(self.modal.as_ref());
         self.default_action = None;
         self.focused_field = None;
         self.field_buffer.clear();
@@ -362,6 +368,7 @@ impl Workspace {
             || id == "person-name"
             || id == file_picker::NAME_FIELD
             || id == palettes::SEARCH_FIELD
+            || id.starts_with("recipe-")
             || id.starts_with("cloud-");
         let hex = id == "cp-hex";
         // The caret belongs to the textual fields; keep it on the rails
@@ -506,6 +513,29 @@ impl Workspace {
             self.update_modal(|modal| {
                 if let Modal::RecordedActions { name, .. } = modal {
                     *name = buffer;
+                }
+            });
+            return;
+        }
+        if id.starts_with("recipe-") {
+            self.update_modal(|modal| {
+                if let Modal::ExportRecipes { editor } = modal {
+                    match id {
+                        "recipe-name" => editor.draft.name = buffer,
+                        "recipe-destination" => editor.draft.destination = buffer.into(),
+                        "recipe-template" => editor.draft.outputs[editor.output].template = buffer,
+                        "recipe-max-edge" => match buffer.parse::<u32>() {
+                            Ok(value) if value <= 32768 => {
+                                editor.draft.outputs[editor.output].max_edge = value
+                            }
+                            _ => {
+                                editor.draft.outputs[editor.output].max_edge = u32::MAX;
+                                editor.error =
+                                    Some(schist_i18n::t("export_recipes.invalid_size").into());
+                            }
+                        },
+                        _ => {}
+                    }
                 }
             });
             return;
@@ -705,6 +735,7 @@ impl Workspace {
             | Modal::Stroke { .. }
             | Modal::Fill { .. }
             | Modal::SelectModify { .. }
+            | Modal::MaskRefine { .. }
             | Modal::ColorRange { .. }
             | Modal::LayerStyle { .. }
             | Modal::Filter { .. }
@@ -715,6 +746,7 @@ impl Workspace {
             | Modal::PluginManager
             | Modal::Preferences
             | Modal::Export { .. }
+            | Modal::ExportRecipes { .. }
             | Modal::MissingFonts { .. }
             | Modal::UpdateAvailable { .. }
             | Modal::Profile { .. } => {}

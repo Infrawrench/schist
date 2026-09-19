@@ -10,6 +10,7 @@ pub mod document;
 pub mod geom;
 pub mod history;
 pub mod layer;
+pub mod mask_refine;
 pub mod path;
 pub mod raw;
 pub mod resample;
