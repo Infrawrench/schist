@@ -504,6 +504,52 @@ fn box_mean(input: &[f32], w: usize, h: usize, radius: usize) -> Vec<f32> {
     out
 }
 
+fn morphology(input: &[f32], w: usize, h: usize, radius: usize, expand: bool) -> Vec<f32> {
+    use std::collections::VecDeque;
+    let mut temp = vec![0.0; w * h];
+    let mut out = vec![0.0; w * h];
+    for vertical in [false, true] {
+        let (lines, length) = if vertical { (w, h) } else { (h, w) };
+        for line in 0..lines {
+            let index = |p: usize| if vertical { p * w + line } else { line * w + p };
+            let source = if vertical { &temp } else { input };
+            let mut queue: VecDeque<usize> = VecDeque::new();
+            let mut next = 0;
+            let mut values = Vec::with_capacity(length);
+            for p in 0..length {
+                while next < (p + radius + 1).min(length) {
+                    while queue.back().is_some_and(|&back| {
+                        if expand {
+                            source[index(back)] <= source[index(next)]
+                        } else {
+                            source[index(back)] >= source[index(next)]
+                        }
+                    }) {
+                        queue.pop_back();
+                    }
+                    queue.push_back(next);
+                    next += 1;
+                }
+                while queue
+                    .front()
+                    .is_some_and(|&front| front < p.saturating_sub(radius))
+                {
+                    queue.pop_front();
+                }
+                values.push(source[index(*queue.front().expect("nonempty window"))]);
+            }
+            for (p, value) in values.into_iter().enumerate() {
+                if vertical {
+                    out[index(p)] = value;
+                } else {
+                    temp[index(p)] = value;
+                }
+            }
+        }
+    }
+    out
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -914,50 +960,4 @@ mod tests {
             }
         }
     }
-}
-
-fn morphology(input: &[f32], w: usize, h: usize, radius: usize, expand: bool) -> Vec<f32> {
-    use std::collections::VecDeque;
-    let mut temp = vec![0.0; w * h];
-    let mut out = vec![0.0; w * h];
-    for vertical in [false, true] {
-        let (lines, length) = if vertical { (w, h) } else { (h, w) };
-        for line in 0..lines {
-            let index = |p: usize| if vertical { p * w + line } else { line * w + p };
-            let source = if vertical { &temp } else { input };
-            let mut queue: VecDeque<usize> = VecDeque::new();
-            let mut next = 0;
-            let mut values = Vec::with_capacity(length);
-            for p in 0..length {
-                while next < (p + radius + 1).min(length) {
-                    while queue.back().is_some_and(|&back| {
-                        if expand {
-                            source[index(back)] <= source[index(next)]
-                        } else {
-                            source[index(back)] >= source[index(next)]
-                        }
-                    }) {
-                        queue.pop_back();
-                    }
-                    queue.push_back(next);
-                    next += 1;
-                }
-                while queue
-                    .front()
-                    .is_some_and(|&front| front < p.saturating_sub(radius))
-                {
-                    queue.pop_front();
-                }
-                values.push(source[index(*queue.front().expect("nonempty window"))]);
-            }
-            for (p, value) in values.into_iter().enumerate() {
-                if vertical {
-                    out[index(p)] = value;
-                } else {
-                    temp[index(p)] = value;
-                }
-            }
-        }
-    }
-    out
 }
