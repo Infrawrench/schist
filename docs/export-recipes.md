@@ -46,8 +46,8 @@ handling apply. A browser may ask permission for multiple downloads. Encoding ru
 the browser and may briefly pause its UI for a large image. Native galleries are not
 available in the browser.
 
-The new `export_recipes.lang` catalogs currently use English fallback text in non-English
-locales; locale coverage is structurally complete and translations remain to be supplied.
+The `export_recipes.lang` catalogs include translations for every shipped locale.
+Catalog validation checks keys, placeholders, locale aliases, and font coverage.
 
 Run `make check-export-recipes` for rendering, actual codec, depth, source preservation,
 filename safety, gallery-sidecar, and partial-failure regression tests.
