@@ -548,3 +548,14 @@ check-live-stack-gpu:
 	SCHIST_REQUIRE_GPU=1 $(CARGO) test -p schist-compositor-gpu --test remaining_opportunities asynchronous_tool_edits_preserve_preview_and_undo_contracts -- --exact --nocapture
 format-live-stack-gpu:
 	$(CARGO) fmt -p schist-compositor-gpu
+
+.PHONY: check-smart-objects test-smart-objects
+check-smart-objects:
+	$(CARGO) check -p schist-editor --all-targets
+test-smart-objects:
+	$(CARGO) test -p schist-core --test smart_sources
+	$(CARGO) test -p schist-codec-psd --test smart_sources
+	$(CARGO) test -p schist-codec-psd --test writer smart
+	$(CARGO) test -p schist-codec-psd --lib smart::tests
+	$(CARGO) test -p schist-document --test smart_sources
+	$(CARGO) test -p schist-editor smart_objects::tests

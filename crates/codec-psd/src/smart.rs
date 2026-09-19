@@ -28,8 +28,10 @@ pub const SMART_BLOCK_KEY: [u8; 4] = *b"ScSo";
 ///
 /// v1 stored 8-bit samples, which quantised a 16-bit source the moment it
 /// was saved -- the exact loss the block exists to prevent. v2 stores
-/// f32, so a deep source survives; v1 payloads are still read.
-const VERSION: u32 = 2;
+/// f32, so a deep source survives. v3 stores sparse native tiles, preserving
+/// native CMYK/Lab samples and empty sources. v1/v2 payloads are still read.
+const VERSION: u32 = 3;
+const VERSION_F32: u32 = 2;
 const VERSION_U8: u32 = 1;
 
 /// Guard against a corrupt or hostile length claiming gigabytes.
@@ -54,23 +56,11 @@ fn filter_from_code(v: u8) -> Filter {
 /// Serialize a layer's smart object, or `None` if it has none.
 pub fn write_smart(layer: &Layer) -> Option<Vec<u8>> {
     let smart = layer.smart.as_deref()?;
+    // v3 retains native color mode and float sample bits through the same
+    // bounded sparse-tile codec as editable filter sources. Empty source maps
+    // are valid: an all-transparent embedded document remains editable.
     let bounds = smart.source_bounds;
-    if bounds.is_empty() {
-        return None;
-    }
-    let (w, h) = (bounds.width() as usize, bounds.height() as usize);
-
-    // f32 per channel: `to_u8()` here threw away 8 bits of a 16-bit
-    // source on every save, which is what this block exists to avoid.
-    let mut rgba = Vec::with_capacity(w * h * 16);
-    for y in bounds.top..bounds.bottom {
-        for x in bounds.left..bounds.right {
-            let px = smart.source.pixel(x, y);
-            for c in [px.r, px.g, px.b, px.a] {
-                rgba.extend_from_slice(&c.to_be_bytes());
-            }
-        }
-    }
+    let packed = schist_core::filter_stack::encode_source(&smart.source).ok()?;
 
     let mut out = Vec::new();
     out.extend_from_slice(&VERSION.to_be_bytes());
@@ -91,7 +81,6 @@ pub fn write_smart(layer: &Layer) -> Option<Vec<u8>> {
     for v in [bounds.left, bounds.top, bounds.right, bounds.bottom] {
         out.extend_from_slice(&v.to_be_bytes());
     }
-    let packed = miniz_oxide::deflate::compress_to_vec_zlib(&rgba, 6);
     out.extend_from_slice(&(packed.len() as u32).to_be_bytes());
     out.extend_from_slice(&packed);
     Some(out)
@@ -105,7 +94,7 @@ pub fn write_smart(layer: &Layer) -> Option<Vec<u8>> {
 pub fn read_smart(data: &[u8], depth: Depth) -> Option<SmartObject> {
     let mut c = Cursor { data, at: 0 };
     let version = c.u32()?;
-    if version != VERSION && version != VERSION_U8 {
+    if version != VERSION && version != VERSION_F32 && version != VERSION_U8 {
         return None;
     }
     let name_len = c.u32()? as usize;
@@ -120,6 +109,30 @@ pub fn read_smart(data: &[u8], depth: Depth) -> Option<SmartObject> {
     };
     let filter = filter_from_code(c.u8()?);
     let bounds = IntRect::new(c.i32()?, c.i32()?, c.i32()?, c.i32()?);
+    if version == VERSION {
+        let packed_len = c.u32()? as usize;
+        let source = schist_core::filter_stack::decode_source(c.take(packed_len)?).ok()?;
+        if ![
+            transform.a,
+            transform.b,
+            transform.c,
+            transform.d,
+            transform.tx,
+            transform.ty,
+        ]
+        .iter()
+        .all(|v| v.is_finite())
+        {
+            return None;
+        }
+        return Some(SmartObject {
+            source_bounds: source.content_bounds(),
+            source,
+            transform,
+            filter,
+            name,
+        });
+    }
     if bounds.is_empty() {
         return None;
     }
@@ -130,7 +143,7 @@ pub fn read_smart(data: &[u8], depth: Depth) -> Option<SmartObject> {
     }
     let packed_len = c.u32()? as usize;
     let packed = c.take(packed_len)?;
-    let sample = if version == VERSION { 4 } else { 1 };
+    let sample = if version == VERSION_F32 { 4 } else { 1 };
     let expected = pixels as usize * 4 * sample;
     // The decompression limit below is the real bound on host memory, so
     // it has to know how wide a sample is.
@@ -186,5 +199,40 @@ impl<'a> Cursor<'a> {
     }
     fn f32(&mut self) -> Option<f32> {
         Some(f32::from_be_bytes(self.take(4)?.try_into().ok()?))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn legacy_dense_sources_remain_readable() {
+        for version in [VERSION_U8, VERSION_F32] {
+            let mut data = version.to_be_bytes().to_vec();
+            data.extend_from_slice(&0u32.to_be_bytes());
+            for value in [1.0f32, 0.0, 0.0, 1.0, 3.0, 4.0] {
+                data.extend_from_slice(&value.to_be_bytes());
+            }
+            data.push(2);
+            for value in [0i32, 0, 1, 1] {
+                data.extend_from_slice(&value.to_be_bytes());
+            }
+            let raw = if version == VERSION_U8 {
+                vec![255, 0, 0, 255]
+            } else {
+                [1.0f32, 0.0, 0.0, 1.0]
+                    .iter()
+                    .flat_map(|f| f.to_be_bytes())
+                    .collect()
+            };
+            let packed = miniz_oxide::deflate::compress_to_vec_zlib(&raw, 6);
+            data.extend_from_slice(&(packed.len() as u32).to_be_bytes());
+            data.extend(packed);
+            let source = read_smart(&data, Depth::Sixteen).unwrap();
+            assert_eq!(source.source.pixel(0, 0).to_u8(), [255, 0, 0, 255]);
+            assert_eq!(source.transform.tx, 3.0);
+            assert!(read_smart(&data[..data.len() - 1], Depth::Sixteen).is_none());
+        }
     }
 }

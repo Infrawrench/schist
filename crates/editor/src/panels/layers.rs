@@ -156,6 +156,7 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
     let caret_on = ws.caret_on();
     let thumbs: Vec<Option<Arc<RenderImage>>> =
         rows.iter().map(|r| ws.layer_thumbnail(r.id)).collect();
+    let source_description = ws.smart_source_description();
     let opacity_display = active_layer
         .map(|id| slider_get(ws, SliderTarget::LayerOpacity(id)))
         .map(|v| format!("{:.0}%", v * 100.0))
@@ -187,6 +188,7 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
                     None => div().into_any_element(),
                 }),
         )
+        .children(source_description.map(|description| div().text_xs().child(description)))
         .child(
             div()
                 .id("layers-scroll")
