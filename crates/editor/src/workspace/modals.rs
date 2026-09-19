@@ -818,7 +818,7 @@ impl Workspace {
         }
     }
 
-    fn commit_gesture_with_async(&mut self, _allow_async: bool, cx: &mut Context<Self>) {
+    pub(super) fn commit_gesture_with_async(&mut self, _allow_async: bool, cx: &mut Context<Self>) {
         let tool_id = self.editor.active_tool;
         if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(tool_id)) {
             if !_allow_async {
