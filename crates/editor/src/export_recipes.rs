@@ -205,6 +205,12 @@ impl Editor {
     }
     pub fn save(&mut self) -> Result<()> {
         self.draft.validate()?;
+        // Typed relative folders must keep pointing at the same destination
+        // when a later launch starts in a different working directory.
+        #[cfg(not(target_arch = "wasm32"))]
+        if self.draft.destination.is_relative() && self.draft.destination.is_dir() {
+            self.draft.destination = std::fs::canonicalize(&self.draft.destination)?;
+        }
         let mut book = self.book.clone();
         let index = self.selected.unwrap_or(book.recipes.len());
         ensure!(
