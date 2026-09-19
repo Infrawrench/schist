@@ -272,6 +272,7 @@ impl Document {
     }
 
     fn apply_op(&mut self, op: &EditOp, dir: Direction) {
+        let canvas = self.canvas_rect();
         match op {
             EditOp::TileWrite {
                 layer,
@@ -329,7 +330,7 @@ impl Document {
                         self.reselect_after_removal(layer.id, path);
                     }
                 }
-                self.add_damage(layer.content_bounds());
+                self.add_damage(layer.damage_bounds(canvas));
                 self.structure_changed();
             }
             EditOp::LayerRemove { path, layer } => {
@@ -342,7 +343,7 @@ impl Document {
                         self.tree.insert_at(path, (**layer).clone());
                     }
                 }
-                self.add_damage(layer.content_bounds());
+                self.add_damage(layer.damage_bounds(canvas));
                 self.structure_changed();
             }
             EditOp::LayerMove { from, to } => {
@@ -352,7 +353,7 @@ impl Document {
                     (to, from)
                 };
                 if let Some(layer) = self.tree.remove_at(src) {
-                    let bounds = layer.content_bounds();
+                    let bounds = layer.damage_bounds(canvas);
                     self.tree.insert_at(dst, layer);
                     self.add_damage(bounds);
                 }
@@ -379,7 +380,7 @@ impl Document {
                 let mut bounds = IntRect::EMPTY;
                 if let Some(l) = self.tree.find_mut(*layer) {
                     props.apply_to(l);
-                    bounds = l.content_bounds();
+                    bounds = l.damage_bounds(canvas);
                 }
                 self.add_damage(bounds);
                 self.structure_changed();
@@ -397,7 +398,7 @@ impl Document {
                 let mut bounds = IntRect::EMPTY;
                 if let Some(l) = self.tree.find_mut(*layer) {
                     l.mask = target.as_deref().cloned();
-                    bounds = l.content_bounds();
+                    bounds = l.damage_bounds(canvas);
                 }
                 self.add_damage(bounds);
                 self.structure_changed();
@@ -579,10 +580,11 @@ impl Document {
             }
         }
         let depth = self.depth;
+        let canvas = self.canvas_rect();
         if let Some(layer) = self.tree.find_mut(id) {
-            let before = layer.content_bounds();
+            let before = layer.damage_bounds(canvas);
             recurse(layer, dx, dy, depth);
-            let after = layer.content_bounds();
+            let after = layer.damage_bounds(canvas);
             let damage = before.union(&after);
             self.add_damage(damage);
         }
@@ -591,9 +593,10 @@ impl Document {
     /// Convenience for tests and importers: append a raster layer at the top
     /// level (top of stack) without recording history.
     pub fn push_layer(&mut self, mut layer: Layer) -> LayerId {
+        let canvas = self.canvas_rect();
         prepare_layer_mode(&mut layer, self.mode);
         let id = layer.id;
-        let bounds = layer.content_bounds();
+        let bounds = layer.damage_bounds(canvas);
         self.tree.layers.push(layer);
         self.active_layer = Some(id);
         self.add_damage(bounds);
@@ -706,9 +709,10 @@ impl<'a> EditBuilder<'a> {
 
     /// Insert a layer (records op + performs it).
     pub fn insert_layer(&mut self, path: LayerPath, mut layer: Layer) -> LayerId {
+        let canvas = self.doc.canvas_rect();
         prepare_layer_mode(&mut layer, self.doc.mode);
         let id = layer.id;
-        self.damage = self.damage.union(&layer.content_bounds());
+        self.damage = self.damage.union(&layer.damage_bounds(canvas));
         self.doc.tree.insert_at(&path, layer.clone());
         self.ops.push(EditOp::LayerInsert {
             path,
@@ -718,10 +722,11 @@ impl<'a> EditBuilder<'a> {
     }
 
     pub fn remove_layer(&mut self, id: LayerId) -> bool {
+        let canvas = self.doc.canvas_rect();
         let Some((path, layer)) = self.doc.tree.remove(id) else {
             return false;
         };
-        self.damage = self.damage.union(&layer.content_bounds());
+        self.damage = self.damage.union(&layer.damage_bounds(canvas));
         self.doc.reselect_after_removal(id, &path);
         self.ops.push(EditOp::LayerRemove {
             path,
@@ -732,6 +737,7 @@ impl<'a> EditBuilder<'a> {
 
     /// Translate a layer's pixels (and linked mask) by an integer offset.
     pub fn translate_layer(&mut self, id: LayerId, dx: i32, dy: i32) {
+        let canvas = self.doc.canvas_rect();
         if dx == 0 && dy == 0 {
             return;
         }
@@ -790,7 +796,7 @@ impl<'a> EditBuilder<'a> {
         }
         self.doc.translate_layer_content(id, dx, dy);
         if let Some(layer) = self.doc.tree.find(id) {
-            self.damage = self.damage.union(&layer.content_bounds().inflated(1));
+            self.damage = self.damage.union(&layer.damage_bounds(canvas).inflated(1));
         }
         self.ops.push(EditOp::LayerTranslate { layer: id, dx, dy });
         for (layer, extras) in origins {
@@ -799,8 +805,9 @@ impl<'a> EditBuilder<'a> {
     }
 
     pub fn move_layer(&mut self, from: LayerPath, to: LayerPath) {
+        let canvas = self.doc.canvas_rect();
         if let Some(layer) = self.doc.tree.remove_at(&from) {
-            self.damage = self.damage.union(&layer.content_bounds());
+            self.damage = self.damage.union(&layer.damage_bounds(canvas));
             self.doc.tree.insert_at(&to, layer);
             self.ops.push(EditOp::LayerMove { from, to });
         }
@@ -1022,11 +1029,12 @@ impl<'a> EditBuilder<'a> {
 
     /// Change scalar properties via closure; captures before/after.
     pub fn change_props(&mut self, id: LayerId, f: impl FnOnce(&mut Layer)) {
+        let canvas = self.doc.canvas_rect();
         if let Some(layer) = self.doc.tree.find_mut(id) {
             let before = LayerProps::of(layer);
             f(layer);
             let after = LayerProps::of(layer);
-            let bounds = layer.content_bounds();
+            let bounds = layer.damage_bounds(canvas);
             if before != after {
                 self.damage = self.damage.union(&bounds);
                 self.ops.push(EditOp::LayerProps {
@@ -1039,10 +1047,11 @@ impl<'a> EditBuilder<'a> {
     }
 
     pub fn set_mask(&mut self, id: LayerId, mask: Option<LayerMask>) {
+        let canvas = self.doc.canvas_rect();
         if let Some(layer) = self.doc.tree.find_mut(id) {
             let before = layer.mask.take().map(Box::new);
             layer.mask = mask.clone();
-            self.damage = self.damage.union(&layer.content_bounds());
+            self.damage = self.damage.union(&layer.damage_bounds(canvas));
             self.ops.push(EditOp::MaskSet {
                 layer: id,
                 before,

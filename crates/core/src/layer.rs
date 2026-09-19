@@ -369,6 +369,22 @@ impl Layer {
         }
     }
 
+    /// Region that must be recomposited when this layer changes. Adjustments
+    /// have no pixels of their own but can affect the entire canvas, including
+    /// when they are nested inside a pass-through group.
+    pub fn damage_bounds(&self, canvas: IntRect) -> IntRect {
+        match &self.kind {
+            LayerKind::Adjustment(_) => canvas,
+            LayerKind::Group(group) => group
+                .children
+                .iter()
+                .fold(self.content_bounds(), |bounds, child| {
+                    bounds.union(&child.damage_bounds(canvas))
+                }),
+            LayerKind::Raster(_) => self.content_bounds(),
+        }
+    }
+
     /// Pixel-exact content bounds. `content_bounds` is tile-granular and
     /// cheap (it drives damage tracking); this one scans pixels and is what
     /// hit-testing, PSD layer rects and UI boxes want.

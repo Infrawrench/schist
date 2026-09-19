@@ -518,6 +518,9 @@ impl Workspace {
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
         let buffer = self.field_buffer.clone();
         if id == "recorded-action-name" {
+            if let Some(draft) = self.action_recorder.draft.as_mut() {
+                draft.name = buffer.clone();
+            }
             self.update_modal(|modal| {
                 if let Modal::RecordedActions { name, .. } = modal {
                     *name = buffer;

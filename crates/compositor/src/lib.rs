@@ -928,6 +928,149 @@ mod tests {
         [out[0], out[1], out[2], out[3]]
     }
 
+    fn adjustment(params: schist_adjustments::Params) -> Layer {
+        let mut layer = Layer::new_raster("adjustment");
+        layer.kind = LayerKind::Adjustment(schist_core::AdjustmentData {
+            kind: params.kind(),
+            raw: Vec::new(),
+            params_json: Some(serde_json::to_string(&params).unwrap()),
+        });
+        layer
+    }
+
+    fn assert_cache_fresh(doc: &mut Document, cache: &mut TileCache) -> [u8; 4] {
+        for rect in doc.take_damage() {
+            cache.invalidate(&rect);
+        }
+        let coord = TileCoord { tx: 0, ty: 0 };
+        let cached = cache.get(doc, coord);
+        assert!(
+            cached.as_slice() == composite_region_rgba8(doc, coord.rect()),
+            "document damage must refresh every changed composite pixel"
+        );
+        cached[..4].try_into().unwrap()
+    }
+
+    #[test]
+    fn cached_adjustment_edits_refresh_without_switching_documents() {
+        use schist_core::LayerPath;
+        let mut doc = Document::new("adjustments", 32, 32, Depth::Eight);
+        doc.push_layer(solid_layer("color", doc.canvas_rect(), [20, 40, 60, 255]));
+        let mut cache = TileCache::new();
+        assert_eq!(assert_cache_fresh(&mut doc, &mut cache), [20, 40, 60, 255]);
+
+        let mut edit = doc.begin_edit("Invert");
+        let invert = edit.insert_layer(
+            LayerPath(vec![1]),
+            adjustment(schist_adjustments::Params::Invert),
+        );
+        edit.commit();
+        assert_eq!(
+            assert_cache_fresh(&mut doc, &mut cache),
+            [235, 215, 195, 255]
+        );
+
+        let mut edit = doc.begin_edit("Black & White");
+        let bw = edit.insert_layer(
+            LayerPath(vec![2]),
+            adjustment(schist_adjustments::Params::default_for(
+                schist_core::AdjustmentKind::BlackWhite,
+            )),
+        );
+        edit.commit();
+        let gray = assert_cache_fresh(&mut doc, &mut cache);
+        assert_eq!(gray[0], gray[1]);
+        assert_eq!(gray[1], gray[2]);
+
+        let mut edit = doc.begin_edit("Hide adjustment");
+        edit.change_props(bw, |layer| layer.visible = false);
+        edit.commit();
+        assert_eq!(
+            assert_cache_fresh(&mut doc, &mut cache),
+            [235, 215, 195, 255]
+        );
+        doc.undo();
+        assert_eq!(assert_cache_fresh(&mut doc, &mut cache), gray);
+        doc.redo();
+        assert_cache_fresh(&mut doc, &mut cache);
+
+        let mut edit = doc.begin_edit("Adjustment opacity");
+        edit.change_props(invert, |layer| layer.opacity = 0.5);
+        edit.commit();
+        assert_cache_fresh(&mut doc, &mut cache);
+        doc.undo();
+        assert_cache_fresh(&mut doc, &mut cache);
+
+        let mut edit = doc.begin_edit("Move adjustment below pixels");
+        edit.move_layer(LayerPath(vec![1]), LayerPath(vec![0]));
+        edit.commit();
+        assert_eq!(assert_cache_fresh(&mut doc, &mut cache), [20, 40, 60, 255]);
+        doc.undo();
+        assert_eq!(
+            assert_cache_fresh(&mut doc, &mut cache),
+            [235, 215, 195, 255]
+        );
+
+        let mut edit = doc.begin_edit("Remove adjustment");
+        edit.remove_layer(invert);
+        edit.commit();
+        assert_eq!(assert_cache_fresh(&mut doc, &mut cache), [20, 40, 60, 255]);
+        doc.undo();
+        assert_eq!(
+            assert_cache_fresh(&mut doc, &mut cache),
+            [235, 215, 195, 255]
+        );
+        doc.redo();
+        assert_eq!(assert_cache_fresh(&mut doc, &mut cache), [20, 40, 60, 255]);
+    }
+
+    #[test]
+    fn cached_adjustment_group_visibility_and_masks_refresh() {
+        use schist_core::LayerPath;
+        let mut doc = Document::new("group", 32, 32, Depth::Eight);
+        doc.push_layer(solid_layer("color", doc.canvas_rect(), [20, 40, 60, 255]));
+        let mut group = Layer::new_group("adjustments");
+        group.blend = BlendMode::PassThrough;
+        let invert = adjustment(schist_adjustments::Params::Invert);
+        let invert_id = invert.id;
+        if let LayerKind::Group(data) = &mut group.kind {
+            data.children.push(invert);
+        }
+        let mut cache = TileCache::new();
+        assert_cache_fresh(&mut doc, &mut cache);
+        let mut edit = doc.begin_edit("Insert group");
+        let group_id = edit.insert_layer(LayerPath(vec![1]), group);
+        edit.commit();
+        assert_eq!(
+            assert_cache_fresh(&mut doc, &mut cache),
+            [235, 215, 195, 255]
+        );
+
+        let mut edit = doc.begin_edit("Hide group");
+        edit.change_props(group_id, |layer| layer.visible = false);
+        edit.commit();
+        assert_eq!(assert_cache_fresh(&mut doc, &mut cache), [20, 40, 60, 255]);
+        doc.undo();
+        assert_eq!(
+            assert_cache_fresh(&mut doc, &mut cache),
+            [235, 215, 195, 255]
+        );
+
+        let mut mask = LayerMask::new_revealing();
+        mask.default_value = 0;
+        let mut edit = doc.begin_edit("Mask adjustment");
+        edit.set_mask(invert_id, Some(mask));
+        edit.commit();
+        assert_eq!(assert_cache_fresh(&mut doc, &mut cache), [20, 40, 60, 255]);
+        doc.undo();
+        assert_eq!(
+            assert_cache_fresh(&mut doc, &mut cache),
+            [235, 215, 195, 255]
+        );
+        doc.redo();
+        assert_eq!(assert_cache_fresh(&mut doc, &mut cache), [20, 40, 60, 255]);
+    }
+
     #[test]
     fn single_opaque_layer() {
         let mut doc = Document::new("t", 64, 64, Depth::Eight);

@@ -72,25 +72,7 @@ pub(super) fn actions_dialog(
                 options: saved,
             },
             |ws, index, _| {
-                if let Some(action) = index
-                    .and_then(|i| ws.action_library.actions.get(i))
-                    .cloned()
-                {
-                    ws.action_recorder.draft = Some(action.clone());
-                    ws.action_recorder.selected_action = index;
-                    ws.update_modal(|m| {
-                        if let Modal::RecordedActions {
-                            selected,
-                            step,
-                            name,
-                        } = m
-                        {
-                            *selected = index;
-                            *step = None;
-                            *name = action.name;
-                        }
-                    });
-                }
+                ws.select_recorded_action(index);
             },
             cx,
         ),

@@ -271,6 +271,10 @@ FORCE:
 check-recordable-actions:
 	$(CARGO) test -p schist-editor --lib workspace::recorded_actions::tests
 	$(CARGO) check -p schist-editor --all-targets
+.PHONY: check-adjustment-refresh
+check-adjustment-refresh:
+	$(CARGO) test -p schist-core --lib
+	$(CARGO) test -p schist-compositor --lib
 format-recordable-actions:
 	$(CARGO) fmt -p schist-editor -p schist-app-actions
 check-recordable-actions-catalogs:
