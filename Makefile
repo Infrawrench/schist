@@ -389,6 +389,7 @@ check-palettes-wasm:
 .PHONY: check-mask-refinement
 check-mask-refinement:
 	$(CARGO) test -p schist-core mask_refine
+	$(CARGO) test -p schist-core payload_budget_tests
 	$(CARGO) check -p schist-editor --all-targets
 
 # Native video decoding, gallery invariants, and catalogs.

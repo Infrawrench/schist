@@ -59,6 +59,10 @@ type-checks the editor and its tests. Tests cover soft edge estimation, ambiguou
 colors, transparent RGB, smoothing/shift/feather boundaries, chunk seams, exact
 source preservation, cancellation before and after preparation, mask and copy
 undo/redo, disabled mask input, locked layers and stale sessions.
+The same target checks undo memory accounting for masks and layer snapshots,
+including inserted and removed raster layers and their nested source payloads.
+These edits participate in the history memory budget so repeated refinements
+cannot retain full-resolution masks or corrected layer copies outside that budget.
 
 All controls use `crates/i18n`. `mask_refine.lang` exists in every shipped locale.
 English, Swedish, German, French and Spanish are supplied; the other 145
