@@ -686,6 +686,7 @@ impl Workspace {
             | Modal::Stroke { .. }
             | Modal::Fill { .. }
             | Modal::SelectModify { .. }
+            | Modal::MaskRefine { .. }
             | Modal::ColorRange { .. }
             | Modal::LayerStyle { .. }
             | Modal::Filter { .. }
