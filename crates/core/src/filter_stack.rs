@@ -95,7 +95,9 @@ impl FilterStack {
         }
         ensure!(
             !self.region.is_empty()
-                && self.region.width() as u64 * self.region.height() as u64 <= 32_000_000,
+                && (self.region.right as i64 - self.region.left as i64) as u64
+                    * (self.region.bottom as i64 - self.region.top as i64) as u64
+                    <= 32_000_000,
             "Invalid filter stack region"
         );
         let safe = i32::MAX - crate::TILE_SIZE * 2;

@@ -127,6 +127,7 @@ fn filter_stack_rejects_corruption_and_pathological_regions() {
     assert!(decode_source(&source[..source.len() / 2]).is_err());
     for region in [
         IntRect::new(i32::MAX - 2, 0, i32::MAX, 1),
+        IntRect::new(i32::MIN, i32::MIN, i32::MAX, i32::MAX),
         IntRect::from_size(1, 32_000_000),
         IntRect::EMPTY,
     ] {

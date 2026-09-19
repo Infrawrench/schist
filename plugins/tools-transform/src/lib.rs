@@ -1366,6 +1366,41 @@ mod tests {
     }
 
     #[test]
+    fn filter_stack_async_resize_retains_source_and_restores_exact_native_tiles() {
+        struct Cpu;
+        impl schist_fx::AsyncCompute for Cpu {
+            async fn compute_async(&self, _: schist_fx::ComputeJob<'_>) -> Option<Vec<f32>> {
+                None
+            }
+        }
+        // The CPU test backend completes immediately; no runtime or GPU needed.
+        fn complete<F: std::future::Future>(future: F) -> F::Output {
+            let mut future = std::pin::pin!(future);
+            let mut cx = std::task::Context::from_waker(std::task::Waker::noop());
+            match std::future::Future::poll(future.as_mut(), &mut cx) {
+                std::task::Poll::Ready(result) => result,
+                std::task::Poll::Pending => panic!("CPU resize unexpectedly suspended"),
+            }
+        }
+        for smart in [false, true] {
+            let mut doc = with_filter_stack(smart);
+            let original = doc.tree.layers[0].clone();
+            for size in [50, 200] {
+                let resize = ClassicResize::capture(&doc, size, size, Filter::Bicubic).unwrap();
+                complete(resize.run(&Cpu)).apply(&mut doc);
+            }
+            let layer = &doc.tree.layers[0];
+            assert!(schist_core::filter_stack::has_stack(layer));
+            for (coord, tile) in original.as_raster().unwrap().tiles.iter() {
+                assert_eq!(layer.as_raster().unwrap().tiles.get(*coord), Some(tile));
+            }
+            doc.undo();
+            doc.undo();
+            assert_eq!(doc.tree.layers[0].extras, original.extras);
+        }
+    }
+
+    #[test]
     fn filter_stack_resize_and_crop_keep_source_and_composed_placement() {
         use schist_core::filter_stack::{FilterStack, SOURCE_KEY};
         for smart in [false, true] {
