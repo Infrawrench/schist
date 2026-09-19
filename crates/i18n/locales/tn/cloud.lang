@@ -221,7 +221,6 @@ cloud.people.title = Batho mo senepeng seno
 cloud.people.person = Motho
 cloud.people.unnamed = Ga a na leina
 cloud.people.unnamed_faces = Difatlhego tse di se nang maina
-cloud.people.unnamed_faces_row = Difatlhego tse di se nang maina mo Schist Cloud
 cloud.people.finding_faces.one = E batla difatlhego mo senepeng sa cloud se le {n}…
 cloud.people.finding_faces.other = E batla difatlhego mo dinepeng tsa cloud di le {n}…
 cloud.people.could_not_process.one = Ga go a kgonega go dira senepe sa cloud se le {n}

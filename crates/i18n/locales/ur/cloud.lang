@@ -222,7 +222,6 @@ cloud.people.title = اس تصویر میں لوگ
 cloud.people.person = شخص
 cloud.people.unnamed = بے نام
 cloud.people.unnamed_faces = بے نام چہرے
-cloud.people.unnamed_faces_row = Schist Cloud میں بے نام چہرے
 cloud.people.finding_faces.one = {n} کلاؤڈ تصویر میں چہرے تلاش ہو رہے ہیں…
 cloud.people.finding_faces.other = {n} کلاؤڈ تصاویر میں چہرے تلاش ہو رہے ہیں…
 cloud.people.could_not_process.one = {n} کلاؤڈ تصویر پر عمل نہیں ہو سکا

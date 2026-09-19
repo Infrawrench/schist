@@ -222,7 +222,6 @@ cloud.people.title = በዚህ ፎቶ ውስጥ ያሉ ሰዎች
 cloud.people.person = ሰው
 cloud.people.unnamed = ስም ያልተሰጠው
 cloud.people.unnamed_faces = ስም ያልተሰጣቸው ፊቶች
-cloud.people.unnamed_faces_row = በSchist Cloud ውስጥ ስም ያልተሰጣቸው ፊቶች
 cloud.people.finding_faces.one = በ{n} የደመና ፎቶ ውስጥ ፊቶችን በመፈለግ ላይ…
 cloud.people.finding_faces.other = በ{n} የደመና ፎቶዎች ውስጥ ፊቶችን በመፈለግ ላይ…
 cloud.people.could_not_process.one = {n} የደመና ፎቶን ማስኬድ አልተቻለም

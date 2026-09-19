@@ -230,7 +230,6 @@ cloud.people.title = Argazki honetako pertsonak
 cloud.people.person = Pertsona
 cloud.people.unnamed = Izenik gabe
 cloud.people.unnamed_faces = Izenik gabeko aurpegiak
-cloud.people.unnamed_faces_row = Schist Cloud-eko izenik gabeko aurpegiak
 cloud.people.finding_faces.one = Hodeiko argazki {n}en aurpegiak bilatzen…
 cloud.people.finding_faces.other = Hodeiko {n} argazkiren aurpegiak bilatzen…
 cloud.people.could_not_process.one = Ezin izan da hodeiko argazki {n} prozesatu

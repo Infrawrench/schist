@@ -221,7 +221,6 @@ cloud.people.title = Személyek ezen a fényképen
 cloud.people.person = Személy
 cloud.people.unnamed = Névtelen
 cloud.people.unnamed_faces = Névtelen arcok
-cloud.people.unnamed_faces_row = Névtelen arcok a Schist Cloudban
 cloud.people.finding_faces.one = Arcok keresése {n} felhőbeli fényképen…
 cloud.people.finding_faces.other = Arcok keresése {n} felhőbeli fényképen…
 cloud.people.could_not_process.one = {n} felhőbeli fénykép nem dolgozható fel

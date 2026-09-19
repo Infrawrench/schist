@@ -212,7 +212,6 @@ cloud.people.title = Одамони ин акс
 cloud.people.person = Шахс
 cloud.people.unnamed = Беном
 cloud.people.unnamed_faces = Чеҳраҳои беном
-cloud.people.unnamed_faces_row = Чеҳраҳои беном дар Schist Cloud
 cloud.people.finding_faces.other = Ҷустуҷӯи чеҳраҳо дар {n} акси абрӣ…
 cloud.people.could_not_process.other = {n} акси абрӣ коркард нашуд
 cloud.people.add_face = Илова кардани чеҳра…

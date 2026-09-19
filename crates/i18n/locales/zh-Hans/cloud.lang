@@ -235,7 +235,6 @@ cloud.people.title = 此照片中的人物
 cloud.people.person = 人物
 cloud.people.unnamed = 未命名
 cloud.people.unnamed_faces = 未命名的面孔
-cloud.people.unnamed_faces_row = Schist Cloud 中未命名的面孔
 cloud.people.finding_faces.other = 正在 {n} 张云端照片中查找面孔…
 cloud.people.could_not_process.other = 无法处理 {n} 张云端照片
 cloud.people.add_face = 添加面孔…

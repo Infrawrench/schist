@@ -221,7 +221,6 @@ cloud.people.title = Vanhu vari mupikicha iyi
 cloud.people.person = Munhu
 cloud.people.unnamed = Haana zita
 cloud.people.unnamed_faces = Zviso zvisina mazita
-cloud.people.unnamed_faces_row = Zviso zvisina mazita muSchist Cloud
 cloud.people.finding_faces.one = Kuri kutsvaga zviso mupikicha {n} yecloud…
 cloud.people.finding_faces.other = Kuri kutsvaga zviso mumapikicha {n} ecloud…
 cloud.people.could_not_process.one = Hatina kukwanisa kugadzirisa pikicha {n} yecloud

@@ -244,7 +244,6 @@ cloud.people.title = Personer i det här fotot
 cloud.people.person = Person
 cloud.people.unnamed = Namnlös
 cloud.people.unnamed_faces = Namnlösa ansikten
-cloud.people.unnamed_faces_row = Namnlösa ansikten i Schist Cloud
 cloud.people.finding_faces.one = Letar efter ansikten i {n} molnfoto…
 cloud.people.finding_faces.other = Letar efter ansikten i {n} molnfoton…
 cloud.people.could_not_process.one = Kunde inte bearbeta {n} molnfoto

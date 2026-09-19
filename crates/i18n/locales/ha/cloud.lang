@@ -242,7 +242,6 @@ cloud.people.title = Mutanen da ke wannan hoton
 cloud.people.person = Mutum
 cloud.people.unnamed = Mara suna
 cloud.people.unnamed_faces = Fuskoki marasa suna
-cloud.people.unnamed_faces_row = Fuskoki marasa suna a Schist Cloud
 cloud.people.finding_faces.one = Ana neman fuskoki a hoton cloud {n}…
 cloud.people.finding_faces.other = Ana neman fuskoki a hotunan cloud {n}…
 cloud.people.could_not_process.one = Ba a iya sarrafa hoton cloud {n} ba

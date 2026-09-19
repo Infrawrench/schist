@@ -240,7 +240,6 @@ cloud.people.title = Энэ фото зураг дээрх хүмүүс
 cloud.people.person = Хүн
 cloud.people.unnamed = Нэргүй
 cloud.people.unnamed_faces = Нэргүй царай
-cloud.people.unnamed_faces_row = Schist Cloud дахь нэргүй царай
 cloud.people.finding_faces.one = {n} үүлэн фото зургаас царай хайж байна…
 cloud.people.finding_faces.other = {n} үүлэн фото зургаас царай хайж байна…
 cloud.people.could_not_process.one = {n} үүлэн фото зургийг боловсруулж чадсангүй

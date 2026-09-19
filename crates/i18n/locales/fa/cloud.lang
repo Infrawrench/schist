@@ -221,7 +221,6 @@ cloud.people.title = افراد در این عکس
 cloud.people.person = فرد
 cloud.people.unnamed = بی‌نام
 cloud.people.unnamed_faces = چهره‌های بی‌نام
-cloud.people.unnamed_faces_row = چهره‌های بی‌نام در Schist Cloud
 cloud.people.finding_faces.one = در حال یافتن چهره‌ها در {n} عکس ابری…
 cloud.people.finding_faces.other = در حال یافتن چهره‌ها در {n} عکس ابری…
 cloud.people.could_not_process.one = پردازش {n} عکس ابری ممکن نبود

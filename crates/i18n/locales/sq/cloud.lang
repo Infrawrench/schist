@@ -222,7 +222,6 @@ cloud.people.title = Njerëzit në këtë foto
 cloud.people.person = Personi
 cloud.people.unnamed = Pa emër
 cloud.people.unnamed_faces = Fytyra pa emër
-cloud.people.unnamed_faces_row = Fytyra pa emër në Schist Cloud
 cloud.people.finding_faces.one = Po kërkohen fytyra në {n} foto në re…
 cloud.people.finding_faces.other = Po kërkohen fytyra në {n} foto në re…
 cloud.people.could_not_process.one = Nuk mund të përpunohej {n} foto në re

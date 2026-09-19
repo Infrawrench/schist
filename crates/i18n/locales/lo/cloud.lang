@@ -212,7 +212,6 @@ cloud.people.title = ບຸກຄົນໃນຮູບນີ້
 cloud.people.person = ບຸກຄົນ
 cloud.people.unnamed = ບໍ່ມີຊື່
 cloud.people.unnamed_faces = ໃບໜ້າທີ່ບໍ່ມີຊື່
-cloud.people.unnamed_faces_row = ໃບໜ້າທີ່ບໍ່ມີຊື່ໃນ Schist Cloud
 cloud.people.finding_faces.other = ກຳລັງຊອກຫາໃບໜ້າໃນ {n} ຮູບຄລາວ…
 cloud.people.could_not_process.other = ບໍ່ສາມາດປະມວນຜົນ {n} ຮູບຄລາວ
 cloud.people.add_face = ເພີ່ມໃບໜ້າ…

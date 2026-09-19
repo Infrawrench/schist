@@ -212,7 +212,6 @@ cloud.people.title = 이 사진의 인물
 cloud.people.person = 인물
 cloud.people.unnamed = 이름 없음
 cloud.people.unnamed_faces = 이름 없는 얼굴
-cloud.people.unnamed_faces_row = Schist Cloud의 이름 없는 얼굴
 cloud.people.finding_faces.other = 클라우드 사진 {n}장에서 얼굴 찾는 중…
 cloud.people.could_not_process.other = 클라우드 사진 {n}장을 처리할 수 없음
 cloud.people.add_face = 얼굴 추가…

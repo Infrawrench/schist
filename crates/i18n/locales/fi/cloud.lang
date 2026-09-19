@@ -223,7 +223,6 @@ cloud.people.title = Ihmiset tässä kuvassa
 cloud.people.person = Henkilö
 cloud.people.unnamed = Nimeämätön
 cloud.people.unnamed_faces = Nimeämättömät kasvot
-cloud.people.unnamed_faces_row = Nimeämättömät kasvot Schist Cloudissa
 cloud.people.finding_faces.one = Etsitään kasvoja {n} pilvikuvasta…
 cloud.people.finding_faces.other = Etsitään kasvoja {n} pilvikuvasta…
 cloud.people.could_not_process.one = {n} pilvikuvaa ei voitu käsitellä

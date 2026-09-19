@@ -244,7 +244,6 @@ cloud.people.title = Personen auf diesem Foto
 cloud.people.person = Person
 cloud.people.unnamed = Unbenannt
 cloud.people.unnamed_faces = Unbenannte Gesichter
-cloud.people.unnamed_faces_row = Unbenannte Gesichter in Schist Cloud
 cloud.people.finding_faces.one = Gesichter in {n} Cloud-Foto werden gesucht…
 cloud.people.finding_faces.other = Gesichter in {n} Cloud-Fotos werden gesucht…
 cloud.people.could_not_process.one = {n} Cloud-Foto konnte nicht verarbeitet werden

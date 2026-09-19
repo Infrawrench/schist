@@ -222,7 +222,6 @@ cloud.people.title = Մարդիկ այս լուսանկարում
 cloud.people.person = Անձ
 cloud.people.unnamed = Անանուն
 cloud.people.unnamed_faces = Անանուն դեմքեր
-cloud.people.unnamed_faces_row = Անանուն դեմքեր Schist Cloud-ում
 cloud.people.finding_faces.one = Դեմքեր են որոնվում {n} ամպային լուսանկարում…
 cloud.people.finding_faces.other = Դեմքեր են որոնվում {n} ամպային լուսանկարում…
 cloud.people.could_not_process.one = Չհաջողվեց մշակել {n} ամպային լուսանկար

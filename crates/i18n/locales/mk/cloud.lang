@@ -221,7 +221,6 @@ cloud.people.title = Луѓе на оваа фотографија
 cloud.people.person = Лице
 cloud.people.unnamed = Неименувано
 cloud.people.unnamed_faces = Неименувани лица
-cloud.people.unnamed_faces_row = Неименувани лица на Schist Cloud
 cloud.people.finding_faces.one = Се бараат лица во {n} облачна фотографија…
 cloud.people.finding_faces.other = Се бараат лица во {n} облачни фотографии…
 cloud.people.could_not_process.one = Не можеше да се обработи {n} облачна фотографија

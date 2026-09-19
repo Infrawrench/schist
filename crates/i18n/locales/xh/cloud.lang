@@ -221,7 +221,6 @@ cloud.people.title = Abantu abakule foto
 cloud.people.person = Umntu
 cloud.people.unnamed = Akanagama
 cloud.people.unnamed_faces = Ubuso obungenamagama
-cloud.people.unnamed_faces_row = Ubuso obungenamagama kwiSchist Cloud
 cloud.people.finding_faces.one = Kufunwa ubuso kwifoto yelifu eyi-{n}…
 cloud.people.finding_faces.other = Kufunwa ubuso kwiifoto zelifu eziyi-{n}…
 cloud.people.could_not_process.one = Ifoto yelifu eyi-{n} ayikwazanga kulungiswa

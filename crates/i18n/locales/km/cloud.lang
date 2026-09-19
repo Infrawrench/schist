@@ -212,7 +212,6 @@ cloud.people.title = មនុស្សក្នុងរូបថតនេះ
 cloud.people.person = មនុស្ស
 cloud.people.unnamed = គ្មានឈ្មោះ
 cloud.people.unnamed_faces = ផ្ទៃមុខគ្មានឈ្មោះ
-cloud.people.unnamed_faces_row = ផ្ទៃមុខគ្មានឈ្មោះក្នុង Schist Cloud
 cloud.people.finding_faces.other = កំពុងរកផ្ទៃមុខក្នុងរូបថតពពកចំនួន {n}…
 cloud.people.could_not_process.other = មិនអាចដំណើរការរូបថតពពកចំនួន {n}
 cloud.people.add_face = បន្ថែមផ្ទៃមុខ…

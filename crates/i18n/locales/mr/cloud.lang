@@ -221,7 +221,6 @@ cloud.people.title = या फोटोतील लोक
 cloud.people.person = व्यक्ती
 cloud.people.unnamed = नाव नसलेले
 cloud.people.unnamed_faces = नाव नसलेले चेहरे
-cloud.people.unnamed_faces_row = Schist Cloud मधील नाव नसलेले चेहरे
 cloud.people.finding_faces.one = {n} क्लाउड फोटोमध्ये चेहरे शोधत आहे…
 cloud.people.finding_faces.other = {n} क्लाउड फोटोंमध्ये चेहरे शोधत आहे…
 cloud.people.could_not_process.one = {n} क्लाउड फोटोवर प्रक्रिया करता आली नाही

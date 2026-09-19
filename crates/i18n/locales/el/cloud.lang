@@ -221,7 +221,6 @@ cloud.people.title = Άτομα σε αυτή τη φωτογραφία
 cloud.people.person = Άτομο
 cloud.people.unnamed = Χωρίς όνομα
 cloud.people.unnamed_faces = Πρόσωπα χωρίς όνομα
-cloud.people.unnamed_faces_row = Πρόσωπα χωρίς όνομα στο Schist Cloud
 cloud.people.finding_faces.one = Εύρεση προσώπων σε {n} φωτογραφία cloud…
 cloud.people.finding_faces.other = Εύρεση προσώπων σε {n} φωτογραφίες cloud…
 cloud.people.could_not_process.one = Δεν ήταν δυνατή η επεξεργασία {n} φωτογραφίας cloud

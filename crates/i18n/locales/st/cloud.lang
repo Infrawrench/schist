@@ -230,7 +230,6 @@ cloud.people.title = Batho ba fotong ena
 cloud.people.person = Motho
 cloud.people.unnamed = Ha a na lebitso
 cloud.people.unnamed_faces = Lifahleho tse se nang mabitso
-cloud.people.unnamed_faces_row = Lifahleho tse se nang mabitso ho Schist Cloud
 cloud.people.finding_faces.one = E batla lifahleho palong ena ea lifoto tsa cloud: {n}…
 cloud.people.finding_faces.other = E batla lifahleho palong ena ea lifoto tsa cloud: {n}…
 cloud.people.could_not_process.one = Palo ea lifoto tsa cloud tse sa kang tsa sebetsoa: {n}

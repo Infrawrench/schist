@@ -221,7 +221,6 @@ cloud.people.title = Anthu mu chithunzi ichi
 cloud.people.person = Munthu
 cloud.people.unnamed = Wopanda dzina
 cloud.people.unnamed_faces = Nkhope zopanda mayina
-cloud.people.unnamed_faces_row = Nkhope zopanda mayina mu Schist Cloud
 cloud.people.finding_faces.one = Ikufufuza nkhope mu chithunzi cha cloud {n}…
 cloud.people.finding_faces.other = Ikufufuza nkhope mu zithunzi za cloud {n}…
 cloud.people.could_not_process.one = Sitinathe kukonza chithunzi cha cloud {n}

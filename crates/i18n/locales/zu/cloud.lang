@@ -221,7 +221,6 @@ cloud.people.title = Abantu abakulesi sithombe
 cloud.people.person = Umuntu
 cloud.people.unnamed = Akunagama
 cloud.people.unnamed_faces = Ubuso obungenamagama
-cloud.people.unnamed_faces_row = Ubuso obungenamagama ku-Schist Cloud
 cloud.people.finding_faces.one = Kufunwa ubuso esithombeni samafu esingu-{n}…
 cloud.people.finding_faces.other = Kufunwa ubuso ezithombeni zamafu ezingu-{n}…
 cloud.people.could_not_process.one = Isithombe samafu esingu-{n} asikwazanga ukucutshungulwa

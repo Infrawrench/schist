@@ -221,7 +221,6 @@ cloud.people.title = Mga tao sa larawang ito
 cloud.people.person = Tao
 cloud.people.unnamed = Walang pangalan
 cloud.people.unnamed_faces = Mga mukhang walang pangalan
-cloud.people.unnamed_faces_row = Mga mukhang walang pangalan sa Schist Cloud
 cloud.people.finding_faces.one = Naghahanap ng mga mukha sa {n} larawan sa cloud…
 cloud.people.finding_faces.other = Naghahanap ng mga mukha sa {n} larawan sa cloud…
 cloud.people.could_not_process.one = Hindi maproseso ang {n} larawan sa cloud

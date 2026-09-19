@@ -230,7 +230,6 @@ cloud.people.title = Бұл фотосуреттегі адамдар
 cloud.people.person = Адам
 cloud.people.unnamed = Аты белгісіз
 cloud.people.unnamed_faces = Аты белгісіз беттер
-cloud.people.unnamed_faces_row = Schist Cloud ішіндегі аты белгісіз беттер
 cloud.people.finding_faces.one = {n} бұлттық фотосуреттен беттер ізделуде…
 cloud.people.finding_faces.other = {n} бұлттық фотосуреттен беттер ізделуде…
 cloud.people.could_not_process.one = {n} бұлттық фотосурет өңделмеді

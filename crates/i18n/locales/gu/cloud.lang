@@ -240,7 +240,6 @@ cloud.people.title = આ ફોટામાંના લોકો
 cloud.people.person = વ્યક્તિ
 cloud.people.unnamed = નામ વિનાનું
 cloud.people.unnamed_faces = નામ વિનાના ચહેરા
-cloud.people.unnamed_faces_row = Schist Cloudમાં નામ વિનાના ચહેરા
 cloud.people.finding_faces.one = {n} ક્લાઉડ ફોટામાં ચહેરા શોધી રહ્યા છીએ…
 cloud.people.finding_faces.other = {n} ક્લાઉડ ફોટામાં ચહેરા શોધી રહ્યા છીએ…
 cloud.people.could_not_process.one = {n} ક્લાઉડ ફોટા પર પ્રક્રિયા થઈ શકી નહીં
