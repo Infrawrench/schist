@@ -204,11 +204,42 @@ pub struct Recorder {
     document: Option<schist_core::DocumentId>,
     pub draft: Option<SavedAction>,
     pub selected_action: Option<usize>,
+    /// The unsaved recording while a saved action is being inspected/edited.
+    working_action: Option<SavedAction>,
     /// The last inserted adjustment can absorb its dialog's committed settings.
     added_adjustment: Option<(schist_core::LayerId, usize)>,
     pub batch_cancel: Option<Arc<std::sync::atomic::AtomicBool>>,
 }
 impl Recorder {
+    fn select_action(&mut self, library: &ActionLibrary, index: Option<usize>) -> bool {
+        if index == self.selected_action {
+            return false;
+        }
+        let next = match index {
+            Some(index) => {
+                let Some(action) = library.actions.get(index) else {
+                    return false;
+                };
+                Some(action.clone())
+            }
+            None => self.working_action.take(),
+        };
+        if self.selected_action.is_none() {
+            self.working_action = self.draft.take();
+        }
+        self.draft = next;
+        self.selected_action = index;
+        true
+    }
+
+    fn mark_saved(&mut self, index: usize, action: SavedAction) {
+        if self.selected_action.is_none() {
+            self.working_action = Some(action.clone());
+        }
+        self.draft = Some(action);
+        self.selected_action = Some(index);
+    }
+
     fn fold_adjustment(
         &mut self,
         layer: schist_core::LayerId,
@@ -637,6 +668,34 @@ fn validate_recording_context(doc: &Document, step: &Step) -> anyhow::Result<()>
 }
 
 impl Workspace {
+    pub fn select_recorded_action(&mut self, index: Option<usize>) {
+        self.commit_focused_field();
+        if !self
+            .action_recorder
+            .select_action(&self.action_library, index)
+        {
+            return;
+        }
+        let draft_name = self
+            .action_recorder
+            .draft
+            .as_ref()
+            .map(|action| action.name.clone())
+            .unwrap_or_default();
+        self.update_modal(|modal| {
+            if let Modal::RecordedActions {
+                selected,
+                step,
+                name,
+            } = modal
+            {
+                *selected = index;
+                *step = None;
+                *name = draft_name;
+            }
+        });
+    }
+
     pub fn open_actions(&mut self, cx: &mut Context<Self>) {
         if self
             .modal
@@ -831,9 +890,8 @@ impl Workspace {
             }
             library.save()?;
             self.action_library = library;
-            self.action_recorder.draft = Some(action);
             let index = selected.unwrap_or(self.action_library.actions.len() - 1);
-            self.action_recorder.selected_action = Some(index);
+            self.action_recorder.mark_saved(index, action);
             self.update_modal(|m| {
                 if let Modal::RecordedActions { selected, .. } = m {
                     *selected = Some(index);
@@ -856,8 +914,8 @@ impl Workspace {
         match library.save() {
             Ok(()) => {
                 self.action_library = library;
-                self.action_recorder.draft = None;
-                self.action_recorder.selected_action = None;
+                self.action_recorder
+                    .select_action(&self.action_library, None);
                 self.open_actions(cx);
             }
             Err(e) => self.status = tf!("actions.failed", error = e).into(),
@@ -1127,6 +1185,74 @@ mod tests {
     }
     fn runtime() -> Runtime {
         Runtime::new(&PluginRegistry::new())
+    }
+
+    #[test]
+    fn selecting_working_action_restores_its_name_and_edited_steps() {
+        let mut working = action(vec![command("select.all"), command("layer.duplicate")]);
+        working.name = "Unsaved recording".into();
+        let saved = action(vec![command("select.deselect")]);
+        let library = ActionLibrary {
+            actions: vec![saved.clone()],
+            ..Default::default()
+        };
+        let mut recorder = Recorder {
+            draft: Some(working.clone()),
+            ..Default::default()
+        };
+
+        assert!(recorder.select_action(&library, Some(0)));
+        assert_eq!(recorder.draft.as_ref(), Some(&saved));
+        recorder.draft.as_mut().unwrap().steps.clear();
+        // Selecting the same entry must not discard its in-progress edits.
+        assert!(!recorder.select_action(&library, Some(0)));
+        assert!(recorder.draft.as_ref().unwrap().steps.is_empty());
+        assert!(recorder.select_action(&library, None));
+        assert_eq!(recorder.selected_action, None);
+        assert_eq!(recorder.draft.as_ref(), Some(&working));
+        assert_eq!(library.actions, vec![saved]);
+
+        // Edits made after returning to the working draft survive another visit.
+        working.steps.remove(0);
+        recorder.draft = Some(working.clone());
+        assert!(recorder.select_action(&library, Some(0)));
+        assert!(recorder.select_action(&library, None));
+        assert_eq!(recorder.draft, Some(working));
+    }
+
+    #[test]
+    fn selecting_working_action_without_a_recording_clears_saved_draft() {
+        let library = ActionLibrary {
+            actions: vec![action(vec![command("select.all")])],
+            ..Default::default()
+        };
+        let mut recorder = Recorder::default();
+        assert!(recorder.select_action(&library, Some(0)));
+        assert!(!recorder.select_action(&library, Some(99)));
+        assert_eq!(recorder.selected_action, Some(0));
+        assert!(recorder.select_action(&library, None));
+        assert!(recorder.draft.is_none());
+        assert_eq!(recorder.selected_action, None);
+    }
+
+    #[test]
+    fn saving_an_action_keeps_the_working_recording_available() {
+        let working = action(vec![command("select.all")]);
+        let mut recorder = Recorder {
+            draft: Some(working.clone()),
+            ..Default::default()
+        };
+        let mut library = ActionLibrary {
+            actions: vec![working.clone()],
+            ..Default::default()
+        };
+        recorder.mark_saved(0, working.clone());
+        // Updating the saved action must not overwrite the separate working copy.
+        let changed = action(vec![command("select.deselect")]);
+        library.actions[0] = changed.clone();
+        recorder.mark_saved(0, changed);
+        assert!(recorder.select_action(&library, None));
+        assert_eq!(recorder.draft, Some(working));
     }
 
     #[test]

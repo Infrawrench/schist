@@ -131,9 +131,10 @@ impl Workspace {
     pub fn set_layer_opacity_live(&mut self, id: schist_core::LayerId, value: f32) {
         if let Some(doc) = &mut self.doc {
             let mut bounds = IntRect::EMPTY;
+            let canvas = doc.canvas_rect();
             if let Some(layer) = doc.tree.find_mut(id) {
                 layer.opacity = value;
-                bounds = layer.content_bounds();
+                bounds = layer.damage_bounds(canvas);
             }
             doc.add_damage(bounds);
         }
