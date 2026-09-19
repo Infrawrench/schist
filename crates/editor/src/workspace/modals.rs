@@ -31,6 +31,7 @@ impl Workspace {
         self.focused_field = None;
         self.field_buffer.clear();
         self.open_popup = None;
+        self.dropdown_search.clear();
         cx.notify();
     }
 
@@ -269,6 +270,7 @@ impl Workspace {
     #[cfg(not(target_arch = "wasm32"))]
     pub fn caret_somewhere(&self) -> bool {
         self.spotlight.open
+            || self.dropdown_search.active
             || self.focused_field.is_some()
             || self.gallery_search_active()
             || self.layer_rename.is_some()

@@ -8,10 +8,14 @@
 //! GPUI ships no text editor.
 
 use crate::workspace::{Popup, Workspace};
-use gpui::{div, px, Context, IntoElement, ParentElement as _, SharedString, Styled as _};
+use gpui::{
+    div, px, Context, InteractiveElement as _, IntoElement, ParentElement as _, SharedString,
+    StatefulInteractiveElement as _, Styled as _,
+};
 pub use schist_app_platform::shown_path;
 use schist_ui::{
     Button, Checkbox, DropdownButton, FieldRow, ListItem, Modal, NumberField, Popover, Slider,
+    TextInput,
 };
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
@@ -355,6 +359,7 @@ type DropdownSelect = dyn Fn(&mut Workspace, usize, &mut Context<Workspace>);
 
 pub struct OpenDropdown {
     pub labels: Vec<SharedString>,
+    pub searchable: bool,
     /// Row of the committed value, where keyboard walking starts from.
     pub current: Option<usize>,
     select: Rc<DropdownSelect>,
@@ -399,18 +404,19 @@ pub fn dropdown<T: Clone + PartialEq + 'static>(
     on_select: impl Fn(&mut Workspace, T, &mut Context<Workspace>) + Clone + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    dropdown_impl(scroll, spec, false, false, on_select, cx)
+    dropdown_impl(scroll, spec, false, false, None, on_select, cx)
 }
 
-/// A panel dropdown that opens above and aligns to the right, keeping long
-/// names and the list inside a sidebar near the bottom of the window.
-pub fn dropdown_above<T: Clone + PartialEq + 'static>(
+/// A panel dropdown with a fixed search field above its scrollable results.
+/// Opens above and aligns to the right to stay inside the editor sidebar.
+pub fn searchable_dropdown_above<T: Clone + PartialEq + 'static>(
     scroll: &DropdownState,
+    search: &LineEdit,
     spec: Dropdown<T>,
     on_select: impl Fn(&mut Workspace, T, &mut Context<Workspace>) + Clone + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    dropdown_impl(scroll, spec, false, true, on_select, cx)
+    dropdown_impl(scroll, spec, false, true, Some(search), on_select, cx)
 }
 
 /// A [`dropdown`] whose rows are each set in the typeface they name, the
@@ -422,7 +428,7 @@ pub fn font_dropdown<T: Clone + PartialEq + 'static>(
     on_select: impl Fn(&mut Workspace, T, &mut Context<Workspace>) + Clone + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    dropdown_impl(scroll, spec, true, false, on_select, cx)
+    dropdown_impl(scroll, spec, true, false, None, on_select, cx)
 }
 
 fn dropdown_impl<T: Clone + PartialEq + 'static>(
@@ -430,6 +436,7 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
     spec: Dropdown<T>,
     preview_fonts: bool,
     above: bool,
+    search: Option<&LineEdit>,
     on_select: impl Fn(&mut Workspace, T, &mut Context<Workspace>) + Clone + 'static,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
@@ -439,8 +446,9 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
         current,
         label,
         width,
-        options,
+        mut options,
     } = spec;
+    let searchable = search.is_some();
     let current = &current;
     let mut root = div()
         .relative()
@@ -451,16 +459,35 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
         .child(
             DropdownButton::new(("dropdown-button", popup_key(popup)), label)
                 .w_full()
-                .on_press(cx.listener(move |ws, _e, _w, cx| ws.toggle_popup(popup, cx))),
+                .on_press(cx.listener(move |ws, _e, _w, cx| {
+                    if searchable {
+                        ws.commit_focused_field();
+                    }
+                    ws.toggle_popup(popup, cx);
+                    if searchable && ws.open_popup == Some(popup) {
+                        ws.dropdown_search.focus();
+                        ws.reset_caret_phase();
+                    }
+                })),
         );
     if is_open {
-        let current_ix = options.iter().position(|(_, v)| v == current);
+        if let Some(search) = search {
+            options.retain(|(label, _)| dropdown_matches(label, &search.text));
+        }
+        let current_ix = options
+            .iter()
+            .position(|(_, v)| v == current)
+            .or_else(|| (searchable && !options.is_empty()).then_some(0));
         // Open at the current value rather than the top of the list, so
         // re-opening a long menu (fonts, blend modes) shows where you are
         // instead of starting from the beginning. Once per opening: after
         // that the list is the user's to scroll.
         if !scroll.scrolled.replace(true) {
-            if let Some(ix) = current_ix {
+            if searchable {
+                // The anchored popup has not measured its first row yet.
+                // Reset the offset directly instead of scrolling to stale bounds.
+                scroll.handle.set_offset(gpui::point(px(0.0), px(0.0)));
+            } else if let Some(ix) = current_ix {
                 scroll.handle.scroll_to_top_of_item(ix);
             }
         }
@@ -471,6 +498,7 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
             let on_select = on_select.clone();
             let open = OpenDropdown {
                 labels,
+                searchable,
                 current: current_ix,
                 select: Rc::new(move |ws, ix, cx| {
                     if let Some(value) = values.get(ix) {
@@ -480,7 +508,7 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
             };
             OPEN_DROPDOWN.with(|slot| *slot.borrow_mut() = Some(Rc::new(open)));
         }
-        let highlight = scroll.highlight();
+        let highlight = scroll.highlight().or(searchable.then_some(0));
         let rows: Vec<gpui::AnyElement> = options
             .into_iter()
             .enumerate()
@@ -505,18 +533,83 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
                     .into_any_element()
             })
             .collect();
-        root = root.child(gpui::deferred(
-            Popover::new("dropdown-items")
-                .when(above, |p| p.bottom(px(24.0)).right_0())
-                .when(!above, |p| p.top(px(22.0)).left_0())
-                .w(px(width.max(if above { 260.0 } else { 140.0 })))
+        let mut popover = Popover::new("dropdown-items")
+            .when(searchable, Popover::in_flow)
+            .when(above && !searchable, |p| p.bottom(px(24.0)).right_0())
+            .when(!above && !searchable, |p| p.top(px(22.0)).left_0())
+            .w(px(width.max(if above { 260.0 } else { 140.0 })))
+            .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)));
+        if let Some(search) = search {
+            let no_results = rows.is_empty();
+            popover = popover
+                .child(
+                    div().px_1().pb_1().flex_none().child(
+                        TextInput::edit("dropdown-search", search)
+                            .placeholder(schist_i18n::t("common.search"))
+                            .w_full()
+                            .on_focus(cx.listener(|ws, press: &TextPress, _, cx| {
+                                ws.dropdown_search.press(press);
+                                ws.reset_caret_phase();
+                                cx.notify();
+                            }))
+                            .on_select_to(cx.listener(|ws, offset: &usize, _, cx| {
+                                ws.dropdown_search.extend_to(*offset);
+                                cx.notify();
+                            }))
+                            .on_clear(cx.listener(|ws, _, _, cx| {
+                                ws.dropdown_search.set_text(String::new());
+                                ws.dropdown_search.focus();
+                                ws.dropdown.reset();
+                                cx.notify();
+                            })),
+                    ),
+                )
+                .child(
+                    div()
+                        .id("dropdown-search-results")
+                        // Keep the search field still as the result count changes.
+                        .h(px(260.0))
+                        .overflow_y_scroll()
+                        .track_scroll(&scroll.handle)
+                        .children(rows)
+                        .children(no_results.then(|| {
+                            div()
+                                .px_2()
+                                .py_1()
+                                .text_size(px(11.0))
+                                .text_color(gpui::rgb(palette().text_dim))
+                                .child(schist_i18n::t("common.none"))
+                        })),
+                );
+        } else {
+            popover = popover
                 .max_h(px(300.0))
                 .track_scroll(&scroll.handle)
-                .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)))
-                .children(rows),
-        ));
+                .children(rows);
+        }
+        if searchable {
+            root = root.child(gpui::deferred(
+                div().absolute().right_0().top(px(-4.0)).size_0().child(
+                    gpui::anchored()
+                        .anchor(gpui::Corner::BottomRight)
+                        .snap_to_window_with_margin(px(8.0))
+                        .child(popover),
+                ),
+            ));
+        } else {
+            root = root.child(gpui::deferred(popover));
+        }
     }
     root
+}
+
+/// Match all query words anywhere in the displayed, localized name.
+pub fn dropdown_matches(label: &str, query: &str) -> bool {
+    let label = label.to_lowercase();
+    query
+        .to_lowercase()
+        .split_whitespace()
+        .all(|word| label.contains(word))
 }
 
 /// A number that tells one dropdown's button from another's within a

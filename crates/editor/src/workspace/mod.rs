@@ -275,6 +275,7 @@ pub struct Workspace {
     /// Scroll state of the open dropdown's list, so it can open at its
     /// current value instead of the top.
     pub dropdown: crate::ui::DropdownState,
+    pub dropdown_search: crate::ui::LineEdit,
     /// Path to the open submenu in the menu bar, e.g. [2, 4] for the fifth
     /// row of the third menu. Empty means none.
     pub open_submenu: Vec<usize>,
@@ -357,6 +358,7 @@ pub struct Workspace {
     /// file has EXIF, Color otherwise. Session state; it resets when
     /// the document changes.
     pub side_tab: Option<SideTab>,
+    pub layers_tab: LayersTab,
     /// The open document's EXIF, read once per document (the file is
     /// the original photo for a gallery edit, the file itself
     /// otherwise). `None` inside means the file has none.
@@ -1164,6 +1166,12 @@ pub enum SideTab {
     Character,
 }
 
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum LayersTab {
+    Layers,
+    FilterStack,
+}
+
 /// A boundary in degrees: what the import map's rectangle means, and
 /// what the EXIF-position filter tests. Lives in `schist-gallery` (its
 /// persistence and geometry are shared with the headless server) and is
@@ -1306,6 +1314,7 @@ impl Workspace {
             status: schist_i18n::t("common.ready").into(),
             open_popup: None,
             dropdown: Default::default(),
+            dropdown_search: Default::default(),
             open_submenu: Vec::new(),
             native_menu: None,
             rotation: 0.0,
@@ -1336,6 +1345,7 @@ impl Workspace {
             pending_quit: false,
             modal_stack: Vec::new(),
             side_tab: None,
+            layers_tab: LayersTab::Layers,
             exif: None,
             #[cfg(not(target_arch = "wasm32"))]
             info_map: library_geo::MapState::default(),
