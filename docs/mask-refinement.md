@@ -64,7 +64,6 @@ including inserted and removed raster layers and their nested source payloads.
 These edits participate in the history memory budget so repeated refinements
 cannot retain full-resolution masks or corrected layer copies outside that budget.
 
-All controls use `crates/i18n`. `mask_refine.lang` exists in every shipped locale.
-English, Swedish, German, French and Spanish are supplied; the other 145
-catalogs currently contain explicitly marked English fallbacks pending
-translation review. No locale has been added.
+All controls use `crates/i18n`. The `mask_refine.lang` catalog includes translations
+for every shipped locale. Catalog validation checks keys, placeholders, locale
+aliases, and font coverage. No locale has been added.
