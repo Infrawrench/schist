@@ -127,12 +127,31 @@ fn number(
         .into_any_element()
 }
 
-fn align_buttons(current: usize, panel: bool, cx: &mut Context<Workspace>) -> gpui::Div {
+fn align_buttons(
+    current: usize,
+    panel: bool,
+    vertical: bool,
+    cx: &mut Context<Workspace>,
+) -> gpui::Div {
     div().flex().items_center().gap(px(1.0)).children(
         [
-            ("type-align-left", t("panel.character.align_left")),
+            (
+                "type-align-left",
+                if vertical {
+                    t("common.top")
+                } else {
+                    t("panel.character.align_left")
+                },
+            ),
             ("type-align-center", t("panel.character.align_center")),
-            ("type-align-right", t("panel.character.align_right")),
+            (
+                "type-align-right",
+                if vertical {
+                    t("common.bottom")
+                } else {
+                    t("panel.character.align_right")
+                },
+            ),
         ]
         .into_iter()
         .enumerate()
@@ -154,7 +173,15 @@ fn align_buttons(current: usize, panel: bool, cx: &mut Context<Workspace>) -> gp
                 ws.commit_focused_field();
                 ws.set_tool_option("type-align", OptionValue::Choice(i), cx);
             }))
-            .child(icon(name, 16.0, palette().text))
+            .child(if vertical {
+                div()
+                    .w(px(16.0))
+                    .text_center()
+                    .child(["↑", "↕", "↓"][i])
+                    .into_any_element()
+            } else {
+                icon(name, 16.0, palette().text).into_any_element()
+            })
         }),
     )
 }
@@ -208,6 +235,7 @@ pub(super) fn type_options_bar(
         .child(align_buttons(
             option(&options, "type-align").value.index(),
             false,
+            option(&options, "type-writing-mode").value.index() != 0,
             cx,
         ))
         .child(separator())
@@ -359,10 +387,35 @@ pub(super) fn character_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -
                 ))
                 .child(labeled(
                     t("panel.character.alignment"),
-                    align_buttons(option(&options, "type-align").value.index(), true, cx)
-                        .into_any_element(),
+                    align_buttons(
+                        option(&options, "type-align").value.index(),
+                        true,
+                        option(&options, "type-writing-mode").value.index() != 0,
+                        cx,
+                    )
+                    .into_any_element(),
                 )),
         )
+        .child(labeled(
+            t("tool.type.option.direction"),
+            choice(
+                ws,
+                option(&options, "type-direction"),
+                "character-direction",
+                240.0,
+                cx,
+            ),
+        ))
+        .child(labeled(
+            t("tool.type.option.writing_mode"),
+            choice(
+                ws,
+                option(&options, "type-writing-mode"),
+                "character-writing-mode",
+                240.0,
+                cx,
+            ),
+        ))
         .child(section(t("panel.character.opentype")))
         .child(
             row().children(

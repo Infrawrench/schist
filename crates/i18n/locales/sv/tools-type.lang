@@ -26,3 +26,11 @@ tool.type.history.new_layer = Nytt textlager
 tool.type.history.edit = Redigera text
 tool.type.history.discard = Ta bort text
 tool.type.history.discard_empty = Ta bort tom text
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

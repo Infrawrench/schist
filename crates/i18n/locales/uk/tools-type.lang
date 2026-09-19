@@ -18,3 +18,11 @@ tool.type.history.new_layer = Новий текстовий шар
 tool.type.history.edit = Редагування тексту
 tool.type.history.discard = Відкидання тексту
 tool.type.history.discard_empty = Відкидання порожнього тексту
+
+# Paragraph layout
+tool.type.option.direction = Напрямок абзацу
+tool.type.option.writing_mode = Режим письма
+tool.type.choice.ltr = Зліва направо
+tool.type.choice.rtl = Справа наліво
+tool.type.choice.vertical_rl = Вертикально, стовпці ліворуч
+tool.type.choice.vertical_lr = Вертикально, стовпці праворуч

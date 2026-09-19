@@ -200,7 +200,9 @@ custom shapes — as **live shape layers** by default, which keep their
 path, regenerate their pixels from it, and survive a PSD round trip as
 vectors. Editable text layers, including **text on paths** with a baseline
 offset and alignment, plus **OpenType controls** for kerning, ligatures,
-discretionary ligatures and small caps. Text settings survive PSD/PSB
+discretionary ligatures and small caps. Automatic or explicit paragraph direction
+supports mixed Arabic, Hebrew and Latin text. Vertical writing supports upright
+CJK glyphs, rotated Latin runs and columns advancing left or right. Text settings survive PSD/PSB
 save and reopen. See [docs/text.md](docs/text.md).
 
 **Non-destructive.** Sixteen adjustments — levels, curves, hue/saturation,
@@ -460,7 +462,7 @@ already logged into. See [docs/ai-panel.md](docs/ai-panel.md).
 * [docs/export-recipes.md](docs/export-recipes.md) — saved exports for documents and gallery selections
 * [docs/mask-refinement.md](docs/mask-refinement.md) — refine selection edges and layer masks
 * [docs/plugin-guide.md](docs/plugin-guide.md) — writing plugins
-* [docs/text.md](docs/text.md) — OpenType controls and text on paths
+* [docs/text.md](docs/text.md) — OpenType controls, bidi/vertical writing and text on paths
 * [docs/filter-stacks.md](docs/filter-stacks.md) — editable filters and preserved source pixels
 * [docs/mcp.md](docs/mcp.md) — the MCP server
 * [docs/ai-panel.md](docs/ai-panel.md) — the in-app AI sidebar

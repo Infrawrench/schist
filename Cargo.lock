@@ -7010,6 +7010,11 @@ dependencies = [
  "serde",
  "serde_json",
  "ttf-parser 0.25.1",
+ "unicode-bidi",
+ "unicode-linebreak",
+ "unicode-script",
+ "unicode-segmentation",
+ "unicode-vo",
 ]
 
 [[package]]

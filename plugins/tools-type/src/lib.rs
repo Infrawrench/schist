@@ -17,7 +17,10 @@ use schist_plugin_api::{
     EditorState, Modifiers, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput,
     ToolCtx, ToolOption, ToolPlugin,
 };
-use schist_text_engine::{hit_test, line_spans, rasterize, Align, StyleRun, TextPath, TextSpec};
+use schist_text_engine::{
+    line_spans, rasterize, Align, CaretAffinity, CaretMovement, CaretPosition, ParagraphDirection,
+    StyleRun, TextPath, TextSpec, WritingMode,
+};
 
 /// Additional-layer-info key under which the text spec is preserved.
 pub const TEXT_BLOCK_KEY: [u8; 4] = *b"PsTx";
@@ -112,7 +115,7 @@ fn render_tiles(doc: &Document, stored: &StoredText) -> (TileMap, IntRect) {
 /// descender. Editing chrome belongs to the complete line box instead, so
 /// the insertion caret cannot protrude through its outline.
 fn layout_bounds(stored: &StoredText) -> IntRect {
-    if stored.spec.path.is_some() {
+    if stored.spec.path.is_some() || stored.spec.writing_mode.is_vertical() {
         return schist_text_engine::carets(&stored.spec)
             .into_iter()
             .fold(IntRect::EMPTY, |bounds, (_, c)| {
@@ -246,26 +249,12 @@ struct Editing {
     dirty: bool,
     /// Byte offset of the caret in `stored.spec.text`.
     caret: usize,
+    affinity: CaretAffinity,
     /// The other end of the selection. Equal to `caret` when nothing is
     /// selected, so the two together describe both states.
     anchor: usize,
 }
 
-/// Does this char hang off the one before it, rather than standing alone?
-///
-/// Combining marks, zero-width joiners, variation selectors and skin-tone
-/// modifiers all render as part of the previous character, so a caret step
-/// has to cross them together with it.
-fn is_continuation(ch: char) -> bool {
-    matches!(ch as u32,
-        0x0300..=0x036F      // combining diacritics
-        | 0x200D             // zero-width joiner
-        | 0xFE00..=0xFE0F    // variation selectors
-        | 0x1F3FB..=0x1F3FF  // skin tone modifiers
-    ) || matches!(ch as u32, 0x1AB0..=0x1AFF | 0x20D0..=0x20FF)
-}
-
-/// The styles the options bar offers, in the order Photoshop lists them.
 static STYLES: &[&str] = &[
     "tool.type.choice.regular",
     "tool.type.choice.bold",
@@ -273,6 +262,7 @@ static STYLES: &[&str] = &[
     "tool.type.choice.bold_italic",
 ];
 static ALIGNMENTS: &[&str] = &["common.left", "common.center", "common.right"];
+static VERTICAL_ALIGNMENTS: &[&str] = &["common.top", "common.center", "common.bottom"];
 
 #[derive(Default)]
 pub struct TypeTool {
@@ -349,6 +339,7 @@ impl TypeTool {
             created: true,
             dirty: false,
             caret: 0,
+            affinity: CaretAffinity::Downstream,
             anchor: 0,
         });
     }
@@ -395,7 +386,7 @@ impl TypeTool {
     /// pixels alone.
     fn contains_text(stored: &StoredText, x: f32, y: f32) -> bool {
         const SLOP: f32 = 4.0;
-        if stored.spec.path.is_some() {
+        if stored.spec.path.is_some() || stored.spec.writing_mode.is_vertical() {
             return layout_bounds(stored)
                 .inflated(SLOP as i32)
                 .contains(x as i32, y as i32);
@@ -417,12 +408,15 @@ impl TypeTool {
         };
         let local_x = x - session.stored.origin.0 as f32;
         let local_y = y - session.stored.origin.1 as f32;
-        let Some(at) = hit_test(&session.stored.spec, local_x, local_y) else {
+        let Some(position) =
+            schist_text_engine::hit_test_position(&session.stored.spec, local_x, local_y)
+        else {
             return;
         };
-        session.caret = at;
+        session.caret = position.byte;
+        session.affinity = position.affinity;
         if !extend {
-            session.anchor = at;
+            session.anchor = position.byte;
         }
         self.sync_bar();
     }
@@ -533,7 +527,9 @@ impl ToolPlugin for TypeTool {
                 self.use_path = stored.spec.path.is_some();
                 let local_x = input.x - stored.origin.0 as f32;
                 let local_y = input.y - stored.origin.1 as f32;
-                let at = hit_test(&stored.spec, local_x, local_y).unwrap_or(stored.spec.text.len());
+                let position =
+                    schist_text_engine::hit_test_position(&stored.spec, local_x, local_y)
+                        .unwrap_or_else(|| stored.spec.text.len().into());
                 self.editing = Some(Editing {
                     layer,
                     stored,
@@ -542,8 +538,9 @@ impl ToolPlugin for TypeTool {
                     original_name,
                     created: false,
                     dirty: false,
-                    caret: at,
-                    anchor: at,
+                    caret: position.byte,
+                    affinity: position.affinity,
+                    anchor: position.byte,
                 });
                 self.selecting = true;
                 self.sync_bar();
@@ -602,20 +599,36 @@ impl ToolPlugin for TypeTool {
                     session.caret = session.stored.spec.text.len();
                 }
                 "left" | "right" | "up" | "down" | "home" | "end" => {
-                    let at = session.caret;
                     let to = match key {
-                        "left" if word => session.prev_word(at),
-                        "right" if word => session.next_word(at),
+                        "left" if word => session.move_word_visual(false),
+                        "right" if word => session.move_word_visual(true),
                         // An unshifted arrow with a selection collapses to
                         // its edge rather than stepping past it.
-                        "left" if session.has_selection() && !shift => session.selection().start,
-                        "right" if session.has_selection() && !shift => session.selection().end,
-                        "left" => session.prev_boundary(at),
-                        "right" => session.next_boundary(at),
-                        "up" => session.vertical(at, false),
-                        "down" => session.vertical(at, true),
-                        "home" => session.line_start(at),
-                        _ => session.line_end(at),
+                        "left" if session.has_selection() && !shift => {
+                            session.collapse_visual(false, false)
+                        }
+                        "right" if session.has_selection() && !shift => {
+                            session.collapse_visual(true, false)
+                        }
+                        "left" => session.move_visual(CaretMovement::Left),
+                        "right" => session.move_visual(CaretMovement::Right),
+                        "up" if session.has_selection()
+                            && !shift
+                            && session.stored.spec.writing_mode.is_vertical() =>
+                        {
+                            session.collapse_visual(false, true)
+                        }
+                        "up" => session.move_visual(CaretMovement::Up),
+                        "down"
+                            if session.has_selection()
+                                && !shift
+                                && session.stored.spec.writing_mode.is_vertical() =>
+                        {
+                            session.collapse_visual(true, true)
+                        }
+                        "down" => session.move_visual(CaretMovement::Down),
+                        "home" => session.move_visual(CaretMovement::Home),
+                        _ => session.move_visual(CaretMovement::End),
                     };
                     session.caret = to;
                     if !shift {
@@ -673,6 +686,7 @@ impl ToolPlugin for TypeTool {
                 },
             }
             if changed {
+                session.affinity = CaretAffinity::Downstream;
                 session.dirty = true;
             }
         }
@@ -713,11 +727,43 @@ impl ToolPlugin for TypeTool {
             ToolOption::choice(
                 "type-align",
                 t("tool.type.option.align"),
-                choices!(ALIGNMENTS),
+                if self.spec.writing_mode.is_vertical() {
+                    choices!(VERTICAL_ALIGNMENTS)
+                } else {
+                    choices!(ALIGNMENTS)
+                },
                 match self.spec.align {
                     Align::Left => 0,
                     Align::Center => 1,
                     Align::Right => 2,
+                },
+            ),
+            ToolOption::choice(
+                "type-direction",
+                t("tool.type.option.direction"),
+                vec![
+                    t("common.automatic"),
+                    t("tool.type.choice.ltr"),
+                    t("tool.type.choice.rtl"),
+                ],
+                match self.spec.direction {
+                    ParagraphDirection::Auto => 0,
+                    ParagraphDirection::LeftToRight => 1,
+                    ParagraphDirection::RightToLeft => 2,
+                },
+            ),
+            ToolOption::choice(
+                "type-writing-mode",
+                t("tool.type.option.writing_mode"),
+                vec![
+                    t("common.horizontal"),
+                    t("tool.type.choice.vertical_rl"),
+                    t("tool.type.choice.vertical_lr"),
+                ],
+                match self.spec.writing_mode {
+                    WritingMode::Horizontal => 0,
+                    WritingMode::VerticalRl => 1,
+                    WritingMode::VerticalLr => 2,
                 },
             ),
             ToolOption::slider(
@@ -788,12 +834,35 @@ impl ToolPlugin for TypeTool {
                     _ => Align::Left,
                 }
             }
+            "type-direction" => {
+                self.spec.direction = match value.index() {
+                    1 => ParagraphDirection::LeftToRight,
+                    2 => ParagraphDirection::RightToLeft,
+                    _ => ParagraphDirection::Auto,
+                }
+            }
+            "type-writing-mode" => {
+                self.spec.writing_mode = match value.index() {
+                    1 => WritingMode::VerticalRl,
+                    2 => WritingMode::VerticalLr,
+                    _ => WritingMode::Horizontal,
+                };
+                if self.spec.writing_mode.is_vertical() {
+                    self.spec.path = None;
+                    self.use_path = false;
+                }
+            }
             "type-leading" => self.spec.line_height = value.num().clamp(0.5, 3.0),
             "type-tracking" => self.spec.tracking = value.num(),
             "type-kern" | "type-liga" | "type-dlig" | "type-smcp" => {
                 self.spec.set_feature(&key[5..], value.bool());
             }
-            "type-path" => self.use_path = value.bool(),
+            "type-path" => {
+                self.use_path = value.bool();
+                if self.use_path {
+                    self.spec.writing_mode = WritingMode::Horizontal;
+                }
+            }
             "type-path-offset" => {
                 if let Some(path) = &mut self.spec.path {
                     path.offset = value.num();
@@ -840,6 +909,11 @@ impl ToolPlugin for TypeTool {
             _ => {
                 let spec = &mut session.stored.spec;
                 spec.align = self.spec.align;
+                spec.direction = self.spec.direction;
+                spec.writing_mode = self.spec.writing_mode;
+                if spec.writing_mode.is_vertical() {
+                    spec.path = None;
+                }
                 spec.line_height = self.spec.line_height;
                 spec.tracking = self.spec.tracking;
                 spec.features = self.spec.features.clone();
@@ -965,53 +1039,23 @@ impl ToolPlugin for TypeTool {
             out.push(Overlay::Rect(outline_bounds.inflated(2)));
         }
 
-        if session.has_selection() && spec.path.is_some() {
-            let carets = schist_text_engine::carets(spec);
-            let range = session.selection();
-            for pair in carets.windows(2) {
-                if range.contains(&pair[0].0) {
-                    out.push(Overlay::Highlight(
-                        caret_rect(pair[0].1)
-                            .union(&caret_rect(pair[1].1))
-                            .translated(ox as i32, oy as i32),
-                    ));
-                }
-            }
-        } else if session.has_selection() {
-            let range = session.selection();
-            for span in schist_text_engine::line_spans(spec) {
-                let from = range.start.max(span.start);
-                let to = range.end.min(span.end);
-                if from >= to {
-                    continue;
-                }
-                let left = schist_text_engine::caret_at(spec, from).map(|c| c.x);
-                // At a line's end, measure the line rather than asking for
-                // a caret there: on a wrapped line that offset also starts
-                // the next line.
-                let right = if to >= span.end {
-                    Some(span.x + span.width)
-                } else {
-                    schist_text_engine::caret_at(spec, to).map(|c| c.x)
-                };
-                if let (Some(l), Some(r)) = (left, right) {
-                    if r > l {
-                        let highlight = IntRect::new(
-                            (ox + l).floor() as i32,
-                            (oy + span.top).floor() as i32,
-                            (ox + r).ceil() as i32,
-                            (oy + span.top + span.height).ceil() as i32,
-                        )
-                        .intersect(&ink_bounds);
-                        if !highlight.is_empty() {
-                            out.push(Overlay::Highlight(highlight));
-                        }
-                    }
-                }
-            }
+        if session.has_selection() {
+            out.extend(
+                schist_text_engine::selection_rects(spec, session.selection())
+                    .into_iter()
+                    .filter_map(|rect| {
+                        let rect = rect.translated(ox as i32, oy as i32);
+                        let rect = if spec.path.is_none() && !spec.writing_mode.is_vertical() {
+                            rect.intersect(&ink_bounds)
+                        } else {
+                            rect
+                        };
+                        (!rect.is_empty()).then_some(Overlay::Highlight(rect))
+                    }),
+            );
         }
 
-        if let Some(caret) = schist_text_engine::caret_at(spec, session.caret) {
+        if let Some(caret) = schist_text_engine::caret_at_position(spec, session.position()) {
             let x = ox + caret.x;
             let y = oy + caret.top;
             out.push(Overlay::Caret {
@@ -1094,52 +1138,83 @@ impl Editing {
     /// letter or an emoji removes what looks like one character instead of
     /// peeling off a combining mark at a time.
     fn prev_boundary(&self, at: usize) -> usize {
-        let text = self.text();
-        if at == 0 {
-            return 0;
-        }
-        let mut i = at - 1;
-        while i > 0 && !text.is_char_boundary(i) {
-            i -= 1;
-        }
-        // Absorb any combining marks, zero-width joiners and variation
-        // selectors that hang off the character before.
-        while i > 0 {
-            let Some(ch) = text[i..].chars().next() else {
-                break;
-            };
-            if !is_continuation(ch) {
-                break;
-            }
-            let mut j = i - 1;
-            while j > 0 && !text.is_char_boundary(j) {
-                j -= 1;
-            }
-            i = j;
-        }
-        i
+        schist_text_engine::grapheme_boundaries(self.text())
+            .rev()
+            .find(|i| *i < at)
+            .unwrap_or(0)
     }
 
-    /// Byte offset one grapheme after `at`.
     fn next_boundary(&self, at: usize) -> usize {
-        let text = self.text();
-        if at >= text.len() {
-            return text.len();
+        schist_text_engine::grapheme_boundaries(self.text())
+            .find(|i| *i > at)
+            .unwrap_or(self.text().len())
+    }
+
+    fn position(&self) -> CaretPosition {
+        CaretPosition {
+            byte: self.caret,
+            affinity: self.affinity,
         }
-        let mut i = at + 1;
-        while i < text.len() && !text.is_char_boundary(i) {
-            i += 1;
+    }
+
+    fn collapse_visual(&mut self, forward: bool, vertical: bool) -> usize {
+        let range = self.selection();
+        let candidates = [
+            CaretPosition::from(range.start),
+            CaretPosition {
+                byte: range.end,
+                affinity: CaretAffinity::Upstream,
+            },
+        ];
+        let position = candidates
+            .into_iter()
+            .filter_map(|p| {
+                schist_text_engine::caret_at_position(&self.stored.spec, p)
+                    .map(|c| (p, if vertical { c.top } else { c.x }))
+            })
+            .min_by(|a, b| {
+                if forward {
+                    b.1.total_cmp(&a.1)
+                } else {
+                    a.1.total_cmp(&b.1)
+                }
+            })
+            .map_or_else(|| range.start.into(), |(p, _)| p);
+        self.affinity = position.affinity;
+        position.byte
+    }
+
+    fn move_word_visual(&mut self, right: bool) -> usize {
+        let movement = if right {
+            CaretMovement::Right
+        } else {
+            CaretMovement::Left
+        };
+        let mut position = self.position();
+        let mut next = schist_text_engine::move_caret(&self.stored.spec, position, movement);
+        // A soft-wrap boundary has two visual locations for one byte. Cross
+        // that affinity transition before deciding which logical word to skip.
+        if next.byte == position.byte && next != position {
+            position = next;
+            next = schist_text_engine::move_caret(&self.stored.spec, position, movement);
         }
-        while i < text.len() {
-            let Some(ch) = text[i..].chars().next() else {
-                break;
-            };
-            if !is_continuation(ch) {
-                break;
-            }
-            i += ch.len_utf8();
+        if next.byte == self.caret {
+            self.affinity = next.affinity;
+            return self.caret;
         }
-        i
+        if next.byte > self.caret {
+            self.affinity = CaretAffinity::Upstream;
+            self.next_word(self.caret)
+        } else {
+            self.affinity = CaretAffinity::Downstream;
+            self.prev_word(self.caret)
+        }
+    }
+
+    fn move_visual(&mut self, movement: CaretMovement) -> usize {
+        let position = schist_text_engine::move_caret(&self.stored.spec, self.position(), movement);
+        self.affinity = position.affinity;
+        position.byte
     }
 
     /// Start of the word at or before `at`.
@@ -1184,56 +1259,6 @@ impl Editing {
             i = self.next_boundary(i);
         }
         i
-    }
-
-    /// Start of the source line containing `at`.
-    fn line_start(&self, at: usize) -> usize {
-        self.text()[..at].rfind('\n').map(|i| i + 1).unwrap_or(0)
-    }
-
-    /// End of the source line containing `at`.
-    fn line_end(&self, at: usize) -> usize {
-        self.text()[at..]
-            .find('\n')
-            .map(|i| at + i)
-            .unwrap_or(self.text().len())
-    }
-
-    /// Move to the same column one line up or down, clamped to that
-    /// line's length.
-    fn vertical(&self, at: usize, down: bool) -> usize {
-        let column = at - self.line_start(at);
-        if down {
-            let end = self.line_end(at);
-            if end >= self.text().len() {
-                return at;
-            }
-            let next_start = end + 1;
-            let next_end = self.line_end(next_start);
-            let mut target = next_start + column;
-            if target > next_end {
-                target = next_end;
-            }
-            while target > next_start && !self.text().is_char_boundary(target) {
-                target -= 1;
-            }
-            target
-        } else {
-            let start = self.line_start(at);
-            if start == 0 {
-                return at;
-            }
-            let prev_start = self.line_start(start - 1);
-            let prev_end = start - 1;
-            let mut target = prev_start + column;
-            if target > prev_end {
-                target = prev_end;
-            }
-            while target > prev_start && !self.text().is_char_boundary(target) {
-                target -= 1;
-            }
-            target
-        }
     }
 
     fn origin_f32(&self) -> (f32, f32) {
@@ -1330,6 +1355,135 @@ mod tests {
             let text = ch.to_string();
             let key = if ch == ' ' { "space" } else { &text };
             tool.on_key(ctx, key, Some(&text), Modifiers::default());
+        }
+    }
+
+    #[test]
+    fn rtl_typing_arrows_selection_and_grapheme_deletion_use_logical_text() {
+        let mut d = doc();
+        let mut state = EditorState::default();
+        let mut tool = TypeTool::default();
+        let mut ctx = ToolCtx {
+            doc: &mut d,
+            state: &mut state,
+        };
+        tool.set_option("type-direction", OptionValue::Choice(2));
+        tool.on_pointer_down(&mut ctx, input(20.0, 40.0));
+        type_text(&mut tool, &mut ctx, "אבג");
+        let end = tool.editing.as_ref().unwrap().caret;
+        tool.on_key(
+            &mut ctx,
+            "right",
+            None,
+            Modifiers {
+                shift: true,
+                ..Default::default()
+            },
+        );
+        assert_eq!(tool.editing.as_ref().unwrap().caret, end - 'ג'.len_utf8());
+        assert!(tool
+            .overlays(ctx.doc, ctx.state)
+            .iter()
+            .any(|o| matches!(o, Overlay::Highlight(_))));
+        type_text(&mut tool, &mut ctx, "שָ");
+        assert_eq!(tool.editing.as_ref().unwrap().text(), "אבשָ");
+        tool.on_key(&mut ctx, "backspace", None, Modifiers::default());
+        assert_eq!(tool.editing.as_ref().unwrap().text(), "אב");
+        // Backspace also keeps a ZWJ emoji sequence intact.
+        type_text(&mut tool, &mut ctx, "👩‍👩‍👧‍👦");
+        tool.on_key(&mut ctx, "backspace", None, Modifiers::default());
+        assert_eq!(tool.editing.as_ref().unwrap().text(), "אב");
+        tool.on_commit(&mut ctx);
+        assert_eq!(
+            ctx.doc
+                .tree
+                .iter()
+                .find_map(read_stored)
+                .unwrap()
+                .spec
+                .direction,
+            ParagraphDirection::RightToLeft
+        );
+    }
+
+    #[test]
+    fn vertical_editing_pointer_selection_save_and_undo_preserve_writing_mode() {
+        for mode in [1, 2] {
+            let mut d = doc();
+            let mut state = EditorState::default();
+            let mut tool = TypeTool::default();
+            let mut ctx = ToolCtx {
+                doc: &mut d,
+                state: &mut state,
+            };
+            tool.set_option("type-writing-mode", OptionValue::Choice(mode));
+            tool.on_pointer_down(&mut ctx, input(40.0, 40.0));
+            type_text(&mut tool, &mut ctx, "日本語");
+            tool.on_key(&mut ctx, "enter", None, Modifiers::default());
+            type_text(&mut tool, &mut ctx, "東京");
+            let stored = tool.editing.as_ref().unwrap().stored.clone();
+            let at = schist_text_engine::caret_at(&stored.spec, '日'.len_utf8()).unwrap();
+            let x = stored.origin.0 as f32 + at.x - at.height / 2.0;
+            let y = stored.origin.1 as f32 + at.top;
+            tool.on_pointer_down(&mut ctx, input(x, y));
+            tool.on_pointer_up(&mut ctx, input(x, y));
+            assert_eq!(tool.editing.as_ref().unwrap().caret, '日'.len_utf8());
+            tool.on_key(
+                &mut ctx,
+                "down",
+                None,
+                Modifiers {
+                    shift: true,
+                    ..Default::default()
+                },
+            );
+            assert_eq!(tool.editing.as_ref().unwrap().selection(), 3..6);
+            assert!(tool
+                .overlays(ctx.doc, ctx.state)
+                .iter()
+                .any(|o| matches!(o, Overlay::Highlight(_))));
+            tool.on_commit(&mut ctx);
+            let before = ctx.doc.tree.iter().find_map(read_stored).unwrap();
+            for psb in [false, true] {
+                let bytes = schist_codec_psd::write_psd_with(ctx.doc, psb).unwrap();
+                let reopened = schist_codec_psd::read_psd(&bytes).unwrap();
+                let back = reopened.tree.iter().find_map(read_stored).unwrap();
+                assert_eq!(back.spec, before.spec);
+                assert_eq!(
+                    render_tiles(&reopened, &back).1,
+                    render_tiles(ctx.doc, &before).1
+                );
+            }
+            tool.on_pointer_down(&mut ctx, input(x, y));
+            tool.set_option("type-writing-mode", OptionValue::Choice(0));
+            tool.on_option_changed(&mut ctx, "type-writing-mode");
+            tool.on_commit(&mut ctx);
+            assert_eq!(
+                ctx.doc
+                    .tree
+                    .iter()
+                    .find_map(read_stored)
+                    .unwrap()
+                    .spec
+                    .writing_mode,
+                WritingMode::Horizontal
+            );
+            ctx.doc.undo();
+            assert_eq!(
+                ctx.doc.tree.iter().find_map(read_stored).unwrap().spec,
+                before.spec
+            );
+            ctx.doc.redo();
+            assert_eq!(
+                ctx.doc
+                    .tree
+                    .iter()
+                    .find_map(read_stored)
+                    .unwrap()
+                    .spec
+                    .writing_mode,
+                WritingMode::Horizontal
+            );
         }
     }
 
@@ -2229,10 +2383,38 @@ mod tests {
     }
 
     #[test]
-    fn up_and_down_keep_the_column() {
+    fn rtl_word_arrows_follow_the_visual_direction() {
         let mut d = doc();
-        let mut tool = editing(&mut d, "long line\nab");
-        // Caret is at the end of "ab" (column 2).
+        let mut tool = editing(&mut d, "אבג דהו");
+        select(&mut tool, 0, 0);
+        key(&mut tool, &mut d, "left", ctrl());
+        assert_eq!(tool.editing.as_ref().unwrap().caret, "אבג".len());
+        key(&mut tool, &mut d, "left", ctrl());
+        assert_eq!(tool.editing.as_ref().unwrap().caret, "אבג דהו".len());
+        key(&mut tool, &mut d, "right", ctrl());
+        assert_eq!(tool.editing.as_ref().unwrap().caret, "אבג ".len());
+    }
+
+    #[test]
+    fn word_arrow_crosses_a_soft_wrap_affinity_boundary() {
+        let mut d = doc();
+        let mut tool = editing(&mut d, "abc def ghi");
+        let session = tool.editing.as_mut().unwrap();
+        session.stored.spec.wrap_width = Some(100.0);
+        let spans = schist_text_engine::line_spans(&session.stored.spec);
+        assert!(spans.len() > 1);
+        session.caret = spans[0].end;
+        session.anchor = session.caret;
+        session.affinity = CaretAffinity::Upstream;
+        key(&mut tool, &mut d, "right", ctrl());
+        assert!(tool.editing.as_ref().unwrap().caret > spans[0].end);
+    }
+
+    #[test]
+    fn up_and_down_keep_the_visual_column() {
+        let mut d = doc();
+        let mut tool = editing(&mut d, "long line\nlo");
+        // Equal prefixes put column 2 at the same visual x in any font.
         key(&mut tool, &mut d, "up", Modifiers::default());
         assert_eq!(
             tool.editing.as_ref().unwrap().caret,

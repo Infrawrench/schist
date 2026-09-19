@@ -17,3 +17,11 @@ tool.type.history.new_layer = Layer in jeje ekāāl
 tool.type.history.edit = Ukot jeje
 tool.type.history.discard = Jolọk jeje
 tool.type.history.discard_empty = Jolọk jeje eo ejelọk kobban
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

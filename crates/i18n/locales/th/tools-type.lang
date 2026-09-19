@@ -23,3 +23,11 @@ tool.type.history.new_layer = เลเยอร์ข้อความให�
 tool.type.history.edit = แก้ไขข้อความ
 tool.type.history.discard = ละทิ้งข้อความ
 tool.type.history.discard_empty = ละทิ้งข้อความว่าง
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

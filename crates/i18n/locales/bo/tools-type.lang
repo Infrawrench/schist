@@ -17,3 +17,11 @@ tool.type.history.new_layer = ཡི་གེའི་རིམ་པ་གས�
 tool.type.history.edit = ཡི་གེ་རྩོམ་སྒྲིག
 tool.type.history.discard = ཡི་གེ་དོར་བ།
 tool.type.history.discard_empty = ཡི་གེ་སྟོང་པ་དོར་བ།
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

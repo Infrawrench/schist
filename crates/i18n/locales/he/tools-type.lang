@@ -17,3 +17,11 @@ tool.type.history.new_layer = שכבת מלל חדשה
 tool.type.history.edit = עריכת מלל
 tool.type.history.discard = השלכת המלל
 tool.type.history.discard_empty = השלכת מלל ריק
+
+# Paragraph layout
+tool.type.option.direction = כיוון הפסקה
+tool.type.option.writing_mode = מצב כתיבה
+tool.type.choice.ltr = משמאל לימין
+tool.type.choice.rtl = מימין לשמאל
+tool.type.choice.vertical_rl = אנכי, עמודות לשמאל
+tool.type.choice.vertical_lr = אנכי, עמודות לימין

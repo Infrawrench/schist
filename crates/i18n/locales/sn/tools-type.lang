@@ -17,3 +17,11 @@ tool.type.history.new_layer = Chikamu Chitsva cheMavara
 tool.type.history.edit = Gadzirisa Mavara
 tool.type.history.discard = Rasa Mavara
 tool.type.history.discard_empty = Rasa Mavara Asina Chinhu
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

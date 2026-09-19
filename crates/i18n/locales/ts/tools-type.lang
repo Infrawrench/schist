@@ -22,3 +22,11 @@ tool.type.history.new_layer = Leyara leyintshwa ya tsalwa
 tool.type.history.edit = Hlela tsalwa
 tool.type.history.discard = Tshika tsalwa
 tool.type.history.discard_empty = Tshika tsalwa leri nga riki na chinhu
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

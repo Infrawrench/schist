@@ -21,3 +21,11 @@ tool.type.history.new_layer = Nkyerɛwee Layer Foforo
 tool.type.history.edit = Siesie Nkyerɛwee
 tool.type.history.discard = Tow Nkyerɛwee Gu
 tool.type.history.discard_empty = Tow Nkyerɛwee a Hwee Nni Mu Gu
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

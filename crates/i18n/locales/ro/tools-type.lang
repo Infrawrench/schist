@@ -17,3 +17,11 @@ tool.type.history.new_layer = Strat de text nou
 tool.type.history.edit = Editare text
 tool.type.history.discard = Renunțare la text
 tool.type.history.discard_empty = Renunțare la textul gol
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

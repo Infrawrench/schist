@@ -24,3 +24,11 @@ tool.type.history.new_layer = Urwego rushya rw'inyandiko
 tool.type.history.edit = Guhindura inyandiko
 tool.type.history.discard = Kureka inyandiko
 tool.type.history.discard_empty = Kureka inyandiko irimo ubusa
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

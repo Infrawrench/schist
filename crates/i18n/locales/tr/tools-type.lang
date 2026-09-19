@@ -17,3 +17,11 @@ tool.type.history.new_layer = Yeni Metin Katmanı
 tool.type.history.edit = Metni Düzenle
 tool.type.history.discard = Metni At
 tool.type.history.discard_empty = Boş Metni At
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

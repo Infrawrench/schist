@@ -18,3 +18,11 @@ tool.type.history.new_layer = Nova textostrato
 tool.type.history.edit = Redaktar texto
 tool.type.history.discard = Forjetar texto
 tool.type.history.discard_empty = Forjetar vakua texto
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

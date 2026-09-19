@@ -17,3 +17,11 @@ tool.type.history.new_layer = لایهٔ متن جدید
 tool.type.history.edit = ویرایش متن
 tool.type.history.discard = دورریختن متن
 tool.type.history.discard_empty = دورریختن متن خالی
+
+# Paragraph layout
+tool.type.option.direction = جهت پاراگراف
+tool.type.option.writing_mode = حالت نوشتار
+tool.type.choice.ltr = چپ به راست
+tool.type.choice.rtl = راست به چپ
+tool.type.choice.vertical_rl = عمودی، ستون‌ها به چپ
+tool.type.choice.vertical_lr = عمودی، ستون‌ها به راست

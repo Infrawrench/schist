@@ -21,3 +21,11 @@ tool.type.history.new_layer = نئی متنی لیئر
 tool.type.history.edit = متن میں ترمیم
 tool.type.history.discard = متن مسترد کریں
 tool.type.history.discard_empty = خالی متن مسترد کریں
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

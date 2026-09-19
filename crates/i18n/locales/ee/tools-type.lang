@@ -17,3 +17,11 @@ tool.type.history.new_layer = Nuŋɔŋlɔ ƒe akpa yeye
 tool.type.history.edit = Trɔ nuŋɔŋlɔ
 tool.type.history.discard = Gbe nuŋɔŋlɔ
 tool.type.history.discard_empty = Gbe nuŋɔŋlɔ ƒuƒlu
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

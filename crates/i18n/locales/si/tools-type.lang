@@ -24,3 +24,11 @@ tool.type.history.new_layer = නව පෙළ ස්තරය
 tool.type.history.edit = පෙළ සංස්කරණය කරන්න
 tool.type.history.discard = පෙළ ඉවතලන්න
 tool.type.history.discard_empty = හිස් පෙළ ඉවතලන්න
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

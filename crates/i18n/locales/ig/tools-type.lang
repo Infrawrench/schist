@@ -17,3 +17,11 @@ tool.type.history.new_layer = Leya Ederede Ọhụrụ
 tool.type.history.edit = Dezie Ederede
 tool.type.history.discard = Tufuo Ederede
 tool.type.history.discard_empty = Tufuo Ederede Efu
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

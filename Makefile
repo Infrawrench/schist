@@ -567,3 +567,19 @@ check-extended-actions: check-recordable-actions
 	$(CARGO) test -p schist-plugin-api filter_stack
 format-extended-actions:
 	$(CARGO) fmt -p schist-editor -p schist-plugin-api -p schist-tools-transform
+# Unicode bidi, vertical shaping, canvas editing and saved text regressions.
+.PHONY: check-text-directions format-text-directions
+check-text-directions: check-text
+	$(CARGO) check -p schist-editor --all-targets
+	python3 tools/check-i18n.py
+	python3 tools/sync-i18n.py --check
+format-text-directions:
+	$(CARGO) fmt -p schist-text-engine -p schist-tools-type -p schist-editor -p schist-codec-affinity
+.PHONY: check-text-direction-editing lint-text-directions
+check-text-direction-editing:
+	$(CARGO) test -p schist-text-engine -p schist-tools-type
+lint-text-directions:
+	$(CARGO) clippy -p schist-text-engine -p schist-tools-type --all-targets -- -D warnings
+.PHONY: check-text-direction-editor
+check-text-direction-editor:
+	$(CARGO) check -p schist-editor --all-targets

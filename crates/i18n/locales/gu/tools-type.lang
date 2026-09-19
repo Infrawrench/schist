@@ -20,3 +20,11 @@ tool.type.history.new_layer = નવું ટેક્સ્ટ લેયર
 tool.type.history.edit = ટેક્સ્ટ સંપાદિત કર્યું
 tool.type.history.discard = ટેક્સ્ટ ફગાવ્યું
 tool.type.history.discard_empty = ખાલી ટેક્સ્ટ ફગાવ્યું
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

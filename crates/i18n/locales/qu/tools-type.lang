@@ -24,3 +24,11 @@ tool.type.history.new_layer = Musuq qillqa pata
 tool.type.history.edit = Qillqata allichay
 tool.type.history.discard = Qillqata wikch'uy
 tool.type.history.discard_empty = Ch'usaq qillqata wikch'uy
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

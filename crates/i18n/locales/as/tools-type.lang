@@ -27,3 +27,11 @@ tool.type.history.new_layer = নতুন লিখনী স্তৰ
 tool.type.history.edit = লিখনী সম্পাদনা কৰক
 tool.type.history.discard = লিখনী বাদ দিয়ক
 tool.type.history.discard_empty = খালী লিখনী বাদ দিয়ক
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

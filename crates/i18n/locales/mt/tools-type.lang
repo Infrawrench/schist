@@ -27,3 +27,11 @@ tool.type.history.new_layer = Saff ta' Test Ġdid
 tool.type.history.edit = Editja t-Test
 tool.type.history.discard = Warrab it-Test
 tool.type.history.discard_empty = Warrab it-Test Vojt
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

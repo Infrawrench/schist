@@ -22,3 +22,11 @@ tool.type.history.new_layer = Mokhahlelo o Mocha oa Mongolo
 tool.type.history.edit = Hlophisa Mongolo
 tool.type.history.discard = Lahla Mongolo
 tool.type.history.discard_empty = Lahla Mongolo o se Nang Letho
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

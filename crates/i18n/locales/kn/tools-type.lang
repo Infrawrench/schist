@@ -24,3 +24,11 @@ tool.type.history.new_layer = ಹೊಸ ಪಠ್ಯ ಲೇಯರ್
 tool.type.history.edit = ಪಠ್ಯ ಸಂಪಾದಿಸಿ
 tool.type.history.discard = ಪಠ್ಯ ತ್ಯಜಿಸಿ
 tool.type.history.discard_empty = ಖಾಲಿ ಪಠ್ಯ ತ್ಯಜಿಸಿ
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

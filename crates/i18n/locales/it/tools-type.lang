@@ -25,3 +25,11 @@ tool.type.history.new_layer = Nuovo livello di testo
 tool.type.history.edit = Modifica testo
 tool.type.history.discard = Annulla testo
 tool.type.history.discard_empty = Annulla testo vuoto
+
+# Paragraph layout
+tool.type.option.direction = Direzione del paragrafo
+tool.type.option.writing_mode = Modalità di scrittura
+tool.type.choice.ltr = Da sinistra a destra
+tool.type.choice.rtl = Da destra a sinistra
+tool.type.choice.vertical_rl = Verticale, colonne verso sinistra
+tool.type.choice.vertical_lr = Verticale, colonne verso destra

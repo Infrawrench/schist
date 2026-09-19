@@ -17,3 +17,11 @@ tool.type.history.new_layer = নতুন টেক্সট লেয়ার
 tool.type.history.edit = টেক্সট সম্পাদনা
 tool.type.history.discard = টেক্সট বাতিল
 tool.type.history.discard_empty = ফাঁকা টেক্সট বাতিল
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

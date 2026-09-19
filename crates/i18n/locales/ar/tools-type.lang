@@ -25,3 +25,11 @@ tool.type.history.new_layer = طبقة نص جديدة
 tool.type.history.edit = تحرير النص
 tool.type.history.discard = تجاهل النص
 tool.type.history.discard_empty = تجاهل النص الفارغ
+
+# Paragraph layout
+tool.type.option.direction = اتجاه الفقرة
+tool.type.option.writing_mode = نمط الكتابة
+tool.type.choice.ltr = من اليسار إلى اليمين
+tool.type.choice.rtl = من اليمين إلى اليسار
+tool.type.choice.vertical_rl = عمودي، الأعمدة إلى اليسار
+tool.type.choice.vertical_lr = عمودي، الأعمدة إلى اليمين

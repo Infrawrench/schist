@@ -17,3 +17,11 @@ tool.type.history.new_layer = Ḽeyara Ntswa ya Maṅwalo
 tool.type.history.edit = Dzudzanya Maṅwalo
 tool.type.history.discard = Laṱa Maṅwalo
 tool.type.history.discard_empty = Laṱa Maṅwalo a si na Tshithu
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

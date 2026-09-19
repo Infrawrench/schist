@@ -20,3 +20,11 @@ tool.type.history.new_layer = Яңа текст катламы
 tool.type.history.edit = Текстны үзгәртү
 tool.type.history.discard = Текстны кире кагу
 tool.type.history.discard_empty = Буш текстны кире кагу
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right

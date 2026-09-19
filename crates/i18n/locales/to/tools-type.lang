@@ -22,3 +22,11 @@ tool.type.history.new_layer = Layer Tohi Foʻou
 tool.type.history.edit = Fakatonutonu Tohi
 tool.type.history.discard = Liʻaki Tohi
 tool.type.history.discard_empty = Liʻaki Tohi ʻAtaʻatā
+
+# Paragraph layout
+tool.type.option.direction = Paragraph direction
+tool.type.option.writing_mode = Writing mode
+tool.type.choice.ltr = Left to right
+tool.type.choice.rtl = Right to left
+tool.type.choice.vertical_rl = Vertical, columns to the left
+tool.type.choice.vertical_lr = Vertical, columns to the right
