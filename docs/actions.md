@@ -38,7 +38,8 @@ Supported recording operations are:
   edits scale, rotation, offsets and interpolation. Recorded values contain no
   pointer coordinates or source dimensions. Cancellation adds no step. While
   recording, choosing another layer or starting another supported edit commits
-  the pending transform first, preserving the actual order and target.
+  the pending transform first, preserving the actual order and target. Opening
+  the Actions manager also commits a pending transform before capture/replay.
 - Camera Raw development of RAW-backed layers. All 15 numeric settings are
   editable, and each replay develops that target layer's own original capture.
   Layers without a retained RAW source, or whose developed dimensions no longer

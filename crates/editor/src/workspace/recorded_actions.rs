@@ -1070,6 +1070,11 @@ impl Workspace {
             cx.notify();
             return;
         }
+        if matches!(self.editor.active_tool, "transform" | "transform.selection") {
+            // Do not leave an activation-time snapshot alive across recording
+            // or replay: a later tool switch could overwrite the action result.
+            self.commit_gesture_with_async(false, cx);
+        }
         self.open_modal(
             Modal::RecordedActions {
                 selected: self.action_recorder.selected_action,
