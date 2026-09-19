@@ -15,8 +15,11 @@ make ios-device PROFILE=debug    # unsigned arm64 device bundle
 ```
 
 The script builds `schist-app` for the target, assembles
-`dist/ios/Schist.app` from `packaging/ios/Info.plist`. Both make targets
-only build and bundle. To install a Simulator build on a booted device:
+`dist/ios/Schist.app` from `packaging/ios/Info.plist`, compiles the app icon
+catalog with `actool`, and merges its icon metadata into the bundle. The
+iOS and Android icons come from the shared Schist logo geometry; `make logos`
+regenerates them (requires Pillow). Both make targets only build and bundle.
+To install a Simulator build on a booted device:
 
 ```sh
 xcrun simctl install booted dist/ios/Schist.app

@@ -7,10 +7,11 @@ a flat colour -- the same joke twice.  The banding coarsens and then drops
 away entirely as the icon gets smaller, because foliation at 16px is just
 noise; see `detail`.
 
-    python3 tools/logo.py
+    make logos
 
 writes assets/logo/*.svg, packaging/macos/schist.icns,
-packaging/windows/schist.ico and packaging/linux/schist.png.
+packaging/windows/schist.ico, packaging/linux/schist.png and the iOS and
+Android app icons.
 
 Needs Pillow.  The SVG and the rasters come from the constants below, so
 they cannot drift apart -- edit the geometry here, never the output.
@@ -158,8 +159,8 @@ def foliation(size: int, tones: tuple[str, ...], band_width: float) -> Image.Ima
     return image
 
 
-def ground(size: int) -> Image.Image:
-    """The tile: a vertical gradient, rounded off, with a lit rim."""
+def ground(size: int, *, full_bleed: bool = False) -> Image.Image:
+    """The tile, optionally square and opaque for the system to mask on iOS."""
     scale = size / 512.0
     top, bottom = rgb(GROUND_TOP), rgb(GROUND_BOTTOM)
 
@@ -170,6 +171,8 @@ def ground(size: int) -> Image.Image:
             (0, y), tuple(int(round(a + (b - a) * t)) for a, b in zip(top, bottom))
         )
     tile = gradient.resize((size, size))
+    if full_bleed:
+        return tile
 
     inset, radius = TILE_INSET * scale, TILE_RADIUS * scale
     box = (inset, inset, size - inset - 1, size - inset - 1)
@@ -187,11 +190,13 @@ def ground(size: int) -> Image.Image:
     return Image.alpha_composite(out, rim)
 
 
-def render(size: int, supersample: int = 4) -> Image.Image:
+def render(
+    size: int, supersample: int = 4, *, full_bleed: bool = False
+) -> Image.Image:
     """The full mark at `size` px, drawn large and shrunk for clean edges."""
     big = size * supersample
     tones, band_width = detail(size)
-    image = ground(big)
+    image = ground(big, full_bleed=full_bleed)
     image.paste(foliation(big, tones, band_width), (0, 0), mark_mask(big))
     return image.resize((size, size), Image.LANCZOS)
 
@@ -313,6 +318,14 @@ def main() -> None:
     render(512).save(out("assets", "logo", "schist-512.png"))
     render(1024).save(out("assets", "logo", "schist-1024.png"))
     render(256).save(out("packaging", "linux", "schist.png"))
+    # iOS applies its own corner mask; the source must fill the square and
+    # have no alpha channel. actool derives the iPhone and iPad sizes.
+    render(1024, full_bleed=True).save(
+        out("packaging", "ios", "Assets.xcassets", "AppIcon.appiconset", "AppIcon.png")
+    )
+    render(192).save(
+        out("packaging", "android", "res", "mipmap-xxxhdpi", "ic_launcher.png")
+    )
 
     # Every entry is drawn at its own size: left to resize a single master,
     # Pillow would put the 256px foliation into the 16px entry as speckle.
@@ -337,7 +350,7 @@ def main() -> None:
         x += size + gap
     sheet.save(out("assets", "logo", "preview.png"))
 
-    print("wrote assets/logo, packaging/{macos,windows,linux} icons")
+    print("wrote assets/logo, packaging/{macos,windows,linux,ios,android} icons")
 
 
 if __name__ == "__main__":

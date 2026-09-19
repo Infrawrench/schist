@@ -120,6 +120,7 @@ help:
 	@echo 'make library          headless shared library + WASM, into dist/library/'
 	@echo 'make web              the browser build, into dist/web/'
 	@echo 'make android          the Android package, into dist/android/'
+	@echo 'make logos            regenerate the logo and platform app icons (Pillow)'
 	@echo 'make helpers          just the .8bf plug-in helpers, beside the binary'
 	@echo 'make install-helpers DESTDIR=DIR   put the helpers somewhere else'
 	@echo
@@ -171,6 +172,10 @@ web:
 # and launches the app on a device or emulator. See docs/android.md.
 android:
 	./tools/android-build.sh $(if $(filter debug,$(PROFILE)),--debug,) --no-run
+
+.PHONY: logos
+logos:
+	python3 tools/logo.py
 
 .PHONY: ios ios-device check-camera-sync check-camera-sync-ios check-camera-sync-android
 ios:

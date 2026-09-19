@@ -46,6 +46,17 @@ version=$(awk -F '"' '/^version = / { print $2; exit }' Cargo.toml)
 : "${version:?missing workspace version}"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $version" \
   -c "Set :CFBundleShortVersionString $version" "$app/Info.plist"
+# Compile the shared logo for both device families and merge actool's icon
+# names into the bundle metadata so SpringBoard can find the generated assets.
+platform=iphonesimulator
+[ "$target" != aarch64-apple-ios ] || platform=iphoneos
+min_ios=$(/usr/libexec/PlistBuddy -c 'Print :MinimumOSVersion' "$app/Info.plist")
+icon_info="target/$target/$profile/app-icon-info.plist"
+xcrun actool packaging/ios/Assets.xcassets --compile "$app" \
+  --platform "$platform" --minimum-deployment-target "$min_ios" \
+  --target-device iphone --target-device ipad --app-icon AppIcon \
+  --output-partial-info-plist "$icon_info"
+/usr/libexec/PlistBuddy -c "Merge $icon_info" "$app/Info.plist"
 echo "-- bundled $app"
 
 [ "$run" = 1 ] || exit 0
