@@ -79,6 +79,7 @@ pub(crate) mod gallery_chrome;
 mod image_ops;
 mod input;
 mod layers_panel;
+pub(crate) mod mask_refine;
 // The gallery: watched photo folders, thumbnails, camera import and the
 // PSD sidecars behind gallery edits. A browser tab has no folders to
 // watch, so the web build compiles the whole thing out.
@@ -436,6 +437,7 @@ pub struct Workspace {
     /// The selection outline, tagged with the selection generation it was
     /// traced from.
     selection_outline: Option<(u64, SelectionOutline)>,
+    mask_refine: Option<mask_refine::State>,
     /// Navigator thumbnail, tagged with the revision it was rendered at.
     nav_thumb: Option<(u64, Arc<RenderImage>)>,
     /// The canvas takes focus on the first frame so keyboard shortcuts work
@@ -934,6 +936,12 @@ pub enum Modal {
         kind: ModifyKind,
         amount: f32,
     },
+    MaskRefine {
+        settings: schist_core::mask_refine::Settings,
+        background: mask_refine::Background,
+        original: bool,
+        zoom: f32,
+    },
     /// Select ▸ Color Range.
     ColorRange {
         tolerance: f32,
@@ -1328,6 +1336,7 @@ impl Workspace {
             layer_rename: None,
             note_edit: None,
             selection_outline: None,
+            mask_refine: None,
             nav_thumb: None,
             focused_once: false,
             pending_fit: false,

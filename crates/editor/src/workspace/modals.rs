@@ -15,6 +15,9 @@ impl Workspace {
         {
             return;
         }
+        if !matches!(modal, Modal::MaskRefine { .. }) {
+            self.cancel_mask_refine();
+        }
         // A dialog opened from the menus replaces whatever was up,
         // suspended parents included; only `open_color_picker_on` stacks.
         self.modal_stack.clear();
@@ -123,6 +126,7 @@ impl Workspace {
     }
 
     pub fn close_modal(&mut self, cx: &mut Context<Self>) {
+        self.cancel_mask_refine();
         // A file picker going away unanswered is a cancel: dropping its
         // sender is what tells the prompt's caller.
         self.file_picker = None;
