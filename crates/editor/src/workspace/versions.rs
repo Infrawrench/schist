@@ -3,7 +3,7 @@
 
 use super::*;
 use crate::ui;
-use gpui::{StatefulInteractiveElement as _, StyledImage as _, img};
+use gpui::{img, StatefulInteractiveElement as _, StyledImage as _};
 use schist_gallery::versions::{Version, VersionKind};
 use schist_i18n::{t, tf};
 use schist_ui::Button;
@@ -678,7 +678,10 @@ mod tests {
             },
         };
         let text = label(&version);
-        assert!(text.contains(&u64::MAX.to_string()), "unexpected label: {text}");
+        assert!(
+            text.contains(&u64::MAX.to_string()),
+            "unexpected label: {text}"
+        );
     }
 
     #[test]

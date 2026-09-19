@@ -105,8 +105,6 @@ mod library_people_view;
 mod library_photos;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_view;
-#[cfg(not(target_arch = "wasm32"))]
-pub(crate) mod versions;
 mod modals;
 mod notes;
 #[cfg(target_os = "ios")]
@@ -118,6 +116,8 @@ mod services;
 mod shared_files;
 pub(crate) mod spotlight;
 mod styles;
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod versions;
 // The software keyboard's way in, on the platforms that have one.
 #[cfg(any(target_os = "ios", target_os = "android"))]
 mod text_input;

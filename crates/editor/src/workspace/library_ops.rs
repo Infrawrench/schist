@@ -1540,7 +1540,11 @@ mod tests {
         std::fs::write(from.join(".schist/versions/123-a.jpg.psd"), b"v1").unwrap();
         // A neighbour's version must stay behind.
         std::fs::write(from.join(".schist/versions/123-b.jpg.psd"), b"other").unwrap();
-        std::fs::write(from.join(".schist/versions/123-other-a.jpg.psd"), b"neighbour").unwrap();
+        std::fs::write(
+            from.join(".schist/versions/123-other-a.jpg.psd"),
+            b"neighbour",
+        )
+        .unwrap();
         move_photo(&from.join("a.jpg"), &to).unwrap();
         assert!(to.join("a.jpg").exists());
         assert!(to.join(".schist/a.jpg.psd").exists());
