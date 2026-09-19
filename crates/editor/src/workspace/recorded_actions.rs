@@ -889,6 +889,209 @@ impl Workspace {
     }
 }
 
+#[cfg(not(target_arch = "wasm32"))]
+impl Workspace {
+    pub fn replay_action_gallery(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        if self.action_recorder.recording || self.action_recorder.batch_cancel.is_some() {
+            return;
+        }
+        let Some(action) = self.action_recorder.draft.clone() else {
+            return;
+        };
+        let photos = self.library.selected.clone();
+        if photos.is_empty() {
+            self.status = t("actions.select_photos").into();
+            cx.notify();
+            return;
+        }
+        if let Err(error) = Runtime::new(&self.registry).validate(&action) {
+            self.status = tf!("actions.failed", error = error).into();
+            cx.notify();
+            return;
+        }
+        let rx = self.prompt_for_paths(
+            gpui::PathPromptOptions {
+                files: false,
+                directories: true,
+                multiple: false,
+                prompt: Some(t("actions.choose_output").into()),
+            },
+            cx,
+        );
+        cx.spawn_in(window, async move |this, cx| {
+            let Ok(Ok(Some(mut dirs))) = rx.await else {
+                return;
+            };
+            let Some(dir) = dirs.pop() else {
+                return;
+            };
+            this.update_in(cx, |ws, _window, cx| {
+                ws.run_action_gallery(photos, action, dir, cx)
+            })
+            .ok();
+        })
+        .detach();
+    }
+
+    fn run_action_gallery(
+        &mut self,
+        photos: Vec<PathBuf>,
+        action: SavedAction,
+        dir: PathBuf,
+        cx: &mut Context<Self>,
+    ) {
+        let total = photos.len();
+        let codecs = self.registry.shared_codecs();
+        let filters = Runtime::new(&self.registry).filters;
+        let cancel = Arc::new(std::sync::atomic::AtomicBool::new(false));
+        self.action_recorder.batch_cancel = Some(cancel.clone());
+        self.open_modal(
+            Modal::RecordedActionBatch {
+                done: 0,
+                total,
+                outputs: Vec::new(),
+                failures: Vec::new(),
+                finished: false,
+            },
+            cx,
+        );
+        cx.spawn(async move |this, cx| {
+            let mut outputs = Vec::new();
+            let mut failures = Vec::new();
+            for (index, path) in photos.into_iter().enumerate() {
+                if cancel.load(std::sync::atomic::Ordering::Relaxed) {
+                    break;
+                }
+                let runtime = Runtime {
+                    commands: schist_commands_core::CoreCommandsPlugin.commands(),
+                    filters: filters.clone(),
+                };
+                let (job_codecs, job_action, job_dir, job_path) =
+                    (codecs.clone(), action.clone(), dir.clone(), path.clone());
+                let result = cx
+                    .background_executor()
+                    .spawn(async move {
+                        process_action_photo(
+                            &job_codecs,
+                            &runtime,
+                            &job_path,
+                            &job_action,
+                            &job_dir,
+                        )
+                    })
+                    .await;
+                match result {
+                    Ok(out) => outputs.push(out),
+                    Err(error) => failures.push((path, error.to_string())),
+                }
+                if this
+                    .update(cx, |ws, cx| {
+                        ws.update_modal(|m| {
+                            if let Modal::RecordedActionBatch {
+                                done,
+                                outputs: shown,
+                                failures: errors,
+                                ..
+                            } = m
+                            {
+                                *done = index + 1;
+                                *shown = outputs.clone();
+                                *errors = failures.clone();
+                            }
+                        });
+                        cx.notify();
+                    })
+                    .is_err()
+                {
+                    return;
+                }
+            }
+            this.update(cx, |ws, cx| {
+                ws.action_recorder.batch_cancel = None;
+                ws.status = tf!(
+                    "actions.batch_summary",
+                    saved = outputs.len(),
+                    failed = failures.len(),
+                    total = total
+                )
+                .into();
+                ws.open_modal(
+                    Modal::RecordedActionBatch {
+                        done: outputs.len() + failures.len(),
+                        total,
+                        outputs,
+                        failures,
+                        finished: true,
+                    },
+                    cx,
+                );
+            })
+            .ok();
+        })
+        .detach();
+    }
+}
+
+/// Decode a gallery edit if present, replay in memory, and create a new PSD.
+/// `persist_noclobber` prevents collisions, including concurrent batch writers.
+#[cfg(not(target_arch = "wasm32"))]
+fn process_action_photo(
+    codecs: &[Arc<dyn schist_plugin_api::CodecPlugin>],
+    runtime: &Runtime,
+    path: &std::path::Path,
+    action: &SavedAction,
+    dir: &std::path::Path,
+) -> anyhow::Result<PathBuf> {
+    let source = schist_gallery::backing_psd(path)
+        .filter(|p| p.exists())
+        .unwrap_or_else(|| path.to_path_buf());
+    let mut doc = super::decode_file(codecs, &source)?;
+    if doc.active_layer.is_none() {
+        doc.active_layer = doc
+            .tree
+            .layers
+            .iter()
+            .rev()
+            .find(|l| l.as_raster().is_some())
+            .map(|l| l.id);
+    }
+    runtime.replay(action, &mut doc)?;
+    schist_compositor::restyle_layers(&mut doc.tree.layers, &mut Vec::new());
+    let writer = codecs
+        .iter()
+        .find(|c| c.can_export() && c.extensions().contains(&"psd"))
+        .ok_or_else(|| anyhow::anyhow!("{}", t("actions.no_psd_writer")))?;
+    let bytes = writer.export(&doc)?;
+    let stem = path
+        .file_stem()
+        .map(|s| s.to_string_lossy().into_owned())
+        .unwrap_or_else(|| "photo".into());
+    write_action_copy(dir, &format!("{stem}-action"), &bytes)
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+fn write_action_copy(dir: &std::path::Path, stem: &str, bytes: &[u8]) -> anyhow::Result<PathBuf> {
+    use std::io::Write;
+    let mut tmp = tempfile::NamedTempFile::new_in(dir)?;
+    tmp.write_all(bytes)?;
+    tmp.as_file().sync_all()?;
+    for index in 1..=100_000 {
+        let path = dir.join(if index == 1 {
+            format!("{stem}.psd")
+        } else {
+            format!("{stem}-{index}.psd")
+        });
+        match tmp.persist_noclobber(&path) {
+            Ok(_) => return Ok(path),
+            Err(error) if error.error.kind() == std::io::ErrorKind::AlreadyExists => {
+                tmp = error.file
+            }
+            Err(error) => return Err(error.error.into()),
+        }
+    }
+    anyhow::bail!("{}", t("actions.no_output_name"))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1227,7 +1430,7 @@ mod tests {
             }]
         }
         fn apply(&self, pixels: &mut [f32], _: usize, _: usize, values: &FilterValues) {
-            for pixel in pixels.chunks_exact_mut(4) {
+            for pixel in pixels.as_chunks_mut::<4>().0 {
                 pixel[0] *= values.get("gain");
             }
         }
@@ -1314,207 +1517,4 @@ mod tests {
         assert!(process_action_photo(&codec, &runtime(), &original, &failure, dir.path()).is_err());
         assert_eq!(std::fs::read_dir(dir.path()).unwrap().count(), count);
     }
-}
-
-#[cfg(not(target_arch = "wasm32"))]
-impl Workspace {
-    pub fn replay_action_gallery(&mut self, window: &mut Window, cx: &mut Context<Self>) {
-        if self.action_recorder.recording || self.action_recorder.batch_cancel.is_some() {
-            return;
-        }
-        let Some(action) = self.action_recorder.draft.clone() else {
-            return;
-        };
-        let photos = self.library.selected.clone();
-        if photos.is_empty() {
-            self.status = t("actions.select_photos").into();
-            cx.notify();
-            return;
-        }
-        if let Err(error) = Runtime::new(&self.registry).validate(&action) {
-            self.status = tf!("actions.failed", error = error).into();
-            cx.notify();
-            return;
-        }
-        let rx = self.prompt_for_paths(
-            gpui::PathPromptOptions {
-                files: false,
-                directories: true,
-                multiple: false,
-                prompt: Some(t("actions.choose_output").into()),
-            },
-            cx,
-        );
-        cx.spawn_in(window, async move |this, cx| {
-            let Ok(Ok(Some(mut dirs))) = rx.await else {
-                return;
-            };
-            let Some(dir) = dirs.pop() else {
-                return;
-            };
-            this.update_in(cx, |ws, _window, cx| {
-                ws.run_action_gallery(photos, action, dir, cx)
-            })
-            .ok();
-        })
-        .detach();
-    }
-
-    fn run_action_gallery(
-        &mut self,
-        photos: Vec<PathBuf>,
-        action: SavedAction,
-        dir: PathBuf,
-        cx: &mut Context<Self>,
-    ) {
-        let total = photos.len();
-        let codecs = self.registry.shared_codecs();
-        let filters = Runtime::new(&self.registry).filters;
-        let cancel = Arc::new(std::sync::atomic::AtomicBool::new(false));
-        self.action_recorder.batch_cancel = Some(cancel.clone());
-        self.open_modal(
-            Modal::RecordedActionBatch {
-                done: 0,
-                total,
-                outputs: Vec::new(),
-                failures: Vec::new(),
-                finished: false,
-            },
-            cx,
-        );
-        cx.spawn(async move |this, cx| {
-            let mut outputs = Vec::new();
-            let mut failures = Vec::new();
-            for (index, path) in photos.into_iter().enumerate() {
-                if cancel.load(std::sync::atomic::Ordering::Relaxed) {
-                    break;
-                }
-                let runtime = Runtime {
-                    commands: schist_commands_core::CoreCommandsPlugin.commands(),
-                    filters: filters.clone(),
-                };
-                let (job_codecs, job_action, job_dir, job_path) =
-                    (codecs.clone(), action.clone(), dir.clone(), path.clone());
-                let result = cx
-                    .background_executor()
-                    .spawn(async move {
-                        process_action_photo(
-                            &job_codecs,
-                            &runtime,
-                            &job_path,
-                            &job_action,
-                            &job_dir,
-                        )
-                    })
-                    .await;
-                match result {
-                    Ok(out) => outputs.push(out),
-                    Err(error) => failures.push((path, error.to_string())),
-                }
-                if this
-                    .update(cx, |ws, cx| {
-                        ws.update_modal(|m| {
-                            if let Modal::RecordedActionBatch {
-                                done,
-                                outputs: shown,
-                                failures: errors,
-                                ..
-                            } = m
-                            {
-                                *done = index + 1;
-                                *shown = outputs.clone();
-                                *errors = failures.clone();
-                            }
-                        });
-                        cx.notify();
-                    })
-                    .is_err()
-                {
-                    return;
-                }
-            }
-            this.update(cx, |ws, cx| {
-                ws.action_recorder.batch_cancel = None;
-                ws.status = tf!(
-                    "actions.batch_summary",
-                    saved = outputs.len(),
-                    failed = failures.len(),
-                    total = total
-                )
-                .into();
-                ws.open_modal(
-                    Modal::RecordedActionBatch {
-                        done: outputs.len() + failures.len(),
-                        total,
-                        outputs,
-                        failures,
-                        finished: true,
-                    },
-                    cx,
-                );
-            })
-            .ok();
-        })
-        .detach();
-    }
-}
-
-/// Decode a gallery edit if present, replay in memory, and create a new PSD.
-/// `persist_noclobber` prevents collisions, including concurrent batch writers.
-#[cfg(not(target_arch = "wasm32"))]
-fn process_action_photo(
-    codecs: &[Arc<dyn schist_plugin_api::CodecPlugin>],
-    runtime: &Runtime,
-    path: &std::path::Path,
-    action: &SavedAction,
-    dir: &std::path::Path,
-) -> anyhow::Result<PathBuf> {
-    let source = schist_gallery::backing_psd(path)
-        .filter(|p| p.exists())
-        .unwrap_or_else(|| path.to_path_buf());
-    let mut doc = super::decode_file(codecs, &source)?;
-    if doc.active_layer.is_none() {
-        doc.active_layer = doc
-            .tree
-            .layers
-            .iter()
-            .rev()
-            .find(|l| l.as_raster().is_some())
-            .map(|l| l.id);
-    }
-    runtime.replay(action, &mut doc)?;
-    schist_compositor::restyle_layers(&mut doc.tree.layers, &mut Vec::new());
-    let writer = codecs
-        .iter()
-        .find(|c| c.can_export() && c.extensions().contains(&"psd"))
-        .ok_or_else(|| anyhow::anyhow!("{}", t("actions.no_psd_writer")))?;
-    let bytes = writer.export(&doc)?;
-    let stem = path
-        .file_stem()
-        .map(|s| s.to_string_lossy().into_owned())
-        .unwrap_or_else(|| "photo".into());
-    write_action_copy(dir, &format!("{stem}-action"), &bytes)
-}
-
-#[cfg(not(target_arch = "wasm32"))]
-fn write_action_copy(dir: &std::path::Path, stem: &str, bytes: &[u8]) -> anyhow::Result<PathBuf> {
-    use std::io::Write;
-    let mut tmp = tempfile::NamedTempFile::new_in(dir)?;
-    tmp.write_all(bytes)?;
-    tmp.as_file().sync_all()?;
-    for index in 1..=100_000 {
-        let path = dir.join(if index == 1 {
-            format!("{stem}.psd")
-        } else {
-            format!("{stem}-{index}.psd")
-        });
-        match tmp.persist_noclobber(&path) {
-            Ok(_) => return Ok(path),
-            Err(error) if error.error.kind() == std::io::ErrorKind::AlreadyExists => {
-                tmp = error.file
-            }
-            Err(error) => return Err(error.error.into()),
-        }
-    }
-    anyhow::bail!("{}", t("actions.no_output_name"))
 }
