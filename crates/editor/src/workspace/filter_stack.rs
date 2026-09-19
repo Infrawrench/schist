@@ -563,7 +563,7 @@ mod tests {
             "red"
         }
         fn apply(&self, pixels: &mut [f32], _: usize, _: usize, _: &FilterValues) {
-            for p in pixels.chunks_exact_mut(4) {
+            for p in pixels.as_chunks_mut::<4>().0 {
                 if p[3] > 0.0 {
                     p[0] = 1.0;
                 }
