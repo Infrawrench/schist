@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# ຊຸດຟິວເຕີທີ່ແກ້ໄຂໄດ້.
+filter_stack.title = ຊຸດຟິວເຕີ
+filter_stack.add = ເພີ່ມຟິວເຕີ
+filter_stack.enable = ເປີດໃຊ້
+filter_stack.disable = ປິດໃຊ້
+filter_stack.up = ຂຶ້ນ
+filter_stack.down = ລົງ
+filter_stack.remove = ເອົາອອກ
+filter_stack.bake = ນຳຜົນຊຸດຟິວເຕີມາໃຊ້ແບບຖາວອນ
+filter_stack.note = ເອັບເຟັກເຮັດວຽກຈາກແຫຼ່ງຕົ້ນສະບັບທີ່ເກັບໄວ້ ຈາກເທິງລົງລຸ່ມ. ຄລິກຟິວເຕີເພື່ອແກ້ໄຂ. ການລະບາຍ, ຍ້າຍ, ແປງຮູບ ຫຼື ປ່ຽນໂໝດສີ ຈະນຳຜົນຊຸດຟິວເຕີມາໃຊ້ແບບຖາວອນ; ເລີກເຮັດຈະກູ້ຄືນຊຸດຟິວເຕີ.
+filter_stack.eligibility = ສະແດງສະເພາະຟິວເຕີທີ່ເຮັດວຽກໄດ້ດ້ວຍຕົນເອງ. ຟິວເຕີທີ່ຕ້ອງໃຊ້ແຜນທີ່, ເສັ້ນທາງ, ພື້ນຫຼັງ ຫຼື ກ່ອງໂຕ້ຕອບພາຍນອກ ບໍ່ສາມາດບັນທຶກໃນຊຸດໄດ້.
+filter_stack.unavailable = ເລືອກເລເຢີພິກເຊວ ຫຼື ສະມາດອອບເຈັກທີ່ບໍ່ໄດ້ລັອກ ເພື່ອແກ້ໄຂຊຸດຟິວເຕີ.
+filter_stack.render_failed = ບໍ່ສາມາດເຣນເດີຊຸດຟິວເຕີໄດ້. ແຫຼ່ງຕົ້ນສະບັບ ແລະ ຄ່າທີ່ບັນທຶກບໍ່ປ່ຽນແປງ.
+filter_stack.edit_history = ແກ້ໄຂຊຸດຟິວເຕີ
+filter_stack.bake_history = ນຳຜົນຊຸດຟິວເຕີມາໃຊ້ແບບຖາວອນ
+filter_stack.updated = ອັບເດດຊຸດຟິວເຕີແລ້ວ
+filter_stack.missing = ຟິວເຕີທີ່ໃຊ້ບໍ່ໄດ້: {id}

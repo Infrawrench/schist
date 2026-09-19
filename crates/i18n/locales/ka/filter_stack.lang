@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# რედაქტირებადი ფილტრების დასტები.
+filter_stack.title = ფილტრების დასტა
+filter_stack.add = ფილტრის დამატება
+filter_stack.enable = ჩართვა
+filter_stack.disable = გამორთვა
+filter_stack.up = ზემოთ
+filter_stack.down = ქვემოთ
+filter_stack.remove = მოცილება
+filter_stack.bake = დასტის ჩაშენება
+filter_stack.note = ეფექტები შენარჩუნებულ წყაროზე ზემოდან ქვემოთ სრულდება. რედაქტირებისთვის დააწკაპუნეთ ფილტრზე. ხატვა, გადაადგილება, გარდაქმნა ან ფერის რეჟიმის შეცვლა დასტას ჩააშენებს; გაუქმება მას აღადგენს.
+filter_stack.eligibility = სიაში მხოლოდ თვითკმარი ფილტრებია. ფილტრი, რომელსაც რუკა, კონტური, ფონი ან გარე დიალოგი სჭირდება, დასტაში ვერ შეინახება.
+filter_stack.unavailable = ფილტრების დასტის რედაქტირებისთვის აირჩიეთ განბლოკილი პიქსელური ფენა ან ჭკვიანი ობიექტი.
+filter_stack.render_failed = ფილტრების დასტის რენდერი ვერ მოხერხდა. მისი წყარო და შენახული პარამეტრები უცვლელია.
+filter_stack.edit_history = ფილტრების დასტის რედაქტირება
+filter_stack.bake_history = ფილტრების დასტის ჩაშენება
+filter_stack.updated = ფილტრების დასტა განახლდა
+filter_stack.missing = მიუწვდომელი ფილტრი: {id}

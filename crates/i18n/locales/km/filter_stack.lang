@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# ជង់តម្រងដែលអាចកែបាន។
+filter_stack.title = ជង់តម្រង
+filter_stack.add = បន្ថែមតម្រង
+filter_stack.enable = បើកដំណើរការ
+filter_stack.disable = បិទដំណើរការ
+filter_stack.up = ឡើងលើ
+filter_stack.down = ចុះក្រោម
+filter_stack.remove = ដកចេញ
+filter_stack.bake = អនុវត្តជង់ជាអចិន្ត្រៃយ៍
+filter_stack.note = បែបផែនដំណើរការពីប្រភពដែលបានរក្សាទុក តាមលំដាប់ពីលើចុះក្រោម។ ចុចតម្រងដើម្បីកែ។ ការគូរ ផ្លាស់ទី បម្លែង ឬប្ដូររបៀបពណ៌ នឹងអនុវត្តជង់ជាអចិន្ត្រៃយ៍។ មិនធ្វើវិញ នឹងស្ដារវាឡើងវិញ។
+filter_stack.eligibility = បង្ហាញតែតម្រងដែលដំណើរការដោយខ្លួនឯងប៉ុណ្ណោះ។ តម្រងដែលត្រូវការផែនទី ផ្លូវ ផ្ទៃខាងក្រោយ ឬប្រអប់ខាងក្រៅ មិនអាចរក្សាទុកក្នុងជង់បានទេ។
+filter_stack.unavailable = ជ្រើសស្រទាប់ភីកសែលដែលមិនបានចាក់សោ ឬវត្ថុឆ្លាតវៃ ដើម្បីកែជង់តម្រងរបស់វា។
+filter_stack.render_failed = មិនអាចបង្ហាញលទ្ធផលជង់តម្រងបានទេ។ ប្រភព និងការកំណត់ដែលបានរក្សាទុករបស់វាមិនបានផ្លាស់ប្ដូរទេ។
+filter_stack.edit_history = កែជង់តម្រង
+filter_stack.bake_history = អនុវត្តជង់តម្រងជាអចិន្ត្រៃយ៍
+filter_stack.updated = បានធ្វើបច្ចុប្បន្នភាពជង់តម្រង
+filter_stack.missing = តម្រងដែលមិនអាចប្រើបាន៖ {id}

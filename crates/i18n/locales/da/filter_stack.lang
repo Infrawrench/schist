@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Redigerbare filterstakke.
+filter_stack.title = Filterstak
+filter_stack.add = Tilføj filter
+filter_stack.enable = Aktivér
+filter_stack.disable = Deaktivér
+filter_stack.up = Op
+filter_stack.down = Ned
+filter_stack.remove = Fjern
+filter_stack.bake = Anvend filterstak permanent
+filter_stack.note = Effekterne anvendes på den bevarede kilde fra øverst til nederst. Klik på et filter for at redigere det. Maling, flytning, transformering eller ændring af farvetilstand anvender stakken permanent. Fortryd gendanner den.
+filter_stack.eligibility = Kun selvstændige filtre vises. Filtre, der kræver et kort, en kurve, en baggrund eller en ekstern dialogboks, kan ikke gemmes i en stak.
+filter_stack.unavailable = Vælg et ulåst pixellag eller Smart Object for at redigere dets filterstak.
+filter_stack.render_failed = Filterstakken kunne ikke gengives. Dens kilde og gemte indstillinger er uændrede.
+filter_stack.edit_history = Rediger filterstak
+filter_stack.bake_history = Anvend filterstak permanent
+filter_stack.updated = Filterstakken blev opdateret
+filter_stack.missing = Utilgængeligt filter: {id}

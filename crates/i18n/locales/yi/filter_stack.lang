@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# רעדאַקטירבאַרע פֿילטער־שטאַפּלען.
+filter_stack.title = פֿילטער־שטאַפּל
+filter_stack.add = צוגעבן פֿילטער
+filter_stack.enable = אַקטיווירן
+filter_stack.disable = דעאַקטיווירן
+filter_stack.up = אַרויף
+filter_stack.down = אַראָפּ
+filter_stack.remove = באַזײַטיקן
+filter_stack.bake = פֿיקסירן שטאַפּל
+filter_stack.note = די עפֿעקטן ווערן דורכגעפֿירט פֿונעם אָפּגעהיטן מקור, פֿון אויבן אַראָפּ. גיט אַ קליק אויף אַ פֿילטער כּדי אים צו רעדאַקטירן. מאָלן, רירן, טראַנספֿאָרמירן אָדער טוישן דעם קאָליר־מאָדוס פֿיקסירט דעם שטאַפּל; „צוריק“ שטעלט אים צוריק.
+filter_stack.eligibility = נאָר זעלבשטענדיקע פֿילטערס ווערן געוויזן. פֿילטערס וואָס דאַרפֿן אַ מאַפּע, דרך, הינטערגרונט אָדער אַן אויסערלעכן דיאַלאָג קען מען נישט היטן אין אַ שטאַפּל.
+filter_stack.unavailable = קלײַבט אויס אַן נישט־פֿאַרשלאָסענע פּיקסל־שיכט אָדער אַ קלוגן אָביעקט כּדי צו רעדאַקטירן זײַן פֿילטער־שטאַפּל.
+filter_stack.render_failed = דער פֿילטער־שטאַפּל האָט זיך נישט געקענט רענדערן. זײַן מקור און די געהיטע אײַנשטעלונגען זענען נישט געביטן געוואָרן.
+filter_stack.edit_history = רעדאַקטירן פֿילטער־שטאַפּל
+filter_stack.bake_history = פֿיקסירן פֿילטער־שטאַפּל
+filter_stack.updated = פֿילטער־שטאַפּל דערהײַנטיקט
+filter_stack.missing = נישט בנימצא פֿילטער: {id}

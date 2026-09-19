@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Editable filter stacks.
+filter_stack.title = Pilha de filtros
+filter_stack.add = Adicionar filtro
+filter_stack.enable = Ativar
+filter_stack.disable = Desativar
+filter_stack.up = Subir
+filter_stack.down = Descer
+filter_stack.remove = Remover
+filter_stack.bake = Consolidar pilha
+filter_stack.note = Os efeitos são aplicados a partir da fonte preservada, de cima para baixo. Clique num filtro para o editar. Pintar, mover, transformar ou alterar o modo de cor consolida a pilha; Desfazer restaura-a.
+filter_stack.eligibility = Só são apresentados filtros autónomos. Os filtros que necessitam de um mapa, caminho, fundo ou diálogo externo não podem ser guardados numa pilha.
+filter_stack.unavailable = Selecione uma camada de píxeis desbloqueada ou um objeto inteligente para editar a respetiva pilha de filtros.
+filter_stack.render_failed = Não foi possível compor a pilha de filtros. A fonte e as definições guardadas permanecem inalteradas.
+filter_stack.edit_history = Editar pilha de filtros
+filter_stack.bake_history = Consolidar pilha de filtros
+filter_stack.updated = Pilha de filtros atualizada
+filter_stack.missing = Filtro indisponível: {id}

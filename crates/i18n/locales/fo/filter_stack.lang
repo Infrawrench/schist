@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Rættiligir síustakkar.
+filter_stack.title = Síustakkur
+filter_stack.add = Legg síu afturat
+filter_stack.enable = Virkja
+filter_stack.disable = Óvirkja
+filter_stack.up = Upp
+filter_stack.down = Niður
+filter_stack.remove = Tak burtur
+filter_stack.bake = Fest síustakk
+filter_stack.note = Ávirkanir verða koyrdar frá varðveittu keldu, omanfrá og niður. Trýst á eina síu fyri at rætta hana. Máling, flyting, umskapan ella broyting av litahátti festir síustakkin; Angra endurstillar hann.
+filter_stack.eligibility = Bara sjálvstøðugar síur verða vístar. Síur, ið krevja kort, rás, bakgrund ella uttanhýsis samrøðukassa, kunnu ikki goymast í einum stakki.
+filter_stack.unavailable = Vel eitt ólæst myndpunktalag ella snildlut fyri at rætta síustakkin hjá tí.
+filter_stack.render_failed = Síustakkurin kundi ikki myndast. Keldan og goymdu stillingarnar eru óbroyttar.
+filter_stack.edit_history = Rætta síustakk
+filter_stack.bake_history = Fest síustakk
+filter_stack.updated = Síustakkur dagførdur
+filter_stack.missing = Sía ikki tøk: {id}

@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Redigerbara filterstaplar.
+filter_stack.title = Filterstapel
+filter_stack.add = Lägg till filter
+filter_stack.enable = Aktivera
+filter_stack.disable = Inaktivera
+filter_stack.up = Upp
+filter_stack.down = Ned
+filter_stack.remove = Ta bort
+filter_stack.bake = Tillämpa stapeln permanent
+filter_stack.note = Effekterna körs på den bevarade källan, uppifrån och ned. Klicka på ett filter för att redigera det. Om du målar, flyttar, omformar eller ändrar färgläge tillämpas stapeln permanent. Ångra återställer den.
+filter_stack.eligibility = Endast fristående filter visas. Filter som kräver en karta, bana, bakgrund eller extern dialogruta kan inte sparas i en stapel.
+filter_stack.unavailable = Välj ett olåst pixellager eller smart objekt för att redigera dess filterstapel.
+filter_stack.render_failed = Filterstapeln kunde inte renderas. Dess källa och sparade inställningar är oförändrade.
+filter_stack.edit_history = Redigera filterstapel
+filter_stack.bake_history = Tillämpa filterstapel permanent
+filter_stack.updated = Filterstapeln uppdaterades
+filter_stack.missing = Otillgängligt filter: {id}

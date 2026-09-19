@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Sɛgɛsɛgɛlan tɔnw minnu bɛ se ka labɛn.
+filter_stack.title = Sɛgɛsɛgɛlan tɔn
+filter_stack.add = Sɛgɛsɛgɛlan fara a kan
+filter_stack.enable = A daminɛ
+filter_stack.disable = A dabila
+filter_stack.up = Sanfɛ
+filter_stack.down = Duguma
+filter_stack.remove = Bɔ
+filter_stack.bake = Tɔn labɛnni sinsin ja la
+filter_stack.note = Bɔliw bɛ daminɛ daɲɛ maralen na, ka taa sanfɛ ka na duguma. Sɛgɛsɛgɛlan digi ka a labɛn. Ja dili, a lamaga, a yɛlɛma walima kulɛri cogoya yɛlɛmali bɛ tɔn labɛnni sinsin ja la; Labɛnni kɔsegin bɛ a segin.
+filter_stack.eligibility = Sɛgɛsɛgɛlan minnu bɛ se ka baara kɛ u yɛrɛ ma, olu dɔrɔn de bɛ jirala. Sɛgɛsɛgɛlan min mako bɛ karti, sira, kɔfɛ-ja walima kumasen dɔ la, o tɛ se ka mara tɔn kɔnɔ.
+filter_stack.unavailable = Piksel kaliki datugubali walima smart object dɔ sugandi ka a sɛgɛsɛgɛlan tɔn labɛn.
+filter_stack.render_failed = Sɛgɛsɛgɛlan tɔn ma se ka jira. A daɲɛ ni labɛncogo maralenw ma yɛlɛma.
+filter_stack.edit_history = Sɛgɛsɛgɛlan tɔn labɛn
+filter_stack.bake_history = Sɛgɛsɛgɛlan tɔn labɛnni sinsin ja la
+filter_stack.updated = Sɛgɛsɛgɛlan tɔn lakurayala
+filter_stack.missing = Sɛgɛsɛgɛlan tɛ sɔrɔ: {id}

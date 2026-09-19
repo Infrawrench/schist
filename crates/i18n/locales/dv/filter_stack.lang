@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# ބަދަލުކުރެވޭ ފިލްޓަރ ސްޓެކް.
+filter_stack.title = ފިލްޓަރ ސްޓެކް
+filter_stack.add = ފިލްޓަރެއް އިތުރުކުރުން
+filter_stack.enable = ހުއްދަ ދިނުން
+filter_stack.disable = ނުހިންގާ ގޮތަށް ހެދުން
+filter_stack.up = މައްޗަށް
+filter_stack.down = ތިރިއަށް
+filter_stack.remove = ނައްތާލުން
+filter_stack.bake = ސްޓެކުގެ ރެންޑަރކުރި ފެންނަ ގޮތް ދާއިމީކުރުން
+filter_stack.note = ރައްކާކޮށްފައިވާ މަސްދަރުން، މަތީން ތިރިއަށް އެފެކްޓްތައް ހިނގާނެ. އެޑިޓްކުރުމަށް ފިލްޓަރަކަށް ކްލިކްކުރާށެވެ. ކުލަލުން، ގެންދިއުން، ޓްރާންސްފޯމްކުރުން ނުވަތަ ކުލަ މޯޑް ބަދަލުކުރުމުން ސްޓެކުގެ ރެންޑަރކުރި ފެންނަ ގޮތް ދާއިމީވެ، އެޑިޓްކުރެވޭ ސެޓިންގްތައް ނެތިދާނެ؛ އަންޑޫ ކުރުމުން އެ ސެޓިންގްތައް އަލުން ލިބޭނެ.
+filter_stack.eligibility = މާހައުލާއި ބޭރުގެ އެހީއެއް ނުބޭނުން ފިލްޓަރުތައް އެކަނި ލިސްޓުކުރެވޭނެ. މެޕެއް، މަގެއް، ފަހަތެއް ނުވަތަ ބޭރުގެ ޑައިލޮގެއް ބޭނުންވާ ފިލްޓަރުތައް ސްޓެކަކަށް ސޭވްނުކުރެވޭނެ.
+filter_stack.unavailable = ފިލްޓަރ ސްޓެކް އެޑިޓްކުރުމަށް ލޮކްނުކުރި ޕިކްސެލް ލޭޔަރެއް ނުވަތަ ސްމާޓް އޮބްޖެކްޓެއް ހޮވާށެވެ.
+filter_stack.render_failed = ފިލްޓަރ ސްޓެކް ރެންޑަރކުރެވެން ނުކެރުނު. އޭގެ މަސްދަރާއި ސޭވްކުރި ސެޓިންގްތައް ބަދަލުނުވެ ހުރެއެވެ.
+filter_stack.edit_history = ފިލްޓަރ ސްޓެކް އެޑިޓްކުރުން
+filter_stack.bake_history = ފިލްޓަރ ސްޓެކުގެ ރެންޑަރކުރި ފެންނަ ގޮތް ދާއިމީކުރުން
+filter_stack.updated = ފިލްޓަރ ސްޓެކް އަޕްޑޭޓްކުރެވިއްޖެ
+filter_stack.missing = ނުލިބޭ ފިލްޓަރ: {id}

@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Bewurkbere filtersteapels.
+filter_stack.title = Filtersteapel
+filter_stack.add = Filter tafoegje
+filter_stack.enable = Ynskeakelje
+filter_stack.disable = Utskeakelje
+filter_stack.up = Omheech
+filter_stack.down = Omleech
+filter_stack.remove = Fuortsmite
+filter_stack.bake = Filtersteapel fêstlizze
+filter_stack.note = Effekten wurde fan de bewarre boarne ôf fan boppen nei ûnderen útfierd. Klik op in filter om it te bewurkjen. Skilderjen, ferpleatsen, transformearjen of feroarjen fan de kleurmodus leit de filtersteapel fêst; Ungedien meitsje set him werom.
+filter_stack.eligibility = Allinnich selsstannige filters steane yn de list. Filters dy't in kaart, paad, eftergrûn of ekstern dialoochfinster nedich hawwe, kinne net yn in filtersteapel bewarre wurde.
+filter_stack.unavailable = Selektearje in ûntskoattele piksellaach of tûk objekt om de filtersteapel dêrfan te bewurkjen.
+filter_stack.render_failed = De filtersteapel koe net werjûn wurde. De boarne en bewarre ynstellingen binne net feroare.
+filter_stack.edit_history = Filtersteapel bewurkje
+filter_stack.bake_history = Filtersteapel fêstlizze
+filter_stack.updated = Filtersteapel bywurke
+filter_stack.missing = Net beskikber filter: {id}

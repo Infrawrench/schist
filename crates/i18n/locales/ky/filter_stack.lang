@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Editable filter stacks.
+filter_stack.title = Чыпкалар топтому
+filter_stack.add = Чыпка кошуу
+filter_stack.enable = Иштетүү
+filter_stack.disable = Өчүрүү
+filter_stack.up = Өйдө
+filter_stack.down = Ылдый
+filter_stack.remove = Алып салуу
+filter_stack.bake = Топтомдун көрүнүшүн бекитүү
+filter_stack.note = Эффекттер сакталган булактан өйдөдөн ылдый колдонулат. Түзөтүү үчүн чыпканы басыңыз. Боёо, жылдыруу, өзгөртүү же түс режимин алмаштыруу топтомдун көрүнүшүн бекитет; Артка кайтаруу аны калыбына келтирет.
+filter_stack.eligibility = Тизмеде өз алдынча иштеген чыпкалар гана бар. Карта, контур, фон же тышкы диалог талап кылган чыпкаларды топтомго сактоого болбойт.
+filter_stack.unavailable = Чыпкалар топтомун түзөтүү үчүн кулпусу ачылган пикселдик катмарды же акылдуу объектти тандаңыз.
+filter_stack.render_failed = Чыпкалар топтому көрсөтүлгөн жок. Анын булагы жана сакталган жөндөөлөрү өзгөргөн жок.
+filter_stack.edit_history = Чыпкалар топтомун түзөтүү
+filter_stack.bake_history = Чыпкалар топтомунун көрүнүшүн бекитүү
+filter_stack.updated = Чыпкалар топтому жаңыртылды
+filter_stack.missing = Жеткиликсиз чыпка: {id}

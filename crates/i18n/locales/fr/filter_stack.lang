@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Piles de filtres modifiables.
+filter_stack.title = Pile de filtres
+filter_stack.add = Ajouter un filtre
+filter_stack.enable = Activer
+filter_stack.disable = Désactiver
+filter_stack.up = Monter
+filter_stack.down = Descendre
+filter_stack.remove = Supprimer
+filter_stack.bake = Appliquer définitivement la pile
+filter_stack.note = Les effets sont exécutés depuis la source conservée, de haut en bas. Cliquez sur un filtre pour le modifier. Peindre, déplacer, transformer ou changer de mode colorimétrique applique définitivement la pile ; Annuler la restaure.
+filter_stack.eligibility = Seuls les filtres autonomes sont répertoriés. Les filtres qui nécessitent une carte, un tracé, un arrière-plan ou une boîte de dialogue externe ne peuvent pas être enregistrés dans une pile.
+filter_stack.unavailable = Sélectionnez un calque de pixels ou un objet dynamique déverrouillé pour modifier sa pile de filtres.
+filter_stack.render_failed = Le rendu de la pile de filtres a échoué. Sa source et ses paramètres enregistrés restent inchangés.
+filter_stack.edit_history = Modifier la pile de filtres
+filter_stack.bake_history = Appliquer définitivement la pile de filtres
+filter_stack.updated = Pile de filtres mise à jour
+filter_stack.missing = Filtre indisponible : {id}

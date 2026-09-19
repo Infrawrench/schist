@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# filter stack.
+filter_stack.title = Filterstapel
+filter_stack.add = Voeg filter by
+filter_stack.enable = Aktiveer
+filter_stack.disable = Deaktiveer
+filter_stack.up = Op
+filter_stack.down = Af
+filter_stack.remove = Verwyder
+filter_stack.bake = Maak filterstapel vas
+filter_stack.note = Effekte word van bo na onder vanaf die behoue bron toegepas. Klik 'n filter om dit te wysig. Verf, skuif, transformasie of 'n verandering aan die kleurmodus maak die stapel vas; Ontdoen herstel dit.
+filter_stack.eligibility = Slegs selfstandige filters word gewys. Filters wat 'n kaart, pad, agtergrond of eksterne dialoog vereis, kan nie in 'n stapel gestoor word nie.
+filter_stack.unavailable = Kies 'n oopgesluite pixellaag of slimvoorwerp om sy filterstapel te wysig.
+filter_stack.render_failed = Die filterstapel kon nie gelewer word nie. Sy bron en gestoorde instellings is onveranderd.
+filter_stack.edit_history = Wysig filterstapel
+filter_stack.bake_history = Maak filterstapel vas
+filter_stack.updated = Filterstapel bygewerk
+filter_stack.missing = Onbeskikbare filter: {id}

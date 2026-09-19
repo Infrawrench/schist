@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# ሊታረሙ የሚችሉ የማጣሪያ ቁልል።
+filter_stack.title = የማጣሪያ ቁልል
+filter_stack.add = ማጣሪያ ጨምር
+filter_stack.enable = አንቃ
+filter_stack.disable = አሰናክል
+filter_stack.up = ወደ ላይ
+filter_stack.down = ወደ ታች
+filter_stack.remove = አስወግድ
+filter_stack.bake = የቁልሉን ውጤት ቋሚ አድርግ
+filter_stack.note = ተፅዕኖዎች ከተጠበቀው ምንጭ ላይ ከላይ ወደ ታች ይተገበራሉ። ለማርትዕ ማጣሪያን ጠቅ ያድርጉ። መቀባት፣ ማንቀሳቀስ፣ መቀየር ወይም የቀለም ሁነታን መቀየር የቁልሉን ውጤት ቋሚ ያደርጋል፤ ቀልብስ ወደነበረበት ይመልሰዋል።
+filter_stack.eligibility = ራሳቸውን የቻሉ ማጣሪያዎች ብቻ ተዘርዝረዋል። ካርታ፣ መንገድ፣ የጀርባ ምስል ወይም ውጫዊ መገናኛ የሚፈልጉ ማጣሪያዎች በቁልል ውስጥ ሊቀመጡ አይችሉም።
+filter_stack.unavailable = የማጣሪያ ቁልሉን ለማርትዕ ያልተቆለፈ የፒክሰል ንብርብር ወይም ብልህ ነገር ይምረጡ።
+filter_stack.render_failed = የማጣሪያ ቁልሉን ማቅረብ አልተቻለም። ምንጩና የተቀመጡ ቅንብሮቹ አልተቀየሩም።
+filter_stack.edit_history = የማጣሪያ ቁልልን አርትዕ
+filter_stack.bake_history = የማጣሪያ ቁልልን ቋሚ አድርግ
+filter_stack.updated = የማጣሪያ ቁልሉ ተዘምኗል
+filter_stack.missing = የማይገኝ ማጣሪያ፦ {id}

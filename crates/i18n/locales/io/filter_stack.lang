@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Redaktebla filtral staki.
+filter_stack.title = Filtral stako
+filter_stack.add = Adjuntar filtrilo
+filter_stack.enable = Aktivigar
+filter_stack.disable = Desaktivigar
+filter_stack.up = Adsupre
+filter_stack.down = Adinfre
+filter_stack.remove = Efacar
+filter_stack.bake = Fixigar la stako
+filter_stack.note = Efekti funcionas de la preservita fonto, de supre adinfre. Kliktez filtrilo por redaktar ol. Piktado, movado, transformado o chanjo di kolormodo fixigas la aspekton di la stako; Desfacar restauras ol.
+filter_stack.eligibility = Nur memsuficanta filtrili listesas. Filtrili qui bezonas mapo, voyo, fono o externa dialogo ne povas esar konservita en stako.
+filter_stack.unavailable = Selektez dezblokita pixelstrato o inteligenta objekto por redaktar lua filtral stako.
+filter_stack.render_failed = La filtral stako ne povis esar renderita. Lua fonto e konservita ajusti restas sen chanjo.
+filter_stack.edit_history = Redaktar filtral stako
+filter_stack.bake_history = Fixigar filtral stako
+filter_stack.updated = Filtral stako ajornigita
+filter_stack.missing = Nedisponebla filtrilo: {id}

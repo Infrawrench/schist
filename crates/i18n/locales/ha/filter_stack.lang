@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Tarin matata masu iya gyaruwa.
+filter_stack.title = Tarin matata
+filter_stack.add = Ƙara matata
+filter_stack.enable = Kunna
+filter_stack.disable = Kashe
+filter_stack.up = Sama
+filter_stack.down = Ƙasa
+filter_stack.remove = Cire
+filter_stack.bake = Tabbatar da tarin
+filter_stack.note = Tasirai suna gudana daga tushen da aka kiyaye, daga sama zuwa ƙasa. Danna matata don gyara ta. Zane, motsawa, sauyawa ko canza yanayin launi yana tabbatar da tarin; Warware yana maido da shi.
+filter_stack.eligibility = Matata masu zaman kansu kaɗai ake jera. Ba za a adana matatar da ke buƙatar taswira, hanya, bango ko akwatin waje a cikin tari ba.
+filter_stack.unavailable = Zaɓi yaduddukar pixel marar kulle ko abu mai wayo don gyara tarin matatar sa.
+filter_stack.render_failed = Ba a iya sarrafa tarin matatar ba. Tushensa da saitunan da aka adana ba su canza ba.
+filter_stack.edit_history = Gyara tarin matata
+filter_stack.bake_history = Tabbatar da tarin matata
+filter_stack.updated = An sabunta tarin matata
+filter_stack.missing = Matatar da babu ita: {id}

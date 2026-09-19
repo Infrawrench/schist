@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Upraviteľné zásobníky filtrov.
+filter_stack.title = Zásobník filtrov
+filter_stack.add = Pridať filter
+filter_stack.enable = Povoliť
+filter_stack.disable = Zakázať
+filter_stack.up = Nahor
+filter_stack.down = Nadol
+filter_stack.remove = Odobrať
+filter_stack.bake = Zlúčiť zásobník
+filter_stack.note = Efekty sa vykonávajú zo zachovaného zdroja zhora nadol. Kliknutím na filter ho upravíte. Maľovanie, presúvanie, transformácia alebo zmena farebného režimu zlúči zásobník s obrazom; príkaz Späť ho obnoví.
+filter_stack.eligibility = Zobrazené sú iba samostatné filtre. Filtre, ktoré potrebujú mapu, cestu, pozadie alebo externé dialógové okno, sa nedajú uložiť do zásobníka.
+filter_stack.unavailable = Ak chcete upraviť zásobník filtrov, vyberte odomknutú pixelovú vrstvu alebo inteligentný objekt.
+filter_stack.render_failed = Zásobník filtrov sa nepodarilo vykresliť. Jeho zdroj a uložené nastavenia zostali nezmenené.
+filter_stack.edit_history = Upraviť zásobník filtrov
+filter_stack.bake_history = Zlúčiť zásobník filtrov
+filter_stack.updated = Zásobník filtrov bol aktualizovaný
+filter_stack.missing = Nedostupný filter: {id}

@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Редаговані стеки фільтрів.
+filter_stack.title = Стек фільтрів
+filter_stack.add = Додати фільтр
+filter_stack.enable = Увімкнути
+filter_stack.disable = Вимкнути
+filter_stack.up = Вгору
+filter_stack.down = Вниз
+filter_stack.remove = Видалити
+filter_stack.bake = Застосувати стек
+filter_stack.note = Ефекти застосовуються до збереженого джерела згори вниз. Клацніть фільтр, щоб відредагувати його. Малювання, переміщення, трансформування або зміна колірного режиму застосовує стек; команда «Скасувати дію» відновлює його.
+filter_stack.eligibility = Тут наведено лише автономні фільтри. Фільтри, яким потрібна карта, контур, тло або зовнішнє діалогове вікно, не можна зберегти в стеку.
+filter_stack.unavailable = Виберіть незаблокований піксельний шар або смарт-об'єкт, щоб редагувати його стек фільтрів.
+filter_stack.render_failed = Не вдалося відтворити стек фільтрів. Його джерело та збережені параметри не змінено.
+filter_stack.edit_history = Редагування стека фільтрів
+filter_stack.bake_history = Застосування стека фільтрів
+filter_stack.updated = Стек фільтрів оновлено
+filter_stack.missing = Недоступний фільтр: {id}

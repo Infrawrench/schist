@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# ಸಂಪಾದಿಸಬಹುದಾದ ಫಿಲ್ಟರ್ ಸ್ಟ್ಯಾಕ್‌ಗಳು.
+filter_stack.title = ಫಿಲ್ಟರ್ ಸ್ಟ್ಯಾಕ್
+filter_stack.add = ಫಿಲ್ಟರ್ ಸೇರಿಸಿ
+filter_stack.enable = ಸಕ್ರಿಯಗೊಳಿಸಿ
+filter_stack.disable = ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ
+filter_stack.up = ಮೇಲೆ
+filter_stack.down = ಕೆಳಗೆ
+filter_stack.remove = ತೆಗೆದುಹಾಕಿ
+filter_stack.bake = ಸ್ಟ್ಯಾಕ್ ಸ್ಥಿರಗೊಳಿಸಿ
+filter_stack.note = ಉಳಿಸಿಟ್ಟ ಮೂಲದಿಂದ ಮೇಲಿನಿಂದ ಕೆಳಕ್ಕೆ ಪರಿಣಾಮಗಳು ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತವೆ. ಸಂಪಾದಿಸಲು ಫಿಲ್ಟರ್ ಅನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ. ಚಿತ್ರಿಸುವುದು, ಸರಿಸುವುದು, ರೂಪಾಂತರಿಸುವುದು ಅಥವಾ ಬಣ್ಣ ವಿಧಾನವನ್ನು ಬದಲಿಸುವುದು ಸ್ಟ್ಯಾಕ್ ಅನ್ನು ಸ್ಥಿರಗೊಳಿಸುತ್ತದೆ; ರದ್ದುಗೊಳಿಸುವಿಕೆ ಅದನ್ನು ಮರುಸ್ಥಾಪಿಸುತ್ತದೆ.
+filter_stack.eligibility = ಸ್ವತಂತ್ರವಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುವ ಫಿಲ್ಟರ್‌ಗಳನ್ನು ಮಾತ್ರ ಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ. ಮ್ಯಾಪ್, ಪಥ, ಹಿನ್ನೆಲೆ ಅಥವಾ ಬಾಹ್ಯ ಸಂವಾದದ ಅಗತ್ಯವಿರುವ ಫಿಲ್ಟರ್‌ಗಳನ್ನು ಸ್ಟ್ಯಾಕ್‌ನಲ್ಲಿ ಉಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.
+filter_stack.unavailable = ಅದರ ಫಿಲ್ಟರ್ ಸ್ಟ್ಯಾಕ್ ಅನ್ನು ಸಂಪಾದಿಸಲು ಅನ್‌ಲಾಕ್ ಮಾಡಿದ ಪಿಕ್ಸೆಲ್ ಲೇಯರ್ ಅಥವಾ ಸ್ಮಾರ್ಟ್ ಆಬ್ಜೆಕ್ಟ್ ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ.
+filter_stack.render_failed = ಫಿಲ್ಟರ್ ಸ್ಟ್ಯಾಕ್ ಅನ್ನು ರೆಂಡರ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಅದರ ಮೂಲ ಮತ್ತು ಉಳಿಸಿದ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಬದಲಾಗಿಲ್ಲ.
+filter_stack.edit_history = ಫಿಲ್ಟರ್ ಸ್ಟ್ಯಾಕ್ ಸಂಪಾದಿಸಿ
+filter_stack.bake_history = ಫಿಲ್ಟರ್ ಸ್ಟ್ಯಾಕ್ ಸ್ಥಿರಗೊಳಿಸಿ
+filter_stack.updated = ಫಿಲ್ಟರ್ ಸ್ಟ್ಯಾಕ್ ನವೀಕರಿಸಲಾಗಿದೆ
+filter_stack.missing = ಲಭ್ಯವಿಲ್ಲದ ಫಿಲ್ಟರ್: {id}

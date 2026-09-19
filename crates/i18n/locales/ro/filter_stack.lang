@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Stive de filtre editabile.
+filter_stack.title = Stivă de filtre
+filter_stack.add = Adaugă un filtru
+filter_stack.enable = Activează
+filter_stack.disable = Dezactivează
+filter_stack.up = Mută în sus
+filter_stack.down = Mută în jos
+filter_stack.remove = Elimină
+filter_stack.bake = Definitivează stiva
+filter_stack.note = Efectele sunt aplicate sursei păstrate, de sus în jos. Faceți clic pe un filtru pentru a-l edita. Pictarea, mutarea, transformarea sau schimbarea modului de culoare definitivează stiva; comanda Anulare o restaurează.
+filter_stack.eligibility = Sunt afișate numai filtrele autonome. Filtrele care necesită o hartă, o cale, un fundal sau un dialog extern nu pot fi salvate într-o stivă.
+filter_stack.unavailable = Selectați un strat de pixeli deblocat sau un obiect inteligent pentru a-i edita stiva de filtre.
+filter_stack.render_failed = Stiva de filtre nu a putut fi randată. Sursa și setările sale salvate au rămas neschimbate.
+filter_stack.edit_history = Editare stivă de filtre
+filter_stack.bake_history = Definitivare stivă de filtre
+filter_stack.updated = Stiva de filtre a fost actualizată
+filter_stack.missing = Filtru indisponibil: {id}

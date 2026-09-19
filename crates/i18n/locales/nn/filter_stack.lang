@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Redigerbare filterstakkar.
+filter_stack.title = Filterstakk
+filter_stack.add = Legg til filter
+filter_stack.enable = Slå på
+filter_stack.disable = Slå av
+filter_stack.up = Opp
+filter_stack.down = Ned
+filter_stack.remove = Fjern
+filter_stack.bake = Bruk filterstakken endeleg
+filter_stack.note = Effektane vert køyrde frå den bevarte kjelda, ovanfrå og ned. Klikk på eit filter for å redigere det. Måling, flytting, omforming eller endring av fargemodus gjer utsjånaden frå stakken endeleg; Angra gjenopprettar han.
+filter_stack.eligibility = Berre sjølvstendige filter vert viste. Filter som treng eit kart, ein bane, ein bakgrunn eller ein ekstern dialog, kan ikkje lagrast i ein stakk.
+filter_stack.unavailable = Vel eit ulåst piksellag eller smartobjekt for å redigere filterstakken.
+filter_stack.render_failed = Filterstakken kunne ikkje teiknast. Kjelda og dei lagra innstillingane er uendra.
+filter_stack.edit_history = Rediger filterstakk
+filter_stack.bake_history = Bruk filterstakken endeleg
+filter_stack.updated = Filterstakken vart oppdatert
+filter_stack.missing = Utilgjengeleg filter: {id}

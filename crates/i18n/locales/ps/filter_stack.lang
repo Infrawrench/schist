@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# د سمون وړ چاڼګر کتارونه.
+filter_stack.title = د چاڼګرو کتار
+filter_stack.add = چاڼګر زیاتول
+filter_stack.enable = فعالول
+filter_stack.disable = نا فعالول
+filter_stack.up = پورته
+filter_stack.down = ښکته
+filter_stack.remove = لرې کول
+filter_stack.bake = کتار ثابتول
+filter_stack.note = اغېزې له ساتل شوې سرچینې له پاسه تر ښکته چلېږي. د سمون لپاره پر چاڼګر ټک وکړئ. رنګول، خوځول، بدلون یا د رنګ حالت بدلول کتار ثابتوي؛ ناکړ یې بېرته راګرځوي.
+filter_stack.eligibility = یوازې خپلواک چاڼګرونه لېست شوي. هغه چاڼګرونه چې نقشې، لارې، شالید یا بهرني کړکۍ ته اړتیا لري په کتار کې نشي ساتل کېدای.
+filter_stack.unavailable = د چاڼګرو کتار د سمون لپاره یوه نا تړل شوې پېکسلي طبقه یا ځیرک څیز وټاکئ.
+filter_stack.render_failed = د چاڼګرو کتار وړاندې کېدای نشو. سرچینه او ساتل شوې امستنې یې هماغسې پاتې دي.
+filter_stack.edit_history = د چاڼګرو کتار سمول
+filter_stack.bake_history = د چاڼګرو کتار ثابتول
+filter_stack.updated = د چاڼګرو کتار تازه شو
+filter_stack.missing = نشتون چاڼګر: {id}

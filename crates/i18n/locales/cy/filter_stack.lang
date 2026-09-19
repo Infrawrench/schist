@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Pentyrrau hidlo y gellir eu golygu.
+filter_stack.title = Pentwr hidlwyr
+filter_stack.add = Ychwanegu hidlydd
+filter_stack.enable = Galluogi
+filter_stack.disable = Analluogi
+filter_stack.up = I fyny
+filter_stack.down = I lawr
+filter_stack.remove = Tynnu
+filter_stack.bake = Cyflawni’r pentwr
+filter_stack.note = Mae effeithiau’n rhedeg o’r ffynhonnell a gadwyd, o’r brig i’r gwaelod. Cliciwch hidlydd i’w olygu. Mae peintio, symud, trawsnewid neu newid y modd lliw yn cyflawni’r pentwr; mae Dadwneud yn ei adfer.
+filter_stack.eligibility = Dim ond hidlwyr hunangynhwysol a restrir. Ni ellir cadw hidlwyr sydd angen map, llwybr, cefndir neu ddeialog allanol mewn pentwr.
+filter_stack.unavailable = Dewiswch haen picsel neu wrthrych clyfar heb ei gloi i olygu ei bentwr hidlwyr.
+filter_stack.render_failed = Nid oedd modd rendro’r pentwr hidlwyr. Nid yw ei ffynhonnell na’i osodiadau wedi’u cadw wedi newid.
+filter_stack.edit_history = Golygu pentwr hidlwyr
+filter_stack.bake_history = Cyflawni pentwr hidlwyr
+filter_stack.updated = Diweddarwyd y pentwr hidlwyr
+filter_stack.missing = Hidlydd ddim ar gael: {id}

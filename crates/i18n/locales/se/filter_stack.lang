@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Doaimmahahtti sillenčopma.
+filter_stack.title = Sillenčopma
+filter_stack.add = Lasit silli
+filter_stack.enable = Váldde atnui
+filter_stack.disable = Váldde eret anus
+filter_stack.up = Bajás
+filter_stack.down = Vulos
+filter_stack.remove = Váldde eret
+filter_stack.bake = Čatna sillenčopma
+filter_stack.note = Váikkuhusat čađahuvvojit seailluhuvvon gáldus bajildan vulos. Coahkkal silli doaimmahan dihte. Málen, sirren, transformeren dahje ivdnemodealla rievdadeapmi čatná sillenčoma; Gomut máhcaha dan.
+filter_stack.eligibility = Dušše iešheanalis silliid čájehit. Silliid mat dárbbašit kártta, bálgá, duogáža dahje olgguldas láse ii sáhte vurket čopmii.
+filter_stack.unavailable = Vállje lohkatkeahtes govvačuokkisgearddi dahje jierpmálaš objeavtta doaimmahan dihte dan sillenčoma.
+filter_stack.render_failed = Sillenčoma ii sáhttán govvidit. Dan gáldu ja vurkejuvvon ásahusat eai rievdan.
+filter_stack.edit_history = Doaimmat sillenčoma
+filter_stack.bake_history = Čatnat sillenčoma
+filter_stack.updated = Sillenčopma ođasmahttojuvvui
+filter_stack.missing = Silli ii leat olámuttos: {id}

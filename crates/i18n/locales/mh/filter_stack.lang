@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Stack in filter ko remaroñ ukot.
+filter_stack.title = Stack in filter
+filter_stack.add = Kobaik filter
+filter_stack.enable = Kōjerbale
+filter_stack.disable = Kabōjrak
+filter_stack.up = Lōñ
+filter_stack.down = Lal
+filter_stack.remove = Kōṃakūt
+filter_stack.bake = Kōṃṃan stack eo bwe en juon pija
+filter_stack.note = Effect ko rej jerbal jen source eo eṃōj dāpij, jen lōñ ñan lal. Click juon filter ñan ukote. Paint, kōṃakūt, transform, ak ukot color mode ej kōṃṃan stack eo bwe en juon pija; Ukot jebāāk ej kōṃṃan bwe en bar juon stack.
+filter_stack.eligibility = Filter ko rej maroñ make wōt rej walok. Filter ko rej aikuji juon māp, path, backdrop, ak dialog jen lik rejjab maroñ kōjparok ilo juon stack.
+filter_stack.unavailable = Kālet juon pixel layer ejjab lock ak smart object ñan ukot stack in filter an.
+filter_stack.render_failed = Ejjab maroñ render stack in filter eo. Source eo im setting ko an eṃōj kōjparok rejjab oktak.
+filter_stack.edit_history = Ukot stack in filter
+filter_stack.bake_history = Kōṃṃan stack in filter bwe en juon pija
+filter_stack.updated = Stack in filter eṃōj ukote
+filter_stack.missing = Filter eo ejjab maroñ jerbal: {id}

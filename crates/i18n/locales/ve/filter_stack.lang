@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Thulwi dza dzi-fiḽithara dzi dzudzanyeaho.
+filter_stack.title = Thulwi ya dzi-fiḽithara
+filter_stack.add = Engedza fiḽithara
+filter_stack.enable = Tendelisa
+filter_stack.disable = Thivhela
+filter_stack.up = Nṱha
+filter_stack.down = Fhasi
+filter_stack.remove = Bvisa
+filter_stack.bake = Khwaṱhisedza mbonalo ya thulwi
+filter_stack.note = Mvelelo dzi shumiswa kha tshiko tsho tsireledzwaho, u bva nṱha u ya fhasi. Puṱedzani fiḽithara uri ni i dzudzanye. U ola, u sudzulusa, u shandula kana u shandula moudu wa muvhala zwi khwaṱhisedza mbonalo ya thulwi zwa bvisa resipi yayo i dzudzanyeaho; Humisela murahu i a i vhuedzedza.
+filter_stack.eligibility = Hu sumbedzwa fiḽithara dzine dza ḓikwanela fhedzi. Fiḽithara dzine dza ṱoḓa mapa, nḓila, murahu kana nyambedzano ya nnḓa a dzi koni u vhulungwa kha thulwi.
+filter_stack.unavailable = Nangani ḽeyara ya dzipixel i songo khiiwaho kana smart object uri ni dzudzanye thulwi yayo ya dzi-fiḽithara.
+filter_stack.render_failed = Thulwi ya dzi-fiḽithara a yo ngo kona u sumbedzwa. Tshiko tshayo na nzudzanyo dzo vhulungwaho a zwo ngo shanduka.
+filter_stack.edit_history = Dzudzanya thulwi ya dzi-fiḽithara
+filter_stack.bake_history = Khwaṱhisedza mbonalo ya thulwi ya dzi-fiḽithara
+filter_stack.updated = Thulwi ya dzi-fiḽithara yo khwiniswa
+filter_stack.missing = Fiḽithara a i wanali: {id}

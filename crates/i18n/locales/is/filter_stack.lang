@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Breytanlegar síustæður.
+filter_stack.title = Síustæða
+filter_stack.add = Bæta við síu
+filter_stack.enable = Virkja
+filter_stack.disable = Slökkva
+filter_stack.up = Upp
+filter_stack.down = Niður
+filter_stack.remove = Fjarlægja
+filter_stack.bake = Festa útlit síustæðu
+filter_stack.note = Áhrifin eru keyrð frá varðveittu frumefni, ofan frá og niður. Smelltu á síu til að breyta henni. Málun, færsla, umbreyting eða breyting á litaham festir útlit stæðunnar; Afturkalla endurheimtir hana.
+filter_stack.eligibility = Aðeins sjálfstæðar síur eru taldar upp. Ekki er hægt að vista síur sem þurfa vörpun, feril, bakgrunn eða ytri glugga í stæðu.
+filter_stack.unavailable = Veldu ólæst mynddílslag eða snjallhlut til að breyta síustæðu þess.
+filter_stack.render_failed = Ekki tókst að myndgera síustæðuna. Frumefnið og vistuðu stillingarnar eru óbreytt.
+filter_stack.edit_history = Breyta síustæðu
+filter_stack.bake_history = Festa útlit síustæðu
+filter_stack.updated = Síustæða uppfærð
+filter_stack.missing = Ótiltæk sía: {id}

@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Redaguojamos filtrų rietuvės.
+filter_stack.title = Filtrų rietuvė
+filter_stack.add = Pridėti filtrą
+filter_stack.enable = Įjungti
+filter_stack.disable = Išjungti
+filter_stack.up = Aukštyn
+filter_stack.down = Žemyn
+filter_stack.remove = Pašalinti
+filter_stack.bake = Fiksuoti filtrų rietuvę
+filter_stack.note = Efektai taikomi išsaugotam šaltiniui iš viršaus į apačią. Spustelėkite filtrą, kad jį redaguotumėte. Piešiant, perkeliant, transformuojant ar keičiant spalvų režimą filtrų rietuvė fiksuojama; komanda „Anuliuoti“ ją atkuria.
+filter_stack.eligibility = Sąraše pateikiami tik savarankiški filtrai. Filtrų, kuriems reikia žemėlapio, kontūro, fono ar išorinio dialogo lango, negalima įrašyti į rietuvę.
+filter_stack.unavailable = Pasirinkite neužrakintą pikselių sluoksnį arba išmanųjį objektą, kad galėtumėte redaguoti jo filtrų rietuvę.
+filter_stack.render_failed = Filtrų rietuvės nepavyko atvaizduoti. Jos šaltinis ir įrašyti nustatymai nepakeisti.
+filter_stack.edit_history = Redaguoti filtrų rietuvę
+filter_stack.bake_history = Fiksuoti filtrų rietuvę
+filter_stack.updated = Filtrų rietuvė atnaujinta
+filter_stack.missing = Nepasiekiamas filtras: {id}

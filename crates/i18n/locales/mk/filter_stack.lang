@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Localized catalog.
+filter_stack.title = Група филтри
+filter_stack.add = Додај филтер
+filter_stack.enable = Овозможи
+filter_stack.disable = Оневозможи
+filter_stack.up = Нагоре
+filter_stack.down = Надолу
+filter_stack.remove = Отстрани
+filter_stack.bake = Примени ја групата
+filter_stack.note = Ефектите се извршуваат од зачуваниот извор, одгоре надолу. Кликнете филтер за да го уредите. Цртањето, преместувањето, трансформирањето или менувањето на режимот на боја ја применува групата; „Врати“ ја обновува.
+filter_stack.eligibility = Прикажани се само самостојни филтри. Филтрите на кои им треба мапа, патека, заднина или надворешен дијалог не може да се зачуваат во група.
+filter_stack.unavailable = Изберете отклучен пикселски слој или паметен објект за да ја уредите неговата група филтри.
+filter_stack.render_failed = Групата филтри не можеше да се исцрта. Нејзиниот извор и зачуваните поставки не се изменети.
+filter_stack.edit_history = Уреди група филтри
+filter_stack.bake_history = Примени група филтри
+filter_stack.updated = Групата филтри е ажурирана
+filter_stack.missing = Недостапен филтер: {id}

@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# پشته‌های فیلتر قابل ویرایش.
+filter_stack.title = پشتهٔ فیلتر
+filter_stack.add = افزودن فیلتر
+filter_stack.enable = فعال‌کردن
+filter_stack.disable = غیرفعال‌کردن
+filter_stack.up = بالا
+filter_stack.down = پایین
+filter_stack.remove = برداشتن
+filter_stack.bake = تثبیت پشته
+filter_stack.note = جلوه‌ها از منبع نگه‌داشته‌شده و از بالا به پایین اجرا می‌شوند. برای ویرایش، روی فیلتر کلیک کنید. نقاشی، جابه‌جایی، تبدیل یا تغییر حالت رنگ پشته را تثبیت می‌کند؛ واگرد آن را بازمی‌گرداند.
+filter_stack.eligibility = فقط فیلترهای مستقل فهرست می‌شوند. فیلترهایی که به نقشه، مسیر، پس‌زمینه یا کادر گفت‌وگوی بیرونی نیاز دارند در پشته ذخیره نمی‌شوند.
+filter_stack.unavailable = برای ویرایش پشتهٔ فیلتر، یک لایهٔ پیکسلی قفل‌نشده یا شیء هوشمند انتخاب کنید.
+filter_stack.render_failed = پشتهٔ فیلتر پردازش نشد. منبع و تنظیمات ذخیره‌شدهٔ آن تغییری نکرده‌اند.
+filter_stack.edit_history = ویرایش پشتهٔ فیلتر
+filter_stack.bake_history = تثبیت پشتهٔ فیلتر
+filter_stack.updated = پشتهٔ فیلتر به‌روز شد
+filter_stack.missing = فیلتر در دسترس نیست: {id}

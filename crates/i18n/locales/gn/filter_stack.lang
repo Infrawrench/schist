@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Mboguaha aty oñemyatyrõkuaáva.
+filter_stack.title = Mboguaha aty
+filter_stack.add = Mbojoapy mboguaha
+filter_stack.enable = Myandy
+filter_stack.disable = Mbogue
+filter_stack.up = Yvate
+filter_stack.down = Yvýpe
+filter_stack.remove = Pe'a
+filter_stack.bake = Mbohasa aty píxel-pe
+filter_stack.note = Efektokuéra oñemboguata ypy oñeñongatúvagui, yvatégui yvýpe. Epoko peteĩ mboguaha rehe emyatyrõ hag̃ua. Pintura, ñemongu'e, ñemoambue térã sa'y reko ñemoambue ombohasa pe aty píxel-pe; Mboguevi omoĩjey pe aty oñemyatyrõkuaáva.
+filter_stack.eligibility = Ojehechauka mboguaha ijeheguíva añoite. Mboguaha oikotevẽva mapa, tape, tapykue térã diálogo okapegua ndaikatúi oñeñongatu peteĩ atýpe.
+filter_stack.unavailable = Eiporavo peteĩ capa píxel noñembotyiva térã objeto inteligente emyatyrõ hag̃ua imboguaha aty.
+filter_stack.render_failed = Ndaikatúi oñemoha'anga mboguaha aty. Iñepyrũha ha iñemboheko oñeñongatúva noñemoambuéi.
+filter_stack.edit_history = Myatyrõ mboguaha aty
+filter_stack.bake_history = Mbohasa mboguaha aty píxel-pe
+filter_stack.updated = Mboguaha aty oñembopyahu
+filter_stack.missing = Mboguaha ndaipóriva: {id}

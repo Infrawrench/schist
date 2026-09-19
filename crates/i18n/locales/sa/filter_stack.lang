@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# सम्पाद्यः शोधकसमूहः।
+filter_stack.title = शोधकसमूहः
+filter_stack.add = शोधकं योजयतु
+filter_stack.enable = सक्रियं करोतु
+filter_stack.disable = निष्क्रियं करोतु
+filter_stack.up = उपरि
+filter_stack.down = अधः
+filter_stack.remove = निष्कासयतु
+filter_stack.bake = समूहस्य दृश्यरूपं स्थिरीकरोतु
+filter_stack.note = प्रभावाः धारितस्रोतसः उपरितः अधः क्रमेण प्रवर्तन्ते। सम्पादयितुं शोधकं नुदतु। चित्रणं, चालनं, रूपान्तरणं वर्णविधिपरिवर्तनं वा समूहस्य दृश्यरूपं स्थिरीकरोति; प्रत्याहारः तत् पुनः स्थापयति।
+filter_stack.eligibility = केवलं स्वयंपूर्णाः शोधकाः सूच्यन्ते। मानचित्रं, पन्थानं, पृष्ठभूमिम् अथवा बाह्यसंवादं ये अपेक्षन्ते ते समूहे रक्षितुं न शक्यन्ते।
+filter_stack.unavailable = अस्य शोधकसमूहं सम्पादयितुं अतालितं पिक्सेलस्तरं वा चतुरवस्तु चिनोतु।
+filter_stack.render_failed = शोधकसमूहं प्रतिपादयितुं न शक्तम्। तस्य स्रोतः रक्षितविन्यासाश्च अपरिवर्तिताः सन्ति।
+filter_stack.edit_history = शोधकसमूहं सम्पादयतु
+filter_stack.bake_history = शोधकसमूहस्य दृश्यरूपं स्थिरीकरोतु
+filter_stack.updated = शोधकसमूहः अद्यतनीकृतः
+filter_stack.missing = अनुपलब्धः शोधकः: {id}

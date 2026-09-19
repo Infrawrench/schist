@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Mndandanda wa masefa osinthika.
+filter_stack.title = Mndandanda wa masefa
+filter_stack.add = Onjezani sefa
+filter_stack.enable = Yambitsani
+filter_stack.disable = Letsani
+filter_stack.up = Pamwamba
+filter_stack.down = Pansi
+filter_stack.remove = Chotsani
+filter_stack.bake = Khazikitsani mndandanda
+filter_stack.note = Zotsatira zimayambira pa gwero losungidwa, kuchokera pamwamba kupita pansi. Dinani sefa kuti musinthe. Kujambula, kusuntha, kusintha mawonekedwe, kapena kusintha njira ya mitundu kumakhazikitsa mndandandawu; Bwezerani kumaukonzanso.
+filter_stack.eligibility = Mndandandawu umangosonyeza masefa amene amatha kugwira ntchito pawokha. Masefa ofuna mapu, path, maziko, kapena bokosi lakunja sangasungidwe mumndandanda.
+filter_stack.unavailable = Sankhani layer ya ma pixel yosakiyidwa kapena smart object kuti musinthe mndandanda wake wa masefa.
+filter_stack.render_failed = Mndandanda wa masefa sunathe kujambulidwa. Gwero lake ndi zokonda zosungidwa sizinasinthe.
+filter_stack.edit_history = Sinthani mndandanda wa masefa
+filter_stack.bake_history = Khazikitsani mndandanda wa masefa
+filter_stack.updated = Mndandanda wa masefa wasinthidwa
+filter_stack.missing = Sefa sikupezeka: {id}

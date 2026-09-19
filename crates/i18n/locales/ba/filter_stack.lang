@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Үҙгәртеп була торған фильтрҙар теҙмәһе.
+filter_stack.title = Фильтрҙар теҙмәһе
+filter_stack.add = Фильтр өҫтәү
+filter_stack.enable = Ҡабыҙыу
+filter_stack.disable = Һүндереү
+filter_stack.up = Өҫкә
+filter_stack.down = Аҫҡа
+filter_stack.remove = Алып ташлау
+filter_stack.bake = Теҙмәнең һөҙөмтәһен даими итеү
+filter_stack.note = Эффекттар һаҡланған сығанаҡҡа өҫтән аҫҡа табан ҡулланыла. Үҙгәртеү өсөн фильтрға баҫығыҙ. Һүрәт төшөрөү, күсереү, үҙгәртеп ҡороу йәки төҫ режимын алмаштырыу теҙмәнең һөҙөмтәһен даими итә; «Кире алыу» уны тергеҙә.
+filter_stack.eligibility = Исемлектә тик үҙаллы фильтрҙар күрһәтелә. Карта, контур, фон йәки тышҡы диалог талап иткән фильтрҙарҙы теҙмәлә һаҡлап булмай.
+filter_stack.unavailable = Фильтрҙар теҙмәһен үҙгәртеү өсөн бикләнмәгән пикселле ҡатламды йәки аҡыллы объектты һайлағыҙ.
+filter_stack.render_failed = Фильтрҙар теҙмәһен күрһәтеп булманы. Уның сығанағы һәм һаҡланған көйләүҙәре үҙгәрмәне.
+filter_stack.edit_history = Фильтрҙар теҙмәһен үҙгәртеү
+filter_stack.bake_history = Фильтрҙар теҙмәһенең һөҙөмтәһен даими итеү
+filter_stack.updated = Фильтрҙар теҙмәһе яңыртылды
+filter_stack.missing = Фильтр ҡулланылмай: {id}

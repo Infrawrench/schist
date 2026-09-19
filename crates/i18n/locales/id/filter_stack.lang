@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Tumpukan filter yang dapat diedit.
+filter_stack.title = Tumpukan filter
+filter_stack.add = Tambahkan filter
+filter_stack.enable = Aktifkan
+filter_stack.disable = Nonaktifkan
+filter_stack.up = Naik
+filter_stack.down = Turun
+filter_stack.remove = Hapus
+filter_stack.bake = Terapkan tumpukan secara permanen
+filter_stack.note = Efek dijalankan dari sumber yang dipertahankan, dari atas ke bawah. Klik filter untuk mengeditnya. Melukis, memindahkan, mentransformasi, atau mengubah mode warna akan menerapkan tumpukan secara permanen; Urungkan akan memulihkannya.
+filter_stack.eligibility = Hanya filter mandiri yang ditampilkan. Filter yang memerlukan peta, jalur, latar belakang, atau dialog eksternal tidak dapat disimpan dalam tumpukan.
+filter_stack.unavailable = Pilih lapisan piksel atau objek pintar yang tidak terkunci untuk mengedit tumpukan filternya.
+filter_stack.render_failed = Tumpukan filter tidak dapat dirender. Sumber dan pengaturan tersimpannya tidak berubah.
+filter_stack.edit_history = Edit tumpukan filter
+filter_stack.bake_history = Terapkan tumpukan filter secara permanen
+filter_stack.updated = Tumpukan filter diperbarui
+filter_stack.missing = Filter tidak tersedia: {id}

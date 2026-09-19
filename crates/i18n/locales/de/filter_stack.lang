@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Bearbeitbare Filterstapel.
+filter_stack.title = Filterstapel
+filter_stack.add = Filter hinzufügen
+filter_stack.enable = Aktivieren
+filter_stack.disable = Deaktivieren
+filter_stack.up = Nach oben
+filter_stack.down = Nach unten
+filter_stack.remove = Entfernen
+filter_stack.bake = Stapel dauerhaft anwenden
+filter_stack.note = Die Effekte werden auf der aufbewahrten Quelle von oben nach unten ausgeführt. Klicke zum Bearbeiten auf einen Filter. Beim Malen, Verschieben, Transformieren oder Ändern des Farbmodus wird der Stapel dauerhaft angewendet; Rückgängig stellt ihn wieder her.
+filter_stack.eligibility = Nur eigenständige Filter werden aufgeführt. Filter, die eine Karte, einen Pfad, einen Hintergrund oder einen externen Dialog benötigen, können nicht in einem Stapel gesichert werden.
+filter_stack.unavailable = Wähle eine entsperrte Pixelebene oder ein Smartobjekt aus, um den Filterstapel zu bearbeiten.
+filter_stack.render_failed = Der Filterstapel konnte nicht gerendert werden. Seine Quelle und gesicherten Einstellungen sind unverändert.
+filter_stack.edit_history = Filterstapel bearbeiten
+filter_stack.bake_history = Filterstapel dauerhaft anwenden
+filter_stack.updated = Filterstapel aktualisiert
+filter_stack.missing = Nicht verfügbarer Filter: {id}

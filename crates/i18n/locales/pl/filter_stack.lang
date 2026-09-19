@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Edytowalne stosy filtrów.
+filter_stack.title = Stos filtrów
+filter_stack.add = Dodaj filtr
+filter_stack.enable = Włącz
+filter_stack.disable = Wyłącz
+filter_stack.up = W górę
+filter_stack.down = W dół
+filter_stack.remove = Usuń
+filter_stack.bake = Utrwal stos
+filter_stack.note = Efekty są nakładane na zachowane źródło od góry do dołu. Kliknij filtr, aby go edytować. Malowanie, przesuwanie, przekształcanie lub zmiana trybu koloru utrwala stos; polecenie Cofnij go przywraca.
+filter_stack.eligibility = Wyświetlane są tylko samodzielne filtry. Filtrów wymagających mapy, ścieżki, tła lub zewnętrznego okna dialogowego nie można zapisać w stosie.
+filter_stack.unavailable = Wybierz odblokowaną warstwę pikselową lub obiekt inteligentny, aby edytować jego stos filtrów.
+filter_stack.render_failed = Nie udało się wyrenderować stosu filtrów. Jego źródło i zapisane ustawienia nie uległy zmianie.
+filter_stack.edit_history = Edycja stosu filtrów
+filter_stack.bake_history = Utrwalenie stosu filtrów
+filter_stack.updated = Zaktualizowano stos filtrów
+filter_stack.missing = Niedostępny filtr: {id}

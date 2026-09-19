@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Marundo ya vichujio yanayoweza kuhaririwa.
+filter_stack.title = Rundo la vichujio
+filter_stack.add = Ongeza kichujio
+filter_stack.enable = Washa
+filter_stack.disable = Zima
+filter_stack.up = Juu
+filter_stack.down = Chini
+filter_stack.remove = Ondoa
+filter_stack.bake = Thibitisha rundo
+filter_stack.note = Athari hutumika kwenye chanzo kilichohifadhiwa, kutoka juu hadi chini. Bofya kichujio ili kukihariri. Kupaka rangi, kuhamisha, kugeuza au kubadilisha hali ya rangi huthibitisha rundo; Tendua hulirejesha.
+filter_stack.eligibility = Vichujio vinavyojitosheleza pekee ndivyo vinavyoorodheshwa. Vichujio vinavyohitaji ramani, njia, mandharinyuma au kisanduku cha nje haviwezi kuhifadhiwa kwenye rundo.
+filter_stack.unavailable = Chagua tabaka la pikseli lisilofungwa au kipengee mahiri ili kuhariri rundo lake la vichujio.
+filter_stack.render_failed = Rundo la vichujio halikuweza kuchakatwa. Chanzo chake na mipangilio iliyohifadhiwa haijabadilika.
+filter_stack.edit_history = Hariri rundo la vichujio
+filter_stack.bake_history = Thibitisha rundo la vichujio
+filter_stack.updated = Rundo la vichujio limesasishwa
+filter_stack.missing = Kichujio kisichopatikana: {id}

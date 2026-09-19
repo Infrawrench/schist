@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Uredivi stogovi filtara.
+filter_stack.title = Stog filtara
+filter_stack.add = Dodaj filtar
+filter_stack.enable = Omogući
+filter_stack.disable = Onemogući
+filter_stack.up = Gore
+filter_stack.down = Dolje
+filter_stack.remove = Ukloni
+filter_stack.bake = Primijeni stog trajno
+filter_stack.note = Efekti se izvode iz sačuvanog izvora, odozgo prema dolje. Kliknite filtar za uređivanje. Slikanje, pomicanje, transformiranje ili promjena načina boje trajno primjenjuje stog; naredba Poništi ga vraća.
+filter_stack.eligibility = Prikazuju se samo samostalni filtri. Filtri kojima je potrebna karta, putanja, pozadina ili vanjski dijaloški okvir ne mogu se spremiti u stog.
+filter_stack.unavailable = Odaberite otključani pikselni sloj ili pametni objekt kako biste uredili njegov stog filtara.
+filter_stack.render_failed = Stog filtara nije moguće iscrtati. Njegov izvor i spremljene postavke nisu promijenjeni.
+filter_stack.edit_history = Uređivanje stoga filtara
+filter_stack.bake_history = Trajna primjena stoga filtara
+filter_stack.updated = Stog filtara ažuriran
+filter_stack.missing = Nedostupan filtar: {id}

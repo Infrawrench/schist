@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# संपादनक्षम फिल्टर संच.
+filter_stack.title = फिल्टर संच
+filter_stack.add = फिल्टर जोडा
+filter_stack.enable = सक्षम करा
+filter_stack.disable = अक्षम करा
+filter_stack.up = वर
+filter_stack.down = खाली
+filter_stack.remove = काढा
+filter_stack.bake = संचाचे प्रस्तुत रूप लागू करा
+filter_stack.note = परिणाम राखलेल्या स्रोतापासून वरून खाली लागू होतात. संपादित करण्यासाठी फिल्टरवर क्लिक करा. रंगवणे, हलवणे, रूपांतर करणे किंवा रंग मोड बदलणे यामुळे संचाचे प्रस्तुत रूप लागू होते आणि संच संपादनक्षम राहत नाही; पूर्ववत केल्यावर संच पुनर्स्थापित होतो.
+filter_stack.eligibility = फक्त स्वयंपूर्ण फिल्टर सूचीबद्ध केले आहेत. नकाशा, मार्ग, पार्श्वभूमी किंवा बाह्य संवाद आवश्यक असलेले फिल्टर संचात जतन करता येत नाहीत.
+filter_stack.unavailable = फिल्टर संच संपादित करण्यासाठी अनलॉक केलेला पिक्सेल स्तर किंवा स्मार्ट ऑब्जेक्ट निवडा.
+filter_stack.render_failed = फिल्टर संच प्रस्तुत करता आला नाही. त्याचा स्रोत आणि जतन केलेल्या सेटिंग्ज बदललेल्या नाहीत.
+filter_stack.edit_history = फिल्टर संच संपादित करा
+filter_stack.bake_history = फिल्टर संचाचे प्रस्तुत रूप लागू करा
+filter_stack.updated = फिल्टर संच अद्यतनित केला
+filter_stack.missing = अनुपलब्ध फिल्टर: {id}

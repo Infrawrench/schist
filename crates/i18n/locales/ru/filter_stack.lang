@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Редактируемые стеки фильтров.
+filter_stack.title = Стек фильтров
+filter_stack.add = Добавить фильтр
+filter_stack.enable = Включить
+filter_stack.disable = Отключить
+filter_stack.up = Вверх
+filter_stack.down = Вниз
+filter_stack.remove = Удалить
+filter_stack.bake = Применить стек
+filter_stack.note = Эффекты применяются к сохранённому исходнику сверху вниз. Нажмите фильтр, чтобы изменить его. Рисование, перемещение, трансформирование или смена цветового режима применяет стек; команда «Отменить» восстанавливает его.
+filter_stack.eligibility = Здесь перечислены только автономные фильтры. Фильтры, которым нужны карта, контур, фон или внешнее диалоговое окно, нельзя сохранить в стеке.
+filter_stack.unavailable = Выберите разблокированный пиксельный слой или смарт-объект, чтобы изменить его стек фильтров.
+filter_stack.render_failed = Не удалось отрисовать стек фильтров. Его исходник и сохранённые параметры не изменились.
+filter_stack.edit_history = Изменение стека фильтров
+filter_stack.bake_history = Применение стека фильтров
+filter_stack.updated = Стек фильтров обновлён
+filter_stack.missing = Недоступный фильтр: {id}

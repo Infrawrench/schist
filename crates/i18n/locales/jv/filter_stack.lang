@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Tumpukan saringan sing bisa disunting.
+filter_stack.title = Tumpukan saringan
+filter_stack.add = Tambah saringan
+filter_stack.enable = Aktifaké
+filter_stack.disable = Patèni
+filter_stack.up = Munggah
+filter_stack.down = Mudhun
+filter_stack.remove = Copot
+filter_stack.bake = Tetepaké tumpukan
+filter_stack.note = Èfèk ditrapaké saka sumber sing dijaga, saka ndhuwur menyang ngisor. Klik saringan kanggo nyunting. Nglukis, mindhah, ngowahi wangun, utawa ngganti modhe werna bakal netepaké tampilan tumpukan lan mbusak resep sing bisa disunting; Batalaké bakal mulihaké.
+filter_stack.eligibility = Mung saringan mandhiri sing kacantum. Saringan sing mbutuhaké peta, path, latar mburi, utawa dialog njaba ora bisa disimpen ing tumpukan.
+filter_stack.unavailable = Pilih lapisan piksel utawa objèk pinter sing ora dikunci kanggo nyunting tumpukan saringané.
+filter_stack.render_failed = Tumpukan saringan ora bisa dirènder. Sumber lan setèlan sing disimpen ora owah.
+filter_stack.edit_history = Sunting tumpukan saringan
+filter_stack.bake_history = Tetepaké tumpukan saringan
+filter_stack.updated = Tumpukan saringan wis dianyari
+filter_stack.missing = Saringan ora kasedhiya: {id}

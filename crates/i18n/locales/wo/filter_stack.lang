@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Tëggukaayi segg yu ñuy soppi.
+filter_stack.title = Tëggukaayi segg
+filter_stack.add = Yokku seggukaay
+filter_stack.enable = Doxal
+filter_stack.disable = Taxawal
+filter_stack.up = Yéeg
+filter_stack.down = Wàcc
+filter_stack.remove = Dindi
+filter_stack.bake = Saxal melokaanu tëggukaay yi
+filter_stack.note = Jeexital yi dañuy dox ci cosaan bi ñu wottu, dale kaw ba suuf. Bësal seggukaay ngir soppi ko. Rëdd, yëngal, soppi walla soppi anamu melo dafay saxal melokaanu tëggukaay yi ci nataal bi; Neenal jëf dafay delloo ko.
+filter_stack.eligibility = Seggukaay yiy dox seen bopp rekk lañuy lim. Seggukaay bu soxla kàrt, yoon, nataalu gannaaw walla waxtaanukaay bu biti mënuñu ko denc ci tëggukaay yi.
+filter_stack.unavailable = Tànnal couche bu piksel bu tëjuwul walla smart object ngir soppi tëggukaayi seggukaayam.
+filter_stack.render_failed = Mënuñu tabax nataalu tëggukaayi segg yi. Cosaanam ak paraameetar yi ñu denc soppekuñu.
+filter_stack.edit_history = Soppi tëggukaayi segg
+filter_stack.bake_history = Saxal melokaanu tëggukaayi segg
+filter_stack.updated = Yeesal nañu tëggukaayi segg
+filter_stack.missing = Seggukaay bi jàppuwul: {id}

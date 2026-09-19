@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# تەھرىرلىگىلى بولىدىغان سۈزگۈچ دۆۋىلىرى.
+filter_stack.title = سۈزگۈچ دۆۋىسى
+filter_stack.add = سۈزگۈچ قوشۇش
+filter_stack.enable = قوزغىتىش
+filter_stack.disable = چەكلەش
+filter_stack.up = يۇقىرى
+filter_stack.down = تۆۋەن
+filter_stack.remove = چىقىرىۋېتىش
+filter_stack.bake = دۆۋىنى مۇقىملاشتۇرۇش
+filter_stack.note = ئۈنۈملەر ساقلاپ قېلىنغان مەنبەدىن باشلىنىپ، يۇقىرىدىن تۆۋەنگە ئىجرا بولىدۇ. تەھرىرلەش ئۈچۈن سۈزگۈچنى چېكىڭ. بوياش، يۆتكەش، ئۆزگەرتىش ياكى رەڭ ھالىتىنى ئالماشتۇرۇش دۆۋىنى مۇقىملاشتۇرىدۇ؛ يېنىۋېلىش ئۇنى ئەسلىگە كەلتۈرىدۇ.
+filter_stack.eligibility = پەقەت مۇستەقىل ئىشلىيەلەيدىغان سۈزگۈچلەر كۆرسىتىلىدۇ. خەرىتە، يول، ئارقا كۆرۈنۈش ياكى سىرتقى سۆزلىشىش كۆزنىكى تەلەپ قىلىدىغان سۈزگۈچلەرنى دۆۋىگە ساقلىغىلى بولمايدۇ.
+filter_stack.unavailable = سۈزگۈچ دۆۋىسىنى تەھرىرلەش ئۈچۈن قۇلۇپلانمىغان پېكسىل قەۋىتى ياكى ئەقلىي ئوبيېكتنى تاللاڭ.
+filter_stack.render_failed = سۈزگۈچ دۆۋىسىنى رەسىمگە ئايلاندۇرغىلى بولمىدى. ئۇنىڭ مەنبەسى ۋە ساقلانغان تەڭشەكلىرى ئۆزگەرمىدى.
+filter_stack.edit_history = سۈزگۈچ دۆۋىسىنى تەھرىرلەش
+filter_stack.bake_history = سۈزگۈچ دۆۋىسىنى مۇقىملاشتۇرۇش
+filter_stack.updated = سۈزگۈچ دۆۋىسى يېڭىلاندى
+filter_stack.missing = ئىشلەتكىلى بولمايدىغان سۈزگۈچ: {id}

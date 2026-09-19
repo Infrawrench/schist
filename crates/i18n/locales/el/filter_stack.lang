@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Localized catalog.
+filter_stack.title = Στοίβα φίλτρων
+filter_stack.add = Προσθήκη φίλτρου
+filter_stack.enable = Ενεργοποίηση
+filter_stack.disable = Απενεργοποίηση
+filter_stack.up = Πάνω
+filter_stack.down = Κάτω
+filter_stack.remove = Αφαίρεση
+filter_stack.bake = Οριστικοποίηση στοίβας
+filter_stack.note = Τα εφέ εκτελούνται από τη διατηρημένη πηγή, από πάνω προς τα κάτω. Κάντε κλικ σε ένα φίλτρο για επεξεργασία. Η ζωγραφική, η μετακίνηση, ο μετασχηματισμός ή η αλλαγή λειτουργίας χρώματος οριστικοποιεί τη στοίβα· η Αναίρεση την επαναφέρει.
+filter_stack.eligibility = Εμφανίζονται μόνο αυτοτελή φίλτρα. Τα φίλτρα που χρειάζονται χάρτη, διαδρομή, φόντο ή εξωτερικό παράθυρο διαλόγου δεν μπορούν να αποθηκευτούν σε στοίβα.
+filter_stack.unavailable = Επιλέξτε ένα ξεκλείδωτο επίπεδο pixel ή έξυπνο αντικείμενο για να επεξεργαστείτε τη στοίβα φίλτρων του.
+filter_stack.render_failed = Δεν ήταν δυνατή η απόδοση της στοίβας φίλτρων. Η πηγή και οι αποθηκευμένες ρυθμίσεις της δεν άλλαξαν.
+filter_stack.edit_history = Επεξεργασία στοίβας φίλτρων
+filter_stack.bake_history = Οριστικοποίηση στοίβας φίλτρων
+filter_stack.updated = Η στοίβα φίλτρων ενημερώθηκε
+filter_stack.missing = Μη διαθέσιμο φίλτρο: {id}

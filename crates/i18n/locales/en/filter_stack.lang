@@ -1,4 +1,4 @@
-# Editable filter stacks. English fallback pending translation review.
+# Editable filter stacks.
 filter_stack.title = Filter stack
 filter_stack.add = Add filter
 filter_stack.enable = Enable

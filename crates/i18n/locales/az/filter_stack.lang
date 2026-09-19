@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Redaktə edilə bilən filtr yığınları.
+filter_stack.title = Filtr yığını
+filter_stack.add = Filtr əlavə et
+filter_stack.enable = Aktivləşdir
+filter_stack.disable = Deaktivləşdir
+filter_stack.up = Yuxarı
+filter_stack.down = Aşağı
+filter_stack.remove = Sil
+filter_stack.bake = Yığını sabitlə
+filter_stack.note = Effektlər qorunan mənbədən yuxarıdan aşağıya icra olunur. Redaktə etmək üçün filtrə klikləyin. Boyama, daşıma, transformasiya və ya rəng rejiminin dəyişdirilməsi yığını sabitləyir; Geri al onu bərpa edir.
+filter_stack.eligibility = Yalnız müstəqil filtrlər göstərilir. Xəritə, kontur, fon və ya xarici dialoq tələb edən filtrlər yığında saxlanıla bilməz.
+filter_stack.unavailable = Filtr yığınını redaktə etmək üçün kilidi açıq piksel layı və ya ağıllı obyekt seçin.
+filter_stack.render_failed = Filtr yığınını render etmək mümkün olmadı. Onun mənbəyi və saxlanmış parametrləri dəyişməyib.
+filter_stack.edit_history = Filtr yığınını redaktə et
+filter_stack.bake_history = Filtr yığınını sabitlə
+filter_stack.updated = Filtr yığını yeniləndi
+filter_stack.missing = Əlçatan olmayan filtr: {id}

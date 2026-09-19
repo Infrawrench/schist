@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# સંપાદનયોગ્ય ફિલ્ટર સ્ટૅક.
+filter_stack.title = ફિલ્ટર સ્ટૅક
+filter_stack.add = ફિલ્ટર ઉમેરો
+filter_stack.enable = સક્ષમ કરો
+filter_stack.disable = અક્ષમ કરો
+filter_stack.up = ઉપર
+filter_stack.down = નીચે
+filter_stack.remove = દૂર કરો
+filter_stack.bake = સ્ટૅકને કાયમી બનાવો
+filter_stack.note = અસરો જાળવેલા સ્રોત પરથી ઉપરથી નીચે લાગુ થાય છે. સંપાદિત કરવા ફિલ્ટર પર ક્લિક કરો. પેઇન્ટ કરવું, ખસેડવું, રૂપાંતર કરવું અથવા રંગ મોડ બદલવો સ્ટૅકના દેખાવને કાયમી બનાવે છે; પૂર્વવત્ કરવાથી તે પુનઃસ્થાપિત થાય છે.
+filter_stack.eligibility = ફક્ત સ્વતંત્ર ફિલ્ટરો સૂચિમાં છે. નકશો, પાથ, પાર્શ્વભૂમિ અથવા બાહ્ય સંવાદની જરૂર હોય તેવા ફિલ્ટરો સ્ટૅકમાં સાચવી શકાતા નથી.
+filter_stack.unavailable = તેનો ફિલ્ટર સ્ટૅક સંપાદિત કરવા અનલૉક કરેલું પિક્સેલ સ્તર અથવા સ્માર્ટ ઑબ્જેક્ટ પસંદ કરો.
+filter_stack.render_failed = ફિલ્ટર સ્ટૅક રેન્ડર કરી શકાયો નહીં. તેનો સ્રોત અને સાચવેલી સેટિંગ્સ બદલાઈ નથી.
+filter_stack.edit_history = ફિલ્ટર સ્ટૅક સંપાદિત કરો
+filter_stack.bake_history = ફિલ્ટર સ્ટૅક કાયમી બનાવો
+filter_stack.updated = ફિલ્ટર સ્ટૅક અપડેટ થયો
+filter_stack.missing = અનુપલબ્ધ ફિલ્ટર: {id}

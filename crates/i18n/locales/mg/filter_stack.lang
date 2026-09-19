@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Antontan-tsivana azo ovaina.
+filter_stack.title = Antontan-tsivana
+filter_stack.add = Hanampy sivana
+filter_stack.enable = Alefaso
+filter_stack.disable = Atsaharo
+filter_stack.up = Miakatra
+filter_stack.down = Midina
+filter_stack.remove = Esory
+filter_stack.bake = Raiketo amin'ny sary ny antontan-tsivana
+filter_stack.note = Mihatra amin'ny loharano voatahiry ireo vokatra, hatrany ambony ka hatrany ambany. Tsindrio ny sivana iray hanovana azy. Ny fandokoana, famindrana, fanovàna endrika, na fanovana ny fomba loko dia mampiraikitra ny antontan-tsivana amin'ny sary; ny Fanafoanana no mamerina azy.
+filter_stack.eligibility = Sivana mahavita tena ihany no aseho. Tsy azo tehirizina anaty antontan-tsivana ny sivana mila sarintany, lalana, lafika, na boaty fifampiresahana ivelany.
+filter_stack.unavailable = Misafidiana sosona piksel tsy voahidy na zavatra marani-tsaina hanovana ny antontan-tsivanany.
+filter_stack.render_failed = Tsy afaka namoaka ny antontan-tsivana. Tsy niova ny loharanony sy ny fikirany voatahiry.
+filter_stack.edit_history = Ovao ny antontan-tsivana
+filter_stack.bake_history = Raiketo amin'ny sary ny antontan-tsivana
+filter_stack.updated = Nohavaozina ny antontan-tsivana
+filter_stack.missing = Sivana tsy misy: {id}

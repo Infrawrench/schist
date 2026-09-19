@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# సవరించగల ఫిల్టర్ స్టాక్‌లు.
+filter_stack.title = ఫిల్టర్ స్టాక్
+filter_stack.add = ఫిల్టర్‌ను జోడించు
+filter_stack.enable = ప్రారంభించు
+filter_stack.disable = నిలిపివేయి
+filter_stack.up = పైకి
+filter_stack.down = కిందికి
+filter_stack.remove = తీసివేయి
+filter_stack.bake = స్టాక్‌ను స్థిరపరచు
+filter_stack.note = భద్రపరచిన మూలం నుంచి పై నుండి కిందికి ప్రభావాలు అమలవుతాయి. సవరించడానికి ఫిల్టర్‌ను క్లిక్ చేయండి. పెయింట్ చేయడం, కదిలించడం, రూపాంతరం చేయడం లేదా రంగు మోడ్ మార్చడం స్టాక్‌ను స్థిరపరుస్తుంది; చర్యరద్దు దాన్ని పునరుద్ధరిస్తుంది.
+filter_stack.eligibility = స్వతంత్ర ఫిల్టర్లు మాత్రమే జాబితాలో ఉంటాయి. మ్యాప్, పాత్, నేపథ్యం లేదా బాహ్య డైలాగ్ అవసరమైన ఫిల్టర్లను స్టాక్‌లో సేవ్ చేయలేరు.
+filter_stack.unavailable = దాని ఫిల్టర్ స్టాక్‌ను సవరించడానికి అన్‌లాక్ చేసిన పిక్సెల్ లేయర్ లేదా స్మార్ట్ ఆబ్జెక్ట్‌ను ఎంచుకోండి.
+filter_stack.render_failed = ఫిల్టర్ స్టాక్‌ను రెండర్ చేయలేకపోయింది. దాని మూలం, సేవ్ చేసిన సెట్టింగ్‌లు మారలేదు.
+filter_stack.edit_history = ఫిల్టర్ స్టాక్‌ను సవరించు
+filter_stack.bake_history = ఫిల్టర్ స్టాక్‌ను స్థిరపరచు
+filter_stack.updated = ఫిల్టర్ స్టాక్ నవీకరించబడింది
+filter_stack.missing = అందుబాటులో లేని ఫిల్టర్: {id}

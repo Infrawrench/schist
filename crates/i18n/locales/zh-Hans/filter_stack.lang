@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# 可编辑的滤镜堆栈。
+filter_stack.title = 滤镜堆栈
+filter_stack.add = 添加滤镜
+filter_stack.enable = 启用
+filter_stack.disable = 停用
+filter_stack.up = 上移
+filter_stack.down = 下移
+filter_stack.remove = 移除
+filter_stack.bake = 固化堆栈效果
+filter_stack.note = 效果以保留的源图像为基础，从上到下依次运行。单击滤镜可进行编辑。绘画、移动、变换或更改颜色模式会固化堆栈的渲染外观并使其无法继续编辑；“还原”可恢复堆栈。
+filter_stack.eligibility = 此处仅列出可独立运行的滤镜。需要映射、路径、背景或外部对话框的滤镜无法存储到堆栈中。
+filter_stack.unavailable = 请选择未锁定的像素图层或智能对象以编辑其滤镜堆栈。
+filter_stack.render_failed = 无法渲染滤镜堆栈。其源图像和已存储设置均未更改。
+filter_stack.edit_history = 编辑滤镜堆栈
+filter_stack.bake_history = 固化滤镜堆栈效果
+filter_stack.updated = 滤镜堆栈已更新
+filter_stack.missing = 滤镜不可用：{id}

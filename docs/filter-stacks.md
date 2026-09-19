@@ -50,9 +50,9 @@ before allocation. Large filters currently use the same synchronous CPU fallback
 as ordinary native filters, including in the browser; expensive stacks can pause
 the UI while rendering. Source metadata is counted toward the undo memory limit.
 
-All strings use `schist-i18n`. The new `filter_stack.lang` catalog exists in
-every shipped locale with an explicitly marked English fallback pending
-translation review; no new locales were added.
+All strings use `schist-i18n`. The `filter_stack.lang` catalog includes translations
+for every shipped locale. Catalog validation checks keys, placeholders, locale
+aliases, and font coverage. No new locales were added.
 
 Run `make check-filter-stacks`, `make check-app`, and `make check-i18n` to validate
 native source fidelity, replay, ordering, enable/disable, undo/bake, PSD/PSB,

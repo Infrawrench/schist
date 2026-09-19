@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Izitaki zezihluzi ezihlelekayo.
+filter_stack.title = Isitaki sezihluzi
+filter_stack.add = Yongeza isihluzi
+filter_stack.enable = Vumela
+filter_stack.disable = Khubaza
+filter_stack.up = Phezulu
+filter_stack.down = Ezantsi
+filter_stack.remove = Susa
+filter_stack.bake = Qinisa isitaki
+filter_stack.note = Iziphumo zisebenza zisuka kumthombo ogciniweyo, ukusuka phezulu ukuya ezantsi. Cofa isihluzi ukuze usihlele. Ukupeyinta, ukuhambisa, ukuguqula okanye ukutshintsha imo yombala kuqinisa isitaki; Hlehlisa ukusibuyisela.
+filter_stack.eligibility = Kudweliswe izihluzi ezizimeleyo kuphela. Izihluzi ezifuna imephu, indlela, imvelaphi okanye ibhokisi yencoko yangaphandle azinakugcinwa kwisitaki.
+filter_stack.unavailable = Khetha umaleko weepikseli ongatshixwanga okanye into ekrelekrele ukuze uhlele isitaki sayo sezihluzi.
+filter_stack.render_failed = Isitaki sezihluzi asikwazanga kuveliswa. Umthombo waso nezicwangciso ezigciniweyo azitshintshanga.
+filter_stack.edit_history = Hlela isitaki sezihluzi
+filter_stack.bake_history = Qinisa isitaki sezihluzi
+filter_stack.updated = Isitaki sezihluzi sihlaziyiwe
+filter_stack.missing = Isihluzi esingafumanekiyo: {id}

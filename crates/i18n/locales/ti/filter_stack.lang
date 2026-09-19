@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# ክእረም ዝኽእል ድርድር ፊልተራት።
+filter_stack.title = ድርድር ፊልተራት
+filter_stack.add = ፊልተር ወስኽ
+filter_stack.enable = ኣኽእል
+filter_stack.disable = ኣሰናኽል
+filter_stack.up = ንላዕሊ
+filter_stack.down = ንታሕቲ
+filter_stack.remove = ኣውጽእ
+filter_stack.bake = ትርኢት ድርድር ቀዋሚ ግበር
+filter_stack.note = ጽልዋታት ካብቲ ዝተዓቀበ ምንጪ ጀሚሮም፣ ካብ ላዕሊ ንታሕቲ ይሰርሑ። ፊልተር ንምእራም ጠውቆ። ምቕባእ፣ ምንቅስቓስ፣ ምቕያር ቅርጺ ወይ ምቕያር ስርዓት ሕብሪ ንትርኢት እቲ ድርድር ቀዋሚ ይገብሮ፤ ምስራዝ ድማ ይመልሶ።
+filter_stack.eligibility = ባዕሎም ዝማልኡ ፊልተራት ጥራይ እዮም ዝዝርዘሩ። ካርታ፣ መንገዲ፣ ድሕረ-ባይታ ወይ ደጋዊ መወያየጢ ዝደልዩ ፊልተራት ኣብ ድርድር ክቕመጡ ኣይክእሉን።
+filter_stack.unavailable = ድርድር ፊልተራቱ ንምእራም፣ ዘይተዓጽወ ንጣፍ ፒክሰል ወይ ስማርት ኦብጀክት ምረጽ።
+filter_stack.render_failed = እቲ ድርድር ፊልተራት ክቐርብ ኣይከኣለን። ምንጩን ዝተቐመጡ ቅንብራቱን ኣይተቐየሩን።
+filter_stack.edit_history = ድርድር ፊልተራት ኣርም
+filter_stack.bake_history = ትርኢት ድርድር ፊልተራት ቀዋሚ ግበር
+filter_stack.updated = ድርድር ፊልተራት ተሓዲሱ
+filter_stack.missing = ዘይርከብ ፊልተር፦ {id}

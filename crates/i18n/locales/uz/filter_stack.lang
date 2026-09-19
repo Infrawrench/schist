@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Tarjima qilingan katalog.
+filter_stack.title = Filtrlar steki
+filter_stack.add = Filtr qo‘shish
+filter_stack.enable = Yoqish
+filter_stack.disable = O‘chirish
+filter_stack.up = Yuqoriga
+filter_stack.down = Pastga
+filter_stack.remove = Olib tashlash
+filter_stack.bake = Stek ko‘rinishini mustahkamlash
+filter_stack.note = Effektlar saqlangan manbadan yuqoridan pastga qo‘llanadi. Tahrirlash uchun filtrni bosing. Bo‘yash, ko‘chirish, o‘zgartirish yoki rang rejimini almashtirish stek ko‘rinishini mustahkamlaydi; Bekor qilish uni tiklaydi.
+filter_stack.eligibility = Faqat mustaqil filtrlar ko‘rsatiladi. Xarita, yo‘l, fon yoki tashqi dialog talab qiladigan filtrlarni stekda saqlab bo‘lmaydi.
+filter_stack.unavailable = Filtrlar stekini tahrirlash uchun qulflanmagan piksel qatlamini yoki aqlli obyektni tanlang.
+filter_stack.render_failed = Filtrlar stekini renderlab bo‘lmadi. Uning manbasi va saqlangan sozlamalari o‘zgarmadi.
+filter_stack.edit_history = Filtrlar stekini tahrirlash
+filter_stack.bake_history = Filtrlar steki ko‘rinishini mustahkamlash
+filter_stack.updated = Filtrlar steki yangilandi
+filter_stack.missing = Mavjud bo‘lmagan filtr: {id}

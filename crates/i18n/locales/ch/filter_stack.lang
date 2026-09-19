@@ -1,17 +1,17 @@
-# Editable filter stacks. English fallback pending translation review.
-filter_stack.title = Filter stack
-filter_stack.add = Add filter
-filter_stack.enable = Enable
-filter_stack.disable = Disable
-filter_stack.up = Up
-filter_stack.down = Down
-filter_stack.remove = Remove
-filter_stack.bake = Bake stack
-filter_stack.note = Effects run from the preserved source, top to bottom. Click a filter to edit. Painting, moving, transforming, or changing color mode bakes the stack; Undo restores it.
-filter_stack.eligibility = Only self-contained filters are listed. Filters needing a map, path, backdrop, or external dialog cannot be saved in a stack.
-filter_stack.unavailable = Select an unlocked pixel layer or smart object to edit its filter stack.
-filter_stack.render_failed = The filter stack could not be rendered. Its source and saved settings are unchanged.
-filter_stack.edit_history = Edit filter stack
-filter_stack.bake_history = Bake filter stack
-filter_stack.updated = Filter stack updated
-filter_stack.missing = Unavailable filter: {id}
+# Stack fitro ni siña ma'edita.
+filter_stack.title = Stack fitro
+filter_stack.add = Na'hålom fitro
+filter_stack.enable = Na' aktibu
+filter_stack.disable = Na' ti aktibu
+filter_stack.up = Hulo'
+filter_stack.down = Papa'
+filter_stack.remove = Na'suha
+filter_stack.bake = Na' permanente i stack
+filter_stack.note = I efektu siha manmamomokkat ginen i mapo'lo na source, ginen hulo' para papa'. Klik i fitro para un edita. I pintåyi, hinanao, transformasion, pat tinilaikan mode kulot ha na' permanente i stack; i Undo ha na' tåtte.
+filter_stack.eligibility = I fitro siha ni ti manisisita otro na kosas ha' malista. I fitro ni manisisita måpa, path, backdrop, pat dialog ginen sanhiyong ti siña masåtba gi stack.
+filter_stack.unavailable = Ayek un pixel layer pat smart object ni ti makandålu para un edita i stack fitro-ña.
+filter_stack.render_failed = Ti siña marender i stack fitro. Ti matulaika i source-ña yan i masåtba na settings.
+filter_stack.edit_history = Edita i stack fitro
+filter_stack.bake_history = Na' permanente i stack fitro
+filter_stack.updated = Ma-update i stack fitro
+filter_stack.missing = Ti guaha na fitro: {id}
