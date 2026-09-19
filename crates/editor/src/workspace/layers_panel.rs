@@ -39,6 +39,7 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         self.commit_layer_rename(cx);
+        self.commit_recording_transform(cx);
         let visible = self.visible_layer_ids();
         let anchor = self.layer_anchor;
         let Some(doc) = self.doc.as_mut() else {
@@ -211,6 +212,9 @@ impl Workspace {
                 doc.active_layer = Some(drag.layer);
             }
             self.layer_anchor = Some(drag.layer);
+        }
+        if !drag.active {
+            self.record_selected_action_layer();
         }
         cx.notify();
     }

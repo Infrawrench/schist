@@ -622,12 +622,14 @@ impl Workspace {
             }
             Target::Layer(id) => {
                 self.cloud_set_visible(false);
+                self.commit_recording_transform(cx);
                 if let Some(doc) = &mut self.doc {
                     if doc.tree.find(id).is_some() {
                         doc.active_layer = Some(id);
                         doc.selected = vec![id];
                     }
                 }
+                self.record_selected_action_layer();
             }
             #[cfg(not(target_arch = "wasm32"))]
             Target::Photo(path) => self.open_from_gallery(path, cx),

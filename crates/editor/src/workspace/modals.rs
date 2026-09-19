@@ -530,6 +530,22 @@ impl Workspace {
             return;
         }
         let buffer = self.field_buffer.clone();
+        if id == "recorded-action-layer" {
+            if let Some(Modal::RecordedActions {
+                step: Some(index), ..
+            }) = self.modal.as_ref()
+            {
+                if let Some(recorded_actions::Step::SelectLayer { name }) = self
+                    .action_recorder
+                    .draft
+                    .as_mut()
+                    .and_then(|a| a.steps.get_mut(*index))
+                {
+                    *name = buffer;
+                }
+            }
+            return;
+        }
         if id == "recorded-action-name" {
             if let Some(draft) = self.action_recorder.draft.as_mut() {
                 draft.name = buffer.clone();
@@ -835,16 +851,23 @@ impl Workspace {
             if !_allow_async {
                 tool.set_async_compute(false);
             }
+            let transform = tool.action_transform(doc, &self.editor);
+            let revision = doc.revision;
             let mut ctx = ToolCtx {
                 doc,
                 state: &mut self.editor,
             };
             #[cfg(target_arch = "wasm32")]
-            tool.set_async_compute(_allow_async);
+            tool.set_async_compute(_allow_async && !self.action_recorder.recording);
             tool.on_commit(&mut ctx);
+            let recorded_transform = transform.filter(|_| ctx.doc.revision != revision);
+
             #[cfg(target_arch = "wasm32")]
             if let Some(request) = tool.take_gpu_edit() {
                 self.queue_browser_edit(request, cx);
+            }
+            if let Some(params) = recorded_transform {
+                self.record_action_step(recorded_actions::Step::Transform { params });
             }
         }
         self.after_change(cx);

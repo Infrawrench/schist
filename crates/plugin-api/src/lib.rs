@@ -111,6 +111,35 @@ impl Default for EditorState {
     }
 }
 
+/// Portable transform values; translation is a fraction of the target canvas.
+/// No layer IDs, source bounds or pointer positions are retained.
+#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ActionTransform {
+    pub selection: bool,
+    pub scale_x: f32,
+    pub scale_y: f32,
+    pub rotation: f32,
+    pub offset_x: f32,
+    pub offset_y: f32,
+    /// 0 = nearest, 1 = bilinear, 2 = bicubic.
+    pub interpolation: u8,
+}
+
+impl ActionTransform {
+    pub fn valid(&self) -> bool {
+        [self.scale_x, self.scale_y]
+            .iter()
+            .all(|v| v.is_finite() && (0.001..=100.0).contains(&v.abs()))
+            && self.rotation.is_finite()
+            && self.rotation.abs() <= 3600.0
+            && [self.offset_x, self.offset_y]
+                .iter()
+                .all(|v| v.is_finite() && v.abs() <= 10.0)
+            && self.interpolation <= 2
+    }
+}
+
 /// Everything a tool may touch while handling input.
 pub struct ToolCtx<'a> {
     pub doc: &'a mut Document,
@@ -292,6 +321,10 @@ pub trait ToolPlugin: Send {
     /// The user switched to this tool. Modal tools (free transform, crop)
     /// start their session here.
     fn on_activate(&mut self, _ctx: &mut ToolCtx) {}
+    /// Semantic values for a pending transform. Hosts record only after commit.
+    fn action_transform(&self, _doc: &Document, _state: &EditorState) -> Option<ActionTransform> {
+        None
+    }
     /// Enter pressed: commit whatever the tool has pending.
     fn on_commit(&mut self, _ctx: &mut ToolCtx) {}
     /// Escape pressed while the tool is mid-gesture.

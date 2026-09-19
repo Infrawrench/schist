@@ -91,7 +91,11 @@ impl Workspace {
                 doc,
                 state: &mut self.editor,
             };
+            let active = ctx.doc.active_layer;
             tool.on_pointer_down(&mut ctx, input);
+            if tool_id == "move" && ctx.doc.active_layer != active {
+                self.record_selected_action_layer();
+            }
         }
         self.after_change(cx);
     }

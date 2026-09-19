@@ -418,11 +418,69 @@ impl TransformTool {
     }
 }
 
+/// Replay the same transform commit path used by the tool, around the target's
+/// own content/selection centre. Invalid/no-content requests never mutate it.
+pub fn replay_transform(doc: &mut Document, params: schist_plugin_api::ActionTransform) -> bool {
+    if !params.valid() {
+        return false;
+    }
+    let mut tool = TransformTool::new(if params.selection {
+        TransformMode::Selection
+    } else {
+        TransformMode::Layer
+    });
+    let mut state = EditorState::default();
+    state.resample = match params.interpolation {
+        0 => Filter::Nearest,
+        1 => Filter::Bilinear,
+        _ => Filter::Bicubic,
+    };
+    let mut ctx = ToolCtx {
+        doc,
+        state: &mut state,
+    };
+    tool.begin(&mut ctx);
+    let Some(session) = tool.session.as_mut() else {
+        return false;
+    };
+    session.scale = (params.scale_x, params.scale_y);
+    session.rotation = params.rotation.to_radians();
+    session.offset = (
+        params.offset_x * ctx.doc.width as f32,
+        params.offset_y * ctx.doc.height as f32,
+    );
+    session.dirty = true;
+    let revision = ctx.doc.revision;
+    tool.on_commit(&mut ctx);
+    ctx.doc.revision != revision
+}
+
 impl ToolPlugin for TransformTool {
     fn committed_layer_pixels(&self) -> Option<(LayerId, &TileMap)> {
         let session = self.session.as_ref()?;
         (session.mode == TransformMode::Layer && session.dirty)
             .then_some((session.layer, &session.original))
+    }
+
+    fn action_transform(
+        &self,
+        doc: &Document,
+        state: &EditorState,
+    ) -> Option<schist_plugin_api::ActionTransform> {
+        let s = self.session.as_ref().filter(|s| s.dirty)?;
+        Some(schist_plugin_api::ActionTransform {
+            selection: s.mode == TransformMode::Selection,
+            scale_x: s.scale.0,
+            scale_y: s.scale.1,
+            rotation: s.rotation.to_degrees(),
+            offset_x: s.offset.0 / doc.width.max(1) as f32,
+            offset_y: s.offset.1 / doc.height.max(1) as f32,
+            interpolation: match state.resample {
+                Filter::Nearest => 0,
+                Filter::Bilinear => 1,
+                Filter::Bicubic => 2,
+            },
+        })
     }
 
     fn set_async_compute(&mut self, enabled: bool) {
@@ -1677,6 +1735,60 @@ mod tests {
             Resample::Neural("waifu2x-photo")
         ));
         assert_eq!((doc.width, doc.height), (100, 100));
+    }
+
+    #[test]
+    fn action_transform_captures_commits_without_pointer_positions() {
+        let mut doc = doc_with_square();
+        let mut state = EditorState::default();
+        let mut tool = TransformTool::default();
+        let mut ctx = ToolCtx {
+            doc: &mut doc,
+            state: &mut state,
+        };
+        tool.on_activate(&mut ctx);
+        assert!(tool.action_transform(ctx.doc, ctx.state).is_none());
+        tool.on_pointer_down(&mut ctx, input(40.0, 40.0));
+        tool.on_pointer_move(&mut ctx, input(60.0, 40.0));
+        tool.on_pointer_up(&mut ctx, input(60.0, 40.0));
+        let params = tool.action_transform(ctx.doc, ctx.state).unwrap();
+        assert_eq!(params.offset_x, 20.0 / ctx.doc.width as f32);
+        assert_eq!(params.offset_y, 0.0);
+        assert_eq!(params.scale_x, 1.0);
+        tool.on_commit(&mut ctx);
+        assert!(tool.action_transform(ctx.doc, ctx.state).is_none());
+        let actual = ctx
+            .doc
+            .tree
+            .find(ctx.doc.active_layer.unwrap())
+            .unwrap()
+            .as_raster()
+            .unwrap()
+            .tiles
+            .clone();
+        let mut target = doc_with_square();
+        assert!(replay_transform(&mut target, params));
+        let expected = &target
+            .tree
+            .find(target.active_layer.unwrap())
+            .unwrap()
+            .as_raster()
+            .unwrap()
+            .tiles;
+        for y in 0..100 {
+            for x in 0..100 {
+                assert_eq!(actual.pixel(x, y), expected.pixel(x, y));
+            }
+        }
+        tool.on_activate(&mut ctx);
+        tool.on_pointer_down(&mut ctx, input(60.0, 40.0));
+        tool.on_pointer_move(&mut ctx, input(80.0, 40.0));
+        tool.on_cancel(&mut ctx);
+        assert!(tool.action_transform(ctx.doc, ctx.state).is_none());
+        let mut empty = Document::new("empty", 10, 10, schist_color::Depth::Eight);
+        assert!(!replay_transform(&mut empty, params));
+        target.tree.layers[0].locked = true;
+        assert!(!replay_transform(&mut target, params));
     }
 
     #[test]

@@ -52,6 +52,9 @@ impl Workspace {
     }
 
     pub fn run_command(&mut self, id: &str, cx: &mut Context<Self>) {
+        if recorded_actions::command_supported(id) {
+            self.commit_recording_transform(cx);
+        }
         #[cfg(target_arch = "wasm32")]
         if matches!(id, "edit.undo" | "edit.redo") {
             self.cancel_browser_edits();
@@ -142,16 +145,23 @@ impl Workspace {
                 self.side_tab = None;
             }
             if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(previous)) {
+                let transform = tool.action_transform(doc, &self.editor);
+                let revision = doc.revision;
                 let mut ctx = ToolCtx {
                     doc,
                     state: &mut self.editor,
                 };
                 #[cfg(target_arch = "wasm32")]
-                tool.set_async_compute(true);
+                tool.set_async_compute(!self.action_recorder.recording);
                 tool.on_deactivate(&mut ctx);
+                let recorded_transform = transform.filter(|_| ctx.doc.revision != revision);
+
                 #[cfg(target_arch = "wasm32")]
                 if let Some(request) = tool.take_gpu_edit() {
                     self.queue_browser_edit(request, cx);
+                }
+                if let Some(params) = recorded_transform {
+                    self.record_action_step(recorded_actions::Step::Transform { params });
                 }
             }
         }

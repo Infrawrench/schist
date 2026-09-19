@@ -107,4 +107,5 @@ web-sys = { version = "0.3", features = [
 ] }
 
 [dev-dependencies]
+schist-filters-core.workspace = true
 tempfile = "3"

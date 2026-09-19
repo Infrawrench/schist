@@ -14,11 +14,17 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         self.commit_layer_rename(cx);
+        if matches!(target, ContextTarget::Layer(_)) {
+            self.commit_recording_transform(cx);
+        }
         // Right-clicking a layer selects it first, like Photoshop. If the
         // row is already in the multi-selection, the selection is kept
         // (`selected_layers` sees the active layer still inside it).
         if let (ContextTarget::Layer(id), Some(doc)) = (target, self.doc.as_mut()) {
             doc.active_layer = Some(id);
+        }
+        if matches!(target, ContextTarget::Layer(_)) {
+            self.record_selected_action_layer();
         }
         self.context_menu = Some(ContextMenu { position, target });
         self.open_popup = None;

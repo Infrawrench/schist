@@ -6,6 +6,7 @@ use schist_i18n::tf;
 impl Workspace {
     /// Open a filter's parameter dialog, pre-filled with its defaults.
     pub fn open_filter_dialog(&mut self, id: &'static str, cx: &mut Context<Self>) {
+        self.commit_recording_transform(cx);
         let Some(filter) = self.registry.filters().find(|f| f.id() == id) else {
             return;
         };
@@ -39,6 +40,7 @@ impl Workspace {
 
     /// Insert an adjustment layer above the active layer.
     pub fn add_adjustment(&mut self, kind: schist_core::AdjustmentKind, cx: &mut Context<Self>) {
+        self.commit_recording_transform(cx);
         let params = schist_adjustments::Params::default_for(kind);
         let Some(doc) = self.doc.as_mut() else { return };
         let mut layer = Layer::new_raster(crate::ui::adjustment_name(kind));

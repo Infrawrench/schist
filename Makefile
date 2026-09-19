@@ -560,3 +560,10 @@ test-smart-object-model:
 	$(CARGO) test -p schist-document --test smart_sources
 test-smart-objects: test-smart-object-model
 	$(CARGO) test -p schist-editor smart_objects::tests
+
+.PHONY: check-extended-actions format-extended-actions
+check-extended-actions: check-recordable-actions
+	$(CARGO) test -p schist-tools-transform action_transform
+	$(CARGO) test -p schist-plugin-api filter_stack
+format-extended-actions:
+	$(CARGO) fmt -p schist-editor -p schist-plugin-api -p schist-tools-transform

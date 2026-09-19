@@ -21,11 +21,13 @@ pub(super) fn actions_dialog(
         .max_h(px(480.0))
         .overflow_y_scroll()
         .child(div().text_size(px(11.0)).child(t("actions.supported_help")))
-        .child(
-            div()
-                .text_size(px(11.0))
-                .child(t("actions.unsupported_help")),
-        );
+        .child(div().text_size(px(11.0)).child(format!(
+            "{} · {} · {} · {}",
+            t("common.select"),
+            t("tool.transform.name"),
+            t("workspace.filters.raw_history"),
+            t("filter_stack.title")
+        )));
     if ws.action_recorder.recording {
         body = body
             .child(div().child(t("actions.recording")))
@@ -145,6 +147,7 @@ pub(super) fn actions_dialog(
                     options,
                 },
                 |ws, index, _| {
+                    ws.commit_focused_field();
                     ws.update_modal(|m| {
                         if let Modal::RecordedActions { step, .. } = m {
                             *step = index;
@@ -162,6 +165,7 @@ pub(super) fn actions_dialog(
                     t("actions.move_up"),
                     false,
                     move |ws, _, cx| {
+                        ws.commit_focused_field();
                         if let Some(a) = ws.action_recorder.draft.as_mut() {
                             a.steps.swap(index, index - 1);
                         }
@@ -180,6 +184,7 @@ pub(super) fn actions_dialog(
                     t("actions.move_down"),
                     false,
                     move |ws, _, cx| {
+                        ws.commit_focused_field();
                         if let Some(a) = ws.action_recorder.draft.as_mut() {
                             a.steps.swap(index, index + 1);
                         }
@@ -197,6 +202,7 @@ pub(super) fn actions_dialog(
                 t("common.remove"),
                 false,
                 move |ws, _, cx| {
+                    ws.commit_focused_field();
                     if let Some(a) = ws.action_recorder.draft.as_mut() {
                         if index < a.steps.len() {
                             a.steps.remove(index);
@@ -212,7 +218,44 @@ pub(super) fn actions_dialog(
                 cx,
             )));
             match selected_step {
-                Step::Filter { id, values } => {
+                _ if selected_step.filter_parameters().is_some() => {
+                    if let Step::Stack {
+                        change:
+                            crate::workspace::recorded_actions::StackOperation::Set {
+                                index: position,
+                                ..
+                            },
+                    } = selected_step
+                    {
+                        body = body.child(param_slider(
+                            SliderSpec {
+                                id: "action-effect-index",
+                                label: t("common.position"),
+                                value: (*position + 1) as f32,
+                                min: 1.0,
+                                max: schist_core::filter_stack::MAX_EFFECTS as f32,
+                                ..Default::default()
+                            },
+                            move |ws, value, _| {
+                                if let Some(Step::Stack {
+                                    change:
+                                        crate::workspace::recorded_actions::StackOperation::Set {
+                                            index: position,
+                                            ..
+                                        },
+                                }) = ws
+                                    .action_recorder
+                                    .draft
+                                    .as_mut()
+                                    .and_then(|a| a.steps.get_mut(index))
+                                {
+                                    *position = value.round() as usize - 1;
+                                }
+                            },
+                            cx,
+                        ));
+                    }
+                    let (id, values) = selected_step.filter_parameters().unwrap();
                     let specs = ws
                         .registry
                         .filters()
@@ -232,14 +275,242 @@ pub(super) fn actions_dialog(
                                 ..Default::default()
                             },
                             move |ws, value, _| {
-                                if let Some(Step::Filter { values, .. }) = ws
+                                if let Some(values) = ws
+                                    .action_recorder
+                                    .draft
+                                    .as_mut()
+                                    .and_then(|a| a.steps.get_mut(index))
+                                    .and_then(Step::filter_parameters_mut)
+                                {
+                                    values.insert(key.into(), value);
+                                }
+                            },
+                            cx,
+                        ));
+                    }
+                }
+                Step::SelectLayer { name } => {
+                    let focused = state.focused_field == Some("recorded-action-layer");
+                    let shown = if focused {
+                        state.field_buffer.clone()
+                    } else {
+                        name.clone()
+                    };
+                    let original = name.clone();
+                    body = body.child(ui::field_row(
+                        t("menu.layer"),
+                        TextInput::new("recorded-action-layer", shown.clone())
+                            .cursor(if focused {
+                                state.field_cursor.min(shown.len())
+                            } else {
+                                shown.len()
+                            })
+                            .selection(state.field_selection.clone())
+                            .active(focused)
+                            .caret_on(state.caret_on)
+                            .w(px(300.0))
+                            .on_focus(cx.listener(move |ws, press: &ui::TextPress, _, cx| {
+                                ws.press_field("recorded-action-layer", original.clone(), press);
+                                cx.notify();
+                            }))
+                            .on_select_to(cx.listener(|ws, offset: &usize, _, cx| {
+                                ws.drag_field("recorded-action-layer", *offset);
+                                cx.notify();
+                            })),
+                    ));
+                }
+                Step::Transform { params } => {
+                    for (key, label, value, min, max, suffix) in [
+                        (
+                            "action-scale-x",
+                            t("filter.param.horizontal_scale"),
+                            params.scale_x * 100.0,
+                            -10000.0,
+                            10000.0,
+                            "%",
+                        ),
+                        (
+                            "action-scale-y",
+                            t("filter.param.vertical_scale"),
+                            params.scale_y * 100.0,
+                            -10000.0,
+                            10000.0,
+                            "%",
+                        ),
+                        (
+                            "action-rotation",
+                            t("common.angle"),
+                            params.rotation,
+                            -3600.0,
+                            3600.0,
+                            "°",
+                        ),
+                        (
+                            "action-offset-x",
+                            t("common.x"),
+                            params.offset_x * 100.0,
+                            -1000.0,
+                            1000.0,
+                            "%",
+                        ),
+                        (
+                            "action-offset-y",
+                            t("common.y"),
+                            params.offset_y * 100.0,
+                            -1000.0,
+                            1000.0,
+                            "%",
+                        ),
+                    ] {
+                        body = body.child(param_slider(
+                            SliderSpec {
+                                id: key,
+                                label,
+                                value,
+                                min,
+                                max,
+                                suffix,
+                                ..Default::default()
+                            },
+                            move |ws, value, _| {
+                                if let Some(Step::Transform { params }) = ws
                                     .action_recorder
                                     .draft
                                     .as_mut()
                                     .and_then(|a| a.steps.get_mut(index))
                                 {
-                                    values.insert(key.into(), value);
+                                    match key {
+                                        "action-scale-x" => params.scale_x = value / 100.0,
+                                        "action-scale-y" => params.scale_y = value / 100.0,
+                                        "action-rotation" => params.rotation = value,
+                                        "action-offset-x" => params.offset_x = value / 100.0,
+                                        "action-offset-y" => params.offset_y = value / 100.0,
+                                        _ => unreachable!(),
+                                    }
                                 }
+                            },
+                            cx,
+                        ));
+                    }
+                    let interpolation = params.interpolation;
+                    let filters = [
+                        schist_core::Filter::Nearest,
+                        schist_core::Filter::Bilinear,
+                        schist_core::Filter::Bicubic,
+                    ];
+                    body = body.child(ui::field_row(
+                        t("tool.transform.option.interpolation"),
+                        ui::dropdown(
+                            &ws.dropdown,
+                            ui::Dropdown {
+                                popup: Popup::Field("recorded-action-interpolation"),
+                                is_open: state.open_popup
+                                    == Some(Popup::Field("recorded-action-interpolation")),
+                                current: Some(interpolation),
+                                label: schist_tools_transform::filter_name(
+                                    filters[usize::from(interpolation.min(2))],
+                                )
+                                .into(),
+                                width: 180.0,
+                                options: filters
+                                    .into_iter()
+                                    .enumerate()
+                                    .map(|(i, f)| {
+                                        (
+                                            schist_tools_transform::filter_name(f).into(),
+                                            Some(i as u8),
+                                        )
+                                    })
+                                    .collect(),
+                            },
+                            move |ws, value, _| {
+                                if let (Some(value), Some(Step::Transform { params })) = (
+                                    value,
+                                    ws.action_recorder
+                                        .draft
+                                        .as_mut()
+                                        .and_then(|a| a.steps.get_mut(index)),
+                                ) {
+                                    params.interpolation = value;
+                                }
+                            },
+                            cx,
+                        ),
+                    ));
+                }
+                Step::Stack { change } => {
+                    use crate::workspace::recorded_actions::StackOperation;
+                    let (position, to) = match change {
+                        StackOperation::Remove { index, .. }
+                        | StackOperation::Enable { index, .. } => (Some(*index), None),
+                        StackOperation::Move { index, to, .. } => (Some(*index), Some(*to)),
+                        _ => (None, None),
+                    };
+                    for (key, value) in
+                        [("action-effect-index", position), ("action-effect-to", to)]
+                    {
+                        if let Some(value) = value {
+                            body = body.child(param_slider(
+                                SliderSpec {
+                                    id: key,
+                                    label: if key == "action-effect-index" {
+                                        t("filter_stack.title")
+                                    } else {
+                                        t("common.position")
+                                    },
+                                    value: (value + 1) as f32,
+                                    min: 1.0,
+                                    max: schist_core::filter_stack::MAX_EFFECTS as f32,
+                                    ..Default::default()
+                                },
+                                move |ws, value, _| {
+                                    if let Some(Step::Stack { change }) = ws
+                                        .action_recorder
+                                        .draft
+                                        .as_mut()
+                                        .and_then(|a| a.steps.get_mut(index))
+                                    {
+                                        let value = value.round() as usize - 1;
+                                        match change {
+                                            StackOperation::Remove { index, .. }
+                                            | StackOperation::Enable { index, .. } => {
+                                                *index = value
+                                            }
+                                            StackOperation::Move { index, to, .. } => {
+                                                if key == "action-effect-index" {
+                                                    *index = value
+                                                } else {
+                                                    *to = value
+                                                }
+                                            }
+                                            _ => {}
+                                        }
+                                    }
+                                },
+                                cx,
+                            ));
+                        }
+                    }
+                    if let StackOperation::Enable { enabled, .. } = change {
+                        body = body.child(ui::button(
+                            t(if *enabled {
+                                "filter_stack.disable"
+                            } else {
+                                "filter_stack.enable"
+                            }),
+                            false,
+                            move |ws, _, cx| {
+                                if let Some(Step::Stack {
+                                    change: StackOperation::Enable { enabled, .. },
+                                }) = ws
+                                    .action_recorder
+                                    .draft
+                                    .as_mut()
+                                    .and_then(|a| a.steps.get_mut(index))
+                                {
+                                    *enabled = !*enabled;
+                                }
+                                cx.notify();
                             },
                             cx,
                         ));
