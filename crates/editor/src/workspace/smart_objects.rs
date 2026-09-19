@@ -85,12 +85,21 @@ fn source_pixels(
             .transpose()?
             .unwrap_or_else(schist_colormgmt::Profile::srgb)
     };
-    schist_colormgmt::ColorTransform::new(
-        &source_profile,
-        &target_profile,
-        schist_colormgmt::Intent::Perceptual,
-    )?
-    .apply(&mut floats);
+    // Even an equal-profile CMS transform evaluates transfer curves and clips
+    // extended-range samples. Identical working profiles require no conversion:
+    // retain the compositor's exact floating-point source values instead.
+    let same_profile = source_profile
+        .icc_bytes()
+        .zip(target_profile.icc_bytes())
+        .is_some_and(|(source, target)| source == target);
+    if !same_profile {
+        schist_colormgmt::ColorTransform::new(
+            &source_profile,
+            &target_profile,
+            schist_colormgmt::Intent::Perceptual,
+        )?
+        .apply(&mut floats);
+    }
     let mut source = TileMap::new_in_mode(target.mode);
     let region = IntRect::from_xywh(origin[0], origin[1], doc.width, doc.height);
     if matches!(target.mode, ColorMode::Cmyk | ColorMode::Lab) {
@@ -836,7 +845,7 @@ mod tests {
             "red"
         }
         fn apply(&self, pixels: &mut [f32], _: usize, _: usize, _: &FilterValues) {
-            for p in pixels.chunks_exact_mut(4) {
+            for p in pixels.as_chunks_mut::<4>().0 {
                 if p[3] > 0.0 {
                     p[0] = 1.0;
                 }
@@ -1184,6 +1193,25 @@ mod tests {
             assert_eq!(native.mode(), mode);
             assert_eq!(native.native_pixel(0, 0).mode, mode);
             assert!((native.pixel(0, 0).r - 0.712345).abs() < 0.01);
+        }
+    }
+
+    #[test]
+    fn matching_rgb_profiles_preserve_hdr_and_exact_float_samples() {
+        let color = Rgba::new(1.25, -0.2, 0.712345, 1.0);
+        for icc in [
+            None,
+            schist_colormgmt::Profile::display_p3()
+                .icc_bytes()
+                .map(<[u8]>::to_vec),
+        ] {
+            let mut child = Document::new("HDR source", 1, 1, Depth::ThirtyTwo);
+            child.icc_profile = icc;
+            let mut layer = Layer::new_raster("source");
+            layer.as_raster_mut().unwrap().tiles = pixels(color);
+            child.push_layer(layer);
+            let restored = source_pixels(&child, &SourceColor::from(&child), [-3, -5]).unwrap();
+            assert_eq!(restored.pixel(-3, -5), color);
         }
     }
 

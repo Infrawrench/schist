@@ -35,7 +35,6 @@ use std::sync::Arc;
 use viewport_frame::ViewportKey;
 
 mod adjustments;
-mod smart_objects;
 #[cfg(not(sandboxed))]
 mod ai;
 #[cfg(sandboxed)]
@@ -46,6 +45,7 @@ mod camera_import;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod camera_sync;
 pub(crate) mod recorded_actions;
+mod smart_objects;
 #[cfg(target_os = "android")]
 pub(crate) use schist_camera_sync::android as camera_sync_android;
 #[cfg(target_os = "ios")]
