@@ -6526,7 +6526,9 @@ dependencies = [
  "schist-color",
  "schist-compositor",
  "schist-core",
+ "schist-i18n",
  "schist-psd-descriptor",
+ "schist-text-engine",
  "serde_json",
  "thiserror 2.0.20",
 ]

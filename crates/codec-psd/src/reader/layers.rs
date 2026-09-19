@@ -690,7 +690,7 @@ fn make_layer(
     // `raw.source`; retaining the encoded block too would double memory for
     // every reopened capture. Keep malformed or newer blocks verbatim so
     // an unedited file still round-trips data this version cannot read.
-    let extras = if raw.is_some() {
+    let mut extras = if raw.is_some() {
         rec.extras
             .into_iter()
             .filter(|block| block.key != crate::raw::RAW_BLOCK_KEY)
@@ -698,6 +698,7 @@ fn make_layer(
     } else {
         rec.extras
     };
+    crate::text::import_type(&mut extras);
 
     Layer {
         id: LayerId::next(),
