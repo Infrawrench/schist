@@ -115,6 +115,29 @@ fn committed_snapshot(doc: &Document, original: &Layer) -> Document {
 }
 
 impl Workspace {
+    pub(super) fn stack_filter_canvas_space(
+        &self,
+    ) -> Option<(IntRect, schist_core::resample::Affine)> {
+        let session = self.stack_filter_session.as_ref()?;
+        Some((
+            session.stack.region,
+            session
+                .original
+                .smart
+                .as_ref()
+                .map(|smart| smart.transform)
+                .unwrap_or_else(|| {
+                    session
+                        .stack
+                        .placement
+                        .as_ref()
+                        .map_or(schist_core::resample::Affine::IDENTITY, |placement| {
+                            placement.matrix
+                        })
+                }),
+        ))
+    }
+
     /// A tab switch can arrive from a keyboard shortcut while the dialog is up.
     pub(super) fn discard_stack_filter_for_document_change(&mut self) {
         if let Some(session) = self.stack_filter_session.take() {

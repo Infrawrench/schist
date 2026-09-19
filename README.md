@@ -247,9 +247,11 @@ match against the layer below. Everything a filter needs beyond its own
 pixels is gathered by the host and handed over, which is what
 `FilterPlugin::wants_map`, `wants_path` and `wants_backdrop` are for.
 
-What is left is ergonomic rather than functional: Photoshop puts blur
-pins, light gizmos and flame paths on the canvas, and here they are
-position sliders and the path you already drew.
+Blur and lighting filters have [draggable canvas controls](docs/filter-canvas.md):
+move centers, adjust iris/spin boundaries and feathers, place Field Blur and
+Tilt-Shift bands, and position lights or aim directional light. The numeric
+controls stay in sync, preview updates live, and Cancel restores the original.
+Flame follows the path you already drew.
 
 **Warping.** Liquify with all seven brushes, Puppet Warp (Moving Least
 Squares, so pins hold and nothing shears), Content-Aware Scale (seam

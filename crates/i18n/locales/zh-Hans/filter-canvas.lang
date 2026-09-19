@@ -1,0 +1,2 @@
+# Canvas filter control hint.
+dialog.filter.canvas_controls = 拖动画布上的控制点来调整滤镜。方向键移动选中的控制点；按住 Shift 可移动十个像素。

@@ -1,0 +1,2 @@
+# Canvas filter control hint.
+dialog.filter.canvas_controls = Faites glisser les poignées sur le canevas pour régler le filtre. Les flèches déplacent la poignée sélectionnée ; avec Maj, le déplacement est de dix pixels.

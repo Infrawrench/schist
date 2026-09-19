@@ -1,0 +1,2 @@
+# Canvas filter control hint.
+dialog.filter.canvas_controls = Arrastra los controles del lienzo para ajustar el filtro. Las flechas mueven el control seleccionado; con Mayús se mueve diez píxeles.

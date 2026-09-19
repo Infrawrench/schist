@@ -1,0 +1,2 @@
+# Canvas filter control hint.
+dialog.filter.canvas_controls = 캔버스의 핸들을 드래그하여 필터를 조정합니다. 방향키로 선택한 핸들을 이동하며, Shift 키를 누르면 10픽셀씩 이동합니다.

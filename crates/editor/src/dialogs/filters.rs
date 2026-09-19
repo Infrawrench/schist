@@ -14,6 +14,7 @@ pub(super) fn filter_dialog(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let raw_development = ws.is_raw_redevelopment(id);
+    let canvas_controls = ws.has_filter_canvas_controls();
     let (mut name, specs) = ws
         .registry
         .filters()
@@ -191,6 +192,13 @@ pub(super) fn filter_dialog(
                 }),
         );
 
+    if canvas_controls {
+        body = body.child(
+            div()
+                .text_size(px(11.0))
+                .child(t("dialog.filter.canvas_controls")),
+        );
+    }
     let apply_values = values.clone();
     let actions = div()
         .flex()
@@ -224,7 +232,24 @@ pub(super) fn filter_dialog(
             },
             cx,
         ));
-    ui::preview_modal_frame(name, 360.0, body, actions)
+    schist_ui::Modal::new(name)
+        .width(360.0)
+        .dim_background(false)
+        .canvas_controls(canvas_controls)
+        .backdrop(
+            div()
+                .on_mouse_down(
+                    gpui::MouseButton::Left,
+                    cx.listener(|ws, ev, window, cx| {
+                        ws.filter_canvas_down(ev, window, cx);
+                    }),
+                )
+                .on_scroll_wheel(cx.listener(|ws, ev, window, cx| {
+                    ws.filter_canvas_scroll(ev, window, cx);
+                })),
+        )
+        .child(body)
+        .action(actions)
 }
 
 /// Image ▸ Adjustments: the same sliders as the adjustment layers, but

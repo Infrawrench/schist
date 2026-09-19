@@ -589,3 +589,12 @@ lint-text-directions:
 .PHONY: check-text-direction-editor
 check-text-direction-editor:
 	$(CARGO) check -p schist-editor --all-targets
+# Parameter-backed canvas filter handles and their editor integration.
+.PHONY: check-filter-canvas check-filter-canvas-model format-filter-canvas
+check-filter-canvas: check-filter-canvas-model
+	$(CARGO) test -p schist-editor --lib filter_canvas
+check-filter-canvas-model:
+	$(CARGO) test -p schist-plugin-api filter_canvas
+	$(CARGO) test -p schist-filters-core --test canvas_controls
+format-filter-canvas:
+	$(CARGO) fmt -p schist-plugin-api -p schist-filters-core -p schist-editor -p schist-ui

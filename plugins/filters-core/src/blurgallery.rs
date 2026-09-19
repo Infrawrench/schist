@@ -7,10 +7,9 @@
 //! ellipse sharp, Tilt-Shift keeps a band sharp, and Spin and Path blur
 //! along a direction rather than in a circle.
 //!
-//! In Photoshop you place their pins on the canvas. A filter here is
-//! handed pixels and numbers, so the pin is a pair of position sliders --
-//! which is also how these filters worked in every program that had them
-//! before the canvas UI arrived.
+//! Canvas controls expose the same position, boundary and direction
+//! parameters as the numeric sliders; their metadata is in `canvas_controls`.
+//! The filter itself remains independent of the host UI.
 //!
 //! The graded blur underneath them is three fixed levels, blended. A
 //! true per-pixel radius costs the largest radius everywhere and these

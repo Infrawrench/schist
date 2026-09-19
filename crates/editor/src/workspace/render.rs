@@ -322,6 +322,7 @@ impl Workspace {
                 }
             }
         }
+        self.paint_filter_canvas(&mut job, &to_screen);
         job
     }
 
@@ -354,6 +355,7 @@ impl Workspace {
 
     pub fn render_canvas(&mut self, cx: &mut Context<Self>) -> impl IntoElement {
         let entity = cx.entity();
+        let capture = entity.clone();
         div()
             .id("canvas")
             .flex_grow()
@@ -406,6 +408,10 @@ impl Workspace {
                 // the key fell through to `tool_key` whenever no field
                 // was focused, so opening a dialog on top of a text
                 // session typed into the layer behind it.
+                if ws.filter_canvas_key(ev, cx) {
+                    cx.stop_propagation();
+                    return;
+                }
                 if ws.modal.is_some() {
                     match ev.keystroke.key.as_str() {
                         // Enter is the dialog's primary button, which is
@@ -471,7 +477,8 @@ impl Workspace {
                             job
                         })
                     },
-                    move |_bounds, job: PaintJob, window, _cx| {
+                    move |_bounds, job: PaintJob, window, cx| {
+                        capture.update(cx, |ws, cx| ws.capture_filter_canvas(window, cx));
                         if let Some((bounds, color)) = job.backdrop {
                             window.paint_quad(gpui::fill(bounds, color));
                         }

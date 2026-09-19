@@ -1,0 +1,2 @@
+# Canvas filter control hint.
+dialog.filter.canvas_controls = キャンバス上のハンドルをドラッグしてフィルターを調整します。矢印キーで選択したハンドルを移動し、Shift キーを押すと 10 ピクセルずつ移動します。
