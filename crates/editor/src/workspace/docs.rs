@@ -682,6 +682,15 @@ impl Workspace {
 
     /// Serialize the document to `path`, choosing the codec by extension.
     pub fn save_file_as(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        if self
+            .doc
+            .as_ref()
+            .is_some_and(|doc| self.smart_edit_sessions.contains_key(&doc.id))
+        {
+            self.commit_focused_field();
+            self.commit_pending_transform(cx);
+            self.commit_gesture_with_async(false, cx);
+        }
         // A save landing on a gallery sidecar keeps the previous state as
         // a version first — that is the gallery's automatic versioning.
         #[cfg(not(target_arch = "wasm32"))]

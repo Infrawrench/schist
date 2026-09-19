@@ -457,6 +457,7 @@ impl Workspace {
             return;
         }
         self.discard_stack_filter_for_document_change();
+        self.commit_pending_transform(cx);
         let Some(doc) = self.doc.as_ref() else { return };
         let destination = (doc.id, doc.revision);
         let previous = if replace {
@@ -508,6 +509,11 @@ impl Workspace {
         previous: Option<(LayerId, SmartSource)>,
         cx: &mut Context<Self>,
     ) {
+        // The picker is asynchronous too: its target may have acquired a fresh
+        // transform snapshot while the dialog was open.
+        if self.doc.as_ref().is_some_and(|doc| doc.id == destination.0) {
+            self.commit_pending_transform(cx);
+        }
         if !self
             .doc
             .as_ref()
@@ -558,6 +564,13 @@ impl Workspace {
                 })
                 .await;
             this.update(cx, |ws, cx| {
+                // A new transform can begin while decoding. Commit it before
+                // checking the revision: dirty gestures make this load stale,
+                // clean activation snapshots are simply retired. A failed load
+                // or a different active tab must not commit unrelated work.
+                if result.is_ok() && ws.doc.as_ref().is_some_and(|doc| doc.id == destination.0) {
+                    ws.commit_pending_transform(cx);
+                }
                 let result = result.and_then(|(source, pixels, region, title, previous)| {
                     let doc = ws.doc.as_mut().context(t("common.no_document"))?;
                     ensure!(
@@ -614,6 +627,8 @@ impl Workspace {
             self.smart_failure(t("smart.error.browser_link"), cx);
             return;
         }
+        self.discard_stack_filter_for_document_change();
+        self.commit_pending_transform(cx);
         match self.active_smart_source().and_then(|(id, source)| {
             let path = source
                 .identity
@@ -632,6 +647,7 @@ impl Workspace {
 
     pub fn edit_smart_contents(&mut self, cx: &mut Context<Self>) {
         self.discard_stack_filter_for_document_change();
+        self.commit_pending_transform(cx);
         let result: anyhow::Result<()> = (|| {
             let (layer, original) = self.active_smart_source()?;
             ensure!(
@@ -717,7 +733,12 @@ impl Workspace {
         let Some(session) = self.smart_edit_sessions.get(&child_id).cloned() else {
             return false;
         };
+        self.commit_focused_field();
         self.discard_stack_filter_for_document_change();
+        // Contents are a complete editable document: text edits as well as
+        // transforms must commit before embedding or writing the linked file.
+        self.commit_pending_transform(cx);
+        self.commit_gesture_with_async(false, cx);
         let result: anyhow::Result<()> = (|| {
             let child = self.doc.as_ref().unwrap();
             let mut replacement = encode_source(child, session.original.identity.clone())?;
@@ -897,6 +918,134 @@ mod tests {
         assert_eq!(
             doc.tree.layers[0].as_raster().unwrap().tiles.pixel(2, 0),
             Rgba::WHITE
+        );
+    }
+
+    #[test]
+    fn source_update_after_transform_finish_survives_escape_and_a_later_drag() {
+        use schist_plugin_api::ToolPlugin as _;
+        let (mut doc, selected, registry) = setup();
+        let mut state = EditorState::default();
+        let mut tool = schist_tools_transform::TransformTool::default();
+        let original = metadata();
+        let mut replacement = original.clone();
+        replacement.document.push(1);
+        // A clean activation holds an old-pixel snapshot even without a drag.
+        // Finish it at the source-command boundary, as commit_pending_transform
+        // does. Repeat the boundary to model a new activation during file I/O.
+        for _ in 0..2 {
+            tool.on_activate(&mut ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            });
+            tool.set_async_compute(false);
+            tool.on_commit(&mut ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            });
+        }
+        let layers = replacement_layers(
+            &registry,
+            &doc,
+            selected,
+            &original,
+            &replacement,
+            &pixels(Rgba::WHITE),
+            IntRect::from_size(1, 1),
+        )
+        .unwrap();
+        commit_replacements(&mut doc, layers);
+        tool.on_cancel(&mut ToolCtx {
+            doc: &mut doc,
+            state: &mut state,
+        });
+        assert_eq!(
+            doc.tree
+                .find(selected)
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles
+                .pixel(7, 0),
+            Rgba::WHITE
+        );
+        // A later drag starts from the replacement; Enter cannot resurrect the
+        // original smart source or its nested document metadata.
+        let pointer = |x, y| PointerInput {
+            x,
+            y,
+            pressure: 1.0,
+            modifiers: Modifiers::default(),
+        };
+        let mut ctx = ToolCtx {
+            doc: &mut doc,
+            state: &mut state,
+        };
+        tool.on_pointer_down(&mut ctx, pointer(7.0, 0.0));
+        tool.on_pointer_move(&mut ctx, pointer(10.0, 3.0));
+        tool.on_pointer_up(&mut ctx, pointer(10.0, 3.0));
+        tool.on_commit(&mut ctx);
+        let layer = doc.tree.find(selected).unwrap();
+        assert_eq!(
+            layer.smart.as_ref().unwrap().source.pixel(0, 0),
+            Rgba::WHITE
+        );
+        assert_eq!(SmartSource::read(layer).unwrap(), Some(replacement));
+    }
+
+    #[test]
+    fn source_serialization_after_tool_commit_contains_the_committed_transform() {
+        use schist_plugin_api::ToolPlugin as _;
+        let mut child = Document::new("contents", 64, 64, Depth::Eight);
+        let mut layer = Layer::new_raster("editable source");
+        let region = IntRect::from_xywh(20, 20, 20, 20);
+        blit_rgba8(
+            &mut layer.as_raster_mut().unwrap().tiles,
+            Depth::Eight,
+            region,
+            &[255, 255, 255, 255].repeat(20 * 20),
+        );
+        child.push_layer(layer);
+        let mut state = EditorState::default();
+        let mut tool = schist_tools_transform::TransformTool::default();
+        let pointer = |x, y| PointerInput {
+            x,
+            y,
+            pressure: 1.0,
+            modifiers: Modifiers::default(),
+        };
+        {
+            let mut ctx = ToolCtx {
+                doc: &mut child,
+                state: &mut state,
+            };
+            tool.on_activate(&mut ctx);
+            tool.on_pointer_down(&mut ctx, pointer(40.0, 40.0));
+            tool.on_pointer_move(&mut ctx, pointer(55.0, 55.0));
+            tool.on_pointer_up(&mut ctx, pointer(55.0, 55.0));
+            tool.set_async_compute(false);
+            tool.on_commit(&mut ctx);
+        }
+        assert!(child.history.can_undo());
+        let source = encode_source(&child, metadata().identity).unwrap();
+        let reopened = schist_codec_psd::read_psd(&source.document).unwrap();
+        let bounds = reopened.tree.layers[0]
+            .as_raster()
+            .unwrap()
+            .tiles
+            .content_bounds();
+        assert!(bounds.right > region.right && bounds.bottom > region.bottom);
+        tool.on_cancel(&mut ToolCtx {
+            doc: &mut child,
+            state: &mut state,
+        });
+        assert_eq!(
+            child.tree.layers[0]
+                .as_raster()
+                .unwrap()
+                .tiles
+                .content_bounds(),
+            bounds
         );
     }
 
