@@ -279,6 +279,7 @@ pub fn render(
     let what = match target {
         ColorTarget::Foreground => t("common.foreground_color").to_string(),
         ColorTarget::Background => t("common.background_color").to_string(),
+        ColorTarget::SpotInk(_) => t("panels.ink.spot").to_string(),
         ColorTarget::StyleEffect(effect) => tf!(
             "dialog.color_picker.effect_color",
             effect = crate::style_dialog::effect_label(effect)

@@ -141,7 +141,7 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
         )
         // Photoshop's spectrum bar: drag along it to take a hue directly.
         .child(crate::color_picker::hue_ramp(ws, cx))
-        .child(spot_channels(ws, cx))
+        .child(spot_ink_launcher(ws, cx))
 }
 
 fn palette_controls(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
@@ -394,16 +394,63 @@ fn native_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
     panel
 }
 
+fn spot_ink_launcher(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let Some(doc) = &ws.doc else { return div() };
+    let selected = doc.active_ink.and_then(|id| {
+        doc.ink_channels
+            .iter()
+            .find(|channel| channel.info.id == id && channel.info.spot)
+    });
+    div()
+        .pt_1()
+        .mt_1()
+        .border_t_1()
+        .border_color(gpui::rgb(palette().divider))
+        .child(
+            Button::bare("open-spot-ink")
+                .ghost()
+                .w_full()
+                .min_w(px(0.0))
+                .px_2()
+                .justify_start()
+                .gap_2()
+                .child(t("panels.ink.spot"))
+                .child(
+                    div()
+                        .flex_1()
+                        .min_w(px(0.0))
+                        .truncate()
+                        .text_color(gpui::rgb(palette().text_dim))
+                        .child(
+                            selected.map_or_else(String::new, |channel| channel.info.name.clone()),
+                        ),
+                )
+                .child("…")
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.commit_focused_field();
+                    ws.open_modal(Modal::SpotInk, cx);
+                })),
+        )
+}
+
+pub(crate) fn spot_ink_dialog(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let body = spot_channels(ws, cx);
+    let actions = ui::button(
+        t("common.done"),
+        true,
+        |ws, _, cx| {
+            ws.commit_focused_field();
+            ws.close_modal(cx);
+            ws.after_change(cx);
+        },
+        cx,
+    );
+    ui::preview_modal_frame(t("panels.ink.spot"), 440.0, body, actions)
+}
+
 fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     use schist_core::{InkChannel, InkPreview};
-    let mut panel = div()
-        .flex()
-        .flex_col()
-        .gap_2()
-        .pt_2()
-        .mt_2()
-        .border_t_1()
-        .border_color(gpui::rgb(palette().divider));
+    let mut panel = div().flex().flex_col().gap_2();
     let Some(doc) = &ws.doc else { return div() };
     let spots: Vec<_> = doc
         .ink_channels
@@ -420,7 +467,7 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
             .items_center()
             .justify_between()
             .gap_2()
-            .child(panel_title(t("panels.ink.spot")))
+            .child(panel_title(t("common.channel")))
             .child(
                 Button::new("new-spot-channel", t("common.new"))
                     .ghost()
@@ -589,10 +636,28 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                     .flex()
                     .items_center()
                     .gap_2()
-                    .child(Swatch::new(
-                        "spot-ink-color",
-                        swatch_hex(Rgba::new(info.color[0], info.color[1], info.color[2], 1.0)),
-                    ))
+                    .child(
+                        Swatch::new(
+                            "spot-ink-color",
+                            swatch_hex(Rgba::new(info.color[0], info.color[1], info.color[2], 1.0)),
+                        )
+                        .on_click(cx.listener(move |ws, _, _, cx| {
+                            ws.commit_focused_field();
+                            let color = ws.doc.as_ref().and_then(|doc| {
+                                doc.ink_channels
+                                    .iter()
+                                    .find(|channel| channel.info.id == id)
+                                    .map(|channel| channel.info.color)
+                            });
+                            if let Some([r, g, b]) = color {
+                                ws.open_color_picker_on(
+                                    ColorTarget::SpotInk(id),
+                                    Rgba::new(r, g, b, 1.0),
+                                    cx,
+                                );
+                            }
+                        })),
+                    )
                     .child(
                         Button::new("spot-display-color", t("common.foreground_color"))
                             .ghost()
@@ -676,7 +741,7 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
     if let Some(index) = selected {
         let info = &spots[index];
         let id = info.id;
-        preview_controls = preview_controls.child(slider(
+        preview_controls = preview_controls.child(slider_stretch(
             "spot-solidity",
             t("common.opacity"),
             if info.solidity == 0.0 {
@@ -697,7 +762,7 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                     .pt_2()
                     .border_t_1()
                     .border_color(gpui::rgb(palette().divider))
-                    .child(div().flex_1().min_w(px(0.0)).child(slider(
+                    .child(div().flex_1().min_w(px(0.0)).child(slider_stretch(
                         "spot-coverage",
                         t("common.value"),
                         format!("{:.0}%", ws.editor.native_channel_value * 100.0),

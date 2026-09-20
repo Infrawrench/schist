@@ -197,9 +197,10 @@ fn slider_impl(
     }
     row.child(track).child(
         div()
-            // "180 px" is wider than the old 34px slot. Keep quantities
-            // on one line, including at the largest three-digit values.
-            .w(px(m.small_text * 4.0))
+            // Stretching rows must leave room for words such as
+            // "Transparent", as well as numeric readouts.
+            .min_w(px(m.small_text * 4.0))
+            .when(!stretch, |readout| readout.w(px(m.small_text * 4.0)))
             .flex_none()
             .whitespace_nowrap()
             .text_size(px(m.small_text))

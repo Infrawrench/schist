@@ -48,6 +48,7 @@ mod typography;
 
 #[cfg(not(sandboxed))]
 pub use ai::*;
+pub(crate) use color::spot_ink_dialog;
 use color::*;
 use info::*;
 

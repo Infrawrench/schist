@@ -995,6 +995,8 @@ pub enum Modal {
         tolerance: f32,
         target: Rgba,
     },
+    /// Spot-ink channel management and preview settings.
+    SpotInk,
     /// Photoshop's Color Picker.
     ColorPicker {
         target: ColorTarget,
@@ -1237,6 +1239,8 @@ impl NewDocBackground {
 pub enum ColorTarget {
     Foreground,
     Background,
+    /// The display colour of a spot-ink channel, with its manager underneath.
+    SpotInk(u32),
     /// A colour belonging to one Layer Style effect, keyed as in
     /// `style_dialog::EFFECTS`. That dialog stays open underneath the
     /// picker and receives the colour on OK.

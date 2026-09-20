@@ -54,7 +54,9 @@ impl Workspace {
             // a dialog, which opens the picker through
             // `open_color_picker_on` and supplies the colour itself.
             ColorTarget::Note => self.editor.note_color,
-            ColorTarget::StyleEffect(_) | ColorTarget::ColorRange => return,
+            ColorTarget::StyleEffect(_) | ColorTarget::ColorRange | ColorTarget::SpotInk(_) => {
+                return;
+            }
         };
         self.open_color_picker_on(target, original, cx);
     }
@@ -104,10 +106,23 @@ impl Workspace {
             }
             // Written below, once `close_modal` has put the dialog the
             // picker was opened from back in `self.modal`.
-            ColorTarget::StyleEffect(_) | ColorTarget::ColorRange => {}
+            ColorTarget::StyleEffect(_) | ColorTarget::ColorRange | ColorTarget::SpotInk(_) => {}
         }
         self.close_modal(cx);
         match target {
+            ColorTarget::SpotInk(id) => {
+                if let Some(doc) = self.doc.as_mut() {
+                    let mut edit = doc.begin_edit(schist_i18n::t("common.color"));
+                    edit.change_ink_channels(|channels| {
+                        if let Some(channel) = channels.iter_mut().find(|c| c.info.id == id) {
+                            channel.info.color = [colour.r, colour.g, colour.b];
+                            channel.info.original_display = None;
+                        }
+                    });
+                    edit.commit();
+                }
+                self.after_change(cx);
+            }
             ColorTarget::StyleEffect(effect) => {
                 let mut next = None;
                 self.update_modal(|m| {
@@ -862,6 +877,7 @@ impl Workspace {
             // text fields.
             | Modal::BucketName { .. }
             | Modal::MetadataEdit { .. }
+            | Modal::SpotInk
             | Modal::ModelManager
             | Modal::FilterGallery { .. }
             | Modal::Stroke { .. }
