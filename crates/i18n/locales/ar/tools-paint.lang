@@ -60,3 +60,6 @@ tool.bucket.description = انقر لإغراق المنطقة المتصلة ذ
 tool.bucket.option.contiguous = متجاور
 tool.bucket.option.all_layers = كل الطبقات
 tool.bucket.history.fill = التعبئة بدلو الطلاء
+
+tool.brush.symmetry = تناظر
+tool.brush.seamless_preview = معاينة التكرار دون فواصل

@@ -60,3 +60,6 @@ tool.bucket.description = கருவியின் சகிப்புத�
 tool.bucket.option.contiguous = தொடர்ச்சியானவை
 tool.bucket.option.all_layers = அனைத்து அடுக்குகளும்
 tool.bucket.history.fill = வண்ண வாளி
+
+tool.brush.symmetry = சமச்சீர்
+tool.brush.seamless_preview = தடையற்ற ஓடு முன்னோட்டம்

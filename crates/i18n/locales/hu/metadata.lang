@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Fénykép metaadatai
+metadata.keywords = Kulcsszavak (;)
+metadata.caption = Képaláírás
+metadata.copyright = Szerzői jog
+metadata.hint = Jelölje ki a módosítandó mezőket. Az üres érték törli a tartalmat.
+metadata.invalid = Ellenőrizze az értékeket és az XMP-fájlt.
+metadata.taken = Dátum
+metadata.offset = Eltolás (mp)
+metadata.gps = GPS

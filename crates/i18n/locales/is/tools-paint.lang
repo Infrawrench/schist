@@ -60,3 +60,6 @@ tool.bucket.description = Smelltu til að flæða forgrunnslitnum yfir samliggja
 tool.bucket.option.contiguous = Samliggjandi
 tool.bucket.option.all_layers = Öll lög
 tool.bucket.history.fill = Málningarfata
+
+tool.brush.symmetry = Samhverfa
+tool.brush.seamless_preview = Forskoðun á saumlausu mynstri

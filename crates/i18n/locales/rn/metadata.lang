@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata y’ifoto
+metadata.keywords = Amajambo nyamukuru (;)
+metadata.caption = Insiguro
+metadata.copyright = Uburenganzira bw’umwanditsi
+metadata.hint = Hitamwo ibibanza vyo guhindura. Ibiciro bigaragara ubusa bihanagura ibirimwo.
+metadata.invalid = Suzuma ibiciro na dosiye ya XMP.
+metadata.taken = Itariki
+metadata.offset = Kwigiza (s)
+metadata.gps = GPS

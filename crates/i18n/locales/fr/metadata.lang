@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Métadonnées photo
+metadata.keywords = Mots-clés (;)
+metadata.caption = Légende
+metadata.copyright = Droits d’auteur
+metadata.hint = Sélectionnez les champs à modifier. Une valeur vide les efface.
+metadata.invalid = Vérifiez les valeurs et le fichier XMP.
+metadata.taken = Date
+metadata.offset = Translation (s)
+metadata.gps = GPS

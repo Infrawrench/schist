@@ -36,6 +36,15 @@ many images a scan found, sub-folders included, and the tab route is
 capped at a hundred so a dropped camera roll cannot open five thousand
 tabs; loose image files dropped alongside open as they always did.
 
+## Photo metadata
+
+Right-click selected photos and choose **Photo metadata** to edit keywords,
+captions, copyright, capture times, or GPS in portable XMP sidecars. Batches
+change only selected fields and support per-photo time shifts. Search, dates,
+and map grouping use the saved values; originals stay untouched. See
+[Photo metadata and XMP sidecars](photo-metadata.md) for formats, backups, and
+interchange behavior.
+
 ## The view
 
 `View ▸ Browse Gallery` (⌘⇧G / Ctrl+Shift+G, or File ▸ Browse Gallery…)

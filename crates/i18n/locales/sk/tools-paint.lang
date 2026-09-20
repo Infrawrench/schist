@@ -70,3 +70,6 @@ tool.bucket.description = Kliknutím vyplní súvislú oblasť podobnej farby po
 tool.bucket.option.contiguous = Súvislé
 tool.bucket.option.all_layers = Všetky vrstvy
 tool.bucket.history.fill = Vedro s farbou
+
+tool.brush.symmetry = Symetria
+tool.brush.seamless_preview = Náhľad bezšvového vzoru

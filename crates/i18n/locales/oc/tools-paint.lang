@@ -81,3 +81,6 @@ tool.bucket.description = Clicatz per emplenar amb la color de primièr plan la 
 tool.bucket.option.contiguous = Contigú
 tool.bucket.option.all_layers = Totes los calques
 tool.bucket.history.fill = Farrat de pintura
+
+tool.brush.symmetry = Simetria
+tool.brush.seamless_preview = Apercebut del motiu sens jonchuras

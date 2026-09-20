@@ -712,50 +712,104 @@ pub(super) fn reveal_in_file_manager(path: &Path) {
     }
 }
 
-/// One photo to `dest`, with its `.schist` sidecar and versions.
+/// Preflight every destination before moving anything. XMP and its previous
+/// packets travel with the original. If a later move fails, roll back the
+/// completed transfers, keeping the original at its old path until the end.
 fn move_photo(path: &Path, dest: &Path) -> anyhow::Result<()> {
-    let versions = schist_gallery::versions::list(path)?;
     let name = path
         .file_name()
         .ok_or_else(|| anyhow::anyhow!("no file name"))?;
-    move_file(path, &dest.join(name))?;
-    if let (Some(old_psd), Some(new_psd)) = (backing_psd(path), backing_psd(&dest.join(name))) {
-        if old_psd.exists() {
-            if let Some(dir) = new_psd.parent() {
-                std::fs::create_dir_all(dir)?;
-            }
-            move_file(&old_psd, &new_psd)?;
+    let target = dest.join(name);
+    let mut transfers: Vec<(PathBuf, PathBuf)> = Vec::new();
+    let source_xmp = schist_gallery::xmp::lock_sidecar(path)?;
+    let target_xmp = schist_gallery::xmp::lock_sidecar(&target)?;
+    if source_xmp.path().try_exists()? {
+        transfers.push((
+            source_xmp.path().to_path_buf(),
+            target_xmp.path().to_path_buf(),
+        ));
+    }
+    let archive = path.parent().unwrap().join(".schist/metadata").join(name);
+    if archive.try_exists()? {
+        for item in std::fs::read_dir(archive)? {
+            let item = item?;
+            anyhow::ensure!(
+                item.file_type()?.is_file(),
+                "unexpected metadata archive entry"
+            );
+            transfers.push((
+                item.path(),
+                dest.join(".schist/metadata")
+                    .join(name)
+                    .join(item.file_name()),
+            ));
         }
-        // Match the entire timestamp + sidecar name; suffix-only matches
-        // would also move a neighbouring photo such as "other-a.jpg".
-        for version in versions {
-            if !matches!(
+    }
+    if let (Some(old_psd), Some(new_psd)) = (backing_psd(path), backing_psd(&target)) {
+        if old_psd.try_exists()? {
+            transfers.push((old_psd, new_psd.clone()));
+        }
+        for version in schist_gallery::versions::list(path)? {
+            if matches!(
                 version.kind,
                 schist_gallery::versions::VersionKind::Saved { .. }
             ) {
-                continue;
+                if let Some(name) = version.path.file_name() {
+                    transfers.push((
+                        version.path.clone(),
+                        new_psd.parent().unwrap().join("versions").join(name),
+                    ));
+                }
             }
-            if let (Some(new_dir), Some(name)) = (
-                new_psd.parent().map(|d| d.join("versions")),
-                version.path.file_name(),
-            ) {
-                std::fs::create_dir_all(&new_dir)?;
-                move_file(&version.path, &new_dir.join(name))?;
+        }
+    }
+    transfers.push((path.to_path_buf(), target));
+    for (from, to) in &transfers {
+        anyhow::ensure!(!to.try_exists()?, "{} already exists", to.display());
+        anyhow::ensure!(from.is_file(), "{} is not a file", from.display());
+    }
+    for (index, (from, to)) in transfers.iter().enumerate() {
+        let result = (|| {
+            std::fs::create_dir_all(to.parent().unwrap())?;
+            move_file(from, to)
+        })();
+        if let Err(err) = result {
+            for (old, new) in transfers[..index].iter().rev() {
+                if let Err(rollback) = move_file(new, old) {
+                    log::error!("move rollback failed for {}: {rollback:#}", old.display());
+                }
             }
+            return Err(err);
         }
     }
     Ok(())
 }
 
-/// Rename, or copy-and-delete across filesystems.
+/// Publish without replacement, including the race between preflight and
+/// commit. A same-filesystem hard link avoids copying large originals; the
+/// cross-filesystem fallback publishes a synced temporary file atomically.
 fn move_file(from: &Path, to: &Path) -> anyhow::Result<()> {
-    if to.exists() {
+    if to.try_exists()? {
         anyhow::bail!("{} already exists", to.display());
     }
-    if std::fs::rename(from, to).is_ok() {
+    if std::fs::hard_link(from, to).is_ok() {
+        std::fs::remove_file(from)?;
         return Ok(());
     }
-    std::fs::copy(from, to)?;
+    let parent = to
+        .parent()
+        .ok_or_else(|| anyhow::anyhow!("no destination directory"))?;
+    let mut source = std::fs::File::open(from)?;
+    let mut temp = tempfile::NamedTempFile::new_in(parent)?;
+    std::io::copy(&mut source, &mut temp)?;
+    let metadata = source.metadata()?;
+    temp.as_file().set_permissions(metadata.permissions())?;
+    if let Ok(modified) = metadata.modified() {
+        temp.as_file()
+            .set_times(std::fs::FileTimes::new().set_modified(modified))?;
+    }
+    temp.as_file().sync_all()?;
+    temp.persist_noclobber(to)?;
     std::fs::remove_file(from)?;
     Ok(())
 }
@@ -1536,6 +1590,9 @@ mod tests {
         std::fs::create_dir_all(from.join(".schist/versions")).unwrap();
         std::fs::create_dir_all(&to).unwrap();
         std::fs::write(from.join("a.jpg"), b"photo").unwrap();
+        std::fs::write(from.join("a.xmp"), b"metadata").unwrap();
+        std::fs::create_dir_all(from.join(".schist/metadata/a.jpg")).unwrap();
+        std::fs::write(from.join(".schist/metadata/a.jpg/old.xmp"), b"old metadata").unwrap();
         std::fs::write(from.join(".schist/a.jpg.psd"), b"edit").unwrap();
         std::fs::write(from.join(".schist/versions/123-a.jpg.psd"), b"v1").unwrap();
         // A neighbour's version must stay behind.
@@ -1547,6 +1604,9 @@ mod tests {
         .unwrap();
         move_photo(&from.join("a.jpg"), &to).unwrap();
         assert!(to.join("a.jpg").exists());
+        assert_eq!(std::fs::read(to.join("a.xmp")).unwrap(), b"metadata");
+        assert!(to.join(".schist/metadata/a.jpg/old.xmp").exists());
+        assert!(!from.join("a.xmp").exists());
         assert!(to.join(".schist/a.jpg.psd").exists());
         assert!(to.join(".schist/versions/123-a.jpg.psd").exists());
         assert!(!from.join("a.jpg").exists());
@@ -1554,5 +1614,27 @@ mod tests {
         assert!(from.join(".schist/versions/123-b.jpg.psd").exists());
         assert!(from.join(".schist/versions/123-other-a.jpg.psd").exists());
         let _ = std::fs::remove_dir_all(&dir);
+    }
+    #[test]
+    fn moving_a_photo_rejects_metadata_collision_before_moving_original() {
+        let dir = tempfile::tempdir().unwrap();
+        let from = dir.path().join("from");
+        let to = dir.path().join("to");
+        std::fs::create_dir_all(&from).unwrap();
+        std::fs::create_dir_all(&to).unwrap();
+        std::fs::write(from.join("a.jpg"), b"original").unwrap();
+        std::fs::write(from.join("a.xmp"), b"source metadata").unwrap();
+        std::fs::write(to.join("a.xmp"), b"unrelated metadata").unwrap();
+        assert!(move_photo(&from.join("a.jpg"), &to).is_err());
+        assert_eq!(std::fs::read(from.join("a.jpg")).unwrap(), b"original");
+        assert_eq!(
+            std::fs::read(from.join("a.xmp")).unwrap(),
+            b"source metadata"
+        );
+        assert_eq!(
+            std::fs::read(to.join("a.xmp")).unwrap(),
+            b"unrelated metadata"
+        );
+        assert!(!to.join("a.jpg").exists());
     }
 }

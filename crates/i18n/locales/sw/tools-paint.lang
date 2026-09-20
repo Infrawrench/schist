@@ -60,3 +60,6 @@ tool.bucket.description = Bofya kujaza eneo linaloungana la rangi inayofanana ch
 tool.bucket.option.contiguous = Zinazoungana
 tool.bucket.option.all_layers = Safu Zote
 tool.bucket.history.fill = Ndoo ya Rangi
+
+tool.brush.symmetry = Ulinganifu
+tool.brush.seamless_preview = Hakikisho la vigae visivyo na mshono

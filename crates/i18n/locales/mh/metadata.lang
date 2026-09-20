@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata in pija
+metadata.keywords = Nan ko raurok (;)
+metadata.caption = Kōmeļeļe
+metadata.copyright = Jimwe an rijjeñļọk
+metadata.hint = Kelet jikin ko ñan ukōt. Joñan ko ejjeļọk men ie rej jolọk kobban.
+metadata.invalid = Etale joñan ko im XMP file eo.
+metadata.taken = Raan
+metadata.offset = Kōtaan (s)
+metadata.gps = GPS

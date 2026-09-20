@@ -61,3 +61,6 @@ tool.bucket.description = Klikka fyri at fylla samanhangandi økið við líknan
 tool.bucket.option.contiguous = Samanhangandi
 tool.bucket.option.all_layers = Øll løg
 tool.bucket.history.fill = Málingaspann
+
+tool.brush.symmetry = Symmetri
+tool.brush.seamless_preview = Forsýning av mynstri uttan samanleggingar

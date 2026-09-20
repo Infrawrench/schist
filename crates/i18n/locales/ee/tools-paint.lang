@@ -70,3 +70,6 @@ tool.bucket.description = Zi be nàtsɔ ŋgɔgbe ƒe amadede ayɔ teƒe siwo ƒe
 tool.bucket.option.contiguous = Siwo nɔ ka ɖe wo nɔewo ŋu
 tool.bucket.option.all_layers = Layerwo Katã
 tool.bucket.history.fill = Amadede ƒe Kɔ
+
+tool.brush.symmetry = Sɔsɔ
+tool.brush.seamless_preview = Ŋgɔmetoto ƒe kpɔkpɔ gbã si me akpa aɖeke mele o

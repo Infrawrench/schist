@@ -60,3 +60,6 @@ tool.bucket.description = Faceți clic pentru a inunda zona adiacentă de culoar
 tool.bucket.option.contiguous = Adiacent
 tool.bucket.option.all_layers = Toate straturile
 tool.bucket.history.fill = Găleată de vopsea
+
+tool.brush.symmetry = Simetrie
+tool.brush.seamless_preview = Previzualizare model fără îmbinări

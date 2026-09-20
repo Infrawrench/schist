@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Xibaar yu nataal bi
+metadata.keywords = Baat yu am solo (;)
+metadata.caption = Leeral
+metadata.copyright = Sañ-sañu bindkat
+metadata.hint = Tànnal tool yi ngay soppi. Solo yu neen dinañu far li ci nekk.
+metadata.invalid = Seetal solo yi ak dencukaayu XMP bi.
+metadata.taken = Bés
+metadata.offset = Sorewaayu toxal (s)
+metadata.gps = GPS

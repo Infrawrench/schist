@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = פֿאָטאָ־מעטאַדאַטן
+metadata.keywords = שליסלווערטער (;)
+metadata.caption = באַשרײַבונג
+metadata.copyright = קאָפּירעכט
+metadata.hint = קלײַבט פֿעלדער צו ענדערן. ליידיקע ווערטן מעקן דעם אינהאַלט.
+metadata.invalid = קאָנטראָלירט די ווערטן און די XMP טעקע.
+metadata.taken = דאַטע
+metadata.offset = אָפּשטעל (s)
+metadata.gps = GPS

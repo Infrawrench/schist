@@ -61,3 +61,6 @@ tool.bucket.description = Щёлкните, чтобы залить основн
 tool.bucket.option.contiguous = Смежные пиксели
 tool.bucket.option.all_layers = Все слои
 tool.bucket.history.fill = Заливка
+
+tool.brush.symmetry = Симметрия
+tool.brush.seamless_preview = Просмотр бесшовного узора

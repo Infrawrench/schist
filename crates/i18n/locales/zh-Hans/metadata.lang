@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = 照片元数据
+metadata.keywords = 关键词（;）
+metadata.caption = 说明
+metadata.copyright = 版权
+metadata.hint = 选择要修改的字段。留空可清除内容。
+metadata.invalid = 请检查数值和 XMP 文件。
+metadata.taken = 日期
+metadata.offset = 位移 (秒)
+metadata.gps = GPS

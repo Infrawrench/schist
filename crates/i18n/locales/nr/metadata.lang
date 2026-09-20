@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Imethadatha yesithombe
+metadata.keywords = Amagama aqakathekileko (;)
+metadata.caption = Ihlathululo
+metadata.copyright = Ilungelo lobunikazi
+metadata.hint = Khetha iinkhala zokutjhugulula. Amanani anganalitho asula okungaphakathi.
+metadata.invalid = Hlola amanani nefayela le-XMP.
+metadata.taken = Ilanga
+metadata.offset = Ukususa Endaweni (s)
+metadata.gps = GPS

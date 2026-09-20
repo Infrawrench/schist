@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Lýsigögn mynda
+metadata.keywords = Lykilorð (;)
+metadata.caption = Myndatexti
+metadata.copyright = Höfundarréttur
+metadata.hint = Veldu reiti til að breyta. Tóm gildi hreinsa innihaldið.
+metadata.invalid = Athugaðu gildin og XMP-skrána.
+metadata.taken = Dagsetning
+metadata.offset = Hliðrun (s)
+metadata.gps = GPS

@@ -60,3 +60,6 @@ tool.bucket.description = Pāwhiria hei whakakī i te rohe tūhono he ōrite te 
 tool.bucket.option.contiguous = Tūhono
 tool.bucket.option.all_layers = Ngā Apa Katoa
 tool.bucket.history.fill = Pākete Peita
+
+tool.brush.symmetry = Hangarite
+tool.brush.seamless_preview = Arokite tauira tuituikore

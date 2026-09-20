@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Fotometadata
+metadata.keywords = Nyckelord (;)
+metadata.caption = Bildtext
+metadata.copyright = Upphovsrätt
+metadata.hint = Välj fält att ändra. Tomma värden rensar dem.
+metadata.invalid = Kontrollera värdena och XMP-filen.
+metadata.taken = Datum
+metadata.offset = Förskjutning (s)
+metadata.gps = GPS

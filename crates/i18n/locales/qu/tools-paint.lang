@@ -81,3 +81,6 @@ tool.bucket.description = Ñit'ispa tupuchiqpa uranpi kaq rikch'akuq llimp'iyuq 
 tool.bucket.option.contiguous = Tupanakusqa
 tool.bucket.option.all_layers = Llapan patakuna
 tool.bucket.history.fill = Pintura baldewan hunt'achiy
+
+tool.brush.symmetry = Kikinkay
+tool.brush.seamless_preview = Mana sirayniyuq siq'ipa ñawpaq qhawaynin

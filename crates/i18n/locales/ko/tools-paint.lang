@@ -83,3 +83,6 @@ tool.bucket.description = 클릭하면 도구의 허용치 범위에서 포인�
 tool.bucket.option.contiguous = 인접
 tool.bucket.option.all_layers = 모든 레이어
 tool.bucket.history.fill = 페인트 통
+
+tool.brush.symmetry = 대칭
+tool.brush.seamless_preview = 매끄러운 타일 미리 보기

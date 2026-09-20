@@ -81,3 +81,6 @@ tool.bucket.description = Cofa ukuze ugcwalise indawo edibeneyo enombala ofanayo
 tool.bucket.option.contiguous = Okudibeneyo
 tool.bucket.option.all_layers = Yonke Imaleko
 tool.bucket.history.fill = I-emele Yepeyinti
+
+tool.brush.symmetry = Ulingano
+tool.brush.seamless_preview = Imboniso yangaphambili yepateni engenamthungo

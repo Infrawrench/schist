@@ -60,3 +60,6 @@ tool.bucket.description = Коралның рөхсәт ителгән аерм�
 tool.bucket.option.contiguous = Тоташ
 tool.bucket.option.all_layers = Барлык катламнар
 tool.bucket.history.fill = Буяу чиләге
+
+tool.brush.symmetry = Симметрия
+tool.brush.seamless_preview = Җөйсез бизәкне алдан карау

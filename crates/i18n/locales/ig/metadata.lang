@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata foto
+metadata.keywords = Okwu isi (;)
+metadata.caption = Nkọwa
+metadata.copyright = Ikike odee
+metadata.hint = Họrọ oghere ị ga-agbanwe. Ọnụọgụ efu na-ehichapụ ọdịnaya.
+metadata.invalid = Lelee ụkpụrụ na faịlụ XMP.
+metadata.taken = Ụbọchị
+metadata.offset = Offset (s)
+metadata.gps = GPS

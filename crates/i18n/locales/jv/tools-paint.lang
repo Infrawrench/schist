@@ -61,3 +61,6 @@ tool.bucket.description = Klik kanggo ngebaki area nyambung kanthi werna sing pa
 tool.bucket.option.contiguous = Nyambung
 tool.bucket.option.all_layers = Kabèh Lapisan
 tool.bucket.history.fill = Èmbèr Cèt
+
+tool.brush.symmetry = Simetri
+tool.brush.seamless_preview = Pratinjau pola tanpa sambungan

@@ -3,6 +3,11 @@
 use super::*;
 use crate::ui;
 
+fn modal_enter_confirms(field: Option<&str>, key: &str, mods: gpui::Modifiers) -> bool {
+    key == "enter"
+        && !(field == Some("metadata-caption") && mods.shift && !mods.platform && !mods.control)
+}
+
 impl Workspace {
     // ----- modals and numeric fields -----
 
@@ -351,6 +356,37 @@ impl Workspace {
         true
     }
 
+    /// Route dialog keys consistently in the editor, gallery and cloud views.
+    /// The multiline caption owns Shift+Enter; ordinary Enter saves the dialog.
+    pub(super) fn modal_key(
+        &mut self,
+        ev: &gpui::KeyDownEvent,
+        window: &mut gpui::Window,
+        cx: &mut Context<Self>,
+    ) -> bool {
+        if self.modal.is_none() {
+            return false;
+        }
+        if modal_enter_confirms(
+            self.focused_field,
+            &ev.keystroke.key,
+            ev.keystroke.modifiers,
+        ) {
+            self.commit_focused_field();
+            self.confirm_modal(window, cx);
+        } else {
+            self.field_key(
+                &ev.keystroke.key,
+                ev.keystroke.key_char.as_deref(),
+                ev.keystroke.modifiers,
+                cx,
+            );
+        }
+        cx.notify();
+        cx.stop_propagation();
+        true
+    }
+
     /// Push whatever is in the focused field into the modal and unfocus.
     pub fn commit_focused_field(&mut self) {
         if let Some(id) = self.focused_field {
@@ -389,6 +425,7 @@ impl Workspace {
             || id == "person-name"
             || id == file_picker::NAME_FIELD
             || id == palettes::SEARCH_FIELD
+            || id.starts_with("metadata-")
             || id.starts_with("recipe-")
             || id.starts_with("cloud-");
         let hex = id == "cp-hex";
@@ -421,11 +458,17 @@ impl Workspace {
                 let Some(pasted) = cx.read_from_clipboard().and_then(|item| item.text()) else {
                     return true;
                 };
-                // One line: a pasted paragraph flattens rather than
-                // breaking the field.
+                // Plain fields stay on one line. Photo captions retain
+                // pasted paragraph breaks in their multiline input.
                 let pasted: String = pasted
                     .chars()
-                    .map(|c| if c.is_control() { ' ' } else { c })
+                    .map(|c| {
+                        if c.is_control() && !(id == "metadata-caption" && c == '\n') {
+                            ' '
+                        } else {
+                            c
+                        }
+                    })
                     .collect();
                 self.with_field_edit(|edit| edit.insert(&pasted));
             }
@@ -490,6 +533,9 @@ impl Workspace {
                 self.field_cursor = 0;
                 self.field_anchor = 0;
                 return true;
+            }
+            "enter" if id == "metadata-caption" && shift => {
+                self.with_field_edit(|edit| edit.insert("\n"));
             }
             "enter" | "tab" => {
                 self.commit_field(id);
@@ -654,6 +700,13 @@ impl Workspace {
             });
             return;
         }
+        #[cfg(not(target_arch = "wasm32"))]
+        if id.starts_with("metadata-") {
+            self.update_modal(|m| {
+                super::library_metadata::commit_field(m, id, buffer);
+            });
+            return;
+        }
         if id == "bucket-name" || id == "bucket-query" {
             self.update_modal(|m| {
                 if let Modal::BucketName { name, query, .. } = m {
@@ -784,6 +837,7 @@ impl Workspace {
             // Handled above, before the numeric parse, like the other
             // text fields.
             | Modal::BucketName { .. }
+            | Modal::MetadataEdit { .. }
             | Modal::ModelManager
             | Modal::FilterGallery { .. }
             | Modal::Stroke { .. }
@@ -966,5 +1020,68 @@ impl Workspace {
             tool.on_cancel(&mut ctx);
         }
         self.after_change(cx);
+    }
+}
+
+#[cfg(test)]
+mod metadata_keyboard_tests {
+    use super::modal_enter_confirms;
+
+    #[test]
+    fn metadata_caption_shift_enter_does_not_save_the_dialog() {
+        let shift = gpui::Modifiers {
+            shift: true,
+            ..Default::default()
+        };
+        assert!(!modal_enter_confirms(
+            Some("metadata-caption"),
+            "enter",
+            shift
+        ));
+        // The ordinary Save shortcut must still work, including after the
+        // caption has inserted a newline and retained keyboard focus.
+        assert!(modal_enter_confirms(
+            Some("metadata-caption"),
+            "enter",
+            Default::default()
+        ));
+        assert!(!modal_enter_confirms(
+            Some("metadata-caption"),
+            "a",
+            Default::default()
+        ));
+        assert!(!modal_enter_confirms(
+            Some("metadata-caption"),
+            "tab",
+            shift
+        ));
+    }
+
+    #[test]
+    fn metadata_caption_exception_does_not_change_other_save_shortcuts() {
+        let shift = gpui::Modifiers {
+            shift: true,
+            ..Default::default()
+        };
+        for field in [None, Some("metadata-keywords"), Some("new-doc-name")] {
+            assert!(modal_enter_confirms(field, "enter", shift));
+            assert!(modal_enter_confirms(field, "enter", Default::default()));
+        }
+        for mods in [
+            gpui::Modifiers {
+                control: true,
+                ..shift
+            },
+            gpui::Modifiers {
+                platform: true,
+                ..shift
+            },
+        ] {
+            assert!(modal_enter_confirms(
+                Some("metadata-caption"),
+                "enter",
+                mods
+            ));
+        }
     }
 }

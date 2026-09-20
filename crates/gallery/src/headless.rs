@@ -2,8 +2,8 @@
 //! when nothing is running. It reads what the app wrote — the library
 //! file, the scan of its folders, the index snapshot — and can write
 //! buckets back. It cannot see selection or grouping (those are the
-//! window's), and it never indexes: photos the app has not looked at
-//! are simply unscored here.
+//! window's). It refreshes textual metadata from sidecars, but does not
+//! run visual indexing: photos the app has not looked at remain unscored.
 
 use crate::geo::find_place;
 use crate::index::{read_index_snapshot, IndexRow};
@@ -21,6 +21,7 @@ pub struct Gallery {
     pub sections: Vec<Section>,
     /// Snapshot rows by path, only those whose mtime the scan confirms.
     pub index: HashMap<PathBuf, IndexRow>,
+    metadata: HashMap<PathBuf, crate::xmp::Metadata>,
 }
 
 impl Gallery {
@@ -34,13 +35,38 @@ impl Gallery {
             .flat_map(|s| s.entries.iter())
             .map(|e| (e.path.as_path(), e.mtime))
             .collect();
-        let index = read_index_snapshot()
+        let mut index: HashMap<PathBuf, IndexRow> = read_index_snapshot()
             .unwrap_or_default()
             .into_iter()
             .filter(|r| current.get(r.path.as_path()) == Some(&r.mtime))
             .map(|r| (r.path.clone(), r))
             .collect();
+        let mut metadata = HashMap::new();
+        for entry in sections.iter().flat_map(|s| &s.entries) {
+            if crate::is_video(&entry.path) {
+                continue;
+            }
+            let cache = thumb_cache_path(&thumb_source(&entry.path, entry.edited), entry.mtime);
+            let effective = crate::photo_meta(&cache, &entry.path);
+            let row = index.entry(entry.path.clone()).or_insert_with(|| IndexRow {
+                path: entry.path.clone(),
+                mtime: entry.mtime,
+                embed: None,
+                gps: None,
+                taken: None,
+                place: None,
+                flagged: None,
+                faces: None,
+            });
+            row.gps = Some(effective.gps);
+            row.taken = effective.taken;
+            row.place = Some(effective.place);
+            if let Ok(xmp) = crate::xmp::read(&entry.path) {
+                metadata.insert(entry.path.clone(), xmp);
+            }
+        }
         Gallery {
+            metadata,
             file,
             sections,
             index,
@@ -81,6 +107,9 @@ impl Gallery {
             "place": row.and_then(|r| r.place.clone()).flatten(),
             "edited": entry.edited,
             "flagged": row.and_then(|r| r.flagged),
+            "keywords": self.metadata.get(&entry.path).map(|m| &m.keywords),
+            "caption": self.metadata.get(&entry.path).map(|m| &m.caption),
+            "copyright": self.metadata.get(&entry.path).map(|m| &m.copyright),
         })
     }
 
@@ -223,6 +252,22 @@ impl Gallery {
             vectors,
             positions,
         );
+        let words: Vec<_> = query.split_whitespace().map(str::to_lowercase).collect();
+        if !words.is_empty() {
+            for (path, meta) in &self.metadata {
+                let text = meta.search_text();
+                if scope.as_ref().is_none_or(|s| s.contains(path))
+                    && words.iter().all(|w| text.contains(w.as_str()))
+                {
+                    if let Some((_, score)) = ranked.iter_mut().find(|(p, _)| p == path) {
+                        *score += 1.0;
+                    } else {
+                        ranked.push((path.clone(), 1.0));
+                    }
+                }
+            }
+            ranked.sort_by(|a, b| b.1.total_cmp(&a.1).then_with(|| a.0.cmp(&b.0)));
+        }
         ranked.truncate(SEARCH_KEPT);
         Ok((ranked, place.map(|p| p.name)))
     }

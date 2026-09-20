@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata nu litratu
+metadata.keywords = Palåbran klåbi (;)
+metadata.caption = Diskripsion
+metadata.copyright = Direchon tinige’
+metadata.hint = Jipon i sagan siña matulaika. I balin na manåya mafunas i halom.
+metadata.invalid = Atan i bali yan i XMP file.
+metadata.taken = Fecha
+metadata.offset = Offset (s)
+metadata.gps = GPS

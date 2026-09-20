@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = فرادادهٔ عکس
+metadata.keywords = کلیدواژه‌ها (;)
+metadata.caption = شرح
+metadata.copyright = حق نشر
+metadata.hint = فیلدهای مورد تغییر را انتخاب کنید. مقدار خالی آن‌ها را پاک می‌کند.
+metadata.invalid = مقادیر و پروندهٔ XMP را بررسی کنید.
+metadata.taken = تاریخ
+metadata.offset = جابه‌جایی (ث)
+metadata.gps = GPS

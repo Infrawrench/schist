@@ -71,3 +71,6 @@ tool.bucket.description = Щракнете, за да залеете свърз�
 tool.bucket.option.contiguous = Съседни
 tool.bucket.option.all_layers = Всички слоеве
 tool.bucket.history.fill = Кофа за боя
+
+tool.brush.symmetry = Симетрия
+tool.brush.seamless_preview = Преглед на безшевна шарка

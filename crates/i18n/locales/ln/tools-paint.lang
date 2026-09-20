@@ -70,3 +70,6 @@ tool.bucket.description = Finá mpo na kotondisa etando oyo ekangani mpe ezali n
 tool.bucket.option.contiguous = Oyo ekangani
 tool.bucket.option.all_layers = Ba kalke nyonso
 tool.bucket.history.fill = Saani ya pentire
+
+tool.brush.symmetry = Bokokani
+tool.brush.seamless_preview = Botali ya liboso ya motindo ezangi matonga

@@ -60,3 +60,6 @@ tool.bucket.description = Пстрыкніце, каб заліць колера
 tool.bucket.option.contiguous = Сумежныя
 tool.bucket.option.all_layers = Усе пласты
 tool.bucket.history.fill = Заліўка
+
+tool.brush.symmetry = Сіметрыя
+tool.brush.seamless_preview = Перадпрагляд бясшвовага ўзору

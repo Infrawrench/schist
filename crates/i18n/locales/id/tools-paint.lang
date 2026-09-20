@@ -60,3 +60,6 @@ tool.bucket.description = Klik untuk membanjiri area bersambung dengan warna ser
 tool.bucket.option.contiguous = Bersambung
 tool.bucket.option.all_layers = Semua Lapisan
 tool.bucket.history.fill = Ember Cat
+
+tool.brush.symmetry = Simetri
+tool.brush.seamless_preview = Pratinjau ubin tanpa sambungan

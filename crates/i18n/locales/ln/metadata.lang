@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadonnée ya fɔtɔ
+metadata.keywords = Maloba ya ntina (;)
+metadata.caption = Ndimbola
+metadata.copyright = Lotomo ya mokomi
+metadata.hint = Poná bisika ya kobongola. Motuya ya mpamba elongolaka makambo ya kati.
+metadata.invalid = Talá motuya mpe fisyé XMP.
+metadata.taken = Datɛ
+metadata.offset = Kotindika esika (s)
+metadata.gps = GPS

@@ -60,3 +60,6 @@ tool.bucket.description = Feu clic per inundar amb el color de primer pla la zon
 tool.bucket.option.contiguous = Contigu
 tool.bucket.option.all_layers = Totes les capes
 tool.bucket.history.fill = Pot de pintura
+
+tool.brush.symmetry = Simetria
+tool.brush.seamless_preview = Previsualització de mosaic continu

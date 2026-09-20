@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Метамаълумоти акс
+metadata.keywords = Калидвожаҳо (;)
+metadata.caption = Тавсиф
+metadata.copyright = Ҳуқуқи муаллиф
+metadata.hint = Майдонҳои тағйирёбандаро интихоб кунед. Қиматҳои холӣ мундариҷаро нест мекунанд.
+metadata.invalid = Қиматҳо ва файли XMP-ро санҷед.
+metadata.taken = Сана
+metadata.offset = Ҷойивазкунӣ (с)
+metadata.gps = GPS

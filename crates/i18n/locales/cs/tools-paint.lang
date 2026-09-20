@@ -60,3 +60,6 @@ tool.bucket.description = Kliknutím vyplní souvislou oblast podobné barvy pod
 tool.bucket.option.contiguous = Sousedící
 tool.bucket.option.all_layers = Všechny vrstvy
 tool.bucket.history.fill = Plechovka barvy
+
+tool.brush.symmetry = Symetrie
+tool.brush.seamless_preview = Náhled bezešvého vzoru

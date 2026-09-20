@@ -60,3 +60,6 @@ tool.bucket.description = Klik para un omple i chetton na lugåt ni parehu kulot
 tool.bucket.option.contiguous = Chetton
 tool.bucket.option.all_layers = Todu i Layer siha
 tool.bucket.history.fill = Paint Bucket
+
+tool.brush.symmetry = Simetria
+tool.brush.seamless_preview = Atan antes i patron ni taya' chetnot

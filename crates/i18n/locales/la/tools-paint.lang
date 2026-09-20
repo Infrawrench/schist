@@ -60,3 +60,6 @@ tool.bucket.description = Preme ut regionem conexam coloris similis sub indice, 
 tool.bucket.option.contiguous = Contiguum
 tool.bucket.option.all_layers = Omnia Strata
 tool.bucket.history.fill = Situla Pigmenti
+
+tool.brush.symmetry = Symmetria
+tool.brush.seamless_preview = Praevisio tessellarum sine suturis

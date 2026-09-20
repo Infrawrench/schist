@@ -60,3 +60,6 @@ tool.bucket.description = Cliceáil chun an limistéar ceangailte ar dhath comhc
 tool.bucket.option.contiguous = Tadhlach
 tool.bucket.option.all_layers = Gach Sraith
 tool.bucket.history.fill = Buicéad Péinte
+
+tool.brush.symmetry = Siméadracht
+tool.brush.seamless_preview = Réamhamharc ar phatrún gan uaim

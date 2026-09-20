@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadatha ya tshifanyiso
+metadata.keywords = Maipfi a ndeme (;)
+metadata.caption = Ṱhaluso
+metadata.copyright = Pfanelo ya muṅwali
+metadata.hint = Nangani zwikhala zwa u shandula. Zwikhala zwi si na tshithu zwi phumula zwi re ngomu.
+metadata.invalid = Ṱolani zwipiḓa na faela ya XMP.
+metadata.taken = Datumu
+metadata.offset = U Sudzulusa (s)
+metadata.gps = GPS

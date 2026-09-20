@@ -60,3 +60,6 @@ tool.bucket.description = Puṱedzani u ḓadza fhethu ho ṱumanaho hu re na mu
 tool.bucket.option.contiguous = Zwo ṱumanaho
 tool.bucket.option.all_layers = Dziḽeyara Dzoṱhe
 tool.bucket.history.fill = Bakete ḽa Pennde
+
+tool.brush.symmetry = U lingana
+tool.brush.seamless_preview = Mbonelo ya phatheni i si na mirungo

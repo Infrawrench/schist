@@ -71,3 +71,6 @@ tool.bucket.description = Digi ka yɔrɔ dafalen min bɛ kurukuru jukɔrɔ ani a
 tool.bucket.option.contiguous = Da kelen
 tool.bucket.option.all_layers = Kaliki bɛɛ
 tool.bucket.history.fill = Pentiri bakɛ
+
+tool.brush.symmetry = Kɛɲɛli
+tool.brush.seamless_preview = Ja min bɛ tɛmɛ ɲɔgɔn fɛ ye ɲɛ

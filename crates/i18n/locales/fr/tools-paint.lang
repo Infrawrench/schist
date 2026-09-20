@@ -60,3 +60,6 @@ tool.bucket.description = Cliquez pour remplir avec la couleur de premier plan l
 tool.bucket.option.contiguous = Pixels contigus
 tool.bucket.option.all_layers = Tous les calques
 tool.bucket.history.fill = Pot de peinture
+
+tool.brush.symmetry = Symétrie
+tool.brush.seamless_preview = Aperçu du motif sans raccord

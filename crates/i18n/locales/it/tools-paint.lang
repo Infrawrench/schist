@@ -81,3 +81,6 @@ tool.bucket.description = Fai clic per riempire con il colore di primo piano l'a
 tool.bucket.option.contiguous = Contiguo
 tool.bucket.option.all_layers = Tutti i livelli
 tool.bucket.history.fill = Secchiello
+
+tool.brush.symmetry = Simmetria
+tool.brush.seamless_preview = Anteprima motivo senza giunture

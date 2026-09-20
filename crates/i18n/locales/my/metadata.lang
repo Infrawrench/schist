@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = ဓာတ်ပုံ မီတာဒေတာ
+metadata.keywords = အဓိကစကားလုံးများ (;)
+metadata.caption = ဖော်ပြချက်
+metadata.copyright = မူပိုင်ခွင့်
+metadata.hint = ပြောင်းရန် အကွက်များကို ရွေးပါ။ အလွတ်တန်ဖိုးများက အကြောင်းအရာကို ဖျက်သည်။
+metadata.invalid = တန်ဖိုးများနှင့် XMP ဖိုင်ကို စစ်ဆေးပါ။
+metadata.taken = ရက်စွဲ
+metadata.offset = အကွာရွှေ့မှု (s)
+metadata.gps = GPS

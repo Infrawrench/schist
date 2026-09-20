@@ -72,3 +72,6 @@ tool.bucket.description = Clicca pro inundar con le color de prime plano le area
 tool.bucket.option.contiguous = Contigue
 tool.bucket.option.all_layers = Tote le stratos
 tool.bucket.history.fill = Situla de pictura
+
+tool.brush.symmetry = Symmetria
+tool.brush.seamless_preview = Previsualisation del patron sin juncturas

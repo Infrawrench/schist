@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = பட மெட்டாதரவு
+metadata.keywords = முக்கிய சொற்கள் (;)
+metadata.caption = விளக்கம்
+metadata.copyright = பதிப்புரிமை
+metadata.hint = மாற்ற வேண்டிய புலங்களைத் தேர்ந்தெடுக்கவும். வெற்று மதிப்புகள் உள்ளடக்கத்தை அழிக்கும்.
+metadata.invalid = மதிப்புகளையும் XMP கோப்பையும் சரிபார்க்கவும்.
+metadata.taken = தேதி
+metadata.offset = விலக்கம் (வி)
+metadata.gps = GPS

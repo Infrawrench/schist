@@ -6788,11 +6788,14 @@ name = "schist-gallery"
 version = "0.14.0"
 dependencies = [
  "anyhow",
+ "chrono",
  "image",
  "kamadak-exif",
+ "roxmltree",
  "schist-neural",
  "serde",
  "serde_json",
+ "tempfile",
 ]
 
 [[package]]

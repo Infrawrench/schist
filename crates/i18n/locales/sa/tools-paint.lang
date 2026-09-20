@@ -60,3 +60,6 @@ tool.bucket.description = साधनस्य सहिष्णुताय�
 tool.bucket.option.contiguous = संलग्नम्
 tool.bucket.option.all_layers = सर्वे स्तराः
 tool.bucket.history.fill = वर्णकुम्भः
+
+tool.brush.symmetry = सममितिः
+tool.brush.seamless_preview = निर्बाधफलकीयपूर्वावलोकनम्

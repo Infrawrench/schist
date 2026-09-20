@@ -60,3 +60,6 @@ tool.bucket.description = उपकरणको सहनशीलताभि�
 tool.bucket.option.contiguous = जोडिएको
 tool.bucket.option.all_layers = सबै तहहरू
 tool.bucket.history.fill = रङ बाल्टिन
+
+tool.brush.symmetry = सममिति
+tool.brush.seamless_preview = जोडरहित टाइल पूर्वावलोकन

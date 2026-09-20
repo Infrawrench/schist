@@ -81,3 +81,6 @@ tool.bucket.description = Mia na fa anim kɔla no hyɛ beae a ɛtoa so na ne kɔ
 tool.bucket.option.contiguous = Ɛtoa So
 tool.bucket.option.all_layers = Layer Nyinaa
 tool.bucket.history.fill = Paint Bokiti
+
+tool.brush.symmetry = Pɛyɛ
+tool.brush.seamless_preview = Ahwɛso a ɛnni ntam

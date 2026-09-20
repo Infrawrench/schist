@@ -70,3 +70,6 @@ tool.bucket.description = کېکاږئ چې د وسیلې د زغم په کچه 
 tool.bucket.option.contiguous = سره نښتی
 tool.bucket.option.all_layers = ټولې طبقې
 tool.bucket.history.fill = د رنګ سطل
+
+tool.brush.symmetry = تقارن
+tool.brush.seamless_preview = د بې درزه ټایل مخکتنه

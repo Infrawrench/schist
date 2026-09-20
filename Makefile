@@ -658,3 +658,49 @@ fmt-similar-photos:
 check-similar-locales:
 	python3 tools/check-i18n.py --files library.lang
 	python3 tools/sync-i18n.py --check
+
+.PHONY: check-symmetry test-symmetry fmt-symmetry
+check-symmetry:
+	$(CARGO) check -p schist-editor -p schist-tools-paint -p schist-compositor -p schist-plugin-api --all-targets
+test-symmetry:
+	$(CARGO) test -p schist-tools-paint -p schist-plugin-api -p schist-compositor
+	$(CARGO) test -p schist-editor --lib viewport_frame
+fmt-symmetry:
+	$(CARGO) fmt -p schist-plugin-api -p schist-editor -p schist-tools-paint -p schist-compositor
+
+.PHONY: check-symmetry-i18n
+check-symmetry-i18n:
+	python3 tools/check-i18n.py
+	python3 tools/sync-i18n.py --check
+
+.PHONY: check-symmetry-format
+check-symmetry-format:
+	$(CARGO) fmt --all -- --check
+
+# Portable XMP metadata and the gallery's batch editor/move integration.
+.PHONY: check-metadata-xmp format-metadata-xmp
+check-metadata-xmp:
+	$(CARGO) test -p schist-gallery xmp
+	$(CARGO) test -p schist-editor --lib metadata
+	$(CARGO) test -p schist-editor --lib moving_a_photo
+	$(CARGO) check -p schist-editor --all-targets
+format-metadata-xmp:
+	$(CARGO) fmt -p schist-gallery -p schist-editor
+
+.PHONY: check-metadata-catalogs
+check-metadata-catalogs:
+	python3 tools/check-i18n.py
+	python3 tools/sync-i18n.py --check
+
+# Optional independent interoperability oracle (requires ExifTool).
+.PHONY: check-metadata-xmp-exiftool
+check-metadata-xmp-exiftool:
+	$(CARGO) test -p schist-gallery xmp_interoperates_with_exiftool -- --ignored
+
+.PHONY: check-metadata-xmp-core check-metadata-xmp-native lint-metadata-xmp
+check-metadata-xmp-core:
+	$(CARGO) test -p schist-gallery xmp
+check-metadata-xmp-native:
+	$(CARGO) check -p schist-editor --all-targets
+lint-metadata-xmp:
+	$(CARGO) clippy -p schist-gallery -p schist-editor --all-targets -- -D warnings

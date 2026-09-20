@@ -60,3 +60,6 @@ tool.bucket.description = Pịa iji ụcha ihu jupụta mpaghara jikọtara ọn
 tool.bucket.option.contiguous = Jikọtara ọnụ
 tool.bucket.option.all_layers = Leya niile
 tool.bucket.history.fill = Bọket agba
+
+tool.brush.symmetry = Nhata akụkụ
+tool.brush.seamless_preview = Nlele mbụ nke ụkpụrụ enweghị njikọ

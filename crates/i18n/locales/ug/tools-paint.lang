@@ -60,3 +60,6 @@ tool.bucket.description = چېكىپ، قورالنىڭ بەرداشلىق دا�
 tool.bucket.option.contiguous = تۇتاش
 tool.bucket.option.all_layers = بارلىق قەۋەتلەر
 tool.bucket.history.fill = بوياق چېلىكى
+
+tool.brush.symmetry = سىممېترىيە
+tool.brush.seamless_preview = يوچۇقسىز نەقىشنى ئالدىن كۆرۈش

@@ -152,25 +152,8 @@ impl Workspace {
             .on_key_down(cx.listener(|ws, ev: &gpui::KeyDownEvent, window, cx| {
                 // A dialog over the gallery owns the keyboard, exactly
                 // as the editor body arranges for its own dialogs:
-                // Enter fires the primary button, everything else goes
-                // to the focused field.
-                if ws.modal.is_some() {
-                    match ev.keystroke.key.as_str() {
-                        "enter" => {
-                            ws.commit_focused_field();
-                            ws.confirm_modal(window, cx);
-                        }
-                        key => {
-                            ws.field_key(
-                                key,
-                                ev.keystroke.key_char.as_deref(),
-                                ev.keystroke.modifiers,
-                                cx,
-                            );
-                        }
-                    }
-                    cx.notify();
-                    cx.stop_propagation();
+                // multiline field shortcuts stay with their field.
+                if ws.modal_key(ev, window, cx) {
                     return;
                 }
                 if ws.gallery_key(ev, cx) {
@@ -2549,7 +2532,7 @@ pub(super) fn bucket_field(
     placeholder: String,
     ws: &Workspace,
     cx: &mut Context<Workspace>,
-) -> impl IntoElement {
+) -> TextInput {
     let focused = ws.focused_field == Some(id);
     let typed = if focused && !ws.field_buffer.is_empty() {
         ws.field_buffer.clone()
@@ -2824,6 +2807,15 @@ fn gallery_context_menu(
             // so the selection is what every action takes.
             let acting = ws.library.selected.clone();
             let n = acting.len();
+            if acting.iter().any(|p| !schist_gallery::is_video(p)) {
+                let photos = acting.clone();
+                row(
+                    t("metadata.title").into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| ws.open_metadata_editor(photos.clone(), cx)),
+                );
+            }
 
             if !schist_gallery::is_video(&path) {
                 let original = path.clone();

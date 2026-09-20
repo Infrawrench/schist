@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Meata-dàta dhealbhan
+metadata.keywords = Faclan-luirg (;)
+metadata.caption = Fo-thiotal
+metadata.copyright = Còir-lethbhreac
+metadata.hint = Tagh raointean ri atharrachadh. Falamhaichidh luachan falamh an t-susbaint.
+metadata.invalid = Thoir sùil air na luachan is am faidhle XMP.
+metadata.taken = Ceann-là
+metadata.offset = Dì-àiteachadh (d)
+metadata.gps = GPS

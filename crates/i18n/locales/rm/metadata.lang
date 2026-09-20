@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadatas da fotografias
+metadata.keywords = Chavazzins (;)
+metadata.caption = Legenda
+metadata.copyright = Dretgs d’autur
+metadata.hint = Tscherna ils champs da midar. Valurs vidas stizzan il cuntegn.
+metadata.invalid = Controllescha las valurs e la datoteca XMP.
+metadata.taken = Data
+metadata.offset = Deplazzament (s)
+metadata.gps = GPS

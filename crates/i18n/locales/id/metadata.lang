@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata foto
+metadata.keywords = Kata kunci (;)
+metadata.caption = Keterangan
+metadata.copyright = Hak cipta
+metadata.hint = Pilih kolom untuk diubah. Nilai kosong menghapus isinya.
+metadata.invalid = Periksa nilai dan berkas XMP.
+metadata.taken = Tanggal
+metadata.offset = Ofset (dtk)
+metadata.gps = GPS

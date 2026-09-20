@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata photographiae
+metadata.keywords = Verba principalia (;)
+metadata.caption = Descriptio
+metadata.copyright = Ius auctoris
+metadata.hint = Elige campos mutandos. Valores vacui contenta delent.
+metadata.invalid = Examina valores et fasciculum XMP.
+metadata.taken = Dies
+metadata.offset = Translatio Geometrica (s)
+metadata.gps = GPS

@@ -60,3 +60,6 @@ tool.bucket.description = Görkezijiniň aşagyndaky meňzeş reňkli sepleşikl
 tool.bucket.option.contiguous = Sepleşikli
 tool.bucket.option.all_layers = Ähli gatlaklar
 tool.bucket.history.fill = Boýag bedre
+
+tool.brush.symmetry = Simmetriýa
+tool.brush.seamless_preview = Sepsiz nagşy öňünden görmek

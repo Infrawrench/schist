@@ -81,3 +81,6 @@ tool.bucket.description = Klik om binnen de tolerânsje fan it ark it oanslutend
 tool.bucket.option.contiguous = Oanslutend
 tool.bucket.option.all_layers = Alle lagen
 tool.bucket.history.fill = Ferve-emmer
+
+tool.brush.symmetry = Symmetry
+tool.brush.seamless_preview = Foarbyld fan naadleas patroan

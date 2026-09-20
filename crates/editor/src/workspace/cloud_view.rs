@@ -1978,20 +1978,7 @@ pub(super) fn browser_gallery(ws: &mut Workspace, cx: &mut Context<Workspace>) -
         .text_color(gpui::rgb(pal().text))
         .track_focus(&ws.focus)
         .on_key_down(cx.listener(|ws, ev: &gpui::KeyDownEvent, window, cx| {
-            if ws.modal.is_some() {
-                if ev.keystroke.key == "enter" {
-                    ws.commit_focused_field();
-                    ws.confirm_modal(window, cx);
-                } else {
-                    ws.field_key(
-                        &ev.keystroke.key,
-                        ev.keystroke.key_char.as_deref(),
-                        ev.keystroke.modifiers,
-                        cx,
-                    );
-                }
-                cx.notify();
-                cx.stop_propagation();
+            if ws.modal_key(ev, window, cx) {
                 return;
             }
             if ws.gallery_key(ev, cx) {

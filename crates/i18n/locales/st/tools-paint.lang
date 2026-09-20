@@ -71,3 +71,6 @@ tool.bucket.description = Tobetsa ho tlatsa sebaka se hokahaneng sa 'mala o tšo
 tool.bucket.option.contiguous = Tse Hokahaneng
 tool.bucket.option.all_layers = Mekhahlelo Eohle
 tool.bucket.history.fill = Bakete ea Pente
+
+tool.brush.symmetry = Tekano
+tool.brush.seamless_preview = Ponelopele ea paterone e se nang moroko

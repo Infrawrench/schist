@@ -61,3 +61,6 @@ tool.bucket.description = Ko‘rsatkich ostidagi o‘xshash rangli tutash sohani
 tool.bucket.option.contiguous = Tutash
 tool.bucket.option.all_layers = Barcha qatlamlar
 tool.bucket.history.fill = Bo‘yoq chelagi
+
+tool.brush.symmetry = Simmetriya
+tool.brush.seamless_preview = Choksiz naqshni oldindan ko‘rish

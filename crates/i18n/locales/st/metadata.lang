@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata ea setšoantšo
+metadata.keywords = Mantsoe a bohlokoa (;)
+metadata.caption = Tlhaloso
+metadata.copyright = Tokelo ea mongoli
+metadata.hint = Khetha libaka tse tla fetoloa. Litekanyetso tse se nang letho li hlakola litaba.
+metadata.invalid = Hlahloba litekanyetso le faele ea XMP.
+metadata.taken = Letsatsi
+metadata.offset = Suthisa ho Tloha Sebakeng (s)
+metadata.gps = GPS

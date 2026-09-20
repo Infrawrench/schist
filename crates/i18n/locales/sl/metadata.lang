@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metapodatki fotografije
+metadata.keywords = Ključne besede (;)
+metadata.caption = Opis
+metadata.copyright = Avtorske pravice
+metadata.hint = Izberite polja za spremembo. Prazne vrednosti izbrišejo vsebino.
+metadata.invalid = Preverite vrednosti in datoteko XMP.
+metadata.taken = Datum
+metadata.offset = Odmik (s)
+metadata.gps = GPS

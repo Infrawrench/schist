@@ -25,6 +25,8 @@ pub mod persist;
 pub mod scan;
 pub mod versions;
 pub mod video;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod xmp;
 pub use video::{is_video, VIDEO_EXTENSIONS};
 pub mod scores;
 pub mod search;

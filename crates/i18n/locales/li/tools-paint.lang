@@ -70,3 +70,6 @@ tool.bucket.description = Klik om 't aaneingeslote gebied mit 'n vergeliekbare k
 tool.bucket.option.contiguous = Aaneingeslote
 tool.bucket.option.all_layers = Alle laoge
 tool.bucket.history.fill = Verfemmer
+
+tool.brush.symmetry = Symmetrie
+tool.brush.seamless_preview = Naadloes tegelveurbeeld

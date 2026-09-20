@@ -70,3 +70,6 @@ tool.bucket.description = Klikit evit beuziñ an takad kevreet a liv heñvel din
 tool.bucket.option.contiguous = Kefin
 tool.bucket.option.all_layers = An holl wiskadoù
 tool.bucket.history.fill = Sailh liv
+
+tool.brush.symmetry = Simetriezh
+tool.brush.seamless_preview = Rakwelet ur c'hinkladur hep kevreadur

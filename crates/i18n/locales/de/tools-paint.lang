@@ -84,3 +84,6 @@ tool.bucket.description = Klicken, um die zusammenhängende Fläche ähnlicher F
 tool.bucket.option.contiguous = Benachbart
 tool.bucket.option.all_layers = Alle Ebenen
 tool.bucket.history.fill = Füllwerkzeug
+
+tool.brush.symmetry = Symmetrie
+tool.brush.seamless_preview = Nahtlose Kachelvorschau

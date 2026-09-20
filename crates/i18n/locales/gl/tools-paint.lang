@@ -60,3 +60,6 @@ tool.bucket.description = Preme para inundar coa cor de primeiro plano a zona co
 tool.bucket.option.contiguous = Contiguo
 tool.bucket.option.all_layers = Todas as capas
 tool.bucket.history.fill = Bote de pintura
+
+tool.brush.symmetry = Simetría
+tool.brush.seamless_preview = Vista previa de mosaico continuo

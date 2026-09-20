@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = ފޮޓޯ މެޓާޑޭޓާ
+metadata.keywords = މައިގަނޑު ބަސްތައް (;)
+metadata.caption = ތަފްޞީލު
+metadata.copyright = ކޮޕީރައިޓް
+metadata.hint = ބަދަލުކުރަންވީ ތަންތަން ހޮވާ. ހުސް އަދަދުތަކުން މަޢުލޫމާތު ފުހެވޭނެ.
+metadata.invalid = އަދަދުތަކާއި XMP ފައިލް ޗެކްކުރޭ.
+metadata.taken = ތާރީޚު
+metadata.offset = އޮފްސެޓް (s)
+metadata.gps = GPS

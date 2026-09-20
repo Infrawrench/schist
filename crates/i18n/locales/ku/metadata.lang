@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadaneyên wêneyê
+metadata.keywords = Peyvên sereke (;)
+metadata.caption = Danasîn
+metadata.copyright = Mafê nivîskar
+metadata.hint = Qadên ku tên guhertin hilbijêre. Nirxên vala naverokê jê dibin.
+metadata.invalid = Nirxan û pelê XMP kontrol bike.
+metadata.taken = Dîrok
+metadata.offset = Veguhezandin (s)
+metadata.gps = GPS

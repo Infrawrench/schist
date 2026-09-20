@@ -61,3 +61,6 @@ tool.bucket.description = Սեղմեք՝ ցուցիչի տակ գտնվող նմ
 tool.bucket.option.contiguous = Հարակից
 tool.bucket.option.all_layers = Բոլոր շերտերը
 tool.bucket.history.fill = Ներկի դույլ
+
+tool.brush.symmetry = Համաչափություն
+tool.brush.seamless_preview = Անխափան սալիկապատման նախադիտում

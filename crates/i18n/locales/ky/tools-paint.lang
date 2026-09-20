@@ -70,3 +70,6 @@ tool.bucket.description = Куралдын жол берилген айырма�
 tool.bucket.option.contiguous = Туташ
 tool.bucket.option.all_layers = Бардык катмарлар
 tool.bucket.history.fill = Боёк чакасы
+
+tool.brush.symmetry = Симметрия
+tool.brush.seamless_preview = Тигишсиз оймону алдын ала көрүү

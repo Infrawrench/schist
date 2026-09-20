@@ -81,3 +81,6 @@ tool.bucket.description = ഉപകരണത്തിന്റെ സഹിഷ�
 tool.bucket.option.contiguous = ചേർന്നിരിക്കുന്നവ
 tool.bucket.option.all_layers = എല്ലാ ലെയറുകളും
 tool.bucket.history.fill = പെയിന്റ് ബക്കറ്റ്
+
+tool.brush.symmetry = സമമിതി
+tool.brush.seamless_preview = തടസ്സമില്ലാത്ത ടൈൽ പ്രിവ്യൂ
