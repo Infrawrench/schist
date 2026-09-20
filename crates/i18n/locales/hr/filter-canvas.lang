@@ -1,0 +1,2 @@
+# Canvas filter control hint.
+dialog.filter.canvas_controls = Povucite ručke platna kako biste prilagodili filtar. Tipke sa strelicama pomiču odabranu ručku za jedan piksel; uz Shift je pomiču za deset piksela.

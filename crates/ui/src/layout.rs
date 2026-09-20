@@ -206,6 +206,8 @@ pub struct Modal {
     title: SharedString,
     width: f32,
     dim_background: bool,
+    canvas_controls: bool,
+    backdrop: Option<gpui::Div>,
     style: StyleRefinement,
     children: Vec<AnyElement>,
     actions: Vec<AnyElement>,
@@ -217,6 +219,8 @@ impl Modal {
             title: title.into(),
             width: 360.0,
             dim_background: true,
+            canvas_controls: false,
+            backdrop: None,
             style: StyleRefinement::default(),
             children: Vec::new(),
             actions: Vec::new(),
@@ -233,6 +237,20 @@ impl Modal {
     /// still blocks input when its dimming is disabled.
     pub fn dim_background(mut self, dim: bool) -> Self {
         self.dim_background = dim;
+        self
+    }
+
+    /// Move the card aside for interactive previews. Pointer events on the
+    /// card stop here, while a host may handle events from the backdrop.
+    pub fn canvas_controls(mut self, enabled: bool) -> Self {
+        self.canvas_controls = enabled;
+        self
+    }
+
+    /// Attach host input handlers to the backdrop's own hitbox. An ancestor's
+    /// hitbox is occluded by this modal and would never receive pointer events.
+    pub fn backdrop(mut self, backdrop: gpui::Div) -> Self {
+        self.backdrop = Some(backdrop);
         self
     }
 
@@ -280,7 +298,15 @@ impl RenderOnce for Modal {
             .shadow_lg()
             .text_color(gpui::rgb(p.text));
         card.style().refine(&self.style);
-        div()
+        if self.canvas_controls {
+            card = card
+                .on_mouse_down(gpui::MouseButton::Left, |_, _, cx| cx.stop_propagation())
+                .on_mouse_down(gpui::MouseButton::Middle, |_, _, cx| cx.stop_propagation())
+                .on_mouse_down(gpui::MouseButton::Right, |_, _, cx| cx.stop_propagation())
+                .on_scroll_wheel(|_, _, cx| cx.stop_propagation());
+        }
+        self.backdrop
+            .unwrap_or_else(div)
             .absolute()
             .top_0()
             .left_0()
@@ -289,6 +315,7 @@ impl RenderOnce for Modal {
             .flex()
             .items_center()
             .justify_center()
+            .when(self.canvas_controls, |el| el.justify_end())
             .p_2()
             .bg(gpui::rgba(if self.dim_background {
                 0x00000080

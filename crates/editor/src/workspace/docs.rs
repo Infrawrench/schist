@@ -215,6 +215,7 @@ impl Workspace {
             self.retired_images.push(old);
         }
         self.filter_preview = None;
+        self.filter_canvas = Default::default();
         self.stack_filter_session = None;
         self.dragging_guide = None;
     }

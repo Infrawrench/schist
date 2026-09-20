@@ -1,0 +1,2 @@
+# Canvas filter control hint.
+dialog.filter.canvas_controls = Arraste as alças na tela para ajustar o filtro. As teclas de seta movem a alça selecionada; com Shift, o movimento é de dez pixels.

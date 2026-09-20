@@ -1,0 +1,2 @@
+# Canvas filter control hint.
+dialog.filter.canvas_controls = Säädä suodinta vetämällä kahvoja piirtoalueella. Nuolinäppäimet siirtävät valittua kahvaa; vaihtonäppäimen kanssa siirto on kymmenen pikseliä.

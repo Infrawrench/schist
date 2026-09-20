@@ -18,6 +18,8 @@ pub mod blurgallery;
 pub mod brush;
 pub mod bump;
 pub mod camera_raw;
+#[doc(hidden)]
+pub mod canvas_controls;
 pub mod distort;
 pub mod gpu;
 mod gpu_extra;
@@ -97,6 +99,9 @@ macro_rules! simple_filter {
             fn params(&self) -> Vec<FilterParam> {
                 vec![$($param),*]
             }
+            fn canvas_controls(&self, values: &FilterValues) -> Vec<schist_plugin_api::filter_canvas::FilterCanvasControl> {
+                $crate::canvas_controls::controls($id, values)
+            }
             fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
                 $crate::gpu::operation($id,values)
             }
@@ -146,6 +151,9 @@ macro_rules! context_filter {
             }
             fn params(&self) -> Vec<FilterParam> {
                 vec![$($param),*]
+            }
+            fn canvas_controls(&self, values: &FilterValues) -> Vec<schist_plugin_api::filter_canvas::FilterCanvasControl> {
+                $crate::canvas_controls::controls($id, values)
             }
             fn gpu_operation(&self, values:&FilterValues)->Option<schist_fx::FilterOperation>{
                 self.gpu_operation_with(values,&schist_plugin_api::FilterContext::default())

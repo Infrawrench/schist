@@ -24,6 +24,7 @@ impl Workspace {
         }
         // A dialog opened from the menus replaces whatever was up,
         // suspended parents included; only `open_color_picker_on` stacks.
+        self.filter_canvas = Default::default();
         self.modal_stack.clear();
         self.cloud.set_people_modal(Some(&modal));
         self.modal = Some(modal);
@@ -155,6 +156,7 @@ impl Workspace {
         // Any filter preview still on the canvas belongs to the dialog that
         // is going away, so put the original pixels back. Committing a
         // filter clears the preview first, so this only fires on cancel.
+        self.filter_canvas = Default::default();
         self.cancel_filter_preview(cx);
         // Same for a cancelled Layer Style session: OK clears the modal
         // itself before it gets here, so reaching this means Cancel.

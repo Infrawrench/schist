@@ -15,6 +15,7 @@ pub use registry::{PluginManifest, PluginRegistry};
 pub mod brush;
 pub use brush::{BrushDynamics, BrushPreset, BrushTip};
 
+pub mod filter_canvas;
 pub mod filter_stack;
 mod native;
 pub mod registry;
@@ -692,6 +693,10 @@ pub trait FilterPlugin: Send + Sync {
         schist_i18n::t("filter.category.other")
     }
     fn params(&self) -> Vec<FilterParam> {
+        Vec::new()
+    }
+    /// Optional parameter-backed controls in filter-buffer coordinates.
+    fn canvas_controls(&self, _values: &FilterValues) -> Vec<filter_canvas::FilterCanvasControl> {
         Vec::new()
     }
     /// Apply in place to a straight-alpha f32 RGBA buffer of
