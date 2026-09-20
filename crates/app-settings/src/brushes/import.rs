@@ -170,7 +170,7 @@ fn gbr(bytes: &[u8], fallback: &str) -> Result<BrushPreset, Error> {
         return Err(Error::Invalid);
     }
     let spacing = r.long()? as f32 / 100.0;
-    if header_size < 28 || header_size > 4096 {
+    if !(28..=4096).contains(&header_size) {
         return Err(Error::Invalid);
     }
     let name = std::str::from_utf8(r.take(header_size - 28)?)
@@ -178,7 +178,13 @@ fn gbr(bytes: &[u8], fallback: &str) -> Result<BrushPreset, Error> {
         .trim_end_matches('\0');
     let pixels = match channels {
         1 => r.take(n)?.to_vec(),
-        4 => r.take(n * 4)?.chunks_exact(4).map(|p| p[3]).collect(),
+        4 => r
+            .take(n * 4)?
+            .as_chunks::<4>()
+            .0
+            .iter()
+            .map(|p| p[3])
+            .collect(),
         _ => return Err(Error::Unsupported),
     };
     if !r.0.is_empty() {
@@ -218,8 +224,10 @@ fn abr(bytes: &[u8], name: &str) -> Result<Vec<BrushPreset>, Error> {
                     }
                     let units: Vec<u16> = entry
                         .take(chars * 2)?
-                        .chunks_exact(2)
-                        .map(|b| u16::from_be_bytes([b[0], b[1]]))
+                        .as_chunks::<2>()
+                        .0
+                        .iter()
+                        .map(|b| u16::from_be_bytes(*b))
                         .collect();
                     let text = String::from_utf16(&units).map_err(|_| Error::Invalid)?;
                     if !text.trim_end_matches('\0').is_empty() {

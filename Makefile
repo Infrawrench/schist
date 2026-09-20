@@ -606,3 +606,7 @@ test-richer-brushes:
 	$(CARGO) test -p schist-tools-paint -p schist-app-settings -p schist-plugin-api
 check-richer-brushes-web:
 	$(CARGO) check -p schist-editor --target wasm32-unknown-unknown
+
+.PHONY: lint-richer-brushes
+lint-richer-brushes:
+	$(CARGO) clippy -p schist-plugin-api -p schist-app-settings -p schist-tools-paint -p schist-editor -p schist-app-platform --all-targets -- -D warnings
