@@ -651,6 +651,7 @@ impl Render for Workspace {
             || self.type_field_option().is_some()
             || self.focused_field == Some(palettes::SEARCH_FIELD)
             || self.focused_field == Some("brush-preset-name")
+            || self.focused_field == Some("spot-name")
             || self.dropdown_open()
             || self.layer_rename.is_some()
             || self.note_edit.is_some()

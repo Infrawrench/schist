@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Pêvekê Saz Bike
 panel.keymap.save_as_prompt = Tomar bike wek — paşgir formatê hilbijêre:
 
 panels.brushes.pen_tilt = Xwariya pênûsê
+
+panels.ink.spot = Mirekkeba rengê taybet
+panels.ink.overprint = Simulasyona çapkirina li ser hev

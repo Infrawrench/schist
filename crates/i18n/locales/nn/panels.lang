@@ -82,3 +82,6 @@ panel.keymap.install_plugin = Installer programtillegg
 panel.keymap.save_as_prompt = Lagre som – filetternamnet avgjer formatet:
 
 panels.brushes.pen_tilt = Pennehelling
+
+panels.ink.spot = Spesialfarge
+panels.ink.overprint = Simulering av overtrykk

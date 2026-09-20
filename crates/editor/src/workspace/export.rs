@@ -9,6 +9,8 @@ fn export_snapshot(doc: &Document) -> Document {
     let mut snapshot = Document::new(doc.title.clone(), doc.width, doc.height, doc.depth);
     snapshot.tree = doc.tree.clone();
     snapshot.mode = doc.mode;
+    snapshot.ink_channels = doc.ink_channels.clone();
+    snapshot.ink_channels_loaded = doc.ink_channels_loaded;
     snapshot.icc_profile = doc.icc_profile.clone();
     snapshot.resolution_dpi = doc.resolution_dpi;
     snapshot

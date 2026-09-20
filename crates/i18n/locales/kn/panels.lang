@@ -73,3 +73,6 @@ panel.keymap.install_plugin = ಪ್ಲಗ್-ಇನ್ ಸ್ಥಾಪಿಸಿ
 panel.keymap.save_as_prompt = ಹೀಗೆ ಉಳಿಸಿ — ವಿಸ್ತರಣೆಯು ಸ್ವರೂಪವನ್ನು ನಿರ್ಧರಿಸುತ್ತದೆ:
 
 panels.brushes.pen_tilt = ಪೆನ್ನಿನ ಓರೆ
+
+panels.ink.spot = ಸ್ಪಾಟ್ ಶಾಯಿ
+panels.ink.overprint = ಓವರ್‌ಪ್ರಿಂಟ್ ಅನುಕರಣೆ

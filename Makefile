@@ -717,3 +717,11 @@ format-photo-culling:
 
 lint-photo-culling:
 	$(CARGO) clippy -p schist-gallery -p schist-editor -p schist-app-actions --all-targets -- -D warnings
+
+.PHONY: fmt-spot-ink test-spot-ink check-spot-ink
+fmt-spot-ink:
+	$(CARGO) fmt -p schist-core -p schist-codec-psd -p schist-document -p schist-tools-paint -p schist-tools-transform -p schist-commands-core -p schist-editor
+test-spot-ink:
+	$(CARGO) test -p schist-core -p schist-codec-psd -p schist-document -p schist-tools-paint -p schist-tools-transform -p schist-commands-core
+check-spot-ink:
+	$(CARGO) check -p schist-editor --all-targets

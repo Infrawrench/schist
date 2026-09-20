@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Faka i-plug-in
 panel.keymap.save_as_prompt = Londoloza njenge — isandiso sikhetha ifomethi:
 
 panels.brushes.pen_tilt = Ukutsheka kwepeni
+
+panels.ink.spot = Uyinki wombala okhethekile
+panels.ink.overprint = Ukulingisa ukuphrinta ngaphezulu

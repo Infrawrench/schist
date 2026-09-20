@@ -72,3 +72,6 @@ panel.keymap.install_plugin = செருகுநிரலை நிறுவ�
 panel.keymap.save_as_prompt = இவ்வாறு சேமி — நீட்சி வடிவத்தைத் தீர்மானிக்கும்:
 
 panels.brushes.pen_tilt = பேனா சாய்வு
+
+panels.ink.spot = தனி நிற மை
+panels.ink.overprint = மேலச்சு உருவகப்படுத்தல்

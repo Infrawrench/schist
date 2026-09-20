@@ -540,6 +540,8 @@ impl Workspace {
             grid_rows: rows,
             surround: key.surround,
         };
+        let ink_channels = doc.ink_channels.clone();
+        let ink_preview = doc.ink_preview;
         let profile = doc.icc_profile.clone();
         let mode = doc.mode;
         let display = self.display_transform.clone();
@@ -628,7 +630,13 @@ impl Workspace {
                             start += tile.len();
                         }
                     }
-                    for (coord, tile) in missing.into_iter().zip(tiles) {
+                    for (coord, mut tile) in missing.into_iter().zip(tiles) {
+                        schist_core::ink::preview_rgba8(
+                            &ink_channels,
+                            ink_preview,
+                            coord.rect(),
+                            &mut tile,
+                        );
                         let tile = Arc::new(tile);
                         grid[(coord.ty - ty0) as usize * cols + (coord.tx - tx0) as usize] =
                             Some(tile.clone());

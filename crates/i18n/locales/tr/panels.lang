@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Eklenti Yükle
 panel.keymap.save_as_prompt = Farklı kaydet — biçimi dosya uzantısı belirler:
 
 panels.brushes.pen_tilt = Kalem eğimi
+
+panels.ink.spot = Spot renk mürekkebi
+panels.ink.overprint = Üst baskı simülasyonu

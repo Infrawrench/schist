@@ -73,3 +73,6 @@ panel.keymap.install_plugin = Plagini quraşdır
 panel.keymap.save_as_prompt = Fərqli saxla — formatı fayl uzantısı müəyyən edir:
 
 panels.brushes.pen_tilt = Qələmin meyli
+
+panels.ink.spot = Xüsusi rəng mürəkkəbi
+panels.ink.overprint = Üst-üstə çap simulyasiyası

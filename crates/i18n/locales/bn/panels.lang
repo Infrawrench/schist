@@ -72,3 +72,6 @@ panel.keymap.install_plugin = প্লাগইন ইনস্টল
 panel.keymap.save_as_prompt = অন্য নামে সংরক্ষণ — এক্সটেনশন ফরম্যাট নির্ধারণ করে:
 
 panels.brushes.pen_tilt = কলমের কাত
+
+panels.ink.spot = স্পট কালি
+panels.ink.overprint = ওভারপ্রিন্ট অনুকরণ

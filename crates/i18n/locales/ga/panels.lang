@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Suiteáil Breiseán
 panel.keymap.save_as_prompt = Sábháil mar — roghnaíonn an iarmhír an fhormáid:
 
 panels.brushes.pen_tilt = Claonadh an phinn
+
+panels.ink.spot = Dúch spotdatha
+panels.ink.overprint = Insamhladh forphriontála

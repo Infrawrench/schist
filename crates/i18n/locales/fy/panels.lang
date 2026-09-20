@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Ynstekker ynstallearje
 panel.keymap.save_as_prompt = Bewarje as — de taheaksel bepaalt it formaat:
 
 panels.brushes.pen_tilt = Pinnehelling
+
+panels.ink.spot = Stipekleurinkt
+panels.ink.overprint = Simulaasje fan oerdruk

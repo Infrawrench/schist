@@ -85,7 +85,14 @@ pub fn write_psd_with(doc: &Document, psb: bool) -> Result<Vec<u8>, PsdError> {
         ColorMode::Indexed => MODE_INDEXED,
     };
     // Channel count of the *merged* image: colour channels plus alpha.
-    let channels: u16 = doc.mode.channels() as u16 + 1;
+    let count =
+        doc.mode.channels() + usize::from(!doc.tree.layers.is_empty()) + doc.ink_channels.len();
+    if count > 56 {
+        return Err(PsdError::Unsupported(
+            "PSD supports at most 56 channels".into(),
+        ));
+    }
+    let channels = count as u16;
 
     let mut b = Buf::new();
     // --- File header ---
@@ -134,7 +141,16 @@ fn write_image_resources(b: &mut Buf, doc: &Document) {
     let mut seen_resolution = false;
     let mut seen_icc = false;
 
-    for res in &doc.preserved_resources {
+    let ink_resources = crate::ink::resources(doc);
+    for res in doc
+        .preserved_resources
+        .iter()
+        .filter(|r| {
+            !(doc.ink_channels_loaded || !doc.ink_channels.is_empty())
+                || !crate::ink::RESOURCE_IDS.contains(&r.id)
+        })
+        .chain(ink_resources.iter())
+    {
         if res.id == COLOR_MODE_DATA_SENTINEL_ID {
             continue; // written as its own section above
         }
@@ -259,11 +275,6 @@ fn write_layer_and_mask_info(b: &mut Buf, doc: &Document, psb: bool) -> Result<(
     let mut entries = Vec::new();
     flatten(&doc.tree.layers, &mut entries);
 
-    if entries.is_empty() {
-        b.len_psb(0, psb);
-        return Ok(());
-    }
-
     let prepared: Vec<Prepared> = entries
         .iter()
         .map(|e| prepare_entry(e, doc, psb))
@@ -309,6 +320,8 @@ fn write_layer_and_mask_info(b: &mut Buf, doc: &Document, psb: bool) -> Result<(
     // above is regenerated, so echoing the old copy back would write it
     // twice. Spec quirk: these pad to 4 bytes, not 2.
     let links = crate::smart_filters::write_links(doc);
+    let ink_state = crate::ink::state(doc);
+    let ink_backup = crate::ink::resource_backup(doc);
     // A global text-engine cache describes the old story, including its
     // glyph layout. Like ag-psd's invalidateTextLayers, deactivate it when
     // native type changes. Keep the bytes in a private backup for lossless
@@ -320,8 +333,11 @@ fn write_layer_and_mask_info(b: &mut Buf, doc: &Document, psb: bool) -> Result<(
     for block in doc
         .preserved_layer_info
         .iter()
+        .filter(|block| block.key != crate::ink::STATE_KEY)
         .filter(|block| links.is_none() || block.key != *b"lnk2")
         .chain(links.iter())
+        .chain(ink_state.iter())
+        .chain(ink_backup.iter())
     {
         // 8B64 marks a block whose length is u64 whatever the key, so a
         // block that arrived that way has to go back out that way: an
@@ -902,6 +918,21 @@ fn write_merged_image(b: &mut Buf, doc: &Document, channels: u16, psb: bool) {
             );
         }
         write_sample(&mut planes[n][i * bpc..(i + 1) * bpc], px.a, doc.depth);
+    }
+    if doc.tree.layers.is_empty() {
+        planes.remove(n);
+    }
+    for channel in &doc.ink_channels {
+        let mut plane = vec![0u8; w * h * bpc];
+        for y in 0..h {
+            for x in 0..w {
+                let v = channel.pixels.value(x as i32, y as i32);
+                let v = if channel.info.spot { 1.0 - v } else { v };
+                let at = (y * w + x) * bpc;
+                write_sample(&mut plane[at..at + bpc], v, doc.depth);
+            }
+        }
+        planes.push(plane);
     }
     debug_assert_eq!(planes.len(), channels as usize);
 

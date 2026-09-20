@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Инсталирај додатак
 panel.keymap.save_as_prompt = Сачувај као — ознака типа датотеке одређује формат:
 
 panels.brushes.pen_tilt = Нагиб оловке
+
+panels.ink.spot = Посебна штампарска боја
+panels.ink.overprint = Симулација претиска

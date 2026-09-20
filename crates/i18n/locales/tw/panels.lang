@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Fa Plug-in Gu So
 panel.keymap.save_as_prompt = Kora sɛ — extension no na ɛpaw format no:
 
 panels.brushes.pen_tilt = Pɛn no akyea
+
+panels.ink.spot = Kae sononko aduru
+panels.ink.overprint = Tintim a wɔde kata kɔla so ho nhwɛso

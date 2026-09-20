@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Hametraka plug-in
 panel.keymap.save_as_prompt = Tehirizo ho — ny tovan-drakitra no mifidy ny endrika:
 
 panels.brushes.pen_tilt = Fitongilan'ny penina
+
+panels.ink.spot = Ranomainty loko manokana
+panels.ink.overprint = Fanahafana fanontana mifandrakotra

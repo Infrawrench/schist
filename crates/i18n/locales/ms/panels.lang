@@ -104,3 +104,6 @@ panel.keymap.install_plugin = Pasang Pemalam
 panel.keymap.save_as_prompt = Simpan sebagai — sambungan menentukan format:
 
 panels.brushes.pen_tilt = Kecondongan pen
+
+panels.ink.spot = Dakwat warna khas
+panels.ink.overprint = Simulasi cetakan tindih

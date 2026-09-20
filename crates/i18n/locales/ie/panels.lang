@@ -73,3 +73,6 @@ panel.keymap.install_plugin = Installar plug-in
 panel.keymap.save_as_prompt = Gardar quam — li extension selecte li formate:
 
 panels.brushes.pen_tilt = Inclination del plum
+
+panels.ink.spot = Tinte de color special
+panels.ink.overprint = Simulation de superimpression

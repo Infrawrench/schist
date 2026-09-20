@@ -45,6 +45,17 @@ impl Workspace {
         } else {
             rgba
         };
+        let mut managed = managed;
+        if let Some(doc) = self.doc.as_ref() {
+            if doc.ink_preview != schist_core::InkPreview::Process {
+                schist_core::ink::preview_rgba8(
+                    &doc.ink_channels,
+                    doc.ink_preview,
+                    coord.rect(),
+                    Arc::make_mut(&mut managed).as_mut_slice(),
+                );
+            }
+        }
         self.display_tiles.insert(coord, managed.clone());
         Some(managed)
     }

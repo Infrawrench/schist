@@ -72,3 +72,6 @@ panel.keymap.install_plugin = प्लगिन् संस्थापयत�
 panel.keymap.save_as_prompt = अन्यथा रक्षतु—प्रत्ययः रूपं चिनोति:
 
 panels.brushes.pen_tilt = लेखन्याः नतिः
+
+panels.ink.spot = विशेषवर्णमसी
+panels.ink.overprint = उपरिमुद्रणानुकरणम्

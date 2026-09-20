@@ -72,3 +72,6 @@ panel.keymap.install_plugin = התקנת תוסף
 panel.keymap.save_as_prompt = שמירה בשם — הסיומת קובעת את התבנית:
 
 panels.brushes.pen_tilt = הטיית העט
+
+panels.ink.spot = דיו בצבע ספוט
+panels.ink.overprint = הדמיית הדפסת רכב

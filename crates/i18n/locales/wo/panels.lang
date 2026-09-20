@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Samp Plug-in
 panel.keymap.save_as_prompt = Denc ni — yaatal bi mooy tànn formaa bi:
 
 panels.brushes.pen_tilt = Wengug bindukaay
+
+panels.ink.spot = Enk bu melow bu ñu tànn
+panels.ink.overprint = Royukaayu móol ci kaw melo

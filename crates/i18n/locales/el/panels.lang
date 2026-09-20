@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Εγκατάσταση πρόσθετου
 panel.keymap.save_as_prompt = Αποθήκευση ως — η επέκταση καθορίζει τη μορφή:
 
 panels.brushes.pen_tilt = Κλίση γραφίδας
+
+panels.ink.spot = Μελάνι ειδικού χρώματος
+panels.ink.overprint = Προσομοίωση επιτύπωσης

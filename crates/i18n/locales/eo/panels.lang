@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Instali kromprogramon
 panel.keymap.save_as_prompt = Konservi kiel — la sufikso elektas la dosierformon:
 
 panels.brushes.pen_tilt = Klino de la grifelo
+
+panels.ink.spot = Specialkolora inko
+panels.ink.overprint = Simulado de superpreso

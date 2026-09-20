@@ -95,3 +95,6 @@ panel.keymap.install_plugin = Installar un modul extèrne
 panel.keymap.save_as_prompt = Enregistrar jos — l'extension determina lo format :
 
 panels.brushes.pen_tilt = Inclinason del gredon
+
+panels.ink.spot = Tinta plata
+panels.ink.overprint = Simulacion de susimpression

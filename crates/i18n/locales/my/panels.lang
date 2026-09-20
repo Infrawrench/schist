@@ -83,3 +83,6 @@ panel.keymap.install_plugin = ပလပ်အင် ထည့်သွင်း�
 panel.keymap.save_as_prompt = အမည်ပြောင်းသိမ်းရန် — ဖိုင်အဆက်က ဖော်မတ်ကို သတ်မှတ်သည်-
 
 panels.brushes.pen_tilt = ဘောပင်စောင်းမှု
+
+panels.ink.spot = အထူးအရောင်မင်
+panels.ink.overprint = ထပ်ဆင့်ပုံနှိပ်မှု သရုပ်ပြခြင်း

@@ -73,3 +73,6 @@ panel.keymap.install_plugin = Installer ekstramodul
 panel.keymap.save_as_prompt = Gem som — filtypenavnet bestemmer formatet:
 
 panels.brushes.pen_tilt = Pennehældning
+
+panels.ink.spot = Staffagefarve
+panels.ink.overprint = Simulering af overtryk

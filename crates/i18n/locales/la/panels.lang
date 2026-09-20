@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Plug-in Installa
 panel.keymap.save_as_prompt = Serva ut — extensio formam eligit:
 
 panels.brushes.pen_tilt = Inclinatio stili
+
+panels.ink.spot = Atramentum coloris proprii
+panels.ink.overprint = Simulatio superimpressionis

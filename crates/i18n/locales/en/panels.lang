@@ -104,3 +104,6 @@ panel.keymap.install_plugin = Install Plugin
 panel.keymap.save_as_prompt = Save as — the extension picks the format:
 
 panels.brushes.pen_tilt = Pen tilt
+
+panels.ink.spot = Spot ink
+panels.ink.overprint = Overprint simulation

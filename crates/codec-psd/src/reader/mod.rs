@@ -55,19 +55,37 @@ fn read_psd_inner(bytes: &[u8], native_filters: bool) -> Result<Document, PsdErr
     let preserved_layer_info = parsed.preserved_layer_info;
     let mut tree_layers = parsed.layers;
 
-    // 5. Merged image data. Only decoded when the file is flattened (zero
-    //    layer records) — then it becomes a synthesized "Background" layer.
-    //    Files with layers may still carry it; we tolerate and skip it.
+    // Extra alpha/spot planes live only in the merged image, even in a
+    // layered PSD. Decode whenever extras exist, preserving their order.
+    let extra_start = header.base_channels() as usize + usize::from(parsed.merged_alpha);
+    let needs_composite = tree_layers.is_empty() || header.channels as usize > extra_start;
+    let composite = if needs_composite {
+        image_data::parse_image_data(&mut cur, &header)?
+    } else {
+        None
+    };
+    if header.channels as usize > extra_start && composite.is_none() {
+        return Err(PsdError::Corrupt(
+            "extra channels have no merged pixel data".into(),
+        ));
+    }
+    let extras: Vec<Vec<f32>> = composite
+        .as_ref()
+        .map(|c| {
+            c.planes
+                .iter()
+                .skip(extra_start)
+                .map(|p| pixels::plane_to_f32(p, header.depth))
+                .collect()
+        })
+        .unwrap_or_default();
     if tree_layers.is_empty() {
-        match image_data::parse_image_data(&mut cur, &header)? {
-            Some(composite) => {
-                tree_layers.push(background_from_composite(
-                    &header,
-                    composite,
-                    parsed.merged_alpha,
-                ));
-            }
-            None => log::warn!("flattened PSD without merged image data; opening empty"),
+        if let Some(composite) = composite {
+            tree_layers.push(background_from_composite(
+                &header,
+                composite,
+                parsed.merged_alpha,
+            ));
         }
     }
 
@@ -90,6 +108,8 @@ fn read_psd_inner(bytes: &[u8], native_filters: bool) -> Result<Document, PsdErr
             },
         );
     }
+    doc.ink_channels_loaded = !extras.is_empty();
+    crate::ink::read(&mut doc, &extras);
     doc.tree.layers = tree_layers;
     if native_filters {
         crate::smart_filters::import_document(&mut doc);

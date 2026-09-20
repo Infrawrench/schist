@@ -82,3 +82,6 @@ panel.keymap.install_plugin = Kotya plug-in
 panel.keymap.save_as_prompt = Kobomba lokola — extension nde eponaka formá:
 
 panels.brushes.pen_tilt = Kogumbama ya ekomeli
+
+panels.ink.spot = Ancre ya langi ya sipesiale
+panels.ink.overprint = Komekola konyata likoló ya langi

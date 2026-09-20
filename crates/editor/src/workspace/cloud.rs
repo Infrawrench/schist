@@ -1757,6 +1757,10 @@ impl Workspace {
             next.selection = std::mem::take(&mut doc.selection);
             next.last_selection = doc.last_selection.take();
             next.saved_selections = std::mem::take(&mut doc.saved_selections);
+            next.active_ink = doc
+                .active_ink
+                .filter(|id| next.ink_channels.iter().any(|c| c.info.id == *id));
+            next.ink_preview = doc.ink_preview;
             next.history_source = std::mem::take(&mut doc.history_source);
             next.selected = doc
                 .selected

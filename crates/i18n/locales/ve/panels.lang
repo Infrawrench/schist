@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Dzhenisa Plug-in
 panel.keymap.save_as_prompt = Vhulunga sa — ekstensioni i nanga fomathi:
 
 panels.brushes.pen_tilt = U sendama ha peni
+
+panels.ink.spot = Inki ya muvhala wo khetheaho
+panels.ink.overprint = U edzisa u gandisa nṱha ha muvhala

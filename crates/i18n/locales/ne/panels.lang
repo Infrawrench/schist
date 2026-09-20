@@ -72,3 +72,6 @@ panel.keymap.install_plugin = प्लगइन स्थापना गर्
 panel.keymap.save_as_prompt = यस रूपमा बचत गर्नुहोस् — एक्सटेन्सनले ढाँचा छान्छ:
 
 panels.brushes.pen_tilt = कलमको झुकाव
+
+panels.ink.spot = स्पट मसी
+panels.ink.overprint = ओभरप्रिन्ट अनुकरण

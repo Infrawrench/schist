@@ -72,3 +72,6 @@ panel.keymap.install_plugin = ፕላግ-ኢን ምትካል
 panel.keymap.save_as_prompt = ከምዚ ምቕማጥ — መወዳእታ ስም ፋይል ቅርጹ ይመርጽ፦
 
 panels.brushes.pen_tilt = ምዝንባል ብርዒ
+
+panels.ink.spot = ፍሉይ ሕብሪ ቀለም
+panels.ink.overprint = ምስሊ ተደራራቢ ሕትመት

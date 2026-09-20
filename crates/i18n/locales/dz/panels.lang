@@ -72,3 +72,6 @@ panel.keymap.install_plugin = པ་ལག་ཨིན་གཞི་བཙུ�
 panel.keymap.save_as_prompt = འདི་སྦེ་སྲུང་ — རྒྱ་བསྐྱེད་ཀྱིས་རྣམ་བཞག་སེལཝ་ཨིན།:
 
 panels.brushes.pen_tilt = སྨྱུ་གུའི་གསེག་ཚད།
+
+panels.ink.spot = ཚོས་གཞི་དམིགས་བསལ་གྱི་སྣག་ཚ།
+panels.ink.overprint = སྟེང་བཀྲམ་དཔེ་སྟོན།

@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Плагин урынлаштырыу
 panel.keymap.save_as_prompt = Икенсе исем менән һаҡлау — форматты киңәйтеү билдәләй:
 
 panels.brushes.pen_tilt = Ҡәләм ауышлығы
+
+panels.ink.spot = Махсус төҫлө ҡара
+panels.ink.overprint = Өҫтән баҫыуҙы оҡшатыу

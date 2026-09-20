@@ -102,3 +102,6 @@ panel.keymap.install_plugin = Asenna liitännäinen
 panel.keymap.save_as_prompt = Tallenna nimellä — tiedostopääte määrää muodon:
 
 panels.brushes.pen_tilt = Kynän kallistus
+
+panels.ink.spot = Spottiväri
+panels.ink.overprint = Päällepainatuksen simulointi

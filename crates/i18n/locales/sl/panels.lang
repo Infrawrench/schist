@@ -80,3 +80,6 @@ panel.keymap.install_plugin = Namesti vtičnik
 panel.keymap.save_as_prompt = Shrani kot — končnica določa obliko:
 
 panels.brushes.pen_tilt = Nagib peresa
+
+panels.ink.spot = Posebna tiskarska barva
+panels.ink.overprint = Simulacija pretiska

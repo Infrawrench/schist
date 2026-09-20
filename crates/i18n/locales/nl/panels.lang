@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Plug-in installeren
 panel.keymap.save_as_prompt = Opslaan als — de extensie bepaalt de indeling:
 
 panels.brushes.pen_tilt = Penkanteling
+
+panels.ink.spot = Steunkleurinkt
+panels.ink.overprint = Overdruksimulatie

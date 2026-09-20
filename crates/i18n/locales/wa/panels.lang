@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Astaler on tchôke-divins
 panel.keymap.save_as_prompt = Schaper et rlomer — l' cawete tchoezi l' cogne:
 
 panels.brushes.pen_tilt = Clinaison do creyon
+
+panels.ink.spot = Inte di coleur sipeciåle
+panels.ink.overprint = Simulåcion di sorimprimaedje

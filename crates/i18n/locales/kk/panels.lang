@@ -82,3 +82,6 @@ panel.keymap.install_plugin = Плагин орнату
 panel.keymap.save_as_prompt = Басқаша сақтау — пішімді кеңейтім анықтайды:
 
 panels.brushes.pen_tilt = Қалам еңісі
+
+panels.ink.spot = Арнайы түсті сия
+panels.ink.overprint = Үстінен басуды модельдеу

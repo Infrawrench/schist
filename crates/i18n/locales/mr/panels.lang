@@ -72,3 +72,6 @@ panel.keymap.install_plugin = प्लगइन स्थापित करा
 panel.keymap.save_as_prompt = म्हणून जतन करा — विस्तार स्वरूप ठरवतो:
 
 panels.brushes.pen_tilt = पेनचा कल
+
+panels.ink.spot = स्पॉट शाई
+panels.ink.overprint = ओव्हरप्रिंट अनुकरण

@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Насб кардани плагин
 panel.keymap.save_as_prompt = Захира ҳамчун — пасванд форматро муайян мекунад:
 
 panels.brushes.pen_tilt = Майли қалам
+
+panels.ink.spot = Ранги махсус
+panels.ink.overprint = Тақлиди чопи рӯйҳам

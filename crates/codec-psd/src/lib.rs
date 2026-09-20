@@ -16,6 +16,7 @@
 
 pub mod effects;
 pub mod error;
+mod ink;
 mod raw;
 mod reader;
 mod smart;

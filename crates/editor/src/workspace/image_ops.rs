@@ -371,6 +371,20 @@ pub(super) fn transform_document(doc: &mut Document, op: CanvasTransform) {
         })
         .collect();
     let mut edit = doc.begin_edit(op.title());
+    edit.remap_ink(
+        IntRect::from_size(nw, nh),
+        |x, y| {
+            let (sx, sy) = match op {
+                CanvasTransform::Cw90 => (y, nw as i32 - 1 - x),
+                CanvasTransform::Ccw90 => (nh as i32 - 1 - y, x),
+                CanvasTransform::Rotate180 => (w as i32 - 1 - x, h as i32 - 1 - y),
+                CanvasTransform::FlipH => (w as i32 - 1 - x, y),
+                CanvasTransform::FlipV => (x, h as i32 - 1 - y),
+            };
+            (sx as f32, sy as f32)
+        },
+        false,
+    );
     edit.set_canvas_size(nw, nh);
     for (id, src) in &sources {
         for coord in TileCoord::covering(&IntRect::from_size(nw, nh)) {
@@ -395,4 +409,32 @@ pub(super) fn transform_document(doc: &mut Document, op: CanvasTransform) {
         }
     }
     edit.commit();
+}
+
+#[cfg(test)]
+mod spot_geometry_tests {
+    use super::*;
+    #[test]
+    fn rotate_and_flip_keep_spot_registration_and_undo_geometry() {
+        for (op, expected) in [
+            (CanvasTransform::Cw90, (1, 1)),
+            (CanvasTransform::Ccw90, (0, 1)),
+            (CanvasTransform::Rotate180, (1, 1)),
+            (CanvasTransform::FlipH, (1, 0)),
+            (CanvasTransform::FlipV, (1, 1)),
+        ] {
+            let mut doc = Document::new("ink", 3, 2, schist_color::Depth::ThirtyTwo);
+            let mut channel = schist_core::InkChannel::spot("Plate".into(), [0.0; 3]);
+            channel.pixels.set(1, 0, 0.75);
+            doc.ink_channels.push(channel);
+            transform_document(&mut doc, op);
+            assert_eq!(
+                doc.ink_channels[0].pixels.value(expected.0, expected.1),
+                0.75
+            );
+            doc.undo();
+            assert_eq!((doc.width, doc.height), (3, 2));
+            assert_eq!(doc.ink_channels[0].pixels.value(1, 0), 0.75);
+        }
+    }
 }

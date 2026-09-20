@@ -82,3 +82,6 @@ panel.keymap.install_plugin = Faka I-plugin
 panel.keymap.save_as_prompt = Gcina njenge — isijobelelo sikhetha uhlobo:
 
 panels.brushes.pen_tilt = Ukutsheka kwepeni
+
+panels.ink.spot = Uyinki wombala okhethekileyo
+panels.ink.overprint = Ukulingisela ukudinda phezu kombala

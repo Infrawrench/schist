@@ -82,3 +82,6 @@ panel.keymap.install_plugin = Nghenisa plug-in
 panel.keymap.save_as_prompt = Hlayisa tani hi — extension yi hlawula fomati:
 
 panels.brushes.pen_tilt = Ku voyama ka peni
+
+panels.ink.spot = Inki ya muvala wo hlawuleka
+panels.ink.overprint = Ku tekelela ku kandziyisa ehenhla ka muvala

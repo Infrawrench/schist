@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Sakinisha Programu-jalizi
 panel.keymap.save_as_prompt = Hifadhi kama — kiendelezi huchagua muundo:
 
 panels.brushes.pen_tilt = Mwinamo wa kalamu
+
+panels.ink.spot = Wino wa rangi maalumu
+panels.ink.overprint = Uigaji wa uchapishaji juu ya rangi

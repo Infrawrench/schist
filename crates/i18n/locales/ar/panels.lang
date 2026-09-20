@@ -72,3 +72,6 @@ panel.keymap.install_plugin = تثبيت مكون إضافي
 panel.keymap.save_as_prompt = حفظ باسم — تحدد اللاحقة التنسيق:
 
 panels.brushes.pen_tilt = إمالة القلم
+
+panels.ink.spot = حبر لون موضعي
+panels.ink.overprint = محاكاة الطباعة الفوقية

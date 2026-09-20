@@ -415,7 +415,8 @@ impl Workspace {
         // Text fields (layer and document names) take any printable
         // character; the picker's hex field takes hex digits up to a full
         // triplet; numeric fields only digits.
-        let textual = id == "layer-name"
+        let textual = id == "spot-name"
+            || id == "layer-name"
             || id == "brush-preset-name"
             || id == "recorded-action-name"
             || id == "new-doc-name"
@@ -567,6 +568,26 @@ impl Workspace {
     }
 
     pub(super) fn commit_field(&mut self, id: &'static str) {
+        if id == "spot-name" && !self.field_buffer.trim().is_empty() {
+            if let Some(doc) = self.doc.as_mut() {
+                if let Some(channel) = doc.active_ink {
+                    let name = self.field_buffer.trim().to_owned();
+                    if doc
+                        .ink_channels
+                        .iter()
+                        .any(|c| c.info.id == channel && c.info.name != name)
+                    {
+                        let mut edit = doc.begin_edit(schist_i18n::t("common.rename"));
+                        edit.change_ink_channels(|channels| {
+                            if let Some(c) = channels.iter_mut().find(|c| c.info.id == channel) {
+                                c.info.name = name;
+                            }
+                        });
+                        edit.commit();
+                    }
+                }
+            }
+        }
         self.commit_field_value(id);
         self.focused_field = None;
         self.field_buffer.clear();
@@ -575,6 +596,9 @@ impl Workspace {
     }
 
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
+        if id == "spot-name" {
+            return;
+        }
         if id == "brush-preset-name" {
             self.brush_preset_name = self
                 .field_buffer

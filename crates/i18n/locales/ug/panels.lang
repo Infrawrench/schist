@@ -72,3 +72,6 @@ panel.keymap.install_plugin = قىستۇرما ئورنىتىش
 panel.keymap.save_as_prompt = باشقا نامدا ساقلاش — كېڭەيتىلمە فورماتنى بەلگىلەيدۇ:
 
 panels.brushes.pen_tilt = قەلەم يانتۇلۇقى
+
+panels.ink.spot = ئالاھىدە رەڭ سىياھى
+panels.ink.overprint = ئۈستىلەپ بېسىش تەقلىدى

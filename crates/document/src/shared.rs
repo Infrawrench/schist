@@ -241,6 +241,21 @@ impl SharedDocument {
             "document/metadata".into(),
             schist_codec_psd::write_psd(&meta)?,
         );
+        // Channel metadata and each scalar tile are independent CRDT fields.
+        // Random PSD-compatible IDs distinguish concurrent channel creation.
+        for (rank, channel) in source.ink_channels.iter().enumerate() {
+            let prefix = format!("ink/{}", channel.info.id);
+            out.insert(
+                format!("{prefix}/info"),
+                rmp_serde::to_vec(&(rank, &channel.info))?,
+            );
+            for (coord, tile) in &channel.pixels.0 {
+                out.insert(
+                    format!("{prefix}/pixels/{}/{}", coord.tx, coord.ty),
+                    tile.iter().flat_map(|v| v.to_le_bytes()).collect(),
+                );
+            }
+        }
         self.capture_layers(&source.tree.layers, "root", source.depth, &mut out)?;
         // Comp references use stable shared IDs, never another process's LayerId values.
         let mut references = Vec::new();
@@ -362,6 +377,63 @@ impl SharedDocument {
             w > 0 && h > 0 && w <= 300000 && h <= 300000,
             "Invalid shared canvas size"
         );
+        doc.ink_channels.clear();
+        let mut inks = Vec::new();
+        let mut ink_bytes = 0usize;
+        for (key, data) in &fields {
+            let Some(id) = key
+                .strip_prefix("ink/")
+                .and_then(|k| k.strip_suffix("/info"))
+            else {
+                continue;
+            };
+            let (rank, info): (usize, schist_core::InkChannelInfo) = rmp_serde::from_slice(data)?;
+            ensure!(
+                id.parse::<u32>()? == info.id && info.id != 0,
+                "Invalid ink identifier"
+            );
+            ensure!(
+                info.solidity.is_finite() && info.color.iter().all(|v| v.is_finite()),
+                "Invalid ink display colour"
+            );
+            ensure!(
+                inks.len() < 56 - doc.mode.channels(),
+                "Too many ink channels"
+            );
+            let mut pixels = schist_core::InkTiles::default();
+            let prefix = format!("ink/{id}/pixels/");
+            for (k, bytes) in fields.range(prefix.clone()..) {
+                let Some(position) = k.strip_prefix(&prefix) else {
+                    break;
+                };
+                let (x, y) = position
+                    .split_once('/')
+                    .ok_or_else(|| anyhow!("Invalid ink tile coordinate"))?;
+                let coord = TileCoord {
+                    tx: x.parse()?,
+                    ty: y.parse()?,
+                };
+                ensure!(
+                    coord.tx.unsigned_abs() < 1_000_000 && coord.ty.unsigned_abs() < 1_000_000,
+                    "Ink tile coordinate out of bounds"
+                );
+                ensure!(bytes.len() == TILE_PIXELS * 4, "Invalid ink tile length");
+                ink_bytes = ink_bytes
+                    .checked_add(bytes.len())
+                    .ok_or_else(|| anyhow!("Ink sample budget exceeded"))?;
+                ensure!(ink_bytes <= 512 * 1024 * 1024, "Ink sample budget exceeded");
+                let values: Vec<_> = bytes
+                    .chunks_exact(4)
+                    .map(|b| f32::from_le_bytes(b.try_into().unwrap()))
+                    .collect();
+                ensure!(values.iter().all(|v| v.is_finite()), "Invalid ink sample");
+                pixels.0.insert(coord, Arc::new(values));
+            }
+            inks.push((rank, info.id, schist_core::InkChannel { info, pixels }));
+        }
+        inks.sort_by_key(|(rank, id, _)| (*rank, *id));
+        doc.ink_channels = inks.into_iter().map(|(_, _, c)| c).collect();
+        doc.ink_channels_loaded = true;
         doc.width = w;
         doc.height = h;
         doc.resolution_dpi = dpi;
@@ -636,6 +708,50 @@ mod tests {
             Some(stack)
         );
     }
+    #[cfg_attr(not(target_arch = "wasm32"), test)]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
+    fn spot_channels_merge_independent_tiles_and_survive_recovery() {
+        let mut doc = sample();
+        let mut channel = schist_core::InkChannel::spot("Varnish".into(), [0.5, 0.25, 0.75]);
+        channel.info.visible = false;
+        channel.pixels.set(0, 0, 0.123456);
+        doc.ink_channels.push(channel);
+        let mut a = SharedDocument::new(&doc).unwrap();
+        let mut b = SharedDocument::new(&doc).unwrap();
+        let mut da = a.render().unwrap();
+        let mut db = b.render().unwrap();
+        da.ink_channels[0].pixels.set(0, 0, 0.25);
+        db.ink_channels[0]
+            .pixels
+            .set(schist_core::TILE_SIZE, 0, 0.75);
+        let ua = a.local_changes(&da).unwrap().unwrap();
+        let ub = b.local_changes(&db).unwrap().unwrap();
+        a.apply(&ub).unwrap();
+        b.apply(&ua).unwrap();
+        for shared in [&mut a, &mut b] {
+            let rendered = shared.render().unwrap();
+            assert_eq!(rendered.ink_channels[0].info.name, "Varnish");
+            assert!(!rendered.ink_channels[0].info.visible);
+            assert_eq!(rendered.ink_channels[0].pixels.value(0, 0), 0.25);
+            assert_eq!(
+                rendered.ink_channels[0]
+                    .pixels
+                    .value(schist_core::TILE_SIZE, 0),
+                0.75
+            );
+            let checkpoint = shared.checkpoint().unwrap();
+            let mut fresh = SharedDocument::unseeded(&doc).unwrap();
+            let recovered = fresh.restore(&checkpoint, &doc).unwrap();
+            assert_eq!(recovered.ink_channels[0].pixels.value(0, 0), 0.25);
+            assert_eq!(
+                recovered.ink_channels[0]
+                    .pixels
+                    .value(schist_core::TILE_SIZE, 0),
+                0.75
+            );
+        }
+    }
+
     #[cfg_attr(not(target_arch = "wasm32"), test)]
     #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
     fn concurrent_properties_and_tiles_merge() {

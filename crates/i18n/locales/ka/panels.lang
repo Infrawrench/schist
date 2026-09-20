@@ -83,3 +83,6 @@ panel.keymap.install_plugin = დამატების დაყენებ�
 panel.keymap.save_as_prompt = შენახვა როგორც — ფორმატს გაფართოება განსაზღვრავს:
 
 panels.brushes.pen_tilt = კალმის დახრა
+
+panels.ink.spot = სპეციალური ფერის მელანი
+panels.ink.overprint = გადაბეჭდვის სიმულაცია

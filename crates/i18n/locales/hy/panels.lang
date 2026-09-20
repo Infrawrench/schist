@@ -73,3 +73,6 @@ panel.keymap.install_plugin = Տեղադրել հավելում
 panel.keymap.save_as_prompt = Պահել որպես․ ձևաչափն ընտրվում է ընդլայնմամբ՝
 
 panels.brushes.pen_tilt = Գրչի թեքություն
+
+panels.ink.spot = Հատուկ գույնի թանաք
+panels.ink.overprint = Վրատպման մոդելավորում

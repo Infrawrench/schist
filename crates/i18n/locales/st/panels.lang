@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Kenya Plug-in
 panel.keymap.save_as_prompt = Boloka e le — katoloso ea lebitso e khetha sebopeho:
 
 panels.brushes.pen_tilt = Ho sekama ha pene
+
+panels.ink.spot = Enke ea 'mala o khethehileng
+panels.ink.overprint = Ketsiso ea khatiso holim'a 'mala

@@ -46,6 +46,11 @@ pub struct Document {
     pub mode: ColorMode,
     /// Native colour channel selected for painting; None edits the composite.
     pub active_channel: Option<usize>,
+    pub ink_channels: Vec<crate::InkChannel>,
+    /// The codec has decoded (or the user has authored) the extra planes.
+    pub ink_channels_loaded: bool,
+    pub active_ink: Option<u32>,
+    pub ink_preview: crate::InkPreview,
     pub depth: Depth,
     pub icc_profile: Option<Vec<u8>>,
     pub tree: LayerTree,
@@ -126,6 +131,10 @@ impl Document {
             resolution_dpi: 72.0,
             mode: ColorMode::Rgb,
             active_channel: None,
+            ink_channels: Vec::new(),
+            ink_channels_loaded: false,
+            active_ink: None,
+            ink_preview: Default::default(),
             depth,
             icc_profile: None,
             tree: LayerTree::default(),
@@ -525,6 +534,20 @@ impl Document {
                 } else {
                     *after
                 };
+                self.damage_all();
+            }
+            EditOp::InkChannelsSet { before, after } => {
+                self.ink_channels = if dir == Direction::Undo {
+                    before.clone()
+                } else {
+                    after.clone()
+                };
+                if self
+                    .active_ink
+                    .is_some_and(|id| !self.ink_channels.iter().any(|c| c.info.id == id))
+                {
+                    self.active_ink = None;
+                }
                 self.damage_all();
             }
             EditOp::NotesSet { before, after } => {
@@ -1235,6 +1258,80 @@ impl<'a> EditBuilder<'a> {
         });
     }
 
+    /// Change separation metadata/pixels as one reversible edit (COW tiles).
+    pub fn change_ink_channels(&mut self, change: impl FnOnce(&mut Vec<crate::InkChannel>)) {
+        self.doc.ink_channels_loaded = true;
+        let before = self.doc.ink_channels.clone();
+        change(&mut self.doc.ink_channels);
+        self.ops.push(EditOp::InkChannelsSet {
+            before,
+            after: self.doc.ink_channels.clone(),
+        });
+        self.damage = self.damage.union(&self.doc.canvas_rect());
+    }
+
+    /// Remap every extra plate alongside whole-image geometry edits.
+    pub fn remap_ink(
+        &mut self,
+        rect: IntRect,
+        source: impl Fn(i32, i32) -> (f32, f32),
+        interpolate: bool,
+    ) {
+        if self.doc.ink_channels.is_empty() {
+            return;
+        }
+        self.change_ink_channels(|channels| {
+            for channel in channels {
+                channel.pixels = channel.pixels.remap(rect, &source, interpolate);
+            }
+        });
+    }
+
+    pub fn resize_ink(&mut self, width: u32, height: u32) {
+        let (w, h) = (self.doc.width, self.doc.height);
+        self.remap_ink(
+            IntRect::from_size(width, height),
+            |x, y| {
+                (
+                    ((x as f32 + 0.5) * w as f32 / width as f32 - 0.5)
+                        .clamp(0.0, w.saturating_sub(1) as f32),
+                    ((y as f32 + 0.5) * h as f32 / height as f32 - 0.5)
+                        .clamp(0.0, h.saturating_sub(1) as f32),
+                )
+            },
+            true,
+        );
+    }
+
+    pub fn fill_ink(&mut self, id: u32, value: f32) -> bool {
+        if !value.is_finite()
+            || !self
+                .doc
+                .ink_channels
+                .iter()
+                .any(|c| c.info.id == id && c.info.spot)
+        {
+            return false;
+        }
+        let selection = self.doc.selection.clone();
+        let rect = self.doc.canvas_rect();
+        self.change_ink_channels(|channels| {
+            let channel = channels.iter_mut().find(|c| c.info.id == id).unwrap();
+            for y in rect.top..rect.bottom {
+                for x in rect.left..rect.right {
+                    let a = selection.coverage(x, y) as f32 / 255.0;
+                    if a > 0.0 {
+                        let old = channel.pixels.value(x, y);
+                        channel
+                            .pixels
+                            .set(x, y, old + (value.clamp(0.0, 1.0) - old) * a);
+                    }
+                }
+            }
+        });
+        true
+    }
+
     /// Fill a native channel through the selection. A normalized value of
     /// one means full ink in CMYK, or L=100/a=127/b=127 in Lab.
     pub fn fill_native_channel(&mut self, layer: LayerId, channel: usize, value: f32) -> bool {
@@ -1374,6 +1471,7 @@ pub struct StrokeEdit {
     befores: FxHashMap<(LayerId, TileCoord), Option<Arc2<TileBuf>>>,
     mask_befores: FxHashMap<(LayerId, TileCoord), Option<Arc2<[u8; TILE_PIXELS]>>>,
     stack_befores: FxHashMap<LayerId, Vec<RawBlock>>,
+    ink_before: Option<Vec<crate::InkChannel>>,
     damage: IntRect,
 }
 
@@ -1427,13 +1525,33 @@ impl StrokeEdit {
         Some(mask.tiles.get_mut_or_insert(coord))
     }
 
+    /// Capture before-state once for an entire pointer stroke.
+    pub fn writable_ink_tile<'d>(
+        &mut self,
+        doc: &'d mut Document,
+        id: u32,
+        coord: TileCoord,
+    ) -> Option<&'d mut Vec<f32>> {
+        if self.ink_before.is_none() {
+            self.ink_before = Some(doc.ink_channels.clone());
+        }
+        self.damage = self.damage.union(&coord.rect());
+        Some(
+            doc.ink_channels
+                .iter_mut()
+                .find(|c| c.info.id == id && c.info.spot)?
+                .pixels
+                .tile_mut(coord),
+        )
+    }
+
     /// Extend visible damage without recording (e.g. live overlay updates).
     pub fn touch(&mut self, doc: &mut Document, rect: IntRect) {
         doc.add_damage(rect);
     }
 
     pub fn is_empty(&self) -> bool {
-        self.befores.is_empty() && self.mask_befores.is_empty()
+        self.befores.is_empty() && self.mask_befores.is_empty() && self.ink_before.is_none()
     }
 
     /// The tile's content as it was before this stroke touched it
@@ -1462,6 +1580,12 @@ impl StrokeEdit {
             return false;
         }
         let mut ops = Vec::new();
+        if let Some(before) = self.ink_before {
+            ops.push(EditOp::InkChannelsSet {
+                before,
+                after: doc.ink_channels.clone(),
+            });
+        }
         for (layer, before) in self.stack_befores {
             let after = doc
                 .tree
@@ -1511,6 +1635,10 @@ impl StrokeEdit {
 
     /// Roll back everything this stroke touched.
     pub fn cancel(self, doc: &mut Document) {
+        if let Some(before) = self.ink_before {
+            doc.ink_channels = before;
+            doc.damage_all();
+        }
         for (id, before) in self.stack_befores {
             if let Some(layer) = doc.tree.find_mut(id) {
                 layer.extras = before;

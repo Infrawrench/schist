@@ -930,6 +930,11 @@ pub fn crop_to(doc: &mut Document, rect: IntRect) {
     for id in ids {
         edit.translate_layer(id, -rect.left, -rect.top);
     }
+    edit.remap_ink(
+        IntRect::from_size(rect.width() as u32, rect.height() as u32),
+        |x, y| ((x + rect.left) as f32, (y + rect.top) as f32),
+        false,
+    );
     edit.set_canvas_size(rect.width() as u32, rect.height() as u32);
     edit.change_selection(|sel, _| sel.deselect());
     edit.commit();
@@ -1011,6 +1016,7 @@ impl ClassicResize {
         for (id, plan, tiles) in self.layers {
             edit.apply_layer_transform(id, tiles, plan);
         }
+        edit.resize_ink(self.to.0, self.to.1);
         edit.set_canvas_size(self.to.0, self.to.1);
         edit.commit();
     }
@@ -1226,6 +1232,7 @@ pub fn apply_upscaled(doc: &mut Document, up: Upscaled) {
         }
         edit.replace_layer_tiles(id, tiles);
     }
+    edit.resize_ink(width, height);
     edit.set_canvas_size(width, height);
     edit.commit();
 }
@@ -1300,6 +1307,11 @@ pub fn resize_canvas(doc: &mut Document, width: u32, height: u32, anchor: (f32, 
     for id in ids {
         edit.translate_layer(id, dx, dy);
     }
+    edit.remap_ink(
+        IntRect::from_size(width, height),
+        |x, y| ((x - dx) as f32, (y - dy) as f32),
+        false,
+    );
     edit.set_canvas_size(width, height);
     edit.commit();
 }

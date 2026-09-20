@@ -93,3 +93,6 @@ panel.keymap.install_plugin = પ્લગઇન ઇન્સ્ટૉલ કર
 panel.keymap.save_as_prompt = આ રીતે સાચવો — એક્સ્ટેન્શન ફોર્મેટ નક્કી કરે છે:
 
 panels.brushes.pen_tilt = પેનનો ઝુકાવ
+
+panels.ink.spot = સ્પોટ શાહી
+panels.ink.overprint = ઓવરપ્રિન્ટ અનુકરણ

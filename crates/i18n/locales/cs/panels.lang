@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Nainstalovat zásuvný modul
 panel.keymap.save_as_prompt = Uložit jako — formát určuje přípona:
 
 panels.brushes.pen_tilt = Náklon pera
+
+panels.ink.spot = Přímá barva
+panels.ink.overprint = Simulace přetisku

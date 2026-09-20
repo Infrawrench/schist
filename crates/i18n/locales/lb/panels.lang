@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Plug-in installéieren
 panel.keymap.save_as_prompt = Späicheren als — d'Endung bestëmmt d'Format:
 
 panels.brushes.pen_tilt = Stëftneigung
+
+panels.ink.spot = Spezialfaarf
+panels.ink.overprint = Simulatioun vum Iwwerdrock

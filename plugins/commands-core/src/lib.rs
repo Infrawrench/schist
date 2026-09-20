@@ -249,6 +249,12 @@ fn copy_pixels(doc: &Document, merged: bool) -> Option<ClipboardImage> {
 
 /// Clear the selected region of the active layer (used by Cut).
 fn clear_selection(ctx: &mut CommandCtx) {
+    if let Some(id) = ctx.doc.active_ink {
+        let mut edit = ctx.doc.begin_edit(t("command.history.clear"));
+        edit.fill_ink(id, 0.0);
+        edit.commit();
+        return;
+    }
     let Some(id) = ctx.doc.active_layer else {
         return;
     };
@@ -433,6 +439,12 @@ fn paste(ctx: &mut CommandCtx, in_place: bool) {
 }
 
 fn fill_selection(ctx: &mut CommandCtx, background: bool) {
+    if let Some(id) = ctx.doc.active_ink {
+        let mut edit = ctx.doc.begin_edit(t("command.history.fill"));
+        edit.fill_ink(id, ctx.state.native_channel_value);
+        edit.commit();
+        return;
+    }
     let Some(id) = ctx.doc.active_layer else {
         return;
     };

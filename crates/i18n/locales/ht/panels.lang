@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Enstale plòg-in
 panel.keymap.save_as_prompt = Anrejistre kòm — ekstansyon an detèmine fòma a:
 
 panels.brushes.pen_tilt = Enklinasyon plim
+
+panels.ink.spot = Lank koulè espesyal
+panels.ink.overprint = Similasyon enpresyon sipèpoze

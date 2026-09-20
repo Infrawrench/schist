@@ -97,3 +97,6 @@ panel.keymap.install_plugin = Girka Plug-in
 panel.keymap.save_as_prompt = Ajiye kamar — tsawo ne yake zaɓar tsarin:
 
 panels.brushes.pen_tilt = Karkatar alkalami
+
+panels.ink.spot = Tawada mai launi na musamman
+panels.ink.overprint = Kwaikwayon bugawa a kan launi

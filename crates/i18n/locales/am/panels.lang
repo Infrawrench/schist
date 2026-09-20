@@ -73,3 +73,6 @@ panel.keymap.install_plugin = ተሰኪ ጫን
 panel.keymap.save_as_prompt = እንደ አስቀምጥ — ቅጥያው ቅርጸቱን ይወስናል፦
 
 panels.brushes.pen_tilt = የብዕር ዘንበል
+
+panels.ink.spot = የልዩ ቀለም ቀለም
+panels.ink.overprint = ተደራራቢ ህትመት ማስመሰል

@@ -657,7 +657,7 @@ impl Runtime {
     fn replay(&self, action: &SavedAction, doc: &mut Document) -> anyhow::Result<()> {
         self.validate(action)?;
         anyhow::ensure!(
-            doc.active_channel.is_none(),
+            (doc.active_channel.is_none() && doc.active_ink.is_none()),
             "{}",
             t("actions.native_channel")
         );
@@ -1018,7 +1018,7 @@ fn edit_pixels(
 
 fn validate_recording_context(doc: &Document, step: &Step) -> anyhow::Result<()> {
     anyhow::ensure!(
-        doc.active_channel.is_none(),
+        (doc.active_channel.is_none() && doc.active_ink.is_none()),
         "{}",
         t("actions.native_channel")
     );
@@ -1093,7 +1093,7 @@ impl Workspace {
             cx.notify();
             return;
         };
-        if doc.active_channel.is_some() {
+        if doc.active_channel.is_some() || doc.active_ink.is_some() {
             self.status = t("actions.native_channel").into();
             cx.notify();
             return;

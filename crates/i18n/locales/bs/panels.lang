@@ -82,3 +82,6 @@ panel.keymap.install_plugin = Instaliraj dodatak
 panel.keymap.save_as_prompt = Sačuvaj kao — nastavak naziva određuje format:
 
 panels.brushes.pen_tilt = Nagib olovke
+
+panels.ink.spot = Posebna štamparska boja
+panels.ink.overprint = Simulacija pretiska

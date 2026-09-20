@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Plug-in sigindi
 panel.keymap.save_as_prompt = Mara tɔgɔ wɛrɛ la — dosiyɛ laban bɛ cogoya sugandi:
 
 panels.brushes.pen_tilt = Kalamun jɛngɛn
+
+panels.ink.spot = Kɛrɛnkɛrɛnnen inki
+panels.ink.overprint = Sɛbɛnni janya kɔlɔrɔ kan

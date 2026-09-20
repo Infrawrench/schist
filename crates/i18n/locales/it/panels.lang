@@ -93,3 +93,6 @@ panel.keymap.install_plugin = Installa plugin
 panel.keymap.save_as_prompt = Salva con nome — l'estensione determina il formato:
 
 panels.brushes.pen_tilt = Inclinazione della penna
+
+panels.ink.spot = Inchiostro tinta piatta
+panels.ink.overprint = Simulazione sovrastampa

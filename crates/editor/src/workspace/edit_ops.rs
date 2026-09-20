@@ -360,6 +360,15 @@ impl Workspace {
         if width == 0 || height == 0 || (width, height) == (doc.width, doc.height) {
             return;
         }
+        if !doc.ink_channels.is_empty() {
+            self.status = schist_i18n::tf!(
+                "actions.unavailable",
+                name = t("workspace.history.content_aware_scale")
+            )
+            .into();
+            cx.notify();
+            return;
+        }
         let canvas = doc.canvas_rect();
         // The selection marks what to protect, as Photoshop's Protect
         // channel does.

@@ -95,3 +95,6 @@ panel.keymap.install_plugin = Plug-inta churay
 panel.keymap.save_as_prompt = Huk hina waqaychay — extensiónmi formatota akllan:
 
 panels.brushes.pen_tilt = Qillqanapa waqllaynin
+
+panels.ink.spot = Sapa llimp'i tinta
+panels.ink.overprint = Llimp'i hawanpi ñit'iy rikch'achiy
