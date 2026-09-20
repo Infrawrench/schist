@@ -21,7 +21,6 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
         })
         .unwrap_or_default();
     let n_undo = undo_entries.len() as i32;
-    let touch = ui::touch();
     #[cfg(not(target_arch = "wasm32"))]
     let versions = ws.version_history_original().map(|original| {
         schist_ui::Button::new("history-saved-versions", t("versions.open"))
@@ -36,30 +35,22 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
     div()
         .flex()
         .flex_col()
-        .h(px(ws.view.history_h))
-        .flex_none()
+        .flex_grow()
+        .min_h(px(0.0))
+        .overflow_hidden()
         .p_2()
         .gap_1()
         .border_t_1()
         .border_color(gpui::rgb(palette().panel_edge))
-        // On touch the panel's height is the user's: a grip above the
-        // title drags it, taller or shorter, and the choice persists.
-        .children(touch.then(|| resize_grip(ws, cx)))
         .child(
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
-                .justify_between()
-                .child(panel_title(t("panel.history.title")))
-                .child(
-                    div()
-                        .flex()
-                        .flex_row()
-                        .gap_1()
-                        .child(icon_button("undo", "edit.undo", cx))
-                        .child(icon_button("redo", "edit.redo", cx)),
-                ),
+            div().flex().flex_row().items_center().justify_end().child(
+                div()
+                    .flex()
+                    .flex_row()
+                    .gap_1()
+                    .child(icon_button("undo", "edit.undo", cx))
+                    .child(icon_button("redo", "edit.redo", cx)),
+            ),
         )
         .children(versions)
         .on_mouse_down(
@@ -75,10 +66,9 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
                 .flex_col()
                 .overflow_y_scroll()
                 .flex_grow()
-                // A floor (see the layers panel): the column scrolls. On
-                // touch the panel is as tall as its grip was dragged, so
-                // the list scrolls inside it rather than past it.
-                .min_h(px(if touch { 0.0 } else { 120.0 }))
+                // The list gives way to the panel's chosen height and
+                // scrolls inside it instead of painting over the status bar.
+                .min_h(px(0.0))
                 // The state the document opened in. The panel could walk
                 // back to "one edit applied" but never to "none": the
                 // topmost row still leaves the first edit in place, so
@@ -127,82 +117,3 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
 }
 
 // ===== status bar =====
-
-/// The smallest and largest the panel can be dragged to.
-const MIN_HISTORY_H: f32 = 120.0;
-const MAX_HISTORY_H: f32 = 500.0;
-
-/// The grip along the panel's top edge. A press on it starts the
-/// resize; the moves and the release are read at the window, since a
-/// finger leaves a 14pt strip the moment it moves.
-fn resize_grip(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    let dragging = ws.history_resize.is_some();
-    let entity = cx.entity();
-    div()
-        .flex()
-        .flex_none()
-        .items_center()
-        .justify_center()
-        .h(px(14.0))
-        .mt(px(-4.0))
-        .cursor(gpui::CursorStyle::ResizeRow)
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(|ws, ev: &MouseDownEvent, window, cx| {
-                window.claim_touch_drag();
-                ws.history_resize = Some((f32::from(ev.position.y), ws.view.history_h));
-                cx.notify();
-            }),
-        )
-        .child(
-            div()
-                .w(px(36.0))
-                .h(px(4.0))
-                .rounded_full()
-                .bg(gpui::rgb(if dragging {
-                    palette().accent
-                } else {
-                    palette().text_dim
-                })),
-        )
-        .children(dragging.then(|| {
-            canvas(
-                |_, _, _| (),
-                move |_, (), window, _| {
-                    let move_entity = entity.clone();
-                    window.on_mouse_event(move |ev: &MouseMoveEvent, phase, _w, cx| {
-                        if phase != gpui::DispatchPhase::Capture {
-                            return;
-                        }
-                        move_entity.update(cx, |ws, cx| {
-                            let Some((start_y, start_h)) = ws.history_resize else {
-                                return;
-                            };
-                            if ev.pressed_button != Some(MouseButton::Left) {
-                                ws.history_resize = None;
-                                ws.save_view_options();
-                                return;
-                            }
-                            let h = start_h + (start_y - f32::from(ev.position.y));
-                            ws.view.history_h = h.clamp(MIN_HISTORY_H, MAX_HISTORY_H);
-                            cx.notify();
-                        });
-                    });
-                    let up_entity = entity.clone();
-                    window.on_mouse_event(move |ev: &MouseUpEvent, phase, _w, cx| {
-                        if phase != gpui::DispatchPhase::Capture || ev.button != MouseButton::Left {
-                            return;
-                        }
-                        up_entity.update(cx, |ws, cx| {
-                            if ws.history_resize.take().is_some() {
-                                ws.save_view_options();
-                                cx.notify();
-                            }
-                        });
-                    });
-                },
-            )
-            .absolute()
-            .size_0()
-        }))
-}

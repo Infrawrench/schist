@@ -62,7 +62,6 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
         .flex_col()
         .p_2()
         .gap_1()
-        .child(panel_title(t("common.color")))
         .on_mouse_down(
             MouseButton::Right,
             cx.listener(|ws, ev: &MouseDownEvent, _w, cx| {

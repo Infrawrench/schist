@@ -12,9 +12,9 @@ use crate::ui::palette;
 use crate::workspace::{ColorTarget, ContextTarget, LayerDrop, Modal, NoteField, Popup, Workspace};
 use gpui::prelude::FluentBuilder as _;
 use gpui::{
-    canvas, deferred, div, img, px, Context, InteractiveElement as _, IntoElement, MouseButton,
-    MouseDownEvent, MouseMoveEvent, MouseUpEvent, ParentElement as _, RenderImage, SharedString,
-    StatefulInteractiveElement as _, Styled, Window,
+    canvas, deferred, div, img, px, AppContext as _, Context, InteractiveElement as _, IntoElement,
+    MouseButton, MouseDownEvent, MouseMoveEvent, MouseUpEvent, ParentElement as _, RenderImage,
+    SharedString, StatefulInteractiveElement as _, Styled, Window,
 };
 use schist_color::Rgba;
 use schist_core::{BlendMode, Layer, LayerId, LayerKind};
@@ -125,6 +125,58 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
     // Layers over History, a stray border across the map. Short content
     // still fills the column (the growing panels take the slack); tall
     // content scrolls.
+    let order = panel_order(&ws.view.side_panel_order);
+    let mut panels = Vec::with_capacity(order.len());
+    for kind in order {
+        let (label, body, grows) = match kind {
+            SidePanel::Navigator => (
+                t("panel.navigator.title"),
+                navigator(ws, cx).into_any_element(),
+                false,
+            ),
+            SidePanel::Color => {
+                let body = top_panel(ws, cx);
+                (top_panel_label(ws), body, false)
+            }
+            SidePanel::Layers => (
+                t("common.layers"),
+                layers_panel(ws, cx).into_any_element(),
+                true,
+            ),
+            SidePanel::Notes => {
+                let Some(notes) = notes_panel(ws, cx) else {
+                    continue;
+                };
+                (t("menu.view.notes"), notes, false)
+            }
+            SidePanel::History => (
+                t("panel.history.title"),
+                history_panel(ws, cx).into_any_element(),
+                false,
+            ),
+        };
+        let key = kind.key();
+        let saved_height = ws
+            .view
+            .side_panel_heights
+            .get(key)
+            .copied()
+            .filter(|height| height.is_finite())
+            .or_else(|| (kind == SidePanel::History).then_some(ws.view.history_h));
+        let resizing = ws
+            .side_panel_resize
+            .is_some_and(|(drag_key, _, _)| drag_key == key);
+        panels.push(movable_panel(
+            kind,
+            label,
+            body,
+            grows,
+            saved_height,
+            resizing,
+            cx,
+        ));
+    }
+
     div()
         .id("side-panels")
         .flex()
@@ -136,11 +188,340 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
         .bg(gpui::rgb(palette().panel_bg))
         .border_l_1()
         .border_color(gpui::rgb(palette().panel_edge))
-        .child(navigator(ws, cx))
-        .child(top_panel(ws, cx))
-        .child(layers_panel(ws, cx))
-        .children(notes_panel(ws, cx))
-        .child(history_panel(ws, cx))
+        .children(panels)
+        .child(panel_drop_end(cx))
+}
+
+const DEFAULT_PANEL_ORDER: [SidePanel; 5] = [
+    SidePanel::Navigator,
+    SidePanel::Color,
+    SidePanel::Layers,
+    SidePanel::Notes,
+    SidePanel::History,
+];
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum SidePanel {
+    Navigator,
+    Color,
+    Layers,
+    Notes,
+    History,
+}
+
+impl SidePanel {
+    fn key(self) -> &'static str {
+        match self {
+            Self::Navigator => "navigator",
+            Self::Color => "color",
+            Self::Layers => "layers",
+            Self::Notes => "notes",
+            Self::History => "history",
+        }
+    }
+
+    fn from_key(key: &str) -> Option<Self> {
+        DEFAULT_PANEL_ORDER
+            .into_iter()
+            .find(|panel| panel.key() == key)
+    }
+}
+
+fn panel_order(saved: &[String]) -> Vec<SidePanel> {
+    let mut order = Vec::with_capacity(DEFAULT_PANEL_ORDER.len());
+    for key in saved {
+        if let Some(panel) = SidePanel::from_key(key) {
+            if !order.contains(&panel) {
+                order.push(panel);
+            }
+        }
+    }
+    for panel in DEFAULT_PANEL_ORDER {
+        if !order.contains(&panel) {
+            order.push(panel);
+        }
+    }
+    order
+}
+
+#[cfg(test)]
+mod panel_order_tests {
+    use super::*;
+
+    #[test]
+    fn saved_order_is_kept_and_new_panels_are_appended() {
+        let saved = ["layers", "color"]
+            .into_iter()
+            .map(str::to_owned)
+            .collect::<Vec<_>>();
+        assert_eq!(
+            panel_order(&saved),
+            vec![
+                SidePanel::Layers,
+                SidePanel::Color,
+                SidePanel::Navigator,
+                SidePanel::Notes,
+                SidePanel::History,
+            ]
+        );
+    }
+
+    #[test]
+    fn unknown_and_duplicate_panel_ids_are_ignored() {
+        let saved = ["history", "future-panel", "history", "layers"]
+            .into_iter()
+            .map(str::to_owned)
+            .collect::<Vec<_>>();
+        assert_eq!(
+            panel_order(&saved),
+            vec![
+                SidePanel::History,
+                SidePanel::Layers,
+                SidePanel::Navigator,
+                SidePanel::Color,
+                SidePanel::Notes,
+            ]
+        );
+    }
+}
+
+#[derive(Clone)]
+struct PanelDrag {
+    panel: SidePanel,
+    label: SharedString,
+}
+
+struct PanelDragPreview(SharedString);
+
+impl gpui::Render for PanelDragPreview {
+    fn render(&mut self, _: &mut Window, _: &mut Context<Self>) -> impl IntoElement {
+        div()
+            .px_3()
+            .py_2()
+            .rounded_sm()
+            .bg(gpui::rgb(palette().accent))
+            .text_color(gpui::rgb(palette().accent_text))
+            .child(self.0.clone())
+    }
+}
+
+fn move_panel(ws: &mut Workspace, source: SidePanel, before: Option<SidePanel>) {
+    let mut order = panel_order(&ws.view.side_panel_order);
+    order.retain(|panel| *panel != source);
+    let at = before
+        .and_then(|target| order.iter().position(|panel| *panel == target))
+        .unwrap_or(order.len());
+    order.insert(at, source);
+    ws.view.side_panel_order = order
+        .into_iter()
+        .map(|panel| panel.key().to_owned())
+        .collect();
+    ws.save_view_options();
+}
+
+fn movable_panel(
+    panel: SidePanel,
+    label: &'static str,
+    body: gpui::AnyElement,
+    grows: bool,
+    saved_height: Option<f32>,
+    resizing: bool,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    let key = panel.key();
+    let touch = ui::touch();
+    let header_label = SharedString::from(label);
+    let drag = PanelDrag {
+        panel,
+        label: header_label.clone(),
+    };
+    let panel_body = div()
+        .id(SharedString::from(format!(
+            "side-panel-body-{}",
+            panel.key()
+        )))
+        .flex()
+        .flex_col()
+        .flex_grow()
+        .min_h(px(0.0))
+        .when(
+            matches!(panel, SidePanel::Layers | SidePanel::History),
+            |body| body.overflow_hidden(),
+        )
+        .when(
+            !matches!(panel, SidePanel::Layers | SidePanel::History),
+            |body| body.overflow_y_scroll(),
+        )
+        .child(body);
+    let mut wrapper = div()
+        .id(SharedString::from(format!("side-panel-{}", panel.key())))
+        .flex()
+        .flex_col()
+        .flex_none()
+        .relative()
+        .drag_over::<PanelDrag>(|style, _, _, _| {
+            style.border_t_2().border_color(gpui::rgb(palette().accent))
+        })
+        .on_drop(cx.listener(move |ws, drag: &PanelDrag, _window, cx| {
+            if drag.panel != panel {
+                move_panel(ws, drag.panel, Some(panel));
+                cx.notify();
+            }
+        }))
+        .child({
+            let entity = cx.entity();
+            canvas(
+                move |bounds, _window, cx| {
+                    entity.update(cx, |ws, _| {
+                        ws.side_panel_bounds.insert(key, bounds);
+                    });
+                },
+                |_, _, _, _| {},
+            )
+            .absolute()
+            .size_full()
+        })
+        .child(
+            div()
+                .id(SharedString::from(format!(
+                    "side-panel-grip-{}",
+                    panel.key()
+                )))
+                .h(px(if touch { 36.0 } else { 22.0 }))
+                .flex_none()
+                .flex()
+                .items_center()
+                .px_2()
+                .cursor(gpui::CursorStyle::OpenHand)
+                .text_size(px(ui::metrics().small_text))
+                .text_color(gpui::rgb(palette().text_faint))
+                .border_b_1()
+                .border_color(gpui::rgb(palette().divider))
+                .hover(|style| style.bg(gpui::rgb(palette().control_bg)))
+                .child(header_label)
+                .on_drag(drag, |drag, _, _, cx| {
+                    cx.new(|_| PanelDragPreview(drag.label.clone()))
+                }),
+        )
+        .child(panel_body)
+        .child(panel_resize_grip(panel, resizing, cx));
+    if let Some(height) = saved_height {
+        wrapper = wrapper.h(px(height));
+    } else if grows {
+        wrapper = wrapper.flex_grow().min_h(px(0.0));
+    }
+    wrapper.into_any_element()
+}
+
+fn panel_resize_grip(
+    panel: SidePanel,
+    dragging: bool,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
+    const MAX_PANEL_H: f32 = 640.0;
+    let key = panel.key();
+    let touch = ui::touch();
+    let min_height = match panel {
+        SidePanel::Layers => 160.0,
+        SidePanel::Navigator | SidePanel::Color => 120.0,
+        SidePanel::Notes => 100.0,
+        SidePanel::History => 120.0,
+    };
+    let entity = cx.entity();
+    div()
+        .h(px(if touch { 10.0 } else { 4.0 }))
+        .flex_none()
+        .flex()
+        .items_center()
+        .justify_center()
+        .cursor(gpui::CursorStyle::ResizeRow)
+        .when(!touch, |grip| {
+            grip.hover(|style| style.bg(gpui::rgb(palette().divider)))
+        })
+        .when(dragging, |grip| grip.bg(gpui::rgb(palette().accent)))
+        .on_mouse_down(
+            MouseButton::Left,
+            cx.listener(move |ws, ev: &MouseDownEvent, window, cx| {
+                window.claim_touch_drag();
+                let height = ws
+                    .side_panel_bounds
+                    .get(key)
+                    .map(|bounds| f32::from(bounds.size.height))
+                    .or_else(|| ws.view.side_panel_heights.get(key).copied())
+                    .unwrap_or(min_height);
+                ws.side_panel_resize = Some((key, f32::from(ev.position.y), height));
+                cx.notify();
+            }),
+        )
+        .children(touch.then(|| {
+            div()
+                .w(px(36.0))
+                .h(px(3.0))
+                .rounded_full()
+                .bg(gpui::rgb(if dragging {
+                    palette().accent
+                } else {
+                    palette().text_dim
+                }))
+        }))
+        .children(dragging.then(|| {
+            canvas(
+                |_, _, _| (),
+                move |_, (), window, _| {
+                    let move_entity = entity.clone();
+                    window.on_mouse_event(move |ev: &MouseMoveEvent, phase, _window, cx| {
+                        if phase != gpui::DispatchPhase::Capture {
+                            return;
+                        }
+                        move_entity.update(cx, |ws, cx| {
+                            let Some((drag_key, start_y, start_h)) = ws.side_panel_resize else {
+                                return;
+                            };
+                            if drag_key != key {
+                                return;
+                            }
+                            if ev.pressed_button != Some(MouseButton::Left) {
+                                ws.side_panel_resize = None;
+                                ws.save_view_options();
+                                return;
+                            }
+                            let height = start_h + f32::from(ev.position.y) - start_y;
+                            ws.view
+                                .side_panel_heights
+                                .insert(key.to_owned(), height.clamp(min_height, MAX_PANEL_H));
+                            cx.notify();
+                        });
+                    });
+                    let up_entity = entity.clone();
+                    window.on_mouse_event(move |ev: &MouseUpEvent, phase, _window, cx| {
+                        if phase != gpui::DispatchPhase::Capture || ev.button != MouseButton::Left {
+                            return;
+                        }
+                        up_entity.update(cx, |ws, cx| {
+                            if ws.side_panel_resize.take().is_some() {
+                                ws.save_view_options();
+                                cx.notify();
+                            }
+                        });
+                    });
+                },
+            )
+            .absolute()
+            .size_0()
+        }))
+}
+
+fn panel_drop_end(cx: &mut Context<Workspace>) -> impl IntoElement {
+    div()
+        .h(px(10.0))
+        .flex_none()
+        .drag_over::<PanelDrag>(|style, _, _, _| {
+            style.border_t_2().border_color(gpui::rgb(palette().accent))
+        })
+        .on_drop(cx.listener(|ws, drag: &PanelDrag, _window, cx| {
+            move_panel(ws, drag.panel, None);
+            cx.notify();
+        }))
 }
 
 fn panel_title(name: &'static str) -> impl IntoElement {
