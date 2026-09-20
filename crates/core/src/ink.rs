@@ -120,7 +120,7 @@ pub fn preview_rgba8(channels: &[InkChannel], preview: InkPreview, rect: IntRect
     if preview == InkPreview::Process {
         return;
     }
-    for (i, pixel) in rgba.chunks_exact_mut(4).enumerate() {
+    for (i, pixel) in rgba.as_chunks_mut::<4>().0.iter_mut().enumerate() {
         let x = rect.left + (i % rect.width() as usize) as i32;
         let y = rect.top + (i / rect.width() as usize) as i32;
         if let InkPreview::Separation(id) = preview {

@@ -744,3 +744,7 @@ check-spot-web:
 check-spot-catalogs:
 	python3 tools/check-i18n.py
 	python3 tools/sync-i18n.py --check
+
+.PHONY: lint-spot-ink
+lint-spot-ink:
+	$(CARGO) clippy -p schist-core -p schist-codec-psd -p schist-codecs-common -p schist-document -p schist-plugin-api -p schist-tools-paint -p schist-tools-transform -p schist-commands-core -p schist-editor --all-targets -- -D warnings

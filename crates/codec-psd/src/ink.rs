@@ -21,7 +21,9 @@ fn alternate(doc: &Document, id: u32) -> Option<&[u8]> {
     }
     let count = u16::from_be_bytes([bytes[2], bytes[3]]) as usize;
     bytes[4..]
-        .chunks_exact(14)
+        .as_chunks::<14>()
+        .0
+        .iter()
         .take(count)
         .find(|e| u32::from_be_bytes(e[..4].try_into().unwrap()) == id)
         .map(|e| &e[4..])
@@ -72,7 +74,9 @@ pub fn read(doc: &mut Document, planes: &[Vec<f32>]) {
         };
         names.push(String::from_utf16_lossy(
             &bytes
-                .chunks_exact(2)
+                .as_chunks::<2>()
+                .0
+                .iter()
                 .map(|c| u16::from_be_bytes([c[0], c[1]]))
                 .collect::<Vec<_>>(),
         ));
@@ -100,16 +104,25 @@ pub fn read(doc: &mut Document, planes: &[Vec<f32>]) {
     }
     let ids: Vec<u32> = resource(doc, 1053)
         .unwrap_or_default()
-        .chunks_exact(4)
+        .as_chunks::<4>()
+        .0
+        .iter()
         .map(|c| u32::from_be_bytes(c.try_into().unwrap()))
         .collect();
     let entries: Vec<Vec<u8>> =
         if let Some(bytes) = resource(doc, 1077).filter(|b| b.starts_with(&1u32.to_be_bytes())) {
-            bytes[4..].chunks_exact(13).map(|c| c.to_vec()).collect()
+            bytes[4..]
+                .as_chunks::<13>()
+                .0
+                .iter()
+                .map(|c| c.to_vec())
+                .collect()
         } else {
             resource(doc, 1007)
                 .unwrap_or_default()
-                .chunks_exact(14)
+                .as_chunks::<14>()
+                .0
+                .iter()
                 .map(|c| c[..13].to_vec())
                 .collect()
         };
@@ -148,7 +161,7 @@ pub fn read(doc: &mut Document, planes: &[Vec<f32>]) {
                 visible: visibility
                     .iter()
                     .find(|(saved, _)| *saved == id)
-                    .map_or(true, |(_, v)| *v),
+                    .is_none_or(|(_, v)| *v),
                 original_display: entry.cloned(),
             },
             pixels: InkTiles::default(),

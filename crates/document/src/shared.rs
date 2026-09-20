@@ -430,7 +430,9 @@ impl SharedDocument {
                     .ok_or_else(|| anyhow!("Ink sample budget exceeded"))?;
                 ensure!(ink_bytes <= 512 * 1024 * 1024, "Ink sample budget exceeded");
                 let values: Vec<_> = bytes
-                    .chunks_exact(4)
+                    .as_chunks::<4>()
+                    .0
+                    .iter()
                     .map(|b| f32::from_le_bytes(b.try_into().unwrap()))
                     .collect();
                 ensure!(values.iter().all(|v| v.is_finite()), "Invalid ink sample");

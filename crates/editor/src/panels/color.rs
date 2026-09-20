@@ -434,7 +434,7 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                         doc.active_ink = Some(id);
                         doc.active_channel = None;
                         doc.ink_preview = InkPreview::Separation(id);
-                        ws.editor.active_tool = "brush".into();
+                        ws.editor.active_tool = "brush";
                     }
                     ws.after_change(cx);
                 })),
