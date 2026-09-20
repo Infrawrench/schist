@@ -353,12 +353,9 @@ impl TypeTool {
 
     /// Keep the session's fill on the foreground swatch.
     ///
-    /// The eyedropper and the colour panel both write the foreground, and
-    /// text follows it the way a brush stroke would. Without this the
-    /// colour was read once when the layer was created and never again,
-    /// so picking a new colour and clicking back into the text changed
-    /// nothing. Returns true when the fill actually changed, so callers
-    /// know a re-render is due.
+    /// Opening an existing layer first loads its own fill into the swatch.
+    /// A subsequent colour choice during the edit recolors the text.
+    /// Returns true when a re-render is due.
     fn adopt_foreground(&mut self, state: &EditorState) -> bool {
         let Some(session) = &mut self.editing else {
             return false;
@@ -536,6 +533,11 @@ impl ToolPlugin for TypeTool {
                     ..stored.spec.clone()
                 };
                 self.use_path = stored.spec.path.is_some();
+                // Selecting text adopts its appearance, just like its font
+                // settings above. The unrelated foreground (often default
+                // black) must not overwrite imported base or character fills.
+                let [r, g, b, a] = stored.color;
+                ctx.state.foreground = Rgba::from_u8(r, g, b, a);
                 let local_x = input.x - stored.origin.0 as f32;
                 let local_y = input.y - stored.origin.1 as f32;
                 let position =
@@ -555,11 +557,6 @@ impl ToolPlugin for TypeTool {
                 });
                 self.selecting = true;
                 self.sync_bar();
-                // A colour picked since this text was set applies to it now,
-                // so the eyedropper works on text like on anything else.
-                if self.adopt_foreground(ctx.state) {
-                    self.refresh(ctx.doc);
-                }
             }
             None => {
                 self.start_new(ctx, input.x, input.y);
@@ -949,6 +946,11 @@ impl ToolPlugin for TypeTool {
 
     fn on_commit(&mut self, ctx: &mut ToolCtx) {
         self.selecting = false;
+        // A swatch can be chosen immediately before clicking Commit, with
+        // no intervening keystroke or type-option change to refresh the layer.
+        if self.adopt_foreground(ctx.state) {
+            self.refresh(ctx.doc);
+        }
         let Some(session) = self.editing.take() else {
             return;
         };
@@ -2030,9 +2032,8 @@ mod tests {
 
     #[test]
     fn a_freshly_picked_colour_reaches_text_being_edited() {
-        // The eyedropper bug: it wrote the foreground swatch, but a text
-        // layer kept the colour it was created with forever, so picking a
-        // colour and clicking back into the text changed nothing.
+        // A color chosen while editing must reach the text. A color chosen
+        // before selecting it is unrelated to that layer's existing fills.
         let mut doc = doc();
         let mut state = EditorState {
             foreground: Rgba::from_u8(255, 255, 255, 255),
@@ -2053,8 +2054,7 @@ mod tests {
             [255, 255, 255, 255]
         );
 
-        // Sample a new colour (what the eyedropper does), then click back
-        // into the text: it must adopt the pick.
+        // The previous foreground must not recolor a layer just by opening it.
         state.foreground = Rgba::from_u8(255, 128, 0, 255);
         let bounds = doc.tree.layers[1].tight_bounds();
         let mut tool = TypeTool::default();
@@ -2067,6 +2067,9 @@ mod tests {
             input(bounds.left as f32 + 2.0, bounds.top as f32 + 2.0),
         );
         assert!(is_editing(&tool), "resumed editing the existing layer");
+        assert_eq!(ctx.state.foreground.to_u8(), [255, 255, 255, 255]);
+        // Deliberately pick orange now that the text is being edited.
+        ctx.state.foreground = Rgba::from_u8(255, 128, 0, 255);
         tool.on_commit(&mut ctx);
 
         assert_eq!(
@@ -2448,6 +2451,94 @@ mod tests {
 #[cfg(test)]
 mod color_run_tests {
     use super::*;
+
+    fn colored_document() -> (Document, StoredText, PointerInput) {
+        let mut doc = Document::new("color runs", 256, 128, schist_color::Depth::Eight);
+        let stored = StoredText {
+            spec: TextSpec {
+                text: "AB".into(),
+                size: 40.0,
+                runs: vec![StyleRun {
+                    start: 1,
+                    end: 2,
+                    color: Some([220, 30, 10, 128]),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            },
+            origin: (10, 10),
+            color: [10, 60, 220, 255],
+        };
+        let (tiles, bounds) = render_tiles(&doc, &stored);
+        let mut layer = Layer::new_raster("Imported text");
+        layer.as_raster_mut().unwrap().tiles = tiles;
+        write_stored(&mut layer, &stored);
+        doc.push_layer(layer);
+        let input = PointerInput {
+            x: bounds.left as f32 + 2.0,
+            y: bounds.top as f32 + 2.0,
+            pressure: 1.0,
+            modifiers: Modifiers::default(),
+        };
+        (doc, stored, input)
+    }
+
+    #[test]
+    fn activating_colored_text_and_committing_preserves_fills_and_history() {
+        let (mut doc, before, input) = colored_document();
+        let history = doc.history.entries().len();
+        let mut state = EditorState::default();
+        let mut tool = TypeTool::default();
+        let mut ctx = ToolCtx {
+            doc: &mut doc,
+            state: &mut state,
+        };
+        tool.on_pointer_down(&mut ctx, input);
+        assert!(tool.editing.is_some());
+        tool.on_commit(&mut ctx);
+        let after = read_stored(&ctx.doc.tree.layers[0]).unwrap();
+        assert_eq!(after.color, before.color);
+        assert_eq!(after.spec, before.spec);
+        assert_eq!(ctx.doc.history.entries().len(), history);
+        for psb in [false, true] {
+            let bytes = schist_codec_psd::write_psd_with(ctx.doc, psb).unwrap();
+            let reopened = schist_codec_psd::read_psd(&bytes).unwrap();
+            let back = reopened.tree.iter().find_map(read_stored).unwrap();
+            assert_eq!(back.color, before.color);
+            assert_eq!(back.spec, before.spec);
+        }
+    }
+
+    #[test]
+    fn editing_colored_text_preserves_fills_until_a_color_is_chosen() {
+        let (mut doc, before, input) = colored_document();
+        let mut state = EditorState::default();
+        let mut tool = TypeTool::default();
+        let mut ctx = ToolCtx {
+            doc: &mut doc,
+            state: &mut state,
+        };
+        tool.on_pointer_down(&mut ctx, input);
+        tool.on_key(&mut ctx, "end", None, Modifiers::default());
+        tool.on_key(&mut ctx, "c", Some("C"), Modifiers::default());
+        tool.set_option("type-size", OptionValue::Num(45.0));
+        tool.on_option_changed(&mut ctx, "type-size");
+        let edited = read_stored(&ctx.doc.tree.layers[0]).unwrap();
+        assert_eq!(edited.color, before.color);
+        assert_eq!(edited.spec.text, "ABC");
+        assert_eq!(edited.spec.style_at(1).color, before.spec.style_at(1).color);
+        // A deliberate swatch change must still recolor the text, even
+        // when the next action is Commit rather than another keystroke.
+        ctx.state.foreground = Rgba::BLACK;
+        tool.on_commit(&mut ctx);
+        let recolored = read_stored(&ctx.doc.tree.layers[0]).unwrap();
+        assert_eq!(recolored.color, [0, 0, 0, 255]);
+        assert!(recolored.spec.runs.iter().all(|run| run.color.is_none()));
+        ctx.doc.undo();
+        let restored = read_stored(&ctx.doc.tree.layers[0]).unwrap();
+        assert_eq!(restored.color, before.color);
+        assert_eq!(restored.spec, before.spec);
+    }
 
     #[test]
     fn imported_character_fills_render_and_survive_text_edits() {
