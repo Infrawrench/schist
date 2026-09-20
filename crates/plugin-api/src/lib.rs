@@ -204,6 +204,12 @@ pub enum Overlay {
 /// A canvas tool. One tool is active at a time; the canvas routes pointer
 /// events (already in document space) to it.
 pub trait ToolPlugin: Send {
+    /// Original committed pixels hidden by a modal tool's live preview.
+    /// Hosts use these for saves/recovery and defer shared edits until commit.
+    fn committed_layer_pixels(&self) -> Option<(schist_core::LayerId, &schist_core::TileMap)> {
+        None
+    }
+
     /// Hosts enabling this must drain `take_gpu_edit` after every event.
     fn set_async_compute(&mut self, _enabled: bool) {}
     fn take_gpu_edit(&mut self) -> Option<GpuEdit> {

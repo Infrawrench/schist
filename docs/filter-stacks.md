@@ -26,26 +26,39 @@ filters keep the last rendered result and the complete source/recipe; editing
 cannot partially commit a failed render. Disable or remove a missing effect
 to continue rendering the others.
 
-Painting, destructive filters, moving, transforming, rasterizing a smart object,
-and color-mode conversion bake the stack as part of the same undoable operation.
-Smart-object transforms keep their filtered source, so baking does not remove
-the effect's appearance. Layer duplication preserves the stack. Cross-document
-insertion into a different native color mode bakes it. Masks, opacity, blend
+Moving layers or groups, Free Transform, and classical Image Size preserve the
+editable stack and its pristine source. Raster stacks retain a source-space
+filtered cache and compose placement transforms, so shrinking and enlarging a
+layer does not repeatedly resample it. Parameter edits, disabling effects and
+removing the last effect re-render from the original source before the current
+placement. Filter radii and centers stay in original source coordinates. Smart
+objects continue using their own placement transform. Converting a placed stack
+to a smart object transfers the source and placement without changing its look.
+Every placement and recipe change is undoable together with its rendered pixels.
+
+Painting, destructive filters, destructive crop, neural image enlargement,
+rasterizing a smart object, and color-mode conversion bake the stack as part of
+the same undoable operation. Smart objects keep their filtered source when baked,
+so baking does not remove the effect's appearance. Layer duplication preserves
+the stack. Cross-document insertion into a different native color mode bakes it. Masks, opacity, blend
 modes and layer styles compose with the filtered raster normally. Convert text
 or shape layers to pixel layers or smart objects before adding a stack.
 
 PSD and PSB save both the visible layer raster and Schist-owned `ScFs` (recipe)
-and `ScFo` (lossless source) additional-layer-info blocks. The source stores
+and `ScFo` (lossless source) additional-layer-info blocks. Placed raster stacks
+also store `ScFc`, a lossless filtered source cache, and version-2 placement
+metadata. Version-1 unplaced stacks remain readable. Older Schist versions retain
+the blocks and visible result but cannot edit version-2 stacks. Both sources store
 sparse native tiles with their original u8/u16/f32 samples, including CMYK/Lab
 channels and transparent colors. Reopening in Schist keeps editing available.
 Other applications see the rendered pixels; this is **not Adobe Smart Filter
 metadata**. Applications that strip unknown PSD blocks also discard the recipe.
 Flat image exports contain the visible result only. Native crash recovery and
-shared-document checkpoints retain both blocks. Uncommitted stack previews are
-excluded from recovery and cloud edits.
+shared-document checkpoints retain all three blocks. Uncommitted filter-dialog
+and Free Transform previews are excluded from saves, recovery and cloud edits.
 
-Sources are limited to 512 MiB before compression. Rendering also bounds image
-area and tile coverage to reject corrupt files and pathological narrow images
+The pristine source and filtered cache are each limited to 512 MiB before
+compression. Rendering also bounds image area and tile coverage to reject corrupt files and pathological narrow images
 before allocation. Large filters currently use the same synchronous CPU fallback
 as ordinary native filters, including in the browser; expensive stacks can pause
 the UI while rendering. Source metadata is counted toward the undo memory limit.
@@ -54,6 +67,7 @@ All strings use `schist-i18n`. The `filter_stack.lang` catalog includes translat
 for every shipped locale. Catalog validation checks keys, placeholders, locale
 aliases, and font coverage. No new locales were added.
 
-Run `make check-filter-stacks`, `make check-app`, and `make check-i18n` to validate
+Run `make check-live-stack-transforms`, `make check-filter-stacks`,
+`make check-app`, and `make check-i18n` to validate
 native source fidelity, replay, ordering, enable/disable, undo/bake, PSD/PSB,
 shared checkpoints, recovery snapshots, smart-object placement and catalog wiring.

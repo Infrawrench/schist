@@ -561,9 +561,15 @@ impl Document {
 
     fn translate_layer_content(&mut self, id: LayerId, dx: i32, dy: i32) {
         fn recurse(layer: &mut Layer, dx: i32, dy: i32, depth: Depth) {
+            // Live sources record complete before/after renders in TileWrite
+            // ops. Translating those again would lose hidden samples on undo
+            // and apply placement twice on redo. Masks still move here.
+            let live = layer.smart.is_some() || crate::filter_stack::has_stack(layer);
             match &mut layer.kind {
                 crate::layer::LayerKind::Raster(r) => {
-                    r.tiles = r.tiles.translated(dx, dy, depth);
+                    if !live {
+                        r.tiles = r.tiles.translated(dx, dy, depth);
+                    }
                 }
                 crate::layer::LayerKind::Group(g) => {
                     for child in &mut g.children {
@@ -741,23 +747,44 @@ impl<'a> EditBuilder<'a> {
         if dx == 0 && dy == 0 {
             return;
         }
-        // Moving a group also bakes stacks in its descendants, in the same edit.
-        fn stack_ids(layer: &Layer, out: &mut Vec<LayerId>) {
-            if crate::filter_stack::has_stack(layer) {
-                out.push(layer.id);
+        // Prepare every descendant before changing anything. A bad recipe must
+        // never silently become a destructive move or partially move a group.
+        fn placements(
+            layer: &Layer,
+            matrix: &crate::Affine,
+            out: &mut Vec<(LayerId, crate::filter_stack::LayerTransform)>,
+        ) -> anyhow::Result<()> {
+            if layer.smart.is_some() || crate::filter_stack::has_stack(layer) {
+                let filter = if let Some(smart) = &layer.smart {
+                    smart.filter
+                } else {
+                    crate::filter_stack::FilterStack::read(layer)?
+                        .and_then(|s| s.placement)
+                        .map_or(crate::Filter::Bicubic, |p| p.filter)
+                };
+                out.push((
+                    layer.id,
+                    crate::filter_stack::LayerTransform::prepare(layer, matrix, filter)?,
+                ));
             }
             if let Some(children) = layer.children() {
                 for child in children {
-                    stack_ids(child, out);
+                    placements(child, matrix, out)?;
                 }
             }
+            Ok(())
         }
-        let mut ids = Vec::new();
+        let mut transforms = Vec::new();
         if let Some(layer) = self.doc.tree.find(id) {
-            stack_ids(layer, &mut ids);
-        }
-        for id in ids {
-            self.bake_filter_stack(id);
+            if placements(
+                layer,
+                &crate::Affine::translate(dx as f32, dy as f32),
+                &mut transforms,
+            )
+            .is_err()
+            {
+                return;
+            }
         }
         // Text pixels move with the layer, and their editable origin must
         // move too. Keep the JSON contract here without depending on the
@@ -802,6 +829,28 @@ impl<'a> EditBuilder<'a> {
         for (layer, extras) in origins {
             self.set_extras(layer, extras);
         }
+        for (layer, mut transform) in transforms {
+            // Re-render from the retained source: pixels clipped by a previous
+            // transform or filter preview must return when moved onto canvas.
+            let tiles = transform.render(self.doc.depth, canvas);
+            self.replace_layer_render(layer, tiles);
+            // Text origin updates and stack placement share the extras list.
+            // Merge the translated text block instead of restoring old bytes.
+            if let Some(text) = self
+                .doc
+                .tree
+                .find(layer)
+                .and_then(|l| l.extras.iter().find(|b| b.key == *b"PsTx"))
+            {
+                if let Some(block) = transform.extras.iter_mut().find(|b| b.key == *b"PsTx") {
+                    *block = text.clone();
+                }
+            }
+            self.set_extras(layer, transform.extras);
+            if let Some(smart) = transform.smart {
+                self.set_smart_object(layer, Some(smart));
+            }
+        }
     }
 
     pub fn move_layer(&mut self, from: LayerPath, to: LayerPath) {
@@ -817,6 +866,12 @@ impl<'a> EditBuilder<'a> {
     /// changes (transforms, filters and resizes all go through this).
     pub fn replace_layer_tiles(&mut self, layer_id: LayerId, new_tiles: TileMap) {
         self.bake_filter_stack(layer_id);
+        self.replace_layer_render(layer_id, new_tiles);
+    }
+
+    /// Install derived pixels while retaining the editable source/recipe.
+    /// Callers must update the associated recipe or placement in this same edit.
+    pub fn replace_layer_render(&mut self, layer_id: LayerId, new_tiles: TileMap) {
         let storage_mode = if matches!(self.doc.mode, ColorMode::Cmyk | ColorMode::Lab) {
             self.doc.mode
         } else {
@@ -884,12 +939,26 @@ impl<'a> EditBuilder<'a> {
         let Some(layer) = self.doc.tree.find(layer_id) else {
             return;
         };
-        let Some(raster) = layer.as_raster() else {
+        let Ok(transform) = crate::filter_stack::LayerTransform::prepare(layer, matrix, filter)
+        else {
             return;
         };
-        let transformed =
-            crate::resample::transform_tiles(&raster.tiles, matrix, depth, filter, clip);
-        self.replace_layer_tiles(layer_id, transformed);
+        let tiles = transform.render(depth, clip);
+        self.apply_layer_transform(layer_id, tiles, transform);
+    }
+
+    /// Install a previously prepared CPU or GPU transform as one undoable edit.
+    pub fn apply_layer_transform(
+        &mut self,
+        layer_id: LayerId,
+        tiles: TileMap,
+        transform: crate::filter_stack::LayerTransform,
+    ) {
+        self.replace_layer_render(layer_id, tiles);
+        self.set_extras(layer_id, transform.extras);
+        if let Some(smart) = transform.smart {
+            self.set_smart_object(layer_id, Some(smart));
+        }
     }
 
     /// Record an adjustment layer's parameter change (the caller has

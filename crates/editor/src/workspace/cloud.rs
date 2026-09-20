@@ -1516,9 +1516,15 @@ impl Workspace {
         true
     }
     pub(crate) fn cloud_capture_edit(&mut self) {
-        // Filter-stack previews are uncommitted raster caches. Capture once
-        // the recipe and source commit together and the session is cleared.
-        if self.stack_filter_session.is_some() {
+        // Filter-stack and transform previews are uncommitted raster caches.
+        // Capture after the recipe, placement and pixels commit together.
+        if self.stack_filter_session.is_some()
+            || self
+                .registry
+                .tools()
+                .find(|tool| tool.id() == self.editor.active_tool)
+                .is_some_and(|tool| tool.committed_layer_pixels().is_some())
+        {
             return;
         }
         let Some(doc) = &self.doc else {

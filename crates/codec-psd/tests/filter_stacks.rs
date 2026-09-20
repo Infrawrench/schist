@@ -48,3 +48,62 @@ fn filter_stack_psd_and_psb_preserve_source_recipe_and_visible_cache() {
         assert_eq!(again.tree.layers[0].extras, layer.extras);
     }
 }
+
+#[test]
+fn filter_stack_placed_raster_psd_psb_reopens_and_can_transform_without_resampling_twice() {
+    for psb in [false, true] {
+        let mut doc = Document::new("placed", 8, 8, Depth::Sixteen);
+        let mut layer = Layer::new_raster("source");
+        let mut source = TileMap::new();
+        source
+            .get_mut_or_insert(TileCoord { tx: 0, ty: 0 }, doc.depth)
+            .set(0, Rgba::new(0.12345, 0.45678, 0.89123, 1.0));
+        layer.as_raster_mut().unwrap().tiles = source.clone();
+        layer.extras = FilterStack::new(doc.canvas_rect())
+            .blocks(&layer, &source)
+            .unwrap();
+        let id = doc.push_layer(layer);
+        let mut edit = doc.begin_edit("scale down");
+        edit.transform_layer(
+            id,
+            &Affine::scale(0.25, 0.25),
+            Filter::Bicubic,
+            IntRect::from_size(8, 8),
+        );
+        edit.commit();
+        let extras = doc.tree.find(id).unwrap().extras.clone();
+        let mut reopened =
+            schist_codec_psd::read_psd(&schist_codec_psd::write_psd_with(&doc, psb).unwrap())
+                .unwrap();
+        let layer = &reopened.tree.layers[0];
+        assert_eq!(layer.extras, extras);
+        assert!(layer.extras.iter().any(|b| b.key == CACHE_KEY));
+        let id = layer.id;
+        let mut edit = reopened.begin_edit("scale back up");
+        edit.transform_layer(
+            id,
+            &Affine::scale(4.0, 4.0),
+            Filter::Bicubic,
+            IntRect::from_size(8, 8),
+        );
+        edit.commit();
+        let layer = reopened.tree.find(id).unwrap();
+        assert_eq!(
+            layer
+                .as_raster()
+                .unwrap()
+                .tiles
+                .get(TileCoord { tx: 0, ty: 0 }),
+            source.get(TileCoord { tx: 0, ty: 0 })
+        );
+        assert_eq!(
+            FilterStack::read(layer)
+                .unwrap()
+                .unwrap()
+                .placement
+                .unwrap()
+                .matrix,
+            Affine::IDENTITY
+        );
+    }
+}

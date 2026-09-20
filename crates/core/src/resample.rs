@@ -11,7 +11,7 @@ use rayon::prelude::*;
 use schist_color::{Depth, Rgba};
 
 /// Reconstruction filter used when sampling between pixels.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub enum Filter {
     /// Nearest neighbour — preserves hard pixel edges (pixel art).
     Nearest,
@@ -33,7 +33,7 @@ impl Filter {
 
 /// 2x3 affine matrix mapping source pixels to destination pixels:
 /// `x' = a*x + c*y + tx`, `y' = b*x + d*y + ty`.
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct Affine {
     pub a: f32,
     pub b: f32,
