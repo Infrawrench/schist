@@ -1,7 +1,7 @@
 //! Culling controls and two-photo comparison, without changing either original.
 use super::gallery_chrome::pal;
 use super::*;
-use gpui::{img, StatefulInteractiveElement as _};
+use gpui::img;
 use image::ImageDecoder as _;
 use schist_gallery::culling::{
     self, ColourLabel, CompareCamera, CullEdit, CullFilter, CullFlag, PhotoCulling,
@@ -104,7 +104,7 @@ impl Workspace {
             // Keep decisions on a comparison candidate reachable even when a
             // filter excludes it; in the grid retain only visible selections.
             if self.library.comparison.is_none() && self.library.viewer.is_none() {
-                let visible = self.gallery_flat_order();
+                let visible: FxHashSet<_> = self.gallery_flat_order().into_iter().collect();
                 self.library.selected.retain(|p| visible.contains(p));
             }
         }
@@ -203,7 +203,7 @@ impl Workspace {
 
     fn culling_filter_changed(&mut self, cx: &mut Context<Self>) {
         if self.library.comparison.is_none() && self.library.viewer.is_none() {
-            let visible = self.gallery_flat_order();
+            let visible: FxHashSet<_> = self.gallery_flat_order().into_iter().collect();
             self.library.selected.retain(|p| visible.contains(p));
         }
         cx.notify();
