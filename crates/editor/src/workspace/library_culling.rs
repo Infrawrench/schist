@@ -9,6 +9,9 @@ use schist_gallery::culling::{
 use schist_i18n::{t, tf};
 use schist_ui::{Button, Chip};
 use std::path::Path;
+use std::sync::atomic::{AtomicBool, Ordering};
+
+static COMPARE_DECODE: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
 pub(super) struct CompareImage {
     pub render: Arc<RenderImage>,
@@ -23,6 +26,13 @@ pub(super) struct Comparison {
     pub active: usize,
     pub areas: [Bounds<Pixels>; 2],
     drag: Option<Point<Pixels>>,
+    alive: Arc<AtomicBool>,
+}
+
+impl Drop for Comparison {
+    fn drop(&mut self) {
+        self.alive.store(false, Ordering::Release);
+    }
 }
 
 impl super::library::Library {
@@ -50,7 +60,7 @@ fn decode_comparison(path: &Path) -> anyhow::Result<(u32, u32, Vec<u8>, bool)> {
             let mut decoder = reader.into_decoder()?;
             let (w, h) = decoder.dimensions();
             anyhow::ensure!(
-                u64::from(w) * u64::from(h) <= 32 * 1024 * 1024 && w <= 8192 && h <= 8192,
+                u64::from(w) * u64::from(h) <= 32_000_000 && w <= 8192 && h <= 8192,
                 "comparison raster exceeds pixel budget"
             );
             let orientation = decoder.orientation()?;
@@ -116,6 +126,7 @@ impl Workspace {
         self.library.map_view = false;
         self.library.search.active = false;
         self.library.context = None;
+        let alive = Arc::new(AtomicBool::new(true));
         self.library.comparison = Some(Comparison {
             paths: paths.clone(),
             images: [None, None],
@@ -124,19 +135,32 @@ impl Workspace {
             active: 1,
             areas: [Bounds::default(); 2],
             drag: None,
+            alive: alive.clone(),
         });
-        // Decode sequentially to bound the temporary decoder memory. Paths
-        // identify this session so an earlier pair can never replace a new one.
+        // Serialize decoders across comparison sessions and skip cancelled work.
+        // The session token also rejects stale results when the same pair reopens.
         cx.spawn(async move |this, cx| {
             for (index, source) in sources.into_iter().enumerate() {
+                let worker_alive = alive.clone();
                 let decoded = cx
                     .background_executor()
-                    .spawn(async move { decode_comparison(&source) })
+                    .spawn(async move {
+                        let _guard = COMPARE_DECODE.lock().unwrap_or_else(|e| e.into_inner());
+                        worker_alive
+                            .load(Ordering::Acquire)
+                            .then(|| decode_comparison(&source))
+                    })
                     .await;
+                let Some(decoded) = decoded else {
+                    break;
+                };
                 let keep_loading = this
                     .update(cx, |ws, cx| {
-                        let Some(compare) =
-                            ws.library.comparison.as_mut().filter(|c| c.paths == paths)
+                        let Some(compare) = ws
+                            .library
+                            .comparison
+                            .as_mut()
+                            .filter(|c| Arc::ptr_eq(&c.alive, &alive))
                         else {
                             return false;
                         };
@@ -590,13 +614,14 @@ fn compare_pane(ws: &Workspace, index: usize, cx: &mut Context<Workspace>) -> gp
                 c.drag = None;
                 return;
             }
-            let Some(previous) = c.drag.replace(ev.position) else {
+            let Some(previous) = c.drag else {
                 return;
             };
-            let Some(image) = &c.images[index] else {
+            c.drag = Some(ev.position);
+            let Some(image) = &c.images[c.active] else {
                 return;
             };
-            let area = c.areas[index].size;
+            let area = c.areas[c.active].size;
             let rect = c
                 .camera
                 .image_rect(image.dimensions, [area.width.into(), area.height.into()]);
