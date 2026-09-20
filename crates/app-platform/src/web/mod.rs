@@ -18,6 +18,9 @@
 //!   once the window exists; `loading_failed` turns it into an error
 //!   card instead of leaving a full bar sitting there forever.
 
+mod pen;
+pub use pen::{install_pen_tilt, pen_tilt};
+
 use std::borrow::Cow;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};

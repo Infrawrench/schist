@@ -70,3 +70,5 @@ panel.ai.no_models = Không có mô hình phù hợp
 panel.ai.search_models = Tìm mô hình…
 panel.keymap.install_plugin = Cài phần bổ trợ
 panel.keymap.save_as_prompt = Lưu thành — phần mở rộng quyết định định dạng:
+
+panels.brushes.pen_tilt = Độ nghiêng bút

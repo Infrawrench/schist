@@ -81,3 +81,5 @@ panel.ai.search_models = Modeller sichen…
 
 panel.keymap.install_plugin = Plug-in installéieren
 panel.keymap.save_as_prompt = Späicheren als — d'Endung bestëmmt d'Format:
+
+panels.brushes.pen_tilt = Stëftneigung

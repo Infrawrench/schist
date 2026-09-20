@@ -71,3 +71,5 @@ panel.ai.no_models = Ora ana modèl sing cocog
 panel.ai.search_models = Golèk modèl…
 panel.keymap.install_plugin = Instal Plugin
 panel.keymap.save_as_prompt = Simpen minangka — ekstènsi nemtokaké format:
+
+panels.brushes.pen_tilt = Kemiringan pena

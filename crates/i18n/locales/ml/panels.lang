@@ -91,3 +91,5 @@ panel.ai.search_models = മോഡലുകൾ തിരയുക…
 # File dialogs
 panel.keymap.install_plugin = പ്ലഗ്-ഇൻ ഇൻസ്റ്റാൾ ചെയ്യുക
 panel.keymap.save_as_prompt = ഇങ്ങനെ സംരക്ഷിക്കുക — എക്സ്റ്റൻഷനാണ് ഫോർമാറ്റ് നിശ്ചയിക്കുന്നത്:
+
+panels.brushes.pen_tilt = പേനയുടെ ചരിവ്

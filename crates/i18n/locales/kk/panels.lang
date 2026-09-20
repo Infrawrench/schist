@@ -80,3 +80,5 @@ panel.ai.search_models = Модельдерді іздеу…
 
 panel.keymap.install_plugin = Плагин орнату
 panel.keymap.save_as_prompt = Басқаша сақтау — пішімді кеңейтім анықтайды:
+
+panels.brushes.pen_tilt = Қалам еңісі

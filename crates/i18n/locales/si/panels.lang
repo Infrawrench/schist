@@ -70,3 +70,5 @@ panel.ai.no_models = ගැළපෙන මාදිලි නැත
 panel.ai.search_models = මාදිලි සොයන්න…
 panel.keymap.install_plugin = ප්ලග්-ඉනය ස්ථාපනය කරන්න
 panel.keymap.save_as_prompt = වෙනත් නමකින් සුරකින්න — දිගුව ආකෘතිය තෝරයි:
+
+panels.brushes.pen_tilt = පෑනේ ඇලවීම

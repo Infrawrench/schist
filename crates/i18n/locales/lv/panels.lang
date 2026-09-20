@@ -80,3 +80,5 @@ panel.ai.search_models = Meklēt modeļus…
 
 panel.keymap.install_plugin = Instalēt spraudni
 panel.keymap.save_as_prompt = Saglabāt kā — paplašinājums nosaka formātu:
+
+panels.brushes.pen_tilt = Irbuļa slīpums

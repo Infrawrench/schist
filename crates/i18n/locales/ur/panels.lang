@@ -80,3 +80,5 @@ panel.ai.search_models = ماڈلز تلاش کریں…
 
 panel.keymap.install_plugin = پلگ ان نصب کریں
 panel.keymap.save_as_prompt = بطور محفوظ کریں — ایکسٹینشن فارمیٹ منتخب کرتی ہے:
+
+panels.brushes.pen_tilt = قلم کا جھکاؤ

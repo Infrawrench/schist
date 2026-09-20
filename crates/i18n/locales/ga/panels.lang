@@ -70,3 +70,5 @@ panel.ai.no_models = Ní mheaitseálann aon samhail
 panel.ai.search_models = Cuardaigh samhlacha…
 panel.keymap.install_plugin = Suiteáil Breiseán
 panel.keymap.save_as_prompt = Sábháil mar — roghnaíonn an iarmhír an fhormáid:
+
+panels.brushes.pen_tilt = Claonadh an phinn

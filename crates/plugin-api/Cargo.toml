@@ -11,7 +11,7 @@ schist-core.workspace = true
 schist-fx.workspace = true
 schist-color.workspace = true
 anyhow.workspace = true
-serde.workspace = true
+serde = { workspace = true, features = ["rc"] }
 serde_json.workspace = true
 parking_lot.workspace = true
 smallvec.workspace = true

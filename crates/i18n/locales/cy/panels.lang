@@ -95,3 +95,5 @@ panel.ai.search_models = Chwilio modelau…
 # Deialogau ffeiliau
 panel.keymap.install_plugin = Gosod Ategyn
 panel.keymap.save_as_prompt = Cadw fel — mae'r estyniad yn pennu'r fformat:
+
+panels.brushes.pen_tilt = Gogwydd y pen

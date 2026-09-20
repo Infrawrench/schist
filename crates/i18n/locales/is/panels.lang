@@ -70,3 +70,5 @@ panel.ai.no_models = Engin líkön passa
 panel.ai.search_models = Leita að líkönum…
 panel.keymap.install_plugin = Setja upp viðbót
 panel.keymap.save_as_prompt = Vista sem — skráarendingin velur sniðið:
+
+panels.brushes.pen_tilt = Halli penna

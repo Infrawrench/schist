@@ -70,3 +70,5 @@ panel.ai.no_models = Nu corespunde niciun model
 panel.ai.search_models = Căutare modele…
 panel.keymap.install_plugin = Instalare plug-in
 panel.keymap.save_as_prompt = Salvare ca — extensia stabilește formatul:
+
+panels.brushes.pen_tilt = Înclinarea stiloului

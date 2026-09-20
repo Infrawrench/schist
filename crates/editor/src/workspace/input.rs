@@ -75,6 +75,11 @@ impl Workspace {
         #[cfg(target_arch = "wasm32")]
         self.cancel_browser_edits();
         self.pointer_down = true;
+        #[cfg(target_arch = "wasm32")]
+        {
+            self.editor.pen_tilt =
+                schist_plugin_api::brush::tilt_in_document(crate::web::pen_tilt(), self.rotation);
+        }
         let input = self.tool_input(local, ev.modifiers, ev.pressure);
         let tool_id = self.editor.active_tool;
         #[cfg(target_arch = "wasm32")]
@@ -133,6 +138,11 @@ impl Workspace {
             return;
         }
         let local = self.to_local(ev.position);
+        #[cfg(target_arch = "wasm32")]
+        {
+            self.editor.pen_tilt =
+                schist_plugin_api::brush::tilt_in_document(crate::web::pen_tilt(), self.rotation);
+        }
         let input = self.tool_input(local, ev.modifiers, ev.pressure);
         let tool_id = self.editor.active_tool;
         if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(tool_id)) {
@@ -170,6 +180,11 @@ impl Workspace {
         }
         self.pointer_down = false;
         let local = self.to_local(ev.position);
+        #[cfg(target_arch = "wasm32")]
+        {
+            self.editor.pen_tilt =
+                schist_plugin_api::brush::tilt_in_document(crate::web::pen_tilt(), self.rotation);
+        }
         let input = self.tool_input(local, ev.modifiers, ev.pressure);
         let tool_id = self.editor.active_tool;
         if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(tool_id)) {

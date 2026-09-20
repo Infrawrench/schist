@@ -70,3 +70,5 @@ panel.ai.no_models = କୌଣସି ମଡେଲ୍ ମେଳ ଖାଉନା�
 panel.ai.search_models = ମଡେଲ୍ ସନ୍ଧାନ କରନ୍ତୁ…
 panel.keymap.install_plugin = ପ୍ଲଗ୍-ଇନ୍ ଇନ୍‌ଷ୍ଟଲ୍ କରନ୍ତୁ
 panel.keymap.save_as_prompt = ଏହି ନାମରେ ସଞ୍ଚୟ — ଏକ୍ସଟେନ୍‌ସନ୍ ଫର୍ମାଟ୍ ବାଛେ:
+
+panels.brushes.pen_tilt = କଲମର ଢାଳ

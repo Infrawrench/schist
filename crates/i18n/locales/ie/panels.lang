@@ -71,3 +71,5 @@ panel.ai.no_models = Null modelle concorda
 panel.ai.search_models = Serchar modelles…
 panel.keymap.install_plugin = Installar plug-in
 panel.keymap.save_as_prompt = Gardar quam — li extension selecte li formate:
+
+panels.brushes.pen_tilt = Inclination del plum

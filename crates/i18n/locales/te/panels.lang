@@ -70,3 +70,5 @@ panel.ai.no_models = సరిపోలే మోడళ్లు లేవు
 panel.ai.search_models = మోడళ్లను శోధించు…
 panel.keymap.install_plugin = ప్లగ్-ఇన్‌ను ఇన్‌స్టాల్ చేయి
 panel.keymap.save_as_prompt = ఇలా సేవ్ చేయి — పొడిగింపు ఫార్మాట్‌ను నిర్ణయిస్తుంది:
+
+panels.brushes.pen_tilt = పెన్ను వంపు

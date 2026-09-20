@@ -70,3 +70,5 @@ panel.ai.no_models = ڪوبه ماڊل نٿو ملي
 panel.ai.search_models = ماڊل ڳوليو…
 panel.keymap.install_plugin = پلگ-اِن انسٽال ڪريو
 panel.keymap.save_as_prompt = هن نالي سان محفوظ ڪريو—ايڪسٽينشن فارميٽ چونڊيندي:
+
+panels.brushes.pen_tilt = قلم جو جهڪاءُ

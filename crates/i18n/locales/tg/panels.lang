@@ -70,3 +70,5 @@ panel.ai.no_models = Ягон модел мувофиқ нест
 panel.ai.search_models = Ҷустуҷӯи моделҳо…
 panel.keymap.install_plugin = Насб кардани плагин
 panel.keymap.save_as_prompt = Захира ҳамчун — пасванд форматро муайян мекунад:
+
+panels.brushes.pen_tilt = Майли қалам

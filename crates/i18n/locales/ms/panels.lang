@@ -102,3 +102,5 @@ panel.ai.search_models = Cari model…
 # File dialogs (keymap.rs)
 panel.keymap.install_plugin = Pasang Pemalam
 panel.keymap.save_as_prompt = Simpan sebagai — sambungan menentukan format:
+
+panels.brushes.pen_tilt = Kecondongan pen

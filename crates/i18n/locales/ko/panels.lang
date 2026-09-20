@@ -70,3 +70,5 @@ panel.ai.no_models = 일치하는 모델 없음
 panel.ai.search_models = 모델 검색…
 panel.keymap.install_plugin = 플러그인 설치
 panel.keymap.save_as_prompt = 다른 이름으로 저장 — 확장자에 따라 형식이 결정됩니다:
+
+panels.brushes.pen_tilt = 펜 기울기

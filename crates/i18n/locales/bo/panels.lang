@@ -70,3 +70,5 @@ panel.ai.no_models = མཐུན་པའི་དཔེ་གཞི་མེ�
 panel.ai.search_models = དཔེ་གཞི་འཚོལ…
 panel.keymap.install_plugin = མཐུད་ཆས་སྒྲིག་འཇུག
 panel.keymap.save_as_prompt = མིང་གཞན་དུ་ཉར། མཇུག་སྦྱར་གྱིས་རྣམ་པ་འདེམས།
+
+panels.brushes.pen_tilt = སྨྱུ་གུའི་གསེག་ཚད།

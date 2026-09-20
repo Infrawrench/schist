@@ -80,3 +80,5 @@ panel.ai.search_models = Ieškoti modelių…
 
 panel.keymap.install_plugin = Įdiegti papildinį
 panel.keymap.save_as_prompt = Įrašyti kaip – formatą nustato plėtinys:
+
+panels.brushes.pen_tilt = Rašiklio pakreipimas

@@ -80,3 +80,5 @@ panel.ai.search_models = Моделдерди издөө…
 
 panel.keymap.install_plugin = Плагин орнотуу
 panel.keymap.save_as_prompt = Башкача сактоо — кеңейтүү форматты аныктайт:
+
+panels.brushes.pen_tilt = Калемдин жантайышы

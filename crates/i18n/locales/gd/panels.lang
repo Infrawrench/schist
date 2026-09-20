@@ -70,3 +70,5 @@ panel.ai.no_models = Chan eil modal a’ maidseadh
 panel.ai.search_models = Lorg modailean…
 panel.keymap.install_plugin = Stàlaich plugan
 panel.keymap.save_as_prompt = Sàbhail mar — taghaidh an leudachan am fòrmat:
+
+panels.brushes.pen_tilt = Claonadh a' phinn

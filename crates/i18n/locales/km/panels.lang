@@ -70,3 +70,5 @@ panel.ai.no_models = គ្មានម៉ូដែលត្រូវគ្ន�
 panel.ai.search_models = ស្វែងរកម៉ូដែល…
 panel.keymap.install_plugin = ដំឡើងកម្មវិធីជំនួយ
 panel.keymap.save_as_prompt = រក្សាទុកជា — កន្ទុយឯកសារកំណត់ទ្រង់ទ្រាយ៖
+
+panels.brushes.pen_tilt = ភាពលំអៀងនៃប៊ិច

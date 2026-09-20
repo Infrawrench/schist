@@ -87,3 +87,5 @@ panel.ai.search_models = Funa amamodeli…
 # File dialogs
 panel.keymap.install_plugin = Faka I-plug-in
 panel.keymap.save_as_prompt = Bulunga njenge — isijobelelo sikhetha ifomethi:
+
+panels.brushes.pen_tilt = Ukutsheka kwepeni

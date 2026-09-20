@@ -70,3 +70,5 @@ panel.ai.no_models = Tåya' parehu na model
 panel.ai.search_models = Aligao model siha…
 panel.keymap.install_plugin = Inståla Plug-in
 panel.keymap.save_as_prompt = Såtba komu — i extension ha ayek i format:
+
+panels.brushes.pen_tilt = Inklinasion i pluma

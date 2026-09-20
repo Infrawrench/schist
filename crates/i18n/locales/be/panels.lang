@@ -70,3 +70,5 @@ panel.ai.no_models = Няма адпаведных мадэляў
 panel.ai.search_models = Пошук мадэляў…
 panel.keymap.install_plugin = Усталяваць убудову
 panel.keymap.save_as_prompt = Захаванне — фармат вызначаецца пашырэннем:
+
+panels.brushes.pen_tilt = Нахіл пяра

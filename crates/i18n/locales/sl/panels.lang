@@ -78,3 +78,5 @@ panel.ai.search_models = Išči modele …
 
 panel.keymap.install_plugin = Namesti vtičnik
 panel.keymap.save_as_prompt = Shrani kot — končnica določa obliko:
+
+panels.brushes.pen_tilt = Nagib peresa

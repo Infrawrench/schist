@@ -81,3 +81,5 @@ panel.ai.search_models = မော်ဒယ်များ ရှာရန်…
 
 panel.keymap.install_plugin = ပလပ်အင် ထည့်သွင်းရန်
 panel.keymap.save_as_prompt = အမည်ပြောင်းသိမ်းရန် — ဖိုင်အဆက်က ဖော်မတ်ကို သတ်မှတ်သည်-
+
+panels.brushes.pen_tilt = ဘောပင်စောင်းမှု

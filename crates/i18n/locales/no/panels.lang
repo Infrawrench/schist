@@ -71,3 +71,5 @@ panel.ai.no_models = Ingen modeller samsvarer
 panel.ai.search_models = Søk etter modeller…
 panel.keymap.install_plugin = Installer programtillegg
 panel.keymap.save_as_prompt = Lagre som – filendelsen bestemmer formatet:
+
+panels.brushes.pen_tilt = Pennehelling

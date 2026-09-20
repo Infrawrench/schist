@@ -70,3 +70,5 @@ panel.ai.no_models = Kāore he tauira e ōrite ana
 panel.ai.search_models = Rapu tauira…
 panel.keymap.install_plugin = Tāuta Mono-mai
 panel.keymap.save_as_prompt = Tiaki hei — mā te toronga e kōwhiri te hōputu:
+
+panels.brushes.pen_tilt = Tītaha pene

@@ -71,3 +71,5 @@ panel.ai.no_models = Asnjë model nuk përputhet
 panel.ai.search_models = Kërko modele…
 panel.keymap.install_plugin = Instalo shtojcë
 panel.keymap.save_as_prompt = Ruaj si — prapashtesa përcakton formatin:
+
+panels.brushes.pen_tilt = Pjerrësia e penës
