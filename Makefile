@@ -678,3 +678,8 @@ format-metadata-xmp:
 check-metadata-catalogs:
 	python3 tools/check-i18n.py
 	python3 tools/sync-i18n.py --check
+
+# Optional independent interoperability oracle (requires ExifTool).
+.PHONY: check-metadata-xmp-exiftool
+check-metadata-xmp-exiftool:
+	$(CARGO) test -p schist-gallery xmp_interoperates_with_exiftool -- --ignored

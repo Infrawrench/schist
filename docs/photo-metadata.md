@@ -35,7 +35,8 @@ models. Metadata also participates in smart buckets and headless gallery search.
 Use **Refresh**, or reopen the gallery, to pick up edits or sidecar deletions made
 by another application. Original EXIF cache entries are kept separately, so
 removing a sidecar restores the camera's values. An explicitly empty date/GPS
-property suppresses the EXIF value; date grouping still uses the ordinary file
+property suppresses the EXIF value in Schist. Other readers may fall back to
+the embedded camera values, which remain in the original. Date grouping uses the ordinary file
 clock fallback for undated photos.
 
 ## Files and compatibility
@@ -94,4 +95,7 @@ partial batches, symlink/lock/stem conflicts, warm EXIF cache overlays after
 external edits/deletions, gallery search cache invalidation, and sidecar moves
 with destination collision preflight. It also compiles all native editor targets.
 `make check-i18n` validates all 150 shipped catalogs, aliases, browser font
-coverage, and the web language loader. No Adobe SDK/header files are used.
+coverage, and the web language loader. The optional
+`make check-metadata-xmp-exiftool` uses ExifTool as an independent reader and
+writer to check coordinates, dates, keywords, captions, copyright, and preservation
+of foreign rating metadata. No Adobe SDK/header files are used.

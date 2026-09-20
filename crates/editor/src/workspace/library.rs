@@ -255,7 +255,9 @@ struct SearchSnapshot {
 }
 
 pub struct Library {
+    /// Owns the most recent asynchronous sidecar refresh.
     pub(super) metadata_generation: u64,
+    /// Distinguishes modal requests from earlier saves still finishing.
     pub(super) metadata_edit_generation: u64,
     metadata_text: FxHashMap<PathBuf, String>,
     /// Whether the gallery view is showing instead of the editor.

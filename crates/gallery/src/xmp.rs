@@ -595,6 +595,7 @@ pub fn write(photo: &Path, patch: &Patch) -> Result<PathBuf> {
     }
     if photo
         .extension()
+        .and_then(|e| e.to_str())
         .is_some_and(|e| e.eq_ignore_ascii_case("xmp"))
         || path == photo
     {
@@ -929,5 +930,75 @@ mod tests {
         assert_eq!(std::fs::read_to_string(&target).unwrap(), EMPTY);
         assert!(write(&target, &patch).is_err());
         assert_eq!(std::fs::read_to_string(&target).unwrap(), EMPTY);
+    }
+    #[test]
+    #[ignore = "requires the independent exiftool executable"]
+    fn xmp_interoperates_with_exiftool() {
+        let dir = tempfile::tempdir().unwrap();
+        let photo = dir.path().join("a.jpg");
+        std::fs::write(&photo, b"unchanged original").unwrap();
+        let sidecar = write(
+            &photo,
+            &Patch {
+                keywords: Some(vec!["travel".into(), "sea & snow".into()]),
+                caption: Some("A < B".into()),
+                copyright: Some("© Photographer".into()),
+                taken: Some("2024-02-29T23:30:00+02:00".into()),
+                gps: Some(Some((-33.75, 151.2))),
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        let inspect = || {
+            let output = std::process::Command::new("exiftool")
+                .args(["-j", "-n", "-XMP:All"])
+                .arg(&sidecar)
+                .output()
+                .expect("install exiftool to run this oracle");
+            assert!(
+                output.status.success(),
+                "{}",
+                String::from_utf8_lossy(&output.stderr)
+            );
+            serde_json::from_slice::<serde_json::Value>(&output.stdout).unwrap()[0].clone()
+        };
+        let fields = inspect();
+        assert_eq!(
+            fields["Subject"],
+            serde_json::json!(["travel", "sea & snow"])
+        );
+        assert_eq!(fields["Description"], "A < B");
+        assert_eq!(fields["Rights"], "© Photographer");
+        assert_eq!(fields["GPSLatitude"].as_f64(), Some(-33.75));
+        assert_eq!(fields["GPSLongitude"].as_f64(), Some(151.2));
+        assert_eq!(fields["DateTimeOriginal"], "2024:02:29 23:30:00+02:00");
+        let external = std::process::Command::new("exiftool")
+            .args([
+                "-overwrite_original",
+                "-XMP-dc:Description=Externally edited",
+                "-XMP-xmp:Rating=4",
+            ])
+            .arg(&sidecar)
+            .output()
+            .unwrap();
+        assert!(
+            external.status.success(),
+            "{}",
+            String::from_utf8_lossy(&external.stderr)
+        );
+        assert_eq!(read(&photo).unwrap().caption, "Externally edited");
+        write(
+            &photo,
+            &Patch {
+                copyright: Some("New owner".into()),
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        let fields = inspect();
+        assert_eq!(fields["Rating"], 4);
+        assert_eq!(fields["Description"], "Externally edited");
+        assert_eq!(fields["Rights"], "New owner");
+        assert_eq!(std::fs::read(&photo).unwrap(), b"unchanged original");
     }
 }

@@ -1,5 +1,6 @@
 //! Selection-aware metadata editing; batches apply only checked fields.
 use super::*;
+use gpui::StatefulInteractiveElement as _;
 use schist_gallery::xmp;
 use schist_i18n::{t, tf, tn};
 

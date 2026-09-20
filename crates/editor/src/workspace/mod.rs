@@ -1133,12 +1133,7 @@ pub enum Modal {
         codec: &'static str,
         options: schist_plugin_api::ExportOptions,
     },
-    /// Create or edit a gallery bucket: its name, and optionally a
-    /// smart rule — a search query and/or a map area (the drawn
-    /// boundary lives on the shared map state, not here) that keeps
-    /// the bucket filling itself. `editing` is the bucket being
-    /// reconfigured; `None` creates one, born holding `photos`. An
-    /// empty name falls back to "Bucket N" (create) or stays (edit).
+    /// Checked fields replace portable metadata for the captured selection.
     MetadataEdit {
         id: u64,
         photos: Vec<PathBuf>,
@@ -1147,6 +1142,12 @@ pub enum Modal {
         error: String,
         busy: bool,
     },
+    /// Create or edit a gallery bucket: its name, and optionally a
+    /// smart rule — a search query and/or a map area (the drawn
+    /// boundary lives on the shared map state, not here) that keeps
+    /// the bucket filling itself. `editing` is the bucket being
+    /// reconfigured; `None` creates one, born holding `photos`. An
+    /// empty name falls back to "Bucket N" (create) or stays (edit).
     BucketName {
         name: String,
         query: String,
