@@ -433,7 +433,7 @@ impl SharedDocument {
                     .as_chunks::<4>()
                     .0
                     .iter()
-                    .map(|b| f32::from_le_bytes(b.try_into().unwrap()))
+                    .map(|b| f32::from_le_bytes(*b))
                     .collect();
                 ensure!(values.iter().all(|v| v.is_finite()), "Invalid ink sample");
                 pixels.0.insert(coord, Arc::new(values));

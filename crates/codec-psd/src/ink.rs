@@ -107,7 +107,7 @@ pub fn read(doc: &mut Document, planes: &[Vec<f32>]) {
         .as_chunks::<4>()
         .0
         .iter()
-        .map(|c| u32::from_be_bytes(c.try_into().unwrap()))
+        .map(|c| u32::from_be_bytes(*c))
         .collect();
     let entries: Vec<Vec<u8>> =
         if let Some(bytes) = resource(doc, 1077).filter(|b| b.starts_with(&1u32.to_be_bytes())) {
