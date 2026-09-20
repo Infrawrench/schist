@@ -90,6 +90,8 @@ fn committed_snapshot(doc: &Document, original: &Layer) -> Document {
     saved.path = doc.path.clone();
     saved.resolution_dpi = doc.resolution_dpi;
     saved.mode = doc.mode;
+    saved.ink_channels = doc.ink_channels.clone();
+    saved.ink_channels_loaded = doc.ink_channels_loaded;
     saved.icc_profile = doc.icc_profile.clone();
     saved.tree = doc.tree.clone();
     saved.selection = doc.selection.clone();

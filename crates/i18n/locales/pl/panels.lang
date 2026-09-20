@@ -95,3 +95,6 @@ panel.keymap.install_plugin = Zainstaluj wtyczkę
 panel.keymap.save_as_prompt = Zapisz jako — rozszerzenie określa format:
 
 panels.brushes.pen_tilt = Nachylenie pióra
+
+panels.ink.spot = Farba dodatkowa
+panels.ink.overprint = Symulacja nadruku

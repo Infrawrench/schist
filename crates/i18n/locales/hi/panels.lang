@@ -72,3 +72,6 @@ panel.keymap.install_plugin = प्लग-इन इंस्टॉल कर�
 panel.keymap.save_as_prompt = इस रूप में सहेजें—एक्सटेंशन प्रारूप तय करता है:
 
 panels.brushes.pen_tilt = पेन का झुकाव
+
+panels.ink.spot = स्पॉट स्याही
+panels.ink.overprint = ओवरप्रिंट अनुकरण

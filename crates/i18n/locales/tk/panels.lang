@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Plagin gurmak
 panel.keymap.save_as_prompt = Başgaça saklamak — giňeltme formaty saýlaýar:
 
 panels.brushes.pen_tilt = Galamyň ýapgytlygy
+
+panels.ink.spot = Ýörite reňkli syýa
+panels.ink.overprint = Üstme-üst çap etmegiň simulýasiýasy

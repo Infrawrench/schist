@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Stàlaich plugan
 panel.keymap.save_as_prompt = Sàbhail mar — taghaidh an leudachan am fòrmat:
 
 panels.brushes.pen_tilt = Claonadh a' phinn
+
+panels.ink.spot = Inc datha sònraichte
+panels.ink.overprint = Samhlachadh tar-chlò-bhualaidh

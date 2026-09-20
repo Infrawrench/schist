@@ -141,6 +141,7 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
         )
         // Photoshop's spectrum bar: drag along it to take a hue directly.
         .child(crate::color_picker::hue_ramp(ws, cx))
+        .child(spot_ink_launcher(ws, cx))
 }
 
 fn palette_controls(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
@@ -349,8 +350,11 @@ fn native_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
             |ws, value, cx| {
                 if let Some(doc) = ws.doc.as_mut() {
                     doc.active_channel = value.checked_sub(1);
+                    doc.active_ink = None;
+                    doc.ink_preview = schist_core::InkPreview::Process;
+                    doc.damage_all();
                 }
-                cx.notify();
+                ws.after_change(cx);
             },
             cx,
         ));
@@ -386,6 +390,399 @@ fn native_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
                     },
                 )),
             );
+    }
+    panel
+}
+
+fn spot_ink_launcher(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let Some(doc) = &ws.doc else { return div() };
+    let selected = doc.active_ink.and_then(|id| {
+        doc.ink_channels
+            .iter()
+            .find(|channel| channel.info.id == id && channel.info.spot)
+    });
+    div()
+        .pt_1()
+        .mt_1()
+        .border_t_1()
+        .border_color(gpui::rgb(palette().divider))
+        .child(
+            Button::bare("open-spot-ink")
+                .ghost()
+                .w_full()
+                .min_w(px(0.0))
+                .px_2()
+                .justify_start()
+                .gap_2()
+                .child(t("panels.ink.spot"))
+                .child(
+                    div()
+                        .flex_1()
+                        .min_w(px(0.0))
+                        .truncate()
+                        .text_color(gpui::rgb(palette().text_dim))
+                        .child(
+                            selected.map_or_else(String::new, |channel| channel.info.name.clone()),
+                        ),
+                )
+                .child("…")
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.commit_focused_field();
+                    ws.open_modal(Modal::SpotInk, cx);
+                })),
+        )
+}
+
+pub(crate) fn spot_ink_dialog(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let body = spot_channels(ws, cx);
+    let actions = ui::button(
+        t("common.done"),
+        true,
+        |ws, _, cx| {
+            ws.commit_focused_field();
+            ws.close_modal(cx);
+            ws.after_change(cx);
+        },
+        cx,
+    );
+    ui::preview_modal_frame(t("panels.ink.spot"), 440.0, body, actions)
+}
+
+fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    use schist_core::{InkChannel, InkPreview};
+    let mut panel = div().flex().flex_col().gap_2();
+    let Some(doc) = &ws.doc else { return div() };
+    let spots: Vec<_> = doc
+        .ink_channels
+        .iter()
+        .filter(|c| c.info.spot)
+        .map(|c| c.info.clone())
+        .collect();
+    let selected = doc
+        .active_ink
+        .and_then(|id| spots.iter().position(|c| c.id == id));
+    panel = panel.child(
+        div()
+            .flex()
+            .items_center()
+            .justify_between()
+            .gap_2()
+            .child(panel_title(t("common.channel")))
+            .child(
+                Button::new("new-spot-channel", t("common.new"))
+                    .ghost()
+                    .px_2()
+                    .disabled(doc.mode.channels() + doc.ink_channels.len() >= 55)
+                    .on_click(cx.listener(|ws, _, _, cx| {
+                        ws.commit_focused_field();
+                        let fg = ws.editor.foreground;
+                        if let Some(doc) = ws.doc.as_mut() {
+                            let channel =
+                                InkChannel::spot(t("panels.ink.spot").into(), [fg.r, fg.g, fg.b]);
+                            let id = channel.info.id;
+                            let mut edit = doc.begin_edit(t("panels.ink.spot"));
+                            edit.change_ink_channels(|channels| channels.push(channel));
+                            edit.commit();
+                            doc.active_ink = Some(id);
+                            doc.active_channel = None;
+                            doc.ink_preview = InkPreview::Separation(id);
+                            ws.editor.active_tool = "brush";
+                        }
+                        ws.after_change(cx);
+                    })),
+            ),
+    );
+    if spots.is_empty() {
+        return panel;
+    }
+    let ids: Vec<_> = spots.iter().map(|c| c.id).collect();
+    let popup = Popup::Field("spot-channel");
+    let mut options = vec![(t("common.color").into(), 0)];
+    options.extend(
+        spots
+            .iter()
+            .enumerate()
+            .map(|(i, c)| (c.name.clone().into(), i + 1)),
+    );
+    let mut channels =
+        div()
+            .flex()
+            .items_center()
+            .gap_1()
+            .child(div().flex_1().min_w(px(0.0)).child(ui::dropdown(
+                &ws.dropdown,
+                ui::Dropdown {
+                    popup,
+                    is_open: ws.open_popup == Some(popup),
+                    current: selected.map_or(0, |i| i + 1),
+                    label: selected.map_or_else(
+                        || t("common.color").into(),
+                        |i| spots[i].name.clone().into(),
+                    ),
+                    width: 0.0,
+                    options,
+                },
+                move |ws, value, cx| {
+                    ws.commit_focused_field();
+                    if let Some(doc) = ws.doc.as_mut() {
+                        doc.active_ink = value.checked_sub(1).and_then(|i| ids.get(i).copied());
+                        doc.active_channel = None;
+                        doc.ink_preview = doc
+                            .active_ink
+                            .map_or(InkPreview::Process, InkPreview::Separation);
+                        doc.damage_all();
+                    }
+                    ws.after_change(cx);
+                },
+                cx,
+            )));
+    if let Some(index) = selected {
+        let info = &spots[index];
+        let id = info.id;
+        channels = channels
+            .child(
+                IconButton::new("show-spot", if info.visible { "eye" } else { "eye-off" })
+                    .size(ui::metrics().icon_button)
+                    .tooltip(
+                        t(if info.visible {
+                            "common.hide"
+                        } else {
+                            "common.show"
+                        }),
+                        None,
+                    )
+                    .on_click(cx.listener(move |ws, _, _, cx| {
+                        if let Some(doc) = ws.doc.as_mut() {
+                            let mut edit = doc.begin_edit(t("common.preview"));
+                            edit.change_ink_channels(|channels| {
+                                if let Some(c) = channels.iter_mut().find(|c| c.info.id == id) {
+                                    c.info.visible = !c.info.visible;
+                                }
+                            });
+                            edit.commit();
+                        }
+                        ws.after_change(cx);
+                    })),
+            )
+            .child(
+                IconButton::new("delete-spot", "trash")
+                    .size(ui::metrics().icon_button)
+                    .tooltip(t("common.delete"), None)
+                    .on_click(cx.listener(move |ws, _, _, cx| {
+                        ws.commit_focused_field();
+                        if let Some(doc) = ws.doc.as_mut() {
+                            let mut edit = doc.begin_edit(t("common.delete"));
+                            edit.change_ink_channels(|channels| {
+                                channels.retain(|c| c.info.id != id)
+                            });
+                            edit.commit();
+                            doc.active_ink = None;
+                            doc.ink_preview = InkPreview::Overprint;
+                        }
+                        ws.after_change(cx);
+                    })),
+            );
+    }
+    panel = panel.child(channels);
+    if let Some(index) = selected {
+        let info = &spots[index];
+        let id = info.id;
+        let focused = ws.focused_field == Some("spot-name");
+        let name = if focused {
+            ws.field_buffer.clone()
+        } else {
+            info.name.clone()
+        };
+        panel = panel
+            .child(
+                div()
+                    .flex()
+                    .items_center()
+                    .gap_1()
+                    .child(
+                        div().flex_1().min_w(px(0.0)).child(
+                            TextInput::new("spot-name", name.clone())
+                                .active(focused)
+                                .cursor(if focused { ws.field_cursor } else { name.len() })
+                                .selection(if focused { ws.field_selection() } else { 0..0 })
+                                .caret_on(ws.caret_on())
+                                .placeholder(t("common.name"))
+                                .w_full()
+                                .on_focus(cx.listener(move |ws, press: &ui::TextPress, _, cx| {
+                                    if ws.focused_field != Some("spot-name") {
+                                        ws.commit_focused_field();
+                                    }
+                                    ws.press_field("spot-name", name.clone(), press);
+                                    cx.notify();
+                                }))
+                                .on_select_to(cx.listener(|ws, offset: &usize, _, cx| {
+                                    ws.drag_field("spot-name", *offset);
+                                    cx.notify();
+                                })),
+                        ),
+                    )
+                    .child(
+                        Button::new("rename-spot", t("common.rename"))
+                            .ghost()
+                            .px_2()
+                            .on_click(cx.listener(|ws, _, _, cx| {
+                                ws.commit_focused_field();
+                                ws.after_change(cx);
+                            })),
+                    ),
+            )
+            .child(
+                div()
+                    .flex()
+                    .items_center()
+                    .gap_2()
+                    .child(
+                        Swatch::new(
+                            "spot-ink-color",
+                            swatch_hex(Rgba::new(info.color[0], info.color[1], info.color[2], 1.0)),
+                        )
+                        .on_click(cx.listener(move |ws, _, _, cx| {
+                            ws.commit_focused_field();
+                            let color = ws.doc.as_ref().and_then(|doc| {
+                                doc.ink_channels
+                                    .iter()
+                                    .find(|channel| channel.info.id == id)
+                                    .map(|channel| channel.info.color)
+                            });
+                            if let Some([r, g, b]) = color {
+                                ws.open_color_picker_on(
+                                    ColorTarget::SpotInk(id),
+                                    Rgba::new(r, g, b, 1.0),
+                                    cx,
+                                );
+                            }
+                        })),
+                    )
+                    .child(
+                        Button::new("spot-display-color", t("common.foreground_color"))
+                            .ghost()
+                            .px_2()
+                            .flex_1()
+                            .on_click(cx.listener(move |ws, _, _, cx| {
+                                let fg = ws.editor.foreground;
+                                if let Some(doc) = ws.doc.as_mut() {
+                                    let mut edit = doc.begin_edit(t("common.color"));
+                                    edit.change_ink_channels(|channels| {
+                                        if let Some(c) =
+                                            channels.iter_mut().find(|c| c.info.id == id)
+                                        {
+                                            c.info.color = [fg.r, fg.g, fg.b];
+                                            c.info.original_display = None;
+                                        }
+                                    });
+                                    edit.commit();
+                                }
+                                ws.after_change(cx);
+                            })),
+                    ),
+            );
+    }
+    let preview_popup = Popup::Field("ink-preview");
+    let preview = match doc.ink_preview {
+        InkPreview::Process => 0,
+        InkPreview::Overprint => 1,
+        InkPreview::Separation(_) => 2,
+    };
+    let mut previews = vec![
+        (t("common.color").into(), 0),
+        (t("panels.ink.overprint").into(), 1),
+    ];
+    if selected.is_some() {
+        previews.push((t("common.channel").into(), 2));
+    }
+    let mut preview_controls = div()
+        .flex()
+        .flex_col()
+        .gap_1()
+        .pt_2()
+        .border_t_1()
+        .border_color(gpui::rgb(palette().divider))
+        .child(
+            div()
+                .text_size(px(ui::metrics().small_text))
+                .text_color(gpui::rgb(palette().text_dim))
+                .child(t("common.preview")),
+        )
+        .child(ui::dropdown(
+            &ws.dropdown,
+            ui::Dropdown {
+                popup: preview_popup,
+                is_open: ws.open_popup == Some(preview_popup),
+                current: preview,
+                label: t(match preview {
+                    1 => "panels.ink.overprint",
+                    2 => "common.channel",
+                    _ => "common.color",
+                })
+                .into(),
+                width: 0.0,
+                options: previews,
+            },
+            |ws, value, cx| {
+                if let Some(doc) = ws.doc.as_mut() {
+                    doc.ink_preview = match value {
+                        1 => InkPreview::Overprint,
+                        2 => doc
+                            .active_ink
+                            .map_or(InkPreview::Process, InkPreview::Separation),
+                        _ => InkPreview::Process,
+                    };
+                    doc.damage_all();
+                }
+                ws.after_change(cx);
+            },
+            cx,
+        ));
+    if let Some(index) = selected {
+        let info = &spots[index];
+        let id = info.id;
+        preview_controls = preview_controls.child(slider_stretch(
+            "spot-solidity",
+            t("common.opacity"),
+            if info.solidity == 0.0 {
+                t("common.transparent").into()
+            } else {
+                format!("{:.0}%", info.solidity * 100.0)
+            },
+            SliderTarget::SpotSolidity(id),
+            ws,
+            cx,
+        ));
+        panel =
+            panel.child(preview_controls).child(
+                div()
+                    .flex()
+                    .items_center()
+                    .gap_1()
+                    .pt_2()
+                    .border_t_1()
+                    .border_color(gpui::rgb(palette().divider))
+                    .child(div().flex_1().min_w(px(0.0)).child(slider_stretch(
+                        "spot-coverage",
+                        t("common.value"),
+                        format!("{:.0}%", ws.editor.native_channel_value * 100.0),
+                        SliderTarget::NativeChannelValue,
+                        ws,
+                        cx,
+                    )))
+                    .child(Button::new("fill-spot", t("common.fill")).px_2().on_click(
+                        cx.listener(move |ws, _, _, cx| {
+                            if let Some(doc) = ws.doc.as_mut() {
+                                let mut edit = doc.begin_edit(t("common.fill"));
+                                edit.fill_ink(id, ws.editor.native_channel_value);
+                                edit.commit();
+                            }
+                            ws.after_change(cx);
+                        }),
+                    )),
+            );
+    } else {
+        panel = panel.child(preview_controls);
     }
     panel
 }

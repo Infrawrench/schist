@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Paigalda pistikprogramm
 panel.keymap.save_as_prompt = Salvesta nimega — laiend määrab vormingu:
 
 panels.brushes.pen_tilt = Pliiatsi kalle
+
+panels.ink.spot = Spottvärv
+panels.ink.overprint = Ületrüki simulatsioon

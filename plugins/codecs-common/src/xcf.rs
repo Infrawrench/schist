@@ -34,6 +34,7 @@ impl CodecPlugin for XcfCodec {
         true
     }
     fn export(&self, doc: &Document) -> Result<Vec<u8>> {
+        super::layered::check_ink_channels(doc)?;
         write(doc)
     }
 }

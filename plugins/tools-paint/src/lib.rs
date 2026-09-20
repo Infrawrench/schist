@@ -177,6 +177,7 @@ struct Stroke {
     spacing_debt: f32,
     ink: Ink,
     native_channel: Option<(usize, f32)>,
+    spot: Option<(u32, f32, schist_core::InkTiles)>,
     opacity: f32,
     size: f32,
     hardness: f32,
@@ -205,7 +206,36 @@ impl Stroke {
         if !input.x.is_finite() || !input.y.is_finite() || !input.pressure.is_finite() {
             return None;
         }
-        let layer = paintable_layer(ctx.doc)?;
+        let spot = ctx.doc.active_ink.and_then(|id| {
+            ctx.doc
+                .ink_channels
+                .iter()
+                .find(|c| c.info.id == id && c.info.spot)
+        });
+        if spot.is_some()
+            && !matches!(
+                mode,
+                PaintMode::Brush | PaintMode::Pencil | PaintMode::Eraser
+            )
+        {
+            return None;
+        }
+        let spot = spot.map(|c| {
+            (
+                c.info.id,
+                if mode == PaintMode::Eraser {
+                    0.0
+                } else {
+                    ctx.state.native_channel_value
+                },
+                c.pixels.clone(),
+            )
+        });
+        let layer = if spot.is_some() {
+            LayerId(0)
+        } else {
+            paintable_layer(ctx.doc)?
+        };
         let recipe = schist_plugin_api::BrushPreset::capture(String::new(), ctx.state);
         // Retouch tools keep their original round footprints.
         let dynamics = if matches!(
@@ -269,6 +299,7 @@ impl Stroke {
                 ),
             spacing_debt: (recipe.size * dynamics.spacing).max(1.0),
             ink,
+            spot,
             native_channel: ctx
                 .doc
                 .active_channel
@@ -535,7 +566,7 @@ impl Stroke {
             (cx + extent).ceil() as i32 + 1,
             (cy + extent).ceil() as i32 + 1,
         );
-        if self.seamless {
+        if self.seamless || self.spot.is_some() {
             bounds = bounds.intersect(&doc.canvas_rect());
         }
         // Healing and smudging need to look at a whole dab's worth of
@@ -612,6 +643,20 @@ impl Stroke {
                 }
             }
             if !touched {
+                continue;
+            }
+            if let Some((id, value, original)) = &self.spot {
+                let cov = self.coverage.get(&coord).unwrap();
+                if let Some(tile) = self.edit.writable_ink_tile(doc, *id, coord) {
+                    for y in clip.top..clip.bottom {
+                        for x in clip.left..clip.right {
+                            let ix = ((y - trect.top) * TILE_SIZE + x - trect.left) as usize;
+                            let old = original.value(x, y);
+                            tile[ix] = old + (*value - old) * cov[ix] * self.opacity;
+                        }
+                    }
+                }
+                self.edit.touch(doc, clip);
                 continue;
             }
             // Re-composite this tile's touched pixels from pre-stroke state.
@@ -1578,6 +1623,9 @@ fn fill_gradient(ctx: &mut ToolCtx, fill: GradientFill, from: (f32, f32), to: (f
         reverse,
         dither,
     } = fill;
+    if ctx.doc.active_ink.is_some() {
+        return;
+    }
     let Some(layer) = paintable_layer(ctx.doc) else {
         return;
     };
@@ -1708,6 +1756,9 @@ impl ToolPlugin for BucketTool {
 
     fn on_pointer_down(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
         let (x, y) = (input.x.floor() as i32, input.y.floor() as i32);
+        if ctx.doc.active_ink.is_some() {
+            return;
+        }
         let Some(layer) = paintable_layer(ctx.doc) else {
             return;
         };
@@ -2649,5 +2700,73 @@ mod native_channel_tests {
                 p
             );
         }
+    }
+}
+
+#[cfg(test)]
+mod spot_channel_tests {
+    use super::*;
+    use schist_color::Depth;
+    use schist_core::{InkChannel, SelectOp};
+
+    #[test]
+    fn spot_brush_eraser_selection_and_cancel_do_not_need_or_change_layers() {
+        let mut doc = Document::new("ink", 4, 2, Depth::ThirtyTwo);
+        let channel = InkChannel::spot("Ink".into(), [0.0, 1.0, 1.0]);
+        doc.active_ink = Some(channel.info.id);
+        doc.ink_channels.push(channel);
+        doc.selection
+            .apply_shape(IntRect::from_size(4, 2), SelectOp::Replace, |x, _| {
+                if x == 0 {
+                    255
+                } else {
+                    0
+                }
+            });
+        let mut state = EditorState {
+            native_channel_value: 0.75,
+            brush_size: 8.0,
+            brush_hardness: 1.0,
+            ..EditorState::default()
+        };
+        let input = PointerInput {
+            x: 0.5,
+            y: 0.5,
+            pressure: 1.0,
+            modifiers: Default::default(),
+        };
+        let mut brush = PaintTool::new(PaintMode::Brush);
+        {
+            let mut ctx = ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            };
+            brush.on_pointer_down(&mut ctx, input);
+            brush.on_pointer_up(&mut ctx, input);
+        }
+        assert_eq!(doc.ink_channels[0].pixels.value(0, 0), 0.75);
+        assert_eq!(doc.ink_channels[0].pixels.value(1, 0), 0.0);
+        assert!(doc.tree.layers.is_empty());
+        assert_eq!(
+            doc.ink_channels[0].pixels.value(-1, 0),
+            0.0,
+            "stroke clipped to canvas"
+        );
+        let mut eraser = PaintTool::new(PaintMode::Eraser);
+        {
+            let mut ctx = ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            };
+            eraser.on_pointer_down(&mut ctx, input);
+            eraser.on_pointer_up(&mut ctx, input);
+        }
+        assert_eq!(doc.ink_channels[0].pixels.value(0, 0), 0.0);
+        doc.undo();
+        assert_eq!(doc.ink_channels[0].pixels.value(0, 0), 0.75);
+        doc.undo();
+        assert_eq!(doc.ink_channels[0].pixels.value(0, 0), 0.0);
+        doc.redo();
+        assert_eq!(doc.ink_channels[0].pixels.value(0, 0), 0.75);
     }
 }

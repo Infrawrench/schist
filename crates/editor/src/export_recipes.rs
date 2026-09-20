@@ -326,6 +326,8 @@ pub fn snapshot(doc: &Document) -> Document {
     let mut result = Document::new(doc.title.clone(), doc.width, doc.height, doc.depth);
     result.tree = doc.tree.clone();
     result.mode = doc.mode;
+    result.ink_channels = doc.ink_channels.clone();
+    result.ink_channels_loaded = doc.ink_channels_loaded;
     result.icc_profile = doc.icc_profile.clone();
     result.resolution_dpi = doc.resolution_dpi;
     result.artboards = doc.artboards.clone();

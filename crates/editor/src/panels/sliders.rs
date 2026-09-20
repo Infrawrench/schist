@@ -21,6 +21,7 @@ pub enum SliderTarget {
     ToolOpacity,
     LayerOpacity(LayerId),
     NativeChannelValue,
+    SpotSolidity(u32),
     ForegroundR,
     ForegroundG,
     ForegroundB,
@@ -52,6 +53,11 @@ pub(super) fn slider_get(ws: &Workspace, target: SliderTarget) -> f32 {
             .and_then(|d| d.tree.find(id))
             .map(|l| l.opacity)
             .unwrap_or(1.0),
+        SliderTarget::SpotSolidity(id) => ws
+            .doc
+            .as_ref()
+            .and_then(|d| d.ink_channels.iter().find(|c| c.info.id == id))
+            .map_or(1.0, |c| c.info.solidity),
         SliderTarget::NativeChannelValue => ws.editor.native_channel_value,
         SliderTarget::ForegroundR => ws.editor.foreground.r,
         SliderTarget::ForegroundG => ws.editor.foreground.g,
@@ -82,12 +88,23 @@ pub(super) fn slider_set(
         }
         SliderTarget::ToolOpacity => ws.editor.tool_opacity = ratio,
         SliderTarget::LayerOpacity(id) => ws.set_layer_opacity_live(id, ratio),
+        SliderTarget::SpotSolidity(id) => {
+            if let Some(doc) = ws.doc.as_mut() {
+                if let Some(channel) = doc.ink_channels.iter_mut().find(|c| c.info.id == id) {
+                    channel.info.solidity = ratio;
+                    doc.damage_all();
+                }
+            }
+        }
         SliderTarget::NativeChannelValue => ws.editor.native_channel_value = ratio,
         SliderTarget::ForegroundR => ws.editor.foreground.r = ratio,
         SliderTarget::ForegroundG => ws.editor.foreground.g = ratio,
         SliderTarget::ForegroundB => ws.editor.foreground.b = ratio,
     }
-    if matches!(target, SliderTarget::LayerOpacity(_)) {
+    if matches!(
+        target,
+        SliderTarget::LayerOpacity(_) | SliderTarget::SpotSolidity(_)
+    ) {
         ws.after_change(cx);
     } else {
         cx.notify();
@@ -142,6 +159,26 @@ fn slider_impl(
         .on_release(cx.listener(move |ws, before, _w, cx| {
             if let SliderTarget::LayerOpacity(layer) = target {
                 ws.commit_layer_opacity(layer, *before, cx);
+            } else if let SliderTarget::SpotSolidity(id) = target {
+                if let Some(doc) = ws.doc.as_mut() {
+                    if let Some(channel) = doc.ink_channels.iter_mut().find(|c| c.info.id == id) {
+                        let after = channel.info.solidity;
+                        if after != *before {
+                            // Restore the start value to capture one undo entry
+                            // for the entire drag, including imported DisplayInfo.
+                            channel.info.solidity = *before;
+                            let mut edit = doc.begin_edit(t("common.opacity"));
+                            edit.change_ink_channels(|channels| {
+                                if let Some(c) = channels.iter_mut().find(|c| c.info.id == id) {
+                                    c.info.solidity = after;
+                                    c.info.original_display = None;
+                                }
+                            });
+                            edit.commit();
+                        }
+                    }
+                }
+                ws.after_change(cx);
             }
         }));
     let mut row = div()
@@ -160,9 +197,10 @@ fn slider_impl(
     }
     row.child(track).child(
         div()
-            // "180 px" is wider than the old 34px slot. Keep quantities
-            // on one line, including at the largest three-digit values.
-            .w(px(m.small_text * 4.0))
+            // Stretching rows must leave room for words such as
+            // "Transparent", as well as numeric readouts.
+            .min_w(px(m.small_text * 4.0))
+            .when(!stretch, |readout| readout.w(px(m.small_text * 4.0)))
             .flex_none()
             .whitespace_nowrap()
             .text_size(px(m.small_text))

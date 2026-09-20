@@ -73,3 +73,6 @@ panel.keymap.install_plugin = Установить подключаемый мо
 panel.keymap.save_as_prompt = Сохранить как — расширение определяет формат:
 
 panels.brushes.pen_tilt = Наклон пера
+
+panels.ink.spot = Плашечная краска
+panels.ink.overprint = Имитация наложения красок

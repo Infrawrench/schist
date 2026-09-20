@@ -73,3 +73,6 @@ panel.keymap.install_plugin = Plaginni o‘rnatish
 panel.keymap.save_as_prompt = Boshqa nom bilan saqlash — formatni kengaytma belgilaydi:
 
 panels.brushes.pen_tilt = Qalam qiyaligi
+
+panels.ink.spot = Maxsus rangli siyoh
+panels.ink.overprint = Ustma-ust bosish simulyatsiyasi

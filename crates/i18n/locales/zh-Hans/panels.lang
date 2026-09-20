@@ -100,3 +100,6 @@ panel.keymap.install_plugin = 安装插件
 panel.keymap.save_as_prompt = 存储为 — 扩展名决定格式：
 
 panels.brushes.pen_tilt = 笔倾斜
+
+panels.ink.spot = 专色油墨
+panels.ink.overprint = 叠印模拟

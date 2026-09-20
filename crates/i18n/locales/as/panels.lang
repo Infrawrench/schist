@@ -104,3 +104,6 @@ panel.keymap.install_plugin = প্লাগ-ইন ইনষ্টল কৰ�
 panel.keymap.save_as_prompt = এই ৰূপে সংৰক্ষণ কৰক — সম্প্ৰসাৰণে ফৰ্মেট নিৰ্ধাৰণ কৰে:
 
 panels.brushes.pen_tilt = কলমৰ হেলন
+
+panels.ink.spot = স্পট চিয়াঁহী
+panels.ink.overprint = অভাৰপ্ৰিণ্ট অনুকৰণ

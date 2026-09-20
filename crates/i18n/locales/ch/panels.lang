@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Inståla Plug-in
 panel.keymap.save_as_prompt = Såtba komu — i extension ha ayek i format:
 
 panels.brushes.pen_tilt = Inklinasion i pluma
+
+panels.ink.spot = Tinta kolot espesiat
+panels.ink.overprint = Imahen i imprenta gi hilo' kolot

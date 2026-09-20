@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Плагин урнаштыру
 panel.keymap.save_as_prompt = Башкача саклау — форматны файл киңәйтелеше билгели:
 
 panels.brushes.pen_tilt = Каләм авышлыгы
+
+panels.ink.spot = Махсус төсле кара
+panels.ink.overprint = Өстән бастыруны охшату

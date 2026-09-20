@@ -213,7 +213,25 @@ fn copy_pixels(doc: &Document, merged: bool) -> Option<ClipboardImage> {
     }
     let w = bounds.width() as usize;
     let h = bounds.height() as usize;
-    let mut rgba = if merged {
+    let mut rgba = if !merged && doc.active_ink.is_some() {
+        let channel = doc
+            .ink_channels
+            .iter()
+            .find(|c| Some(c.info.id) == doc.active_ink)?;
+        let mut buf = vec![0u8; w * h * 4];
+        for y in 0..h {
+            for x in 0..w {
+                let value = schist_color::f32_to_u8(
+                    1.0 - channel
+                        .pixels
+                        .value(bounds.left + x as i32, bounds.top + y as i32),
+                );
+                buf[(y * w + x) * 4..(y * w + x) * 4 + 4]
+                    .copy_from_slice(&[value, value, value, 255]);
+            }
+        }
+        buf
+    } else if merged {
         schist_compositor::composite_region_rgba8(doc, bounds)
     } else {
         let layer = doc.active_layer.and_then(|id| doc.tree.find(id))?;
@@ -249,6 +267,12 @@ fn copy_pixels(doc: &Document, merged: bool) -> Option<ClipboardImage> {
 
 /// Clear the selected region of the active layer (used by Cut).
 fn clear_selection(ctx: &mut CommandCtx) {
+    if let Some(id) = ctx.doc.active_ink {
+        let mut edit = ctx.doc.begin_edit(t("command.history.clear"));
+        edit.fill_ink(id, 0.0);
+        edit.commit();
+        return;
+    }
     let Some(id) = ctx.doc.active_layer else {
         return;
     };
@@ -417,6 +441,33 @@ fn paste(ctx: &mut CommandCtx, in_place: bool) {
             clip.rect.height() as u32,
         )
     };
+    if let Some(id) = ctx.doc.active_ink {
+        let selection = ctx.doc.selection.clone();
+        let bounds = rect.intersect(&ctx.doc.canvas_rect());
+        let mut edit = ctx.doc.begin_edit(t("command.edit.paste.title"));
+        edit.change_ink_channels(|channels| {
+            if let Some(channel) = channels.iter_mut().find(|c| c.info.id == id) {
+                for y in bounds.top..bounds.bottom {
+                    for x in bounds.left..bounds.right {
+                        let i = ((y - rect.top) as usize * rect.width() as usize
+                            + (x - rect.left) as usize)
+                            * 4;
+                        let rgb = &clip.rgba[i..i + 4];
+                        let coverage = 1.0
+                            - (0.299 * rgb[0] as f32
+                                + 0.587 * rgb[1] as f32
+                                + 0.114 * rgb[2] as f32)
+                                / 255.0;
+                        let alpha = rgb[3] as f32 / 255.0 * selection.coverage(x, y) as f32 / 255.0;
+                        let old = channel.pixels.value(x, y);
+                        channel.pixels.set(x, y, old + (coverage - old) * alpha);
+                    }
+                }
+            }
+        });
+        edit.commit();
+        return;
+    }
     let mut layer = Layer::new_raster(t("command.edit.paste.layer_name"));
     blit_rgba8(
         &mut layer.as_raster_mut().unwrap().tiles,
@@ -433,6 +484,12 @@ fn paste(ctx: &mut CommandCtx, in_place: bool) {
 }
 
 fn fill_selection(ctx: &mut CommandCtx, background: bool) {
+    if let Some(id) = ctx.doc.active_ink {
+        let mut edit = ctx.doc.begin_edit(t("command.history.fill"));
+        edit.fill_ink(id, ctx.state.native_channel_value);
+        edit.commit();
+        return;
+    }
     let Some(id) = ctx.doc.active_layer else {
         return;
     };
@@ -1888,4 +1945,55 @@ pub fn gpu_selection_command(
         });
         edit.commit();
     })
+}
+
+#[cfg(test)]
+mod spot_clipboard_tests {
+    use super::*;
+    #[test]
+    fn spot_copy_cut_fill_and_paste_touch_coverage_without_process_layers() {
+        let mut doc = Document::new("ink", 2, 1, schist_color::Depth::ThirtyTwo);
+        let mut channel = schist_core::InkChannel::spot("Ink".into(), [0.0; 3]);
+        channel.pixels.set(0, 0, 1.0);
+        doc.active_ink = Some(channel.info.id);
+        doc.ink_channels.push(channel);
+        let clip = copy_pixels(&doc, false).unwrap();
+        assert_eq!(clip.rgba, vec![0, 0, 0, 255, 255, 255, 255, 255]);
+        let mut state = schist_plugin_api::EditorState {
+            clipboard: Some(Arc::new(clip)),
+            native_channel_value: 0.5,
+            ..Default::default()
+        };
+        {
+            let mut ctx = CommandCtx {
+                doc: &mut doc,
+                state: &mut state,
+                refusal: None,
+            };
+            clear_selection(&mut ctx);
+        }
+        assert_eq!(doc.ink_channels[0].pixels.value(0, 0), 0.0);
+        {
+            let mut ctx = CommandCtx {
+                doc: &mut doc,
+                state: &mut state,
+                refusal: None,
+            };
+            paste(&mut ctx, true);
+        }
+        assert_eq!(doc.ink_channels[0].pixels.value(0, 0), 1.0);
+        assert_eq!(doc.ink_channels[0].pixels.value(1, 0), 0.0);
+        assert!(doc.tree.layers.is_empty());
+        doc.undo();
+        assert_eq!(doc.ink_channels[0].pixels.value(0, 0), 0.0);
+        {
+            let mut ctx = CommandCtx {
+                doc: &mut doc,
+                state: &mut state,
+                refusal: None,
+            };
+            fill_selection(&mut ctx, false);
+        }
+        assert_eq!(doc.ink_channels[0].pixels.value(1, 0), 0.5);
+    }
 }

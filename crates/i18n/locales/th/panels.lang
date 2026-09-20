@@ -72,3 +72,6 @@ panel.keymap.install_plugin = ติดตั้งปลั๊กอิน
 panel.keymap.save_as_prompt = บันทึกเป็น — นามสกุลไฟล์จะกำหนดรูปแบบ:
 
 panels.brushes.pen_tilt = ความเอียงของปากกา
+
+panels.ink.spot = หมึกสีพิเศษ
+panels.ink.overprint = จำลองการพิมพ์ทับ

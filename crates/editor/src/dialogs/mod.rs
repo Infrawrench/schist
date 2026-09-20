@@ -199,6 +199,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
             selected,
             preview,
         } => crate::gallery::render(ws, stack, selected, preview, cx).into_any_element(),
+        Modal::SpotInk => crate::panels::spot_ink_dialog(ws, cx).into_any_element(),
         Modal::ColorPicker {
             target,
             hsv,

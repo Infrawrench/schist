@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Isa Pulagini
 panel.keymap.save_as_prompt = Chengeta se — kuwedzerwa kwezita refaira ndiko kunosarudza fomati:
 
 panels.brushes.pen_tilt = Kurereka kwepeni
+
+panels.ink.spot = Ingi yeruvara rwakasarudzika
+panels.ink.overprint = Kutevedzera kudhinda pamusoro peruvara

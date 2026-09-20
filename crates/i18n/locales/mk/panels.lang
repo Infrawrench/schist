@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Инсталирај приклучок
 panel.keymap.save_as_prompt = Зачувај како — наставката го одредува форматот:
 
 panels.brushes.pen_tilt = Наклон на пенкалото
+
+panels.ink.spot = Мастило за посебна боја
+panels.ink.overprint = Симулација на препечатување

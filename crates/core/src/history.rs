@@ -50,6 +50,10 @@ impl LayerProps {
 
 #[derive(Debug, Clone)]
 pub enum EditOp {
+    InkChannelsSet {
+        before: Vec<crate::InkChannel>,
+        after: Vec<crate::InkChannel>,
+    },
     /// A pixel tile changed. `None` = tile absent (transparent).
     TileWrite {
         layer: LayerId,
@@ -209,6 +213,11 @@ impl EditOp {
     fn retained_bytes(&self) -> usize {
         let tile = |t: &Option<Arc<TileBuf>>| t.as_ref().map_or(0, |t| t.byte_len());
         match self {
+            EditOp::InkChannelsSet { before, after } => before
+                .iter()
+                .chain(after)
+                .map(|c| c.pixels.0.len() * TILE_PIXELS * 4 + c.info.name.len())
+                .sum(),
             EditOp::TileWrite { before, after, .. } => tile(before) + tile(after),
             EditOp::LayerExtrasSet { before, after, .. } => before
                 .iter()

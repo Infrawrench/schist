@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Rakib Kaabe
 panel.keymap.save_as_prompt = U kaydi sida — kordhintu waxay doorataa qaabka:
 
 panels.brushes.pen_tilt = Janjeerka qalinka
+
+panels.ink.spot = Khadda midab gaar ah
+panels.ink.overprint = Jilidda daabacaadda is dul saaran

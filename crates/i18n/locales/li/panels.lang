@@ -82,3 +82,6 @@ panel.keymap.install_plugin = Plug-in installere
 panel.keymap.save_as_prompt = Opslaon es — de extensie bepaolt 't formaat:
 
 panels.brushes.pen_tilt = Penkanteling
+
+panels.ink.spot = Steunkleurenink
+panels.ink.overprint = Simulatie van euverdruk

@@ -93,3 +93,6 @@ panel.keymap.install_plugin = പ്ലഗ്-ഇൻ ഇൻസ്റ്റാൾ
 panel.keymap.save_as_prompt = ഇങ്ങനെ സംരക്ഷിക്കുക — എക്സ്റ്റൻഷനാണ് ഫോർമാറ്റ് നിശ്ചയിക്കുന്നത്:
 
 panels.brushes.pen_tilt = പേനയുടെ ചരിവ്
+
+panels.ink.spot = സ്പോട്ട് മഷി
+panels.ink.overprint = ഓവർപ്രിന്റ് അനുകരണം

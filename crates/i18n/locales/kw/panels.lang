@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Lea Ynworrans
 panel.keymap.save_as_prompt = Sawya avel — an estennans a dhewis an furvas:
 
 panels.brushes.pen_tilt = Stowans an bluenn
+
+panels.ink.spot = Lyw arbennik
+panels.ink.overprint = Hevelebi gorbrentya

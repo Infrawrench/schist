@@ -89,3 +89,6 @@ panel.keymap.install_plugin = Faka I-plug-in
 panel.keymap.save_as_prompt = Bulunga njenge — isijobelelo sikhetha ifomethi:
 
 panels.brushes.pen_tilt = Ukutsheka kwepeni
+
+panels.ink.spot = Uyinki wombala okhethekileko
+panels.ink.overprint = Ukulingisa ukugadangisa phezu kombala

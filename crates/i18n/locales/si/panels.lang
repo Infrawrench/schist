@@ -72,3 +72,6 @@ panel.keymap.install_plugin = ප්ලග්-ඉනය ස්ථාපනය �
 panel.keymap.save_as_prompt = වෙනත් නමකින් සුරකින්න — දිගුව ආකෘතිය තෝරයි:
 
 panels.brushes.pen_tilt = පෑනේ ඇලවීම
+
+panels.ink.spot = විශේෂ වර්ණ තීන්ත
+panels.ink.overprint = අතිමුද්‍රණ අනුකරණය

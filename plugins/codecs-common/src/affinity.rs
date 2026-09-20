@@ -100,6 +100,7 @@ impl CodecPlugin for AffinityCodec {
     }
 
     fn export(&self, doc: &Document) -> anyhow::Result<Vec<u8>> {
+        super::layered::check_ink_channels(doc)?;
         let thumbnail = self.render_thumbnail(doc);
         let (bytes, report) = schist_codec_affinity::write_affinity(doc, thumbnail.as_deref())?;
         for (layer, why) in &report.skipped {

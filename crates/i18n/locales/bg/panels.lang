@@ -83,3 +83,6 @@ panel.keymap.install_plugin = Инсталиране на приставка
 panel.keymap.save_as_prompt = Запазване като — разширението определя формата:
 
 panels.brushes.pen_tilt = Наклон на писалката
+
+panels.ink.spot = Мастило за специален цвят
+panels.ink.overprint = Симулация на надпечатване

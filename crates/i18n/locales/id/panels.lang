@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Instal Plugin
 panel.keymap.save_as_prompt = Simpan sebagai — ekstensi menentukan format:
 
 panels.brushes.pen_tilt = Kemiringan pena
+
+panels.ink.spot = Tinta warna khusus
+panels.ink.overprint = Simulasi cetak tindih

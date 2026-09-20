@@ -73,3 +73,6 @@ panel.keymap.install_plugin = Instalo shtojcë
 panel.keymap.save_as_prompt = Ruaj si — prapashtesa përcakton formatin:
 
 panels.brushes.pen_tilt = Pjerrësia e penës
+
+panels.ink.spot = Bojë me ngjyrë të posaçme
+panels.ink.overprint = Simulimi i mbishtypjes

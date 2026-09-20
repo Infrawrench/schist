@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Mag-install ng Plug-in
 panel.keymap.save_as_prompt = I-save bilang — extension ang pumipili ng format:
 
 panels.brushes.pen_tilt = Pagkiling ng panulat
+
+panels.ink.spot = Tinta ng espesyal na kulay
+panels.ink.overprint = Simulasyon ng magkapatong na paglimbag

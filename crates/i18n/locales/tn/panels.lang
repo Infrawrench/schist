@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Tsenya Plug-in
 panel.keymap.save_as_prompt = Boloka jaaka — extension e tlhopha popego:
 
 panels.brushes.pen_tilt = Go sekama ga pene
+
+panels.ink.spot = Enke ya mmala o o kgethegileng
+panels.ink.overprint = Ketsiso ya kgatiso mo godimo ga mmala

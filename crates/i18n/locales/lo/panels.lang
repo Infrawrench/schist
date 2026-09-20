@@ -72,3 +72,6 @@ panel.keymap.install_plugin = ຕິດຕັ້ງປລັກອິນ
 panel.keymap.save_as_prompt = ບັນທຶກເປັນ — ນາມສະກຸນໄຟລ໌ຈະກຳນົດຮູບແບບ:
 
 panels.brushes.pen_tilt = ຄວາມອຽງຂອງປາກກາ
+
+panels.ink.spot = ນ້ຳມຶກສີພິເສດ
+panels.ink.overprint = ຈຳລອງການພິມທັບ

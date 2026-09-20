@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Instalar plug-in
 panel.keymap.save_as_prompt = Guardar como — a extensão determina o formato:
 
 panels.brushes.pen_tilt = Inclinação da caneta
+
+panels.ink.spot = Tinta de cor especial
+panels.ink.overprint = Simulação de sobreimpressão

@@ -100,3 +100,6 @@ panel.keymap.install_plugin = Installera plugin
 panel.keymap.save_as_prompt = Spara som — filändelsen avgör formatet:
 
 panels.brushes.pen_tilt = Pennlutning
+
+panels.ink.spot = Dekorfärg
+panels.ink.overprint = Simulera övertryck

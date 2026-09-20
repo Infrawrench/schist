@@ -73,3 +73,6 @@ panel.keymap.install_plugin = Installar il plug-in
 panel.keymap.save_as_prompt = Memorisar sco — l'extensiun determinescha il format:
 
 panels.brushes.pen_tilt = Inclinaziun dal rispli
+
+panels.ink.spot = Tinta da colur speziala
+panels.ink.overprint = Simulaziun da surstampa

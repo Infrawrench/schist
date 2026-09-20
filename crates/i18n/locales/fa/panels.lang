@@ -72,3 +72,6 @@ panel.keymap.install_plugin = نصب افزونه
 panel.keymap.save_as_prompt = ذخیره به‌عنوان — پسوند، قالب را تعیین می‌کند:
 
 panels.brushes.pen_tilt = شیب قلم
+
+panels.ink.spot = مرکب رنگ ویژه
+panels.ink.overprint = شبیه‌سازی چاپ روی هم

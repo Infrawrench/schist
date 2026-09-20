@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Plug-in Fe'i
 panel.keymap.save_as_prompt = Akka olkaa'i — ekisteenshiniin akkaataa filata:
 
 panels.brushes.pen_tilt = Jallina qalamaa
+
+panels.ink.spot = Qalama halluu addaa
+panels.ink.overprint = Fakkeessuu maxxansa walirraa

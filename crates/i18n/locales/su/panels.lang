@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Pasang Plug-in
 panel.keymap.save_as_prompt = Simpen salaku — éksténsi nangtukeun formatna:
 
 panels.brushes.pen_tilt = Dengdekna pulpén
+
+panels.ink.spot = Mangsi warna husus
+panels.ink.overprint = Simulasi citak tumpang

@@ -45,6 +45,10 @@ impl Workspace {
         let Some(doc) = self.doc.as_mut() else {
             return;
         };
+        if doc.active_ink.take().is_some() {
+            doc.ink_preview = schist_core::InkPreview::Process;
+            doc.damage_all();
+        }
         let mut selection = doc.selected_layers();
         let mut collapse = false;
         if ev.modifiers.shift {
@@ -92,7 +96,7 @@ impl Workspace {
             collapse,
         });
         self.layer_drop = None;
-        cx.notify();
+        self.after_change(cx);
     }
 
     /// The layers a drag moves: the multi-selection when the pressed row

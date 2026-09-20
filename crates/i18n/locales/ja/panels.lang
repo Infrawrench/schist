@@ -104,3 +104,6 @@ panel.keymap.install_plugin = プラグインをインストール
 panel.keymap.save_as_prompt = 別名で保存 — 拡張子で形式が決まります：
 
 panels.brushes.pen_tilt = ペンの傾き
+
+panels.ink.spot = 特色インク
+panels.ink.overprint = オーバープリントのシミュレーション

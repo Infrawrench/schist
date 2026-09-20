@@ -82,3 +82,6 @@ panel.keymap.install_plugin = Įdiegti papildinį
 panel.keymap.save_as_prompt = Įrašyti kaip – formatą nustato plėtinys:
 
 panels.brushes.pen_tilt = Rašiklio pakreipimas
+
+panels.ink.spot = Specialios spalvos rašalas
+panels.ink.overprint = Užspaudimo imitavimas

@@ -82,3 +82,6 @@ panel.keymap.install_plugin = Ɖo Plugin
 panel.keymap.save_as_prompt = Dzra ɖo abe — agbalẽ ƒe nugbɔɖodi la tia tata la ene:
 
 panels.brushes.pen_tilt = Nulɔlɔŋuti ƒe gugɔ
+
+panels.ink.spot = Atike ŋutime tɔxɛ
+panels.ink.overprint = Agbalẽtata ɖe amadede dzi ƒe kpɔɖeŋu

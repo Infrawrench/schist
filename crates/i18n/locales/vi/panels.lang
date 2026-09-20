@@ -72,3 +72,6 @@ panel.keymap.install_plugin = Cài phần bổ trợ
 panel.keymap.save_as_prompt = Lưu thành — phần mở rộng quyết định định dạng:
 
 panels.brushes.pen_tilt = Độ nghiêng bút
+
+panels.ink.spot = Mực màu pha
+panels.ink.overprint = Mô phỏng in đè
