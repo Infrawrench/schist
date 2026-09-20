@@ -65,5 +65,6 @@ bounded sparse native tiles; v1/v2 remain readable. Other PSD readers display th
 rendered pixels and may ignore Schist's editable source. This does not author
 Photoshop's proprietary linked-object graph.
 
-New interface strings are translated into English, Spanish, French and German.
-Other existing locale catalogs currently use explicit English fallback values.
+The 32 smart-object interface strings use `schist-i18n` and are translated across
+all 150 shipped locale catalogs. Generic Norwegian and Serbo-Croatian catalogs
+are generated from Norwegian Bokmål and Croatian respectively.
