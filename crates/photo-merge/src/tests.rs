@@ -362,3 +362,21 @@ fn checks_budget_shape_and_options_before_work() {
     assert_eq!(result.offsets[1].y - result.offsets[0].y, 9);
     assert_eq!(result.offsets[1].x - result.offsets[0].x, -7);
 }
+
+#[test]
+fn registers_clipped_srgb_exposure_brackets() {
+    let mut a = scene(180, 140, 0, 0);
+    let mut b = scene(180, 140, 13, -7);
+    for (image, ev) in [(&mut a, -2.0f32), (&mut b, 2.0f32)] {
+        for p in image.rgba.chunks_exact_mut(4) {
+            for value in &mut p[..3] {
+                *value = linear_to_srgb((srgb_to_linear(*value) * ev.exp2()).min(1.0));
+            }
+        }
+    }
+    assert!(b.rgba.chunks_exact(4).any(|p| p[0] >= 0.999));
+    assert_eq!(
+        register(&a, &b, false, &Control::default()).unwrap().0,
+        Offset { x: 13, y: -7 }
+    );
+}
