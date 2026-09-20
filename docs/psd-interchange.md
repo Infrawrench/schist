@@ -63,6 +63,11 @@ fill, paragraph alignment and transforms. This is independent structural
 interoperability evidence; Photoshop/Photopea interactive rendering has not
 been exercised here.
 
+The text checker resolves style properties inherited from the text layer.
+It accepts either an installed DejaVu Sans bold face or the writer's
+synthetic-bold fallback, so installing DejaVu Sans is not a prerequisite.
+Both paths still verify that the regular and bold runs remain distinct.
+
 ```sh
 npm install --prefix /tmp/schist-psd-independent --ignore-scripts ag-psd@31.0.2
 SCHIST_INTERCHANGE_ARTIFACT_DIR=/tmp/schist-interchange \

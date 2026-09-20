@@ -14,8 +14,20 @@ for (const name of ['native-text.psd', 'native-text.psb']) {
   assert.equal(text.orientation, 'horizontal');
   assert.equal(text.paragraphStyle.justification, 'center');
   assert.deepEqual(text.style.fillColor, {r:51, g:102, b:153});
-  assert.equal(text.styleRuns[0].length, 4); // UTF-16, not UTF-8 byte length.
-  assert.equal(text.styleRuns[1].style.font.name, 'DejaVuSans-Bold');
+  assert.deepEqual(text.styleRuns.map(run => run.length), [4, 7]); // UTF-16 lengths.
+  // ag-psd lifts shared properties into text.style. Resolve inheritance before
+  // checking runs, including when DejaVu Sans is unavailable on the host.
+  const [regular, bold] = text.styleRuns.map(run => ({...text.style, ...run.style}));
+  assert.ok(['DejaVuSans', 'DejaVu Sans'].includes(regular.font?.name));
+  assert.equal(regular.fauxBold, false);
+  if (bold.font?.name === 'DejaVuSans-Bold') {
+    assert.equal(bold.fauxBold, false);
+  } else {
+    // Without a bold face, the writer retains the regular/family name and
+    // uses FauxBold. Merely retaining the font without bold styling must fail.
+    assert.equal(bold.font?.name, regular.font.name);
+    assert.equal(bold.fauxBold, true);
+  }
   assert.equal(text.style.tracking, 100);
   assert.equal(text.style.ligatures, false); // Untouched Schist text uses the unligated layout.
   assert.equal(text.transform[0], 1);
