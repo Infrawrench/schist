@@ -28,7 +28,6 @@ use std::sync::Arc;
 #[cfg(not(sandboxed))]
 mod ai;
 mod brushes;
-mod symmetry;
 mod color;
 mod context;
 mod history;
@@ -41,6 +40,7 @@ mod notes;
 mod rulers;
 mod sliders;
 mod status;
+mod symmetry;
 mod tabs;
 mod titlebar;
 mod toolbar;
