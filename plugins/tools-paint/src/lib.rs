@@ -502,7 +502,11 @@ impl Stroke {
 
     /// Bitmap corners and their sampling border can exceed a round dab.
     fn dab_extent(&self, radius: f32) -> f32 {
-        if let Some(bitmap) = self.bitmap.as_ref().filter(|_| self.dynamics.tip == BrushTip::Bitmap) {
+        if let Some(bitmap) = self
+            .bitmap
+            .as_ref()
+            .filter(|_| self.dynamics.tip == BrushTip::Bitmap)
+        {
             let max = bitmap.width.max(bitmap.height) as f32;
             radius * ((bitmap.width + 1) as f32 / max).hypot((bitmap.height + 1) as f32 / max)
         } else {
@@ -519,7 +523,10 @@ impl Stroke {
         opacity_pressure: f32,
         transform: schist_plugin_api::SymmetryTransform,
     ) {
-        let bitmap = self.bitmap.clone().filter(|_| self.dynamics.tip == BrushTip::Bitmap);
+        let bitmap = self
+            .bitmap
+            .clone()
+            .filter(|_| self.dynamics.tip == BrushTip::Bitmap);
         let extent = self.dab_extent(radius);
         let (sin, cos) = rotation.sin_cos();
         let mut bounds = IntRect::new(

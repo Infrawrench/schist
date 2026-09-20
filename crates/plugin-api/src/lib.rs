@@ -69,7 +69,7 @@ pub struct EditorState {
     /// Current event pen tilt in document-axis degrees; None without tilt data.
     pub pen_tilt: Option<[f32; 2]>,
 
-pub paint_symmetry: PaintSymmetry,
+    pub paint_symmetry: PaintSymmetry,
     /// Place/drag the symmetry centre instead of painting.
     pub symmetry_positioning: bool,
     /// Repeat the canvas in the viewport and wrap brush, pencil and eraser dabs.
@@ -114,7 +114,7 @@ impl Default for EditorState {
             brush_bitmap: None,
             pen_tilt: None,
 
-paint_symmetry: PaintSymmetry::default(),
+            paint_symmetry: PaintSymmetry::default(),
             symmetry_positioning: false,
             seamless_painting: false,
             tool_opacity: 1.0,

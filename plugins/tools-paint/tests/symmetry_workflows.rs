@@ -341,3 +341,99 @@ fn large_textured_dabs_match_an_independent_unwrapped_periodic_oracle() {
         }
     }
 }
+
+fn asymmetric_bitmap_state(mode: SymmetryMode) -> EditorState {
+    let mut state = state(mode);
+    state.brush_size = 24.0;
+    state.brush_bitmap = Some(std::sync::Arc::new(schist_plugin_api::BrushBitmap {
+        width: 5,
+        height: 3,
+        pixels: vec![0, 0, 255, 0, 0, 255, 255, 255, 255, 0, 0, 0, 255, 255, 255],
+    }));
+    state.brush_dynamics = BrushDynamics {
+        tip: BrushTip::Bitmap,
+        rotation: 31.0,
+        tilt_rotation: true,
+        pressure_opacity: true,
+        ..Default::default()
+    };
+    state.pen_tilt = Some([30.0, 30.0]);
+    state.tool_opacity = 0.8;
+    state
+}
+
+#[test]
+fn symmetry_transforms_rotated_tilted_bitmap_pixels_and_preserves_pressure_opacity() {
+    // Independently transform the completed unsymmetrical raster. An
+    // asymmetric mask exposes reflection handedness and rotation order.
+    for tool in ["brush", "pencil"] {
+        let mut source = document();
+        let mut base = asymmetric_bitmap_state(SymmetryMode::None);
+        let point = input(12.0, 20.0, 0.6);
+        paint(&mut source, &mut base, tool, &[point]);
+        assert!(pixels(&source).iter().any(|&a| a > 100));
+        assert!(pixels(&source).iter().all(|&a| a <= 123));
+        for mode in [SymmetryMode::Vertical, SymmetryMode::Radial] {
+            let mut actual = document();
+            let mut state = asymmetric_bitmap_state(mode);
+            paint(&mut actual, &mut state, tool, &[point]);
+            for y in 0..64 {
+                for x in 0..64 {
+                    let expected = if mode == SymmetryMode::Vertical {
+                        alpha(&source, x, y).max(alpha(&source, 63 - x, y))
+                    } else {
+                        [
+                            alpha(&source, x, y),
+                            alpha(&source, y, 63 - x),
+                            alpha(&source, 63 - x, 63 - y),
+                            alpha(&source, 63 - y, x),
+                        ]
+                        .into_iter()
+                        .max()
+                        .unwrap()
+                    };
+                    assert!(
+                        (alpha(&actual, x, y) as i32 - expected as i32).abs() <= 1,
+                        "{tool} {mode:?} at {x},{y}: expected {expected}, got {}",
+                        alpha(&actual, x, y)
+                    );
+                }
+            }
+        }
+    }
+}
+
+#[test]
+fn seamless_rotated_bitmap_wraps_corner_detail_beyond_the_round_radius() {
+    let mut source = document();
+    let mut repeated = document();
+    let mut state = state(SymmetryMode::None);
+    state.brush_size = 120.0;
+    let mut mask = vec![0; 64];
+    mask[63] = 255;
+    state.brush_bitmap = Some(std::sync::Arc::new(schist_plugin_api::BrushBitmap {
+        width: 8,
+        height: 8,
+        pixels: mask,
+    }));
+    state.brush_dynamics.tip = BrushTip::Bitmap;
+    state.brush_dynamics.rotation = 45.0;
+    let point = input(32.0, 0.0, 1.0);
+    paint(&mut source, &mut state, "brush", &[point]);
+    state.seamless_painting = true;
+    paint(&mut repeated, &mut state, "brush", &[point]);
+    assert!(pixels(&repeated).iter().any(|&a| a > 200));
+    // Fold the unbounded raster into the canvas; rotated square corners
+    // extend beyond the radius used for round and procedural tips.
+    for y in 0..64 {
+        for x in 0..64 {
+            let mut expected = 0;
+            for oy in -3..=3 {
+                for ox in -3..=3 {
+                    expected = expected.max(alpha(&source, x + ox * 64, y + oy * 64));
+                }
+            }
+            assert_eq!(alpha(&repeated, x, y), expected, "bitmap at {x},{y}");
+        }
+    }
+}
