@@ -163,7 +163,12 @@ impl Workspace {
                 }
             }))
             .child(chrome::top_strip(self, cx))
-            .children((!cloud && !video).then(|| super::library_culling::toolbar(self, cx)))
+            .children(
+                (!cloud && !video)
+                    .then(|| self.library.culling_error.clone())
+                    .flatten()
+                    .map(|error| div().px_2().py_1().text_size(px(11.0)).child(error)),
+            )
             .children(
                 (crate::feature_enabled("schist-cloud")
                     && self.cloud.account.is_none()

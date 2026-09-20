@@ -1,18 +1,19 @@
 //! Culling controls and two-photo comparison, without changing either original.
 use super::gallery_chrome::pal;
 use super::*;
-use gpui::img;
 use gpui::prelude::FluentBuilder;
+use gpui::{img, StatefulInteractiveElement as _};
 use image::ImageDecoder as _;
 use schist_gallery::culling::{
     self, ColourLabel, CompareCamera, CullEdit, CullFilter, CullFlag, PhotoCulling,
 };
 use schist_i18n::{t, tf};
-use schist_ui::{Button, Chip};
+use schist_ui::{Button, ButtonColors, Chip, Popover};
 use std::path::Path;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 static COMPARE_DECODE: std::sync::Mutex<()> = std::sync::Mutex::new(());
+const POPUP: Popup = Popup::Field("gallery-culling");
 
 pub(super) struct CompareImage {
     pub render: Arc<RenderImage>,
@@ -363,7 +364,62 @@ fn control_group() -> gpui::Div {
         .bg(gpui::rgb(pal().tray_bg))
 }
 
-pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+/// Keep culling controls within reach without taking space from the photo grid.
+pub(super) fn toolbar_button(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    let open = ws.open_popup == Some(POPUP);
+    let filtered = ws.library.culling_filter != CullFilter::default();
+    div()
+        .relative()
+        .flex_none()
+        .child(
+            Button::new("cull-controls-toggle", t("menu.filter"))
+                .colors(ButtonColors {
+                    bg: Some(pal().button_bg),
+                    hover: pal().button_hover,
+                    text: pal().text,
+                    border: Some(pal().chrome_edge),
+                })
+                .rounded_md()
+                .active(open || filtered)
+                .child(schist_ui::icon(
+                    "chevron-down",
+                    11.0,
+                    if open || filtered {
+                        schist_ui::palette().accent_text
+                    } else {
+                        pal().text
+                    },
+                ))
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.commit_focused_field();
+                    ws.library.search.active = false;
+                    ws.gallery_more = None;
+                    ws.toggle_popup(POPUP, cx);
+                })),
+        )
+        .children(open.then(|| {
+            gpui::deferred(
+                div().absolute().left_0().top(px(30.0)).size_0().child(
+                    gpui::anchored().snap_to_window_with_margin(px(8.0)).child(
+                        Popover::new("cull-controls-popover")
+                            .in_flow()
+                            .w(px(if ws.gallery_compact { 300.0 } else { 680.0 }))
+                            .p_2()
+                            .on_dismiss(cx.listener(|ws, _, _, cx| {
+                                ws.close_popup(cx);
+                                // Consume the outside press, including on the
+                                // trigger, so it cannot immediately reopen.
+                                cx.stop_propagation();
+                            }))
+                            .child(controls(ws, cx)),
+                    ),
+                ),
+            )
+        }))
+        .into_any_element()
+}
+
+fn controls(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     let paths = ws.culling_paths();
     let values: Vec<_> = paths.iter().map(|p| ws.library.culling_of(p)).collect();
     let disabled = paths.is_empty();
@@ -465,7 +521,10 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
                             .iter()
                             .any(|p| schist_gallery::is_video(p)),
                 )
-                .on_click(cx.listener(|ws, _, _, cx| ws.open_culling_compare(cx))),
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.close_popup(cx);
+                    ws.open_culling_compare(cx);
+                })),
         );
     }
     let filter = ws.library.culling_filter;
@@ -553,24 +612,15 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
         .child(filter_flags)
         .child(filter_labels);
     div()
+        .id("cull-controls")
         .flex()
         .flex_col()
-        .flex_none()
-        .px_2()
-        .py_1()
-        .gap_1()
+        .max_h(px((ws.visible_height - 100.0).max(120.0)))
+        .overflow_y_scroll()
+        .gap_2()
         .text_size(px(11.0))
-        .bg(gpui::rgb(pal().chrome_bg))
-        .border_b_1()
-        .border_color(gpui::rgb(pal().chrome_edge))
         .child(edits)
         .when(!comparing, |bar| bar.child(filters))
-        .children(
-            ws.library
-                .culling_error
-                .clone()
-                .map(|error| div().child(error)),
-        )
         .into_any_element()
 }
 

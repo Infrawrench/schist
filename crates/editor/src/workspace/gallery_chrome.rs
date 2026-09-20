@@ -95,8 +95,13 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyEl
             false,
             strip_actions::refresh,
             cx,
-        ))
-        .child(div().flex_grow());
+        ));
+    #[cfg(not(target_arch = "wasm32"))]
+    let strip = strip.children(
+        (!cloud && ws.library.video.is_none())
+            .then(|| super::library_culling::toolbar_button(ws, cx)),
+    );
+    let strip = strip.child(div().flex_grow());
     let strip = if cloud {
         strip
             .children(super::cloud_view::filter_chip(ws, cx))
@@ -178,7 +183,11 @@ fn touch_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElem
             true,
             strip_actions::import,
             cx,
-        ));
+        ))
+        .children(
+            (!cloud && ws.library.video.is_none())
+                .then(|| super::library_culling::toolbar_button(ws, cx)),
+        );
     let strip = if cloud {
         strip
             .children(super::cloud_view::filter_chip(ws, cx))
@@ -495,11 +504,14 @@ impl Workspace {
         }
     }
 
-    /// Escape in the gallery leaves the search — it is the innermost
-    /// thing open. Returns whether there was one to leave.
+    /// Escape dismisses a popover before leaving the search or photo viewer.
     pub(crate) fn gallery_escape(&mut self, cx: &mut Context<Self>) -> bool {
         if !self.gallery_open() {
             return false;
+        }
+        if self.open_popup.is_some() {
+            self.close_popup(cx);
+            return true;
         }
         if self.cloud.show {
             return self.cloud_search_clear(cx);
