@@ -130,7 +130,7 @@ pub(super) fn export_recipes_dialog(
         )));
     }
     #[cfg(not(target_arch = "wasm32"))]
-    {
+    if editor.cloud_assets.is_empty() {
         body = body
             .child(ui::field_row(
                 t("export_recipes.destination"),
@@ -149,8 +149,16 @@ pub(super) fn export_recipes_dialog(
             ));
     }
     #[cfg(target_arch = "wasm32")]
-    {
+    if editor.cloud_assets.is_empty() {
         body = body.child(t("export_recipes.browser_destination"));
+    }
+
+    if !editor.cloud_assets.is_empty() {
+        body = body.child(format!(
+            "{} · {}",
+            t("menu.file.schist_cloud"),
+            tf!("export_recipes.photos", count = editor.cloud_assets.len())
+        ));
     }
 
     let output = editor

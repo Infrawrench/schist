@@ -5,6 +5,7 @@ pub mod auth;
 #[path = "browser_auth.rs"]
 pub mod auth;
 pub mod document;
+pub mod gallery;
 pub mod generation;
 pub mod multipart;
 pub mod protocol;
@@ -12,6 +13,7 @@ pub mod runtime;
 mod socket;
 pub mod transfer;
 pub mod transport;
+pub mod workflows;
 pub use protocol::*;
 pub use rmpv::Value;
 pub use transport::{Client, Event, Handle, Upload};

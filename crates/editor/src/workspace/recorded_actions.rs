@@ -235,7 +235,7 @@ impl Default for ActionLibrary {
     }
 }
 impl ActionLibrary {
-    fn decode(text: &str) -> anyhow::Result<Self> {
+    pub(super) fn decode(text: &str) -> anyhow::Result<Self> {
         anyhow::ensure!(
             text.len() <= 4 * 1024 * 1024,
             "{}",
@@ -281,7 +281,7 @@ impl ActionLibrary {
         };
         Self::decode(&text)
     }
-    fn save(&self) -> anyhow::Result<()> {
+    pub(super) fn save(&self) -> anyhow::Result<()> {
         let json = serde_json::to_string_pretty(self)?;
         // Validate the exact bytes before replacing the previous library.
         Self::decode(&json)?;
@@ -612,12 +612,12 @@ fn resolve_values(
 
 /// Constructed on the UI thread, moved into a worker for gallery replay.
 /// Commands come from the audited built-in provider even if a plug-in reused an id.
-struct Runtime {
+pub(super) struct Runtime {
     commands: Vec<schist_plugin_api::Command>,
     filters: Vec<Arc<dyn FilterPlugin>>,
 }
 impl Runtime {
-    fn new(registry: &PluginRegistry) -> Self {
+    pub(super) fn new(registry: &PluginRegistry) -> Self {
         Self {
             commands: schist_commands_core::CoreCommandsPlugin.commands(),
             filters: registry
@@ -627,7 +627,7 @@ impl Runtime {
                 .collect(),
         }
     }
-    fn validate(&self, action: &SavedAction) -> anyhow::Result<()> {
+    pub(super) fn validate(&self, action: &SavedAction) -> anyhow::Result<()> {
         validate_shape(action)?;
         for step in &action.steps {
             let parameters = match step {
@@ -654,7 +654,7 @@ impl Runtime {
     }
     /// Replay against an isolated history; rollback restores the complete
     /// previous history (including redo/save point), then return one grouped edit.
-    fn replay(&self, action: &SavedAction, doc: &mut Document) -> anyhow::Result<()> {
+    pub(super) fn replay(&self, action: &SavedAction, doc: &mut Document) -> anyhow::Result<()> {
         self.validate(action)?;
         anyhow::ensure!(
             (doc.active_channel.is_none() && doc.active_ink.is_none()),
@@ -1301,6 +1301,7 @@ impl Workspace {
             }
             library.save()?;
             self.action_library = library;
+            self.cloud_workflows_changed();
             let index = selected.unwrap_or(self.action_library.actions.len() - 1);
             self.action_recorder.mark_saved(index, action);
             self.update_modal(|m| {
@@ -1325,6 +1326,7 @@ impl Workspace {
         match library.save() {
             Ok(()) => {
                 self.action_library = library;
+                self.cloud_workflows_changed();
                 self.action_recorder
                     .select_action(&self.action_library, None);
                 self.open_actions(cx);

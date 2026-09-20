@@ -71,6 +71,7 @@ impl Workspace {
                             ws.brush_preset_name = library.presets[first].name.clone();
                             ws.status = ws.brush_preset_name.clone().into();
                             ws.brush_library = library;
+                            ws.cloud_workflows_changed();
                         } else {
                             ws.status = t("common.failed").into();
                         }

@@ -101,6 +101,7 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyEl
         (!cloud && ws.library.video.is_none())
             .then(|| super::library_culling::toolbar_button(ws, cx)),
     );
+    let strip = strip.children(cloud.then(|| super::cloud_gallery::toolbar(ws, cx)));
     let strip = strip.child(div().flex_grow());
     let strip = if cloud {
         strip
@@ -473,7 +474,9 @@ impl Workspace {
     /// the search box first, then the arrows over the grid.
     pub(crate) fn gallery_key(&mut self, ev: &gpui::KeyDownEvent, cx: &mut Context<Self>) -> bool {
         if self.cloud.show {
-            return self.cloud_search_key(ev, cx) || self.cloud_nav_key(ev, cx);
+            return self.cloud_search_key(ev, cx)
+                || self.cloud_gallery_key(ev, cx)
+                || self.cloud_nav_key(ev, cx);
         }
         #[cfg(not(target_arch = "wasm32"))]
         if self.video_key(ev, cx) {

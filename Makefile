@@ -748,3 +748,15 @@ check-spot-catalogs:
 .PHONY: lint-spot-ink
 lint-spot-ink:
 	$(CARGO) clippy -p schist-core -p schist-codec-psd -p schist-codecs-common -p schist-document -p schist-plugin-api -p schist-tools-paint -p schist-tools-transform -p schist-commands-core -p schist-editor --all-targets -- -D warnings
+
+.PHONY: check-cloud-gallery test-cloud-gallery format-cloud-gallery
+check-cloud-gallery:
+	$(CARGO) check -p schist-cloud -p schist-editor --all-targets
+test-cloud-gallery:
+	$(CARGO) test -p schist-cloud
+format-cloud-gallery:
+	$(CARGO) fmt -p schist-cloud -p schist-editor
+
+.PHONY: lint-cloud-gallery
+lint-cloud-gallery:
+	$(CARGO) clippy -p schist-cloud -p schist-editor --all-targets -- -D warnings

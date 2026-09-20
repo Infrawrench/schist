@@ -4,6 +4,23 @@ use crate::export_recipes::{self as recipes, Book, Editor, Recipe};
 use schist_i18n::{t, tf};
 
 impl Workspace {
+    pub(super) fn cloud_export_recipes(&mut self, cx: &mut Context<Self>) {
+        let photos: Vec<_> = self
+            .cloud
+            .assets
+            .iter()
+            .filter(|a| self.cloud.selected.contains(&a.id))
+            .cloned()
+            .collect();
+        if photos.is_empty() {
+            return;
+        }
+        self.open_export_recipes(Vec::new(), cx);
+        if let Some(Modal::ExportRecipes { editor }) = self.modal.as_mut() {
+            editor.cloud_assets = photos;
+        }
+    }
+
     pub fn open_export_recipes(&mut self, photos: Vec<PathBuf>, cx: &mut Context<Self>) {
         match Book::load() {
             Ok(book) => self.open_modal(
@@ -26,6 +43,7 @@ impl Workspace {
         match editor.save() {
             Ok(()) => {
                 self.status = t("export_recipes.saved").into();
+                self.cloud_workflows_changed();
                 cx.notify();
                 true
             }
@@ -45,9 +63,14 @@ impl Workspace {
         book.recipes.remove(index);
         book.selected = index.min(book.recipes.len().saturating_sub(1));
         match book.save() {
-            Ok(()) => *editor = Editor::new(book, editor.photos.clone()),
+            Ok(()) => {
+                let assets = std::mem::take(&mut editor.cloud_assets);
+                *editor = Editor::new(book, editor.photos.clone());
+                editor.cloud_assets = assets;
+            }
             Err(error) => editor.error = Some(error.to_string()),
         }
+        self.cloud_workflows_changed();
         self.focused_field = None;
         self.field_buffer.clear();
         cx.notify();
@@ -107,6 +130,10 @@ impl Workspace {
         let Some(Modal::ExportRecipes { editor }) = self.modal.clone() else {
             return;
         };
+        if !editor.cloud_assets.is_empty() {
+            self.cloud_run_recipe(editor.cloud_assets, editor.draft, cx);
+            return;
+        }
         #[cfg(not(target_arch = "wasm32"))]
         if !editor.draft.destination.is_dir() {
             self.update_modal(|modal| {
@@ -447,4 +474,27 @@ mod tests {
         assert_eq!(std::fs::read(&source).unwrap(), original);
         assert_eq!(std::fs::read(&sidecar).unwrap(), edited);
     }
+}
+
+/// The existing recipe renderer, with bounded memory and no device path writes.
+pub(super) fn cloud_outputs(
+    doc: &Document,
+    recipe: &Recipe,
+    codecs: &[Arc<dyn schist_plugin_api::CodecPlugin>],
+) -> anyhow::Result<Vec<(String, Vec<u8>)>> {
+    let mut outputs = Vec::new();
+    let mut bytes = 0usize;
+    let report = export_document(doc, recipe, codecs, |stem, extension, data| {
+        bytes += data.len();
+        anyhow::ensure!(
+            bytes <= 256 * 1024 * 1024,
+            t("cloud.upload.selection_too_large")
+        );
+        outputs.push((format!("{stem}.{extension}"), data.to_vec()));
+        Ok(())
+    });
+    if let Some(error) = report.error {
+        anyhow::bail!(error);
+    }
+    Ok(outputs)
 }
