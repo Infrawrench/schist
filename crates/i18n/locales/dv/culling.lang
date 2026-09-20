@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = ހޮވާ
+culling.reject = ރައްދުކުރޭ
+culling.compare = ދެ ފޮޓޯ އަޅާކިޔާ

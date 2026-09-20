@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Izberi
+culling.reject = Zavrni
+culling.compare = Primerjaj dve fotografiji

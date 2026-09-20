@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Tscherner
+culling.reject = Refusar
+culling.compare = Cumparegliar duas fotografias

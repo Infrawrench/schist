@@ -170,6 +170,7 @@ struct SummaryKey {
     bucket_filter: Option<usize>,
     folder_filter: Option<PathBuf>,
     map_filter: Option<GeoBounds>,
+    culling_filter: schist_gallery::culling::CullFilter,
     smart_synced: Option<(u64, u64)>,
 }
 
@@ -280,6 +281,10 @@ pub struct Library {
     /// The selected photos, in the order they were picked; the last is
     /// the lead — what arrows move and Enter opens.
     pub selected: Vec<PathBuf>,
+    pub culling: BTreeMap<PathBuf, schist_gallery::culling::PhotoCulling>,
+    pub culling_filter: schist_gallery::culling::CullFilter,
+    pub(super) comparison: Option<super::library_culling::Comparison>,
+    pub culling_error: Option<String>,
     /// Where a Shift-click range extends from.
     select_anchor: Option<PathBuf>,
     /// The buckets: named baskets photos are dragged into, acted on as
@@ -512,6 +517,10 @@ impl Library {
             sections: Vec::new(),
             folder_filter: None,
             selected: Vec::new(),
+            culling: file.culling,
+            culling_filter: Default::default(),
+            comparison: None,
+            culling_error: None,
             select_anchor: None,
             buckets: file
                 .buckets
@@ -622,7 +631,14 @@ impl Library {
         if cfg!(test) {
             return;
         }
+        if let Err(err) = self.save_checked() {
+            log::warn!("gallery: library.json not saved: {err:#}");
+        }
+    }
+
+    pub(super) fn save_checked(&self) -> anyhow::Result<()> {
         let file = LibraryFile {
+            culling: self.culling.clone(),
             folders: self.folders.clone(),
             recents: self.recents.clone(),
             video_editor: self.video_editor.clone(),
@@ -642,9 +658,10 @@ impl Library {
             ignored_faces: self.ignored_faces.clone(),
             denied_faces: self.denied_faces.clone(),
         };
-        if let Err(err) = file.save() {
-            log::warn!("gallery: library.json not saved: {err:#}");
+        if cfg!(test) {
+            return Ok(());
         }
+        file.save()
     }
 
     /// The decoded thumbnail for `entry`, if one is in memory. A pure
@@ -737,6 +754,7 @@ impl Library {
         // The viewer's decode is the biggest single picture in memory,
         // and a photo on show in a gallery that has closed is nobody's.
         self.viewer = None;
+        self.comparison = None;
         #[cfg(not(target_arch = "wasm32"))]
         {
             self.video = None;
@@ -1104,10 +1122,11 @@ impl Library {
             .count()
     }
 
-    /// Whether the map filter lets a photo through: no filter passes
-    /// everything, a filter passes only photos whose EXIF position
-    /// falls inside it — the point of asking for a place.
+    /// Whether the gallery's spatial and culling filters let a photo through.
     pub fn passes_map(&self, path: &Path) -> bool {
+        if !self.culling_filter.matches(self.culling_of(path)) {
+            return false;
+        }
         let Some(bounds) = self.map_filter else {
             return true;
         };
@@ -1115,6 +1134,10 @@ impl Library {
             self.positions.get(path),
             Some(Some((lat, lon))) if bounds.contains(*lat, *lon)
         )
+    }
+
+    pub(super) fn culling_changed(&mut self) {
+        self.people_rev += 1;
     }
 
     /// What the active map filter is called, for the banner.
@@ -1990,6 +2013,7 @@ impl Library {
             bucket_filter: self.bucket_filter,
             folder_filter: self.folder_filter.clone(),
             map_filter: self.map_filter,
+            culling_filter: self.culling_filter,
             smart_synced: self.smart_synced,
         };
         if let Some((cached_key, summary)) = &self.people_summary {
@@ -1999,7 +2023,8 @@ impl Library {
         }
         let unscoped = self.bucket_filter.is_none()
             && self.folder_filter.is_none()
-            && self.map_filter.is_none();
+            && self.map_filter.is_none()
+            && self.culling_filter == Default::default();
         // Until the indexer has caught up, the live count would be a
         // fraction of the truth climbing towards it: show last time's.
         if !self.index_caught_up && unscoped {
@@ -3315,23 +3340,11 @@ impl Workspace {
     /// Every photo the grid is currently showing, in display order —
     /// what arrows walk and Shift-clicks span.
     pub(super) fn gallery_flat_order(&self) -> Vec<PathBuf> {
-        let hide = self.view.gallery_hide_nsfw;
-        if let Some(results) = &self.library.search_results {
-            results
-                .iter()
-                .map(|(path, _)| path.clone())
-                .filter(|p| self.library.passes_map(p))
-                .filter(|p| !(hide && self.library.is_flagged(p)))
-                .collect()
-        } else {
-            self.library
-                .grouped()
-                .into_iter()
-                .flat_map(|(_, _, entries)| entries)
-                .map(|e| e.path)
-                .filter(|p| !(hide && self.library.is_flagged(p)))
-                .collect()
-        }
+        super::library_view::gallery_sections(self)
+            .into_iter()
+            .flat_map(|(_, _, entries)| entries)
+            .map(|e| e.path)
+            .collect()
     }
 
     /// Shift-click: select the display-order range from the anchor to
@@ -4415,6 +4428,7 @@ mod tests {
     fn library_with(photos: &[&str]) -> Library {
         let mut lib = Library::load();
         lib.people.clear();
+        lib.culling.clear();
         lib.ignored_faces.clear();
         lib.buckets.clear();
         lib.denied_faces.clear();
@@ -4433,6 +4447,45 @@ mod tests {
                 .collect(),
         }]);
         lib
+    }
+
+    #[test]
+    fn culling_filters_grouping_counts_and_people_and_survives_a_rescan() {
+        use schist_gallery::culling::{self, CullEdit, CullFlag};
+        let mut lib = library_with(&["/p/a.jpg", "/p/b.jpg"]);
+        let paths = [PathBuf::from("/p/a.jpg")];
+        culling::edit(&mut lib.culling, &paths, CullEdit::Rating(4));
+        culling::edit(&mut lib.culling, &paths, CullEdit::Flag(CullFlag::Pick));
+        lib.faces
+            .insert(paths[0].clone(), vec![found(face_at(0.1), None)]);
+        assert_eq!(lib.people_summary().unnamed_faces, 1);
+        lib.culling_filter.minimum_rating = 5;
+        assert_eq!(lib.people_summary().unnamed_faces, 0);
+        assert_eq!(lib.photo_count(), 0);
+        for group in [GroupBy::Folder, GroupBy::Date, GroupBy::Place] {
+            lib.group_by = group;
+            // Folder grouping retains section headers; the view drops empty
+            // sections. Every grouping must exclude the filtered photos.
+            assert!(lib
+                .grouped()
+                .iter()
+                .all(|(_, _, entries)| entries.is_empty()));
+        }
+        lib.culling_filter.minimum_rating = 4;
+        lib.culling_filter.flag = Some(CullFlag::Pick);
+        assert_eq!(lib.photo_count(), 1);
+        let sections = lib.sections.clone();
+        lib.set_sections(Vec::new());
+        lib.set_sections(sections);
+        assert_eq!(lib.culling_of(&paths[0]).rating, 4);
+        assert_eq!(
+            lib.grouped().iter().map(|(_, _, e)| e.len()).sum::<usize>(),
+            1
+        );
+        culling::edit(&mut lib.culling, &paths, CullEdit::Flag(CullFlag::Reject));
+        lib.culling_changed();
+        assert_eq!(lib.people_summary().unnamed_faces, 0);
+        assert_eq!(lib.photo_count(), 0);
     }
 
     fn face_at(x: f32) -> FaceRect {

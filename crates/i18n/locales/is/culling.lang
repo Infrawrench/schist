@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Velja
+culling.reject = Hafna
+culling.compare = Bera saman tvær myndir

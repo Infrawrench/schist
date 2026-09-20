@@ -95,8 +95,13 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyEl
             false,
             strip_actions::refresh,
             cx,
-        ))
-        .child(div().flex_grow());
+        ));
+    #[cfg(not(target_arch = "wasm32"))]
+    let strip = strip.children(
+        (!cloud && ws.library.video.is_none())
+            .then(|| super::library_culling::toolbar_button(ws, cx)),
+    );
+    let strip = strip.child(div().flex_grow());
     let strip = if cloud {
         strip
             .children(super::cloud_view::filter_chip(ws, cx))
@@ -178,7 +183,11 @@ fn touch_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElem
             true,
             strip_actions::import,
             cx,
-        ));
+        ))
+        .children(
+            (!cloud && ws.library.video.is_none())
+                .then(|| super::library_culling::toolbar_button(ws, cx)),
+        );
     let strip = if cloud {
         strip
             .children(super::cloud_view::filter_chip(ws, cx))
@@ -472,7 +481,19 @@ impl Workspace {
         }
         #[cfg(not(target_arch = "wasm32"))]
         {
-            self.similar_review_key(ev, cx)
+            if self.similar_review_key(ev, cx) {
+                return true;
+            }
+            if ev.keystroke.key == "enter"
+                && !self.gallery_typing()
+                && self.focused_field.is_none()
+                && !self.ai.input.active
+                && !self.ai.model_menu
+                && !self.spotlight.open
+            {
+                return self.gallery_enter(cx);
+            }
+            self.gallery_culling_key(ev, cx)
                 || self.gallery_viewer_key(ev, cx)
                 || self.gallery_search_key(ev, cx)
                 || self.gallery_nav_key(ev, cx)
@@ -483,11 +504,14 @@ impl Workspace {
         }
     }
 
-    /// Escape in the gallery leaves the search — it is the innermost
-    /// thing open. Returns whether there was one to leave.
+    /// Escape dismisses a popover before leaving the search or photo viewer.
     pub(crate) fn gallery_escape(&mut self, cx: &mut Context<Self>) -> bool {
         if !self.gallery_open() {
             return false;
+        }
+        if self.open_popup.is_some() {
+            self.close_popup(cx);
+            return true;
         }
         if self.cloud.show {
             return self.cloud_search_clear(cx);
@@ -529,7 +553,13 @@ impl Workspace {
             if self.library.search.active {
                 return false;
             }
-            if let Some(path) = self.library.lead_selected().cloned() {
+            let path = self
+                .library
+                .comparison
+                .as_ref()
+                .map(|c| c.paths[c.active].clone())
+                .or_else(|| self.library.lead_selected().cloned());
+            if let Some(path) = path {
                 self.open_from_gallery(path, cx);
             }
             true

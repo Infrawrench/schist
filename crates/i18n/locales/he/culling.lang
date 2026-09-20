@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = בחירה
+culling.reject = דחייה
+culling.compare = השוואת שתי תמונות

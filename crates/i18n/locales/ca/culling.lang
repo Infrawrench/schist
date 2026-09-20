@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Tria
+culling.reject = Rebutja
+culling.compare = Compara dues fotos

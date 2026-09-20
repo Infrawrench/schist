@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Pasirinkti
+culling.reject = Atmesti
+culling.compare = Palyginti dvi nuotraukas

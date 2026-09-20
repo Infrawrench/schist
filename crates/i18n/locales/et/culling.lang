@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Vali
+culling.reject = Lükka tagasi
+culling.compare = Võrdle kahte fotot

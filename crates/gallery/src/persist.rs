@@ -56,6 +56,8 @@ impl BucketFile {
 #[derive(Default, serde::Serialize, serde::Deserialize, Clone, Debug)]
 pub struct LibraryFile {
     pub folders: Vec<PathBuf>,
+    #[serde(default, skip_serializing_if = "std::collections::BTreeMap::is_empty")]
+    pub culling: std::collections::BTreeMap<PathBuf, crate::culling::PhotoCulling>,
     #[serde(default)]
     pub recents: Vec<PathBuf>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -146,14 +148,57 @@ impl LibraryFile {
             // safe on the serialised text.
             text = text.replace(&home, SANDBOX_TOKEN);
         }
-        std::fs::write(path, text)?;
+        write_atomic(&path, text.as_bytes())?;
         Ok(())
     }
+}
+
+/// Replace a complete library in one rename, so a failed culling save cannot
+/// truncate previously saved decisions. Unique sibling files avoid collisions.
+fn write_atomic(path: &std::path::Path, bytes: &[u8]) -> std::io::Result<()> {
+    use std::io::Write as _;
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static NEXT: AtomicU64 = AtomicU64::new(0);
+    let serial = NEXT.fetch_add(1, Ordering::Relaxed);
+    let tmp = path.with_extension(format!("tmp-{}-{serial}", std::process::id()));
+    let mut file = std::fs::OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .open(&tmp)?;
+    let result = (|| {
+        file.write_all(bytes)?;
+        file.sync_all()?;
+        drop(file);
+        std::fs::rename(&tmp, path)
+    })();
+    if result.is_err() {
+        let _ = std::fs::remove_file(&tmp);
+    }
+    result
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn culling_atomic_save_replaces_complete_records() {
+        let dir = std::env::temp_dir().join(format!("schist-culling-save-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let path = dir.join("library.json");
+        write_atomic(&path, br#"{"folders":[]}"#).unwrap();
+        let mut library = LibraryFile::default();
+        crate::culling::edit(
+            &mut library.culling,
+            &[PathBuf::from("/p/a.jpg")],
+            crate::culling::CullEdit::Rating(5),
+        );
+        write_atomic(&path, &serde_json::to_vec(&library).unwrap()).unwrap();
+        let loaded: LibraryFile = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+        assert_eq!(loaded.culling[&PathBuf::from("/p/a.jpg")].rating, 5);
+        assert_eq!(std::fs::read_dir(&dir).unwrap().count(), 1);
+        std::fs::remove_dir_all(dir).unwrap();
+    }
 
     #[test]
     fn saved_paths_follow_the_container() {

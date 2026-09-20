@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Tchoezi
+culling.reject = Rifuzer
+culling.compare = Comparer deus fotos

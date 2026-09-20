@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = ਚੁਣੋ
+culling.reject = ਰੱਦ ਕਰੋ
+culling.compare = ਦੋ ਫੋਟੋਆਂ ਦੀ ਤੁਲਨਾ ਕਰੋ

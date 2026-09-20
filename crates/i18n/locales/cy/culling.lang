@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Dewis
+culling.reject = Gwrthod
+culling.compare = Cymharu dau lun
