@@ -333,7 +333,8 @@ pub struct Decisions {
 impl Decisions {
     pub fn load(path: &Path) -> std::io::Result<Self> {
         match read_bounded(path) {
-            Ok(b) => serde_json::from_slice(&b).map_err(std::io::Error::other),
+            Ok(b) => serde_json::from_slice(&b)
+                .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(Self::default()),
             Err(e) => Err(e),
         }
@@ -391,7 +392,10 @@ fn read_bounded(path: &Path) -> std::io::Result<Vec<u8>> {
     let mut bytes = Vec::new();
     file.take(MAX_JSON_BYTES + 1).read_to_end(&mut bytes)?;
     if bytes.len() as u64 > MAX_JSON_BYTES {
-        return Err(std::io::Error::other("review data exceeds size limit"));
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidData,
+            "review data exceeds size limit",
+        ));
     }
     Ok(bytes)
 }
@@ -402,7 +406,10 @@ fn save_json(path: &Path, value: &impl Serialize) -> std::io::Result<()> {
     std::fs::create_dir_all(parent)?;
     let bytes = serde_json::to_vec(value).map_err(std::io::Error::other)?;
     if bytes.len() as u64 > MAX_JSON_BYTES {
-        return Err(std::io::Error::other("review data exceeds size limit"));
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidData,
+            "review data exceeds size limit",
+        ));
     }
     let temp = path.with_extension(format!("{}.tmp", std::process::id()));
     std::fs::write(&temp, bytes)?;
@@ -471,6 +478,12 @@ mod tests {
         .unwrap();
         assert!(original.matches(&original, 0));
         assert!(original.matches(&resized, 6));
+        let mut jpeg = Vec::new();
+        image::codecs::jpeg::JpegEncoder::new_with_quality(&mut jpeg, 88)
+            .encode_image(&image::DynamicImage::ImageRgb8(image.clone()))
+            .unwrap();
+        let recompressed = image::load_from_memory(&jpeg).unwrap().to_rgb8();
+        assert!(original.matches(&Signature::of(&recompressed).unwrap(), 6));
         let mut adjusted = image.clone();
         for pixel in adjusted.pixels_mut() {
             for c in &mut pixel.0 {
@@ -583,6 +596,15 @@ mod tests {
             |_, _| None,
         );
         assert_eq!(decodes, 1);
+        std::fs::remove_file(&path).unwrap();
+        loaded.scan(
+            &[],
+            &cancel,
+            &progress,
+            |_| panic!("empty scan decoded"),
+            |_, _| None,
+        );
+        assert!(loaded.photos.is_empty());
         std::fs::write(&disk, b"truncated").unwrap();
         assert!(Cache::load(&disk).photos.is_empty());
     }
@@ -610,6 +632,21 @@ mod tests {
             |_, _| None,
         );
         assert!(changed.is_empty());
+    }
+    #[test]
+    fn oversized_persistence_is_rejected_without_overwriting_it() {
+        let temp = Temp::new();
+        let path = temp.0.join("oversized.json");
+        std::fs::File::create(&path)
+            .unwrap()
+            .set_len(MAX_JSON_BYTES + 1)
+            .unwrap();
+        assert!(Cache::load(&path).photos.is_empty());
+        assert_eq!(
+            Decisions::load(&path).err().unwrap().kind(),
+            std::io::ErrorKind::InvalidData
+        );
+        assert_eq!(std::fs::metadata(path).unwrap().len(), MAX_JSON_BYTES + 1);
     }
     #[test]
     fn cancellation_stops_decoding_and_discards_groups() {
@@ -662,6 +699,9 @@ mod tests {
             None,
             "marks must not transfer to replacement files"
         );
+        // A vanished alternate does not make it safe to reject the survivor.
+        std::fs::remove_file(&photos[0].path).unwrap();
+        assert!(!decisions.set(&photos, &group, 1, Some(Choice::Reject)));
         std::fs::write(&file, b"bad JSON").unwrap();
         assert!(
             Decisions::load(&file).is_err(),

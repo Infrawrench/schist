@@ -54,6 +54,16 @@ impl Default for SimilarReview {
         }
     }
 }
+fn review_io_error(error: std::io::Error) -> String {
+    log::warn!("similar review persistence failed: {error}");
+    let detail = match error.kind() {
+        std::io::ErrorKind::PermissionDenied => t("common.permission_denied"),
+        std::io::ErrorKind::NotFound => t("common.file_not_found"),
+        std::io::ErrorKind::InvalidData => t("common.unsupported_format"),
+        _ => t("common.not_available"),
+    };
+    tf!("library.ops.save_failed", error = detail)
+}
 fn decision_path() -> Option<PathBuf> {
     Some(schist_gallery::library_path()?.with_file_name("similar-review.json"))
 }
@@ -224,7 +234,7 @@ impl Workspace {
                     }
                     Err(error) => {
                         state.decisions_loaded = false;
-                        state.error = Some(tf!("library.ops.save_failed", error = error));
+                        state.error = Some(review_io_error(error));
                     }
                 }
                 ws.load_similar_pair(cx);
@@ -298,7 +308,7 @@ impl Workspace {
                     state.decisions = next;
                     state.error = None;
                 }
-                Err(error) => state.error = Some(tf!("library.ops.save_failed", error = error)),
+                Err(error) => state.error = Some(review_io_error(error)),
             }
         }
         cx.notify();
@@ -398,6 +408,25 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                 .child(t("common.failed"))
                 .child(state.failed.to_string()),
         );
+    }
+    if !running && !state.cancelled {
+        content = content.child(t("common.ready"));
+        if state.mode == Mode::Burst {
+            content = content.child(
+                div()
+                    .flex()
+                    .gap_2()
+                    .child(t("library.month.undated"))
+                    .child(
+                        state
+                            .photos
+                            .iter()
+                            .filter(|p| p.captured.is_none())
+                            .count()
+                            .to_string(),
+                    ),
+            );
+        }
     }
     let Some(group) = state.groups.get(state.group) else {
         return content.into_any_element();
