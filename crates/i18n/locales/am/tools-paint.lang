@@ -61,3 +61,6 @@ tool.bucket.description = በመሣሪያው የልዩነት ገደብ ውስጥ
 tool.bucket.option.contiguous = ተያያዥ
 tool.bucket.option.all_layers = ሁሉም ንብርብሮች
 tool.bucket.history.fill = የቀለም ባልዲ
+
+tool.brush.symmetry = ሲሜትሪ
+tool.brush.seamless_preview = ያለ መገጣጠሚያ ንድፍ ቅድመ እይታ

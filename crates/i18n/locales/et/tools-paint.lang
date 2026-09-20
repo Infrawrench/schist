@@ -60,3 +60,6 @@ tool.bucket.description = Klõpsa, et täita kursori all olev ühendatud sarnase
 tool.bucket.option.contiguous = Külgnev
 tool.bucket.option.all_layers = Kõik kihid
 tool.bucket.history.fill = Värviämber
+
+tool.brush.symmetry = Sümmeetria
+tool.brush.seamless_preview = Õmblusteta mustri eelvaade

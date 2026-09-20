@@ -68,3 +68,6 @@ tool.bucket.description = დაწკაპუნებით შეავს�
 tool.bucket.option.contiguous = მომიჯნავე
 tool.bucket.option.all_layers = ყველა ფენა
 tool.bucket.history.fill = საღებავის სათლი
+
+tool.brush.symmetry = სიმეტრია
+tool.brush.seamless_preview = უწყვეტი მოზაიკის წინასწარი ნახვა

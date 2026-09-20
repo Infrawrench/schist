@@ -60,3 +60,6 @@ tool.bucket.description = Klik om die aaneenlopende gebied van soortgelyke kleur
 tool.bucket.option.contiguous = Aaneenlopend
 tool.bucket.option.all_layers = Alle lae
 tool.bucket.history.fill = Verfemmer
+
+tool.brush.symmetry = Simmetrie
+tool.brush.seamless_preview = Naatlose teëlvoorskou

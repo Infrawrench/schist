@@ -86,3 +86,6 @@ tool.bucket.description = Click to flood the connected area of similar colour un
 tool.bucket.option.contiguous = Contiguous
 tool.bucket.option.all_layers = All Layers
 tool.bucket.history.fill = Paint Bucket
+
+tool.brush.symmetry = Symmetry
+tool.brush.seamless_preview = Seamless tile preview

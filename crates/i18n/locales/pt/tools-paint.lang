@@ -60,3 +60,6 @@ tool.bucket.description = Clique para inundar a área ligada de cor semelhante s
 tool.bucket.option.contiguous = Contíguo
 tool.bucket.option.all_layers = Todas as camadas
 tool.bucket.history.fill = Balde de tinta
+
+tool.brush.symmetry = Simetria
+tool.brush.seamless_preview = Prévia de mosaico sem emendas

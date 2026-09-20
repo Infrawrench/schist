@@ -60,3 +60,6 @@ tool.bucket.description = Nhấp để đổ màu tiền cảnh vào vùng liề
 tool.bucket.option.contiguous = Liền kề
 tool.bucket.option.all_layers = Tất cả lớp
 tool.bucket.history.fill = Thùng sơn
+
+tool.brush.symmetry = Đối xứng
+tool.brush.seamless_preview = Xem trước mẫu lát liền mạch

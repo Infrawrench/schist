@@ -70,3 +70,6 @@ tool.bucket.description = Dinani kuti mudzaze dera lolumikizana la mtundu wofana
 tool.bucket.option.contiguous = Zolumikizana
 tool.bucket.option.all_layers = Ma Layer Onse
 tool.bucket.history.fill = Chidebe cha Penti
+
+tool.brush.symmetry = Kufanana
+tool.brush.seamless_preview = Chithunzithunzi cha patani yopanda msoko

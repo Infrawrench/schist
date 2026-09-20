@@ -70,3 +70,6 @@ tool.bucket.description = Chofoza ukuze ugcwale indawo exhumanayo elombala ofana
 tool.bucket.option.contiguous = Okuxhumanayo
 tool.bucket.option.all_layers = Zonke Izendlalelo
 tool.bucket.history.fill = Ibhakede Lepende
+
+tool.brush.symmetry = Ukulingana
+tool.brush.seamless_preview = Ukubona iphetheni engelamthungo kuqala

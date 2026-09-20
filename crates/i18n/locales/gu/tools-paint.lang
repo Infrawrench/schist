@@ -81,3 +81,6 @@ tool.bucket.description = ટૂલની સહનશીલતાની મર�
 tool.bucket.option.contiguous = સળંગ
 tool.bucket.option.all_layers = બધા લેયર
 tool.bucket.history.fill = પેઇન્ટ બકેટ
+
+tool.brush.symmetry = સંમિતિ
+tool.brush.seamless_preview = સીમલેસ ટાઇલ પૂર્વાવલોકન

@@ -60,3 +60,6 @@ tool.bucket.description = টুলের সহনশীলতার মধ্�
 tool.bucket.option.contiguous = সংলগ্ন
 tool.bucket.option.all_layers = সব লেয়ার
 tool.bucket.history.fill = পেইন্ট বাকেট
+
+tool.brush.symmetry = প্রতিসাম্য
+tool.brush.seamless_preview = নিরবচ্ছিন্ন টাইল পূর্বরূপ

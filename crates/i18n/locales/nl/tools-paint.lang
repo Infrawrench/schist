@@ -71,3 +71,6 @@ tool.bucket.description = Klik om binnen de tolerantie van het hulpmiddel het aa
 tool.bucket.option.contiguous = Aangrenzend
 tool.bucket.option.all_layers = Alle lagen
 tool.bucket.history.fill = Emmertje
+
+tool.brush.symmetry = Symmetrie
+tool.brush.seamless_preview = Naadloos tegelvoorbeeld

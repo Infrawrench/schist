@@ -60,3 +60,6 @@ tool.bucket.description = Epoko emyenyhẽ hag̃ua tenondegua sa'ýpe sa'y ojogu
 tool.bucket.option.contiguous = Ojoajúva
 tool.bucket.option.all_layers = Opa capa
 tool.bucket.history.fill = Pintura ryru
+
+tool.brush.symmetry = Joja
+tool.brush.seamless_preview = Ta'anga joaju rehecha tenonde

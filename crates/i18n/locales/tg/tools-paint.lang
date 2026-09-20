@@ -60,3 +60,6 @@ tool.bucket.description = Зер кунед, то минтақаи пайвас�
 tool.bucket.option.contiguous = Пайваста
 tool.bucket.option.all_layers = Ҳамаи қабатҳо
 tool.bucket.history.fill = Сатили ранг
+
+tool.brush.symmetry = Симметрия
+tool.brush.seamless_preview = Пешнамоиши нақши бечок

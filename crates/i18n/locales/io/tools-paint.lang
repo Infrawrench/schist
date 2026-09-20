@@ -61,3 +61,6 @@ tool.bucket.description = Kliktez por inundar la konektita areo di simila koloro
 tool.bucket.option.contiguous = Kontigua
 tool.bucket.option.all_layers = Omna strati
 tool.bucket.history.fill = Pikturbalyo
+
+tool.brush.symmetry = Simetrio
+tool.brush.seamless_preview = Prevido di pavimado sen junto

@@ -61,3 +61,6 @@ tool.bucket.description = Clicca per emplenir la regiun colliada da colur sumegl
 tool.bucket.option.contiguous = Regiun colliada
 tool.bucket.option.all_layers = Tut las stresas
 tool.bucket.history.fill = Sadella da colur
+
+tool.brush.symmetry = Simmetria
+tool.brush.seamless_preview = Prevista dal muster senza cusadiras

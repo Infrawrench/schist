@@ -86,3 +86,6 @@ tool.bucket.description = Täytä osoittimen alla oleva yhtenäinen samanvärine
 tool.bucket.option.contiguous = Vierekkäinen
 tool.bucket.option.all_layers = Kaikki tasot
 tool.bucket.history.fill = Maalikannu
+
+tool.brush.symmetry = Symmetria
+tool.brush.seamless_preview = Saumattoman kuvion esikatselu

@@ -61,3 +61,6 @@ tool.bucket.description = کلیک کنید تا ناحیهٔ پیوسته با 
 tool.bucket.option.contiguous = پیوسته
 tool.bucket.option.all_layers = همهٔ لایه‌ها
 tool.bucket.history.fill = سطل رنگ
+
+tool.brush.symmetry = تقارن
+tool.brush.seamless_preview = پیش‌نمایش کاشی بدون درز

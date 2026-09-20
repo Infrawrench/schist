@@ -60,3 +60,6 @@ tool.bucket.description = Κάντε κλικ για να πλημμυρίσετ
 tool.bucket.option.contiguous = Συνεχόμενα
 tool.bucket.option.all_layers = Όλα τα επίπεδα
 tool.bucket.history.fill = Κουβάς χρώματος
+
+tool.brush.symmetry = Συμμετρία
+tool.brush.seamless_preview = Προεπισκόπηση μοτίβου χωρίς ραφές

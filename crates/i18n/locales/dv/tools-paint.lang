@@ -60,3 +60,6 @@ tool.bucket.description = އާލާތުގެ ޓޮލަރެންސްގެ މިނުގަ
 tool.bucket.option.contiguous = ގުޅިފައިވާ
 tool.bucket.option.all_layers = ހުރިހާ ލޭޔަރެއް
 tool.bucket.history.fill = ކުލަ ބަކެޓް
+
+tool.brush.symmetry = ސިމެޓްރީ
+tool.brush.seamless_preview = ސީމްލެސް ޓައިލް ޕްރިވިއު

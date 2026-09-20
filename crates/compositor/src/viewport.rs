@@ -75,13 +75,69 @@ impl ViewportParams {
     }
 }
 
+/// Parts of one source canvas needed to sample a rectangular repeated view.
+/// At most four rectangles, regardless of how many repetitions are visible.
+pub fn periodic_regions(visible: IntRect, canvas: IntRect) -> Vec<IntRect> {
+    if visible.is_empty() || canvas.is_empty() {
+        return Vec::new();
+    }
+    let split = |start: i32, end: i32, lo: i32, hi: i32| {
+        let length = i64::from(hi) - i64::from(lo);
+        let span = i64::from(end) - i64::from(start);
+        if span >= length {
+            return vec![(lo, hi)];
+        }
+        let first = i64::from(lo) + (i64::from(start) - i64::from(lo)).rem_euclid(length);
+        let last = first + span;
+        if last <= i64::from(hi) {
+            vec![(first as i32, last as i32)]
+        } else {
+            vec![
+                (first as i32, hi),
+                (lo, (i64::from(lo) + last - i64::from(hi)) as i32),
+            ]
+        }
+    };
+    let xs = split(visible.left, visible.right, canvas.left, canvas.right);
+    let ys = split(visible.top, visible.bottom, canvas.top, canvas.bottom);
+    xs.into_iter()
+        .flat_map(|(left, right)| {
+            ys.iter()
+                .map(move |&(top, bottom)| IntRect::new(left, top, right, bottom))
+        })
+        .collect()
+}
+
 /// CPU reference: resample the tile grid into a BGRA image
 /// (`width * height * 4` bytes, opaque).
 pub fn render_viewport_cpu(p: &ViewportParams, grid: &[Option<Arc<Vec<u8>>>]) -> Vec<u8> {
+    render_viewport(p, grid, false)
+}
+
+/// Repeat the document in both directions, including the resampling taps
+/// across its edges. Canvas dimensions and display colour management stay unchanged.
+pub fn render_viewport_periodic_cpu(p: &ViewportParams, grid: &[Option<Arc<Vec<u8>>>]) -> Vec<u8> {
+    render_viewport(p, grid, true)
+}
+
+fn render_viewport(p: &ViewportParams, grid: &[Option<Arc<Vec<u8>>>], periodic: bool) -> Vec<u8> {
     let (tx0, ty0) = p.grid_origin;
     let (cols, rows) = (p.grid_cols, p.grid_rows);
     let canvas_rect = p.canvas;
+    let periodic = periodic && !canvas_rect.is_empty();
     let sample = |x: i32, y: i32| -> [u8; 4] {
+        let (x, y) = if periodic {
+            (
+                canvas_rect.left
+                    + (i64::from(x) - i64::from(canvas_rect.left))
+                        .rem_euclid(i64::from(canvas_rect.width())) as i32,
+                canvas_rect.top
+                    + (i64::from(y) - i64::from(canvas_rect.top))
+                        .rem_euclid(i64::from(canvas_rect.height())) as i32,
+            )
+        } else {
+            (x, y)
+        };
         if !canvas_rect.contains(x, y) {
             return [0, 0, 0, 0];
         }
@@ -193,7 +249,7 @@ pub fn render_viewport_cpu(p: &ViewportParams, grid: &[Option<Arc<Vec<u8>>>]) ->
                 // and the app background outside it.
                 let inside = {
                     let (fx, fy) = (fx.floor() as i32, fy.floor() as i32);
-                    canvas_rect.contains(fx, fy)
+                    periodic || canvas_rect.contains(fx, fy)
                 };
                 let bg = if inside {
                     if ((col >> 3) + (row >> 3)) & 1 == 0 {

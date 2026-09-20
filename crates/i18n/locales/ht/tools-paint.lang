@@ -70,3 +70,6 @@ tool.bucket.description = Klike pou kouvri zòn ki kole epi ki gen koulè sanbla
 tool.bucket.option.contiguous = Kole youn ak lòt
 tool.bucket.option.all_layers = Tout kouch yo
 tool.bucket.history.fill = Bokit penti
+
+tool.brush.symmetry = Simetri
+tool.brush.seamless_preview = Apèsi mozayik san kouti

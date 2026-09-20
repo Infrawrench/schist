@@ -61,3 +61,6 @@ tool.bucket.description = Klik for inden for værktøjets tolerance at fylde det
 tool.bucket.option.contiguous = Sammenhængende
 tool.bucket.option.all_layers = Alle lag
 tool.bucket.history.fill = Malerspand
+
+tool.brush.symmetry = Symmetri
+tool.brush.seamless_preview = Forhåndsvisning af sømløst mønster

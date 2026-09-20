@@ -60,3 +60,6 @@ tool.bucket.description = ଉପକରଣର ସହନଶୀଳତା ମଧ୍�
 tool.bucket.option.contiguous = ସଂଲଗ୍ନ
 tool.bucket.option.all_layers = ସମସ୍ତ ସ୍ତର
 tool.bucket.history.fill = ପେଣ୍ଟ୍ ବକେଟ୍
+
+tool.brush.symmetry = ପ୍ରତିସାମ୍ୟ
+tool.brush.seamless_preview = ନିରବଚ୍ଛିନ୍ନ ଟାଇଲ୍ ପୂର୍ବାବଲୋକନ

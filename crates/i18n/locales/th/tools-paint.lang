@@ -60,3 +60,6 @@ tool.bucket.description = คลิกเพื่อเทสีพื้นห
 tool.bucket.option.contiguous = ต่อเนื่อง
 tool.bucket.option.all_layers = ทุกเลเยอร์
 tool.bucket.history.fill = ถังสี
+
+tool.brush.symmetry = สมมาตร
+tool.brush.seamless_preview = ตัวอย่างลายซ้ำแบบไร้รอยต่อ

@@ -60,3 +60,6 @@ tool.bucket.description = Dzvanya kuti uzadze nzvimbo yakabatana ine ruvara rwak
 tool.bucket.option.contiguous = Zvakabatana
 tool.bucket.option.all_layers = Zvikamu Zvese
 tool.bucket.history.fill = Bhaketi rePendi
+
+tool.brush.symmetry = Kuenzana
+tool.brush.seamless_preview = Ongororo yepatani isina musono

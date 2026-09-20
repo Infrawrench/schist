@@ -81,3 +81,6 @@ tool.bucket.description = Qhafaza ukuzalisa indawo ehlangeneko yombala ofanako o
 tool.bucket.option.contiguous = Okuhlangeneko
 tool.bucket.option.all_layers = Woke Amaleya
 tool.bucket.history.fill = Ibhakede Lepende
+
+tool.brush.symmetry = Ukulingana
+tool.brush.seamless_preview = Ukubona iphetheni enganamphetho kusengaphambili

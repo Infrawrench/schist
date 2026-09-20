@@ -171,6 +171,8 @@ struct Stroke {
     raw_debt: f32,
     dynamics: BrushDynamics,
     dab_index: u32,
+    symmetry: Vec<schist_plugin_api::SymmetryTransform>,
+    seamless: bool,
     /// Leftover distance to the next dab from the previous segment.
     spacing_debt: f32,
     ink: Ink,
@@ -251,6 +253,20 @@ impl Stroke {
             raw_debt: 1.0,
             dynamics,
             dab_index: 0,
+            symmetry: if matches!(
+                mode,
+                PaintMode::Brush | PaintMode::Pencil | PaintMode::Eraser
+            ) {
+                ctx.state.paint_symmetry
+            } else {
+                Default::default()
+            }
+            .transforms(ctx.doc.width, ctx.doc.height),
+            seamless: ctx.state.seamless_painting
+                && matches!(
+                    mode,
+                    PaintMode::Brush | PaintMode::Pencil | PaintMode::Eraser
+                ),
             spacing_debt: (recipe.size * dynamics.spacing).max(1.0),
             ink,
             native_channel: ctx
@@ -436,24 +452,92 @@ impl Stroke {
         let distance = noise(seed.wrapping_mul(2)).sqrt() * self.dynamics.scatter * self.size;
         let angle = noise(seed.wrapping_mul(2).wrapping_add(1)) * std::f32::consts::TAU;
         let (cx, cy) = (cx + angle.cos() * distance, cy + angle.sin() * distance);
-        let bitmap = self
+        // Every copy shares coverage and one StrokeEdit: crossings retain
+        // stroke opacity, and undo/cancel restores every copy together.
+        let (cx, cy) = if self.seamless && doc.width > 0 && doc.height > 0 {
+            (
+                cx.rem_euclid(doc.width as f32),
+                cy.rem_euclid(doc.height as f32),
+            )
+        } else {
+            (cx, cy)
+        };
+        for index in 0..self.symmetry.len() {
+            let transform = self.symmetry[index];
+            let (x, y) = transform.point(cx, cy);
+            if self.seamless && doc.width > 0 && doc.height > 0 {
+                let (w, h) = (doc.width as f32, doc.height as f32);
+                let (x, y) = (x.rem_euclid(w), y.rem_euclid(h));
+                // Round coverage decreases with distance, so the nearest
+                // periodic copies dominate. Textured tips can have opaque
+                // detail farther away: include their entire support.
+                let extent = self.dab_extent(radius);
+                let xs = if self.dynamics.tip == BrushTip::Round {
+                    -1..=1
+                } else {
+                    ((-extent - x) / w).ceil() as i32..=((w + extent - x) / w).floor() as i32
+                };
+                let ys = if self.dynamics.tip == BrushTip::Round {
+                    -1..=1
+                } else {
+                    ((-extent - y) / h).ceil() as i32..=((h + extent - y) / h).floor() as i32
+                };
+                for iy in ys {
+                    for ix in xs.clone() {
+                        self.dab_copy(
+                            doc,
+                            (x + ix as f32 * w, y + iy as f32 * h),
+                            radius,
+                            rotation,
+                            opacity_pressure,
+                            transform,
+                        );
+                    }
+                }
+            } else {
+                self.dab_copy(doc, (x, y), radius, rotation, opacity_pressure, transform);
+            }
+        }
+    }
+
+    /// Bitmap corners and their sampling border can exceed a round dab.
+    fn dab_extent(&self, radius: f32) -> f32 {
+        if let Some(bitmap) = self
             .bitmap
-            .clone()
-            .filter(|_| self.dynamics.tip == BrushTip::Bitmap);
-        // A rotated rectangle can extend outside the procedural round footprint.
-        let extent = if let Some(bitmap) = &bitmap {
+            .as_ref()
+            .filter(|_| self.dynamics.tip == BrushTip::Bitmap)
+        {
             let max = bitmap.width.max(bitmap.height) as f32;
             radius * ((bitmap.width + 1) as f32 / max).hypot((bitmap.height + 1) as f32 / max)
         } else {
             radius
-        };
+        }
+    }
+
+    fn dab_copy(
+        &mut self,
+        doc: &mut Document,
+        (cx, cy): (f32, f32),
+        radius: f32,
+        rotation: f32,
+        opacity_pressure: f32,
+        transform: schist_plugin_api::SymmetryTransform,
+    ) {
+        let bitmap = self
+            .bitmap
+            .clone()
+            .filter(|_| self.dynamics.tip == BrushTip::Bitmap);
+        let extent = self.dab_extent(radius);
         let (sin, cos) = rotation.sin_cos();
-        let bounds = IntRect::new(
+        let mut bounds = IntRect::new(
             (cx - extent).floor() as i32,
             (cy - extent).floor() as i32,
             (cx + extent).ceil() as i32 + 1,
             (cy + extent).ceil() as i32 + 1,
         );
+        if self.seamless {
+            bounds = bounds.intersect(&doc.canvas_rect());
+        }
         // Healing and smudging need to look at a whole dab's worth of
         // pixels before any of them can be written, so they compute their
         // replacement up front.
@@ -480,8 +564,12 @@ impl Stroke {
             let mut touched = false;
             for y in clip.top..clip.bottom {
                 for x in clip.left..clip.right {
-                    let dx = (x as f32 + 0.5 - cx) / radius;
-                    let dy = (y as f32 + 0.5 - cy) / radius;
+                    // Undo the symmetry transform before the brush's own
+                    // rotation so reflected bitmap tips keep their handedness.
+                    let (dx, dy) = transform.inverse_offset(
+                        (x as f32 + 0.5 - cx) / radius,
+                        (y as f32 + 0.5 - cy) / radius,
+                    );
                     let (u, v) = (dx * cos + dy * sin, -dx * sin + dy * cos);
                     let mut a = if let Some(bitmap) = &bitmap {
                         // Imported masks define their own edge; a circular hardness
@@ -902,6 +990,7 @@ pub struct PaintTool {
     clone_offset: Option<(i32, i32)>,
     /// Background eraser colour tolerance, 0..=1.
     tolerance: f32,
+    symmetry_drag: Option<schist_plugin_api::PaintSymmetry>,
 }
 
 impl PaintTool {
@@ -913,7 +1002,25 @@ impl PaintTool {
             clone_source: None,
             clone_offset: None,
             tolerance: 0.12,
+            symmetry_drag: None,
         }
+    }
+
+    fn place_symmetry(ctx: &mut ToolCtx, input: PointerInput) {
+        if !input.x.is_finite() || !input.y.is_finite() {
+            return;
+        }
+        let (x, y) = if ctx.state.seamless_painting {
+            (
+                input.x.rem_euclid(ctx.doc.width.max(1) as f32),
+                input.y.rem_euclid(ctx.doc.height.max(1) as f32),
+            )
+        } else {
+            (input.x, input.y)
+        };
+        ctx.state
+            .paint_symmetry
+            .place(x, y, ctx.doc.width, ctx.doc.height);
     }
 
     /// Build the ink for a new stroke, or `None` if the tool isn't ready
@@ -1128,6 +1235,16 @@ impl ToolPlugin for PaintTool {
             stroke.edit.cancel(ctx.doc);
         }
         self.cursor = Some((input.x, input.y));
+        if matches!(
+            self.mode,
+            PaintMode::Brush | PaintMode::Pencil | PaintMode::Eraser
+        ) && ctx.state.symmetry_positioning
+            && ctx.state.paint_symmetry.mode != schist_plugin_api::SymmetryMode::None
+        {
+            self.symmetry_drag = Some(ctx.state.paint_symmetry);
+            Self::place_symmetry(ctx, input);
+            return;
+        }
         // Alt-click sets the clone stamp's source point.
         if matches!(self.mode, PaintMode::Clone | PaintMode::Heal) && input.modifiers.alt {
             self.clone_source = Some((input.x, input.y));
@@ -1143,6 +1260,10 @@ impl ToolPlugin for PaintTool {
 
     fn on_pointer_move(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
         self.cursor = Some((input.x, input.y));
+        if self.symmetry_drag.is_some() {
+            Self::place_symmetry(ctx, input);
+            return;
+        }
         if let Some(stroke) = &mut self.stroke {
             let rotation = stroke.input_rotation(ctx.state.pen_tilt);
             stroke.move_to(ctx.doc, input.x, input.y, input.pressure, rotation);
@@ -1150,6 +1271,11 @@ impl ToolPlugin for PaintTool {
     }
 
     fn on_pointer_up(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
+        if self.symmetry_drag.take().is_some() {
+            Self::place_symmetry(ctx, input);
+            ctx.state.symmetry_positioning = false;
+            return;
+        }
         if let Some(mut stroke) = self.stroke.take() {
             stroke.flush(ctx.doc, input, ctx.state.pen_tilt);
             stroke.finish(ctx.doc);
@@ -1157,22 +1283,77 @@ impl ToolPlugin for PaintTool {
     }
 
     fn on_cancel(&mut self, ctx: &mut ToolCtx) {
+        if let Some(before) = self.symmetry_drag.take() {
+            ctx.state.paint_symmetry = before;
+        }
+        ctx.state.symmetry_positioning = false;
         if let Some(stroke) = self.stroke.take() {
             stroke.edit.cancel(ctx.doc);
         }
     }
 
-    fn overlays(&self, _doc: &Document, state: &EditorState) -> Vec<Overlay> {
-        match self.cursor {
-            Some((cx, cy)) => {
-                vec![Overlay::Circle {
-                    cx,
-                    cy,
-                    r: state.brush_size / 2.0,
-                }]
+    fn on_deactivate(&mut self, ctx: &mut ToolCtx) {
+        self.on_cancel(ctx);
+    }
+
+    fn overlays(&self, doc: &Document, state: &EditorState) -> Vec<Overlay> {
+        let mut overlays = Vec::new();
+        let symmetric = matches!(
+            self.mode,
+            PaintMode::Brush | PaintMode::Pencil | PaintMode::Eraser
+        );
+        let symmetry = if symmetric {
+            state.paint_symmetry
+        } else {
+            Default::default()
+        };
+        if symmetry.mode != schist_plugin_api::SymmetryMode::None {
+            let [cx, cy] = symmetry.center_pixels(doc.width, doc.height);
+            let extent = (doc.width as f32).hypot(doc.height as f32);
+            let line = |x1, y1, x2, y2| Overlay::GuideLine { x1, y1, x2, y2 };
+            match symmetry.mode {
+                schist_plugin_api::SymmetryMode::Vertical => {
+                    overlays.push(line(cx, 0.0, cx, doc.height as f32))
+                }
+                schist_plugin_api::SymmetryMode::Horizontal => {
+                    overlays.push(line(0.0, cy, doc.width as f32, cy))
+                }
+                schist_plugin_api::SymmetryMode::Radial => {
+                    for transform in symmetry.transforms(doc.width, doc.height) {
+                        let (x, y) = transform.point(cx + extent, cy);
+                        overlays.push(line(cx, cy, x, y));
+                    }
+                }
+                _ => {}
             }
-            None => Vec::new(),
+            overlays.push(Overlay::Circle {
+                cx,
+                cy,
+                r: 6.0 / state.zoom.max(0.01),
+            });
         }
+        if let Some((x, y)) = self.cursor {
+            if !state.symmetry_positioning {
+                let (base_x, base_y) = if symmetric && state.seamless_painting {
+                    (
+                        x.rem_euclid(doc.width.max(1) as f32),
+                        y.rem_euclid(doc.height.max(1) as f32),
+                    )
+                } else {
+                    (x, y)
+                };
+                for transform in symmetry.transforms(doc.width, doc.height) {
+                    let (cx, cy) = transform.point(base_x, base_y);
+                    let (cx, cy) = (cx + x - base_x, cy + y - base_y);
+                    overlays.push(Overlay::Circle {
+                        cx,
+                        cy,
+                        r: state.brush_size / 2.0,
+                    });
+                }
+            }
+        }
+        overlays
     }
 }
 

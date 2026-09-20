@@ -83,3 +83,6 @@ tool.bucket.description = 点击后，将指针下方颜色相近的连续区域
 tool.bucket.option.contiguous = 连续
 tool.bucket.option.all_layers = 所有图层
 tool.bucket.history.fill = 油漆桶
+
+tool.brush.symmetry = 对称
+tool.brush.seamless_preview = 无缝图案预览

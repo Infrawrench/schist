@@ -60,3 +60,6 @@ tool.bucket.description = Guji si aad aagga isku xiran ee midabkiisu la mid yaha
 tool.bucket.option.contiguous = Isku xiran
 tool.bucket.option.all_layers = Dhammaan Lakabyada
 tool.bucket.history.fill = Baaldiga Rinjiga
+
+tool.brush.symmetry = Isku dheellitirnaan
+tool.brush.seamless_preview = Hordhac qaab aan lahayn kala goysyo

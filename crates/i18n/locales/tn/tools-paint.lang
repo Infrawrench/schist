@@ -60,3 +60,6 @@ tool.bucket.description = Tobetsa go tlatsa karolo e e kopaneng ya mmala o o tsh
 tool.bucket.option.contiguous = E e Kopaneng
 tool.bucket.option.all_layers = Dillaga Tsotlhe
 tool.bucket.history.fill = Emere ya Pente
+
+tool.brush.symmetry = Tekatekano
+tool.brush.seamless_preview = Ponelopele ya paterone e e se nang moroko

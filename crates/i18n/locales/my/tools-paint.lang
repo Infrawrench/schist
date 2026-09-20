@@ -69,3 +69,6 @@ tool.bucket.description = ကိရိယာ၏ သည်းခံအတို�
 tool.bucket.option.contiguous = ဆက်စပ်ဧရိယာသာ
 tool.bucket.option.all_layers = အလွှာအားလုံး
 tool.bucket.history.fill = ဆေးပုံး
+
+tool.brush.symmetry = အချိုးညီမှု
+tool.brush.seamless_preview = အဆက်မရှိ အကွက် အကြိုကြည့်ရှုမှု

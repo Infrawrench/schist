@@ -61,3 +61,6 @@ tool.bucket.description = پوائنٹر کے نیچے ملتے جلتے رنگ 
 tool.bucket.option.contiguous = متصل
 tool.bucket.option.all_layers = تمام لیئرز
 tool.bucket.history.fill = رنگ کی بالٹی
+
+tool.brush.symmetry = تشاکل
+tool.brush.seamless_preview = بغیر جوڑ ٹائل کا پیش منظر

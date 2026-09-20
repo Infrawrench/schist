@@ -70,3 +70,6 @@ tool.bucket.description = Klikk for å fylla det samanhengande området med likn
 tool.bucket.option.contiguous = Samanhengande
 tool.bucket.option.all_layers = Alle lag
 tool.bucket.history.fill = Målarspann
+
+tool.brush.symmetry = Symmetri
+tool.brush.seamless_preview = Førehandsvising av saumlaust mønster

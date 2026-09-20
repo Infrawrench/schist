@@ -132,3 +132,7 @@ Run `make test-richer-brushes` for engine, import, preset and retouch regression
 checks translated labels and font coverage. Tests cover synthetic ABR samples,
 truncation and corrupt runs; they do not certify every third-party ABR exporter.
 Physical tablet/browser input still requires a device smoke test.
+
+The **Symmetry** button beside **Preset** adds mirror and radial painting,
+movable axes, and a seamless tile preview with wraparound painting. See
+[symmetry and seamless painting](symmetry-painting.md) for the workflow.

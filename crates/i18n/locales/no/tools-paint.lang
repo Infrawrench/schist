@@ -61,3 +61,6 @@ tool.bucket.description = Klikk for å fylle det sammenhengende området med lig
 tool.bucket.option.contiguous = Sammenhengende
 tool.bucket.option.all_layers = Alle lag
 tool.bucket.history.fill = Malingsspann
+
+tool.brush.symmetry = Symmetri
+tool.brush.seamless_preview = Forhåndsvisning av sømløst mønster

@@ -40,6 +40,7 @@ mod notes;
 mod rulers;
 mod sliders;
 mod status;
+mod symmetry;
 mod tabs;
 mod titlebar;
 mod toolbar;

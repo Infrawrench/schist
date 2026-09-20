@@ -72,3 +72,6 @@ tool.bucket.description = Lomi ke fakafonu ʻa e feituʻu fehokotaki ʻoku tatau
 tool.bucket.option.contiguous = Hoko Fakataha
 tool.bucket.option.all_layers = Ngaahi Layer Kotoa
 tool.bucket.history.fill = Pākete Vali
+
+tool.brush.symmetry = Faitatau
+tool.brush.seamless_preview = Vakai tomuʻa ki he sīpinga ʻikai ha hokoʻanga

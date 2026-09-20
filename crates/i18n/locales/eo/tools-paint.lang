@@ -71,3 +71,6 @@ tool.bucket.description = Alklaku por inundi per la malfona koloro la konektitan
 tool.bucket.option.contiguous = Apuda
 tool.bucket.option.all_layers = Ĉiuj tavoloj
 tool.bucket.history.fill = Farbsitelo
+
+tool.brush.symmetry = Simetrio
+tool.brush.seamless_preview = Antaŭvido de senjunta kahelado

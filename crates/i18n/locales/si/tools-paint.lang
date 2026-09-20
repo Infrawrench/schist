@@ -60,3 +60,6 @@ tool.bucket.description = මෙවලමේ ඉවසීම තුළ දර්
 tool.bucket.option.contiguous = යාබද
 tool.bucket.option.all_layers = සියලු ස්තර
 tool.bucket.history.fill = තීන්ත බාල්දිය
+
+tool.brush.symmetry = සමමිතිය
+tool.brush.seamless_preview = බාධාවකින් තොර ටයිල් පෙරදසුන

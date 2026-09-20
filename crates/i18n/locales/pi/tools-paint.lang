@@ -60,3 +60,6 @@ tool.bucket.description = Niddesakassa heṭṭhā sambaddhaṃ samānavaṇṇa
 tool.bucket.option.contiguous = Sambaddhaṃ
 tool.bucket.option.all_layers = Sabbe santharā
 tool.bucket.history.fill = Vaṇṇaghaṭo
+
+tool.brush.symmetry = Samamiti
+tool.brush.seamless_preview = Nirantara paṭimā pubbadassana

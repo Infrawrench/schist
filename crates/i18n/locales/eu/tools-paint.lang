@@ -60,3 +60,6 @@ tool.bucket.description = Egin klik erakuslearen azpiko antzeko koloreko eremu a
 tool.bucket.option.contiguous = Albokoa
 tool.bucket.option.all_layers = Geruza guztiak
 tool.bucket.history.fill = Pintura-ontzia
+
+tool.brush.symmetry = Simetria
+tool.brush.seamless_preview = Josturarik gabeko ereduaren aurrebista

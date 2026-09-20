@@ -60,3 +60,6 @@ tool.bucket.description = לחיצה ממלאת בצבע החזית את האז�
 tool.bucket.option.contiguous = רציף
 tool.bucket.option.all_layers = כל השכבות
 tool.bucket.history.fill = דלי צבע
+
+tool.brush.symmetry = סימטריה
+tool.brush.seamless_preview = תצוגה מקדימה של ריצוף רציף

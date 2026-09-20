@@ -61,3 +61,6 @@ tool.bucket.description = ಪರಿಕರದ ಸಹಿಷ್ಣುತೆ ಮಿ�
 tool.bucket.option.contiguous = ಹೊಂದಿಕೊಂಡಿರುವುದು
 tool.bucket.option.all_layers = ಎಲ್ಲಾ ಲೇಯರ್‌ಗಳು
 tool.bucket.history.fill = ಬಣ್ಣದ ಬಕೆಟ್
+
+tool.brush.symmetry = ಸಮ್ಮಿತಿ
+tool.brush.seamless_preview = ತಡೆರಹಿತ ಟೈಲ್ ಪೂರ್ವವೀಕ್ಷಣೆ

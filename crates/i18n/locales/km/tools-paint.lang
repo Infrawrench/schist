@@ -60,3 +60,6 @@ tool.bucket.description = ចុចដើម្បីបំពេញតំបន
 tool.bucket.option.contiguous = ជាប់គ្នា
 tool.bucket.option.all_layers = ស្រទាប់ទាំងអស់
 tool.bucket.history.fill = ធុងថ្នាំលាប
+
+tool.brush.symmetry = ស៊ីមេទ្រី
+tool.brush.seamless_preview = មើលក្បឿងគ្មានថ្នេរជាមុន

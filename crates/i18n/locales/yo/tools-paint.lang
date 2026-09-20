@@ -60,3 +60,6 @@ tool.bucket.description = Tẹ láti fi àwọ̀ iwájú kún agbègbè tó so p
 tool.bucket.option.contiguous = Tó so pọ̀
 tool.bucket.option.all_layers = Gbogbo fẹ́lẹ́fẹ́lẹ́
 tool.bucket.history.fill = Àgbá àwọ̀
+
+tool.brush.symmetry = Ìbámu
+tool.brush.seamless_preview = Àwòtẹ́lẹ̀ àpẹẹrẹ tí kò ní àlà

@@ -61,3 +61,6 @@ tool.bucket.description = Клацніть, щоб залити кольором
 tool.bucket.option.contiguous = Суміжні
 tool.bucket.option.all_layers = Усі шари
 tool.bucket.history.fill = Заливка
+
+tool.brush.symmetry = Симетрія
+tool.brush.seamless_preview = Перегляд безшовного візерунка

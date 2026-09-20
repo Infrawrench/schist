@@ -60,3 +60,6 @@ tool.bucket.description = Aracın toleransı içinde, işaretçinin altındaki b
 tool.bucket.option.contiguous = Bitişik
 tool.bucket.option.all_layers = Tüm Katmanlar
 tool.bucket.history.fill = Boya Kovası
+
+tool.brush.symmetry = Simetri
+tool.brush.seamless_preview = Kesintisiz döşeme önizlemesi

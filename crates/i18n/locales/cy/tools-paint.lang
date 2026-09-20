@@ -83,3 +83,6 @@ tool.bucket.description = Cliciwch i lenwi'r ardal gydgysylltiedig o liw tebyg o
 tool.bucket.option.contiguous = Cydgysylltiedig
 tool.bucket.option.all_layers = Pob Haen
 tool.bucket.history.fill = Bwced Paent
+
+tool.brush.symmetry = Cymesuredd
+tool.brush.seamless_preview = Rhagolwg patrwm di-dor

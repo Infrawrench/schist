@@ -83,3 +83,6 @@ tool.bucket.description = Fe clic ta inundar con a color d'o primer plano l'aria
 tool.bucket.option.contiguous = Contiguo
 tool.bucket.option.all_layers = Todas as capas
 tool.bucket.history.fill = Poal de pintura
+
+tool.brush.symmetry = Simetría
+tool.brush.seamless_preview = Vista previa de mosaico contino

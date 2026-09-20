@@ -60,3 +60,6 @@ tool.bucket.description = Kiliki e liligi le lanu pito i luma i le vaega fesoota
 tool.bucket.option.contiguous = Fesootaʻi
 tool.bucket.option.all_layers = Vaega Uma
 tool.bucket.history.fill = Pakete Vali
+
+tool.brush.symmetry = Simetri
+tool.brush.seamless_preview = Muai vaaiga o mamanu e leai ni sooga

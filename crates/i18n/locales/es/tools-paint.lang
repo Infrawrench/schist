@@ -61,3 +61,6 @@ tool.bucket.description = Haz clic para inundar con el color frontal el área co
 tool.bucket.option.contiguous = Contiguo
 tool.bucket.option.all_layers = Todas las capas
 tool.bucket.history.fill = Bote de pintura
+
+tool.brush.symmetry = Simetría
+tool.brush.seamless_preview = Vista previa de mosaico continuo

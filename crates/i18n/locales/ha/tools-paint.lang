@@ -83,3 +83,6 @@ tool.bucket.description = Danna don mamaye yankin launi iri ɗaya da ya haɗu ƙ
 tool.bucket.option.contiguous = Mai Haɗuwa
 tool.bucket.option.all_layers = Duk Shimfiɗu
 tool.bucket.history.fill = Bokitin Fenti
+
+tool.brush.symmetry = Daidaiton bangarori
+tool.brush.seamless_preview = Duban tayal marar kabu

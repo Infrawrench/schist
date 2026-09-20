@@ -60,3 +60,6 @@ tool.bucket.description = ኣብ ውሽጢ ደረት መሳርሒ ነቲ ኣብ 
 tool.bucket.option.contiguous = ዝተራኸበ
 tool.bucket.option.all_layers = ኩሎም ንጣፋት
 tool.bucket.history.fill = ባልዲ ቀለም
+
+tool.brush.symmetry = ሲሜትሪ
+tool.brush.seamless_preview = ስፍየት ዘይብሉ ቅዲ ቅድመ ርእይቶ

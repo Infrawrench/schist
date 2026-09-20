@@ -60,3 +60,6 @@ tool.bucket.description = اوزار جي برداشت اندر پوائنٽر �
 tool.bucket.option.contiguous = ڳنڍيل
 tool.bucket.option.all_layers = سڀ پرتون
 tool.bucket.history.fill = رنگ جي بالٽي
+
+tool.brush.symmetry = هم آهنگي
+tool.brush.seamless_preview = بنا جوڙ ٽائل جو ڏيک

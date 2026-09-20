@@ -60,3 +60,6 @@ tool.bucket.description = Mag-click upang punan ng kulay sa harapan ang magkakad
 tool.bucket.option.contiguous = Magkadikit
 tool.bucket.option.all_layers = Lahat ng Layer
 tool.bucket.history.fill = Paint Bucket
+
+tool.brush.symmetry = Simetriya
+tool.brush.seamless_preview = Paunang tingin sa padron na walang dugtungan

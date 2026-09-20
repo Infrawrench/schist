@@ -50,6 +50,18 @@ impl Workspace {
             .map(|t| t.overlays(doc, &self.editor))
             .unwrap_or_default();
         self.tool_has_overlay = !overlays.is_empty();
+        if self.editor.seamless_painting {
+            // Mark the actual export area while neighbouring repeats remain paintable.
+            let (w, h) = (doc.width as f32, doc.height as f32);
+            for ((x1, y1), (x2, y2)) in [
+                ((0.0, 0.0), (w, 0.0)),
+                ((w, 0.0), (w, h)),
+                ((w, h), (0.0, h)),
+                ((0.0, h), (0.0, 0.0)),
+            ] {
+                overlays.push(Overlay::GuideLine { x1, y1, x2, y2 });
+            }
+        }
         // The active stored path is always visible, whichever tool is in
         // use -- otherwise a path drawn with the pen would vanish the
         // moment you switched to something else.
@@ -115,7 +127,10 @@ impl Workspace {
             }
         };
 
-        if zoom <= preview_zoom_cutoff(scale_factor) && !self.has_browser_gpu() {
+        if !self.editor.seamless_painting
+            && zoom <= preview_zoom_cutoff(scale_factor)
+            && !self.has_browser_gpu()
+        {
             // Far out, compositing every tile would be wasteful; the
             // downscaled preview is already one seamless image.
             if let Some(img) = self.refresh_preview() {
@@ -278,6 +293,9 @@ impl Workspace {
                         vec![to_screen(x1, y1), to_screen(x2, y2)],
                         gpui::rgb(0xFFFFFF).into(),
                     ));
+                }
+                Overlay::GuideLine { x1, y1, x2, y2 } => {
+                    job.guidelines.push([to_screen(x1, y1), to_screen(x2, y2)]);
                 }
                 Overlay::Caret {
                     x1,
@@ -535,6 +553,16 @@ impl Workspace {
                             }
                             if let Ok(path) = pb.build() {
                                 window.paint_path(path, color);
+                            }
+                        }
+                        for [a, b] in job.guidelines {
+                            for (width, color) in [(3.0, 0x202020), (1.0, 0x44AAFF)] {
+                                let mut pb = PathBuilder::stroke(px(width));
+                                pb.move_to(a);
+                                pb.line_to(b);
+                                if let Ok(path) = pb.build() {
+                                    window.paint_path(path, gpui::rgb(color));
+                                }
                             }
                         }
                         for (pts, color) in job.carets {

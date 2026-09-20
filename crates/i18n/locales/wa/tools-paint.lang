@@ -60,3 +60,6 @@ tool.bucket.description = Clitchîz po rimpli l' redjon loyeye del minme coleur 
 tool.bucket.option.contiguous = A costé onk di l' ôte
 tool.bucket.option.all_layers = Totes les coûtches
 tool.bucket.history.fill = Seay d' pondeure
+
+tool.brush.symmetry = Simetreye
+tool.brush.seamless_preview = Préveyance do motif sins djonctures
