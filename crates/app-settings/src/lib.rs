@@ -161,8 +161,8 @@ pub struct ViewOptions {
     pub ai_model_claude: String,
     #[serde(default)]
     pub ai_model_codex: String,
-    /// The history panel's height. The grip above its title drags it,
-    /// and this remembers where.
+    /// The history panel's legacy/default height. New panel resizing is
+    /// stored with the other docked panel heights above.
     #[serde(default = "default_history_h")]
     pub history_h: f32,
     /// The camera-roll backup to Schist Cloud: whether it runs, from

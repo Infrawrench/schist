@@ -134,7 +134,10 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
                 navigator(ws, cx).into_any_element(),
                 false,
             ),
-            SidePanel::Color => (t("common.color"), top_panel(ws, cx), false),
+            SidePanel::Color => {
+                let body = top_panel(ws, cx);
+                (top_panel_label(ws), body, false)
+            }
             SidePanel::Layers => (
                 t("common.layers"),
                 layers_panel(ws, cx).into_any_element(),
@@ -158,7 +161,8 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
             .side_panel_heights
             .get(key)
             .copied()
-            .filter(|height| height.is_finite());
+            .filter(|height| height.is_finite())
+            .or_else(|| (kind == SidePanel::History).then_some(ws.view.history_h));
         let resizing = ws
             .side_panel_resize
             .is_some_and(|(drag_key, _, _)| drag_key == key);
@@ -326,10 +330,29 @@ fn movable_panel(
 ) -> gpui::AnyElement {
     let key = panel.key();
     let touch = ui::touch();
+    let header_label = SharedString::from(label);
     let drag = PanelDrag {
         panel,
-        label: label.into(),
+        label: header_label.clone(),
     };
+    let panel_body = div()
+        .id(SharedString::from(format!(
+            "side-panel-body-{}",
+            panel.key()
+        )))
+        .flex()
+        .flex_col()
+        .flex_grow()
+        .min_h(px(0.0))
+        .when(
+            matches!(panel, SidePanel::Layers | SidePanel::History),
+            |body| body.overflow_hidden(),
+        )
+        .when(
+            !matches!(panel, SidePanel::Layers | SidePanel::History),
+            |body| body.overflow_y_scroll(),
+        )
+        .child(body);
     let mut wrapper = div()
         .id(SharedString::from(format!("side-panel-{}", panel.key())))
         .flex()
@@ -364,37 +387,24 @@ fn movable_panel(
                     "side-panel-grip-{}",
                     panel.key()
                 )))
-                .h(px(if touch { 14.0 } else { 6.0 }))
+                .h(px(if touch { 36.0 } else { 22.0 }))
                 .flex_none()
                 .flex()
                 .items_center()
-                .justify_center()
+                .px_2()
                 .cursor(gpui::CursorStyle::OpenHand)
-                .text_size(px(if touch { 10.0 } else { 7.0 }))
+                .text_size(px(ui::metrics().small_text))
                 .text_color(gpui::rgb(palette().text_faint))
-                .child(if touch {
-                    "\u{2807}"
-                } else {
-                    "\u{2022}\u{2022}\u{2022}"
-                })
+                .border_b_1()
+                .border_color(gpui::rgb(palette().divider))
+                .hover(|style| style.bg(gpui::rgb(palette().control_bg)))
+                .child(header_label)
                 .on_drag(drag, |drag, _, _, cx| {
                     cx.new(|_| PanelDragPreview(drag.label.clone()))
                 }),
         )
-        .child(
-            div()
-                .id(SharedString::from(format!(
-                    "side-panel-body-{}",
-                    panel.key()
-                )))
-                .flex()
-                .flex_col()
-                .flex_grow()
-                .min_h(px(0.0))
-                .overflow_y_scroll()
-                .child(body),
-        )
-        .children((panel != SidePanel::History).then(|| panel_resize_grip(panel, resizing, cx)));
+        .child(panel_body)
+        .child(panel_resize_grip(panel, resizing, cx));
     if let Some(height) = saved_height {
         wrapper = wrapper.h(px(height));
     } else if grows {
@@ -419,12 +429,16 @@ fn panel_resize_grip(
     };
     let entity = cx.entity();
     div()
-        .h(px(if touch { 10.0 } else { 5.0 }))
+        .h(px(if touch { 10.0 } else { 4.0 }))
         .flex_none()
         .flex()
         .items_center()
         .justify_center()
         .cursor(gpui::CursorStyle::ResizeRow)
+        .when(!touch, |grip| {
+            grip.hover(|style| style.bg(gpui::rgb(palette().divider)))
+        })
+        .when(dragging, |grip| grip.bg(gpui::rgb(palette().accent)))
         .on_mouse_down(
             MouseButton::Left,
             cx.listener(move |ws, ev: &MouseDownEvent, window, cx| {
@@ -439,17 +453,17 @@ fn panel_resize_grip(
                 cx.notify();
             }),
         )
-        .child(
+        .children(touch.then(|| {
             div()
-                .w(px(if touch { 36.0 } else { 18.0 }))
-                .h(px(if touch { 3.0 } else { 1.0 }))
+                .w(px(36.0))
+                .h(px(3.0))
                 .rounded_full()
                 .bg(gpui::rgb(if dragging {
                     palette().accent
                 } else {
                     palette().text_dim
-                })),
-        )
+                }))
+        }))
         .children(dragging.then(|| {
             canvas(
                 |_, _, _| (),

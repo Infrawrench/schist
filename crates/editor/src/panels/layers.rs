@@ -128,8 +128,9 @@ pub(super) fn layers_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> i
         .flex()
         .flex_col()
         .flex_grow()
-        // The sidebar scrolls if a small window cannot fit the panel.
-        .min_h(px(if ui::touch() { 120.0 } else { 220.0 }))
+        // The layer list, rather than the whole panel, gives way when the
+        // panel is resized. This keeps its action buttons pinned in view.
+        .min_h(px(0.0))
         .p_2()
         .gap_1()
         .border_t_1()

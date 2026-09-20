@@ -35,32 +35,22 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
     div()
         .flex()
         .flex_col()
-        .h(px(ws.view.history_h))
-        .flex_none()
+        .flex_grow()
         .min_h(px(0.0))
         .overflow_hidden()
         .p_2()
         .gap_1()
         .border_t_1()
         .border_color(gpui::rgb(palette().panel_edge))
-        // The panel's height is the user's: a grip above the title drags
-        // it, taller or shorter, and the choice persists.
-        .child(resize_grip(ws, cx))
         .child(
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
-                .justify_between()
-                .child(panel_title(t("panel.history.title")))
-                .child(
-                    div()
-                        .flex()
-                        .flex_row()
-                        .gap_1()
-                        .child(icon_button("undo", "edit.undo", cx))
-                        .child(icon_button("redo", "edit.redo", cx)),
-                ),
+            div().flex().flex_row().items_center().justify_end().child(
+                div()
+                    .flex()
+                    .flex_row()
+                    .gap_1()
+                    .child(icon_button("undo", "edit.undo", cx))
+                    .child(icon_button("redo", "edit.redo", cx)),
+            ),
         )
         .children(versions)
         .on_mouse_down(
@@ -127,83 +117,3 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
 }
 
 // ===== status bar =====
-
-/// The smallest and largest the panel can be dragged to.
-const MIN_HISTORY_H: f32 = 120.0;
-const MAX_HISTORY_H: f32 = 500.0;
-
-/// The grip along the panel's top edge. A press on it starts the
-/// resize; the moves and the release are read at the window, since a
-/// finger leaves a 14pt strip the moment it moves.
-fn resize_grip(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    let dragging = ws.history_resize.is_some();
-    let touch = ui::touch();
-    let entity = cx.entity();
-    div()
-        .flex()
-        .flex_none()
-        .items_center()
-        .justify_center()
-        .h(px(if touch { 14.0 } else { 5.0 }))
-        .mt(px(if touch { -4.0 } else { 0.0 }))
-        .cursor(gpui::CursorStyle::ResizeRow)
-        .on_mouse_down(
-            MouseButton::Left,
-            cx.listener(|ws, ev: &MouseDownEvent, window, cx| {
-                window.claim_touch_drag();
-                ws.history_resize = Some((f32::from(ev.position.y), ws.view.history_h));
-                cx.notify();
-            }),
-        )
-        .child(
-            div()
-                .w(px(if touch { 36.0 } else { 18.0 }))
-                .h(px(if touch { 4.0 } else { 1.0 }))
-                .rounded_full()
-                .bg(gpui::rgb(if dragging {
-                    palette().accent
-                } else {
-                    palette().text_dim
-                })),
-        )
-        .children(dragging.then(|| {
-            canvas(
-                |_, _, _| (),
-                move |_, (), window, _| {
-                    let move_entity = entity.clone();
-                    window.on_mouse_event(move |ev: &MouseMoveEvent, phase, _w, cx| {
-                        if phase != gpui::DispatchPhase::Capture {
-                            return;
-                        }
-                        move_entity.update(cx, |ws, cx| {
-                            let Some((start_y, start_h)) = ws.history_resize else {
-                                return;
-                            };
-                            if ev.pressed_button != Some(MouseButton::Left) {
-                                ws.history_resize = None;
-                                ws.save_view_options();
-                                return;
-                            }
-                            let h = start_h + (start_y - f32::from(ev.position.y));
-                            ws.view.history_h = h.clamp(MIN_HISTORY_H, MAX_HISTORY_H);
-                            cx.notify();
-                        });
-                    });
-                    let up_entity = entity.clone();
-                    window.on_mouse_event(move |ev: &MouseUpEvent, phase, _w, cx| {
-                        if phase != gpui::DispatchPhase::Capture || ev.button != MouseButton::Left {
-                            return;
-                        }
-                        up_entity.update(cx, |ws, cx| {
-                            if ws.history_resize.take().is_some() {
-                                ws.save_view_options();
-                                cx.notify();
-                            }
-                        });
-                    });
-                },
-            )
-            .absolute()
-            .size_0()
-        }))
-}

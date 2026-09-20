@@ -1,8 +1,6 @@
 //! The navigator panel's thumbnail and viewport rectangle.
 
 use super::*;
-use schist_i18n::t;
-
 /// A thumbnail of the whole document with the viewport marked, plus a zoom
 /// slider.
 pub fn navigator(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
@@ -16,7 +14,6 @@ pub fn navigator(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEl
         .gap_1()
         .border_t_1()
         .border_color(gpui::rgb(palette().panel_edge))
-        .child(panel_title(t("panel.navigator.title")))
         .on_mouse_down(
             MouseButton::Right,
             cx.listener(|ws, ev: &MouseDownEvent, _w, cx| {

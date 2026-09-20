@@ -106,50 +106,44 @@ pub(super) fn notes_panel(ws: &Workspace, cx: &mut Context<Workspace>) -> Option
     };
     let caret_on = ws.caret_on();
 
-    let header = div()
-        .flex()
-        .flex_row()
-        .items_center()
-        .justify_between()
-        .child(panel_title(t("menu.view.notes")))
-        .child(
-            div()
-                .flex()
-                .flex_row()
-                .items_center()
-                .gap_1()
-                .child(note_button(
-                    "note-prev",
-                    "\u{2039}",
-                    count > 1,
-                    |ws, cx| ws.step_note(-1, cx),
-                    cx,
-                ))
-                .child(
-                    div()
-                        .text_size(px(11.0))
-                        .text_color(gpui::rgb(palette().text_dim))
-                        .child(if count == 0 {
-                            "0".to_string()
-                        } else {
-                            format!("{} / {count}", index + 1)
-                        }),
-                )
-                .child(note_button(
-                    "note-next",
-                    "\u{203A}",
-                    count > 1,
-                    |ws, cx| ws.step_note(1, cx),
-                    cx,
-                ))
-                .child(
-                    IconButton::new("note-delete", "trash")
-                        .size(20.0)
-                        .icon_size(13.0)
-                        .disabled(count == 0)
-                        .on_click(cx.listener(move |ws, _e, _w, cx| ws.delete_note(index, cx))),
-                ),
-        );
+    let header = div().flex().flex_row().items_center().justify_end().child(
+        div()
+            .flex()
+            .flex_row()
+            .items_center()
+            .gap_1()
+            .child(note_button(
+                "note-prev",
+                "\u{2039}",
+                count > 1,
+                |ws, cx| ws.step_note(-1, cx),
+                cx,
+            ))
+            .child(
+                div()
+                    .text_size(px(11.0))
+                    .text_color(gpui::rgb(palette().text_dim))
+                    .child(if count == 0 {
+                        "0".to_string()
+                    } else {
+                        format!("{} / {count}", index + 1)
+                    }),
+            )
+            .child(note_button(
+                "note-next",
+                "\u{203A}",
+                count > 1,
+                |ws, cx| ws.step_note(1, cx),
+                cx,
+            ))
+            .child(
+                IconButton::new("note-delete", "trash")
+                    .size(20.0)
+                    .icon_size(13.0)
+                    .disabled(count == 0)
+                    .on_click(cx.listener(move |ws, _e, _w, cx| ws.delete_note(index, cx))),
+            ),
+    );
 
     let panel = div()
         .flex()

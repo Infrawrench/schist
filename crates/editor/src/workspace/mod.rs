@@ -511,11 +511,8 @@ pub struct Workspace {
     /// where that menu is open, if it is.
     #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
     pub gallery_more: Option<gpui::Point<gpui::Pixels>>,
-    /// A drag of the history panel's grip in progress: where the
-    /// pointer started and how tall the panel was then.
-    pub history_resize: Option<(f32, f32)>,
-    /// A drag of another docked panel's bottom grip: panel key, pointer
-    /// start and panel height at the start of the drag.
+    /// A drag of a docked panel's bottom edge: panel key, pointer start
+    /// and panel height at the start of the drag.
     pub side_panel_resize: Option<(&'static str, f32, f32)>,
     /// Last laid-out bounds of docked panels, used to begin resizing at
     /// their actual height even before the user has saved an override.
@@ -1448,7 +1445,6 @@ impl Workspace {
             gallery_swipe: None,
             gallery_compact: false,
             gallery_more: None,
-            history_resize: None,
             side_panel_resize: None,
             side_panel_bounds: FxHashMap::default(),
         };

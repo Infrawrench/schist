@@ -81,6 +81,24 @@ pub(super) fn top_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui
         .into_any_element()
 }
 
+pub(super) fn top_panel_label(ws: &Workspace) -> &'static str {
+    let has_exif = ws.exif.as_ref().is_some_and(|(_, exif)| exif.is_some());
+    let is_type = ws.editor.active_tool == "type";
+    if !has_exif && !is_type {
+        return t("common.color");
+    }
+    let default = if is_type {
+        SideTab::Character
+    } else {
+        SideTab::Info
+    };
+    match ws.side_tab.unwrap_or(default) {
+        SideTab::Character if is_type => t("panel.character.title"),
+        SideTab::Info if has_exif => t("panel.info.title"),
+        _ => t("common.color"),
+    }
+}
+
 /// The thumb beside the EXIF rows, so it shows there is more below the
 /// fold; it reads the scroll handle's own extents from the last frame
 /// and is absent while everything fits.
@@ -208,28 +226,22 @@ fn info_panel(
     }
     // The rows are their own scrolling region, bounded so the map
     // beneath stays put whatever a camera wrote (some write a lot).
-    let panel = div()
-        .flex()
-        .flex_col()
-        .p_2()
-        .gap_1()
-        .child(panel_title(t("panel.info.title")))
-        .child(
-            div()
-                .relative()
-                .child(
-                    div()
-                        .id("info-rows")
-                        .flex()
-                        .flex_col()
-                        .gap_1()
-                        .max_h(px(INFO_ROWS_MAX_H))
-                        .overflow_y_scroll()
-                        .track_scroll(&ws.info_scroll)
-                        .children(rows),
-                )
-                .children(rows_thumb(&ws.info_scroll)),
-        );
+    let panel = div().flex().flex_col().p_2().gap_1().child(
+        div()
+            .relative()
+            .child(
+                div()
+                    .id("info-rows")
+                    .flex()
+                    .flex_col()
+                    .gap_1()
+                    .max_h(px(INFO_ROWS_MAX_H))
+                    .overflow_y_scroll()
+                    .track_scroll(&ws.info_scroll)
+                    .children(rows),
+            )
+            .children(rows_thumb(&ws.info_scroll)),
+    );
     #[cfg(not(target_arch = "wasm32"))]
     let panel = if exif.gps.is_some() {
         // The map, with the blip on it, at 16:9 across the panel's
