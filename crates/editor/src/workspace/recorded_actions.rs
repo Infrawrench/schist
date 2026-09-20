@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
 pub const MAX_STEPS: usize = 128;
-const SCHEMA: u32 = 1;
+const SCHEMA: u32 = 2;
 
 /// Audited commands whose mutations are entirely represented in undo history.
 pub fn command_supported(id: &str) -> bool {
@@ -45,6 +45,18 @@ pub fn filter_supported(id: &str) -> bool {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "operation", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Step {
+    SelectLayer {
+        name: String,
+    },
+    Transform {
+        params: schist_plugin_api::ActionTransform,
+    },
+    RawDevelopment {
+        values: BTreeMap<String, f32>,
+    },
+    Stack {
+        change: StackOperation,
+    },
     Command {
         id: String,
         foreground: [f32; 4],
@@ -65,9 +77,94 @@ pub enum Step {
     },
 }
 
+/// Index identifies a position in the active layer's recipe. Expected IDs
+/// reject a different stack instead of silently editing an unrelated effect.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+pub enum StackOperation {
+    Add {
+        effect: schist_core::filter_stack::FilterEffect,
+    },
+    Set {
+        index: usize,
+        effect: schist_core::filter_stack::FilterEffect,
+    },
+    Remove {
+        index: usize,
+        id: String,
+    },
+    Move {
+        index: usize,
+        to: usize,
+        id: String,
+    },
+    Enable {
+        index: usize,
+        id: String,
+        enabled: bool,
+    },
+    Bake,
+}
+
+impl StackOperation {
+    pub fn effect_mut(&mut self) -> Option<&mut schist_core::filter_stack::FilterEffect> {
+        match self {
+            Self::Add { effect } | Self::Set { effect, .. } => Some(effect),
+            _ => None,
+        }
+    }
+}
+
 impl Step {
     pub fn label(&self, registry: &PluginRegistry) -> String {
         match self {
+            Self::SelectLayer { name } => format!("{}: {name}", t("menu.layer")),
+            Self::Transform { params } => t(if params.selection {
+                "tool.transform.selection.name"
+            } else {
+                "tool.transform.name"
+            })
+            .into(),
+            Self::RawDevelopment { .. } => t("workspace.filters.raw_history").into(),
+            Self::Stack { change } => {
+                let label = t(match change {
+                    StackOperation::Add { .. } => "filter_stack.add",
+                    StackOperation::Set { .. } => "filter_stack.edit_history",
+                    StackOperation::Remove { .. } => "filter_stack.remove",
+                    StackOperation::Move { .. } => "filter_stack.title",
+                    StackOperation::Enable { enabled, .. } => {
+                        if *enabled {
+                            "filter_stack.enable"
+                        } else {
+                            "filter_stack.disable"
+                        }
+                    }
+                    StackOperation::Bake => "filter_stack.bake",
+                });
+                let target = match change {
+                    StackOperation::Add { effect } => Some((None, effect.id.as_str())),
+                    StackOperation::Set { index, effect } => {
+                        Some((Some(*index), effect.id.as_str()))
+                    }
+                    StackOperation::Remove { index, id }
+                    | StackOperation::Move { index, id, .. }
+                    | StackOperation::Enable { index, id, .. } => Some((Some(*index), id.as_str())),
+                    StackOperation::Bake => None,
+                };
+                if let Some((index, id)) = target {
+                    let name = registry
+                        .filters()
+                        .find(|f| f.id() == id)
+                        .map(|f| f.name())
+                        .unwrap_or(id);
+                    match index {
+                        Some(index) => format!("{label}: {} · {name}", index + 1),
+                        None => format!("{label}: {name}"),
+                    }
+                } else {
+                    label.into()
+                }
+            }
             Self::Command { id, .. } => registry.command(id).map(|c| c.title).unwrap_or(id).into(),
             Self::Filter { id, .. } => registry
                 .filters()
@@ -87,6 +184,23 @@ impl Step {
                 "actions.pixel_adjustment",
                 name = crate::ui::adjustment_name(params.kind())
             ),
+        }
+    }
+    pub fn filter_parameters(&self) -> Option<(&str, &BTreeMap<String, f32>)> {
+        match self {
+            Self::Filter { id, values } => Some((id, values)),
+            Self::RawDevelopment { values } => Some(("filter.camera_raw", values)),
+            Self::Stack {
+                change: StackOperation::Add { effect } | StackOperation::Set { effect, .. },
+            } => Some((&effect.id, &effect.values)),
+            _ => None,
+        }
+    }
+    pub fn filter_parameters_mut(&mut self) -> Option<&mut BTreeMap<String, f32>> {
+        match self {
+            Self::Filter { values, .. } | Self::RawDevelopment { values } => Some(values),
+            Self::Stack { change } => change.effect_mut().map(|effect| &mut effect.values),
+            _ => None,
         }
     }
     pub fn adjustment_mut(&mut self) -> Option<&mut schist_adjustments::Params> {
@@ -127,8 +241,12 @@ impl ActionLibrary {
             "{}",
             t("actions.library_too_large")
         );
-        let library: Self = serde_json::from_str(text)?;
-        anyhow::ensure!(library.schema == SCHEMA, "{}", t("actions.unknown_schema"));
+        let mut library: Self = serde_json::from_str(text)?;
+        anyhow::ensure!(
+            (1..=SCHEMA).contains(&library.schema),
+            "{}",
+            t("actions.unknown_schema")
+        );
         anyhow::ensure!(
             library.actions.len() <= 256,
             "{}",
@@ -137,6 +255,7 @@ impl ActionLibrary {
         for action in &library.actions {
             validate_shape(action)?;
         }
+        library.schema = SCHEMA;
         Ok(library)
     }
     pub fn load() -> anyhow::Result<Self> {
@@ -289,6 +408,36 @@ fn validate_shape(action: &SavedAction) -> anyhow::Result<()> {
     );
     for step in &action.steps {
         match step {
+            Step::SelectLayer { name } => {
+                anyhow::ensure!(
+                    !name.is_empty() && name.len() <= 1024 && !name.contains('\0'),
+                    "{}",
+                    t("actions.invalid_parameters")
+                );
+            }
+            Step::Transform { params } => {
+                anyhow::ensure!(params.valid(), "{}", t("actions.invalid_parameters"));
+            }
+            Step::RawDevelopment { values } => {
+                anyhow::ensure!(
+                    values.len() == 15
+                        && values.iter().all(|(key, value)| {
+                            let range = match key.as_str() {
+                                "exposure" => -5.0..=5.0,
+                                "sharpening" => 0.0..=150.0,
+                                "noise" => 0.0..=100.0,
+                                "temperature" | "tint" | "contrast" | "highlights" | "shadows"
+                                | "whites" | "blacks" | "clarity" | "dehaze" | "vibrance"
+                                | "saturation" | "vignette" => -100.0..=100.0,
+                                _ => return false,
+                            };
+                            value.is_finite() && range.contains(value)
+                        }),
+                    "{}",
+                    t("actions.invalid_parameters")
+                );
+            }
+            Step::Stack { change } => validate_stack_operation(change)?,
             Step::Command {
                 id,
                 foreground,
@@ -327,6 +476,39 @@ fn validate_shape(action: &SavedAction) -> anyhow::Result<()> {
             }
         }
     }
+    Ok(())
+}
+
+fn validate_stack_operation(change: &StackOperation) -> anyhow::Result<()> {
+    use schist_core::filter_stack::MAX_EFFECTS;
+    let valid_id = |id: &str| !id.is_empty() && id.len() <= 256;
+    let valid = match change {
+        StackOperation::Add { effect } | StackOperation::Set { effect, .. } => {
+            valid_id(&effect.id)
+                && effect.values.len() <= 256
+                && effect
+                    .values
+                    .iter()
+                    .all(|(key, value)| key.len() <= 256 && value.is_finite())
+                && effect
+                    .foreground
+                    .iter()
+                    .chain(&effect.background)
+                    .all(|v| v.is_finite() && (0.0..=1.0).contains(v))
+                && match change {
+                    StackOperation::Set { index, .. } => *index < MAX_EFFECTS,
+                    _ => true,
+                }
+        }
+        StackOperation::Remove { index, id } | StackOperation::Enable { index, id, .. } => {
+            *index < MAX_EFFECTS && valid_id(id)
+        }
+        StackOperation::Move { index, to, id } => {
+            *index < MAX_EFFECTS && *to < MAX_EFFECTS && index != to && valid_id(id)
+        }
+        StackOperation::Bake => true,
+    };
+    anyhow::ensure!(valid, "{}", t("actions.invalid_parameters"));
     Ok(())
 }
 
@@ -440,7 +622,7 @@ impl Runtime {
             commands: schist_commands_core::CoreCommandsPlugin.commands(),
             filters: registry
                 .filters()
-                .filter(|f| filter_supported(f.id()))
+                .filter(|f| schist_plugin_api::filter_stack::eligible(*f))
                 .filter_map(|f| registry.shared_filter(f.id()))
                 .collect(),
         }
@@ -448,15 +630,27 @@ impl Runtime {
     fn validate(&self, action: &SavedAction) -> anyhow::Result<()> {
         validate_shape(action)?;
         for step in &action.steps {
-            if let Step::Filter { id, values } = step {
-                let filter =
-                    self.filters.iter().find(|f| f.id() == id).ok_or_else(|| {
-                        anyhow::anyhow!("{}", tf!("actions.unavailable", name = id))
-                    })?;
+            let parameters = match step {
+                Step::Filter { id, values } => Some((id.as_str(), values)),
+                Step::RawDevelopment { values } => Some(("filter.camera_raw", values)),
+                Step::Stack {
+                    change: StackOperation::Add { effect } | StackOperation::Set { effect, .. },
+                } => Some((effect.id.as_str(), &effect.values)),
+                _ => None,
+            };
+            if let Some((id, values)) = parameters {
+                let filter = self.filter(id)?;
                 resolve_values(filter.as_ref(), values)?;
             }
         }
         Ok(())
+    }
+    fn filter(&self, id: &str) -> anyhow::Result<Arc<dyn FilterPlugin>> {
+        self.filters
+            .iter()
+            .find(|f| f.id() == id)
+            .cloned()
+            .ok_or_else(|| anyhow::anyhow!("{}", tf!("actions.unavailable", name = id)))
     }
     /// Replay against an isolated history; rollback restores the complete
     /// previous history (including redo/save point), then return one grouped edit.
@@ -510,8 +704,178 @@ impl Runtime {
         doc.damage_all();
         Ok(())
     }
+    fn run_stack(&self, change: &StackOperation, doc: &mut Document) -> anyhow::Result<()> {
+        use schist_core::filter_stack;
+        let layer = doc
+            .active_layer
+            .and_then(|id| doc.tree.find(id))
+            .ok_or_else(|| anyhow::anyhow!("{}", t("filter_stack.unavailable")))?;
+        anyhow::ensure!(
+            !layer.locked
+                && layer.as_raster().is_some()
+                && layer.shape.is_none()
+                && !layer.extras.iter().any(|b| b.key == *b"PsTx"),
+            "{}",
+            t("filter_stack.unavailable")
+        );
+        let id = layer.id;
+        if matches!(change, StackOperation::Bake) {
+            anyhow::ensure!(
+                filter_stack::has_stack(layer),
+                "{}",
+                t("actions.command_no_change")
+            );
+            let extras = filter_stack::without_stack(&layer.extras);
+            let mut edit = doc.begin_edit(t("filter_stack.bake_history"));
+            edit.set_extras(id, extras);
+            edit.commit();
+            return Ok(());
+        }
+        let (source, mut stack) = super::filter_stack::source_and_stack(layer, doc.canvas_rect())?;
+        let expected = match change {
+            StackOperation::Set { index, effect } => Some((*index, effect.id.as_str())),
+            StackOperation::Remove { index, id }
+            | StackOperation::Move { index, id, .. }
+            | StackOperation::Enable { index, id, .. } => Some((*index, id.as_str())),
+            _ => None,
+        };
+        if let Some((index, expected)) = expected {
+            anyhow::ensure!(
+                stack
+                    .effects
+                    .get(index)
+                    .is_some_and(|effect| effect.id == expected),
+                "{}",
+                t("actions.invalid_parameters")
+            );
+        }
+        let before = stack.clone();
+        match change {
+            StackOperation::Add { effect } => stack.effects.push(effect.clone()),
+            StackOperation::Set { index, effect } => stack.effects[*index] = effect.clone(),
+            StackOperation::Remove { index, .. } => {
+                stack.effects.remove(*index);
+            }
+            StackOperation::Move { index, to, .. } => {
+                anyhow::ensure!(
+                    *to < stack.effects.len(),
+                    "{}",
+                    t("actions.invalid_parameters")
+                );
+                let effect = stack.effects.remove(*index);
+                stack.effects.insert(*to, effect);
+            }
+            StackOperation::Enable { index, enabled, .. } => {
+                stack.effects[*index].enabled = *enabled
+            }
+            StackOperation::Bake => unreachable!(),
+        }
+        anyhow::ensure!(stack != before, "{}", t("actions.command_no_change"));
+        stack.validate()?;
+        let filtered = schist_plugin_api::filter_stack::render_with(
+            |id| self.filter(id).ok(),
+            &stack,
+            &source,
+            doc.depth,
+            doc.icc_profile.clone(),
+        )?;
+        let mut smart = layer.smart.clone();
+        let tiles = if let Some(smart) = smart.as_mut() {
+            smart.source = filtered.clone();
+            smart.source_bounds = smart.source.content_bounds();
+            smart.render(doc.depth, doc.canvas_rect())
+        } else {
+            stack.place(&filtered, doc.depth, doc.canvas_rect())
+        };
+        let extras = if stack.effects.is_empty() {
+            filter_stack::without_stack(&layer.extras)
+        } else {
+            stack.blocks_with_render(layer, &source, &filtered)?
+        };
+        let mut edit = doc.begin_edit(t("filter_stack.edit_history"));
+        edit.replace_layer_render(id, tiles);
+        if smart.is_some() {
+            edit.set_smart_object(id, smart);
+        }
+        edit.set_extras(id, extras);
+        edit.commit();
+        Ok(())
+    }
     fn run_step(&self, step: &Step, doc: &mut Document) -> anyhow::Result<()> {
         match step {
+            Step::SelectLayer { name } => {
+                let ids: Vec<_> = doc
+                    .tree
+                    .iter()
+                    .filter(|layer| layer.name == *name)
+                    .map(|layer| layer.id)
+                    .collect();
+                anyhow::ensure!(
+                    ids.len() == 1,
+                    "{}",
+                    tf!("actions.unavailable", name = name)
+                );
+                doc.active_layer = Some(ids[0]);
+                doc.selected = ids;
+            }
+            Step::Transform { params } => {
+                anyhow::ensure!(
+                    schist_tools_transform::replay_transform(doc, *params),
+                    "{}",
+                    t("actions.needs_pixels")
+                );
+            }
+            Step::RawDevelopment { values } => {
+                let filter = self.filter("filter.camera_raw")?;
+                let values = resolve_values(filter.as_ref(), values)?;
+                let settings = super::filters::settings_from_values(&values);
+                let id = doc
+                    .active_layer
+                    .ok_or_else(|| anyhow::anyhow!("{}", t("actions.needs_pixels")))?;
+                let layer = doc
+                    .tree
+                    .find(id)
+                    .ok_or_else(|| anyhow::anyhow!("{}", t("actions.needs_pixels")))?;
+                anyhow::ensure!(
+                    !layer.locked && layer.as_raster().is_some(),
+                    "{}",
+                    t("actions.layer_locked")
+                );
+                let mut raw = layer
+                    .raw
+                    .clone()
+                    .ok_or_else(|| anyhow::anyhow!("{}", t("actions.needs_pixels")))?;
+                let developed = super::filters::render_raw_capture(
+                    raw.source.clone(),
+                    settings,
+                    schist_codecs_common::raw::RawQuality::Best,
+                    filter,
+                    values,
+                )?;
+                anyhow::ensure!(
+                    developed.width == doc.width as usize
+                        && developed.height == doc.height as usize,
+                    "{}",
+                    tf!(
+                        "workspace.filters.raw_size_changed",
+                        w = developed.width,
+                        h = developed.height
+                    )
+                );
+                let mut tiles = schist_core::TileMap::default();
+                schist_core::blit_rgba_f32(
+                    &mut tiles,
+                    doc.depth,
+                    doc.canvas_rect(),
+                    &developed.rgba,
+                );
+                raw.settings = settings;
+                let mut edit = doc.begin_edit(t("workspace.filters.raw_history"));
+                edit.replace_layer_tiles(id, tiles);
+                edit.set_raw_development(id, Some(raw));
+                edit.commit();
+            }
+            Step::Stack { change } => self.run_stack(change, doc)?,
             Step::Command {
                 id,
                 foreground,
@@ -706,6 +1070,9 @@ impl Workspace {
             cx.notify();
             return;
         }
+        // Finish activation snapshots and invalidate queued browser transforms
+        // before recording or replay can change the document beneath them.
+        self.commit_pending_transform(cx);
         self.open_modal(
             Modal::RecordedActions {
                 selected: self.action_recorder.selected_action,
@@ -769,6 +1136,50 @@ impl Workspace {
         } else if self.action_recorder.recording {
             self.status = tf!("actions.skipped", name = id).into();
         }
+    }
+    /// A transform owns its activation-time layer snapshot. Finish it before a
+    /// later recorded operation can change that layer or its pixels.
+    pub(super) fn commit_recording_transform(&mut self, cx: &mut Context<Self>) {
+        if self.action_recorder.recording
+            && matches!(self.editor.active_tool, "transform" | "transform.selection")
+        {
+            self.commit_gesture(cx);
+        }
+    }
+    pub(super) fn record_selected_action_layer(&mut self) {
+        if !self.action_recorder.recording {
+            return;
+        }
+        let Some(doc) = self.doc.as_ref() else {
+            return;
+        };
+        let Some(layer) = doc.active_layer.and_then(|id| doc.tree.find(id)) else {
+            return;
+        };
+        if layer.name.is_empty()
+            || layer.name.len() > 1024
+            || layer.name.contains('\0')
+            || doc.selected_layers().len() != 1
+            || doc
+                .tree
+                .iter()
+                .filter(|other| other.name == layer.name)
+                .count()
+                != 1
+        {
+            // Continuing after an unrepresentable selection would silently
+            // replay subsequent edits on the previous layer.
+            self.action_recorder.recording = false;
+            self.status = tf!(
+                "actions.not_recorded",
+                error = t("actions.invalid_parameters")
+            )
+            .into();
+            return;
+        }
+        self.record_action_step(Step::SelectLayer {
+            name: layer.name.clone(),
+        });
     }
     pub(super) fn record_action_step(&mut self, step: Step) {
         if !self.action_recorder.recording || self.action_recorder.replaying {
@@ -923,6 +1334,7 @@ impl Workspace {
         cx.notify();
     }
     pub fn replay_recorded_action(&mut self, cx: &mut Context<Self>) {
+        self.commit_focused_field();
         if self.action_recorder.recording || self.action_recorder.replaying {
             return;
         }
@@ -950,6 +1362,7 @@ impl Workspace {
 #[cfg(not(target_arch = "wasm32"))]
 impl Workspace {
     pub fn replay_action_gallery(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        self.commit_focused_field();
         if self.action_recorder.recording || self.action_recorder.batch_cancel.is_some() {
             return;
         }
@@ -1376,7 +1789,7 @@ mod tests {
                 "{id}"
             );
         }
-        assert!(ActionLibrary::decode(&json.replace("\"schema\":1", "\"schema\":999")).is_err());
+        assert!(ActionLibrary::decode(&json.replace("\"schema\":2", "\"schema\":999")).is_err());
         assert!(runtime()
             .validate(&action(vec![Step::Filter {
                 id: "filter.add_noise".into(),
@@ -1642,5 +2055,545 @@ mod tests {
         }]);
         assert!(process_action_photo(&codec, &runtime(), &original, &failure, dir.path()).is_err());
         assert_eq!(std::fs::read_dir(dir.path()).unwrap().count(), count);
+    }
+    fn transform() -> schist_plugin_api::ActionTransform {
+        schist_plugin_api::ActionTransform {
+            selection: false,
+            scale_x: 1.0,
+            scale_y: 1.0,
+            rotation: 0.0,
+            offset_x: 0.25,
+            offset_y: 0.0,
+            interpolation: 0,
+        }
+    }
+
+    fn stack_effect(gain: f32) -> schist_core::filter_stack::FilterEffect {
+        schist_core::filter_stack::FilterEffect {
+            id: "filter.gaussian_blur".into(),
+            enabled: true,
+            values: [("gain".into(), gain)].into(),
+            foreground: [0.0, 0.0, 0.0, 1.0],
+            background: [1.0; 4],
+        }
+    }
+    fn stack_step(change: StackOperation) -> Step {
+        Step::Stack { change }
+    }
+    fn stack_runtime() -> Runtime {
+        let mut registry = PluginRegistry::new();
+        registry.register_filter(Box::new(ControlledFilter { fail: false }));
+        Runtime::new(&registry)
+    }
+
+    #[test]
+    fn extended_schema_roundtrips_and_loads_version_one_libraries() {
+        let library = ActionLibrary {
+            schema: SCHEMA,
+            actions: vec![action(vec![
+                Step::SelectLayer {
+                    name: "Artwork".into(),
+                },
+                Step::Transform {
+                    params: transform(),
+                },
+                stack_step(StackOperation::Add {
+                    effect: stack_effect(0.5),
+                }),
+                stack_step(StackOperation::Move {
+                    index: 1,
+                    to: 0,
+                    id: "filter.gaussian_blur".into(),
+                }),
+            ])],
+        };
+        let json = serde_json::to_string(&library).unwrap();
+        assert_eq!(
+            ActionLibrary::decode(&json).unwrap().actions,
+            library.actions
+        );
+        assert!(!json.contains("layer_id") && !json.contains("pointer"));
+        let old = r#"{"schema":1,"actions":[{"name":"old","steps":[{"operation":"command","id":"select.all","foreground":[0,0,0,1],"background":[1,1,1,1]}]}]}"#;
+        let decoded = ActionLibrary::decode(old).unwrap();
+        assert_eq!(decoded.schema, SCHEMA);
+        runtime()
+            .replay(&decoded.actions[0], &mut document())
+            .unwrap();
+    }
+
+    #[test]
+    fn extended_schema_rejects_nonfinite_unbounded_and_unknown_parameters() {
+        for value in [f32::NAN, f32::INFINITY, -f32::INFINITY, 101.0, 0.0] {
+            let mut params = transform();
+            params.scale_x = value;
+            assert!(validate_shape(&action(vec![Step::Transform { params }])).is_err());
+        }
+        let mut params = transform();
+        params.offset_x = 11.0;
+        assert!(validate_shape(&action(vec![Step::Transform { params }])).is_err());
+        params = transform();
+        params.rotation = f32::NAN;
+        assert!(validate_shape(&action(vec![Step::Transform { params }])).is_err());
+        params = transform();
+        params.interpolation = 3;
+        assert!(validate_shape(&action(vec![Step::Transform { params }])).is_err());
+        assert!(validate_shape(&action(vec![Step::SelectLayer {
+            name: "x".repeat(1025)
+        }]))
+        .is_err());
+        assert!(
+            validate_shape(&action(vec![stack_step(StackOperation::Remove {
+                index: 256,
+                id: "x".into()
+            })]))
+            .is_err()
+        );
+        let mut effect = stack_effect(0.5);
+        effect.foreground[0] = f32::NAN;
+        assert!(validate_shape(&action(vec![stack_step(StackOperation::Add { effect })])).is_err());
+        let json = serde_json::to_string(&action(vec![Step::Transform {
+            params: transform(),
+        }]))
+        .unwrap();
+        assert!(serde_json::from_str::<SavedAction>(
+            &json.replace("\"selection\":false", "\"selection\":false,\"layer_id\":42")
+        )
+        .is_err());
+    }
+
+    #[test]
+    fn selection_by_name_searches_groups_and_rejects_ambiguous_or_missing_names() {
+        let mut doc = document();
+        let mut group = Layer::new_group("Folder");
+        let mut child = Layer::new_raster("Artwork");
+        child.as_raster_mut().unwrap().tiles =
+            doc.tree.layers[0].as_raster().unwrap().tiles.clone();
+        let child_id = child.id;
+        if let schist_core::LayerKind::Group(data) = &mut group.kind {
+            data.children.push(child);
+        }
+        doc.push_layer(group);
+        let recipe = action(vec![
+            Step::SelectLayer {
+                name: "Artwork".into(),
+            },
+            command("edit.fill_background"),
+        ]);
+        runtime().replay(&recipe, &mut doc).unwrap();
+        assert_eq!(doc.active_layer, Some(child_id));
+        assert_eq!(doc.selected, [child_id]);
+        assert_eq!(
+            doc.tree
+                .find(child_id)
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles
+                .pixel(0, 0),
+            Rgba::WHITE
+        );
+        doc.undo().unwrap();
+        let active = doc.active_layer;
+        doc.push_layer(Layer::new_raster("Artwork"));
+        assert!(runtime().replay(&recipe, &mut doc).is_err());
+        let selection = doc.active_layer;
+        assert!(runtime()
+            .replay(
+                &action(vec![Step::SelectLayer {
+                    name: "Missing".into()
+                }]),
+                &mut doc
+            )
+            .is_err());
+        assert_eq!(doc.active_layer, selection);
+        assert!(active.is_some());
+    }
+
+    #[test]
+    fn relative_transform_uses_each_target_canvas_and_undo_restores_source() {
+        for width in [8, 16] {
+            let mut doc = document();
+            doc.width = width;
+            doc.height = 8;
+            let before = pixels(&doc);
+            runtime()
+                .replay(
+                    &action(vec![Step::Transform {
+                        params: transform(),
+                    }]),
+                    &mut doc,
+                )
+                .unwrap();
+            let tiles = &doc
+                .tree
+                .find(doc.active_layer.unwrap())
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles;
+            assert_eq!(tiles.pixel(width as i32 / 4, 0).a, 1.0);
+            assert_eq!(tiles.pixel(0, 0).a, 0.0);
+            assert_eq!(doc.history.entries().len(), 1);
+            doc.undo().unwrap();
+            assert_eq!(pixels(&doc), before);
+        }
+        let mut doc = document();
+        doc.width = 8;
+        doc.selection.select_all(IntRect::from_size(2, 2));
+        let before = pixels(&doc);
+        let mut params = transform();
+        params.selection = true;
+        runtime()
+            .replay(&action(vec![Step::Transform { params }]), &mut doc)
+            .unwrap();
+        assert_eq!(doc.selection.bounds(), IntRect::new(2, 0, 4, 2));
+        assert_eq!(pixels(&doc), before);
+        doc.undo().unwrap();
+        assert_eq!(doc.selection.bounds(), IntRect::from_size(2, 2));
+    }
+
+    #[test]
+    fn stack_actions_preserve_transformed_placement_through_reedit_remove_and_undo() {
+        use schist_core::filter_stack::{has_stack, read_source, FilterStack};
+        let mut doc = document();
+        doc.width = 8;
+        let id = doc.active_layer.unwrap();
+        let before = pixels(&doc);
+        let recipe = action(vec![
+            stack_step(StackOperation::Add {
+                effect: stack_effect(0.5),
+            }),
+            Step::Transform {
+                params: transform(),
+            },
+            stack_step(StackOperation::Set {
+                index: 0,
+                effect: stack_effect(0.75),
+            }),
+        ]);
+        stack_runtime().replay(&recipe, &mut doc).unwrap();
+        let layer = doc.tree.find(id).unwrap();
+        assert!(FilterStack::read(layer)
+            .unwrap()
+            .unwrap()
+            .placement
+            .is_some());
+        assert_eq!(read_source(layer).unwrap().pixel(0, 0).to_u8()[0], 20);
+        assert_eq!(layer.as_raster().unwrap().tiles.pixel(0, 0).a, 0.0);
+        assert_eq!(layer.as_raster().unwrap().tiles.pixel(2, 0).to_u8()[0], 15);
+        assert_eq!(doc.history.entries().len(), 1);
+        stack_runtime()
+            .replay(
+                &action(vec![stack_step(StackOperation::Remove {
+                    index: 0,
+                    id: "filter.gaussian_blur".into(),
+                })]),
+                &mut doc,
+            )
+            .unwrap();
+        let layer = doc.tree.find(id).unwrap();
+        assert!(!has_stack(layer));
+        assert_eq!(layer.as_raster().unwrap().tiles.pixel(0, 0).a, 0.0);
+        assert_eq!(layer.as_raster().unwrap().tiles.pixel(2, 0).to_u8()[0], 20);
+        doc.undo().unwrap();
+        assert_eq!(
+            doc.tree
+                .find(id)
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles
+                .pixel(2, 0)
+                .to_u8()[0],
+            15
+        );
+        doc.undo().unwrap();
+        assert_eq!(pixels(&doc), before);
+        doc.redo().unwrap();
+        assert_eq!(
+            doc.tree
+                .find(id)
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles
+                .pixel(2, 0)
+                .to_u8()[0],
+            15
+        );
+    }
+
+    #[test]
+    fn stack_add_set_move_disable_remove_are_source_based_and_one_undo() {
+        use schist_core::filter_stack::{has_stack, read_source, FilterStack};
+        let mut doc = document();
+        let before = pixels(&doc);
+        let id = doc.active_layer.unwrap();
+        let recipe = action(vec![
+            stack_step(StackOperation::Add {
+                effect: stack_effect(0.5),
+            }),
+            stack_step(StackOperation::Add {
+                effect: stack_effect(0.25),
+            }),
+            stack_step(StackOperation::Move {
+                index: 1,
+                to: 0,
+                id: "filter.gaussian_blur".into(),
+            }),
+            stack_step(StackOperation::Set {
+                index: 1,
+                effect: stack_effect(0.75),
+            }),
+            stack_step(StackOperation::Enable {
+                index: 0,
+                id: "filter.gaussian_blur".into(),
+                enabled: false,
+            }),
+        ]);
+        stack_runtime().replay(&recipe, &mut doc).unwrap();
+        assert_eq!(doc.history.entries().len(), 1);
+        let layer = doc.tree.find(id).unwrap();
+        let stack = FilterStack::read(layer).unwrap().unwrap();
+        assert_eq!(stack.effects[0].values["gain"], 0.25);
+        assert!(!stack.effects[0].enabled);
+        assert_eq!(stack.effects[1].values["gain"], 0.75);
+        assert_eq!(
+            read_source(layer).unwrap().pixel(0, 0).to_u8()[0],
+            before[0]
+        );
+        assert_eq!(pixels(&doc)[0], 15);
+        stack_runtime()
+            .replay(
+                &action(vec![
+                    stack_step(StackOperation::Remove {
+                        index: 1,
+                        id: "filter.gaussian_blur".into(),
+                    }),
+                    stack_step(StackOperation::Remove {
+                        index: 0,
+                        id: "filter.gaussian_blur".into(),
+                    }),
+                ]),
+                &mut doc,
+            )
+            .unwrap();
+        assert!(!has_stack(doc.tree.find(id).unwrap()));
+        assert_eq!(pixels(&doc), before);
+        doc.undo().unwrap();
+        assert!(has_stack(doc.tree.find(id).unwrap()));
+        doc.undo().unwrap();
+        assert!(!has_stack(doc.tree.find(id).unwrap()));
+        assert_eq!(pixels(&doc), before);
+    }
+
+    #[test]
+    fn missing_stack_effect_can_be_disabled_or_removed_and_failure_rolls_back() {
+        use schist_core::filter_stack::FilterStack;
+        let mut doc = document();
+        let id = doc.active_layer.unwrap();
+        let mut stack = FilterStack::new(doc.canvas_rect());
+        let mut effect = stack_effect(0.5);
+        effect.id = "missing".into();
+        stack.effects.push(effect);
+        let layer = doc.tree.find(id).unwrap();
+        let extras = stack
+            .blocks(layer, &layer.as_raster().unwrap().tiles)
+            .unwrap();
+        doc.tree.find_mut(id).unwrap().extras = extras;
+        runtime()
+            .replay(
+                &action(vec![stack_step(StackOperation::Enable {
+                    index: 0,
+                    id: "missing".into(),
+                    enabled: false,
+                })]),
+                &mut doc,
+            )
+            .unwrap();
+        assert!(
+            !FilterStack::read(doc.tree.find(id).unwrap())
+                .unwrap()
+                .unwrap()
+                .effects[0]
+                .enabled
+        );
+        let before = pixels(&doc);
+        assert!(runtime()
+            .replay(
+                &action(vec![
+                    command("select.all"),
+                    stack_step(StackOperation::Enable {
+                        index: 0,
+                        id: "missing".into(),
+                        enabled: true
+                    })
+                ]),
+                &mut doc
+            )
+            .is_err());
+        assert!(doc.selection.is_empty());
+        assert_eq!(pixels(&doc), before);
+        runtime()
+            .replay(
+                &action(vec![stack_step(StackOperation::Remove {
+                    index: 0,
+                    id: "missing".into(),
+                })]),
+                &mut doc,
+            )
+            .unwrap();
+        assert!(FilterStack::read(doc.tree.find(id).unwrap())
+            .unwrap()
+            .is_none());
+    }
+
+    #[test]
+    fn extended_replay_rolls_back_history_selection_reselect_names_and_stack() {
+        let mut doc = document();
+        doc.width = 8;
+        runtime()
+            .replay(&action(vec![command("edit.fill_foreground")]), &mut doc)
+            .unwrap();
+        doc.undo().unwrap();
+        doc.selection.select_all(IntRect::from_size(2, 2));
+        doc.last_selection = Some(doc.selection.clone());
+        let before = pixels(&doc);
+        let selected = doc.selected.clone();
+        let active = doc.active_layer;
+        let redo = doc.history.redo_name().unwrap().to_string();
+        let recipe = action(vec![
+            command("select.deselect"),
+            Step::SelectLayer {
+                name: "pixels".into(),
+            },
+            stack_step(StackOperation::Add {
+                effect: stack_effect(0.5),
+            }),
+            Step::Transform {
+                params: transform(),
+            },
+            stack_step(StackOperation::Remove {
+                index: 9,
+                id: "filter.gaussian_blur".into(),
+            }),
+        ]);
+        assert!(stack_runtime().replay(&recipe, &mut doc).is_err());
+        assert_eq!(pixels(&doc), before);
+        assert_eq!(doc.selected, selected);
+        assert_eq!(doc.active_layer, active);
+        assert_eq!(doc.selection.bounds(), IntRect::from_size(2, 2));
+        assert_eq!(
+            doc.last_selection.as_ref().unwrap().bounds(),
+            IntRect::from_size(2, 2)
+        );
+        assert_eq!(doc.history.redo_name(), Some(redo.as_str()));
+        assert!(doc.history.at_saved());
+        assert!(!schist_core::filter_stack::has_stack(
+            doc.tree.find(active.unwrap()).unwrap()
+        ));
+        assert!(!doc.dirty);
+    }
+
+    fn raw_fixture() -> (Runtime, Document, Step) {
+        use schist_plugin_api::CodecPlugin;
+        let mut registry = PluginRegistry::new();
+        registry.register_filter(Box::new(schist_filters_core::camera_raw::CameraRaw));
+        let filter = registry.shared_filter("filter.camera_raw").unwrap();
+        let mut values = FilterValues::defaults(&filter.params());
+        values.set("exposure", 0.75);
+        let doc = schist_codecs_common::raw::RawCodec
+            .import(include_bytes!(
+                "../../../codec-raw/tests/fixtures/gpu-development.dng"
+            ))
+            .unwrap();
+        (
+            Runtime::new(&registry),
+            doc,
+            Step::RawDevelopment {
+                values: values.0.into_iter().map(|(k, v)| (k.into(), v)).collect(),
+            },
+        )
+    }
+
+    #[test]
+    fn raw_development_replays_original_capture_and_undo_restores_settings() {
+        let (rt, mut doc, step) = raw_fixture();
+        let id = doc.active_layer.unwrap();
+        let before = pixels(&doc);
+        let original = doc.tree.find(id).unwrap().raw.clone().unwrap();
+        rt.replay(&action(vec![step.clone()]), &mut doc).unwrap();
+        assert_eq!(
+            doc.tree
+                .find(id)
+                .unwrap()
+                .raw
+                .as_ref()
+                .unwrap()
+                .settings
+                .exposure,
+            0.75
+        );
+        let rendered = pixels(&doc);
+        assert_ne!(rendered, before);
+        rt.replay(&action(vec![step.clone()]), &mut doc).unwrap();
+        assert_eq!(
+            pixels(&doc),
+            rendered,
+            "development starts from sensor bytes, never the rendered layer"
+        );
+        doc.undo().unwrap();
+        doc.undo().unwrap();
+        assert_eq!(pixels(&doc), before);
+        assert_eq!(doc.tree.find(id).unwrap().raw.as_ref().unwrap(), &original);
+        assert!(rt
+            .replay(&action(vec![step.clone()]), &mut document())
+            .is_err());
+        let Step::RawDevelopment { mut values } = step else {
+            unreachable!()
+        };
+        for invalid in [f32::NAN, f32::INFINITY, 6.0] {
+            values.insert("exposure".into(), invalid);
+            assert!(rt
+                .validate(&action(vec![Step::RawDevelopment {
+                    values: values.clone()
+                }]))
+                .is_err());
+        }
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    #[test]
+    fn gallery_extended_action_preserves_raw_source_and_writes_only_new_copy() {
+        let (rt, source, raw_step) = raw_fixture();
+        let dir = tempfile::tempdir().unwrap();
+        let original = dir.path().join("capture.psd");
+        let original_bytes = schist_codec_psd::write_psd(&source).unwrap();
+        std::fs::write(&original, &original_bytes).unwrap();
+        let name = source
+            .tree
+            .find(source.active_layer.unwrap())
+            .unwrap()
+            .name
+            .clone();
+        let recipe = action(vec![
+            Step::SelectLayer { name },
+            raw_step,
+            Step::Transform {
+                params: transform(),
+            },
+        ]);
+        let codecs: Vec<Arc<dyn schist_plugin_api::CodecPlugin>> =
+            vec![Arc::new(schist_codecs_common::PsdCodec)];
+        let out = process_action_photo(&codecs, &rt, &original, &recipe, dir.path()).unwrap();
+        assert_ne!(out, original);
+        assert_eq!(std::fs::read(&original).unwrap(), original_bytes);
+        let rendered = schist_codec_psd::read_psd(&std::fs::read(out).unwrap()).unwrap();
+        let result_raw = rendered.tree.layers[0].raw.as_ref().unwrap();
+        assert_eq!(result_raw.settings.exposure, 0.75);
+        assert_eq!(
+            result_raw.source,
+            source.tree.layers[0].raw.as_ref().unwrap().source
+        );
     }
 }

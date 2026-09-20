@@ -24,7 +24,7 @@ pub enum StackChange {
     Bake,
 }
 
-fn source_and_stack(
+pub(super) fn source_and_stack(
     layer: &Layer,
     canvas: IntRect,
 ) -> anyhow::Result<(schist_core::TileMap, FilterStack)> {
@@ -301,6 +301,24 @@ impl Workspace {
         self.preview_stack_filter(None, cx);
         let success = self.install_filter_stack(session.layer, &session.source, &session.stack, cx);
         if success {
+            let effect = session.stack.effects[session.index].clone();
+            let before = FilterStack::read(&session.original).ok().flatten();
+            let previous = before
+                .as_ref()
+                .and_then(|stack| stack.effects.get(session.index));
+            let change = if previous.is_none() {
+                Some(recorded_actions::StackOperation::Add { effect })
+            } else if previous != Some(&effect) {
+                Some(recorded_actions::StackOperation::Set {
+                    index: session.index,
+                    effect,
+                })
+            } else {
+                None
+            };
+            if let Some(change) = change {
+                self.record_action_step(recorded_actions::Step::Stack { change });
+            }
             self.stack_filter_session = None;
         }
     }
@@ -374,6 +392,9 @@ impl Workspace {
             let mut edit = doc.begin_edit(t("filter_stack.bake_history"));
             edit.set_extras(id, extras);
             edit.commit();
+            self.record_action_step(recorded_actions::Step::Stack {
+                change: recorded_actions::StackOperation::Bake,
+            });
             self.after_change(cx);
             return;
         }
@@ -383,6 +404,28 @@ impl Workspace {
             return;
         };
         let len = stack.effects.len();
+        let operation = match change {
+            StackChange::Toggle(i) if i < len => recorded_actions::StackOperation::Enable {
+                index: i,
+                id: stack.effects[i].id.clone(),
+                enabled: !stack.effects[i].enabled,
+            },
+            StackChange::Up(i) if i > 0 && i < len => recorded_actions::StackOperation::Move {
+                index: i,
+                to: i - 1,
+                id: stack.effects[i].id.clone(),
+            },
+            StackChange::Down(i) if i + 1 < len => recorded_actions::StackOperation::Move {
+                index: i,
+                to: i + 1,
+                id: stack.effects[i].id.clone(),
+            },
+            StackChange::Remove(i) if i < len => recorded_actions::StackOperation::Remove {
+                index: i,
+                id: stack.effects[i].id.clone(),
+            },
+            _ => return,
+        };
         match change {
             StackChange::Toggle(i) if i < len => {
                 stack.effects[i].enabled = !stack.effects[i].enabled
@@ -394,7 +437,9 @@ impl Workspace {
             }
             _ => return,
         }
-        self.install_filter_stack(id, &source, &stack, cx);
+        if self.install_filter_stack(id, &source, &stack, cx) {
+            self.record_action_step(recorded_actions::Step::Stack { change: operation });
+        }
     }
 }
 

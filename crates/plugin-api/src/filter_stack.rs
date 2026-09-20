@@ -42,6 +42,23 @@ pub fn render(
     depth: Depth,
     profile: Option<Vec<u8>>,
 ) -> Result<TileMap> {
+    render_with(
+        |id| registry.shared_filter(id),
+        stack,
+        source,
+        depth,
+        profile,
+    )
+}
+
+/// Replay with an owned set of filters on a background worker.
+pub fn render_with(
+    lookup: impl Fn(&str) -> Option<std::sync::Arc<dyn FilterPlugin>>,
+    stack: &FilterStack,
+    source: &TileMap,
+    depth: Depth,
+    profile: Option<Vec<u8>>,
+) -> Result<TileMap> {
     stack.validate()?;
     // Disabled and empty stacks restore exact native tiles, including hidden colors.
     if !stack.effects.iter().any(|e| e.enabled) {
@@ -49,9 +66,8 @@ pub fn render(
     }
     let mut buffer = NativeFilterBuffer::read(source, stack.region, source.mode(), profile);
     for effect in stack.effects.iter().filter(|e| e.enabled) {
-        let filter = registry
-            .shared_filter(&effect.id)
-            .with_context(|| format!("Unavailable filter: {}", effect.id))?;
+        let filter =
+            lookup(&effect.id).with_context(|| format!("Unavailable filter: {}", effect.id))?;
         ensure!(eligible(filter.as_ref()), "Filter needs external inputs");
         let values = values(filter.as_ref(), effect)?;
         let [r, g, b, a] = effect.foreground;

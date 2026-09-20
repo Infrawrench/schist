@@ -7,7 +7,9 @@ use schist_i18n::{t, tf};
 const CAMERA_RAW_FILTER: &str = "filter.camera_raw";
 const RAW_PREVIEW_DEBOUNCE_MS: u64 = 120;
 
-fn settings_from_values(values: &schist_plugin_api::FilterValues) -> schist_core::RawSettings {
+pub(super) fn settings_from_values(
+    values: &schist_plugin_api::FilterValues,
+) -> schist_core::RawSettings {
     schist_core::RawSettings {
         temperature: values.get("temperature"),
         tint: values.get("tint"),
@@ -57,7 +59,7 @@ fn values_from_settings(
 /// Develop the sensor-domain controls and then run the remaining Camera Raw
 /// controls over that fresh render. The three controls already consumed by
 /// the RAW pipeline are zeroed so they are not applied twice.
-fn render_raw_capture(
+pub(super) fn render_raw_capture(
     source: Arc<[u8]>,
     settings: schist_core::RawSettings,
     quality: schist_codecs_common::raw::RawQuality,
@@ -74,6 +76,9 @@ fn render_raw_capture(
         developed.height,
         &values,
     );
+    if let Some(error) = filter.last_error() {
+        anyhow::bail!("{error}");
+    }
     Ok(developed)
 }
 
@@ -737,6 +742,7 @@ impl Workspace {
         values: Option<&schist_plugin_api::FilterValues>,
         cx: &mut Context<Self>,
     ) {
+        self.commit_recording_transform(cx);
         if self.stack_filter_session.is_some() {
             self.preview_stack_filter(values, cx);
             return;
@@ -1012,6 +1018,7 @@ impl Workspace {
         let document_id = doc.id;
         let revision = doc.revision;
         let settings = settings_from_values(values);
+        let action_values = values.0.iter().map(|(k, v)| ((*k).into(), *v)).collect();
         let values = values.clone();
         let source = raw.source.clone();
         self.raw_preview_seq = self.raw_preview_seq.wrapping_add(1);
@@ -1109,6 +1116,9 @@ impl Workspace {
                 edit.replace_layer_tiles(layer_id, tiles);
                 edit.set_raw_development(layer_id, Some(Box::new(after)));
                 edit.commit();
+                ws.record_action_step(recorded_actions::Step::RawDevelopment {
+                    values: action_values,
+                });
                 ws.status = t("workspace.filters.raw_applied").into();
                 ws.after_change(cx);
             })

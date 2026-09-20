@@ -134,6 +134,7 @@ impl Workspace {
         kind: schist_core::AdjustmentKind,
         cx: &mut Context<Self>,
     ) {
+        self.commit_recording_transform(cx);
         let params = schist_adjustments::Params::default_for(kind);
         if !self.begin_filter_preview() {
             cx.notify();
