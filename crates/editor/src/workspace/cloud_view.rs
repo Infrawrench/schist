@@ -6,7 +6,7 @@
 //! grouped by month or folder in the grid, the server-side search box,
 //! and the dialogs behind the mutations. The browser build, which has
 //! no local gallery, composes its whole gallery from these parts.
-use super::cloud::{CloudContext, PAGE_SIZE};
+use super::cloud::CloudContext;
 use super::gallery_chrome::{
     self as chrome, cell_frame, empty_note, grid_column, grid_frame, lead_probe, menu_frame,
     menu_row, menu_sep, pal, search_field, section_header, sidebar_link, sidebar_row_frame,
@@ -165,7 +165,7 @@ fn folder_tree(folders: &[Folder]) -> Vec<(usize, Folder)> {
     ordered
 }
 
-/// One page of assets grouped for the grid: a bucket or a search as
+/// The loaded assets grouped for the grid: a bucket or a search as
 /// one strip, otherwise by month (newest first, a photo without a
 /// capture time filing under its upload time) or by folder (the
 /// unfiled last).
@@ -354,7 +354,7 @@ impl Workspace {
             .collect()
     }
 
-    /// The page grouped the way the sidebar's chips ask — the same
+    /// The loaded photos grouped the way the sidebar's chips ask — the same
     /// readings the local grid has. A bucket or a search shows as one strip,
     /// exactly as locally.
     pub(crate) fn cloud_grouped(&self) -> Vec<(String, String, Vec<Asset>)> {
@@ -624,7 +624,7 @@ pub(crate) fn tray_info(ws: &Workspace) -> TrayInfo {
         name: lead.map(|a| a.name),
         selected: ws.cloud.selected.len(),
         notes,
-        count: if ws.cloud.load_error.is_some() {
+        count: if ws.cloud.load_error.is_some() && !ws.cloud.loaded {
             t("cloud.gallery.photos_unavailable").to_string()
         } else if ws.cloud.loaded {
             chrome::photo_count(ws.cloud.total as usize)
@@ -1080,9 +1080,21 @@ fn empty_reason(ws: &Workspace) -> String {
     .into()
 }
 
+fn load_failure(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    div()
+        .child(empty_note(empty_reason(ws)))
+        .child(chrome::gallery_button(
+            t("common.refresh"),
+            false,
+            |ws, _, cx| ws.cloud_retry_assets(cx),
+            cx,
+        ))
+}
+
 /// The grid: month or folder headers with a rule, then wrapped
-/// thumbnails — one page of the query, with the page links under it.
+/// thumbnails, loading another batch as the end approaches the viewport.
 pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    ws.cloud.grid_wanted.clear();
     let cell = ws.gallery_thumb_px();
     let selected = ws.cloud.selected.clone();
     let mut sections = ws.cloud_grouped();
@@ -1109,12 +1121,14 @@ pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
     // Bucket/search grouping creates a section even with no assets. Do not
     // render its zero count until the first snapshot confirms it is empty.
     if !ws.cloud.loaded && ws.cloud.assets.is_empty() {
-        if !ws.cloud.is_loading() {
+        if ws.cloud.load_error.is_some() {
+            column = column.child(load_failure(ws, cx));
+        } else if !ws.cloud.is_loading() {
             column = column.child(empty_note(empty_reason(ws)));
         }
         return grid_frame(column, &ws.cloud.grid, access, cx).into_any_element();
     }
-    if sections.is_empty() {
+    if sections.is_empty() && ws.cloud.load_error.is_none() {
         column = column.child(empty_note(empty_reason(ws)));
     }
     let columns = ws.cloud.grid.columns(cell);
@@ -1141,50 +1155,32 @@ pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
         }
         column = column.child(body);
     }
-    // The page links, in the grid's own voice, only when there is
-    // more than one page.
-    let offset = ws.cloud.query.offset;
-    let total = ws.cloud.total;
-    if ws.cloud.loaded && (offset > 0 || offset + PAGE_SIZE < total) {
-        let first = offset + 1;
-        let last = (offset + PAGE_SIZE).min(total);
-        let link =
-            |label: &'static str, to: u64, cx: &mut Context<Workspace>| -> gpui::AnyElement {
-                chrome::link_button(label, label)
-                    .rounded_md()
-                    .on_click(cx.listener(move |ws, _e, _w, cx| {
-                        ws.cloud.query.offset = to;
-                        ws.cloud.selected.clear();
-                        ws.cloud.select_anchor = None;
-                        ws.cloud_watch_assets(false);
-                        cx.notify();
-                    }))
-                    .into_any_element()
-            };
-        let mut pager = div().flex().flex_row().items_center().gap_2().pt_2().pb_4();
-        if offset > 0 {
-            pager = pager.child(link(
-                t("cloud.gallery.previous_page"),
-                offset.saturating_sub(PAGE_SIZE),
-                cx,
-            ));
-        }
-        pager = pager.child(
-            div()
-                .text_size(px(11.0))
-                .text_color(gpui::rgb(pal().text_dim))
-                .child(tf!(
-                    "cloud.gallery.page_range",
-                    first = first,
-                    last = last,
-                    total = total
-                )),
-        );
-        if offset + PAGE_SIZE < total {
-            pager = pager.child(link(t("cloud.gallery.next_page"), offset + PAGE_SIZE, cx));
-        }
-        column = column.child(pager);
+    if ws.cloud.load_error.is_some() {
+        column = column.child(load_failure(ws, cx));
+    } else if ws.cloud.is_loading_more() {
+        column = column.child(chrome::loading_note());
     }
+    // Prepaint covers wheel/touch scrolling, scrollbar drags, keyboard
+    // navigation and a viewport that is taller than the loaded results.
+    let entity = cx.entity();
+    column = column.child(
+        gpui::canvas(
+            move |bounds, _window, cx| {
+                entity.update(cx, |ws, cx| {
+                    let view = ws.cloud.grid.bounds;
+                    if view.size.height > px(0.0)
+                        && bounds.origin.y <= view.origin.y + view.size.height * 2.0
+                    {
+                        ws.cloud_load_more(cx);
+                    }
+                });
+            },
+            |_, _, _, _| {},
+        )
+        .h(px(1.0))
+        .w_full()
+        .flex_shrink_0(),
+    );
     grid_frame(column, &ws.cloud.grid, access, cx).into_any_element()
 }
 
@@ -1208,6 +1204,8 @@ fn cloud_cell(
     let is_lead = selected.last() == Some(&asset.id);
     let click = asset.clone();
     let context = asset.id.clone();
+    let probe_id = asset.id.clone();
+    let probe_entity = cx.entity();
     // Dragging carries the whole selection when the pressed cell is in
     // it, and just the pressed cell otherwise.
     let carried: Vec<String> = if is_selected {
@@ -1233,6 +1231,23 @@ fn cloud_cell(
         thumb,
         failed,
         asset.edited,
+    )
+    .child(
+        gpui::canvas(
+            move |bounds, _window, cx| {
+                probe_entity.update(cx, |ws, _| {
+                    let mut near = ws.cloud.grid.bounds;
+                    near.origin.y -= near.size.height;
+                    near.size.height *= 3.0;
+                    if near.intersects(&bounds) {
+                        ws.cloud.grid_wanted.insert(probe_id.clone());
+                    }
+                });
+            },
+            |_, _, _, _| {},
+        )
+        .absolute()
+        .size_full(),
     )
     .on_drag(drag, move |drag, _offset, _window, cx| {
         let label = drag.label.clone();

@@ -155,13 +155,32 @@ pub(crate) enum CloudContext {
     /// A named person in the cloud's PEOPLE list.
     Person(String),
 }
-/// Assets per page. A page's thumbnails stay decoded while it shows,
-/// so this bounds texture memory as much as it bounds the query.
+/// Assets per live query, with another page subscribed near the grid's end.
 pub(crate) const PAGE_SIZE: u64 = 200;
 /// Concurrent thumbnail fetches, and how many decoded thumbnails stay
-/// in memory (~256 KB each) before the cache shrinks to the page.
+/// in memory (~256 KB each) before the cache shrinks to the viewport.
 const THUMBNAIL_WORKERS: usize = 8;
 const THUMBNAIL_CACHE: usize = 600;
+
+struct AssetPage {
+    watch: String,
+    offset: u64,
+    assets: Vec<Asset>,
+    pending: bool,
+    error: Option<String>,
+}
+
+impl AssetPage {
+    fn new(offset: u64) -> Self {
+        Self {
+            watch: remote::Uuid::new_v4().to_string(),
+            offset,
+            assets: Vec::new(),
+            pending: true,
+            error: None,
+        }
+    }
+}
 fn local_upload_files(paths: &[PathBuf]) -> Result<Vec<(PathBuf, Option<String>)>> {
     let mut files = Vec::new();
     for path in paths {
@@ -195,6 +214,9 @@ pub(crate) struct CloudState {
     pub folders: Vec<Folder>,
     pub buckets: Vec<Bucket>,
     pub assets: Vec<Asset>,
+    asset_pages: Vec<AssetPage>,
+    /// Photos within one viewport of the grid, recorded by cell probes.
+    pub(super) grid_wanted: HashSet<String>,
     pub total: u64,
     pub query: AssetQuery,
     /// The selected assets, in the order they were picked; the last is
@@ -210,11 +232,11 @@ pub(crate) struct CloudState {
     pub grid: GridScroll,
     /// The gallery's right-click menu: where, and on what.
     pub context: Option<(Point<Pixels>, CloudContext)>,
-    /// Whether the current asset watch has delivered its first snapshot.
+    /// Whether the current query has delivered its first batch.
     pub loaded: bool,
     /// A failed watch is unavailable, not an empty library or an ongoing load.
     pub load_error: Option<String>,
-    /// "Select all" asked before the page arrived: select it on landing.
+    /// "Select all" asked before the first batch arrived: select it on landing.
     pub select_all_pending: bool,
     /// The photos of the world-map marker last clicked, for its strip.
     #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
@@ -272,7 +294,6 @@ pub(crate) struct CloudState {
     writing: bool,
     #[cfg(not(target_arch = "wasm32"))]
     recovery: mpsc::Sender<RecoveryTask>,
-    pub watching: String,
     folders_watch: String,
     buckets_watch: String,
     pub form_target: Option<(String, u64)>,
@@ -327,6 +348,8 @@ impl Default for CloudState {
             folders: vec![],
             buckets: vec![],
             assets: vec![],
+            asset_pages: Vec::new(),
+            grid_wanted: HashSet::new(),
             total: 0,
             query: AssetQuery {
                 limit: PAGE_SIZE,
@@ -377,7 +400,6 @@ impl Default for CloudState {
             writing: false,
             #[cfg(not(target_arch = "wasm32"))]
             recovery,
-            watching: String::new(),
             folders_watch: String::new(),
             buckets_watch: String::new(),
             form_target: None,
@@ -391,6 +413,75 @@ impl Drop for CloudState {
     }
 }
 impl CloudState {
+    fn next_asset_offset(&self) -> Option<u64> {
+        if !self.loaded
+            || self.load_error.is_some()
+            || self.asset_pages.iter().any(|page| page.pending)
+        {
+            return None;
+        }
+        let page = self.asset_pages.last()?;
+        // Use the actual count, since a provider may return smaller batches.
+        // An empty batch must never spin on the same offset.
+        let next = page.offset + page.assets.len() as u64;
+        (!page.assets.is_empty() && next < self.total).then_some(next)
+    }
+
+    pub(super) fn is_loading_more(&self) -> bool {
+        self.loaded && self.load_error.is_none() && self.asset_pages.iter().any(|page| page.pending)
+    }
+
+    fn apply_asset_snapshot(&mut self, id: &str, snapshot: remote::Snapshot) -> Result<bool> {
+        let Some(index) = self.asset_pages.iter().position(|page| page.watch == id) else {
+            return Ok(false);
+        };
+        let assets = snapshot
+            .items
+            .into_iter()
+            .map(parse)
+            .collect::<Result<_>>()?;
+        let page = &mut self.asset_pages[index];
+        page.assets = assets;
+        page.pending = false;
+        page.error = None;
+        if index == 0 {
+            self.people = snapshot.people;
+        }
+        self.face_previews.clear();
+        self.total = snapshot.total;
+        self.loaded |= index == 0;
+        self.load_error = self.asset_pages.iter().find_map(|page| page.error.clone());
+        self.assets.clear();
+        let mut positions = HashMap::new();
+        for asset in self.asset_pages.iter().flat_map(|page| &page.assets) {
+            // Live page boundaries can briefly overlap while updates arrive.
+            // Keep one cell per photo, using its newest revision.
+            let position = *positions.entry(&asset.id).or_insert(self.assets.len());
+            if position == self.assets.len() {
+                self.assets.push(asset.clone());
+            } else if asset.revision > self.assets[position].revision {
+                self.assets[position] = asset.clone();
+            }
+        }
+        self.refresh_people_target();
+        self.changes += 1;
+        Ok(true)
+    }
+
+    fn fail_asset_page(&mut self, id: &str, error: &str) -> bool {
+        let Some(page) = self.asset_pages.iter_mut().find(|page| page.watch == id) else {
+            return false;
+        };
+        page.pending = false;
+        page.error = Some(error.into());
+        self.load_error = Some(error.into());
+        if !self.loaded {
+            self.assets.clear();
+            self.total = 0;
+        }
+        true
+    }
+
     pub(super) fn people_asset(&self, id: &str) -> Option<&Asset> {
         self.assets
             .iter()
@@ -439,6 +530,7 @@ impl CloudState {
             .chain(
                 self.assets
                     .iter()
+                    .filter(|asset| self.grid_wanted.contains(&asset.id))
                     .chain(
                         self.map_assets
                             .iter()
@@ -705,6 +797,8 @@ impl Workspace {
         self.cloud.pending.clear();
         self.cloud.docs.clear();
         self.cloud.assets.clear();
+        self.cloud.asset_pages.clear();
+        self.cloud.grid_wanted.clear();
         self.cloud.people = None;
         self.cloud.people_target = None;
         self.cloud.thumbnails.clear();
@@ -763,31 +857,75 @@ impl Workspace {
         self.cloud_watch_assets(false);
         cx.notify();
     }
-    /// (Re)subscribe to the assets the query names. `keep` leaves the
-    /// current page on screen until the new one lands — what a search
-    /// refinement wants; a change of scope starts from a blank grid.
+    /// Start the query again from its first page. `keep` leaves the old
+    /// results on screen until the replacement arrives.
     pub(crate) fn cloud_watch_assets(&mut self, keep: bool) {
         self.cloud.query.sort = self.cloud_sort();
+        self.cloud.query.offset = 0;
         self.cloud.query.limit = PAGE_SIZE;
         self.cloud.loaded = false;
         self.cloud.load_error = None;
+        self.cloud.grid.handle.set_offset(point(px(0.0), px(0.0)));
+        self.cloud.grid_wanted.clear();
         if !keep {
             self.cloud.assets.clear();
             self.cloud.total = 0;
-            self.cloud.grid.handle.set_offset(point(px(0.0), px(0.0)));
         }
-        if let Some(c) = &self.cloud.client {
-            if !self.cloud.watching.is_empty() {
-                c.handle.unwatch(&self.cloud.watching);
+        for page in self.cloud.asset_pages.drain(..) {
+            if let Some(c) = &self.cloud.client {
+                c.handle.unwatch(&page.watch);
             }
-            self.cloud.watching = remote::Uuid::new_v4().to_string();
+        }
+        self.cloud_watch_asset_page(0);
+    }
+
+    fn cloud_watch_asset_page(&mut self, offset: u64) {
+        if let Some(c) = &self.cloud.client {
+            let page = AssetPage::new(offset);
+            let mut query = self.cloud.query.clone();
+            query.offset = offset;
             c.handle.watch(
-                &self.cloud.watching,
+                &page.watch,
                 WatchQuery::Assets {
-                    query: Box::new(self.cloud.query.clone()),
+                    query: Box::new(query),
+                },
+            );
+            self.cloud.asset_pages.push(page);
+        }
+    }
+
+    pub(super) fn cloud_load_more(&mut self, cx: &mut Context<Self>) {
+        if !self.cloud.show || !self.cloud.connected || self.cloud.client.is_none() {
+            return;
+        }
+        if let Some(offset) = self.cloud.next_asset_offset() {
+            self.cloud_watch_asset_page(offset);
+            cx.notify();
+        }
+    }
+
+    pub(super) fn cloud_retry_assets(&mut self, cx: &mut Context<Self>) {
+        let Some(c) = &self.cloud.client else {
+            return;
+        };
+        for page in &mut self.cloud.asset_pages {
+            if page.error.take().is_none() {
+                continue;
+            }
+            c.handle.unwatch(&page.watch);
+            page.watch = remote::Uuid::new_v4().to_string();
+            page.pending = true;
+            let mut query = self.cloud.query.clone();
+            query.offset = page.offset;
+            c.handle.watch(
+                &page.watch,
+                WatchQuery::Assets {
+                    query: Box::new(query),
                 },
             );
         }
+        self.cloud.load_error = None;
+        cx.notify();
     }
     pub(crate) fn cloud_refresh_catalogue(&mut self) {
         if let Some(c) = &self.cloud.client {
@@ -822,8 +960,8 @@ impl Workspace {
             return;
         }
         // A small worker pool bounds the network; decoded thumbnails
-        // stay for a few pages, so paging back is instant, and only an
-        // overfull cache falls back to the page on show.
+        // stay for a few viewports, so scrolling back is instant; an
+        // overfull cache falls back to the photos near the viewport.
         let wanted = self.cloud.wanted_thumbnails();
         let visible: HashSet<String> = wanted.iter().map(|(id, _, _)| id.clone()).collect();
         if self.cloud.thumbnails.len() > THUMBNAIL_CACHE {
@@ -1138,7 +1276,11 @@ impl Workspace {
         match event {
             Event::Connected => {
                 self.cloud.connected = true;
-                self.cloud.load_error = None;
+                self.cloud.load_error = self
+                    .cloud
+                    .asset_pages
+                    .iter()
+                    .find_map(|page| page.error.clone());
                 self.cloud.capabilities = None;
                 self.cloud.capabilities_ready = false;
                 self.cloud.message = t("cloud.status.connected").into();
@@ -1157,6 +1299,8 @@ impl Workspace {
                 self.cloud.client = None;
                 self.cloud.writes.push_back(None);
                 self.cloud.assets.clear();
+                self.cloud.asset_pages.clear();
+                self.cloud.grid_wanted.clear();
                 self.cloud.folders.clear();
                 self.cloud.buckets.clear();
                 self.cloud.thumbnails.clear();
@@ -1189,12 +1333,18 @@ impl Workspace {
                 subscription_id,
                 snapshot,
             } => {
-                if let Some(screening) = snapshot.screening {
-                    self.cloud.screening = screening;
+                if subscription_id != self.cloud.folders_watch
+                    && subscription_id != self.cloud.buckets_watch
+                    && !self
+                        .cloud
+                        .asset_pages
+                        .iter()
+                        .any(|page| page.watch == subscription_id)
+                {
+                    return Ok(());
                 }
-                if subscription_id == self.cloud.watching {
-                    self.cloud.people = snapshot.people;
-                    self.cloud.face_previews.clear();
+                if let Some(screening) = snapshot.screening.clone() {
+                    self.cloud.screening = screening;
                 }
                 match subscription_id.as_str() {
                     id if id == self.cloud.folders_watch => {
@@ -1214,17 +1364,15 @@ impl Workspace {
                             .collect::<Result<_>>()?;
                         self.cloud.buckets_total = snapshot.total;
                     }
-                    id if id == self.cloud.watching => {
-                        self.cloud.assets = snapshot
-                            .items
-                            .into_iter()
-                            .map(parse)
-                            .collect::<Result<_>>()?;
-                        self.cloud.refresh_people_target();
-                        self.cloud.total = snapshot.total;
-                        self.cloud.loaded = true;
-                        self.cloud.load_error = None;
-                        self.cloud.changes += 1;
+                    id => {
+                        match self.cloud.apply_asset_snapshot(id, snapshot) {
+                            Ok(true) => {}
+                            Ok(false) => return Ok(()),
+                            Err(error) => {
+                                self.cloud.fail_asset_page(id, &error.to_string());
+                                return Err(error);
+                            }
+                        }
                         if std::mem::take(&mut self.cloud.select_all_pending) {
                             self.cloud.selected = self.cloud_flat_order();
                             self.cloud.select_anchor = self.cloud.selected.first().cloned();
@@ -1241,20 +1389,18 @@ impl Workspace {
                             self.cloud.select_anchor = None;
                         }
                     }
-                    _ => {}
                 }
             }
             Event::WatchError {
                 subscription_id,
                 error,
             } => {
-                if subscription_id == self.cloud.watching {
-                    self.cloud.assets.clear();
-                    self.cloud.total = 0;
-                    self.cloud.loaded = false;
-                    self.cloud.load_error = Some(error.clone());
+                if self.cloud.fail_asset_page(&subscription_id, &error)
+                    || subscription_id == self.cloud.folders_watch
+                    || subscription_id == self.cloud.buckets_watch
+                {
+                    self.cloud_error(error);
                 }
-                self.cloud_error(error);
             }
             Event::DocumentUpdate { asset_id, bytes } => {
                 self.cloud.apply_document_update(&asset_id, &bytes)?;
@@ -2841,6 +2987,172 @@ pub(super) fn rgba_to_render_image(
 mod cloud_lifecycle_tests {
     use super::*;
 
+    fn asset_snapshot(total: u64, offset: u64, ids: &[&str]) -> remote::Snapshot {
+        remote::Snapshot {
+            screening: None,
+            people: None,
+            kind: "assets".into(),
+            revision: 1,
+            total,
+            library_asset_count: None,
+            offset,
+            items: ids.iter().map(|id| value(binding(id).asset)).collect(),
+        }
+    }
+
+    fn add_page(state: &mut CloudState, offset: u64) -> String {
+        let page = AssetPage::new(offset);
+        let watch = page.watch.clone();
+        state.asset_pages.push(page);
+        watch
+    }
+
+    #[test]
+    fn infinite_scroll_appends_batches_and_waits_for_each_request() {
+        let mut state = CloudState::default();
+        let first = add_page(&mut state, 0);
+        assert_eq!(state.next_asset_offset(), None);
+        state
+            .apply_asset_snapshot(&first, asset_snapshot(5, 0, &["a", "b"]))
+            .unwrap();
+        // Respect a provider that returns fewer than PAGE_SIZE photos.
+        assert_eq!(state.next_asset_offset(), Some(2));
+        state.selected.push("a".into());
+        let second = add_page(&mut state, 2);
+        assert!(state.is_loading_more());
+        assert_eq!(state.next_asset_offset(), None);
+        state
+            .apply_asset_snapshot(&second, asset_snapshot(5, 2, &["c", "d"]))
+            .unwrap();
+        assert_eq!(
+            state
+                .assets
+                .iter()
+                .map(|a| a.id.as_str())
+                .collect::<Vec<_>>(),
+            ["a", "b", "c", "d"]
+        );
+        assert_eq!(state.selected, ["a"]);
+        assert!(!state.is_loading_more());
+        assert_eq!(state.next_asset_offset(), Some(4));
+        let last = add_page(&mut state, 4);
+        state
+            .apply_asset_snapshot(&last, asset_snapshot(5, 4, &["e"]))
+            .unwrap();
+        assert_eq!(state.next_asset_offset(), None);
+    }
+
+    #[test]
+    fn infinite_scroll_keeps_live_pages_and_deduplicates_moving_boundaries() {
+        let mut state = CloudState::default();
+        let first = add_page(&mut state, 0);
+        state
+            .apply_asset_snapshot(&first, asset_snapshot(5, 0, &["a", "b"]))
+            .unwrap();
+        let second = add_page(&mut state, 2);
+        state
+            .apply_asset_snapshot(&second, asset_snapshot(5, 2, &["c", "d"]))
+            .unwrap();
+        // Deleting the first photo moves c across the page boundary before
+        // the second subscription's corresponding update arrives.
+        let mut updated = asset_snapshot(4, 0, &["b", "c"]);
+        let mut asset = binding("c").asset;
+        asset.revision = 2;
+        updated.items[1] = value(asset);
+        state.apply_asset_snapshot(&first, updated).unwrap();
+        assert_eq!(
+            state
+                .assets
+                .iter()
+                .map(|a| a.id.as_str())
+                .collect::<Vec<_>>(),
+            ["b", "c", "d"]
+        );
+        assert_eq!(state.assets[1].revision, 2);
+        state
+            .apply_asset_snapshot(&second, asset_snapshot(4, 2, &["d", "e"]))
+            .unwrap();
+        assert_eq!(
+            state
+                .assets
+                .iter()
+                .map(|a| a.id.as_str())
+                .collect::<Vec<_>>(),
+            ["b", "c", "d", "e"]
+        );
+        assert_eq!(state.next_asset_offset(), None);
+    }
+
+    #[test]
+    fn infinite_scroll_stops_on_empty_batches_and_recovers_from_errors() {
+        let mut state = CloudState::default();
+        let first = add_page(&mut state, 0);
+        state
+            .apply_asset_snapshot(&first, asset_snapshot(8, 0, &["a", "b"]))
+            .unwrap();
+        let second = add_page(&mut state, 2);
+        assert!(state.fail_asset_page(&second, "offline"));
+        assert!(state.loaded);
+        assert_eq!(
+            state.assets.len(),
+            2,
+            "earlier results survive a failed batch"
+        );
+        assert_eq!(state.next_asset_offset(), None);
+        assert!(!state.is_loading_more());
+        assert!(!state.fail_asset_page("obsolete-query", "stale error"));
+        assert!(!state
+            .apply_asset_snapshot("obsolete-query", asset_snapshot(0, 0, &[]))
+            .unwrap());
+        assert_eq!(state.load_error.as_deref(), Some("offline"));
+        state
+            .apply_asset_snapshot(&second, asset_snapshot(8, 2, &[]))
+            .unwrap();
+        assert!(state.load_error.is_none());
+        assert_eq!(
+            state.next_asset_offset(),
+            None,
+            "an empty batch cannot loop"
+        );
+        // A later live update can make this page useful again.
+        state
+            .apply_asset_snapshot(&second, asset_snapshot(8, 2, &["c"]))
+            .unwrap();
+        assert_eq!(state.next_asset_offset(), Some(3));
+    }
+
+    #[test]
+    fn infinite_scroll_only_fetches_thumbnails_near_the_viewport() {
+        let mut state = CloudState::default();
+        state.show = true;
+        let asset = binding("photo").asset;
+        state.assets = (0..1000)
+            .map(|n| Asset {
+                id: n.to_string(),
+                ..asset.clone()
+            })
+            .collect();
+        state.grid_wanted.extend(["400".into(), "401".into()]);
+        assert_eq!(
+            state
+                .wanted_thumbnails()
+                .iter()
+                .map(|a| a.0.as_str())
+                .collect::<Vec<_>>(),
+            ["400", "401"]
+        );
+        state.grid_wanted.clear();
+        state.grid_wanted.insert("800".into());
+        assert_eq!(
+            state
+                .wanted_thumbnails()
+                .iter()
+                .map(|a| a.0.as_str())
+                .collect::<Vec<_>>(),
+            ["800"]
+        );
+    }
+
     fn people_modal(kind: &'static str, asset: &str) -> Modal {
         Modal::Cloud {
             kind,
@@ -2995,6 +3307,7 @@ mod cloud_lifecycle_tests {
         );
         assert_eq!(state.wanted_thumbnails(), vec![portrait.clone()]);
         state.show = true;
+        state.grid_wanted.insert("on-page".into());
         assert_eq!(
             state.wanted_thumbnails(),
             vec![portrait, ("on-page".into(), 1, None)]
@@ -3011,6 +3324,7 @@ mod cloud_lifecycle_tests {
         source.revision = 9;
         source.thumbnail_url = Some("https://cloud.test/new-portrait".into());
         state.assets.push(source.clone());
+        state.grid_wanted.insert(source.id.clone());
         source.revision = 7;
         source.thumbnail_url = Some("https://cloud.test/stale-portrait".into());
         state.map_assets.push(source);
