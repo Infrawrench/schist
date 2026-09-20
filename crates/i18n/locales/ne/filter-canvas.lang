@@ -1,2 +1,2 @@
-# English fallback until this canvas-control hint is translated.
-dialog.filter.canvas_controls = Drag canvas handles to adjust the filter. Arrow keys move the selected handle; Shift moves ten pixels.
+# Canvas filter control hint.
+dialog.filter.canvas_controls = फिल्टर समायोजन गर्न क्यानभासका ह्यान्डलहरू तान्नुहोस्। तीर कुञ्जीहरूले चयन गरिएको ह्यान्डल सार्छन्; Shift थिचिराख्दा दस पिक्सेल सर्छ।

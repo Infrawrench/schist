@@ -1,2 +1,2 @@
-# English fallback until this canvas-control hint is translated.
-dialog.filter.canvas_controls = Drag canvas handles to adjust the filter. Arrow keys move the selected handle; Shift moves ten pixels.
+# Canvas filter control hint.
+dialog.filter.canvas_controls = יש לגרור את הידיות על בד הציור\nכדי לכוונן את המסנן.\nמקש חץ מזיז ידית שנבחרה פיקסל אחד.\nבהחזקת Shift ולחיצה על חץ,\nהידית זזה עשרה פיקסלים.

@@ -1,2 +1,2 @@
-# English fallback until this canvas-control hint is translated.
-dialog.filter.canvas_controls = Drag canvas handles to adjust the filter. Arrow keys move the selected handle; Shift moves ten pixels.
+# Canvas filter control hint.
+dialog.filter.canvas_controls = អូសចំណុចទាញលើផ្ទាំងក្រណាត់ដើម្បីកែតម្រង។ គ្រាប់ចុចព្រួញផ្លាស់ទីចំណុចទាញដែលបានជ្រើសមួយភីកសែល; សង្កត់ Shift ដើម្បីផ្លាស់ទីដប់ភីកសែល។

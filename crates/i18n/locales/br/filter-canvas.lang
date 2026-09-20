@@ -1,2 +1,2 @@
-# English fallback until this canvas-control hint is translated.
-dialog.filter.canvas_controls = Drag canvas handles to adjust the filter. Arrow keys move the selected handle; Shift moves ten pixels.
+# Canvas filter control hint.
+dialog.filter.canvas_controls = Riklait dornelloù ar steuñvenn evit kempenn ar sil. Ar stokelloù biroù a zilec'h an dornell diuzet eus ur piksel; gant Shift e vez dilec'het eus dek piksel.

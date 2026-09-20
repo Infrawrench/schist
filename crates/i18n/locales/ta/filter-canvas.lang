@@ -1,2 +1,2 @@
-# English fallback until this canvas-control hint is translated.
-dialog.filter.canvas_controls = Drag canvas handles to adjust the filter. Arrow keys move the selected handle; Shift moves ten pixels.
+# Canvas filter control hint.
+dialog.filter.canvas_controls = வடிகட்டியைச் சீரமைக்கத் திரைப்பரப்பிலுள்ள கைப்பிடிகளை இழுக்கவும். அம்புக்குறி விசைகள் தேர்ந்த கைப்பிடியை நகர்த்தும்; பத்து படத்துணுக்குகள் நகர்த்த Shift-ஐ அழுத்திப் பிடிக்கவும்.

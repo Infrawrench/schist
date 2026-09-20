@@ -1,2 +1,2 @@
-# English fallback until this canvas-control hint is translated.
-dialog.filter.canvas_controls = Drag canvas handles to adjust the filter. Arrow keys move the selected handle; Shift moves ten pixels.
+# Canvas filter control hint.
+dialog.filter.canvas_controls = Suysunata allichanapaq lienzopa hap'inankunata aysay. Wach'i teclakuna akllasqa hap'inata kuyuchin; Shift ñit'isqawan chunka pixelta kuyuchin.

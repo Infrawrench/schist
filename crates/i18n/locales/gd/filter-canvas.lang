@@ -1,2 +1,2 @@
-# English fallback until this canvas-control hint is translated.
-dialog.filter.canvas_controls = Drag canvas handles to adjust the filter. Arrow keys move the selected handle; Shift moves ten pixels.
+# Canvas filter control hint.
+dialog.filter.canvas_controls = Slaod greimeannan a’ chanabhais gus a’ chriathrag atharrachadh. Gluaisidh na h-iuchraichean-saighde an greim taghte; ma chumas tu Shift sìos, gluaisidh e deich piogsailean.

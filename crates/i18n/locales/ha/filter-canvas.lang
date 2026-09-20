@@ -1,2 +1,2 @@
-# English fallback until this canvas-control hint is translated.
-dialog.filter.canvas_controls = Drag canvas handles to adjust the filter. Arrow keys move the selected handle; Shift moves ten pixels.
+# Canvas filter control hint.
+dialog.filter.canvas_controls = Ja makaman sarrafawa a kan zane don daidaita matatar. Maɓallan kibiyoyi suna matsar da makamar da aka zaɓa; riƙe Shift don matsar da ita pixel goma.

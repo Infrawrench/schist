@@ -1,2 +1,2 @@
-# English fallback until this canvas-control hint is translated.
-dialog.filter.canvas_controls = Drag canvas handles to adjust the filter. Arrow keys move the selected handle; Shift moves ten pixels.
+# Canvas filter control hint.
+dialog.filter.canvas_controls = دستگیره‌های بوم را بکشید\nتا فیلتر تنظیم شود.\nجهت‌نما دستگیرهٔ منتخب را ۱ پیکسل می‌برد.\nبا نگه‌داشتن Shift و زدن جهت‌نما،\nدستگیره ده پیکسل جابه‌جا می‌شود.
