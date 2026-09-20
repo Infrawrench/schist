@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Legg myndir saman...
+photo_merge.align = Sjálvvirkandi raðfesting
+photo_merge.focus = Set saman myndir við ymiskum fokusfrástøðum
+photo_merge.hdr = HDR frá ymiskum lýsingum
+photo_merge.panorama = Set myndir saman til eina panoramamynd
+photo_merge.translation = Bert vatnrættar og loddrættar flytingar (X/Y); snúningur og perspektiv verða ikki rættað.
+photo_merge.crop = Sker til felagsøki
+photo_merge.exposure_note = Set relativu eksponeringina á hvørjari mynd: +1 EV merkir tvær ferðir so nógv ljós. Slá myndatónakortlegging frá fyri at varðveita 32-bita HDR.
+photo_merge.tone_map = Myndatónakortlegging
+photo_merge.order = Panoramamyndirnar fylgja raðfylgjuni á skjalaflipunum; myndir hvør eftir aðra skulu hava minst 25% felags øki.
+photo_merge.invalid = Vel 2–16 gyldugar myndir og kanna eksponeringsinnstillingarnar.
+photo_merge.limit = Avmarking: 64 milliónir pixel fyri hvørja mynd ella útflutning, 128 milliónir tilsamans; 30000 pixel á hvørjari síðu.
+photo_merge.no_match = Eingin álítandi yvirlapp funnin. Brúka yvirlappandi myndir uttan snúning ella perspektivbroytingar.

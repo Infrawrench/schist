@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = 合并照片…
+photo_merge.align = 自动对齐
+photo_merge.focus = 焦点堆栈
+photo_merge.hdr = 包围曝光 HDR
+photo_merge.panorama = 全景拼接
+photo_merge.translation = 仅支持水平和垂直位移（X/Y）；不会校正旋转或透视。
+photo_merge.crop = 裁剪到共同区域
+photo_merge.exposure_note = 设置每张照片的相对曝光：+1 EV 表示光量加倍。关闭色调映射可保留 32 位 HDR。
+photo_merge.tone_map = 色调映射
+photo_merge.order = 全景照片按标签页顺序处理；相邻照片至少需要 25% 的重叠区域。
+photo_merge.invalid = 请选择 2–16 张有效图像，并检查曝光设置。
+photo_merge.limit = 限制：每张图像或输出最多 6400 万像素，总计最多 1.28 亿像素；每边最多 30,000 像素。
+photo_merge.no_match = 未找到可靠的重叠区域。请使用有重叠且无旋转或透视变化的照片。

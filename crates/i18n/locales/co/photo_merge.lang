@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Unisce e foto...
+photo_merge.align = Allineamentu automaticu
+photo_merge.focus = Unisce e foto cù diverse distanze di focus
+photo_merge.hdr = HDR da più livelli di esposizione
+photo_merge.panorama = Unisce e foto in un panorama
+photo_merge.translation = Solu u muvimentu di l'imaghjini horizontale è verticale (X/Y); senza rotazione o correzione di perspettiva.
+photo_merge.crop = Crop à l'area sparta
+photo_merge.exposure_note = Definite l'esposizione relativa di ogni foto: +1 EV significa duie volte più di luce. Disattivate a mappatura di u tonu di l'imaghjini per preservà HDR 32-bit.
+photo_merge.tone_map = Mappatura di u tonu di l'imagine
+photo_merge.order = Aduprate l'ordine di e tabulazioni di u documentu apertu. Ogni foto panoramica deve sovrappone a foto precedente da almenu 25%.
+photo_merge.invalid = Selezziunate 2-16 imagine valide è verificate i paràmetri di esposizione.
+photo_merge.limit = Limitu: 64 milioni di pixel per imagine o output, 128 milioni totale; 30000 pixel per latu.
+photo_merge.no_match = Nisuna sovrapposizione affidabile trovata. Aduprate foto sovrapposte senza rotazione o cambiamenti di perspettiva.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = מיזוג תמונות...
+photo_merge.align = יישור אוטומטי
+photo_merge.focus = מיזוג תמונות עם מרחקי מיקוד שונים
+photo_merge.hdr = HDR מרמות חשיפה מרובות
+photo_merge.panorama = מיזוג תמונות לפנורמה
+photo_merge.translation = רק תנועת תמונה אופקית ואנכית (X/Y); אין סיבוב או תיקון פרספקטיבה.
+photo_merge.crop = חתוך לאזור משותף
+photo_merge.exposure_note = הגדר את החשיפה היחסית של כל תמונה: +1 EV פירושו פי שניים יותר אור. השבת את מיפוי גווני התמונה כדי לשמור על HDR של 32 סיביות.
+photo_merge.tone_map = מיפוי גווני תמונה
+photo_merge.order = השתמש בסדר של לשוניות המסמך הפתוחות. כל תמונת פנורמה חייבת לחפוף את התמונה הקודמת ב-25% לפחות.
+photo_merge.invalid = בחר 2–16 תמונות חוקיות ובדוק את הגדרות החשיפה.
+photo_merge.limit = מגבלה: 64 מיליון פיקסלים לתמונה או פלט, 128 מיליון בסך הכל; 30000 פיקסלים לכל צד.
+photo_merge.no_match = לא נמצאה חפיפה אמינה. השתמש בתמונות חופפות ללא שינויי סיבוב או פרספקטיבה.

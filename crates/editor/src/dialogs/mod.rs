@@ -30,6 +30,8 @@ mod mask_refine;
 mod models;
 mod new_doc;
 mod open;
+#[cfg(not(target_arch = "wasm32"))]
+mod photo_merge;
 #[cfg(not(sandboxed))]
 mod plugins;
 mod prefs;
@@ -111,6 +113,12 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
     // action while it builds, so Enter can fire it.
     ui::reset_default_action();
     let body = match modal {
+        #[cfg(not(target_arch = "wasm32"))]
+        Modal::PhotoMerge {
+            documents,
+            included,
+            options,
+        } => photo_merge::dialog(ws, documents, included, options, cx),
         #[cfg(not(target_arch = "wasm32"))]
         Modal::VersionHistory => crate::workspace::versions::dialog(ws, cx),
         Modal::CloudGenerate => crate::workspace::cloud_generation::dialog(ws, cx),

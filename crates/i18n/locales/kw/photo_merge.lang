@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Kesunya skeusennow…
+photo_merge.align = Unlina awtomatek
+photo_merge.focus = Kesunya skeusennow gans pellderow fokus dihaval
+photo_merge.hdr = HDR a eksposyansow dihaval
+photo_merge.panorama = Kesunya skeusennow yn panorama
+photo_merge.translation = Gwayansow a-dreus hag a-bann hepken (X/Y); troans ha perspektiv nyns yns ewnhys.
+photo_merge.crop = Treghi dhe'n aren kemmyn
+photo_merge.exposure_note = Gorra eksposyans kemmysyek pub skeusen: +1 EV = diwweyth an golow. Difuna mappya tonyow rag gwitha HDR 32-bit.
+photo_merge.tone_map = Mappya tonyow
+photo_merge.order = Skeusennow panorama a sew an ordyr a'n tabow; skeusennow war-lergh oosa res yw dhedha kavos 25% a aren kemmyn.
+photo_merge.invalid = Dewis 2–16 aven derow ha gwiria settyansow eksposyans.
+photo_merge.limit = Fin: 64 milvil piksel dre aven po sewyans, 128 milvil yn tien; 30000 piksel dre tu.
+photo_merge.no_match = Ny veu kevys aren kemmyn fydhyel. Devnydh skeusennow gans aren kemmyn heb troans po chanjyow perspektiv.

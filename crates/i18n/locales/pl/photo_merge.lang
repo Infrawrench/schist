@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = Połącz zdjęcia…
+photo_merge.align = Automatyczne wyrównanie
+photo_merge.focus = Łączenie głębi ostrości
+photo_merge.hdr = HDR z bracketingu
+photo_merge.panorama = Łączenie panoramy
+photo_merge.translation = Tylko przesunięcia poziome i pionowe (X/Y); obrót i perspektywa nie są korygowane.
+photo_merge.crop = Przytnij do wspólnego obszaru
+photo_merge.exposure_note = Ustaw względną ekspozycję każdego zdjęcia: +1 EV = dwa razy więcej światła. Wyłącz mapowanie tonów, aby zachować 32-bitowy HDR.
+photo_merge.tone_map = Mapowanie tonów
+photo_merge.order = Zdjęcia panoramy są przetwarzane w kolejności kart; kolejne zdjęcia muszą nakładać się co najmniej w 25%.
+photo_merge.invalid = Wybierz od 2 do 16 prawidłowych obrazów i sprawdź ustawienia ekspozycji.
+photo_merge.limit = Limit: 64 miliony pikseli na obraz lub wynik, łącznie 128 milionów; 30 000 pikseli na bok.
+photo_merge.no_match = Nie znaleziono wiarygodnego nakładania się. Użyj nakładających się zdjęć bez zmian obrotu lub perspektywy.

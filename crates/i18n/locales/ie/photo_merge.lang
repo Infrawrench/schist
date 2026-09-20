@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Fusionar fotos…
+photo_merge.align = Automatic alignament
+photo_merge.focus = Fusion de fotos con diferent distanties de foco
+photo_merge.hdr = HDR ex pluri expositiones
+photo_merge.panorama = Fusionar fotos in un panorama
+photo_merge.translation = Solmen horizontal e vertical movidas (X/Y); rotation e perspective ne es correctet.
+photo_merge.crop = Tonder al comun area
+photo_merge.exposure_note = Defini li relativ exposition de chascun foto: +1 EV = du vezes li luce. Desactiva li tonal mappament por conservar 32-bit HDR.
+photo_merge.tone_map = Tonal mappament
+photo_merge.order = Li fotos del panorama seque li órdine del tabules; consecutiv fotos besona adminim 25% de superposition.
+photo_merge.invalid = Selecte 2–16 valid images e controla li parametres de exposition.
+photo_merge.limit = Límite: 64 milliones de pixeles per image o resultate, 128 milliones in total; 30000 pixeles per látere.
+photo_merge.no_match = Null fidabil superposition trovat. Usa superposit fotos sin rotation o changes de perspective.

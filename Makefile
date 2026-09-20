@@ -154,6 +154,19 @@ APP_PACKAGES := $(foreach crate,$(APP_CRATES),-p schist-$(crate))
 .PHONY: check-app test-app lint-app check-app-web
 check-app:
 	$(CARGO) check $(APP_PACKAGES) --all-targets
+
+.PHONY: check-photo-merge test-photo-merge fmt-photo-merge lint-photo-merge
+check-photo-merge:
+	$(CARGO) check -p schist-photo-merge -p schist-editor --all-targets
+lint-photo-merge:
+	$(CARGO) clippy -p schist-photo-merge -p schist-editor -p schist-app-actions --all-targets -- -D warnings
+test-photo-merge:
+	$(CARGO) test -p schist-photo-merge
+.PHONY: test-photo-merge-editor
+test-photo-merge-editor:
+	$(CARGO) test -p schist-editor photo_merge::tests
+fmt-photo-merge:
+	$(CARGO) fmt -p schist-photo-merge -p schist-editor -p schist-app-actions
 test-app:
 	$(CARGO) test $(APP_PACKAGES)
 lint-app:

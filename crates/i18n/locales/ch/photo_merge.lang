@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Na'daña' i Litråtu siha…
+photo_merge.align = Automatic na inayek
+photo_merge.focus = Na'daña' i litråtu siha ni' diferentes i distansian-ñiha
+photo_merge.hdr = HDR ginen eksposision siha ni diferente
+photo_merge.panorama = Na'daña' i litråtu siha gi un panorama
+photo_merge.translation = I mobimienton i litråtu ha' gi i sanhilo' yan sanhilo' (X/Y); taya' rotasion pat inadilånto gi i punton lini'e'.
+photo_merge.crop = Na'lå'la' gi i lugåt ni' ma'a'agang
+photo_merge.exposure_note = Na'setbe i lina'la' kada litråtu: +1 EV kumeke'ilekña dos biåhi mas meggai na inina. Na'suha i tono gi i litråtu para un na'setbe i 32-bit HDR.
+photo_merge.tone_map = Mappa i tono gi i litråtu
+photo_merge.order = Usa i otden i mababa na dokumento siha. Kada na litråton panorama debi di u sotta i litråton fine'nina gi 25%.
+photo_merge.invalid = Na'i 2–16 na litråtu siha ya chek i setbisio siha put i inekspåkta.
+photo_merge.limit = Limit: 64 miyon na pixels gi kada imahen pat output, 128 miyon gi todu; 30000 na piksels gi kada banda.
+photo_merge.no_match = Ti ma sodda' i siña ma konfi'a na inafekta. Usa i litråtu siha ni' manma'a'ñao sin u fanma'a'ñao pat u fanma'a'ñao.

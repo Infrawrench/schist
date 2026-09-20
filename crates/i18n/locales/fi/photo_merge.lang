@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Yhdistä kuvat…
+photo_merge.align = Automaattinen kohdistus
+photo_merge.focus = Tarkennuspinoaminen
+photo_merge.hdr = HDR useilta valotustasoilta
+photo_merge.panorama = Panoraaman yhdistäminen
+photo_merge.translation = Vain vaaka- ja pystysuuntainen kuvan liike (X/Y); ei kiertoa tai perspektiivin korjausta.
+photo_merge.crop = Rajaa yhteiselle alueelle
+photo_merge.exposure_note = Aseta kunkin valokuvan suhteellinen valotus: +1 EV tarkoittaa kaksi kertaa enemmän valoa. Poista kuvan sävykartoitus käytöstä säilyttääksesi 32-bittisen HDR:n.
+photo_merge.tone_map = Kuvan sävykartoitus
+photo_merge.order = Panoraamakuvat seuraavat asiakirjavälilehtien järjestystä; peräkkäisten kuvien päällekkäisyyden on oltava vähintään 25%.
+photo_merge.invalid = Valitse 2–16 kelvollista kuvaa ja tarkista valotusasetukset.
+photo_merge.limit = Raja: 64 miljoonaa pikseliä kuvaa tai tulostetta kohden, yhteensä 128 miljoonaa; 30000 pikseliä per puoli.
+photo_merge.no_match = Luotettavaa päällekkäisyyttä ei löytynyt. Käytä päällekkäisiä kuvia ilman kiertoa tai perspektiivin muutoksia.

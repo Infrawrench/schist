@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Cumaisc Grianghraif…
+photo_merge.align = Ailíniú uathoibríoch
+photo_merge.focus = Cumaisc grianghraif le hachair fócais éagsúla
+photo_merge.hdr = HDR ó leibhéil nochta iolracha
+photo_merge.panorama = Cumaisc grianghraif i Lánléargas
+photo_merge.translation = Gluaiseacht íomhá chothrománach agus ingearach amháin (X/Y); gan aon uainíocht nó ceartú peirspictíochta.
+photo_merge.crop = Bearr go dtí an limistéar roinnte
+photo_merge.exposure_note = Socraigh nochtadh coibhneasta gach grianghraf: ciallaíonn +1 EV dhá oiread solais. Díchumasaigh mapáil ton íomhá chun HDR 32-giotán a chaomhnú.
+photo_merge.tone_map = Mapáil ton íomhá
+photo_merge.order = Bain úsáid as ord na gcluaisíní doiciméad oscailte. Caithfidh gach grianghraf lánléargais forluí ar a laghad 25% ar an ngrianghraf roimhe seo.
+photo_merge.invalid = Roghnaigh 2-16 íomhá bhailí agus seiceáil na socruithe nochta.
+photo_merge.limit = Teorainn: 64 milliún picteilín in aghaidh an íomhá nó an aschuir, 128 milliún san iomlán; 30000 picteilín in aghaidh an taobh.
+photo_merge.no_match = Níor aimsíodh aon fhorluí iontaofa. Úsáid grianghraif fhorluiteacha gan rothlú ná athruithe peirspictíochta.

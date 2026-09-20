@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Bashkoni fotot…
+photo_merge.align = Rreshtimi automatik
+photo_merge.focus = Bashkoni fotot me distanca të ndryshme fokusimi
+photo_merge.hdr = HDR nga nivele të shumta ekspozimi
+photo_merge.panorama = Bashkoni fotot në një panoramë
+photo_merge.translation = Vetëm lëvizja horizontale dhe vertikale e imazhit (X/Y); asnjë rotacion apo korrigjim i perspektivës.
+photo_merge.crop = Pritni në zonën e përbashkët
+photo_merge.exposure_note = Caktoni ekspozimin relativ të secilës foto: +1 EV do të thotë dy herë më shumë dritë. Çaktivizo hartën e tonit të imazhit për të ruajtur HDR 32-bit.
+photo_merge.tone_map = Harta e tonit të imazhit
+photo_merge.order = Përdorni rendin e skedave të hapura të dokumentit. Çdo foto panoramike duhet të mbivendoset me foton e mëparshme me të paktën 25%.
+photo_merge.invalid = Zgjidhni 2–16 imazhe të vlefshme dhe kontrolloni cilësimet e ekspozimit.
+photo_merge.limit = Kufiri: 64 milion piksele për imazh ose dalje, 128 milion gjithsej; 30000 piksele për anë.
+photo_merge.no_match = Nuk u gjet asnjë mbivendosje e besueshme. Përdorni foto të mbivendosura pa rrotullime ose ndryshime të perspektivës.

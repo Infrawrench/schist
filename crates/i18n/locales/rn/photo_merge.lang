@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Huza amafoto...
+photo_merge.align = Gutunganya ubwavyo
+photo_merge.focus = Guhuza amafoto afise uburebure butandukanye
+photo_merge.hdr = HDR kuva ku rwego rwinshi rwo gushirwa ahabona
+photo_merge.panorama = Gufatanya amafoto mu gishushanyo
+photo_merge.translation = Inyigisho y’ishusho iringaniye n’iyihagaze gusa (X/Y); nta guhinduranya canke gukosora ukuntu umuntu abona ibintu.
+photo_merge.crop = Gukura ku karere kasangiye
+photo_merge.exposure_note = Tegura ukuntu ifoto yose igaragara: +1 EV bisigura umuco ukubye kabiri. Guhagarika ikarita y'ijwi ry'ishusho kugira ngo uzigame 32-bit HDR.
+photo_merge.tone_map = Ikarita y'ijwi ry'ishusho
+photo_merge.order = Koresha urutonde rw'ibice vy'inyandiko yuguruye. Ifoto yose y’ibara ry’agahama itegerezwa gufatanya n’iyindi ya mbere n’imiburiburi 25%.
+photo_merge.invalid = Hitamwo amashusho 2–16 akwiriye maze usuzume uko ivyerekanwa vyashizweho.
+photo_merge.limit = Igitigiri: 64 miliyoni z’amapixels ku ishusho canke igisohoka, 128 miliyoni zose hamwe; 30000 ku ruhande.
+photo_merge.no_match = Nta n’ivyo kwizigirwa vyabonetse. Koresha amafoto apfutse ata guhindura canke guhindura ukuntu ubona ibintu.

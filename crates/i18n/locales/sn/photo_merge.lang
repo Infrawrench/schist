@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Batanidza Mifananidzo...
+photo_merge.align = Kugadzirisa otomatiki
+photo_merge.focus = Batanidza mafoto ane akasiyana ekutarisa madaro
+photo_merge.hdr = HDR kubva kumazinga akawanda ekuratidzwa
+photo_merge.panorama = Unganidza mafoto kuita panorama
+photo_merge.translation = Chete yakachinjika uye yakatwasuka mufananidzo kufamba (X/Y); hapana kutenderera kana maonero ekugadzirisa.
+photo_merge.crop = Khomera kunzvimbo yakagoverwa
+photo_merge.exposure_note = Seta ratidziro yemufananidzo wega wega: +1 EV inoreva chiedza chakapetwa kaviri. Dzima mamepu emazwi kuti uchengetedze 32-bit HDR.
+photo_merge.tone_map = Kuronga toni yemufananidzo
+photo_merge.order = Shandisa kurongeka kwematabo egwaro rakavhurika. Imwe neimwe yepanorama foto inofanirwa kupindirana neiyo yapfuura foto neinosvika 25%.
+photo_merge.invalid = Sarudza 2-16 mifananidzo inoshanda uye tarisa maratidziro ekuratidzwa.
+photo_merge.limit = Limit: 64 miriyoni pixels pamufananidzo kana kubuda, 128 miriyoni yakazara; 30000 pixels padivi.
+photo_merge.no_match = Hapana kupindirana kwakavimbika kwawanikwa. Shandisa mapikicha anopindirana pasina kutenderera kana shanduko yemaonero.

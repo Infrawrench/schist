@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Joenem ol foto…
+photo_merge.align = Stretem ples blong ol foto otomatik
+photo_merge.focus = Joenem ol foto we fokus blong olgeta i long defren distens
+photo_merge.hdr = HDR long ol defren eksposa
+photo_merge.panorama = Joenem ol foto blong mekem panorama
+photo_merge.translation = Muvim foto i go long saed o antap mo daon nomo (X/Y); i no stretem tanem o perspektiv.
+photo_merge.crop = Katemaot kasem eria we ol foto i serem
+photo_merge.exposure_note = Putum eksposa blong wanwan foto: +1 EV = laet we i tu taem moa. Ofem tone mapping blong holem 32-bit HDR.
+photo_merge.tone_map = Jenisim ton blong pikja
+photo_merge.order = Ol panorama foto i folem oda blong ol tab; wanwan foto i mas serem 25% o moa blong eria wetem foto bifo hem.
+photo_merge.invalid = Jusum 2–16 foto we i stret mo jekem ol eksposa setting.
+photo_merge.limit = Limit: 64 milian piksel long wan foto o risal, 128 milian evriwan; 30000 piksel long wan saed.
+photo_merge.no_match = I no faenem eria we ol foto i serem we i stret. Yusum ol foto we i serem eria mo we i no tanem o jenisim perspektiv.

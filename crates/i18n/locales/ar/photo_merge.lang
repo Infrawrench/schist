@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = دمج الصور…
+photo_merge.align = محاذاة تلقائية
+photo_merge.focus = تكديس التركيز
+photo_merge.hdr = HDR بتعريضات متدرجة
+photo_merge.panorama = دمج الصور البانورامية
+photo_merge.translation = إزاحة أفقية ورأسية فقط (X/Y)؛ لا يتم تصحيح الدوران أو المنظور.
+photo_merge.crop = اقتصاص إلى المنطقة المشتركة
+photo_merge.exposure_note = اضبط التعريض النسبي لكل لقطة: ‎+1 EV يعني ضعف الضوء. عطّل تعيين الدرجات اللونية للاحتفاظ بصيغة HDR بعمق 32 بت.
+photo_merge.tone_map = تعيين الدرجات اللونية
+photo_merge.order = تتبع صور البانوراما ترتيب علامات التبويب؛ يجب أن تتداخل الصور المتتالية بنسبة 25% على الأقل.
+photo_merge.invalid = اختر من 2 إلى 16 صورة صالحة وتحقق من إعدادات التعريض.
+photo_merge.limit = الحد الأقصى: 64 مليون بكسل لكل صورة أو ناتج، و128 مليونًا إجمالًا؛ 30,000 بكسل لكل جانب.
+photo_merge.no_match = لم يتم العثور على تداخل موثوق. استخدم صورًا متداخلة دون تغييرات في الدوران أو المنظور.

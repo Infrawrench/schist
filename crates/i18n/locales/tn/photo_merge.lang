@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Kopanya Dinepe...
+photo_merge.align = Go tlhamalatsa ka go itirisa
+photo_merge.focus = Kopanya dinepe tse di nang le sekgala se se farologaneng sa tsepamiso
+photo_merge.hdr = HDR go tswa mo maemong a mantsi a go tlhagelela
+photo_merge.panorama = Kopanya dinepe go nna panorama
+photo_merge.translation = Fela motsamao wa setshwantsho se se rapaletseng le se se emeng (X/Y); ga go na go dikologa kgotsa go baakanya pono.
+photo_merge.crop = Sega go ya kwa lefelong le le tlhakanetsweng
+photo_merge.exposure_note = Seta go tlhagelela ga senepe sengwe le sengwe: +1 EV e raya lesedi le le menaganeng gabedi. Thibela mmapa wa segalo sa setshwantsho go boloka HDR ya 32-bit.
+photo_merge.tone_map = Mmapa wa modumo wa setshwantsho
+photo_merge.order = Dirisa tatelano ya dithebo tsa tokomane e e bulegileng. Senepe sengwe le sengwe sa panorama se tshwanetse go kopana le senepe se se fetileng ka bonnye 25%.
+photo_merge.invalid = Tlhopha ditshwantsho di le 2–16 tse di siameng mme o tlhole dipeakanyo tsa go tlhagelela.
+photo_merge.limit = Tekanyetso: dipiksele di le dimilione di le 64 ka setshwantsho kgotsa dipholo, palogotlhe ya dimilione di le 128; 30000 dipikselse ka lehlakoreng.
+photo_merge.no_match = Ga go a fitlhelwa go kopana go go ikanyegang. Dirisa dinepe tse di tshwaraganeng kwantle ga go dikolosa kgotsa go fetola pono.

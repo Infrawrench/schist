@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = Ghép ảnh…
+photo_merge.align = Căn chỉnh tự động
+photo_merge.focus = Chồng ảnh lấy nét
+photo_merge.hdr = HDR từ chuỗi phơi sáng
+photo_merge.panorama = Ghép ảnh toàn cảnh
+photo_merge.translation = Chỉ dịch chuyển ngang và dọc (X/Y); không hiệu chỉnh góc xoay và phối cảnh.
+photo_merge.crop = Cắt theo vùng chung
+photo_merge.exposure_note = Đặt mức phơi sáng tương đối của mỗi ảnh: +1 EV = gấp đôi lượng ánh sáng. Tắt ánh xạ tông màu để giữ HDR 32 bit.
+photo_merge.tone_map = Ánh xạ tông màu
+photo_merge.order = Ảnh toàn cảnh được xử lý theo thứ tự tab; các ảnh liên tiếp phải chồng lấp ít nhất 25%.
+photo_merge.invalid = Chọn 2–16 ảnh hợp lệ và kiểm tra thiết lập phơi sáng.
+photo_merge.limit = Giới hạn: 64 triệu điểm ảnh cho mỗi ảnh hoặc đầu ra, tổng cộng 128 triệu; 30.000 điểm ảnh mỗi cạnh.
+photo_merge.no_match = Không tìm thấy vùng chồng lấp đáng tin cậy. Hãy dùng ảnh chồng lấp không có thay đổi về góc xoay hoặc phối cảnh.

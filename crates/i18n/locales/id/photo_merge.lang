@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = Gabungkan foto…
+photo_merge.align = Penyelarasan otomatis
+photo_merge.focus = Penumpukan fokus
+photo_merge.hdr = HDR dari braket pencahayaan
+photo_merge.panorama = Penyambungan panorama
+photo_merge.translation = Hanya pergeseran horizontal dan vertikal (X/Y); rotasi dan perspektif tidak dikoreksi.
+photo_merge.crop = Pangkas ke area bersama
+photo_merge.exposure_note = Atur pencahayaan relatif setiap foto: +1 EV = dua kali jumlah cahaya. Nonaktifkan pemetaan nada untuk mempertahankan HDR 32-bit.
+photo_merge.tone_map = Pemetaan nada
+photo_merge.order = Foto panorama mengikuti urutan tab; foto berurutan harus bertumpang tindih setidaknya 25%.
+photo_merge.invalid = Pilih 2–16 gambar yang valid dan periksa pengaturan pencahayaan.
+photo_merge.limit = Batas: 64 juta piksel per gambar atau keluaran, total 128 juta; 30.000 piksel per sisi.
+photo_merge.no_match = Tidak ditemukan tumpang tindih yang andal. Gunakan foto yang bertumpang tindih tanpa perubahan rotasi atau perspektif.

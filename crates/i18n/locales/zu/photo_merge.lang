@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Hlanganisa Izithombe...
+photo_merge.align = Ukuqondanisa okuzenzakalelayo
+photo_merge.focus = Hlanganisa izithombe namabanga ahlukene wokugxila
+photo_merge.hdr = I-HDR evela kumaleveli okuchayeka amaningi
+photo_merge.panorama = Hlanganisa izithombe zibe panorama
+photo_merge.translation = Ukunyakaza kwesithombe esivundlile nesiqondile kuphela (X/Y); akukho ukuzungezisa noma ukulungiswa kombono.
+photo_merge.crop = Nqampuna endaweni okwabelwana ngayo
+photo_merge.exposure_note = Setha ukuchayeka okuhlobene kwesithombe ngasinye: +1 EV isho ukukhanya okuphindwe kabili. Khubaza imephu yethoni yesithombe ukuze ulondoloze i-32-bit HDR.
+photo_merge.tone_map = Imephu yethoni yesithombe
+photo_merge.order = Sebenzisa ukuhleleka kwamathebhu edokhumenti evuliwe. Isithombe ngasinye sepanorama kufanele sidlule isithombe sangaphambilini okungenani ngo-25%.
+photo_merge.invalid = Khetha izithombe ezivumelekile ezingu-2–16 bese uhlola izilungiselelo zokuchayeka.
+photo_merge.limit = Umkhawulo: amaphikseli ayizigidi ezingu-64 isithombe ngasinye noma okukhiphayo, izigidi ezingu-128 sezizonke; 30000 amaphikseli ohlangothini ngalunye.
+photo_merge.no_match = Akukho ukugqagqana okuthembekile okutholiwe. Sebenzisa izithombe ezigqagqene ngaphandle kokuzungezisa noma izinguquko zokubuka.

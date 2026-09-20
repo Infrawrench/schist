@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Fotoları birləşdirin...
+photo_merge.align = Avtomatik hizalama
+photo_merge.focus = Müxtəlif fokus məsafələri ilə fotoşəkilləri birləşdirin
+photo_merge.hdr = Çoxlu ifşa səviyyəsindən HDR
+photo_merge.panorama = Şəkilləri panoramada birləşdirin
+photo_merge.translation = Yalnız üfüqi və şaquli təsvirin hərəkəti (X/Y); fırlanma və ya perspektiv korreksiyası yoxdur.
+photo_merge.crop = Paylaşılan sahəyə kəsin
+photo_merge.exposure_note = Hər bir fotoşəkilin nisbi ekspozisiyasını təyin edin: +1 EV iki dəfə çox işıq deməkdir. 32-bit HDR-ni qorumaq üçün şəkil tonunun xəritələşdirilməsini deaktiv edin.
+photo_merge.tone_map = Şəkil tonunun xəritələşdirilməsi
+photo_merge.order = Açıq sənəd nişanlarının sırasını istifadə edin. Hər panorama şəkli əvvəlki fotoşəkillə ən azı 25% üst-üstə düşməlidir.
+photo_merge.invalid = 2–16 etibarlı şəkil seçin və ekspozisiya parametrlərini yoxlayın.
+photo_merge.limit = Limit: hər şəkil və ya çıxış üçün 64 milyon piksel, cəmi 128 milyon; Hər tərəfə 30000 piksel.
+photo_merge.no_match = Etibarlı üst-üstə düşmə tapılmadı. Fırlanma və perspektiv dəyişiklikləri olmadan üst-üstə düşən fotolardan istifadə edin.

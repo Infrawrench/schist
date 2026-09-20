@@ -6739,6 +6739,7 @@ dependencies = [
  "schist-map-view",
  "schist-mcp",
  "schist-neural",
+ "schist-photo-merge",
  "schist-plugin-api",
  "schist-plugin-host-8bf",
  "schist-plugin-host-wasm",
@@ -6905,6 +6906,10 @@ dependencies = [
  "sha2 0.10.9",
  "tract-onnx",
 ]
+
+[[package]]
+name = "schist-photo-merge"
+version = "0.14.0"
 
 [[package]]
 name = "schist-pixel-ops"

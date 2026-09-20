@@ -3,6 +3,7 @@ resolver = "2"
 # Example plugins compile to wasm32-unknown-unknown, not the host target.
 exclude = ["examples/plugins/sepia-filter", "examples/plugins/pgm-codec"]
 members = [
+    "crates/photo-merge",
     "crates/app",
     "crates/gallery-ui",
     "crates/map-view",
@@ -66,6 +67,7 @@ license = "MIT"
 repository = "https://github.com/Infrawrench/schist"
 
 [workspace.dependencies]
+schist-photo-merge = { path = "crates/photo-merge" }
 # internal
 schist-gallery-ui = { path = "crates/gallery-ui" }
 schist-map-view = { path = "crates/map-view" }

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Atambatra sary…
+photo_merge.align = Fandrindrana mandeha ho azy
+photo_merge.focus = Atambatra ny sary miaraka amin'ny halaviran'ny fifantohana samihafa
+photo_merge.hdr = HDR avy amin'ny ambaratonga fampirantiana maro
+photo_merge.panorama = Atambatra ho panorama
+photo_merge.translation = Hetsika mitsivalana sy mitsangana ihany (X/Y); tsy misy fihodinana na fanitsiana fomba fijery.
+photo_merge.crop = Tetehina amin'ny faritra iarahana
+photo_merge.exposure_note = Ampidiro ny famirapiratry ny sary tsirairay: +1 EV midika hoe avo roa heny noho ny hazavana. Atsaharo ny fanaovana sarin-tsarin-tsary mba hitahiry HDR 32-bit.
+photo_merge.tone_map = Fametahana tonon-tsary
+photo_merge.order = Ampiasao ny filaharan'ny tabilao misokatra. Ny sary panorama tsirairay dia tsy maintsy mifanipaka amin'ny sary teo aloha farafahakeliny 25%.
+photo_merge.invalid = Mifidiana sary manan-kery 2–16 ary jereo ny firafitry ny famirapiratana.
+photo_merge.limit = fetra: 64 tapitrisa pixel isaky ny sary na vokatra, 128 tapitrisa total; 30000 pixel isaky ny lafiny.
+photo_merge.no_match = Tsy hita mifanipaka azo antoka. Mampiasà sary mifanindry tsy misy fihodinana na fiovan'ny fomba fijery.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Merge Mfonini ahorow...
+photo_merge.align = Nneɛma a wɔde hyɛ mu a ɛyɛ adwuma ankasa
+photo_merge.focus = Fa mfonini ahorow a ɛsono sɛnea wode w’adwene si biribi so bom
+photo_merge.hdr = HDR fi mpɛn pii a wɔda no adi
+photo_merge.panorama = Fa mfonini ahorow bom yɛ no panorama
+photo_merge.translation = Mfonini a ɛkɔ soro ne nea ɛda fam nkutoo (X/Y); rotation anaa adwene a wɔde teɛteɛ nneɛma biara nni hɔ.
+photo_merge.crop = Nnuadewa kɔ beae a wɔkyɛ
+photo_merge.exposure_note = Set mfonini biara relative exposure: +1 EV kyerɛ sɛ hann a ɛboro so mmɔho abien. Ma mfonini nne mapping nyɛ adwuma na ama woakora 32-bit HDR so.
+photo_merge.tone_map = Mfonini nne mapping
+photo_merge.order = Fa nhyehyɛe a ɛwɔ document tabs a wɔabue no mu di dwuma. Ɛsɛ sɛ panorama mfonini biara kata mfonini a atwam no so anyɛ yiye koraa no 25%.
+photo_merge.invalid = Paw mfonini 2–16 a ɛfata na hwɛ nhyehyɛe a wɔde da no adi.
+photo_merge.limit = Anohyeto: Pixels ɔpepem 64 wɔ mfonini anaa nea efi mu ba biara mu, ne nyinaa yɛ ɔpepem 128; 30000 piksel wɔ ɔfã biara.
+photo_merge.no_match = Wonhuu nea ɛka bom a wotumi de ho to so biara. Fa mfonini ahorow a ɛka bom di dwuma a wonkyinkyin anaasɛ ɛnsakra sɛnea wohwɛ nneɛma.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Fusionar las fòtos...
+photo_merge.align = Alinhament automatic
+photo_merge.focus = Fusionar de fòtos amb de distàncias d'enfocament diferentas
+photo_merge.hdr = HDR dempuèi de nivèls d'exposicion multiples
+photo_merge.panorama = Fusionar de fòtos dins un panorama
+photo_merge.translation = Sonque movement d'imatge orizontal e vertical (X/Y); pas de rotacion o de correccion de perspectiva.
+photo_merge.crop = Recortar a l'airal partejat
+photo_merge.exposure_note = Definissètz l'exposicion relativa de cada fòto: +1 EV significa lo doble de lutz. Desactivar lo mapament del ton de l'imatge per preservar l'HDR de 32 bits.
+photo_merge.tone_map = Mapatge del ton de l'imatge
+photo_merge.order = Utilizar l'òrdre dels onglets de document dobèrt. Cada fòto panorama deu se superpausar a la fòto precedenta d'almens 25%.
+photo_merge.invalid = Seleccionatz 2-16 imatges valides e verificatz los paramètres d'exposicion.
+photo_merge.limit = Limit: 64 milions de pixèls per imatge o sortida, 128 milions en total; 30000 pixèls per costat.
+photo_merge.no_match = Pas cap de superposicion fisabla trobada. Utilizar de fòtos superpausadas sens rotacion o cambiaments de perspectiva.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Gabungkan Foto…
+photo_merge.align = Penjajaran automatik
+photo_merge.focus = Gabungkan foto dengan jarak fokus yang berbeza
+photo_merge.hdr = HDR daripada pelbagai tahap pendedahan
+photo_merge.panorama = Gabungkan foto menjadi panorama
+photo_merge.translation = Hanya pergerakan imej mendatar dan menegak (X/Y); tiada putaran atau pembetulan perspektif.
+photo_merge.crop = Pangkas ke kawasan kongsi
+photo_merge.exposure_note = Tetapkan pendedahan relatif setiap foto: +1 EV bermakna dua kali lebih banyak cahaya. Lumpuhkan pemetaan nada imej untuk mengekalkan HDR 32-bit.
+photo_merge.tone_map = Pemetaan nada imej
+photo_merge.order = Gunakan susunan tab dokumen terbuka. Setiap foto panorama mesti bertindih dengan foto sebelumnya sekurang-kurangnya 25%.
+photo_merge.invalid = Pilih 2–16 imej yang sah dan semak tetapan pendedahan.
+photo_merge.limit = Had: 64 juta piksel setiap imej atau output, 128 juta jumlah; 30000 piksel setiap sisi.
+photo_merge.no_match = Tiada pertindihan yang boleh dipercayai ditemui. Gunakan foto bertindih tanpa putaran atau perubahan perspektif.

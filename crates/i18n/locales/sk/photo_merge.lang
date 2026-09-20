@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Zlúčiť fotografie…
+photo_merge.align = Automatické zarovnanie
+photo_merge.focus = Skladanie ostrosti
+photo_merge.hdr = HDR z viacerých expozícií
+photo_merge.panorama = Skladanie panorámy
+photo_merge.translation = Iba vodorovné a zvislé posuny (X/Y); otočenie a perspektíva sa neopravujú.
+photo_merge.crop = Orezať do zdieľanej oblasti
+photo_merge.exposure_note = Nastavte relatívnu expozíciu každej fotografie: +1 EV znamená dvakrát viac svetla. Ak chcete zachovať 32-bitové HDR, vypnite mapovanie tónov obrazu.
+photo_merge.tone_map = Mapovanie tónov obrazu
+photo_merge.order = Panoramatické fotografie sa spracujú v poradí kariet dokumentov; každá fotografia musí prekrývať predchádzajúcu aspoň o 25%.
+photo_merge.invalid = Vyberte 2–16 platných obrázkov a skontrolujte nastavenia expozície.
+photo_merge.limit = Limit: 64 miliónov pixelov na obrázok alebo výstup, celkovo 128 miliónov; 30 000 pixelov na stranu.
+photo_merge.no_match = Nenašlo sa žiadne spoľahlivé prekrytie. Použite prekrývajúce sa fotografie bez otočenia alebo zmeny perspektívy.

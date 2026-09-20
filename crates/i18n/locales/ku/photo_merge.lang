@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Wêneyan bihev bike…
+photo_merge.align = Lihevkirina otomatîk
+photo_merge.focus = Wêneyên bi dûrahiyên balkêş ên cihêreng bi hev re bikin
+photo_merge.hdr = HDR ji gelek astên pêşangehê
+photo_merge.panorama = Wêneyan di panoramayekê de bikin yek
+photo_merge.translation = Tenê tevgera wêneya horizontal û vertîkal (X/Y); rotasyon an rastkirina perspektîfê tune.
+photo_merge.crop = Biçînin qada hevpar
+photo_merge.exposure_note = Nîşandana têkildar a her wêneyê bicîh bikin: +1 EV tê wateya du caran ronahiyê. Nexşeya tonê wêneyê neçalak bike da ku HDR 32-bit biparêze.
+photo_merge.tone_map = Nexşeya tonê wêneyê
+photo_merge.order = Rêzkirina tabloyên belgeyên vekirî bikar bînin. Pêdivî ye ku her wêneyek panorama herî kêm %25 wêneyê berê li hev bigire.
+photo_merge.invalid = 2-16 wêneyên derbasdar hilbijêrin û mîhengên pêşandanê kontrol bikin.
+photo_merge.limit = Sînor: 64 mîlyon pixel ji her wêne an encamek, 128 mîlyon bi tevahî; 30000 pixel li her aliyekî.
+photo_merge.no_match = Hevbendiyek pêbawer nehat dîtin. Wêneyên hevgirtî bêyî zivirandin an guhertinên perspektîfê bikar bînin.

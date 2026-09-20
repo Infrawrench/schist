@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Jikota foto…
+photo_merge.align = Ndozi akpaaka
+photo_merge.focus = Jikọta foto nwere anya nlebara anya dị iche iche
+photo_merge.hdr = HDR sitere na ọkwa mkpughe ọtụtụ
+photo_merge.panorama = Jikọọ foto na panorama
+photo_merge.translation = Naanị mmegharị onyonyo kwụ ọtọ na kwụ ọtọ (X/Y); enweghị ntụgharị ma ọ bụ ngbanwe echiche.
+photo_merge.crop = Kpoo ihe na mpaghara nkekọrịta
+photo_merge.exposure_note = Tọọ mkpughe nke foto ọ bụla: +1 EV pụtara ìhè okpukpu abụọ. Gbanyụọ nkewa ụda onyonyo iji chekwaa 32-bit HDR.
+photo_merge.tone_map = Nkewa ụda onyonyo
+photo_merge.order = Jiri usoro nke taabụ akwụkwọ mepere emepe. Foto panorama ọ bụla ga-ekpuchirịrị foto gara aga ma ọ dịkarịa ala 25%.
+photo_merge.invalid = Họrọ onyonyo 2–16 dị irè wee lelee ntọala mkpughe.
+photo_merge.limit = Oke: 64 nde pikselụ maka onyonyo ma ọ bụ mmepụta, ngụkọta nde 128; 30000 pikselụ kwa akụkụ.
+photo_merge.no_match = Ọnweghị ndakọ a pụrụ ịdabere na ya. Jiri foto ndị kpuchiri ekpuchi na-enweghị ntụgharị ma ọ bụ mgbanwe echiche.

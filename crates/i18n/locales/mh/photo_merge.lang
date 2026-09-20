@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Kobaik pija ko...
+photo_merge.align = Kōtōbrak pija ko make
+photo_merge.focus = Kobaik pija ko ippāñ joñan ettol ko reoktak jen dron
+photo_merge.hdr = HDR jen elōñ joñan meram ko
+photo_merge.panorama = Kobaik pija ko ñan juon panorama
+photo_merge.translation = Ej wōt m̧akūtkūt in pija ko rejim̧we im rejim̧we (X/Y); ejelok oktak ak kōkmmanmanlok.
+photo_merge.crop = Crop ñan jikin eo rej kōjerbale
+photo_merge.exposure_note = Kōmman joñan meram eo an kajjojo pija: +1 EV ej melelen ruo alen an laplok meram. Kōjepel pija ko ñan kōjparok 32-bit HDR.
+photo_merge.tone_map = HDR → sRGB (0…1)
+photo_merge.order = Kōjerbal laajrak in peba ko rej bellok. Kajjojo pija in panorama ej aikuj in laplok jen pija eo mokta kin 25%.
+photo_merge.invalid = Kālet 2-16 pija ko rejimwe im lale joñan an maroñ in alikar.
+photo_merge.limit = joñan: 64 milien pixel ko ilo juon pija ak output, 128 milien aolep; 30000 pixel ko ilo juon side.
+photo_merge.no_match = Ejelok overlap eo emman kar loe. Kōjerbal pija ko rej koba ippān doon ilo ejjeļo̧k oktak ak oktak in wāween am̧ lale.

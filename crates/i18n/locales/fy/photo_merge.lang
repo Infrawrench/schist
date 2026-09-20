@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Foto's gearfoegje...
+photo_merge.align = Automatyske ôfstimming
+photo_merge.focus = Foto's gearfoegje mei ferskate fokusôfstannen
+photo_merge.hdr = HDR fan meardere eksposysjenivo's
+photo_merge.panorama = Foegje foto's ta in panorama
+photo_merge.translation = Allinne horizontale en fertikale ôfbylding beweging (X / Y); gjin rotaasje of perspektyf korreksje.
+photo_merge.crop = Crop nei dielde gebiet
+photo_merge.exposure_note = Stel de relative eksposysje fan elke foto yn: +1 EV betsjut twa kear safolle ljocht. Skeakelje ôfbyldingtoanmapping út om 32-bit HDR te behâlden.
+photo_merge.tone_map = Ofbylding toan mapping
+photo_merge.order = Brûk de folchoarder fan de iepen dokumint ljeppers. Elke panoramafoto moat de foarige foto op syn minst 25% oerlaapje.
+photo_merge.invalid = Selektearje 2–16 jildige ôfbyldings en kontrolearje de eksposysjeynstellingen.
+photo_merge.limit = Limyt: 64 miljoen piksels per ôfbylding as útfier, 128 miljoen totaal; 30000 piksels per side.
+photo_merge.no_match = Gjin betroubere oerlaap fûn. Brûk oerlappende foto's sûnder rotaasje of perspektyfwizigingen.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Cyfuno Lluniau…
+photo_merge.align = Aliniad awtomatig
+photo_merge.focus = Cyfuno lluniau gyda phellteroedd ffocws gwahanol
+photo_merge.hdr = HDR o lefelau amlygiad lluosog
+photo_merge.panorama = Cyfuno lluniau i banorama
+photo_merge.translation = Dim ond symudiad delwedd llorweddol a fertigol (X/Y); dim cylchdro na chywiro persbectif.
+photo_merge.crop = Tocio i ardal a rennir
+photo_merge.exposure_note = Gosodwch amlygiad cymharol pob llun: +1 Mae EV yn golygu dwywaith cymaint o olau. Analluogi mapio tôn delwedd i gadw HDR 32-did.
+photo_merge.tone_map = Mapio tôn delwedd
+photo_merge.order = Defnyddiwch drefn y tabiau dogfen agored. Rhaid i bob llun panorama orgyffwrdd â'r llun blaenorol o leiaf 25%.
+photo_merge.invalid = Dewiswch 2-16 delwedd ddilys a gwiriwch y gosodiadau datguddiad.
+photo_merge.limit = Terfyn: 64 miliwn picsel fesul delwedd neu allbwn, cyfanswm o 128 miliwn; 30000 picsel yr ochr.
+photo_merge.no_match = Ni chanfuwyd unrhyw orgyffwrdd dibynadwy. Defnyddiwch luniau sy'n gorgyffwrdd heb gylchdro neu newidiadau persbectif.

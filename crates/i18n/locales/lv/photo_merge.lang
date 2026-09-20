@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Apvienot fotoattēlus…
+photo_merge.align = Automātiska izlīdzināšana
+photo_merge.focus = Apvienojiet fotoattēlus ar dažādiem fokusa attālumiem
+photo_merge.hdr = HDR no vairākiem ekspozīcijas līmeņiem
+photo_merge.panorama = Apvienojiet fotoattēlus panorāmā
+photo_merge.translation = Tikai horizontāla un vertikāla attēla kustība (X/Y); nav rotācijas vai perspektīvas korekcijas.
+photo_merge.crop = Apgriezt koplietojamā apgabalā
+photo_merge.exposure_note = Iestatiet katra fotoattēla relatīvo ekspozīciju: +1 EV nozīmē divreiz vairāk gaismas. Atspējojiet attēla toņu kartēšanu, lai saglabātu 32 bitu HDR.
+photo_merge.tone_map = Attēla toņu kartēšana
+photo_merge.order = Izmantojiet atvērto dokumentu ciļņu secību. Katram panorāmas fotoattēlam ir jāpārklājas ar iepriekšējo fotoattēlu vismaz par 25%.
+photo_merge.invalid = Izvēlieties 2–16 derīgus attēlus un pārbaudiet ekspozīcijas iestatījumus.
+photo_merge.limit = Ierobežojums: 64 miljoni pikseļu vienā attēlā vai izvadē, kopā 128 miljoni; 30000 pikseļi katrā pusē.
+photo_merge.no_match = Nav atrasta uzticama pārklāšanās. Izmantojiet fotoattēlus, kas pārklājas, negriežot vai nemainot perspektīvu.

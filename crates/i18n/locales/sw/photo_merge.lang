@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Unganisha Picha...
+photo_merge.align = Upangaji wa kiotomatiki
+photo_merge.focus = Unganisha picha na umbali tofauti wa kuzingatia
+photo_merge.hdr = HDR kutoka viwango vingi vya kukaribia aliyeambukizwa
+photo_merge.panorama = Unganisha picha kwenye panorama
+photo_merge.translation = Harakati ya picha ya usawa na wima pekee (X/Y); hakuna mzunguko au marekebisho ya mtazamo.
+photo_merge.crop = Punguza hadi eneo la pamoja
+photo_merge.exposure_note = Weka mwangaza wa karibu wa kila picha: +1 EV inamaanisha mwanga mara mbili zaidi. Lemaza uchoraji wa picha za picha ili kuhifadhi 32-bit HDR.
+photo_merge.tone_map = Upangaji wa picha za sauti
+photo_merge.order = Tumia mpangilio wa vichupo vya hati wazi. Kila picha ya panorama lazima ipitishe picha ya awali kwa angalau 25%.
+photo_merge.invalid = Chagua picha 2–16 halali na uangalie mipangilio ya kukaribia aliyeambukizwa.
+photo_merge.limit = Kikomo: saizi milioni 64 kwa kila picha au pato, jumla ya milioni 128; Pikseli 30000 kwa kila upande.
+photo_merge.no_match = Hakuna mwingiliano wa kuaminika uliopatikana. Tumia picha zinazopishana bila mzunguko au mabadiliko ya mtazamo.

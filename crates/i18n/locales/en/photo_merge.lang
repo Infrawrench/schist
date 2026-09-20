@@ -1,0 +1,14 @@
+# Selected-document registration and photographic merging.
+photo_merge.title = Merge Photos…
+photo_merge.align = Automatic alignment
+photo_merge.focus = Focus stacking
+photo_merge.hdr = Bracketed HDR
+photo_merge.panorama = Panorama stitching
+photo_merge.translation = Only horizontal and vertical shifts (X/Y); rotation and perspective are not corrected.
+photo_merge.crop = Crop to shared area
+photo_merge.exposure_note = Set each capture's relative exposure: +1 EV = twice the light. Disable tone mapping to keep 32-bit HDR.
+photo_merge.tone_map = Tone mapping
+photo_merge.order = Panorama inputs follow tab order; consecutive photos need at least 25% overlap.
+photo_merge.invalid = Select 2–16 valid images and check the exposure settings.
+photo_merge.limit = Limit: 64 million pixels per image or output, 128 million total; 30,000 pixels per side.
+photo_merge.no_match = No reliable overlap found. Use overlapping photos without rotation or perspective changes.

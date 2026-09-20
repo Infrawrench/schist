@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Ovttastahttit govaid...
+photo_merge.align = Automáhtalaš njuolggadus
+photo_merge.focus = Ovttastahttit govaid main leat iešguđetlágan fokusgaskkat
+photo_merge.hdr = HDR máŋgga eksponerendásis
+photo_merge.panorama = Ovttastahttit govaid panorama
+photo_merge.translation = Dušše horisontála ja vertikála govvalihkadus (X/Y); ii leat vuorrováikkuhus dahje perspektiiva rievdadus.
+photo_merge.crop = Čuovvut juogaduvvon guovllus
+photo_merge.exposure_note = Bija juohke gova relatiiva eksponerema: +1 EV mearkkaša guovtte geardde eanet čuovgga. Deaktivere gova jietnakártema vai 32-bit HDR seailluhuvvo.
+photo_merge.tone_map = HDR → sRGB (0…1)
+photo_merge.order = Geavat rabas dokumeantatávvaliid ortnega. Juohke panoramagovva galgá unnimusat 25% gokčat ovddit gova.
+photo_merge.invalid = Vállje 2–16 dohkálaš gova ja dárkkista eksponerenheivehemiid.
+photo_merge.limit = Rádji: 64 miljovnna piksela juohke govas dahje ovdanbuktimis, oktiibuot 128 miljovnna; 30000 piksela juohke bealde.
+photo_merge.no_match = Ii gávdnon luohtehahtti ovttastahttin. Geavat ovttastuvvon govaid almmá jorggiheami dahje perspektiivva rievdadusaid haga.

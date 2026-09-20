@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Dibanisa Iifoto...
+photo_merge.align = Ulungelelwaniso oluzenzekelayo
+photo_merge.focus = Dibanisa iifoto ezinemigama eyahlukileyo yokugxila
+photo_merge.hdr = I-HDR ukusuka kumanqanaba amaninzi okuvezwa
+photo_merge.panorama = Hlanganisa iifoto kwipanorama
+photo_merge.translation = Kuphela intshukumo yomfanekiso othe tye kunye nothe nkqo (X/Y); akukho jikelezo okanye ukulungiswa kwembono.
+photo_merge.crop = Nciphisa kwindawo ekwabelwana ngayo
+photo_merge.exposure_note = Cwangcisa ukubonakaliswa kwefoto nganye: +1 EV ithetha ukukhanya okuphindwe kabini. Khubaza imephu yethowuni yomfanekiso ukugcina i-32-bit HDR.
+photo_merge.tone_map = Imaphu yethowuni yomfanekiso
+photo_merge.order = Sebenzisa ulandelelwano lweethebhu zoxwebhu oluvulekileyo. Ifoto nganye yepanorama kufuneka inxibelelane nefoto yangaphambili ubuncinane ngama-25%.
+photo_merge.invalid = Khetha 2–16 imifanekiso esebenzayo kwaye ujonge useto lokuvezwa.
+photo_merge.limit = Umda: 64 yezigidi pixels ngomfanekiso okanye imveliso, 128 yezigidi iyonke; 30000 pixels kwicala ngalinye.
+photo_merge.no_match = Akukho magqiyo athembekileyo afunyenweyo. Sebenzisa iifoto ezidlulayo ngaphandle kokujikeleza okanye utshintsho kwimbono.

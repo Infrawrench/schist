@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Kendeuziñ luc'hskeudennoù...
+photo_merge.align = Aliañ emgefre
+photo_merge.focus = Kendeuziñ luc'hskeudennoù gant pellderioù skoueriekaat disheñvel
+photo_merge.hdr = HDR diwar meur a live ezporzhiañ
+photo_merge.panorama = Kendeuziñ luc'hskeudennoù en ur panorama
+photo_merge.translation = N'eus nemet lusk ar skeudenn a-led hag a-serzh (X/Y); troiadur ebet pe reizhadenn perspektiv ebet.
+photo_merge.crop = Troc'hañ d'an dachenn rannet
+photo_merge.exposure_note = Lakaat an doare da welet pep luc'hskeudenn : +1 EV a dalvez div wech muioc'h a sklêrijenn. Diweredekaat kartennaouiñ tonioù ar skeudennoù evit mirout an HDR 32 bit.
+photo_merge.tone_map = Kartennaouiñ tonioù ar skeudennoù
+photo_merge.order = Implijit urzh an ivinelloù teul digor. Pep luc'hskeudenn panorama a rank bezañ 25% da nebeutañ ouzh al luc'hskeudenn a-raok.
+photo_merge.invalid = Dibabit 2–16 skeudenn reizh ha gwiriit arventennoù an diskouezadur.
+photo_merge.limit = Bevenn : 64 milion a pikseloù dre skeudenn pe disoc'h, 128 milion en holl ; 30000 piksel dre gostez.
+photo_merge.no_match = N'eus bet kavet un dreuzkiz fiziañs ebet. Implijout luc'hskeudennoù a-gevret hep troiñ pe cheñch perspektiv.

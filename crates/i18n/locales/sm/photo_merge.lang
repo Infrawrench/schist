@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Tuu faatasi Ata…
+photo_merge.align = Otometi fa'aoga
+photo_merge.focus = Fa'atasia ata ma 'ese'ese mamao e taula'i ai
+photo_merge.hdr = HDR mai le tele o tulaga faʻaalia
+photo_merge.panorama = Tuu faatasi ata i se panorama
+photo_merge.translation = Na'o le fa'alava ma le fa'agaoioiga ata (X/Y); leai se suiga po'o se fa'asa'oga.
+photo_merge.crop = Fa'ato'a i le vaega fa'asoa
+photo_merge.exposure_note = Seti le fa'aalia o ata ta'itasi: +1 EV o lona uiga fa'aluaina le tele o le malamalama. Fa'agata le fa'afanua leo o ata e fa'asao ai le 32-bit HDR.
+photo_merge.tone_map = Fa'afanua leo ata
+photo_merge.order = Fa'aoga le fa'asologa o fa'amaufa'ailoga o lo'o tatala. O ata panorama ta'itasi e tatau ona fa'apipi'i le ata muamua e le itiiti ifo i le 25%.
+photo_merge.invalid = Filifili 2–16 ata aoga ma siaki tulaga fa'aalia.
+photo_merge.limit = Tapulaa: 64 miliona pika i le ata poʻo le gaosiga, 128 miliona le aofaʻi; 30000 pika ile itu.
+photo_merge.no_match = Leai se fa'alagolago fa'atasi na maua. Fa'aoga ata fa'apipi'i e aunoa ma se suiga po'o suiga va'aiga.

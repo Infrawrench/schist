@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Auni fotografias…
+photo_merge.align = Allineamentu automàticu
+photo_merge.focus = Auni fotografias cun distàntzias de focus diferentes
+photo_merge.hdr = HDR dae espositziones diferentes
+photo_merge.panorama = Auni fotografias in unu panorama
+photo_merge.translation = Iscambiamentos orizontales e verticales ebbia (X/Y); rotatzione e prospetiva non sunt curregidas.
+photo_merge.crop = Retza a s'àrea comuna
+photo_merge.exposure_note = Imposta s'espositzione relativa de cada fotografia: +1 EV = su dòpiu de lughe. Disativa sa mappadura de tonos pro mantènnere HDR de 32 bits.
+photo_merge.tone_map = Mappadura de tonos
+photo_merge.order = Sas fotografias de su panorama sighint s'òrdine de sas ischedas; sas fotografias consecutivas depent coincìdere pro a su mancu su 25%.
+photo_merge.invalid = Seletziona 2–16 imàgines vàlidas e controlla sas impostatziones de espositzione.
+photo_merge.limit = Lìmite: 64 milliones de pixels pro imàgine o resultadu, 128 milliones in totale; 30000 pixels pro costadu.
+photo_merge.no_match = Peruna coincidentzia fidàbile agatada. Imprea fotografias coincidentes chene rotatzione o càmbios de prospetiva.

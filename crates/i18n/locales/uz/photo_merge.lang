@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Rasmlarni birlashtirish…
+photo_merge.align = Avtomatik tekislash
+photo_merge.focus = Turli fokus masofalari bilan fotosuratlarni birlashtiring
+photo_merge.hdr = Ko'p ta'sir darajasidan HDR
+photo_merge.panorama = Rasmlarni panoramaga birlashtiring
+photo_merge.translation = Faqat gorizontal va vertikal tasvir harakati (X/Y); aylanish yoki istiqbolni tuzatish yo'q.
+photo_merge.crop = Umumiy hududga kesish
+photo_merge.exposure_note = Har bir fotosuratning nisbiy ekspozitsiyasini o'rnating: +1 EV ikki barobar ko'p yorug'likni anglatadi. 32-bitli HDRni saqlab qolish uchun tasvir ohangini xaritalashni o‘chirib qo‘ying.
+photo_merge.tone_map = Rasm ohangini xaritalash
+photo_merge.order = Ochiq hujjat yorliqlari tartibidan foydalaning. Har bir panorama fotosurati oldingi suratga kamida 25% ga toʻgʻri kelishi kerak.
+photo_merge.invalid = 2–16 ta yaroqli tasvirni tanlang va ekspozitsiya sozlamalarini tekshiring.
+photo_merge.limit = Cheklov: har bir tasvir yoki chiqish uchun 64 million piksel, jami 128 million; Har bir tomonda 30000 piksel.
+photo_merge.no_match = Ishonchli oʻxshashlik topilmadi. Burilmasdan yoki istiqbolni o'zgartirmasdan bir-biriga o'xshash fotosuratlardan foydalaning.

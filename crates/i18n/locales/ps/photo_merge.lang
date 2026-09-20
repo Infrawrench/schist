@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = عکسونه یوځای کړئ…
+photo_merge.align = اتوماتیک سمون
+photo_merge.focus = عکسونه د مختلف تمرکز واټنونو سره یوځای کړئ
+photo_merge.hdr = د ډیری افشا کولو کچې څخه HDR
+photo_merge.panorama = عکسونه په پینوراما کې یوځای کړئ
+photo_merge.translation = یوازې افقی او عمودی عکس حرکت (X/Y)؛ هیڅ گردش یا لید سمون نشته.
+photo_merge.crop = ګډې ساحې ته کښت کړئ
+photo_merge.exposure_note = د هر عکس نسبي افشا کول تنظیم کړئ: +1 EV معنی دوه چنده ډیر رڼا. د 32-bit HDR ساتلو لپاره د عکس ټون نقشه کول غیر فعال کړئ.
+photo_merge.tone_map = د انځور ټون نقشه کول
+photo_merge.order = د خلاص سند ټبونو ترتیب وکاروئ. هر پینوراما عکس باید لږ تر لږه 25٪ تیر عکس پورته کړي.
+photo_merge.invalid = 2-16 معتبر عکسونه غوره کړئ او د افشا کولو ترتیبات چیک کړئ.
+photo_merge.limit = حد: په هر عکس یا محصول کې 64 ملیون پکسلز، 128 ملیون ټول؛ په هر اړخ کې 30000 پکسلز.
+photo_merge.no_match = د باور وړ اوورلیپ ونه موندل شو. د څرخیدو یا لید بدلونونو پرته د متقابل عکسونو څخه کار واخلئ.

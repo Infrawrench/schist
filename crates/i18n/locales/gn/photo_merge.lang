@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Ombojoaju Ta'ãngamýi...
+photo_merge.align = Alineación automática rehegua
+photo_merge.focus = Embojoaju taꞌãngamýi iñambuéva enfoque distancia reheve
+photo_merge.hdr = HDR heta nivel de exposición-gui
+photo_merge.panorama = Embojoaju ta’ãngamýi peteĩ panorama-pe
+photo_merge.translation = Taꞌãngamýi ñemonguꞌe horizontal ha vertical añoite (X/Y); ndaipóri rotación ni corrección perspectiva rehegua.
+photo_merge.crop = Ñemitỹ área compartida peve
+photo_merge.exposure_note = Emohenda peteĩteĩ taꞌãngamýi exposición relativa: +1 EV heꞌise mokõi jey hetave tesape. Embogue taꞌãngamýi tono mapeo eñongatu hag̃ua HDR 32 bits.
+photo_merge.tone_map = Taꞌãngamýi tono rehegua mapeo
+photo_merge.order = Eipuru pe orden umi ficha kuatia ojepe’áva rehegua. Káda taꞌãngamýi panorama rehegua oñembojeheꞌavaꞌerã taꞌãngamýi mboyvegua rehe por lo menos 25%.
+photo_merge.invalid = Eiporavo 2–16 taꞌãngamýi añetegua ha ehecha umi exposición ñemboheko.
+photo_merge.limit = Límite: 64 sua píxel peteĩ taꞌãngamýi térã osëva rehe, 128 sua opaite; 30000 píxel peteĩ lado-pe.
+photo_merge.no_match = Ndojejuhúi solapamiento ojeroviakuaáva. Eipuru taꞌãngamýi oñembojoajúva rotación térã perspectiva ñemoambueꞌeỹre.

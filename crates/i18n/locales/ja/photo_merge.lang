@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = 写真を合成…
+photo_merge.align = 自動位置合わせ
+photo_merge.focus = フォーカス合成
+photo_merge.hdr = ブラケットHDR
+photo_merge.panorama = パノラマ合成
+photo_merge.translation = 水平・垂直方向の移動（X/Y）のみ対応しています。回転や遠近のずれは補正されません。
+photo_merge.crop = 共通領域に切り抜く
+photo_merge.exposure_note = 各写真の相対露出を設定します。+1 EVは光量が2倍です。32ビットHDRを保持するにはトーンマッピングを無効にしてください。
+photo_merge.tone_map = トーンマッピング
+photo_merge.order = パノラマ写真はタブの順序で処理されます。隣り合う写真には25%以上の重なりが必要です。
+photo_merge.invalid = 有効な画像を2～16枚選択し、露出設定を確認してください。
+photo_merge.limit = 上限：画像または出力ごとに6400万ピクセル、合計1億2800万ピクセル。各辺は30,000ピクセルまでです。
+photo_merge.no_match = 信頼できる重なりが見つかりません。回転や遠近の変化がない、重なりのある写真を使用してください。

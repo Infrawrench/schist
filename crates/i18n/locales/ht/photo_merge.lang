@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Rantre foto yo...
+photo_merge.align = Otomatik aliyman
+photo_merge.focus = Rantre foto ak diferan distans konsantre
+photo_merge.hdr = HDR soti nan plizyè nivo ekspoze
+photo_merge.panorama = Rantre foto yo nan yon panorama
+photo_merge.translation = Se sèlman mouvman imaj orizontal ak vètikal (X/Y); pa gen okenn wotasyon oswa koreksyon pèspektiv.
+photo_merge.crop = Koupe nan zòn pataje
+photo_merge.exposure_note = Mete ekspozisyon relatif chak foto: +1 EV vle di de fwa plis limyè. Enfim kat ton imaj pou konsève HDR 32-bit.
+photo_merge.tone_map = Kat ton imaj
+photo_merge.order = Sèvi ak lòd onglet dokiman yo louvri. Chak foto panorama dwe sipèpoze foto anvan an pa omwen 25%.
+photo_merge.invalid = Chwazi 2–16 imaj valab epi tcheke paramèt ekspozisyon yo.
+photo_merge.limit = Limit: 64 milyon piksèl pou chak imaj oswa pwodiksyon, 128 milyon total; 30000 piksèl pou chak bò.
+photo_merge.no_match = Pa gen okenn sipèpoze serye yo jwenn. Sèvi ak foto ki sipèpoze san yo pa wotasyon oswa chanjman pèspektiv.

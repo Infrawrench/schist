@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Isku dar Sawirada…
+photo_merge.align = Toos u toosin
+photo_merge.focus = Ku biir sawiro leh fogaan diirada saara oo kala duwan
+photo_merge.hdr = HDR oo ka yimid heerar badan oo soo-gaadhis ah
+photo_merge.panorama = Ku biir sawirada muuqaal muuqaal ah
+photo_merge.translation = Dhaqdhaqaaq muuqaal toosan iyo toosan oo keliya (X/Y); ma wareego ama sixitaan aragti.
+photo_merge.crop = Dalag ilaa aagga la wadaago
+photo_merge.exposure_note = Deji soo-gaadhis qaraabo ah oo sawir kasta: +1 EV macnaheedu waa laba jeer ka badan iftiinka. Dami khariidaynta codka sawirka si aad u ilaaliso 32-bit HDR.
+photo_merge.tone_map = Khariidaynta codka sawirka
+photo_merge.order = Isticmaal nidaamka tabs dukumeenti furan. Sawir kasta oo panorama ah waa inuu ku dul-kordho sawirkii hore ugu yaraan 25%.
+photo_merge.invalid = Dooro 2-16 sawir oo sax ah oo hubi goobaha soo-gaadhista.
+photo_merge.limit = Xadka: 64 milyan oo pixels sawirkii ama wax soo saarkiiba, 128 milyan wadarta; 30000 pixels dhinac kasta.
+photo_merge.no_match = Lama helin isku-xidhnaan la isku halayn karo Isticmaal sawiro is dulsaaran adiga oo aan isbedelin ama aragti isbedelin.

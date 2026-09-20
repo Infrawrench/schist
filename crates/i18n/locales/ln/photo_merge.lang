@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Kosangisa ba photos...
+photo_merge.align = Alignment automatique ya kosala
+photo_merge.focus = Sangisa ba photos na ba distances ya focus ekeseni
+photo_merge.hdr = HDR uta na ba niveaux ya exposition ebele
+photo_merge.panorama = Sangisa ba photos na panorama
+photo_merge.translation = Kaka mouvement horizontal mpe vertical ya image (X/Y); rotation to correction ya perspective te.
+photo_merge.crop = Kolona na esika oyo bakabolaka
+photo_merge.exposure_note = Set exposition relative ya photo moko na moko: +1 EV elakisi deux fois plus de lumière. Désactiver cartographie ya ton ya image mpo na kobatela HDR ya 32 bits.
+photo_merge.tone_map = Cartographie ya ton ya bilili
+photo_merge.order = Salelá molɔngɔ ya ba onglets ya mikanda oyo efungwami. Fɔtɔ́ mokomoko ya panorama esengeli kozipa fɔtɔ́ ya liboso na ata 25%.
+photo_merge.invalid = Pona 2–16 bilili ya malamu mpe tala ba paramètres ya exposition.
+photo_merge.limit = Limite: 64 millions ya ba pixels na image to sortie moko, 128 millions total; 30000 pixels na ngambo moko.
+photo_merge.no_match = Bozindisi ya kotyela motema ezwami te. Salelá bafɔtɔ oyo ezali kozipa yango kozanga ete obongola bafɔtɔ to obongola ndenge oyo ozali kotala.

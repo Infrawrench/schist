@@ -162,6 +162,8 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 App(t("menu.image.auto_tone"), AutoTone, None),
                 App(t("menu.image.auto_contrast"), AutoContrast, None),
                 App(t("menu.image.auto_color"), AutoColor, None),
+                #[cfg(not(target_arch = "wasm32"))]
+                App(t("photo_merge.title"), PhotoMerge, None),
                 Sep,
                 App(t("menu.image.image_size"), ImageSize, Some("cmd-alt-i")),
                 App(t("menu.image.canvas_size"), CanvasSize, Some("cmd-alt-c")),

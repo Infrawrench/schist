@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Suratlary birleşdirmek…
+photo_merge.align = Awtomatiki deňleşdirme
+photo_merge.focus = Suratlary dürli fokus aralyklary bilen birleşdiriň
+photo_merge.hdr = Birnäçe täsir derejesinden HDR
+photo_merge.panorama = Suratlary panorama birleşdiriň
+photo_merge.translation = Diňe kesel we dik şekil hereketi (X / Y); aýlanma ýa-da perspektiwaly düzediş ýok.
+photo_merge.crop = Umumy meýdana ekin
+photo_merge.exposure_note = Her fotosuratyň degişlilikde täsirini düzüň: +1 EV iki esse köp ýagtylygy aňladýar. 32 bitli HDR-ni saklamak üçin şekil äheňiniň kartasyny öçüriň.
+photo_merge.tone_map = Surat äheňiniň kartasy
+photo_merge.order = Açyk resminama bellikleriniň tertibini ulanyň. Her panorama suraty, öňki suraty azyndan 25% örtmeli.
+photo_merge.invalid = 2-16 sany dogry suraty saýlaň we täsir ediş sazlamalaryny barlaň.
+photo_merge.limit = Çäk: Surat ýa-da çykyş üçin 64 million piksel, jemi 128 million; Bir tarapa 30000 piksel.
+photo_merge.no_match = Ygtybarly gabat gelmedi. Bir-birine gabat gelýän suratlary aýlanma ýa-da perspektiwaly üýtgeşmeler bolmazdan ulanyň.

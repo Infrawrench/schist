@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Hanumi Whakaahua…
+photo_merge.align = Tirohanga aunoa
+photo_merge.focus = Hanumi whakaahua me nga tawhiti arotahi rereke
+photo_merge.hdr = HDR mai i nga taumata whakakitenga maha
+photo_merge.panorama = Hanumi whakaahua ki te panorama
+photo_merge.translation = Ko te nekehanga whakaahua whakapae me te poutū anake (X/Y); kahore he hurihanga, he whakatika tirohanga.
+photo_merge.crop = Porohia ki te waahi tiritahi
+photo_merge.exposure_note = Tautuhia te whakakitenga o ia whakaahua: +1 EV te tikanga e rua te nui ake o te marama. Monokia te mapi oro ahua hei pupuri i te HDR 32-bit.
+photo_merge.tone_map = Mahere oro ahua
+photo_merge.order = Whakamahia te raupapa o nga ripa tuhinga tuwhera. Me inaki ia whakaahua panorama i te whakaahua o mua ma te 25%.
+photo_merge.invalid = Tīpakohia te 2–16 whakaahua whaimana ka tirohia nga tautuhinga whakaaturanga.
+photo_merge.limit = Tepe: 64 miriona pika mo ia ahua, putanga ranei, 128 miriona katoa; 30000 pika mo ia taha.
+photo_merge.no_match = Kaore i kitea he inaki pono. Whakamahia nga whakaahua inaki kaore he hurihanga, he huringa tirohanga.

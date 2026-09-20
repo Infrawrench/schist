@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Combinar fotos…
+photo_merge.align = Alineación automatica
+photo_merge.focus = Apilar fotos con diferents distancias de foco
+photo_merge.hdr = HDR de diferents exposicions
+photo_merge.panorama = Combinar fotos en un panorama
+photo_merge.translation = Nomás desplazamientos horizontals y verticals (X/Y); no se corrixen a rotación ni a perspectiva.
+photo_merge.crop = Retallar a l'aria comuna
+photo_merge.exposure_note = Estableixe a exposición relativa de cada foto: +1 EV = o doble de luz. Desactiva o mapeyo de tons ta conservar HDR de 32 bits.
+photo_merge.tone_map = Mapeyo de tons
+photo_merge.order = As fotos d'o panorama siguen l'orden d'as pestanyas; as fotos consecutivas han de solapar-se a lo menos un 25%.
+photo_merge.invalid = Tría 2–16 imachens validas y compreba os achustes d'exposición.
+photo_merge.limit = Limite: 64 millons de pixels por imachen u resultau, 128 millons en total; 30000 pixels por costau.
+photo_merge.no_match = No s'ha trobau un solapamiento fiable. Usa fotos solapadas sin rotación ni cambios de perspectiva.

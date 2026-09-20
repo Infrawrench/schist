@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Cuir còmhla dealbhan…
+photo_merge.align = Co-thaobhadh fèin-ghluasadach
+photo_merge.focus = Cuir còmhla dealbhan le diofar astaran fòcas
+photo_merge.hdr = HDR bho ioma-ìrean nochdaidh
+photo_merge.panorama = Cuir còmhla dealbhan ann am panorama
+photo_merge.translation = A-mhàin gluasad ìomhaigh còmhnard is dìreach (X / Y); chan eil cuairteachadh no ceartachadh sealladh.
+photo_merge.crop = Bàrr gu àite roinnte
+photo_merge.exposure_note = Suidhich foillseachadh buntainneach gach dealbh: tha +1 EV a’ ciallachadh a dhà uimhir de sholas. Cuir à comas mapadh tòna ìomhaigh gus HDR 32-bit a ghleidheadh.
+photo_merge.tone_map = Clàradh tòna ìomhaigh
+photo_merge.order = Cleachd òrdugh nan tabaichean sgrìobhainn fosgailte. Feumaidh gach dealbh panorama a dhol thairis air an dealbh roimhe le co-dhiù 25%.
+photo_merge.invalid = Tagh 2-16 ìomhaighean dligheach agus thoir sùil air na roghainnean nochdaidh.
+photo_merge.limit = Crìochan: 64 millean piogsail gach ìomhaigh no toradh, 128 millean gu h-iomlan; 30000 piogsail gach taobh.
+photo_merge.no_match = Cha deach tar-lùbadh earbsach a lorg. Cleachd dealbhan a tha a’ dol thairis air gun cuairteachadh no atharrachaidhean seallaidh.

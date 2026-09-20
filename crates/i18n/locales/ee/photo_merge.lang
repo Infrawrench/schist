@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Tsɔ Fotowo ƒo ƒui...
+photo_merge.align = Nusiwo wowɔna ɖe ɖoɖo nu le wo ɖokui si
+photo_merge.focus = Tsɔ foto siwo ƒe ŋkume ƒe didime to vovo la ƒo ƒui
+photo_merge.hdr = HDR tso nukpɔkpɔ ƒe ɖoɖo vovovowo me
+photo_merge.panorama = Tsɔ fotowo ƒo ƒu wòazu nukpɔkpɔ si me wokpɔa nu le
+photo_merge.translation = Nɔnɔmetata ƒe ʋuʋu le tsia dzi kple esi le tsitrenu koe (X/Y); tɔtrɔ alo nukpɔsusu ɖɔɖɔɖo aɖeke meli o.
+photo_merge.crop = Agblemenuku yi teƒe si woama
+photo_merge.exposure_note = Ðo foto ɖesiaɖe ƒe keklẽ si sɔ: +1 EV fia kekeli si sɔ gbɔ wu zi gbɔ zi eve. Trɔ nɔnɔmetata ƒe gbeɖiɖi ƒe nɔnɔmetata wɔwɔ be nàkpɔ 32-bit HDR ta.
+photo_merge.tone_map = Nɔnɔmetata ƒe gbeɖiɖi ƒe nɔnɔmetata
+photo_merge.order = Zã ɖoɖo si nu nuŋlɔɖi ƒe tab siwo woʋu la le. Ele be panorama foto ɖesiaɖe natsɔ 25% ya teti aƒo foto si do ŋgɔ la nu.
+photo_merge.invalid = Tia nɔnɔmetata 2–16 siwo sɔ eye nàlé ŋku ɖe nukpɔkpɔ ƒe ɖoɖowo ŋu.
+photo_merge.limit = Seɖoƒe: Piksel miliɔn 64 le nɔnɔmetata alo emetsonu ɖesiaɖe me, miliɔn 128 le wo katã me; 30000 piksel le axa ɖeka dzi.
+photo_merge.no_match = Womekpɔ nusiwo katã sɔ kple wo nɔewo si ŋu kakaɖedzi le o. Zã foto siwo ƒo xlã wo nɔewo evɔ màtrɔ asi le wo ŋu alo atrɔ woƒe nukpɔsusu o.

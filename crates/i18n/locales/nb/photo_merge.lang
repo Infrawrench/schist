@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Slå sammen bilder …
+photo_merge.align = Automatisk justering
+photo_merge.focus = Fokusstabling
+photo_merge.hdr = HDR fra flere eksponeringsnivåer
+photo_merge.panorama = Panoramasammensying
+photo_merge.translation = Kun horisontal og vertikal bildebevegelse (X/Y); ingen rotasjon eller perspektivkorrigering.
+photo_merge.crop = Beskjær til felles område
+photo_merge.exposure_note = Still inn hvert bildes relative eksponering: +1 EV betyr dobbelt så mye lys. Deaktiver bildetonemapping for å bevare 32-bits HDR.
+photo_merge.tone_map = Kartlegging av bildetoner
+photo_merge.order = Panoramabildene følger rekkefølgen på dokumentfanene; påfølgende bilder trenger minst 25% overlapping.
+photo_merge.invalid = Velg 2–16 gyldige bilder og kontroller eksponeringsinnstillingene.
+photo_merge.limit = Grense: 64 millioner piksler per bilde eller utgang, 128 millioner totalt; 30 000 piksler per side.
+photo_merge.no_match = Fant ingen pålitelig overlapping. Bruk overlappende bilder uten rotasjon eller perspektivendringer.

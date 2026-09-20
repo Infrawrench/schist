@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Fotow fara ɲɔgɔn kan...
+photo_merge.align = Alignment otomatiki (otomatiki) la
+photo_merge.focus = Aw bɛ fotow fara ɲɔgɔn kan ni u ɲɛsincogo yɔrɔjanw tɛ kelen ye
+photo_merge.hdr = HDR ka bɔ jiracogo caman na
+photo_merge.panorama = Aw bɛ fotow fara ɲɔgɔn kan ka kɛ panorama ye
+photo_merge.translation = Ja lamagacogo tilennen ni jɔlen dɔrɔn (X/Y); jiginni walima filɛlicogo latilenni tɛ.
+photo_merge.crop = Sɛnɛfɛnw ka taa yɔrɔ jɛlen na
+photo_merge.exposure_note = Foto kelen-kelen bɛɛ ka ɲɛfɔli danfaralen sigi: +1 EV kɔrɔ ye yeelen hakɛ ye siɲɛ fila. Ja ton kartili bali walasa ka 32-bit HDR mara.
+photo_merge.tone_map = Jaa ton karti
+photo_merge.order = Baara kɛ ni sɛbɛn da wulilenw tablɛtiw sigicogo ye. Panorama foto kelen-kelen bɛɛ ka kan ka foto tɛmɛnen da ɲɔgɔn kan ni 25% ye a dɔgɔyalenba la.
+photo_merge.invalid = Ja 2–16 minnu bɛ se ka kɛ, olu sugandi ani ka u jiracogo lajɛ.
+photo_merge.limit = Dan: pixel miliyɔn 64 ja walima bɔli kelen na, miliyɔn 128 bɛɛ lajɛlen; 30000 ye pixel ye fan kelen fɛ.
+photo_merge.no_match = Daɲɛ min bɛ se ka da a kan, o si ma sɔrɔ. Baara kɛ ni fotow ye minnu bɛ ɲɔgɔn kan, k’a sɔrɔ i ma fɛn caman wuli walima k’u filɛcogo Changer.

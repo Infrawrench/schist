@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Fakataha'i 'a e ngaahi 'ata...
+photo_merge.align = Fakatonutonu 'otometiki
+photo_merge.focus = Fakataha'i 'a e ngaahi 'ata mo e ngaahi mama'o kehekehe 'o e tokanga
+photo_merge.hdr = HDR mei he ngaahi tu'unga faka'ali'ali lahi .
+photo_merge.panorama = Fakataha'i 'a e ngaahi 'ata ki ha panorama
+photo_merge.translation = Ko e ngaue fakahosite mo e tu'u 'o e 'imisi pe (X/Y); 'ikai ha rotation pe fakatonutonu 'o e fakakaukau.
+photo_merge.crop = Ngoue ki he feitu'u vahevahe
+photo_merge.exposure_note = Seti 'a e 'ata takitaha 'o e faka'ali'ali fakafekau'aki: +1 EV 'oku 'uhinga ia ki he liunga ua 'o e lahi 'o e maama. Fakata'e'aonga'i 'a e mape 'o e le'o 'o e 'imisi ke tauhi 'a e 32-si'isi'i HDR.
+photo_merge.tone_map = Mape le'o 'o e 'imisi
+photo_merge.order = Fakaʻaongaʻi ʻa e hokohoko ʻo e ngaahi tabs ʻo e tohi ʻoku fakaava. Kuo pau ke 'overlap 'a e 'ata panorama takitaha 'i he 'ata kimu'a 'aki 'a e 25%.
+photo_merge.invalid = Fili ha ngaahi ʻata ʻe 2–16 ʻoku ʻaonga pea vakaiʻi ʻa e ngaahi tuʻunga ʻo e fakaʻaliʻalí.
+photo_merge.limit = Fakangatangata: 64 miliona pixels ki he 'imisi pe output, 128 miliona fakakatoa; 30000 pixels ki he tafa'aki.
+photo_merge.no_match = Naʻe ʻikai ke maʻu ha ʻoverlap falalaʻanga. Fakaʻaongaʻi ha ngaahi ʻata ʻoku ʻolunga ʻo ʻikai ha vilo pe liliu ʻo e fakakaukau.

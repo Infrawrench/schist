@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Suuraalee Walitti Makamuu...
+photo_merge.align = Ofumaan qindaa'uu
+photo_merge.focus = Suuraalee fageenya xiyyeeffannoo adda addaa qaban walitti makuu
+photo_merge.hdr = HDR sadarkaa saaxilamummaa dachaa irraa
+photo_merge.panorama = Suuraalee gara panoramaatti walitti makuu
+photo_merge.translation = Sochii fakkii qajeelaa fi dhaabbataa qofa (X/Y); naanneffamuu ykn sirreeffama ilaalchaa hin qabu.
+photo_merge.crop = Midhaan gara naannoo waliin fayyadamanitti
+photo_merge.exposure_note = Tokkoon tokkoon suuraa saaxilamummaa fira saagi: +1 EV jechuun ifa dachaa lama caalu jechuudha. HDR 32-bit eeguuf kaartaa sagalee fakkii hanqisi.
+photo_merge.tone_map = Kaartaa sagalee fakkii
+photo_merge.order = Tartiiba caancaloota galmee banaa fayyadami. Tokkoon tokkoon suuraa panoramaa suuraa duraa yoo xiqqaate %25n wal-irra bu'uu qaba.
+photo_merge.invalid = Fakkiiwwan sirrii 2–16 filadhuutii qindaa'inoota saaxilamummaa ilaali.
+photo_merge.limit = Daangaa: Fakkii ykn oomisha tokkoof piikselii miliyoona 64, waliigala miliyoona 128; Gama tokkoon piikselii 30000.
+photo_merge.no_match = Wal-irra bu’iinsi amanamaa hin argamne. Suuraalee wal-irratti wal-caalan osoo hin naanneffamne ykn jijjiirama ilaalchaa hin fayyadamin fayyadami.

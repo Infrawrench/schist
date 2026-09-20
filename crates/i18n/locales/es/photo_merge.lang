@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = Combinar fotos…
+photo_merge.align = Alineación automática
+photo_merge.focus = Apilamiento de enfoque
+photo_merge.hdr = HDR con exposiciones escalonadas
+photo_merge.panorama = Unión panorámica
+photo_merge.translation = Solo desplazamientos horizontales y verticales (X/Y); no se corrigen la rotación ni la perspectiva.
+photo_merge.crop = Recortar al área común
+photo_merge.exposure_note = Ajusta la exposición relativa de cada toma: +1 EV = el doble de luz. Desactiva el mapeo de tonos para conservar el HDR de 32 bits.
+photo_merge.tone_map = Mapeo de tonos
+photo_merge.order = Las imágenes panorámicas siguen el orden de las pestañas; las fotos consecutivas deben solaparse al menos un 25%.
+photo_merge.invalid = Selecciona entre 2 y 16 imágenes válidas y comprueba los ajustes de exposición.
+photo_merge.limit = Límite: 64 millones de píxeles por imagen o resultado, 128 millones en total; 30.000 píxeles por lado.
+photo_merge.no_match = No se encontró un solapamiento fiable. Usa fotos solapadas sin cambios de rotación ni de perspectiva.
