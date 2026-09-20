@@ -2,8 +2,8 @@
 //! when nothing is running. It reads what the app wrote — the library
 //! file, the scan of its folders, the index snapshot — and can write
 //! buckets back. It cannot see selection or grouping (those are the
-//! window's), and it never indexes: photos the app has not looked at
-//! are simply unscored here.
+//! window's). It refreshes textual metadata from sidecars, but does not
+//! run visual indexing: photos the app has not looked at remain unscored.
 
 use crate::geo::find_place;
 use crate::index::{read_index_snapshot, IndexRow};

@@ -260,6 +260,7 @@ pub struct Library {
     /// Distinguishes modal requests from earlier saves still finishing.
     pub(super) metadata_edit_generation: u64,
     metadata_text: FxHashMap<PathBuf, String>,
+    metadata_ready: FxHashSet<PathBuf>,
     /// Whether the gallery view is showing instead of the editor.
     pub open: bool,
     /// The watched folder roots, persisted.
@@ -563,6 +564,7 @@ impl Library {
             metadata_generation: 0,
             metadata_edit_generation: 0,
             metadata_text: FxHashMap::default(),
+            metadata_ready: FxHashSet::default(),
             taken: FxHashMap::default(),
             places: FxHashMap::default(),
             faces: FxHashMap::default(),
@@ -1393,10 +1395,12 @@ impl Library {
 
     pub(super) fn apply_metadata_rows(&mut self, rows: Vec<(PathBuf, PhotoMeta, String)>) {
         self.metadata_text.clear();
+        self.metadata_ready.clear();
         for (path, meta, text) in rows {
             if !self.by_path.contains_key(&path) {
                 continue;
             }
+            self.metadata_ready.insert(path.clone());
             self.positions.insert(path.clone(), meta.gps);
             if let Some(taken) = meta.taken {
                 self.taken.insert(path.clone(), taken);
@@ -1409,6 +1413,19 @@ impl Library {
             }
         }
         self.index_gen += 1;
+    }
+
+    /// A thumbnail started before an XMP save must not overwrite the newer
+    /// metadata refresh, especially a deliberately cleared capture time.
+    fn apply_loader_metadata(&mut self, path: &Path, meta: PhotoMeta) {
+        if self.metadata_ready.contains(path) {
+            return;
+        }
+        self.positions.insert(path.to_path_buf(), meta.gps);
+        if let Some(taken) = meta.taken {
+            self.taken.insert(path.to_path_buf(), taken);
+        }
+        self.places.insert(path.to_path_buf(), meta.place);
     }
 
     fn metadata_hits(&self, query: &str) -> Vec<PathBuf> {
@@ -2899,11 +2916,7 @@ impl Workspace {
                     if let Some(vector) = outcome.embedding {
                         ws.library.embeddings.insert(key.clone(), Arc::new(vector));
                     }
-                    ws.library.positions.insert(key.clone(), outcome.meta.gps);
-                    if let Some(taken) = outcome.meta.taken {
-                        ws.library.taken.insert(key.clone(), taken);
-                    }
-                    ws.library.places.insert(key.clone(), outcome.meta.place);
+                    ws.library.apply_loader_metadata(&key, outcome.meta);
                     if let Some(faces) = outcome.faces {
                         if !faces.is_empty() {
                             new_faces.push(key.clone());
@@ -5161,6 +5174,19 @@ mod tests {
         assert!(!lib.taken.contains_key(&path));
         assert_eq!(lib.positions.get(&path), Some(&None));
         assert!(lib.search_snapshot().metadata_text.is_empty());
+        lib.apply_loader_metadata(
+            &path,
+            PhotoMeta {
+                gps: Some((1.0, 2.0)),
+                taken: Some("old".into()),
+                place: Some("old".into()),
+            },
+        );
+        assert!(
+            !lib.taken.contains_key(&path),
+            "late thumbnail must not resurrect a cleared time"
+        );
+        assert_eq!(lib.positions.get(&path), Some(&None));
     }
 }
 
