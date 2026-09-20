@@ -1303,7 +1303,7 @@ impl ToolPlugin for PaintTool {
         if symmetry.mode != schist_plugin_api::SymmetryMode::None {
             let [cx, cy] = symmetry.center_pixels(doc.width, doc.height);
             let extent = (doc.width as f32).hypot(doc.height as f32);
-            let line = |x1, y1, x2, y2| Overlay::Line { x1, y1, x2, y2 };
+            let line = |x1, y1, x2, y2| Overlay::GuideLine { x1, y1, x2, y2 };
             match symmetry.mode {
                 schist_plugin_api::SymmetryMode::Vertical => {
                     overlays.push(line(cx, 0.0, cx, doc.height as f32))

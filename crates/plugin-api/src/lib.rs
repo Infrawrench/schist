@@ -231,6 +231,9 @@ pub enum Overlay {
     Circle { cx: f32, cy: f32, r: f32 },
     /// Straight line segment.
     Line { x1: f32, y1: f32, x2: f32, y2: f32 },
+    /// A persistent guide with a contrasting outline, visible on light
+    /// and dark artwork (paint symmetry axes and repeated-canvas bounds).
+    GuideLine { x1: f32, y1: f32, x2: f32, y2: f32 },
     /// Text insertion caret, drawn as one opaque hairline in the text
     /// colour. Using the fill that made the text legible also keeps the
     /// caret legible without turning its outline into two parallel lines.

@@ -1563,6 +1563,8 @@ pub struct PaintJob {
     highlights: Vec<Bounds<Pixels>>,
     outlines: Vec<(Bounds<Pixels>, gpui::Hsla)>,
     polylines: Vec<(Vec<Point<Pixels>>, gpui::Hsla)>,
+    /// Cyan guide hairlines over a dark outline, in screen coordinates.
+    guidelines: Vec<[Point<Pixels>; 2]>,
     /// Text carets, each painted as one solid hairline.
     carets: Vec<(Vec<Point<Pixels>>, gpui::Hsla)>,
     /// Marching-ants dashes.

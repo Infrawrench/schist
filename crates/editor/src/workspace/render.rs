@@ -59,7 +59,7 @@ impl Workspace {
                 ((w, h), (0.0, h)),
                 ((0.0, h), (0.0, 0.0)),
             ] {
-                overlays.push(Overlay::Line { x1, y1, x2, y2 });
+                overlays.push(Overlay::GuideLine { x1, y1, x2, y2 });
             }
         }
         // The active stored path is always visible, whichever tool is in
@@ -293,6 +293,9 @@ impl Workspace {
                         vec![to_screen(x1, y1), to_screen(x2, y2)],
                         gpui::rgb(0xFFFFFF).into(),
                     ));
+                }
+                Overlay::GuideLine { x1, y1, x2, y2 } => {
+                    job.guidelines.push([to_screen(x1, y1), to_screen(x2, y2)]);
                 }
                 Overlay::Caret {
                     x1,
@@ -550,6 +553,16 @@ impl Workspace {
                             }
                             if let Ok(path) = pb.build() {
                                 window.paint_path(path, color);
+                            }
+                        }
+                        for [a, b] in job.guidelines {
+                            for (width, color) in [(3.0, 0x202020), (1.0, 0x44AAFF)] {
+                                let mut pb = PathBuilder::stroke(px(width));
+                                pb.move_to(a);
+                                pb.line_to(b);
+                                if let Ok(path) = pb.build() {
+                                    window.paint_path(path, gpui::rgb(color));
+                                }
                             }
                         }
                         for (pts, color) in job.carets {
