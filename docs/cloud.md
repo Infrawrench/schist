@@ -103,7 +103,10 @@ headers with the sidebar's Group By chips — with the same selection, arrow key
 drags and right-click menu, and the tray's Edit, Download… and size slider. The
 search box in the top strip searches the remote library as you type (names and
 tags, ranked by the provider); the map filter applies to the cloud too, with
-its chip in the strip while it is on. Escape clears the search. Pages of 200 photos have links under the grid.
+its chip in the strip while it is on. Escape clears the search. Scrolling near
+the bottom automatically loads another batch of up to 200 photos, keeping the
+earlier results and selection in place.
+Loaded batches stay live until the search, filters or scope changes.
 
 **Import…** uses the same camera/device picker and map boundary options as the
 local gallery. With Schist Cloud selected, originals are downloaded into a
@@ -149,9 +152,9 @@ room with only the cloud in it, and asks for the name and search only.
 
 Thumbnails come from the `thumbnail_url` on each asset in a workspace snapshot:
 a signed download ticket the provider serves without credentials (format
-`thumbnail`, revision-bound). The client fetches a page's worth through a
-small worker pool, decodes WebP/PNG/JPEG at up to 256 px, and shows "no
-preview" for an asset whose URL is absent or whose fetch failed.
+`thumbnail`, revision-bound). The client fetches thumbnails near the viewport
+through a small worker pool with a bounded cache, decodes WebP/PNG/JPEG at up to
+256 px, and shows "no preview" for an asset whose URL is absent or whose fetch failed.
 People portraits use the same queue and cache, including while the local gallery
 is open. Each person's optional `avatar` carries `asset_id`, `rect`, `revision`
 and a signed `thumbnail_url`, so its photo need not be on the current page. The
