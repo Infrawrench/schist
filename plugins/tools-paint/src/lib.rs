@@ -12,8 +12,8 @@ use schist_core::{
 };
 use schist_i18n::{choices, t};
 use schist_plugin_api::{
-    EditorState, OptionValue, Overlay, PluginManifest, PluginRegistry, PointerInput, ToolCtx,
-    ToolOption, ToolPlugin,
+    BrushDynamics, BrushTip, EditorState, OptionValue, Overlay, PluginManifest, PluginRegistry,
+    PointerInput, ToolCtx, ToolOption, ToolPlugin,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -41,6 +41,41 @@ enum PaintMode {
     HistoryBrush,
     /// Erases pixels that match the colour under the brush centre.
     BackgroundEraser,
+}
+
+/// A fixed integer hash makes textured/scattered strokes reproducible on
+/// native and browser builds without global random state.
+fn noise(mut seed: u32) -> f32 {
+    seed = seed.wrapping_add(0x9e37_79b9);
+    seed = (seed ^ (seed >> 16)).wrapping_mul(0x85eb_ca6b);
+    seed = (seed ^ (seed >> 13)).wrapping_mul(0xc2b2_ae35);
+    ((seed ^ (seed >> 16)) >> 8) as f32 / 16_777_215.0
+}
+
+fn tip_coverage(tip: BrushTip, u: f32, v: f32) -> f32 {
+    match tip {
+        BrushTip::Round => 1.0,
+        BrushTip::Grain => {
+            let x = ((u + 1.0) * 24.0).floor() as u32;
+            let y = ((v + 1.0) * 24.0).floor() as u32;
+            let grain = noise(x.wrapping_add(y.wrapping_mul(49)));
+            if grain < 0.35 {
+                0.0
+            } else {
+                grain
+            }
+        }
+        BrushTip::Bristles => {
+            // Parallel hairs leave separated trails, tapered by the
+            // same soft/hard circular footprint as the round brush.
+            let stripe = ((u + 1.0) * 9.0).fract();
+            if stripe < 0.45 {
+                0.0
+            } else {
+                0.45 + noise(((u + 1.0) * 9.0) as u32) * 0.55
+            }
+        }
+    }
 }
 
 /// Where a dab's colour comes from.
@@ -125,6 +160,13 @@ struct Stroke {
     /// Accumulated dab coverage (0..=1) per touched pixel, keyed by tile.
     coverage: FxHashMap<TileCoord, Box<[f32]>>,
     last: (f32, f32),
+    last_pressure: f32,
+    contact_pressure: f32,
+    raw_last: (f32, f32, f32),
+    filtered: (f32, f32, f32),
+    raw_debt: f32,
+    dynamics: BrushDynamics,
+    dab_index: u32,
     /// Leftover distance to the next dab from the previous segment.
     spacing_debt: f32,
     ink: Ink,
@@ -154,7 +196,20 @@ impl Stroke {
         ink: Ink,
         heal_offset: (i32, i32),
     ) -> Option<Stroke> {
+        if !input.x.is_finite() || !input.y.is_finite() || !input.pressure.is_finite() {
+            return None;
+        }
         let layer = paintable_layer(ctx.doc)?;
+        let recipe = schist_plugin_api::BrushPreset::capture(String::new(), ctx.state);
+        // Retouch tools keep their original round footprints.
+        let dynamics = if matches!(
+            mode,
+            PaintMode::Brush | PaintMode::Pencil | PaintMode::Eraser
+        ) {
+            recipe.dynamics
+        } else {
+            BrushDynamics::default()
+        };
         let mut stroke = Stroke {
             edit: StrokeEdit::new(t(match mode {
                 PaintMode::Brush => "tool.brush.history.stroke",
@@ -175,7 +230,14 @@ impl Stroke {
             layer,
             coverage: FxHashMap::default(),
             last: (input.x, input.y),
-            spacing_debt: 0.0,
+            last_pressure: input.pressure.clamp(0.0, 1.0),
+            contact_pressure: input.pressure.clamp(0.0, 1.0),
+            raw_last: (input.x, input.y, input.pressure.clamp(0.0, 1.0)),
+            filtered: (input.x, input.y, input.pressure.clamp(0.0, 1.0)),
+            raw_debt: 1.0,
+            dynamics,
+            dab_index: 0,
+            spacing_debt: (recipe.size * dynamics.spacing).max(1.0),
             ink,
             native_channel: ctx
                 .doc
@@ -188,12 +250,12 @@ impl Stroke {
                         )
                 })
                 .map(|c| (c, ctx.state.native_channel_value)),
-            opacity: ctx.state.tool_opacity,
-            size: ctx.state.brush_size,
+            opacity: recipe.opacity,
+            size: recipe.size,
             hardness: if mode == PaintMode::Pencil {
                 1.0
             } else {
-                ctx.state.brush_hardness
+                recipe.hardness
             },
             mode,
             snapshot: ctx
@@ -213,7 +275,68 @@ impl Stroke {
     }
 
     fn spacing(&self) -> f32 {
-        (self.size * 0.15).max(1.0)
+        (self.size * self.dynamics.spacing).max(1.0)
+    }
+
+    /// Resample the input at fixed spatial intervals before smoothing. The
+    /// same polyline produces the same dabs regardless of event batching.
+    fn move_to(&mut self, doc: &mut Document, x: f32, y: f32, pressure: f32) {
+        if !x.is_finite() || !y.is_finite() || !pressure.is_finite() {
+            return;
+        }
+        let pressure = pressure.clamp(0.0, 1.0);
+        if pressure > 0.0 {
+            self.contact_pressure = pressure;
+        }
+        if self.dynamics.stabilization == 0.0 {
+            self.extend(doc, x, y, pressure);
+        } else {
+            let (lx, ly, lp) = self.raw_last;
+            let dist = (x - lx).hypot(y - ly);
+            // Reject corrupt coordinates rather than running billions of
+            // samples for a malformed input event.
+            if !dist.is_finite() || dist > 1_000_000.0 {
+                return;
+            }
+            // Force can change while the stylus stays still. Spatial
+            // resampling has no new position to emit in that case, but
+            // the growing footprint must still paint immediately.
+            if dist <= f32::EPSILON {
+                self.filtered.2 = pressure;
+                self.extend(doc, self.filtered.0, self.filtered.1, pressure);
+            }
+            let alpha = 1.0 - (-1.0 / self.dynamics.stabilization).exp();
+            let mut d = self.raw_debt;
+            while d <= dist && dist > 0.0 {
+                let f = d / dist;
+                self.filtered.0 += (lx + (x - lx) * f - self.filtered.0) * alpha;
+                self.filtered.1 += (ly + (y - ly) * f - self.filtered.1) * alpha;
+                self.filtered.2 += (lp + (pressure - lp) * f - self.filtered.2) * alpha;
+                self.extend(doc, self.filtered.0, self.filtered.1, self.filtered.2);
+                d += 1.0;
+            }
+            self.raw_debt = d - dist;
+        }
+        self.raw_last = (x, y, pressure);
+    }
+
+    fn flush(&mut self, doc: &mut Document, input: PointerInput) {
+        if !input.x.is_finite() || !input.y.is_finite() {
+            return;
+        }
+        // Tablet release events often report zero force. Use the last
+        // contact force for the pending tail, without inventing a taper.
+        let pressure = if input.pressure.is_finite() && input.pressure > 0.0 {
+            input.pressure.clamp(0.0, 1.0)
+        } else {
+            self.contact_pressure
+        };
+        self.move_to(doc, input.x, input.y, pressure);
+        self.extend(doc, input.x, input.y, pressure);
+        // Even a short stroke or a sub-spacing tail reaches its endpoint.
+        if self.spacing_debt < self.spacing() - 0.001 {
+            self.dab(doc, input.x, input.y, pressure);
+        }
     }
 
     fn extend(&mut self, doc: &mut Document, x: f32, y: f32, pressure: f32) {
@@ -221,24 +344,46 @@ impl Stroke {
         let dx = x - lx;
         let dy = y - ly;
         let dist = (dx * dx + dy * dy).sqrt();
+        if !dist.is_finite() || dist > 1_000_000.0 {
+            return;
+        }
         if dist <= f32::EPSILON {
+            if pressure > self.last_pressure {
+                self.dab(doc, x, y, pressure);
+            }
+            self.last_pressure = pressure;
             return;
         }
         let spacing = self.spacing();
         let mut t = self.spacing_debt;
         while t <= dist {
             let f = t / dist;
-            self.dab(doc, lx + dx * f, ly + dy * f, pressure);
+            self.dab(
+                doc,
+                lx + dx * f,
+                ly + dy * f,
+                self.last_pressure + (pressure - self.last_pressure) * f,
+            );
             t += spacing;
         }
         self.spacing_debt = t - dist;
         self.last = (x, y);
+        self.last_pressure = pressure;
     }
 
     /// Stamp one dab: raise coverage, then re-composite affected pixels
     /// from their pre-stroke values.
     fn dab(&mut self, doc: &mut Document, cx: f32, cy: f32, pressure: f32) {
-        let radius = (self.size / 2.0 * pressure.max(0.05)).max(0.5);
+        let pressure = self.dynamics.pressure_size(pressure);
+        if pressure <= 0.0 {
+            return;
+        }
+        let radius = (self.size / 2.0 * pressure).max(0.5);
+        let seed = self.dab_index;
+        self.dab_index = self.dab_index.wrapping_add(1);
+        let distance = noise(seed.wrapping_mul(2)).sqrt() * self.dynamics.scatter * self.size;
+        let angle = noise(seed.wrapping_mul(2).wrapping_add(1)) * std::f32::consts::TAU;
+        let (cx, cy) = (cx + angle.cos() * distance, cy + angle.sin() * distance);
         let bounds = IntRect::new(
             (cx - radius).floor() as i32,
             (cy - radius).floor() as i32,
@@ -284,6 +429,11 @@ impl Stroke {
                         // Pencil: binary coverage.
                         a = if a >= 0.5 { 1.0 } else { 0.0 };
                     }
+                    a *= tip_coverage(
+                        self.dynamics.tip,
+                        (x as f32 + 0.5 - cx) / radius,
+                        (y as f32 + 0.5 - cy) / radius,
+                    );
                     a *= selection.coverage(x, y) as f32 / 255.0;
                     if a <= 0.0 {
                         continue;
@@ -895,6 +1045,10 @@ impl ToolPlugin for PaintTool {
     }
 
     fn on_pointer_down(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
+        // Recover safely from a missing pointer-up event.
+        if let Some(stroke) = self.stroke.take() {
+            stroke.edit.cancel(ctx.doc);
+        }
         self.cursor = Some((input.x, input.y));
         // Alt-click sets the clone stamp's source point.
         if matches!(self.mode, PaintMode::Clone | PaintMode::Heal) && input.modifiers.alt {
@@ -912,12 +1066,13 @@ impl ToolPlugin for PaintTool {
     fn on_pointer_move(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
         self.cursor = Some((input.x, input.y));
         if let Some(stroke) = &mut self.stroke {
-            stroke.extend(ctx.doc, input.x, input.y, input.pressure);
+            stroke.move_to(ctx.doc, input.x, input.y, input.pressure);
         }
     }
 
-    fn on_pointer_up(&mut self, ctx: &mut ToolCtx, _input: PointerInput) {
-        if let Some(stroke) = self.stroke.take() {
+    fn on_pointer_up(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
+        if let Some(mut stroke) = self.stroke.take() {
+            stroke.flush(ctx.doc, input);
             stroke.finish(ctx.doc);
         }
     }

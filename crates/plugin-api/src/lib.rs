@@ -12,6 +12,9 @@ use schist_core::{Document, IntRect};
 
 pub use registry::{PluginManifest, PluginRegistry};
 
+pub mod brush;
+pub use brush::{BrushDynamics, BrushPreset, BrushTip};
+
 pub mod filter_stack;
 mod native;
 pub mod registry;
@@ -57,6 +60,7 @@ pub struct EditorState {
     pub brush_size: f32,
     /// 0.0 = maximally soft edge, 1.0 = hard edge.
     pub brush_hardness: f32,
+    pub brush_dynamics: BrushDynamics,
     /// Tool opacity (digit keys), 0.0..=1.0.
     pub tool_opacity: f32,
     pub active_tool: &'static str,
@@ -93,6 +97,7 @@ impl Default for EditorState {
             background: Rgba::WHITE,
             brush_size: 24.0,
             brush_hardness: 0.5,
+            brush_dynamics: BrushDynamics::default(),
             tool_opacity: 1.0,
             active_tool: "move",
             clipboard: None,

@@ -27,6 +27,7 @@ use std::sync::Arc;
 
 #[cfg(not(sandboxed))]
 mod ai;
+mod brushes;
 mod color;
 mod context;
 mod history;

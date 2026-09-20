@@ -47,7 +47,9 @@ impl Workspace {
         // canvas it paints, pans or drags a tool instead, and two fingers
         // do the scrolling and zooming.
         window.claim_touch_drag();
-        if self.type_field_option().is_some() || self.focused_field == Some(palettes::SEARCH_FIELD)
+        if self.type_field_option().is_some()
+            || self.focused_field == Some(palettes::SEARCH_FIELD)
+            || self.focused_field == Some("brush-preset-name")
         {
             self.commit_focused_field();
         }

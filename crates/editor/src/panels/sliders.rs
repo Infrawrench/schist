@@ -13,6 +13,10 @@ pub enum SliderTarget {
     },
     BrushSize,
     BrushHardness,
+    BrushSpacing,
+    BrushScatter,
+    BrushStabilization,
+    BrushPressure,
     ToolOpacity,
     LayerOpacity(LayerId),
     NativeChannelValue,
@@ -35,6 +39,10 @@ pub(super) fn slider_get(ws: &Workspace, target: SliderTarget) -> f32 {
         }
         SliderTarget::BrushSize => ((ws.editor.brush_size - 1.0) / 299.0).clamp(0.0, 1.0),
         SliderTarget::BrushHardness => ws.editor.brush_hardness,
+        SliderTarget::BrushSpacing => (ws.editor.brush_dynamics.spacing - 0.02) / 1.98,
+        SliderTarget::BrushScatter => ws.editor.brush_dynamics.scatter / 2.0,
+        SliderTarget::BrushStabilization => ws.editor.brush_dynamics.stabilization / 64.0,
+        SliderTarget::BrushPressure => (ws.editor.brush_dynamics.pressure_gamma - 0.25) / 3.75,
         SliderTarget::ToolOpacity => ws.editor.tool_opacity,
         SliderTarget::LayerOpacity(id) => ws
             .doc
@@ -63,6 +71,12 @@ pub(super) fn slider_set(
         ),
         SliderTarget::BrushSize => ws.editor.brush_size = 1.0 + ratio * 299.0,
         SliderTarget::BrushHardness => ws.editor.brush_hardness = ratio,
+        SliderTarget::BrushSpacing => ws.editor.brush_dynamics.spacing = 0.02 + ratio * 1.98,
+        SliderTarget::BrushScatter => ws.editor.brush_dynamics.scatter = ratio * 2.0,
+        SliderTarget::BrushStabilization => ws.editor.brush_dynamics.stabilization = ratio * 64.0,
+        SliderTarget::BrushPressure => {
+            ws.editor.brush_dynamics.pressure_gamma = 0.25 + ratio * 3.75
+        }
         SliderTarget::ToolOpacity => ws.editor.tool_opacity = ratio,
         SliderTarget::LayerOpacity(id) => ws.set_layer_opacity_live(id, ratio),
         SliderTarget::NativeChannelValue => ws.editor.native_channel_value = ratio,

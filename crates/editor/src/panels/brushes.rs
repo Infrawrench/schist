@@ -1,0 +1,189 @@
+//! Brush dynamics and the user's saved recipes, available for every paint tool.
+use super::*;
+use schist_plugin_api::{BrushPreset, BrushTip};
+
+const NAME: &str = "brush-preset-name";
+const POPUP: Popup = Popup::Field("brush-settings");
+
+pub(super) fn brush_controls(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    let open = ws.open_popup == Some(POPUP);
+    div()
+        .relative()
+        .child(
+            DropdownButton::new("brush-settings", t("dialog.new_doc.preset")).on_press(
+                cx.listener(|ws, _e, _w, cx| {
+                    ws.commit_focused_field();
+                    ws.toggle_popup(POPUP, cx);
+                }),
+            ),
+        )
+        .children(open.then(|| deferred(brush_popover(ws, cx))))
+        .into_any_element()
+}
+
+fn brush_popover(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    let dynamics = ws.editor.brush_dynamics;
+    let focused = ws.focused_field == Some(NAME);
+    let name = if focused {
+        ws.field_buffer.clone()
+    } else {
+        ws.brush_preset_name.clone()
+    };
+    let normalized = BrushPreset::capture(name.clone(), &ws.editor).name;
+    let existing = ws
+        .brush_library
+        .presets
+        .iter()
+        .any(|p| p.name == normalized);
+    let full = ws.brush_library.presets.len() >= schist_app_settings::brushes::MAX_PRESETS;
+    let mut popup = Popover::new("brush-settings-popup")
+        .top(px(ui::metrics().icon_button + 6.0))
+        .left_0()
+        .w(px(320.0))
+        .p_3()
+        .gap_2()
+        .on_dismiss(cx.listener(|ws, _e, _w, cx| {
+            ws.commit_focused_field();
+            ws.close_popup(cx);
+        }))
+        .child(div().text_size(px(12.0)).child(t("filter.param.texture")))
+        .child(
+            div().flex().flex_wrap().gap_1().children(
+                [
+                    (BrushTip::Round, "common.none"),
+                    (BrushTip::Grain, "filter.param.grain"),
+                    (BrushTip::Bristles, "filter.oil_paint.param.bristle"),
+                ]
+                .into_iter()
+                .enumerate()
+                .map(|(i, (tip, key))| {
+                    Button::new(("brush-tip", i), t(key))
+                        .active(dynamics.tip == tip)
+                        .on_click(cx.listener(move |ws, _e, _w, cx| {
+                            ws.editor.brush_dynamics.tip = tip;
+                            cx.notify();
+                        }))
+                }),
+            ),
+        );
+    for (id, label, display, target) in [
+        (
+            "brush-spacing",
+            t("common.spacing"),
+            format!("{:.0}%", dynamics.spacing * 100.0),
+            SliderTarget::BrushSpacing,
+        ),
+        (
+            "brush-scatter",
+            t("filter.spatter.name"),
+            format!("{:.0}%", dynamics.scatter * 100.0),
+            SliderTarget::BrushScatter,
+        ),
+        (
+            "brush-smoothing",
+            t("common.smoothing"),
+            format!("{:.0}px", dynamics.stabilization),
+            SliderTarget::BrushStabilization,
+        ),
+        (
+            "brush-pressure",
+            t("common.pressure"),
+            format!("γ{:.2}", dynamics.pressure_gamma),
+            SliderTarget::BrushPressure,
+        ),
+    ] {
+        popup = popup.child(slider_stretch(id, label, display, target, ws, cx));
+    }
+    popup
+        .child(div().text_size(px(12.0)).child(t("dialog.new_doc.preset")))
+        .child(
+            div()
+                .id("brush-preset-list")
+                .max_h(px(180.0))
+                .overflow_y_scroll()
+                .children(
+                    ws.brush_library
+                        .presets
+                        .iter()
+                        .enumerate()
+                        .map(|(index, preset)| {
+                            let preset = preset.clone();
+                            ListItem::new(("brush-preset", index))
+                                .selected(preset.name == ws.brush_preset_name)
+                                .child(preset.name.clone())
+                                .on_click(cx.listener(move |ws, _e, _w, cx| {
+                                    ws.commit_focused_field();
+                                    preset.apply(&mut ws.editor);
+                                    ws.brush_preset_name = preset.name.clone();
+                                    cx.notify();
+                                }))
+                        }),
+                ),
+        )
+        .child(
+            TextInput::new(NAME, name.clone())
+                .active(focused)
+                .cursor(if focused { ws.field_cursor } else { name.len() })
+                .selection(if focused { ws.field_selection() } else { 0..0 })
+                .caret_on(ws.caret_on())
+                .placeholder(t("common.name"))
+                .w_full()
+                .on_focus(cx.listener(move |ws, press: &ui::TextPress, _w, cx| {
+                    if ws.focused_field != Some(NAME) {
+                        ws.commit_focused_field();
+                    }
+                    ws.press_field(NAME, name.clone(), press);
+                    cx.notify();
+                }))
+                .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
+                    ws.drag_field(NAME, *offset);
+                    cx.notify();
+                })),
+        )
+        .child(
+            div()
+                .flex()
+                .gap_2()
+                .child(
+                    Button::new(
+                        "brush-preset-save",
+                        t(if existing {
+                            "common.update"
+                        } else {
+                            "common.save"
+                        }),
+                    )
+                    .disabled(normalized.is_empty() || (full && !existing))
+                    .on_click(cx.listener(|ws, _e, _w, cx| {
+                        ws.commit_focused_field();
+                        let mut library = ws.brush_library.clone();
+                        if library.save_preset(BrushPreset::capture(
+                            ws.brush_preset_name.clone(),
+                            &ws.editor,
+                        )) && library.save()
+                        {
+                            ws.brush_library = library;
+                        } else {
+                            ws.status = t("common.failed").into();
+                        }
+                        cx.notify();
+                    })),
+                )
+                .child(
+                    Button::new("brush-preset-delete", t("common.delete"))
+                        .disabled(!existing)
+                        .on_click(cx.listener(|ws, _e, _w, cx| {
+                            ws.commit_focused_field();
+                            let mut library = ws.brush_library.clone();
+                            library.delete(&ws.brush_preset_name);
+                            if library.save() {
+                                ws.brush_library = library;
+                                ws.brush_preset_name.clear();
+                            } else {
+                                ws.status = t("common.failed").into();
+                            }
+                            cx.notify();
+                        })),
+                ),
+        )
+}
