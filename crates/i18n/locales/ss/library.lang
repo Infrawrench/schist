@@ -308,3 +308,12 @@ video.preview_help_touch = Sibonisi lesite umsindvo · Hudvula umugca wesikhatsi
 video.importing = Kungeniswa titfombe nemavidiyo…
 video.import_failed = Akukwazekanga kungenisa imidiya: {error}
 video.import_failed_simple = Akukwazekanga kungenisa nobe kwabelana ngalemidiya.
+
+# Similar-photo and capture-burst review
+library.similar.title = Titfombe letifanako
+library.similar.visual = Kufanana ngekubukeka
+library.similar.burst = Titfombe letilandzelanako
+library.similar.keep = Gcina
+library.similar.reject = Yala
+library.similar.help = Timphawu tekuhlola kuphela; emafayela awasulwa.
+library.similar.stale = Emafayela ashintjile. Vuselela kuze uchubeke.

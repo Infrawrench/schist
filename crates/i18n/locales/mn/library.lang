@@ -356,3 +356,12 @@ video.preview_help_touch = Дуугүй урьдчилан харах · Хуг�
 video.importing = Фото зураг, видеог импортолж байна…
 video.import_failed = Медиа импортолж чадсангүй: {error}
 video.import_failed_simple = Энэ медиаг импортолж эсвэл хуваалцаж чадсангүй.
+
+# Similar-photo and capture-burst review
+library.similar.title = Төстэй зургууд
+library.similar.visual = Харагдах төстэй байдал
+library.similar.burst = Дараалсан зургууд
+library.similar.keep = Хадгалах
+library.similar.reject = Татгалзах
+library.similar.help = Зөвхөн шалгах тэмдэглэгээ; файлыг устгахгүй.
+library.similar.stale = Файлууд өөрчлөгдсөн. Үргэлжлүүлэхийн тулд шинэчилнэ үү.

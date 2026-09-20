@@ -308,3 +308,12 @@ video.preview_help_touch = ஒலியற்ற முன்தோற்றம�
 video.importing = புகைப்படங்களையும் காணொளிகளையும் இறக்குமதி செய்கிறது…
 video.import_failed = ஊடகத்தை இறக்குமதி செய்ய முடியவில்லை: {error}
 video.import_failed_simple = இந்த ஊடகத்தை இறக்குமதி செய்யவோ பகிரவோ முடியவில்லை.
+
+# Similar-photo and capture-burst review
+library.similar.title = ஒத்த படங்கள்
+library.similar.visual = காட்சி ஒற்றுமைகள்
+library.similar.burst = தொடர்ச்சிப் படங்கள்
+library.similar.keep = வைத்திரு
+library.similar.reject = நிராகரி
+library.similar.help = மதிப்பாய்வுக் குறிகள் மட்டுமே; கோப்புகள் நீக்கப்படாது.
+library.similar.stale = கோப்புகள் மாறியுள்ளன. தொடர புதுப்பிக்கவும்.

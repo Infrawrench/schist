@@ -290,3 +290,12 @@ video.preview_help_touch = Тавышсыз алдан карау · Вакыт 
 video.importing = Фото һәм видеолар импортлана…
 video.import_failed = Медиафайлны импортлап булмады: {error}
 video.import_failed_simple = Бу медиафайлны импортлап яки бүлешеп булмады.
+
+# Similar-photo and capture-burst review
+library.similar.title = Охшаш фотолар
+library.similar.visual = Күренеш охшашлыгы
+library.similar.burst = Эзлекле фотолар
+library.similar.keep = Саклау
+library.similar.reject = Кире кагу
+library.similar.help = Карау билгеләре генә; файллар бетерелми.
+library.similar.stale = Файллар үзгәрде. Дәвам итү өчен яңартыгыз.

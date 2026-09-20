@@ -290,3 +290,12 @@ video.preview_help_touch = Xem trước không tiếng · Kéo dòng thời gian
 video.importing = Đang nhập ảnh và video…
 video.import_failed = Không thể nhập phương tiện: {error}
 video.import_failed_simple = Không thể nhập hoặc chia sẻ phương tiện này.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ảnh tương tự
+library.similar.visual = Hình ảnh tương đồng
+library.similar.burst = Ảnh chụp liên tiếp
+library.similar.keep = Giữ
+library.similar.reject = Loại
+library.similar.help = Chỉ đánh dấu xem xét; không xóa tệp.
+library.similar.stale = Tệp đã thay đổi. Làm mới để tiếp tục.

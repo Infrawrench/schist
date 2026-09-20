@@ -339,3 +339,12 @@ video.preview_help_touch = ശബ്ദമില്ലാത്ത പ്രി�
 video.importing = ഫോട്ടോകളും വീഡിയോകളും ഇറക്കുമതി ചെയ്യുന്നു…
 video.import_failed = മീഡിയ ഇറക്കുമതി ചെയ്യാനായില്ല: {error}
 video.import_failed_simple = ഈ മീഡിയ ഇറക്കുമതി ചെയ്യാനോ പങ്കിടാനോ കഴിഞ്ഞില്ല.
+
+# Similar-photo and capture-burst review
+library.similar.title = സമാന ചിത്രങ്ങൾ
+library.similar.visual = ദൃശ്യ സാമ്യങ്ങൾ
+library.similar.burst = തുടർച്ചയായി എടുത്ത ചിത്രങ്ങൾ
+library.similar.keep = സൂക്ഷിക്കുക
+library.similar.reject = നിരസിക്കുക
+library.similar.help = അവലോകന അടയാളങ്ങൾ മാത്രം; ഫയലുകൾ ഇല്ലാതാക്കില്ല.
+library.similar.stale = ഫയലുകൾ മാറി. തുടരാൻ പുതുക്കുക.

@@ -645,3 +645,16 @@ check-richer-brushes-web:
 .PHONY: lint-richer-brushes
 lint-richer-brushes:
 	$(CARGO) clippy -p schist-plugin-api -p schist-app-settings -p schist-tools-paint -p schist-editor -p schist-app-platform --all-targets -- -D warnings
+
+.PHONY: check-similar-photos test-similar-photos fmt-similar-photos
+check-similar-photos:
+	$(CARGO) check -p schist-editor --all-targets
+test-similar-photos:
+	$(CARGO) test -p schist-gallery similar
+fmt-similar-photos:
+	$(CARGO) fmt -p schist-gallery -p schist-editor
+
+.PHONY: check-similar-locales
+check-similar-locales:
+	python3 tools/check-i18n.py --files library.lang
+	python3 tools/sync-i18n.py --check

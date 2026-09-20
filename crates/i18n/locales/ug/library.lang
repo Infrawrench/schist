@@ -308,3 +308,12 @@ video.preview_help_touch = ئاۋازسىز ئالدىن كۆرۈش · ۋاقى�
 video.importing = فوتو سۈرەت ۋە سىنلار ئىمپورت قىلىنىۋاتىدۇ…
 video.import_failed = مېدىيانى ئىمپورت قىلغىلى بولمىدى: {error}
 video.import_failed_simple = بۇ مېدىيانى ئىمپورت ياكى ھەمبەھىرلىگىلى بولمىدى.
+
+# Similar-photo and capture-burst review
+library.similar.title = ئوخشاش سۈرەتلەر
+library.similar.visual = كۆرۈنۈش ئوخشاشلىقى
+library.similar.burst = ئارقىمۇئارقا سۈرەتلەر
+library.similar.keep = ساقلاش
+library.similar.reject = رەت قىلىش
+library.similar.help = پەقەت تەكشۈرۈش بەلگىسى؛ ھۆججەتلەر ئۆچۈرۈلمەيدۇ.
+library.similar.stale = ھۆججەتلەر ئۆزگەردى. داۋاملاشتۇرۇش ئۈچۈن يېڭىلاڭ.

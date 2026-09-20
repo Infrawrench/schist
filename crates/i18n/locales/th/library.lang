@@ -290,3 +290,12 @@ video.preview_help_touch = ตัวอย่างแบบไม่มีเ�
 video.importing = กำลังนำเข้ารูปภาพและวิดีโอ…
 video.import_failed = ไม่สามารถนำเข้าสื่อ: {error}
 video.import_failed_simple = ไม่สามารถนำเข้าหรือแชร์สื่อนี้
+
+# Similar-photo and capture-burst review
+library.similar.title = ภาพถ่ายที่คล้ายกัน
+library.similar.visual = ความคล้ายทางภาพ
+library.similar.burst = ภาพถ่ายต่อเนื่อง
+library.similar.keep = เก็บไว้
+library.similar.reject = ปฏิเสธ
+library.similar.help = ทำเครื่องหมายตรวจสอบเท่านั้น ไม่ลบไฟล์
+library.similar.stale = ไฟล์มีการเปลี่ยนแปลง รีเฟรชเพื่อดำเนินการต่อ

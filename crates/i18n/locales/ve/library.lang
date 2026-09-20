@@ -331,3 +331,12 @@ video.preview_help_touch = Mbonalo ya phanḓa i si na mubvumo · Kokodza mutalo
 video.importing = I khou dzhenisa zwinepe na dzividio…
 video.import_failed = Zwo kundwa u dzhenisa midia: {error}
 video.import_failed_simple = Zwo kundwa u dzhenisa kana u kovhekana midia iyi.
+
+# Similar-photo and capture-burst review
+library.similar.title = Zwifanyiso zwi fanaho
+library.similar.visual = U fana nga u vhona
+library.similar.burst = Zwifanyiso zwi tevhelanaho
+library.similar.keep = Vhulunga
+library.similar.reject = Hana
+library.similar.help = Tswayo dza u sedzulusa fhedzi; faela a dzi phumuliwi.
+library.similar.stale = Faela dzo shanduka. Khwinifhadzani uri ni bvele phanḓa.

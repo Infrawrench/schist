@@ -330,3 +330,12 @@ video.preview_help_touch = Ŋgɔmekpɔkpɔ manɔŋutɔ · He ɣeyiɣifli la alo 
 video.importing = Le fotoawo kple videowo xɔm…
 video.import_failed = Womate ŋu axɔ media o: {error}
 video.import_failed_simple = Womate ŋu axɔ alo ama media sia o.
+
+# Similar-photo and capture-burst review
+library.similar.title = Nɔnɔmetata siwo sɔ
+library.similar.visual = Nukpɔkpɔ ƒe sɔsɔ
+library.similar.burst = Nɔnɔmetata siwo kplɔ wo nɔewo ɖo
+library.similar.keep = Dzra ɖo
+library.similar.reject = Gbe
+library.similar.help = Nugbugbɔkpɔ ƒe dzesiwo ko; wometsɔa agbalẽwo ɖa o.
+library.similar.stale = Agbalẽwo trɔ. Gbugbɔe yeyee be nàyi edzi.

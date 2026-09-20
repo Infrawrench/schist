@@ -354,3 +354,12 @@ video.preview_help_touch = Priekšskatījums bez skaņas · Velciet laika skalu 
 video.importing = Importē fotoattēlus un videoklipus…
 video.import_failed = Neizdevās importēt multividi: {error}
 video.import_failed_simple = Neizdevās importēt vai kopīgot šo multividi.
+
+# Similar-photo and capture-burst review
+library.similar.title = Līdzīgi fotoattēli
+library.similar.visual = Vizuāla līdzība
+library.similar.burst = Sērijveida uzņēmumi
+library.similar.keep = Paturēt
+library.similar.reject = Noraidīt
+library.similar.help = Tikai pārskatīšanas atzīmes; faili netiek dzēsti.
+library.similar.stale = Faili ir mainīti. Atsvaidziniet, lai turpinātu.

@@ -362,3 +362,12 @@ video.preview_help_touch = Previżjoni bla ħoss · Iddreggja l-linja tal-ħin j
 video.importing = Qed jiġu importati ritratti u vidjows…
 video.import_failed = Il-midja ma setgħetx tiġi importata: {error}
 video.import_failed_simple = Din il-midja ma setgħetx tiġi importata jew maqsuma.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ritratti simili
+library.similar.visual = Xebh viżiv
+library.similar.burst = Ritratti f’serje
+library.similar.keep = Żomm
+library.similar.reject = Irrifjuta
+library.similar.help = Marki ta’ reviżjoni biss; il-fajls ma jitħassrux.
+library.similar.stale = Il-fajls inbidlu. Aġġorna biex tkompli.

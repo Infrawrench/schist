@@ -380,3 +380,12 @@ video.preview_help_touch = معاينة صامتة · اسحب المخطط ال
 video.importing = جارٍ استيراد الصور ومقاطع الفيديو…
 video.import_failed = تعذر استيراد الوسائط: {error}
 video.import_failed_simple = تعذر استيراد هذه الوسائط أو مشاركتها.
+
+# Similar-photo and capture-burst review
+library.similar.title = صور متشابهة
+library.similar.visual = تشابه بصري
+library.similar.burst = صور متتابعة
+library.similar.keep = احتفاظ
+library.similar.reject = رفض
+library.similar.help = علامات مراجعة فقط؛ لا تُحذف الملفات.
+library.similar.stale = تغيرت الملفات. حدّث للمتابعة.

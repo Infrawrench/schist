@@ -344,3 +344,12 @@ video.preview_help_touch = Прагляд без гуку · Перацягва�
 video.importing = Імпарт фота і відэа…
 video.import_failed = Не ўдалося імпартаваць медыя: {error}
 video.import_failed_simple = Не ўдалося імпартаваць або абагуліць гэты медыяфайл.
+
+# Similar-photo and capture-burst review
+library.similar.title = Падобныя фатаграфіі
+library.similar.visual = Візуальнае падабенства
+library.similar.burst = Серыйная здымка
+library.similar.keep = Пакінуць
+library.similar.reject = Адхіліць
+library.similar.help = Толькі пазнакі агляду; файлы не выдаляюцца.
+library.similar.stale = Файлы змяніліся. Абнавіце, каб працягнуць.

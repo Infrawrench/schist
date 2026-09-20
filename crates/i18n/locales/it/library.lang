@@ -372,3 +372,12 @@ video.preview_help_touch = Anteprima senza audio · Trascina la timeline oppure 
 video.importing = Importazione di foto e video…
 video.import_failed = Impossibile importare i contenuti multimediali: {error}
 video.import_failed_simple = Impossibile importare o condividere questi contenuti multimediali.
+
+# Similar-photo and capture-burst review
+library.similar.title = Foto simili
+library.similar.visual = Somiglianze visive
+library.similar.burst = Scatti in sequenza
+library.similar.keep = Conserva
+library.similar.reject = Scarta
+library.similar.help = Solo contrassegni di revisione; i file non vengono eliminati.
+library.similar.stale = I file sono cambiati. Aggiorna per continuare.

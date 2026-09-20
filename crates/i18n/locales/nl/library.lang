@@ -333,3 +333,12 @@ video.preview_help_touch = Stille voorvertoning · Sleep over de tijdlijn of doo
 video.importing = Foto's en video's importeren…
 video.import_failed = Kan media niet importeren: {error}
 video.import_failed_simple = Kan deze media niet importeren of delen.
+
+# Similar-photo and capture-burst review
+library.similar.title = Vergelijkbare foto's
+library.similar.visual = Visuele overeenkomsten
+library.similar.burst = Reeksopnamen
+library.similar.keep = Behouden
+library.similar.reject = Afwijzen
+library.similar.help = Alleen beoordelingsmarkeringen; bestanden worden niet verwijderd.
+library.similar.stale = Bestanden zijn gewijzigd. Vernieuw om door te gaan.

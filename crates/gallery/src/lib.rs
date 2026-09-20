@@ -28,6 +28,7 @@ pub mod video;
 pub use video::{is_video, VIDEO_EXTENSIONS};
 pub mod scores;
 pub mod search;
+pub mod similar;
 
 pub use geo::*;
 pub use index::*;

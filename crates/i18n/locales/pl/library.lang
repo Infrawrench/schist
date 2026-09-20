@@ -344,3 +344,12 @@ video.preview_help_touch = Podgląd bez dźwięku · Przeciągnij oś czasu lub 
 video.importing = Importowanie zdjęć i filmów…
 video.import_failed = Nie udało się zaimportować multimediów: {error}
 video.import_failed_simple = Nie udało się zaimportować ani udostępnić tych multimediów.
+
+# Similar-photo and capture-burst review
+library.similar.title = Podobne zdjęcia
+library.similar.visual = Podobieństwo wizualne
+library.similar.burst = Serie zdjęć
+library.similar.keep = Zachowaj
+library.similar.reject = Odrzuć
+library.similar.help = Tylko oznaczenia przeglądu; pliki nie są usuwane.
+library.similar.stale = Pliki zostały zmienione. Odśwież, aby kontynuować.

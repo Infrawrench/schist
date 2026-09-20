@@ -311,3 +311,12 @@ video.preview_help_touch = အသံမပါ အစမ်းကြည့်မ�
 video.importing = ဓာတ်ပုံနှင့် ဗီဒီယိုများ တင်သွင်းနေသည်…
 video.import_failed = မီဒီယာကို တင်သွင်း၍မရပါ: {error}
 video.import_failed_simple = ဤမီဒီယာကို တင်သွင်း သို့မဟုတ် မျှဝေ၍မရပါ။
+
+# Similar-photo and capture-burst review
+library.similar.title = ဆင်တူသော ဓာတ်ပုံများ
+library.similar.visual = မြင်ကွင်းတူညီမှုများ
+library.similar.burst = ဆက်တိုက်ရိုက်ပုံများ
+library.similar.keep = သိမ်းထားရန်
+library.similar.reject = ပယ်ချရန်
+library.similar.help = စစ်ဆေးမှု အမှတ်အသားများသာဖြစ်ပြီး ဖိုင်များကို မဖျက်ပါ။
+library.similar.stale = ဖိုင်များ ပြောင်းလဲသွားသည်။ ဆက်လုပ်ရန် ပြန်လည်စတင်ပါ။

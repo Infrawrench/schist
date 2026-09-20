@@ -308,3 +308,12 @@ video.preview_help_touch = Hordhac aamusan · Jiid xariiqda waqtiga ama qaab qaa
 video.importing = Sawirro iyo fiidyowyo ayaa la soo dejinayaa…
 video.import_failed = Warbaahinta lama soo dejin karin: {error}
 video.import_failed_simple = Warbaahintan lama soo dejin karin lamana wadaagi karin.
+
+# Similar-photo and capture-burst review
+library.similar.title = Sawirro isku eg
+library.similar.visual = Isku ekaansho muuqaal
+library.similar.burst = Sawirro xiriir ah
+library.similar.keep = Hay
+library.similar.reject = Diid
+library.similar.help = Calaamado dib-u-eegis oo keliya; faylasha lama tirtiro.
+library.similar.stale = Faylasha way isbeddeleen. Cusboonaysii si aad u sii waddo.

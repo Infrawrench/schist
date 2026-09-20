@@ -308,3 +308,12 @@ video.preview_help_touch = Silenta antaŭrigardo · Trenu la tempolinion aŭ pa�
 video.importing = Importante fotojn kaj videojn…
 video.import_failed = Ne eblis importi aŭdvidaĵojn: {error}
 video.import_failed_simple = Ne eblis importi aŭ kunhavigi ĉi tiun aŭdvidaĵon.
+
+# Similar-photo and capture-burst review
+library.similar.title = Similaj fotoj
+library.similar.visual = Vidaj similecoj
+library.similar.burst = Sinsekvaj fotoj
+library.similar.keep = Konservi
+library.similar.reject = Rifuzi
+library.similar.help = Nur reviziaj markoj; dosieroj ne estas forigitaj.
+library.similar.stale = Dosieroj ŝanĝiĝis. Aktualigu por daŭrigi.

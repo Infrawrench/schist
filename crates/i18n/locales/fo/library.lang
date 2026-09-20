@@ -308,3 +308,12 @@ video.preview_help_touch = Forsýning uttan ljóð · Drag tíðarlinjuna ella f
 video.importing = Flytur fotomyndir og sjónbond inn…
 video.import_failed = Fekk ikki flutt miðil inn: {error}
 video.import_failed_simple = Fekk ikki flutt ella deilt henda miðilin.
+
+# Similar-photo and capture-burst review
+library.similar.title = Líknandi myndir
+library.similar.visual = Sjónlig líkindi
+library.similar.burst = Raðmyndir
+library.similar.keep = Varðveit
+library.similar.reject = Avvís
+library.similar.help = Bert metingarmerki; fílur verða ikki strikaðar.
+library.similar.stale = Fílurnar eru broyttar. Endurnýggja fyri at halda fram.

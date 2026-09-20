@@ -308,3 +308,12 @@ video.preview_help_touch = Kufanoona kusina ruzha · Dhonza mutsetse wenguva kan
 video.importing = Kuri kupinza mapikicha nemavhidhiyo…
 video.import_failed = Hatina kukwanisa kupinza midhiya: {error}
 video.import_failed_simple = Hatina kukwanisa kupinza kana kugovera midhiya iyi.
+
+# Similar-photo and capture-burst review
+library.similar.title = Mifananidzo yakafanana
+library.similar.visual = Kufanana pakuonekwa
+library.similar.burst = Mifananidzo inotevedzana
+library.similar.keep = Chengeta
+library.similar.reject = Ramba
+library.similar.help = Zviratidzo zvekuongorora chete; mafaira haadzimwi.
+library.similar.stale = Mafaira achinja. Vandudza kuti uenderere mberi.

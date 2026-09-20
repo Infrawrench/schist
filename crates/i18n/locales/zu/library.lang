@@ -308,3 +308,12 @@ video.preview_help_touch = Ukubuka kuqala okungenamsindo · Hudula umugqa wesikh
 video.importing = Kungeniswa izithombe namavidiyo…
 video.import_failed = Imidiya ayikwazanga ukungeniswa: {error}
 video.import_failed_simple = Le midiya ayikwazanga ukungeniswa noma ukwabiwa.
+
+# Similar-photo and capture-burst review
+library.similar.title = Izithombe ezifanayo
+library.similar.visual = Ukufana ngokubukeka
+library.similar.burst = Izithombe ezilandelanayo
+library.similar.keep = Gcina
+library.similar.reject = Yenqaba
+library.similar.help = Izimpawu zokubuyekeza kuphela; amafayela awasuswa.
+library.similar.stale = Amafayela ashintshile. Vuselela ukuze uqhubeke.

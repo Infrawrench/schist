@@ -308,3 +308,12 @@ video.preview_help_touch = Imboniso engenasandi · Tsala umgca wexesha okanye uh
 video.importing = Kungeniswa iifoto neevidiyo…
 video.import_failed = Imidiya ayikwazanga kungeniswa: {error}
 video.import_failed_simple = Le midiya ayikwazanga kungeniswa okanye kwabelwana ngayo.
+
+# Similar-photo and capture-burst review
+library.similar.title = Iifoto ezifanayo
+library.similar.visual = Ukufana ngenkangeleko
+library.similar.burst = Iifoto ezilandelelanayo
+library.similar.keep = Gcina
+library.similar.reject = Yala
+library.similar.help = Amanqaku okuhlola kuphela; iifayile azicinywa.
+library.similar.stale = Iifayile zitshintshile. Hlaziya ukuze uqhubeke.

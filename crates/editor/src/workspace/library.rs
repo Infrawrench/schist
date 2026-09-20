@@ -254,6 +254,7 @@ struct SearchSnapshot {
 }
 
 pub struct Library {
+    pub(super) similar: super::library_similar::SimilarReview,
     /// Whether the gallery view is showing instead of the editor.
     pub open: bool,
     /// The watched folder roots, persisted.
@@ -492,6 +493,7 @@ impl Library {
         #[cfg(not(target_os = "ios"))]
         let folders = file.folders;
         Library {
+            similar: Default::default(),
             open: false,
             folders,
             recents: file.recents,

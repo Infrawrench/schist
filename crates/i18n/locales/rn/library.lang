@@ -315,3 +315,12 @@ video.preview_help_touch = Akarorero katagira ijwi · Kurura umurongo w'igihe ca
 video.importing = Biriko bizana amafoto n'amavidewo…
 video.import_failed = Ntivyashobotse kuzana media: {error}
 video.import_failed_simple = Ntivyashobotse kuzana canke gusangira iyi media.
+
+# Similar-photo and capture-burst review
+library.similar.title = Amafoto asa
+library.similar.visual = Ugusa mu kuboneka
+library.similar.burst = Amafoto akurikirana
+library.similar.keep = Bika
+library.similar.reject = Hakana
+library.similar.help = Ibimenyetso vyo gusuzuma gusa; amadosiye ntasibwa.
+library.similar.stale = Amadosiye yarahindutse. Subiramwo kugira ubandanye.

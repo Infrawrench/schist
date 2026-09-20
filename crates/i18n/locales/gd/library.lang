@@ -344,3 +344,12 @@ video.preview_help_touch = Ro-shealladh sàmhach · Slaod an loidhne-ama no glua
 video.importing = Ag ion-phortadh dhealbhan is videothan…
 video.import_failed = Cha b’ urrainn na meadhanan ion-phortadh: {error}
 video.import_failed_simple = Cha b’ urrainn na meadhanan seo ion-phortadh no an co-roinneadh.
+
+# Similar-photo and capture-burst review
+library.similar.title = Dealbhan coltach
+library.similar.visual = Coltas lèirsinneach
+library.similar.burst = Dealbhan ann an sreath
+library.similar.keep = Glèidh
+library.similar.reject = Diùlt
+library.similar.help = Comharran lèirmheasa a-mhàin; cha dèanar sguabadh air faidhlichean.
+library.similar.stale = Dh’atharraich na faidhlichean. Ath-nuadhaich gus leantainn air adhart.

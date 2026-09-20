@@ -290,3 +290,12 @@ video.preview_help_touch = Пешнамоиши бесадо · Хати вақ�
 video.importing = Ворид кардани аксҳо ва видеоҳо…
 video.import_failed = Расона ворид нашуд: {error}
 video.import_failed_simple = Ин расона ворид ё мубодила нашуд.
+
+# Similar-photo and capture-burst review
+library.similar.title = Аксҳои монанд
+library.similar.visual = Монандии визуалӣ
+library.similar.burst = Аксҳои пайдарпай
+library.similar.keep = Нигоҳ доштан
+library.similar.reject = Рад кардан
+library.similar.help = Танҳо аломатҳои баррасӣ; файлҳо нест намешаванд.
+library.similar.stale = Файлҳо тағйир ёфтанд. Барои идома навсозӣ кунед.

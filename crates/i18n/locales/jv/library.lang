@@ -291,3 +291,12 @@ video.preview_help_touch = Pratinjau tanpa swara · Seret garis wektu utawa pind
 video.importing = Ngimpor foto lan vidéo…
 video.import_failed = Ora bisa ngimpor média: {error}
 video.import_failed_simple = Ora bisa ngimpor utawa nuduhake média iki.
+
+# Similar-photo and capture-burst review
+library.similar.title = Foto sing padha
+library.similar.visual = Kemiripan visual
+library.similar.burst = Foto runtut
+library.similar.keep = Simpen
+library.similar.reject = Tolak
+library.similar.help = Mung tandha pamriksan; berkas ora dibusak.
+library.similar.stale = Berkas wis owah. Segerake kanggo nerusake.

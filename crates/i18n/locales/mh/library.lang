@@ -290,3 +290,12 @@ video.preview_help_touch = Preview ejelọk ainikien · Drag timeline eo ak etal
 video.importing = Ej import pija im video ko…
 video.import_failed = Ejjab maroñ import media: {error}
 video.import_failed_simple = Ejjab maroñ import ak ajeji media in.
+
+# Similar-photo and capture-burst review
+library.similar.title = Pija ko rej āinwōt doon
+library.similar.visual = Āinwōt ilo lale
+library.similar.burst = Pija ko rej ļoor doon
+library.similar.keep = Dāpij
+library.similar.reject = Jab bōk
+library.similar.help = Kōkkaļļe in etale wōt; ejjab jako peba ko.
+library.similar.stale = Peba ko raar oktak. Kōkāāl bwe kwōn etal wōt.

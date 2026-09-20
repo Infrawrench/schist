@@ -326,3 +326,12 @@ video.preview_help_touch = Aperçu silencieux · Faites glisser la chronologie o
 video.importing = Importation des photos et vidéos…
 video.import_failed = Impossible d’importer le contenu multimédia : {error}
 video.import_failed_simple = Impossible d’importer ou de partager ce contenu multimédia.
+
+# Similar-photo and capture-burst review
+library.similar.title = Photos similaires
+library.similar.visual = Ressemblances visuelles
+library.similar.burst = Rafales
+library.similar.keep = Conserver
+library.similar.reject = Rejeter
+library.similar.help = Marques de tri uniquement ; aucun fichier n’est supprimé.
+library.similar.stale = Les fichiers ont changé. Actualisez pour continuer.

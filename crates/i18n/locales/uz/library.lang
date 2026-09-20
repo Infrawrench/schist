@@ -308,3 +308,12 @@ video.preview_help_touch = Ovozsiz eskiz · Vaqt shkalasini sudrang yoki kadrma-
 video.importing = Suratlar va videolar import qilinmoqda…
 video.import_failed = Media faylni import qilib bo‘lmadi: {error}
 video.import_failed_simple = Bu media faylni import qilib yoki ulashib bo‘lmadi.
+
+# Similar-photo and capture-burst review
+library.similar.title = O‘xshash suratlar
+library.similar.visual = Vizual o‘xshashlik
+library.similar.burst = Ketma-ket suratlar
+library.similar.keep = Saqlash
+library.similar.reject = Rad etish
+library.similar.help = Faqat ko‘rib chiqish belgilari; fayllar o‘chirilmaydi.
+library.similar.stale = Fayllar o‘zgardi. Davom etish uchun yangilang.

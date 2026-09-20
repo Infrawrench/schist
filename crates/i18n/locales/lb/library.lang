@@ -328,3 +328,12 @@ video.preview_help_touch = Virschau ouni Toun · Zitt d'Zäitlinn oder gitt Fram
 video.importing = Fotoen a Videoe ginn importéiert…
 video.import_failed = Medien konnten net importéiert ginn: {error}
 video.import_failed_simple = Dëse Medium konnt net importéiert oder gedeelt ginn.
+
+# Similar-photo and capture-burst review
+library.similar.title = Änlech Fotoen
+library.similar.visual = Visuell Iwwereestëmmungen
+library.similar.burst = Serienopnamen
+library.similar.keep = Behalen
+library.similar.reject = Ofleenen
+library.similar.help = Nëmmen Iwwerpréiwungszeechen; Dateie ginn net geläscht.
+library.similar.stale = Dateie hu geännert. Aktualiséiere fir weiderzemaachen.

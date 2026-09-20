@@ -308,3 +308,12 @@ video.preview_help_touch = އަޑުނެތް ޕްރިވިއު · ޓައިމްލަ
 video.importing = ފޮޓޯތަކާއި ވީޑިއޯތައް އިމްޕޯޓް ކުރަނީ…
 video.import_failed = މީޑިއާ އިމްޕޯޓްކުރެވެން ނުކެރުނު: {error}
 video.import_failed_simple = މި މީޑިއާ އިމްޕޯޓް ނުވަތަ ހިއްސާކުރެވެން ނުކެރުނު.
+
+# Similar-photo and capture-burst review
+library.similar.title = އެއްގޮތް ފޮޓޯތައް
+library.similar.visual = ފެންނަ ގޮތުން އެއްގޮތް
+library.similar.burst = އެއްފަހަރާ ނެގި ފޮޓޯތައް
+library.similar.keep = ބަހައްޓާ
+library.similar.reject = ރައްދުކުރޭ
+library.similar.help = ރިވިއު ނިޝާންތައް އެކަނި؛ ފައިލްތައް ނުފުހެވޭ.
+library.similar.stale = ފައިލްތައް ބަދަލުވެއްޖެ. ކުރިއަށް ދާން ރިފްރެޝް ކުރޭ.

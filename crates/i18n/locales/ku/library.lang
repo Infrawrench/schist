@@ -308,3 +308,12 @@ video.preview_help_touch = Pêşdîtina bêdeng · Xêza demê bikişîne an ça
 video.importing = Fotograf û vîdeo tên anîn…
 video.import_failed = Medya nehat anîn: {error}
 video.import_failed_simple = Ev medya nehat anîn an parvekirin.
+
+# Similar-photo and capture-burst review
+library.similar.title = Wêneyên wekhev
+library.similar.visual = Wekheviya dîtbarî
+library.similar.burst = Wêneyên li pey hev
+library.similar.keep = Biparêze
+library.similar.reject = Red bike
+library.similar.help = Tenê nîşanên nirxandinê; pel nayên jêbirin.
+library.similar.stale = Pel hatine guhertin. Ji bo berdewamkirinê nû bike.

@@ -311,3 +311,12 @@ video.preview_help_touch = Тауышһыҙ алдан ҡарау · Ваҡыт 
 video.importing = Фото һәм видеолар импортлана…
 video.import_failed = Медиа импортлап булманы: {error}
 video.import_failed_simple = Был медианы импортлап йәки бүлешеп булманы.
+
+# Similar-photo and capture-burst review
+library.similar.title = Оҡшаш фотолар
+library.similar.visual = Күренеш оҡшашлығы
+library.similar.burst = Эҙмә-эҙ фотолар
+library.similar.keep = Һаҡлау
+library.similar.reject = Кире ҡағыу
+library.similar.help = Ҡарау билдәләре генә; файлдар юйылмай.
+library.similar.stale = Файлдар үҙгәрҙе. Дауам итеү өсөн яңыртығыҙ.

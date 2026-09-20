@@ -308,3 +308,12 @@ video.preview_help_touch = غلې مخکتنه · مهال‌کرښه راکاږ
 video.importing = انځورونه او ویډیوګانې راوړل کېږي…
 video.import_failed = رسنۍ راوړل نشوې: {error}
 video.import_failed_simple = دا رسنۍ راوړل یا شریکول نشوې.
+
+# Similar-photo and capture-burst review
+library.similar.title = ورته انځورونه
+library.similar.visual = لیدیز ورته والی
+library.similar.burst = پرله‌پسې انځورونه
+library.similar.keep = ساتل
+library.similar.reject = ردول
+library.similar.help = یوازې د بیاکتنې نښې؛ دوتنې نه ړنګېږي.
+library.similar.stale = دوتنې بدلې شوې. د دوام لپاره تازه کړئ.

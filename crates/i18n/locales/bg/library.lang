@@ -308,3 +308,12 @@ video.preview_help_touch = Преглед без звук · Плъзнете в
 video.importing = Импортиране на снимки и видеоклипове…
 video.import_failed = Мултимедийният файл не можа да бъде импортиран: {error}
 video.import_failed_simple = Този мултимедиен файл не можа да бъде импортиран или споделен.
+
+# Similar-photo and capture-burst review
+library.similar.title = Подобни снимки
+library.similar.visual = Визуално сходство
+library.similar.burst = Серийни снимки
+library.similar.keep = Запази
+library.similar.reject = Отхвърли
+library.similar.help = Само знаци за преглед; файловете не се изтриват.
+library.similar.stale = Файловете са променени. Опреснете, за да продължите.

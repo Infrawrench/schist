@@ -308,3 +308,12 @@ video.preview_help_touch = Προεπισκόπηση χωρίς ήχο · Σύ�
 video.importing = Εισαγωγή φωτογραφιών και βίντεο…
 video.import_failed = Δεν ήταν δυνατή η εισαγωγή πολυμέσων: {error}
 video.import_failed_simple = Δεν ήταν δυνατή η εισαγωγή ή κοινοποίηση αυτού του πολυμέσου.
+
+# Similar-photo and capture-burst review
+library.similar.title = Παρόμοιες φωτογραφίες
+library.similar.visual = Οπτικές ομοιότητες
+library.similar.burst = Διαδοχικές λήψεις
+library.similar.keep = Διατήρηση
+library.similar.reject = Απόρριψη
+library.similar.help = Μόνο σημάδια ελέγχου· τα αρχεία δεν διαγράφονται.
+library.similar.stale = Τα αρχεία άλλαξαν. Ανανεώστε για να συνεχίσετε.

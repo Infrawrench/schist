@@ -363,3 +363,12 @@ video.preview_help_touch = নিৰৱ পূৰ্বদৰ্শন · সম
 video.importing = ফটো আৰু ভিডিঅ' আমদানি হৈ আছে…
 video.import_failed = মিডিয়া আমদানি কৰিব পৰা নগ'ল: {error}
 video.import_failed_simple = এই মিডিয়া আমদানি বা ভাগ-বতৰা কৰিব পৰা নগ'ল।
+
+# Similar-photo and capture-burst review
+library.similar.title = একেধৰণৰ ফটো
+library.similar.visual = দৃশ্যগত মিল
+library.similar.burst = একেৰাহে তোলা ফটো
+library.similar.keep = ৰাখক
+library.similar.reject = নাকচ কৰক
+library.similar.help = কেৱল পৰ্যালোচনাৰ চিন; ফাইল মচা নহয়।
+library.similar.stale = ফাইল সলনি হৈছে। আগবাঢ়িবলৈ সতেজ কৰক।

@@ -349,3 +349,12 @@ video.preview_help_touch = Pregled bez zvuka · Povucite vremensku liniju ili se
 video.importing = Uvoz fotografija i videozapisa…
 video.import_failed = Uvoz medija nije uspio: {error}
 video.import_failed_simple = Ovaj medij nije moguće uvesti ni podijeliti.
+
+# Similar-photo and capture-burst review
+library.similar.title = Slične fotografije
+library.similar.visual = Vizuelne podudarnosti
+library.similar.burst = Uzastopni snimci
+library.similar.keep = Zadrži
+library.similar.reject = Odbaci
+library.similar.help = Samo oznake pregleda; datoteke se ne brišu.
+library.similar.stale = Datoteke su promijenjene. Osvježite za nastavak.

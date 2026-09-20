@@ -310,3 +310,12 @@ video.preview_help_touch = Lydløst eksempel · Træk på tidslinjen, eller gå 
 video.importing = Importerer fotos og videoer…
 video.import_failed = Kunne ikke importere medier: {error}
 video.import_failed_simple = Kunne ikke importere eller dele dette medie.
+
+# Similar-photo and capture-burst review
+library.similar.title = Lignende fotos
+library.similar.visual = Visuelle ligheder
+library.similar.burst = Serieoptagelser
+library.similar.keep = Behold
+library.similar.reject = Afvis
+library.similar.help = Kun gennemgangsmarkeringer; filer slettes ikke.
+library.similar.stale = Filerne er ændret. Opdater for at fortsætte.

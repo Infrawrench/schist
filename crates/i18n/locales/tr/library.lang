@@ -308,3 +308,12 @@ video.preview_help_touch = Sessiz önizleme · Zaman çizelgesini sürükleyin v
 video.importing = Fotoğraf ve videolar içe aktarılıyor…
 video.import_failed = Medya içe aktarılamadı: {error}
 video.import_failed_simple = Bu medya içe aktarılamadı veya paylaşılamadı.
+
+# Similar-photo and capture-burst review
+library.similar.title = Benzer fotoğraflar
+library.similar.visual = Görsel eşleşmeler
+library.similar.burst = Seri çekimler
+library.similar.keep = Sakla
+library.similar.reject = Reddet
+library.similar.help = Yalnızca inceleme işaretleri; dosyalar silinmez.
+library.similar.stale = Dosyalar değişti. Devam etmek için yenileyin.

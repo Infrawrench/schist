@@ -290,3 +290,12 @@ video.preview_help_touch = Pratinjau tanpa sora · Séréd garis waktu atawa lé
 video.importing = Ngimpor poto jeung vidéo…
 video.import_failed = Teu bisa ngimpor média: {error}
 video.import_failed_simple = Teu bisa ngimpor atawa ngabagikeun média ieu.
+
+# Similar-photo and capture-burst review
+library.similar.title = Poto sarupa
+library.similar.visual = Kamiripan visual
+library.similar.burst = Poto ngaruntuy
+library.similar.keep = Simpen
+library.similar.reject = Tolak
+library.similar.help = Ngan tanda pamariksaan; berkas henteu dihapus.
+library.similar.stale = Berkas parantos robih. Segerkeun pikeun neraskeun.

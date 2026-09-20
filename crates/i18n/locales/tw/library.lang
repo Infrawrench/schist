@@ -290,3 +290,12 @@ video.preview_help_touch = Nhwɛso a ɛnyɛ nnyigyei · Twe bere nhama no anaa f
 video.importing = Ɛde foto ne video reba mu…
 video.import_failed = Antumi amfa media no amma mu: {error}
 video.import_failed_simple = Antumi amfa media yi amma mu anaa ankyɛ.
+
+# Similar-photo and capture-burst review
+library.similar.title = Mfonini a ɛsɛ
+library.similar.visual = Nhwɛso a ɛsɛ
+library.similar.burst = Mfonini a ɛtoatoa so
+library.similar.keep = Fa sie
+library.similar.reject = Pow
+library.similar.help = Nhwehwɛmu agyiraehyɛde nko; wɔmpopa fael ahorow.
+library.similar.stale = Fael ahorow asesa. Yɛ no foforo na toa so.

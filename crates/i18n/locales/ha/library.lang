@@ -354,3 +354,12 @@ video.preview_help_touch = Samfoti marar sauti · Ja layin lokaci ko matsa firam
 video.importing = Ana shigo da hotuna da bidiyoyi…
 video.import_failed = Ba a iya shigo da kafofi ba: {error}
 video.import_failed_simple = Ba a iya shigo da ko raba wannan kafofin ba.
+
+# Similar-photo and capture-burst review
+library.similar.title = Hotuna masu kama
+library.similar.visual = Kamannin gani
+library.similar.burst = Hotuna a jere
+library.similar.keep = Riƙe
+library.similar.reject = Ƙi
+library.similar.help = Alamun dubawa kawai; ba a goge fayiloli ba.
+library.similar.stale = Fayiloli sun canza. Sabunta don ci gaba.

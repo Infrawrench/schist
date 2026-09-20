@@ -396,3 +396,12 @@ video.preview_help_touch = Rhagolwg tawel · Llusgwch y llinell amser neu gamwch
 video.importing = Wrthi'n mewnforio ffotograffau a fideos…
 video.import_failed = Methu mewnforio cyfryngau: {error}
 video.import_failed_simple = Methu mewnforio na rhannu'r cyfryngau hyn.
+
+# Similar-photo and capture-burst review
+library.similar.title = Lluniau tebyg
+library.similar.visual = Tebygrwydd gweledol
+library.similar.burst = Lluniau mewn cyfres
+library.similar.keep = Cadw
+library.similar.reject = Gwrthod
+library.similar.help = Marciau adolygu yn unig; ni chaiff ffeiliau eu dileu.
+library.similar.stale = Mae ffeiliau wedi newid. Adnewyddwch i barhau.

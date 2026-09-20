@@ -338,3 +338,12 @@ video.preview_help_touch = निःशब्दपूर्वदृश्य�
 video.importing = छायाचित्राणि चलच्चित्राणि च आयात्यन्ते…
 video.import_failed = माध्यमम् आयातयितुं न शक्तम्: {error}
 video.import_failed_simple = एतत् माध्यमम् आयातयितुं संविभक्तुं वा न शक्तम्।
+
+# Similar-photo and capture-burst review
+library.similar.title = सदृशानि चित्राणि
+library.similar.visual = दृश्यसाम्यम्
+library.similar.burst = क्रमिकचित्राणि
+library.similar.keep = रक्षतु
+library.similar.reject = निराकरोतु
+library.similar.help = केवलं समीक्षाचिह्नानि; सञ्चिकाः न विलोप्यन्ते।
+library.similar.stale = सञ्चिकाः परिवर्तिताः। अग्रे गन्तुं नवीकरोतु।

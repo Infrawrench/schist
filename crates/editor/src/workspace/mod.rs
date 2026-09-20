@@ -113,6 +113,8 @@ mod library_people_view;
 #[cfg(target_os = "ios")]
 mod library_photos;
 #[cfg(not(target_arch = "wasm32"))]
+mod library_similar;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_view;
 mod modals;
 mod notes;

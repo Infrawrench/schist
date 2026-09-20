@@ -290,3 +290,12 @@ video.preview_help_touch = Anteprima muta · Trascinate a linea di tempu o avanz
 video.importing = Impurtazione di fotò è video…
 video.import_failed = Impussibule d'impurtà i media: {error}
 video.import_failed_simple = Impussibule d'impurtà o sparte sti media.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ritratti simili
+library.similar.visual = Sumiglianze visuale
+library.similar.burst = Ritratti in seria
+library.similar.keep = Tene
+library.similar.reject = Rifiutà
+library.similar.help = Solu marche di rivisione; i schedarii ùn sò micca sguassati.
+library.similar.stale = I schedarii sò cambiati. Attualizà per cuntinuà.

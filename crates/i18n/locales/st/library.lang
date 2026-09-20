@@ -329,3 +329,12 @@ video.preview_help_touch = Ponelopele e se nang molumo · Hula mola oa nako kapa
 video.importing = E kenya lifoto le livideo…
 video.import_failed = Ha hoa ka ha kenngoa media: {error}
 video.import_failed_simple = Media ena ha ea ka ea kenngoa kapa ea arolelanoa.
+
+# Similar-photo and capture-burst review
+library.similar.title = Litšoantšo tse tšoanang
+library.similar.visual = Ho tšoana ka ponahalo
+library.similar.burst = Litšoantšo tse latellanang
+library.similar.keep = Boloka
+library.similar.reject = Hana
+library.similar.help = Matšoao a tlhahlobo feela; lifaele ha li hlakoloe.
+library.similar.stale = Lifaele li fetohile. Nchafatsa ho tsoela pele.

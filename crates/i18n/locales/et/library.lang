@@ -308,3 +308,12 @@ video.preview_help_touch = Helitu eelvaade · lohista ajajoonel või liigu kaadr
 video.importing = Fotode ja videote importimine…
 video.import_failed = Meediumit ei saanud importida: {error}
 video.import_failed_simple = Seda meediumit ei saanud importida ega jagada.
+
+# Similar-photo and capture-burst review
+library.similar.title = Sarnased fotod
+library.similar.visual = Visuaalsed vasted
+library.similar.burst = Sarivõtted
+library.similar.keep = Säilita
+library.similar.reject = Lükka tagasi
+library.similar.help = Ainult ülevaatuse märgid; faile ei kustutata.
+library.similar.stale = Failid on muutunud. Jätkamiseks värskenda.

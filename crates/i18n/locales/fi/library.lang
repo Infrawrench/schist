@@ -311,3 +311,12 @@ video.preview_help_touch = Äänetön esikatselu · Vedä aikajanaa tai siirry r
 video.importing = Tuodaan kuvia ja videoita…
 video.import_failed = Mediaa ei voitu tuoda: {error}
 video.import_failed_simple = Tätä mediaa ei voitu tuoda tai jakaa.
+
+# Similar-photo and capture-burst review
+library.similar.title = Samankaltaiset kuvat
+library.similar.visual = Visuaaliset vastaavuudet
+library.similar.burst = Kuvasarjat
+library.similar.keep = Säilytä
+library.similar.reject = Hylkää
+library.similar.help = Vain tarkistusmerkinnät; tiedostoja ei poisteta.
+library.similar.stale = Tiedostot ovat muuttuneet. Päivitä jatkaaksesi.

@@ -332,3 +332,12 @@ video.preview_help_touch = নিঃশব্দ প্রিভিউ · টা
 video.importing = ছবি ও ভিডিও আমদানি হচ্ছে…
 video.import_failed = মিডিয়া আমদানি করা যায়নি: {error}
 video.import_failed_simple = এই মিডিয়া আমদানি বা শেয়ার করা যায়নি।
+
+# Similar-photo and capture-burst review
+library.similar.title = একই রকম ছবি
+library.similar.visual = দৃশ্যগত মিল
+library.similar.burst = একটানা তোলা ছবি
+library.similar.keep = রাখুন
+library.similar.reject = বাতিল করুন
+library.similar.help = শুধু পর্যালোচনার চিহ্ন; ফাইল মুছে ফেলা হয় না।
+library.similar.stale = ফাইল বদলেছে। চালিয়ে যেতে রিফ্রেশ করুন।

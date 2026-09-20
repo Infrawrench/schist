@@ -309,3 +309,12 @@ video.preview_help_touch = ನಿಶ್ಶಬ್ದ ಮುನ್ನೋಟ · ಕ
 video.importing = ಫೋಟೋಗಳು ಮತ್ತು ವೀಡಿಯೊಗಳನ್ನು ಆಮದುಮಾಡಲಾಗುತ್ತಿದೆ…
 video.import_failed = ಮಾಧ್ಯಮವನ್ನು ಆಮದುಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: {error}
 video.import_failed_simple = ಈ ಮಾಧ್ಯಮವನ್ನು ಆಮದುಮಾಡಲು ಅಥವಾ ಹಂಚಿಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.
+
+# Similar-photo and capture-burst review
+library.similar.title = ಒಂದೇ ರೀತಿಯ ಫೋಟೋಗಳು
+library.similar.visual = ದೃಶ್ಯ ಹೋಲಿಕೆಗಳು
+library.similar.burst = ಸತತವಾಗಿ ತೆಗೆದ ಫೋಟೋಗಳು
+library.similar.keep = ಉಳಿಸಿ
+library.similar.reject = ತಿರಸ್ಕರಿಸಿ
+library.similar.help = ಪರಿಶೀಲನೆ ಗುರುತುಗಳು ಮಾತ್ರ; ಫೈಲ್‌ಗಳನ್ನು ಅಳಿಸಲಾಗುವುದಿಲ್ಲ.
+library.similar.stale = ಫೈಲ್‌ಗಳು ಬದಲಾಗಿವೆ. ಮುಂದುವರಿಯಲು ರಿಫ್ರೆಶ್ ಮಾಡಿ.

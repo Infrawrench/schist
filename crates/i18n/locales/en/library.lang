@@ -363,3 +363,12 @@ video.preview_help_touch = Silent preview · Drag the timeline or step through f
 video.importing = Importing photos and videos…
 video.import_failed = Could not import media: {error}
 video.import_failed_simple = Could not import or share this media.
+
+# Similar-photo and capture-burst review
+library.similar.title = Similar photos
+library.similar.visual = Visual matches
+library.similar.burst = Capture bursts
+library.similar.keep = Keep
+library.similar.reject = Reject
+library.similar.help = Review marks only; files are not deleted.
+library.similar.stale = Files changed. Refresh to continue.

@@ -308,3 +308,12 @@ video.preview_help_touch = Néma előnézet · Húzza az idővonalat, vagy lépk
 video.importing = Fényképek és videók importálása…
 video.import_failed = A média nem importálható: {error}
 video.import_failed_simple = Ez a média nem importálható vagy osztható meg.
+
+# Similar-photo and capture-burst review
+library.similar.title = Hasonló fényképek
+library.similar.visual = Vizuális egyezések
+library.similar.burst = Sorozatfelvételek
+library.similar.keep = Megtartás
+library.similar.reject = Elutasítás
+library.similar.help = Csak ellenőrzési jelölések; a fájlok nem törlődnek.
+library.similar.stale = A fájlok megváltoztak. Frissítsen a folytatáshoz.

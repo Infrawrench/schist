@@ -308,3 +308,12 @@ video.preview_help_touch = שטילער פֿאָרויסקוק · שלעפּט �
 video.importing = פֿאָטאָס און ווידעאָס ווערן אימפּאָרטירט…
 video.import_failed = מעדיע האָט זיך נישט געקענט אימפּאָרטירן: {error}
 video.import_failed_simple = די מעדיע האָט זיך נישט געקענט אימפּאָרטירן אָדער מיטטיילן.
+
+# Similar-photo and capture-burst review
+library.similar.title = ענלעכע פֿאָטאָס
+library.similar.visual = וויזועלע ענלעכקייטן
+library.similar.burst = פֿאָטאָס אין אַ ריי
+library.similar.keep = האַלטן
+library.similar.reject = אָפּוואַרפֿן
+library.similar.help = נאָר איבערקוק־צייכנס; טעקעס ווערן נישט אויסגעמעקט.
+library.similar.stale = די טעקעס האָבן זיך געביטן. באַנײַט כּדי ווײַטערצוגיין.

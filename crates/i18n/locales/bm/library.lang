@@ -313,3 +313,12 @@ video.preview_help_touch = Lajɛ fɔlɔ mankantan · Waati sira sama walima tɛm
 video.importing = Foto ni wideyow bɛ don…
 video.import_failed = A ma se ka medya don: {error}
 video.import_failed_simple = A ma se ka nin medya don walima tila.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ja minnu bɛ bɔ ɲɔgɔn fɛ
+library.similar.visual = Yecogo kelenya
+library.similar.burst = Ja kɔfɛlenw
+library.similar.keep = Mara
+library.similar.reject = Banna
+library.similar.help = Sɛgɛsɛgɛli taamasiɲɛw dɔrɔn; filenw tɛ bɔ yen.
+library.similar.stale = Filenw yɛlɛmana. Kuraya walasa ka taa ɲɛ.

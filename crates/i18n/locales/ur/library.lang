@@ -309,3 +309,12 @@ video.preview_help_touch = بے آواز پیش منظر · ٹائم لائن گ
 video.importing = تصاویر اور ویڈیوز درآمد ہو رہی ہیں…
 video.import_failed = میڈیا درآمد نہیں ہو سکا: {error}
 video.import_failed_simple = یہ میڈیا درآمد یا اشتراک نہیں ہو سکا۔
+
+# Similar-photo and capture-burst review
+library.similar.title = ملتی جلتی تصاویر
+library.similar.visual = بصری مماثلت
+library.similar.burst = مسلسل لی گئی تصاویر
+library.similar.keep = رکھیں
+library.similar.reject = مسترد کریں
+library.similar.help = صرف جائزے کے نشان؛ فائلیں حذف نہیں ہوتیں۔
+library.similar.stale = فائلیں بدل گئی ہیں۔ جاری رکھنے کے لیے تازہ کریں۔

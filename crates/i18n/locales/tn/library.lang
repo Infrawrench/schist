@@ -308,3 +308,12 @@ video.preview_help_touch = Ponelopele e e didimetseng · Goga timeline kgotsa ts
 video.importing = E tsenya dinepe le dibidio…
 video.import_failed = Ga go a kgonega go tsenya media: {error}
 video.import_failed_simple = Ga go a kgonega go tsenya kgotsa go aroganya media eno.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ditshwantsho tse di tshwanang
+library.similar.visual = Go tshwana ka ponalo
+library.similar.burst = Ditshwantsho tse di latelanang
+library.similar.keep = Boloka
+library.similar.reject = Gana
+library.similar.help = Matshwao a tlhatlhobo fela; difaele ga di phimolwe.
+library.similar.stale = Difaele di fetogile. Ntšhafatsa go tswelela.

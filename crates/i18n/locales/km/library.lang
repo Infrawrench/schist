@@ -290,3 +290,12 @@ video.preview_help_touch = មើលជាមុនគ្មានសំឡេ�
 video.importing = កំពុងនាំចូលរូបថត និងវីដេអូ…
 video.import_failed = មិនអាចនាំចូលមេឌៀ៖ {error}
 video.import_failed_simple = មិនអាចនាំចូល ឬចែករំលែកមេឌៀនេះ។
+
+# Similar-photo and capture-burst review
+library.similar.title = រូបថតស្រដៀងគ្នា
+library.similar.visual = ភាពស្រដៀងគ្នាតាមរូបភាព
+library.similar.burst = រូបថតជាប់ៗគ្នា
+library.similar.keep = រក្សាទុក
+library.similar.reject = បដិសេធ
+library.similar.help = សញ្ញាពិនិត្យប៉ុណ្ណោះ ឯកសារមិនត្រូវបានលុបទេ។
+library.similar.stale = ឯកសារបានផ្លាស់ប្តូរ។ ផ្ទុកឡើងវិញដើម្បីបន្ត។

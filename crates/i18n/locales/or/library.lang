@@ -308,3 +308,12 @@ video.preview_help_touch = ନିରବ ପୂର୍ବାବଲୋକନ · ଟ
 video.importing = ଫଟୋ ଏବଂ ଭିଡିଓ ଆମଦାନୀ ହେଉଛି…
 video.import_failed = ମିଡିଆ ଆମଦାନୀ କରିହେଲା ନାହିଁ: {error}
 video.import_failed_simple = ଏହି ମିଡିଆ ଆମଦାନୀ କିମ୍ବା ଅଂଶୀଦାର କରିହେଲା ନାହିଁ।
+
+# Similar-photo and capture-burst review
+library.similar.title = ସମାନ ଫଟୋ
+library.similar.visual = ଦୃଶ୍ୟ ସମାନତା
+library.similar.burst = କ୍ରମାଗତ ଫଟୋ
+library.similar.keep = ରଖନ୍ତୁ
+library.similar.reject = ପ୍ରତ୍ୟାଖ୍ୟାନ କରନ୍ତୁ
+library.similar.help = କେବଳ ସମୀକ୍ଷା ଚିହ୍ନ; ଫାଇଲ୍ ବିଲୋପ ହୁଏ ନାହିଁ।
+library.similar.stale = ଫାଇଲ୍ ବଦଳିଛି। ଜାରି ରଖିବାକୁ ସତେଜ କରନ୍ତୁ।

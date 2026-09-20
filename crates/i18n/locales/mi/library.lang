@@ -290,3 +290,12 @@ video.preview_help_touch = Arokite wahangū · Tōia te rārangi wā, neke rāne
 video.importing = E kawemai ana i ngā whakaahua me ngā ataata…
 video.import_failed = Kāore i taea te kawemai pāpāho: {error}
 video.import_failed_simple = Kāore i taea te kawemai, te tiri rānei i tēnei pāpāho.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ngā whakaahua ōrite
+library.similar.visual = Ngā ōritenga ā-kanohi
+library.similar.burst = Ngā whakaahua raupapa
+library.similar.keep = Puritia
+library.similar.reject = Whakakāhore
+library.similar.help = He tohu arotake anake; kāore ngā kōnae e mukua.
+library.similar.stale = Kua panoni ngā kōnae. Tāmata kia haere tonu.

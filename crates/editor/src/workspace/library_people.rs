@@ -459,6 +459,11 @@ impl Workspace {
         if self.gallery_search_clear(cx) {
             return true;
         }
+        if self.library.viewer.is_none() && self.library.similar.open {
+            self.close_similar_review();
+            cx.notify();
+            return true;
+        }
         let Some(viewer) = &self.library.viewer else {
             return false;
         };

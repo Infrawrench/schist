@@ -308,3 +308,12 @@ video.preview_help_touch = Prévoeyaedje sins son · Saetchîz sol roye do tins 
 video.importing = Dji abague les fotos et videyos…
 video.import_failed = Dji n' a savou abaguer les medias: {error}
 video.import_failed_simple = Dji n' a savou abaguer ou pårtaedjî ç' media-ci.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fotos ki s’ rishonnèt
+library.similar.visual = Rishonnances vizuweles
+library.similar.burst = Fotos e séreye
+library.similar.keep = Wårder
+library.similar.reject = Rifuzer
+library.similar.help = Rin k’ des måkes di revizion ; les fitchîs ni sont nén disfacés.
+library.similar.stale = Les fitchîs ont candjî. Rafrister po continouwer.

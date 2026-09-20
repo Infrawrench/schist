@@ -290,3 +290,12 @@ video.preview_help_touch = Àwòrán àkọ́kọ́ láìróhùn · Fa ìlà àk
 video.importing = Ń gbé àwọn fọ́tò àti fídíò wọlé…
 video.import_failed = A kò lè gbé mídíà wọlé: {error}
 video.import_failed_simple = A kò lè gbé mídíà yìí wọlé tàbí pín in.
+
+# Similar-photo and capture-burst review
+library.similar.title = Àwọn fọ́tò tó jọra
+library.similar.visual = Ìjọra lójú
+library.similar.burst = Àwọn fọ́tò tẹ̀léra
+library.similar.keep = Pamọ́
+library.similar.reject = Kọ̀
+library.similar.help = Àmì àyẹ̀wò nìkan; a kò pa àwọn fáìlì rẹ́.
+library.similar.stale = Àwọn fáìlì ti yí padà. Sọ di tuntun láti tẹ̀síwájú.

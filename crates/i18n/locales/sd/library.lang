@@ -358,3 +358,12 @@ video.preview_help_touch = بنا آواز اڳ ڏيک · ٽائيم لائين 
 video.importing = تصويرون ۽ وڊيو درآمد ٿي رهيا آهن…
 video.import_failed = ميڊيا درآمد نه ٿي سگهي: {error}
 video.import_failed_simple = هي ميڊيا درآمد يا ونڊجي نه سگهي.
+
+# Similar-photo and capture-burst review
+library.similar.title = هڪجهڙيون تصويرون
+library.similar.visual = ڏسڻ ۾ هڪجهڙائي
+library.similar.burst = لڳاتار تصويرون
+library.similar.keep = رکو
+library.similar.reject = رد ڪريو
+library.similar.help = صرف جائزي جا نشان؛ فائلون ڊاٺيون نه وينديون آهن.
+library.similar.stale = فائلون بدلجي ويون آهن. جاري رکڻ لاءِ تازو ڪريو.

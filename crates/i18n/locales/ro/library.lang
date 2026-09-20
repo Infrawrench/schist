@@ -326,3 +326,12 @@ video.preview_help_touch = Previzualizare fără sunet · Trageți cronologia sa
 video.importing = Se importă fotografii și videoclipuri…
 video.import_failed = Conținutul media nu a putut fi importat: {error}
 video.import_failed_simple = Acest conținut media nu a putut fi importat sau partajat.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fotografii similare
+library.similar.visual = Asemănări vizuale
+library.similar.burst = Fotografii în rafală
+library.similar.keep = Păstrează
+library.similar.reject = Respinge
+library.similar.help = Doar marcaje de revizuire; fișierele nu sunt șterse.
+library.similar.stale = Fișierele s-au schimbat. Reîmprospătează pentru a continua.

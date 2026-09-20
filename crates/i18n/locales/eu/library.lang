@@ -354,3 +354,12 @@ video.preview_help_touch = Soinurik gabeko aurrebista · Arrastatu denbora-lerro
 video.importing = Argazkiak eta bideoak inportatzen…
 video.import_failed = Ezin izan da multimedia inportatu: {error}
 video.import_failed_simple = Ezin izan da multimedia hau inportatu edo partekatu.
+
+# Similar-photo and capture-burst review
+library.similar.title = Antzeko argazkiak
+library.similar.visual = Ikusizko antzekotasunak
+library.similar.burst = Argazki-segidak
+library.similar.keep = Mantendu
+library.similar.reject = Baztertu
+library.similar.help = Berrikuspen-markak soilik; fitxategiak ez dira ezabatzen.
+library.similar.stale = Fitxategiak aldatu dira. Freskatu jarraitzeko.

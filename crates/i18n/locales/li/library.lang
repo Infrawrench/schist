@@ -313,3 +313,12 @@ video.preview_help_touch = Sjtille veurtuin · Sleip de tiedlien of gao beeld ve
 video.importing = Foto's en video's importere…
 video.import_failed = Kós media neet importere: {error}
 video.import_failed_simple = Kós deze media neet importere of deile.
+
+# Similar-photo and capture-burst review
+library.similar.title = Vergeliekbare foto's
+library.similar.visual = Visuele euvereinkomste
+library.similar.burst = Serieopnames
+library.similar.keep = Beware
+library.similar.reject = Aafwieze
+library.similar.help = Allein beoordelingsmerke; bestanje waere neet gewis.
+library.similar.stale = Bestanje zeen verangerd. Vernuuj om door te gaon.

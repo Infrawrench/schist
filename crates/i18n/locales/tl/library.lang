@@ -308,3 +308,12 @@ video.preview_help_touch = Tahimik na preview · I-drag ang timeline o lumipat s
 video.importing = Nag-i-import ng mga larawan at video…
 video.import_failed = Hindi ma-import ang media: {error}
 video.import_failed_simple = Hindi ma-import o maibahagi ang media na ito.
+
+# Similar-photo and capture-burst review
+library.similar.title = Magkakatulad na larawan
+library.similar.visual = Pagkakatulad sa hitsura
+library.similar.burst = Sunod-sunod na kuha
+library.similar.keep = Panatilihin
+library.similar.reject = Tanggihan
+library.similar.help = Mga marka lang ng pagsusuri; hindi binubura ang mga file.
+library.similar.stale = Nagbago ang mga file. I-refresh upang magpatuloy.

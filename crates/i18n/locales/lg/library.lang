@@ -308,3 +308,12 @@ video.preview_help_touch = Okulabirako okutaliimu ddoboozi · Walula olutimbe lw
 video.importing = Eyingiza ebifaananyi ne vidiyo…
 video.import_failed = Tesobodde kuyingiza media: {error}
 video.import_failed_simple = Tesobodde kuyingiza oba kugabana media eno.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ebifaananyi ebifaanagana
+library.similar.visual = Okufaanagana mu ndabika
+library.similar.burst = Ebifaananyi ebiddiringana
+library.similar.keep = Kuuma
+library.similar.reject = Gaana
+library.similar.help = Obubonero bw’okwekenneenya bwokka; fayiro tezisangulwa.
+library.similar.stale = Fayiro zikyuse. Ddamu okutikka okugenda mu maaso.

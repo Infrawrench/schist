@@ -623,3 +623,65 @@ people — every named face (hand-made or automatic), every detected
 face waved away, and every "not them". Thumbnail caches
 live under the state directory (`~/.local/state/schist/thumbs`) and can
 be deleted freely.
+
+## Similar photos and capture bursts
+
+Choose **Similar photos** in the local gallery sidebar to scan the current
+view. Folder, bucket, person, search, map and content filters determine this
+snapshot; videos are excluded. **Refresh** takes a new snapshot after changing
+filters or files. The scan runs in the background, reports the actual number
+of inspected sources, and supports **Cancel**. Cancellation takes effect after
+the current image decoder returns; partial groups are discarded and completed
+image signatures remain cached for the next scan.
+
+**Visual matches** groups likely duplicate originals, including resized copies
+and lightly recompressed versions. Thresholds of **2/64**, **6/64** (default)
+and **10/64** permit progressively more difference in a 64-bit difference hash.
+An additional comparison of 8×8 RGB samples and aspect ratios rejects common
+hash collisions, such as unrelated solid-colour images. Every member matches
+the first photo in its group: a chain of weak pairwise similarities cannot
+join dissimilar endpoints. The displayed distance is relative to that first
+photo. These are suggestions for human review, not proof that two files are
+identical. Crops, rotations, substantial edits, different exposures and some
+low-detail scenes can be missed or incorrectly suggested.
+
+**Capture bursts** groups photos in the same directory with capture times at
+most two seconds apart, limiting each group to a ten-second span. The distance
+readout shows seconds from the first photo. EXIF DateTimeOriginal (or DateTime)
+provides capture times; the filesystem modification clock is never substituted.
+Photos without a valid capture time are excluded. Cameras lacking subsecond or
+time-zone data can produce ambiguous groups, and photos from different cameras
+in the same directory may be suggested together. Burst groups do not require
+visual similarity.
+
+The review panel shows the first original and one candidate side by side,
+using previews up to 1600 pixels on their longest edge. The **Photo** Back/Next
+buttons (or left/right arrows) move through candidates; the **Group** buttons
+move between groups. On narrow windows the panes wrap. **Edit** opens the
+candidate through the usual gallery editor, including any existing Schist
+edit. Pair previews and visual matching always use the originals.
+
+**Keep**, **Reject**, and **Reset** save reversible review marks. The current
+mark is shown above each preview. Rejecting the last undecided or kept photo in
+a group is disabled; a changed or missing source must be rescanned before a
+new decision can be saved. These review marks do not delete or move files,
+change image metadata, or silently select a winner. They belong to this review
+workflow and are stored separately from gallery selection, under
+`similar-review.json` beside `library.json`. Marks are bound to the original's
+size and nanosecond modification time, so replacing a file does not inherit an
+old decision. Write failures are shown in the panel and do not update the mark.
+
+Image signatures are cached under `schist/similar-v1.json` in the gallery state
+directory. Unchanged originals reuse their signature; changed originals and
+failed decodes are retried. Capture metadata is refreshed even when pixels are
+cached, allowing sidecar metadata changes to affect later scans. Missing
+originals are pruned from this disposable cache, which is capped at 10,000
+signatures and 32 MiB of JSON. A BK tree indexes candidate hashes instead of
+comparing every image pair. No model download or network service is required.
+Unreadable images count as failures; capture bursts may still include their
+metadata, in which case the review displays “no preview”.
+
+Validation: `make test-similar-photos`, `make check-similar-photos`, and
+`make check-i18n` cover image similarity, anchored groups, burst boundaries,
+cache invalidation, cancellation, decision safety, editor compilation and all
+shipped translations/font coverage.

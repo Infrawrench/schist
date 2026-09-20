@@ -326,3 +326,12 @@ video.preview_help_touch = Previsualització silenciosa · Arrossegueu la línia
 video.importing = S'estan important fotografies i vídeos…
 video.import_failed = No s'ha pogut importar el contingut multimèdia: {error}
 video.import_failed_simple = No s'ha pogut importar ni compartir aquest contingut multimèdia.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fotos semblants
+library.similar.visual = Coincidències visuals
+library.similar.burst = Ràfegues
+library.similar.keep = Conserva
+library.similar.reject = Rebutja
+library.similar.help = Només marques de revisió; no se suprimeixen fitxers.
+library.similar.stale = Els fitxers han canviat. Actualitza per continuar.

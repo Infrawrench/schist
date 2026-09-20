@@ -344,3 +344,12 @@ video.preview_help_touch = Tihi predogled · Povlecite časovnico ali se pomikaj
 video.importing = Uvažanje fotografij in videoposnetkov …
 video.import_failed = Predstavnosti ni bilo mogoče uvoziti: {error}
 video.import_failed_simple = Te predstavnosti ni bilo mogoče uvoziti ali dati v skupno rabo.
+
+# Similar-photo and capture-burst review
+library.similar.title = Podobne fotografije
+library.similar.visual = Vizualna podobnost
+library.similar.burst = Zaporedni posnetki
+library.similar.keep = Obdrži
+library.similar.reject = Zavrni
+library.similar.help = Samo oznake pregleda; datoteke se ne izbrišejo.
+library.similar.stale = Datoteke so se spremenile. Osvežite za nadaljevanje.

@@ -361,3 +361,12 @@ video.preview_help_touch = Tyst förhandsvisning · Dra i tidslinjen eller stega
 video.importing = Importerar foton och videor…
 video.import_failed = Kunde inte importera media: {error}
 video.import_failed_simple = Kunde inte importera eller dela denna media.
+
+# Similar-photo and capture-burst review
+library.similar.title = Liknande foton
+library.similar.visual = Visuella matchningar
+library.similar.burst = Bildserier
+library.similar.keep = Behåll
+library.similar.reject = Avvisa
+library.similar.help = Endast granskningsmarkeringar; inga filer raderas.
+library.similar.stale = Filer har ändrats. Uppdatera för att fortsätta.

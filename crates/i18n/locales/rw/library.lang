@@ -290,3 +290,12 @@ video.preview_help_touch = Igaragazambere ridafite amajwi · Kurura umurongo w'i
 video.importing = Birimo kuzana amafoto na videwo…
 video.import_failed = Ntibyashobotse kuzana ibitangazamakuru: {error}
 video.import_failed_simple = Ntibyashobotse kuzana cyangwa gusangira ibi bitangazamakuru.
+
+# Similar-photo and capture-burst review
+library.similar.title = Amafoto asa
+library.similar.visual = Isano mu isura
+library.similar.burst = Amafoto akurikirana
+library.similar.keep = Bika
+library.similar.reject = Wange
+library.similar.help = Ibimenyetso byo gusuzuma gusa; amadosiye ntasibwa.
+library.similar.stale = Amadosiye yahindutse. Ongera utangire kugira ngo ukomeze.
