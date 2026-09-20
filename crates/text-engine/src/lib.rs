@@ -730,6 +730,46 @@ pub fn default_family() -> String {
     db().family_name(&fontdb::Family::SansSerif).to_string()
 }
 
+/// The installed face's PostScript identifier for editable file interchange.
+/// Do not silently substitute a different family when exporting a font name.
+pub fn postscript_name(family: &str, bold: bool, italic: bool) -> Option<String> {
+    let database = db();
+    let id = database.query(&fontdb::Query {
+        families: &[fontdb::Family::Name(family)],
+        weight: if bold {
+            fontdb::Weight::BOLD
+        } else {
+            fontdb::Weight::NORMAL
+        },
+        style: if italic {
+            fontdb::Style::Italic
+        } else {
+            fontdb::Style::Normal
+        },
+        ..Default::default()
+    })?;
+    let face = database.face(id)?;
+    if (face.weight >= fontdb::Weight::BOLD) != bold
+        || (face.style != fontdb::Style::Normal) != italic
+    {
+        return None;
+    }
+    Some(face.post_script_name.clone())
+}
+
+/// Resolve an imported PostScript identifier to this system's family and face.
+pub fn family_from_postscript(name: &str) -> Option<(String, bool, bool)> {
+    let database = db();
+    let face = database
+        .faces()
+        .find(|face| face.post_script_name == name)?;
+    Some((
+        face.families.first()?.0.clone(),
+        face.weight >= fontdb::Weight::BOLD,
+        face.style != fontdb::Style::Normal,
+    ))
+}
+
 /// Metric-compatible stand-ins for a family this system lacks, best
 /// match first.
 ///
@@ -1661,6 +1701,30 @@ fn clamp_to_boundary(text: &str, byte: usize) -> usize {
         at -= 1;
     }
     at
+}
+
+/// Geometry for file interchange without allocating a glyph coverage bitmap.
+#[derive(Debug, Clone, Copy)]
+pub struct TextMetrics {
+    pub first_baseline: f32,
+    pub line_advance: f32,
+    pub width: f32,
+    pub height: f32,
+}
+
+pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
+    let face = load_font(&spec.family, spec.bold, spec.italic)?;
+    let laid = layout(spec, &face);
+    Some(TextMetrics {
+        first_baseline: laid.first_baseline,
+        line_advance: laid.line_advance,
+        width: laid.layout_width,
+        height: laid
+            .lines
+            .iter()
+            .map(|line| line.top + line.height)
+            .fold(0.0, f32::max),
+    })
 }
 
 /// Lay out and rasterize `spec` into a coverage mask.

@@ -26,6 +26,15 @@ pub const COLOR_MODE_DATA_SENTINEL_ID: u16 = 0xFFFF;
 /// Never panics on malformed input — all structural problems surface as
 /// [`PsdError`].
 pub fn read_psd(bytes: &[u8]) -> Result<Document, PsdError> {
+    read_psd_inner(bytes, true)
+}
+
+/// Embedded objects cannot recursively promote further native smart filters.
+pub(crate) fn read_psd_without_native_filters(bytes: &[u8]) -> Result<Document, PsdError> {
+    read_psd_inner(bytes, false)
+}
+
+fn read_psd_inner(bytes: &[u8], native_filters: bool) -> Result<Document, PsdError> {
     let mut cur = Cursor::new(bytes);
 
     // 1. File header.
@@ -82,6 +91,9 @@ pub fn read_psd(bytes: &[u8]) -> Result<Document, PsdError> {
         );
     }
     doc.tree.layers = tree_layers;
+    if native_filters {
+        crate::smart_filters::import_document(&mut doc);
+    }
     // Topmost layer starts active (children are stored bottom-to-top).
     doc.active_layer = doc.tree.layers.last().map(|l| l.id);
     doc.damage_all();

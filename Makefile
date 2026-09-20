@@ -315,6 +315,12 @@ check-layered-codecs-app:
 .PHONY: check-text check-gpu-fx check-readme
 check-text:
 	$(CARGO) test -p schist-core -p schist-text-engine -p schist-tools-type -p schist-codec-affinity
+
+.PHONY: check-psd-interchange lint-psd-interchange
+check-psd-interchange:
+	$(CARGO) test -p schist-psd-descriptor -p schist-codec-psd
+lint-psd-interchange:
+	$(CARGO) clippy -p schist-psd-descriptor -p schist-codec-psd -p schist-text-engine --all-targets -- -D warnings
 check-gpu-fx:
 	$(CARGO) test -p schist-fx -p schist-filters-core -p schist-compositor-gpu
 

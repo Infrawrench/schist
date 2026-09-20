@@ -51,8 +51,13 @@ metadata. Version-1 unplaced stacks remain readable. Older Schist versions retai
 the blocks and visible result but cannot edit version-2 stacks. Both sources store
 sparse native tiles with their original u8/u16/f32 samples, including CMYK/Lab
 channels and transparent colors. Reopening in Schist keeps editing available.
-Other applications see the rendered pixels; this is **not Adobe Smart Filter
-metadata**. Applications that strip unknown PSD blocks also discard the recipe.
+Supported RGB Gaussian Blur, Box Blur, Motion Blur, Median, High Pass,
+Sharpen and Unsharp Mask stacks also export
+native smart-filter metadata with an embedded unfiltered PSD source; supported
+native stacks can be imported as editable Schist stacks. Other stacks expose
+the rendered pixels to other applications. See [PSD interchange](psd-interchange.md)
+for geometry and parameter limits. Applications that strip unknown PSD blocks
+discard Schist-specific effects and source data.
 Flat image exports contain the visible result only. Native crash recovery and
 shared-document checkpoints retain all three blocks. Uncommitted filter-dialog
 and Free Transform previews are excluded from saves, recovery and cloud edits.

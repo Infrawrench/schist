@@ -19,6 +19,8 @@ pub mod error;
 mod raw;
 mod reader;
 mod smart;
+mod smart_filters;
+mod text;
 pub mod vector;
 mod writer;
 pub mod zip;

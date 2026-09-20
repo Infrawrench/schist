@@ -12,6 +12,8 @@ pub enum Value {
     Integer(i32),
     Bool(bool),
     Text(String),
+    /// Length-prefixed opaque data, used by type-tool EngineData.
+    Raw(Vec<u8>),
     /// (enum type, enum value)
     Enum(String, String),
     /// (unit id, value) — e.g. ("#Prc", 50.0) for 50%.
@@ -51,6 +53,20 @@ impl Value {
             _ => None,
         }
     }
+
+    pub fn as_text(&self) -> Option<&str> {
+        match self {
+            Value::Text(v) => Some(v),
+            _ => None,
+        }
+    }
+
+    pub fn as_raw(&self) -> Option<&[u8]> {
+        match self {
+            Value::Raw(v) => Some(v),
+            _ => None,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Default, PartialEq)]
@@ -81,8 +97,9 @@ impl<'a> Cur<'a> {
     }
 
     fn take(&mut self, n: usize) -> Option<&'a [u8]> {
-        let out = self.data.get(self.pos..self.pos + n)?;
-        self.pos += n;
+        let end = self.pos.checked_add(n)?;
+        let out = self.data.get(self.pos..end)?;
+        self.pos = end;
         Some(out)
     }
 
@@ -134,8 +151,14 @@ impl<'a> Cur<'a> {
 
 /// Parse a descriptor payload (without the leading version field).
 pub fn parse(data: &[u8]) -> Option<Descriptor> {
+    parse_prefix(data).map(|(descriptor, _)| descriptor)
+}
+
+/// Parse one descriptor in a compound block and report consumed bytes.
+pub fn parse_prefix(data: &[u8]) -> Option<(Descriptor, usize)> {
     let mut cur = Cur::new(data);
-    read_descriptor(&mut cur)
+    let descriptor = read_descriptor(&mut cur, 0)?;
+    Some((descriptor, cur.pos))
 }
 
 /// Parse a payload that begins with a 4-byte descriptor version (the shape
@@ -146,7 +169,7 @@ pub fn parse_versioned(data: &[u8]) -> Option<Descriptor> {
     }
     // u16 layer-block version, then u32 descriptor version.
     let mut cur = Cur::new(&data[6..]);
-    read_descriptor(&mut cur)
+    read_descriptor(&mut cur, 0)
 }
 
 /// Most items one descriptor or list may hold. Real Photoshop descriptors
@@ -154,7 +177,10 @@ pub fn parse_versioned(data: &[u8]) -> Option<Descriptor> {
 /// think it is.
 const MAX_ITEMS: usize = 4096;
 
-fn read_descriptor(cur: &mut Cur) -> Option<Descriptor> {
+fn read_descriptor(cur: &mut Cur, depth: usize) -> Option<Descriptor> {
+    if depth > 64 {
+        return None;
+    }
     let _name = cur.unicode()?;
     let class = cur.key()?;
     let count = cur.u32()? as usize;
@@ -168,19 +194,26 @@ fn read_descriptor(cur: &mut Cur) -> Option<Descriptor> {
     let mut items = HashMap::new();
     for _ in 0..count {
         let key = cur.key()?;
-        let value = read_value(cur)?;
+        let value = read_value(cur, depth + 1)?;
         items.insert(key, value);
     }
     Some(Descriptor { class, items })
 }
 
-fn read_value(cur: &mut Cur) -> Option<Value> {
+fn read_value(cur: &mut Cur, depth: usize) -> Option<Value> {
+    if depth > 64 {
+        return None;
+    }
     let ty = cur.sig4()?;
     Some(match ty.as_str() {
         "doub" => Value::Double(cur.f64()?),
         "long" => Value::Integer(cur.i32()?),
         "bool" => Value::Bool(cur.u8()? != 0),
         "TEXT" => Value::Text(cur.unicode()?),
+        "tdta" => {
+            let len = cur.u32()? as usize;
+            Value::Raw(cur.take(len)?.to_vec())
+        }
         "enum" => {
             let ty = cur.key()?;
             let val = cur.key()?;
@@ -197,14 +230,14 @@ fn read_value(cur: &mut Cur) -> Option<Value> {
             }
             let mut out = Vec::new();
             for _ in 0..count {
-                out.push(read_value(cur)?);
+                out.push(read_value(cur, depth + 1)?);
             }
             Value::List(out)
         }
-        "Objc" | "GlbO" => Value::Object(read_descriptor(cur)?),
+        "Objc" | "GlbO" => Value::Object(read_descriptor(cur, depth + 1)?),
         // Types we don't need: consume their fixed payloads so the walk
         // stays in sync, or bail out if the size isn't knowable.
-        "obj " | "type" | "GlbC" | "alis" | "tdta" => return None,
+        "obj " | "type" | "GlbC" | "alis" => return None,
         // An unrecognised signature has an unknown payload size, so the
         // cursor is now pointing into the middle of it. Carrying on read
         // that payload as the next key and value, and the nonsense was
@@ -378,6 +411,26 @@ impl Builder {
         self
     }
 
+    pub fn raw(&mut self, key: &str, v: &[u8]) -> &mut Self {
+        self.key(key);
+        self.ty("tdta");
+        self.body.extend_from_slice(&(v.len() as u32).to_be_bytes());
+        self.body.extend_from_slice(v);
+        self
+    }
+
+    pub fn doubles(&mut self, key: &str, values: &[f64]) -> &mut Self {
+        self.key(key);
+        self.ty("VlLs");
+        self.body
+            .extend_from_slice(&(values.len() as u32).to_be_bytes());
+        for value in values {
+            self.body.extend_from_slice(b"doub");
+            self.body.extend_from_slice(&value.to_be_bytes());
+        }
+        self
+    }
+
     /// An enumerated value, e.g. `enumerated("Md  ", "BlnM", "Mltp")` for
     /// the Multiply blend mode.
     pub fn enumerated(&mut self, key: &str, ty: &str, value: &str) -> &mut Self {
@@ -487,6 +540,38 @@ fn write_unicode(out: &mut Vec<u8>, s: &str) {
 #[cfg(test)]
 mod encode_tests {
     use super::*;
+
+    #[test]
+    fn raw_engine_data_and_numeric_lists_report_consumed_prefix() {
+        let mut builder = Builder::new("TxLr");
+        builder
+            .raw("EngineData", b"<< /Text (\xfe\xff\x00A) >>")
+            .doubles("Trnf", &[1.0, 0.0, 12.5]);
+        let mut bytes = builder.finish();
+        let length = bytes.len();
+        bytes.extend_from_slice(b"next descriptor");
+        let (parsed, used) = parse_prefix(&bytes).unwrap();
+        assert_eq!(used, length);
+        assert_eq!(
+            parsed.get("EngineData").unwrap().as_raw(),
+            Some(b"<< /Text (\xfe\xff\x00A) >>".as_slice())
+        );
+        assert_eq!(
+            parsed.get("Trnf").unwrap().as_list().unwrap()[2].as_f64(),
+            Some(12.5)
+        );
+    }
+
+    #[test]
+    fn malicious_descriptor_nesting_is_bounded() {
+        let mut builder = Builder::new("null");
+        for _ in 0..100 {
+            let mut next = Builder::new("null");
+            next.object("next", builder);
+            builder = next;
+        }
+        assert!(parse(&builder.finish()).is_none());
+    }
 
     #[test]
     fn scalars_round_trip() {

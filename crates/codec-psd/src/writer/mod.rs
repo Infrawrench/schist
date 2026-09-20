@@ -308,7 +308,21 @@ fn write_layer_and_mask_info(b: &mut Buf, doc: &Document, psb: bool) -> Result<(
     // they arrived. `Lr16`/`Lr32`/`Layr` are not in here: the layer tree
     // above is regenerated, so echoing the old copy back would write it
     // twice. Spec quirk: these pad to 4 bytes, not 2.
-    for block in &doc.preserved_layer_info {
+    let links = crate::smart_filters::write_links(doc);
+    // A global text-engine cache describes the old story, including its
+    // glyph layout. Like ag-psd's invalidateTextLayers, deactivate it when
+    // native type changes. Keep the bytes in a private backup for lossless
+    // preservation; untouched imported type keeps the original active Txt2.
+    let changed_type = doc
+        .tree
+        .iter()
+        .any(|layer| !crate::text::preserve_native(layer));
+    for block in doc
+        .preserved_layer_info
+        .iter()
+        .filter(|block| links.is_none() || block.key != *b"lnk2")
+        .chain(links.iter())
+    {
         // 8B64 marks a block whose length is u64 whatever the key, so a
         // block that arrived that way has to go back out that way: an
         // 8B64 block with a key outside `PSB_U64_KEYS` would otherwise be
@@ -321,7 +335,11 @@ fn write_layer_and_mask_info(b: &mut Buf, doc: &Document, psb: bool) -> Result<(
         } else {
             b"8BIM"
         });
-        b.bytes(&block.key);
+        b.bytes(if changed_type && block.key == *b"Txt2" {
+            b"ScT2"
+        } else {
+            &block.key
+        });
         if wide {
             b.u64(block.data.len() as u64);
         } else {
@@ -483,6 +501,10 @@ fn prepare_common(
 /// Preserved blocks plus a regenerated unicode name.
 fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
     let mut out = vec![(*b"luni", unicode_name_payload(&layer.name))];
+    let preserve_type = crate::text::preserve_native(layer);
+    let native_type = crate::text::write_type(layer);
+    let owned_placement = crate::smart_filters::owns_native(layer);
+    let native_filters = crate::smart_filters::write_placed(layer, doc);
     // An adjustment layer's settings live in its own block. Layers created
     // in Schist carry them only in `params_json`, which no PSD reader
     // understands, so without re-encoding here the layer was written as an
@@ -500,6 +522,15 @@ fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
     // A live shape regenerates its own blocks, so preserved ones are stale.
     let vector = layer.shape.is_some();
     for block in &layer.extras {
+        if !preserve_type && matches!(&block.key, b"TySh" | b"tySh" | b"ScTx") {
+            continue;
+        }
+        if owned_placement
+            && (matches!(&block.key, b"SoLd" | b"SoLE" | b"PlLd")
+                || block.key == crate::smart_filters::OWNED_KEY)
+        {
+            continue;
+        }
         // 'luni'/'lsct' are regenerated, never echoed back.
         if &block.key == b"luni" || &block.key == b"lsct" {
             continue;
@@ -532,6 +563,13 @@ fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
             }
         }
         out.push((block.key, block.data.clone()));
+    }
+    if let Some(payload) = native_type {
+        out.push((*b"TySh", payload));
+    }
+    if let Some(payload) = native_filters {
+        out.push((*b"SoLd", payload));
+        out.push((crate::smart_filters::OWNED_KEY, vec![1]));
     }
     if let Some(entry) = adjustment {
         out.push(entry);

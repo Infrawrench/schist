@@ -70,8 +70,10 @@ along the endpoint's tangent. A degenerate path uses ordinary text layout.
 Choose **Straight** to return to the layer's ordinary layout box.
 Text, direction, writing modes, paths and feature settings participate in the existing text-edit
 undo operation and survive PSD and PSB save/reopen in Schist's `PsTx`
-layer block. Other editors see the rendered pixels, as with other Schist
-text layers.
+layer block. Supported horizontal straight text also writes native `TySh`
+type metadata, so other capable editors can edit its text and font runs.
+Paths and unsupported typography retain their rendered pixels in other
+editors. See [PSD interchange](psd-interchange.md) for the supported subset.
 
 `make check-text` runs the layout, editing, persistence and Affinity import
 regression tests, including bundled Noto Arabic, Hebrew and Japanese font
