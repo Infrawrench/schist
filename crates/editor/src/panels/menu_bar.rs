@@ -318,6 +318,12 @@ pub(crate) fn run_app_item(
                 cx,
             )
         }
+        AppItem::SmartEditContents => ws.edit_smart_contents(cx),
+        AppItem::SmartUpdateLinked => ws.update_linked_smart(cx),
+        AppItem::SmartPlaceEmbedded => ws.pick_smart_source(false, false, cx),
+        AppItem::SmartPlaceLinked => ws.pick_smart_source(true, false, cx),
+        AppItem::SmartReplaceContents => ws.pick_smart_source(false, true, cx),
+        AppItem::SmartRelink => ws.pick_smart_source(true, true, cx),
         AppItem::LayerStyleItem => {
             if let Some(id) = ws.doc.as_ref().and_then(|d| d.active_layer) {
                 ws.show_layer_style(id, cx);

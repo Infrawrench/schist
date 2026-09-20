@@ -17,6 +17,7 @@ pub mod raw;
 pub mod resample;
 pub mod selection;
 pub mod smart;
+pub mod smart_source;
 pub mod style;
 pub mod tile;
 

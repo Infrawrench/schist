@@ -45,6 +45,7 @@ mod camera_import;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod camera_sync;
 pub(crate) mod recorded_actions;
+mod smart_objects;
 #[cfg(target_os = "android")]
 pub(crate) use schist_camera_sync::android as camera_sync_android;
 #[cfg(target_os = "ios")]
@@ -226,6 +227,7 @@ pub struct Workspace {
     /// The other open documents, in tab order with a gap at `active_tab`
     /// where the checked-out `doc` sits.
     background_tabs: Vec<DocTab>,
+    smart_edit_sessions: FxHashMap<schist_core::DocumentId, smart_objects::SourceEdit>,
     /// Position of the active document in the tab strip.
     active_tab: usize,
     cache: TileCache,
@@ -1292,6 +1294,7 @@ impl Workspace {
             action_library: recorded_actions::ActionLibrary::default(),
             action_recorder: recorded_actions::Recorder::default(),
             background_tabs: Vec::new(),
+            smart_edit_sessions: FxHashMap::default(),
             active_tab: 0,
             cache: TileCache::new(),
             display_tiles: FxHashMap::default(),

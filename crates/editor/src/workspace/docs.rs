@@ -303,6 +303,7 @@ impl Workspace {
         }
         if index == self.active_tab {
             if let Some(doc) = self.doc.take() {
+                self.forget_smart_contents(doc.id);
                 self.remove_recovery_for(doc.id);
                 #[cfg(not(target_arch = "wasm32"))]
                 self.forget_backing(doc.id);
@@ -325,6 +326,7 @@ impl Workspace {
                 index - 1
             };
             let tab = self.background_tabs.remove(parked);
+            self.forget_smart_contents(tab.doc.id);
             self.remove_recovery_for(tab.doc.id);
             #[cfg(not(target_arch = "wasm32"))]
             self.forget_backing(tab.doc.id);
@@ -680,6 +682,15 @@ impl Workspace {
 
     /// Serialize the document to `path`, choosing the codec by extension.
     pub fn save_file_as(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        if self
+            .doc
+            .as_ref()
+            .is_some_and(|doc| self.smart_edit_sessions.contains_key(&doc.id))
+        {
+            self.commit_focused_field();
+            self.commit_pending_transform(cx);
+            self.commit_gesture_with_async(false, cx);
+        }
         // A save landing on a gallery sidecar keeps the previous state as
         // a version first — that is the gallery's automatic versioning.
         #[cfg(not(target_arch = "wasm32"))]
@@ -692,6 +703,8 @@ impl Workspace {
         match self.write_document_to(&path) {
             Ok(()) => {
                 if let Some(doc) = &mut self.doc {
+                    // Save As keeps a contents tab as an independent document.
+                    self.smart_edit_sessions.remove(&doc.id);
                     doc.mark_saved();
                     doc.path = Some(path.clone());
                     if let Some(name) = path.file_name() {
@@ -750,6 +763,9 @@ impl Workspace {
     /// ⌘S: save over the document's existing path, or fall back to Save As
     /// when it has never been saved (or its format can't be written).
     pub fn save_current(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        if self.save_smart_contents(cx) {
+            return;
+        }
         if self.cloud_save(cx) {
             return;
         }

@@ -971,6 +971,15 @@ impl<'a> EditBuilder<'a> {
     ) {
         if after.is_none() {
             self.bake_filter_stack(layer);
+            if let Some(current) = self.doc.tree.find(layer) {
+                let extras = current
+                    .extras
+                    .iter()
+                    .filter(|block| block.key != crate::smart_source::SOURCE_DOCUMENT_KEY)
+                    .cloned()
+                    .collect();
+                self.set_extras(layer, extras);
+            }
         }
         let before = self.doc.tree.find(layer).and_then(|l| l.smart.clone());
         if let Some(l) = self.doc.tree.find_mut(layer) {

@@ -117,7 +117,9 @@ all 27 blend modes, adjustment layers, layer effects, vector shapes,
 channels. Every block Schist doesn't understand is preserved
 byte-for-byte, so a round trip never loses work. **Smart objects** keep
 their source pixels, so transforming one repeatedly costs no more quality
-than transforming it once. Also PNG, JPEG, WebP and TIFF, plus HEIC/HEIF import (iPhone photos)
+than transforming it once. [Editable and linked sources](docs/smart-objects.md)
+can be placed, opened as layered documents, replaced, relinked and refreshed
+across their instances. Also PNG, JPEG, WebP and TIFF, plus HEIC/HEIF import (iPhone photos)
 and camera raw import: NEF, ARW, CR2, DNG, RAF, ORF, RW2, PEF, SRW and the
 rest. A capture opens in Camera Raw with sensor-domain white balance and
 exposure, live fast-demosaic previews and a best-quality render on Apply;

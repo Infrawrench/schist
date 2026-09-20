@@ -6668,6 +6668,7 @@ dependencies = [
  "schist-color",
  "schist-colormgmt",
  "schist-fx",
+ "schist-i18n",
  "serde",
  "serde_json",
  "smallvec",
