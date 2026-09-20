@@ -21,7 +21,6 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
         })
         .unwrap_or_default();
     let n_undo = undo_entries.len() as i32;
-    let touch = ui::touch();
     #[cfg(not(target_arch = "wasm32"))]
     let versions = ws.version_history_original().map(|original| {
         schist_ui::Button::new("history-saved-versions", t("versions.open"))
@@ -38,6 +37,8 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
         .flex_col()
         .h(px(ws.view.history_h))
         .flex_none()
+        .min_h(px(0.0))
+        .overflow_hidden()
         .p_2()
         .gap_1()
         .border_t_1()
@@ -75,10 +76,9 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
                 .flex_col()
                 .overflow_y_scroll()
                 .flex_grow()
-                // A floor (see the layers panel): the column scrolls. On
-                // touch the panel is as tall as its grip was dragged, so
-                // the list scrolls inside it rather than past it.
-                .min_h(px(if touch { 0.0 } else { 120.0 }))
+                // The list gives way to the panel's chosen height and
+                // scrolls inside it instead of painting over the status bar.
+                .min_h(px(0.0))
                 // The state the document opened in. The panel could walk
                 // back to "one edit applied" but never to "none": the
                 // topmost row still leaves the first edit in place, so
@@ -137,14 +137,15 @@ const MAX_HISTORY_H: f32 = 500.0;
 /// finger leaves a 14pt strip the moment it moves.
 fn resize_grip(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let dragging = ws.history_resize.is_some();
+    let touch = ui::touch();
     let entity = cx.entity();
     div()
         .flex()
         .flex_none()
         .items_center()
         .justify_center()
-        .h(px(14.0))
-        .mt(px(-4.0))
+        .h(px(if touch { 14.0 } else { 5.0 }))
+        .mt(px(if touch { -4.0 } else { 0.0 }))
         .cursor(gpui::CursorStyle::ResizeRow)
         .on_mouse_down(
             MouseButton::Left,
@@ -156,8 +157,8 @@ fn resize_grip(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
         )
         .child(
             div()
-                .w(px(36.0))
-                .h(px(4.0))
+                .w(px(if touch { 36.0 } else { 18.0 }))
+                .h(px(if touch { 4.0 } else { 1.0 }))
                 .rounded_full()
                 .bg(gpui::rgb(if dragging {
                     palette().accent

@@ -325,6 +325,7 @@ fn movable_panel(
     cx: &mut Context<Workspace>,
 ) -> gpui::AnyElement {
     let key = panel.key();
+    let touch = ui::touch();
     let drag = PanelDrag {
         panel,
         label: label.into(),
@@ -363,15 +364,19 @@ fn movable_panel(
                     "side-panel-grip-{}",
                     panel.key()
                 )))
-                .h(px(14.0))
+                .h(px(if touch { 14.0 } else { 6.0 }))
                 .flex_none()
                 .flex()
                 .items_center()
                 .justify_center()
                 .cursor(gpui::CursorStyle::OpenHand)
-                .text_size(px(10.0))
+                .text_size(px(if touch { 10.0 } else { 7.0 }))
                 .text_color(gpui::rgb(palette().text_faint))
-                .child("\u{2807}")
+                .child(if touch {
+                    "\u{2807}"
+                } else {
+                    "\u{2022}\u{2022}\u{2022}"
+                })
                 .on_drag(drag, |drag, _, _, cx| {
                     cx.new(|_| PanelDragPreview(drag.label.clone()))
                 }),
@@ -405,6 +410,7 @@ fn panel_resize_grip(
 ) -> impl IntoElement {
     const MAX_PANEL_H: f32 = 640.0;
     let key = panel.key();
+    let touch = ui::touch();
     let min_height = match panel {
         SidePanel::Layers => 160.0,
         SidePanel::Navigator | SidePanel::Color => 120.0,
@@ -413,7 +419,7 @@ fn panel_resize_grip(
     };
     let entity = cx.entity();
     div()
-        .h(px(10.0))
+        .h(px(if touch { 10.0 } else { 5.0 }))
         .flex_none()
         .flex()
         .items_center()
@@ -435,8 +441,8 @@ fn panel_resize_grip(
         )
         .child(
             div()
-                .w(px(36.0))
-                .h(px(3.0))
+                .w(px(if touch { 36.0 } else { 18.0 }))
+                .h(px(if touch { 3.0 } else { 1.0 }))
                 .rounded_full()
                 .bg(gpui::rgb(if dragging {
                     palette().accent
