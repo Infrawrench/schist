@@ -739,3 +739,8 @@ fmt-check-spot-ink:
 	$(CARGO) fmt --all -- --check
 check-spot-web:
 	$(CARGO) check -p schist-editor --target wasm32-unknown-unknown
+
+.PHONY: check-spot-catalogs
+check-spot-catalogs:
+	python3 tools/check-i18n.py
+	python3 tools/sync-i18n.py --check

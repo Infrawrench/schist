@@ -90,14 +90,10 @@ pub(super) fn slider_set(
         SliderTarget::LayerOpacity(id) => ws.set_layer_opacity_live(id, ratio),
         SliderTarget::SpotSolidity(id) => {
             if let Some(doc) = ws.doc.as_mut() {
-                let mut edit = doc.begin_edit(t("common.opacity"));
-                edit.change_ink_channels(|channels| {
-                    if let Some(c) = channels.iter_mut().find(|c| c.info.id == id) {
-                        c.info.solidity = ratio;
-                        c.info.original_display = None;
-                    }
-                });
-                edit.commit();
+                if let Some(channel) = doc.ink_channels.iter_mut().find(|c| c.info.id == id) {
+                    channel.info.solidity = ratio;
+                    doc.damage_all();
+                }
             }
         }
         SliderTarget::NativeChannelValue => ws.editor.native_channel_value = ratio,
@@ -163,6 +159,26 @@ fn slider_impl(
         .on_release(cx.listener(move |ws, before, _w, cx| {
             if let SliderTarget::LayerOpacity(layer) = target {
                 ws.commit_layer_opacity(layer, *before, cx);
+            } else if let SliderTarget::SpotSolidity(id) = target {
+                if let Some(doc) = ws.doc.as_mut() {
+                    if let Some(channel) = doc.ink_channels.iter_mut().find(|c| c.info.id == id) {
+                        let after = channel.info.solidity;
+                        if after != *before {
+                            // Restore the start value to capture one undo entry
+                            // for the entire drag, including imported DisplayInfo.
+                            channel.info.solidity = *before;
+                            let mut edit = doc.begin_edit(t("common.opacity"));
+                            edit.change_ink_channels(|channels| {
+                                if let Some(c) = channels.iter_mut().find(|c| c.info.id == id) {
+                                    c.info.solidity = after;
+                                    c.info.original_display = None;
+                                }
+                            });
+                            edit.commit();
+                        }
+                    }
+                }
+                ws.after_change(cx);
             }
         }));
     let mut row = div()
