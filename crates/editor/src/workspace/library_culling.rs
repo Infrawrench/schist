@@ -2,6 +2,7 @@
 use super::gallery_chrome::pal;
 use super::*;
 use gpui::img;
+use gpui::prelude::FluentBuilder;
 use image::ImageDecoder as _;
 use schist_gallery::culling::{
     self, ColourLabel, CompareCamera, CullEdit, CullFilter, CullFlag, PhotoCulling,
@@ -333,39 +334,69 @@ pub(super) fn badge(value: PhotoCulling) -> Option<gpui::AnyElement> {
             .absolute()
             .bottom_1()
             .left_1()
-            .right_1()
-            .px_1()
+            .rounded_sm()
+            .px_2()
+            .py_0p5()
             .bg(gpui::rgba(0x000000CC))
             .text_color(gpui::rgb(0xFFFFFF))
             .text_size(px(10.0))
-            .border_l_4()
+            .border_l_2()
             .border_color(gpui::rgb(colour(value.label)))
-            .child(format!("{} {flag}", "★".repeat(value.rating as usize)))
+            .child(if value.rating == 0 && flag.is_empty() {
+                colour_name(value.label).to_string()
+            } else {
+                format!("{} {flag}", "★".repeat(value.rating as usize))
+                    .trim()
+                    .to_string()
+            })
             .into_any_element(),
     )
+}
+
+fn control_group() -> gpui::Div {
+    div()
+        .flex()
+        .items_center()
+        .gap_0p5()
+        .p_0p5()
+        .rounded_sm()
+        .bg(gpui::rgb(pal().tray_bg))
 }
 
 pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     let paths = ws.culling_paths();
     let values: Vec<_> = paths.iter().map(|p| ws.library.culling_of(p)).collect();
     let disabled = paths.is_empty();
-    let mut edits = div()
-        .flex()
-        .flex_row()
-        .flex_wrap()
-        .items_center()
-        .gap_1()
-        .child(t("common.selection"));
-    for rating in 0..=5 {
-        edits = edits.child(
-            Button::new(("cull-rating", rating as usize), format!("{rating}★"))
-                .active(!disabled && values.iter().all(|v| v.rating == rating))
-                .disabled(disabled)
-                .on_click(
-                    cx.listener(move |ws, _, _, cx| ws.apply_culling(CullEdit::Rating(rating), cx)),
-                ),
+    let comparing = ws.library.comparison.is_some();
+    let mut ratings = control_group().child(
+        Button::new(("cull-rating", 0usize), "×")
+            .ghost()
+            .w(px(24.0))
+            .px_0()
+            .tooltip(t("common.reset"), Some("0".into()))
+            .disabled(disabled)
+            .on_click(cx.listener(|ws, _, _, cx| ws.apply_culling(CullEdit::Rating(0), cx))),
+    );
+    for rating in 1..=5 {
+        let filled = !disabled && values.iter().all(|v| v.rating >= rating);
+        ratings = ratings.child(
+            Button::new(
+                ("cull-rating", rating as usize),
+                if filled { "★" } else { "☆" },
+            )
+            .ghost()
+            .w(px(24.0))
+            .px_0()
+            .text_size(px(15.0))
+            .text_color(gpui::rgb(if filled { pal().text } else { pal().text_dim }))
+            .tooltip(format!("{rating} ★"), Some(rating.to_string().into()))
+            .disabled(disabled)
+            .on_click(
+                cx.listener(move |ws, _, _, cx| ws.apply_culling(CullEdit::Rating(rating), cx)),
+            ),
         );
     }
+    let mut flags = control_group();
     for (index, (flag, key)) in [
         (CullFlag::Pick, "P"),
         (CullFlag::Reject, "X"),
@@ -374,8 +405,11 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
     .into_iter()
     .enumerate()
     {
-        edits = edits.child(
-            Button::new(("cull-flag", index), format!("{} ({key})", flag_name(flag)))
+        flags = flags.child(
+            Button::new(("cull-flag", index), flag_name(flag))
+                .ghost()
+                .px_2()
+                .tooltip(flag_name(flag), Some(key.into()))
                 .active(!disabled && values.iter().all(|v| v.flag == flag))
                 .disabled(disabled)
                 .on_click(
@@ -383,11 +417,15 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
                 ),
         );
     }
+    let mut labels = control_group();
     for (index, label) in LABELS.into_iter().enumerate() {
         let key = ["L", "6", "7", "8", "9", "M"][index];
-        edits = edits.child(
-            Button::new(("cull-label", index), "●")
-                .text_color(gpui::rgb(colour(label)))
+        labels = labels.child(
+            Button::bare(("cull-label", index))
+                .ghost()
+                .w(px(24.0))
+                .px_0()
+                .child(label_dot(label))
                 .tooltip(colour_name(label), Some(key.into()))
                 .active(!disabled && values.iter().all(|v| v.label == label))
                 .disabled(disabled)
@@ -396,38 +434,47 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
                 ),
         );
     }
-    edits = edits.child(
-        Button::new("cull-compare", t("culling.compare"))
-            .tooltip(t("culling.compare"), Some("C".into()))
-            .disabled(
-                ws.library.selected.len() != 2
-                    || ws
-                        .library
-                        .selected
-                        .iter()
-                        .any(|p| schist_gallery::is_video(p)),
-            )
-            .on_click(cx.listener(|ws, _, _, cx| ws.open_culling_compare(cx))),
-    );
-    let filter = ws.library.culling_filter;
-    let mut filters = div()
+    let mut edits = div()
         .flex()
-        .flex_row()
         .flex_wrap()
         .items_center()
-        .gap_1()
-        .child(t("menu.filter"))
+        .gap_2()
         .child(
-            Chip::new("cull-all", t("common.all"))
-                .selected(filter == CullFilter::default())
-                .on_click(cx.listener(|ws, _, _, cx| {
-                    ws.library.culling_filter = CullFilter::default();
-                    ws.culling_filter_changed(cx);
+            div()
+                .min_w(px(60.0))
+                .text_color(gpui::rgb(pal().text_dim))
+                .child(t(if comparing {
+                    "common.photo"
+                } else {
+                    "common.selection"
                 })),
+        )
+        .child(ratings)
+        .child(flags)
+        .child(labels);
+    if !comparing {
+        edits = edits.child(div().flex_grow()).child(
+            Button::new("cull-compare", t("culling.compare"))
+                .px_2()
+                .tooltip(t("culling.compare"), Some("C".into()))
+                .disabled(
+                    ws.library.selected.len() != 2
+                        || ws
+                            .library
+                            .selected
+                            .iter()
+                            .any(|p| schist_gallery::is_video(p)),
+                )
+                .on_click(cx.listener(|ws, _, _, cx| ws.open_culling_compare(cx))),
         );
+    }
+    let filter = ws.library.culling_filter;
+    let mut minimums = control_group();
     for rating in 1..=5 {
-        filters = filters.child(
+        minimums = minimums.child(
             Chip::new(("cull-min", rating as usize), format!("{rating}★+"))
+                .rounded_sm()
+                .px_2()
                 .selected(filter.minimum_rating == rating)
                 .on_click(cx.listener(move |ws, _, _, cx| {
                     ws.library.culling_filter.minimum_rating =
@@ -440,12 +487,15 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
                 })),
         );
     }
+    let mut filter_flags = control_group();
     for (index, flag) in [CullFlag::Pick, CullFlag::Reject, CullFlag::None]
         .into_iter()
         .enumerate()
     {
-        filters = filters.child(
+        filter_flags = filter_flags.child(
             Chip::new(("cull-filter-flag", index), flag_name(flag))
+                .rounded_sm()
+                .px_2()
                 .selected(filter.flag == Some(flag))
                 .on_click(cx.listener(move |ws, _, _, cx| {
                     ws.library.culling_filter.flag = if ws.library.culling_filter.flag == Some(flag)
@@ -458,10 +508,14 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
                 })),
         );
     }
+    let mut filter_labels = control_group();
     for (index, label) in LABELS.into_iter().enumerate() {
-        filters = filters.child(
-            Chip::new(("cull-filter-label", index), "●")
-                .text_color(gpui::rgb(colour(label)))
+        filter_labels = filter_labels.child(
+            Chip::new(("cull-filter-label", index), "")
+                .w(px(24.0))
+                .px_0()
+                .rounded_sm()
+                .child(label_dot(label))
                 .tooltip(colour_name(label), None)
                 .selected(filter.label == Some(label))
                 .on_click(cx.listener(move |ws, _, _, cx| {
@@ -475,6 +529,29 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
                 })),
         );
     }
+    let filters = div()
+        .flex()
+        .flex_wrap()
+        .items_center()
+        .gap_2()
+        .child(
+            div()
+                .min_w(px(60.0))
+                .text_color(gpui::rgb(pal().text_dim))
+                .child(t("menu.filter")),
+        )
+        .child(
+            Chip::new("cull-all", t("common.all"))
+                .rounded_sm()
+                .selected(filter == CullFilter::default())
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.library.culling_filter = CullFilter::default();
+                    ws.culling_filter_changed(cx);
+                })),
+        )
+        .child(minimums)
+        .child(filter_flags)
+        .child(filter_labels);
     div()
         .flex()
         .flex_col()
@@ -484,8 +561,10 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
         .gap_1()
         .text_size(px(11.0))
         .bg(gpui::rgb(pal().chrome_bg))
+        .border_b_1()
+        .border_color(gpui::rgb(pal().chrome_edge))
         .child(edits)
-        .child(filters)
+        .when(!comparing, |bar| bar.child(filters))
         .children(
             ws.library
                 .culling_error
@@ -493,6 +572,18 @@ pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::
                 .map(|error| div().child(error)),
         )
         .into_any_element()
+}
+
+fn label_dot(label: ColourLabel) -> gpui::AnyElement {
+    if label == ColourLabel::None {
+        div().text_size(px(13.0)).child("×").into_any_element()
+    } else {
+        div()
+            .size(px(9.0))
+            .rounded_full()
+            .bg(gpui::rgb(colour(label)))
+            .into_any_element()
+    }
 }
 
 pub(super) fn comparison(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
@@ -506,26 +597,39 @@ pub(super) fn comparison(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpu
         .items_center()
         .px_2()
         .py_1()
+        .bg(gpui::rgb(pal().chrome_bg))
+        .border_b_1()
+        .border_color(gpui::rgb(pal().chrome_edge))
         .child(
-            Button::new("compare-close", t("common.close")).on_click(cx.listener(
-                |ws, _, _, cx| {
+            Button::new("compare-close", t("common.close"))
+                .ghost()
+                .px_2()
+                .on_click(cx.listener(|ws, _, _, cx| {
                     ws.close_culling_compare(cx);
-                },
-            )),
+                })),
         )
         .child(
-            Button::new("compare-fit", t("menu.view.fit_on_screen")).on_click(cx.listener(
-                |ws, _, _, cx| {
+            div()
+                .font_weight(gpui::FontWeight::SEMIBOLD)
+                .child(t("culling.compare")),
+        )
+        .child(div().flex_grow())
+        .child(
+            Button::new("compare-fit", t("menu.view.fit_on_screen"))
+                .ghost()
+                .px_2()
+                .on_click(cx.listener(|ws, _, _, cx| {
                     if let Some(c) = &mut ws.library.comparison {
                         c.camera = CompareCamera::default();
                     }
                     cx.notify();
-                },
-            )),
+                })),
         )
         .child(
-            Button::new("compare-actual", t("menu.view.actual_size")).on_click(cx.listener(
-                |ws, _, _, cx| {
+            Button::new("compare-actual", t("menu.view.actual_size"))
+                .ghost()
+                .px_2()
+                .on_click(cx.listener(|ws, _, _, cx| {
                     if let Some(c) = &mut ws.library.comparison {
                         if let Some(image) = &c.images[c.active] {
                             let area = c.areas[c.active].size;
@@ -538,29 +642,44 @@ pub(super) fn comparison(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpu
                         }
                     }
                     cx.notify();
-                },
-            )),
+                })),
         )
         .child(
-            Button::new("compare-out", "−").on_click(cx.listener(|ws, _, _, cx| {
-                if let Some(c) = &mut ws.library.comparison {
-                    c.camera.zoom_by(0.8);
-                }
-                cx.notify();
-            })),
+            Button::new("compare-out", "−")
+                .ghost()
+                .w(px(24.0))
+                .px_0()
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    if let Some(c) = &mut ws.library.comparison {
+                        c.camera.zoom_by(0.8);
+                    }
+                    cx.notify();
+                })),
         )
-        .child(format!("{zoom:.2}×"))
         .child(
-            Button::new("compare-in", "+").on_click(cx.listener(|ws, _, _, cx| {
-                if let Some(c) = &mut ws.library.comparison {
-                    c.camera.zoom_by(1.25);
-                }
-                cx.notify();
-            })),
+            div()
+                .min_w(px(40.0))
+                .text_center()
+                .text_color(gpui::rgb(pal().text_dim))
+                .child(format!("{zoom:.2}×")),
+        )
+        .child(
+            Button::new("compare-in", "+")
+                .ghost()
+                .w(px(24.0))
+                .px_0()
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    if let Some(c) = &mut ws.library.comparison {
+                        c.camera.zoom_by(1.25);
+                    }
+                    cx.notify();
+                })),
         );
     let mut panes = div()
         .flex()
         .flex_row()
+        .p_2()
+        .gap_2()
         .flex_grow()
         .min_h(px(0.0))
         .min_w(px(0.0));
@@ -708,15 +827,35 @@ fn compare_pane(ws: &Workspace, index: usize, cx: &mut Context<Workspace>) -> gp
         .flex_1()
         .min_w(px(0.0))
         .min_h(px(0.0))
-        .border_2()
+        .rounded_sm()
+        .overflow_hidden()
+        .border_1()
         .border_color(gpui::rgb(if active {
             pal().select_border
         } else {
             pal().chrome_edge
         }))
         .child(
-            Button::new(("compare-name", index), name)
-                .active(active)
+            Button::bare(("compare-name", index))
+                .ghost()
+                .h(px(28.0))
+                .w_full()
+                .min_w(px(0.0))
+                .px_2()
+                .justify_start()
+                .bg(gpui::rgb(if active {
+                    pal().select_fill
+                } else {
+                    pal().chrome_bg
+                }))
+                .tooltip(path.display().to_string(), None)
+                .child(
+                    div()
+                        .flex_none()
+                        .text_color(gpui::rgb(pal().text_dim))
+                        .child((index + 1).to_string()),
+                )
+                .child(div().flex_1().min_w(px(0.0)).truncate().child(name))
                 .on_click(cx.listener(move |ws, _, _, cx| {
                     if let Some(c) = &mut ws.library.comparison {
                         c.active = index;
