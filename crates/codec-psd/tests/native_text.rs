@@ -249,3 +249,98 @@ fn independent_automatic_leading_is_measured_and_overset_boxes_remain_native() {
         schist_codec_psd::read_psd(&schist_codec_psd::write_psd(&overset).unwrap()).unwrap();
     assert_eq!(block(&again.tree.layers[0], b"TySh"), native);
 }
+
+#[test]
+fn independent_mixed_color_type_stays_editable_and_native_after_edits() {
+    let mut doc =
+        schist_codec_psd::read_psd(include_bytes!("fixtures/ag-psd-type-colors.psd")).unwrap();
+    let mut stored = spec(&doc.tree.layers[0]);
+    let parsed: TextSpec = serde_json::from_value(stored["spec"].clone()).unwrap();
+    assert_eq!(parsed.style_at(6).color, Some([220, 40, 20, 128]));
+    assert_eq!(parsed.style_at(0).color, None);
+    let raster = schist_text_engine::rasterize(&parsed).unwrap();
+    assert!(raster.colors.contains(&Some([220, 40, 20, 128])));
+    stored["spec"]["runs"][1]["color"] = json!([15, 190, 30, 96]);
+    doc.tree.layers[0]
+        .extras
+        .iter_mut()
+        .find(|b| b.key == *b"PsTx")
+        .unwrap()
+        .data = serde_json::to_vec(&stored).unwrap();
+    for psb in [false, true] {
+        let encoded = schist_codec_psd::write_psd_with(&doc, psb).unwrap();
+        let mut native = encoded.clone();
+        for at in 0..native.len().saturating_sub(8) {
+            if native.get(at..at + 8) == Some(b"8BIMPsTx") {
+                native[at + 4..at + 8].copy_from_slice(b"TEST");
+            }
+        }
+        let reopened = schist_codec_psd::read_psd(&native).unwrap();
+        let parsed: TextSpec =
+            serde_json::from_value(spec(&reopened.tree.layers[0])["spec"].clone()).unwrap();
+        assert_eq!(parsed.style_at(6).color, Some([15, 190, 30, 96]));
+        if let Some(dir) = std::env::var_os("SCHIST_INTERCHANGE_ARTIFACT_DIR") {
+            std::fs::create_dir_all(&dir).unwrap();
+            std::fs::write(
+                std::path::Path::new(&dir).join(if psb {
+                    "mixed-colors.psb"
+                } else {
+                    "mixed-colors.psd"
+                }),
+                encoded,
+            )
+            .unwrap();
+        }
+    }
+}
+
+#[test]
+fn independent_vertical_type_imports_and_regenerates_native_orientation() {
+    let mut doc =
+        schist_codec_psd::read_psd(include_bytes!("fixtures/ag-psd-type-vertical.psd")).unwrap();
+    let mut stored = spec(&doc.tree.layers[0]);
+    assert_eq!(stored["spec"]["writing_mode"], "VerticalRl");
+    stored["spec"]["text"] = "Columns".into();
+    stored["spec"]["runs"] = json!([]);
+    doc.tree.layers[0]
+        .extras
+        .iter_mut()
+        .find(|b| b.key == *b"PsTx")
+        .unwrap()
+        .data = serde_json::to_vec(&stored).unwrap();
+    for boxed in [false, true] {
+        if boxed {
+            stored["spec"]["wrap_width"] = 75.0.into();
+        }
+        doc.tree.layers[0]
+            .extras
+            .iter_mut()
+            .find(|b| b.key == *b"PsTx")
+            .unwrap()
+            .data = serde_json::to_vec(&stored).unwrap();
+        let encoded = schist_codec_psd::write_psd(&doc).unwrap();
+        let mut native = encoded.clone();
+        for at in 0..native.len().saturating_sub(8) {
+            if native.get(at..at + 8) == Some(b"8BIMPsTx") {
+                native[at + 4..at + 8].copy_from_slice(b"TEST");
+            }
+        }
+        let reopened = schist_codec_psd::read_psd(&native).unwrap();
+        let again = spec(&reopened.tree.layers[0]);
+        assert_eq!(again["spec"]["writing_mode"], "VerticalRl");
+        assert_eq!(again["spec"]["text"], "Columns");
+        assert_eq!(again["origin"], stored["origin"]);
+        if let Some(dir) = std::env::var_os("SCHIST_INTERCHANGE_ARTIFACT_DIR") {
+            std::fs::create_dir_all(&dir).unwrap();
+            std::fs::write(
+                std::path::Path::new(&dir).join(if boxed {
+                    "vertical-box.psd"
+                } else {
+                    "vertical.psd"
+                }),
+                encoded,
+            )
+            .unwrap();
+        }
+    }
+}

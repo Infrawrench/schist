@@ -75,6 +75,7 @@ fn items(
         };
         if at > begin
             && (face != faces.at(at)
+                || spec.style_at(begin).color != spec.style_at(at).color
                 || next_script != script
                 || (spec.writing_mode.is_vertical()
                     && (next_vertical != vertical
@@ -166,6 +167,7 @@ fn shape_item(
             let pos = positions[j];
             out.glyphs.push(PlacedGlyph {
                 glyph: infos[j].glyph_id as u16,
+                byte: start + cluster,
                 // During shaping, x is the inline position and baseline is
                 // the cross-axis offset. layout converts them to canvas axes.
                 x: out.width

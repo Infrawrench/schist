@@ -937,10 +937,48 @@ Exported today: rasters as native planar tiles (status 1/2/4, partial
 masks as `AdCh` `MRst` nodes, clipping layers as Affinity clipped
 children, opacity / fill opacity / blend enums / visibility, shadows,
 glows, colour overlay and outline effects, and adjustment layers
-re-emitted from their preserved parameter blocks (below). Text and
-vector layers export their rasterized pixels — re-emitting native
-`TxtA`/`ShpN`/`PCrv` (the `AfSh` extras block already carries a
-shape's native `Shpe` subtree) is the natural next step.
+re-emitted from their preserved parameter blocks (below). Text and vectors now export native editable structures:
+
+- Untouched imported `TxtA`/`TxtF`, `ShpN` and `PCrv` objects retain their native
+  story/shape/curve subtrees. `AfNt` stores the typed source object; `AfNs` snapshots
+  the editable state and rendered pixels so an edit cannot silently export stale
+  original geometry. Layer names, visibility, opacity and effects still update.
+- New or edited single-contour vector paths export `PCrv` / `PCvD`, including
+  cubic incoming/outgoing handles, open/closed state, solid fill and stroke.
+  An edited parametric shape becomes editable curves; an untouched one stays
+  parametric. Authoring compound fill-rule variants is not yet verified.
+- New or edited horizontal text exports native artistic (`TxtA` / `ArFr`) or
+  frame (`TxtF` / `CoFr`) text with story strings, font/size/bold/italic/color runs
+  and alignment. Native run offsets and terminal NULs are regenerated. Wrapped
+  text keeps its frame width. The importer now renders and retains character
+  font, size and fill runs rather than applying the first run to the whole story.
+- Authoring currently requires default line height, zero tracking, no custom
+  OpenType overrides and no text path or vertical/bidi layout. Character-run
+  authoring is limited to BMP text: the independent corpus verifies character
+  offsets rather than UTF-8 bytes but has no astral-character run fixture. Unsupported new
+  settings, compound paths and objects with masks/clipped children use their
+  raster fallback and appear in the export report. Untouched native typography
+  keeps its original data; rotated imported text is not presented as editable
+  through an axis-aligned local text box.
+
+Native export's field layouts are transcribed from the Affinity-written
+`fixtures/affinity-probe/text_rotated.af`, `shp_star_curved.af` and the MIT-licensed
+Designer 1.x `fixtures/affinity/test_path.afdesign` (AFDesignLoad). Artistic frame
+fields (`ArFr` v1 / `Fram` v1, `FrmB`, `ArtA`, `ArtV`) were additionally inspected
+with `afschema` in the local Affinity-written `01_bash_is_bad.afphoto` corpus file.
+`aftextruns` independently checks native character-run ends against byte, scalar
+and UTF-16 lengths without printing document text; `05_ffmpeg_google_ai.afphoto`
+has 39 UTF-8 bytes versus 35 BMP characters and a native end offset of 35.
+No Adobe headers or Photoshop plugin SDK code were read. Tests inspect native
+class graphs, story/run values and curve geometry, then verify editable readback,
+source preservation and invalidation after edits. These are structural checks;
+interactive rendering in Affinity is not claimed as verified.
+
+`make check-editable-interchange` runs the Affinity, PSD and Type tool suites;
+`make lint-editable-interchange` and `make check-editable-interchange-web` check
+native lint and browser compilation. Set `SCHIST_INTERCHANGE_ARTIFACT_DIR` while
+running the test target to retain native text/curve `.af` samples and PSD/PSB
+samples for independent inspection.
 `tests/export_roundtrip.rs` proves every fixture and corpus document
 survives import → export → import with structure and pixels intact.
 
@@ -964,7 +1002,7 @@ Nothing an import understands — or doesn't — is thrown away, so the
   and an export keeps its meaning.
 - Every live shape keeps its native `Shpe` subtree in a layer extras
   block keyed `AfSh`.
-- Text layers already keep the type tool's `PsTx` block.
+- Representable text layers keep the type tool's `PsTx` block; rotated text keeps its native object without claiming local editability.
 
 ## Probe fixtures
 
@@ -1134,20 +1172,20 @@ seven of them are byte-exact). What is left:
   rotated/mirrored clipped children a few percent off where live
   Affinity places them, while matching the file's own thumbnail —
   the residual convention there is unresolved.
-- Export: text, shapes and paths write rasterized pixels; emitting
-  native `TxtA`/`ShpN`/`PCrv` nodes (the `AfSh` block already keeps a
-  shape's `Shpe` subtree) would keep them live in Affinity. Schist-
+- Export: broader native typography and compound-curve fill rules still need
+  verified authoring mappings; unsupported edits retain raster fallbacks. Schist-
   native adjustments without a preserved block are skipped (only
   parameter-free Invert exports) — building `AdjP` classes from our
   params by inverting the import tables is the fix. (The `#FT4`
   per-entry trailing u32 looked random until live Affinity rejected a
   file omitting it as corrupted — it is a CRC-32 of the compressed
   payload, now written and documented above.)
-- Exports open in real Affinity 3.2 (the whole 25-file corpus,
+- The earlier raster/adjustment exporter was checked in real Affinity 3.2 (the whole 25-file corpus,
   re-exported, opens with structure and rendering intact — the
   stream-order invariants above were the blocker); edit-and-resave
   validation, and carrying the source document's spread background
-  colour instead of the template's, are still open.
+  colour instead of the template's, are still open. The new native text/curve
+  authoring path needs its own interactive Affinity validation.
 
 `cargo run -p schist-codec-affinity --example afdump -- file.afphoto`
 prints any file's container listing and full object graph;

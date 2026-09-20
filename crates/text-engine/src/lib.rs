@@ -146,12 +146,19 @@ pub struct StyleRun {
     pub italic: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub size: Option<f32>,
+    /// Character fill; None inherits the text layer fill.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub color: Option<[u8; 4]>,
 }
 
 impl StyleRun {
     /// True when this run changes nothing, so it can be dropped.
     pub fn is_plain(&self) -> bool {
-        self.family.is_none() && self.bold.is_none() && self.italic.is_none() && self.size.is_none()
+        self.family.is_none()
+            && self.bold.is_none()
+            && self.italic.is_none()
+            && self.size.is_none()
+            && self.color.is_none()
     }
 
     /// The overrides alone, without the range: what an edit applies.
@@ -177,6 +184,9 @@ impl StyleRun {
         if over.size.is_some() {
             self.size = over.size;
         }
+        if over.color.is_some() {
+            self.color = over.color;
+        }
     }
 
     /// Whether the two runs would set a character the same way.
@@ -185,6 +195,7 @@ impl StyleRun {
             && self.bold == other.bold
             && self.italic == other.italic
             && self.size == other.size
+            && self.color == other.color
     }
 }
 
@@ -192,6 +203,7 @@ impl StyleRun {
 /// any run covering it have been reconciled.
 #[derive(Debug, Clone, PartialEq)]
 pub struct CharStyle {
+    pub color: Option<[u8; 4]>,
     pub family: String,
     pub bold: bool,
     pub italic: bool,
@@ -208,6 +220,7 @@ impl CharStyle {
             bold: Some(self.bold),
             italic: Some(self.italic),
             size: Some(self.size),
+            color: self.color,
         }
     }
 }
@@ -232,6 +245,7 @@ impl TextSpec {
     /// The layer's own font, which uncovered text is set in.
     pub fn base_style(&self) -> CharStyle {
         CharStyle {
+            color: None,
             family: self.family.clone(),
             bold: self.bold,
             italic: self.italic,
@@ -255,6 +269,7 @@ impl TextSpec {
             if let Some(s) = run.size {
                 style.size = s;
             }
+            style.color = run.color;
         }
         style
     }
@@ -283,7 +298,7 @@ impl TextSpec {
         if over.is_plain() {
             return;
         }
-        if range.start == 0 && range.end == len {
+        if range.start == 0 && range.end == len && over.color.is_none() {
             if let Some(f) = &over.family {
                 self.family = f.clone();
                 self.runs.iter_mut().for_each(|r| r.family = None);
@@ -438,6 +453,8 @@ pub struct TextRaster {
     pub bounds: IntRect,
     /// `bounds.width() * bounds.height()` coverage bytes.
     pub coverage: Vec<u8>,
+    /// Per-pixel run fill overrides, empty when all glyphs inherit the layer fill.
+    pub colors: Vec<Option<[u8; 4]>>,
     /// Baseline of the first line, in the same space as `bounds`. With
     /// `bounds.top` this gives the block's cap height, which is what
     /// page geometry recorded by other apps tends to be measured from.
@@ -964,6 +981,7 @@ impl<'a> GposKern<'a> {
 #[derive(Debug, Clone, Copy)]
 struct PlacedGlyph {
     glyph: u16,
+    byte: usize,
     x: f32,
     baseline: f32,
     /// Index into the layout's faces: which font, at which size.
@@ -1011,7 +1029,8 @@ impl Faces {
             if s >= e {
                 continue;
             }
-            let style = spec.style_at(s);
+            let mut style = spec.style_at(s);
+            style.color = None; // Fill does not change the font face or kerning.
             if style == base_style {
                 continue;
             }
@@ -1266,6 +1285,7 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
             if !ch.is_whitespace() {
                 placed.push(PlacedGlyph {
                     glyph: faces.faces[ix].0.font.lookup_glyph_index(ch),
+                    byte,
                     x,
                     baseline,
                     face: ix,
@@ -1737,6 +1757,7 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
         return Some(TextRaster {
             bounds: IntRect::EMPTY,
             coverage: Vec::new(),
+            colors: Vec::new(),
             first_baseline: 0.0,
             line_advance: 0.0,
             layout_width: 0.0,
@@ -1757,6 +1778,7 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
         return Some(TextRaster {
             bounds: IntRect::EMPTY,
             coverage: Vec::new(),
+            colors: Vec::new(),
             first_baseline: 0.0,
             line_advance: 0.0,
             layout_width: 0.0,
@@ -1798,12 +1820,13 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
             )
         };
         bounds = bounds.union(&rect);
-        rasterized.push((rect, bitmap));
+        rasterized.push((rect, bitmap, spec.style_at(g.byte).color));
     }
     if bounds.is_empty() {
         return Some(TextRaster {
             bounds: IntRect::EMPTY,
             coverage: Vec::new(),
+            colors: Vec::new(),
             first_baseline: 0.0,
             line_advance: 0.0,
             layout_width: 0.0,
@@ -1815,7 +1838,12 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
     let w = bounds.width() as usize;
     let h = bounds.height() as usize;
     let mut coverage = vec![0u8; w * h];
-    for (rect, bitmap) in rasterized {
+    let mut colors = if spec.runs.iter().any(|r| r.color.is_some()) {
+        vec![None; w * h]
+    } else {
+        Vec::new()
+    };
+    for (rect, bitmap, color) in rasterized {
         for gy in 0..rect.height() {
             for gx in 0..rect.width() {
                 let v = bitmap[(gy * rect.width() + gx) as usize];
@@ -1825,13 +1853,19 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
                 let x = (rect.left + gx - bounds.left) as usize;
                 let y = (rect.top + gy - bounds.top) as usize;
                 let slot = &mut coverage[y * w + x];
-                *slot = (*slot).max(v);
+                if v >= *slot {
+                    *slot = v;
+                    if let Some(fill) = colors.get_mut(y * w + x) {
+                        *fill = color;
+                    }
+                }
             }
         }
     }
     Some(TextRaster {
         bounds,
         coverage,
+        colors,
         first_baseline,
         line_advance,
         layout_width,
@@ -2377,3 +2411,33 @@ pub fn family_names() -> Vec<String> {
 }
 #[cfg(schist_library)]
 pub fn refresh() {}
+
+#[cfg(test)]
+mod color_interchange_tests {
+    use super::*;
+    #[test]
+    fn color_runs_survive_splices_and_do_not_change_plain_font_metrics() {
+        let mut spec = TextSpec {
+            text: "AV color".into(),
+            ..Default::default()
+        };
+        let width = measure(&spec).unwrap().width;
+        spec.apply_style(
+            1..spec.text.len(),
+            &StyleRun {
+                color: Some([210, 25, 15, 128]),
+                ..Default::default()
+            },
+        );
+        assert_eq!(measure(&spec).unwrap().width, width);
+        assert_eq!(spec.style_at(2).color, Some([210, 25, 15, 128]));
+        let raster = rasterize(&spec).unwrap();
+        assert!(raster.colors.contains(&Some([210, 25, 15, 128])));
+        spec.text.replace_range(2..3, "new");
+        spec.splice_runs(2..3, 3);
+        assert_eq!(spec.style_at(4).color, Some([210, 25, 15, 128]));
+        let decoded: TextSpec =
+            serde_json::from_slice(&serde_json::to_vec(&spec).unwrap()).unwrap();
+        assert_eq!(decoded, spec);
+    }
+}

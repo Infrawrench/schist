@@ -2,6 +2,7 @@
 //! and the layer it becomes.
 
 use super::*;
+use crate::graph::tag;
 
 impl Walker<'_> {
     /// This node's transform composed onto the current transform.
@@ -275,6 +276,47 @@ impl Walker<'_> {
                     "affinity: blend mode {id}.{version} has no equivalent; using Normal"
                 ),
             }
+        }
+        if matches!(&kind.to_be_bytes(), b"TxtA" | b"TxtF" | b"ShpN" | b"PCrv") {
+            // Preserve native typography/parametric shapes independently of our
+            // editable approximation. Parent transforms are flattened on import.
+            let mut original = Node {
+                types: node.types.clone(),
+                framing: node.framing,
+                chain_end: node.chain_end,
+                section_lens: vec![0; node.section_lens.len()],
+                ..Node::default()
+            };
+            for (i, (key, value)) in node.fields.iter().enumerate() {
+                if [
+                    tag(b"Chld"),
+                    tag(b"AdCh"),
+                    tag(b"FiEf"),
+                    tag(b"Xfrm"),
+                    tag(b"Flow"),
+                ]
+                .contains(key)
+                {
+                    continue;
+                }
+                original.fields.push((*key, value.clone()));
+                original.wire.push(node.wire[i]);
+                original.aux.push(node.aux[i]);
+            }
+            original
+                .fields
+                .push((tag(b"Xfrm"), Value::VecD(self.node_ctm(node).0.to_vec())));
+            original.wire.push(0x28);
+            original.aux.push(0);
+            layer.extras.push(schist_core::RawBlock {
+                key: *b"AfNt",
+                data: crate::preserve::preserved_block(self.graph, &node.types, b"Node", &original),
+            });
+            let snapshot = crate::export::editable_snapshot(&layer);
+            layer.extras.push(schist_core::RawBlock {
+                key: *b"AfNs",
+                data: snapshot,
+            });
         }
         Some(layer)
     }

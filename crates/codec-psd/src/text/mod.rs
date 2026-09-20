@@ -6,7 +6,7 @@ mod engine;
 
 use schist_core::{Layer, RawBlock};
 use schist_psd_descriptor::{Builder, Value as DValue};
-use schist_text_engine::{Align, StyleRun, TextSpec};
+use schist_text_engine::{Align, StyleRun, TextSpec, WritingMode};
 use serde_json::{json, Value};
 
 const TEXT: [u8; 4] = *b"PsTx";
@@ -51,10 +51,8 @@ fn feature_supported(spec: &TextSpec, raw: &Value) -> bool {
     spec.path.is_none()
         && !requires_bidi_interchange(&spec.text)
         && spec.features.iter().all(|f| matches!(f.tag.as_str(), "kern" | "liga" | "dlig" | "smcp") && f.value <= 1)
-        // These future-compatible checks keep separate writing-mode work safe:
-        // vertical/path text is still preserved losslessly in PsTx until the
-        // matching native paragraph semantics are implemented.
-        && raw.get("writing_mode").and_then(Value::as_str).is_none_or(|m| m == "Horizontal")
+        // PSD vertical type advances columns right-to-left.
+        && spec.writing_mode != WritingMode::VerticalLr
         && raw.get("direction").and_then(Value::as_str).is_none_or(|m| m != "RightToLeft")
 }
 
@@ -107,12 +105,17 @@ pub(crate) fn write_type(layer: &Layer) -> Option<Vec<u8>> {
         .map(|v| v.as_u64().filter(|n| *n <= 255).map(|n| n as f64 / 255.0))
         .collect::<Option<_>>()?;
     let raster = schist_text_engine::measure(&spec)?;
+    let vertical = spec.writing_mode == WritingMode::VerticalRl;
     let baseline = raster.first_baseline as f64;
     let width = spec.wrap_width.unwrap_or(raster.width) as f64;
     if !width.is_finite() || width < 0.0 {
         return None;
     }
-    let height = (raster.height as f64).max(baseline + raster.line_advance as f64);
+    let height = if vertical {
+        raster.height as f64
+    } else {
+        (raster.height as f64).max(baseline + raster.line_advance as f64)
+    };
     let alignment = match spec.align {
         Align::Left => 0,
         Align::Right => 1,
@@ -168,6 +171,10 @@ pub(crate) fn write_type(layer: &Layer) -> Option<Vec<u8>> {
                 fonts.push(json!({"Name": ps_name, "Script": 0, "FontType": 0, "Synthetic": 0}));
                 fonts.len() - 1
             });
+        let run_color: Vec<f64> = style
+            .color
+            .map(|c| c.into_iter().map(|v| v as f64 / 255.0).collect())
+            .unwrap_or_else(|| color.clone());
         let style_data = json!({
             "Font": font, "FontSize": style.size,
             "FauxBold": style.bold && schist_text_engine::postscript_name(&style.family, true, style.italic).is_none(),
@@ -179,7 +186,7 @@ pub(crate) fn write_type(layer: &Layer) -> Option<Vec<u8>> {
             "BaselineShift": 0.0, "FontCaps": if spec.feature("smcp", false) {2} else {0},
             "FontBaseline": 0, "Underline": false, "Strikethrough": false,
             "Ligatures": spec.feature("liga", false), "DLigatures": spec.feature("dlig", false),
-            "FillColor": {"Type": 1, "Values": [color[3], color[0], color[1], color[2]]},
+            "FillColor": {"Type": 1, "Values": [run_color[3], run_color[0], run_color[1], run_color[2]]},
             "StrokeFlag": false, "FillFlag": true, "FillFirst": true,
             "Language": 0, "NoBreak": false, "StyleRunAlignment": 2, "BaselineDirection": 2
         });
@@ -201,7 +208,9 @@ pub(crate) fn write_type(layer: &Layer) -> Option<Vec<u8>> {
         .map(|s| s.encode_utf16().count())
         .collect();
     let paragraph_runs = vec![paragraph_run.clone(); paragraph_lengths.len()];
-    let shape = if spec.wrap_width.is_some() {
+    let shape = if vertical && spec.wrap_width.is_some() {
+        json!({"ShapeType": 1, "BoxBounds": [-height + raster.line_advance as f64 / 2.0, box_left, raster.line_advance as f64 / 2.0, box_left + width], "Base": {"ShapeType": 1, "TransformPoint0": [1,0], "TransformPoint1": [0,1], "TransformPoint2": [0,0]}})
+    } else if spec.wrap_width.is_some() {
         json!({"ShapeType": 1, "BoxBounds": [box_left, -baseline, box_left + width, height - baseline], "Base": {"ShapeType": 1, "TransformPoint0": [1,0], "TransformPoint1": [0,1], "TransformPoint2": [0,0]}})
     } else {
         json!({"ShapeType": 0, "PointBase": [0,0], "Base": {"ShapeType": 0, "TransformPoint0": [1,0], "TransformPoint1": [0,1], "TransformPoint2": [0,0]}})
@@ -219,12 +228,12 @@ pub(crate) fn write_type(layer: &Layer) -> Option<Vec<u8>> {
         "ParagraphRun": {"DefaultRunData": paragraph_run, "RunArray": paragraph_runs, "RunLengthArray": paragraph_lengths, "IsJoinable": 1},
         "GridInfo": {"GridIsOn": false, "ShowGrid": false, "GridSize": 18.0, "GridLeading": 22.0, "GridColor": {"Type": 1, "Values": [1.0,0.0,0.0,1.0]}, "GridLeadingFillColor": {"Type": 1, "Values": [1.0,0.0,0.0,1.0]}, "AlignLineHeightToGridFlags": false},
         "AntiAlias": 4, "UseFractionalGlyphWidths": true,
-        "Rendered": {"Version": 1, "Shapes": {"WritingDirection": 0, "Children": [{"ShapeType": shape["ShapeType"], "Procession": 0, "Lines": {"WritingDirection": 0, "Children": []}, "Cookie": {"Photoshop": shape}}]}}
+        "Rendered": {"Version": 1, "Shapes": {"WritingDirection": if vertical {2} else {0}, "Children": [{"ShapeType": shape["ShapeType"], "Procession": if vertical {1} else {0}, "Lines": {"WritingDirection": if vertical {2} else {0}, "Children": []}, "Cookie": {"Photoshop": shape}}]}}
     }, "ResourceDict": resources, "DocumentResources": resources});
     let mut text = Builder::new("TxLr");
     text.text("Txt ", &plain)
         .enumerated("textGridding", "textGridding", "None")
-        .enumerated("Ornt", "Ornt", "Hrzn")
+        .enumerated("Ornt", "Ornt", if vertical { "Vrtc" } else { "Hrzn" })
         .enumerated("AntA", "Annt", "antiAliasSharp")
         .integer("TextIndex", 0)
         .raw("EngineData", &engine::encode(&data));
@@ -235,19 +244,37 @@ pub(crate) fn write_type(layer: &Layer) -> Option<Vec<u8>> {
         .double("warpPerspectiveOther", 0.0)
         .enumerated("warpRotate", "Ornt", "Hrzn");
     let mut out = 1u16.to_be_bytes().to_vec();
-    for value in [1.0, 0.0, 0.0, 1.0, x + point_shift, y + baseline] {
+    let translation = if vertical {
+        [
+            x + raster.height as f64 - raster.line_advance as f64 / 2.0,
+            y + point_shift,
+        ]
+    } else {
+        [x + point_shift, y + baseline]
+    };
+    for value in [1.0, 0.0, 0.0, 1.0, translation[0], translation[1]] {
         out.extend_from_slice(&value.to_be_bytes());
     }
     out.extend_from_slice(&50u16.to_be_bytes());
     out.extend(text.finish_versioned());
     out.extend_from_slice(&1u16.to_be_bytes());
     out.extend(warp.finish_versioned());
-    for value in [
-        0.0f32,
-        -baseline as f32,
-        width as f32,
-        (height - baseline) as f32,
-    ] {
+    let bounds = if vertical {
+        [
+            (-height + raster.line_advance as f64 / 2.0) as f32,
+            0.0,
+            raster.line_advance / 2.0,
+            width as f32,
+        ]
+    } else {
+        [
+            0.0,
+            -baseline as f32,
+            width as f32,
+            (height - baseline) as f32,
+        ]
+    };
+    for value in bounds {
         out.extend_from_slice(&value.to_be_bytes());
     }
     Some(out)
@@ -296,9 +323,11 @@ fn read_type(bytes: &[u8]) -> Option<Value> {
         return None;
     }
     let (descriptor, consumed) = schist_psd_descriptor::parse_prefix(bytes.get(56..)?)?;
-    if !matches!(descriptor.get("Ornt"), Some(DValue::Enum(_, value)) if value == "Hrzn") {
-        return None;
-    }
+    let vertical = match descriptor.get("Ornt")? {
+        DValue::Enum(_, value) if value == "Hrzn" => false,
+        DValue::Enum(_, value) if value == "Vrtc" => true,
+        _ => return None,
+    };
     let warp_start = 56 + consumed;
     if bytes.get(warp_start..warp_start + 2)? != 1u16.to_be_bytes()
         || bytes.get(warp_start + 2..warp_start + 6)? != 16u32.to_be_bytes()
@@ -334,6 +363,11 @@ fn read_type(bytes: &[u8]) -> Option<Value> {
     let base = &data["ResourceDict"]["StyleSheetSet"][0]["StyleSheetData"];
     let mut spec = TextSpec {
         text,
+        writing_mode: if vertical {
+            WritingMode::VerticalRl
+        } else {
+            WritingMode::Horizontal
+        },
         ..TextSpec::default()
     };
     // Convert indices once, rather than scanning the entire story for each
@@ -399,10 +433,7 @@ fn read_type(bytes: &[u8]) -> Option<Value> {
         } else {
             [0, 0, 0, 255]
         };
-        if color.is_some_and(|c| c != rgba) {
-            return None;
-        }
-        color = Some(rgba);
+        color.get_or_insert(rgba);
         let metrics = schist_text_engine::measure(&TextSpec {
             text: "M".into(),
             family: family.clone(),
@@ -465,6 +496,7 @@ fn read_type(bytes: &[u8]) -> Option<Value> {
                 bold: Some(bold),
                 italic: Some(italic),
                 size: Some(size),
+                color: (Some(rgba) != color).then_some(rgba),
             });
         }
         offset_utf16 = end_utf16;
@@ -498,7 +530,9 @@ fn read_type(bytes: &[u8]) -> Option<Value> {
         _ => return None,
     };
     let shape = &engine["Rendered"]["Shapes"]["Children"][0]["Cookie"]["Photoshop"];
-    if number(&engine["Rendered"]["Shapes"], "WritingDirection", 0.0) != 0.0 {
+    if number(&engine["Rendered"]["Shapes"], "WritingDirection", 0.0)
+        != if vertical { 2.0 } else { 0.0 }
+    {
         return None;
     }
     if let Some(children) = engine["Rendered"]["Shapes"]["Children"].as_array() {
@@ -553,9 +587,17 @@ fn read_type(bytes: &[u8]) -> Option<Value> {
         {
             return None;
         }
-        spec.wrap_width = Some(((right - left) * sx) as f32);
+        spec.wrap_width = Some(if vertical {
+            ((bottom - top) * sy) as f32
+        } else {
+            ((right - left) * sx) as f32
+        });
         box_offset = (left * sx, top * sy);
-        box_height = Some((bottom - top) * sy);
+        box_height = Some(if vertical {
+            (right - left) * sx
+        } else {
+            (bottom - top) * sy
+        });
     }
     if let Some(leading) = leading {
         if !leading.is_finite() || !(0.1..=1000.0).contains(&leading) {
@@ -582,7 +624,24 @@ fn read_type(bytes: &[u8]) -> Option<Value> {
             Align::Center => raster.width as f64 / 2.0,
         }
     };
-    let origin = if spec.wrap_width.is_some() {
+    let origin = if vertical {
+        if spec.wrap_width.is_some() {
+            let factor = match spec.align {
+                Align::Left => 0.0,
+                Align::Center => 0.5,
+                Align::Right => 1.0,
+            };
+            [
+                tx + box_offset.0,
+                ty + box_offset.1 + (spec.wrap_width? as f64 - raster.width as f64) * factor,
+            ]
+        } else {
+            [
+                tx - raster.height as f64 + raster.line_advance as f64 / 2.0,
+                ty - point_shift,
+            ]
+        }
+    } else if spec.wrap_width.is_some() {
         let factor = match spec.align {
             Align::Left => 0.0,
             Align::Center => 0.5,

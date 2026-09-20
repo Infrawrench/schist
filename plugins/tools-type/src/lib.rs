@@ -93,6 +93,13 @@ fn render_tiles(doc: &Document, stored: &StoredText) -> (TileMap, IntRect) {
                 if cov == 0 {
                     continue;
                 }
+                let color = raster
+                    .colors
+                    .get((y - bounds.top) as usize * w + (x - bounds.left) as usize)
+                    .copied()
+                    .flatten()
+                    .map(|c| Rgba::from_u8(c[0], c[1], c[2], c[3]))
+                    .unwrap_or(color);
                 let ix = ((y - trect.top) * TILE_SIZE + (x - trect.left)) as usize;
                 buf.set(
                     ix,
@@ -361,6 +368,10 @@ impl TypeTool {
             return false;
         }
         session.stored.color = fg;
+        for run in &mut session.stored.spec.runs {
+            run.color = None;
+        }
+        session.stored.spec.normalize_runs();
         session.dirty = true;
         true
     }
@@ -2431,5 +2442,47 @@ mod tests {
         let mut d = doc();
         let mut tool = editing(&mut d, "hi");
         assert!(!key(&mut tool, &mut d, "s", ctrl()));
+    }
+}
+
+#[cfg(test)]
+mod color_run_tests {
+    use super::*;
+
+    #[test]
+    fn imported_character_fills_render_and_survive_text_edits() {
+        let doc = Document::new("color runs", 256, 128, schist_color::Depth::Eight);
+        let mut stored = StoredText {
+            spec: TextSpec {
+                text: "AB".into(),
+                size: 40.0,
+                runs: vec![StyleRun {
+                    start: 1,
+                    end: 2,
+                    color: Some([220, 30, 10, 128]),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            },
+            origin: (10, 10),
+            color: [10, 60, 220, 255],
+        };
+        for text in ["AB", "AC"] {
+            stored.spec.text = text.into();
+            let (tiles, bounds) = render_tiles(&doc, &stored);
+            let mut blue = false;
+            let mut red = false;
+            for y in bounds.top..bounds.bottom {
+                for x in bounds.left..bounds.right {
+                    let c = tiles.pixel(x, y).to_u8();
+                    blue |= c[3] > 0 && c[2] > c[0];
+                    red |= c[3] > 0 && c[3] <= 128 && c[0] > c[2];
+                }
+            }
+            assert!(
+                blue && red,
+                "both inherited and character fills render after edits"
+            );
+        }
     }
 }
