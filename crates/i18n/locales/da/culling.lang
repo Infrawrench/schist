@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Vælg
+culling.reject = Afvis
+culling.compare = Sammenlign to fotos

@@ -298,6 +298,24 @@ mod tests {
     }
 
     #[test]
+    fn culling_gallery_keys_reach_the_gallery_without_editor_actions() {
+        let gallery = "Workspace gallery";
+        assert!(
+            !fires(TYPING_SAFE, gallery),
+            "rating, pick and reject keys belong to the gallery"
+        );
+        assert!(
+            fires(CONTEXT, gallery),
+            "global open/new/preferences bindings stay live"
+        );
+        assert!(fires(ALWAYS, gallery), "Escape can leave comparison");
+        assert!(
+            !fires(override_context("x"), gallery),
+            "an editor override cannot consume reject"
+        );
+    }
+
+    #[test]
     fn escape_survives_every_state() {
         // Escape is the way out of a text session and out of a dialog, so
         // suppressing it would trap the user in both.

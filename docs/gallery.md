@@ -694,3 +694,50 @@ Validation: `make test-similar-photos`, `make check-similar-photos`, and
 `make check-i18n` cover image similarity, anchored groups, burst boundaries,
 cache invalidation, cancellation, decision safety, editor compilation and all
 shipped translations/font coverage.
+
+## Photo culling and comparison
+
+The local gallery has a **Selection** row for decisions on the selected photos:
+click a star count (0 clears it), **Pick**, **Reject**, or a colour dot. Colour
+names and shortcut keys appear on hover. Decisions are independent: changing a
+rating keeps the flag and colour. Reject is a flag; it never deletes a file.
+Thumbnails show the rating, flag and colour together.
+
+The keyboard applies the same decisions to the selection, or to the active photo
+in the viewer/comparison. Search fields and dialogs retain their normal keys.
+
+| Key | Decision |
+| --- | --- |
+| 0–5 | Clear rating or assign one to five stars |
+| P / X / U | Pick / reject / clear flag |
+| 6 / 7 / 8 / 9 / M | Red / yellow / green / blue / magenta |
+| L | Clear colour label |
+| C | Compare the two selected still photos |
+
+The **Filter** row combines a minimum rating, an optional flag and an optional
+colour. Clicking an active filter removes it; **All** resets them. It applies to
+folder/date/place groups, search results, the map and navigation. Filter changes
+remove hidden photos from the grid selection. Filters reset at launch; decisions
+persist across relaunches and rescans in the `culling` field of `library.json`.
+Originals and image metadata are untouched. Schist moves decisions when moving a
+photo between folders; failed or rolled-back transfers keep decisions with the
+original. Moving or renaming photos outside Schist does not relocate their records.
+
+Select exactly two still photos and choose **Compare two photos** (C). The active
+pane has an accent border; click either image or its filename, or press Left,
+Right or Tab, to choose the photo that receives decisions. Scroll or use +/− to
+zoom both panes together; drag either pane to pan both around the same normalized
+point. **Fit on Screen** (F) resets the shared camera. **100%** displays one active-image pixel per logical screen pixel
+(within the zoom limits). Enter edits the active
+photo; Escape, Space or **Close** returns to the gallery.
+
+Comparison decodes supported raster images at their original resolution up to
+32 megapixels and 8192 pixels per edge, with a 128 MiB decoder allocation limit
+and EXIF orientation.
+Layered files, camera raws, HEIC and larger rasters use Schist's preview pipeline
+(up to 2048 pixels on the longest edge), explicitly marked **Preview** in the
+pane. Existing edits are shown from their PSD sidecar. Zoom magnification is
+relative to each pane's fitted image, from 1× to 32×; the panes share normalized
+position, so differently sized photos stay comparable. Decode failures are
+shown in the affected pane. The two decodes run off the UI thread, sequentially
+to bound temporary memory, and closing comparison releases its image handles.

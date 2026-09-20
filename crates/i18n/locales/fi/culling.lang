@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Valitse
+culling.reject = Hylkää
+culling.compare = Vertaa kahta kuvaa

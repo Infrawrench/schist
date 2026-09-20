@@ -34,19 +34,35 @@ impl Workspace {
                 .background_executor()
                 .spawn(async move {
                     let mut moved = 0usize;
+                    let mut relocated = Vec::new();
                     for path in &paths {
                         match move_photo(path, &dest) {
-                            Ok(()) => moved += 1,
+                            Ok(()) => {
+                                moved += 1;
+                            }
                             Err(err) => {
                                 log::error!("move failed for {}: {err:#}", path.display())
                             }
                         }
+                        // Relocate decisions only when the original actually
+                        // moved; failed or rolled-back transfers keep them here.
+                        if let Some(pair) = relocated_original(path, &dest) {
+                            relocated.push(pair);
+                        }
                     }
-                    (moved, paths.len(), dest)
+                    (moved, paths.len(), dest, relocated)
                 })
                 .await;
             this.update(cx, |ws, cx| {
-                let (moved, asked, dest) = result;
+                let (moved, asked, dest, relocated) = result;
+                for (from, to) in relocated {
+                    schist_gallery::culling::moved(&mut ws.library.culling, &from, &to);
+                }
+                ws.library.culling_changed();
+                if let Err(error) = ws.library.save_checked() {
+                    ws.library.culling_error = Some(tf!("library.ops.save_failed", error = error));
+                }
+                ws.library.comparison = None;
                 ws.status = if moved == asked {
                     schist_i18n::tn!(
                         "library.ops.moved",
@@ -710,6 +726,11 @@ pub(super) fn reveal_in_file_manager(path: &Path) {
     if let Err(err) = spawned {
         log::warn!("could not open the file manager: {err}");
     }
+}
+
+fn relocated_original(path: &Path, dest: &Path) -> Option<(PathBuf, PathBuf)> {
+    let to = dest.join(path.file_name()?);
+    (!path.exists() && to.exists()).then(|| (path.to_path_buf(), to))
 }
 
 /// Preflight every destination before moving anything. XMP and its previous
@@ -1580,6 +1601,42 @@ mod tests {
         assert!(process_photo(&codecs, &photo, &recipe, &BatchSink::Edit).is_err());
         assert_eq!(std::fs::read(&sidecar).unwrap(), bytes);
         assert_eq!(std::fs::read(&photo).unwrap(), bytes);
+    }
+
+    #[test]
+    fn culling_follows_a_successful_move_but_not_failed_transfers_or_collisions() {
+        use schist_gallery::culling::{self, CullEdit};
+        let temp = tempfile::tempdir().unwrap();
+        let from = temp.path().join("from");
+        let to = temp.path().join("to");
+        std::fs::create_dir_all(from.join(".schist")).unwrap();
+        std::fs::create_dir_all(&to).unwrap();
+        let original = from.join("photo.jpg");
+        std::fs::write(&original, b"original").unwrap();
+        std::fs::write(from.join(".schist/photo.jpg.psd"), b"edited").unwrap();
+        std::fs::write(to.join(".schist"), b"blocked").unwrap();
+        let mut records = std::collections::BTreeMap::new();
+        culling::edit(
+            &mut records,
+            std::slice::from_ref(&original),
+            CullEdit::Rating(4),
+        );
+        assert!(move_photo(&original, &to).is_err());
+        assert!(relocated_original(&original, &to).is_none());
+        assert_eq!(records[&original].rating, 4);
+        assert_eq!(std::fs::read(&original).unwrap(), b"original");
+        std::fs::remove_file(to.join(".schist")).unwrap();
+        move_photo(&original, &to).unwrap();
+        let (old, new) = relocated_original(&original, &to).unwrap();
+        culling::moved(&mut records, &old, &new);
+        assert_eq!(records[&new].rating, 4);
+        assert!(!records.contains_key(&old));
+        assert_eq!(std::fs::read(&new).unwrap(), b"original");
+        std::fs::write(&original, b"another").unwrap();
+        assert!(move_photo(&original, &to).is_err());
+        assert!(relocated_original(&original, &to).is_none());
+        assert_eq!(records[&new].rating, 4);
+        assert_eq!(std::fs::read(&original).unwrap(), b"another");
     }
 
     #[test]

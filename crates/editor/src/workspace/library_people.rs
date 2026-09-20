@@ -33,6 +33,7 @@ impl Workspace {
         let Some(entry) = self.library.entry_of(&path).cloned() else {
             return;
         };
+        self.library.comparison = None;
         self.library.select_single(path.clone());
         self.library.context = None;
         // The viewer takes the grid's place; the world map would hide it.
@@ -457,6 +458,10 @@ impl Workspace {
             return true;
         }
         if self.gallery_search_clear(cx) {
+            return true;
+        }
+        if self.library.comparison.is_some() {
+            self.close_culling_compare(cx);
             return true;
         }
         if self.library.viewer.is_none() && self.library.similar.open {

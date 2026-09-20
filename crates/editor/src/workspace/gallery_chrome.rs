@@ -472,7 +472,19 @@ impl Workspace {
         }
         #[cfg(not(target_arch = "wasm32"))]
         {
-            self.similar_review_key(ev, cx)
+            if self.similar_review_key(ev, cx) {
+                return true;
+            }
+            if ev.keystroke.key == "enter"
+                && !self.gallery_typing()
+                && self.focused_field.is_none()
+                && !self.ai.input.active
+                && !self.ai.model_menu
+                && !self.spotlight.open
+            {
+                return self.gallery_enter(cx);
+            }
+            self.gallery_culling_key(ev, cx)
                 || self.gallery_viewer_key(ev, cx)
                 || self.gallery_search_key(ev, cx)
                 || self.gallery_nav_key(ev, cx)
@@ -529,7 +541,13 @@ impl Workspace {
             if self.library.search.active {
                 return false;
             }
-            if let Some(path) = self.library.lead_selected().cloned() {
+            let path = self
+                .library
+                .comparison
+                .as_ref()
+                .map(|c| c.paths[c.active].clone())
+                .or_else(|| self.library.lead_selected().cloned());
+            if let Some(path) = path {
                 self.open_from_gallery(path, cx);
             }
             true

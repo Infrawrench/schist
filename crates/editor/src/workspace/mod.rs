@@ -94,6 +94,8 @@ pub(crate) mod mask_refine;
 #[cfg(not(target_arch = "wasm32"))]
 mod library;
 #[cfg(not(target_arch = "wasm32"))]
+mod library_culling;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_geo;
 // iPhones and PTP cameras never mount as filesystems on macOS;
 // ImageCaptureCore is the door Image Capture and Photos use, and this

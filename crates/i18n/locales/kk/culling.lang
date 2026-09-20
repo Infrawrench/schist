@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Таңдау
+culling.reject = Қабылдамау
+culling.compare = Екі фотосуретті салыстыру

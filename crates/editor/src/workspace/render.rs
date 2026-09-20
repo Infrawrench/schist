@@ -659,6 +659,10 @@ impl Render for Workspace {
             || self.gallery_typing()
         {
             "Workspace text_entry"
+        } else if self.gallery_open() && !self.cloud.show {
+            // GPUI bindings run before raw keys: keep the local gallery's
+            // ratings and flags out of the editor's tool/opacity bindings.
+            "Workspace gallery"
         } else {
             "Workspace editable"
         };

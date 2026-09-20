@@ -70,6 +70,7 @@ fn decision_path() -> Option<PathBuf> {
 
 impl Workspace {
     pub(super) fn open_similar_review(&mut self, cx: &mut Context<Self>) {
+        self.library.comparison = None;
         self.library.map_view = false;
         self.library.viewer = None;
         self.library.similar.open = true;

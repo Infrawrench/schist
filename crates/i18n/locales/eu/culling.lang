@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Hautatu
+culling.reject = Baztertu
+culling.compare = Konparatu bi argazki

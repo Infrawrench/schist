@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Roghnaigh
+culling.reject = Diúltaigh
+culling.compare = Cuir dhá ghrianghraf i gcomparáid

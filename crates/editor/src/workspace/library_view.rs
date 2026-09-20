@@ -49,7 +49,9 @@ impl Workspace {
         } else if self.library.folders.is_empty() && self.cloud.account.is_none() {
             gallery_empty_state(cx).into_any_element()
         } else {
-            let content = if self.library.map_view {
+            let content = if !cloud && self.library.comparison.is_some() {
+                super::library_culling::comparison(self, cx)
+            } else if self.library.map_view {
                 world_map(self, cx).into_any_element()
             } else if cloud {
                 super::cloud_view::grid(self, cx)
@@ -161,6 +163,7 @@ impl Workspace {
                 }
             }))
             .child(chrome::top_strip(self, cx))
+            .children((!cloud && !video).then(|| super::library_culling::toolbar(self, cx)))
             .children(
                 (crate::feature_enabled("schist-cloud")
                     && self.cloud.account.is_none()
@@ -601,12 +604,25 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 .sections
                 .iter()
                 .filter(|s| s.dir.starts_with(root))
-                .map(|s| s.entries.len())
-                .sum();
+                .flat_map(|s| &s.entries)
+                .filter(|e| {
+                    ws.library.passes_map(&e.path)
+                        && !(ws.view.gallery_hide_nsfw && ws.library.is_flagged(&e.path))
+                })
+                .count();
             (root.clone(), count)
         })
         .collect();
-    let total: usize = folders.iter().map(|(_, n)| n).sum();
+    let total = ws
+        .library
+        .sections
+        .iter()
+        .flat_map(|s| &s.entries)
+        .filter(|e| {
+            ws.library.passes_map(&e.path)
+                && !(ws.view.gallery_hide_nsfw && ws.library.is_flagged(&e.path))
+        })
+        .count();
     let mut rows: Vec<gpui::AnyElement> = Vec::new();
     rows.push(
         sidebar_row(
@@ -723,7 +739,18 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 .buckets
                 .iter()
                 .enumerate()
-                .map(|(i, b)| (i, b.name.clone(), b.contents().len(), b.is_smart()))
+                .map(|(i, b)| {
+                    let count = b
+                        .contents()
+                        .iter()
+                        .filter(|p| {
+                            ws.library.entry_of(p).is_some()
+                                && ws.library.passes_map(p)
+                                && !(ws.view.gallery_hide_nsfw && ws.library.is_flagged(p))
+                        })
+                        .count();
+                    (i, b.name.clone(), count, b.is_smart())
+                })
                 .collect();
             let viewing = if cloud {
                 None
@@ -944,7 +971,9 @@ fn sidebar_row(
 }
 
 /// One filtered snapshot for both gallery views.
-fn gallery_sections(ws: &Workspace) -> Vec<(String, String, Vec<super::library::Entry>)> {
+pub(super) fn gallery_sections(
+    ws: &Workspace,
+) -> Vec<(String, String, Vec<super::library::Entry>)> {
     let hide_flagged = ws.view.gallery_hide_nsfw;
     // Owned snapshot: the cells below borrow the workspace mutably to
     // fetch thumbnails, so they cannot also iterate `sections` in place.
@@ -1667,6 +1696,9 @@ fn cell_element(
         failed,
         entry.edited,
     )
+    .children(super::library_culling::badge(
+        ws.library.culling_of(&entry.path),
+    ))
     .children(schist_gallery::is_video(&entry.path).then(|| {
         div()
             .absolute()
@@ -1765,7 +1797,13 @@ fn cell_element(
 /// What the tray says about the local gallery: the lead photo's name
 /// and Edit button, the selection size, the content filter's toll.
 pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
-    let selected = ws.library.selected_entry().cloned();
+    let selected = ws
+        .library
+        .comparison
+        .as_ref()
+        .and_then(|c| ws.library.entry_of(&c.paths[c.active]))
+        .or_else(|| ws.library.selected_entry())
+        .cloned();
     let name = selected
         .as_ref()
         .and_then(|e| e.path.file_name())
@@ -1808,7 +1846,7 @@ pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
         name,
         selected: ws.library.selected.len(),
         notes,
-        count: chrome::photo_count(ws.library.photo_count()),
+        count: chrome::photo_count(ws.gallery_flat_order().len()),
     }
 }
 

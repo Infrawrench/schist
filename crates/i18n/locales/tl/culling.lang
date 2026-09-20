@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Piliin
+culling.reject = Tanggihan
+culling.compare = Ihambing ang dalawang larawan

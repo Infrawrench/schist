@@ -1,0 +1,4 @@
+# Local photo decisions and synchronized comparison.
+culling.pick = Vel
+culling.reject = Avvís
+culling.compare = Samanber tvær myndir
