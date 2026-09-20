@@ -368,15 +368,6 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .border_b_1()
         .border_color(gpui::rgb(p.chrome_edge))
         .child(
-            Button::new("similar-close", t("common.back"))
-                .ghost()
-                .px_2()
-                .on_click(cx.listener(|ws, _, _, cx| {
-                    ws.close_similar_review();
-                    cx.notify();
-                })),
-        )
-        .child(
             div()
                 .font_weight(gpui::FontWeight::SEMIBOLD)
                 .mr_2()

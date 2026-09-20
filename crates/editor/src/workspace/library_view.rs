@@ -605,6 +605,8 @@ impl Workspace {
 
 fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let cloud = ws.cloud.show;
+    let similar =
+        !cloud && !ws.library.map_view && ws.library.viewer.is_none() && ws.library.similar.open;
     let filter = ws.library.folder_filter.clone();
     let folders: Vec<(PathBuf, usize)> = ws
         .library
@@ -657,7 +659,9 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                         ListItem::new(label)
                             .h(px(26.0))
                             .px_2()
-                            .bg(gpui::rgb(if ws.library.map_view == map {
+                            .selected(!similar && ws.library.map_view == map)
+                            .text_color(gpui::rgb(pal().text))
+                            .bg(gpui::rgb(if !similar && ws.library.map_view == map {
                                 pal().sidebar_selected
                             } else {
                                 pal().chrome_bg
@@ -677,6 +681,13 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
             ListItem::new("similar-review-open")
                 .h(px(26.0))
                 .px_2()
+                .selected(similar)
+                .text_color(gpui::rgb(pal().text))
+                .bg(gpui::rgb(if similar {
+                    pal().sidebar_selected
+                } else {
+                    pal().chrome_bg
+                }))
                 .child(t("library.similar.title"))
                 .on_click(cx.listener(|ws, _, _, cx| ws.open_similar_review(cx)))
         }))
