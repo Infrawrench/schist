@@ -308,3 +308,12 @@ video.preview_help_touch = నిశ్శబ్ద మునుజూపు · 
 video.importing = ఫోటోలు, వీడియోలను దిగుమతి చేస్తోంది…
 video.import_failed = మీడియాను దిగుమతి చేయలేకపోయింది: {error}
 video.import_failed_simple = ఈ మీడియాను దిగుమతి చేయడం లేదా పంచుకోవడం సాధ్యం కాలేదు.
+
+# Similar-photo and capture-burst review
+library.similar.title = సారూప్య ఫోటోలు
+library.similar.visual = దృశ్య పోలికలు
+library.similar.burst = వరుసగా తీసిన ఫోటోలు
+library.similar.keep = ఉంచండి
+library.similar.reject = తిరస్కరించండి
+library.similar.help = సమీక్ష గుర్తులు మాత్రమే; ఫైల్‌లు తొలగించబడవు.
+library.similar.stale = ఫైల్‌లు మారాయి. కొనసాగించడానికి రిఫ్రెష్ చేయండి.

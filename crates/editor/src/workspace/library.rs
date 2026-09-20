@@ -255,6 +255,7 @@ struct SearchSnapshot {
 }
 
 pub struct Library {
+    pub(super) similar: super::library_similar::SimilarReview,
     /// Owns the most recent asynchronous sidecar refresh.
     pub(super) metadata_generation: u64,
     /// Distinguishes modal requests from earlier saves still finishing.
@@ -499,6 +500,7 @@ impl Library {
         #[cfg(not(target_os = "ios"))]
         let folders = file.folders;
         Library {
+            similar: Default::default(),
             open: false,
             folders,
             recents: file.recents,

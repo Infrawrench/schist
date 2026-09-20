@@ -309,3 +309,12 @@ video.preview_help_touch = Lydløs forhåndsvisning · Dra tidslinjen eller gå 
 video.importing = Importerer bilder og videoer…
 video.import_failed = Kunne ikke importere medier: {error}
 video.import_failed_simple = Kunne ikke importere eller dele dette mediet.
+
+# Similar-photo and capture-burst review
+library.similar.title = Lignende bilder
+library.similar.visual = Visuelle likheter
+library.similar.burst = Serieopptak
+library.similar.keep = Behold
+library.similar.reject = Avvis
+library.similar.help = Bare vurderingsmerker; filer slettes ikke.
+library.similar.stale = Filene er endret. Oppdater for å fortsette.

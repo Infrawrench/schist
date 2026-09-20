@@ -309,3 +309,12 @@ video.preview_help_touch = Pamje paraprake pa zë · Tërhiqni vijën kohore ose
 video.importing = Po importohen foto dhe video…
 video.import_failed = Media nuk mund të importohej: {error}
 video.import_failed_simple = Kjo media nuk mund të importohej ose ndahej.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fotografi të ngjashme
+library.similar.visual = Ngjashmëri pamore
+library.similar.burst = Fotografi në seri
+library.similar.keep = Mbaje
+library.similar.reject = Refuzo
+library.similar.help = Vetëm shenja shqyrtimi; skedarët nuk fshihen.
+library.similar.stale = Skedarët kanë ndryshuar. Rifresko për të vazhduar.

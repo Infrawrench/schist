@@ -308,3 +308,12 @@ video.view = ਵੀਡੀਓ ਵੇਖੋ
 video.open_another_app = ਹੋਰ ਐਪ ਵਿੱਚ ਖੋਲ੍ਹੋ…
 video.preview_help_touch = ਮੂਕ ਝਲਕ · ਸਮਾਂ-ਰੇਖਾ ਖਿੱਚੋ ਜਾਂ ਫਰੇਮਾਂ ਵਿੱਚ ਕਦਮ ਰੱਖੋ। ਹੋਰ ਤਿੱਖਾ ਫਰੇਮ ਦੋਵੇਂ ਪਾਸੇ ½ ਸਕਿੰਟ ਅੰਦਰ ਖੋਜਦਾ ਹੈ। ਸੰਪਾਦਨ ਨਾਲ ਵੱਖਰਾ ਚਿੱਤਰ ਖੁੱਲ੍ਹਦਾ ਹੈ।
 video.importing = ਫ਼ੋਟੋਆਂ ਅਤੇ ਵੀਡੀਓ ਆਯਾਤ ਹੋ ਰਹੇ ਹਨ…
+
+# Similar-photo and capture-burst review
+library.similar.title = ਮਿਲਦੀਆਂ-ਜੁਲਦੀਆਂ ਫੋਟੋਆਂ
+library.similar.visual = ਦਿੱਖ ਦੀ ਸਮਾਨਤਾ
+library.similar.burst = ਲਗਾਤਾਰ ਖਿੱਚੀਆਂ ਫੋਟੋਆਂ
+library.similar.keep = ਰੱਖੋ
+library.similar.reject = ਰੱਦ ਕਰੋ
+library.similar.help = ਸਿਰਫ਼ ਸਮੀਖਿਆ ਚਿੰਨ੍ਹ; ਫਾਈਲਾਂ ਮਿਟਾਈਆਂ ਨਹੀਂ ਜਾਂਦੀਆਂ।
+library.similar.stale = ਫਾਈਲਾਂ ਬਦਲ ਗਈਆਂ ਹਨ। ਜਾਰੀ ਰੱਖਣ ਲਈ ਤਾਜ਼ਾ ਕਰੋ।

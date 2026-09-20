@@ -332,3 +332,12 @@ video.preview_help_touch = Isiboniso esingelamsindo · Hudula umugqa wesikhathi 
 video.importing = Kungeniswa amafoto lamavidiyo…
 video.import_failed = Yehlulekile ukungenisa imidiya: {error}
 video.import_failed_simple = Yehlulekile ukungenisa kumbe ukwabelana ngemidiya le.
+
+# Similar-photo and capture-burst review
+library.similar.title = Izithombe ezifanayo
+library.similar.visual = Ukufanana okubonakalayo
+library.similar.burst = Izithombe ezilandelanayo
+library.similar.keep = Gcina
+library.similar.reject = Yala
+library.similar.help = Amamaki okuhlola kuphela; amafayela awasulwa.
+library.similar.stale = Amafayela antshintshile. Vuselela ukuze uqhubeke.

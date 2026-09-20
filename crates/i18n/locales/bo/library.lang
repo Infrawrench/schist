@@ -290,3 +290,12 @@ video.preview_help_touch = སྒྲ་མེད་སྔོན་ལྟ · ད�
 video.importing = པར་དང་བརྙན་ནང་འདྲེན་བཞིན་པ…
 video.import_failed = སྨྱན་ཆས་ནང་འདྲེན་མ་ཐུབ། {error}
 video.import_failed_simple = སྨྱན་ཆས་འདི་ནང་འདྲེན་ནམ་མཉམ་སྤྱོད་མ་ཐུབ།
+
+# Similar-photo and capture-burst review
+library.similar.title = འདྲ་མཚུངས་པར་རིས།
+library.similar.visual = མཐོང་སྣང་འདྲ་མཚུངས།
+library.similar.burst = བསྟུད་མར་བླངས་པའི་པར།
+library.similar.keep = ཉར་ཚགས།
+library.similar.reject = དང་ལེན་མི་བྱེད།
+library.similar.help = ཞིབ་བཤེར་རྟགས་ཙམ་ཡིན། ཡིག་ཆ་སུབ་མི་བྱེད།
+library.similar.stale = ཡིག་ཆ་འགྱུར་ཟིན། མུ་མཐུད་པར་བསྐྱར་གསོ་བྱོས།

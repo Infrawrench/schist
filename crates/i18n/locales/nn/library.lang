@@ -332,3 +332,12 @@ video.preview_help_touch = Førehandsvising utan lyd · Dra tidslinja eller gå 
 video.importing = Importerer foto og videoar …
 video.import_failed = Klarte ikkje å importera mediet: {error}
 video.import_failed_simple = Klarte ikkje å importera eller dela dette mediet.
+
+# Similar-photo and capture-burst review
+library.similar.title = Liknande bilete
+library.similar.visual = Visuelle likskapar
+library.similar.burst = Serieopptak
+library.similar.keep = Behald
+library.similar.reject = Avvis
+library.similar.help = Berre vurderingsmerke; filer vert ikkje sletta.
+library.similar.stale = Filene er endra. Oppdater for å halde fram.

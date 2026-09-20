@@ -329,3 +329,12 @@ video.preview_help_touch = უხმო წინასწარი ხედი
 video.importing = ფოტოები და ვიდეოები შემოდის…
 video.import_failed = მედიაფაილის იმპორტი ვერ მოხერხდა: {error}
 video.import_failed_simple = ამ მედიაფაილის იმპორტი ან გაზიარება ვერ მოხერხდა.
+
+# Similar-photo and capture-burst review
+library.similar.title = მსგავსი ფოტოები
+library.similar.visual = ვიზუალური მსგავსება
+library.similar.burst = ფოტოსერიები
+library.similar.keep = შენახვა
+library.similar.reject = უარყოფა
+library.similar.help = მხოლოდ განხილვის ნიშნები; ფაილები არ იშლება.
+library.similar.stale = ფაილები შეიცვალა. გასაგრძელებლად განაახლეთ.

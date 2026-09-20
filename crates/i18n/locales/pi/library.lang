@@ -290,3 +290,12 @@ video.preview_help_touch = Saddarahitapubbanidassanaṃ · Kālapantiṃ ākaḍ
 video.importing = Chāyācittāni video ca pavesīyanti…
 video.import_failed = Media pavesituṃ na sakkā: {error}
 video.import_failed_simple = Idaṃ media pavesituṃ vā vibhajituṃ vā na sakkā.
+
+# Similar-photo and capture-burst review
+library.similar.title = Sadisā chāyācittā
+library.similar.visual = Dassanasāmaññaṃ
+library.similar.burst = Anupubbachāyācittā
+library.similar.keep = Rakkhatu
+library.similar.reject = Paṭikkhipatu
+library.similar.help = Paccavekkhaṇasaññā eva; lekhā na nāsīyanti.
+library.similar.stale = Lekhā parivattitā. Anuvattituṃ navīkarotu.

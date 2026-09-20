@@ -55,6 +55,8 @@ impl Workspace {
                 super::cloud_view::grid(self, cx)
             } else if self.library.viewer.is_some() {
                 super::library_people_view::viewer(self, cx)
+            } else if self.library.similar.open {
+                super::library_similar::render(self, cx)
             } else {
                 grid(self, cx).into_any_element()
             };
@@ -586,6 +588,8 @@ impl Workspace {
 
 fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let cloud = ws.cloud.show;
+    let similar =
+        !cloud && !ws.library.map_view && ws.library.viewer.is_none() && ws.library.similar.open;
     let filter = ws.library.folder_filter.clone();
     let folders: Vec<(PathBuf, usize)> = ws
         .library
@@ -638,12 +642,15 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                         ListItem::new(label)
                             .h(px(26.0))
                             .px_2()
-                            .bg(gpui::rgb(if ws.library.map_view == map {
+                            .selected(!similar && ws.library.map_view == map)
+                            .text_color(gpui::rgb(pal().text))
+                            .bg(gpui::rgb(if !similar && ws.library.map_view == map {
                                 pal().sidebar_selected
                             } else {
                                 pal().chrome_bg
                             }))
                             .on_click(cx.listener(move |ws, _, _, cx| {
+                                ws.close_similar_review();
                                 ws.library.map_view = map;
                                 cx.notify();
                             }))
@@ -653,6 +660,20 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 .into_iter()
                 .flatten(),
         )
+        .children((!cloud).then(|| {
+            ListItem::new("similar-review-open")
+                .h(px(26.0))
+                .px_2()
+                .selected(similar)
+                .text_color(gpui::rgb(pal().text))
+                .bg(gpui::rgb(if similar {
+                    pal().sidebar_selected
+                } else {
+                    pal().chrome_bg
+                }))
+                .child(t("library.similar.title"))
+                .on_click(cx.listener(|ws, _, _, cx| ws.open_similar_review(cx)))
+        }))
         .child(group_chips(ws.gallery_group_by(), &GroupBy::ALL, cx))
         .child({
             let active = if cloud {
@@ -837,6 +858,7 @@ fn sidebar_row(
         .hover(|s| s.bg(gpui::rgb(pal().sidebar_selected)))
         .on_press(cx, move |ws, _e: &chrome::Press, _w, cx| {
             ws.cloud.show = false;
+            ws.close_similar_review();
             ws.library.folder_filter = filter.clone();
             ws.library.bucket_filter = None;
             cx.notify();

@@ -331,3 +331,12 @@ video.preview_help_touch = Үнсүз алдын ала көрүү · Убакы
 video.importing = Сүрөттөр жана видеолор импорттолууда…
 video.import_failed = Медиа импорттолгон жок: {error}
 video.import_failed_simple = Бул медианы импорттоого же бөлүшүүгө мүмкүн болгон жок.
+
+# Similar-photo and capture-burst review
+library.similar.title = Окшош сүрөттөр
+library.similar.visual = Көрүнүш окшоштугу
+library.similar.burst = Катар тартылган сүрөттөр
+library.similar.keep = Сактоо
+library.similar.reject = Четке кагуу
+library.similar.help = Кароо белгилери гана; файлдар өчүрүлбөйт.
+library.similar.stale = Файлдар өзгөрдү. Улантуу үчүн жаңыртыңыз.

@@ -290,3 +290,12 @@ video.preview_help_touch = Pratonton senyap · Seret garis masa atau langkau bin
 video.importing = Mengimport foto dan video…
 video.import_failed = Tidak dapat mengimport media: {error}
 video.import_failed_simple = Tidak dapat mengimport atau berkongsi media ini.
+
+# Similar-photo and capture-burst review
+library.similar.title = Foto serupa
+library.similar.visual = Padanan visual
+library.similar.burst = Foto berturutan
+library.similar.keep = Simpan
+library.similar.reject = Tolak
+library.similar.help = Tanda semakan sahaja; fail tidak dipadamkan.
+library.similar.stale = Fail telah berubah. Muat semula untuk meneruskan.

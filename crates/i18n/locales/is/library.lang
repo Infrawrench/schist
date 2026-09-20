@@ -356,3 +356,12 @@ video.preview_help_touch = Hljóðlaus forskoðun · Dragðu tímalínuna eða s
 video.importing = Flyt inn myndir og myndskeið…
 video.import_failed = Gat ekki flutt inn miðil: {error}
 video.import_failed_simple = Gat ekki flutt inn eða deilt þessum miðli.
+
+# Similar-photo and capture-burst review
+library.similar.title = Svipaðar myndir
+library.similar.visual = Sjónrænt samræmi
+library.similar.burst = Raðmyndir
+library.similar.keep = Halda
+library.similar.reject = Hafna
+library.similar.help = Aðeins yfirferðarmerki; skrám er ekki eytt.
+library.similar.stale = Skrár hafa breyst. Endurnýjaðu til að halda áfram.

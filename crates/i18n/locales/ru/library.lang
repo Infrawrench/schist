@@ -344,3 +344,12 @@ video.preview_help_touch = Предпросмотр без звука · Пер�
 video.importing = Импорт фотографий и видео…
 video.import_failed = Не удалось импортировать медиафайл: {error}
 video.import_failed_simple = Не удалось импортировать или предоставить доступ к этому медиафайлу.
+
+# Similar-photo and capture-burst review
+library.similar.title = Похожие фотографии
+library.similar.visual = Визуальное сходство
+library.similar.burst = Серийная съёмка
+library.similar.keep = Оставить
+library.similar.reject = Отклонить
+library.similar.help = Только отметки просмотра; файлы не удаляются.
+library.similar.stale = Файлы изменились. Обновите, чтобы продолжить.

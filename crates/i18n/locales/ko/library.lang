@@ -290,3 +290,12 @@ video.preview_help_touch = 무음 미리보기 · 타임라인을 드래그하�
 video.importing = 사진과 비디오 가져오는 중…
 video.import_failed = 미디어를 가져올 수 없습니다: {error}
 video.import_failed_simple = 이 미디어를 가져오거나 공유할 수 없습니다.
+
+# Similar-photo and capture-burst review
+library.similar.title = 비슷한 사진
+library.similar.visual = 시각적 일치
+library.similar.burst = 연속 촬영
+library.similar.keep = 유지
+library.similar.reject = 거부
+library.similar.help = 검토 표시만 저장하며 파일은 삭제하지 않습니다.
+library.similar.stale = 파일이 변경되었습니다. 새로 고침하여 계속하세요.

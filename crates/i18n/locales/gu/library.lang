@@ -347,3 +347,12 @@ video.preview_help_touch = અવાજ વિનાનું પૂર્વા
 video.importing = ફોટા અને વિડિયો ઇમ્પોર્ટ થઈ રહ્યાં છે…
 video.import_failed = મીડિયા ઇમ્પોર્ટ કરી શકાયું નહીં: {error}
 video.import_failed_simple = આ મીડિયા ઇમ્પોર્ટ અથવા શેર કરી શકાયું નહીં.
+
+# Similar-photo and capture-burst review
+library.similar.title = મળતા આવતા ફોટા
+library.similar.visual = દૃશ્ય સમાનતા
+library.similar.burst = સળંગ લીધેલા ફોટા
+library.similar.keep = રાખો
+library.similar.reject = નકારો
+library.similar.help = માત્ર સમીક્ષાનાં ચિહ્નો; ફાઇલો કાઢી નાખવામાં આવતી નથી.
+library.similar.stale = ફાઇલો બદલાઈ છે. આગળ વધવા તાજું કરો.

@@ -362,3 +362,12 @@ video.preview_help_touch = Stumme Vorschau · Ziehen Sie die Zeitleiste oder wec
 video.importing = Fotos und Videos werden importiert…
 video.import_failed = Medien konnten nicht importiert werden: {error}
 video.import_failed_simple = Diese Medien konnten nicht importiert oder geteilt werden.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ähnliche Fotos
+library.similar.visual = Visuelle Übereinstimmungen
+library.similar.burst = Serienaufnahmen
+library.similar.keep = Behalten
+library.similar.reject = Ablehnen
+library.similar.help = Nur Prüfmarkierungen; Dateien werden nicht gelöscht.
+library.similar.stale = Dateien wurden geändert. Zum Fortfahren aktualisieren.

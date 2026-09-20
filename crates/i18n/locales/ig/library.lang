@@ -290,3 +290,12 @@ video.preview_help_touch = Nhụchalụ na-enweghị ụda · Dọrọ timeline 
 video.importing = Na-ebubata foto na vidiyo…
 video.import_failed = Enweghị ike ibubata media: {error}
 video.import_failed_simple = Enweghị ike ibubata ma ọ bụ kesaa media a.
+
+# Similar-photo and capture-burst review
+library.similar.title = Foto yiri ibe ha
+library.similar.visual = Myirịta n’anya
+library.similar.burst = Foto na-esochi ibe ha
+library.similar.keep = Debe
+library.similar.reject = Jụ
+library.similar.help = Naanị akara nyocha; anaghị ehichapụ faịlụ.
+library.similar.stale = Faịlụ agbanweela. Mee ka ọ dị ọhụrụ iji gaa n’ihu.

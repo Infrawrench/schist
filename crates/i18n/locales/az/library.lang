@@ -308,3 +308,12 @@ video.preview_help_touch = Səssiz önizləmə · Vaxt xəttini sürükləyin v�
 video.importing = Foto və videolar idxal edilir…
 video.import_failed = Media idxal edilə bilmədi: {error}
 video.import_failed_simple = Bu medianı idxal və ya paylaşmaq mümkün olmadı.
+
+# Similar-photo and capture-burst review
+library.similar.title = Oxşar fotolar
+library.similar.visual = Vizual uyğunluqlar
+library.similar.burst = Ardıcıl çəkilişlər
+library.similar.keep = Saxla
+library.similar.reject = Rədd et
+library.similar.help = Yalnız baxış işarələri; fayllar silinmir.
+library.similar.stale = Fayllar dəyişib. Davam etmək üçün yeniləyin.

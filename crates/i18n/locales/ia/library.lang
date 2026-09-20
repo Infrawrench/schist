@@ -331,3 +331,12 @@ video.preview_help_touch = Previsualisation mute · Trahe le linea temporal o av
 video.importing = Importation de photos e videos…
 video.import_failed = Impossibile importar medios: {error}
 video.import_failed_simple = Impossibile importar o compartir iste medio.
+
+# Similar-photo and capture-burst review
+library.similar.title = Photos similar
+library.similar.visual = Similitudes visual
+library.similar.burst = Photos in serie
+library.similar.keep = Retener
+library.similar.reject = Rejectar
+library.similar.help = Solmente marcas de revision; le files non es delite.
+library.similar.stale = Le files ha cambiate. Refresca pro continuar.

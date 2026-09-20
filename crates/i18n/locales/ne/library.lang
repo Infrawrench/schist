@@ -308,3 +308,12 @@ video.preview_help_touch = ध्वनिरहित पूर्वावल�
 video.importing = तस्बिर र भिडियो आयात हुँदै छन्…
 video.import_failed = मिडिया आयात गर्न सकिएन: {error}
 video.import_failed_simple = यो मिडिया आयात वा साझेदारी गर्न सकिएन।
+
+# Similar-photo and capture-burst review
+library.similar.title = मिल्दाजुल्दा फोटो
+library.similar.visual = दृश्य समानता
+library.similar.burst = लगातार खिचिएका फोटो
+library.similar.keep = राख्नुहोस्
+library.similar.reject = अस्वीकार गर्नुहोस्
+library.similar.help = समीक्षा चिह्न मात्र; फाइलहरू मेटिँदैनन्।
+library.similar.stale = फाइलहरू परिवर्तन भए। जारी राख्न ताजा गर्नुहोस्।

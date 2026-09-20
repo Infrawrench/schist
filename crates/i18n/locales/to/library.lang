@@ -313,3 +313,12 @@ video.preview_help_touch = Tomuʻa vakai taʻeongo · Toho ʻa e timeline pe lak
 video.importing = ʻOku fakahū mai ʻa e ngaahi tā mo e vitiō…
 video.import_failed = Naʻe ʻikai lava ke fakahū mai ʻa e media: {error}
 video.import_failed_simple = Naʻe ʻikai lava ke fakahū mai pe vahevahe ʻa e media ko ʻení.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ngaahi tā faitatau
+library.similar.visual = Faitatau ʻi he sio
+library.similar.burst = Ngaahi tā hokohoko
+library.similar.keep = Tauhi
+library.similar.reject = ʻIkai tali
+library.similar.help = Ngaahi fakaʻilonga vakai pē; ʻoku ʻikai tamateʻi ʻa e ngaahi faile.
+library.similar.stale = Kuo liliu ʻa e ngaahi faile. Fakafoʻou ke hoko atu.

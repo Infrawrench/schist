@@ -308,3 +308,12 @@ video.preview_help_touch = پیش‌نمایش بی‌صدا · خط زمان ر
 video.importing = در حال واردکردن عکس‌ها و ویدیوها…
 video.import_failed = واردکردن رسانه ممکن نبود: {error}
 video.import_failed_simple = واردکردن یا هم‌رسانی این رسانه ممکن نبود.
+
+# Similar-photo and capture-burst review
+library.similar.title = عکس‌های مشابه
+library.similar.visual = شباهت دیداری
+library.similar.burst = عکس‌های پیاپی
+library.similar.keep = نگه‌داشتن
+library.similar.reject = رد کردن
+library.similar.help = فقط نشان‌های بازبینی؛ پرونده‌ها حذف نمی‌شوند.
+library.similar.stale = پرونده‌ها تغییر کرده‌اند. برای ادامه تازه‌سازی کنید.

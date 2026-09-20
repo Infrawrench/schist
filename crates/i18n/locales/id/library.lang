@@ -290,3 +290,12 @@ video.preview_help_touch = Pratinjau senyap · Seret linimasa atau berpindah ant
 video.importing = Mengimpor foto dan video…
 video.import_failed = Tidak dapat mengimpor media: {error}
 video.import_failed_simple = Tidak dapat mengimpor atau membagikan media ini.
+
+# Similar-photo and capture-burst review
+library.similar.title = Foto serupa
+library.similar.visual = Kemiripan visual
+library.similar.burst = Foto beruntun
+library.similar.keep = Simpan
+library.similar.reject = Tolak
+library.similar.help = Hanya tanda tinjauan; berkas tidak dihapus.
+library.similar.stale = Berkas telah berubah. Segarkan untuk melanjutkan.

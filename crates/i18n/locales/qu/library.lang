@@ -313,3 +313,12 @@ video.preview_help_touch = Mana uyarina ñawpaq qhawana · Pacha siq'ita aysay u
 video.importing = Fotokunata videokunatapas yaykuchichkan…
 video.import_failed = Multimedia mana yaykuchiy atikunchu: {error}
 video.import_failed_simple = Kay multimediata mana yaykuchiyta nitaq rakiyta atikunchu.
+
+# Similar-photo and capture-burst review
+library.similar.title = Rikch’akuq siq’ikuna
+library.similar.visual = Qhawaypi rikch’akuy
+library.similar.burst = Qatiq siq’ikuna
+library.similar.keep = Waqaychay
+library.similar.reject = Ama chaskiychu
+library.similar.help = Qhawapay chimpukuna sapalla; willañiqikuna mana pichakunchu.
+library.similar.stale = Willañiqikuna tikrakurqan. Musuqyachiy qatipanaykipaq.

@@ -355,3 +355,12 @@ video.preview_help_touch = Antiprima chena sonu · Tràghe sa lìnia de tempus o
 video.importing = Importende fotografias e vìdeos…
 video.import_failed = No est istadu possìbile importare su cuntenutu multimediale: {error}
 video.import_failed_simple = No est istadu possìbile importare o cumpartzire custu cuntenutu multimediale.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fotos sìmiles
+library.similar.visual = Similitzas visuales
+library.similar.burst = Fotos in sèrie
+library.similar.keep = Mantènnere
+library.similar.reject = Refudare
+library.similar.help = Isceti marcas de revisione; sos documentos no si cantzellint.
+library.similar.stale = Sos documentos sunt cambiados. Agiorna pro sighire.

@@ -308,3 +308,12 @@ video.preview_help_touch = Durargii sagalee maleessa · Sarara yeroo harkisi yoo
 video.importing = Suuraawwan fi viidiyoowwan galchaa jira…
 video.import_failed = Miidiyaa galchuu hin dandeenye: {error}
 video.import_failed_simple = Miidiyaa kana galchuu yookaan qooduu hin dandeenye.
+
+# Similar-photo and capture-burst review
+library.similar.title = Suuraalee walfakkaatan
+library.similar.visual = Walfakkeenya mul’ataa
+library.similar.burst = Suuraalee walitti aanan
+library.similar.keep = Olkaa’i
+library.similar.reject = Didi
+library.similar.help = Mallattoolee gamaaggamaa qofa; faayiloonni hin haqaman.
+library.similar.stale = Faayiloonni jijjiiramaniiru. Itti fufuuf haaromsi.

@@ -332,3 +332,12 @@ video.preview_help_touch = Дыбыссыз алдын ала көру · Уақ
 video.importing = Фотосуреттер мен бейнелер импортталуда…
 video.import_failed = Медиа импортталмады: {error}
 video.import_failed_simple = Бұл медианы импорттау немесе бөлісу мүмкін болмады.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ұқсас фотосуреттер
+library.similar.visual = Көрнекі ұқсастық
+library.similar.burst = Тізбекті түсірілім
+library.similar.keep = Сақтау
+library.similar.reject = Қабылдамау
+library.similar.help = Тек шолу белгілері; файлдар жойылмайды.
+library.similar.stale = Файлдар өзгерді. Жалғастыру үшін жаңартыңыз.

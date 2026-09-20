@@ -290,3 +290,12 @@ video.preview_help_touch = Jehecha mboyve kirirĩháme · Embosyryry aravo rape 
 video.importing = Ojegueruhína fotografía ha video…
 video.import_failed = Ndaikatúi ojegueru medio: {error}
 video.import_failed_simple = Ndaikatúi ojegueru térã oñemboja'o ko medio.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ta’ãnga ojoajúva
+library.similar.visual = Ojojoguáva ojehechávo
+library.similar.burst = Ta’ãnga ojoapykuéri
+library.similar.keep = Ñongatu
+library.similar.reject = Mbotove
+library.similar.help = Ñema’ẽjey rechaukaha año; marandurenda noñemboguéi.
+library.similar.stale = Marandurenda iñambue. Embopyahu reho hag̃ua tenonde.

@@ -309,3 +309,12 @@ video.preview_help_touch = ድምፅ አልባ ቅድመ ዕይታ · የጊዜ 
 video.importing = ፎቶዎችንና ቪዲዮዎችን በማስመጣት ላይ…
 video.import_failed = ሚዲያውን ማስመጣት አልተቻለም፦ {error}
 video.import_failed_simple = ይህን ሚዲያ ማስመጣት ወይም ማጋራት አልተቻለም።
+
+# Similar-photo and capture-burst review
+library.similar.title = ተመሳሳይ ፎቶዎች
+library.similar.visual = የእይታ ተመሳሳይነት
+library.similar.burst = ተከታታይ ፎቶዎች
+library.similar.keep = አቆይ
+library.similar.reject = አትቀበል
+library.similar.help = የግምገማ ምልክቶች ብቻ፤ ፋይሎች አይሰረዙም።
+library.similar.stale = ፋይሎች ተቀይረዋል። ለመቀጠል አድስ።

@@ -290,3 +290,12 @@ video.preview_help_touch = Séentu bu amul baat · Diri rëddu waxtu bi walla j�
 video.importing = Mi ngi dugal foto ak widewo yi…
 video.import_failed = Mënuñu dugal media bi: {error}
 video.import_failed_simple = Mënuñu dugal walla séddoo media bii.
+
+# Similar-photo and capture-burst review
+library.similar.title = Nataal yu niroo
+library.similar.visual = Niroo ci gis-gis
+library.similar.burst = Nataal yu toppante
+library.similar.keep = Denc
+library.similar.reject = Bañ
+library.similar.help = Mandarga yu seetlu rekk; dencukaay yi deesu leen far.
+library.similar.stale = Dencukaay yi soppeeku nañu. Yeesal ngir wéyal.

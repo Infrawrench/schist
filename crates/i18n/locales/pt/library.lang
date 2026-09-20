@@ -326,3 +326,12 @@ video.preview_help_touch = Pré-visualização sem som · Arraste a linha tempor
 video.importing = A importar fotografias e vídeos…
 video.import_failed = Não foi possível importar multimédia: {error}
 video.import_failed_simple = Não foi possível importar ou partilhar este conteúdo multimédia.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fotos semelhantes
+library.similar.visual = Semelhanças visuais
+library.similar.burst = Fotos em sequência
+library.similar.keep = Manter
+library.similar.reject = Rejeitar
+library.similar.help = Apenas marcas de revisão; os ficheiros não são eliminados.
+library.similar.stale = Os ficheiros mudaram. Atualize para continuar.

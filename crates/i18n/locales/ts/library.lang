@@ -332,3 +332,12 @@ video.preview_help_touch = Xivombiso lexi nga riki na mpfumawulo · Koka layini 
 video.importing = Ku nghenisiwa swifaniso ni tivhidiyo…
 video.import_failed = A swi kotekanga ku nghenisa midiya: {error}
 video.import_failed_simple = A swi kotekanga ku nghenisa kumbe ku avelana midiya leyi.
+
+# Similar-photo and capture-burst review
+library.similar.title = Swifaniso leswi fanaka
+library.similar.visual = Ku fana hi ku vonaka
+library.similar.burst = Swifaniso leswi landzelelanaka
+library.similar.keep = Hlayisa
+library.similar.reject = Ala
+library.similar.help = Timfungho ta nkambisiso ntsena; tifayili a ti susiwi.
+library.similar.stale = Tifayili ti cincile. Pfuxeta leswaku u ya mahlweni.

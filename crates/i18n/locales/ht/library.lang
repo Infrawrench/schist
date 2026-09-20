@@ -296,3 +296,12 @@ video.preview_help_touch = Apèsi san son · Trennen liy tan an oswa avanse kad 
 video.importing = Ap enpòte foto ak videyo…
 video.import_failed = Pa t kapab enpòte medya: {error}
 video.import_failed_simple = Pa t kapab enpòte oswa pataje medya sa a.
+
+# Similar-photo and capture-burst review
+library.similar.title = Foto ki sanble
+library.similar.visual = Resanblans vizyèl
+library.similar.burst = Foto an seri
+library.similar.keep = Kenbe
+library.similar.reject = Rejte
+library.similar.help = Se mak revizyon sèlman; fichye yo pa efase.
+library.similar.stale = Fichye yo chanje. Rafrechi pou kontinye.

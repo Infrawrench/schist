@@ -290,3 +290,12 @@ video.preview_help_touch = Tåya' sonidon preview · Arrastra i timeline pat hå
 video.importing = Ma'importa litratu yan video siha…
 video.import_failed = Ti siña ma'importa i media: {error}
 video.import_failed_simple = Ti siña ma'importa pat ma-share este na media.
+
+# Similar-photo and capture-burst review
+library.similar.title = Litråtu ni manparehu
+library.similar.visual = Parehu gi inatan
+library.similar.burst = Litråtu ni mansigigi
+library.similar.keep = Na’såonao
+library.similar.reject = Rechåsa
+library.similar.help = Måtkan inatan ha’; ti mafunas i arkibu siha.
+library.similar.stale = Manmaåtulaika i arkibu siha. Na’fresku para un kontinua.

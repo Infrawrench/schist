@@ -290,3 +290,12 @@ video.preview_help_touch = Apercebut mut · Fasètz lisar la linha temporala o a
 video.importing = Importacion de fòtos e vidèos…
 video.import_failed = Impossible d'importar lo mèdia : {error}
 video.import_failed_simple = Impossible d'importar o de partejar aqueste mèdia.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fòtos semblablas
+library.similar.visual = Semblanças visualas
+library.similar.burst = Rafalas
+library.similar.keep = Conservar
+library.similar.reject = Regetar
+library.similar.help = Sonque de marcas de revision ; cap de fichièr es pas suprimit.
+library.similar.stale = Los fichièrs an cambiat. Actualizatz per contunhar.

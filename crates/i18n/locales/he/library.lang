@@ -326,3 +326,12 @@ video.preview_help_touch = תצוגה מקדימה שקטה · גרירת ציר
 video.importing = ייבוא תמונות וסרטונים…
 video.import_failed = לא ניתן לייבא מדיה: {error}
 video.import_failed_simple = לא ניתן לייבא או לשתף מדיה זו.
+
+# Similar-photo and capture-burst review
+library.similar.title = תמונות דומות
+library.similar.visual = דמיון חזותי
+library.similar.burst = צילום ברצף
+library.similar.keep = לשמור
+library.similar.reject = לדחות
+library.similar.help = סימוני סקירה בלבד; קבצים אינם נמחקים.
+library.similar.stale = הקבצים השתנו. יש לרענן כדי להמשיך.

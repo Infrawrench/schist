@@ -309,3 +309,12 @@ video.preview_help_touch = Previsualisaziun senza tun · Tira la lingia temporal
 video.importing = Importar fotografias e videos…
 video.import_failed = Betg reussì dad importar medias: {error}
 video.import_failed_simple = Betg reussì dad importar u cundivider quest medium.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fotografias sumegliantas
+library.similar.visual = Sumeglientschas visualas
+library.similar.burst = Fotografias en seria
+library.similar.keep = Tegnair
+library.similar.reject = Refusar
+library.similar.help = Mo marcas da controlla; las datotecas na vegnan betg stizzadas.
+library.similar.stale = Las datotecas èn sa midadas. Actualisar per cuntinuar.

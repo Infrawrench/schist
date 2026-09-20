@@ -308,3 +308,12 @@ video.preview_help_touch = Topi-maso mangina · Sintomy ny tsipika fotoana na ma
 video.importing = Manafatra sary sy horonan-tsary…
 video.import_failed = Tsy afaka nanafatra media: {error}
 video.import_failed_simple = Tsy afaka nanafatra na nizara ity media ity.
+
+# Similar-photo and capture-burst review
+library.similar.title = Sary mitovitovy
+library.similar.visual = Fitoviana hita maso
+library.similar.burst = Sary mifanesy
+library.similar.keep = Tazomy
+library.similar.reject = Lavao
+library.similar.help = Marika fanamarinana ihany; tsy fafana ny rakitra.
+library.similar.stale = Niova ny rakitra. Havaozy hanohizana.

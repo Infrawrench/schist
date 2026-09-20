@@ -308,3 +308,12 @@ video.preview_help_touch = Преглед без звук · Повлечете 
 video.importing = Се увезуваат фотографии и видеа…
 video.import_failed = Медиумот не можеше да се увезе: {error}
 video.import_failed_simple = Овој медиум не можеше да се увезе или сподели.
+
+# Similar-photo and capture-burst review
+library.similar.title = Слични фотографии
+library.similar.visual = Визуелна сличност
+library.similar.burst = Сериски фотографии
+library.similar.keep = Задржи
+library.similar.reject = Одбиј
+library.similar.help = Само ознаки за преглед; датотеките не се бришат.
+library.similar.stale = Датотеките се променети. Освежете за да продолжите.

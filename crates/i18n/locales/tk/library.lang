@@ -332,3 +332,12 @@ video.preview_help_touch = Sessiz deslapky syn · Wagt çyzygyny süýräň ýa-
 video.importing = Suratlar we wideolar import edilýär…
 video.import_failed = Mediýany import edip bolmady: {error}
 video.import_failed_simple = Bu mediýany import edip ýa-da paýlaşyp bolmady.
+
+# Similar-photo and capture-burst review
+library.similar.title = Meňzeş suratlar
+library.similar.visual = Görüş meňzeşlikleri
+library.similar.burst = Yzygiderli suratlar
+library.similar.keep = Sakla
+library.similar.reject = Ret et
+library.similar.help = Diňe gözden geçiriş bellikleri; faýllar pozulmaýar.
+library.similar.stale = Faýllar üýtgedi. Dowam etmek üçin täzeläň.

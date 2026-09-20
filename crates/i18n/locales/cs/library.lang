@@ -326,3 +326,12 @@ video.preview_help_touch = Tichý náhled · Přetáhněte časovou osu nebo kro
 video.importing = Import fotografií a videí…
 video.import_failed = Média se nepodařilo importovat: {error}
 video.import_failed_simple = Tato média se nepodařilo importovat ani sdílet.
+
+# Similar-photo and capture-burst review
+library.similar.title = Podobné fotografie
+library.similar.visual = Vizuální shody
+library.similar.burst = Sériové snímky
+library.similar.keep = Ponechat
+library.similar.reject = Odmítnout
+library.similar.help = Pouze značky kontroly; soubory se nemažou.
+library.similar.stale = Soubory se změnily. Obnovte pro pokračování.

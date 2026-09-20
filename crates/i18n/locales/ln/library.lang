@@ -332,3 +332,12 @@ video.preview_help_touch = Botali liboso ezangi mongongo · Benda molɔngɔ ya n
 video.importing = Ezali kokɔtisa bafɔtɔ mpe bavideo…
 video.import_failed = Ekokaki kokɔtisa media te: {error}
 video.import_failed_simple = Ekokaki kokɔtisa to kokabola media oyo te.
+
+# Similar-photo and capture-burst review
+library.similar.title = Bafɔtɔ ya ndenge moko
+library.similar.visual = Bokokani ya komonana
+library.similar.burst = Bafɔtɔ na molɔngɔ
+library.similar.keep = Bomba
+library.similar.reject = Boya
+library.similar.help = Bilembeteli ya botali kaka; bafisyé elongolamaka te.
+library.similar.stale = Bafisyé ebongwani. Zongisa sika mpo na kokoba.

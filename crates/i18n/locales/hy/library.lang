@@ -308,3 +308,12 @@ video.preview_help_touch = Անձայն նախադիտում · Քաշեք ժա�
 video.importing = Լուսանկարներն ու տեսանյութերը ներմուծվում են…
 video.import_failed = Չհաջողվեց ներմուծել մեդիան՝ {error}
 video.import_failed_simple = Չհաջողվեց ներմուծել կամ համօգտագործել այս մեդիան։
+
+# Similar-photo and capture-burst review
+library.similar.title = Նման լուսանկարներ
+library.similar.visual = Տեսողական նմանություն
+library.similar.burst = Շարքային լուսանկարներ
+library.similar.keep = Պահել
+library.similar.reject = Մերժել
+library.similar.help = Միայն վերանայման նշումներ են. ֆայլերը չեն ջնջվում։
+library.similar.stale = Ֆայլերը փոխվել են։ Շարունակելու համար թարմացրեք։

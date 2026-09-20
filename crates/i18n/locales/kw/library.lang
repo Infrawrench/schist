@@ -380,3 +380,12 @@ video.preview_help_touch = Ragwolok taw · Tenna an linen amser po camma dre fra
 video.importing = Owth ynperthi fotos ha gwydhyowyow…
 video.import_failed = Ny allas ynperthi media: {error}
 video.import_failed_simple = Ny allas ynperthi po ranna an media ma.
+
+# Similar-photo and capture-burst review
+library.similar.title = Skeusennow haval
+library.similar.visual = Hevelepterow gwelesek
+library.similar.burst = Skeusennow yn kevres
+library.similar.keep = Gwitha
+library.similar.reject = Naha
+library.similar.help = Merkys dasweles hepken; restrennow ny vydh dileys.
+library.similar.stale = Yma restrennow chanjys. Nowedha rag pesya.

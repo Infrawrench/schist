@@ -329,3 +329,12 @@ video.preview_help_touch = Stil voorskou · Sleep die tydlyn of stap deur rame. 
 video.importing = Voer foto's en video's in…
 video.import_failed = Kon nie media invoer nie: {error}
 video.import_failed_simple = Kon nie hierdie media invoer of deel nie.
+
+# Similar-photo and capture-burst review
+library.similar.title = Soortgelyke foto's
+library.similar.visual = Visuele ooreenkomste
+library.similar.burst = Reeksfoto's
+library.similar.keep = Behou
+library.similar.reject = Verwerp
+library.similar.help = Slegs hersieningsmerke; lêers word nie uitgevee nie.
+library.similar.stale = Lêers het verander. Verfris om voort te gaan.

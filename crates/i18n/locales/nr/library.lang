@@ -349,3 +349,12 @@ video.preview_help_touch = Isiboniso sangaphambili esinganamsindo · Dosa umuda 
 video.importing = Kungeniswa iinthombe namavidiyo…
 video.import_failed = Akukghonakali ukungenisa imidiya: {error}
 video.import_failed_simple = Akukghonakali ukungenisa namkha ukwabelana ngemidiya le.
+
+# Similar-photo and capture-burst review
+library.similar.title = Iinthombe ezifanako
+library.similar.visual = Ukufana okubonakalako
+library.similar.burst = Iinthombe ezilandelanako
+library.similar.keep = Bulunga
+library.similar.reject = Yala
+library.similar.help = Amatshwayo wokuhlola kwaphela; amafayili akasuswa.
+library.similar.stale = Amafayili atjhugulukile. Vuselela ukuze uragele phambili.

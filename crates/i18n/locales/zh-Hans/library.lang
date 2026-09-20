@@ -343,3 +343,12 @@ video.preview_help_touch = 静音预览 · 拖动时间轴或逐帧选择。查�
 video.importing = 正在导入照片和视频…
 video.import_failed = 无法导入媒体：{error}
 video.import_failed_simple = 无法导入或分享此媒体。
+
+# Similar-photo and capture-burst review
+library.similar.title = 相似照片
+library.similar.visual = 视觉匹配
+library.similar.burst = 连拍照片
+library.similar.keep = 保留
+library.similar.reject = 拒绝
+library.similar.help = 仅添加审核标记，不会删除文件。
+library.similar.stale = 文件已更改。请刷新后继续。

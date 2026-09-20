@@ -332,3 +332,12 @@ video.preview_help_touch = නිහඬ පෙරදසුන · කාල ර�
 video.importing = ඡායාරූප සහ වීඩියෝ ආයාත කරමින්…
 video.import_failed = මාධ්‍යය ආයාත කළ නොහැකි විය: {error}
 video.import_failed_simple = මෙම මාධ්‍යය ආයාත කිරීමට හෝ බෙදාගැනීමට නොහැකි විය.
+
+# Similar-photo and capture-burst review
+library.similar.title = සමාන ඡායාරූප
+library.similar.visual = දෘශ්‍ය සමානකම්
+library.similar.burst = අනුක්‍රමික ඡායාරූප
+library.similar.keep = තබා ගන්න
+library.similar.reject = ප්‍රතික්ෂේප කරන්න
+library.similar.help = සමාලෝචන සලකුණු පමණි; ගොනු මකා නොදමයි.
+library.similar.stale = ගොනු වෙනස් වී ඇත. ඉදිරියට යාමට නැවුම් කරන්න.

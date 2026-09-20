@@ -309,3 +309,12 @@ video.preview_help_touch = Muta prevido · Trenez la tempolineo o avancez framop
 video.importing = Importante fotografuri e videi…
 video.import_failed = Ne povis importar mediaro: {error}
 video.import_failed_simple = Ne povis importar o partigar ca mediaro.
+
+# Similar-photo and capture-burst review
+library.similar.title = Simila fotografuri
+library.similar.visual = Vizuala similesi
+library.similar.burst = Fotografuri en serio
+library.similar.keep = Konservar
+library.similar.reject = Refuzar
+library.similar.help = Nur revizala marki; arkivi ne efacas.
+library.similar.stale = Arkivi chanjesis. Rifreshigez por durar.

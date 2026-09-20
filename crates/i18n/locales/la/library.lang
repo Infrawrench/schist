@@ -290,3 +290,12 @@ video.preview_help_touch = Praevisio muta · Lineam temporis trahe vel per imagi
 video.importing = Photographemata et pelliculae importantur…
 video.import_failed = Media importari non potuerunt: {error}
 video.import_failed_simple = Haec media importari vel communicari non potuerunt.
+
+# Similar-photo and capture-burst review
+library.similar.title = Imagines similes
+library.similar.visual = Similitudines visibiles
+library.similar.burst = Imagines continuae
+library.similar.keep = Serva
+library.similar.reject = Reice
+library.similar.help = Notae inspectionis tantum; fasciculi non delentur.
+library.similar.stale = Fasciculi mutati sunt. Renova ut pergas.

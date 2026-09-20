@@ -318,3 +318,12 @@ video.preview_help_touch = Chithunzi choonera chopanda mawu · Kokani mzere wa n
 video.importing = Ikulowetsa zithunzi za kamera ndi mavidiyo…
 video.import_failed = Sitinathe kulowetsa media: {error}
 video.import_failed_simple = Sitinathe kulowetsa kapena kugawana media iyi.
+
+# Similar-photo and capture-burst review
+library.similar.title = Zithunzi zofanana
+library.similar.visual = Kufanana kwa maonekedwe
+library.similar.burst = Zithunzi motsatizana
+library.similar.keep = Sunga
+library.similar.reject = Kana
+library.similar.help = Zizindikiro zowunikira zokha; mafayilo sachotsedwa.
+library.similar.stale = Mafayilo asintha. Tsitsimutsani kuti mupitirize.

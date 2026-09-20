@@ -290,3 +290,12 @@ video.preview_help_touch = Muaʻi vaaiga lē leo · Toso le laina taimi pe saval
 video.importing = O loo aumai ata pue ma vitiō…
 video.import_failed = Ua lē mafai ona aumai le ala o faasalalauga: {error}
 video.import_failed_simple = Ua lē mafai ona aumai pe fetufaai lenei ala o faasalalauga.
+
+# Similar-photo and capture-burst review
+library.similar.title = Ata e tutusa
+library.similar.visual = Foliga tutusa
+library.similar.burst = Ata sosoo
+library.similar.keep = Taofi
+library.similar.reject = Teena
+library.similar.help = Na o faailoga e toe iloilo ai; e lē tapeina faila.
+library.similar.stale = Ua suia faila. Toe faafou e faaauau ai.

@@ -362,3 +362,12 @@ video.preview_help_touch = Réamhamharc gan fuaim · Tarraing an líne ama nó c
 video.importing = Grianghraif agus físeáin á n-iompórtáil…
 video.import_failed = Níorbh fhéidir meáin a iompórtáil: {error}
 video.import_failed_simple = Níorbh fhéidir na meáin seo a iompórtáil ná a chomhroinnt.
+
+# Similar-photo and capture-burst review
+library.similar.title = Grianghraif chosúla
+library.similar.visual = Cosúlachtaí amhairc
+library.similar.burst = Grianghraif i sraith
+library.similar.keep = Coinnigh
+library.similar.reject = Diúltaigh
+library.similar.help = Marcanna athbhreithnithe amháin; ní scriostar comhaid.
+library.similar.stale = Athraíodh na comhaid. Athnuaigh chun leanúint ar aghaidh.

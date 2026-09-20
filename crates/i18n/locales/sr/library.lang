@@ -326,3 +326,12 @@ video.preview_help_touch = Неми преглед · Превуците вре�
 video.importing = Увоз фотографија и видео-снимака…
 video.import_failed = Није могуће увести медије: {error}
 video.import_failed_simple = Није могуће увести или поделити овај медиј.
+
+# Similar-photo and capture-burst review
+library.similar.title = Сличне фотографије
+library.similar.visual = Визуелна подударања
+library.similar.burst = Узастопни снимци
+library.similar.keep = Задржи
+library.similar.reject = Одбаци
+library.similar.help = Само ознаке прегледа; датотеке се не бришу.
+library.similar.stale = Датотеке су промењене. Освежите за наставак.

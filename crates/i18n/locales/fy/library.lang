@@ -340,3 +340,12 @@ video.preview_help_touch = Stil foarbyld · Sleep de tiidline of gean frame foar
 video.importing = Foto's en fideo's ymportearje…
 video.import_failed = Koe media net ymportearje: {error}
 video.import_failed_simple = Koe dizze media net ymportearje of diele.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fergelykbere foto's
+library.similar.visual = Fisuele oerienkomsten
+library.similar.burst = Searjefoto's
+library.similar.keep = Behâlde
+library.similar.reject = Ofwize
+library.similar.help = Allinnich beoardielingsmerken; bestannen wurde net wiske.
+library.similar.stale = Bestannen binne feroare. Fernij om troch te gean.

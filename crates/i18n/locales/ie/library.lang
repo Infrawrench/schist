@@ -358,3 +358,12 @@ video.preview_help_touch = Mut prevision · Tracte li linea de témpor o avansa 
 video.importing = Importante fotos e videos…
 video.import_failed = Ne posset importar media: {error}
 video.import_failed_simple = Ne posset importar o compartir ti media.
+
+# Similar-photo and capture-burst review
+library.similar.title = Simil fotos
+library.similar.visual = Visual similitás
+library.similar.burst = Fotos in serie
+library.similar.keep = Retener
+library.similar.reject = Rejecter
+library.similar.help = Solmen marcas de revision; files ne es deletet.
+library.similar.stale = Files ha changeat. Refresca por continuar.

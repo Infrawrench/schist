@@ -358,3 +358,12 @@ video.preview_help_touch = Vista previa sin son · Arrociega a linia de tiempo u
 video.importing = Se son importando fotos y vidios…
 video.import_failed = No s'han puesto importar os elementos multimedia: {error}
 video.import_failed_simple = No s'han puesto importar u compartir istos elementos multimedia.
+
+# Similar-photo and capture-burst review
+library.similar.title = Fotos pareixidas
+library.similar.visual = Coincidencias visuals
+library.similar.burst = Rafagas
+library.similar.keep = Conservar
+library.similar.reject = Refusar
+library.similar.help = Nomás marcas de revisión; no se borran fichers.
+library.similar.stale = Os fichers han cambiau. Actualiza ta continar.

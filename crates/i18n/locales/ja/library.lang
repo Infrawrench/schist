@@ -344,3 +344,12 @@ video.preview_help_touch = 音声なしのプレビュー · タイムライン�
 video.importing = 写真と動画を読み込み中…
 video.import_failed = メディアを読み込めませんでした: {error}
 video.import_failed_simple = このメディアを読み込みまたは共有できませんでした。
+
+# Similar-photo and capture-burst review
+library.similar.title = 類似写真
+library.similar.visual = 見た目が似た写真
+library.similar.burst = 連写写真
+library.similar.keep = 残す
+library.similar.reject = 除外
+library.similar.help = 確認用の印のみ付けます。ファイルは削除されません。
+library.similar.stale = ファイルが変更されました。更新して続行してください。

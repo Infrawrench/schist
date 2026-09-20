@@ -385,3 +385,12 @@ video.preview_help_touch = Alberz didrouz · Riklait ar red-amzer pe kit framm-h
 video.importing = Oc'h enporzhiañ luc'hskeudennoù ha videoioù…
 video.import_failed = N'eus ket bet gallet enporzhiañ ar media: {error}
 video.import_failed_simple = N'eus ket bet gallet enporzhiañ pe rannañ ar media-mañ.
+
+# Similar-photo and capture-burst review
+library.similar.title = Luc'hskeudennoù heñvel
+library.similar.visual = Heñvelderioù gwelet
+library.similar.burst = Luc'hskeudennoù a-steudad
+library.similar.keep = Mirout
+library.similar.reject = Nac'hañ
+library.similar.help = Merkoù adwelout hepken; ne vez ket diverket restroù.
+library.similar.stale = Kemmet eo ar restroù. Freskait evit kenderc'hel.

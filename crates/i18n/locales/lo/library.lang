@@ -290,3 +290,12 @@ video.preview_help_touch = ຕົວຢ່າງບໍ່ມີສຽງ · ລ�
 video.importing = ກຳລັງນຳເຂົ້າຮູບ ແລະ ວິດີໂອ…
 video.import_failed = ບໍ່ສາມາດນຳເຂົ້າສື່: {error}
 video.import_failed_simple = ບໍ່ສາມາດນຳເຂົ້າ ຫຼື ແບ່ງປັນສື່ນີ້.
+
+# Similar-photo and capture-burst review
+library.similar.title = ຮູບຖ່າຍທີ່ຄ້າຍກັນ
+library.similar.visual = ຄວາມຄ້າຍຄືທາງພາບ
+library.similar.burst = ຮູບຖ່າຍຕໍ່ເນື່ອງ
+library.similar.keep = ເກັບໄວ້
+library.similar.reject = ປະຕິເສດ
+library.similar.help = ເຄື່ອງໝາຍກວດສອບເທົ່ານັ້ນ; ໄຟລ໌ບໍ່ຖືກລຶບ.
+library.similar.stale = ໄຟລ໌ປ່ຽນແປງແລ້ວ. ໂຫຼດໃໝ່ເພື່ອສືບຕໍ່.

@@ -472,7 +472,8 @@ impl Workspace {
         }
         #[cfg(not(target_arch = "wasm32"))]
         {
-            self.gallery_viewer_key(ev, cx)
+            self.similar_review_key(ev, cx)
+                || self.gallery_viewer_key(ev, cx)
                 || self.gallery_search_key(ev, cx)
                 || self.gallery_nav_key(ev, cx)
         }
@@ -522,6 +523,9 @@ impl Workspace {
         }
         #[cfg(not(target_arch = "wasm32"))]
         {
+            if self.library.similar.open && self.library.viewer.is_none() {
+                return true;
+            }
             if self.library.search.active {
                 return false;
             }
