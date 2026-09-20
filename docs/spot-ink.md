@@ -50,14 +50,15 @@ baked simulation. Use PSD/PSB to deliver the separate plates.
 PSD and PSB write the plates as additional merged-image channels at the
 file's 8-, 16-, or 32-bit depth. On disk, spot polarity follows PSD conventions:
 zero means full ink. Unicode alpha names (1045), alpha identifiers (1053) and
-DisplayInfo (1077, mode 2) carry native spot names, IDs, display color and
+DisplayInfo (1077, mode 2), and Alternate Spot Colors (1067) carry native spot
+names, IDs, display color and
 solidity. Existing ordinary alpha channels remain in their original order and
 retain their samples. Native CMYK process planes do not pass through RGB.
 Files without layer records are supported too.
 
 The reader accepts legacy Pascal names (Macintosh Roman) and DisplayInfo 1007.
 RGB, CMYK, Lab and grayscale display colors are approximated on screen; unknown
-custom color spaces use a neutral preview while retaining their original
+custom color spaces use an available alternate color or a neutral preview while retaining their original
 DisplayInfo entry. Explicitly changing a color or solidity replaces that entry
 with an RGB display entry. The exact original alpha metadata is also kept in
 the private `ScIr` backup; it is inactive after edits. Unknown resources and

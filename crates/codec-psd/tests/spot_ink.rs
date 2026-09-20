@@ -204,3 +204,54 @@ fn zipped_spot_planes_and_unknown_metadata_keep_samples_and_original_bytes() {
     assert_eq!(again.ink_channels[1].info.name, "Renamed ink");
     assert!(again.preserved_layer_info.iter().any(|b| b.key == *b"ScIr"));
 }
+
+#[test]
+fn alternate_spot_colors_track_explicit_color_edits_and_preserve_imported_fallbacks() {
+    let mut doc = read_psd(&fixture(Depth::Eight, false, true)).unwrap();
+    let original_display = vec![0, 42, 1, 2, 3, 4, 5, 6, 7, 8, 0, 35, 2];
+    doc.ink_channels[1].info.original_display = Some(original_display.clone());
+    let mut alternate = vec![0, 1, 0, 1];
+    alternate.extend_from_slice(&27u32.to_be_bytes());
+    alternate.extend_from_slice(&[0, 0, 255, 255, 0, 0, 0, 0, 0, 0]); // RGB red
+    doc.preserved_resources
+        .push(schist_core::PreservedResource {
+            id: 1067,
+            name: vec![0, 0],
+            data: alternate.clone(),
+        });
+    let mut reopened = read_psd(&write_psd_with(&doc, false).unwrap()).unwrap();
+    assert_eq!(reopened.ink_channels[1].info.color, [1.0, 0.0, 0.0]);
+    assert_eq!(
+        reopened.ink_channels[1].info.original_display,
+        Some(original_display.clone())
+    );
+    assert_eq!(
+        reopened
+            .preserved_resources
+            .iter()
+            .find(|r| r.id == 1067)
+            .unwrap()
+            .data,
+        alternate
+    );
+    let mut edit = reopened.begin_edit("blue ink");
+    edit.change_ink_channels(|c| {
+        c[1].info.color = [0.0, 0.0, 1.0];
+        c[1].info.original_display = None;
+    });
+    edit.commit();
+    let blue = read_psd(&write_psd_with(&reopened, true).unwrap()).unwrap();
+    assert_eq!(blue.ink_channels[1].info.color, [0.0, 0.0, 1.0]);
+    let rewritten = &blue
+        .preserved_resources
+        .iter()
+        .find(|r| r.id == 1067)
+        .unwrap()
+        .data;
+    assert_eq!(&rewritten[8..], &[0, 0, 0, 0, 0, 0, 255, 255, 0, 0]);
+    reopened.undo();
+    assert_eq!(
+        reopened.ink_channels[1].info.original_display,
+        Some(original_display)
+    );
+}

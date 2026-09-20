@@ -23,6 +23,8 @@ for path in sorted(Path(sys.argv[1]).glob("spot-*.*")):
     channel = info.alpha_channels[0]
     assert int(channel.mode) == 2
     assert (channel.color_space, channel.c1, channel.c2, channel.c3, channel.opacity) == (0, 0, 65535, 65535, 35)
+    alternate = psd.image_resources.get_data(Resource.ALTERNATE_SPOT_COLORS)
+    assert alternate == struct.pack(">HHI5H", 1, 1, 42, 0, 0, 65535, 65535, 0)
     planes = psd._record.image_data.get_data(psd._record.header)
     assert len(planes) == 5
     depth = psd.depth

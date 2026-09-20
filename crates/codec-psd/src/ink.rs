@@ -3,7 +3,7 @@
 //! psd-tools project's published DisplayInfo documentation (no Adobe headers).
 use schist_core::{Document, InkChannel, InkChannelInfo, InkTiles, PreservedResource, RawBlock};
 
-pub const RESOURCE_IDS: [u16; 5] = [1006, 1007, 1045, 1053, 1077];
+pub const RESOURCE_IDS: [u16; 6] = [1006, 1007, 1045, 1053, 1067, 1077];
 pub const STATE_KEY: [u8; 4] = *b"ScIn";
 
 fn resource(doc: &Document, id: u16) -> Option<&[u8]> {
@@ -11,6 +11,53 @@ fn resource(doc: &Document, id: u16) -> Option<&[u8]> {
         .iter()
         .find(|r| r.id == id)
         .map(|r| r.data.as_slice())
+}
+
+/// Alternate Spot Colors: version/count, then (channel ID, 10-byte Color).
+fn alternate(doc: &Document, id: u32) -> Option<&[u8]> {
+    let bytes = resource(doc, 1067)?;
+    if bytes.len() < 4 || bytes[..2] != 1u16.to_be_bytes() {
+        return None;
+    }
+    let count = u16::from_be_bytes([bytes[2], bytes[3]]) as usize;
+    bytes[4..]
+        .chunks_exact(14)
+        .take(count)
+        .find(|e| u32::from_be_bytes(e[..4].try_into().unwrap()) == id)
+        .map(|e| &e[4..])
+}
+
+fn display_color(e: &[u8]) -> Option<[f32; 3]> {
+    if e.len() < 10 {
+        return None;
+    }
+    let word = |n: usize| u16::from_be_bytes([e[n], e[n + 1]]);
+    let c = [word(2), word(4), word(6), word(8)].map(|v| v as f32 / 65535.0);
+    Some(match word(0) {
+        0 => [c[0], c[1], c[2]],
+        2 => {
+            let p = schist_color::NativePixel {
+                mode: schist_color::ColorMode::Cmyk,
+                color: c.map(|v| 1.0 - v),
+                alpha: 1.0,
+            }
+            .to_rgba();
+            [p.r, p.g, p.b]
+        }
+        7 => {
+            let p = schist_color::convert::lab_d50_to_rgb(
+                [
+                    word(2) as f32 / 100.0,
+                    word(4) as i16 as f32 / 100.0,
+                    word(6) as i16 as f32 / 100.0,
+                ],
+                1.0,
+            );
+            [p.r, p.g, p.b]
+        }
+        8 => [word(2) as f32 / 10000.0; 3],
+        _ => return None,
+    })
 }
 
 pub fn read(doc: &mut Document, planes: &[Vec<f32>]) {
@@ -81,38 +128,13 @@ pub fn read(doc: &mut Document, planes: &[Vec<f32>]) {
         used.insert(id);
         let entry = entries.get(index);
         let spot = entry.is_some_and(|e| e[12] == 2);
-        let mut color = [0.5; 3];
-        let mut solidity = 1.0;
-        if let Some(e) = entry {
-            let word = |n: usize| u16::from_be_bytes([e[n], e[n + 1]]);
-            let c = [word(2), word(4), word(6), word(8)].map(|v| v as f32 / 65535.0);
-            color = match word(0) {
-                0 => [c[0], c[1], c[2]],
-                2 => {
-                    let p = schist_color::NativePixel {
-                        mode: schist_color::ColorMode::Cmyk,
-                        color: c.map(|v| 1.0 - v),
-                        alpha: 1.0,
-                    }
-                    .to_rgba();
-                    [p.r, p.g, p.b]
-                }
-                7 => {
-                    let p = schist_color::convert::lab_d50_to_rgb(
-                        [
-                            word(2) as f32 / 100.0,
-                            word(4) as i16 as f32 / 100.0,
-                            word(6) as i16 as f32 / 100.0,
-                        ],
-                        1.0,
-                    );
-                    [p.r, p.g, p.b]
-                }
-                8 => [word(2) as f32 / 10000.0; 3],
-                _ => color,
-            };
-            solidity = word(10).min(100) as f32 / 100.0;
-        }
+        let color = entry
+            .and_then(|e| display_color(e))
+            .or_else(|| alternate(doc, id).and_then(display_color))
+            .unwrap_or([0.5; 3]);
+        let solidity = entry.map_or(1.0, |e| {
+            u16::from_be_bytes([e[10], e[11]]).min(100) as f32 / 100.0
+        });
         let mut channel = InkChannel {
             info: InkChannelInfo {
                 id,
@@ -171,7 +193,42 @@ pub fn resources(doc: &Document) -> Vec<PreservedResource> {
             display.push(if info.spot { 2 } else { 0 });
         }
     }
-    [(1045, names), (1053, ids), (1077, display)]
+    let mut alternate_entries = Vec::new();
+    for channel in doc.ink_channels.iter().filter(|c| c.info.spot) {
+        let info = &channel.info;
+        let raw = if info.original_display.is_some() {
+            alternate(doc, info.id)
+        } else {
+            None
+        };
+        let mut color = Vec::new();
+        if let Some(raw) = raw {
+            color.extend_from_slice(raw);
+        } else if let Some(original) = info.original_display.as_ref() {
+            if original.len() < 10 || display_color(original).is_none() {
+                continue;
+            }
+            color.extend_from_slice(&original[..10]);
+        } else {
+            color.extend_from_slice(&0u16.to_be_bytes());
+            for value in info.color {
+                color.extend_from_slice(
+                    &((value.clamp(0.0, 1.0) * 65535.0).round() as u16).to_be_bytes(),
+                );
+            }
+            color.extend_from_slice(&0u16.to_be_bytes());
+        }
+        alternate_entries.extend_from_slice(&info.id.to_be_bytes());
+        alternate_entries.extend(color);
+    }
+    let mut entries = vec![(1045, names), (1053, ids), (1077, display)];
+    if !alternate_entries.is_empty() {
+        let mut data = 1u16.to_be_bytes().to_vec();
+        data.extend_from_slice(&((alternate_entries.len() / 14) as u16).to_be_bytes());
+        data.extend(alternate_entries);
+        entries.push((1067, data));
+    }
+    entries
         .into_iter()
         .map(|(id, data)| PreservedResource {
             id,
