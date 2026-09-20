@@ -22,3 +22,11 @@ tool.type.history.new_layer = Նոր տեքստային շերտ
 tool.type.history.edit = Տեքստի խմբագրում
 tool.type.history.discard = Տեքստի մերժում
 tool.type.history.discard_empty = Դատարկ տեքստի մերժում
+
+# Paragraph layout
+tool.type.option.direction = Պարբերության ուղղություն
+tool.type.option.writing_mode = Գրելաձև
+tool.type.choice.ltr = Ձախից աջ
+tool.type.choice.rtl = Աջից ձախ
+tool.type.choice.vertical_rl = Ուղղահայաց, սյունակները՝ դեպի ձախ
+tool.type.choice.vertical_lr = Ուղղահայաց, սյունակները՝ դեպի աջ

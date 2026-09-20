@@ -21,3 +21,11 @@ tool.type.history.new_layer = Nkyerɛwee Layer Foforo
 tool.type.history.edit = Siesie Nkyerɛwee
 tool.type.history.discard = Tow Nkyerɛwee Gu
 tool.type.history.discard_empty = Tow Nkyerɛwee a Hwee Nni Mu Gu
+
+# Paragraph layout
+tool.type.option.direction = Nkyekyɛm no kwan
+tool.type.option.writing_mode = Akyerɛw kwan
+tool.type.choice.ltr = Benkum kɔ nifa
+tool.type.choice.rtl = Nifa kɔ benkum
+tool.type.choice.vertical_rl = Gyina hɔ, adum kɔ benkum
+tool.type.choice.vertical_lr = Gyina hɔ, adum kɔ nifa

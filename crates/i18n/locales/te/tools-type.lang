@@ -17,3 +17,11 @@ tool.type.history.new_layer = కొత్త టెక్స్ట్ లేయ
 tool.type.history.edit = టెక్స్ట్‌ను సవరించు
 tool.type.history.discard = టెక్స్ట్‌ను విస్మరించు
 tool.type.history.discard_empty = ఖాళీ టెక్స్ట్‌ను విస్మరించు
+
+# Paragraph layout
+tool.type.option.direction = పేరా దిశ
+tool.type.option.writing_mode = రచనా విధానం
+tool.type.choice.ltr = ఎడమ నుండి కుడికి
+tool.type.choice.rtl = కుడి నుండి ఎడమకు
+tool.type.choice.vertical_rl = నిలువుగా, నిలువు వరుసలు ఎడమవైపు
+tool.type.choice.vertical_lr = నిలువుగా, నిలువు వరుసలు కుడివైపు

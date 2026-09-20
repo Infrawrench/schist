@@ -21,3 +21,11 @@ tool.type.history.new_layer = Naujas teksto sluoksnis
 tool.type.history.edit = Redaguoti tekstą
 tool.type.history.discard = Atmesti tekstą
 tool.type.history.discard_empty = Atmesti tuščią tekstą
+
+# Paragraph layout
+tool.type.option.direction = Pastraipos kryptis
+tool.type.option.writing_mode = Rašymo būdas
+tool.type.choice.ltr = Iš kairės į dešinę
+tool.type.choice.rtl = Iš dešinės į kairę
+tool.type.choice.vertical_rl = Vertikaliai, stulpeliai į kairę
+tool.type.choice.vertical_lr = Vertikaliai, stulpeliai į dešinę

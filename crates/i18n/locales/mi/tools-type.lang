@@ -17,3 +17,11 @@ tool.type.history.new_layer = Apa Kuputuhi Hou
 tool.type.history.edit = Whakatika Kuputuhi
 tool.type.history.discard = Makere Kuputuhi
 tool.type.history.discard_empty = Makere Kuputuhi Putua
+
+# Paragraph layout
+tool.type.option.direction = Aronga Kōwae
+tool.type.option.writing_mode = Aratau Tuhituhi
+tool.type.choice.ltr = Mauī ki Matau
+tool.type.choice.rtl = Matau ki Mauī
+tool.type.choice.vertical_rl = Poutū, ka ahu ngā tīwae ki te mauī
+tool.type.choice.vertical_lr = Poutū, ka ahu ngā tīwae ki te matau

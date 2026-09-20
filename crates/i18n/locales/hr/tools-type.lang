@@ -20,3 +20,11 @@ tool.type.history.new_layer = Novi tekstni sloj
 tool.type.history.edit = Uredi tekst
 tool.type.history.discard = Odbaci tekst
 tool.type.history.discard_empty = Odbaci prazan tekst
+
+# Paragraph layout
+tool.type.option.direction = Smjer odlomka
+tool.type.option.writing_mode = Način pisanja
+tool.type.choice.ltr = Slijeva nadesno
+tool.type.choice.rtl = Zdesna nalijevo
+tool.type.choice.vertical_rl = Okomito, stupci ulijevo
+tool.type.choice.vertical_lr = Okomito, stupci udesno

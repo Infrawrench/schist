@@ -18,3 +18,11 @@ tool.type.history.new_layer = Nova textostrato
 tool.type.history.edit = Redaktar texto
 tool.type.history.discard = Forjetar texto
 tool.type.history.discard_empty = Forjetar vakua texto
+
+# Paragraph layout
+tool.type.option.direction = Direkto di paragrafo
+tool.type.option.writing_mode = Skribmodo
+tool.type.choice.ltr = De sinistra ad dextra
+tool.type.choice.rtl = De dextra ad sinistra
+tool.type.choice.vertical_rl = Vertikala, kolumni ad-sinistre
+tool.type.choice.vertical_lr = Vertikala, kolumni ad-dextre

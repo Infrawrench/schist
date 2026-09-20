@@ -25,3 +25,11 @@ tool.type.history.new_layer = Новы тэкставы пласт
 tool.type.history.edit = Рэдагаванне тэксту
 tool.type.history.discard = Адкіданне тэксту
 tool.type.history.discard_empty = Адкіданне пустога тэксту
+
+# Paragraph layout
+tool.type.option.direction = Напрамак абзаца
+tool.type.option.writing_mode = Рэжым пісьма
+tool.type.choice.ltr = Злева направа
+tool.type.choice.rtl = Справа налева
+tool.type.choice.vertical_rl = Вертыкальна, слупкі ўлева
+tool.type.choice.vertical_lr = Вертыкальна, слупкі ўправа

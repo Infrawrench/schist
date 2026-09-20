@@ -17,3 +17,11 @@ tool.type.history.new_layer = Nuŋɔŋlɔ ƒe akpa yeye
 tool.type.history.edit = Trɔ nuŋɔŋlɔ
 tool.type.history.discard = Gbe nuŋɔŋlɔ
 tool.type.history.discard_empty = Gbe nuŋɔŋlɔ ƒuƒlu
+
+# Paragraph layout
+tool.type.option.direction = Nyagbewo ƒe mɔ
+tool.type.option.writing_mode = Nuŋɔŋlɔ ƒe nɔnɔme
+tool.type.choice.ltr = Tso miame yi ɖusime
+tool.type.choice.rtl = Tso ɖusime yi miame
+tool.type.choice.vertical_rl = Dzime, fliwo yi miame
+tool.type.choice.vertical_lr = Dzime, fliwo yi ɖusime

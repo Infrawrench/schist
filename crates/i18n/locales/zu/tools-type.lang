@@ -17,3 +17,11 @@ tool.type.history.new_layer = Ungqimba Olusha Lombhalo
 tool.type.history.edit = Hlela Umbhalo
 tool.type.history.discard = Lahla Umbhalo
 tool.type.history.discard_empty = Lahla Umbhalo Ongenalutho
+
+# Paragraph layout
+tool.type.option.direction = Inkomba yendima
+tool.type.option.writing_mode = Imodi yokubhala
+tool.type.choice.ltr = Kusuka kwesobunxele kuye kwesokudla
+tool.type.choice.rtl = Kusuka kwesokudla kuye kwesobunxele
+tool.type.choice.vertical_rl = Kuqondile, amakholomu aya kwesobunxele
+tool.type.choice.vertical_lr = Kuqondile, amakholomu aya kwesokudla

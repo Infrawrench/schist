@@ -17,3 +17,11 @@ tool.type.history.new_layer = Νέο επίπεδο κειμένου
 tool.type.history.edit = Επεξεργασία κειμένου
 tool.type.history.discard = Απόρριψη κειμένου
 tool.type.history.discard_empty = Απόρριψη κενού κειμένου
+
+# Paragraph layout
+tool.type.option.direction = Κατεύθυνση παραγράφου
+tool.type.option.writing_mode = Λειτουργία γραφής
+tool.type.choice.ltr = Από αριστερά προς τα δεξιά
+tool.type.choice.rtl = Από δεξιά προς τα αριστερά
+tool.type.choice.vertical_rl = Κατακόρυφα, στήλες προς τα αριστερά
+tool.type.choice.vertical_lr = Κατακόρυφα, στήλες προς τα δεξιά

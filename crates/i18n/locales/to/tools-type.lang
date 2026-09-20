@@ -22,3 +22,11 @@ tool.type.history.new_layer = Layer Tohi Foʻou
 tool.type.history.edit = Fakatonutonu Tohi
 tool.type.history.discard = Liʻaki Tohi
 tool.type.history.discard_empty = Liʻaki Tohi ʻAtaʻatā
+
+# Paragraph layout
+tool.type.option.direction = Hala ʻo e palakalafi
+tool.type.option.writing_mode = Founga tohi
+tool.type.choice.ltr = Mei he toʻohemá ki he toʻomataʻú
+tool.type.choice.rtl = Mei he toʻomataʻú ki he toʻohemá
+tool.type.choice.vertical_rl = Tohi tuʻu, ngaahi kōlomu ki he toʻohemá
+tool.type.choice.vertical_lr = Tohi tuʻu, ngaahi kōlomu ki he toʻomataʻú

@@ -17,3 +17,11 @@ tool.type.history.new_layer = Capa de text nova
 tool.type.history.edit = Edita el text
 tool.type.history.discard = Descarta el text
 tool.type.history.discard_empty = Descarta el text buit
+
+# Paragraph layout
+tool.type.option.direction = Direcció del paràgraf
+tool.type.option.writing_mode = Mode d'escriptura
+tool.type.choice.ltr = D'esquerra a dreta
+tool.type.choice.rtl = De dreta a esquerra
+tool.type.choice.vertical_rl = Vertical, columnes cap a l'esquerra
+tool.type.choice.vertical_lr = Vertical, columnes cap a la dreta

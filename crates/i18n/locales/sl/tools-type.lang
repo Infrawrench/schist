@@ -22,3 +22,11 @@ tool.type.history.new_layer = Nova besedilna plast
 tool.type.history.edit = Uredi besedilo
 tool.type.history.discard = Zavrzi besedilo
 tool.type.history.discard_empty = Zavrzi prazno besedilo
+
+# Paragraph layout
+tool.type.option.direction = Smer odstavka
+tool.type.option.writing_mode = Način pisanja
+tool.type.choice.ltr = Od leve proti desni
+tool.type.choice.rtl = Od desne proti levi
+tool.type.choice.vertical_rl = Navpično, stolpci proti levi
+tool.type.choice.vertical_lr = Navpično, stolpci proti desni

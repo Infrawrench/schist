@@ -17,3 +17,11 @@ tool.type.history.new_layer = נײַע טעקסט־שיכט
 tool.type.history.edit = רעדאַקטירן טעקסט
 tool.type.history.discard = אַוועקוואַרפֿן טעקסט
 tool.type.history.discard_empty = אַוועקוואַרפֿן ליידיקן טעקסט
+
+# Paragraph layout
+tool.type.option.direction = פּאַראַגראַף־ריכטונג
+tool.type.option.writing_mode = שרײַבמאָדע
+tool.type.choice.ltr = פֿון לינקס אויף רעכטס
+tool.type.choice.rtl = פֿון רעכטס אויף לינקס
+tool.type.choice.vertical_rl = ווערטיקאַל, זײַלן אויף לינקס
+tool.type.choice.vertical_lr = ווערטיקאַל, זײַלן אויף רעכטס

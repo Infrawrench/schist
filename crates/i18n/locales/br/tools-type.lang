@@ -21,3 +21,11 @@ tool.type.history.new_layer = Gwiskad testenn nevez
 tool.type.history.edit = Embann an destenn
 tool.type.history.discard = Dilezel an destenn
 tool.type.history.discard_empty = Dilezel an destenn c'houllo
+
+# Paragraph layout
+tool.type.option.direction = Tuadur ar rannbennad
+tool.type.option.writing_mode = Mod skrivañ
+tool.type.choice.ltr = Eus an tu kleiz d'an tu dehou
+tool.type.choice.rtl = Eus an tu dehou d'an tu kleiz
+tool.type.choice.vertical_rl = A-serzh, bannoù war-zu an tu kleiz
+tool.type.choice.vertical_lr = A-serzh, bannoù war-zu an tu dehou

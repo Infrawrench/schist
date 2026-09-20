@@ -25,3 +25,11 @@ tool.type.history.new_layer = Haen Destun Newydd
 tool.type.history.edit = Golygu Testun
 tool.type.history.discard = Gwaredu Testun
 tool.type.history.discard_empty = Gwaredu Testun Gwag
+
+# Paragraph layout
+tool.type.option.direction = Cyfeiriad paragraff
+tool.type.option.writing_mode = Modd ysgrifennu
+tool.type.choice.ltr = Chwith i'r dde
+tool.type.choice.rtl = De i'r chwith
+tool.type.choice.vertical_rl = Fertigol, colofnau tua'r chwith
+tool.type.choice.vertical_lr = Fertigol, colofnau tua'r dde

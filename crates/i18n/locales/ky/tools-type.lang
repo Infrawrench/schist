@@ -20,3 +20,11 @@ tool.type.history.new_layer = Жаңы текст катмары
 tool.type.history.edit = Текстти түзөтүү
 tool.type.history.discard = Текстти таштоо
 tool.type.history.discard_empty = Бош текстти таштоо
+
+# Paragraph layout
+tool.type.option.direction = Абзацтын багыты
+tool.type.option.writing_mode = Жазуу режими
+tool.type.choice.ltr = Солдон оңго
+tool.type.choice.rtl = Оңдон солго
+tool.type.choice.vertical_rl = Тик, мамычалар солго
+tool.type.choice.vertical_lr = Тик, мамычалар оңго

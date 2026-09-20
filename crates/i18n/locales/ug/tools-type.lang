@@ -17,3 +17,11 @@ tool.type.history.new_layer = يېڭى تېكىست قەۋىتى
 tool.type.history.edit = تېكىستنى تەھرىرلەش
 tool.type.history.discard = تېكىستتىن ۋاز كېچىش
 tool.type.history.discard_empty = بوش تېكىستتىن ۋاز كېچىش
+
+# Paragraph layout
+tool.type.option.direction = ئابزاس يۆنىلىشى
+tool.type.option.writing_mode = يېزىش ھالىتى
+tool.type.choice.ltr = سولدىن ئوڭغا
+tool.type.choice.rtl = ئوڭدىن سولغا
+tool.type.choice.vertical_rl = تىك، ئىستونلار سولغا
+tool.type.choice.vertical_lr = تىك، ئىستونلار ئوڭغا

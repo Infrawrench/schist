@@ -2,17 +2,19 @@
 //!
 //! Scope: system font discovery, one colour per layer with the family,
 //! style and size free to change from character to character (see
-//! [`StyleRun`]), left-to-right line layout with kerning, word wrapping
-//! and alignment, rasterized to an 8-bit coverage mask. OpenType overrides
-//! enable rustybuzz shaping; stored paths position and rotate the glyphs.
-//! Paragraph bidi and vertical scripts are not yet supported.
+//! [`StyleRun`]), Unicode bidirectional and vertical layout with shaping,
+//! word wrapping and alignment, rasterized to an 8-bit coverage mask.
+//! Stored paths position and rotate horizontal text glyphs.
 
 use schist_core::IntRect;
 use std::path::PathBuf;
 #[cfg(not(schist_library))]
 use std::sync::OnceLock;
 use std::sync::{Arc, RwLock};
+use unicode_segmentation::UnicodeSegmentation;
 
+#[cfg(test)]
+mod directions_tests;
 mod shaping;
 mod text_path;
 pub use text_path::TextPath;
@@ -25,7 +27,7 @@ pub struct OpenTypeFeature {
     pub value: u32,
 }
 
-/// Horizontal alignment of wrapped lines.
+/// Alignment along the inline axis (horizontal x, or vertical y).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, serde::Serialize, serde::Deserialize)]
 pub enum Align {
     #[default]
@@ -41,6 +43,30 @@ impl Align {
             Align::Center => "Center",
             Align::Right => "Right",
         }
+    }
+}
+
+/// Base paragraph direction. Auto uses the first strong Unicode character.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ParagraphDirection {
+    #[default]
+    Auto,
+    LeftToRight,
+    RightToLeft,
+}
+
+/// Inline text flows downwards in vertical modes; columns advance left or right.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, serde::Serialize, serde::Deserialize)]
+pub enum WritingMode {
+    #[default]
+    Horizontal,
+    VerticalRl,
+    VerticalLr,
+}
+
+impl WritingMode {
+    pub fn is_vertical(self) -> bool {
+        self != Self::Horizontal
     }
 }
 
@@ -60,11 +86,15 @@ pub struct TextSpec {
     /// Size in pixels (em size).
     pub size: f32,
     pub align: Align,
+    #[serde(default)]
+    pub direction: ParagraphDirection,
+    #[serde(default)]
+    pub writing_mode: WritingMode,
     /// Extra spacing between lines, as a multiple of the font's default.
     pub line_height: f32,
     /// Extra spacing between characters, in pixels.
     pub tracking: f32,
-    /// Wrap width in pixels; `None` means never wrap.
+    /// Inline wrap length in pixels (column length in vertical writing); `None` means never wrap.
     pub wrap_width: Option<f32>,
     /// Stretches of `text` set differently from the rest, by byte range.
     /// Sorted and non-overlapping; whatever they leave uncovered is set
@@ -89,6 +119,8 @@ impl Default for TextSpec {
             italic: false,
             size: 48.0,
             align: Align::Left,
+            direction: ParagraphDirection::Auto,
+            writing_mode: WritingMode::Horizontal,
             line_height: 1.0,
             tracking: 0.0,
             wrap_width: None,
@@ -896,6 +928,8 @@ struct PlacedGlyph {
     baseline: f32,
     /// Index into the layout's faces: which font, at which size.
     face: usize,
+    /// Sideways Latin runs in vertical writing.
+    sideways: bool,
 }
 
 /// Where a character's pen starts, for caret placement.
@@ -903,6 +937,8 @@ struct PlacedGlyph {
 struct CharPos {
     byte: usize,
     x: f32,
+    /// The other edge of this logical character, decreasing for RTL.
+    end_x: f32,
 }
 
 /// Laid-out glyphs, the widest line, the first baseline and the
@@ -975,7 +1011,10 @@ impl Faces {
 /// One laid-out line, and the byte range of `TextSpec::text` it covers.
 ///
 /// Wrapping means a line does not always correspond to a source line, so
-/// the range is what lets a caret offset be mapped onto the page.
+/// the range is what lets a caret offset be mapped onto the page. In vertical
+/// writing these remain inline/block coordinates: x/width measure down the
+/// column, and top/height measure the logical column position and spacing.
+/// Use `caret_at`, `hit_test` and `selection_rects` for canvas coordinates.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct LineSpan {
     /// Byte offset of the line's first character in `TextSpec::text`.
@@ -1002,8 +1041,43 @@ pub struct Caret {
     pub angle: f32,
 }
 
+/// A logical boundary can have two visual positions where directional runs
+/// meet. Downstream follows the next character; upstream follows the previous.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum CaretAffinity {
+    Upstream,
+    #[default]
+    Downstream,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub struct CaretPosition {
+    pub byte: usize,
+    pub affinity: CaretAffinity,
+}
+
+impl From<usize> for CaretPosition {
+    fn from(byte: usize) -> Self {
+        Self {
+            byte,
+            affinity: CaretAffinity::Downstream,
+        }
+    }
+}
+
+/// Physical keyboard movement, independent of the paragraph's reading order.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CaretMovement {
+    Left,
+    Right,
+    Up,
+    Down,
+    Home,
+    End,
+}
+
 fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
-    if !spec.features.is_empty() {
+    if shaping::required(spec) {
         return shaping::layout(spec, base);
     }
     let faces = Faces::resolve(spec, base);
@@ -1144,13 +1218,18 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
         for (k, ch) in line.text.char_indices() {
             let byte = line.start + k;
             let ix = faces.at(byte);
-            chars.push(CharPos { byte, x });
+            chars.push(CharPos {
+                byte,
+                x,
+                end_x: x + advance(ch, prev, ix),
+            });
             if !ch.is_whitespace() {
                 placed.push(PlacedGlyph {
                     glyph: faces.faces[ix].0.font.lookup_glyph_index(ch),
                     x,
                     baseline,
                     face: ix,
+                    sideways: false,
                 });
             }
             x += advance(ch, prev, ix);
@@ -1185,9 +1264,13 @@ pub fn line_spans(spec: &TextSpec) -> Vec<LineSpan> {
 /// `byte` is clamped into range and snapped to a char boundary, so a
 /// caller that has lost track of the text cannot panic the layout.
 pub fn caret_at(spec: &TextSpec, byte: usize) -> Option<Caret> {
+    caret_at_position(spec, byte.into())
+}
+
+pub fn caret_at_position(spec: &TextSpec, position: CaretPosition) -> Option<Caret> {
     let face = load_font(&spec.family, spec.bold, spec.italic)?;
     let laid = layout(spec, &face);
-    let caret = caret_in_layout(spec, &laid, byte);
+    let caret = caret_in_layout_affinity(spec, &laid, position);
     Some(match path_guide(spec, &laid) {
         Some(guide) => guide.caret(caret, laid.first_baseline),
         None => caret,
@@ -1195,6 +1278,9 @@ pub fn caret_at(spec: &TextSpec, byte: usize) -> Option<Caret> {
 }
 
 fn path_guide(spec: &TextSpec, laid: &Layout) -> Option<text_path::Guide> {
+    if spec.writing_mode.is_vertical() {
+        return None;
+    }
     text_path::Guide::new(spec.path.as_ref()?, spec.align, laid.layout_width)
 }
 
@@ -1206,7 +1292,7 @@ pub fn carets(spec: &TextSpec) -> Vec<(usize, Caret)> {
     let laid = layout(spec, &face);
     let guide = path_guide(spec, &laid);
     spec.text
-        .char_indices()
+        .grapheme_indices(true)
         .map(|(i, _)| i)
         .chain(std::iter::once(spec.text.len()))
         .map(|i| {
@@ -1222,7 +1308,11 @@ pub fn carets(spec: &TextSpec) -> Vec<(usize, Caret)> {
 }
 
 fn caret_in_layout(spec: &TextSpec, laid: &Layout, byte: usize) -> Caret {
-    let byte = clamp_to_boundary(&spec.text, byte);
+    caret_in_layout_affinity(spec, laid, byte.into())
+}
+
+fn caret_in_layout_affinity(spec: &TextSpec, laid: &Layout, position: CaretPosition) -> Caret {
+    let byte = clamp_to_boundary(&spec.text, position.byte);
 
     // The last line whose range starts at or before `byte`: with an
     // explicit newline the offset sits in two ranges (the end of one and
@@ -1232,7 +1322,15 @@ fn caret_in_layout(spec: &TextSpec, laid: &Layout, byte: usize) -> Caret {
         .lines
         .iter()
         .rev()
-        .find(|l| l.start <= byte)
+        .find(|l| {
+            l.start <= byte
+                && !(position.affinity == CaretAffinity::Upstream
+                    && byte == l.start
+                    && byte > 0
+                    && !spec.text[..byte].chars().next_back().is_some_and(|c| {
+                        unicode_bidi::bidi_class(c) == unicode_bidi::BidiClass::B || c == '\u{2028}'
+                    }))
+        })
         .copied()
         .or_else(|| laid.lines.first().copied())
         .unwrap_or(LineSpan {
@@ -1248,8 +1346,14 @@ fn caret_in_layout(spec: &TextSpec, laid: &Layout, byte: usize) -> Caret {
     // The pen position of the character the caret sits before, or the
     // line's end after its last one. Same pass as the glyphs, so a
     // caret between two fonts lands exactly where the ink changes.
-    let x = if upto >= span.end {
-        span.x + span.width
+    let x = if upto >= span.end
+        || (position.affinity == CaretAffinity::Upstream && upto > span.start)
+    {
+        laid.chars
+            .iter()
+            .filter(|c| span.start <= c.byte && c.byte < upto)
+            .max_by_key(|c| c.byte)
+            .map_or(span.x, |c| c.end_x)
     } else {
         laid.chars
             .iter()
@@ -1257,15 +1361,36 @@ fn caret_in_layout(spec: &TextSpec, laid: &Layout, byte: usize) -> Caret {
             .map(|c| c.x)
             .unwrap_or(span.x + span.width)
     };
-    Caret {
-        x,
-        top: span.top,
-        height: if span.height > 0.0 {
-            span.height
-        } else {
-            spec.size
+    orient_caret(
+        spec,
+        laid,
+        Caret {
+            x,
+            top: span.top,
+            height: if span.height > 0.0 {
+                span.height
+            } else {
+                spec.size
+            },
+            angle: 0.0,
         },
-        angle: 0.0,
+    )
+}
+
+fn orient_caret(spec: &TextSpec, laid: &Layout, caret: Caret) -> Caret {
+    if !spec.writing_mode.is_vertical() {
+        return caret;
+    }
+    let total = laid.lines.last().map_or(0.0, |l| l.top + l.height);
+    let right = match spec.writing_mode {
+        WritingMode::VerticalRl => total - caret.top,
+        _ => caret.top + caret.height,
+    };
+    Caret {
+        x: right,
+        top: caret.x,
+        angle: std::f32::consts::FRAC_PI_2,
+        ..caret
     }
 }
 
@@ -1276,42 +1401,257 @@ fn caret_in_layout(spec: &TextSpec, laid: &Layout, byte: usize) -> Caret {
 /// that line is used to its left or right, so a drag can continue beyond
 /// the ink and still select predictably.
 pub fn hit_test(spec: &TextSpec, x: f32, y: f32) -> Option<usize> {
-    if spec.path.is_some() {
-        return carets(spec)
-            .into_iter()
-            .min_by(|(_, a), (_, b)| {
-                let distance = |c: &Caret| {
-                    let (sin, cos) = c.angle.sin_cos();
-                    let (dx, dy) = (x - c.x, y - c.top);
-                    let along = (-dx * sin + dy * cos).clamp(0.0, c.height);
-                    (dx + sin * along).hypot(dy - cos * along)
-                };
-                distance(a).total_cmp(&distance(b))
-            })
-            .map(|(i, _)| i);
-    }
-    let face = load_font(&spec.family, spec.bold, spec.italic)?;
-    let laid = layout(spec, &face);
-    let span = laid.lines.iter().min_by(|a, b| {
-        let distance = |line: &&LineSpan| {
-            if y < line.top {
-                line.top - y
-            } else if y > line.top + line.height {
-                y - (line.top + line.height)
-            } else {
-                0.0
-            }
-        };
-        distance(a).total_cmp(&distance(b))
-    })?;
+    hit_test_position(spec, x, y).map(|p| p.byte)
+}
 
-    laid.chars
+/// Both affinities at directional boundaries; coincident positions are merged.
+pub fn insertion_points(spec: &TextSpec) -> Vec<(CaretPosition, Caret)> {
+    let Some(face) = load_font(&spec.family, spec.bold, spec.italic) else {
+        return Vec::new();
+    };
+    let laid = layout(spec, &face);
+    let guide = path_guide(spec, &laid);
+    let mut out = Vec::new();
+    for byte in spec
+        .text
+        .grapheme_indices(true)
+        .map(|(i, _)| i)
+        .chain(std::iter::once(spec.text.len()))
+    {
+        let position = CaretPosition::from(byte);
+        let map = |c| {
+            guide
+                .as_ref()
+                .map_or(c, |g| g.caret(c, laid.first_baseline))
+        };
+        let downstream = map(caret_in_layout_affinity(spec, &laid, position));
+        out.push((position, downstream));
+        let position = CaretPosition {
+            byte,
+            affinity: CaretAffinity::Upstream,
+        };
+        let upstream = map(caret_in_layout_affinity(spec, &laid, position));
+        if (upstream.x - downstream.x).abs() > 0.01 || (upstream.top - downstream.top).abs() > 0.01
+        {
+            out.push((position, upstream));
+        }
+    }
+    out
+}
+
+pub fn hit_test_position(spec: &TextSpec, x: f32, y: f32) -> Option<CaretPosition> {
+    insertion_points(spec)
+        .into_iter()
+        .min_by(|(_, a), (_, b)| {
+            let distance = |c: &Caret| {
+                let (sin, cos) = c.angle.sin_cos();
+                let (dx, dy) = (x - c.x, y - c.top);
+                let along = -dx * sin + dy * cos;
+                let cross_distance = if along < 0.0 {
+                    -along
+                } else {
+                    (along - c.height).max(0.0)
+                };
+                let inline_distance = (dx * cos + dy * sin).abs();
+                if spec.path.is_some() && !spec.writing_mode.is_vertical() {
+                    (cross_distance.hypot(inline_distance), 0.0)
+                } else {
+                    // Resolve the line/column first. A drag beyond a short line
+                    // must not jump to a wider line merely because its end is closer.
+                    (cross_distance, inline_distance)
+                }
+            };
+            let a = distance(a);
+            let b = distance(b);
+            a.0.total_cmp(&b.0).then(a.1.total_cmp(&b.1))
+        })
+        .map(|(position, _)| position)
+}
+
+pub fn move_caret(spec: &TextSpec, from: CaretPosition, movement: CaretMovement) -> CaretPosition {
+    if spec.path.is_some() && !spec.writing_mode.is_vertical() {
+        // Keyboard inline movement follows the path's baseline, including
+        // curved paths whose screen-space caret tops are all different.
+        let mut straight = spec.clone();
+        straight.path = None;
+        straight.wrap_width = None;
+        return move_caret(&straight, from, movement);
+    }
+    let points = insertion_points(spec);
+    let Some(current) = caret_at_position(spec, from) else {
+        return from;
+    };
+    let vertical = spec.writing_mode.is_vertical();
+    let coordinates = |c: Caret| {
+        if vertical {
+            (c.top, c.x - c.height / 2.0)
+        } else {
+            (c.x, c.top + c.height / 2.0)
+        }
+    };
+    let (inline, cross) = coordinates(current);
+    let inline_move = matches!(movement, CaretMovement::Home | CaretMovement::End)
+        || if vertical {
+            matches!(movement, CaretMovement::Up | CaretMovement::Down)
+        } else {
+            matches!(movement, CaretMovement::Left | CaretMovement::Right)
+        };
+    let forward = matches!(
+        movement,
+        CaretMovement::Right | CaretMovement::Down | CaretMovement::End
+    );
+    let spans = line_spans(spec);
+    let total = spans.last().map_or(0.0, |l| l.top + l.height);
+    let line_index = spans
         .iter()
-        .filter(|pos| span.start <= pos.byte && pos.byte < span.end)
-        .map(|pos| (pos.byte, pos.x))
-        .chain(std::iter::once((span.end, span.x + span.width)))
-        .min_by(|(_, ax), (_, bx)| (x - ax).abs().total_cmp(&(x - bx).abs()))
-        .map(|(byte, _)| byte)
+        .enumerate()
+        .min_by(|(_, a), (_, b)| {
+            let distance = |l: &LineSpan| {
+                let center = if spec.writing_mode == WritingMode::VerticalRl {
+                    total - l.top - l.height / 2.0
+                } else {
+                    l.top + l.height / 2.0
+                };
+                (center - cross).abs()
+            };
+            distance(a).total_cmp(&distance(b))
+        })
+        .map(|(index, _)| index);
+    if matches!(movement, CaretMovement::Home | CaretMovement::End) {
+        return line_index.map_or(from, |i| {
+            if forward {
+                CaretPosition {
+                    byte: spans[i].end,
+                    affinity: CaretAffinity::Upstream,
+                }
+            } else {
+                spans[i].start.into()
+            }
+        });
+    }
+    let candidates = points.iter().filter_map(|(p, c)| {
+        let (i, b) = coordinates(*c);
+        let delta = if inline_move { i - inline } else { b - cross };
+        if (forward && delta <= 0.01)
+            || (!forward && delta >= -0.01)
+            || (inline_move && (b - cross).abs() > 0.1)
+        {
+            return None;
+        }
+        Some((*p, delta.abs(), (i - inline).abs()))
+    });
+    if let Some((p, _, _)) = candidates.min_by(|a, b| a.1.total_cmp(&b.1).then(a.2.total_cmp(&b.2)))
+    {
+        return p;
+    }
+    // At an inline edge, continue on the adjacent line/column in reading
+    // order. Up/Down in a vertical column similarly traverse hard newlines.
+    if inline_move {
+        let forward = forward ^ (!vertical && shaping::paragraph_is_rtl(spec, from.byte));
+        let at = line_index.unwrap_or(0);
+        if forward && at + 1 < spans.len() {
+            return spans[at + 1].start.into();
+        }
+        if !forward && at > 0 {
+            return CaretPosition {
+                byte: spans[at - 1].end,
+                affinity: CaretAffinity::Upstream,
+            };
+        }
+    }
+    from
+}
+
+/// Highlight each selected character's own visual cell. A logical bidi
+/// selection can occupy disjoint rectangles on the same line.
+pub fn selection_rects(spec: &TextSpec, range: std::ops::Range<usize>) -> Vec<IntRect> {
+    let Some(face) = load_font(&spec.family, spec.bold, spec.italic) else {
+        return Vec::new();
+    };
+    let laid = layout(spec, &face);
+    let guide = path_guide(spec, &laid);
+    let mut out: Vec<IntRect> = Vec::new();
+    for span in &laid.lines {
+        for ch in laid
+            .chars
+            .iter()
+            .filter(|c| span.start <= c.byte && c.byte < span.end && range.contains(&c.byte))
+        {
+            let mut points = Vec::new();
+            for x in [ch.x, ch.end_x] {
+                let c = orient_caret(
+                    spec,
+                    &laid,
+                    Caret {
+                        x,
+                        top: span.top,
+                        height: span.height,
+                        angle: 0.0,
+                    },
+                );
+                let c = guide
+                    .as_ref()
+                    .map_or(c, |g| g.caret(c, laid.first_baseline));
+                points.push((c.x, c.top));
+                points.push((
+                    c.x - c.angle.sin() * c.height,
+                    c.top + c.angle.cos() * c.height,
+                ));
+            }
+            let rect = IntRect::new(
+                points
+                    .iter()
+                    .map(|p| p.0)
+                    .fold(f32::INFINITY, f32::min)
+                    .floor() as i32,
+                points
+                    .iter()
+                    .map(|p| p.1)
+                    .fold(f32::INFINITY, f32::min)
+                    .floor() as i32,
+                points
+                    .iter()
+                    .map(|p| p.0)
+                    .fold(f32::NEG_INFINITY, f32::max)
+                    .ceil() as i32,
+                points
+                    .iter()
+                    .map(|p| p.1)
+                    .fold(f32::NEG_INFINITY, f32::max)
+                    .ceil() as i32,
+            );
+            if !rect.is_empty() {
+                if spec.path.is_none() {
+                    if let Some(previous) = out.last_mut() {
+                        let adjacent = if spec.writing_mode.is_vertical() {
+                            previous.left == rect.left
+                                && previous.right == rect.right
+                                && rect.top <= previous.bottom
+                                && rect.bottom >= previous.top
+                        } else {
+                            previous.top == rect.top
+                                && previous.bottom == rect.bottom
+                                && rect.left <= previous.right
+                                && rect.right >= previous.left
+                        };
+                        if adjacent {
+                            *previous = previous.union(&rect);
+                            continue;
+                        }
+                    }
+                }
+                out.push(rect);
+            }
+        }
+    }
+    out
+}
+
+/// Extended Unicode grapheme boundaries used by editing and caret placement.
+pub fn grapheme_boundaries(text: &str) -> impl DoubleEndedIterator<Item = usize> + '_ {
+    text.grapheme_indices(true)
+        .map(|(i, _)| i)
+        .chain(std::iter::once(text.len()))
 }
 
 /// Nearest char boundary at or below `byte`, clamped to the string.
@@ -1371,6 +1711,20 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
         }
         let (rect, bitmap) = if let Some(guide) = &guide {
             text_path::glyph_bitmap(guide, g, first_baseline, &metrics, bitmap)
+        } else if g.sideways {
+            let left = (g.x + metrics.ymin as f32).floor() as i32;
+            let top = (g.baseline + metrics.xmin as f32).floor() as i32;
+            let mut rotated = vec![0; bitmap.len()];
+            for y in 0..metrics.height {
+                for x in 0..metrics.width {
+                    rotated[x * metrics.height + metrics.height - 1 - y] =
+                        bitmap[y * metrics.width + x];
+                }
+            }
+            (
+                IntRect::from_xywh(left, top, metrics.height as u32, metrics.width as u32),
+                rotated,
+            )
         } else {
             let left = (g.x + metrics.xmin as f32).floor() as i32;
             let top = (g.baseline - metrics.height as f32 - metrics.ymin as f32).floor() as i32;

@@ -21,3 +21,11 @@ tool.type.history.new_layer = Nieuwe tekstlaag
 tool.type.history.edit = Tekst bewerken
 tool.type.history.discard = Tekst verwerpen
 tool.type.history.discard_empty = Lege tekst verwerpen
+
+# Paragraph layout
+tool.type.option.direction = Alinearichting
+tool.type.option.writing_mode = Schrijfmodus
+tool.type.choice.ltr = Van links naar rechts
+tool.type.choice.rtl = Van rechts naar links
+tool.type.choice.vertical_rl = Verticaal, kolommen naar links
+tool.type.choice.vertical_lr = Verticaal, kolommen naar rechts

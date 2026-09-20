@@ -27,3 +27,11 @@ tool.type.history.new_layer = নতুন লিখনী স্তৰ
 tool.type.history.edit = লিখনী সম্পাদনা কৰক
 tool.type.history.discard = লিখনী বাদ দিয়ক
 tool.type.history.discard_empty = খালী লিখনী বাদ দিয়ক
+
+# Paragraph layout
+tool.type.option.direction = অনুচ্ছেদৰ দিশ
+tool.type.option.writing_mode = লিখন পদ্ধতি
+tool.type.choice.ltr = বাওঁফালৰ পৰা সোঁফাললৈ
+tool.type.choice.rtl = সোঁফালৰ পৰা বাওঁফাললৈ
+tool.type.choice.vertical_rl = উলম্ব, স্তম্ভসমূহ বাওঁফাললৈ
+tool.type.choice.vertical_lr = উলম্ব, স্তম্ভসমূহ সোঁফাললৈ

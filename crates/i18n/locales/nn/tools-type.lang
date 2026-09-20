@@ -20,3 +20,11 @@ tool.type.history.new_layer = Nytt tekstlag
 tool.type.history.edit = Rediger tekst
 tool.type.history.discard = Forkast tekst
 tool.type.history.discard_empty = Forkast tom tekst
+
+# Paragraph layout
+tool.type.option.direction = Avsnittsretning
+tool.type.option.writing_mode = Skrivemåte
+tool.type.choice.ltr = Frå venstre mot høgre
+tool.type.choice.rtl = Frå høgre mot venstre
+tool.type.choice.vertical_rl = Loddrett, kolonnar mot venstre
+tool.type.choice.vertical_lr = Loddrett, kolonnar mot høgre

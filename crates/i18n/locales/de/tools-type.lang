@@ -27,3 +27,11 @@ tool.type.history.new_layer = Neue Textebene
 tool.type.history.edit = Text bearbeiten
 tool.type.history.discard = Text verwerfen
 tool.type.history.discard_empty = Leeren Text verwerfen
+
+# Paragraph layout
+tool.type.option.direction = Absatzrichtung
+tool.type.option.writing_mode = Schreibrichtung
+tool.type.choice.ltr = Von links nach rechts
+tool.type.choice.rtl = Von rechts nach links
+tool.type.choice.vertical_rl = Vertikal, Spalten nach links
+tool.type.choice.vertical_lr = Vertikal, Spalten nach rechts

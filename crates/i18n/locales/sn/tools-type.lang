@@ -17,3 +17,11 @@ tool.type.history.new_layer = Chikamu Chitsva cheMavara
 tool.type.history.edit = Gadzirisa Mavara
 tool.type.history.discard = Rasa Mavara
 tool.type.history.discard_empty = Rasa Mavara Asina Chinhu
+
+# Paragraph layout
+tool.type.option.direction = Kwakananga kwendima
+tool.type.option.writing_mode = Manyorerwo
+tool.type.choice.ltr = Kubva kuruboshwe kuenda kurudyi
+tool.type.choice.rtl = Kubva kurudyi kuenda kuruboshwe
+tool.type.choice.vertical_rl = Zvakamira, makoramu kuenda kuruboshwe
+tool.type.choice.vertical_lr = Zvakamira, makoramu kuenda kurudyi

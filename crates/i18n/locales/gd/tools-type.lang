@@ -17,3 +17,11 @@ tool.type.history.new_layer = Breath teacsa ùr
 tool.type.history.edit = Deasaich an teacsa
 tool.type.history.discard = Tilg an teacsa air falbh
 tool.type.history.discard_empty = Tilg teacsa bàn air falbh
+
+# Paragraph layout
+tool.type.option.direction = Comhair a’ pharagraf
+tool.type.option.writing_mode = Modh sgrìobhaidh
+tool.type.choice.ltr = Clì gu deas
+tool.type.choice.rtl = Deas gu clì
+tool.type.choice.vertical_rl = Inghearach, colbhan dhan taobh chlì
+tool.type.choice.vertical_lr = Inghearach, colbhan dhan taobh dheas

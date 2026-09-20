@@ -24,3 +24,11 @@ tool.type.history.new_layer = አዲስ የጽሑፍ ንብርብር
 tool.type.history.edit = ጽሑፍ አርትዕ
 tool.type.history.discard = ጽሑፍ ጣል
 tool.type.history.discard_empty = ባዶ ጽሑፍ ጣል
+
+# Paragraph layout
+tool.type.option.direction = የአንቀጽ አቅጣጫ
+tool.type.option.writing_mode = የአጻጻፍ ሁነታ
+tool.type.choice.ltr = ከግራ ወደ ቀኝ
+tool.type.choice.rtl = ከቀኝ ወደ ግራ
+tool.type.choice.vertical_rl = ቁልቁል፣ ዓምዶች ወደ ግራ
+tool.type.choice.vertical_lr = ቁልቁል፣ ዓምዶች ወደ ቀኝ

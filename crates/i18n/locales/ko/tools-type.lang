@@ -25,3 +25,11 @@ tool.type.history.new_layer = 새 텍스트 레이어
 tool.type.history.edit = 텍스트 편집
 tool.type.history.discard = 텍스트 버리기
 tool.type.history.discard_empty = 빈 텍스트 버리기
+
+# Paragraph layout
+tool.type.option.direction = 문단 방향
+tool.type.option.writing_mode = 쓰기 모드
+tool.type.choice.ltr = 왼쪽에서 오른쪽
+tool.type.choice.rtl = 오른쪽에서 왼쪽
+tool.type.choice.vertical_rl = 세로, 왼쪽으로 열 진행
+tool.type.choice.vertical_lr = 세로, 오른쪽으로 열 진행

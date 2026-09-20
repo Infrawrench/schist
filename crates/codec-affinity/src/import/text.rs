@@ -178,6 +178,8 @@ impl Walker<'_> {
             runs: Vec::new(),
             features: Vec::new(),
             path: None,
+            direction: Default::default(),
+            writing_mode: Default::default(),
         };
         let mut raster = match schist_text_engine::rasterize(&spec) {
             Some(r) => r,

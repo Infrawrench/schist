@@ -21,3 +21,11 @@ tool.type.history.new_layer = Gwisk Tekst Nowydh
 tool.type.history.edit = Golygi Tekst
 tool.type.history.discard = Gasa Tekst
 tool.type.history.discard_empty = Gasa Tekst Gwag
+
+# Paragraph layout
+tool.type.option.direction = Kevargh an rannskriv
+tool.type.option.writing_mode = Fordh skrifa
+tool.type.choice.ltr = Dh'y gleth dh'y dhehow
+tool.type.choice.rtl = Dh'y dhehow dh'y gleth
+tool.type.choice.vertical_rl = A-sogh, kolovenow dh'y gleth
+tool.type.choice.vertical_lr = A-sogh, kolovenow dh'y dhehow

@@ -24,3 +24,11 @@ tool.type.history.new_layer = Musuq qillqa pata
 tool.type.history.edit = Qillqata allichay
 tool.type.history.discard = Qillqata wikch'uy
 tool.type.history.discard_empty = Ch'usaq qillqata wikch'uy
+
+# Paragraph layout
+tool.type.option.direction = Qillqa t'aqap puririynin
+tool.type.option.writing_mode = Qillqana ñan
+tool.type.choice.ltr = Lluq'imanta pañaman
+tool.type.choice.rtl = Pañamanta lluq'iman
+tool.type.choice.vertical_rl = Sayarisqa, saywakuna lluq'iman
+tool.type.choice.vertical_lr = Sayarisqa, saywakuna pañaman

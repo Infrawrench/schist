@@ -27,3 +27,11 @@ tool.type.history.new_layer = Lapisan Teks Baharu
 tool.type.history.edit = Sunting Teks
 tool.type.history.discard = Buang Teks
 tool.type.history.discard_empty = Buang Teks Kosong
+
+# Paragraph layout
+tool.type.option.direction = Arah perenggan
+tool.type.option.writing_mode = Mod penulisan
+tool.type.choice.ltr = Kiri ke kanan
+tool.type.choice.rtl = Kanan ke kiri
+tool.type.choice.vertical_rl = Menegak, lajur ke kiri
+tool.type.choice.vertical_lr = Menegak, lajur ke kanan

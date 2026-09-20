@@ -17,3 +17,11 @@ tool.type.history.new_layer = नयाँ पाठ तह
 tool.type.history.edit = पाठ सम्पादन गर्नुहोस्
 tool.type.history.discard = पाठ त्याग्नुहोस्
 tool.type.history.discard_empty = खाली पाठ त्याग्नुहोस्
+
+# Paragraph layout
+tool.type.option.direction = अनुच्छेद दिशा
+tool.type.option.writing_mode = लेखन मोड
+tool.type.choice.ltr = बायाँबाट दायाँ
+tool.type.choice.rtl = दायाँबाट बायाँ
+tool.type.choice.vertical_rl = ठाडो, स्तम्भहरू बायाँतिर
+tool.type.choice.vertical_lr = ठाडो, स्तम्भहरू दायाँतिर

@@ -17,3 +17,11 @@ tool.type.history.new_layer = Text Layer Foforo
 tool.type.history.edit = Siesie Nkyerɛwee
 tool.type.history.discard = Gyae Nkyerɛwee
 tool.type.history.discard_empty = Gyae Nkyerɛwee a Emu Da Hɔ
+
+# Paragraph layout
+tool.type.option.direction = Nkyekyɛmu no kwankyerɛ
+tool.type.option.writing_mode = Akwan a wɔfa so kyerɛw
+tool.type.choice.ltr = Fi benkum kɔ nifa
+tool.type.choice.rtl = Fi nifa kɔ benkum
+tool.type.choice.vertical_rl = Gyina hɔ, adum kɔ benkum
+tool.type.choice.vertical_lr = Gyina hɔ, adum kɔ nifa

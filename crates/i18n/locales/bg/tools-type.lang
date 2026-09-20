@@ -21,3 +21,11 @@ tool.type.history.new_layer = Нов текстов слой
 tool.type.history.edit = Редактиране на текст
 tool.type.history.discard = Отхвърляне на текста
 tool.type.history.discard_empty = Отхвърляне на празния текст
+
+# Paragraph layout
+tool.type.option.direction = Посока на абзаца
+tool.type.option.writing_mode = Режим на писане
+tool.type.choice.ltr = Отляво надясно
+tool.type.choice.rtl = Отдясно наляво
+tool.type.choice.vertical_rl = Вертикално, колоните наляво
+tool.type.choice.vertical_lr = Вертикално, колоните надясно

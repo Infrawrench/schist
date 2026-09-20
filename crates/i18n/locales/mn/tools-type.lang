@@ -17,3 +17,11 @@ tool.type.history.new_layer = Шинэ бичвэрийн давхарга
 tool.type.history.edit = Бичвэр засварлах
 tool.type.history.discard = Бичвэрийг хаях
 tool.type.history.discard_empty = Хоосон бичвэрийг хаях
+
+# Paragraph layout
+tool.type.option.direction = Догол мөрийн чиглэл
+tool.type.option.writing_mode = Бичих горим
+tool.type.choice.ltr = Зүүнээс баруун тийш
+tool.type.choice.rtl = Баруунаас зүүн тийш
+tool.type.choice.vertical_rl = Босоо, баганууд зүүн тийш
+tool.type.choice.vertical_lr = Босоо, баганууд баруун тийш

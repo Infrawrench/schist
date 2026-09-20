@@ -22,3 +22,11 @@ tool.type.history.new_layer = Nová textová vrstva
 tool.type.history.edit = Upravit text
 tool.type.history.discard = Zahodit text
 tool.type.history.discard_empty = Zahodit prázdný text
+
+# Paragraph layout
+tool.type.option.direction = Směr odstavce
+tool.type.option.writing_mode = Režim psaní
+tool.type.choice.ltr = Zleva doprava
+tool.type.choice.rtl = Zprava doleva
+tool.type.choice.vertical_rl = Svisle, sloupce doleva
+tool.type.choice.vertical_lr = Svisle, sloupce doprava

@@ -24,3 +24,11 @@ tool.type.history.new_layer = Urwego rushya rw'inyandiko
 tool.type.history.edit = Guhindura inyandiko
 tool.type.history.discard = Kureka inyandiko
 tool.type.history.discard_empty = Kureka inyandiko irimo ubusa
+
+# Paragraph layout
+tool.type.option.direction = Icyerekezo cy'igika
+tool.type.option.writing_mode = Uburyo bwo kwandika
+tool.type.choice.ltr = Ibumoso ugana iburyo
+tool.type.choice.rtl = Iburyo ugana ibumoso
+tool.type.choice.vertical_rl = Bihagaze, inkingi zigana ibumoso
+tool.type.choice.vertical_lr = Bihagaze, inkingi zigana iburyo

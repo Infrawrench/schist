@@ -17,3 +17,11 @@ tool.type.history.new_layer = Umaleko Omtsha Wombhalo
 tool.type.history.edit = Hlela Umbhalo
 tool.type.history.discard = Lahla Umbhalo
 tool.type.history.discard_empty = Lahla Umbhalo Ongenanto
+
+# Paragraph layout
+tool.type.option.direction = Icala lomhlathi
+tool.type.option.writing_mode = Indlela yokubhala
+tool.type.choice.ltr = Ukusuka ekhohlo ukuya ekunene
+tool.type.choice.rtl = Ukusuka ekunene ukuya ekhohlo
+tool.type.choice.vertical_rl = Ngokuthe nkqo, iikholamu ziye ekhohlo
+tool.type.choice.vertical_lr = Ngokuthe nkqo, iikholamu ziye ekunene

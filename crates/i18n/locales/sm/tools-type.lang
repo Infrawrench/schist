@@ -17,3 +17,11 @@ tool.type.history.new_layer = Vaega Tusitusiga Fou
 tool.type.history.edit = Faasaʻo Tusitusiga
 tool.type.history.discard = Lafoaʻi Tusitusiga
 tool.type.history.discard_empty = Lafoaʻi Tusitusiga Gaogao
+
+# Paragraph layout
+tool.type.option.direction = Itu o le parakalafa
+tool.type.option.writing_mode = Faiga tusitusi
+tool.type.choice.ltr = Mai le agavale i le taumatau
+tool.type.choice.rtl = Mai le taumatau i le agavale
+tool.type.choice.vertical_rl = Tūsaʻo, koluma agaʻi i le agavale
+tool.type.choice.vertical_lr = Tūsaʻo, koluma agaʻi i le taumatau

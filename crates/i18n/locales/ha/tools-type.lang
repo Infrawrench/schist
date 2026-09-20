@@ -25,3 +25,11 @@ tool.type.history.new_layer = Sabuwar Shimfiɗar Rubutu
 tool.type.history.edit = Gyara Rubutu
 tool.type.history.discard = Watsar da Rubutu
 tool.type.history.discard_empty = Watsar da Rubutu Mara Komai
+
+# Paragraph layout
+tool.type.option.direction = Alkiblar sakin layi
+tool.type.option.writing_mode = Yanayin rubutu
+tool.type.choice.ltr = Daga hagu zuwa dama
+tool.type.choice.rtl = Daga dama zuwa hagu
+tool.type.choice.vertical_rl = A tsaye, ginshiƙai zuwa hagu
+tool.type.choice.vertical_lr = A tsaye, ginshiƙai zuwa dama

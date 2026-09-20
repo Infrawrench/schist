@@ -20,3 +20,11 @@ tool.type.history.new_layer = Novum Stratum Textus
 tool.type.history.edit = Textus Emendatus
 tool.type.history.discard = Textus Reiectus
 tool.type.history.discard_empty = Textus Vacuus Reiectus
+
+# Paragraph layout
+tool.type.option.direction = Directio Paragraphi
+tool.type.option.writing_mode = Modus Scribendi
+tool.type.choice.ltr = A Sinistra ad Dextram
+tool.type.choice.rtl = A Dextra ad Sinistram
+tool.type.choice.vertical_rl = Verticalis, Columnae ad Sinistram
+tool.type.choice.vertical_lr = Verticalis, Columnae ad Dextram

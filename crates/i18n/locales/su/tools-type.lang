@@ -20,3 +20,11 @@ tool.type.history.new_layer = Lapisan Téks Anyar
 tool.type.history.edit = Édit Téks
 tool.type.history.discard = Piceun Téks
 tool.type.history.discard_empty = Piceun Téks Kosong
+
+# Paragraph layout
+tool.type.option.direction = Arah paragraf
+tool.type.option.writing_mode = Modeu nulis
+tool.type.choice.ltr = Ti kénca ka katuhu
+tool.type.choice.rtl = Ti katuhu ka kénca
+tool.type.choice.vertical_rl = Nangtung, kolom ka kénca
+tool.type.choice.vertical_lr = Nangtung, kolom ka katuhu

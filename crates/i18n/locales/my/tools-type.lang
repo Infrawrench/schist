@@ -21,3 +21,11 @@ tool.type.history.new_layer = စာသားအလွှာသစ်
 tool.type.history.edit = စာသားတည်းဖြတ်ရန်
 tool.type.history.discard = စာသားကို စွန့်ပစ်ရန်
 tool.type.history.discard_empty = ဗလာစာသားကို စွန့်ပစ်ရန်
+
+# Paragraph layout
+tool.type.option.direction = စာပိုဒ်ဦးတည်ချက်
+tool.type.option.writing_mode = ရေးသားမှုစနစ်
+tool.type.choice.ltr = ဘယ်မှညာသို့
+tool.type.choice.rtl = ညာမှဘယ်သို့
+tool.type.choice.vertical_rl = ဒေါင်လိုက်၊ ကော်လံများ ဘယ်ဘက်သို့
+tool.type.choice.vertical_lr = ဒေါင်လိုက်၊ ကော်လံများ ညာဘက်သို့

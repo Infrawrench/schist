@@ -22,3 +22,11 @@ tool.type.history.new_layer = Yangi matn qatlami
 tool.type.history.edit = Matnni tahrirlash
 tool.type.history.discard = Matndan voz kechish
 tool.type.history.discard_empty = Bo‘sh matndan voz kechish
+
+# Paragraph layout
+tool.type.option.direction = Xatboshi yo‘nalishi
+tool.type.option.writing_mode = Yozish rejimi
+tool.type.choice.ltr = Chapdan o‘ngga
+tool.type.choice.rtl = O‘ngdan chapga
+tool.type.choice.vertical_rl = Vertikal, ustunlar chapga
+tool.type.choice.vertical_lr = Vertikal, ustunlar o‘ngga

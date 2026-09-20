@@ -25,3 +25,11 @@ tool.type.history.new_layer = Calc de tèxte novèl
 tool.type.history.edit = Modificar lo tèxte
 tool.type.history.discard = Abandonar lo tèxte
 tool.type.history.discard_empty = Abandonar lo tèxte void
+
+# Paragraph layout
+tool.type.option.direction = Direccion del paragraf
+tool.type.option.writing_mode = Mòde d'escritura
+tool.type.choice.ltr = D'esquèrra a dreita
+tool.type.choice.rtl = De dreita a esquèrra
+tool.type.choice.vertical_rl = Vertical, colomnas cap a l'esquèrra
+tool.type.choice.vertical_lr = Vertical, colomnas cap a la dreita

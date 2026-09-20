@@ -20,3 +20,11 @@ tool.type.history.new_layer = އާ ޓެކްސްޓް ލޭޔަރ
 tool.type.history.edit = ޓެކްސްޓް އެޑިޓް ކުރުން
 tool.type.history.discard = ޓެކްސްޓް ދޫކޮށްލުން
 tool.type.history.discard_empty = ހުސް ޓެކްސްޓް ދޫކޮށްލުން
+
+# Paragraph layout
+tool.type.option.direction = ޕެރެގްރާފްގެ ދިމާ
+tool.type.option.writing_mode = ލިޔުމުގެ ގޮތް
+tool.type.choice.ltr = ވާތުން ކަނާތަށް
+tool.type.choice.rtl = ކަނާތުން ވާތަށް
+tool.type.choice.vertical_rl = ތިރި މަތި، ކޮލަމްތައް ވާތަށް
+tool.type.choice.vertical_lr = ތިރި މަތި، ކޮލަމްތައް ކަނާތަށް

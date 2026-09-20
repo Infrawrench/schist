@@ -17,3 +17,11 @@ tool.type.history.new_layer = Lakab Qoraal Cusub
 tool.type.history.edit = Tafatir Qoraalka
 tool.type.history.discard = Tuur Qoraalka
 tool.type.history.discard_empty = Tuur Qoraalka Bannaan
+
+# Paragraph layout
+tool.type.option.direction = Jihada cutubka
+tool.type.option.writing_mode = Habka qorista
+tool.type.choice.ltr = Bidix ilaa midig
+tool.type.choice.rtl = Midig ilaa bidix
+tool.type.choice.vertical_rl = Taagan, tiirarku dhanka bidix
+tool.type.choice.vertical_lr = Taagan, tiirarku dhanka midig

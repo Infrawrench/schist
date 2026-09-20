@@ -22,3 +22,11 @@ tool.type.history.new_layer = Nov strate de textu
 tool.type.history.edit = Redacter textu
 tool.type.history.discard = Abandonar textu
 tool.type.history.discard_empty = Abandonar vacui textu
+
+# Paragraph layout
+tool.type.option.direction = Direction del paragraf
+tool.type.option.writing_mode = Mode de scrition
+tool.type.choice.ltr = De levul a dextri
+tool.type.choice.rtl = De dextri a levul
+tool.type.choice.vertical_rl = Vertical, columnes vers li levul
+tool.type.choice.vertical_lr = Vertical, columnes vers li dextri

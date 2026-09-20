@@ -27,3 +27,11 @@ tool.type.history.new_layer = 新規テキストレイヤー
 tool.type.history.edit = テキストの編集
 tool.type.history.discard = テキストの破棄
 tool.type.history.discard_empty = 空のテキストの破棄
+
+# Paragraph layout
+tool.type.option.direction = 段落の方向
+tool.type.option.writing_mode = 組み方向
+tool.type.choice.ltr = 左から右
+tool.type.choice.rtl = 右から左
+tool.type.choice.vertical_rl = 縦書き（列は左へ）
+tool.type.choice.vertical_lr = 縦書き（列は右へ）

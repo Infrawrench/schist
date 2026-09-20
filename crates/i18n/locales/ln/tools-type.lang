@@ -20,3 +20,11 @@ tool.type.history.new_layer = Kalke ya sika ya makomi
 tool.type.history.edit = Kobongisa makomi
 tool.type.history.discard = Kobwaka makomi
 tool.type.history.discard_empty = Kobwaka makomi ya mpamba
+
+# Paragraph layout
+tool.type.option.direction = Ngámbo ya paragrafe
+tool.type.option.writing_mode = Lolenge ya kokoma
+tool.type.choice.ltr = Uta na lobɔkɔ ya mwasi kino na lobɔkɔ ya mobali
+tool.type.choice.rtl = Uta na lobɔkɔ ya mobali kino na lobɔkɔ ya mwasi
+tool.type.choice.vertical_rl = Na likoló mpe nse, makonzí na lobɔkɔ ya mwasi
+tool.type.choice.vertical_lr = Na likoló mpe nse, makonzí na lobɔkɔ ya mobali

@@ -25,3 +25,11 @@ tool.type.history.new_layer = Shtresë e re teksti
 tool.type.history.edit = Redakto tekstin
 tool.type.history.discard = Hidh tekstin
 tool.type.history.discard_empty = Hidh tekstin bosh
+
+# Paragraph layout
+tool.type.option.direction = Drejtimi i paragrafit
+tool.type.option.writing_mode = Mënyra e shkrimit
+tool.type.choice.ltr = Nga e majta në të djathtë
+tool.type.choice.rtl = Nga e djathta në të majtë
+tool.type.choice.vertical_rl = Vertikalisht, kolonat majtas
+tool.type.choice.vertical_lr = Vertikalisht, kolonat djathtas

@@ -17,3 +17,11 @@ tool.type.history.new_layer = ሓድሽ ንጣፍ ጽሑፍ
 tool.type.history.edit = ጽሑፍ ምምሕያሽ
 tool.type.history.discard = ጽሑፍ ምድርባይ
 tool.type.history.discard_empty = ባዶ ጽሑፍ ምድርባይ
+
+# Paragraph layout
+tool.type.option.direction = ኣንፈት ሕጡበ-ጽሑፍ
+tool.type.option.writing_mode = ኣገባብ ጽሕፈት
+tool.type.choice.ltr = ካብ ጸጋም ናብ የማን
+tool.type.choice.rtl = ካብ የማን ናብ ጸጋም
+tool.type.choice.vertical_rl = ብቑመት፣ ዓምድታት ናብ ጸጋም
+tool.type.choice.vertical_lr = ብቑመት፣ ዓምድታት ናብ የማን

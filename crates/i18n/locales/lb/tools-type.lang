@@ -21,3 +21,11 @@ tool.type.history.new_layer = Nei Texteben
 tool.type.history.edit = Text änneren
 tool.type.history.discard = Text verwerfen
 tool.type.history.discard_empty = Eidelen Text verwerfen
+
+# Paragraph layout
+tool.type.option.direction = Abschnittsrichtung
+tool.type.option.writing_mode = Schreifmodus
+tool.type.choice.ltr = Vu lénks no riets
+tool.type.choice.rtl = Vu riets no lénks
+tool.type.choice.vertical_rl = Vertikal, Kolonnen no lénks
+tool.type.choice.vertical_lr = Vertikal, Kolonnen no riets

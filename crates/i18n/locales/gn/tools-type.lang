@@ -17,3 +17,11 @@ tool.type.history.new_layer = Capa jehaipyre pyahu
 tool.type.history.edit = Myatyrõ jehaipyre
 tool.type.history.discard = Heja jehaipyre
 tool.type.history.discard_empty = Heja jehaipyre nandi
+
+# Paragraph layout
+tool.type.option.direction = Ñe’ẽpehẽ rape
+tool.type.option.writing_mode = Jehai reko
+tool.type.choice.ltr = Asúgui akatúape
+tool.type.choice.rtl = Akatúagui asúpe
+tool.type.choice.vertical_rl = Oñembo’ýva, columna kuéra asu gotyo
+tool.type.choice.vertical_lr = Oñembo’ýva, columna kuéra akatúa gotyo

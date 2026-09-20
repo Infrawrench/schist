@@ -22,3 +22,11 @@ tool.type.history.new_layer = Leyara leyintshwa ya tsalwa
 tool.type.history.edit = Hlela tsalwa
 tool.type.history.discard = Tshika tsalwa
 tool.type.history.discard_empty = Tshika tsalwa leri nga riki na chinhu
+
+# Paragraph layout
+tool.type.option.direction = Tlhelo ra ndzimana
+tool.type.option.writing_mode = Maendlelo ya ku tsala
+tool.type.choice.ltr = Ku suka eximatsini ku ya exineneni
+tool.type.choice.rtl = Ku suka exineneni ku ya eximatsini
+tool.type.choice.vertical_rl = Hi ku yima, tikholomu ti ya eximatsini
+tool.type.choice.vertical_lr = Hi ku yima, tikholomu ti ya exineneni

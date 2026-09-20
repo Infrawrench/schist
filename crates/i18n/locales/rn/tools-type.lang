@@ -17,3 +17,11 @@ tool.type.history.new_layer = Igice gishasha c'inyandiko
 tool.type.history.edit = Guhindura inyandiko
 tool.type.history.discard = Guta inyandiko
 tool.type.history.discard_empty = Guta inyandiko irimwo ubusa
+
+# Paragraph layout
+tool.type.option.direction = Intumbero y'igika
+tool.type.option.writing_mode = Uburyo bwo kwandika
+tool.type.choice.ltr = Uva ibubamfu uja iburyo
+tool.type.choice.rtl = Uva iburyo uja ibubamfu
+tool.type.choice.vertical_rl = Mu buhagarike, inkingi zija ibubamfu
+tool.type.choice.vertical_lr = Mu buhagarike, inkingi zija iburyo

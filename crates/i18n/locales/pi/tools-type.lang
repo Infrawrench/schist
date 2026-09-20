@@ -23,3 +23,11 @@ tool.type.history.new_layer = Nava-akkharasantharo
 tool.type.history.edit = Akkharasampādanaṃ
 tool.type.history.discard = Akkharachaḍḍanaṃ
 tool.type.history.discard_empty = Suññakkharachaḍḍanaṃ
+
+# Paragraph layout
+tool.type.option.direction = Anucchedadisā
+tool.type.option.writing_mode = Lekhanākāro
+tool.type.choice.ltr = Vāmato dakkhiṇaṃ
+tool.type.choice.rtl = Dakkhiṇato vāmaṃ
+tool.type.choice.vertical_rl = Uddhādhobhāvena, thambhā vāmaṃ
+tool.type.choice.vertical_lr = Uddhādhobhāvena, thambhā dakkhiṇaṃ

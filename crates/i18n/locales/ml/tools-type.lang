@@ -23,3 +23,11 @@ tool.type.history.new_layer = പുതിയ ടെക്സ്റ്റ് ല
 tool.type.history.edit = എഴുത്ത് തിരുത്തുക
 tool.type.history.discard = എഴുത്ത് ഉപേക്ഷിക്കുക
 tool.type.history.discard_empty = ഒഴിഞ്ഞ എഴുത്ത് ഉപേക്ഷിക്കുക
+
+# Paragraph layout
+tool.type.option.direction = ഖണ്ഡികയുടെ ദിശ
+tool.type.option.writing_mode = എഴുത്ത് രീതി
+tool.type.choice.ltr = ഇടത്തുനിന്ന് വലത്തേക്ക്
+tool.type.choice.rtl = വലത്തുനിന്ന് ഇടത്തേക്ക്
+tool.type.choice.vertical_rl = ലംബം, നിരകൾ ഇടത്തേക്ക്
+tool.type.choice.vertical_lr = ലംബം, നിരകൾ വലത്തേക്ക്

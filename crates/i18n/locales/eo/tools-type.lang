@@ -22,3 +22,11 @@ tool.type.history.new_layer = Nova teksttavolo
 tool.type.history.edit = Redakti tekston
 tool.type.history.discard = Forĵeti tekston
 tool.type.history.discard_empty = Forĵeti malplenan tekston
+
+# Paragraph layout
+tool.type.option.direction = Direkto de alineo
+tool.type.option.writing_mode = Skribmaniero
+tool.type.choice.ltr = De maldekstre dekstren
+tool.type.choice.rtl = De dekstre maldekstren
+tool.type.choice.vertical_rl = Vertikala, kolumnoj maldekstren
+tool.type.choice.vertical_lr = Vertikala, kolumnoj dekstren

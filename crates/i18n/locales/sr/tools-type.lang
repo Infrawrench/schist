@@ -21,3 +21,11 @@ tool.type.history.new_layer = Нови текстуални слој
 tool.type.history.edit = Уреди текст
 tool.type.history.discard = Одбаци текст
 tool.type.history.discard_empty = Одбаци празан текст
+
+# Paragraph layout
+tool.type.option.direction = Смер пасуса
+tool.type.option.writing_mode = Начин писања
+tool.type.choice.ltr = Слева надесно
+tool.type.choice.rtl = Здесна налево
+tool.type.choice.vertical_rl = Усправно, колоне улево
+tool.type.choice.vertical_lr = Усправно, колоне удесно

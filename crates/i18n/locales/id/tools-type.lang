@@ -17,3 +17,11 @@ tool.type.history.new_layer = Lapisan Teks Baru
 tool.type.history.edit = Edit Teks
 tool.type.history.discard = Buang Teks
 tool.type.history.discard_empty = Buang Teks Kosong
+
+# Paragraph layout
+tool.type.option.direction = Arah paragraf
+tool.type.option.writing_mode = Mode penulisan
+tool.type.choice.ltr = Kiri ke kanan
+tool.type.choice.rtl = Kanan ke kiri
+tool.type.choice.vertical_rl = Vertikal, kolom ke kiri
+tool.type.choice.vertical_lr = Vertikal, kolom ke kanan

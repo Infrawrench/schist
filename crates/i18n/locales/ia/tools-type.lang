@@ -22,3 +22,11 @@ tool.type.history.new_layer = Nove strato de texto
 tool.type.history.edit = Modificar texto
 tool.type.history.discard = Abandonar texto
 tool.type.history.discard_empty = Abandonar texto vacue
+
+# Paragraph layout
+tool.type.option.direction = Direction del paragrapho
+tool.type.option.writing_mode = Modo de scriptura
+tool.type.choice.ltr = De sinistra a dextra
+tool.type.choice.rtl = De dextra a sinistra
+tool.type.choice.vertical_rl = Vertical, columnas verso sinistra
+tool.type.choice.vertical_lr = Vertical, columnas verso dextra

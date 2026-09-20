@@ -17,3 +17,11 @@ tool.type.history.new_layer = Nowa warstwa tekstowa
 tool.type.history.edit = Edycja tekstu
 tool.type.history.discard = Odrzucenie tekstu
 tool.type.history.discard_empty = Odrzucenie pustego tekstu
+
+# Paragraph layout
+tool.type.option.direction = Kierunek akapitu
+tool.type.option.writing_mode = Tryb pisania
+tool.type.choice.ltr = Od lewej do prawej
+tool.type.choice.rtl = Od prawej do lewej
+tool.type.choice.vertical_rl = Pionowo, kolumny w lewo
+tool.type.choice.vertical_lr = Pionowo, kolumny w prawo

@@ -21,3 +21,11 @@ tool.type.history.new_layer = Sɛbɛn kaliki kura
 tool.type.history.edit = Sɛbɛn labɛn
 tool.type.history.discard = Sɛbɛn bila
 tool.type.history.discard_empty = Sɛbɛn lankolon bila
+
+# Paragraph layout
+tool.type.option.direction = Paragrafu ɲɛsin
+tool.type.option.writing_mode = Sɛbɛn cogoya
+tool.type.choice.ltr = Numansen ka taa kinibolofɛ
+tool.type.choice.rtl = Kinibolo ka taa numansen fɛ
+tool.type.choice.vertical_rl = Jɔlen, kolɔnniw ka taa numansen fɛ
+tool.type.choice.vertical_lr = Jɔlen, kolɔnniw ka taa kinibolofɛ

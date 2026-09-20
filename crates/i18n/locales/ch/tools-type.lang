@@ -24,3 +24,11 @@ tool.type.history.new_layer = Nuebu na text layer
 tool.type.history.edit = Edita testu
 tool.type.history.discard = Dingo i testu
 tool.type.history.discard_empty = Dingo i tåya' kontenidon testu
+
+# Paragraph layout
+tool.type.option.direction = Direksion parågrafu
+tool.type.option.writing_mode = Modon tinige'
+tool.type.choice.ltr = Ginen i akague' para i agapa'
+tool.type.choice.rtl = Ginen i agapa' para i akague'
+tool.type.choice.vertical_rl = Bettikåt, i kolumna siha para i akague'
+tool.type.choice.vertical_lr = Bettikåt, i kolumna siha para i agapa'

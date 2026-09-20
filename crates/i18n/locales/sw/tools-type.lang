@@ -17,3 +17,11 @@ tool.type.history.new_layer = Safu Mpya ya Maandishi
 tool.type.history.edit = Hariri Maandishi
 tool.type.history.discard = Tupa Maandishi
 tool.type.history.discard_empty = Tupa Maandishi Matupu
+
+# Paragraph layout
+tool.type.option.direction = Mwelekeo wa aya
+tool.type.option.writing_mode = Hali ya uandishi
+tool.type.choice.ltr = Kushoto kwenda kulia
+tool.type.choice.rtl = Kulia kwenda kushoto
+tool.type.choice.vertical_rl = Wima, safu kuelekea kushoto
+tool.type.choice.vertical_lr = Wima, safu kuelekea kulia

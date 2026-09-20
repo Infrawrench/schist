@@ -21,3 +21,11 @@ tool.type.history.new_layer = Яңы текст ҡатламы
 tool.type.history.edit = Тексты үҙгәртеү
 tool.type.history.discard = Тексты ташлау
 tool.type.history.discard_empty = Буш тексты ташлау
+
+# Paragraph layout
+tool.type.option.direction = Абзац йүнәлеше
+tool.type.option.writing_mode = Яҙыу режимы
+tool.type.choice.ltr = Һулдан уңға
+tool.type.choice.rtl = Уңдан һулға
+tool.type.choice.vertical_rl = Вертикаль, бағаналар һулға
+tool.type.choice.vertical_lr = Вертикаль, бағаналар уңға

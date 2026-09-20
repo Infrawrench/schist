@@ -17,3 +17,11 @@ tool.type.history.new_layer = Nouveau calque de texte
 tool.type.history.edit = Modification du texte
 tool.type.history.discard = Abandon du texte
 tool.type.history.discard_empty = Abandon du texte vide
+
+# Paragraph layout
+tool.type.option.direction = Direction du paragraphe
+tool.type.option.writing_mode = Mode d’écriture
+tool.type.choice.ltr = De gauche à droite
+tool.type.choice.rtl = De droite à gauche
+tool.type.choice.vertical_rl = Vertical, colonnes vers la gauche
+tool.type.choice.vertical_lr = Vertical, colonnes vers la droite

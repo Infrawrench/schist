@@ -22,3 +22,11 @@ tool.type.history.new_layer = Nova capa de texto
 tool.type.history.edit = Editar texto
 tool.type.history.discard = Descartar texto
 tool.type.history.discard_empty = Descartar texto baleiro
+
+# Paragraph layout
+tool.type.option.direction = Dirección do parágrafo
+tool.type.option.writing_mode = Modo de escritura
+tool.type.choice.ltr = Da esquerda á dereita
+tool.type.choice.rtl = Da dereita á esquerda
+tool.type.choice.vertical_rl = Vertical, columnas cara á esquerda
+tool.type.choice.vertical_lr = Vertical, columnas cara á dereita

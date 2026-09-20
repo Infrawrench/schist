@@ -17,3 +17,11 @@ tool.type.history.new_layer = Uus tekstikiht
 tool.type.history.edit = Teksti muutmine
 tool.type.history.discard = Teksti hülgamine
 tool.type.history.discard_empty = Tühja teksti hülgamine
+
+# Paragraph layout
+tool.type.option.direction = Lõigu suund
+tool.type.option.writing_mode = Kirjutusrežiim
+tool.type.choice.ltr = Vasakult paremale
+tool.type.choice.rtl = Paremalt vasakule
+tool.type.choice.vertical_rl = Vertikaalne, veerud vasakule
+tool.type.choice.vertical_lr = Vertikaalne, veerud paremale

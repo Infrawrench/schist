@@ -24,3 +24,11 @@ tool.type.history.new_layer = Istratu de testu nou
 tool.type.history.edit = Modìfica su testu
 tool.type.history.discard = Iscarta su testu
 tool.type.history.discard_empty = Iscarta su testu bòidu
+
+# Paragraph layout
+tool.type.option.direction = Diretzione de su paràgrafu
+tool.type.option.writing_mode = Modalidade de iscritura
+tool.type.choice.ltr = Dae manca a dereta
+tool.type.choice.rtl = Dae dereta a manca
+tool.type.choice.vertical_rl = Verticale, colunnas cara a manca
+tool.type.choice.vertical_lr = Verticale, colunnas cara a dereta

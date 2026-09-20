@@ -17,3 +17,11 @@ tool.type.history.new_layer = Lớp văn bản mới
 tool.type.history.edit = Chỉnh sửa văn bản
 tool.type.history.discard = Bỏ văn bản
 tool.type.history.discard_empty = Bỏ văn bản trống
+
+# Paragraph layout
+tool.type.option.direction = Hướng đoạn văn
+tool.type.option.writing_mode = Chế độ viết
+tool.type.choice.ltr = Từ trái sang phải
+tool.type.choice.rtl = Từ phải sang trái
+tool.type.choice.vertical_rl = Dọc, các cột sang trái
+tool.type.choice.vertical_lr = Dọc, các cột sang phải

@@ -17,3 +17,11 @@ tool.type.history.new_layer = ཡི་གེའི་རིམ་པ་གས�
 tool.type.history.edit = ཡི་གེ་རྩོམ་སྒྲིག
 tool.type.history.discard = ཡི་གེ་དོར་བ།
 tool.type.history.discard_empty = ཡི་གེ་སྟོང་པ་དོར་བ།
+
+# Paragraph layout
+tool.type.option.direction = དུམ་མཚམས་ཀྱི་ཁ་ཕྱོགས།
+tool.type.option.writing_mode = འབྲི་ཚུལ།
+tool.type.choice.ltr = གཡོན་ནས་གཡས་སུ།
+tool.type.choice.rtl = གཡས་ནས་གཡོན་དུ།
+tool.type.choice.vertical_rl = གཞུང་ཕྱོགས། ཀ་ཐིག་གཡོན་དུ།
+tool.type.choice.vertical_lr = གཞུང་ཕྱོགས། ཀ་ཐིག་གཡས་སུ།

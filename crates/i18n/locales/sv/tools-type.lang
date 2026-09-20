@@ -26,3 +26,11 @@ tool.type.history.new_layer = Nytt textlager
 tool.type.history.edit = Redigera text
 tool.type.history.discard = Ta bort text
 tool.type.history.discard_empty = Ta bort tom text
+
+# Paragraph layout
+tool.type.option.direction = Styckeriktning
+tool.type.option.writing_mode = Skrivläge
+tool.type.choice.ltr = Vänster till höger
+tool.type.choice.rtl = Höger till vänster
+tool.type.choice.vertical_rl = Lodrätt, kolumner åt vänster
+tool.type.choice.vertical_lr = Lodrätt, kolumner åt höger

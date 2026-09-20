@@ -18,8 +18,35 @@ Existing text keeps its previous layout until an OpenType control is used.
 New overrides use rustybuzz for glyph substitution and positioning. The
 serialized `TextSpec.features` also accepts four-byte OpenType tags and
 numeric values, including numbered stylistic sets and alternate glyphs.
-Paragraph layout remains horizontal and left-to-right; bidi paragraph
-layout and vertical writing are separate remaining work.
+The Character panel also has **Paragraph direction** and **Writing mode**.
+Direction defaults to **Automatic**: each paragraph uses its first strong
+Unicode character. Choose **Left to right** or **Right to left** to set the
+base direction explicitly. Arabic and Hebrew runs shape in their reading
+direction while Latin words and numbers keep theirs. Text stays in logical
+Unicode order for typing, copying, deletion and style ranges. Use a font
+with glyphs for the script; character selections can use different fonts.
+
+**Vertical, columns to the left** and **Vertical, columns to the right** set
+text from top to bottom and control where subsequent columns appear. CJK
+glyphs stay upright, Latin runs rotate clockwise, and fonts with vertical
+OpenType forms supply punctuation alternates. Punctuation that requires an
+alternate falls back to its Unicode vertical orientation when the font has
+none. Leading sets column spacing; a serialized `wrap_width` sets column
+length. CJK wrapping uses Unicode line-break opportunities without requiring
+spaces; unbreakable words retain the existing overflow behavior.
+
+Arrow keys move in the displayed direction, mouse clicks and drags use the
+same shaped positions as the glyphs, and selections may occupy separate
+areas when a logical range crosses bidi runs. Backspace/Delete remove whole
+Unicode graphemes, including Arabic/Hebrew combining marks and emoji
+sequences. Directional run boundaries remember which side of the boundary
+the caret occupies. Vertical text uses a horizontal insertion caret.
+
+Changing writing mode or direction updates the current text edit and is
+undoable when committed. Choosing a vertical mode switches off text on a
+path; choosing **On path** switches back to horizontal writing. Existing
+horizontal Latin text keeps its previous geometry until shaping is needed
+or explicitly requested by its settings.
 
 To set text on a curve:
 
@@ -41,10 +68,17 @@ word wrapping is disabled on paths. Text beyond either end continues
 along the endpoint's tangent. A degenerate path uses ordinary text layout.
 
 Choose **Straight** to return to the layer's ordinary layout box.
-Text, paths and feature settings participate in the existing text-edit
+Text, direction, writing modes, paths and feature settings participate in the existing text-edit
 undo operation and survive PSD and PSB save/reopen in Schist's `PsTx`
 layer block. Other editors see the rendered pixels, as with other Schist
 text layers.
 
 `make check-text` runs the layout, editing, persistence and Affinity import
-regression tests.
+regression tests, including bundled Noto Arabic, Hebrew and Japanese font
+fixtures for bidi and vertical typography. `make check-text-directions` also
+checks the editor integration and translation catalogs.
+
+The engine uses [unicode-bidi](https://docs.rs/unicode-bidi/latest/unicode_bidi/)
+for paragraph and line ordering, [rustybuzz](https://docs.rs/rustybuzz/latest/rustybuzz/)
+for directional OpenType shaping, and [unicode-vo](https://docs.rs/unicode-vo/latest/unicode_vo/)
+for Unicode vertical orientation.

@@ -17,3 +17,11 @@ tool.type.history.new_layer = ເລເຢີຂໍ້ຄວາມໃໝ່
 tool.type.history.edit = ແກ້ໄຂຂໍ້ຄວາມ
 tool.type.history.discard = ຖິ້ມຂໍ້ຄວາມ
 tool.type.history.discard_empty = ຖິ້ມຂໍ້ຄວາມວ່າງ
+
+# Paragraph layout
+tool.type.option.direction = ທິດທາງຂອງຫຍໍ້ໜ້າ
+tool.type.option.writing_mode = ໂໝດການຂຽນ
+tool.type.choice.ltr = ຊ້າຍຫາຂວາ
+tool.type.choice.rtl = ຂວາຫາຊ້າຍ
+tool.type.choice.vertical_rl = ແນວຕັ້ງ, ຖັນໄປທາງຊ້າຍ
+tool.type.choice.vertical_lr = ແນວຕັ້ງ, ຖັນໄປທາງຂວາ

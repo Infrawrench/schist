@@ -24,3 +24,11 @@ tool.type.history.new_layer = Nueva capa de texto
 tool.type.history.edit = Editar texto
 tool.type.history.discard = Descartar texto
 tool.type.history.discard_empty = Descartar texto vuedo
+
+# Paragraph layout
+tool.type.option.direction = Dirección d'o paragrafo
+tool.type.option.writing_mode = Modo d'escritura
+tool.type.choice.ltr = De cucha a dreita
+tool.type.choice.rtl = De dreita a cucha
+tool.type.choice.vertical_rl = Vertical, columnas enta la cucha
+tool.type.choice.vertical_lr = Vertical, columnas enta la dreita

@@ -26,3 +26,11 @@ tool.type.history.new_layer = 新建文字图层
 tool.type.history.edit = 编辑文字
 tool.type.history.discard = 放弃文字
 tool.type.history.discard_empty = 放弃空文字
+
+# Paragraph layout
+tool.type.option.direction = 段落方向
+tool.type.option.writing_mode = 书写模式
+tool.type.choice.ltr = 从左到右
+tool.type.choice.rtl = 从右到左
+tool.type.choice.vertical_rl = 竖排，列向左
+tool.type.choice.vertical_lr = 竖排，列向右

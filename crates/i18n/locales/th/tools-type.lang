@@ -23,3 +23,11 @@ tool.type.history.new_layer = เลเยอร์ข้อความให�
 tool.type.history.edit = แก้ไขข้อความ
 tool.type.history.discard = ละทิ้งข้อความ
 tool.type.history.discard_empty = ละทิ้งข้อความว่าง
+
+# Paragraph layout
+tool.type.option.direction = ทิศทางย่อหน้า
+tool.type.option.writing_mode = รูปแบบการเขียน
+tool.type.choice.ltr = จากซ้ายไปขวา
+tool.type.choice.rtl = จากขวาไปซ้าย
+tool.type.choice.vertical_rl = แนวตั้ง คอลัมน์ไปทางซ้าย
+tool.type.choice.vertical_lr = แนวตั้ง คอลัมน์ไปทางขวา

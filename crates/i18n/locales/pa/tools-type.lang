@@ -17,3 +17,11 @@ tool.type.history.new_layer = ਨਵੀਂ ਲਿਖਤ ਲੇਅਰ
 tool.type.history.edit = ਲਿਖਤ ਸੋਧੋ
 tool.type.history.discard = ਲਿਖਤ ਛੱਡੋ
 tool.type.history.discard_empty = ਖਾਲੀ ਲਿਖਤ ਛੱਡੋ
+
+# Paragraph layout
+tool.type.option.direction = ਪੈਰਾਗ੍ਰਾਫ਼ ਦੀ ਦਿਸ਼ਾ
+tool.type.option.writing_mode = ਲਿਖਣ ਦਾ ਢੰਗ
+tool.type.choice.ltr = ਖੱਬੇ ਤੋਂ ਸੱਜੇ
+tool.type.choice.rtl = ਸੱਜੇ ਤੋਂ ਖੱਬੇ
+tool.type.choice.vertical_rl = ਖੜ੍ਹਵਾਂ, ਕਾਲਮ ਖੱਬੇ ਪਾਸੇ
+tool.type.choice.vertical_lr = ਖੜ੍ਹਵਾਂ, ਕਾਲਮ ਸੱਜੇ ਪਾਸੇ

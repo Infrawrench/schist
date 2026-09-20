@@ -17,3 +17,11 @@ tool.type.history.new_layer = Laayara Barruu Haaraa
 tool.type.history.edit = Barruu Gulaali
 tool.type.history.discard = Barruu Gati
 tool.type.history.discard_empty = Barruu Duwwaa Gati
+
+# Paragraph layout
+tool.type.option.direction = Kallattii keewwataa
+tool.type.option.writing_mode = Haala barreessuu
+tool.type.choice.ltr = Bitaa irraa gara mirgaatti
+tool.type.choice.rtl = Mirga irraa gara bitaatti
+tool.type.choice.vertical_rl = Dhaabbataa, tarjaawwan gara bitaatti
+tool.type.choice.vertical_lr = Dhaabbataa, tarjaawwan gara mirgaatti

@@ -18,3 +18,11 @@ tool.type.history.new_layer = Uusi tekstitaso
 tool.type.history.edit = Muokkaa tekstiä
 tool.type.history.discard = Hylkää teksti
 tool.type.history.discard_empty = Hylkää tyhjä teksti
+
+# Paragraph layout
+tool.type.option.direction = Kappaleen suunta
+tool.type.option.writing_mode = Kirjoitussuunta
+tool.type.choice.ltr = Vasemmalta oikealle
+tool.type.choice.rtl = Oikealta vasemmalle
+tool.type.choice.vertical_rl = Pysty, sarakkeet vasemmalle
+tool.type.choice.vertical_lr = Pysty, sarakkeet oikealle

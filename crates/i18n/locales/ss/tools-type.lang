@@ -20,3 +20,11 @@ tool.type.history.new_layer = Luhlaka Lolusha Lwembhalo
 tool.type.history.edit = Hlela Umbhalo
 tool.type.history.discard = Lahla Umbhalo
 tool.type.history.discard_empty = Lahla Umbhalo Longenalutfo
+
+# Paragraph layout
+tool.type.option.direction = Indlela yendzima
+tool.type.option.writing_mode = Indlela yekubhala
+tool.type.choice.ltr = Kusuka ngesancele kuye ngesekudla
+tool.type.choice.rtl = Kusuka ngesekudla kuye ngesancele
+tool.type.choice.vertical_rl = Kucondzile, emakholomu aya ngesancele
+tool.type.choice.vertical_lr = Kucondzile, emakholomu aya ngesekudla

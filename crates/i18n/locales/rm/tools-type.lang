@@ -22,3 +22,11 @@ tool.type.history.new_layer = Nova stresa da text
 tool.type.history.edit = Modifitgar il text
 tool.type.history.discard = Refusar il text
 tool.type.history.discard_empty = Refusar il text vid
+
+# Paragraph layout
+tool.type.option.direction = Direcziun dal paragraf
+tool.type.option.writing_mode = Moda da scriver
+tool.type.choice.ltr = Da sanestra a dretga
+tool.type.choice.rtl = Da dretga a sanestra
+tool.type.choice.vertical_rl = Vertical, colonnas vers sanestra
+tool.type.choice.vertical_lr = Vertical, colonnas vers dretga

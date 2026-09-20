@@ -17,3 +17,11 @@ tool.type.history.new_layer = Llaga e Ntšha ya Mokwalo
 tool.type.history.edit = Fetotse Mokwalo
 tool.type.history.discard = Latlhile Mokwalo
 tool.type.history.discard_empty = Latlhile Mokwalo o o Lolea
+
+# Paragraph layout
+tool.type.option.direction = Tsela ya temana
+tool.type.option.writing_mode = Mokgwa wa go kwala
+tool.type.choice.ltr = Go tswa molemeng go ya mojeng
+tool.type.choice.rtl = Go tswa mojeng go ya molemeng
+tool.type.choice.vertical_rl = Tsepame, dikholomo go ya molemeng
+tool.type.choice.vertical_lr = Tsepame, dikholomo go ya mojeng

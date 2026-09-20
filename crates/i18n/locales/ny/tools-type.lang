@@ -20,3 +20,11 @@ tool.type.history.new_layer = Layer Yatsopano ya Mawu
 tool.type.history.edit = Sinthani Mawu
 tool.type.history.discard = Taya Mawu
 tool.type.history.discard_empty = Taya Mawu Opanda Kanthu
+
+# Paragraph layout
+tool.type.option.direction = Kolowera kwa ndime
+tool.type.option.writing_mode = Njira yolembera
+tool.type.choice.ltr = Kuchokera kumanzere kupita kumanja
+tool.type.choice.rtl = Kuchokera kumanja kupita kumanzere
+tool.type.choice.vertical_rl = Moyima, mizati kupita kumanzere
+tool.type.choice.vertical_lr = Moyima, mizati kupita kumanja

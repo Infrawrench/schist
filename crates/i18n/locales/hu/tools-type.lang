@@ -17,3 +17,11 @@ tool.type.history.new_layer = Új szövegréteg
 tool.type.history.edit = Szöveg szerkesztése
 tool.type.history.discard = Szöveg elvetése
 tool.type.history.discard_empty = Üres szöveg elvetése
+
+# Paragraph layout
+tool.type.option.direction = Bekezdés iránya
+tool.type.option.writing_mode = Írásmód
+tool.type.choice.ltr = Balról jobbra
+tool.type.choice.rtl = Jobbról balra
+tool.type.choice.vertical_rl = Függőleges, oszlopok balra
+tool.type.choice.vertical_lr = Függőleges, oszlopok jobbra

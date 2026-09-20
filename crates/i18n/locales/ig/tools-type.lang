@@ -17,3 +17,11 @@ tool.type.history.new_layer = Leya Ederede Ọhụrụ
 tool.type.history.edit = Dezie Ederede
 tool.type.history.discard = Tufuo Ederede
 tool.type.history.discard_empty = Tufuo Ederede Efu
+
+# Paragraph layout
+tool.type.option.direction = Ntụziaka paragraf
+tool.type.option.writing_mode = Usoro odide
+tool.type.choice.ltr = Site n'aka ekpe gaa n'aka nri
+tool.type.choice.rtl = Site n'aka nri gaa n'aka ekpe
+tool.type.choice.vertical_rl = Kwụ ọtọ, kọlụm gaa n'aka ekpe
+tool.type.choice.vertical_lr = Kwụ ọtọ, kọlụm gaa n'aka nri

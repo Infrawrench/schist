@@ -20,3 +20,11 @@ tool.type.history.new_layer = Jauns teksta slānis
 tool.type.history.edit = Rediģēt tekstu
 tool.type.history.discard = Atmest tekstu
 tool.type.history.discard_empty = Atmest tukšu tekstu
+
+# Paragraph layout
+tool.type.option.direction = Rindkopas virziens
+tool.type.option.writing_mode = Rakstīšanas režīms
+tool.type.choice.ltr = No kreisās uz labo
+tool.type.choice.rtl = No labās uz kreiso
+tool.type.choice.vertical_rl = Vertikāli, kolonnas pa kreisi
+tool.type.choice.vertical_lr = Vertikāli, kolonnas pa labi
