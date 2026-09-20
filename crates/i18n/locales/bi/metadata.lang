@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata blong foto
+metadata.keywords = Ol ki wod (;)
+metadata.caption = Toksave
+metadata.copyright = Kopiraet
+metadata.hint = Jusum ol fil blong jenisim. Ol emti valiu oli klinim konten.
+metadata.invalid = Jekem ol valiu mo XMP fael.
+metadata.taken = Deit
+metadata.offset = Offset (s)
+metadata.gps = GPS

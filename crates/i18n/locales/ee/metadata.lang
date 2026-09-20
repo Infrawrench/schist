@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Foto ƒe nyatakakawo
+metadata.keywords = Nyagãwo (;)
+metadata.caption = Numeɖeɖe
+metadata.copyright = Nuŋlɔla ƒe gomekpɔkpɔ
+metadata.hint = Tia teƒewo be nàtrɔ wo. Asixɔxɔ siwo le ƒuƒlu la tsɔa emenyawo ɖa.
+metadata.invalid = Lé ŋku ɖe asixɔxɔwo kple XMP faɛl la ŋu.
+metadata.taken = Ŋkeke
+metadata.offset = Ʋu teƒe (s)
+metadata.gps = GPS

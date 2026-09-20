@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = بيانات الصور الوصفية
+metadata.keywords = الكلمات المفتاحية (;)
+metadata.caption = الوصف
+metadata.copyright = حقوق النشر
+metadata.hint = حدد الحقول لتغييرها. القيم الفارغة تمحو محتواها.
+metadata.invalid = تحقق من القيم وملف XMP.
+metadata.taken = التاريخ
+metadata.offset = إزاحة الموضع (ث)
+metadata.gps = GPS

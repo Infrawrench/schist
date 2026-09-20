@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Фото метамәғлүмәттәре
+metadata.keywords = Асҡыс һүҙҙәр (;)
+metadata.caption = Тасуирлама
+metadata.copyright = Авторлыҡ хоҡуғы
+metadata.hint = Үҙгәртеләсәк ҡырҙарҙы һайлағыҙ. Буш ҡиммәттәр эстәлекте юя.
+metadata.invalid = Ҡиммәттәрҙе һәм XMP файлын тикшерегеҙ.
+metadata.taken = Дата
+metadata.offset = Тайпылдырыу (с)
+metadata.gps = GPS

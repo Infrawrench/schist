@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata lluniau
+metadata.keywords = Geiriau allweddol (;)
+metadata.caption = Capsiwn
+metadata.copyright = Hawlfraint
+metadata.hint = Dewiswch feysydd i’w newid. Mae gwerthoedd gwag yn clirio’r cynnwys.
+metadata.invalid = Gwiriwch y gwerthoedd a’r ffeil XMP.
+metadata.taken = Dyddiad
+metadata.offset = Atred (e)
+metadata.gps = GPS

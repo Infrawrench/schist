@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Foto metaandmed
+metadata.keywords = Märksõnad (;)
+metadata.caption = Pealdis
+metadata.copyright = Autoriõigus
+metadata.hint = Vali muudetavad väljad. Tühjad väärtused kustutavad sisu.
+metadata.invalid = Kontrolli väärtusi ja XMP-faili.
+metadata.taken = Kuupäev
+metadata.offset = Nihe (s)
+metadata.gps = GPS

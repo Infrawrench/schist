@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata àwòrán
+metadata.keywords = Àwọn ọ̀rọ̀ pàtàkì (;)
+metadata.caption = Àpèjúwe
+metadata.copyright = Ẹ̀tọ́ àdàkọ
+metadata.hint = Yan àwọn àyè láti yí padà. Àwọn iye òfo máa pa àkóónú rẹ́.
+metadata.invalid = Ṣàyẹ̀wò àwọn iye àti fáìlì XMP.
+metadata.taken = Déètì
+metadata.offset = Ìyapa (s)
+metadata.gps = GPS

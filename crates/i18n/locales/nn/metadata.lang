@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Biletmetadata
+metadata.keywords = Nøkkelord (;)
+metadata.caption = Bilettekst
+metadata.copyright = Opphavsrett
+metadata.hint = Vel felt som skal endrast. Tomme verdiar slettar innhaldet.
+metadata.invalid = Kontroller verdiane og XMP-fila.
+metadata.taken = Dato
+metadata.offset = Forskyving (s)
+metadata.gps = GPS

@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadnêyes des fotos
+metadata.keywords = Mots clés (;)
+metadata.caption = Discrijhaedje
+metadata.copyright = Droets d’ôteûr
+metadata.hint = Tchoezixhoz les tchamps a candjî. Les vudes valeures disfaçnut l’contnou.
+metadata.invalid = Verifyîz les valeures et l’fitchî XMP.
+metadata.taken = Date
+metadata.offset = Dismetaedje (s)
+metadata.gps = GPS

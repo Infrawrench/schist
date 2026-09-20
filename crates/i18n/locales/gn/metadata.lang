@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Ta’anga marandu
+metadata.keywords = Ñe’ẽ tee (;)
+metadata.caption = Ñemombe’u
+metadata.copyright = Apohára derécho
+metadata.hint = Eiporavo hendakuéra emoambueséva. Tepykue nandi ombogue hyepypegua.
+metadata.invalid = Ehecha tepykuéra ha XMP marandurenda.
+metadata.taken = Arange
+metadata.offset = Ñemongu'e (s)
+metadata.gps = GPS

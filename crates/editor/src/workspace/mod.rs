@@ -105,6 +105,8 @@ mod library_icc;
 #[cfg(not(sandboxed))]
 mod library_mcp;
 #[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod library_metadata;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_ops;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_people;
@@ -1130,6 +1132,15 @@ pub enum Modal {
         target: BatchTarget,
         codec: &'static str,
         options: schist_plugin_api::ExportOptions,
+    },
+    /// Checked fields replace portable metadata for the captured selection.
+    MetadataEdit {
+        id: u64,
+        photos: Vec<PathBuf>,
+        values: [String; 6],
+        enabled: [bool; 6],
+        error: String,
+        busy: bool,
     },
     /// Create or edit a gallery bucket: its name, and optionally a
     /// smart rule — a search query and/or a map area (the drawn

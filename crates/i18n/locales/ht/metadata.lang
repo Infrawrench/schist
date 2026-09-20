@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadone foto
+metadata.keywords = Mo kle (;)
+metadata.caption = Deskripsyon
+metadata.copyright = Dwa otè
+metadata.hint = Chwazi chan pou chanje. Valè vid efase kontni an.
+metadata.invalid = Verifye valè yo ak fichye XMP a.
+metadata.taken = Dat
+metadata.offset = Dekalaj (s)
+metadata.gps = GPS

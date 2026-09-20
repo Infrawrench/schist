@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Faamatalaga o le ata
+metadata.keywords = Upu autū (;)
+metadata.caption = Faamatalaga
+metadata.copyright = Pule tau fatuga
+metadata.hint = Filifili vaega e sui. O vaega gaogao e tape ai mea o iai.
+metadata.invalid = Siaki tulaga ma le faila XMP.
+metadata.taken = Aso
+metadata.offset = Mamao Ese (s)
+metadata.gps = GPS

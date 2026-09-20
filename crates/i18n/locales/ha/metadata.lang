@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Bayanan hoto
+metadata.keywords = Kalmomin nema (;)
+metadata.caption = Bayani
+metadata.copyright = Haƙƙin mallaka
+metadata.hint = Zaɓi filayen da za a canza. Darajar banza tana goge abin ciki.
+metadata.invalid = Duba darajoji da fayil ɗin XMP.
+metadata.taken = Kwanan Wata
+metadata.offset = Kaucewa (s)
+metadata.gps = GPS

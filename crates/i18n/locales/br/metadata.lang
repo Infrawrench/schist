@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metaroadennoù ar foto
+metadata.keywords = Gerioù-alc’hwez (;)
+metadata.caption = Alc’hwez
+metadata.copyright = Gwirioù aozer
+metadata.hint = Dibabit maeziennoù da gemmañ. Diverket e vez an endalc’had gant talvoudoù goullo.
+metadata.invalid = Gwiriit an talvoudoù hag ar restr XMP.
+metadata.taken = Deiziad
+metadata.offset = Linkañ (s)
+metadata.gps = GPS

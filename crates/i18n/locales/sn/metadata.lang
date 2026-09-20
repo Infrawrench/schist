@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata yemufananidzo
+metadata.keywords = Mazwi akakosha (;)
+metadata.caption = Tsananguro
+metadata.copyright = Kodzero yemunyori
+metadata.hint = Sarudza nzvimbo dzekuchinja. Zvisina chinhu zvinodzima zviri mukati.
+metadata.invalid = Tarisa zviyero nefaira reXMP.
+metadata.taken = Musi
+metadata.offset = Bvisa paNzvimbo (s)
+metadata.gps = GPS

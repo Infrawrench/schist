@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Зургийн мета өгөгдөл
+metadata.keywords = Түлхүүр үгс (;)
+metadata.caption = Тайлбар
+metadata.copyright = Зохиогчийн эрх
+metadata.hint = Өөрчлөх талбаруудыг сонгоно уу. Хоосон утга агуулгыг арилгана.
+metadata.invalid = Утгууд болон XMP файлыг шалгана уу.
+metadata.taken = Огноо
+metadata.offset = Зөрүүлэлт (с)
+metadata.gps = GPS

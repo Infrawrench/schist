@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadati di fotografuro
+metadata.keywords = Klefovorti (;)
+metadata.caption = Deskripto
+metadata.copyright = Autoro-yuro
+metadata.hint = Selektez feldi por modifikar. Vakua valori efacas la kontenajo.
+metadata.invalid = Kontrolez la valori e la XMP-dosiero.
+metadata.taken = Dato
+metadata.offset = Deplaso (s)
+metadata.gps = GPS

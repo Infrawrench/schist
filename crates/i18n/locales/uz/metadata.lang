@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Surat metamaʼlumotlari
+metadata.keywords = Kalit soʻzlar (;)
+metadata.caption = Tavsif
+metadata.copyright = Mualliflik huquqi
+metadata.hint = Oʻzgartiriladigan maydonlarni tanlang. Boʻsh qiymatlar mazmunni oʻchiradi.
+metadata.invalid = Qiymatlar va XMP faylini tekshiring.
+metadata.taken = Sana
+metadata.offset = Siljish (s)
+metadata.gps = GPS

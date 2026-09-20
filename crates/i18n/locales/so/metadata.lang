@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Xogta sawirka
+metadata.keywords = Ereyada muhiimka ah (;)
+metadata.caption = Sharaxaad
+metadata.copyright = Xuquuqda daabacaadda
+metadata.hint = Dooro meelaha la beddelayo. Qiimaha madhan wuxuu tirtiraa waxa ku jira.
+metadata.invalid = Hubi qiimayaasha iyo faylka XMP.
+metadata.taken = Taariikh
+metadata.offset = Barakac (s)
+metadata.gps = GPS

@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = የፎቶ ሜታዳታ
+metadata.keywords = ቁልፍ ቃላት (;)
+metadata.caption = መግለጫ
+metadata.copyright = የቅጂ መብት
+metadata.hint = ለመቀየር መስኮችን ይምረጡ። ባዶ እሴቶች ይዘቱን ይሰርዛሉ።
+metadata.invalid = እሴቶችን እና የXMP ፋይሉን ያረጋግጡ።
+metadata.taken = ቀን
+metadata.offset = ማፈናቀል (ሰ)
+metadata.gps = GPS

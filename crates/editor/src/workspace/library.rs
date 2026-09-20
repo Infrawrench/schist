@@ -249,11 +249,18 @@ struct CachedQuery {
 /// keystroke used to clone every path and vector in the library.
 #[derive(Clone)]
 struct SearchSnapshot {
+    metadata_text: Arc<Vec<(PathBuf, String)>>,
     vectors: Arc<Vec<(PathBuf, Arc<Vec<f32>>)>>,
     positions: Arc<Vec<(PathBuf, (f64, f64))>>,
 }
 
 pub struct Library {
+    /// Owns the most recent asynchronous sidecar refresh.
+    pub(super) metadata_generation: u64,
+    /// Distinguishes modal requests from earlier saves still finishing.
+    pub(super) metadata_edit_generation: u64,
+    metadata_text: FxHashMap<PathBuf, String>,
+    metadata_ready: FxHashSet<PathBuf>,
     /// Whether the gallery view is showing instead of the editor.
     pub open: bool,
     /// The watched folder roots, persisted.
@@ -554,6 +561,10 @@ impl Library {
             flagged: FxHashMap::default(),
             embeddings: FxHashMap::default(),
             positions: FxHashMap::default(),
+            metadata_generation: 0,
+            metadata_edit_generation: 0,
+            metadata_text: FxHashMap::default(),
+            metadata_ready: FxHashSet::default(),
             taken: FxHashMap::default(),
             places: FxHashMap::default(),
             faces: FxHashMap::default(),
@@ -1359,6 +1370,12 @@ impl Library {
             }
         }
         let snapshot = SearchSnapshot {
+            metadata_text: Arc::new(
+                self.metadata_text
+                    .iter()
+                    .map(|(p, s)| (p.clone(), s.clone()))
+                    .collect(),
+            ),
             vectors: Arc::new(
                 self.embeddings
                     .iter()
@@ -1374,6 +1391,53 @@ impl Library {
         };
         self.index_snapshot = Some((self.index_gen, snapshot.clone()));
         snapshot
+    }
+
+    pub(super) fn apply_metadata_rows(&mut self, rows: Vec<(PathBuf, PhotoMeta, String)>) {
+        self.metadata_text.clear();
+        self.metadata_ready.clear();
+        for (path, meta, text) in rows {
+            if !self.by_path.contains_key(&path) {
+                continue;
+            }
+            self.metadata_ready.insert(path.clone());
+            self.positions.insert(path.clone(), meta.gps);
+            if let Some(taken) = meta.taken {
+                self.taken.insert(path.clone(), taken);
+            } else {
+                self.taken.remove(&path);
+            }
+            self.places.insert(path.clone(), meta.place);
+            if !text.trim().is_empty() {
+                self.metadata_text.insert(path, text);
+            }
+        }
+        self.index_gen += 1;
+    }
+
+    /// A thumbnail started before an XMP save must not overwrite the newer
+    /// metadata refresh, especially a deliberately cleared capture time.
+    fn apply_loader_metadata(&mut self, path: &Path, meta: PhotoMeta) {
+        if self.metadata_ready.contains(path) {
+            return;
+        }
+        self.positions.insert(path.to_path_buf(), meta.gps);
+        if let Some(taken) = meta.taken {
+            self.taken.insert(path.to_path_buf(), taken);
+        }
+        self.places.insert(path.to_path_buf(), meta.place);
+    }
+
+    fn metadata_hits(&self, query: &str) -> Vec<PathBuf> {
+        let words: Vec<_> = query.split_whitespace().map(str::to_lowercase).collect();
+        if words.is_empty() {
+            return Vec::new();
+        }
+        self.metadata_text
+            .iter()
+            .filter(|(_, text)| words.iter().all(|w| text.contains(w.as_str())))
+            .map(|(path, _)| path.clone())
+            .collect()
     }
 
     /// The lead of the selection — what arrows move and Enter opens.
@@ -2709,6 +2773,9 @@ impl Workspace {
                 ws.library.scanning = false;
                 ws.library.set_sections(sections);
                 ws.maybe_load_index_snapshot(cx);
+                if ws.library.index_restored {
+                    ws.refresh_gallery_metadata(cx);
+                }
                 cx.notify();
             })
             .ok();
@@ -2737,6 +2804,7 @@ impl Workspace {
                     ws.library.index_saved_gen = ws.library.index_gen;
                 }
                 ws.library.mark_index_restored();
+                ws.refresh_gallery_metadata(cx);
                 // The indexer was waiting on this.
                 ws.kick_thumb_loader(cx);
                 cx.notify();
@@ -2848,11 +2916,7 @@ impl Workspace {
                     if let Some(vector) = outcome.embedding {
                         ws.library.embeddings.insert(key.clone(), Arc::new(vector));
                     }
-                    ws.library.positions.insert(key.clone(), outcome.meta.gps);
-                    if let Some(taken) = outcome.meta.taken {
-                        ws.library.taken.insert(key.clone(), taken);
-                    }
-                    ws.library.places.insert(key.clone(), outcome.meta.place);
+                    ws.library.apply_loader_metadata(&key, outcome.meta);
                     if let Some(faces) = outcome.faces {
                         if !faces.is_empty() {
                             new_faces.push(key.clone());
@@ -3082,6 +3146,18 @@ impl Workspace {
                                 false,
                             )
                         };
+                        if let Some(query) = &query {
+                            let words: Vec<_> =
+                                query.split_whitespace().map(str::to_lowercase).collect();
+                            for (path, text) in snapshot.metadata_text.iter() {
+                                if !words.is_empty()
+                                    && words.iter().all(|w| text.contains(w.as_str()))
+                                    && !matched.contains(path)
+                                {
+                                    matched.push(path.clone());
+                                }
+                            }
+                        }
                         if let Some(area) = area {
                             let at: FxHashMap<&PathBuf, (f64, f64)> = snapshot
                                 .positions
@@ -3347,6 +3423,7 @@ impl Workspace {
         // The third reading of the query: who it names. A person's
         // photos are pulled in whole, above anything the towers rank.
         let people_hits = self.library.people_hits(&query);
+        let metadata_hits = self.library.metadata_hits(&query);
         cx.spawn(async move |this, cx| {
             let ranked = cx
                 .background_executor()
@@ -3364,9 +3441,6 @@ impl Workspace {
                             },
                         ),
                     };
-                    if answer.text.is_none() && answer.place.is_none() && people_hits.is_empty() {
-                        return None;
-                    }
                     // Scores keyed by borrowed path; only what survives
                     // the cut gets cloned. The scope applies before the
                     // cut, so a bucket's matches are never crowded out
@@ -3398,6 +3472,11 @@ impl Workspace {
                             if affinity > 0.0 {
                                 *scored.entry(path).or_insert(0.0) += GEO_BOOST * affinity;
                             }
+                        }
+                    }
+                    for path in &metadata_hits {
+                        if in_scope(path) {
+                            *scored.entry(path).or_insert(0.0) += PERSON_BOOST;
                         }
                     }
                     let floor = if answer.text.is_some() {
@@ -3490,6 +3569,7 @@ impl Workspace {
         };
         let snapshot = self.library.search_snapshot();
         let people_hits = self.library.people_hits(&query);
+        let metadata_hits = self.library.metadata_hits(&query);
         let in_scope = |path: &PathBuf| scope.as_ref().is_none_or(|s| s.contains(path));
         let mut scored: FxHashMap<&PathBuf, f32> = FxHashMap::default();
         for (_, paths) in &people_hits {
@@ -3517,6 +3597,11 @@ impl Workspace {
                 if affinity > 0.0 {
                     *scored.entry(path).or_insert(0.0) += GEO_BOOST * affinity;
                 }
+            }
+        }
+        for path in &metadata_hits {
+            if in_scope(path) {
+                *scored.entry(path).or_insert(0.0) += PERSON_BOOST;
             }
         }
         let floor = if answer.text.is_some() {
@@ -5061,6 +5146,47 @@ mod tests {
         // whole of "import photos taken in NYC".
         let nyc = &library_geo::PLACES[0];
         assert!(nyc.bounds.contains(lat, lon));
+    }
+    #[test]
+    fn metadata_refresh_updates_search_dates_positions_and_cached_snapshots() {
+        let path = PathBuf::from("/p/a.jpg");
+        let mut lib = library_with(&["/p/a.jpg"]);
+        let old = lib.search_snapshot();
+        lib.apply_metadata_rows(vec![(
+            path.clone(),
+            PhotoMeta {
+                gps: Some((50.0, 14.0)),
+                taken: Some("2024-02-29 12:00:00".into()),
+                place: Some("Prague".into()),
+            },
+            "family\nprague holiday".into(),
+        )]);
+        assert_eq!(lib.metadata_hits("HOLIDAY family"), vec![path.clone()]);
+        assert!(lib.metadata_hits("other").is_empty());
+        assert_eq!(
+            lib.taken.get(&path).map(String::as_str),
+            Some("2024-02-29 12:00:00")
+        );
+        assert!(old.metadata_text.is_empty());
+        assert_eq!(lib.search_snapshot().metadata_text.len(), 1);
+        lib.apply_metadata_rows(vec![(path.clone(), PhotoMeta::default(), String::new())]);
+        assert!(lib.metadata_hits("family").is_empty());
+        assert!(!lib.taken.contains_key(&path));
+        assert_eq!(lib.positions.get(&path), Some(&None));
+        assert!(lib.search_snapshot().metadata_text.is_empty());
+        lib.apply_loader_metadata(
+            &path,
+            PhotoMeta {
+                gps: Some((1.0, 2.0)),
+                taken: Some("old".into()),
+                place: Some("old".into()),
+            },
+        );
+        assert!(
+            !lib.taken.contains_key(&path),
+            "late thumbnail must not resurrect a cleared time"
+        );
+        assert_eq!(lib.positions.get(&path), Some(&None));
     }
 }
 

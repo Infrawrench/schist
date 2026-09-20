@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Ebikwata ku kifaananyi
+metadata.keywords = Ebigambo ebikulu (;)
+metadata.caption = Ennyonnyola
+metadata.copyright = Eddembe ly’omuwandiisi
+metadata.hint = Londa ebifo by’okukyusa. Ebifo ebyereere bisangula ebirimu.
+metadata.invalid = Kebera ebipimo ne fayiro ya XMP.
+metadata.taken = Olunaku
+metadata.offset = Sengula (s)
+metadata.gps = GPS

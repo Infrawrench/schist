@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Meiteashonraí grianghraif
+metadata.keywords = Eochairfhocail (;)
+metadata.caption = Fotheideal
+metadata.copyright = Cóipcheart
+metadata.hint = Roghnaigh réimsí le hathrú. Glanann luachanna folmha an t-ábhar.
+metadata.invalid = Seiceáil na luachanna agus an comhad XMP.
+metadata.taken = Dáta
+metadata.offset = Fritháireamh (s)
+metadata.gps = GPS

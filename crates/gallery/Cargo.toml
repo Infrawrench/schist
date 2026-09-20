@@ -16,3 +16,9 @@ serde_json.workspace = true
 # Reading the GPS position and capture time out of camera files. Pure
 # Rust; parses JPEG, TIFF, HEIF and PNG.
 kamadak-exif = "0.6"
+
+# Namespace-aware, lossless XMP patches and calendar-safe capture-time offsets.
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+roxmltree = "0.20"
+chrono = { version = "0.4", default-features = false, features = ["std"] }
+tempfile = "3"

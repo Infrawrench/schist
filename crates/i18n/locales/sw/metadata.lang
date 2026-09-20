@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata za picha
+metadata.keywords = Maneno muhimu (;)
+metadata.caption = Maelezo
+metadata.copyright = Hakimiliki
+metadata.hint = Chagua sehemu za kubadilisha. Thamani tupu hufuta yaliyomo.
+metadata.invalid = Kagua thamani na faili ya XMP.
+metadata.taken = Tarehe
+metadata.offset = Hamisho (s)
+metadata.gps = GPS

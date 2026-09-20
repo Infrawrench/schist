@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Argazkien metadatuak
+metadata.keywords = Gako-hitzak (;)
+metadata.caption = Azalpena
+metadata.copyright = Egile-eskubideak
+metadata.hint = Hautatu aldatu beharreko eremuak. Balio hutsek edukia ezabatzen dute.
+metadata.invalid = Egiaztatu balioak eta XMP fitxategia.
+metadata.taken = Data
+metadata.offset = Desplazamendua (s)
+metadata.gps = GPS

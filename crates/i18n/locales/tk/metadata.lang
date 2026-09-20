@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Surat metamaglumatlary
+metadata.keywords = Açar sözler (;)
+metadata.caption = Beýan
+metadata.copyright = Awtorlyk hukugy
+metadata.hint = Üýtgediljek meýdanlary saýlaň. Boş bahalar mazmuny pozýar.
+metadata.invalid = Bahalary we XMP faýlyny barlaň.
+metadata.taken = Sene
+metadata.offset = Süýşme (s)
+metadata.gps = GPS

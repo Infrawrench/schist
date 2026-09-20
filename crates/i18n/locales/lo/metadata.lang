@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = ຂໍ້ມູນກຳກັບຮູບ
+metadata.keywords = ຄຳສຳຄັນ (;)
+metadata.caption = ຄຳອະທິບາຍ
+metadata.copyright = ລິຂະສິດ
+metadata.hint = ເລືອກຊ່ອງທີ່ຈະປ່ຽນ. ຄ່າວ່າງຈະລຶບເນື້ອຫາ.
+metadata.invalid = ກວດສອບຄ່າ ແລະໄຟລ໌ XMP.
+metadata.taken = ວັນທີ
+metadata.offset = ເລື່ອນພິກັດ (ວິ)
+metadata.gps = GPS
