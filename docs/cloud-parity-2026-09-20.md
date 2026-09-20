@@ -61,6 +61,7 @@ API details and limits are in [the cloud protocol extension](https://github.com/
 ## Verification
 
 - `make check-cloud-gallery`: native cloud/editor all-target compilation.
+- `make lint-cloud-gallery`: cloud/editor all-target Clippy with warnings denied.
 - `make test-cloud-gallery`: 28 cloud-client tests, including legacy asset compatibility, conflict preservation, deletion merging and retry deduplication.
 - `make check-document`: 16 document tests including spot-ink/filter persistence, PSD round trips and embedded smart sources.
 - `make check-app-web`: browser app type-check.

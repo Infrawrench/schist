@@ -110,7 +110,7 @@ fn feature(ws: &Workspace, name: &str) -> bool {
             .is_some_and(|c| c.supports_gallery(name))
 }
 fn targets(photos: &[Asset]) -> Result<Value> {
-    Ok(value(&photos.iter().map(Target::from).collect::<Vec<_>>()))
+    Ok(value(photos.iter().map(Target::from).collect::<Vec<_>>()))
 }
 impl Workspace {
     fn cloud_gallery_photos(&self) -> Vec<Asset> {
@@ -652,8 +652,7 @@ pub(super) fn submit(
             0 => (
                 "keywords",
                 value(
-                    &text
-                        .split(';')
+                    text.split(';')
                         .map(str::trim)
                         .filter(|s| !s.is_empty())
                         .collect::<Vec<_>>(),

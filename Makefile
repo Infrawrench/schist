@@ -756,3 +756,7 @@ test-cloud-gallery:
 	$(CARGO) test -p schist-cloud
 format-cloud-gallery:
 	$(CARGO) fmt -p schist-cloud -p schist-editor
+
+.PHONY: lint-cloud-gallery
+lint-cloud-gallery:
+	$(CARGO) clippy -p schist-cloud -p schist-editor --all-targets -- -D warnings

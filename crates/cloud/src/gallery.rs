@@ -86,7 +86,7 @@ impl Handle {
                 "assets.review",
                 map([(
                     "assets",
-                    value(&assets.iter().map(Target::from).collect::<Vec<_>>()),
+                    value(assets.iter().map(Target::from).collect::<Vec<_>>()),
                 )]),
             )
             .await?,
@@ -119,19 +119,6 @@ impl Handle {
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn old_catalogues_default_and_new_decisions_roundtrip() {
-        let old: Metadata = serde_json::from_str("{}").unwrap();
-        assert_eq!(old.metadata_revision, 0);
-        let current: Metadata = serde_json::from_str(r#"{"metadata_revision":3,"flag":"pick","label":"blue","caption":"Caption","review":{"revision":7,"choice":"keep"}}"#).unwrap();
-        let decoded: Metadata = parse(value(&current)).unwrap();
-        assert_eq!(decoded, current);
-    }
-}
-
 pub fn parse_time(text: &str) -> Result<Option<u64>> {
     if text.trim().is_empty() {
         return Ok(None);
@@ -149,4 +136,17 @@ pub fn format_time(timestamp: Option<u64>) -> String {
         .and_then(|t| chrono::DateTime::from_timestamp(t, 0))
         .map(|t| t.to_rfc3339_opts(chrono::SecondsFormat::Secs, true))
         .unwrap_or_default()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn old_catalogues_default_and_new_decisions_roundtrip() {
+        let old: Metadata = serde_json::from_str("{}").unwrap();
+        assert_eq!(old.metadata_revision, 0);
+        let current: Metadata = serde_json::from_str(r#"{"metadata_revision":3,"flag":"pick","label":"blue","caption":"Caption","review":{"revision":7,"choice":"keep"}}"#).unwrap();
+        let decoded: Metadata = parse(value(&current)).unwrap();
+        assert_eq!(decoded, current);
+    }
 }
