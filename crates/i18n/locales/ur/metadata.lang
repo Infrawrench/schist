@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = تصویر کا میٹا ڈیٹا
+metadata.keywords = کلیدی الفاظ (;)
+metadata.caption = تفصیل
+metadata.copyright = حقوق اشاعت
+metadata.hint = تبدیل کرنے کے خانے منتخب کریں۔ خالی اقدار مواد مٹا دیتی ہیں۔
+metadata.invalid = اقدار اور XMP فائل جانچیں۔
+metadata.taken = تاریخ
+metadata.offset = ہٹاؤ (s)
+metadata.gps = GPS

@@ -389,6 +389,7 @@ impl Workspace {
             || id == "person-name"
             || id == file_picker::NAME_FIELD
             || id == palettes::SEARCH_FIELD
+            || id.starts_with("metadata-")
             || id.starts_with("recipe-")
             || id.starts_with("cloud-");
         let hex = id == "cp-hex";
@@ -654,6 +655,13 @@ impl Workspace {
             });
             return;
         }
+        #[cfg(not(target_arch = "wasm32"))]
+        if id.starts_with("metadata-") {
+            self.update_modal(|m| {
+                super::library_metadata::commit_field(m, id, buffer);
+            });
+            return;
+        }
         if id == "bucket-name" || id == "bucket-query" {
             self.update_modal(|m| {
                 if let Modal::BucketName { name, query, .. } = m {
@@ -784,6 +792,7 @@ impl Workspace {
             // Handled above, before the numeric parse, like the other
             // text fields.
             | Modal::BucketName { .. }
+            | Modal::MetadataEdit { .. }
             | Modal::ModelManager
             | Modal::FilterGallery { .. }
             | Modal::Stroke { .. }

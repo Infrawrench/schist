@@ -663,3 +663,18 @@ check-symmetry-i18n:
 .PHONY: check-symmetry-format
 check-symmetry-format:
 	$(CARGO) fmt --all -- --check
+
+# Portable XMP metadata and the gallery's batch editor/move integration.
+.PHONY: check-metadata-xmp format-metadata-xmp
+check-metadata-xmp:
+	$(CARGO) test -p schist-gallery xmp
+	$(CARGO) test -p schist-editor --lib metadata
+	$(CARGO) test -p schist-editor --lib moving_a_photo
+	$(CARGO) check -p schist-editor --all-targets
+format-metadata-xmp:
+	$(CARGO) fmt -p schist-gallery -p schist-editor
+
+.PHONY: check-metadata-catalogs
+check-metadata-catalogs:
+	python3 tools/check-i18n.py
+	python3 tools/sync-i18n.py --check

@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata suuraa
+metadata.keywords = Jechoota ijoo (;)
+metadata.caption = Ibsa
+metadata.copyright = Mirga waraabbii
+metadata.hint = Dirreewwan jijjiiraman filadhu. Gatiin duwwaa qabiyyee haqa.
+metadata.invalid = Gatiiwwanii fi faayilii XMP mirkaneessi.
+metadata.taken = Guyyaa
+metadata.offset = Fageenya Bakkaa (s)
+metadata.gps = GPS

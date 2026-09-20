@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata skeusenn
+metadata.keywords = Geryow alhwedh (;)
+metadata.caption = Isditel
+metadata.copyright = Gwir dyblhe
+metadata.hint = Dewis leow rag chanjya. Gwerthow gwag a dhilea an dalgh.
+metadata.invalid = Gwriwgh an gwerthow ha restren XMP.
+metadata.taken = Dedhyas
+metadata.offset = Desedha (s)
+metadata.gps = GPS

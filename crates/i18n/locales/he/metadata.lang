@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = מטא־נתונים של תמונות
+metadata.keywords = מילות מפתח (;)
+metadata.caption = כיתוב
+metadata.copyright = זכויות יוצרים
+metadata.hint = בחרו שדות לשינוי. ערך ריק מוחק את התוכן.
+metadata.invalid = בדקו את הערכים ואת קובץ XMP.
+metadata.taken = תאריך
+metadata.offset = היסט (שנ׳)
+metadata.gps = GPS

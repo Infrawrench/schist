@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata ʻo e tā
+metadata.keywords = Ngaahi lea mahuʻinga (;)
+metadata.caption = Fakamatala
+metadata.copyright = Totonu faʻutohi
+metadata.hint = Fili ʻa e ngaahi feituʻu ke liliu. Ko e ngaahi mahuʻinga ʻatā te nau tamateʻi e meʻa ʻi loto.
+metadata.invalid = Vakaiʻi ʻa e ngaahi mahuʻinga mo e faile XMP.
+metadata.taken = ʻAho
+metadata.offset = Offset (s)
+metadata.gps = GPS

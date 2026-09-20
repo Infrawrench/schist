@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = 写真のメタデータ
+metadata.keywords = キーワード（;）
+metadata.caption = 説明
+metadata.copyright = 著作権
+metadata.hint = 変更する項目を選択します。空欄にすると消去します。
+metadata.invalid = 値と XMP ファイルを確認してください。
+metadata.taken = 撮影日
+metadata.offset = スクロール (秒)
+metadata.gps = GPS

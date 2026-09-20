@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Mfonini ho nsɛm
+metadata.keywords = Nsɛmfua titiriw (;)
+metadata.caption = Nkyerɛkyerɛmu
+metadata.copyright = Ɔkyerɛwfo hokwan
+metadata.hint = Paw mmeae a wobɛsesa. Sɛ ɛyɛ hunu a, ɛpopa emu nsɛm.
+metadata.invalid = Hwɛ nsɛm no ne XMP fael no.
+metadata.taken = Da
+metadata.offset = Ntwea (s)
+metadata.gps = GPS

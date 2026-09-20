@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Ja ka kunnafoni
+metadata.keywords = Daɲɛ kunbɛnnaw (;)
+metadata.caption = Ɲɛfɔli
+metadata.copyright = Sɛbɛnnikɛla ka jo
+metadata.hint = Yɔrɔw sugandi ka minnu falen. Nafa kolonw bɛ kɔnɔkow bɔ.
+metadata.invalid = Nafaw ni XMP filen lajɛ.
+metadata.taken = Don
+metadata.offset = Yɔrɔ bɔli (s)
+metadata.gps = GPS

@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Cittassa metadata
+metadata.keywords = Mūlapadā (;)
+metadata.caption = Vaṇṇanā
+metadata.copyright = Lekhakasāmikatta
+metadata.hint = Parivattetabbāni ṭhānāni cinātha. Suññamūlāni anto atthaṃ nāsenti.
+metadata.invalid = Mūlāni ca XMP sañcikañca upaparikkhatha.
+metadata.taken = Dinena
+metadata.offset = Apagamo (s)
+metadata.gps = GPS

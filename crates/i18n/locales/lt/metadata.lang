@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Nuotraukų metaduomenys
+metadata.keywords = Raktažodžiai (;)
+metadata.caption = Aprašas
+metadata.copyright = Autorių teisės
+metadata.hint = Pasirinkite keičiamus laukus. Tuščios reikšmės ištrina turinį.
+metadata.invalid = Patikrinkite reikšmes ir XMP failą.
+metadata.taken = Data
+metadata.offset = Poslinkis (s)
+metadata.gps = GPS

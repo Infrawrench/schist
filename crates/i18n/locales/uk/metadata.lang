@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Метадані фото
+metadata.keywords = Ключові слова (;)
+metadata.caption = Підпис
+metadata.copyright = Авторське право
+metadata.hint = Виберіть поля для зміни. Порожнє значення очищає поле.
+metadata.invalid = Перевірте значення та файл XMP.
+metadata.taken = Дата
+metadata.offset = Зсув (с)
+metadata.gps = GPS

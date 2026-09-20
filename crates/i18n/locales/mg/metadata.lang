@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata sary
+metadata.keywords = Teny fototra (;)
+metadata.caption = Fanazavana
+metadata.copyright = Zon’ny mpamorona
+metadata.hint = Safidio ny saha hovaina. Ny sanda foana dia mamafa ny atiny.
+metadata.invalid = Hamarino ny sanda sy ny rakitra XMP.
+metadata.taken = Daty
+metadata.offset = Fampihatahana (s)
+metadata.gps = GPS

@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Raraungameta whakaahua
+metadata.keywords = Kupu matua (;)
+metadata.caption = Tapanga
+metadata.copyright = Manatārua
+metadata.hint = Tīpakohia ngā āpure hei huri. Mā ngā uara pātea ka ūkui ngā ihirangi.
+metadata.invalid = Tirohia ngā uara me te kōnae XMP.
+metadata.taken = Rā
+metadata.offset = Nekeneke (s)
+metadata.gps = GPS

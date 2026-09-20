@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Kuvan metatiedot
+metadata.keywords = Avainsanat (;)
+metadata.caption = Kuvateksti
+metadata.copyright = Tekijänoikeus
+metadata.hint = Valitse muutettavat kentät. Tyhjät arvot poistavat sisällön.
+metadata.invalid = Tarkista arvot ja XMP-tiedosto.
+metadata.taken = Päivämäärä
+metadata.offset = Siirros (s)
+metadata.gps = GPS

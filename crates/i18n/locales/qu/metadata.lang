@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Rikch’aq willakuynin
+metadata.keywords = Simi llaves (;)
+metadata.caption = Willakuy
+metadata.copyright = Qillqaqpa hayñin
+metadata.hint = Tikranapaq pampakunata akllay. Ch’usaq chaninkuna ukupi kaqta pichan.
+metadata.invalid = Chaninkunata XMP willañiqitapas qhaway.
+metadata.taken = Pacha
+metadata.offset = Karunchay (s)
+metadata.gps = GPS

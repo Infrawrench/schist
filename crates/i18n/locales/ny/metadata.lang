@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata ya chithunzi
+metadata.keywords = Mawu ofunika (;)
+metadata.caption = Kufotokoza
+metadata.copyright = Ufulu wa wolemba
+metadata.hint = Sankhani malo oti musinthe. Zopanda kanthu zimachotsa zomwe zili mkati.
+metadata.invalid = Onani mitengo ndi fayilo ya XMP.
+metadata.taken = Deti
+metadata.offset = Kusuntha Malo (s)
+metadata.gps = GPS

@@ -2802,6 +2802,15 @@ fn gallery_context_menu(
             // so the selection is what every action takes.
             let acting = ws.library.selected.clone();
             let n = acting.len();
+            if acting.iter().any(|p| !schist_gallery::is_video(p)) {
+                let photos = acting.clone();
+                row(
+                    t("metadata.title").into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| ws.open_metadata_editor(photos.clone(), cx)),
+                );
+            }
 
             if !schist_gallery::is_video(&path) {
                 let original = path.clone();

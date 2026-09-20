@@ -105,6 +105,8 @@ mod library_icc;
 #[cfg(not(sandboxed))]
 mod library_mcp;
 #[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod library_metadata;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_ops;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_people;
@@ -1137,6 +1139,14 @@ pub enum Modal {
     /// the bucket filling itself. `editing` is the bucket being
     /// reconfigured; `None` creates one, born holding `photos`. An
     /// empty name falls back to "Bucket N" (create) or stays (edit).
+    MetadataEdit {
+        id: u64,
+        photos: Vec<PathBuf>,
+        values: [String; 6],
+        enabled: [bool; 6],
+        error: String,
+        busy: bool,
+    },
     BucketName {
         name: String,
         query: String,

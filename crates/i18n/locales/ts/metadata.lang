@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadatha ya xifaniso
+metadata.keywords = Marito ya nkoka (;)
+metadata.caption = Nhlamuselo
+metadata.copyright = Mfanelo ya mutsari
+metadata.hint = Hlawula swivandla swo cinca. Mimpimo leyi nga riki na leswi yi susa leswi nga endzeni.
+metadata.invalid = Kambela mimpimo na fayili ya XMP.
+metadata.taken = Siku
+metadata.offset = Susa endhawini (s)
+metadata.gps = GPS

@@ -1,0 +1,10 @@
+# Gallery photo metadata editing. ISO input examples stay language-neutral.
+metadata.title = Metadata tar-ritratti
+metadata.keywords = Kliem ewlieni (;)
+metadata.caption = Deskrizzjoni
+metadata.copyright = Drittijiet tal-awtur
+metadata.hint = Agħżel l-oqsma biex tibdel. Valuri vojta jħassru l-kontenut.
+metadata.invalid = Iċċekkja l-valuri u l-fajl XMP.
+metadata.taken = Data
+metadata.offset = Spostament (s)
+metadata.gps = GPS
